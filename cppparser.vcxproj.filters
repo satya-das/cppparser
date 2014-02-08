@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="cppparser.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="parser.lex.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="parser.tab.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="cppwriter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="cppprog.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="parser.y">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="parser.l">
+      <Filter>src</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pub\const.h">
+      <Filter>pub</Filter>
+    </ClInclude>
+    <ClInclude Include="pub\cppdom.h">
+      <Filter>pub</Filter>
+    </ClInclude>
+    <ClInclude Include="cpptoken.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="parser.tab.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="pub\cppparser.h">
+      <Filter>pub</Filter>
+    </ClInclude>
+    <ClInclude Include="pub\cppwriter.h">
+      <Filter>pub</Filter>
+    </ClInclude>
+    <ClInclude Include="pub\cppprog.h">
+      <Filter>pub</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="pub">
+      <UniqueIdentifier>{15d15d87-a120-4954-a143-5a85cc737914}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{80a98289-e59d-40d8-a2dd-e249d7ced27f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
