@@ -100,17 +100,16 @@ public:
      */
     const CppCompoundArray& getFileDOMs() const;
 
-private:
+protected:
     /**
      * Parses all CPP files and creates CPPDOM for all of them.
      */
     void loadCppDom(const bfs::path& inputPath);
 	void loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode);
 
-private:
+protected:
     typedef std::map<const CppObj*, const CppTypeTreeNode*> CppObjToTypeNodeMap;
 
-private:
     CppCompoundArray		fileDoms_;              ///< Array of all top level DOMs corresponding to files.
     CppTypeTreeNode         cppTypeTreeRoot_;       ///< Repository of all compound objects arranged as type-tree.
     CppObjToTypeNodeMap     cppObjToTypeNode_;

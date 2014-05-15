@@ -127,7 +127,6 @@ extern int yylex();
 %token	tknInclude tknStdHdrInclude
 %token	tknIf tknIfDef tknIfNDef tknElse tknElIf tknEndIf
 %token	tknNew tknDelete tknReturn
-
 %token	tknVarArg
 
 %token	tknBlankLine
@@ -333,6 +332,12 @@ vartype				: identifier				{ $$ = $1; }
 					| tknClass identifier		{ $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
 					| tknStruct identifier		{ $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
 					| tknUnion identifier		{ $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+					| identifier '<' vartype '>'{
+						const char* e = $3.sz+$3.len; // End of decl.
+						while(*e != '>')
+							++e;
+						$$ = makeCppToken($1.sz, e-$1.sz+1);
+					}
 					;
 
 varinit				: vardecl '=' expr { $$ = $1; $$->assign_ = $3; }
