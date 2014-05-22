@@ -370,7 +370,15 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm
 
 void CppWriter::emitDestructor(const CppDestructor* dtorObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
 {
-	stm << indentation << dtorObj->name_ << "()";
+	stm << indentation;
+	if(dtorObj->attr_&kInline)
+		stm << "inline ";
+	else if(dtorObj->attr_&kExplicit)
+		stm << "explicit ";
+	else if(dtorObj->attr_&kVirtual)
+		stm << "virtual ";
+	stm << dtorObj->name_ << "()";
+
 	if(dtorObj->defn_)
 	{
 		stm << '\n' << indentation++ << "{\n";

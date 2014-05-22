@@ -119,6 +119,7 @@ extern int yylex();
 %token	<str>					tknUnRecogPrePro
 %token	<str>					tknStdHdrInclude
 %token	<str>					tknPragma
+%token	<str>					'<' '>' // We will need the position of these operators in stream when used for declaring template instance.
 
 %token	tknConst tknStatic tknExtern tknVirtual tknInline tknExplicit tknFriend
 
@@ -136,7 +137,7 @@ extern int yylex();
 %type	<cppObj>				stmt functptrtype
 %type	<fwdDeclObj>			fwddecl
 %type	<cppVarObj>				varqual vardecl varinit vardeclstmt
-%type	<varOrFuncPtr>			param
+%type	<varOrFuncPtr>			param templateparam
 %type	<cppVarObjList>			vardecllist vardeclliststmt
 %type	<paramList>				paramlist
 %type	<typedefObj>			typedefname typedefnamelist typedefnamestmt
@@ -167,9 +168,11 @@ extern int yylex();
 %right '=' CMPEQUAL
 %left '+' '-'
 %left '*' '/' '%'
+%left '&' '|'
+%left '.' ARROW
 
 %nonassoc PREFIX
-%nonassoc POSTFIX '(' '[' '.' ARROW
+%nonassoc POSTFIX '(' '['
 
 /*
 These are required to remove following ambiguity in the grammer.
@@ -206,6 +209,7 @@ Also, ~A() can be parsed as:
 CTORDECL and DTORDECL solve this problem by giving constructor and destructor declarations higher precedence.
 */
 %left CTORDECL DTORDECL
+
 
 %%
 
@@ -332,11 +336,9 @@ vartype				: identifier				{ $$ = $1; }
 					| tknClass identifier		{ $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
 					| tknStruct identifier		{ $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
 					| tknUnion identifier		{ $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-					| identifier '<' vartype '>'{
-						const char* e = $3.sz+$3.len; // End of decl.
-						while(*e != '>')
-							++e;
-						$$ = makeCppToken($1.sz, e-$1.sz+1);
+					| identifier '<' templateparam '>'{
+						$$ = makeCppToken($1.sz, $4.sz+1-$1.sz);
+						delete $3.cppObj; // We don't need template parameter
 					}
 					;
 
@@ -464,6 +466,10 @@ param				: varinit				{ $$ = $1; $1->varAttr_ |= kFuncParam;	}
 					| functionpointer		{ $$ = $1; $1->attr_ |= kFuncParam;		}
 					;
 
+templateparam		: varqual				{ $$ = $1; }
+					| functionpointer		{ $$ = $1; }
+					;
+
 functype			: varattrib				{ $$ = $1;			}
 					| tknInline				{ $$ = kInline;		}
 					| tknVirtual			{ $$ = kVirtual;	}
@@ -474,9 +480,8 @@ functype			: varattrib				{ $$ = $1;			}
 					;
 
 funcattrib			:						{ $$ = 0; }
-					| tknConst				{ $$ = kConst; }
-					| '=' tknNumber			[if($2.len != 1 || $2.sz[0] != '0') YYABORT; else YYVALID;] { $$ = kPureVirtual; }
-					| funcattrib funcattrib	{ $$ = $1 | $2; }
+					| funcattrib tknConst				{ $$ = $1 | kConst; }
+					| funcattrib '=' tknNumber			[if($3.len != 1 || $3.sz[0] != '0') YYABORT; else YYVALID;] { $$ = $1 | kPureVirtual; }
 					;
 
 optconst			: { $$ = 0; }
@@ -581,6 +586,21 @@ dtordecl			: '~' tknID '(' ')' %prec DTORDECL
 						while(*tildaStartPos != '~') --tildaStartPos;
 						$$ = new CppDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $2.sz+$2.len-tildaStartPos));
 					}
+					| functype '~' tknID '(' ')' %prec DTORDECL
+					[
+						if(gCompoundStack.empty())
+							YYERROR;
+						if(gCompoundStack.top() != $3)
+							YYERROR;
+						else
+							YYVALID;
+					]
+					{
+						const char* tildaStartPos = $3.sz-1;
+						while(*tildaStartPos != '~') --tildaStartPos;
+						$$ = new CppDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos));
+						$$->attr_ = $1;
+					}
 					;
 
 vardecllist			: vardecl ',' optconst ptrlevelopt reftype optconst identifier optconst {
@@ -681,7 +701,7 @@ expr				: tknStrLit							{ $$ = new CppExpr((std::string) $1, kNone);	}
 					| '~' expr %prec PREFIX				{ $$ = new CppExpr($2, kBitToggle);				}
 					| '!' expr %prec PREFIX				{ $$ = new CppExpr($2, kLogNot);				}
 					| '*' expr %prec PREFIX				{ $$ = new CppExpr($2, kDerefer);				}
-					| expr '.'							{ $$ = new CppExpr($1, kDot);					}
+					| '&' expr %prec PREFIX				{ $$ = new CppExpr($2, kRefer);					}
 					| expr '+' expr						{ $$ = new CppExpr($1, kPlus, $3);				}
 					| expr '-' expr						{ $$ = new CppExpr($1, kMinus, $3);				}
 					| expr '*' expr						{ $$ = new CppExpr($1, kMul, $3);				}
@@ -689,8 +709,9 @@ expr				: tknStrLit							{ $$ = new CppExpr((std::string) $1, kNone);	}
 					| expr '&' expr						{ $$ = new CppExpr($1, kBitAnd, $3);			}
 					| expr '|' expr						{ $$ = new CppExpr($1, kBitOr, $3);				}
 					| expr '=' '=' expr %prec CMPEQUAL	{ $$ = new CppExpr($1, kCmpEqual, $4);			}
-					| expr '-' '>' expr %prec ARROW		{ $$ = new CppExpr($1, kArrow, $4);				}
-					| expr '(' ')'						{ $$ = new CppExpr($1, kFunctionCall);			}
+					| expr '-' '>' expr %prec ARROW 	{ $$ = new CppExpr($1, kArrow, $4);				}
+					| expr '.' expr						{ $$ = new CppExpr($1, kDot, $3);				}
+					| expr '(' ')' 						{ $$ = new CppExpr($1, kFunctionCall);			}
 					| expr '(' exprlist ')'				{ $$ = new CppExpr($1, kFunctionCall, $3);		}
 					| '(' expr ')'						{ $$ = $2; $2->flags_ |= CppExpr::kBracketed;	}
 					| tknNew	expr					{ $$ = $2; $2->flags_ |= CppExpr::kNew;			}

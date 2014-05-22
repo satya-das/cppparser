@@ -6,6 +6,9 @@
 *.user
 *.sln.docstates
 
+# YACC generated debug purpose file
+y.output
+
 # Build results
 
 [Dd]ebug/

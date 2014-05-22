@@ -19,3 +19,26 @@ void proc()
 	printf("Test test and more test\n");
 	return;
 }
+
+// Function call tests
+
+void variousFunctionCallingTests()
+{
+	add(4, 50);
+	add(2, 4) + sub(4, 1);
+	f(6);
+
+	// Member function tests
+	a.f();
+	a->f();
+
+	// Function proc test
+	/* It is failing as of now.
+	double (*p)(double, double) = add;
+	(*p)(4, 5);
+	*/
+
+	typedef double (*P)(double, double);
+	P p = add;
+	(*p)(4, 5);
+}

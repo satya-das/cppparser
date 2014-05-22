@@ -526,7 +526,7 @@ struct CppConstructor : public CppObj
 	CppParamList*	args_;
 	CppMemInitList* memInitList_;
 	CppCompound*	defn_; // If it is NULL then this object is just for declaration.
-   unsigned int	attr_; // e.g. inline, explicit, etc.
+	unsigned int	attr_; // e.g. inline, explicit, etc.
 
 	CppConstructor(CppObjProtLevel prot, std::string name)
 		: CppObj(CppObj::kConstructor, prot)
@@ -550,11 +550,13 @@ struct CppDestructor : public CppObj
 {
 	std::string		name_;
 	CppCompound*	defn_; // If it is NULL then this object is just for declaration.
+	unsigned int	attr_; // e.g. inline, virtual, etc.
 
 	CppDestructor(CppObjProtLevel prot, std::string name)
 		: CppObj(CppObj::kDestructor, prot)
 		, name_	(std::move(name))
 		, defn_(0)
+		, attr_(0)
 	{
 	}
 

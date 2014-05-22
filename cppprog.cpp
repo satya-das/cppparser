@@ -47,7 +47,8 @@ void CppProgram::loadCppDom(const bfs::path& inputPath)
    if(bfs::is_regular_file(inputPath))
    {
       CppCompound* cppdom = parseSingleFile(inputPath.string().c_str());
-      fileDoms_.push_back(cppdom);
+	  if(cppdom)
+		fileDoms_.push_back(cppdom);
    }
    else if(bfs::is_directory(inputPath))
    {
@@ -59,6 +60,8 @@ void CppProgram::loadCppDom(const bfs::path& inputPath)
 
 void CppProgram::loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode)
 {
+	if(cppCompound == NULL)
+		return;
     if(cppCompound->isCppFile()) // Type node for file object should be the root itself.
         cppObjToTypeNode_[cppCompound] = typeNode;
     for(CppObjArray::const_iterator itr = cppCompound->members_.begin(); itr != cppCompound->members_.end(); ++itr)

@@ -45,9 +45,9 @@
 #define tknVarArg 298
 #define tknBlankLine 299
 #define CMPEQUAL 300
-#define PREFIX 301
-#define POSTFIX 302
-#define ARROW 303
+#define ARROW 301
+#define PREFIX 302
+#define POSTFIX 303
 #define PTRDECL 304
 #define REFDECL 305
 #define CTORDECL 306

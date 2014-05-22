@@ -43,7 +43,7 @@ struct CppToken {
 		return strncmp(sz, rhs.sz, len) != 0;
 	}
 
-	operator std::string() const { return std::string(sz, len); }
+	operator std::string() const { return sz ? std::string(sz, len) : std::string(); }
 };
 
 /**
