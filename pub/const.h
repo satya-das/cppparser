@@ -66,6 +66,7 @@ enum CppOperType {
 
 	kSpecialOperations = 100,
 	kFunctionCall,
+	kArrayElem,		// x[5]
 };
 
 /**

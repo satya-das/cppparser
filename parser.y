@@ -695,7 +695,6 @@ expr				: tknStrLit							{ $$ = new CppExpr((std::string) $1, kNone);	}
 					| tknCharLit						{ $$ = new CppExpr((std::string) $1, kNone);	}
 					| tknNumber							{ $$ = new CppExpr((std::string) $1, kNone);	}
 					| identifier						{ $$ = new CppExpr((std::string) $1, kNone);	}
-					| identifier '=' expr				{ $$ = new CppExpr((std::string) $1, kEqual, $3); }
 					| '{' exprlist '}'					{ $$ = new CppExpr($2, CppExpr::kInitializer);	}
 					| '-' expr %prec PREFIX				{ $$ = new CppExpr($2, kUnaryMinus);			}
 					| '~' expr %prec PREFIX				{ $$ = new CppExpr($2, kBitToggle);				}
@@ -708,6 +707,8 @@ expr				: tknStrLit							{ $$ = new CppExpr((std::string) $1, kNone);	}
 					| expr '/' expr						{ $$ = new CppExpr($1, kDiv, $3);				}
 					| expr '&' expr						{ $$ = new CppExpr($1, kBitAnd, $3);			}
 					| expr '|' expr						{ $$ = new CppExpr($1, kBitOr, $3);				}
+					| expr '=' expr						{ $$ = new CppExpr($1, kEqual, $3); }
+					| expr '[' expr ']' %prec POSTFIX	{ $$ = new CppExpr($1, kArrayElem, $3);			}
 					| expr '=' '=' expr %prec CMPEQUAL	{ $$ = new CppExpr($1, kCmpEqual, $4);			}
 					| expr '-' '>' expr %prec ARROW 	{ $$ = new CppExpr($1, kArrow, $4);				}
 					| expr '.' expr						{ $$ = new CppExpr($1, kDot, $3);				}
