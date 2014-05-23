@@ -325,6 +325,26 @@ struct CppInheritInfo {
 typedef std::list<CppInheritInfo> CppInheritanceList;
 
 /**
+ * Can be used to find default inheritance type of a compound object.
+ * @param type Type of compound object.
+ * @return Default inheritance type of class/struct/union if not explicitly specified.
+ */
+inline CppObjProtLevel defaultInheritanceType(CppCompoundType type)
+{
+	return type == kClass ? kPrivate : kPublic;
+}
+
+/**
+ * Can be used to find default protection level of a compound object.
+ * @param type Type of compound object.
+ * @return Default protection level of member of a class/struct/union if not explicitly specified.
+ */
+inline CppObjProtLevel defaultMemberProtLevel(CppCompoundType type)
+{
+	return type == kClass ? kPrivate : kPublic;
+}
+
+/**
  * All classes, structs, unions, and namespaces can be classified as a Compound object.
  * An entire C/C++ source file too is a compound object. A block of statements inside { } is also a compound object.
  */
@@ -372,6 +392,9 @@ public:
 	bool isUnion	() const { return compoundType_ == kUnion;		}
 	bool isCppFile	() const { return compoundType_	== kCppFile;	}
 	bool isBlock	() const { return compoundType_ == kBlock;		}
+
+	bool isClassLike() const { return (compoundType_&kClass) == kClass; }
+	bool isNamespaceLike() const { return (compoundType_&kNamespace) == kNamespace; }
 
 	void addMember	(CppObj* mem) { members_.push_back(mem); }
 	CppObjProtLevel defaultProtLevel() const { return isClass() ? kPrivate : kPublic; }
@@ -484,6 +507,8 @@ struct CppFunction : public CppObj
 		delete params_;
 		delete defn_;
 	}
+
+	bool hasParams() const { return params_ && params_->size() > 0; }
 
 protected:
 	CppFunction(CppObj::Type type, CppObjProtLevel prot, std::string name, CppVar* retType, CppParamList* params, unsigned int attr)
