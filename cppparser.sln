@@ -22,6 +22,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "program_options", "..\commo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "filesystem", "..\common\third_party\boost_tp\msvs10\filesystem.vcxproj", "{7399D785-1FB0-4BF1-99B0-749A834C27FE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{93705AF7-DFED-42A8-9918-DEEE634809AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "boost", "boost", "{B631843B-9B27-4690-91CD-99CD8B74695E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -55,5 +59,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F5518709-54D4-42A7-A64B-51C316CEDFA4} = {93705AF7-DFED-42A8-9918-DEEE634809AF}
+		{7399D785-1FB0-4BF1-99B0-749A834C27FE} = {B631843B-9B27-4690-91CD-99CD8B74695E}
+		{F18660C5-3DD5-4D9D-9D94-A6B347A0EABC} = {B631843B-9B27-4690-91CD-99CD8B74695E}
+		{1676629E-F1EA-4B10-AF62-DB124F7896EF} = {B631843B-9B27-4690-91CD-99CD8B74695E}
 	EndGlobalSection
 EndGlobal
