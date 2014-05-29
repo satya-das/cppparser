@@ -92,6 +92,7 @@ public:
 	virtual void emit			(const CppObj*				cppObj,			std::ostream& stm, Indentation indentation = Indentation()) const;
 	virtual void emitVar		(const CppVar*				varObj,			std::ostream& stm, Indentation indentation = Indentation()) const;
 	virtual void emitVarList	(const CppVarList*			varListObj,		std::ostream& stm, Indentation indentation = Indentation()) const;
+	virtual void emitEnum		(const CppEnum*				enmObj,			std::ostream& stm, Indentation indentation = Indentation()) const;
 	virtual void emitTypedef	(const CppTypedef*			typedefObj,		std::ostream& stm, Indentation indentation = Indentation()) const;
 	virtual void emitFwdDecl	(const CppFwdClsDecl*		fwdClsDeclObj,	std::ostream& stm, Indentation indentation = Indentation()) const;
 	virtual void emitCompound	(const CppCompound*			compoundObj,	std::ostream& stm, Indentation indentation = Indentation()) const;

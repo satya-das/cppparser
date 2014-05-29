@@ -298,6 +298,52 @@ struct CppTypedef : public CppVarType
 	}
 };
 
+//////////////////////////////////////////////////////////////////////////
+
+struct CppEnumItem
+{
+	union
+	{
+		CppExpr* val_;
+		CppObj* anyItem_;
+	};
+	std::string name_;
+
+	CppEnumItem(std::string name)
+		: name_(std::move(name))
+	{
+		val_ = NULL;
+		anyItem_ = NULL;
+	}
+
+	CppEnumItem(std::string name, CppExpr* val)
+		: name_(std::move(name))
+	{
+		val_ = val;
+	}
+
+	CppEnumItem(CppObj* anyItem)
+	{
+		anyItem_ = anyItem;
+	}
+};
+
+typedef std::list<CppEnumItem*> CppEnumItemList;
+struct CppEnum : public CppObj
+{
+	std::string			name_;
+	CppEnumItemList*	itemList_;
+
+	CppEnum(std::string name, CppObjProtLevel prot)
+		: CppObj(kEnum, prot)
+		, name_(std::move(name))
+		, itemList_(NULL)
+	{
+	}
+};
+
+//////////////////////////////////////////////////////////////////////////
+
 struct CppFwdClsDecl : public CppObj
 {
 	CppCompoundType cmpType_;

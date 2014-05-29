@@ -191,6 +191,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknUnion;
 }
 
+<ctxGeneral>enum/{TS}+ {
+	set_token_and_yyposn();
+	return tknEnum;
+}
+
 <ctxGeneral>public/{TS}+ {
 	set_token_and_yyposn();
 	return tknPublic;

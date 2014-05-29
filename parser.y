@@ -76,6 +76,9 @@ extern int yylex();
 	CppToken			str;
 	CppObj*				cppObj;
 	CppVar*				cppVarObj;
+	CppEnum*			cppEnum;
+	CppEnumItem*		enumItem;
+	CppEnumItemList*	enumItemList;
 	CppTypedef*			typedefObj;
 	CppCompound*		cppCompundObj;
 	CppDocComment*		docCommentObj;
@@ -109,6 +112,7 @@ extern int yylex();
 }
 
 %token	<str>					tknID tknStrLit tknCharLit tknNumber tknTypedef
+%token	<str>					tknEnum
 %token	<str>					tknPreProDef
 %token	<str>					tknClass tknStruct tknUnion tknNamespace
 %token	<str>					tknDocBlockComment tknDocLineComment
@@ -133,8 +137,11 @@ extern int yylex();
 %token	tknBlankLine
 
 %type	<str>					apidocer
-%type	<str>					identifier vartype
+%type	<str>					identifier vartype optid
 %type	<cppObj>				stmt functptrtype
+%type	<cppEnum>				enumstmt
+%type	<enumItem>				enumitem
+%type	<enumItemList>			enumitemlist
 %type	<fwdDeclObj>			fwddecl
 %type	<cppVarObj>				varqual vardecl varinit vardeclstmt
 %type	<varOrFuncPtr>			param templateparam
@@ -236,6 +243,7 @@ stmtlist			: { $$ = 0; }
 
 stmt				: vardeclstmt			{ $$ = $1; }
 					| vardeclliststmt		{ $$ = $1; }
+					| enumstmt				{ $$ = $1; }
 					| typedefnamestmt		{ $$ = $1; }
 					| classdefn				{ $$ = $1; }
 					| fwddecl				{ $$ = $1; }
@@ -316,6 +324,37 @@ doccomment			: tknDocBlockComment	[YYVALID;] { $$ = new CppDocComment((std::stri
 identifier			: tknID									{ $$ = $1; }
 					| tknScopeResOp identifier				{ $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
 					| identifier tknScopeResOp identifier	{ $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
+					;
+
+optid				: { $$ = makeCppToken(0, 0); }
+					| tknID			{ $$ = $1; }
+					;
+
+enumitem			: tknID				{ $$ = new CppEnumItem($1);		}
+					| tknID '=' expr	{ $$ = new CppEnumItem($1, $3); }
+					| doccomment		{ $$ = new CppEnumItem($1);		}
+					| hashif			{ $$ = new CppEnumItem($1);		}
+					| blankline			{ $$ = new CppEnumItem($1);		}
+					;
+
+enumitemlist		: { $$ = 0; }
+					| enumitemlist enumitem {
+						$$ = $1 ? $1 : new CppEnumItemList;
+						$$->push_back($2);
+					}
+					| enumitemlist ',' enumitem {
+						$$ = $1 ? $1 : new CppEnumItemList;
+						$$->push_back($3);
+					}
+					| enumitemlist ',' {
+						$$ = $1;
+					}
+					;
+
+enumstmt			: tknEnum optid '{' enumitemlist '}' ';' [YYVALID;] {
+						$$ = new CppEnum($2, gCurProtLevel);
+						$$->itemList_ = $4;
+					}
 					;
 
 typedefnamestmt		: typedefnamelist ';' { $$ = $1; }

@@ -46,6 +46,8 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, Indentation indent
 		return emitVar			((CppVar*)			cppObj, stm, indentation);
 	case CppObj::kVarList:
 		return emitVarList		((CppVarList*)		cppObj, stm, indentation);
+	case CppObj::kEnum:
+		return emitEnum			((CppEnum*)			cppObj, stm, indentation);
 	case CppObj::kDocComment:
 		return emitDocComment	((CppDocComment*)	cppObj, stm, indentation);
 	case CppObj::kTypedef:
@@ -198,6 +200,34 @@ void CppWriter::emitVarList(const CppVarList* varListObj, std::ostream& stm, Ind
 {
 	for(CppVarObjList::const_iterator varItr = varListObj->varlist_.begin(); varItr != varListObj->varlist_.end(); ++varItr)
 		emitVar(*varItr, stm, indentation);
+}
+
+void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+{
+	stm << indentation << "enum";
+	if(!enmObj->name_.empty())
+		stm << ' ' << enmObj->name_ << ' ';
+	stm << "\n{\n" << indentation++;
+	if(enmObj->itemList_)
+	{
+		for(CppEnumItemList::const_iterator itmItr = enmObj->itemList_->begin(); itmItr != enmObj->itemList_->end(); ++itmItr)
+		{
+			CppEnumItem* enmItem = *itmItr;
+			if(enmItem->name_.empty())
+				emit(enmItem->anyItem_, stm, indentation);
+			else
+			{
+				stm << indentation << enmItem->name_;
+				if(enmItem->val_)
+				{
+					stm << " = ";
+					emitExpr(enmItem->val_, stm);
+				}
+				stm << ",\n";
+			}
+		}
+	}
+	stm << --indentation << "};\n";
 }
 
 void CppWriter::emitTypedef(const CppTypedef* typedefObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
