@@ -32,6 +32,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /**
  * Responsible for emitting C/C++ source from CppDom data structure.
+ * Implementation of emitting various C/C++ objects should never change
+ * the style of code generated. Addition of new functionality and bug fixes
+ * are allowed but care must be taken not to change the style of emitted code.
  */
 class CppWriter
 {
@@ -41,7 +44,7 @@ public:
 	enum EmittingType {
 		kRaw,		///< No intelligence is applied and things are emitted as is.
 		kHeader,	///< No function definition is emitted unless it is explicitly inline
-		Source		///< No method declaration is emitted unless it is part of the class that is defined in the same file.
+		kSource		///< No method declaration is emitted unless it is part of the class that is defined in the same file.
 	};
 	void			setEmittingType(EmittingType type);
 	EmittingType	getEmittingType() const;
