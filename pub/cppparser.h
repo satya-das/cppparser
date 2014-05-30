@@ -29,5 +29,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //////////////////////////////////////////////////////////////////////////
 
 CppCompound* parseSingleFile(const char* filename);
+CppCompound* parseStream(char* stm, size_t stmSize);
 
 #endif //__CPPPARSER_H__

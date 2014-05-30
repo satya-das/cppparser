@@ -63,14 +63,17 @@ void CppProgram::loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode)
 	if(cppCompound == NULL)
 		return;
     if(cppCompound->isCppFile()) // Type node for file object should be the root itself.
+	{
         cppObjToTypeNode_[cppCompound] = typeNode;
+		typeNode->cppObjSet.insert(cppCompound);
+	}
     for(CppObjArray::const_iterator itr = cppCompound->members_.begin(); itr != cppCompound->members_.end(); ++itr)
     {
         CppObj* mem = *itr;
         if(mem->objType_ == CppObj::kCompound)
         {
             CppTypeTreeNode& childNode = typeNode->children[((CppCompound*) mem)->name_];
-            childNode.cppObj = mem;
+            childNode.cppObjSet.insert(mem);
             childNode.parent = typeNode;
             cppObjToTypeNode_[mem] = &childNode;
             loadType((CppCompound*) mem, &childNode);
@@ -78,14 +81,14 @@ void CppProgram::loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode)
         else if(mem->objType_ == CppObj::kTypedef)
         {
             CppTypeTreeNode& childNode = typeNode->children[((CppFunction*) mem)->name_];
-            childNode.cppObj = mem;
+			childNode.cppObjSet.insert(mem);
             childNode.parent = typeNode;
             cppObjToTypeNode_[mem] = &childNode;
         }
         else if(mem->objType_ == CppObj::kFunctionPtr)
         {
             CppTypeTreeNode& childNode = typeNode->children[((CppFunctionPtr*) mem)->name_];
-            childNode.cppObj = mem;
+			childNode.cppObjSet.insert(mem);
             childNode.parent = typeNode;
             cppObjToTypeNode_[mem] = &childNode;
         }

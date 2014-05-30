@@ -30,6 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <map>
 #include <vector>
+#include <set>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -46,16 +47,21 @@ struct CppTypeTreeNode;
  */
 typedef std::map<std::string, CppTypeTreeNode> CppTypeTree;
 
+typedef std::set<CppObj*> CppObjSet;
 /**
  * \brief A node in a CppTypeTree.
  */
 struct CppTypeTreeNode
 {
-    CppObj*             cppObj;
+	/**
+	 * This needs to be a set because same namespace can be defined multiple times.
+	 * But members of all those definition will belong to single namespace.
+	 */
+    CppObjSet           cppObjSet;
     CppTypeTree         children;
     CppTypeTreeNode*    parent;
 
-    CppTypeTreeNode() :cppObj(NULL), parent(NULL) {}
+    CppTypeTreeNode() : parent(NULL) {}
 };
 
 typedef std::vector<CppCompound*> CppCompoundArray;

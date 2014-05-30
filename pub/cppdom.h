@@ -78,6 +78,11 @@ struct CppObj
 	}
 
 	virtual ~CppObj() = 0 {}
+
+	/// @return true if object is a function-like type.
+	bool isFunctionLike() const { return objType_ == kFunction || objType_ == kConstructor || objType_ == kDestructor; }
+	bool isClassLike() const;
+	bool isNamespaceLike() const;
 };
 
 /**
@@ -799,6 +804,16 @@ struct CppBlob : public CppObj
 };
 
 //////////////////////////////////////////////////////////////////////////
+
+inline bool CppObj::isClassLike() const
+{
+	return objType_ == kCompound && ((CppCompound*) this)->isClassLike();
+}
+
+inline bool CppObj::isNamespaceLike() const
+{
+	return objType_ == kCompound && ((CppCompound*) this)->isNamespaceLike();
+}
 
 inline void CppExprList::push(const CppExprAtom& e)
 {

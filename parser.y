@@ -817,9 +817,17 @@ void yyerror_detailed	(	char* text,
 char* gBuf = NULL;
 size_t gBufSize = 0;
 
-CppCompound* parseFile(FILE* fp)
+CppCompound* parseStream(char* stm, size_t stmSize)
 {
 	void setupScanBuffer(char* buf, size_t bufsize);
+	setupScanBuffer(gBuf, stmSize);
+	gLineNo = 1; // Reset so that we do not start counting beyond previous parsing.
+	yyparse();
+	return gProgUnit;
+}
+
+CppCompound* parseFile(FILE* fp)
+{
 	const size_t bufBlockSize = 1024*1024;
 	gBufSize = bufBlockSize;
 	gBuf = (char*) malloc(gBufSize);
@@ -848,8 +856,6 @@ CppCompound* parseFile(FILE* fp)
 			gBuf = (char*) realloc(gBuf, gBufSize);
 		}
 	}
-	setupScanBuffer(gBuf, numBytesToScan);
-	gLineNo = 1; // Reset so that we do not start counting beyond previous parsing.
-	yyparse();
-	return gProgUnit;
+
+	return parseStream(gBuf, numBytesToScan);
 }
