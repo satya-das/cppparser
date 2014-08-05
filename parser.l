@@ -149,6 +149,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxGeneral>^{WS}*{NL} {
+	++gLineNo;
 	return tknBlankLine;
 }
 

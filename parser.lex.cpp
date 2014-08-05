@@ -1623,19 +1623,20 @@ case 3:
 YY_RULE_SETUP
 #line 151 "parser.l"
 {
+	++gLineNo;
 	return tknBlankLine;
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 155 "parser.l"
+#line 156 "parser.l"
 {
 	++gLineNo;
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 159 "parser.l"
+#line 160 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknID;
@@ -1643,7 +1644,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 164 "parser.l"
+#line 165 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknNumSignSpec;
@@ -1651,7 +1652,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 169 "parser.l"
+#line 170 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknTypedef;
@@ -1662,7 +1663,7 @@ case 8:
 yy_c_buf_p = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 174 "parser.l"
+#line 175 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknClass;
@@ -1673,7 +1674,7 @@ case 9:
 yy_c_buf_p = yy_cp = yy_bp + 9;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 179 "parser.l"
+#line 180 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknNamespace;
@@ -1684,7 +1685,7 @@ case 10:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 184 "parser.l"
+#line 185 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknStruct;
@@ -1695,7 +1696,7 @@ case 11:
 yy_c_buf_p = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 189 "parser.l"
+#line 190 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknUnion;
@@ -1706,7 +1707,7 @@ case 12:
 yy_c_buf_p = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 194 "parser.l"
+#line 195 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknEnum;
@@ -1717,7 +1718,7 @@ case 13:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 199 "parser.l"
+#line 200 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknPublic;
@@ -1728,7 +1729,7 @@ case 14:
 yy_c_buf_p = yy_cp = yy_bp + 9;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 204 "parser.l"
+#line 205 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknProtected;
@@ -1739,7 +1740,7 @@ case 15:
 yy_c_buf_p = yy_cp = yy_bp + 7;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 209 "parser.l"
+#line 210 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknPrivate;
@@ -1747,7 +1748,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 214 "parser.l"
+#line 215 "parser.l"
 {
 	oyytext = yytext;
 	PUSHBEGIN(ctxDocBlockComment);
@@ -1755,12 +1756,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 219 "parser.l"
+#line 220 "parser.l"
 {}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 221 "parser.l"
+#line 222 "parser.l"
 {
 	yylval.str = makeCppToken(oyytext, yytext+yyleng-oyytext);
 	yy_pop_state(); /* Begin the same state we were before encountering comment. */
@@ -1769,20 +1770,20 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 227 "parser.l"
+#line 228 "parser.l"
 {
 	PUSHBEGIN(ctxBlockComment);
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 231 "parser.l"
+#line 232 "parser.l"
 {
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 234 "parser.l"
+#line 235 "parser.l"
 {
 	yy_pop_state(); /* Begin the same state we were before encountering comment. */
 	/* Ignore block comment if it does not stand all alone */
@@ -1790,7 +1791,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 239 "parser.l"
+#line 240 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknDocLineComment;
@@ -1798,13 +1799,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 244 "parser.l"
+#line 245 "parser.l"
 {
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 247 "parser.l"
+#line 248 "parser.l"
 {
 	set_token_and_yyposn();
 	PUSHBEGIN(ctxPreprocessor);
@@ -1816,7 +1817,7 @@ case 25:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 253 "parser.l"
+#line 254 "parser.l"
 {
 	set_token_and_yyposn();
 	BEGIN(ctxDefine);
@@ -1838,7 +1839,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 272 "parser.l"
+#line 273 "parser.l"
 {
 	set_token_and_yyposn();
 	BEGIN(ctxDefineDefn);
@@ -1849,7 +1850,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 280 "parser.l"
+#line 281 "parser.l"
 {
 	if(gDefLooksLike == kNoDef)
 	{
@@ -1871,7 +1872,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 299 "parser.l"
+#line 300 "parser.l"
 {
 	if(gDefLooksLike == kNoDef || gDefLooksLike == kStrLitDef || gDefLooksLike == kReDef)
 	{
@@ -1887,7 +1888,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 312 "parser.l"
+#line 313 "parser.l"
 {
 	if(gDefLooksLike == kNoDef)
 	{
@@ -1902,7 +1903,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 324 "parser.l"
+#line 325 "parser.l"
 {
 	if(gDefLooksLike == kNoDef)
 	{
@@ -1917,7 +1918,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 336 "parser.l"
+#line 337 "parser.l"
 { // Any unrecognized character other than whitespace indicates a complex #define
 	gDefLooksLike = kComplexDef;
 	if(oyytext == 0)
@@ -1926,7 +1927,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 342 "parser.l"
+#line 343 "parser.l"
 {
 	yylval.str = makeCppToken(oyytext, yytext-oyytext);
 	yy_pop_state();
@@ -1937,7 +1938,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 350 "parser.l"
+#line 351 "parser.l"
 {
 	/* Ignore line comment when it does not stand alone in a line. */
 	// We are also ignoring the last new-line character
@@ -1950,7 +1951,7 @@ case 34:
 yy_c_buf_p = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 357 "parser.l"
+#line 358 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknUndef;
@@ -1961,7 +1962,7 @@ case 35:
 yy_c_buf_p = yy_cp = yy_bp + 7;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 362 "parser.l"
+#line 363 "parser.l"
 {
 	set_token_and_yyposn();
 	BEGIN(ctxInclude);
@@ -1970,7 +1971,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 368 "parser.l"
+#line 369 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknStdHdrInclude;
@@ -1978,7 +1979,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 373 "parser.l"
+#line 374 "parser.l"
 {
 	yy_pop_state();
 	++gLineNo;
@@ -1989,7 +1990,7 @@ case 38:
 yy_c_buf_p = yy_cp = yy_bp + 2;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 378 "parser.l"
+#line 379 "parser.l"
 {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
@@ -2002,7 +2003,7 @@ case 39:
 yy_c_buf_p = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 385 "parser.l"
+#line 386 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknIfDef;
@@ -2013,7 +2014,7 @@ case 40:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 390 "parser.l"
+#line 391 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknIfNDef;
@@ -2024,7 +2025,7 @@ case 41:
 yy_c_buf_p = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 395 "parser.l"
+#line 396 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknElse;
@@ -2035,7 +2036,7 @@ case 42:
 yy_c_buf_p = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 400 "parser.l"
+#line 401 "parser.l"
 {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
@@ -2048,7 +2049,7 @@ case 43:
 yy_c_buf_p = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 407 "parser.l"
+#line 408 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknEndIf;
@@ -2059,7 +2060,7 @@ case 44:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 412 "parser.l"
+#line 413 "parser.l"
 {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
@@ -2069,13 +2070,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 419 "parser.l"
+#line 420 "parser.l"
 {
 }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 422 "parser.l"
+#line 423 "parser.l"
 {
 	yylval.str = makeCppToken(oyytext, yytext-oyytext);
 	yy_pop_state();
@@ -2085,7 +2086,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 429 "parser.l"
+#line 430 "parser.l"
 {
 	yy_pop_state();
 	++gLineNo;
@@ -2093,7 +2094,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 434 "parser.l"
+#line 435 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknScopeResOp;
@@ -2104,7 +2105,7 @@ case 49:
 yy_c_buf_p = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 439 "parser.l"
+#line 440 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknConst;
@@ -2115,7 +2116,7 @@ case 50:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 444 "parser.l"
+#line 445 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknStatic;
@@ -2126,7 +2127,7 @@ case 51:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 449 "parser.l"
+#line 450 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknInline;
@@ -2137,7 +2138,7 @@ case 52:
 yy_c_buf_p = yy_cp = yy_bp + 7;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 454 "parser.l"
+#line 455 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknVirtual;
@@ -2148,7 +2149,7 @@ case 53:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 459 "parser.l"
+#line 460 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknExtern;
@@ -2159,7 +2160,7 @@ case 54:
 yy_c_buf_p = yy_cp = yy_bp + 8;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 464 "parser.l"
+#line 465 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknExplicit;
@@ -2170,7 +2171,7 @@ case 55:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 469 "parser.l"
+#line 470 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknFriend;
@@ -2178,7 +2179,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 474 "parser.l"
+#line 475 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknExternC;
@@ -2189,7 +2190,7 @@ case 57:
 yy_c_buf_p = yy_cp = yy_bp + 3;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 479 "parser.l"
+#line 480 "parser.l"
 {
 	return tknNew;
 }
@@ -2199,7 +2200,7 @@ case 58:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 483 "parser.l"
+#line 484 "parser.l"
 {
 	return tknDelete;
 }
@@ -2209,14 +2210,14 @@ case 59:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 487 "parser.l"
+#line 488 "parser.l"
 {
 	return tknReturn;
 }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 491 "parser.l"
+#line 492 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknNumber;
@@ -2224,7 +2225,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 496 "parser.l"
+#line 497 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknStrLit;
@@ -2232,7 +2233,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 501 "parser.l"
+#line 502 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknCharLit;
@@ -2240,7 +2241,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 506 "parser.l"
+#line 507 "parser.l"
 {
 	set_token_and_yyposn();
 	return yytext[0];
@@ -2248,7 +2249,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 511 "parser.l"
+#line 512 "parser.l"
 {
 	set_token_and_yyposn();
 	return tknVarArg;
@@ -2256,10 +2257,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 516 "parser.l"
+#line 517 "parser.l"
 ECHO;
 	YY_BREAK
-#line 2263 "parser.lex.cpp"
+#line 2264 "parser.lex.cpp"
 			case YY_STATE_EOF(INITIAL):
 			case YY_STATE_EOF(ctxGeneral):
 			case YY_STATE_EOF(ctxDocBlockComment):
@@ -3149,7 +3150,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 516 "parser.l"
+#line 517 "parser.l"
 
 
 void setupScanBuffer(char* buf, size_t bufsize)
