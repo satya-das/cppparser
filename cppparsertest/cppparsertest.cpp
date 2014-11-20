@@ -30,6 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <fstream>
 #include <strstream>
+#include <iostream>
 
 namespace bfs = boost::filesystem;
 namespace po = boost::program_options;
