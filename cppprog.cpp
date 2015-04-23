@@ -24,11 +24,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "cppprog.h"
 #include "cppparser.h"
 
+#include <boost/filesystem.hpp>
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-void CppProgram::loadProgram(const bfs::path& inputPath)
+namespace bfs = boost::filesystem;
+
+//////////////////////////////////////////////////////////////////////////
+
+void CppProgram::loadProgram(const char* szInputPath)
 {
-    loadCppDom(inputPath);
+    loadCppDom(szInputPath);
     // Create the type-tree for all Compound objects and type objects.
     for(CppCompoundArray::const_iterator domItr = fileDoms_.begin(); domItr != fileDoms_.end(); ++domItr)
         loadType(*domItr, &cppTypeTreeRoot_);
@@ -42,8 +48,9 @@ void CppProgram::addCppDom(CppCompound* cppDom)
 	fileDoms_.push_back(cppDom);
 }
 
-void CppProgram::loadCppDom(const bfs::path& inputPath)
+void CppProgram::loadCppDom(const char* szInputPath)
 {
+	bfs::path inputPath = szInputPath;
    if(bfs::is_regular_file(inputPath))
    {
       CppCompound* cppdom = parseSingleFile(inputPath.string().c_str());
@@ -54,7 +61,10 @@ void CppProgram::loadCppDom(const bfs::path& inputPath)
    {
        
        for(bfs::directory_iterator dirItr(inputPath); dirItr != bfs::directory_iterator(); ++dirItr)
-           loadCppDom(*dirItr);
+	   {
+		   bfs::path p = *dirItr;
+           loadCppDom(p.string().c_str());
+	   }
    }
 }
 

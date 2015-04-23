@@ -26,15 +26,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "cppdom.h"
 
-#include <boost/filesystem.hpp>
-
 #include <map>
 #include <vector>
 #include <set>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-namespace bfs = boost::filesystem;
 
 
 struct CppTypeTreeNode;
@@ -73,14 +69,14 @@ class CppProgram
 {
 public:
 	CppProgram();
-	CppProgram(const bfs::path& inputPath);
+	CppProgram(const char* szInputPath);
 
 public:
     /**
      * Loads C++ program from source and header files.
      * @param inputPath Folder where the C++ files are present.
      */
-    void loadProgram(const bfs::path& inputPath);
+    void loadProgram(const char* szInputPath);
 	/**
 	 * Adds a new file DOM to this program.
 	 * \warning It is a no-op if \a cppDom is not of kCppFile type.
@@ -110,7 +106,7 @@ protected:
     /**
      * Parses all CPP files and creates CPPDOM for all of them.
      */
-    void loadCppDom(const bfs::path& inputPath);
+    void loadCppDom(const char* szInputPath);
 	void loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode);
 
 protected:
@@ -126,10 +122,10 @@ inline CppProgram::CppProgram()
 	cppObjToTypeNode_[NULL] = &cppTypeTreeRoot_;
 }
 
-inline CppProgram::CppProgram(const bfs::path& inputPath)
+inline CppProgram::CppProgram(const char* szInputPath)
 {
 	cppObjToTypeNode_[NULL] = &cppTypeTreeRoot_;
-	loadProgram(inputPath);
+	loadProgram(szInputPath);
 }
 
 inline const CppCompoundArray& CppProgram::getFileDOMs() const
