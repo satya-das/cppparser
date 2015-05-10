@@ -114,7 +114,7 @@ protected:
 
     CppCompoundArray		fileDoms_;              ///< Array of all top level DOMs corresponding to files.
     CppTypeTreeNode         cppTypeTreeRoot_;       ///< Repository of all compound objects arranged as type-tree.
-    CppObjToTypeNodeMap     cppObjToTypeNode_;
+    mutable CppObjToTypeNodeMap     cppObjToTypeNode_;
 };
 
 inline CppProgram::CppProgram()
