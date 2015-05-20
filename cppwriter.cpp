@@ -1,31 +1,31 @@
 /*
-The MIT License (MIT)
+   The MIT License (MIT)
 
-Copyright (c) 2014
+   Copyright (c) 2014
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+   Permission is hereby granted, free of charge, to any person obtaining a copy of
+   this software and associated documentation files (the "Software"), to deal in
+   the Software without restriction, including without limitation the rights to
+   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+   the Software, and to permit persons to whom the Software is furnished to do so,
+   subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 #include "cppwriter.h"
 
 //////////////////////////////////////////////////////////////////////////
 
-void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
 {
 	switch(cppObj->objType_)
 	{
@@ -159,7 +159,7 @@ void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) con
 	}
 }
 
-void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
 {
 	if((varObj->varAttr_&kFuncParam) == 0)
 	{
@@ -196,13 +196,13 @@ void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, Indentation ind
 		stm << ";\n";
 }
 
-void CppWriter::emitVarList(const CppVarList* varListObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+void CppWriter::emitVarList(const CppVarList* varListObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
 {
 	for(CppVarObjList::const_iterator varItr = varListObj->varlist_.begin(); varItr != varListObj->varlist_.end(); ++varItr)
 		emitVar(*varItr, stm, indentation);
 }
 
-void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
 {
 	stm << indentation << "enum";
 	if(!enmObj->name_.empty())
@@ -230,7 +230,7 @@ void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, Indentation i
 	stm << --indentation << "};\n";
 }
 
-void CppWriter::emitTypedef(const CppTypedef* typedefObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+void CppWriter::emitTypedef(const CppTypedef* typedefObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
 {
 	stm << indentation << "typedef ";
 	emitVarType((CppVarType*) typedefObj, stm);
@@ -243,12 +243,12 @@ void CppWriter::emitTypedef(const CppTypedef* typedefObj, std::ostream& stm, Ind
 	stm << ";\n";
 }
 
-void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
 {
 	stm << indentation << fwdDeclObj->cmpType_ << ' ' << fwdDeclObj->name_ << ";\n";
 }
 
-void CppWriter::emitCompound(const CppCompound* compoundObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+void CppWriter::emitCompound(const CppCompound* compoundObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
 {
 	if(compoundObj->compoundType_&kNamespace)
 	{
@@ -303,7 +303,7 @@ void CppWriter::emitParamList(const CppParamList* paramListObj, std::ostream& st
 	}
 }
 
-void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
 {
 	if((funcObj->attr_&(kFuncParam|kTypedef)) == 0)
 		stm << indentation;
@@ -353,7 +353,7 @@ void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, Inde
 	}
 }
 
-void CppWriter::emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+void CppWriter::emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
 {
 	stm << indentation;
 	if(funcPtrObj->attr_&kTypedef)
@@ -361,7 +361,7 @@ void CppWriter::emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& 
 	emitFunction((CppFunction*) funcPtrObj, stm, indentation);
 }
 
-void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
 {
 	stm << indentation;
 	if(ctorObj->attr_&kInline)
@@ -398,7 +398,7 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm
 	}
 }
 
-void CppWriter::emitDestructor(const CppDestructor* dtorObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+void CppWriter::emitDestructor(const CppDestructor* dtorObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
 {
 	stm << indentation;
 	if(dtorObj->attr_&kInline)
@@ -421,7 +421,7 @@ void CppWriter::emitDestructor(const CppDestructor* dtorObj, std::ostream& stm, 
 	}
 }
 
-void CppWriter::emitDocComment(const CppDocComment* docCommentObj, std::ostream& stm, Indentation indentation/* = Indentation()*/) const
+void CppWriter::emitDocComment(const CppDocComment* docCommentObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
 {
 	stm << docCommentObj->doc_ << '\n';
 }
