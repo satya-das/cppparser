@@ -47,7 +47,7 @@ void output_rule_data()
 
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "int yylhs[] = {%42d,",
+    fprintf(output_file, "int %slhs[] = {%42d,", symbol_prefix,
 	    symbol_value[start_symbol]);
 
     j = 10;
@@ -69,7 +69,7 @@ void output_rule_data()
 
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "int yylen[] = {%42d,", 2);
+    fprintf(output_file, "int %slen[] = {%42d,", symbol_prefix, 2);
 
     j = 10;
     for (i = 3; i < nrules; i++)
@@ -96,7 +96,7 @@ void output_yydefred()
 
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "int yydefred[] = {%39d,",
+    fprintf(output_file, "int %sdefred[] = {%39d,", symbol_prefix,
 	    (defred[0] ? defred[0] - 2 : 0));
 
     j = 10;
@@ -137,7 +137,6 @@ void output_actions()
     FREE(lookaheads);
     FREE(LA);
     FREE(LAruleno);
-    FREE(accessing_symbol);
 
     goto_actions();
     FREE(goto_map + ntokens);
@@ -150,6 +149,8 @@ void output_actions()
     output_table();
     output_check();
     output_ctable();
+    output_astable();
+    FREE(accessing_symbol);
 }
 
 int find_conflict_base(int cbase)
@@ -234,7 +235,7 @@ void token_actions()
 	    if (shiftcount > 0) {
 		froms[i] = r = NEW2(shiftcount, Yshort);
 		tos[i] = s = NEW2(shiftcount, Yshort);
-		min = MAXSHORT;
+		min = INT_MAX;
 		max = 0;
 		for (j = 0; j < ntokens; ++j) {
 		    if (actionrow[j]) {
@@ -248,7 +249,7 @@ void token_actions()
 	    if (reducecount > 0) {
 		froms[nstates+i] = r = NEW2(reducecount, Yshort);
 		tos[nstates+i] = s = NEW2(reducecount, Yshort);
-		min = MAXSHORT;
+		min = INT_MAX;
 		max = 0;
 		for (j = 0; j < ntokens; ++j) {
 		    if (actionrow[ntokens+j]) {
@@ -262,7 +263,7 @@ void token_actions()
 	    if (conflictcount > 0) {
 		froms[2*nstates+i] = r = NEW2(conflictcount, Yshort);
 		tos[2*nstates+i] = s = NEW2(conflictcount, Yshort);
-		min = MAXSHORT;
+		min = INT_MAX;
 		max = 0;
 		for (j = 0; j < ntokens; ++j) {
 		    if (actionrow[2*ntokens+j]) {
@@ -285,7 +286,7 @@ void goto_actions()
     k = default_goto(start_symbol + 1);
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "int yydgoto[] = {%40d,", k);
+    fprintf(output_file, "int %sdgoto[] = {%40d,", symbol_prefix, k);
     save_column(start_symbol + 1, k);
 
     j = 10;
@@ -607,7 +608,7 @@ void output_base()
 
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "int yysindex[] = {%39d,", base[0]);
+    fprintf(output_file, "int %ssindex[] = {%39d,", symbol_prefix, base[0]);
     j = 10;
     for (i = 1; i < nstates; i++) {
 	if (j >= 10) {
@@ -622,7 +623,7 @@ void output_base()
     fprintf(output_file, "\n};\n");
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "int yyrindex[] = {%39d,", base[nstates]);
+    fprintf(output_file, "int %srindex[] = {%39d,", symbol_prefix, base[nstates]);
     j = 10;
     for (i = nstates + 1; i < 2*nstates; i++) {
 	if (j >= 10) {
@@ -637,7 +638,7 @@ void output_base()
     fprintf(output_file, "\n};\n");
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "int yycindex[] = {%39d,", base[2*nstates]);
+    fprintf(output_file, "int %scindex[] = {%39d,", symbol_prefix, base[2*nstates]);
     j = 10;
     for (i = 2*nstates + 1; i < 3*nstates; i++) {
 	if (j >= 10) {
@@ -653,7 +654,7 @@ void output_base()
     fprintf(output_file, "\n};\n");
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "int yygindex[] = {%39d,",
+    fprintf(output_file, "int %sgindex[] = {%39d,", symbol_prefix,
 	    base[3*nstates]);
     j = 10;
     for (i = 3*nstates + 1; i < nvectors - 1; i++) {
@@ -677,18 +678,19 @@ void output_table()
     register int i;
     register int j;
 
-    ++outline;
-
+#ifdef DEBUG
     fprintf(stderr, "YYTABLESIZE: %d\n", high);
-    if(high >= MAXSHORT) {
-      fprintf(stderr, "Table is longer than %d elements. It's not gonna fly.\n", MAXSHORT);
+    if(high >= INT_MAX) {
+      fprintf(stderr, "Table is longer than %d elements. It's not gonna fly.\n", INT_MAX);
       exit(1);
     }
+#endif
 
+    ++outline;
     fprintf(code_file, "#define YYTABLESIZE %d\n", high);
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "int yytable[] = {%40d,", table[0]);
+    fprintf(output_file, "int %stable[] = {%40d,", symbol_prefix, table[0]);
 
     j = 10;
     for (i = 1; i <= high; i++)
@@ -719,7 +721,7 @@ void output_check()
 
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "int yycheck[] = {%40d,", check[0]);
+    fprintf(output_file, "int %scheck[] = {%40d,", symbol_prefix, check[0]);
 
     j = 10;
     for (i = 1; i <= high; i++)
@@ -748,7 +750,7 @@ void output_ctable()
 
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "int yyctable[] = {%39d,", conflicts ?
+    fprintf(output_file, "int %sctable[] = {%39d,", symbol_prefix, conflicts ?
 	    conflicts[0] : 0);
 
     j = 10;
@@ -771,6 +773,37 @@ void output_ctable()
 	FREE(conflicts);
 }
 
+void output_astable()
+{
+    register int i;
+    register int j;
+
+    if (!rflag) {
+	++outline;
+	fprintf(output_file, "#ifdef YYDESTRUCT\nstatic ");
+    }
+    fprintf(output_file, "int yyastable[] = {%39d,", accessing_symbol ?
+	    accessing_symbol[0] : 0);
+
+    j = 10;
+    for (i = 1; i < nstates; i++)
+    {
+	if (j >= 10)
+	{
+	    if (!rflag) ++outline;
+	    putc('\n', output_file);
+	    j = 1;
+	}
+	else
+	    ++j;
+
+	fprintf(output_file, "%5d,", accessing_symbol[i]);
+    }
+    if (!rflag) outline += 3;
+    fprintf(output_file, "\n};\n");
+    if (!rflag)
+	fprintf(output_file, "#endif /* YYDESTRUCT */\n");
+}
 
 int is_C_identifier(char *name)
 {
@@ -810,8 +843,13 @@ void output_defines()
     FILE *dc_file;
 
     if(dflag) {
-      fprintf(defines_file, "#ifndef _yacc_defines_h_\n");
-      fprintf(defines_file, "#define _yacc_defines_h_\n\n");
+	char *p, *tmp = strdup(defines_file_name);
+	for (p = tmp; *p; p++)
+	    if (!isalnum(*p))
+		*p = '_';
+	fprintf(defines_file, "#ifndef _%s_\n", tmp);
+	fprintf(defines_file, "#define _%s_\n\n", tmp);
+	free(tmp);
     }
 
     /* VM: Print to either code file or defines file but not to both */
@@ -839,7 +877,7 @@ void output_defines()
 		}
 		while ((c = *++s));
 	    }
-	    ++outline;
+	    if (!dflag) ++outline;
 	    fprintf(dc_file, " %d\n", symbol_value[i]);
 	}
     }
@@ -847,7 +885,7 @@ void output_defines()
     ++outline;
     fprintf(dc_file, "#define YYERRCODE %d\n", symbol_value[1]);
 
-    if (dflag && unionized)
+    if (dflag && (unionized || location_defined))
     {
 	fclose(union_file);
 	union_file = fopen(union_file_name, "r");
@@ -855,11 +893,15 @@ void output_defines()
 	while ((c = getc(union_file)) != EOF) {
 	  putc(c, defines_file);
 	}
-	fprintf(defines_file, "extern YYSTYPE yylval;\n");
+	if (unionized)
+	    fprintf(defines_file, "extern YYSTYPE %slval;\n", symbol_prefix);
     }
 
     if(dflag) {
-      fprintf(defines_file, "\n#endif\n");
+	fprintf(defines_file, "#if defined(YYPOSN)\n"
+			      "extern YYPOSN yyposn;\n"
+			      "#endif\n");
+	fprintf(defines_file, "\n#endif\n");
     }
 }
 
@@ -934,7 +976,7 @@ void output_debug()
     fprintf(output_file, "#if YYDEBUG\n");
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "char *yyname[] = {");
+    fprintf(output_file, "char *%sname[] = {", symbol_prefix);
     j = 80;
     for (i = 0; i <= max; ++i)
     {
@@ -1062,7 +1104,7 @@ void output_debug()
     if (!rflag) ++outline;
     if (!rflag)
 	fprintf(output_file, "static ");
-    fprintf(output_file, "char *yyrule[] = {\n");
+    fprintf(output_file, "char *%srule[] = {\n", symbol_prefix);
     for (i = 2; i < nrules; ++i)
     {
 	fprintf(output_file, "\"%s :", symbol_name[rlhs[i]]);
@@ -1119,7 +1161,7 @@ void output_debug()
 
 void output_stype()
 {
-    if (!unionized && ntags == 0)
+    if (!unionized && !havetags)
     {
 	outline += 3;
 	fprintf(code_file, "#ifndef YYSTYPE\ntypedef int YYSTYPE;\n#endif\n");
@@ -1135,39 +1177,39 @@ void output_trailing_text()
     if (line == 0)
 	return;
 
-    in = input_file;
+    in = input_file->file;
     out = code_file;
-    c = *cptr;
-    if (c == '\n')
+    if (!lflag)
     {
-	++lineno;
-	if ((c = getc(in)) == EOF)
-	    return;
-	if (!lflag)
-	{
-	    ++outline;
-	    fprintf(out, line_format, lineno, (inc_file?inc_file_name:input_file_name));
-	}
-	if (c == '\n')
-	    ++outline;
-	putc(c, out);
-	last = c;
-    }
-    else
-    {
-	if (!lflag)
-	{
-	    ++outline;
-	    fprintf(out, line_format, lineno, (inc_file?inc_file_name:input_file_name));
-	}
-	do { putc(c, out); } while ((c = *++cptr) != '\n');
 	++outline;
-	putc('\n', out);
-	last = '\n';
+	fprintf(out, line_format, input_file->lineno, input_file->name);
     }
+    while ((c = *cptr++) != '\n') {
+	putc(c, out); }
+    ++outline;
+    putc('\n', out);
+    last = '\n';
 
-    while ((c = getc(in)) != EOF)
+    while ((c = getc(in)) != EOF || input_file->next)
     {
+	if (c == EOF) {
+	    void *t = input_file;
+	    fclose(input_file->file);
+	    FREE(input_file->name);
+	    input_file = input_file->next;
+	    FREE(t);
+	    in = input_file->file;
+	    if (last != '\n')
+	    {
+		++outline;
+		putc('\n', out);
+		last = '\n';
+	    }
+	    if (!lflag) {
+		++outline;
+		fprintf(out, line_format, input_file->lineno, input_file->name);
+	    }
+	    continue; }
 	if (c == '\n')
 	    ++outline;
 	putc(c, out);
