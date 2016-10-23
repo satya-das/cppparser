@@ -261,6 +261,8 @@ void create_file_names()
     char *tmpdir;
 
     tmpdir = getenv("TMPDIR");
+    if (tmpdir == 0) tmpdir = getenv("TMP");
+    if (tmpdir == 0) tmpdir = getenv("TEMP");
     if (tmpdir == 0) tmpdir = DEFAULT_TMPDIR;
 
     len = strlen(tmpdir);
