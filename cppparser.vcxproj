@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -20,14 +20,14 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -111,14 +111,14 @@
     <CustomBuild Include="parser.y">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\build_results\$(Configuration)\tools\btyacc.exe -d parser.y
-XCOPY /D /Y y_tab.c parser.tab.cpp
-XCOPY /D /Y y_tab.h parser.tab.h
+ECHO f | XCOPY /D /Y y_tab.c parser.tab.cpp
+ECHO f | XCOPY /D /Y y_tab.h parser.tab.h
 </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Running BtYacc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">y_tab.c;y_tab.h</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\build_results\$(Configuration)\tools\btyacc.exe -dl parser.y
-XCOPY /D /Y y_tab.c parser.tab.cpp
-XCOPY /D /Y y_tab.h parser.tab.h
+ECHO f | XCOPY /D /Y y_tab.c parser.tab.cpp
+ECHO f | XCOPY /D /Y y_tab.h parser.tab.h
 </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Running BtYacc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">y_tab.c;y_tab.h</Outputs>
