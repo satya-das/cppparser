@@ -86,7 +86,7 @@ struct CppObj
 };
 
 /**
- * A blank line in a C/C++ program.
+ * One or more blank lines in a C/C++ program.
  */
 struct CppBlankLine : public CppObj
 {
@@ -219,12 +219,7 @@ struct CppVarType : public CppObj
 	}
 
 	CppVarType(std::string baseType, unsigned int typeAttr = 0, unsigned short ptrLevel = 0, CppRefType refType = kNoRef)
-		: CppObj(CppObj::kVarType, kUnknownProt)
-		, baseType_(std::move(baseType))
-		, typeAttr_(typeAttr)
-		, ptrLevel_(ptrLevel)
-		, refType_(refType)
-		, arraySize_(NULL)
+		: CppVarType(kUnknownProt, baseType, typeAttr, ptrLevel, refType)
 	{
 	}
 
@@ -415,18 +410,16 @@ public:
 	{
 	}
 
-	CppCompound(CppCompoundType type)
-		: CppObj		(CppObj::kCompound, kUnknownProt)
-		, compoundType_	(type)
-		, inheritList_	(NULL)
-	{
-	}
-
 	CppCompound(std::string name, CppCompoundType type)
 		: CppObj		(CppObj::kCompound, kUnknownProt)
 		, compoundType_	(type)
 		, name_			(std::move(name))
 		, inheritList_	(NULL)
+	{
+	}
+
+	CppCompound(CppCompoundType type)
+		: CppCompound(std::string(), type)
 	{
 	}
 
@@ -473,13 +466,6 @@ union CppVarOrFuncPtrType
 		cppObj = rhs;
 		return cppObj;
 	}
-
-#if ALLOW_UNION_CTOR
-	CppVarOrFuncPtrType(CppObj* _cppObj)
-		: cppObj(_cppObj)
-	{
-	}
-#endif //#if ALLOW_UNION_CTOR
 };
 
 /**
@@ -487,16 +473,10 @@ union CppVarOrFuncPtrType
  */
 typedef CppVarOrFuncPtrType	CppParam;
 
-#if !ALLOW_UNION_CTOR
-inline CppParam makeCppParam(CppObj* obj)
-{
-	CppParam param = {obj};
-	return param;
-}
-#endif //#if !ALLOW_UNION_CTOR
-
 struct CppParamList : public std::list<CppParam>
 {
+	typedef std::list<CppParam> BaseType;
+	using BaseType::BaseType;
 	~CppParamList()
 	{
 		for(iterator itr = begin(); itr != end(); ++itr)
@@ -512,45 +492,25 @@ struct CppFunction : public CppObj
 	std::string		name_;
 	CppVarType*		retType_;
 	CppParamList*	params_;
-	unsigned int	attr_; // e.g.: const, static, virtual, inline, etc.
+	unsigned int	attr_; // e.g.: const, static, virtual, inline, constexpr, etc.
 	CppCompound*	defn_; // If it is NULL then this object is just for declaration.
 	std::string		docer1_; // e.g. __declspec(dllexport)
 	std::string		docer2_; // e.g. __stdcall
 
+	/**
+	 * @param attr is ORed combination of CppIdentifierAttrib values.
+	 */
 	CppFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr)
-		: CppObj(CppObj::kFunction, prot)
-		, name_		(std::move(name))
-		, retType_	(retType)
-		, params_	(params)
-		, attr_		(attr)
-		, defn_		(0)
-	{
-	}
+		: CppFunction(CppObj::kFunction, prot, name, retType, params, attr)
+	{}
 
 	CppFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParam param1, CppParam param2, unsigned int attr = 0)
-		: CppObj(CppObj::kFunction, prot)
-		, name_		(std::move(name))
-		, retType_	(retType)
-		, params_	(new CppParamList)
-		, attr_		(attr)
-		, defn_		(0)
-	{
-		params_->push_back(param1);
-		params_->push_back(param2);
-	}
+		: CppFunction(prot, name, retType, new CppParamList{param1, param2}, attr)
+	{}
 
 	CppFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParam param1, CppParam param2, CppParam param3, unsigned int attr = 0)
-		: CppObj(CppObj::kFunction, prot)
-		, name_		(std::move(name))
-		, retType_	(retType)
-		, params_	(new CppParamList)
-		, attr_		(attr)
-		, defn_		(0)
-	{
-		params_->push_back(param1);
-		params_->push_back(param2);
-		params_->push_back(param3);
-	}
+		: CppFunction(prot, name, retType, new CppParamList{ param1, param2, param3 }, attr)
+	{}
 
 	~CppFunction()
 	{
@@ -562,13 +522,13 @@ struct CppFunction : public CppObj
 	bool hasParams() const { return params_ && params_->size() > 0; }
 
 protected:
-	CppFunction(CppObj::Type type, CppObjProtLevel prot, std::string name, CppVar* retType, CppParamList* params, unsigned int attr)
+	CppFunction(CppObj::Type type, CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr)
 		: CppObj(type, prot)
-		, name_		(std::move(name))
-		, retType_	(retType)
-		, params_	(params)
-		, attr_		(attr)
-		, defn_		(0)
+		, name_(std::move(name))
+		, retType_(retType)
+		, params_(params)
+		, attr_(attr)
+		, defn_(0)
 	{
 	}
 };
@@ -756,19 +716,18 @@ struct CppExpr : public CppObj
 	short		flags_; // ORed combination of Flag constants.
 
 	CppExpr(CppExprAtom e1, CppOperType op, CppExprAtom e2 = CppExprAtom())
+		: CppExpr(e1, op, e2, 0)
+	{}
+
+	CppExpr(CppExprAtom e1, short flags)
+		: CppExpr(e1, kNone, CppExprAtom(), flags)
+	{}
+
+	CppExpr(CppExprAtom e1, CppOperType op, CppExprAtom e2, short flags)
 		: CppObj(CppObj::kExpression, kUnknownProt)
 		, expr1_(e1)
 		, oper_(op)
 		, expr2_(e2)
-		, flags_(0)
-	{
-	}
-
-	CppExpr(CppExprAtom e1, short flags)
-		: CppObj(CppObj::kExpression, kUnknownProt)
-		, expr1_(e1)
-		, oper_(kNone)
-		, expr2_(CppExprAtom())
 		, flags_(flags)
 	{
 	}
