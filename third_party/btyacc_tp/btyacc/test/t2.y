@@ -1,62 +1,14 @@
+
 %union {
-    struct Scope	*scope;
-    struct Expr		*expr;
-    struct Expr_List	*elist;
-    struct Type		*type;
-    struct Decl		*decl;
-    struct Decl_List	*dlist;
-    struct Code		*code;
-    const char		*id;
-}
-
-%location {
-    struct {
-	int	line, column;
-    }		start, end;
-}
-/*
- * [test] btyacc
- * [test] cc -c -Wall -Werror
- * [test] btyacc -d
- * [test] cc -c -Wall -Werror
- * [test] btyacc -r
- * [test] cc -c -Wall -Werror t2.code.c
- * [test] btyacc -rd
- * [test] cc -c -Wall -Werror t2.code.c
- */
-
-%{
-    struct Decl {
-	struct Scope	*scope;
-	struct Type	*type;
-	int		istype;
+    Scope	*scope;
+    Expr	*expr;
+    Expr_List	*elist;
+    Type	*type;
+    Decl	*decl;
+    Decl_List	*dlist;
+    Code	*code;
+    char	*id;
     };
-    extern struct Scope *global_scope;
-    enum { ADD, SUB, MUL, MOD, DIV, REF };
-
-    struct Decl_List *append_dlist(struct Decl_List *, struct Decl *);
-    struct Type *bare_const(void);
-    struct Type *bare_extern(void);
-    struct Type *bare_register(void);
-    struct Type *bare_static(void);
-    struct Type *bare_volatile(void);
-    struct Decl_List *build_dlist(struct Decl *);
-    struct Code *build_expr_code(struct Expr *);
-    struct Expr *build_expr(struct Expr *, int, struct Expr *);
-    struct Decl *build_function(struct Decl *, struct Decl_List *, struct Type *);
-    struct Code *build_if(struct Expr *, struct Code *, struct Code *);
-    struct Code *code_append(struct Code *, struct Code *);
-    struct Decl *declare(struct Scope *, const char *, struct Type *);
-    struct Decl *finish_fn_def(struct Decl *, struct Code *);
-    struct Decl *lookup(struct Scope *, const char *);
-    struct Decl *make_array(struct Decl *, struct Expr *);
-    struct Decl *make_pointer(struct Decl *, struct Type *);
-    struct Scope *new_scope(struct Scope *);
-    struct Scope *start_fn_def(struct Scope *, struct Decl *);
-    struct Type *type_combine(struct Type *, struct Type *);
-    struct Expr *var_expr(struct Scope *, const char *);
-    void free_expr(struct Expr *);
-%}
 
 %left '+' '-'
 %left '*' '/' '%'
@@ -78,46 +30,34 @@
 %type <scope>	opt_scope(<scope>)
 %type <dlist>	formal_arg_list(<scope>) nonempty_formal_arg_list(<scope>)
 
-%destructor { free_expr($$); } <expr>
-%destructor { free($$); } <elist,dlist> CONSTANT
-
 %start input
 
 %%
 
-opt_scope($e):		  [ $$ = $e; ]
-  | CLCL		  [ $$ = global_scope; ]
-  | opt_scope($e) ID CLCL [ struct Decl *d = lookup($1, $2);
-			    if (!d || !d->scope) YYERROR;
-			    $$ = d->scope; ]
+opt_scope($e):		[ $$ = $e; ]
+  | CLCL		[ $$ = global_scope; ]
+  | opt_scope ID CLCL	[ Decl *d = lookup($1, $2);
+			  if (!d || !d->scope) YERROR;
+			  $$ = d->scope; ]
   ;
 
-typename($e /* comment*/): opt_scope($e) ID
-      [ struct Decl *d = lookup($1, $2);
-	if (!d || !d->istype) YYERROR;
-	$$ = d->type;
-	@@ = @2; ]
+typename($e): opt_scope ID
+      [ Decl *d = lookup($1, $2);
+	if (!d || !d->istype()) YYERROR;
+	$$ = d->type; ]
   ;
 
 input: decl_list(global_scope = new_scope(0)) ;
 decl_list($e): | decl_list decl($e) ;
 decl($e):
-    decl_specs($e) declarator_list($e,$1) ';' [YYVALID;]
-      { @@.start = @1.start; @@.end = @3.end; }
-  | decl_specs($e) declarator($e,$1) block_statement(start_fn_def($e, $2))
-      { finish_fn_def($2, $3);
-	@@.start = @1.start; @@.end = @3.end; }
+    decl_specs declarator_list($e,$1) ';' [YYVALID;]
+  | decl_specs declarator($e,$1) block_statement(start_fn_def($e, $2))
+      { finish_fn_def($2, $3); }
   ;
 
 decl_specs($e):	
-    decl_spec($e /*comment*/)	{ @@ = @1; } [ $$ = $1; ]
-  | decl_specs
-    (
-    $e
-    )
-    decl_spec($e)
-	{ @@.start = @1.start; @@.end = @2.end; }
-	[ $$ = type_combine($1, $2); ]
+    decl_spec			[ $$ = $1; ]
+  | decl_specs decl_spec($e)	[ $$ = type_combine($1, $2); ]
   ;
 
 cv_quals:			[ $$ = 0; ]
@@ -125,106 +65,72 @@ cv_quals:			[ $$ = 0; ]
   ;
 
 decl_spec($e):
-    cv_qual		{ @@ = @1; } [ $$ = $1; ]
-  | typename($e)	{ @@ = @1; } [ $$ = $1; ]
-  | EXTERN		{ @@ = @1; } [ $$ = bare_extern(); ]
-  | REGISTER		{ @@ = @1; } [ $$ = bare_register(); ]
-  | STATIC		{ @@ = @1; } [ $$ = bare_static(); ]
+    cv_qual		[ $$ = $1; ]
+  | typename		[ $$ = $1; ]
+  | EXTERN		[ $$ = bare_extern(); ]
+  | REGISTER		[ $$ = bare_register(); ]
+  | STATIC		[ $$ = bare_static(); ]
   ;
 
 cv_qual:
-    CONST		{ @@ = @1; } [ $$ = bare_const(); ]
-  | VOLATILE		{ @@ = @1; } [ $$ = bare_volatile(); ]
+    CONST		[ $$ = bare_const(); ]
+  | VOLATILE		[ $$ = bare_volatile(); ]
   ;
 
 declarator_list($e, $t):
-    declarator_list($e, $t) ',' declarator($e, $t)
-	{ @@.start = @1.start; @@.end = @3.end; }
-  | declarator($e, $t)
-	{ @@ = @1; }
+    declarator_list ',' declarator($e, $t)
+  | declarator
   ;
 
 declarator($e, $t):
     /* empty */			[ if (!$t) YYERROR; ]	
 				{ $$ = declare($e, 0, $t); }
-  | opt_scope($e) ID		{ $$ = declare($1, $2, $t); @@ = @1; }
-  | '(' declarator($e, $t) ')'
-	  { $$ = $2;
-	    @@.start = @1.start; @@.end = @3.end; }
+  | ID				{ $$ = declare($e, $1, $t); }
+  | '(' declarator($e, $t) ')'	{ $$ = $2; }
   | '*' cv_quals declarator($e, $t) %prec PREFIX
-	  { $$ = make_pointer($3, $2);
-	    @@.start = @1.start; @@.end = @3.end; }
-  | declarator($e, $t) '[' expr($e) ']'
-	  { $$ = make_array($1, $3);
-	    @@.start = @1.start.line ? @1.start : @2.start;
-	    @@.end = @4.end; }
-  | declarator($e, $t) '(' formal_arg_list($e) ')' cv_quals
-	  { $$ = build_function($1, $3, $5);
-	    @@.start = @1.start.line ? @1.start : @2.start;
-	    @@.end = @4.end; }
+	  { $$ = make_pointer($3, $2); }
+  | declarator '[' expr($e) ']'
+	  { $$ = make_array($1->type, $3); }
+  | declarator '(' formal_arg_list($e) ')' cv_quals
+	  { $$ = build_function($1, $3, $5); }
   ;
 
-formal_arg_list($e):		 { $$ = 0; }
-  | nonempty_formal_arg_list($e) { $$ = $1; @@ = @1; }
+formal_arg_list($e):		{ $$ = 0; }
+  | nonempty_formal_arg_list	{ $$ = $1; }
   ;
 nonempty_formal_arg_list($e):
-    nonempty_formal_arg_list($e) ',' formal_arg($e)
-	  { $$ = append_dlist($1, $3);
-	    @@.start = @1.start; @@.end = @3.end; }
-  | formal_arg($e)
-          { $$ = build_dlist($1);
-	    @@ = @1; }
+    nonempty_formal_arg_list ',' formal_arg($e)	{ $$ = append_dlist($1, $3); }
+  | formal_arg					{ $$ = build_dlist($1); }
   ;
 formal_arg($e):
-    decl_specs($e) declarator($e,$1)
-	  { $$ = $2;
-	    @@.start = @1.start.line ? @1.start : @2.start;
-	    @@.end = @2.end; }
+    decl_specs declarator($e,$1)	{ $$ = $2; }
   ;
 
 expr($e):
-    expr($e) '+' expr($e)	{ $$ = build_expr($1, ADD, $3);
-				  @@.start = @1.start; @@.end = @3.end; }
-  | expr($e) '-' expr($e)	{ $$ = build_expr($1, SUB, $3);
-				  @@.start = @1.start; @@.end = @3.end; }
-  | expr($e) '*' expr($e)	{ $$ = build_expr($1, MUL, $3);
-				  @@.start = @1.start; @@.end = @3.end; }
-  | expr($e) '%' expr($e)	{ $$ = build_expr($1, MOD, $3);
-				  @@.start = @1.start; @@.end = @3.end; }
-  | expr($e) '/' expr($e)	{ $$ = build_expr($1, DIV, $3);
-				  @@.start = @1.start; @@.end = @3.end; }
-  | '*' expr($e) %prec PREFIX	{ $$ = build_expr(0, REF, $2);
-				  @@.start = @1.start; @@.end = @2.end; }
-  | opt_scope($e) ID		{ $$ = var_expr($1, $2); @@ = @2; }
-  | CONSTANT			{ $$ = $1; @@ = @1; }
+    expr '+' expr($e)		{ $$ = build_expr($1, ADD, $3); }
+  | expr '-' expr($e)		{ $$ = build_expr($1, SUB, $3); }
+  | expr '*' expr($e)		{ $$ = build_expr($1, MUL, $3); }
+  | expr '%' expr($e)		{ $$ = build_expr($1, MOD, $3); }
+  | expr '/' expr($e)		{ $$ = build_expr($1, DIV, $3); }
+  | '*' expr($e) %prec PREFIX	{ $$ = build_expr(0, REF, $2); }
+  | ID				{ $$ = var_expr($e, $1); }
+  | CONSTANT			{ $$ = $1; }
   ;
 
 statement($e):
-    decl($e)			{ $$ = 0; @@ = @1; }
-  | expr($e) ';' [YYVALID;]	{ $$ = build_expr_code($1);
-				  @@.start = @1.start; @@.end = @2.end; }
+    decl			{ $$ = 0; }
+  | expr($e) ';' [YYVALID;]	{ $$ = build_expr_code($1); }
   | IF '(' expr($e) ')' THEN statement($e) ELSE statement($e) [YYVALID;]
-	  { $$ = build_if($3, $6, $8);
-	    @@.start = @1.start; @@.end = @8.end; }
+    { $$ = build_if($3, $6, $8); }
   | IF '(' expr($e) ')' THEN statement($e) [YYVALID;]
-	  { $$ = build_if($3, $6, 0);
-	    @@.start = @1.start; @@.end = @6.end; }
-  | block_statement(new_scope($e)) [YYVALID;]{ $$ = $1; @@ = @1; }
+    { $$ = build_if($3, $6, 0); }
+  | block_statement(new_scope($e)) [YYVALID;]{ $$ = $1; }
   ;
 
 statement_list($e):			{ $$ = 0; }
-  | statement_list($e) statement($e)
-	  { $$ = code_append($1, $2);
-	    @@.start = @1.start.line ? @1.start : @2.start;
-	    @@.end = @2.end; }
+  | statement_list statement($e)	{ $$ = code_append($1, $2); }
   ;
 
 block_statement($e):
-    '{' statement_list($e) '}'
-	  { $$ = $2;
-	    @@.start = @1.start; @@.end = @3.end; }
+    '{' statement_list($e) '}' { $$ = $2; }
   ;
-
-%%
-
-/* trailing code */

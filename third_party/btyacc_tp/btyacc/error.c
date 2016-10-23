@@ -1,5 +1,5 @@
-/*
- * routines for printing error messages
+/* 
+ * routines for printing error messages  
  */
 
 #include "defs.h"
@@ -16,7 +16,7 @@ void FileError(char *fmt, ...);
 void FileError(char *fmt, ...) {
   va_list args;
 
-  fprintf(stderr, "%s:%d: ", input_file->name, input_file->lineno);
+  fprintf(stderr, "%s:%d: ", (inc_file?inc_file_name:input_file_name), lineno);
   va_start(args, fmt);
   vfprintf(stderr, fmt, args);
   va_end(args);
@@ -81,7 +81,7 @@ void error(int lineno, char *line, char *cptr, char *msg, ...)
 {
   char sbuf[512];
   va_list args;
-
+  
   va_start(args, msg);
   vsprintf(sbuf, msg, args);
   va_end(args);
@@ -89,55 +89,50 @@ void error(int lineno, char *line, char *cptr, char *msg, ...)
   read_errs++;
 }
 
-void syntax_error(int lineno, char *line, char *cptr) {
-  error(lineno, line, cptr, "syntax error");
+void syntax_error(int lineno, char *line, char *cptr) { 
+  error(lineno, line, cptr, "syntax error"); 
   exit(1);
 }
 
-void unterminated_comment(int lineno, char *line, char *cptr) {
-  error(lineno, line, cptr, "unmatched /*");
+void unterminated_comment(int lineno, char *line, char *cptr) { 
+  error(lineno, line, cptr, "unmatched /*"); 
   exit(1);
 }
 
-void unterminated_string(int lineno, char *line, char *cptr) {
-  error(lineno, line, cptr, "unterminated string");
+void unterminated_string(int lineno, char *line, char *cptr) { 
+  error(lineno, line, cptr, "unterminated string"); 
   exit(1);
 }
 
-void unterminated_text(int lineno, char *line, char *cptr) {
-  error(lineno, line, cptr, "unmatched %%{");
+void unterminated_text(int lineno, char *line, char *cptr) { 
+  error(lineno, line, cptr, "unmatched %%{"); 
   exit(1);
 }
 
-void unterminated_union(int lineno, char *line, char *cptr) {
-  error(lineno, line, cptr, "unterminated %%union");
+void unterminated_union(int lineno, char *line, char *cptr) { 
+  error(lineno, line, cptr, "unterminated %%union"); 
   exit(1);
 }
 
-void over_unionized(char *cptr) {
-  error(input_file->lineno, line, cptr, "too many %%union declarations");
+void over_unionized(char *cptr) { 
+  error(lineno, line, cptr, "too many %%union declarations"); 
   exit(1);
 }
 
-void repeat_location_defined(char *cptr) {
-  error(input_file->lineno, line, cptr, "too many %%location declarations");
-  exit(1);
+void illegal_tag(int lineno, char *line, char *cptr) { 
+  error(lineno, line, cptr, "illegal tag"); 
 }
 
-void illegal_tag(int lineno, char *line, char *cptr) {
-  error(lineno, line, cptr, "illegal tag");
+void illegal_character(char *cptr) { 
+  error(lineno, line, cptr, "illegal character"); 
 }
 
-void illegal_character(char *cptr) {
-  error(input_file->lineno, line, cptr, "illegal character");
+void used_reserved(char *s) { 
+  error(lineno, 0, 0, "illegal use of reserved symbol %s", s); 
 }
 
-void used_reserved(char *s) {
-  error(input_file->lineno, 0, 0, "illegal use of reserved symbol %s", s);
-}
-
-void tokenized_start(char *s) {
-  error(input_file->lineno, 0, 0, "the start symbol %s cannot be declared to be a token", s);
+void tokenized_start(char *s) { 
+  error(lineno, 0, 0, "the start symbol %s cannot be declared to be a token", s); 
 }
 
 void retyped_warning(char *s) {
@@ -155,89 +150,69 @@ void revalued_warning(char *s) {
 }
 
 
-void terminal_start(char *s) {
-  error(input_file->lineno, 0, 0, "the start symbol %s is a token", s);
+void terminal_start(char *s) { 
+  error(lineno, 0, 0, "the start symbol %s is a token", s); 
 }
 
 void restarted_warning() {
   FileError("the start symbol has been redeclared");
 }
 
-void no_grammar() {
-  error(input_file->lineno, 0, 0, "no grammar has been specified");
+void no_grammar() { 
+  error(lineno, 0, 0, "no grammar has been specified"); 
 }
 
-void terminal_lhs(int lineno) {
-  error(lineno, 0, 0, "a token appears on the lhs of a production");
+void terminal_lhs(int lineno) { 
+  error(lineno, 0, 0, "a token appears on the lhs of a production"); 
 }
 
-void prec_redeclared() {
-  error(input_file->lineno, 0, 0, "conflicting %%prec specifiers");
+void prec_redeclared() { 
+  error(lineno, 0, 0, "conflicting %%prec specifiers"); 
 }
 
-void unterminated_action(int lineno, char *line, char *cptr) {
-  error(lineno, line, cptr, "unterminated action");
+void unterminated_action(int lineno, char *line, char *cptr) { 
+  error(lineno, line, cptr, "unterminated action"); 
 }
 
-void unterminated_arglist(int lineno, char *line, char *cptr) {
-  error(lineno, line, cptr, "unterminated argument list");
+void unterminated_arglist(int lineno, char *line, char *cptr) { 
+  error(lineno, line, cptr, "unterminated argument list"); 
 }
 
-void bad_formals() {
-  error(input_file->lineno, 0, 0, "bad formal argument list");
+void bad_formals() { 
+  error(lineno, 0, 0, "bad formal argument list"); 
 }
 
 void dollar_warning(int a_lineno, int i) {
-  int slineno = input_file->lineno;
-  input_file->lineno = a_lineno;
+  int slineno = lineno;
+  lineno = a_lineno;
   FileError("$%d references beyond the end of the current rule", i);
-  input_file->lineno = slineno;
+  lineno = slineno;
 }
 
-void dollar_error(int lineno, char *line, char *cptr) {
-  error(lineno, line, cptr, "illegal $-name");
+void dollar_error(int lineno, char *line, char *cptr) { 
+  error(lineno, line, cptr, "illegal $-name"); 
 }
 
-void at_warning(int a_lineno, int i) {
-  int slineno = input_file->lineno;
-  input_file->lineno = a_lineno;
-  FileError("@%d references beyond the end of the current rule", i);
-  input_file->lineno = slineno;
+void untyped_lhs() { 
+  error(lineno, 0, 0, "$$ is untyped"); 
 }
 
-void at_error(int lineno, char *line, char *cptr) {
-  error(lineno, line, cptr, "illegal @-name");
+void untyped_rhs(int i, char *s) { 
+  error(lineno, 0, 0, "$%d (%s) is untyped", i, s); 
 }
 
-void untyped_lhs() {
-  error(input_file->lineno, 0, 0, "$$ is untyped");
+void unknown_rhs(int i) { 
+  error(lineno, 0, 0, "$%d is untyped (out of range)", i); 
 }
 
-void untyped_rhs(int i, char *s) {
-  error(input_file->lineno, 0, 0, "$%d (%s) is untyped", i, s);
+void default_action_warning() {
+  FileError("the default action assigns an undefined value to $$");
 }
 
-void unknown_rhs(int i) {
-  error(input_file->lineno, 0, 0, "$%d is untyped (out of range)", i);
-}
-
-void default_action_warning(char *s) {
-  FileError("the default action for %s assigns an undefined value to $$", s);
-}
-
-void inconsistent_trial_action_warning(char *s) {
-  FileError("inconsistent trial actions for %s", s);
-}
-
-void undefined_goal(char *s) {
-  error(input_file->lineno, 0, 0, "the start symbol %s is undefined", s);
+void undefined_goal(char *s) { 
+  error(lineno, 0, 0, "the start symbol %s is undefined", s); 
 }
 
 void undefined_symbol_warning(char *s) {
   fprintf(stderr, "warning - the symbol %s is undefined\n", s);
-}
-
-void unused_destructor_warning(int lineno)
-{
-  error(lineno, 0, 0, "unused %%destructor");
 }

@@ -18,7 +18,7 @@ static void add_ptr(char *p)
 	    no_space();
 	if (ap > ap_start)
 	    memcpy(nap, ap_start, (ap-ap_start) * sizeof(char *));
-	ap = nap + (ap - ap_start);
+	ap = nap + (ap - ap_start); 
 	ap_start = nap;
 	ap_end = nap + size/sizeof(char *); }
     *ap++ = p;
@@ -80,7 +80,7 @@ FILE	*fp;
 	} else {
 	    buf[i++] = '\\';
 	    buf[i] = 0;
-	    eline = 0;
+	    eline = 0; 
 	}
 	if (sline && buf[0] == '%' && buf[1] == '%') {
 	    char *p = buf+2;
@@ -95,13 +95,13 @@ FILE	*fp;
 	      *e = 0;
 	      for (i=0; section_list[i].name; i++)
 		if (!strcmp(section_list[i].name, p))
-		  section = i;
+		  section = i; 
 	    }
 	    if (section >= 0)
 	      add_fmt("#line %d \"%s\"", line+1, name);
 	    else if (*p)
 	      error(0, buf, p, "line %d of \"%s\", bad section name",
-		    line, name);
+		    line, name); 
         } else if (section >= 0) {
 	    add_string(buf);
 	}

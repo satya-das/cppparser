@@ -10,24 +10,24 @@ char tflag;
 char vflag;
 int Eflag = 0;
 
-char *symbol_prefix = "yy";
+char *file_prefix = "y";
 char *myname = "yacc";
-#if defined(__MSDOS__) || defined(_WIN32)
+#ifdef __MSDOS__
 #define DIR_CHAR '\\'
 #define DEFAULT_TMPDIR "."
-char *file_prefix = "y";
 #else  /* Unix */
 #define DIR_CHAR '/'
 #define DEFAULT_TMPDIR "/tmp"
-char *file_prefix = 0;
 #endif
 char *temp_form = "yacc_t_XXXXXX";
 
+int lineno;
 int outline;
 
 char *action_file_name;
 char *code_file_name;
 char *defines_file_name;
+char *input_file_name = "";
 char *output_file_name;
 char *text_file_name;
 char *union_file_name;
@@ -37,6 +37,7 @@ FILE *action_file;	/*  a temp file, used to save actions associated    */
 			/*  with rules until the parser is written	    */
 FILE *code_file;	/*  y.code.c (used when the -r option is specified) */
 FILE *defines_file;	/*  y.tab.h					    */
+FILE *input_file;	/*  the input file				    */
 FILE *output_file;	/*  y.tab.c					    */
 FILE *text_file;	/*  a temp file, used to save text until all	    */
 			/*  symbols have been defined			    */
@@ -75,7 +76,7 @@ void done(int k)
 }
 
 
-void onintr(int ignore)
+void onintr()
 {
     done(1);
 }
@@ -101,7 +102,7 @@ void set_signals()
 void usage()
 {
     fprintf(stderr, "usage: %s [-dlrtv] [-b file_prefix] [-S skeleton file] "
-		    "[-p symbol_prefix] filename\n", myname);
+		    "filename\n", myname);
     exit(1);
 }
 
@@ -119,7 +120,7 @@ void getargs(int argc, char **argv)
 	switch (*++s)
 	{
 	case '\0':
-	    read_from_file("-");
+	    input_file = stdin;
 	    if (i + 1 < argc) usage();
 	    return;
 
@@ -136,15 +137,6 @@ void getargs(int argc, char **argv)
 		usage();
 	    continue;
 
-	case 'p':
-	    if (*++s)
-		 symbol_prefix = s;
-	    else if (++i < argc)
-		symbol_prefix = argv[i];
-	    else
-		usage();
-	    continue;
-
 	case 'd':
 	    dflag = 1;
 	    break;
@@ -156,8 +148,7 @@ void getargs(int argc, char **argv)
 	      extern char *defd_vars[];
 	      for(ps=&defd_vars[0]; *ps; ps++) {
 		if(strcmp(*ps,var_name)==0) {
-		  error(input_file->lineno, 0, 0,
-		        "Preprocessor variable %s already defined", var_name);
+		  error(lineno, 0, 0, "Preprocessor variable %s already defined", var_name);
 		}
 	      }
 	      *ps = MALLOC(strlen(var_name)+1);
@@ -165,7 +156,7 @@ void getargs(int argc, char **argv)
 	      *++ps = NULL;
 	    }
 	    continue;
-
+	      
 	case 'E':
 	    Eflag = 1;
 	    break;
@@ -184,10 +175,6 @@ void getargs(int argc, char **argv)
 
 	case 'v':
 	    vflag = 1;
-	    break;
-
-	case 'y':
-	    file_prefix = "y";
 	    break;
 
 	case 'S':
@@ -230,10 +217,6 @@ void getargs(int argc, char **argv)
 		vflag = 1;
 		break;
 
-	    case 'y':
-		file_prefix = "y";
-		break;
-
 	    default:
 		usage();
 	    }
@@ -243,37 +226,16 @@ end_of_option:;
 
 no_more_options:;
     if (i + 1 != argc) usage();
-    read_from_file(argv[i]);
+    input_file_name = argv[i];
 
     if (!file_prefix) {
-      if (input_file && input_file->name) {
-	file_prefix = strdup(input_file->name);
+      if (input_file_name) {
+	file_prefix = strdup(input_file_name);
 	if ((s = strrchr(file_prefix, '.')))
-	  *s = 0;
+	  *s = 0; 
       } else {
-	file_prefix = "y";
+	file_prefix = "y"; 
       }
-    }
-
-    /* Replace symbol prefix in the skeleton */
-    if (strcmp(symbol_prefix, "yy")) {
-      struct section *s;
-      char **l, *q, *n, *p;
-
-      for (s = section_list; s->name; s++)
-        for (l = s->ptr; *l; l++) {
-	  /* Very conservative estimate */
-	  p = n = malloc(strlen(*l) * strlen(symbol_prefix));
-	  for (q = *l; *q; q++)
-	    if (q[0] == 'y' && q[1] == 'y') {
-	      strcpy(p, symbol_prefix);
-	      p += strlen(symbol_prefix);
-	      q++;
-	    } else
-	      *p++ = *q;
-	  *p = 0;
-	  *l = realloc(n ,strlen(n) + 1);
-        }
     }
 }
 
@@ -284,7 +246,7 @@ char *allocate(unsigned n)
     p = NULL;
     if (n)
     {
-        /* VM: add a few bytes here, cause
+        /* VM: add a few bytes here, cause 
          * Linux calloc does not like sizes like 32768 */
 	p = CALLOC(1, n+10);
 	if (!p) no_space();
@@ -388,6 +350,13 @@ void create_file_names()
 void open_files()
 {
     create_file_names();
+
+    if (input_file == 0)
+    {
+	input_file = fopen(input_file_name, "r");
+	if (input_file == 0)
+	    open_error(input_file_name);
+    }
 
     action_file = fopen(action_file_name, "w");
     if (action_file == 0)

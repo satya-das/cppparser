@@ -22,10 +22,6 @@
  * See RFC 959.
  */
 
-/*
- * [test] btyacc
- */
-
 %{
 
 #ifndef lint

@@ -1,15 +1,6 @@
 %{
 /* first section */
 %}
-/*
- * [test] btyacc
- * [test] cc
- * [test] input (())()(())
- * [test] input-fail (())(*)(())
- * [test] btyacc -DABC
- * [test] cc
- * [test] input (())(*)(())
- */
 %%
 %{
 /* second section */
@@ -24,10 +15,8 @@ S : /* empty */	{ printf("S -> epsilon\n"); }
 %%
 #include <stdio.h>
 
-int main() {
-  int rv;
-  printf("yyparse() = %d\n", (rv=yyparse()));
-  return rv;
+main() {
+  printf("yyparse() = %d\n",yyparse());
 }
 
 yylex() {
@@ -38,6 +27,6 @@ yylex() {
 	return ch;
 }
 
-void yyerror(const char *s, ...) {
+yyerror(s) char*s; {
   printf("%s\n",s);
 }

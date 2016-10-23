@@ -39,16 +39,14 @@ bucket *make_bucket(char *name)
     bp->name = MALLOC(strlen(name) + 1);
     if (bp->name == 0) no_space();
     bp->tag = 0;
-    bp->argnames = 0;
-    bp->argtags = 0;
-    bp->dtor = 0;
-    bp->args = -1;
     bp->value = UNDEFINED;
     bp->index = 0;
     bp->prec = 0;
     bp->class = UNKNOWN;
     bp->assoc = TOKEN;
-    bp->trialaction = UNDEFINED;
+    bp->args = -1;
+    bp->argnames = 0;
+    bp->argtags = 0;
 
     if (bp->name == 0) no_space();
     strcpy(bp->name, name);
