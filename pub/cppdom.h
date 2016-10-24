@@ -683,6 +683,10 @@ struct  CppExprAtom
 		, type(kInvalid)
 	{
 	}
+	/**
+	 * It is expected to be called explicitly to destroy an CppExprAtom object.
+	 */
+	void destroy();
 };
 
 /**
@@ -734,15 +738,8 @@ struct CppExpr : public CppObj
 
 	~CppExpr()
 	{
-		if(oper_ == kNone)
-		{
-			delete expr1_.atom;
-		}
-		else
-		{
-			delete expr1_.expr;
-			delete expr2_.expr;
-		}
+		expr1_.destroy();
+		expr2_.destroy();
 	}
 };
 
@@ -800,6 +797,23 @@ inline CppExprList::~CppExprList()
 {
 	for(iterator i = begin(); i != end(); ++i)
 		delete *i;
+}
+
+
+inline void CppExprAtom::destroy()
+{
+	switch (type)
+	{
+	case CppExprAtom::kAtom:
+		delete atom;
+		break;
+	case CppExprAtom::kExpr:
+		delete expr;
+		break;
+	case CppExprAtom::kExprList:
+		delete list;
+		break;
+	}
 }
 
 #endif //__CPPPARSER_CPPDOM_H__

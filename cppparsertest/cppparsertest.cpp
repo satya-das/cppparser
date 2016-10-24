@@ -46,7 +46,7 @@ bool parseAndEmitFormatted(const bfs::path& inputFilePath, const bfs::path& outp
 		return false;
 	std::ofstream stm(outputFilePath.c_str());
 	cppWriter.emit(progUnit, stm);
-//	delete progUnit;
+	delete progUnit;
 
 	return true;
 }
