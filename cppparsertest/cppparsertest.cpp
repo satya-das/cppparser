@@ -31,61 +31,36 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <fstream>
 #include <strstream>
 #include <iostream>
+#include <utility>
 
 namespace bfs = boost::filesystem;
-namespace po = boost::program_options;
+namespace bpo = boost::program_options;
 
 //////////////////////////////////////////////////////////////////////////
 
-/**
- * Makes sure \a path uses preferred slash and it ends with slash
- */
-inline void make_preferred_dir_format(boost::filesystem::path& path)
+template<typename _Itr1, typename _Itr2, typename _Pr>
+inline std::pair<_Itr1, _Itr2> compare_ranges(_Itr1 firstRangeStart, _Itr1 firstRangeEnd, _Itr2 secondRangeStart, _Itr2 secondRangeEnd, _Pr pred)
 {
-   path.make_preferred();
-   if(path.native().back() != path.preferred_separator)
-      path = path.native() + path.preferred_separator;
+	auto i1 = firstRangeStart;
+	auto i2 = secondRangeStart;
+	for (; i1 != firstRangeEnd && i2 != secondRangeEnd; ++i1, ++i2)
+		if (!pred(*i1, *i2))
+			break;
+	return std::make_pair(i1, i2);
 }
 
-bool isSame(const bfs::path& path1, const bfs::path& path2)
+std::pair<int, int> compareContents(/*const*/ std::strstreambuf& buf1, /*const*/ std::strstreambuf& buf2)
 {
-	std::ifstream file1(path1.c_str(), std::ios_base::in);
-	std::ifstream file2(path2.c_str(), std::ios_base::in);
-	if(!file1.is_open())
-	{
-		std::cerr << "CppParserTest: Could not open file " << path1.string() << "\n";
-		return false;
-	}
-	if(!file2.is_open())
-	{
-		std::cerr << "CppParserTest: Could not open file " << path2.string() << "\n";
-		return false;
-	}
-	std::strstreambuf buf1;
-	file1 >> &buf1;
-	std::strstreambuf buf2;
-	file2 >> &buf2;
-
 	int r = 0; // Number of lines read.
 	int c = 0; // Number of chars read in a line.
-	for(size_t i = 0; i < buf1.pcount(); ++i)
-	{
-		if(i >= buf2.pcount())
-		{
-			std::cerr << "CppParserTest: File comparison failed: Prematurely reached end of file while comparing " << path1.string() << " and " << path2.string() << "\n";
-			std::cerr << "CppParserTest: Error is around line#" << r << "column#" << c << " in file " << path1.string() << "\n";
+	auto b1 = buf1.str();
+	auto e1 = b1 + buf1.pcount();
+	auto b2 = buf2.str();
+	auto e2 = b2 + buf2.pcount();
+	auto diffInfo = compare_ranges(b1, e1, b2, e2, [&r, &c](auto c1, auto c2)->bool {
+		if (c1 != c2)
 			return false;
-		}
-		int ch1 = buf1.str()[i];
-		int ch2 = buf2.str()[i];
-		if(ch1 != ch2)
-		{
-			std::cerr << "CppParserTest: File comparison failed while comparing " << path1.string() << " and " << path2.string() << "\n";
-			std::cerr << "CppParserTest: Error is around line#" << r << " and column#" << c << " in file " << path1.string() << "\n";
-			return false;
-		}
-
-		if(ch1 == '\n')
+		if (c1 == '\n')
 		{
 			++r;
 			c = 0;
@@ -94,118 +69,236 @@ bool isSame(const bfs::path& path1, const bfs::path& path2)
 		{
 			++c;
 		}
-	}
+		return true;
+	});
 
-	if(buf1.pcount() != buf2.pcount())
-	{
-		std::cerr << "CppParserTest: File comparison failed while comparing " << path1.string() << " and " << path2.string() << "\n";
-		std::cerr << "CppParserTest: File " << path1.string() << "has extra content.\n";
-		return false;
-	}
-	return true;
+	bool matched = diffInfo.first == e1 && diffInfo.second == e2;
+	return matched ? std::make_pair(-1, -1) : std::make_pair(r+1, c+1);
 }
 
-int main(int argc, char** argv)
+std::pair<int, int> compareFiles(std::ifstream& file1, std::ifstream& file2)
 {
-	// Declare the supported options.
-	po::options_description desc(
-		"Automatic testing of CppParser by doing three steps:\n"
-		"1) Parse each files in input folder.\n"
-		"2) Emit C/C++ source from parsed data into output folder.\n"
-		"3) Compare each files generated in step (2) with corresponding master file.\n"
-		);
-	desc.add_options()
-		("help,h",					"produce help message")
-		("input-folder,i",			po::value<std::string>(), "Input folder from where test files are picked.")
-		("output-folder,o",			po::value<std::string>(), "Output folder for emitting files after parsing.")
-		("master-files-folder,m",	po::value<std::string>(), "Folder where master files are kept that are used to compare with actuals.")
-		;
+	std::strstreambuf buf1;
+	file1 >> &buf1;
+	std::strstreambuf buf2;
+	file2 >> &buf2;
 
-	po::variables_map vm;
-	po::store(po::parse_command_line(argc, argv, desc), vm);
-	po::notify(vm);
+	return compareContents(buf1, buf2);
+}
 
-	if(vm.count("help"))
-	{
-		std::cerr << desc << "\n";
-		return 1;
-	}
-	if(vm.count("input-folder") == 0)
-	{
-		std::cerr << "Error: Input folder not specified.\n\n" << desc << "\n";
-		return 1;
-	}
-	if(vm.count("output-folder") == 0)
-	{
-		std::cerr << "Error: Output folder not specified.\n\n" << desc << "\n";
-		return 1;
-	}
-	if(vm.count("master-files-folder") == 0)
-	{
-		std::cerr << "Error: Master-files folder not specified.\n\n" << desc << "\n";
-		return 1;
-	}
+enum FileCompareResult
+{
+	kSameFiles,
+	kFailedToOpen1stFile,
+	kFailedToOpen2ndFile,
+	kDifferentFiles
+};
 
+FileCompareResult compareFiles(const bfs::path& path1, const bfs::path& path2, std::pair<int, int>& diffStartsAt)
+{
+	std::ifstream file1(path1.c_str(), std::ios_base::in);
+	std::ifstream file2(path2.c_str(), std::ios_base::in);
+	if (!file1.is_open())
+		return kFailedToOpen1stFile;
+	if (!file2.is_open())
+		return kFailedToOpen2ndFile;
+
+	diffStartsAt = compareFiles(file1, file2);
+	if (diffStartsAt != std::make_pair(-1, -1))
+		return kDifferentFiles;
+	return kSameFiles;
+}
+
+void reportFileComparisonError(FileCompareResult result, const bfs::path& path1, const bfs::path& path2, std::pair<int, int>& diffStartsAt)
+{
+	if (result == kFailedToOpen1stFile)
+	{
+		std::cerr << "CppParserTest: Could not open file " << path1.string() << "\n";
+	}
+	else if (result == kFailedToOpen2ndFile)
+	{
+		std::cerr << "CppParserTest: Could not open file " << path2.string() << "\n";
+	}
+	else if (result == kDifferentFiles)
+	{
+		int r, c;
+		std::tie(r, c) = diffStartsAt;
+		std::cerr << "CppParserTest: File comparison failed while comparing " << path1.string() << " and " << path2.string() << "\n";
+		std::cerr << "CppParserTest: Error is around line#" << r << " and column#" << c << " in file " << path1.string() << "\n";
+	}
+}
+
+struct TestParam
+{
 	bfs::path inputPath;
 	bfs::path outputPath;
 	bfs::path masterPath;
 
-	if(vm.count("input-folder"))
-		inputPath = vm["input-folder"].as<std::string>();
-	if(vm.count("output-folder"))
-		outputPath = vm["output-folder"].as<std::string>();
-	if(vm.count("master-files-folder"))
-		masterPath = vm["master-files-folder"].as<std::string>();
+	bool isValid() const {
+		if (!bfs::is_directory(inputPath) ||
+			(bfs::exists(outputPath) && !bfs::is_directory(outputPath)) ||
+			(!bfs::is_directory(masterPath))
+			)
+			return false;
+		return true;
+	}
 
-	if	(!bfs::is_directory(inputPath) ||
-		(bfs::exists(outputPath) && !bfs::is_directory(outputPath)) ||
-		(!bfs::is_directory(masterPath))
-		)
-		return -1;
-	make_preferred_dir_format(inputPath);
-	make_preferred_dir_format(outputPath);
-	make_preferred_dir_format(masterPath);
+	void setup() {
+		inputPath.make_preferred();
+		outputPath.make_preferred();
+		masterPath.make_preferred();
 
-	bfs::create_directories(outputPath);
+		bfs::create_directories(outputPath);
+	}
+};
 
-	int numInputFiles = 0;
-	int numPassed = 0;
-	int numFailed = 0;
+class ArgParser
+{
+	bpo::options_description desc_;
+	bpo::variables_map vm_;
+
+public:
+	enum ParseResult {
+		kSuccess,
+		kHelpSought,
+		kRequiredArgMissing,
+		kWrongParamValue
+	};
+
+public:
+	ArgParser()
+		: desc_(
+			"Automatic testing of CppParser by doing three steps:\n"
+			"1) Parse each files in input folder.\n"
+			"2) Emit C/C++ source from parsed data into output folder.\n"
+			"3) Compare each files generated in step (2) with corresponding master file.\n"
+			)
+	{
+		desc_.add_options()
+			("help,h", "produce help message")
+			("input-folder,i", bpo::value<std::string>(), "Input folder from where test files are picked.")
+			("output-folder,o", bpo::value<std::string>(), "Output folder for emitting files after parsing.")
+			("master-files-folder,m", bpo::value<std::string>(), "Folder where master files are kept that are used to compare with actuals.")
+			;
+	}
+
+	ParseResult parse(int argc, char** argv)
+	{
+		bpo::store(bpo::parse_command_line(argc, argv, desc_), vm_);
+		bpo::notify(vm_);
+		if (vm_.count("help"))
+			return kHelpSought;
+		else if (vm_.count("input-folder") == 0)
+			return kRequiredArgMissing;
+		else if (vm_.count("output-folder") == 0)
+			return kRequiredArgMissing;
+		else if (vm_.count("master-files-folder") == 0)
+			return kRequiredArgMissing;
+
+		return kSuccess;
+	}
+
+	TestParam extractParams() const
+	{
+		TestParam param;
+		if (vm_.count("input-folder"))
+			param.inputPath = vm_["input-folder"].as<std::string>();
+		if (vm_.count("output-folder"))
+			param.outputPath = vm_["output-folder"].as<std::string>();
+		if (vm_.count("master-files-folder"))
+			param.masterPath = vm_["master-files-folder"].as<std::string>();
+		param.setup();
+		return param;
+	}
+
+	void emitError() const
+	{
+		if (vm_.count("help"))
+		{
+			std::cerr << desc_ << "\n";
+			exit(-1);
+		}
+		if (vm_.count("input-folder") == 0)
+		{
+			std::cerr << "Error: Input folder not specified.\n\n" << desc_ << "\n";
+			exit(-2);
+		}
+		if (vm_.count("output-folder") == 0)
+		{
+			std::cerr << "Error: Output folder not specified.\n\n" << desc_ << "\n";
+			exit(-3);
+		}
+		if (vm_.count("master-files-folder") == 0)
+		{
+			std::cerr << "Error: Master-files folder not specified.\n\n" << desc_ << "\n";
+			exit(-4);
+		}
+	}
+};
+
+bool parseAndEmitFormatted(const bfs::path& inputFilePath, const bfs::path& outputFilePath, const CppWriter& cppWriter)
+{
+	CppCompound* progUnit = parseSingleFile(inputFilePath.string().c_str());
+	if (progUnit == NULL)
+		return false;
+	std::ofstream stm(outputFilePath.c_str());
+	cppWriter.emit(progUnit, stm);
+//	delete progUnit;
+
+	return true;
+}
+
+std::pair<size_t, size_t> performTest(const TestParam& params)
+{
+	size_t numInputFiles = 0;
+	size_t numFailed = 0;
 
 	CppWriter cppWriter;
-	for(bfs::directory_iterator dirItr(inputPath); dirItr != bfs::directory_iterator(); ++dirItr)
+	for (bfs::directory_iterator dirItr(params.inputPath); dirItr != bfs::directory_iterator(); ++dirItr)
 	{
 		bfs::path file = *dirItr;
-		if(bfs::is_regular_file(file))
+		if (bfs::is_regular_file(file))
 		{
 			++numInputFiles;
 			std::cout << "CppParserTest: Parsing " << file.string() << "...\n";
-			CppCompound* progUnit = parseSingleFile(file.string().c_str());
-			if(progUnit == NULL)
+			bfs::path outfile = params.outputPath / file.filename();
+			bfs::remove(outfile);
+			if (parseAndEmitFormatted(file, outfile, cppWriter) && bfs::exists(outfile))
 			{
-				++numFailed;
-				std::cerr << "Parsing failed for " << file.string() << "\n";
-				continue;
+				bfs::path masfile = params.masterPath / file.filename();
+				std::pair<int, int> diffStartInfo;
+				auto rez = compareFiles(outfile, masfile, diffStartInfo);
+				if (rez == kSameFiles)
+					continue;
+				reportFileComparisonError(rez, outfile, masfile, diffStartInfo);
 			}
-
-			bfs::path outfile = outputPath / file.filename();
-			bfs::path masfile = masterPath / file.filename();
-			std::ofstream stm(outfile.c_str());
-			cppWriter.emit(progUnit, stm);
-			stm.flush();
-			stm.close();
-			if(isSame(outfile, masfile))
-				++numPassed;
 			else
-				++numFailed;
+			{
+				std::cerr << "Parsing failed for " << file.string() << "\n";
+			}
+			++numFailed;
 		}
 	}
 
-	if(numFailed)
+	return std::make_pair(numInputFiles, numFailed);
+}
+
+int main(int argc, char** argv)
+{
+	ArgParser argParser;
+	if (argParser.parse(argc, argv) != ArgParser::kSuccess)
 	{
-		std::cerr << "CppParserTest: " << numFailed << " tests failed out of " << numInputFiles << ".\n";
+		argParser.emitError();
+		return -1;
+	}
+
+	auto params = argParser.extractParams();
+	auto result = performTest(params);
+	if (result.second)
+	{
+		std::cerr << "CppParserTest: " << result.second << " tests failed out of " << result.first << ".\n";
 		return 1;
 	}
-	std::cout << "CppParserTest: All " << numInputFiles << " tests passed without error.\n";
+	std::cout << "CppParserTest: All " << result.first << " tests passed without error.\n";
 	return 0; // All went well.
 }
