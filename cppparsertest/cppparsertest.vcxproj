@@ -92,6 +92,10 @@
   <ItemGroup>
     <ClCompile Include="cppparsertest.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="compare.h" />
+    <ClInclude Include="options.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
