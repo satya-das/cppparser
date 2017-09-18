@@ -44,7 +44,7 @@ inline std::pair<_Itr1, _Itr2> compare_ranges(_Itr1 firstRangeStart, _Itr1 first
 	return std::make_pair(i1, i2);
 }
 
-std::pair<int, int> compareContents(/*const*/ std::strstreambuf& buf1, /*const*/ std::strstreambuf& buf2)
+inline std::pair<int, int> compareContents(/*const*/ std::strstreambuf& buf1, /*const*/ std::strstreambuf& buf2)
 {
 	int r = 0; // Number of lines read.
 	int c = 0; // Number of chars read in a line.
@@ -71,7 +71,7 @@ std::pair<int, int> compareContents(/*const*/ std::strstreambuf& buf1, /*const*/
 	return matched ? std::make_pair(-1, -1) : std::make_pair(r + 1, c + 1);
 }
 
-std::pair<int, int> compareFiles(std::ifstream& file1, std::ifstream& file2)
+inline std::pair<int, int> compareFiles(std::ifstream& file1, std::ifstream& file2)
 {
 	std::strstreambuf buf1;
 	file1 >> &buf1;
@@ -89,7 +89,7 @@ enum FileCompareResult
 	kDifferentFiles
 };
 
-FileCompareResult compareFiles(const bfs::path& path1, const bfs::path& path2, std::pair<int, int>& diffStartsAt)
+inline FileCompareResult compareFiles(const bfs::path& path1, const bfs::path& path2, std::pair<int, int>& diffStartsAt)
 {
 	std::ifstream file1(path1.c_str(), std::ios_base::in);
 	std::ifstream file2(path2.c_str(), std::ios_base::in);
@@ -104,7 +104,7 @@ FileCompareResult compareFiles(const bfs::path& path1, const bfs::path& path2, s
 	return kSameFiles;
 }
 
-void reportFileComparisonError(FileCompareResult result, const bfs::path& path1, const bfs::path& path2, std::pair<int, int>& diffStartsAt)
+inline void reportFileComparisonError(FileCompareResult result, const bfs::path& path1, const bfs::path& path2, std::pair<int, int>& diffStartsAt)
 {
 	if (result == kFailedToOpen1stFile)
 	{

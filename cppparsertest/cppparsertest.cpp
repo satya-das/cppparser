@@ -39,7 +39,7 @@ namespace bpo = boost::program_options;
 
 //////////////////////////////////////////////////////////////////////////
 
-bool parseAndEmitFormatted(const bfs::path& inputFilePath, const bfs::path& outputFilePath, const CppWriter& cppWriter)
+static bool parseAndEmitFormatted(const bfs::path& inputFilePath, const bfs::path& outputFilePath, const CppWriter& cppWriter)
 {
 	CppCompound* progUnit = parseSingleFile(inputFilePath.string().c_str());
 	if (progUnit == NULL)
@@ -51,7 +51,7 @@ bool parseAndEmitFormatted(const bfs::path& inputFilePath, const bfs::path& outp
 	return true;
 }
 
-std::pair<size_t, size_t> performTest(const TestParam& params)
+static std::pair<size_t, size_t> performTest(const TestParam& params)
 {
 	size_t numInputFiles = 0;
 	size_t numFailed = 0;
