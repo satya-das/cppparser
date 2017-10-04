@@ -35,7 +35,7 @@ struct CppToken {
 
 	bool operator == (const CppToken& rhs) const {
 		if(len != rhs.len) return false;
-		return strncmp(sz, rhs.sz, len) == 0;
+		return (sz == rhs.sz) || (strncmp(sz, rhs.sz, len) == 0);
 	}
 
 	bool operator != (const CppToken& rhs) const {

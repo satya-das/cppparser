@@ -218,12 +218,7 @@ struct CppVarType : public CppObj
 	CppExpr*		arraySize_; // Should be NULL for non-array vars
 
 	CppVarType(CppObjProtLevel prot, std::string baseType, unsigned int typeAttr, unsigned short ptrLevel, CppRefType refType)
-		: CppObj(CppObj::kVarType, prot)
-		, baseType_(std::move(baseType))
-		, typeAttr_(typeAttr)
-		, ptrLevel_(ptrLevel)
-		, refType_(refType)
-		, arraySize_(NULL)
+      : CppVarType(CppObj::kVarType, prot, baseType, typeAttr, ptrLevel, refType)
 	{
 	}
 

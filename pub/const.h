@@ -48,7 +48,7 @@ enum CppOperType {
 	kUnariOperatorStart = 1,
 	kUnaryMinus,	// -
 	kBitToggle,		// ~
-	kLogNot,		// !
+	kLogNot,		// ! (Logical not)
 	kDerefer,		// *
 	kRefer,			// & as in &x;
 
@@ -84,6 +84,7 @@ enum CppIdentifierAttrib {
 	kFriend				= 0x200,
 	kTypedef			= 0x400, // Function pointer is used in typedef.
 	kArray				= 0x800, // Identifier is an array.
+	kConstExpr			= 0x1000,
 };
 
 /**

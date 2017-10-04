@@ -297,7 +297,7 @@ extern Yshort nunused;
 extern Yshort final_state;
 
 /* system variable */
-extern int errno;
+//extern int errno;
 
 /* global functions */
 

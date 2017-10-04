@@ -39,7 +39,7 @@ struct CppTypeTreeNode;
  * All C++ types of a program can be arranged in a form of tree.
  * The root of the tree is the global namespace which contains other compound objects like namespace, class, struct, etc.
  * And each of those compound object can form another branch of tree.
- * \note This tree has nothing to do with inheritance hierarchy.
+ * \note This tree has no relation with inheritance hierarchy.
  */
 typedef std::map<std::string, CppTypeTreeNode> CppTypeTree;
 
