@@ -2,23 +2,7 @@ project(cppparser)
 
 cmake_minimum_required(VERSION 3.4)
 
-if (CMAKE_BUILD_TYPE MATCHES Release)
-	set(TARGET_SUBDIR Release)
-else()
-	set(TARGET_SUBDIR Debug)
-endif()
-
-if(MSVC)
-	SET(CMAKE_CXX_FLAGS "/EHsc")
-endif(MSVC)
-
-set(ROOT_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
-set(BASEOUTDIR ${ROOT_DIR}/build_results/${TARGET_SUBDIR})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BASEOUTDIR}/bin)
-set(CMAKE_OBJFILE_OUTPUT_DIRECTORY ${BASEOUTDIR}/obj)
-set(CMAKE_CURRENT_BINARY_DIR, ${CMAKE_OBJFILE_OUTPUT_DIRECTORY})
+include("../common/cmake/conf.cmake")
 
 add_subdirectory(third_party/btyacc_tp)
 
