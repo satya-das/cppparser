@@ -41,67 +41,67 @@ namespace bpo = boost::program_options;
 
 static bool parseAndEmitFormatted(const bfs::path& inputFilePath, const bfs::path& outputFilePath, const CppWriter& cppWriter)
 {
-	CppCompound* progUnit = parseSingleFile(inputFilePath.string().c_str());
-	if (progUnit == NULL)
-		return false;
-	std::ofstream stm(outputFilePath.c_str());
-	cppWriter.emit(progUnit, stm);
-	delete progUnit;
+  CppCompound* progUnit = parseSingleFile(inputFilePath.string().c_str());
+  if (progUnit == NULL)
+    return false;
+  std::ofstream stm(outputFilePath.c_str());
+  cppWriter.emit(progUnit, stm);
+  delete progUnit;
 
-	return true;
+  return true;
 }
 
 static std::pair<size_t, size_t> performTest(const TestParam& params)
 {
-	size_t numInputFiles = 0;
-	size_t numFailed = 0;
+  size_t numInputFiles = 0;
+  size_t numFailed = 0;
 
-	CppWriter cppWriter;
-	for (bfs::directory_iterator dirItr(params.inputPath); dirItr != bfs::directory_iterator(); ++dirItr)
-	{
-		bfs::path file = *dirItr;
-		if (bfs::is_regular_file(file))
-		{
-			++numInputFiles;
-			std::cout << "CppParserTest: Parsing " << file.string() << "...\n";
-			bfs::path outfile = params.outputPath / file.filename();
-			bfs::remove(outfile);
-			if (parseAndEmitFormatted(file, outfile, cppWriter) && bfs::exists(outfile))
-			{
-				bfs::path masfile = params.masterPath / file.filename();
-				std::pair<int, int> diffStartInfo;
-				auto rez = compareFiles(outfile, masfile, diffStartInfo);
-				if (rez == kSameFiles)
-					continue;
-				reportFileComparisonError(rez, outfile, masfile, diffStartInfo);
-			}
-			else
-			{
-				std::cerr << "Parsing failed for " << file.string() << "\n";
-			}
-			++numFailed;
-		}
-	}
+  CppWriter cppWriter;
+  for (bfs::directory_iterator dirItr(params.inputPath); dirItr != bfs::directory_iterator(); ++dirItr)
+  {
+    bfs::path file = *dirItr;
+    if (bfs::is_regular_file(file))
+    {
+      ++numInputFiles;
+      std::cout << "CppParserTest: Parsing " << file.string() << "...\n";
+      bfs::path outfile = params.outputPath / file.filename();
+      bfs::remove(outfile);
+      if (parseAndEmitFormatted(file, outfile, cppWriter) && bfs::exists(outfile))
+      {
+        bfs::path masfile = params.masterPath / file.filename();
+        std::pair<int, int> diffStartInfo;
+        auto rez = compareFiles(outfile, masfile, diffStartInfo);
+        if (rez == kSameFiles)
+          continue;
+        reportFileComparisonError(rez, outfile, masfile, diffStartInfo);
+      }
+      else
+      {
+        std::cerr << "Parsing failed for " << file.string() << "\n";
+      }
+      ++numFailed;
+    }
+  }
 
-	return std::make_pair(numInputFiles, numFailed);
+  return std::make_pair(numInputFiles, numFailed);
 }
 
 int main(int argc, char** argv)
 {
-	ArgParser argParser;
-	if (argParser.parse(argc, argv) != ArgParser::kSuccess)
-	{
-		argParser.emitError();
-		return -1;
-	}
+  ArgParser argParser;
+  if (argParser.parse(argc, argv) != ArgParser::kSuccess)
+  {
+    argParser.emitError();
+    return -1;
+  }
 
-	auto params = argParser.extractParams();
-	auto result = performTest(params);
-	if (result.second)
-	{
-		std::cerr << "CppParserTest: " << result.second << " tests failed out of " << result.first << ".\n";
-		return 1;
-	}
-	std::cout << "CppParserTest: All " << result.first << " tests passed without error.\n";
-	return 0; // All went well.
+  auto params = argParser.extractParams();
+  auto result = performTest(params);
+  if (result.second)
+  {
+    std::cerr << "CppParserTest: " << result.second << " tests failed out of " << result.first << ".\n";
+    return 1;
+  }
+  std::cout << "CppParserTest: All " << result.first << " tests passed without error.\n";
+  return 0; // All went well.
 }

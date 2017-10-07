@@ -29,12 +29,12 @@ extern CppCompound* parseFile(FILE* fp);
 
 CppCompound* parseSingleFile(const char* filename)
 {
-	FILE* fp = fopen(filename, "r");
-	if(fp == NULL)
-		return NULL;
-	CppCompound* cppCompound = parseFile(fp);
-	if(cppCompound == NULL)
-		return cppCompound;
-	cppCompound->name_ = filename;
-	return cppCompound;
+  FILE* fp = fopen(filename, "r");
+  if (fp == NULL)
+    return NULL;
+  CppCompound* cppCompound = parseFile(fp);
+  if (cppCompound == NULL)
+    return cppCompound;
+  cppCompound->name_ = filename;
+  return cppCompound;
 }

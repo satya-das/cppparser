@@ -29,29 +29,36 @@
 //////////////////////////////////////////////////////////////////////////
 
 // For holding tokens
-struct CppToken {
-	const char* sz;
-	size_t len;
+struct CppToken
+{
+  const char* sz;
+  size_t len;
 
-	bool operator == (const CppToken& rhs) const {
-		if(len != rhs.len) return false;
-		return (sz == rhs.sz) || (strncmp(sz, rhs.sz, len) == 0);
-	}
+  bool operator == (const CppToken& rhs) const
+  {
+    if (len != rhs.len) return false;
+    return (sz == rhs.sz) || (strncmp(sz, rhs.sz, len) == 0);
+  }
 
-	bool operator != (const CppToken& rhs) const {
-		if(len != rhs.len) return true;
-		return strncmp(sz, rhs.sz, len) != 0;
-	}
+  bool operator != (const CppToken& rhs) const
+  {
+    if (len != rhs.len) return true;
+    return strncmp(sz, rhs.sz, len) != 0;
+  }
 
-	operator std::string() const { return sz ? std::string(sz, len) : std::string(); }
+  operator std::string() const
+  {
+    return sz ? std::string(sz, len) : std::string();
+  }
 };
 
 /**
  * Since CppToken cannot have ctor (because it is intended to be used inside union).
  */
-inline CppToken makeCppToken(const char* sz, size_t len) {
-	CppToken tkn = {sz, len};
-	return tkn;
+inline CppToken makeCppToken(const char* sz, size_t len)
+{
+  CppToken tkn = {sz, len};
+  return tkn;
 }
 
 #endif //__CPPTOKEN_H__
