@@ -457,6 +457,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknVirtual;
 }
 
+<ctxGeneral>override/{TS}+ {
+	set_token_and_yyposn();
+	return tknOverride;
+}
+
 <ctxGeneral>extern/{TS}+ {
 	set_token_and_yyposn();
 	return tknExtern;

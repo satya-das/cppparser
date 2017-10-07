@@ -125,7 +125,7 @@ extern int yylex();
 %token	<str>					tknPragma
 %token	<str>					'<' '>' // We will need the position of these operators in stream when used for declaring template instance.
 
-%token	tknConst tknStatic tknExtern tknVirtual tknInline tknExplicit tknFriend
+%token	tknConst tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend
 
 %token	tknPreProHash /* When # is encountered for pre processor definition */
 %token	tknDefine tknUndef
@@ -175,6 +175,7 @@ extern int yylex();
 %right '=' CMPEQUAL
 %left '+' '-'
 %left '*' '/' '%'
+%right LSHIFT RSHIFT
 %left '&' '|'
 %left '.' ARROW
 
@@ -238,7 +239,7 @@ stmtlist			: { $$ = 0; }
 						$2->owner_ = $$;
 						$$->addMember($2);
 					}
-					| stmtlist changeprotlevel { gCurProtLevel = $2; } // Change of protection level is not a statement but this way it is easier to implement.
+					| stmtlist changeprotlevel { $$ = $1; gCurProtLevel = $2; } // Change of protection level is not a statement but this way it is easier to implement.
 					;
 
 stmt				: vardeclstmt			{ $$ = $1; }
@@ -520,6 +521,7 @@ functype			: varattrib				{ $$ = $1;			}
 
 funcattrib			:						{ $$ = 0; }
 					| funcattrib tknConst				{ $$ = $1 | kConst; }
+					| funcattrib tknOverride			{ $$ = $1 | kOverride; }
 					| funcattrib '=' tknNumber			[if($3.len != 1 || $3.sz[0] != '0') YYABORT; else YYVALID;] { $$ = $1 | kPureVirtual; }
 					;
 
@@ -749,6 +751,8 @@ expr				: tknStrLit							{ $$ = new CppExpr((std::string) $1, kNone);	}
 					| expr '=' expr						{ $$ = new CppExpr($1, kEqual, $3); }
 					| expr '[' expr ']' %prec POSTFIX	{ $$ = new CppExpr($1, kArrayElem, $3);			}
 					| expr '=' '=' expr %prec CMPEQUAL	{ $$ = new CppExpr($1, kCmpEqual, $4);			}
+               | expr '<' '<' expr %prec LSHIFT    { $$ = new CppExpr($1, kLeftShift, $4);			}
+               | expr '>' '>' expr %prec RSHIFT    { $$ = new CppExpr($1, kRightShift, $4);			}
 					| expr '-' '>' expr %prec ARROW 	{ $$ = new CppExpr($1, kArrow, $4);				}
 					| expr '.' expr						{ $$ = new CppExpr($1, kDot, $3);				}
 					| expr '(' ')' 						{ $$ = new CppExpr($1, kFunctionCall);			}

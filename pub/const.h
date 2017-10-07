@@ -61,7 +61,9 @@ enum CppOperType {
 	kDiv,			// /
 	kEqual,			// =
 	kCmpEqual,		// ==
-	kBitAnd,		// &
+   kLeftShift, // <<
+   kRightShift, // >>
+   kBitAnd,		// &
 	kBitOr,			// |
 
 	kSpecialOperations = 100,
@@ -80,6 +82,7 @@ enum CppIdentifierAttrib {
 	kInline             = 0x010,
 	kVirtual            = 0x020,
 	kPureVirtual        = 0x040 | kVirtual,
+   kOverride           = 0x080 | kVirtual,
 	kExplicit           = 0x100,
 	kFriend				= 0x200,
 	kTypedef			= 0x400, // Function pointer is used in typedef.

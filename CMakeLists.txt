@@ -18,6 +18,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BASEOUTDIR}/bin)
 set(CMAKE_OBJFILE_OUTPUT_DIRECTORY ${BASEOUTDIR}/obj)
+set(CMAKE_CURRENT_BINARY_DIR, ${CMAKE_OBJFILE_OUTPUT_DIRECTORY})
 
 add_subdirectory(third_party/btyacc_tp)
 
@@ -29,21 +30,40 @@ add_subdirectory(${ROOT_DIR}/common/third_party/boost_tp/cmake  ${CMAKE_OBJFILE_
 ## CppParser
 
 add_custom_command(
-	OUTPUT parser.lex.cpp
-	COMMAND flex -o parser.lex.cpp parser.l
+	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/parser.lex.cpp
+	COMMAND flex -o${CMAKE_CURRENT_SOURCE_DIR}/parser.lex.cpp ${CMAKE_CURRENT_SOURCE_DIR}/parser.l
+	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/parser.l
 )
 add_custom_command(
-	OUTPUT y_tab.c y_tab.h
-	COMMAND {CMAKE_RUNTIME_OUTPUT_DIRECTORY}/btyacc -d parser.y
+	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.cpp ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.h
+	COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/btyacc -d ${CMAKE_CURRENT_SOURCE_DIR}/parser.y
+	COMMAND ${CMAKE_COMMAND} -E copy y_tab.c ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.cpp
+	COMMAND ${CMAKE_COMMAND} -E copy y_tab.h ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.h
+	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/parser.y
 )
-configure_file(y_tab.c parser.tab.cpp COPYONLY)
-configure_file(y_tab.h parser.tab.h COPYONLY)
 
-file(GLOB CPPPARSER_SOURCES
-	*.cpp
+set_source_files_properties(parser.tab.cpp GENERATED)
+set_source_files_properties(parser.lex.cpp GENERATED)
+set_source_files_properties(parser.tab.h GENERATED)
+
+set(CPPPARSER_SOURCES
+	cppparser.cpp
+	cppprog.cpp
+	cppwriter.cpp
+	parser.l
+	parser.y
+	parser.lex.cpp
+	parser.tab.cpp
 )
+
 add_library(cppparser STATIC ${CPPPARSER_SOURCES})
 add_dependencies(cppparser btyacc boost_filesystem boost_program_options)
+target_link_libraries(cppparser
+	PUBLIC
+		boost_filesystem
+		boost_program_options
+		boost_system
+)
 target_include_directories(
 	cppparser
 	PUBLIC
