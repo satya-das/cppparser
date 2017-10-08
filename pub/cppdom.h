@@ -35,6 +35,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "const.h"
 
+#include <boost/optional.hpp>
+
 #include <string>
 #include <vector>
 #include <list>
@@ -89,8 +91,8 @@ struct CppObj
 
   virtual ~CppObj() = 0 {}
 
-                      /// @return true if object is a function-like type.
-                      bool isFunctionLike() const
+  /// @return true if object is a function-like type.
+  bool isFunctionLike() const
   {
     return objType_ == kFunction || objType_ == kConstructor || objType_ == kDestructor;
   }
@@ -407,8 +409,12 @@ inline CppObjProtLevel defaultMemberProtLevel(CppCompoundType type)
  * All classes, structs, unions, and namespaces can be classified as a Compound object.
  * An entire C/C++ source file too is a compound object. A block of statements inside { } is also a compound object.
  */
-struct CppCompound : public CppObj
+class CppCompound : public CppObj
 {
+private:
+  mutable boost::optional<bool> hasVirtual_;
+  mutable boost::optional<bool> isAbstract_;
+
 public:
   std::string			name_;
   CppObjArray			members_;	// Objects arranged in sequential order from top to bottom.
@@ -491,6 +497,8 @@ public:
       inheritList_ = new CppInheritanceList;
     inheritList_->push_back(CppInheritInfo(baseName, inheritType));
   }
+  bool hasVirtualMethod() const;
+  bool isAbstract() const;
 };
 
 struct CppFunctionPtr;
@@ -565,6 +573,19 @@ struct CppFunction : public CppObj
   bool hasParams() const
   {
     return params_ && params_->size() > 0;
+  }
+
+  bool isConst() const
+  {
+    return (attr_ & kConst) == kConst;
+  }
+  bool isVirtual() const
+  {
+    return (attr_ & kVirtual) == kVirtual;
+  }
+  bool isPureVirtual() const
+  {
+    return (attr_ & kPureVirtual) == kPureVirtual;
   }
 
 protected:

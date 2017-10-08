@@ -32,6 +32,7 @@ set_source_files_properties(parser.tab.h GENERATED)
 
 set(CPPPARSER_SOURCES
 	cppparser.cpp
+	cppdom.cpp
 	cppprog.cpp
 	cppwriter.cpp
 	parser.l

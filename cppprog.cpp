@@ -59,7 +59,6 @@ void CppProgram::loadCppDom(const char* szInputPath)
   }
   else if (bfs::is_directory(inputPath))
   {
-
     for (bfs::directory_iterator dirItr(inputPath); dirItr != bfs::directory_iterator(); ++dirItr)
     {
       bfs::path p = *dirItr;

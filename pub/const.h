@@ -79,19 +79,19 @@ enum CppOperType
  */
 enum CppIdentifierAttrib
 {
-  kFuncParam			= 0x001, // If the identifier is actually function parameter.
-  kConst              = 0x002,
-  kStatic             = 0x004,
-  kExtern             = 0x008,
-  kInline             = 0x010,
-  kVirtual            = 0x020,
-  kPureVirtual        = 0x040 | kVirtual,
-  kOverride           = 0x080 | kVirtual,
-  kExplicit           = 0x100,
-  kFriend				= 0x200,
-  kTypedef			= 0x400, // Function pointer is used in typedef.
-  kArray				= 0x800, // Identifier is an array.
-  kConstExpr			= 0x1000,
+  kFuncParam		= 0x0001, // If the identifier is actually function parameter.
+  kConst        = 0x0002,
+  kStatic       = 0x0004,
+  kExtern       = 0x0008,
+  kInline       = 0x0010,
+  kVirtual      = 0x0020,
+  kPureVirtual  = 0x0040 | kVirtual,
+  kOverride     = 0x0080 | kVirtual,
+  kExplicit     = 0x0100,
+  kFriend				= 0x0200,
+  kTypedef			= 0x0400, // Function pointer is used in typedef.
+  kArray				= 0x0800, // Identifier is an array.
+  kConstExpr		= 0x1000,
 };
 
 /**
