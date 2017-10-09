@@ -84,7 +84,7 @@ struct CppObj
 
   CppObj(Type type, CppObjProtLevel prot)
     : objType_	(type)
-    , owner_	(NULL)
+    , owner_	(nullptr)
     , prot_		(prot)
   {
   }
@@ -175,16 +175,10 @@ struct CppHashIf : public CppObj
   CondType	condType_;
   std::string	cond_;
 
-  CppHashIf(CondType condType, std::string cond)
+  CppHashIf(CondType condType, std::string cond = std::string())
     : CppObj	(kHashIf, kUnknownProt)
     , condType_	(condType)
     , cond_		(std::move(cond))
-  {
-  }
-
-  CppHashIf(CondType condType)
-    : CppObj	(kHashIf, kUnknownProt)
-    , condType_	(condType)
   {
   }
 };
@@ -223,7 +217,7 @@ struct CppVarType : public CppObj
   unsigned int	typeAttr_; // Attribute associated with type, e.g. const int* x.
   unsigned short  ptrLevel_; // Pointer level. e.g. int** ppi has pointer level of 2.
   CppRefType		refType_;
-  CppExpr*		arraySize_; // Should be NULL for non-array vars
+  CppExpr*		arraySize_; // Should be nullptr for non-array vars
 
   CppVarType(CppObjProtLevel prot, std::string baseType, unsigned int typeAttr, unsigned short ptrLevel, CppRefType refType)
     : CppVarType(CppObj::kVarType, prot, baseType, typeAttr, ptrLevel, refType)
@@ -249,7 +243,7 @@ protected:
     , typeAttr_(typeAttr)
     , ptrLevel_(ptrLevel)
     , refType_(refType)
-    , arraySize_(NULL)
+    , arraySize_(nullptr)
   {
   }
 };
@@ -271,7 +265,7 @@ struct CppVar : public CppVarType
     : CppVarType(CppObj::kVar, prot, std::move(baseType), typeAttr, ptrLevel, refType)
     , varAttr_	(varAttr)
     , name_		(std::move(name))
-    , assign_	(NULL)
+    , assign_	(nullptr)
   {
   }
 };
@@ -323,22 +317,15 @@ struct CppEnumItem
   };
   std::string name_;
 
-  CppEnumItem(std::string name)
+  CppEnumItem(std::string name, CppExpr* val=nullptr)
     : name_(std::move(name))
+    , val_(val)
   {
-    val_ = NULL;
-    anyItem_ = NULL;
-  }
-
-  CppEnumItem(std::string name, CppExpr* val)
-    : name_(std::move(name))
-  {
-    val_ = val;
   }
 
   CppEnumItem(CppObj* anyItem)
+    : anyItem_(anyItem)
   {
-    anyItem_ = anyItem;
   }
 };
 
@@ -351,7 +338,7 @@ struct CppEnum : public CppObj
   CppEnum(std::string name, CppObjProtLevel prot)
     : CppObj(kEnum, prot)
     , name_(std::move(name))
-    , itemList_(NULL)
+    , itemList_(nullptr)
   {
   }
 };
@@ -386,30 +373,10 @@ struct CppInheritInfo
 typedef std::list<CppInheritInfo> CppInheritanceList;
 
 /**
- * Can be used to find default inheritance type of a compound object.
- * @param type Type of compound object.
- * @return Default inheritance type of class/struct/union if not explicitly specified.
- */
-inline CppObjProtLevel defaultInheritanceType(CppCompoundType type)
-{
-  return type == kClass ? kPrivate : kPublic;
-}
-
-/**
- * Can be used to find default protection level of a compound object.
- * @param type Type of compound object.
- * @return Default protection level of member of a class/struct/union if not explicitly specified.
- */
-inline CppObjProtLevel defaultMemberProtLevel(CppCompoundType type)
-{
-  return type == kClass ? kPrivate : kPublic;
-}
-
-/**
  * All classes, structs, unions, and namespaces can be classified as a Compound object.
  * An entire C/C++ source file too is a compound object. A block of statements inside { } is also a compound object.
  */
-class CppCompound : public CppObj
+struct CppCompound : public CppObj
 {
 private:
   mutable boost::optional<bool> hasVirtual_;
@@ -422,18 +389,21 @@ public:
   CppInheritanceList*	inheritList_;
   std::string			apidocer_;
 
+  CppCompound(std::string name, CppObjProtLevel prot, CppCompoundType type)
+    : CppObj(CppObj::kCompound, prot)
+    , compoundType_(type)
+    , name_(std::move(name))
+    , inheritList_(nullptr)
+  {
+  }
+
   CppCompound(CppObjProtLevel prot, CppCompoundType type = kUnknownCompound)
-    : CppObj		(CppObj::kCompound, prot)
-    , compoundType_	(type)
-    , inheritList_	(NULL)
+    : CppCompound(std::string(), prot, type)
   {
   }
 
   CppCompound(std::string name, CppCompoundType type)
-    : CppObj		(CppObj::kCompound, kUnknownProt)
-    , compoundType_	(type)
-    , name_			(std::move(name))
-    , inheritList_	(NULL)
+    : CppCompound(name, kUnknownProt, type)
   {
   }
 
@@ -493,7 +463,7 @@ public:
   }
   void addBaseClass(std::string baseName, CppObjProtLevel inheritType)
   {
-    if (inheritList_ == NULL)
+    if (inheritList_ == nullptr)
       inheritList_ = new CppInheritanceList;
     inheritList_->push_back(CppInheritInfo(baseName, inheritType));
   }
@@ -544,7 +514,7 @@ struct CppFunction : public CppObj
   CppVarType*		retType_;
   CppParamList*	params_;
   unsigned int	attr_; // e.g.: const, static, virtual, inline, constexpr, etc.
-  CppCompound*	defn_; // If it is NULL then this object is just for declaration.
+  CppCompound*	defn_; // If it is nullptr then this object is just for declaration.
   std::string		docer1_; // e.g. __declspec(dllexport)
   std::string		docer2_; // e.g. __stdcall
 
@@ -595,7 +565,7 @@ protected:
     , retType_(retType)
     , params_(params)
     , attr_(attr)
-    , defn_(0)
+    , defn_(nullptr)
   {
   }
 };
@@ -628,15 +598,15 @@ struct CppConstructor : public CppObj
   std::string		name_;
   CppParamList*	args_;
   CppMemInitList* memInitList_;
-  CppCompound*	defn_; // If it is NULL then this object is just for declaration.
+  CppCompound*	defn_; // If it is nullptr then this object is just for declaration.
   unsigned int	attr_; // e.g. inline, explicit, etc.
 
   CppConstructor(CppObjProtLevel prot, std::string name)
     : CppObj(CppObj::kConstructor, prot)
     , name_	(std::move(name))
-    , args_(0)
-    , memInitList_(NULL)
-    , defn_(0)
+    , args_(nullptr)
+    , memInitList_(nullptr)
+    , defn_(nullptr)
     , attr_(0)
   {
   }
@@ -652,13 +622,13 @@ struct CppConstructor : public CppObj
 struct CppDestructor : public CppObj
 {
   std::string		name_;
-  CppCompound*	defn_; // If it is NULL then this object is just for declaration.
+  CppCompound*	defn_; // If it is nullptr then this object is just for declaration.
   unsigned int	attr_; // e.g. inline, virtual, etc.
 
   CppDestructor(CppObjProtLevel prot, std::string name)
     : CppObj(CppObj::kDestructor, prot)
     , name_	(std::move(name))
-    , defn_(0)
+    , defn_(nullptr)
     , attr_(0)
   {
   }
@@ -751,7 +721,7 @@ struct  CppExprAtom
   {
   }
   CppExprAtom()
-    : atom(0)
+    : atom(nullptr)
     , type(kInvalid)
   {
   }
