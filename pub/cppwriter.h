@@ -25,6 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define __CPPPARSER_CPPWRITER_H__
 
 #include "cppdom.h"
+#include "cppindent.h"
 
 #include <string>
 
@@ -51,93 +52,23 @@ public:
   EmittingType	getEmittingType() const;
 
 public:
-  /**
-   * \brief Helper class to manage indentation.
-   */
-  class Indentation
-  {
-  public:
-    enum IndentType { kTab, kSingleSpace, kDoubleSpace, kTripleSpace, kQuadSpace };
-
-  private:
-    unsigned short	indentLevel_;
-    unsigned short	initialLevel_;
-    IndentType		type_;
-
-  public:
-    Indentation(unsigned short initialLevel = 0, IndentType type = kTab)
-      : indentLevel_(0)
-      , initialLevel_(initialLevel)
-      , type_(type)
-    {}
-    Indentation& operator++()
-    {
-      ++indentLevel_;
-      return *this;
-    }
-    Indentation& operator--()
-    {
-      if (indentLevel_) --indentLevel_;
-      return *this;
-    }
-    Indentation operator++(int)
-    {
-      Indentation ret = *this;
-      ++indentLevel_;
-      return ret;
-    }
-    Indentation operator--(int)
-    {
-      Indentation ret = *this;
-      if (indentLevel_) --indentLevel_;
-      return ret;
-    }
-
-    void emit(std::ostream& stm) const
-    {
-      for (unsigned short i = 0; i < initialLevel_+indentLevel_; ++i)
-      {
-        switch (type_)
-        {
-        case kTab			:
-          stm << '\t';
-          break;
-        case kSingleSpace	:
-          stm << ' ';
-          break;
-        case kDoubleSpace	:
-          stm << "  ";
-          break;
-        case kTripleSpace	:
-          stm << "   ";
-          break;
-        case kQuadSpace	:
-          stm << "    ";
-          break;
-        default			:
-          stm << '\t';
-          break;
-        }
-      }
-    }
-  };
 
 public:
   // This only delegate to other emit() method based on type.
-  virtual void emit			(const CppObj*				cppObj,			std::ostream& stm, Indentation indentation = Indentation()) const;
-  virtual void emitVar		(const CppVar*				varObj,			std::ostream& stm, Indentation indentation = Indentation()) const;
-  virtual void emitVarList	(const CppVarList*			varListObj,		std::ostream& stm, Indentation indentation = Indentation()) const;
-  virtual void emitEnum		(const CppEnum*				enmObj,			std::ostream& stm, Indentation indentation = Indentation()) const;
-  virtual void emitTypedef	(const CppTypedef*			typedefObj,		std::ostream& stm, Indentation indentation = Indentation()) const;
-  virtual void emitFwdDecl	(const CppFwdClsDecl*		fwdClsDeclObj,	std::ostream& stm, Indentation indentation = Indentation()) const;
-  virtual void emitCompound	(const CppCompound*			compoundObj,	std::ostream& stm, Indentation indentation = Indentation()) const;
-  virtual void emitFunction	(const CppFunction*			funcObj,		std::ostream& stm, Indentation indentation = Indentation()) const;
-  virtual void emitFunctionPtr(const CppFunctionPtr*		funcPtrObj,		std::ostream& stm, Indentation indentation = Indentation()) const;
-  virtual void emitConstructor(const CppConstructor*		ctorObj,		std::ostream& stm, Indentation indentation = Indentation()) const;
-  virtual void emitDestructor	(const CppDestructor*		dtorObj,		std::ostream& stm, Indentation indentation = Indentation()) const;
-  virtual void emitDocComment	(const CppDocComment*		docCommentObj,	std::ostream& stm, Indentation indentation = Indentation()) const;
+  virtual void emit			(const CppObj*				cppObj,			std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitVar		(const CppVar*				varObj,			std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitVarList	(const CppVarList*			varListObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitEnum		(const CppEnum*				enmObj,			std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitTypedef	(const CppTypedef*			typedefObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitFwdDecl	(const CppFwdClsDecl*		fwdClsDeclObj,	std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitCompound	(const CppCompound*			compoundObj,	std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitFunction	(const CppFunction*			funcObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitFunctionPtr(const CppFunctionPtr*		funcPtrObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitConstructor(const CppConstructor*		ctorObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitDestructor	(const CppDestructor*		dtorObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitDocComment	(const CppDocComment*		docCommentObj,	std::ostream& stm, CppIndent indentation = CppIndent()) const;
 
-  virtual void emitExpr		(const CppExpr*				exprObj,		std::ostream& stm, Indentation indentation = Indentation()) const;
+  virtual void emitExpr		(const CppExpr*				exprObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitBlankLines	(const CppBlankLine*		blankLineObj,	std::ostream& stm) const;
   virtual void emitDefine		(const CppDefine*			defineObj,		std::ostream& stm) const;
   virtual void emitUndef		(const CppUndef*			undefObj,		std::ostream& stm) const;
@@ -148,11 +79,11 @@ public:
 
   virtual void emitVarType	(const CppVarType*			varTypeObj,		std::ostream& stm) const;
   virtual void emitParamList	(const CppParamList*		paramListObj,	std::ostream& stm) const;
-  virtual void emitExprAtom	(const CppExprAtom&			exprObj,		std::ostream& stm, Indentation indentation = Indentation()) const;
-  virtual void emitExprList	(const CppExprList*			exprList,		std::ostream& stm, Indentation indentation = Indentation()) const;
+  virtual void emitExprAtom	(const CppExprAtom&			exprObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitExprList	(const CppExprList*			exprList,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
 
 private:
-  mutable Indentation	preproIndent_;
+  mutable CppIndent	preproIndent_;
 
   EmittingType emittingType_;
 };
@@ -172,7 +103,7 @@ inline CppWriter::EmittingType CppWriter::getEmittingType() const
   return emittingType_;
 }
 
-inline std::ostream& operator <<(std::ostream& stm, const CppWriter::Indentation& indentation)
+inline std::ostream& operator <<(std::ostream& stm, const CppIndent& indentation)
 {
   indentation.emit(stm);
   return stm;

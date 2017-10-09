@@ -30,7 +30,7 @@ For this very reason this file does not use any class that are defined in cppdom
 
 %{
 #include "cppdom.h" // To shutup the compiler
-#include "const.h" // To shutup the compiler
+#include "cppconst.h" // To shutup the compiler
 
 #include "cpptoken.h"
 #include "parser.tab.h"

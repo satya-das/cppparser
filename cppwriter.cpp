@@ -25,7 +25,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
+void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   switch (cppObj->objType_)
   {
@@ -165,7 +165,7 @@ void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) con
   }
 }
 
-void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
+void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   if ((varObj->varAttr_&kFuncParam) == 0)
   {
@@ -202,13 +202,13 @@ void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, Indentation ind
     stm << ";\n";
 }
 
-void CppWriter::emitVarList(const CppVarList* varListObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
+void CppWriter::emitVarList(const CppVarList* varListObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   for (CppVarObjList::const_iterator varItr = varListObj->varlist_.begin(); varItr != varListObj->varlist_.end(); ++varItr)
     emitVar(*varItr, stm, indentation);
 }
 
-void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
+void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   stm << indentation << "enum";
   if (!enmObj->name_.empty())
@@ -236,7 +236,7 @@ void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, Indentation i
   stm << --indentation << "};\n";
 }
 
-void CppWriter::emitTypedef(const CppTypedef* typedefObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
+void CppWriter::emitTypedef(const CppTypedef* typedefObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   stm << indentation << "typedef ";
   emitVarType((CppVarType*) typedefObj, stm);
@@ -249,12 +249,12 @@ void CppWriter::emitTypedef(const CppTypedef* typedefObj, std::ostream& stm, Ind
   stm << ";\n";
 }
 
-void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
+void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   stm << indentation << fwdDeclObj->cmpType_ << ' ' << fwdDeclObj->name_ << ";\n";
 }
 
-void CppWriter::emitCompound(const CppCompound* compoundObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
+void CppWriter::emitCompound(const CppCompound* compoundObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   if (compoundObj->compoundType_&kNamespace)
   {
@@ -309,7 +309,7 @@ void CppWriter::emitParamList(const CppParamList* paramListObj, std::ostream& st
   }
 }
 
-void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
+void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   if ((funcObj->attr_&(kFuncParam|kTypedef)) == 0)
     stm << indentation;
@@ -359,7 +359,7 @@ void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, Inde
   }
 }
 
-void CppWriter::emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
+void CppWriter::emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   stm << indentation;
   if (funcPtrObj->attr_&kTypedef)
@@ -367,7 +367,7 @@ void CppWriter::emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& 
   emitFunction((CppFunction*) funcPtrObj, stm, indentation);
 }
 
-void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
+void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   stm << indentation;
   if (ctorObj->attr_&kInline)
@@ -404,7 +404,7 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm
   }
 }
 
-void CppWriter::emitDestructor(const CppDestructor* dtorObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
+void CppWriter::emitDestructor(const CppDestructor* dtorObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   stm << indentation;
   if (dtorObj->attr_&kInline)
@@ -427,7 +427,7 @@ void CppWriter::emitDestructor(const CppDestructor* dtorObj, std::ostream& stm, 
   }
 }
 
-void CppWriter::emitDocComment(const CppDocComment* docCommentObj, std::ostream& stm, Indentation indentation /* = Indentation()*/) const
+void CppWriter::emitDocComment(const CppDocComment* docCommentObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   stm << docCommentObj->doc_ << '\n';
 }
@@ -486,7 +486,7 @@ inline std::ostream& operator <<(std::ostream& stm, CppOperType op)
   return stm;
 }
 
-void CppWriter::emitExprAtom(const CppExprAtom& exprAtm, std::ostream& stm, Indentation indentation /*= Indentation()*/) const
+void CppWriter::emitExprAtom(const CppExprAtom& exprAtm, std::ostream& stm, CppIndent indentation /*= CppIndent()*/) const
 {
   switch (exprAtm.type)
   {
@@ -502,7 +502,7 @@ void CppWriter::emitExprAtom(const CppExprAtom& exprAtm, std::ostream& stm, Inde
   }
 }
 
-void CppWriter::emitExprList(const CppExprList* exprList, std::ostream& stm, Indentation indentation /*= Indentation()*/) const
+void CppWriter::emitExprList(const CppExprList* exprList, std::ostream& stm, CppIndent indentation /*= CppIndent()*/) const
 {
   if (exprList && !exprList->empty())
   {
@@ -524,7 +524,7 @@ void CppWriter::emitExprList(const CppExprList* exprList, std::ostream& stm, Ind
   }
 }
 
-void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, Indentation indentation /*= Indentation()*/) const
+void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent indentation /*= CppIndent()*/) const
 {
   if (exprObj == NULL) return;
   stm << indentation;

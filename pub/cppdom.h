@@ -33,7 +33,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef __CPPPARSER_CPPDOM_H__
 #define __CPPPARSER_CPPDOM_H__
 
-#include "const.h"
+#include "cppconst.h"
 
 #include <boost/optional.hpp>
 

@@ -24,6 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef __CPP_CONST_H__
 #define __CPP_CONST_H__
 
+#include <cstdint>
+
 enum CppCompoundType
 {
   kUnknownCompound	= 0x00,
@@ -36,7 +38,7 @@ enum CppCompoundType
   kExternCBlock		= 0x40,
 };
 
-enum CppObjProtLevel
+enum CppObjProtLevel : std::uint8_t
 {
   kUnknownProt,
   kPublic,
