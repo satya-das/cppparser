@@ -41,7 +41,8 @@ namespace bpo = boost::program_options;
 
 static bool parseAndEmitFormatted(const bfs::path& inputFilePath, const bfs::path& outputFilePath, const CppWriter& cppWriter)
 {
-  CppCompound* progUnit = parseSingleFile(inputFilePath.string().c_str());
+  CppParser parser;
+  CppCompound* progUnit = parser.parseFile(inputFilePath.string().c_str());
   if (progUnit == NULL)
     return false;
   std::ofstream stm(outputFilePath.c_str());

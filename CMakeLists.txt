@@ -35,6 +35,7 @@ set(CPPPARSER_SOURCES
 	cppdom.cpp
 	cppprog.cpp
 	cppwriter.cpp
+	cppobjfactory.cpp
 	parser.l
 	parser.y
 	parser.lex.cpp

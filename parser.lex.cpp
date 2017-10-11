@@ -3190,6 +3190,7 @@ int main()
 
 void setupScanBuffer(char* buf, size_t bufsize)
 {
-	yy_scan_buffer(buf, bufsize);
-	BEGIN(ctxGeneral);
+  yy_current_buffer  = 0;
+  yy_scan_buffer(buf, bufsize);
+  BEGIN(ctxGeneral);
 }

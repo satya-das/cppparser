@@ -25,10 +25,39 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define __CPPPARSER_H__
 
 #include "cppdom.h"
+#include "cppprog.h"
 
-//////////////////////////////////////////////////////////////////////////
+#include <boost/filesystem.hpp>
 
-CppCompound* parseSingleFile(const char* filename);
-CppCompound* parseStream(char* stm, size_t stmSize);
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+namespace bfs = boost::filesystem;
+
+class CppObjFactory;
+
+class CppParser
+{
+public:
+  CppParser(CppObjFactory* objFactory = nullptr);
+
+public:
+  CppCompound* parseFile(const char* filename);
+  CppCompound* parseStream(char* stm, size_t stmSize);
+  /*!
+   * Loads C++ program from source and header files.
+   * @param inputPath Folder where the C++ files are present.
+   */
+  CppProgram* loadProgram(const char* szInputPath);
+
+protected:
+  void loadProgram(const bfs::path& path, CppProgram& program);
+
+private:
+  using ByteArray = std::vector<char>;
+  static ByteArray readFile(const char* filename);
+
+private:
+  CppObjFactory* objFactory_;
+};
 
 #endif //__CPPPARSER_H__

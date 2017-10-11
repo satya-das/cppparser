@@ -69,14 +69,10 @@ class CppProgram
 {
 public:
   CppProgram();
-  CppProgram(const char* szInputPath);
+  CppProgram(CppProgram&&) = delete;
+  CppProgram(const CppProgram&) = delete;
 
 public:
-  /**
-   * Loads C++ program from source and header files.
-   * @param inputPath Folder where the C++ files are present.
-   */
-  void loadProgram(const char* szInputPath);
   /**
    * Adds a new file DOM to this program.
    * \warning It is a no-op if \a cppDom is not of kCppFile type.
@@ -103,29 +99,19 @@ public:
   const CppCompoundArray& getFileDOMs() const;
 
 protected:
-  /**
-   * Parses all CPP files and creates CPPDOM for all of them.
-   */
-  void loadCppDom(const char* szInputPath);
   void loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode);
 
 protected:
   typedef std::map<const CppObj*, const CppTypeTreeNode*> CppObjToTypeNodeMap;
 
-  CppCompoundArray		fileDoms_;              ///< Array of all top level DOMs corresponding to files.
-  CppTypeTreeNode         cppTypeTreeRoot_;       ///< Repository of all compound objects arranged as type-tree.
-  mutable CppObjToTypeNodeMap     cppObjToTypeNode_;
+  CppCompoundArray		          fileDoms_;              ///< Array of all top level DOMs corresponding to files.
+  CppTypeTreeNode               cppTypeTreeRoot_;       ///< Repository of all compound objects arranged as type-tree.
+  mutable CppObjToTypeNodeMap   cppObjToTypeNode_;
 };
 
 inline CppProgram::CppProgram()
 {
   cppObjToTypeNode_[NULL] = &cppTypeTreeRoot_;
-}
-
-inline CppProgram::CppProgram(const char* szInputPath)
-{
-  cppObjToTypeNode_[NULL] = &cppTypeTreeRoot_;
-  loadProgram(szInputPath);
 }
 
 inline const CppCompoundArray& CppProgram::getFileDOMs() const

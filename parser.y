@@ -25,6 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "cpptoken.h"
 #include "cppdom.h"
 #include "parser.tab.h"
+#include "cppobjfactory.h"
 
 #include <stack>
 
@@ -58,6 +59,20 @@ static CppCompoundStack				gCompoundStack;
 
 static CppObjProtLevel				gCurProtLevel;
 static std::stack<CppObjProtLevel>	gProtLevelStack;
+
+extern CppObjFactory* gObjFactory;
+
+template<typename... Params>
+CppCompound* newCompound(Params... params)
+{
+  return gObjFactory->CreateCompound(params...);
+}
+
+template<typename... Params>
+CppFunction* newFunction(Params... params)
+{
+  return gObjFactory->CreateFunction(params...);
+}
 
 #define YYPOSN char*
 /**
@@ -224,18 +239,19 @@ CTORDECL and DTORDECL solve this problem by giving constructor and destructor de
 /* A program unit is a source file, be it header file or implementation file */
 progunit			: stmtlist	{
 						gProgUnit = $$ = $1;
-						gProgUnit->compoundType_ = kCppFile;
+            if (gProgUnit)
+						  gProgUnit->compoundType_ = kCppFile;
 					}
 					;
 
 stmtlist			: { $$ = 0; }
 					| stmt {
-						$$ = new CppCompound(gProtLevelStack.empty() ? gCurProtLevel : gProtLevelStack.top());
+						$$ = newCompound(gProtLevelStack.empty() ? gCurProtLevel : gProtLevelStack.top());
 						$1->owner_ = $$;
 						$$->addMember($1);
 					}
 					| stmtlist stmt {
-						$$ = ($1 == 0) ? new CppCompound(gProtLevelStack.empty() ? gCurProtLevel : gProtLevelStack.top()) : $1;
+						$$ = ($1 == 0) ? newCompound(gProtLevelStack.empty() ? gCurProtLevel : gProtLevelStack.top()) : $1;
 						$2->owner_ = $$;
 						$$->addMember($2);
 					}
@@ -455,7 +471,7 @@ funcdeclstmt		: funcdecl ';' [YYVALID;] { $$ = $1; }
 
 funcdefn			: funcdecl '{' stmtlist '}' [YYVALID;] {
 						$$ = $1;
-						$$->defn_ = $3 ? $3 : new CppCompound(kUnknownProt);
+						$$->defn_ = $3 ? $3 : newCompound(kUnknownProt);
 						$$->defn_->compoundType_ = kBlock;
 					}
 					;
@@ -478,12 +494,12 @@ functionpointer		: apidocer functype varqual '(' apidocer '*' tknID ')' '(' para
 					;
 
 funcdecl			: functype apidocer varqual apidocer identifier '(' paramlist ')' funcattrib {
-						$$ = new CppFunction(gCurProtLevel, $5, $3, $7, $1 | $9);
+						$$ = newFunction(gCurProtLevel, $5, $3, $7, $1 | $9);
 						$$->docer1_ = $2;
 						$$->docer2_ = $4;
 					}
 					| apidocer varqual apidocer identifier '(' paramlist ')' funcattrib {
-						$$ = new CppFunction(gCurProtLevel, $4, $2, $6, $8);
+						$$ = newFunction(gCurProtLevel, $4, $2, $6, $8);
 						$$->docer1_ = $1;
 						$$->docer2_ = $3;
 					}
@@ -539,7 +555,7 @@ ctordefn			: ctordecl meminitlist
 					{
 						$$ = $1;
 						$$->memInitList_	= $2;
-						$$->defn_			= $4 ? $4 : new CppCompound(kUnknownProt, kBlock);
+						$$->defn_			= $4 ? $4 : newCompound(kUnknownProt, kBlock);
 					}
 					| tknID tknScopeResOp tknID [if($1 != $3) YYERROR; else YYVALID;]
 						'(' paramlist ')' meminitlist
@@ -550,7 +566,7 @@ ctordefn			: ctordecl meminitlist
 						$$ = new CppConstructor(gCurProtLevel, makeCppToken($1.sz, $3.sz+$3.len-$1.sz));
 						$$->args_			= $6;
 						$$->memInitList_	= $8;
-						$$->defn_			= $10 ? $10 : new CppCompound(kUnknownProt, kBlock);
+						$$->defn_			= $10 ? $10 : newCompound(kUnknownProt, kBlock);
 					}
 					| identifier tknScopeResOp tknID tknScopeResOp tknID [if($3 != $5) YYERROR; else YYVALID;]
 						'(' paramlist ')' meminitlist
@@ -561,7 +577,7 @@ ctordefn			: ctordecl meminitlist
 						$$ = new CppConstructor(gCurProtLevel, makeCppToken($1.sz, $5.sz+$5.len-$1.sz));
 						$$->args_			= $8;
 						$$->memInitList_	= $10;
-						$$->defn_			= $12 ? $12 : new CppCompound(gCurProtLevel, kBlock);
+						$$->defn_			= $12 ? $12 : newCompound(gCurProtLevel, kBlock);
 					}
 					;
 
@@ -597,19 +613,19 @@ dtordeclstmt		: dtordecl ';' [YYVALID;] { $$ = $1; }
 dtordefn			: dtordecl '{' stmtlist '}' [YYVALID;]
 					{
 						$$ = $1;
-						$$->defn_ = $3 ? $3 : new CppCompound(kUnknownProt, kBlock);
+						$$->defn_ = $3 ? $3 : newCompound(kUnknownProt, kBlock);
 					}
 					| tknID tknScopeResOp '~' tknID [if($1 != $4) YYERROR; else YYVALID;]
 						'(' ')' '{' stmtlist '}'
 					{
 						$$ = new CppDestructor(gCurProtLevel, makeCppToken($1.sz, $4.sz+$4.len-$1.sz));
-						$$->defn_			= $9 ? $9 : new CppCompound(kUnknownProt, kBlock);
+						$$->defn_			= $9 ? $9 : newCompound(kUnknownProt, kBlock);
 					}
 					| identifier tknScopeResOp tknID tknScopeResOp '~' tknID [if($3 != $6) YYERROR; else YYVALID;]
 						'(' ')' '{' stmtlist '}'
 					{
 						$$ = new CppDestructor(gCurProtLevel, makeCppToken($1.sz, $6.sz+$6.len-$1.sz));
-						$$->defn_			= $11 ? $11 : new CppCompound(kUnknownProt, kBlock);
+						$$->defn_			= $11 ? $11 : newCompound(kUnknownProt, kBlock);
 					}
 					;
 
@@ -684,7 +700,7 @@ classdefn			: compoundSpecifier apidocer tknID inheritlist
 						gCurProtLevel = gProtLevelStack.top();
 						gProtLevelStack.pop();
 
-						$$ = $7 ? $7 : new CppCompound(gCurProtLevel);
+						$$ = $7 ? $7 : newCompound(gCurProtLevel);
 						$$->compoundType_	= $1;
 						$$->apidocer_		= $2;
 						$$->name_			= $3;
@@ -818,48 +834,12 @@ void yyerror_detailed	(	char* text,
 		*lineEnd = endReplaceChar;
 }
 
-char* gBuf = NULL;
-size_t gBufSize = 0;
-
 CppCompound* parseStream(char* stm, size_t stmSize)
 {
 	void setupScanBuffer(char* buf, size_t bufsize);
-	setupScanBuffer(gBuf, stmSize);
+	setupScanBuffer(stm, stmSize);
 	gLineNo = 1; // Reset so that we do not start counting beyond previous parsing.
 	yyparse();
-	return gProgUnit;
-}
 
-CppCompound* parseFile(FILE* fp)
-{
-	const size_t bufBlockSize = 1024*1024;
-	gBufSize = bufBlockSize;
-	gBuf = (char*) malloc(gBufSize);
-	size_t numBytesToScan = 0;
-	for(char* buf = gBuf; ; buf = gBuf + numBytesToScan)
-	{
-		size_t numBytesRead = fread(buf, 1, bufBlockSize, fp);
-		numBytesToScan += numBytesRead;
-		if(numBytesRead < bufBlockSize) // We read entire file
-		{
-			if(bufBlockSize-numBytesRead < 2) // No space left for EOB marker
-			{
-				size_t extraBufSize = bufBlockSize-numBytesRead;
-				gBufSize += extraBufSize;
-				gBuf = (char*) realloc(gBuf, gBufSize);
-			}
-			// Mark eob
-			gBuf[numBytesRead] = 0;
-			gBuf[numBytesRead+1] = 0;
-			numBytesToScan += 2;
-			break;
-		}
-		else // Entire file could not be read
-		{
-			gBufSize += bufBlockSize;
-			gBuf = (char*) realloc(gBuf, gBufSize);
-		}
-	}
-
-	return parseStream(gBuf, numBytesToScan);
+  return gProgUnit;
 }

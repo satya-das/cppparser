@@ -21,20 +21,75 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include "cppparser.h"
+#include "cppobjfactory.h"
 #include "cppdom.h"
 
-//////////////////////////////////////////////////////////////////////////
+#include <fstream>
 
-extern CppCompound* parseFile(FILE* fp);
+extern CppCompound* parseStream(char* stm, size_t stmSize);
+extern CppObjFactory* gObjFactory = nullptr;
 
-CppCompound* parseSingleFile(const char* filename)
+CppParser::CppParser(CppObjFactory* objFactory)
+  : objFactory_(objFactory)
 {
-  FILE* fp = fopen(filename, "r");
-  if (fp == NULL)
-    return NULL;
-  CppCompound* cppCompound = parseFile(fp);
+  if (objFactory_ == nullptr)
+    objFactory_ = new CppObjFactory;
+}
+
+CppCompound* CppParser::parseFile(const char* filename)
+{
+  auto stm = readFile(filename);
+  CppCompound* cppCompound = parseStream(stm.data(), stm.size());
   if (cppCompound == NULL)
     return cppCompound;
   cppCompound->name_ = filename;
   return cppCompound;
+}
+
+CppCompound* CppParser::parseStream(char* stm, size_t stmSize)
+{
+  gObjFactory = objFactory_;
+  return ::parseStream(stm, stmSize);
+}
+
+CppProgram* CppParser::loadProgram(const char* szInputPath)
+{
+  auto program = new CppProgram;
+  loadProgram(szInputPath, *program);
+  return program;
+}
+
+void CppParser::loadProgram(const bfs::path& path, CppProgram& program)
+{
+  if (bfs::is_regular_file(path))
+  {
+    CppCompound* cppdom = parseFile(path.string().c_str());
+    if (cppdom)
+      program.addCppDom(cppdom);
+  }
+  else if (bfs::is_directory(path))
+  {
+    for (bfs::directory_iterator dirItr(path); dirItr != bfs::directory_iterator(); ++dirItr)
+    {
+      loadProgram(*dirItr, program);
+    }
+  }
+}
+
+CppParser::ByteArray CppParser::readFile(const char* filename)
+{
+  ByteArray contents;
+  std::ifstream in(filename, std::ios::in);
+  if (in)
+  {
+    in.seekg(0, std::ios::end);
+    size_t size = in.tellg();
+    size += 2; // For adding last 2 nulls.
+    contents.resize(size);
+    in.seekg(0, std::ios::beg);
+    in.read(&contents[0], contents.size());
+    in.close();
+  }
+  return(contents);
 }
