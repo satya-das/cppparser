@@ -78,9 +78,9 @@ struct CppObj
     kBlob,				// Some unparsed/unrecognized part of C++ source code.
   };
 
-  Type			objType_;
-  CppCompound*	owner_;
-  CppObjProtLevel	prot_;	///< All objects do not need this but for simplicity we will have this in all objects.
+  const Type      objType_;
+  CppCompound*    owner_;
+  CppObjProtLevel prot_;	///< All objects do not need this but for simplicity we will have this in all objects.
 
   CppObj(Type type, CppObjProtLevel prot)
     : objType_	(type)
@@ -236,6 +236,16 @@ struct CppVarType : public CppObj
     return (baseType_.compare("void") == 0);
   }
 
+  bool isByRef() const
+  {
+    return (typeAttr_ & kByRef) == kByRef;
+  }
+
+  bool isConst() const
+  {
+    return (typeAttr_ & kConst) == kConst;
+  }
+
 protected:
   CppVarType(CppObj::Type type, CppObjProtLevel prot, std::string baseType, unsigned int typeAttr, unsigned short ptrLevel, CppRefType refType)
     : CppObj(type, prot)
@@ -284,7 +294,7 @@ struct CppVarList : public CppObj
   {
   }
 
-  ~CppVarList()
+  ~CppVarList() override
   {
     for (CppVarObjList::iterator itr = varlist_.begin(); itr != varlist_.end(); ++itr)
       delete *itr;
@@ -412,7 +422,7 @@ public:
   {
   }
 
-  ~CppCompound()
+  ~CppCompound() override
   {
     delete inheritList_;
     for (CppObjArray::iterator itr = members_.begin(); itr != members_.end(); ++itr)
@@ -494,10 +504,19 @@ union CppVarOrFuncPtrType
  */
 typedef CppVarOrFuncPtrType	CppParam;
 
-struct CppParamList : public std::list<CppParam>
+struct CppParamList : private std::list<CppParam>
 {
   typedef std::list<CppParam> BaseType;
+  using BaseType::iterator;
+  using BaseType::const_iterator;
   using BaseType::BaseType;
+  using BaseType::push_back;
+  using BaseType::size;
+  using BaseType::front;
+  using BaseType::empty;
+  using BaseType::begin;
+  using BaseType::end;
+
   ~CppParamList()
   {
     for (iterator itr = begin(); itr != end(); ++itr)
@@ -506,44 +525,15 @@ struct CppParamList : public std::list<CppParam>
 };
 
 /**
- * \brief A C/C++ function. It can be class method as well.
+ * \brief Base class of constructor, destructor, and functions.
  */
-struct CppFunction : public CppObj
+struct CppFunctionBase : public CppObj
 {
   std::string		name_;
-  CppVarType*		retType_;
-  CppParamList*	params_;
   unsigned int	attr_; // e.g.: const, static, virtual, inline, constexpr, etc.
   CppCompound*	defn_; // If it is nullptr then this object is just for declaration.
   std::string		docer1_; // e.g. __declspec(dllexport)
   std::string		docer2_; // e.g. __stdcall
-
-  /**
-   * @param attr is ORed combination of CppIdentifierAttrib values.
-   */
-  CppFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr)
-    : CppFunction(CppObj::kFunction, prot, name, retType, params, attr)
-  {}
-
-  CppFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParam param1, CppParam param2, unsigned int attr = 0)
-    : CppFunction(prot, name, retType, new CppParamList {param1, param2}, attr)
-  {}
-
-  CppFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParam param1, CppParam param2, CppParam param3, unsigned int attr = 0)
-    : CppFunction(prot, name, retType, new CppParamList { param1, param2, param3 }, attr)
-  {}
-
-  ~CppFunction()
-  {
-    delete retType_;
-    delete params_;
-    delete defn_;
-  }
-
-  bool hasParams() const
-  {
-    return params_ && params_->size() > 0;
-  }
 
   bool isConst() const
   {
@@ -557,17 +547,74 @@ struct CppFunction : public CppObj
   {
     return (attr_ & kPureVirtual) == kPureVirtual;
   }
+  bool isStatic() const
+  {
+    return (attr_ & kStatic) == kStatic;
+  }
+  bool isInline() const
+  {
+    return (attr_ & kInline) == kInline;
+  }
+  bool isOverride() const
+  {
+    return (attr_ & kOverride) == kOverride;
+  }
 
 protected:
-  CppFunction(CppObj::Type type, CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr)
+  CppFunctionBase(CppObj::Type type, CppObjProtLevel prot, std::string name, unsigned int attr)
     : CppObj(type, prot)
     , name_(std::move(name))
-    , retType_(retType)
-    , params_(params)
     , attr_(attr)
     , defn_(nullptr)
   {
   }
+
+  ~CppFunctionBase() override
+  {
+    delete defn_;
+  }
+};
+
+struct CppFuncCtorBase : public CppFunctionBase
+{
+  CppParamList*	params_;
+
+  bool hasParams() const
+  {
+    return params_ && !params_->empty();
+  }
+
+protected:
+  CppFuncCtorBase(CppObj::Type type, CppObjProtLevel prot, std::string name, CppParamList* params, unsigned int attr)
+    : CppFunctionBase(type, prot, name, attr)
+    , params_(params)
+  {
+  }
+  ~CppFuncCtorBase() override
+  {
+    delete params_;
+  }
+};
+
+struct CppFunction : public CppFuncCtorBase
+{
+  CppVarType*		retType_;
+
+  CppFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr)
+    : CppFuncCtorBase(CppObj::kFunction, prot, name, params, attr)
+    , retType_(retType)
+  {}
+
+  ~CppFunction() override
+  {
+    delete retType_;
+  }
+
+protected:
+  CppFunction(CppObj::Type type, CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr)
+    : CppFuncCtorBase(type, prot, name, params, attr)
+    , retType_(retType)
+  {}
 };
 
 /**
@@ -593,49 +640,32 @@ typedef std::pair<std::string, CppExpr*>	CppMemInit;
  */
 typedef std::list<CppMemInit>				CppMemInitList;
 
-struct CppConstructor : public CppObj
+struct CppConstructor : public CppFuncCtorBase
 {
-  std::string		name_;
-  CppParamList*	args_;
   CppMemInitList* memInitList_;
-  CppCompound*	defn_; // If it is nullptr then this object is just for declaration.
-  unsigned int	attr_; // e.g. inline, explicit, etc.
 
-  CppConstructor(CppObjProtLevel prot, std::string name)
-    : CppObj(CppObj::kConstructor, prot)
-    , name_	(std::move(name))
-    , args_(nullptr)
+  CppConstructor(CppObjProtLevel prot, std::string name, CppParamList* params, CppMemInitList* memInitList, unsigned int attr)
+    : CppFuncCtorBase(kConstructor, prot, name, params, attr)
     , memInitList_(nullptr)
-    , defn_(nullptr)
-    , attr_(0)
   {
   }
 
-  ~CppConstructor()
+  ~CppConstructor() override
   {
-    delete args_;
     delete memInitList_;
-    delete defn_;
   }
+
+  bool isCopyConstructor() const;
+
+private:
+  mutable boost::optional<bool> isCopyConstructor_;
 };
 
-struct CppDestructor : public CppObj
+struct CppDestructor : public CppFunctionBase
 {
-  std::string		name_;
-  CppCompound*	defn_; // If it is nullptr then this object is just for declaration.
-  unsigned int	attr_; // e.g. inline, virtual, etc.
-
-  CppDestructor(CppObjProtLevel prot, std::string name)
-    : CppObj(CppObj::kDestructor, prot)
-    , name_	(std::move(name))
-    , defn_(nullptr)
-    , attr_(0)
+  CppDestructor(CppObjProtLevel prot, std::string name, unsigned int attr)
+    : CppFunctionBase(CppObj::kDestructor, prot, name, attr)
   {
-  }
-
-  ~CppDestructor()
-  {
-    delete defn_;
   }
 };
 
@@ -660,9 +690,19 @@ struct CppExpr;
  * - and array/struct initialization, in such case expression list is enclosed inside {}.
  * \see CppExpr.
  */
-struct CppExprList : public std::list<CppExpr*>
+struct CppExprList : private std::list<CppExpr*>
 {
-public:
+  typedef std::list<CppExpr*> BaseType;
+  using BaseType::iterator;
+  using BaseType::const_iterator;
+  using BaseType::BaseType;
+  using BaseType::push_back;
+  using BaseType::size;
+  using BaseType::front;
+  using BaseType::empty;
+  using BaseType::begin;
+  using BaseType::end;
+
   CppExprList() {}
   CppExprList(const CppExprAtom& e1);
   CppExprList(const CppExprAtom& e1, const CppExprAtom& e2);
@@ -779,7 +819,7 @@ struct CppExpr : public CppObj
   {
   }
 
-  ~CppExpr()
+  ~CppExpr() override
   {
     expr1_.destroy();
     expr2_.destroy();

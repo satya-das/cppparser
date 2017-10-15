@@ -300,7 +300,7 @@ void CppWriter::emitCompound(const CppCompound* compoundObj, std::ostream& stm, 
 
 void CppWriter::emitParamList(const CppParamList* paramListObj, std::ostream& stm) const
 {
-  for (CppParamList::const_iterator prmItr = paramListObj->begin(); prmItr != paramListObj->end(); ++prmItr)
+  for (auto prmItr = paramListObj->begin(); prmItr != paramListObj->end(); ++prmItr)
   {
     if (prmItr != paramListObj->begin())
       stm << ", ";
@@ -376,8 +376,8 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm
     stm << "explicit ";
   stm << ctorObj->name_;
   stm << '(';
-  if (ctorObj->args_)
-    emitParamList(ctorObj->args_, stm);
+  if (ctorObj->params_)
+    emitParamList(ctorObj->params_, stm);
   stm << ')';
   if (ctorObj->memInitList_)
   {

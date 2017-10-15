@@ -1,5 +1,25 @@
 #include "cppdom.h"
 
+
+bool CppConstructor::isCopyConstructor() const
+{
+  if (isCopyConstructor_)
+    return *isCopyConstructor_;
+
+  isCopyConstructor_ = false;
+  if (!params_ || !params_->size() != 1)
+    return false;
+  const auto paramType = params_->front().varObj;
+  if (paramType->ptrLevel_ != 0)
+    return false;
+  if (!paramType->isConst() || !paramType->isByRef())
+    return false;
+  if (paramType->baseType_ != name_)
+    return false;
+  isCopyConstructor_ = true;
+  return *isCopyConstructor_;
+}
+
 bool CppCompound::hasVirtualMethod() const
 {
   if (!isClassLike())

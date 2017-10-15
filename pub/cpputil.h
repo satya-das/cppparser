@@ -12,6 +12,13 @@ inline CppObjProtLevel defaultInheritanceType(CppCompoundType type)
   return type == kClass ? kPrivate : kPublic;
 }
 
+inline CppObjProtLevel resolveInheritanceType(CppObjProtLevel inheritanceType, CppCompoundType type)
+{
+  if (inheritanceType != kUnknownProt)
+    return inheritanceType;
+  return defaultInheritanceType(type);
+}
+
 /**
 * Can be used to find default protection level of a compound object.
 * @param type Type of compound object.
