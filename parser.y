@@ -69,6 +69,18 @@ CppCompound* newCompound(Params... params)
 }
 
 template<typename... Params>
+CppConstructor* newConstructor(Params... params)
+{
+  return gObjFactory->CreateConstructor(params...);
+}
+
+template<typename... Params>
+CppDestructor* newDestructor(Params... params)
+{
+  return gObjFactory->CreateDestructor(params...);
+}
+
+template<typename... Params>
 CppFunction* newFunction(Params... params)
 {
   return gObjFactory->CreateFunction(params...);
@@ -563,7 +575,7 @@ ctordefn			: ctordecl meminitlist
 							stmtlist
 						'}' [YYVALID;]
 					{
-						$$ = new CppConstructor(gCurProtLevel, makeCppToken($1.sz, $3.sz+$3.len-$1.sz), $6, $8, 0);
+						$$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $3.sz+$3.len-$1.sz), $6, $8, 0);
 						$$->defn_			= $10 ? $10 : newCompound(kUnknownProt, kBlock);
 					}
 					| identifier tknScopeResOp tknID tknScopeResOp tknID [if($3 != $5) YYERROR; else YYVALID;]
@@ -572,7 +584,7 @@ ctordefn			: ctordecl meminitlist
 							stmtlist
 						'}' [YYVALID;]
 					{
-						$$ = new CppConstructor(gCurProtLevel, makeCppToken($1.sz, $5.sz+$5.len-$1.sz), $8, $10, 0);
+						$$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $5.sz+$5.len-$1.sz), $8, $10, 0);
 						$$->defn_			= $12 ? $12 : newCompound(gCurProtLevel, kBlock);
 					}
 					;
@@ -587,11 +599,11 @@ ctordecl			: tknID '(' paramlist ')' %prec CTORDECL
 							YYVALID;
 					]
 					{
-						$$ = new CppConstructor(gCurProtLevel, $1, $3, nullptr, 0);
+						$$ = newConstructor(gCurProtLevel, $1, $3, nullptr, 0);
 					}
 					| functype tknID [if(gCompoundStack.empty()) YYERROR; if(gCompoundStack.top() != $2) YYERROR; else YYVALID;] '(' paramlist ')'
 					{
-						$$ = new CppConstructor(gCurProtLevel, $2, $5, nullptr, $1);
+						$$ = newConstructor(gCurProtLevel, $2, $5, nullptr, $1);
 					}
 					;
 
@@ -611,13 +623,13 @@ dtordefn			: dtordecl '{' stmtlist '}' [YYVALID;]
 					| tknID tknScopeResOp '~' tknID [if($1 != $4) YYERROR; else YYVALID;]
 						'(' ')' '{' stmtlist '}'
 					{
-						$$ = new CppDestructor(gCurProtLevel, makeCppToken($1.sz, $4.sz+$4.len-$1.sz), 0);
+						$$ = newDestructor(gCurProtLevel, makeCppToken($1.sz, $4.sz+$4.len-$1.sz), 0);
 						$$->defn_			= $9 ? $9 : newCompound(kUnknownProt, kBlock);
 					}
 					| identifier tknScopeResOp tknID tknScopeResOp '~' tknID [if($3 != $6) YYERROR; else YYVALID;]
 						'(' ')' '{' stmtlist '}'
 					{
-						$$ = new CppDestructor(gCurProtLevel, makeCppToken($1.sz, $6.sz+$6.len-$1.sz), 0);
+						$$ = newDestructor(gCurProtLevel, makeCppToken($1.sz, $6.sz+$6.len-$1.sz), 0);
 						$$->defn_			= $11 ? $11 : newCompound(kUnknownProt, kBlock);
 					}
 					;
@@ -634,7 +646,7 @@ dtordecl			: '~' tknID '(' ')' %prec DTORDECL
 					{
 						const char* tildaStartPos = $2.sz-1;
 						while(*tildaStartPos != '~') --tildaStartPos;
-						$$ = new CppDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $2.sz+$2.len-tildaStartPos), 0);
+						$$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $2.sz+$2.len-tildaStartPos), 0);
 					}
 					| functype '~' tknID '(' ')' %prec DTORDECL
 					[
@@ -648,7 +660,7 @@ dtordecl			: '~' tknID '(' ')' %prec DTORDECL
 					{
 						const char* tildaStartPos = $3.sz-1;
 						while(*tildaStartPos != '~') --tildaStartPos;
-						$$ = new CppDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), $1);
+						$$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), $1);
 					}
 					;
 
