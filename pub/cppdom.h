@@ -609,6 +609,10 @@ struct CppFunction : public CppFuncCtorBase
   {
     delete retType_;
   }
+  bool isMethod() const
+  {
+    return owner_ && owner_->isClassLike();
+  }
 
 protected:
   CppFunction(CppObj::Type type, CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr)
