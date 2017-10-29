@@ -54,13 +54,13 @@ static CppCompound*  gProgUnit;
 /**
  * A stack to know where (i.e. how deep inside class defnition) the current parsing activity is taking place.
  */
-typedef std::stack<CppToken>    CppCompoundStack;
-static CppCompoundStack        gCompoundStack;
+typedef std::stack<CppToken>        CppCompoundStack;
+static CppCompoundStack             gCompoundStack;
 
-static CppObjProtLevel        gCurProtLevel;
+static CppObjProtLevel              gCurProtLevel;
 static std::stack<CppObjProtLevel>  gProtLevelStack;
 
-extern CppObjFactory* gObjFactory;
+extern CppObjFactory*               gObjFactory;
 
 template<typename... Params>
 CppCompound* newCompound(Params... params)
@@ -100,57 +100,57 @@ extern int yylex();
  * The union that can hold terminal and non-terminal objects in a parse tree.
  */
 %union {
-  CppToken      str;
-  CppObj*        cppObj;
-  CppVar*        cppVarObj;
-  CppEnum*      cppEnum;
-  CppEnumItem*    enumItem;
-  CppEnumItemList*  enumItemList;
-  CppTypedef*      typedefObj;
-  CppCompound*    cppCompundObj;
-  CppDocComment*    docCommentObj;
-  CppFwdClsDecl*    fwdDeclObj;
-  CppVarList*      cppVarObjList;
-  CppUnRecogPrePro*  unRecogPreProObj;
-  CppExpr*      cppExprObj;
-  CppFunction*    cppFuncObj;
-  CppFunctionPtr*    cppFuncPointerObj;
-  CppVarOrFuncPtrType  varOrFuncPtr;
-  CppParamList*    paramList;
-  CppConstructor*    cppCtorObj;
-  CppDestructor*    cppDtorObj;
-  CppMemInitList*    memInitList;
-  CppInheritanceList*  inheritList;
-  CppCompoundType    compoundType;
-  unsigned short    ptrLevel;
-  CppRefType      refType;
-  unsigned int    attr;
-  CppObjProtLevel    protLevel;
+  CppToken              str;
+  CppObj*               cppObj;
+  CppVar*               cppVarObj;
+  CppEnum*              cppEnum;
+  CppEnumItem*          enumItem;
+  CppEnumItemList*      enumItemList;
+  CppTypedef*           typedefObj;
+  CppCompound*          cppCompundObj;
+  CppDocComment*        docCommentObj;
+  CppFwdClsDecl*        fwdDeclObj;
+  CppVarList*           cppVarObjList;
+  CppUnRecogPrePro*     unRecogPreProObj;
+  CppExpr*              cppExprObj;
+  CppFunction*          cppFuncObj;
+  CppFunctionPtr*       cppFuncPointerObj;
+  CppVarOrFuncPtrType   varOrFuncPtr;
+  CppParamList*         paramList;
+  CppConstructor*       cppCtorObj;
+  CppDestructor*        cppDtorObj;
+  CppMemInitList*       memInitList;
+  CppInheritanceList*   inheritList;
+  CppCompoundType       compoundType;
+  unsigned short        ptrLevel;
+  CppRefType            refType;
+  unsigned int          attr;
+  CppObjProtLevel       protLevel;
 
-  CppExprList*    exprList;
+  CppExprList*          exprList;
 
-  CppDefine*      hashDefine;
-  CppUndef*      hashUndef;
-  CppInclude*      hashInclude;
-  CppHashIf*      hashIf;
-  CppPragma*      hashPragma;
+  CppDefine*            hashDefine;
+  CppUndef*             hashUndef;
+  CppInclude*           hashInclude;
+  CppHashIf*            hashIf;
+  CppPragma*            hashPragma;
 
-  CppBlankLine*    blankLine;
+  CppBlankLine*         blankLine;
 }
 
-%token  <str>          tknID tknStrLit tknCharLit tknNumber tknTypedef
-%token  <str>          tknEnum
-%token  <str>          tknPreProDef
-%token  <str>          tknClass tknStruct tknUnion tknNamespace
-%token  <str>          tknDocBlockComment tknDocLineComment
-%token  <str>          tknScopeResOp
-%token  <str>          tknNumSignSpec // signed/unsigned
-%token  <str>          tknPublic tknProtected tknPrivate
-%token  <str>          tknExternC
-%token  <str>          tknUnRecogPrePro
-%token  <str>          tknStdHdrInclude
-%token  <str>          tknPragma
-%token  <str>          '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
+%token  <str>   tknID tknStrLit tknCharLit tknNumber tknTypedef
+%token  <str>   tknEnum
+%token  <str>   tknPreProDef
+%token  <str>   tknClass tknStruct tknUnion tknNamespace
+%token  <str>   tknDocBlockComment tknDocLineComment
+%token  <str>   tknScopeResOp
+%token  <str>   tknNumSignSpec // signed/unsigned
+%token  <str>   tknPublic tknProtected tknPrivate
+%token  <str>   tknExternC
+%token  <str>   tknUnRecogPrePro
+%token  <str>   tknStdHdrInclude
+%token  <str>   tknPragma
+%token  <str>   '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
 
 %token  tknConst tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend
 
@@ -163,48 +163,48 @@ extern int yylex();
 
 %token  tknBlankLine
 
-%type  <str>          apidocer
-%type  <str>          identifier vartype optid
-%type  <cppObj>        stmt functptrtype
-%type  <cppEnum>        enumstmt
-%type  <enumItem>        enumitem
-%type  <enumItemList>      enumitemlist
-%type  <fwdDeclObj>      fwddecl
-%type  <cppVarObj>        varqual vardecl varinit vardeclstmt
-%type  <varOrFuncPtr>      param templateparam
+%type  <str>                apidocer
+%type  <str>                identifier vartype optid
+%type  <cppObj>             stmt functptrtype
+%type  <cppEnum>            enumstmt
+%type  <enumItem>           enumitem
+%type  <enumItemList>       enumitemlist
+%type  <fwdDeclObj>         fwddecl
+%type  <cppVarObj>          varqual vardecl varinit vardeclstmt
+%type  <varOrFuncPtr>       param templateparam
 %type  <cppVarObjList>      vardecllist vardeclliststmt
-%type  <paramList>        paramlist
-%type  <typedefObj>      typedefname typedefnamelist typedefnamestmt
+%type  <paramList>          paramlist
+%type  <typedefObj>         typedefname typedefnamelist typedefnamestmt
 %type  <cppCompundObj>      stmtlist progunit classdefn externcblock
 %type  <docCommentObj>      doccomment
-%type  <cppExprObj>      expr exprstmt
-%type  <cppFuncPointerObj>    functionpointer
-%type  <cppFuncObj>      funcdecl funcdeclstmt funcdefn
-%type  <cppCtorObj>      ctordecl ctordeclstmt ctordefn
-%type  <cppDtorObj>      dtordecl dtordeclstmt dtordefn
-%type  <memInitList>      meminitlist
-%type  <compoundType>      compoundSpecifier
-%type  <ptrLevel>        ptrlevelopt ptrlevel
-%type  <refType>        reftype
-%type  <attr>          optconst varattrib funcattrib functype
-%type  <inheritList>      inheritlist
-%type  <protLevel>        protlevel changeprotlevel
+%type  <cppExprObj>         expr exprstmt
+%type  <cppFuncPointerObj>  functionpointer
+%type  <cppFuncObj>         funcdecl funcdeclstmt funcdefn
+%type  <cppCtorObj>         ctordecl ctordeclstmt ctordefn
+%type  <cppDtorObj>         dtordecl dtordeclstmt dtordefn
+%type  <memInitList>        meminitlist
+%type  <compoundType>       compoundSpecifier
+%type  <ptrLevel>           ptrlevelopt ptrlevel
+%type  <refType>            reftype
+%type  <attr>               optconst varattrib funcattrib functype
+%type  <inheritList>        inheritlist
+%type  <protLevel>          protlevel changeprotlevel
 
-%type  <exprList>        exprlist
-%type  <hashDefine>      define
-%type  <hashUndef>        undef
-%type  <hashInclude>      include
-%type  <hashIf>        hashif
-%type  <hashPragma>      pragma
+%type  <exprList>           exprlist
+%type  <hashDefine>         define
+%type  <hashUndef>          undef
+%type  <hashInclude>        include
+%type  <hashIf>             hashif
+%type  <hashPragma>         pragma
 
-%type  <blankLine>        blankline
+%type  <blankLine>          blankline
 
-%right '=' CMPEQUAL
-%left '+' '-'
-%left '*' '/' '%'
-%right LSHIFT RSHIFT
-%left '&' '|'
-%left '.' ARROW
+%right  '=' CMPEQUAL
+%left   '+' '-'
+%left   '*' '/' '%'
+%right  LSHIFT RSHIFT
+%left   '&' '|'
+%left   '.' ARROW
 
 %nonassoc PREFIX
 %nonassoc POSTFIX '(' '['
@@ -249,544 +249,545 @@ CTORDECL and DTORDECL solve this problem by giving constructor and destructor de
 %%
 
 /* A program unit is a source file, be it header file or implementation file */
-progunit      : stmtlist  {
-            gProgUnit = $$ = $1;
-            if (gProgUnit)
-              gProgUnit->compoundType_ = kCppFile;
-          }
-          ;
+progunit          : stmtlist  {
+                    gProgUnit = $$ = $1;
+                    if (gProgUnit)
+                      gProgUnit->compoundType_ = kCppFile;
+                  }
+                  ;
 
-stmtlist      : { $$ = 0; }
-          | stmt {
-            $$ = newCompound(gProtLevelStack.empty() ? gCurProtLevel : gProtLevelStack.top());
-            $1->owner_ = $$;
-            $$->addMember($1);
-          }
-          | stmtlist stmt {
-            $$ = ($1 == 0) ? newCompound(gProtLevelStack.empty() ? gCurProtLevel : gProtLevelStack.top()) : $1;
-            $2->owner_ = $$;
-            $$->addMember($2);
-          }
-          | stmtlist changeprotlevel { $$ = $1; gCurProtLevel = $2; } // Change of protection level is not a statement but this way it is easier to implement.
-          ;
+stmtlist          : { $$ = 0; }
+                  | stmt {
+                    $$ = newCompound(gProtLevelStack.empty() ? gCurProtLevel : gProtLevelStack.top());
+                    $1->owner_ = $$;
+                    $$->addMember($1);
+                  }
+                  | stmtlist stmt {
+                    $$ = ($1 == 0) ? newCompound(gProtLevelStack.empty() ? gCurProtLevel : gProtLevelStack.top()) : $1;
+                    $2->owner_ = $$;
+                    $$->addMember($2);
+                  }
+                  | stmtlist changeprotlevel { $$ = $1; gCurProtLevel = $2; } // Change of protection level is not a statement but this way it is easier to implement.
+                  ;
 
-stmt        : vardeclstmt      { $$ = $1; }
-          | vardeclliststmt    { $$ = $1; }
-          | enumstmt        { $$ = $1; }
-          | typedefnamestmt    { $$ = $1; }
-          | classdefn        { $$ = $1; }
-          | fwddecl        { $$ = $1; }
-          | doccomment      { $$ = $1; }
-          | exprstmt        { $$ = $1; }
-          | functionpointer    { $$ = $1; }
-          | funcdeclstmt      { $$ = $1; }
-          | funcdefn        { $$ = $1; }
-          | ctordeclstmt      { $$ = $1; }
-          | ctordefn        { $$ = $1; }
-          | dtordeclstmt      { $$ = $1; }
-          | dtordefn        { $$ = $1; }
-          | externcblock      { $$ = $1; }
-          | functptrtype      { $$ = $1; }
-          | define        { $$ = $1; }
-          | undef          { $$ = $1; }
-          | include        { $$ = $1; }
-          | hashif        { $$ = $1; }
-          | pragma        { $$ = $1; }
-          | blankline        { $$ = $1; }
-          ;
+stmt              : vardeclstmt     { $$ = $1; }
+                  | vardeclliststmt { $$ = $1; }
+                  | enumstmt        { $$ = $1; }
+                  | typedefnamestmt { $$ = $1; }
+                  | classdefn       { $$ = $1; }
+                  | fwddecl         { $$ = $1; }
+                  | doccomment      { $$ = $1; }
+                  | exprstmt        { $$ = $1; }
+                  | functionpointer { $$ = $1; }
+                  | funcdeclstmt    { $$ = $1; }
+                  | funcdefn        { $$ = $1; }
+                  | ctordeclstmt    { $$ = $1; }
+                  | ctordefn        { $$ = $1; }
+                  | dtordeclstmt    { $$ = $1; }
+                  | dtordefn        { $$ = $1; }
+                  | externcblock    { $$ = $1; }
+                  | functptrtype    { $$ = $1; }
+                  | define          { $$ = $1; }
+                  | undef           { $$ = $1; }
+                  | include         { $$ = $1; }
+                  | hashif          { $$ = $1; }
+                  | pragma          { $$ = $1; }
+                  | blankline       { $$ = $1; }
+                  ;
 
-blankline      : tknBlankLine { $$ = new CppBlankLine; }
-          | blankline tknBlankLine { $$ = $1; $$->numLines_++; }
-          ;
+blankline         : tknBlankLine { $$ = new CppBlankLine; }
+                  | blankline tknBlankLine { $$ = $1; $$->numLines_++; }
+                  ;
 
-define        : tknPreProHash tknDefine tknID tknID      [YYVALID;] { // Simple rename using #define
-            $$ = new CppDefine($3, $4);
-            $$->defType_ = CppDefine::kRename;
-          }
-          | tknPreProHash tknDefine tknID          [YYVALID;] { // blank define
-            $$ = new CppDefine($3);
-            $$->defType_ = CppDefine::kRename;
-          }
-          | tknPreProHash tknDefine tknID tknNumber    [YYVALID;] {// Constant definition
-            $$ = new CppDefine($3, $4);
-            $$->defType_ = CppDefine::kConstNumDef;
-          }
-          | tknPreProHash tknDefine tknID tknStrLit    [YYVALID;] {
-            $$ = new CppDefine($3, $4);
-            $$->defType_ = CppDefine::kConstStrDef;
-          }
-          | tknPreProHash tknDefine tknID tknCharLit    [YYVALID;] {
-            $$ = new CppDefine($3, $4);
-            $$->defType_ = CppDefine::kConstCharDef;
-          }
-          | tknPreProHash tknDefine tknID tknPreProDef  [YYVALID;] {
-            $$ = new CppDefine($3, $4);
-            $$->defType_ = CppDefine::kComplexMacro;
-          }
-          ;
+define            : tknPreProHash tknDefine tknID tknID         [YYVALID;] { // Simple rename using #define
+                    $$ = new CppDefine($3, $4);
+                    $$->defType_ = CppDefine::kRename;
+                  }
+                  | tknPreProHash tknDefine tknID               [YYVALID;] { // blank define
+                    $$ = new CppDefine($3);
+                    $$->defType_ = CppDefine::kRename;
+                  }
+                  | tknPreProHash tknDefine tknID tknNumber     [YYVALID;] {// Constant definition
+                    $$ = new CppDefine($3, $4);
+                    $$->defType_ = CppDefine::kConstNumDef;
+                  }
+                  | tknPreProHash tknDefine tknID tknStrLit     [YYVALID;] {
+                    $$ = new CppDefine($3, $4);
+                    $$->defType_ = CppDefine::kConstStrDef;
+                  }
+                  | tknPreProHash tknDefine tknID tknCharLit    [YYVALID;] {
+                    $$ = new CppDefine($3, $4);
+                    $$->defType_ = CppDefine::kConstCharDef;
+                  }
+                  | tknPreProHash tknDefine tknID tknPreProDef  [YYVALID;] {
+                    $$ = new CppDefine($3, $4);
+                    $$->defType_ = CppDefine::kComplexMacro;
+                  }
+                  ;
 
-undef        : tknPreProHash tknUndef tknID        [YYVALID;]  { $$ = new CppUndef($3); }
-          ;
+undef             : tknPreProHash tknUndef tknID                [YYVALID;]  { $$ = new CppUndef($3); }
+                  ;
 
-include        : tknPreProHash tknInclude tknStrLit    [YYVALID;]  { $$ = new CppInclude((std::string) $3); }
-          | tknPreProHash tknInclude tknStdHdrInclude  [YYVALID;]  { $$ = new CppInclude((std::string) $3); }
-          ;
+include           : tknPreProHash tknInclude tknStrLit          [YYVALID;]  { $$ = new CppInclude((std::string) $3); }
+                  | tknPreProHash tknInclude tknStdHdrInclude   [YYVALID;]  { $$ = new CppInclude((std::string) $3); }
+                  ;
 /*
 preprocessor    : tknPreProHash tknUnRecogPrePro tknPreProDef { $$ = new CppUnRecogPrePro((std::string) $2, (std::string) $3); }
           ;
 */
-hashif        : tknPreProHash tknIf tknPreProDef    [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kIf,    $3); }
-          | tknPreProHash tknIfDef tknID      [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kIfDef,    $3); }
-          | tknPreProHash tknIfNDef tknID      [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kIfNDef,  $3); }
-          | tknPreProHash tknElse          [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kElse      ); }
-          | tknPreProHash tknElIf  tknPreProDef  [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kElIf,    $3); }
-          | tknPreProHash tknEndIf        [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kEndIf      ); }
-          ;
+hashif            : tknPreProHash tknIf tknPreProDef            [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kIf,      $3); }
+                  | tknPreProHash tknIfDef tknID                [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kIfDef,   $3); }
+                  | tknPreProHash tknIfNDef tknID               [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kIfNDef,  $3); }
+                  | tknPreProHash tknElse                       [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kElse       ); }
+                  | tknPreProHash tknElIf  tknPreProDef         [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kElIf,    $3); }
+                  | tknPreProHash tknEndIf                      [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kEndIf      ); }
+                  ;
 
-pragma        : tknPreProHash tknPragma tknPreProDef  [YYVALID;]  { $$ = new CppPragma($3); }
-          ;
+pragma            : tknPreProHash tknPragma tknPreProDef        [YYVALID;]  { $$ = new CppPragma($3); }
+                  ;
 
-doccomment      : tknDocBlockComment  [YYVALID;] { $$ = new CppDocComment((std::string) $1); }
-          | tknDocLineComment    [YYVALID;] { $$ = new CppDocComment((std::string) $1); }
-          ;
+doccomment        : tknDocBlockComment  [YYVALID;] { $$ = new CppDocComment((std::string) $1); }
+                  | tknDocLineComment   [YYVALID;] { $$ = new CppDocComment((std::string) $1); }
+                  ;
 
-identifier      : tknID                  { $$ = $1; }
-          | tknScopeResOp identifier        { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-          | identifier tknScopeResOp identifier  { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
-          ;
+identifier        : tknID                                 { $$ = $1; }
+                  | tknScopeResOp identifier              { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | identifier tknScopeResOp identifier   { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
+                  ;
 
-optid        : { $$ = makeCppToken(0, 0); }
-          | tknID      { $$ = $1; }
-          ;
+optid             : { $$ = makeCppToken(0, 0); }
+                  | tknID      { $$ = $1; }
+                  ;
 
-enumitem      : tknID        { $$ = new CppEnumItem($1);    }
-          | tknID '=' expr  { $$ = new CppEnumItem($1, $3); }
-          | doccomment    { $$ = new CppEnumItem($1);    }
-          | hashif      { $$ = new CppEnumItem($1);    }
-          | blankline      { $$ = new CppEnumItem($1);    }
-          ;
+enumitem          : tknID           { $$ = new CppEnumItem($1);     }
+                  | tknID '=' expr  { $$ = new CppEnumItem($1, $3); }
+                  | doccomment      { $$ = new CppEnumItem($1);     }
+                  | hashif          { $$ = new CppEnumItem($1);     }
+                  | blankline       { $$ = new CppEnumItem($1);     }
+                  ;
 
-enumitemlist    : { $$ = 0; }
-          | enumitemlist enumitem {
-            $$ = $1 ? $1 : new CppEnumItemList;
-            $$->push_back($2);
-          }
-          | enumitemlist ',' enumitem {
-            $$ = $1 ? $1 : new CppEnumItemList;
-            $$->push_back($3);
-          }
-          | enumitemlist ',' {
-            $$ = $1;
-          }
-          ;
+enumitemlist      : { $$ = 0; }
+                  | enumitemlist enumitem {
+                    $$ = $1 ? $1 : new CppEnumItemList;
+                    $$->push_back($2);
+                  }
+                  | enumitemlist ',' enumitem {
+                    $$ = $1 ? $1 : new CppEnumItemList;
+                    $$->push_back($3);
+                  }
+                  | enumitemlist ',' {
+                    $$ = $1;
+                  }
+                  ;
 
-enumstmt      : tknEnum optid '{' enumitemlist '}' ';' [YYVALID;] {
-            $$ = new CppEnum($2, gCurProtLevel);
-            $$->itemList_ = $4;
-          }
-          ;
+enumstmt          : tknEnum optid '{' enumitemlist '}' ';' [YYVALID;] {
+                    $$ = new CppEnum($2, gCurProtLevel);
+                    $$->itemList_ = $4;
+                  }
+                  ;
 
-typedefnamestmt    : typedefnamelist ';' { $$ = $1; }
-          | typedefname ';' { $$ = $1; }
-          ;
+typedefnamestmt   : typedefnamelist ';' { $$ = $1; }
+                  | typedefname ';'     { $$ = $1; }
+                  ;
 
-typedefnamelist    : typedefname ',' tknID { $$ = $1; $$->names_.push_back((std::string) $3); }
-          ;
+typedefnamelist   : typedefname ',' tknID { $$ = $1; $$->names_.push_back((std::string) $3); }
+                  ;
 
-typedefname      : tknTypedef optconst vartype ptrlevelopt reftype tknID {
-            $$ = new CppTypedef(gCurProtLevel, $3, $2, $4, $5);
-            $$->names_.push_back((std::string) $6);
-          }
-          ;
+typedefname       : tknTypedef optconst vartype ptrlevelopt reftype tknID {
+                    $$ = new CppTypedef(gCurProtLevel, $3, $2, $4, $5);
+                    $$->names_.push_back((std::string) $6);
+                  }
+                  ;
 
-vartype        : identifier        { $$ = $1; }
-          | tknNumSignSpec identifier  { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-          | tknClass identifier    { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-          | tknStruct identifier    { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-          | tknUnion identifier    { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-          | identifier '<' templateparam '>'{
-            $$ = makeCppToken($1.sz, $4.sz+1-$1.sz);
-            delete $3.cppObj; // We don't need template parameter
-          }
-          ;
+vartype           : identifier                  { $$ = $1; }
+                  | tknNumSignSpec identifier   { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknClass identifier         { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknStruct identifier        { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknUnion identifier         { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | identifier '<' templateparam '>'{
+                    $$ = makeCppToken($1.sz, $4.sz+1-$1.sz);
+                    delete $3.cppObj; // We don't need template parameter
+                  }
+                  ;
 
-varinit        : vardecl '=' expr { $$ = $1; $$->assign_ = $3; }
-          ;
+varinit           : vardecl '=' expr            { $$ = $1; $$->assign_ = $3; }
+                  ;
 
-vardecl        : varattrib varqual identifier optconst {
-            $$ = $2;
-            $$->name_ = $3;
-            $$->varAttr_ |= $4;
-            $$->typeAttr_|= $1;
-          }
-          | varqual identifier optconst {
-            $$ = $1;
-            $$->name_ = $2;
-            $$->varAttr_ |= $3;
-          }
-          | varattrib varqual identifier '[' expr ']' {
-            $$ = $2;
-            $$->name_ = $3;
-            $$->varAttr_|= $1|kArray;
-            $$->arraySize_ = $5;
-          }
-          | varattrib varqual identifier '[' ']' {
-            $$ = $2;
-            $$->name_ = $3;
-            $$->varAttr_|= $1|kArray;
-          }
-          | varqual identifier '[' expr ']' {
-            $$ = $1;
-            $$->name_ = $2;
-            $$->varAttr_|= kArray;
-            $$->arraySize_ = $4;
-          }
-          | varqual identifier '[' ']' {
-            $$ = $1;
-            $$->name_ = $2;
-            $$->varAttr_|= kArray;
-          }
+vardecl           : varattrib varqual identifier optconst {
+                    $$ = $2;
+                    $$->name_ = $3;
+                    $$->varAttr_ |= $4;
+                    $$->typeAttr_|= $1;
+                  }
+                  | varqual identifier optconst {
+                    $$ = $1;
+                    $$->name_ = $2;
+                    $$->varAttr_ |= $3;
+                  }
+                  | varattrib varqual identifier '[' expr ']' {
+                    $$ = $2;
+                    $$->name_ = $3;
+                    $$->varAttr_|= $1|kArray;
+                    $$->arraySize_ = $5;
+                  }
+                  | varattrib varqual identifier '[' ']' {
+                    $$ = $2;
+                    $$->name_ = $3;
+                    $$->varAttr_|= $1|kArray;
+                  }
+                  | varqual identifier '[' expr ']' {
+                    $$ = $1;
+                    $$->name_ = $2;
+                    $$->varAttr_|= kArray;
+                    $$->arraySize_ = $4;
+                  }
+                  | varqual identifier '[' ']' {
+                    $$ = $1;
+                    $$->name_ = $2;
+                    $$->varAttr_|= kArray;
+                  }
 
 
-          /* Below rules are defined to remove ambiguity in the grammer. */
-          /* See comments near definition of PTRDECL above for details. */
-          | vartype ptrlevel identifier %prec PTRDECL {
-            $$ = new CppVar(gCurProtLevel, $1, 0, 0, $2, kNoRef, $3);
-          }
-          | vartype '&' identifier %prec REFDECL {
-            $$ = new CppVar(gCurProtLevel, $1, 0, 0, 0, kByRef, $3);
-          }
-          | vartype '&' '&' identifier %prec REFDECL {
-            $$ = new CppVar(gCurProtLevel, $1, 0, 0, 0, kRValRef, $4);
-          }
-          /* Disambiguation rules end. */
-          ;
+                  /* Below rules are defined to remove ambiguity in the grammer. */
+                  /* See comments near definition of PTRDECL above for details. */
+                  | vartype ptrlevel identifier %prec PTRDECL {
+                    $$ = new CppVar(gCurProtLevel, $1, 0, 0, $2, kNoRef, $3);
+                  }
+                  | vartype '&' identifier %prec REFDECL {
+                    $$ = new CppVar(gCurProtLevel, $1, 0, 0, 0, kByRef, $3);
+                  }
+                  | vartype '&' '&' identifier %prec REFDECL {
+                    $$ = new CppVar(gCurProtLevel, $1, 0, 0, 0, kRValRef, $4);
+                  }
+                  /* Disambiguation rules end. */
+                  ;
 
-varqual        : optconst vartype optconst ptrlevelopt reftype optconst {
-            $$ = new CppVar(gCurProtLevel, $2, $1|$3, $6, $4, $5, "");
-          }
-          | optconst vartype optconst ptrlevelopt reftype '[' expr ']' optconst {
-            $$ = new CppVar(gCurProtLevel, $2, $1|$3|kArray, $9, $4, $5, "");
-            $$->arraySize_ = $7;
-          }
-          | optconst vartype optconst ptrlevelopt reftype '[' ']' optconst {
-            $$ = new CppVar(gCurProtLevel, $2, $1|$3|kArray, $8, $4, $5, "");
-          }
-          ;
+varqual           : optconst vartype optconst ptrlevelopt reftype optconst {
+                    $$ = new CppVar(gCurProtLevel, $2, $1|$3, $6, $4, $5, "");
+                  }
+                  | optconst vartype optconst ptrlevelopt reftype '[' expr ']' optconst {
+                    $$ = new CppVar(gCurProtLevel, $2, $1|$3|kArray, $9, $4, $5, "");
+                    $$->arraySize_ = $7;
+                  }
+                  | optconst vartype optconst ptrlevelopt reftype '[' ']' optconst {
+                    $$ = new CppVar(gCurProtLevel, $2, $1|$3|kArray, $8, $4, $5, "");
+                  }
+                  ;
 
-varattrib      : tknStatic { $$ = kStatic;  }
-          | tknExtern  { $$ = kExtern;  }
-          ;
+varattrib         : tknStatic { $$ = kStatic;  }
+                  | tknExtern  { $$ = kExtern;  }
+                  ;
 
-funcdeclstmt    : funcdecl ';' [YYVALID;] { $$ = $1; }
-          ;
+funcdeclstmt      : funcdecl ';' [YYVALID;] { $$ = $1; }
+                  ;
 
-funcdefn      : funcdecl '{' stmtlist '}' [YYVALID;] {
-            $$ = $1;
-            $$->defn_ = $3 ? $3 : newCompound(kUnknownProt);
-            $$->defn_->compoundType_ = kBlock;
-          }
-          ;
+funcdefn          : funcdecl '{' stmtlist '}' [YYVALID;] {
+                    $$ = $1;
+                    $$->defn_ = $3 ? $3 : newCompound(kUnknownProt);
+                    $$->defn_->compoundType_ = kBlock;
+                  }
+                  ;
 
-functptrtype    : tknTypedef functionpointer ';' [YYVALID;] {
-            $2->attr_ |= kTypedef;
-            $$ = $2;
-          }
+functptrtype      : tknTypedef functionpointer ';' [YYVALID;] {
+                    $2->attr_ |= kTypedef;
+                    $$ = $2;
+                  }
 
-functionpointer    : apidocer functype varqual '(' apidocer '*' tknID ')' '(' paramlist ')' {
-            $$ = new CppFunctionPtr(gCurProtLevel, $7, $3, $10, $2);
-            $$->docer1_ = $1;
-            $$->docer2_ = $5;
-          }
-          | apidocer varqual '(' apidocer '*' tknID ')' '(' paramlist ')' {
-            $$ = new CppFunctionPtr(gCurProtLevel, $6, $2, $9, 0);
-            $$->docer1_ = $1;
-            $$->docer2_ = $4;
-          }
-          ;
+functionpointer   : apidocer functype varqual '(' apidocer '*' tknID ')' '(' paramlist ')' {
+                    $$ = new CppFunctionPtr(gCurProtLevel, $7, $3, $10, $2);
+                    $$->docer1_ = $1;
+                    $$->docer2_ = $5;
+                  }
+                  | apidocer varqual '(' apidocer '*' tknID ')' '(' paramlist ')' {
+                    $$ = new CppFunctionPtr(gCurProtLevel, $6, $2, $9, 0);
+                    $$->docer1_ = $1;
+                    $$->docer2_ = $4;
+                  }
+                  ;
 
-funcdecl      : functype apidocer varqual apidocer identifier '(' paramlist ')' funcattrib {
-            $$ = newFunction(gCurProtLevel, $5, $3, $7, $1 | $9);
-            $$->docer1_ = $2;
-            $$->docer2_ = $4;
-          }
-          | apidocer varqual apidocer identifier '(' paramlist ')' funcattrib {
-            $$ = newFunction(gCurProtLevel, $4, $2, $6, $8);
-            $$->docer1_ = $1;
-            $$->docer2_ = $3;
-          }
-          ;
+funcdecl          : functype apidocer varqual apidocer identifier '(' paramlist ')' funcattrib {
+                    $$ = newFunction(gCurProtLevel, $5, $3, $7, $1 | $9);
+                    $$->docer1_ = $2;
+                    $$->docer2_ = $4;
+                  }
+                  | apidocer varqual apidocer identifier '(' paramlist ')' funcattrib {
+                    $$ = newFunction(gCurProtLevel, $4, $2, $6, $8);
+                    $$->docer1_ = $1;
+                    $$->docer2_ = $3;
+                  }
+                  ;
 
-paramlist      : { $$ = 0; }
-          | param {
-            $$ = new CppParamList;
-            $$->push_back($1);
-          }
-          | paramlist ',' param {
-            $1->push_back($3);
-            $$ = $1;
-          }
-          ;
+paramlist         : { $$ = 0; }
+                  | param {
+                    $$ = new CppParamList;
+                    $$->push_back($1);
+                  }
+                  | paramlist ',' param {
+                    $1->push_back($3);
+                    $$ = $1;
+                  }
+                  ;
 
-param        : varinit        { $$ = $1; $1->varAttr_ |= kFuncParam;  }
-          | vardecl        { $$ = $1; $1->varAttr_ |= kFuncParam;  }
-          | varqual        { $$ = $1; $1->varAttr_ |= kFuncParam;  }
-          | functionpointer    { $$ = $1; $1->attr_ |= kFuncParam;    }
-          ;
+param             : varinit                 { $$ = $1; $1->varAttr_ |= kFuncParam;  }
+                  | vardecl                 { $$ = $1; $1->varAttr_ |= kFuncParam;  }
+                  | varqual                 { $$ = $1; $1->varAttr_ |= kFuncParam;  }
+                  | functionpointer         { $$ = $1; $1->attr_ |= kFuncParam;    }
+                  ;
 
-templateparam    : varqual        { $$ = $1; }
-          | functionpointer    { $$ = $1; }
-          ;
+templateparam     : varqual                 { $$ = $1; }
+                  | functionpointer         { $$ = $1; }
+                  ;
 
-functype      : varattrib        { $$ = $1;      }
-          | tknInline        { $$ = kInline;    }
-          | tknVirtual      { $$ = kVirtual;  }
-          | tknExtern        { $$ = kExtern;    }
-          | tknExplicit      { $$ = kExplicit;  }
-          | tknInline tknExplicit  { $$ = kInline | kExplicit; }
-          | tknExplicit tknInline  { $$ = kInline | kExplicit; }
-          ;
+functype          : varattrib               { $$ = $1;      }
+                  | tknInline               { $$ = kInline;    }
+                  | tknVirtual              { $$ = kVirtual;  }
+                  | tknExtern               { $$ = kExtern;    }
+                  | tknExplicit             { $$ = kExplicit;  }
+                  | tknInline tknExplicit   { $$ = kInline | kExplicit; }
+                  | tknExplicit tknInline   { $$ = kInline | kExplicit; }
+                  ;
 
-funcattrib      :            { $$ = 0; }
-          | funcattrib tknConst        { $$ = $1 | kConst; }
-          | funcattrib tknOverride      { $$ = $1 | kOverride; }
-          | funcattrib '=' tknNumber      [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else YYVALID;] { $$ = $1 | kPureVirtual; }
-          ;
+funcattrib        :                           { $$ = 0; }
+                  | funcattrib tknConst       { $$ = $1 | kConst; }
+                  | funcattrib tknOverride    { $$ = $1 | kOverride; }
+                  | funcattrib '=' tknNumber  [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else YYVALID;]
+                                              { $$ = $1 | kPureVirtual; }
+                  ;
 
-optconst      : { $$ = 0; }
-          | tknConst { $$ = kConst; }
-          ;
+optconst          : { $$ = 0; }
+                  | tknConst { $$ = kConst; }
+                  ;
 
-ctordeclstmt    : ctordecl';' [YYVALID;] { $$ = $1; }
-          ;
+ctordeclstmt      : ctordecl';' [YYVALID;] { $$ = $1; }
+                  ;
 
-ctordefn      : ctordecl meminitlist
-            '{'
-              stmtlist
-            '}' [YYVALID;]
-          {
-            $$ = $1;
-            $$->memInitList_  = $2;
-            $$->defn_      = $4 ? $4 : newCompound(kUnknownProt, kBlock);
-          }
-          | tknID tknScopeResOp tknID [if($1 != $3) YYERROR; else YYVALID;]
-            '(' paramlist ')' meminitlist
-            '{'
-              stmtlist
-            '}' [YYVALID;]
-          {
-            $$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $3.sz+$3.len-$1.sz), $6, $8, 0);
-            $$->defn_      = $10 ? $10 : newCompound(kUnknownProt, kBlock);
-          }
-          | identifier tknScopeResOp tknID tknScopeResOp tknID [if($3 != $5) YYERROR; else YYVALID;]
-            '(' paramlist ')' meminitlist
-            '{'
-              stmtlist
-            '}' [YYVALID;]
-          {
-            $$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $5.sz+$5.len-$1.sz), $8, $10, 0);
-            $$->defn_      = $12 ? $12 : newCompound(gCurProtLevel, kBlock);
-          }
-          ;
+ctordefn          : ctordecl meminitlist
+                    '{'
+                      stmtlist
+                    '}' [YYVALID;]
+                  {
+                    $$ = $1;
+                    $$->memInitList_  = $2;
+                    $$->defn_      = $4 ? $4 : newCompound(kUnknownProt, kBlock);
+                  }
+                  | tknID tknScopeResOp tknID [if($1 != $3) YYERROR; else YYVALID;]
+                    '(' paramlist ')' meminitlist
+                    '{'
+                      stmtlist
+                    '}' [YYVALID;]
+                  {
+                    $$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $3.sz+$3.len-$1.sz), $6, $8, 0);
+                    $$->defn_      = $10 ? $10 : newCompound(kUnknownProt, kBlock);
+                  }
+                  | identifier tknScopeResOp tknID tknScopeResOp tknID [if($3 != $5) YYERROR; else YYVALID;]
+                    '(' paramlist ')' meminitlist
+                    '{'
+                      stmtlist
+                    '}' [YYVALID;]
+                  {
+                    $$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $5.sz+$5.len-$1.sz), $8, $10, 0);
+                    $$->defn_      = $12 ? $12 : newCompound(gCurProtLevel, kBlock);
+                  }
+                  ;
 
-ctordecl      : tknID '(' paramlist ')' %prec CTORDECL
-          [
-            if(gCompoundStack.empty())
-              YYERROR;
-            if(gCompoundStack.top() != $1)
-              YYERROR;
-            else
-              YYVALID;
-          ]
-          {
-            $$ = newConstructor(gCurProtLevel, $1, $3, nullptr, 0);
-          }
-          | functype tknID [if(gCompoundStack.empty()) YYERROR; if(gCompoundStack.top() != $2) YYERROR; else YYVALID;] '(' paramlist ')'
-          {
-            $$ = newConstructor(gCurProtLevel, $2, $5, nullptr, $1);
-          }
-          ;
+ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
+                  [
+                    if(gCompoundStack.empty())
+                      YYERROR;
+                    if(gCompoundStack.top() != $1)
+                      YYERROR;
+                    else
+                      YYVALID;
+                  ]
+                  {
+                    $$ = newConstructor(gCurProtLevel, $1, $3, nullptr, 0);
+                  }
+                  | functype tknID [if(gCompoundStack.empty()) YYERROR; if(gCompoundStack.top() != $2) YYERROR; else YYVALID;] '(' paramlist ')'
+                  {
+                    $$ = newConstructor(gCurProtLevel, $2, $5, nullptr, $1);
+                  }
+                  ;
 
-meminitlist      : { $$ = NULL; }
-          | ':' tknID '(' expr ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, $4)); }
-          | meminitlist ',' tknID '(' expr ')'  { $$ = $1; $$->push_back(CppMemInit($3, $5)); }
-          ;
+meminitlist       : { $$ = NULL; }
+                  | ':' tknID '(' expr ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, $4)); }
+                  | meminitlist ',' tknID '(' expr ')'  { $$ = $1; $$->push_back(CppMemInit($3, $5)); }
+                  ;
 
-dtordeclstmt    : dtordecl ';' [YYVALID;] { $$ = $1; }
-          ;
+dtordeclstmt      : dtordecl ';' [YYVALID;] { $$ = $1; }
+                  ;
 
-dtordefn      : dtordecl '{' stmtlist '}' [YYVALID;]
-          {
-            $$ = $1;
-            $$->defn_ = $3 ? $3 : newCompound(kUnknownProt, kBlock);
-          }
-          | tknID tknScopeResOp '~' tknID [if($1 != $4) YYERROR; else YYVALID;]
-            '(' ')' '{' stmtlist '}'
-          {
-            $$ = newDestructor(gCurProtLevel, makeCppToken($1.sz, $4.sz+$4.len-$1.sz), 0);
-            $$->defn_      = $9 ? $9 : newCompound(kUnknownProt, kBlock);
-          }
-          | identifier tknScopeResOp tknID tknScopeResOp '~' tknID [if($3 != $6) YYERROR; else YYVALID;]
-            '(' ')' '{' stmtlist '}'
-          {
-            $$ = newDestructor(gCurProtLevel, makeCppToken($1.sz, $6.sz+$6.len-$1.sz), 0);
-            $$->defn_      = $11 ? $11 : newCompound(kUnknownProt, kBlock);
-          }
-          ;
+dtordefn          : dtordecl '{' stmtlist '}' [YYVALID;]
+                  {
+                    $$ = $1;
+                    $$->defn_ = $3 ? $3 : newCompound(kUnknownProt, kBlock);
+                  }
+                  | tknID tknScopeResOp '~' tknID [if($1 != $4) YYERROR; else YYVALID;]
+                    '(' ')' '{' stmtlist '}'
+                  {
+                    $$ = newDestructor(gCurProtLevel, makeCppToken($1.sz, $4.sz+$4.len-$1.sz), 0);
+                    $$->defn_      = $9 ? $9 : newCompound(kUnknownProt, kBlock);
+                  }
+                  | identifier tknScopeResOp tknID tknScopeResOp '~' tknID [if($3 != $6) YYERROR; else YYVALID;]
+                    '(' ')' '{' stmtlist '}'
+                  {
+                    $$ = newDestructor(gCurProtLevel, makeCppToken($1.sz, $6.sz+$6.len-$1.sz), 0);
+                    $$->defn_      = $11 ? $11 : newCompound(kUnknownProt, kBlock);
+                  }
+                  ;
 
-dtordecl      : '~' tknID '(' ')' %prec DTORDECL
-          [
-            if(gCompoundStack.empty())
-              YYERROR;
-            if(gCompoundStack.top() != $2)
-              YYERROR;
-            else
-              YYVALID;
-          ]
-          {
-            const char* tildaStartPos = $2.sz-1;
-            while(*tildaStartPos != '~') --tildaStartPos;
-            $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $2.sz+$2.len-tildaStartPos), 0);
-          }
-          | functype '~' tknID '(' ')' %prec DTORDECL
-          [
-            if(gCompoundStack.empty())
-              YYERROR;
-            if(gCompoundStack.top() != $3)
-              YYERROR;
-            else
-              YYVALID;
-          ]
-          {
-            const char* tildaStartPos = $3.sz-1;
-            while(*tildaStartPos != '~') --tildaStartPos;
-            $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), $1);
-          }
-          ;
+dtordecl          : '~' tknID '(' ')' %prec DTORDECL
+                  [
+                    if(gCompoundStack.empty())
+                      YYERROR;
+                    if(gCompoundStack.top() != $2)
+                      YYERROR;
+                    else
+                      YYVALID;
+                  ]
+                  {
+                    const char* tildaStartPos = $2.sz-1;
+                    while(*tildaStartPos != '~') --tildaStartPos;
+                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $2.sz+$2.len-tildaStartPos), 0);
+                  }
+                  | functype '~' tknID '(' ')' %prec DTORDECL
+                  [
+                    if(gCompoundStack.empty())
+                      YYERROR;
+                    if(gCompoundStack.top() != $3)
+                      YYERROR;
+                    else
+                      YYVALID;
+                  ]
+                  {
+                    const char* tildaStartPos = $3.sz-1;
+                    while(*tildaStartPos != '~') --tildaStartPos;
+                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), $1);
+                  }
+                  ;
 
-vardecllist      : vardecl ',' optconst ptrlevelopt reftype optconst identifier optconst {
-            $$ = new CppVarList();
-            $$->addVar($1);
-            $$->addVar(new CppVar(gCurProtLevel, $1->baseType_, $1->typeAttr_|$3, $6|$8, $4, $5, $7));
-          }
-          | vardecllist ',' optconst ptrlevelopt reftype optconst identifier optconst {
-            $$ = $1;
-            $$->addVar(new CppVar(gCurProtLevel, $1->varlist_.back()->baseType_, $1->varlist_.back()->typeAttr_|$3, $6|$8, $4, $5, $7));
-          }
-          ;
+vardecllist       : vardecl ',' optconst ptrlevelopt reftype optconst identifier optconst {
+                    $$ = new CppVarList();
+                    $$->addVar($1);
+                    $$->addVar(new CppVar(gCurProtLevel, $1->baseType_, $1->typeAttr_|$3, $6|$8, $4, $5, $7));
+                  }
+                  | vardecllist ',' optconst ptrlevelopt reftype optconst identifier optconst {
+                    $$ = $1;
+                    $$->addVar(new CppVar(gCurProtLevel, $1->varlist_.back()->baseType_, $1->varlist_.back()->typeAttr_|$3, $6|$8, $4, $5, $7));
+                  }
+                  ;
 
-vardeclliststmt    : vardecllist ';' [YYVALID;] { $$ = $1; }
-          ;
+vardeclliststmt   : vardecllist ';' [YYVALID;] { $$ = $1; }
+                  ;
 
-vardeclstmt      : vardecl ';'    [YYVALID;] { $$ = $1; }
-          | varinit ';'    [YYVALID;] { $$ = $1; }
-          | tknID vardecl ';'  [YYVALID;] { $$ = $2; $$->apidocer_ = $1; }
-          ;
+vardeclstmt       : vardecl ';'    [YYVALID;] { $$ = $1; }
+                  | varinit ';'    [YYVALID;] { $$ = $1; }
+                  | tknID vardecl ';'  [YYVALID;] { $$ = $2; $$->apidocer_ = $1; }
+                  ;
 
-ptrlevelopt      :        { $$ = 0;    }
-          | ptrlevel    { $$ = $1;    }
-          ;
+ptrlevelopt       :        { $$ = 0;    }
+                  | ptrlevel    { $$ = $1;    }
+                  ;
 
-ptrlevel      : '*'      { $$ = 1;    }
-          | ptrlevel '*'  { $$ = $1 + 1;  }
-          ;
+ptrlevel          : '*'      { $$ = 1;    }
+                  | ptrlevel '*'  { $$ = $1 + 1;  }
+                  ;
 
-reftype        :      { $$ = kNoRef;    }
-          | '&'    { $$ = kByRef;    }
-          | '&' '&'  { $$ = kRValRef;  }
-          ;
+reftype           :      { $$ = kNoRef;    }
+                  | '&'    { $$ = kByRef;    }
+                  | '&' '&'  { $$ = kRValRef;  }
+                  ;
 
-classdefn      : compoundSpecifier apidocer tknID inheritlist
-            '{' [gCompoundStack.push($3); YYVALID;] { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
-              stmtlist
-            '}' classdefnend [gCompoundStack.pop(); YYVALID;]
-          {
-            gCurProtLevel = gProtLevelStack.top();
-            gProtLevelStack.pop();
+classdefn         : compoundSpecifier apidocer tknID inheritlist
+                    '{' [gCompoundStack.push($3); YYVALID;] { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
+                      stmtlist
+                    '}' classdefnend [gCompoundStack.pop(); YYVALID;]
+                  {
+                    gCurProtLevel = gProtLevelStack.top();
+                    gProtLevelStack.pop();
 
-            $$ = $7 ? $7 : newCompound(gCurProtLevel);
-            $$->compoundType_  = $1;
-            $$->apidocer_    = $2;
-            $$->name_      = $3;
-            $$->inheritList_  = $4;
-          }
+                    $$ = $7 ? $7 : newCompound(gCurProtLevel);
+                    $$->compoundType_  = $1;
+                    $$->apidocer_    = $2;
+                    $$->name_      = $3;
+                    $$->inheritList_  = $4;
+                  }
 
-inheritlist      : { $$ = 0; }
-          | ':' protlevel identifier [YYVALID;]        { $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $3, $2)); }
-          | inheritlist ',' protlevel identifier [YYVALID;]  { $$ = $1; $$->push_back(CppInheritInfo((std::string) $4, $3)); }
-          ;
+inheritlist       : { $$ = 0; }
+                  | ':' protlevel identifier [YYVALID;]        { $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $3, $2)); }
+                  | inheritlist ',' protlevel identifier [YYVALID;]  { $$ = $1; $$->push_back(CppInheritInfo((std::string) $4, $3)); }
+                  ;
 
-protlevel      :        { $$ = kUnknownProt;}
-          | tknPublic    { $$ = kPublic;    }
-          | tknProtected  { $$ = kProtected;  }
-          | tknPrivate  { $$ = kPrivate;  }
-          ;
+protlevel         :        { $$ = kUnknownProt;}
+                  | tknPublic    { $$ = kPublic;    }
+                  | tknProtected  { $$ = kProtected;  }
+                  | tknPrivate  { $$ = kPrivate;  }
+                  ;
 
-fwddecl        : compoundSpecifier identifier ';' [YYVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $2, $1); }
-          | compoundSpecifier apidocer identifier ';' [YYVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $3, $1); }
-          ;
+fwddecl           : compoundSpecifier identifier ';' [YYVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $2, $1); }
+                  | compoundSpecifier apidocer identifier ';' [YYVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $3, $1); }
+                  ;
 
-compoundSpecifier  : tknClass    { $$ = kClass;    }
-          | tknStruct    { $$ = kStruct;    }
-          | tknUnion    { $$ = kUnion;    }
-          | tknNamespace  { $$ = kNamespace;  }
-          ;
+compoundSpecifier : tknClass    { $$ = kClass;    }
+                  | tknStruct    { $$ = kStruct;    }
+                  | tknUnion    { $$ = kUnion;    }
+                  | tknNamespace  { $$ = kNamespace;  }
+                  ;
 
-classdefnend    :
-          | ';'
-          ;
+classdefnend      :
+                  | ';'
+                  ;
 
-apidocer      : { $$ = makeCppToken(0, 0); }
-          | tknID { $$ = $1; }
-          ;
+apidocer          : { $$ = makeCppToken(0, 0); }
+                  | tknID { $$ = $1; }
+                  ;
 
-changeprotlevel    : tknPublic    ':'  [YYVALID;] { $$ = kPublic;    }
-          | tknProtected  ':'  [YYVALID;] { $$ = kProtected;  }
-          | tknPrivate  ':'  [YYVALID;] { $$ = kPrivate;    }
-          ;
+changeprotlevel   : tknPublic     ':'  [YYVALID;] { $$ = kPublic;     }
+                  | tknProtected  ':'  [YYVALID;] { $$ = kProtected;  }
+                  | tknPrivate    ':'  [YYVALID;] { $$ = kPrivate;    }
+                  ;
 
-externcblock    : tknExternC '{' stmtlist '}' [YYVALID;] {$$ = $3; $$->compoundType_ = kExternCBlock; }
-          ;
+externcblock      : tknExternC '{' stmtlist '}' [YYVALID;] {$$ = $3; $$->compoundType_ = kExternCBlock; }
+                  ;
 
-exprlist      : expr        { $$ = new CppExprList(); $$->push_back($1);  }
-          | exprlist ',' expr  { $$ = $1; $$->push_back($3);        }
-          ;
+exprlist          : expr              { $$ = new CppExprList(); $$->push_back($1);  }
+                  | exprlist ',' expr { $$ = $1; $$->push_back($3);                 }
+                  ;
 
-expr        : tknStrLit              { $$ = new CppExpr((std::string) $1, kNone);  }
-          | tknCharLit            { $$ = new CppExpr((std::string) $1, kNone);  }
-          | tknNumber              { $$ = new CppExpr((std::string) $1, kNone);  }
-          | identifier            { $$ = new CppExpr((std::string) $1, kNone);  }
-          | '{' exprlist '}'          { $$ = new CppExpr($2, CppExpr::kInitializer);  }
-          | '-' expr %prec PREFIX        { $$ = new CppExpr($2, kUnaryMinus);      }
-          | '~' expr %prec PREFIX        { $$ = new CppExpr($2, kBitToggle);        }
-          | '!' expr %prec PREFIX        { $$ = new CppExpr($2, kLogNot);        }
-          | '*' expr %prec PREFIX        { $$ = new CppExpr($2, kDerefer);        }
-          | '&' expr %prec PREFIX        { $$ = new CppExpr($2, kRefer);          }
-          | expr '+' expr            { $$ = new CppExpr($1, kPlus, $3);        }
-          | expr '-' expr            { $$ = new CppExpr($1, kMinus, $3);        }
-          | expr '*' expr            { $$ = new CppExpr($1, kMul, $3);        }
-          | expr '/' expr            { $$ = new CppExpr($1, kDiv, $3);        }
-          | expr '&' expr            { $$ = new CppExpr($1, kBitAnd, $3);      }
-          | expr '|' expr            { $$ = new CppExpr($1, kBitOr, $3);        }
-          | expr '=' expr            { $$ = new CppExpr($1, kEqual, $3); }
-          | expr '[' expr ']' %prec POSTFIX  { $$ = new CppExpr($1, kArrayElem, $3);      }
-          | expr '=' '=' expr %prec CMPEQUAL  { $$ = new CppExpr($1, kCmpEqual, $4);      }
-               | expr '<' '<' expr %prec LSHIFT    { $$ = new CppExpr($1, kLeftShift, $4);      }
-               | expr '>' '>' expr %prec RSHIFT    { $$ = new CppExpr($1, kRightShift, $4);      }
-          | expr '-' '>' expr %prec ARROW   { $$ = new CppExpr($1, kArrow, $4);        }
-          | expr '.' expr            { $$ = new CppExpr($1, kDot, $3);        }
-          | expr '(' ')'             { $$ = new CppExpr($1, kFunctionCall);      }
-          | expr '(' exprlist ')'        { $$ = new CppExpr($1, kFunctionCall, $3);    }
-          | '(' expr ')'            { $$ = $2; $2->flags_ |= CppExpr::kBracketed;  }
-          | tknNew  expr          { $$ = $2; $2->flags_ |= CppExpr::kNew;      }
-          | tknDelete  expr          { $$ = $2; $2->flags_ |= CppExpr::kDelete;    }
-          | tknDelete  '[' ']' expr      { $$ = $4; $4->flags_ |= CppExpr::kDeleteArray;  }
-          | tknReturn  expr          { $$ = $2; $2->flags_ |= CppExpr::kReturn;    }
-          | tknReturn              { $$ = new CppExpr(CppExprAtom(), CppExpr::kReturn); }
-          ;
+expr              : tknStrLit                         { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | tknCharLit                        { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | tknNumber                         { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | identifier                        { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | '{' exprlist '}'                  { $$ = new CppExpr($2, CppExpr::kInitializer);        }
+                  | '-' expr %prec PREFIX             { $$ = new CppExpr($2, kUnaryMinus);                  }
+                  | '~' expr %prec PREFIX             { $$ = new CppExpr($2, kBitToggle);                   }
+                  | '!' expr %prec PREFIX             { $$ = new CppExpr($2, kLogNot);                      }
+                  | '*' expr %prec PREFIX             { $$ = new CppExpr($2, kDerefer);                     }
+                  | '&' expr %prec PREFIX             { $$ = new CppExpr($2, kRefer);                       }
+                  | expr '+' expr                     { $$ = new CppExpr($1, kPlus, $3);                    }
+                  | expr '-' expr                     { $$ = new CppExpr($1, kMinus, $3);                   }
+                  | expr '*' expr                     { $$ = new CppExpr($1, kMul, $3);                     }
+                  | expr '/' expr                     { $$ = new CppExpr($1, kDiv, $3);                     }
+                  | expr '&' expr                     { $$ = new CppExpr($1, kBitAnd, $3);                  }
+                  | expr '|' expr                     { $$ = new CppExpr($1, kBitOr, $3);                   }
+                  | expr '=' expr                     { $$ = new CppExpr($1, kEqual, $3);                   }
+                  | expr '[' expr ']' %prec POSTFIX   { $$ = new CppExpr($1, kArrayElem, $3);               }
+                  | expr '=' '=' expr %prec CMPEQUAL  { $$ = new CppExpr($1, kCmpEqual, $4);                }
+                  | expr '<' '<' expr %prec LSHIFT    { $$ = new CppExpr($1, kLeftShift, $4);               }
+                  | expr '>' '>' expr %prec RSHIFT    { $$ = new CppExpr($1, kRightShift, $4);              }
+                  | expr '-' '>' expr %prec ARROW     { $$ = new CppExpr($1, kArrow, $4);                   }
+                  | expr '.' expr                     { $$ = new CppExpr($1, kDot, $3);                     }
+                  | expr '(' ')'                      { $$ = new CppExpr($1, kFunctionCall);                }
+                  | expr '(' exprlist ')'             { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | '(' expr ')'                      { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
+                  | tknNew  expr                      { $$ = $2; $2->flags_ |= CppExpr::kNew;               }
+                  | tknDelete  expr                   { $$ = $2; $2->flags_ |= CppExpr::kDelete;            }
+                  | tknDelete  '[' ']' expr           { $$ = $4; $4->flags_ |= CppExpr::kDeleteArray;       }
+                  | tknReturn  expr                   { $$ = $2; $2->flags_ |= CppExpr::kReturn;            }
+                  | tknReturn                         { $$ = new CppExpr(CppExprAtom(), CppExpr::kReturn);  }
+                  ;
 
-exprstmt      : expr ';'  [YYVALID;]  { $$ = $1; }
-          ;
+exprstmt          : expr ';'  [YYVALID;]              { $$ = $1; }
+                  ;
 
 %%
 

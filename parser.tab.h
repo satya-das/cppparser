@@ -59,42 +59,42 @@
 #define YYERRCODE 256
 
 typedef union {
-	CppToken			str;
-	CppObj*				cppObj;
-	CppVar*				cppVarObj;
-	CppEnum*			cppEnum;
-	CppEnumItem*		enumItem;
-	CppEnumItemList*	enumItemList;
-	CppTypedef*			typedefObj;
-	CppCompound*		cppCompundObj;
-	CppDocComment*		docCommentObj;
-	CppFwdClsDecl*		fwdDeclObj;
-	CppVarList*			cppVarObjList;
-	CppUnRecogPrePro*	unRecogPreProObj;
-	CppExpr*			cppExprObj;
-	CppFunction*		cppFuncObj;
-	CppFunctionPtr*		cppFuncPointerObj;
-	CppVarOrFuncPtrType	varOrFuncPtr;
-	CppParamList*		paramList;
-	CppConstructor*		cppCtorObj;
-	CppDestructor*		cppDtorObj;
-	CppMemInitList*		memInitList;
-	CppInheritanceList*	inheritList;
-	CppCompoundType		compoundType;
-	unsigned short		ptrLevel;
-	CppRefType			refType;
-	unsigned int		attr;
-	CppObjProtLevel		protLevel;
+  CppToken              str;
+  CppObj*               cppObj;
+  CppVar*               cppVarObj;
+  CppEnum*              cppEnum;
+  CppEnumItem*          enumItem;
+  CppEnumItemList*      enumItemList;
+  CppTypedef*           typedefObj;
+  CppCompound*          cppCompundObj;
+  CppDocComment*        docCommentObj;
+  CppFwdClsDecl*        fwdDeclObj;
+  CppVarList*           cppVarObjList;
+  CppUnRecogPrePro*     unRecogPreProObj;
+  CppExpr*              cppExprObj;
+  CppFunction*          cppFuncObj;
+  CppFunctionPtr*       cppFuncPointerObj;
+  CppVarOrFuncPtrType   varOrFuncPtr;
+  CppParamList*         paramList;
+  CppConstructor*       cppCtorObj;
+  CppDestructor*        cppDtorObj;
+  CppMemInitList*       memInitList;
+  CppInheritanceList*   inheritList;
+  CppCompoundType       compoundType;
+  unsigned short        ptrLevel;
+  CppRefType            refType;
+  unsigned int          attr;
+  CppObjProtLevel       protLevel;
 
-	CppExprList*		exprList;
+  CppExprList*          exprList;
 
-	CppDefine*			hashDefine;
-	CppUndef*			hashUndef;
-	CppInclude*			hashInclude;
-	CppHashIf*			hashIf;
-	CppPragma*			hashPragma;
+  CppDefine*            hashDefine;
+  CppUndef*             hashUndef;
+  CppInclude*           hashInclude;
+  CppHashIf*            hashIf;
+  CppPragma*            hashPragma;
 
-	CppBlankLine*		blankLine;
+  CppBlankLine*         blankLine;
 } YYSTYPE;
 extern YYSTYPE yylval;
 
