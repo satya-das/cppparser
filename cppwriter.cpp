@@ -211,11 +211,15 @@ void CppWriter::emitVarList(const CppVarList* varListObj, std::ostream& stm, Cpp
 void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   stm << indentation << "enum";
+  if (enmObj->isClass_)
+    stm << " class";
   if (!enmObj->name_.empty())
-    stm << ' ' << enmObj->name_ << ' ';
-  stm << "\n{\n" << indentation++;
+    stm << ' ' << enmObj->name_;
+  if (!enmObj->underlyingType_.empty())
+    stm << " : " << enmObj->underlyingType_;
   if (enmObj->itemList_)
   {
+    stm << "\n{\n" << indentation++;
     for (CppEnumItemList::const_iterator itmItr = enmObj->itemList_->begin(); itmItr != enmObj->itemList_->end(); ++itmItr)
     {
       CppEnumItem* enmItem = *itmItr;
@@ -232,8 +236,9 @@ void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, CppIndent ind
         stm << ",\n";
       }
     }
+    stm << --indentation << "}";
   }
-  stm << --indentation << "};\n";
+  stm << ";\n";
 }
 
 void CppWriter::emitTypedef(const CppTypedef* typedefObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const

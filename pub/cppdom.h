@@ -342,13 +342,17 @@ struct CppEnumItem
 typedef std::list<CppEnumItem*> CppEnumItemList;
 struct CppEnum : public CppObj
 {
-  std::string			name_;
-  CppEnumItemList*	itemList_;
+  std::string			  name_;      // Can be empty for anonymous enum.
+  CppEnumItemList*	itemList_;  // Can be nullptr for forward declared enum.
+  bool              isClass_;
+  std::string       underlyingType_;
 
-  CppEnum(std::string name, CppObjProtLevel prot)
-    : CppObj(kEnum, prot)
-    , name_(std::move(name))
-    , itemList_(nullptr)
+  CppEnum(CppObjProtLevel prot, std::string name, CppEnumItemList* itemList, bool isClass = false, std::string underlyingType = std::string())
+    : CppObj          (kEnum, prot)
+    , name_           (std::move(name))
+    , itemList_       (itemList)
+    , isClass_        (isClass)
+    , underlyingType_ (std::move(underlyingType))
   {
   }
 };

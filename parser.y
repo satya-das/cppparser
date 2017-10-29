@@ -166,7 +166,7 @@ extern int yylex();
 %type  <str>                apidocer
 %type  <str>                identifier vartype optid
 %type  <cppObj>             stmt functptrtype
-%type  <cppEnum>            enumstmt
+%type  <cppEnum>            enumdefn enumfwddecl
 %type  <enumItem>           enumitem
 %type  <enumItemList>       enumitemlist
 %type  <fwdDeclObj>         fwddecl
@@ -272,7 +272,8 @@ stmtlist          : { $$ = 0; }
 
 stmt              : vardeclstmt     { $$ = $1; }
                   | vardeclliststmt { $$ = $1; }
-                  | enumstmt        { $$ = $1; }
+                  | enumdefn        { $$ = $1; }
+                  | enumfwddecl     { $$ = $1; }
                   | typedefnamestmt { $$ = $1; }
                   | classdefn       { $$ = $1; }
                   | fwddecl         { $$ = $1; }
@@ -380,9 +381,27 @@ enumitemlist      : { $$ = 0; }
                   }
                   ;
 
-enumstmt          : tknEnum optid '{' enumitemlist '}' ';' [YYVALID;] {
-                    $$ = new CppEnum($2, gCurProtLevel);
-                    $$->itemList_ = $4;
+enumdefn          : tknEnum optid '{' enumitemlist '}' ';'                          [YYVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $2, $4);
+                  }
+                  | tknEnum tknID ':' identifier '{' enumitemlist '}' ';'           [YYVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $2, $6, false, $4);
+                  };
+                  | tknEnum tknClass tknID ':' identifier '{' enumitemlist '}' ';'  [YYVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $3, $7, true, $5);
+                  }
+                  | tknEnum tknClass tknID '{' enumitemlist '}' ';'                 [YYVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $3, $5, true);
+                  }
+
+enumfwddecl       : tknEnum tknID ':' identifier ';'                                [YYVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $2, nullptr, false, $4);
+                  }
+                  | tknEnum tknClass tknID ':' identifier ';'                       [YYVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $3, nullptr, true, $5);
+                  }
+                  | tknEnum tknClass tknID ';'                                      [YYVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $3, nullptr, true);
                   }
                   ;
 
