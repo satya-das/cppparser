@@ -54,28 +54,34 @@ struct CppObj
   enum Type
   {
     kUnknown			= 0x0000,
-    kBlankLine,			// Blank line containing nothing other than may be whitespace.
-    kVarType,			// Just the type of variable.
-    kVar,				// A variable declaration.
-    kVarList,			// List of variables declared as comma separated identifiers.
-    kHashIf,			// #if, #ifdef, #ifndef, #else, #elif.
-    kHashInclude,		// #include
-    kHashDefine,		// #define
-    kHashUndef,			// #undef
-    kHashPragma,		// #pragma
-    kUnRecogPrePro,		// Any unrecognized pre-processor.
+    kBlankLine,			            // Blank line containing nothing other than may be whitespace.
     kDocComment,
+
+    kCPreProcessorTypeStarts,   // Any preprocessor type must come after this
+    kHashIf,	                  // #if, #ifdef, #ifndef, #else, #elif.
+    kHashInclude,		            // #include
+    kHashDefine,		            // #define
+    kHashUndef,			            // #undef
+    kHashPragma,		            // #pragma
+    kUnRecogPrePro,		          // Any unrecognized pre-processor.
+    kCPreProcessorTypeEnds,
+
+    kCppStatementObjectTypeStarts,
+    kVarType,			              // Just the type of variable.
+    kVar,				                // A variable declaration.
+    kVarList,			              // List of variables declared as comma separated identifiers.
     kTypedef,
     kEnum,
-    kCompound,			// file, namespace, class, struct, union, block.
-    kFwdClsDecl,		// Forward declaration of compound type.
+    kCompound,			            // file, namespace, class, struct, union, block.
+    kFwdClsDecl,		            // Forward declaration of compound type.
     kFunction,
     kConstructor,
     kDestructor,
-    kFunctionPtr,		// Function proc declaration using typedef. e.g. typedef void (*fp) (void);
-    kExpression,		// A C++ expression
-    kFuncCall,			// A function call expression
-    kBlob,				// Some unparsed/unrecognized part of C++ source code.
+    kFunctionPtr,		            // Function proc declaration using typedef. e.g. typedef void (*fp) (void);
+    kExpression,		            // A C++ expression
+    kFuncCall,			            // A function call expression
+    kBlob,				              // Some unparsed/unrecognized part of C++ source code.
+    kCppStatementObjectTypeEnds,
   };
 
   const Type      objType_;
@@ -98,6 +104,10 @@ struct CppObj
   }
   bool isClassLike() const;
   bool isNamespaceLike() const;
+  bool isPreProcessorType() const
+  {
+    return objType_ > kCPreProcessorTypeStarts && objType_ < kCPreProcessorTypeEnds;
+  }
 };
 
 /**
@@ -114,7 +124,7 @@ struct CppBlankLine : public CppObj
   }
 };
 
-typedef std::list<CppObj*> CppObjArray;
+typedef std::vector<CppObj*> CppObjArray;
 
 struct CppDefine : public CppObj
 {
@@ -433,6 +443,11 @@ public:
       delete *itr;
   }
 
+  void setCompoundType(CppCompoundType compoundType)
+  {
+    if (compoundType_ == kUnknownCompound)
+      compoundType_ = compoundType;
+  }
   bool isNamespace() const
   {
     return compoundType_ == kNamespace;
@@ -501,7 +516,18 @@ union CppVarOrFuncPtrType
     cppObj = rhs;
     return cppObj;
   }
+
 };
+
+inline bool operator == (const CppVarOrFuncPtrType& lhs, const CppVarOrFuncPtrType& rhs)
+{
+  return lhs.cppObj == rhs.cppObj;
+}
+
+inline bool operator != (const CppVarOrFuncPtrType& lhs, const CppVarOrFuncPtrType& rhs)
+{
+  return lhs.cppObj != rhs.cppObj;
+}
 
 /**
  * A function parameter object.

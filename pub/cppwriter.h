@@ -55,32 +55,45 @@ public:
 
 public:
   // This only delegate to other emit() method based on type.
-  virtual void emit			(const CppObj*				cppObj,			std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitVar		(const CppVar*				varObj,			std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitVarList	(const CppVarList*			varListObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitEnum		(const CppEnum*				enmObj,			std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitTypedef	(const CppTypedef*			typedefObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitFwdDecl	(const CppFwdClsDecl*		fwdClsDeclObj,	std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitCompound	(const CppCompound*			compoundObj,	std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitFunction	(const CppFunction*			funcObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitFunctionPtr(const CppFunctionPtr*		funcPtrObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitConstructor(const CppConstructor*		ctorObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitDestructor	(const CppDestructor*		dtorObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitDocComment	(const CppDocComment*		docCommentObj,	std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emit			      (const CppObj*				  cppObj,			  std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitVar		    (const CppVar*				  varObj,			  std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitVarList	  (const CppVarList*			varListObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitEnum		    (const CppEnum*				  enmObj,			  std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitTypedef	  (const CppTypedef*			typedefObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitFwdDecl	  (const CppFwdClsDecl*		fwdClsDeclObj,std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitCompound	  (const CppCompound*		  compoundObj,	std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitFunction	  (const CppFunction*			funcObj,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitFunctionPtr(const CppFunctionPtr*	funcPtrObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitConstructor(const CppConstructor*	ctorObj,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitDestructor	(const CppDestructor*		dtorObj,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitDocComment	(const CppDocComment*		docCommentObj,std::ostream& stm, CppIndent indentation = CppIndent()) const;
 
-  virtual void emitExpr		(const CppExpr*				exprObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitExpr		    (const CppExpr*				  exprObj,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitBlankLines	(const CppBlankLine*		blankLineObj,	std::ostream& stm) const;
-  virtual void emitDefine		(const CppDefine*			defineObj,		std::ostream& stm) const;
-  virtual void emitUndef		(const CppUndef*			undefObj,		std::ostream& stm) const;
-  virtual void emitInclude	(const CppInclude*			includeObj,		std::ostream& stm) const;
-  virtual void emitHashIf		(const CppHashIf*			hashIfObj,		std::ostream& stm) const;
-  virtual void emitPragma		(const CppPragma*			pragmaObj,		std::ostream& stm) const;
-  virtual void emitBlob		(const CppBlob*				blobObj,		std::ostream& stm) const;
+  virtual void emitDefine		  (const CppDefine*			  defineObj,		std::ostream& stm) const;
+  virtual void emitUndef		  (const CppUndef*			  undefObj,		  std::ostream& stm) const;
+  virtual void emitInclude	  (const CppInclude*			includeObj,		std::ostream& stm) const;
+  virtual void emitHashIf		  (const CppHashIf*			  hashIfObj,		std::ostream& stm) const;
+  virtual void emitPragma		  (const CppPragma*			  pragmaObj,		std::ostream& stm) const;
+  virtual void emitBlob		    (const CppBlob*				  blobObj,		  std::ostream& stm) const;
 
-  virtual void emitVarType	(const CppVarType*			varTypeObj,		std::ostream& stm) const;
-  virtual void emitParamList	(const CppParamList*		paramListObj,	std::ostream& stm) const;
-  virtual void emitExprAtom	(const CppExprAtom&			exprObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitExprList	(const CppExprList*			exprList,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitVarType	  (const CppVarType*			varTypeObj,		std::ostream& stm) const;
+  virtual void emitParamList  (const CppParamList*		paramListObj,	std::ostream& stm) const;
+  virtual void emitExprAtom	  (const CppExprAtom&			exprObj,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitExprList	  (const CppExprList*			exprList,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;
+
+public:
+  void emitVar        (const CppVar*				  varObj,       std::ostream& stm, bool skipName) const;
+  void emitParamList  (const CppParamList*		paramListObj, std::ostream& stm, bool skipName) const;
+  void emitFunctionPtr(const CppFunctionPtr*	funcPtrObj,   std::ostream& stm, bool skipName) const;
+  void emitFunction   (const CppFunction*			funcObj,      std::ostream& stm, bool skipParamName) const;
+  void emitConstructor(const CppConstructor*	ctorObj,      std::ostream& stm, bool skipParamName) const;
+
+private:
+  void emitVar        (const CppVar*				  varObj,       std::ostream& stm, CppIndent indentation, bool skipName) const;
+  void emitFunctionPtr(const CppFunctionPtr*	funcPtrObj,   std::ostream& stm, CppIndent indentation, bool skipName) const;
+  void emitFunction   (const CppFunction*			funcObj,      std::ostream& stm, CppIndent indentation, bool skipName, bool skipParamName) const;
+  void emitConstructor(const CppConstructor*	ctorObj,      std::ostream& stm, CppIndent indentation, bool skipParamName) const;
 
 private:
   mutable CppIndent	preproIndent_;
@@ -101,6 +114,28 @@ inline void CppWriter::setEmittingType(EmittingType emittingType)
 inline CppWriter::EmittingType CppWriter::getEmittingType() const
 {
   return emittingType_;
+}
+
+inline void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, bool skipName) const
+{
+  emitVar(varObj, stm, CppIndent(), skipName);
+}
+
+inline void CppWriter::emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& stm, bool skipName) const
+{
+  if (funcPtrObj->attr_&kTypedef)
+    return; // Typedef of funcptr without name makes no sense.
+  emitFunction(funcPtrObj, stm, CppIndent(), skipName, skipName);
+}
+
+inline void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, bool skipParamName) const
+{
+  emitFunction(funcObj, stm, CppIndent(), false, skipParamName);
+}
+
+inline void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm, bool skipParamName) const
+{
+  emitConstructor(ctorObj, stm, CppIndent(), skipParamName);
 }
 
 inline std::ostream& operator <<(std::ostream& stm, const CppIndent& indentation)

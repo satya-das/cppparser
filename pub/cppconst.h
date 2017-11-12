@@ -30,12 +30,12 @@ enum CppCompoundType
 {
   kUnknownCompound	= 0x00,
   kCppFile			= 0x01,
-  kNamespace			= 0x02,
+  kNamespace		= 0x02,
   kClass				= 0x04 | kNamespace,
   kStruct				= 0x08 | kClass,
   kUnion				= 0x10 | kClass,
   kBlock				= 0x20,
-  kExternCBlock		= 0x40,
+  kExternCBlock	= 0x40,
 };
 
 enum CppObjProtLevel : std::uint8_t

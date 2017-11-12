@@ -165,7 +165,12 @@ void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) con
   }
 }
 
-void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
+void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation) const
+{
+  emitVar(varObj, stm, indentation, false);
+}
+
+void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation, bool skipName) const
 {
   if ((varObj->varAttr_&kFuncParam) == 0)
   {
@@ -184,7 +189,7 @@ void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent inden
   if (varObj->varAttr_&kConst)
     stm << " const";
 
-  if (!varObj->name_.empty())
+  if (!skipName && !varObj->name_.empty())
     stm << ' ' << varObj->name_;
   if (varObj->varAttr_&kArray)
   {
@@ -198,7 +203,7 @@ void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent inden
     stm << " = ";
     emitExpr(varObj->assign_, stm);
   }
-  if ((varObj->varAttr_&kFuncParam) == 0 && !varObj->name_.empty())
+  if ((varObj->varAttr_&kFuncParam) == 0 && !skipName && !varObj->name_.empty())
     stm << ";\n";
 }
 
@@ -303,18 +308,32 @@ void CppWriter::emitCompound(const CppCompound* compoundObj, std::ostream& stm, 
     stm << indentation << "}\n";
 }
 
-void CppWriter::emitParamList(const CppParamList* paramListObj, std::ostream& stm) const
+void CppWriter::emitParamList(const CppParamList*		paramListObj, std::ostream& stm) const
+{
+  emitParamList(paramListObj, stm, false);
+}
+
+void CppWriter::emitParamList(const CppParamList* paramListObj, std::ostream& stm, bool skipParamName) const
 {
   for (auto prmItr = paramListObj->begin(); prmItr != paramListObj->end(); ++prmItr)
   {
     if (prmItr != paramListObj->begin())
       stm << ", ";
     CppVarOrFuncPtrType param = *prmItr;
+    switch (param.cppObj->objType_)
+    {
+    case CppObj::kVar: emitVar(param.varObj, stm, CppIndent(), skipParamName);
+      break;
+    case CppObj::kFunctionPtr: emitFunctionPtr(param.funcPtr, stm);
+      break;
+    default:
+      assert(false);
+    }
     emit(param.cppObj, stm);
   }
 }
 
-void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
+void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, CppIndent indentation, bool skipName, bool skipParamName) const
 {
   if ((funcObj->attr_&(kFuncParam|kTypedef)) == 0)
     stm << indentation;
@@ -340,19 +359,25 @@ void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, CppI
   if (!funcObj->docer2_.empty())
     stm << funcObj->docer2_ << ' ';
   if (funcObj->objType_ == CppObj::kFunctionPtr)
-    stm << '*' << funcObj->name_ << ") ";
-  else
+  {
+    stm << '*';
+    if (!skipName)
+      stm << funcObj->name_ << ") ";
+  }
+  else if (!skipName)
+  {
     stm << funcObj->name_;
+  }
   stm << '(';
   if (funcObj->params_)
-    emitParamList(funcObj->params_, stm);
+    emitParamList(funcObj->params_, stm, skipParamName);
   stm << ')';
 
   if ((funcObj->attr_&kConst) == kConst)
     stm << " const";
   if ((funcObj->attr_&kPureVirtual) == kPureVirtual)
     stm << " = 0";
-  if (funcObj->defn_ && !((getEmittingType()==kHeader) || funcObj->attr_ & kInline))
+  if (!skipParamName && funcObj->defn_ && !((getEmittingType()==kHeader) || funcObj->attr_ & kInline))
   {
     stm << '\n' << indentation++ << "{\n";
     emitCompound(funcObj->defn_, stm, indentation);
@@ -364,15 +389,19 @@ void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, CppI
   }
 }
 
+void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, CppIndent indentation) const
+{
+  return emitFunction(funcObj, stm, indentation, false, false);
+}
+
 void CppWriter::emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
-  stm << indentation;
   if (funcPtrObj->attr_&kTypedef)
-    stm << "typedef ";
+    stm << indentation << "typedef ";
   emitFunction((CppFunction*) funcPtrObj, stm, indentation);
 }
 
-void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
+void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm, CppIndent indentation, bool skipParamName) const
 {
   stm << indentation;
   if (ctorObj->attr_&kInline)
@@ -382,9 +411,9 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm
   stm << ctorObj->name_;
   stm << '(';
   if (ctorObj->params_)
-    emitParamList(ctorObj->params_, stm);
+    emitParamList(ctorObj->params_, stm, skipParamName);
   stm << ')';
-  if (ctorObj->memInitList_)
+  if (!skipParamName && ctorObj->memInitList_)
   {
     char sep = ':';
     ++indentation;
@@ -397,7 +426,7 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm
     }
     --indentation;
   }
-  if (ctorObj->defn_)
+  if (!skipParamName && ctorObj->defn_)
   {
     stm << '\n' << ++indentation << '{';
     emitCompound(ctorObj->defn_, stm, indentation);
@@ -407,6 +436,11 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm
   {
     stm << ";\n";
   }
+}
+
+void CppWriter::emitConstructor(const CppConstructor*	ctorObj, std::ostream& stm, CppIndent indentation) const
+{
+  emitConstructor(ctorObj, stm, indentation, false);
 }
 
 void CppWriter::emitDestructor(const CppDestructor* dtorObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
