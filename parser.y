@@ -682,6 +682,20 @@ dtordecl          : '~' tknID '(' ')' %prec DTORDECL
                     while(*tildaStartPos != '~') --tildaStartPos;
                     $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), $1);
                   }
+                  | tknVirtual '~' tknID '(' ')' '=' tknNumber
+                  [
+                    if(gCompoundStack.empty())
+                      YYERROR;
+                    if(gCompoundStack.top() != $3)
+                      YYERROR;
+                    else
+                      YYVALID;
+                  ]
+                  {
+                    const char* tildaStartPos = $3.sz-1;
+                    while(*tildaStartPos != '~') --tildaStartPos;
+                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), kPureVirtual);
+                  }
                   ;
 
 vardecllist       : vardecl ',' optconst ptrlevelopt reftype optconst identifier optconst {
