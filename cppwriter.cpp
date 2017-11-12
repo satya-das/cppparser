@@ -324,12 +324,11 @@ void CppWriter::emitParamList(const CppParamList* paramListObj, std::ostream& st
     {
     case CppObj::kVar: emitVar(param.varObj, stm, CppIndent(), skipParamName);
       break;
-    case CppObj::kFunctionPtr: emitFunctionPtr(param.funcPtr, stm);
+    case CppObj::kFunctionPtr: emitFunctionPtr(param.funcPtr, stm, skipParamName);
       break;
     default:
       assert(false);
     }
-    emit(param.cppObj, stm);
   }
 }
 
