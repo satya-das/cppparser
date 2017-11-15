@@ -153,7 +153,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknBlankLine;
 }
 
-<ctxGeneral,ctxDocBlockComment,ctxBlockComment>{NL} {
+<ctxGeneral,ctxDocBlockComment>{NL} {
 	++gLineNo;
 }
 
@@ -228,11 +228,17 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <*>"/*" {
 	PUSHBEGIN(ctxBlockComment);
 }
-
-<ctxBlockComment>. {
+<ctxBlockComment>[^*\n]* {
 }
-
-<ctxBlockComment>"*/" {
+<ctxBlockComment>[^*\n]*\n {
+  ++gLineNo;
+}
+<ctxBlockComment>{WS}"*"+[^*/\n]* {
+}
+<ctxBlockComment>{WS}"*"+[^*/\n]*\n {
+  ++gLineNo;
+}
+<ctxBlockComment>"*"+"/" {
 	yy_pop_state(); /* Begin the same state we were before encountering comment. */
 	/* Ignore block comment if it does not stand all alone */
 }
@@ -383,7 +389,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknIf;
 }
 
-<*>ifdef/{WS} {
+<ctxPreprocessor>ifdef/{WS} {
 	set_token_and_yyposn();
 	return tknIfDef;
 }
@@ -393,7 +399,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknIfNDef;
 }
 
-<*>else/{TS} {
+<ctxGeneral,ctxPreprocessor>else/{TS} {
 	set_token_and_yyposn();
 	return tknElse;
 }
@@ -405,12 +411,12 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknElIf;
 }
 
-<*>endif/{TS} {
+<ctxPreprocessor>endif/{TS} {
 	set_token_and_yyposn();
 	return tknEndIf;
 }
 
-<*>pragma/{WS} {
+<ctxPreprocessor>pragma/{WS} {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
 	BEGIN(ctxPreProBody);

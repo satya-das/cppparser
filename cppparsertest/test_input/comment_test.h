@@ -2,6 +2,7 @@
 
 /**
  * Doxygen style block comment.
+ * Test else fail
  */
 
 /// Doxygen style line comment.
