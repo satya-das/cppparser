@@ -448,6 +448,24 @@ public:
     if (compoundType_ == kUnknownCompound)
       compoundType_ = compoundType;
   }
+  bool traverse(std::function<bool(const CppObj*)> visitor) const {
+    for (auto mem : members_) {
+      if (mem->isNamespaceLike() && static_cast<const CppCompound*>(mem)->traverse(visitor))
+        return true;
+      if (visitor(mem))
+        return true;
+    }
+    return false;
+  }
+  bool traversePreorder(std::function<bool(const CppObj*)> visitor) const {
+    for (auto mem : members_) {
+      if (visitor(mem))
+        return true;
+      if (mem->isNamespaceLike() && static_cast<const CppCompound*>(mem)->traversePreorder(visitor))
+        return true;
+    }
+    return false;
+  }
   bool isNamespace() const
   {
     return compoundType_ == kNamespace;
@@ -480,6 +498,16 @@ public:
   bool isNamespaceLike() const
   {
     return (compoundType_&kNamespace) == kNamespace;
+  }
+  /// @return full name of this class.
+  std::string fullName() const
+  {
+    if (!isNamespaceLike())
+      return name_;
+    if (owner_ && owner_->isNamespaceLike())
+      return owner_->fullName() + "::" + name_;
+    else
+      return "::" + name_;
   }
 
   void addMember	(CppObj* mem)
