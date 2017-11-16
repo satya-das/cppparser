@@ -28,14 +28,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 enum CppCompoundType
 {
-  kUnknownCompound	= 0x00,
-  kCppFile			= 0x01,
-  kNamespace		= 0x02,
-  kClass				= 0x04 | kNamespace,
-  kStruct				= 0x08 | kClass,
-  kUnion				= 0x10 | kClass,
-  kBlock				= 0x20,
-  kExternCBlock	= 0x40,
+  kUnknownCompound  = 0x00,
+  kCppFile          = 0x01,
+  kNamespace        = 0x02,
+  kClass            = 0x04 | kNamespace,
+  kStruct           = 0x08 | kClass,
+  kUnion            = 0x10 | kClass,
+  kBlock            = 0x20,
+  kExternCBlock     = 0x40,
 };
 
 enum CppObjProtLevel : std::uint8_t
@@ -51,29 +51,29 @@ enum CppOperType
   kNone,
 
   kUnariOperatorStart = 1,
-  kUnaryMinus,	// -
-  kBitToggle,		// ~
-  kLogNot,		// ! (Logical not)
-  kDerefer,		// *
-  kRefer,			// & as in &x;
+  kUnaryMinus,    // -
+  kBitToggle,     // ~
+  kLogNot,        // ! (Logical not)
+  kDerefer,       // *
+  kRefer,         // & as in &x;
 
   kBinaryOperatorStart = 50,
-  kDot,			// .
-  kArrow,			// ->
-  kPlus,			// +
-  kMinus,			// -
-  kMul,			// *
-  kDiv,			// /
-  kEqual,			// =
-  kCmpEqual,		// ==
-  kLeftShift, // <<
-  kRightShift, // >>
-  kBitAnd,		// &
-  kBitOr,			// |
+  kDot,         // .
+  kArrow,       // ->
+  kPlus,        // +
+  kMinus,       // -
+  kMul,         // *
+  kDiv,         // /
+  kEqual,       // =
+  kCmpEqual,    // ==
+  kLeftShift,   // <<
+  kRightShift,  // >>
+  kBitAnd,      // &
+  kBitOr,       // |
 
   kSpecialOperations = 100,
   kFunctionCall,
-  kArrayElem,		// x[5]
+  kArrayElem,   // x[5]
 };
 
 /**
@@ -81,7 +81,7 @@ enum CppOperType
  */
 enum CppIdentifierAttrib
 {
-  kFuncParam		= 0x0001, // If the identifier is actually function parameter.
+  kFuncParam    = 0x0001, // If the identifier is actually function parameter.
   kConst        = 0x0002,
   kStatic       = 0x0004,
   kExtern       = 0x0008,
@@ -90,10 +90,11 @@ enum CppIdentifierAttrib
   kPureVirtual  = 0x0040 | kVirtual,
   kOverride     = 0x0080 | kVirtual,
   kExplicit     = 0x0100,
-  kFriend				= 0x0200,
-  kTypedef			= 0x0400, // Function pointer is used in typedef.
-  kArray				= 0x0800, // Identifier is an array.
-  kConstExpr		= 0x1000,
+  kFriend       = 0x0200,
+  kTypedef      = 0x0400, // Function pointer is used in typedef.
+  kArray        = 0x0800, // Identifier is an array.
+  kConstExpr    = 0x1000,
+  kVolatile     = 0x2000,
 };
 
 /**
@@ -101,20 +102,20 @@ enum CppIdentifierAttrib
  */
 enum CppRefType
 {
-  kNoRef, // No reference.
-  kByRef, // Simple reference, e.g. int& x.
-  kRValRef // R-value reference, e.g. in move constructor.
+  kNoRef,   // No reference.
+  kByRef,   // Simple reference, e.g. int& x.
+  kRValRef  // R-value reference, e.g. in move constructor.
 };
 
 /// Miscellaneous constants for readability of code
 enum
 {
-  kNoPtr		= 0,
-  kPtr		= 1,
-  kDblPtr		= 2,
-  kNoVarAttr	= 0,
-  kNoTypeAttr	= 0,
-  kNoAttr		= 0,
+  kNoPtr      = 0,
+  kPtr        = 1,
+  kDblPtr     = 2,
+  kNoVarAttr  = 0,
+  kNoTypeAttr = 0,
+  kNoAttr     = 0,
 };
 
 #endif //__CPP_CONST_H__

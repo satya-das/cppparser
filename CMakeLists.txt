@@ -13,11 +13,10 @@ add_subdirectory(${ROOT_DIR}/common/third_party/boost_tp/cmake  ${CMAKE_OBJFILE_
 #############################################
 ## CppParser
 
-add_custom_command(
-	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/parser.lex.cpp
-	COMMAND flex -o${CMAKE_CURRENT_SOURCE_DIR}/parser.lex.cpp ${CMAKE_CURRENT_SOURCE_DIR}/parser.l
-	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/parser.l
-)
+set_source_files_properties(parser.tab.cpp GENERATED)
+set_source_files_properties(parser.lex.cpp GENERATED)
+set_source_files_properties(parser.tab.h GENERATED)
+
 add_custom_command(
 	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.cpp ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.h
 	COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/btyacc -d ${CMAKE_CURRENT_SOURCE_DIR}/parser.y
@@ -26,9 +25,11 @@ add_custom_command(
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/parser.y
 )
 
-set_source_files_properties(parser.tab.cpp GENERATED)
-set_source_files_properties(parser.lex.cpp GENERATED)
-set_source_files_properties(parser.tab.h GENERATED)
+add_custom_command(
+	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/parser.lex.cpp
+	COMMAND flex -o${CMAKE_CURRENT_SOURCE_DIR}/parser.lex.cpp ${CMAKE_CURRENT_SOURCE_DIR}/parser.l
+	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/parser.l ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.h
+)
 
 set(CPPPARSER_SOURCES
 	cppparser.cpp

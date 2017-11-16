@@ -167,6 +167,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknNumSignSpec;
 }
 
+<ctxGeneral>long/{TS}+ {
+  set_token_and_yyposn();
+  return tknLong;
+}
+
 <ctxGeneral>typedef{TS}+ {
 	set_token_and_yyposn();
 	return tknTypedef;
@@ -488,6 +493,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknExternC;
 }
 
+<ctxGeneral>volatile/{TS}+ {
+  set_token_and_yyposn();
+  return tknVolatile;
+}
+
 <ctxGeneral>new/{TS}+ {
 	return tknNew;
 }
@@ -522,7 +532,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>\.\.\. {
 	set_token_and_yyposn();
-	return tknVarArg;
+	return tknEllipsis;
 }
 
 %%

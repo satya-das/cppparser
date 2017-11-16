@@ -278,7 +278,7 @@ struct CppVar : public CppVarType
 {
   std::string		name_;
   unsigned int	varAttr_;  // Attribute associated with var, e.g. int* const p.
-  CppExpr*		assign_; // Value assigned at declaration.
+  CppExpr*		  assign_; // Value assigned at declaration.
   std::string		apidocer_; // It holds things like WINAPI, __declspec(dllexport), etc.
 
   CppVar(CppObjProtLevel prot, std::string baseType, unsigned int typeAttr, unsigned int varAttr, unsigned short ptrLevel, CppRefType refType, std::string name)

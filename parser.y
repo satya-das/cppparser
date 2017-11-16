@@ -139,6 +139,7 @@ extern int yylex();
 }
 
 %token  <str>   tknID tknStrLit tknCharLit tknNumber tknTypedef
+%token  <str>   tknLong
 %token  <str>   tknEnum
 %token  <str>   tknPreProDef
 %token  <str>   tknClass tknStruct tknUnion tknNamespace
@@ -150,16 +151,16 @@ extern int yylex();
 %token  <str>   tknUnRecogPrePro
 %token  <str>   tknStdHdrInclude
 %token  <str>   tknPragma
+%token  <str>   tknEllipsis
 %token  <str>   '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
 
-%token  tknConst tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend
+%token  tknConst tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile
 
 %token  tknPreProHash /* When # is encountered for pre processor definition */
 %token  tknDefine tknUndef
 %token  tknInclude tknStdHdrInclude
 %token  tknIf tknIfDef tknIfNDef tknElse tknElIf tknEndIf
 %token  tknNew tknDelete tknReturn
-%token  tknVarArg
 
 %token  tknBlankLine
 
@@ -178,7 +179,7 @@ extern int yylex();
 %type  <cppCompundObj>      stmtlist progunit classdefn externcblock
 %type  <docCommentObj>      doccomment
 %type  <cppExprObj>         expr exprstmt
-%type  <cppFuncPointerObj>  functionpointer
+%type  <cppFuncPointerObj>  functionpointer funcpointerdecl
 %type  <cppFuncObj>         funcdecl funcdeclstmt funcdefn
 %type  <cppCtorObj>         ctordecl ctordeclstmt ctordefn
 %type  <cppDtorObj>         dtordecl dtordeclstmt dtordefn
@@ -186,7 +187,7 @@ extern int yylex();
 %type  <compoundType>       compoundSpecifier
 %type  <ptrLevel>           ptrlevelopt ptrlevel
 %type  <refType>            reftype
-%type  <attr>               optconst varattrib funcattrib functype
+%type  <attr>               optattr varattrib funcattrib functype
 %type  <inheritList>        inheritlist
 %type  <protLevel>          protlevel changeprotlevel
 
@@ -279,7 +280,7 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | fwddecl         { $$ = $1; }
                   | doccomment      { $$ = $1; }
                   | exprstmt        { $$ = $1; }
-                  | functionpointer { $$ = $1; }
+                  | funcpointerdecl { $$ = $1; }
                   | funcdeclstmt    { $$ = $1; }
                   | funcdefn        { $$ = $1; }
                   | ctordeclstmt    { $$ = $1; }
@@ -354,6 +355,12 @@ doccomment        : tknDocBlockComment  [YYVALID;] { $$ = new CppDocComment((std
 identifier        : tknID                                 { $$ = $1; }
                   | tknScopeResOp identifier              { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   | identifier tknScopeResOp identifier   { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
+                  | tknLong                               { $$ = $1; }
+                  | tknLong identifier                    { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknNumSignSpec                        { $$ = $1; }
+                  | tknNumSignSpec identifier             { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknEllipsis                           { $$ = $1; }
+                  | identifier tknEllipsis                { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   ;
 
 optid             : { $$ = makeCppToken(0, 0); }
@@ -412,7 +419,7 @@ typedefnamestmt   : typedefnamelist ';' { $$ = $1; }
 typedefnamelist   : typedefname ',' tknID { $$ = $1; $$->names_.push_back((std::string) $3); }
                   ;
 
-typedefname       : tknTypedef optconst vartype ptrlevelopt reftype tknID {
+typedefname       : tknTypedef optattr vartype ptrlevelopt reftype tknID {
                     $$ = new CppTypedef(gCurProtLevel, $3, $2, $4, $5);
                     $$->names_.push_back((std::string) $6);
                   }
@@ -432,13 +439,13 @@ vartype           : identifier                  { $$ = $1; }
 varinit           : vardecl '=' expr            { $$ = $1; $$->assign_ = $3; }
                   ;
 
-vardecl           : varattrib varqual identifier optconst {
+vardecl           : varattrib varqual identifier optattr {
                     $$ = $2;
                     $$->name_ = $3;
                     $$->varAttr_ |= $4;
                     $$->typeAttr_|= $1;
                   }
-                  | varqual identifier optconst {
+                  | varqual identifier optattr {
                     $$ = $1;
                     $$->name_ = $2;
                     $$->varAttr_ |= $3;
@@ -481,14 +488,14 @@ vardecl           : varattrib varqual identifier optconst {
                   /* Disambiguation rules end. */
                   ;
 
-varqual           : optconst vartype optconst ptrlevelopt reftype optconst {
+varqual           : optattr vartype optattr ptrlevelopt reftype optattr {
                     $$ = new CppVar(gCurProtLevel, $2, $1|$3, $6, $4, $5, "");
                   }
-                  | optconst vartype optconst ptrlevelopt reftype '[' expr ']' optconst {
+                  | optattr vartype optattr ptrlevelopt reftype '[' expr ']' optattr {
                     $$ = new CppVar(gCurProtLevel, $2, $1|$3|kArray, $9, $4, $5, "");
                     $$->arraySize_ = $7;
                   }
-                  | optconst vartype optconst ptrlevelopt reftype '[' ']' optconst {
+                  | optattr vartype optattr ptrlevelopt reftype '[' ']' optattr {
                     $$ = new CppVar(gCurProtLevel, $2, $1|$3|kArray, $8, $4, $5, "");
                   }
                   ;
@@ -522,6 +529,9 @@ functionpointer   : apidocer functype varqual '(' apidocer '*' tknID ')' '(' par
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
                   }
+                  ;
+
+funcpointerdecl   : functionpointer ';' [YYVALID;] { $$ = $1;}
                   ;
 
 funcdecl          : functype apidocer varqual apidocer identifier '(' paramlist ')' funcattrib {
@@ -573,8 +583,9 @@ funcattrib        :                           { $$ = 0; }
                                               { $$ = $1 | kPureVirtual; }
                   ;
 
-optconst          : { $$ = 0; }
+optattr           : { $$ = 0; }
                   | tknConst { $$ = kConst; }
+                  | tknVolatile { $$ = kVolatile; }
                   ;
 
 ctordeclstmt      : ctordecl';' [YYVALID;] { $$ = $1; }
@@ -698,12 +709,12 @@ dtordecl          : '~' tknID '(' ')' %prec DTORDECL
                   }
                   ;
 
-vardecllist       : vardecl ',' optconst ptrlevelopt reftype optconst identifier optconst {
+vardecllist       : vardecl ',' optattr ptrlevelopt reftype optattr identifier optattr {
                     $$ = new CppVarList();
                     $$->addVar($1);
                     $$->addVar(new CppVar(gCurProtLevel, $1->baseType_, $1->typeAttr_|$3, $6|$8, $4, $5, $7));
                   }
-                  | vardecllist ',' optconst ptrlevelopt reftype optconst identifier optconst {
+                  | vardecllist ',' optattr ptrlevelopt reftype optattr identifier optattr {
                     $$ = $1;
                     $$->addVar(new CppVar(gCurProtLevel, $1->varlist_.back()->baseType_, $1->varlist_.back()->typeAttr_|$3, $6|$8, $4, $5, $7));
                   }
@@ -874,6 +885,7 @@ void yyerror_detailed  (  char* text,
 
 CppCompound* parseStream(char* stm, size_t stmSize)
 {
+  gProgUnit = nullptr;
   void setupScanBuffer(char* buf, size_t bufsize);
   setupScanBuffer(stm, stmSize);
   gLineNo = 1; // Reset so that we do not start counting beyond previous parsing.
