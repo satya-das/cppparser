@@ -35,8 +35,22 @@ For this very reason this file does not use any class that are defined in cppdom
 #include "cpptoken.h"
 #include "parser.tab.h"
 
-// Easy MACRO to quickly push current context and switch to another one.
-#define PUSHBEGIN(ctx) yy_push_state(YY_START); BEGIN(ctx);
+  static int gLog = 0;
+
+  // Easy MACRO to quickly push current context and switch to another one.
+#define BEGINCONTEXT(ctx) { \
+  int prevState = YYSTATE;  \
+  yy_push_state(ctx);       \
+  if (gLog)                 \
+    printf("@line#%d, pushed state=%d and started state=%d\n", gLineNo, prevState, YYSTATE); \
+}
+
+#define ENDCONTEXT() {      \
+  int prevState = YYSTATE;  \
+  yy_pop_state();           \
+  if (gLog)                 \
+    printf("@line#%d, ended state=%d and starting state=%d\n", gLineNo, prevState, YYSTATE); \
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -52,6 +66,11 @@ const char* oyytext;
 const char* get_start_of_buffer()
 {
 	return yy_current_buffer->yy_ch_buf;
+}
+
+int get_context()
+{
+  return YYSTATE;
 }
 
 inline void set_token_and_yyposn()
@@ -219,33 +238,33 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>^{WS}*"/*" {
 	oyytext = yytext;
-	PUSHBEGIN(ctxDocBlockComment);
+  BEGINCONTEXT(ctxDocBlockComment);
 }
 
 <ctxDocBlockComment>. {}
 
 <ctxDocBlockComment>"*/" {
 	yylval.str = makeCppToken(oyytext, yytext+yyleng-oyytext);
-	yy_pop_state(); /* Begin the same state we were before encountering comment. */
+  ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
 	return tknDocBlockComment;
 }
 
 <*>"/*" {
-	PUSHBEGIN(ctxBlockComment);
+  BEGINCONTEXT(ctxBlockComment);
 }
 <ctxBlockComment>[^*\n]* {
 }
 <ctxBlockComment>[^*\n]*\n {
   ++gLineNo;
 }
-<ctxBlockComment>{WS}"*"+[^*/\n]* {
+<ctxBlockComment>{WS}*"*"+[^*/\n]* {
 }
-<ctxBlockComment>{WS}"*"+[^*/\n]*\n {
+<ctxBlockComment>{WS}*"*"+[^*/\n]*\n {
   ++gLineNo;
 }
 <ctxBlockComment>"*"+"/" {
-	yy_pop_state(); /* Begin the same state we were before encountering comment. */
-	/* Ignore block comment if it does not stand all alone */
+  ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
+  /* Ignore block comment if it does not stand all alone */
 }
 
 <*>^{WS}*"//".* {
@@ -258,13 +277,14 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>^{WS}*# {
 	set_token_and_yyposn();
-	PUSHBEGIN(ctxPreprocessor);
+	BEGINCONTEXT(ctxPreprocessor);
 	return tknPreProHash;
 }
 
 <ctxPreprocessor>define/{WS} {
 	set_token_and_yyposn();
-	BEGIN(ctxDefine);
+  ENDCONTEXT();
+  BEGINCONTEXT(ctxDefine);
 	return tknDefine;
 
 	/*
@@ -283,7 +303,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxDefine>{ID} {
 	set_token_and_yyposn();
-	BEGIN(ctxDefineDefn);
+  ENDCONTEXT();
+	BEGINCONTEXT(ctxDefineDefn);
 	gDefLooksLike = kNoDef;
 	oyytext = 0;
 	return tknID;
@@ -353,8 +374,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxDefineDefn>{NL} {
 	yylval.str = makeCppToken(oyytext, yytext-oyytext);
-	yy_pop_state();
-	++gLineNo;
+  ENDCONTEXT();
+  ++gLineNo;
 	if(gDefLooksLike != kNoDef)
 		return gDefLooksLike;
 }
@@ -372,8 +393,9 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxPreprocessor>include/{WS} {
+  ENDCONTEXT();
 	set_token_and_yyposn();
-	BEGIN(ctxInclude);
+	BEGINCONTEXT(ctxInclude);
 	return tknInclude;
 }
 
@@ -383,14 +405,15 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxInclude>{NL} {
-	yy_pop_state();
+  ENDCONTEXT();
 	++gLineNo;
 }
 
 <ctxPreprocessor>if/{WS} {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
-	BEGIN(ctxPreProBody);
+  ENDCONTEXT();
+  BEGINCONTEXT(ctxPreProBody);
 	return tknIf;
 }
 
@@ -412,7 +435,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxPreprocessor>elif/{WS} {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
-	BEGIN(ctxPreProBody);
+  ENDCONTEXT();
+  BEGINCONTEXT(ctxPreProBody);
 	return tknElIf;
 }
 
@@ -424,7 +448,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxPreprocessor>pragma/{WS} {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
-	BEGIN(ctxPreProBody);
+  ENDCONTEXT();
+  BEGINCONTEXT(ctxPreProBody);
 	return tknPragma;
 }
 
@@ -433,13 +458,13 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreProBody>{NL} {
 	yylval.str = makeCppToken(oyytext, yytext-oyytext);
-	yy_pop_state();
+  ENDCONTEXT();
 	++gLineNo;
 	return tknPreProDef;
 }
 
 <ctxPreprocessor>{NL} {
-	yy_pop_state();
+  ENDCONTEXT();
 	++gLineNo;
 }
 
@@ -541,5 +566,5 @@ void setupScanBuffer(char* buf, size_t bufsize)
 {
   yy_current_buffer  = 0;
   yy_scan_buffer(buf, bufsize);
-  BEGIN(ctxGeneral);
+  BEGINCONTEXT(ctxGeneral);
 }

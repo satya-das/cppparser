@@ -46,6 +46,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #  define TRUE true
 #endif
 
+static int gLog = 0
+;
+#define ZZVALID   \
+  if (gLog) \
+    printf("YYVALID @line#%d\n", __LINE__); \
+  YYVALID
 /**
  * A program unit is the entire parse tree of a source/header file
  */
@@ -301,55 +307,55 @@ blankline         : tknBlankLine { $$ = new CppBlankLine; }
                   | blankline tknBlankLine { $$ = $1; $$->numLines_++; }
                   ;
 
-define            : tknPreProHash tknDefine tknID tknID         [YYVALID;] { // Simple rename using #define
+define            : tknPreProHash tknDefine tknID tknID         [ZZVALID;] { // Simple rename using #define
                     $$ = new CppDefine($3, $4);
                     $$->defType_ = CppDefine::kRename;
                   }
-                  | tknPreProHash tknDefine tknID               [YYVALID;] { // blank define
+                  | tknPreProHash tknDefine tknID               [ZZVALID;] { // blank define
                     $$ = new CppDefine($3);
                     $$->defType_ = CppDefine::kRename;
                   }
-                  | tknPreProHash tknDefine tknID tknNumber     [YYVALID;] {// Constant definition
+                  | tknPreProHash tknDefine tknID tknNumber     [ZZVALID;] {// Constant definition
                     $$ = new CppDefine($3, $4);
                     $$->defType_ = CppDefine::kConstNumDef;
                   }
-                  | tknPreProHash tknDefine tknID tknStrLit     [YYVALID;] {
+                  | tknPreProHash tknDefine tknID tknStrLit     [ZZVALID;] {
                     $$ = new CppDefine($3, $4);
                     $$->defType_ = CppDefine::kConstStrDef;
                   }
-                  | tknPreProHash tknDefine tknID tknCharLit    [YYVALID;] {
+                  | tknPreProHash tknDefine tknID tknCharLit    [ZZVALID;] {
                     $$ = new CppDefine($3, $4);
                     $$->defType_ = CppDefine::kConstCharDef;
                   }
-                  | tknPreProHash tknDefine tknID tknPreProDef  [YYVALID;] {
+                  | tknPreProHash tknDefine tknID tknPreProDef  [ZZVALID;] {
                     $$ = new CppDefine($3, $4);
                     $$->defType_ = CppDefine::kComplexMacro;
                   }
                   ;
 
-undef             : tknPreProHash tknUndef tknID                [YYVALID;]  { $$ = new CppUndef($3); }
+undef             : tknPreProHash tknUndef tknID                [ZZVALID;]  { $$ = new CppUndef($3); }
                   ;
 
-include           : tknPreProHash tknInclude tknStrLit          [YYVALID;]  { $$ = new CppInclude((std::string) $3); }
-                  | tknPreProHash tknInclude tknStdHdrInclude   [YYVALID;]  { $$ = new CppInclude((std::string) $3); }
+include           : tknPreProHash tknInclude tknStrLit          [ZZVALID;]  { $$ = new CppInclude((std::string) $3); }
+                  | tknPreProHash tknInclude tknStdHdrInclude   [ZZVALID;]  { $$ = new CppInclude((std::string) $3); }
                   ;
 /*
 preprocessor    : tknPreProHash tknUnRecogPrePro tknPreProDef { $$ = new CppUnRecogPrePro((std::string) $2, (std::string) $3); }
           ;
 */
-hashif            : tknPreProHash tknIf tknPreProDef            [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kIf,      $3); }
-                  | tknPreProHash tknIfDef tknID                [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kIfDef,   $3); }
-                  | tknPreProHash tknIfNDef tknID               [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kIfNDef,  $3); }
-                  | tknPreProHash tknElse                       [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kElse       ); }
-                  | tknPreProHash tknElIf  tknPreProDef         [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kElIf,    $3); }
-                  | tknPreProHash tknEndIf                      [YYVALID;]  { $$ = new CppHashIf(CppHashIf::kEndIf      ); }
+hashif            : tknPreProHash tknIf tknPreProDef            [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kIf,      $3); }
+                  | tknPreProHash tknIfDef tknID                [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kIfDef,   $3); }
+                  | tknPreProHash tknIfNDef tknID               [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kIfNDef,  $3); }
+                  | tknPreProHash tknElse                       [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kElse       ); }
+                  | tknPreProHash tknElIf  tknPreProDef         [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kElIf,    $3); }
+                  | tknPreProHash tknEndIf                      [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kEndIf      ); }
                   ;
 
-pragma            : tknPreProHash tknPragma tknPreProDef        [YYVALID;]  { $$ = new CppPragma($3); }
+pragma            : tknPreProHash tknPragma tknPreProDef        [ZZVALID;]  { $$ = new CppPragma($3); }
                   ;
 
-doccomment        : tknDocBlockComment  [YYVALID;] { $$ = new CppDocComment((std::string) $1); }
-                  | tknDocLineComment   [YYVALID;] { $$ = new CppDocComment((std::string) $1); }
+doccomment        : tknDocBlockComment  [ZZVALID;] { $$ = new CppDocComment((std::string) $1); }
+                  | tknDocLineComment   [ZZVALID;] { $$ = new CppDocComment((std::string) $1); }
                   ;
 
 identifier        : tknID                                 { $$ = $1; }
@@ -388,32 +394,32 @@ enumitemlist      : { $$ = 0; }
                   }
                   ;
 
-enumdefn          : tknEnum optid '{' enumitemlist '}' ';'                          [YYVALID;] {
+enumdefn          : tknEnum optid '{' enumitemlist '}' ';'                          [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $2, $4);
                   }
-                  | tknEnum tknID ':' identifier '{' enumitemlist '}' ';'           [YYVALID;] {
+                  | tknEnum tknID ':' identifier '{' enumitemlist '}' ';'           [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $2, $6, false, $4);
                   };
-                  | tknEnum tknClass tknID ':' identifier '{' enumitemlist '}' ';'  [YYVALID;] {
+                  | tknEnum tknClass tknID ':' identifier '{' enumitemlist '}' ';'  [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $3, $7, true, $5);
                   }
-                  | tknEnum tknClass tknID '{' enumitemlist '}' ';'                 [YYVALID;] {
+                  | tknEnum tknClass tknID '{' enumitemlist '}' ';'                 [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $3, $5, true);
                   }
 
-enumfwddecl       : tknEnum tknID ':' identifier ';'                                [YYVALID;] {
+enumfwddecl       : tknEnum tknID ':' identifier ';'                                [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $2, nullptr, false, $4);
                   }
-                  | tknEnum tknClass tknID ':' identifier ';'                       [YYVALID;] {
+                  | tknEnum tknClass tknID ':' identifier ';'                       [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $3, nullptr, true, $5);
                   }
-                  | tknEnum tknClass tknID ';'                                      [YYVALID;] {
+                  | tknEnum tknClass tknID ';'                                      [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $3, nullptr, true);
                   }
                   ;
 
-typedefnamestmt   : typedefnamelist ';' { $$ = $1; }
-                  | typedefname ';'     { $$ = $1; }
+typedefnamestmt   : typedefnamelist ';' [ZZVALID;] { $$ = $1; }
+                  | typedefname ';'     [ZZVALID;] { $$ = $1; }
                   ;
 
 typedefnamelist   : typedefname ',' tknID { $$ = $1; $$->names_.push_back((std::string) $3); }
@@ -504,17 +510,17 @@ varattrib         : tknStatic { $$ = kStatic;  }
                   | tknExtern  { $$ = kExtern;  }
                   ;
 
-funcdeclstmt      : funcdecl ';' [YYVALID;] { $$ = $1; }
+funcdeclstmt      : funcdecl ';' [ZZVALID;] { $$ = $1; }
                   ;
 
-funcdefn          : funcdecl '{' stmtlist '}' [YYVALID;] {
+funcdefn          : funcdecl '{' stmtlist '}' [ZZVALID;] {
                     $$ = $1;
                     $$->defn_ = $3 ? $3 : newCompound(kUnknownProt);
                     $$->defn_->compoundType_ = kBlock;
                   }
                   ;
 
-functptrtype      : tknTypedef functionpointer ';' [YYVALID;] {
+functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $2->attr_ |= kTypedef;
                     $$ = $2;
                   }
@@ -531,7 +537,7 @@ functionpointer   : apidocer functype varqual '(' apidocer '*' tknID ')' '(' par
                   }
                   ;
 
-funcpointerdecl   : functionpointer ';' [YYVALID;] { $$ = $1;}
+funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
                   ;
 
 funcdecl          : functype apidocer varqual apidocer identifier '(' paramlist ')' funcattrib {
@@ -579,7 +585,7 @@ functype          : varattrib               { $$ = $1;      }
 funcattrib        :                           { $$ = 0; }
                   | funcattrib tknConst       { $$ = $1 | kConst; }
                   | funcattrib tknOverride    { $$ = $1 | kOverride; }
-                  | funcattrib '=' tknNumber  [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else YYVALID;]
+                  | funcattrib '=' tknNumber  [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else ZZVALID;]
                                               { $$ = $1 | kPureVirtual; }
                   ;
 
@@ -588,32 +594,32 @@ optattr           : { $$ = 0; }
                   | tknVolatile { $$ = kVolatile; }
                   ;
 
-ctordeclstmt      : ctordecl';' [YYVALID;] { $$ = $1; }
+ctordeclstmt      : ctordecl';' [ZZVALID;] { $$ = $1; }
                   ;
 
 ctordefn          : ctordecl meminitlist
                     '{'
                       stmtlist
-                    '}' [YYVALID;]
+                    '}' [ZZVALID;]
                   {
                     $$ = $1;
                     $$->memInitList_  = $2;
                     $$->defn_      = $4 ? $4 : newCompound(kUnknownProt, kBlock);
                   }
-                  | tknID tknScopeResOp tknID [if($1 != $3) YYERROR; else YYVALID;]
+                  | tknID tknScopeResOp tknID [if($1 != $3) YYERROR; else ZZVALID;]
                     '(' paramlist ')' meminitlist
                     '{'
                       stmtlist
-                    '}' [YYVALID;]
+                    '}' [ZZVALID;]
                   {
                     $$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $3.sz+$3.len-$1.sz), $6, $8, 0);
                     $$->defn_      = $10 ? $10 : newCompound(kUnknownProt, kBlock);
                   }
-                  | identifier tknScopeResOp tknID tknScopeResOp tknID [if($3 != $5) YYERROR; else YYVALID;]
+                  | identifier tknScopeResOp tknID tknScopeResOp tknID [if($3 != $5) YYERROR; else ZZVALID;]
                     '(' paramlist ')' meminitlist
                     '{'
                       stmtlist
-                    '}' [YYVALID;]
+                    '}' [ZZVALID;]
                   {
                     $$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $5.sz+$5.len-$1.sz), $8, $10, 0);
                     $$->defn_      = $12 ? $12 : newCompound(gCurProtLevel, kBlock);
@@ -627,12 +633,12 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                     if(gCompoundStack.top() != $1)
                       YYERROR;
                     else
-                      YYVALID;
+                      ZZVALID;
                   ]
                   {
                     $$ = newConstructor(gCurProtLevel, $1, $3, nullptr, 0);
                   }
-                  | functype tknID [if(gCompoundStack.empty()) YYERROR; if(gCompoundStack.top() != $2) YYERROR; else YYVALID;] '(' paramlist ')'
+                  | functype tknID [if(gCompoundStack.empty()) YYERROR; if(gCompoundStack.top() != $2) YYERROR; else ZZVALID;] '(' paramlist ')'
                   {
                     $$ = newConstructor(gCurProtLevel, $2, $5, nullptr, $1);
                   }
@@ -643,21 +649,21 @@ meminitlist       : { $$ = NULL; }
                   | meminitlist ',' tknID '(' expr ')'  { $$ = $1; $$->push_back(CppMemInit($3, $5)); }
                   ;
 
-dtordeclstmt      : dtordecl ';' [YYVALID;] { $$ = $1; }
+dtordeclstmt      : dtordecl ';' [ZZVALID;] { $$ = $1; }
                   ;
 
-dtordefn          : dtordecl '{' stmtlist '}' [YYVALID;]
+dtordefn          : dtordecl '{' stmtlist '}' [ZZVALID;]
                   {
                     $$ = $1;
                     $$->defn_ = $3 ? $3 : newCompound(kUnknownProt, kBlock);
                   }
-                  | tknID tknScopeResOp '~' tknID [if($1 != $4) YYERROR; else YYVALID;]
+                  | tknID tknScopeResOp '~' tknID [if($1 != $4) YYERROR; else ZZVALID;]
                     '(' ')' '{' stmtlist '}'
                   {
                     $$ = newDestructor(gCurProtLevel, makeCppToken($1.sz, $4.sz+$4.len-$1.sz), 0);
                     $$->defn_      = $9 ? $9 : newCompound(kUnknownProt, kBlock);
                   }
-                  | identifier tknScopeResOp tknID tknScopeResOp '~' tknID [if($3 != $6) YYERROR; else YYVALID;]
+                  | identifier tknScopeResOp tknID tknScopeResOp '~' tknID [if($3 != $6) YYERROR; else ZZVALID;]
                     '(' ')' '{' stmtlist '}'
                   {
                     $$ = newDestructor(gCurProtLevel, makeCppToken($1.sz, $6.sz+$6.len-$1.sz), 0);
@@ -672,7 +678,7 @@ dtordecl          : '~' tknID '(' ')' %prec DTORDECL
                     if(gCompoundStack.top() != $2)
                       YYERROR;
                     else
-                      YYVALID;
+                      ZZVALID;
                   ]
                   {
                     const char* tildaStartPos = $2.sz-1;
@@ -686,7 +692,7 @@ dtordecl          : '~' tknID '(' ')' %prec DTORDECL
                     if(gCompoundStack.top() != $3)
                       YYERROR;
                     else
-                      YYVALID;
+                      ZZVALID;
                   ]
                   {
                     const char* tildaStartPos = $3.sz-1;
@@ -700,7 +706,7 @@ dtordecl          : '~' tknID '(' ')' %prec DTORDECL
                     if(gCompoundStack.top() != $3)
                       YYERROR;
                     else
-                      YYVALID;
+                      ZZVALID;
                   ]
                   {
                     const char* tildaStartPos = $3.sz-1;
@@ -720,12 +726,12 @@ vardecllist       : vardecl ',' optattr ptrlevelopt reftype optattr identifier o
                   }
                   ;
 
-vardeclliststmt   : vardecllist ';' [YYVALID;] { $$ = $1; }
+vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
                   ;
 
-vardeclstmt       : vardecl ';'    [YYVALID;] { $$ = $1; }
-                  | varinit ';'    [YYVALID;] { $$ = $1; }
-                  | tknID vardecl ';'  [YYVALID;] { $$ = $2; $$->apidocer_ = $1; }
+vardeclstmt       : vardecl ';'    [ZZVALID;] { $$ = $1; }
+                  | varinit ';'    [ZZVALID;] { $$ = $1; }
+                  | tknID vardecl ';'  [ZZVALID;] { $$ = $2; $$->apidocer_ = $1; }
                   ;
 
 ptrlevelopt       :        { $$ = 0;    }
@@ -742,9 +748,9 @@ reftype           :      { $$ = kNoRef;    }
                   ;
 
 classdefn         : compoundSpecifier apidocer tknID inheritlist
-                    '{' [gCompoundStack.push($3); YYVALID;] { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
+                    '{' [gCompoundStack.push($3); ZZVALID;] { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
                       stmtlist
-                    '}' classdefnend [gCompoundStack.pop(); YYVALID;]
+                    '}' classdefnend [gCompoundStack.pop(); ZZVALID;]
                   {
                     gCurProtLevel = gProtLevelStack.top();
                     gProtLevelStack.pop();
@@ -757,8 +763,8 @@ classdefn         : compoundSpecifier apidocer tknID inheritlist
                   }
 
 inheritlist       : { $$ = 0; }
-                  | ':' protlevel identifier [YYVALID;]        { $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $3, $2)); }
-                  | inheritlist ',' protlevel identifier [YYVALID;]  { $$ = $1; $$->push_back(CppInheritInfo((std::string) $4, $3)); }
+                  | ':' protlevel identifier [ZZVALID;]        { $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $3, $2)); }
+                  | inheritlist ',' protlevel identifier [ZZVALID;]  { $$ = $1; $$->push_back(CppInheritInfo((std::string) $4, $3)); }
                   ;
 
 protlevel         :        { $$ = kUnknownProt;}
@@ -767,8 +773,8 @@ protlevel         :        { $$ = kUnknownProt;}
                   | tknPrivate  { $$ = kPrivate;  }
                   ;
 
-fwddecl           : compoundSpecifier identifier ';' [YYVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $2, $1); }
-                  | compoundSpecifier apidocer identifier ';' [YYVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $3, $1); }
+fwddecl           : compoundSpecifier identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $2, $1); }
+                  | compoundSpecifier apidocer identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $3, $1); }
                   ;
 
 compoundSpecifier : tknClass    { $$ = kClass;    }
@@ -785,12 +791,12 @@ apidocer          : { $$ = makeCppToken(0, 0); }
                   | tknID { $$ = $1; }
                   ;
 
-changeprotlevel   : tknPublic     ':'  [YYVALID;] { $$ = kPublic;     }
-                  | tknProtected  ':'  [YYVALID;] { $$ = kProtected;  }
-                  | tknPrivate    ':'  [YYVALID;] { $$ = kPrivate;    }
+changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = kPublic;     }
+                  | tknProtected  ':'  [ZZVALID;] { $$ = kProtected;  }
+                  | tknPrivate    ':'  [ZZVALID;] { $$ = kPrivate;    }
                   ;
 
-externcblock      : tknExternC '{' stmtlist '}' [YYVALID;] {$$ = $3; $$->compoundType_ = kExternCBlock; }
+externcblock      : tknExternC '{' stmtlist '}' [ZZVALID;] {$$ = $3; $$->compoundType_ = kExternCBlock; }
                   ;
 
 exprlist          : expr              { $$ = new CppExprList(); $$->push_back($1);  }
@@ -830,7 +836,7 @@ expr              : tknStrLit                         { $$ = new CppExpr((std::s
                   | tknReturn                         { $$ = new CppExpr(CppExprAtom(), CppExpr::kReturn);  }
                   ;
 
-exprstmt          : expr ';'  [YYVALID;]              { $$ = $1; }
+exprstmt          : expr ';'  [ZZVALID;]              { $$ = $1; }
                   ;
 
 %%
@@ -847,6 +853,8 @@ void yyerror_detailed  (  char* text,
             )
 {
   extern const char* get_start_of_buffer();
+  extern int get_context();
+
   const char* lineStart = errt_posn;
   const char* buffStart = get_start_of_buffer();
   while(lineStart > buffStart)
@@ -873,8 +881,8 @@ void yyerror_detailed  (  char* text,
   for(const char* p = lineStart; p < errt_posn; ++p)
     spacechars[p-lineStart] = *p == '\t' ? '\t' : ' ';
   char errmsg[1024];
-  sprintf(errmsg, "%s%s%s%d%c%s%c%s%c%c",
-    "Error: Unexpected token '", errt_posn, "' found at line#", gLineNo, '\n', // The error message
+  sprintf(errmsg, "%s%s%s%d%s%d%c%s%c%s%c%c",
+    "Error: Unexpected token '", errt_posn, "', while in context=", get_context(), ", found at line#", gLineNo, '\n', // The error message
     lineStart, '\n',    // Line that contains the error.
     spacechars, '^', '\n');  // A ^ below the beginning of unexpected token.
   printf("%s", errmsg);
