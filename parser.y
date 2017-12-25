@@ -46,8 +46,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #  define TRUE true
 #endif
 
-static int gLog = 0
-;
+static int gLog = 0;
 #define ZZVALID   \
   if (gLog) \
     printf("YYVALID @line#%d\n", __LINE__); \
@@ -182,7 +181,7 @@ extern int yylex();
 %type  <cppVarObjList>      vardecllist vardeclliststmt
 %type  <paramList>          paramlist
 %type  <typedefObj>         typedefname typedefnamelist typedefnamestmt
-%type  <cppCompundObj>      stmtlist progunit classdefn externcblock
+%type  <cppCompundObj>      stmtlist progunit classdefn classdefnstmt externcblock
 %type  <docCommentObj>      doccomment
 %type  <cppExprObj>         expr exprstmt
 %type  <cppFuncPointerObj>  functionpointer funcpointerdecl
@@ -282,7 +281,7 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | enumdefn        { $$ = $1; }
                   | enumfwddecl     { $$ = $1; }
                   | typedefnamestmt { $$ = $1; }
-                  | classdefn       { $$ = $1; }
+                  | classdefnstmt   { $$ = $1; }
                   | fwddecl         { $$ = $1; }
                   | doccomment      { $$ = $1; }
                   | exprstmt        { $$ = $1; }
@@ -525,12 +524,12 @@ functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $$ = $2;
                   }
 
-functionpointer   : apidocer functype varqual '(' apidocer '*' tknID ')' '(' paramlist ')' {
+functionpointer   : apidocer functype varqual '(' apidocer '*' optid ')' '(' paramlist ')' {
                     $$ = new CppFunctionPtr(gCurProtLevel, $7, $3, $10, $2);
                     $$->docer1_ = $1;
                     $$->docer2_ = $5;
                   }
-                  | apidocer varqual '(' apidocer '*' tknID ')' '(' paramlist ')' {
+                  | apidocer varqual '(' apidocer '*' optid ')' '(' paramlist ')' {
                     $$ = new CppFunctionPtr(gCurProtLevel, $6, $2, $9, 0);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
@@ -747,10 +746,13 @@ reftype           :      { $$ = kNoRef;    }
                   | '&' '&'  { $$ = kRValRef;  }
                   ;
 
+classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
+                  ;
+
 classdefn         : compoundSpecifier apidocer tknID inheritlist
                     '{' [gCompoundStack.push($3); ZZVALID;] { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
                       stmtlist
-                    '}' classdefnend [gCompoundStack.pop(); ZZVALID;]
+                    '}' [gCompoundStack.pop(); ZZVALID;]
                   {
                     gCurProtLevel = gProtLevelStack.top();
                     gProtLevelStack.pop();
@@ -781,10 +783,6 @@ compoundSpecifier : tknClass    { $$ = kClass;    }
                   | tknStruct    { $$ = kStruct;    }
                   | tknUnion    { $$ = kUnion;    }
                   | tknNamespace  { $$ = kNamespace;  }
-                  ;
-
-classdefnend      :
-                  | ';'
                   ;
 
 apidocer          : { $$ = makeCppToken(0, 0); }

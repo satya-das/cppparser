@@ -35,7 +35,7 @@ For this very reason this file does not use any class that are defined in cppdom
 #include "cpptoken.h"
 #include "parser.tab.h"
 
-  static int gLog = 0;
+static int gLog = 0;
 
   // Easy MACRO to quickly push current context and switch to another one.
 #define BEGINCONTEXT(ctx) { \
@@ -241,9 +241,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   BEGINCONTEXT(ctxDocBlockComment);
 }
 
-<ctxDocBlockComment>. {}
-
-<ctxDocBlockComment>"*/" {
+<ctxDocBlockComment>.*"*"+"/" {
 	yylval.str = makeCppToken(oyytext, yytext+yyleng-oyytext);
   ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
 	return tknDocBlockComment;
@@ -252,17 +250,17 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <*>"/*" {
   BEGINCONTEXT(ctxBlockComment);
 }
-<ctxBlockComment>[^*\n]* {
+<ctxBlockComment,ctxDocBlockComment>[^*\n]* {
 }
-<ctxBlockComment>[^*\n]*\n {
+<ctxBlockComment,ctxDocBlockComment>[^*\n]*\n {
   ++gLineNo;
 }
-<ctxBlockComment>{WS}*"*"+[^*/\n]* {
+<ctxBlockComment,ctxDocBlockComment>{WS}*"*"+[^*/\n]* {
 }
-<ctxBlockComment>{WS}*"*"+[^*/\n]*\n {
+<ctxBlockComment,ctxDocBlockComment>{WS}*"*"+[^*/\n]*\n {
   ++gLineNo;
 }
-<ctxBlockComment>"*"+"/" {
+<ctxBlockComment>.*"*"+"/" {
   ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
   /* Ignore block comment if it does not stand all alone */
 }
