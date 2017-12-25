@@ -747,6 +747,16 @@ reftype           :      { $$ = kNoRef;    }
                   ;
 
 classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
+                  | classdefn
+                      [
+                        if ($1->compoundType_ == kNamespace)
+                        {
+                          ZZVALID;
+                        }
+                      ]
+                      {
+                        $$ = $1;
+                      }
                   ;
 
 classdefn         : compoundSpecifier apidocer tknID inheritlist
