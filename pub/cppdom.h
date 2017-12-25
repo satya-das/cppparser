@@ -507,7 +507,7 @@ public:
     if (owner_ && owner_->isNamespaceLike())
       return owner_->fullName() + "::" + name_;
     else
-      return "::" + name_;
+      return name_;
   }
 
   void addMember	(CppObj* mem)
