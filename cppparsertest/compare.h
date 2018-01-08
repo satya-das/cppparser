@@ -92,8 +92,8 @@ enum FileCompareResult
 
 inline FileCompareResult compareFiles(const bfs::path& path1, const bfs::path& path2, std::pair<int, int>& diffStartsAt)
 {
-  std::ifstream file1(path1.c_str(), std::ios_base::in);
-  std::ifstream file2(path2.c_str(), std::ios_base::in);
+  std::ifstream file1(path1.string(), std::ios_base::in);
+  std::ifstream file2(path2.string(), std::ios_base::in);
   if (!file1.is_open())
     return kFailedToOpen1stFile;
   if (!file2.is_open())

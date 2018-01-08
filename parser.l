@@ -65,7 +65,9 @@ const char* oyytext;
 // Returns start of buffer pointer.
 const char* get_start_of_buffer()
 {
-	return yy_current_buffer->yy_ch_buf;
+  if (YY_CURRENT_BUFFER)
+	  return YY_CURRENT_BUFFER->yy_ch_buf;
+  return nullptr;
 }
 
 int get_context()
@@ -562,7 +564,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 void setupScanBuffer(char* buf, size_t bufsize)
 {
-  yy_current_buffer  = 0;
   yy_scan_buffer(buf, bufsize);
+  gLineNo = 0;
   BEGINCONTEXT(ctxGeneral);
 }

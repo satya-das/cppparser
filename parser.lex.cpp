@@ -1258,7 +1258,9 @@ const char* oyytext;
 // Returns start of buffer pointer.
 const char* get_start_of_buffer()
 {
-	return yy_current_buffer->yy_ch_buf;
+  if (YY_CURRENT_BUFFER)
+	  return YY_CURRENT_BUFFER->yy_ch_buf;
+  return nullptr;
 }
 
 int get_context()
@@ -1331,7 +1333,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 */
 #define ctxPreProBody 8
 
-#line 1335 "C:/github/cppparser/parser.lex.cpp"
+#line 1337 "C:/github/cppparser/parser.lex.cpp"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -1485,10 +1487,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 159 "C:/github/cppparser/parser.l"
+#line 161 "C:/github/cppparser/parser.l"
 
 
-#line 1492 "C:/github/cppparser/parser.lex.cpp"
+#line 1494 "C:/github/cppparser/parser.lex.cpp"
 
 	if ( yy_init )
 		{
@@ -1595,14 +1597,14 @@ do_action:	/* This label is used only to access EOF actions. */
 	{ /* beginning of action switch */
 case 1:
 YY_RULE_SETUP
-#line 161 "C:/github/cppparser/parser.l"
+#line 163 "C:/github/cppparser/parser.l"
 {
 	/* Ignore white spaces */
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 165 "C:/github/cppparser/parser.l"
+#line 167 "C:/github/cppparser/parser.l"
 {
 	// We will always ignore line continuation character
 	++gLineNo;
@@ -1610,7 +1612,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 170 "C:/github/cppparser/parser.l"
+#line 172 "C:/github/cppparser/parser.l"
 {
 	++gLineNo;
 	return tknBlankLine;
@@ -1618,14 +1620,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 175 "C:/github/cppparser/parser.l"
+#line 177 "C:/github/cppparser/parser.l"
 {
 	++gLineNo;
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 179 "C:/github/cppparser/parser.l"
+#line 181 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknID;
@@ -1633,7 +1635,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 184 "C:/github/cppparser/parser.l"
+#line 186 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknNumSignSpec;
@@ -1644,7 +1646,7 @@ case 7:
 yy_c_buf_p = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 189 "C:/github/cppparser/parser.l"
+#line 191 "C:/github/cppparser/parser.l"
 {
   set_token_and_yyposn();
   return tknLong;
@@ -1652,7 +1654,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 194 "C:/github/cppparser/parser.l"
+#line 196 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknTypedef;
@@ -1663,7 +1665,7 @@ case 9:
 yy_c_buf_p = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 199 "C:/github/cppparser/parser.l"
+#line 201 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknClass;
@@ -1674,7 +1676,7 @@ case 10:
 yy_c_buf_p = yy_cp = yy_bp + 9;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 204 "C:/github/cppparser/parser.l"
+#line 206 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknNamespace;
@@ -1685,7 +1687,7 @@ case 11:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 209 "C:/github/cppparser/parser.l"
+#line 211 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknStruct;
@@ -1696,7 +1698,7 @@ case 12:
 yy_c_buf_p = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 214 "C:/github/cppparser/parser.l"
+#line 216 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknUnion;
@@ -1707,7 +1709,7 @@ case 13:
 yy_c_buf_p = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 219 "C:/github/cppparser/parser.l"
+#line 221 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknEnum;
@@ -1718,7 +1720,7 @@ case 14:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 224 "C:/github/cppparser/parser.l"
+#line 226 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknPublic;
@@ -1729,7 +1731,7 @@ case 15:
 yy_c_buf_p = yy_cp = yy_bp + 9;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 229 "C:/github/cppparser/parser.l"
+#line 231 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknProtected;
@@ -1740,7 +1742,7 @@ case 16:
 yy_c_buf_p = yy_cp = yy_bp + 7;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 234 "C:/github/cppparser/parser.l"
+#line 236 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknPrivate;
@@ -1748,7 +1750,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 239 "C:/github/cppparser/parser.l"
+#line 241 "C:/github/cppparser/parser.l"
 {
 	oyytext = yytext;
   BEGINCONTEXT(ctxDocBlockComment);
@@ -1756,7 +1758,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 244 "C:/github/cppparser/parser.l"
+#line 246 "C:/github/cppparser/parser.l"
 {
 	yylval.str = makeCppToken(oyytext, yytext+yyleng-oyytext);
   ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
@@ -1765,40 +1767,40 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 250 "C:/github/cppparser/parser.l"
+#line 252 "C:/github/cppparser/parser.l"
 {
   BEGINCONTEXT(ctxBlockComment);
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 253 "C:/github/cppparser/parser.l"
+#line 255 "C:/github/cppparser/parser.l"
 {
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 255 "C:/github/cppparser/parser.l"
+#line 257 "C:/github/cppparser/parser.l"
 {
   ++gLineNo;
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 258 "C:/github/cppparser/parser.l"
+#line 260 "C:/github/cppparser/parser.l"
 {
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 260 "C:/github/cppparser/parser.l"
+#line 262 "C:/github/cppparser/parser.l"
 {
   ++gLineNo;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 263 "C:/github/cppparser/parser.l"
+#line 265 "C:/github/cppparser/parser.l"
 {
   ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
   /* Ignore block comment if it does not stand all alone */
@@ -1806,7 +1808,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 268 "C:/github/cppparser/parser.l"
+#line 270 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknDocLineComment;
@@ -1814,13 +1816,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 273 "C:/github/cppparser/parser.l"
+#line 275 "C:/github/cppparser/parser.l"
 {
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 276 "C:/github/cppparser/parser.l"
+#line 278 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	BEGINCONTEXT(ctxPreprocessor);
@@ -1832,7 +1834,7 @@ case 28:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 282 "C:/github/cppparser/parser.l"
+#line 284 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
   ENDCONTEXT();
@@ -1855,7 +1857,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 302 "C:/github/cppparser/parser.l"
+#line 304 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
   ENDCONTEXT();
@@ -1867,7 +1869,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 311 "C:/github/cppparser/parser.l"
+#line 313 "C:/github/cppparser/parser.l"
 {
 	if(gDefLooksLike == kNoDef)
 	{
@@ -1889,7 +1891,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 330 "C:/github/cppparser/parser.l"
+#line 332 "C:/github/cppparser/parser.l"
 {
 	if(gDefLooksLike == kNoDef || gDefLooksLike == kStrLitDef || gDefLooksLike == kReDef)
 	{
@@ -1905,7 +1907,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 343 "C:/github/cppparser/parser.l"
+#line 345 "C:/github/cppparser/parser.l"
 {
 	if(gDefLooksLike == kNoDef)
 	{
@@ -1920,7 +1922,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 355 "C:/github/cppparser/parser.l"
+#line 357 "C:/github/cppparser/parser.l"
 {
 	if(gDefLooksLike == kNoDef)
 	{
@@ -1935,7 +1937,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 367 "C:/github/cppparser/parser.l"
+#line 369 "C:/github/cppparser/parser.l"
 { // Any unrecognized character other than whitespace indicates a complex #define
 	gDefLooksLike = kComplexDef;
 	if(oyytext == 0)
@@ -1944,7 +1946,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 373 "C:/github/cppparser/parser.l"
+#line 375 "C:/github/cppparser/parser.l"
 {
 	yylval.str = makeCppToken(oyytext, yytext-oyytext);
   ENDCONTEXT();
@@ -1955,7 +1957,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 381 "C:/github/cppparser/parser.l"
+#line 383 "C:/github/cppparser/parser.l"
 {
 	/* Ignore line comment when it does not stand alone in a line. */
 	// We are also ignoring the last new-line character
@@ -1968,7 +1970,7 @@ case 37:
 yy_c_buf_p = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 388 "C:/github/cppparser/parser.l"
+#line 390 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknUndef;
@@ -1979,7 +1981,7 @@ case 38:
 yy_c_buf_p = yy_cp = yy_bp + 7;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 393 "C:/github/cppparser/parser.l"
+#line 395 "C:/github/cppparser/parser.l"
 {
   ENDCONTEXT();
 	set_token_and_yyposn();
@@ -1989,7 +1991,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 400 "C:/github/cppparser/parser.l"
+#line 402 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknStdHdrInclude;
@@ -1997,7 +1999,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 405 "C:/github/cppparser/parser.l"
+#line 407 "C:/github/cppparser/parser.l"
 {
   ENDCONTEXT();
 	++gLineNo;
@@ -2008,7 +2010,7 @@ case 41:
 yy_c_buf_p = yy_cp = yy_bp + 2;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 410 "C:/github/cppparser/parser.l"
+#line 412 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
@@ -2022,7 +2024,7 @@ case 42:
 yy_c_buf_p = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 418 "C:/github/cppparser/parser.l"
+#line 420 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknIfDef;
@@ -2033,7 +2035,7 @@ case 43:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 423 "C:/github/cppparser/parser.l"
+#line 425 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknIfNDef;
@@ -2044,7 +2046,7 @@ case 44:
 yy_c_buf_p = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 428 "C:/github/cppparser/parser.l"
+#line 430 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknElse;
@@ -2055,7 +2057,7 @@ case 45:
 yy_c_buf_p = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 433 "C:/github/cppparser/parser.l"
+#line 435 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
@@ -2069,7 +2071,7 @@ case 46:
 yy_c_buf_p = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 441 "C:/github/cppparser/parser.l"
+#line 443 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknEndIf;
@@ -2080,7 +2082,7 @@ case 47:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 446 "C:/github/cppparser/parser.l"
+#line 448 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
@@ -2091,13 +2093,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 454 "C:/github/cppparser/parser.l"
+#line 456 "C:/github/cppparser/parser.l"
 {
 }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 457 "C:/github/cppparser/parser.l"
+#line 459 "C:/github/cppparser/parser.l"
 {
 	yylval.str = makeCppToken(oyytext, yytext-oyytext);
   ENDCONTEXT();
@@ -2107,7 +2109,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 464 "C:/github/cppparser/parser.l"
+#line 466 "C:/github/cppparser/parser.l"
 {
   ENDCONTEXT();
 	++gLineNo;
@@ -2115,7 +2117,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 469 "C:/github/cppparser/parser.l"
+#line 471 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknScopeResOp;
@@ -2126,7 +2128,7 @@ case 52:
 yy_c_buf_p = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 474 "C:/github/cppparser/parser.l"
+#line 476 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknConst;
@@ -2137,7 +2139,7 @@ case 53:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 479 "C:/github/cppparser/parser.l"
+#line 481 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknStatic;
@@ -2148,7 +2150,7 @@ case 54:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 484 "C:/github/cppparser/parser.l"
+#line 486 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknInline;
@@ -2159,7 +2161,7 @@ case 55:
 yy_c_buf_p = yy_cp = yy_bp + 7;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 489 "C:/github/cppparser/parser.l"
+#line 491 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknVirtual;
@@ -2170,7 +2172,7 @@ case 56:
 yy_c_buf_p = yy_cp = yy_bp + 8;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 494 "C:/github/cppparser/parser.l"
+#line 496 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknOverride;
@@ -2181,7 +2183,7 @@ case 57:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 499 "C:/github/cppparser/parser.l"
+#line 501 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknExtern;
@@ -2192,7 +2194,7 @@ case 58:
 yy_c_buf_p = yy_cp = yy_bp + 8;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 504 "C:/github/cppparser/parser.l"
+#line 506 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknExplicit;
@@ -2203,7 +2205,7 @@ case 59:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 509 "C:/github/cppparser/parser.l"
+#line 511 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknFriend;
@@ -2211,7 +2213,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 514 "C:/github/cppparser/parser.l"
+#line 516 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknExternC;
@@ -2222,7 +2224,7 @@ case 61:
 yy_c_buf_p = yy_cp = yy_bp + 8;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 519 "C:/github/cppparser/parser.l"
+#line 521 "C:/github/cppparser/parser.l"
 {
   set_token_and_yyposn();
   return tknVolatile;
@@ -2233,7 +2235,7 @@ case 62:
 yy_c_buf_p = yy_cp = yy_bp + 3;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 524 "C:/github/cppparser/parser.l"
+#line 526 "C:/github/cppparser/parser.l"
 {
 	return tknNew;
 }
@@ -2243,7 +2245,7 @@ case 63:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 528 "C:/github/cppparser/parser.l"
+#line 530 "C:/github/cppparser/parser.l"
 {
 	return tknDelete;
 }
@@ -2253,14 +2255,14 @@ case 64:
 yy_c_buf_p = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 532 "C:/github/cppparser/parser.l"
+#line 534 "C:/github/cppparser/parser.l"
 {
 	return tknReturn;
 }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 536 "C:/github/cppparser/parser.l"
+#line 538 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknNumber;
@@ -2268,7 +2270,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 541 "C:/github/cppparser/parser.l"
+#line 543 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknStrLit;
@@ -2276,7 +2278,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 546 "C:/github/cppparser/parser.l"
+#line 548 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknCharLit;
@@ -2284,7 +2286,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 551 "C:/github/cppparser/parser.l"
+#line 553 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return yytext[0];
@@ -2292,7 +2294,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 556 "C:/github/cppparser/parser.l"
+#line 558 "C:/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	return tknEllipsis;
@@ -2300,10 +2302,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 561 "C:/github/cppparser/parser.l"
+#line 563 "C:/github/cppparser/parser.l"
 ECHO;
 	YY_BREAK
-#line 2307 "C:/github/cppparser/parser.lex.cpp"
+#line 2309 "C:/github/cppparser/parser.lex.cpp"
 			case YY_STATE_EOF(INITIAL):
 			case YY_STATE_EOF(ctxGeneral):
 			case YY_STATE_EOF(ctxDocBlockComment):
@@ -3193,12 +3195,12 @@ int main()
 	return 0;
 	}
 #endif
-#line 561 "C:/github/cppparser/parser.l"
+#line 563 "C:/github/cppparser/parser.l"
 
 
 void setupScanBuffer(char* buf, size_t bufsize)
 {
-  yy_current_buffer  = 0;
   yy_scan_buffer(buf, bufsize);
+  gLineNo = 0;
   BEGINCONTEXT(ctxGeneral);
 }

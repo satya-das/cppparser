@@ -40,7 +40,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <string>
 #include <vector>
 #include <list>
-#include <xutility>
+#include <utility>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -95,7 +95,7 @@ struct CppObj
   {
   }
 
-  virtual ~CppObj() = 0 {}
+  virtual ~CppObj() {}
 
   /// @return true if object is a function-like type.
   bool isFunctionLike() const

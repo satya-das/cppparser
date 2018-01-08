@@ -25,6 +25,7 @@
 #define __CPPTOKEN_H__
 
 #include <string>
+#include <cstring>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -37,13 +38,13 @@ struct CppToken
   bool operator == (const CppToken& rhs) const
   {
     if (len != rhs.len) return false;
-    return (sz == rhs.sz) || (strncmp(sz, rhs.sz, len) == 0);
+    return (sz == rhs.sz) || (std::strncmp(sz, rhs.sz, len) == 0);
   }
 
   bool operator != (const CppToken& rhs) const
   {
     if (len != rhs.len) return true;
-    return strncmp(sz, rhs.sz, len) != 0;
+    return std::strncmp(sz, rhs.sz, len) != 0;
   }
 
   operator std::string() const

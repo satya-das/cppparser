@@ -45,7 +45,7 @@ static bool parseAndEmitFormatted(const bfs::path& inputFilePath, const bfs::pat
   CppCompound* progUnit = parser.parseFile(inputFilePath.string().c_str());
   if (progUnit == NULL)
     return false;
-  std::ofstream stm(outputFilePath.c_str());
+  std::ofstream stm(outputFilePath.string());
   cppWriter.emit(progUnit, stm);
   delete progUnit;
 

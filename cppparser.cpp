@@ -49,6 +49,8 @@ CppCompound* CppParser::parseFile(const char* filename)
 
 CppCompound* CppParser::parseStream(char* stm, size_t stmSize)
 {
+  if (stm == nullptr || stmSize == 0)
+    return nullptr;
   gObjFactory = objFactory_;
   return ::parseStream(stm, stmSize);
 }
@@ -88,7 +90,7 @@ CppParser::ByteArray CppParser::readFile(const char* filename)
     size += 2; // For adding last 2 nulls.
     contents.resize(size);
     in.seekg(0, std::ios::beg);
-    in.read(&contents[0], contents.size());
+    in.read(&contents[0], size);
     in.close();
   }
   return(contents);
