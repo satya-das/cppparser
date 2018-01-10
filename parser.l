@@ -562,9 +562,17 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 %%
 
+static YY_BUFFER_STATE gParseBuffer = nullptr;
 void setupScanBuffer(char* buf, size_t bufsize)
 {
-  yy_scan_buffer(buf, bufsize);
+  gParseBuffer = yy_scan_buffer(buf, bufsize);
   gLineNo = 0;
   BEGINCONTEXT(ctxGeneral);
 }
+
+void cleanupScanBuffer()
+{
+  yy_delete_buffer(gParseBuffer);
+  gParseBuffer = nullptr;
+}
+

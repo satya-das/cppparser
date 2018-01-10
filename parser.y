@@ -903,9 +903,11 @@ CppCompound* parseStream(char* stm, size_t stmSize)
 {
   gProgUnit = nullptr;
   void setupScanBuffer(char* buf, size_t bufsize);
+  void cleanupScanBuffer();
   setupScanBuffer(stm, stmSize);
   gLineNo = 1; // Reset so that we do not start counting beyond previous parsing.
   yyparse();
-
+  cleanupScanBuffer();
+  
   return gProgUnit;
 }
