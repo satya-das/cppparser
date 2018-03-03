@@ -1807,13 +1807,15 @@ CppCompound* parseStream(char* stm, size_t stmSize)
 {
   gProgUnit = nullptr;
   void setupScanBuffer(char* buf, size_t bufsize);
+  void cleanupScanBuffer();
   setupScanBuffer(stm, stmSize);
   gLineNo = 1; // Reset so that we do not start counting beyond previous parsing.
   yyparse();
-
+  cleanupScanBuffer();
+  
   return gProgUnit;
 }
-#line 1875 "y_tab.c"
+#line 1877 "y_tab.c"
 #line 186 "btyaccpa.ske"
 
 
@@ -2203,13 +2205,13 @@ case 1:
                     if (gProgUnit)
                       gProgUnit->compoundType_ = kCppFile;
                   }
-#line 2265 "y_tab.c"
+#line 2267 "y_tab.c"
 break;
 case 2:
   if (!yytrial)
 #line 265 "C:/github/cppparser/parser.y"
 { yyval.cppCompundObj = 0; }
-#line 2271 "y_tab.c"
+#line 2273 "y_tab.c"
 break;
 case 3:
   if (!yytrial)
@@ -2219,7 +2221,7 @@ case 3:
                     yyvsp[0].cppObj->owner_ = yyval.cppCompundObj;
                     yyval.cppCompundObj->addMember(yyvsp[0].cppObj);
                   }
-#line 2281 "y_tab.c"
+#line 2283 "y_tab.c"
 break;
 case 4:
   if (!yytrial)
@@ -2229,451 +2231,451 @@ case 4:
                     yyvsp[0].cppObj->owner_ = yyval.cppCompundObj;
                     yyval.cppCompundObj->addMember(yyvsp[0].cppObj);
                   }
-#line 2291 "y_tab.c"
+#line 2293 "y_tab.c"
 break;
 case 5:
   if (!yytrial)
 #line 276 "C:/github/cppparser/parser.y"
 { yyval.cppCompundObj = yyvsp[-1].cppCompundObj; gCurProtLevel = yyvsp[0].protLevel; }
-#line 2297 "y_tab.c"
+#line 2299 "y_tab.c"
 break;
 case 6:
   if (!yytrial)
 #line 279 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppVarObj; }
-#line 2303 "y_tab.c"
+#line 2305 "y_tab.c"
 break;
 case 7:
   if (!yytrial)
 #line 280 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppVarObjList; }
-#line 2309 "y_tab.c"
+#line 2311 "y_tab.c"
 break;
 case 8:
   if (!yytrial)
 #line 281 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppEnum; }
-#line 2315 "y_tab.c"
+#line 2317 "y_tab.c"
 break;
 case 9:
   if (!yytrial)
 #line 282 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppEnum; }
-#line 2321 "y_tab.c"
+#line 2323 "y_tab.c"
 break;
 case 10:
   if (!yytrial)
 #line 283 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].typedefObj; }
-#line 2327 "y_tab.c"
+#line 2329 "y_tab.c"
 break;
 case 11:
   if (!yytrial)
 #line 284 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppCompundObj; }
-#line 2333 "y_tab.c"
+#line 2335 "y_tab.c"
 break;
 case 12:
   if (!yytrial)
 #line 285 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].fwdDeclObj; }
-#line 2339 "y_tab.c"
+#line 2341 "y_tab.c"
 break;
 case 13:
   if (!yytrial)
 #line 286 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].docCommentObj; }
-#line 2345 "y_tab.c"
+#line 2347 "y_tab.c"
 break;
 case 14:
   if (!yytrial)
 #line 287 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppExprObj; }
-#line 2351 "y_tab.c"
+#line 2353 "y_tab.c"
 break;
 case 15:
   if (!yytrial)
 #line 288 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppFuncPointerObj; }
-#line 2357 "y_tab.c"
+#line 2359 "y_tab.c"
 break;
 case 16:
   if (!yytrial)
 #line 289 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppFuncObj; }
-#line 2363 "y_tab.c"
+#line 2365 "y_tab.c"
 break;
 case 17:
   if (!yytrial)
 #line 290 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppFuncObj; }
-#line 2369 "y_tab.c"
+#line 2371 "y_tab.c"
 break;
 case 18:
   if (!yytrial)
 #line 291 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppCtorObj; }
-#line 2375 "y_tab.c"
+#line 2377 "y_tab.c"
 break;
 case 19:
   if (!yytrial)
 #line 292 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppCtorObj; }
-#line 2381 "y_tab.c"
+#line 2383 "y_tab.c"
 break;
 case 20:
   if (!yytrial)
 #line 293 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppDtorObj; }
-#line 2387 "y_tab.c"
+#line 2389 "y_tab.c"
 break;
 case 21:
   if (!yytrial)
 #line 294 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppDtorObj; }
-#line 2393 "y_tab.c"
+#line 2395 "y_tab.c"
 break;
 case 22:
   if (!yytrial)
 #line 295 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppCompundObj; }
-#line 2399 "y_tab.c"
+#line 2401 "y_tab.c"
 break;
 case 23:
   if (!yytrial)
 #line 296 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].cppObj; }
-#line 2405 "y_tab.c"
+#line 2407 "y_tab.c"
 break;
 case 24:
   if (!yytrial)
 #line 297 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].hashDefine; }
-#line 2411 "y_tab.c"
+#line 2413 "y_tab.c"
 break;
 case 25:
   if (!yytrial)
 #line 298 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].hashUndef; }
-#line 2417 "y_tab.c"
+#line 2419 "y_tab.c"
 break;
 case 26:
   if (!yytrial)
 #line 299 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].hashInclude; }
-#line 2423 "y_tab.c"
+#line 2425 "y_tab.c"
 break;
 case 27:
   if (!yytrial)
 #line 300 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].hashIf; }
-#line 2429 "y_tab.c"
+#line 2431 "y_tab.c"
 break;
 case 28:
   if (!yytrial)
 #line 301 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].hashPragma; }
-#line 2435 "y_tab.c"
+#line 2437 "y_tab.c"
 break;
 case 29:
   if (!yytrial)
 #line 302 "C:/github/cppparser/parser.y"
 { yyval.cppObj = yyvsp[0].blankLine; }
-#line 2441 "y_tab.c"
+#line 2443 "y_tab.c"
 break;
 case 30:
   if (!yytrial)
 #line 305 "C:/github/cppparser/parser.y"
 { yyval.blankLine = new CppBlankLine; }
-#line 2447 "y_tab.c"
+#line 2449 "y_tab.c"
 break;
 case 31:
   if (!yytrial)
 #line 306 "C:/github/cppparser/parser.y"
 { yyval.blankLine = yyvsp[-1].blankLine; yyval.blankLine->numLines_++; }
-#line 2453 "y_tab.c"
+#line 2455 "y_tab.c"
 break;
 case 32:
 #line 309 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2458 "y_tab.c"
+#line 2460 "y_tab.c"
   if (!yytrial)
 #line 309 "C:/github/cppparser/parser.y"
 { /* Simple rename using #define*/
                     yyval.hashDefine = new CppDefine(yyvsp[-1].str, yyvsp[0].str);
                     yyval.hashDefine->defType_ = CppDefine::kRename;
                   }
-#line 2465 "y_tab.c"
+#line 2467 "y_tab.c"
 break;
 case 33:
 #line 313 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2470 "y_tab.c"
+#line 2472 "y_tab.c"
   if (!yytrial)
 #line 313 "C:/github/cppparser/parser.y"
 { /* blank define*/
                     yyval.hashDefine = new CppDefine(yyvsp[0].str);
                     yyval.hashDefine->defType_ = CppDefine::kRename;
                   }
-#line 2477 "y_tab.c"
+#line 2479 "y_tab.c"
 break;
 case 34:
 #line 317 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2482 "y_tab.c"
+#line 2484 "y_tab.c"
   if (!yytrial)
 #line 317 "C:/github/cppparser/parser.y"
 {/* Constant definition*/
                     yyval.hashDefine = new CppDefine(yyvsp[-1].str, yyvsp[0].str);
                     yyval.hashDefine->defType_ = CppDefine::kConstNumDef;
                   }
-#line 2489 "y_tab.c"
+#line 2491 "y_tab.c"
 break;
 case 35:
 #line 321 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2494 "y_tab.c"
+#line 2496 "y_tab.c"
   if (!yytrial)
 #line 321 "C:/github/cppparser/parser.y"
 {
                     yyval.hashDefine = new CppDefine(yyvsp[-1].str, yyvsp[0].str);
                     yyval.hashDefine->defType_ = CppDefine::kConstStrDef;
                   }
-#line 2501 "y_tab.c"
+#line 2503 "y_tab.c"
 break;
 case 36:
 #line 325 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2506 "y_tab.c"
+#line 2508 "y_tab.c"
   if (!yytrial)
 #line 325 "C:/github/cppparser/parser.y"
 {
                     yyval.hashDefine = new CppDefine(yyvsp[-1].str, yyvsp[0].str);
                     yyval.hashDefine->defType_ = CppDefine::kConstCharDef;
                   }
-#line 2513 "y_tab.c"
+#line 2515 "y_tab.c"
 break;
 case 37:
 #line 329 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2518 "y_tab.c"
+#line 2520 "y_tab.c"
   if (!yytrial)
 #line 329 "C:/github/cppparser/parser.y"
 {
                     yyval.hashDefine = new CppDefine(yyvsp[-1].str, yyvsp[0].str);
                     yyval.hashDefine->defType_ = CppDefine::kComplexMacro;
                   }
-#line 2525 "y_tab.c"
+#line 2527 "y_tab.c"
 break;
 case 38:
 #line 335 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2530 "y_tab.c"
+#line 2532 "y_tab.c"
   if (!yytrial)
 #line 335 "C:/github/cppparser/parser.y"
 { yyval.hashUndef = new CppUndef(yyvsp[0].str); }
-#line 2534 "y_tab.c"
+#line 2536 "y_tab.c"
 break;
 case 39:
 #line 338 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2539 "y_tab.c"
+#line 2541 "y_tab.c"
   if (!yytrial)
 #line 338 "C:/github/cppparser/parser.y"
 { yyval.hashInclude = new CppInclude((std::string) yyvsp[0].str); }
-#line 2543 "y_tab.c"
+#line 2545 "y_tab.c"
 break;
 case 40:
 #line 339 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2548 "y_tab.c"
+#line 2550 "y_tab.c"
   if (!yytrial)
 #line 339 "C:/github/cppparser/parser.y"
 { yyval.hashInclude = new CppInclude((std::string) yyvsp[0].str); }
-#line 2552 "y_tab.c"
+#line 2554 "y_tab.c"
 break;
 case 41:
 #line 345 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2557 "y_tab.c"
+#line 2559 "y_tab.c"
   if (!yytrial)
 #line 345 "C:/github/cppparser/parser.y"
 { yyval.hashIf = new CppHashIf(CppHashIf::kIf,      yyvsp[0].str); }
-#line 2561 "y_tab.c"
+#line 2563 "y_tab.c"
 break;
 case 42:
 #line 346 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2566 "y_tab.c"
+#line 2568 "y_tab.c"
   if (!yytrial)
 #line 346 "C:/github/cppparser/parser.y"
 { yyval.hashIf = new CppHashIf(CppHashIf::kIfDef,   yyvsp[0].str); }
-#line 2570 "y_tab.c"
+#line 2572 "y_tab.c"
 break;
 case 43:
 #line 347 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2575 "y_tab.c"
+#line 2577 "y_tab.c"
   if (!yytrial)
 #line 347 "C:/github/cppparser/parser.y"
 { yyval.hashIf = new CppHashIf(CppHashIf::kIfNDef,  yyvsp[0].str); }
-#line 2579 "y_tab.c"
+#line 2581 "y_tab.c"
 break;
 case 44:
 #line 348 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2584 "y_tab.c"
+#line 2586 "y_tab.c"
   if (!yytrial)
 #line 348 "C:/github/cppparser/parser.y"
 { yyval.hashIf = new CppHashIf(CppHashIf::kElse       ); }
-#line 2588 "y_tab.c"
+#line 2590 "y_tab.c"
 break;
 case 45:
 #line 349 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2593 "y_tab.c"
+#line 2595 "y_tab.c"
   if (!yytrial)
 #line 349 "C:/github/cppparser/parser.y"
 { yyval.hashIf = new CppHashIf(CppHashIf::kElIf,    yyvsp[0].str); }
-#line 2597 "y_tab.c"
+#line 2599 "y_tab.c"
 break;
 case 46:
 #line 350 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2602 "y_tab.c"
+#line 2604 "y_tab.c"
   if (!yytrial)
 #line 350 "C:/github/cppparser/parser.y"
 { yyval.hashIf = new CppHashIf(CppHashIf::kEndIf      ); }
-#line 2606 "y_tab.c"
+#line 2608 "y_tab.c"
 break;
 case 47:
 #line 353 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2611 "y_tab.c"
+#line 2613 "y_tab.c"
   if (!yytrial)
 #line 353 "C:/github/cppparser/parser.y"
 { yyval.hashPragma = new CppPragma(yyvsp[0].str); }
-#line 2615 "y_tab.c"
+#line 2617 "y_tab.c"
 break;
 case 48:
 #line 356 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2620 "y_tab.c"
+#line 2622 "y_tab.c"
   if (!yytrial)
 #line 356 "C:/github/cppparser/parser.y"
 { yyval.docCommentObj = new CppDocComment((std::string) yyvsp[0].str); }
-#line 2624 "y_tab.c"
+#line 2626 "y_tab.c"
 break;
 case 49:
 #line 357 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2629 "y_tab.c"
+#line 2631 "y_tab.c"
   if (!yytrial)
 #line 357 "C:/github/cppparser/parser.y"
 { yyval.docCommentObj = new CppDocComment((std::string) yyvsp[0].str); }
-#line 2633 "y_tab.c"
+#line 2635 "y_tab.c"
 break;
 case 50:
   if (!yytrial)
 #line 360 "C:/github/cppparser/parser.y"
 { yyval.str = yyvsp[0].str; }
-#line 2639 "y_tab.c"
+#line 2641 "y_tab.c"
 break;
 case 51:
   if (!yytrial)
 #line 361 "C:/github/cppparser/parser.y"
 { yyval.str = makeCppToken(yyvsp[-1].str.sz, yyvsp[0].str.sz+yyvsp[0].str.len-yyvsp[-1].str.sz); }
-#line 2645 "y_tab.c"
+#line 2647 "y_tab.c"
 break;
 case 52:
   if (!yytrial)
 #line 362 "C:/github/cppparser/parser.y"
 { yyval.str = makeCppToken(yyvsp[-2].str.sz, yyvsp[0].str.sz+yyvsp[0].str.len-yyvsp[-2].str.sz); }
-#line 2651 "y_tab.c"
+#line 2653 "y_tab.c"
 break;
 case 53:
   if (!yytrial)
 #line 363 "C:/github/cppparser/parser.y"
 { yyval.str = yyvsp[0].str; }
-#line 2657 "y_tab.c"
+#line 2659 "y_tab.c"
 break;
 case 54:
   if (!yytrial)
 #line 364 "C:/github/cppparser/parser.y"
 { yyval.str = makeCppToken(yyvsp[-1].str.sz, yyvsp[0].str.sz+yyvsp[0].str.len-yyvsp[-1].str.sz); }
-#line 2663 "y_tab.c"
+#line 2665 "y_tab.c"
 break;
 case 55:
   if (!yytrial)
 #line 365 "C:/github/cppparser/parser.y"
 { yyval.str = yyvsp[0].str; }
-#line 2669 "y_tab.c"
+#line 2671 "y_tab.c"
 break;
 case 56:
   if (!yytrial)
 #line 366 "C:/github/cppparser/parser.y"
 { yyval.str = makeCppToken(yyvsp[-1].str.sz, yyvsp[0].str.sz+yyvsp[0].str.len-yyvsp[-1].str.sz); }
-#line 2675 "y_tab.c"
+#line 2677 "y_tab.c"
 break;
 case 57:
   if (!yytrial)
 #line 367 "C:/github/cppparser/parser.y"
 { yyval.str = yyvsp[0].str; }
-#line 2681 "y_tab.c"
+#line 2683 "y_tab.c"
 break;
 case 58:
   if (!yytrial)
 #line 368 "C:/github/cppparser/parser.y"
 { yyval.str = makeCppToken(yyvsp[-1].str.sz, yyvsp[0].str.sz+yyvsp[0].str.len-yyvsp[-1].str.sz); }
-#line 2687 "y_tab.c"
+#line 2689 "y_tab.c"
 break;
 case 59:
   if (!yytrial)
 #line 371 "C:/github/cppparser/parser.y"
 { yyval.str = makeCppToken(0, 0); }
-#line 2693 "y_tab.c"
+#line 2695 "y_tab.c"
 break;
 case 60:
   if (!yytrial)
 #line 372 "C:/github/cppparser/parser.y"
 { yyval.str = yyvsp[0].str; }
-#line 2699 "y_tab.c"
+#line 2701 "y_tab.c"
 break;
 case 61:
   if (!yytrial)
 #line 375 "C:/github/cppparser/parser.y"
 { yyval.enumItem = new CppEnumItem(yyvsp[0].str);     }
-#line 2705 "y_tab.c"
+#line 2707 "y_tab.c"
 break;
 case 62:
   if (!yytrial)
 #line 376 "C:/github/cppparser/parser.y"
 { yyval.enumItem = new CppEnumItem(yyvsp[-2].str, yyvsp[0].cppExprObj); }
-#line 2711 "y_tab.c"
+#line 2713 "y_tab.c"
 break;
 case 63:
   if (!yytrial)
 #line 377 "C:/github/cppparser/parser.y"
 { yyval.enumItem = new CppEnumItem(yyvsp[0].docCommentObj);     }
-#line 2717 "y_tab.c"
+#line 2719 "y_tab.c"
 break;
 case 64:
   if (!yytrial)
 #line 378 "C:/github/cppparser/parser.y"
 { yyval.enumItem = new CppEnumItem(yyvsp[0].hashIf);     }
-#line 2723 "y_tab.c"
+#line 2725 "y_tab.c"
 break;
 case 65:
   if (!yytrial)
 #line 379 "C:/github/cppparser/parser.y"
 { yyval.enumItem = new CppEnumItem(yyvsp[0].blankLine);     }
-#line 2729 "y_tab.c"
+#line 2731 "y_tab.c"
 break;
 case 66:
   if (!yytrial)
 #line 382 "C:/github/cppparser/parser.y"
 { yyval.enumItemList = 0; }
-#line 2735 "y_tab.c"
+#line 2737 "y_tab.c"
 break;
 case 67:
   if (!yytrial)
@@ -2682,7 +2684,7 @@ case 67:
                     yyval.enumItemList = yyvsp[-1].enumItemList ? yyvsp[-1].enumItemList : new CppEnumItemList;
                     yyval.enumItemList->push_back(yyvsp[0].enumItem);
                   }
-#line 2744 "y_tab.c"
+#line 2746 "y_tab.c"
 break;
 case 68:
   if (!yytrial)
@@ -2691,7 +2693,7 @@ case 68:
                     yyval.enumItemList = yyvsp[-2].enumItemList ? yyvsp[-2].enumItemList : new CppEnumItemList;
                     yyval.enumItemList->push_back(yyvsp[0].enumItem);
                   }
-#line 2753 "y_tab.c"
+#line 2755 "y_tab.c"
 break;
 case 69:
   if (!yytrial)
@@ -2699,108 +2701,108 @@ case 69:
 {
                     yyval.enumItemList = yyvsp[-1].enumItemList;
                   }
-#line 2761 "y_tab.c"
+#line 2763 "y_tab.c"
 break;
 case 70:
 #line 396 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2766 "y_tab.c"
+#line 2768 "y_tab.c"
   if (!yytrial)
 #line 396 "C:/github/cppparser/parser.y"
 {
                     yyval.cppEnum = new CppEnum(gCurProtLevel, yyvsp[-4].str, yyvsp[-2].enumItemList);
                   }
-#line 2772 "y_tab.c"
+#line 2774 "y_tab.c"
 break;
 case 71:
 #line 399 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2777 "y_tab.c"
+#line 2779 "y_tab.c"
   if (!yytrial)
 #line 399 "C:/github/cppparser/parser.y"
 {
                     yyval.cppEnum = new CppEnum(gCurProtLevel, yyvsp[-6].str, yyvsp[-2].enumItemList, false, yyvsp[-4].str);
                   }
-#line 2783 "y_tab.c"
+#line 2785 "y_tab.c"
 break;
 case 72:
 #line 402 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2788 "y_tab.c"
+#line 2790 "y_tab.c"
   if (!yytrial)
 #line 402 "C:/github/cppparser/parser.y"
 {
                     yyval.cppEnum = new CppEnum(gCurProtLevel, yyvsp[-6].str, yyvsp[-2].enumItemList, true, yyvsp[-4].str);
                   }
-#line 2794 "y_tab.c"
+#line 2796 "y_tab.c"
 break;
 case 73:
 #line 405 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2799 "y_tab.c"
+#line 2801 "y_tab.c"
   if (!yytrial)
 #line 405 "C:/github/cppparser/parser.y"
 {
                     yyval.cppEnum = new CppEnum(gCurProtLevel, yyvsp[-4].str, yyvsp[-2].enumItemList, true);
                   }
-#line 2805 "y_tab.c"
+#line 2807 "y_tab.c"
 break;
 case 74:
 #line 409 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2810 "y_tab.c"
+#line 2812 "y_tab.c"
   if (!yytrial)
 #line 409 "C:/github/cppparser/parser.y"
 {
                     yyval.cppEnum = new CppEnum(gCurProtLevel, yyvsp[-3].str, nullptr, false, yyvsp[-1].str);
                   }
-#line 2816 "y_tab.c"
+#line 2818 "y_tab.c"
 break;
 case 75:
 #line 412 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2821 "y_tab.c"
+#line 2823 "y_tab.c"
   if (!yytrial)
 #line 412 "C:/github/cppparser/parser.y"
 {
                     yyval.cppEnum = new CppEnum(gCurProtLevel, yyvsp[-3].str, nullptr, true, yyvsp[-1].str);
                   }
-#line 2827 "y_tab.c"
+#line 2829 "y_tab.c"
 break;
 case 76:
 #line 415 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2832 "y_tab.c"
+#line 2834 "y_tab.c"
   if (!yytrial)
 #line 415 "C:/github/cppparser/parser.y"
 {
                     yyval.cppEnum = new CppEnum(gCurProtLevel, yyvsp[-1].str, nullptr, true);
                   }
-#line 2838 "y_tab.c"
+#line 2840 "y_tab.c"
 break;
 case 77:
 #line 420 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2843 "y_tab.c"
+#line 2845 "y_tab.c"
   if (!yytrial)
 #line 420 "C:/github/cppparser/parser.y"
 { yyval.typedefObj = yyvsp[-1].typedefObj; }
-#line 2847 "y_tab.c"
+#line 2849 "y_tab.c"
 break;
 case 78:
 #line 421 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 2852 "y_tab.c"
+#line 2854 "y_tab.c"
   if (!yytrial)
 #line 421 "C:/github/cppparser/parser.y"
 { yyval.typedefObj = yyvsp[-1].typedefObj; }
-#line 2856 "y_tab.c"
+#line 2858 "y_tab.c"
 break;
 case 79:
   if (!yytrial)
 #line 424 "C:/github/cppparser/parser.y"
 { yyval.typedefObj = yyvsp[-2].typedefObj; yyval.typedefObj->names_.push_back((std::string) yyvsp[0].str); }
-#line 2862 "y_tab.c"
+#line 2864 "y_tab.c"
 break;
 case 80:
   if (!yytrial)
@@ -2809,37 +2811,37 @@ case 80:
                     yyval.typedefObj = new CppTypedef(gCurProtLevel, yyvsp[-3].str, yyvsp[-4].attr, yyvsp[-2].ptrLevel, yyvsp[-1].refType);
                     yyval.typedefObj->names_.push_back((std::string) yyvsp[0].str);
                   }
-#line 2871 "y_tab.c"
+#line 2873 "y_tab.c"
 break;
 case 81:
   if (!yytrial)
 #line 433 "C:/github/cppparser/parser.y"
 { yyval.str = yyvsp[0].str; }
-#line 2877 "y_tab.c"
+#line 2879 "y_tab.c"
 break;
 case 82:
   if (!yytrial)
 #line 434 "C:/github/cppparser/parser.y"
 { yyval.str = makeCppToken(yyvsp[-1].str.sz, yyvsp[0].str.sz+yyvsp[0].str.len-yyvsp[-1].str.sz); }
-#line 2883 "y_tab.c"
+#line 2885 "y_tab.c"
 break;
 case 83:
   if (!yytrial)
 #line 435 "C:/github/cppparser/parser.y"
 { yyval.str = makeCppToken(yyvsp[-1].str.sz, yyvsp[0].str.sz+yyvsp[0].str.len-yyvsp[-1].str.sz); }
-#line 2889 "y_tab.c"
+#line 2891 "y_tab.c"
 break;
 case 84:
   if (!yytrial)
 #line 436 "C:/github/cppparser/parser.y"
 { yyval.str = makeCppToken(yyvsp[-1].str.sz, yyvsp[0].str.sz+yyvsp[0].str.len-yyvsp[-1].str.sz); }
-#line 2895 "y_tab.c"
+#line 2897 "y_tab.c"
 break;
 case 85:
   if (!yytrial)
 #line 437 "C:/github/cppparser/parser.y"
 { yyval.str = makeCppToken(yyvsp[-1].str.sz, yyvsp[0].str.sz+yyvsp[0].str.len-yyvsp[-1].str.sz); }
-#line 2901 "y_tab.c"
+#line 2903 "y_tab.c"
 break;
 case 86:
   if (!yytrial)
@@ -2848,13 +2850,13 @@ case 86:
                     yyval.str = makeCppToken(yyvsp[-3].str.sz, yyvsp[0].str.sz+1-yyvsp[-3].str.sz);
                     delete yyvsp[-1].varOrFuncPtr.cppObj; /* We don't need template parameter*/
                   }
-#line 2910 "y_tab.c"
+#line 2912 "y_tab.c"
 break;
 case 87:
   if (!yytrial)
 #line 444 "C:/github/cppparser/parser.y"
 { yyval.cppVarObj = yyvsp[-2].cppVarObj; yyval.cppVarObj->assign_ = yyvsp[0].cppExprObj; }
-#line 2916 "y_tab.c"
+#line 2918 "y_tab.c"
 break;
 case 88:
   if (!yytrial)
@@ -2865,7 +2867,7 @@ case 88:
                     yyval.cppVarObj->varAttr_ |= yyvsp[0].attr;
                     yyval.cppVarObj->typeAttr_|= yyvsp[-3].attr;
                   }
-#line 2927 "y_tab.c"
+#line 2929 "y_tab.c"
 break;
 case 89:
   if (!yytrial)
@@ -2875,7 +2877,7 @@ case 89:
                     yyval.cppVarObj->name_ = yyvsp[-1].str;
                     yyval.cppVarObj->varAttr_ |= yyvsp[0].attr;
                   }
-#line 2937 "y_tab.c"
+#line 2939 "y_tab.c"
 break;
 case 90:
   if (!yytrial)
@@ -2886,7 +2888,7 @@ case 90:
                     yyval.cppVarObj->varAttr_|= yyvsp[-5].attr|kArray;
                     yyval.cppVarObj->arraySize_ = yyvsp[-1].cppExprObj;
                   }
-#line 2948 "y_tab.c"
+#line 2950 "y_tab.c"
 break;
 case 91:
   if (!yytrial)
@@ -2896,7 +2898,7 @@ case 91:
                     yyval.cppVarObj->name_ = yyvsp[-2].str;
                     yyval.cppVarObj->varAttr_|= yyvsp[-4].attr|kArray;
                   }
-#line 2958 "y_tab.c"
+#line 2960 "y_tab.c"
 break;
 case 92:
   if (!yytrial)
@@ -2907,7 +2909,7 @@ case 92:
                     yyval.cppVarObj->varAttr_|= kArray;
                     yyval.cppVarObj->arraySize_ = yyvsp[-1].cppExprObj;
                   }
-#line 2969 "y_tab.c"
+#line 2971 "y_tab.c"
 break;
 case 93:
   if (!yytrial)
@@ -2917,7 +2919,7 @@ case 93:
                     yyval.cppVarObj->name_ = yyvsp[-2].str;
                     yyval.cppVarObj->varAttr_|= kArray;
                   }
-#line 2979 "y_tab.c"
+#line 2981 "y_tab.c"
 break;
 case 94:
   if (!yytrial)
@@ -2925,7 +2927,7 @@ case 94:
 {
                     yyval.cppVarObj = new CppVar(gCurProtLevel, yyvsp[-2].str, 0, 0, yyvsp[-1].ptrLevel, kNoRef, yyvsp[0].str);
                   }
-#line 2987 "y_tab.c"
+#line 2989 "y_tab.c"
 break;
 case 95:
   if (!yytrial)
@@ -2933,7 +2935,7 @@ case 95:
 {
                     yyval.cppVarObj = new CppVar(gCurProtLevel, yyvsp[-2].str, 0, 0, 0, kByRef, yyvsp[0].str);
                   }
-#line 2995 "y_tab.c"
+#line 2997 "y_tab.c"
 break;
 case 96:
   if (!yytrial)
@@ -2941,7 +2943,7 @@ case 96:
 {
                     yyval.cppVarObj = new CppVar(gCurProtLevel, yyvsp[-3].str, 0, 0, 0, kRValRef, yyvsp[0].str);
                   }
-#line 3003 "y_tab.c"
+#line 3005 "y_tab.c"
 break;
 case 97:
   if (!yytrial)
@@ -2949,7 +2951,7 @@ case 97:
 {
                     yyval.cppVarObj = new CppVar(gCurProtLevel, yyvsp[-4].str, yyvsp[-5].attr|yyvsp[-3].attr, yyvsp[0].attr, yyvsp[-2].ptrLevel, yyvsp[-1].refType, "");
                   }
-#line 3011 "y_tab.c"
+#line 3013 "y_tab.c"
 break;
 case 98:
   if (!yytrial)
@@ -2958,7 +2960,7 @@ case 98:
                     yyval.cppVarObj = new CppVar(gCurProtLevel, yyvsp[-7].str, yyvsp[-8].attr|yyvsp[-6].attr|kArray, yyvsp[0].attr, yyvsp[-5].ptrLevel, yyvsp[-4].refType, "");
                     yyval.cppVarObj->arraySize_ = yyvsp[-2].cppExprObj;
                   }
-#line 3020 "y_tab.c"
+#line 3022 "y_tab.c"
 break;
 case 99:
   if (!yytrial)
@@ -2966,33 +2968,33 @@ case 99:
 {
                     yyval.cppVarObj = new CppVar(gCurProtLevel, yyvsp[-6].str, yyvsp[-7].attr|yyvsp[-5].attr|kArray, yyvsp[0].attr, yyvsp[-4].ptrLevel, yyvsp[-3].refType, "");
                   }
-#line 3028 "y_tab.c"
+#line 3030 "y_tab.c"
 break;
 case 100:
   if (!yytrial)
 #line 508 "C:/github/cppparser/parser.y"
 { yyval.attr = kStatic;  }
-#line 3034 "y_tab.c"
+#line 3036 "y_tab.c"
 break;
 case 101:
   if (!yytrial)
 #line 509 "C:/github/cppparser/parser.y"
 { yyval.attr = kExtern;  }
-#line 3040 "y_tab.c"
+#line 3042 "y_tab.c"
 break;
 case 102:
 #line 512 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3045 "y_tab.c"
+#line 3047 "y_tab.c"
   if (!yytrial)
 #line 512 "C:/github/cppparser/parser.y"
 { yyval.cppFuncObj = yyvsp[-1].cppFuncObj; }
-#line 3049 "y_tab.c"
+#line 3051 "y_tab.c"
 break;
 case 103:
 #line 515 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3054 "y_tab.c"
+#line 3056 "y_tab.c"
   if (!yytrial)
 #line 515 "C:/github/cppparser/parser.y"
 {
@@ -3000,19 +3002,19 @@ case 103:
                     yyval.cppFuncObj->defn_ = yyvsp[-1].cppCompundObj ? yyvsp[-1].cppCompundObj : newCompound(kUnknownProt);
                     yyval.cppFuncObj->defn_->compoundType_ = kBlock;
                   }
-#line 3062 "y_tab.c"
+#line 3064 "y_tab.c"
 break;
 case 104:
 #line 522 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3067 "y_tab.c"
+#line 3069 "y_tab.c"
   if (!yytrial)
 #line 522 "C:/github/cppparser/parser.y"
 {
                     yyvsp[-1].cppFuncPointerObj->attr_ |= kTypedef;
                     yyval.cppObj = yyvsp[-1].cppFuncPointerObj;
                   }
-#line 3074 "y_tab.c"
+#line 3076 "y_tab.c"
 break;
 case 105:
   if (!yytrial)
@@ -3022,7 +3024,7 @@ case 105:
                     yyval.cppFuncPointerObj->docer1_ = yyvsp[-10].str;
                     yyval.cppFuncPointerObj->docer2_ = yyvsp[-6].str;
                   }
-#line 3084 "y_tab.c"
+#line 3086 "y_tab.c"
 break;
 case 106:
   if (!yytrial)
@@ -3032,16 +3034,16 @@ case 106:
                     yyval.cppFuncPointerObj->docer1_ = yyvsp[-9].str;
                     yyval.cppFuncPointerObj->docer2_ = yyvsp[-6].str;
                   }
-#line 3094 "y_tab.c"
+#line 3096 "y_tab.c"
 break;
 case 107:
 #line 539 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3099 "y_tab.c"
+#line 3101 "y_tab.c"
   if (!yytrial)
 #line 539 "C:/github/cppparser/parser.y"
 { yyval.cppFuncPointerObj = yyvsp[-1].cppFuncPointerObj;}
-#line 3103 "y_tab.c"
+#line 3105 "y_tab.c"
 break;
 case 108:
   if (!yytrial)
@@ -3051,7 +3053,7 @@ case 108:
                     yyval.cppFuncObj->docer1_ = yyvsp[-7].str;
                     yyval.cppFuncObj->docer2_ = yyvsp[-5].str;
                   }
-#line 3113 "y_tab.c"
+#line 3115 "y_tab.c"
 break;
 case 109:
   if (!yytrial)
@@ -3061,13 +3063,13 @@ case 109:
                     yyval.cppFuncObj->docer1_ = yyvsp[-7].str;
                     yyval.cppFuncObj->docer2_ = yyvsp[-5].str;
                   }
-#line 3123 "y_tab.c"
+#line 3125 "y_tab.c"
 break;
 case 110:
   if (!yytrial)
 #line 554 "C:/github/cppparser/parser.y"
 { yyval.paramList = 0; }
-#line 3129 "y_tab.c"
+#line 3131 "y_tab.c"
 break;
 case 111:
   if (!yytrial)
@@ -3076,7 +3078,7 @@ case 111:
                     yyval.paramList = new CppParamList;
                     yyval.paramList->push_back(yyvsp[0].varOrFuncPtr);
                   }
-#line 3138 "y_tab.c"
+#line 3140 "y_tab.c"
 break;
 case 112:
   if (!yytrial)
@@ -3085,144 +3087,144 @@ case 112:
                     yyvsp[-2].paramList->push_back(yyvsp[0].varOrFuncPtr);
                     yyval.paramList = yyvsp[-2].paramList;
                   }
-#line 3147 "y_tab.c"
+#line 3149 "y_tab.c"
 break;
 case 113:
   if (!yytrial)
 #line 565 "C:/github/cppparser/parser.y"
 { yyval.varOrFuncPtr = yyvsp[0].cppVarObj; yyvsp[0].cppVarObj->varAttr_ |= kFuncParam;  }
-#line 3153 "y_tab.c"
+#line 3155 "y_tab.c"
 break;
 case 114:
   if (!yytrial)
 #line 566 "C:/github/cppparser/parser.y"
 { yyval.varOrFuncPtr = yyvsp[0].cppVarObj; yyvsp[0].cppVarObj->varAttr_ |= kFuncParam;  }
-#line 3159 "y_tab.c"
+#line 3161 "y_tab.c"
 break;
 case 115:
   if (!yytrial)
 #line 567 "C:/github/cppparser/parser.y"
 { yyval.varOrFuncPtr = yyvsp[0].cppVarObj; yyvsp[0].cppVarObj->varAttr_ |= kFuncParam;  }
-#line 3165 "y_tab.c"
+#line 3167 "y_tab.c"
 break;
 case 116:
   if (!yytrial)
 #line 568 "C:/github/cppparser/parser.y"
 { yyval.varOrFuncPtr = yyvsp[0].cppFuncPointerObj; yyvsp[0].cppFuncPointerObj->attr_ |= kFuncParam;    }
-#line 3171 "y_tab.c"
+#line 3173 "y_tab.c"
 break;
 case 117:
   if (!yytrial)
 #line 571 "C:/github/cppparser/parser.y"
 { yyval.varOrFuncPtr = yyvsp[0].cppVarObj; }
-#line 3177 "y_tab.c"
+#line 3179 "y_tab.c"
 break;
 case 118:
   if (!yytrial)
 #line 572 "C:/github/cppparser/parser.y"
 { yyval.varOrFuncPtr = yyvsp[0].cppFuncPointerObj; }
-#line 3183 "y_tab.c"
+#line 3185 "y_tab.c"
 break;
 case 119:
   if (!yytrial)
 #line 575 "C:/github/cppparser/parser.y"
 { yyval.attr = yyvsp[0].attr;      }
-#line 3189 "y_tab.c"
+#line 3191 "y_tab.c"
 break;
 case 120:
   if (!yytrial)
 #line 576 "C:/github/cppparser/parser.y"
 { yyval.attr = kInline;    }
-#line 3195 "y_tab.c"
+#line 3197 "y_tab.c"
 break;
 case 121:
   if (!yytrial)
 #line 577 "C:/github/cppparser/parser.y"
 { yyval.attr = kVirtual;  }
-#line 3201 "y_tab.c"
+#line 3203 "y_tab.c"
 break;
 case 122:
   if (!yytrial)
 #line 578 "C:/github/cppparser/parser.y"
 { yyval.attr = kExtern;    }
-#line 3207 "y_tab.c"
+#line 3209 "y_tab.c"
 break;
 case 123:
   if (!yytrial)
 #line 579 "C:/github/cppparser/parser.y"
 { yyval.attr = kExplicit;  }
-#line 3213 "y_tab.c"
+#line 3215 "y_tab.c"
 break;
 case 124:
   if (!yytrial)
 #line 580 "C:/github/cppparser/parser.y"
 { yyval.attr = kInline | kExplicit; }
-#line 3219 "y_tab.c"
+#line 3221 "y_tab.c"
 break;
 case 125:
   if (!yytrial)
 #line 581 "C:/github/cppparser/parser.y"
 { yyval.attr = kInline | kExplicit; }
-#line 3225 "y_tab.c"
+#line 3227 "y_tab.c"
 break;
 case 126:
   if (!yytrial)
 #line 584 "C:/github/cppparser/parser.y"
 { yyval.attr = 0; }
-#line 3231 "y_tab.c"
+#line 3233 "y_tab.c"
 break;
 case 127:
   if (!yytrial)
 #line 585 "C:/github/cppparser/parser.y"
 { yyval.attr = yyvsp[-1].attr | kConst; }
-#line 3237 "y_tab.c"
+#line 3239 "y_tab.c"
 break;
 case 128:
   if (!yytrial)
 #line 586 "C:/github/cppparser/parser.y"
 { yyval.attr = yyvsp[-1].attr | kOverride; }
-#line 3243 "y_tab.c"
+#line 3245 "y_tab.c"
 break;
 case 129:
 #line 587 "C:/github/cppparser/parser.y"
 {if(yyvsp[0].str.len != 1 || yyvsp[0].str.sz[0] != '0') YYABORT; else ZZVALID;}
-#line 3248 "y_tab.c"
+#line 3250 "y_tab.c"
   if (!yytrial)
 #line 588 "C:/github/cppparser/parser.y"
 { yyval.attr = yyvsp[-2].attr | kPureVirtual; }
-#line 3252 "y_tab.c"
+#line 3254 "y_tab.c"
 break;
 case 130:
   if (!yytrial)
 #line 591 "C:/github/cppparser/parser.y"
 { yyval.attr = 0; }
-#line 3258 "y_tab.c"
+#line 3260 "y_tab.c"
 break;
 case 131:
   if (!yytrial)
 #line 592 "C:/github/cppparser/parser.y"
 { yyval.attr = kConst; }
-#line 3264 "y_tab.c"
+#line 3266 "y_tab.c"
 break;
 case 132:
   if (!yytrial)
 #line 593 "C:/github/cppparser/parser.y"
 { yyval.attr = kVolatile; }
-#line 3270 "y_tab.c"
+#line 3272 "y_tab.c"
 break;
 case 133:
 #line 596 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3275 "y_tab.c"
+#line 3277 "y_tab.c"
   if (!yytrial)
 #line 596 "C:/github/cppparser/parser.y"
 { yyval.cppCtorObj = yyvsp[-1].cppCtorObj; }
-#line 3279 "y_tab.c"
+#line 3281 "y_tab.c"
 break;
 case 134:
 #line 602 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3284 "y_tab.c"
+#line 3286 "y_tab.c"
   if (!yytrial)
 #line 603 "C:/github/cppparser/parser.y"
 {
@@ -3230,41 +3232,41 @@ case 134:
                     yyval.cppCtorObj->memInitList_  = yyvsp[-3].memInitList;
                     yyval.cppCtorObj->defn_      = yyvsp[-1].cppCompundObj ? yyvsp[-1].cppCompundObj : newCompound(kUnknownProt, kBlock);
                   }
-#line 3292 "y_tab.c"
+#line 3294 "y_tab.c"
 break;
 case 135:
 #line 608 "C:/github/cppparser/parser.y"
 {if(yyvsp[-2].str != yyvsp[0].str) YYERROR; else ZZVALID;}
-#line 3297 "y_tab.c"
+#line 3299 "y_tab.c"
 break;
 case 136:
 #line 612 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3302 "y_tab.c"
+#line 3304 "y_tab.c"
   if (!yytrial)
 #line 613 "C:/github/cppparser/parser.y"
 {
                     yyval.cppCtorObj = newConstructor(gCurProtLevel, makeCppToken(yyvsp[-10].str.sz, yyvsp[-8].str.sz+yyvsp[-8].str.len-yyvsp[-10].str.sz), yyvsp[-5].paramList, yyvsp[-3].memInitList, 0);
                     yyval.cppCtorObj->defn_      = yyvsp[-1].cppCompundObj ? yyvsp[-1].cppCompundObj : newCompound(kUnknownProt, kBlock);
                   }
-#line 3309 "y_tab.c"
+#line 3311 "y_tab.c"
 break;
 case 137:
 #line 617 "C:/github/cppparser/parser.y"
 {if(yyvsp[-2].str != yyvsp[0].str) YYERROR; else ZZVALID;}
-#line 3314 "y_tab.c"
+#line 3316 "y_tab.c"
 break;
 case 138:
 #line 621 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3319 "y_tab.c"
+#line 3321 "y_tab.c"
   if (!yytrial)
 #line 622 "C:/github/cppparser/parser.y"
 {
                     yyval.cppCtorObj = newConstructor(gCurProtLevel, makeCppToken(yyvsp[-12].str.sz, yyvsp[-8].str.sz+yyvsp[-8].str.len-yyvsp[-12].str.sz), yyvsp[-5].paramList, yyvsp[-3].memInitList, 0);
                     yyval.cppCtorObj->defn_      = yyvsp[-1].cppCompundObj ? yyvsp[-1].cppCompundObj : newCompound(gCurProtLevel, kBlock);
                   }
-#line 3326 "y_tab.c"
+#line 3328 "y_tab.c"
 break;
 case 139:
 #line 629 "C:/github/cppparser/parser.y"
@@ -3276,18 +3278,18 @@ case 139:
                     else
                       ZZVALID;
                   }
-#line 3338 "y_tab.c"
+#line 3340 "y_tab.c"
   if (!yytrial)
 #line 637 "C:/github/cppparser/parser.y"
 {
                     yyval.cppCtorObj = newConstructor(gCurProtLevel, yyvsp[-3].str, yyvsp[-1].paramList, nullptr, 0);
                   }
-#line 3344 "y_tab.c"
+#line 3346 "y_tab.c"
 break;
 case 140:
 #line 640 "C:/github/cppparser/parser.y"
 {if(gCompoundStack.empty()) YYERROR; if(gCompoundStack.top() != yyvsp[0].str) YYERROR; else ZZVALID;}
-#line 3349 "y_tab.c"
+#line 3351 "y_tab.c"
 break;
 case 141:
   if (!yytrial)
@@ -3295,51 +3297,51 @@ case 141:
 {
                     yyval.cppCtorObj = newConstructor(gCurProtLevel, yyvsp[-4].str, yyvsp[-1].paramList, nullptr, yyvsp[-5].attr);
                   }
-#line 3357 "y_tab.c"
+#line 3359 "y_tab.c"
 break;
 case 142:
   if (!yytrial)
 #line 646 "C:/github/cppparser/parser.y"
 { yyval.memInitList = NULL; }
-#line 3363 "y_tab.c"
+#line 3365 "y_tab.c"
 break;
 case 143:
   if (!yytrial)
 #line 647 "C:/github/cppparser/parser.y"
 { yyval.memInitList = new CppMemInitList; yyval.memInitList->push_back(CppMemInit(yyvsp[-3].str, yyvsp[-1].cppExprObj)); }
-#line 3369 "y_tab.c"
+#line 3371 "y_tab.c"
 break;
 case 144:
   if (!yytrial)
 #line 648 "C:/github/cppparser/parser.y"
 { yyval.memInitList = yyvsp[-5].memInitList; yyval.memInitList->push_back(CppMemInit(yyvsp[-3].str, yyvsp[-1].cppExprObj)); }
-#line 3375 "y_tab.c"
+#line 3377 "y_tab.c"
 break;
 case 145:
 #line 651 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3380 "y_tab.c"
+#line 3382 "y_tab.c"
   if (!yytrial)
 #line 651 "C:/github/cppparser/parser.y"
 { yyval.cppDtorObj = yyvsp[-1].cppDtorObj; }
-#line 3384 "y_tab.c"
+#line 3386 "y_tab.c"
 break;
 case 146:
 #line 654 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3389 "y_tab.c"
+#line 3391 "y_tab.c"
   if (!yytrial)
 #line 655 "C:/github/cppparser/parser.y"
 {
                     yyval.cppDtorObj = yyvsp[-3].cppDtorObj;
                     yyval.cppDtorObj->defn_ = yyvsp[-1].cppCompundObj ? yyvsp[-1].cppCompundObj : newCompound(kUnknownProt, kBlock);
                   }
-#line 3396 "y_tab.c"
+#line 3398 "y_tab.c"
 break;
 case 147:
 #line 659 "C:/github/cppparser/parser.y"
 {if(yyvsp[-3].str != yyvsp[0].str) YYERROR; else ZZVALID;}
-#line 3401 "y_tab.c"
+#line 3403 "y_tab.c"
 break;
 case 148:
   if (!yytrial)
@@ -3348,12 +3350,12 @@ case 148:
                     yyval.cppDtorObj = newDestructor(gCurProtLevel, makeCppToken(yyvsp[-9].str.sz, yyvsp[-6].str.sz+yyvsp[-6].str.len-yyvsp[-9].str.sz), 0);
                     yyval.cppDtorObj->defn_      = yyvsp[-1].cppCompundObj ? yyvsp[-1].cppCompundObj : newCompound(kUnknownProt, kBlock);
                   }
-#line 3410 "y_tab.c"
+#line 3412 "y_tab.c"
 break;
 case 149:
 #line 665 "C:/github/cppparser/parser.y"
 {if(yyvsp[-3].str != yyvsp[0].str) YYERROR; else ZZVALID;}
-#line 3415 "y_tab.c"
+#line 3417 "y_tab.c"
 break;
 case 150:
   if (!yytrial)
@@ -3362,7 +3364,7 @@ case 150:
                     yyval.cppDtorObj = newDestructor(gCurProtLevel, makeCppToken(yyvsp[-11].str.sz, yyvsp[-6].str.sz+yyvsp[-6].str.len-yyvsp[-11].str.sz), 0);
                     yyval.cppDtorObj->defn_      = yyvsp[-1].cppCompundObj ? yyvsp[-1].cppCompundObj : newCompound(kUnknownProt, kBlock);
                   }
-#line 3424 "y_tab.c"
+#line 3426 "y_tab.c"
 break;
 case 151:
 #line 674 "C:/github/cppparser/parser.y"
@@ -3374,7 +3376,7 @@ case 151:
                     else
                       ZZVALID;
                   }
-#line 3436 "y_tab.c"
+#line 3438 "y_tab.c"
   if (!yytrial)
 #line 682 "C:/github/cppparser/parser.y"
 {
@@ -3382,7 +3384,7 @@ case 151:
                     while(*tildaStartPos != '~') --tildaStartPos;
                     yyval.cppDtorObj = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, yyvsp[-2].str.sz+yyvsp[-2].str.len-tildaStartPos), 0);
                   }
-#line 3444 "y_tab.c"
+#line 3446 "y_tab.c"
 break;
 case 152:
 #line 688 "C:/github/cppparser/parser.y"
@@ -3394,7 +3396,7 @@ case 152:
                     else
                       ZZVALID;
                   }
-#line 3456 "y_tab.c"
+#line 3458 "y_tab.c"
   if (!yytrial)
 #line 696 "C:/github/cppparser/parser.y"
 {
@@ -3402,7 +3404,7 @@ case 152:
                     while(*tildaStartPos != '~') --tildaStartPos;
                     yyval.cppDtorObj = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, yyvsp[-2].str.sz+yyvsp[-2].str.len-tildaStartPos), yyvsp[-4].attr);
                   }
-#line 3464 "y_tab.c"
+#line 3466 "y_tab.c"
 break;
 case 153:
 #line 702 "C:/github/cppparser/parser.y"
@@ -3414,7 +3416,7 @@ case 153:
                     else
                       ZZVALID;
                   }
-#line 3476 "y_tab.c"
+#line 3478 "y_tab.c"
   if (!yytrial)
 #line 710 "C:/github/cppparser/parser.y"
 {
@@ -3422,7 +3424,7 @@ case 153:
                     while(*tildaStartPos != '~') --tildaStartPos;
                     yyval.cppDtorObj = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, yyvsp[-4].str.sz+yyvsp[-4].str.len-tildaStartPos), kPureVirtual);
                   }
-#line 3484 "y_tab.c"
+#line 3486 "y_tab.c"
 break;
 case 154:
   if (!yytrial)
@@ -3432,7 +3434,7 @@ case 154:
                     yyval.cppVarObjList->addVar(yyvsp[-7].cppVarObj);
                     yyval.cppVarObjList->addVar(new CppVar(gCurProtLevel, yyvsp[-7].cppVarObj->baseType_, yyvsp[-7].cppVarObj->typeAttr_|yyvsp[-5].attr, yyvsp[-2].attr|yyvsp[0].attr, yyvsp[-4].ptrLevel, yyvsp[-3].refType, yyvsp[-1].str));
                   }
-#line 3494 "y_tab.c"
+#line 3496 "y_tab.c"
 break;
 case 155:
   if (!yytrial)
@@ -3441,94 +3443,94 @@ case 155:
                     yyval.cppVarObjList = yyvsp[-7].cppVarObjList;
                     yyval.cppVarObjList->addVar(new CppVar(gCurProtLevel, yyvsp[-7].cppVarObjList->varlist_.back()->baseType_, yyvsp[-7].cppVarObjList->varlist_.back()->typeAttr_|yyvsp[-5].attr, yyvsp[-2].attr|yyvsp[0].attr, yyvsp[-4].ptrLevel, yyvsp[-3].refType, yyvsp[-1].str));
                   }
-#line 3503 "y_tab.c"
+#line 3505 "y_tab.c"
 break;
 case 156:
 #line 728 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3508 "y_tab.c"
+#line 3510 "y_tab.c"
   if (!yytrial)
 #line 728 "C:/github/cppparser/parser.y"
 { yyval.cppVarObjList = yyvsp[-1].cppVarObjList; }
-#line 3512 "y_tab.c"
+#line 3514 "y_tab.c"
 break;
 case 157:
 #line 731 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3517 "y_tab.c"
+#line 3519 "y_tab.c"
   if (!yytrial)
 #line 731 "C:/github/cppparser/parser.y"
 { yyval.cppVarObj = yyvsp[-1].cppVarObj; }
-#line 3521 "y_tab.c"
+#line 3523 "y_tab.c"
 break;
 case 158:
 #line 732 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3526 "y_tab.c"
+#line 3528 "y_tab.c"
   if (!yytrial)
 #line 732 "C:/github/cppparser/parser.y"
 { yyval.cppVarObj = yyvsp[-1].cppVarObj; }
-#line 3530 "y_tab.c"
+#line 3532 "y_tab.c"
 break;
 case 159:
 #line 733 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3535 "y_tab.c"
+#line 3537 "y_tab.c"
   if (!yytrial)
 #line 733 "C:/github/cppparser/parser.y"
 { yyval.cppVarObj = yyvsp[-1].cppVarObj; yyval.cppVarObj->apidocer_ = yyvsp[-2].str; }
-#line 3539 "y_tab.c"
+#line 3541 "y_tab.c"
 break;
 case 160:
   if (!yytrial)
 #line 736 "C:/github/cppparser/parser.y"
 { yyval.ptrLevel = 0;    }
-#line 3545 "y_tab.c"
+#line 3547 "y_tab.c"
 break;
 case 161:
   if (!yytrial)
 #line 737 "C:/github/cppparser/parser.y"
 { yyval.ptrLevel = yyvsp[0].ptrLevel;    }
-#line 3551 "y_tab.c"
+#line 3553 "y_tab.c"
 break;
 case 162:
   if (!yytrial)
 #line 740 "C:/github/cppparser/parser.y"
 { yyval.ptrLevel = 1;    }
-#line 3557 "y_tab.c"
+#line 3559 "y_tab.c"
 break;
 case 163:
   if (!yytrial)
 #line 741 "C:/github/cppparser/parser.y"
 { yyval.ptrLevel = yyvsp[-1].ptrLevel + 1;  }
-#line 3563 "y_tab.c"
+#line 3565 "y_tab.c"
 break;
 case 164:
   if (!yytrial)
 #line 744 "C:/github/cppparser/parser.y"
 { yyval.refType = kNoRef;    }
-#line 3569 "y_tab.c"
+#line 3571 "y_tab.c"
 break;
 case 165:
   if (!yytrial)
 #line 745 "C:/github/cppparser/parser.y"
 { yyval.refType = kByRef;    }
-#line 3575 "y_tab.c"
+#line 3577 "y_tab.c"
 break;
 case 166:
   if (!yytrial)
 #line 746 "C:/github/cppparser/parser.y"
 { yyval.refType = kRValRef;  }
-#line 3581 "y_tab.c"
+#line 3583 "y_tab.c"
 break;
 case 167:
 #line 749 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3586 "y_tab.c"
+#line 3588 "y_tab.c"
   if (!yytrial)
 #line 749 "C:/github/cppparser/parser.y"
 { yyval.cppCompundObj = yyvsp[-1].cppCompundObj;}
-#line 3590 "y_tab.c"
+#line 3592 "y_tab.c"
 break;
 case 168:
 #line 751 "C:/github/cppparser/parser.y"
@@ -3538,27 +3540,27 @@ case 168:
                           ZZVALID;
                         }
                       }
-#line 3600 "y_tab.c"
+#line 3602 "y_tab.c"
   if (!yytrial)
 #line 757 "C:/github/cppparser/parser.y"
 {
                         yyval.cppCompundObj = yyvsp[0].cppCompundObj;
                       }
-#line 3606 "y_tab.c"
+#line 3608 "y_tab.c"
 break;
 case 169:
 #line 763 "C:/github/cppparser/parser.y"
 {gCompoundStack.push(yyvsp[-2].str); ZZVALID;}
-#line 3611 "y_tab.c"
+#line 3613 "y_tab.c"
   if (!yytrial)
 #line 763 "C:/github/cppparser/parser.y"
 { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
-#line 3615 "y_tab.c"
+#line 3617 "y_tab.c"
 break;
 case 170:
 #line 765 "C:/github/cppparser/parser.y"
 {gCompoundStack.pop(); ZZVALID;}
-#line 3620 "y_tab.c"
+#line 3622 "y_tab.c"
   if (!yytrial)
 #line 766 "C:/github/cppparser/parser.y"
 {
@@ -3571,354 +3573,354 @@ case 170:
                     yyval.cppCompundObj->name_      = yyvsp[-5].str;
                     yyval.cppCompundObj->inheritList_  = yyvsp[-4].inheritList;
                   }
-#line 3633 "y_tab.c"
+#line 3635 "y_tab.c"
 break;
 case 171:
   if (!yytrial)
 #line 777 "C:/github/cppparser/parser.y"
 { yyval.inheritList = 0; }
-#line 3639 "y_tab.c"
+#line 3641 "y_tab.c"
 break;
 case 172:
 #line 778 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3644 "y_tab.c"
+#line 3646 "y_tab.c"
   if (!yytrial)
 #line 778 "C:/github/cppparser/parser.y"
 { yyval.inheritList = new CppInheritanceList; yyval.inheritList->push_back(CppInheritInfo((std::string) yyvsp[0].str, yyvsp[-1].protLevel)); }
-#line 3648 "y_tab.c"
+#line 3650 "y_tab.c"
 break;
 case 173:
 #line 779 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3653 "y_tab.c"
+#line 3655 "y_tab.c"
   if (!yytrial)
 #line 779 "C:/github/cppparser/parser.y"
 { yyval.inheritList = yyvsp[-3].inheritList; yyval.inheritList->push_back(CppInheritInfo((std::string) yyvsp[0].str, yyvsp[-1].protLevel)); }
-#line 3657 "y_tab.c"
+#line 3659 "y_tab.c"
 break;
 case 174:
   if (!yytrial)
 #line 782 "C:/github/cppparser/parser.y"
 { yyval.protLevel = kUnknownProt;}
-#line 3663 "y_tab.c"
+#line 3665 "y_tab.c"
 break;
 case 175:
   if (!yytrial)
 #line 783 "C:/github/cppparser/parser.y"
 { yyval.protLevel = kPublic;    }
-#line 3669 "y_tab.c"
+#line 3671 "y_tab.c"
 break;
 case 176:
   if (!yytrial)
 #line 784 "C:/github/cppparser/parser.y"
 { yyval.protLevel = kProtected;  }
-#line 3675 "y_tab.c"
+#line 3677 "y_tab.c"
 break;
 case 177:
   if (!yytrial)
 #line 785 "C:/github/cppparser/parser.y"
 { yyval.protLevel = kPrivate;  }
-#line 3681 "y_tab.c"
+#line 3683 "y_tab.c"
 break;
 case 178:
 #line 788 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3686 "y_tab.c"
+#line 3688 "y_tab.c"
   if (!yytrial)
 #line 788 "C:/github/cppparser/parser.y"
 { yyval.fwdDeclObj = new CppFwdClsDecl(gCurProtLevel, yyvsp[-1].str, yyvsp[-2].compoundType); }
-#line 3690 "y_tab.c"
+#line 3692 "y_tab.c"
 break;
 case 179:
 #line 789 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3695 "y_tab.c"
+#line 3697 "y_tab.c"
   if (!yytrial)
 #line 789 "C:/github/cppparser/parser.y"
 { yyval.fwdDeclObj = new CppFwdClsDecl(gCurProtLevel, yyvsp[-1].str, yyvsp[-3].compoundType); }
-#line 3699 "y_tab.c"
+#line 3701 "y_tab.c"
 break;
 case 180:
   if (!yytrial)
 #line 792 "C:/github/cppparser/parser.y"
 { yyval.compoundType = kClass;    }
-#line 3705 "y_tab.c"
+#line 3707 "y_tab.c"
 break;
 case 181:
   if (!yytrial)
 #line 793 "C:/github/cppparser/parser.y"
 { yyval.compoundType = kStruct;    }
-#line 3711 "y_tab.c"
+#line 3713 "y_tab.c"
 break;
 case 182:
   if (!yytrial)
 #line 794 "C:/github/cppparser/parser.y"
 { yyval.compoundType = kUnion;    }
-#line 3717 "y_tab.c"
+#line 3719 "y_tab.c"
 break;
 case 183:
   if (!yytrial)
 #line 795 "C:/github/cppparser/parser.y"
 { yyval.compoundType = kNamespace;  }
-#line 3723 "y_tab.c"
+#line 3725 "y_tab.c"
 break;
 case 184:
   if (!yytrial)
 #line 798 "C:/github/cppparser/parser.y"
 { yyval.str = makeCppToken(0, 0); }
-#line 3729 "y_tab.c"
+#line 3731 "y_tab.c"
 break;
 case 185:
   if (!yytrial)
 #line 799 "C:/github/cppparser/parser.y"
 { yyval.str = yyvsp[0].str; }
-#line 3735 "y_tab.c"
+#line 3737 "y_tab.c"
 break;
 case 186:
 #line 802 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3740 "y_tab.c"
+#line 3742 "y_tab.c"
   if (!yytrial)
 #line 802 "C:/github/cppparser/parser.y"
 { yyval.protLevel = kPublic;     }
-#line 3744 "y_tab.c"
+#line 3746 "y_tab.c"
 break;
 case 187:
 #line 803 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3749 "y_tab.c"
+#line 3751 "y_tab.c"
   if (!yytrial)
 #line 803 "C:/github/cppparser/parser.y"
 { yyval.protLevel = kProtected;  }
-#line 3753 "y_tab.c"
+#line 3755 "y_tab.c"
 break;
 case 188:
 #line 804 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3758 "y_tab.c"
+#line 3760 "y_tab.c"
   if (!yytrial)
 #line 804 "C:/github/cppparser/parser.y"
 { yyval.protLevel = kPrivate;    }
-#line 3762 "y_tab.c"
+#line 3764 "y_tab.c"
 break;
 case 189:
 #line 807 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3767 "y_tab.c"
+#line 3769 "y_tab.c"
   if (!yytrial)
 #line 807 "C:/github/cppparser/parser.y"
 {yyval.cppCompundObj = yyvsp[-1].cppCompundObj; yyval.cppCompundObj->compoundType_ = kExternCBlock; }
-#line 3771 "y_tab.c"
+#line 3773 "y_tab.c"
 break;
 case 190:
   if (!yytrial)
 #line 810 "C:/github/cppparser/parser.y"
 { yyval.exprList = new CppExprList(); yyval.exprList->push_back(yyvsp[0].cppExprObj);  }
-#line 3777 "y_tab.c"
+#line 3779 "y_tab.c"
 break;
 case 191:
   if (!yytrial)
 #line 811 "C:/github/cppparser/parser.y"
 { yyval.exprList = yyvsp[-2].exprList; yyval.exprList->push_back(yyvsp[0].cppExprObj);                 }
-#line 3783 "y_tab.c"
+#line 3785 "y_tab.c"
 break;
 case 192:
   if (!yytrial)
 #line 814 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr((std::string) yyvsp[0].str, kNone);          }
-#line 3789 "y_tab.c"
+#line 3791 "y_tab.c"
 break;
 case 193:
   if (!yytrial)
 #line 815 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr((std::string) yyvsp[0].str, kNone);          }
-#line 3795 "y_tab.c"
+#line 3797 "y_tab.c"
 break;
 case 194:
   if (!yytrial)
 #line 816 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr((std::string) yyvsp[0].str, kNone);          }
-#line 3801 "y_tab.c"
+#line 3803 "y_tab.c"
 break;
 case 195:
   if (!yytrial)
 #line 817 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr((std::string) yyvsp[0].str, kNone);          }
-#line 3807 "y_tab.c"
+#line 3809 "y_tab.c"
 break;
 case 196:
   if (!yytrial)
 #line 818 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-1].exprList, CppExpr::kInitializer);        }
-#line 3813 "y_tab.c"
+#line 3815 "y_tab.c"
 break;
 case 197:
   if (!yytrial)
 #line 819 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[0].cppExprObj, kUnaryMinus);                  }
-#line 3819 "y_tab.c"
+#line 3821 "y_tab.c"
 break;
 case 198:
   if (!yytrial)
 #line 820 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[0].cppExprObj, kBitToggle);                   }
-#line 3825 "y_tab.c"
+#line 3827 "y_tab.c"
 break;
 case 199:
   if (!yytrial)
 #line 821 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[0].cppExprObj, kLogNot);                      }
-#line 3831 "y_tab.c"
+#line 3833 "y_tab.c"
 break;
 case 200:
   if (!yytrial)
 #line 822 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[0].cppExprObj, kDerefer);                     }
-#line 3837 "y_tab.c"
+#line 3839 "y_tab.c"
 break;
 case 201:
   if (!yytrial)
 #line 823 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[0].cppExprObj, kRefer);                       }
-#line 3843 "y_tab.c"
+#line 3845 "y_tab.c"
 break;
 case 202:
   if (!yytrial)
 #line 824 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kPlus, yyvsp[0].cppExprObj);                    }
-#line 3849 "y_tab.c"
+#line 3851 "y_tab.c"
 break;
 case 203:
   if (!yytrial)
 #line 825 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kMinus, yyvsp[0].cppExprObj);                   }
-#line 3855 "y_tab.c"
+#line 3857 "y_tab.c"
 break;
 case 204:
   if (!yytrial)
 #line 826 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kMul, yyvsp[0].cppExprObj);                     }
-#line 3861 "y_tab.c"
+#line 3863 "y_tab.c"
 break;
 case 205:
   if (!yytrial)
 #line 827 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kDiv, yyvsp[0].cppExprObj);                     }
-#line 3867 "y_tab.c"
+#line 3869 "y_tab.c"
 break;
 case 206:
   if (!yytrial)
 #line 828 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kBitAnd, yyvsp[0].cppExprObj);                  }
-#line 3873 "y_tab.c"
+#line 3875 "y_tab.c"
 break;
 case 207:
   if (!yytrial)
 #line 829 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kBitOr, yyvsp[0].cppExprObj);                   }
-#line 3879 "y_tab.c"
+#line 3881 "y_tab.c"
 break;
 case 208:
   if (!yytrial)
 #line 830 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kEqual, yyvsp[0].cppExprObj);                   }
-#line 3885 "y_tab.c"
+#line 3887 "y_tab.c"
 break;
 case 209:
   if (!yytrial)
 #line 831 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-3].cppExprObj, kArrayElem, yyvsp[-1].cppExprObj);               }
-#line 3891 "y_tab.c"
+#line 3893 "y_tab.c"
 break;
 case 210:
   if (!yytrial)
 #line 832 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-3].cppExprObj, kCmpEqual, yyvsp[0].cppExprObj);                }
-#line 3897 "y_tab.c"
+#line 3899 "y_tab.c"
 break;
 case 211:
   if (!yytrial)
 #line 833 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-3].cppExprObj, kLeftShift, yyvsp[0].cppExprObj);               }
-#line 3903 "y_tab.c"
+#line 3905 "y_tab.c"
 break;
 case 212:
   if (!yytrial)
 #line 834 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-3].cppExprObj, kRightShift, yyvsp[0].cppExprObj);              }
-#line 3909 "y_tab.c"
+#line 3911 "y_tab.c"
 break;
 case 213:
   if (!yytrial)
 #line 835 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-3].cppExprObj, kArrow, yyvsp[0].cppExprObj);                   }
-#line 3915 "y_tab.c"
+#line 3917 "y_tab.c"
 break;
 case 214:
   if (!yytrial)
 #line 836 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kDot, yyvsp[0].cppExprObj);                     }
-#line 3921 "y_tab.c"
+#line 3923 "y_tab.c"
 break;
 case 215:
   if (!yytrial)
 #line 837 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kFunctionCall);                }
-#line 3927 "y_tab.c"
+#line 3929 "y_tab.c"
 break;
 case 216:
   if (!yytrial)
 #line 838 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-3].cppExprObj, kFunctionCall, yyvsp[-1].exprList);            }
-#line 3933 "y_tab.c"
+#line 3935 "y_tab.c"
 break;
 case 217:
   if (!yytrial)
 #line 839 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = yyvsp[-1].cppExprObj; yyvsp[-1].cppExprObj->flags_ |= CppExpr::kBracketed;         }
-#line 3939 "y_tab.c"
+#line 3941 "y_tab.c"
 break;
 case 218:
   if (!yytrial)
 #line 840 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = yyvsp[0].cppExprObj; yyvsp[0].cppExprObj->flags_ |= CppExpr::kNew;               }
-#line 3945 "y_tab.c"
+#line 3947 "y_tab.c"
 break;
 case 219:
   if (!yytrial)
 #line 841 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = yyvsp[0].cppExprObj; yyvsp[0].cppExprObj->flags_ |= CppExpr::kDelete;            }
-#line 3951 "y_tab.c"
+#line 3953 "y_tab.c"
 break;
 case 220:
   if (!yytrial)
 #line 842 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = yyvsp[0].cppExprObj; yyvsp[0].cppExprObj->flags_ |= CppExpr::kDeleteArray;       }
-#line 3957 "y_tab.c"
+#line 3959 "y_tab.c"
 break;
 case 221:
   if (!yytrial)
 #line 843 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = yyvsp[0].cppExprObj; yyvsp[0].cppExprObj->flags_ |= CppExpr::kReturn;            }
-#line 3963 "y_tab.c"
+#line 3965 "y_tab.c"
 break;
 case 222:
   if (!yytrial)
 #line 844 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(CppExprAtom(), CppExpr::kReturn);  }
-#line 3969 "y_tab.c"
+#line 3971 "y_tab.c"
 break;
 case 223:
 #line 847 "C:/github/cppparser/parser.y"
 {ZZVALID;}
-#line 3974 "y_tab.c"
+#line 3976 "y_tab.c"
   if (!yytrial)
 #line 847 "C:/github/cppparser/parser.y"
 { yyval.cppExprObj = yyvsp[-1].cppExprObj; }
-#line 3978 "y_tab.c"
-break;
 #line 3980 "y_tab.c"
+break;
+#line 3982 "y_tab.c"
 #line 567 "btyaccpa.ske"
 
   default:

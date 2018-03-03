@@ -3198,9 +3198,17 @@ int main()
 #line 563 "C:/github/cppparser/parser.l"
 
 
+static YY_BUFFER_STATE gParseBuffer = nullptr;
 void setupScanBuffer(char* buf, size_t bufsize)
 {
-  yy_scan_buffer(buf, bufsize);
+  gParseBuffer = yy_scan_buffer(buf, bufsize);
   gLineNo = 0;
   BEGINCONTEXT(ctxGeneral);
 }
+
+void cleanupScanBuffer()
+{
+  yy_delete_buffer(gParseBuffer);
+  gParseBuffer = nullptr;
+}
+
