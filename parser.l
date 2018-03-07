@@ -130,10 +130,10 @@ NL	 (\r\n|\r|\n)
 NUM  ([0-9]+((l|L|u|U)?|(\.[0-9]*)?))|\.[0-9]+|(0(x|X)[0-9a-fA-F]*)|0(x|X)[0-9a-zA-Z]+
 
 	/* String literal */
-SL   \".*\"
+SL   "\"".*"\""
 
 	/* Char literal */
-CL   \'.*\'
+CL   "\'".*"\'"
 
 /*@}*/
 
@@ -513,7 +513,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknFriend;
 }
 
-<ctxGeneral>extern{WS}+\"C\" {
+<ctxGeneral>"extern"{WS}+"\"C\"" {
 	set_token_and_yyposn();
 	return tknExternC;
 }
@@ -540,12 +540,12 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknNumber;
 }
 
-<ctxGeneral,ctxInclude>\".*\" {
+<ctxGeneral,ctxInclude>"\"".*"\"" {
 	set_token_and_yyposn();
 	return tknStrLit;
 }
 
-<ctxGeneral>\'.*\' {
+<ctxGeneral>"\'".*"\'" {
 	set_token_and_yyposn();
 	return tknCharLit;
 }
