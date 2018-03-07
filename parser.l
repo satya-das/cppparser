@@ -42,14 +42,14 @@ static int gLog = 0;
   int prevState = YYSTATE;  \
   yy_push_state(ctx);       \
   if (gLog)                 \
-    printf("@line#%d, pushed state=%d and started state=%d\n", gLineNo, prevState, YYSTATE); \
+    printf("@line#%d, pushed state=%d and started state=%d from source code line#%d\n", gLineNo, prevState, YYSTATE, __LINE__); \
 }
 
 #define ENDCONTEXT() {      \
   int prevState = YYSTATE;  \
   yy_pop_state();           \
   if (gLog)                 \
-    printf("@line#%d, ended state=%d and starting state=%d\n", gLineNo, prevState, YYSTATE); \
+    printf("@line#%d, ended state=%d and starting state=%d from source code line#%d\n", gLineNo, prevState, YYSTATE, __LINE__); \
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -164,7 +164,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	/* Ignore white spaces */
 }
 
-<*>\\{NL} {
+<*>\\{WS}*{NL} {
 	// We will always ignore line continuation character
 	++gLineNo;
 }
