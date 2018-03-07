@@ -51,6 +51,8 @@ static int gLog = 0;
   if (gLog) \
     printf("YYVALID @line#%d\n", __LINE__); \
   YYVALID
+  
+/** {Globals} */
 /**
  * A program unit is the entire parse tree of a source/header file
  */
@@ -66,6 +68,8 @@ static CppObjProtLevel              gCurProtLevel;
 static std::stack<CppObjProtLevel>  gProtLevelStack;
 
 extern CppObjFactory*               gObjFactory;
+
+/** {End of Globals} */
 
 template<typename... Params>
 CppCompound* newCompound(Params... params)
@@ -902,6 +906,8 @@ void yyerror_detailed  (  char* text,
 CppCompound* parseStream(char* stm, size_t stmSize)
 {
   gProgUnit = nullptr;
+  gCurProtLevel = kUnknownProt;
+  
   void setupScanBuffer(char* buf, size_t bufsize);
   void cleanupScanBuffer();
   setupScanBuffer(stm, stmSize);
