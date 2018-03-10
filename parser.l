@@ -575,6 +575,106 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknReinterpretCast;
 }
 
+<ctxGeneral>operator/{TS}+ {
+	return tknOperator;
+}
+
+<ctxGeneral>"+=" {
+	return tknPlusEq;
+}
+
+<ctxGeneral>"-=" {
+	return tknMinusEq;
+}
+
+<ctxGeneral>"*=" {
+	return tknMulEq;
+}
+
+<ctxGeneral>"*=" {
+	return tknMulEq;
+}
+
+<ctxGeneral>"/=" {
+	return tknDivEq;
+}
+
+<ctxGeneral>"%=" {
+	return tknPerEq;
+}
+
+<ctxGeneral>"^=" {
+	return tknXorEq;
+}
+
+<ctxGeneral>"&=" {
+	return tknAndEq;
+}
+
+<ctxGeneral>"|=" {
+	return tknOrEq;
+}
+
+<ctxGeneral>"<<" {
+	return tknLShift;
+}
+
+<ctxGeneral>">>" {
+	return tknRShift;
+}
+
+<ctxGeneral>"<<=" {
+	return tknLShiftEq;
+}
+
+<ctxGeneral>">>=" {
+	return tknRShiftEq;
+}
+
+<ctxGeneral>"==" {
+	return tknCmpEq;
+}
+
+<ctxGeneral>"!=" {
+	return tknNotEq;
+}
+
+<ctxGeneral>"<=" {
+	return tknLessEq;
+}
+
+<ctxGeneral>">=" {
+	return tknGreaterEq;
+}
+
+<ctxGeneral>"<=>" {
+	return tkn3WayCmp;
+}
+
+<ctxGeneral>"&&" {
+	return tknAnd;
+}
+
+<ctxGeneral>"||" {
+	return tknOr;
+}
+
+<ctxGeneral>"++" {
+	return tknInc;
+}
+
+<ctxGeneral>"--" {
+	return tknDec;
+}
+
+<ctxGeneral>"->" {
+	return tknArrow;
+}
+
+<ctxGeneral>"->*" {
+	return tknArrowStar;
+}
+
 <ctxGeneral,ctxDefine>{NUM} {
 	set_token_and_yyposn();
 	return tknNumber;

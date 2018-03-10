@@ -167,7 +167,11 @@ extern int yylex();
 %token  <str>   tknPragma
 %token  <str>   tknEllipsis
 %token  <str>   tknConstCast tknStaticCast tknDynamicCast tknReinterpretCast
+%token  <str>   tknOperator tknPlusEq tknMinusEq tknMulEq tknDivEq tknPerEq tknXorEq tknAndEq tknOrEq
+%token  <str>   tknLShift tknRShift tknLShiftEq tknRShiftEq tknCmpEq tknNotEq tknLessEq tknGreaterEq
+%token  <str>   tkn3WayCmp tknAnd tknOr tknInc tknDec tknArrow tknArrowStar
 %token  <str>   '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
+%token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']'
 
 %token  tknConst tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile
 
@@ -181,7 +185,7 @@ extern int yylex();
 %token  tknBlankLine
 
 %type  <str>                apidocer
-%type  <str>                identifier vartype optid
+%type  <str>                identifier vartype optid funcname
 %type  <cppObj>             stmt functptrtype
 %type  <cppEnum>            enumdefn enumfwddecl
 %type  <enumItem>           enumitem
@@ -552,8 +556,8 @@ vardecl           : varattrib varqual identifier optattr {
                   | vartype '&' identifier %prec REFDECL {
                     $$ = new CppVar(gCurProtLevel, $1, 0, 0, 0, kByRef, $3);
                   }
-                  | vartype '&' '&' identifier %prec REFDECL {
-                    $$ = new CppVar(gCurProtLevel, $1, 0, 0, 0, kRValRef, $4);
+                  | vartype tknAnd identifier %prec REFDECL {
+                    $$ = new CppVar(gCurProtLevel, $1, 0, 0, 0, kRValRef, $3);
                   }
                   /* Disambiguation rules end. */
                   ;
@@ -604,16 +608,58 @@ functionpointer   : apidocer functype varqual '(' apidocer '*' optid ')' '(' par
 funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
                   ;
 
-funcdecl          : functype apidocer varqual apidocer identifier '(' paramlist ')' funcattrib {
+funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $5, $3, $7, $1 | $9);
                     $$->docer1_ = $2;
                     $$->docer2_ = $4;
                   }
-                  | apidocer varqual apidocer identifier '(' paramlist ')' funcattrib {
+                  | apidocer varqual apidocer funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $4, $2, $6, $8);
                     $$->docer1_ = $1;
                     $$->docer2_ = $3;
                   }
+                  ;
+
+funcname          : identifier { $$ = $1; }
+                  | tknOperator '+' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '-' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '*' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '/' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '%' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '^' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '&' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '|' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '~' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '!' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '=' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '<' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '>' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknPlusEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknMinusEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknMulEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknDivEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknPerEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknXorEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknAndEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknOrEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknLShift { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknRShift { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknLShiftEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknRShiftEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknCmpEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknNotEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknLessEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknGreaterEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tkn3WayCmp { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknAnd { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknOr { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknInc { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknDec { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator ',' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknArrow { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknArrowStar { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator '(' ')' { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
+                  | tknOperator '[' ']' { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
                   ;
 
 paramlist         : { $$ = 0; }
@@ -879,34 +925,50 @@ exprlist          : expr              { $$ = new CppExprList(); $$->push_back($1
 expr              : tknStrLit                         { $$ = new CppExpr((std::string) $1, kNone);          }
                   | tknCharLit                        { $$ = new CppExpr((std::string) $1, kNone);          }
                   | tknNumber                         { $$ = new CppExpr((std::string) $1, kNone);          }
-                  | identifier                        { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | funcname                          { $$ = new CppExpr((std::string) $1, kNone);          }
                   | '{' exprlist '}'                  { $$ = new CppExpr($2, CppExpr::kInitializer);        }
                   | '-' expr %prec PREFIX             { $$ = new CppExpr($2, kUnaryMinus);                  }
                   | '~' expr %prec PREFIX             { $$ = new CppExpr($2, kBitToggle);                   }
                   | '!' expr %prec PREFIX             { $$ = new CppExpr($2, kLogNot);                      }
                   | '*' expr %prec PREFIX             { $$ = new CppExpr($2, kDerefer);                     }
                   | '&' expr %prec PREFIX             { $$ = new CppExpr($2, kRefer);                       }
-                  | '+' '+' expr                      { $$ = new CppExpr($3, kPreIncrement);                }
-                  | expr '+' '+'                      { $$ = new CppExpr($1, kPostIncrement);               }
-                  | '-' '-' expr                      { $$ = new CppExpr($3, kPreDecrement);                }
-                  | expr '-' '-'                      { $$ = new CppExpr($1, kPostDecrement);               }
+                  | tknInc expr                       { $$ = new CppExpr($2, kPreIncrement);                }
+                  | expr tknInc                       { $$ = new CppExpr($1, kPostIncrement);               }
+                  | tknDec expr                       { $$ = new CppExpr($2, kPreDecrement);                }
+                  | expr tknDec                       { $$ = new CppExpr($1, kPostDecrement);               }
                   | expr '+' expr                     { $$ = new CppExpr($1, kPlus, $3);                    }
                   | expr '-' expr                     { $$ = new CppExpr($1, kMinus, $3);                   }
                   | expr '*' expr                     { $$ = new CppExpr($1, kMul, $3);                     }
                   | expr '/' expr                     { $$ = new CppExpr($1, kDiv, $3);                     }
+                  | expr '%' expr                     { $$ = new CppExpr($1, kPercent, $3);                     }
                   | expr '&' expr                     { $$ = new CppExpr($1, kBitAnd, $3);                  }
                   | expr '|' expr                     { $$ = new CppExpr($1, kBitOr, $3);                   }
+                  | expr '^' expr                     { $$ = new CppExpr($1, kXor, $3);                  }
                   | expr '=' expr                     { $$ = new CppExpr($1, kEqual, $3);                   }
                   | expr '<' expr                     { $$ = new CppExpr($1, kLess, $3);                    }
                   | expr '>' expr                     { $$ = new CppExpr($1, kGreater, $3);                 }
-                  | expr '<' '=' expr                 { $$ = new CppExpr($1, kLessOrEqual, $4);             }
-                  | expr '>' '=' expr                 { $$ = new CppExpr($1, kGreaterOrEqual, $4);          }
-                  | expr '=' '=' expr %prec CMPEQUAL  { $$ = new CppExpr($1, kCmpEqual, $4);                }
-                  | expr '<' '<' expr %prec LSHIFT    { $$ = new CppExpr($1, kLeftShift, $4);               }
-                  | expr '>' '>' expr %prec RSHIFT    { $$ = new CppExpr($1, kRightShift, $4);              }
-                  | expr '-' '>' expr %prec ARROW     { $$ = new CppExpr($1, kArrow, $4);                   }
-                  | expr '[' expr ']' %prec POSTFIX   { $$ = new CppExpr($1, kArrayElem, $3);               }
+                  | expr tknPlusEq expr               { $$ = new CppExpr($1, kPlusEqual, $3);             }
+                  | expr tknMinusEq expr               { $$ = new CppExpr($1, kMinusEqual, $3);             }
+                  | expr tknMulEq expr               { $$ = new CppExpr($1, kMulEqual, $3);             }
+                  | expr tknDivEq expr               { $$ = new CppExpr($1, kDivEqual, $3);             }
+                  | expr tknPerEq expr               { $$ = new CppExpr($1, kPerEqual, $3);             }
+                  | expr tknXorEq expr               { $$ = new CppExpr($1, kXorEqual, $3);             }
+                  | expr tknAndEq expr               { $$ = new CppExpr($1, kAndEqual, $3);             }
+                  | expr tknOrEq expr               { $$ = new CppExpr($1, kOrEqual, $3);             }
+                  | expr tknLShift expr %prec LSHIFT  { $$ = new CppExpr($1, kLeftShift, $3);               }
+                  | expr tknRShift expr %prec RSHIFT  { $$ = new CppExpr($1, kRightShift, $3);              }
+                  | expr tknLShiftEq expr               { $$ = new CppExpr($1, kLShiftEqual, $3);             }
+                  | expr tknRShiftEq expr               { $$ = new CppExpr($1, kRShiftEqual, $3);             }
+                  | expr tknCmpEq expr %prec CMPEQUAL { $$ = new CppExpr($1, kCmpEqual, $3);                }
+                  | expr tknNotEq expr                { $$ = new CppExpr($1, kNotEqual, $3);                }
+                  | expr tknLessEq expr               { $$ = new CppExpr($1, kLessEqual, $3);             }
+                  | expr tknGreaterEq expr            { $$ = new CppExpr($1, kGreaterEqual, $3);          }
+                  | expr tkn3WayCmp expr              { $$ = new CppExpr($1, k3WayCmp, $3);                }
+/*                | expr ',' expr                     { $$ = new CppExpr($1, kComma, $3);                     } */
                   | expr '.' expr                     { $$ = new CppExpr($1, kDot, $3);                     }
+                  | expr tknArrow expr %prec ARROW    { $$ = new CppExpr($1, kArrow, $3);                   }
+                  | expr tknArrowStar expr            { $$ = new CppExpr($1, kArrowStar, $3);                   }
+                  | expr '[' expr ']' %prec POSTFIX   { $$ = new CppExpr($1, kArrayElem, $3);               }
                   | expr '(' ')'                      { $$ = new CppExpr($1, kFunctionCall);                }
                   | expr '(' exprlist ')'             { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   | '(' varqual ')' expr              { $$ = new CppExpr($2, kCStyleCast, $4);              }

@@ -504,12 +504,6 @@ inline std::ostream& operator <<(std::ostream& stm, CppOperType op)
   case kPostDecrement		:
     stm << "--";
     break;
-  case kDot		:
-    stm << '.';
-    break;
-  case kArrow		:
-    stm << "->";
-    break;
   case kPlus		:
     stm << '+';
     break;
@@ -522,11 +516,14 @@ inline std::ostream& operator <<(std::ostream& stm, CppOperType op)
   case kDiv		:
     stm << '/';
     break;
-  case kEqual		:
-    stm << '=';
+  case kPercent		:
+    stm << '%';
     break;
-  case kCmpEqual	:
-    stm << "==";
+  case kAnd	:
+    stm << "&&";
+    break;
+  case kOr	:
+    stm << "||";
     break;
   case kBitAnd	:
     stm << '&';
@@ -534,14 +531,80 @@ inline std::ostream& operator <<(std::ostream& stm, CppOperType op)
   case kBitOr		:
     stm << '|';
     break;
+  case kXor		:
+    stm << '^';
+    break;
+  case kEqual		:
+    stm << '=';
+    break;
   case kLess :
     stm << '<';
     break;
-  case kLessOrEqual :
+  case kGreater :
+    stm << '>';
+    break;
+  case kPlusEqual	:
+    stm << "+=";
+    break;
+  case kMinusEqual	:
+    stm << "-=";
+    break;
+  case kMulEqual	:
+    stm << "*=";
+    break;
+  case kDivEqual	:
+    stm << "/=";
+    break;
+  case kPerEqual	:
+    stm << "%=";
+    break;
+  case kXorEqual	:
+    stm << "^=";
+    break;
+  case kAndEqual	:
+    stm << "&=";
+    break;
+  case kOrEqual	:
+    stm << "|=";
+    break;
+  case kLeftShift:
+    stm << "<<";
+    break;
+  case kRightShift:
+    stm << ">>";
+    break;
+  case kLShiftEqual:
+    stm << "<<=";
+    break;
+  case kRShiftEqual:
+    stm << ">>=";
+    break;
+  case kCmpEqual	:
+    stm << "==";
+    break;
+  case kNotEqual	:
+    stm << "!=";
+    break;
+  case kLessEqual :
     stm << "<=";
     break;
-  case kGreaterOrEqual :
+  case kGreaterEqual :
     stm << ">=";
+    break;
+  case k3WayCmp	:
+    stm << "<=>";
+    break;
+  case kComma		:
+    stm << ',';
+    break;
+  case kDot		:
+    stm << '.';
+    break;
+  case kArrow		:
+    stm << "->";
+    break;
+  case kArrowStar		:
+    stm << "->*";
     break;
   }
 
@@ -616,7 +679,7 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
     emitExprAtom(exprObj->expr1_, stm);
     stm << exprObj->oper_;
   }
-  else if (exprObj->oper_ >= kBinaryOperatorStart && exprObj->oper_ < kSpecialOperations)
+  else if (exprObj->oper_ > kBinaryOperatorStart && exprObj->oper_ < kSpecialOperations)
   {
     emitExprAtom(exprObj->expr1_, stm);
     stm << ' ' << exprObj->oper_ << ' ';
@@ -636,18 +699,7 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
     emitExprAtom(exprObj->expr2_, stm);
     stm << ']';
   }
-  else if (exprObj->oper_ == kLessOrEqual)
-  {
-    emitExprAtom(exprObj->expr1_, stm);
-    stm << ' ' << exprObj->oper_ << ' ';
-    emitExprAtom(exprObj->expr2_, stm);
-  }
-  else if (exprObj->oper_ == kGreaterOrEqual)
-  {
-    emitExprAtom(exprObj->expr1_, stm);
-    stm << ' ' << exprObj->oper_ << ' ';
-    emitExprAtom(exprObj->expr2_, stm);
-  }
+
   if (exprObj->flags_ & CppExpr::kBracketed)
     stm << ')';
   if (exprObj->flags_ & CppExpr::kInitializer)

@@ -64,22 +64,40 @@ enum CppOperType
   kPostDecrement, // i--
 
   kBinaryOperatorStart = 50,
-  kDot,         // .
-  kArrow,       // ->
   kPlus,        // +
   kMinus,       // -
   kMul,         // *
   kDiv,         // /
+  kPercent,
+  kAnd,
+  kOr,
+  kBitAnd,      // &
+  kBitOr,       // |
+  kXor,
   kEqual,       // =
   kLess,        // <
   kGreater,     // >
-  kLessOrEqual, // <=
-  kGreaterOrEqual,
-  kCmpEqual,    // ==
+  kPlusEqual,
+  kMinusEqual,
+  kMulEqual,
+  kDivEqual,
+  kPerEqual,
+  kXorEqual,
+  kAndEqual,
+  kOrEqual,
   kLeftShift,   // <<
   kRightShift,  // >>
-  kBitAnd,      // &
-  kBitOr,       // |
+  kLShiftEqual,   // <<
+  kRShiftEqual,  // >>
+  kCmpEqual,    // ==
+  kNotEqual,    // ==
+  kLessEqual, // <=
+  kGreaterEqual,
+  k3WayCmp,
+  kComma,
+  kDot,         // .
+  kArrow,       // ->
+  kArrowStar,
 
   kSpecialOperations = 100,
   kFunctionCall,
