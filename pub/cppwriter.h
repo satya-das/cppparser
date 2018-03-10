@@ -82,6 +82,11 @@ public:
   virtual void emitExprAtom	  (const CppExprAtom&			exprObj,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitExprList	  (const CppExprList*			exprList,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;
 
+  virtual void emitIfBlock    (const CppIfBlock*      ifBlock,      std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitWhileBlock (const CppWhileBlock*   whileBlock,   std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitDoBlock    (const CppDoWhileBlock* doBlock,      std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitForBlock   (const CppForBlock*     forBlock,     std::ostream& stm, CppIndent indentation = CppIndent()) const;
+
 public:
   void emitVar        (const CppVar*				  varObj,       std::ostream& stm, bool skipName) const;
   void emitParamList  (const CppParamList*		paramListObj, std::ostream& stm, bool skipName) const;

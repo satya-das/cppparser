@@ -37,6 +37,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <boost/optional.hpp>
 
+#include <cstdint>
 #include <string>
 #include <vector>
 #include <list>
@@ -51,7 +52,7 @@ struct CppCompound;
  */
 struct CppObj
 {
-  enum Type
+  enum Type : std::uint32_t
   {
     kUnknown			= 0x0000,
     kBlankLine,			            // Blank line containing nothing other than may be whitespace.
@@ -82,6 +83,14 @@ struct CppObj
     kFuncCall,			            // A function call expression
     kBlob,				              // Some unparsed/unrecognized part of C++ source code.
     kCppStatementObjectTypeEnds,
+
+    kCppControlStatementStarts,
+    kIfBlock,
+    kForBlock,
+    kWhileBlock,
+    kDoWhileBlock,
+    kSwitch,
+    kCppControlStatementEnds,
   };
 
   const Type      objType_;
@@ -783,13 +792,14 @@ struct  CppExprAtom
 {
   enum
   {
-    kInvalid, kAtom, kExpr, kExprList
-  }						type;
+    kInvalid, kAtom, kExpr, kExprList, kVarType
+  }	type;
   union
   {
     std::string*		atom;
-    CppExpr*			expr;
+    CppExpr*			  expr;
     CppExprList*		list;
+    CppVar*         varType; //!< For type cast expression.
   };
 
   bool isExpr() const
@@ -820,6 +830,11 @@ struct  CppExprAtom
   CppExprAtom(CppExprList* l)
     : list(l)
     , type(kExprList)
+  {
+  }
+  CppExprAtom(CppVar* vType)
+    : varType(vType)
+    , type(kVarType)
   {
   }
   CppExprAtom()
@@ -886,6 +901,45 @@ struct CppExpr : public CppObj
     expr1_.destroy();
     expr2_.destroy();
   }
+};
+
+/// Some blocks have common structure like if, while, and do-while.
+/// They all contain a body and an expression of condition.
+template <CppObj::Type type>
+struct CppCommonBlock : public CppObj
+{
+  CppCommonBlock(CppExpr* cond)
+    : CppObj(type, kUnknownProt)
+    , cond_(cond)
+    , body_(nullptr)
+  {
+  }
+
+  CppExpr* cond_;
+  CppObj* body_;
+};
+
+using CppIfBlock = CppCommonBlock<CppObj::kIfBlock>;
+
+using CppWhileBlock = CppCommonBlock<CppObj::kWhileBlock>;
+
+using CppDoWhileBlock = CppCommonBlock<CppObj::kDoWhileBlock>;
+
+struct CppForBlock : public CppObj
+{
+  CppForBlock(CppExpr* start, CppExpr* stop, CppExpr* step, CppObj* body)
+    : CppObj(kForBlock, kUnknownProt)
+    , start_(start)
+    , stop_(stop)
+    , step_(step)
+    , body_(body)
+  {
+  }
+
+  CppExpr* start_;
+  CppExpr* stop_;
+  CppExpr* step_;
+  CppObj* body_;
 };
 
 /**
@@ -957,6 +1011,9 @@ inline void CppExprAtom::destroy()
     break;
   case CppExprAtom::kExprList:
     delete list;
+    break;
+  case CppExprAtom::kVarType:
+    delete varType;
     break;
   }
 }

@@ -535,6 +535,46 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknReturn;
 }
 
+<ctxGeneral>if/{TS}+ {
+	return tknIf;
+}
+
+<ctxGeneral>for/{TS}+ {
+	return tknFor;
+}
+
+<ctxGeneral>do/{TS}+ {
+	return tknDo;
+}
+
+<ctxGeneral>while/{TS}+ {
+	return tknWhile;
+}
+
+<ctxGeneral>switch/{TS}+ {
+	return tknSwitch;
+}
+
+<ctxGeneral>case/{TS}+ {
+	return tknCase;
+}
+
+<ctxGeneral>const_cast/{TS}+ {
+	return tknConstCast;
+}
+
+<ctxGeneral>static_cast/{TS}+ {
+	return tknStaticCast;
+}
+
+<ctxGeneral>dynamic_cast/{TS}+ {
+	return tknDynamicCast;
+}
+
+<ctxGeneral>reinterpret_cast/{TS}+ {
+	return tknReinterpretCast;
+}
+
 <ctxGeneral,ctxDefine>{NUM} {
 	set_token_and_yyposn();
 	return tknNumber;

@@ -64,7 +64,14 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
     return emitDestructor	((CppDestructor*)	cppObj, stm, indentation);
   case CppObj::kFunctionPtr:
     return emitFunctionPtr	((CppFunctionPtr*)	cppObj, stm, indentation);
-
+  case CppObj::kIfBlock:
+    return emitIfBlock      ((CppIfBlock*) cppObj, stm, indentation);
+  case CppObj::kWhileBlock:
+    return emitWhileBlock   ((CppWhileBlock*) cppObj, stm, indentation);
+  case CppObj::kDoWhileBlock:
+    return emitDoBlock      ((CppDoWhileBlock*) cppObj, stm, indentation);
+  case CppObj::kForBlock:
+    return emitForBlock      ((CppForBlock*) cppObj, stm, indentation);
   case CppObj::kExpression:
     emitExpr((CppExpr*) cppObj, stm, indentation);
     stm << ";\n";
@@ -489,6 +496,14 @@ inline std::ostream& operator <<(std::ostream& stm, CppOperType op)
   case kRefer		:
     stm << '&';
     break;
+  case kPreIncrement		:
+  case kPostIncrement		:
+    stm << "++";
+    break;
+  case kPreDecrement		:
+  case kPostDecrement		:
+    stm << "--";
+    break;
   case kDot		:
     stm << '.';
     break;
@@ -518,6 +533,15 @@ inline std::ostream& operator <<(std::ostream& stm, CppOperType op)
     break;
   case kBitOr		:
     stm << '|';
+    break;
+  case kLess :
+    stm << '<';
+    break;
+  case kLessOrEqual :
+    stm << "<=";
+    break;
+  case kGreaterOrEqual :
+    stm << ">=";
     break;
   }
 
@@ -582,10 +606,15 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
   {
     emitExprAtom(exprObj->expr1_, stm);
   }
-  else if (exprObj->oper_ >= kUnariOperatorStart && exprObj->oper_ < kBinaryOperatorStart)
+  else if (exprObj->oper_ > kUnariPrefixOperatorStart && exprObj->oper_ < kUnariSufixOperatorStart)
   {
     stm << exprObj->oper_;
     emitExprAtom(exprObj->expr1_, stm);
+  }
+  else if (exprObj->oper_ > kUnariSufixOperatorStart && exprObj->oper_ < kBinaryOperatorStart)
+  {
+    emitExprAtom(exprObj->expr1_, stm);
+    stm << exprObj->oper_;
   }
   else if (exprObj->oper_ >= kBinaryOperatorStart && exprObj->oper_ < kSpecialOperations)
   {
@@ -607,8 +636,87 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
     emitExprAtom(exprObj->expr2_, stm);
     stm << ']';
   }
+  else if (exprObj->oper_ == kLessOrEqual)
+  {
+    emitExprAtom(exprObj->expr1_, stm);
+    stm << ' ' << exprObj->oper_ << ' ';
+    emitExprAtom(exprObj->expr2_, stm);
+  }
+  else if (exprObj->oper_ == kGreaterOrEqual)
+  {
+    emitExprAtom(exprObj->expr1_, stm);
+    stm << ' ' << exprObj->oper_ << ' ';
+    emitExprAtom(exprObj->expr2_, stm);
+  }
   if (exprObj->flags_ & CppExpr::kBracketed)
     stm << ')';
   if (exprObj->flags_ & CppExpr::kInitializer)
     stm << "}";
+}
+
+void CppWriter::emitIfBlock(const CppIfBlock* ifBlock, std::ostream& stm, CppIndent indentation) const
+{
+  stm << indentation;
+  stm << "if (";
+  emitExpr(ifBlock->cond_, stm);
+  stm << ")\n";
+  stm << indentation << "{\n";
+  ++indentation;
+  if (ifBlock->body_)
+    emit(ifBlock->body_, stm, indentation);
+  --indentation;
+  stm << indentation << "}\n";
+}
+
+void CppWriter::emitWhileBlock(const CppWhileBlock* whileBlock, std::ostream& stm, CppIndent indentation) const
+{
+  stm << indentation;
+  stm << "while (";
+  emitExpr(whileBlock->cond_, stm);
+  stm << ")\n";
+  stm << indentation << "{\n";
+  ++indentation;
+  if (whileBlock->body_)
+    emit(whileBlock->body_, stm, indentation);
+  --indentation;
+  stm << indentation << "}\n";
+}
+
+void CppWriter::emitDoBlock(const CppDoWhileBlock* doBlock, std::ostream& stm, CppIndent indentation) const
+{
+  stm << indentation << "do\n";
+  stm << indentation << "{\n";
+  ++indentation;
+  if (doBlock->body_)
+    emit(doBlock->body_, stm, indentation);
+  --indentation;
+  stm << indentation << "} while (";
+  emitExpr(doBlock->cond_, stm);
+  stm << ");\n";
+}
+
+void CppWriter::emitForBlock(const CppForBlock* forBlock, std::ostream& stm, CppIndent indentation) const
+{
+  stm << indentation << "for (";
+  if (forBlock->start_)
+    emitExpr(forBlock->start_, stm);
+  stm << ';';
+  if (forBlock->stop_)
+  {
+    stm << ' ';
+    emitExpr(forBlock->stop_, stm);
+  }
+  stm << ';';
+  if (forBlock->step_)
+  {
+    stm << ' ';
+    emitExpr(forBlock->step_, stm);
+  }
+  stm << ")\n";
+  stm << indentation << "{\n";
+  ++indentation;
+  if (forBlock->body_)
+    emit(forBlock->body_, stm, indentation);
+  --indentation;
+  stm << indentation << "}\n";
 }

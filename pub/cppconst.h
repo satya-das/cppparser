@@ -50,12 +50,18 @@ enum CppOperType
 {
   kNone,
 
-  kUnariOperatorStart = 1,
+  kUnariPrefixOperatorStart = 1,
   kUnaryMinus,    // -
   kBitToggle,     // ~
   kLogNot,        // ! (Logical not)
   kDerefer,       // *
   kRefer,         // & as in &x;
+  kPreIncrement,  // ++i
+  kPreDecrement,  // --i
+
+  kUnariSufixOperatorStart,
+  kPostIncrement, // i++
+  kPostDecrement, // i--
 
   kBinaryOperatorStart = 50,
   kDot,         // .
@@ -65,6 +71,10 @@ enum CppOperType
   kMul,         // *
   kDiv,         // /
   kEqual,       // =
+  kLess,        // <
+  kGreater,     // >
+  kLessOrEqual, // <=
+  kGreaterOrEqual,
   kCmpEqual,    // ==
   kLeftShift,   // <<
   kRightShift,  // >>
@@ -74,6 +84,11 @@ enum CppOperType
   kSpecialOperations = 100,
   kFunctionCall,
   kArrayElem,   // x[5]
+  kCStyleCast,
+  kConstCast,
+  kStaticCast,
+  kDynamicCast,
+  kReinterpretCast,
 };
 
 /**

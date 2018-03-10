@@ -138,6 +138,11 @@ extern int yylex();
 
   CppExprList*          exprList;
 
+  CppIfBlock*           ifBlock;
+  CppWhileBlock*        whileBlock;
+  CppDoWhileBlock*      doWhileBlock;
+  CppForBlock*          forBlock;
+
   CppDefine*            hashDefine;
   CppUndef*             hashUndef;
   CppInclude*           hashInclude;
@@ -161,6 +166,7 @@ extern int yylex();
 %token  <str>   tknStdHdrInclude
 %token  <str>   tknPragma
 %token  <str>   tknEllipsis
+%token  <str>   tknConstCast tknStaticCast tknDynamicCast tknReinterpretCast
 %token  <str>   '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
 
 %token  tknConst tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile
@@ -169,6 +175,7 @@ extern int yylex();
 %token  tknDefine tknUndef
 %token  tknInclude tknStdHdrInclude
 %token  tknIf tknIfDef tknIfNDef tknElse tknElIf tknEndIf
+%token  tknFor tknWhile tknDo tknSwitch tknCase
 %token  tknNew tknDelete tknReturn
 
 %token  tknBlankLine
@@ -187,7 +194,11 @@ extern int yylex();
 %type  <typedefObj>         typedefname typedefnamelist typedefnamestmt
 %type  <cppCompundObj>      stmtlist progunit classdefn classdefnstmt externcblock
 %type  <docCommentObj>      doccomment
-%type  <cppExprObj>         expr exprstmt
+%type  <cppExprObj>         expr exprstmt optexpr
+%type  <ifBlock>            ifblock;
+%type  <whileBlock>         whileblock;
+%type  <doWhileBlock>       dowhileblock;
+%type  <forBlock>           forblock;
 %type  <cppFuncPointerObj>  functionpointer funcpointerdecl
 %type  <cppFuncObj>         funcdecl funcdeclstmt funcdefn
 %type  <cppCtorObj>         ctordecl ctordeclstmt ctordefn
@@ -289,6 +300,10 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | fwddecl         { $$ = $1; }
                   | doccomment      { $$ = $1; }
                   | exprstmt        { $$ = $1; }
+                  | ifblock         { $$ = $1; }
+                  | whileblock      { $$ = $1; }
+                  | dowhileblock    { $$ = $1; }
+                  | forblock        { $$ = $1; }
                   | funcpointerdecl { $$ = $1; }
                   | funcdeclstmt    { $$ = $1; }
                   | funcdefn        { $$ = $1; }
@@ -304,6 +319,52 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | hashif          { $$ = $1; }
                   | pragma          { $$ = $1; }
                   | blankline       { $$ = $1; }
+                  ;
+
+ifblock           : tknIf '(' expr ')' stmt {
+                    $$ = new CppIfBlock($3);
+                    $$->body_ = $5;
+                  }
+                  | tknIf '(' expr ')' '{' stmtlist '}' {
+                    $$ = new CppIfBlock($3);
+                    $$->body_ = $6;
+                  }
+                  ;
+
+whileblock        : tknWhile '(' expr ')' stmt {
+                    $$ = new CppWhileBlock($3);
+                    $$->body_ = $5;
+                  }
+                  | tknWhile '(' expr ')' '{' stmtlist '}' {
+                    $$ = new CppWhileBlock($3);
+                    $$->body_ = $6;
+                  }
+                  ;
+
+dowhileblock      : tknDo stmt tknWhile '(' expr ')' {
+                    $$ = new CppDoWhileBlock($5);
+                    $$->body_ = $2;
+                  }
+                  | tknDo '{' stmtlist '}' tknWhile '(' expr ')' {
+                    $$ = new CppDoWhileBlock($7);
+                    $$->body_ = $3;
+                  }
+                  ;
+
+forblock          : tknFor '(' optexpr ';' optexpr ';' optexpr ')' stmt {
+                    $$ = new CppForBlock($3, $5, $7, $9);
+                  }
+                  | tknFor '(' optexpr ';' optexpr ';' optexpr ')' '{' stmtlist '}' {
+                    $$ = new CppForBlock($3, $5, $7, $10);
+                  }
+                  ;
+
+optexpr           : {
+                    $$ = nullptr;
+                  }
+                  | expr {
+                    $$ = $1;
+                  }
                   ;
 
 blankline         : tknBlankLine { $$ = new CppBlankLine; }
@@ -825,6 +886,10 @@ expr              : tknStrLit                         { $$ = new CppExpr((std::s
                   | '!' expr %prec PREFIX             { $$ = new CppExpr($2, kLogNot);                      }
                   | '*' expr %prec PREFIX             { $$ = new CppExpr($2, kDerefer);                     }
                   | '&' expr %prec PREFIX             { $$ = new CppExpr($2, kRefer);                       }
+                  | '+' '+' expr                      { $$ = new CppExpr($3, kPreIncrement);                }
+                  | expr '+' '+'                      { $$ = new CppExpr($1, kPostIncrement);               }
+                  | '-' '-' expr                      { $$ = new CppExpr($3, kPreDecrement);                }
+                  | expr '-' '-'                      { $$ = new CppExpr($1, kPostDecrement);               }
                   | expr '+' expr                     { $$ = new CppExpr($1, kPlus, $3);                    }
                   | expr '-' expr                     { $$ = new CppExpr($1, kMinus, $3);                   }
                   | expr '*' expr                     { $$ = new CppExpr($1, kMul, $3);                     }
@@ -832,14 +897,23 @@ expr              : tknStrLit                         { $$ = new CppExpr((std::s
                   | expr '&' expr                     { $$ = new CppExpr($1, kBitAnd, $3);                  }
                   | expr '|' expr                     { $$ = new CppExpr($1, kBitOr, $3);                   }
                   | expr '=' expr                     { $$ = new CppExpr($1, kEqual, $3);                   }
-                  | expr '[' expr ']' %prec POSTFIX   { $$ = new CppExpr($1, kArrayElem, $3);               }
+                  | expr '<' expr                     { $$ = new CppExpr($1, kLess, $3);                    }
+                  | expr '>' expr                     { $$ = new CppExpr($1, kGreater, $3);                 }
+                  | expr '<' '=' expr                 { $$ = new CppExpr($1, kLessOrEqual, $4);             }
+                  | expr '>' '=' expr                 { $$ = new CppExpr($1, kGreaterOrEqual, $4);          }
                   | expr '=' '=' expr %prec CMPEQUAL  { $$ = new CppExpr($1, kCmpEqual, $4);                }
                   | expr '<' '<' expr %prec LSHIFT    { $$ = new CppExpr($1, kLeftShift, $4);               }
                   | expr '>' '>' expr %prec RSHIFT    { $$ = new CppExpr($1, kRightShift, $4);              }
                   | expr '-' '>' expr %prec ARROW     { $$ = new CppExpr($1, kArrow, $4);                   }
+                  | expr '[' expr ']' %prec POSTFIX   { $$ = new CppExpr($1, kArrayElem, $3);               }
                   | expr '.' expr                     { $$ = new CppExpr($1, kDot, $3);                     }
                   | expr '(' ')'                      { $$ = new CppExpr($1, kFunctionCall);                }
                   | expr '(' exprlist ')'             { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | '(' varqual ')' expr              { $$ = new CppExpr($2, kCStyleCast, $4);              }
+                  | tknConstCast '<' varqual '>' '(' expr ')' { $$ = new CppExpr($3, kConstCast, $6);       }
+                  | tknStaticCast '<' varqual '>' '(' expr ')' { $$ = new CppExpr($3, kStaticCast, $6);       }
+                  | tknDynamicCast '<' varqual '>' '(' expr ')' { $$ = new CppExpr($3, kDynamicCast, $6);       }
+                  | tknReinterpretCast '<' varqual '>' '(' expr ')' { $$ = new CppExpr($3, kReinterpretCast, $6); }
                   | '(' expr ')'                      { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
                   | tknNew  expr                      { $$ = $2; $2->flags_ |= CppExpr::kNew;               }
                   | tknDelete  expr                   { $$ = $2; $2->flags_ |= CppExpr::kDelete;            }

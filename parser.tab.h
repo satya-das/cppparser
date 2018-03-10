@@ -25,39 +25,48 @@
 #define tknStdHdrInclude 278
 #define tknPragma 279
 #define tknEllipsis 280
-#define tknConst 281
-#define tknStatic 282
-#define tknExtern 283
-#define tknVirtual 284
-#define tknOverride 285
-#define tknInline 286
-#define tknExplicit 287
-#define tknFriend 288
-#define tknVolatile 289
-#define tknPreProHash 290
-#define tknDefine 291
-#define tknUndef 292
-#define tknInclude 293
-#define tknIf 294
-#define tknIfDef 295
-#define tknIfNDef 296
-#define tknElse 297
-#define tknElIf 298
-#define tknEndIf 299
-#define tknNew 300
-#define tknDelete 301
-#define tknReturn 302
-#define tknBlankLine 303
-#define CMPEQUAL 304
-#define LSHIFT 305
-#define RSHIFT 306
-#define ARROW 307
-#define PREFIX 308
-#define POSTFIX 309
-#define PTRDECL 310
-#define REFDECL 311
-#define CTORDECL 312
-#define DTORDECL 313
+#define tknConstCast 281
+#define tknStaticCast 282
+#define tknDynamicCast 283
+#define tknReinterpretCast 284
+#define tknConst 285
+#define tknStatic 286
+#define tknExtern 287
+#define tknVirtual 288
+#define tknOverride 289
+#define tknInline 290
+#define tknExplicit 291
+#define tknFriend 292
+#define tknVolatile 293
+#define tknPreProHash 294
+#define tknDefine 295
+#define tknUndef 296
+#define tknInclude 297
+#define tknIf 298
+#define tknIfDef 299
+#define tknIfNDef 300
+#define tknElse 301
+#define tknElIf 302
+#define tknEndIf 303
+#define tknFor 304
+#define tknWhile 305
+#define tknDo 306
+#define tknSwitch 307
+#define tknCase 308
+#define tknNew 309
+#define tknDelete 310
+#define tknReturn 311
+#define tknBlankLine 312
+#define CMPEQUAL 313
+#define LSHIFT 314
+#define RSHIFT 315
+#define ARROW 316
+#define PREFIX 317
+#define POSTFIX 318
+#define PTRDECL 319
+#define REFDECL 320
+#define CTORDECL 321
+#define DTORDECL 322
 #define YYERRCODE 256
 
 typedef union {
@@ -89,6 +98,11 @@ typedef union {
   CppObjProtLevel       protLevel;
 
   CppExprList*          exprList;
+
+  CppIfBlock*           ifBlock;
+  CppWhileBlock*        whileBlock;
+  CppDoWhileBlock*      doWhileBlock;
+  CppForBlock*          forBlock;
 
   CppDefine*            hashDefine;
   CppUndef*             hashUndef;
