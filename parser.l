@@ -576,102 +576,127 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxGeneral>operator/{TS}+ {
+	set_token_and_yyposn();
 	return tknOperator;
 }
 
 <ctxGeneral>"+=" {
+	set_token_and_yyposn();
 	return tknPlusEq;
 }
 
 <ctxGeneral>"-=" {
+	set_token_and_yyposn();
 	return tknMinusEq;
 }
 
 <ctxGeneral>"*=" {
+	set_token_and_yyposn();
 	return tknMulEq;
 }
 
 <ctxGeneral>"*=" {
+	set_token_and_yyposn();
 	return tknMulEq;
 }
 
 <ctxGeneral>"/=" {
+	set_token_and_yyposn();
 	return tknDivEq;
 }
 
 <ctxGeneral>"%=" {
+	set_token_and_yyposn();
 	return tknPerEq;
 }
 
 <ctxGeneral>"^=" {
+	set_token_and_yyposn();
 	return tknXorEq;
 }
 
 <ctxGeneral>"&=" {
+	set_token_and_yyposn();
 	return tknAndEq;
 }
 
 <ctxGeneral>"|=" {
+	set_token_and_yyposn();
 	return tknOrEq;
 }
 
 <ctxGeneral>"<<" {
+	set_token_and_yyposn();
 	return tknLShift;
 }
 
 <ctxGeneral>">>" {
+	set_token_and_yyposn();
 	return tknRShift;
 }
 
 <ctxGeneral>"<<=" {
+	set_token_and_yyposn();
 	return tknLShiftEq;
 }
 
 <ctxGeneral>">>=" {
+	set_token_and_yyposn();
 	return tknRShiftEq;
 }
 
 <ctxGeneral>"==" {
+	set_token_and_yyposn();
 	return tknCmpEq;
 }
 
 <ctxGeneral>"!=" {
+	set_token_and_yyposn();
 	return tknNotEq;
 }
 
 <ctxGeneral>"<=" {
+	set_token_and_yyposn();
 	return tknLessEq;
 }
 
 <ctxGeneral>">=" {
+	set_token_and_yyposn();
 	return tknGreaterEq;
 }
 
 <ctxGeneral>"<=>" {
+	set_token_and_yyposn();
 	return tkn3WayCmp;
 }
 
 <ctxGeneral>"&&" {
+	set_token_and_yyposn();
 	return tknAnd;
 }
 
 <ctxGeneral>"||" {
+	set_token_and_yyposn();
 	return tknOr;
 }
 
 <ctxGeneral>"++" {
+	set_token_and_yyposn();
 	return tknInc;
 }
 
 <ctxGeneral>"--" {
+	set_token_and_yyposn();
 	return tknDec;
 }
 
 <ctxGeneral>"->" {
+	set_token_and_yyposn();
 	return tknArrow;
 }
 
 <ctxGeneral>"->*" {
+	set_token_and_yyposn();
 	return tknArrowStar;
 }
 
