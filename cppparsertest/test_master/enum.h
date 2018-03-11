@@ -2,14 +2,14 @@ enum Enum
 {
 	kItem1,
 	kItem2 = 4,
-	kItem3,
+	kItem3
 };
 
 enum Enum
 {
 	kItem1,
 	kItem2 = 4,
-	kItem3,
+	kItem3
 };
 
 enum Enum
@@ -25,7 +25,7 @@ enum class Enum
 {
 	kItem1,
 	kItem2 = 4,
-	kItem3,
+	kItem3
 };
 
 enum Enum : std::uint32_t

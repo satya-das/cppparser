@@ -422,8 +422,8 @@ hashif            : tknPreProHash tknIf tknPreProDef            [ZZVALID;]  { $$
 pragma            : tknPreProHash tknPragma tknPreProDef        [ZZVALID;]  { $$ = new CppPragma($3); }
                   ;
 
-doccomment        : tknDocBlockComment  [ZZVALID;] { $$ = new CppDocComment((std::string) $1); }
-                  | tknDocLineComment   [ZZVALID;] { $$ = new CppDocComment((std::string) $1); }
+doccomment        : tknDocBlockComment  [ZZVALID;] { $$ = new CppDocComment((std::string) $1, gCurProtLevel); }
+                  | tknDocLineComment   [ZZVALID;] { $$ = new CppDocComment((std::string) $1, gCurProtLevel); }
                   ;
 
 identifier        : tknID                                 { $$ = $1; }
@@ -906,8 +906,10 @@ compoundSpecifier : tknClass    { $$ = kClass;    }
                   | tknNamespace  { $$ = kNamespace;  }
                   ;
 
-apidocer          : { $$ = makeCppToken(0, 0); }
-                  | tknID { $$ = $1; }
+apidocer          :                     { $$ = makeCppToken(0, 0); }
+                  | tknID               { $$ = $1; }
+                  | tknID '(' tknID ')' { $$ = makeCppToken($1.sz, $4.sz+$4.len-$1.sz); }
+                  | tknID tknID         { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   ;
 
 changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = kPublic;     }

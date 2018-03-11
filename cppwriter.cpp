@@ -231,12 +231,14 @@ void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, CppIndent ind
     stm << " : " << enmObj->underlyingType_;
   if (enmObj->itemList_)
   {
-    stm << "\n{\n" << indentation++;
-    for (CppEnumItemList::const_iterator itmItr = enmObj->itemList_->begin(); itmItr != enmObj->itemList_->end(); ++itmItr)
+    stm << '\n';
+    stm << indentation++ << "{\n";
+    for (auto enmItem : *(enmObj->itemList_))
     {
-      CppEnumItem* enmItem = *itmItr;
       if (enmItem->name_.empty())
+      {
         emit(enmItem->anyItem_, stm, indentation);
+      }
       else
       {
         stm << indentation << enmItem->name_;
@@ -245,7 +247,10 @@ void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, CppIndent ind
           stm << " = ";
           emitExpr(enmItem->val_, stm);
         }
-        stm << ",\n";
+        if (enmItem != enmObj->itemList_->back())
+          stm << ",\n";
+        else
+          stm << '\n';
       }
     }
     stm << --indentation << "}";
@@ -301,7 +306,7 @@ void CppWriter::emitCompound(const CppCompound* compoundObj, std::ostream& stm, 
   for (CppObjArray::const_iterator memItr = compoundObj->members_.begin(); memItr != compoundObj->members_.end(); ++memItr)
   {
     CppObj* memObj = *memItr;
-    if (memObj->prot_ != kUnknownProt && lastProtLevel != memObj->prot_)
+    if (compoundObj->isClassLike() && memObj->prot_ != kUnknownProt && lastProtLevel != memObj->prot_)
     {
       stm << --indentation << memObj->prot_ << ':' << '\n';
       lastProtLevel = memObj->prot_;
@@ -309,8 +314,14 @@ void CppWriter::emitCompound(const CppCompound* compoundObj, std::ostream& stm, 
     }
     emit(memObj, stm, indentation);
   }
-  if (compoundObj->compoundType_&kNamespace)
-    stm << --indentation << "};\n";
+  if (compoundObj->isNamespaceLike())
+  {
+    stm << --indentation;
+    stm << '}';
+    if (compoundObj->isClassLike())
+      stm << ';';
+    stm << '\n';
+  }
   else if (compoundObj->compoundType_ == kExternCBlock)
     stm << indentation << "}\n";
 }
@@ -425,18 +436,19 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm
     ++indentation;
     for (CppMemInitList::const_iterator memInitItr = ctorObj->memInitList_->begin(); memInitItr != ctorObj->memInitList_->end(); ++memInitItr)
     {
-      stm << sep << ' ' << memInitItr->first << '(';
+      stm << '\n';
+      stm << indentation << sep << ' ' << memInitItr->first << '(';
       emitExpr(memInitItr->second, stm);
-      stm << ")\n";
+      stm << ')';
       sep = ',';
     }
     --indentation;
   }
   if (!skipParamName && ctorObj->defn_)
   {
-    stm << '\n' << ++indentation << '{';
+    stm << '\n' << indentation++ << "{\n";
     emitCompound(ctorObj->defn_, stm, indentation);
-    stm << '\n' << --indentation << '}';
+    stm << --indentation << "}\n";
   }
   else
   {
@@ -624,6 +636,8 @@ void CppWriter::emitExprAtom(const CppExprAtom& exprAtm, std::ostream& stm, CppI
   case CppExprAtom::kExprList:
     emitExprList(exprAtm.list, stm, ++indentation);
     break;
+  case CppExprAtom::kVarType:
+    emitVarType(exprAtm.varType, stm);
   }
 }
 
@@ -698,6 +712,29 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
     stm << '[';
     emitExprAtom(exprObj->expr2_, stm);
     stm << ']';
+  }
+  else if (exprObj->oper_ == kCStyleCast)
+  {
+    stm << '(';
+    emitExprAtom(exprObj->expr1_, stm);
+    stm << ") ";
+    emitExprAtom(exprObj->expr2_, stm);
+  }
+  else if (exprObj->oper_ >= kConstCast && exprObj->oper_ <= kReinterpretCast)
+  {
+    if (exprObj->oper_ == kConstCast)
+      stm << "const_cast";
+    else if (exprObj->oper_ == kStaticCast)
+      stm << "static_cast";
+    else if (exprObj->oper_ == kDynamicCast)
+      stm << "dynamic_cast";
+    else if (exprObj->oper_ == kReinterpretCast)
+      stm << "reinterpret_cast";
+    stm << '<';
+    emitExprAtom(exprObj->expr1_, stm);
+    stm << ">(";
+    emitExprAtom(exprObj->expr2_, stm);
+    stm << ')';
   }
 
   if (exprObj->flags_ & CppExpr::kBracketed)

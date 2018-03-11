@@ -744,8 +744,8 @@ struct CppDocComment : public CppObj
 {
   std::string	doc_; ///< Entire comment text
 
-  CppDocComment(std::string doc)
-    : CppObj(CppObj::kDocComment, kUnknownProt)
+  CppDocComment(std::string doc, CppObjProtLevel protLevel = kUnknownProt)
+    : CppObj(CppObj::kDocComment, protLevel)
     , doc_(std::move(doc))
   {
   }
