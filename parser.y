@@ -884,6 +884,7 @@ classdefn         : compoundSpecifier apidocer tknID inheritlist
                     $$->name_      = $3;
                     $$->inheritList_  = $4;
                   }
+                  ;
 
 inheritlist       : { $$ = 0; }
                   | ':' protlevel identifier [ZZVALID;]        { $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $3, $2)); }

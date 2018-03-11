@@ -3521,7 +3521,7 @@ yyparsestate *YYNewState(int size);
 void YYFreeState(yyparsestate *p);
 
 
-#line 993 "/home/dassat/github/cppparser/parser.y"
+#line 994 "/home/dassat/github/cppparser/parser.y"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -5699,526 +5699,526 @@ case 224:
 break;
 case 225:
   if (!yytrial)
-#line 888 "/home/dassat/github/cppparser/parser.y"
+#line 889 "/home/dassat/github/cppparser/parser.y"
 { yyval.inheritList = 0; }
 #line 5796 "y_tab.c"
 break;
 case 226:
-#line 889 "/home/dassat/github/cppparser/parser.y"
+#line 890 "/home/dassat/github/cppparser/parser.y"
 {ZZVALID;}
 #line 5801 "y_tab.c"
   if (!yytrial)
-#line 889 "/home/dassat/github/cppparser/parser.y"
+#line 890 "/home/dassat/github/cppparser/parser.y"
 { yyval.inheritList = new CppInheritanceList; yyval.inheritList->push_back(CppInheritInfo((std::string) yyvsp[0].str, yyvsp[-1].protLevel)); }
 #line 5805 "y_tab.c"
 break;
 case 227:
-#line 890 "/home/dassat/github/cppparser/parser.y"
+#line 891 "/home/dassat/github/cppparser/parser.y"
 {ZZVALID;}
 #line 5810 "y_tab.c"
   if (!yytrial)
-#line 890 "/home/dassat/github/cppparser/parser.y"
+#line 891 "/home/dassat/github/cppparser/parser.y"
 { yyval.inheritList = yyvsp[-3].inheritList; yyval.inheritList->push_back(CppInheritInfo((std::string) yyvsp[0].str, yyvsp[-1].protLevel)); }
 #line 5814 "y_tab.c"
 break;
 case 228:
   if (!yytrial)
-#line 893 "/home/dassat/github/cppparser/parser.y"
+#line 894 "/home/dassat/github/cppparser/parser.y"
 { yyval.protLevel = kUnknownProt;}
 #line 5820 "y_tab.c"
 break;
 case 229:
   if (!yytrial)
-#line 894 "/home/dassat/github/cppparser/parser.y"
+#line 895 "/home/dassat/github/cppparser/parser.y"
 { yyval.protLevel = kPublic;    }
 #line 5826 "y_tab.c"
 break;
 case 230:
   if (!yytrial)
-#line 895 "/home/dassat/github/cppparser/parser.y"
+#line 896 "/home/dassat/github/cppparser/parser.y"
 { yyval.protLevel = kProtected;  }
 #line 5832 "y_tab.c"
 break;
 case 231:
   if (!yytrial)
-#line 896 "/home/dassat/github/cppparser/parser.y"
+#line 897 "/home/dassat/github/cppparser/parser.y"
 { yyval.protLevel = kPrivate;  }
 #line 5838 "y_tab.c"
 break;
 case 232:
-#line 899 "/home/dassat/github/cppparser/parser.y"
+#line 900 "/home/dassat/github/cppparser/parser.y"
 {ZZVALID;}
 #line 5843 "y_tab.c"
   if (!yytrial)
-#line 899 "/home/dassat/github/cppparser/parser.y"
+#line 900 "/home/dassat/github/cppparser/parser.y"
 { yyval.fwdDeclObj = new CppFwdClsDecl(gCurProtLevel, yyvsp[-1].str, yyvsp[-2].compoundType); }
 #line 5847 "y_tab.c"
 break;
 case 233:
-#line 900 "/home/dassat/github/cppparser/parser.y"
+#line 901 "/home/dassat/github/cppparser/parser.y"
 {ZZVALID;}
 #line 5852 "y_tab.c"
   if (!yytrial)
-#line 900 "/home/dassat/github/cppparser/parser.y"
+#line 901 "/home/dassat/github/cppparser/parser.y"
 { yyval.fwdDeclObj = new CppFwdClsDecl(gCurProtLevel, yyvsp[-1].str, yyvsp[-3].compoundType); }
 #line 5856 "y_tab.c"
 break;
 case 234:
   if (!yytrial)
-#line 903 "/home/dassat/github/cppparser/parser.y"
+#line 904 "/home/dassat/github/cppparser/parser.y"
 { yyval.compoundType = kClass;    }
 #line 5862 "y_tab.c"
 break;
 case 235:
   if (!yytrial)
-#line 904 "/home/dassat/github/cppparser/parser.y"
+#line 905 "/home/dassat/github/cppparser/parser.y"
 { yyval.compoundType = kStruct;    }
 #line 5868 "y_tab.c"
 break;
 case 236:
   if (!yytrial)
-#line 905 "/home/dassat/github/cppparser/parser.y"
+#line 906 "/home/dassat/github/cppparser/parser.y"
 { yyval.compoundType = kUnion;    }
 #line 5874 "y_tab.c"
 break;
 case 237:
   if (!yytrial)
-#line 906 "/home/dassat/github/cppparser/parser.y"
+#line 907 "/home/dassat/github/cppparser/parser.y"
 { yyval.compoundType = kNamespace;  }
 #line 5880 "y_tab.c"
 break;
 case 238:
   if (!yytrial)
-#line 909 "/home/dassat/github/cppparser/parser.y"
+#line 910 "/home/dassat/github/cppparser/parser.y"
 { yyval.str = makeCppToken(0, 0); }
 #line 5886 "y_tab.c"
 break;
 case 239:
   if (!yytrial)
-#line 910 "/home/dassat/github/cppparser/parser.y"
+#line 911 "/home/dassat/github/cppparser/parser.y"
 { yyval.str = yyvsp[0].str; }
 #line 5892 "y_tab.c"
 break;
 case 240:
   if (!yytrial)
-#line 911 "/home/dassat/github/cppparser/parser.y"
+#line 912 "/home/dassat/github/cppparser/parser.y"
 { yyval.str = makeCppToken(yyvsp[-3].str.sz, yyvsp[0].str.sz+yyvsp[0].str.len-yyvsp[-3].str.sz); }
 #line 5898 "y_tab.c"
 break;
 case 241:
   if (!yytrial)
-#line 912 "/home/dassat/github/cppparser/parser.y"
+#line 913 "/home/dassat/github/cppparser/parser.y"
 { yyval.str = makeCppToken(yyvsp[-1].str.sz, yyvsp[0].str.sz+yyvsp[0].str.len-yyvsp[-1].str.sz); }
 #line 5904 "y_tab.c"
 break;
 case 242:
-#line 915 "/home/dassat/github/cppparser/parser.y"
+#line 916 "/home/dassat/github/cppparser/parser.y"
 {ZZVALID;}
 #line 5909 "y_tab.c"
   if (!yytrial)
-#line 915 "/home/dassat/github/cppparser/parser.y"
+#line 916 "/home/dassat/github/cppparser/parser.y"
 { yyval.protLevel = kPublic;     }
 #line 5913 "y_tab.c"
 break;
 case 243:
-#line 916 "/home/dassat/github/cppparser/parser.y"
+#line 917 "/home/dassat/github/cppparser/parser.y"
 {ZZVALID;}
 #line 5918 "y_tab.c"
   if (!yytrial)
-#line 916 "/home/dassat/github/cppparser/parser.y"
+#line 917 "/home/dassat/github/cppparser/parser.y"
 { yyval.protLevel = kProtected;  }
 #line 5922 "y_tab.c"
 break;
 case 244:
-#line 917 "/home/dassat/github/cppparser/parser.y"
+#line 918 "/home/dassat/github/cppparser/parser.y"
 {ZZVALID;}
 #line 5927 "y_tab.c"
   if (!yytrial)
-#line 917 "/home/dassat/github/cppparser/parser.y"
+#line 918 "/home/dassat/github/cppparser/parser.y"
 { yyval.protLevel = kPrivate;    }
 #line 5931 "y_tab.c"
 break;
 case 245:
-#line 920 "/home/dassat/github/cppparser/parser.y"
+#line 921 "/home/dassat/github/cppparser/parser.y"
 {ZZVALID;}
 #line 5936 "y_tab.c"
   if (!yytrial)
-#line 920 "/home/dassat/github/cppparser/parser.y"
+#line 921 "/home/dassat/github/cppparser/parser.y"
 {yyval.cppCompundObj = yyvsp[-1].cppCompundObj; yyval.cppCompundObj->compoundType_ = kExternCBlock; }
 #line 5940 "y_tab.c"
 break;
 case 246:
   if (!yytrial)
-#line 923 "/home/dassat/github/cppparser/parser.y"
+#line 924 "/home/dassat/github/cppparser/parser.y"
 { yyval.exprList = new CppExprList(); yyval.exprList->push_back(yyvsp[0].cppExprObj);  }
 #line 5946 "y_tab.c"
 break;
 case 247:
   if (!yytrial)
-#line 924 "/home/dassat/github/cppparser/parser.y"
+#line 925 "/home/dassat/github/cppparser/parser.y"
 { yyval.exprList = yyvsp[-2].exprList; yyval.exprList->push_back(yyvsp[0].cppExprObj);                 }
 #line 5952 "y_tab.c"
 break;
 case 248:
   if (!yytrial)
-#line 927 "/home/dassat/github/cppparser/parser.y"
+#line 928 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr((std::string) yyvsp[0].str, kNone);          }
 #line 5958 "y_tab.c"
 break;
 case 249:
   if (!yytrial)
-#line 928 "/home/dassat/github/cppparser/parser.y"
+#line 929 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr((std::string) yyvsp[0].str, kNone);          }
 #line 5964 "y_tab.c"
 break;
 case 250:
   if (!yytrial)
-#line 929 "/home/dassat/github/cppparser/parser.y"
+#line 930 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr((std::string) yyvsp[0].str, kNone);          }
 #line 5970 "y_tab.c"
 break;
 case 251:
   if (!yytrial)
-#line 930 "/home/dassat/github/cppparser/parser.y"
+#line 931 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr((std::string) yyvsp[0].str, kNone);          }
 #line 5976 "y_tab.c"
 break;
 case 252:
   if (!yytrial)
-#line 931 "/home/dassat/github/cppparser/parser.y"
+#line 932 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-1].exprList, CppExpr::kInitializer);        }
 #line 5982 "y_tab.c"
 break;
 case 253:
   if (!yytrial)
-#line 932 "/home/dassat/github/cppparser/parser.y"
+#line 933 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[0].cppExprObj, kUnaryMinus);                  }
 #line 5988 "y_tab.c"
 break;
 case 254:
   if (!yytrial)
-#line 933 "/home/dassat/github/cppparser/parser.y"
+#line 934 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[0].cppExprObj, kBitToggle);                   }
 #line 5994 "y_tab.c"
 break;
 case 255:
   if (!yytrial)
-#line 934 "/home/dassat/github/cppparser/parser.y"
+#line 935 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[0].cppExprObj, kLogNot);                      }
 #line 6000 "y_tab.c"
 break;
 case 256:
   if (!yytrial)
-#line 935 "/home/dassat/github/cppparser/parser.y"
+#line 936 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[0].cppExprObj, kDerefer);                     }
 #line 6006 "y_tab.c"
 break;
 case 257:
   if (!yytrial)
-#line 936 "/home/dassat/github/cppparser/parser.y"
+#line 937 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[0].cppExprObj, kRefer);                       }
 #line 6012 "y_tab.c"
 break;
 case 258:
   if (!yytrial)
-#line 937 "/home/dassat/github/cppparser/parser.y"
+#line 938 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[0].cppExprObj, kPreIncrement);                }
 #line 6018 "y_tab.c"
 break;
 case 259:
   if (!yytrial)
-#line 938 "/home/dassat/github/cppparser/parser.y"
+#line 939 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-1].cppExprObj, kPostIncrement);               }
 #line 6024 "y_tab.c"
 break;
 case 260:
   if (!yytrial)
-#line 939 "/home/dassat/github/cppparser/parser.y"
+#line 940 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[0].cppExprObj, kPreDecrement);                }
 #line 6030 "y_tab.c"
 break;
 case 261:
   if (!yytrial)
-#line 940 "/home/dassat/github/cppparser/parser.y"
+#line 941 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-1].cppExprObj, kPostDecrement);               }
 #line 6036 "y_tab.c"
 break;
 case 262:
   if (!yytrial)
-#line 941 "/home/dassat/github/cppparser/parser.y"
+#line 942 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kPlus, yyvsp[0].cppExprObj);                    }
 #line 6042 "y_tab.c"
 break;
 case 263:
   if (!yytrial)
-#line 942 "/home/dassat/github/cppparser/parser.y"
+#line 943 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kMinus, yyvsp[0].cppExprObj);                   }
 #line 6048 "y_tab.c"
 break;
 case 264:
   if (!yytrial)
-#line 943 "/home/dassat/github/cppparser/parser.y"
+#line 944 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kMul, yyvsp[0].cppExprObj);                     }
 #line 6054 "y_tab.c"
 break;
 case 265:
   if (!yytrial)
-#line 944 "/home/dassat/github/cppparser/parser.y"
+#line 945 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kDiv, yyvsp[0].cppExprObj);                     }
 #line 6060 "y_tab.c"
 break;
 case 266:
   if (!yytrial)
-#line 945 "/home/dassat/github/cppparser/parser.y"
+#line 946 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kPercent, yyvsp[0].cppExprObj);                     }
 #line 6066 "y_tab.c"
 break;
 case 267:
   if (!yytrial)
-#line 946 "/home/dassat/github/cppparser/parser.y"
+#line 947 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kBitAnd, yyvsp[0].cppExprObj);                  }
 #line 6072 "y_tab.c"
 break;
 case 268:
   if (!yytrial)
-#line 947 "/home/dassat/github/cppparser/parser.y"
+#line 948 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kBitOr, yyvsp[0].cppExprObj);                   }
 #line 6078 "y_tab.c"
 break;
 case 269:
   if (!yytrial)
-#line 948 "/home/dassat/github/cppparser/parser.y"
+#line 949 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kXor, yyvsp[0].cppExprObj);                  }
 #line 6084 "y_tab.c"
 break;
 case 270:
   if (!yytrial)
-#line 949 "/home/dassat/github/cppparser/parser.y"
+#line 950 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kEqual, yyvsp[0].cppExprObj);                   }
 #line 6090 "y_tab.c"
 break;
 case 271:
   if (!yytrial)
-#line 950 "/home/dassat/github/cppparser/parser.y"
+#line 951 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kLess, yyvsp[0].cppExprObj);                    }
 #line 6096 "y_tab.c"
 break;
 case 272:
   if (!yytrial)
-#line 951 "/home/dassat/github/cppparser/parser.y"
+#line 952 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kGreater, yyvsp[0].cppExprObj);                 }
 #line 6102 "y_tab.c"
 break;
 case 273:
   if (!yytrial)
-#line 952 "/home/dassat/github/cppparser/parser.y"
+#line 953 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kPlusEqual, yyvsp[0].cppExprObj);             }
 #line 6108 "y_tab.c"
 break;
 case 274:
   if (!yytrial)
-#line 953 "/home/dassat/github/cppparser/parser.y"
+#line 954 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kMinusEqual, yyvsp[0].cppExprObj);             }
 #line 6114 "y_tab.c"
 break;
 case 275:
   if (!yytrial)
-#line 954 "/home/dassat/github/cppparser/parser.y"
+#line 955 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kMulEqual, yyvsp[0].cppExprObj);             }
 #line 6120 "y_tab.c"
 break;
 case 276:
   if (!yytrial)
-#line 955 "/home/dassat/github/cppparser/parser.y"
+#line 956 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kDivEqual, yyvsp[0].cppExprObj);             }
 #line 6126 "y_tab.c"
 break;
 case 277:
   if (!yytrial)
-#line 956 "/home/dassat/github/cppparser/parser.y"
+#line 957 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kPerEqual, yyvsp[0].cppExprObj);             }
 #line 6132 "y_tab.c"
 break;
 case 278:
   if (!yytrial)
-#line 957 "/home/dassat/github/cppparser/parser.y"
+#line 958 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kXorEqual, yyvsp[0].cppExprObj);             }
 #line 6138 "y_tab.c"
 break;
 case 279:
   if (!yytrial)
-#line 958 "/home/dassat/github/cppparser/parser.y"
+#line 959 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kAndEqual, yyvsp[0].cppExprObj);             }
 #line 6144 "y_tab.c"
 break;
 case 280:
   if (!yytrial)
-#line 959 "/home/dassat/github/cppparser/parser.y"
+#line 960 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kOrEqual, yyvsp[0].cppExprObj);             }
 #line 6150 "y_tab.c"
 break;
 case 281:
   if (!yytrial)
-#line 960 "/home/dassat/github/cppparser/parser.y"
+#line 961 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kLeftShift, yyvsp[0].cppExprObj);               }
 #line 6156 "y_tab.c"
 break;
 case 282:
   if (!yytrial)
-#line 961 "/home/dassat/github/cppparser/parser.y"
+#line 962 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kRightShift, yyvsp[0].cppExprObj);              }
 #line 6162 "y_tab.c"
 break;
 case 283:
   if (!yytrial)
-#line 962 "/home/dassat/github/cppparser/parser.y"
+#line 963 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kLShiftEqual, yyvsp[0].cppExprObj);             }
 #line 6168 "y_tab.c"
 break;
 case 284:
   if (!yytrial)
-#line 963 "/home/dassat/github/cppparser/parser.y"
+#line 964 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kRShiftEqual, yyvsp[0].cppExprObj);             }
 #line 6174 "y_tab.c"
 break;
 case 285:
   if (!yytrial)
-#line 964 "/home/dassat/github/cppparser/parser.y"
+#line 965 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kCmpEqual, yyvsp[0].cppExprObj);                }
 #line 6180 "y_tab.c"
 break;
 case 286:
   if (!yytrial)
-#line 965 "/home/dassat/github/cppparser/parser.y"
+#line 966 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kNotEqual, yyvsp[0].cppExprObj);                }
 #line 6186 "y_tab.c"
 break;
 case 287:
   if (!yytrial)
-#line 966 "/home/dassat/github/cppparser/parser.y"
+#line 967 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kLessEqual, yyvsp[0].cppExprObj);             }
 #line 6192 "y_tab.c"
 break;
 case 288:
   if (!yytrial)
-#line 967 "/home/dassat/github/cppparser/parser.y"
+#line 968 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kGreaterEqual, yyvsp[0].cppExprObj);          }
 #line 6198 "y_tab.c"
 break;
 case 289:
   if (!yytrial)
-#line 968 "/home/dassat/github/cppparser/parser.y"
+#line 969 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, k3WayCmp, yyvsp[0].cppExprObj);                }
 #line 6204 "y_tab.c"
 break;
 case 290:
   if (!yytrial)
-#line 970 "/home/dassat/github/cppparser/parser.y"
+#line 971 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kDot, yyvsp[0].cppExprObj);                     }
 #line 6210 "y_tab.c"
 break;
 case 291:
   if (!yytrial)
-#line 971 "/home/dassat/github/cppparser/parser.y"
+#line 972 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kArrow, yyvsp[0].cppExprObj);                   }
 #line 6216 "y_tab.c"
 break;
 case 292:
   if (!yytrial)
-#line 972 "/home/dassat/github/cppparser/parser.y"
+#line 973 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kArrowStar, yyvsp[0].cppExprObj);                   }
 #line 6222 "y_tab.c"
 break;
 case 293:
   if (!yytrial)
-#line 973 "/home/dassat/github/cppparser/parser.y"
+#line 974 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-3].cppExprObj, kArrayElem, yyvsp[-1].cppExprObj);               }
 #line 6228 "y_tab.c"
 break;
 case 294:
   if (!yytrial)
-#line 974 "/home/dassat/github/cppparser/parser.y"
+#line 975 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppExprObj, kFunctionCall);                }
 #line 6234 "y_tab.c"
 break;
 case 295:
   if (!yytrial)
-#line 975 "/home/dassat/github/cppparser/parser.y"
+#line 976 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-3].cppExprObj, kFunctionCall, yyvsp[-1].exprList);            }
 #line 6240 "y_tab.c"
 break;
 case 296:
   if (!yytrial)
-#line 976 "/home/dassat/github/cppparser/parser.y"
+#line 977 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-2].cppVarObj, kCStyleCast, yyvsp[0].cppExprObj);              }
 #line 6246 "y_tab.c"
 break;
 case 297:
   if (!yytrial)
-#line 977 "/home/dassat/github/cppparser/parser.y"
+#line 978 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-4].cppVarObj, kConstCast, yyvsp[-1].cppExprObj);       }
 #line 6252 "y_tab.c"
 break;
 case 298:
   if (!yytrial)
-#line 978 "/home/dassat/github/cppparser/parser.y"
+#line 979 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-4].cppVarObj, kStaticCast, yyvsp[-1].cppExprObj);       }
 #line 6258 "y_tab.c"
 break;
 case 299:
   if (!yytrial)
-#line 979 "/home/dassat/github/cppparser/parser.y"
+#line 980 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-4].cppVarObj, kDynamicCast, yyvsp[-1].cppExprObj);       }
 #line 6264 "y_tab.c"
 break;
 case 300:
   if (!yytrial)
-#line 980 "/home/dassat/github/cppparser/parser.y"
+#line 981 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(yyvsp[-4].cppVarObj, kReinterpretCast, yyvsp[-1].cppExprObj); }
 #line 6270 "y_tab.c"
 break;
 case 301:
   if (!yytrial)
-#line 981 "/home/dassat/github/cppparser/parser.y"
+#line 982 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = yyvsp[-1].cppExprObj; yyvsp[-1].cppExprObj->flags_ |= CppExpr::kBracketed;         }
 #line 6276 "y_tab.c"
 break;
 case 302:
   if (!yytrial)
-#line 982 "/home/dassat/github/cppparser/parser.y"
+#line 983 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = yyvsp[0].cppExprObj; yyvsp[0].cppExprObj->flags_ |= CppExpr::kNew;               }
 #line 6282 "y_tab.c"
 break;
 case 303:
   if (!yytrial)
-#line 983 "/home/dassat/github/cppparser/parser.y"
+#line 984 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = yyvsp[0].cppExprObj; yyvsp[0].cppExprObj->flags_ |= CppExpr::kDelete;            }
 #line 6288 "y_tab.c"
 break;
 case 304:
   if (!yytrial)
-#line 984 "/home/dassat/github/cppparser/parser.y"
+#line 985 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = yyvsp[0].cppExprObj; yyvsp[0].cppExprObj->flags_ |= CppExpr::kDeleteArray;       }
 #line 6294 "y_tab.c"
 break;
 case 305:
   if (!yytrial)
-#line 985 "/home/dassat/github/cppparser/parser.y"
+#line 986 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = yyvsp[0].cppExprObj; yyvsp[0].cppExprObj->flags_ |= CppExpr::kReturn;            }
 #line 6300 "y_tab.c"
 break;
 case 306:
   if (!yytrial)
-#line 986 "/home/dassat/github/cppparser/parser.y"
+#line 987 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = new CppExpr(CppExprAtom(), CppExpr::kReturn);  }
 #line 6306 "y_tab.c"
 break;
 case 307:
-#line 989 "/home/dassat/github/cppparser/parser.y"
+#line 990 "/home/dassat/github/cppparser/parser.y"
 {ZZVALID;}
 #line 6311 "y_tab.c"
   if (!yytrial)
-#line 989 "/home/dassat/github/cppparser/parser.y"
+#line 990 "/home/dassat/github/cppparser/parser.y"
 { yyval.cppExprObj = yyvsp[-1].cppExprObj; }
 #line 6315 "y_tab.c"
 break;
