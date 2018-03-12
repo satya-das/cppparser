@@ -117,6 +117,8 @@ extern int yylex();
   CppEnumItemList*      enumItemList;
   CppTypedef*           typedefObj;
   CppCompound*          cppCompundObj;
+  CppTemplateArgList*   templSpec;
+  CppTemplateArg*       templArg;
   CppDocComment*        docCommentObj;
   CppFwdClsDecl*        fwdDeclObj;
   CppVarList*           cppVarObjList;
@@ -157,6 +159,7 @@ extern int yylex();
 %token  <str>   tknEnum
 %token  <str>   tknPreProDef
 %token  <str>   tknClass tknStruct tknUnion tknNamespace
+%token  <str>   tknTemplate tknTypename
 %token  <str>   tknDocBlockComment tknDocLineComment
 %token  <str>   tknScopeResOp
 %token  <str>   tknNumSignSpec // signed/unsigned
@@ -185,7 +188,7 @@ extern int yylex();
 %token  tknBlankLine
 
 %type  <str>                apidocer
-%type  <str>                identifier vartype optid funcname
+%type  <str>                identifier vartype optid funcname typenamespecifier
 %type  <cppObj>             stmt functptrtype
 %type  <cppEnum>            enumdefn enumfwddecl
 %type  <enumItem>           enumitem
@@ -197,6 +200,8 @@ extern int yylex();
 %type  <paramList>          paramlist
 %type  <typedefObj>         typedefname typedefnamelist typedefnamestmt
 %type  <cppCompundObj>      stmtlist progunit classdefn classdefnstmt externcblock
+%type  <templSpec>          templatespecifier temparglist
+%type  <templArg>           temparg tempargwodefault tempargwdefault
 %type  <docCommentObj>      doccomment
 %type  <cppExprObj>         expr exprstmt optexpr
 %type  <ifBlock>            ifblock;
@@ -618,6 +623,10 @@ funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')
                     $$->docer1_ = $1;
                     $$->docer2_ = $3;
                   }
+                  | templatespecifier funcdecl {
+                    $$ = $2;
+                    $$->templSpec_ = $1;
+                  }
                   ;
 
 funcname          : identifier { $$ = $1; }
@@ -734,6 +743,10 @@ ctordefn          : ctordecl meminitlist
                     $$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $5.sz+$5.len-$1.sz), $8, $10, 0);
                     $$->defn_      = $12 ? $12 : newCompound(gCurProtLevel, kBlock);
                   }
+                  | templatespecifier ctordefn {
+                    $$ = $2;
+                    $$->templSpec_ = $1;
+                  }
                   ;
 
 ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
@@ -751,6 +764,10 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   | functype tknID [if(gCompoundStack.empty()) YYERROR; if(gCompoundStack.top() != $2) YYERROR; else ZZVALID;] '(' paramlist ')'
                   {
                     $$ = newConstructor(gCurProtLevel, $2, $5, nullptr, $1);
+                  }
+                  | templatespecifier ctordecl {
+                    $$ = $2;
+                    $$->templSpec_ = $1;
                   }
                   ;
 
@@ -884,6 +901,10 @@ classdefn         : compoundSpecifier apidocer tknID inheritlist
                     $$->name_      = $3;
                     $$->inheritList_  = $4;
                   }
+                  | templatespecifier classdefn {
+                    $$ = $2;
+                    $$->templSpec_ = $1;
+                  }
                   ;
 
 inheritlist       : { $$ = 0; }
@@ -905,6 +926,43 @@ compoundSpecifier : tknClass    { $$ = kClass;    }
                   | tknStruct    { $$ = kStruct;    }
                   | tknUnion    { $$ = kUnion;    }
                   | tknNamespace  { $$ = kNamespace;  }
+                  ;
+
+templatespecifier : tknTemplate '<' temparglist '>' {
+                    $$ = $3;
+                  }
+                  ;
+
+temparglist       : temparg {
+                    $$ = new CppTemplateArgList;
+                    $$->push_back($1);
+                  }
+                  | temparglist ',' temparg {
+                    $$ = $1;
+                    $$->push_back($3);
+                  }
+                  ;
+
+temparg           : tempargwodefault  { $$ = $1; }
+                  | tempargwdefault   { $$ = $1; }
+                  ;
+
+tempargwodefault  : typenamespecifier tknID [ZZVALID;] {
+                    $$ = new CppTemplateArg{$1, $2, nullptr};
+                  }
+                  | vartype tknID {
+                    $$ = new CppTemplateArg{$1, $2, nullptr};
+                  }
+                  ;
+
+tempargwdefault   : tempargwodefault '=' expr {
+                    $$ = $1;
+                    $$->defaultArgVal_ = $3;
+                  }
+                  ;
+
+typenamespecifier : tknTypename { $$ = $1; }
+                  | tknClass    { $$ = $1; }
                   ;
 
 apidocer          :                     { $$ = makeCppToken(0, 0); }

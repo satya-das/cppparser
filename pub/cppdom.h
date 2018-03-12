@@ -119,6 +119,23 @@ struct CppObj
   }
 };
 
+struct CppExpr;
+
+struct CppTemplateArg
+{
+  std::string typeSpecifier_; // typename, class, int, etc.
+  std::string arg_; // e.g. _Ty
+  CppExpr*    defaultArgVal_;
+};
+
+struct CppTemplateArgList : public std::list<CppTemplateArg*>
+{
+  ~CppTemplateArgList() {
+    for (auto arg : *this)
+      delete arg;
+  }
+};
+
 /**
  * One or more blank lines in a C/C++ program.
  */
@@ -421,6 +438,7 @@ public:
   CppCompoundType		compoundType_;
   CppInheritanceList*	inheritList_;
   std::string			apidocer_;
+  CppTemplateArgList* templSpec_ {nullptr};
 
   CppCompound(std::string name, CppObjProtLevel prot, CppCompoundType type)
     : CppObj(CppObj::kCompound, prot)
@@ -645,6 +663,7 @@ protected:
 struct CppFuncCtorBase : public CppFunctionBase
 {
   CppParamList*	params_;
+  CppTemplateArgList* templSpec_ {nullptr};
 
   bool hasParams() const
   {

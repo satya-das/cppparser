@@ -276,10 +276,31 @@ void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj, std::ostream& stm, 
   stm << indentation << fwdDeclObj->cmpType_ << ' ' << fwdDeclObj->name_ << ";\n";
 }
 
+void CppWriter::emitTemplSpec(const CppTemplateArgList* templSpec, std::ostream& stm, CppIndent indentation) const
+{
+  stm << indentation << "template <";
+  for (const auto& templArg : *templSpec)
+  {
+    if (templArg != templSpec->front())
+      stm << ", ";
+    stm << templArg->typeSpecifier_ << ' ' << templArg->arg_;
+    if (templArg->defaultArgVal_)
+    {
+      stm << " = ";
+      emitExpr(templArg->defaultArgVal_, stm);
+    }
+  }
+  stm << ">\n";
+}
+
 void CppWriter::emitCompound(const CppCompound* compoundObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
-  if (compoundObj->compoundType_&kNamespace)
+  if (compoundObj->isNamespaceLike())
   {
+    if (compoundObj->templSpec_)
+    {
+      emitTemplSpec(compoundObj->templSpec_, stm, indentation);
+    }
     stm << indentation << compoundObj->compoundType_ << ' ';
     if (!compoundObj->apidocer_.empty())
       stm << compoundObj->apidocer_ << ' ';
@@ -352,6 +373,9 @@ void CppWriter::emitParamList(const CppParamList* paramListObj, std::ostream& st
 
 void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, CppIndent indentation, bool skipName, bool skipParamName) const
 {
+  if (funcObj->templSpec_)
+    emitTemplSpec(funcObj->templSpec_, stm, indentation);
+
   if ((funcObj->attr_&(kFuncParam|kTypedef)) == 0)
     stm << indentation;
   if (funcObj->attr_&kStatic)
@@ -420,6 +444,10 @@ void CppWriter::emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& 
 
 void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm, CppIndent indentation, bool skipParamName) const
 {
+  if (ctorObj->templSpec_)
+  {
+    emitTemplSpec(ctorObj->templSpec_, stm, indentation);
+  }
   stm << indentation;
   if (ctorObj->attr_&kInline)
     stm << "inline ";

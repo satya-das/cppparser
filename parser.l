@@ -238,6 +238,16 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknPrivate;
 }
 
+<ctxGeneral>template/{TS}+ {
+	set_token_and_yyposn();
+	return tknTemplate;
+}
+
+<ctxGeneral>typename/{TS}+ {
+	set_token_and_yyposn();
+	return tknTypename;
+}
+
 <ctxGeneral>^{WS}*"/*" {
 	oyytext = yytext;
   BEGINCONTEXT(ctxDocBlockComment);
