@@ -438,8 +438,18 @@ identifier        : tknID                                 { $$ = $1; }
                   | tknLong identifier                    { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   | tknNumSignSpec                        { $$ = $1; }
                   | tknNumSignSpec identifier             { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknClass identifier                   { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknStruct identifier                  { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknUnion identifier                   { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   | tknEllipsis                           { $$ = $1; }
                   | identifier tknEllipsis                { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | identifier '<' templateparam '>'{
+                    $$ = makeCppToken($1.sz, $4.sz+1-$1.sz);
+                    delete $3.cppObj; // We don't need template parameter
+                  }
+                  ;
+
+vartype           : identifier                  { $$ = $1; }
                   ;
 
 optid             : { $$ = makeCppToken(0, 0); }
@@ -501,17 +511,6 @@ typedefnamelist   : typedefname ',' tknID { $$ = $1; $$->names_.push_back((std::
 typedefname       : tknTypedef optattr vartype ptrlevelopt reftype tknID {
                     $$ = new CppTypedef(gCurProtLevel, $3, $2, $4, $5);
                     $$->names_.push_back((std::string) $6);
-                  }
-                  ;
-
-vartype           : identifier                  { $$ = $1; }
-                  | tknNumSignSpec identifier   { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknClass identifier         { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknStruct identifier        { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknUnion identifier         { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | identifier '<' templateparam '>'{
-                    $$ = makeCppToken($1.sz, $4.sz+1-$1.sz);
-                    delete $3.cppObj; // We don't need template parameter
                   }
                   ;
 
