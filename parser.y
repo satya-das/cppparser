@@ -691,13 +691,12 @@ templateparam     : varqual                 { $$ = $1; }
                   | functionpointer         { $$ = $1; }
                   ;
 
-functype          : varattrib               { $$ = $1;      }
-                  | tknInline               { $$ = kInline;    }
-                  | tknVirtual              { $$ = kVirtual;  }
-                  | tknExtern               { $$ = kExtern;    }
-                  | tknExplicit             { $$ = kExplicit;  }
-                  | tknInline tknExplicit   { $$ = kInline | kExplicit; }
-                  | tknExplicit tknInline   { $$ = kInline | kExplicit; }
+functype          : /* empty */             { $$ = 0;           }
+                  | functype tknStatic      { $$ |= kStatic;    }
+                  | functype tknInline      { $$ |= kInline;    }
+                  | functype tknVirtual     { $$ |= kVirtual;   }
+                  | functype tknExtern      { $$ |= kExtern;    }
+                  | functype tknExplicit    { $$ |= kExplicit;  }
                   ;
 
 funcattrib        :                           { $$ = 0; }

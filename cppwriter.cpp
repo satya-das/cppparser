@@ -418,7 +418,7 @@ void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, CppI
     stm << " const";
   if ((funcObj->attr_&kPureVirtual) == kPureVirtual)
     stm << " = 0";
-  if (!skipParamName && funcObj->defn_ && !((getEmittingType()==kHeader) || funcObj->attr_ & kInline))
+  if (!skipParamName && funcObj->defn_ && (getEmittingType() != kHeader))
   {
     stm << '\n' << indentation++ << "{\n";
     emitCompound(funcObj->defn_, stm, indentation);

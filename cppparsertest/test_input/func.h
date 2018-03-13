@@ -1,9 +1,9 @@
-int f(int x)
+inline int f(int x)
 {
 	return 5;
 }
 
-double add(double x, double y)
+static double add(double x, double y)
 {
 	double a = x+y;
 	return a;
@@ -42,3 +42,5 @@ void variousFunctionCallingTests()
 	P p = add;
 	(*p)(4, 5);
 }
+
+extern void externFunc();
