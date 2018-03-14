@@ -29,8 +29,6 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
 {
   switch (cppObj->objType_)
   {
-  case CppObj::kBlankLine:
-    return emitBlankLines	((CppBlankLine*)	cppObj, stm);
   case CppObj::kHashDefine:
     return emitDefine		((CppDefine*)		cppObj, stm);
   case CppObj::kHashUndef:
@@ -80,12 +78,6 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
   case CppObj::kBlob:
     return emitBlob((CppBlob*) cppObj, stm);
   }
-}
-
-void CppWriter::emitBlankLines(const CppBlankLine* blankLineObj, std::ostream& stm) const
-{
-  for (int i = 0; i < blankLineObj->numLines_; ++i)
-    stm << '\n';
 }
 
 void CppWriter::emitDefine(const CppDefine* defObj, std::ostream& stm) const

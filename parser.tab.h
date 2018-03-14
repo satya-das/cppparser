@@ -137,8 +137,6 @@ typedef union {
   CppInclude*           hashInclude;
   CppHashIf*            hashIf;
   CppPragma*            hashPragma;
-
-  CppBlankLine*         blankLine;
 } YYSTYPE;
 extern YYSTYPE yylval;
 

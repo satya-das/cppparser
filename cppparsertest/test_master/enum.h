@@ -4,14 +4,12 @@ enum Enum
 	kItem2 = 4,
 	kItem3
 };
-
 enum Enum
 {
 	kItem1,
 	kItem2 = 4,
 	kItem3
 };
-
 enum Enum
 {
 	kItem1,
@@ -20,14 +18,12 @@ enum Enum
 	kItem3,
   // Tested
 };
-
 enum class Enum
 {
 	kItem1,
 	kItem2 = 4,
 	kItem3
 };
-
 enum Enum : std::uint32_t
 {
 	kItem1,
@@ -36,7 +32,6 @@ enum Enum : std::uint32_t
 	kItem3,
   // Tested
 };
-
 enum class Enum : std::uint32_t
 {
 	kItem1,
@@ -45,9 +40,6 @@ enum class Enum : std::uint32_t
 	kItem3,
   // Tested
 };
-
 enum Enum : std::uint32_t;
-
 enum class Enum : std::uint32_t;
-
 enum class Enum;

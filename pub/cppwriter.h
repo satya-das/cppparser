@@ -69,7 +69,6 @@ public:
   virtual void emitDocComment	(const CppDocComment*		docCommentObj,std::ostream& stm, CppIndent indentation = CppIndent()) const;
 
   virtual void emitExpr		    (const CppExpr*				  exprObj,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitBlankLines	(const CppBlankLine*		blankLineObj,	std::ostream& stm) const;
   virtual void emitDefine		  (const CppDefine*			  defineObj,		std::ostream& stm) const;
   virtual void emitUndef		  (const CppUndef*			  undefObj,		  std::ostream& stm) const;
   virtual void emitInclude	  (const CppInclude*			includeObj,		std::ostream& stm) const;

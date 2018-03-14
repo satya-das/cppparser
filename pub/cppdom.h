@@ -55,7 +55,6 @@ struct CppObj
   enum Type : std::uint32_t
   {
     kUnknown			= 0x0000,
-    kBlankLine,			            // Blank line containing nothing other than may be whitespace.
     kDocComment,
 
     kCPreProcessorTypeStarts,   // Any preprocessor type must come after this
@@ -133,20 +132,6 @@ struct CppTemplateArgList : public std::list<CppTemplateArg*>
   ~CppTemplateArgList() {
     for (auto arg : *this)
       delete arg;
-  }
-};
-
-/**
- * One or more blank lines in a C/C++ program.
- */
-struct CppBlankLine : public CppObj
-{
-  int numLines_;
-
-  CppBlankLine()
-    : CppObj(kBlankLine, kUnknownProt)
-    , numLines_(1)
-  {
   }
 };
 

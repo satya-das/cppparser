@@ -150,8 +150,6 @@ extern int yylex();
   CppInclude*           hashInclude;
   CppHashIf*            hashIf;
   CppPragma*            hashPragma;
-
-  CppBlankLine*         blankLine;
 }
 
 %token  <str>   tknID tknStrLit tknCharLit tknNumber tknTypedef
@@ -226,8 +224,6 @@ extern int yylex();
 %type  <hashInclude>        include
 %type  <hashIf>             hashif
 %type  <hashPragma>         pragma
-
-%type  <blankLine>          blankline
 
 %right  '=' CMPEQUAL
 %left   '+' '-'
@@ -327,7 +323,6 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | include         { $$ = $1; }
                   | hashif          { $$ = $1; }
                   | pragma          { $$ = $1; }
-                  | blankline       { $$ = $1; }
                   ;
 
 ifblock           : tknIf '(' expr ')' stmt {
@@ -374,10 +369,6 @@ optexpr           : {
                   | expr {
                     $$ = $1;
                   }
-                  ;
-
-blankline         : tknBlankLine { $$ = new CppBlankLine; }
-                  | blankline tknBlankLine { $$ = $1; $$->numLines_++; }
                   ;
 
 define            : tknPreProHash tknDefine tknID tknID         [ZZVALID;] { // Simple rename using #define
@@ -460,7 +451,6 @@ enumitem          : tknID           { $$ = new CppEnumItem($1);     }
                   | tknID '=' expr  { $$ = new CppEnumItem($1, $3); }
                   | doccomment      { $$ = new CppEnumItem($1);     }
                   | hashif          { $$ = new CppEnumItem($1);     }
-                  | blankline       { $$ = new CppEnumItem($1);     }
                   ;
 
 enumitemlist      : { $$ = 0; }
