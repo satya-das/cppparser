@@ -60,6 +60,8 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
     return emitConstructor	((CppConstructor*)	cppObj, stm, indentation);
   case CppObj::kDestructor:
     return emitDestructor	((CppDestructor*)	cppObj, stm, indentation);
+  case CppObj::kTypeConverter:
+    return emitTypeConverter((CppTypeCoverter*) cppObj, stm, indentation);
   case CppObj::kFunctionPtr:
     return emitFunctionPtr	((CppFunctionPtr*)	cppObj, stm, indentation);
   case CppObj::kIfBlock:
@@ -504,12 +506,35 @@ void CppWriter::emitDestructor(const CppDestructor* dtorObj, std::ostream& stm, 
   }
 }
 
+void CppWriter::emitTypeConverter	(const CppTypeCoverter* typeConverterObj, std::ostream& stm, CppIndent indentation) const
+{
+  stm << indentation << "operator ";
+  emitVarType(typeConverterObj->to_, stm);
+  stm << "()";
+  if (typeConverterObj->attr_&kConst)
+    stm << " const";
+  if (typeConverterObj->defn_)
+  {
+    stm << '\n';
+    stm << indentation << "{\n";
+    ++indentation;
+    emitCompound(typeConverterObj->defn_, stm, indentation);
+    --indentation;
+    stm << indentation << "}\n";
+  }
+  else
+  {
+    stm << ";\n";
+  }
+}
+
+
 void CppWriter::emitDocComment(const CppDocComment* docCommentObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   stm << docCommentObj->doc_ << '\n';
 }
 
-inline std::ostream& operator <<(std::ostream& stm, CppOperType op)
+inline void emitOperator(std::ostream& stm, CppOperType op)
 {
   switch (op)
   {
@@ -639,8 +664,6 @@ inline std::ostream& operator <<(std::ostream& stm, CppOperType op)
     stm << "->*";
     break;
   }
-
-  return stm;
 }
 
 void CppWriter::emitExprAtom(const CppExprAtom& exprAtm, std::ostream& stm, CppIndent indentation /*= CppIndent()*/) const
@@ -705,18 +728,26 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
   }
   else if (exprObj->oper_ > kUnariPrefixOperatorStart && exprObj->oper_ < kUnariSufixOperatorStart)
   {
-    stm << exprObj->oper_;
+    emitOperator(stm, exprObj->oper_);
     emitExprAtom(exprObj->expr1_, stm);
   }
   else if (exprObj->oper_ > kUnariSufixOperatorStart && exprObj->oper_ < kBinaryOperatorStart)
   {
     emitExprAtom(exprObj->expr1_, stm);
-    stm << exprObj->oper_;
+    emitOperator(stm, exprObj->oper_);
   }
-  else if (exprObj->oper_ > kBinaryOperatorStart && exprObj->oper_ < kSpecialOperations)
+  else if (exprObj->oper_ > kBinaryOperatorStart && exprObj->oper_ < kDerefOperatorStart)
   {
     emitExprAtom(exprObj->expr1_, stm);
-    stm << ' ' << exprObj->oper_ << ' ';
+    stm << ' ';
+    emitOperator(stm, exprObj->oper_);
+    stm << ' ';
+    emitExprAtom(exprObj->expr2_, stm);
+  }
+  else if (exprObj->oper_ > kDerefOperatorStart && exprObj->oper_ < kSpecialOperations)
+  {
+    emitExprAtom(exprObj->expr1_, stm);
+    emitOperator(stm, exprObj->oper_);
     emitExprAtom(exprObj->expr2_, stm);
   }
   else if (exprObj->oper_ == kFunctionCall)
@@ -775,6 +806,15 @@ void CppWriter::emitIfBlock(const CppIfBlock* ifBlock, std::ostream& stm, CppInd
     emit(ifBlock->body_, stm, indentation);
   --indentation;
   stm << indentation << "}\n";
+  if (ifBlock->elseBlock_)
+  {
+    stm << indentation << "else \n";
+    stm << indentation << "{\n";
+    ++indentation;
+      emit(ifBlock->elseBlock_, stm, indentation);
+    --indentation;
+    stm << indentation << "}\n";
+  }
 }
 
 void CppWriter::emitWhileBlock(const CppWhileBlock* whileBlock, std::ostream& stm, CppIndent indentation) const

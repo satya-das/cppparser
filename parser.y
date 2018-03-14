@@ -130,6 +130,7 @@ extern int yylex();
   CppParamList*         paramList;
   CppConstructor*       cppCtorObj;
   CppDestructor*        cppDtorObj;
+  CppTypeCoverter*      cppTypeConverter;
   CppMemInitList*       memInitList;
   CppInheritanceList*   inheritList;
   CppCompoundType       compoundType;
@@ -210,6 +211,7 @@ extern int yylex();
 %type  <cppFuncObj>         funcdecl funcdeclstmt funcdefn
 %type  <cppCtorObj>         ctordecl ctordeclstmt ctordefn
 %type  <cppDtorObj>         dtordecl dtordeclstmt dtordefn
+%type  <cppTypeConverter>   typeconverter typeconverterstmt
 %type  <memInitList>        meminitlist
 %type  <compoundType>       compoundSpecifier
 %type  <ptrLevel>           ptrlevelopt ptrlevel
@@ -316,6 +318,7 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | ctordefn        { $$ = $1; }
                   | dtordeclstmt    { $$ = $1; }
                   | dtordefn        { $$ = $1; }
+                  | typeconverterstmt { $$ = $1; }
                   | externcblock    { $$ = $1; }
                   | functptrtype    { $$ = $1; }
                   | define          { $$ = $1; }
@@ -332,6 +335,10 @@ ifblock           : tknIf '(' expr ')' stmt {
                   | tknIf '(' expr ')' '{' stmtlist '}' {
                     $$ = new CppIfBlock($3);
                     $$->body_ = $6;
+                  }
+                  | ifblock tknElse '{' stmtlist '}' {
+                    $$ = $1;
+                    $$->elseBlock_ = $4;
                   }
                   ;
 
@@ -570,6 +577,24 @@ varqual           : optattr vartype optattr ptrlevelopt reftype optattr {
 
 varattrib         : tknStatic { $$ = kStatic;  }
                   | tknExtern  { $$ = kExtern;  }
+                  ;
+
+typeconverter     : tknOperator varqual '(' ')' {
+                    $$ = new CppTypeCoverter($2, gCurProtLevel);
+                  }
+                  | typeconverter tknConst {
+                    $$ = $1;
+                    $$->attr_ |= kConst;
+                  }
+                  ;
+
+typeconverterstmt : typeconverter ';' [ZZVALID;] {
+                    $$ = $1;
+                  }
+                  | typeconverter '{' stmtlist '}' [ZZVALID;] {
+                    $$ = $1;
+                    $$->defn_ = $3;
+                  }
                   ;
 
 funcdeclstmt      : funcdecl ';' [ZZVALID;] { $$ = $1; }

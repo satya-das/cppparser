@@ -77,6 +77,7 @@ struct CppObj
     kFunction,
     kConstructor,
     kDestructor,
+    kTypeConverter,
     kFunctionPtr,		            // Function proc declaration using typedef. e.g. typedef void (*fp) (void);
     kExpression,		            // A C++ expression
     kFuncCall,			            // A function call expression
@@ -744,6 +745,18 @@ struct CppDestructor : public CppFunctionBase
   }
 };
 
+struct CppTypeCoverter : CppObj
+{
+  CppVarType* to_;
+  CppCompound* defn_ {nullptr};
+  std::uint32_t attr_ {0};
+
+  CppTypeCoverter(CppVar* type, CppObjProtLevel prot)
+    : CppObj(CppObj::kTypeConverter, prot)
+    , to_(type)
+  {}
+};
+
 struct CppDocComment : public CppObj
 {
   std::string	doc_; ///< Entire comment text
@@ -923,7 +936,13 @@ struct CppCommonBlock : public CppObj
   CppObj* body_;
 };
 
-using CppIfBlock = CppCommonBlock<CppObj::kIfBlock>;
+struct CppIfBlock : public CppCommonBlock<CppObj::kIfBlock>
+{
+  CppCompound* elseBlock_{nullptr};
+
+  using BaseType = CppCommonBlock<CppObj::kIfBlock>;
+  using BaseType::BaseType;
+};
 
 using CppWhileBlock = CppCommonBlock<CppObj::kWhileBlock>;
 

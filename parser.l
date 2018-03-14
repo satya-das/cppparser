@@ -548,6 +548,10 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknIf;
 }
 
+<ctxGeneral>else/{TS}+ {
+	return tknElse;
+}
+
 <ctxGeneral>for/{TS}+ {
 	return tknFor;
 }
@@ -724,7 +728,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknCharLit;
 }
 
-<ctxGeneral>\(|\)|\{|\}|\[|\]|,|;|#|=|\*|\+|-|\.|\/|\~|\<|\>|&|\||:|\? {
+<ctxGeneral>\(|\)|\{|\}|\[|\]|,|;|#|=|\*|\+|-|\.|\/|\~|\<|\>|&|\||:|\?|\! {
 	set_token_and_yyposn();
 	return yytext[0];
 }

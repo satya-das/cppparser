@@ -66,6 +66,7 @@ public:
   virtual void emitFunctionPtr(const CppFunctionPtr*	funcPtrObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitConstructor(const CppConstructor*	ctorObj,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitDestructor	(const CppDestructor*		dtorObj,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitTypeConverter	(const CppTypeCoverter* typeConverterObj, std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitDocComment	(const CppDocComment*		docCommentObj,std::ostream& stm, CppIndent indentation = CppIndent()) const;
 
   virtual void emitExpr		    (const CppExpr*				  exprObj,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;

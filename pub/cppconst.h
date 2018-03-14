@@ -50,7 +50,7 @@ enum CppOperType
 {
   kNone,
 
-  kUnariPrefixOperatorStart = 1,
+  kUnariPrefixOperatorStart,
   kUnaryMinus,    // -
   kBitToggle,     // ~
   kLogNot,        // ! (Logical not)
@@ -63,7 +63,7 @@ enum CppOperType
   kPostIncrement, // i++
   kPostDecrement, // i--
 
-  kBinaryOperatorStart = 50,
+  kBinaryOperatorStart,
   kPlus,        // +
   kMinus,       // -
   kMul,         // *
@@ -95,6 +95,8 @@ enum CppOperType
   kGreaterEqual,
   k3WayCmp,
   kComma,
+
+  kDerefOperatorStart,
   kDot,         // .
   kArrow,       // ->
   kArrowStar,

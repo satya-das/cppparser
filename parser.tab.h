@@ -117,6 +117,7 @@ typedef union {
   CppParamList*         paramList;
   CppConstructor*       cppCtorObj;
   CppDestructor*        cppDtorObj;
+  CppTypeCoverter*      cppTypeConverter;
   CppMemInitList*       memInitList;
   CppInheritanceList*   inheritList;
   CppCompoundType       compoundType;
