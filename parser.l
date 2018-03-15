@@ -588,6 +588,18 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknReinterpretCast;
 }
 
+<ctxGeneral>try/{TS}+ {
+	return tknTry;
+}
+
+<ctxGeneral>catch/{TS}+ {
+	return tknCatch;
+}
+
+<ctxGeneral>throw/{TS}+ {
+	return tknThrow;
+}
+
 <ctxGeneral>operator/{TS}+ {
 	set_token_and_yyposn();
 	return tknOperator;

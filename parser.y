@@ -169,6 +169,7 @@ extern int yylex();
 %token  <str>   tknPragma
 %token  <str>   tknEllipsis
 %token  <str>   tknConstCast tknStaticCast tknDynamicCast tknReinterpretCast
+%token  <str>   tknTry tknCatch tknThrow
 %token  <str>   tknOperator tknPlusEq tknMinusEq tknMulEq tknDivEq tknPerEq tknXorEq tknAndEq tknOrEq
 %token  <str>   tknLShift tknRShift tknLShiftEq tknRShiftEq tknCmpEq tknNotEq tknLessEq tknGreaterEq
 %token  <str>   tkn3WayCmp tknAnd tknOr tknInc tknDec tknArrow tknArrowStar
@@ -198,7 +199,7 @@ extern int yylex();
 %type  <cppVarObjList>      vardecllist vardeclliststmt
 %type  <paramList>          paramlist
 %type  <typedefObj>         typedefname typedefnamelist typedefnamestmt
-%type  <cppCompundObj>      stmtlist progunit classdefn classdefnstmt externcblock
+%type  <cppCompundObj>      stmtlist progunit classdefn classdefnstmt externcblock block
 %type  <templSpec>          templatespecifier temparglist
 %type  <templArg>           temparg tempargwodefault tempargwdefault
 %type  <docCommentObj>      doccomment
@@ -326,19 +327,21 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | include         { $$ = $1; }
                   | hashif          { $$ = $1; }
                   | pragma          { $$ = $1; }
+                  | block           { $$ = $1; }
+                  ;
+
+block             : '{' stmtlist '}' {
+                    $$ = $2 ? $2 : newCompound(kUnknownProt, kBlock);
+                  }
                   ;
 
 ifblock           : tknIf '(' expr ')' stmt {
                     $$ = new CppIfBlock($3);
                     $$->body_ = $5;
                   }
-                  | tknIf '(' expr ')' '{' stmtlist '}' {
-                    $$ = new CppIfBlock($3);
-                    $$->body_ = $6;
-                  }
-                  | ifblock tknElse '{' stmtlist '}' {
+                  | ifblock tknElse stmt {
                     $$ = $1;
-                    $$->elseBlock_ = $4;
+                    $$->else_ = $3;
                   }
                   ;
 
@@ -346,27 +349,16 @@ whileblock        : tknWhile '(' expr ')' stmt {
                     $$ = new CppWhileBlock($3);
                     $$->body_ = $5;
                   }
-                  | tknWhile '(' expr ')' '{' stmtlist '}' {
-                    $$ = new CppWhileBlock($3);
-                    $$->body_ = $6;
-                  }
                   ;
 
 dowhileblock      : tknDo stmt tknWhile '(' expr ')' {
                     $$ = new CppDoWhileBlock($5);
                     $$->body_ = $2;
                   }
-                  | tknDo '{' stmtlist '}' tknWhile '(' expr ')' {
-                    $$ = new CppDoWhileBlock($7);
-                    $$->body_ = $3;
-                  }
                   ;
 
 forblock          : tknFor '(' optexpr ';' optexpr ';' optexpr ')' stmt {
                     $$ = new CppForBlock($3, $5, $7, $9);
-                  }
-                  | tknFor '(' optexpr ';' optexpr ';' optexpr ')' '{' stmtlist '}' {
-                    $$ = new CppForBlock($3, $5, $7, $10);
                   }
                   ;
 
@@ -591,19 +583,18 @@ typeconverter     : tknOperator varqual '(' ')' {
 typeconverterstmt : typeconverter ';' [ZZVALID;] {
                     $$ = $1;
                   }
-                  | typeconverter '{' stmtlist '}' [ZZVALID;] {
+                  | typeconverter block [ZZVALID;] {
                     $$ = $1;
-                    $$->defn_ = $3;
+                    $$->defn_ = $2;
                   }
                   ;
 
 funcdeclstmt      : funcdecl ';' [ZZVALID;] { $$ = $1; }
                   ;
 
-funcdefn          : funcdecl '{' stmtlist '}' [ZZVALID;] {
+funcdefn          : funcdecl block [ZZVALID;] {
                     $$ = $1;
-                    $$->defn_ = $3 ? $3 : newCompound(kUnknownProt);
-                    $$->defn_->compoundType_ = kBlock;
+                    $$->defn_ = $2 ? $2 : newCompound(kUnknownProt, kBlock);
                   }
                   ;
 
@@ -792,22 +783,22 @@ meminitlist       : { $$ = NULL; }
 dtordeclstmt      : dtordecl ';' [ZZVALID;] { $$ = $1; }
                   ;
 
-dtordefn          : dtordecl '{' stmtlist '}' [ZZVALID;]
+dtordefn          : dtordecl block [ZZVALID;]
                   {
                     $$ = $1;
-                    $$->defn_ = $3 ? $3 : newCompound(kUnknownProt, kBlock);
+                    $$->defn_ = $2 ? $2 : newCompound(kUnknownProt, kBlock);
                   }
                   | tknID tknScopeResOp '~' tknID [if($1 != $4) YYERROR; else ZZVALID;]
-                    '(' ')' '{' stmtlist '}'
+                    '(' ')' block
                   {
                     $$ = newDestructor(gCurProtLevel, makeCppToken($1.sz, $4.sz+$4.len-$1.sz), 0);
-                    $$->defn_      = $9 ? $9 : newCompound(kUnknownProt, kBlock);
+                    $$->defn_      = $8 ? $8 : newCompound(kUnknownProt, kBlock);
                   }
                   | identifier tknScopeResOp tknID tknScopeResOp '~' tknID [if($3 != $6) YYERROR; else ZZVALID;]
-                    '(' ')' '{' stmtlist '}'
+                    '(' ')' block
                   {
                     $$ = newDestructor(gCurProtLevel, makeCppToken($1.sz, $6.sz+$6.len-$1.sz), 0);
-                    $$->defn_      = $11 ? $11 : newCompound(kUnknownProt, kBlock);
+                    $$->defn_      = $10 ? $10 : newCompound(kUnknownProt, kBlock);
                   }
                   ;
 
@@ -933,6 +924,7 @@ protlevel         :        { $$ = kUnknownProt;}
 
 fwddecl           : compoundSpecifier identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $2, $1); }
                   | compoundSpecifier apidocer identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $3, $1); }
+                  | tknFriend fwddecl [ZZVALID;]  { $$ = $2; $$->attr_ = kFriend; }
                   ;
 
 compoundSpecifier : tknClass    { $$ = kClass;    }
@@ -989,7 +981,7 @@ changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = kPublic;     }
                   | tknPrivate    ':'  [ZZVALID;] { $$ = kPrivate;    }
                   ;
 
-externcblock      : tknExternC '{' stmtlist '}' [ZZVALID;] {$$ = $3; $$->compoundType_ = kExternCBlock; }
+externcblock      : tknExternC block [ZZVALID;] {$$ = $2; $$->compoundType_ = kExternCBlock; }
                   ;
 
 exprlist          : expr              { $$ = new CppExprList(); $$->push_back($1);  }
@@ -1056,6 +1048,8 @@ expr              : tknStrLit                         { $$ = new CppExpr((std::s
                   | tknDelete  '[' ']' expr           { $$ = $4; $4->flags_ |= CppExpr::kDeleteArray;       }
                   | tknReturn  expr                   { $$ = $2; $2->flags_ |= CppExpr::kReturn;            }
                   | tknReturn                         { $$ = new CppExpr(CppExprAtom(), CppExpr::kReturn);  }
+                  | tknThrow  expr                    { $$ = $2; $2->flags_ |= CppExpr::kThrow;             }
+                  | tknThrow                          { $$ = new CppExpr(CppExprAtom(), CppExpr::kThrow);   }
                   ;
 
 exprstmt          : expr ';'  [ZZVALID;]              { $$ = $1; }

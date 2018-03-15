@@ -267,7 +267,10 @@ void CppWriter::emitTypedef(const CppTypedef* typedefObj, std::ostream& stm, Cpp
 
 void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
-  stm << indentation << fwdDeclObj->cmpType_ << ' ' << fwdDeclObj->name_ << ";\n";
+  stm << indentation;
+  if (fwdDeclObj->attr_ & kFriend)
+    stm << "friend ";
+  stm << fwdDeclObj->cmpType_ << ' ' << fwdDeclObj->name_ << ";\n";
 }
 
 void CppWriter::emitTemplSpec(const CppTemplateArgList* templSpec, std::ostream& stm, CppIndent indentation) const
@@ -712,6 +715,8 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
   stm << indentation;
   if (exprObj->flags_ & CppExpr::kReturn)
     stm << "return ";
+  if (exprObj->flags_ & CppExpr::kThrow)
+    stm << "throw ";
   if (exprObj->flags_ & CppExpr::kInitializer)
     stm << "{";
   if (exprObj->flags_ & CppExpr::kBracketed)
@@ -806,12 +811,12 @@ void CppWriter::emitIfBlock(const CppIfBlock* ifBlock, std::ostream& stm, CppInd
     emit(ifBlock->body_, stm, indentation);
   --indentation;
   stm << indentation << "}\n";
-  if (ifBlock->elseBlock_)
+  if (ifBlock->else_)
   {
     stm << indentation << "else \n";
     stm << indentation << "{\n";
     ++indentation;
-      emit(ifBlock->elseBlock_, stm, indentation);
+      emit(ifBlock->else_, stm, indentation);
     --indentation;
     stm << indentation << "}\n";
   }

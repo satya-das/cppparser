@@ -385,11 +385,13 @@ struct CppFwdClsDecl : public CppObj
 {
   CppCompoundType cmpType_;
   std::string		name_;
+  std::uint32_t attr_ {0};
 
   CppFwdClsDecl(CppObjProtLevel prot, std::string name, CppCompoundType cmpType)
     : CppObj	(CppObj::kFwdClsDecl, prot)
-    , cmpType_	(cmpType)
+    , cmpType_(cmpType)
     , name_		(std::move(name))
+    , attr_   (0)
   {
   }
 };
@@ -890,6 +892,7 @@ struct CppExpr : public CppObj
     kDeleteArray	= 0x10,
     kBracketed		= 0x20,
     kInitializer	= 0x40,
+    kThrow        = 0x80,
   };
   CppExprAtom expr1_;
   CppExprAtom expr2_;
@@ -938,11 +941,11 @@ struct CppCommonBlock : public CppObj
 
 struct CppIfBlock : public CppCommonBlock<CppObj::kIfBlock>
 {
-  CppCompound* elseBlock_{nullptr};
+  CppObj* else_{nullptr};
 
   CppIfBlock(CppExpr* cond)
     : CppCommonBlock(cond)
-    , elseBlock_ {nullptr}
+    , else_ {nullptr}
   {
   }
 };
