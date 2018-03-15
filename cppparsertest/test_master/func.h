@@ -23,8 +23,8 @@ void variousFunctionCallingTests()
 	add(2, 4) + sub(4, 1);
 	f(6);
 	// Member function tests
-	a . f();
-	a -> f();
+	a.f();
+	a->f();
 	// Function proc test
 	/* It is failing as of now.
 	double (*p)(double, double) = add;

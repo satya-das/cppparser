@@ -940,8 +940,11 @@ struct CppIfBlock : public CppCommonBlock<CppObj::kIfBlock>
 {
   CppCompound* elseBlock_{nullptr};
 
-  using BaseType = CppCommonBlock<CppObj::kIfBlock>;
-  using BaseType::BaseType;
+  CppIfBlock(CppExpr* cond)
+    : CppCommonBlock(cond)
+    , elseBlock_ {nullptr}
+  {
+  }
 };
 
 using CppWhileBlock = CppCommonBlock<CppObj::kWhileBlock>;

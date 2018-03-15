@@ -234,9 +234,6 @@ class OdRxObjectPtr
 			m_pObject = (OdRxObject*) pObject;
 			internalAddRef();
 		}
-		else 
-		{
-		}
 	}
 public:
   /** Description: 
@@ -482,9 +479,6 @@ public:
 		{
 			pRes.attach(pointer->queryX(desc()));
 		}
-		else 
-		{
-		}
 		return pRes;
 	}
   /** Description: Returns the static OdRxClass description object associated with this object. **/
@@ -581,9 +575,6 @@ void OdRxObjectPtr ::internalAddRef()
 	{
 		m_pObject->addRef();
 	}
-	else 
-	{
-	}
 }
 void OdRxObjectPtr ::release()
 {
@@ -591,9 +582,6 @@ void OdRxObjectPtr ::release()
 	{
 		m_pObject->release();
 		m_pObject = NULL;
-	}
-	else 
-	{
 	}
 }
 #	include "SmartPtr.h"
@@ -754,9 +742,6 @@ OdRxObject* odQueryXImpl(const Class* pThis, const OdRxClass* pClass)
 		if (!pObj)
 		{
 			pObj = pThis->Parent::queryX(pClass);
-		}
-		else 
-		{
 		}
 	}
 	return pObj;
