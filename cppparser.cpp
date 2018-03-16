@@ -25,7 +25,9 @@
 #include "cppobjfactory.h"
 #include "cppdom.h"
 
+#include <algorithm>
 #include <fstream>
+#include <vector>
 
 extern CppCompound* parseStream(char* stm, size_t stmSize);
 extern CppObjFactory* gObjFactory = nullptr;
@@ -62,20 +64,39 @@ CppProgram* CppParser::loadProgram(const char* szInputPath)
   return program;
 }
 
-void CppParser::loadProgram(const bfs::path& path, CppProgram& program)
+static void collectFiles(const bfs::path& path, std::vector<std::string>& files)
 {
   if (bfs::is_regular_file(path))
   {
-    CppCompound* cppdom = parseFile(path.string().c_str());
-    if (cppdom)
-      program.addCppDom(cppdom);
+    files.push_back(path.string());
   }
   else if (bfs::is_directory(path))
   {
     for (bfs::directory_iterator dirItr(path); dirItr != bfs::directory_iterator(); ++dirItr)
     {
-      loadProgram(*dirItr, program);
+      collectFiles(*dirItr, files);
     }
+  }
+}
+
+static std::vector<std::string> collectFiles(const bfs::path& path)
+{
+  std::vector<std::string> files;
+  collectFiles(path, files);
+  if (!files.empty())
+    std::sort(files.begin(), files.end());
+
+  return files;
+}
+
+void CppParser::loadProgram(const bfs::path& path, CppProgram& program)
+{
+  auto files = collectFiles(path);
+  for (const auto& f : files)
+  {
+    auto cppDom = parseFile(f.c_str());
+    if (cppDom)
+      program.addCppDom(cppDom);
   }
 }
 
