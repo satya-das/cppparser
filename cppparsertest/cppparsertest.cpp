@@ -60,6 +60,7 @@ static std::pair<size_t, size_t> performTest(const TestParam& params)
 
   CppWriter cppWriter;
   auto inputPathLen = params.inputPath.string().length();
+  std::vector<std::string> failedFiles;
   for (bfs::recursive_directory_iterator dirItr(params.inputPath); dirItr != bfs::recursive_directory_iterator(); ++dirItr)
   {
     bfs::path file = *dirItr;
@@ -81,9 +82,21 @@ static std::pair<size_t, size_t> performTest(const TestParam& params)
       }
       else
       {
-        std::cerr << "Parsing failed for " << file.string() << "\n";
+        auto filePathStr = file.string();
+        std::cerr << "Parsing failed for " << filePathStr << "\n";
+        failedFiles.push_back(filePathStr);
       }
       ++numFailed;
+    }
+  }
+  if (!failedFiles.empty())
+  {
+    std::cerr <<"\n\n";
+    std::cerr << "Parsing failire summary.\n------------------------\n";
+    std::cerr << "Parsing failed for following files:\n";
+    for (const auto& s : failedFiles)
+    {
+      std::cerr << s << '\n';
     }
   }
 
