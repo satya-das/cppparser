@@ -45,6 +45,7 @@ static bool parseAndEmitFormatted(const bfs::path& inputFilePath, const bfs::pat
   CppCompound* progUnit = parser.parseFile(inputFilePath.string().c_str());
   if (progUnit == NULL)
     return false;
+  bfs::create_directories(outputFilePath.parent_path());
   std::ofstream stm(outputFilePath.string());
   cppWriter.emit(progUnit, stm);
   delete progUnit;
@@ -58,18 +59,20 @@ static std::pair<size_t, size_t> performTest(const TestParam& params)
   size_t numFailed = 0;
 
   CppWriter cppWriter;
-  for (bfs::directory_iterator dirItr(params.inputPath); dirItr != bfs::directory_iterator(); ++dirItr)
+  auto inputPathLen = params.inputPath.string().length();
+  for (bfs::recursive_directory_iterator dirItr(params.inputPath); dirItr != bfs::recursive_directory_iterator(); ++dirItr)
   {
     bfs::path file = *dirItr;
     if (bfs::is_regular_file(file))
     {
       ++numInputFiles;
       std::cout << "CppParserTest: Parsing " << file.string() << "...\n";
-      bfs::path outfile = params.outputPath / file.filename();
+      auto fileRelPath = file.string().substr(inputPathLen);
+      bfs::path outfile = params.outputPath / fileRelPath;
       bfs::remove(outfile);
       if (parseAndEmitFormatted(file, outfile, cppWriter) && bfs::exists(outfile))
       {
-        bfs::path masfile = params.masterPath / file.filename();
+        bfs::path masfile = params.masterPath / fileRelPath;
         std::pair<int, int> diffStartInfo;
         auto rez = compareFiles(outfile, masfile, diffStartInfo);
         if (rez == kSameFiles)
