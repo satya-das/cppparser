@@ -478,6 +478,9 @@ enumdefn          : tknEnum optid '{' enumitemlist '}' ';'                      
                   | tknEnum tknClass tknID '{' enumitemlist '}' ';'                 [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $3, $5, true);
                   }
+                  | tknTypedef tknEnum optid '{' enumitemlist '}' tknID ';'         [ZZVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $7, $5);
+                  }
 
 enumfwddecl       : tknEnum tknID ':' identifier ';'                                [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $2, nullptr, false, $4);
