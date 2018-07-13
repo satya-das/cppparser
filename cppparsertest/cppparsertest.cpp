@@ -53,6 +53,17 @@ static bool parseAndEmitFormatted(const bfs::path& inputFilePath, const bfs::pat
   return true;
 }
 
+static bool performParsing(const std::string& inputPath)
+{
+  CppParser parser;
+  CppCompound* progUnit = parser.parseFile(inputPath.c_str());
+  if (progUnit == nullptr)
+    return false;
+  delete progUnit;
+
+  return true;
+}
+
 static std::pair<size_t, size_t> performTest(const TestParam& params)
 {
   size_t numInputFiles = 0;
@@ -107,19 +118,26 @@ int main(int argc, char** argv)
 {
   ArgParser argParser;
   auto optionParseResult = argParser.parse(argc, argv);
-  if ((optionParseResult != ArgParser::kSuccess) && (optionParseResult != ArgParser::kDefault))
+  if (optionParseResult == ArgParser::kParsingError)
   {
     argParser.emitError();
     return -1;
   }
-
-  auto params = argParser.extractParams();
-  auto result = performTest(params);
-  if (result.second)
+  else if (optionParseResult == ArgParser::kParseSingleFile)
   {
-    std::cerr << "CppParserTest: " << result.second << " tests failed out of " << result.first << ".\n";
-    return 1;
+      auto filePath = argParser.extractSingleFilePath();
+      performParsing(filePath);
   }
-  std::cout << "CppParserTest: All " << result.first << " tests passed without error.\n";
+  else
+  {
+    auto params = argParser.extractParamsForFullTest();
+    auto result = performTest(params);
+    if (result.second)
+    {
+      std::cerr << "CppParserTest: " << result.second << " tests failed out of " << result.first << ".\n";
+      return 1;
+    }
+    std::cout << "CppParserTest: All " << result.first << " tests passed without error.\n";
+  }
   return 0; // All went well.
 }
