@@ -415,6 +415,11 @@ void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, CppI
     stm << " const";
   if ((funcObj->attr_&kPureVirtual) == kPureVirtual)
     stm << " = 0";
+  else if ((funcObj->attr_&kOverride) == kOverride)
+    stm << " override";
+  else if ((funcObj->attr_&kFinal) == kFinal)
+    stm << " final";
+
   if (!skipParamName && funcObj->defn_ && (getEmittingType() != kHeader))
   {
     stm << '\n' << indentation++ << "{\n";
