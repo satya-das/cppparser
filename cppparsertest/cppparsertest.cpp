@@ -90,7 +90,8 @@ static std::pair<size_t, size_t> performTest(const TestParam& params)
 int main(int argc, char** argv)
 {
   ArgParser argParser;
-  if (argParser.parse(argc, argv) != ArgParser::kSuccess)
+  auto optionParseResult = argParser.parse(argc, argv);
+  if ((optionParseResult != ArgParser::kSuccess) && (optionParseResult != ArgParser::kDefault))
   {
     argParser.emitError();
     return -1;

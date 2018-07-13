@@ -54,6 +54,7 @@ struct TestParam
     outputPath.make_preferred();
     masterPath.make_preferred();
 
+    std::cout << outputPath.string() << std::endl;;
     bfs::create_directories(outputPath);
   }
 };
@@ -67,6 +68,7 @@ public:
   enum ParseResult
   {
     kSuccess,
+    kDefault,
     kHelpSought,
     kRequiredArgMissing,
     kWrongParamValue
@@ -95,11 +97,11 @@ public:
     bpo::notify(vm_);
     if (vm_.count("help"))
       return kHelpSought;
-    else if (vm_.count("input-folder") == 0)
-      return kRequiredArgMissing;
-    else if (vm_.count("output-folder") == 0)
-      return kRequiredArgMissing;
-    else if (vm_.count("master-files-folder") == 0)
+    if ((vm_.count("input-folder") == 0) &&
+        (vm_.count("output-folder") == 0) &&
+        (vm_.count("master-files-folder") == 0))
+      return kDefault;
+    else
       return kRequiredArgMissing;
 
     return kSuccess;
@@ -110,10 +112,16 @@ public:
     TestParam param;
     if (vm_.count("input-folder"))
       param.inputPath = vm_["input-folder"].as<std::string>();
+    else
+      param.inputPath = bfs::path(__FILE__).parent_path() / "test_input";
     if (vm_.count("output-folder"))
       param.outputPath = vm_["output-folder"].as<std::string>();
+    else
+      param.outputPath = bfs::path(__FILE__).parent_path() / "test_output";
     if (vm_.count("master-files-folder"))
       param.masterPath = vm_["master-files-folder"].as<std::string>();
+    else
+      param.masterPath = bfs::path(__FILE__).parent_path() / "test_master";
     param.setup();
     return param;
   }
