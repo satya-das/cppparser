@@ -176,7 +176,7 @@ extern int yylex();
 %token  <str>   '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
 %token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']'
 
-%token  tknConst tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile
+%token  tknConst tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile tknFinal
 
 %token  tknPreProHash /* When # is encountered for pre processor definition */
 %token  tknDefine tknUndef
@@ -478,6 +478,9 @@ enumdefn          : tknEnum optid '{' enumitemlist '}' ';'                      
                   | tknEnum tknClass tknID '{' enumitemlist '}' ';'                 [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $3, $5, true);
                   }
+                  | tknTypedef tknEnum optid '{' enumitemlist '}' tknID ';'         [ZZVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $7, $5);
+                  }
 
 enumfwddecl       : tknEnum tknID ':' identifier ';'                                [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $2, nullptr, false, $4);
@@ -708,6 +711,7 @@ functype          : /* empty */             { $$ = 0;           }
 funcattrib        :                           { $$ = 0; }
                   | funcattrib tknConst       { $$ = $1 | kConst; }
                   | funcattrib tknOverride    { $$ = $1 | kOverride; }
+                  | funcattrib tknFinal       { $$ = $1 | kFinal; }
                   | funcattrib '=' tknNumber  [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else ZZVALID;]
                                               { $$ = $1 | kPureVirtual; }
                   ;

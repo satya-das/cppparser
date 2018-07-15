@@ -507,6 +507,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknOverride;
 }
 
+<ctxGeneral>final/{TS}+ {
+	set_token_and_yyposn();
+	return tknFinal;
+}
+
 <ctxGeneral>extern/{TS}+ {
 	set_token_and_yyposn();
 	return tknExtern;

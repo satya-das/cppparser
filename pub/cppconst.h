@@ -130,6 +130,7 @@ enum CppIdentifierAttrib
   kArray        = 0x0800, // Identifier is an array.
   kConstExpr    = 0x1000,
   kVolatile     = 0x2000,
+  kFinal        = 0x4000,
 };
 
 /**
