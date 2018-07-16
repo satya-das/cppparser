@@ -797,6 +797,14 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
     emitExprAtom(exprObj->expr2_, stm);
     stm << ')';
   }
+  else if (exprObj->oper_ == kTertiaryOperator)
+  {
+    emitExprAtom(exprObj->expr1_, stm);
+    stm << " ? ";
+    emitExprAtom(exprObj->expr2_, stm);
+    stm << " : ";
+    emitExprAtom(exprObj->expr3_, stm);
+  }
 
   if (exprObj->flags_ & CppExpr::kBracketed)
     stm << ')';

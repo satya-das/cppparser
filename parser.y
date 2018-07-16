@@ -175,6 +175,7 @@ extern int yylex();
 %token  <str>   tkn3WayCmp tknAnd tknOr tknInc tknDec tknArrow tknArrowStar
 %token  <str>   '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
 %token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']'
+%token  <str>   tknNew tknDelete
 
 %token  tknConst tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile tknFinal
 
@@ -183,7 +184,7 @@ extern int yylex();
 %token  tknInclude tknStdHdrInclude
 %token  tknIf tknIfDef tknIfNDef tknElse tknElIf tknEndIf
 %token  tknFor tknWhile tknDo tknSwitch tknCase
-%token  tknNew tknDelete tknReturn
+%token  tknReturn
 
 %token  tknBlankLine
 
@@ -626,6 +627,12 @@ funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')
                     $$->docer1_ = $2;
                     $$->docer2_ = $4;
                   }
+                  | apidocer functype varqual apidocer funcname '(' paramlist ')' funcattrib {
+                    $$ = newFunction(gCurProtLevel, $5, $3, $7, $2 | $9);
+                    $$->docer1_ = $1;
+                    $$->docer2_ = $4;
+                  }
+
                   | apidocer varqual apidocer funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $4, $2, $6, $8);
                     $$->docer1_ = $1;
@@ -677,6 +684,10 @@ funcname          : identifier { $$ = $1; }
                   | tknOperator tknArrowStar { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   | tknOperator '(' ')' { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
                   | tknOperator '[' ']' { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
+                  | tknOperator tknNew { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknNew '[' ']' { $$ = makeCppToken($1.sz, $4.sz+$4.len-$1.sz); }
+                  | tknOperator tknDelete { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknDelete '[' ']' { $$ = makeCppToken($1.sz, $4.sz+$4.len-$1.sz); }
                   ;
 
 paramlist         : { $$ = 0; }
@@ -1017,6 +1028,7 @@ expr              : tknStrLit                         { $$ = new CppExpr((std::s
                   | expr '=' expr                     { $$ = new CppExpr($1, kEqual, $3);                   }
                   | expr '<' expr                     { $$ = new CppExpr($1, kLess, $3);                    }
                   | expr '>' expr                     { $$ = new CppExpr($1, kGreater, $3);                 }
+                  | expr '?' expr ':' expr            { $$ = new CppExpr($1, $3, $5);                       }
                   | expr tknPlusEq expr               { $$ = new CppExpr($1, kPlusEqual, $3);             }
                   | expr tknMinusEq expr               { $$ = new CppExpr($1, kMinusEqual, $3);             }
                   | expr tknMulEq expr               { $$ = new CppExpr($1, kMulEqual, $3);             }
