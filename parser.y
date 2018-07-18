@@ -189,14 +189,15 @@ extern int yylex();
 %token  tknBlankLine
 
 %type  <str>                apidocer
-%type  <str>                identifier vartype optid funcname typenamespecifier
+%type  <str>                identifier vartype optid basefuncname funcname typenamespecifier
 %type  <cppObj>             stmt functptrtype
 %type  <cppEnum>            enumdefn enumfwddecl
 %type  <enumItem>           enumitem
 %type  <enumItemList>       enumitemlist
 %type  <fwdDeclObj>         fwddecl
 %type  <cppVarObj>          varqual vardecl varinit vardeclstmt
-%type  <varOrFuncPtr>       param templateparam
+%type  <varOrFuncPtr>       param
+%type  <str>                templateparam /* For time being. We may need to make it more robust in future. */
 %type  <cppVarObjList>      vardecllist vardeclliststmt
 %type  <paramList>          paramlist
 %type  <typedefObj>         typedefname typedefnamelist typedefnamestmt
@@ -436,7 +437,6 @@ identifier        : tknID                                 { $$ = $1; }
                   | identifier tknEllipsis                { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   | identifier '<' templateparam '>'{
                     $$ = makeCppToken($1.sz, $4.sz+1-$1.sz);
-                    delete $3.cppObj; // We don't need template parameter
                   }
                   ;
 
@@ -644,7 +644,11 @@ funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')
                   }
                   ;
 
-funcname          : identifier { $$ = $1; }
+funcname          : basefuncname { $$ = $1; }
+                  | identifier tknScopeResOp basefuncname { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
+                  ;
+
+basefuncname      : tknID { $$ = $1; }
                   | tknOperator '+' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   | tknOperator '-' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   | tknOperator '*' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
@@ -707,8 +711,9 @@ param             : varinit                 { $$ = $1; $1->varAttr_ |= kFuncPara
                   | functionpointer         { $$ = $1; $1->attr_ |= kFuncParam;    }
                   ;
 
-templateparam     : varqual                 { $$ = $1; }
-                  | functionpointer         { $$ = $1; }
+templateparam     :                               { $$ = makeCppToken(nullptr, 0); }
+                  | identifier                    { $$ = $1; }
+                  | templateparam ',' identifier  { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
                   ;
 
 functype          : /* empty */             { $$ = 0;           }
@@ -762,6 +767,10 @@ ctordefn          : ctordecl meminitlist
                     $$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $5.sz+$5.len-$1.sz), $8, $10, 0);
                     $$->defn_      = $12 ? $12 : newCompound(gCurProtLevel, kBlock);
                   }
+                  | tknInline ctordefn {
+                    $$ = $2;
+                    $$->attr_ |= kInline;
+                  }
                   | templatespecifier ctordefn {
                     $$ = $2;
                     $$->templSpec_ = $1;
@@ -792,6 +801,7 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
 
 meminitlist       : { $$ = NULL; }
                   | ':' tknID '(' expr ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, $4)); }
+                  | ':' tknID '(' ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, nullptr)); }
                   | meminitlist ',' tknID '(' expr ')'  { $$ = $1; $$->push_back(CppMemInit($3, $5)); }
                   ;
 
@@ -817,19 +827,19 @@ dtordefn          : dtordecl block [ZZVALID;]
                   }
                   ;
 
-dtordecl          : '~' tknID '(' ')' %prec DTORDECL
+dtordecl          : apidocer '~' tknID '(' ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
-                    if(gCompoundStack.top() != $2)
+                    if(gCompoundStack.top() != $3)
                       YYERROR;
                     else
                       ZZVALID;
                   ]
                   {
-                    const char* tildaStartPos = $2.sz-1;
+                    const char* tildaStartPos = $3.sz-1;
                     while(*tildaStartPos != '~') --tildaStartPos;
-                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $2.sz+$2.len-tildaStartPos), 0);
+                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), 0);
                   }
                   | functype '~' tknID '(' ')' %prec DTORDECL
                   [
