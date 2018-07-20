@@ -645,6 +645,7 @@ funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')
                   ;
 
 funcname          : basefuncname { $$ = $1; }
+                  | identifier   { $$ = $1; }
                   | identifier tknScopeResOp basefuncname { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
                   ;
 
