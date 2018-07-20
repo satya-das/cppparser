@@ -425,17 +425,17 @@ doccomment        : tknDocBlockComment  [ZZVALID;] { $$ = new CppDocComment((std
                   ;
 
 identifier        : tknID                                 { $$ = $1; }
-                  | tknScopeResOp identifier              { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | identifier tknScopeResOp identifier   { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
+                  | tknScopeResOp identifier              { $$ = mergeCppToken($1, $2); }
+                  | identifier tknScopeResOp identifier   { $$ = mergeCppToken($1, $3); }
                   | tknLong                               { $$ = $1; }
-                  | tknLong identifier                    { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknLong identifier                    { $$ = mergeCppToken($1, $2); }
                   | tknNumSignSpec                        { $$ = $1; }
-                  | tknNumSignSpec identifier             { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknClass identifier                   { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknStruct identifier                  { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknUnion identifier                   { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknNumSignSpec identifier             { $$ = mergeCppToken($1, $2); }
+                  | tknClass identifier                   { $$ = mergeCppToken($1, $2); }
+                  | tknStruct identifier                  { $$ = mergeCppToken($1, $2); }
+                  | tknUnion identifier                   { $$ = mergeCppToken($1, $2); }
                   | tknEllipsis                           { $$ = $1; }
-                  | identifier tknEllipsis                { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
                   | identifier '<' templateparamlist '>'{
                     $$ = makeCppToken($1.sz, $4.sz+1-$1.sz);
                   }
@@ -444,7 +444,7 @@ identifier        : tknID                                 { $$ = $1; }
 vartype           : identifier                  { $$ = $1; }
                   ;
 
-optid             : { $$ = makeCppToken(0, 0); }
+optid             : { $$ = makeCppToken(nullptr, 0U); }
                   | tknID      { $$ = $1; }
                   ;
 
@@ -647,53 +647,53 @@ funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')
 
 funcname          : basefuncname { $$ = $1; }
                   | identifier   { $$ = $1; }
-                  | identifier tknScopeResOp basefuncname { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
+                  | identifier tknScopeResOp basefuncname { $$ = mergeCppToken($1, $3); }
                   ;
 
 basefuncname      : tknID { $$ = $1; }
-                  | tknOperator '+' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '-' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '*' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '/' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '%' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '^' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '&' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '|' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '~' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '!' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '=' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '<' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '>' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknPlusEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknMinusEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknMulEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknDivEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknPerEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknXorEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknAndEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknOrEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknLShift { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknRShift { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknLShiftEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknRShiftEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknCmpEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknNotEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknLessEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknGreaterEq { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tkn3WayCmp { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknAnd { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknOr { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknInc { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknDec { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator ',' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknArrow { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknArrowStar { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator '(' ')' { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
-                  | tknOperator '[' ']' { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
-                  | tknOperator tknNew { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknNew '[' ']' { $$ = makeCppToken($1.sz, $4.sz+$4.len-$1.sz); }
-                  | tknOperator tknDelete { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | tknOperator tknDelete '[' ']' { $$ = makeCppToken($1.sz, $4.sz+$4.len-$1.sz); }
+                  | tknOperator '+' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '-' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '*' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '/' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '%' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '^' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '&' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '|' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '~' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '!' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '=' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '<' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '>' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknPlusEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknMinusEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknMulEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknDivEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknPerEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknXorEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknAndEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknOrEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknLShift { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknRShift { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknLShiftEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknRShiftEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknCmpEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknNotEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknLessEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknGreaterEq { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tkn3WayCmp { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknAnd { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknOr { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknInc { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknDec { $$ = mergeCppToken($1, $2); }
+                  | tknOperator ',' { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknArrow { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknArrowStar { $$ = mergeCppToken($1, $2); }
+                  | tknOperator '(' ')' { $$ = mergeCppToken($1, $3); }
+                  | tknOperator '[' ']' { $$ = mergeCppToken($1, $3); }
+                  | tknOperator tknNew { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknNew '[' ']' { $$ = mergeCppToken($1, $4); }
+                  | tknOperator tknDelete { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknDelete '[' ']' { $$ = mergeCppToken($1, $4); }
                   ;
 
 paramlist         : { $$ = 0; }
@@ -713,9 +713,9 @@ param             : varinit                 { $$ = $1; $1->varAttr_ |= kFuncPara
                   | functionpointer         { $$ = $1; $1->attr_ |= kFuncParam;    }
                   ;
 
-templateparam     :                               { $$ = makeCppToken(nullptr, 0); }
+templateparam     :                               { $$ = makeCppToken(nullptr, 0U); }
                   | identifier                    { $$ = $1; }
-                  | tknConst templateparam        { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknConst templateparam        { $$ = mergeCppToken($1, $2); }
                   | templateparam '*'             {
                     auto p = $1.sz + $1.len;
                     while (*p && (*p != '*'))
@@ -727,7 +727,7 @@ templateparam     :                               { $$ = makeCppToken(nullptr, 0
                   ;
 
 templateparamlist : templateparam { $$ = $1; }
-                  | templateparamlist ',' templateparam  { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
+                  | templateparamlist ',' templateparam  { $$ = mergeCppToken($1, $3); }
                   ;
 
 functype          : /* empty */             { $$ = 0;           }
@@ -769,7 +769,7 @@ ctordefn          : ctordecl meminitlist
                       stmtlist
                     '}' [ZZVALID;]
                   {
-                    $$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $3.sz+$3.len-$1.sz), $6, $8, 0);
+                    $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $3), $6, $8, 0);
                     $$->defn_      = $10 ? $10 : newCompound(kUnknownProt, kBlock);
                   }
                   | identifier tknScopeResOp tknID tknScopeResOp tknID [if($3 != $5) YYERROR; else ZZVALID;]
@@ -830,7 +830,7 @@ dtordefn          : dtordecl block [ZZVALID;]
                   | tknID tknScopeResOp '~' tknID [if($1 != $4) YYERROR; else ZZVALID;]
                     '(' ')' block
                   {
-                    $$ = newDestructor(gCurProtLevel, makeCppToken($1.sz, $4.sz+$4.len-$1.sz), 0);
+                    $$ = newDestructor(gCurProtLevel, mergeCppToken($1, $4), 0);
                     $$->defn_      = $8 ? $8 : newCompound(kUnknownProt, kBlock);
                   }
                   | identifier tknScopeResOp tknID tknScopeResOp '~' tknID [if($3 != $6) YYERROR; else ZZVALID;]
@@ -1009,10 +1009,10 @@ typenamespecifier : tknTypename { $$ = $1; }
                   | tknClass    { $$ = $1; }
                   ;
 
-apidocer          :                     { $$ = makeCppToken(0, 0); }
+apidocer          :                     { $$ = makeCppToken(nullptr, 0U); }
                   | tknID               { $$ = $1; }
-                  | tknID '(' tknID ')' { $$ = makeCppToken($1.sz, $4.sz+$4.len-$1.sz); }
-                  | tknID tknID         { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknID '(' tknID ')' { $$ = mergeCppToken($1, $4); }
+                  | tknID tknID         { $$ = mergeCppToken($1, $2); }
                   ;
 
 changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = kPublic;     }
