@@ -610,6 +610,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknOperator;
 }
 
+<ctxGeneral>void/{TS}+ {
+	set_token_and_yyposn();
+	return tknVoid;
+}
+
 <ctxGeneral>"+=" {
 	set_token_and_yyposn();
 	return tknPlusEq;

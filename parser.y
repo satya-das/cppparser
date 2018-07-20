@@ -177,6 +177,7 @@ extern int yylex();
 %token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']'
 %token  <str>   tknNew tknDelete
 %token  <str>   tknConst // For templateparam parsing it is made as str type.
+%token  <str>   tknVoid // For the cases when void is used as function parameter.
 
 %token  tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile tknFinal
 
@@ -428,6 +429,7 @@ identifier        : tknID                                 { $$ = $1; }
                   | tknScopeResOp identifier              { $$ = mergeCppToken($1, $2); }
                   | identifier tknScopeResOp identifier   { $$ = mergeCppToken($1, $3); }
                   | tknLong                               { $$ = $1; }
+                  | tknVoid                               { $$ = $1; }
                   | tknLong identifier                    { $$ = mergeCppToken($1, $2); }
                   | tknNumSignSpec                        { $$ = $1; }
                   | tknNumSignSpec identifier             { $$ = mergeCppToken($1, $2); }
@@ -841,7 +843,7 @@ dtordefn          : dtordecl block [ZZVALID;]
                   }
                   ;
 
-dtordecl          : apidocer '~' tknID '(' ')' %prec DTORDECL
+dtordecl          : apidocer '~' tknID '(' optvoid ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
@@ -855,7 +857,7 @@ dtordecl          : apidocer '~' tknID '(' ')' %prec DTORDECL
                     while(*tildaStartPos != '~') --tildaStartPos;
                     $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), 0);
                   }
-                  | apidocer functype '~' tknID '(' ')' %prec DTORDECL
+                  | apidocer functype '~' tknID '(' optvoid ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
@@ -869,7 +871,7 @@ dtordecl          : apidocer '~' tknID '(' ')' %prec DTORDECL
                     while(*tildaStartPos != '~') --tildaStartPos;
                     $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $4.sz+$4.len-tildaStartPos), $2);
                   }
-                  | apidocer tknVirtual '~' tknID '(' ')' '=' tknNumber
+                  | apidocer tknVirtual '~' tknID '(' optvoid ')' '=' tknNumber
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
@@ -883,6 +885,10 @@ dtordecl          : apidocer '~' tknID '(' ')' %prec DTORDECL
                     while(*tildaStartPos != '~') --tildaStartPos;
                     $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $4.sz+$4.len-tildaStartPos), kPureVirtual);
                   }
+                  ;
+
+optvoid           :
+                  | tknVoid
                   ;
 
 vardecllist       : vardecl ',' optattr ptrlevelopt reftype optattr identifier optattr {
