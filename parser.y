@@ -842,33 +842,33 @@ dtordecl          : apidocer '~' tknID '(' ')' %prec DTORDECL
                     while(*tildaStartPos != '~') --tildaStartPos;
                     $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), 0);
                   }
-                  | functype '~' tknID '(' ')' %prec DTORDECL
+                  | apidocer functype '~' tknID '(' ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
-                    if(gCompoundStack.top() != $3)
+                    if(gCompoundStack.top() != $4)
                       YYERROR;
                     else
                       ZZVALID;
                   ]
                   {
-                    const char* tildaStartPos = $3.sz-1;
+                    const char* tildaStartPos = $4.sz-1;
                     while(*tildaStartPos != '~') --tildaStartPos;
-                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), $1);
+                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $4.sz+$4.len-tildaStartPos), $2);
                   }
-                  | tknVirtual '~' tknID '(' ')' '=' tknNumber
+                  | apidocer tknVirtual '~' tknID '(' ')' '=' tknNumber
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
-                    if(gCompoundStack.top() != $3)
+                    if(gCompoundStack.top() != $4)
                       YYERROR;
                     else
                       ZZVALID;
                   ]
                   {
-                    const char* tildaStartPos = $3.sz-1;
+                    const char* tildaStartPos = $4.sz-1;
                     while(*tildaStartPos != '~') --tildaStartPos;
-                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), kPureVirtual);
+                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $4.sz+$4.len-tildaStartPos), kPureVirtual);
                   }
                   ;
 
