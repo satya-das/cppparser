@@ -176,8 +176,9 @@ extern int yylex();
 %token  <str>   '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
 %token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']'
 %token  <str>   tknNew tknDelete
+%token  <str>   tknConst // For templateparam parsing it is made as str type.
 
-%token  tknConst tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile tknFinal
+%token  tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile tknFinal
 
 %token  tknPreProHash /* When # is encountered for pre processor definition */
 %token  tknDefine tknUndef
@@ -197,7 +198,7 @@ extern int yylex();
 %type  <fwdDeclObj>         fwddecl
 %type  <cppVarObj>          varqual vardecl varinit vardeclstmt
 %type  <varOrFuncPtr>       param
-%type  <str>                templateparam /* For time being. We may need to make it more robust in future. */
+%type  <str>                templateparam templateparamlist /* For time being. We may need to make it more robust in future. */
 %type  <cppVarObjList>      vardecllist vardeclliststmt
 %type  <paramList>          paramlist
 %type  <typedefObj>         typedefname typedefnamelist typedefnamestmt
@@ -435,7 +436,7 @@ identifier        : tknID                                 { $$ = $1; }
                   | tknUnion identifier                   { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   | tknEllipsis                           { $$ = $1; }
                   | identifier tknEllipsis                { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
-                  | identifier '<' templateparam '>'{
+                  | identifier '<' templateparamlist '>'{
                     $$ = makeCppToken($1.sz, $4.sz+1-$1.sz);
                   }
                   ;
@@ -714,7 +715,19 @@ param             : varinit                 { $$ = $1; $1->varAttr_ |= kFuncPara
 
 templateparam     :                               { $$ = makeCppToken(nullptr, 0); }
                   | identifier                    { $$ = $1; }
-                  | templateparam ',' identifier  { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
+                  | tknConst templateparam        { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | templateparam '*'             {
+                    auto p = $1.sz + $1.len;
+                    while (*p && (*p != '*'))
+                      ++p;
+                    if (*p == '*')
+                      ++p;
+                    $$ = makeCppToken($1.sz, p - $1.sz);
+                  }
+                  ;
+
+templateparamlist : templateparam { $$ = $1; }
+                  | templateparamlist ',' templateparam  { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
                   ;
 
 functype          : /* empty */             { $$ = 0;           }
