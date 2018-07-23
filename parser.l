@@ -512,6 +512,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknFinal;
 }
 
+<ctxGeneral>noexcept/{TS}+ {
+	set_token_and_yyposn();
+	return tknNoExcept;
+}
+
 <ctxGeneral>extern/{TS}+ {
 	set_token_and_yyposn();
 	return tknExtern;
@@ -543,6 +548,10 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>delete/{TS}+ {
 	return tknDelete;
+}
+
+<ctxGeneral>default/{TS}+ {
+	return tknDefault;
 }
 
 <ctxGeneral>return/{TS}+ {

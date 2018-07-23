@@ -133,6 +133,9 @@ enum CppIdentifierAttrib
   kConstExpr    = 0x1000,
   kVolatile     = 0x2000,
   kFinal        = 0x4000,
+  kDefault      = 0x8000,
+  kDelete       = 0x10000,
+  kNoExcept     = 0x20000,
 };
 
 /**

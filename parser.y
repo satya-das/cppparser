@@ -179,7 +179,7 @@ extern int yylex();
 %token  <str>   tknConst // For templateparam parsing it is made as str type.
 %token  <str>   tknVoid // For the cases when void is used as function parameter.
 
-%token  tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile tknFinal
+%token  tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile tknFinal tknNoExcept
 
 %token  tknPreProHash /* When # is encountered for pre processor definition */
 %token  tknDefine tknUndef
@@ -645,6 +645,14 @@ funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')
                     $$ = $2;
                     $$->templSpec_ = $1;
                   }
+                  | funcdecl '=' tknDelete {
+                    $$ = $1;
+                    $$->attr_ |= kDelete;
+                  }
+                  | funcdecl '=' tknDefault {
+                    $$ = $1;
+                    $$->attr_ |= kDefault;
+                  }
                   ;
 
 funcname          : basefuncname { $$ = $1; }
@@ -746,6 +754,7 @@ funcattrib        :                           { $$ = 0; }
                   | funcattrib tknFinal       { $$ = $1 | kFinal; }
                   | funcattrib '=' tknNumber  [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else ZZVALID;]
                                               { $$ = $1 | kPureVirtual; }
+                  | funcattrib tknNoExcept    { $$ = $1 | kNoExcept; }
                   ;
 
 optattr           : { $$ = 0; }
@@ -812,6 +821,14 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   | templatespecifier ctordecl {
                     $$ = $2;
                     $$->templSpec_ = $1;
+                  }
+                  | ctordecl '=' tknDelete {
+                    $$ = $1;
+                    $$->attr_ |= kDelete;
+                  }
+                  | ctordecl '=' tknDefault {
+                    $$ = $1;
+                    $$->attr_ |= kDefault;
                   }
                   ;
 
@@ -884,6 +901,14 @@ dtordecl          : apidocer '~' tknID '(' optvoid ')' %prec DTORDECL
                     const char* tildaStartPos = $4.sz-1;
                     while(*tildaStartPos != '~') --tildaStartPos;
                     $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $4.sz+$4.len-tildaStartPos), kPureVirtual);
+                  }
+                  | dtordecl '=' tknDelete {
+                    $$ = $1;
+                    $$->attr_ |= kDelete;
+                  }
+                  | dtordecl '=' tknDefault {
+                    $$ = $1;
+                    $$->attr_ |= kDefault;
                   }
                   ;
 
