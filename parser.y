@@ -645,6 +645,10 @@ funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')
                     $$ = $2;
                     $$->templSpec_ = $1;
                   }
+                  | templatespecifier tknInline funcdecl {
+                    $$ = $3;
+                    $$->templSpec_ = $1;
+                  }
                   | funcdecl '=' tknDelete {
                     $$ = $1;
                     $$->attr_ |= kDelete;
@@ -994,6 +998,10 @@ protlevel         :        { $$ = kUnknownProt;}
 
 fwddecl           : compoundSpecifier identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $2, $1); }
                   | compoundSpecifier apidocer identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $3, $1); }
+                  | templatespecifier fwddecl {
+                    // TODO: Assign template declaration to fwddecl.
+                    $$ = $2;
+                  }
                   | tknFriend fwddecl [ZZVALID;]  { $$ = $2; $$->attr_ = kFriend; }
                   ;
 
