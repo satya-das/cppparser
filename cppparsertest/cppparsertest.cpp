@@ -103,12 +103,12 @@ static std::pair<size_t, size_t> performTest(const TestParam& params)
   if (!failedFiles.empty())
   {
     std::cerr <<"\n\n";
-    std::cerr << "Parsing failire summary.\n------------------------\n";
-    std::cerr << "Parsing failed for following files:\n";
+    std::cerr << "Parsing failure summary.\n------------------------\n";
     for (const auto& s : failedFiles)
     {
       std::cerr << s << '\n';
     }
+    std::cerr << "Parsing failed for " << failedFiles.size() << " files.\n\n";
   }
 
   return std::make_pair(numInputFiles, numFailed);
