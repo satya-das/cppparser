@@ -191,7 +191,7 @@ extern int yylex();
 %token  tknBlankLine
 
 %type  <str>                apidocer
-%type  <str>                identifier vartype optid basefuncname funcname typenamespecifier
+%type  <str>                identifier templidentifier vartype optid basefuncname funcname typenamespecifier
 %type  <cppObj>             stmt functptrtype
 %type  <cppEnum>            enumdefn enumfwddecl
 %type  <enumItem>           enumitem
@@ -438,7 +438,10 @@ identifier        : tknID                                 { $$ = $1; }
                   | tknUnion identifier                   { $$ = mergeCppToken($1, $2); }
                   | tknEllipsis                           { $$ = $1; }
                   | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
-                  | identifier '<' templateparamlist '>'{
+                  | templidentifier                       { $$ = $1; }
+                  ;
+
+templidentifier   : identifier '<' templateparamlist '>' {
                     $$ = makeCppToken($1.sz, $4.sz+1-$1.sz);
                   }
                   ;
@@ -796,6 +799,15 @@ ctordefn          : ctordecl meminitlist
                     $$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $5.sz+$5.len-$1.sz), $8, $10, 0);
                     $$->defn_      = $12 ? $12 : newCompound(gCurProtLevel, kBlock);
                   }
+                  | tknID '<' templateparamlist '>' tknScopeResOp tknID [if($1 != $6) YYERROR; else ZZVALID;]
+                    '(' paramlist ')' meminitlist
+                    '{'
+                      stmtlist
+                    '}' [ZZVALID;]
+                  {
+                    $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $6), $9, $11, 0);
+                    $$->defn_      = $13 ? $13 : newCompound(gCurProtLevel, kBlock);
+                  }
                   | tknInline ctordefn {
                     $$ = $2;
                     $$->attr_ |= kInline;
@@ -859,8 +871,22 @@ dtordefn          : dtordecl block [ZZVALID;]
                   | identifier tknScopeResOp tknID tknScopeResOp '~' tknID [if($3 != $6) YYERROR; else ZZVALID;]
                     '(' ')' block
                   {
-                    $$ = newDestructor(gCurProtLevel, makeCppToken($1.sz, $6.sz+$6.len-$1.sz), 0);
+                    $$ = newDestructor(gCurProtLevel, mergeCppToken($1, $6), 0);
                     $$->defn_      = $10 ? $10 : newCompound(kUnknownProt, kBlock);
+                  }
+                  | tknID '<' templateparamlist '>' tknScopeResOp '~' tknID [if($1 != $7) YYERROR; else ZZVALID;]
+                    '(' ')' block
+                  {
+                    $$ = newDestructor(gCurProtLevel, mergeCppToken($1, $7), 0);
+                    $$->defn_      = $11 ? $11 : newCompound(kUnknownProt, kBlock);
+                  }
+                  | tknInline dtordefn {
+                    $$ = $2;
+                    $$->attr_ |= kInline;
+                  }
+                  | templatespecifier dtordefn {
+                    $$ = $2;
+                    $$->templSpec_ = $1;
                   }
                   ;
 

@@ -607,6 +607,7 @@ struct CppFunctionBase : public CppObj
   CppCompound*	defn_; // If it is nullptr then this object is just for declaration.
   std::string		docer1_; // e.g. __declspec(dllexport)
   std::string		docer2_; // e.g. __stdcall
+  CppTemplateArgList* templSpec_ {nullptr};
 
   bool isConst() const
   {
@@ -651,7 +652,6 @@ protected:
 struct CppFuncCtorBase : public CppFunctionBase
 {
   CppParamList*	params_;
-  CppTemplateArgList* templSpec_ {nullptr};
 
   bool hasParams() const
   {
