@@ -192,6 +192,7 @@ extern int yylex();
 
 %type  <str>                apidocer
 %type  <str>                identifier templidentifier vartype optid basefuncname funcname typenamespecifier
+%type  <str>                doccommentstr
 %type  <cppObj>             stmt functptrtype
 %type  <cppEnum>            enumdefn enumfwddecl
 %type  <enumItem>           enumitem
@@ -421,8 +422,13 @@ hashif            : tknPreProHash tknIf tknPreProDef            [ZZVALID;]  { $$
 pragma            : tknPreProHash tknPragma tknPreProDef        [ZZVALID;]  { $$ = new CppPragma($3); }
                   ;
 
-doccomment        : tknDocBlockComment  [ZZVALID;] { $$ = new CppDocComment((std::string) $1, gCurProtLevel); }
-                  | tknDocLineComment   [ZZVALID;] { $$ = new CppDocComment((std::string) $1, gCurProtLevel); }
+doccomment        : doccommentstr  [ZZVALID;] { $$ = new CppDocComment((std::string) $1, gCurProtLevel); }
+                  ;
+
+doccommentstr     : tknDocBlockComment  [ZZVALID;] { $$ = $1; }
+                  | tknDocLineComment   [ZZVALID;] { $$ = $1; }
+                  | doccommentstr tknDocBlockComment [ZZVALID;] { $$ = mergeCppToken($1, $2); }
+                  | doccommentstr tknDocLineComment  [ZZVALID;] { $$ = mergeCppToken($1, $2); }
                   ;
 
 identifier        : tknID                                 { $$ = $1; }
@@ -728,6 +734,7 @@ param             : varinit                 { $$ = $1; $1->varAttr_ |= kFuncPara
                   | vardecl                 { $$ = $1; $1->varAttr_ |= kFuncParam;  }
                   | varqual                 { $$ = $1; $1->varAttr_ |= kFuncParam;  }
                   | functionpointer         { $$ = $1; $1->attr_ |= kFuncParam;    }
+                  | doccomment param        { $$ = $2; }
                   ;
 
 templateparam     :                               { $$ = makeCppToken(nullptr, 0U); }
@@ -978,6 +985,12 @@ reftype           :      { $$ = kNoRef;    }
                   | '&' '&'  { $$ = kRValRef;  }
                   ;
 
+optcomment        : {
+                  }
+                  | doccomment [ZZVALID;] {
+                  }
+                  ;
+
 classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
                   | classdefn
                       [
@@ -991,7 +1004,7 @@ classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
                       }
                   ;
 
-classdefn         : compoundSpecifier apidocer tknID inheritlist
+classdefn         : compoundSpecifier apidocer tknID inheritlist optcomment
                     '{' [gCompoundStack.push($3); ZZVALID;] { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
                       stmtlist
                     '}' [gCompoundStack.pop(); ZZVALID;]
@@ -999,7 +1012,7 @@ classdefn         : compoundSpecifier apidocer tknID inheritlist
                     gCurProtLevel = gProtLevelStack.top();
                     gProtLevelStack.pop();
 
-                    $$ = $7 ? $7 : newCompound(gCurProtLevel);
+                    $$ = $8 ? $8 : newCompound(gCurProtLevel);
                     $$->compoundType_  = $1;
                     $$->apidocer_    = $2;
                     $$->name_      = $3;
