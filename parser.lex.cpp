@@ -1942,6 +1942,18 @@ static int gLog = 0;
     printf("@line#%d, ended state=%d and starting state=%d from source code line#%d\n", gLineNo, prevState, YYSTATE, __LINE__); \
 }
 
+static int LogAndReturn(int ret, int codelinenum, int srclinenum)
+{
+	if (gLog)
+	{
+		printf("Lex Info: code-line#%d: returning token %d with value '%s' found @line#%d\n",
+			codelinenum, ret, yytext, srclinenum);
+	}
+	return ret;
+}
+
+#define RETURN(ret)	return LogAndReturn(ret, __LINE__, gLineNo)
+
 //////////////////////////////////////////////////////////////////////////
 
 #ifdef WIN32
@@ -2020,7 +2032,7 @@ extern "C"
 This context starts after #if, #elif, and #pragma to capture everyting till a new line is not found.
 */
 
-#line 2024 "/home/dassat/github/cppparser/parser.lex.cpp"
+#line 2036 "/home/dassat/github/cppparser/parser.lex.cpp"
 
 #define INITIAL 0
 #define ctxGeneral 1
@@ -2265,10 +2277,10 @@ YY_DECL
 		}
 
 	{
-#line 161 "/home/dassat/github/cppparser/parser.l"
+#line 173 "/home/dassat/github/cppparser/parser.l"
 
 
-#line 2272 "/home/dassat/github/cppparser/parser.lex.cpp"
+#line 2284 "/home/dassat/github/cppparser/parser.lex.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -2351,7 +2363,7 @@ do_action:	/* This label is used only to access EOF actions. */
 	{ /* beginning of action switch */
 case 1:
 YY_RULE_SETUP
-#line 163 "/home/dassat/github/cppparser/parser.l"
+#line 175 "/home/dassat/github/cppparser/parser.l"
 {
 	/* Ignore white spaces */
 }
@@ -2359,7 +2371,7 @@ YY_RULE_SETUP
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 167 "/home/dassat/github/cppparser/parser.l"
+#line 179 "/home/dassat/github/cppparser/parser.l"
 {
 	// We will always ignore line continuation character
 	++gLineNo;
@@ -2368,7 +2380,7 @@ YY_RULE_SETUP
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 172 "/home/dassat/github/cppparser/parser.l"
+#line 184 "/home/dassat/github/cppparser/parser.l"
 {
 	++gLineNo;
 }
@@ -2376,26 +2388,26 @@ YY_RULE_SETUP
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 176 "/home/dassat/github/cppparser/parser.l"
+#line 188 "/home/dassat/github/cppparser/parser.l"
 {
 	++gLineNo;
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 180 "/home/dassat/github/cppparser/parser.l"
+#line 192 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknID;
+	RETURN(tknID);
 }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 185 "/home/dassat/github/cppparser/parser.l"
+#line 197 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknNumSignSpec;
+	RETURN(tknNumSignSpec);
 }
 	YY_BREAK
 case 7:
@@ -2405,19 +2417,19 @@ YY_LINENO_REWIND_TO(yy_bp + 4);
 (yy_c_buf_p) = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 190 "/home/dassat/github/cppparser/parser.l"
+#line 202 "/home/dassat/github/cppparser/parser.l"
 {
   set_token_and_yyposn();
-  return tknLong;
+  RETURN(tknLong);
 }
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 195 "/home/dassat/github/cppparser/parser.l"
+#line 207 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknTypedef;
+	RETURN(tknTypedef);
 }
 	YY_BREAK
 case 9:
@@ -2427,10 +2439,10 @@ YY_LINENO_REWIND_TO(yy_bp + 5);
 (yy_c_buf_p) = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 200 "/home/dassat/github/cppparser/parser.l"
+#line 212 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknClass;
+	RETURN(tknClass);
 }
 	YY_BREAK
 case 10:
@@ -2440,10 +2452,10 @@ YY_LINENO_REWIND_TO(yy_bp + 9);
 (yy_c_buf_p) = yy_cp = yy_bp + 9;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 205 "/home/dassat/github/cppparser/parser.l"
+#line 217 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknNamespace;
+	RETURN(tknNamespace);
 }
 	YY_BREAK
 case 11:
@@ -2453,10 +2465,10 @@ YY_LINENO_REWIND_TO(yy_bp + 6);
 (yy_c_buf_p) = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 210 "/home/dassat/github/cppparser/parser.l"
+#line 222 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknStruct;
+	RETURN(tknStruct);
 }
 	YY_BREAK
 case 12:
@@ -2466,10 +2478,10 @@ YY_LINENO_REWIND_TO(yy_bp + 5);
 (yy_c_buf_p) = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 215 "/home/dassat/github/cppparser/parser.l"
+#line 227 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknUnion;
+	RETURN(tknUnion);
 }
 	YY_BREAK
 case 13:
@@ -2479,10 +2491,10 @@ YY_LINENO_REWIND_TO(yy_bp + 4);
 (yy_c_buf_p) = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 220 "/home/dassat/github/cppparser/parser.l"
+#line 232 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknEnum;
+	RETURN(tknEnum);
 }
 	YY_BREAK
 case 14:
@@ -2492,10 +2504,10 @@ YY_LINENO_REWIND_TO(yy_bp + 6);
 (yy_c_buf_p) = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 225 "/home/dassat/github/cppparser/parser.l"
+#line 237 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknPublic;
+	RETURN(tknPublic);
 }
 	YY_BREAK
 case 15:
@@ -2505,10 +2517,10 @@ YY_LINENO_REWIND_TO(yy_bp + 9);
 (yy_c_buf_p) = yy_cp = yy_bp + 9;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 230 "/home/dassat/github/cppparser/parser.l"
+#line 242 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknProtected;
+	RETURN(tknProtected);
 }
 	YY_BREAK
 case 16:
@@ -2518,10 +2530,10 @@ YY_LINENO_REWIND_TO(yy_bp + 7);
 (yy_c_buf_p) = yy_cp = yy_bp + 7;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 235 "/home/dassat/github/cppparser/parser.l"
+#line 247 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknPrivate;
+	RETURN(tknPrivate);
 }
 	YY_BREAK
 case 17:
@@ -2531,10 +2543,10 @@ YY_LINENO_REWIND_TO(yy_bp + 8);
 (yy_c_buf_p) = yy_cp = yy_bp + 8;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 240 "/home/dassat/github/cppparser/parser.l"
+#line 252 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknTemplate;
+	RETURN(tknTemplate);
 }
 	YY_BREAK
 case 18:
@@ -2544,15 +2556,15 @@ YY_LINENO_REWIND_TO(yy_bp + 8);
 (yy_c_buf_p) = yy_cp = yy_bp + 8;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 245 "/home/dassat/github/cppparser/parser.l"
+#line 257 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknTypename;
+	RETURN(tknTypename);
 }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 250 "/home/dassat/github/cppparser/parser.l"
+#line 262 "/home/dassat/github/cppparser/parser.l"
 {
 	oyytext = yytext;
   BEGINCONTEXT(ctxDocBlockComment);
@@ -2560,51 +2572,51 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 255 "/home/dassat/github/cppparser/parser.l"
+#line 267 "/home/dassat/github/cppparser/parser.l"
 {
 	yylval.str = makeCppToken(oyytext, yytext+yyleng-oyytext);
   ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
-	return tknDocBlockComment;
+	RETURN(tknDocBlockComment);
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 261 "/home/dassat/github/cppparser/parser.l"
+#line 273 "/home/dassat/github/cppparser/parser.l"
 {
   BEGINCONTEXT(ctxBlockComment);
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 264 "/home/dassat/github/cppparser/parser.l"
+#line 276 "/home/dassat/github/cppparser/parser.l"
 {
 }
 	YY_BREAK
 case 23:
 /* rule 23 can match eol */
 YY_RULE_SETUP
-#line 266 "/home/dassat/github/cppparser/parser.l"
+#line 278 "/home/dassat/github/cppparser/parser.l"
 {
   ++gLineNo;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 269 "/home/dassat/github/cppparser/parser.l"
+#line 281 "/home/dassat/github/cppparser/parser.l"
 {
 }
 	YY_BREAK
 case 25:
 /* rule 25 can match eol */
 YY_RULE_SETUP
-#line 271 "/home/dassat/github/cppparser/parser.l"
+#line 283 "/home/dassat/github/cppparser/parser.l"
 {
   ++gLineNo;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 274 "/home/dassat/github/cppparser/parser.l"
+#line 286 "/home/dassat/github/cppparser/parser.l"
 {
   ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
   /* Ignore block comment if it does not stand all alone */
@@ -2612,25 +2624,25 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 279 "/home/dassat/github/cppparser/parser.l"
+#line 291 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknDocLineComment;
+	RETURN(tknDocLineComment);
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 284 "/home/dassat/github/cppparser/parser.l"
+#line 296 "/home/dassat/github/cppparser/parser.l"
 {
 }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 287 "/home/dassat/github/cppparser/parser.l"
+#line 299 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	BEGINCONTEXT(ctxPreprocessor);
-	return tknPreProHash;
+	RETURN(tknPreProHash);
 }
 	YY_BREAK
 case 30:
@@ -2638,12 +2650,12 @@ case 30:
 (yy_c_buf_p) = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 293 "/home/dassat/github/cppparser/parser.l"
+#line 305 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
   ENDCONTEXT();
   BEGINCONTEXT(ctxDefine);
-	return tknDefine;
+	RETURN(tknDefine);
 
 	/*
 	Parsing of #define is tricky
@@ -2661,19 +2673,19 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 313 "/home/dassat/github/cppparser/parser.l"
+#line 325 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
   ENDCONTEXT();
 	BEGINCONTEXT(ctxDefineDefn);
 	gDefLooksLike = kNoDef;
 	oyytext = 0;
-	return tknID;
+	RETURN(tknID);
 }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 322 "/home/dassat/github/cppparser/parser.l"
+#line 334 "/home/dassat/github/cppparser/parser.l"
 {
 	if(gDefLooksLike == kNoDef)
 	{
@@ -2695,7 +2707,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 341 "/home/dassat/github/cppparser/parser.l"
+#line 353 "/home/dassat/github/cppparser/parser.l"
 {
 	if(gDefLooksLike == kNoDef || gDefLooksLike == kStrLitDef || gDefLooksLike == kReDef)
 	{
@@ -2711,7 +2723,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 354 "/home/dassat/github/cppparser/parser.l"
+#line 366 "/home/dassat/github/cppparser/parser.l"
 {
 	if(gDefLooksLike == kNoDef)
 	{
@@ -2726,7 +2738,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 366 "/home/dassat/github/cppparser/parser.l"
+#line 378 "/home/dassat/github/cppparser/parser.l"
 {
 	if(gDefLooksLike == kNoDef)
 	{
@@ -2741,7 +2753,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 378 "/home/dassat/github/cppparser/parser.l"
+#line 390 "/home/dassat/github/cppparser/parser.l"
 { // Any unrecognized character other than whitespace indicates a complex #define
 	gDefLooksLike = kComplexDef;
 	if(oyytext == 0)
@@ -2751,19 +2763,19 @@ YY_RULE_SETUP
 case 37:
 /* rule 37 can match eol */
 YY_RULE_SETUP
-#line 384 "/home/dassat/github/cppparser/parser.l"
+#line 396 "/home/dassat/github/cppparser/parser.l"
 {
 	yylval.str = makeCppToken(oyytext, yytext-oyytext);
   ENDCONTEXT();
   ++gLineNo;
 	if(gDefLooksLike != kNoDef)
-		return gDefLooksLike;
+		RETURN(gDefLooksLike);
 }
 	YY_BREAK
 case 38:
 /* rule 38 can match eol */
 YY_RULE_SETUP
-#line 392 "/home/dassat/github/cppparser/parser.l"
+#line 404 "/home/dassat/github/cppparser/parser.l"
 {
 	/* Ignore line comment when it does not stand alone in a line. */
 	// We are also ignoring the last new-line character
@@ -2776,10 +2788,10 @@ case 39:
 (yy_c_buf_p) = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 399 "/home/dassat/github/cppparser/parser.l"
+#line 411 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknUndef;
+	RETURN(tknUndef);
 }
 	YY_BREAK
 case 40:
@@ -2787,26 +2799,26 @@ case 40:
 (yy_c_buf_p) = yy_cp = yy_bp + 7;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 404 "/home/dassat/github/cppparser/parser.l"
+#line 416 "/home/dassat/github/cppparser/parser.l"
 {
   ENDCONTEXT();
 	set_token_and_yyposn();
 	BEGINCONTEXT(ctxInclude);
-	return tknInclude;
+	RETURN(tknInclude);
 }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 411 "/home/dassat/github/cppparser/parser.l"
+#line 423 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknStdHdrInclude;
+	RETURN(tknStdHdrInclude);
 }
 	YY_BREAK
 case 42:
 /* rule 42 can match eol */
 YY_RULE_SETUP
-#line 416 "/home/dassat/github/cppparser/parser.l"
+#line 428 "/home/dassat/github/cppparser/parser.l"
 {
   ENDCONTEXT();
 	++gLineNo;
@@ -2817,13 +2829,13 @@ case 43:
 (yy_c_buf_p) = yy_cp = yy_bp + 2;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 421 "/home/dassat/github/cppparser/parser.l"
+#line 433 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
   ENDCONTEXT();
   BEGINCONTEXT(ctxPreProBody);
-	return tknIf;
+	RETURN(tknIf);
 }
 	YY_BREAK
 case 44:
@@ -2831,10 +2843,10 @@ case 44:
 (yy_c_buf_p) = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 429 "/home/dassat/github/cppparser/parser.l"
+#line 441 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknIfDef;
+	RETURN(tknIfDef);
 }
 	YY_BREAK
 case 45:
@@ -2842,10 +2854,10 @@ case 45:
 (yy_c_buf_p) = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 434 "/home/dassat/github/cppparser/parser.l"
+#line 446 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknIfNDef;
+	RETURN(tknIfNDef);
 }
 	YY_BREAK
 case 46:
@@ -2855,10 +2867,10 @@ YY_LINENO_REWIND_TO(yy_bp + 4);
 (yy_c_buf_p) = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 439 "/home/dassat/github/cppparser/parser.l"
+#line 451 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknElse;
+	RETURN(tknElse);
 }
 	YY_BREAK
 case 47:
@@ -2866,13 +2878,13 @@ case 47:
 (yy_c_buf_p) = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 444 "/home/dassat/github/cppparser/parser.l"
+#line 456 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
   ENDCONTEXT();
   BEGINCONTEXT(ctxPreProBody);
-	return tknElIf;
+	RETURN(tknElIf);
 }
 	YY_BREAK
 case 48:
@@ -2882,10 +2894,10 @@ YY_LINENO_REWIND_TO(yy_bp + 5);
 (yy_c_buf_p) = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 452 "/home/dassat/github/cppparser/parser.l"
+#line 464 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknEndIf;
+	RETURN(tknEndIf);
 }
 	YY_BREAK
 case 49:
@@ -2893,36 +2905,36 @@ case 49:
 (yy_c_buf_p) = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 457 "/home/dassat/github/cppparser/parser.l"
+#line 469 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
 	oyytext = yytext+yyleng;
   ENDCONTEXT();
   BEGINCONTEXT(ctxPreProBody);
-	return tknPragma;
+	RETURN(tknPragma);
 }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 465 "/home/dassat/github/cppparser/parser.l"
+#line 477 "/home/dassat/github/cppparser/parser.l"
 {
 }
 	YY_BREAK
 case 51:
 /* rule 51 can match eol */
 YY_RULE_SETUP
-#line 468 "/home/dassat/github/cppparser/parser.l"
+#line 480 "/home/dassat/github/cppparser/parser.l"
 {
 	yylval.str = makeCppToken(oyytext, yytext-oyytext);
   ENDCONTEXT();
 	++gLineNo;
-	return tknPreProDef;
+	RETURN(tknPreProDef);
 }
 	YY_BREAK
 case 52:
 /* rule 52 can match eol */
 YY_RULE_SETUP
-#line 475 "/home/dassat/github/cppparser/parser.l"
+#line 487 "/home/dassat/github/cppparser/parser.l"
 {
   ENDCONTEXT();
 	++gLineNo;
@@ -2930,10 +2942,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 480 "/home/dassat/github/cppparser/parser.l"
+#line 492 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknScopeResOp;
+	RETURN(tknScopeResOp);
 }
 	YY_BREAK
 case 54:
@@ -2943,10 +2955,10 @@ YY_LINENO_REWIND_TO(yy_bp + 5);
 (yy_c_buf_p) = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 485 "/home/dassat/github/cppparser/parser.l"
+#line 497 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknConst;
+	RETURN(tknConst);
 }
 	YY_BREAK
 case 55:
@@ -2956,10 +2968,10 @@ YY_LINENO_REWIND_TO(yy_bp + 6);
 (yy_c_buf_p) = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 490 "/home/dassat/github/cppparser/parser.l"
+#line 502 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknStatic;
+	RETURN(tknStatic);
 }
 	YY_BREAK
 case 56:
@@ -2969,10 +2981,10 @@ YY_LINENO_REWIND_TO(yy_bp + 6);
 (yy_c_buf_p) = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 495 "/home/dassat/github/cppparser/parser.l"
+#line 507 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknInline;
+	RETURN(tknInline);
 }
 	YY_BREAK
 case 57:
@@ -2982,10 +2994,10 @@ YY_LINENO_REWIND_TO(yy_bp + 7);
 (yy_c_buf_p) = yy_cp = yy_bp + 7;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 500 "/home/dassat/github/cppparser/parser.l"
+#line 512 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknVirtual;
+	RETURN(tknVirtual);
 }
 	YY_BREAK
 case 58:
@@ -2995,10 +3007,10 @@ YY_LINENO_REWIND_TO(yy_bp + 8);
 (yy_c_buf_p) = yy_cp = yy_bp + 8;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 505 "/home/dassat/github/cppparser/parser.l"
+#line 517 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknOverride;
+	RETURN(tknOverride);
 }
 	YY_BREAK
 case 59:
@@ -3008,10 +3020,10 @@ YY_LINENO_REWIND_TO(yy_bp + 5);
 (yy_c_buf_p) = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 510 "/home/dassat/github/cppparser/parser.l"
+#line 522 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknFinal;
+	RETURN(tknFinal);
 }
 	YY_BREAK
 case 60:
@@ -3021,10 +3033,10 @@ YY_LINENO_REWIND_TO(yy_bp + 8);
 (yy_c_buf_p) = yy_cp = yy_bp + 8;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 515 "/home/dassat/github/cppparser/parser.l"
+#line 527 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknNoExcept;
+	RETURN(tknNoExcept);
 }
 	YY_BREAK
 case 61:
@@ -3034,10 +3046,10 @@ YY_LINENO_REWIND_TO(yy_bp + 6);
 (yy_c_buf_p) = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 520 "/home/dassat/github/cppparser/parser.l"
+#line 532 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknExtern;
+	RETURN(tknExtern);
 }
 	YY_BREAK
 case 62:
@@ -3047,10 +3059,10 @@ YY_LINENO_REWIND_TO(yy_bp + 8);
 (yy_c_buf_p) = yy_cp = yy_bp + 8;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 525 "/home/dassat/github/cppparser/parser.l"
+#line 537 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknExplicit;
+	RETURN(tknExplicit);
 }
 	YY_BREAK
 case 63:
@@ -3060,18 +3072,18 @@ YY_LINENO_REWIND_TO(yy_bp + 6);
 (yy_c_buf_p) = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 530 "/home/dassat/github/cppparser/parser.l"
+#line 542 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknFriend;
+	RETURN(tknFriend);
 }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 535 "/home/dassat/github/cppparser/parser.l"
+#line 547 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknExternC;
+	RETURN(tknExternC);
 }
 	YY_BREAK
 case 65:
@@ -3081,10 +3093,10 @@ YY_LINENO_REWIND_TO(yy_bp + 8);
 (yy_c_buf_p) = yy_cp = yy_bp + 8;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 540 "/home/dassat/github/cppparser/parser.l"
+#line 552 "/home/dassat/github/cppparser/parser.l"
 {
   set_token_and_yyposn();
-  return tknVolatile;
+  RETURN(tknVolatile);
 }
 	YY_BREAK
 case 66:
@@ -3094,9 +3106,9 @@ YY_LINENO_REWIND_TO(yy_bp + 3);
 (yy_c_buf_p) = yy_cp = yy_bp + 3;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 545 "/home/dassat/github/cppparser/parser.l"
+#line 557 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknNew;
+	RETURN(tknNew);
 }
 	YY_BREAK
 case 67:
@@ -3106,9 +3118,9 @@ YY_LINENO_REWIND_TO(yy_bp + 6);
 (yy_c_buf_p) = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 549 "/home/dassat/github/cppparser/parser.l"
+#line 561 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknDelete;
+	RETURN(tknDelete);
 }
 	YY_BREAK
 case 68:
@@ -3118,9 +3130,9 @@ YY_LINENO_REWIND_TO(yy_bp + 7);
 (yy_c_buf_p) = yy_cp = yy_bp + 7;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 553 "/home/dassat/github/cppparser/parser.l"
+#line 565 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknDefault;
+	RETURN(tknDefault);
 }
 	YY_BREAK
 case 69:
@@ -3130,9 +3142,9 @@ YY_LINENO_REWIND_TO(yy_bp + 6);
 (yy_c_buf_p) = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 557 "/home/dassat/github/cppparser/parser.l"
+#line 569 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknReturn;
+	RETURN(tknReturn);
 }
 	YY_BREAK
 case 70:
@@ -3142,9 +3154,9 @@ YY_LINENO_REWIND_TO(yy_bp + 2);
 (yy_c_buf_p) = yy_cp = yy_bp + 2;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 561 "/home/dassat/github/cppparser/parser.l"
+#line 573 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknIf;
+	RETURN(tknIf);
 }
 	YY_BREAK
 case 71:
@@ -3154,9 +3166,9 @@ YY_LINENO_REWIND_TO(yy_bp + 4);
 (yy_c_buf_p) = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 565 "/home/dassat/github/cppparser/parser.l"
+#line 577 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknElse;
+	RETURN(tknElse);
 }
 	YY_BREAK
 case 72:
@@ -3166,9 +3178,9 @@ YY_LINENO_REWIND_TO(yy_bp + 3);
 (yy_c_buf_p) = yy_cp = yy_bp + 3;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 569 "/home/dassat/github/cppparser/parser.l"
+#line 581 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknFor;
+	RETURN(tknFor);
 }
 	YY_BREAK
 case 73:
@@ -3178,9 +3190,9 @@ YY_LINENO_REWIND_TO(yy_bp + 2);
 (yy_c_buf_p) = yy_cp = yy_bp + 2;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 573 "/home/dassat/github/cppparser/parser.l"
+#line 585 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknDo;
+	RETURN(tknDo);
 }
 	YY_BREAK
 case 74:
@@ -3190,9 +3202,9 @@ YY_LINENO_REWIND_TO(yy_bp + 5);
 (yy_c_buf_p) = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 577 "/home/dassat/github/cppparser/parser.l"
+#line 589 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknWhile;
+	RETURN(tknWhile);
 }
 	YY_BREAK
 case 75:
@@ -3202,9 +3214,9 @@ YY_LINENO_REWIND_TO(yy_bp + 6);
 (yy_c_buf_p) = yy_cp = yy_bp + 6;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 581 "/home/dassat/github/cppparser/parser.l"
+#line 593 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknSwitch;
+	RETURN(tknSwitch);
 }
 	YY_BREAK
 case 76:
@@ -3214,9 +3226,9 @@ YY_LINENO_REWIND_TO(yy_bp + 4);
 (yy_c_buf_p) = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 585 "/home/dassat/github/cppparser/parser.l"
+#line 597 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknCase;
+	RETURN(tknCase);
 }
 	YY_BREAK
 case 77:
@@ -3226,9 +3238,9 @@ YY_LINENO_REWIND_TO(yy_bp + 10);
 (yy_c_buf_p) = yy_cp = yy_bp + 10;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 589 "/home/dassat/github/cppparser/parser.l"
+#line 601 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknConstCast;
+	RETURN(tknConstCast);
 }
 	YY_BREAK
 case 78:
@@ -3238,9 +3250,9 @@ YY_LINENO_REWIND_TO(yy_bp + 11);
 (yy_c_buf_p) = yy_cp = yy_bp + 11;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 593 "/home/dassat/github/cppparser/parser.l"
+#line 605 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknStaticCast;
+	RETURN(tknStaticCast);
 }
 	YY_BREAK
 case 79:
@@ -3250,9 +3262,9 @@ YY_LINENO_REWIND_TO(yy_bp + 12);
 (yy_c_buf_p) = yy_cp = yy_bp + 12;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 597 "/home/dassat/github/cppparser/parser.l"
+#line 609 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknDynamicCast;
+	RETURN(tknDynamicCast);
 }
 	YY_BREAK
 case 80:
@@ -3262,9 +3274,9 @@ YY_LINENO_REWIND_TO(yy_bp + 16);
 (yy_c_buf_p) = yy_cp = yy_bp + 16;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 601 "/home/dassat/github/cppparser/parser.l"
+#line 613 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknReinterpretCast;
+	RETURN(tknReinterpretCast);
 }
 	YY_BREAK
 case 81:
@@ -3274,9 +3286,9 @@ YY_LINENO_REWIND_TO(yy_bp + 3);
 (yy_c_buf_p) = yy_cp = yy_bp + 3;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 605 "/home/dassat/github/cppparser/parser.l"
+#line 617 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknTry;
+	RETURN(tknTry);
 }
 	YY_BREAK
 case 82:
@@ -3286,9 +3298,9 @@ YY_LINENO_REWIND_TO(yy_bp + 5);
 (yy_c_buf_p) = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 609 "/home/dassat/github/cppparser/parser.l"
+#line 621 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknCatch;
+	RETURN(tknCatch);
 }
 	YY_BREAK
 case 83:
@@ -3298,9 +3310,9 @@ YY_LINENO_REWIND_TO(yy_bp + 5);
 (yy_c_buf_p) = yy_cp = yy_bp + 5;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 613 "/home/dassat/github/cppparser/parser.l"
+#line 625 "/home/dassat/github/cppparser/parser.l"
 {
-	return tknThrow;
+	RETURN(tknThrow);
 }
 	YY_BREAK
 case 84:
@@ -3310,10 +3322,10 @@ YY_LINENO_REWIND_TO(yy_bp + 8);
 (yy_c_buf_p) = yy_cp = yy_bp + 8;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 617 "/home/dassat/github/cppparser/parser.l"
+#line 629 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknOperator;
+	RETURN(tknOperator);
 }
 	YY_BREAK
 case 85:
@@ -3323,250 +3335,250 @@ YY_LINENO_REWIND_TO(yy_bp + 4);
 (yy_c_buf_p) = yy_cp = yy_bp + 4;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 622 "/home/dassat/github/cppparser/parser.l"
+#line 634 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknVoid;
+	RETURN(tknVoid);
 }
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 627 "/home/dassat/github/cppparser/parser.l"
+#line 639 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknPlusEq;
+	RETURN(tknPlusEq);
 }
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 632 "/home/dassat/github/cppparser/parser.l"
+#line 644 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknMinusEq;
+	RETURN(tknMinusEq);
 }
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 637 "/home/dassat/github/cppparser/parser.l"
+#line 649 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknMulEq;
+	RETURN(tknMulEq);
 }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 642 "/home/dassat/github/cppparser/parser.l"
+#line 654 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknMulEq;
+	RETURN(tknMulEq);
 }
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 647 "/home/dassat/github/cppparser/parser.l"
+#line 659 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknDivEq;
+	RETURN(tknDivEq);
 }
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 652 "/home/dassat/github/cppparser/parser.l"
+#line 664 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknPerEq;
+	RETURN(tknPerEq);
 }
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
-#line 657 "/home/dassat/github/cppparser/parser.l"
+#line 669 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknXorEq;
+	RETURN(tknXorEq);
 }
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 662 "/home/dassat/github/cppparser/parser.l"
+#line 674 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknAndEq;
+	RETURN(tknAndEq);
 }
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 667 "/home/dassat/github/cppparser/parser.l"
+#line 679 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknOrEq;
+	RETURN(tknOrEq);
 }
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
-#line 672 "/home/dassat/github/cppparser/parser.l"
+#line 684 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknLShift;
+	RETURN(tknLShift);
 }
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
-#line 677 "/home/dassat/github/cppparser/parser.l"
+#line 689 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknRShift;
+	RETURN(tknRShift);
 }
 	YY_BREAK
 case 97:
 YY_RULE_SETUP
-#line 682 "/home/dassat/github/cppparser/parser.l"
+#line 694 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknLShiftEq;
+	RETURN(tknLShiftEq);
 }
 	YY_BREAK
 case 98:
 YY_RULE_SETUP
-#line 687 "/home/dassat/github/cppparser/parser.l"
+#line 699 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknRShiftEq;
+	RETURN(tknRShiftEq);
 }
 	YY_BREAK
 case 99:
 YY_RULE_SETUP
-#line 692 "/home/dassat/github/cppparser/parser.l"
+#line 704 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknCmpEq;
+	RETURN(tknCmpEq);
 }
 	YY_BREAK
 case 100:
 YY_RULE_SETUP
-#line 697 "/home/dassat/github/cppparser/parser.l"
+#line 709 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknNotEq;
+	RETURN(tknNotEq);
 }
 	YY_BREAK
 case 101:
 YY_RULE_SETUP
-#line 702 "/home/dassat/github/cppparser/parser.l"
+#line 714 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknLessEq;
+	RETURN(tknLessEq);
 }
 	YY_BREAK
 case 102:
 YY_RULE_SETUP
-#line 707 "/home/dassat/github/cppparser/parser.l"
+#line 719 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknGreaterEq;
+	RETURN(tknGreaterEq);
 }
 	YY_BREAK
 case 103:
 YY_RULE_SETUP
-#line 712 "/home/dassat/github/cppparser/parser.l"
+#line 724 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tkn3WayCmp;
+	RETURN(tkn3WayCmp);
 }
 	YY_BREAK
 case 104:
 YY_RULE_SETUP
-#line 717 "/home/dassat/github/cppparser/parser.l"
+#line 729 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknAnd;
+	RETURN(tknAnd);
 }
 	YY_BREAK
 case 105:
 YY_RULE_SETUP
-#line 722 "/home/dassat/github/cppparser/parser.l"
+#line 734 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknOr;
+	RETURN(tknOr);
 }
 	YY_BREAK
 case 106:
 YY_RULE_SETUP
-#line 727 "/home/dassat/github/cppparser/parser.l"
+#line 739 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknInc;
+	RETURN(tknInc);
 }
 	YY_BREAK
 case 107:
 YY_RULE_SETUP
-#line 732 "/home/dassat/github/cppparser/parser.l"
+#line 744 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknDec;
+	RETURN(tknDec);
 }
 	YY_BREAK
 case 108:
 YY_RULE_SETUP
-#line 737 "/home/dassat/github/cppparser/parser.l"
+#line 749 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknArrow;
+	RETURN(tknArrow);
 }
 	YY_BREAK
 case 109:
 YY_RULE_SETUP
-#line 742 "/home/dassat/github/cppparser/parser.l"
+#line 754 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknArrowStar;
+	RETURN(tknArrowStar);
 }
 	YY_BREAK
 case 110:
 YY_RULE_SETUP
-#line 747 "/home/dassat/github/cppparser/parser.l"
+#line 759 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknNumber;
+	RETURN(tknNumber);
 }
 	YY_BREAK
 case 111:
 YY_RULE_SETUP
-#line 752 "/home/dassat/github/cppparser/parser.l"
+#line 764 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknStrLit;
+	RETURN(tknStrLit);
 }
 	YY_BREAK
 case 112:
 YY_RULE_SETUP
-#line 757 "/home/dassat/github/cppparser/parser.l"
+#line 769 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknCharLit;
+	RETURN(tknCharLit);
 }
 	YY_BREAK
 case 113:
 YY_RULE_SETUP
-#line 762 "/home/dassat/github/cppparser/parser.l"
+#line 774 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return yytext[0];
+	RETURN(yytext[0]);
 }
 	YY_BREAK
 case 114:
 YY_RULE_SETUP
-#line 767 "/home/dassat/github/cppparser/parser.l"
+#line 779 "/home/dassat/github/cppparser/parser.l"
 {
 	set_token_and_yyposn();
-	return tknEllipsis;
+	RETURN(tknEllipsis);
 }
 	YY_BREAK
 case 115:
 YY_RULE_SETUP
-#line 772 "/home/dassat/github/cppparser/parser.l"
+#line 784 "/home/dassat/github/cppparser/parser.l"
 ECHO;
 	YY_BREAK
-#line 3570 "/home/dassat/github/cppparser/parser.lex.cpp"
+#line 3582 "/home/dassat/github/cppparser/parser.lex.cpp"
 			case YY_STATE_EOF(INITIAL):
 			case YY_STATE_EOF(ctxGeneral):
 			case YY_STATE_EOF(ctxDocBlockComment):
@@ -4597,7 +4609,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 772 "/home/dassat/github/cppparser/parser.l"
+#line 784 "/home/dassat/github/cppparser/parser.l"
 
 
 
