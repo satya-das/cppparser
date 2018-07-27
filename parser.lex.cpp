@@ -1925,7 +1925,7 @@ For this very reason this file does not use any class that are defined in cppdom
 #include "cpptoken.h"
 #include "parser.tab.h"
 
-static int gLog = 0;
+static int gLog = 1;
 
   // Easy MACRO to quickly push current context and switch to another one.
 #define BEGINCONTEXT(ctx) { \
