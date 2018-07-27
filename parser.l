@@ -264,7 +264,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   BEGINCONTEXT(ctxDocBlockComment);
 }
 
-<ctxDocBlockComment>.*"*"+"/" {
+<ctxDocBlockComment>.*"*"+"/"/{WS}*{NL} {
   yylval.str = makeCppToken(oyytext, yytext+yyleng-oyytext);
   ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
   RETURN(tknDocBlockComment);
@@ -283,7 +283,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxBlockComment,ctxDocBlockComment>{WS}*"*"+[^*/\n]*\n {
   ++gLineNo;
 }
-<ctxBlockComment>.*"*"+"/" {
+<ctxBlockComment,ctxDocBlockComment>.*"*"+"/" {
   ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
   /* Ignore block comment if it does not stand all alone */
 }
