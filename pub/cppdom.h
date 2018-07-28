@@ -718,11 +718,11 @@ struct CppFunctionPtr : public CppFunction
   }
 };
 
-struct CppExpr;
+struct CppExprList;
 /**
  * Class data member initialization as part of class constructor.
  */
-typedef std::pair<std::string, CppExpr*>	CppMemInit;
+typedef std::pair<std::string, CppExprList*>	CppMemInit;
 /**
  * Entire member initialization list.
  */

@@ -468,7 +468,7 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm
     {
       stm << '\n';
       stm << indentation << sep << ' ' << memInitItr->first << '(';
-      emitExpr(memInitItr->second, stm);
+      emitExprList(memInitItr->second, stm);
       stm << ')';
       sep = ',';
     }

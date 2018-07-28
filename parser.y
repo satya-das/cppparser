@@ -862,9 +862,9 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   ;
 
 meminitlist       : { $$ = NULL; }
-                  | ':' tknID '(' expr ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, $4)); }
+                  | ':' tknID '(' exprlist ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, $4)); }
                   | ':' tknID '(' ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, nullptr)); }
-                  | meminitlist ',' tknID '(' expr ')'  { $$ = $1; $$->push_back(CppMemInit($3, $5)); }
+                  | meminitlist ',' tknID '(' exprlist ')'  { $$ = $1; $$->push_back(CppMemInit($3, $5)); }
                   ;
 
 dtordeclstmt      : dtordecl ';' [ZZVALID;] { $$ = $1; }
@@ -1151,9 +1151,11 @@ expr              : tknStrLit                         { $$ = new CppExpr((std::s
                   | expr tknRShiftEq expr               { $$ = new CppExpr($1, kRShiftEqual, $3);             }
                   | expr tknCmpEq expr %prec CMPEQUAL { $$ = new CppExpr($1, kCmpEqual, $3);                }
                   | expr tknNotEq expr                { $$ = new CppExpr($1, kNotEqual, $3);                }
-                  | expr tknLessEq expr               { $$ = new CppExpr($1, kLessEqual, $3);             }
-                  | expr tknGreaterEq expr            { $$ = new CppExpr($1, kGreaterEqual, $3);          }
-                  | expr tkn3WayCmp expr              { $$ = new CppExpr($1, k3WayCmp, $3);                }
+                  | expr tknLessEq expr               { $$ = new CppExpr($1, kLessEqual, $3);               }
+                  | expr tknGreaterEq expr            { $$ = new CppExpr($1, kGreaterEqual, $3);            }
+                  | expr tkn3WayCmp expr              { $$ = new CppExpr($1, k3WayCmp, $3);                 }
+                  | expr tknAnd expr                  { $$ = new CppExpr($1, kAnd, $3);                     }
+                  | expr tknOr expr                   { $$ = new CppExpr($1, kOr, $3);                      }
 /*                | expr ',' expr                     { $$ = new CppExpr($1, kComma, $3);                     } */
                   | expr '.' expr                     { $$ = new CppExpr($1, kDot, $3);                     }
                   | expr tknArrow expr %prec ARROW    { $$ = new CppExpr($1, kArrow, $3);                   }
