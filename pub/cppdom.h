@@ -263,9 +263,19 @@ struct CppVarType : public CppObj
     return (typeAttr_ & kByRef) == kByRef;
   }
 
+  bool isByRValueRef() const
+  {
+    return (typeAttr_ & kRValRef) == kRValRef;
+  }
+
   bool isConst() const
   {
     return (typeAttr_ & kConst) == kConst;
+  }
+
+  bool isByValue() const
+  {
+    return (refType_ == kNoRef) && (ptrLevel_ == 0);
   }
 
 protected:
@@ -734,9 +744,11 @@ struct CppConstructor : public CppFuncCtorBase
   }
 
   bool isCopyConstructor() const;
+  bool isMoveConstructor() const;
 
 private:
   mutable boost::optional<bool> isCopyConstructor_;
+  mutable boost::optional<bool> isMoveConstructor_;
 };
 
 struct CppDestructor : public CppFunctionBase

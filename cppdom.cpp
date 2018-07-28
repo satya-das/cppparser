@@ -7,7 +7,7 @@ bool CppConstructor::isCopyConstructor() const
     return *isCopyConstructor_;
 
   isCopyConstructor_ = false;
-  if (!params_ || !params_->size() != 1)
+  if (!params_ || (params_->size() != 1))
     return false;
   const auto paramType = params_->front().varObj;
   if (paramType->ptrLevel_ != 0)
@@ -18,6 +18,25 @@ bool CppConstructor::isCopyConstructor() const
     return false;
   isCopyConstructor_ = true;
   return *isCopyConstructor_;
+}
+
+bool CppConstructor::isMoveConstructor() const
+{
+  if (isMoveConstructor_)
+    return *isMoveConstructor_;
+
+  isMoveConstructor_ = false;
+  if (!params_ || (params_->size() != 1))
+    return false;
+  const auto paramType = params_->front().varObj;
+  if (paramType->ptrLevel_ != 0)
+    return false;
+  if (paramType->isConst() || !paramType->isByRValueRef())
+    return false;
+  if (paramType->baseType_ != name_)
+    return false;
+  isMoveConstructor_ = true;
+  return *isMoveConstructor_;
 }
 
 bool CppCompound::hasVirtualMethod() const

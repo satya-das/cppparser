@@ -3,6 +3,11 @@ inline int f(int x)
 	return 5;
 }
 
+inline int g(int& x)
+{
+  return x=5;
+}
+
 static double add(double x, double y)
 {
 	double a = x+y;
