@@ -109,6 +109,8 @@ enum CppOperType
   kStaticCast,
   kDynamicCast,
   kReinterpretCast,
+
+  kTertiaryOperator,
 };
 
 /**

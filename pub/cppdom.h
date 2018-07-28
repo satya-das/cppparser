@@ -906,8 +906,9 @@ struct CppExpr : public CppObj
     kInitializer	= 0x40,
     kThrow        = 0x80,
   };
-  CppExprAtom expr1_;
-  CppExprAtom expr2_;
+  CppExprAtom expr1_ {(CppExpr*)(nullptr)};
+  CppExprAtom expr2_ {(CppExpr*)(nullptr)};
+  CppExprAtom expr3_ {(CppExpr*)(nullptr)};
   CppOperType oper_;
   short		flags_; // ORed combination of Flag constants.
 
@@ -925,6 +926,16 @@ struct CppExpr : public CppObj
     , oper_(op)
     , expr2_(e2)
     , flags_(flags)
+  {
+  }
+
+  CppExpr(CppExprAtom e1, CppExprAtom e2, CppExprAtom e3)
+    : CppObj(CppObj::kExpression, kUnknownProt)
+    , expr1_(e1)
+    , expr2_(e2)
+    , expr3_(e3)
+    , oper_(kTertiaryOperator)
+    , flags_(0)
   {
   }
 

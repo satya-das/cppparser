@@ -175,6 +175,7 @@ extern int yylex();
 %token  <str>   tkn3WayCmp tknAnd tknOr tknInc tknDec tknArrow tknArrowStar
 %token  <str>   '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
 %token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']'
+%token  <str>   tknNew tknDelete
 
 %token  tknConst tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile tknFinal
 
@@ -183,19 +184,20 @@ extern int yylex();
 %token  tknInclude tknStdHdrInclude
 %token  tknIf tknIfDef tknIfNDef tknElse tknElIf tknEndIf
 %token  tknFor tknWhile tknDo tknSwitch tknCase
-%token  tknNew tknDelete tknReturn
+%token  tknReturn
 
 %token  tknBlankLine
 
 %type  <str>                apidocer
-%type  <str>                identifier vartype optid funcname typenamespecifier
+%type  <str>                identifier vartype optid basefuncname funcname typenamespecifier
 %type  <cppObj>             stmt functptrtype
 %type  <cppEnum>            enumdefn enumfwddecl
 %type  <enumItem>           enumitem
 %type  <enumItemList>       enumitemlist
 %type  <fwdDeclObj>         fwddecl
 %type  <cppVarObj>          varqual vardecl varinit vardeclstmt
-%type  <varOrFuncPtr>       param templateparam
+%type  <varOrFuncPtr>       param
+%type  <str>                templateparam /* For time being. We may need to make it more robust in future. */
 %type  <cppVarObjList>      vardecllist vardeclliststmt
 %type  <paramList>          paramlist
 %type  <typedefObj>         typedefname typedefnamelist typedefnamestmt
@@ -435,7 +437,6 @@ identifier        : tknID                                 { $$ = $1; }
                   | identifier tknEllipsis                { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   | identifier '<' templateparam '>'{
                     $$ = makeCppToken($1.sz, $4.sz+1-$1.sz);
-                    delete $3.cppObj; // We don't need template parameter
                   }
                   ;
 
@@ -626,6 +627,12 @@ funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')
                     $$->docer1_ = $2;
                     $$->docer2_ = $4;
                   }
+                  | apidocer functype varqual apidocer funcname '(' paramlist ')' funcattrib {
+                    $$ = newFunction(gCurProtLevel, $5, $3, $7, $2 | $9);
+                    $$->docer1_ = $1;
+                    $$->docer2_ = $4;
+                  }
+
                   | apidocer varqual apidocer funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $4, $2, $6, $8);
                     $$->docer1_ = $1;
@@ -637,7 +644,11 @@ funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')
                   }
                   ;
 
-funcname          : identifier { $$ = $1; }
+funcname          : basefuncname { $$ = $1; }
+                  | identifier tknScopeResOp basefuncname { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
+                  ;
+
+basefuncname      : tknID { $$ = $1; }
                   | tknOperator '+' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   | tknOperator '-' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   | tknOperator '*' { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
@@ -677,6 +688,10 @@ funcname          : identifier { $$ = $1; }
                   | tknOperator tknArrowStar { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
                   | tknOperator '(' ')' { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
                   | tknOperator '[' ']' { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
+                  | tknOperator tknNew { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknNew '[' ']' { $$ = makeCppToken($1.sz, $4.sz+$4.len-$1.sz); }
+                  | tknOperator tknDelete { $$ = makeCppToken($1.sz, $2.sz+$2.len-$1.sz); }
+                  | tknOperator tknDelete '[' ']' { $$ = makeCppToken($1.sz, $4.sz+$4.len-$1.sz); }
                   ;
 
 paramlist         : { $$ = 0; }
@@ -696,8 +711,9 @@ param             : varinit                 { $$ = $1; $1->varAttr_ |= kFuncPara
                   | functionpointer         { $$ = $1; $1->attr_ |= kFuncParam;    }
                   ;
 
-templateparam     : varqual                 { $$ = $1; }
-                  | functionpointer         { $$ = $1; }
+templateparam     :                               { $$ = makeCppToken(nullptr, 0); }
+                  | identifier                    { $$ = $1; }
+                  | templateparam ',' identifier  { $$ = makeCppToken($1.sz, $3.sz+$3.len-$1.sz); }
                   ;
 
 functype          : /* empty */             { $$ = 0;           }
@@ -751,6 +767,10 @@ ctordefn          : ctordecl meminitlist
                     $$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $5.sz+$5.len-$1.sz), $8, $10, 0);
                     $$->defn_      = $12 ? $12 : newCompound(gCurProtLevel, kBlock);
                   }
+                  | tknInline ctordefn {
+                    $$ = $2;
+                    $$->attr_ |= kInline;
+                  }
                   | templatespecifier ctordefn {
                     $$ = $2;
                     $$->templSpec_ = $1;
@@ -781,6 +801,7 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
 
 meminitlist       : { $$ = NULL; }
                   | ':' tknID '(' expr ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, $4)); }
+                  | ':' tknID '(' ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, nullptr)); }
                   | meminitlist ',' tknID '(' expr ')'  { $$ = $1; $$->push_back(CppMemInit($3, $5)); }
                   ;
 
@@ -806,19 +827,19 @@ dtordefn          : dtordecl block [ZZVALID;]
                   }
                   ;
 
-dtordecl          : '~' tknID '(' ')' %prec DTORDECL
+dtordecl          : apidocer '~' tknID '(' ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
-                    if(gCompoundStack.top() != $2)
+                    if(gCompoundStack.top() != $3)
                       YYERROR;
                     else
                       ZZVALID;
                   ]
                   {
-                    const char* tildaStartPos = $2.sz-1;
+                    const char* tildaStartPos = $3.sz-1;
                     while(*tildaStartPos != '~') --tildaStartPos;
-                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $2.sz+$2.len-tildaStartPos), 0);
+                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), 0);
                   }
                   | functype '~' tknID '(' ')' %prec DTORDECL
                   [
@@ -1017,6 +1038,7 @@ expr              : tknStrLit                         { $$ = new CppExpr((std::s
                   | expr '=' expr                     { $$ = new CppExpr($1, kEqual, $3);                   }
                   | expr '<' expr                     { $$ = new CppExpr($1, kLess, $3);                    }
                   | expr '>' expr                     { $$ = new CppExpr($1, kGreater, $3);                 }
+                  | expr '?' expr ':' expr            { $$ = new CppExpr($1, $3, $5);                       }
                   | expr tknPlusEq expr               { $$ = new CppExpr($1, kPlusEqual, $3);             }
                   | expr tknMinusEq expr               { $$ = new CppExpr($1, kMinusEqual, $3);             }
                   | expr tknMulEq expr               { $$ = new CppExpr($1, kMulEqual, $3);             }

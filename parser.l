@@ -740,7 +740,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 	return tknStrLit;
 }
 
-<ctxGeneral>"\'".*"\'" {
+<ctxGeneral>(L)?"\'".*"\'" {
 	set_token_and_yyposn();
 	return tknCharLit;
 }
