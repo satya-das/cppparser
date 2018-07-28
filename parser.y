@@ -103,6 +103,12 @@ int gLineNo = 1;
 
 extern int yylex();
 
+// Yacc generated code causes warnings that need suppression.
+// This pragma should be at the end.
+#if defined(__clang__) || defined(__GNUC__)
+# pragma GCC diagnostic ignored "-Wwrite-strings"
+#endif
+
 %}
 
 /**
