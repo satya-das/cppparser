@@ -976,6 +976,7 @@ vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
 vardeclstmt       : vardecl ';'    [ZZVALID;] { $$ = $1; }
                   | varinit ';'    [ZZVALID;] { $$ = $1; }
                   | tknID vardecl ';'  [ZZVALID;] { $$ = $2; $$->apidocer_ = $1; }
+                  | varattrib tknID vardecl ';'  [ZZVALID;] { $$ = $3; $$->apidocer_ = $2; $$->typeAttr_ |= $1; }
                   ;
 
 ptrlevelopt       :        { $$ = 0;    }
