@@ -108,11 +108,11 @@ CppParser::ByteArray CppParser::readFile(const char* filename)
   {
     in.seekg(0, std::ios::end);
     size_t size = in.tellg();
-    size += 2; // For adding last 2 nulls.
-    contents.resize(size);
+    contents.resize(size+3); // For adding last 2 nulls and a new line.
     in.seekg(0, std::ios::beg);
     in.read(&contents[0], size);
     in.close();
+    contents[size] = '\n';
   }
   return(contents);
 }
