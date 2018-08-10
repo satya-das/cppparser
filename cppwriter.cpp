@@ -865,8 +865,8 @@ void CppWriter::emitDoBlock(const CppDoWhileBlock* doBlock, std::ostream& stm, C
 void CppWriter::emitForBlock(const CppForBlock* forBlock, std::ostream& stm, CppIndent indentation) const
 {
   stm << indentation << "for (";
-  if (forBlock->start_)
-    emitExpr(forBlock->start_, stm);
+  if (forBlock->startObj_)
+    emit(forBlock->startObj_, stm);
   stm << ';';
   if (forBlock->stop_)
   {

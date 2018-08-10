@@ -401,7 +401,10 @@ dowhileblock      : tknDo stmt tknWhile '(' expr ')' {
 forblock          : tknFor '(' optexpr ';' optexpr ';' optexpr ')' stmt {
                     $$ = new CppForBlock($3, $5, $7, $9);
                   }
-                  ;
+                  | tknFor '(' varinit ';' optexpr ';' optexpr ')' stmt {
+                    $$ = new CppForBlock($3, $5, $7, $9);
+                  }
+;
 
 optexpr           : {
                     $$ = nullptr;

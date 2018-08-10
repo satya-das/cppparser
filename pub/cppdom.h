@@ -979,19 +979,23 @@ using CppDoWhileBlock = CppCommonBlock<CppObj::kDoWhileBlock>;
 
 struct CppForBlock : public CppObj
 {
-  CppForBlock(CppExpr* start, CppExpr* stop, CppExpr* step, CppObj* body)
+  CppForBlock(CppObj* start, CppExpr* stop, CppExpr* step, CppObj* body)
     : CppObj(kForBlock, kUnknownProt)
-    , start_(start)
+    , startObj_(start)
     , stop_(stop)
     , step_(step)
     , body_(body)
   {
   }
 
-  CppExpr* start_;
-  CppExpr* stop_;
-  CppExpr* step_;
-  CppObj* body_;
+  union {
+    CppObj*  startObj_;
+    CppExpr* startExpr_;
+    CppVar*  startVar_;
+  };
+  CppExpr* stop_ {nullptr};
+  CppExpr* step_ {nullptr};
+  CppObj* body_  {nullptr};
 };
 
 struct CppCase
