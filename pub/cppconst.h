@@ -95,6 +95,7 @@ enum CppOperType
   kGreaterEqual,
   k3WayCmp,
   kComma,
+  kPlacementNew,
 
   kDerefOperatorStart,
   kDot,         // .

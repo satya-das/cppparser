@@ -1208,7 +1208,9 @@ expr              : tknStrLit                         { $$ = new CppExpr((std::s
                   | tknDynamicCast '<' varqual '>' '(' expr ')' { $$ = new CppExpr($3, kDynamicCast, $6);   }
                   | tknReinterpretCast '<' varqual '>' '(' expr ')' { $$ = new CppExpr($3, kReinterpretCast, $6); }
                   | '(' expr ')'                      { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
-                  | tknNew  expr                      { $$ = $2; $2->flags_ |= CppExpr::kNew;               }
+                  | tknNew expr                       { $$ = $2; $2->flags_ |= CppExpr::kNew;               }
+                  | tknNew expr expr                  { $$ = new CppExpr($2, kPlacementNew, $3);            }
+                  | tknScopeResOp tknNew expr expr    { $$ = new CppExpr($3, kPlacementNew, $4);            }
                   | tknDelete  expr                   { $$ = $2; $2->flags_ |= CppExpr::kDelete;            }
                   | tknDelete  '[' ']' expr           { $$ = $4; $4->flags_ |= CppExpr::kDeleteArray;       }
                   | tknReturn  expr                   { $$ = $2; $2->flags_ |= CppExpr::kReturn;            }
