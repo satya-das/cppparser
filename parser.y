@@ -299,13 +299,19 @@ progunit          : stmtlist  {
 stmtlist          : { $$ = 0; }
                   | stmt {
                     $$ = newCompound(gProtLevelStack.empty() ? gCurProtLevel : gProtLevelStack.top());
-                    $1->owner_ = $$;
-                    $$->addMember($1);
+                    if ($1)
+                    {
+                      $1->owner_ = $$;
+                      $$->addMember($1);
+                    }
                   }
                   | stmtlist stmt {
                     $$ = ($1 == 0) ? newCompound(gProtLevelStack.empty() ? gCurProtLevel : gProtLevelStack.top()) : $1;
-                    $2->owner_ = $$;
-                    $$->addMember($2);
+                    if ($2)
+                    {
+                      $2->owner_ = $$;
+                      $$->addMember($2);
+                    }
                   }
                   | stmtlist changeprotlevel { $$ = $1; gCurProtLevel = $2; } // Change of protection level is not a statement but this way it is easier to implement.
                   ;
@@ -339,6 +345,7 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | hashif          { $$ = $1; }
                   | pragma          { $$ = $1; }
                   | block           { $$ = $1; }
+                  | ';' /* blank statement */ { $$ = nullptr; }
                   ;
 
 block             : '{' stmtlist '}' {
