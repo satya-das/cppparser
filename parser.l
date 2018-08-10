@@ -766,6 +766,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknStrLit);
 }
 
+<ctxGeneral>(L)?"\"".*"\"" {
+  set_token_and_yyposn();
+  RETURN(tknStrLit);
+}
+
 <ctxGeneral>(L)?"\'".*"\'" {
   set_token_and_yyposn();
   RETURN(tknCharLit);

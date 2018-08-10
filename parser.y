@@ -664,6 +664,9 @@ funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')
                     $$ = $3;
                     $$->templSpec_ = $1;
                   }
+                  | tknInline funcdecl {
+                    $$ = $2;
+                  }
                   | funcdecl '=' tknDelete {
                     $$ = $1;
                     $$->attr_ |= kDelete;
@@ -766,6 +769,7 @@ functype          : /* empty */             { $$ = 0;           }
                   | functype tknVirtual     { $$ |= kVirtual;   }
                   | functype tknExtern      { $$ |= kExtern;    }
                   | functype tknExplicit    { $$ |= kExplicit;  }
+                  | functype tknFriend      { $$ |= kFriend;    }
                   ;
 
 funcattrib        :                           { $$ = 0; }
@@ -987,9 +991,9 @@ ptrlevel          : '*'      { $$ = 1;    }
                   | ptrlevel '*'  { $$ = $1 + 1;  }
                   ;
 
-reftype           :      { $$ = kNoRef;    }
-                  | '&'    { $$ = kByRef;    }
-                  | '&' '&'  { $$ = kRValRef;  }
+reftype           :         { $$ = kNoRef;    }
+                  | '&'     { $$ = kByRef;    }
+                  | tknAnd  { $$ = kRValRef;  }
                   ;
 
 optcomment        : {
