@@ -813,6 +813,7 @@ funcattrib        :                           { $$ = 0; }
                   | funcattrib '=' tknNumber  [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else ZZVALID;]
                                               { $$ = $1 | kPureVirtual; }
                   | funcattrib tknNoExcept    { $$ = $1 | kNoExcept; }
+                  | funcattrib tknThrow '(' ')' { $$ = $1 | kNoExcept; }
                   ;
 
 optattr           : { $$ = 0; }
