@@ -989,13 +989,13 @@ struct CppForBlock : public CppObj
   }
 
   union {
-    CppObj*  startObj_;
+    CppObj*  startObj_ {nullptr};
     CppExpr* startExpr_;
     CppVar*  startVar_;
   };
   CppExpr* stop_ {nullptr};
   CppExpr* step_ {nullptr};
-  CppObj* body_  {nullptr};
+  CppObj*  body_ {nullptr};
 };
 
 struct CppCase
