@@ -890,6 +890,10 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                     $$ = $2;
                     $$->templSpec_ = $1;
                   }
+                  | tknInline ctordecl {
+                    $$ = $2;
+                    $$->attr_ |= kInline;
+                  }
                   | ctordecl '=' tknDelete {
                     $$ = $1;
                     $$->attr_ |= kDelete;
