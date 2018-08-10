@@ -89,7 +89,7 @@ struct CppObj
     kForBlock,
     kWhileBlock,
     kDoWhileBlock,
-    kSwitch,
+    kSwitchBlock,
     kCppControlStatementEnds,
   };
 
@@ -992,6 +992,33 @@ struct CppForBlock : public CppObj
   CppExpr* stop_;
   CppExpr* step_;
   CppObj* body_;
+};
+
+struct CppCase
+{
+  CppCase(CppExpr* cond, CppCompound* body)
+    : case_(cond)
+    , body_(body)
+  {
+  }
+
+  CppExpr*      case_ {nullptr};
+  CppCompound*  body_ {nullptr};
+};
+
+using CppSwitchBody = std::vector<CppCase>;
+
+struct CppSwitchBlock : public CppObj
+{
+  CppExpr*       cond_ {nullptr};
+  CppSwitchBody* body_ {nullptr};
+
+  CppSwitchBlock(CppExpr* cond, CppSwitchBody* body)
+    : CppObj(kSwitchBlock, kUnknownProt)
+    , cond_ (cond)
+    , body_ (body)
+  {
+  }
 };
 
 /**

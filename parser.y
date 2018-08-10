@@ -151,6 +151,8 @@ extern int yylex();
   CppWhileBlock*        whileBlock;
   CppDoWhileBlock*      doWhileBlock;
   CppForBlock*          forBlock;
+  CppSwitchBlock*       switchBlock;
+  CppSwitchBody*        switchBody;
 
   CppDefine*            hashDefine;
   CppUndef*             hashUndef;
@@ -219,6 +221,8 @@ extern int yylex();
 %type  <whileBlock>         whileblock;
 %type  <doWhileBlock>       dowhileblock;
 %type  <forBlock>           forblock;
+%type  <switchBlock>        switchstmt;
+%type  <switchBody>         caselist;
 %type  <cppFuncPointerObj>  functionpointer funcpointerdecl
 %type  <cppFuncObj>         funcdecl funcdeclstmt funcdefn
 %type  <cppCtorObj>         ctordecl ctordeclstmt ctordefn
@@ -345,7 +349,26 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | hashif          { $$ = $1; }
                   | pragma          { $$ = $1; }
                   | block           { $$ = $1; }
+                  | switchstmt      { $$ = $1; }
                   | ';' /* blank statement */ { $$ = nullptr; }
+                  ;
+
+switchstmt        : tknSwitch '(' expr ')' '{' caselist '}' {
+                    $$ = new CppSwitchBlock($3, $6);
+                  }
+                  ;
+
+caselist          : {
+                    $$ = new CppSwitchBody;
+                  }
+                  | caselist tknCase expr ':' stmtlist {
+                    $$ = $1;
+                    $$->emplace_back($3, $5);
+                  }
+                  | caselist tknDefault ':' stmtlist {
+                    $$ = $1;
+                    $$->emplace_back(nullptr, $4);
+                  }
                   ;
 
 block             : '{' stmtlist '}' {
