@@ -141,7 +141,7 @@ enum CppIdentifierAttrib
 /**
  * Type of references a variable can have in a C++ program.
  */
-enum CppRefType
+enum CppRefType : std::uint8_t
 {
   kNoRef,   // No reference.
   kByRef,   // Simple reference, e.g. int& x.

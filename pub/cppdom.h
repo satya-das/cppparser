@@ -235,11 +235,11 @@ struct CppUnRecogPrePro : public CppObj
 struct CppExpr;
 struct CppVarType : public CppObj
 {
-  std::string		baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
-  unsigned int	typeAttr_; // Attribute associated with type, e.g. const int* x.
+  std::string		  baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
+  unsigned int	  typeAttr_; // Attribute associated with type, e.g. const int* x.
   unsigned short  ptrLevel_; // Pointer level. e.g. int** ppi has pointer level of 2.
-  CppRefType		refType_;
-  CppExpr*		arraySize_; // Should be nullptr for non-array vars
+  CppRefType		  refType_;
+  CppExpr*		    arraySize_; // Should be nullptr for non-array vars
 
   CppVarType(CppObjProtLevel prot, std::string baseType, unsigned int typeAttr, unsigned short ptrLevel, CppRefType refType)
     : CppVarType(CppObj::kVarType, prot, baseType, typeAttr, ptrLevel, refType)

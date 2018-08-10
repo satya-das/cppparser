@@ -454,7 +454,7 @@ identifier        : tknID                                 { $$ = $1; }
                   ;
 
 templidentifier   : identifier '<' templateparamlist '>' {
-                    $$ = makeCppToken($1.sz, $4.sz+1-$1.sz);
+                    $$ = mergeCppToken($1, $4);
                   }
                   ;
 
@@ -809,7 +809,7 @@ ctordefn          : ctordecl meminitlist
                       stmtlist
                     '}' [ZZVALID;]
                   {
-                    $$ = newConstructor(gCurProtLevel, makeCppToken($1.sz, $5.sz+$5.len-$1.sz), $8, $10, 0);
+                    $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $5), $8, $10, 0);
                     $$->defn_      = $12 ? $12 : newCompound(gCurProtLevel, kBlock);
                   }
                   | tknID '<' templateparamlist '>' tknScopeResOp tknID [if($1 != $6) YYERROR; else ZZVALID;]
