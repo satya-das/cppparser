@@ -896,7 +896,7 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   ;
 
 meminitlist       : { $$ = NULL; }
-                  | ':' tknID '(' exprlist ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, $4)); }
+                  | ':' identifier '(' exprlist ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, $4)); }
                   | ':' tknID '(' ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, nullptr)); }
                   | meminitlist ',' tknID '(' exprlist ')'  { $$ = $1; $$->push_back(CppMemInit($3, $5)); }
                   ;
