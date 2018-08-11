@@ -779,9 +779,13 @@ paramlist         : { $$ = 0; }
                   ;
 
 param             : varinit                 { $$ = $1; $1->varAttr_ |= kFuncParam;  }
+                  | varqual '=' expr        { /* When there is no named param but default value, e.g. `int = 3`*/
+                    $$ = $1; $1->varAttr_ |= kFuncParam;
+                    $1->assign_ = $3;
+                  }
                   | vardecl                 { $$ = $1; $1->varAttr_ |= kFuncParam;  }
                   | varqual                 { $$ = $1; $1->varAttr_ |= kFuncParam;  }
-                  | functionpointer         { $$ = $1; $1->attr_ |= kFuncParam;    }
+                  | functionpointer         { $$ = $1; $1->attr_ |= kFuncParam;     }
                   | doccomment param        { $$ = $2; }
                   ;
 
