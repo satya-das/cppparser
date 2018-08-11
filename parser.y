@@ -111,9 +111,6 @@ extern int yylex();
 
 %}
 
-/**
- * The union that can hold terminal and non-terminal objects in a parse tree.
- */
 %union {
   CppToken              str;
   CppObj*               cppObj;
@@ -139,6 +136,8 @@ extern int yylex();
   CppTypeCoverter*      cppTypeConverter;
   CppMemInitList*       memInitList;
   CppInheritanceList*   inheritList;
+  CppIdentifierList*    identifierList;
+  CppFuncThrowSpec*     funcThrowSpec;
   CppCompoundType       compoundType;
   unsigned short        ptrLevel;
   CppRefType            refType;
@@ -235,6 +234,8 @@ extern int yylex();
 %type  <attr>               optattr varattrib funcattrib functype
 %type  <inheritList>        inheritlist
 %type  <protLevel>          protlevel changeprotlevel
+%type  <identifierList>     identifierlist
+%type  <funcThrowSpec>      functhrowspec
 
 %type  <exprList>           exprlist
 %type  <hashDefine>         define
@@ -708,6 +709,10 @@ funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')
                     $$ = $1;
                     $$->attr_ |= kDefault;
                   }
+                  | funcdecl functhrowspec {
+                    $$ = $1;
+                    $$->throwSpec_ = $2;
+                  }
                   ;
 
 funcname          : basefuncname { $$ = $1; }
@@ -813,7 +818,22 @@ funcattrib        :                           { $$ = 0; }
                   | funcattrib '=' tknNumber  [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else ZZVALID;]
                                               { $$ = $1 | kPureVirtual; }
                   | funcattrib tknNoExcept    { $$ = $1 | kNoExcept; }
-                  | funcattrib tknThrow '(' ')' { $$ = $1 | kNoExcept; }
+                  ;
+
+functhrowspec     : tknThrow '(' identifierlist ')' {
+                    $$ = $3 ? $3 : new CppFuncThrowSpec;
+                  }
+                  ;
+
+identifierlist    : { $$ = nullptr; }
+                  | identifier {
+                    $$ = new CppIdentifierList;
+                    $$->push_back($1);
+                  }
+                  | identifierlist ',' identifier {
+                    $$ = $1;
+                    $$->push_back($3);
+                  }
                   ;
 
 optattr           : { $$ = 0; }
@@ -901,6 +921,10 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   | ctordecl '=' tknDefault {
                     $$ = $1;
                     $$->attr_ |= kDefault;
+                  }
+                  | ctordecl functhrowspec {
+                    $$ = $1;
+                    $$->throwSpec_ = $2;
                   }
                   ;
 

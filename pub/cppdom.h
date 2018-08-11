@@ -607,6 +607,9 @@ struct CppParamList : private std::list<CppParam>
   }
 };
 
+using CppIdentifierList = std::vector<std::string>;
+using CppFuncThrowSpec = CppIdentifierList;
+
 /**
  * \brief Base class of constructor, destructor, and functions.
  */
@@ -618,6 +621,7 @@ struct CppFunctionBase : public CppObj
   std::string		docer1_; // e.g. __declspec(dllexport)
   std::string		docer2_; // e.g. __stdcall
   CppTemplateArgList* templSpec_ {nullptr};
+  CppFuncThrowSpec* throwSpec_ {nullptr};
 
   bool isConst() const
   {
