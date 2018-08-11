@@ -137,6 +137,7 @@ enum CppIdentifierAttrib
   kDefault      = 0x8000,
   kDelete       = 0x10000,
   kNoExcept     = 0x20000,
+  kExternC      = 0x40000,
 };
 
 /**

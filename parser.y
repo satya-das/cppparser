@@ -623,8 +623,9 @@ varqual           : optattr vartype optattr ptrlevelopt reftype optattr {
                   }
                   ;
 
-varattrib         : tknStatic { $$ = kStatic;  }
+varattrib         : tknStatic  { $$ = kStatic;  }
                   | tknExtern  { $$ = kExtern;  }
+                  | tknExternC { $$ = kExternC; }
                   ;
 
 typeconverter     : tknOperator varqual '(' ')' {
@@ -811,6 +812,7 @@ functype          : /* empty */             { $$ = 0;           }
                   | functype tknInline      { $$ |= kInline;    }
                   | functype tknVirtual     { $$ |= kVirtual;   }
                   | functype tknExtern      { $$ |= kExtern;    }
+                  | functype tknExternC     { $$ |= kExternC;   }
                   | functype tknExplicit    { $$ |= kExplicit;  }
                   | functype tknFriend      { $$ |= kFriend;    }
                   ;
