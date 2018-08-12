@@ -122,6 +122,8 @@ extern int yylex();
   CppEnumItemList*      enumItemList;
   CppTypedefName*       typedefName;
   CppTypedefList*       typedefList;
+  CppUsingDecl*         usingDecl;
+  CppUsingNamespaceDecl*  usingNamespaceDecl;
   CppCompound*          cppCompundObj;
   CppTemplateArgList*   templSpec;
   CppTemplateArg*       templArg;
@@ -163,7 +165,8 @@ extern int yylex();
   CppPragma*            hashPragma;
 }
 
-%token  <str>   tknID tknStrLit tknCharLit tknNumber tknTypedef
+%token  <str>   tknID tknStrLit tknCharLit tknNumber
+%token  <str>   tknTypedef tknUsing
 %token  <str>   tknLong
 %token  <str>   tknEnum
 %token  <str>   tknPreProDef
@@ -217,6 +220,8 @@ extern int yylex();
 %type  <paramList>          paramlist
 %type  <typedefName>        typedefname typedefnamestmt
 %type  <typedefList>        typedeflist typedefliststmt
+%type  <usingNamespaceDecl> usingnamespacedecl
+%type  <usingDecl>          usingdecl
 %type  <cppCompundObj>      stmtlist progunit classdefn classdefnstmt externcblock block
 %type  <templSpec>          templatespecifier temparglist
 %type  <templArg>           temparg tempargwodefault tempargwdefault
@@ -356,6 +361,8 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | pragma          { $$ = $1; }
                   | block           { $$ = $1; }
                   | switchstmt      { $$ = $1; }
+                  | usingdecl       { $$ = $1; }
+                  | usingnamespacedecl { $$ = $1; }
                   | ';' /* blank statement */ { $$ = nullptr; }
                   ;
 
@@ -567,13 +574,28 @@ typedeflist       : tknTypedef vardecllist { $$ = new CppTypedefList($2); }
 typedefname       : tknTypedef vardecl { $$ = new CppTypedefName($2); }
                   ;
 
+usingdecl         : tknUsing tknID '=' vartype ';' {
+                    $$ = new CppUsingDecl($2, $4);
+                  }
+                  | tknUsing tknID '=' functionpointer ';' {
+                    $$ = new CppUsingDecl($2, $4);
+                  }
+                  | tknUsing tknID '=' classdefn ';' {
+                    $$ = new CppUsingDecl($2, $4);
+                  }
+                  ;
+
+usingnamespacedecl: tknUsing tknNamespace identifier ';' {
+                    $$ = new CppUsingNamespaceDecl($3);
+                  }
+                  ;
 
 vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
                   ;
 
 vardeclstmt       : vardecl ';'             [ZZVALID;] { $$ = $1; }
                   | varinit ';'             [ZZVALID;] { $$ = $1; }
-                  | optapidocer vardecl ';'    [ZZVALID;] { $$ = $2; $$->apidocer_ = $1; }
+                  | optapidocer vardecl ';' [ZZVALID;] { $$ = $2; $$->apidocer_ = $1; }
                   | exptype vardeclstmt     [ZZVALID;] { $$ = $2; $$->varType_->typeAttr_ |= $1; }
                   | optapidocer exptype vardeclstmt     [ZZVALID;] {
                     $$ = $3;

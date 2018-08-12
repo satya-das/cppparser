@@ -73,6 +73,8 @@ struct CppObj
     kVarList,			              // List of variables declared as comma separated identifiers.
     kTypedefName,
     kTypedefNameList,
+    kUsingNamespaceDecl,
+    kUsing,
     kEnum,
     kCompound,			            // file, namespace, class, struct, union, block.
     kFwdClsDecl,		            // Forward declaration of compound type.
@@ -850,6 +852,48 @@ struct CppTypeCoverter : CppObj
     , name_(std::move(name))
     , to_(type)
   {}
+};
+
+struct CppUsingNamespaceDecl : public CppObj
+{
+  std::string name_;
+
+  CppUsingNamespaceDecl(std::string name)
+    : CppObj(CppObj::kUsingNamespaceDecl, kUnknownProt)
+    , name_(std::move(name))
+  {
+  }
+};
+
+struct CppUsingDecl : public CppObj
+{
+  std::string name_;
+  union {
+    CppVarType*       varType_;
+    CppFunctionPtr*   fptr_;
+    CppCompound*      compound_;
+  };
+
+  CppUsingDecl(std::string name, CppVarType* varType)
+    : CppObj(CppObj::kUsing, kUnknownProt)
+    , name_(std::move(name))
+    , varType_(varType)
+  {
+  }
+
+  CppUsingDecl(std::string name, CppFunctionPtr* fptr)
+    : CppObj(CppObj::kUsing, kUnknownProt)
+    , name_(std::move(name))
+    , fptr_(fptr)
+  {
+  }
+
+  CppUsingDecl(std::string name, CppCompound* compound)
+    : CppObj(CppObj::kUsing, kUnknownProt)
+    , name_(std::move(name))
+    , compound_(compound)
+  {
+  }
 };
 
 struct CppDocComment : public CppObj
