@@ -200,7 +200,7 @@ extern int yylex();
 
 %token  tknBlankLine
 
-%type  <str>                apidocer
+%type  <str>                optapidocer
 %type  <str>                identifier typeidentifier templidentifier optid basefuncname funcname typenamespecifier
 %type  <str>                doccommentstr
 %type  <cppObj>             stmt functptrtype
@@ -573,9 +573,9 @@ vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
 
 vardeclstmt       : vardecl ';'             [ZZVALID;] { $$ = $1; }
                   | varinit ';'             [ZZVALID;] { $$ = $1; }
-                  | apidocer vardecl ';'    [ZZVALID;] { $$ = $2; $$->apidocer_ = $1; }
+                  | optapidocer vardecl ';'    [ZZVALID;] { $$ = $2; $$->apidocer_ = $1; }
                   | exptype vardeclstmt     [ZZVALID;] { $$ = $2; $$->varType_->typeAttr_ |= $1; }
-                  | apidocer exptype vardeclstmt     [ZZVALID;] {
+                  | optapidocer exptype vardeclstmt     [ZZVALID;] {
                     $$ = $3;
                     $$->varType_->typeAttr_ |= $2;
                     $$->apidocer_ = $1;
@@ -688,12 +688,12 @@ functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $$ = $2;
                   }
 
-functionpointer   : apidocer functype vartype '(' apidocer '*' optid ')' '(' paramlist ')' {
+functionpointer   : optapidocer functype vartype '(' optapidocer '*' optid ')' '(' paramlist ')' {
                     $$ = new CppFunctionPtr(gCurProtLevel, $7, $3, $10, $2);
                     $$->docer1_ = $1;
                     $$->docer2_ = $5;
                   }
-                  | apidocer vartype '(' apidocer '*' optid ')' '(' paramlist ')' {
+                  | optapidocer vartype '(' optapidocer '*' optid ')' '(' paramlist ')' {
                     $$ = new CppFunctionPtr(gCurProtLevel, $6, $2, $9, 0);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
@@ -703,18 +703,18 @@ functionpointer   : apidocer functype vartype '(' apidocer '*' optid ')' '(' par
 funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
                   ;
 
-funcdecl          : functype apidocer vartype apidocer funcname '(' paramlist ')' funcattrib {
+funcdecl          : functype optapidocer vartype optapidocer funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $5, $3, $7, $1 | $9);
                     $$->docer1_ = $2;
                     $$->docer2_ = $4;
                   }
-                  | apidocer functype vartype apidocer funcname '(' paramlist ')' funcattrib {
+                  | optapidocer functype vartype optapidocer funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $5, $3, $7, $2 | $9);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
                   }
 
-                  | apidocer vartype apidocer funcname '(' paramlist ')' funcattrib {
+                  | optapidocer vartype optapidocer funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $4, $2, $6, $8);
                     $$->docer1_ = $1;
                     $$->docer2_ = $3;
@@ -1023,7 +1023,7 @@ dtordefn          : dtordecl block [ZZVALID;]
                   }
                   ;
 
-dtordecl          : apidocer '~' tknID '(' optvoid ')' %prec DTORDECL
+dtordecl          : optapidocer '~' tknID '(' optvoid ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
@@ -1037,7 +1037,7 @@ dtordecl          : apidocer '~' tknID '(' optvoid ')' %prec DTORDECL
                     while(*tildaStartPos != '~') --tildaStartPos;
                     $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), 0);
                   }
-                  | apidocer functype '~' tknID '(' optvoid ')' %prec DTORDECL
+                  | optapidocer functype '~' tknID '(' optvoid ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
@@ -1051,7 +1051,7 @@ dtordecl          : apidocer '~' tknID '(' optvoid ')' %prec DTORDECL
                     while(*tildaStartPos != '~') --tildaStartPos;
                     $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $4.sz+$4.len-tildaStartPos), $2);
                   }
-                  | apidocer tknVirtual '~' tknID '(' optvoid ')' '=' tknNumber
+                  | optapidocer tknVirtual '~' tknID '(' optvoid ')' '=' tknNumber
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
@@ -1098,7 +1098,7 @@ classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
                       }
                   ;
 
-classdefn         : compoundSpecifier apidocer tknID inheritlist optcomment
+classdefn         : compoundSpecifier optapidocer tknID inheritlist optcomment
                     '{' [gCompoundStack.push($3); ZZVALID;] { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
                       stmtlist
                     '}' [gCompoundStack.pop(); ZZVALID;]
@@ -1130,7 +1130,7 @@ protlevel         :        { $$ = kUnknownProt;}
                   ;
 
 fwddecl           : compoundSpecifier identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $2, $1); }
-                  | compoundSpecifier apidocer identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $3, $1); }
+                  | compoundSpecifier optapidocer identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $3, $1); }
                   | templatespecifier fwddecl {
                     // TODO: Assign template declaration to fwddecl.
                     $$ = $2;
@@ -1181,7 +1181,7 @@ typenamespecifier : tknTypename { $$ = $1; }
                   | tknClass    { $$ = $1; }
                   ;
 
-apidocer          :                     { $$ = makeCppToken(nullptr, 0U); }
+optapidocer       :                     { $$ = makeCppToken(nullptr, 0U); }
                   | tknID               { $$ = $1; }
                   | tknID '(' tknID ')' { $$ = mergeCppToken($1, $4); }
                   | tknID tknID         { $$ = mergeCppToken($1, $2); }
