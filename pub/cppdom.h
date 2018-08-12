@@ -843,6 +843,7 @@ struct CppTypeCoverter : CppObj
   CppVarType* to_;
   CppCompound* defn_ {nullptr};
   std::uint32_t attr_ {0};
+  std::string apidocer_;
 
   CppTypeCoverter(CppVarType* type, std::string name)
     : CppObj(CppObj::kTypeConverter, type->prot_)
