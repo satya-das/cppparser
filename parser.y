@@ -380,6 +380,9 @@ caselist          : {
 block             : '{' stmtlist '}' {
                     $$ = $2 ? $2 : newCompound(kUnknownProt, kBlock);
                   }
+                  | doccomment block {
+                    $$ = $2;
+                  }
                   ;
 
 ifblock           : tknIf '(' expr ')' stmt {
@@ -647,7 +650,14 @@ varattrib         : tknConst    { $$ = kConst; }
                   ;
 
 typeconverter     : tknOperator vartype '(' ')' {
-                    $$ = new CppTypeCoverter($2, gCurProtLevel);
+                    $$ = new CppTypeCoverter($2, std::string());
+                  }
+                  | identifier tknScopeResOp tknOperator vartype '(' ')' {
+                    $$ = new CppTypeCoverter($4, mergeCppToken($1, $2));
+                  }
+                  | functype identifier tknScopeResOp tknOperator vartype '(' ')' {
+                    $$ = new CppTypeCoverter($5, mergeCppToken($2, $3));
+                    $$->attr_ |= $1;
                   }
                   | typeconverter tknConst {
                     $$ = $1;
