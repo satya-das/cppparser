@@ -14,9 +14,7 @@ double d[2 * 7];
 class FwdDeclClass;
 const FwdDeclClass* XXX;
 extern "C" {
-int i;
-int j;
-int* pi;
+int i, j, *pi;
 void FunctionWithoutParam();
 void FunctionWithOneParam(float* x);
 void FunctionWithTwoParam(int, double);
@@ -39,7 +37,7 @@ public:
 	const float* fMem;
 	int* const piMem;
 	static const int* XXX;
-	A ::B x;
+	A::B x;
 	signed short s;
 };
 x = 0;

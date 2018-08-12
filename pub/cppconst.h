@@ -130,7 +130,6 @@ enum CppIdentifierAttrib
   kExplicit     = 0x0100,
   kFriend       = 0x0200,
   kTypedef      = 0x0400, // Function pointer is used in typedef.
-  kArray        = 0x0800, // Identifier is an array.
   kConstExpr    = 0x1000,
   kVolatile     = 0x2000,
   kFinal        = 0x4000,

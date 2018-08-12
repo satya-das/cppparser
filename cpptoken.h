@@ -49,6 +49,11 @@ struct CppToken
 
   operator std::string() const
   {
+    return toString();
+  }
+
+  std::string toString() const
+  {
     return sz ? std::string(sz, len) : std::string();
   }
 };

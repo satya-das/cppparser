@@ -38,10 +38,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <boost/optional.hpp>
 
 #include <cstdint>
-#include <string>
-#include <vector>
 #include <list>
+#include <memory>
+#include <string>
 #include <utility>
+#include <vector>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -70,7 +71,8 @@ struct CppObj
     kVarType,			              // Just the type of variable.
     kVar,				                // A variable declaration.
     kVarList,			              // List of variables declared as comma separated identifiers.
-    kTypedef,
+    kTypedefName,
+    kTypedefNameList,
     kEnum,
     kCompound,			            // file, namespace, class, struct, union, block.
     kFwdClsDecl,		            // Forward declaration of compound type.
@@ -233,27 +235,52 @@ struct CppUnRecogPrePro : public CppObj
 };
 
 struct CppExpr;
+
+struct CppTypeModifier
+{
+  CppRefType		refType_;
+  std::uint8_t  ptrLevel_; // Pointer level. e.g. int** ppi has pointer level of 2.
+  // Stores bits as per location of const in a var definition.
+  // Below table clarifies the value of const-bits:
+  // --------------------------------------------------
+  // | DEFINITION                             | VALUE |
+  // | ------------------------------------------------
+  // | int const * pi                         | 0b100 |
+  // | int const i                            | 0b100 |
+  // | int * const pi                         | 0b100 |
+  // | int * const * const ppi                | 0b110 |
+  // | int **const ppi                        | 0b001 |
+  // | int const * const * const ppi          | 0b111 |
+  // | ------------------------------------------------
+  //
+  // It is 8 bit unsigned integer which is enough to store info for pointers of 8 level deep.
+  std::uint8_t  constBits_;
+};
+
+inline CppTypeModifier  makeCppTypeModifier(CppRefType refType, std::uint8_t ptrLevel, std::uint8_t constBits)
+{
+  return CppTypeModifier{refType, ptrLevel, constBits};
+}
+
 struct CppVarType : public CppObj
 {
   std::string		  baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
-  unsigned int	  typeAttr_; // Attribute associated with type, e.g. const int* x.
-  unsigned short  ptrLevel_; // Pointer level. e.g. int** ppi has pointer level of 2.
-  CppRefType		  refType_;
-  CppExpr*		    arraySize_; // Should be nullptr for non-array vars
+  std::uint32_t	  typeAttr_; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
+  CppTypeModifier typeModifier_;
 
-  CppVarType(CppObjProtLevel prot, std::string baseType, unsigned int typeAttr, unsigned short ptrLevel, CppRefType refType)
-    : CppVarType(CppObj::kVarType, prot, baseType, typeAttr, ptrLevel, refType)
+  CppVarType(std::string baseType, CppTypeModifier modifier = CppTypeModifier())
+    : CppVarType(kUnknownProt, baseType, modifier)
   {
   }
 
-  CppVarType(std::string baseType, unsigned int typeAttr = 0, unsigned short ptrLevel = 0, CppRefType refType = kNoRef)
-    : CppVarType(kUnknownProt, baseType, typeAttr, ptrLevel, refType)
+  CppVarType(CppObjProtLevel prot, std::string baseType, CppTypeModifier modifier)
+    : CppVarType(CppObj::kVarType, prot, baseType, 0, modifier)
   {
   }
 
   bool isVoid() const
   {
-    if (typeAttr_ != 0 || ptrLevel_ != 0 || refType_ != kNoRef)
+    if (typeAttr_ != 0 || typeModifier_.ptrLevel_ != 0 || typeModifier_.refType_ != kNoRef)
       return false;
     return (baseType_.compare("void") == 0);
   }
@@ -275,75 +302,122 @@ struct CppVarType : public CppObj
 
   bool isByValue() const
   {
-    return (refType_ == kNoRef) && (ptrLevel_ == 0);
+    return (typeModifier_.refType_ == kNoRef) && (typeModifier_.ptrLevel_ == 0);
   }
 
 protected:
-  CppVarType(CppObj::Type type, CppObjProtLevel prot, std::string baseType, unsigned int typeAttr, unsigned short ptrLevel, CppRefType refType)
+  CppVarType(CppObj::Type type, CppObjProtLevel prot, std::string baseType, std::uint32_t typeAttr, CppTypeModifier modifier)
     : CppObj(type, prot)
+    , typeModifier_(modifier)
     , baseType_(std::move(baseType))
     , typeAttr_(typeAttr)
-    , ptrLevel_(ptrLevel)
-    , refType_(refType)
-    , arraySize_(nullptr)
   {
   }
 };
 
 struct CppExpr;
-/**
- * Class to represent C++ variables.
- * A variable can be global, local or member of a struct, class, namespace, or union.
- * It can also be a function parameter.
- */
-struct CppVar : public CppVarType
+using CppExprPtr = std::unique_ptr<CppExpr>;
+using CppArraySizes = std::vector<CppExprPtr>;
+
+struct CppVarDecl
 {
   std::string		name_;
-  unsigned int	varAttr_;  // Attribute associated with var, e.g. int* const p.
-  CppExpr*		  assign_; // Value assigned at declaration.
-  std::string		apidocer_; // It holds things like WINAPI, __declspec(dllexport), etc.
+  CppExprPtr    assign_;    // Value assigned at declaration.
+  CppArraySizes arraySizes_;
 
-  CppVar(CppObjProtLevel prot, std::string baseType, unsigned int typeAttr, unsigned int varAttr, unsigned short ptrLevel, CppRefType refType, std::string name)
-    : CppVarType(CppObj::kVar, prot, std::move(baseType), typeAttr, ptrLevel, refType)
-    , varAttr_	(varAttr)
-    , name_		(std::move(name))
-    , assign_	(nullptr)
+  CppVarDecl(std::string name)
+    : name_(std::move(name))
+  {
+  }
+
+  CppVarDecl(std::string name, CppExpr* assign)
+    : name_(std::move(name))
+    , assign_(assign)
   {
   }
 };
 
-typedef std::list<CppVar*> CppVarObjList;
+/**
+ * Class to represent C++ variable definition.
+ * A variable can be global, local or member of a struct, class, namespace, or union.
+ * It can also be a function parameter.
+ */
+struct CppVar : public CppObj
+{
+  CppVarType* varType_ {nullptr};
+  CppVarDecl  varDecl_;
+  std::string	apidocer_;  // It holds things like WINAPI, __declspec(dllexport), etc.
+
+  CppVar(CppVarType* varType, CppVarDecl varDecl)
+    : CppVar(CppObj::kVar, varType, std::move(varDecl))
+  {
+  }
+
+protected:
+  CppVar(CppObj::Type objType, CppVarType* varType, CppVarDecl varDecl)
+    : CppObj(objType, varType->prot_)
+    , varType_(varType)
+    , varDecl_(std::move(varDecl))
+  {
+  }
+};
+
+struct CppVarDeclInList : public CppTypeModifier, public CppVarDecl
+{
+  CppVarDeclInList(CppTypeModifier modifier, CppVarDecl varDecl)
+    : CppTypeModifier(modifier)
+    , CppVarDecl(std::move(varDecl))
+  {
+  }
+};
+
+using CppVarDeclList = std::vector<CppVarDeclInList>;
 
 /**
  * \brief List of variables declared in a line without repeating its type, e.g. int i, j; is a var-list.
  */
 struct CppVarList : public CppObj
 {
-  CppVarObjList varlist_;
+  std::string		  baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
+  std::uint32_t	  typeAttr_ {0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
+  CppVarDeclList  varDeclList_;
 
-  CppVarList(CppObjProtLevel prot = kUnknownProt)
-    : CppObj(CppObj::kVarList, prot)
+  CppVarList(std::string baseType, CppObjProtLevel prot = kUnknownProt)
+    : CppVarList(CppObj::kVarList, std::move(baseType), prot)
   {
   }
 
-  ~CppVarList() override
+  void addVarDecl(CppVarDeclInList varDecl)
   {
-    for (CppVarObjList::iterator itr = varlist_.begin(); itr != varlist_.end(); ++itr)
-      delete *itr;
+    varDeclList_.push_back(std::move(varDecl));
   }
 
-  void addVar(CppVar* var)
+protected:
+  CppVarList(CppObj::Type objType, std::string baseType, CppObjProtLevel prot = kUnknownProt)
+    : CppObj(objType, prot)
+    , baseType_(std::move(baseType))
   {
-    varlist_.push_back(var);
   }
 };
 
-struct CppTypedef : public CppVarType
+struct CppTypedefName : public CppObj
 {
-  std::list<std::string>	names_;
+  CppVar* const var_;
 
-  CppTypedef(CppObjProtLevel prot, std::string baseType, unsigned int typeAttr, unsigned short ptrLevel, CppRefType refType)
-    : CppVarType(CppObj::kTypedef, prot, std::move(baseType), typeAttr, ptrLevel, refType)
+  CppTypedefName(CppVar* var)
+    : CppObj(CppObj::kTypedefName, var->prot_)
+    , var_(var)
+  {
+  }
+};
+
+struct CppTypedefList : public CppObj
+{
+  CppVarList* const varList_;
+
+  CppTypedefList(CppVarList* varList)
+    : CppObj(CppObj::kTypedefNameList, varList->prot_)
+    , varList_(varList)
   {
   }
 };
@@ -616,7 +690,7 @@ using CppFuncThrowSpec = CppIdentifierList;
 struct CppFunctionBase : public CppObj
 {
   std::string		name_;
-  unsigned int	attr_; // e.g.: const, static, virtual, inline, constexpr, etc.
+  std::uint32_t	attr_; // e.g.: const, static, virtual, inline, constexpr, etc.
   CppCompound*	defn_; // If it is nullptr then this object is just for declaration.
   std::string		docer1_; // e.g. __declspec(dllexport)
   std::string		docer2_; // e.g. __stdcall
@@ -649,7 +723,7 @@ struct CppFunctionBase : public CppObj
   }
 
 protected:
-  CppFunctionBase(CppObj::Type type, CppObjProtLevel prot, std::string name, unsigned int attr)
+  CppFunctionBase(CppObj::Type type, CppObjProtLevel prot, std::string name, std::uint32_t attr)
     : CppObj(type, prot)
     , name_(std::move(name))
     , attr_(attr)
@@ -673,8 +747,8 @@ struct CppFuncCtorBase : public CppFunctionBase
   }
 
 protected:
-  CppFuncCtorBase(CppObj::Type type, CppObjProtLevel prot, std::string name, CppParamList* params, unsigned int attr)
-    : CppFunctionBase(type, prot, name, attr)
+  CppFuncCtorBase(CppObj::Type type, CppObjProtLevel prot, std::string name, CppParamList* params, std::uint32_t attr)
+    : CppFunctionBase(type, prot, std::move(name), attr)
     , params_(params)
   {
   }
@@ -688,8 +762,8 @@ struct CppFunction : public CppFuncCtorBase
 {
   CppVarType*		retType_;
 
-  CppFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr)
-    : CppFuncCtorBase(CppObj::kFunction, prot, name, params, attr)
+  CppFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, std::uint32_t attr)
+    : CppFuncCtorBase(CppObj::kFunction, prot, std::move(name), params, attr)
     , retType_(retType)
   {}
 
@@ -703,8 +777,8 @@ struct CppFunction : public CppFuncCtorBase
   }
 
 protected:
-  CppFunction(CppObj::Type type, CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr)
-    : CppFuncCtorBase(type, prot, name, params, attr)
+  CppFunction(CppObj::Type type, CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, std::uint32_t attr)
+    : CppFuncCtorBase(type, prot, std::move(name), params, attr)
     , retType_(retType)
   {}
 };
@@ -716,7 +790,7 @@ protected:
  */
 struct CppFunctionPtr : public CppFunction
 {
-  CppFunctionPtr(CppObjProtLevel prot, std::string name, CppVar* retType, CppParamList* args, unsigned int attr)
+  CppFunctionPtr(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* args, std::uint32_t attr)
     : CppFunction(CppObj::kFunctionPtr, prot, std::move(name), retType, args, attr)
   {
   }
@@ -736,7 +810,7 @@ struct CppConstructor : public CppFuncCtorBase
 {
   CppMemInitList* memInitList_;
 
-  CppConstructor(CppObjProtLevel prot, std::string name, CppParamList* params, CppMemInitList* memInitList, unsigned int attr)
+  CppConstructor(CppObjProtLevel prot, std::string name, CppParamList* params, CppMemInitList* memInitList, std::uint32_t attr)
     : CppFuncCtorBase(kConstructor, prot, name, params, attr)
     , memInitList_(nullptr)
   {
@@ -757,7 +831,7 @@ private:
 
 struct CppDestructor : public CppFunctionBase
 {
-  CppDestructor(CppObjProtLevel prot, std::string name, unsigned int attr)
+  CppDestructor(CppObjProtLevel prot, std::string name, std::uint32_t attr)
     : CppFunctionBase(CppObj::kDestructor, prot, name, attr)
   {
   }
@@ -769,7 +843,7 @@ struct CppTypeCoverter : CppObj
   CppCompound* defn_ {nullptr};
   std::uint32_t attr_ {0};
 
-  CppTypeCoverter(CppVar* type, CppObjProtLevel prot)
+  CppTypeCoverter(CppVarType* type, CppObjProtLevel prot)
     : CppObj(CppObj::kTypeConverter, prot)
     , to_(type)
   {}
@@ -834,7 +908,7 @@ struct  CppExprAtom
     std::string*		atom;
     CppExpr*			  expr;
     CppExprList*		list;
-    CppVar*         varType; //!< For type cast expression.
+    CppVarType*     varType; //!< For type cast expression.
   };
 
   bool isExpr() const
@@ -867,7 +941,7 @@ struct  CppExprAtom
     , type(kExprList)
   {
   }
-  CppExprAtom(CppVar* vType)
+  CppExprAtom(CppVarType* vType)
     : varType(vType)
     , type(kVarType)
   {

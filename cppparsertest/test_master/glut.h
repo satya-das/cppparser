@@ -1,6 +1,7 @@
 #ifndef __glut_h__
 #	define __glut_h__
 /* Copyright (c) Mark J. Kilgard, 1994, 1995, 1996, 1998. */
+
 /* This program is freely distributable without licensing fees  and is
    provided without guarantee or warrantee expressed or  implied. This
    program is -not- in the public domain. */
@@ -89,6 +90,7 @@ typedef unsigned short wchar_t;
 
    Note that the __glut*WithExit routines should NEVER be called directly.
    To avoid the atexit workaround, #define GLUT_DISABLE_ATEXIT_HACK. */
+
 /* XXX This is from Win32's <process.h> */
 #		if  !defined(_MSC_VER) && !defined(__cdecl)
    /* Define __cdecl for non-Microsoft compilers. */

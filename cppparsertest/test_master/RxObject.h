@@ -481,12 +481,12 @@ public:
 		}
 		return pRes;
 	}
-  /** Description: Returns the static OdRxClass description object associated with this object. **/
-  /** Note: This function is for use only when the class type of this object is known.          **/
+  /** Description: Returns the static OdRxClass description object associated with this object. **/ 
+  /** Note: This function is for use only when the class type of this object is known.          **/ 
   /** If the class type of this object is unknown, use instead isA().                           **/
 	static OdRxClass* desc();
-  /** Description: Returns the OdRxClass description instance associated with this object.      **/
-  /** Note: This function is for use only when the class type of this object is unknown.        **/
+  /** Description: Returns the OdRxClass description instance associated with this object.      **/   
+  /** Note: This function is for use only when the class type of this object is unknown.        **/   
   /** If the class type of this object is known, use instead desc().                            **/
 	virtual OdRxClass* isA() const;
   /** Description: 

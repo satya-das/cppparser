@@ -59,7 +59,8 @@ public:
   virtual void emitVar		    (const CppVar*				  varObj,			  std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitVarList	  (const CppVarList*			varListObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitEnum		    (const CppEnum*				  enmObj,			  std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitTypedef	  (const CppTypedef*			typedefObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitTypedef	  (const CppTypedefName*  typedefName,	std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitTypedefList(const CppTypedefList*  typedefList,	std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitFwdDecl	  (const CppFwdClsDecl*		fwdClsDeclObj,std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitCompound	  (const CppCompound*		  compoundObj,	std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitFunction	  (const CppFunction*			funcObj,		  std::ostream& stm, CppIndent indentation = CppIndent()) const;
@@ -95,12 +96,14 @@ public:
   void emitConstructor(const CppConstructor*	ctorObj,      std::ostream& stm, bool skipParamName) const;
 
 private:
+  void emit			      (const CppObj*				  cppObj,			  std::ostream& stm, CppIndent indentation, bool noNewLine) const;
   void emitVar        (const CppVar*				  varObj,       std::ostream& stm, CppIndent indentation, bool skipName) const;
   void emitFunctionPtr(const CppFunctionPtr*	funcPtrObj,   std::ostream& stm, CppIndent indentation, bool skipName) const;
   void emitFunction   (const CppFunction*			funcObj,      std::ostream& stm, CppIndent indentation, bool skipName, bool skipParamName) const;
   void emitConstructor(const CppConstructor*	ctorObj,      std::ostream& stm, CppIndent indentation, bool skipParamName) const;
 
   void emitTemplSpec  (const CppTemplateArgList* templSpec, std::ostream& stm, CppIndent indentation) const;
+  void emitVarDecl    (std::ostream &stm, const CppVarDecl &varDecl, bool skipName) const;
 
 private:
   mutable CppIndent	preproIndent_;

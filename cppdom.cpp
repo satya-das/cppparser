@@ -9,12 +9,12 @@ bool CppConstructor::isCopyConstructor() const
   isCopyConstructor_ = false;
   if (!params_ || (params_->size() != 1))
     return false;
-  const auto paramType = params_->front().varObj;
-  if (paramType->ptrLevel_ != 0)
+  const auto param = params_->front().varObj;
+  if (param->varType_->typeModifier_.ptrLevel_ != 0)
     return false;
-  if (!paramType->isConst() || !paramType->isByRef())
+  if (!param->varType_->isConst() || !param->varType_->isByRef())
     return false;
-  if (paramType->baseType_ != name_)
+  if (param->varType_->baseType_ != name_)
     return false;
   isCopyConstructor_ = true;
   return *isCopyConstructor_;
@@ -28,12 +28,12 @@ bool CppConstructor::isMoveConstructor() const
   isMoveConstructor_ = false;
   if (!params_ || (params_->size() != 1))
     return false;
-  const auto paramType = params_->front().varObj;
-  if (paramType->ptrLevel_ != 0)
+  const auto param = params_->front().varObj;
+  if (param->varType_->typeModifier_.ptrLevel_ != 0)
     return false;
-  if (paramType->isConst() || !paramType->isByRValueRef())
+  if (param->varType_->isConst() || !param->varType_->isByRValueRef())
     return false;
-  if (paramType->baseType_ != name_)
+  if (param->varType_->baseType_ != name_)
     return false;
   isMoveConstructor_ = true;
   return *isMoveConstructor_;

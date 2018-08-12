@@ -25,7 +25,46 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
+namespace {
+  static void emitAttribute(std::uint32_t attr, std::ostream& stm)
+  {
+    if (attr & kStatic)
+      stm << "static ";
+    else if (attr & kExtern)
+      stm << "extern ";
+    else if (attr & kExternC)
+      stm << "extern C ";
+
+    if (attr & kConst)
+      stm << "const ";
+    else if(attr & kVolatile)
+      stm << "volatile ";
+  }
+
+  static void emitTypeModifier(CppTypeModifier modifier, std::ostream& stm)
+  {
+    std::uint8_t constBit = 0;
+    for (constBit = 0; constBit < modifier.ptrLevel_; ++constBit)
+    {
+      if (modifier.constBits_ & (1 << constBit))
+        stm << " const ";
+      stm << "*";
+    }
+    if (modifier.constBits_ & (1 << constBit))
+      stm << " const";
+    if (modifier.refType_ == kByRef)
+      stm << '&';
+    else if (modifier.refType_ == kRValRef)
+      stm << "&&";
+  }
+}
+
+void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentation) const
+{
+  return emit(cppObj, stm, indentation, false);
+}
+
+void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentation, bool noNewLine) const
 {
   switch (cppObj->objType_)
   {
@@ -48,8 +87,10 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
     return emitEnum			((CppEnum*)			cppObj, stm, indentation);
   case CppObj::kDocComment:
     return emitDocComment	((CppDocComment*)	cppObj, stm, indentation);
-  case CppObj::kTypedef:
-    return emitTypedef		((CppTypedef*)		cppObj, stm, indentation);
+  case CppObj::kTypedefName:
+    return emitTypedef		((CppTypedefName*)		cppObj, stm, indentation);
+  case CppObj::kTypedefNameList:
+    return emitTypedefList((CppTypedefList*)		cppObj, stm, indentation);
   case CppObj::kCompound:
     return emitCompound		((CppCompound*)		cppObj, stm, indentation);
   case CppObj::kFwdClsDecl:
@@ -74,7 +115,8 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
     return emitForBlock      ((CppForBlock*) cppObj, stm, indentation);
   case CppObj::kExpression:
     emitExpr((CppExpr*) cppObj, stm, indentation);
-    stm << ";\n";
+    if(!noNewLine)
+      stm << ";\n";
     break;
 
   case CppObj::kBlob:
@@ -147,23 +189,9 @@ void CppWriter::emitBlob(const CppBlob* blobObj, std::ostream& stm) const
 
 void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) const
 {
-  if (varTypeObj->typeAttr_&kConst)
-    stm << "const ";
-
+  emitAttribute(varTypeObj->typeAttr_, stm);
   stm << varTypeObj->baseType_;
-  for (unsigned short ptrLevel = 0; ptrLevel < varTypeObj->ptrLevel_; ++ptrLevel)
-    stm << '*';
-  if (varTypeObj->refType_ == kByRef)
-    stm << '&';
-  else if (varTypeObj->refType_ == kRValRef)
-    stm << "&&";
-  if (varTypeObj->typeAttr_&kArray)
-  {
-    stm << '[';
-    if (varTypeObj->arraySize_)
-      emitExpr(varTypeObj->arraySize_, stm);
-    stm << ']';
-  }
+  emitTypeModifier(varTypeObj->typeModifier_, stm);
 }
 
 void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation) const
@@ -171,47 +199,54 @@ void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent inden
   emitVar(varObj, stm, indentation, false);
 }
 
-void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation, bool skipName) const
+void CppWriter::emitVarDecl(std::ostream &stm, const CppVarDecl &varDecl, bool skipName) const
 {
-  if ((varObj->varAttr_&kFuncParam) == 0)
-  {
-    stm << indentation;
-    if (varObj->typeAttr_&kStatic)
-      stm << "static ";
-    else if (varObj->typeAttr_&kExtern)
-      stm << "extern ";
-    if (!varObj->apidocer_.empty())
-    {
-      stm << varObj->apidocer_ << ' ';
-    }
-  }
-  emitVarType((CppVarType*) varObj, stm);
-
-  if (varObj->varAttr_&kConst)
-    stm << " const";
-
-  if (!skipName && !varObj->name_.empty())
-    stm << ' ' << varObj->name_;
-  if (varObj->varAttr_&kArray)
+  if (!skipName && !varDecl.name_.empty())
+    stm << varDecl.name_;
+  for (const auto& arrSize : varDecl.arraySizes_)
   {
     stm << '[';
-    if (varObj->arraySize_)
-      emitExpr(varObj->arraySize_, stm);
+    if (arrSize)
+      emitExpr(arrSize.get(), stm);
     stm << ']';
   }
-  if (varObj->assign_)
+  if (varDecl.assign_)
   {
     stm << " = ";
-    emitExpr(varObj->assign_, stm);
+    emitExpr(varDecl.assign_.get(), stm);
   }
-  if ((varObj->varAttr_&kFuncParam) == 0 && !skipName && !varObj->name_.empty())
+}
+
+void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation, bool skipName) const
+{
+  stm << indentation;
+  if (!varObj->apidocer_.empty())
+  {
+    stm << varObj->apidocer_ << ' ';
+  }
+  emitVarType(varObj->varType_, stm);
+  if (!skipName && !varObj->varDecl_.name_.empty())
+    stm << ' ';
+  emitVarDecl(stm, varObj->varDecl_, skipName);
+  if ((varObj->varType_->typeAttr_&kFuncParam) == 0 && !skipName && !varObj->varDecl_.name_.empty())
     stm << ";\n";
 }
 
 void CppWriter::emitVarList(const CppVarList* varListObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
-  for (CppVarObjList::const_iterator varItr = varListObj->varlist_.begin(); varItr != varListObj->varlist_.end(); ++varItr)
-    emitVar(*varItr, stm, indentation);
+  stm << indentation;
+  emitAttribute(varListObj->typeAttr_, stm);
+  stm << varListObj->baseType_ << ' ';
+  for (size_t i = 0; i < varListObj->varDeclList_.size(); ++i)
+  {
+    if (i > 0)
+      stm << ", ";
+    const auto& decl = varListObj->varDeclList_[i];
+    emitTypeModifier(decl, stm);
+    emitVarDecl(stm, decl, false);
+  }
+
+  stm << ";\n";
 }
 
 void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
@@ -252,17 +287,16 @@ void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, CppIndent ind
   stm << ";\n";
 }
 
-void CppWriter::emitTypedef(const CppTypedef* typedefObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
+void CppWriter::emitTypedef(const CppTypedefName* typedefName, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
   stm << indentation << "typedef ";
-  emitVarType((CppVarType*) typedefObj, stm);
-  for (std::list<std::string>::const_iterator namItr = typedefObj->names_.begin(); namItr != typedefObj->names_.end(); ++namItr)
-  {
-    if (namItr != typedefObj->names_.begin())
-      stm << ',';
-    stm << ' ' << *namItr;
-  }
-  stm << ";\n";
+  emitVar(typedefName->var_, stm);
+}
+
+void CppWriter::emitTypedefList(const CppTypedefList* typedefList, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
+{
+  stm << indentation << "typedef ";
+  emitVarList(typedefList->varList_, stm);
 }
 
 void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
@@ -866,7 +900,7 @@ void CppWriter::emitForBlock(const CppForBlock* forBlock, std::ostream& stm, Cpp
 {
   stm << indentation << "for (";
   if (forBlock->startObj_)
-    emit(forBlock->startObj_, stm);
+    emit(forBlock->startObj_, stm, CppIndent(), true);
   stm << ';';
   if (forBlock->stop_)
   {

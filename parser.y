@@ -114,11 +114,14 @@ extern int yylex();
 %union {
   CppToken              str;
   CppObj*               cppObj;
+  CppTypeModifier       typeModifier;
+  CppVarType*           cppVarType;
   CppVar*               cppVarObj;
   CppEnum*              cppEnum;
   CppEnumItem*          enumItem;
   CppEnumItemList*      enumItemList;
-  CppTypedef*           typedefObj;
+  CppTypedefName*       typedefName;
+  CppTypedefList*       typedefList;
   CppCompound*          cppCompundObj;
   CppTemplateArgList*   templSpec;
   CppTemplateArg*       templArg;
@@ -192,25 +195,28 @@ extern int yylex();
 %token  tknDefine tknUndef
 %token  tknInclude tknStdHdrInclude
 %token  tknIf tknIfDef tknIfNDef tknElse tknElIf tknEndIf
-%token  tknFor tknWhile tknDo tknSwitch tknCase
+%token  tknFor tknWhile tknDo tknSwitch tknCase tknDefault
 %token  tknReturn
 
 %token  tknBlankLine
 
 %type  <str>                apidocer
-%type  <str>                identifier templidentifier vartype optid basefuncname funcname typenamespecifier
+%type  <str>                identifier typeidentifier templidentifier optid basefuncname funcname typenamespecifier
 %type  <str>                doccommentstr
 %type  <cppObj>             stmt functptrtype
+%type  <typeModifier>       typemodifier
 %type  <cppEnum>            enumdefn enumfwddecl
 %type  <enumItem>           enumitem
 %type  <enumItemList>       enumitemlist
 %type  <fwdDeclObj>         fwddecl
-%type  <cppVarObj>          varqual vardecl varinit vardeclstmt
+%type  <cppVarType>         vartype
+%type  <cppVarObj>          vardecl varinit vardeclstmt
 %type  <varOrFuncPtr>       param
 %type  <str>                templateparam templateparamlist /* For time being. We may need to make it more robust in future. */
 %type  <cppVarObjList>      vardecllist vardeclliststmt
 %type  <paramList>          paramlist
-%type  <typedefObj>         typedefname typedefnamelist typedefnamestmt
+%type  <typedefName>        typedefname typedefnamestmt
+%type  <typedefList>        typedeflist typedefliststmt
 %type  <cppCompundObj>      stmtlist progunit classdefn classdefnstmt externcblock block
 %type  <templSpec>          templatespecifier temparglist
 %type  <templArg>           temparg tempargwodefault tempargwdefault
@@ -229,9 +235,7 @@ extern int yylex();
 %type  <cppTypeConverter>   typeconverter typeconverterstmt
 %type  <memInitList>        meminitlist
 %type  <compoundType>       compoundSpecifier
-%type  <ptrLevel>           ptrlevelopt ptrlevel
-%type  <refType>            reftype
-%type  <attr>               optattr varattrib funcattrib functype
+%type  <attr>               optattr varattrib exptype funcattrib functype
 %type  <inheritList>        inheritlist
 %type  <protLevel>          protlevel changeprotlevel
 %type  <identifierList>     identifierlist
@@ -326,6 +330,7 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | enumdefn        { $$ = $1; }
                   | enumfwddecl     { $$ = $1; }
                   | typedefnamestmt { $$ = $1; }
+                  | typedefliststmt { $$ = $1; }
                   | classdefnstmt   { $$ = $1; }
                   | fwddecl         { $$ = $1; }
                   | doccomment      { $$ = $1; }
@@ -474,6 +479,10 @@ doccommentstr     : tknDocBlockComment  [ZZVALID;] { $$ = $1; }
 identifier        : tknID                                 { $$ = $1; }
                   | tknScopeResOp identifier              { $$ = mergeCppToken($1, $2); }
                   | identifier tknScopeResOp identifier   { $$ = mergeCppToken($1, $3); }
+                  | templidentifier                       { $$ = $1; }
+                  ;
+
+typeidentifier    : identifier                            { $$ = $1; }
                   | tknLong                               { $$ = $1; }
                   | tknVoid                               { $$ = $1; }
                   | tknLong identifier                    { $$ = mergeCppToken($1, $2); }
@@ -482,17 +491,14 @@ identifier        : tknID                                 { $$ = $1; }
                   | tknClass identifier                   { $$ = mergeCppToken($1, $2); }
                   | tknStruct identifier                  { $$ = mergeCppToken($1, $2); }
                   | tknUnion identifier                   { $$ = mergeCppToken($1, $2); }
+                  | tknEnum  identifier                   { $$ = mergeCppToken($1, $2); }
                   | tknEllipsis                           { $$ = $1; }
                   | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
-                  | templidentifier                       { $$ = $1; }
                   ;
 
 templidentifier   : identifier '<' templateparamlist '>' {
                     $$ = mergeCppToken($1, $4);
                   }
-                  ;
-
-vartype           : identifier                  { $$ = $1; }
                   ;
 
 optid             : { $$ = makeCppToken(nullptr, 0U); }
@@ -546,89 +552,101 @@ enumfwddecl       : tknEnum tknID ':' identifier ';'                            
                   }
                   ;
 
-typedefnamestmt   : typedefnamelist ';' [ZZVALID;] { $$ = $1; }
-                  | typedefname ';'     [ZZVALID;] { $$ = $1; }
+typedefnamestmt   : typedefname ';'     [ZZVALID;] { $$ = $1; }
                   ;
 
-typedefnamelist   : typedefname ',' tknID { $$ = $1; $$->names_.push_back((std::string) $3); }
+typedefliststmt   : typedeflist ';' [ZZVALID;] { $$ = $1; }
                   ;
 
-typedefname       : tknTypedef optattr vartype ptrlevelopt reftype tknID {
-                    $$ = new CppTypedef(gCurProtLevel, $3, $2, $4, $5);
-                    $$->names_.push_back((std::string) $6);
+typedeflist       : tknTypedef vardecllist { $$ = new CppTypedefList($2); }
+                  ;
+
+typedefname       : tknTypedef vardecl { $$ = new CppTypedefName($2); }
+                  ;
+
+
+vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
+                  ;
+
+vardeclstmt       : vardecl ';'             [ZZVALID;] { $$ = $1; }
+                  | varinit ';'             [ZZVALID;] { $$ = $1; }
+                  | apidocer vardecl ';'    [ZZVALID;] { $$ = $2; $$->apidocer_ = $1; }
+                  | exptype vardeclstmt     [ZZVALID;] { $$ = $2; $$->varType_->typeAttr_ |= $1; }
+                  | apidocer exptype vardeclstmt     [ZZVALID;] {
+                    $$ = $3;
+                    $$->varType_->typeAttr_ |= $2;
+                    $$->apidocer_ = $1;
                   }
                   ;
 
-varinit           : vardecl '=' expr            { $$ = $1; $$->assign_ = $3; }
-                  ;
-
-vardecl           : varattrib varqual identifier optattr {
-                    $$ = $2;
-                    $$->name_ = $3;
-                    $$->varAttr_ |= $4;
-                    $$->typeAttr_|= $1;
+vardecllist       : typeidentifier typemodifier tknID ',' typemodifier tknID {
+                    $$ = new CppVarList($1);
+                    $$->addVarDecl(CppVarDeclInList($2, {$3}));
+                    $$->addVarDecl(CppVarDeclInList($5, {$6}));
                   }
-                  | varqual identifier optattr {
+                  | vardecllist ',' typemodifier tknID {
                     $$ = $1;
-                    $$->name_ = $2;
-                    $$->varAttr_ |= $3;
-                  }
-                  | varattrib varqual identifier '[' expr ']' {
-                    $$ = $2;
-                    $$->name_ = $3;
-                    $$->varAttr_|= $1|kArray;
-                    $$->arraySize_ = $5;
-                  }
-                  | varattrib varqual identifier '[' ']' {
-                    $$ = $2;
-                    $$->name_ = $3;
-                    $$->varAttr_|= $1|kArray;
-                  }
-                  | varqual identifier '[' expr ']' {
-                    $$ = $1;
-                    $$->name_ = $2;
-                    $$->varAttr_|= kArray;
-                    $$->arraySize_ = $4;
-                  }
-                  | varqual identifier '[' ']' {
-                    $$ = $1;
-                    $$->name_ = $2;
-                    $$->varAttr_|= kArray;
-                  }
-
-
-                  /* Below rules are defined to remove ambiguity in the grammer. */
-                  /* See comments near definition of PTRDECL above for details. */
-                  | vartype ptrlevel identifier %prec PTRDECL {
-                    $$ = new CppVar(gCurProtLevel, $1, 0, 0, $2, kNoRef, $3);
-                  }
-                  | vartype '&' identifier %prec REFDECL {
-                    $$ = new CppVar(gCurProtLevel, $1, 0, 0, 0, kByRef, $3);
-                  }
-                  | vartype tknAnd identifier %prec REFDECL {
-                    $$ = new CppVar(gCurProtLevel, $1, 0, 0, 0, kRValRef, $3);
-                  }
-                  /* Disambiguation rules end. */
-                  ;
-
-varqual           : optattr vartype optattr ptrlevelopt reftype optattr {
-                    $$ = new CppVar(gCurProtLevel, $2, $1|$3, $6, $4, $5, "");
-                  }
-                  | optattr vartype optattr ptrlevelopt reftype '[' expr ']' optattr {
-                    $$ = new CppVar(gCurProtLevel, $2, $1|$3|kArray, $9, $4, $5, "");
-                    $$->arraySize_ = $7;
-                  }
-                  | optattr vartype optattr ptrlevelopt reftype '[' ']' optattr {
-                    $$ = new CppVar(gCurProtLevel, $2, $1|$3|kArray, $8, $4, $5, "");
+                    $$->addVarDecl(CppVarDeclInList($3, {$4}));
                   }
                   ;
 
-varattrib         : tknStatic  { $$ = kStatic;  }
+varinit           : vardecl '=' expr {
+                    $$ = $1;
+                    $$->varDecl_.assign_.reset($3);
+                  }
+                  ;
+
+vardecl           : vartype tknID {
+                    $$ = new CppVar($1, $2.toString());
+                  }
+                  | vardecl '[' expr ']' {
+                    $$ = $1;
+                    $$->varDecl_.arraySizes_.push_back(std::unique_ptr<CppExpr>($3));
+                  }
+                  | vardecl '[' ']' {
+                    $$ = $1;
+                    $$->varDecl_.arraySizes_.push_back(nullptr);
+                  }
+                  ;
+
+vartype           : typeidentifier typemodifier {
+                    $$ = new CppVarType(gCurProtLevel, $1, $2);
+                  }
+                  | varattrib vartype {
+                    $$ = $2;
+                    $$->typeAttr_ |= $1;
+                  }
+                  ;
+
+typemodifier      : { $$ = CppTypeModifier(); }
+                  | typemodifier tknConst {
+                    $$ = $1;
+                    $$.constBits_ |= (1 << $$.ptrLevel_);
+                  }
+                  | typemodifier '*' %prec PTRDECL {
+                    $$ = $1;
+                    $$.ptrLevel_++;
+                  }
+                  | typemodifier '&' %prec REFDECL {
+                    $$ = $1;
+                    $$.refType_ = kByRef;
+                  }
+                  | typemodifier tknAnd %prec REFDECL {
+                    $$ = $1;
+                    $$.refType_ = kRValRef;
+                  }
+                  ;
+
+exptype           : tknStatic  { $$ = kStatic;  }
                   | tknExtern  { $$ = kExtern;  }
                   | tknExternC { $$ = kExternC; }
                   ;
 
-typeconverter     : tknOperator varqual '(' ')' {
+varattrib         : tknConst    { $$ = kConst; }
+                  | tknVolatile { $$ = kVolatile; }
+                  ;
+
+typeconverter     : tknOperator vartype '(' ')' {
                     $$ = new CppTypeCoverter($2, gCurProtLevel);
                   }
                   | typeconverter tknConst {
@@ -660,12 +678,12 @@ functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $$ = $2;
                   }
 
-functionpointer   : apidocer functype varqual '(' apidocer '*' optid ')' '(' paramlist ')' {
+functionpointer   : apidocer functype vartype '(' apidocer '*' optid ')' '(' paramlist ')' {
                     $$ = new CppFunctionPtr(gCurProtLevel, $7, $3, $10, $2);
                     $$->docer1_ = $1;
                     $$->docer2_ = $5;
                   }
-                  | apidocer varqual '(' apidocer '*' optid ')' '(' paramlist ')' {
+                  | apidocer vartype '(' apidocer '*' optid ')' '(' paramlist ')' {
                     $$ = new CppFunctionPtr(gCurProtLevel, $6, $2, $9, 0);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
@@ -675,18 +693,18 @@ functionpointer   : apidocer functype varqual '(' apidocer '*' optid ')' '(' par
 funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
                   ;
 
-funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')' funcattrib {
+funcdecl          : functype apidocer vartype apidocer funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $5, $3, $7, $1 | $9);
                     $$->docer1_ = $2;
                     $$->docer2_ = $4;
                   }
-                  | apidocer functype varqual apidocer funcname '(' paramlist ')' funcattrib {
+                  | apidocer functype vartype apidocer funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $5, $3, $7, $2 | $9);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
                   }
 
-                  | apidocer varqual apidocer funcname '(' paramlist ')' funcattrib {
+                  | apidocer vartype apidocer funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $4, $2, $6, $8);
                     $$->docer1_ = $1;
                     $$->docer2_ = $3;
@@ -701,6 +719,7 @@ funcdecl          : functype apidocer varqual apidocer funcname '(' paramlist ')
                   }
                   | tknInline funcdecl {
                     $$ = $2;
+                    $$->attr_ |= kInline;
                   }
                   | funcdecl '=' tknDelete {
                     $$ = $1;
@@ -779,19 +798,37 @@ paramlist         : { $$ = 0; }
                   }
                   ;
 
-param             : varinit                 { $$ = $1; $1->varAttr_ |= kFuncParam;  }
-                  | varqual '=' expr        { /* When there is no named param but default value, e.g. `int = 3`*/
-                    $$ = $1; $1->varAttr_ |= kFuncParam;
-                    $1->assign_ = $3;
+param             : varinit                 { $$ = $1; $1->varType_->typeAttr_ |= kFuncParam;  }
+                  | vartype '=' expr        { /* When there is no named param but default value, e.g. `int = 3`*/
+                    auto var = new CppVar($1, std::string());
+                    var->varType_->typeAttr_ |= kFuncParam;
+                    var->varDecl_.assign_.reset($3);
+                    $$ = var;
                   }
-                  | vardecl                 { $$ = $1; $1->varAttr_ |= kFuncParam;  }
-                  | varqual                 { $$ = $1; $1->varAttr_ |= kFuncParam;  }
+                  | vardecl                 { $$ = $1; $1->varType_->typeAttr_ |= kFuncParam;  }
+                  | vartype                 {
+                    auto var = new CppVar($1, std::string());
+                    var->varType_->typeAttr_ |= kFuncParam;
+                    $$ = var;
+                  }
                   | functionpointer         { $$ = $1; $1->attr_ |= kFuncParam;     }
                   | doccomment param        { $$ = $2; }
+                  | vartype '[' expr ']' {
+                    auto var = new CppVar($1, std::string());
+                    var->varType_->typeAttr_ |= kFuncParam;
+                    var->varDecl_.arraySizes_.push_back(std::unique_ptr<CppExpr>($3));
+                    $$ = var;
+                  }
+                  | vartype '[' ']' {
+                    auto var = new CppVar($1, std::string());
+                    var->varType_->typeAttr_ |= kFuncParam;
+                    var->varDecl_.arraySizes_.push_back(std::unique_ptr<CppExpr>(nullptr));
+                    $$ = var;
+                  }
                   ;
 
 templateparam     :                               { $$ = makeCppToken(nullptr, 0U); }
-                  | identifier                    { $$ = $1; }
+                  | typeidentifier                { $$ = $1; }
                   | tknConst templateparam        { $$ = mergeCppToken($1, $2); }
                   | templateparam '*'             {
                     auto p = $1.sz + $1.len;
@@ -1032,39 +1069,6 @@ optvoid           :
                   | tknVoid
                   ;
 
-vardecllist       : vardecl ',' optattr ptrlevelopt reftype optattr identifier optattr {
-                    $$ = new CppVarList();
-                    $$->addVar($1);
-                    $$->addVar(new CppVar(gCurProtLevel, $1->baseType_, $1->typeAttr_|$3, $6|$8, $4, $5, $7));
-                  }
-                  | vardecllist ',' optattr ptrlevelopt reftype optattr identifier optattr {
-                    $$ = $1;
-                    $$->addVar(new CppVar(gCurProtLevel, $1->varlist_.back()->baseType_, $1->varlist_.back()->typeAttr_|$3, $6|$8, $4, $5, $7));
-                  }
-                  ;
-
-vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
-                  ;
-
-vardeclstmt       : vardecl ';'    [ZZVALID;] { $$ = $1; }
-                  | varinit ';'    [ZZVALID;] { $$ = $1; }
-                  | tknID vardecl ';'  [ZZVALID;] { $$ = $2; $$->apidocer_ = $1; }
-                  | varattrib tknID vardecl ';'  [ZZVALID;] { $$ = $3; $$->apidocer_ = $2; $$->typeAttr_ |= $1; }
-                  ;
-
-ptrlevelopt       :        { $$ = 0;    }
-                  | ptrlevel    { $$ = $1;    }
-                  ;
-
-ptrlevel          : '*'      { $$ = 1;    }
-                  | ptrlevel '*'  { $$ = $1 + 1;  }
-                  ;
-
-reftype           :         { $$ = kNoRef;    }
-                  | '&'     { $$ = kByRef;    }
-                  | tknAnd  { $$ = kRValRef;  }
-                  ;
-
 optcomment        : {
                   }
                   | doccomment [ZZVALID;] {
@@ -1152,7 +1156,7 @@ temparg           : tempargwodefault  { $$ = $1; }
 tempargwodefault  : typenamespecifier tknID [ZZVALID;] {
                     $$ = new CppTemplateArg{$1, $2, nullptr};
                   }
-                  | vartype tknID {
+                  | identifier tknID {
                     $$ = new CppTemplateArg{$1, $2, nullptr};
                   }
                   ;
@@ -1237,11 +1241,11 @@ expr              : tknStrLit                         { $$ = new CppExpr((std::s
                   | expr '[' expr ']' %prec POSTFIX   { $$ = new CppExpr($1, kArrayElem, $3);               }
                   | expr '(' ')'                      { $$ = new CppExpr($1, kFunctionCall);                }
                   | expr '(' exprlist ')'             { $$ = new CppExpr($1, kFunctionCall, $3);            }
-                  | '(' varqual ')' expr              { $$ = new CppExpr($2, kCStyleCast, $4);              }
-                  | tknConstCast '<' varqual '>' '(' expr ')' { $$ = new CppExpr($3, kConstCast, $6);       }
-                  | tknStaticCast '<' varqual '>' '(' expr ')' { $$ = new CppExpr($3, kStaticCast, $6);     }
-                  | tknDynamicCast '<' varqual '>' '(' expr ')' { $$ = new CppExpr($3, kDynamicCast, $6);   }
-                  | tknReinterpretCast '<' varqual '>' '(' expr ')' { $$ = new CppExpr($3, kReinterpretCast, $6); }
+                  | '(' vartype ')' expr              { $$ = new CppExpr($2, kCStyleCast, $4);              }
+                  | tknConstCast '<' vartype '>' '(' expr ')' { $$ = new CppExpr($3, kConstCast, $6);       }
+                  | tknStaticCast '<' vartype '>' '(' expr ')' { $$ = new CppExpr($3, kStaticCast, $6);     }
+                  | tknDynamicCast '<' vartype '>' '(' expr ')' { $$ = new CppExpr($3, kDynamicCast, $6);   }
+                  | tknReinterpretCast '<' vartype '>' '(' expr ')' { $$ = new CppExpr($3, kReinterpretCast, $6); }
                   | '(' expr ')'                      { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
                   | tknNew expr                       { $$ = $2; $2->flags_ |= CppExpr::kNew;               }
                   | tknNew expr expr                  { $$ = new CppExpr($2, kPlacementNew, $3);            }
