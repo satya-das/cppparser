@@ -671,13 +671,22 @@ varattrib         : tknConst    { $$ = kConst; }
                   | tknVolatile { $$ = kVolatile; }
                   ;
 
-typeconverter     : tknOperator vartype '(' ')' {
+typeconverter     : tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($2, std::string());
                   }
-                  | identifier tknScopeResOp tknOperator vartype '(' ')' {
+                  | identifier tknScopeResOp tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($4, mergeCppToken($1, $2));
                   }
-                  | functype identifier tknScopeResOp tknOperator vartype '(' ')' {
+                  | functype tknOperator vartype '(' optvoid ')' {
+                    $$ = new CppTypeCoverter($3, std::string());
+                    $$->attr_ |= $1;
+                  }
+                  | functype apidocer tknOperator vartype '(' optvoid ')' {
+                    $$ = new CppTypeCoverter($4, std::string());
+                    $$->attr_ |= $1;
+                    $$->apidocer_ = $2;
+                  }
+                  | functype identifier tknScopeResOp tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($5, mergeCppToken($2, $3));
                     $$->attr_ |= $1;
                   }
