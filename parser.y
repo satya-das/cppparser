@@ -200,7 +200,7 @@ extern int yylex();
 
 %token  tknBlankLine
 
-%type  <str>                optapidocer
+%type  <str>                optapidocer apidocer
 %type  <str>                identifier typeidentifier templidentifier optid basefuncname funcname typenamespecifier
 %type  <str>                doccommentstr
 %type  <cppObj>             stmt functptrtype
@@ -662,6 +662,10 @@ typeconverter     : tknOperator vartype '(' ')' {
                   | typeconverter tknConst {
                     $$ = $1;
                     $$->attr_ |= kConst;
+                  }
+                  | apidocer typeconverter {
+                    $$ = $2;
+                    $$->apidocer_ = $1;
                   }
                   ;
 
@@ -1182,7 +1186,10 @@ typenamespecifier : tknTypename { $$ = $1; }
                   ;
 
 optapidocer       :                     { $$ = makeCppToken(nullptr, 0U); }
-                  | tknID               { $$ = $1; }
+                  | apidocer            { $$ = $1; }
+                  ;
+
+apidocer          : tknID               { $$ = $1; }
                   | tknID '(' tknID ')' { $$ = mergeCppToken($1, $4); }
                   | tknID tknID         { $$ = mergeCppToken($1, $2); }
                   ;
