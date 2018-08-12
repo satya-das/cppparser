@@ -1,5 +1,5 @@
 static const double PI = 3.1416;
-char* p const = "Variable initialization should be parsed correctly";
+char* const p = "Variable initialization should be parsed correctly";
 void* buf;
 void* buf = NULL;
 A& a;
