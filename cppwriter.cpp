@@ -213,7 +213,7 @@ void CppWriter::emitVarDecl(std::ostream &stm, const CppVarDecl &varDecl, bool s
   if (varDecl.assign_)
   {
     stm << " = ";
-    emitExpr(varDecl.assign_.get(), stm);
+    emit(varDecl.assign_.get(), stm);
   }
 }
 

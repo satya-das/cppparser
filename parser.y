@@ -619,6 +619,14 @@ varinit           : vardecl '=' expr {
                     $$ = $1;
                     $$->varDecl_.assign_.reset($3);
                   }
+                  | vardecl '(' exprlist ')' {
+                    $$ = $1;
+                    $$->varDecl_.assign_.reset($3);
+                  }
+                  | vardecl '{' exprlist '}' {
+                    $$ = $1;
+                    $$->varDecl_.assign_.reset($3);
+                  }
                   ;
 
 vardecl           : vartype tknID {

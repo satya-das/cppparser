@@ -84,6 +84,7 @@ struct CppObj
     kTypeConverter,
     kFunctionPtr,		            // Function proc declaration using typedef. e.g. typedef void (*fp) (void);
     kExpression,		            // A C++ expression
+    kExpressionList,
     kFuncCall,			            // A function call expression
     kBlob,				              // Some unparsed/unrecognized part of C++ source code.
     kCppStatementObjectTypeEnds,
@@ -320,11 +321,12 @@ protected:
 struct CppExpr;
 using CppExprPtr = std::unique_ptr<CppExpr>;
 using CppArraySizes = std::vector<CppExprPtr>;
+using CppObjPtr = std::unique_ptr<CppObj>;
 
 struct CppVarDecl
 {
   std::string		name_;
-  CppExprPtr    assign_;    // Value assigned at declaration.
+  CppObjPtr     assign_;    // Value assigned at declaration.
   CppExprPtr    bitField_;
   CppArraySizes arraySizes_;
 
@@ -333,11 +335,7 @@ struct CppVarDecl
   {
   }
 
-  CppVarDecl(std::string name, CppExpr* assign)
-    : name_(std::move(name))
-    , assign_(assign)
-  {
-  }
+  CppVarDecl(std::string name, CppExpr* assign);
 };
 
 /**
@@ -923,7 +921,7 @@ struct CppExpr;
  * - and array/struct initialization, in such case expression list is enclosed inside {}.
  * \see CppExpr.
  */
-struct CppExprList : private std::list<CppExpr*>
+struct CppExprList : public CppObj, private std::list<CppExpr*>
 {
   typedef std::list<CppExpr*> BaseType;
   using BaseType::iterator;
@@ -936,7 +934,9 @@ struct CppExprList : private std::list<CppExpr*>
   using BaseType::begin;
   using BaseType::end;
 
-  CppExprList() {}
+  CppExprList()
+    : CppObj(CppObj::kExpressionList, kUnknownProt)
+    {}
   CppExprList(const CppExprAtom& e1);
   CppExprList(const CppExprAtom& e1, const CppExprAtom& e2);
   CppExprList(const CppExprAtom& e1, const CppExprAtom& e2, const CppExprAtom& e3);
@@ -1191,15 +1191,18 @@ inline void CppExprList::push(const CppExprAtom& e)
 }
 
 inline CppExprList::CppExprList(const CppExprAtom& e1)
+  : CppObj(CppObj::kExpressionList, kUnknownProt)
 {
   push(e1);
 }
 inline CppExprList::CppExprList(const CppExprAtom& e1, const CppExprAtom& e2)
+  : CppObj(CppObj::kExpressionList, kUnknownProt)
 {
   push(e1);
   push(e2);
 }
 inline CppExprList::CppExprList(const CppExprAtom& e1, const CppExprAtom& e2, const CppExprAtom& e3)
+  : CppObj(CppObj::kExpressionList, kUnknownProt)
 {
   push(e1);
   push(e2);
@@ -1236,7 +1239,13 @@ inline CppVar::CppVar(CppCompound* compound, CppVarDecl varDecl)
     : CppObj(CppObj::kVar, compound->prot_)
     , compound_(compound)
     , varDecl_(std::move(varDecl))
-  {
-  }
+{
+}
+
+inline CppVarDecl::CppVarDecl(std::string name, CppExpr* assign)
+  : name_(std::move(name))
+{
+  assign_.reset(assign);
+}
 
 #endif //__CPPPARSER_CPPDOM_H__
