@@ -624,6 +624,9 @@ varinit           : vardecl '=' expr {
 vardecl           : vartype tknID {
                     $$ = new CppVar($1, $2.toString());
                   }
+                  | classdefn tknID {
+                    $$ = new CppVar($1, $2.toString());
+                  }
                   | vardecl '[' expr ']' {
                     $$ = $1;
                     $$->varDecl_.arraySizes_.push_back(std::unique_ptr<CppExpr>($3));
@@ -1137,7 +1140,7 @@ classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
                       }
                   ;
 
-classdefn         : compoundSpecifier optapidocer tknID inheritlist optcomment
+classdefn         : compoundSpecifier optapidocer identifier inheritlist optcomment
                     '{' [gCompoundStack.push($3); ZZVALID;] { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
                       stmtlist
                     '}' [gCompoundStack.pop(); ZZVALID;]
@@ -1150,6 +1153,18 @@ classdefn         : compoundSpecifier optapidocer tknID inheritlist optcomment
                     $$->apidocer_    = $2;
                     $$->name_      = $3;
                     $$->inheritList_  = $4;
+                  }
+                  | compoundSpecifier inheritlist optcomment
+                    '{' { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
+                      stmtlist
+                    '}' [ ZZVALID;]
+                  {
+                    gCurProtLevel = gProtLevelStack.top();
+                    gProtLevelStack.pop();
+
+                    $$ = $6 ? $6 : newCompound(gCurProtLevel);
+                    $$->compoundType_  = $1;
+                    $$->inheritList_  = $2;
                   }
                   | templatespecifier classdefn {
                     $$ = $2;

@@ -347,7 +347,10 @@ struct CppVarDecl
  */
 struct CppVar : public CppObj
 {
-  CppVarType* varType_ {nullptr};
+  union {
+    CppVarType* varType_ {nullptr};
+    CppCompound* compound_;
+  };
   CppVarDecl  varDecl_;
   std::string	apidocer_;  // It holds things like WINAPI, __declspec(dllexport), etc.
 
@@ -355,6 +358,8 @@ struct CppVar : public CppObj
     : CppVar(CppObj::kVar, varType, std::move(varDecl))
   {
   }
+
+  CppVar(CppCompound* compound, CppVarDecl varDecl);
 
 protected:
   CppVar(CppObj::Type objType, CppVarType* varType, CppVarDecl varDecl)
@@ -1226,5 +1231,12 @@ inline void CppExprAtom::destroy()
     break;
   }
 }
+
+inline CppVar::CppVar(CppCompound* compound, CppVarDecl varDecl)
+    : CppObj(CppObj::kVar, compound->prot_)
+    , compound_(compound)
+    , varDecl_(std::move(varDecl))
+  {
+  }
 
 #endif //__CPPPARSER_CPPDOM_H__
