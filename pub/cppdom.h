@@ -325,6 +325,7 @@ struct CppVarDecl
 {
   std::string		name_;
   CppExprPtr    assign_;    // Value assigned at declaration.
+  CppExprPtr    bitField_;
   CppArraySizes arraySizes_;
 
   CppVarDecl(std::string name)

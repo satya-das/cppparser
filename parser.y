@@ -632,6 +632,10 @@ vardecl           : vartype tknID {
                     $$ = $1;
                     $$->varDecl_.arraySizes_.push_back(nullptr);
                   }
+                  | vardecl ':' expr {
+                    $$ = $1;
+                    $$->varDecl_.bitField_.reset($3);
+                  }
                   ;
 
 vartype           : typeidentifier typemodifier {
