@@ -1269,6 +1269,7 @@ expr              : tknStrLit                         { $$ = new CppExpr((std::s
                   | tknNumber                         { $$ = new CppExpr((std::string) $1, kNone);          }
                   | funcname                          { $$ = new CppExpr((std::string) $1, kNone);          }
                   | '{' exprlist '}'                  { $$ = new CppExpr($2, CppExpr::kInitializer);        }
+                  | '{' /*empty exprlist*/ '}'        { $$ = new CppExpr((CppExprList*)nullptr, CppExpr::kInitializer);   }
                   | '-' expr %prec PREFIX             { $$ = new CppExpr($2, kUnaryMinus);                  }
                   | '~' expr %prec PREFIX             { $$ = new CppExpr($2, kBitToggle);                   }
                   | '!' expr %prec PREFIX             { $$ = new CppExpr($2, kLogNot);                      }
