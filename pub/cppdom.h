@@ -126,21 +126,6 @@ struct CppObj
 
 struct CppExpr;
 
-struct CppTemplateArg
-{
-  std::string typeSpecifier_; // typename, class, int, etc.
-  std::string arg_; // e.g. _Ty
-  CppExpr*    defaultArgVal_;
-};
-
-struct CppTemplateArgList : public std::list<CppTemplateArg*>
-{
-  ~CppTemplateArgList() {
-    for (auto arg : *this)
-      delete arg;
-  }
-};
-
 typedef std::vector<CppObj*> CppObjArray;
 
 struct CppDefine : public CppObj
@@ -497,6 +482,9 @@ struct CppInheritInfo
   {
   }
 };
+
+struct CppParamList;
+using CppTemplateArgList = CppParamList;
 
 typedef std::list<CppInheritInfo> CppInheritanceList;
 

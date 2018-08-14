@@ -125,8 +125,7 @@ extern int yylex();
   CppUsingDecl*         usingDecl;
   CppUsingNamespaceDecl*  usingNamespaceDecl;
   CppCompound*          cppCompundObj;
-  CppTemplateArgList*   templSpec;
-  CppTemplateArg*       templArg;
+  CppParamList*         templSpec;
   CppDocComment*        docCommentObj;
   CppFwdClsDecl*        fwdDeclObj;
   CppVarList*           cppVarObjList;
@@ -204,7 +203,7 @@ extern int yylex();
 %token  tknBlankLine
 
 %type  <str>                optapidocer apidocer
-%type  <str>                identifier typeidentifier templidentifier optid basefuncname funcname typenamespecifier
+%type  <str>                identifier typeidentifier templidentifier optid basefuncname funcname
 %type  <str>                doccommentstr
 %type  <cppObj>             stmt functptrtype
 %type  <typeModifier>       typemodifier
@@ -224,7 +223,6 @@ extern int yylex();
 %type  <usingDecl>          usingdecl
 %type  <cppCompundObj>      stmtlist progunit classdefn classdefnstmt externcblock block
 %type  <templSpec>          templatespecifier temparglist
-%type  <templArg>           temparg tempargwodefault tempargwdefault
 %type  <docCommentObj>      doccomment
 %type  <cppExprObj>         expr exprstmt optexpr
 %type  <ifBlock>            ifblock;
@@ -502,6 +500,7 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | tknStruct identifier                  { $$ = mergeCppToken($1, $2); }
                   | tknUnion identifier                   { $$ = mergeCppToken($1, $2); }
                   | tknEnum  identifier                   { $$ = mergeCppToken($1, $2); }
+                  | tknTypename identifier                { $$ = mergeCppToken($1, $2); }
                   | tknEllipsis                           { $$ = $1; }
                   | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
                   ;
@@ -1215,36 +1214,9 @@ templatespecifier : tknTemplate '<' temparglist '>' {
                   }
                   ;
 
-temparglist       : temparg {
-                    $$ = new CppTemplateArgList;
-                    $$->push_back($1);
-                  }
-                  | temparglist ',' temparg {
+temparglist       : paramlist { /* For us template parameters are exactly like function parameters. */
                     $$ = $1;
-                    $$->push_back($3);
                   }
-                  ;
-
-temparg           : tempargwodefault  { $$ = $1; }
-                  | tempargwdefault   { $$ = $1; }
-                  ;
-
-tempargwodefault  : typenamespecifier tknID [ZZVALID;] {
-                    $$ = new CppTemplateArg{$1, $2, nullptr};
-                  }
-                  | identifier tknID {
-                    $$ = new CppTemplateArg{$1, $2, nullptr};
-                  }
-                  ;
-
-tempargwdefault   : tempargwodefault '=' expr {
-                    $$ = $1;
-                    $$->defaultArgVal_ = $3;
-                  }
-                  ;
-
-typenamespecifier : tknTypename { $$ = $1; }
-                  | tknClass    { $$ = $1; }
                   ;
 
 optapidocer       :                     { $$ = makeCppToken(nullptr, 0U); }

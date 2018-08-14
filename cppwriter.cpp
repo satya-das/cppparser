@@ -310,17 +310,7 @@ void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj, std::ostream& stm, 
 void CppWriter::emitTemplSpec(const CppTemplateArgList* templSpec, std::ostream& stm, CppIndent indentation) const
 {
   stm << indentation << "template <";
-  for (const auto& templArg : *templSpec)
-  {
-    if (templArg != templSpec->front())
-      stm << ", ";
-    stm << templArg->typeSpecifier_ << ' ' << templArg->arg_;
-    if (templArg->defaultArgVal_)
-    {
-      stm << " = ";
-      emitExpr(templArg->defaultArgVal_, stm);
-    }
-  }
+  emitParamList(templSpec, stm);
   stm << ">\n";
 }
 
