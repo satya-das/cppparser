@@ -102,7 +102,7 @@ private:
   void emitFunction   (const CppFunction*			funcObj,      std::ostream& stm, CppIndent indentation, bool skipName, bool skipParamName) const;
   void emitConstructor(const CppConstructor*	ctorObj,      std::ostream& stm, CppIndent indentation, bool skipParamName) const;
 
-  void emitTemplSpec  (const CppTemplateArgList* templSpec, std::ostream& stm, CppIndent indentation) const;
+  void emitTemplSpec  (const CppTemplateParamList* templSpec, std::ostream& stm, CppIndent indentation) const;
   void emitVarDecl    (std::ostream &stm, const CppVarDecl &varDecl, bool skipName) const;
 
 private:

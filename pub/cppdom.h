@@ -484,7 +484,7 @@ struct CppInheritInfo
 };
 
 struct CppParamList;
-using CppTemplateArgList = CppParamList;
+using CppTemplateParamList = CppParamList;
 
 typedef std::list<CppInheritInfo> CppInheritanceList;
 
@@ -504,7 +504,7 @@ public:
   CppCompoundType		compoundType_;
   CppInheritanceList*	inheritList_;
   std::string			apidocer_;
-  CppTemplateArgList* templSpec_ {nullptr};
+  CppTemplateParamList* templSpec_ {nullptr};
 
   CppCompound(std::string name, CppObjProtLevel prot, CppCompoundType type)
     : CppObj(CppObj::kCompound, prot)
@@ -688,7 +688,7 @@ struct CppFunctionBase : public CppObj
   CppCompound*	defn_; // If it is nullptr then this object is just for declaration.
   std::string		docer1_; // e.g. __declspec(dllexport)
   std::string		docer2_; // e.g. __stdcall
-  CppTemplateArgList* templSpec_ {nullptr};
+  CppTemplateParamList* templSpec_ {nullptr};
   CppFuncThrowSpec* throwSpec_ {nullptr};
 
   bool isConst() const

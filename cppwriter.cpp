@@ -307,7 +307,7 @@ void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj, std::ostream& stm, 
   stm << fwdDeclObj->cmpType_ << ' ' << fwdDeclObj->name_ << ";\n";
 }
 
-void CppWriter::emitTemplSpec(const CppTemplateArgList* templSpec, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitTemplSpec(const CppTemplateParamList* templSpec, std::ostream& stm, CppIndent indentation) const
 {
   stm << indentation << "template <";
   emitParamList(templSpec, stm);
