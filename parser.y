@@ -203,7 +203,7 @@ extern int yylex();
 %token  tknBlankLine
 
 %type  <str>                optapidocer apidocer
-%type  <str>                identifier typeidentifier templidentifier optid basefuncname funcname
+%type  <str>                identifier typeidentifier templidentifier varidentifier optid basefuncname funcname
 %type  <str>                doccommentstr
 %type  <cppObj>             stmt functptrtype
 %type  <typeModifier>       typemodifier
@@ -632,10 +632,10 @@ varinit           : vardecl '=' expr {
                   }
                   ;
 
-vardecl           : vartype tknID {
+vardecl           : vartype varidentifier {
                     $$ = new CppVar($1, $2.toString());
                   }
-                  | classdefn tknID {
+                  | classdefn varidentifier {
                     $$ = new CppVar($1, $2.toString());
                   }
                   | vardecl '[' expr ']' {
@@ -659,6 +659,12 @@ vartype           : typeidentifier typemodifier {
                     $$ = $2;
                     $$->typeAttr_ |= $1;
                   }
+                  ;
+
+varidentifier     : tknID                 { $$ = $1; }
+                  | '(' '&' tknID ')'     { $$ = mergeCppToken($1, $4); }
+                  | '(' '*' tknID ')'     { $$ = mergeCppToken($1, $4); }
+                  | '(' '*' '*' tknID ')' { $$ = mergeCppToken($1, $5); }
                   ;
 
 typemodifier      : { $$ = CppTypeModifier(); }
