@@ -893,6 +893,7 @@ param             : varinit                 { $$ = $1; $1->varType_->typeAttr_ |
 templateparam     :                               { $$ = makeCppToken(nullptr, 0U); }
                   | typeidentifier                { $$ = $1; }
                   | tknConst templateparam        { $$ = mergeCppToken($1, $2); }
+                  | tknNumber                     { $$ = $1; }
                   | templateparam '*'             {
                     auto p = $1.sz + $1.len;
                     while (*p && (*p != '*'))
