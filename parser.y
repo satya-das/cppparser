@@ -538,18 +538,22 @@ enumitemlist      : { $$ = 0; }
 enumdefn          : tknEnum optid '{' enumitemlist '}' ';'                          [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $2, $4);
                   }
-                  | tknEnum tknID ':' identifier '{' enumitemlist '}' ';'           [ZZVALID;] {
-                    $$ = new CppEnum(gCurProtLevel, $2, $6, false, $4);
+                  | tknEnum optapidocer tknID ':' identifier '{' enumitemlist '}' ';'           [ZZVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $3, $7, false, $5);
                   };
-                  | tknEnum tknClass tknID ':' identifier '{' enumitemlist '}' ';'  [ZZVALID;] {
-                    $$ = new CppEnum(gCurProtLevel, $3, $7, true, $5);
+                  | tknEnum optapidocer tknID '{' enumitemlist '}' ';'           [ZZVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $3, $5, false);
+                  };
+                  | tknEnum tknClass optapidocer tknID ':' identifier '{' enumitemlist '}' ';'  [ZZVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $4, $8, true, $6);
                   }
-                  | tknEnum tknClass tknID '{' enumitemlist '}' ';'                 [ZZVALID;] {
-                    $$ = new CppEnum(gCurProtLevel, $3, $5, true);
+                  | tknEnum tknClass optapidocer tknID '{' enumitemlist '}' ';'                 [ZZVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $4, $6, true);
                   }
-                  | tknTypedef tknEnum optid '{' enumitemlist '}' tknID ';'         [ZZVALID;] {
-                    $$ = new CppEnum(gCurProtLevel, $7, $5);
+                  | tknTypedef tknEnum optapidocer optid '{' enumitemlist '}' tknID ';'         [ZZVALID;] {
+                    $$ = new CppEnum(gCurProtLevel, $8, $6);
                   }
+                  ;
 
 enumfwddecl       : tknEnum tknID ':' identifier ';'                                [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $2, nullptr, false, $4);
