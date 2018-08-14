@@ -30,7 +30,7 @@
 #include <vector>
 
 extern CppCompound* parseStream(char* stm, size_t stmSize);
-extern CppObjFactory* gObjFactory = nullptr;
+CppObjFactory* gObjFactory = nullptr;
 
 CppParser::CppParser(CppObjFactory* objFactory)
   : objFactory_(objFactory)
