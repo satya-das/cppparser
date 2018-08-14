@@ -238,7 +238,7 @@ extern int yylex();
 %type  <cppTypeConverter>   typeconverter typeconverterstmt
 %type  <memInitList>        meminitlist
 %type  <compoundType>       compoundSpecifier
-%type  <attr>               optattr varattrib exptype funcattrib functype
+%type  <attr>               varattrib exptype funcattrib functype
 %type  <inheritList>        inheritlist
 %type  <protLevel>          protlevel changeprotlevel
 %type  <identifierList>     identifierlist
@@ -947,11 +947,6 @@ identifierlist    : { $$ = nullptr; }
                     $$ = $1;
                     $$->push_back($3);
                   }
-                  ;
-
-optattr           : { $$ = 0; }
-                  | tknConst { $$ = kConst; }
-                  | tknVolatile { $$ = kVolatile; }
                   ;
 
 ctordeclstmt      : ctordecl';' [ZZVALID;] { $$ = $1; }
