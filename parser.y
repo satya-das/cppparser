@@ -27,6 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "parser.tab.h"
 #include "cppobjfactory.h"
 
+#include <iterator>
 #include <stack>
 
 //////////////////////////////////////////////////////////////////////////
@@ -93,6 +94,42 @@ template<typename... Params>
 CppFunction* newFunction(Params... params)
 {
   return gObjFactory->CreateFunction(params...);
+}
+
+template<class Iter>
+inline std::reverse_iterator<Iter> rev(Iter i)
+{
+  return std::reverse_iterator<Iter>(i);
+}
+
+inline CppToken classNameFromIdentifier(const CppToken& identifier)
+{
+  if (identifier.sz == nullptr)
+    return identifier;
+
+  auto rbeg = rev(identifier.sz + identifier.len);
+  if (*rbeg != '>')
+    return identifier;
+  auto rend = rev(identifier.sz);
+  int numTempl = 1;
+  for (++rbeg; rbeg != rend; ++rbeg)
+  {
+    if (*rbeg == '<')
+    {
+      --numTempl;
+      if (numTempl == 0)
+      {
+        CppToken clsName{identifier.sz, std::distance(rbeg, rend) - 1};
+        return clsName;
+      }
+    }
+    else if (*rbeg == '>')
+    {
+      ++numTempl;
+    }
+  }
+
+  return CppToken{nullptr, 0U};
 }
 
 #define YYPOSN char*
@@ -1158,7 +1195,7 @@ classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
                   ;
 
 classdefn         : compoundSpecifier optapidocer identifier inheritlist optcomment
-                    '{' [gCompoundStack.push($3); ZZVALID;] { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
+                    '{' [gCompoundStack.push(classNameFromIdentifier($3)); ZZVALID;] { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
                       stmtlist
                     '}' [gCompoundStack.pop(); ZZVALID;]
                   {
