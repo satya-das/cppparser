@@ -28,6 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "cppobjfactory.h"
 
 #include <iterator>
+#include <set>
 #include <stack>
 
 //////////////////////////////////////////////////////////////////////////
@@ -67,6 +68,8 @@ static CppCompoundStack             gCompoundStack;
 
 static CppObjProtLevel              gCurProtLevel;
 static std::stack<CppObjProtLevel>  gProtLevelStack;
+
+static std::set<std::string>        gMacroNames = { "DECLARE_MESSAGE_MAP" };
 
 extern CppObjFactory*               gObjFactory;
 
@@ -223,7 +226,7 @@ extern int yylex();
 %token  <str>   tknLShift tknRShift tknLShiftEq tknRShiftEq tknCmpEq tknNotEq tknLessEq tknGreaterEq
 %token  <str>   tkn3WayCmp tknAnd tknOr tknInc tknDec tknArrow tknArrowStar
 %token  <str>   '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
-%token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']'
+%token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']' ';'
 %token  <str>   tknNew tknDelete
 %token  <str>   tknConst // For templateparam parsing it is made as str type.
 %token  <str>   tknVoid // For the cases when void is used as function parameter.
@@ -242,6 +245,7 @@ extern int yylex();
 %type  <str>                optapidocer apidocer
 %type  <str>                identifier typeidentifier templidentifier varidentifier optid basefuncname funcname
 %type  <str>                doccommentstr
+%type  <str>                macrocall
 %type  <cppObj>             stmt functptrtype
 %type  <typeModifier>       typemodifier
 %type  <cppEnum>            enumdefn enumfwddecl
@@ -398,7 +402,33 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | switchstmt      { $$ = $1; }
                   | usingdecl       { $$ = $1; }
                   | usingnamespacedecl { $$ = $1; }
+                  | macrocall       { $$ = new CppMacroCall($1); }
                   | ';' /* blank statement */ { $$ = nullptr; }
+                  ;
+
+macrocall         : tknID
+                  [ if (gMacroNames.count($1))
+                    {
+                      ZZVALID;
+                    }
+                    else
+                    {
+                      YYERROR;
+                    }
+                  ]
+                  {
+                    $$ = $1;
+                  }
+                  | macrocall '(' ')' {
+                    $$ = mergeCppToken($1, $3);
+                  }
+                  | macrocall '(' exprlist ')' {
+                    $$ = mergeCppToken($1, $4);
+                    delete $3;
+                  }
+                  | macrocall ';' {
+                    $$ = mergeCppToken($1, $2);
+                  }
                   ;
 
 switchstmt        : tknSwitch '(' expr ')' '{' caselist '}' {

@@ -86,6 +86,7 @@ struct CppObj
     kExpression,		            // A C++ expression
     kExpressionList,
     kFuncCall,			            // A function call expression
+    kMacroCall,
     kBlob,				              // Some unparsed/unrecognized part of C++ source code.
     kCppStatementObjectTypeEnds,
 
@@ -409,6 +410,17 @@ struct CppTypedefList : public CppObj
   CppTypedefList(CppVarList* varList)
     : CppObj(CppObj::kTypedefNameList, varList->prot_)
     , varList_(varList)
+  {
+  }
+};
+
+struct CppMacroCall : CppObj
+{
+  std::string macroCall_;
+
+  CppMacroCall(std::string macroCall)
+    : CppObj(CppObj::kMacroCall, kUnknownProt)
+    , macroCall_(std::move(macroCall))
   {
   }
 };
