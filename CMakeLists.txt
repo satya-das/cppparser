@@ -56,8 +56,6 @@ target_include_directories(
 	PUBLIC
 		pub
 		${ROOT_DIR}/common/third_party/boost_tp
-	PRIVATE
-		hack
 )
 
 #############################################
