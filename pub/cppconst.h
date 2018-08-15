@@ -29,6 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 enum CppCompoundType
 {
   kUnknownCompound  = 0x00,
+  kNoCompound       = 0x00,
   kCppFile          = 0x01,
   kNamespace        = 0x02,
   kClass            = 0x04 | kNamespace,

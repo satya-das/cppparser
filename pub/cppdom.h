@@ -474,7 +474,7 @@ struct CppFwdClsDecl : public CppObj
   std::string		name_;
   std::uint32_t attr_ {0};
 
-  CppFwdClsDecl(CppObjProtLevel prot, std::string name, CppCompoundType cmpType)
+  CppFwdClsDecl(CppObjProtLevel prot, std::string name, CppCompoundType cmpType = kNoCompound)
     : CppObj	(CppObj::kFwdClsDecl, prot)
     , cmpType_(cmpType)
     , name_		(std::move(name))

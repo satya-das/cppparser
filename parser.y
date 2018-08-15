@@ -69,7 +69,7 @@ static CppCompoundStack             gCompoundStack;
 static CppObjProtLevel              gCurProtLevel;
 static std::stack<CppObjProtLevel>  gProtLevelStack;
 
-static std::set<std::string>        gMacroNames = { "DECLARE_MESSAGE_MAP" };
+static std::set<std::string>        gMacroNames = { "DECLARE_MESSAGE_MAP", "DECLARE_DYNAMIC" };
 
 extern CppObjFactory*               gObjFactory;
 
@@ -1273,6 +1273,7 @@ fwddecl           : compoundSpecifier identifier ';' [ZZVALID;] { $$ = new CppFw
                     // TODO: Assign template declaration to fwddecl.
                     $$ = $2;
                   }
+                  | tknFriend identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $2); }
                   | tknFriend fwddecl [ZZVALID;]  { $$ = $2; $$->attr_ = kFriend; }
                   ;
 
