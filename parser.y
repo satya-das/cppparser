@@ -1128,6 +1128,10 @@ dtordecl          : optapidocer '~' tknID '(' optvoid ')' %prec DTORDECL
                     $$ = $1;
                     $$->attr_ |= kDefault;
                   }
+                  | dtordecl functhrowspec {
+                    $$ = $1;
+                    $$->throwSpec_ = $2;
+                  }
                   ;
 
 optvoid           :
