@@ -141,7 +141,7 @@ NL	 (\r\n|\r|\n)
   /* Number */
 NUM  ([0-9]+((l|L|u|U)?|(\.[0-9]*)?))|\.[0-9]+|(0(x|X)[0-9a-fA-F]*)|0(x|X)[0-9a-zA-Z]+
 
-DECNUMLIT  [-+]?(([0-9]+(\.[0-9]*)?)|([0-9]*(\.[0-9]+)))
+DECNUMLIT  ([0-9]+(\.[0-9]*)?)|([0-9]*(\.[0-9]+))
 
   /* String literal */
 SL   "\"".*"\""
@@ -768,7 +768,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknNumber);
 }
 
-<ctxGeneral>{DECNUMLIT}((e|E){DECNUMLIT})? {
+<ctxGeneral>{DECNUMLIT}((e|E)[+-]?{DECNUMLIT})? {
   set_token_and_yyposn();
   RETURN(tknNumber);
 }
