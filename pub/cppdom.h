@@ -796,6 +796,9 @@ protected:
  */
 struct CppFunctionPtr : public CppFunction
 {
+  std::string   ownerName_;
+  std::uint8_t  ptrLevel_ {0};
+
   CppFunctionPtr(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* args, std::uint32_t attr)
     : CppFunction(CppObj::kFunctionPtr, prot, std::move(name), retType, args, attr)
   {

@@ -246,6 +246,7 @@ extern int yylex();
 %type  <str>                identifier typeidentifier templidentifier varidentifier optid basefuncname funcname
 %type  <str>                doccommentstr
 %type  <str>                macrocall
+%type  <str>                optownername
 %type  <cppObj>             stmt functptrtype
 %type  <typeModifier>       typemodifier
 %type  <cppEnum>            enumdefn enumfwddecl
@@ -818,16 +819,22 @@ functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $$ = $2;
                   }
 
-functionpointer   : optapidocer functype vartype '(' optapidocer '*' optid ')' '(' paramlist ')' {
-                    $$ = new CppFunctionPtr(gCurProtLevel, $7, $3, $10, $2);
+functionpointer   : optapidocer functype vartype '(' optapidocer optownername '*' optid ')' '(' paramlist ')' funcattrib {
+                    $$ = new CppFunctionPtr(gCurProtLevel, $8, $3, $11, $2 | $13);
                     $$->docer1_ = $1;
                     $$->docer2_ = $5;
+                    $$->ownerName_ = $6;
                   }
-                  | optapidocer vartype '(' optapidocer '*' optid ')' '(' paramlist ')' {
-                    $$ = new CppFunctionPtr(gCurProtLevel, $6, $2, $9, 0);
+                  | optapidocer vartype '(' optapidocer optownername '*' optid ')' '(' paramlist ')' funcattrib {
+                    $$ = new CppFunctionPtr(gCurProtLevel, $7, $2, $10, $12);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
+                    $$->ownerName_ = $5;
                   }
+                  ;
+
+optownername      : { $$ = CppToken{0, 0}; }
+                  | identifier tknScopeResOp { $$ = $1; }
                   ;
 
 funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
