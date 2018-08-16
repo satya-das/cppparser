@@ -846,10 +846,11 @@ struct CppDestructor : public CppFunctionBase
 struct CppTypeCoverter : CppObj
 {
   std::string name_; // Name may be empty if defined inside class definition.
-  CppVarType* to_;
+  CppVarType* to_ {nullptr};
   CppCompound* defn_ {nullptr};
   std::uint32_t attr_ {0};
   std::string apidocer_;
+  CppTemplateParamList* templSpec_ {nullptr};
 
   CppTypeCoverter(CppVarType* type, std::string name)
     : CppObj(CppObj::kTypeConverter, type->prot_)
