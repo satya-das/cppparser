@@ -789,6 +789,10 @@ typeconverter     : tknOperator vartype '(' optvoid ')' {
                     $$ = $2;
                     $$->apidocer_ = $1;
                   }
+                  | templatespecifier typeconverter {
+                    $$ = $2;
+                    $$->templSpec_ = $1;
+                  }
                   ;
 
 typeconverterstmt : typeconverter ';' [ZZVALID;] {
