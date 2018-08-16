@@ -783,7 +783,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknStrLit);
 }
 
-<ctxGeneral>(L)?"\'".*"\'" {
+<ctxGeneral>(L)?"\'"[^\']*"\'" { //' This quote is shutup the IDE
   set_token_and_yyposn();
   RETURN(tknCharLit);
 }
