@@ -220,9 +220,9 @@ void CppWriter::emitVarDecl(std::ostream &stm, const CppVarDecl &varDecl, bool s
 void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation, bool skipName) const
 {
   stm << indentation;
-  if (!varObj->apidocer_.empty())
+  if (!varObj->apidecor_.empty())
   {
-    stm << varObj->apidocer_ << ' ';
+    stm << varObj->apidecor_ << ' ';
   }
   emitVarType(varObj->varType_, stm);
   if (!skipName && !varObj->varDecl_.name_.empty())
@@ -323,8 +323,8 @@ void CppWriter::emitCompound(const CppCompound* compoundObj, std::ostream& stm, 
       emitTemplSpec(compoundObj->templSpec_, stm, indentation);
     }
     stm << indentation << compoundObj->compoundType_ << ' ';
-    if (!compoundObj->apidocer_.empty())
-      stm << compoundObj->apidocer_ << ' ';
+    if (!compoundObj->apidecor_.empty())
+      stm << compoundObj->apidecor_ << ' ';
     stm << compoundObj->name_;
   }
   if (compoundObj->inheritList_)

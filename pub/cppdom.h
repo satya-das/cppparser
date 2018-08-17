@@ -348,7 +348,7 @@ struct CppVar : public CppObj
     CppCompound* compound_;
   };
   CppVarDecl  varDecl_;
-  std::string	apidocer_;  // It holds things like WINAPI, __declspec(dllexport), etc.
+  std::string	apidecor_;  // It holds things like WINAPI, __declspec(dllexport), etc.
 
   CppVar(CppVarType* varType, CppVarDecl varDecl)
     : CppVar(CppObj::kVar, varType, std::move(varDecl))
@@ -527,7 +527,7 @@ public:
   CppObjArray			members_;	// Objects arranged in sequential order from top to bottom.
   CppCompoundType		compoundType_;
   CppInheritanceList*	inheritList_;
-  std::string			apidocer_;
+  std::string			apidecor_;
   CppTemplateParamList* templSpec_ {nullptr};
 
   CppCompound(std::string name, CppObjProtLevel prot, CppCompoundType type)
@@ -864,7 +864,7 @@ struct CppTypeCoverter : CppObj
   CppVarType* to_ {nullptr};
   CppCompound* defn_ {nullptr};
   std::uint32_t attr_ {0};
-  std::string apidocer_;
+  std::string apidecor_;
   CppTemplateParamList* templSpec_ {nullptr};
 
   CppTypeCoverter(CppVarType* type, std::string name)

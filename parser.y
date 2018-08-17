@@ -243,7 +243,7 @@ extern int yylex();
 
 %token  tknBlankLine
 
-%type  <str>                optapidocer apidocer
+%type  <str>                optapidecor apidecor
 %type  <str>                identifier typeidentifier templidentifier varidentifier optid basefuncname funcname
 %type  <str>                doccommentstr
 %type  <str>                macrocall
@@ -611,19 +611,19 @@ enumitemlist      : { $$ = 0; }
 enumdefn          : tknEnum optid '{' enumitemlist '}' ';'                          [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $2, $4);
                   }
-                  | tknEnum optapidocer tknID ':' identifier '{' enumitemlist '}' ';'           [ZZVALID;] {
+                  | tknEnum optapidecor tknID ':' identifier '{' enumitemlist '}' ';'           [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $3, $7, false, $5);
                   };
-                  | tknEnum optapidocer tknID '{' enumitemlist '}' ';'           [ZZVALID;] {
+                  | tknEnum optapidecor tknID '{' enumitemlist '}' ';'           [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $3, $5, false);
                   };
-                  | tknEnum tknClass optapidocer tknID ':' identifier '{' enumitemlist '}' ';'  [ZZVALID;] {
+                  | tknEnum tknClass optapidecor tknID ':' identifier '{' enumitemlist '}' ';'  [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $4, $8, true, $6);
                   }
-                  | tknEnum tknClass optapidocer tknID '{' enumitemlist '}' ';'                 [ZZVALID;] {
+                  | tknEnum tknClass optapidecor tknID '{' enumitemlist '}' ';'                 [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $4, $6, true);
                   }
-                  | tknTypedef tknEnum optapidocer optid '{' enumitemlist '}' tknID ';'         [ZZVALID;] {
+                  | tknTypedef tknEnum optapidecor optid '{' enumitemlist '}' tknID ';'         [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $8, $6);
                   }
                   ;
@@ -672,12 +672,12 @@ vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
 
 vardeclstmt       : vardecl ';'             [ZZVALID;] { $$ = $1; }
                   | varinit ';'             [ZZVALID;] { $$ = $1; }
-                  | optapidocer vardecl ';' [ZZVALID;] { $$ = $2; $$->apidocer_ = $1; }
+                  | optapidecor vardecl ';' [ZZVALID;] { $$ = $2; $$->apidecor_ = $1; }
                   | exptype vardeclstmt     [ZZVALID;] { $$ = $2; $$->varType_->typeAttr_ |= $1; }
-                  | optapidocer exptype vardeclstmt     [ZZVALID;] {
+                  | optapidecor exptype vardeclstmt     [ZZVALID;] {
                     $$ = $3;
                     $$->varType_->typeAttr_ |= $2;
-                    $$->apidocer_ = $1;
+                    $$->apidecor_ = $1;
                   }
                   ;
 
@@ -779,10 +779,10 @@ typeconverter     : tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($3, std::string());
                     $$->attr_ |= $1;
                   }
-                  | functype apidocer tknOperator vartype '(' optvoid ')' {
+                  | functype apidecor tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($4, std::string());
                     $$->attr_ |= $1;
-                    $$->apidocer_ = $2;
+                    $$->apidecor_ = $2;
                   }
                   | functype identifier tknScopeResOp tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($5, mergeCppToken($2, $3));
@@ -792,9 +792,9 @@ typeconverter     : tknOperator vartype '(' optvoid ')' {
                     $$ = $1;
                     $$->attr_ |= kConst;
                   }
-                  | apidocer typeconverter {
+                  | apidecor typeconverter {
                     $$ = $2;
-                    $$->apidocer_ = $1;
+                    $$->apidecor_ = $1;
                   }
                   | templatespecifier typeconverter {
                     $$ = $2;
@@ -825,13 +825,13 @@ functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $$ = $2;
                   }
 
-functionpointer   : optapidocer functype vartype '(' optapidocer optownername '*' optid ')' '(' paramlist ')' funcattrib {
+functionpointer   : optapidecor functype vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' funcattrib {
                     $$ = new CppFunctionPtr(gCurProtLevel, $8, $3, $11, $2 | $13);
                     $$->docer1_ = $1;
                     $$->docer2_ = $5;
                     $$->ownerName_ = $6;
                   }
-                  | optapidocer vartype '(' optapidocer optownername '*' optid ')' '(' paramlist ')' funcattrib {
+                  | optapidecor vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' funcattrib {
                     $$ = new CppFunctionPtr(gCurProtLevel, $7, $2, $10, $12);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
@@ -846,18 +846,18 @@ optownername      : { $$ = CppToken{0, 0}; }
 funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
                   ;
 
-funcdecl          : functype optapidocer vartype optapidocer funcname '(' paramlist ')' funcattrib {
+funcdecl          : functype optapidecor vartype optapidecor funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $5, $3, $7, $1 | $9);
                     $$->docer1_ = $2;
                     $$->docer2_ = $4;
                   }
-                  | optapidocer functype vartype optapidocer funcname '(' paramlist ')' funcattrib {
+                  | optapidecor functype vartype optapidecor funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $5, $3, $7, $2 | $9);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
                   }
 
-                  | optapidocer vartype optapidocer funcname '(' paramlist ')' funcattrib {
+                  | optapidecor vartype optapidecor funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $4, $2, $6, $8);
                     $$->docer1_ = $1;
                     $$->docer2_ = $3;
@@ -1162,7 +1162,7 @@ dtordefn          : dtordecl block [ZZVALID;]
                   }
                   ;
 
-dtordecl          : optapidocer '~' tknID '(' optvoid ')' %prec DTORDECL
+dtordecl          : optapidecor '~' tknID '(' optvoid ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
@@ -1176,7 +1176,7 @@ dtordecl          : optapidocer '~' tknID '(' optvoid ')' %prec DTORDECL
                     while(*tildaStartPos != '~') --tildaStartPos;
                     $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), 0);
                   }
-                  | optapidocer functype '~' tknID '(' optvoid ')' %prec DTORDECL
+                  | optapidecor functype '~' tknID '(' optvoid ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
@@ -1190,7 +1190,7 @@ dtordecl          : optapidocer '~' tknID '(' optvoid ')' %prec DTORDECL
                     while(*tildaStartPos != '~') --tildaStartPos;
                     $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $4.sz+$4.len-tildaStartPos), $2);
                   }
-                  | optapidocer tknVirtual '~' tknID '(' optvoid ')' '=' tknNumber
+                  | optapidecor tknVirtual '~' tknID '(' optvoid ')' '=' tknNumber
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
@@ -1241,7 +1241,7 @@ classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
                       }
                   ;
 
-classdefn         : compoundSpecifier optapidocer identifier inheritlist optcomment
+classdefn         : compoundSpecifier optapidecor identifier inheritlist optcomment
                     '{' [gCompoundStack.push(classNameFromIdentifier($3)); ZZVALID;] { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
                       stmtlist
                     '}' [gCompoundStack.pop(); ZZVALID;]
@@ -1251,7 +1251,7 @@ classdefn         : compoundSpecifier optapidocer identifier inheritlist optcomm
 
                     $$ = $8 ? $8 : newCompound(gCurProtLevel);
                     $$->compoundType_  = $1;
-                    $$->apidocer_    = $2;
+                    $$->apidecor_    = $2;
                     $$->name_      = $3;
                     $$->inheritList_  = $4;
                   }
@@ -1285,7 +1285,7 @@ protlevel         :        { $$ = kUnknownProt;}
                   ;
 
 fwddecl           : compoundSpecifier identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $2, $1); }
-                  | compoundSpecifier optapidocer identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $3, $1); }
+                  | compoundSpecifier optapidecor identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $3, $1); }
                   | templatespecifier fwddecl {
                     // TODO: Assign template declaration to fwddecl.
                     $$ = $2;
@@ -1310,11 +1310,11 @@ temparglist       : paramlist { /* For us template parameters are exactly like f
                   }
                   ;
 
-optapidocer       :                     { $$ = makeCppToken(nullptr, 0U); }
-                  | apidocer            { $$ = $1; }
+optapidecor       :                     { $$ = makeCppToken(nullptr, 0U); }
+                  | apidecor            { $$ = $1; }
                   ;
 
-apidocer          : tknID               { $$ = $1; }
+apidecor          : tknID               { $$ = $1; }
                   | tknID '(' tknID ')' { $$ = mergeCppToken($1, $4); }
                   | tknID tknID         { $$ = mergeCppToken($1, $2); }
                   ;
