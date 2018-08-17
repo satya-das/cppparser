@@ -77,4 +77,13 @@ inline CppToken mergeCppToken(const CppToken& token1, const CppToken& token2)
   return makeCppToken(token1.sz, token2.sz+token2.len-token1.sz);
 }
 
+struct CppExprList;
+
+/* Non-terminal for member initalizer */
+struct CppNtMemInit
+{
+  CppToken      mem;
+  CppExprList*  init;
+};
+
 #endif //__CPPTOKEN_H__

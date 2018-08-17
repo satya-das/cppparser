@@ -181,6 +181,7 @@ extern int yylex();
   CppMemInitList*       memInitList;
   CppInheritanceList*   inheritList;
   CppIdentifierList*    identifierList;
+  CppNtMemInit          memInit;
   CppFuncThrowSpec*     funcThrowSpec;
   CppCompoundType       compoundType;
   unsigned short        ptrLevel;
@@ -280,6 +281,7 @@ extern int yylex();
 %type  <cppDtorObj>         dtordecl dtordeclstmt dtordefn
 %type  <cppTypeConverter>   typeconverter typeconverterstmt
 %type  <memInitList>        meminitlist
+%type  <memInit>            meminit
 %type  <compoundType>       compoundSpecifier
 %type  <attr>               varattrib exptype funcattrib functype
 %type  <inheritList>        inheritlist
@@ -1120,10 +1122,13 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   }
                   ;
 
-meminitlist       : { $$ = NULL; }
-                  | ':' identifier '(' exprlist ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, $4)); }
-                  | ':' tknID '(' ')'        { $$ = new CppMemInitList; $$->push_back(CppMemInit($2, nullptr)); }
-                  | meminitlist ',' tknID '(' exprlist ')'  { $$ = $1; $$->push_back(CppMemInit($3, $5)); }
+meminitlist       : { $$ = nullptr; }
+                  | ':' meminit                 { $$ = new CppMemInitList; $$->push_back(CppMemInit($2.mem, $2.init)); }
+                  | meminitlist ',' meminit     { $$ = $1; $$->push_back(CppMemInit($3.mem, $3.init)); }
+                  ;
+
+meminit           : identifier '(' exprlist ')' { $$ = CppNtMemInit{$1, $3}; }
+                  | identifier '(' ')'          { $$ = CppNtMemInit{$1, nullptr}; }
                   ;
 
 dtordeclstmt      : dtordecl ';' [ZZVALID;] { $$ = $1; }
