@@ -496,6 +496,13 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   ++gLineNo;
 }
 
+<ctxPreprocessor>error{WS}[^\n]*{NL} {
+  set_token_and_yyposn();
+  ENDCONTEXT();
+  ++gLineNo;
+  RETURN(tknHashError);
+}
+
 <ctxGeneral>"::" {
   set_token_and_yyposn();
   RETURN(tknScopeResOp);

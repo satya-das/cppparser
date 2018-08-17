@@ -201,6 +201,7 @@ extern int yylex();
   CppUndef*             hashUndef;
   CppInclude*           hashInclude;
   CppHashIf*            hashIf;
+  CppHashError*         hashError;
   CppPragma*            hashPragma;
 }
 
@@ -218,7 +219,7 @@ extern int yylex();
 %token  <str>   tknExternC
 %token  <str>   tknUnRecogPrePro
 %token  <str>   tknStdHdrInclude
-%token  <str>   tknPragma
+%token  <str>   tknPragma tknHashError
 %token  <str>   tknEllipsis
 %token  <str>   tknConstCast tknStaticCast tknDynamicCast tknReinterpretCast
 %token  <str>   tknTry tknCatch tknThrow
@@ -291,6 +292,7 @@ extern int yylex();
 %type  <hashUndef>          undef
 %type  <hashInclude>        include
 %type  <hashIf>             hashif
+%type  <hashError>          hasherror
 %type  <hashPragma>         pragma
 
 %right  '=' CMPEQUAL
@@ -398,6 +400,7 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | undef           { $$ = $1; }
                   | include         { $$ = $1; }
                   | hashif          { $$ = $1; }
+                  | hasherror       { $$ = $1; }
                   | pragma          { $$ = $1; }
                   | block           { $$ = $1; }
                   | switchstmt      { $$ = $1; }
@@ -538,6 +541,9 @@ hashif            : tknPreProHash tknIf tknPreProDef            [ZZVALID;]  { $$
                   | tknPreProHash tknElse                       [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kElse       ); }
                   | tknPreProHash tknElIf  tknPreProDef         [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kElIf,    $3); }
                   | tknPreProHash tknEndIf                      [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kEndIf      ); }
+                  ;
+
+hasherror         : tknPreProHash tknHashError [ZZVALID;] { $$ = new CppHashError($2); }
                   ;
 
 pragma            : tknPreProHash tknPragma tknPreProDef        [ZZVALID;]  { $$ = new CppPragma($3); }

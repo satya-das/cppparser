@@ -64,6 +64,7 @@ struct CppObj
     kHashDefine,		            // #define
     kHashUndef,			            // #undef
     kHashPragma,		            // #pragma
+    kHashError,
     kUnRecogPrePro,		          // Any unrecognized pre-processor.
     kCPreProcessorTypeEnds,
 
@@ -205,6 +206,17 @@ struct CppPragma : public CppObj
     , defn_(std::move(defn))
   {
   }
+};
+
+struct CppHashError : public CppObj
+{
+  std::string err_;
+
+  CppHashError(std::string err)
+    : CppObj(CppObj::kHashError, kUnknownProt)
+    , err_(std::move(err))
+    {
+    }
 };
 
 /**
