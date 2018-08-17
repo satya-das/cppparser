@@ -662,6 +662,10 @@ usingdecl         : tknUsing tknID '=' vartype ';' {
                   | tknUsing tknID '=' classdefn ';' {
                     $$ = new CppUsingDecl($2, $4);
                   }
+                  | templatespecifier usingdecl {
+                    $$ = $2;
+                    $$->templSpec_ = $1;
+                  }
                   ;
 
 usingnamespacedecl: tknUsing tknNamespace identifier ';' {

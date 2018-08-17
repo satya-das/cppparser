@@ -888,6 +888,8 @@ struct CppUsingNamespaceDecl : public CppObj
 struct CppUsingDecl : public CppObj
 {
   std::string name_;
+  CppTemplateParamList* templSpec_ {nullptr};
+
   union {
     CppVarType*       varType_;
     CppFunctionPtr*   fptr_;
