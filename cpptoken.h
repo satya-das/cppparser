@@ -86,4 +86,12 @@ struct CppNtMemInit
   CppExprList*  init;
 };
 
+template <typename _ST>
+inline _ST& operator << (_ST& stm , const CppToken& token)
+{
+  for (size_t i = 0; i < token.len; ++i)
+    stm << token.sz[i];
+  return stm;
+}
+
 #endif //__CPPTOKEN_H__

@@ -28,6 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "cppobjfactory.h"
 
 #include <iterator>
+#include <iostream>
 #include <set>
 #include <stack>
 
@@ -1096,9 +1097,13 @@ ctordefn          : ctordecl meminitlist
 ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   [
                     if(gCompoundStack.empty())
+                    {
                       YYERROR;
+                    }
                     if(gCompoundStack.top() != $1)
+                    {
                       YYERROR;
+                    }
                     else
                       ZZVALID;
                   ]
@@ -1256,19 +1261,26 @@ classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
                   ;
 
 classdefn         : compoundSpecifier optapidecor identifier inheritlist optcomment
-                    '{' [gCompoundStack.push(classNameFromIdentifier($3)); ZZVALID;] { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
-                      stmtlist
-                    '}' [gCompoundStack.pop(); ZZVALID;]
-                  {
-                    gCurProtLevel = gProtLevelStack.top();
-                    gProtLevelStack.pop();
+                    '{' [
+                      ZZVALID;
+                      gCompoundStack.push(classNameFromIdentifier($3));
+                    ] {
+                      gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt;
+                    }
+                    stmtlist
+                    '}' [
+                      gCompoundStack.pop();
+                      ZZVALID;
+                    ] {
+                      gCurProtLevel = gProtLevelStack.top();
+                      gProtLevelStack.pop();
 
-                    $$ = $8 ? $8 : newCompound(gCurProtLevel);
-                    $$->compoundType_  = $1;
-                    $$->apidecor_    = $2;
-                    $$->name_      = $3;
-                    $$->inheritList_  = $4;
-                  }
+                      $$ = $8 ? $8 : newCompound(gCurProtLevel);
+                      $$->compoundType_  = $1;
+                      $$->apidecor_    = $2;
+                      $$->name_      = $3;
+                      $$->inheritList_  = $4;
+                    }
                   | compoundSpecifier inheritlist optcomment
                     '{' { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
                       stmtlist
