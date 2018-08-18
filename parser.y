@@ -862,6 +862,11 @@ funcdecl          : functype optapidecor vartype optapidecor funcname '(' paraml
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
                   }
+                  | optapidecor functype optapidecor vartype funcname '(' paramlist ')' funcattrib {
+                    $$ = newFunction(gCurProtLevel, $5, $4, $7, $2 | $9);
+                    $$->docer1_ = $1;
+                    $$->docer2_ = $3;
+                  }
 
                   | optapidecor vartype optapidecor funcname '(' paramlist ')' funcattrib {
                     $$ = newFunction(gCurProtLevel, $4, $2, $6, $8);
