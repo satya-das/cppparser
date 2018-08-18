@@ -1143,6 +1143,10 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                     $$ = $1;
                     $$->throwSpec_ = $2;
                   }
+                  | apidecor ctordecl {
+                    $$ = $2;
+                    $$->docer1_ = $1;
+                  }
                   ;
 
 meminitlist       : { $$ = nullptr; }
