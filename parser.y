@@ -234,8 +234,8 @@ extern int yylex();
 %token  <str>   tknNew tknDelete
 %token  <str>   tknConst // For templateparam parsing it is made as str type.
 %token  <str>   tknVoid // For the cases when void is used as function parameter.
-
-%token  tknStatic tknExtern tknVirtual tknOverride tknInline tknExplicit tknFriend tknVolatile tknFinal tknNoExcept
+%token  <str>   tknOverride // override is not a reserved keyword
+%token  tknStatic tknExtern tknVirtual tknInline tknExplicit tknFriend tknVolatile tknFinal tknNoExcept
 
 %token  tknPreProHash /* When # is encountered for pre processor definition */
 %token  tknDefine tknUndef
@@ -568,6 +568,7 @@ identifier        : tknID                                 { $$ = $1; }
                   | tknScopeResOp identifier              { $$ = mergeCppToken($1, $2); }
                   | identifier tknScopeResOp identifier   { $$ = mergeCppToken($1, $3); }
                   | templidentifier                       { $$ = $1; }
+                  | tknOverride                           { $$ = $1; } /* override is not a reserved keyword */
                   ;
 
 typeidentifier    : identifier                            { $$ = $1; }
