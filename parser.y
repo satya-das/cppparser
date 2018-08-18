@@ -618,13 +618,13 @@ enumitemlist      : { $$ = 0; }
 enumdefn          : tknEnum optid '{' enumitemlist '}' ';'                          [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $2, $4);
                   }
-                  | tknEnum optapidecor tknID ':' identifier '{' enumitemlist '}' ';'           [ZZVALID;] {
+                  | tknEnum optapidecor tknID ':' typeidentifier '{' enumitemlist '}' ';'           [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $3, $7, false, $5);
                   };
                   | tknEnum optapidecor tknID '{' enumitemlist '}' ';'           [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $3, $5, false);
                   };
-                  | tknEnum tknClass optapidecor tknID ':' identifier '{' enumitemlist '}' ';'  [ZZVALID;] {
+                  | tknEnum tknClass optapidecor tknID ':' typeidentifier '{' enumitemlist '}' ';'  [ZZVALID;] {
                     $$ = new CppEnum(gCurProtLevel, $4, $8, true, $6);
                   }
                   | tknEnum tknClass optapidecor tknID '{' enumitemlist '}' ';'                 [ZZVALID;] {
