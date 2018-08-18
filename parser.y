@@ -694,11 +694,6 @@ vardeclstmt       : vardecl ';'             [ZZVALID;] { $$ = $1; }
                   | varinit ';'             [ZZVALID;] { $$ = $1; }
                   | apidecor vardeclstmt    [ZZVALID;] { $$ = $2; $$->apidecor_ = $1; }
                   | exptype vardeclstmt     [ZZVALID;] { $$ = $2; $$->varType_->typeAttr_ |= $1; }
-                  | optapidecor exptype vardeclstmt     [ZZVALID;] {
-                    $$ = $3;
-                    $$->varType_->typeAttr_ |= $2;
-                    $$->apidecor_ = $1;
-                  }
                   ;
 
 vardecllist       : typeidentifier typemodifier tknID ',' typemodifier tknID {
