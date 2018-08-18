@@ -671,6 +671,10 @@ usingdecl         : tknUsing tknID '=' vartype ';' {
                     $$ = $2;
                     $$->templSpec_ = $1;
                   }
+                  | tknUsing identifier ';' {
+                    $$ = new CppUsingDecl($2);
+                  }
+                  ;
                   ;
 
 namespacealias    : tknNamespace tknID '=' identifier ';' {

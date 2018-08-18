@@ -76,7 +76,7 @@ struct CppObj
     kTypedefNameList,
     kNamespaceAlias,
     kUsingNamespaceDecl,
-    kUsing,
+    kUsingDecl,
     kEnum,
     kCompound,			            // file, namespace, class, struct, union, block.
     kFwdClsDecl,		            // Forward declaration of compound type.
@@ -892,29 +892,35 @@ struct CppUsingDecl : public CppObj
   CppTemplateParamList* templSpec_ {nullptr};
 
   union {
-    CppVarType*       varType_;
+    CppVarType*       varType_ {nullptr};
     CppFunctionPtr*   fptr_;
     CppCompound*      compound_;
   };
 
   CppUsingDecl(std::string name, CppVarType* varType)
-    : CppObj(CppObj::kUsing, kUnknownProt)
+    : CppObj(CppObj::kUsingDecl, kUnknownProt)
     , name_(std::move(name))
     , varType_(varType)
   {
   }
 
   CppUsingDecl(std::string name, CppFunctionPtr* fptr)
-    : CppObj(CppObj::kUsing, kUnknownProt)
+    : CppObj(CppObj::kUsingDecl, kUnknownProt)
     , name_(std::move(name))
     , fptr_(fptr)
   {
   }
 
   CppUsingDecl(std::string name, CppCompound* compound)
-    : CppObj(CppObj::kUsing, kUnknownProt)
+    : CppObj(CppObj::kUsingDecl, kUnknownProt)
     , name_(std::move(name))
     , compound_(compound)
+  {
+  }
+
+  CppUsingDecl(std::string name)
+    : CppObj(CppObj::kUsingDecl, kUnknownProt)
+    , name_(std::move(name))
   {
   }
 };
