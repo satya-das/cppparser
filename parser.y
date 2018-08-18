@@ -165,6 +165,7 @@ extern int yylex();
   CppTypedefList*       typedefList;
   CppUsingDecl*         usingDecl;
   CppUsingNamespaceDecl*  usingNamespaceDecl;
+  CppNamespaceAlias*    namespaceAlias;
   CppCompound*          cppCompundObj;
   CppParamList*         templSpec;
   CppDocComment*        docCommentObj;
@@ -265,6 +266,7 @@ extern int yylex();
 %type  <typedefName>        typedefname typedefnamestmt
 %type  <typedefList>        typedeflist typedefliststmt
 %type  <usingNamespaceDecl> usingnamespacedecl
+%type  <namespaceAlias>     namespacealias
 %type  <usingDecl>          usingdecl
 %type  <cppCompundObj>      stmtlist progunit classdefn classdefnstmt externcblock block
 %type  <templSpec>          templatespecifier temparglist
@@ -409,6 +411,7 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | switchstmt      { $$ = $1; }
                   | usingdecl       { $$ = $1; }
                   | usingnamespacedecl { $$ = $1; }
+                  | namespacealias  { $$ = $1; }
                   | macrocall       { $$ = new CppMacroCall($1); }
                   | ';' /* blank statement */ { $$ = nullptr; }
                   ;
@@ -666,6 +669,11 @@ usingdecl         : tknUsing tknID '=' vartype ';' {
                   | templatespecifier usingdecl {
                     $$ = $2;
                     $$->templSpec_ = $1;
+                  }
+                  ;
+
+namespacealias    : tknNamespace tknID '=' identifier ';' {
+                    $$ = new CppNamespaceAlias($2, $4);
                   }
                   ;
 

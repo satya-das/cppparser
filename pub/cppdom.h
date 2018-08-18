@@ -74,6 +74,7 @@ struct CppObj
     kVarList,			              // List of variables declared as comma separated identifiers.
     kTypedefName,
     kTypedefNameList,
+    kNamespaceAlias,
     kUsingNamespaceDecl,
     kUsing,
     kEnum,
@@ -914,6 +915,19 @@ struct CppUsingDecl : public CppObj
     : CppObj(CppObj::kUsing, kUnknownProt)
     , name_(std::move(name))
     , compound_(compound)
+  {
+  }
+};
+
+struct CppNamespaceAlias : public CppObj
+{
+  const std::string name_;
+  const std::string alias_;
+
+  CppNamespaceAlias(std::string name, std::string alias)
+    : CppObj(CppObj::kNamespaceAlias, kUnknownProt)
+    , name_(std::move(name))
+    , alias_(std::move(alias))
   {
   }
 };
