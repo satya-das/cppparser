@@ -70,7 +70,13 @@ static CppCompoundStack             gCompoundStack;
 static CppObjProtLevel              gCurProtLevel;
 static std::stack<CppObjProtLevel>  gProtLevelStack;
 
-static std::set<std::string>        gMacroNames = { "DECLARE_MESSAGE_MAP", "DECLARE_DYNAMIC", "ACPL_DECLARE_MEMBERS" };
+static std::set<std::string>        gMacroNames = { "DECLARE_MESSAGE_MAP",
+                                                    "DECLARE_DYNAMIC",
+                                                    "ACPL_DECLARE_MEMBERS",
+                                                    "DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION",
+                                                    "DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION",
+                                                    "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION"
+                                                  };
 
 extern CppObjFactory*               gObjFactory;
 
