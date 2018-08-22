@@ -760,6 +760,7 @@ varidentifier     : tknID                 { $$ = $1; }
                   | '(' '&' tknID ')'     { $$ = mergeCppToken($1, $4); }
                   | '(' '*' tknID ')'     { $$ = mergeCppToken($1, $4); }
                   | '(' '*' '*' tknID ')' { $$ = mergeCppToken($1, $5); }
+                  | identifier tknScopeResOp tknID { $$ = mergeCppToken($1, $3); }
                   ;
 
 typemodifier      : { $$ = CppTypeModifier(); }
