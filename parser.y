@@ -238,7 +238,7 @@ extern int yylex();
 %token  <str>   '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
 %token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']' ';'
 %token  <str>   tknNew tknDelete
-%token  <str>   tknConst // For templateparam parsing it is made as str type.
+%token  <str>   tknConst tknConstExpr // For templateparam parsing it is made as str type.
 %token  <str>   tknVoid // For the cases when void is used as function parameter.
 %token  <str>   tknOverride // override is not a reserved keyword
 %token  tknStatic tknExtern tknVirtual tknInline tknExplicit tknFriend tknVolatile tknFinal tknNoExcept
@@ -296,7 +296,7 @@ extern int yylex();
 %type  <inheritList>        inheritlist
 %type  <protLevel>          protlevel changeprotlevel
 %type  <identifierList>     identifierlist
-%type  <funcThrowSpec>      functhrowspec
+%type  <funcThrowSpec>      functhrowspec optfuncthrowspec
 
 %type  <exprList>           exprlist
 %type  <hashDefine>         define
@@ -789,6 +789,7 @@ exptype           : tknStatic  { $$ = kStatic;  }
 
 varattrib         : tknConst    { $$ = kConst; }
                   | tknVolatile { $$ = kVolatile; }
+                  | tknConstExpr{ $$ = kConstExpr; }
                   ;
 
 typeconverter     : tknOperator vartype '(' optvoid ')' {
@@ -1044,6 +1045,10 @@ funcattrib        :                           { $$ = 0; }
                   | funcattrib tknNoExcept    { $$ = $1 | kNoExcept; }
                   ;
 
+optfuncthrowspec  : { $$ = nullptr; }
+                  | functhrowspec { $$ = $1; }
+                  ;
+
 functhrowspec     : tknThrow '(' identifierlist ')' {
                     $$ = $3 ? $3 : new CppFuncThrowSpec;
                   }
@@ -1073,31 +1078,34 @@ ctordefn          : ctordecl meminitlist
                     $$->defn_      = $4 ? $4 : newCompound(kUnknownProt, kBlock);
                   }
                   | tknID tknScopeResOp tknID [if($1 != $3) YYERROR; else ZZVALID;]
-                    '(' paramlist ')' meminitlist
+                    '(' paramlist ')' optfuncthrowspec meminitlist
                     '{'
                       stmtlist
                     '}' [ZZVALID;]
                   {
-                    $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $3), $6, $8, 0);
-                    $$->defn_      = $10 ? $10 : newCompound(kUnknownProt, kBlock);
+                    $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $3), $6, $9, 0);
+                    $$->defn_      = $11 ? $11 : newCompound(kUnknownProt, kBlock);
+                    $$->throwSpec_ = $8;
                   }
                   | identifier tknScopeResOp tknID tknScopeResOp tknID [if($3 != $5) YYERROR; else ZZVALID;]
-                    '(' paramlist ')' meminitlist
+                    '(' paramlist ')' optfuncthrowspec meminitlist
                     '{'
                       stmtlist
                     '}' [ZZVALID;]
                   {
-                    $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $5), $8, $10, 0);
-                    $$->defn_      = $12 ? $12 : newCompound(gCurProtLevel, kBlock);
+                    $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $5), $8, $11, 0);
+                    $$->defn_      = $13 ? $13 : newCompound(gCurProtLevel, kBlock);
+                    $$->throwSpec_ = $10;
                   }
                   | tknID '<' templateparamlist '>' tknScopeResOp tknID [if($1 != $6) YYERROR; else ZZVALID;]
-                    '(' paramlist ')' meminitlist
+                    '(' paramlist ')' optfuncthrowspec meminitlist
                     '{'
                       stmtlist
                     '}' [ZZVALID;]
                   {
-                    $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $6), $9, $11, 0);
-                    $$->defn_      = $13 ? $13 : newCompound(gCurProtLevel, kBlock);
+                    $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $6), $9, $12, 0);
+                    $$->defn_      = $14 ? $14 : newCompound(gCurProtLevel, kBlock);
+                    $$->throwSpec_ = $11;
                   }
                   | tknInline ctordefn {
                     $$ = $2;

@@ -513,6 +513,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknConst);
 }
 
+<ctxGeneral>constexpr/{TS}+ {
+  set_token_and_yyposn();
+  RETURN(tknConstExpr);
+}
+
 <ctxGeneral>static/{TS}+ {
   set_token_and_yyposn();
   RETURN(tknStatic);
