@@ -866,6 +866,7 @@ struct CppTypeCoverter : CppObj
   CppCompound* defn_ {nullptr};
   std::uint32_t attr_ {0};
   std::string apidecor_;
+
   CppTemplateParamList* templSpec_ {nullptr};
 
   CppTypeCoverter(CppVarType* type, std::string name)
