@@ -866,7 +866,6 @@ struct CppTypeCoverter : CppObj
   CppCompound* defn_ {nullptr};
   std::uint32_t attr_ {0};
   std::string apidecor_;
-
   CppTemplateParamList* templSpec_ {nullptr};
 
   CppTypeCoverter(CppVarType* type, std::string name)
@@ -1000,7 +999,7 @@ struct  CppExprAtom
     std::string*		atom;
     CppExpr*			  expr;
     CppExprList*		list;
-    CppVarType*     varType; //!< For type cast expression.
+    CppVarType*     varType; //!< For type cast, and sizeof expression.
   };
 
   bool isExpr() const
@@ -1067,14 +1066,15 @@ struct CppExpr : public CppObj
 {
   enum Flag
   {
-    kReturn			= 0x01,
-    kNew			= 0x02,
+    kReturn			  = 0x01,
+    kNew			    = 0x02,
     //kNewArray		= 0x04, // This is not needed.
-    kDelete			= 0x08,
+    kDelete			  = 0x08,
     kDeleteArray	= 0x10,
     kBracketed		= 0x20,
     kInitializer	= 0x40,
     kThrow        = 0x80,
+    kSizeOf       = 0x100,
   };
   CppExprAtom expr1_ {(CppExpr*)(nullptr)};
   CppExprAtom expr2_ {(CppExpr*)(nullptr)};

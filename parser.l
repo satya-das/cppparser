@@ -645,6 +645,10 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknThrow);
 }
 
+<ctxGeneral>sizeof/{TS}+ {
+  RETURN(tknSizeOf);
+}
+
 <ctxGeneral>operator/{TS}+ {
   set_token_and_yyposn();
   RETURN(tknOperator);
