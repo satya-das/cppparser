@@ -597,7 +597,7 @@ templidentifier   : identifier '<' templateparamlist '>' {
                   }
                   ;
 
-optid             : { $$ = makeCppToken(nullptr, 0U); }
+optid             : { $$ = makeCppToken(nullptr, nullptr); }
                   | tknID      { $$ = $1; }
                   ;
 
@@ -1008,7 +1008,7 @@ param             : varinit                 { $$ = $1; $1->varType_->typeAttr_ |
                   }
                   ;
 
-templateparam     :                               { $$ = makeCppToken(nullptr, 0U); }
+templateparam     :                               { $$ = makeCppToken(nullptr, nullptr); }
                   | typeidentifier                { $$ = $1; }
                   | tknConst templateparam        { $$ = mergeCppToken($1, $2); }
                   | tknNumber                     { $$ = $1; }
@@ -1296,8 +1296,8 @@ classdefn         : compoundSpecifier optapidecor identifier inheritlist optcomm
                     }
                     stmtlist
                     '}' [
-                      gCompoundStack.pop();
                       ZZVALID;
+                      gCompoundStack.pop();
                     ] {
                       gCurProtLevel = gProtLevelStack.top();
                       gProtLevelStack.pop();
@@ -1363,7 +1363,7 @@ temparglist       : paramlist { /* For us template parameters are exactly like f
                   }
                   ;
 
-optapidecor       :                     { $$ = makeCppToken(nullptr, 0U); }
+optapidecor       :                     { $$ = makeCppToken(nullptr, nullptr); }
                   | apidecor            { $$ = $1; }
                   ;
 

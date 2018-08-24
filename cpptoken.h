@@ -69,7 +69,7 @@ inline CppToken makeCppToken(const char* sz, size_t len)
 
 inline CppToken makeCppToken(const char* beg, const char* end)
 {
-  makeCppToken(beg, end-beg);
+  return makeCppToken(beg, end-beg);
 }
 
 inline CppToken mergeCppToken(const CppToken& token1, const CppToken& token2)
