@@ -1287,27 +1287,29 @@ classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
                       }
                   ;
 
-classdefn         : compoundSpecifier optapidecor identifier inheritlist optcomment
-                    '{' [
-                      ZZVALID;
-                      gCompoundStack.push(classNameFromIdentifier($3));
-                    ] {
-                      gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt;
-                    }
-                    stmtlist
-                    '}' [
-                      ZZVALID;
-                      gCompoundStack.pop();
-                    ] {
-                      gCurProtLevel = gProtLevelStack.top();
-                      gProtLevelStack.pop();
+classdefn         : compoundSpecifier optapidecor identifier inheritlist optcomment '{'
+                  [
+                    ZZVALID;
+                    gCompoundStack.push(classNameFromIdentifier($3));
+                  ]
+                  {
+                    gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt;
+                  }
+                  stmtlist '}'
+                  [
+                    ZZVALID;
+                    gCompoundStack.pop();
+                  ]
+                  {
+                    gCurProtLevel = gProtLevelStack.top();
+                    gProtLevelStack.pop();
 
-                      $$ = $8 ? $8 : newCompound(gCurProtLevel);
-                      $$->compoundType_  = $1;
-                      $$->apidecor_    = $2;
-                      $$->name_      = $3;
-                      $$->inheritList_  = $4;
-                    }
+                    $$ = $8 ? $8 : newCompound(gCurProtLevel);
+                    $$->compoundType_  = $1;
+                    $$->apidecor_    = $2;
+                    $$->name_      = $3;
+                    $$->inheritList_  = $4;
+                  }
                   | compoundSpecifier inheritlist optcomment
                     '{' { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
                       stmtlist
@@ -1320,7 +1322,8 @@ classdefn         : compoundSpecifier optapidecor identifier inheritlist optcomm
                     $$->compoundType_  = $1;
                     $$->inheritList_  = $2;
                   }
-                  | templatespecifier classdefn {
+                  | templatespecifier classdefn
+                  {
                     $$ = $2;
                     $$->templSpec_ = $1;
                   }
