@@ -120,7 +120,7 @@ public:
     /// called by Associative Framework when the owning network is getting
     /// evaluated and this action needs to be evaluated. </summary>
     ///
-    virtual void evaluateOverride() ADESK_OVERRIDE;
+    virtual void evaluateOverride() ;
     
     /// <summary> Obtains object id of the associative array controlled by this
     /// action. </summary>
@@ -306,7 +306,7 @@ public:
     /// <returns> Acad::ErrorStatus </returns>
     ///
     virtual Acad::ErrorStatus addMoreObjectsToDeepCloneOverride(AcDbIdMapping& idMap, 
-                   AcDbObjectIdArray& additionalObjectsToClone) const ADESK_OVERRIDE;
+                   AcDbObjectIdArray& additionalObjectsToClone) const ;
 
     /// <summary>
     /// This method is called by associative framework when any of the dependent
@@ -317,7 +317,7 @@ public:
     /// <returns> Acad::ErrorStatus </returns>
     ///
     virtual Acad::ErrorStatus postProcessAfterDeepCloneOverride(
-                                          AcDbIdMapping& idMap) ADESK_OVERRIDE;
+                                          AcDbIdMapping& idMap) ;
 
     /// <summary> 
     /// This function is called to notify the action when a there is a drag 
@@ -328,5 +328,5 @@ public:
     /// <param name="status"> See the AcDb::DragStat enum. </param>
     /// <returns> Acad::ErrorStatus </returns>
     ///
-    virtual Acad::ErrorStatus dragStatusOverride(const AcDb::DragStat status) ADESK_OVERRIDE;
+    virtual Acad::ErrorStatus dragStatusOverride(const AcDb::DragStat status) ;
 };

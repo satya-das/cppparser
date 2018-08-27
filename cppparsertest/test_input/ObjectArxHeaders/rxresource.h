@@ -72,6 +72,6 @@ public:
     /// Returns a const reference to the the global empty default AcRxResourceInstance
     /// </returns>
 
-    ACBASE_PORT const static AcRxResourceInstance& empty();
+    ACBASE_PORT static const AcRxResourceInstance& empty();
 };
 #endif 

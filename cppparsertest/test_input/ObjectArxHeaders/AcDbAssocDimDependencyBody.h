@@ -46,24 +46,24 @@ public:
     /// <summary> Returns the text of the controlled AcDimension. </summary>
     /// <returns> AcDbDimension text. </returns>
     ///
-    virtual AcString getEntityTextOverride() const ADESK_OVERRIDE;
+    virtual AcString getEntityTextOverride() const override;
 
     /// <summary> Sets the text property in the controlled AcDbDimension. </summary>
     /// <param  name="newText"> New text to set in the AcDbDimension.</param>
     /// <returns> Acad::eOk if successful. </returns>
     ///
-    virtual Acad::ErrorStatus setEntityTextOverride(const AcString& newText) ADESK_OVERRIDE;
+    virtual Acad::ErrorStatus setEntityTextOverride(const AcString& newText) override;
 
     /// <summary> Gets the measurement from the controlled AcDbDimension. </summary>
     /// <returns> AcDbDimension measurement. </returns>
     ///
-    virtual double getEntityMeasurementOverride() const ADESK_OVERRIDE;
+    virtual double getEntityMeasurementOverride() const override;
 
     /// <summary> Returns true iff the attachment of the controlled AcDbDimension
     /// changed, such as the AcDbDimension has been repositioned. </summary>
     /// <returns> Returns true if attachment changed. </returns>
     ///
-    virtual bool isEntityAttachmentChangedOverride() const ADESK_OVERRIDE;
+    virtual bool isEntityAttachmentChangedOverride() const override;
 
     // Overridden method from the AcDbAssocDependencyBody base class
 
@@ -71,7 +71,7 @@ public:
     /// </summary>
     /// <returns> Acad::eOk if successful. </returns>
     ///
-    virtual Acad::ErrorStatus updateDependentOnObjectOverride() ADESK_OVERRIDE;
+    virtual Acad::ErrorStatus updateDependentOnObjectOverride() override;
 
     /// <summary>
     /// "Pseudo constructor". Creates a new AcDbAssocDependency object owning 

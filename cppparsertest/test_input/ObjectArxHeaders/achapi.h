@@ -26,8 +26,8 @@
 class AcDbHyperlink 
 {
 public:
-    AcDbHyperlink() {};
-    virtual ~AcDbHyperlink(){};
+    AcDbHyperlink() {}
+    virtual ~AcDbHyperlink(){}
     
     // Flags that can be set on the hyperlink object
     enum HLinkFlags {
@@ -82,8 +82,8 @@ inline void AcDbHyperlink::setFlags(const Adesk::Int32 lFlags)
 class AcDbHyperlinkCollection   
 {
 public:
-    AcDbHyperlinkCollection() {};
-    virtual ~AcDbHyperlinkCollection(){}; 
+    AcDbHyperlinkCollection() {}
+    virtual ~AcDbHyperlinkCollection(){}
    
     // Methods for adding a hyperlink object to a collection.
     virtual void addHead(const ACHAR * sName, const ACHAR * sDescription,

@@ -226,7 +226,8 @@ public:
     //
     AcDbHatch::HatchPatternType patternType() const;
 
-    ACDBCORE2D_PORT const ACHAR (&patternName()const)[HATCH_PATTERN_NAME_LENGTH];
+    Using PatternName = ACHAR [HATCH_PATTERN_NAME_LENGTH];
+    ACDBCORE2D_PORT const PatternNameArray& patternName() const;
 
     Acad::ErrorStatus  setPattern(AcDbHatch::HatchPatternType patType,
                                   const ACHAR* patName);

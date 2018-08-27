@@ -22,10 +22,10 @@
 #include "gegetmti.h"
 
 GE_DLLEXPIMPORT
-void* operator new ( size_t, enum AcGe::metaTypeIndex, const void* );
+void* operator new ( size_t, AcGe::metaTypeIndex, const void* );
 
 GE_DLLEXPIMPORT
-void* operator new ( size_t, enum AcGe::metaTypeIndex, unsigned int, const void* );
+void* operator new ( size_t, AcGe::metaTypeIndex, unsigned int, const void* );
 
 #define GENEWLOC( T, ptr)  new (AcGeGetMetaTypeIndex<T >(), (ptr)) T
 #define GENEWLOCVEC( T, count, ptr) new (AcGeGetMetaTypeIndex<T >(),(count),(ptr)) T [ (count) ]

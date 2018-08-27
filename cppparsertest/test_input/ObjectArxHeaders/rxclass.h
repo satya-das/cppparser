@@ -85,11 +85,13 @@ private:
     AcRxClass operator = (const AcRxClass &) = delete;
 };
 
+using PseudoConstructor = AcRxObject* (*)();
+
 ACBASE_PORT AcRxClass* newAcRxClass(
     const ACHAR* className,
     const ACHAR* parentClassName,
     int         proxyFlags = 0,
-    AcRxObject* (*pseudoConstructor)() = NULL,
+    PseudoConstructor pseudoConstructor = NULL,
     const ACHAR* dxfName = NULL,
     const ACHAR* appName = NULL);
 
@@ -99,7 +101,7 @@ ACBASE_PORT AcRxClass* newAcRxClass(
     int         dwgVer,
     int         maintVer,
     int         proxyFlags = 0,
-    AcRxObject* (*pseudoConstructor)() = NULL,
+    PseudoConstructor pseudoConstructor = NULL,
     const ACHAR* dxfName = NULL,
     const ACHAR* appName = NULL,
     AppNameChangeFuncPtr func = NULL);

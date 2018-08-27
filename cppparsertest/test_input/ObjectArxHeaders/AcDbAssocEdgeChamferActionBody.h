@@ -108,7 +108,7 @@ public:
     /// body object.
     /// </summary>
     ///
-    virtual void evaluateOverride() ADESK_OVERRIDE;
+    virtual void evaluateOverride() override;
 
     /// <summary>
     /// Utility function to create AcDbAssocEdgeChamferActionBody and attach 

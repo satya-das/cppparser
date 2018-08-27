@@ -1826,15 +1826,15 @@ public:
     virtual void              recvPropagateModify(const AcDbObject* subObj);
     virtual void              xmitPropagateModify() const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus deepClone(AcDbObject* pOwnerObject,
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus deepClone(AcDbObject* pOwnerObject,
                                                                AcDbObject*& pClonedObject,
                                                                AcDbIdMapping& idMap,
-                                                               Adesk::Boolean isPrimary = true) const ADESK_SEALED;
+                                                               Adesk::Boolean isPrimary = true) const;
  
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus wblockClone(AcRxObject* pOwnerObject,
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus wblockClone(AcRxObject* pOwnerObject,
                                                                  AcDbObject*& pClonedObject,
                                                                  AcDbIdMapping& idMap,
-                                                                 Adesk::Boolean isPrimary = true) const ADESK_SEALED;
+                                                                 Adesk::Boolean isPrimary = true) const;
 
     void              setAcDbObjectIdsInFlux();
     Adesk::Boolean    isAcDbObjectIdsInFlux() const;
@@ -1896,7 +1896,7 @@ public:
 
     // Get corresponding COM wrapper class ID
     //
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus   getClassID(CLSID* pClsid) const ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus   getClassID(CLSID* pClsid) const;
 
     bool              hasFields(void) const;
     Acad::ErrorStatus getField(const ACHAR* pszPropName, 
@@ -2377,8 +2377,8 @@ public:
                                   Adesk::Boolean doSubents = true);
 
     AcDb::Visibility            visibility() const;
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus   setVisibility(AcDb::Visibility newVal,
-                                  Adesk::Boolean doSubents = true) ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus   setVisibility(AcDb::Visibility newVal,
+                                  Adesk::Boolean doSubents = true);
 
     AcDb::LineWeight            lineWeight() const;
     virtual Acad::ErrorStatus   setLineWeight(AcDb::LineWeight newVal,
@@ -2400,43 +2400,43 @@ public:
 
     virtual void                getEcs(AcGeMatrix3d& retVal) const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus   getGeomExtents(AcDbExtents& extents) const ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus   getGeomExtents(AcDbExtents& extents) const;
 
     // Subentity acquisition and manipulation
     //
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus addSubentPaths(
-                                  const AcDbFullSubentPathArray& newPaths) ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus addSubentPaths(
+                                  const AcDbFullSubentPathArray& newPaths);
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus deleteSubentPaths(
-                                  const AcDbFullSubentPathArray& paths) ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus deleteSubentPaths(
+                                  const AcDbFullSubentPathArray& paths);
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL   Acad::ErrorStatus getSubentClassId(
+    ACDBCORE2D_PORT_VIRTUAL   Acad::ErrorStatus getSubentClassId(
                                   const AcDbFullSubentPath& path,
-                                  CLSID*                    clsId) const ADESK_SEALED;
+                                  CLSID*                    clsId) const;
  
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus transformSubentPathsBy(
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus transformSubentPathsBy(
                                   const AcDbFullSubentPathArray& paths,
-                                  const AcGeMatrix3d&            xform) ADESK_SEALED;
+                                  const AcGeMatrix3d&            xform);
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus getGripPointsAtSubentPath(
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getGripPointsAtSubentPath(
                                   const AcDbFullSubentPath&      path,
                                   AcDbGripDataPtrArray&          grips,
                                   const double                   curViewUnitSize,
                                   const int                      gripSize,
                                   const AcGeVector3d&            curViewDir,
-                                  const int                      bitflags) const ADESK_SEALED;
+                                  const int                      bitflags) const;
     
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus moveGripPointsAtSubentPaths(
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus moveGripPointsAtSubentPaths(
                                   const AcDbFullSubentPathArray& paths,
                                   const AcDbVoidPtrArray&        gripAppData,
                                   const AcGeVector3d&            offset,
-                                  const int                      bitflags) ADESK_SEALED;
+                                  const int                      bitflags);
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus getSubentPathGeomExtents(
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getSubentPathGeomExtents(
                                   const AcDbFullSubentPath&      path, 
-                                  AcDbExtents&                   extents) const ADESK_SEALED;
+                                  AcDbExtents&                   extents) const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus getSubentPathsAtGsMarker(
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getSubentPathsAtGsMarker(
                                   AcDb::SubentType       type,
                                   Adesk::GsMarker        gsMark, 
                                   const AcGePoint3d&     pickPoint,
@@ -2445,30 +2445,30 @@ public:
                                   AcDbFullSubentPath*&   subentPaths, 
                                   int                    numInserts = 0,
                                   AcDbObjectId*          entAndInsertStack
-                                                           = nullptr) const ADESK_SEALED;
+                                                           = nullptr) const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus getGsMarkersAtSubentPath(
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getGsMarkersAtSubentPath(
                                const AcDbFullSubentPath& subPath, 
-                               AcArray<Adesk::GsMarker>& gsMarkers) const ADESK_SEALED;
+                               AcArray<Adesk::GsMarker>& gsMarkers) const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus highlight(const AcDbFullSubentPath& subId 
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus highlight(const AcDbFullSubentPath& subId 
                                         = kNullSubent, const Adesk::Boolean highlightAll 
-                        = false) const ADESK_SEALED;
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus unhighlight(const AcDbFullSubentPath& subId 
+                        = false) const;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus unhighlight(const AcDbFullSubentPath& subId 
                                         = kNullSubent, const Adesk::Boolean highlightAll  
-                        = false) const ADESK_SEALED;
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL AcDbEntity*       subentPtr(const AcDbFullSubentPath& id) const ADESK_SEALED;
+                        = false) const;
+    ACDBCORE2D_PORT_VIRTUAL AcDbEntity*       subentPtr(const AcDbFullSubentPath& id) const;
  
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus getOsnapPoints(
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getOsnapPoints(
                                  AcDb::OsnapMode     osnapMode,
                                  Adesk::GsMarker     gsSelectionMark,
                                  const AcGePoint3d&  pickPoint,
                                  const AcGePoint3d&  lastPoint,
                                  const AcGeMatrix3d& viewXform,
                                  AcGePoint3dArray&   snapPoints,
-                                 AcDbIntArray &   geomIds) const ADESK_SEALED;
+                                 AcDbIntArray &   geomIds) const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus getOsnapPoints(
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getOsnapPoints(
                                  AcDb::OsnapMode     osnapMode,
                                  Adesk::GsMarker     gsSelectionMark,
                                  const AcGePoint3d&  pickPoint,
@@ -2476,43 +2476,43 @@ public:
                                  const AcGeMatrix3d& viewXform,
                                  AcGePoint3dArray&   snapPoints,
                                  AcDbIntArray &   geomIds,
-                                 const AcGeMatrix3d& insertionMat) const ADESK_SEALED;
+                                 const AcGeMatrix3d& insertionMat) const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL bool isContentSnappable() const ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL bool isContentSnappable() const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus   getGripPoints(
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus   getGripPoints(
                                    AcGePoint3dArray&  gripPoints,
                                    AcDbIntArray &     osnapModes,
-                                   AcDbIntArray &  geomIds) const ADESK_SEALED;
+                                   AcDbIntArray &  geomIds) const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus moveGripPointsAt(const AcDbIntArray & indices,
-        const AcGeVector3d& offset) ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus moveGripPointsAt(const AcDbIntArray & indices,
+        const AcGeVector3d& offset);
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus   getGripPoints(AcDbGripDataPtrArray& grips,
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus   getGripPoints(AcDbGripDataPtrArray& grips,
         const double curViewUnitSize, const int gripSize, 
-        const AcGeVector3d& curViewDir, const int bitflags) const ADESK_SEALED;
+        const AcGeVector3d& curViewDir, const int bitflags) const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus moveGripPointsAt(const AcDbVoidPtrArray& gripAppData,
-        const AcGeVector3d& offset, const int bitflags) ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus moveGripPointsAt(const AcDbVoidPtrArray& gripAppData,
+        const AcGeVector3d& offset, const int bitflags);
     
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus getStretchPoints(
-        AcGePoint3dArray& stretchPoints) const ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getStretchPoints(
+        AcGePoint3dArray& stretchPoints) const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus moveStretchPointsAt(const AcDbIntArray & indices,
-        const AcGeVector3d& offset) ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus moveStretchPointsAt(const AcDbIntArray & indices,
+        const AcGeVector3d& offset);
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus intersectWith(const AcDbEntity* pEnt,
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus intersectWith(const AcDbEntity* pEnt,
                                     AcDb::Intersect intType, 
                                     AcGePoint3dArray& points,
                                     Adesk::GsMarker thisGsMarker = 0, 
-                                    Adesk::GsMarker otherGsMarker = 0) const ADESK_SEALED;
+                                    Adesk::GsMarker otherGsMarker = 0) const;
  
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus intersectWith(const AcDbEntity* pEnt,
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus intersectWith(const AcDbEntity* pEnt,
                                              AcDb::Intersect intType, 
                                              const AcGePlane& projPlane,
                                              AcGePoint3dArray& points, 
                                              Adesk::GsMarker thisGsMarker = 0,
-                                             Adesk::GsMarker otherGsMarker = 0) const ADESK_SEALED;
+                                             Adesk::GsMarker otherGsMarker = 0) const;
 
     Acad::ErrorStatus          boundingBoxIntersectWith(
                                              const AcDbEntity*   pEnt,
@@ -2529,12 +2529,12 @@ public:
                                              Adesk::GsMarker     thisGsMarker,
                                              Adesk::GsMarker     otherGsMarker) const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL void  list() const ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL void  list() const;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus   transformBy(const AcGeMatrix3d& xform) ADESK_SEALED;
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus   getTransformedCopy(const AcGeMatrix3d& xform,
-                                                   AcDbEntity*& pEnt) const ADESK_SEALED;
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus   explode(AcDbVoidPtrArray& entitySet) const ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus   transformBy(const AcGeMatrix3d& xform);
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus   getTransformedCopy(const AcGeMatrix3d& xform,
+                                                   AcDbEntity*& pEnt) const;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus   explode(AcDbVoidPtrArray& entitySet) const;
 
     void                        recordGraphicsModified(
                                     Adesk::Boolean setModified = true);
@@ -2542,7 +2542,7 @@ public:
     Acad::ErrorStatus           draw();
     virtual void                saveAs(AcGiWorldDraw* mode, AcDb::SaveType st);
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus   getCompoundObjectTransform(AcGeMatrix3d & xMat) const ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus   getCompoundObjectTransform(AcGeMatrix3d & xMat) const;
 
     void                        setDatabaseDefaults();
     void                        setDatabaseDefaults(AcDbDatabase* pDb);
@@ -2566,17 +2566,17 @@ public:
     //
     virtual bool                bounds(AcDbExtents& bounds) const override;
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Adesk::Boolean  cloneMeForDragging() ADESK_SEALED;
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL bool            hideMeForDragging() const ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Adesk::Boolean  cloneMeForDragging();
+    ACDBCORE2D_PORT_VIRTUAL bool            hideMeForDragging() const;
 
     virtual void                dragStatus(const AcDb::DragStat status);
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL void gripStatus(const AcDb::GripStat status) ADESK_SEALED;
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL void  subentGripStatus(
+    ACDBCORE2D_PORT_VIRTUAL void gripStatus(const AcDb::GripStat status);
+    ACDBCORE2D_PORT_VIRTUAL void  subentGripStatus(
                                     const AcDb::GripStat      status,
-                                    const AcDbFullSubentPath& subentity) ADESK_SEALED;
+                                    const AcDbFullSubentPath& subentity);
 
-    ACDBCORE2D_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus getGripEntityUCS(const void* pGripAppData, 
-        AcGeVector3d& normalVec, AcGePoint3d& origin, AcGeVector3d& xAxis) const ADESK_SEALED;
+    ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getGripEntityUCS(const void* pGripAppData, 
+        AcGeVector3d& normalVec, AcGePoint3d& origin, AcGeVector3d& xAxis) const;
 
 protected:
     // Makes AcDbEntity an abstract class.

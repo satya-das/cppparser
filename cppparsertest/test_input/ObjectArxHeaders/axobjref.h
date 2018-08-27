@@ -257,8 +257,6 @@ AcAxObjectRefPtr<T_OBJECT>::AcAxObjectRefPtr(AcAxObjectRef* const pRef, AcDb::Op
     // If it is a non-null objectId just open it
     if (!objId.isNull()) 
         this->m_status = acdbOpenObject(this->m_ptr, objId, mode, openErased);
-    // If it is a null objectId we will need to acquire the 
-    // pointer from the AcAxObjectRef
     else 
     {
         AcDbObject* pTmp = NULL;

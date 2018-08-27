@@ -315,18 +315,12 @@ public:
     /// Cache path is assumed to be %LOCALAPPDATA%/Autodesk/Web 
     /// Services/<ProductLineCode>. Use WebServicesManager::GetCachePath 
     /// to get the cache path.</summary>
-#ifdef _WIN32
-    __declspec(deprecated("**This function is obsolete**")) 
-#endif // _WIN32
     int GetCachePath(wchar_t *path, int size) const;
 
     ///////////////////////////////////////////////////////////////////////////////
     /// <summary>Obsolete function. Don't use it. This function 
     /// does nothing currently. Cache path is assumed to be 
     /// %LOCALAPPDATA%/Autodesk/Web Services/<ProductLineCode>.</summary>
-#ifdef _WIN32
-    __declspec(deprecated("**This function is obsolete. No need to call this function anymore.**")) 
-#endif // _WIN32
     void SetCachePath(const wchar_t* path);
 
     ///////////////////////////////////////////////////////////////////////////////

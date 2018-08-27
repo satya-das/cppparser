@@ -204,18 +204,6 @@ has##UPPERNAME(const ACHAR* name, AcDbDatabase* pDb) \
     return AcDbDictUtil::get##UPPERNAME##Id(id, name, pDb) == Acad::eOk; \
 }
 
-DBDICTUTIL_MAKE_DICTIONARY_UTILS( color,         Color)
-DBDICTUTIL_MAKE_DICTIONARY_UTILS( group,         Group)
-DBDICTUTIL_MAKE_DICTIONARY_UTILS( layout,        Layout)
-DBDICTUTIL_MAKE_DICTIONARY_UTILS( material,      Material)
-DBDICTUTIL_MAKE_DICTIONARY_UTILS( mLStyle,       MLStyle)
-DBDICTUTIL_MAKE_DICTIONARY_UTILS( namedObjects,  NamedObjects)
-DBDICTUTIL_MAKE_DICTIONARY_UTILS( plotSettings,  PlotSettings)
-DBDICTUTIL_MAKE_DICTIONARY_UTILS( plotStyleName, PlotStyleName)
-DBDICTUTIL_MAKE_DICTIONARY_UTILS( scaleList,     ScaleList)
-DBDICTUTIL_MAKE_DICTIONARY_UTILS( tableStyle,    TableStyle)
-DBDICTUTIL_MAKE_DICTIONARY_UTILS( visualStyle,   VisualStyle)
-
 #undef DBDICTUTIL_MAKE_DICTIONARY_UTILS
 
 } // end AcDbDictUtil namespace

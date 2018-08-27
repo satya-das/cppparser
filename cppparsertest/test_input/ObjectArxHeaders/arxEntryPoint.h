@@ -45,11 +45,6 @@ struct _ARXCOMMAND_ENTRY {
 #endif
 #define ARXCOMMAND_LAST_ENTRYNAME "ARXCOMMAND$__z"
 
-extern "C" {
-    __declspec(selectany) __declspec(allocate(ARXCOMMAND_FIRST_ENTRYNAME)) _ARXCOMMAND_ENTRY* __pArxCmdMapEntryFirst =NULL ;
-    __declspec(selectany) __declspec(allocate(ARXCOMMAND_LAST_ENTRYNAME)) _ARXCOMMAND_ENTRY* __pArxCmdMapEntryLast =NULL ;
-}
-
 #ifndef _ADESK_MAC_
 #if defined(_WIN64) || defined(_AC64)
 #define ACED_ARXCOMMAND_ENTRY_PRAGMA(group,globCmd) __pragma(comment(linker, "/include:__pArxCmdMap_" #group #globCmd)) ;
@@ -89,11 +84,6 @@ struct _ADSSYMBOL_ENTRY {
 #define ADSSYMBOL_FIRST_ENTRYNAME "ADSSYMBOL$__m"
 #endif
 #define ADSSYMBOL_LAST_ENTRYNAME "ADSSYMBOL$__z"
-
-extern "C" {
-    __declspec(selectany) __declspec(allocate(ADSSYMBOL_FIRST_ENTRYNAME)) _ADSSYMBOL_ENTRY* __pAdsSymbolMapEntryFirst =NULL ;
-    __declspec(selectany) __declspec(allocate(ADSSYMBOL_LAST_ENTRYNAME)) _ADSSYMBOL_ENTRY* __pAdsSymbolMapEntryLast =NULL ;
-}
 
 #ifndef _ADESK_MAC_
 #if defined(_WIN64) || defined(_AC64)

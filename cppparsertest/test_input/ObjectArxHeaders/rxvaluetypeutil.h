@@ -84,8 +84,8 @@ public:
     ///
     AcRxValueTypePOD(const ACHAR* name, const IAcRxReferenceType& pRef, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL):AcRxValueType(name,pRef, sizeof(ValueType), memberConstruct, userData) {}
     
-    virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const ADESK_OVERRIDE;
-    virtual bool subEqualTo(const void* a, const void* b) const ADESK_OVERRIDE;
+    virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
+    virtual bool subEqualTo(const void* a, const void* b) const override;
 };
 
 #ifdef __GNUC__
@@ -118,11 +118,11 @@ public:
         for (int i=m_tags.length()-1;i>=0;i--)
             AcRxMember::deleteMember(m_tags[i]);
     }
-    virtual int count() const ADESK_OVERRIDE
+    virtual int count() const override
     {
         return m_tags.length();
     }
-    virtual const AcRxEnumTag& getAt(int i) const ADESK_OVERRIDE
+    virtual const AcRxEnumTag& getAt(int i) const override
     {
         return *m_tags[i];
     }
@@ -133,8 +133,8 @@ public:
         acdbImpSetOwnerForEnumTag(this, &tag);
     }
 #ifdef __GNUC__
-    virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const ADESK_OVERRIDE;
-    virtual bool subEqualTo(const void* a, const void* b) const ADESK_OVERRIDE;
+    virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
+    virtual bool subEqualTo(const void* a, const void* b) const override;
 #endif    
 };
 #pragma warning(pop)
@@ -144,21 +144,21 @@ class AcRxNonBlittableType : public AcRxValueType
 {
     class NonBlittable : public IAcRxNonBlittableType
     {
-        virtual void construct(void* dest, const void* source) const ADESK_OVERRIDE
+        virtual void construct(void* dest, const void* source) const override
         {
             ::new ((AcRxValue*)dest) T(*(T*)source);
         }
-        virtual void assign(void* dest, const void* source) const ADESK_OVERRIDE
+        virtual void assign(void* dest, const void* source) const override
         {
             ((T*)dest)->operator =(*(T*)source);
         }
-        virtual void destruct(const void* instance) const ADESK_OVERRIDE
+        virtual void destruct(const void* instance) const override
         {
             ((T*)instance)->~T();
         }
     } m_nonBlittable;
-    virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const ADESK_OVERRIDE;
-    virtual bool subEqualTo(const void* a, const void* b) const ADESK_OVERRIDE;
+    virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
+    virtual bool subEqualTo(const void* a, const void* b) const override;
 public:
     AcRxNonBlittableType(const ACHAR* name, const ACHAR* parent, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL):AcRxValueType(name, parent, m_nonBlittable,  sizeof(T), memberConstruct, userData) {}
     AcRxNonBlittableType(const ACHAR* name, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL):AcRxValueType(name,m_nonBlittable,  sizeof(T), memberConstruct, userData) {}
