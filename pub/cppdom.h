@@ -280,6 +280,18 @@ struct CppVarType : public CppObj
   {
   }
 
+  std::uint8_t ptrLevel() const {
+    return typeModifier_.ptrLevel_;
+  }
+
+  CppRefType refType() const {
+    return typeModifier_.refType_;
+  }
+
+  const std::string& baseType() const {
+    return baseType_;
+  }
+
   bool isVoid() const
   {
     if (typeAttr_ != 0 || typeModifier_.ptrLevel_ != 0 || typeModifier_.refType_ != kNoRef)
@@ -357,6 +369,42 @@ struct CppVar : public CppObj
   }
 
   CppVar(CppCompound* compound, CppVarDecl varDecl);
+
+  std::uint8_t ptrLevel() const {
+    return varType_->typeModifier_.ptrLevel_;
+  }
+
+  CppRefType refType() const {
+    return varType_->typeModifier_.refType_;
+  }
+
+  const std::string& baseType() const {
+    return varType_->baseType_;
+  }
+
+  const std::string& name() const {
+    return varDecl_.name_;
+  }
+
+  bool isByRef() const
+  {
+    return (varType_->typeModifier_.refType_ == kByRef);
+  }
+
+  bool isByRValueRef() const
+  {
+    return (varType_->typeModifier_.refType_ == kRValRef);
+  }
+
+  bool isConst() const
+  {
+    return (varType_->typeAttr_ & kConst) == kConst;
+  }
+
+  bool isByValue() const
+  {
+    return (varType_->typeModifier_.refType_ == kNoRef) && (varType_->typeModifier_.ptrLevel_ == 0);
+  }
 
 protected:
   CppVar(CppObj::Type objType, CppVarType* varType, CppVarDecl varDecl)
