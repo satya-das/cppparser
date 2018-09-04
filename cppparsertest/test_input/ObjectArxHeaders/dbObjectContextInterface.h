@@ -23,7 +23,7 @@
 
 class AcDbObjectContext;
 
-const ACDBCORE2D_PORT AcString& acdbAnnotationScaleCollectionName();
+ACDBCORE2D_PORT const AcString& acdbAnnotationScaleCollectionName();
 
 ////////////////////////////////////////////////////////////////////////
 // class AcDbObjectContextInterface

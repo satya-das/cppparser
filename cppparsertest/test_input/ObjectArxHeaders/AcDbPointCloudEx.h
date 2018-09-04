@@ -92,7 +92,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-    virtual Acad::ErrorStatus       dwgInFields(AcDbDwgFiler* pFiler) ADESK_OVERRIDE;
+    virtual Acad::ErrorStatus       dwgInFields(AcDbDwgFiler* pFiler) override;
 
     /// <summary>
     /// This function is called by dwgOut(). Its purpose is to allow the object to write out its data. 
@@ -103,7 +103,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-    virtual Acad::ErrorStatus       dwgOutFields(AcDbDwgFiler* pFiler) const ADESK_OVERRIDE;
+    virtual Acad::ErrorStatus       dwgOutFields(AcDbDwgFiler* pFiler) const override;
 
     /// <summary>
     /// This function is called by dxfIn(). Its purpose is to allow the object to read in its data. 
@@ -114,7 +114,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-    virtual Acad::ErrorStatus       dxfInFields(AcDbDxfFiler* pFiler) ADESK_OVERRIDE;
+    virtual Acad::ErrorStatus       dxfInFields(AcDbDxfFiler* pFiler) override;
 
     /// <summary>
     /// This function is called by dxfOut(). Its purpose is to allow the object to write out its data. 
@@ -125,7 +125,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-    virtual Acad::ErrorStatus       dxfOutFields(AcDbDxfFiler* pFiler) const ADESK_OVERRIDE;
+    virtual Acad::ErrorStatus       dxfOutFields(AcDbDxfFiler* pFiler) const override;
 
     /// <summary>
     /// This function is called by swapIdWith() before anything else is done. 
@@ -145,7 +145,7 @@ public:
     /// </returns>
     virtual Acad::ErrorStatus       subSwapIdWith(AcDbObjectId otherId,
                                                 Adesk::Boolean swapXdata = false,
-                                                Adesk::Boolean swapExtDict = false) ADESK_OVERRIDE;
+                                                Adesk::Boolean swapExtDict = false) override;
 
     /// <summary>
     /// Copy the contents of the "other" parameter into this messaged object, whenever feasible.
@@ -170,7 +170,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-    virtual void                    getEcs(AcGeMatrix3d& retVal) const ADESK_OVERRIDE;
+    virtual void                    getEcs(AcGeMatrix3d& retVal) const override;
 
     /// <summary>
     /// The function is called when a drag operation involving this entity is starting,
@@ -179,7 +179,7 @@ public:
     /// <param name="status">
     /// Provides information about what is happening with the drag operation.
     /// </param>
-    virtual void                    dragStatus(const AcDb::DragStat status) ADESK_OVERRIDE;
+    virtual void                    dragStatus(const AcDb::DragStat status) override;
 
 protected:
     // AcDbEntity Overrides
@@ -187,7 +187,7 @@ protected:
     /// <summary>
     /// Override the virtual function for AcDbEnity::list().
     /// </summary>
-    virtual void                    subList() const ADESK_OVERRIDE;
+    virtual void                    subList() const override;
 
     /// <summary>
     /// Get the unique class id for this entity.
@@ -198,7 +198,7 @@ protected:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-    virtual Acad::ErrorStatus       subGetClassID(CLSID* pClsid) const ADESK_OVERRIDE;
+    virtual Acad::ErrorStatus       subGetClassID(CLSID* pClsid) const override;
 
     /// <summary>
     /// Override the virtual function for AcDbEnity::getGeomExtents().
@@ -209,7 +209,7 @@ protected:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-    virtual Acad::ErrorStatus       subGetGeomExtents(AcDbExtents& extents) const ADESK_OVERRIDE;
+    virtual Acad::ErrorStatus       subGetGeomExtents(AcDbExtents& extents) const override;
 
     // AcDbOsnapOverrule
     //
@@ -219,7 +219,7 @@ protected:
     /// <returns>
     /// Returns true if this entity can be snapped to, otherwise false.
     /// </returns>
-    virtual bool                    subIsContentSnappable() const ADESK_OVERRIDE;
+    virtual bool                    subIsContentSnappable() const override;
 
     // AcGiDrawable interface
     //
@@ -232,7 +232,7 @@ protected:
     /// <returns>
     /// Returns true if successful.
     /// </returns>
-    virtual Adesk::Boolean          subWorldDraw(AcGiWorldDraw* mode) ADESK_OVERRIDE;
+    virtual Adesk::Boolean          subWorldDraw(AcGiWorldDraw* mode) override;
 
     /// <summary>
     /// Override the virtual function for AcDbEntity::transformBy().
@@ -243,7 +243,7 @@ protected:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-    virtual Acad::ErrorStatus       subTransformBy(const AcGeMatrix3d& xform) ADESK_OVERRIDE;
+    virtual Acad::ErrorStatus       subTransformBy(const AcGeMatrix3d& xform) override;
 
 public:
     // AcDbPointCloudDefEx specific protocol

@@ -231,7 +231,7 @@ extern int yylex();
 %token  <str>   tknPragma tknHashError
 %token  <str>   tknEllipsis
 %token  <str>   tknConstCast tknStaticCast tknDynamicCast tknReinterpretCast
-%token  <str>   tknTry tknCatch tknThrow
+%token  <str>   tknTry tknCatch tknThrow tknSizeOf
 %token  <str>   tknOperator tknPlusEq tknMinusEq tknMulEq tknDivEq tknPerEq tknXorEq tknAndEq tknOrEq
 %token  <str>   tknLShift tknRShift tknLShiftEq tknRShiftEq tknCmpEq tknNotEq tknLessEq tknGreaterEq
 %token  <str>   tkn3WayCmp tknAnd tknOr tknInc tknDec tknArrow tknArrowStar
@@ -1455,6 +1455,8 @@ expr              : tknStrLit                         { $$ = new CppExpr((std::s
                   | tknReturn                         { $$ = new CppExpr(CppExprAtom(), CppExpr::kReturn);  }
                   | tknThrow  expr                    { $$ = $2; $2->flags_ |= CppExpr::kThrow;             }
                   | tknThrow                          { $$ = new CppExpr(CppExprAtom(), CppExpr::kThrow);   }
+                  | tknSizeOf '(' vartype ')'         { $$ = new CppExpr($3, CppExpr::kSizeOf);  }
+                  | tknSizeOf '(' expr ')'            { $$ = new CppExpr($3, CppExpr::kSizeOf);  }
                   ;
 
 exprstmt          : expr ';'  [ZZVALID;]              { $$ = $1; }
@@ -1523,6 +1525,8 @@ CppCompound* parseStream(char* stm, size_t stmSize)
   gLineNo = 1; // Reset so that we do not start counting beyond previous parsing.
   yyparse();
   cleanupScanBuffer();
+  CppCompoundStack tmpStack;
+  gCompoundStack.swap(tmpStack);
   
   return gProgUnit;
 }

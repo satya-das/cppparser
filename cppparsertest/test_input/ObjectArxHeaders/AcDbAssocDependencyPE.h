@@ -64,7 +64,7 @@ public:
                                     bool                       isWriteDependency, 
                                     const AcRxClass*           pActionBodyOrActionClass, 
                                     const AcDbAssocDependency* pDependency, 
-                                    const AcRxObject*          pContext) const = NULL;
+                                    const AcRxObject*          pContext) const = 0;
 
     /// <summary><para>
     /// Allows objects to whom dependencies are being attached by AcDbAssocDependency::attachToObject() 

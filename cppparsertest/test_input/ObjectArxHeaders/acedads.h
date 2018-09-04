@@ -138,10 +138,12 @@ int            acedSSNameX (struct resbuf **rbpp, const ads_name ss,
 int            acedSSNameXEx (struct resbuf **rbpp, const ads_name ss,
                               int i, unsigned int flags);
 
-int            acedSSGetKwordCallbackPtr(struct resbuf* (**pFunc)(const ACHAR*));
-int            acedSSSetKwordCallbackPtr(struct resbuf* (*pFunc)(const ACHAR*));
-int            acedSSGetOtherCallbackPtr(struct resbuf* (**pFunc)(const ACHAR*));
-int            acedSSSetOtherCallbackPtr(struct resbuf* (*pFunc)(const ACHAR*));
+using SSCallbackType = struct resbuf* (*)(const ACHAR*);
+
+int            acedSSGetKwordCallbackPtr(SSCallbackType* pFunc);
+int            acedSSSetKwordCallbackPtr(SSCallbackType pFunc);
+int            acedSSGetOtherCallbackPtr(SSCallbackType* pFunc);
+int            acedSSSetOtherCallbackPtr(SSCallbackType pFunc);
 
 int            acedTrans (const ads_point pt, const struct resbuf *from,
                             const struct resbuf *to, int disp,

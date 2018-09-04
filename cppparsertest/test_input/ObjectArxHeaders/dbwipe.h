@@ -43,29 +43,29 @@ public:
 
     // AcDbEntity overrides
     //
-    virtual AcRxObject*         clone() const ADESK_OVERRIDE;
+    virtual AcRxObject*         clone() const override;
 
 // AcDbRasterImage overwritten methods.
 
-    virtual AcGeVector2d        imageSize(Adesk::Boolean bGetCachedValue = Adesk::kFalse) const ADESK_OVERRIDE;
-    AcGiSentScanLines*          getScanLines(const AcGiRequestScanLines& req) const ADESK_OVERRIDE;
+    virtual AcGeVector2d        imageSize(Adesk::Boolean bGetCachedValue = Adesk::kFalse) const override;
+    AcGiSentScanLines*          getScanLines(const AcGiRequestScanLines& req) const override;
 	Adesk::Boolean				isClipped() const;
 	virtual void				setDisplayOpt(
                                     ImageDisplayOpt option, 
                                     Adesk::Boolean bValue
-                                ) ADESK_OVERRIDE;
-	virtual Adesk::Boolean		isSetDisplayOpt(ImageDisplayOpt option) const ADESK_OVERRIDE;
+                                ) override;
+	virtual Adesk::Boolean		isSetDisplayOpt(ImageDisplayOpt option) const override;
 
-	virtual Acad::ErrorStatus	setBrightness( Adesk::Int8 value ) ADESK_OVERRIDE;
-	virtual Adesk::Int8			brightness() const ADESK_OVERRIDE;
+	virtual Acad::ErrorStatus	setBrightness( Adesk::Int8 value ) override;
+	virtual Adesk::Int8			brightness() const override;
 	
-	virtual Acad::ErrorStatus	setContrast( Adesk::Int8 value ) ADESK_OVERRIDE;
-	virtual Adesk::Int8			contrast() const ADESK_OVERRIDE;
+	virtual Acad::ErrorStatus	setContrast( Adesk::Int8 value ) override;
+	virtual Adesk::Int8			contrast() const override;
 
-	virtual Acad::ErrorStatus	setFade( Adesk::Int8 value ) ADESK_OVERRIDE;
-	virtual Adesk::Int8			fade() const ADESK_OVERRIDE;
+	virtual Acad::ErrorStatus	setFade( Adesk::Int8 value ) override;
+	virtual Adesk::Int8			fade() const override;
 
-    virtual AcGeVector2d        scale() const ADESK_OVERRIDE;
+    virtual AcGeVector2d        scale() const override;
 
 // Wipeout specific functions
 
@@ -79,26 +79,26 @@ public:
     Adesk::Boolean              frame() const;
 
 protected:
-    virtual Adesk::Boolean      subWorldDraw(AcGiWorldDraw* mode) ADESK_OVERRIDE;
-    virtual void                subViewportDraw(AcGiViewportDraw* mode) ADESK_OVERRIDE;
+    virtual Adesk::Boolean      subWorldDraw(AcGiWorldDraw* mode) override;
+    virtual void                subViewportDraw(AcGiViewportDraw* mode) override;
 
-    virtual void                subList() const ADESK_OVERRIDE;
+    virtual void                subList() const override;
 
     virtual Acad::ErrorStatus   subMoveGripPointsAt(
                                    const AcDbVoidPtrArray& gripAppData,
                                    const AcGeVector3d& offset, 
-                                   const int bitflags) ADESK_OVERRIDE;
+                                   const int bitflags) override;
     virtual Acad::ErrorStatus   subMoveGripPointsAt(
                                    const AcDbIntArray& indices,
-                                   const AcGeVector3d&     offset) ADESK_OVERRIDE;
+                                   const AcGeVector3d&     offset) override;
     virtual Acad::ErrorStatus   subTransformBy(
-                                    const AcGeMatrix3d& xform) ADESK_OVERRIDE;
+                                    const AcGeMatrix3d& xform) override;
     virtual Acad::ErrorStatus   subGetTransformedCopy(
                                     const AcGeMatrix3d& xform,
                                     AcDbEntity*& ent
-                                ) const ADESK_OVERRIDE;
-    virtual Acad::ErrorStatus   subGetClassID(CLSID* pClsid) const ADESK_OVERRIDE;
-    virtual Adesk::UInt32       subSetAttributes (AcGiDrawableTraits * traits) ADESK_OVERRIDE;
+                                ) const override;
+    virtual Acad::ErrorStatus   subGetClassID(CLSID* pClsid) const override;
+    virtual Adesk::UInt32       subSetAttributes (AcGiDrawableTraits * traits) override;
 
 private:
     Adesk::Boolean              isHighlighted() const;

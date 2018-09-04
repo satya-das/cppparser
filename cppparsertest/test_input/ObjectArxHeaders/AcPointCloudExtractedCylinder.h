@@ -31,7 +31,7 @@ public:
     bool operator != (const AcPointCloudExtractedCylinder& o) const;
     AcPointCloudExtractedCylinder& operator = (const AcPointCloudExtractedCylinder& o);
 
-    const static AcPointCloudExtractedCylinder kInvalid;
+    static const AcPointCloudExtractedCylinder kInvalid;
 
 public:
     /// <summary>

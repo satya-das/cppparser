@@ -280,6 +280,18 @@ struct CppVarType : public CppObj
   {
   }
 
+  std::uint8_t ptrLevel() const {
+    return typeModifier_.ptrLevel_;
+  }
+
+  CppRefType refType() const {
+    return typeModifier_.refType_;
+  }
+
+  const std::string& baseType() const {
+    return baseType_;
+  }
+
   bool isVoid() const
   {
     if (typeAttr_ != 0 || typeModifier_.ptrLevel_ != 0 || typeModifier_.refType_ != kNoRef)
@@ -357,6 +369,42 @@ struct CppVar : public CppObj
   }
 
   CppVar(CppCompound* compound, CppVarDecl varDecl);
+
+  std::uint8_t ptrLevel() const {
+    return varType_->typeModifier_.ptrLevel_;
+  }
+
+  CppRefType refType() const {
+    return varType_->typeModifier_.refType_;
+  }
+
+  const std::string& baseType() const {
+    return varType_->baseType_;
+  }
+
+  const std::string& name() const {
+    return varDecl_.name_;
+  }
+
+  bool isByRef() const
+  {
+    return (varType_->typeModifier_.refType_ == kByRef);
+  }
+
+  bool isByRValueRef() const
+  {
+    return (varType_->typeModifier_.refType_ == kRValRef);
+  }
+
+  bool isConst() const
+  {
+    return (varType_->typeAttr_ & kConst) == kConst;
+  }
+
+  bool isByValue() const
+  {
+    return (varType_->typeModifier_.refType_ == kNoRef) && (varType_->typeModifier_.ptrLevel_ == 0);
+  }
 
 protected:
   CppVar(CppObj::Type objType, CppVarType* varType, CppVarDecl varDecl)
@@ -866,7 +914,6 @@ struct CppTypeCoverter : CppObj
   CppCompound* defn_ {nullptr};
   std::uint32_t attr_ {0};
   std::string apidecor_;
-
   CppTemplateParamList* templSpec_ {nullptr};
 
   CppTypeCoverter(CppVarType* type, std::string name)
@@ -1000,7 +1047,7 @@ struct  CppExprAtom
     std::string*		atom;
     CppExpr*			  expr;
     CppExprList*		list;
-    CppVarType*     varType; //!< For type cast expression.
+    CppVarType*     varType; //!< For type cast, and sizeof expression.
   };
 
   bool isExpr() const
@@ -1067,14 +1114,15 @@ struct CppExpr : public CppObj
 {
   enum Flag
   {
-    kReturn			= 0x01,
-    kNew			= 0x02,
+    kReturn			  = 0x01,
+    kNew			    = 0x02,
     //kNewArray		= 0x04, // This is not needed.
-    kDelete			= 0x08,
+    kDelete			  = 0x08,
     kDeleteArray	= 0x10,
     kBracketed		= 0x20,
     kInitializer	= 0x40,
     kThrow        = 0x80,
+    kSizeOf       = 0x100,
   };
   CppExprAtom expr1_ {(CppExpr*)(nullptr)};
   CppExprAtom expr2_ {(CppExpr*)(nullptr)};

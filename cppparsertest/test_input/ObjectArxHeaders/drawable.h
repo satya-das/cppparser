@@ -138,18 +138,18 @@ public:
     ACDBCORE2D_PORT ~AcGiDrawable();
 
     // For default attributes
-    ACDBCORE2D_PORT  ADESK_SEALED_VIRTUAL Adesk::UInt32   setAttributes   (AcGiDrawableTraits * traits) ADESK_SEALED;
+    ACDBCORE2D_PORT  _VIRTUAL Adesk::UInt32   setAttributes   (AcGiDrawableTraits * traits) ;
 
     // For geometry shared between multiple viewports
-    ACDBCORE2D_PORT  ADESK_SEALED_VIRTUAL Adesk::Boolean  worldDraw       (AcGiWorldDraw * wd) ADESK_SEALED;
+    ACDBCORE2D_PORT  _VIRTUAL Adesk::Boolean  worldDraw       (AcGiWorldDraw * wd) ;
 
     // For viewport-specific geometry
-    ACDBCORE2D_PORT  ADESK_SEALED_VIRTUAL void            viewportDraw    (AcGiViewportDraw * vd) ADESK_SEALED;
+    ACDBCORE2D_PORT  _VIRTUAL void            viewportDraw    (AcGiViewportDraw * vd) ;
 
     // For ViewIndependentViewportDraw caching
     // return bitwise combination of SetAttributesFlags
     // for now, 3D GS only investigates kDrawableRegenTypeDependentGeometry
-	ACDBCORE2D_PORT  ADESK_SEALED_VIRTUAL Adesk::UInt32   viewportDrawLogicalFlags (AcGiViewportDraw * vd) ADESK_SEALED;
+	ACDBCORE2D_PORT  _VIRTUAL Adesk::UInt32   viewportDrawLogicalFlags (AcGiViewportDraw * vd) ;
 
     // Persistent/transient
     virtual Adesk::Boolean  isPersistent    (void) const                    = 0;

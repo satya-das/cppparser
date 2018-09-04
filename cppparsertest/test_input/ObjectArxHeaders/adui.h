@@ -91,11 +91,15 @@ class ADUI_PORT CAduiLabelEdit;  // INTERNAL USE ONLY
 #define ELASTICXY           0x00030
 
 #pragma pack (push, 8)
-typedef struct _dlgControlTag {
+struct _dlgControlTag {
     DWORD       id;
     DWORD       flags;
     DWORD       pct;
-} DLGCTLINFO, *PDLGCTLINFO;
+};
+
+typedef _dlgControlTag DLGCTLINFO;
+typedef _dlgControlTag* PDLGCTLINFO;
+
 #pragma pack (pop)
 
 

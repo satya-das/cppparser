@@ -48,7 +48,7 @@ namespace Autodesk
 }
 
 // Some oft used char constants for volume and file names
-extern __declspec(selectany) const ACHAR kBackslash = ACRX_T('\\');
+extern APIDOCER const ACHAR kBackslash = 0;
 extern __declspec(selectany) const ACHAR kColon = ACRX_T(':');
 extern __declspec(selectany) const ACHAR kDoubleQuote = ACRX_T('"');
 extern __declspec(selectany) const ACHAR kEOS = ACRX_T('\0');

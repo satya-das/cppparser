@@ -76,7 +76,7 @@ static AcRxObject* acrxInstantiateClass() { return new T();}
 
 #define ACRX_DECLARE_MEMBERS_EXPIMP(CLASS_NAME, EXPIMP) \
     friend AcRxObject* ::acrxInstantiateClass<CLASS_NAME>(); \
-    EXPIMP virtual AcRxClass* isA() const ADESK_OVERRIDE; \
+    EXPIMP virtual AcRxClass* isA() const override; \
     ACRX_DECLARE_GPDESC(CLASS_NAME); \
     EXPIMP static AcRxClass* desc(); \
     static CLASS_NAME* cast(const AcRxObject* inPtr) \

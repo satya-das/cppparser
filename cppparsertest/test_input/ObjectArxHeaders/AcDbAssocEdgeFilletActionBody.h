@@ -75,7 +75,7 @@ public:
     /// body object.
     /// </summary>
     ///
-    virtual void evaluateOverride() ADESK_OVERRIDE;
+    virtual void evaluateOverride() override;
 
     /// <summary><para>
     /// Utility function to create AcDbAssocEdgeFilletActionBody and attach 

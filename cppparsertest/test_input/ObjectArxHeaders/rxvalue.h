@@ -260,7 +260,6 @@ public:
     {
         //this should have been specialized otherwise
         ACRXVALUE_ASSERT(m_type.isBlittable());
-        initBlittable<sizeof(ValueType)<=24>(&value,sizeof(ValueType));
     }
 
     /// <summary>
@@ -278,9 +277,10 @@ public:
     /// </remarks>
     ///
     template<typename ValueType>
-    friend ValueType* rxvalue_cast(AcRxValue* value) throw()
+    ValueType* rxvalue_cast(AcRxValue* value) throw()
     {
-        return value && AcRxValueType::Desc<ValueType>::value() == value->type()? (ValueType*)(value->valuePtr__<sizeof(ValueType)<=24>()) : 0;
+        constexpr bool inlined = sizeof(ValueType)<=24;
+        return value && AcRxValueType::Desc<ValueType>::value() == value->type()? (ValueType*)(value->valuePtr__<inlined>()) : 0;
     }
 
     /// <summary>
@@ -301,9 +301,10 @@ public:
     friend ValueType * rxenum_cast(AcRxValue * value) throw()
     {
         ACRXVALUE_ASSERT(value == NULL || value->isVaries() || value->type().isEnum());
+        constexpr bool inlined = sizeof(ValueType)<=24;
         return value && 
                value->type().isEnum() && 
-               AcRxValueType::Desc<ValueType>::value() == value->type().enumeration()->getAt(0).type() ? (ValueType*)(value->valuePtr__<sizeof(ValueType)<=24>()) : 0;
+               AcRxValueType::Desc<ValueType>::value() == value->type().enumeration()->getAt(0).type() ? (ValueType*)(value->valuePtr__<inlined>()) : 0;
     }
     /////////////////////////////////////////////////////////////////
     //OPTIONALLY SPECIALIZED:
@@ -479,7 +480,8 @@ private:
     template <typename T>
     void initNonBlittable(const T& value)
     {
-        InitNonBlittable<T, sizeof(value)<=sizeof(m_value) >::init(*this,value);
+        constexpr bool inlined = sizeof(value)<=sizeof(m_value);
+        InitNonBlittable<T, inlined >::init(*this,value);
     }
 
     void init(const AcRxValue& rhs, bool realloc)
@@ -692,7 +694,7 @@ public:
     /// Returns pointer to the clone if successful; otherwise it returns NULL.
     /// </returns>
     ///
-    ACBASE_PORT virtual AcRxObject*       clone() const ADESK_OVERRIDE;
+    ACBASE_PORT virtual AcRxObject*       clone() const override;
 
     /// <summary>
     /// Copies the contents of other into this object, whenever feasible.
@@ -706,7 +708,7 @@ public:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-    ACBASE_PORT virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) ADESK_OVERRIDE;
+    ACBASE_PORT virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
 
 
     /// <summary>
@@ -721,13 +723,13 @@ public:
     /// Returns true if the values are same; otherwise, returns false.
     /// </returns>
     ///
-    ACBASE_PORT virtual Adesk::Boolean    isEqualTo(const AcRxObject * other) const ADESK_OVERRIDE;
+    ACBASE_PORT virtual Adesk::Boolean    isEqualTo(const AcRxObject * other) const override;
 
     /// <summary>
     /// For internal use only.
     /// </summary>
     ///
-    ACBASE_PORT virtual AcRx::Ordering    comparedTo(const AcRxObject * other) const ADESK_OVERRIDE;
+    ACBASE_PORT virtual AcRx::Ordering    comparedTo(const AcRxObject * other) const override;
 
     ACBASE_PORT const AcRxObject* rxObject() const;
     ACBASE_PORT AcRxObject* rxObject();
@@ -766,7 +768,7 @@ public:
     /// Returns const reference to an AcRxValue object.
     /// </returns>
     ///
-    ACBASE_PORT virtual const AcRxValue* value() const ADESK_OVERRIDE;
+    ACBASE_PORT virtual const AcRxValue* value() const override;
 
     /// <summary>
     /// Returns the value that is boxed.
@@ -776,7 +778,7 @@ public:
     /// Returns reference to an AcRxValue object.
     /// </returns>
     ///
-    ACBASE_PORT virtual AcRxValue* value() ADESK_OVERRIDE;
+    ACBASE_PORT virtual AcRxValue* value() override;
 };
 
 /////////////////////////////////////////////////////////////////////
@@ -1049,7 +1051,7 @@ ACDBCORE2D_PORT AcRxValue::AcRxValue(const DimFillColor& dimFillColor) throw();
 #pragma endregion
 
 #pragma region AcStringArray
-typedef AcArray<AcString, AcArrayObjectCopyReallocator<AcString>> AcStringArray;
+typedef AcArray<AcString, AcArrayObjectCopyReallocator<AcString> > AcStringArray;
 template<>
 struct AcRxValueType::Desc<AcStringArray>
 {

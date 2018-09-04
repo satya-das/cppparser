@@ -188,13 +188,13 @@ public:
 
     void setObjectId(const AcDbObjectId& objId) { mObjectId = objId; }
 
-    virtual Acad::ErrorStatus dwgOutFieldsData(AcDbDwgFiler*) const ADESK_OVERRIDE;
-    virtual Acad::ErrorStatus dxfOutFieldsData(AcDbDxfFiler*) const ADESK_OVERRIDE;
+    virtual Acad::ErrorStatus dwgOutFieldsData(AcDbDwgFiler*) const override;
+    virtual Acad::ErrorStatus dxfOutFieldsData(AcDbDxfFiler*) const override;
 
-    virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const ADESK_OVERRIDE;
-    virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* ) ADESK_OVERRIDE;
-    virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const ADESK_OVERRIDE;
-    virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* ) ADESK_OVERRIDE;
+    virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
+    virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* ) override;
+    virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
+    virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* ) override;
 
 private:
     AcDbObjectId mObjectId;

@@ -41,11 +41,6 @@ struct _DBX_REGISTER_OBJECT_ENTRY {
 #endif
 #define DBXCUSTOBJ_LAST_ENTRYNAME "DBXCUSTOBJ$__z"
 
-extern "C" {
-    __declspec(selectany) __declspec(allocate(DBXCUSTOBJ_FIRST_ENTRYNAME)) _DBX_REGISTER_OBJECT_ENTRY* __pDbxCustObjMapEntryFirst =NULL ;
-    __declspec(selectany) __declspec(allocate(DBXCUSTOBJ_LAST_ENTRYNAME)) _DBX_REGISTER_OBJECT_ENTRY* __pDbxCustObjMapEntryLast =NULL ;
-}
-
 
 #ifndef _ADESK_MAC_
 #if defined(_WIN64) || defined(_AC64)
@@ -131,6 +126,7 @@ public:
     virtual AcRx::AppRetCode On_kNullMsg (void *pkt) { return (AcRx::kRetOK) ; }
 
     AcRx::AppRetCode acrxEntryPoint (AcRx::AppMsgCode msg, void *pkt) {
+    /*
         switch ( msg ) {
             DISPATCH_PKTMSG (kInitAppMsg) ;
             DISPATCH_PKTMSG (kUnloadAppMsg) ;
@@ -149,6 +145,7 @@ public:
             DISPATCH_PKTMSG (kEndDialogMsg) ;
             DISPATCH_PKTMSG (kNullMsg) ;
         }
+    */
         return (AcRx::kRetOK) ;
     }
 

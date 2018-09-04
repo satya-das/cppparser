@@ -333,16 +333,12 @@ public:
 private:
     union {
         Adesk::UInt32 m_whole;
-#if defined(_ADESK_WINDOWS_)
-        struct PIXEL{
-#else
         // The GCC compiler requires the PIXEL struct to be anonymous as well.
         // I don't think we need the PIXEL struct identifier, so this should work.
         // If not, we'll have to provide a name for the union and update al the code
         // to use that name.
         //
         struct {
-#endif
             Adesk::UInt8  b, g, r, a;
         }m_bgra;
     };

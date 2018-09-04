@@ -64,7 +64,7 @@ public:
     /// <param name="item"> The input reference of array item. </param>
     /// <returns> true, if the item is controlled by this action. </returns>
     ///
-    virtual bool controlsItem(const AcDbAssocArrayItem& item) const ADESK_OVERRIDE;
+    virtual bool controlsItem(const AcDbAssocArrayItem& item) const override;
 
     /// <summary><para> Creates associative array modification action body to
     /// override given set of items from the array. This method is also 

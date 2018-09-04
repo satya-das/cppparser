@@ -201,7 +201,10 @@ struct AcArrayItemCopierSelector<T, true>
     typedef AcArrayMemCopyReallocator<T> allocator;
 };
 
-template <typename T, typename R = typename AcArrayItemCopierSelector<T, std::is_trivial<T>::value>::allocator  > class AcArray
+template <typename T>
+using AcArrayAllocator = typename AcArrayItemCopierSelector<T, std::is_trivial<T>::value>::allocator;
+
+template <typename T, typename R = AcArrayAllocator<T> > class AcArray
 {
 
 public:
@@ -848,8 +851,8 @@ AcArray<T,R>::setPhysicalLength(int n)
             // Note we don't say new(&mpArray[i]) because T may have an & operator
             // such as if it's a smart ptr class. See tfs bug 68838
             T *pNewBuf = mpArray;
-            for (int i = 0; i < mPhysicalLen; i++, pNewBuf++)
-                ::new(pNewBuf) T;       // placement new: calls default ctor
+            for (int i = 0; i < mPhysicalLen; i++)
+                ::new(pNewBuf++) T;       // placement new: calls default ctor
 
             // Now move the old values from the old buf to the new buf
             R::moveItems(mpArray, mPhysicalLen, pOldArray, mLogicalLen,
