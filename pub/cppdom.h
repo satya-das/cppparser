@@ -267,7 +267,8 @@ inline CppTypeModifier  makeCppTypeModifier(CppRefType refType, std::uint8_t ptr
 struct CppVarType : public CppObj
 {
   std::string		  baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
-  std::uint32_t	  typeAttr_; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
+  CppCompound*    compound_{ nullptr };
+  std::uint32_t	  typeAttr_{ 0 }; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
   CppTypeModifier typeModifier_;
 
   CppVarType(std::string baseType, CppTypeModifier modifier = CppTypeModifier())
@@ -277,6 +278,13 @@ struct CppVarType : public CppObj
 
   CppVarType(CppObjProtLevel prot, std::string baseType, CppTypeModifier modifier)
     : CppVarType(CppObj::kVarType, prot, baseType, 0, modifier)
+  {
+  }
+
+  CppVarType(CppObjProtLevel prot, CppCompound* compound, CppTypeModifier modifier)
+    : CppObj(CppObj::kVarType, kUnknownProt)
+    , compound_(compound)
+    , typeModifier_(modifier)
   {
   }
 
@@ -356,10 +364,7 @@ struct CppVarDecl
  */
 struct CppVar : public CppObj
 {
-  union {
-    CppVarType* varType_ {nullptr};
-    CppCompound* compound_;
-  };
+  CppVarType* varType_ {nullptr};
   CppVarDecl  varDecl_;
   std::string	apidecor_;  // It holds things like WINAPI, __declspec(dllexport), etc.
 
@@ -368,18 +373,16 @@ struct CppVar : public CppObj
   {
   }
 
-  CppVar(CppCompound* compound, CppVarDecl varDecl);
-
   std::uint8_t ptrLevel() const {
-    return varType_->typeModifier_.ptrLevel_;
+    return varType_->ptrLevel();
   }
 
   CppRefType refType() const {
-    return varType_->typeModifier_.refType_;
+    return varType_->refType();
   }
 
   const std::string& baseType() const {
-    return varType_->baseType_;
+    return varType_->baseType();
   }
 
   const std::string& name() const {
@@ -1320,13 +1323,6 @@ inline void CppExprAtom::destroy()
     delete varType;
     break;
   }
-}
-
-inline CppVar::CppVar(CppCompound* compound, CppVarDecl varDecl)
-    : CppObj(CppObj::kVar, compound->prot_)
-    , compound_(compound)
-    , varDecl_(std::move(varDecl))
-{
 }
 
 inline CppVarDecl::CppVarDecl(std::string name, CppExpr* assign)

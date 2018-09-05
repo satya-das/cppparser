@@ -730,9 +730,6 @@ varinit           : vardecl '=' expr {
 vardecl           : vartype varidentifier {
                     $$ = new CppVar($1, $2.toString());
                   }
-                  | classdefn varidentifier {
-                    $$ = new CppVar($1, $2.toString());
-                  }
                   | vardecl '[' expr ']' {
                     $$ = $1;
                     $$->varDecl_.arraySizes_.push_back(std::unique_ptr<CppExpr>($3));
@@ -748,6 +745,9 @@ vardecl           : vartype varidentifier {
                   ;
 
 vartype           : typeidentifier typemodifier {
+                    $$ = new CppVarType(gCurProtLevel, $1, $2);
+                  }
+                  | classdefn typemodifier {
                     $$ = new CppVarType(gCurProtLevel, $1, $2);
                   }
                   | varattrib vartype {
