@@ -79,6 +79,8 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
   case CppObj::kHashPragma:
     return emitPragma		((CppPragma*)		cppObj,	stm);
 
+  case CppObj::kVarType:
+    return emitVarType			((CppVarType*)			cppObj, stm);
   case CppObj::kVar:
     return emitVar			((CppVar*)			cppObj, stm, indentation);
   case CppObj::kVarList:
@@ -87,6 +89,8 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
     return emitEnum			((CppEnum*)			cppObj, stm, indentation);
   case CppObj::kDocComment:
     return emitDocComment	((CppDocComment*)	cppObj, stm, indentation);
+  case CppObj::kUsingDecl:
+    return emitUsingDecl		((CppUsingDecl*)		cppObj, stm, indentation);
   case CppObj::kTypedefName:
     return emitTypedef		((CppTypedefName*)		cppObj, stm, indentation);
   case CppObj::kTypedefNameList:
@@ -213,7 +217,7 @@ void CppWriter::emitVarDecl(std::ostream &stm, const CppVarDecl &varDecl, bool s
   if (varDecl.assign_)
   {
     stm << " = ";
-    emit(varDecl.assign_.get(), stm);
+    emit(varDecl.assign_.get(), stm, CppIndent(), true);
   }
 }
 
@@ -291,6 +295,13 @@ void CppWriter::emitTypedef(const CppTypedefName* typedefName, std::ostream& stm
 {
   stm << indentation << "typedef ";
   emitVar(typedefName->var_, stm);
+}
+
+void CppWriter::emitUsingDecl (const CppUsingDecl* usingDecl, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
+{
+  stm << indentation << "using " << usingDecl->name_ << " = ";
+  emit(usingDecl->cppObj_, stm);
+  stm << ";\n";
 }
 
 void CppWriter::emitTypedefList(const CppTypedefList* typedefList, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
@@ -752,6 +763,8 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
     stm << '(';
   if (exprObj->flags_ & CppExpr::kNew)
     stm << "new ";
+  if (exprObj->flags_ & CppExpr::kSizeOf)
+    stm << "sizeof(";
   else if (exprObj->flags_ & CppExpr::kDelete)
     stm << "delete ";
   else if (exprObj->flags_ & CppExpr::kDeleteArray)
@@ -834,6 +847,8 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
     stm << ')';
   if (exprObj->flags_ & CppExpr::kInitializer)
     stm << "}";
+  if (exprObj->flags_ & CppExpr::kSizeOf)
+    stm << "sizeof(";
 }
 
 void CppWriter::emitIfBlock(const CppIfBlock* ifBlock, std::ostream& stm, CppIndent indentation) const

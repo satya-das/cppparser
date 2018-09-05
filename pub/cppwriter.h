@@ -60,6 +60,7 @@ public:
   virtual void emitVarList	  (const CppVarList*			varListObj,		std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitEnum		    (const CppEnum*				  enmObj,			  std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitTypedef	  (const CppTypedefName*  typedefName,	std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitUsingDecl  (const CppUsingDecl*    usingDecl,	  std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitTypedefList(const CppTypedefList*  typedefList,	std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitFwdDecl	  (const CppFwdClsDecl*		fwdClsDeclObj,std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitCompound	  (const CppCompound*		  compoundObj,	std::ostream& stm, CppIndent indentation = CppIndent()) const;

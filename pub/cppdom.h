@@ -943,7 +943,8 @@ struct CppUsingDecl : public CppObj
   CppTemplateParamList* templSpec_ {nullptr};
 
   union {
-    CppVarType*       varType_ {nullptr};
+    CppObj*           cppObj_ {nullptr};
+    CppVarType*       varType_;
     CppFunctionPtr*   fptr_;
     CppCompound*      compound_;
   };
