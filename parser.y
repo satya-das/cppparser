@@ -292,7 +292,7 @@ extern int yylex();
 %type  <memInitList>        meminitlist
 %type  <memInit>            meminit
 %type  <compoundType>       compoundSpecifier
-%type  <attr>               varattrib exptype funcattrib functype
+%type  <attr>               varattrib exptype optfuncattrib optfunctype
 %type  <inheritList>        inheritlist
 %type  <protLevel>          protlevel changeprotlevel
 %type  <identifierList>     identifierlist
@@ -798,16 +798,16 @@ typeconverter     : tknOperator vartype '(' optvoid ')' {
                   | identifier tknScopeResOp tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($4, mergeCppToken($1, $2));
                   }
-                  | functype tknOperator vartype '(' optvoid ')' {
+                  | optfunctype tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($3, std::string());
                     $$->attr_ |= $1;
                   }
-                  | functype apidecor tknOperator vartype '(' optvoid ')' {
+                  | optfunctype apidecor tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($4, std::string());
                     $$->attr_ |= $1;
                     $$->apidecor_ = $2;
                   }
-                  | functype identifier tknScopeResOp tknOperator vartype '(' optvoid ')' {
+                  | optfunctype identifier tknScopeResOp tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($5, mergeCppToken($2, $3));
                     $$->attr_ |= $1;
                   }
@@ -848,13 +848,13 @@ functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $$ = $2;
                   }
 
-functionpointer   : optapidecor functype vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' funcattrib {
+functionpointer   : optapidecor optfunctype vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' optfuncattrib {
                     $$ = new CppFunctionPtr(gCurProtLevel, $8, $3, $11, $2 | $13);
                     $$->docer1_ = $1;
                     $$->docer2_ = $5;
                     $$->ownerName_ = $6;
                   }
-                  | optapidecor vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' funcattrib {
+                  | optapidecor vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' optfuncattrib {
                     $$ = new CppFunctionPtr(gCurProtLevel, $7, $2, $10, $12);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
@@ -869,23 +869,23 @@ optownername      : { $$ = CppToken{0, 0}; }
 funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
                   ;
 
-funcdecl          : functype optapidecor vartype optapidecor funcname '(' paramlist ')' funcattrib {
+funcdecl          : optfunctype optapidecor vartype optapidecor funcname '(' paramlist ')' optfuncattrib {
                     $$ = newFunction(gCurProtLevel, $5, $3, $7, $1 | $9);
                     $$->docer1_ = $2;
                     $$->docer2_ = $4;
                   }
-                  | optapidecor functype vartype optapidecor funcname '(' paramlist ')' funcattrib {
+                  | optapidecor optfunctype vartype optapidecor funcname '(' paramlist ')' optfuncattrib {
                     $$ = newFunction(gCurProtLevel, $5, $3, $7, $2 | $9);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
                   }
-                  | optapidecor functype optapidecor vartype funcname '(' paramlist ')' funcattrib {
+                  | optapidecor optfunctype optapidecor vartype funcname '(' paramlist ')' optfuncattrib {
                     $$ = newFunction(gCurProtLevel, $5, $4, $7, $2 | $9);
                     $$->docer1_ = $1;
                     $$->docer2_ = $3;
                   }
 
-                  | optapidecor vartype optapidecor funcname '(' paramlist ')' funcattrib {
+                  | optapidecor vartype optapidecor funcname '(' paramlist ')' optfuncattrib {
                     $$ = newFunction(gCurProtLevel, $4, $2, $6, $8);
                     $$->docer1_ = $1;
                     $$->docer2_ = $3;
@@ -1026,23 +1026,23 @@ templateparamlist : templateparam { $$ = $1; }
                   | templateparamlist ',' templateparam  { $$ = mergeCppToken($1, $3); }
                   ;
 
-functype          : /* empty */             { $$ = 0;           }
-                  | functype tknStatic      { $$ |= kStatic;    }
-                  | functype tknInline      { $$ |= kInline;    }
-                  | functype tknVirtual     { $$ |= kVirtual;   }
-                  | functype tknExtern      { $$ |= kExtern;    }
-                  | functype tknExternC     { $$ |= kExternC;   }
-                  | functype tknExplicit    { $$ |= kExplicit;  }
-                  | functype tknFriend      { $$ |= kFriend;    }
+optfunctype       : /* empty */             { $$ = 0;           }
+                  | optfunctype tknStatic      { $$ |= kStatic;    }
+                  | optfunctype tknInline      { $$ |= kInline;    }
+                  | optfunctype tknVirtual     { $$ |= kVirtual;   }
+                  | optfunctype tknExtern      { $$ |= kExtern;    }
+                  | optfunctype tknExternC     { $$ |= kExternC;   }
+                  | optfunctype tknExplicit    { $$ |= kExplicit;  }
+                  | optfunctype tknFriend      { $$ |= kFriend;    }
                   ;
 
-funcattrib        :                           { $$ = 0; }
-                  | funcattrib tknConst       { $$ = $1 | kConst; }
-                  | funcattrib tknOverride    { $$ = $1 | kOverride; }
-                  | funcattrib tknFinal       { $$ = $1 | kFinal; }
-                  | funcattrib '=' tknNumber  [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else ZZVALID;]
+optfuncattrib     :                           { $$ = 0; }
+                  | optfuncattrib tknConst       { $$ = $1 | kConst; }
+                  | optfuncattrib tknOverride    { $$ = $1 | kOverride; }
+                  | optfuncattrib tknFinal       { $$ = $1 | kFinal; }
+                  | optfuncattrib '=' tknNumber  [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else ZZVALID;]
                                               { $$ = $1 | kPureVirtual; }
-                  | funcattrib tknNoExcept    { $$ = $1 | kNoExcept; }
+                  | optfuncattrib tknNoExcept    { $$ = $1 | kNoExcept; }
                   ;
 
 optfuncthrowspec  : { $$ = nullptr; }
@@ -1133,7 +1133,7 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   {
                     $$ = newConstructor(gCurProtLevel, $1, $3, nullptr, 0);
                   }
-                  | functype tknID [if(gCompoundStack.empty()) YYERROR; if(gCompoundStack.top() != $2) YYERROR; else ZZVALID;] '(' paramlist ')'
+                  | optfunctype tknID [if(gCompoundStack.empty()) YYERROR; if(gCompoundStack.top() != $2) YYERROR; else ZZVALID;] '(' paramlist ')'
                   {
                     $$ = newConstructor(gCurProtLevel, $2, $5, nullptr, $1);
                   }
@@ -1222,7 +1222,7 @@ dtordecl          : optapidecor '~' tknID '(' optvoid ')' %prec DTORDECL
                     while(*tildaStartPos != '~') --tildaStartPos;
                     $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), 0);
                   }
-                  | optapidecor functype '~' tknID '(' optvoid ')' %prec DTORDECL
+                  | optapidecor optfunctype '~' tknID '(' optvoid ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
