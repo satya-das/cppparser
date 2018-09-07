@@ -299,8 +299,12 @@ void CppWriter::emitTypedef(const CppTypedefName* typedefName, std::ostream& stm
 
 void CppWriter::emitUsingDecl (const CppUsingDecl* usingDecl, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
 {
-  stm << indentation << "using " << usingDecl->name_ << " = ";
-  emit(usingDecl->cppObj_, stm);
+  stm << indentation << "using " << usingDecl->name_;
+  if (usingDecl->cppObj_)
+  {
+    stm << " = ";
+    emit(usingDecl->cppObj_, stm);
+  }
   stm << ";\n";
 }
 
