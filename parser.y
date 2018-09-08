@@ -26,8 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "cppdom.h"
 #include "parser.tab.h"
 #include "cppobjfactory.h"
+#include "utils.h"
 
-#include <iterator>
 #include <iostream>
 #include <stack>
 
@@ -49,10 +49,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #endif
 
 static int gLog = 0;
-#define ZZVALID   \
+#define ZZVALID   { \
   if (gLog) \
     printf("YYVALID @line#%d\n", __LINE__); \
-  YYVALID
+  YYVALID; }
   
 /** {Globals} */
 /**
@@ -69,69 +69,7 @@ static CppCompoundStack             gCompoundStack;
 static CppObjProtLevel              gCurProtLevel;
 static std::stack<CppObjProtLevel>  gProtLevelStack;
 
-extern CppObjFactory*               gObjFactory;
-
 /** {End of Globals} */
-
-template<typename... Params>
-CppCompound* newCompound(Params... params)
-{
-  return gObjFactory->CreateCompound(params...);
-}
-
-template<typename... Params>
-CppConstructor* newConstructor(Params... params)
-{
-  return gObjFactory->CreateConstructor(params...);
-}
-
-template<typename... Params>
-CppDestructor* newDestructor(Params... params)
-{
-  return gObjFactory->CreateDestructor(params...);
-}
-
-template<typename... Params>
-CppFunction* newFunction(Params... params)
-{
-  return gObjFactory->CreateFunction(params...);
-}
-
-template<class Iter>
-inline std::reverse_iterator<Iter> rev(Iter i)
-{
-  return std::reverse_iterator<Iter>(i);
-}
-
-inline CppToken classNameFromIdentifier(const CppToken& identifier)
-{
-  if (identifier.sz == nullptr)
-    return identifier;
-
-  auto rbeg = rev(identifier.sz + identifier.len);
-  if (*rbeg != '>')
-    return identifier;
-  auto rend = rev(identifier.sz);
-  int numTempl = 1;
-  for (++rbeg; rbeg != rend; ++rbeg)
-  {
-    if (*rbeg == '<')
-    {
-      --numTempl;
-      if (numTempl == 0)
-      {
-        CppToken clsName{identifier.sz, static_cast<size_t>(std::distance(rbeg, rend)) - 1};
-        return clsName;
-      }
-    }
-    else if (*rbeg == '>')
-    {
-      ++numTempl;
-    }
-  }
-
-  return CppToken{nullptr, 0U};
-}
 
 #define YYPOSN char*
 /**
@@ -504,15 +442,15 @@ optexpr           : {
                   }
                   ;
 
-define            : tknPreProHash tknDefine tknID tknID         [ZZVALID;] { // Simple rename using #define
+define            : tknPreProHash tknDefine tknID tknID         [ZZVALID;] {
                     $$ = new CppDefine($3, $4);
                     $$->defType_ = CppDefine::kRename;
                   }
-                  | tknPreProHash tknDefine tknID               [ZZVALID;] { // blank define
+                  | tknPreProHash tknDefine tknID               [ZZVALID;] {
                     $$ = new CppDefine($3);
                     $$->defType_ = CppDefine::kRename;
                   }
-                  | tknPreProHash tknDefine tknID tknNumber     [ZZVALID;] {// Constant definition
+                  | tknPreProHash tknDefine tknID tknNumber     [ZZVALID;] {
                     $$ = new CppDefine($3, $4);
                     $$->defType_ = CppDefine::kConstNumDef;
                   }
@@ -974,7 +912,7 @@ paramlist         : { $$ = 0; }
                   ;
 
 param             : varinit                 { $$ = $1; $1->varType_->typeAttr_ |= kFuncParam;  }
-                  | vartype '=' expr        { /* When there is no named param but default value, e.g. `int = 3`*/
+                  | vartype '=' expr        {
                     auto var = new CppVar($1, std::string());
                     var->varType_->typeAttr_ |= kFuncParam;
                     var->varDecl_.assign_.reset($3);
@@ -1114,13 +1052,9 @@ ctordefn          : ctordecl meminitlist
 ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   [
                     if(gCompoundStack.empty())
-                    {
                       YYERROR;
-                    }
                     if(gCompoundStack.top() != $1)
-                    {
                       YYERROR;
-                    }
                     else
                       ZZVALID;
                   ]
@@ -1280,9 +1214,7 @@ classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
                   | classdefn
                       [
                         if ($1->compoundType_ == kNamespace)
-                        {
                           ZZVALID;
-                        }
                       ]
                       {
                         $$ = $1;
@@ -1315,7 +1247,7 @@ classdefn         : compoundSpecifier optapidecor identifier inheritlist optcomm
                   | compoundSpecifier inheritlist optcomment
                     '{' { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
                       stmtlist
-                    '}' [ ZZVALID;]
+                    '}' [ZZVALID;]
                   {
                     gCurProtLevel = gProtLevelStack.top();
                     gProtLevelStack.pop();
@@ -1363,7 +1295,7 @@ templatespecifier : tknTemplate '<' temparglist '>' {
                   }
                   ;
 
-temparglist       : paramlist { /* For us template parameters are exactly like function parameters. */
+temparglist       : paramlist {
                     $$ = $1;
                   }
                   ;
