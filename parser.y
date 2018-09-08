@@ -855,7 +855,7 @@ funcdecl          : functype optapidecor vartype optapidecor funcname '(' paraml
 
 funcname          : operfuncname { $$ = $1; }
                   | identifier   { $$ = $1; }
-                  | parentscope funcname { $$ = mergeCppToken($1, $2); }
+                  | parentscope operfuncname { $$ = mergeCppToken($1, $2); }
                   ;
 
 operfuncname      : tknOperator '+' { $$ = mergeCppToken($1, $2); }
