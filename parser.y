@@ -221,7 +221,7 @@ extern int yylex();
 %type  <memInitList>        meminitlist
 %type  <memInit>            meminit
 %type  <compoundType>       compoundSpecifier
-%type  <attr>               varattrib exptype optfuncattrib optfunctype
+%type  <attr>               varattrib exptype optfuncattrib functype
 %type  <inheritList>        inheritlist
 %type  <protLevel>          protlevel changeprotlevel
 %type  <identifierList>     identifierlist
@@ -735,16 +735,16 @@ typeconverter     : tknOperator vartype '(' optvoid ')' {
                   | parentscope tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($3, $1);
                   }
-                  | optfunctype tknOperator vartype '(' optvoid ')' {
+                  | functype tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($3, std::string());
                     $$->attr_ |= $1;
                   }
-                  | optfunctype apidecor tknOperator vartype '(' optvoid ')' {
+                  | functype apidecor tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($4, std::string());
                     $$->attr_ |= $1;
                     $$->apidecor_ = $2;
                   }
-                  | optfunctype parentscope tknOperator vartype '(' optvoid ')' {
+                  | functype parentscope tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($4, $2);
                     $$->attr_ |= $1;
                   }
@@ -785,7 +785,7 @@ functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $$ = $2;
                   }
 
-functionpointer   : optapidecor optfunctype vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' optfuncattrib {
+functionpointer   : optapidecor functype vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' optfuncattrib {
                     $$ = new CppFunctionPtr(gCurProtLevel, $8, $3, $11, $2 | $13);
                     $$->docer1_ = $1;
                     $$->docer2_ = $5;
@@ -806,17 +806,17 @@ optownername      : { $$ = CppToken{0, 0}; }
 funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
                   ;
 
-funcdecl          : optfunctype optapidecor vartype optapidecor funcname '(' paramlist ')' optfuncattrib {
+funcdecl          : functype optapidecor vartype optapidecor funcname '(' paramlist ')' optfuncattrib {
                     $$ = newFunction(gCurProtLevel, $5, $3, $7, $1 | $9);
                     $$->docer1_ = $2;
                     $$->docer2_ = $4;
                   }
-                  | optapidecor optfunctype vartype optapidecor funcname '(' paramlist ')' optfuncattrib {
+                  | optapidecor functype vartype optapidecor funcname '(' paramlist ')' optfuncattrib {
                     $$ = newFunction(gCurProtLevel, $5, $3, $7, $2 | $9);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
                   }
-                  | optapidecor optfunctype optapidecor vartype funcname '(' paramlist ')' optfuncattrib {
+                  | optapidecor functype optapidecor vartype funcname '(' paramlist ')' optfuncattrib {
                     $$ = newFunction(gCurProtLevel, $5, $4, $7, $2 | $9);
                     $$->docer1_ = $1;
                     $$->docer2_ = $3;
@@ -961,14 +961,21 @@ templateparamlist : templateparam { $$ = $1; }
                   | templateparamlist ',' templateparam  { $$ = mergeCppToken($1, $3); }
                   ;
 
-optfunctype       : /* empty */             { $$ = 0;           }
-                  | optfunctype tknStatic      { $$ |= kStatic;    }
-                  | optfunctype tknInline      { $$ |= kInline;    }
-                  | optfunctype tknVirtual     { $$ |= kVirtual;   }
-                  | optfunctype tknExtern      { $$ |= kExtern;    }
-                  | optfunctype tknExternC     { $$ |= kExternC;   }
-                  | optfunctype tknExplicit    { $$ |= kExplicit;  }
-                  | optfunctype tknFriend      { $$ |= kFriend;    }
+/* Although not all combinations are valid but we don't care. */
+functype          : tknStatic               { $$ = kStatic;     }
+                  | tknInline               { $$ = kInline;     }
+                  | tknVirtual              { $$ = kVirtual;    }
+                  | tknExtern               { $$ = kExtern;     }
+                  | tknExternC              { $$ = kExternC;    }
+                  | tknExplicit             { $$ = kExplicit;   }
+                  | tknFriend               { $$ = kFriend;     }
+                  | functype tknStatic      { $$ |= kStatic;    }
+                  | functype tknInline      { $$ |= kInline;    }
+                  | functype tknVirtual     { $$ |= kVirtual;   }
+                  | functype tknExtern      { $$ |= kExtern;    }
+                  | functype tknExternC     { $$ |= kExternC;   }
+                  | functype tknExplicit    { $$ |= kExplicit;  }
+                  | functype tknFriend      { $$ |= kFriend;    }
                   ;
 
 optfuncattrib     :                           { $$ = 0; }
@@ -1052,7 +1059,7 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   {
                     $$ = newConstructor(gCurProtLevel, $1, $3, nullptr, 0);
                   }
-                  | optfunctype tknID
+                  | functype tknID
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
@@ -1149,7 +1156,7 @@ dtordecl          : optapidecor '~' tknID '(' optvoid ')' %prec DTORDECL
                     while(*tildaStartPos != '~') --tildaStartPos;
                     $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), 0);
                   }
-                  | optapidecor optfunctype '~' tknID '(' optvoid ')' %prec DTORDECL
+                  | optapidecor functype '~' tknID '(' optvoid ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
