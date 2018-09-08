@@ -222,7 +222,7 @@ extern int yylex();
 %type  <memInit>            meminit
 %type  <compoundType>       compoundSpecifier
 %type  <attr>               varattrib exptype optfuncattrib functype
-%type  <inheritList>        inheritlist
+%type  <inheritList>        optinheritlist
 %type  <protLevel>          protlevel changeprotlevel
 %type  <identifierList>     identifierlist
 %type  <funcThrowSpec>      functhrowspec optfuncthrowspec
@@ -1219,7 +1219,7 @@ classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
                       }
                   ;
 
-classdefn         : compoundSpecifier optapidecor identifier inheritlist optcomment '{'
+classdefn         : compoundSpecifier optapidecor identifier optinheritlist optcomment '{'
                   [
                     ZZVALID;
                     gCompoundStack.push(classNameFromIdentifier($3));
@@ -1242,7 +1242,7 @@ classdefn         : compoundSpecifier optapidecor identifier inheritlist optcomm
                     $$->name_      = $3;
                     $$->inheritList_  = $4;
                   }
-                  | compoundSpecifier inheritlist optcomment
+                  | compoundSpecifier optinheritlist optcomment
                     '{' { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
                       stmtlist
                     '}' [ZZVALID;]
@@ -1261,9 +1261,9 @@ classdefn         : compoundSpecifier optapidecor identifier inheritlist optcomm
                   }
                   ;
 
-inheritlist       : { $$ = 0; }
+optinheritlist    : { $$ = 0; }
                   | ':' protlevel identifier [ZZVALID;]        { $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $3, $2)); }
-                  | inheritlist ',' protlevel identifier [ZZVALID;]  { $$ = $1; $$->push_back(CppInheritInfo((std::string) $4, $3)); }
+                  | optinheritlist ',' protlevel identifier [ZZVALID;]  { $$ = $1; $$->push_back(CppInheritInfo((std::string) $4, $3)); }
                   ;
 
 protlevel         :        { $$ = kUnknownProt;}
