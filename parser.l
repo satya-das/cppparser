@@ -35,7 +35,17 @@ For this very reason this file does not use any class that are defined in cppdom
 #include "cpptoken.h"
 #include "parser.tab.h"
 
+#include <set>
+
 static int gLog = 0;
+
+static std::set<std::string>        gMacroNames = { "DECLARE_MESSAGE_MAP",
+                                                    "DECLARE_DYNAMIC",
+                                                    "ACPL_DECLARE_MEMBERS",
+                                                    "DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION",
+                                                    "DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION",
+                                                    "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION"
+                                                  };
 
   // Easy MACRO to quickly push current context and switch to another one.
 #define BEGINCONTEXT(ctx) { \
@@ -191,9 +201,21 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   ++gLineNo;
 }
 
-<ctxGeneral,ctxPreprocessor>{ID} {
+<ctxPreprocessor>{ID} {
   set_token_and_yyposn();
   RETURN(tknID);
+}
+
+<ctxGeneral>{ID} {
+  set_token_and_yyposn();
+  if (gMacroNames.count(yylval.str))
+  {
+    RETURN(tknMacro);
+  }
+  else
+  {
+    RETURN(tknID);
+  }
 }
 
 <ctxGeneral>signed|unsigned/{TS}+ {
