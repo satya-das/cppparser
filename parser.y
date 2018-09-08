@@ -400,6 +400,7 @@ caselist          : {
 
 block             : '{' stmtlist '}' {
                     $$ = $2 ? $2 : newCompound(kUnknownProt, kBlock);
+                    $$->compoundType_ = kBlock;
                   }
                   | doccomment block {
                     $$ = $2;
@@ -1002,43 +1003,31 @@ identifierlist    : { $$ = nullptr; }
 ctordeclstmt      : ctordecl';' [ZZVALID;] { $$ = $1; }
                   ;
 
-ctordefn          : ctordecl meminitlist
-                    '{'
-                      stmtlist
-                    '}' [ZZVALID;]
+ctordefn          : ctordecl meminitlist block [ZZVALID;]
                   {
                     $$ = $1;
                     $$->memInitList_  = $2;
-                    $$->defn_      = $4 ? $4 : newCompound(kUnknownProt, kBlock);
+                    $$->defn_      = $3;
                   }
                   | tknID tknScopeResOp tknID [if($1 != $3) YYERROR; else ZZVALID;]
-                    '(' paramlist ')' optfuncthrowspec meminitlist
-                    '{'
-                      stmtlist
-                    '}' [ZZVALID;]
+                    '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
                   {
                     $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $3), $6, $9, 0);
-                    $$->defn_      = $11 ? $11 : newCompound(kUnknownProt, kBlock);
+                    $$->defn_      = $10;
                     $$->throwSpec_ = $8;
                   }
                   | parentscope tknID tknScopeResOp tknID [if($2 != $4) YYERROR; else ZZVALID;]
-                    '(' paramlist ')' optfuncthrowspec meminitlist
-                    '{'
-                      stmtlist
-                    '}' [ZZVALID;]
+                    '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
                   {
                     $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $4), $7, $10, 0);
-                    $$->defn_      = $12 ? $12 : newCompound(gCurProtLevel, kBlock);
+                    $$->defn_      = $11;
                     $$->throwSpec_ = $9;
                   }
                   | tknID '<' templateparamlist '>' tknScopeResOp tknID [if($1 != $6) YYERROR; else ZZVALID;]
-                    '(' paramlist ')' optfuncthrowspec meminitlist
-                    '{'
-                      stmtlist
-                    '}' [ZZVALID;]
+                    '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
                   {
                     $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $6), $9, $12, 0);
-                    $$->defn_      = $14 ? $14 : newCompound(gCurProtLevel, kBlock);
+                    $$->defn_      = $13;
                     $$->throwSpec_ = $11;
                   }
                   | tknInline ctordefn {
