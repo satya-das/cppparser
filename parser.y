@@ -1127,7 +1127,15 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   {
                     $$ = newConstructor(gCurProtLevel, $1, $3, nullptr, 0);
                   }
-                  | optfunctype tknID [if(gCompoundStack.empty()) YYERROR; if(gCompoundStack.top() != $2) YYERROR; else ZZVALID;] '(' paramlist ')'
+                  | optfunctype tknID
+                  [
+                    if(gCompoundStack.empty())
+                      YYERROR;
+                    if(gCompoundStack.top() != $2)
+                      YYERROR;
+                    else ZZVALID;
+                  ]
+                  '(' paramlist ')'
                   {
                     $$ = newConstructor(gCurProtLevel, $2, $5, nullptr, $1);
                   }
