@@ -312,7 +312,7 @@ stmtlist          : { $$ = 0; }
                     {
                       $1->owner_ = $$;
                       $$->addMember($1);
-                    }
+                    } // Avoid 'comment-btyacc-constructs.sh' to act on this
                   }
                   | stmtlist stmt {
                     $$ = ($1 == 0) ? newCompound(gProtLevelStack.empty() ? gCurProtLevel : gProtLevelStack.top()) : $1;
@@ -320,7 +320,7 @@ stmtlist          : { $$ = 0; }
                     {
                       $2->owner_ = $$;
                       $$->addMember($2);
-                    }
+                    } // Avoid 'comment-btyacc-constructs.sh' to act on this
                   }
                   | stmtlist changeprotlevel { $$ = $1; gCurProtLevel = $2; } // Change of protection level is not a statement but this way it is easier to implement.
                   ;
