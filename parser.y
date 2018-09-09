@@ -201,7 +201,7 @@ extern int yylex();
 %type  <usingNamespaceDecl> usingnamespacedecl
 %type  <namespaceAlias>     namespacealias
 %type  <usingDecl>          usingdecl
-%type  <cppCompundObj>      stmtlist progunit classdefn classdefnstmt externcblock block
+%type  <cppCompundObj>      stmtlist optstmtlist progunit classdefn classdefnstmt externcblock block
 %type  <templSpec>          templatespecifier temparglist
 %type  <docCommentObj>      doccomment
 %type  <cppExprObj>         expr exprstmt optexpr
@@ -295,15 +295,22 @@ CTORDECL and DTORDECL solve this problem by giving constructor and destructor de
 %%
 
 /* A program unit is a source file, be it header file or implementation file */
-progunit          : stmtlist  {
+progunit          : optstmtlist  {
                     gProgUnit = $$ = $1;
                     if (gProgUnit)
                       gProgUnit->compoundType_ = kCppFile;
                   }
                   ;
 
-stmtlist          : { $$ = 0; }
-                  | stmt {
+optstmtlist       : {
+                    $$ = nullptr;
+                  }
+                  | stmtlist {
+                    $$ = $1;
+                  }
+                  ;
+
+stmtlist          : stmt {
                     $$ = newCompound(gProtLevelStack.empty() ? gCurProtLevel : gProtLevelStack.top());
                     if ($1)
                     {
@@ -319,7 +326,7 @@ stmtlist          : { $$ = 0; }
                       $$->addMember($2);
                     } // Avoid 'comment-btyacc-constructs.sh' to act on this
                   }
-                  | stmtlist changeprotlevel { $$ = $1; gCurProtLevel = $2; } // Change of protection level is not a statement but this way it is easier to implement.
+                  | optstmtlist changeprotlevel { $$ = $1; gCurProtLevel = $2; } // Change of protection level is not a statement but this way it is easier to implement.
                   ;
 
 stmt              : vardeclstmt     { $$ = $1; }
@@ -385,17 +392,17 @@ switchstmt        : tknSwitch '(' expr ')' '{' caselist '}' {
 caselist          : {
                     $$ = new CppSwitchBody;
                   }
-                  | caselist tknCase expr ':' stmtlist {
+                  | caselist tknCase expr ':' optstmtlist {
                     $$ = $1;
                     $$->emplace_back($3, $5);
                   }
-                  | caselist tknDefault ':' stmtlist {
+                  | caselist tknDefault ':' optstmtlist {
                     $$ = $1;
                     $$->emplace_back(nullptr, $4);
                   }
                   ;
 
-block             : '{' stmtlist '}' {
+block             : '{' optstmtlist '}' {
                     $$ = $2 ? $2 : newCompound(kUnknownProt, kBlock);
                     $$->compoundType_ = kBlock;
                   }
@@ -1224,7 +1231,7 @@ classdefn         : compoundSpecifier optapidecor identifier optinheritlist optc
                   {
                     gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt;
                   }
-                  stmtlist '}'
+                  optstmtlist '}'
                   [
                     ZZVALID;
                     gCompoundStack.pop();
@@ -1241,7 +1248,7 @@ classdefn         : compoundSpecifier optapidecor identifier optinheritlist optc
                   }
                   | compoundSpecifier optinheritlist optcomment
                     '{' { gProtLevelStack.push(gCurProtLevel); gCurProtLevel = kUnknownProt; }
-                      stmtlist
+                      optstmtlist
                     '}' [ZZVALID;]
                   {
                     gCurProtLevel = gProtLevelStack.top();
