@@ -789,17 +789,19 @@ functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $$ = $2;
                   }
 
-functionpointer   : optapidecor functype vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' {
-                    $$ = new CppFunctionPtr(gCurProtLevel, $8, $3, $11, $2);
-                    $$->docer1_ = $1;
-                    $$->docer2_ = $5;
-                    $$->ownerName_ = $6;
-                  }
-                  | optapidecor vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' {
-                    $$ = new CppFunctionPtr(gCurProtLevel, $7, $2, $10, 0);
-                    $$->docer1_ = $1;
+functionpointer   : functype vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' {
+                    $$ = new CppFunctionPtr(gCurProtLevel, $7, $2, $10, $1);
                     $$->docer2_ = $4;
                     $$->ownerName_ = $5;
+                  }
+                  | vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' {
+                    $$ = new CppFunctionPtr(gCurProtLevel, $6, $1, $9, 0);
+                    $$->docer2_ = $3;
+                    $$->ownerName_ = $4;
+                  }
+                  | apidecor functionpointer {
+                    $$ = $2;
+                    $$->docer1_ = $1;
                   }
                   | functionpointer optfuncattrib {
                     $$ = $1;
@@ -814,26 +816,18 @@ optownername      : { $$ = CppToken{0, 0}; }
 funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
                   ;
 
-funcdecl          : functype optapidecor vartype optapidecor funcname '(' paramlist ')' {
-                    $$ = newFunction(gCurProtLevel, $5, $3, $7, $1);
-                    $$->docer1_ = $2;
-                    $$->docer2_ = $4;
+funcdecl          : vartype apidecor funcname '(' paramlist ')' {
+                    $$ = newFunction(gCurProtLevel, $3, $1, $5, 0);
+                    $$->docer2_ = $2;
                   }
-                  | optapidecor functype vartype optapidecor funcname '(' paramlist ')' {
-                    $$ = newFunction(gCurProtLevel, $5, $3, $7, $2);
-                    $$->docer1_ = $1;
-                    $$->docer2_ = $4;
+                  | vartype funcname '(' paramlist ')' {
+                    $$ = newFunction(gCurProtLevel, $2, $1, $4, 0);
                   }
-                  | optapidecor functype optapidecor vartype funcname '(' paramlist ')' {
-                    $$ = newFunction(gCurProtLevel, $5, $4, $7, $2);
+                  | apidecor funcdecl {
+                    $$ = $2;
+                    if (!$$->docer1_.empty())
+                      std::swap($$->docer1_, $$->docer2_);
                     $$->docer1_ = $1;
-                    $$->docer2_ = $3;
-                  }
-
-                  | optapidecor vartype optapidecor funcname '(' paramlist ')' {
-                    $$ = newFunction(gCurProtLevel, $4, $2, $6, 0);
-                    $$->docer1_ = $1;
-                    $$->docer2_ = $3;
                   }
                   | templatespecifier funcdecl {
                     $$ = $2;
