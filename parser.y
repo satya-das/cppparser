@@ -219,7 +219,7 @@ extern int yylex();
 %type  <memInitList>        meminitlist
 %type  <memInit>            meminit
 %type  <compoundType>       compoundSpecifier
-%type  <attr>               varattrib exptype optfuncattrib functype
+%type  <attr>               varattrib exptype optfuncattrib functype optfunctype
 %type  <inheritList>        optinheritlist
 %type  <protLevel>          protlevel changeprotlevel
 %type  <identifierList>     identifierlist
@@ -986,21 +986,22 @@ templateparamlist : templateparam { $$ = $1; }
                   | templateparamlist ',' templateparam  { $$ = mergeCppToken($1, $3); }
                   ;
 
+optfunctype       : {
+                    $$ = 0;
+                  }
+                  | functype {
+                    $$ = $1;
+                  }
+                  ;
+
 /* Although not all combinations are valid but we don't care. */
-functype          : tknStatic               { $$ = kStatic;     }
-                  | tknInline               { $$ = kInline;     }
-                  | tknVirtual              { $$ = kVirtual;    }
-                  | tknExtern               { $$ = kExtern;     }
-                  | tknExternC              { $$ = kExternC;    }
-                  | tknExplicit             { $$ = kExplicit;   }
-                  | tknFriend               { $$ = kFriend;     }
-                  | functype tknStatic      { $$ |= kStatic;    }
-                  | functype tknInline      { $$ |= kInline;    }
-                  | functype tknVirtual     { $$ |= kVirtual;   }
-                  | functype tknExtern      { $$ |= kExtern;    }
-                  | functype tknExternC     { $$ |= kExternC;   }
-                  | functype tknExplicit    { $$ |= kExplicit;  }
-                  | functype tknFriend      { $$ |= kFriend;    }
+functype          : optfunctype tknStatic      { $$ = $1 | kStatic;    }
+                  | optfunctype tknInline      { $$ = $1 | kInline;    }
+                  | optfunctype tknVirtual     { $$ = $1 | kVirtual;   }
+                  | optfunctype tknExtern      { $$ = $1 | kExtern;    }
+                  | optfunctype tknExternC     { $$ = $1 | kExternC;   }
+                  | optfunctype tknExplicit    { $$ = $1 | kExplicit;  }
+                  | optfunctype tknFriend      { $$ = $1 | kFriend;    }
                   ;
 
 optfuncattrib     : tknConst       { $$ = kConst; }
