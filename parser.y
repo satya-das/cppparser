@@ -185,7 +185,7 @@ extern int yylex();
 %type  <str>                macrocall
 %type  <str>                optownername
 %type  <cppObj>             stmt functptrtype
-%type  <typeModifier>       typemodifier
+%type  <typeModifier>       opttypemodifier
 %type  <cppEnum>            enumdefn enumfwddecl
 %type  <enumItem>           enumitem
 %type  <enumItemList>       enumitemlist
@@ -643,12 +643,12 @@ vardeclstmt       : vardecl ';'             [ZZVALID;] { $$ = $1; }
                   | exptype vardeclstmt     [ZZVALID;] { $$ = $2; $$->varType_->typeAttr_ |= $1; }
                   ;
 
-vardecllist       : typeidentifier typemodifier tknID ',' typemodifier tknID {
+vardecllist       : typeidentifier opttypemodifier tknID ',' opttypemodifier tknID {
                     $$ = new CppVarList($1);
                     $$->addVarDecl(CppVarDeclInList($2, {$3}));
                     $$->addVarDecl(CppVarDeclInList($5, {$6}));
                   }
-                  | vardecllist ',' typemodifier tknID {
+                  | vardecllist ',' opttypemodifier tknID {
                     $$ = $1;
                     $$->addVarDecl(CppVarDeclInList($3, {$4}));
                   }
@@ -685,10 +685,10 @@ vardecl           : vartype varidentifier {
                   }
                   ;
 
-vartype           : typeidentifier typemodifier {
+vartype           : typeidentifier opttypemodifier {
                     $$ = new CppVarType(gCurProtLevel, $1, $2);
                   }
-                  | classdefn typemodifier {
+                  | classdefn opttypemodifier {
                     $$ = new CppVarType(gCurProtLevel, $1, $2);
                   }
                   | varattrib vartype {
@@ -704,20 +704,20 @@ varidentifier     : tknID                 { $$ = $1; }
                   | parentscope tknID     { $$ = mergeCppToken($1, $2); }
                   ;
 
-typemodifier      : { $$ = CppTypeModifier(); }
-                  | typemodifier tknConst {
+opttypemodifier   : { $$ = CppTypeModifier(); }
+                  | opttypemodifier tknConst {
                     $$ = $1;
                     $$.constBits_ |= (1 << $$.ptrLevel_);
                   }
-                  | typemodifier '*' %prec PTRDECL {
+                  | opttypemodifier '*' %prec PTRDECL {
                     $$ = $1;
                     $$.ptrLevel_++;
                   }
-                  | typemodifier '&' %prec REFDECL {
+                  | opttypemodifier '&' %prec REFDECL {
                     $$ = $1;
                     $$.refType_ = kByRef;
                   }
-                  | typemodifier tknAnd %prec REFDECL {
+                  | opttypemodifier tknAnd %prec REFDECL {
                     $$ = $1;
                     $$.refType_ = kRValRef;
                   }
