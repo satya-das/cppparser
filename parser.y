@@ -760,18 +760,9 @@ typeconverter     : tknOperator vartype '(' optvoid ')' {
                   | parentscope tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($3, $1);
                   }
-                  | functype tknOperator vartype '(' optvoid ')' {
-                    $$ = new CppTypeCoverter($3, std::string());
-                    $$->attr_ |= $1;
-                  }
-                  | functype apidecor tknOperator vartype '(' optvoid ')' {
-                    $$ = new CppTypeCoverter($4, std::string());
-                    $$->attr_ |= $1;
-                    $$->apidecor_ = $2;
-                  }
-                  | functype parentscope tknOperator vartype '(' optvoid ')' {
-                    $$ = new CppTypeCoverter($4, $2);
-                    $$->attr_ |= $1;
+                  | functype typeconverter {
+                    $$ = $2;
+                    $$->attr_ = $1;
                   }
                   | typeconverter tknConst {
                     $$ = $1;
