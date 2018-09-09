@@ -869,11 +869,10 @@ struct CppFunctionPtr : public CppFunction
   }
 };
 
-struct CppExprList;
 /**
  * Class data member initialization as part of class constructor.
  */
-typedef std::pair<std::string, CppExprList*>	CppMemInit;
+typedef std::pair<std::string, CppExpr*>	CppMemInit;
 /**
  * Entire member initialization list.
  */
@@ -1001,41 +1000,6 @@ struct CppDocComment : public CppObj
   }
 };
 
-struct CppExprAtom;
-struct CppExpr;
-/**
- * \brief Represents a list of expressions.
- *
- * It is mainly used for:
- * - function call, in that case the expression list is enclosed inside ().
- * - and array/struct initialization, in such case expression list is enclosed inside {}.
- * \see CppExpr.
- */
-struct CppExprList : public CppObj, private std::list<CppExpr*>
-{
-  typedef std::list<CppExpr*> BaseType;
-  using BaseType::iterator;
-  using BaseType::const_iterator;
-  using BaseType::BaseType;
-  using BaseType::push_back;
-  using BaseType::size;
-  using BaseType::front;
-  using BaseType::empty;
-  using BaseType::begin;
-  using BaseType::end;
-
-  CppExprList()
-    : CppObj(CppObj::kExpressionList, kUnknownProt)
-    {}
-  CppExprList(const CppExprAtom& e1);
-  CppExprList(const CppExprAtom& e1, const CppExprAtom& e2);
-  CppExprList(const CppExprAtom& e1, const CppExprAtom& e2, const CppExprAtom& e3);
-
-  void push(const CppExprAtom& e);
-
-  ~CppExprList(); // Need this to delete list items
-};
-
 struct CppExpr;
 /**
  * An individual expression.
@@ -1044,13 +1008,12 @@ struct  CppExprAtom
 {
   enum
   {
-    kInvalid, kAtom, kExpr, kExprList, kVarType
+    kInvalid, kAtom, kExpr, kVarType
   }	type;
   union
   {
     std::string*		atom;
     CppExpr*			  expr;
-    CppExprList*		list;
     CppVarType*     varType; //!< For type cast, and sizeof expression.
   };
 
@@ -1077,11 +1040,6 @@ struct  CppExprAtom
   CppExprAtom(CppExpr* e)
     : expr(e)
     , type(kExpr)
-  {
-  }
-  CppExprAtom(CppExprList* l)
-    : list(l)
-    , type(kExprList)
   {
   }
   CppExprAtom(CppVarType* vType)
@@ -1112,7 +1070,7 @@ struct  CppExprAtom
  * It can be any of the arithmetic expression, e.g. a+b.
  * To make things simple we treat a return statement as an expression.
  *
- * structs CppExprAtom, CppExpr, and CppExprList are required to tame this difficult beast called expression in C/C++.
+ * structs CppExprAtom, and CppExpr are required to tame this difficult beast called expression in C/C++.
  */
 struct CppExpr : public CppObj
 {
@@ -1275,38 +1233,6 @@ inline bool CppObj::isNamespaceLike() const
   return objType_ == kCompound && ((CppCompound*) this)->isNamespaceLike();
 }
 
-inline void CppExprList::push(const CppExprAtom& e)
-{
-  if (e.isExpr()) push_back(e.expr);
-  else push_back(new CppExpr(e, kNone));
-}
-
-inline CppExprList::CppExprList(const CppExprAtom& e1)
-  : CppObj(CppObj::kExpressionList, kUnknownProt)
-{
-  push(e1);
-}
-inline CppExprList::CppExprList(const CppExprAtom& e1, const CppExprAtom& e2)
-  : CppObj(CppObj::kExpressionList, kUnknownProt)
-{
-  push(e1);
-  push(e2);
-}
-inline CppExprList::CppExprList(const CppExprAtom& e1, const CppExprAtom& e2, const CppExprAtom& e3)
-  : CppObj(CppObj::kExpressionList, kUnknownProt)
-{
-  push(e1);
-  push(e2);
-  push(e3);
-}
-
-inline CppExprList::~CppExprList()
-{
-  for (iterator i = begin(); i != end(); ++i)
-    delete *i;
-}
-
-
 inline void CppExprAtom::destroy()
 {
   switch (type)
@@ -1316,9 +1242,6 @@ inline void CppExprAtom::destroy()
     break;
   case CppExprAtom::kExpr:
     delete expr;
-    break;
-  case CppExprAtom::kExprList:
-    delete list;
     break;
   case CppExprAtom::kVarType:
     delete varType;

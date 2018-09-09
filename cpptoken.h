@@ -77,13 +77,13 @@ inline CppToken mergeCppToken(const CppToken& token1, const CppToken& token2)
   return makeCppToken(token1.sz, token2.sz+token2.len-token1.sz);
 }
 
-struct CppExprList;
+struct CppExpr;
 
 /* Non-terminal for member initalizer */
 struct CppNtMemInit
 {
-  CppToken      mem;
-  CppExprList*  init;
+  CppToken  mem;
+  CppExpr*  init;
 };
 
 template <typename _ST>

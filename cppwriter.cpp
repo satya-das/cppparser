@@ -507,7 +507,7 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj, std::ostream& stm
     {
       stm << '\n';
       stm << indentation << sep << ' ' << memInitItr->first << '(';
-      emitExprList(memInitItr->second, stm);
+      emitExpr(memInitItr->second, stm);
       stm << ')';
       sep = ',';
     }
@@ -723,33 +723,8 @@ void CppWriter::emitExprAtom(const CppExprAtom& exprAtm, std::ostream& stm, CppI
   case CppExprAtom::kExpr:
     emitExpr(exprAtm.expr, stm);
     break;
-  case CppExprAtom::kExprList:
-    emitExprList(exprAtm.list, stm, ++indentation);
-    break;
   case CppExprAtom::kVarType:
     emitVarType(exprAtm.varType, stm);
-  }
-}
-
-void CppWriter::emitExprList(const CppExprList* exprList, std::ostream& stm, CppIndent indentation /*= CppIndent()*/) const
-{
-  if (exprList && !exprList->empty())
-  {
-    CppExprList::const_iterator exprItr = exprList->begin();
-    CppExpr* expr = *exprItr;
-    if (expr->flags_&CppExpr::kInitializer)
-      stm << '\n' << ++indentation;
-    emitExpr(expr, stm);
-    for (++exprItr; exprItr != exprList->end(); ++exprItr)
-    {
-      expr = *exprItr;
-      stm << ", ";
-      if (expr->flags_&CppExpr::kInitializer)
-        stm << '\n' << indentation;
-      emitExpr(expr, stm);
-    }
-    if (expr->flags_&CppExpr::kInitializer)
-      stm << '\n' << --indentation;
   }
 }
 

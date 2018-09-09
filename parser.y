@@ -126,8 +126,6 @@ extern int yylex();
   unsigned int          attr;
   CppObjProtLevel       protLevel;
 
-  CppExprList*          exprList;
-
   CppIfBlock*           ifBlock;
   CppWhileBlock*        whileBlock;
   CppDoWhileBlock*      doWhileBlock;
@@ -227,7 +225,6 @@ extern int yylex();
 %type  <identifierList>     identifierlist
 %type  <funcThrowSpec>      functhrowspec optfuncthrowspec
 
-%type  <exprList>           exprlist
 %type  <hashDefine>         define
 %type  <hashUndef>          undef
 %type  <hashInclude>        include
@@ -239,7 +236,7 @@ extern int yylex();
 
 // precedence as mentioned at https://en.cppreference.com/w/cpp/language/operator_precedence
 // &=, ^=, |=, <<=, >>=, *=, /=, %=, +=, -=, =, throw, a?b:c
-%left COMMA
+%left ','
 %right tknAndEq tknXorEq tknOrEq tknLShiftEq tknRShiftEq tknMulEq tknDivEq tknPerEq tknPlusEq tknMinusEq '=' tknThrow TERNARYCOND
 %left tknOr
 %left tknAnd
@@ -371,7 +368,7 @@ macrocall         : tknMacro
                   | macrocall '(' ')' {
                     $$ = mergeCppToken($1, $3);
                   }
-                  | macrocall '(' exprlist ')' {
+                  | macrocall '(' expr ')' {
                     $$ = mergeCppToken($1, $4);
                     delete $3;
                   }
@@ -654,11 +651,11 @@ varinit           : vardecl '=' expr {
                     $$ = $1;
                     $$->varDecl_.assign_.reset($3);
                   }
-                  | vardecl '(' exprlist ')' {
+                  | vardecl '(' expr ')' {
                     $$ = $1;
                     $$->varDecl_.assign_.reset($3);
                   }
-                  | vardecl '{' exprlist '}' {
+                  | vardecl '{' expr '}' {
                     $$ = $1;
                     $$->varDecl_.assign_.reset($3);
                   }
@@ -1102,7 +1099,7 @@ meminitlist       : { $$ = nullptr; }
                   | meminitlist ',' meminit     { $$ = $1; $$->push_back(CppMemInit($3.mem, $3.init)); }
                   ;
 
-meminit           : identifier '(' exprlist ')' { $$ = CppNtMemInit{$1, $3}; }
+meminit           : identifier '(' expr ')' { $$ = CppNtMemInit{$1, $3}; }
                   | identifier '(' ')'          { $$ = CppNtMemInit{$1, nullptr}; }
                   ;
 
@@ -1315,16 +1312,12 @@ changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = kPublic;     }
 externcblock      : tknExternC block [ZZVALID;] {$$ = $2; $$->compoundType_ = kExternCBlock; }
                   ;
 
-exprlist          : expr              { $$ = new CppExprList(); $$->push_back($1);  }
-                  | exprlist ',' expr { $$ = $1; $$->push_back($3);                 }
-                  ;
-
 expr              : tknStrLit                                             { $$ = new CppExpr((std::string) $1, kNone);          }
                   | tknCharLit                                            { $$ = new CppExpr((std::string) $1, kNone);          }
                   | tknNumber                                             { $$ = new CppExpr((std::string) $1, kNone);          }
                   | funcname                                              { $$ = new CppExpr((std::string) $1, kNone);          }
-                  | '{' exprlist '}'                                      { $$ = new CppExpr($2, CppExpr::kInitializer);        }
-                  | '{' /*empty exprlist*/ '}'                            { $$ = new CppExpr((CppExprList*)nullptr, CppExpr::kInitializer);   }
+                  | '{' expr '}'                                          { $$ = new CppExpr($2, CppExpr::kInitializer);        }
+                  | '{' /*empty expr*/ '}'                                { $$ = new CppExpr((CppExpr*)nullptr, CppExpr::kInitializer);   }
                   | '-' expr %prec UNARYMINUS                             { $$ = new CppExpr($2, kUnaryMinus);                  }
                   | '~' expr                                              { $$ = new CppExpr($2, kBitToggle);                   }
                   | '!' expr                                              { $$ = new CppExpr($2, kLogNot);                      }
@@ -1365,13 +1358,13 @@ expr              : tknStrLit                                             { $$ =
                   | expr tkn3WayCmp expr                                  { $$ = new CppExpr($1, k3WayCmp, $3);                 }
                   | expr tknAnd expr                                      { $$ = new CppExpr($1, kAnd, $3);                     }
                   | expr tknOr expr                                       { $$ = new CppExpr($1, kOr, $3);                      }
-/*                | expr ',' expr %prec COMMA                             { $$ = new CppExpr($1, kComma, $3);                   } */
+                  | expr ',' expr                                         { $$ = new CppExpr($1, kComma, $3);                   }
                   | expr '.' expr                                         { $$ = new CppExpr($1, kDot, $3);                     }
                   | expr tknArrow expr                                    { $$ = new CppExpr($1, kArrow, $3);                   }
                   | expr tknArrowStar expr                                { $$ = new CppExpr($1, kArrowStar, $3);               }
                   | expr '[' expr ']' %prec SUBSCRIPT                     { $$ = new CppExpr($1, kArrayElem, $3);               }
                   | expr '(' ')' %prec FUNCCALL                           { $$ = new CppExpr($1, kFunctionCall);                }
-                  | expr '(' exprlist ')' %prec FUNCCALL                  { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | expr '(' expr ')' %prec FUNCCALL                  { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                 { $$ = new CppExpr($2, kCStyleCast, $4);              }
                   | tknConstCast '<' vartype '>' '(' expr ')'             { $$ = new CppExpr($3, kConstCast, $6);               }
                   | tknStaticCast '<' vartype '>' '(' expr ')'            { $$ = new CppExpr($3, kStaticCast, $6);              }
