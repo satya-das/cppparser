@@ -789,17 +789,21 @@ functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $$ = $2;
                   }
 
-functionpointer   : optapidecor functype vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' optfuncattrib {
-                    $$ = new CppFunctionPtr(gCurProtLevel, $8, $3, $11, $2 | $13);
+functionpointer   : optapidecor functype vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' {
+                    $$ = new CppFunctionPtr(gCurProtLevel, $8, $3, $11, $2);
                     $$->docer1_ = $1;
                     $$->docer2_ = $5;
                     $$->ownerName_ = $6;
                   }
-                  | optapidecor vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' optfuncattrib {
-                    $$ = new CppFunctionPtr(gCurProtLevel, $7, $2, $10, $12);
+                  | optapidecor vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' {
+                    $$ = new CppFunctionPtr(gCurProtLevel, $7, $2, $10, 0);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
                     $$->ownerName_ = $5;
+                  }
+                  | functionpointer optfuncattrib {
+                    $$ = $1;
+                    $$->attr_ |= $2;
                   }
                   ;
 
@@ -810,24 +814,24 @@ optownername      : { $$ = CppToken{0, 0}; }
 funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
                   ;
 
-funcdecl          : functype optapidecor vartype optapidecor funcname '(' paramlist ')' optfuncattrib {
-                    $$ = newFunction(gCurProtLevel, $5, $3, $7, $1 | $9);
+funcdecl          : functype optapidecor vartype optapidecor funcname '(' paramlist ')' {
+                    $$ = newFunction(gCurProtLevel, $5, $3, $7, $1);
                     $$->docer1_ = $2;
                     $$->docer2_ = $4;
                   }
-                  | optapidecor functype vartype optapidecor funcname '(' paramlist ')' optfuncattrib {
-                    $$ = newFunction(gCurProtLevel, $5, $3, $7, $2 | $9);
+                  | optapidecor functype vartype optapidecor funcname '(' paramlist ')' {
+                    $$ = newFunction(gCurProtLevel, $5, $3, $7, $2);
                     $$->docer1_ = $1;
                     $$->docer2_ = $4;
                   }
-                  | optapidecor functype optapidecor vartype funcname '(' paramlist ')' optfuncattrib {
-                    $$ = newFunction(gCurProtLevel, $5, $4, $7, $2 | $9);
+                  | optapidecor functype optapidecor vartype funcname '(' paramlist ')' {
+                    $$ = newFunction(gCurProtLevel, $5, $4, $7, $2);
                     $$->docer1_ = $1;
                     $$->docer2_ = $3;
                   }
 
-                  | optapidecor vartype optapidecor funcname '(' paramlist ')' optfuncattrib {
-                    $$ = newFunction(gCurProtLevel, $4, $2, $6, $8);
+                  | optapidecor vartype optapidecor funcname '(' paramlist ')' {
+                    $$ = newFunction(gCurProtLevel, $4, $2, $6, 0);
                     $$->docer1_ = $1;
                     $$->docer2_ = $3;
                   }
@@ -835,13 +839,9 @@ funcdecl          : functype optapidecor vartype optapidecor funcname '(' paraml
                     $$ = $2;
                     $$->templSpec_ = $1;
                   }
-                  | templatespecifier tknInline funcdecl {
-                    $$ = $3;
-                    $$->templSpec_ = $1;
-                  }
-                  | tknInline funcdecl {
+                  | functype funcdecl {
                     $$ = $2;
-                    $$->attr_ |= kInline;
+                    $$->attr_ |= $1;
                   }
                   | funcdecl '=' tknDelete {
                     $$ = $1;
@@ -854,6 +854,10 @@ funcdecl          : functype optapidecor vartype optapidecor funcname '(' paraml
                   | funcdecl functhrowspec {
                     $$ = $1;
                     $$->throwSpec_ = $2;
+                  }
+                  | funcdecl optfuncattrib {
+                    $$ = $1;
+                    $$->attr_ |= $2;
                   }
                   ;
 
@@ -982,13 +986,18 @@ functype          : tknStatic               { $$ = kStatic;     }
                   | functype tknFriend      { $$ |= kFriend;    }
                   ;
 
-optfuncattrib     :                           { $$ = 0; }
-                  | optfuncattrib tknConst       { $$ = $1 | kConst; }
-                  | optfuncattrib tknOverride    { $$ = $1 | kOverride; }
-                  | optfuncattrib tknFinal       { $$ = $1 | kFinal; }
+optfuncattrib     : tknConst       { $$ = kConst; }
+                  | tknOverride    { $$ = kOverride; }
+                  | tknFinal       { $$ = kFinal; }
+                  | tknNoExcept    { $$ = kNoExcept; }
+                  | '=' tknNumber  [if($2.len != 1 || $2.sz[0] != '0') YYABORT; else ZZVALID;]
+                                                  { $$ = kPureVirtual; }
+                  | optfuncattrib tknConst        { $$ = $1 | kConst; }
+                  | optfuncattrib tknOverride     { $$ = $1 | kOverride; }
+                  | optfuncattrib tknFinal        { $$ = $1 | kFinal; }
+                  | optfuncattrib tknNoExcept     { $$ = $1 | kNoExcept; }
                   | optfuncattrib '=' tknNumber  [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else ZZVALID;]
-                                              { $$ = $1 | kPureVirtual; }
-                  | optfuncattrib tknNoExcept    { $$ = $1 | kNoExcept; }
+                                                  { $$ = $1 | kPureVirtual; }
                   ;
 
 optfuncthrowspec  : { $$ = nullptr; }
@@ -1041,9 +1050,9 @@ ctordefn          : ctordecl meminitlist block [ZZVALID;]
                     $$->defn_      = $13;
                     $$->throwSpec_ = $11;
                   }
-                  | tknInline ctordefn {
+                  | functype ctordefn {
                     $$ = $2;
-                    $$->attr_ |= kInline;
+                    $$->attr_ |= $1;
                   }
                   | templatespecifier ctordefn {
                     $$ = $2;
@@ -1063,25 +1072,13 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   {
                     $$ = newConstructor(gCurProtLevel, $1, $3, nullptr, 0);
                   }
-                  | functype tknID
-                  [
-                    if(gCompoundStack.empty())
-                      YYERROR;
-                    if(gCompoundStack.top() != $2)
-                      YYERROR;
-                    else ZZVALID;
-                  ]
-                  '(' paramlist ')'
-                  {
-                    $$ = newConstructor(gCurProtLevel, $2, $5, nullptr, $1);
+                  | functype ctordecl {
+                    $$ = $2;
+                    $$->attr_ |= $1;
                   }
                   | templatespecifier ctordecl {
                     $$ = $2;
                     $$->templSpec_ = $1;
-                  }
-                  | tknInline ctordecl {
-                    $$ = $2;
-                    $$->attr_ |= kInline;
                   }
                   | ctordecl '=' tknDelete {
                     $$ = $1;
@@ -1136,57 +1133,42 @@ dtordefn          : dtordecl block [ZZVALID;]
                     $$ = newDestructor(gCurProtLevel, mergeCppToken($1, $7), 0);
                     $$->defn_      = $11 ? $11 : newCompound(kUnknownProt, kBlock);
                   }
-                  | tknInline dtordefn {
-                    $$ = $2;
-                    $$->attr_ |= kInline;
-                  }
                   | templatespecifier dtordefn {
                     $$ = $2;
                     $$->templSpec_ = $1;
                   }
+                  | functype dtordefn {
+                    $$ = $2;
+                    $$->attr_ |= $1;
+                  }
                   ;
 
-dtordecl          : optapidecor '~' tknID '(' optvoid ')' %prec DTORDECL
+dtordecl          : '~' tknID '(' optvoid ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
                       YYERROR;
-                    if(gCompoundStack.top() != $3)
+                    if(gCompoundStack.top() != $2)
                       YYERROR;
                     else
                       ZZVALID;
                   ]
                   {
-                    const char* tildaStartPos = $3.sz-1;
+                    const char* tildaStartPos = $2.sz-1;
                     while(*tildaStartPos != '~') --tildaStartPos;
-                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $3.sz+$3.len-tildaStartPos), 0);
+                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $2.sz+$2.len-tildaStartPos), 0);
                   }
-                  | optapidecor functype '~' tknID '(' optvoid ')' %prec DTORDECL
-                  [
-                    if(gCompoundStack.empty())
-                      YYERROR;
-                    if(gCompoundStack.top() != $4)
-                      YYERROR;
-                    else
-                      ZZVALID;
-                  ]
-                  {
-                    const char* tildaStartPos = $4.sz-1;
-                    while(*tildaStartPos != '~') --tildaStartPos;
-                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $4.sz+$4.len-tildaStartPos), $2);
+                  | apidecor dtordecl {
+                    $$ = $2;
+                    // $$->apidecor_ = $1;
                   }
-                  | optapidecor tknVirtual '~' tknID '(' optvoid ')' '=' tknNumber
-                  [
-                    if(gCompoundStack.empty())
-                      YYERROR;
-                    if(gCompoundStack.top() != $4)
-                      YYERROR;
-                    else
-                      ZZVALID;
-                  ]
+                  | functype dtordecl {
+                    $$ = $2;
+                    $$->attr_ |= $1;
+                  }
+                  | dtordecl '=' tknNumber
                   {
-                    const char* tildaStartPos = $4.sz-1;
-                    while(*tildaStartPos != '~') --tildaStartPos;
-                    $$ = newDestructor(gCurProtLevel, makeCppToken(tildaStartPos, $4.sz+$4.len-tildaStartPos), kPureVirtual);
+                    $$ = $1;
+                    $$->attr_ |= kPureVirtual;
                   }
                   | dtordecl '=' tknDelete {
                     $$ = $1;
