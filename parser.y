@@ -232,12 +232,10 @@ extern int yylex();
 %type  <hashError>          hasherror
 %type  <hashPragma>         pragma
 
-%left TEMPLATE
-
 // precedence as mentioned at https://en.cppreference.com/w/cpp/language/operator_precedence
 // &=, ^=, |=, <<=, >>=, *=, /=, %=, +=, -=, =, throw, a?b:c
 %left ','
-%right tknAndEq tknXorEq tknOrEq tknLShiftEq tknRShiftEq tknMulEq tknDivEq tknPerEq tknPlusEq tknMinusEq '=' tknThrow TERNARYCOND
+%right tknAndEq tknXorEq tknOrEq tknLShiftEq tknRShiftEq tknMulEq tknDivEq tknPerEq tknPlusEq tknMinusEq '=' tknThrow TERNARYCOND tknReturn
 %left tknOr
 %left tknAnd
 %left '|'
@@ -245,7 +243,7 @@ extern int yylex();
 %left '&'
 %left tknCmpEq tknNotEq // ==, !=
 // LESSTHAN and GREATERTHAN are used instead of '<' and '>' because otherwise template <...> was causing problem.
-%left LESSTHAN tknLessEq GREATERTHAN tknGreaterEq           //<, <=, >, >=
+%left '<' tknLessEq '>' tknGreaterEq           //<, <=, >, >=
 %left tkn3WayCmp       // <=>
 %left  tknLShift tknRShift
 %left   '+' '-'
@@ -980,6 +978,7 @@ templateparam     :                               { $$ = makeCppToken(nullptr, n
                       ++p;
                     $$ = makeCppToken($1.sz, p - $1.sz);
                   }
+                  | typeidentifier '=' identifier { $$ = $1; /* TODO: use 'identifier' too */ }
                   ;
 
 templateparamlist : templateparam { $$ = $1; }
@@ -1292,7 +1291,7 @@ compoundSpecifier : tknClass    { $$ = kClass;    }
                   | tknNamespace  { $$ = kNamespace;  }
                   ;
 
-templatespecifier : tknTemplate '<' temparglist '>' %prec TEMPLATE {
+templatespecifier : tknTemplate '<' temparglist '>' {
                     $$ = $3;
                   }
                   ;
@@ -1360,8 +1359,8 @@ expr              : tknStrLit                                             { $$ =
                   | expr tknRShiftEq expr                                 { $$ = new CppExpr($1, kRShiftEqual, $3);             }
                   | expr tknCmpEq expr                                    { $$ = new CppExpr($1, kCmpEqual, $3);                }
                   | expr tknNotEq expr                                    { $$ = new CppExpr($1, kNotEqual, $3);                }
-                  | expr tknLessEq expr %prec LESSTHAN                    { $$ = new CppExpr($1, kLessEqual, $3);               }
-                  | expr tknGreaterEq expr %prec GREATERTHAN              { $$ = new CppExpr($1, kGreaterEqual, $3);            }
+                  | expr tknLessEq expr                     { $$ = new CppExpr($1, kLessEqual, $3);               }
+                  | expr tknGreaterEq expr              { $$ = new CppExpr($1, kGreaterEqual, $3);            }
                   | expr tkn3WayCmp expr                                  { $$ = new CppExpr($1, k3WayCmp, $3);                 }
                   | expr tknAnd expr                                      { $$ = new CppExpr($1, kAnd, $3);                     }
                   | expr tknOr expr                                       { $$ = new CppExpr($1, kOr, $3);                      }
@@ -1379,10 +1378,10 @@ expr              : tknStrLit                                             { $$ =
                   | tknReinterpretCast '<' vartype '>' '(' expr ')'       { $$ = new CppExpr($3, kReinterpretCast, $6);         }
                   | '(' expr ')'                                          { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
                   | tknNew expr                                           { $$ = $2; $2->flags_ |= CppExpr::kNew;               }
-                  | tknNew '(' expr ')' expr                              { $$ = new CppExpr($3, kPlacementNew, $5);            }
-                  | tknScopeResOp tknNew '(' expr ')' expr                { $$ = new CppExpr($4, kPlacementNew, $6);            }
+                  | tknNew '(' expr ')' expr %prec tknNew                 { $$ = new CppExpr($3, kPlacementNew, $5);            }
+                  | tknScopeResOp tknNew '(' expr ')' expr %prec tknNew   { $$ = new CppExpr($4, kPlacementNew, $6);            }
                   | tknDelete  expr                                       { $$ = $2; $2->flags_ |= CppExpr::kDelete;            }
-                  | tknDelete  '[' ']' expr                               { $$ = $4; $4->flags_ |= CppExpr::kDeleteArray;       }
+                  | tknDelete  '[' ']' expr %prec tknDelete               { $$ = $4; $4->flags_ |= CppExpr::kDeleteArray;       }
                   | tknReturn  expr                                       { $$ = $2; $2->flags_ |= CppExpr::kReturn;            }
                   | tknReturn                                             { $$ = new CppExpr(CppExprAtom(), CppExpr::kReturn);  }
                   | tknThrow  expr                                        { $$ = $2; $2->flags_ |= CppExpr::kThrow;             }
