@@ -34,6 +34,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define __CPPPARSER_CPPDOM_H__
 
 #include "cppconst.h"
+#include "string-utils.h"
 
 #include <boost/optional.hpp>
 
@@ -331,7 +332,7 @@ protected:
   CppVarType(CppObj::Type type, CppObjProtLevel prot, std::string baseType, std::uint32_t typeAttr, CppTypeModifier modifier)
     : CppObj(type, prot)
     , typeModifier_(modifier)
-    , baseType_(std::move(baseType))
+    , baseType_(std::move(cleanseIdentifier(baseType)))
     , typeAttr_(typeAttr)
   {
   }
