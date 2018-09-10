@@ -180,10 +180,9 @@ extern int yylex();
 %token  tknBlankLine
 
 %type  <str>                optapidecor apidecor
-%type  <str>                identifier parentscope typeidentifier templidentifier varidentifier optid operfuncname funcname
+%type  <str>                identifier typeidentifier templidentifier varidentifier optid operfuncname funcname
 %type  <str>                doccommentstr
 %type  <str>                macrocall
-%type  <str>                optownername
 %type  <cppObj>             stmt functptrtype
 %type  <typeModifier>       opttypemodifier typemodifier
 %type  <cppEnum>            enumdefn enumfwddecl
@@ -252,6 +251,7 @@ extern int yylex();
 %right PREINCR PREDECR UNARYMINUS '!' '~' CSTYLECAST DEREF ADDRESSOF tknSizeOf tknNew tknDelete
 %left POSTINCR POSTDECR FUNCTIONALCAST FUNCCALL SUBSCRIPT '.' tknArrow
 %left tknScopeResOp
+%right GLOBAL
 
 /*
 These are required to remove following ambiguity in the grammer.
@@ -506,12 +506,9 @@ doccommentstr     : tknDocBlockComment  [ZZVALID;] { $$ = $1; }
                   | doccommentstr tknDocLineComment  [ZZVALID;] { $$ = mergeCppToken($1, $2); }
                   ;
 
-parentscope       : tknScopeResOp                         { $$ = $1; }
-                  | identifier tknScopeResOp              { $$ = mergeCppToken($1, $2); }
-                  ;
-
 identifier        : tknID                                 { $$ = $1; }
-                  | parentscope identifier                { $$ = mergeCppToken($1, $2); }
+                  | identifier tknScopeResOp identifier   { $$ = mergeCppToken($1, $3); }
+                  | tknScopeResOp identifier %prec GLOBAL { $$ = mergeCppToken($1, $2); }
                   | templidentifier                       { $$ = $1; }
                   | tknOverride                           { $$ = $1; } /* override is not a reserved keyword */
                   ;
@@ -698,11 +695,10 @@ vartype           : typeidentifier opttypemodifier {
                   }
                   ;
 
-varidentifier     : tknID                 { $$ = $1; }
+varidentifier     : identifier                 { $$ = $1; }
                   | '(' '&' tknID ')'     { $$ = mergeCppToken($1, $4); }
                   | '(' '*' tknID ')'     { $$ = mergeCppToken($1, $4); }
                   | '(' '*' '*' tknID ')' { $$ = mergeCppToken($1, $5); }
-                  | parentscope tknID     { $$ = mergeCppToken($1, $2); }
                   ;
 
 opttypemodifier   : { $$ = CppTypeModifier(); }
@@ -757,8 +753,8 @@ varattrib         : tknConst    { $$ = kConst; }
 typeconverter     : tknOperator vartype '(' optvoid ')' {
                     $$ = new CppTypeCoverter($2, std::string());
                   }
-                  | parentscope tknOperator vartype '(' optvoid ')' {
-                    $$ = new CppTypeCoverter($3, $1);
+                  | identifier tknScopeResOp tknOperator vartype '(' optvoid ')' {
+                    $$ = new CppTypeCoverter($4, mergeCppToken($1, $2));
                   }
                   | functype typeconverter {
                     $$ = $2;
@@ -801,15 +797,23 @@ functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $$ = $2;
                   }
 
-functionpointer   : functype vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' {
-                    $$ = new CppFunctionPtr(gCurProtLevel, $7, $2, $10, $1);
+functionpointer   : functype vartype '(' optapidecor identifier tknScopeResOp '*' optid ')' '(' paramlist ')' {
+                    $$ = new CppFunctionPtr(gCurProtLevel, $8, $2, $11, $1);
                     $$->docer2_ = $4;
-                    $$->ownerName_ = $5;
+                    $$->ownerName_ = mergeCppToken($5, $6);
                   }
-                  | vartype '(' optapidecor optownername '*' optid ')' '(' paramlist ')' {
-                    $$ = new CppFunctionPtr(gCurProtLevel, $6, $1, $9, 0);
+                  | vartype '(' optapidecor identifier tknScopeResOp '*' optid ')' '(' paramlist ')' {
+                    $$ = new CppFunctionPtr(gCurProtLevel, $7, $1, $10, 0);
                     $$->docer2_ = $3;
-                    $$->ownerName_ = $4;
+                    $$->ownerName_ = mergeCppToken($4, $5);
+                  }
+                  | functype vartype '(' optapidecor '*' optid ')' '(' paramlist ')' {
+                    $$ = new CppFunctionPtr(gCurProtLevel, $6, $2, $9, $1);
+                    $$->docer2_ = $4;
+                  }
+                  | vartype '(' optapidecor '*' optid ')' '(' paramlist ')' {
+                    $$ = new CppFunctionPtr(gCurProtLevel, $5, $1, $8, 0);
+                    $$->docer2_ = $3;
                   }
                   | apidecor functionpointer {
                     $$ = $2;
@@ -819,10 +823,6 @@ functionpointer   : functype vartype '(' optapidecor optownername '*' optid ')' 
                     $$ = $1;
                     $$->attr_ |= $2;
                   }
-                  ;
-
-optownername      : { $$ = CppToken{0, 0}; }
-                  | parentscope { $$ = $1; }
                   ;
 
 funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
@@ -869,7 +869,8 @@ funcdecl          : vartype apidecor funcname '(' paramlist ')' {
 
 funcname          : operfuncname { $$ = $1; }
                   | identifier   { $$ = $1; }
-                  | parentscope operfuncname { $$ = mergeCppToken($1, $2); }
+                  | tknScopeResOp operfuncname { $$ = mergeCppToken($1, $2); }
+                  | identifier tknScopeResOp operfuncname { $$ = mergeCppToken($1, $2); }
                   ;
 
 operfuncname      : tknOperator '+' { $$ = mergeCppToken($1, $2); }
@@ -1044,12 +1045,12 @@ ctordefn          : ctordecl meminitlist block [ZZVALID;]
                     $$->defn_      = $10;
                     $$->throwSpec_ = $8;
                   }
-                  | parentscope tknID tknScopeResOp tknID [if($2 != $4) YYERROR; else ZZVALID;]
+                  | identifier tknScopeResOp tknID tknScopeResOp tknID [if($3 != $5) YYERROR; else ZZVALID;]
                     '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
                   {
-                    $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $4), $7, $10, 0);
-                    $$->defn_      = $11;
-                    $$->throwSpec_ = $9;
+                    $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $5), $8, $11, 0);
+                    $$->defn_      = $12;
+                    $$->throwSpec_ = $10;
                   }
                   | tknID '<' templateparamlist '>' tknScopeResOp tknID [if($1 != $6) YYERROR; else ZZVALID;]
                     '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
@@ -1129,11 +1130,11 @@ dtordefn          : dtordecl block [ZZVALID;]
                     $$ = newDestructor(gCurProtLevel, mergeCppToken($1, $4), 0);
                     $$->defn_      = $8 ? $8 : newCompound(kUnknownProt, kBlock);
                   }
-                  | parentscope tknID tknScopeResOp '~' tknID [if($2 != $5) YYERROR; else ZZVALID;]
+                  | identifier tknScopeResOp tknID tknScopeResOp '~' tknID [if($3 != $6) YYERROR; else ZZVALID;]
                     '(' ')' block
                   {
-                    $$ = newDestructor(gCurProtLevel, mergeCppToken($1, $5), 0);
-                    $$->defn_      = $9 ? $9 : newCompound(kUnknownProt, kBlock);
+                    $$ = newDestructor(gCurProtLevel, mergeCppToken($1, $6), 0);
+                    $$->defn_      = $10 ? $10 : newCompound(kUnknownProt, kBlock);
                   }
                   | tknID '<' templateparamlist '>' tknScopeResOp '~' tknID [if($1 != $7) YYERROR; else ZZVALID;]
                     '(' ')' block
@@ -1296,9 +1297,10 @@ optapidecor       :                     { $$ = makeCppToken(nullptr, nullptr); }
                   | apidecor            { $$ = $1; }
                   ;
 
-apidecor          : tknID               { $$ = $1; }
+apidecor          : tknApiDecor         { $$ = $1; }
+                  | tknApiDecor apidecor{ $$ = mergeCppToken($1, $2); }
                   | tknID '(' tknID ')' { $$ = mergeCppToken($1, $4); }
-                  | tknID tknID         { $$ = mergeCppToken($1, $2); }
+                  | tknID               { $$ = $1; }
                   ;
 
 changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = kPublic;     }

@@ -47,6 +47,12 @@ static std::set<std::string>        gMacroNames = { "DECLARE_MESSAGE_MAP",
                                                     "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION"
                                                   };
 
+static std::set<std::string>        gKnownApiDecorNames = { "ODRX_ABSTRACT",
+                                                            "FIRSTDLL_EXPORT",
+                                                            "GE_DLLEXPIMPORT",
+                                                            "ADESK_NO_VTABLE"
+                                                          };
+
   // Easy MACRO to quickly push current context and switch to another one.
 #define BEGINCONTEXT(ctx) { \
   int prevState = YYSTATE;  \
@@ -211,6 +217,10 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   if (gMacroNames.count(yylval.str))
   {
     RETURN(tknMacro);
+  }
+  else if (gKnownApiDecorNames.count(yylval.str))
+  {
+    RETURN(tknApiDecor);
   }
   else
   {
