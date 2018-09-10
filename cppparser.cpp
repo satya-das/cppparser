@@ -24,6 +24,7 @@
 #include "cppparser.h"
 #include "cppobjfactory.h"
 #include "cppdom.h"
+#include "string-utils.h"
 
 #include <algorithm>
 #include <fstream>
@@ -103,7 +104,7 @@ void CppParser::loadProgram(const bfs::path& path, CppProgram& program)
 CppParser::ByteArray CppParser::readFile(const char* filename)
 {
   ByteArray contents;
-  std::ifstream in(filename, std::ios::in);
+  std::ifstream in(filename, std::ios::in | std::ios::binary);
   if (in)
   {
     in.seekg(0, std::ios::end);
@@ -112,7 +113,12 @@ CppParser::ByteArray CppParser::readFile(const char* filename)
     in.seekg(0, std::ios::beg);
     in.read(&contents[0], size);
     in.close();
-    contents[size] = '\n';
+    auto len = stripChar(contents.data(), contents.size(), '\r');
+    assert(len <= size);
+    contents.resize(len+3);
+    contents[len] = '\n';
+    contents[len+1] = '\0';
+    contents[len+2] = '\0';
   }
   return(contents);
 }
