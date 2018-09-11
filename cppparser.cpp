@@ -29,6 +29,21 @@
 #include <fstream>
 #include <vector>
 
+
+ std::set<std::string>        gMacroNames = { "DECLARE_MESSAGE_MAP",
+                                              "DECLARE_DYNAMIC",
+                                              "ACPL_DECLARE_MEMBERS",
+                                              "DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION",
+                                              "DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION",
+                                              "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION"
+                                            };
+
+ std::set<std::string>        gKnownApiDecorNames = { "ODRX_ABSTRACT",
+                                                      "FIRSTDLL_EXPORT",
+                                                      "GE_DLLEXPIMPORT",
+                                                      "ADESK_NO_VTABLE"
+                                                    };
+
 extern CppCompound* parseStream(char* stm, size_t stmSize);
 CppObjFactory* gObjFactory = nullptr;
 
