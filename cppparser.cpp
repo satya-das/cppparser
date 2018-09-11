@@ -113,7 +113,7 @@ CppParser::ByteArray CppParser::readFile(const char* filename)
     in.seekg(0, std::ios::beg);
     in.read(&contents[0], size);
     in.close();
-    auto len = stripChar(contents.data(), contents.size(), '\r');
+    auto len = stripChar(contents.data(), size, '\r');
     assert(len <= size);
     contents.resize(len+3);
     contents[len] = '\n';
