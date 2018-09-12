@@ -39,10 +39,9 @@ namespace bpo = boost::program_options;
 
 //////////////////////////////////////////////////////////////////////////
 
-static bool parseAndEmitFormatted(const bfs::path& inputFilePath, const bfs::path& outputFilePath, const CppWriter& cppWriter)
+static bool parseAndEmitFormatted(CppParser &parser, const bfs::path &inputFilePath, const bfs::path &outputFilePath, const CppWriter &cppWriter)
 {
-  CppParser parser;
-  CppCompound* progUnit = parser.parseFile(inputFilePath.string().c_str());
+  CppCompound *progUnit = parser.parseFile(inputFilePath.string().c_str());
   if (progUnit == NULL)
     return false;
   bfs::create_directories(outputFilePath.parent_path());
@@ -53,10 +52,9 @@ static bool parseAndEmitFormatted(const bfs::path& inputFilePath, const bfs::pat
   return true;
 }
 
-static bool performParsing(const std::string& inputPath)
+static bool performParsing(CppParser &parser, const std::string &inputPath)
 {
-  CppParser parser;
-  CppCompound* progUnit = parser.parseFile(inputPath.c_str());
+  CppCompound *progUnit = parser.parseFile(inputPath.c_str());
   if (progUnit == nullptr)
     return false;
   delete progUnit;
@@ -64,7 +62,7 @@ static bool performParsing(const std::string& inputPath)
   return true;
 }
 
-static std::pair<size_t, size_t> performTest(const TestParam& params)
+static std::pair<size_t, size_t> performTest(CppParser &parser, const TestParam &params)
 {
   size_t numInputFiles = 0;
   size_t numFailed = 0;
@@ -82,7 +80,7 @@ static std::pair<size_t, size_t> performTest(const TestParam& params)
       auto fileRelPath = file.string().substr(inputPathLen);
       bfs::path outfile = params.outputPath / fileRelPath;
       bfs::remove(outfile);
-      if (parseAndEmitFormatted(file, outfile, cppWriter) && bfs::exists(outfile))
+      if (parseAndEmitFormatted(parser, file, outfile, cppWriter) && bfs::exists(outfile))
       {
         bfs::path masfile = params.masterPath / fileRelPath;
         std::pair<int, int> diffStartInfo;
@@ -102,9 +100,9 @@ static std::pair<size_t, size_t> performTest(const TestParam& params)
   }
   if (!failedFiles.empty())
   {
-    std::cerr <<"\n\n";
+    std::cerr << "\n\n";
     std::cerr << "Parsing failure summary.\n------------------------\n";
-    for (const auto& s : failedFiles)
+    for (const auto &s : failedFiles)
     {
       std::cerr << s << '\n';
     }
@@ -114,8 +112,25 @@ static std::pair<size_t, size_t> performTest(const TestParam& params)
   return std::make_pair(numInputFiles, numFailed);
 }
 
-int main(int argc, char** argv)
+void addKnownMacrosToParser(CppParser &parser)
 {
+  parser.addKnownApiDecors({"ODRX_ABSTRACT",
+                            "FIRSTDLL_EXPORT",
+                            "GE_DLLEXPIMPORT",
+                            "ADESK_NO_VTABLE"});
+
+  parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
+                         "DECLARE_DYNAMIC",
+                         "ACPL_DECLARE_MEMBERS",
+                         "DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION",
+                         "DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION",
+                         "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION"});
+}
+
+int main(int argc, char **argv)
+{
+  CppParser parser;
+  addKnownMacrosToParser(parser);
   ArgParser argParser;
   auto optionParseResult = argParser.parse(argc, argv);
   if (optionParseResult == ArgParser::kParsingError)
@@ -125,13 +140,13 @@ int main(int argc, char** argv)
   }
   else if (optionParseResult == ArgParser::kParseSingleFile)
   {
-      auto filePath = argParser.extractSingleFilePath();
-      performParsing(filePath);
+    auto filePath = argParser.extractSingleFilePath();
+    performParsing(parser, filePath);
   }
   else
   {
     auto params = argParser.extractParamsForFullTest();
-    auto result = performTest(params);
+    auto result = performTest(parser, params);
     if (result.second)
     {
       std::cerr << "CppParserTest: " << result.second << " tests failed out of " << result.first << ".\n";
