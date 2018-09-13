@@ -1,38 +1,38 @@
 #pragma once
 
+#include "cppdom.h"
 #include "cppobjfactory.h"
 #include "cpptoken.h"
-#include "cppdom.h"
 
 #include <iterator>
 
-extern CppObjFactory*               gObjFactory;
+extern CppObjFactory* gObjFactory;
 
-template<typename... Params>
+template <typename... Params>
 CppCompound* newCompound(Params... params)
 {
   return gObjFactory->CreateCompound(params...);
 }
 
-template<typename... Params>
+template <typename... Params>
 CppConstructor* newConstructor(Params... params)
 {
   return gObjFactory->CreateConstructor(params...);
 }
 
-template<typename... Params>
+template <typename... Params>
 CppDestructor* newDestructor(Params... params)
 {
   return gObjFactory->CreateDestructor(params...);
 }
 
-template<typename... Params>
+template <typename... Params>
 CppFunction* newFunction(Params... params)
 {
   return gObjFactory->CreateFunction(params...);
 }
 
-template<class Iter>
+template <class Iter>
 inline std::reverse_iterator<Iter> rev(Iter i)
 {
   return std::reverse_iterator<Iter>(i);
@@ -46,8 +46,8 @@ inline CppToken classNameFromIdentifier(const CppToken& identifier)
   auto rbeg = rev(identifier.sz + identifier.len);
   if (*rbeg != '>')
     return identifier;
-  auto rend = rev(identifier.sz);
-  int numTempl = 1;
+  auto rend     = rev(identifier.sz);
+  int  numTempl = 1;
   for (++rbeg; rbeg != rend; ++rbeg)
   {
     if (*rbeg == '<')

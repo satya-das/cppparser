@@ -22,8 +22,8 @@
  */
 
 #include "cppparser.h"
-#include "cppobjfactory.h"
 #include "cppdom.h"
+#include "cppobjfactory.h"
 
 #include <algorithm>
 #include <fstream>
@@ -36,16 +36,13 @@ std::set<std::string> gMacroNames = {"DECLARE_MESSAGE_MAP",
                                      "DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION",
                                      "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION"};
 
-std::set<std::string> gKnownApiDecorNames = {"ODRX_ABSTRACT",
-                                             "FIRSTDLL_EXPORT",
-                                             "GE_DLLEXPIMPORT",
-                                             "ADESK_NO_VTABLE"};
+std::set<std::string> gKnownApiDecorNames = {"ODRX_ABSTRACT", "FIRSTDLL_EXPORT", "GE_DLLEXPIMPORT", "ADESK_NO_VTABLE"};
 
-extern CppCompound *parseStream(char *stm, size_t stmSize);
-CppObjFactory *gObjFactory = nullptr;
+extern CppCompound* parseStream(char* stm, size_t stmSize);
+CppObjFactory*      gObjFactory = nullptr;
 
-CppParser::CppParser(CppObjFactory *objFactory)
-    : objFactory_(objFactory)
+CppParser::CppParser(CppObjFactory* objFactory)
+  : objFactory_(objFactory)
 {
   if (objFactory_ == nullptr)
     objFactory_ = new CppObjFactory;
@@ -56,9 +53,9 @@ void CppParser::addKnownMacro(std::string knownMacro)
   gMacroNames.insert(std::move(knownMacro));
 }
 
-void CppParser::addKnownMacros(const std::vector<std::string> &knownMacros)
+void CppParser::addKnownMacros(const std::vector<std::string>& knownMacros)
 {
-  for (auto &macro : knownMacros)
+  for (auto& macro : knownMacros)
     gMacroNames.insert(macro);
 }
 
@@ -67,23 +64,23 @@ void CppParser::addKnownApiDecor(std::string knownApiDecor)
   gKnownApiDecorNames.insert(std::move(knownApiDecor));
 }
 
-void CppParser::addKnownApiDecors(const std::vector<std::string> &knownApiDecor)
+void CppParser::addKnownApiDecors(const std::vector<std::string>& knownApiDecor)
 {
-  for (auto &apiDecor : knownApiDecor)
+  for (auto& apiDecor : knownApiDecor)
     gKnownApiDecorNames.insert(apiDecor);
 }
 
-CppCompound *CppParser::parseFile(const char *filename)
+CppCompound* CppParser::parseFile(const char* filename)
 {
-  auto stm = readFile(filename);
-  CppCompound *cppCompound = parseStream(stm.data(), stm.size());
+  auto         stm         = readFile(filename);
+  CppCompound* cppCompound = parseStream(stm.data(), stm.size());
   if (cppCompound == NULL)
     return cppCompound;
   cppCompound->name_ = filename;
   return cppCompound;
 }
 
-CppCompound *CppParser::parseStream(char *stm, size_t stmSize)
+CppCompound* CppParser::parseStream(char* stm, size_t stmSize)
 {
   if (stm == nullptr || stmSize == 0)
     return nullptr;
@@ -91,14 +88,14 @@ CppCompound *CppParser::parseStream(char *stm, size_t stmSize)
   return ::parseStream(stm, stmSize);
 }
 
-CppProgram *CppParser::loadProgram(const char *szInputPath)
+CppProgram* CppParser::loadProgram(const char* szInputPath)
 {
   auto program = new CppProgram;
   loadProgram(szInputPath, *program);
   return program;
 }
 
-static void collectFiles(const bfs::path &path, std::vector<std::string> &files)
+static void collectFiles(const bfs::path& path, std::vector<std::string>& files)
 {
   if (bfs::is_regular_file(path))
   {
@@ -113,7 +110,7 @@ static void collectFiles(const bfs::path &path, std::vector<std::string> &files)
   }
 }
 
-static std::vector<std::string> collectFiles(const bfs::path &path)
+static std::vector<std::string> collectFiles(const bfs::path& path)
 {
   std::vector<std::string> files;
   collectFiles(path, files);
@@ -123,10 +120,10 @@ static std::vector<std::string> collectFiles(const bfs::path &path)
   return files;
 }
 
-void CppParser::loadProgram(const bfs::path &path, CppProgram &program)
+void CppParser::loadProgram(const bfs::path& path, CppProgram& program)
 {
   auto files = collectFiles(path);
-  for (const auto &f : files)
+  for (const auto& f : files)
   {
     auto cppDom = parseFile(f.c_str());
     if (cppDom)
@@ -134,9 +131,9 @@ void CppParser::loadProgram(const bfs::path &path, CppProgram &program)
   }
 }
 
-CppParser::ByteArray CppParser::readFile(const char *filename)
+CppParser::ByteArray CppParser::readFile(const char* filename)
 {
-  ByteArray contents;
+  ByteArray     contents;
   std::ifstream in(filename, std::ios::in);
   if (in)
   {

@@ -1,6 +1,5 @@
 #include "cppdom.h"
 
-
 bool CppConstructor::isCopyConstructor() const
 {
   if (isCopyConstructor_)
@@ -50,7 +49,7 @@ bool CppCompound::hasVirtualMethod() const
   {
     if (mem->objType_ == kFunction)
     {
-      auto func = (CppFunction*)mem;
+      auto func = (CppFunction*) mem;
       if (func->attr_ & (kVirtual | kOverride))
       {
         hasVirtual_ = true;
@@ -72,7 +71,7 @@ bool CppCompound::isAbstract() const
   {
     if (mem->objType_ == kFunction)
     {
-      auto func = (CppFunction*)mem;
+      auto func = (CppFunction*) mem;
       if (func->isPureVirtual())
       {
         isAbstract_ = true;
