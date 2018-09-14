@@ -39,19 +39,8 @@ For this very reason this file does not use any class that are defined in cppdom
 
 static int gLog = 0;
 
-static std::set<std::string>        gMacroNames = { "DECLARE_MESSAGE_MAP",
-                                                    "DECLARE_DYNAMIC",
-                                                    "ACPL_DECLARE_MEMBERS",
-                                                    "DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION",
-                                                    "DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION",
-                                                    "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION"
-                                                  };
-
-static std::set<std::string>        gKnownApiDecorNames = { "ODRX_ABSTRACT",
-                                                            "FIRSTDLL_EXPORT",
-                                                            "GE_DLLEXPIMPORT",
-                                                            "ADESK_NO_VTABLE"
-                                                          };
+extern std::set<std::string>        gMacroNames;
+extern std::set<std::string>        gKnownApiDecorNames;
 
   // Easy MACRO to quickly push current context and switch to another one.
 #define BEGINCONTEXT(ctx) { \

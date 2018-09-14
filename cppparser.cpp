@@ -22,16 +22,25 @@
  */
 
 #include "cppparser.h"
-#include "cppobjfactory.h"
 #include "cppdom.h"
+#include "cppobjfactory.h"
 #include "string-utils.h"
 
 #include <algorithm>
 #include <fstream>
 #include <vector>
 
+std::set<std::string> gMacroNames = {"DECLARE_MESSAGE_MAP",
+                                     "DECLARE_DYNAMIC",
+                                     "ACPL_DECLARE_MEMBERS",
+                                     "DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION",
+                                     "DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION",
+                                     "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION"};
+
+std::set<std::string> gKnownApiDecorNames = {"ODRX_ABSTRACT", "FIRSTDLL_EXPORT", "GE_DLLEXPIMPORT", "ADESK_NO_VTABLE"};
+
 extern CppCompound* parseStream(char* stm, size_t stmSize);
-CppObjFactory* gObjFactory = nullptr;
+CppObjFactory*      gObjFactory = nullptr;
 
 CppParser::CppParser(CppObjFactory* objFactory)
   : objFactory_(objFactory)
@@ -40,9 +49,31 @@ CppParser::CppParser(CppObjFactory* objFactory)
     objFactory_ = new CppObjFactory;
 }
 
+void CppParser::addKnownMacro(std::string knownMacro)
+{
+  gMacroNames.insert(std::move(knownMacro));
+}
+
+void CppParser::addKnownMacros(const std::vector<std::string>& knownMacros)
+{
+  for (auto& macro : knownMacros)
+    gMacroNames.insert(macro);
+}
+
+void CppParser::addKnownApiDecor(std::string knownApiDecor)
+{
+  gKnownApiDecorNames.insert(std::move(knownApiDecor));
+}
+
+void CppParser::addKnownApiDecors(const std::vector<std::string>& knownApiDecor)
+{
+  for (auto& apiDecor : knownApiDecor)
+    gKnownApiDecorNames.insert(apiDecor);
+}
+
 CppCompound* CppParser::parseFile(const char* filename)
 {
-  auto stm = readFile(filename);
+  auto         stm         = readFile(filename);
   CppCompound* cppCompound = parseStream(stm.data(), stm.size());
   if (cppCompound == NULL)
     return cppCompound;
@@ -103,13 +134,13 @@ void CppParser::loadProgram(const bfs::path& path, CppProgram& program)
 
 CppParser::ByteArray CppParser::readFile(const char* filename)
 {
-  ByteArray contents;
+  ByteArray     contents;
   std::ifstream in(filename, std::ios::in | std::ios::binary);
   if (in)
   {
     in.seekg(0, std::ios::end);
     size_t size = in.tellg();
-    contents.resize(size+3); // For adding last 2 nulls and a new line.
+    contents.resize(size + 3); // For adding last 2 nulls and a new line.
     in.seekg(0, std::ios::beg);
     in.read(&contents[0], size);
     in.close();
@@ -120,5 +151,5 @@ CppParser::ByteArray CppParser::readFile(const char* filename)
     contents[len+1] = '\0';
     contents[len+2] = '\0';
   }
-  return(contents);
+  return (contents);
 }

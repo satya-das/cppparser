@@ -3,22 +3,23 @@
 
    Copyright (c) 2014
 
-   Permission is hereby granted, free of charge, to any person obtaining a copy of
-   this software and associated documentation files (the "Software"), to deal in
-   the Software without restriction, including without limitation the rights to
-   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-   the Software, and to permit persons to whom the Software is furnished to do so,
-   subject to the following conditions:
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
 
-   The above copyright notice and this permission notice shall be included in all
-   copies or substantial portions of the Software.
+   The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
 
    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
  */
 
 #include "cppprog.h"
@@ -49,22 +50,23 @@ void CppProgram::loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode)
     {
       CppTypeTreeNode& childNode = typeNode->children[((CppCompound*) mem)->name_];
       childNode.cppObjSet.insert(mem);
-      childNode.parent = typeNode;
+      childNode.parent       = typeNode;
       cppObjToTypeNode_[mem] = &childNode;
       loadType((CppCompound*) mem, &childNode);
     }
-    else if (mem->objType_ == CppObj::kTypedef)
+    else if (mem->objType_ == CppObj::kTypedefName)
     {
-      CppTypeTreeNode& childNode = typeNode->children[((CppFunction*) mem)->name_];
+      auto*            typedefName = static_cast<CppTypedefName*>(mem);
+      CppTypeTreeNode& childNode   = typeNode->children[typedefName->var_->name()];
       childNode.cppObjSet.insert(mem);
-      childNode.parent = typeNode;
+      childNode.parent       = typeNode;
       cppObjToTypeNode_[mem] = &childNode;
     }
     else if (mem->objType_ == CppObj::kFunctionPtr)
     {
       CppTypeTreeNode& childNode = typeNode->children[((CppFunctionPtr*) mem)->name_];
       childNode.cppObjSet.insert(mem);
-      childNode.parent = typeNode;
+      childNode.parent       = typeNode;
       cppObjToTypeNode_[mem] = &childNode;
     }
   }
@@ -86,23 +88,22 @@ const CppTypeTreeNode* CppProgram::findTypeNode(const std::string& name, const C
   }
   else
   {
-    std::string nameToLookFor = name.substr(nameBegPos, nameEndPos-nameBegPos);
-    typeNode = findTypeNode(name.substr(nameBegPos, nameEndPos-nameBegPos), typeNode);
+    auto nameToLookFor = name.substr(nameBegPos, nameEndPos - nameBegPos);
+    typeNode           = findTypeNode(nameToLookFor, typeNode);
     if (!typeNode)
-      return NULL;
+      return nullptr;
     do
     {
       nameBegPos = nameEndPos + 2;
       nameEndPos = name.find("::", nameBegPos);
       if (nameEndPos == std::string::npos)
         nameEndPos = name.length();
-      std::string nameToLookFor = name.substr(nameBegPos, nameEndPos-nameBegPos);
-      CppTypeTree::const_iterator itr = typeNode->children.find(nameToLookFor);
+      nameToLookFor = name.substr(nameBegPos, nameEndPos - nameBegPos);
+      auto itr      = typeNode->children.find(nameToLookFor);
       if (itr == typeNode->children.end())
-        return NULL;
+        return nullptr;
       typeNode = &itr->second;
-    }
-    while (nameEndPos >= name.length());
+    } while (nameEndPos < name.length());
   }
   return typeNode;
 }

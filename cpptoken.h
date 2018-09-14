@@ -24,8 +24,8 @@
 #ifndef __CPPTOKEN_H__
 #define __CPPTOKEN_H__
 
-#include <string>
 #include <cstring>
+#include <string>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -33,17 +33,19 @@
 struct CppToken
 {
   const char* sz;
-  size_t len;
+  size_t      len;
 
-  bool operator == (const CppToken& rhs) const
+  bool operator==(const CppToken& rhs) const
   {
-    if (len != rhs.len) return false;
+    if (len != rhs.len)
+      return false;
     return (sz == rhs.sz) || (std::strncmp(sz, rhs.sz, len) == 0);
   }
 
-  bool operator != (const CppToken& rhs) const
+  bool operator!=(const CppToken& rhs) const
   {
-    if (len != rhs.len) return true;
+    if (len != rhs.len)
+      return true;
     return std::strncmp(sz, rhs.sz, len) != 0;
   }
 
@@ -69,12 +71,12 @@ inline CppToken makeCppToken(const char* sz, size_t len)
 
 inline CppToken makeCppToken(const char* beg, const char* end)
 {
-  return makeCppToken(beg, end-beg);
+  return makeCppToken(beg, end - beg);
 }
 
 inline CppToken mergeCppToken(const CppToken& token1, const CppToken& token2)
 {
-  return makeCppToken(token1.sz, token2.sz+token2.len-token1.sz);
+  return makeCppToken(token1.sz, token2.sz + token2.len - token1.sz);
 }
 
 struct CppExpr;
@@ -82,12 +84,12 @@ struct CppExpr;
 /* Non-terminal for member initalizer */
 struct CppNtMemInit
 {
-  CppToken  mem;
-  CppExpr*  init;
+  CppToken mem;
+  CppExpr* init;
 };
 
 template <typename _ST>
-inline _ST& operator << (_ST& stm , const CppToken& token)
+inline _ST& operator<<(_ST& stm, const CppToken& token)
 {
   for (size_t i = 0; i < token.len; ++i)
     stm << token.sz[i];

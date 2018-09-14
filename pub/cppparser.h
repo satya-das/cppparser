@@ -38,26 +38,32 @@ class CppObjFactory;
 class CppParser
 {
 public:
-  CppParser(CppObjFactory* objFactory = nullptr);
+  CppParser(CppObjFactory *objFactory = nullptr);
+
+  void addKnownMacro(std::string knownMacro);
+  void addKnownMacros(const std::vector<std::string> &knownMacros);
+
+  void addKnownApiDecor(std::string knownApiDecor);
+  void addKnownApiDecors(const std::vector<std::string> &knownApiDecor);
 
 public:
-  CppCompound* parseFile(const char* filename);
-  CppCompound* parseStream(char* stm, size_t stmSize);
+  CppCompound *parseFile(const char *filename);
+  CppCompound *parseStream(char *stm, size_t stmSize);
   /*!
    * Loads C++ program from source and header files.
    * @param inputPath Folder where the C++ files are present.
    */
-  CppProgram* loadProgram(const char* szInputPath);
+  CppProgram *loadProgram(const char *szInputPath);
 
 protected:
-  void loadProgram(const bfs::path& path, CppProgram& program);
+  void loadProgram(const bfs::path &path, CppProgram &program);
 
 private:
   using ByteArray = std::vector<char>;
-  static ByteArray readFile(const char* filename);
+  static ByteArray readFile(const char *filename);
 
 private:
-  CppObjFactory* objFactory_;
+  CppObjFactory *objFactory_;
 };
 
 #endif //__CPPPARSER_H__
