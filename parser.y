@@ -918,7 +918,7 @@ operfuncname      : tknOperator '+' { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknDelete '[' ']' { $$ = mergeCppToken($1, $4); }
                   ;
 
-paramlist         : { $$ = 0; }
+paramlist         : { $$ = new CppParamList; }
                   | param {
                     $$ = new CppParamList;
                     $$->push_back($1);
@@ -1298,7 +1298,7 @@ optapidecor       :                     { $$ = makeCppToken(nullptr, nullptr); }
                   ;
 
 apidecor          : tknApiDecor         { $$ = $1; }
-                  | tknApiDecor apidecor{ $$ = mergeCppToken($1, $2); }
+                  | apidecor tknApiDecor{ $$ = mergeCppToken($1, $2); }
                   | tknID '(' tknID ')' { $$ = mergeCppToken($1, $4); }
                   | tknID               { $$ = $1; }
                   ;
