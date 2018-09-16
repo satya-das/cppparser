@@ -54,6 +54,13 @@ void CppProgram::loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode)
       cppObjToTypeNode_[mem] = &childNode;
       loadType((CppCompound*) mem, &childNode);
     }
+    else if (mem->objType_ == CppObj::kEnum)
+    {
+      CppTypeTreeNode& childNode = typeNode->children[((CppEnum*) mem)->name_];
+      childNode.cppObjSet.insert(mem);
+      childNode.parent       = typeNode;
+      cppObjToTypeNode_[mem] = &childNode;
+    }
     else if (mem->objType_ == CppObj::kTypedefName)
     {
       auto*            typedefName = static_cast<CppTypedefName*>(mem);
