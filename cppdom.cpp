@@ -71,8 +71,17 @@ bool CppCompound::isAbstract() const
   {
     if (mem->objType_ == kFunction)
     {
-      auto func = (CppFunction*) mem;
+      auto func = static_cast<const CppFunction*>(mem);
       if (func->isPureVirtual())
+      {
+        isAbstract_ = true;
+        break;
+      }
+    }
+    else if (mem->objType_ == kDestructor)
+    {
+      auto dtor = static_cast<const CppDestructor*>(mem);
+      if (dtor->isPureVirtual())
       {
         isAbstract_ = true;
         break;
