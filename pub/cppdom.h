@@ -23,7 +23,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /***************************************************************************************/
 
-
 /**
  * @file Defines classes to represent C++ DOM objects, like expression, variable definition, class definition, etc.
  * The design principle is that the classes will have struct like syntax, i.e. mostly public members.
@@ -56,41 +55,41 @@ struct CppObj
 {
   enum Type : std::uint32_t
   {
-    kUnknown			= 0x0000,
+    kUnknown = 0x0000,
     kDocComment,
 
-    kCPreProcessorTypeStarts,   // Any preprocessor type must come after this
-    kHashIf,	                  // #if, #ifdef, #ifndef, #else, #elif.
-    kHashInclude,		            // #include
-    kHashDefine,		            // #define
-    kHashUndef,			            // #undef
-    kHashPragma,		            // #pragma
+    kCPreProcessorTypeStarts, // Any preprocessor type must come after this
+    kHashIf,                  // #if, #ifdef, #ifndef, #else, #elif.
+    kHashInclude,             // #include
+    kHashDefine,              // #define
+    kHashUndef,               // #undef
+    kHashPragma,              // #pragma
     kHashError,
-    kUnRecogPrePro,		          // Any unrecognized pre-processor.
+    kUnRecogPrePro, // Any unrecognized pre-processor.
     kCPreProcessorTypeEnds,
 
     kCppStatementObjectTypeStarts,
-    kVarType,			              // Just the type of variable.
-    kVar,				                // A variable declaration.
-    kVarList,			              // List of variables declared as comma separated identifiers.
+    kVarType, // Just the type of variable.
+    kVar,     // A variable declaration.
+    kVarList, // List of variables declared as comma separated identifiers.
     kTypedefName,
     kTypedefNameList,
     kNamespaceAlias,
     kUsingNamespaceDecl,
     kUsingDecl,
     kEnum,
-    kCompound,			            // file, namespace, class, struct, union, block.
-    kFwdClsDecl,		            // Forward declaration of compound type.
+    kCompound,   // file, namespace, class, struct, union, block.
+    kFwdClsDecl, // Forward declaration of compound type.
     kFunction,
     kConstructor,
     kDestructor,
     kTypeConverter,
-    kFunctionPtr,		            // Function proc declaration using typedef. e.g. typedef void (*fp) (void);
-    kExpression,		            // A C++ expression
+    kFunctionPtr, // Function proc declaration using typedef. e.g. typedef void (*fp) (void);
+    kExpression,  // A C++ expression
     kExpressionList,
-    kFuncCall,			            // A function call expression
+    kFuncCall, // A function call expression
     kMacroCall,
-    kBlob,				              // Some unparsed/unrecognized part of C++ source code.
+    kBlob, // Some unparsed/unrecognized part of C++ source code.
     kCppStatementObjectTypeEnds,
 
     kCppControlStatementStarts,
@@ -104,12 +103,12 @@ struct CppObj
 
   const Type      objType_;
   CppCompound*    owner_;
-  CppObjProtLevel prot_;	///< All objects do not need this but for simplicity we will have this in all objects.
+  CppObjProtLevel prot_; ///< All objects do not need this but for simplicity we will have this in all objects.
 
   CppObj(Type type, CppObjProtLevel prot)
-    : objType_	(type)
-    , owner_	(nullptr)
-    , prot_		(prot)
+    : objType_(type)
+    , owner_(nullptr)
+    , prot_(prot)
   {
   }
 
@@ -142,36 +141,36 @@ struct CppDefine : public CppObj
     kConstCharDef,
     kComplexMacro,
   };
-  DefType		defType_;
-  std::string	name_;
-  std::string	defn_; ///< This will contain everything after name.
+  DefType     defType_;
+  std::string name_;
+  std::string defn_; ///< This will contain everything after name.
 
   CppDefine(std::string name, std::string defn = std::string())
-    : CppObj	(kHashDefine, kUnknownProt)
-    , name_		(std::move(name))
-    , defn_		(std::move(defn))
+    : CppObj(kHashDefine, kUnknownProt)
+    , name_(std::move(name))
+    , defn_(std::move(defn))
   {
   }
 };
 
 struct CppUndef : public CppObj
 {
-  std::string	name_;
+  std::string name_;
 
   CppUndef(std::string name)
-    : CppObj	(kHashUndef, kUnknownProt)
-    , name_		(std::move(name))
+    : CppObj(kHashUndef, kUnknownProt)
+    , name_(std::move(name))
   {
   }
 };
 
 struct CppInclude : public CppObj
 {
-  std::string	name_;
+  std::string name_;
 
   CppInclude(std::string name)
-    : CppObj	(kHashInclude, kUnknownProt)
-    , name_		(std::move(name))
+    : CppObj(kHashInclude, kUnknownProt)
+    , name_(std::move(name))
   {
   }
 };
@@ -185,16 +184,21 @@ struct CppHashIf : public CppObj
 {
   enum CondType
   {
-    kIf, kElse, kIfDef, kIfNDef, kElIf, kEndIf
+    kIf,
+    kElse,
+    kIfDef,
+    kIfNDef,
+    kElIf,
+    kEndIf
   };
 
-  CondType	condType_;
-  std::string	cond_;
+  CondType    condType_;
+  std::string cond_;
 
   CppHashIf(CondType condType, std::string cond = std::string())
-    : CppObj	(kHashIf, kUnknownProt)
-    , condType_	(condType)
-    , cond_		(std::move(cond))
+    : CppObj(kHashIf, kUnknownProt)
+    , condType_(condType)
+    , cond_(std::move(cond))
   {
   }
 };
@@ -217,8 +221,8 @@ struct CppHashError : public CppObj
   CppHashError(std::string err)
     : CppObj(CppObj::kHashError, kUnknownProt)
     , err_(std::move(err))
-    {
-    }
+  {
+  }
 };
 
 /**
@@ -227,12 +231,12 @@ struct CppHashError : public CppObj
 struct CppUnRecogPrePro : public CppObj
 {
   std::string name_;
-  std::string	defn_;
+  std::string defn_;
 
   CppUnRecogPrePro(std::string name, std::string defn)
     : CppObj(CppObj::kUnRecogPrePro, kUnknownProt)
-    , name_	(std::move(name))
-    , defn_	(std::move(defn))
+    , name_(std::move(name))
+    , defn_(std::move(defn))
   {
   }
 };
@@ -241,8 +245,8 @@ struct CppExpr;
 
 struct CppTypeModifier
 {
-  CppRefType		refType_;
-  std::uint8_t  ptrLevel_; // Pointer level. e.g. int** ppi has pointer level of 2.
+  CppRefType   refType_;
+  std::uint8_t ptrLevel_; // Pointer level. e.g. int** ppi has pointer level of 2.
   // Stores bits as per location of const in a var definition.
   // Below table clarifies the value of const-bits:
   // --------------------------------------------------
@@ -257,19 +261,19 @@ struct CppTypeModifier
   // | ------------------------------------------------
   //
   // It is 8 bit unsigned integer which is enough to store info for pointers of 8 level deep.
-  std::uint8_t  constBits_;
+  std::uint8_t constBits_;
 };
 
-inline CppTypeModifier  makeCppTypeModifier(CppRefType refType, std::uint8_t ptrLevel, std::uint8_t constBits)
+inline CppTypeModifier makeCppTypeModifier(CppRefType refType, std::uint8_t ptrLevel, std::uint8_t constBits)
 {
-  return CppTypeModifier{refType, ptrLevel, constBits};
+  return CppTypeModifier {refType, ptrLevel, constBits};
 }
 
 struct CppVarType : public CppObj
 {
-  std::string		  baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
-  CppCompound*    compound_{ nullptr };
-  std::uint32_t	  typeAttr_{ 0 }; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
+  std::string     baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
+  CppCompound*    compound_ {nullptr};
+  std::uint32_t   typeAttr_ {0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
   CppTypeModifier typeModifier_;
 
   CppVarType(std::string baseType, CppTypeModifier modifier = CppTypeModifier())
@@ -289,21 +293,24 @@ struct CppVarType : public CppObj
   {
   }
 
-  std::uint8_t ptrLevel() const {
+  std::uint8_t ptrLevel() const
+  {
     return typeModifier_.ptrLevel_;
   }
 
-  CppRefType refType() const {
+  CppRefType refType() const
+  {
     return typeModifier_.refType_;
   }
 
-  const std::string& baseType() const {
+  const std::string& baseType() const
+  {
     return baseType_;
   }
 
   bool isVoid() const
   {
-    if (typeAttr_ != 0 || typeModifier_.ptrLevel_ != 0 || typeModifier_.refType_ != kNoRef)
+    if (typeModifier_.ptrLevel_ != 0 || typeModifier_.refType_ != kNoRef)
       return false;
     return (baseType_.compare("void") == 0);
   }
@@ -329,7 +336,11 @@ struct CppVarType : public CppObj
   }
 
 protected:
-  CppVarType(CppObj::Type type, CppObjProtLevel prot, std::string baseType, std::uint32_t typeAttr, CppTypeModifier modifier)
+  CppVarType(CppObj::Type    type,
+             CppObjProtLevel prot,
+             std::string     baseType,
+             std::uint32_t   typeAttr,
+             CppTypeModifier modifier)
     : CppObj(type, prot)
     , typeModifier_(modifier)
     , baseType_(std::move(cleanseIdentifier(baseType)))
@@ -339,14 +350,14 @@ protected:
 };
 
 struct CppExpr;
-using CppExprPtr = std::unique_ptr<CppExpr>;
+using CppExprPtr    = std::unique_ptr<CppExpr>;
 using CppArraySizes = std::vector<CppExprPtr>;
-using CppObjPtr = std::unique_ptr<CppObj>;
+using CppObjPtr     = std::unique_ptr<CppObj>;
 
 struct CppVarDecl
 {
-  std::string		name_;
-  CppObjPtr     assign_;    // Value assigned at declaration.
+  std::string   name_;
+  CppObjPtr     assign_; // Value assigned at declaration.
   CppExprPtr    bitField_;
   CppArraySizes arraySizes_;
 
@@ -367,27 +378,36 @@ struct CppVar : public CppObj
 {
   CppVarType* varType_ {nullptr};
   CppVarDecl  varDecl_;
-  std::string	apidecor_;  // It holds things like WINAPI, __declspec(dllexport), etc.
+  std::string apidecor_; // It holds things like WINAPI, __declspec(dllexport), etc.
 
   CppVar(CppVarType* varType, CppVarDecl varDecl)
     : CppVar(CppObj::kVar, varType, std::move(varDecl))
   {
   }
 
-  std::uint8_t ptrLevel() const {
+  std::uint8_t ptrLevel() const
+  {
     return varType_->ptrLevel();
   }
 
-  CppRefType refType() const {
+  CppRefType refType() const
+  {
     return varType_->refType();
   }
 
-  const std::string& baseType() const {
+  const std::string& baseType() const
+  {
     return varType_->baseType();
   }
 
-  const std::string& name() const {
+  const std::string& name() const
+  {
     return varDecl_.name_;
+  }
+
+  void setName(std::string name)
+  {
+    varDecl_.name_ = std::move(name);
   }
 
   bool isByRef() const
@@ -435,9 +455,9 @@ using CppVarDeclList = std::vector<CppVarDeclInList>;
  */
 struct CppVarList : public CppObj
 {
-  std::string		  baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
-  std::uint32_t	  typeAttr_ {0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
-  CppVarDeclList  varDeclList_;
+  std::string    baseType_;     // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
+  std::uint32_t  typeAttr_ {0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
+  CppVarDeclList varDeclList_;
 
   CppVarList(std::string baseType, CppObjProtLevel prot = kUnknownProt)
     : CppVarList(CppObj::kVarList, std::move(baseType), prot)
@@ -497,11 +517,11 @@ struct CppEnumItem
   union
   {
     CppExpr* val_;
-    CppObj* anyItem_;
+    CppObj*  anyItem_;
   };
   std::string name_;
 
-  CppEnumItem(std::string name, CppExpr* val=nullptr)
+  CppEnumItem(std::string name, CppExpr* val = nullptr)
     : name_(std::move(name))
     , val_(val)
   {
@@ -516,17 +536,21 @@ struct CppEnumItem
 typedef std::list<CppEnumItem*> CppEnumItemList;
 struct CppEnum : public CppObj
 {
-  std::string			  name_;      // Can be empty for anonymous enum.
-  CppEnumItemList*	itemList_;  // Can be nullptr for forward declared enum.
-  bool              isClass_;
-  std::string       underlyingType_;
+  std::string      name_;     // Can be empty for anonymous enum.
+  CppEnumItemList* itemList_; // Can be nullptr for forward declared enum.
+  bool             isClass_;
+  std::string      underlyingType_;
 
-  CppEnum(CppObjProtLevel prot, std::string name, CppEnumItemList* itemList, bool isClass = false, std::string underlyingType = std::string())
-    : CppObj          (kEnum, prot)
-    , name_           (std::move(name))
-    , itemList_       (itemList)
-    , isClass_        (isClass)
-    , underlyingType_ (std::move(underlyingType))
+  CppEnum(CppObjProtLevel  prot,
+          std::string      name,
+          CppEnumItemList* itemList,
+          bool             isClass        = false,
+          std::string      underlyingType = std::string())
+    : CppObj(kEnum, prot)
+    , name_(std::move(name))
+    , itemList_(itemList)
+    , isClass_(isClass)
+    , underlyingType_(std::move(underlyingType))
   {
   }
 };
@@ -536,21 +560,21 @@ struct CppEnum : public CppObj
 struct CppFwdClsDecl : public CppObj
 {
   CppCompoundType cmpType_;
-  std::string		name_;
-  std::uint32_t attr_ {0};
+  std::string     name_;
+  std::uint32_t   attr_ {0};
 
   CppFwdClsDecl(CppObjProtLevel prot, std::string name, CppCompoundType cmpType = kNoCompound)
-    : CppObj	(CppObj::kFwdClsDecl, prot)
+    : CppObj(CppObj::kFwdClsDecl, prot)
     , cmpType_(cmpType)
-    , name_		(std::move(name))
-    , attr_   (0)
+    , name_(std::move(name))
+    , attr_(0)
   {
   }
 };
 
 struct CppInheritInfo
 {
-  std::string baseName;
+  std::string     baseName;
   CppObjProtLevel inhType;
 
   CppInheritInfo(std::string _baseName, CppObjProtLevel _inhType)
@@ -576,11 +600,11 @@ private:
   mutable boost::optional<bool> isAbstract_;
 
 public:
-  std::string			name_;
-  CppObjArray			members_;	// Objects arranged in sequential order from top to bottom.
-  CppCompoundType		compoundType_;
-  CppInheritanceList*	inheritList_;
-  std::string			apidecor_;
+  std::string           name_;
+  CppObjArray           members_; // Objects arranged in sequential order from top to bottom.
+  CppCompoundType       compoundType_;
+  CppInheritanceList*   inheritList_;
+  std::string           apidecor_;
   CppTemplateParamList* templSpec_ {nullptr};
 
   CppCompound(std::string name, CppObjProtLevel prot, CppCompoundType type)
@@ -618,8 +642,10 @@ public:
     if (compoundType_ == kUnknownCompound)
       compoundType_ = compoundType;
   }
-  bool traverse(std::function<bool(const CppObj*)> visitor) const {
-    for (auto mem : members_) {
+  bool traverse(std::function<bool(const CppObj*)> visitor) const
+  {
+    for (auto mem : members_)
+    {
       if (mem->isNamespaceLike() && static_cast<const CppCompound*>(mem)->traverse(visitor))
         return true;
       if (visitor(mem))
@@ -627,8 +653,10 @@ public:
     }
     return false;
   }
-  bool traversePreorder(std::function<bool(const CppObj*)> visitor) const {
-    for (auto mem : members_) {
+  bool traversePreorder(std::function<bool(const CppObj*)> visitor) const
+  {
+    for (auto mem : members_)
+    {
       if (visitor(mem))
         return true;
       if (mem->isNamespaceLike() && static_cast<const CppCompound*>(mem)->traversePreorder(visitor))
@@ -640,47 +668,47 @@ public:
   {
     return compoundType_ == kNamespace;
   }
-  bool isClass	() const
+  bool isClass() const
   {
     return compoundType_ == kClass;
   }
-  bool isStruct	() const
+  bool isStruct() const
   {
     return compoundType_ == kStruct;
   }
-  bool isUnion	() const
+  bool isUnion() const
   {
     return compoundType_ == kUnion;
   }
-  bool isCppFile	() const
+  bool isCppFile() const
   {
-    return compoundType_	== kCppFile;
+    return compoundType_ == kCppFile;
   }
-  bool isBlock	() const
+  bool isBlock() const
   {
     return compoundType_ == kBlock;
   }
 
   bool isClassLike() const
   {
-    return (compoundType_&kClass) == kClass;
+    return (compoundType_ & kClass) == kClass;
   }
   bool isNamespaceLike() const
   {
-    return (compoundType_&kNamespace) == kNamespace;
+    return (compoundType_ & kNamespace) == kNamespace;
   }
   /// @return full name of this class.
   std::string fullName() const
   {
     if (!isNamespaceLike())
-      return name_;
+      return "";
     if (owner_ && owner_->isNamespaceLike())
       return owner_->fullName() + "::" + name_;
     else
       return name_;
   }
 
-  void addMember	(CppObj* mem)
+  void addMember(CppObj* mem)
   {
     members_.push_back(mem);
   }
@@ -706,23 +734,22 @@ struct CppFunctionPtr;
  */
 union CppVarOrFuncPtrType
 {
-  CppObj*			cppObj; ///< This should be used just for type checking.
-  CppVar*			varObj;
-  CppFunctionPtr*	funcPtr;
-  CppObj* operator = (CppObj* rhs)
+  CppObj*         cppObj; ///< This should be used just for type checking.
+  CppVar*         varObj;
+  CppFunctionPtr* funcPtr;
+  CppObj*         operator=(CppObj* rhs)
   {
     cppObj = rhs;
     return cppObj;
   }
-
 };
 
-inline bool operator == (const CppVarOrFuncPtrType& lhs, const CppVarOrFuncPtrType& rhs)
+inline bool operator==(const CppVarOrFuncPtrType& lhs, const CppVarOrFuncPtrType& rhs)
 {
   return lhs.cppObj == rhs.cppObj;
 }
 
-inline bool operator != (const CppVarOrFuncPtrType& lhs, const CppVarOrFuncPtrType& rhs)
+inline bool operator!=(const CppVarOrFuncPtrType& lhs, const CppVarOrFuncPtrType& rhs)
 {
   return lhs.cppObj != rhs.cppObj;
 }
@@ -730,20 +757,21 @@ inline bool operator != (const CppVarOrFuncPtrType& lhs, const CppVarOrFuncPtrTy
 /**
  * A function parameter object.
  */
-typedef CppVarOrFuncPtrType	CppParam;
+typedef CppVarOrFuncPtrType CppParam;
 
-struct CppParamList : private std::list<CppParam>
+struct CppParamList : private std::vector<CppParam>
 {
-  typedef std::list<CppParam> BaseType;
-  using BaseType::iterator;
-  using BaseType::const_iterator;
+  using BaseType = std::vector<CppParam>;
+  using BaseType::at;
   using BaseType::BaseType;
+  using BaseType::begin;
+  using BaseType::const_iterator;
+  using BaseType::empty;
+  using BaseType::end;
+  using BaseType::front;
+  using BaseType::iterator;
   using BaseType::push_back;
   using BaseType::size;
-  using BaseType::front;
-  using BaseType::empty;
-  using BaseType::begin;
-  using BaseType::end;
 
   ~CppParamList()
   {
@@ -753,20 +781,20 @@ struct CppParamList : private std::list<CppParam>
 };
 
 using CppIdentifierList = std::vector<std::string>;
-using CppFuncThrowSpec = CppIdentifierList;
+using CppFuncThrowSpec  = CppIdentifierList;
 
 /**
  * \brief Base class of constructor, destructor, and functions.
  */
 struct CppFunctionBase : public CppObj
 {
-  std::string		name_;
-  std::uint32_t	attr_; // e.g.: const, static, virtual, inline, constexpr, etc.
-  CppCompound*	defn_; // If it is nullptr then this object is just for declaration.
-  std::string		docer1_; // e.g. __declspec(dllexport)
-  std::string		docer2_; // e.g. __stdcall
+  std::string           name_;
+  std::uint32_t         attr_;   // e.g.: const, static, virtual, inline, constexpr, etc.
+  CppCompound*          defn_;   // If it is nullptr then this object is just for declaration.
+  std::string           docer1_; // e.g. __declspec(dllexport)
+  std::string           docer2_; // e.g. __stdcall
   CppTemplateParamList* templSpec_ {nullptr};
-  CppFuncThrowSpec* throwSpec_ {nullptr};
+  CppFuncThrowSpec*     throwSpec_ {nullptr};
 
   bool isConst() const
   {
@@ -810,7 +838,7 @@ protected:
 
 struct CppFuncCtorBase : public CppFunctionBase
 {
-  CppParamList*	params_;
+  CppParamList* params_;
 
   bool hasParams() const
   {
@@ -831,12 +859,13 @@ protected:
 
 struct CppFunction : public CppFuncCtorBase
 {
-  CppVarType*		retType_;
+  CppVarType* retType_;
 
   CppFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, std::uint32_t attr)
     : CppFuncCtorBase(CppObj::kFunction, prot, std::move(name), params, attr)
     , retType_(retType)
-  {}
+  {
+  }
 
   ~CppFunction() override
   {
@@ -848,10 +877,16 @@ struct CppFunction : public CppFuncCtorBase
   }
 
 protected:
-  CppFunction(CppObj::Type type, CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, std::uint32_t attr)
+  CppFunction(CppObj::Type    type,
+              CppObjProtLevel prot,
+              std::string     name,
+              CppVarType*     retType,
+              CppParamList*   params,
+              std::uint32_t   attr)
     : CppFuncCtorBase(type, prot, std::move(name), params, attr)
     , retType_(retType)
-  {}
+  {
+  }
 };
 
 /**
@@ -861,8 +896,8 @@ protected:
  */
 struct CppFunctionPtr : public CppFunction
 {
-  std::string   ownerName_;
-  std::uint8_t  ptrLevel_ {0};
+  std::string  ownerName_;
+  std::uint8_t ptrLevel_ {0};
 
   CppFunctionPtr(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* args, std::uint32_t attr)
     : CppFunction(CppObj::kFunctionPtr, prot, std::move(name), retType, args, attr)
@@ -873,17 +908,21 @@ struct CppFunctionPtr : public CppFunction
 /**
  * Class data member initialization as part of class constructor.
  */
-typedef std::pair<std::string, CppExpr*>	CppMemInit;
+typedef std::pair<std::string, CppExpr*> CppMemInit;
 /**
  * Entire member initialization list.
  */
-typedef std::list<CppMemInit>				CppMemInitList;
+typedef std::list<CppMemInit> CppMemInitList;
 
 struct CppConstructor : public CppFuncCtorBase
 {
   CppMemInitList* memInitList_;
 
-  CppConstructor(CppObjProtLevel prot, std::string name, CppParamList* params, CppMemInitList* memInitList, std::uint32_t attr)
+  CppConstructor(CppObjProtLevel prot,
+                 std::string     name,
+                 CppParamList*   params,
+                 CppMemInitList* memInitList,
+                 std::uint32_t   attr)
     : CppFuncCtorBase(kConstructor, prot, name, params, attr)
     , memInitList_(nullptr)
   {
@@ -912,18 +951,19 @@ struct CppDestructor : public CppFunctionBase
 
 struct CppTypeCoverter : CppObj
 {
-  std::string name_; // Name may be empty if defined inside class definition.
-  CppVarType* to_ {nullptr};
-  CppCompound* defn_ {nullptr};
-  std::uint32_t attr_ {0};
-  std::string apidecor_;
+  std::string           name_; // Name may be empty if defined inside class definition.
+  CppVarType*           to_ {nullptr};
+  CppCompound*          defn_ {nullptr};
+  std::uint32_t         attr_ {0};
+  std::string           apidecor_;
   CppTemplateParamList* templSpec_ {nullptr};
 
   CppTypeCoverter(CppVarType* type, std::string name)
     : CppObj(CppObj::kTypeConverter, type->prot_)
     , name_(std::move(name))
     , to_(type)
-  {}
+  {
+  }
 };
 
 struct CppUsingNamespaceDecl : public CppObj
@@ -939,14 +979,15 @@ struct CppUsingNamespaceDecl : public CppObj
 
 struct CppUsingDecl : public CppObj
 {
-  std::string name_;
+  std::string           name_;
   CppTemplateParamList* templSpec_ {nullptr};
 
-  union {
-    CppObj*           cppObj_ {nullptr};
-    CppVarType*       varType_;
-    CppFunctionPtr*   fptr_;
-    CppCompound*      compound_;
+  union
+  {
+    CppObj*         cppObj_ {nullptr};
+    CppVarType*     varType_;
+    CppFunctionPtr* fptr_;
+    CppCompound*    compound_;
   };
 
   CppUsingDecl(std::string name, CppVarType* varType)
@@ -992,7 +1033,7 @@ struct CppNamespaceAlias : public CppObj
 
 struct CppDocComment : public CppObj
 {
-  std::string	doc_; ///< Entire comment text
+  std::string doc_; ///< Entire comment text
 
   CppDocComment(std::string doc, CppObjProtLevel protLevel = kUnknownProt)
     : CppObj(CppObj::kDocComment, protLevel)
@@ -1005,22 +1046,25 @@ struct CppExpr;
 /**
  * An individual expression.
  */
-struct  CppExprAtom
+struct CppExprAtom
 {
   enum
   {
-    kInvalid, kAtom, kExpr, kVarType
-  }	type;
+    kInvalid,
+    kAtom,
+    kExpr,
+    kVarType
+  } type;
   union
   {
-    std::string*		atom;
-    CppExpr*			  expr;
-    CppVarType*     varType; //!< For type cast, and sizeof expression.
+    std::string* atom;
+    CppExpr*     expr;
+    CppVarType*  varType; //!< For type cast, and sizeof expression.
   };
 
   bool isExpr() const
   {
-    return (type&kExpr) == kExpr;
+    return (type & kExpr) == kExpr;
   }
 
   CppExprAtom(const char* sz, size_t l)
@@ -1077,29 +1121,31 @@ struct CppExpr : public CppObj
 {
   enum Flag
   {
-    kReturn			  = 0x01,
-    kNew			    = 0x02,
-    //kNewArray		= 0x04, // This is not needed.
-    kDelete			  = 0x08,
-    kDeleteArray	= 0x10,
-    kBracketed		= 0x20,
-    kInitializer	= 0x40,
-    kThrow        = 0x80,
-    kSizeOf       = 0x100,
+    kReturn = 0x01,
+    kNew    = 0x02,
+    // kNewArray		= 0x04, // This is not needed.
+    kDelete      = 0x08,
+    kDeleteArray = 0x10,
+    kBracketed   = 0x20,
+    kInitializer = 0x40,
+    kThrow       = 0x80,
+    kSizeOf      = 0x100,
   };
-  CppExprAtom expr1_ {(CppExpr*)(nullptr)};
-  CppExprAtom expr2_ {(CppExpr*)(nullptr)};
-  CppExprAtom expr3_ {(CppExpr*)(nullptr)};
+  CppExprAtom expr1_ {(CppExpr*) (nullptr)};
+  CppExprAtom expr2_ {(CppExpr*) (nullptr)};
+  CppExprAtom expr3_ {(CppExpr*) (nullptr)};
   CppOperType oper_;
-  short		flags_; // ORed combination of Flag constants.
+  short       flags_; // ORed combination of Flag constants.
 
   CppExpr(CppExprAtom e1, CppOperType op, CppExprAtom e2 = CppExprAtom())
     : CppExpr(e1, op, e2, 0)
-  {}
+  {
+  }
 
   CppExpr(CppExprAtom e1, short flags)
     : CppExpr(e1, kNone, CppExprAtom(), flags)
-  {}
+  {
+  }
 
   CppExpr(CppExprAtom e1, CppOperType op, CppExprAtom e2, short flags)
     : CppObj(CppObj::kExpression, kUnknownProt)
@@ -1140,12 +1186,12 @@ struct CppCommonBlock : public CppObj
   }
 
   CppExpr* cond_;
-  CppObj* body_;
+  CppObj*  body_;
 };
 
 struct CppIfBlock : public CppCommonBlock<CppObj::kIfBlock>
 {
-  CppObj* else_{nullptr};
+  CppObj* else_ {nullptr};
 
   CppIfBlock(CppExpr* cond)
     : CppCommonBlock(cond)
@@ -1169,7 +1215,8 @@ struct CppForBlock : public CppObj
   {
   }
 
-  union {
+  union
+  {
     CppObj*  startObj_ {nullptr};
     CppExpr* startExpr_;
     CppVar*  startVar_;
@@ -1187,8 +1234,8 @@ struct CppCase
   {
   }
 
-  CppExpr*      case_ {nullptr};
-  CppCompound*  body_ {nullptr};
+  CppExpr*     case_ {nullptr};
+  CppCompound* body_ {nullptr};
 };
 
 using CppSwitchBody = std::vector<CppCase>;
@@ -1200,8 +1247,8 @@ struct CppSwitchBlock : public CppObj
 
   CppSwitchBlock(CppExpr* cond, CppSwitchBody* body)
     : CppObj(kSwitchBlock, kUnknownProt)
-    , cond_ (cond)
-    , body_ (body)
+    , cond_(cond)
+    , body_(body)
   {
   }
 };
@@ -1238,15 +1285,15 @@ inline void CppExprAtom::destroy()
 {
   switch (type)
   {
-  case CppExprAtom::kAtom:
-    delete atom;
-    break;
-  case CppExprAtom::kExpr:
-    delete expr;
-    break;
-  case CppExprAtom::kVarType:
-    delete varType;
-    break;
+    case CppExprAtom::kAtom:
+      delete atom;
+      break;
+    case CppExprAtom::kExpr:
+      delete expr;
+      break;
+    case CppExprAtom::kVarType:
+      delete varType;
+      break;
   }
 }
 
