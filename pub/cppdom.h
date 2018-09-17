@@ -763,6 +763,7 @@ struct CppParamList : private std::vector<CppParam>
 {
   using BaseType = std::vector<CppParam>;
   using BaseType::at;
+  using BaseType::back;
   using BaseType::BaseType;
   using BaseType::begin;
   using BaseType::const_iterator;
