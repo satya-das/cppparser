@@ -3,6 +3,7 @@ Standard: Cpp11
 Language:        Cpp
 BasedOnStyle:  WebKit
 
+IndentPPDirectives: AfterHash
 AccessModifierOffset: -2
 AlignAfterOpenBracket: Align
 AlignEscapedNewlines: Right
