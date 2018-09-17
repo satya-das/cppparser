@@ -37,7 +37,12 @@ std::set<std::string> gMacroNames = {"DECLARE_MESSAGE_MAP",
                                      "DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION",
                                      "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION"};
 
-std::set<std::string> gKnownApiDecorNames = {"ODRX_ABSTRACT", "FIRSTDLL_EXPORT", "GE_DLLEXPIMPORT", "ADESK_NO_VTABLE"};
+std::set<std::string> gKnownApiDecorNames = {"ODRX_ABSTRACT",
+                                             "FIRSTDLL_EXPORT",
+                                             "GE_DLLEXPIMPORT",
+                                             "ADESK_NO_VTABLE",
+                                             "ACDBCORE2D_PORT",
+                                             "ACBASE_PORT"};
 
 extern CppCompound* parseStream(char* stm, size_t stmSize);
 CppObjFactory*      gObjFactory = nullptr;
@@ -146,10 +151,10 @@ CppParser::ByteArray CppParser::readFile(const char* filename)
     in.close();
     auto len = stripChar(contents.data(), size, '\r');
     assert(len <= size);
-    contents.resize(len+3);
-    contents[len] = '\n';
-    contents[len+1] = '\0';
-    contents[len+2] = '\0';
+    contents.resize(len + 3);
+    contents[len]     = '\n';
+    contents[len + 1] = '\0';
+    contents[len + 2] = '\0';
   }
   return (contents);
 }
