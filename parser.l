@@ -1,25 +1,25 @@
 /*
-The MIT License (MIT)
+   The MIT License (MIT)
 
-Copyright (c) 2014
+   Copyright (c) 2018 Satya Das
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+   Permission is hereby granted, free of charge, to any person obtaining a copy of
+   this software and associated documentation files (the "Software"), to deal in
+   the Software without restriction, including without limitation the rights to
+   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+   the Software, and to permit persons to whom the Software is furnished to do so,
+   subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 /*
 IMPORTANT: This file contains code to tokenify the input using flex
@@ -28,101 +28,115 @@ Responsiblity of token synthesis is solely on parser.
 For this very reason this file does not use any class that are defined in cppdom.h
 */
 
-%{
-#include "cppdom.h" // To shutup the compiler
+%
+{
 #include "cppconst.h" // To shutup the compiler
+#include "cppdom.h"   // To shutup the compiler
 
 #include "cpptoken.h"
 #include "parser.tab.h"
 
 #include <set>
 
-static int gLog = 0;
+  static int gLog = 0;
 
-extern std::set<std::string>        gMacroNames;
-extern std::set<std::string>        gKnownApiDecorNames;
+  extern std::set<std::string> gMacroNames;
+  extern std::set<std::string> gKnownApiDecorNames;
 
   // Easy MACRO to quickly push current context and switch to another one.
-#define BEGINCONTEXT(ctx) { \
-  int prevState = YYSTATE;  \
-  yy_push_state(ctx);       \
-  if (gLog)                 \
-    printf("@line#%d, pushed state=%d and started state=%d from source code line#%d\n", gLineNo, prevState, YYSTATE, __LINE__); \
-}
-
-#define ENDCONTEXT() {      \
-  int prevState = YYSTATE;  \
-  yy_pop_state();           \
-  if (gLog)                 \
-    printf("@line#%d, ended state=%d and starting state=%d from source code line#%d\n", gLineNo, prevState, YYSTATE, __LINE__); \
-}
-
-static int LogAndReturn(int ret, int codelinenum, int srclinenum)
-{
-  if (gLog)
-  {
-    printf("Lex Info: code-line#%d: returning token %d with value '%s' found @line#%d\n",
-      codelinenum, ret, yytext, srclinenum);
+#define BEGINCONTEXT(ctx)                                                                                              \
+  {                                                                                                                    \
+    int prevState = YYSTATE;                                                                                           \
+    yy_push_state(ctx);                                                                                                \
+    if (gLog)                                                                                                          \
+      printf("@line#%d, pushed state=%d and started state=%d from source code line#%d\n",                              \
+             gLineNo,                                                                                                  \
+             prevState,                                                                                                \
+             YYSTATE,                                                                                                  \
+             __LINE__);                                                                                                \
   }
-  return ret;
-}
 
-#define RETURN(ret)	return LogAndReturn(ret, __LINE__, gLineNo)
+#define ENDCONTEXT()                                                                                                   \
+  {                                                                                                                    \
+    int prevState = YYSTATE;                                                                                           \
+    yy_pop_state();                                                                                                    \
+    if (gLog)                                                                                                          \
+      printf("@line#%d, ended state=%d and starting state=%d from source code line#%d\n",                              \
+             gLineNo,                                                                                                  \
+             prevState,                                                                                                \
+             YYSTATE,                                                                                                  \
+             __LINE__);                                                                                                \
+  }
 
-//////////////////////////////////////////////////////////////////////////
+  static int LogAndReturn(int ret, int codelinenum, int srclinenum)
+  {
+    if (gLog)
+    {
+      printf("Lex Info: code-line#%d: returning token %d with value '%s' found @line#%d\n",
+             codelinenum,
+             ret,
+             yytext,
+             srclinenum);
+    }
+    return ret;
+  }
+
+#define RETURN(ret) return LogAndReturn(ret, __LINE__, gLineNo)
+
+  //////////////////////////////////////////////////////////////////////////
 
 #ifdef WIN32
 #  define fileno _fileno /* Avoid compiler warning for VS. */
-#endif //#ifdef WIN32
+#endif                   //#ifdef WIN32
 
-extern int gLineNo;
-const char* oyytext;
+  extern int  gLineNo;
+  const char* oyytext;
 
-// Its a hack because it uses undocumented thing.
-// Returns start of buffer pointer.
-const char* get_start_of_buffer()
-{
-  if (YY_CURRENT_BUFFER)
-    return YY_CURRENT_BUFFER->yy_ch_buf;
-  return nullptr;
-}
+  // Its a hack because it uses undocumented thing.
+  // Returns start of buffer pointer.
+  const char* get_start_of_buffer()
+  {
+    if (YY_CURRENT_BUFFER)
+      return YY_CURRENT_BUFFER->yy_ch_buf;
+    return nullptr;
+  }
 
-int get_context()
-{
-  return YYSTATE;
-}
+  int get_context()
+  {
+    return YYSTATE;
+  }
 
-inline void set_token_and_yyposn()
-{
-  extern char* yyposn;
-  yyposn = yytext;
-  yylval.str = makeCppToken(yytext, yyleng);
-}
+  inline void set_token_and_yyposn()
+  {
+    extern char* yyposn;
+    yyposn     = yytext;
+    yylval.str = makeCppToken(yytext, yyleng);
+  }
 
-/*
-Parsing of #define is complex. So we will try to parse simple #defines to know what it trys to define.
-For any thing complex we will treat the entire definition as one BLOB.
-*/
-enum DefineLooksLike {
-  kNoDef		= 0,
-  kNumDef		= tknNumber, // #define is used to define a numeric constant.
-  kStrLitDef	= tknStrLit, // #define is used to define a string literal.
-  kCharLitDef	= tknCharLit, // #define is used to define a character literal.
-  kReDef		= tknID, // #define is used to rename something, e.g. #define CALLTYPE __stdcall
-  kComplexDef	= tknPreProDef, // It is something beyond our parser can comprehand.
-};
-DefineLooksLike gDefLooksLike;
+  /*
+  Parsing of #define is complex. So we will try to parse simple #defines to know what it trys to define.
+  For any thing complex we will treat the entire definition as one BLOB.
+  */
+  enum DefineLooksLike
+  {
+    kNoDef      = 0,
+    kNumDef     = tknNumber,    // #define is used to define a numeric constant.
+    kStrLitDef  = tknStrLit,    // #define is used to define a string literal.
+    kCharLitDef = tknCharLit,   // #define is used to define a character literal.
+    kReDef      = tknID,        // #define is used to rename something, e.g. #define CALLTYPE __stdcall
+    kComplexDef = tknPreProDef, // It is something beyond our parser can comprehand.
+  };
+  DefineLooksLike gDefLooksLike;
 
-extern "C"
-{
+  extern "C" {
 
   int yywrap()
   {
     return 1;
   }
-
+  }
+  %
 }
-%}
 
 %option never-interactive
 %option stack
@@ -183,25 +197,30 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   /* Ignore white spaces */
 }
 
-<*>\\{WS}*{NL} {
+<*>\\{WS}*{NL}
+{
   // We will always ignore line continuation character
   ++gLineNo;
 }
 
-<ctxGeneral>^{WS}*{NL} {
+<ctxGeneral> ^ { WS } * {NL}
+{
   ++gLineNo;
 }
 
-<ctxGeneral,ctxDocBlockComment>{NL} {
+<ctxGeneral, ctxDocBlockComment>{NL}
+{
   ++gLineNo;
 }
 
-<ctxPreprocessor>{ID} {
+<ctxPreprocessor>{ID}
+{
   set_token_and_yyposn();
   RETURN(tknID);
 }
 
-<ctxGeneral>{ID} {
+<ctxGeneral>{ID}
+{
   set_token_and_yyposn();
   if (gMacroNames.count(yylval.str))
   {
@@ -217,120 +236,140 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxGeneral>signed|unsigned/{TS}+ {
+<ctxGeneral> signed | unsigned / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknNumSignSpec);
 }
 
-<ctxGeneral>long/{TS}+ {
+<ctxGeneral> long / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknLong);
 }
 
-<ctxGeneral>typedef{TS}+ {
+<ctxGeneral> typedef {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknTypedef);
 }
 
-<ctxGeneral>using{TS}+ {
+<ctxGeneral> using {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknUsing);
 }
 
-<ctxGeneral>class/{TS}+ {
+<ctxGeneral> class / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknClass);
 }
 
-<ctxGeneral>namespace/{TS}+ {
+<ctxGeneral> namespace / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknNamespace);
 }
 
-<ctxGeneral>struct/{TS}+ {
+<ctxGeneral> struct / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknStruct);
 }
 
-<ctxGeneral>union/{TS}+ {
+<ctxGeneral> union / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknUnion);
 }
 
-<ctxGeneral>enum/{TS}+ {
+<ctxGeneral> enum / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknEnum);
 }
 
-<ctxGeneral>public/{TS}+ {
+<ctxGeneral> public / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknPublic);
 }
 
-<ctxGeneral>protected/{TS}+ {
+<ctxGeneral> protected / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknProtected);
 }
 
-<ctxGeneral>private/{TS}+ {
+<ctxGeneral> private / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknPrivate);
 }
 
-<ctxGeneral>template/{TS}+ {
+<ctxGeneral> template / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknTemplate);
 }
 
-<ctxGeneral>typename/{TS}+ {
+<ctxGeneral> typename / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknTypename);
 }
 
-<ctxGeneral>^{WS}*"/*" {
+<ctxGeneral> ^ { WS } * "/*"
+{
   oyytext = yytext;
   BEGINCONTEXT(ctxDocBlockComment);
 }
 
-<ctxDocBlockComment>.*"*"+"/"/{WS}*{NL} {
-  yylval.str = makeCppToken(oyytext, yytext+yyleng-oyytext);
+<ctxDocBlockComment>.*"*" + "/" / {WS} * {NL}
+{
+  yylval.str = makeCppToken(oyytext, yytext + yyleng - oyytext);
   ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
   RETURN(tknDocBlockComment);
 }
 
-<*>"/*" {
+<*> "/*"
+{
   BEGINCONTEXT(ctxBlockComment);
 }
-<ctxBlockComment,ctxDocBlockComment>[^*\n]* {
-}
-<ctxBlockComment,ctxDocBlockComment>[^*\n]*\n {
+<ctxBlockComment, ctxDocBlockComment>[^*\n] * {}<ctxBlockComment, ctxDocBlockComment>[^*\n] *\n
+{
   ++gLineNo;
 }
-<ctxBlockComment,ctxDocBlockComment>{WS}*"*"+[^*/\n]* {
-}
-<ctxBlockComment,ctxDocBlockComment>{WS}*"*"+[^*/\n]*\n {
+<ctxBlockComment, ctxDocBlockComment>{WS} * "*" + [^* /\n] * {}<ctxBlockComment, ctxDocBlockComment>{WS} * "*" +
+  [^* /\n] *\n
+{
   ++gLineNo;
 }
-<ctxBlockComment,ctxDocBlockComment>.*"*"+"/" {
+<ctxBlockComment, ctxDocBlockComment>.*"*" + "/"
+{
   ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
   /* Ignore block comment if it does not stand all alone */
 }
 
-<*>^{WS}*"//".* {
+<*> ^ { WS } * "//".*
+{
   set_token_and_yyposn();
   RETURN(tknDocLineComment);
 }
 
-<*>"//".* {
-}
+<*> "//"
+    .*{}
 
-<ctxGeneral>^{WS}*# {
+    <ctxGeneral> ^ { WS } * #
+{
   set_token_and_yyposn();
   BEGINCONTEXT(ctxPreprocessor);
   RETURN(tknPreProHash);
 }
 
-<ctxPreprocessor>define/{WS} {
+<ctxPreprocessor> define / {WS}
+{
   set_token_and_yyposn();
   ENDCONTEXT();
   BEGINCONTEXT(ctxDefine);
@@ -350,22 +389,24 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   */
 }
 
-<ctxDefine>{ID} {
+<ctxDefine>{ID}
+{
   set_token_and_yyposn();
   ENDCONTEXT();
   BEGINCONTEXT(ctxDefineDefn);
   gDefLooksLike = kNoDef;
-  oyytext = 0;
+  oyytext       = 0;
   RETURN(tknID);
 }
 
-<ctxDefineDefn>{ID} {
-  if(gDefLooksLike == kNoDef)
+<ctxDefineDefn>{ID}
+{
+  if (gDefLooksLike == kNoDef)
   {
     gDefLooksLike = kReDef;
-    oyytext = yytext;
+    oyytext       = yytext;
   }
-  else if(gDefLooksLike == kStrLitDef || gDefLooksLike == kReDef)
+  else if (gDefLooksLike == kStrLitDef || gDefLooksLike == kReDef)
   {
     // Looks like string literal definition by concatination of different token
     // e.g. #define APP_NAME PROD_NAME VER_STR
@@ -378,11 +419,12 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxDefineDefn>{SL} {
-  if(gDefLooksLike == kNoDef || gDefLooksLike == kStrLitDef || gDefLooksLike == kReDef)
+<ctxDefineDefn>{SL}
+{
+  if (gDefLooksLike == kNoDef || gDefLooksLike == kStrLitDef || gDefLooksLike == kReDef)
   {
     gDefLooksLike = kStrLitDef;
-    if(oyytext == 0)
+    if (oyytext == 0)
       oyytext = yytext;
   }
   else
@@ -391,11 +433,12 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxDefineDefn>{CL} {
-  if(gDefLooksLike == kNoDef)
+<ctxDefineDefn>{CL}
+{
+  if (gDefLooksLike == kNoDef)
   {
     gDefLooksLike = kCharLitDef;
-    oyytext = yytext;
+    oyytext       = yytext;
   }
   else
   { // It does not look like simple #define.
@@ -403,11 +446,12 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxDefineDefn>{NUM} {
-  if(gDefLooksLike == kNoDef)
+<ctxDefineDefn>{NUM}
+{
+  if (gDefLooksLike == kNoDef)
   {
     gDefLooksLike = kNumDef;
-    oyytext = yytext;
+    oyytext       = yytext;
   }
   else
   { // It does not look like simple #define.
@@ -415,88 +459,101 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxDefineDefn>[^\t\r\n ] { // Any unrecognized character other than whitespace indicates a complex #define
+<ctxDefineDefn>[^\t\r\n] { // Any unrecognized character other than whitespace indicates a complex #define
   gDefLooksLike = kComplexDef;
-  if(oyytext == 0)
+  if (oyytext == 0)
     oyytext = yytext;
 }
 
-<ctxDefineDefn>{NL} {
-  yylval.str = makeCppToken(oyytext, yytext-oyytext);
+<ctxDefineDefn>{NL}
+{
+  yylval.str = makeCppToken(oyytext, yytext - oyytext);
   ENDCONTEXT();
   ++gLineNo;
-  if(gDefLooksLike != kNoDef)
+  if (gDefLooksLike != kNoDef)
     RETURN(gDefLooksLike);
 }
 
-<ctxDefineDefn>"//".*{NL} {
+<ctxDefineDefn> "//".*{NL}
+{
   /* Ignore line comment when it does not stand alone in a line. */
   // We are also ignoring the last new-line character
   // It is because we want the #define to conclude if C++ comment is present at the end of #define.
-  yyless(yyleng-1);
+  yyless(yyleng - 1);
 }
 
-<ctxPreprocessor>undef/{WS} {
+<ctxPreprocessor> undef / {WS}
+{
   set_token_and_yyposn();
   RETURN(tknUndef);
 }
 
-<ctxPreprocessor>include/{WS} {
+<ctxPreprocessor> include / {WS}
+{
   ENDCONTEXT();
   set_token_and_yyposn();
   BEGINCONTEXT(ctxInclude);
   RETURN(tknInclude);
 }
 
-<ctxInclude><.*> {
+<ctxInclude><.*>
+{
   set_token_and_yyposn();
   RETURN(tknStdHdrInclude);
 }
 
-<ctxInclude>{NL} {
+<ctxInclude>{NL}
+{
   ENDCONTEXT();
   ++gLineNo;
 }
 
-<ctxPreprocessor>if/{WS} {
+<ctxPreprocessor> if / {WS}
+{
   set_token_and_yyposn();
-  oyytext = yytext+yyleng;
+  oyytext = yytext + yyleng;
   ENDCONTEXT();
   BEGINCONTEXT(ctxPreProBody);
   RETURN(tknIf);
 }
 
-<ctxPreprocessor>ifdef/{WS} {
+<ctxPreprocessor> ifdef / {WS}
+{
   set_token_and_yyposn();
   RETURN(tknIfDef);
 }
 
-<ctxPreprocessor>ifndef/{WS} {
+<ctxPreprocessor> ifndef / {WS}
+{
   set_token_and_yyposn();
   RETURN(tknIfNDef);
 }
 
-<ctxGeneral,ctxPreprocessor>else/{TS} {
+<ctxGeneral, ctxPreprocessor> else / {TS}
+{
   set_token_and_yyposn();
   RETURN(tknElse);
 }
 
-<ctxPreprocessor>elif/{WS} {
+<ctxPreprocessor> elif / {WS}
+{
   set_token_and_yyposn();
-  oyytext = yytext+yyleng;
+  oyytext = yytext + yyleng;
   ENDCONTEXT();
   BEGINCONTEXT(ctxPreProBody);
   RETURN(tknElIf);
 }
 
-<ctxPreprocessor>endif/{TS} {
+<ctxPreprocessor> endif / {TS}
+{
   set_token_and_yyposn();
   RETURN(tknEndIf);
 }
 
-<ctxPreprocessor>pragma/{WS} {
+<ctxPreprocessor> pragma / {WS}
+{
   set_token_and_yyposn();
-  oyytext = yytext+yyleng;
+  oyytext = yytext + yyleng;
   ENDCONTEXT();
   BEGINCONTEXT(ctxPreProBody);
   RETURN(tknPragma);
@@ -505,345 +562,413 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxPreProBody>.* {
 }
 
-<ctxPreProBody>{NL} {
-  yylval.str = makeCppToken(oyytext, yytext-oyytext);
+<ctxPreProBody>{NL}
+{
+  yylval.str = makeCppToken(oyytext, yytext - oyytext);
   ENDCONTEXT();
   ++gLineNo;
   RETURN(tknPreProDef);
 }
 
-<ctxPreprocessor>{NL} {
+<ctxPreprocessor>{NL}
+{
   ENDCONTEXT();
   ++gLineNo;
 }
 
-<ctxPreprocessor>error{WS}[^\n]*{NL} {
+<ctxPreprocessor> error{WS}[^\n] * {NL}
+{
   set_token_and_yyposn();
   ENDCONTEXT();
   ++gLineNo;
   RETURN(tknHashError);
 }
 
-<ctxGeneral>"::" {
+<ctxGeneral> "::"
+{
   set_token_and_yyposn();
   RETURN(tknScopeResOp);
 }
 
-<ctxGeneral>const/{TS}+ {
+<ctxGeneral> const / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknConst);
 }
 
-<ctxGeneral>constexpr/{TS}+ {
+<ctxGeneral> constexpr / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknConstExpr);
 }
 
-<ctxGeneral>static/{TS}+ {
+<ctxGeneral> static / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknStatic);
 }
 
-<ctxGeneral>inline/{TS}+ {
+<ctxGeneral> inline / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknInline);
 }
 
-<ctxGeneral>virtual/{TS}+ {
+<ctxGeneral> virtual / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknVirtual);
 }
 
-<ctxGeneral>override/{TS}+ {
+<ctxGeneral> override / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknOverride);
 }
 
-<ctxGeneral>final/{TS}+ {
+<ctxGeneral> final / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknFinal);
 }
 
-<ctxGeneral>noexcept/{TS}+ {
+<ctxGeneral> noexcept / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknNoExcept);
 }
 
-<ctxGeneral>extern/{TS}+ {
+<ctxGeneral> extern / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknExtern);
 }
 
-<ctxGeneral>explicit/{TS}+ {
+<ctxGeneral> explicit / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknExplicit);
 }
 
-<ctxGeneral>friend/{TS}+ {
+<ctxGeneral> friend / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknFriend);
 }
 
-<ctxGeneral>"extern"{WS}+"\"C\"" {
+<ctxGeneral> "extern" {WS} + "\"C\""
+{
   set_token_and_yyposn();
   RETURN(tknExternC);
 }
 
-<ctxGeneral>volatile/{TS}+ {
+<ctxGeneral> volatile / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknVolatile);
 }
 
-<ctxGeneral>new/{TS}+ {
+<ctxGeneral> new / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknNew);
 }
 
-<ctxGeneral>delete/{TS}+ {
+<ctxGeneral> delete / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknDelete);
 }
 
-<ctxGeneral>default/{TS}+ {
+<ctxGeneral> default / {TS} +
+{
   RETURN(tknDefault);
 }
 
-<ctxGeneral>return/{TS}+ {
+<ctxGeneral> return / {TS} +
+{
   RETURN(tknReturn);
 }
 
-<ctxGeneral>if/{TS}+ {
+<ctxGeneral> if / {TS} +
+{
   RETURN(tknIf);
 }
 
-<ctxGeneral>else/{TS}+ {
+<ctxGeneral> else / {TS} +
+{
   RETURN(tknElse);
 }
 
-<ctxGeneral>for/{TS}+ {
+<ctxGeneral>for/{TS}+
+{
   RETURN(tknFor);
 }
 
-<ctxGeneral>do/{TS}+ {
+<ctxGeneral> do / {TS} +
+{
   RETURN(tknDo);
 }
 
-<ctxGeneral>while/{TS}+ {
+<ctxGeneral> while / {TS} +
+{
   RETURN(tknWhile);
 }
 
-<ctxGeneral>switch/{TS}+ {
+<ctxGeneral> switch / {TS} +
+{
   RETURN(tknSwitch);
 }
 
-<ctxGeneral>case/{TS}+ {
+<ctxGeneral> case / {TS} +
+{
   RETURN(tknCase);
 }
 
-<ctxGeneral>const_cast/{TS}+ {
+<ctxGeneral> const_cast / {TS} +
+{
   RETURN(tknConstCast);
 }
 
-<ctxGeneral>static_cast/{TS}+ {
+<ctxGeneral> static_cast / {TS} +
+{
   RETURN(tknStaticCast);
 }
 
-<ctxGeneral>dynamic_cast/{TS}+ {
+<ctxGeneral> dynamic_cast / {TS} +
+{
   RETURN(tknDynamicCast);
 }
 
-<ctxGeneral>reinterpret_cast/{TS}+ {
+<ctxGeneral> reinterpret_cast / {TS} +
+{
   RETURN(tknReinterpretCast);
 }
 
-<ctxGeneral>try/{TS}+ {
-  RETURN(tknTry);
-}
+<ctxGeneral> try
+  / {TS} +
+  {
+    RETURN(tknTry);
+  }
 
-<ctxGeneral>catch/{TS}+ {
+<ctxGeneral> catch / {TS} +
+{
   RETURN(tknCatch);
 }
 
-<ctxGeneral>throw/{TS}+ {
+<ctxGeneral> throw / {TS} +
+{
   RETURN(tknThrow);
 }
 
-<ctxGeneral>sizeof/{TS}+ {
+<ctxGeneral> sizeof / {TS} +
+{
   RETURN(tknSizeOf);
 }
 
-<ctxGeneral>operator/{TS}+ {
+<ctxGeneral> operator/ {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknOperator);
 }
 
-<ctxGeneral>void/{TS}+ {
+<ctxGeneral> void / {TS} +
+{
   set_token_and_yyposn();
   RETURN(tknVoid);
 }
 
-<ctxGeneral>"+=" {
+<ctxGeneral> "+="
+{
   set_token_and_yyposn();
   RETURN(tknPlusEq);
 }
 
-<ctxGeneral>"-=" {
+<ctxGeneral> "-="
+{
   set_token_and_yyposn();
   RETURN(tknMinusEq);
 }
 
-<ctxGeneral>"*=" {
+<ctxGeneral> "*="
+{
   set_token_and_yyposn();
   RETURN(tknMulEq);
 }
 
-<ctxGeneral>"*=" {
+<ctxGeneral> "*="
+{
   set_token_and_yyposn();
   RETURN(tknMulEq);
 }
 
-<ctxGeneral>"/=" {
+<ctxGeneral> "/="
+{
   set_token_and_yyposn();
   RETURN(tknDivEq);
 }
 
-<ctxGeneral>"%=" {
+<ctxGeneral> "%="
+{
   set_token_and_yyposn();
   RETURN(tknPerEq);
 }
 
-<ctxGeneral>"^=" {
+<ctxGeneral> "^="
+{
   set_token_and_yyposn();
   RETURN(tknXorEq);
 }
 
-<ctxGeneral>"&=" {
+<ctxGeneral> "&="
+{
   set_token_and_yyposn();
   RETURN(tknAndEq);
 }
 
-<ctxGeneral>"|=" {
+<ctxGeneral> "|="
+{
   set_token_and_yyposn();
   RETURN(tknOrEq);
 }
 
-<ctxGeneral>"<<" {
+<ctxGeneral> "<<"
+{
   set_token_and_yyposn();
   RETURN(tknLShift);
 }
 
-<ctxGeneral>">>" {
+<ctxGeneral> ">>"
+{
   set_token_and_yyposn();
   RETURN(tknRShift);
 }
 
-<ctxGeneral>"<<=" {
+<ctxGeneral> "<<="
+{
   set_token_and_yyposn();
   RETURN(tknLShiftEq);
 }
 
-<ctxGeneral>">>=" {
+<ctxGeneral> ">>="
+{
   set_token_and_yyposn();
   RETURN(tknRShiftEq);
 }
 
-<ctxGeneral>"==" {
+<ctxGeneral> "=="
+{
   set_token_and_yyposn();
   RETURN(tknCmpEq);
 }
 
-<ctxGeneral>"!=" {
+<ctxGeneral> "!="
+{
   set_token_and_yyposn();
   RETURN(tknNotEq);
 }
 
-<ctxGeneral>"<=" {
+<ctxGeneral> "<="
+{
   set_token_and_yyposn();
   RETURN(tknLessEq);
 }
 
-<ctxGeneral>">=" {
+<ctxGeneral> ">="
+{
   set_token_and_yyposn();
   RETURN(tknGreaterEq);
 }
 
-<ctxGeneral>"<=>" {
+<ctxGeneral> "<=>"
+{
   set_token_and_yyposn();
   RETURN(tkn3WayCmp);
 }
 
-<ctxGeneral>"&&" {
+<ctxGeneral> "&&"
+{
   set_token_and_yyposn();
   RETURN(tknAnd);
 }
 
-<ctxGeneral>"||" {
+<ctxGeneral> "||"
+{
   set_token_and_yyposn();
   RETURN(tknOr);
 }
 
-<ctxGeneral>"++" {
+<ctxGeneral> "++"
+{
   set_token_and_yyposn();
   RETURN(tknInc);
 }
 
-<ctxGeneral>"--" {
+<ctxGeneral> "--"
+{
   set_token_and_yyposn();
   RETURN(tknDec);
 }
 
-<ctxGeneral>"->" {
+<ctxGeneral> "->"
+{
   set_token_and_yyposn();
   RETURN(tknArrow);
 }
 
-<ctxGeneral>"->*" {
+<ctxGeneral> "->*"
+{
   set_token_and_yyposn();
   RETURN(tknArrowStar);
 }
 
-<ctxGeneral,ctxDefine>{NUM} {
+<ctxGeneral, ctxDefine>{NUM}
+{
   set_token_and_yyposn();
   RETURN(tknNumber);
 }
 
-<ctxGeneral>{DECNUMLIT}((e|E)[+-]?{DECNUMLIT})? {
+<ctxGeneral>{DECNUMLIT}((e|E)[+-]?{DECNUMLIT})?
+{
   set_token_and_yyposn();
   RETURN(tknNumber);
 }
 
-<ctxGeneral,ctxInclude>"\"".*"\"" {
+<ctxGeneral, ctxInclude> "\"".*"\""
+{
   set_token_and_yyposn();
   RETURN(tknStrLit);
 }
 
-<ctxGeneral>(L)?"\"".*"\"" {
+<ctxGeneral>(L) ? "\"".*"\""
+{
   set_token_and_yyposn();
   RETURN(tknStrLit);
 }
 
-<ctxGeneral>(L)?"\'"[^\']*"\'" { //' This quote is shutup the IDE
-  set_token_and_yyposn();
-  RETURN(tknCharLit);
+<ctxGeneral>(L) ? "\'"[^\']*"\'" { //' This quote is shutup the IDE set_token_and_yyposn(); RETURN(tknCharLit);
 }
 
-<ctxGeneral>\(|\)|\{|\}|\[|\]|,|;|#|=|\*|\+|-|\.|\/|\~|\<|\>|%|&|\||:|\?|\! {
+<ctxGeneral>\(|\) |\{ |\} |\[|\] |, | ;
+| # |= |\* |\+ | - |\.|\/ |\~ |\<|\> | % | & |\|| : |\? |\!
+{
   set_token_and_yyposn();
   RETURN(yytext[0]);
 }
 
-<ctxGeneral>\.\.\. {
+<ctxGeneral>\.\.\.
+{
   set_token_and_yyposn();
   RETURN(tknEllipsis);
 }
 
-%%
+% %
 
-static YY_BUFFER_STATE gParseBuffer = nullptr;
-void setupScanBuffer(char* buf, size_t bufsize)
+  static YY_BUFFER_STATE gParseBuffer = nullptr;
+void                     setupScanBuffer(char* buf, size_t bufsize)
 {
   gParseBuffer = yy_scan_buffer(buf, bufsize);
-  gLineNo = 0;
+  gLineNo      = 0;
   BEGINCONTEXT(ctxGeneral);
 }
 
@@ -852,4 +977,3 @@ void cleanupScanBuffer()
   yy_delete_buffer(gParseBuffer);
   gParseBuffer = nullptr;
 }
-

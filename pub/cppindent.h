@@ -1,27 +1,58 @@
+/*
+   The MIT License (MIT)
+
+   Copyright (c) 2018 Satya Das
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy of
+   this software and associated documentation files (the "Software"), to deal in
+   the Software without restriction, including without limitation the rights to
+   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+   the Software, and to permit persons to whom the Software is furnished to do so,
+   subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 #pragma once
 
 #include <cstdint>
 #include <ostream>
 
 /**
-* \brief Helper class to manage indentation.
-*/
+ * \brief Helper class to manage indentation.
+ */
 class CppIndent
 {
 public:
-  enum Type { kTab, kSingleSpace, kDoubleSpace, kTripleSpace, kQuadSpace };
+  enum Type
+  {
+    kTab,
+    kSingleSpace,
+    kDoubleSpace,
+    kTripleSpace,
+    kQuadSpace
+  };
 
 private:
-  std::uint16_t	indentLevel_;
+  std::uint16_t indentLevel_;
   std::uint16_t initialLevel_;
-  Type		type_;
+  Type          type_;
 
 public:
   CppIndent(std::uint16_t initialLevel = 0, Type type = kTab)
     : indentLevel_(0)
     , initialLevel_(initialLevel)
     , type_(type)
-  {}
+  {
+  }
   CppIndent& operator++()
   {
     ++indentLevel_;
@@ -29,7 +60,8 @@ public:
   }
   CppIndent& operator--()
   {
-    if (indentLevel_) --indentLevel_;
+    if (indentLevel_)
+      --indentLevel_;
     return *this;
   }
   CppIndent operator++(int)
@@ -41,16 +73,30 @@ public:
   CppIndent operator--(int)
   {
     CppIndent ret = *this;
-    if (indentLevel_) --indentLevel_;
+    if (indentLevel_)
+      --indentLevel_;
     return ret;
   }
 
-  void emit(std::ostream& stm) const
+  const char* indentStr() const
   {
-    static const char* indent[] = { "\t", " ", "  ", "   ", "    " };
+    static const char* indent[] = {"\t", " ", "  ", "   ", "    "};
+    return indent[type_];
+  }
+  std::string toString() const
+  {
+    std::string ret;
     for (std::uint16_t i = 0; i < initialLevel_ + indentLevel_; ++i)
     {
-      stm << indent[type_];
+      ret += indentStr();
+    }
+  }
+  void emit(std::ostream& stm) const
+  {
+    static const char* indent[] = {"\t", " ", "  ", "   ", "    "};
+    for (std::uint16_t i = 0; i < initialLevel_ + indentLevel_; ++i)
+    {
+      stm << indentStr();
     }
   }
 };

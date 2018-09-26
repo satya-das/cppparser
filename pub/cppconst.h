@@ -1,25 +1,25 @@
 /*
-The MIT License (MIT)
+   The MIT License (MIT)
 
-Copyright (c) 2014
+   Copyright (c) 2018 Satya Das
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+   Permission is hereby granted, free of charge, to any person obtaining a copy of
+   this software and associated documentation files (the "Software"), to deal in
+   the Software without restriction, including without limitation the rights to
+   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+   the Software, and to permit persons to whom the Software is furnished to do so,
+   subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 #ifndef __CPP_CONST_H__
 #define __CPP_CONST_H__
@@ -28,15 +28,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 enum CppCompoundType
 {
-  kUnknownCompound  = 0x00,
-  kNoCompound       = 0x00,
-  kCppFile          = 0x01,
-  kNamespace        = 0x02,
-  kClass            = 0x04 | kNamespace,
-  kStruct           = 0x08 | kClass,
-  kUnion            = 0x10 | kClass,
-  kBlock            = 0x20,
-  kExternCBlock     = 0x40,
+  kUnknownCompound = 0x00,
+  kNoCompound      = 0x00,
+  kCppFile         = 0x01,
+  kNamespace       = 0x02,
+  kClass           = 0x04 | kNamespace,
+  kStruct          = 0x08 | kClass,
+  kUnion           = 0x10 | kClass,
+  kBlock           = 0x20,
+  kExternCBlock    = 0x40,
 };
 
 enum CppObjProtLevel : std::uint8_t
@@ -52,32 +52,32 @@ enum CppOperType
   kNone,
 
   kUnariPrefixOperatorStart,
-  kUnaryMinus,    // -
-  kBitToggle,     // ~
-  kLogNot,        // ! (Logical not)
-  kDerefer,       // *
-  kRefer,         // & as in &x;
-  kPreIncrement,  // ++i
-  kPreDecrement,  // --i
+  kUnaryMinus,   // -
+  kBitToggle,    // ~
+  kLogNot,       // ! (Logical not)
+  kDerefer,      // *
+  kRefer,        // & as in &x;
+  kPreIncrement, // ++i
+  kPreDecrement, // --i
 
   kUnariSufixOperatorStart,
   kPostIncrement, // i++
   kPostDecrement, // i--
 
   kBinaryOperatorStart,
-  kPlus,        // +
-  kMinus,       // -
-  kMul,         // *
-  kDiv,         // /
+  kPlus,  // +
+  kMinus, // -
+  kMul,   // *
+  kDiv,   // /
   kPercent,
   kAnd,
   kOr,
-  kBitAnd,      // &
-  kBitOr,       // |
+  kBitAnd, // &
+  kBitOr,  // |
   kXor,
-  kEqual,       // =
-  kLess,        // <
-  kGreater,     // >
+  kEqual,   // =
+  kLess,    // <
+  kGreater, // >
   kPlusEqual,
   kMinusEqual,
   kMulEqual,
@@ -88,24 +88,24 @@ enum CppOperType
   kOrEqual,
   kLeftShift,   // <<
   kRightShift,  // >>
-  kLShiftEqual,   // <<
-  kRShiftEqual,  // >>
+  kLShiftEqual, // <<
+  kRShiftEqual, // >>
   kCmpEqual,    // ==
   kNotEqual,    // ==
-  kLessEqual, // <=
+  kLessEqual,   // <=
   kGreaterEqual,
   k3WayCmp,
   kComma,
   kPlacementNew,
 
   kDerefOperatorStart,
-  kDot,         // .
-  kArrow,       // ->
+  kDot,   // .
+  kArrow, // ->
   kArrowStar,
 
   kSpecialOperations = 100,
   kFunctionCall,
-  kArrayElem,   // x[5]
+  kArrayElem, // x[5]
   kCStyleCast,
   kConstCast,
   kStaticCast,
@@ -120,24 +120,24 @@ enum CppOperType
  */
 enum CppIdentifierAttrib
 {
-  kFuncParam    = 0x0001, // If the identifier is actually function parameter.
-  kConst        = 0x0002,
-  kStatic       = 0x0004,
-  kExtern       = 0x0008,
-  kInline       = 0x0010,
-  kVirtual      = 0x0020,
-  kPureVirtual  = 0x0040 | kVirtual,
-  kOverride     = 0x0080 | kVirtual,
-  kExplicit     = 0x0100,
-  kFriend       = 0x0200,
-  kTypedef      = 0x0400, // Function pointer is used in typedef.
-  kConstExpr    = 0x1000,
-  kVolatile     = 0x2000,
-  kFinal        = 0x4000,
-  kDefault      = 0x8000,
-  kDelete       = 0x10000,
-  kNoExcept     = 0x20000,
-  kExternC      = 0x40000,
+  kFuncParam   = 0x0001, // If the identifier is actually function parameter.
+  kConst       = 0x0002,
+  kStatic      = 0x0004,
+  kExtern      = 0x0008,
+  kInline      = 0x0010,
+  kVirtual     = 0x0020,
+  kPureVirtual = 0x0040 | kVirtual,
+  kOverride    = 0x0080 | kVirtual,
+  kExplicit    = 0x0100,
+  kFriend      = 0x0200,
+  kTypedef     = 0x0400, // Function pointer is used in typedef.
+  kConstExpr   = 0x1000,
+  kVolatile    = 0x2000,
+  kFinal       = 0x4000,
+  kDefault     = 0x8000,
+  kDelete      = 0x10000,
+  kNoExcept    = 0x20000,
+  kExternC     = 0x40000,
 };
 
 /**
@@ -145,9 +145,9 @@ enum CppIdentifierAttrib
  */
 enum CppRefType : std::uint8_t
 {
-  kNoRef,   // No reference.
-  kByRef,   // Simple reference, e.g. int& x.
-  kRValRef  // R-value reference, e.g. in move constructor.
+  kNoRef,  // No reference.
+  kByRef,  // Simple reference, e.g. int& x.
+  kRValRef // R-value reference, e.g. in move constructor.
 };
 
 /// Miscellaneous constants for readability of code
