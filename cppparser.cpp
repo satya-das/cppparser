@@ -1,7 +1,7 @@
 /*
    The MIT License (MIT)
 
-   Copyright (c) 2014
+   Copyright (c) 2018 Satya Das
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of
    this software and associated documentation files (the "Software"), to deal in
@@ -37,12 +37,8 @@ std::set<std::string> gMacroNames = {"DECLARE_MESSAGE_MAP",
                                      "DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION",
                                      "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION"};
 
-std::set<std::string> gKnownApiDecorNames = {"ODRX_ABSTRACT",
-                                             "FIRSTDLL_EXPORT",
-                                             "GE_DLLEXPIMPORT",
-                                             "ADESK_NO_VTABLE",
-                                             "ACDBCORE2D_PORT",
-                                             "ACBASE_PORT"};
+std::set<std::string> gKnownApiDecorNames =
+  {"ODRX_ABSTRACT", "FIRSTDLL_EXPORT", "GE_DLLEXPIMPORT", "ADESK_NO_VTABLE", "ACDBCORE2D_PORT", "ACBASE_PORT"};
 
 extern CppCompound* parseStream(char* stm, size_t stmSize);
 CppObjFactory*      gObjFactory = nullptr;

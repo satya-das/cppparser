@@ -1,25 +1,25 @@
 /*
-The MIT License (MIT)
+   The MIT License (MIT)
 
-Copyright (c) 2014
+   Copyright (c) 2018 Satya Das
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+   Permission is hereby granted, free of charge, to any person obtaining a copy of
+   this software and associated documentation files (the "Software"), to deal in
+   the Software without restriction, including without limitation the rights to
+   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+   the Software, and to permit persons to whom the Software is furnished to do so,
+   subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 /***************************************************************************************/
 
@@ -266,14 +266,14 @@ struct CppTypeModifier
 
 inline CppTypeModifier makeCppTypeModifier(CppRefType refType, std::uint8_t ptrLevel, std::uint8_t constBits)
 {
-  return CppTypeModifier {refType, ptrLevel, constBits};
+  return CppTypeModifier{refType, ptrLevel, constBits};
 }
 
 struct CppVarType : public CppObj
 {
   std::string     baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
-  CppCompound*    compound_ {nullptr};
-  std::uint32_t   typeAttr_ {0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
+  CppCompound*    compound_{nullptr};
+  std::uint32_t   typeAttr_{0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
   CppTypeModifier typeModifier_;
 
   CppVarType(std::string baseType, CppTypeModifier modifier = CppTypeModifier())
@@ -376,7 +376,7 @@ struct CppVarDecl
  */
 struct CppVar : public CppObj
 {
-  CppVarType* varType_ {nullptr};
+  CppVarType* varType_{nullptr};
   CppVarDecl  varDecl_;
   std::string apidecor_; // It holds things like WINAPI, __declspec(dllexport), etc.
 
@@ -455,8 +455,8 @@ using CppVarDeclList = std::vector<CppVarDeclInList>;
  */
 struct CppVarList : public CppObj
 {
-  std::string    baseType_;     // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
-  std::uint32_t  typeAttr_ {0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
+  std::string    baseType_;    // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
+  std::uint32_t  typeAttr_{0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
   CppVarDeclList varDeclList_;
 
   CppVarList(std::string baseType, CppObjProtLevel prot = kUnknownProt)
@@ -561,7 +561,7 @@ struct CppFwdClsDecl : public CppObj
 {
   CppCompoundType cmpType_;
   std::string     name_;
-  std::uint32_t   attr_ {0};
+  std::uint32_t   attr_{0};
 
   CppFwdClsDecl(CppObjProtLevel prot, std::string name, CppCompoundType cmpType = kNoCompound)
     : CppObj(CppObj::kFwdClsDecl, prot)
@@ -605,7 +605,7 @@ public:
   CppCompoundType       compoundType_;
   CppInheritanceList*   inheritList_;
   std::string           apidecor_;
-  CppTemplateParamList* templSpec_ {nullptr};
+  CppTemplateParamList* templSpec_{nullptr};
 
   CppCompound(std::string name, CppObjProtLevel prot, CppCompoundType type)
     : CppObj(CppObj::kCompound, prot)
@@ -794,8 +794,8 @@ struct CppFunctionBase : public CppObj
   CppCompound*          defn_;   // If it is nullptr then this object is just for declaration.
   std::string           docer1_; // e.g. __declspec(dllexport)
   std::string           docer2_; // e.g. __stdcall
-  CppTemplateParamList* templSpec_ {nullptr};
-  CppFuncThrowSpec*     throwSpec_ {nullptr};
+  CppTemplateParamList* templSpec_{nullptr};
+  CppFuncThrowSpec*     throwSpec_{nullptr};
 
   bool isConst() const
   {
@@ -898,7 +898,7 @@ protected:
 struct CppFunctionPtr : public CppFunction
 {
   std::string  ownerName_;
-  std::uint8_t ptrLevel_ {0};
+  std::uint8_t ptrLevel_{0};
 
   CppFunctionPtr(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* args, std::uint32_t attr)
     : CppFunction(CppObj::kFunctionPtr, prot, std::move(name), retType, args, attr)
@@ -953,11 +953,11 @@ struct CppDestructor : public CppFunctionBase
 struct CppTypeCoverter : CppObj
 {
   std::string           name_; // Name may be empty if defined inside class definition.
-  CppVarType*           to_ {nullptr};
-  CppCompound*          defn_ {nullptr};
-  std::uint32_t         attr_ {0};
+  CppVarType*           to_{nullptr};
+  CppCompound*          defn_{nullptr};
+  std::uint32_t         attr_{0};
   std::string           apidecor_;
-  CppTemplateParamList* templSpec_ {nullptr};
+  CppTemplateParamList* templSpec_{nullptr};
 
   CppTypeCoverter(CppVarType* type, std::string name)
     : CppObj(CppObj::kTypeConverter, type->prot_)
@@ -981,11 +981,11 @@ struct CppUsingNamespaceDecl : public CppObj
 struct CppUsingDecl : public CppObj
 {
   std::string           name_;
-  CppTemplateParamList* templSpec_ {nullptr};
+  CppTemplateParamList* templSpec_{nullptr};
 
   union
   {
-    CppObj*         cppObj_ {nullptr};
+    CppObj*         cppObj_{nullptr};
     CppVarType*     varType_;
     CppFunctionPtr* fptr_;
     CppCompound*    compound_;
@@ -1132,9 +1132,9 @@ struct CppExpr : public CppObj
     kThrow       = 0x80,
     kSizeOf      = 0x100,
   };
-  CppExprAtom expr1_ {(CppExpr*) (nullptr)};
-  CppExprAtom expr2_ {(CppExpr*) (nullptr)};
-  CppExprAtom expr3_ {(CppExpr*) (nullptr)};
+  CppExprAtom expr1_{(CppExpr*) (nullptr)};
+  CppExprAtom expr2_{(CppExpr*) (nullptr)};
+  CppExprAtom expr3_{(CppExpr*) (nullptr)};
   CppOperType oper_;
   short       flags_; // ORed combination of Flag constants.
 
@@ -1192,11 +1192,11 @@ struct CppCommonBlock : public CppObj
 
 struct CppIfBlock : public CppCommonBlock<CppObj::kIfBlock>
 {
-  CppObj* else_ {nullptr};
+  CppObj* else_{nullptr};
 
   CppIfBlock(CppExpr* cond)
     : CppCommonBlock(cond)
-    , else_ {nullptr}
+    , else_{nullptr}
   {
   }
 };
@@ -1218,13 +1218,13 @@ struct CppForBlock : public CppObj
 
   union
   {
-    CppObj*  startObj_ {nullptr};
+    CppObj*  startObj_{nullptr};
     CppExpr* startExpr_;
     CppVar*  startVar_;
   };
-  CppExpr* stop_ {nullptr};
-  CppExpr* step_ {nullptr};
-  CppObj*  body_ {nullptr};
+  CppExpr* stop_{nullptr};
+  CppExpr* step_{nullptr};
+  CppObj*  body_{nullptr};
 };
 
 struct CppCase
@@ -1235,16 +1235,16 @@ struct CppCase
   {
   }
 
-  CppExpr*     case_ {nullptr};
-  CppCompound* body_ {nullptr};
+  CppExpr*     case_{nullptr};
+  CppCompound* body_{nullptr};
 };
 
 using CppSwitchBody = std::vector<CppCase>;
 
 struct CppSwitchBlock : public CppObj
 {
-  CppExpr*       cond_ {nullptr};
-  CppSwitchBody* body_ {nullptr};
+  CppExpr*       cond_{nullptr};
+  CppSwitchBody* body_{nullptr};
 
   CppSwitchBlock(CppExpr* cond, CppSwitchBody* body)
     : CppObj(kSwitchBlock, kUnknownProt)
