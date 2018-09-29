@@ -28,6 +28,7 @@
 
 #include <algorithm>
 #include <fstream>
+#include <iostream>
 #include <vector>
 
 std::set<std::string> gMacroNames = {"DECLARE_MESSAGE_MAP",
@@ -35,10 +36,13 @@ std::set<std::string> gMacroNames = {"DECLARE_MESSAGE_MAP",
                                      "ACPL_DECLARE_MEMBERS",
                                      "DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION",
                                      "DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION",
-                                     "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION"};
+                                     "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION",
+                                     "ACRX_DECLARE_MEMBERS_EXPIMP",
+                                     "ACRX_DECLARE_MEMBERS_ACBASE_PORT_EXPIMP"
+};
 
 std::set<std::string> gKnownApiDecorNames =
-  {"ODRX_ABSTRACT", "FIRSTDLL_EXPORT", "GE_DLLEXPIMPORT", "ADESK_NO_VTABLE", "ACDBCORE2D_PORT", "ACBASE_PORT"};
+  {"ODRX_ABSTRACT", "FIRSTDLL_EXPORT", "GE_DLLEXPIMPORT", "ADESK_NO_VTABLE", "ACDBCORE2D_PORT", "ACBASE_PORT", "ACCORE_PORT", "ACDB_PORT", "ACPAL_PORT"};
 
 extern CppCompound* parseStream(char* stm, size_t stmSize);
 CppObjFactory*      gObjFactory = nullptr;
@@ -127,6 +131,7 @@ void CppParser::loadProgram(const bfs::path& path, CppProgram& program)
   auto files = collectFiles(path);
   for (const auto& f : files)
   {
+    std::cout << "Parsing file: '" << f << "'\n";
     auto cppDom = parseFile(f.c_str());
     if (cppDom)
       program.addCppDom(cppDom);
