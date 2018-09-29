@@ -332,7 +332,7 @@ struct CppVarType : public CppObj
 
   bool isByValue() const
   {
-    return (typeModifier_.refType_ == kNoRef) && (typeModifier_.ptrLevel_ == 0);
+    return !isVoid() && (typeModifier_.refType_ == kNoRef) && (typeModifier_.ptrLevel_ == 0);
   }
 
 protected:

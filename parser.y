@@ -513,6 +513,7 @@ identifier        : tknID                                 { $$ = $1; }
                   | tknScopeResOp identifier %prec GLOBAL { $$ = mergeCppToken($1, $2); }
                   | templidentifier                       { $$ = $1; }
                   | tknOverride                           { $$ = $1; } /* override is not a reserved keyword */
+                  | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
                   ;
 
 typeidentifier    : identifier                            { $$ = $1; }
@@ -527,6 +528,8 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | tknEnum  identifier                   { $$ = mergeCppToken($1, $2); }
                   | tknTypename identifier                { $$ = mergeCppToken($1, $2); }
                   | tknEllipsis                           { $$ = $1; }
+                  | tknTypename tknEllipsis               { $$ = mergeCppToken($1, $2); }
+                  | tknClass tknEllipsis                  { $$ = mergeCppToken($1, $2); }
                   | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
                   ;
 
