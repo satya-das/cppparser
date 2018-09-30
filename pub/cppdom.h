@@ -597,7 +597,7 @@ struct CppCompound : public CppObj
 {
 private:
   mutable boost::optional<bool> hasVirtual_;
-  mutable boost::optional<bool> isAbstract_;
+  mutable boost::optional<bool> hasPureVirtual_;
 
 public:
   std::string           name_;
@@ -723,7 +723,7 @@ public:
     inheritList_->push_back(CppInheritInfo(baseName, inheritType));
   }
   bool hasVirtualMethod() const;
-  bool isAbstract() const;
+  bool hasPureVirtual() const;
 };
 
 struct CppFunctionPtr;

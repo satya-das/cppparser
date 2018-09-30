@@ -83,13 +83,13 @@ bool CppCompound::hasVirtualMethod() const
   return *hasVirtual_;
 }
 
-bool CppCompound::isAbstract() const
+bool CppCompound::hasPureVirtual() const
 {
   if (!isClassLike())
     return false;
-  if (isAbstract_)
-    return *isAbstract_;
-  isAbstract_ = false;
+  if (hasPureVirtual_)
+    return *hasPureVirtual_;
+  hasPureVirtual_ = false;
   for (auto mem : members_)
   {
     if (mem->objType_ == kFunction)
@@ -97,7 +97,7 @@ bool CppCompound::isAbstract() const
       auto func = static_cast<const CppFunction*>(mem);
       if (func->isPureVirtual())
       {
-        isAbstract_ = true;
+        hasPureVirtual_ = true;
         break;
       }
     }
@@ -106,10 +106,10 @@ bool CppCompound::isAbstract() const
       auto dtor = static_cast<const CppDestructor*>(mem);
       if (dtor->isPureVirtual())
       {
-        isAbstract_ = true;
+        hasPureVirtual_ = true;
         break;
       }
     }
   }
-  return *isAbstract_;
+  return *hasPureVirtual_;
 }
