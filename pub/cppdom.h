@@ -125,6 +125,15 @@ struct CppObj
   {
     return objType_ > kCPreProcessorTypeStarts && objType_ < kCPreProcessorTypeEnds;
   }
+  CppObjProtLevel protectionLevel() const;
+  bool isPublic() const
+  {
+    return protectionLevel() == kPublic;
+  }
+  bool isPrivate() const
+  {
+    return protectionLevel() == kPrivate;
+  }
 };
 
 struct CppExpr;
@@ -317,12 +326,12 @@ struct CppVarType : public CppObj
 
   bool isByRef() const
   {
-    return (typeAttr_ & kByRef) == kByRef;
+    return typeModifier_.refType_ == kByRef;
   }
 
   bool isByRValueRef() const
   {
-    return (typeAttr_ & kRValRef) == kRValRef;
+    return typeModifier_.refType_ == kRValRef;
   }
 
   bool isConst() const
@@ -589,6 +598,9 @@ using CppTemplateParamList = CppParamList;
 
 typedef std::list<CppInheritInfo> CppInheritanceList;
 
+struct CppConstructor;
+struct CppDestructor;
+
 /**
  * All classes, structs, unions, and namespaces can be classified as a Compound object.
  * An entire C/C++ source file too is a compound object. A block of statements inside { } is also a compound object.
@@ -596,8 +608,12 @@ typedef std::list<CppInheritInfo> CppInheritanceList;
 struct CppCompound : public CppObj
 {
 private:
-  mutable boost::optional<bool> hasVirtual_;
-  mutable boost::optional<bool> hasPureVirtual_;
+  mutable boost::optional<bool>      hasVirtual_;
+  mutable boost::optional<bool>      hasPureVirtual_;
+  std::vector<const CppConstructor*> ctors_;
+  const CppConstructor*              copyCtor_{nullptr};
+  const CppConstructor*              moveCtor_{nullptr};
+  const CppDestructor*               dtor_{nullptr};
 
 public:
   std::string           name_;
@@ -710,7 +726,15 @@ public:
 
   void addMember(CppObj* mem)
   {
+    mem->owner_ = this;
     members_.push_back(mem);
+    assignSpecialMember(mem);
+  }
+  void addMemberAtFront(CppObj* mem)
+  {
+    mem->owner_ = this;
+    members_.insert(members_.begin(), mem);
+    assignSpecialMember(mem);
   }
   CppObjProtLevel defaultProtLevel() const
   {
@@ -722,8 +746,27 @@ public:
       inheritList_ = new CppInheritanceList;
     inheritList_->push_back(CppInheritInfo(baseName, inheritType));
   }
-  bool hasVirtualMethod() const;
-  bool hasPureVirtual() const;
+  bool                  hasVirtualMethod() const;
+  bool                  hasPureVirtual() const;
+  const CppConstructor* copyCtor() const
+  {
+    return copyCtor_;
+  }
+  const CppConstructor* moveCtor() const
+  {
+    return moveCtor_;
+  }
+  const std::vector<const CppConstructor*>& ctors() const
+  {
+    return ctors_;
+  }
+  const CppDestructor* dtor() const
+  {
+    return dtor_;
+  }
+
+private:
+  void assignSpecialMember(const CppObj* mem);
 };
 
 struct CppFunctionPtr;
@@ -820,6 +863,14 @@ struct CppFunctionBase : public CppObj
   bool isOverride() const
   {
     return (attr_ & kOverride) == kOverride;
+  }
+  bool isDeleted() const
+  {
+    return (attr_ & kDelete) == kDelete;
+  }
+  bool isFinal() const
+  {
+    return (attr_ & kFinal) == kFinal;
   }
 
 protected:
@@ -1280,6 +1331,12 @@ inline bool CppObj::isClassLike() const
 inline bool CppObj::isNamespaceLike() const
 {
   return objType_ == kCompound && ((CppCompound*) this)->isNamespaceLike();
+}
+inline CppObjProtLevel CppObj::protectionLevel() const
+{
+  if (prot_ != kUnknownProt)
+    return prot_;
+  return (owner_ == nullptr) ? kPublic : owner_->defaultProtLevel();
 }
 
 inline void CppExprAtom::destroy()

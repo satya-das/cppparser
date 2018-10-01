@@ -113,3 +113,20 @@ bool CppCompound::hasPureVirtual() const
   }
   return *hasPureVirtual_;
 }
+
+void CppCompound::assignSpecialMember(const CppObj* mem)
+{
+  if (mem->objType_ == kConstructor)
+  {
+    auto* ctor = static_cast<const CppConstructor*>(mem);
+    ctors_.push_back(ctor);
+    if (ctor->isCopyConstructor())
+      copyCtor_ = ctor;
+    else if (ctor->isMoveConstructor())
+      moveCtor_ = ctor;
+  }
+  else if (mem->objType_ == kDestructor)
+  {
+    dtor_ = static_cast<const CppDestructor*>(mem);
+  }
+}
