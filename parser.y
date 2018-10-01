@@ -32,8 +32,13 @@
 
 #include <iostream>
 #include <stack>
+#include <map>
 
 //////////////////////////////////////////////////////////////////////////
+  
+std::map<std::string, int> gRenamedKeywords = {{"ADESK_SEALED_VIRTUAL", tknVirtual},
+                                               {"ADESK_SEALED", tknFinal},
+                                               {"ADESK_OVERRIDE", tknOverride}};
 
 #ifndef NDEBUG
 #  define YYDEBUG 1

@@ -37,12 +37,14 @@ For this very reason this file does not use any class that are defined in cppdom
 #include "cpptoken.h"
 #include "parser.tab.h"
 
+#include <map>
 #include <set>
 
 static int gLog = 0;
 
 extern std::set<std::string>        gMacroNames;
 extern std::set<std::string>        gKnownApiDecorNames;
+extern std::map<std::string, int>   gRenamedKeywords;
 
   // Easy MACRO to quickly push current context and switch to another one.
 #define BEGINCONTEXT(ctx) { \
@@ -215,6 +217,9 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
   else
   {
+    auto itr = gRenamedKeywords.find(yylval.str);
+    if (itr != gRenamedKeywords.end())
+      return itr->second;
     RETURN(tknID);
   }
 }
