@@ -172,7 +172,7 @@ extern int yylex();
 %token  <str>   '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
 %token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']' ';'
 %token  <str>   tknNew tknDelete
-%token  <str>   tknConst tknConstExpr // For templateparam parsing it is made as str type.
+%token  <str>   tknConst tknConstExpr // For templatearg parsing it is made as str type.
 %token  <str>   tknVoid // For the cases when void is used as function parameter.
 %token  <str>   tknOverride // override is not a reserved keyword
 %token  tknStatic tknExtern tknVirtual tknInline tknExplicit tknFriend tknVolatile tknFinal tknNoExcept
@@ -199,7 +199,7 @@ extern int yylex();
 %type  <cppVarType>         vartype
 %type  <cppVarObj>          vardecl varinit vardeclstmt
 %type  <varOrFuncPtr>       param
-%type  <str>                templateparam templateparamlist /* For time being. We may need to make it more robust in future. */
+%type  <str>                templatearg templatearglist /* For time being. We may need to make it more robust in future. */
 %type  <cppVarObjList>      vardecllist vardeclliststmt
 %type  <paramList>          paramlist
 %type  <typedefName>        typedefname typedefnamestmt
@@ -208,7 +208,7 @@ extern int yylex();
 %type  <namespaceAlias>     namespacealias
 %type  <usingDecl>          usingdecl
 %type  <cppCompundObj>      stmtlist optstmtlist progunit classdefn classdefnstmt externcblock block
-%type  <templSpec>          templatespecifier temparglist
+%type  <templSpec>          templatespecifier templateparamlist
 %type  <docCommentObj>      doccomment
 %type  <cppExprObj>         expr exprstmt optexpr
 %type  <ifBlock>            ifblock;
@@ -444,7 +444,7 @@ forblock          : tknFor '(' optexpr ';' optexpr ';' optexpr ')' stmt {
                   | tknFor '(' varinit ';' optexpr ';' optexpr ')' stmt {
                     $$ = new CppForBlock($3, $5, $7, $9);
                   }
-;
+                  ;
 
 optexpr           : {
                     $$ = nullptr;
@@ -538,7 +538,7 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
                   ;
 
-templidentifier   : identifier '<' templateparamlist '>' {
+templidentifier   : identifier '<' templatearglist '>' {
                     $$ = mergeCppToken($1, $4);
                   }
                   ;
@@ -968,11 +968,11 @@ param             : varinit                 { $$ = $1; $1->varType_->typeAttr_ |
                   }
                   ;
 
-templateparam     :                               { $$ = makeCppToken(nullptr, nullptr); }
+templatearg     :                               { $$ = makeCppToken(nullptr, nullptr); }
                   | typeidentifier                { $$ = $1; }
-                  | tknConst templateparam        { $$ = mergeCppToken($1, $2); }
+                  | tknConst templatearg        { $$ = mergeCppToken($1, $2); }
                   | tknNumber                     { $$ = $1; }
-                  | templateparam '*'             {
+                  | templatearg '*'             {
                     auto p = $1.sz + $1.len;
                     while (*p && (*p != '*'))
                       ++p;
@@ -983,8 +983,8 @@ templateparam     :                               { $$ = makeCppToken(nullptr, n
                   | typeidentifier '=' identifier { $$ = $1; /* TODO: use 'identifier' too */ }
                   ;
 
-templateparamlist : templateparam { $$ = $1; }
-                  | templateparamlist ',' templateparam  { $$ = mergeCppToken($1, $3); }
+templatearglist   : templatearg { $$ = $1; }
+                  | templatearglist ',' templatearg  { $$ = mergeCppToken($1, $3); }
                   ;
 
 optfunctype       : {
@@ -1062,7 +1062,7 @@ ctordefn          : ctordecl meminitlist block [ZZVALID;]
                     $$->defn_      = $12;
                     $$->throwSpec_ = $10;
                   }
-                  | tknID '<' templateparamlist '>' tknScopeResOp tknID [if($1 != $6) YYERROR; else ZZVALID;]
+                  | tknID '<' templatearglist '>' tknScopeResOp tknID [if($1 != $6) YYERROR; else ZZVALID;]
                     '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
                   {
                     $$ = newConstructor(gCurProtLevel, mergeCppToken($1, $6), $9, $12, 0);
@@ -1146,7 +1146,7 @@ dtordefn          : dtordecl block [ZZVALID;]
                     $$ = newDestructor(gCurProtLevel, mergeCppToken($1, $6), 0);
                     $$->defn_      = $10 ? $10 : newCompound(kUnknownProt, kBlock);
                   }
-                  | tknID '<' templateparamlist '>' tknScopeResOp '~' tknID [if($1 != $7) YYERROR; else ZZVALID;]
+                  | tknID '<' templatearglist '>' tknScopeResOp '~' tknID [if($1 != $7) YYERROR; else ZZVALID;]
                     '(' ')' block
                   {
                     $$ = newDestructor(gCurProtLevel, mergeCppToken($1, $7), 0);
@@ -1293,12 +1293,12 @@ compoundSpecifier : tknClass    { $$ = kClass;    }
                   | tknNamespace  { $$ = kNamespace;  }
                   ;
 
-templatespecifier : tknTemplate '<' temparglist '>' {
+templatespecifier : tknTemplate '<' templateparamlist '>' {
                     $$ = $3;
                   }
                   ;
 
-temparglist       : paramlist {
+templateparamlist : paramlist {
                     $$ = $1;
                   }
                   ;
