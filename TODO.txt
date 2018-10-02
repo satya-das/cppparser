@@ -1,4 +1,1 @@
-Simplify and improve parsing of types.
-    As of now "int* const *" is not getting parsed.
-
-Simplify and improve parsing of type conversion operators.
+Make members of CppCompound private.
