@@ -132,7 +132,7 @@ private:
                        CppIndent             indentation,
                        bool                  skipParamName) const;
 
-  void emitTemplSpec(const CppTemplateParamList* templSpec, std::ostream& stm, CppIndent indentation) const;
+  void emitTemplSpec(const CppTemplateParamListP& templSpec, std::ostream& stm, CppIndent indentation) const;
   void emitVarDecl(std::ostream& stm, const CppVarDecl& varDecl, bool skipName) const;
 
 private:

@@ -126,7 +126,7 @@ struct CppObj
     return objType_ > kCPreProcessorTypeStarts && objType_ < kCPreProcessorTypeEnds;
   }
   CppObjProtLevel protectionLevel() const;
-  bool isPublic() const
+  bool            isPublic() const
   {
     return protectionLevel() == kPublic;
   }
@@ -593,8 +593,29 @@ struct CppInheritInfo
   }
 };
 
-struct CppParamList;
-using CppTemplateParamList = CppParamList;
+/**
+ * Parameter types that are used to define a template class or function.
+ */
+struct CppTemplateParam
+{
+  std::unique_ptr<const CppVarType> paramType_; //< If not NULL then template param is not of type typename/class
+  const std::string                 paramName_;
+  std::unique_ptr<const CppObj>     defaultParam_; //< Can be CppVarType or CppExpr
+
+  CppTemplateParam(const CppVarType* paramType, std::string paramName)
+    : paramType_(paramType)
+    , paramName_(std::move(paramName))
+  {
+  }
+
+  void setDefaultParam(const CppObj* defParam)
+  {
+    defaultParam_.reset(defParam);
+  }
+};
+
+using CppTemplateParamList  = std::vector<std::unique_ptr<CppTemplateParam>>;
+using CppTemplateParamListP = std::unique_ptr<CppTemplateParamList>;
 
 typedef std::list<CppInheritInfo> CppInheritanceList;
 
@@ -621,7 +642,7 @@ public:
   CppCompoundType       compoundType_;
   CppInheritanceList*   inheritList_;
   std::string           apidecor_;
-  CppTemplateParamList* templSpec_{nullptr};
+  CppTemplateParamListP templSpec_{nullptr};
 
   CppCompound(std::string name, CppObjProtLevel prot, CppCompoundType type)
     : CppObj(CppObj::kCompound, prot)
@@ -837,7 +858,7 @@ struct CppFunctionBase : public CppObj
   CppCompound*          defn_;   // If it is nullptr then this object is just for declaration.
   std::string           docer1_; // e.g. __declspec(dllexport)
   std::string           docer2_; // e.g. __stdcall
-  CppTemplateParamList* templSpec_{nullptr};
+  CppTemplateParamListP templSpec_{nullptr};
   CppFuncThrowSpec*     throwSpec_{nullptr};
 
   bool isConst() const
@@ -1008,7 +1029,7 @@ struct CppTypeCoverter : CppObj
   CppCompound*          defn_{nullptr};
   std::uint32_t         attr_{0};
   std::string           apidecor_;
-  CppTemplateParamList* templSpec_{nullptr};
+  CppTemplateParamListP templSpec_{nullptr};
 
   CppTypeCoverter(CppVarType* type, std::string name)
     : CppObj(CppObj::kTypeConverter, type->prot_)
@@ -1032,7 +1053,7 @@ struct CppUsingNamespaceDecl : public CppObj
 struct CppUsingDecl : public CppObj
 {
   std::string           name_;
-  CppTemplateParamList* templSpec_{nullptr};
+  CppTemplateParamListP templSpec_{nullptr};
 
   union
   {

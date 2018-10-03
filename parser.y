@@ -109,7 +109,8 @@ extern int yylex();
   CppUsingNamespaceDecl*  usingNamespaceDecl;
   CppNamespaceAlias*    namespaceAlias;
   CppCompound*          cppCompundObj;
-  CppParamList*         templSpec;
+  CppTemplateParam*     templateParam;
+  CppTemplateParamList* templSpec;
   CppDocComment*        docCommentObj;
   CppFwdClsDecl*        fwdDeclObj;
   CppVarList*           cppVarObjList;
@@ -209,6 +210,7 @@ extern int yylex();
 %type  <usingDecl>          usingdecl
 %type  <cppCompundObj>      stmtlist optstmtlist progunit classdefn classdefnstmt externcblock block
 %type  <templSpec>          templatespecifier templateparamlist
+%type  <templateParam>      templateparam
 %type  <docCommentObj>      doccomment
 %type  <cppExprObj>         expr exprstmt optexpr
 %type  <ifBlock>            ifblock;
@@ -621,7 +623,7 @@ usingdecl         : tknUsing tknID '=' vartype ';' {
                   }
                   | templatespecifier usingdecl {
                     $$ = $2;
-                    $$->templSpec_ = $1;
+                    $$->templSpec_.reset($1);
                   }
                   | tknUsing identifier ';' {
                     $$ = new CppUsingDecl($2);
@@ -780,7 +782,7 @@ typeconverter     : tknOperator vartype '(' optvoid ')' {
                   }
                   | templatespecifier typeconverter {
                     $$ = $2;
-                    $$->templSpec_ = $1;
+                    $$->templSpec_.reset($1);
                   }
                   ;
 
@@ -853,7 +855,7 @@ funcdecl          : vartype apidecor funcname '(' paramlist ')' {
                   }
                   | templatespecifier funcdecl {
                     $$ = $2;
-                    $$->templSpec_ = $1;
+                    $$->templSpec_.reset($1);
                   }
                   | functype funcdecl {
                     $$ = $2;
@@ -968,11 +970,11 @@ param             : varinit                 { $$ = $1; $1->varType_->typeAttr_ |
                   }
                   ;
 
-templatearg     :                               { $$ = makeCppToken(nullptr, nullptr); }
+templatearg       :                               { $$ = makeCppToken(nullptr, nullptr); }
                   | typeidentifier                { $$ = $1; }
-                  | tknConst templatearg        { $$ = mergeCppToken($1, $2); }
+                  | tknConst templatearg          { $$ = mergeCppToken($1, $2); }
                   | tknNumber                     { $$ = $1; }
-                  | templatearg '*'             {
+                  | templatearg '*'               {
                     auto p = $1.sz + $1.len;
                     while (*p && (*p != '*'))
                       ++p;
@@ -1075,7 +1077,7 @@ ctordefn          : ctordecl meminitlist block [ZZVALID;]
                   }
                   | templatespecifier ctordefn {
                     $$ = $2;
-                    $$->templSpec_ = $1;
+                    $$->templSpec_.reset($1);
                   }
                   ;
 
@@ -1097,7 +1099,7 @@ ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   }
                   | templatespecifier ctordecl {
                     $$ = $2;
-                    $$->templSpec_ = $1;
+                    $$->templSpec_.reset($1);
                   }
                   | ctordecl '=' tknDelete {
                     $$ = $1;
@@ -1154,7 +1156,7 @@ dtordefn          : dtordecl block [ZZVALID;]
                   }
                   | templatespecifier dtordefn {
                     $$ = $2;
-                    $$->templSpec_ = $1;
+                    $$->templSpec_.reset($1);
                   }
                   | functype dtordefn {
                     $$ = $2;
@@ -1262,7 +1264,7 @@ classdefn         : compoundSpecifier optapidecor identifier optinheritlist optc
                   | templatespecifier classdefn
                   {
                     $$ = $2;
-                    $$->templSpec_ = $1;
+                    $$->templSpec_.reset($1);
                   }
                   ;
 
@@ -1298,9 +1300,48 @@ templatespecifier : tknTemplate '<' templateparamlist '>' {
                   }
                   ;
 
-templateparamlist : paramlist {
-                    $$ = $1;
+templateparamlist : {
+                    $$ = new CppTemplateParamList;
                   }
+                  | templateparam {
+                    $$ = new CppTemplateParamList;
+                    $$->emplace_back($1);
+                  }
+                  | templateparamlist ',' templateparam {
+                    $$ = $1;
+                    $$->emplace_back($3);
+                  }
+                  ;
+
+templateparam     : tknTypename tknID {
+                    $$ = new CppTemplateParam(nullptr, $2);
+                  }
+                  | tknTypename tknID '=' vartype {
+                    $$ = new CppTemplateParam(nullptr, $2);
+                    $$->setDefaultParam($4);
+                  }
+                  | tknClass tknID {
+                    $$ = new CppTemplateParam(nullptr, $2);
+                  }
+                  | tknClass tknID '=' vartype {
+                    $$ = new CppTemplateParam(nullptr, $2);
+                    $$->setDefaultParam($4);
+                  }
+                  | vartype tknID {
+                    $$ = new CppTemplateParam($1, $2);
+                  }
+                  | vartype tknID '=' expr {
+                    $$ = new CppTemplateParam($1, $2);
+                    $$->setDefaultParam($4);
+                  }
+                  | vartype { // Can happen when forward declaring
+                    $$ = new CppTemplateParam($1, std::string());
+                  }
+                  | vartype '=' expr { // Can happen when forward declaring
+                    $$ = new CppTemplateParam($1, std::string());
+                    $$->setDefaultParam($3);
+                  }
+
                   ;
 
 optapidecor       :                     { $$ = makeCppToken(nullptr, nullptr); }
