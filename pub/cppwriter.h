@@ -110,6 +110,9 @@ public:
                            std::ostream&          stm,
                            CppIndent              indentation = CppIndent()) const;
   virtual void emitForBlock(const CppForBlock* forBlock, std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitSwitchBlock(const CppSwitchBlock* switchBlock,
+                               std::ostream&         stm,
+                               CppIndent             indentation = CppIndent()) const;
 
 public:
   void emitVar(const CppVar* varObj, std::ostream& stm, bool skipName) const;

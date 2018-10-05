@@ -667,11 +667,11 @@ varinit           : vardecl '=' expr {
                   }
                   | vardecl '(' expr ')' {
                     $$ = $1;
-                    $$->varDecl_.assign_.reset($3);
+                    $$->varDecl_.constructFrom_.reset($3);
                   }
                   | vardecl '{' expr '}' {
                     $$ = $1;
-                    $$->varDecl_.assign_.reset($3);
+                    $$->varDecl_.initializedFrom_.reset($3);
                   }
                   ;
 

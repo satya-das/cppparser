@@ -366,7 +366,9 @@ using CppObjPtr     = std::unique_ptr<CppObj>;
 struct CppVarDecl
 {
   std::string   name_;
-  CppObjPtr     assign_; // Value assigned at declaration.
+  CppObjPtr     assign_;          // Value assigned at declaration.
+  CppObjPtr     constructFrom_;   // expression from which it is constructed '()'.
+  CppObjPtr     initializedFrom_; // expression from which it is initialized '{}'.
   CppExprPtr    bitField_;
   CppArraySizes arraySizes_;
 
