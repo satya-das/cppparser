@@ -82,6 +82,12 @@ static CppCompound*  gProgUnit;
 // and so the hack is expected to serve us well.
 static const char* gParamModPos = nullptr;
 
+// TemplateParamHack:
+// Template parameter gets parsed as vardecl which then gets reduced as templateparam without name as used in forward declaration.
+// We don't want that, so to avoid such templateparam getting reduced as vardecl we apply some hack.
+static const char* gTemplateParamStart = nullptr;
+static bool gInTemplateSpec = false;
+
 /**
  * A stack to know where (i.e. how deep inside class defnition) the current parsing activity is taking place.
  */
@@ -544,11 +550,17 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | tknLong typeidentifier                { $$ = mergeCppToken($1, $2); }
                   | tknNumSignSpec                        { $$ = $1; }
                   | tknNumSignSpec typeidentifier         { $$ = mergeCppToken($1, $2); }
-                  | tknClass identifier                   { $$ = mergeCppToken($1, $2); }
+                  | tknClass identifier [
+                    if (gTemplateParamStart == $1.sz)
+                      YYERROR;
+                  ]                                       { $$ = mergeCppToken($1, $2); }
                   | tknStruct identifier                  { $$ = mergeCppToken($1, $2); }
                   | tknUnion identifier                   { $$ = mergeCppToken($1, $2); }
                   | tknEnum  identifier                   { $$ = mergeCppToken($1, $2); }
-                  | tknTypename identifier                { $$ = mergeCppToken($1, $2); }
+                  | tknTypename identifier  [
+                    if (gTemplateParamStart == $1.sz)
+                      YYERROR;
+                  ]                                       { $$ = mergeCppToken($1, $2); }
                   | tknEllipsis                           { $$ = $1; }
                   | tknTypename tknEllipsis               { $$ = mergeCppToken($1, $2); }
                   | tknClass tknEllipsis                  { $$ = mergeCppToken($1, $2); }
@@ -1310,8 +1322,8 @@ compoundSpecifier : tknClass    { $$ = kClass;    }
                   | tknNamespace  { $$ = kNamespace;  }
                   ;
 
-templatespecifier : tknTemplate '<' templateparamlist '>' {
-                    $$ = $3;
+templatespecifier : tknTemplate '<' [gInTemplateSpec = true;] templateparamlist '>' [gInTemplateSpec = false;] {
+                    $$ = $4;
                   }
                   ;
 
@@ -1356,7 +1368,28 @@ templateparam     : tknTypename tknID {
                     $$ = new CppTemplateParam($1, std::string());
                     $$->setDefaultParam($3);
                   }
-
+                  // <TemplateParamHack>
+                  | tknTypename tknID ',' [
+                    if (gInTemplateSpec)
+                      gTemplateParamStart = $1.sz;
+                    YYERROR;
+                  ] { $$ = nullptr; }
+                  | tknTypename tknID '>' [
+                    if (gInTemplateSpec)
+                      gTemplateParamStart = $1.sz;
+                    YYERROR;
+                  ] { $$ = nullptr; }
+                  | tknClass tknID ',' [
+                    if (gInTemplateSpec)
+                      gTemplateParamStart = $1.sz;
+                    YYERROR;
+                  ] { $$ = nullptr; }
+                  | tknClass tknID '>' [
+                    if (gInTemplateSpec)
+                      gTemplateParamStart = $1.sz;
+                    YYERROR;
+                  ] { $$ = nullptr; }
+                  // </TemplateParamHack>
                   ;
 
 optapidecor       :                     { $$ = makeCppToken(nullptr, nullptr); }
@@ -1520,6 +1553,8 @@ CppCompound* parseStream(char* stm, size_t stmSize)
   void cleanupScanBuffer();
   setupScanBuffer(stm, stmSize);
   gLineNo = 1; // Reset so that we do not start counting beyond previous parsing.
+  gTemplateParamStart = nullptr;
+  gParamModPos = nullptr;
   yyparse();
   cleanupScanBuffer();
   CppCompoundStack tmpStack;

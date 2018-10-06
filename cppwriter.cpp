@@ -364,6 +364,10 @@ void CppWriter::emitTemplSpec(const CppTemplateParamListP& templSpec, std::ostre
         emitVarType(param->paramType_.get(), stm);
         stm << ' ';
       }
+      else
+      {
+        stm << "typename ";
+      }
       stm << param->paramName_;
       sep = ", ";
     }
