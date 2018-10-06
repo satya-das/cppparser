@@ -10,8 +10,9 @@ char tflag;
 char vflag;
 int Eflag = 0;
 
+char *symbol_prefix = "yy";
 char *myname = "yacc";
-#ifdef __MSDOS__
+#if defined(__MSDOS__) || defined(_WIN32)
 #define DIR_CHAR '\\'
 #define DEFAULT_TMPDIR "."
 char *file_prefix = "y";
@@ -27,6 +28,7 @@ int outline;
 char *action_file_name;
 char *code_file_name;
 char *defines_file_name;
+char include_defines;
 char *output_file_name;
 char *text_file_name;
 char *union_file_name;
@@ -100,7 +102,7 @@ void set_signals()
 void usage()
 {
     fprintf(stderr, "usage: %s [-dlrtv] [-b file_prefix] [-S skeleton file] "
-		    "filename\n", myname);
+		    "[-p symbol_prefix] filename\n", myname);
     exit(1);
 }
 
@@ -131,6 +133,15 @@ void getargs(int argc, char **argv)
 		 file_prefix = s;
 	    else if (++i < argc)
 		file_prefix = argv[i];
+	    else
+		usage();
+	    continue;
+
+	case 'p':
+	    if (*++s)
+		 symbol_prefix = s;
+	    else if (++i < argc)
+		symbol_prefix = argv[i];
 	    else
 		usage();
 	    continue;
@@ -243,6 +254,27 @@ no_more_options:;
       } else {
 	file_prefix = "y";
       }
+    }
+
+    /* Replace symbol prefix in the skeleton */
+    if (strcmp(symbol_prefix, "yy")) {
+      struct section *s;
+      char **l, *q, *n, *p;
+
+      for (s = section_list; s->name; s++)
+        for (l = s->ptr; *l; l++) {
+	  /* Very conservative estimate */
+	  p = n = malloc(strlen(*l) * strlen(symbol_prefix));
+	  for (q = *l; *q; q++)
+	    if (q[0] == 'y' && q[1] == 'y') {
+	      strcpy(p, symbol_prefix);
+	      p += strlen(symbol_prefix);
+	      q++;
+	    } else
+	      *p++ = *q;
+	  *p = 0;
+	  *l = realloc(n ,strlen(n) + 1);
+        }
     }
 }
 

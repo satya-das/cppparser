@@ -5,7 +5,7 @@
 /*  If the skeleton is changed, the banner should be changed so that    */
 /*  the altered version can easily be distinguished from the original.  */
 
-char *banner[] =
+static char *banner[] =
 {
     "#line 8 \"/home/dassat/github/cppparser/third_party/btyacc_tp/btyacc/btyaccpa.ske\"",
     "",
@@ -23,7 +23,7 @@ char *banner[] =
     0
 };
 
-char *tables[] =
+static char *tables[] =
 {
     "#line 21 \"/home/dassat/github/cppparser/third_party/btyacc_tp/btyacc/btyaccpa.ske\"",
     "",
@@ -58,7 +58,7 @@ char *tables[] =
     0
 };
 
-char *header[] =
+static char *header[] =
 {
     "#line 51 \"/home/dassat/github/cppparser/third_party/btyacc_tp/btyacc/btyaccpa.ske\"",
     "",
@@ -333,9 +333,13 @@ char *header[] =
     "#endif /* YYPOSN */",
     "#endif",
     "  p->stacksize = size+4;",
+    "#ifndef YYSTYPE_CONSTRUCTOR",
     "  memset(&p->vs[0], 0, (size+4)*sizeof(YYSTYPE));",
+    "#endif",
     "#ifdef YYPOSN",
+    "#ifndef YYPOSN_CONSTRUCTOR",
     "  memset(&p->ps[0], 0, (size+4)*sizeof(YYPOSN));",
+    "#endif",
     "#endif /* YYPOSN */",
     "  return p;",
     "}",
@@ -361,9 +365,9 @@ char *header[] =
     0
 };
 
-char *body[] =
+static char *body[] =
 {
-    "#line 349 \"/home/dassat/github/cppparser/third_party/btyacc_tp/btyacc/btyaccpa.ske\"",
+    "#line 353 \"/home/dassat/github/cppparser/third_party/btyacc_tp/btyacc/btyaccpa.ske\"",
     "",
     "/*",
     "** Parser function",
@@ -385,6 +389,8 @@ char *body[] =
     "  }",
     "#endif",
     "  ",
+    "  yym = 0;",
+    "  yyn = 0;",
     "  yyps = YYNewState(YYDEFSTACKSIZE);",
     "  yyps->save = 0;",
     "  yynerrs = 0;",
@@ -602,10 +608,11 @@ char *body[] =
     "yyerrlab:",
     "  yynewerrflag = 1;",
     "  goto yyerrhandler;",
+    "  goto yyerrquiet; /* redundant goto to avoid 'unused label' warnings */",
     "yyerrquiet:",
     "  yynewerrflag = 0;",
     "yyerrhandler:",
-    "  while (yyps->save) { ",
+    "  while (yyps->save) {",
     "    int ctry; ",
     "    struct yyparsestate *save = yyps->save;",
     "#if YYDEBUG",
@@ -706,8 +713,6 @@ char *body[] =
     "          printf(\"yydebug[%d,%d]: state %d, ERROR recovery shifts to state \"",
     "\t         \"%d\\n\", (int)yydepth, yytrial!=0, *(yyps->ssp), yytable[yyn]);",
     "#endif",
-    "        /* Use label yyerrquiet, so that compiler does not warn */",
-    "        if(yyps->errflag != yyps->errflag) goto yyerrquiet;",
     "        yystate = yytable[yyn];",
     "        goto yyshift; ",
     "      } else {",
@@ -783,14 +788,16 @@ char *body[] =
     "    YYMoreStack(yyps);",
     "  }",
     "",
-    "  /* \"$$ = NULL\" default action */",
-    "  memset(&yyps->val, 0, sizeof(yyps->val));",
+    "  /* \"$$ = $1\" default action */",
+    "  yyval = yyvsp[0];",
     "",
     "#ifdef YYPOSN",
     "  /* default reduced position is NULL -- no position at all.",
     "     no position will be assigned at trial time and if no position handling",
     "     is present */",
+    "#ifndef YYPOSN_CONSTRUCTOR",
     "  memset(&yyps->pos, 0, sizeof(yyps->pos));",
+    "#endif",
     "#ifdef YYREDUCEPOSNFUNC",
     "  reduce_posn = 1;",
     "#endif /* YYREDUCEPOSNFUNC */",
@@ -801,9 +808,9 @@ char *body[] =
     0
 };
 
-char *trailer[] =
+static char *trailer[] =
 {
-    "#line 784 \"/home/dassat/github/cppparser/third_party/btyacc_tp/btyacc/btyaccpa.ske\"",
+    "#line 791 \"/home/dassat/github/cppparser/third_party/btyacc_tp/btyacc/btyaccpa.ske\"",
     "",
     "  default:",
     "    break;",

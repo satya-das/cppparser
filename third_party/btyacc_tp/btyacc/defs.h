@@ -3,15 +3,18 @@
 #include <assert.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <limits.h>
 
 
 /*  machine-dependent definitions			*/
 /*  the following definitions are for the Tahoe		*/
 /*  they might have to be changed for other machines	*/
+#ifdef _WIN32
+#define strdup _strdup
+#define unlink _unlink
+#define mktemp _mktemp
+#endif // _WIN32
 
-/*  MAXCHAR is the largest unsigned character value	*/
-/*  MAXSHORT is the largest value of a C short		*/
-/*  MINSHORT is the most negative value of a C short	*/
 /*  MAXTABLE is the maximum table size			*/
 /*  BITS_PER_WORD is the number of bits in a C unsigned	*/
 /*  WORDSIZE computes the number of words needed to	*/
@@ -20,9 +23,6 @@
 /*	from r (0-indexed)				*/
 /*  SETBIT sets the n-th bit starting from r		*/
 
-#define	MAXCHAR		255
-#define	MAXSHORT	((int)0x7FFFFFFF)
-#define MINSHORT	((int)0x80000000)
 #define MAXTABLE	120000
 
 #ifdef __MSDOS__
@@ -129,7 +129,7 @@ typedef int Yshort;
 #define REALLOC(p,n)	(realloc((char*)(p),(unsigned)(n)))
 #define RENEW(p,n,t)	((t*)realloc((char*)(p),(unsigned)((n)*sizeof(t))))
 
-/*  the structure to track an input file beaing read */
+/*  the structure to track an input file being read */
 
 typedef struct file_info file_info;
 struct file_info
@@ -253,17 +253,13 @@ extern char lflag;
 extern char rflag;
 extern char tflag;
 extern char vflag;
+extern char include_defines;
 
 extern char *myname;
+extern char *symbol_prefix;
 extern char *cptr;
 extern char *line;
 extern int outline;
-
-extern char *banner[];
-extern char *tables[];
-extern char *header[];
-extern char *body[];
-extern char *trailer[];
 
 extern char *action_file_name;
 extern char *code_file_name;
@@ -338,7 +334,7 @@ extern Yshort nunused;
 extern Yshort final_state;
 
 /* system variable */
-extern int errno;
+#include <errno.h>
 
 /* global functions */
 
@@ -500,7 +496,6 @@ void write_section(char *section_name);
 
 
 /* reader.c */
-int cachec(int);
 void read_from_file(char *);
 char *get_line(void);
 char *dup_line(void);

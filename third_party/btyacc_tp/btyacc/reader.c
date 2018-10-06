@@ -14,8 +14,8 @@
 
 file_info *input_file = 0;
 
-char *cache;
-int cinc, cache_size;
+static char *cache;
+static int cinc, cache_size;
 
 int havetags=0;
 static union_tag *tag_table = 0;
@@ -24,7 +24,7 @@ char saw_eof, unionized, location_defined;
 char *cptr, *line;
 int linesize;
 
-struct ifdef_state {
+static struct ifdef_state {
   struct ifdef_state	*next;
   file_info	*file;
   int		lineno;
@@ -37,23 +37,23 @@ struct ifdef_state {
 #define MAX_DEFD_VARS 1000
 char *defd_vars[MAX_DEFD_VARS] = {NULL};
 
-bucket *goal;
-int prec;
-int gensym;
-char last_was_action, trialaction;
+static bucket *goal;
+static int prec;
+static int gensym;
+static char last_was_action, trialaction;
 
-int maxitems;
-bucket **pitem;
+static int maxitems;
+static bucket **pitem;
 
-int maxrules;
-bucket **plhs;
+static int maxrules;
+static bucket **plhs;
 
-int name_pool_size;
-char *name_pool;
+static int name_pool_size;
+static char *name_pool;
 
 char line_format[] = "#line %d \"%s\"\n";
 
-int cachec(int c)
+static int cachec(int c)
 {
     assert(cinc >= 0);
     if (cinc >= cache_size) {
@@ -475,6 +475,10 @@ void copy_structdecl(const char *kind, const char *name)
     char *u_line = dup_line();
     char *u_cptr = u_line + (cptr - line - 6);
 
+    if (dflag && !include_defines) {
+	fprintf(text_file, "#include \"%s\"\n\n", defines_file_name);
+	include_defines = 1; }
+
     /* VM: Print to either code file or defines file but not to both */
     dc_file = dflag ? union_file : text_file;
     fprintf(dc_file, "\n");
@@ -558,7 +562,7 @@ bucket *get_literal()
 		    if (IS_OCTAL(c)) {
 			n = (n << 3) + (c - '0');
 			++cptr; } }
-		if (n > MAXCHAR) illegal_character(c_cptr);
+		if (n > UCHAR_MAX) illegal_character(c_cptr);
 		c = n;
 	    	break;
 	    case 'x':
@@ -572,7 +576,7 @@ bucket *get_literal()
 		    if (i < 0 || i >= 16) break;
 		    ++cptr;
 		    n = (n << 4) + i;
-		    if (n > MAXCHAR) illegal_character(c_cptr); }
+		    if (n > UCHAR_MAX) illegal_character(c_cptr); }
 		c = n;
 		break;
 	    case 'a': c = 7; break;
@@ -1090,9 +1094,9 @@ bucket		**rhs;
     rhs = pitem + nitems - 1;
 
     if (yyvaltag)
-	msprintf(c, "yyval.%s = ", yyvaltag);
+	msprintf(c, "%sval.%s = ", symbol_prefix, yyvaltag);
     else
-	msprintf(c, "yyval = ");
+	msprintf(c, "%sval = ", symbol_prefix);
     while (*p) {
       if (*p == '$') {
 	char	*tag = 0;
@@ -1112,7 +1116,7 @@ bucket		**rhs;
 	    if (!tag && !(tag = rhs[i]->tag->name) && havetags)
 	      untyped_rhs(val, rhs[i]->name);
 	  }
-	  msprintf(c, "yyvsp[%d]", i);
+	  msprintf(c, "%svsp[%d]", symbol_prefix, i);
 	  if (tag) msprintf(c, ".%s", tag);
 	  else if (havetags)
 	    unknown_rhs(val);
@@ -1126,7 +1130,7 @@ bucket		**rhs;
 	    error(rescan_lineno, 0, 0, "unknown argument $%s", arg);
 	  if (!tag)
 	    tag = plhs[nrules]->argtags[i];
-	  msprintf(c, "yyvsp[%d]", i - plhs[nrules]->args + 1 - n);
+	  msprintf(c, "%svsp[%d]", symbol_prefix, i - plhs[nrules]->args + 1 - n);
 	  if (tag) msprintf(c, ".%s", tag);
 	  else if (havetags)
 	    error(rescan_lineno, 0, 0, "untyped argument $%s", arg); }
@@ -1144,7 +1148,7 @@ bucket		**rhs;
 	  } else {
 	    i = offsets[val];
 	  }
-	  msprintf(c, "yypsp[%d]", i);
+	  msprintf(c, "%spsp[%d]", symbol_prefix, i);
 	} else
 	  at_error(rescan_lineno, 0, 0);
       } else {
@@ -1494,7 +1498,7 @@ void copy_action()
 
     fprintf(f, "case %d:\n", nrules - 2);
     if (!trialaction)
-	fprintf(f, "  if (!yytrial)\n");
+	fprintf(f, "  if (!%strial)\n", symbol_prefix);
     if (!lflag)
 	fprintf(f, line_format, input_file->lineno, input_file->name);
     if (*cptr == '=') ++cptr;
@@ -1529,7 +1533,7 @@ loop:
 	    tag = get_tag(1)->name;
 	    c = *cptr;
 	    if (c == '$') {
-		fprintf(f, "yyval.%s", tag);
+		fprintf(f, "%sval.%s", symbol_prefix, tag);
 		++cptr;
 		FREE(d_line);
 		goto loop; }
@@ -1537,15 +1541,15 @@ loop:
 		i = get_number();
 		if (i > maxoffset) {
 		    dollar_warning(d_lineno, i);
-		    fprintf(f, "yyvsp[%d].%s", i - maxoffset, tag); }
+		    fprintf(f, "%svsp[%d].%s", symbol_prefix, i - maxoffset, tag); }
 		else
-		    fprintf(f, "yyvsp[%d].%s", offsets[i], tag);
+		    fprintf(f, "%svsp[%d].%s", symbol_prefix, offsets[i], tag);
 		FREE(d_line);
 		goto loop; }
 	    else if (c == '-' && isdigit(cptr[1])) {
 		++cptr;
 		i = -get_number() - n;
-		fprintf(f, "yyvsp[%d].%s", i, tag);
+		fprintf(f, "%svsp[%d].%s", symbol_prefix, i, tag);
 		FREE(d_line);
 		goto loop; }
 	    else if (isalpha(c) || c == '_') {
@@ -1554,18 +1558,18 @@ loop:
 		    if (arg == plhs[nrules]->argnames[i]) break;
 		if (i<0)
 		    error(d_lineno,d_line,d_cptr,"unknown argument %s",arg);
-		fprintf(f, "yyvsp[%d].%s", i-plhs[nrules]->args+1-n, tag);
+		fprintf(f, "%svsp[%d].%s", symbol_prefix, i-plhs[nrules]->args+1-n, tag);
 		FREE(d_line);
 		goto loop; }
 	    else
 		dollar_error(d_lineno, d_line, d_cptr); }
 	else if (cptr[1] == '$') {
 	    if (havetags) {
-		tag = plhs[nrules]->tag->name;
+		tag = plhs[nrules]->tag ? plhs[nrules]->tag->name : 0;
 		if (tag == 0) untyped_lhs();
-		fprintf(f, "yyval.%s", tag); }
+		fprintf(f, "%sval.%s", symbol_prefix, tag); }
 	    else
-		fprintf(f, "yyval");
+		fprintf(f, "%sval", symbol_prefix);
 	    cptr += 2;
 	    haveyyval = 1;
 	    goto loop; }
@@ -1575,23 +1579,23 @@ loop:
 	    if (havetags) {
 		if (i <= 0 || i > maxoffset)
 		    unknown_rhs(i);
-		tag = rhs[offsets[i]]->tag->name;
+		tag = rhs[offsets[i]]->tag ? rhs[offsets[i]]->tag->name : 0;
 		if (tag == 0)
 		    untyped_rhs(i, rhs[offsets[i]]->name);
-		fprintf(f, "yyvsp[%d].%s", offsets[i], tag); }
+		fprintf(f, "%svsp[%d].%s", symbol_prefix, offsets[i], tag); }
 	    else {
 		if (i > n) {
 		    dollar_warning(input_file->lineno, i);
-		    fprintf(f, "yyvsp[%d]", i - maxoffset); }
+		    fprintf(f, "%svsp[%d]", symbol_prefix, i - maxoffset); }
 		else
-		    fprintf(f, "yyvsp[%d]", offsets[i]); }
+		    fprintf(f, "%svsp[%d]", symbol_prefix, offsets[i]); }
 	    goto loop; }
 	else if (cptr[1] == '-') {
 	    cptr += 2;
 	    i = get_number();
 	    if (havetags)
 		unknown_rhs(-i);
-	    fprintf(f, "yyvsp[%d]", -i - n);
+	    fprintf(f, "%svsp[%d]", symbol_prefix, -i - n);
 	    goto loop; }
 	else if (isalpha(cptr[1]) || cptr[1] == '_') {
 	    char *arg;
@@ -1602,14 +1606,14 @@ loop:
 	    if (i<0)
 		error(input_file->lineno, line, cptr, "unknown argument %s", arg);
 	    tag = plhs[nrules]->argtags[i];
-	    fprintf(f, "yyvsp[%d]", i - plhs[nrules]->args + 1 - n);
+	    fprintf(f, "%svsp[%d]", symbol_prefix, i - plhs[nrules]->args + 1 - n);
 	    if (tag) fprintf(f, ".%s", tag);
 	    else if (havetags)
 		error(input_file->lineno, 0, 0, "untyped argument $%s", arg);
 	    goto loop; }
     } else if (c == '@') {
 	if (cptr[1] == '@' || cptr[1] == '$') {
-	    fprintf(f, "yypos");
+	    fprintf(f, "%spos", symbol_prefix);
 	    cptr += 2;
 	    goto loop; }
 	else if (isdigit(cptr[1])) {
@@ -1617,14 +1621,14 @@ loop:
 	    i = get_number();
 	    if (i > n) {
 		at_warning(input_file->lineno, i);
-		fprintf(f, "yypsp[%d]", i - maxoffset); }
+		fprintf(f, "%spsp[%d]", symbol_prefix, i - maxoffset); }
 	    else
-		fprintf(f, "yypsp[%d]", offsets[i]);
+		fprintf(f, "%spsp[%d]", symbol_prefix, offsets[i]);
 	    goto loop; }
 	else if (cptr[1] == '-') {
 	    cptr += 2;
 	    i = get_number();
-	    fprintf(f, "yypsp[%d]", -i - n);
+	    fprintf(f, "%spsp[%d]", symbol_prefix, -i - n);
 	    goto loop; } }
     if (isalpha(c) || c == '_' || c == '$') {
 	do {
@@ -1646,7 +1650,7 @@ loop:
 	else if (c == '{' && !haveyyval) {
 	    fprintf(f, "\n");
 	    if (!lflag) fprintf(f, "#\n");
-	    fprintf(f, "  if (!yytrial)\n");
+	    fprintf(f, "  if (!%strial)\n", symbol_prefix);
 	    if (!lflag)
 		fprintf(f, line_format, input_file->lineno, input_file->name);
 	    trialaction = 0;
@@ -1690,7 +1694,7 @@ loop:
 	else if (c == '{' && !haveyyval) {
 	    fprintf(f, "\n");
 	    if (!lflag) fprintf(f, "#\n");
-	    fprintf(f, "  if (!yytrial)\n");
+	    fprintf(f, "  if (!%strial)\n", symbol_prefix);
 	    if (!lflag)
 		fprintf(f, line_format, input_file->lineno, input_file->name);
 	    goto loop; }
@@ -2010,8 +2014,6 @@ extern int read_errs;
 
 void reader() {
   write_section("banner");
-  if (dflag)
-    fprintf(text_file, "#include \"%s\"\n\n", defines_file_name);
   create_symbol_table();
   read_declarations();
   read_grammar();

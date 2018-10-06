@@ -97,7 +97,11 @@ test: program
 etags TAGS:
 		etags *.c *.h
 
-.PHONY: all clean clobber distclean depend index install oldinstall listing lint program dist tar zip test
+help:
+	@echo "A simple 'make' will build btyacc"
+	@echo "'make test' will run some automated regression tests"
+
+.PHONY: all clean clobber distclean depend index install oldinstall listing lint program dist tar zip test help
 
 ###
 closure.o: defs.h

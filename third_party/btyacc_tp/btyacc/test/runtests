@@ -1,9 +1,19 @@
 #!/bin/bash
 
+case `uname` in
+  CYGWIN*) cygwin=1
+	   OUT=a.exe
+            ;;
+        *) cygwin=""
+	   OUT=a.out
+            ;;
+esac
+
+
 BTYACC=../btyacc
 test ${CC:=gcc}
 
-while expr "$1" : - >/dev/null; do
+while expr "x$1" : x- >/dev/null; do
     case $1 in
     -*)
     	echo >&2 "Unknown argument $1"
@@ -20,19 +30,20 @@ rm -rf faillog.txt
 pass=0
 fail=0
 for f in "$@"; do
-    rv=2
+    rm -f .fail .run
     build=0
     echo -n "$f"
-    sed -n '/\[test\]/{s/.*\[test\] *//;p}' <$f | while read cmd rest; do
+    sed -n '/\[test\]/s/.*\[test\] *//p' <$f | while read cmd rest; do
+	touch .run
 	case $cmd in
 	btyacc)
 	    if $BTYACC $rest $f >tmp.txt 2>&1; then
 		build=1
 	    else
-		if [ $rv -ne 3 ]; then echo "$f:" >>faillog.txt; fi
+		if [ ! -e .fail ]; then echo "$f:" >>faillog.txt; fi
 		echo "> $BTYACC $rest $f" >> faillog.txt
 		cat tmp.txt >>faillog.txt
-		rv=3
+		touch .fail
 		build=0
 	    fi
 	    ;;
@@ -41,79 +52,76 @@ for f in "$@"; do
 	    if $CC $(basename $f .y).tab.c $rest >tmp.txt 2>&1; then
 		build=2
 	    else
-		if [ $rv -ne 3 ]; then echo "$f:" >>faillog.txt; fi
+		if [ ! -e .fail ]; then echo "$f:" >>faillog.txt; fi
 		echo "> $CC $(basename $f .y).tab.c $rest" >> faillog.txt
 		cat tmp.txt >>faillog.txt
-		rv=3;
+		touch .fail;
 		build=1
 	    fi
 	    ;;
 	input)
 	    if [ $build -lt 2 ]; then continue; fi
-	    if echo "$rest" | ./a.out >tmp.txt 2>&1; then true; else
-		if [ $rv -ne 3 ]; then echo "$f:" >>faillog.txt; fi
-		echo "> echo \"$rest\" | ./a.out" >> faillog.txt
+	    if echo "$rest" | ./$OUT >tmp.txt 2>&1; then true; else
+		if [ ! -e .fail ]; then echo "$f:" >>faillog.txt; fi
+		echo "> echo \"$rest\" | ./$OUT" >> faillog.txt
 		cat tmp.txt >>faillog.txt
-		rv=3;
+		touch .fail;
 	    fi
 	    ;;
 	input-file)
 	    if [ $build -lt 2 ]; then continue; fi
-	    if ./a.out <$rest >tmp.txt 2>&1; then true; else
-		if [ $rv -ne 3 ]; then echo "$f:" >>faillog.txt; fi
-		echo "> echo \"$rest\" | ./a.out" >> faillog.txt
+	    if ./$OUT <$rest >tmp.txt 2>&1; then true; else
+		if [ ! -e .fail ]; then echo "$f:" >>faillog.txt; fi
+		echo "> echo \"$rest\" | ./$OUT" >> faillog.txt
 		cat tmp.txt >>faillog.txt
-		rv=3;
+		touch .fail;
 	    fi
 	    ;;
 	input-fail)
 	    if [ $build -lt 2 ]; then continue; fi
-	    if echo "$rest" | ./a.out >tmp.txt 2>&1; then
-		if [ $rv -ne 3 ]; then echo "$f:" >>faillog.txt; fi
-		echo "> echo \"$rest\" | ./a.out" >> faillog.txt
+	    if echo "$rest" | ./$OUT >tmp.txt 2>&1; then
+		if [ ! -e .fail ]; then echo "$f:" >>faillog.txt; fi
+		echo "> echo \"$rest\" | ./$OUT" >> faillog.txt
 		cat tmp.txt >>faillog.txt
-		rv=3;
+		touch .fail;
 	    fi
 	    ;;
 	match)
 	    if [ $build -lt 2 ]; then continue; fi
 	    echo "$rest" >expected.txt
 	    if diff -q expected.txt tmp.txt; then true; else
-		if [ $rv -ne 3 ]; then echo "$f:" >>faillog.txt; fi
+		if [ ! -e .fail ]; then echo "$f:" >>faillog.txt; fi
 		diff -u expected.txt tmp.txt >>faillog.txt
-		rv=3;
+		touch .fail;
 	    fi
 	    ;;
 	match-file)
 	    if [ $build -lt 2 ]; then continue; fi
 	    if diff -q $rest tmp.txt; then true; else
-		if [ $rv -ne 3 ]; then echo "$f:" >>faillog.txt; fi
+		if [ ! -e .fail ]; then echo "$f:" >>faillog.txt; fi
 		diff -u $rest tmp.txt >>faillog.txt
-		rv=3;
+		touch .fail;
 	    fi
 	    ;;
 	*)
 	    echo >&1 "Unknown testing command $cmd"
 	esac;
-	bash -c "exit $rv"
     done
-    rv=$?
-    rm -f tmp.txt
-    if [ $rv -eq 130 ]; then
+    if [ $? -eq 130 ]; then
 	echo " INTERRUPT"
 	break
-    elif [ $rv -eq 0 ]; then
-	echo "  no commands"
-    elif [ $rv -eq 2 ]; then
-	echo " PASS"
-	let pass++
-    elif [ $rv -eq 3 ]; then
+    elif [ -e .fail ]; then
 	echo " FAIL"
 	let fail++
+    elif [ ! -e .run ]; then
+	echo "  no commands"
     else
-	echo " unknown result($rv)"
+	echo " PASS"
+	let pass++
     fi
 done
+
+rm -f .run .fail tmp.txt
 
 if [ $fail -gt 0 ]; then
     echo "$fail tests FAILED, $pass tests PASSED"

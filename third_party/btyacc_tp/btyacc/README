@@ -49,6 +49,9 @@ have problems with backslashes at the end of a line.
 For MSDOS, there a "makefile.dos" that should do the trick.
 Note: makefile.dos was not tested for a long time.
 
+There are also Visual Studio 2013 project files provided by
+zothrosko.
+
 The result of compilation should be a single executable called
 "btyacc" which you can install anywhere you like; 
 it does not require any other files in the distribution to run.

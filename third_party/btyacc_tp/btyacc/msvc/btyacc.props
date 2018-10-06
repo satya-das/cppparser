@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup
+    Condition="'$(BtYaccBeforeTargets)' == '' and '$(BtYaccAfterTargets)' == '' and '$(ConfigurationType)' != 'Makefile'">
+    <BtYaccBeforeTargets>Midl</BtYaccBeforeTargets>
+    <BtYaccAfterTargets>CustomBuild</BtYaccAfterTargets>
+  </PropertyGroup>
+  <PropertyGroup>
+    <BtYaccDependsOn
+      Condition="'$(ConfigurationType)' != 'Makefile'">_SelectedFiles;$(BtYaccDependsOn)</BtYaccDependsOn>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <BtYacc>
+      <OutputFile>%(Filename)tab.c</OutputFile>
+      <DefinesFile>%(Filename)tab.h</DefinesFile>
+      <CommandLineTemplate>
+        <!--
+         -o %(Filename).cxx [AllOptions] [AdditionalOptions] "%(Filename)%(Extension)"
+        -->
+        Z:\git\btyacc\BtYaccd.exe -DYYDEBUG  -E -l -v -b %(Filename) %(Filename)%(Extension)
+      </CommandLineTemplate>
+      <Outputs>%(RootDir)%(Directory)%(OutputFile);</Outputs>
+      <ExecutionDescription>Process "%(Filename)%(Extension)" btyacc file</ExecutionDescription>
+    </BtYacc>
+  </ItemDefinitionGroup>
+</Project>

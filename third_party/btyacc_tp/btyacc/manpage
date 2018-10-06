@@ -1,12 +1,14 @@
 .\"	%W%	%R% (Berkeley) %E%
 .\"
-.TH BTYACC 1 "July\ 15,\ 1990"
+.TH BTYACC 1 "June\ 05,\ 2015"
 .UC 6
 .SH NAME
 BTYacc \- an LALR(1) parser generator with backtracking
 .SH SYNOPSIS
 .B btyacc [ -dlrtvy ] [ -b
-.I prefix
+.I file-prefix
+.B ] [ -p
+.I identifier-prefix
 .B ] [ -S
 .I skeleton file
 .B ] [ -D
@@ -22,7 +24,7 @@ The parsers consist of a set of LALR(1) parsing tables and a driver routine
 written in the C programming language.
 .I Yacc
 normally writes the parse tables and the driver routine to the file
-.IR y.tab.c.
+.IR y.tab.c .
 .SH OPTIONS
 .TP
 \fB-b \fIprefix\fR
@@ -30,8 +32,19 @@ The
 .B -b
 option changes the prefix prepended to the output file names to
 the string denoted by
-.IR prefix.
+.IR prefix .
 The default prefix is derived from the input filename.
+.TP
+\fB-p \fIprefix\fR
+The
+.B -p
+option changes the prefix prepended to the global identifiers, such as
+.IR parse ,
+to the string denoted by
+.IR prefix .
+This allows multiple parsers to be linked together in the same executable.
+The default prefix is
+.IR yy .
 .TP
 .B -d
 The \fB-d\fR option causes the header file
@@ -58,9 +71,9 @@ option causes
 .I btyacc
 to produce separate files for code and tables.  The code file
 is named
-.IR y.code.c,
+.IR y.code.c ,
 and the tables file is named
-.IR y.tab.c.
+.IR y.tab.c .
 .TP
 .B -t
 The
@@ -74,7 +87,7 @@ The
 .B -v
 option causes a human-readable description of the generated parser to
 be written to the file
-.IR y.output.
+.IR y.output .
 .TP
 .B -y
 The

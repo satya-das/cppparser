@@ -10,7 +10,7 @@ BEGIN { havesection = 0;
 	    section = $2;
 	    seclist[nsec] = section;
 	    nsec = nsec + 1;
-	    printf "char *%s[] =\n{\n", $2;
+	    printf "static char *%s[] =\n{\n", $2;
 	    printf "    \"#line %d \\\"%s\\\"\",\n", FNR+1, FILENAME; 
 	} else {
 	    havesection = 0;

@@ -14,7 +14,7 @@ void msprintf(struct mstring *s, const char *fmt, ...)
 {
 static char	buf[4096];	/* a big static buffer */
 va_list		args;
-int		len;
+size_t		len;
 
     if (!s || !s->base) return;
     va_start(args, fmt);

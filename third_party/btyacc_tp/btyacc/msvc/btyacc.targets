@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <PropertyPageSchema
+      Include="$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml" />
+    <AvailableItemName
+      Include="BtYacc">
+      <Targets>BtYaccTarget</Targets>
+    </AvailableItemName>
+   </ItemGroup>
+  <UsingTask
+    TaskName="BtYacc"
+    TaskFactory="XamlTaskFactory"
+    AssemblyName="Microsoft.Build.Tasks.v4.0">
+    <Task>$(MSBuildThisFileDirectory)$(MSBuildThisFileName).xml</Task>
+  </UsingTask>
+  <Target
+    Name="BtYaccTarget"
+    BeforeTargets="$(BtYaccBeforeTargets)"
+    AfterTargets="$(BtYaccAfterTargets)"
+    Condition="'@(BtYacc)' != ''"
+    DependsOnTargets="$(BtYaccDependsOn);ComputeBtYaccOutput"
+    Outputs="%(BtYacc.Outputs)"
+    Inputs="%(BtYacc.Identity);%(BtYacc.AdditionalDependencies);$(MSBuildProjectFile)">
+    <ItemGroup
+      Condition="'@(SelectedFiles)' != ''">
+      <BtYacc
+        Remove="@(BtYacc)"
+        Condition="'%(Identity)' != '@(SelectedFiles)'" />
+    </ItemGroup>
+    <ItemGroup>
+      <BtYacc_tlog
+        Include="%(BtYacc.Outputs)"
+        Condition="'%(BtYacc.Outputs)' != '' and '%(BtYacc.ExcludedFromBuild)' != 'true'">
+        <Source>@(BtYacc, '|')</Source>
+      </BtYacc_tlog>
+    </ItemGroup>
+    <Message
+      Importance="High"
+      Text="%(BtYacc.ExecutionDescription)" />
+    <WriteLinesToFile
+      Condition="'@(BtYacc_tlog)' != '' and '%(BtYacc_tlog.ExcludedFromBuild)' != 'true'"
+      File="$(IntDir)$(ProjectName).write.1.tlog"
+      Lines="^%(BtYacc_tlog.Source);@(BtYacc_tlog-&gt;'%(Fullpath)')" />
+    <BtYacc
+      Condition="'@(BtYacc)' != '' and '%(BtYacc.ExcludedFromBuild)' != 'true'"
+      CommandLineTemplate="%(BtYacc.CommandLineTemplate)"
+      OutputFile="%(BtYacc.OutputFile)"
+      DefinesFile="%(BtYacc.DefinesFile)"
+      Debug="%(BtYacc.Debug)"
+      Verbose="%(BtYacc.Verbose)"
+      NoLines="%(BtYacc.NoLines)"
+      FilePrefix="%(BtYacc.FilePrefix)"
+      NamePrefix="%(BtYacc.NamePrefix)"
+      GraphFile="%(BtYacc.GraphFile)"
+      Warnings="%(BtYacc.Warnings)"
+      Report="%(BtYacc.Report)"
+      ReportFile="%(BtYacc.ReportFile)"
+      AdditionalOptions="%(BtYacc.AdditionalOptions)"
+      Inputs="%(BtYacc.Identity)" />
+  </Target>
+  <PropertyGroup>
+    <ComputeLinkInputsTargets>
+            $(ComputeLinkInputsTargets);
+            ComputeBtYaccOutput;
+          </ComputeLinkInputsTargets>
+    <ComputeLibInputsTargets>
+            $(ComputeLibInputsTargets);
+            ComputeBtYaccOutput;
+          </ComputeLibInputsTargets>
+  </PropertyGroup>
+  <Target
+    Name="ComputeBtYaccOutput"
+    Condition="'@(BtYacc)' != ''">
+    <ItemGroup>
+      <BtYaccDirsToMake
+        Condition="'@(BtYacc)' != '' and '%(BtYacc.ExcludedFromBuild)' != 'true'"
+        Include="%(BtYacc.Outputs)" />
+      <Link
+        Include="%(BtYaccDirsToMake.Identity)"
+        Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" />
+      <Lib
+        Include="%(BtYaccDirsToMake.Identity)"
+        Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" />
+      <ImpLib
+        Include="%(BtYaccDirsToMake.Identity)"
+        Condition="'%(Extension)'=='.obj' or '%(Extension)'=='.res' or '%(Extension)'=='.rsc' or '%(Extension)'=='.lib'" />
+    </ItemGroup>
+    <MakeDir
+      Directories="@(BtYaccDirsToMake-&gt;'%(RootDir)%(Directory)')" />
+  </Target>
+ </Project>

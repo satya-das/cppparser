@@ -320,9 +320,13 @@ static struct yyparsestate *YYNewState(int size) {
 #endif /* YYPOSN */
 #endif
   p->stacksize = size+4;
+#ifndef YYSTYPE_CONSTRUCTOR
   memset(&p->vs[0], 0, (size+4)*sizeof(YYSTYPE));
+#endif
 #ifdef YYPOSN
+#ifndef YYPOSN_CONSTRUCTOR
   memset(&p->ps[0], 0, (size+4)*sizeof(YYPOSN));
+#endif
 #endif /* YYPOSN */
   return p;
 }
@@ -367,6 +371,8 @@ int yyparse() {
   }
 #endif
   
+  yym = 0;
+  yyn = 0;
   yyps = YYNewState(YYDEFSTACKSIZE);
   yyps->save = 0;
   yynerrs = 0;
@@ -584,10 +590,11 @@ int yyparse() {
 yyerrlab:
   yynewerrflag = 1;
   goto yyerrhandler;
+  goto yyerrquiet; /* redundant goto to avoid 'unused label' warnings */
 yyerrquiet:
   yynewerrflag = 0;
 yyerrhandler:
-  while (yyps->save) { 
+  while (yyps->save) {
     int ctry; 
     struct yyparsestate *save = yyps->save;
 #if YYDEBUG
@@ -688,8 +695,6 @@ yyerrhandler:
           printf("yydebug[%d,%d]: state %d, ERROR recovery shifts to state "
 	         "%d\n", (int)yydepth, yytrial!=0, *(yyps->ssp), yytable[yyn]);
 #endif
-        /* Use label yyerrquiet, so that compiler does not warn */
-        if(yyps->errflag != yyps->errflag) goto yyerrquiet;
         yystate = yytable[yyn];
         goto yyshift; 
       } else {
@@ -765,14 +770,16 @@ yyreduce:
     YYMoreStack(yyps);
   }
 
-  /* "$$ = NULL" default action */
-  memset(&yyps->val, 0, sizeof(yyps->val));
+  /* "$$ = $1" default action */
+  yyval = yyvsp[0];
 
 #ifdef YYPOSN
   /* default reduced position is NULL -- no position at all.
      no position will be assigned at trial time and if no position handling
      is present */
+#ifndef YYPOSN_CONSTRUCTOR
   memset(&yyps->pos, 0, sizeof(yyps->pos));
+#endif
 #ifdef YYREDUCEPOSNFUNC
   reduce_posn = 1;
 #endif /* YYREDUCEPOSNFUNC */
