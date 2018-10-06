@@ -67,6 +67,21 @@ static int gLog = 0;
  */
 static CppCompound*  gProgUnit;
 
+// FuncdeclHack:
+// Following gets parsed as variable with initialization:
+// Type Identifier(Type * Id);
+// `Type * Id` gets parsed as expression involving multiplication and so `Identifier`
+//  followed by expression in brackets becomes a call to constructor of `Type`.
+// Actually there is an ambiguity in the grammer which compilers solve by using context.
+// For purpose of this parser we cannot collect all required context to solve this ambiguity.
+// So, we use a hack:
+// We define a production rule for this case and flag it as error. But before flagging error
+// we save the position of operator '*' (or '&', or "&&") and then we check for location of
+// the same operator in other expression production rule before accepting that as valid expression.
+// For us we always want to parse it as function declaration rather than call to constructor by passing an expression,
+// and so the hack is expected to serve us well.
+static const char* gParamModPos = nullptr;
+
 /**
  * A stack to know where (i.e. how deep inside class defnition) the current parsing activity is taking place.
  */
@@ -1362,76 +1377,83 @@ changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = kPublic;     }
 externcblock      : tknExternC block [ZZVALID;] {$$ = $2; $$->compoundType_ = kExternCBlock; }
                   ;
 
-expr              : tknStrLit                                             { $$ = new CppExpr((std::string) $1, kNone);          }
-                  | tknCharLit                                            { $$ = new CppExpr((std::string) $1, kNone);          }
-                  | tknNumber                                             { $$ = new CppExpr((std::string) $1, kNone);          }
-                  | funcname                                              { $$ = new CppExpr((std::string) $1, kNone);          }
-                  | '{' expr '}'                                          { $$ = new CppExpr($2, CppExpr::kInitializer);        }
-                  | '{' /*empty expr*/ '}'                                { $$ = new CppExpr((CppExpr*)nullptr, CppExpr::kInitializer);   }
-                  | '-' expr %prec UNARYMINUS                             { $$ = new CppExpr($2, kUnaryMinus);                  }
-                  | '~' expr                                              { $$ = new CppExpr($2, kBitToggle);                   }
-                  | '!' expr                                              { $$ = new CppExpr($2, kLogNot);                      }
-                  | '*' expr %prec DEREF                                  { $$ = new CppExpr($2, kDerefer);                     }
-                  | '&' expr %prec ADDRESSOF                              { $$ = new CppExpr($2, kRefer);                       }
-                  | tknInc expr  %prec PREINCR                            { $$ = new CppExpr($2, kPreIncrement);                }
-                  | expr tknInc  %prec POSTINCR                           { $$ = new CppExpr($1, kPostIncrement);               }
-                  | tknDec expr  %prec PREDECR                            { $$ = new CppExpr($2, kPreDecrement);                }
-                  | expr tknDec  %prec POSTDECR                           { $$ = new CppExpr($1, kPostDecrement);               }
-                  | expr '+' expr                                         { $$ = new CppExpr($1, kPlus, $3);                    }
-                  | expr '-' expr                                         { $$ = new CppExpr($1, kMinus, $3);                   }
-                  | expr '*' expr                                         { $$ = new CppExpr($1, kMul, $3);                     }
-                  | expr '/' expr                                         { $$ = new CppExpr($1, kDiv, $3);                     }
-                  | expr '%' expr                                         { $$ = new CppExpr($1, kPercent, $3);                 }
-                  | expr '&' expr                                         { $$ = new CppExpr($1, kBitAnd, $3);                  }
-                  | expr '|' expr                                         { $$ = new CppExpr($1, kBitOr, $3);                   }
-                  | expr '^' expr                                         { $$ = new CppExpr($1, kXor, $3);                     }
-                  | expr '=' expr                                         { $$ = new CppExpr($1, kEqual, $3);                   }
-                  | expr '<' expr                                         { $$ = new CppExpr($1, kLess, $3);                    }
-                  | expr '>' expr                                         { $$ = new CppExpr($1, kGreater, $3);                 }
-                  | expr '?' expr ':' expr %prec TERNARYCOND              { $$ = new CppExpr($1, $3, $5);                       }
-                  | expr tknPlusEq expr                                   { $$ = new CppExpr($1, kPlusEqual, $3);               }
-                  | expr tknMinusEq expr                                  { $$ = new CppExpr($1, kMinusEqual, $3);              }
-                  | expr tknMulEq expr                                    { $$ = new CppExpr($1, kMulEqual, $3);                }
-                  | expr tknDivEq expr                                    { $$ = new CppExpr($1, kDivEqual, $3);                }
-                  | expr tknPerEq expr                                    { $$ = new CppExpr($1, kPerEqual, $3);                }
-                  | expr tknXorEq expr                                    { $$ = new CppExpr($1, kXorEqual, $3);                }
-                  | expr tknAndEq expr                                    { $$ = new CppExpr($1, kAndEqual, $3);                }
-                  | expr tknOrEq expr                                     { $$ = new CppExpr($1, kOrEqual, $3);                 }
-                  | expr tknLShift expr                                   { $$ = new CppExpr($1, kLeftShift, $3);               }
-                  | expr tknRShift expr                                   { $$ = new CppExpr($1, kRightShift, $3);              }
-                  | expr tknLShiftEq expr                                 { $$ = new CppExpr($1, kLShiftEqual, $3);             }
-                  | expr tknRShiftEq expr                                 { $$ = new CppExpr($1, kRShiftEqual, $3);             }
-                  | expr tknCmpEq expr                                    { $$ = new CppExpr($1, kCmpEqual, $3);                }
-                  | expr tknNotEq expr                                    { $$ = new CppExpr($1, kNotEqual, $3);                }
-                  | expr tknLessEq expr                     { $$ = new CppExpr($1, kLessEqual, $3);               }
-                  | expr tknGreaterEq expr              { $$ = new CppExpr($1, kGreaterEqual, $3);            }
-                  | expr tkn3WayCmp expr                                  { $$ = new CppExpr($1, k3WayCmp, $3);                 }
-                  | expr tknAnd expr                                      { $$ = new CppExpr($1, kAnd, $3);                     }
-                  | expr tknOr expr                                       { $$ = new CppExpr($1, kOr, $3);                      }
-                  | expr ',' expr                                         { $$ = new CppExpr($1, kComma, $3);                   }
-                  | expr '.' expr                                         { $$ = new CppExpr($1, kDot, $3);                     }
-                  | expr tknArrow expr                                    { $$ = new CppExpr($1, kArrow, $3);                   }
-                  | expr tknArrowStar expr                                { $$ = new CppExpr($1, kArrowStar, $3);               }
-                  | expr '[' expr ']' %prec SUBSCRIPT                     { $$ = new CppExpr($1, kArrayElem, $3);               }
-                  | expr '(' ')' %prec FUNCCALL                           { $$ = new CppExpr($1, kFunctionCall);                }
-                  | expr '(' expr ')' %prec FUNCCALL                  { $$ = new CppExpr($1, kFunctionCall, $3);            }
-                  | '(' vartype ')' expr %prec CSTYLECAST                 { $$ = new CppExpr($2, kCStyleCast, $4);              }
-                  | tknConstCast '<' vartype '>' '(' expr ')'             { $$ = new CppExpr($3, kConstCast, $6);               }
-                  | tknStaticCast '<' vartype '>' '(' expr ')'            { $$ = new CppExpr($3, kStaticCast, $6);              }
-                  | tknDynamicCast '<' vartype '>' '(' expr ')'           { $$ = new CppExpr($3, kDynamicCast, $6);             }
-                  | tknReinterpretCast '<' vartype '>' '(' expr ')'       { $$ = new CppExpr($3, kReinterpretCast, $6);         }
-                  | '(' expr ')'                                          { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
-                  | tknNew expr                                           { $$ = $2; $2->flags_ |= CppExpr::kNew;               }
-                  | tknNew '(' expr ')' expr %prec tknNew                 { $$ = new CppExpr($3, kPlacementNew, $5);            }
-                  | tknScopeResOp tknNew '(' expr ')' expr %prec tknNew   { $$ = new CppExpr($4, kPlacementNew, $6);            }
-                  | tknDelete  expr                                       { $$ = $2; $2->flags_ |= CppExpr::kDelete;            }
-                  | tknDelete  '[' ']' expr %prec tknDelete               { $$ = $4; $4->flags_ |= CppExpr::kDeleteArray;       }
-                  | tknReturn  expr                                       { $$ = $2; $2->flags_ |= CppExpr::kReturn;            }
-                  | tknReturn                                             { $$ = new CppExpr(CppExprAtom(), CppExpr::kReturn);  }
-                  | tknThrow  expr                                        { $$ = $2; $2->flags_ |= CppExpr::kThrow;             }
-                  | tknThrow                                              { $$ = new CppExpr(CppExprAtom(), CppExpr::kThrow);   }
-                  | tknSizeOf '(' vartype ')'                             { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
-                  | tknSizeOf '(' expr ')'                                { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
+expr              : tknStrLit                                                 { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | tknCharLit                                                { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | tknNumber                                                 { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | funcname                                                  { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | '{' expr '}'                                              { $$ = new CppExpr($2, CppExpr::kInitializer);        }
+                  | '{' /*empty expr*/ '}'                                    { $$ = new CppExpr((CppExpr*)nullptr, CppExpr::kInitializer);   }
+                  | '-' expr %prec UNARYMINUS                                 { $$ = new CppExpr($2, kUnaryMinus);                  }
+                  | '~' expr                                                  { $$ = new CppExpr($2, kBitToggle);                   }
+                  | '!' expr                                                  { $$ = new CppExpr($2, kLogNot);                      }
+                  | '*' expr %prec DEREF                                      { $$ = new CppExpr($2, kDerefer);                     }
+                  | '&' expr %prec ADDRESSOF                                  { $$ = new CppExpr($2, kRefer);                       }
+                  | tknInc expr  %prec PREINCR                                { $$ = new CppExpr($2, kPreIncrement);                }
+                  | expr tknInc  %prec POSTINCR                               { $$ = new CppExpr($1, kPostIncrement);               }
+                  | tknDec expr  %prec PREDECR                                { $$ = new CppExpr($2, kPreDecrement);                }
+                  | expr tknDec  %prec POSTDECR                               { $$ = new CppExpr($1, kPostDecrement);               }
+                  | expr '+' expr                                             { $$ = new CppExpr($1, kPlus, $3);                    }
+                  | expr '-' expr                                             { $$ = new CppExpr($1, kMinus, $3);                   }
+                  | expr '*' expr [ if ($2.sz == gParamModPos) YYERROR; ]     { $$ = new CppExpr($1, kMul, $3);                     }
+                  | expr '/' expr                                             { $$ = new CppExpr($1, kDiv, $3);                     }
+                  | expr '%' expr                                             { $$ = new CppExpr($1, kPercent, $3);                 }
+                  | expr '&' expr [ if ($2.sz == gParamModPos) YYERROR; ]     { $$ = new CppExpr($1, kBitAnd, $3);                  }
+                  | expr '|' expr                                             { $$ = new CppExpr($1, kBitOr, $3);                   }
+                  | expr '^' expr                                             { $$ = new CppExpr($1, kXor, $3);                     }
+                  | expr '=' expr                                             { $$ = new CppExpr($1, kEqual, $3);                   }
+                  | expr '<' expr                                             { $$ = new CppExpr($1, kLess, $3);                    }
+                  | expr '>' expr                                             { $$ = new CppExpr($1, kGreater, $3);                 }
+                  | expr '?' expr ':' expr %prec TERNARYCOND                  { $$ = new CppExpr($1, $3, $5);                       }
+                  | expr tknPlusEq expr                                       { $$ = new CppExpr($1, kPlusEqual, $3);               }
+                  | expr tknMinusEq expr                                      { $$ = new CppExpr($1, kMinusEqual, $3);              }
+                  | expr tknMulEq expr                                        { $$ = new CppExpr($1, kMulEqual, $3);                }
+                  | expr tknDivEq expr                                        { $$ = new CppExpr($1, kDivEqual, $3);                }
+                  | expr tknPerEq expr                                        { $$ = new CppExpr($1, kPerEqual, $3);                }
+                  | expr tknXorEq expr                                        { $$ = new CppExpr($1, kXorEqual, $3);                }
+                  | expr tknAndEq expr                                        { $$ = new CppExpr($1, kAndEqual, $3);                }
+                  | expr tknOrEq expr                                         { $$ = new CppExpr($1, kOrEqual, $3);                 }
+                  | expr tknLShift expr                                       { $$ = new CppExpr($1, kLeftShift, $3);               }
+                  | expr tknRShift expr                                       { $$ = new CppExpr($1, kRightShift, $3);              }
+                  | expr tknLShiftEq expr                                     { $$ = new CppExpr($1, kLShiftEqual, $3);             }
+                  | expr tknRShiftEq expr                                     { $$ = new CppExpr($1, kRShiftEqual, $3);             }
+                  | expr tknCmpEq expr                                        { $$ = new CppExpr($1, kCmpEqual, $3);                }
+                  | expr tknNotEq expr                                        { $$ = new CppExpr($1, kNotEqual, $3);                }
+                  | expr tknLessEq expr                                       { $$ = new CppExpr($1, kLessEqual, $3);               }
+                  | expr tknGreaterEq expr                                    { $$ = new CppExpr($1, kGreaterEqual, $3);            }
+                  | expr tkn3WayCmp expr                                      { $$ = new CppExpr($1, k3WayCmp, $3);                 }
+                  | expr tknAnd expr  [ if ($2.sz == gParamModPos) YYERROR; ] { $$ = new CppExpr($1, kAnd, $3);                     }
+                  | expr tknOr expr                                           { $$ = new CppExpr($1, kOr, $3);                      }
+                  | expr ',' expr                                             { $$ = new CppExpr($1, kComma, $3);                   }
+                  | expr '.' expr                                             { $$ = new CppExpr($1, kDot, $3);                     }
+                  | expr tknArrow expr                                        { $$ = new CppExpr($1, kArrow, $3);                   }
+                  | expr tknArrowStar expr                                    { $$ = new CppExpr($1, kArrowStar, $3);               }
+                  | expr '[' expr ']' %prec SUBSCRIPT                         { $$ = new CppExpr($1, kArrayElem, $3);               }
+                  | expr '(' ')' %prec FUNCCALL                               { $$ = new CppExpr($1, kFunctionCall);                }
+                  | expr '(' expr ')' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | '(' vartype ')' expr %prec CSTYLECAST                     { $$ = new CppExpr($2, kCStyleCast, $4);              }
+                  | tknConstCast '<' vartype '>' '(' expr ')'                 { $$ = new CppExpr($3, kConstCast, $6);               }
+                  | tknStaticCast '<' vartype '>' '(' expr ')'                { $$ = new CppExpr($3, kStaticCast, $6);              }
+                  | tknDynamicCast '<' vartype '>' '(' expr ')'               { $$ = new CppExpr($3, kDynamicCast, $6);             }
+                  | tknReinterpretCast '<' vartype '>' '(' expr ')'           { $$ = new CppExpr($3, kReinterpretCast, $6);         }
+                  | '(' expr ')'                                              { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
+                  | tknNew expr                                               { $$ = $2; $2->flags_ |= CppExpr::kNew;               }
+                  | tknNew '(' expr ')' expr %prec tknNew                     { $$ = new CppExpr($3, kPlacementNew, $5);            }
+                  | tknScopeResOp tknNew '(' expr ')' expr %prec tknNew       { $$ = new CppExpr($4, kPlacementNew, $6);            }
+                  | tknDelete  expr                                           { $$ = $2; $2->flags_ |= CppExpr::kDelete;            }
+                  | tknDelete  '[' ']' expr %prec tknDelete                   { $$ = $4; $4->flags_ |= CppExpr::kDeleteArray;       }
+                  | tknReturn  expr                                           { $$ = $2; $2->flags_ |= CppExpr::kReturn;            }
+                  | tknReturn                                                 { $$ = new CppExpr(CppExprAtom(), CppExpr::kReturn);  }
+                  | tknThrow  expr                                            { $$ = $2; $2->flags_ |= CppExpr::kThrow;             }
+                  | tknThrow                                                  { $$ = new CppExpr(CppExprAtom(), CppExpr::kThrow);   }
+                  | tknSizeOf '(' vartype ')'                                 { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
+                  | tknSizeOf '(' expr ')'                                    { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
+                  // FuncdeclHack: Hack to resolve function declaration ambiguity
+                  | apidecor vartype tknID '(' identifier '*' tknID ')' ';'   [gParamModPos = $6.sz; YYERROR;]      { $$ = nullptr; }
+                  | apidecor vartype tknID '(' identifier '&' tknID ')' ';'   [gParamModPos = $6.sz; YYERROR;]      { $$ = nullptr; }
+                  | apidecor vartype tknID '(' identifier tknAnd tknID ')' ';'[gParamModPos = $6.sz; YYERROR;]      { $$ = nullptr; }
+                  | vartype tknID '(' identifier '*' tknID ')' ';'            [gParamModPos = $5.sz; YYERROR;]      { $$ = nullptr; }
+                  | vartype tknID '(' identifier '&' tknID ')' ';'            [gParamModPos = $5.sz; YYERROR;]      { $$ = nullptr; }
+                  | vartype tknID '(' identifier tknAnd tknID ')' ';'         [gParamModPos = $5.sz; YYERROR;]      { $$ = nullptr; }
                   ;
 
 exprstmt          : expr ';'  [ZZVALID;]              { $$ = $1; }
