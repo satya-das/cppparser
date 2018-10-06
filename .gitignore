@@ -9,6 +9,10 @@
 # YACC generated debug purpose file
 y.output
 
+# Lex and yacc generated files
+parser.lex.cpp
+parser.tab.*
+
 # Build results
 
 [Dd]ebug/
