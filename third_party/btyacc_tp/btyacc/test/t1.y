@@ -1,3 +1,7 @@
+/*
+ * [test] btyacc
+ * [test] cc -c -Wall -Werror
+ */
 %left LO '+' '-'
 %left HI '*' '/' '%'
 %nonassoc UNARY

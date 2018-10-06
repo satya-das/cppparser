@@ -21,30 +21,36 @@ LINKER	      = gcc
 
 MAKEFILE      = Makefile
 
-OBJS	      = closure.o error.o lalr.o lr0.o main.o mkpar.o output.o	\
-		mstring.o reader.o readskel.o skeleton.o symtab.o verbose.o warshall.o
+OBJS	      = closure.o dtor.o error.o lalr.o lr0.o main.o mkpar.o	\
+		output.o mstring.o reader.o readskel.o skeleton.o	\
+		symtab.o verbose.o warshall.o
 
 PRINT	      = pr -f -l88
 
 PROGRAM	      = btyacc
 
-SRCS	      = closure.c error.c lalr.c lr0.c main.c mkpar.c output.c	\
-		mstring.c reader.c readskel.c skeleton.c symtab.c verbose.c warshall.c
+SRCS	      = closure.c dtor.c error.c lalr.c lr0.c main.c mkpar.c	\
+		output.c mstring.c reader.c readskel.c skeleton.c	\
+		symtab.c verbose.c warshall.c
 
 OTHERS	      = README README.BYACC \
-		Makefile btyaccpa.ske push.skel empty.y skel2c manpage makefile.dos \
-		skeleton.c
+		Makefile btyaccpa.ske push.skel empty.y skel2c manpage	\
+		makefile.dos skeleton.c
+
+TEST_GEN      = test/*.tab.c test/*.code.c test/*.tab.h test/*.output	\
+		test/*.o test/a.out test/tmp.txt
 
 all:		$(PROGRAM)
 
 $(PROGRAM):     $(OBJS) $(LIBS)
 		$(LINKER) $(LDFLAGS) -o $(PROGRAM) $(OBJS) $(LIBS)
 
-clean:;		rm -f $(OBJS)
+clean:;		rm -f $(OBJS) $(TEST_GEN)
 
 clobber:;	rm -f $(OBJS) $(PROGRAM)
 
-distclean:;	rm -f $(OBJS) $(PROGRAM) skeleton.c *.zip *.gz
+distclean:;	rm -f $(OBJS) $(PROGRAM) skeleton.c *.zip *.gz $(TEST_GEN) \
+		test/faillog.txt
 
 depend:;	mkmf -f $(MAKEFILE) PROGRAM=$(PROGRAM) DEST=$(DEST)
 
@@ -79,13 +85,23 @@ zip:
 		mv btyacc.zip btyacc-$(VERSION).zip
 
 skeleton.c: btyaccpa.ske skel2c
-		awk -f skel2c btyaccpa.ske >skeleton.c
+		@echo "/*" >$@
+		@echo "** This file generated automatically from $<" >>$@
+		@echo "*/" >>$@
+		@echo >>$@
+		awk -f skel2c btyaccpa.ske >>$@
+
+test: program
+		@cd test; CC=$(CC) ./runtests
 
 etags TAGS:
 		etags *.c *.h
 
+.PHONY: all clean clobber distclean depend index install oldinstall listing lint program dist tar zip test
+
 ###
 closure.o: defs.h
+dtor.o: defs.h
 error.o: defs.h
 lalr.o: defs.h
 lr0.o: defs.h
@@ -94,6 +110,7 @@ mkpar.o: defs.h
 mstring.o: mstring.h
 output.o: defs.h
 reader.o: defs.h mstring.h
+readskel.o: defs.h
 skeleton.o: defs.h
 symtab.o: defs.h
 verbose.o: defs.h
