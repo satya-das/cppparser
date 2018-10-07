@@ -514,8 +514,8 @@ struct CppMacroCall : CppObj
 {
   std::string macroCall_;
 
-  CppMacroCall(std::string macroCall)
-    : CppObj(CppObj::kMacroCall, kUnknownProt)
+  CppMacroCall(std::string macroCall, CppObjProtLevel prot)
+    : CppObj(CppObj::kMacroCall, prot)
     , macroCall_(std::move(macroCall))
   {
   }
@@ -999,7 +999,7 @@ struct CppConstructor : public CppFuncCtorBase
                  CppMemInitList* memInitList,
                  std::uint32_t   attr)
     : CppFuncCtorBase(kConstructor, prot, name, params, attr)
-    , memInitList_(nullptr)
+    , memInitList_(memInitList)
   {
   }
 

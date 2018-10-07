@@ -129,6 +129,8 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
       break;
     case CppObj::kSwitchBlock:
       return emitSwitchBlock(static_cast<const CppSwitchBlock*>(cppObj), stm, indentation);
+    case CppObj::kMacroCall:
+      return emitMacroCall(static_cast<const CppMacroCall*>(cppObj), stm, indentation);
 
     case CppObj::kBlob:
       return emitBlob((CppBlob*) cppObj, stm);
@@ -201,7 +203,10 @@ void CppWriter::emitBlob(const CppBlob* blobObj, std::ostream& stm) const
 void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) const
 {
   emitAttribute(varTypeObj->typeAttr_, stm);
-  stm << varTypeObj->baseType_;
+  if (varTypeObj->compound_)
+    emitCompound(varTypeObj->compound_, stm, CppIndent(), false);
+  else
+    stm << varTypeObj->baseType_;
   emitTypeModifier(varTypeObj->typeModifier_, stm);
 }
 
@@ -350,6 +355,13 @@ void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj,
   stm << fwdDeclObj->cmpType_ << ' ' << fwdDeclObj->name_ << ";\n";
 }
 
+void CppWriter::emitMacroCall(const CppMacroCall* macroCallObj,
+                              std::ostream&       stm,
+                              CppIndent           indentation /* = CppIndent()*/) const
+{
+  stm << indentation << macroCallObj->macroCall_ << '\n';
+}
+
 void CppWriter::emitTemplSpec(const CppTemplateParamListP& templSpec, std::ostream& stm, CppIndent indentation) const
 {
   stm << indentation << "template <";
@@ -377,7 +389,8 @@ void CppWriter::emitTemplSpec(const CppTemplateParamListP& templSpec, std::ostre
 
 void CppWriter::emitCompound(const CppCompound* compoundObj,
                              std::ostream&      stm,
-                             CppIndent          indentation /* = CppIndent()*/) const
+                             CppIndent          indentation,
+                             bool               emitNewLine) const
 {
   if (compoundObj->isNamespaceLike())
   {
@@ -426,9 +439,12 @@ void CppWriter::emitCompound(const CppCompound* compoundObj,
   {
     stm << --indentation;
     stm << '}';
-    if (compoundObj->isClassLike())
-      stm << ';';
-    stm << '\n';
+    if (emitNewLine)
+    {
+      if (compoundObj->isClassLike())
+        stm << ';';
+      stm << '\n';
+    }
   }
   else if (compoundObj->compoundType_ == kExternCBlock)
     stm << indentation << "}\n";
@@ -601,6 +617,8 @@ void CppWriter::emitDestructor(const CppDestructor* dtorObj,
                                CppIndent            indentation /* = CppIndent()*/) const
 {
   stm << indentation;
+  if (!dtorObj->docer1_.empty())
+    stm << dtorObj->docer1_ << ' ';
   if (dtorObj->attr_ & kInline)
     stm << "inline ";
   else if (dtorObj->attr_ & kExplicit)

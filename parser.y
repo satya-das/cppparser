@@ -392,7 +392,7 @@ stmt              : vardeclstmt     { $$ = $1; }
                   | usingdecl       { $$ = $1; }
                   | usingnamespacedecl { $$ = $1; }
                   | namespacealias  { $$ = $1; }
-                  | macrocall       { $$ = new CppMacroCall($1); }
+                  | macrocall       { $$ = new CppMacroCall($1, gCurProtLevel); }
                   | ';' /* blank statement */ { $$ = nullptr; }
                   ;
 
@@ -1210,7 +1210,7 @@ dtordecl          : '~' tknID '(' optvoid ')' %prec DTORDECL
                   }
                   | apidecor dtordecl {
                     $$ = $2;
-                    // $$->apidecor_ = $1;
+                    $$->docer1_ = $1;
                   }
                   | functype dtordecl {
                     $$ = $2;

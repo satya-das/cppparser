@@ -70,9 +70,13 @@ public:
   virtual void emitFwdDecl(const CppFwdClsDecl* fwdClsDeclObj,
                            std::ostream&        stm,
                            CppIndent            indentation = CppIndent()) const;
+  virtual void emitMacroCall(const CppMacroCall* macroCallObj,
+                             std::ostream&       stm,
+                             CppIndent           indentation = CppIndent()) const;
   virtual void emitCompound(const CppCompound* compoundObj,
                             std::ostream&      stm,
-                            CppIndent          indentation = CppIndent()) const;
+                            CppIndent          indentation = CppIndent(),
+                            bool               emitNewLine = true) const;
   virtual void emitFunction(const CppFunction* funcObj, std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitFunctionPtr(const CppFunctionPtr* funcPtrObj,
                                std::ostream&         stm,
