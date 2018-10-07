@@ -688,7 +688,10 @@ vardecllist       : typeidentifier opttypemodifier tknID ',' opttypemodifier tkn
                   }
                   ;
 
-varinit           : vardecl '=' expr {
+varinit           : vardecl '(' typeidentifier '*' tknID      [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
+                  | vardecl '(' typeidentifier '&' tknID      [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
+                  | vardecl '(' typeidentifier tknAnd tknID   [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
+                  | vardecl '=' expr {
                     $$ = $1;
                     $$->varDecl_.assign_.reset($3);
                   }
@@ -1480,13 +1483,6 @@ expr              : tknStrLit                                                 { 
                   | tknThrow                                                  { $$ = new CppExpr(CppExprAtom(), CppExpr::kThrow);   }
                   | tknSizeOf '(' vartype ')'                                 { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
                   | tknSizeOf '(' expr ')'                                    { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
-                  // FuncdeclHack: Hack to resolve function declaration ambiguity
-                  | apidecor vartype tknID '(' identifier '*' tknID ')' ';'   [gParamModPos = $6.sz; YYERROR;]      { $$ = nullptr; }
-                  | apidecor vartype tknID '(' identifier '&' tknID ')' ';'   [gParamModPos = $6.sz; YYERROR;]      { $$ = nullptr; }
-                  | apidecor vartype tknID '(' identifier tknAnd tknID ')' ';'[gParamModPos = $6.sz; YYERROR;]      { $$ = nullptr; }
-                  | vartype tknID '(' identifier '*' tknID ')' ';'            [gParamModPos = $5.sz; YYERROR;]      { $$ = nullptr; }
-                  | vartype tknID '(' identifier '&' tknID ')' ';'            [gParamModPos = $5.sz; YYERROR;]      { $$ = nullptr; }
-                  | vartype tknID '(' identifier tknAnd tknID ')' ';'         [gParamModPos = $5.sz; YYERROR;]      { $$ = nullptr; }
                   ;
 
 exprstmt          : expr ';'  [ZZVALID;]              { $$ = $1; }
