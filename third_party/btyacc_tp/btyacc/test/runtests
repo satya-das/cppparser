@@ -12,6 +12,7 @@ esac
 
 BTYACC=../btyacc
 test ${CC:=gcc}
+test ${CXX:=g++}
 
 while expr "x$1" : x- >/dev/null; do
     case $1 in
@@ -50,6 +51,18 @@ for f in "$@"; do
 	cc)
 	    if [ $build -lt 1 ]; then continue; fi
 	    if $CC $(basename $f .y).tab.c $rest >tmp.txt 2>&1; then
+		build=2
+	    else
+		if [ ! -e .fail ]; then echo "$f:" >>faillog.txt; fi
+		echo "> $CC $(basename $f .y).tab.c $rest" >> faillog.txt
+		cat tmp.txt >>faillog.txt
+		touch .fail;
+		build=1
+	    fi
+	    ;;
+	c++)
+	    if [ $build -lt 1 ]; then continue; fi
+	    if $CXX $(basename $f .y).tab.c $rest >tmp.txt 2>&1; then
 		build=2
 	    else
 		if [ ! -e .fail ]; then echo "$f:" >>faillog.txt; fi

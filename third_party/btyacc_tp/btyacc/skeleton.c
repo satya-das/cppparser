@@ -1,3 +1,7 @@
+/*
+** This file generated automatically from btyaccpa.ske
+*/
+
 #include "defs.h"
 /*  The banner used here should be replaced with an #ident directive    */
 /*  if the target C compiler supports #ident directives.                */
@@ -7,7 +11,7 @@
 
 static char *banner[] =
 {
-    "#line 8 \"/home/dassat/github/cppparser/third_party/btyacc_tp/btyacc/btyaccpa.ske\"",
+    "#line 8 \"btyaccpa.ske\"",
     "",
     "/*",
     "** @(#)btyaccpar, based on byacc 1.8 (Berkeley)",
@@ -25,7 +29,7 @@ static char *banner[] =
 
 static char *tables[] =
 {
-    "#line 21 \"/home/dassat/github/cppparser/third_party/btyacc_tp/btyacc/btyaccpa.ske\"",
+    "#line 21 \"btyaccpa.ske\"",
     "",
     "#ifdef __cplusplus",
     "#define _C_ \"C\"",
@@ -51,8 +55,8 @@ static char *tables[] =
     "extern _C_ Yshort yyttable[];",
     "",
     "#if YYDEBUG",
-    "extern _C_ char *yyname[];",
-    "extern _C_ char *yyrule[];",
+    "extern _C_ const char *yyname[];",
+    "extern _C_ const char *yyrule[];",
     "#endif",
     "",
     0
@@ -60,7 +64,7 @@ static char *tables[] =
 
 static char *header[] =
 {
-    "#line 51 \"/home/dassat/github/cppparser/third_party/btyacc_tp/btyacc/btyaccpa.ske\"",
+    "#line 51 \"btyaccpa.ske\"",
     "",
     "/*",
     "** YYPOSN is user-defined text position type.",
@@ -367,7 +371,7 @@ static char *header[] =
 
 static char *body[] =
 {
-    "#line 353 \"/home/dassat/github/cppparser/third_party/btyacc_tp/btyacc/btyaccpa.ske\"",
+    "#line 353 \"btyaccpa.ske\"",
     "",
     "/*",
     "** Parser function",
@@ -380,7 +384,7 @@ static char *body[] =
     "#endif /* YYREDUCEPOSNFUNC */",
     "",
     "#if YYDEBUG",
-    "  char *yys;",
+    "  const char *yys;",
     "  ",
     "  if ((yys = getenv(\"YYDEBUG\"))) {",
     "    yyn = *yys;",
@@ -599,6 +603,7 @@ static char *body[] =
     "    yyn = yytable[yyn];",
     "    goto yyreduce;",
     "  }",
+    "  yym = 0;  /* no reduction to clean up after */",
     "",
     "  /*",
     "  ** Action: error",
@@ -606,6 +611,15 @@ static char *body[] =
     "  if (yyps->errflag) goto yyinrecovery;",
     "  else goto yyerrlab;\t/* redundant goto to avoid 'unused label' warnings */",
     "yyerrlab:",
+    "  /* explicit YYERROR from an action -- pop the rhs of the rule reduced",
+    "   * before looking for error recovery */",
+    "  yyps->ssp -= yym;",
+    "  yystate = *(yyps->ssp);",
+    "  yyps->vsp -= yym;",
+    "#ifdef YYPOSN",
+    "  yyps->psp -= yym;",
+    "#endif /* YYPOSN */",
+    "",
     "  yynewerrflag = 1;",
     "  goto yyerrhandler;",
     "  goto yyerrquiet; /* redundant goto to avoid 'unused label' warnings */",
@@ -810,7 +824,7 @@ static char *body[] =
 
 static char *trailer[] =
 {
-    "#line 791 \"/home/dassat/github/cppparser/third_party/btyacc_tp/btyacc/btyaccpa.ske\"",
+    "#line 801 \"btyaccpa.ske\"",
     "",
     "  default:",
     "    break;",

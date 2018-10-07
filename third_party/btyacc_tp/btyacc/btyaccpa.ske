@@ -43,8 +43,8 @@ extern _C_ Yshort yyastable[];
 extern _C_ Yshort yyttable[];
 
 #if YYDEBUG
-extern _C_ char *yyname[];
-extern _C_ char *yyrule[];
+extern _C_ const char *yyname[];
+extern _C_ const char *yyrule[];
 #endif
 
 %% header
@@ -362,7 +362,7 @@ int yyparse() {
 #endif /* YYREDUCEPOSNFUNC */
 
 #if YYDEBUG
-  char *yys;
+  const char *yys;
   
   if ((yys = getenv("YYDEBUG"))) {
     yyn = *yys;
@@ -581,6 +581,7 @@ int yyparse() {
     yyn = yytable[yyn];
     goto yyreduce;
   }
+  yym = 0;  /* no reduction to clean up after */
 
   /*
   ** Action: error
@@ -588,6 +589,15 @@ int yyparse() {
   if (yyps->errflag) goto yyinrecovery;
   else goto yyerrlab;	/* redundant goto to avoid 'unused label' warnings */
 yyerrlab:
+  /* explicit YYERROR from an action -- pop the rhs of the rule reduced
+   * before looking for error recovery */
+  yyps->ssp -= yym;
+  yystate = *(yyps->ssp);
+  yyps->vsp -= yym;
+#ifdef YYPOSN
+  yyps->psp -= yym;
+#endif /* YYPOSN */
+
   yynewerrflag = 1;
   goto yyerrhandler;
   goto yyerrquiet; /* redundant goto to avoid 'unused label' warnings */
