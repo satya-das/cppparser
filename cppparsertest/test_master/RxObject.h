@@ -558,7 +558,7 @@ public:
     Note: 
     The default implementation of this function returns OdRx::kNotOrderable.  
   */
-	virtual OdRx ::Ordering comparedTo(const OdRxObject* pOther) const;
+	virtual OdRx::Ordering comparedTo(const OdRxObject* pOther) const;
   /** 
     Description: 
     Returns true if and only if the specified object is equal to this one. 
@@ -569,14 +569,14 @@ public:
   */
 	virtual bool isEqualTo(const OdRxObject* pOther) const;
 };
-void OdRxObjectPtr ::internalAddRef()
+void OdRxObjectPtr::internalAddRef()
 {
 	if (m_pObject)
 	{
 		m_pObject->addRef();
 	}
 }
-void OdRxObjectPtr ::release()
+void OdRxObjectPtr::release()
 {
 	if (m_pObject)
 	{
@@ -685,7 +685,7 @@ public:
     Remarks: 
     The maintenance release version is returned if and only if pMaintReleaseVer != NULL.  
   */
-	virtual OdDb ::DwgVersion getClassVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const = 0;
+	virtual OdDb::DwgVersion getClassVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const = 0;
   /** Description: 
     Returns the proxy flags for this OdRxClass. 
   */
@@ -727,7 +727,7 @@ public:
     This template class is a specialization of the OdSmartPtr class template for OdRxClass object pointers. 
 */
 typedef OdSmartPtr<OdRxClass> OdRxClassPtr;
-template <class Class, class Parent>
+template <typename Class, typename Parent>
 OdRxObject* odQueryXImpl(const Class* pThis, const OdRxClass* pClass)
 {
 	OdRxObject* pObj = 0;

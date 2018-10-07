@@ -84,7 +84,7 @@ public:
      
     {group:Other_Classes} 
 */
-template <class T>
+template <typename T>
 class OdSmartPtr : public OdBaseObjectPtr
 {
   /** Description: 
