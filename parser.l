@@ -37,6 +37,7 @@ For this very reason this file does not use any class that are defined in cppdom
 #include "cpptoken.h"
 #include "parser.tab.h"
 
+#include <iostream>
 #include <map>
 #include <set>
 
@@ -318,7 +319,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxBlockComment,ctxDocBlockComment>{WS}*"*"+[^*/\n]*\n {
   ++gLineNo;
 }
-<ctxBlockComment,ctxDocBlockComment>.*"*"+"/" {
+<ctxBlockComment,ctxDocBlockComment>[^*\n]*"*"+"/" {
   ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
   /* Ignore block comment if it does not stand all alone */
 }
