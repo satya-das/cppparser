@@ -19,10 +19,11 @@ set_source_files_properties(parser.tab.h GENERATED)
 
 add_custom_command(
 	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.cpp ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.h
-	COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/btyacc -d ${CMAKE_CURRENT_SOURCE_DIR}/parser.y
+	COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/btyacc -b parser -d ${CMAKE_CURRENT_SOURCE_DIR}/parser.y
 #	COMMAND ${CMAKE_COMMAND} -E copy y_tab.c ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.cpp
 #	COMMAND ${CMAKE_COMMAND} -E copy y_tab.h ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.h
-	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.c ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.cpp
+	COMMAND ${CMAKE_COMMAND} -E copy parser.tab.c ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.cpp
+	COMMAND ${CMAKE_COMMAND} -E copy parser.tab.h ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.h
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/parser.y
 )
 
@@ -57,6 +58,8 @@ target_include_directories(
 	PUBLIC
 		pub
 		${ROOT_DIR}/common/third_party/boost_tp
+	PRIVATE
+		hack
 )
 
 #############################################
