@@ -38,8 +38,8 @@ std::set<std::string> gMacroNames = {"DECLARE_MESSAGE_MAP",
                                      "DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION",
                                      "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION",
                                      "ACRX_DECLARE_MEMBERS_EXPIMP",
-                                     "ACRX_DECLARE_MEMBERS_ACBASE_PORT_EXPIMP"
-};
+                                     "ACRX_DECLARE_MEMBERS_ACBASE_PORT_EXPIMP",
+                                     "ACRX_DECLARE_MEMBERS"};
 
 std::set<std::string> gKnownApiDecorNames = {"ODRX_ABSTRACT",
                                              "FIRSTDLL_EXPORT",
@@ -50,8 +50,7 @@ std::set<std::string> gKnownApiDecorNames = {"ODRX_ABSTRACT",
                                              "ACCORE_PORT",
                                              "ACDB_PORT",
                                              "ACPAL_PORT",
-                                             "ACAD_PORT"}
-;
+                                             "ACAD_PORT"};
 
 extern CppCompound* parseStream(char* stm, size_t stmSize);
 CppObjFactory*      gObjFactory = nullptr;

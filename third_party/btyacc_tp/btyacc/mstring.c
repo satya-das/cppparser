@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <string.h>
 #include <ctype.h>
 #include "mstring.h"
 
@@ -13,7 +14,7 @@ void msprintf(struct mstring *s, const char *fmt, ...)
 {
 static char	buf[4096];	/* a big static buffer */
 va_list		args;
-int		len;
+size_t		len;
 
     if (!s || !s->base) return;
     va_start(args, fmt);
@@ -59,6 +60,12 @@ struct mstring *msnew(void) {
 	free(n);
 	n = 0; }
     return n;
+}
+
+void mstrim(struct mstring *s, const char *trim)
+{
+    while (s && s->ptr > s->base && strchr(trim, s->ptr[-1]))
+	s->ptr--;
 }
 
 char *msdone(struct mstring *s)

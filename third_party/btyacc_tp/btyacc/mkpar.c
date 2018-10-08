@@ -177,10 +177,8 @@ void unused_rules()
 	if (!rules_used[i]) ++nunused;
 
     if (nunused)
-	if (nunused == 1)
-	    fprintf(stderr, "%s: 1 rule never reduced\n", myname);
-	else
-	    fprintf(stderr, "%s: %d rules never reduced\n", myname, nunused);
+	fprintf(stderr, "%s: %d rule%s never reduced\n", myname, nunused,
+		nunused > 1 ? "s" : "");
 }
 
 
@@ -266,7 +264,7 @@ int sole_reduction(int stateno)
     register action *p;
 
     count = 0;
-    ruleno = 0; 
+    ruleno = 0;
     for (p = parser[stateno]; p; p = p->next)
     {
 	if (p->action_code == SHIFT && p->suppressed <= 1)
@@ -295,7 +293,7 @@ void defreds()
     for (i = 0; i < nstates; i++)
 	defred[i] = sole_reduction(i);
 }
- 
+
 void free_action_row(action *p)
 {
   register action *q;

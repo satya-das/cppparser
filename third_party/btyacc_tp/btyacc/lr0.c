@@ -285,7 +285,7 @@ core *new_state(int symbol)
     fprintf(stderr, "Entering new_state(%d)\n", symbol);
 #endif
 
-    if (nstates >= MAXSHORT)
+    if (nstates >= INT_MAX)
 	fatal("too many states");
 
     isp1 = kernel_base[symbol];

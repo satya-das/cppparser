@@ -8,6 +8,7 @@ struct mstring {
 void msprintf(struct mstring *, const char *, ...);
 int mputchar(struct mstring *, int);
 struct mstring *msnew(void);
+void mstrim(struct mstring *, const char *);
 char *msdone(struct mstring *);
 
 /* compare two strings, ignoring whitespace, except between two letters or

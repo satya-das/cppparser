@@ -20,18 +20,18 @@ CC        = bcc
 
 MAKEFILE      = Makefile.dos
 
-OBJS1  = closure.obj error.obj lalr.obj lr0.obj main.obj mkpar.obj output.obj
-OBJS2  = mstring.obj reader.obj skeleton.obj symtab.obj verbose.obj warshall.obj
+OBJS1  = closure.obj dtor.obj error.obj lalr.obj lr0.obj main.obj mkpar.obj output.obj
+OBJS2  = mstring.obj reader.obj readskel.obj skeleton.obj symtab.obj verbose.obj warshall.obj
 OBJS   = $(OBJS1) $(OBJS2)
 
 
 PROGRAM       = btyacc.exe
 
-SRCS          = closure.c error.c lalr.c lr0.c main.c mkpar.c output.c  \
-                mstring.c reader.c skeleton.c symtab.c verbose.c warshall.c
+SRCS          = closure.c dotr.c error.c lalr.c lr0.c main.c mkpar.c output.c  \
+                mstring.c reader.c readskel.c skeleton.c symtab.c verbose.c warshall.c
 
 OTHERS        = README README.BYACC \
-                Makefile btyaccpa.ske empty.y skel2c manpage
+                Makefile btyaccpa.ske push.skel empty.y skel2c manpage
 
 all:            $(PROGRAM)
 
@@ -57,6 +57,7 @@ skeleton.c: btyaccpa.ske
 
 ###
 closure.o: defs.h
+dtor.o: defs.h
 error.o: defs.h
 lalr.o: defs.h
 lr0.o: defs.h
@@ -65,6 +66,7 @@ mkpar.o: defs.h
 mstring.o: mstring.h
 output.o: defs.h
 reader.o: defs.h mstring.h
+readskel.o: defs.h mstring.h
 skeleton.o: defs.h
 symtab.o: defs.h
 verbose.o: defs.h

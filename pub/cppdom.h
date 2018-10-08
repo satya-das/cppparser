@@ -366,7 +366,9 @@ using CppObjPtr     = std::unique_ptr<CppObj>;
 struct CppVarDecl
 {
   std::string   name_;
-  CppObjPtr     assign_; // Value assigned at declaration.
+  CppObjPtr     assign_;          // Value assigned at declaration.
+  CppObjPtr     constructFrom_;   // expression from which it is constructed '()'.
+  CppObjPtr     initializedFrom_; // expression from which it is initialized '{}'.
   CppExprPtr    bitField_;
   CppArraySizes arraySizes_;
 
@@ -512,8 +514,8 @@ struct CppMacroCall : CppObj
 {
   std::string macroCall_;
 
-  CppMacroCall(std::string macroCall)
-    : CppObj(CppObj::kMacroCall, kUnknownProt)
+  CppMacroCall(std::string macroCall, CppObjProtLevel prot)
+    : CppObj(CppObj::kMacroCall, prot)
     , macroCall_(std::move(macroCall))
   {
   }
@@ -997,7 +999,7 @@ struct CppConstructor : public CppFuncCtorBase
                  CppMemInitList* memInitList,
                  std::uint32_t   attr)
     : CppFuncCtorBase(kConstructor, prot, name, params, attr)
-    , memInitList_(nullptr)
+    , memInitList_(memInitList)
   {
   }
 

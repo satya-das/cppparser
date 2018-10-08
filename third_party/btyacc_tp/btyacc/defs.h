@@ -3,15 +3,18 @@
 #include <assert.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <limits.h>
 
 
 /*  machine-dependent definitions			*/
 /*  the following definitions are for the Tahoe		*/
 /*  they might have to be changed for other machines	*/
+#ifdef _WIN32
+#define strdup _strdup
+#define unlink _unlink
+#define mktemp _mktemp
+#endif // _WIN32
 
-/*  MAXCHAR is the largest unsigned character value	*/
-/*  MAXSHORT is the largest value of a C short		*/
-/*  MINSHORT is the most negative value of a C short	*/
 /*  MAXTABLE is the maximum table size			*/
 /*  BITS_PER_WORD is the number of bits in a C unsigned	*/
 /*  WORDSIZE computes the number of words needed to	*/
@@ -20,9 +23,6 @@
 /*	from r (0-indexed)				*/
 /*  SETBIT sets the n-th bit starting from r		*/
 
-#define	MAXCHAR		255
-#define	MAXSHORT	((int)0x7FFFFFFF)
-#define MINSHORT	((int)0x80000000)
 #define MAXTABLE	120000
 
 #ifdef __MSDOS__
@@ -59,9 +59,15 @@ typedef int Yshort;
 
 /* defines for constructing filenames */
 
+#ifdef __MSDOS__
 #define DEFINES_SUFFIX  "_tab.h"
 #define OUTPUT_SUFFIX   "_tab.c"
 #define CODE_SUFFIX     "_code.c"
+#else /* !MSDOS */
+#define DEFINES_SUFFIX  ".tab.h"
+#define OUTPUT_SUFFIX   ".tab.c"
+#define CODE_SUFFIX     ".code.c"
+#endif /* MSDOS */
 #define VERBOSE_SUFFIX  ".output"
 
 /* keyword codes */
@@ -76,6 +82,8 @@ typedef int Yshort;
 #define START 7
 #define UNION 8
 #define IDENT 9
+#define DESTRUCTOR 10
+#define LOCATION 11
 
 
 /*  symbol classes  */
@@ -121,6 +129,16 @@ typedef int Yshort;
 #define REALLOC(p,n)	(realloc((char*)(p),(unsigned)(n)))
 #define RENEW(p,n,t)	((t*)realloc((char*)(p),(unsigned)((n)*sizeof(t))))
 
+/*  the structure to track an input file being read */
+
+typedef struct file_info file_info;
+struct file_info
+{
+    file_info *next;
+    FILE *file;
+    char *name;
+    int lineno;
+};
 
 /*  the structure of a symbol table entry  */
 
@@ -130,17 +148,26 @@ struct bucket
     struct bucket *link;
     struct bucket *next;
     char *name;
-    char *tag;
+    struct union_tag *tag;
     char **argnames;
     char **argtags;
+    struct destructor *dtor;
     Yshort args;
     Yshort value;
     Yshort index;
     Yshort prec;
     char class;
     char assoc;
+    signed char trialaction;
 };
 
+typedef struct union_tag union_tag;
+struct union_tag
+{
+    struct union_tag	*next;
+    char		*name;
+    struct destructor	*dtor;
+};
 
 /*  the structure of the LR(0) state machine  */
 
@@ -194,6 +221,23 @@ struct action
     char   suppressed;
 };
 
+typedef struct destructor destructor;
+struct destructor
+{
+    destructor	*next;
+    char	*code;
+    int		lineno;
+    struct {
+	union_tag	*tag;
+	int		*syms, *trialsyms;
+	int		num_syms, max_syms;
+	int		num_trialsyms, max_trialsyms;
+    } *tags;
+    int			num_tags, max_tags;
+};
+
+extern destructor	*destructors, *default_destructor;
+
 struct section {
     char   *name;
     char  **ptr;
@@ -209,35 +253,27 @@ extern char lflag;
 extern char rflag;
 extern char tflag;
 extern char vflag;
+extern char include_defines;
 
 extern char *myname;
+extern char *symbol_prefix;
 extern char *cptr;
 extern char *line;
-extern int lineno;
 extern int outline;
-
-extern char *banner[];
-extern char *tables[];
-extern char *header[];
-extern char *body[];
-extern char *trailer[];
 
 extern char *action_file_name;
 extern char *code_file_name;
 extern char *defines_file_name;
-extern char *input_file_name;
 extern char *output_file_name;
 extern char *text_file_name;
 extern char *union_file_name;
 extern char *verbose_file_name;
 
-extern FILE *inc_file;
-extern char  inc_file_name[];
+extern file_info *input_file;
 
 extern FILE *action_file;
 extern FILE *code_file;
 extern FILE *defines_file;
-extern FILE *input_file;
 extern FILE *output_file;
 extern FILE *text_file;
 extern FILE *union_file;
@@ -248,9 +284,10 @@ extern int nrules;
 extern int nsyms;
 extern int ntokens;
 extern int nvars;
-extern int ntags;
+extern int havetags;
 
 extern char unionized;
+extern char location_defined;
 extern char line_format[];
 
 extern int   start_symbol;
@@ -297,7 +334,7 @@ extern Yshort nunused;
 extern Yshort final_state;
 
 /* system variable */
-//extern int errno;
+#include <errno.h>
 
 /* global functions */
 
@@ -309,6 +346,12 @@ void finalize_closure(void);
 void print_closure(int);
 void print_EFF(void);
 void print_first_derives(void);
+
+/* dtor.c */
+void declare_destructor(void);
+void free_destructors(void);
+void add_destructor_symbol(destructor *d, int state, int trial, union_tag *tag);
+void gen_yydestruct(void);
 
 /* error.c */
 void fatal(char *);
@@ -323,6 +366,7 @@ void unterminated_string(int, char *, char *);
 void unterminated_text(int, char *, char *);
 void unterminated_union(int, char *, char *);
 void over_unionized(char *);
+void repeat_location_defined(char *);
 void illegal_tag(int, char *, char *);
 void illegal_character(char *);
 void used_reserved(char *);
@@ -340,12 +384,16 @@ void unterminated_arglist(int, char *, char *);
 void bad_formals(void);
 void dollar_warning(int, int);
 void dollar_error(int, char *, char *);
+void at_warning(int, int);
+void at_error(int, char *, char *);
 void untyped_lhs(void);
 void untyped_rhs(int, char *);
 void unknown_rhs(int);
-void default_action_warning(void);
+void default_action_warning(char *);
+void inconsistent_trial_action_warning(char *);
 void undefined_goal(char *);
 void undefined_symbol_warning(char *);
+void unused_destructor_warning(int);
 
 /* lalr.c */
 void lalr(void);
@@ -391,7 +439,7 @@ void lr0(void);
 
 /* main.c */
 void done(int);
-void onintr(void);
+void onintr(int);
 void set_signals(void);
 void usage(void);
 void getargs(int, char **);
@@ -433,6 +481,7 @@ void output_base(void);
 void output_table(void);
 void output_check(void);
 void output_ctable(void);
+void output_astable(void);
 int is_C_identifier(char *);
 void output_defines(void);
 void output_stored_text(void);
@@ -447,7 +496,7 @@ void write_section(char *section_name);
 
 
 /* reader.c */
-int cachec(int);
+void read_from_file(char *);
 char *get_line(void);
 char *dup_line(void);
 char *skip_comment(void);
@@ -457,13 +506,13 @@ void copy_ident(void);
 void copy_string(int, FILE *, FILE *);
 void copy_comment(FILE *, FILE *);
 void copy_text(void);
-void copy_union(void);
+void copy_structdecl(const char *, const char *);
 int hexval(int);
 bucket *get_literal(void);
 int is_reserved(char *);
 bucket *get_name(void);
 int get_number(void);
-char *get_tag(void);
+union_tag *get_tag(int);
 void declare_tokens(int);
 void declare_types(void);
 void declare_start(void);

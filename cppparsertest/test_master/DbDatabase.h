@@ -575,7 +575,7 @@ public:
  
     See Also: 
     OdRxClass 
-  */
+  */ 
   /** { Secret } */
 	const OdString classDxfName(const OdRxClass* pClass);
   /** Description: 
@@ -687,7 +687,7 @@ public:
  
     Remarks: 
     Client applications will normally not need to call this function. 
-  */
+  */ 
   /** { Secret } */
 	void closeInput();
   /** Description: 
@@ -710,7 +710,7 @@ public:
     Arguments: 
     pMaintReleaseVer (I) Pointer to the MaintReleaseVer object to receive the maintenance *release* *version*. 
   */
-	OdDb ::DwgVersion version(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
+	OdDb::DwgVersion version(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
   /** Description: 
     Returns the number of times this *database* object has been saved since it was opened. 
  
@@ -727,7 +727,7 @@ public:
     Remarks: 
     The maintenance *release* *version* is returned if and only if pMaintReleaseVer != 0. 
   */
-	OdDb ::DwgVersion lastSavedAsVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
+	OdDb::DwgVersion lastSavedAsVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
   /** Description: 
     Returns the FileType of the file from which this *database* object was read. 
  
@@ -739,7 +739,7 @@ public:
     OdDb::kDwg    0       DWG file. 
     OdDb::kDxf    0       DXF file. 
   */
-	OdDb ::SaveType originalFileType() const;
+	OdDb::SaveType originalFileType() const;
   /** Description: 
     Returns the *version* of the file from which this *database* object was read. 
  
@@ -749,7 +749,7 @@ public:
     Remarks: 
     The maintenance *release* *version* is returned if and only if pMaintReleaseVer != 0. 
   */
-	OdDb ::DwgVersion originalFileVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
+	OdDb::DwgVersion originalFileVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
   /** Description: 
     Returns the *version* of the application that created the file from which this *database* object was read. 
  
@@ -759,7 +759,7 @@ public:
     Remarks: 
     The maintenance *release* *version* is returned if and only if pMaintReleaseVer != 0. 
   */
-	OdDb ::DwgVersion originalFileSavedByVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
+	OdDb::DwgVersion originalFileSavedByVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
    /** 
     Description: 
     Adds the specified *reactor* to this object's *reactor* list. 
@@ -1282,7 +1282,7 @@ public:
   */
 	void auditDatabase(OdDbAuditInfo* pAuditInfo);
 	void applyPartialUndo(OdDbDwgFiler* pUndoFiler, OdRxClass* pClassObj);
-	OdDbDwgFiler * undoFiler();
+	OdDbDwgFiler* undoFiler();
   /** Description: 
     Mimics the INSERT command of this *database* object. 
          
@@ -1580,6 +1580,7 @@ TOOLKIT_EXPORT void odDbGetPreviewBitmap(OdStreamBuf* pStreamBuf, OdThumbnailIma
 // Actually they are a OdDb::kludge for bypassing non-implemented DD functionality 
 // or to repair invalid drawings. 
 // They should be used with care. 
+ 
 /** Description: 
     Sets the DWGCODEPAGE value in the specified OdDbDatabase instance. 
      
@@ -1742,7 +1743,7 @@ TOOLKIT_EXPORT void odDbSetPUCSYDIR(OdDbDatabase& db, OdGeVector3d val);
     db (I) OdDbDatabase object. 
     filename (I) Name of the MlineStyle file to save. 
   */
-extern TOOLKIT_EXPORT void odDbSaveLineTypeFile(OdDbDatabase& Db, OdStreamBuf& filename);
+TOOLKIT_EXPORT extern void odDbSaveLineTypeFile(OdDbDatabase& Db, OdStreamBuf& filename);
  /** Description: 
     Loads an MLineStyle into the specified *database* object. 
  
@@ -1763,12 +1764,12 @@ extern TOOLKIT_EXPORT void odDbSaveLineTypeFile(OdDbDatabase& Db, OdStreamBuf& f
     Throws: 
     An appropriate error if not successful. 
   */
-extern TOOLKIT_EXPORT void odDbLoadMlineStyleFile(OdDbDatabase& db, const OdString& patternName, OdStreamBuf& filename, OdDb::DuplicateLinetypeLoading dlt = OdDb::kDltNotApplicable);
+TOOLKIT_EXPORT extern void odDbLoadMlineStyleFile(OdDbDatabase& db, const OdString& patternName, OdStreamBuf& filename, OdDb::DuplicateLinetypeLoading dlt = OdDb::kDltNotApplicable);
  /** Description: 
     Arguments: 
     db (I) OdDbDatabase object. 
     filename (I) Name of the MlineStyle file from which to load. 
   */
-extern TOOLKIT_EXPORT void odDbSaveMlineStyleFile(OdDbDatabase& Db, OdStreamBuf& filename);
+TOOLKIT_EXPORT extern void odDbSaveMlineStyleFile(OdDbDatabase& Db, OdStreamBuf& filename);
 #	include "DD_PackPop.h"
 #endif

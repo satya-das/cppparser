@@ -36,6 +36,7 @@ extern "C" {
 ** successor clauses in the FAR, DOD or NASA FAR Supplement. Unpublished -
 ** rights reserved under the Copyright Laws of the United States.
 */
+
 /*
 ** Return the error string associated with a particular error code.
 ** This will return 0 for an invalid error code.
@@ -119,6 +120,7 @@ void APIENTRY gluNurbsProperty(GLUnurbs* nobj, GLenum property, GLfloat value);
 void APIENTRY gluGetNurbsProperty(GLUnurbs* nobj, GLenum property, GLfloat* value);
 void APIENTRY gluNurbsCallback(GLUnurbs* nobj, GLenum which, void (CALLBACK *fn) ());
 /****           Callback function prototypes    ****/
+
 /* gluQuadricCallback */
 typedef void (CALLBACK *GLUquadricErrorProc) (GLenum);
 /* gluTessCallback */
@@ -137,6 +139,7 @@ typedef void (CALLBACK *GLUtessCombineDataProc) (GLdouble[3], void*[4], GLfloat[
 /* gluNurbsCallback */
 typedef void (CALLBACK *GLUnurbsErrorProc) (GLenum);
 /****           Generic constants               ****/
+
 /* Version */
 #		define GLU_VERSION_1_1	1
 #		define GLU_VERSION_1_2	1
@@ -152,6 +155,7 @@ typedef void (CALLBACK *GLUnurbsErrorProc) (GLenum);
 #		define GLU_TRUE	GL_TRUE
 #		define GLU_FALSE	GL_FALSE
 /****           Quadric constants               ****/
+
 /* QuadricNormal */
 #		define GLU_SMOOTH	100000
 #		define GLU_FLAT	100001
@@ -166,6 +170,8 @@ typedef void (CALLBACK *GLUnurbsErrorProc) (GLenum);
 #		define GLU_INSIDE	100021
 /* Callback types: */
 /*      GLU_ERROR               100103 */
+
+
 /****           Tesselation constants           ****/
 #		define GLU_TESS_MAX_COORD	1.0e150
 /* TessProperty */
@@ -218,6 +224,7 @@ typedef void (CALLBACK *GLUnurbsErrorProc) (GLenum);
 #		define GLU_TESS_COORD_TOO_LARGE	GLU_TESS_ERROR5
 #		define GLU_TESS_NEED_COMBINE_CALLBACK	GLU_TESS_ERROR6
 /****           NURBS constants                 ****/
+
 /* NurbsProperty */
 #		define GLU_AUTO_LOAD_MATRIX	100200
 #		define GLU_CULLING	100201
@@ -240,6 +247,7 @@ typedef void (CALLBACK *GLUnurbsErrorProc) (GLenum);
 #		define GLU_OUTLINE_PATCH	100241
 /* NurbsCallback */
 /*      GLU_ERROR               100103 */
+
 /* NurbsErrors */
 #		define GLU_NURBS_ERROR1	100251
 #		define GLU_NURBS_ERROR2	100252
