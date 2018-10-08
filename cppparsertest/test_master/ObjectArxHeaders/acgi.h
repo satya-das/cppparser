@@ -725,7 +725,7 @@ protected:
 	{
 		return nullptr;
 	}
-	virtual int getTrueTypeBoundingBox(AcGePoint3d const&, const wchar_t*, int, AcGePoint3d*)
+	virtual int getTrueTypeBoundingBox(AcGePoint3d const&, const wchar_t*, int, TextParams const *, AcGePoint3d*, float*)
 	{
 		return 0;
 	}
@@ -1028,7 +1028,7 @@ public:
 	virtual bool selectionGeom(void) const;
 	virtual AcCmTransparency transparency(void) const;
 	virtual const AcGiFill* fill(void) const;
-	virtual void pushMarkerOverride(bool)
+	virtual void pushMarkerOverride(bool, const Adesk::LongPtr)
 	{
 	}
 	virtual void popMarkerOverride(void)

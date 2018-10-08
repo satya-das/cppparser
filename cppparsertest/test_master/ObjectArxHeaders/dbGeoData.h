@@ -41,7 +41,7 @@ public:
     ///
     /// <returns>Custom classes can return Acad::eVetoed to veto the change.</returns>
     ///
-	virtual Acad::ErrorStatus geoCoordinateSystemWillChange(AcDbDatabase*)
+	virtual Acad::ErrorStatus geoCoordinateSystemWillChange(AcDbDatabase*, const AcString&, const AcString&)
 	{
 		return Acad::eOk;
 	}
@@ -61,7 +61,7 @@ public:
     /// The newly set coordinate system ID.
     /// </param>
     ///
-	virtual void geoCoordinateSystemChanged(AcDbDatabase*)
+	virtual void geoCoordinateSystemChanged(AcDbDatabase*, const AcString&, const AcString&)
 	{
 	}
 };

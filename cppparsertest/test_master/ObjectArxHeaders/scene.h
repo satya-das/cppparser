@@ -26,9 +26,9 @@
 #	define CONTOUR	'X'
 #	define SHADER	'D'
 #	define CMESH	'H'
-#	define BLOCK_B
-#	define BLOCK_E
-#	define E_LAYER
+#	define BLOCK_B	'U'     /* pUsh block */
+#	define BLOCK_E	'O'     /* pOp block */
+#	define E_LAYER	'L'     /* Layer entity */
 /* The status field */
 /*#define         CURVE           0x1*/
 #	define TOPBOT	0x2

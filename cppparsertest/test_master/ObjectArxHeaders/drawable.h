@@ -248,7 +248,7 @@ public:
     /// </description>
     /// <param name="pDrawable">Input drawable about to be regenerated.</param>
     /// <param name="flags">Input graphics system that will perform the regen. </param>
-	virtual void beginRegen(AcGiDrawable*)
+	virtual void beginRegen(AcGiDrawable*, RegenFlags)
 	{
 	}
     /// <description>
@@ -256,7 +256,7 @@ public:
     /// </description>
     /// <param name="pDrawable">Input drawable that was regenerated.</param>
     /// <param name="flags">Input graphics system that performed the regen.</param>
-	virtual void endRegen(AcGiDrawable*)
+	virtual void endRegen(AcGiDrawable*, RegenFlags)
 	{
 	}
     /// <description>
@@ -278,7 +278,7 @@ public:
     /// </description>
     /// <param name="pDrawableFrom">Input drawable from which graphics will be handed over. </param>
     /// <param name="pDrawableTo">Input drawable to which graphics will be handed over. </param>
-	virtual void handOverTo(AcGiDrawable*)
+	virtual void handOverTo(AcGiDrawable*, AcGiDrawable*)
 	{
 	}
     /// <description>
@@ -286,7 +286,7 @@ public:
     /// </description>
     /// <param name="pDrawable">Input drawable whose graphics were erased.</param>
     /// <param name="parentID">Input id of parent drawable.</param>
-	virtual void erased(AcGiDrawable*)
+	virtual void erased(AcGiDrawable*, Adesk::IntDbId)
 	{
 	}
     /// <description>
@@ -294,7 +294,7 @@ public:
     /// </description>
     /// <param name="pDrawable">Input drawable whose graphics were modified.</param>
     /// <param name="parentID">Input id of parent drawable.</param>
-	virtual void modified(AcGiDrawable*)
+	virtual void modified(AcGiDrawable*, Adesk::IntDbId)
 	{
 	}
     /// <description>
@@ -303,7 +303,7 @@ public:
     /// <param name="pDrawable">Input drawable whose graphics were added. </param>
     /// <param name="parentID">Input id of parent drawable.</param>
     /// <param name="databasePtr">Input database pointer cast as LONG_PTR.</param>
-	virtual void added(AcGiDrawable*)
+	virtual void added(AcGiDrawable*, Adesk::IntDbId, Adesk::LongPtr)
 	{
 	}
 };

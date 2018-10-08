@@ -396,7 +396,7 @@ public:
 	virtual void pickfirstModified();
 	virtual void layoutSwitched(const ACHAR* newLayoutName);
     // Layout switch is about to occur
-	virtual void layoutToBeSwitched(const ACHAR*)
+	virtual void layoutToBeSwitched(const ACHAR*, const ACHAR*)
 	{
 	}
     // Drawing area has moved or resized

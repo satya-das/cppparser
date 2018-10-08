@@ -35,7 +35,7 @@
 //
 // RETURN VALUE   Adesk::kTrue on success; Adesk::kFalse on failure
 //
-ACAD_PORT Adesk::Boolean acedCreateShortcut(const ACHAR* szLinkPath, const ACHAR* szDesc);
+ACAD_PORT Adesk::Boolean acedCreateShortcut(void* pvHwndParent, const ACHAR* szLinkPath, const ACHAR* szObjectPath, const ACHAR* szDesc);
 // FUNCTION       acedResolveShortcut()
 //
 // ARGUMENTS      pvHwndParent -- pointer to a window handle (of type HWND)
@@ -53,7 +53,7 @@ ACAD_PORT Adesk::Boolean acedCreateShortcut(const ACHAR* szLinkPath, const ACHAR
 //
 // RETURN VALUE   Adesk::kTrue on success; Adesk::kFalse on failure
 //
-ACAD_PORT Adesk::Boolean acedResolveShortcut(const ACHAR* szLinkPath, ACHAR* szObjectPath);
+ACAD_PORT Adesk::Boolean acedResolveShortcut(void* pvHwndParent, const ACHAR* szLinkPath, ACHAR* szObjectPath);
 //
 // FUNCTION       acedGetUserFavoritesDir()
 //
@@ -77,7 +77,7 @@ ACAD_PORT Adesk::Boolean acedGetUserFavoritesDir(ACHAR* szFavoritesDir);
 //
 // RETURN VALUE   Adesk::kTrue on success; Adesk::kFalse on failure
 //
-ACAD_PORT Adesk::Boolean acedCreateInternetShortcut(const ACHAR* szShortcutPath);
+ACAD_PORT Adesk::Boolean acedCreateInternetShortcut(const ACHAR* szURL, const ACHAR* szShortcutPath);
 // 'acedResolveInternetShortcut()' is the inverse of 'acedCreateInternetShortcut().'
 // This function accepts a path to an (MSIE-compatible) Internet shortcut file and
 // extracts the URL from it. The retrieved URL is returned via the parameter 'szURL.'
@@ -86,6 +86,6 @@ ACAD_PORT Adesk::Boolean acedCreateInternetShortcut(const ACHAR* szShortcutPath)
 //
 // RETURN VALUE   Adesk::kTrue on success; Adesk::kFalse on failure
 //
-ACAD_PORT Adesk::Boolean acedResolveInternetShortcut(ACHAR* szUrl);
+ACAD_PORT Adesk::Boolean acedResolveInternetShortcut(const ACHAR* szLinkFile, ACHAR* szUrl);
 #	pragma  pack (pop)
 #endif
