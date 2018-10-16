@@ -207,12 +207,44 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxGeneral>{ID} {
-  set_token_and_yyposn();
-  if (gMacroNames.count(yylval.str))
+  if (gMacroNames.count(yytext))
   {
+    // yyinput() has bug (see https://github.com/westes/flex/pull/396)
+    // So, I am exploiting yyless() by passing value bigger than yyleng.
+    auto input = [&]() {
+      yyless(yyleng+1);
+      return yytext[yyleng-1];
+    };
+    int c = 0;
+    while (isspace(c = input()))
+      ;
+    if (c == '(')
+    {
+      int openBracket = 1;
+      for (c = input(); openBracket && (c != EOF); c = input())
+      {
+        if (c == '(')
+        {
+          ++openBracket;
+        }
+        else if (c == ')')
+        {
+          --openBracket;
+          if (!openBracket)
+            break;
+        }
+      }
+    }
+    else
+    {
+      yyless(yyleng-1);
+    }
+    set_token_and_yyposn();
     RETURN(tknMacro);
   }
-  else if (gKnownApiDecorNames.count(yylval.str))
+
+  set_token_and_yyposn();
+  if (gKnownApiDecorNames.count(yylval.str))
   {
     RETURN(tknApiDecor);
   }
