@@ -78,13 +78,13 @@ struct Adesk
     // These change size depending on the platform and should NEVER
     // be streamed out to permanent storage.
 #	if  !defined(_WIN64) && !defined (_AC64)
-	static_assert(sizeof(void*sizeof( == 4, "ptr size in 32-bit windows build?");
+	static_assert(sizeof(void*) == 4, "ptr size in 32-bit windows build?");
 	typedef int32_t LongPtr;
 	typedef uint32_t ULongPtr;
 	typedef int32_t IntPtr;
 	typedef uint32_t UIntPtr;
 #	else 
-	static_assert(sizeof(void*sizeof( == 8, "ptr size in 64-bit build?");
+	static_assert(sizeof(void*) == 8, "ptr size in 64-bit build?");
 	typedef int64_t LongPtr;
 	typedef uint64_t ULongPtr;
 	typedef int64_t IntPtr;

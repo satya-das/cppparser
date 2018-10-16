@@ -160,7 +160,7 @@ inline void AcDMMWideString::MoveChars(int iStartOffset, PCWIDESTR pwsz, size_t 
 	assert(iStartOffset >= 0);
 	assert((unsigned) iStartOffset <= m_iLength);
 	assert(iStartOffset + iChars <= m_iLength + 1);
-	memmove(m_pData + iStartOffset, pwsz, iChars * sizeof(wchar_tsizeof();
+	memmove(m_pData + iStartOffset, pwsz, iChars * sizeof(wchar_t));
 }
 inline AcDMMWideString operator+(const AcDMMWideString& wsLeft, wchar_t wch)
 {

@@ -920,7 +920,7 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
   if (exprObj->flags_ & CppExpr::kInitializer)
     stm << "}";
   if (exprObj->flags_ & CppExpr::kSizeOf)
-    stm << "sizeof(";
+    stm << ')';
 }
 
 void CppWriter::emitIfBlock(const CppIfBlock* ifBlock, std::ostream& stm, CppIndent indentation) const

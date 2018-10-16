@@ -28,7 +28,7 @@ class AcRxVariableCache : public AcRxVariableReactor
 	virtual void changed(const AcRxVariable* sender, const AcRxVariableChangedEventArgs& args) override
 	{
 		const auto& rb = args.newValue();
-		memcpy(&m_cache, &rb, sizeof(rbsizeof();
+		memcpy(&m_cache, &rb, sizeof(rb));
 		if (rb.restype == RTSTR)
 		{
 			Acad::ErrorStatus es = acutUpdString(rb.resval.rstring, m_cache.resval.rstring);

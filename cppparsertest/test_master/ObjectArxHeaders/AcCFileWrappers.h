@@ -338,7 +338,7 @@ inline AcCFile::~AcCFile()
 inline void acWriteWCharToCFile(wchar_t wch, CFile* pFile, const AdCharFormatter& charFmt)
 {
 	char chBuf[8];
-	const int nBytes = charFmt.wcharToBytes(wch, chBuf, sizeof(chBufsizeof();
+	const int nBytes = charFmt.wcharToBytes(wch, chBuf, sizeof(chBuf));
 	AcCFile_Assert(nBytes >= 1);
 	AcCFile_Assert(nBytes <= 8);
 	pFile->Write(chBuf, nBytes);

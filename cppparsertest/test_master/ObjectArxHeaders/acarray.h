@@ -138,7 +138,7 @@ public:
 		AcArrayValidateParams<T>(false, pDest, nBufLen, pSource, nCount);
 		if (nCount > 0)
 		{
-			memcpy_s(pDest, nBufLen * sizeof(Tsizeof(, pSource, nCount * sizeof(Tsizeof();
+			memcpy_s(pDest, nBufLen * sizeof(T), pSource, nCount * sizeof(T));
 		}
 	}
 	static void moveItems(T* pDest, size_t nBufLen, T* pSource, size_t nCount, bool bSameBuffer)
@@ -150,11 +150,11 @@ public:
             // and so we have to do that in a safe way without clobbering source data.
 			if (bSameBuffer)
 			{
-				memmove_s(pDest, nBufLen * sizeof(Tsizeof(, pSource, nCount * sizeof(Tsizeof();
+				memmove_s(pDest, nBufLen * sizeof(T), pSource, nCount * sizeof(T));
 			}
 			else 
 			{
-				memcpy_s(pDest, nBufLen * sizeof(Tsizeof(, pSource, nCount * sizeof(Tsizeof();
+				memcpy_s(pDest, nBufLen * sizeof(T), pSource, nCount * sizeof(T));
 			}
 		}
 	}
@@ -818,7 +818,7 @@ AcArray<T,R>& AcArray<T,R>::setLogicalLength(int n)
 	AC_ARRAY_ASSERT(n < 0x40000000);
 	if (n > mPhysicalLen)
 	{
-		const int growth = (mPhysicalLen * sizeof(Tsizeof() < ACARRAY_GROWTH_THRESHOLD ? mPhysicalLen : ACARRAY_GROWTH_THRESHOLD / sizeof(Tsizeof(;
+		const int growth = (mPhysicalLen * sizeof(T)) < ACARRAY_GROWTH_THRESHOLD ? mPhysicalLen : ACARRAY_GROWTH_THRESHOLD / sizeof(T);
 		int minSize = mPhysicalLen + std::max<int>(growth, mGrowLen);
 		if (n > minSize)
 		{
@@ -859,7 +859,7 @@ AcArray<T,R>& AcArray<T,R>::setPhysicalLength(int n)
 	{
         // Allocate the new physical memory buffer.
         // This can cause an exception or return null, depending on set_new_handler 
-		mpArray = static_cast<T*>(::operator new(sizeof(Tsizeof( * mPhysicalLen));
+		mpArray = static_cast<T*>(::operator new(sizeof(T) * mPhysicalLen));
 		AC_ARRAY_ASSERT(mpArray != nullptr);
 		if (mpArray == nullptr)
 		{

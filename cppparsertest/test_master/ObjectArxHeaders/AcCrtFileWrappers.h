@@ -186,7 +186,7 @@ inline int AcFILE::fputc(wchar_t c)
 {
 	AcFILE_Assert(this->mpFILE != NULL);
 	char chBuf[8];
-	const unsigned nBytes = this->mChFmtr.wcharToBytes(c, chBuf, sizeof(chBufsizeof();
+	const unsigned nBytes = this->mChFmtr.wcharToBytes(c, chBuf, sizeof(chBuf));
 	AcFILE_Assert(nBytes >= 1);
 	AcFILE_Assert(nBytes <= 8);
 	const unsigned nNumWrote = (unsigned) fwrite(chBuf, 1, nBytes, this->mpFILE);
@@ -203,7 +203,7 @@ inline int AcFILE::ungetc(wchar_t c)
 {
 	AcFILE_Assert(this->mpFILE != NULL);
 	char chBuf[8];
-	const unsigned nBytes = this->mChFmtr.wcharToBytes(c, chBuf, sizeof(chBufsizeof();
+	const unsigned nBytes = this->mChFmtr.wcharToBytes(c, chBuf, sizeof(chBuf));
 	AcFILE_Assert(nBytes >= 1);
 	AcFILE_Assert(nBytes <= 8);
     // Note: for now we can only unget a single char.  So if
@@ -361,7 +361,7 @@ inline int AcFILE::fputsWorker(const wchar_t* pSrc, int nOptions)
 			break;
 		}
 		char chBuf[8];
-		const unsigned nBytes = this->mChFmtr.wcharToBytes(wch, chBuf, sizeof(chBufsizeof();
+		const unsigned nBytes = this->mChFmtr.wcharToBytes(wch, chBuf, sizeof(chBuf));
 		AcFILE_Assert(nBytes >= 1);
 		AcFILE_Assert(nBytes <= 8);
 		const unsigned nNumWrote = (unsigned) fwrite(chBuf, 1, nBytes, this->mpFILE);

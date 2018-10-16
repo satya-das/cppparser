@@ -31,7 +31,7 @@ public:
     /// </param>
     ///
 	AcRxValueTypePOD(const ACHAR* name, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, sizeof(ValueTypesizeof(, memberConstruct, userData)
+		: AcRxValueType(name, sizeof(ValueType), memberConstruct, userData)
 	{
 	}
     /// <summary>
@@ -58,7 +58,7 @@ public:
     /// </param>
     ///
 	AcRxValueTypePOD(const ACHAR* name, const IAcRxEnumeration& pEnum, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, pEnum, sizeof(ValueTypesizeof(, memberConstruct, userData)
+		: AcRxValueType(name, pEnum, sizeof(ValueType), memberConstruct, userData)
 	{
 	}
     /// <summary>
@@ -85,7 +85,7 @@ public:
     /// </param>
     ///
 	AcRxValueTypePOD(const ACHAR* name, const IAcRxReferenceType& pRef, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, pRef, sizeof(ValueTypesizeof(, memberConstruct, userData)
+		: AcRxValueType(name, pRef, sizeof(ValueType), memberConstruct, userData)
 	{
 	}
 	virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
@@ -166,19 +166,19 @@ class AcRxNonBlittableType : public AcRxValueType
 	virtual bool subEqualTo(const void* a, const void* b) const override;
 public:
 	AcRxNonBlittableType(const ACHAR* name, const ACHAR* parent, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, parent, m_nonBlittable, sizeof(Tsizeof(, memberConstruct, userData)
+		: AcRxValueType(name, parent, m_nonBlittable, sizeof(T), memberConstruct, userData)
 	{
 	}
 	AcRxNonBlittableType(const ACHAR* name, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, m_nonBlittable, sizeof(Tsizeof(, memberConstruct, userData)
+		: AcRxValueType(name, m_nonBlittable, sizeof(T), memberConstruct, userData)
 	{
 	}
 	AcRxNonBlittableType(const ACHAR* name, const IAcRxEnumeration& enumeration, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, enumeration, m_nonBlittable, sizeof(Tsizeof(, memberConstruct, userData)
+		: AcRxValueType(name, enumeration, m_nonBlittable, sizeof(T), memberConstruct, userData)
 	{
 	}
 	AcRxNonBlittableType(const ACHAR* name, const IAcRxObjectValue& rxObjValue, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, rxObjValue, m_nonBlittable, sizeof(Tsizeof(, memberConstruct, userData)
+		: AcRxValueType(name, rxObjValue, m_nonBlittable, sizeof(T), memberConstruct, userData)
 	{
 	}
 };
