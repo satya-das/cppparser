@@ -47,7 +47,7 @@ private:
   Type          type_;
 
 public:
-  CppIndent(std::uint16_t initialLevel = 0, Type type = kTab)
+  CppIndent(std::uint16_t initialLevel = 0, Type type = kDoubleSpace)
     : indentLevel_(0)
     , initialLevel_(initialLevel)
     , type_(type)
