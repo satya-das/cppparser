@@ -44,7 +44,7 @@ void CppProgram::loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode)
   }
   for (CppObjArray::const_iterator itr = cppCompound->members_.begin(); itr != cppCompound->members_.end(); ++itr)
   {
-    CppObj* mem = *itr;
+    auto* mem = *itr;
     if (mem->objType_ == CppObj::kCompound)
     {
       CppTypeTreeNode& childNode = typeNode->children[((CppCompound*) mem)->name_];
@@ -62,7 +62,7 @@ void CppProgram::loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode)
     }
     else if (mem->objType_ == CppObj::kTypedefName)
     {
-      auto*            typedefName = static_cast<CppTypedefName*>(mem);
+      auto*            typedefName = static_cast<const CppTypedefName*>(mem);
       CppTypeTreeNode& childNode   = typeNode->children[typedefName->var_->name()];
       childNode.cppObjSet.insert(mem);
       childNode.parent       = typeNode;

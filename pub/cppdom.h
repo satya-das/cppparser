@@ -117,7 +117,7 @@ struct CppObj
   /// @return true if object is a function-like type.
   bool isFunctionLike() const
   {
-    return objType_ == kFunction || objType_ == kConstructor || objType_ == kDestructor;
+    return objType_ == kFunction || objType_ == kConstructor || objType_ == kDestructor || objType_ == kTypeConverter;
   }
   bool isClassLike() const;
   bool isNamespaceLike() const;

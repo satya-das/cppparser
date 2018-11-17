@@ -426,7 +426,7 @@ void CppWriter::emitCompound(const CppCompound* compoundObj,
   for (CppObjArray::const_iterator memItr = compoundObj->members_.begin(); memItr != compoundObj->members_.end();
        ++memItr)
   {
-    CppObj* memObj = *memItr;
+    auto* memObj = *memItr;
     if (compoundObj->isClassLike() && memObj->prot_ != kUnknownProt && lastProtLevel != memObj->prot_)
     {
       stm << --indentation << memObj->prot_ << ':' << '\n';

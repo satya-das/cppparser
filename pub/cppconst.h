@@ -21,8 +21,7 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __CPP_CONST_H__
-#define __CPP_CONST_H__
+#pragma once
 
 #include <cstdint>
 
@@ -88,8 +87,8 @@ enum CppOperType
   kOrEqual,
   kLeftShift,   // <<
   kRightShift,  // >>
-  kLShiftEqual, // <<
-  kRShiftEqual, // >>
+  kLShiftEqual, // <<=
+  kRShiftEqual, // >>=
   kCmpEqual,    // ==
   kNotEqual,    // ==
   kLessEqual,   // <=
@@ -160,5 +159,3 @@ enum
   kNoTypeAttr = 0,
   kNoAttr     = 0,
 };
-
-#endif //__CPP_CONST_H__

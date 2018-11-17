@@ -37,7 +37,8 @@ struct CppTypeTreeNode;
  * \brief Represents the tree of C++ types.
  * All C++ types of a program can be arranged in a form of tree.
  * The root of the tree is the global namespace which contains other compound objects like namespace, class, struct,
- * etc. And each of those compound object can form another branch of tree. \note This tree has no relation with
+ * etc. And each of those compound object can form another branch of tree.
+ * \note This tree has no relation with
  * inheritance hierarchy.
  */
 typedef std::map<std::string, CppTypeTreeNode> CppTypeTree;
@@ -57,7 +58,7 @@ struct CppTypeTreeNode
   CppTypeTreeNode* parent;
 
   CppTypeTreeNode()
-    : parent(NULL)
+    : parent(nullptr)
   {
   }
 };
@@ -92,7 +93,7 @@ public:
   const CppTypeTreeNode* findTypeNode(const std::string& name, const CppTypeTreeNode* beginFrom) const;
   /**
    * @return CppTypeTreeNode for CppObj.
-   * \note Return value may be NULL if CppObj does not represent a valid type.
+   * \note Return value may be nullptr if CppObj does not represent a valid type.
    */
   const CppTypeTreeNode* typeTreeNodeFromCppObj(const CppObj* cppObj) const;
   /**
@@ -113,7 +114,7 @@ protected:
 
 inline CppProgram::CppProgram()
 {
-  cppObjToTypeNode_[NULL] = &cppTypeTreeRoot_;
+  cppObjToTypeNode_[nullptr] = &cppTypeTreeRoot_;
 }
 
 inline const CppCompoundArray& CppProgram::getFileDOMs() const
@@ -124,7 +125,7 @@ inline const CppCompoundArray& CppProgram::getFileDOMs() const
 inline const CppTypeTreeNode* CppProgram::typeTreeNodeFromCppObj(const CppObj* cppObj) const
 {
   CppObjToTypeNodeMap::const_iterator itr = cppObjToTypeNode_.find(cppObj);
-  return itr == cppObjToTypeNode_.end() ? NULL : itr->second;
+  return itr == cppObjToTypeNode_.end() ? nullptr : itr->second;
 }
 
 #endif //__CPPPROG_H__
