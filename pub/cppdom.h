@@ -261,11 +261,11 @@ struct CppTypeModifier
   // --------------------------------------------------
   // | DEFINITION                             | VALUE |
   // | ------------------------------------------------
-  // | int const * pi                         | 0b100 |
-  // | int const i                            | 0b100 |
-  // | int * const pi                         | 0b100 |
+  // | int const * pi                         | 0b001 |
+  // | int const i                            | 0b001 |
+  // | int * const pi                         | 0b010 |
   // | int * const * const ppi                | 0b110 |
-  // | int **const ppi                        | 0b001 |
+  // | int **const ppi                        | 0b100 |
   // | int const * const * const ppi          | 0b111 |
   // | ------------------------------------------------
   //
