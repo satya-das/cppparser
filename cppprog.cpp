@@ -35,16 +35,15 @@ void CppProgram::addCppDom(CppCompound* cppDom)
 
 void CppProgram::loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode)
 {
-  if (cppCompound == NULL)
+  if (cppCompound == nullptr)
     return;
   if (cppCompound->isCppFile()) // Type node for file object should be the root itself.
   {
     cppObjToTypeNode_[cppCompound] = typeNode;
     typeNode->cppObjSet.insert(cppCompound);
   }
-  for (CppObjArray::const_iterator itr = cppCompound->members_.begin(); itr != cppCompound->members_.end(); ++itr)
+  for (auto mem : cppCompound->members_)
   {
-    auto* mem = *itr;
     if (mem->objType_ == CppObj::kCompound)
     {
       CppTypeTreeNode& childNode = typeNode->children[((CppCompound*) mem)->name_];
