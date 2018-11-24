@@ -33,24 +33,36 @@ void CppProgram::addCppDom(CppCompound* cppDom)
   fileDoms_.push_back(cppDom);
 }
 
-void CppProgram::loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode)
+void CppProgram::addCompound(const CppCompound* compound, CppTypeTreeNode* parentTypeNode)
 {
-  if (cppCompound == nullptr)
+  auto& childNode = parentTypeNode->children[compound->name_];
+  childNode.cppObjSet.insert(compound);
+  childNode.parent            = parentTypeNode;
+  cppObjToTypeNode_[compound] = &childNode;
+  loadType(compound, &childNode);
+}
+
+void CppProgram::addCompound(const CppCompound* compound, const CppCompound* parent)
+{
+  auto itr = cppObjToTypeNode_.find(parent);
+  if (itr != cppObjToTypeNode_.end())
+    addCompound(compound, itr->second);
+}
+
+void CppProgram::loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeNode)
+{
+  if (cppCompound == NULL)
     return;
   if (cppCompound->isCppFile()) // Type node for file object should be the root itself.
   {
     cppObjToTypeNode_[cppCompound] = typeNode;
     typeNode->cppObjSet.insert(cppCompound);
   }
-  for (auto mem : cppCompound->members_)
+  for (auto* mem : cppCompound->members_)
   {
     if (mem->objType_ == CppObj::kCompound)
     {
-      CppTypeTreeNode& childNode = typeNode->children[((CppCompound*) mem)->name_];
-      childNode.cppObjSet.insert(mem);
-      childNode.parent       = typeNode;
-      cppObjToTypeNode_[mem] = &childNode;
-      loadType((CppCompound*) mem, &childNode);
+      addCompound((CppCompound*) mem, typeNode);
     }
     else if (mem->objType_ == CppObj::kEnum)
     {

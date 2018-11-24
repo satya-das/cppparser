@@ -43,7 +43,7 @@ struct CppTypeTreeNode;
  */
 typedef std::map<std::string, CppTypeTreeNode> CppTypeTree;
 
-typedef std::set<CppObj*> CppObjSet;
+typedef std::set<const CppObj*> CppObjSet;
 /**
  * \brief A node in a CppTypeTree.
  */
@@ -81,6 +81,8 @@ public:
    * \warning It is a no-op if \a cppDom is not of kCppFile type.
    */
   void addCppDom(CppCompound* cppDom);
+  void addCompound(const CppCompound* compound, const CppCompound* parent);
+  void addCompound(const CppCompound* compound, CppTypeTreeNode* parentTypeNode);
   /**
    * Finds the CppTypeTreeNode object corresponding to a given name.
    * @param name Name of type for which CppTypeTreeNode needs to be found.
@@ -102,10 +104,10 @@ public:
   const CppCompoundArray& getFileDOMs() const;
 
 protected:
-  void loadType(CppCompound* cppCompound, CppTypeTreeNode* typeNode);
+  void loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeNode);
 
 protected:
-  typedef std::map<const CppObj*, const CppTypeTreeNode*> CppObjToTypeNodeMap;
+  typedef std::map<const CppObj*, CppTypeTreeNode*> CppObjToTypeNodeMap;
 
   CppCompoundArray            fileDoms_;        ///< Array of all top level DOMs corresponding to files.
   CppTypeTreeNode             cppTypeTreeRoot_; ///< Repository of all compound objects arranged as type-tree.
