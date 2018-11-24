@@ -35,6 +35,8 @@ void CppProgram::addCppDom(CppCompound* cppDom)
 
 void CppProgram::addCompound(const CppCompound* compound, CppTypeTreeNode* parentTypeNode)
 {
+  if (compound->name_.empty())
+    return;
   auto& childNode = parentTypeNode->children[compound->name_];
   childNode.cppObjSet.insert(compound);
   childNode.parent            = parentTypeNode;
@@ -91,6 +93,8 @@ void CppProgram::loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeN
 
 const CppTypeTreeNode* CppProgram::findTypeNode(const std::string& name, const CppTypeTreeNode* typeNode) const
 {
+  if (name.empty())
+    return &cppTypeTreeRoot_;
   size_t nameBegPos = 0;
   size_t nameEndPos = name.find("::", nameBegPos);
   if (nameEndPos == std::string::npos)
