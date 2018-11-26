@@ -336,7 +336,7 @@ struct CppVarType : public CppObj
 
   bool isConst() const
   {
-    return (typeAttr_ & kConst) == kConst;
+    return ((typeAttr_ & kConst) == kConst) || (typeModifier_.constBits_ & 1);
   }
 
   bool isByValue() const
@@ -433,7 +433,7 @@ struct CppVar : public CppObj
 
   bool isConst() const
   {
-    return (varType_->typeAttr_ & kConst) == kConst;
+    return varType_->isConst();
   }
 
   bool isByValue() const
