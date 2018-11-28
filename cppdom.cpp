@@ -36,8 +36,19 @@ bool CppConstructor::isCopyConstructor() const
     return false;
   if (!param->varType_->isConst() || !param->varType_->isByRef())
     return false;
-  if (param->varType_->baseType_ != name_)
+  auto templStartPos = param->varType_->baseType_.find('<');
+  if (templStartPos != std::string::npos)
+  {
+    while(isspace(param->varType_->baseType_[--templStartPos]))
+      ;
+    ++templStartPos;
+    if(param->varType_->baseType_.substr(0, templStartPos) != name_)
+      return false;
+  }
+  else if (param->varType_->baseType_ != name_)
+  {
     return false;
+  }
   isCopyConstructor_ = true;
   return *isCopyConstructor_;
 }
@@ -55,8 +66,19 @@ bool CppConstructor::isMoveConstructor() const
     return false;
   if (param->varType_->isConst() || !param->varType_->isByRValueRef())
     return false;
-  if (param->varType_->baseType_ != name_)
+  auto templStartPos = param->varType_->baseType_.find('<');
+  if (templStartPos != std::string::npos)
+  {
+    while(isspace(param->varType_->baseType_[--templStartPos]))
+      ;
+    ++templStartPos;
+    if(param->varType_->baseType_.substr(0, templStartPos) != name_)
+      return false;
+  }
+  else if (param->varType_->baseType_ != name_)
+  {
     return false;
+  }
   isMoveConstructor_ = true;
   return *isMoveConstructor_;
 }
