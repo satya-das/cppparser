@@ -328,6 +328,8 @@ void CppWriter::emitUsingDecl(const CppUsingDecl* usingDecl,
                               std::ostream&       stm,
                               CppIndent           indentation /* = CppIndent()*/) const
 {
+  if (usingDecl->templSpec_)
+    emitTemplSpec(usingDecl->templSpec_, stm, indentation);
   stm << indentation << "using " << usingDecl->name_;
   if (usingDecl->cppObj_)
   {

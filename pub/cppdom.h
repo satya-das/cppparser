@@ -602,7 +602,7 @@ struct CppTemplateParam
 {
   std::unique_ptr<const CppVarType> paramType_; //< If not NULL then template param is not of type typename/class
   const std::string                 paramName_;
-  std::unique_ptr<const CppObj>     defaultParam_; //< Can be CppVarType or CppExpr
+  std::unique_ptr<CppObj>           defaultParam_; //< Can be CppVarType or CppExpr
 
   CppTemplateParam(const CppVarType* paramType, std::string paramName)
     : paramType_(paramType)
@@ -610,7 +610,7 @@ struct CppTemplateParam
   {
   }
 
-  void setDefaultParam(const CppObj* defParam)
+  void setDefaultParam(CppObj* defParam)
   {
     defaultParam_.reset(defParam);
   }
