@@ -76,6 +76,10 @@ inline CppToken makeCppToken(const char* beg, const char* end)
 
 inline CppToken mergeCppToken(const CppToken& token1, const CppToken& token2)
 {
+  if (token1.sz == nullptr)
+    return token2;
+  else if (token2.sz == nullptr)
+    return token1;
   return makeCppToken(token1.sz, token2.sz + token2.len - token1.sz);
 }
 

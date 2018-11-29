@@ -262,9 +262,29 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknNumSignSpec);
 }
 
+<ctxGeneral>long{WS}+long/{TS}+ {
+  set_token_and_yyposn();
+  RETURN(tknLongLong);
+}
+
 <ctxGeneral>long/{TS}+ {
   set_token_and_yyposn();
   RETURN(tknLong);
+}
+
+<ctxGeneral>int/{TS}+ {
+  set_token_and_yyposn();
+  RETURN(tknInt);
+}
+
+<ctxGeneral>short/{TS}+ {
+  set_token_and_yyposn();
+  RETURN(tknShort);
+}
+
+<ctxGeneral>char/{TS}+ {
+  set_token_and_yyposn();
+  RETURN(tknChar);
 }
 
 <ctxGeneral>typedef{TS}+ {

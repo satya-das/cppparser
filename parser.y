@@ -172,7 +172,7 @@ extern int yylex();
 
 %token  <str>   tknID tknStrLit tknCharLit tknNumber tknMacro tknApiDecor
 %token  <str>   tknTypedef tknUsing
-%token  <str>   tknLong
+%token  <str>   tknLongLong tknLong tknInt tknShort tknChar
 %token  <str>   tknEnum
 %token  <str>   tknPreProDef
 %token  <str>   tknClass tknStruct tknUnion tknNamespace
@@ -209,6 +209,7 @@ extern int yylex();
 %token  tknBlankLine
 
 %type  <str>                optapidecor apidecor
+%type  <str>                optnumsignspec
 %type  <str>                identifier typeidentifier templidentifier varidentifier optid operfuncname funcname
 %type  <str>                doccommentstr
 %type  <str>                macrocall
@@ -545,11 +546,14 @@ identifier        : tknID                                 { $$ = $1; }
                   ;
 
 typeidentifier    : identifier                            { $$ = $1; }
-                  | tknLong                               { $$ = $1; }
+                  | optnumsignspec tknLongLong            { $$ = mergeCppToken($1, $2); }
+                  | optnumsignspec tknLong                { $$ = mergeCppToken($1, $2); }
+                  | optnumsignspec tknInt                 { $$ = mergeCppToken($1, $2); }
+                  | optnumsignspec tknShort               { $$ = mergeCppToken($1, $2); }
+                  | optnumsignspec tknChar                { $$ = mergeCppToken($1, $2); }
                   | tknVoid                               { $$ = $1; }
                   | tknLong typeidentifier                { $$ = mergeCppToken($1, $2); }
                   | tknNumSignSpec                        { $$ = $1; }
-                  | tknNumSignSpec typeidentifier         { $$ = mergeCppToken($1, $2); }
                   | tknClass identifier [
                     if (gTemplateParamStart == $1.sz)
                       YYERROR;
@@ -565,6 +569,10 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | tknTypename tknEllipsis               { $$ = mergeCppToken($1, $2); }
                   | tknClass tknEllipsis                  { $$ = mergeCppToken($1, $2); }
                   | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
+                  ;
+
+optnumsignspec    :                 { $$ = makeCppToken(nullptr, 0U); }
+                  | tknNumSignSpec  { $$ = $1; }
                   ;
 
 templidentifier   : identifier '<' templatearglist '>' {
