@@ -1011,6 +1011,7 @@ param             : varinit                 { $$ = $1; $1->varType_->typeAttr_ |
 templatearg       :                               { $$ = makeCppToken(nullptr, nullptr); }
                   | typeidentifier                { $$ = $1; }
                   | tknConst templatearg          { $$ = mergeCppToken($1, $2); }
+                  | templatearg tknConst          { $$ = mergeCppToken($1, $2); }
                   | tknNumber                     { $$ = $1; }
                   | templatearg '*'               {
                     auto p = $1.sz + $1.len;
