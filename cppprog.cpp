@@ -88,6 +88,17 @@ void CppProgram::loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeN
       childNode.parent       = typeNode;
       cppObjToTypeNode_[mem] = &childNode;
     }
+    else if (mem->objType_ == CppObj::kFwdClsDecl)
+    {
+      auto* fwdCls = static_cast<CppFwdClsDecl*>(mem);
+      if (!(fwdCls->attr_ & kFriend))
+      {
+        CppTypeTreeNode& childNode = typeNode->children[((CppFwdClsDecl*) mem)->name_];
+        childNode.cppObjSet.insert(mem);
+        childNode.parent       = typeNode;
+        cppObjToTypeNode_[mem] = &childNode;
+      }
+    }
   }
 }
 

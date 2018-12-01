@@ -43,7 +43,13 @@ struct CppTypeTreeNode;
  */
 typedef std::map<std::string, CppTypeTreeNode> CppTypeTree;
 
-typedef std::set<const CppObj*> CppObjSet;
+struct CppObjSetCmp {
+  bool operator() (const CppObj* lhs, const CppObj* rhs) {
+    return lhs->objType_ < rhs->objType_;
+  }
+};
+
+typedef std::set<const CppObj*, CppObjSetCmp> CppObjSet;
 /**
  * \brief A node in a CppTypeTree.
  */
@@ -52,6 +58,7 @@ struct CppTypeTreeNode
   /**
    * This needs to be a set because same namespace can be defined multiple times.
    * But members of all those definition will belong to single namespace.
+   * Also, A class can be forward declared before full definition.
    */
   CppObjSet        cppObjSet;
   CppTypeTree      children;
