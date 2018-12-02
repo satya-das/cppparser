@@ -351,6 +351,8 @@ void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj,
                             std::ostream&        stm,
                             CppIndent            indentation /* = CppIndent()*/) const
 {
+  if (fwdDeclObj->templSpec_)
+    emitTemplSpec(fwdDeclObj->templSpec_, stm, indentation);
   stm << indentation;
   if (fwdDeclObj->attr_ & kFriend)
     stm << "friend ";

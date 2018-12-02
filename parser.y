@@ -1321,8 +1321,8 @@ protlevel         :        { $$ = kUnknownProt;}
 fwddecl           : compoundSpecifier identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $2, $1); }
                   | compoundSpecifier optapidecor identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $3, $1); }
                   | templatespecifier fwddecl {
-                    // TODO: Assign template declaration to fwddecl.
                     $$ = $2;
+                    $$->templSpec_.reset($1);
                   }
                   | tknFriend identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $2); }
                   | tknFriend fwddecl [ZZVALID;]  { $$ = $2; $$->attr_ = kFriend; }

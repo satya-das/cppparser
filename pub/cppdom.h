@@ -568,21 +568,6 @@ struct CppEnum : public CppObj
 
 //////////////////////////////////////////////////////////////////////////
 
-struct CppFwdClsDecl : public CppObj
-{
-  CppCompoundType cmpType_;
-  std::string     name_;
-  std::uint32_t   attr_{0};
-
-  CppFwdClsDecl(CppObjProtLevel prot, std::string name, CppCompoundType cmpType = kNoCompound)
-    : CppObj(CppObj::kFwdClsDecl, prot)
-    , cmpType_(cmpType)
-    , name_(std::move(name))
-    , attr_(0)
-  {
-  }
-};
-
 struct CppInheritInfo
 {
   std::string     baseName;
@@ -618,6 +603,22 @@ struct CppTemplateParam
 
 using CppTemplateParamList  = std::vector<std::unique_ptr<CppTemplateParam>>;
 using CppTemplateParamListP = std::unique_ptr<CppTemplateParamList>;
+
+struct CppFwdClsDecl : public CppObj
+{
+  CppCompoundType cmpType_;
+  std::string     name_;
+  std::uint32_t   attr_{0};
+  CppTemplateParamListP templSpec_{nullptr};
+
+  CppFwdClsDecl(CppObjProtLevel prot, std::string name, CppCompoundType cmpType = kNoCompound)
+    : CppObj(CppObj::kFwdClsDecl, prot)
+    , cmpType_(cmpType)
+    , name_(std::move(name))
+    , attr_(0)
+  {
+  }
+};
 
 typedef std::list<CppInheritInfo> CppInheritanceList;
 
