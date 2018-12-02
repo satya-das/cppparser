@@ -769,7 +769,7 @@ public:
       inheritList_ = new CppInheritanceList;
     inheritList_->push_back(CppInheritInfo(baseName, inheritType));
   }
-  bool                  hasVirtualMethod() const;
+  bool                  hasPublicVirtualMethod() const;
   bool                  hasPureVirtual() const;
   const CppConstructor* copyCtor() const
   {

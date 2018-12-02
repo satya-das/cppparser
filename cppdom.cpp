@@ -22,6 +22,7 @@
  */
 
 #include "cppdom.h"
+#include "cpputil.h"
 
 bool CppConstructor::isCopyConstructor() const
 {
@@ -83,7 +84,7 @@ bool CppConstructor::isMoveConstructor() const
   return *isMoveConstructor_;
 }
 
-bool CppCompound::hasVirtualMethod() const
+bool CppCompound::hasPublicVirtualMethod() const
 {
   if (!isClassLike())
     return false;
@@ -92,7 +93,7 @@ bool CppCompound::hasVirtualMethod() const
   hasVirtual_ = false;
   for (auto mem : members_)
   {
-    if (mem->objType_ == kFunction)
+    if ((mem->objType_ == kFunction) && isMemberPublic(mem->protectionLevel(), compoundType_))
     {
       auto func = (CppFunction*) mem;
       if (func->attr_ & (kVirtual | kOverride))
