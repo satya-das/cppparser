@@ -24,5 +24,5 @@ typedef wchar_t ACHAR;
 // second macro, so that other macros can be passed as the x arg,
 // as in ACRX_T(__FILE__)
 //
-#define _ACRX_T	(x)      L ## x
-#define ACRX_T	(x)      _ACRX_T(x)
+#define _ACRX_T(x)	      L ## x
+#define ACRX_T(x)	      _ACRX_T(x)

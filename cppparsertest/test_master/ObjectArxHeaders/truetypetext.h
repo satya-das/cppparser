@@ -91,7 +91,7 @@ public:
 #  elif  defined(_ASSERTE)
 #    define TrueTypeText_Assert	_ASSERTE
 #  else 
-#    define TrueTypeText_Assert	(x)
+#    define TrueTypeText_Assert(x)
 #  endif
       TrueTypeText_Assert(nLen < 0x7FFFFFFE);
       TrueTypeText_Assert(nLen == (int) nLen);

@@ -23,7 +23,7 @@
 #elif  defined assert
 #  define AcFStream_Assert	assert
 #else 
-#  define AcFStream_Assert	(T)
+#  define AcFStream_Assert(T)
 #endif
 class AcIfstream : public std::wifstream
 {

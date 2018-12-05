@@ -64,11 +64,11 @@ inline AcRxObject::~AcRxObject()
 }
 #  pragma  pack (pop)
 #  include "rxclass.h"
-#  define ACRX_PE_PTR	(RxObj,PEClass) PEClass::cast(RxObj-> \
+#  define ACRX_PE_PTR(RxObj,PEClass)	 PEClass::cast(RxObj-> \
                                             queryX(PEClass::desc()))
 // Deprecated: The ACRX_X_CALL macro will be removed in a future
 // release.  Please use ACRX_PE_PTR() instead.
 //
-#  define ACRX_X_CALL	(RxObj,PEClass) PEClass::cast(RxObj->x(PEClass::desc()))
+#  define ACRX_X_CALL(RxObj,PEClass)	 PEClass::cast(RxObj->x(PEClass::desc()))
 #  include "rxdict.h"
 #endif

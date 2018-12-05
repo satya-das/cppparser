@@ -28,14 +28,14 @@
 // Application-defined classes are advised to use the ACRX_DECLARE_MEMBERS
 // macro instead, and to consult the documentation for related definitions.
 //
-#  define ACDB_DECLARE_MEMBERS	(CLASSNAME) \
+#  define ACDB_DECLARE_MEMBERS(CLASSNAME)	 \
 private: \
     friend class AcDbSystemInternals; \
 protected: \
     CLASSNAME(AcDbSystemInternals*); \
 public: \
     ACRX_DECLARE_MEMBERS(CLASSNAME)
-#  define ACDBCORE2D_DECLARE_MEMBERS	(CLASSNAME) \
+#  define ACDBCORE2D_DECLARE_MEMBERS(CLASSNAME)	 \
 private: \
     friend class AcDbSystemInternals; \
 protected: \

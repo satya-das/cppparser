@@ -20,7 +20,7 @@
 #  elif  defined ATLASSERT
 #    define AcTcsLen_Assert	ATLASSERT
 #  else 
-#    define AcTcsLen_Assert	(x)
+#    define AcTcsLen_Assert(x)
 #  endif
 #  ifndef USEINTRINSTRLEN
 #    ifdef _tcslen

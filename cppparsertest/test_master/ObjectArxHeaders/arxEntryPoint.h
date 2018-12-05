@@ -43,18 +43,18 @@ struct _ARXCOMMAND_ENTRY
 #define ARXCOMMAND_LAST_ENTRYNAME	"ARXCOMMAND$__z"
 #ifndef _ADESK_MAC_
 #  if  defined(_WIN64) || defined(_AC64)
-#    define ACED_ARXCOMMAND_ENTRY_PRAGMA	(group,globCmd) __pragma(comment(linker, "/include:__pArxCmdMap_" #group #globCmd)) ;
+#    define ACED_ARXCOMMAND_ENTRY_PRAGMA(group,globCmd)	 __pragma(comment(linker, "/include:__pArxCmdMap_" #group #globCmd)) ;
 #  else 
-#    define ACED_ARXCOMMAND_ENTRY_PRAGMA	(group,globCmd) __pragma(comment(linker, "/include:___pArxCmdMap_" #group #globCmd)) ;
+#    define ACED_ARXCOMMAND_ENTRY_PRAGMA(group,globCmd)	 __pragma(comment(linker, "/include:___pArxCmdMap_" #group #globCmd)) ;
 #  endif
 #else 
-#  define ACED_ARXCOMMAND_ENTRY_PRAGMA	(group,globCmd)
+#  define ACED_ARXCOMMAND_ENTRY_PRAGMA(group,globCmd)
 #endif
-#define ACED_ARXCOMMAND_ENTRY_AUTO	(classname, group, globCmd, locCmd, cmdFlags, UIContext) \
+#define ACED_ARXCOMMAND_ENTRY_AUTO(classname, group, globCmd, locCmd, cmdFlags, UIContext)	 \
     __declspec(selectany) _ARXCOMMAND_ENTRY __ArxCmdMap_##group##globCmd = { _RXST(#group), _RXST(#globCmd), _RXST(#locCmd), cmdFlags, classname::group ##globCmd, UIContext, 0 } ; \
     extern "C" __declspec(allocate("ARXCOMMAND$__m")) __declspec(selectany) _ARXCOMMAND_ENTRY*  __pArxCmdMap_##group##globCmd = &__ArxCmdMap_##group##globCmd ; \
     ACED_ARXCOMMAND_ENTRY_PRAGMA(group, globCmd)
-#define ACED_ARXCOMMAND_ENTRYBYID_AUTO	(classname, group, globCmd, locCmdId, cmdFlags, UIContext) \
+#define ACED_ARXCOMMAND_ENTRYBYID_AUTO(classname, group, globCmd, locCmdId, cmdFlags, UIContext)	 \
     __declspec(selectany) _ARXCOMMAND_ENTRY __ArxCmdMap_##group##globCmd = { _RXST(#group), _RXST(#globCmd), NULL, cmdFlags, classname::group ##globCmd, UIContext, locCmdId } ; \
     extern "C" __declspec(allocate("ARXCOMMAND$__m")) __declspec(selectany) _ARXCOMMAND_ENTRY*  __pArxCmdMap_##group##globCmd = &__ArxCmdMap_##group##globCmd ; \
     ACED_ARXCOMMAND_ENTRY_PRAGMA(group, globCmd)
@@ -77,26 +77,26 @@ struct _ADSSYMBOL_ENTRY
 #define ADSSYMBOL_LAST_ENTRYNAME	"ADSSYMBOL$__z"
 #ifndef _ADESK_MAC_
 #  if  defined(_WIN64) || defined(_AC64)
-#    define ACED_ADSSYMBOL_ENTRY_PRAGMA	(name) __pragma(comment(linker, "/include:__pAdsSymbolMap_" #name)) ;
+#    define ACED_ADSSYMBOL_ENTRY_PRAGMA(name)	 __pragma(comment(linker, "/include:__pAdsSymbolMap_" #name)) ;
 #  else 
-#    define ACED_ADSSYMBOL_ENTRY_PRAGMA	(name) __pragma(comment(linker, "/include:___pAdsSymbolMap_" #name)) ;
+#    define ACED_ADSSYMBOL_ENTRY_PRAGMA(name)	 __pragma(comment(linker, "/include:___pAdsSymbolMap_" #name)) ;
 #  endif
 #else 
-#  define ACED_ADSSYMBOL_ENTRY_PRAGMA	(name)
+#  define ACED_ADSSYMBOL_ENTRY_PRAGMA(name)
 #endif
-#define ACED_ADSSYMBOL_ENTRY_AUTO	(classname, name, regFunc) \
+#define ACED_ADSSYMBOL_ENTRY_AUTO(classname, name, regFunc)	 \
     __declspec(selectany) _ADSSYMBOL_ENTRY __AdsSymbolMap_##name = { _RXST(#name), classname::ads_ ##name, regFunc, -1 } ; \
     extern "C" __declspec(allocate("ADSSYMBOL$__m")) __declspec(selectany) _ADSSYMBOL_ENTRY* __pAdsSymbolMap_##name = &__AdsSymbolMap_##name ; \
     ACED_ADSSYMBOL_ENTRY_PRAGMA(name)
-#define ACED_ADSCOMMAND_ENTRY_AUTO	(classname, name, regFunc) \
+#define ACED_ADSCOMMAND_ENTRY_AUTO(classname, name, regFunc)	 \
     __declspec(selectany) _ADSSYMBOL_ENTRY __AdsSymbolMap_##name = { _RXST("c:") _RXST(#name), classname::ads_ ##name, regFunc, -1 } ; \
     extern "C" __declspec(allocate("ADSSYMBOL$__m")) __declspec(selectany) _ADSSYMBOL_ENTRY* __pAdsSymbolMap_##name = &__AdsSymbolMap_##name ; \
     ACED_ADSSYMBOL_ENTRY_PRAGMA(name)
-#define ACED_ADSSYMBOL_ENTRYBYID_AUTO	(classname, name, nameId, regFunc) \
+#define ACED_ADSSYMBOL_ENTRYBYID_AUTO(classname, name, nameId, regFunc)	 \
     __declspec(selectany) _ADSSYMBOL_ENTRY __AdsSymbolMap_##name = { NULL, classname::ads_ ##name, regFunc, nameId } ; \
     extern "C" __declspec(allocate("ADSSYMBOL$__m")) __declspec(selectany) _ADSSYMBOL_ENTRY* __pAdsSymbolMap_##name = &__AdsSymbolMap_##name ; \
     ACED_ADSSYMBOL_ENTRY_PRAGMA(name)
-#define ACED_ADSCOMMAND_ENTRYBYID_AUTO	(classname, name, nameId, regFunc) \
+#define ACED_ADSCOMMAND_ENTRYBYID_AUTO(classname, name, nameId, regFunc)	 \
     ACED_ADSSYMBOL_ENTRYBYID_AUTO(classname, name, nameId, regFunc)
 //-----------------------------------------------------------------------------
 class AcRxArxApp : public AcRxDbxApp

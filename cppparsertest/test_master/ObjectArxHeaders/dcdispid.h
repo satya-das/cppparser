@@ -13,7 +13,7 @@
 //
 #ifndef DCDISPID_H
 #  define DCDISPID_H
-#  define ACDC_MAKE_DISPID	(ID)    (ID + 100)
+#  define ACDC_MAKE_DISPID(ID)	    (ID + 100)
 // IAcDcContentBrowser methods
 #  define DISPID_IAcDcContentBrowser_AddPaletteItem	ACDC_MAKE_DISPID(1)
 #  define DISPID_IAcDcContentBrowser_AddNavigatorNode	ACDC_MAKE_DISPID(2)

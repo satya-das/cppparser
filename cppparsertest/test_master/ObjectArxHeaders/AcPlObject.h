@@ -39,7 +39,7 @@ private:
 // Application-defined classes are advised to use the ACRX_DECLARE_MEMBERS
 // macro instead, and to consult the documentation for related definitions.
 //
-#  define ACPL_DECLARE_MEMBERS	(CLASS_NAME) \
+#  define ACPL_DECLARE_MEMBERS(CLASS_NAME)	 \
 private: \
     friend class AcPlSystemInternals; \
 protected: \
@@ -54,7 +54,7 @@ public: \
     ACPL_PORT static void rxInit(); \
     ACPL_PORT static void rxInit(AppNameChangeFuncPtr);
 // Use this macro to define members of classes derived from AcPlObject
-#  define ACPL_DEFINE_MEMBERS	(CLASS_NAME, BASE_CLASS) \
+#  define ACPL_DEFINE_MEMBERS(CLASS_NAME, BASE_CLASS)	 \
 ACRX_NO_CONS_DEFINE_MEMBERS(CLASS_NAME, BASE_CLASS) \
 CLASS_NAME::CLASS_NAME(AcPlSystemInternals* pInternals) \
 : BASE_CLASS(pInternals) \

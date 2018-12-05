@@ -18,7 +18,7 @@
 #include "rxdlinkr.h"
 class AcRxClass;
 //-----------------------------------------------------------------------------
-#define _RXST	(a) _ACRX_T(a)
+#define _RXST(a)	 _ACRX_T(a)
 //-----------------------------------------------------------------------------
 struct _DBX_REGISTER_OBJECT_ENTRY
 {
@@ -37,19 +37,19 @@ struct _DBX_REGISTER_OBJECT_ENTRY
 #define DBXCUSTOBJ_LAST_ENTRYNAME	"DBXCUSTOBJ$__z"
 #ifndef _ADESK_MAC_
 #  if  defined(_WIN64) || defined(_AC64)
-#    define ACDB_REGISTER_OBJECT_ENTRY_PRAGMA	(classname) __pragma(comment(linker, "/include:__pDbxCustObjMap_" #classname)) ;
+#    define ACDB_REGISTER_OBJECT_ENTRY_PRAGMA(classname)	 __pragma(comment(linker, "/include:__pDbxCustObjMap_" #classname)) ;
 #  else 
-#    define ACDB_REGISTER_OBJECT_ENTRY_PRAGMA	(classname) __pragma(comment(linker, "/include:___pDbxCustObjMap_" #classname)) ;
+#    define ACDB_REGISTER_OBJECT_ENTRY_PRAGMA(classname)	 __pragma(comment(linker, "/include:___pDbxCustObjMap_" #classname)) ;
 #  endif
 #else 
-#  define ACDB_REGISTER_OBJECT_ENTRY_PRAGMA	(classname)
+#  define ACDB_REGISTER_OBJECT_ENTRY_PRAGMA(classname)
 #endif
-#define ACDB_REGISTER_OBJECT_ENTRY_AUTO	(classname) \
+#define ACDB_REGISTER_OBJECT_ENTRY_AUTO(classname)	 \
     __declspec(selectany) _DBX_REGISTER_OBJECT_ENTRY __DbxCustObjMap_##classname = { classname::desc, classname::rxInit } ; \
     extern "C" __declspec(allocate("DBXCUSTOBJ$__m")) __declspec(selectany) _DBX_REGISTER_OBJECT_ENTRY* __pDbxCustObjMap_##classname = &__DbxCustObjMap_##classname ; \
     ACDB_REGISTER_OBJECT_ENTRY_PRAGMA(classname)
 //-----------------------------------------------------------------------------
-#define DISPATCH_PKTMSG	(pktmsg) case AcRx::pktmsg: return (On_ ##pktmsg (pkt))
+#define DISPATCH_PKTMSG(pktmsg)	 case AcRx::pktmsg: return (On_ ##pktmsg (pkt))
 extern HINSTANCE _hdllInstance;
 //-----------------------------------------------------------------------------
 class AcRxDbxApp
@@ -220,7 +220,7 @@ private:
 };
 //-----------------------------------------------------------------------------
 AcRxDbxApp* acrxGetApp();
-#define IMPLEMENT_ARX_ENTRYPOINT_STD	(classname) \
+#define IMPLEMENT_ARX_ENTRYPOINT_STD(classname)	 \
 	HINSTANCE _hdllInstance =NULL ; \
     class classname entryPointObject ; \
     AcRxDbxApp *acrxGetApp () { return (&entryPointObject) ; } \
@@ -232,8 +232,8 @@ AcRxDbxApp* acrxGetApp();
 //extern HINSTANCE _hdllInstance ;
 
 //-----------------------------------------------------------------------------
-#define IMPLEMENT_ARX_ENTRYPOINT_CLR	(classname) IMPLEMENT_ARX_ENTRYPOINT_STD(classname)
-#define IMPLEMENT_ARX_ENTRYPOINT	(classname) IMPLEMENT_ARX_ENTRYPOINT_STD(classname)
+#define IMPLEMENT_ARX_ENTRYPOINT_CLR(classname)	 IMPLEMENT_ARX_ENTRYPOINT_STD(classname)
+#define IMPLEMENT_ARX_ENTRYPOINT(classname)	 IMPLEMENT_ARX_ENTRYPOINT_STD(classname)
 //- This line allows us to get rid of the .def file in ARX projects
 #if  !defined(_WIN64) && !defined (_AC64)
 #  pragma  comment(linker, "/export:_acrxGetApiVersion,PRIVATE")

@@ -34,7 +34,7 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 // Definition of helper macros
 ///////////////////////////////////////////////////////////////////////////////
-#define ACRX_DECLARE_MEMBERS_READWRITE	(CLASS_NAME, DATA_NAME)   \
+#define ACRX_DECLARE_MEMBERS_READWRITE(CLASS_NAME, DATA_NAME)	   \
     ACRX_DECLARE_MEMBERS(CLASS_NAME);                           \
     DATA_NAME* write()                                          \
     {                                                           \

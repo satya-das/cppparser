@@ -31,7 +31,7 @@
 #elif  defined _ASSERTE
 #  define AcCFile_Assert	_ASSERTE
 #else 
-#  define AcCFile_Assert	(x)
+#  define AcCFile_Assert(x)
 #endif
 // forward declarations
 #ifdef UNICODE

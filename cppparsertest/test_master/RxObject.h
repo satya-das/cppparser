@@ -36,7 +36,7 @@ enum OdRxObjMod
     Any class derived from OdRxObject should include this macro in its class declarations, 
     passing its own name. 
 */
-#  define ODRX_DECLARE_MEMBERS	(ClassName)\ 
+#  define ODRX_DECLARE_MEMBERS(ClassName)	\ 
 public:                                                                                              \ 
                                                                                                      \ 
   /** Description: Casts the specified pointer to an ClassName SmartPointer. **/                      \ 
@@ -80,18 +80,18 @@ public:                                                                         
 /** Description: 
     Casts a null pointer to the specified class. 
 */
-#  define EMPTY_CONSTR	(ClassName)(ClassName*)0 
+#  define EMPTY_CONSTR(ClassName)	(ClassName*)0 
 /** Description  
     Creates a new instance of the specified class, and returns a SmartPointer to the instance. 
      
     Remarks:  
     The new object's reference count is set 0. 
 */
-#  define NEWOBJ_CONSTR	(ClassName) OdSmartPtr<ClassName>(new ClassName, kOdRxObjAttach) 
+#  define NEWOBJ_CONSTR(ClassName)	 OdSmartPtr<ClassName>(new ClassName, kOdRxObjAttach) 
 /** Description: 
     Defines Runtime Type Identification functions for OdRxObject objects. 
 */
-#  define ODRX_DEFINE_RTTI_MEMBERS	(ClassName,ParentClass)                                              \ 
+#  define ODRX_DEFINE_RTTI_MEMBERS(ClassName,ParentClass)	                                              \ 
                                                                                                      \ 
 OdRxClass* ClassName::g_pDesc = 0;                                                                   \ 
 OdRxClass* ClassName::desc(){ return g_pDesc; }                                                      \ 
@@ -103,7 +103,7 @@ OdRxObject* ClassName::queryX(const OdRxClass* pClass) const                    
   Description: 
   Defines initialization functions for OdObjecobjects. 
 */
-#  define ODRX_DEFINE_INIT_MEMBERS	(ClassName,ParentClass,pseudoConsFn, DwgVer,MaintVer,nProxyFlags,szDWGClassName,szDxfName,szAppName) \ 
+#  define ODRX_DEFINE_INIT_MEMBERS(ClassName,ParentClass,pseudoConsFn, DwgVer,MaintVer,nProxyFlags,szDWGClassName,szDxfName,szAppName)	 \ 
                                                                                                      \ 
 /* Registers this class with DWGdirect.                                         */                   \ 
 void ClassName::rxInit()                                                                             \ 
@@ -131,45 +131,45 @@ void ClassName::rxUninit()                                                      
 /** Description: 
     Defines a Pseudoconstructor for ClassName. 
 */
-#  define ODRX_DEFINE_PSEUDOCONSTRUCTOR	(ClassName,DOCREATE)                                            \ 
+#  define ODRX_DEFINE_PSEUDOCONSTRUCTOR(ClassName,DOCREATE)	                                            \ 
                                                                                                      \ 
 OdRxObjectPtr ClassName::pseudoConstructor() { return OdRxObjectPtr(DOCREATE(ClassName)); } 
 /** Description: 
     Defines Runtime Type Identification and initialization functions for OdRxObject objects. 
 */
-#  define ODRX_DEFINE_MEMBERS2	(ClassName,ParentClass,pseudoConsFn,DwgVer,MaintVer,nProxyFlags,szDWGClassName,szDxfName,szAppName) \ 
+#  define ODRX_DEFINE_MEMBERS2(ClassName,ParentClass,pseudoConsFn,DwgVer,MaintVer,nProxyFlags,szDWGClassName,szDxfName,szAppName)	 \ 
                                                                                                      \ 
 ODRX_DEFINE_RTTI_MEMBERS(ClassName,ParentClass)                                                      \ 
                                                                                                      \ 
 ODRX_DEFINE_INIT_MEMBERS(ClassName,ParentClass,pseudoConsFn,                                         \ 
     DwgVer,MaintVer,nProxyFlags, szDWGClassName,szDxfName,szAppName) 
-#  define ODRX_DEFINE_MEMBERS	(ClassName,ParentClass,DOCREATE,DwgVer,MaintVer, nProxyFlags,szDWGClassName,szDxfName,szAppName)\ 
+#  define ODRX_DEFINE_MEMBERS(ClassName,ParentClass,DOCREATE,DwgVer,MaintVer, nProxyFlags,szDWGClassName,szDxfName,szAppName)	\ 
                                                                                                      \ 
 ODRX_DEFINE_MEMBERS2(ClassName,ParentClass,ClassName::pseudoConstructor,                             \ 
   DwgVer,MaintVer,nProxyFlags,szDWGClassName,szDxfName,szAppName)                                    \ 
                                                                                                      \ 
 ODRX_DEFINE_PSEUDOCONSTRUCTOR(ClassName,DOCREATE) 
-#  define ODRX_NO_CONS_DEFINE_MEMBERS_ALTNAME	(ClassName,ParentClass,szClassName)                       \ 
+#  define ODRX_NO_CONS_DEFINE_MEMBERS_ALTNAME(ClassName,ParentClass,szClassName)	                       \ 
                                                                                                      \ 
 ODRX_DEFINE_MEMBERS2(ClassName,ParentClass,0,0,0,0,szClassName,OdString::kEmpty,OdString::kEmpty)                \ 
                                                                                                      \ 
 ODRX_DEFINE_PSEUDOCONSTRUCTOR(ClassName,EMPTY_CONSTR) 
-#  define ODRX_NO_CONS_DEFINE_MEMBERS	(ClassName,ParentClass)                                           \ 
+#  define ODRX_NO_CONS_DEFINE_MEMBERS(ClassName,ParentClass)	                                           \ 
                                                                                                      \ 
 ODRX_NO_CONS_DEFINE_MEMBERS_ALTNAME(ClassName,ParentClass,DD_T(#ClassName)) 
-#  define ODRX_CONS_DEFINE_MEMBERS_ALTNAME	(ClassName,ParentClass,szClassName,DOCREATE)                 \ 
+#  define ODRX_CONS_DEFINE_MEMBERS_ALTNAME(ClassName,ParentClass,szClassName,DOCREATE)	                 \ 
                                                                                                      \ 
 ODRX_DEFINE_MEMBERS2(ClassName,ParentClass,ClassName::pseudoConstructor,0,0,0,szClassName,OdString::kEmpty,OdString::kEmpty) \ 
                                                                                                      \ 
 ODRX_DEFINE_PSEUDOCONSTRUCTOR(ClassName,DOCREATE) 
-#  define ODRX_CONS_DEFINE_MEMBERS	(ClassName,ParentClass,DOCREATE)                                     \ 
+#  define ODRX_CONS_DEFINE_MEMBERS(ClassName,ParentClass,DOCREATE)	                                     \ 
                                                                                                      \ 
 ODRX_CONS_DEFINE_MEMBERS_ALTNAME(ClassName,ParentClass,DD_T(#ClassName),DOCREATE) 
-#  define ODRX_DXF_DEFINE_MEMBERS	(ClassName,ParentClass,DOCREATE,DwgVer,MaintVer, nProxyFlags,DxfName,AppName)    \ 
+#  define ODRX_DXF_DEFINE_MEMBERS(ClassName,ParentClass,DOCREATE,DwgVer,MaintVer, nProxyFlags,DxfName,AppName)	    \ 
                                                                                                                 \ 
 ODRX_DEFINE_MEMBERS(ClassName,ParentClass,DOCREATE,                                                             \ 
     DwgVer,MaintVer,nProxyFlags,DD_T(#ClassName),DD_T(#DxfName),DD_T(#AppName)) 
-#  define ODRX_DXF_CONS_DEFINE_MEMBERS	(ClassName,ParentClass,DwgVer,MaintVer,nProxyFlags,DxfName,AppName)    \ 
+#  define ODRX_DXF_CONS_DEFINE_MEMBERS(ClassName,ParentClass,DwgVer,MaintVer,nProxyFlags,DxfName,AppName)	    \ 
                                                                                                            \ 
 ODRX_DEFINE_MEMBERS2(ClassName,ParentClass,ClassName::pseudoConstructor,                                   \ 
     DwgVer,MaintVer,nProxyFlags,DD_T(#ClassName),DD_T(#DxfName),DD_T(#AppName))                                              \ 

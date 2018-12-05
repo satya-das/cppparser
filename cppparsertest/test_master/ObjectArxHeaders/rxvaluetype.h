@@ -17,9 +17,9 @@
 class AcRxProperty;
 class AcRxValue;
 #ifdef NDEBUG
-#  define ACRXVALUE_ASSERT	(x)
+#  define ACRXVALUE_ASSERT(x)
 #else 
-#  define ACRXVALUE_ASSERT	(x) if (!(x)) acutAssertMessage(ACRX_T(#x), ACRX_T(__FILE__), __LINE__, 0 ); else
+#  define ACRXVALUE_ASSERT(x)	 if (!(x)) acutAssertMessage(ACRX_T(#x), ACRX_T(__FILE__), __LINE__, 0 ); else
 #endif
 //*************************************************************************
 // IAcRxNonBlittableType

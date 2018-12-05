@@ -218,9 +218,9 @@ inline CAcModuleResourceOverride::~CAcModuleResourceOverride()
 // add the following to the module's main include file:
 //
 //      AC_DECLARE_EXTENSION_MODULE(myDLL)
-#  define AC_DECLARE_EXTENSION_MODULE	(exm)        \
+#  define AC_DECLARE_EXTENSION_MODULE(exm)	        \
     extern CAcExtensionModule exm;
-#  define AC_IMPLEMENT_EXTENSION_MODULE	(exm)      \
+#  define AC_IMPLEMENT_EXTENSION_MODULE(exm)	      \
     CAcExtensionModule exm;                     \
     CAcExtensionModule& CAcModuleResourceOverride::m_extensionModule = exm;
 /////////////////////////////////////////////////////////////////////////////

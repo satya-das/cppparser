@@ -21,7 +21,7 @@
 #include "AcDbAssocPersSubentId.h"
 #pragma  pack (push, 8)
 #ifndef UNREFERENCED_PARAMETER
-#  define UNREFERENCED_PARAMETER	(P)  (P)
+#  define UNREFERENCED_PARAMETER(P)	  (P)
 #endif
 /// <summary>
 /// The concrete derived AcDbAssocPersSubentId class that simply keeps the

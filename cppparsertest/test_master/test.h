@@ -1,5 +1,5 @@
 #define PI	3.1416
-#define MACRO	(x) x##x
+#define MACRO(x)	 x##x
 #define GL_POLYGON	0x0009
 typedef short GLshort;
 typedef int GLint, GLsizei;

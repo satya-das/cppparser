@@ -11,14 +11,14 @@
 #  define __OPMEXP_H_
 #  include "geassign.h"
 #  include "dbxutil.h"
-#  define BEGIN_ELEMENT_SETGET	(theComClass, theArxClass)              \
+#  define BEGIN_ELEMENT_SETGET(theComClass, theArxClass)	              \
     int theComClass::SetGetElementValue(int GetOrSet, DISPID dispid, DWORD cookie, VARIANT *val, AcDbObject *pObj) \
     {                                                               \
         theArxClass *TheArxClass;                                   \
                                                                     \
         if ((TheArxClass = theArxClass::cast(pObj)) == NULL)        \
             return 0;
-#  define ELEMENT_GET_ENTRY	(DID, ACGEType, getelement, vtype)         \
+#  define ELEMENT_GET_ENTRY(DID, ACGEType, getelement, vtype)	         \
         if (dispid == DID)                                          \
         {                                                           \
             ACGEType AcGeType = TheArxClass->##getelement();        \
@@ -31,7 +31,7 @@
                 return 1;                                           \
             }                                                       \
         }
-#  define COM_ELEMENT_GET_ENTRY	(DID, comclass, getfunc, objID)        \
+#  define COM_ELEMENT_GET_ENTRY(DID, comclass, getfunc, objID)	        \
         if (dispid == DID)                                          \
         {                                                           \
             VARIANT dumVar;                                         \
@@ -52,7 +52,7 @@
             acdbOpenAcDbObject(pObj, objID, AcDb::kForRead);        \
             return 1;                                               \
         }
-#  define ELEMENT_SETGET_ENTRY	(DID, ACGEType, setelement, getelement, vtype) \
+#  define ELEMENT_SETGET_ENTRY(DID, ACGEType, setelement, getelement, vtype)	 \
         if (dispid == DID)                                          \
         {                                                           \
             ACGEType AcGeTypeUCS;                                   \
@@ -71,7 +71,7 @@
             }                                                       \
             return 1;                                               \
         }
-#  define ELEMENT_SETGET_ENTRY_GEPNT2D	(DID, setelement, getelement, vtype) \
+#  define ELEMENT_SETGET_ENTRY_GEPNT2D(DID, setelement, getelement, vtype)	 \
         if (dispid == DID)                                          \
         {                                                           \
             AcGePoint3d AcGeTypeUCS;                                   \
@@ -91,7 +91,7 @@
             }                                                       \
             return 1;                                               \
         }
-#  define COM_ELEMENT_SETGET_ENTRY	(DID, comclass, setfunc, getfunc, objID) \
+#  define COM_ELEMENT_SETGET_ENTRY(DID, comclass, setfunc, getfunc, objID)	 \
         if (dispid == DID)                                          \
         {                                                           \
             VARIANT dumVar;                                         \
@@ -138,7 +138,7 @@
             acdbOpenAcDbObject(pObj, objID, AcDb::kForRead);        \
             return 1;                                               \
         }
-#  define ELEMENT_GROUP_SETGET_ENTRY	(DID, CountFunc, ACGEType, setAt, getAt, vtype) \
+#  define ELEMENT_GROUP_SETGET_ENTRY(DID, CountFunc, ACGEType, setAt, getAt, vtype)	 \
         if (dispid == DID)                                          \
         {                                                           \
             ACAD_OPMPROPMAP_ENTRY *pMap = this->GetOPMPropertyMap();\
@@ -176,7 +176,7 @@
             }                                                       \
             return 1;                                               \
         }
-#  define ELEMENT_GROUP2_SETGET_ENTRY	(DID, CountFunc, ACGEType, setAt, getAt, vtype) \
+#  define ELEMENT_GROUP2_SETGET_ENTRY(DID, CountFunc, ACGEType, setAt, getAt, vtype)	 \
         if (dispid == DID)                                          \
         {                                                           \
             ACAD_OPMPROPMAP_ENTRY *pMap = this->GetOPMPropertyMap();\
@@ -215,7 +215,7 @@
             }                                                       \
             return 1;                                               \
         }
-#  define ELEMENT_GROUP3_SETGET_ENTRY	(DID, Count, ACGEType, setAt, getAt, vtype) \
+#  define ELEMENT_GROUP3_SETGET_ENTRY(DID, Count, ACGEType, setAt, getAt, vtype)	 \
         if (dispid == DID)                                          \
         {                                                           \
             ACAD_OPMPROPMAP_ENTRY *pMap = this->GetOPMPropertyMap();\
@@ -254,7 +254,7 @@
             }                                                       \
             return 1;                                               \
         }
-#  define ELEMENT_ACDB_ITERATE_SETGET_ENTRY	(DID, Iter, recordt, ACGEType, setelem, getelem, vtype) \
+#  define ELEMENT_ACDB_ITERATE_SETGET_ENTRY(DID, Iter, recordt, ACGEType, setelem, getelem, vtype)	 \
         if (dispid == DID)                                          \
         {                                                           \
             AcDbObjectIterator* pIter = NULL;                       \

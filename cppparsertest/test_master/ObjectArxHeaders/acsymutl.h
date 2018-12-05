@@ -47,8 +47,8 @@ namespace AcEdSymbolUtilities
     virtual Acad::PromptStatus getSymbolString(ACHAR*& pResponse, const ACHAR* prompt, bool onlyCrEndsInput, bool preserveCase) const = 0;
   };
 // For use by AcEdSymbolUtilities only!
-#  define ACEDSYMUTIL_SERVICESNAME_WITH_VERSION_1	(n,v) n ## v
-#  define ACEDSYMUTIL_SERVICESNAME_WITH_VERSION	(n,v) \
+#  define ACEDSYMUTIL_SERVICESNAME_WITH_VERSION_1(n,v)	 n ## v
+#  define ACEDSYMUTIL_SERVICESNAME_WITH_VERSION(n,v)	 \
         ACEDSYMUTIL_SERVICESNAME_WITH_VERSION_1(n,v)
 #  define ACEDSYMUTIL_SERVICES_NAME	ACEDSYMUTIL_SERVICESNAME_WITH_VERSION( \
             servicesPtr, \

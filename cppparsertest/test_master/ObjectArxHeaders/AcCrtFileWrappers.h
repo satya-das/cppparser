@@ -31,7 +31,7 @@
 #elif  defined _ASSERTE
 #  define AcFILE_Assert	_ASSERTE
 #else 
-#  define AcFILE_Assert	(T)
+#  define AcFILE_Assert(T)
 #endif
 class AcFILE
 {

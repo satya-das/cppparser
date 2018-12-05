@@ -42,7 +42,7 @@ class AcDbObject;
 // else we didn't fix them!     
 // Return local status              
 //
-#  define ACDB_AUDIT_RETURN	(pAuditInfo, baseEs, localEs, boilDownLocalStatus)        \
+#  define ACDB_AUDIT_RETURN(pAuditInfo, baseEs, localEs, boilDownLocalStatus)	        \
     return (baseEs != eOk)                ?  \
                baseEs                     :  \
                (eOk == localEs)           ?  \

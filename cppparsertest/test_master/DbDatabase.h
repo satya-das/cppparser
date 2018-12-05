@@ -1000,7 +1000,7 @@ public:
   void dwgOutFields(OdDbDwgFiler* pFiler) const;
   OdResult dwgInFields(OdDbDwgFiler* pFiler);
 /** { Secret } */
-#  define VAR_DEF	(type, name, def_value, metric_def_value, reserve1, reserve2)\ 
+#  define VAR_DEF(type, name, def_value, metric_def_value, reserve1, reserve2)	\ 
   /** Description: Returns the ##NAME system variable of this *database* object. \ 
     Remarks: ##remarks \ 
     Notes: ##notes \ 
@@ -1011,9 +1011,9 @@ public:
 #  undef VAR_DEF
 #  undef RO_VAR_DEF
 /** { Secret } */
-#  define RO_VAR_DEF	(type, name, def_value, metric_def_value, reserve1, reserve2) 
+#  define RO_VAR_DEF(type, name, def_value, metric_def_value, reserve1, reserve2)	 
 /** { Secret } */
-#  define VAR_DEF	(type, name, def_value, metric_def_value, reserve1, reserve2)\ 
+#  define VAR_DEF(type, name, def_value, metric_def_value, reserve1, reserve2)	\ 
   /** Description: Sets the ##NAME system variable for this *database* object. \ 
     Arguments: val (I) New value for ##NAME.  ##RANGE  \ 
     Remarks: ##remarks \ 
@@ -1025,7 +1025,7 @@ public:
 #  undef RO_VAR_DEF
 #  undef VAR_DEF
 /** { Secret } */
-#  define VAR_DEF	(type, name, dxf, def_value, metric_def_value, reserve1, reserve2)\ 
+#  define VAR_DEF(type, name, dxf, def_value, metric_def_value, reserve1, reserve2)	\ 
   /** Description: Returns the DIM##NAME system variable of this *database* object. \ 
     Remarks: ##remarks \ 
     Notes: ##notes \ 

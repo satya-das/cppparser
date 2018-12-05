@@ -121,8 +121,8 @@ namespace AcDbSymbolUtilities
     return ::acutAcStringToAChar(sName, pName, AcDbSymbolUtilities::getSymbolName(sName, objId));
   }
 // For use by AcDbSymbolUtilities only!
-#  define ACDBSYMUTIL_SERVICESNAME_WITH_VERSION_1	(n,v) n ## v
-#  define ACDBSYMUTIL_SERVICESNAME_WITH_VERSION	(n,v) \
+#  define ACDBSYMUTIL_SERVICESNAME_WITH_VERSION_1(n,v)	 n ## v
+#  define ACDBSYMUTIL_SERVICESNAME_WITH_VERSION(n,v)	 \
         ACDBSYMUTIL_SERVICESNAME_WITH_VERSION_1(n,v)
 #  define ACDBSYMUTIL_SERVICES_NAME	ACDBSYMUTIL_SERVICESNAME_WITH_VERSION( \
             servicesPtr, \
@@ -159,7 +159,7 @@ namespace AcDbSymbolUtilities
 // If you need to make successive calls for a particular table, you should
 // open the table yourself instead of invcurring the overhead of
 // repeatedly opening and closing the tables using these functions.
-#  define DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION	(T_TABLE) \
+#  define DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION(T_TABLE)	 \
 inline Acad::ErrorStatus \
 get ## T_TABLE ## Id( \
     AcDbObjectId &objId, \
@@ -239,7 +239,7 @@ get ## T_TABLE ## Id( \
 // IF you need to make successive calls for a particular table, you should
 // open the table yourself instead of invcurring the overhead of
 // repeatedly opening and closing the tables using these functions.
-#  define DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION	(T_TABLE) \
+#  define DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION(T_TABLE)	 \
 inline bool \
 has ## T_TABLE( \
     AcDbObjectId  objId, \
@@ -266,7 +266,7 @@ has ## T_TABLE( \
   DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION(View)
   DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION(Viewport)
 #  undef DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION
-#  define DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION	(T_TABLE) \
+#  define DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION(T_TABLE)	 \
 inline bool \
 has ## T_TABLE( \
     const ACHAR  *name, \

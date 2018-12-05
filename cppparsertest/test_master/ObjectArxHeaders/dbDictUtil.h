@@ -163,7 +163,7 @@ namespace AcDbDictUtil
 // deprecated and will be removed in a future release.
 // Please use the overload taking "AcString &" arg instead
 //
-#  define DBDICTUTIL_MAKE_DICTIONARY_UTILS	(LOWERNAME, UPPERNAME) \
+#  define DBDICTUTIL_MAKE_DICTIONARY_UTILS(LOWERNAME, UPPERNAME)	 \
 inline Acad::ErrorStatus \
 get##UPPERNAME##Id(AcDbObjectId& id, const ACHAR* name, AcDbDatabase* pDb) \
 { \

@@ -21,7 +21,7 @@
 #ifdef HIBYTE
 #  undef HIBYTE
 #endif
-#define HIBYTE	(w)           LOBYTE((Adesk::UIntPtr)(w) >> 8)
+#define HIBYTE(w)	           LOBYTE((Adesk::UIntPtr)(w) >> 8)
 #pragma  warning(push)
 #pragma  warning(disable:4100)//disable unreferenced formal parameter warning
 inline int AcIntPtrToInt(Adesk::LongPtr nVal, Adesk::LongPtr nLimit = 0x1000000)

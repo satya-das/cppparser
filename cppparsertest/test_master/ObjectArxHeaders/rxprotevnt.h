@@ -350,12 +350,12 @@ public:
 // Returns a pointer to the AcRxProtocolReactorManager associated with the 
 // specified acrxClass.
 //
-#define ACRX_PROTOCOL_REACTOR_MANAGER_AT	(acrxClass) \
+#define ACRX_PROTOCOL_REACTOR_MANAGER_AT(acrxClass)	 \
 acrxProtocolReactors->createReactorManager(acrxClass)
 // ACRX_PROTOCOL_REACTOR_LIST(acrxClass, reactorClass)
 // Returns a pointer to the AcRxProtocolReactorList associated with the 
 // specified acrxClass and containing zero or more reactorClass instances.
 //
-#define ACRX_PROTOCOL_REACTOR_LIST_AT	(acrxClass, reactorClass) \
+#define ACRX_PROTOCOL_REACTOR_LIST_AT(acrxClass, reactorClass)	 \
     ACRX_PROTOCOL_REACTOR_MANAGER_AT(acrxClass)->createReactorList(reactorClass)
 #pragma  pack (pop)

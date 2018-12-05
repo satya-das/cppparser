@@ -127,7 +127,7 @@ struct Adesk
 #    define ADESK_NO_VTABLE	__declspec(novtable)
 #    define ADESK_STDCALL	__stdcall
 #    define ADESK_DEPRECATED	__declspec(deprecated)
-#    define ADESK_DEPRECATED_MSG	(MSG) __declspec(deprecated(MSG))
+#    define ADESK_DEPRECATED_MSG(MSG)	 __declspec(deprecated(MSG))
 #    define ADESK_DATA_IMPORT	__declspec(dllimport)
 #    define ADESK_PACK_BEGIN	__pragma(pack(push,1))
 #    define ADESK_PACK_END	__pragma(pack(pop))
@@ -143,11 +143,11 @@ struct Adesk
 #      define ADESK_STDCALL	__attribute__((stdcall))   
 #    endif
 #    define ADESK_DEPRECATED	__attribute__((__deprecated__))
-#    define ADESK_DEPRECATED_MSG	(MSG) __attribute__((__deprecated__))
+#    define ADESK_DEPRECATED_MSG(MSG)	 __attribute__((__deprecated__))
 #    define ADESK_DATA_IMPORT	extern
     // Redefine __declspec(method) for gcc
-#    define __declspec	(method) __declspec_##method
-#    define _declspec	(method) __declspec_##method
+#    define __declspec(method)	 __declspec_##method
+#    define _declspec(method)	 __declspec_##method
 #    define __declspec_selectany	__attribute__ ((__weak__))
 #    define __declspec_dllexport	__attribute__ ((__visibility__("default")))
 #    define __declspec_dllimport
@@ -155,7 +155,7 @@ struct Adesk
 #    define __declspec_noreturn	__attribute__ ((__noreturn__))
 #    define __declspec_deprecated	__attribute__ ((__deprecated__))
 #    define __declspec_novtable
-#    define __declspec_allocate	(name) __attribute__ ((section("__DATA," name)))
+#    define __declspec_allocate(name)	 __attribute__ ((section("__DATA," name)))
 #    define ADESK_PACK_BEGIN
 #    define ADESK_PACK_END	__attribute__((packed))
 #    define ADESK_HIDDEN_SYMBOL	__attribute__ ((visibility("hidden"))) 
@@ -192,9 +192,9 @@ struct Adesk
 #    define ADESK_FORCE_INLINE	inline
 #  endif
 #  ifdef _ADESK_WINDOWS_
-#    define VA_ARG_WCHAR	(ap, t)      va_arg(ap, wchar_t)
+#    define VA_ARG_WCHAR(ap, t)	      va_arg(ap, wchar_t)
 #  else 
-#    define VA_ARG_WCHAR	(ap, t)      va_arg(ap, int)
+#    define VA_ARG_WCHAR(ap, t)	      va_arg(ap, int)
 #  endif
 #  ifdef _ADESK_UNITTEST_
 #    ifdef ADESK_SEALED
@@ -203,9 +203,9 @@ struct Adesk
 #    define ADESK_SEALED
 #  endif
 #  ifdef _MSC_VER
-#    define ADESK_UNREFED_PARAM	(x) x
+#    define ADESK_UNREFED_PARAM(x)	 x
 #  elif  defined(__clang__)
-#    define ADESK_UNREFED_PARAM	(x) (void)(x);
+#    define ADESK_UNREFED_PARAM(x)	 (void)(x);
 #  else 
 #  endif
 #  ifdef _MSC_VER

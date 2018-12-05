@@ -87,7 +87,7 @@
 #  elif  defined _ASSERTE
 #    define AC_ARRAY_ASSERT	_ASSERTE
 #  else 
-#    define AC_ARRAY_ASSERT	(T)
+#    define AC_ARRAY_ASSERT(T)
 #  endif
 #  pragma  pack (push, 8)
 #  pragma  push_macro("new")

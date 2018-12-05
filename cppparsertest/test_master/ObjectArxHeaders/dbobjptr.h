@@ -104,7 +104,7 @@
 #  elif  defined _ASSERTE
 #    define DbObjPtr_Assert	_ASSERTE
 #  else 
-#    define DbObjPtr_Assert	(T)
+#    define DbObjPtr_Assert(T)
 #  endif
 #  pragma  pack (push, 8)
 // --------- AcDbObjectPointerBase<T_OBJECT> ---------

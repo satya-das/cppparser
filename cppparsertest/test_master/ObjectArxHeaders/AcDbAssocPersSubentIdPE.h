@@ -21,7 +21,7 @@
 class AcDbCompoundObjectId;
 class AcDbIdMapping;
 #ifndef ADESK_UNREFED_PARAM
-#  define ADESK_UNREFED_PARAM	(P)  (P)
+#  define ADESK_UNREFED_PARAM(P)	  (P)
 #endif
 /// <summary> Rigid set type. </summary>
 ///

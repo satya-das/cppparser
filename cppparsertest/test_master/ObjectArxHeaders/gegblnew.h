@@ -19,10 +19,10 @@
 #    include "gegetmti.h"
 GE_DLLEXPIMPORT void* operator new(size_t, AcGe::metaTypeIndex, const void*);
 GE_DLLEXPIMPORT void* operator new(size_t, AcGe::metaTypeIndex, unsigned int, const void*);
-#    define GENEWLOC	( T, ptr)  new (AcGeGetMetaTypeIndex<T >(), (ptr)) T
-#    define GENEWLOCVEC	( T, count, ptr) new (AcGeGetMetaTypeIndex<T >(),(count),(ptr)) T [ (count) ]
+#    define GENEWLOC( T, ptr)	  new (AcGeGetMetaTypeIndex<T >(), (ptr)) T
+#    define GENEWLOCVEC( T, count, ptr)	 new (AcGeGetMetaTypeIndex<T >(),(count),(ptr)) T [ (count) ]
 #  else 
-#    define GENEWLOC	( T, ptr)  new T
-#    define GENEWLOCVEC	( T, count, ptr) new T [ (count) ]
+#    define GENEWLOC( T, ptr)	  new T
+#    define GENEWLOCVEC( T, count, ptr)	 new T [ (count) ]
 #  endif
 #endif

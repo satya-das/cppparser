@@ -25,7 +25,7 @@
 #elif  defined _ASSERTE
 #  define AdCharFmt_Assert	_ASSERTE
 #else 
-#  define AdCharFmt_Assert	(x)
+#  define AdCharFmt_Assert(x)
 #endif
 #include "acbasedefs.h"
 #include "PAL/api/codepgid.h"

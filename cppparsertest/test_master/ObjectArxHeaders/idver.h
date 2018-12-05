@@ -33,9 +33,9 @@
 // Macros for internal use have two underscores
 // Macros for external use start with ACADV_ (one underscore).
 //
-#  define VALUE2STR	(x) #x
-#  define ID2STR	(a) ID2STR__1(a)
-#  define ID2STR__1	(a) VALUE2STR(a)
+#  define VALUE2STR(x)	 #x
+#  define ID2STR(a)	 ID2STR__1(a)
+#  define ID2STR__1(a)	 VALUE2STR(a)
 //
 // Calculate the numbers for the FILEVERSION resources.
 //

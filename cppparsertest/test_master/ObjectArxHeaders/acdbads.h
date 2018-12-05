@@ -35,11 +35,11 @@ ACDBCORE2D_PORT int acdbXStrCase(ACHAR* str, size_t strLen);
 /* Define macros to copy them.  NOTE that the result is the SECOND argument,
    consistent with ADS usage.  The standard C ones require <string.h> */
 #  ifdef __STDC__
-#    define acdbNameSet	(from, to)  (memcpy(to, from, sizeof(ads_name)))
-#    define acdbPointSet	(from,to)  (memcpy(to, from, sizeof(ads_point)))
+#    define acdbNameSet(from, to)	  (memcpy(to, from, sizeof(ads_name)))
+#    define acdbPointSet(from,to)	  (memcpy(to, from, sizeof(ads_point)))
 #  else 
-#    define acdbNameSet	(from, to)  (*(to)= *(from), (to)[1]=(from)[1])
-#    define acdbPointSet	(from, to) (*(to)= *(from), (to)[1]=(from)[1], (to)[2]=(from)[2])
+#    define acdbNameSet(from, to)	  (*(to)= *(from), (to)[1]=(from)[1])
+#    define acdbPointSet(from, to)	 (*(to)= *(from), (to)[1]=(from)[1], (to)[2]=(from)[2])
 #  endif
 /* Define null value for ads_names.  These values are NOT guaranteed valid;
    that is, there is no actual guarantee (such as C gives with NULL) that the
@@ -47,9 +47,9 @@ ACDBCORE2D_PORT int acdbXStrCase(ACHAR* str, size_t strLen);
    The correct values will be created as part of the Lisp reinitialization
    project, if we go through with that one, and will then be inserted here.
    */
-#  define acdbNameClear	(name)    name[0] = name[1] = 0
-#  define acdbNameNil	(name)      (name[0] == 0 && name[1] == 0)
-#  define acdbNameEqual	(name1, name2)  (name1[0]==name2[0] \
+#  define acdbNameClear(name)	    name[0] = name[1] = 0
+#  define acdbNameNil(name)	      (name[0] == 0 && name[1] == 0)
+#  define acdbNameEqual(name1, name2)	  (name1[0]==name2[0] \
                                        && name1[1]==name2[1])
 #  pragma  pack (pop)
 #endif

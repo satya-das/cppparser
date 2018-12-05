@@ -40,25 +40,25 @@ struct ACAD_OPMPROPMAP_ENTRY
   const IID* piidDispatch;
   LPCOLESTR szEllipsesTxt;
 };
-#  define BEGIN_OPMPROP_MAP	()                                 \
+#  define BEGIN_OPMPROP_MAP()	                                 \
     static ACAD_OPMPROPMAP_ENTRY* GetOPMPropertyMap()               \
     {                                                               \
         static ACAD_OPMPROPMAP_ENTRY pPropMap[] =                   \
         {
 // DescriptionID, dispID, catagoryID, catagoryNameID, elements string list ID (semi-colon separator), predefined strings ID (semi-colon separator), predefined values, grouping, editable property, other, proppage
-#  define OPMPROP_ENTRY	(nDesID, dpid, ctid, ctNameID, elementsID, predefID, vals, grp, editable, other, clsid, ellipsesTxt)      \
+#  define OPMPROP_ENTRY(nDesID, dpid, ctid, ctNameID, elementsID, predefID, vals, grp, editable, other, clsid, ellipsesTxt)	      \
         {nDesID, dpid, ctid, ctNameID, elementsID, predefID, vals, grp, editable, &other, &clsid, &IID_IDispatch, OLESTR(ellipsesTxt)},
-#  define OPMPROP_CAT_ENTRY	(nDesID, dpid, ctid, ctNameID)      \
+#  define OPMPROP_CAT_ENTRY(nDesID, dpid, ctid, ctNameID)	      \
         {nDesID, dpid, ctid, ctNameID, 0, 0, _ACRX_T(""), 0, 1, &IID_NULL, &IID_NULL, &IID_IDispatch, OLESTR("")},
-#  define OPMPROP_DESC_ENTRY	(nDesID, dpid)      \
+#  define OPMPROP_DESC_ENTRY(nDesID, dpid)	      \
         {nDesID, dpid, -2, 0, 0, 0, _ACRX_T(""), 0, 1, &IID_NULL, &IID_NULL, &IID_IDispatch, OLESTR("")},
-#  define OPMPROP_PREDEFINED_ENTRY	(nDesID, dpid, predefID, values, other)      \
+#  define OPMPROP_PREDEFINED_ENTRY(nDesID, dpid, predefID, values, other)	      \
         {nDesID, dpid, -2, 0, 0, predefID, values, 0, 1, &other, &IID_NULL, &IID_IDispatch, OLESTR("")},
-#  define OPMPROP_ELEMENT_ENTRY	(dpid, ctid, ctNameID, elementsID, grouping)      \
+#  define OPMPROP_ELEMENT_ENTRY(dpid, ctid, ctNameID, elementsID, grouping)	      \
         {0, dpid, ctid, ctNameID, elementsID, 0, _ACRX_T(""), grouping, 1, &IID_NULL, &IID_NULL, &IID_IDispatch, OLESTR("")},
-#  define OPMPROP_PAGE	(nDesID, dpid, ctid, ctNameID, clsid)      \
+#  define OPMPROP_PAGE(nDesID, dpid, ctid, ctNameID, clsid)	      \
         {nDesID, dpid, ctid, ctNameID, 0, 0, _ACRX_T(""), 0, 1, &IID_NULL, &clsid, &IID_IDispatch, OLESTR("")},
-#  define END_OPMPROP_MAP	()                                           \
+#  define END_OPMPROP_MAP()	                                           \
             {0, 0, 0, 0, 0, 0, NULL, 0, 0, NULL, NULL, &IID_NULL, NULL}            \
         };                                                          \
         return pPropMap;                                            \
@@ -84,7 +84,7 @@ struct PER_PROP_DISP_ENTRY
 #  ifndef PROP_TEXTCOLOR_DEFAULT
 #    define PROP_TEXTCOLOR_DEFAULT	0x80000008
 #  endif
-#  define BEGIN_PERPROPDISPLAY_MAP	()                                                            \
+#  define BEGIN_PERPROPDISPLAY_MAP()	                                                            \
     static PER_PROP_DISP_ENTRY* GetPerPropDisplayArray()                                    \
     {                                                                                        \
         static PER_PROP_DISP_ENTRY pPerPropDisplayArray[] =                                 \
@@ -96,7 +96,7 @@ struct PER_PROP_DISP_ENTRY
         lpEllipsisBmpType, textcolor, bFullView,                                             \
         dwIntegralHeight, nWeight},                                                            \
                                                                                             
-#  define END_PERPROPDISPLAY_MAP	()                                                            \
+#  define END_PERPROPDISPLAY_MAP()	                                                            \
         {-1, NULL, NULL, (UINT)PICTYPE_UNINITIALIZED, NULL, (UINT)PICTYPE_UNINITIALIZED, PROP_TEXTCOLOR_DEFAULT, false, (DWORD)-1, -1} \
         };                                                                                    \
         return pPerPropDisplayArray;                                                        \
@@ -112,7 +112,7 @@ struct CATCMDBTN_ENTRY
   long m_nStyle;
   BUTTONPROC m_pfnBtnProc;
 };
-#  define BEGIN_CATCMDBTN_MAP	()                                                               \
+#  define BEGIN_CATCMDBTN_MAP()	                                                               \
     static CATCMDBTN_ENTRY * GetCmdBtnArray()                                               \
     {                                                                                       \
         static CATCMDBTN_ENTRY pCatCmdBtnArray[] =                                          \
@@ -121,7 +121,7 @@ struct CATCMDBTN_ENTRY
                             lpEnBtnBmpRes, lpEnBtnBmpType, lpDisBtnBmpRes, lpDisBtnBmpType, \
                             nStyle, pfnBtnProc)                                             \
             {nId, static_cast<UINT>(NameId), lpEnBtnBmpRes, static_cast<UINT>(lpEnBtnBmpType), lpDisBtnBmpRes, static_cast<UINT>(lpDisBtnBmpType), nStyle, pfnBtnProc},                        
-#  define END_CATCMDBTN_MAP	()                                                                 \
+#  define END_CATCMDBTN_MAP()	                                                                 \
             {-1, 0u, NULL, static_cast<UINT>(PICTYPE_UNINITIALIZED), NULL, static_cast<UINT>(PICTYPE_UNINITIALIZED), NULL, NULL}   \
         };                                                                                  \
         return pCatCmdBtnArray;                                                             \
@@ -136,7 +136,7 @@ struct CMDBTN_ENTRY
   long m_nStyle;
   BUTTONPROC m_pfnBtnProc;
 };
-#  define BEGIN_CMDBTN_MAP	()                                                              \
+#  define BEGIN_CMDBTN_MAP()	                                                              \
     static CMDBTN_ENTRY * GetPropCmdBtnArray()                                          \
     {                                                                                   \
         static CMDBTN_ENTRY pCmdBtnArray[] =                                            \
@@ -144,7 +144,7 @@ struct CMDBTN_ENTRY
 #  define CMDBTN_MAP_ENTRY	(NameId, lpEnBtnBmpRes, lpEnBtnBmpType,                         \
                          lpDisBtnBmpRes, lpDisBtnBmpType, nStyle, pfnBtnProc)             \
             {NameId, lpEnBtnBmpRes, lpEnBtnBmpType, lpDisBtnBmpRes, lpDisBtnBmpType, nStyle, pfnBtnProc},                        
-#  define END_CMDBTN_MAP	()                                                                \
+#  define END_CMDBTN_MAP()	                                                                \
             {0, NULL, (UINT)PICTYPE_UNINITIALIZED, NULL, (UINT)PICTYPE_UNINITIALIZED, NULL, NULL}   \
         };                                                                              \
         return pCmdBtnArray;                                                            \
@@ -157,14 +157,14 @@ struct CATEGORY_ENTRY
   PROPCAT m_ParentCatID;
   long m_nWeight;
 };
-#  define BEGIN_CAT_MAP	()                                                                        \
+#  define BEGIN_CAT_MAP()	                                                                        \
     static CATEGORY_ENTRY*  GetCatArray()                                                    \
     {                                                                                        \
         static CATEGORY_ENTRY pCatArray[] =                                                 \
         {
-#  define CATEGORY_MAP_ENTRY	(nId, NameId, DescId, nParentId, nWeight)              \
+#  define CATEGORY_MAP_ENTRY(nId, NameId, DescId, nParentId, nWeight)	              \
             {nId, NameId, DescId, nParentId, nWeight}, 
-#  define END_CAT_MAP	()                                                                        \
+#  define END_CAT_MAP()	                                                                        \
             {-1, 0, 0, -1, -1}                                                  \
         };                                                                                    \
         return pCatArray;                                                                    \
