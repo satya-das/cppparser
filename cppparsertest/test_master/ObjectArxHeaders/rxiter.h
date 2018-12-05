@@ -9,18 +9,18 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _rxiter_h
-#	define _rxiter_h	1
-#	include "rxobject.h"
-#	include "rxboiler.h"
-#	include "acbasedefs.h"
-#	pragma  pack (push, 8)
+#  define _rxiter_h	1
+#  include "rxobject.h"
+#  include "rxboiler.h"
+#  include "acbasedefs.h"
+#  pragma  pack (push, 8)
 class AcRxIterator : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxIterator, ACBASE_PORT);
-	virtual bool done() const = 0;
-	virtual bool next() = 0;
-	virtual AcRxObject* object() const = 0;
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxIterator, ACBASE_PORT);
+  virtual bool done() const = 0;
+  virtual bool next() = 0;
+  virtual AcRxObject* object() const = 0;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

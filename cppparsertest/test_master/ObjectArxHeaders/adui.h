@@ -8,11 +8,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _adui_h
-#	define _adui_h
-#	if  _MSC_VER >= 1000
-#		pragma  once
-#	endif
-#	include "adui_port.h"
+#  define _adui_h
+#  if  _MSC_VER >= 1000
+#    pragma  once
+#  endif
+#  include "adui_port.h"
 class ADUI_PORT CAdUiThemeManager;
 /////////////////////////////////////////////////////////////////////////////
 // Initialize the extension DLL, register the classes, etc
@@ -59,68 +59,68 @@ class ADUI_PORT CAdUiPaletteSet;
 class ADUI_PORT CAdUiThemeMgrReactor;
 class ADUI_PORT CAduiLabelEdit;
 /////////////////////////////////////////////////////////////////////////////
-#	define MOVEX	0x00001
-#	define MOVEY	0x00002
-#	define MOVEXY	0x00003
-#	define ELASTICX	0x00010
-#	define ELASTICY	0x00020
-#	define ELASTICXY	0x00030
-#	pragma  pack (push, 8)
+#  define MOVEX	0x00001
+#  define MOVEY	0x00002
+#  define MOVEXY	0x00003
+#  define ELASTICX	0x00010
+#  define ELASTICY	0x00020
+#  define ELASTICXY	0x00030
+#  pragma  pack (push, 8)
 struct _dlgControlTag
 {
-	DWORD id;
-	DWORD flags;
-	DWORD pct;
+  DWORD id;
+  DWORD flags;
+  DWORD pct;
 };
 typedef _dlgControlTag DLGCTLINFO;
 typedef _dlgControlTag* PDLGCTLINFO;
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 // For Internal use
 //
 namespace AdUi
 {
-	enum AdUiIconMode
-	{
-		kSmall = 0,
-		kLarge
-	};
-	enum AdUiImage
-	{
-		kImageSmall = 1,
-		kImageLarge = 2,
-		kImageEnable = 4,
-		kImageDisable = 8
-	};
+  enum AdUiIconMode
+  {
+    kSmall = 0,
+    kLarge
+  };
+  enum AdUiImage
+  {
+    kImageSmall = 1,
+    kImageLarge = 2,
+    kImageEnable = 4,
+    kImageDisable = 8
+  };
 }
 /////////////////////////////////////////////////////////////////////////////
 
 // WINREG.H declares HKEY, needed by aduiRegistryAccess.h
-#	include <winreg.h>
+#  include <winreg.h>
 //// AFXOLE.H declares COleDropTarget needed by aduiDropTarget.h
-#	include <afxole.h>
-#	include "aduiRegistryAccess.h"
-#	include "aduiMessage.h"
-#	include "aduiDropTarget.h"
-#	include "aduiTabExtension.h"
-#	include "aduiTextTip.h"
-#	include "aduiButton.h"
-#	include "aduiTabCtrl.h"
-#	include "aduiRichEditCtrl.h"
-#	include "aduiBaseDialog.h"
-#	include "aduiDialog.h"
-#	include "aduiDialogBar.h"
-#	include "aduiFileDialog.h"
-#	include "aduiTabChildDialog.h"
-#	include "aduiTabMainDialog.h"
-#	include "aduiEdit.h"
-#	include "aduiHeaderCtrl.h"
-#	include "aduiListBox.h"
-#	include "aduiListCtrl.h"
-#	include "aduiComboBox.h"
-#	include "aduiDock.h"
-#	include "aduiPathname.h"
-#	include "aduiPalette.h"
-#	include "aduiPaletteSet.h"
+#  include <afxole.h>
+#  include "aduiRegistryAccess.h"
+#  include "aduiMessage.h"
+#  include "aduiDropTarget.h"
+#  include "aduiTabExtension.h"
+#  include "aduiTextTip.h"
+#  include "aduiButton.h"
+#  include "aduiTabCtrl.h"
+#  include "aduiRichEditCtrl.h"
+#  include "aduiBaseDialog.h"
+#  include "aduiDialog.h"
+#  include "aduiDialogBar.h"
+#  include "aduiFileDialog.h"
+#  include "aduiTabChildDialog.h"
+#  include "aduiTabMainDialog.h"
+#  include "aduiEdit.h"
+#  include "aduiHeaderCtrl.h"
+#  include "aduiListBox.h"
+#  include "aduiListCtrl.h"
+#  include "aduiComboBox.h"
+#  include "aduiDock.h"
+#  include "aduiPathname.h"
+#  include "aduiPalette.h"
+#  include "aduiPaletteSet.h"
 /////////////////////////////////////////////////////////////////////////////
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Developer Studio will insert additional declarations immediately before the previous line.

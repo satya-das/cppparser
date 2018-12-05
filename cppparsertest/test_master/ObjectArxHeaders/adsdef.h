@@ -10,24 +10,24 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 #ifndef _adsdef_h
-#	define _adsdef_h	1
-#	include <stdint.h>
-#	include "AdAChar.h"
-#	define TRUE	1
-#	define FALSE	0
-#	ifndef EOS
-#		define EOS	ACRX_T('\0')
-#	endif
-#	pragma  pack(push, 8)
+#  define _adsdef_h	1
+#  include <stdint.h>
+#  include "AdAChar.h"
+#  define TRUE	1
+#  define FALSE	0
+#  ifndef EOS
+#    define EOS	ACRX_T('\0')
+#  endif
+#  pragma  pack(push, 8)
 typedef double ads_real;
 typedef ads_real ads_point[3];
-#	if  !defined(_WIN64) && !defined(_AC64)
+#  if  !defined(_WIN64) && !defined(_AC64)
 typedef int32_t ads_name[2];
 typedef int32_t* ads_namep;
-#	else 
+#  else 
 typedef int64_t ads_name[2];
 typedef int64_t* ads_namep;
-#	endif
+#  endif
 typedef ads_real ads_matrix[4][4];
 /* When you want something that's explicitly a pointer type and not an array
    type, use ads_pointp and ads_namep.  Remember that if your function takes an
@@ -35,55 +35,55 @@ typedef ads_real ads_matrix[4][4];
 typedef ads_real* ads_pointp;
 /* To protect macro-redefinition of the X, Y, Z, and T enumerated
    constants by legacy #define's, we remove their definition. */
-#	ifdef X
-#		undef X
-#	endif
-#	ifdef Y
-#		undef Y
-#	endif
-#	ifdef Z
-#		undef Z
-#	endif
-#	ifdef T
-#		undef T
-#	endif
-#	ifndef _XYZT_DEFINED
-#		define _XYZT_DEFINED
+#  ifdef X
+#    undef X
+#  endif
+#  ifdef Y
+#    undef Y
+#  endif
+#  ifdef Z
+#    undef Z
+#  endif
+#  ifdef T
+#    undef T
+#  endif
+#  ifndef _XYZT_DEFINED
+#    define _XYZT_DEFINED
 enum
 {
-	X = 0,
-	Y = 1,
-	Z = 2
+  X = 0,
+  Y = 1,
+  Z = 2
 };
 enum
 {
-	T = 3
+  T = 3
 };
-#	endif
+#  endif
 /* The PAUSE token for ads_command and ads_cmd
  */
-#	define PAUSE	ACRX_T("\\")
+#  define PAUSE	ACRX_T("\\")
 /* The ADS_INITGET control bits
  */
 enum
 {
-	RSG_NONULL = 0x0001,
-	RSG_NOZERO = 0x0002,
-	RSG_NONEG = 0x0004,
-	RSG_NOLIM = 0x0008,
-	RSG_GETZ = 0x0010,
-	RSG_DASH = 0x0020,
+  RSG_NONULL = 0x0001,
+  RSG_NOZERO = 0x0002,
+  RSG_NONEG = 0x0004,
+  RSG_NOLIM = 0x0008,
+  RSG_GETZ = 0x0010,
+  RSG_DASH = 0x0020,
                              // (not a GEDIT control bit)
-	RSG_2D = 0x0040,
+  RSG_2D = 0x0040,
                              // UD_GETZ control bit to be cleared)
-	RSG_OTHER = 0x0080,
-	RSG_DDISTFIRST = 0x0100,
-	RSG_TRACKUCS = 0x0200,
+  RSG_OTHER = 0x0080,
+  RSG_DDISTFIRST = 0x0100,
+  RSG_TRACKUCS = 0x0200,
                              // (causes the UD_TRACKUCS control bit to be set)
-	RSG_NOORTHOZ = 0x0400,
+  RSG_NOORTHOZ = 0x0400,
                              // (causes the UD_NOORTHOZ control bit to be set)
-	RSG_NOOSNAP = 0x0800,
-	RSG_NODDIST = 0x1000
+  RSG_NOOSNAP = 0x0800,
+  RSG_NODDIST = 0x1000
 };
 /* The following control bits are the old names for the RSG_
    control bits above.  These names are provided for
@@ -92,61 +92,61 @@ enum
  */
 enum
 {
-	INP_NNULL = RSG_NONULL,
-	INP_NZERO = RSG_NOZERO,
-	INP_NNEG = RSG_NONEG,
-	INP_NLIM = RSG_NOLIM,
-	INP_DASH = RSG_DASH,
-	INP_NZCOORD = RSG_2D
+  INP_NNULL = RSG_NONULL,
+  INP_NZERO = RSG_NOZERO,
+  INP_NNEG = RSG_NONEG,
+  INP_NLIM = RSG_NOLIM,
+  INP_DASH = RSG_DASH,
+  INP_NZCOORD = RSG_2D
 };
 enum SelectorType
 {
-	SELECT_TYPE_FREE = 0,
-	SELECT_TYPE_PICK,
-	SELECT_TYPE_WPOLY,
-	SELECT_TYPE_CPOLY,
-	SELECT_TYPE_FENCE,
-	SELECT_TYPE_SUBENTITY,
-	SELECT_TYPE_BAG,
-	SELECT_TYPE_LAST,
-	SELECT_TYPE_LEAF,
-	SELECT_TYPE_GROUP,
-	SELECT_TYPE_PASTE,
-	SELECT_TYPE_HATCHASC,
-	SELECT_TYPE_NRVP,
-	SELECT_TYPE_OCCLASS
+  SELECT_TYPE_FREE = 0,
+  SELECT_TYPE_PICK,
+  SELECT_TYPE_WPOLY,
+  SELECT_TYPE_CPOLY,
+  SELECT_TYPE_FENCE,
+  SELECT_TYPE_SUBENTITY,
+  SELECT_TYPE_BAG,
+  SELECT_TYPE_LAST,
+  SELECT_TYPE_LEAF,
+  SELECT_TYPE_GROUP,
+  SELECT_TYPE_PASTE,
+  SELECT_TYPE_HATCHASC,
+  SELECT_TYPE_NRVP,
+  SELECT_TYPE_OCCLASS
 };
 /* Binary data stream structure
  */
 struct ads_binary
 {
-	short clen;
+  short clen;
     // Unicode: leaving as char * for now, so that clients doing pointer
     // arithmetic with it will continue to work.  But it really should be 
     // a void *.
-	char* buf;
+  char* buf;
 };
 /*  Union for storing different ADS data types.
  */
 union ads_u_val
 {
-	ads_real rreal;
-	ads_real rpoint[3];
-	short rint;
-	ACHAR* rstring;
-#	if  !defined(_WIN64) && !defined(_AC64)
-	int32_t rlname[2];
-	int32_t mnLongPtr;
-#	else 
-	int64_t rlname[2];
-	int64_t mnLongPtr;
-#	endif
-	int32_t rlong;
-	int64_t mnInt64;
-	struct ads_binary rbinary;
+  ads_real rreal;
+  ads_real rpoint[3];
+  short rint;
+  ACHAR* rstring;
+#  if  !defined(_WIN64) && !defined(_AC64)
+  int32_t rlname[2];
+  int32_t mnLongPtr;
+#  else 
+  int64_t rlname[2];
+  int64_t mnLongPtr;
+#  endif
+  int32_t rlong;
+  int64_t mnInt64;
+  struct ads_binary rbinary;
 /* TEMPORARY probably, for internal use only at the moment */
     // Unicode: leave as unsigned char for now
-	unsigned char ihandle[8];
+  unsigned char ihandle[8];
 };
 /* The following is the structure definition of the general result buffer.
    This is used for both passing back results from functions, as well
@@ -155,11 +155,11 @@ union ads_u_val
  */
 struct resbuf
 {
-	struct resbuf* rbnext;
-	short restype;
-	union ads_u_val resval;
+  struct resbuf* rbnext;
+  short restype;
+  union ads_u_val resval;
 };
 typedef struct resbuf* pResbuf;
 typedef const struct resbuf* kpResbuf;
-#	pragma  pack(pop)
+#  pragma  pack(pop)
 #endif

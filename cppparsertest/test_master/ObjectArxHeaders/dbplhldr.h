@@ -10,19 +10,19 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 #ifndef AD_DBPLACEHOLDER_H
-#	define AD_DBPLACEHOLDER_H
-#	include "dbmain.h"
-#	pragma  pack (push, 8)
+#  define AD_DBPLACEHOLDER_H
+#  include "dbmain.h"
+#  pragma  pack (push, 8)
 class AcDbPlaceHolder : public AcDbObject
 {
-	ACDB_DECLARE_MEMBERS(AcDbPlaceHolder);
+  ACDB_DECLARE_MEMBERS(AcDbPlaceHolder);
 public:
-	AcDbPlaceHolder();
-	virtual ~AcDbPlaceHolder();
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  AcDbPlaceHolder();
+  virtual ~AcDbPlaceHolder();
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
 protected:
-	virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = Adesk::kTrue) const override;
+  virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = Adesk::kTrue) const override;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

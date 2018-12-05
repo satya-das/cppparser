@@ -11,8 +11,8 @@
 //
 //   acedxref.h  -  XREF API Definitions
 #ifndef _ACEDXREF_H
-#	define _ACEDXREF_H
-#	pragma  pack (push, 8)
+#  define _ACEDXREF_H
+#  pragma  pack (push, 8)
 class AcDbBlockTableRecord;
 Acad::ErrorStatus acedXrefAttach(const ACHAR* XrefPathname, const ACHAR* XrefBlockname, AcDbObjectId* pXrefBTRid = NULL, AcDbObjectId* pXrefRefid = NULL, const AcGePoint3d* pXrefInsertPt = NULL, const AcGeScale3d* pXrefScale = NULL, const double* pXrefRotateAngle = NULL, const bool bQuiet = true, AcDbDatabase* pHostDb = NULL, const wchar_t* wszPassword = NULL);
 Acad::ErrorStatus acedXrefOverlay(const ACHAR* XrefPathname, const ACHAR* XrefBlockname, AcDbObjectId* pXrefBTRid = NULL, AcDbObjectId* pXrefRefid = NULL, const AcGePoint3d* pXrefInsertPt = NULL, const AcGeScale3d* pXrefScale = NULL, const double* pXrefRotateAngle = NULL, const bool bQuiet = true, AcDbDatabase* pHostDb = NULL, const wchar_t* wszPassword = NULL);
@@ -41,5 +41,5 @@ void acedMarkForDelayXRefRelativePathResolve(const AcDbObjectId& xrefDefId);
 /// </description>
 /// <param name="xrefDefId">the object ID of the XRef definition object </param>
 void acedUnmarkForDelayXRefRelativePathResolve(const AcDbObjectId& xrefDefId);
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

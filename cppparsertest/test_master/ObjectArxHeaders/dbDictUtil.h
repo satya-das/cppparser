@@ -1,5 +1,5 @@
 #ifndef AD_DBDICTUTIL_H
-#	define AD_DBDICTUTIL_H	1
+#  define AD_DBDICTUTIL_H	1
 //
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -91,67 +91,67 @@
 //        hasTableStyle
 //        hasVisualStyle
 //
-#	include <stddef.h>
-#	include "dbdict.h"
-#	include "AcString.h"
+#  include <stddef.h>
+#  include "dbdict.h"
+#  include "AcString.h"
 namespace AcDbDictUtil
 {
 // Given an item id and a dictionary (owner) id, get the item's name in that dictionary
-	inline Acad::ErrorStatus dictionaryNameAt(AcString& name, AcDbObjectId itemId, AcDbObjectId ownerDictId)
-	{
-		name.setEmpty();
-		AcDbDictionary* pDict;
-		Acad::ErrorStatus es = ::acdbOpenObject(pDict, ownerDictId, AcDb::kForRead);
-		if (es == Acad::eOk)
-		{
-			es = pDict->nameAt(itemId, name);
-			pDict->close();
-		}
-		return es;
-	}
+  inline Acad::ErrorStatus dictionaryNameAt(AcString& name, AcDbObjectId itemId, AcDbObjectId ownerDictId)
+  {
+    name.setEmpty();
+    AcDbDictionary* pDict;
+    Acad::ErrorStatus es = ::acdbOpenObject(pDict, ownerDictId, AcDb::kForRead);
+    if (es == Acad::eOk)
+    {
+      es = pDict->nameAt(itemId, name);
+      pDict->close();
+    }
+    return es;
+  }
 // This overload which allocates a string buffer is deprecated and will be removed
 // in a future release. Please use the one that takes an AcString & arg
-	inline Acad::ErrorStatus dictionaryNameAt(ACHAR*& pName, AcDbObjectId itemId, AcDbObjectId ownerDictId)
-	{
-		AcString sName;
-		return ::acutAcStringToAChar(sName, pName, AcDbDictUtil::dictionaryNameAt(sName, itemId, ownerDictId));
-	}
+  inline Acad::ErrorStatus dictionaryNameAt(ACHAR*& pName, AcDbObjectId itemId, AcDbObjectId ownerDictId)
+  {
+    AcString sName;
+    return ::acutAcStringToAChar(sName, pName, AcDbDictUtil::dictionaryNameAt(sName, itemId, ownerDictId));
+  }
 // Given an item id, get the item's name in its owning dictionary
 // Note: If you already know the owner of itemId, then call the overload above
 //       avoid the overhead of opening the item to get its owner id
-	inline Acad::ErrorStatus dictionaryNameAt(AcString& name, AcDbObjectId itemId)
-	{
-		name.setEmpty();
-		AcDbObject* pObject;
-		Acad::ErrorStatus es = ::acdbOpenObject(pObject, itemId, AcDb::kForRead);
-		if (es != Acad::eOk)
-		{
-			return es;
-		}
-		const AcDbObjectId dictId = pObject->ownerId();
-		es = pObject->close();
-		return AcDbDictUtil::dictionaryNameAt(name, itemId, dictId);
-	}
+  inline Acad::ErrorStatus dictionaryNameAt(AcString& name, AcDbObjectId itemId)
+  {
+    name.setEmpty();
+    AcDbObject* pObject;
+    Acad::ErrorStatus es = ::acdbOpenObject(pObject, itemId, AcDb::kForRead);
+    if (es != Acad::eOk)
+    {
+      return es;
+    }
+    const AcDbObjectId dictId = pObject->ownerId();
+    es = pObject->close();
+    return AcDbDictUtil::dictionaryNameAt(name, itemId, dictId);
+  }
 // This overload which allocates a string buffer is deprecated and will be removed
 // in a future release. Please use the above overloads that take an AcString & arg
-	inline Acad::ErrorStatus dictionaryNameAt(ACHAR*& pName, AcDbObjectId itemId)
-	{
-		AcString sName;
-		return ::acutAcStringToAChar(sName, pName, AcDbDictUtil::dictionaryNameAt(sName, itemId));
-	}
+  inline Acad::ErrorStatus dictionaryNameAt(ACHAR*& pName, AcDbObjectId itemId)
+  {
+    AcString sName;
+    return ::acutAcStringToAChar(sName, pName, AcDbDictUtil::dictionaryNameAt(sName, itemId));
+  }
 // Given a dictionary and a key name, retrieve the id for that entry.
-	inline Acad::ErrorStatus dictionaryGetAt(AcDbObjectId& id, const ACHAR* name, AcDbObjectId ownerDictId)
-	{
-		id.setNull();
-		AcDbDictionary* pDict;
-		Acad::ErrorStatus es = ::acdbOpenObject(pDict, ownerDictId, AcDb::kForRead);
-		if (es == Acad::eOk)
-		{
-			es = pDict->getAt(name, id);
-			pDict->close();
-		}
-		return es;
-	}
+  inline Acad::ErrorStatus dictionaryGetAt(AcDbObjectId& id, const ACHAR* name, AcDbObjectId ownerDictId)
+  {
+    id.setNull();
+    AcDbDictionary* pDict;
+    Acad::ErrorStatus es = ::acdbOpenObject(pDict, ownerDictId, AcDb::kForRead);
+    if (es == Acad::eOk)
+    {
+      es = pDict->getAt(name, id);
+      pDict->close();
+    }
+    return es;
+  }
 // Now define functions of this form:
 //   Acad::ErrorStatus AcDbDictUtil::getGroupId(AcDbObjectId &id, const ACHAR *name,
 //                                              AcDbDatabase *pDb);
@@ -163,7 +163,7 @@ namespace AcDbDictUtil
 // deprecated and will be removed in a future release.
 // Please use the overload taking "AcString &" arg instead
 //
-#	define DBDICTUTIL_MAKE_DICTIONARY_UTILS	(LOWERNAME, UPPERNAME) \
+#  define DBDICTUTIL_MAKE_DICTIONARY_UTILS	(LOWERNAME, UPPERNAME) \
 inline Acad::ErrorStatus \
 get##UPPERNAME##Id(AcDbObjectId& id, const ACHAR* name, AcDbDatabase* pDb) \
 { \
@@ -193,6 +193,6 @@ has##UPPERNAME(const ACHAR* name, AcDbDatabase* pDb) \
     AcDbObjectId id; \
     return AcDbDictUtil::get##UPPERNAME##Id(id, name, pDb) == Acad::eOk; \
 }
-#	undef DBDICTUTIL_MAKE_DICTIONARY_UTILS
+#  undef DBDICTUTIL_MAKE_DICTIONARY_UTILS
 }
 #endif

@@ -68,10 +68,10 @@
 // The grow length must be a positive number, that is, zero is an illegal
 // grow length.
 #ifndef AC_GEVPTAR_H
-#	define AC_GEVPTAR_H
-#	include <stdlib.h>
-#	include "adesk.h"
-#	include "assert.h"
-#	include "acarray.h"
+#  define AC_GEVPTAR_H
+#  include <stdlib.h>
+#  include "adesk.h"
+#  include "assert.h"
+#  include "acarray.h"
 typedef AcArray<void*> AcGeVoidPointerArray;
 #endif

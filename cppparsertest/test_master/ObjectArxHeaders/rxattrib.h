@@ -29,14 +29,14 @@ class AcRxPropertyBase;
 class ADESK_NO_VTABLE AcRxAttribute : public Pimpl::ApiPart<AcRxObject, AcRxAttributeImp>
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxAttribute, ACBASE_PORT);
     /// <summary>
     /// Destructor
     /// </summary>
     ///
-	ACBASE_PORT virtual ~AcRxAttribute();
+  ACBASE_PORT virtual ~AcRxAttribute();
 protected:
-	ACBASE_PORT AcRxAttribute(AcRxAttributeImp*);
+  ACBASE_PORT AcRxAttribute(AcRxAttributeImp*);
 };
 //*************************************************************************
 // AcRxAttributeCollection
@@ -52,14 +52,14 @@ public:
     /// Constructor
     /// </summary>
     ///
-	ACBASE_PORT AcRxAttributeCollection();
+  ACBASE_PORT AcRxAttributeCollection();
     /// <summary>
     /// This method returns the number of AcRxAttribute objects in the collection.
     /// </summary>
     ///
     /// <returns> The number of attributes in the collection </returns>
     ///
-	ACBASE_PORT int count() const;
+  ACBASE_PORT int count() const;
     /// <summary>
     /// This method returns a pointer to AcRxAttribute object at the passed 
     /// in index.
@@ -71,8 +71,8 @@ public:
     ///
     /// <returns> Returns a pointer to an AcRxAttribute object if successful, NULL on failure</returns>
     ///
-	ACBASE_PORT const AcRxAttribute* getAt(int index) const;
-	ACBASE_PORT AcRxAttribute* getAt(int index);
+  ACBASE_PORT const AcRxAttribute* getAt(int index) const;
+  ACBASE_PORT AcRxAttribute* getAt(int index);
     /// <summary>
     /// This method returns a pointer to AcRxAttribute object of the type that 
     /// is passed. Using this method we can search for an atribute given the type.
@@ -84,8 +84,8 @@ public:
     ///
     /// <returns> Returns a pointer to an AcRxAttribute object if successful, NULL on failure </returns>
     ///
-	ACBASE_PORT const AcRxAttribute* get(const AcRxClass* type) const;
-	ACBASE_PORT AcRxAttribute* get(const AcRxClass* type);
+  ACBASE_PORT const AcRxAttribute* get(const AcRxClass* type) const;
+  ACBASE_PORT AcRxAttribute* get(const AcRxClass* type);
     /// <summary>
     /// This method method adds the attribute object to the collection.
     ///
@@ -97,7 +97,7 @@ public:
     ///
     /// <returns> Returns Acad::eOk if successful, otherwise, returns an AutoCAD error status</returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus add(const AcRxAttribute* attribute);
+  ACBASE_PORT Acad::ErrorStatus add(const AcRxAttribute* attribute);
     /// <summary>
     /// This method method overides the attribute (adds it if it doesn't exist, or replaces if it already exists)
     ///
@@ -109,7 +109,7 @@ public:
     ///
     /// <returns> Returns Acad::eOk if successful, otherwise, returns an AutoCAD error status</returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus override(const AcRxAttribute* attribute);
+  ACBASE_PORT Acad::ErrorStatus override(const AcRxAttribute* attribute);
     /// <summary>
     /// This method method removes the attribute object from the collection.
     ///
@@ -121,7 +121,7 @@ public:
     ///
     /// <returns> Returns Acad::eOk if successful, otherwise, returns an AutoCAD error status </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus remove(const AcRxAttribute* attribute);
+  ACBASE_PORT Acad::ErrorStatus remove(const AcRxAttribute* attribute);
 };
 //*************************************************************************
 // AcRxResourceLoader
@@ -153,9 +153,9 @@ class ADESK_NO_VTABLE AcRxResourceLoader : public AcRxObject
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	virtual Acad::ErrorStatus subLoadString(unsigned int id, unsigned int sourceHint, AcString& result) = 0;
+  virtual Acad::ErrorStatus subLoadString(unsigned int id, unsigned int sourceHint, AcString& result) = 0;
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxResourceLoader, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxResourceLoader, ACBASE_PORT);
     /// <summary>
     /// The function tries to load the resource string from the protocol extension 
     /// object attached to the input class.
@@ -181,7 +181,7 @@ public:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	ACBASE_PORT static Acad::ErrorStatus loadString(const AcRxObject* pClass, unsigned int id, unsigned int sourceHint, AcString& result);
+  ACBASE_PORT static Acad::ErrorStatus loadString(const AcRxObject* pClass, unsigned int id, unsigned int sourceHint, AcString& result);
 };
 //*************************************************************************
 // AcRxLocalizedNameAttribute
@@ -195,7 +195,7 @@ public:
 class AcRxLocalizedNameAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxLocalizedNameAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxLocalizedNameAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -204,7 +204,7 @@ public:
     /// Resource identifier
     /// </param>
     ///
-	ACBASE_PORT AcRxLocalizedNameAttribute(unsigned int id);
+  ACBASE_PORT AcRxLocalizedNameAttribute(unsigned int id);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -218,21 +218,21 @@ public:
     /// loading the resource string.
     /// </param>
     ///
-	ACBASE_PORT AcRxLocalizedNameAttribute(unsigned int id, unsigned int sourceHint);
-	ACBASE_PORT static AcString getLocalizedName(const AcRxObject* pO);
+  ACBASE_PORT AcRxLocalizedNameAttribute(unsigned int id, unsigned int sourceHint);
+  ACBASE_PORT static AcString getLocalizedName(const AcRxObject* pO);
     /// <summary>
     /// Returns the id passed to the constructor
     /// </summary>
     /// <returns> Returns the ide passed to the constructor </returns>
     //
-	ACBASE_PORT unsigned int id() const;
+  ACBASE_PORT unsigned int id() const;
     /// <summary>
     /// Returns the sourceHint passed to the constructor
     /// </summary>
     /// <seealso>AcRxResourceLoader</seealso>
     /// <returns> Returns the ide passed to the constructor </returns>
     //
-	ACBASE_PORT unsigned int sourceHint() const;
+  ACBASE_PORT unsigned int sourceHint() const;
 };
 //*************************************************************************
 // AcRxLocalizedNameAttribute
@@ -248,7 +248,7 @@ public:
 class AcRxAlternateLocalizedNameAttribute : public AcRxLocalizedNameAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxAlternateLocalizedNameAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxAlternateLocalizedNameAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -257,7 +257,7 @@ public:
     /// Resource identifier
     /// </param>
     ///
-	ACBASE_PORT AcRxAlternateLocalizedNameAttribute(unsigned int id);
+  ACBASE_PORT AcRxAlternateLocalizedNameAttribute(unsigned int id);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -271,7 +271,7 @@ public:
     /// loading the resource string.
     /// </param>
     ///
-	ACBASE_PORT AcRxAlternateLocalizedNameAttribute(unsigned int id, unsigned int sourceHint);
+  ACBASE_PORT AcRxAlternateLocalizedNameAttribute(unsigned int id, unsigned int sourceHint);
 };
 //*************************************************************************
 // AcRxUiPlacementAttribute
@@ -283,7 +283,7 @@ public:
 class AcRxUiPlacementAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxUiPlacementAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxUiPlacementAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -295,7 +295,7 @@ public:
     /// The weight that is passed can be used to sort the members.
     /// </param>
     ///
-	ACBASE_PORT AcRxUiPlacementAttribute(const ACHAR* category, unsigned int weight);
+  ACBASE_PORT AcRxUiPlacementAttribute(const ACHAR* category, unsigned int weight);
     /// <summary>
     /// Returns the name of the category
     /// </summary>
@@ -305,7 +305,7 @@ public:
     ///
     /// <returns> Returns const ACHAR* that points to the category name</returns>
     ///
-	ACBASE_PORT static const ACHAR* getCategory(const AcRxObject* member);
+  ACBASE_PORT static const ACHAR* getCategory(const AcRxObject* member);
     /// <summary>
     /// Returns the weight as specified by the AcRxUiPlacementAttribute
     /// for promoted properties it returns the calculated weight
@@ -317,7 +317,7 @@ public:
     ///
     /// <returns> Returns the weight as a float </returns>
     ///
-	ACBASE_PORT static float getWeight(const AcRxObject* member);
+  ACBASE_PORT static float getWeight(const AcRxObject* member);
 };
 //*************************************************************************
 // AcRxLMVAttribute
@@ -329,12 +329,12 @@ public:
 class AcRxLMVAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxLMVAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxLMVAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
     ///
-	ACBASE_PORT AcRxLMVAttribute();
+  ACBASE_PORT AcRxLMVAttribute();
 };
 //*************************************************************************
 // AcRxDescriptionAttribute
@@ -347,7 +347,7 @@ public:
 class AcRxDescriptionAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxDescriptionAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxDescriptionAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -356,7 +356,7 @@ public:
     /// Description text
     /// </param>
     ///
-	ACBASE_PORT AcRxDescriptionAttribute(const ACHAR* desc);
+  ACBASE_PORT AcRxDescriptionAttribute(const ACHAR* desc);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -365,7 +365,7 @@ public:
     /// Resource identifier of the description text
     /// </param>
     ///
-	ACBASE_PORT AcRxDescriptionAttribute(unsigned int id);
+  ACBASE_PORT AcRxDescriptionAttribute(unsigned int id);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -379,7 +379,7 @@ public:
     /// loading the resource string.
     /// </param>
     ///
-	ACBASE_PORT AcRxDescriptionAttribute(unsigned int id, unsigned int sourceHint);
+  ACBASE_PORT AcRxDescriptionAttribute(unsigned int id, unsigned int sourceHint);
     /// <summary>
     /// Returns the description string. The description string from a resource 
     /// file is returned, if the resource identifier is available.
@@ -392,20 +392,20 @@ public:
     ///
     /// <returns> Returns the description as AcString </returns>
     ///
-	ACBASE_PORT static AcString getDescription(const AcRxObject* pO);
+  ACBASE_PORT static AcString getDescription(const AcRxObject* pO);
     /// <summary>
     /// Returns the id passed to the constructor
     /// </summary>
     /// <returns> Returns the ide passed to the constructor </returns>
     //
-	ACBASE_PORT unsigned int id() const;
+  ACBASE_PORT unsigned int id() const;
     /// <summary>
     /// Returns the sourceHint passed to the constructor
     /// </summary>
     /// <seealso>AcRxResourceLoader</seealso>
     /// <returns> Returns the ide passed to the constructor </returns>
     //
-	ACBASE_PORT unsigned int sourceHint() const;
+  ACBASE_PORT unsigned int sourceHint() const;
 };
 typedef const AcRxPropertyBase* (*FindPropertyCallback) (const AcRxObject* pObject, const ACHAR* pszPropName);
 typedef bool (*ConvertValueCallback) (const AcRxPropertyBase* pProperty, AcRxValue& value);
@@ -422,7 +422,7 @@ typedef bool (*ConvertValueCallback) (const AcRxPropertyBase* pProperty, AcRxVal
 class AcRxRefersToAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxRefersToAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxRefersToAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -431,18 +431,18 @@ public:
     /// Input path.
     /// </param>
     ///
-	ACBASE_PORT AcRxRefersToAttribute(const ACHAR* path);
+  ACBASE_PORT AcRxRefersToAttribute(const ACHAR* path);
     /// <summary>
     /// Returns the path that was specified in the constructor
     /// </summary>
     ///
     /// <returns> Returns const ACHAR* that points to the path </returns>
     ///
-	ACBASE_PORT const ACHAR* path() const;
+  ACBASE_PORT const ACHAR* path() const;
     /// <summary>
     /// Returns the last property in the path
     /// </summary>
-	ACBASE_PORT static const AcRxPropertyBase* parseReference(const ACHAR* path, const AcRxObject* pObject, FindPropertyCallback find = NULL, ConvertValueCallback convert = NULL);
+  ACBASE_PORT static const AcRxPropertyBase* parseReference(const ACHAR* path, const AcRxObject* pObject, FindPropertyCallback find = NULL, ConvertValueCallback convert = NULL);
 };
 //*************************************************************************
 // AcRxDisplayAsAttribute
@@ -457,7 +457,7 @@ public:
 class AcRxDisplayAsAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxDisplayAsAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxDisplayAsAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -466,14 +466,14 @@ public:
     /// Input member name
     /// </param>
     ///
-	ACBASE_PORT AcRxDisplayAsAttribute(const ACHAR* name);
+  ACBASE_PORT AcRxDisplayAsAttribute(const ACHAR* name);
     /// <summary>
     /// Returns the name of the property that was specified in the constructor
     /// </summary>
     ///
     /// <returns> Returns const ACHAR* that points to the name </returns>
     ///
-	ACBASE_PORT const ACHAR* path() const;
+  ACBASE_PORT const ACHAR* path() const;
     /// <summary>
     /// Returns the display value of the property
     /// </summary>
@@ -488,7 +488,7 @@ public:
     ///
     /// <returns> Returns AcString that holds the value to display </returns>
     ///
-	ACDB_PORT static AcString getDisplayValue(const AcRxDisplayAsAttribute* pAttr, const AcDbObjectId& id);
+  ACDB_PORT static AcString getDisplayValue(const AcRxDisplayAsAttribute* pAttr, const AcDbObjectId& id);
 };
 //*************************************************************************
 // AcRxCOMAttribute
@@ -502,7 +502,7 @@ public:
 class AcRxCOMAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxCOMAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxCOMAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -511,14 +511,14 @@ public:
     /// COM name
     /// </param>
     ///
-	ACBASE_PORT AcRxCOMAttribute(const ACHAR* name);
+  ACBASE_PORT AcRxCOMAttribute(const ACHAR* name);
     /// <summary>
     /// Returns the COM name that was specified in the constructor
     /// </summary>
     ///
     /// <returns> Returns const ACHAR* that points to the name </returns>
     ///
-	ACBASE_PORT const ACHAR* name() const;
+  ACBASE_PORT const ACHAR* name() const;
 };
 //*************************************************************************
 // AcRxFilePathAttribute
@@ -530,12 +530,12 @@ public:
 class AcRxFilePathAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxFilePathAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxFilePathAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
     ///
-	ACBASE_PORT AcRxFilePathAttribute();
+  ACBASE_PORT AcRxFilePathAttribute();
 };
 //*************************************************************************
 // AcRxFlagsAttribute
@@ -548,12 +548,12 @@ public:
 class AcRxFlagsAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxFlagsAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxFlagsAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
     ///
-	ACBASE_PORT AcRxFlagsAttribute();
+  ACBASE_PORT AcRxFlagsAttribute();
 };
 //*************************************************************************
 // AcRxUnitTypeAttribute
@@ -565,18 +565,18 @@ public:
 class AcRxUnitTypeAttribute : public AcRxAttribute
 {
 public:
-	enum UnitType
-	{
-		kUnitless = 0,
-		kDistance = (0x1 << 0),
-		kAngle = (0x1 << 1),
-		kArea = (0x1 << 2),
-		kVolume = (0x1 << 3),
-		kCurrency = (0x1 << 4),
-		kPercentage = (0x1 << 5),
-		kAngleNotTransformed = (0x1 << 16)
-	};
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxUnitTypeAttribute, ACBASE_PORT);
+  enum UnitType
+  {
+    kUnitless = 0,
+    kDistance = (0x1 << 0),
+    kAngle = (0x1 << 1),
+    kArea = (0x1 << 2),
+    kVolume = (0x1 << 3),
+    kCurrency = (0x1 << 4),
+    kPercentage = (0x1 << 5),
+    kAngleNotTransformed = (0x1 << 16)
+  };
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxUnitTypeAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -585,14 +585,14 @@ public:
     /// Input unit type
     /// </param>
     ///
-	ACBASE_PORT AcRxUnitTypeAttribute(UnitType unitType);
+  ACBASE_PORT AcRxUnitTypeAttribute(UnitType unitType);
     /// <summary>
     /// Returns the unit type that was specified in the constructor.
     /// </summary>
     ///
     /// <returns> Returns unit type as AcValue::UnitType </returns>
     ///
-	ACBASE_PORT UnitType unitType() const;
+  ACBASE_PORT UnitType unitType() const;
 };
 //*************************************************************************
 // AcRxGenerateDynamicPropertiesAttribute
@@ -605,12 +605,12 @@ public:
 class AcRxGenerateDynamicPropertiesAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxGenerateDynamicPropertiesAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxGenerateDynamicPropertiesAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
     ///
-	ACBASE_PORT AcRxGenerateDynamicPropertiesAttribute();
+  ACBASE_PORT AcRxGenerateDynamicPropertiesAttribute();
 };
 //*************************************************************************
 // AcRxUseDialogForReferredCollectionAttribute
@@ -623,12 +623,12 @@ public:
 class AcRxUseDialogForReferredCollectionAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxUseDialogForReferredCollectionAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxUseDialogForReferredCollectionAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
     ///
-	ACBASE_PORT AcRxUseDialogForReferredCollectionAttribute();
+  ACBASE_PORT AcRxUseDialogForReferredCollectionAttribute();
 };
 //*************************************************************************
 //  AcRxUiCascadingContextMenuAttribute 
@@ -642,12 +642,12 @@ public:
 class AcRxUiCascadingContextMenuAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxUiCascadingContextMenuAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxUiCascadingContextMenuAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
     ///
-	ACBASE_PORT AcRxUiCascadingContextMenuAttribute();
+  ACBASE_PORT AcRxUiCascadingContextMenuAttribute();
 };
 //*************************************************************************
 // AcRxCumulativeAttribute
@@ -659,7 +659,7 @@ public:
 class AcRxCumulativeAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxCumulativeAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxCumulativeAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -668,14 +668,14 @@ public:
     /// Cumulative type, (area, length, etc)
     /// </param>
     ///
-	ACBASE_PORT AcRxCumulativeAttribute(const ACHAR* type);
+  ACBASE_PORT AcRxCumulativeAttribute(const ACHAR* type);
     /// <summary>
     /// Returns the type name that was specified in the constructor
     /// </summary>
     ///
     /// <returns> Returns const ACHAR* that points to the type </returns>
     ///
-	ACBASE_PORT const ACHAR* type() const;
+  ACBASE_PORT const ACHAR* type() const;
 };
 //*************************************************************************
 // AcRxAffinityAttribute
@@ -688,7 +688,7 @@ public:
 class AcRxAffinityAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxAffinityAttribute, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxAffinityAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -697,26 +697,26 @@ public:
     /// Affinite name, (SelectionContext, etc)
     /// </param>
     ///
-	ACBASE_PORT AcRxAffinityAttribute(const ACHAR* name);
+  ACBASE_PORT AcRxAffinityAttribute(const ACHAR* name);
     /// <summary>
     /// Returns the type name that was specified in the constructor
     /// </summary>
     ///
     /// <returns> Returns const ACHAR* that points to the name of affinite </returns>
     ///
-	ACBASE_PORT const ACHAR* name() const;
+  ACBASE_PORT const ACHAR* name() const;
 };
 class AcRxTypePromotionAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxTypePromotionAttribute, ACBASE_PORT);
-	ACBASE_PORT AcRxTypePromotionAttribute(const ACHAR* properties);
-	ACBASE_PORT const ACHAR* properties() const;
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxTypePromotionAttribute, ACBASE_PORT);
+  ACBASE_PORT AcRxTypePromotionAttribute(const ACHAR* properties);
+  ACBASE_PORT const ACHAR* properties() const;
 };
 class AcRxDefaultValueAttribute : public AcRxAttribute
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxDefaultValueAttribute, ACBASE_PORT);
-	ACBASE_PORT AcRxDefaultValueAttribute(const AcRxValue& value);
-	ACBASE_PORT const AcRxValue& value() const;
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxDefaultValueAttribute, ACBASE_PORT);
+  ACBASE_PORT AcRxDefaultValueAttribute(const AcRxValue& value);
+  ACBASE_PORT const AcRxValue& value() const;
 };

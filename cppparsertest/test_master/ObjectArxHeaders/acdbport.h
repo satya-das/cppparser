@@ -11,7 +11,7 @@
 //
 #pragma  once
 #ifdef ACDB_API
-#	define ACDB_PORT	_declspec(dllexport)
+#  define ACDB_PORT	_declspec(dllexport)
 #else 
-#	define ACDB_PORT
+#  define ACDB_PORT
 #endif

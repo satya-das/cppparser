@@ -68,9 +68,9 @@
 // The grow length must be a positive number, that is, zero is an illegal
 // grow length.
 #ifndef AC_DBPTRAR_H
-#	define AC_DBPTRAR_H
-#	include "adesk.h"
-#	include "assert.h"
-#	include "acarray.h"
+#  define AC_DBPTRAR_H
+#  include "adesk.h"
+#  include "assert.h"
+#  include "acarray.h"
 typedef AcArray<void*> AcDbVoidPtrArray;
 #endif

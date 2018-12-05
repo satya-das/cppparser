@@ -15,25 +15,25 @@
 // ASM plane surfaces.  
 #pragma  once
 #ifndef DBPLANESURF_H
-#	define DBPLANESURF_H
-#	include "dbsurf.h"
-#	pragma  pack(push, 8)
+#  define DBPLANESURF_H
+#  include "dbsurf.h"
+#  pragma  pack(push, 8)
 class AcDbPlaneSurface : public AcDbSurface
 {
 public:
-	AcDbPlaneSurface();
-	virtual ~AcDbPlaneSurface();
-	ACDB_DECLARE_MEMBERS(AcDbPlaneSurface);
+  AcDbPlaneSurface();
+  virtual ~AcDbPlaneSurface();
+  ACDB_DECLARE_MEMBERS(AcDbPlaneSurface);
     // Create plane surface from region.
-	virtual Acad::ErrorStatus createFromRegion(AcDbRegion* pRegion);
+  virtual Acad::ErrorStatus createFromRegion(AcDbRegion* pRegion);
     // AcDbObject methods
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
-	virtual bool isDependent() const;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  virtual bool isDependent() const;
 protected:
-	virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
-#	pragma  pack(pop)
+#  pragma  pack(pop)
 #endif

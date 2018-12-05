@@ -32,11 +32,11 @@ public:
     /// Default constructor, the value type is empty.
     /// </summary>
     ///
-	AcRxValue()
-		: m_type(AcRxValueType::Desc<void>::value())
-	{
-		memset(&m_value, 0, sizeof(m_value));
-	}
+  AcRxValue()
+    : m_type(AcRxValueType::Desc<void>::value())
+  {
+    memset(&m_value, 0, sizeof(m_value));
+  }
     /// <summary>
     /// Copy constructor. Instantiates an object initialized to the same content as the input object.
     /// </summary>
@@ -45,11 +45,11 @@ public:
     /// Another AcRxValue object.
     /// </param>
     ///
-	AcRxValue(const AcRxValue& rhs)
-		: m_type(rhs.m_type)
-	{
-		init(rhs, false);
-	}
+  AcRxValue(const AcRxValue& rhs)
+    : m_type(rhs.m_type)
+  {
+    init(rhs, false);
+  }
     /// <summary>
     /// The object can be constructed using the type and value.
     /// For example, we can use this to create an enumerated type from an integer.
@@ -64,11 +64,11 @@ public:
     /// Input value of the object.
     /// </param>
     ///
-	AcRxValue(const AcRxValueType& type, const AcRxValue& value)
-		: m_type(type)
-	{
-		init(value, false);
-	}
+  AcRxValue(const AcRxValueType& type, const AcRxValue& value)
+    : m_type(type)
+  {
+    init(value, false);
+  }
     /// <summary>
     /// Assignment operator. Copies all the data from the input AcRxValue 
     /// object to this object.
@@ -83,69 +83,69 @@ public:
     /// Returns const reference to this AcRxValue object.
     /// </returns>
     ///
-	const AcRxValue& operator=(const AcRxValue& rhs)
-	{
-		if (this == &rhs)
-		{
-			return *this;
-		}
-		if (type() != rhs.type())
-		{
-			if (!type().isBlittable())
-			{
-				type().nonBlittable()->destruct(valuePtr());
-			}
-			if (!isInlined() && rhs.isInlined())
-			{
-				deallocate(m_value.m_ptr);
-			}
+  const AcRxValue& operator=(const AcRxValue& rhs)
+  {
+    if (this == &rhs)
+    {
+      return *this;
+    }
+    if (type() != rhs.type())
+    {
+      if (!type().isBlittable())
+      {
+        type().nonBlittable()->destruct(valuePtr());
+      }
+      if (!isInlined() && rhs.isInlined())
+      {
+        deallocate(m_value.m_ptr);
+      }
 #pragma  push_macro("new")
 #undef new
-			(Storage*) this  AcRxValue(rhs, !isInlined() && !rhs.isInlined());
+      (Storage*) this  AcRxValue(rhs, !isInlined() && !rhs.isInlined());
 #pragma  pop_macro("new")
-			return *this;
-		}
-		bool blittable = rhs.type().isBlittable();
-		bool inlined = rhs.isInlined();
-		if (blittable && inlined)
-		{
-			memcpy_s(this, sizeof(AcRxValue), &rhs, sizeof(AcRxValue));
-			return *this;
-		}
+      return *this;
+    }
+    bool blittable = rhs.type().isBlittable();
+    bool inlined = rhs.isInlined();
+    if (blittable && inlined)
+    {
+      memcpy_s(this, sizeof(AcRxValue), &rhs, sizeof(AcRxValue));
+      return *this;
+    }
         /*
         inlined,non-blittable
         non-inlined, non-blittable
         non-inlined, blittable
         */
-		if (inlined)
-		{
-			type().nonBlittable()->assign(inlineValuePtr(), rhs.inlineValuePtr());
-		}
-		else 
-		{
-			setNonInlineValue(rhs.nonInlineValuePtr(), blittable, true, true);
-		}
-		return *this;
-	}
+    if (inlined)
+    {
+      type().nonBlittable()->assign(inlineValuePtr(), rhs.inlineValuePtr());
+    }
+    else 
+    {
+      setNonInlineValue(rhs.nonInlineValuePtr(), blittable, true, true);
+    }
+    return *this;
+  }
     /// <summary>
     /// Destructor
     ///
     /// If the type is non-blittable then destructor of the type is called.
     /// </summary>
     ///
-	~AcRxValue()
-	{
+  ~AcRxValue()
+  {
         //if the type is non-blittable then we must call destructor
-		if (!type().isBlittable())
-		{
-			type().nonBlittable()->destruct(valuePtr());
-		}
+    if (!type().isBlittable())
+    {
+      type().nonBlittable()->destruct(valuePtr());
+    }
         //finally free memory if necessary
-		if (!isInlined())
-		{
-			deallocate(m_value.m_ptr);
-		}
-	}
+    if (!isInlined())
+    {
+      deallocate(m_value.m_ptr);
+    }
+  }
     /// <summary>
     /// Returns the type of the value.
     /// </summary>
@@ -154,10 +154,10 @@ public:
     /// Returns the type of the AcRxValue object.
     /// </returns>
     ///
-	const AcRxValueType& type() const
-	{
-		return m_type;
-	}
+  const AcRxValueType& type() const
+  {
+    return m_type;
+  }
     /// <summary>
     /// Returns true if the current value is empty.
     /// </summary>
@@ -166,10 +166,10 @@ public:
     /// Returns true if the current value is empty; otherwise, returns false.
     /// </returns>
     ///
-	bool isEmpty() const
-	{
-		return *this == empty();
-	}
+  bool isEmpty() const
+  {
+    return *this == empty();
+  }
     /// <summary>
     /// Returns a value that is empty.
     /// </summary>
@@ -178,7 +178,7 @@ public:
     /// Returns const reference to an AcRxValue object that is empty.
     /// </returns>
     ///
-	ACBASE_PORT static const AcRxValue& empty();
+  ACBASE_PORT static const AcRxValue& empty();
     /// <summary>
     /// Returns true if the value is varying.
     /// </summary>
@@ -187,10 +187,10 @@ public:
     /// Returns true if the value is varying; otherwise, returns false.
     /// </returns>
     ///
-	bool isVaries() const
-	{
-		return *this == varies();
-	}
+  bool isVaries() const
+  {
+    return *this == varies();
+  }
     /// <summary>
     /// Returns a value that has the type set to varies.
     /// </summary>
@@ -199,7 +199,7 @@ public:
     /// Returns const reference to an AcRxValue object that has the type set to varies.
     /// </returns>
     ///
-	ACBASE_PORT static const AcRxValue& varies();
+  ACBASE_PORT static const AcRxValue& varies();
     /// <summary>
     /// This method can be used to obtain the string representation of the value.
     /// </summary>
@@ -221,7 +221,7 @@ public:
     /// Returns the number of characters that was written.
     /// </returns>
     ///
-	ACBASE_PORT int toString(ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format = AcRxValueType::kStringFormatGlobal) const;
+  ACBASE_PORT int toString(ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format = AcRxValueType::kStringFormatGlobal) const;
     /// <summary>
     /// Compares the value for equality with another AcRxValue.
     /// </summary>
@@ -234,14 +234,14 @@ public:
     /// Returns true if the values are same; otherwise, returns false.
     /// </returns>
     ///
-	ACBASE_PORT bool operator==(const AcRxValue& value) const
-	{
-		if (type() != value.type())
-		{
-			return false;
-		}
-		return type().equalTo(valuePtr(), value.valuePtr());
-	}
+  ACBASE_PORT bool operator==(const AcRxValue& value) const
+  {
+    if (type() != value.type())
+    {
+      return false;
+    }
+    return type().equalTo(valuePtr(), value.valuePtr());
+  }
     /////////////////////////////////////////////////////////////////
     //MUST BE SPECIALIZED FOR NON BLITTABLE TYPES: 
     //The following 2 functions must be specialized for each supported 
@@ -259,13 +259,13 @@ public:
     /// The type of the object.
     /// </param>
     ///
-	template <typename ValueType>
-	AcRxValue(const ValueType& value)
-		: m_type(AcRxValueType::Desc<ValueType>::value())
-	{
+  template <typename ValueType>
+  AcRxValue(const ValueType& value)
+    : m_type(AcRxValueType::Desc<ValueType>::value())
+  {
         //this should have been specialized otherwise
-		ACRXVALUE_ASSERT(m_type.isBlittable());
-	}
+    ACRXVALUE_ASSERT(m_type.isBlittable());
+  }
     /// <summary>
     /// The function provides safe casting mechanism, returns NULL if the cast fails.
     /// </summary>
@@ -280,12 +280,12 @@ public:
     /// Caller will need to check the return value to see if the cast was successful.
     /// </remarks>
     ///
-	template <typename ValueType>
-	ValueType* rxvalue_cast(AcRxValue* value)
-	{
-		bool inlined = sizeof(ValueType) <= 24;
-		return value && AcRxValueType::Desc<ValueType>::value() == value->type() ? (ValueType*) (value->valuePtr__<inlined>()) : 0;
-	}
+  template <typename ValueType>
+  ValueType* rxvalue_cast(AcRxValue* value)
+  {
+    bool inlined = sizeof(ValueType) <= 24;
+    return value && AcRxValueType::Desc<ValueType>::value() == value->type() ? (ValueType*) (value->valuePtr__<inlined>()) : 0;
+  }
     /// <summary>
     /// The function provides safe casting mechanism for enum types, returns NULL if the cast fails.
     /// </summary>
@@ -300,13 +300,13 @@ public:
     /// Caller will need to check the return value to see if the cast was successful.
     /// </remarks>
     ///
-	template <typename ValueType>
-	friend ValueType* rxenum_cast(AcRxValue* value)
-	{
-		ACRXVALUE_ASSERT(value == NULL || value->isVaries() || value->type().isEnum());
-		bool inlined = sizeof(ValueType) <= 24;
-		return value && value->type().isEnum() && AcRxValueType::Desc<ValueType>::value() == value->type().enumeration()->getAt(0).type() ? (ValueType*) (value->valuePtr__<inlined>()) : 0;
-	}
+  template <typename ValueType>
+  friend ValueType* rxenum_cast(AcRxValue* value)
+  {
+    ACRXVALUE_ASSERT(value == NULL || value->isVaries() || value->type().isEnum());
+    bool inlined = sizeof(ValueType) <= 24;
+    return value && value->type().isEnum() && AcRxValueType::Desc<ValueType>::value() == value->type().enumeration()->getAt(0).type() ? (ValueType*) (value->valuePtr__<inlined>()) : 0;
+  }
     /////////////////////////////////////////////////////////////////
     //OPTIONALLY SPECIALIZED:
     //You might want to secialize the following templates (rare)
@@ -320,12 +320,12 @@ public:
     ///
     /// <returns> Returns reference to this AcRxValue object. </returns>
     ///
-	template <typename ValueType>
-	AcRxValue& operator=(const ValueType& rhs)
-	{
-		*this = AcRxValue(rhs);
-		return *this;
-	}
+  template <typename ValueType>
+  AcRxValue& operator=(const ValueType& rhs)
+  {
+    *this = AcRxValue(rhs);
+    return *this;
+  }
     /// <summary>
     /// The function provides safe casting mechanism, returns NULL if the cast fails.
     /// </summary>
@@ -340,11 +340,11 @@ public:
     /// Caller will need to check the return value to see if the cast was successful.
     /// </remarks>
     ///
-	template <typename ValueType>
-	inline const ValueType* rxvalue_cast(const AcRxValue* value)
-	{
-		return rxvalue_cast<ValueType>(const_cast<AcRxValue*>(value));
-	}
+  template <typename ValueType>
+  inline const ValueType* rxvalue_cast(const AcRxValue* value)
+  {
+    return rxvalue_cast<ValueType>(const_cast<AcRxValue*>(value));
+  }
     /// <summary>
     /// The function provides safe casting mechanism for enum types, returns NULL if the cast fails.
     /// </summary>
@@ -359,25 +359,25 @@ public:
     /// Caller will need to check the return value to see if the cast was successful.
     /// </remarks>
     ///
-	template <typename ValueType>
-	inline const ValueType* rxenum_cast(const AcRxValue* value)
-	{
-		return rxenum_cast<ValueType>(const_cast<AcRxValue*>(value));
-	}
+  template <typename ValueType>
+  inline const ValueType* rxenum_cast(const AcRxValue* value)
+  {
+    return rxenum_cast<ValueType>(const_cast<AcRxValue*>(value));
+  }
     /// <summary>
     /// The function can be used to get the AcRxValue from AcRxBoxedValue object.
     /// </summary>
     ///
     /// <returns> Returns pointer to AcRxValue object if successful; otherwise it returns NULL </returns>
     ///
-	ACBASE_PORT static const AcRxValue* unbox(const AcRxObject* pO);
+  ACBASE_PORT static const AcRxValue* unbox(const AcRxObject* pO);
     /// <summary>
     /// The function can be used to get the AcRxValue from AcRxBoxedValue object.
     /// </summary>
     ///
     /// <returns> Returns pointer to AcRxValue object if successful; otherwise it returns NULL </returns>
     ///
-	ACBASE_PORT static AcRxValue* unbox(AcRxObject* pO);
+  ACBASE_PORT static AcRxValue* unbox(AcRxObject* pO);
     /// <summary>
     /// The function can be used to obtain the AcRxEnumTag from this value. The 
     /// The value type must be an enum. 
@@ -385,7 +385,7 @@ public:
     ///
     /// <returns> Returns pointer to the AcRxEnumTag object if successful, returns NULL on error. </returns>
     ///
-	ACBASE_PORT const AcRxEnumTag* getEnumTag() const;
+  ACBASE_PORT const AcRxEnumTag* getEnumTag() const;
     /// <summary>
     /// The function can be used to serialize the AcRxValue out to a byte
     /// array.  The function delegates to the IAcRxNonBlittableType interface
@@ -409,7 +409,7 @@ public:
     /// returns 0 and sets maxBytesToWrite to the size of the buffer required to
     /// hold the value.
     /// </returns>
-	ACBASE_PORT size_t serializeOut(void* pBytes, size_t& maxBytesToWrite) const;
+  ACBASE_PORT size_t serializeOut(void* pBytes, size_t& maxBytesToWrite) const;
     /// <summary>
     /// The function can be used to serialize the AcRxValue in from a byte
     /// array.  The function delegates to the IAcRxNonBlittableType interface
@@ -428,144 +428,144 @@ public:
     /// <returns>
     /// Returns the number of bytes serialized in. 
     /// </returns>
-	ACBASE_PORT size_t serializeIn(const void* pBytes, size_t maxBytesToRead);
+  ACBASE_PORT size_t serializeIn(const void* pBytes, size_t maxBytesToRead);
 #pragma  region Implementation
 private:
-	bool isInlined() const
-	{
-		return type().size() <= sizeof(m_value);
-	}
-	const void* nonInlineValuePtr() const
-	{
-		return m_value.m_ptr;
-	}
-	void* nonInlineValuePtr()
-	{
-		return m_value.m_ptr;
-	}
-	const void* inlineValuePtr() const
-	{
-		return &m_value;
-	}
-	void* inlineValuePtr()
-	{
-		return &m_value;
-	}
-	const void* valuePtr() const
-	{
-		if (isInlined())
-		{
-			return inlineValuePtr();
-		}
-		else 
-		{
-			return nonInlineValuePtr();
-		}
-	}
-	template <bool Inlined>
-	void* valuePtr__();
-	template <bool Inlined>
-	void initBlittable(const void* value, size_t size);
-	template <typename T, bool inlined>
-	class InitNonBlittable	
+  bool isInlined() const
+  {
+    return type().size() <= sizeof(m_value);
+  }
+  const void* nonInlineValuePtr() const
+  {
+    return m_value.m_ptr;
+  }
+  void* nonInlineValuePtr()
+  {
+    return m_value.m_ptr;
+  }
+  const void* inlineValuePtr() const
+  {
+    return &m_value;
+  }
+  void* inlineValuePtr()
+  {
+    return &m_value;
+  }
+  const void* valuePtr() const
+  {
+    if (isInlined())
+    {
+      return inlineValuePtr();
+    }
+    else 
+    {
+      return nonInlineValuePtr();
+    }
+  }
+  template <bool Inlined>
+  void* valuePtr__();
+  template <bool Inlined>
+  void initBlittable(const void* value, size_t size);
+  template <typename T, bool inlined>
+  class InitNonBlittable  
 {
-	public:
-		static void init(AcRxValue& rxValue, const T& value);
-	};
-	template <typename T>
-	class InitNonBlittable<T, true>	
+  public:
+    static void init(AcRxValue& rxValue, const T& value);
+  };
+  template <typename T>
+  class InitNonBlittable<T, true>  
 {
-	public:
-		static void init(AcRxValue& rxValue, const T& value);
-	};
-	template <typename T>
-	class InitNonBlittable<T, false>	
+  public:
+    static void init(AcRxValue& rxValue, const T& value);
+  };
+  template <typename T>
+  class InitNonBlittable<T, false>  
 {
-	public:
-		static void init(AcRxValue& rxValue, const T& value);
-	};
-	template <typename T>
-	void initNonBlittable(const T& value)
-	{
-		bool inlined = sizeof(value) <= sizeof(m_value);
-		InitNonBlittable<T, inlined >::init(*this, value);
-	}
-	void init(const AcRxValue& rhs, bool realloc)
-	{
-		bool blittable = type().isBlittable();
-		bool inlined = isInlined();
-		if (blittable && inlined)
-		{
-			memcpy_s(&m_value, sizeof(m_value), &rhs.m_value, sizeof(m_value));
-			return ;
-		}
+  public:
+    static void init(AcRxValue& rxValue, const T& value);
+  };
+  template <typename T>
+  void initNonBlittable(const T& value)
+  {
+    bool inlined = sizeof(value) <= sizeof(m_value);
+    InitNonBlittable<T, inlined >::init(*this, value);
+  }
+  void init(const AcRxValue& rhs, bool realloc)
+  {
+    bool blittable = type().isBlittable();
+    bool inlined = isInlined();
+    if (blittable && inlined)
+    {
+      memcpy_s(&m_value, sizeof(m_value), &rhs.m_value, sizeof(m_value));
+      return ;
+    }
         /*
         inlined,non-blittable
         non-inlined, non-blittable
         non-inlined, blittable
         */
-		if (inlined)
-		{
-			type().nonBlittable()->construct(inlineValuePtr(), rhs.inlineValuePtr());
-		}
-		else 
-		{
-			setNonInlineValue(rhs.nonInlineValuePtr(), blittable, false, realloc);
-		}
-	}
-	void setNonInlineValue(const void* value, bool blittable, bool assignment, bool realloc)
-	{
-		ACRXVALUE_ASSERT(blittable == type().isBlittable());
-		ACRXVALUE_ASSERT(!isInlined());
-		unsigned int newSize = type().size();
-		realloc = realloc || assignment;
-		if (realloc)
-		{
-			m_value.m_ptr = reallocate(newSize, m_value.m_ptr);
-		}
-		else 
-		{
-			m_value.m_ptr = allocate(newSize);
-		}
-		if (blittable)
-		{
-			memcpy_s(nonInlineValuePtr(), newSize, value, newSize);
-		}
-		else 
-		{
-			if (assignment)
-			{
-				type().nonBlittable()->assign(nonInlineValuePtr(), value);
-			}
-			else 
-			{
-				type().nonBlittable()->construct(nonInlineValuePtr(), value);
-			}
-		}
-	}
-	AcRxValue(const AcRxValue& rhs, bool realloc)
-		: m_type(rhs.m_type)
-	{
-		init(rhs, realloc);
-	}
-	const AcRxValueType& m_type;
+    if (inlined)
+    {
+      type().nonBlittable()->construct(inlineValuePtr(), rhs.inlineValuePtr());
+    }
+    else 
+    {
+      setNonInlineValue(rhs.nonInlineValuePtr(), blittable, false, realloc);
+    }
+  }
+  void setNonInlineValue(const void* value, bool blittable, bool assignment, bool realloc)
+  {
+    ACRXVALUE_ASSERT(blittable == type().isBlittable());
+    ACRXVALUE_ASSERT(!isInlined());
+    unsigned int newSize = type().size();
+    realloc = realloc || assignment;
+    if (realloc)
+    {
+      m_value.m_ptr = reallocate(newSize, m_value.m_ptr);
+    }
+    else 
+    {
+      m_value.m_ptr = allocate(newSize);
+    }
+    if (blittable)
+    {
+      memcpy_s(nonInlineValuePtr(), newSize, value, newSize);
+    }
+    else 
+    {
+      if (assignment)
+      {
+        type().nonBlittable()->assign(nonInlineValuePtr(), value);
+      }
+      else 
+      {
+        type().nonBlittable()->construct(nonInlineValuePtr(), value);
+      }
+    }
+  }
+  AcRxValue(const AcRxValue& rhs, bool realloc)
+    : m_type(rhs.m_type)
+  {
+    init(rhs, realloc);
+  }
+  const AcRxValueType& m_type;
 #ifndef _AC64
-	int padding;
+  int padding;
 #endif
-	union InlineStorage
+  union InlineStorage
 {
-	double m_point[3];
-	void* m_ptr;
-	char m_int8;
-	short m_int16;
-	int m_int32;
-	int64_t m_int64;
-	float m_real32;
-	double m_real64;
+  double m_point[3];
+  void* m_ptr;
+  char m_int8;
+  short m_int16;
+  int m_int32;
+  int64_t m_int64;
+  float m_real32;
+  double m_real64;
 } m_value;
-	ACBASE_PORT void* allocate(size_t size) const;
-	ACBASE_PORT void* reallocate(size_t size, void* p) const;
-	ACBASE_PORT void deallocate(void* p) const;
+  ACBASE_PORT void* allocate(size_t size) const;
+  ACBASE_PORT void* reallocate(size_t size, void* p) const;
+  ACBASE_PORT void deallocate(void* p) const;
 #pragma  endregion
 };
 //each AcRxValue instance is 32 bytes long (on both 32 and 64 bit)
@@ -573,74 +573,74 @@ static_assert(sizeof(AcRxValue) == 32, "Size mismatch.");
 template <>
 struct AcRxValueType ::Desc< const ACHAR* >
 {
-	ACBASE_PORT static const AcRxValueType& value();
-	static void del();
+  ACBASE_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 struct AcRxValueType ::Desc< const char* >
 {
-	ACBASE_PORT static const AcRxValueType& value();
-	static void del();
+  ACBASE_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 inline AcRxValue::AcRxValue(const ACHAR* const& value)
-	: m_type(AcRxValueType::Desc<const ACHAR*>::value())
+  : m_type(AcRxValueType::Desc<const ACHAR*>::value())
 {
-	memcpy_s(&m_value, sizeof(const ACHAR*), &value, sizeof(const ACHAR*));
+  memcpy_s(&m_value, sizeof(const ACHAR*), &value, sizeof(const ACHAR*));
 }
 template <>
 inline AcRxValue& AcRxValue::(const ACHAR* const& rhs)
 {
-	*this = AcRxValue(rhs);
-	return *this;
+  *this = AcRxValue(rhs);
+  return *this;
 }
 template <>
 inline const ACHAR* const * rxvalue_cast<const ACHAR*>(const AcRxValue* value)
 {
-	return value && AcRxValueType::Desc<const ACHAR*>::value() == value->type() ? (const ACHAR* const *) &(value->m_value) : 0;
+  return value && AcRxValueType::Desc<const ACHAR*>::value() == value->type() ? (const ACHAR* const *) &(value->m_value) : 0;
 }
 template <>
 inline const void* rxvalue_cast<void>(const AcRxValue* value)
 {
-	return value ? value->valuePtr() : 0;
+  return value ? value->valuePtr() : 0;
 }
 template <>
 inline void* AcRxValue::valuePtr__<true>()
 {
-	ACRXVALUE_ASSERT(isInlined());
-	return inlineValuePtr();
+  ACRXVALUE_ASSERT(isInlined());
+  return inlineValuePtr();
 }
 template <>
 inline void* AcRxValue::valuePtr__<false>()
 {
-	ACRXVALUE_ASSERT(!isInlined());
-	return nonInlineValuePtr();
+  ACRXVALUE_ASSERT(!isInlined());
+  return nonInlineValuePtr();
 }
 template <>
 inline void AcRxValue::initBlittable<true>(const void* value, size_t size)
 {
-	ACRXVALUE_ASSERT(type().isBlittable());
-	ACRXVALUE_ASSERT(isInlined());
-	memcpy_s(inlineValuePtr(), size, value, size);
+  ACRXVALUE_ASSERT(type().isBlittable());
+  ACRXVALUE_ASSERT(isInlined());
+  memcpy_s(inlineValuePtr(), size, value, size);
 }
 template <>
 inline void AcRxValue::initBlittable<false>(const void* value, size_t size)
 {
-	ACRXVALUE_ASSERT(type().isBlittable());
-	ACRXVALUE_ASSERT(!isInlined());
-	m_value.m_ptr = allocate(size);
-	memcpy_s(nonInlineValuePtr(), size, value, size);
+  ACRXVALUE_ASSERT(type().isBlittable());
+  ACRXVALUE_ASSERT(!isInlined());
+  m_value.m_ptr = allocate(size);
+  memcpy_s(nonInlineValuePtr(), size, value, size);
 }
 template <typename T>
 inline void AcRxValue::InitNonBlittable< T, true>::init(AcRxValue& rxValue, const T& value)
 {
     //call global placement new defined above so that we can call copy constructor
-	(Storage*) (rxValue.inlineValuePtr())  T(value);
+  (Storage*) (rxValue.inlineValuePtr())  T(value);
 }
 template <typename T>
 inline void AcRxValue::InitNonBlittable< T, false>::init(AcRxValue& rxValue, const T& value)
 {
-	rxValue.setNonInlineValue(&value, false, false, false);
+  rxValue.setNonInlineValue(&value, false, false, false);
 }
 //*************************************************************************
 // AcRxBoxedValue
@@ -657,7 +657,7 @@ inline void AcRxValue::InitNonBlittable< T, false>::init(AcRxValue& rxValue, con
 class AcRxBoxedValue : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxBoxedValue, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxBoxedValue, ACBASE_PORT);
     /// <summary>
     /// Returns the value that is boxed. The derived class must implement this method.
     /// </summary>
@@ -666,7 +666,7 @@ public:
     /// Returns const reference to an AcRxValue object.
     /// </returns>
     ///
-	virtual const AcRxValue* value() const = 0;
+  virtual const AcRxValue* value() const = 0;
     /// <summary>
     /// Returns the value that is boxed. The derived class must implement this method.
     /// </summary>
@@ -675,7 +675,7 @@ public:
     /// Returns reference to an AcRxValue object.
     /// </returns>
     ///
-	virtual AcRxValue* value() = 0;
+  virtual AcRxValue* value() = 0;
     /// <summary>
     /// This function can be used to created heap resident instance of AcRxBoxedValue
     /// object.
@@ -689,7 +689,7 @@ public:
     /// Returns pointer to the AcRxBoxedValue object that was created on the heap.
     /// </returns>
     ///
-	ACBASE_PORT static AcRxBoxedValue* newBoxedValueOnHeap(const AcRxValue& value);
+  ACBASE_PORT static AcRxBoxedValue* newBoxedValueOnHeap(const AcRxValue& value);
     /// <summary>
     /// This function creates a clone of the object and returns a pointer to the clone. 
     /// If the function is not successful in creating the clone, then NULL is returned. 
@@ -699,7 +699,7 @@ public:
     /// Returns pointer to the clone if successful; otherwise it returns NULL.
     /// </returns>
     ///
-	ACBASE_PORT virtual AcRxObject* clone() const override;
+  ACBASE_PORT virtual AcRxObject* clone() const override;
     /// <summary>
     /// Copies the contents of other into this object, whenever feasible.
     /// </summary>
@@ -712,7 +712,7 @@ public:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  ACBASE_PORT virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
     /// <summary>
     /// This method can be used to compare to boxed values.
     /// </summary>
@@ -725,14 +725,14 @@ public:
     /// Returns true if the values are same; otherwise, returns false.
     /// </returns>
     ///
-	ACBASE_PORT virtual Adesk::Boolean isEqualTo(const AcRxObject* other) const override;
+  ACBASE_PORT virtual Adesk::Boolean isEqualTo(const AcRxObject* other) const override;
     /// <summary>
     /// For internal use only.
     /// </summary>
     ///
-	ACBASE_PORT virtual AcRx::Ordering comparedTo(const AcRxObject* other) const override;
-	ACBASE_PORT const AcRxObject* rxObject() const;
-	ACBASE_PORT AcRxObject* rxObject();
+  ACBASE_PORT virtual AcRx::Ordering comparedTo(const AcRxObject* other) const override;
+  ACBASE_PORT const AcRxObject* rxObject() const;
+  ACBASE_PORT AcRxObject* rxObject();
 };
 //*************************************************************************
 // AcRxBoxedValueOnStack
@@ -744,9 +744,9 @@ public:
 ///
 class AcRxBoxedValueOnStack : public AcRxBoxedValue
 {
-	AcRxValue& m_value;
+  AcRxValue& m_value;
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxBoxedValueOnStack, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxBoxedValueOnStack, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -755,7 +755,7 @@ public:
     /// Reference to the AcRxValue object that needs to boxed.
     /// </param>
     ///
-	ACBASE_PORT AcRxBoxedValueOnStack(const AcRxValue& value);
+  ACBASE_PORT AcRxBoxedValueOnStack(const AcRxValue& value);
     /// <summary>
     /// Returns the value that is boxed.
     /// </summary>
@@ -764,7 +764,7 @@ public:
     /// Returns const reference to an AcRxValue object.
     /// </returns>
     ///
-	ACBASE_PORT virtual const AcRxValue* value() const override;
+  ACBASE_PORT virtual const AcRxValue* value() const override;
     /// <summary>
     /// Returns the value that is boxed.
     /// </summary>
@@ -773,7 +773,7 @@ public:
     /// Returns reference to an AcRxValue object.
     /// </returns>
     ///
-	ACBASE_PORT virtual AcRxValue* value() override;
+  ACBASE_PORT virtual AcRxValue* value() override;
 };
 /////////////////////////////////////////////////////////////////////
 //specializations
@@ -793,8 +793,8 @@ class AcGeMatrix3d;
 template <>
 struct AcRxValueType ::Desc<AcGeMatrix3d>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGeMatrix3d& m);
@@ -806,8 +806,8 @@ class AcCmColor;
 template <>
 struct AcRxValueType ::Desc<AcCmColor>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcCmColor& clr);
@@ -817,8 +817,8 @@ class AcDbDate;
 template <>
 struct AcRxValueType ::Desc<AcDbDate>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcDbDate& str);
@@ -828,8 +828,8 @@ class AcUnderlayLayer;
 template <>
 struct AcRxValueType ::Desc<AcUnderlayLayer>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcUnderlayLayer& str);
@@ -839,8 +839,8 @@ class AcGiMaterialColor;
 template <>
 struct AcRxValueType ::Desc<AcGiMaterialColor>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiMaterialColor& clr);
@@ -850,8 +850,8 @@ class AcGiMaterialMap;
 template <>
 struct AcRxValueType ::Desc<AcGiMaterialMap>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiMaterialMap& clr);
@@ -861,8 +861,8 @@ class AcDbSweepOptions;
 template <>
 struct AcRxValueType ::Desc<AcDbSweepOptions>
 {
-	ACDB_PORT static const AcRxValueType& value();
-	static void del();
+  ACDB_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDB_PORT AcRxValue ::AcRxValue(const AcDbSweepOptions& sweepOptions);
@@ -872,8 +872,8 @@ class AcDbLoftOptions;
 template <>
 struct AcRxValueType ::Desc<AcDbLoftOptions>
 {
-	ACDB_PORT static const AcRxValueType& value();
-	static void del();
+  ACDB_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDB_PORT AcRxValue ::AcRxValue(const AcDbLoftOptions& loftOptions);
@@ -883,8 +883,8 @@ class AcGiShadowParameters;
 template <>
 struct AcRxValueType ::Desc<AcGiShadowParameters>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiShadowParameters& v);
@@ -894,8 +894,8 @@ class AcGiSkyParameters;
 template <>
 struct AcRxValueType ::Desc<AcGiSkyParameters>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiSkyParameters& v);
@@ -905,8 +905,8 @@ class AcGiToneOperatorParameters;
 template <>
 struct AcRxValueType ::Desc<AcGiToneOperatorParameters>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiToneOperatorParameters& v);
@@ -916,8 +916,8 @@ class AcGiPhotographicExposureParameters;
 template <>
 struct AcRxValueType ::Desc<AcGiPhotographicExposureParameters>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiPhotographicExposureParameters& v);
@@ -927,8 +927,8 @@ class AcGiLightAttenuation;
 template <>
 struct AcRxValueType ::Desc<AcGiLightAttenuation>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiLightAttenuation& v);
@@ -938,8 +938,8 @@ class AcDbMText;
 template <>
 struct AcRxValueType ::Desc<AcDbMText*>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(AcDbMText* const& pMText);
@@ -951,8 +951,8 @@ class AcDbTableCellBlockReference;
 template <>
 struct AcRxValueType ::Desc<AcDbTableCellBlockReference>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcDbTableCellBlockReference& tableCellBlkRef);
@@ -962,8 +962,8 @@ class AcDbBlockParamValueSet;
 template <>
 struct AcRxValueType ::Desc<AcDbBlockParamValueSet>
 {
-	ACDB_PORT static const AcRxValueType& value();
-	static void del();
+  ACDB_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDB_PORT AcRxValue ::AcRxValue(const AcDbBlockParamValueSet& blcParamValueSet);
@@ -973,8 +973,8 @@ typedef AcArray<double> AcDbBlkParamValueSetValuesArray;
 template <>
 struct AcRxValueType ::Desc<AcDbBlkParamValueSetValuesArray>
 {
-	ACDB_PORT static const AcRxValueType& value();
-	static void del();
+  ACDB_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDB_PORT AcRxValue ::AcRxValue(const AcDbBlkParamValueSetValuesArray& blockParamValueSetArr);
@@ -983,8 +983,8 @@ ACDB_PORT AcRxValue ::AcRxValue(const AcDbBlkParamValueSetValuesArray& blockPara
 template <>
 struct AcRxValueType ::Desc<AcDbIntArray>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcDbIntArray& intArr);
@@ -994,8 +994,8 @@ struct DimFillColor;
 template <>
 struct AcRxValueType ::Desc<DimFillColor>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const DimFillColor& dimFillColor);
@@ -1005,8 +1005,8 @@ typedef AcArray<AcString, AcArrayObjectCopyReallocator<AcString> > AcStringArray
 template <>
 struct AcRxValueType ::Desc<AcStringArray>
 {
-	ACDBCORE2D_PORT static const AcRxValueType& value();
-	static void del();
+  ACDBCORE2D_PORT static const AcRxValueType& value();
+  static void del();
 };
 template <>
 ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcStringArray& stringArray);

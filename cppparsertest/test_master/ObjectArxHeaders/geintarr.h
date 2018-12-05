@@ -68,16 +68,16 @@
 // The grow length must be a positive number, that is, zero is an illegal
 // grow length.
 #ifndef AC_GEINTARR_H
-#	define AC_GEINTARR_H
-#	ifndef unix
-#		include <stdlib.h>
-#	endif
-#	include "adesk.h"
-#	include "assert.h"
-#	include "acarray.h"
+#  define AC_GEINTARR_H
+#  ifndef unix
+#    include <stdlib.h>
+#  endif
+#  include "adesk.h"
+#  include "assert.h"
+#  include "acarray.h"
 typedef AcArray<int> AcGeIntArray;
 typedef AcArray<Adesk::IntPtr> AcGeIntPtrArray;
-#	if  GE_LOCATED_NEW
+#  if  GE_LOCATED_NEW
 GE_DLLEXPIMPORT AcGe::metaTypeIndex AcGeGetMetaTypeIndex(AcGeIntArray* pT);
-#	endif
+#  endif
 #endif

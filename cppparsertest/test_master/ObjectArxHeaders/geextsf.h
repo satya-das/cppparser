@@ -15,10 +15,10 @@
 // to gelib.
 //
 #ifndef AC_GEEXTSF_H
-#	define AC_GEEXTSF_H
-#	include "gegbl.h"
-#	include "gesurf.h"
-#	pragma  pack (push, 8)
+#  define AC_GEEXTSF_H
+#  include "gegbl.h"
+#  include "gesurf.h"
+#  pragma  pack (push, 8)
 class AcGePlane;
 class AcGeCylinder;
 class AcGeCone;
@@ -29,35 +29,35 @@ class surface;
 class GX_DLLEXPIMPORT AcGeExternalSurface : public AcGeSurface
 {
 public:
-	AcGeExternalSurface();
-	AcGeExternalSurface(void* surfaceDef, AcGe::ExternalEntityKind surfaceKind, Adesk::Boolean makeCopy = Adesk::kTrue);
-	AcGeExternalSurface(const AcGeExternalSurface&);
+  AcGeExternalSurface();
+  AcGeExternalSurface(void* surfaceDef, AcGe::ExternalEntityKind surfaceKind, Adesk::Boolean makeCopy = Adesk::kTrue);
+  AcGeExternalSurface(const AcGeExternalSurface&);
    // Defining surface.
    //
-	void getExternalSurface(void*& surfaceDef) const;
+  void getExternalSurface(void*& surfaceDef) const;
    // Type of the external surface.
    //
-	AcGe::ExternalEntityKind externalSurfaceKind() const;
-	Adesk::Boolean isPlane() const;
-	Adesk::Boolean isSphere() const;
-	Adesk::Boolean isCylinder() const;
-	Adesk::Boolean isCone() const;
-	Adesk::Boolean isTorus() const;
-	Adesk::Boolean isNurbSurface() const;
-	Adesk::Boolean isDefined() const;
+  AcGe::ExternalEntityKind externalSurfaceKind() const;
+  Adesk::Boolean isPlane() const;
+  Adesk::Boolean isSphere() const;
+  Adesk::Boolean isCylinder() const;
+  Adesk::Boolean isCone() const;
+  Adesk::Boolean isTorus() const;
+  Adesk::Boolean isNurbSurface() const;
+  Adesk::Boolean isDefined() const;
    // Conversion to gelib entity
    //
-	Adesk::Boolean isNativeSurface(AcGeSurface*& nativeSurface) const;
+  Adesk::Boolean isNativeSurface(AcGeSurface*& nativeSurface) const;
    // Assignment operator.
    //
-	AcGeExternalSurface& operator =(const AcGeExternalSurface& src);
+  AcGeExternalSurface& operator =(const AcGeExternalSurface& src);
    // Reset surface
    //
-	AcGeExternalSurface& set(void* surfaceDef, AcGe::ExternalEntityKind surfaceKind, Adesk::Boolean makeCopy = Adesk::kTrue);
+  AcGeExternalSurface& set(void* surfaceDef, AcGe::ExternalEntityKind surfaceKind, Adesk::Boolean makeCopy = Adesk::kTrue);
    // Ownership of surface.
    //
-	Adesk::Boolean isOwnerOfSurface() const;
-	AcGeExternalSurface& setToOwnSurface();
+  Adesk::Boolean isOwnerOfSurface() const;
+  AcGeExternalSurface& setToOwnSurface();
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

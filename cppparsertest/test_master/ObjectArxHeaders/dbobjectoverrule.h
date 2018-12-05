@@ -22,13 +22,13 @@
 class AcDbObjectOverrule : public AcRxOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbObjectOverrule);
+  ACRX_DECLARE_MEMBERS(AcDbObjectOverrule);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
     /// Default Constructor.
     /// </description>                    
-	ACDBCORE2D_PORT AcDbObjectOverrule();
+  ACDBCORE2D_PORT AcDbObjectOverrule();
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -42,7 +42,7 @@ public:
     /// The default implementation of AcDbObjectOverrule::open calls the 
     /// protected virtual AcDbObject::subOpen method. 
     /// </remarks>                             
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus open(AcDbObject* pSubject, AcDb::OpenMode mode);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus open(AcDbObject* pSubject, AcDb::OpenMode mode);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -55,7 +55,7 @@ public:
     /// The default implementation of AcDbObjectOverrule::close calls the 
     /// protected virtual AcDbObject::subClose method. 
     /// </remarks>       
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus close(AcDbObject* pSubject);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus close(AcDbObject* pSubject);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -68,7 +68,7 @@ public:
     /// The default implementation of AcDbObjectOverrule::cancel calls the 
     /// protected virtual AcDbObject::subCancel method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus cancel(AcDbObject* pSubject);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus cancel(AcDbObject* pSubject);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -84,7 +84,7 @@ public:
     /// The default implementation of AcDbObjectOverrule::erase calls the 
     /// protected virtual AcDbObject::subErase method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus erase(AcDbObject* pSubject, Adesk::Boolean erasing);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus erase(AcDbObject* pSubject, Adesk::Boolean erasing);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -104,7 +104,7 @@ public:
     /// The default implementation of AcDbObjectOverrule::deepClone calls the 
     /// protected virtual AcDbObject::subDeepClone method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus deepClone(const AcDbObject* pSubject, AcDbObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus deepClone(const AcDbObject* pSubject, AcDbObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -125,6 +125,6 @@ public:
     /// The default implementation of AcDbObjectOverrule::wblockClone calls the 
     /// protected virtual AcDbObject::subWblockClone method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus wblockClone(const AcDbObject* pSubject, AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus wblockClone(const AcDbObject* pSubject, AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true);
 };
 #pragma  pack (pop)

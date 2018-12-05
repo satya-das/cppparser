@@ -15,12 +15,12 @@
 //////////////////////////////////////////////////////////////////////////////
 #pragma  once
 #if  _MSC_VER > 1000
-#	pragma  once
+#  pragma  once
 #endif
 #ifdef ACFD_API
-#	define ACFDUI_PORT	__declspec(dllexport)
+#  define ACFDUI_PORT	__declspec(dllexport)
 #else 
-#	define ACFDUI_PORT
+#  define ACFDUI_PORT
 #endif
 class CAcFdUiFieldManager;
 class AcDbField;

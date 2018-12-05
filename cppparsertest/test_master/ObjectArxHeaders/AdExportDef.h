@@ -29,7 +29,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #pragma  once
 #ifdef _ADAF_BUILD
-#	define ADAF_PORT	__declspec(dllexport)
+#  define ADAF_PORT	__declspec(dllexport)
 #else 
-#	define ADAF_PORT	__declspec(dllimport)
+#  define ADAF_PORT	__declspec(dllimport)
 #endif

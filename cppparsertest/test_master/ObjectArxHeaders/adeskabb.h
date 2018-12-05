@@ -10,7 +10,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 #ifndef _ADESKABB_H
-#	define _ADESKABB_H
+#  define _ADESKABB_H
 // DESCRIPTION:
 //
 // Legacy shorthand for Adesk types. These are no longer of much use, as native
@@ -29,7 +29,7 @@
 //            #include "foo.h"
 //            #include "bar.h"
 //            #include "adeskabb.h" // <- Must be last!
-#	include "adesk.h"
+#  include "adesk.h"
 // To be deprecated. Please use native types int8_t, uint16_t, etc
 //
 typedef Adesk::Int8 Int8;

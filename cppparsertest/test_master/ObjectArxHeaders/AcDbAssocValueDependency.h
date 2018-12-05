@@ -29,11 +29,11 @@
 class ACDBCORE2D_PORT AcDbAssocValueDependency : public AcDbAssocDependency
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocValueDependency);
+  ACRX_DECLARE_MEMBERS(AcDbAssocValueDependency);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject. </param>
     ///
-	explicit AcDbAssocValueDependency(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocValueDependency(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> 
     /// Returns the name of the referenced value or an empty string if the value 
     /// name is not needed because the referenced object exposes only a single 
@@ -41,7 +41,7 @@ public:
     /// </summary>
     /// <returns> Name of the referenced value or an empty string. </returns>
     ///
-	const AcString& valueName() const;
+  const AcString& valueName() const;
     /// <summary> 
     /// Sets the name of the referenced value or an empty string if the value
     /// name is not needed because the referenced object exposes only a single 
@@ -50,7 +50,7 @@ public:
     /// <param name="newValueName"> Name of a different referenced value (empty string allowed). </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setValueName(const AcString& newValueName);
+  Acad::ErrorStatus setValueName(const AcString& newValueName);
     /// <summary>
     /// Returns true iff the dependency currently holds the cached value.
     /// </summary>
@@ -69,14 +69,14 @@ public:
     /// <param name="objectValue"> The value of the dependent-on object. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getDependentOnObjectValue(AcDbEvalVariant& objectValue) const;
+  Acad::ErrorStatus getDependentOnObjectValue(AcDbEvalVariant& objectValue) const;
     /// <summary> 
     /// Sets the value in the dependent-on object and updates the cached value.
     /// </summary>
     /// <param name="newObjectValue"> The new value to be set on the dependent-on object. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setDependentOnObjectValue(const AcDbEvalVariant& newObjectValue);
+  Acad::ErrorStatus setDependentOnObjectValue(const AcDbEvalVariant& newObjectValue);
     /// <summary>
     /// Checks whether the value cached in this dependency is the same as the 
     /// value provided by the referenced object via its AcDbAssocValueProviderPE 

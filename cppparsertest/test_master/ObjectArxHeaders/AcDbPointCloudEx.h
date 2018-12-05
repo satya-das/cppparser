@@ -45,15 +45,15 @@ class AcDbPointCloudCropStateManager;
 class ACDB_PORT AcDbPointCloudEx : public AcDbEntity
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbPointCloudEx);
+  ACRX_DECLARE_MEMBERS(AcDbPointCloudEx);
     /// <summary>
     /// Constructor.
     /// </summary>
-	AcDbPointCloudEx();
+  AcDbPointCloudEx();
     /// <summary>
     /// Destructor.
     /// </summary>
-	virtual ~AcDbPointCloudEx();
+  virtual ~AcDbPointCloudEx();
     // AcDbObject Overrides
     //
     // erase
@@ -70,7 +70,7 @@ public:
     /// operation. If it returns anything other than Acad::eOk, then the 
     /// erase operation is immediately terminated.
     /// </returns>
-	virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing);
+  virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing);
     // Filing
     /// <summary>
     /// This function is called by dwgIn(). Its purpose is to allow the object to read in its data. 
@@ -81,7 +81,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary>
     /// This function is called by dwgOut(). Its purpose is to allow the object to write out its data. 
     /// </summary>
@@ -91,7 +91,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary>
     /// This function is called by dxfIn(). Its purpose is to allow the object to read in its data. 
     /// </summary>
@@ -101,7 +101,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     /// <summary>
     /// This function is called by dxfOut(). Its purpose is to allow the object to write out its data. 
     /// </summary>
@@ -111,7 +111,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     /// <summary>
     /// This function is called by swapIdWith() before anything else is done. 
     /// It provides a hook into the swapIdWith operation. 
@@ -128,7 +128,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus subSwapIdWith(AcDbObjectId otherId, Adesk::Boolean swapXdata = false, Adesk::Boolean swapExtDict = false) override;
+  virtual Acad::ErrorStatus subSwapIdWith(AcDbObjectId otherId, Adesk::Boolean swapXdata = false, Adesk::Boolean swapExtDict = false) override;
     /// <summary>
     /// Copy the contents of the "other" parameter into this messaged object, whenever feasible.
     /// </summary>
@@ -138,7 +138,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus copyFrom(const AcRxObject* pObj);
+  virtual Acad::ErrorStatus copyFrom(const AcRxObject* pObj);
     // AcDbEntity Overrides
     //
     /// <summary>
@@ -150,7 +150,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual void getEcs(AcGeMatrix3d& retVal) const override;
+  virtual void getEcs(AcGeMatrix3d& retVal) const override;
     /// <summary>
     /// The function is called when a drag operation involving this entity is starting,
     /// ending, or aborting.
@@ -158,14 +158,14 @@ public:
     /// <param name="status">
     /// Provides information about what is happening with the drag operation.
     /// </param>
-	virtual void dragStatus(const AcDb::DragStat status) override;
+  virtual void dragStatus(const AcDb::DragStat status) override;
 protected:
     // AcDbEntity Overrides
     //
     /// <summary>
     /// Override the virtual function for AcDbEnity::list().
     /// </summary>
-	virtual void subList() const override;
+  virtual void subList() const override;
     /// <summary>
     /// Get the unique class id for this entity.
     /// </summary>
@@ -175,7 +175,7 @@ protected:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
     /// <summary>
     /// Override the virtual function for AcDbEnity::getGeomExtents().
     /// </summary>
@@ -185,7 +185,7 @@ protected:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
+  virtual Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
     // AcDbOsnapOverrule
     //
     /// <summary>
@@ -194,7 +194,7 @@ protected:
     /// <returns>
     /// Returns true if this entity can be snapped to, otherwise false.
     /// </returns>
-	virtual bool subIsContentSnappable() const override;
+  virtual bool subIsContentSnappable() const override;
     // AcGiDrawable interface
     //
     /// <summary>
@@ -206,7 +206,7 @@ protected:
     /// <returns>
     /// Returns true if successful.
     /// </returns>
-	virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* mode) override;
+  virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* mode) override;
     /// <summary>
     /// Override the virtual function for AcDbEntity::transformBy().
     /// </summary>
@@ -216,7 +216,7 @@ protected:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
+  virtual Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
 public:
     // AcDbPointCloudDefEx specific protocol
     //
@@ -228,11 +228,11 @@ public:
     /// <param name="defExId">
     /// The object id of AcDbPointCloudDefEx which will be set.
     /// </param>
-	void setPointCloudDefExId(const AcDbObjectId& defExId);
+  void setPointCloudDefExId(const AcDbObjectId& defExId);
     /// <summary>
     /// Returns the ID of a point cloud extension definition object.
     /// </summary>
-	AcDbObjectId pointCloudDefExId() const;
+  AcDbObjectId pointCloudDefExId() const;
     /// <summary>
     /// Sets the ID of a persistent reactor.
     /// Each AcDbPointCloudEx entity must have a persistent reactor attached to
@@ -246,18 +246,18 @@ public:
     /// <param name="reactorId">
     /// The object id of AcDbPointCloudDefReactorEx which will be set.
     /// </param>
-	void setReactorId(const AcDbObjectId& reactorId);
+  void setReactorId(const AcDbObjectId& reactorId);
     /// <summary>
     /// Returns the ID of a point cloud extension entity's reactor.
     /// </summary>
-	AcDbObjectId reactorId() const;
+  AcDbObjectId reactorId() const;
     // PointCloud routines
     //
 
     /// <summary>
     /// Returns whether the attached point cloud is locked or not.
     /// </summary>
-	bool locked() const;
+  bool locked() const;
     /// <summary>
     /// Sets whether an attached point cloud can be moved, scaled,
     /// rotated, or cropped.
@@ -265,11 +265,11 @@ public:
     /// <param name="locked">
     /// True if the entity is locked, else false.
     /// </param>
-	void setLocked(bool locked);
+  void setLocked(bool locked);
     /// <summary>
     /// Returns the scale factor of the point cloud.
     /// </summary>
-	double scale() const;
+  double scale() const;
     /// <summary>
     /// Sets the scale factor of the point cloud.
     /// The user may give a customized scale, while the point cloud may have a unit factor based on current drawing.
@@ -281,12 +281,12 @@ public:
     /// <returns> 
     /// Returns Acad::eOk if set successfully. If point cloud is locked, this function will return Acad::eNotApplicable.
     /// </returns>
-	Acad::ErrorStatus setScale(double val);
+  Acad::ErrorStatus setScale(double val);
     /// <summary>
     /// Returns the rotation angle of the point cloud
     /// in the current UCS.
     /// </summary>
-	double rotation() const;
+  double rotation() const;
     /// <summary>
     /// Specifies the rotation angle of the point cloud
     /// in the current UCS.
@@ -297,12 +297,12 @@ public:
     /// <returns> 
     /// Returns Acad::eOk if set successfully. If point cloud is locked, this function will return Acad::eNotApplicable.
     /// </returns>
-	Acad::ErrorStatus setRotation(double val);
+  Acad::ErrorStatus setRotation(double val);
     /// <summary>
     /// Returns the location in the drawing where the base point of the point
     /// cloud is attached.
     /// </summary>
-	AcGePoint3d location() const;
+  AcGePoint3d location() const;
     /// <summary>
     /// Specifies the location in the drawing where the base point of the point
     /// cloud is attached.
@@ -313,7 +313,7 @@ public:
 	/// <returns> 
     /// Returns Acad::eOk if successful. If point cloud is locked, this function will return Acad::eNotApplicable.
     /// </returns>
-	Acad::ErrorStatus setLocation(const AcGePoint3d& pt);
+  Acad::ErrorStatus setLocation(const AcGePoint3d& pt);
     /// <summary>
     /// Returns the non-translated native 3D extent of the point cloud in ECS, 
     /// which is taken from point cloud data file directly.
@@ -321,7 +321,7 @@ public:
     /// <param name="extents">
     /// The non-translated native 3D extent of the point cloud in ECS.
     /// </param>
-	void getNativeCloudExtent(AcDbExtents& extents) const;
+  void getNativeCloudExtent(AcDbExtents& extents) const;
     /// <summary>
     /// Gets the expected visible point count after frustum culling, that is
     /// the raw point number that is being loaded in the background.
@@ -332,7 +332,7 @@ public:
     /// <remarks>
     /// NOTES: The count is updated after each frame is drawn.
     /// </remarks>
-	unsigned int getVisiblePointCount() const;
+  unsigned int getVisiblePointCount() const;
     /// <summary>
     /// Gets the visible point count loaded in memory for a given view,
     /// that is the visible points being loaded in memory based on 
@@ -344,7 +344,7 @@ public:
     /// <remarks>
     /// NOTES: The count is updated after each frame drawing.
     /// </remarks>
-	unsigned int getLoadedVisiblePointCount() const;
+  unsigned int getLoadedVisiblePointCount() const;
     /// <summary>
     /// Gets the visible point count displayed on screen, it's the actual points
     /// being considered for rendering, which based on the visible point count loaded in 
@@ -355,13 +355,13 @@ public:
     /// <remarks>
     /// NOTES: The count is updated after each drawn frame.
     /// </remarks>
-	unsigned int getDisplayedVisiblePointCount() const;
+  unsigned int getDisplayedVisiblePointCount() const;
     /// <summary>
     /// This function gets a pointer to the performance monitor for the current 
     /// point cloud entity.
     /// Internal Use.
     /// </summary>
-	PointCloudPerfMonitor* getPointCloudPerfMonitor();
+  PointCloudPerfMonitor* getPointCloudPerfMonitor();
     /// <summary>
     /// This function sets the active path name of the externally referenced
     /// point cloud file. Once the path name is validated, this function
@@ -375,7 +375,7 @@ public:
     /// <returns> 
     /// Returns true if set successfully, otherwise returns false. If point cloud name is NULL, it will return false.
     /// </returns>
-	bool setActiveFileName(const wchar_t* strActiveFileName);
+  bool setActiveFileName(const wchar_t* strActiveFileName);
     /// <summary>
     /// Returns the path name of the actual file being currently used to define
     /// the point cloud.
@@ -383,11 +383,11 @@ public:
     /// <param name="strActiveFileName">
     /// The active path name of the externally referenced point cloud file.
     /// </param>
-	bool getActiveFileName(AcString& strActiveFileName) const;
+  bool getActiveFileName(AcString& strActiveFileName) const;
     /// <summary>
     /// Returns the name of this point cloud extension entity.
     /// </summary>
-	AcString getPointCloudName() const;
+  AcString getPointCloudName() const;
     /// <summary>
     /// Specifies a unique name for this point cloud extension entity in the current
     /// drawing.
@@ -399,14 +399,14 @@ public:
     /// Returns Acad::eOk if set successfully, otherwise returns Acad::eNotApplicable. 
     /// If point cloud name is NULL, it will return Acad::eNull.
     /// </returns>
-	Acad::ErrorStatus setPointCloudName(const AcString& name);
+  Acad::ErrorStatus setPointCloudName(const AcString& name);
     // cropping boundary methods
     // 
 
     /// <summary>
     /// Returns the number of cropping boundaries that are set on this entity.
     /// </summary>
-	int getCroppingCount() const;
+  int getCroppingCount() const;
     /// <summary>
     /// Returns a cropping boundary by index, for editing.
     /// Requires that the AcDbPointCloudEx be open for writing.
@@ -415,7 +415,7 @@ public:
     /// The cropping boundary's index.
     /// </param>
     /// <returns> Returns the cropping boudary at the given index. Returns NULL if index is out of range of (0 ~ cropping count). </returns>
-	AcDbPointCloudCrop* getPointCloudCropping(int index);
+  AcDbPointCloudCrop* getPointCloudCropping(int index);
     /// <summary>
     /// Returns a cropping boundary index for read only.
     /// Requires that the AcDbPointCloudEx be open for reading.
@@ -424,29 +424,29 @@ public:
     /// The cropping boundary' index.
     /// </param>
     /// <returns> Returns the cropping boudary at the given index. Returns NULL if index is out of range of (0 ~ cropping count). </returns>
-	const AcDbPointCloudCrop* getPointCloudCroppingConst(int index) const;
+  const AcDbPointCloudCrop* getPointCloudCroppingConst(int index) const;
     /// <summary>
     /// Adds a new cropping boundary to this point cloud entity.
     /// </summary>
     /// <param name="cropping">
     /// An AcDbPointCloudCrop object which is to be added.
     /// </param>
-	void addCroppingBoundary(const AcDbPointCloudCrop& cropping);
+  void addCroppingBoundary(const AcDbPointCloudCrop& cropping);
     /// <summary>
     /// Removes all cropping boundaries on this point cloud entity.
     /// </summary>
     /// <returns> Returns Acad::eOk if successful or Acad::eNotApplicable otherwise. </returns>
-	Acad::ErrorStatus clearCropping();
+  Acad::ErrorStatus clearCropping();
     /// <summary>
     /// Removes most recently added cropping boundary from this point cloud entity.
     /// </summary>
     /// <returns> Returns Acad::eOk if successful or Acad::eNotApplicable otherwise. </returns>
-	Acad::ErrorStatus removeLastCropping();
+  Acad::ErrorStatus removeLastCropping();
     /// <summary>
     /// Gets whether cropping on this entity is currently inverted.
     /// </summary>
     /// <returns> Returns true if cropping is inverted, or false if cropping is not inverted. </returns>
-	bool getCroppingInvert() const;
+  bool getCroppingInvert() const;
     /// <summary>
     /// Sets whether or not cropping is currently inverted on this entity.
     /// </summary>
@@ -454,7 +454,7 @@ public:
     /// true: invert current cropping, false: don't invert.
     /// </param>
     /// <returns> Returns Acad::eOk if successful or Acad::eNotApplicable otherwise. </returns>
-	Acad::ErrorStatus setCroppingInvert(bool invert);
+  Acad::ErrorStatus setCroppingInvert(bool invert);
     /// <summary>
     /// Sets whether or not the point cloud is currently creating cropping boundary.
     /// Generally, AutoCAD draws a boundary box for the point cloud during dragging as preview.
@@ -467,7 +467,7 @@ public:
     /// Returns true if this entity is creating a crop region (e.g., we should not create a cropping boundary).
     /// Else, returns false.
     /// </param>
-	void setInCreatingCroppingMode(bool bCreating);
+  void setInCreatingCroppingMode(bool bCreating);
     /// <summary>
     /// Gets whether or not this entity should show the cropped point cloud.
     /// </summary>
@@ -475,7 +475,7 @@ public:
     /// If true, the point cloud's cropping region should be used to filter out displayed points. 
     /// If false, all points should be displayed, regardless of any cropping regions.
     /// </remarks>
-	bool showCropped() const;
+  bool showCropped() const;
     /// <summary>
     /// Sets whether or not this entity should show the cropped point cloud.
     /// </summary>
@@ -484,37 +484,37 @@ public:
     /// If false, all points will be displayed, regardless of any cropping regions.
     /// </param>
     /// <returns> Returns Acad::eOk only. </returns>
-	Acad::ErrorStatus setShowCropped(bool bShowCropped);
+  Acad::ErrorStatus setShowCropped(bool bShowCropped);
     // Stylization
     //
 
     /// <summary>
     /// This enumeration defines stylization mode that is used when displaying this point cloud entity.
     /// </summary>
-	enum StylizationType
-	{
+  enum StylizationType
+  {
         /// <summary>
         /// Colors each point based on the colors defined in the scan data.
         /// </summary>
-		kTrueColor = 1,
+    kTrueColor = 1,
         /// <summary>
         /// Assigns all points the color that is defined for the object (AutoCAD's
         /// object color property).
         /// </summary>
-		kSingleColor,
+    kSingleColor,
         /// <summary>
         /// Colors each point based on the surface normal of that point. AutoCAD
         /// uses a default hard-coded color scheme for the normals by default.
         /// If the point cloud doesn't have normals, returns Acad::eNotApplicable.
         /// </summary>
-		kNormalRamp,
+    kNormalRamp,
         /// <summary>
         /// Colors each point based on the Z (height) value of that point. AutoCAD
         /// uses a default Full color spectrum color scheme by default whose
         /// range is mapped to the lowest and highest intensity values of the
         /// point cloud object(s).
         /// </summary>
-		kHeightRamp,
+    kHeightRamp,
         /// <summary>
         /// Colors each point based on the Intensity value of the point, as defined
         /// in the scan data).
@@ -522,13 +522,13 @@ public:
         /// whose range is mapped to the lowest and highest intensity values 
         /// of the point cloud object(s).
         /// </summary>
-		kIntensityRamp,
+    kIntensityRamp,
         /// <summary>
         /// Colors each points based on the classification that is assigned to it in the scan data.
         /// AutoCAD uses a default color scheme for LAS classification values.
         /// </summary>
-		kClassificationRamp
-	};
+    kClassificationRamp
+  };
     /// <summary>
     /// Sets the stylization mode to be used when displaying this point cloud entity.
     /// See the documentation for StylizationType for the different types of stylization.
@@ -538,11 +538,11 @@ public:
     /// The stylization type to be set.
     /// </param>
     /// <returns> Returns Acad::eOk if successful or Acad::eNotApplicable otherwise. </returns>
-	Acad::ErrorStatus setStylizationType(StylizationType type);
+  Acad::ErrorStatus setStylizationType(StylizationType type);
     /// <summary>
     /// Returns the stylization mode that is used when displaying this point cloud entity.
     /// </summary>
-	StylizationType stylizationType() const;
+  StylizationType stylizationType() const;
     // color scheme
     //
 
@@ -557,7 +557,7 @@ public:
     /// Returns the GUID of current color scheme, or an empty string if no color 
     /// scheme applies to the current stylization mode.
     /// </returns>
-	AcString getCurrentColorScheme() const;
+  AcString getCurrentColorScheme() const;
     /// <summary>
     /// Sets the current color scheme based on stylization mode in use.
     /// This property only applies when the point cloud is being displayed using a stylization mode
@@ -571,7 +571,7 @@ public:
     /// Acad::eNotApplicable if the stylization mode is not kIntensityRamp, 
     /// kHeightRamp, or kClassificationRamp.
     /// </returns>
-	Acad::ErrorStatus setCurrentColorScheme(const AcString& guid);
+  Acad::ErrorStatus setCurrentColorScheme(const AcString& guid);
     /// <summary>
     /// Returns the color scheme name based on the given stylization mode.
     /// This property only applies when the point cloud is being displayed using a stylization mode
@@ -585,7 +585,7 @@ public:
     /// <returns>
     /// Returns the GUID of corresponding color scheme.
     /// </returns>
-	AcString getColorSchemeForStylization(StylizationType type) const;
+  AcString getColorSchemeForStylization(StylizationType type) const;
     /// <summary>
     /// Sets the current color scheme based on the given stylization mode. 
     /// This property only applies when the point cloud is being displayed using a stylization mode
@@ -603,30 +603,30 @@ public:
     /// Acad::eNotApplicable if the stylization mode is not kIntensityRamp, 
     /// kHeightRamp, or kClassificationRamp.
     /// </returns>
-	Acad::ErrorStatus setColorSchemeForStylization(const AcString& guid, StylizationType type);
+  Acad::ErrorStatus setColorSchemeForStylization(const AcString& guid, StylizationType type);
     /// <summary>
     /// This enumeration defines the display options for the points which are
     /// out of intensity/elevation range.
     /// </summary>
-	enum DispOptionOutOfRange
-	{
+  enum DispOptionOutOfRange
+  {
         /// <summary>
         /// Uses a maximum color in the color ramp for the points which are
         /// higher than the intensity/elevation range, and
         /// a minimum color in the color ramp for the points which are
         /// lower than the intensity/elevation range.
         /// </summary>
-		kUseMinMaxColors = 0,
+    kUseMinMaxColors = 0,
         /// <summary>
         /// Uses the RGB scan color for the points which are out of 
         /// intensity/elevation range.
         /// </summary>
-		kUseRGBScanColors,
+    kUseRGBScanColors,
         /// <summary>
         /// Hide points that are outside of intensity/elevation range.
         /// </summary>
-		kHidePoints
-	};
+    kHidePoints
+  };
     // Colormap - Intensity
     // 
 
@@ -634,7 +634,7 @@ public:
     /// Color schemes can be treated as distinct bands or as gradients. This function indicates 
     /// whether or not the intensity color scheme is being displayed as a gradient.
     /// </summary>
-	bool showIntensityAsGradient() const;
+  bool showIntensityAsGradient() const;
     /// <summary>
     /// Color schemes can be treated as distinct bands or as gradients. This function allows the user to set
     /// whether or not the intensity color scheme is being displayed as a gradient.
@@ -644,16 +644,16 @@ public:
     /// true: colors in the referenced intensity color scheme are applied as a gradient.
     /// false: otherwise.
     /// </param>
-	void setShowIntensityAsGradient(bool b);
+  void setShowIntensityAsGradient(bool b);
     /// <summary>
     /// Returns the minimum value of the current intensity colorization range.
     /// </summary>
-	Adesk::Int32 minIntensity() const;
+  Adesk::Int32 minIntensity() const;
     /// <summary>
     /// Returns the maximum value of the current intensity colorization range.
     /// 
     /// </summary>
-	Adesk::Int32 maxIntensity() const;
+  Adesk::Int32 maxIntensity() const;
     /// <summary>
     /// Sets the range (min/max values) of the current intensity colorization range.
     /// </summary>
@@ -666,7 +666,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful or Acad::eInvalidInput if minimal value is larger than or equal to maximal value.
     /// </returns>
-	Acad::ErrorStatus setMinMaxIntensity(int min, int max);
+  Acad::ErrorStatus setMinMaxIntensity(int min, int max);
     /// <summary>
     /// Returns the current display option for the points which are out of
     /// intensity range.
@@ -674,7 +674,7 @@ public:
     /// <returns>
     /// Returns the current display option for the points whose intensity are out of range.
     /// </returns>
-	DispOptionOutOfRange intensityOutOfRangeBehavior() const;
+  DispOptionOutOfRange intensityOutOfRangeBehavior() const;
     /// <summary>
     /// Sets the display option for the points whose intensity are out of range.
     /// The default value is kUseRGBScanColors.
@@ -682,7 +682,7 @@ public:
     /// <param name="dispOp">
     /// The display option to be set.
     /// </param>
-	void setIntensityOutOfRangeBehavior(DispOptionOutOfRange dispOp);
+  void setIntensityOutOfRangeBehavior(DispOptionOutOfRange dispOp);
     // Colormap - Elevation
     // 
 
@@ -690,7 +690,7 @@ public:
     /// Color schemes can be treated as distinct bands or as gradients. This function indicates
     /// whether or not the elevation color scheme is being displayed as a gradient.
     /// </summary>
-	bool showElevationAsGradient() const;
+  bool showElevationAsGradient() const;
     /// <summary>
     /// Color schemes can be treated as distinct bands or as gradients. This function allows the user to set
     /// whether or not the elevation color scheme is being displayed as a gradient.
@@ -700,15 +700,15 @@ public:
     /// true: colors in the referenced elevation color scheme are applied as a gradient.
     /// false: otherwise.
     /// </param>
-	void setShowElevationAsGradient(bool b);
+  void setShowElevationAsGradient(bool b);
     /// <summary>
     /// Returns the minimum value of the elevation colorization range.
     /// </summary>
-	double minElevation() const;
+  double minElevation() const;
     /// <summary>
     /// Returns the maximum value of the elevation colorization range.
     /// </summary>
-	double maxElevation() const;
+  double maxElevation() const;
     /// <summary>
     /// Sets the range (min/max values) of the elevation colorization range.
     /// </summary>
@@ -721,7 +721,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful or Acad::eInvalidInput if minimal value is larger than or equal to maximal value.
     /// </returns>
-	Acad::ErrorStatus setMinMaxElevation(double min, double max);
+  Acad::ErrorStatus setMinMaxElevation(double min, double max);
     /// <summary>
     /// Returns whether or not the elevation range update dynamically as the
     /// extents of the limit box change.
@@ -730,7 +730,7 @@ public:
     /// true: the color range is fixed by user's input for each elevation.
     /// false: the color range is dynamically changed based on the extents of limit box.
     /// </returns>
-	bool elevationApplyToFixedRange() const;
+  bool elevationApplyToFixedRange() const;
     /// <summary>
     /// Sets whether or not the elevation range updates dynamically as the 
     /// extents of the limit box change.
@@ -740,12 +740,12 @@ public:
     /// true: the color range is fixed by user's input for each elevation.
     /// false: the color range is dynamically changed based on the extents of limit box.
     /// </param>
-	void setElevationApplyToFixedRange(bool val);
+  void setElevationApplyToFixedRange(bool val);
     /// <summary>
     /// Returns the current display option for any points which are out of
     /// elevation range.
     /// </summary>
-	DispOptionOutOfRange elevationOutOfRangeBehavior() const;
+  DispOptionOutOfRange elevationOutOfRangeBehavior() const;
     /// <summary>
     /// Sets the display option for any points which are out of elevation range.
     /// The default value is kUseRGBScanColors.
@@ -753,7 +753,7 @@ public:
     /// <param name="dispOp">
     /// The display option to be set.
     /// </param>
-	void setElevationOutOfRangeBehavior(DispOptionOutOfRange dispOp);
+  void setElevationOutOfRangeBehavior(DispOptionOutOfRange dispOp);
     // limit box
     //
 
@@ -764,7 +764,7 @@ public:
     /// <param name="limitBox">
     /// The AcDbPointCloudExLimitBox object to be got.
     /// </param>
-	void getLimitBox(AcDbPointCloudExLimitBox& limitBox) const;
+  void getLimitBox(AcDbPointCloudExLimitBox& limitBox) const;
     /// <summary>
     /// Sets the limit box of this point cloud entity.
     /// Internal Use.
@@ -775,12 +775,12 @@ public:
     /// <returns>
     /// Returns Acad::eOk only.
     /// </returns>
-	Acad::ErrorStatus setLimitBox(const AcDbPointCloudExLimitBox& limitBox);
+  Acad::ErrorStatus setLimitBox(const AcDbPointCloudExLimitBox& limitBox);
     /// <summary>
     /// Resets the limit box to default extents.
     /// Internal Use.
     /// </summary>
-	void resetLimitBox();
+  void resetLimitBox();
     /// <summary>
     /// Sets whether or not the points on the limit box boundary will be
     /// highlighted.
@@ -790,21 +790,21 @@ public:
     /// true: the points on the limit box boundary will be highlighted.
     /// false: the points on the limit box boundary will not be highlighted.
     /// </param>
-	void setHighlightLimitboxBoundary(bool val);
+  void setHighlightLimitboxBoundary(bool val);
     // Point cloud data (AcPointCloudItem)
     //
 
     /// <summary>
     /// Get the list of AcPointCloudItems, which includes the scan items and region items.
     /// </summary>
-	const AcPointCloudItemArray* getPointCloudDataList() const;
+  const AcPointCloudItemArray* getPointCloudDataList() const;
     /// <summary>
     /// Gets a scan item by the scan GUID in the point cloud.
     /// </summary>
     /// <param name="scanGuid">
     /// The given scan GUID so a corresponding scan item will return.
     /// </param>
-	AcPointCloudItem* findScanItem(const AcString& scanGuid);
+  AcPointCloudItem* findScanItem(const AcString& scanGuid);
     /// <summary>
     /// Gets the region item by its ID in the point cloud.
     /// The region ID is stored in the RCP file.
@@ -812,7 +812,7 @@ public:
     /// <param name="regionId">
     /// The region ID to be returned.
     /// </param>
-	AcPointCloudItem* findRegionItem(int regionId);
+  AcPointCloudItem* findRegionItem(int regionId);
     /// <summary>
     /// Sets whether or not a scan is visible.
     /// This method does nothing if the scan guid doesn't exist.
@@ -823,14 +823,14 @@ public:
     /// <param name="bVisible">
     /// Whether or not the scan is visible.
     /// </param>
-	void setScanVisibility(const AcString& scanGuid, bool bVisible);
+  void setScanVisibility(const AcString& scanGuid, bool bVisible);
     /// <summary>
     /// Sets whether or not all scans are visible.
     /// </summary>
     /// <param name="bVisible">
     /// The visibility of all scans.
     /// </param>
-	void setAllScansVisibility(bool bVisible);
+  void setAllScansVisibility(bool bVisible);
     /// <summary>
     /// Sets whether or not a specified region is visible. 
     /// This function can be used to set visibility of any region, or to points that
@@ -843,7 +843,7 @@ public:
     /// <param name="bVisible">
     /// The region's visibility.
     /// </param>
-	void setRegionVisibility(int regionId, bool bVisible);
+  void setRegionVisibility(int regionId, bool bVisible);
     /// <summary>
     /// Sets whether or not all regions are visible.
     /// </summary>
@@ -851,7 +851,7 @@ public:
     /// The visibility for all regions.
     /// </param>
     /// <param name="includeUnassigned"> true or false, whether or not set the bVisible to unassigned points </param>
-	void setAllRegionsVisibility(bool bVisible, bool includeUnassigned = false);
+  void setAllRegionsVisibility(bool bVisible, bool includeUnassigned = false);
     /// <summary>
     /// Sets whether or not all scans which are related to
     /// a region are visible.
@@ -862,7 +862,7 @@ public:
     /// <param name="bVisible">
     /// The visibility of all related scans.
     /// </param>
-	void setAllScansVisibilityByRegion(int regionId, bool bVisible);
+  void setAllScansVisibilityByRegion(int regionId, bool bVisible);
     /// <summary>
     /// Gets the origin location and extents of a scan item specified the scan guid.
     /// </summary>
@@ -876,12 +876,12 @@ public:
     /// The scan extent as return value.
     /// </param>
     /// <returns> Returns true if successful or false if the scan item can't be found. </returns>
-	bool getScanViewInfo(const AcString& scanGuid, AcGePoint3d& origin, AcDbExtents& extent) const;
+  bool getScanViewInfo(const AcString& scanGuid, AcGePoint3d& origin, AcDbExtents& extent) const;
     /// <summary>
     /// Resets the visibility of all scans and regions.
     /// Internal Use.
     /// </summary>
-	void resetScanRegionVisibility();
+  void resetScanRegionVisibility();
     /// <summary>
     /// Sets whether all scans in this point cloud entity are highlighted.
     /// </summary>
@@ -889,7 +889,7 @@ public:
     /// true : highlights scans ;
     /// false : unhighlights scans ;
     /// </param>
-	void setAllScanHighlight(bool bHighlight);
+  void setAllScanHighlight(bool bHighlight);
     /// <summary>
     /// Sets whether all regions in the point cloud entity are highlighted. There is a separate
     /// value in this method for points that are not assigned to any region.
@@ -902,7 +902,7 @@ public:
     /// true : operation will affect unassigned points ;
     /// false : operation will *NOT* affect unassigned points ;
     /// </param>    
-	void setAllRegionHighlight(bool bHighlight, bool bIncludeUnassignedPoints = false);
+  void setAllRegionHighlight(bool bHighlight, bool bIncludeUnassignedPoints = false);
     /// <summary>
     /// Sets the geographical coordinate system to point cloud
     /// </summary>
@@ -915,58 +915,58 @@ public:
     /// if it is empty, it will clear the coordinate system of this point cloud.
     /// </param>
     /// <remarks> internal use </remarks>
-	void applyGeoLocation(bool useDrawingGeo = false, const AcString& geoCS = _T(""));
+  void applyGeoLocation(bool useDrawingGeo = false, const AcString& geoCS = _T(""));
     /// <summary>
     /// Updates the geographical coordinate system of this point cloud.
     /// </summary>
     /// <remarks>internal usage</remarks>
-	void updateGeoLocation();
+  void updateGeoLocation();
     /// <summary>
     /// Clears the geographical coordinate system of this point cloud.
     /// </summary>
-	void clearGeoLocation();
+  void clearGeoLocation();
     /// <summary>
     /// Specify whether the point cloud is geographically located.
     /// </summary>
-	bool geolocate() const;
+  bool geolocate() const;
     /// <summary>
     /// This enumeration describes the the snapping operations that can be done with point clouds
     /// </summary>
-	enum PointCloudOSnapMode
-	{
+  enum PointCloudOSnapMode
+  {
         /// <summary>
         /// Node - Snaps to closest point in the point cloud
         /// </summary>
-		kOsModePNod = 0,
+    kOsModePNod = 0,
         /// <summary>
         /// Nearest - Snaps to nearest point on a planar segment
         /// </summary>
-		kOsModePNea = 1,
+    kOsModePNea = 1,
         /// <summary>
         /// Perpendicular - Snaps perpendicular to the nearest planar segment
         /// </summary>
-		kOsModePPer = 2,
+    kOsModePPer = 2,
         /// <summary>
         /// Edge Nearest - Snaps to nearest point on an edge (intersection of 2 planes)
         /// </summary>
-		kOsModePEdgeNea = 3,
+    kOsModePEdgeNea = 3,
         /// <summary>
         /// Edge Perpendicular - Snaps perpendicular to an edge (intersection of 2 planes)
         /// </summary>
-		kOsModePEdgePer = 4,
+    kOsModePEdgePer = 4,
         /// <summary>
         /// Intersection - Snaps to intersection point of section line vectors
         /// </summary>
-		kOsModePInt = 5,
+    kOsModePInt = 5,
         /// <summary>
         /// Centerline - Snaps to nearest point on centerline of cylinder
         /// </summary>
-		kOsModePCL = 6,
+    kOsModePCL = 6,
         /// <summary>
         /// Node - Snaps to corner (intersection of 3 planes) in the point cloud
         /// </summary>
-		kOsModePCorner = 7
-	};
+    kOsModePCorner = 7
+  };
     /// <summary>
     /// This function uses the provided snapMode, pickPoint, and lastPoint
     /// to determine all appropriate osnap points for the point cloud.
@@ -995,7 +995,7 @@ public:
     /// Returns Acad::eInvalidInput if the inputs are illegal.
     /// Returns Acad::eNotApplicable if the current snap mode does not apply to this entity.
     /// </returns>
-	Acad::ErrorStatus getCustomOsnapInfo(PointCloudOSnapMode snapMode, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcArray<AcGePoint3d>& snapPoints);
+  Acad::ErrorStatus getCustomOsnapInfo(PointCloudOSnapMode snapMode, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcArray<AcGePoint3d>& snapPoints);
     /// <summary>
     /// Fills a given buffer with point data by specifying how many point you want and the spatial and attribute filters.
     /// </summary>
@@ -1027,7 +1027,7 @@ public:
     /// Returns Acad::eOutOfMemory if the calculation consumes too much.
     /// Returns Acad::ePCUnknown otherwise.
     /// </returns>
-	Acad::ErrorStatus getPointDataByPointCount(IAcDbPointCloudDataBuffer*& pointData, Adesk::UInt32 pointCount, IAcDbPointCloudSpatialFilter* pSpatialFilter, IAcDbPointCloudAttributeFilter* pAttributeFilter, Adesk::UInt32 dataTypes, Adesk::UInt32 maxPointLimitation) const;
+  Acad::ErrorStatus getPointDataByPointCount(IAcDbPointCloudDataBuffer*& pointData, Adesk::UInt32 pointCount, IAcDbPointCloudSpatialFilter* pSpatialFilter, IAcDbPointCloudAttributeFilter* pAttributeFilter, Adesk::UInt32 dataTypes, Adesk::UInt32 maxPointLimitation) const;
     /// <summary>
     /// Processes all data in the point cloud using the spatial filter.
     /// </summary>
@@ -1050,7 +1050,7 @@ public:
     /// Returns Acad::eBadVisibilityValue if there is no scan visble.
     /// Returns Acad::ePCUnknown otherwise.
     /// </returns>
-	Acad::ErrorStatus traverseAllPointData(IAcDbPointCloudPointProcessor* processor, IAcDbPointCloudSpatialFilter* pSpatialFilter, Adesk::UInt32 dataTypes, int LODLevel) const;
+  Acad::ErrorStatus traverseAllPointData(IAcDbPointCloudPointProcessor* processor, IAcDbPointCloudSpatialFilter* pSpatialFilter, Adesk::UInt32 dataTypes, int LODLevel) const;
     /// <summary>
     /// Adds a custom spatial filter to the point. Points that are excluded by this filter will not be rendered.
     /// </summary>
@@ -1061,7 +1061,7 @@ public:
     /// Returns Acad::eOk if successful.
     /// Returns Acad::eInvalidInput if the input pFilter is invalid.
     /// </returns>
-	Acad::ErrorStatus addSpatialFilter(IAcDbPointCloudSpatialFilter* pFilter);
+  Acad::ErrorStatus addSpatialFilter(IAcDbPointCloudSpatialFilter* pFilter);
     /// <summary>
     /// Removes a custom spatial filter that was previously added with addSpatialFilter().
     /// </summary>
@@ -1072,11 +1072,11 @@ public:
     /// Returns Acad::eOk if successful.
     /// Returns Acad::eInvalidInput if the input pFilter is invalid.
     /// </returns>
-	Acad::ErrorStatus removeSpatialFilter(IAcDbPointCloudSpatialFilter* pFilter);
+  Acad::ErrorStatus removeSpatialFilter(IAcDbPointCloudSpatialFilter* pFilter);
     /// <summary>
     /// Remove all custom spatial filters previously added with addSpatialFilter().
     /// </summary>
-	void clearSpatialFilters();
+  void clearSpatialFilters();
     /// <summary>
     /// Adds a custom attribute filter. Points that are excluded by this filter will not be rendered.
     /// </summary>
@@ -1087,7 +1087,7 @@ public:
     /// Returns Acad::eOk if successful.
     /// Returns Acad::eInvalidInput if the input pFilter is invalid.
     /// </returns>
-	Acad::ErrorStatus addAttributeFilter(IAcDbPointCloudAttributeFilter* pFilter);
+  Acad::ErrorStatus addAttributeFilter(IAcDbPointCloudAttributeFilter* pFilter);
     /// <summary>
     /// Removes a custom attribute filter previously added with addAttributeFilter().
     /// </summary>
@@ -1098,11 +1098,11 @@ public:
     /// Returns Acad::eOk if successful.
     /// Returns Acad::eInvalidInput if the input pFilter is invalid.
     /// </returns>
-	Acad::ErrorStatus removeAttributeFilter(IAcDbPointCloudAttributeFilter* pFilter);
+  Acad::ErrorStatus removeAttributeFilter(IAcDbPointCloudAttributeFilter* pFilter);
     /// <summary>
     /// Removes all custom attribute filters that were previously added with addAttributeFilter().
     /// </summary>
-	void clearAttributeFilters();
+  void clearAttributeFilters();
     /// <summary>
     /// Finds any plane or point at the specified view coordinate(). 
     /// This method will return true if it finds a point or a plane.
@@ -1123,7 +1123,7 @@ public:
     /// Returns true if successfully, otherwise, return false.
     /// </returns>
     /// <remarks> internal use </remarks>
-	bool getPlaneOrPointAt(const AcGeMatrix3d& viewXform, const AcGePoint3d& pickPt, AcArray<AcGePoint3d>& points);
+  bool getPlaneOrPointAt(const AcGeMatrix3d& viewXform, const AcGePoint3d& pickPt, AcArray<AcGePoint3d>& points);
     /// <summary>
     /// Finds any plane at the specified view coordinate. 
     /// This method will return true if it finds a plane.
@@ -1141,18 +1141,18 @@ public:
     /// <returns>
     /// Returns true if successfully, otherwise, return false.
     /// </returns>
-	bool getPlaneBoundaryAt(const AcGeMatrix3d& viewXform, const AcGePoint3d& pickPt, AcGePoint3dArray& arrPlaneVertices);
+  bool getPlaneBoundaryAt(const AcGeMatrix3d& viewXform, const AcGePoint3d& pickPt, AcGePoint3dArray& arrPlaneVertices);
     /// <summary>
     /// For internal use only.
     /// </summary>
-	void* getQuery();
+  void* getQuery();
     /// <summary>
     /// Get object to world transform including ecs and block transform.
     /// </summary>
     /// <param name="mat">
     /// The transform matrix.
     /// </param>
-	void objectToWorldMatrix(AcGeMatrix3d& mat) const;
+  void objectToWorldMatrix(AcGeMatrix3d& mat) const;
     /// <summary>
     /// Get candidate planes for dynamic UCS detection purpose.
     /// </summary>
@@ -1174,7 +1174,7 @@ public:
     /// <param name="context">
     /// an per object defined context (for later highlight and de-highlight notification data picky-back).
     /// </param>
-	Acad::ErrorStatus getCandidatePlane(const class CPoint& pt, AcGePlane& result, double& distToEdge, double& objWidth, double& objHeight, void*& context) const;
+  Acad::ErrorStatus getCandidatePlane(const class CPoint& pt, AcGePlane& result, double& distToEdge, double& objWidth, double& objHeight, void*& context) const;
     /// <summary>
     /// Finds any cylinder at the specified view coordinate. 
     /// This method will return true if it finds a cylinder.
@@ -1200,7 +1200,7 @@ public:
     /// <returns>
     /// Returns eOk if successfully.
     /// </returns>
-	Acad::ErrorStatus getCylinderAt(const AcGeMatrix3d& viewXform, const AcGePoint3d& pickPt, AcGePoint3d& origin, AcGeVector3d& axis, double& height, double& radius);
+  Acad::ErrorStatus getCylinderAt(const AcGeMatrix3d& viewXform, const AcGePoint3d& pickPt, AcGePoint3d& origin, AcGeVector3d& axis, double& height, double& radius);
     /// <summary>
     /// Get the const crop states manager. From this class you can access the getter properties 
     // of crop state.
@@ -1208,7 +1208,7 @@ public:
     /// <returns>
     /// Returns const AcDbPointCloudCropStateManager pointer.
     /// </returns>
-	const AcDbPointCloudCropStateManager* cropStatesManagerConst() const;
+  const AcDbPointCloudCropStateManager* cropStatesManagerConst() const;
     /// <summary>
     /// Get the crop states manager. From this class you can access the getter and setter properties of crop state.
     /// Don't free or delete this pointer.
@@ -1216,7 +1216,7 @@ public:
     /// <returns>
     /// Returns AcDbPointCloudCropStateManager pointer.
     /// </returns>
-	AcDbPointCloudCropStateManager* cropStatesManager();
+  AcDbPointCloudCropStateManager* cropStatesManager();
     /// <summary>
     /// Gets minimal distance precision
     /// </summary>
@@ -1226,7 +1226,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if success, eNotApplicable if fail. 
     /// </returns>
-	Acad::ErrorStatus getMinDistPrecision(double& minDistPrecision) const;
+  Acad::ErrorStatus getMinDistPrecision(double& minDistPrecision) const;
     /// <summary>
     /// Gets Point data by precision
     /// </summary>
@@ -1251,7 +1251,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if success, eNotApplicable if fail. 
     /// </returns>
-	Acad::ErrorStatus getPointDataByPrecision(IAcDbPointCloudDataBuffer*& pointData, double distPrecision, IAcDbPointCloudSpatialFilter* pSpatialFilter = NULL, IAcDbPointCloudAttributeFilter* pAttributeFilter = NULL, Adesk::UInt32 dataTypes = 0, Adesk::UInt32 maxPointLimitation = 1000000uLL) const;
+  Acad::ErrorStatus getPointDataByPrecision(IAcDbPointCloudDataBuffer*& pointData, double distPrecision, IAcDbPointCloudSpatialFilter* pSpatialFilter = NULL, IAcDbPointCloudAttributeFilter* pAttributeFilter = NULL, Adesk::UInt32 dataTypes = 0, Adesk::UInt32 maxPointLimitation = 1000000uLL) const;
     /// <summary>
     /// Gets the estimated point count by precision
     /// </summary>
@@ -1270,7 +1270,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if success, eNotApplicable if fail. 
     /// </returns>
-	Acad::ErrorStatus getEstimatedPointCountByPrecision(unsigned long long& pointCount, double distPrecision, IAcDbPointCloudSpatialFilter* pSpatialFilter = NULL, IAcDbPointCloudAttributeFilter* pAttributeFilter = NULL) const;
+  Acad::ErrorStatus getEstimatedPointCountByPrecision(unsigned long long& pointCount, double distPrecision, IAcDbPointCloudSpatialFilter* pSpatialFilter = NULL, IAcDbPointCloudAttributeFilter* pAttributeFilter = NULL) const;
     /// <summary>
     /// This member function is used to control behavior for custom objects and entities when saving to previous formats.
     /// Custom objects can decompose themselves into other objects and can add additional xdata to the objects created. 
@@ -1311,7 +1311,7 @@ public:
     /// <returns>
     /// This function should return Acad::eOk if successful. Any other return status terminates the operation.
     /// </returns>
-	Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData);
+  Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData);
     /// <summary>
     /// Finds any cylinder at the specified view coordinate. 
     /// This method will return true if it finds a cylinder.
@@ -1328,7 +1328,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successfully, otherwise, return false.
     /// </returns>
-	Acad::ErrorStatus getCylinderAt(const AcGeMatrix3d& viewXform, const AcGePoint3d& pickPt, AcPointCloudExtractedCylinder& extractedCylinder);
+  Acad::ErrorStatus getCylinderAt(const AcGeMatrix3d& viewXform, const AcGePoint3d& pickPt, AcPointCloudExtractedCylinder& extractedCylinder);
     /// <summary>
     /// Given a point in WCS, get the belonging scan and segment index that contains this point
     /// <param name="ptInWCS">
@@ -1343,7 +1343,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successfully.
     /// </returns>
-	Acad::ErrorStatus detectPointBelonger(const AcGePoint3d& ptInWCS, AcString& scanGuid, Adesk::UInt16& segmentIndex) const;
+  Acad::ErrorStatus detectPointBelonger(const AcGePoint3d& ptInWCS, AcString& scanGuid, Adesk::UInt16& segmentIndex) const;
     /// <summary>
     /// Given the scan and segment index, get a point data buffer with an expected point number.
     /// <param name="pointData">
@@ -1365,7 +1365,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successfully.
     /// </returns>
-	Acad::ErrorStatus getPointDataBySegment(IAcDbPointCloudDataBuffer*& pointData, const AcString& scanGuid, Adesk::UInt16 nSegmentIndex, Adesk::UInt32 nExpectedCount) const;
+  Acad::ErrorStatus getPointDataBySegment(IAcDbPointCloudDataBuffer*& pointData, const AcString& scanGuid, Adesk::UInt16 nSegmentIndex, Adesk::UInt32 nExpectedCount) const;
     /// <summary>
     /// Fills a given buffer with point data by specifying how many point you want and the spatial and attribute filters.
     /// This method does not consider view dependent filters and scan visiblity settings.
@@ -1400,7 +1400,7 @@ public:
     /// Returns Acad::eOutOfMemory if the calculation consumes too much.
     /// Returns Acad::ePCUnknown otherwise.
     /// </returns>
-	Acad::ErrorStatus getPointDataByPointCount(IAcDbPointCloudDataBuffer*& pointData, Adesk::UInt32 pointCount, const AcArray<AcString>& arrScanGuids, IAcDbPointCloudSpatialFilter* pSpatialFilter, IAcDbPointCloudAttributeFilter* pAttributeFilter, Adesk::UInt32 dataTypes, Adesk::UInt32 maxPointLimitation) const;
+  Acad::ErrorStatus getPointDataByPointCount(IAcDbPointCloudDataBuffer*& pointData, Adesk::UInt32 pointCount, const AcArray<AcString>& arrScanGuids, IAcDbPointCloudSpatialFilter* pSpatialFilter, IAcDbPointCloudAttributeFilter* pAttributeFilter, Adesk::UInt32 dataTypes, Adesk::UInt32 maxPointLimitation) const;
     /// <summary>
     /// Processes all data in the point cloud using the spatial filter.
     /// This method does not consider view dependent filters and scan visiblity.
@@ -1426,8 +1426,8 @@ public:
     /// Returns Acad::ePCFileNotOpened if the scan file is not found or not open.
     /// Returns Acad::ePCUnknown otherwise.
     /// </returns>
-	Acad::ErrorStatus traverseAllPointData(IAcDbPointCloudPointProcessor* processor, IAcDbPointCloudSpatialFilter* pSpatialFilter, Adesk::UInt32 dataTypes, int LODLevel, const AcArray<AcString>& arrScanGuids) const;
+  Acad::ErrorStatus traverseAllPointData(IAcDbPointCloudPointProcessor* processor, IAcDbPointCloudSpatialFilter* pSpatialFilter, Adesk::UInt32 dataTypes, int LODLevel, const AcArray<AcString>& arrScanGuids) const;
 private:
-	PointCloudExImp* m_pImp;
-	friend class AcDbPointCloudCropStateManagerImp;
+  PointCloudExImp* m_pImp;
+  friend class AcDbPointCloudCropStateManagerImp;
 };

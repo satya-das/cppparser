@@ -68,12 +68,12 @@
 // The grow length must be a positive number, that is, zero is an illegal
 // grow length.
 #ifndef AC_GEDBLAR_H
-#	define AC_GEDBLAR_H
-#	ifndef unix
-#		include <stdlib.h>
-#	endif
-#	include "adesk.h"
-#	include "assert.h"
-#	include "acarray.h"
+#  define AC_GEDBLAR_H
+#  ifndef unix
+#    include <stdlib.h>
+#  endif
+#  include "adesk.h"
+#  include "assert.h"
+#  include "acarray.h"
 typedef AcArray<double> AcGeDoubleArray;
 #endif

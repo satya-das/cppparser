@@ -29,10 +29,10 @@ class AcDbAssoc2dConstraintGroupUtil;
 class ACDB_PORT AcConstraintGroupNode : public AcGraphNode
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstraintGroupNode);
+  ACRX_DECLARE_MEMBERS(AcConstraintGroupNode);
   /// <summary> Default destructor. </summary>
   ///
-	virtual ~AcConstraintGroupNode();
+  virtual ~AcConstraintGroupNode();
   /// <summary> 
   /// This function returns the AcDbObjectId of its owning AcDbAssoc2dConstraintGroup. 
   /// If this node has not been added into a AcDbAssoc2dConstraintGroup, AcDbObjectId::kNull
@@ -40,13 +40,13 @@ public:
   /// </summary>
   /// <returns> AcDbObjectId. </returns>
   ///
-	AcDbObjectId owningConstraintGroupId() const;
+  AcDbObjectId owningConstraintGroupId() const;
 protected:
   /// <summary> Protected default constructor. </summary>
   /// 
-	AcConstraintGroupNode();
-	friend class AcDbImpAssoc2dConstraintGroup;
-	friend class AcDbAssoc2dConstraintGroupEvalHelper;
-	friend class AcDbAssoc2dConstaintGroupCloningHelper;
+  AcConstraintGroupNode();
+  friend class AcDbImpAssoc2dConstraintGroup;
+  friend class AcDbAssoc2dConstraintGroupEvalHelper;
+  friend class AcDbAssoc2dConstaintGroupCloningHelper;
 };
 #pragma  pack (pop)

@@ -32,43 +32,43 @@
 // umin < umax and |umin - umax| <= 2PI.
 //
 #ifndef AC_GECYLNDR_H
-#	define AC_GECYLNDR_H
-#	include "gegbl.h"
-#	include "gesurf.h"
-#	include "gevec3d.h"
-#	include "geintrvl.h"
-#	include "gearc3d.h"
-#	pragma  pack (push, 8)
+#  define AC_GECYLNDR_H
+#  include "gegbl.h"
+#  include "gesurf.h"
+#  include "gevec3d.h"
+#  include "geintrvl.h"
+#  include "gearc3d.h"
+#  pragma  pack (push, 8)
 class AcGeCircArc3d;
 class GX_DLLEXPIMPORT AcGeCylinder : public AcGeSurface
 {
 public:
-	AcGeCylinder();
-	AcGeCylinder(double radius, const AcGePoint3d& origin, const AcGeVector3d& axisOfSymmetry);
-	AcGeCylinder(double radius, const AcGePoint3d& origin, const AcGeVector3d& axisOfSymmetry, const AcGeVector3d& refAxis, const AcGeInterval& height, double startAngle, double endAngle);
-	AcGeCylinder(const AcGeCylinder&);
+  AcGeCylinder();
+  AcGeCylinder(double radius, const AcGePoint3d& origin, const AcGeVector3d& axisOfSymmetry);
+  AcGeCylinder(double radius, const AcGePoint3d& origin, const AcGeVector3d& axisOfSymmetry, const AcGeVector3d& refAxis, const AcGeInterval& height, double startAngle, double endAngle);
+  AcGeCylinder(const AcGeCylinder&);
     // Geometric properties.
     //
-	double radius() const;
-	AcGePoint3d origin() const;
-	void getAngles(double& start, double& end) const;
-	void getHeight(AcGeInterval& height) const;
-	double heightAt(double u) const;
-	AcGeVector3d axisOfSymmetry() const;
-	AcGeVector3d refAxis() const;
-	Adesk::Boolean isOuterNormal() const;
-	Adesk::Boolean isClosed(const AcGeTol& tol = AcGeContext::gTol) const;
-	AcGeCylinder& setRadius(double radius);
-	AcGeCylinder& setAngles(double start, double end);
-	AcGeCylinder& setHeight(const AcGeInterval& height);
-	AcGeCylinder& set(double radius, const AcGePoint3d& origin, const AcGeVector3d& axisOfSym);
-	AcGeCylinder& set(double radius, const AcGePoint3d& origin, const AcGeVector3d& axisOfSym, const AcGeVector3d& refAxis, const AcGeInterval& height, double startAngle, double endAngle);
+  double radius() const;
+  AcGePoint3d origin() const;
+  void getAngles(double& start, double& end) const;
+  void getHeight(AcGeInterval& height) const;
+  double heightAt(double u) const;
+  AcGeVector3d axisOfSymmetry() const;
+  AcGeVector3d refAxis() const;
+  Adesk::Boolean isOuterNormal() const;
+  Adesk::Boolean isClosed(const AcGeTol& tol = AcGeContext::gTol) const;
+  AcGeCylinder& setRadius(double radius);
+  AcGeCylinder& setAngles(double start, double end);
+  AcGeCylinder& setHeight(const AcGeInterval& height);
+  AcGeCylinder& set(double radius, const AcGePoint3d& origin, const AcGeVector3d& axisOfSym);
+  AcGeCylinder& set(double radius, const AcGePoint3d& origin, const AcGeVector3d& axisOfSym, const AcGeVector3d& refAxis, const AcGeInterval& height, double startAngle, double endAngle);
     // Assignment operator.
     //
-	AcGeCylinder& operator =(const AcGeCylinder& cylinder);
+  AcGeCylinder& operator =(const AcGeCylinder& cylinder);
     // Intersection with a linear entity
     //
-	Adesk::Boolean intersectWith(const AcGeLinearEnt3d& linEnt, int& intn, AcGePoint3d& p1, AcGePoint3d& p2, const AcGeTol& tol = AcGeContext::gTol) const;
+  Adesk::Boolean intersectWith(const AcGeLinearEnt3d& linEnt, int& intn, AcGePoint3d& p1, AcGePoint3d& p2, const AcGeTol& tol = AcGeContext::gTol) const;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

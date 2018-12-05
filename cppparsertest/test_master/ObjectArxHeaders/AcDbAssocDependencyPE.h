@@ -32,7 +32,7 @@
 class ACDBCORE2D_PORT AcDbAssocDependencyPE : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocDependencyPE);
+  ACRX_DECLARE_MEMBERS(AcDbAssocDependencyPE);
     /// <summary>
     /// Predicate enabling objects to control whether they allow AcDbAssocDependencies 
     /// being attached to them or not.
@@ -56,7 +56,7 @@ public:
     /// <param name="pContext"> Additional optional context information (currently not used). </param>
     /// <returns> True iff the object allows attaching AcDbAssocDependencies to itself. </returns>
     ///
-	virtual bool allowsDependencies(const AcDbObject* pObject, bool isWriteDependency, const AcRxClass* pActionBodyOrActionClass, const AcDbAssocDependency* pDependency, const AcRxObject* pContext) const = 0;
+  virtual bool allowsDependencies(const AcDbObject* pObject, bool isWriteDependency, const AcRxClass* pActionBodyOrActionClass, const AcDbAssocDependency* pDependency, const AcRxObject* pContext) const = 0;
     /// <summary><para>
     /// Allows objects to whom dependencies are being attached by AcDbAssocDependency::attachToObject() 
     /// method to instruct the attachToObject() method to attach the dependency to some other objects
@@ -74,12 +74,12 @@ public:
     /// <param name="redirectedCompoundObjectId"> The object the dependency is redirected to be attached to. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus redirectDependencyAttachment(AcDbObject* pObject, const AcDbCompoundObjectId& compoundObjectId, AcDbAssocDependency* pDependency, AcDbCompoundObjectId& redirectedCompoundObjectId)
-	{
-		ADESK_UNREFED_PARAM(pDependency);
-		ADESK_UNREFED_PARAM(pObject);
-		redirectedCompoundObjectId = compoundObjectId;
-		return Acad::eOk;
-	}
+  virtual Acad::ErrorStatus redirectDependencyAttachment(AcDbObject* pObject, const AcDbCompoundObjectId& compoundObjectId, AcDbAssocDependency* pDependency, AcDbCompoundObjectId& redirectedCompoundObjectId)
+  {
+    ADESK_UNREFED_PARAM(pDependency);
+    ADESK_UNREFED_PARAM(pObject);
+    redirectedCompoundObjectId = compoundObjectId;
+    return Acad::eOk;
+  }
 };
 #pragma  pack (pop)

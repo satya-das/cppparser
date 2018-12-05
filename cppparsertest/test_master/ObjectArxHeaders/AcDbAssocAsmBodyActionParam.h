@@ -28,11 +28,11 @@
 class ACDB_PORT AcDbAssocAsmBodyActionParam : public AcDbAssocActionParam
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocAsmBodyActionParam);
+  ACRX_DECLARE_MEMBERS(AcDbAssocAsmBodyActionParam);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocAsmBodyActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocAsmBodyActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> 
     /// For Autodesk Internal Use only.
     /// If the given pAsmEntity is database-resident, it creates an AcDbAssocDependency 
@@ -48,7 +48,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setBody(const AcDbEntity* pAsmEntity, bool isReadDependency = true, bool isWriteDependency = false, int dependencyOrder = 0);
+  virtual Acad::ErrorStatus setBody(const AcDbEntity* pAsmEntity, bool isReadDependency = true, bool isWriteDependency = false, int dependencyOrder = 0);
     /// <summary> 
     /// For Autodesk Internal Use only.
     /// Creates an AcDbAssocDependency and attaches it to asmEntityId.
@@ -62,7 +62,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setBody(AcDbObjectId asmEntityId, bool isReadDependency = true, bool isWriteDependency = false, int dependencyOrder = 0);
+  virtual Acad::ErrorStatus setBody(AcDbObjectId asmEntityId, bool isReadDependency = true, bool isWriteDependency = false, int dependencyOrder = 0);
     /// <summary> 
     /// For Autodesk Internal Use only.
     /// Sets the given ASM body to the AcDbAssocAsmBodyActionParam, optionally 
@@ -76,7 +76,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setBody(void* pAsmBody, bool makeCopy);
+  virtual Acad::ErrorStatus setBody(void* pAsmBody, bool makeCopy);
     /// <summary> 
     /// For Autodesk Internal Use only.
     /// Returns pointer to the ASM body that is either owned by an AcDbEntity 
@@ -90,7 +90,7 @@ public:
     /// </param>
     /// <returns> Void pointer that actually points to an ASM body object. </returns>
     ///
-	virtual void* body(bool makeCopy) const;
+  virtual void* body(bool makeCopy) const;
     /// <summary>
     /// If this action parameter depends on an AcDbEntity via an AcDbAssocDependency,
     /// it returns AcDbCompoundObjectId of the entity this dependency depends on. 
@@ -102,6 +102,6 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getDependentOnCompoundObject(AcDbCompoundObjectId& compoundId) const;
+  Acad::ErrorStatus getDependentOnCompoundObject(AcDbCompoundObjectId& compoundId) const;
 };
 #pragma  pack (pop)

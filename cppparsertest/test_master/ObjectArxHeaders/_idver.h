@@ -10,9 +10,9 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 #ifndef __IDVER_H
-#	define __IDVER_H
-#	define ACADV_BLDSTREAM	P   /*BuildStream*/
-#	define ACADV_BLDMAJOR	46  /*BuildMajor*/
-#	define ACADV_BLDMINOR	0   /*BuildMinor*/
-#	define ACADV_BLDBRANCH	0   //BuildBranch
+#  define __IDVER_H
+#  define ACADV_BLDSTREAM	P   /*BuildStream*/
+#  define ACADV_BLDMAJOR	46  /*BuildMajor*/
+#  define ACADV_BLDMINOR	0   /*BuildMinor*/
+#  define ACADV_BLDBRANCH	0   //BuildBranch
 #endif

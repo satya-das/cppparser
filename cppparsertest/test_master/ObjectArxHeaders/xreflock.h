@@ -10,47 +10,47 @@
 //
 //  DESCRIPTION: Header for Xref FileLock & Consistency Check
 #ifndef _XREFLOCK_H
-#	define _XREFLOCK_H
-#	include "rxnames.h"
-#	include "dbidar.h"
-#	pragma  pack (push, 8)
+#  define _XREFLOCK_H
+#  include "rxnames.h"
+#  include "dbidar.h"
+#  pragma  pack (push, 8)
 class AcDbDatabase;
 class AcDbIdMapping;
 class AcDwgFileHandle;
 class ACDBCORE2D_PORT AcEdXrefFileLock
 {
 public:
-	AcEdXrefFileLock();
-	~AcEdXrefFileLock();
-	Acad::ErrorStatus lockFile(int& retstatus, const AcDbObjectId& selectedBTRid);
-	Acad::ErrorStatus releaseFile(int& retstatus, bool bSkipSaveback = false, bool bReload = true);
-	Acad::ErrorStatus consistencyCheck(int& retstatus, const AcDbObjectId& selectedBTRid, AcDbObjectIdArray& outofSyncBTRids);
-	Acad::ErrorStatus consistencyCheck(int& retstatus, const AcDbObjectId& selectedBTRid);
-	Acad::ErrorStatus consistencyChecklocal(int& retstatus, const AcDbObjectId& selectedBTRid);
-	Acad::ErrorStatus xloadctlType(int& retstatus, const AcDbObjectId& selectedBTRid);
-	int getlockxloadctlType() const
-	{
-		return mXldctltype;
-	}
-	const AcDbObjectIdArray& getoutofSyncIdArray() const
-	{
-		return mXBTRidArray;
-	}
-	Acad::ErrorStatus reloadFile(int& retstatus, const AcDbObjectIdArray& BTRids, const int xldctltype = -1);
-	Acad::ErrorStatus reloadFile(int& retstatus, const int xldctltype = -1);
-	void setInternalTNmgmt(bool bTNmgmt);
-	AcDbObjectId getLockBtrId() const
-	{
-		return mXBTRid;
-	}
+  AcEdXrefFileLock();
+  ~AcEdXrefFileLock();
+  Acad::ErrorStatus lockFile(int& retstatus, const AcDbObjectId& selectedBTRid);
+  Acad::ErrorStatus releaseFile(int& retstatus, bool bSkipSaveback = false, bool bReload = true);
+  Acad::ErrorStatus consistencyCheck(int& retstatus, const AcDbObjectId& selectedBTRid, AcDbObjectIdArray& outofSyncBTRids);
+  Acad::ErrorStatus consistencyCheck(int& retstatus, const AcDbObjectId& selectedBTRid);
+  Acad::ErrorStatus consistencyChecklocal(int& retstatus, const AcDbObjectId& selectedBTRid);
+  Acad::ErrorStatus xloadctlType(int& retstatus, const AcDbObjectId& selectedBTRid);
+  int getlockxloadctlType() const
+  {
+    return mXldctltype;
+  }
+  const AcDbObjectIdArray& getoutofSyncIdArray() const
+  {
+    return mXBTRidArray;
+  }
+  Acad::ErrorStatus reloadFile(int& retstatus, const AcDbObjectIdArray& BTRids, const int xldctltype = -1);
+  Acad::ErrorStatus reloadFile(int& retstatus, const int xldctltype = -1);
+  void setInternalTNmgmt(bool bTNmgmt);
+  AcDbObjectId getLockBtrId() const
+  {
+    return mXBTRid;
+  }
 private:
-	AcDwgFileHandle* mdwgfile;
-	AcDbDatabase* mpXDB;
-	AcDbDatabase* mpXDBlockFile;
-	int mXldctltype;
-	AcDbObjectId mXBTRid;
-	AcDbObjectIdArray mXBTRidArray;
-	bool mbIntTNmgmt;
+  AcDwgFileHandle* mdwgfile;
+  AcDbDatabase* mpXDB;
+  AcDbDatabase* mpXDBlockFile;
+  int mXldctltype;
+  AcDbObjectId mXBTRid;
+  AcDbObjectIdArray mXBTRidArray;
+  bool mbIntTNmgmt;
 };
 /// <summary>
 /// The constructor locks the XREF file, checks consistency, and reloads all releated 
@@ -73,30 +73,30 @@ public:
     /// eXrefReloaded ErrorStatus, because it is not possible to reload a database when 
     /// it has some opened objects in it. </summary>
     ///    
-	explicit AcDbXrefFileLocker(AcDbDatabase* pXrefDatabase);
+  explicit AcDbXrefFileLocker(AcDbDatabase* pXrefDatabase);
     /// <summary> Just calls release(). </summary>
     ///
-	virtual ~AcDbXrefFileLocker();
+  virtual ~AcDbXrefFileLocker();
     /// <summary>
     /// Saves changes made to the XREF database back to the XREF file and releases the file lock.
     /// Subsequent release() calls are no-ops. setSaveBack() allows to control whether to save the 
     /// changes back to the file or not. If status() != Acad::eOk, it does not update the XREF file.
     /// </summary>
     ///
-	void release();
+  void release();
     /// <summary>
     /// If anything went wrong, non-eOk ErrorStatus is returned.
     /// </summary>
     ///
-	Acad::ErrorStatus status() const;
+  Acad::ErrorStatus status() const;
     /// <summary>
     /// By default changes made to the XREF database are saved back to the XREF file 
     /// on release() (or destructor) call. This allows not to save back to the XREF file, 
     /// e.g. when the client operation didn't succeed.
     /// </summary>
     ///
-	void setSaveBackToXrefFile(bool yesNo);
-	static bool isXrefDatabase(const AcDbDatabase* pDatabase);
+  void setSaveBackToXrefFile(bool yesNo);
+  static bool isXrefDatabase(const AcDbDatabase* pDatabase);
 private:
     /// <summary>
     /// Collects all AcDbObjects in the XREF database that are opened and that need to be 
@@ -104,22 +104,22 @@ private:
     /// reopened.
     /// </summary>
     ///
-	void collectAllOpenedObjects(AcDbObjectIdArray& openedObjectIds);
-	bool hasOpenedObjects();
+  void collectAllOpenedObjects(AcDbObjectIdArray& openedObjectIds);
+  bool hasOpenedObjects();
     // Temporarily close the opened objects in the XREF database, so that no objects 
     // are open when saving the XREF database to file. Reopen the objects back to their 
     // previous open states after the save is completed
     //
-	void closeOpenedObjects(AcDbObjectIdArray& openedObjectIds, AcArray<AcDb::OpenMode>& openModes, AcArray<int>& openCounts);
-	void reopenClosedObjects(const AcDbObjectIdArray& openedObjectIds, const AcArray<AcDb::OpenMode>& openModes, const AcArray<int>& openCounts);
-	AcDbDatabase* mpXrefDatabase;
-	AcEdXrefFileLock mXrefFileLock;
-	Acad::ErrorStatus mStatus;
-	bool mSaveBackToXrefFile;
+  void closeOpenedObjects(AcDbObjectIdArray& openedObjectIds, AcArray<AcDb::OpenMode>& openModes, AcArray<int>& openCounts);
+  void reopenClosedObjects(const AcDbObjectIdArray& openedObjectIds, const AcArray<AcDb::OpenMode>& openModes, const AcArray<int>& openCounts);
+  AcDbDatabase* mpXrefDatabase;
+  AcEdXrefFileLock mXrefFileLock;
+  Acad::ErrorStatus mStatus;
+  bool mSaveBackToXrefFile;
     // Disable
-	AcDbXrefFileLocker();
-	AcDbXrefFileLocker(const AcDbXrefFileLocker&);
-	AcDbXrefFileLocker& operator =(AcDbXrefFileLocker&);
+  AcDbXrefFileLocker();
+  AcDbXrefFileLocker(const AcDbXrefFileLocker&);
+  AcDbXrefFileLocker& operator =(AcDbXrefFileLocker&);
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

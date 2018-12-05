@@ -12,15 +12,15 @@
 // DESCRIPTION: Object context manager class.  This class manages collections
 //              of object contexts for a particular database.
 #ifndef ACDB_OBJECTCONTEXTMANAGER_H
-#	define ACDB_OBJECTCONTEXTMANAGER_H
-#	pragma  once
-#	include "acdb.h"
-#	include "dbmain.h"
-#	include "AcString.h"
+#  define ACDB_OBJECTCONTEXTMANAGER_H
+#  pragma  once
+#  include "acdb.h"
+#  include "dbmain.h"
+#  include "AcString.h"
 class AcDbObjectContextCollection;
 class AcDbObjectContext;
 class AcDbImpObjectContextManager;
-#	pragma  pack (push, 8)
+#  pragma  pack (push, 8)
 ////////////////////////////////////////////////////////////////////////
 // class AcDbObjectContextManager
 ////////////////////////////////////////////////////////////////////////
@@ -37,7 +37,7 @@ class AcDbImpObjectContextManager;
 class AcDbObjectContextManager : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbObjectContextManager);
+  ACRX_DECLARE_MEMBERS(AcDbObjectContextManager);
     /// <summary>
     /// Default constructor. 
     /// </summary>
@@ -46,12 +46,12 @@ public:
     /// For internal use only.
     /// </remarks>
     ///
-	AcDbObjectContextManager();
+  AcDbObjectContextManager();
     /// <summary>
     /// Destructor.
     /// </summary>
     ///
-	virtual ~AcDbObjectContextManager();
+  virtual ~AcDbObjectContextManager();
     /// <summary>
     /// Registers a context collection with the context manager. 
     /// </summary>
@@ -74,7 +74,7 @@ public:
     /// unregister all instances of the collection and free any resources. 
     /// </remarks>
     /// 
-	Acad::ErrorStatus registerContextCollection(const AcString& collectionName, AcDbObjectContextCollection* pCollection);
+  Acad::ErrorStatus registerContextCollection(const AcString& collectionName, AcDbObjectContextCollection* pCollection);
     /// <summary>
     /// Unregisters a context collection with the context manager. 
     /// </summary>
@@ -88,7 +88,7 @@ public:
     /// freeing any memory allocated for a collection, simply unregistering the
     /// collection with the manager does not free any resources. 
     /// </returns>
-	Acad::ErrorStatus unregisterContextCollection(const AcString& collectionName);
+  Acad::ErrorStatus unregisterContextCollection(const AcString& collectionName);
     /// <summary>
     /// Returns a registered context collection by name
     /// </summary>
@@ -106,10 +106,10 @@ public:
     /// Applications should not delete the returned pointer. 
     /// </remarks>
     ///
-	AcDbObjectContextCollection* const contextCollection(const AcString& collectionName) const;
+  AcDbObjectContextCollection* const contextCollection(const AcString& collectionName) const;
 private:
-	AcDbImpObjectContextManager* mpImp;
-	friend class AcDbContextDataSubManager;
+  AcDbImpObjectContextManager* mpImp;
+  friend class AcDbContextDataSubManager;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

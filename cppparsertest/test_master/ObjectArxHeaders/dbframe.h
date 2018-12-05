@@ -19,22 +19,22 @@
 //          AcDbOle2Frame  
 //
 #ifndef AD_DBFRAME_H
-#	define AD_DBFRAME_H
-#	include "dbmain.h"
-#	include "gepnt3d.h"
-#	pragma  pack (push, 8)
+#  define AD_DBFRAME_H
+#  include "dbmain.h"
+#  include "gepnt3d.h"
+#  pragma  pack (push, 8)
 class ADESK_NO_VTABLE AcDbFrame : public AcDbEntity
 {
 protected:
-	AcDbFrame();
-	ACDB_DECLARE_MEMBERS(AcDbFrame);
+  AcDbFrame();
+  ACDB_DECLARE_MEMBERS(AcDbFrame);
 public:
-	virtual ~AcDbFrame();
+  virtual ~AcDbFrame();
     // --- AcDbObject Protocol
 
     // virtual Adesk::Boolean worldDraw(AcGiWorldDraw*);
     // virtual void viewportDraw(AcGiViewportDraw* mode);
     // virtual Acad::ErrorStatus getGeomExtents(AcDbExtents& extents) const;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

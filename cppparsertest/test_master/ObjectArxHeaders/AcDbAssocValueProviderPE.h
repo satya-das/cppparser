@@ -39,7 +39,7 @@
 class ACDBCORE2D_PORT AcDbAssocValueProviderPE : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocValueProviderPE);
+  ACRX_DECLARE_MEMBERS(AcDbAssocValueProviderPE);
     /// <summary>
     /// Checks whether it is possible to get the value identified by valueName.
     /// The default implementation always returns true for any valueName.
@@ -51,12 +51,12 @@ public:
     /// implementation always returns true.
     /// </returns>
     ///
-	virtual bool canGetValue(const AcDbObject* pObject, const AcString& valueName)
-	{
-		ADESK_UNREFED_PARAM(pObject);
-		ADESK_UNREFED_PARAM(valueName);
-		return true;
-	}
+  virtual bool canGetValue(const AcDbObject* pObject, const AcString& valueName)
+  {
+    ADESK_UNREFED_PARAM(pObject);
+    ADESK_UNREFED_PARAM(valueName);
+    return true;
+  }
     /// <summary>
     /// Checks whether it is possible to set the value identified by valueName.
     /// The default implementation always returns false for any valueName.
@@ -68,12 +68,12 @@ public:
     /// implementation always returns false.
     /// </returns>
     ///
-	virtual bool canSetValue(const AcDbObject* pObject, const AcString& valueName)
-	{
-		ADESK_UNREFED_PARAM(pObject);
-		ADESK_UNREFED_PARAM(valueName);
-		return false;
-	}
+  virtual bool canSetValue(const AcDbObject* pObject, const AcString& valueName)
+  {
+    ADESK_UNREFED_PARAM(pObject);
+    ADESK_UNREFED_PARAM(valueName);
+    return false;
+  }
     /// <summary>
     /// Gets the value identified by valueName. This method must always be 
     /// overridden by concrete derived classes.
@@ -83,7 +83,7 @@ public:
     /// <param name="value"> The returned value. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getValue(const AcDbObject* pObject, const AcString& valueName, AcDbEvalVariant& value) = 0;
+  virtual Acad::ErrorStatus getValue(const AcDbObject* pObject, const AcString& valueName, AcDbEvalVariant& value) = 0;
     /// <summary>
     /// Sets the value identified by valueName. The default implementation always
     /// returns Acad::eNotHandled for any valueName.
@@ -93,19 +93,19 @@ public:
     /// <param name="newValue"> The new value. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setValue(AcDbObject* pObject, const AcString& valueName, const AcDbEvalVariant& newValue)
-	{
-		ADESK_UNREFED_PARAM(pObject);
-		ADESK_UNREFED_PARAM(valueName);
-		ADESK_UNREFED_PARAM(newValue);
-		return Acad::eNotHandled;
-	}
+  virtual Acad::ErrorStatus setValue(AcDbObject* pObject, const AcString& valueName, const AcDbEvalVariant& newValue)
+  {
+    ADESK_UNREFED_PARAM(pObject);
+    ADESK_UNREFED_PARAM(valueName);
+    ADESK_UNREFED_PARAM(newValue);
+    return Acad::eNotHandled;
+  }
     /// <summary>
     /// Simple utility methods that open the object, query for its AcDbAssocValueProviderPE
     /// and get/set the value with the given name.
     /// </summary>
     ///
-	static Acad::ErrorStatus getObjectValue(const AcDbObjectId&, const AcString& valueName, AcDbEvalVariant& value);
-	static Acad::ErrorStatus setObjectValue(const AcDbObjectId&, const AcString& valueName, const AcDbEvalVariant& value);
+  static Acad::ErrorStatus getObjectValue(const AcDbObjectId&, const AcString& valueName, AcDbEvalVariant& value);
+  static Acad::ErrorStatus setObjectValue(const AcDbObjectId&, const AcString& valueName, const AcDbEvalVariant& value);
 };
 #pragma  pack (pop)

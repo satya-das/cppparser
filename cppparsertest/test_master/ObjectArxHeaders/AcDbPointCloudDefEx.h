@@ -13,16 +13,16 @@ static const TCHAR* kpPointCloudExDictionaryName = ACRX_T("ACAD_POINTCLOUD_EX_DI
 class PointCloudDefExImp;
 namespace Autodesk
 {
-	namespace RealityStudio	
+  namespace RealityStudio  
 {
-		namespace SDK		
+    namespace SDK    
 {
-			namespace Interface			
+      namespace Interface      
 {
-				class IRCData;
-			}
-		}
-	}
+        class IRCData;
+      }
+    }
+  }
 }
 //////////////////////////////////////////////////////////////////////////////
 /// <summary>
@@ -46,54 +46,54 @@ public:
     /// This enumeration defines the current state of supported properties in
     /// the point cloud data.
     /// </summary>
-	enum PropState
-	{
+  enum PropState
+  {
         /// <summary>
         /// No scan in the point cloud has the property.
         /// </summary>
-		kNone = -1,
+    kNone = -1,
         /// <summary>
         /// Some scans in the point cloud have the property, but some do not.
         /// </summary>
-		kSome = 0,
+    kSome = 0,
         /// <summary>
         /// All scans in the point cloud have the property.
         /// </summary>
-		kAll = 1
-	};
+    kAll = 1
+  };
     /// <summary>
     /// This enumeration defines the types of properties that a point cloud can have.
     /// </summary>
-	enum Property
-	{
+  enum Property
+  {
         /// <summary> The Color property. </summary>
-		kColor = 1,
+    kColor = 1,
         /// <summary> The Intensity property. </summary>
-		kIntensity = 2,
+    kIntensity = 2,
         /// <summary> The Classification property. </summary>
-		kClassification = 3,
+    kClassification = 3,
         /// <summary> The Normal property. </summary>
-		kNormal = 4,
+    kNormal = 4,
         /// <summary> The Segmentation property. </summary>
-		kSegmentation = 5,
+    kSegmentation = 5,
         /// <summary> The Geo Graphic property. </summary>
-		kGeoGraphic = 6
-	};
-	ACRX_DECLARE_MEMBERS(AcDbPointCloudDefEx);
+    kGeoGraphic = 6
+  };
+  ACRX_DECLARE_MEMBERS(AcDbPointCloudDefEx);
     /// <summary>
     /// Default constructor
     /// </summary>
-	AcDbPointCloudDefEx();
+  AcDbPointCloudDefEx();
     /// <summary>
     /// Destructor
     /// </summary>
-	virtual ~AcDbPointCloudDefEx();
+  virtual ~AcDbPointCloudDefEx();
     /// <summary>
     /// Returns the class version number that indicates which version of 
     /// AcDbPointCloudEx this object represents. This is primarily used during
     /// filing operations to determine what data to read or write.
     /// </summary>
-	static int classVersion();
+  static int classVersion();
     // create / get point cloud dictionary
     //
 
@@ -118,7 +118,7 @@ public:
     /// already exists, and no new dictionary was created.
     /// Other values are returned if the dictionary could not be created or doesn't exist.
     /// </returns>
-	static Acad::ErrorStatus createPointCloudExDictionary(AcDbDatabase* pDb, AcDbObjectId& dictId);
+  static Acad::ErrorStatus createPointCloudExDictionary(AcDbDatabase* pDb, AcDbObjectId& dictId);
     /// <summary>
     /// Returns the object ID of the point cloud extension dictionary in the
     /// specified drawing database or 0 if the dictionary was not found.
@@ -126,7 +126,7 @@ public:
     /// <param name="pDb">
     /// Input AutoCAD database in which to search for the dictionary.
     /// </param>
-	static AcDbObjectId pointCloudExDictionary(AcDbDatabase* pDb);
+  static AcDbObjectId pointCloudExDictionary(AcDbDatabase* pDb);
     /// <summary>
     /// Returns a pointer to the point cloud extension dictionary for the
     /// given AcDbPointCloudDefEx's database, or NULL if the dictionary
@@ -137,7 +137,7 @@ public:
     /// <param name="pDefEx">
     /// Input AcDbPointCloudDefEx object for which to find the dictionary.
     /// </param>
-	static AcDbDictionary* getPointCloudExDictionary(AcDbPointCloudDefEx* pDefEx);
+  static AcDbDictionary* getPointCloudExDictionary(AcDbPointCloudDefEx* pDefEx);
     // Overridden methods from AcDbObject
     // 
 
@@ -150,7 +150,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary>
     /// This function is called by dwgOut(). Its purpose is to allow this object to write out its data. 
     /// </summary>
@@ -160,7 +160,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary>
     /// This function is called by dxfIn(). Its purpose is to allow this object to read in its data. 
     /// </summary>
@@ -170,7 +170,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     /// <summary>
     /// This function is called by dxfOut(). Its purpose is to allow this object to write out its data. 
     /// </summary>
@@ -180,7 +180,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     /// <summary>
     /// Called from within erase() before anything else is done.
     /// </summary>
@@ -192,13 +192,13 @@ public:
     /// If this function returns anything other than Acad::eOk, then the 
     /// erase operation is immediately terminated.
     /// </returns>
-	virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
+  virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
     /// <summary>
     /// Returns a pointer to the ReCap point cloud data, which will
     /// be shared by all AcDbPointCloudEx entities that reference the same ReCap project.
     /// </summary>
     /// <remarks> Internal use only </remarks>
-	Autodesk::RealityStudio::SDK::Interface::IRCData* getRCData();
+  Autodesk::RealityStudio::SDK::Interface::IRCData* getRCData();
     /// <summary>
     /// Loads point cloud data from the source point cloud file. 
     /// If the point cloud is already loaded, Acad::eOk is returned.
@@ -208,7 +208,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful, or Acad::eInvalidInput otherwise.
     /// </returns>
-	Acad::ErrorStatus load();
+  Acad::ErrorStatus load();
     /// <summary>
     /// Immediately unloads all point cloud data in the AcDbPointCloudDefEx, 
     /// but does not delete the 
@@ -216,11 +216,11 @@ public:
     /// AcDbPointCloudEx entities to be redrawn.
     /// </summary>
     /// <returns> Returns Acad::eOk if successful. </returns>
-	Acad::ErrorStatus unload();
+  Acad::ErrorStatus unload();
     /// <summary>
     /// Returns Adesk::kTrue if the point cloud is loaded, or Adesk::kFalse otherwise.
     /// </summary>
-	Adesk::Boolean isLoaded() const;
+  Adesk::Boolean isLoaded() const;
     /// <summary>
     /// Returns the number of AcDbPointCloudEx entities in the current drawing
     /// that are dependent upon this object for display graphics. If the pointer
@@ -231,7 +231,7 @@ public:
     /// <param name="pbLocked">
     /// Input pointer value
     /// </param>
-	int entityCount(Adesk::Boolean* pbLocked = 0) const;
+  int entityCount(Adesk::Boolean* pbLocked = 0) const;
     /// <summary>
     /// This function sets the pathname of the externally referenced point cloud
     /// file. The point cloud file path name is stored when the current drawing
@@ -245,12 +245,12 @@ public:
     /// Returns Acad::eOk if successful. 
     /// Returns Acad::eInvalidInput if the input path is invalid.
     /// </returns>
-	Acad::ErrorStatus setSourceFileName(const TCHAR* pPathName);
+  Acad::ErrorStatus setSourceFileName(const TCHAR* pPathName);
     /// <summary>
     /// Returns the path name of the externally referenced point cloud file name.
     /// This file name is saved in the DWG file with the object.
     /// </summary>
-	const TCHAR* sourceFileName() const;
+  const TCHAR* sourceFileName() const;
     /// <summary>
     /// This function sets the active path name of the externally referenced
     /// point cloud file. The active path points to the file that is
@@ -266,41 +266,41 @@ public:
     /// Returns Acad::eOk if successful. 
     /// Returns Acad::eInvalidInput if the input path is invalid.
     /// </returns>
-	Acad::ErrorStatus setActiveFileName(const TCHAR* pPathName);
+  Acad::ErrorStatus setActiveFileName(const TCHAR* pPathName);
     /// <summary>
     /// Returns the path name of the actual file being currently used to define
     /// the point cloud.
     /// </summary>
-	const TCHAR* activeFileName() const;
+  const TCHAR* activeFileName() const;
     /// <summary>
     /// Returns the file extension of this definition's point cloud file.
     /// There are two types: RCP for a ReCap project file; RCS for a ReCap scan file.
     /// </summary>
-	const TCHAR* fileType() const;
+  const TCHAR* fileType() const;
     /// <summary>
     /// Returns the total point count for the point cloud file.
     /// </summary>
-	unsigned long long totalPointsCount() const;
+  unsigned long long totalPointsCount() const;
     /// <summary>
     /// Returns the total region count for the point cloud file.
     /// </summary>
-	int totalRegionsCount() const;
+  int totalRegionsCount() const;
     /// <summary>
     /// Returns the total scan count for the point cloud file.
     /// </summary>
-	int totalScansCount() const;
+  int totalScansCount() const;
     /// <summary>
     /// Returns the default extent's width of the point cloud file.
     /// </summary>
-	double defaultWidth() const;
+  double defaultWidth() const;
     /// <summary>
     /// Returns the default extent's length of the point cloud file.
     /// </summary>
-	double defaultLength() const;
+  double defaultLength() const;
     /// <summary>
     /// Returns the default extent's height of the point cloud file.
     /// </summary>
-	double defaultHeight() const;
+  double defaultHeight() const;
     /// <summary>
     /// Returns the property state of a specified property in the point cloud file.
     /// This will tell if a given property is present in all, some, or none of the 
@@ -309,7 +309,7 @@ public:
     /// <param name="prop">
     /// Input property type of the point cloud
     /// </param>
-	PropState hasProperty(Property prop) const;
+  PropState hasProperty(Property prop) const;
     /// <summary>
     /// Create a thumbnail image of the point cloud that is 
     /// a specified width and height.
@@ -325,15 +325,15 @@ public:
     /// The height value of the preview bitmap
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
-	Acad::ErrorStatus createThumbnailBitmap(BITMAPINFO*& pBmpInfo, int width, int height) const;
+  Acad::ErrorStatus createThumbnailBitmap(BITMAPINFO*& pBmpInfo, int width, int height) const;
     /// <summary>
     /// Gets the whole extents of attached point cloud
     /// </summary>
-	AcDbExtents extents() const;
+  AcDbExtents extents() const;
     /// <summary>
     /// Gets the coordinate system name of attached point cloud 
     /// </summary>
-	const TCHAR* coordinateSystemName() const;
+  const TCHAR* coordinateSystemName() const;
     /// <summary>
     /// Gets the file path of specified RCS
     /// </summary>
@@ -341,17 +341,17 @@ public:
     /// the GUID of the RCS
     /// </param>
     /// <returns>Returns file path</returns>
-	const TCHAR* getRcsFilePath(const AcString& guid) const;
+  const TCHAR* getRcsFilePath(const AcString& guid) const;
     /// <summary>
     /// Gets the list which contains all RCS file path
     /// </summary>
     /// <param name="list">
     /// array used to contain all RCS file path
     /// </param>
-	void getAllRcsFilePaths(AcStringArray& list) const;
+  void getAllRcsFilePaths(AcStringArray& list) const;
 private:
-	PointCloudDefExImp* m_pImp;
-	static int m_nVersion;
+  PointCloudDefExImp* m_pImp;
+  static int m_nVersion;
 };
 class PointCloudDefReactorExImp;
 //////////////////////////////////////////////////////////////////////////////
@@ -374,7 +374,7 @@ public:
     /// AcDbPointCloudEx this object represents. This is primarily used during
     /// filing operations to determine what data to read or write.
     /// </summary>
-	static int classVersion();
+  static int classVersion();
     /// <summary>
     /// This method is used to temporarily disable notification of AcDbPointCloudEx 
     /// entities when an AcDbPointCloudDefEx object is modified or erased.
@@ -385,20 +385,20 @@ public:
     /// <param name="bEnable">
     /// Input Boolean to enable/disable notification 
     /// </param>
-	static void setEnable(Adesk::Boolean bEnable);
+  static void setEnable(Adesk::Boolean bEnable);
     /// <summary>
     /// Returns a Boolean value whether the notification is enabled or disabled.
     /// </summary>
-	static Adesk::Boolean isEnabled();
-	ACRX_DECLARE_MEMBERS(AcDbPointCloudDefReactorEx);
+  static Adesk::Boolean isEnabled();
+  ACRX_DECLARE_MEMBERS(AcDbPointCloudDefReactorEx);
     /// <summary>
     /// Default constructor
     /// </summary>
-	AcDbPointCloudDefReactorEx();
+  AcDbPointCloudDefReactorEx();
     /// <summary>
     /// Destructor
     /// </summary>
-	virtual ~AcDbPointCloudDefReactorEx();
+  virtual ~AcDbPointCloudDefReactorEx();
     // Overridden methods from AcDbObject
     // 
 
@@ -411,7 +411,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary>
     /// This function is called by dwgOut(). Its purpose is to allow the object to write out its data. 
     /// </summary>
@@ -421,7 +421,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary>
     /// This function is called by dxfIn(). Its purpose is to allow the object to read in its data. 
     /// </summary>
@@ -431,7 +431,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     /// <summary>
     /// This function is called by dxfOut(). Its purpose is to allow the object to write out its data. 
     /// </summary>
@@ -441,7 +441,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     // Notification
     //
 
@@ -458,7 +458,7 @@ public:
     /// <param name="pErasing">
     /// Boolean indicating the erasing status 
     /// </param>
-	virtual void erased(const AcDbObject* dbObj, Adesk::Boolean pErasing = true) override;
+  virtual void erased(const AcDbObject* dbObj, Adesk::Boolean pErasing = true) override;
     /// <summary>
     /// This method is called when the AcDbPointCloudDefEx object is modified.
     /// It responds by redrawing the AcDbPointCloudEx entity that owns the reactor.
@@ -466,9 +466,9 @@ public:
     /// <param name="dbObj">
     /// Pointer to the AcDbPointCloudDefEx object sending the notification
     /// </param>
-	virtual void modified(const AcDbObject* dbObj) override;
+  virtual void modified(const AcDbObject* dbObj) override;
 private:
-	static int m_version;
-	static Adesk::Boolean m_bIsEnabled;
-	PointCloudDefReactorExImp* m_pImp;
+  static int m_version;
+  static Adesk::Boolean m_bIsEnabled;
+  PointCloudDefReactorExImp* m_pImp;
 };

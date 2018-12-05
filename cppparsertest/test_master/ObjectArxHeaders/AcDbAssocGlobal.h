@@ -46,8 +46,8 @@ class AcDbAssocPersSubentManagerCloner;
 class AcDbAssocNotificationData;
 namespace PersSubentNaming
 {
-	class AnnotationData;
-	class PersSubentManager;
+  class AnnotationData;
+  class PersSubentManager;
 }
 // ASM entities
 //
@@ -73,22 +73,22 @@ typedef AcArray<AcDbAsmEdgeArray> AcDbAsmEdgeArray2d;
 enum AcDbAssocStatus
 {
     /// <summary> Everything is in sync. </summary> 
-	kIsUpToDateAssocStatus = 0,
+  kIsUpToDateAssocStatus = 0,
     /// <summary> Explicitly changed (such as by the user). </summary> 
-	kChangedDirectlyAssocStatus,
+  kChangedDirectlyAssocStatus,
     /// <summary> Changed indirectly due to something else changed. </summary> 
-	kChangedTransitivelyAssocStatus,
+  kChangedTransitivelyAssocStatus,
     /// <summary> No real change, only forces to evaluate. </summary> 
-	kChangedNoDifferenceAssocStatus,
+  kChangedNoDifferenceAssocStatus,
     /// <summary> Action failed to evaluate but evaluation continues. 
     /// Otherwise identical to kIsUpToDateAssocStatus. </summary> 
-	kFailedToEvaluateAssocStatus,
+  kFailedToEvaluateAssocStatus,
     /// <summary> Dependent-on object erased or action is to be erased. </summary> 
-	kErasedAssocStatus,
+  kErasedAssocStatus,
     /// <summary> Action evaluation suppressed, treated as if evaluated. </summary> 
-	kSuppressedAssocStatus,
+  kSuppressedAssocStatus,
     /// <summary> Dependent-on object is un-resolved (e.g the xref is unloaded). </summary> 
-	kUnresolvedAssocStatus
+  kUnresolvedAssocStatus
 };
 /// <summary>
 /// Returns the severity level (positive integer) of those status values that
@@ -104,16 +104,16 @@ enum AcDbAssocStatus
 ///
 inline int evaluationRequestSeverityLevel(AcDbAssocStatus status)
 {
-	switch(	status)
-	{
-		case kChangedDirectlyAssocStatus:
-			return 3;
-		case kChangedTransitivelyAssocStatus:
-			return 2;
-		case kChangedNoDifferenceAssocStatus:
-			return 1;
+  switch(  status)
+  {
+    case kChangedDirectlyAssocStatus:
+      return 3;
+    case kChangedTransitivelyAssocStatus:
+      return 2;
+    case kChangedNoDifferenceAssocStatus:
+      return 1;
 default:
-		return 0;
+    return 0;
 }
 }
 /// <summary>
@@ -129,7 +129,7 @@ default:
 ///
 inline bool isEvaluationRequest(AcDbAssocStatus status)
 {
-	return evaluationRequestSeverityLevel(status) > 0;
+  return evaluationRequestSeverityLevel(status) > 0;
 }
 /// <summary>
 /// Returns true iff the AcDbAssocStatus indicates that the action or dependency 
@@ -143,7 +143,7 @@ inline bool isEvaluationRequest(AcDbAssocStatus status)
 ///
 inline bool isToBeSkipped(AcDbAssocStatus status)
 {
-	return status == kErasedAssocStatus || status == kSuppressedAssocStatus;
+  return status == kErasedAssocStatus || status == kSuppressedAssocStatus;
 }
 /// <summary>
 /// Negative numbers mean that an AcDbAssocAction cannot be evaluated at this 
@@ -157,11 +157,11 @@ inline bool isToBeSkipped(AcDbAssocStatus status)
 enum AcDbAssocEvaluationPriority
 {
     /// <summary> Default "can not be evaluated" priority. </summary>
-	kCannotBeEvaluatedAssocEvaluationPriority = -1000,
+  kCannotBeEvaluatedAssocEvaluationPriority = -1000,
     /// <summary> The action evaluatability cannot be determined at this time. </summary>
-	kCannotDermineAssocEvaluationPriority = 0,
+  kCannotDermineAssocEvaluationPriority = 0,
     /// <summary> Default "can be evaluated" priority. </summary>
-	kCanBeEvaluatedAssocEvaluationPriority = 1000
+  kCanBeEvaluatedAssocEvaluationPriority = 1000
 };
 /// <summary>
 /// At the beginning of AcDbAssocActionBody::evaluateOverride() implementation, 
@@ -180,7 +180,7 @@ enum AcDbAssocEvaluationMode
     /// kErasedAssocStatus (if it wants itself to be erased.)
     /// </para> </summary>
     ///
-	kModifyObjectsAssocEvaluationMode,
+  kModifyObjectsAssocEvaluationMode,
     /// <summary> <para> 
     /// The action evaluation mode in which the action is modified so that it 
     /// satisfies the objects the action depends on. The objects are not 
@@ -193,7 +193,7 @@ enum AcDbAssocEvaluationMode
     /// kErasedAssocStatus (if it wants itself to be erased.)
     /// </para> </summary>
     ///
-	kModifyActionAssocEvaluationMode
+  kModifyActionAssocEvaluationMode
 };
 /// <summary>
 /// While in the middle of evaluation, the action may inquire the client code 
@@ -204,13 +204,13 @@ enum AcDbAssocEvaluationMode
 enum AcDbAssocDraggingState
 {
     /// <summary> Not inside the dragging loop. </summary>
-	kNotDraggingAssocDraggingState,
+  kNotDraggingAssocDraggingState,
     /// <summary> The first drag sample of the dragging loop. </summary>
-	kFirstSampleAssocDraggingState,
+  kFirstSampleAssocDraggingState,
     /// <summary> An intemediate drag sample of the dragging loop. </summary>
-	kIntermediateSampleAssocDraggingState,
+  kIntermediateSampleAssocDraggingState,
     /// <summary> The last drag sample of the dragging loop. </summary>
-	kLastSampleAssocDraggingState
+  kLastSampleAssocDraggingState
 };
 /// <summary>
 /// Information about what type of transformation (which AutoCAD command) has 
@@ -221,13 +221,13 @@ enum AcDbAssocDraggingState
 enum AcDbAssocTransformationType
 {
     /// <summary> Transformation type not specified. </summary>
-	kNotSpecified,
+  kNotSpecified,
     /// <summary> Geometries have been changed through strech command. </summary>
-	kStretch,
+  kStretch,
     /// <summary> Geometries have been changed through rotate command. </summary>
-	kRotate,
+  kRotate,
     /// <summary> Geometries have been changed through move command. </summary>
-	kMove
+  kMove
 };
 /// <summary> <para>
 /// A mechanism for AcDbAssocActions to notify about the progress of evaluation, 
@@ -247,13 +247,13 @@ class ACDBCORE2D_PORT AcDbAssocEvaluationCallback
 {
 public:
     /// <summary> Default constructor. </summary>
-	AcDbAssocEvaluationCallback()
-	{
-	}
+  AcDbAssocEvaluationCallback()
+  {
+  }
     /// <summary> Virtual destructor. </summary>
-	virtual ~AcDbAssocEvaluationCallback()
-	{
-	}
+  virtual ~AcDbAssocEvaluationCallback()
+  {
+  }
     /// <summary> 
     /// The action needs to call this method at the beginning of the evaluate()
     /// code to obtain the mode in which it should evaluate itself. 
@@ -261,10 +261,10 @@ public:
     /// </summary>
     /// <returns> The requested evaluation mode. </returns>
     ///
-	virtual AcDbAssocEvaluationMode evaluationMode() const
-	{
-		return kModifyObjectsAssocEvaluationMode;
-	}
+  virtual AcDbAssocEvaluationMode evaluationMode() const
+  {
+    return kModifyObjectsAssocEvaluationMode;
+  }
     /// <summary> 
     /// The action informs that it is starting its evaluation. This callback 
     /// is issued at the beginning of AcDbAssocAction::evaluate() call 
@@ -273,7 +273,7 @@ public:
     /// </summary>
     /// <param name="pAction"> The action that is being evaluated. </param>
     ///
-	virtual void beginActionEvaluation(AcDbAssocAction* pAction) = 0;
+  virtual void beginActionEvaluation(AcDbAssocAction* pAction) = 0;
     /// <summary> 
     /// The action informs that it has finished its evaluation. This callback
     /// is issued at the end of AcDbAssocAction::evaluate() call 
@@ -282,7 +282,7 @@ public:
     /// </summary>
     /// <param name="pAction"> The action that is being evaluated. </param>
     ///
-	virtual void endActionEvaluation(AcDbAssocAction* pAction) = 0;
+  virtual void endActionEvaluation(AcDbAssocAction* pAction) = 0;
     /// <summary> 
     /// The action informs that an error happened during its evaluation. It does
     /// not need to inform if no error happened. The action may also inform about 
@@ -295,7 +295,7 @@ public:
     /// <param name="pObject"> The failed object pointer (such as of an AcDbAssocDependency). </param>
     /// <param name="pErrorInfo"> Additional info about the error. </param>
     ///
-	virtual void setActionEvaluationErrorStatus(AcDbAssocAction* pAction, Acad::ErrorStatus errorStatus, const AcDbObjectId& objectId = AcDbObjectId::kNull, AcDbObject* pObject = NULL, void* pErrorInfo = NULL) = 0;
+  virtual void setActionEvaluationErrorStatus(AcDbAssocAction* pAction, Acad::ErrorStatus errorStatus, const AcDbObjectId& objectId = AcDbObjectId::kNull, AcDbObject* pObject = NULL, void* pErrorInfo = NULL) = 0;
     /// <summary> <para>
     /// The action informs that it is going to use or modify an AcDbObject. The 
     /// action issues this callback just before it opens the object for read or 
@@ -342,7 +342,7 @@ public:
     /// only assign a non-NULL pointer if it intends to provide a substitute object.
     /// </param>
     ///
-	virtual void beginActionEvaluationUsingObject(AcDbAssocAction* pAction, const AcDbObjectId& objectId, bool objectIsGoingToBeUsed, bool objectIsGoingToBeModified, AcDbObject*& pSubstituteObject) = 0;
+  virtual void beginActionEvaluationUsingObject(AcDbAssocAction* pAction, const AcDbObjectId& objectId, bool objectIsGoingToBeUsed, bool objectIsGoingToBeModified, AcDbObject*& pSubstituteObject) = 0;
     /// <summary> 
     /// The action informs that it is done with using or modifying an AcDbObject. 
     /// The action issues this callback just before it closes the object. If the 
@@ -360,7 +360,7 @@ public:
     /// was not of the expected type.
     /// </param>
     ///
-	virtual void endActionEvaluationUsingObject(AcDbAssocAction* pAction, const AcDbObjectId& objectId, AcDbObject* pObject) = 0;
+  virtual void endActionEvaluationUsingObject(AcDbAssocAction* pAction, const AcDbObjectId& objectId, AcDbObject* pObject) = 0;
     /// <summary> <para>
     /// Called during the network evaluation to notify that all actions that need to
     /// be evaluated have been marked to evaluate. This concludes the first phase of
@@ -374,9 +374,9 @@ public:
     /// be evaluated have been marked to evaluate. 
     /// </param>
     ///
-	virtual void allDependentActionsMarkedToEvaluate(AcDbAssocNetwork*)
-	{
-	}
+  virtual void allDependentActionsMarkedToEvaluate(AcDbAssocNetwork*)
+  {
+  }
     /// <summary> 
     /// The action may inquire the client code whether the evaluation is 
     /// happening from inside of the dragging loop and at which stage the 
@@ -385,10 +385,10 @@ public:
     /// </summary>
     /// <returns> Returns the dragging state. </returns>
     ///
-	virtual AcDbAssocDraggingState draggingState() const
-	{
-		return kNotDraggingAssocDraggingState;
-	}
+  virtual AcDbAssocDraggingState draggingState() const
+  {
+    return kNotDraggingAssocDraggingState;
+  }
     /// <summary> <para>
     /// The custom evaluation callback code can request that the action evaluation 
     /// should be cancelled by implementing this callback predicate. The 
@@ -420,10 +420,10 @@ public:
     /// </para> </summary>
     /// <returns> Returns true iff the evaluation should be cancelled. </returns>
     ///
-	virtual bool cancelActionEvaluation()
-	{
-		return false;
-	}
+  virtual bool cancelActionEvaluation()
+  {
+    return false;
+  }
     /// <summary> 
     /// Allows the custom evaluation callback code to pass arbitrary data 
     /// to the actions that are being evaluated. The default implementation 
@@ -431,10 +431,10 @@ public:
     /// </summary> 
     /// <returns> Pointer to AcDbEvalContext or NULL. </returns>
     ///
-	virtual AcDbEvalContext* getAdditionalData() const
-	{
-		return NULL;
-	}
+  virtual AcDbEvalContext* getAdditionalData() const
+  {
+    return NULL;
+  }
     /// <summary> 
     /// Allows the custom evaluation callback code to pass information about what 
     /// type of transformation (which AutoCAD command) has been performed with 
@@ -443,10 +443,10 @@ public:
     /// </summary> 
     /// <returns> AcDbAssocTransformationType. </returns>
     ///
-	virtual AcDbAssocTransformationType getTransformationType() const
-	{
-		return kNotSpecified;
-	}
+  virtual AcDbAssocTransformationType getTransformationType() const
+  {
+    return kNotSpecified;
+  }
 };
 /// <summary>
 /// Returns true iff in the middle of dragging and the AcDbAssocDraggingState 
@@ -459,12 +459,12 @@ public:
 ///
 inline bool isDraggingProvidingSubstituteObjects(const AcDbAssocEvaluationCallback* pEvaluationCallback)
 {
-	if (pEvaluationCallback == NULL)
-	{
-		return false;
-	}
-	const AcDbAssocDraggingState draggingState = pEvaluationCallback->draggingState();
-	return draggingState == kFirstSampleAssocDraggingState || draggingState == kIntermediateSampleAssocDraggingState;
+  if (pEvaluationCallback == NULL)
+  {
+    return false;
+  }
+  const AcDbAssocDraggingState draggingState = pEvaluationCallback->draggingState();
+  return draggingState == kFirstSampleAssocDraggingState || draggingState == kIntermediateSampleAssocDraggingState;
 }
 /// <summary>
 /// This callback is used by AcDbAssocAction::getDependentActionsToEvaluate() 
@@ -477,13 +477,13 @@ class ACDBCORE2D_PORT AcDbActionsToEvaluateCallback
 {
 public:
     /// <summary> Default constructor. </summary>
-	AcDbActionsToEvaluateCallback()
-	{
-	}
+  AcDbActionsToEvaluateCallback()
+  {
+  }
     /// <summary> Virtual destructor. </summary>
-	virtual ~AcDbActionsToEvaluateCallback()
-	{
-	}
+  virtual ~AcDbActionsToEvaluateCallback()
+  {
+  }
     /// <summary> <para>
     /// This callback method is called by AcDbAssocAction::getDependentActionsToEvaluate().
     /// It is a mechanism by which getDependentActionsToEvaluate() informs that 
@@ -513,7 +513,7 @@ public:
     /// evaluated. The caller usually passes true.
     /// </param>
     ///
-	virtual void needsToEvaluate(const AcDbObjectId& objectId, AcDbAssocStatus newStatus, bool ownedActionsAlso = true) = 0;
+  virtual void needsToEvaluate(const AcDbObjectId& objectId, AcDbAssocStatus newStatus, bool ownedActionsAlso = true) = 0;
 };
 /// <summary> <para> 
 /// This is mostly for internal use.
@@ -535,9 +535,9 @@ public:
 enum AcDbAssocCreateImpObject
 {
     /// <summary> The API class should create the corresponding imp object. </summary> 
-	kAcDbAssocCreateImpObject = 0,
+  kAcDbAssocCreateImpObject = 0,
     /// <summary> The API class should not create the corresponding imp object. </summary> 
-	kAcDbAssocDoNotCreateImpObject = 1
+  kAcDbAssocDoNotCreateImpObject = 1
 };
 // The following typedefs are ids used by AcDbAssocPersSubentManager
 //
@@ -560,25 +560,25 @@ ACDBCORE2D_PORT Acad::ErrorStatus checkTopLevelNetworkIntegrity(const AcDbDataba
 enum AcDbAssocConstraintType
 {
     /// <summary> None Associate Constraint </summary>
-	kNoneAssocConstraintType = 0,
+  kNoneAssocConstraintType = 0,
     /// <summary> Distance Associate Constraint </summary>
-	kDistanceAssocConstraintType,
+  kDistanceAssocConstraintType,
     /// <summary> Horizontal Distance Associate Constraint </summary>
-	kHorizontalDistanceAssocConstraintType,
+  kHorizontalDistanceAssocConstraintType,
     /// <summary> Vertical Distance Associate Constraint </summary>
-	kVerticalDistanceAssocConstraintType,
+  kVerticalDistanceAssocConstraintType,
     /// <summary> AcAngleConstraint::kParallelAntiClockwise Associate Constraint </summary>
-	kAngle0AssocConstraintType,
+  kAngle0AssocConstraintType,
     /// <summary> AcAngleConstraint::kAntiParallelClockwise Associate Constraint </summary>
-	kAngle1AssocConstraintType,
+  kAngle1AssocConstraintType,
     /// <summary> AcAngleConstraint::kParallelClockwise Associate Constraint </summary>
-	kAngle2AssocConstraintType,
+  kAngle2AssocConstraintType,
     /// <summary> AcAngleConstraint::kAntiParallelAntiClockwise Associate Constraint </summary>
-	kAngle3AssocConstraintType,
+  kAngle3AssocConstraintType,
     /// <summary> Radius Associate Constraint </summary>
-	kRadiusAssocConstraintType,
+  kRadiusAssocConstraintType,
     /// <summary> Diameter Associate Constraint </summary>
-	kDiameterAssocConstraintType
+  kDiameterAssocConstraintType
 };
 class AcGeCurve3d;
 /// <summary>
@@ -594,54 +594,54 @@ class ACDBCORE2D_PORT AcDbSubentGeometry
 {
 public:
     /// <summary> Default constructor. </summary>
-	AcDbSubentGeometry()
-		: mSubentType(AcDb::kNullSubentType)
-		, mpCurve(NULL)
-	{
-	}
+  AcDbSubentGeometry()
+    : mSubentType(AcDb::kNullSubentType)
+    , mpCurve(NULL)
+  {
+  }
     /// <summary> Constructor initializing with a vertex subentity. </summary>
     /// <param name="pnt"> The coordinates of the point subentity. </param>
     ///
-	AcDbSubentGeometry(const AcGePoint3d& pnt)
-		: mSubentType(AcDb::kVertexSubentType)
-		, mPoint(pnt)
-		, mpCurve(NULL)
-	{
-	}
+  AcDbSubentGeometry(const AcGePoint3d& pnt)
+    : mSubentType(AcDb::kVertexSubentType)
+    , mPoint(pnt)
+    , mpCurve(NULL)
+  {
+  }
     /// <summary> Constructor initializing with an edge subnetity. </summary>
     /// <param  name="pCurve"> The curve is not owned by this AcDbSubentGeometry. </param>
     ///
-	AcDbSubentGeometry(AcGeCurve3d* pCurve)
-		: mSubentType(AcDb::kEdgeSubentType)
-		, mpCurve(pCurve)
-	{
-	}
+  AcDbSubentGeometry(AcGeCurve3d* pCurve)
+    : mSubentType(AcDb::kEdgeSubentType)
+    , mpCurve(pCurve)
+  {
+  }
     /// <summary> Returns AcDb::SubentType of the subentity. </summary>
     /// <returns> AcDb::SubentType. </returns>
     ///
-	AcDb::SubentType type() const
-	{
-		return mSubentType;
-	}
+  AcDb::SubentType type() const
+  {
+    return mSubentType;
+  }
     /// <summary> Returns coordinates of the vertex subentity. </summary>
     /// <returns> Coordinates of the vertex subentity. </returns>
     ///
-	AcGePoint3d point() const
-	{
-		return mPoint;
-	}
+  AcGePoint3d point() const
+  {
+    return mPoint;
+  }
     /// <summary> Returns pointer to the curve of the edge subentity. </summary>
     /// <returns> Pointer to the curve of the edge subentity. The curve is not
     /// owned by this AcDbSubentGeometry. </returns>
     ///
-	AcGeCurve3d* curve() const
-	{
-		return mpCurve;
-	}
+  AcGeCurve3d* curve() const
+  {
+    return mpCurve;
+  }
 private:
-	AcDb::SubentType mSubentType;
-	AcGePoint3d mPoint;
-	AcGeCurve3d* mpCurve;
+  AcDb::SubentType mSubentType;
+  AcGePoint3d mPoint;
+  AcGeCurve3d* mpCurve;
 };
 class AcString;
 class AcDbEvalVariant;

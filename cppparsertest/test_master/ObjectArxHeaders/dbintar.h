@@ -69,10 +69,10 @@
 // The grow length must be a positive number, that is, zero is an illegal
 // grow length.
 #ifndef AC_DBINTAR_H
-#	define AC_DBINTAR_H
-#	include "adesk.h"
-#	include "assert.h"
-#	include "acarray.h"
+#  define AC_DBINTAR_H
+#  include "adesk.h"
+#  include "assert.h"
+#  include "acarray.h"
 typedef AcArray<int> AcDbIntArray;
 typedef AcArray<Adesk::IntPtr> AcDbIntPtrArray;
 #endif

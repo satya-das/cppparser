@@ -13,13 +13,13 @@
 // in the application
 #pragma  once
 #ifndef ADHOSTWINDOW_H
-#	define ADHOSTWINDOW_H
-#	include "adhostableui.h"
+#  define ADHOSTWINDOW_H
+#  include "adhostableui.h"
 class IAdHostWindow
 {
 public:
     // The window identifier. This will generally be a platform or 
     // application dependent identifier for the window.
-	virtual HWND windowHandle() = 0;
+  virtual HWND windowHandle() = 0;
 };
 #endif

@@ -23,11 +23,11 @@
 class ACDB_PORT AcDbAssocSurfaceActionBody : public AcDbAssocParamBasedActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocSurfaceActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject. </param>
     ///
-	explicit AcDbAssocSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary><para> 
     /// Returns the AcDbDependency on the AcDbSurface that is the result of the
     /// evaluation of this action, optionally creating the dependency, it it does
@@ -41,13 +41,13 @@ public:
     /// of modification actions.
     /// </para></summary>
     ///
-	AcDbObjectId resultingSurfaceDep(bool createIfDoesNotExist, bool isWriteOnlyDependency = true);
+  AcDbObjectId resultingSurfaceDep(bool createIfDoesNotExist, bool isWriteOnlyDependency = true);
     /// <summary> 
     /// Returns the AcDbSurface that is the result of the evaluation of this action. 
     /// The action has a write-only or read-write dependency on the surface. 
     /// </summary>
     ///
-	AcDbObjectId resultingSurface() const;
+  AcDbObjectId resultingSurface() const;
     /// <summary><para> 
     /// Sets the AcDbSurface that is the result of the evaluation of this action. 
     /// The action has a write-only or read-write dependency on the surface. 
@@ -61,7 +61,7 @@ public:
     /// of modification actions.
     /// </para></summary>
     ///
-	Acad::ErrorStatus setResultingSurface(const AcDbObjectId& surfaceId, bool isWriteOnlyDependency = true);
+  Acad::ErrorStatus setResultingSurface(const AcDbObjectId& surfaceId, bool isWriteOnlyDependency = true);
     /// <summary><para> 
     /// Semi-associative surface shows special surface properties (such as offset
     /// distance for an ofest surface or tangency grips for patach surface) if the 
@@ -80,7 +80,7 @@ public:
     /// erasing all its actions.
     /// </para></summary> 
     ///
-	bool isSemiAssociative() const;
+  bool isSemiAssociative() const;
     /// <summary>
     /// Derived surface creation action body classes implement this method to check
     /// and report whether their semi-associativity is satisfied (it is called only 
@@ -88,19 +88,19 @@ public:
     /// just returns true.
     /// </summary>
     ///
-	virtual bool isSemiAssociativitySatisfiedOverride() const;
+  virtual bool isSemiAssociativitySatisfiedOverride() const;
     /// <summary> Overridden implementation of the base class method. </summary>
     ///
-	virtual void evaluateOverride() override;
+  virtual void evaluateOverride() override;
     /// <summary> Overridden implementation of the base class method. </summary>
     ///
-	virtual Acad::ErrorStatus getDependentActionsToEvaluateOverride(AcDbActionsToEvaluateCallback*) const override;
+  virtual Acad::ErrorStatus getDependentActionsToEvaluateOverride(AcDbActionsToEvaluateCallback*) const override;
     /// <summary> Overridden implementation of the base class method. </summary>
     ///
-	virtual Acad::ErrorStatus addMoreObjectsToDeepCloneOverride(AcDbIdMapping&, AcDbObjectIdArray& additionalObjectsToClone) const override;
+  virtual Acad::ErrorStatus addMoreObjectsToDeepCloneOverride(AcDbIdMapping&, AcDbObjectIdArray& additionalObjectsToClone) const override;
     /// <summary> Overridden implementation of the base class method. </summary>
     ///
-	virtual Acad::ErrorStatus dragStatusOverride(const AcDb::DragStat) override;
+  virtual Acad::ErrorStatus dragStatusOverride(const AcDb::DragStat) override;
     /// <summary> 
     /// Finds all actions that affected the given topological subentity (face,
     /// edge, vertex) of the given ASM-based entity (AcDbSurface, AcDb3dSolid, 
@@ -113,7 +113,7 @@ public:
     /// creation or change of the ASM face/edge/vertex.
     /// </remarks>
     ///
-	static Acad::ErrorStatus findActionsThatAffectedTopologicalSubentity(const AcDbEntity* pAsmBasedEntity, const AcDbSubentId&, AcDbObjectIdArray& actionIds);
+  static Acad::ErrorStatus findActionsThatAffectedTopologicalSubentity(const AcDbEntity* pAsmBasedEntity, const AcDbSubentId&, AcDbObjectIdArray& actionIds);
     /// <summary>
     /// The given AcDbEntity is expected to be of an ASM-based entity (AcDbSurface,
     /// AcDb3dSolid, AcDbRegion). If the entity has actions on it that create or 
@@ -127,7 +127,7 @@ public:
     /// internal actions.
     /// </remarks>
     ///
-	static Acad::ErrorStatus getTopologicalSubentitiesForActionsOnEntity(const AcDbEntity* pAsmBasedEntity, bool alsoUseAdjacentTopology, AcDbObjectIdArray& actionIds, AcArray<AcArray<AcDbSubentId> >& actionSubentIds);
+  static Acad::ErrorStatus getTopologicalSubentitiesForActionsOnEntity(const AcDbEntity* pAsmBasedEntity, bool alsoUseAdjacentTopology, AcDbObjectIdArray& actionIds, AcArray<AcArray<AcDbSubentId> >& actionSubentIds);
     /// <summary>
     /// Given an object, finds all AcDbSurfaces that have an action that takes the
     /// given object as input (the action has a read-only dependency on the
@@ -137,7 +137,7 @@ public:
     /// as input are re-evaluated and update the surfaces.
     /// </summary>
     ///
-	static Acad::ErrorStatus getSurfacesDirectlyDependentOnObject(const AcDbObject*, AcDbObjectIdArray& dependentSurfaceIds);
+  static Acad::ErrorStatus getSurfacesDirectlyDependentOnObject(const AcDbObject*, AcDbObjectIdArray& dependentSurfaceIds);
     /// <summary>
     /// This method is analogous to the like-named method in AcDbEntity. When an 
     /// AcDbSurface has actions that control it and this method is called on the 
@@ -146,7 +146,7 @@ public:
     /// or performs the operation instead of the AcDbSurface.
     /// </summary>    
     ///
-	virtual Acad::ErrorStatus getGripPoints(AcGePoint3dArray& gripPoints, AcDbIntArray& osnapModes, AcDbIntArray& geomIds) const;
+  virtual Acad::ErrorStatus getGripPoints(AcGePoint3dArray& gripPoints, AcDbIntArray& osnapModes, AcDbIntArray& geomIds) const;
     /// <summary>
     /// This method is analogous to the like-named method in AcDbEntity. When an 
     /// AcDbSurface has actions that control it and this method is called on the 
@@ -155,7 +155,7 @@ public:
     /// or performs the operation instead of the AcDbSurface.
     /// </summary>    
     ///
-	virtual Acad::ErrorStatus getGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const;
+  virtual Acad::ErrorStatus getGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const;
     /// <summary>
     /// This method is analogous to the like-named method in AcDbEntity. When an 
     /// AcDbSurface has actions that control it and this method is called on the 
@@ -164,7 +164,7 @@ public:
     /// or performs the operation instead of the AcDbSurface.
     /// </summary>    
     ///
-	virtual Acad::ErrorStatus moveGripPoints(const AcDbIntArray& indices, const AcGeVector3d& offset);
+  virtual Acad::ErrorStatus moveGripPoints(const AcDbIntArray& indices, const AcGeVector3d& offset);
     /// <summary>
     /// This method is analogous to the like-named method in AcDbEntity. When an 
     /// AcDbSurface has actions that control it and this method is called on the 
@@ -173,7 +173,7 @@ public:
     /// or performs the operation instead of the AcDbSurface.
     /// </summary>    
     ///
-	virtual Acad::ErrorStatus moveGripPoints(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags);
+  virtual Acad::ErrorStatus moveGripPoints(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags);
     /// <summary>
     /// This method is analogous to the like-named method in AcDbEntity. When an 
     /// AcDbSurface has actions that control it and this method is called on the 
@@ -182,7 +182,7 @@ public:
     /// or performs the operation instead of the AcDbSurface.
     /// </summary>    
     ///
-	virtual Acad::ErrorStatus moveStretchPoints(const AcDbIntArray& indices, const AcGeVector3d& offset);
+  virtual Acad::ErrorStatus moveStretchPoints(const AcDbIntArray& indices, const AcGeVector3d& offset);
     /// <summary>
     /// This method is analogous to the like-named method in AcDbEntity. When an 
     /// AcDbSurface has actions that control it and this method is called on the 
@@ -191,7 +191,7 @@ public:
     /// or performs the operation instead of the AcDbSurface.
     /// </summary>    
     ///
-	virtual void gripStatus(const AcDb::GripStat status);
+  virtual void gripStatus(const AcDb::GripStat status);
     /// <summary>
     /// This method is analogous to the like-named method in AcDbEntity. When an 
     /// AcDbSurface has actions that control it and this method is called on the 
@@ -200,7 +200,7 @@ public:
     /// or performs the operation instead of the AcDbSurface.
     /// </summary>    
     ///
-	virtual Acad::ErrorStatus getGripEntityUCS(const void* pGripAppData, AcGeVector3d& normalVec, AcGePoint3d& origin, AcGeVector3d& xAxis) const;
+  virtual Acad::ErrorStatus getGripEntityUCS(const void* pGripAppData, AcGeVector3d& normalVec, AcGePoint3d& origin, AcGeVector3d& xAxis) const;
     /// <summary>
     /// This method is analogous to the like-named method in AcDbEntity. When an 
     /// AcDbSurface has actions that control it and this method is called on the 
@@ -209,6 +209,6 @@ public:
     /// or performs the operation instead of the AcDbSurface.
     /// </summary>    
     ///
-	virtual void list() const;
+  virtual void list() const;
 };
 #pragma  pack (pop)

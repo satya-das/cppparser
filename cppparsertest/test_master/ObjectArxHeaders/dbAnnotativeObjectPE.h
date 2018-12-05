@@ -28,7 +28,7 @@ class AcDbViewport;
 class AcDbAnnotativeObjectPE : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAnnotativeObjectPE);
+  ACRX_DECLARE_MEMBERS(AcDbAnnotativeObjectPE);
     /// <summary>
     /// Determines whether the object is annotative.
     /// </summary>
@@ -42,7 +42,7 @@ public:
     /// false. 
     /// </returns>
     ///
-	virtual bool annotative(AcDbObject* pObject) const = 0;
+  virtual bool annotative(AcDbObject* pObject) const = 0;
     /// <summary>
     /// Sets the annotative property of an object.
     /// </summary>
@@ -59,7 +59,7 @@ public:
     /// Returns Acad::eOk if successful.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus setAnnotative(AcDbObject* pObject, const bool bAnnotative) = 0;
+  virtual Acad::ErrorStatus setAnnotative(AcDbObject* pObject, const bool bAnnotative) = 0;
     /// <summary>
     /// Sets the annotative property of an object from its (optionally)
     /// associated style. 
@@ -86,7 +86,7 @@ public:
     /// the same value for the property as its associated style. 
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus setFromStyle(AcDbObject* pObject, bool& bUpdated) = 0;
+  virtual Acad::ErrorStatus setFromStyle(AcDbObject* pObject, bool& bUpdated) = 0;
     /// <summary>
     /// Whether to ignore the ANNOALLVISIBLE system variable and
     /// force this object to display regardless of the current 
@@ -102,11 +102,11 @@ public:
     /// annotation scales. 
     /// </returns>
     ///
-	virtual bool forceAnnoAllVisible(AcDbObject* pObj) const
-	{
-		ADESK_UNREFED_PARAM(pObj);
-		return false;
-	}
+  virtual bool forceAnnoAllVisible(AcDbObject* pObj) const
+  {
+    ADESK_UNREFED_PARAM(pObj);
+    return false;
+  }
     /// <summary>
     /// Whether to ignore the ANNOALLVISIBLE system variable and
     /// force this object to display regardless of the current 
@@ -130,12 +130,12 @@ public:
     /// Only objects of type AcDbEntity are required to implement this
     /// function when they implement the protocol extension.
     /// </remarks>
-	virtual Acad::ErrorStatus setForceAnnoAllVisible(AcDbObject* pObj, bool bForce) const
-	{
-		ADESK_UNREFED_PARAM(pObj);
-		ADESK_UNREFED_PARAM(bForce);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus setForceAnnoAllVisible(AcDbObject* pObj, bool bForce) const
+  {
+    ADESK_UNREFED_PARAM(pObj);
+    ADESK_UNREFED_PARAM(bForce);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Resets any scale dependent object properties to the default 
     /// values. 
@@ -158,11 +158,11 @@ public:
     /// the current scale (or of a default scale, determined by the object, if
     /// the object doesn't support the current scale). 
     /// </remarks>
-	virtual Acad::ErrorStatus resetScaleDependentProperties(AcDbObject* pObject)
-	{
-		ADESK_UNREFED_PARAM(pObject);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus resetScaleDependentProperties(AcDbObject* pObject)
+  {
+    ADESK_UNREFED_PARAM(pObject);
+    return Acad::eNotImplemented;
+  }
 };
 /// <summary>
 /// This protocol extension interface can optionally be implemented by objects
@@ -172,7 +172,7 @@ public:
 class AcDbPaperOrientationPE : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbPaperOrientationPE);
+  ACRX_DECLARE_MEMBERS(AcDbPaperOrientationPE);
     /// <summary>
     /// Retrieves the current value of the paper orientation property on
     /// an annotative object.
@@ -186,7 +186,7 @@ public:
     /// Returns true if the object is currently oriented with the paper.
     /// </returns>
     ///
-	virtual bool paperOrientation(AcDbObject* pObject) const = 0;
+  virtual bool paperOrientation(AcDbObject* pObject) const = 0;
     /// <summary>
     /// Sets the current value of the paper orientation property
     /// on an annotative object.
@@ -204,7 +204,7 @@ public:
     /// Returns Acad::eOk if successful.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus setPaperOrientation(AcDbObject* pObject, const bool bPaperOrientation) = 0;
+  virtual Acad::ErrorStatus setPaperOrientation(AcDbObject* pObject, const bool bPaperOrientation) = 0;
     /// <summary>
     /// Transforms the object to align it to the paper-space viewport
     /// if the object supports the paper orientation property.
@@ -223,11 +223,11 @@ public:
     /// does not have the paper orientation property.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus applyPaperOrientationTransform(AcDbObject* pObject, const AcDbViewport* pVport) const
-	{
-		ADESK_UNREFED_PARAM(pObject);
-		ADESK_UNREFED_PARAM(pVport);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus applyPaperOrientationTransform(AcDbObject* pObject, const AcDbViewport* pVport) const
+  {
+    ADESK_UNREFED_PARAM(pObject);
+    ADESK_UNREFED_PARAM(pVport);
+    return Acad::eNotImplemented;
+  }
 };
 #pragma  pack (pop)

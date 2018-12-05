@@ -15,36 +15,36 @@
 // to perform an efficient filtered traversal of the block.
 //
 #ifndef AD_DBLYINDX_H
-#	define AD_DBLYINDX_H
-#	include "dbindex.h"
-#	pragma  pack (push, 8)
+#  define AD_DBLYINDX_H
+#  include "dbindex.h"
+#  pragma  pack (push, 8)
 class AcDbLayerIndex : public AcDbIndex
 {
-	ACDB_DECLARE_MEMBERS(AcDbLayerIndex);
+  ACDB_DECLARE_MEMBERS(AcDbLayerIndex);
 public:
-	AcDbLayerIndex();
-	virtual ~AcDbLayerIndex();
-	virtual AcDbFilteredBlockIterator* newIterator(const AcDbFilter* pFilter) const override;
-	virtual Acad::ErrorStatus rebuildFull(AcDbIndexUpdateData* pIdxData) override;
-	Acad::ErrorStatus compute(AcDbLayerTable* pLT, AcDbBlockTableRecord* pBTR);
+  AcDbLayerIndex();
+  virtual ~AcDbLayerIndex();
+  virtual AcDbFilteredBlockIterator* newIterator(const AcDbFilter* pFilter) const override;
+  virtual Acad::ErrorStatus rebuildFull(AcDbIndexUpdateData* pIdxData) override;
+  Acad::ErrorStatus compute(AcDbLayerTable* pLT, AcDbBlockTableRecord* pBTR);
 protected:
-	virtual Acad::ErrorStatus rebuildModified(AcDbBlockChangeIterator* iter) override;
+  virtual Acad::ErrorStatus rebuildModified(AcDbBlockChangeIterator* iter) override;
 };
 class AcDbImpLayerIndexIterator;
 class AcDbLayerFilter;
 class AcDbLayerIndexIterator : public AcDbFilteredBlockIterator
 {
 public:
-	AcDbLayerIndexIterator(const AcDbLayerIndex* pIndex, const AcDbLayerFilter* pFilter);
-	virtual ~AcDbLayerIndexIterator();
-	virtual Acad::ErrorStatus start() override;
-	virtual AcDbObjectId next() override;
-	virtual AcDbObjectId id() const override;
-	virtual Acad::ErrorStatus seek(AcDbObjectId id) override;
-	virtual double estimatedHitFraction() const override;
-	virtual Acad::ErrorStatus accepts(AcDbObjectId id, Adesk::Boolean& idPassesFilter) const override;
+  AcDbLayerIndexIterator(const AcDbLayerIndex* pIndex, const AcDbLayerFilter* pFilter);
+  virtual ~AcDbLayerIndexIterator();
+  virtual Acad::ErrorStatus start() override;
+  virtual AcDbObjectId next() override;
+  virtual AcDbObjectId id() const override;
+  virtual Acad::ErrorStatus seek(AcDbObjectId id) override;
+  virtual double estimatedHitFraction() const override;
+  virtual Acad::ErrorStatus accepts(AcDbObjectId id, Adesk::Boolean& idPassesFilter) const override;
 private:
-	AcDbImpLayerIndexIterator* mpImpIter;
+  AcDbImpLayerIndexIterator* mpImpIter;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

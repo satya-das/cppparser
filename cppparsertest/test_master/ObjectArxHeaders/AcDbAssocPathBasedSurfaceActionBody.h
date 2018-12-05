@@ -25,17 +25,17 @@
 class ACDB_PORT AcDbAssocPathBasedSurfaceActionBody : public AcDbAssocSurfaceActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocPathBasedSurfaceActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocPathBasedSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject. </param>
     ///
-	explicit AcDbAssocPathBasedSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocPathBasedSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> Removes all AcDbAssocPathActionParams. </summary>
     ///
-	Acad::ErrorStatus removeAllPathParams();
+  Acad::ErrorStatus removeAllPathParams();
     /// <summary> Gets all AcDbAssocPathActionParams. </summary>
     ///
-	Acad::ErrorStatus getInputPathParams(AcDbObjectIdArray& pathParamIds) const;
+  Acad::ErrorStatus getInputPathParams(AcDbObjectIdArray& pathParamIds) const;
     /// <summary> 
     /// Gets the current geometry of all input paths. The outermost array is for
     /// every path, the second array is for the segments of each path, and the 
@@ -45,36 +45,36 @@ public:
     /// to no edge at all (though, it most cases it will be just a single edge).
     /// </summary>
     ///
-	Acad::ErrorStatus getInputPaths(AcArray<AcArray<AcArray<AcDbEdgeRef> > >&) const;
+  Acad::ErrorStatus getInputPaths(AcArray<AcArray<AcArray<AcDbEdgeRef> > >&) const;
     /// <summary> 
     /// Sets all input paths. Each path is specified by an array of AcDbEdgeRefs.
     /// </summary>
     ///
-	Acad::ErrorStatus setInputPaths(const AcArray<AcArray<AcDbEdgeRef> >&);
+  Acad::ErrorStatus setInputPaths(const AcArray<AcArray<AcDbEdgeRef> >&);
     /// <summary> Sets all input paths. </summary>
     ///
-	Acad::ErrorStatus setInputPaths(const AcArray<AcDbPathRef>&);
+  Acad::ErrorStatus setInputPaths(const AcArray<AcDbPathRef>&);
     /// <summary> 
     /// Changes the single input path specified by its pathIndex. The path with
     /// the given index must already exist.
     /// </summary>
     ///
-	Acad::ErrorStatus updateInputPath(int pathIndex, const AcDbPathRef&);
+  Acad::ErrorStatus updateInputPath(int pathIndex, const AcDbPathRef&);
     /// <summary> Removes all AcDbAssocVertexActionParams. </summary>
     ///
-	Acad::ErrorStatus removeAllVertexParams();
+  Acad::ErrorStatus removeAllVertexParams();
     /// <summary> Gets all AcDbAssocVertexActionParams. </summary>
     ///
-	Acad::ErrorStatus getInputVertexParams(AcDbObjectIdArray& vertexParamIds) const;
+  Acad::ErrorStatus getInputVertexParams(AcDbObjectIdArray& vertexParamIds) const;
     /// <summary> 
     /// Sets all input points. Points can sometimes be used instead of profile
     /// paths.
     /// </summary>
     ///
-	Acad::ErrorStatus setInputPoints(const AcArray<AcDbVertexRef>&);
+  Acad::ErrorStatus setInputPoints(const AcArray<AcDbVertexRef>&);
     /// <summary> Gets all input points. </summary>
     ///
-	Acad::ErrorStatus getInputPoints(AcArray<AcDbVertexRef>&) const;
+  Acad::ErrorStatus getInputPoints(AcArray<AcDbVertexRef>&) const;
     /// <summary>
     /// This method is to simplify the user selection of the underlying path 
     /// geometry that is the input for the action. The resulting surface usually 
@@ -84,6 +84,6 @@ public:
     /// the input paths are easier to select by the user.
     /// </summary>
     ///
-	Acad::ErrorStatus makeInputPathsDrawOnTopOfResultingSurface() const;
+  Acad::ErrorStatus makeInputPathsDrawOnTopOfResultingSurface() const;
 };
 #pragma  pack (pop)

@@ -13,10 +13,10 @@
 //  dbSelectVPGrip.h - public header file for AcDbSelectVPGrip api
 //
 #ifndef _DBSELECTGRIP_H
-#	define _DBSELECTGRIP_H
-#	include "acdb.h"
-#	include "dbmain.h"
-#	pragma  pack (push, 8)
+#  define _DBSELECTGRIP_H
+#  include "acdb.h"
+#  include "dbmain.h"
+#  pragma  pack (push, 8)
 ////////////////////////////////////////////////////////////////////////
 // class AcDbSelectGrip
 ////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@
 class ADESK_NO_VTABLE AcDbSelectGrip : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbSelectGrip);
+  ACRX_DECLARE_MEMBERS(AcDbSelectGrip);
     /// <summary>
     /// Determine whether a grip on a custom entity is selectable. 
     /// </summary>
@@ -57,7 +57,7 @@ public:
     /// Returns true if the grip is selectable and false if not.
     /// </returns>
     ///
-	virtual bool SelectGrip(const AcDbEntity* pEnt, const AcGiViewportDraw* pVd, const void* pAppData) = 0;
+  virtual bool SelectGrip(const AcDbEntity* pEnt, const AcGiViewportDraw* pVd, const void* pAppData) = 0;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

@@ -55,16 +55,16 @@ const ACHAR kszVSEdgeColorOff[] = ACRX_T("EdgeColorOff");
 /// </summary>
 class AcDbVisualStyle : public AcDbObject
 {
-	ACDB_DECLARE_MEMBERS(AcDbVisualStyle);
+  ACDB_DECLARE_MEMBERS(AcDbVisualStyle);
 public:
     /// <summary>
     /// Default constructor.  Initializes members to reasonable default values.
     /// </summary>
-	AcDbVisualStyle();
+  AcDbVisualStyle();
     /// <summary>
     /// Destructor.  Performs any necessary cleanup of the visual style.
     /// </summary>
-	virtual ~AcDbVisualStyle();
+  virtual ~AcDbVisualStyle();
     /// <summary>
     /// Sets the visual style description
     /// </summary>
@@ -74,14 +74,14 @@ public:
     /// <returns>
     /// Returns Acad::ErrorStatus eOk.
     /// </returns>
-	Acad::ErrorStatus setDescription(const ACHAR* pDescription);
+  Acad::ErrorStatus setDescription(const ACHAR* pDescription);
     /// <summary>
     /// Reports the description of this visual style.
     /// </summary>
     /// <returns>
     /// Returns ACHAR* const pointer to the description of the visual style.
     /// </returns>
-	const ACHAR* description(void) const;
+  const ACHAR* description(void) const;
     /// <summary>
     /// Sets the visual style type from the given AcGiVisualStyle::Type 
     /// enumerator.
@@ -92,7 +92,7 @@ public:
     /// <returns>
     /// Returns Acad::ErrorStatus eOk.
     /// </returns>
-	Acad::ErrorStatus setType(AcGiVisualStyle::Type type);
+  Acad::ErrorStatus setType(AcGiVisualStyle::Type type);
     /// <summary>
     /// Reports the visual style type via the AcGiVisualStyle::Type 
     /// enumerator.
@@ -101,7 +101,7 @@ public:
     /// Returns AcGiVisualStyle::Type, the type of this visual style 
     /// as a value from the AcGiVisualStyle::Type enumeration.
     /// </returns>
-	AcGiVisualStyle::Type type() const;
+  AcGiVisualStyle::Type type() const;
     /// <summary>
     /// Sets a property of the visual style.  
     /// </summary>
@@ -125,7 +125,7 @@ public:
     /// acdbVisualStyle.setTrait (AcGiVisualStyleProperties::kDisplayBrightness, displayBrightness);
     ///
     /// </example>
-	Acad::ErrorStatus setTrait(AcGiVisualStyleProperties::Property prop, const AcGiVariant* pVal, AcGiVisualStyleOperations::Operation op = AcGiVisualStyleOperations::kSet);
+  Acad::ErrorStatus setTrait(AcGiVisualStyleProperties::Property prop, const AcGiVariant* pVal, AcGiVisualStyleOperations::Operation op = AcGiVisualStyleOperations::kSet);
     /// <summary>
     /// Sets an integer property of the visual style.
     /// </summary>
@@ -169,7 +169,7 @@ public:
     /// acdbVisualStyle.setTrait (AcGiVisualStyleProperties::kEdgeHaloGap, 20);
     ///
     /// </example>
-	Acad::ErrorStatus setTrait(AcGiVisualStyleProperties::Property prop, int nVal, AcGiVisualStyleOperations::Operation op = AcGiVisualStyleOperations::kSet);
+  Acad::ErrorStatus setTrait(AcGiVisualStyleProperties::Property prop, int nVal, AcGiVisualStyleOperations::Operation op = AcGiVisualStyleOperations::kSet);
     /// <summary>
     /// Sets a boolean property of the visual style.
     /// </summary>
@@ -193,7 +193,7 @@ public:
     /// acdbVisualStyle.setTrait (AcGiVisualStyleProperties::kEdgeHidePrecision, false);
     ///
     /// </example>
-	Acad::ErrorStatus setTrait(AcGiVisualStyleProperties::Property prop, bool bVal, AcGiVisualStyleOperations::Operation op = AcGiVisualStyleOperations::kSet);
+  Acad::ErrorStatus setTrait(AcGiVisualStyleProperties::Property prop, bool bVal, AcGiVisualStyleOperations::Operation op = AcGiVisualStyleOperations::kSet);
     /// <summary>
     /// Sets a double property of the visual style.
     /// </summary>
@@ -221,7 +221,7 @@ public:
     /// acdbVisualStyle.setTrait (AcGiVisualStyleProperties::kDisplayBrightness, 1.0);
     ///
     /// </example>
-	Acad::ErrorStatus setTrait(AcGiVisualStyleProperties::Property prop, double dVal, AcGiVisualStyleOperations::Operation op = AcGiVisualStyleOperations::kSet);
+  Acad::ErrorStatus setTrait(AcGiVisualStyleProperties::Property prop, double dVal, AcGiVisualStyleOperations::Operation op = AcGiVisualStyleOperations::kSet);
     /// <summary>
     /// Sets a color property of the visual style.
     /// </summary>
@@ -255,7 +255,7 @@ public:
     /// acdbVisualStyle.setTrait (AcGiVisualStyleProperties::kEdgeIntersectionColor, 1.1, 1.0, 1.0);
     ///
     /// </example>
-	Acad::ErrorStatus setTrait(AcGiVisualStyleProperties::Property prop, double red, double green, double blue, AcGiVisualStyleOperations::Operation op = AcGiVisualStyleOperations::kSet);
+  Acad::ErrorStatus setTrait(AcGiVisualStyleProperties::Property prop, double red, double green, double blue, AcGiVisualStyleOperations::Operation op = AcGiVisualStyleOperations::kSet);
     /// <summary>
     /// Sets a color property of the visual style.
     /// </summary>
@@ -285,7 +285,7 @@ public:
     /// acdbVisualStyle.setTrait (AcGiVisualStyleProperties::kFaceMonoColor, &monoColor);
     ///
     /// </example>
-	Acad::ErrorStatus setTrait(AcGiVisualStyleProperties::Property prop, const AcCmColor* pColor, AcGiVisualStyleOperations::Operation op = AcGiVisualStyleOperations::kSet);
+  Acad::ErrorStatus setTrait(AcGiVisualStyleProperties::Property prop, const AcCmColor* pColor, AcGiVisualStyleOperations::Operation op = AcGiVisualStyleOperations::kSet);
     /// <summary>
     /// Gets a property of the visual style.  
     /// </summary>
@@ -305,7 +305,7 @@ public:
     ///     acgiVisualStyle.trait (AcGiVisualStyleProperties::kDisplayBrightness);
     ///
     /// </example>
-	const AcGiVariant& trait(AcGiVisualStyleProperties::Property prop, AcGiVisualStyleOperations::Operation* pOp = NULL) const;
+  const AcGiVariant& trait(AcGiVisualStyleProperties::Property prop, AcGiVisualStyleOperations::Operation* pOp = NULL) const;
     /// <summary>
     /// Sets a property flag into the visual style, for properties which are bitfield enums.
     /// </summary>
@@ -328,7 +328,7 @@ public:
     ///                               true);
     ///
     /// </example>
-	Acad::ErrorStatus setTraitFlag(AcGiVisualStyleProperties::Property flagProp, Adesk::UInt32 flagVal, bool bEnable = true);
+  Acad::ErrorStatus setTraitFlag(AcGiVisualStyleProperties::Property flagProp, Adesk::UInt32 flagVal, bool bEnable = true);
     /// <summary>
     /// Gets a property flag from the visual style, for properties which are bitfield enums.
     /// </summary>
@@ -348,7 +348,7 @@ public:
     ///                               AcGiVisualStyle::kJitter);
     ///
     /// </example>
-	bool traitFlag(AcGiVisualStyleProperties::Property flagProp, Adesk::UInt32 flagVal) const;
+  bool traitFlag(AcGiVisualStyleProperties::Property flagProp, Adesk::UInt32 flagVal) const;
     // AcDbObject protocol
     //
     /// <summary>
@@ -361,7 +361,7 @@ public:
     /// Returns Acad::ErrorStatus value of Acad::eOk if successful,
     /// otherwise an error status return indicating type of failure.
     /// </returns>
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary>
     /// Files out the visual style properties to a .dwg format file.
     /// </summary>
@@ -372,7 +372,7 @@ public:
     /// Returns Acad::ErrorStatus value of Acad::eOk if successful,
     /// otherwise an error status return indicating type of failure.
     /// </returns>
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary>
     /// Files in the visual style properties from a .dxf format file.
     /// </summary>
@@ -383,7 +383,7 @@ public:
     /// Returns Acad::ErrorStatus value of Acad::eOk if successful,
     /// otherwise an error status return indicating type of failure.
     /// </returns>
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     /// <summary>
     /// Files out the visual style properties to a .dxf format file.
     /// </summary>
@@ -394,7 +394,7 @@ public:
     /// Returns Acad::ErrorStatus value of Acad::eOk if successful,
     /// otherwise an error status return indicating type of failure.
     /// </returns>
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     // AcGiDrawable protocol
     //
     /// <summary>
@@ -403,7 +403,7 @@ public:
     /// <returns>
     /// Returns AcGiDrawable* pointer to this object.
     /// </returns>
-	virtual AcGiDrawable* drawable(void) override;
+  virtual AcGiDrawable* drawable(void) override;
     /// <summary>
     /// Reports whether this visual style is for internal use only
     /// </summary>
@@ -411,7 +411,7 @@ public:
     /// Returns boolean indicating whether this visual style is for
     /// internal use only and will not be exposed in any UI.
     /// </returns>
-	virtual bool isInternalUseOnly() const;
+  virtual bool isInternalUseOnly() const;
     /// <summary>
     /// Sets a flag indicating that this visual style is for internal use
     /// only and will not be exposed in any UI.
@@ -419,7 +419,7 @@ public:
     /// <param name="bInternalUseOnly">
     /// Input boolean indicating this visual style is for internal use only.
     /// </param>
-	virtual void setInternalUseOnly(bool bInternalUseOnly);
+  virtual void setInternalUseOnly(bool bInternalUseOnly);
     // Utility functions to map between AcDbVisualStyle and AcGiVisualStyle
     /// <summary>
     /// Copies this visual style to the given destination visual style.
@@ -431,7 +431,7 @@ public:
     /// Returns Acad::ErrorStatus Acad::eOk for success, otherwise an error
     /// return value Acad::eInvalidInput if the parameter passed is null.
     /// </returns>
-	virtual Acad::ErrorStatus copyTo(AcGiVisualStyle* pDest) const;
+  virtual Acad::ErrorStatus copyTo(AcGiVisualStyle* pDest) const;
     /// <summary>
     /// Copies the given visual style to this visual style.
     /// </summary>
@@ -442,7 +442,7 @@ public:
     /// Returns Acad::ErrorStatus Acad::eOk for success, otherwise an error
     /// return value Acad::eInvalidInput if the parameter passed is null.
     /// </returns>
-	virtual Acad::ErrorStatus copyFrom(const AcGiVisualStyle* pSrc);
+  virtual Acad::ErrorStatus copyFrom(const AcGiVisualStyle* pSrc);
     /// <summary>
     /// Prepares the visual style for saving to previous AutoCAD versions.
     /// </summary>
@@ -462,7 +462,7 @@ public:
     /// Returns Acad::ErrorStatus Acad::eOk for success, otherwise an error
     /// return value.
     /// </returns>
-	virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
-	ACDBCORE2D_PORT Acad::ErrorStatus name(AcString& value) const;
+  virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
+  ACDBCORE2D_PORT Acad::ErrorStatus name(AcString& value) const;
 };
 #pragma  pack (pop)

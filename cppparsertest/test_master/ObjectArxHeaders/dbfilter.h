@@ -16,17 +16,17 @@
 // traversal of the block can be performed.
 //
 #ifndef AD_DBFILTER_H
-#	define AD_DBFILTER_H
-#	include "dbmain.h"
-#	pragma  pack (push, 8)
+#  define AD_DBFILTER_H
+#  include "dbmain.h"
+#  pragma  pack (push, 8)
 class AcDbFilteredBlockIterator;
 class AcDbFilter : public AcDbObject
 {
-	ACDB_DECLARE_MEMBERS(AcDbFilter);
+  ACDB_DECLARE_MEMBERS(AcDbFilter);
 public:
-	AcDbFilter();
-	virtual ~AcDbFilter();
-	virtual AcRxClass* indexClass() const;
+  AcDbFilter();
+  virtual ~AcDbFilter();
+  virtual AcRxClass* indexClass() const;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

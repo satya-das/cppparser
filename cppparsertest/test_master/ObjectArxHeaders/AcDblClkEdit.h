@@ -19,16 +19,16 @@
 // the search up the AcRxClass tree will not fail and abort AutoCAD.  
 //
 #ifndef DOUBLECLICKEDIT_H
-#	define DOUBLECLICKEDIT_H
-#	include "acdb.h"
-#	include "dbmain.h"
-#	pragma  pack (push, 8)
+#  define DOUBLECLICKEDIT_H
+#  include "acdb.h"
+#  include "dbmain.h"
+#  pragma  pack (push, 8)
 class ADESK_NO_VTABLE AcDbDoubleClickEdit : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbDoubleClickEdit);
-	virtual void startEdit(AcDbEntity* pEnt, AcGePoint3d pt) = 0;
-	virtual void finishEdit(void) = 0;
+  ACRX_DECLARE_MEMBERS(AcDbDoubleClickEdit);
+  virtual void startEdit(AcDbEntity* pEnt, AcGePoint3d pt) = 0;
+  virtual void finishEdit(void) = 0;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

@@ -26,7 +26,7 @@ class AcRxMethodIteratorImp;
 class AcRxMethod : public AcRxMember
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxMethod, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxMethod, ACBASE_PORT);
     /// <summary>
     /// This method is called to execute a method.
     ///
@@ -42,7 +42,7 @@ public:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus invoke(AcRxObject* pO, AcRxValue& param) const;
+  ACBASE_PORT Acad::ErrorStatus invoke(AcRxObject* pO, AcRxValue& param) const;
     /// <summary>
     /// This method is called to check if the method can be executed.
     ///
@@ -58,13 +58,13 @@ public:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus isExecutable(const AcRxObject* pO, const AcRxValue& param) const;
+  ACBASE_PORT Acad::ErrorStatus isExecutable(const AcRxObject* pO, const AcRxValue& param) const;
 protected:
     /// <summary>
     /// Destructor
     /// </summary>
     ///
-	ACBASE_PORT ~AcRxMethod();
+  ACBASE_PORT ~AcRxMethod();
     /// <summary>
     /// Constructor
     /// </summary>
@@ -77,7 +77,7 @@ protected:
     /// Input reference to type of the member.
     /// </param>
     ///
-	ACBASE_PORT AcRxMethod(const ACHAR* name, const AcRxValueType& type);
+  ACBASE_PORT AcRxMethod(const ACHAR* name, const AcRxValueType& type);
     /// <summary>
     /// Derived classes can override this method to execute the method.
     /// </summary>
@@ -92,7 +92,7 @@ protected:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	virtual Acad::ErrorStatus subInvoke(AcRxObject* pO, AcRxValue& param) const;
+  virtual Acad::ErrorStatus subInvoke(AcRxObject* pO, AcRxValue& param) const;
     /// <summary>
     /// Derived classes can override this method to return a status, if the method can executed 
     /// in its current state.
@@ -108,7 +108,7 @@ protected:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	virtual Acad::ErrorStatus subIsExecutable(const AcRxObject* pO, const AcRxValue& param) const;
-	friend class AcRxMethodImp;
-	ACBASE_PORT AcRxMethod(AcRxMethodImp*);
+  virtual Acad::ErrorStatus subIsExecutable(const AcRxObject* pO, const AcRxValue& param) const;
+  friend class AcRxMethodImp;
+  ACBASE_PORT AcRxMethod(AcRxMethodImp*);
 };

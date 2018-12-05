@@ -12,13 +12,13 @@
 //             a few acrxXX function definitions.
 //
 #ifndef _ADSRXDEF_H_
-#	define _ADSRXDEF_H_	1
-#	pragma  pack (push, 8)
+#  define _ADSRXDEF_H_	1
+#  pragma  pack (push, 8)
 typedef struct fchnd
 {
-	struct fchnd* next;
-	int fcode;
-	int (*fhdl) ();
+  struct fchnd* next;
+  int fcode;
+  int (*fhdl) ();
 } FunHandList;
 class AcRxGenHand;
 /* The following typedef is used for maintaining a connection between
@@ -27,16 +27,16 @@ class AcRxGenHand;
 class RxADSAppTableEntryType
 {
 public:
-	int lflag;
-	ACHAR* appname;
-	Adesk::LongPtr apphandle;
-	int ads_fcode;
-	int ads_invkcnt;
-	struct resbuf* ads_argl;
-	FunHandList* ads_fhdl;
-	AcRxGenHand* modhandle;
-	resbuf* ads_ret;
-	int ads_rettype;
+  int lflag;
+  ACHAR* appname;
+  Adesk::LongPtr apphandle;
+  int ads_fcode;
+  int ads_invkcnt;
+  struct resbuf* ads_argl;
+  FunHandList* ads_fhdl;
+  AcRxGenHand* modhandle;
+  resbuf* ads_ret;
+  int ads_rettype;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

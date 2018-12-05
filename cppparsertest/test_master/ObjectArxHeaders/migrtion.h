@@ -15,16 +15,16 @@
 // R15. At some point, you should make global substitutions in your code.
 //
 #ifndef DB_MIGRATION_H
-#	define DB_MIGRATION_H
-#	include "adsmigr.h"
-#	include "acutmigr.h"
-#	define acdbSetCurrentVPort	acedSetCurrentVPort
-#	define acdbGetCurrentSelectionSet	acedGetCurrentSelectionSet
+#  define DB_MIGRATION_H
+#  include "adsmigr.h"
+#  include "acutmigr.h"
+#  define acdbSetCurrentVPort	acedSetCurrentVPort
+#  define acdbGetCurrentSelectionSet	acedGetCurrentSelectionSet
 // The following macro will require that you #include "dbapserv.h" and
 // add AcUtil15.lib to the LINK line in your makefile.
 //
-#	define acdbCurDwg	acdbHostApplicationServices()->workingDatabase
-#	define acdbGetRGB	acedGetRGB
-#	define acdbGetCurViewportObjectId	acedGetCurViewportObjectId
-#	define getCurDwgXrefGraph	acedGetCurDwgXrefGraph
+#  define acdbCurDwg	acdbHostApplicationServices()->workingDatabase
+#  define acdbGetRGB	acedGetRGB
+#  define acdbGetCurViewportObjectId	acedGetCurViewportObjectId
+#  define getCurDwgXrefGraph	acedGetCurDwgXrefGraph
 #endif

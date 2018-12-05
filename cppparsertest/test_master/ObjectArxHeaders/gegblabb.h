@@ -32,8 +32,8 @@
 //            #include "bar.h"
 //            #include "gegblabb.h" // <- Must be last!
 #ifndef AC_GEGBLABB_H
-#	define AC_GEGBLABB_H
-#	include "gegbl.h"
+#  define AC_GEGBLABB_H
+#  include "gegbl.h"
 const int eGood = AcGe::eGood;
 const int eBad = AcGe::eBad;
 typedef AcGe::EntityId EntityId;

@@ -26,18 +26,18 @@ typedef void (APIENTRY *PFNGLADDSWAPHINTRECTWINPROC) (GLint x, GLint y, GLsizei 
 class EXPIMP TestClass :  BaseClass1, private BaseClass2
 {
 public:
-	TestClass();
-	~TestClass();
-	~TestClass()
-	{
-	}
-	virtual int PureVirtualMethod() = 0;
+  TestClass();
+  ~TestClass();
+  ~TestClass()
+  {
+  }
+  virtual int PureVirtualMethod() = 0;
 	// Line comment to document code.
-	static double& dMem;
-	const float* fMem;
-	int* const piMem;
-	static const int* XXX;
-	A::B x;
-	signed short s;
+  static double& dMem;
+  const float* fMem;
+  int* const piMem;
+  static const int* XXX;
+  A::B x;
+  signed short s;
 };
 x = 0;

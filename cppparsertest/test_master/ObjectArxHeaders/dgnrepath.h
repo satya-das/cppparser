@@ -14,17 +14,17 @@
 typedef Adesk::UInt64 AcDgnRefFileId;
 struct AcDbDgnRefFileData
 {
-	enum FileType
-	{
-		kDgnFile = 1,
-		kDwgFile = 2,
-		kImageFile = 3,
-		kOtherFile = 4
-	};
-	FileType type;
-	AcString savedPathAndName;
-	AcString foundPathAndName;
-	AcDgnRefFileId refId;
+  enum FileType
+  {
+    kDgnFile = 1,
+    kDwgFile = 2,
+    kImageFile = 3,
+    kOtherFile = 4
+  };
+  FileType type;
+  AcString savedPathAndName;
+  AcString foundPathAndName;
+  AcDgnRefFileId refId;
 };
 typedef AcArray<AcDbDgnRefFileData*> AcDbRefFileDataPtrArray;
 typedef AcArray<AcDgnRefFileId> AcDbDgnRefFileIdArray;
@@ -32,14 +32,14 @@ Acad::ErrorStatus acdbGetDgnFileReferences(const ACHAR* fileName, const ACHAR* p
 class AcDbDgnRefFileRepath
 {
 public:
-	AcDbDgnRefFileRepath()
-		: m_fileHandle(NULL)
-	{
-	}
-	Acad::ErrorStatus setFile(const AcString& dgnPathAndFilename, const ACHAR* pwd);
-	~AcDbDgnRefFileRepath();
-	Acad::ErrorStatus getReferenceFilePaths(AcDbRefFileDataPtrArray& refFiles);
-	Acad::ErrorStatus rePath(const AcDbDgnRefFileIdArray& refFileIds, const AcStringArray& newRefFileNames);
+  AcDbDgnRefFileRepath()
+    : m_fileHandle(NULL)
+  {
+  }
+  Acad::ErrorStatus setFile(const AcString& dgnPathAndFilename, const ACHAR* pwd);
+  ~AcDbDgnRefFileRepath();
+  Acad::ErrorStatus getReferenceFilePaths(AcDbRefFileDataPtrArray& refFiles);
+  Acad::ErrorStatus rePath(const AcDbDgnRefFileIdArray& refFileIds, const AcStringArray& newRefFileNames);
 private:
-	void* m_fileHandle;
+  void* m_fileHandle;
 };

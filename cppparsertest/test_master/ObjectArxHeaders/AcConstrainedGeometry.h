@@ -23,21 +23,21 @@ class AcConstrainedRigidSet;
 class ACDB_PORT AcConstrainedGeometry : public AcConstraintGroupNode
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedGeometry);
+  ACRX_DECLARE_MEMBERS(AcConstrainedGeometry);
   /// <summary> 
   /// Returns Boolean indicating if this constrained geometry is read-only --
   /// cannot be modified or transformed, in other words, it is fixed. 
   /// </summary>
   /// <returns> Boolean. </returns>
   ///
-	virtual bool isReadOnly() const;
+  virtual bool isReadOnly() const;
   /// <summary> 
   /// Returns AcDbObjectId of the AcDbAssocGeomDependency object referenced
   /// by this constrained geometry. It maybe Null for some kind of constrained geometry. 
   /// </summary>
   /// <returns> AcDbObjectId. </returns>
   ///
-	AcDbObjectId geomDependencyId() const;
+  AcDbObjectId geomDependencyId() const;
   /// <summary> 
   /// Returns pointer to owning AcConstrainedRigidSet object which this constrained geometry
   /// belongs to. One constrained geometry can only stay in one rigid set.
@@ -45,7 +45,7 @@ public:
   /// </summary>
   /// <returns> pointer to AcConstrainedRigidSet. </returns>
   ///
-	AcConstrainedRigidSet* getOwningRigidSet() const;
+  AcConstrainedRigidSet* getOwningRigidSet() const;
   // Get the list of Constraints referencing this constrained geometry
   /// <summary> 
   /// Returns the array of pointer to AcGeomConstraint objects which 
@@ -55,7 +55,7 @@ public:
   /// </summary>
   /// <returns> Return Acad::eOk if successful. </returns>
   ///
-	Acad::ErrorStatus getConnectedConstraints(AcArray<AcGeomConstraint*>& apConstraints) const;
+  Acad::ErrorStatus getConnectedConstraints(AcArray<AcGeomConstraint*>& apConstraints) const;
   /// <summary> 
   /// Returns the array of pointer to AcGeomConstraint objects between this constrained geometry
   /// and the other constrained geometry pOtherConsGeom.
@@ -68,7 +68,7 @@ public:
   /// </param>
   /// <returns> Returns Acad::eOk if successful. </returns>
   ///
-	Acad::ErrorStatus getCommonConstraints(AcConstrainedGeometry* pOtherConsGeom, AcArray<AcGeomConstraint*>& apConstraints) const;
+  Acad::ErrorStatus getCommonConstraints(AcConstrainedGeometry* pOtherConsGeom, AcArray<AcGeomConstraint*>& apConstraints) const;
   /// <summary> 
   /// Returns the array of pointer to AcConstrainedGeometry objects to which 
   /// this constrained geometry is indirectly connected through the common constraints.
@@ -78,7 +78,7 @@ public:
   /// </param>
   /// <returns> Returns Acad::eOk if successful. </returns>
   ///
-	Acad::ErrorStatus getConnectedGeometries(AcArray<AcConstrainedGeometry*>& apConsGeoms) const;
+  Acad::ErrorStatus getConnectedGeometries(AcArray<AcConstrainedGeometry*>& apConsGeoms) const;
   /// <summary> 
   /// Returns an array of AcDbFullSubentPaths of the subentities of the AutoCAD
   /// AcDbEntities that correspond to this constrained geometry. Notice that the
@@ -90,11 +90,11 @@ public:
   /// The returned array of AcDbFullSubentPaths, usually containing exactly one item.
   /// </param>
   ///
-	Acad::ErrorStatus getFullSubentPaths(AcDbFullSubentPathArray& subentPaths) const;
+  Acad::ErrorStatus getFullSubentPaths(AcDbFullSubentPathArray& subentPaths) const;
 protected:
   /// <summary> Protected default constructor. </summary>
   /// 
-	AcConstrainedGeometry();
+  AcConstrainedGeometry();
 };
 /// <summary>
 /// This class represents a constrained point node in the owning AcDbAssoc2dConstraintGroup.
@@ -105,7 +105,7 @@ protected:
 class ACDB_PORT AcConstrainedPoint : public AcConstrainedGeometry
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedPoint);
+  ACRX_DECLARE_MEMBERS(AcConstrainedPoint);
   /// <summary> 
   /// Default constructor.
   /// </summary>
@@ -114,7 +114,7 @@ public:
   /// The default value is true.
   /// </param>
   ///
-	explicit AcConstrainedPoint(bool bCreateImp = true);
+  explicit AcConstrainedPoint(bool bCreateImp = true);
   /// <summary> 
   /// constructor.
   /// </summary>
@@ -123,14 +123,14 @@ public:
   /// to which this constrained line is holding on.
   /// </param>
   ///
-	AcConstrainedPoint(AcDbObjectId geomDependencyId);
+  AcConstrainedPoint(AcDbObjectId geomDependencyId);
   /// <summary> 
   /// Returns the point position.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	virtual AcGePoint3d point() const;
+  virtual AcGePoint3d point() const;
 };
 /// <summary><para>
 /// This class represents a constrained implicit point node in the owning AcDbAssoc2dConstraintGroup.
@@ -143,10 +143,10 @@ public:
 class ACDB_PORT AcConstrainedImplicitPoint : public AcConstrainedPoint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedImplicitPoint);
+  ACRX_DECLARE_MEMBERS(AcConstrainedImplicitPoint);
   /// <summary> Default constructor. </summary>
   /// 
-	explicit AcConstrainedImplicitPoint(bool bCreateImp = true);
+  explicit AcConstrainedImplicitPoint(bool bCreateImp = true);
   /// <summary> 
   /// Constructor. 
   /// </summary>
@@ -163,33 +163,33 @@ public:
   /// Default value is -1 (invalid index).
   /// </param>
   ///
-	AcConstrainedImplicitPoint(AcGraphNode::Id constrCurvId, AcDb::ImplicitPointType ptype, int index = -1);
+  AcConstrainedImplicitPoint(AcGraphNode::Id constrCurvId, AcDb::ImplicitPointType ptype, int index = -1);
   /// <summary> 
   /// Returns the type of this implicit point.
   /// </summary>
   /// <returns> ImplicitPointType. </returns>
   ///
-	AcDb::ImplicitPointType pointType() const;
+  AcDb::ImplicitPointType pointType() const;
   /// <summary> 
   /// Returns the define point index of this implicit point.
   /// </summary>
   /// <returns> When the point type is not kDefineImplicit, -1 is returned. </returns>
   ///
-	int pointIndex() const;
+  int pointIndex() const;
   /// <summary> 
   /// Returns Id of the constrained curve to which
   /// this implicit point belongs.
   /// </summary>
   /// <returns> AcGraphNode::Id. </returns>
   ///
-	AcGraphNode::Id constrainedCurveId() const;
+  AcGraphNode::Id constrainedCurveId() const;
   /// <summary> 
   /// Returns the point position.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	virtual AcGePoint3d point() const override;
+  virtual AcGePoint3d point() const override;
 };
 /// <summary>
 /// This class represents a constrained curve node in the owning AcDbAssoc2dConstraintGroup.
@@ -198,13 +198,13 @@ public:
 class ACDB_PORT AcConstrainedCurve : public AcConstrainedGeometry
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedCurve);
+  ACRX_DECLARE_MEMBERS(AcConstrainedCurve);
   /// <summary>
   /// Returns true if this constrained curve is bounded. 
   /// </summary>
   /// <returns> true for bounded curve, otherwise false. </returns>
   ///
-	virtual bool isBounded() const;
+  virtual bool isBounded() const;
   /// <summary><para> 
   /// Returns the array of pointer to AcConstrainedImplicitPoint objects which 
   /// belong to this constrained curve.
@@ -216,13 +216,13 @@ public:
   /// </param>
   /// <returns> void. </returns>
   ///
-	virtual void getConstrainedImplicitPoints(AcArray<AcConstrainedImplicitPoint*>& apImplicitPoints) const;
+  virtual void getConstrainedImplicitPoints(AcArray<AcConstrainedImplicitPoint*>& apImplicitPoints) const;
 protected:
   /// <summary> Protected default constructor. </summary>
   /// 
-	explicit AcConstrainedCurve()
-	{
-	}
+  explicit AcConstrainedCurve()
+  {
+  }
 };
 /// <summary>
 /// This class represents a constrained unbounded line node in the owning AcDbAssoc2dConstraintGroup.
@@ -231,7 +231,7 @@ protected:
 class ACDB_PORT AcConstrainedLine : public AcConstrainedCurve
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedLine);
+  ACRX_DECLARE_MEMBERS(AcConstrainedLine);
   /// <summary> 
   /// Default constructor.
   /// </summary>
@@ -240,7 +240,7 @@ public:
   /// The default value is true.
   /// </param>
   ///
-	explicit AcConstrainedLine(bool bCreateImp = true);
+  explicit AcConstrainedLine(bool bCreateImp = true);
   /// <summary> 
   /// constructor.
   /// </summary>
@@ -249,21 +249,21 @@ public:
   /// to which this constrained line is holding on.
   /// </param>
   ///
-	AcConstrainedLine(AcDbObjectId geomDependencyId);
+  AcConstrainedLine(AcDbObjectId geomDependencyId);
   /// <summary> 
   /// Returns an arbitrary point on the unbounded line. 
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	AcGePoint3d pointOnLine() const;
+  AcGePoint3d pointOnLine() const;
   /// <summary> 
   /// Returns direction unit vector of the unbounded line. 
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGeVector3d. </returns>
   ///
-	AcGeVector3d direction() const;
+  AcGeVector3d direction() const;
 };
 /// <summary>
 /// This class represents a constrained unbounded construction line node in the owning AcDbAssoc2dConstraintGroup.
@@ -273,11 +273,11 @@ public:
 class ACDB_PORT AcConstrainedConstructionLine : public AcConstrainedLine
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedConstructionLine);
+  ACRX_DECLARE_MEMBERS(AcConstrainedConstructionLine);
 protected:
   /// <summary> Protected default constructor. </summary>
   /// 
-	explicit AcConstrainedConstructionLine();
+  explicit AcConstrainedConstructionLine();
 };
 /// <summary>
 /// This class represents a constrained unbounded construction line node in the owning AcDbAssoc2dConstraintGroup.
@@ -287,12 +287,12 @@ protected:
 class ACDB_PORT AcConstrained2PointsConstructionLine : public AcConstrainedConstructionLine
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrained2PointsConstructionLine);
+  ACRX_DECLARE_MEMBERS(AcConstrained2PointsConstructionLine);
   /// <summary> 
   /// Default constructor.
   /// </summary>
   ///
-	explicit AcConstrained2PointsConstructionLine(bool bCreateImp = true);
+  explicit AcConstrained2PointsConstructionLine(bool bCreateImp = true);
   /// <summary> 
   /// constructor.
   /// </summary>
@@ -305,7 +305,7 @@ public:
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </param>
   ///
-	explicit AcConstrained2PointsConstructionLine(const AcGePoint3d& point1, const AcGePoint3d& point2);
+  explicit AcConstrained2PointsConstructionLine(const AcGePoint3d& point1, const AcGePoint3d& point2);
 };
 /// <summary>
 /// This class represents a constrained datum unbounded line node in the owning AcDbAssoc2dConstraintGroup.
@@ -315,12 +315,12 @@ public:
 class ACDB_PORT AcConstrainedDatumLine : public AcConstrainedConstructionLine
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedDatumLine);
+  ACRX_DECLARE_MEMBERS(AcConstrainedDatumLine);
   /// <summary> 
   /// Default constructor.
   /// </summary>
   ///
-	explicit AcConstrainedDatumLine(bool bCreateImp = true);
+  explicit AcConstrainedDatumLine(bool bCreateImp = true);
   /// <summary> 
   /// constructor.
   /// </summary>
@@ -333,7 +333,7 @@ public:
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </param>
   ///
-	explicit AcConstrainedDatumLine(const AcGePoint3d& pointOnLine, const AcGeVector3d& direction);
+  explicit AcConstrainedDatumLine(const AcGePoint3d& pointOnLine, const AcGeVector3d& direction);
 };
 /// <summary>
 /// This class represents a constrained bounded line node in the owning AcDbAssoc2dConstraintGroup.
@@ -342,12 +342,12 @@ public:
 class ACDB_PORT AcConstrainedBoundedLine : public AcConstrainedLine
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedBoundedLine);
+  ACRX_DECLARE_MEMBERS(AcConstrainedBoundedLine);
   /// <summary> 
   /// Default constructor.
   /// </summary>
   ///
-	explicit AcConstrainedBoundedLine(bool bCreateImp = true);
+  explicit AcConstrainedBoundedLine(bool bCreateImp = true);
   /// <summary> 
   /// constructor.
   /// </summary>
@@ -359,7 +359,7 @@ public:
   /// Input Boolean indicating whether this bounded line is a ray.
   /// </param>
   ///
-	explicit AcConstrainedBoundedLine(AcDbObjectId geomDependencyId, bool bRay);
+  explicit AcConstrainedBoundedLine(AcDbObjectId geomDependencyId, bool bRay);
   /// <summary> 
   /// Returns Boolean indicating whether this bounded line is a ray - a partially bounded
   /// line. In the case that this returns true, the start point represents the
@@ -368,28 +368,28 @@ public:
   /// </summary>
   /// <returns> Returns true if it is a ray. </returns>
   ///
-	bool isRay() const;
+  bool isRay() const;
   /// <summary> 
   /// Returns the start point of the bounded line. 
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	AcGePoint3d startPoint() const;
+  AcGePoint3d startPoint() const;
   /// <summary> 
   /// Returns the start point of the bounded line. It is invalid for ray.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	AcGePoint3d endPoint() const;
+  AcGePoint3d endPoint() const;
   /// <summary> 
   /// Returns the mid point of the bounded line. It is invalid for ray.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	AcGePoint3d midPoint() const;
+  AcGePoint3d midPoint() const;
 };
 /// <summary>
 /// This class represents a constrained circle node in the owning AcDbAssoc2dConstraintGroup.
@@ -398,7 +398,7 @@ public:
 class ACDB_PORT AcConstrainedCircle : public AcConstrainedCurve
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedCircle);
+  ACRX_DECLARE_MEMBERS(AcConstrainedCircle);
   /// <summary> 
   /// Default constructor.
   /// </summary>
@@ -407,7 +407,7 @@ public:
   /// The default value is true.
   /// </param>
   ///
-	explicit AcConstrainedCircle(bool bCreateImp = true);
+  explicit AcConstrainedCircle(bool bCreateImp = true);
   /// <summary> 
   /// constructor.
   /// </summary>
@@ -416,20 +416,20 @@ public:
   /// to which this constrained circle is holding on.
   /// </param>
   ///
-	explicit AcConstrainedCircle(AcDbObjectId geomDependencyId);
+  explicit AcConstrainedCircle(AcDbObjectId geomDependencyId);
   /// <summary> 
   /// Returns the radius of the constrained circle.
   /// </summary>
   /// <returns> double. </returns>
   ///
-	double radius() const;
+  double radius() const;
   /// <summary> 
   /// Returns the center point of the constrained circle.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	AcGePoint3d centerPoint() const;
+  AcGePoint3d centerPoint() const;
 };
 /// <summary>
 /// This class represents a constrained arc node in the owning AcDbAssoc2dConstraintGroup.
@@ -438,12 +438,12 @@ public:
 class ACDB_PORT AcConstrainedArc : public AcConstrainedCircle
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedArc);
+  ACRX_DECLARE_MEMBERS(AcConstrainedArc);
   /// <summary> 
   /// Default constructor.
   /// </summary>
   ///
-	explicit AcConstrainedArc(bool bCreateImp = true);
+  explicit AcConstrainedArc(bool bCreateImp = true);
   /// <summary> 
   /// constructor.
   /// </summary>
@@ -452,28 +452,28 @@ public:
   /// to which this constrained arc is holding on.
   /// </param>
   ///
-	explicit AcConstrainedArc(AcDbObjectId geomDependencyId);
+  explicit AcConstrainedArc(AcDbObjectId geomDependencyId);
   /// <summary> 
   /// Returns the start point of the constrained arc.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	AcGePoint3d startPoint() const;
+  AcGePoint3d startPoint() const;
   /// <summary> 
   /// Returns the end point of the constrained arc.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	AcGePoint3d endPoint() const;
+  AcGePoint3d endPoint() const;
   /// <summary> 
   /// Returns the mid point of the constrained arc.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	AcGePoint3d midPoint() const;
+  AcGePoint3d midPoint() const;
 };
 /// <summary>
 /// This class represents a constrained ellipse node in the owning AcDbAssoc2dConstraintGroup.
@@ -482,7 +482,7 @@ public:
 class ACDB_PORT AcConstrainedEllipse : public AcConstrainedCurve
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedEllipse);
+  ACRX_DECLARE_MEMBERS(AcConstrainedEllipse);
   /// <summary> 
   /// Default constructor.
   /// </summary>
@@ -491,7 +491,7 @@ public:
   /// The default value is true.
   /// </param>
   ///
-	explicit AcConstrainedEllipse(bool bCreateImp = true);
+  explicit AcConstrainedEllipse(bool bCreateImp = true);
   /// <summary> 
   /// constructor.
   /// </summary>
@@ -500,35 +500,35 @@ public:
   /// to which this constrained ellipse is holding on.
   /// </param>
   ///
-	explicit AcConstrainedEllipse(AcDbObjectId geomDependencyId);
+  explicit AcConstrainedEllipse(AcDbObjectId geomDependencyId);
   /// <summary> 
   /// Returns direction unit vector of the major axis of the constrained ellipse.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGeVector3d. </returns>
   ///
-	AcGeVector3d direction() const;
+  AcGeVector3d direction() const;
   /// <summary> 
   /// Returns major radius of the constrained ellipse.
   /// The major radius may be smaller than minor radius, this is different from AcGeEllipArc3d.
   /// </summary>
   /// <returns> double. </returns>
   ///
-	double majorRadius() const;
+  double majorRadius() const;
   /// <summary> 
   /// Returns minor radius of the constrained ellipse.
   /// The minor radius may be larger than major radius, this is different from AcGeEllipArc3d.
   /// </summary>
   /// <returns> double. </returns>
   ///
-	double minorRadius() const;
+  double minorRadius() const;
   /// <summary> 
   /// Returns the center point of the constrained ellipse.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	AcGePoint3d centerPoint() const;
+  AcGePoint3d centerPoint() const;
 };
 /// <summary>
 /// This class represents a constrained ellipse arc node in the owning AcDbAssoc2dConstraintGroup.
@@ -537,12 +537,12 @@ public:
 class ACDB_PORT AcConstrainedBoundedEllipse : public AcConstrainedEllipse
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedBoundedEllipse);
+  ACRX_DECLARE_MEMBERS(AcConstrainedBoundedEllipse);
   /// <summary> 
   /// Default constructor.
   /// </summary>
   ///
-	explicit AcConstrainedBoundedEllipse(bool bCreateImp = true);
+  explicit AcConstrainedBoundedEllipse(bool bCreateImp = true);
   /// <summary> 
   /// constructor.
   /// </summary>
@@ -551,21 +551,21 @@ public:
   /// to which this constrained bounded ellipse is holding on.
   /// </param>
   ///
-	explicit AcConstrainedBoundedEllipse(AcDbObjectId geomDependencyId);
+  explicit AcConstrainedBoundedEllipse(AcDbObjectId geomDependencyId);
   /// <summary> 
   /// Returns the start point of the constrained bounded ellipse.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	AcGePoint3d startPoint() const;
+  AcGePoint3d startPoint() const;
   /// <summary> 
   /// Returns the end point of the constrained bounded ellipse.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	AcGePoint3d endPoint() const;
+  AcGePoint3d endPoint() const;
 };
 /// <summary>
 /// This class represents a constrained NURBS spline node in the owning AcDbAssoc2dConstraintGroup.
@@ -574,12 +574,12 @@ public:
 class ACDB_PORT AcConstrainedSpline : public AcConstrainedCurve
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedSpline);
+  ACRX_DECLARE_MEMBERS(AcConstrainedSpline);
   /// <summary> 
   /// Default constructor.
   /// </summary>
   ///
-	explicit AcConstrainedSpline(bool bCreateImp = true);
+  explicit AcConstrainedSpline(bool bCreateImp = true);
   /// <summary> 
   /// constructor.
   /// </summary>
@@ -592,14 +592,14 @@ public:
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </param>
   ///
-	explicit AcConstrainedSpline(AcDbObjectId geomDependencyId, const AcGeNurbCurve3d& spline);
+  explicit AcConstrainedSpline(AcDbObjectId geomDependencyId, const AcGeNurbCurve3d& spline);
   /// <summary> 
   /// Returns the AcGeNurbCurve3d representation of the constrained spline.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGeNurbCurve3d. </returns>
   ///
-	const AcGeNurbCurve3d nurbSpline() const;
+  const AcGeNurbCurve3d nurbSpline() const;
   /// <summary> 
   /// Returns the number of define point of the constrained spline.
   /// Currently, only spline control points are supported. For closed
@@ -607,14 +607,14 @@ public:
   /// </summary>
   /// <returns> int. </returns>
   ///
-	int numOfDefinePoints() const;
+  int numOfDefinePoints() const;
   /// <summary> 
   /// Returns the define point of the constrained spline.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-	AcGePoint3d definePointAt(int index) const;
+  AcGePoint3d definePointAt(int index) const;
 };
 /// <summary>
 /// This class represents a constrained rigid set node in the owning AcDbAssoc2dConstraintGroup.
@@ -623,12 +623,12 @@ public:
 class ACDB_PORT AcConstrainedRigidSet : public AcConstrainedGeometry
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConstrainedRigidSet);
+  ACRX_DECLARE_MEMBERS(AcConstrainedRigidSet);
   /// <summary> 
   /// Default constructor.
   /// </summary>
   ///
-	explicit AcConstrainedRigidSet(bool bCreateImp = true);
+  explicit AcConstrainedRigidSet(bool bCreateImp = true);
   /// <summary> 
   /// constructor.
   /// </summary>
@@ -640,26 +640,26 @@ public:
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </param>
   ///
-	explicit AcConstrainedRigidSet(bool bScalable, const AcGeMatrix3d& trans);
+  explicit AcConstrainedRigidSet(bool bScalable, const AcGeMatrix3d& trans);
   /// <summary> 
   /// Returns the number of constrained geometries contained.
   /// </summary>
   /// <returns> int. </returns>
   ///
-	int numOfConstrainedGeoms() const;
+  int numOfConstrainedGeoms() const;
   /// <summary> 
   /// Returns pointer to the constrained geometry.
   /// </summary>
   /// <returns> AcConstrainedGeometry*. </returns>
   ///
-	AcConstrainedGeometry* getConstrainedGeomAt(int index) const;
+  AcConstrainedGeometry* getConstrainedGeomAt(int index) const;
   /// <summary> 
   /// Returns transform of this rigid set.
   /// Relative to the work plane of the owning AcDbAssoc2dConstraintGroup object.
   /// </summary>
   /// <returns> AcGeMatrix3d. </returns>
   ///
-	AcGeMatrix3d transform() const;
+  AcGeMatrix3d transform() const;
 };
 // For internal use only
 
@@ -671,50 +671,50 @@ public:
 struct ACDB_PORT AcDbAssocTransInfo
 {
     /// <summary> The geometric transformation type. </summary>
-	enum TransType
-	{
+  enum TransType
+  {
         /// <summary> Translation and/or rotation. </summary>
-		kGeneral = 0,
+    kGeneral = 0,
         /// <summary> Scaling and/or translation. </summary>
-		kScaling,
+    kScaling,
         /// <summary> Circle radius change only. </summary>
-		kRadius,
+    kRadius,
         /// <summary> Ellipse major radius change only. </summary>
-		kMajorRadius,
+    kMajorRadius,
         /// <summary> Ellipse minor radius change only. </summary>
-		kMinorRadius,
+    kMinorRadius,
         /// <summary> Radius fixed. </summary>
-		kFixedRadius,
+    kFixedRadius,
         /// <summary> Geometry fixed. </summary>
-		kFixed,
+    kFixed,
         /// <summary> Geometry fixed only when possible. </summary>
-		kFixWhenPossible,
+    kFixWhenPossible,
         /// <summary> Not a valid transformation type. </summary>
-		kNone
-	};
+    kNone
+  };
     /// <summary> Default constructor. </summary>
     /// 
-	AcDbAssocTransInfo()
-		: mRadius(-1.0)
-		, mTransType(kGeneral)
-	{
-	}
+  AcDbAssocTransInfo()
+    : mRadius(-1.0)
+    , mTransType(kGeneral)
+  {
+  }
     /// <summary> The type of the transformation applied to the entity or sub-entity. </summary>
     ///
-	TransType mTransType;
+  TransType mTransType;
     /// <summary>
     /// The transformation matrix applied to the entity or sub-entity.
     /// It is only valid when the mTransType is NOT kRadius, kMajorRadius or kMinorRadius.
     /// It is relative to the world coordinate system.
     /// </summary>
     ///
-	AcGeMatrix3d mTrans;
+  AcGeMatrix3d mTrans;
     /// <summary>
     /// The radius value to be applied to the entity or sub-entity.
     /// It is only valid when the mTransType is kRadius, kMajorRadius or kMinorRadius.
     /// </summary>
     ///
-	double mRadius;
+  double mRadius;
 };
 /// <summary>
 /// The Dragging information of the constrained geometry. For internal use only.
@@ -727,17 +727,17 @@ struct ACDB_PORT AcConstrainedGeometryDraggingInfo : public AcDbAssocTransInfo
     /// share the same transformation.
     /// </summary>
     ///
-	AcDbFullSubentPathArray maGeomFullSubentPaths;
+  AcDbFullSubentPathArray maGeomFullSubentPaths;
     /// <summary>
     /// The actual constrained geometries which are being changed
     /// maGeomFullSubentPaths will be ignored if it is not empty
     /// </summary>
     ///
-	AcArray<AcConstrainedGeometry *> maDraggingGeometries;
+  AcArray<AcConstrainedGeometry *> maDraggingGeometries;
     /// <summary>
     /// INTERNAL USE ONLY
     /// </summary>
     ///
-	static const AcString& getKey();
+  static const AcString& getKey();
 };
 #pragma  pack (pop)

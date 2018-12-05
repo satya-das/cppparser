@@ -11,9 +11,9 @@
 //
 //  dbmtext.h - multi-line text entity
 #ifndef AD_DBMTEXT_H
-#	define AD_DBMTEXT_H
-#	include "dbmain.h"
-#	pragma  pack(push, 8)
+#  define AD_DBMTEXT_H
+#  include "dbmain.h"
+#  pragma  pack(push, 8)
 //  This structure is used to describe a fragment of text as 
 //  extracted by the explodeFragments() member function.  Each 
 //  fragment consists of a piece of text with a unique 
@@ -23,53 +23,53 @@ struct AcDbMTextFragment
 {
     //  position data
     //
-	AcGePoint3d location;
-	AcGeVector3d normal;
-	AcGeVector3d direction;
+  AcGePoint3d location;
+  AcGeVector3d normal;
+  AcGeVector3d direction;
     //  text characters
     //
-	AcString msText;
+  AcString msText;
     // This member points to the msText member. It may be removed
     // in the future. Please use the msText member instead.
-	const ACHAR* text = nullptr;
+  const ACHAR* text = nullptr;
     //  font names
     //
-	AcString msFont;
+  AcString msFont;
     // This member points to the msFont member. It may be removed
     // in the future. Please use the msFont member instead.
-	const ACHAR* font = nullptr;
-	AcString msBigFont;
+  const ACHAR* font = nullptr;
+  AcString msBigFont;
     // This member points to the msBigFont member. It may be removed
     // in the future. Please use the msBigFont member instead.
-	const ACHAR* bigfont = nullptr;
+  const ACHAR* bigfont = nullptr;
     //  metrics
     //
-	AcGePoint2d extents;
-	double capsHeight = 0.0;
-	double widthFactor = 0.0;
-	double obliqueAngle = 0.0;
-	double trackingFactor = 0.0;
-	AcCmEntityColor color;
+  AcGePoint2d extents;
+  double capsHeight = 0.0;
+  double widthFactor = 0.0;
+  double obliqueAngle = 0.0;
+  double trackingFactor = 0.0;
+  AcCmEntityColor color;
     //  stack flags
     //
-	unsigned stackTop;
-	unsigned stackBottom;
+  unsigned stackTop;
+  unsigned stackBottom;
     //  underline/overline data
     //
-	unsigned underlined;
-	unsigned overlined;
-	unsigned strikethrough;
-	AcGePoint3d underPoints[2] = {};
-	AcGePoint3d overPoints[2] = {};
-	AcGePoint3d strikePoints[2] = {};
+  unsigned underlined;
+  unsigned overlined;
+  unsigned strikethrough;
+  AcGePoint3d underPoints[2] = {};
+  AcGePoint3d overPoints[2] = {};
+  AcGePoint3d strikePoints[2] = {};
     //  true type font data
     //
-	AcString msFontName;
+  AcString msFontName;
     // This member points to the msFontName member. It may be removed
     // in the future. Please use the msFontName member instead.
-	const ACHAR* fontname = nullptr;
-	bool bold = false;
-	bool italic = false;
+  const ACHAR* fontname = nullptr;
+  bool bold = false;
+  bool italic = false;
 };
 //  Fragment Enumerator Callback Function Prototype
 //
@@ -84,99 +84,99 @@ typedef int (*AcDbMTextEnum) (AcDbMTextFragment*, void*);
 class AcDbText;
 class AcDbMText : public AcDbEntity
 {
-	ACDB_DECLARE_MEMBERS(AcDbMText);
+  ACDB_DECLARE_MEMBERS(AcDbMText);
 public:
-	AcDbMText();
-	~AcDbMText();
+  AcDbMText();
+  ~AcDbMText();
     //  Insertion point
     //
-	AcGePoint3d location() const;
-	Acad::ErrorStatus setLocation(const AcGePoint3d&);
+  AcGePoint3d location() const;
+  Acad::ErrorStatus setLocation(const AcGePoint3d&);
     //  Normal vector
     // 
-	AcGeVector3d normal() const;
-	Acad::ErrorStatus setNormal(const AcGeVector3d&);
+  AcGeVector3d normal() const;
+  Acad::ErrorStatus setNormal(const AcGeVector3d&);
     // AcDbEntity override
-	virtual Adesk::Boolean isPlanar() const override
-	{
-		return Adesk::kTrue;
-	}
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getPlane(AcGePlane& plane, AcDb::Planarity& type) const override;
+  virtual Adesk::Boolean isPlanar() const override
+  {
+    return Adesk::kTrue;
+  }
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getPlane(AcGePlane& plane, AcDb::Planarity& type) const override;
     //  Direction vector
     //
-	AcGeVector3d direction() const;
-	Acad::ErrorStatus setDirection(const AcGeVector3d&);
+  AcGeVector3d direction() const;
+  Acad::ErrorStatus setDirection(const AcGeVector3d&);
     //  Rotation angle (radians)
     // 
-	double rotation() const;
-	Acad::ErrorStatus setRotation(double);
+  double rotation() const;
+  Acad::ErrorStatus setRotation(double);
     //  Entity width (constraining value)
     // 
-	double width() const;
-	Acad::ErrorStatus setWidth(double);
+  double width() const;
+  Acad::ErrorStatus setWidth(double);
     //  Descent/Ascent
     // 
-	double ascent() const;
-	double descent() const;
+  double ascent() const;
+  double descent() const;
     //  Text Style (sets initial font)
     //
-	AcDbObjectId textStyle() const;
-	Acad::ErrorStatus setTextStyle(AcDbObjectId);
+  AcDbObjectId textStyle() const;
+  Acad::ErrorStatus setTextStyle(AcDbObjectId);
     //  Initial text height (caps height)
     //
-	double textHeight() const;
-	Acad::ErrorStatus setTextHeight(double);
-	enum AttachmentPoint
-	{
-		kTopLeft = 1,
-		kTopCenter = 2,
-		kTopRight = 3,
-		kMiddleLeft = 4,
-		kMiddleCenter = 5,
-		kMiddleRight = 6,
-		kBottomLeft = 7,
-		kBottomCenter = 8,
-		kBottomRight = 9,
-		kBaseLeft = 10,
-		kBaseCenter = 11,
-		kBaseRight = 12,
-		kBaseAlign = 13,
-		kBottomAlign = 14,
-		kMiddleAlign = 15,
-		kTopAlign = 16,
-		kBaseFit = 17,
-		kBottomFit = 18,
-		kMiddleFit = 19,
-		kTopFit = 20,
-		kBaseMid = 21,
-		kBottomMid = 22,
-		kMiddleMid = 23,
-		kTopMid = 24
-	};
-	AttachmentPoint attachment() const;
-	Acad::ErrorStatus setAttachment(AttachmentPoint);
-	Acad::ErrorStatus setAttachmentMovingLocation(AttachmentPoint);
+  double textHeight() const;
+  Acad::ErrorStatus setTextHeight(double);
+  enum AttachmentPoint
+  {
+    kTopLeft = 1,
+    kTopCenter = 2,
+    kTopRight = 3,
+    kMiddleLeft = 4,
+    kMiddleCenter = 5,
+    kMiddleRight = 6,
+    kBottomLeft = 7,
+    kBottomCenter = 8,
+    kBottomRight = 9,
+    kBaseLeft = 10,
+    kBaseCenter = 11,
+    kBaseRight = 12,
+    kBaseAlign = 13,
+    kBottomAlign = 14,
+    kMiddleAlign = 15,
+    kTopAlign = 16,
+    kBaseFit = 17,
+    kBottomFit = 18,
+    kMiddleFit = 19,
+    kTopFit = 20,
+    kBaseMid = 21,
+    kBottomMid = 22,
+    kMiddleMid = 23,
+    kTopMid = 24
+  };
+  AttachmentPoint attachment() const;
+  Acad::ErrorStatus setAttachment(AttachmentPoint);
+  Acad::ErrorStatus setAttachmentMovingLocation(AttachmentPoint);
     // This latter method will implicitly setLocation based on the
     // relationship of current and new attachment values in order
     // to keep the extents of the MText object constant.
 
     //  Text flow direction
     //
-	enum FlowDirection
-	{
-		kLtoR = 1,
-		kRtoL = 2,
-		kTtoB = 3,
-		kBtoT = 4,
-		kByStyle = 5
-	};
-	FlowDirection flowDirection() const;
-	Acad::ErrorStatus setFlowDirection(FlowDirection);
+  enum FlowDirection
+  {
+    kLtoR = 1,
+    kRtoL = 2,
+    kTtoB = 3,
+    kBtoT = 4,
+    kByStyle = 5
+  };
+  FlowDirection flowDirection() const;
+  Acad::ErrorStatus setFlowDirection(FlowDirection);
     //  Text contents
     //
-	ACDBCORE2D_PORT Acad::ErrorStatus contents(AcString& sContents) const;
-	ACHAR* contents() const;
-	int setContents(const ACHAR*);
+  ACDBCORE2D_PORT Acad::ErrorStatus contents(AcString& sContents) const;
+  ACHAR* contents() const;
+  int setContents(const ACHAR*);
     /// <summary> This method returns an RTF encoded string that is a
     /// translated version of the contents of the AcDbMText object. MText
     /// codes are translated to RTF codes. Fonts, colors, tabs, and indents
@@ -187,8 +187,8 @@ public:
     /// The caller is responsible for freeing the memory used by the
     /// returned string (preferrably by using acutDelString()).
     /// </summary>
-	ACDBCORE2D_PORT Acad::ErrorStatus contentsRTF(AcString& sContentsRTF) const;
-	ACHAR* contentsRTF() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus contentsRTF(AcString& sContentsRTF) const;
+  ACHAR* contentsRTF() const;
     /// <summary> This method sets the contents of the AcDbMText object from
     /// the RTF-encoded text string pointed to by RTFString. RTF codes are
     /// translated to MText codes. Fonts, colors, tabs, and indents are
@@ -200,122 +200,122 @@ public:
     /// </summary>
     /// <param name="RTFString">Input RTF-encoded string.</param>
     /// <returns>Returns 0 if successful.</returns>
-	int setContentsRTF(const ACHAR* RTFString);
-	ACDBCORE2D_PORT Acad::ErrorStatus text(AcString& sText) const;
-	ACHAR* text() const;
+  int setContentsRTF(const ACHAR* RTFString);
+  ACDBCORE2D_PORT Acad::ErrorStatus text(AcString& sText) const;
+  ACHAR* text() const;
     //  Actual extents
     //
-	double actualHeight(AcGiWorldDraw* ctxt = NULL) const;
-	double actualWidth() const;
-	int correctSpelling();
+  double actualHeight(AcGiWorldDraw* ctxt = NULL) const;
+  double actualWidth() const;
+  int correctSpelling();
     //  Return points marking text box
     //
-	void getBoundingPoints(AcGePoint3dArray&) const;
+  void getBoundingPoints(AcGePoint3dArray&) const;
     //  Explode text fragments
     //
-	void explodeFragments(AcDbMTextEnum, void*, AcGiWorldDraw* ctxt = NULL) const;
+  void explodeFragments(AcDbMTextEnum, void*, AcGiWorldDraw* ctxt = NULL) const;
     //  These strings can be used instead of sprinkling your code 
     //  with string constants.
-	static const ACHAR* const nonBreakSpace();
-	static const ACHAR* const overlineOn();
-	static const ACHAR* const overlineOff();
-	static const ACHAR* const underlineOn();
-	static const ACHAR* const underlineOff();
-	static const ACHAR* const colorChange();
-	static const ACHAR* const fontChange();
-	static const ACHAR* const heightChange();
-	static const ACHAR* const widthChange();
-	static const ACHAR* const obliqueChange();
-	static const ACHAR* const trackChange();
-	static const ACHAR* const lineBreak();
-	static const ACHAR* const paragraphBreak();
-	static const ACHAR* const stackStart();
-	static const ACHAR* const alignChange();
-	static const ACHAR* const blockBegin();
-	static const ACHAR* const blockEnd();
-	static const ACHAR* const strikethroughOn();
-	static const ACHAR* const strikethroughOff();
-	Acad::ErrorStatus setLineSpacingStyle(AcDb::LineSpacingStyle eStyle);
-	AcDb::LineSpacingStyle lineSpacingStyle() const;
+  static const ACHAR* const nonBreakSpace();
+  static const ACHAR* const overlineOn();
+  static const ACHAR* const overlineOff();
+  static const ACHAR* const underlineOn();
+  static const ACHAR* const underlineOff();
+  static const ACHAR* const colorChange();
+  static const ACHAR* const fontChange();
+  static const ACHAR* const heightChange();
+  static const ACHAR* const widthChange();
+  static const ACHAR* const obliqueChange();
+  static const ACHAR* const trackChange();
+  static const ACHAR* const lineBreak();
+  static const ACHAR* const paragraphBreak();
+  static const ACHAR* const stackStart();
+  static const ACHAR* const alignChange();
+  static const ACHAR* const blockBegin();
+  static const ACHAR* const blockEnd();
+  static const ACHAR* const strikethroughOn();
+  static const ACHAR* const strikethroughOff();
+  Acad::ErrorStatus setLineSpacingStyle(AcDb::LineSpacingStyle eStyle);
+  AcDb::LineSpacingStyle lineSpacingStyle() const;
     // 1.0 = single spaced (default), 2.0 = double-spaced, etc.
-	Acad::ErrorStatus setLineSpacingFactor(double dFactor);
-	double lineSpacingFactor() const;
-	virtual void getEcs(AcGeMatrix3d& retVal) const override;
+  Acad::ErrorStatus setLineSpacingFactor(double dFactor);
+  double lineSpacingFactor() const;
+  virtual void getEcs(AcGeMatrix3d& retVal) const override;
     /// <summary> Get the flag controlling mtext border's visibility.
     /// <returns> bool </returns>
     /// </summary>
-	ACDBCORE2D_PORT bool showBorders() const;
+  ACDBCORE2D_PORT bool showBorders() const;
     /// <summary> Set the flag controlling mtext border's visibility.
     /// <param name = "enable"> true means borders will be visible
     ///                         false means borders will be invisible </param>
     /// <returns> Acad::ErrorStatus </returns>
     /// </summary>
-	ACDBCORE2D_PORT Acad::ErrorStatus setShowBorders(bool enable);
-	bool backgroundFillOn() const;
-	Acad::ErrorStatus setBackgroundFill(bool enable);
-	Acad::ErrorStatus getBackgroundFillColor(AcCmColor& color) const;
-	Acad::ErrorStatus setBackgroundFillColor(const AcCmColor& color);
-	Acad::ErrorStatus getBackgroundScaleFactor(double& scale) const;
-	Acad::ErrorStatus setBackgroundScaleFactor(const double scale);
-	Acad::ErrorStatus getBackgroundTransparency(AcCmTransparency& transp) const;
-	Acad::ErrorStatus setBackgroundTransparency(const AcCmTransparency& transp);
-	bool useBackgroundColorOn() const;
-	Acad::ErrorStatus setUseBackgroundColor(bool enable);
-	virtual Acad::ErrorStatus setField(const ACHAR* pszPropName, AcDbField* pField, AcDbObjectId& fieldId) override;
-	virtual Acad::ErrorStatus removeField(AcDbObjectId fieldId) override;
-	virtual Acad::ErrorStatus removeField(const ACHAR* pszPropName, AcDbObjectId& returnId) override;
-	virtual Acad::ErrorStatus removeField(const ACHAR* pszPropName) override;
-	Acad::ErrorStatus convertFieldToText();
-	enum ColumnType
-	{
-		kNoColumns,
-		kStaticColumns,
-		kDynamicColumns
-	};
-	Acad::ErrorStatus setDynamicColumns(double width, double gutter, bool auto_height);
-	Acad::ErrorStatus setStaticColumns(double width, double gutter, int count);
-	Acad::ErrorStatus getColumnType(ColumnType&) const;
-	Acad::ErrorStatus setColumnType(ColumnType);
-	Acad::ErrorStatus getColumnAutoHeight(bool&) const;
-	Acad::ErrorStatus setColumnAutoHeight(bool);
-	Acad::ErrorStatus getColumnCount(int&) const;
-	Acad::ErrorStatus setColumnCount(int);
-	Acad::ErrorStatus getColumnWidth(double&) const;
-	Acad::ErrorStatus setColumnWidth(double);
-	Acad::ErrorStatus getColumnGutterWidth(double&) const;
-	Acad::ErrorStatus setColumnGutterWidth(double);
-	Acad::ErrorStatus getColumnFlowReversed(bool&) const;
-	Acad::ErrorStatus setColumnFlowReversed(bool);
-	Acad::ErrorStatus getColumnHeight(int, double&) const;
-	Acad::ErrorStatus setColumnHeight(int, double);
+  ACDBCORE2D_PORT Acad::ErrorStatus setShowBorders(bool enable);
+  bool backgroundFillOn() const;
+  Acad::ErrorStatus setBackgroundFill(bool enable);
+  Acad::ErrorStatus getBackgroundFillColor(AcCmColor& color) const;
+  Acad::ErrorStatus setBackgroundFillColor(const AcCmColor& color);
+  Acad::ErrorStatus getBackgroundScaleFactor(double& scale) const;
+  Acad::ErrorStatus setBackgroundScaleFactor(const double scale);
+  Acad::ErrorStatus getBackgroundTransparency(AcCmTransparency& transp) const;
+  Acad::ErrorStatus setBackgroundTransparency(const AcCmTransparency& transp);
+  bool useBackgroundColorOn() const;
+  Acad::ErrorStatus setUseBackgroundColor(bool enable);
+  virtual Acad::ErrorStatus setField(const ACHAR* pszPropName, AcDbField* pField, AcDbObjectId& fieldId) override;
+  virtual Acad::ErrorStatus removeField(AcDbObjectId fieldId) override;
+  virtual Acad::ErrorStatus removeField(const ACHAR* pszPropName, AcDbObjectId& returnId) override;
+  virtual Acad::ErrorStatus removeField(const ACHAR* pszPropName) override;
+  Acad::ErrorStatus convertFieldToText();
+  enum ColumnType
+  {
+    kNoColumns,
+    kStaticColumns,
+    kDynamicColumns
+  };
+  Acad::ErrorStatus setDynamicColumns(double width, double gutter, bool auto_height);
+  Acad::ErrorStatus setStaticColumns(double width, double gutter, int count);
+  Acad::ErrorStatus getColumnType(ColumnType&) const;
+  Acad::ErrorStatus setColumnType(ColumnType);
+  Acad::ErrorStatus getColumnAutoHeight(bool&) const;
+  Acad::ErrorStatus setColumnAutoHeight(bool);
+  Acad::ErrorStatus getColumnCount(int&) const;
+  Acad::ErrorStatus setColumnCount(int);
+  Acad::ErrorStatus getColumnWidth(double&) const;
+  Acad::ErrorStatus setColumnWidth(double);
+  Acad::ErrorStatus getColumnGutterWidth(double&) const;
+  Acad::ErrorStatus setColumnGutterWidth(double);
+  Acad::ErrorStatus getColumnFlowReversed(bool&) const;
+  Acad::ErrorStatus setColumnFlowReversed(bool);
+  Acad::ErrorStatus getColumnHeight(int, double&) const;
+  Acad::ErrorStatus setColumnHeight(int, double);
     // FOR INTERNAL USE ONLY
-	Acad::ErrorStatus setUseWordBreak(bool bEnable);
-	bool useWordBreak() const;
+  Acad::ErrorStatus setUseWordBreak(bool bEnable);
+  bool useWordBreak() const;
     // FOR INTERNAL USE ONLY
     
     // FOR INTERNAL USE ONLY
     //  Entity height (constraining value)
     // 
-	double height() const;
-	Acad::ErrorStatus setHeight(double);
+  double height() const;
+  Acad::ErrorStatus setHeight(double);
     // FOR INTERNAL USE ONLY
 protected:
-	virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // These overloads are deprecated and will be removed. Please use the
 // overloads taking AcString & args instead
 //
 inline ACHAR* AcDbMText::contents() const
 {
-	return ::acutGetAcStringConvertToAChar(this, &AcDbMText::contents);
+  return ::acutGetAcStringConvertToAChar(this, &AcDbMText::contents);
 }
 inline ACHAR* AcDbMText::contentsRTF() const
 {
-	return ::acutGetAcStringConvertToAChar(this, &AcDbMText::contentsRTF);
+  return ::acutGetAcStringConvertToAChar(this, &AcDbMText::contentsRTF);
 }
 inline ACHAR* AcDbMText::text() const
 {
-	return ::acutGetAcStringConvertToAChar(this, &AcDbMText::text);
+  return ::acutGetAcStringConvertToAChar(this, &AcDbMText::text);
 }
-#	pragma  pack(pop)
+#  pragma  pack(pop)
 #endif

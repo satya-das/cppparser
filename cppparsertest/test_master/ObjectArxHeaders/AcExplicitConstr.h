@@ -19,21 +19,21 @@
 class ACDB_PORT AcExplicitConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcExplicitConstraint);
+  ACRX_DECLARE_MEMBERS(AcExplicitConstraint);
   /// <summary> 
   /// Returns AcDbObjectId of the AcDbAssocValueDependency object referenced
   /// by this dimensional constraint.
   /// </summary>
   /// <returns> AcDbObjectId. </returns>
   ///
-	AcDbObjectId valueDependencyId() const;
+  AcDbObjectId valueDependencyId() const;
   /// <summary> 
   /// Returns AcDbObjectId of the dimension dependency object referenced
   /// by this dimensional constraint.
   /// </summary>
   /// <returns> AcDbObjectId. </returns>
   ///
-	AcDbObjectId dimDependencyId() const;
+  AcDbObjectId dimDependencyId() const;
   /// <summary> 
   /// Set the dimension dependency object referenced
   /// by this dimensional constraint.
@@ -43,7 +43,7 @@ public:
   /// </param>
   /// <returns> Acad::eOk if successful </returns>
   ///
-	Acad::ErrorStatus setDimDependencyId(const AcDbObjectId& dimDependencyId);
+  Acad::ErrorStatus setDimDependencyId(const AcDbObjectId& dimDependencyId);
   /// <summary>
   /// Returns the value of the dimensional constraint measured from the
   /// distances/angles/radii of the constained geometries. It the constraint 
@@ -51,15 +51,15 @@ public:
   /// the AcDbAssocVariable.
   /// </summary>
   ///
-	Acad::ErrorStatus getMeasuredValue(double&) const;
+  Acad::ErrorStatus getMeasuredValue(double&) const;
 protected:
   /// <summary> 
   /// Protected default constructor. 
   /// </summary>
   /// 
-	AcExplicitConstraint()
-	{
-	}
+  AcExplicitConstraint()
+  {
+  }
 };
 /// <summary>
 /// This class represents a distance constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -69,47 +69,47 @@ protected:
 class ACDB_PORT AcDistanceConstraint : public AcExplicitConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDistanceConstraint);
+  ACRX_DECLARE_MEMBERS(AcDistanceConstraint);
   /// <summary>
   /// The direction type of this distance constraint. It is mainly used to 
   /// indicate how the distance between the two geometries are measured.
   /// </summary>
   ///
-	enum DirectionType
-	{
+  enum DirectionType
+  {
     /// <summary>
     /// Not directed distance.
     /// The minimum distance between the two geometries is measured.
     /// </summary>
     ///
-		kNotDirected = 0,
+    kNotDirected = 0,
     /// <summary>
     /// Directed distance with fixed direction.
     /// The distance between the two geometries is measured along the fixed direction.
     /// </summary>
     ///
-		kFixedDirection,
+    kFixedDirection,
     /// <summary>
     /// Directed distance with relative direction.
     /// The distance between the two geometries is measured along the direction
     /// which is perpendicular to an existing constraint line.
     /// </summary>
     ///
-		kPerpendicularToLine,
+    kPerpendicularToLine,
     /// <summary>
     /// Directed distance with relative direction.
     /// The distance between the two geometries is measured along the direction
     /// which is parallel to an existing constraint line.
     /// </summary>
     ///
-		kParallelToLine
-	};
+    kParallelToLine
+  };
   /// <summary> 
   /// Default constructor.
   /// The direction type is set to kNotDirected.
   /// </summary>
   /// 
-	AcDistanceConstraint(bool bCreateImp = true);
+  AcDistanceConstraint(bool bCreateImp = true);
   /// <summary> 
   /// Constructor.
   /// The direction type is set to kFixedDirection.
@@ -119,7 +119,7 @@ public:
   /// measure the distance. The vector length must not be zero.
   /// </param>
   /// 
-	AcDistanceConstraint(const AcGeVector3d& direction);
+  AcDistanceConstraint(const AcGeVector3d& direction);
   /// <summary> 
   /// Constructor.
   /// The direction type is set to kPerpendicularToLine or kParallelToLine.
@@ -133,27 +133,27 @@ public:
   /// kPerpendicularToLine or kParallelToLine.
   /// </param>
   /// 
-	AcDistanceConstraint(const AcGraphNode::Id consLineId, DirectionType type = kPerpendicularToLine);
+  AcDistanceConstraint(const AcGraphNode::Id consLineId, DirectionType type = kPerpendicularToLine);
   /// <summary>
   /// Returns the direction type of this distance constraint.
   /// </summary>
   /// <returns> Returns DirectionType. </returns>
   ///
-	DirectionType directionType() const;
+  DirectionType directionType() const;
   /// <summary>
   /// Returns the fixed direction of this distance constraint.
   /// Only valid when the direction type is kFixedDirection.
   /// </summary>
   /// <returns> Returns AcGeVector3d. </returns>
   ///
-	AcGeVector3d direction() const;
+  AcGeVector3d direction() const;
   /// <summary>
   /// Returns the constrained line id.
   /// Only valid when the direction type is kPerpendicularToLine or kParallelToLine.
   /// </summary>
   /// <returns> Returns AcGraphNode::Id. </returns>
   ///
-	AcGraphNode::Id constrainedLineId() const;
+  AcGraphNode::Id constrainedLineId() const;
 };
 /// <summary>
 /// This class represents a angle constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -163,45 +163,45 @@ public:
 class ACDB_PORT AcAngleConstraint : public AcExplicitConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcAngleConstraint);
+  ACRX_DECLARE_MEMBERS(AcAngleConstraint);
   /// <summary>
   /// The angle sector type of this angle constraint. It is used to 
   /// indicate how the angle between the two lines is measured.
   /// </summary>
   ///
-	enum SectorType
-	{
+  enum SectorType
+  {
     /// <summary>
     /// The angle measured from the forward direction of line 1 to 
     /// the forward direction of line 2 anticlockwise.
     /// </summary>
     ///
-		kParallelAntiClockwise = 0,
+    kParallelAntiClockwise = 0,
     /// <summary>
     /// The angle measured from the forward direction of line 1 to 
     /// the non forward direction of line 2 clockwise.
     /// </summary>
     ///
-		kAntiParallelClockwise = 1,
+    kAntiParallelClockwise = 1,
     /// <summary>
     /// The angle measured from the forward direction of line 1 to 
     /// the forward direction of line 2 clockwise.
     /// </summary>
     ///
-		kParallelClockwise = 2,
+    kParallelClockwise = 2,
     /// <summary>
     /// The angle measured from the forward direction of line 1 to 
     /// the non forward direction of line 2 anticlockwise.
     /// </summary>
     ///
-		kAntiParallelAntiClockwise = 3
-	};
+    kAntiParallelAntiClockwise = 3
+  };
   /// <summary> 
   /// Default constructor.
   /// The angle sector type is set to kParallelAntiClockwise.
   /// </summary>
   /// 
-	AcAngleConstraint(bool bCreateImp = true);
+  AcAngleConstraint(bool bCreateImp = true);
   /// <summary> 
   /// Constructor.
   /// </summary>
@@ -210,13 +210,13 @@ public:
   /// measure the angle.
   /// </param>
   /// 
-	AcAngleConstraint(AcAngleConstraint::SectorType type);
+  AcAngleConstraint(AcAngleConstraint::SectorType type);
   /// <summary>
   /// Returns the angle sector type of this angle constraint.
   /// </summary>
   /// <returns> Returns SectorType. </returns>
   ///
-	SectorType sectorType() const;
+  SectorType sectorType() const;
   /// <summary> <para>
   /// Sets a multiplier that is used to multiply angles obtained from 
   /// AcDbAssocValueDependencies that depend on AcDbAssocVariables to convert
@@ -231,11 +231,11 @@ public:
   /// </para> </summary>
   /// <param name="multiplier"> The angle multiplication factor. </param>
   ///
-	static void setAngleMultiplier(double multiplier);
+  static void setAngleMultiplier(double multiplier);
   /// <summary> Returns the current angle multipiler. </summary>
   /// <returns> The current angle multipiler. The default is Pi/180.</returns>
   ///
-	static double angleMultiplier();
+  static double angleMultiplier();
 };
 /// <summary>
 /// This class represents a angle constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -245,13 +245,13 @@ public:
 class ACDB_PORT Ac3PointAngleConstraint : public AcAngleConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(Ac3PointAngleConstraint);
+  ACRX_DECLARE_MEMBERS(Ac3PointAngleConstraint);
   /// <summary> 
   /// Default constructor.
   /// The angle sector type is set to kParallelAntiClockwise.
   /// </summary>
   /// 
-	Ac3PointAngleConstraint(bool bCreateImp = true);
+  Ac3PointAngleConstraint(bool bCreateImp = true);
   /// <summary> 
   /// Constructor.
   /// </summary>
@@ -260,7 +260,7 @@ public:
   /// measure the angle.
   /// </param>
   /// 
-	Ac3PointAngleConstraint(AcAngleConstraint::SectorType type);
+  Ac3PointAngleConstraint(AcAngleConstraint::SectorType type);
 };
 /// <summary>
 /// This class represents a radius or diameter constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -270,41 +270,41 @@ public:
 class ACDB_PORT AcRadiusDiameterConstraint : public AcExplicitConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcRadiusDiameterConstraint);
+  ACRX_DECLARE_MEMBERS(AcRadiusDiameterConstraint);
   /// <summary>
   /// The constraint type of this constraint. It is used to 
   /// indicate whether radius or diameter is measured.
   /// </summary>
   ///
-	enum RadiusDiameterConstrType
-	{
+  enum RadiusDiameterConstrType
+  {
     /// <summary>
     /// The radius of a constrained circle or arc is measured.
     /// </summary>
     ///
-		kCircleRadius = 0,
+    kCircleRadius = 0,
     /// <summary>
     /// The diameter of a constrained circle or arc is measured.
     /// </summary>
     ///
-		kCircleDiameter,
+    kCircleDiameter,
     /// <summary>
     /// The minor radius of a constrained (bounded) ellipse is measured.
     /// </summary>
     ///
-		kMinorRadius,
+    kMinorRadius,
     /// <summary>
     /// The major radius of a constrained (bounded) ellipse is measured.
     /// </summary>
     ///
-		kMajorRadius
-	};
+    kMajorRadius
+  };
   /// <summary> 
   /// Default constructor.
   /// The constraint type is set to kCircleRadius.
   /// </summary>
   /// 
-	AcRadiusDiameterConstraint(bool bCreateImp = true);
+  AcRadiusDiameterConstraint(bool bCreateImp = true);
   /// <summary> 
   /// Constructor.
   /// </summary>
@@ -312,12 +312,12 @@ public:
   /// Input RadiusDiameterConstrType indicating the constraint type.
   /// </param>
   /// 
-	AcRadiusDiameterConstraint(RadiusDiameterConstrType type);
+  AcRadiusDiameterConstraint(RadiusDiameterConstrType type);
   /// <summary>
   /// Returns the constraint type of this constraint.
   /// </summary>
   /// <returns> Returns RadiusDiameterConstrType. </returns>
   ///
-	RadiusDiameterConstrType constrType() const;
+  RadiusDiameterConstrType constrType() const;
 };
 #pragma  pack (pop)

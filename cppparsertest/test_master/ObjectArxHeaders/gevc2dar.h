@@ -68,13 +68,13 @@
 // The grow length must be a positive number, that is, zero is an illegal
 // grow length.
 #ifndef AC_GEVC2DAR_H
-#	define AC_GEVC2DAR_H
-#	include "adesk.h"
-#	include "assert.h"
-#	include "gevec2d.h"
-#	include "acarray.h"
+#  define AC_GEVC2DAR_H
+#  include "adesk.h"
+#  include "assert.h"
+#  include "gevec2d.h"
+#  include "acarray.h"
 typedef AcArray<AcGeVector2d> AcGeVector2dArray;
-#	if  GE_LOCATED_NEW
+#  if  GE_LOCATED_NEW
 GE_DLLEXPIMPORT AcGe::metaTypeIndex AcGeGetMetaTypeIndex(AcGeVector2dArray* pT);
-#	endif
+#  endif
 #endif

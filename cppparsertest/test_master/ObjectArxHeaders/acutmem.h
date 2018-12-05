@@ -22,12 +22,12 @@
 //  NULL and then sets the pointer to NULL.
 //
 #ifndef _ACUTMEM_H
-#	define _ACUTMEM_H
-#	include "acadstrc.h"
-#	include "adesk.h"
-#	include "AdAChar.h"
-#	include "AcDbCore2dDefs.h"
-#	pragma  pack (push, 8)
+#  define _ACUTMEM_H
+#  include "acadstrc.h"
+#  include "adesk.h"
+#  include "AdAChar.h"
+#  include "AcDbCore2dDefs.h"
+#  pragma  pack (push, 8)
 Acad::ErrorStatus acutNewBuffer(void*& pOutput, size_t size);
 /// <summary>
 /// Allocates a character buffer for containing a raw string
@@ -44,21 +44,21 @@ Acad::ErrorStatus acutUpdString(const ACHAR* pInput, ACHAR*& pOutput);
 void acutDelBuffer(void*& pBuffer);
 inline Acad::ErrorStatus acutNewBuffer(char*& pOutput, size_t size)
 {
-	return ::acutNewBuffer((void*&) pOutput, size);
+  return ::acutNewBuffer((void*&) pOutput, size);
 }
 inline void acutDelBuffer(char*& pString)
 {
-	::acutDelBuffer((void*&) pString);
+  ::acutDelBuffer((void*&) pString);
 }
 inline void acutDelString(char*& pString)
 {
-	::acutDelBuffer((void*&) pString);
+  ::acutDelBuffer((void*&) pString);
 }
 inline void acutDelString(wchar_t*& pString)
 {
-	::acutDelBuffer((void*&) pString);
+  ::acutDelBuffer((void*&) pString);
 }
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 /// <summary>
 /// Copies the input string into the output buffer.
 /// </summary>

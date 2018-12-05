@@ -44,15 +44,15 @@
 class ACDBCORE2D_PORT AcDbAssocPersSubentId : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocPersSubentId);
+  ACRX_DECLARE_MEMBERS(AcDbAssocPersSubentId);
     /// <summary> Default constructor. </summary>
-	AcDbAssocPersSubentId()
-	{
-	}
+  AcDbAssocPersSubentId()
+  {
+  }
     /// <summary> Virtual destructor. </summary>
-	virtual ~AcDbAssocPersSubentId()
-	{
-	}
+  virtual ~AcDbAssocPersSubentId()
+  {
+  }
     /// <summary><para>
     /// The default implementation just calls AcDbAssocPersSubentIdPE::releasePersSubent(),
     /// passing the given AcDbEntity* and this AcDbAssocPersSubentId as input arguments. 
@@ -78,7 +78,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus release(AcDbEntity* pEntity, AcDbDatabase* pDatabase) const;
+  virtual Acad::ErrorStatus release(AcDbEntity* pEntity, AcDbDatabase* pDatabase) const;
     /// <summary> <para>
     /// Mapping: AcDbAssocPersSubentId --> AcDbSubentId(s)
     /// </para> <para>
@@ -101,7 +101,7 @@ public:
     /// <param  name="subents"> The returned AcDbSubentIds. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getTransientSubentIds(const AcDbEntity* pEntity, AcDbDatabase* pDatabase, AcArray<AcDbSubentId>& subents) const;
+  virtual Acad::ErrorStatus getTransientSubentIds(const AcDbEntity* pEntity, AcDbDatabase* pDatabase, AcArray<AcDbSubentId>& subents) const;
     /// <summary> Returns the type of the subentity. </summary>
     /// <param  name="pEntity"> The entity needs to be open for read. </param>
     /// <param name="pDatabase"> 
@@ -112,7 +112,7 @@ public:
     /// </param>
     /// <returns> AcDb::SubentType. </returns>
     ///
-	virtual AcDb::SubentType subentType(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const = 0;
+  virtual AcDb::SubentType subentType(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const = 0;
     /// <summary> 
     /// Returns the number of transient AcDbSubentIds corresponding to this 
     /// AcDbAssocPersSubentId. The default implementation just calls 
@@ -129,7 +129,7 @@ public:
     /// Number of transient AcDbSubentIds corresponding to this AcDbAssocPersSubentId. 
     /// </returns>
     ///
-	virtual int transientSubentCount(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const;
+  virtual int transientSubentCount(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const;
     /// <summary> 
     /// Returns true iff this AcDbAssocPersSubentId is null, i.e. not referencing
     /// and subentity of any entity. It is logically slightly different from when
@@ -139,7 +139,7 @@ public:
     /// </summary>
     /// <returns> True iff this AcDbAssocPersSubentId is null. </returns>
     ///
-	virtual bool isNull() const = 0;
+  virtual bool isNull() const = 0;
     /// <summary>
     /// Returns true iff this and the other AcDbAssocPersSubentId reference
     /// exactly the same subentity of the same entity.
@@ -156,7 +156,7 @@ public:
     /// <param  name="pOther"> The other AcDbAssocPersSubentId. </param>
     /// <returns> True iff this and the other AcDbAssocPersSubentId are equal. </returns>
     ///
-	virtual bool isEqualTo(const AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pOther) const;
+  virtual bool isEqualTo(const AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pOther) const;
     /// <summary> <para>
     /// Notifies this AcDbAssocPersSubentId that the entity has been mirrored
     /// and that the AcDbAssocPersSubentId may possibly need to update itself
@@ -180,7 +180,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus mirror(const AcDbEntity* pMirroredEntity, AcDbDatabase* pDatabase);
+  virtual Acad::ErrorStatus mirror(const AcDbEntity* pMirroredEntity, AcDbDatabase* pDatabase);
     /// <summary>
     /// A static method that reads the class identification of the actual 
     /// AcDbAssocPersSubentId-derived class, creates an object of this derived
@@ -202,7 +202,7 @@ public:
     /// /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     //
-	static Acad::ErrorStatus createObjectAndDwgInFields(AcDbDatabase* pDatabase, AcDbDwgFiler* pFiler, AcDbAssocPersSubentId*& pCreatedPersSubentId);
+  static Acad::ErrorStatus createObjectAndDwgInFields(AcDbDatabase* pDatabase, AcDbDwgFiler* pFiler, AcDbAssocPersSubentId*& pCreatedPersSubentId);
     /// <summary>
     /// A static method that reads the class identification of the actual 
     /// AcDbAssocPersSubentId-derived class, creates an object of this derived
@@ -221,7 +221,7 @@ public:
     /// /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     //
-	static Acad::ErrorStatus createObjectAndDxfInFields(AcDbDxfFiler* pFiler, AcDbAssocPersSubentId*& pCreatedPersSubentId);
+  static Acad::ErrorStatus createObjectAndDxfInFields(AcDbDxfFiler* pFiler, AcDbAssocPersSubentId*& pCreatedPersSubentId);
     /// <summary>
     /// The standard filing protocol. The AcDbAssocPersSubentId base class
     /// implementation writes-out the actual class identification so that 
@@ -231,7 +231,7 @@ public:
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const;
     /// <summary>
     /// The standard filing protocol. The AcDbAssocPersSubentId base class
     /// implementation does nothing and doesn't therefore need to be called
@@ -240,7 +240,7 @@ public:
     /// <param  name="pFiler"> The filer to read the object data from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
     /// <summary>
     /// The standard filing protocol. The AcDbAssocPersSubentId base class
     /// implementation writes-out the actual class identification so that 
@@ -250,7 +250,7 @@ public:
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const;
     /// <summary>
     /// The standard filing protocol. The AcDbAssocPersSubentId base class
     /// implementation does nothing and doesn't therefore need to be called 
@@ -259,20 +259,20 @@ public:
     /// <param  name="pFiler"> The filer to read the object data from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler);
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler);
     /// <summary> The standard protocol. </summary>
     /// <param  name="pAuditInfo"> See the AcDbAuditInfo documentation. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus audit(AcDbAuditInfo*)
-	{
-		return Acad::eOk;
-	}
+  virtual Acad::ErrorStatus audit(AcDbAuditInfo*)
+  {
+    return Acad::eOk;
+  }
     /// <summary>Standard protocol for copying of data from source as defined
     /// in AcRxObject. Don't use this for cross database copying</summary>
     /// <param  name="pSource"> Source object to copy data from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus copyFrom(const AcRxObject* pSource) override;
+  virtual Acad::ErrorStatus copyFrom(const AcRxObject* pSource) override;
 };
 #pragma  pack (pop)

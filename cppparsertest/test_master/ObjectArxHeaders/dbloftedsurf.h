@@ -15,22 +15,22 @@
 // ASM lofted surfaces. 
 #pragma  once
 #ifndef DBLOFTEDSURF_H
-#	define DBLOFTEDSURF_H
-#	include "dbsurf.h"
-#	include "db3dProfile.h"
-#	pragma  pack(push, 8)
+#  define DBLOFTEDSURF_H
+#  include "dbsurf.h"
+#  include "db3dProfile.h"
+#  pragma  pack(push, 8)
 class AcDbLoftedSurface : public AcDbSurface
 {
 public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-	AcDbLoftedSurface();
+  AcDbLoftedSurface();
     /// <summary>
     /// Destructor.
     /// </summary>
-	virtual ~AcDbLoftedSurface();
-	ACDB_DECLARE_MEMBERS(AcDbLoftedSurface);
+  virtual ~AcDbLoftedSurface();
+  ACDB_DECLARE_MEMBERS(AcDbLoftedSurface);
     /// <summary> 
     /// Creates a lofted surface from the given curves using the specified options.
     /// The curves must be either all open or all closed. If the curves are all closed,
@@ -59,14 +59,14 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus createLoftedSurface(AcArray<AcDbEntity*>& crossSectionCurves, AcArray<AcDbEntity*>& guideCurves, AcDbEntity* pPathCurve, AcDbLoftOptions& loftOptions);
+  virtual Acad::ErrorStatus createLoftedSurface(AcArray<AcDbEntity*>& crossSectionCurves, AcArray<AcDbEntity*>& guideCurves, AcDbEntity* pPathCurve, AcDbLoftOptions& loftOptions);
     /// <summary> 
     /// Return the number of cross sections for the surface.
     /// </summary>
     /// <returns>
     /// Number of cross sections.
     /// </returns>
-	int numCrossSections() const;
+  int numCrossSections() const;
     /// <summary> 
     /// Returns the cross section entity at zero-based index.  If the cross section
     /// is for an edge or set of edges then the edge curve will be returned.
@@ -78,14 +78,14 @@ public:
     /// <returns>
     /// Cross section entity.  The caller should not delete this pointer.
     /// </returns>
-	AcDbEntity* getCrossSection(int idx) const;
+  AcDbEntity* getCrossSection(int idx) const;
     /// <summary> 
     /// Return the number of guides for the surface.
     /// </summary>
     /// <returns>
     /// Number of guides.
     /// </returns>
-	int numGuideCurves() const;
+  int numGuideCurves() const;
     /// <summary> 
     /// Returns the guide curve at zero-based index.  If the guide
     /// is for an edge or set of edges then the edge curve will be returned.
@@ -97,7 +97,7 @@ public:
     /// <returns>
     /// Pointer to guide curve.  The caller should not delete this pointer.
     /// </returns>
-	AcDbEntity* getGuideCurve(int idx) const;
+  AcDbEntity* getGuideCurve(int idx) const;
     /// <summary> 
     /// Returns the path curve of the surface, or null if no path profile was
     /// used to create the surface.  If the path is for an edge or set of edges
@@ -107,14 +107,14 @@ public:
     /// <returns>
     /// Pointer to path entity.  The caller should not delete this pointer.
     /// </returns>
-	AcDbEntity* getPathEntity() const;
+  AcDbEntity* getPathEntity() const;
     /// <summary> 
     /// Gets the loft options used to create this surface.
     /// </summary>
     /// <param name="loftOptions"> 
     /// Output loft options. 
     /// </param>
-	void getLoftOptions(AcDbLoftOptions& loftOptions) const;
+  void getLoftOptions(AcDbLoftOptions& loftOptions) const;
     /// <summary> 
     /// Returns the cross section profile at zero-based index.  The returned
     /// object contains the cross section entity and edge data if the profile is
@@ -128,7 +128,7 @@ public:
     /// <returns>
     /// Cross section profile.  The caller is responsible for deleting the returned pointer.
     /// </returns>
-	ACDB_PORT AcDbLoftProfile* crossSection(int idx) const;
+  ACDB_PORT AcDbLoftProfile* crossSection(int idx) const;
     /// <summary> 
     /// Returns list of cross section profiles that were used to create the surface.
     /// The returned objects contain the cross section entity and edge data if the
@@ -142,7 +142,7 @@ public:
     /// <returns>
     /// Cross section profile.  The caller is responsible for deleting the returned pointer.
     /// </returns>
-	ACDB_PORT void getCrossSections(AcArray<AcDbLoftProfile*>& crossSections) const;
+  ACDB_PORT void getCrossSections(AcArray<AcDbLoftProfile*>& crossSections) const;
     /// <summary> 
     /// Returns the guide profile at zero-based index.  The returned
     /// object contains the guide entity and edge data if the profile is
@@ -155,7 +155,7 @@ public:
     /// <returns>
     /// Guide profile.  The caller is responsible for deleting the returned pointer.
     /// </returns>
-	ACDB_PORT AcDbLoftProfile* guide(int idx) const;
+  ACDB_PORT AcDbLoftProfile* guide(int idx) const;
     /// <summary> 
     /// Returns list of guide profiles that were used to create the surface.
     /// The returned objects contain the guide entity and edge data if the
@@ -168,7 +168,7 @@ public:
     /// <returns>
     /// Guide profile.  The caller is responsible for deleting the returned pointer.
     /// </returns>
-	ACDB_PORT void getGuides(AcArray<AcDbLoftProfile*>& guides) const;
+  ACDB_PORT void getGuides(AcArray<AcDbLoftProfile*>& guides) const;
     /// <summary> 
     /// Returns the path profile that was used to create the surface, or null if
     /// no path was used.  The returned object contains the guide entity and edge data
@@ -179,7 +179,7 @@ public:
     /// Path profile, or null if no path was used to create the surface.
     /// The caller is responsible for deleting the returned pointer.
     /// </returns>
-	ACDB_PORT AcDbLoftProfile* path() const;
+  ACDB_PORT AcDbLoftProfile* path() const;
     /// <summary> 
     /// Returns the continuity at the first profile.
     /// </summary>
@@ -190,7 +190,7 @@ public:
     /// <returns>
     /// 0, 1, or 2 which corresponds to G0, G1, or G2.
     /// </returns>
-	ACDB_PORT int startContinuity(bool isCrossSection = true) const;
+  ACDB_PORT int startContinuity(bool isCrossSection = true) const;
     /// <summary> 
     /// Returns the continuity at the last profile.
     /// </summary>
@@ -201,7 +201,7 @@ public:
     /// <returns>
     /// 0, 1, or 2 which corresponds to G0, G1, or G2.
     /// </returns>
-	ACDB_PORT int endContinuity(bool isCrossSection = true) const;
+  ACDB_PORT int endContinuity(bool isCrossSection = true) const;
     /// <summary> 
     /// Returns the magnitude of the surface takeoff vector at the
     /// first profile.
@@ -213,7 +213,7 @@ public:
     /// <returns>
     /// Magnitude of the surface takeoff vector at the first profile.
     /// </returns>
-	ACDB_PORT double startMagnitude(bool isCrossSection = true) const;
+  ACDB_PORT double startMagnitude(bool isCrossSection = true) const;
     /// <summary> 
     /// Returns the magnitude of the surface takeoff vector at the
     /// last profile.
@@ -225,7 +225,7 @@ public:
     /// <returns>
     /// Magnitude of the surface takeoff vector at the first profile.
     /// </returns>
-	ACDB_PORT double endMagnitude(bool isCrossSection = true) const;
+  ACDB_PORT double endMagnitude(bool isCrossSection = true) const;
     /// <summary> 
     /// Sets the continuity at the first profile and recreates the surface.
     /// </summary>
@@ -239,7 +239,7 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	ACDB_PORT Acad::ErrorStatus setStartContinuity(int val, bool isCrossSection = true);
+  ACDB_PORT Acad::ErrorStatus setStartContinuity(int val, bool isCrossSection = true);
     /// <summary> 
     /// Sets the continuity at the last profile and recreates the surface.
     /// </summary>
@@ -253,7 +253,7 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	ACDB_PORT Acad::ErrorStatus setEndContinuity(int val, bool isCrossSection = true);
+  ACDB_PORT Acad::ErrorStatus setEndContinuity(int val, bool isCrossSection = true);
     /// <summary> 
     /// Sets the magnitude of the surface takeoff vector at the
     /// first profile and recreates the surface.
@@ -268,7 +268,7 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	ACDB_PORT Acad::ErrorStatus setStartMagnitude(double val, bool isCrossSection = true);
+  ACDB_PORT Acad::ErrorStatus setStartMagnitude(double val, bool isCrossSection = true);
     /// <summary> 
     /// Sets the magnitude of the surface takeoff vector at the
     /// last profile and recreates the surface.
@@ -283,7 +283,7 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	ACDB_PORT Acad::ErrorStatus setEndMagnitude(double val, bool isCrossSection = true);
+  ACDB_PORT Acad::ErrorStatus setEndMagnitude(double val, bool isCrossSection = true);
     /// <summary> 
     /// Sets new loft options and recreates the surface.
     /// </summary>
@@ -293,32 +293,32 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	ACDB_PORT Acad::ErrorStatus setLoftOptions(const AcDbLoftOptions& loftOptions);
+  ACDB_PORT Acad::ErrorStatus setLoftOptions(const AcDbLoftOptions& loftOptions);
     /// <summary> This enum represents the type of lofted surface. </summary>
-	enum LoftSurfaceType
-	{
+  enum LoftSurfaceType
+  {
         /// <summary> Created from createLoftedSurface(). </summary>
-		kLoftSurf,
+    kLoftSurf,
         /// <summary> Created from createBlendSurface(). </summary>
-		kLoftBlendSurf,
+    kLoftBlendSurf,
         /// <summary> Created from createNetworkSurface(). </summary>
-		kLoftNetworkSurf
-	};
+    kLoftNetworkSurf
+  };
     /// <summary> 
     /// Returns the type of lofted surface.
     /// </summary>
     /// <returns>
     /// Loft surface type:  ordinary loft, blend, or network.
     /// </returns>
-	ACDB_PORT AcDbLoftedSurface::LoftSurfaceType loftSurfaceType() const;
+  ACDB_PORT AcDbLoftedSurface::LoftSurfaceType loftSurfaceType() const;
     // AcDbObject methods
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
-	virtual bool isDependent() const;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  virtual bool isDependent() const;
 protected:
-	virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
-#	pragma  pack(pop)
+#  pragma  pack(pop)
 #endif

@@ -50,24 +50,24 @@ ACDBCORE2D_PORT AcString& dummyString();
 class ACDBCORE2D_PORT AcDbAssocVariable : public AcDbAssocAction
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocVariable);
+  ACRX_DECLARE_MEMBERS(AcDbAssocVariable);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject. </param>
     ///
-	explicit AcDbAssocVariable(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocVariable(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> Returns the variable name which is an arbitrary string. </summary>
     /// <returns> The name of this variable. </returns>
     ///
-	const AcString& name() const;
+  const AcString& name() const;
     /// <summary> Returns the  expression or an empty string if the variable is a constant. </summary>
     /// <returns> The expression or an empty string. </returns>
     ///
-	const AcString& expression() const;
-	const AcString& expression(bool convertSymbolNamesFromCanonicalForm) const;
+  const AcString& expression() const;
+  const AcString& expression(bool convertSymbolNamesFromCanonicalForm) const;
     /// <summary> Returns the evaluated and cached value of the variable. </summary>
     /// <returns> The value of the variable. </returns>
     ///
-	const AcDbEvalVariant& value() const;
+  const AcDbEvalVariant& value() const;
     /// <summary> 
     /// Returns description of the variable which is an arbitrary string. It does
     /// not have any additional meaning and does not affect the expression 
@@ -75,7 +75,7 @@ public:
     /// </summary>
     /// <returns> The description or an empty string. </returns>
     ///
-	const AcString& description() const;
+  const AcString& description() const;
     /// <summary> <para>
     /// Sets the name of the variable. It does not verify the name. 
     /// </para> <para>
@@ -90,7 +90,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setName(const AcString& newName, bool updateReferencingExpressions);
+  Acad::ErrorStatus setName(const AcString& newName, bool updateReferencingExpressions);
     /// <summary>
     /// Anonymous variable has name that is either empty or starts with "*".
     /// Anonymous variables are not shown in the PARAMETERS manager. They are
@@ -105,7 +105,7 @@ public:
     /// </summary>
     /// <returns> Returns true if the variable is anonymous. </returns>
     ///
-	bool isAnonymous() const;
+  bool isAnonymous() const;
     /// <summary> 
     /// Using this AcDbAssocVariable as the starting context, searches for an
     /// object with the given name. The initial implementation just searches 
@@ -123,7 +123,7 @@ public:
     /// <param name="pObjectClass"> The class of the searched-for object (isKindOf() test is used). </param>
     /// <returns> AcDbObjectId of the found object or null AcDbObjectId if no object found. </returns>
     ///
-	AcDbObjectId findObjectByName(const AcString& objectName, const AcRxClass* pObjectClass) const;
+  AcDbObjectId findObjectByName(const AcString& objectName, const AcRxClass* pObjectClass) const;
     /// <summary> <para>
     /// Validates the given nameToValidate, expressionToValidate or both, to see
     /// whether they can be used as name and/or expression for this variable. 
@@ -151,7 +151,7 @@ public:
     /// Otherwise it returns an ErrorStatus and errorMessage that explain the error. 
     /// </returns>
     ///
-	Acad::ErrorStatus validateNameAndExpression(const AcString& nameToValidate, const AcString& expressionToValidate, AcString& errorMessage) const;
+  Acad::ErrorStatus validateNameAndExpression(const AcString& nameToValidate, const AcString& expressionToValidate, AcString& errorMessage) const;
     /// <summary> 
     /// Sets the expression (may be an empty string if no expression). 
     /// The expression is syntactically checked but not evaluated.  
@@ -175,13 +175,13 @@ public:
     /// <param name="silentMode"> Does not print a message when the expression is invalid. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setExpression(const AcString& newExpression, const AcString& evaluatorId, bool checkForCyclicalDependencies, bool updateDependenciesOnReferencedSymbols, AcString& errorMessage = dummyString(), bool silentMode = false);
+  Acad::ErrorStatus setExpression(const AcString& newExpression, const AcString& evaluatorId, bool checkForCyclicalDependencies, bool updateDependenciesOnReferencedSymbols, AcString& errorMessage = dummyString(), bool silentMode = false);
     /// <summary> 
     /// Returns id of the expression evaluator that is used to parse the expression. 
     /// </summary>
     /// <returns> Id of the expression evaluator that is used to parse the expression. </returns>
     ///
-	const AcString& evaluatorId() const;
+  const AcString& evaluatorId() const;
     /// <summary> 
     /// Sets id of the expression evaluator that is going to be used to parse 
     /// the expression. An empty string means the default evaluator.
@@ -189,7 +189,7 @@ public:
     /// <para name="evalId"> Id of the expression evauator. </para>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setEvaluatorId(const AcString& evalId);
+  Acad::ErrorStatus setEvaluatorId(const AcString& evalId);
     /// <summary>
     /// Sets the evaluated value. Notice that if the expression is not empty,
     /// this value will be overwritten the next time the expression is
@@ -198,7 +198,7 @@ public:
     /// <param name="newValue"> New evaluated value. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setValue(const AcDbEvalVariant& newValue);
+  Acad::ErrorStatus setValue(const AcDbEvalVariant& newValue);
     /// <summary>
     /// Sets description to the variable. Variable description is just an 
     /// optional text that does not affect the expression evaluation in any way.
@@ -206,13 +206,13 @@ public:
     /// <param name="newDescription"> New description to be set. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setDescription(const AcString& newDescription);
+  Acad::ErrorStatus setDescription(const AcString& newDescription);
     // These methods are currently intended for internal use only
     //
-	bool isMergeable() const;
-	bool mustMerge() const;
-	AcString mergeableVariableName() const;
-	void setIsMergeable(bool isMerg, bool mustMerg = false, const AcString& mergeableVariableName = AcString());
+  bool isMergeable() const;
+  bool mustMerge() const;
+  AcString mergeableVariableName() const;
+  void setIsMergeable(bool isMerg, bool mustMerg = false, const AcString& mergeableVariableName = AcString());
     /// <summary> <para>
     /// A helper method allowing to evaluate the expression at any time without 
     /// modifying the variable. It is a read-only method.
@@ -226,7 +226,7 @@ public:
     /// <param name="errorMessage"> Error string if expression evaluation has failed. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus evaluateExpression(AcDbEvalVariant& evaluatedExpressionValue, AcString& errorMessage = dummyString()) const;
+  Acad::ErrorStatus evaluateExpression(AcDbEvalVariant& evaluatedExpressionValue, AcString& errorMessage = dummyString()) const;
     /// <summary> <para>
     /// A helper method allowing to evaluate the expression at any time without 
     /// modifying the variable and by explicitly providing values of the referenced
@@ -269,25 +269,25 @@ public:
     /// <param name="errorMessage"> Error string if expression evaluation has failed. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus evaluateExpression(AcDbObjectIdArray& objectIds, AcArray<AcDbEvalVariant>& objectValues, AcDbEvalVariant& evaluatedExpressionValue, AcString& errorMessage = dummyString()) const;
+  Acad::ErrorStatus evaluateExpression(AcDbObjectIdArray& objectIds, AcArray<AcDbEvalVariant>& objectValues, AcDbEvalVariant& evaluatedExpressionValue, AcString& errorMessage = dummyString()) const;
     /// <summary>
     /// Evaluates the given expression in the context of the given AcDbAssocNetwork.
     /// </summary>
-	static Acad::ErrorStatus evaluateExpression(const AcString& expression, const AcString& evaluatorId, const AcDbObjectId& networkId, AcDbEvalVariant& evaluatedExpressionValue, AcString& assignedToSymbolName, AcString& errorMessage = dummyString());
+  static Acad::ErrorStatus evaluateExpression(const AcString& expression, const AcString& evaluatorId, const AcDbObjectId& networkId, AcDbEvalVariant& evaluatedExpressionValue, AcString& assignedToSymbolName, AcString& errorMessage = dummyString());
     /// <summary>
     /// See the explanation of AcDbAssocVariableCallback. Multiple global callbacks 
     /// can be registered and they apply to all AcDbAssocVariables.
     /// </summary>
     /// <param name="pCallback"> The callback to be registered. </param>
     ///
-	static void addGlobalCallback(class AcDbAssocVariableCallback* pCallback);
+  static void addGlobalCallback(class AcDbAssocVariableCallback* pCallback);
     /// <summary>
     /// See the explanation of AcDbAssocVariableCallback. Multiple global callbacks 
     /// can be registered and they apply to all AcDbAssocVariables.
     /// </summary>
     /// <param name="pCallback"> The callback to be unregistered. </param>
     ///
-	static void removeGlobalCallback(class AcDbAssocVariableCallback* pCallback);
+  static void removeGlobalCallback(class AcDbAssocVariableCallback* pCallback);
     /// <summary>
     /// Returns a callback that is the collection of all callbacks registered by
     /// client code. This function is meant mostly for private use and there should
@@ -300,7 +300,7 @@ public:
     /// registered by the client code. The returned pointer is never null.
     /// </returns>
     ///
-	static class AcDbAssocVariableCallback* globalCallback();
+  static class AcDbAssocVariableCallback* globalCallback();
 };
 /// <summary>
 /// Client code can register callback(s) derived from AcDbAssocVariableCallback 
@@ -310,12 +310,12 @@ public:
 class ACDBCORE2D_PORT AcDbAssocVariableCallback
 {
 public:
-	AcDbAssocVariableCallback()
-	{
-	}
-	virtual ~AcDbAssocVariableCallback()
-	{
-	}
+  AcDbAssocVariableCallback()
+  {
+  }
+  virtual ~AcDbAssocVariableCallback()
+  {
+  }
     /// <summary>
     /// Allows client code to veto erasing a variable when the variable would 
     /// be erased because the dimensional constraint that uses the variable is
@@ -327,7 +327,7 @@ public:
     /// vetoes the variable erase.
     ///</returns>
     ///
-	virtual bool canBeErased(const AcDbAssocVariable* pVariable) = 0;
+  virtual bool canBeErased(const AcDbAssocVariable* pVariable) = 0;
     /// <summary> 
     /// Called from AcDbAssocVariable::validateNameAndExpression(). It lets the 
     /// client code perform additional checks to decide if a given name and/or 
@@ -343,7 +343,7 @@ public:
     /// Otherwise it returns an ErrorStatus and errorMessage that explain the error. 
     /// </returns>
     ///
-	virtual Acad::ErrorStatus validateNameAndExpression(const AcDbAssocVariable* pVariable, const AcString& nameToValidate, const AcString& expressionToValidate, AcString& errorMessage) = 0;
+  virtual Acad::ErrorStatus validateNameAndExpression(const AcDbAssocVariable* pVariable, const AcString& nameToValidate, const AcString& expressionToValidate, AcString& errorMessage) = 0;
 };
 #pragma  pack (pop)
 ACDBCORE2D_PORT void stringDefaultArgumentTest(AcString& str = dummyString());

@@ -21,9 +21,9 @@ class AcDbGeoCoordinateSystem;
 struct AcDbGeoDatum
 {
     /// <summary> ID of the datum definition. </summary>
-	AcString id;
+  AcString id;
 	/// <summary> Description of the datum definition. </summary>
-	AcString desc;
+  AcString desc;
 };
 /// <summary>
 /// The AcDbGeoEllipsoid struct represents a ellipsoid definition of a coordinate reference system. 
@@ -33,13 +33,13 @@ struct AcDbGeoDatum
 struct AcDbGeoEllipsoid
 {
     /// <summary> ID of the ellipsoid definition. </summary>
-	AcString id;
+  AcString id;
 	/// <summary> Description of the ellipsoid definition. </summary>
-	AcString desc;
+  AcString desc;
 	/// <summary> Length of the semi-minor axis of the ellipsoid definition. </summary>
-	double polarRadius;
+  double polarRadius;
 	/// <summary> Eccentricity value of the ellipsoid definition. </summary>
-	double eccentricity;
+  double eccentricity;
 };
 /// <summary>
 /// The AcDbGeoProjectionParameter struct represents projection parameter of 
@@ -49,9 +49,9 @@ struct AcDbGeoEllipsoid
 struct AcDbGeoProjectionParameter
 {
     /// <summary> The name of the projection parameter. </summary>
-	AcString name;
+  AcString name;
     /// <summary> The value of the projection parameter. </summary>
-	double value;
+  double value;
 };
 /// <summary>
 /// The AcDbGeoCoordinateSystemCategory class represents a category which holds 
@@ -62,9 +62,9 @@ class AcDbGeoCoordinateSystemCategory
 {
 public:
     /// <summary> Destructor. </summary>
-	virtual ~AcDbGeoCoordinateSystemCategory()
-	{
-	}
+  virtual ~AcDbGeoCoordinateSystemCategory()
+  {
+  }
     /// <summary> Returns the ID of the category. </summary>
     /// 
     /// <param name="categoryId">
@@ -72,7 +72,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getId(AcString& categoryId) const = 0;
+  virtual Acad::ErrorStatus getId(AcString& categoryId) const = 0;
     /// <summary> Returns number of coordinate systems belonging to this category. </summary>
     /// 
     /// <param name="num">
@@ -80,7 +80,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getNumOfCoordinateSystem(int& num) const = 0;
+  virtual Acad::ErrorStatus getNumOfCoordinateSystem(int& num) const = 0;
     /// <summary> Returns the coordinate system at a given index. </summary>
     /// 
     /// <param name="index">
@@ -92,7 +92,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getCoordinateSystemAt(int index, AcDbGeoCoordinateSystem*& pCoordSys) const = 0;
+  virtual Acad::ErrorStatus getCoordinateSystemAt(int index, AcDbGeoCoordinateSystem*& pCoordSys) const = 0;
     /// <summary> Returns all categories in a given array. </summary>
     /// 
     /// <param name="allCoordSys">
@@ -101,7 +101,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	ACDBCORE2D_PORT static Acad::ErrorStatus createAll(AcArray<AcDbGeoCoordinateSystemCategory*>& allCategories);
+  ACDBCORE2D_PORT static Acad::ErrorStatus createAll(AcArray<AcDbGeoCoordinateSystemCategory*>& allCategories);
 };
 /// <summary>
 /// the AcDbGeoCoordinateSystem class represents a coordinate reference system (CRS) definition. 
@@ -115,260 +115,260 @@ public:
     /// brief Defines enums used to indicate the type of a coordinate reference system.
     /// </summary>
 	///
-	enum Type
-	{
+  enum Type
+  {
         /// <summary> brief Specifies the coordinate system is not set. </summary>
-		kTypeUnknown = 0,
+    kTypeUnknown = 0,
         /// <summary>
         /// brief Specifies that the coordinate system is arbitrary. It is not spatially bound to the earth.
         /// </summary>
-		kTypeArbitrary = 1,
+    kTypeArbitrary = 1,
         /// <summary> brief Specifies that the coordinate system is geographic. </summary>
-		kTypeGeographic = 2,
+    kTypeGeographic = 2,
         /// <summary> brief Specifies that the coordinate system is projected. </summary>
-		kTypeProjected = 3
-	};
+    kTypeProjected = 3
+  };
     /// <summary>
     /// brief Values that represent the coordinate reference system projection method types.
     /// </summary>
 	///
-	enum ProjectionCode
-	{
+  enum ProjectionCode
+  {
         /// <summary> Unknown projection code. </summary>
-		kProjectionCodeUnknown = 0,
+    kProjectionCodeUnknown = 0,
         /// <summary> Albers Equal Area Conic Projection. </summary>
-		kProjectionCodeAlber = 4,
+    kProjectionCodeAlber = 4,
         /// <summary> Azimuthal Equi-Distant; Elevated ellipsoid. </summary>
-		kProjectionCodeAzede = 59,
+    kProjectionCodeAzede = 59,
         /// <summary> Lambert Azimuthal Equal Area Projection. </summary>
-		kProjectionCodeAzmea = 11,
+    kProjectionCodeAzmea = 11,
         /// <summary> Lambert Azimuthal Equidistant Projection. </summary>
-		kProjectionCodeAzmed = 7,
+    kProjectionCodeAzmed = 7,
         /// <summary> Bipolar Oblique Conformal Conic Projection. </summary>
-		kProjectionCodeBipolar = 31,
+    kProjectionCodeBipolar = 31,
         /// <summary> Bonne Pseudo conical Projection. </summary>
-		kProjectionCodeBonne = 24,
+    kProjectionCodeBonne = 24,
         /// <summary> Cassini Projection. </summary>
-		kProjectionCodeCassini = 22,
+    kProjectionCodeCassini = 22,
         /// <summary> Ekert Pseudocylindrical Projection; Number IV. </summary>
-		kProjectionCodeEckert4 = 25,
+    kProjectionCodeEckert4 = 25,
         /// <summary> Ekert Pseudocylindrical Projection; Number VI. </summary>
-		kProjectionCodeEckert6 = 26,
+    kProjectionCodeEckert6 = 26,
         /// <summary> Equidistant Conic Projection; aka Simple Conic. </summary>
-		kProjectionCodeEdcnc = 12,
+    kProjectionCodeEdcnc = 12,
         /// <summary> Equidistant Cylindrical Projection (Spherical only). </summary>
-		kProjectionCodeEdcyl = 20,
+    kProjectionCodeEdcyl = 20,
         /// <summary> Gauss-Kruger: Transverse Mercator without scale reduction parameter. </summary>
-		kProjectionCodeGaussK = 46,
+    kProjectionCodeGaussK = 46,
         /// <summary> Gnomonic Projection. </summary>
-		kProjectionCodeGnomonic = 19,
+    kProjectionCodeGnomonic = 19,
         /// <summary> Goode Homolosine Projection. </summary>
-		kProjectionCodeGoode = 28,
+    kProjectionCodeGoode = 28,
         /// <summary> Unrectified Hotine Oblique Mercator Projection; Sngl Point Form. </summary>
-		kProjectionCodeHom1uv = 1281,
+    kProjectionCodeHom1uv = 1281,
         /// <summary> Rectified Hotine Oblique Mercator Projection; Single Point Form. </summary>
-		kProjectionCodeHom1xy = 1282,
+    kProjectionCodeHom1xy = 1282,
         /// <summary> Unrectified Hotine Oblique Mercator Projection; Two Point Form. </summary>
-		kProjectionCodeHom2uv = 1283,
+    kProjectionCodeHom2uv = 1283,
         /// <summary> Rectified Hotine Oblique Mercator Projection; Two Point Form. </summary>
-		kProjectionCodeHom2xy = 1284,
+    kProjectionCodeHom2xy = 1284,
         /// <summary> Czech Krovak; original. </summary>
-		kProjectionCodeKrovak = 47,
+    kProjectionCodeKrovak = 47,
         /// <summary> Czech Krovak; includes 1995 adjustment. </summary>
-		kProjectionCodeKrvk95 = 51,
+    kProjectionCodeKrvk95 = 51,
         /// <summary> Null Projection; produces/processes Latitude and Longitude. </summary>
-		kProjectionCodeLL = 1,
+    kProjectionCodeLL = 1,
         /// <summary> Single standard parallel variation of the Lambert Conformal Conic. </summary>
-		kProjectionCodeLm1sp = 36,
+    kProjectionCodeLm1sp = 36,
         /// <summary> Double standard parallel variation of the Lambert Conformal Conic. </summary>
-		kProjectionCodeLm2sp = 37,
+    kProjectionCodeLm2sp = 37,
         /// <summary> Belgian variation of the Lambert Conformal Conic Projection. </summary>
-		kProjectionCodeLmblg = 38,
+    kProjectionCodeLmblg = 38,
         /// <summary> Lambert Tangential Conformal Conic Projection. </summary>
-		kProjectionCodeLmtan = 8,
+    kProjectionCodeLmtan = 8,
         /// <summary> Miller Cylindrical Projection. </summary>
-		kProjectionCodeMiller = 13,
+    kProjectionCodeMiller = 13,
         /// <summary> Minnesota DOT variation of the Lambert Conformal Conic. </summary>
-		kProjectionCodeMndotl = 41,
+    kProjectionCodeMndotl = 41,
         /// <summary> Minnesota DOT variation of the Transverse Mercator projection. </summary>
-		kProjectionCodeMndott = 42,
+    kProjectionCodeMndott = 42,
         /// <summary> Lallemand IMW Modified Polyconic Projection. </summary>
-		kProjectionCodeModpc = 10,
+    kProjectionCodeModpc = 10,
         /// <summary> Mollweide Projection. </summary>
-		kProjectionCodeMollweid = 27,
+    kProjectionCodeMollweid = 27,
         /// <summary> Mercator Cylindrical Projection. </summary>
-		kProjectionCodeMrcat = 6,
+    kProjectionCodeMrcat = 6,
         /// <summary> Standard Mercator with a scale reduction factor instead of a standard parallel. </summary>
-		kProjectionCodeMrcatK = 49,
+    kProjectionCodeMrcatK = 49,
         /// <summary> Modified Stereographic Projection. </summary>
-		kProjectionCodeMstero = 15,
+    kProjectionCodeMstero = 15,
         /// <summary> Normal Aspect; Equal Area Cylindrical Projection. </summary>
-		kProjectionCodeNeacyl = 29,
+    kProjectionCodeNeacyl = 29,
         /// <summary> Non-georeferenced coordinate system.  Named Non-Earth by Map Info. </summary>
-		kProjectionCodeNerth = 55,
+    kProjectionCodeNerth = 55,
         /// <summary> New Zealand National Grid. </summary>
-		kProjectionCodeNzealand = 16,
+    kProjectionCodeNzealand = 16,
         /// <summary> Oblique Mercator (obsolete). </summary>
-		kProjectionCodeOblqM = 5,
+    kProjectionCodeOblqM = 5,
         /// <summary> Oblique Cylindrical; a generalized version of the Swiss projection; specifically for Hungary. </summary>
-		kProjectionCodeObqcyl = 56,
+    kProjectionCodeObqcyl = 56,
         /// <summary> Orthographic Projection. </summary>
-		kProjectionCodeOrtho = 18,
+    kProjectionCodeOrtho = 18,
         /// <summary> 
         /// The Transverse Mercator with specific parameters; 
         /// with the OSTN02 grid shift tacked on.
         /// This is a combination of a projection and a datum shift.
         /// </summary>
-		kProjectionCodeOstn02 = 60,
+    kProjectionCodeOstn02 = 60,
         /// <summary>
         /// The Transverse Mercator with specific parameters;
         /// with the OSTN97 grid shift tacked on.  
         /// This is a combination of a projection and a datum shift. 
         /// </summary>
-		kProjectionCodeOstn97 = 58,
+    kProjectionCodeOstn97 = 58,
         /// <summary> Oblique Stereographic. </summary>
-		kProjectionCodeOstro = 34,
+    kProjectionCodeOstro = 34,
         /// <summary> Hassler American Polyconic Projection. </summary>
-		kProjectionCodePlycn = 9,
+    kProjectionCodePlycn = 9,
         /// <summary> Polar stereographic. </summary>
-		kProjectionCodePstro = 33,
+    kProjectionCodePstro = 33,
         /// <summary> Polar stereographic with standard latitude. </summary>
-		kProjectionCodePstrosl = 53,
+    kProjectionCodePstrosl = 53,
         /// <summary> cs_PRJCOD_RSKEW. </summary>
-		kProjectionCodeRskew = 1285,
+    kProjectionCodeRskew = 1285,
         /// <summary> cs_PRJCOD_RSKEWC. </summary>
-		kProjectionCodeRskewc = 1286,
+    kProjectionCodeRskewc = 1286,
         /// <summary> cs_PRJCOD_RSKEWO - Rectified Skew Orthomorphic; Skew Azimuth at Rectified Origin. </summary>
-		kProjectionCodeRskewo = 1287,
+    kProjectionCodeRskewo = 1287,
         /// <summary> Robinson Cylindrical Projection. </summary>
-		kProjectionCodeRobinson = 23,
+    kProjectionCodeRobinson = 23,
         /// <summary> Sinusoidal Projection; Optionally Interrupted. </summary>
-		kProjectionCodeSinus = 17,
+    kProjectionCodeSinus = 17,
         /// <summary> South Oriented variation of the Transverse Mercator Projection. </summary>
-		kProjectionCodeSotrm = 43,
+    kProjectionCodeSotrm = 43,
         /// <summary> Synder's Oblique Stereographic. </summary>
-		kProjectionCodeSstro = 35,
+    kProjectionCodeSstro = 35,
         /// <summary> "Swiss" Projection. </summary>
-		kProjectionCodeSwiss = 32,
+    kProjectionCodeSwiss = 32,
         /// <summary> Combination of Transverse Mercator and a polynomial expansion used in Denmark. </summary>
-		kProjectionCodeSys34 = 57,
+    kProjectionCodeSys34 = 57,
         /// <summary> 
         /// Combination of Transverse Mercator and polynomial expansion used in Denmark.
         /// Polynomials are of the 1999 vintage.
         /// </summary>
-		kProjectionCodeSys34_99 = 61,
+    kProjectionCodeSys34_99 = 61,
         /// <summary> Transverse Aspect; Equal Area Cylindrical Projection. </summary>
-		kProjectionCodeTeacyl = 30,
+    kProjectionCodeTeacyl = 30,
         /// <summary> Transverse Mercator or Gauss Kruger Projection. </summary>
-		kProjectionCodeTm = 3,
+    kProjectionCodeTm = 3,
         /// <summary> Transverse Mercator with affine post-processor. </summary>
-		kProjectionCodeTrmeraf = 54,
+    kProjectionCodeTrmeraf = 54,
         /// <summary> Transverse Mercator using Kruger Formulation. </summary>
-		kProjectionCodeTrmrkrg = 62,
+    kProjectionCodeTrmrkrg = 62,
         /// <summary> Transverse Mercator per J. P. Snyder. </summary>
-		kProjectionCodeTrmrs = 45,
+    kProjectionCodeTrmrs = 45,
         /// <summary> Van Der Grinten Projection. </summary>
-		kProjectionCodeVdgrntn = 21,
+    kProjectionCodeVdgrntn = 21,
         /// <summary> Wisconsin County Coord System variation; Lambert Conformal Conic. </summary>
-		kProjectionCodeWccsl = 39,
+    kProjectionCodeWccsl = 39,
         /// <summary> Wisconsin County Coord System variation; Transverse Mercator projection. </summary>
-		kProjectionCodeWccst = 40,
+    kProjectionCodeWccst = 40,
         /// <summary> The UTM direct variation of the Transverse Mercator projection. </summary>
-		kProjectionCodeUtm = 44,
+    kProjectionCodeUtm = 44,
         /// <summary> Winkel-Tripel; variable standard latitude. </summary>
-		kProjectionCodeWinkl = 63,
+    kProjectionCodeWinkl = 63,
         /// <summary> Nerth with scale and rotation. </summary>
-		kProjectionCodeNrthsrt = 64,
+    kProjectionCodeNrthsrt = 64,
         /// <summary> Lambert Conformal Conic with affine post-processor. </summary>
-		kProjectionCodeLmbrtaf = 65,
+    kProjectionCodeLmbrtaf = 65,
         /// <summary> 
         /// Combination of Transverse Mercator and polynomial expansion used in Denmark.
         /// Polynomials are of the 2001 vintage. 
         /// </summary>
-		kProjectionCodeSys34_01 = 66,
+    kProjectionCodeSys34_01 = 66,
         /// <summary> Equidistant Cylindrical Projection, Ellipsoidal or Spherical. </summary>
-		kProjectionCodeEdcylE = 67,
+    kProjectionCodeEdcylE = 67,
         /// <summary> Implementation of Plate Carree as a variation of the Equidistant Cylindrical. </summary>
-		kProjectionCodePlateCarree = 68,
+    kProjectionCodePlateCarree = 68,
         /// <summary> Popular Visualization Pseudo Mercator (aka Google Earth). </summary>
-		kProjectionCodePvMercator = 69
-	};
+    kProjectionCodePvMercator = 69
+  };
     /// <summary>
     /// brief Values that represent the linear or angular unit.
     /// </summary>
 	///
-	enum Unit
-	{
+  enum Unit
+  {
         /// <summary> the unit is not set. </summary>
-		kUnitUnknown = 0,
-		kUnitMeter = 1,
-		kUnitFoot = 2,
-		kUnitInch = 3,
-		kUnitIFoot = 4,
-		kUnitClarkeFoot = 5,
-		kUnitIInch = 6,
-		kUnitCentimeter = 7,
-		kUnitKilometer = 8,
-		kUnitYard = 9,
-		kUnitSearsYard = 10,
-		kUnitMile = 11,
-		kUnitIYard = 12,
-		kUnitIMile = 13,
-		kUnitKnot = 14,
-		kUnitNautM = 15,
-		kUnitLat66 = 16,
-		kUnitLat83 = 17,
-		kUnitDecimeter = 18,
-		kUnitMillimeter = 19,
-		kUnitDekameter = 20,
-		kUnitHectometer = 21,
-		kUnitGermanMeter = 22,
-		kUnitCaGrid = 23,
-		kUnitClarkeChain = 24,
-		kUnitGunterChain = 25,
-		kUnitBenoitChain = 26,
-		kUnitSearsChain = 27,
-		kUnitClarkeLink = 28,
-		kUnitGunterLink = 29,
-		kUnitBenoitLink = 30,
-		kUnitSearsLink = 31,
-		kUnitRod = 32,
-		kUnitPerch = 33,
-		kUnitPole = 34,
-		kUnitFurlong = 35,
-		kUnitRood = 36,
-		kUnitCapeFoot = 37,
-		kUnitBrealey = 38,
-		kUnitSearsFoot = 39,
-		kUnitGoldCoastFoot = 40,
-		kUnitMicroInch = 41,
-		kUnitIndianYard = 42,
-		kUnitIndianFoot = 43,
-		kUnitIndianFt37 = 44,
-		kUnitIndianFt62 = 45,
-		kUnitIndianFt75 = 46,
-		kUnitIndianYd37 = 47,
-		kUnitDecameter = 48,
-		kUnitInternationalChain = 49,
-		kUnitInternationalLink = 50,
-		kUnitDegree = 1001,
-		kUnitGrad = 1002,
-		kUnitGrade = 1003,
-		kUnitMapInfo = 1004,
-		kUnitMil = 1005,
-		kUnitMinute = 1006,
-		kUnitRadian = 1007,
-		kUnitSecond = 1008,
-		kUnitDecisec = 1009,
-		kUnitCentisec = 1010,
-		kUnitMillisec = 1011
-	};
+    kUnitUnknown = 0,
+    kUnitMeter = 1,
+    kUnitFoot = 2,
+    kUnitInch = 3,
+    kUnitIFoot = 4,
+    kUnitClarkeFoot = 5,
+    kUnitIInch = 6,
+    kUnitCentimeter = 7,
+    kUnitKilometer = 8,
+    kUnitYard = 9,
+    kUnitSearsYard = 10,
+    kUnitMile = 11,
+    kUnitIYard = 12,
+    kUnitIMile = 13,
+    kUnitKnot = 14,
+    kUnitNautM = 15,
+    kUnitLat66 = 16,
+    kUnitLat83 = 17,
+    kUnitDecimeter = 18,
+    kUnitMillimeter = 19,
+    kUnitDekameter = 20,
+    kUnitHectometer = 21,
+    kUnitGermanMeter = 22,
+    kUnitCaGrid = 23,
+    kUnitClarkeChain = 24,
+    kUnitGunterChain = 25,
+    kUnitBenoitChain = 26,
+    kUnitSearsChain = 27,
+    kUnitClarkeLink = 28,
+    kUnitGunterLink = 29,
+    kUnitBenoitLink = 30,
+    kUnitSearsLink = 31,
+    kUnitRod = 32,
+    kUnitPerch = 33,
+    kUnitPole = 34,
+    kUnitFurlong = 35,
+    kUnitRood = 36,
+    kUnitCapeFoot = 37,
+    kUnitBrealey = 38,
+    kUnitSearsFoot = 39,
+    kUnitGoldCoastFoot = 40,
+    kUnitMicroInch = 41,
+    kUnitIndianYard = 42,
+    kUnitIndianFoot = 43,
+    kUnitIndianFt37 = 44,
+    kUnitIndianFt62 = 45,
+    kUnitIndianFt75 = 46,
+    kUnitIndianYd37 = 47,
+    kUnitDecameter = 48,
+    kUnitInternationalChain = 49,
+    kUnitInternationalLink = 50,
+    kUnitDegree = 1001,
+    kUnitGrad = 1002,
+    kUnitGrade = 1003,
+    kUnitMapInfo = 1004,
+    kUnitMil = 1005,
+    kUnitMinute = 1006,
+    kUnitRadian = 1007,
+    kUnitSecond = 1008,
+    kUnitDecisec = 1009,
+    kUnitCentisec = 1010,
+    kUnitMillisec = 1011
+  };
     /// <summary> 
     /// virtual destructor
     /// </summary>
-	virtual ~AcDbGeoCoordinateSystem()
-	{
-	}
+  virtual ~AcDbGeoCoordinateSystem()
+  {
+  }
     /// <summary> 
     /// Get this CRS's identifier string, which is also being referred to as a (coordinate system) code.
     /// The id returned always belongs to the ADSK namespace and is never prefixed.
@@ -379,7 +379,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getId(AcString& coordSysId) const = 0;
+  virtual Acad::ErrorStatus getId(AcString& coordSysId) const = 0;
     /// <summary> 
     /// Get this CRS's EPSG code.
     /// </summary>
@@ -389,7 +389,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getEpsgCode(int& epsgCode) const = 0;
+  virtual Acad::ErrorStatus getEpsgCode(int& epsgCode) const = 0;
     /// <summary> 
     /// Get this CRS's type, e.g. geographic, projected, arbitrary etc.
     /// </summary>
@@ -399,7 +399,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getType(AcDbGeoCoordinateSystem::Type& type) const = 0;
+  virtual Acad::ErrorStatus getType(AcDbGeoCoordinateSystem::Type& type) const = 0;
     /// <summary> 
     /// Get this definition's description, if there's any.
     /// </summary>
@@ -409,7 +409,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getDescription(AcString& coordSysDesc) const = 0;
+  virtual Acad::ErrorStatus getDescription(AcString& coordSysDesc) const = 0;
     /// <summary> 
     /// Gets the unit of the coordinate system axis of this CRS. 
     /// All axis contains the same unit.
@@ -421,7 +421,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getUnit(AcDb::UnitsValue& unit) const = 0;
+  virtual Acad::ErrorStatus getUnit(AcDb::UnitsValue& unit) const = 0;
     /// <summary> 
     /// Gets the unit of the coordinate system axis of this CRS. 
     /// All axis contains the same unit.
@@ -432,7 +432,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getUnit(AcDbGeoCoordinateSystem::Unit& unit) const = 0;
+  virtual Acad::ErrorStatus getUnit(AcDbGeoCoordinateSystem::Unit& unit) const = 0;
     /// <summary> 
     /// Gets a factor, that the length units of this CRS instance must be
     /// multiplied with to calculate the equivalent in meters.
@@ -445,7 +445,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getUnitScale(double& unitScale) const = 0;
+  virtual Acad::ErrorStatus getUnitScale(double& unitScale) const = 0;
     /// <summary> 
     /// Gets the projection method of this CRS. 
     /// The projection is the conversion of the CRS..
@@ -456,7 +456,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getProjectionCode(AcDbGeoCoordinateSystem::ProjectionCode& prjCode) const = 0;
+  virtual Acad::ErrorStatus getProjectionCode(AcDbGeoCoordinateSystem::ProjectionCode& prjCode) const = 0;
     /// <summary> 
     /// Gets the projection parameters of this CRS. 
     /// </summary>
@@ -475,7 +475,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getProjectionParameters(AcArray<AcDbGeoProjectionParameter>& prjParams, bool includeSpecialParams) const = 0;
+  virtual Acad::ErrorStatus getProjectionParameters(AcArray<AcDbGeoProjectionParameter>& prjParams, bool includeSpecialParams) const = 0;
     /// <summary> 
     /// Gets the datum, if any, this CRS is reference to.
     /// </summary>
@@ -485,7 +485,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getDatum(AcDbGeoDatum& datum) const = 0;
+  virtual Acad::ErrorStatus getDatum(AcDbGeoDatum& datum) const = 0;
     /// <summary> 
     /// Gets the related ellipsoid.
     /// Note: When a CRS contains an ellipsoid it will not be geodetic and
@@ -497,7 +497,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getEllipsoid(AcDbGeoEllipsoid& ellipsoid) const = 0;
+  virtual Acad::ErrorStatus getEllipsoid(AcDbGeoEllipsoid& ellipsoid) const = 0;
     /// <summary> 
     /// Gets the projection method parameter offset easting of this CRS.
     /// </summary>
@@ -507,7 +507,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getOffset(AcGeVector2d& offsetVec) const = 0;
+  virtual Acad::ErrorStatus getOffset(AcGeVector2d& offsetVec) const = 0;
     /// <summary> 
     /// Get the Cartesian extent of this CRS's.
     /// </summary>
@@ -517,7 +517,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getCartesianExtents(AcDbExtents2d& exts) const = 0;
+  virtual Acad::ErrorStatus getCartesianExtents(AcDbExtents2d& exts) const = 0;
     /// <summary> 
     /// Get the geodetic extent of this CRS's, the range of longitude and latitude.
     /// </summary>
@@ -527,7 +527,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getGeodeticExtents(AcDbExtents2d& exts) const = 0;
+  virtual Acad::ErrorStatus getGeodeticExtents(AcDbExtents2d& exts) const = 0;
     /// <summary> 
     /// Get the representation string of this CRS's in XML format.
     /// </summary>
@@ -537,7 +537,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getXmlRepresentation(AcString& strXml) const = 0;
+  virtual Acad::ErrorStatus getXmlRepresentation(AcString& strXml) const = 0;
     /// <summary> 
     /// Get the representation string of this CRS's in WKT format.
     /// </summary>
@@ -547,7 +547,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getWktRepresentation(AcString& strWkt) const = 0;
+  virtual Acad::ErrorStatus getWktRepresentation(AcString& strWkt) const = 0;
     /// <summary> 
     /// Instantiates a new AcDbGeoCoordinateSystem object from the current virtual catalog. 
     /// If no such CRS definition exists but the input string contains enough information(i.e. WKT or XML) 
@@ -573,7 +573,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	ACDBCORE2D_PORT static Acad::ErrorStatus create(const AcString& coordSysIdOrFullDef, AcDbGeoCoordinateSystem*& pCoordSys);
+  ACDBCORE2D_PORT static Acad::ErrorStatus create(const AcString& coordSysIdOrFullDef, AcDbGeoCoordinateSystem*& pCoordSys);
     /// <summary> 
     /// Instantiates a new AcDbGeoCoordinateSystem object for every existing, 
     /// persistent project CRS definition from the current virtual catalog,
@@ -589,7 +589,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	ACDBCORE2D_PORT static Acad::ErrorStatus createAll(const AcGePoint3d& geoPt, AcArray<AcDbGeoCoordinateSystem*>& allCoordSys);
+  ACDBCORE2D_PORT static Acad::ErrorStatus createAll(const AcGePoint3d& geoPt, AcArray<AcDbGeoCoordinateSystem*>& allCoordSys);
     /// <summary> 
     /// Instantiates a new AcDbGeoCoordinateSystem object for every existing, 
     /// persistent CRS definition from the specified catalog.
@@ -605,7 +605,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	ACDBCORE2D_PORT static Acad::ErrorStatus createAll(AcArray<AcDbGeoCoordinateSystem*>& allCoordSys, const AcDbGeoCoordinateSystemCategory* pCategory = NULL);
+  ACDBCORE2D_PORT static Acad::ErrorStatus createAll(AcArray<AcDbGeoCoordinateSystem*>& allCoordSys, const AcDbGeoCoordinateSystemCategory* pCategory = NULL);
 };
 /// <summary>
 /// the AcDbGeoCoordinateSystemTransformer class represents a transformer object 
@@ -618,9 +618,9 @@ public:
     /// <summary> 
     /// virtual destructor
     /// </summary>
-	virtual ~AcDbGeoCoordinateSystemTransformer()
-	{
-	}
+  virtual ~AcDbGeoCoordinateSystemTransformer()
+  {
+  }
     /// <summary> 
     /// get the source CRS id.
     /// </summary>
@@ -629,7 +629,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getSourceCoordinateSystemId(AcString& sourceCoordSysId) const = 0;
+  virtual Acad::ErrorStatus getSourceCoordinateSystemId(AcString& sourceCoordSysId) const = 0;
     /// <summary> 
     /// get the target CRS id.
     /// </summary>
@@ -638,7 +638,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus getTargetCoordinateSystemId(AcString& targetCoordSysId) const = 0;
+  virtual Acad::ErrorStatus getTargetCoordinateSystemId(AcString& targetCoordSysId) const = 0;
     /// <summary> 
     /// transform a point from source CRS to target CRS. 
     /// </summary>
@@ -650,7 +650,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus transformPoint(const AcGePoint3d& pointIn, AcGePoint3d& pointOut) const = 0;
+  virtual Acad::ErrorStatus transformPoint(const AcGePoint3d& pointIn, AcGePoint3d& pointOut) const = 0;
     /// <summary> 
     /// transform a group of points from source CRS to target CRS. 
     /// </summary>
@@ -662,7 +662,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	virtual Acad::ErrorStatus transformPoints(const AcGePoint3dArray& pointsIn, AcGePoint3dArray& pointsOut) const = 0;
+  virtual Acad::ErrorStatus transformPoints(const AcGePoint3dArray& pointsIn, AcGePoint3dArray& pointsOut) const = 0;
     /// <summary> 
     /// transform a group of points from source CRS to target CRS. 
     /// </summary>
@@ -680,7 +680,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	ACDBCORE2D_PORT static Acad::ErrorStatus transformPoint(const AcString& sourceCoordSysId, const AcString& targetCoordSysId, const AcGePoint3d& pointIn, AcGePoint3d& pointOut);
+  ACDBCORE2D_PORT static Acad::ErrorStatus transformPoint(const AcString& sourceCoordSysId, const AcString& targetCoordSysId, const AcGePoint3d& pointIn, AcGePoint3d& pointOut);
     /// <summary> 
     /// transform a point from source CRS to target CRS. 
     /// </summary>
@@ -698,7 +698,7 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	ACDBCORE2D_PORT static Acad::ErrorStatus transformPoints(const AcString& sourceCoordSysId, const AcString& targetCoordSysId, const AcGePoint3dArray& pointsIn, AcGePoint3dArray& pointsOut);
+  ACDBCORE2D_PORT static Acad::ErrorStatus transformPoints(const AcString& sourceCoordSysId, const AcString& targetCoordSysId, const AcGePoint3dArray& pointsIn, AcGePoint3dArray& pointsOut);
     /// <summary> 
     /// Instantiates a new AcDbGeoCoordinateSystemTransformer object 
     /// from the source CRS and target CRS.
@@ -711,6 +711,6 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	ACDBCORE2D_PORT static Acad::ErrorStatus create(const AcString& sourceCoordSysId, const AcString& targetCoordSysId, AcDbGeoCoordinateSystemTransformer*& pCoordSysTransformer);
+  ACDBCORE2D_PORT static Acad::ErrorStatus create(const AcString& sourceCoordSysId, const AcString& targetCoordSysId, AcDbGeoCoordinateSystemTransformer*& pCoordSysTransformer);
 };
 #pragma  pack (pop)

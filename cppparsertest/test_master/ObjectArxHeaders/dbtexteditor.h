@@ -47,15 +47,15 @@ public:
     ///<summary> 
     /// Delete this AcDbTextEditorLocation.
     ///</summary>
-	ACDBCORE2D_PORT void release();
+  ACDBCORE2D_PORT void release();
 private:
-	~AcDbTextEditorLocation();
-	AcDbTextEditorLocation();
-	bool operator==(const AcDbTextEditorLocation& other);
-	friend class AcDbTextEditor;
-	friend class AcDbTextEditorServices;
-	friend class AcDbTextEditorCursor;
-	TextEditorLocation* m_pImp;
+  ~AcDbTextEditorLocation();
+  AcDbTextEditorLocation();
+  bool operator==(const AcDbTextEditorLocation& other);
+  friend class AcDbTextEditor;
+  friend class AcDbTextEditorServices;
+  friend class AcDbTextEditorCursor;
+  TextEditorLocation* m_pImp;
 };
 ///<summary> 
 /// The AcDbTextEditorSelectable is a pure interface to represent the locations for
@@ -64,23 +64,23 @@ private:
 class AcDbTextEditorSelectable
 {
 public:
-	virtual ~AcDbTextEditorSelectable()
-	{
-	}
+  virtual ~AcDbTextEditorSelectable()
+  {
+  }
     ///<summary> 
     /// Gets the start location of a selectable object.
     ///</summary>
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the start of a selectable object.
     /// </returns>
-	virtual AcDbTextEditorLocation* startOfText() = 0;
+  virtual AcDbTextEditorLocation* startOfText() = 0;
     ///<summary> 
     /// Gets the end location of a selectable object.
     ///</summary>
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the end of a selectable object.
     /// </returns>
-	virtual AcDbTextEditorLocation* endOfText() = 0;
+  virtual AcDbTextEditorLocation* endOfText() = 0;
 };
 ///<summary> 
 /// The AcDbTextEditorSelectionBase is the base class for the AcDbTextEditorCursor
@@ -96,55 +96,55 @@ public:
     /// <summary>
     /// This enumerator describe the flow align types.
     /// </summary>
-	enum FlowAlign
-	{
+  enum FlowAlign
+  {
         /// <summary>
         /// The flow type is base align.
         /// </summary>
-		kFlowBase,
+    kFlowBase,
         /// <summary>
         /// The flow type is center align.
         /// </summary>
-		kFlowCenter,
+    kFlowCenter,
         /// <summary>
         /// The flow type is top align.
         /// </summary>
-		kFlowTop
-	};
+    kFlowTop
+  };
     /// <summary>
     /// This enumerator describe the insert text format types.
     /// </summary>
-	enum InsertTextType
-	{
+  enum InsertTextType
+  {
         /// <summary>
         /// The insert text is in unicode MText format.
         /// </summary>
-		kUnicodeMTextFormat,
+    kUnicodeMTextFormat,
         /// <summary>
         /// The insert text is in MText format.
         /// </summary>
-		kMTextFormat,
+    kMTextFormat,
         /// <summary>
         /// The insert text is in rich text format.
         /// </summary>
-		kRichTextFormat,
+    kRichTextFormat,
         /// <summary>
         /// The insert text is in unicode DText format.
         /// </summary>
-		kUnicodeDTextFormat,
+    kUnicodeDTextFormat,
         /// <summary>
         /// The insert text is in DText format.
         /// </summary>
-		kDTextFormat,
+    kDTextFormat,
         /// <summary>
         /// The insert text is in unicode text format.
         /// </summary>
-		kUnicodeTextFormat,
+    kUnicodeTextFormat,
         /// <summary>
         /// The insert text is in multibyte text format.
         /// </summary>
-		kMultibyteTextFormat
-	};
+    kMultibyteTextFormat
+  };
     ///<summary> 
     /// Set current language. Now we only support the following charset:
     /// ANSI_CHARSET
@@ -172,14 +172,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setLanguage(Charset charset);
+  ACDBCORE2D_PORT Acad::ErrorStatus setLanguage(Charset charset);
     ///<summary> 
     /// Get current language.
     ///</summary>
     /// <returns>
     /// Returns current language.
     /// </returns>
-	ACDBCORE2D_PORT Charset language() const;
+  ACDBCORE2D_PORT Charset language() const;
     ///<summary> 
     /// Set current font. If you set the font for the current selection, you 
     /// should check if the current selection supports the font. Otherwise it 
@@ -191,7 +191,7 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setFont(const AcString& fontname, bool bTrueType);
+  ACDBCORE2D_PORT Acad::ErrorStatus setFont(const AcString& fontname, bool bTrueType);
     ///<summary> 
     /// Get current font name. If the font is a SHX font, the returned name has 
     /// the .SHX extension.
@@ -199,14 +199,14 @@ public:
     /// <returns>
     /// Returns current font name.
     /// </returns>
-	ACDBCORE2D_PORT AcString font() const;
+  ACDBCORE2D_PORT AcString font() const;
     ///<summary> 
     /// Check if current font is a TrueType font.
     ///</summary>
     /// <returns>
     /// Returns true if current font is TrueType.
     /// </returns>
-	ACDBCORE2D_PORT bool isTrueType() const;
+  ACDBCORE2D_PORT bool isTrueType() const;
     ///<summary> 
     /// Set the text height of selectable object .
     ///</summary>
@@ -215,14 +215,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setHeight(double height);
+  ACDBCORE2D_PORT Acad::ErrorStatus setHeight(double height);
     ///<summary> 
     /// Get current text height.
     ///</summary>
     /// <returns>
     /// Returns current text height.
     /// </returns>
-	ACDBCORE2D_PORT double height() const;
+  ACDBCORE2D_PORT double height() const;
     ///<summary> 
     /// Get current text color. This can apply to a selection or to the current cursor.
     ///</summary>
@@ -231,14 +231,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setColor(const AcCmColor& color);
+  ACDBCORE2D_PORT Acad::ErrorStatus setColor(const AcCmColor& color);
     ///<summary> 
     /// Get current text color.
     ///</summary>
     /// <returns>
     /// Returns AcCmColor of current text.
     /// </returns>
-	ACDBCORE2D_PORT AcCmColor color() const;
+  ACDBCORE2D_PORT AcCmColor color() const;
     ///<summary> 
     /// Toggles bold state. This can apply to a selection or to the current cursor.
     /// If the current selectable object's font is SHX, there is no effect after 
@@ -248,14 +248,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus toggleBold();
+  ACDBCORE2D_PORT Acad::ErrorStatus toggleBold();
     ///<summary> 
     /// Get current bold state.
     ///</summary>
     /// <returns>
     /// Returns true if bold is on, false otherwise.
     /// </returns>
-	ACDBCORE2D_PORT bool bold() const;
+  ACDBCORE2D_PORT bool bold() const;
     ///<summary> 
     /// Toggles italic state. This can apply to a selection or to the current cursor.
     /// If the current selectable object's font is SHX, there is no effect after 
@@ -265,14 +265,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus toggleItalic();
+  ACDBCORE2D_PORT Acad::ErrorStatus toggleItalic();
     ///<summary> 
     /// Get current italic state.
     ///</summary>
     /// <returns>
     /// Returns true if italic is on, false otherwise.
     /// </returns>
-	ACDBCORE2D_PORT bool italic() const;
+  ACDBCORE2D_PORT bool italic() const;
     ///<summary> 
     /// Toggles underline state. This can apply to a selection or to the current
     /// cursor.
@@ -281,14 +281,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus toggleUnderline();
+  ACDBCORE2D_PORT Acad::ErrorStatus toggleUnderline();
     ///<summary> 
     /// Get current underline state.
     ///</summary>
     /// <returns>
     /// Returns true if underline is on, false otherwise.
     /// </returns>
-	ACDBCORE2D_PORT bool underline() const;
+  ACDBCORE2D_PORT bool underline() const;
     ///<summary> 
     /// Toggles overline state. This can apply to a selection or to the current cursor.
     ///</summary>
@@ -296,14 +296,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus toggleOverline();
+  ACDBCORE2D_PORT Acad::ErrorStatus toggleOverline();
     ///<summary> 
     /// Get current overline state.
     ///</summary>
     /// <returns>
     /// Returns true if overline is on, false otherwise.
     /// </returns>
-	ACDBCORE2D_PORT bool overline() const;
+  ACDBCORE2D_PORT bool overline() const;
     ///<summary> 
     /// Toggles strikethrough state. This can apply to a selection or to the current cursor.
     ///</summary>
@@ -311,14 +311,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus toggleStrikethrough();
+  ACDBCORE2D_PORT Acad::ErrorStatus toggleStrikethrough();
     ///<summary> 
     /// Get current strikethrough state.
     ///</summary>
     /// <returns>
     /// Returns true if overline is on, false otherwise.
     /// </returns>
-	ACDBCORE2D_PORT bool strikethrough() const;
+  ACDBCORE2D_PORT bool strikethrough() const;
     ///<summary> 
     /// Set oblique angle. This can apply to a selection or to the current 
     /// cursor.
@@ -329,7 +329,7 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setObliqueAngle(double angle);
+  ACDBCORE2D_PORT Acad::ErrorStatus setObliqueAngle(double angle);
     ///<summary> 
     /// Get oblique angle. This can apply to a selection or to the current 
     /// cursor.
@@ -337,7 +337,7 @@ public:
     /// <returns>
     /// Returns oblique angle.
     /// </returns>
-	ACDBCORE2D_PORT double obliqueAngle() const;
+  ACDBCORE2D_PORT double obliqueAngle() const;
     ///<summary> 
     /// Set tracking factor. This can apply to a selection or to the current 
     /// cursor.
@@ -348,14 +348,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setTrackingFactor(double factor);
+  ACDBCORE2D_PORT Acad::ErrorStatus setTrackingFactor(double factor);
     ///<summary> 
     /// Get tracking factor.
     ///</summary>
     /// <returns>
     /// Returns tracking factor.
     /// </returns>
-	ACDBCORE2D_PORT double trackingFactor() const;
+  ACDBCORE2D_PORT double trackingFactor() const;
     ///<summary> 
     /// Set width scale for each character. This can apply to the characters in
     /// a selection or to the current cursor.
@@ -366,14 +366,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setWidthScale(double scale);
+  ACDBCORE2D_PORT Acad::ErrorStatus setWidthScale(double scale);
     ///<summary> 
     /// Get width scale.
     ///</summary>
     /// <returns>
     /// Returns width scale.
     /// </returns>
-	ACDBCORE2D_PORT double widthScale() const;
+  ACDBCORE2D_PORT double widthScale() const;
     ///<summary> 
     /// Set flow align.
     ///</summary>
@@ -382,56 +382,56 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setFlowAlign(FlowAlign flowAlign);
+  ACDBCORE2D_PORT Acad::ErrorStatus setFlowAlign(FlowAlign flowAlign);
     ///<summary> 
     /// Get flow align.
     ///</summary>
     /// <returns>
     /// Returns flow align.
     /// </returns>
-	ACDBCORE2D_PORT FlowAlign flowAlign() const;
+  ACDBCORE2D_PORT FlowAlign flowAlign() const;
     ///<summary> 
     /// Minimum allowable oblique angle.
     ///</summary>
     /// <returns>
     /// Returns minimum allowable oblique angle.
     /// </returns>
-	ACDBCORE2D_PORT static double minObliqueAngle();
+  ACDBCORE2D_PORT static double minObliqueAngle();
     ///<summary> 
     /// Maximum allowable oblique angle.
     ///</summary>
     /// <returns>
     /// Returns maximum allowable oblique angle.
     /// </returns>
-	ACDBCORE2D_PORT static double maxObliqueAngle();
+  ACDBCORE2D_PORT static double maxObliqueAngle();
     ///<summary> 
     /// Minimum allowable tracking factor.
     ///</summary>
     /// <returns>
     /// Returns minimum allowable tracking factor.
     /// </returns>
-	ACDBCORE2D_PORT static double minTrackingFactor();
+  ACDBCORE2D_PORT static double minTrackingFactor();
     ///<summary> 
     /// Maximum allowable tracking factor.
     ///</summary>
     /// <returns>
     /// Returns maximum allowable tracking factor.
     /// </returns>
-	ACDBCORE2D_PORT static double maxTrackingFactor();
+  ACDBCORE2D_PORT static double maxTrackingFactor();
     ///<summary> 
     /// Minimum allowable width scale.
     ///</summary>
     /// <returns>
     /// Returns minimum allowable width scale.
     /// </returns>
-	ACDBCORE2D_PORT static double minWidthScale();
+  ACDBCORE2D_PORT static double minWidthScale();
     ///<summary> 
     /// Maximum allowable width scale.
     ///</summary>
     /// <returns>
     /// Returns maximum allowable width scale.
     /// </returns>
-	ACDBCORE2D_PORT static double maxWidthScale();
+  ACDBCORE2D_PORT static double maxWidthScale();
     ///<summary> 
     /// Insert a symbol. If you call the function via the current selection object,
     /// it will delete the current text editor selection.
@@ -443,7 +443,7 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus insertSymbol(ACHAR wch, Charset charset);
+  ACDBCORE2D_PORT Acad::ErrorStatus insertSymbol(ACHAR wch, Charset charset);
     ///<summary> 
     /// Insert a string. If you call the function via the current selection object,
     /// it will delete the current text editor selection.
@@ -453,7 +453,7 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus insertString(const AcString& str);
+  ACDBCORE2D_PORT Acad::ErrorStatus insertString(const AcString& str);
     ///<summary> 
     /// Insert Text. The text can come from some import operation. The type of 
     /// text is defined with InsertTextType. If you call the function via the 
@@ -465,7 +465,7 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus insertImportedText(InsertTextType insertType, void* pData);
+  ACDBCORE2D_PORT Acad::ErrorStatus insertImportedText(InsertTextType insertType, void* pData);
     ///<summary> 
     /// Move current cursor position or delete character. If you call the function
     /// via the current selection object, it will delete the current text editor 
@@ -486,7 +486,7 @@ public:
     /// Returns Acad::eOk if the redo succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus inputSpecialChar(Adesk::UInt32 c);
+  ACDBCORE2D_PORT Acad::ErrorStatus inputSpecialChar(Adesk::UInt32 c);
     ///<summary> 
     /// Insert a column break code.  A kColumnBreakCode is inserted. If the column
     /// type is AcDbMText::kNoColumns, it will return Acad::eInvalidInput. 
@@ -497,14 +497,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus insertColumnBreak();
+  ACDBCORE2D_PORT Acad::ErrorStatus insertColumnBreak();
 protected:
-	AcDbTextEditorSelectionBase();
-	virtual ~AcDbTextEditorSelectionBase();
-	AcDbTextEditorSelectionBase(const AcDbTextEditorSelectionBase&);
-	AcDbTextEditorSelectionBase& operator=(const AcDbTextEditorSelectionBase&);
-	friend class AcDbTextEditor;
-	AcDbImpTextEditorSelectionBase* m_pImp;
+  AcDbTextEditorSelectionBase();
+  virtual ~AcDbTextEditorSelectionBase();
+  AcDbTextEditorSelectionBase(const AcDbTextEditorSelectionBase&);
+  AcDbTextEditorSelectionBase& operator=(const AcDbTextEditorSelectionBase&);
+  friend class AcDbTextEditor;
+  AcDbImpTextEditorSelectionBase* m_pImp;
 };
 ///<summary> 
 /// The AcDbTextEditorSelection represents the current selection object in text 
@@ -530,7 +530,7 @@ public:
     /// Returns true if the current selection supports the language.
     /// Returns false if the current selection doesn't support the language.
     /// </returns>
-	ACDBCORE2D_PORT bool languageSupported(Charset charset) const;
+  ACDBCORE2D_PORT bool languageSupported(Charset charset) const;
     ///<summary> 
     /// Check if the current selection supports the specified font. If one of the 
     /// characters or the language of the text in the current selection doesn't 
@@ -542,7 +542,7 @@ public:
     /// Returns true if the current selection supports the font.
     /// Returns false if the current selection doesn't support the font.
     /// </returns>
-	ACDBCORE2D_PORT bool fontSupported(const AcString& fontname, bool bTrueType) const;
+  ACDBCORE2D_PORT bool fontSupported(const AcString& fontname, bool bTrueType) const;
     ///<summary> 
     /// Check that current selection is stackable. Currently it only can stack the
     /// selected text which contains the following chars:
@@ -554,7 +554,7 @@ public:
     /// <returns>
     /// Returns true if selection is stackable.
     /// </returns>
-	ACDBCORE2D_PORT bool canStack() const;
+  ACDBCORE2D_PORT bool canStack() const;
     ///<summary> 
     /// Stack the contents of the current selection. It uses the default stack scale
     /// factor and alignment (AcDbTextEditor::defaultStackScale() and 
@@ -564,14 +564,14 @@ public:
     /// Returns Acad::eOk if the contents of the selection was stacked.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus stack();
+  ACDBCORE2D_PORT Acad::ErrorStatus stack();
     ///<summary> 
     /// Check that current selection is unstack able.
     ///</summary>
     /// <returns>
     /// Returns true if selection is stackable.
     /// </returns>
-	ACDBCORE2D_PORT bool canUnStack() const;
+  ACDBCORE2D_PORT bool canUnStack() const;
     ///<summary> 
     /// UnStack the contents of the current selection. After unstacked the text 
     /// will contain the separator chars which specify the stack type:
@@ -585,14 +585,14 @@ public:
     /// Returns Acad::eOk if the contents of the selection was un-stacked.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus unStack();
+  ACDBCORE2D_PORT Acad::ErrorStatus unStack();
     ///<summary> 
     ///Check if the single stack object is selected in editor.
     ///</summary>
     /// <returns>
     /// Returns true if the single stack object is active.
     /// </returns>
-	ACDBCORE2D_PORT bool singleStackSelected() const;
+  ACDBCORE2D_PORT bool singleStackSelected() const;
     ///<summary> 
     /// Get the stack properties from current selected stack. 
     ///</summary>
@@ -602,7 +602,7 @@ public:
     /// Returns Acad::eInvalidInput if the operation fails.If there is no
     /// single stack selected, it will return Acad::eNotApplicable.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus getStack(AcDbTextEditorStack& stack) const;
+  ACDBCORE2D_PORT Acad::ErrorStatus getStack(AcDbTextEditorStack& stack) const;
     ///<summary> 
     /// Set the stack properties for the current selected stack. 
     ///</summary>
@@ -612,7 +612,7 @@ public:
     /// Returns Acad::eInvalidInput if the operation fails. If there is no
     /// single stack selected, it will return Acad::eNotApplicable.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setStack(const AcDbTextEditorStack& stack);
+  ACDBCORE2D_PORT Acad::ErrorStatus setStack(const AcDbTextEditorStack& stack);
     ///<summary> 
     /// Get the AcDbTextEditorParagraph associated with the current TextEditor
     /// selection.
@@ -621,7 +621,7 @@ public:
     /// <returns>
     /// Returns AcDbTextEditorParagraph for the current selection.
     /// </returns>
-	ACDBCORE2D_PORT void paragraph(AcArray<AcDbTextEditorParagraph*>& paragraphs);
+  ACDBCORE2D_PORT void paragraph(AcArray<AcDbTextEditorParagraph*>& paragraphs);
     ///<summary> 
     /// Combines selected paragraphs into one paragraph paragraphs.
     ///</summary>
@@ -629,7 +629,7 @@ public:
     /// Returns Acad::eOk if the paragraphs were combined okay.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus combineParagraphs();
+  ACDBCORE2D_PORT Acad::ErrorStatus combineParagraphs();
     ///<summary> 
     /// Removes character formatting from the selection. It includes the following
     /// character formatting properties: font, bold, italic, overline, underline,
@@ -639,7 +639,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus removeCharacterFormatting();
+  ACDBCORE2D_PORT Acad::ErrorStatus removeCharacterFormatting();
     ///<summary> 
     /// Removes paragraph formatting from the selection. It includes the following
     /// paragraph formatting properties: first indent, left indent, right indent,
@@ -650,7 +650,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus removeParagraphFormatting();
+  ACDBCORE2D_PORT Acad::ErrorStatus removeParagraphFormatting();
     ///<summary> 
     ///Removes character formatting and paragraph formatting from the selection.
     ///</summary>
@@ -658,7 +658,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus removeAllFormatting();
+  ACDBCORE2D_PORT Acad::ErrorStatus removeAllFormatting();
     ///<summary> 
     /// Check if it can change the case for current selected text. For example it can't
     /// change case for field object.
@@ -667,7 +667,7 @@ public:
     /// Returns true if it can change the case.
     /// Returns false if it can't change the case.
     /// </returns>
-	ACDBCORE2D_PORT bool canChangeCase() const;
+  ACDBCORE2D_PORT bool canChangeCase() const;
     ///<summary> 
     /// Change case of characters in the selection to uppercase.
     ///</summary>
@@ -675,7 +675,7 @@ public:
     /// Returns true if selection changed.
     /// Returns false if no change was made.
     /// </returns>
-	ACDBCORE2D_PORT bool changeToUppercase();
+  ACDBCORE2D_PORT bool changeToUppercase();
     ///<summary> 
     ///Change case of characters in the selection to lowercase.
     ///</summary>
@@ -683,21 +683,21 @@ public:
     /// returns true if selection changed.
     /// returns false if no change was made.
     /// </returns>
-	ACDBCORE2D_PORT bool changeToLowercase();
+  ACDBCORE2D_PORT bool changeToLowercase();
     ///<summary> 
     /// Get the text content for the current selection.
     ///</summary>
     /// <returns>
     /// Returns text of the current selection.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus getSelectionText(AcString& txt) const;
+  ACDBCORE2D_PORT Acad::ErrorStatus getSelectionText(AcString& txt) const;
     ///<summary> 
     ///Check if the single field object is selected in editor.
     ///</summary>
     /// <returns>
     /// Returns true if the single field object is active.
     /// </returns>
-	ACDBCORE2D_PORT bool singleFieldSelected() const;
+  ACDBCORE2D_PORT bool singleFieldSelected() const;
     ///<summary> 
     /// Get AcDbField* pointer if the current selection is a single field. You 
     /// should not delete or close the field object. The life time of the object
@@ -707,7 +707,7 @@ public:
     /// Returns AcDbField* for AcDbTextEditorSelection.
     /// Returns NULL if no field or selection is not a field.
     /// </returns>
-	ACDBCORE2D_PORT AcDbField* field() const;
+  ACDBCORE2D_PORT AcDbField* field() const;
     ///<summary> 
     /// Update the filed object in the text editor.It is only enabled when there is a single active field
     /// object (the isSingleFieldSelected() returns true).
@@ -717,7 +717,7 @@ public:
     /// Returns Acad::eInvalidInput if the operation fails. If there is no
     /// single field selected, it will return Acad::eNotApplicable.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus updateField();
+  ACDBCORE2D_PORT Acad::ErrorStatus updateField();
     ///<summary> 
     /// Convert the special text object (for example the field object) to plain text.
     /// It is only enabled when there is a single field object selected.
@@ -727,14 +727,14 @@ public:
     /// Returns Acad::eInvalidInput if the operation fails. If there is no
     /// single field selected, it will return Acad::eNotApplicable.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus convertToPlainText();
+  ACDBCORE2D_PORT Acad::ErrorStatus convertToPlainText();
 protected:
-	ACDBCORE2D_PORT AcDbTextEditorSelection(const TextEditor* pImp);
-	ACDBCORE2D_PORT ~AcDbTextEditorSelection();
-	AcDbTextEditorSelection(const AcDbTextEditorSelection&);
-	AcDbTextEditorSelection& operator=(const AcDbTextEditorSelection&);
-	AcDbImpTextEditorSelection* m_pImpSelection;
-	friend class TextEditor;
+  ACDBCORE2D_PORT AcDbTextEditorSelection(const TextEditor* pImp);
+  ACDBCORE2D_PORT ~AcDbTextEditorSelection();
+  AcDbTextEditorSelection(const AcDbTextEditorSelection&);
+  AcDbTextEditorSelection& operator=(const AcDbTextEditorSelection&);
+  AcDbImpTextEditorSelection* m_pImpSelection;
+  friend class TextEditor;
 };
 ///<summary> 
 /// The AcDbTextEditorCursor class represents the current cursor object in text
@@ -757,7 +757,7 @@ public:
     /// <returns>
     /// Returns AcDbTextEditorParagraph for the current location.
     /// </returns>
-	ACDBCORE2D_PORT AcDbTextEditorParagraph* paragraph();
+  ACDBCORE2D_PORT AcDbTextEditorParagraph* paragraph();
     ///<summary> 
     /// Get the AcDbTextEditorColumn associated with the current TextEditor
     /// location.
@@ -765,7 +765,7 @@ public:
     /// <returns>
     /// Returns AcDbTextEditorColumn for the current location.
     /// </returns>
-	ACDBCORE2D_PORT AcDbTextEditorColumn* column();
+  ACDBCORE2D_PORT AcDbTextEditorColumn* column();
     ///<summary> 
     /// Set the AcDbTextEditorLocation associated with the current TextEditor
     /// location.
@@ -775,7 +775,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setLocation(const AcDbTextEditorLocation& location);
+  ACDBCORE2D_PORT Acad::ErrorStatus setLocation(const AcDbTextEditorLocation& location);
     ///<summary> 
     /// Get the AcDbTextEditorLocation associated with the current TextEditor
     /// location.
@@ -783,14 +783,14 @@ public:
     /// <returns>
     /// Returns AcDbTextEditorLocation for the current location.
     /// </returns>
-	ACDBCORE2D_PORT AcDbTextEditorLocation* location() const;
+  ACDBCORE2D_PORT AcDbTextEditorLocation* location() const;
 protected:
-	ACDBCORE2D_PORT AcDbTextEditorCursor(const TextEditor* pImp);
-	ACDBCORE2D_PORT ~AcDbTextEditorCursor();
-	AcDbTextEditorCursor(const AcDbTextEditorCursor&);
-	AcDbTextEditorCursor& operator=(const AcDbTextEditorCursor&);
-	AcDbImpTextEditorCursor* m_pImpCursor;
-	friend class TextEditor;
+  ACDBCORE2D_PORT AcDbTextEditorCursor(const TextEditor* pImp);
+  ACDBCORE2D_PORT ~AcDbTextEditorCursor();
+  AcDbTextEditorCursor(const AcDbTextEditorCursor&);
+  AcDbTextEditorCursor& operator=(const AcDbTextEditorCursor&);
+  AcDbImpTextEditorCursor* m_pImpCursor;
+  friend class TextEditor;
 };
 ///<summary> 
 /// The AcDbTextEditorParagraphTab represents the tab object in the editor. You can
@@ -803,48 +803,48 @@ public:
     /// <summary>
     /// This enumerator describes the paragraph tab types.
     /// </summary>
-	enum ParagraphTabType
-	{
+  enum ParagraphTabType
+  {
         /// <summary>
         /// The text align the paragraph tab to the left.
         /// </summary>
-		kLeftTab,
+    kLeftTab,
         /// <summary>
         /// The text align the paragraph tab to the center.
         /// </summary>
-		kCenterTab,
+    kCenterTab,
         /// <summary>
         /// The text align the paragraph tab to the right.
         /// </summary>
-		kRightTab,
+    kRightTab,
         /// <summary>
         /// The text align the paragraph tab to the decimal separator.
         /// </summary>
-		kDecimalTab
-	};
+    kDecimalTab
+  };
     ///<summary> 
     /// Constructor. It will create a left tab with 0 offset distance.
     ///</summary>
-	ACDBCORE2D_PORT AcDbTextEditorParagraphTab();
+  ACDBCORE2D_PORT AcDbTextEditorParagraphTab();
     ///<summary> 
     /// Destructor.
     ///</summary>
-	ACDBCORE2D_PORT ~AcDbTextEditorParagraphTab();
+  ACDBCORE2D_PORT ~AcDbTextEditorParagraphTab();
     ///<summary> 
     /// Copy Constructor.
     ///</summary>
-	ACDBCORE2D_PORT AcDbTextEditorParagraphTab(const AcDbTextEditorParagraphTab&);
+  ACDBCORE2D_PORT AcDbTextEditorParagraphTab(const AcDbTextEditorParagraphTab&);
     ///<summary> 
     /// Operator =.
     ///</summary>
-	ACDBCORE2D_PORT AcDbTextEditorParagraphTab& operator=(const AcDbTextEditorParagraphTab&);
+  ACDBCORE2D_PORT AcDbTextEditorParagraphTab& operator=(const AcDbTextEditorParagraphTab&);
     ///<summary> 
     /// Get the offset distance for paragraph tab.
     ///</summary>
     /// <returns>
     /// Returns offset of paragraph tab.
     /// </returns>
-	ACDBCORE2D_PORT double offset() const;
+  ACDBCORE2D_PORT double offset() const;
     ///<summary> 
     /// Set the offset distance for paragraph tab.
     ///</summary>
@@ -853,7 +853,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setOffset(double offdist);
+  ACDBCORE2D_PORT Acad::ErrorStatus setOffset(double offdist);
     ///<summary> 
     /// Get the type of paragraph tab. For a paragraph tab its default value of 
     /// tab type is kLeftTab.
@@ -861,7 +861,7 @@ public:
     /// <returns>
     /// Returns type of paragraph tab.
     /// </returns>
-	ACDBCORE2D_PORT ParagraphTabType type() const;
+  ACDBCORE2D_PORT ParagraphTabType type() const;
     ///<summary> 
     /// Set type of paragraph tab.
     ///</summary>
@@ -870,14 +870,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setType(ParagraphTabType type);
+  ACDBCORE2D_PORT Acad::ErrorStatus setType(ParagraphTabType type);
     ///<summary> 
     /// Get decimal character of paragraph tab.
     ///</summary>
     /// <returns>
     /// Returns decimal character paragraph tab.
     /// </returns>
-	ACDBCORE2D_PORT wchar_t decimalChar() const;
+  ACDBCORE2D_PORT wchar_t decimalChar() const;
     ///<summary> 
     /// Set decimal character of paragraph tab.
     ///</summary>
@@ -886,9 +886,9 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setDecimalChar(wchar_t decchar);
+  ACDBCORE2D_PORT Acad::ErrorStatus setDecimalChar(wchar_t decchar);
 private:
-	AcDbImpTextEditorParagraphTab* m_pImp;
+  AcDbImpTextEditorParagraphTab* m_pImp;
 };
 ///<summary> 
 /// The AcDbTextEditorParagraph represents the paragraph object in the editor.
@@ -905,94 +905,94 @@ public:
     /// <summary>
     /// Text editor paragraph alignment type.
     /// </summary>
-	enum AlignmentType
-	{
+  enum AlignmentType
+  {
         /// <summary>
         /// Default paragraph alignment.
         /// </summary>
-		kAlignmentDefault,
+    kAlignmentDefault,
         /// <summary>
         /// Paragraph is left alignment.
         /// </summary>
-		kAlignmentLeft,
+    kAlignmentLeft,
         /// <summary>
         /// Paragraph is center alignment.
         /// </summary>
-		kAlignmentCenter,
+    kAlignmentCenter,
         /// <summary>
         /// Paragraph is right alignment.
         /// </summary>
-		kAlignmentRight,
+    kAlignmentRight,
         /// <summary>
         /// Paragraph is justify alignment.
         /// </summary>
-		kAlignmentJustify,
+    kAlignmentJustify,
         /// <summary>
         /// Paragraph is distribute alignment.
         /// </summary>
-		kAlignmentDistribute
-	};
+    kAlignmentDistribute
+  };
     /// <summary>
     /// Text editor paragraph line spacing type.
     /// </summary>
-	enum LineSpacingStyle
-	{
+  enum LineSpacingStyle
+  {
         /// <summary>
         /// Default line spacing.
         /// </summary>
-		kLineSpacingDefault,
+    kLineSpacingDefault,
         /// <summary>
         /// Line spacing is fixed and is never adjusted .
         /// </summary>
-		kLineSpacingExactly,
+    kLineSpacingExactly,
         /// <summary>
         /// Line spacing is a minimum that may be adjusted to accommodate larger
         /// font sizes or graphics that would not otherwise fit within the specified spacing.
         /// </summary>
-		kLineSpacingAtLeast,
+    kLineSpacingAtLeast,
         /// <summary>
         /// Multiple line spacing.
         /// </summary>
-		kLineSpacingMultiple
-	};
+    kLineSpacingMultiple
+  };
     /// <summary>
     /// Text editor paragraph numbering type.
     /// </summary>
-	enum NumberingType
-	{
+  enum NumberingType
+  {
         /// <summary>
         /// Numbering off.
         /// </summary>
-		kOff = 0,
+    kOff = 0,
         /// <summary>
         /// Bullet numbering.
         /// </summary>
-		kBullet,
+    kBullet,
         /// <summary>
         /// Number numbering.
         /// </summary>
-		kNumber,
+    kNumber,
         /// <summary>
         /// Letter lower numbering.
         /// </summary>
-		kLetterLower,
+    kLetterLower,
         /// <summary>
         /// Letter upper numbering.
         /// </summary>
-		kLetterUpper,
+    kLetterUpper,
         /// <summary>
         /// Number wide numbering.
         /// </summary>
-		kNumberWide,
+    kNumberWide,
         /// <summary>
         /// Letter lower numbering.
         /// </summary>
-		kLetterLowerWide,
+    kLetterLowerWide,
         /// <summary>
         /// Letter upper numbering.
         /// </summary>
-		kLetterUpperWide
-	};
+    kLetterUpperWide
+  };
     ///<summary> 
     /// Set alignment for paragraph.  AlignmentType defines the paragraph 
     /// alignment.
@@ -1002,14 +1002,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setAlignment(AlignmentType AlignmentType);
+  ACDBCORE2D_PORT Acad::ErrorStatus setAlignment(AlignmentType AlignmentType);
     ///<summary> 
     /// First indent for paragraph.
     ///</summary>
     /// <returns>
     /// Returns the AlignmentType for the paragraph.
     /// </returns>
-	ACDBCORE2D_PORT AlignmentType alignment() const;
+  ACDBCORE2D_PORT AlignmentType alignment() const;
     ///<summary> 
     /// Set first indent for paragraph.
     ///</summary>
@@ -1019,14 +1019,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setFirstIndent(double firstIndent);
+  ACDBCORE2D_PORT Acad::ErrorStatus setFirstIndent(double firstIndent);
     ///<summary> 
     /// First indent for paragraph.
     ///</summary>
     /// <returns>
     /// Returns first indent.
     /// </returns>
-	ACDBCORE2D_PORT double firstIndent() const;
+  ACDBCORE2D_PORT double firstIndent() const;
     ///<summary> 
     /// Set left indent for paragraph. This is also referred to as a hanging indent.
     ///</summary>
@@ -1036,14 +1036,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setLeftIndent(double leftIndent);
+  ACDBCORE2D_PORT Acad::ErrorStatus setLeftIndent(double leftIndent);
     ///<summary> 
     /// Left indent for paragraph. This is also referred to as a hanging indent.
     ///</summary>
     /// <returns>
     /// Returns first indent.
     /// </returns>
-	ACDBCORE2D_PORT double leftIndent() const;
+  ACDBCORE2D_PORT double leftIndent() const;
     ///<summary> 
     /// Set right indent for paragraph.
     ///</summary>
@@ -1053,14 +1053,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setRightIndent(double rightIndent);
+  ACDBCORE2D_PORT Acad::ErrorStatus setRightIndent(double rightIndent);
     ///<summary> 
     /// Right indent for paragraph.
     ///</summary>
     /// <returns>
     /// Returns right indent.
     /// </returns>
-	ACDBCORE2D_PORT double rightIndent() const;
+  ACDBCORE2D_PORT double rightIndent() const;
     ///<summary> 
     /// Set line spacing style for paragraph.
     ///</summary>
@@ -1069,14 +1069,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setLineSpacingStyle(LineSpacingStyle lineSpacingStyle);
+  ACDBCORE2D_PORT Acad::ErrorStatus setLineSpacingStyle(LineSpacingStyle lineSpacingStyle);
     ///<summary> 
     /// Line spacing style for paragraph.
     ///</summary>
     /// <returns>
     /// Returns LineSpacingStyle for paragraph.
     /// </returns>
-	ACDBCORE2D_PORT LineSpacingStyle lineSpacingStyle() const;
+  ACDBCORE2D_PORT LineSpacingStyle lineSpacingStyle() const;
     ///<summary> 
     /// Set line spacing factor for paragraph. If the line space style is kLineSpacingDefault
     /// the function will return Acad::eInvalidInput for you.
@@ -1090,14 +1090,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setLineSpacingFactor(double lineSpacingFactor);
+  ACDBCORE2D_PORT Acad::ErrorStatus setLineSpacingFactor(double lineSpacingFactor);
     ///<summary> 
     /// Line spacing factor for paragraph.
     ///</summary>
     /// <returns>
     /// Returns line spacing factor for paragraph.
     /// </returns>
-	ACDBCORE2D_PORT double lineSpacingFactor() const;
+  ACDBCORE2D_PORT double lineSpacingFactor() const;
     ///<summary> 
     /// Set "space before" for paragraph. 
     ///</summary>
@@ -1107,14 +1107,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setSpaceBefore(double spaceBefore);
+  ACDBCORE2D_PORT Acad::ErrorStatus setSpaceBefore(double spaceBefore);
     ///<summary> 
     /// Line "space before" for paragraph.
     ///</summary>
     /// <returns>
     /// Returns "space before" for paragraph.
     /// </returns>
-	ACDBCORE2D_PORT double spaceBefore() const;
+  ACDBCORE2D_PORT double spaceBefore() const;
     ///<summary> 
     /// Set "space after" for paragraph.
     ///</summary>
@@ -1124,14 +1124,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setSpaceAfter(double spaceAfter);
+  ACDBCORE2D_PORT Acad::ErrorStatus setSpaceAfter(double spaceAfter);
     ///<summary> 
     /// Line "space after" for paragraph.
     ///</summary>
     /// <returns>
     /// Returns "space after" for paragraph.
     /// </returns>
-	ACDBCORE2D_PORT double spaceAfter() const;
+  ACDBCORE2D_PORT double spaceAfter() const;
     ///<summary> 
     /// Set Numbering type for paragraph. You can only call the function when
     /// the numbering is enabled, otherwise it will return Acad::eInvalidInput.
@@ -1141,7 +1141,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setNumberingType(NumberingType type);
+  ACDBCORE2D_PORT Acad::ErrorStatus setNumberingType(NumberingType type);
     ///<summary> 
     /// Get the numbering type for paragraph. If the numbering is not enabled, it
     /// will return AcDbTextEditorParagraph::kOff for you.
@@ -1149,7 +1149,7 @@ public:
     /// <returns>
     /// Returns NumberingType numbering type for paragraph.
     /// </returns>
-	ACDBCORE2D_PORT NumberingType numberingType() const;
+  ACDBCORE2D_PORT NumberingType numberingType() const;
     ///<summary> 
     /// Starts a new letter or number sequence for the paragraph. You can only 
     /// call the function when the numbering is enabled, otherwise it will return
@@ -1162,7 +1162,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus restartNumbering();
+  ACDBCORE2D_PORT Acad::ErrorStatus restartNumbering();
     ///<summary> 
     /// Adds the paragraph to the last list above and continues the sequence. You 
     /// can only call the function when the numbering is enabled, otherwise it
@@ -1175,14 +1175,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus continueNumbering();
+  ACDBCORE2D_PORT Acad::ErrorStatus continueNumbering();
     ///<summary> 
     /// Get the count of paragraph tabs for current paragraph.
     ///</summary>
     /// <returns>
     /// Returns count of tabs.
     /// </returns>
-	ACDBCORE2D_PORT int tabsCount() const;
+  ACDBCORE2D_PORT int tabsCount() const;
     ///<summary> 
     /// Add a tab. Note that for the specified offset distance the text editor paragraph
     /// can be added one paragraph tab. If the current offset distance has already one
@@ -1193,7 +1193,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus addTab(const AcDbTextEditorParagraphTab& tab);
+  ACDBCORE2D_PORT Acad::ErrorStatus addTab(const AcDbTextEditorParagraphTab& tab);
     ///<summary> 
     /// Remove the specified tab from tabs container.
     ///</summary>
@@ -1202,7 +1202,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus removeTab(const AcDbTextEditorParagraphTab& tab);
+  ACDBCORE2D_PORT Acad::ErrorStatus removeTab(const AcDbTextEditorParagraphTab& tab);
     ///<summary> 
     /// Get a AcDbTextEditorParagraphTab object from current paragraph.
     ///</summary>
@@ -1214,63 +1214,63 @@ public:
     /// the returned AcDbTextEditorParagraphTab object.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus getTab(int i, AcDbTextEditorParagraphTab& tab);
+  ACDBCORE2D_PORT Acad::ErrorStatus getTab(int i, AcDbTextEditorParagraphTab& tab);
     ///<summary> 
     /// Gets the location of the start of a selection.
     ///</summary>
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the start of a selection.
     /// </returns>
-	ACDBCORE2D_PORT virtual AcDbTextEditorLocation* startOfText() override;
+  ACDBCORE2D_PORT virtual AcDbTextEditorLocation* startOfText() override;
     ///<summary> 
     /// Gets the location of the end of a selection.
     ///</summary>
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the end of a selection.
     /// </returns>
-	ACDBCORE2D_PORT virtual AcDbTextEditorLocation* endOfText() override;
+  ACDBCORE2D_PORT virtual AcDbTextEditorLocation* endOfText() override;
     ///<summary> 
     /// Minimum allowable  line spacing factor.
     ///</summary>
     /// <returns>
     /// Returns minimum allowable  line spacing factor.
     /// </returns>
-	ACDBCORE2D_PORT double minLineSpacingFactor() const;
+  ACDBCORE2D_PORT double minLineSpacingFactor() const;
     ///<summary> 
     /// Maximum allowable line spacing factor.  
     ///</summary>
     /// <returns>
     /// Returns Maximum allowable  line spacing factor.
     /// </returns>
-	ACDBCORE2D_PORT double maxLineSpacingFactor() const;
+  ACDBCORE2D_PORT double maxLineSpacingFactor() const;
     ///<summary> 
     /// Minimum allowable after/before space value.
     ///</summary>
     /// <returns>
     /// Returns minimum allowable after/before space value.
     /// </returns>
-	ACDBCORE2D_PORT double minSpaceValue() const;
+  ACDBCORE2D_PORT double minSpaceValue() const;
     ///<summary> 
     /// Maximum allowable after/before space value.
     ///</summary>
     /// <returns>
     /// Returns maximum allowable after/before space value.
     /// </returns>
-	ACDBCORE2D_PORT double maxSpaceValue() const;
+  ACDBCORE2D_PORT double maxSpaceValue() const;
     ///<summary> 
     /// Delete this AcDbTextEditorParagraph.
     ///</summary>
-	ACDBCORE2D_PORT void release();
+  ACDBCORE2D_PORT void release();
 private:
-	friend class AcDbTextEditorParagraphIterator;
-	friend class AcDbTextEditorServices;
-	AcDbImpTextEditorParagraph* m_pImp;
-	AcDbTextEditorParagraph()
-	{
-	}
-	virtual ~AcDbTextEditorParagraph();
-	AcDbTextEditorParagraph(const AcDbTextEditorParagraph&);
-	AcDbTextEditorParagraph& operator=(const AcDbTextEditorParagraph&);
+  friend class AcDbTextEditorParagraphIterator;
+  friend class AcDbTextEditorServices;
+  AcDbImpTextEditorParagraph* m_pImp;
+  AcDbTextEditorParagraph()
+  {
+  }
+  virtual ~AcDbTextEditorParagraph();
+  AcDbTextEditorParagraph(const AcDbTextEditorParagraph&);
+  AcDbTextEditorParagraph& operator=(const AcDbTextEditorParagraph&);
 };
 ///<summary> 
 /// This is the paragraph iterator in text editor. 
@@ -1281,31 +1281,31 @@ public:
     ///<summary> 
     /// Constructor.
     ///</summary>
-	ACDBCORE2D_PORT AcDbTextEditorParagraphIterator(const AcDbTextEditor& textEditor);
+  ACDBCORE2D_PORT AcDbTextEditorParagraphIterator(const AcDbTextEditor& textEditor);
     ///<summary> 
     /// Destructor.
     ///</summary>
-	ACDBCORE2D_PORT ~AcDbTextEditorParagraphIterator();
+  ACDBCORE2D_PORT ~AcDbTextEditorParagraphIterator();
     ///<summary> 
     /// End of AcDbTextEditorParagraphIterator Iterator.
     ///</summary>
     /// <returns>
     /// Returns true if end of iterator.
     /// </returns>
-	ACDBCORE2D_PORT bool done();
+  ACDBCORE2D_PORT bool done();
     ///<summary> 
     /// Get current AcDbTextEditorParagraphIterator Iterator.
     ///</summary>
     /// <returns>
     /// Returns AcDbTextEditorParagraph* of current iterator.
     /// </returns>
-	ACDBCORE2D_PORT AcDbTextEditorParagraph* current();
+  ACDBCORE2D_PORT AcDbTextEditorParagraph* current();
     ///<summary> 
     /// Increments AcDbTextEditorParagraphIterator Iterator.
     ///</summary>
-	ACDBCORE2D_PORT void next();
+  ACDBCORE2D_PORT void next();
 private:
-	AcDbImpTextEditorParagraphIterator* m_pImp;
+  AcDbImpTextEditorParagraphIterator* m_pImp;
 };
 ///<summary> 
 /// The AcDbTextEditorColumn repersents the column object in text editor. All the 
@@ -1322,7 +1322,7 @@ public:
     /// <returns>
     /// Returns column height.
     /// </returns>
-	ACDBCORE2D_PORT double height();
+  ACDBCORE2D_PORT double height();
     ///<summary> 
     /// Set the column height. Note that you can only set the column height when
     /// the column type is kDynamicColumns and the column is not auto height column.
@@ -1335,32 +1335,32 @@ public:
     /// Returns Acad::eNotApplicable if current column type is not kDynamicColumns
     /// or the column is auto height column.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setHeight(double height);
+  ACDBCORE2D_PORT Acad::ErrorStatus setHeight(double height);
     ///<summary> 
     /// Delete this AcDbTextEditorColumn.
     ///</summary>
-	ACDBCORE2D_PORT void release();
+  ACDBCORE2D_PORT void release();
     ///<summary> 
     /// Gets the start location for the column.
     ///</summary>
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the start of a column.
     /// </returns>
-	ACDBCORE2D_PORT virtual AcDbTextEditorLocation* startOfText() override;
+  ACDBCORE2D_PORT virtual AcDbTextEditorLocation* startOfText() override;
     ///<summary> 
     /// Gets the end location for the column.
     ///</summary>
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the end of a column.
     /// </returns>
-	ACDBCORE2D_PORT virtual AcDbTextEditorLocation* endOfText() override;
+  ACDBCORE2D_PORT virtual AcDbTextEditorLocation* endOfText() override;
 private:
-	AcDbImpTextEditorColumn* m_pImp;
-	friend class AcDbTextEditorServices;
-	AcDbTextEditorColumn();
-	virtual ~AcDbTextEditorColumn();
-	AcDbTextEditorColumn(const AcDbTextEditorColumn&);
-	AcDbTextEditorColumn& operator=(const AcDbTextEditorColumn&);
+  AcDbImpTextEditorColumn* m_pImp;
+  friend class AcDbTextEditorServices;
+  AcDbTextEditorColumn();
+  virtual ~AcDbTextEditorColumn();
+  AcDbTextEditorColumn(const AcDbTextEditorColumn&);
+  AcDbTextEditorColumn& operator=(const AcDbTextEditorColumn&);
 };
 ///<summary> 
 /// This class keeps the common properties for all the column objects in text editor.
@@ -1376,14 +1376,14 @@ public:
     /// <returns>
     /// Returns maximum number of columns supported by the TextEditor.
     /// </returns>
-	ACDBCORE2D_PORT static int maxCount();
+  ACDBCORE2D_PORT static int maxCount();
     ///<summary> 
     /// Number of columns.
     ///</summary>
     /// <returns>
     /// Returns number of columns.
     /// </returns>
-	ACDBCORE2D_PORT int count() const;
+  ACDBCORE2D_PORT int count() const;
     ///<summary> 
     /// Set number of columns. This can't be set if current column type is kNoColumns
     /// or kDynamicColumns.
@@ -1395,7 +1395,7 @@ public:
     /// Returns Acad::eInvalidInput if the operation fails.
     /// Returns Acad::eNotApplicable if current column type is kNoColumns or kDynamicColumns.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setCount(int count);
+  ACDBCORE2D_PORT Acad::ErrorStatus setCount(int count);
     ///<summary> 
     /// Get AcDbTextEditorColumn pointer for a column. If the current column type is
     /// kNoColumns it will return NULL.
@@ -1405,7 +1405,7 @@ public:
     /// <returns>
     /// Returns AcDbTextEditorColumn* for requested column.
     /// </returns>
-	ACDBCORE2D_PORT AcDbTextEditorColumn* getAt(int i);
+  ACDBCORE2D_PORT AcDbTextEditorColumn* getAt(int i);
     ///<summary> 
     /// Set column type(one of the following): AcDbMText::kNoColumns, 
     /// AcDbMText::kStaticColumns or AcDbMText::kDynamicColumns. 
@@ -1416,7 +1416,7 @@ public:
     /// Returns Acad::eInvalidInput if the operation fails.
     /// Returns Acad::eNotApplicable if current column type is kNoColumns.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setColumnType(AcDbMText::ColumnType type);
+  ACDBCORE2D_PORT Acad::ErrorStatus setColumnType(AcDbMText::ColumnType type);
     ///<summary> 
     /// Column type. Columns can be Static or Dynamic.
     /// Dynamic columns can have automatic height or manual height.
@@ -1424,7 +1424,7 @@ public:
     /// <returns>
     /// Returns ColumnType.
     /// </returns>
-	ACDBCORE2D_PORT AcDbMText::ColumnType columnType() const;
+  ACDBCORE2D_PORT AcDbMText::ColumnType columnType() const;
     ///<summary> 
     /// Sets the flag whether heights for each dynamic column is equal to the MText height
     /// (auto-height), or user-controlled for each dynamic column (manual-height). 
@@ -1436,7 +1436,7 @@ public:
     /// Returns Acad::eInvalidInput if the operation fails.
     /// Returns Acad::eNotApplicable if the current columns type is not AcDbMText::kDynamicColumns.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setAutoHeight(bool bAutoHeight);
+  ACDBCORE2D_PORT Acad::ErrorStatus setAutoHeight(bool bAutoHeight);
     ///<summary> 
     /// Gets the auto height setting, which specifies whether dynamic columns use 
     /// the MText height or a per-column user-defined height. Only valid for dynamic
@@ -1445,7 +1445,7 @@ public:
     /// <returns>
     /// Returns column auto height setting.
     /// </returns>
-	ACDBCORE2D_PORT bool autoHeight() const;
+  ACDBCORE2D_PORT bool autoHeight() const;
     ///<summary> 
     /// Set the column width. All columns have the same width. This can't be set 
     /// if current column type is kNoColumns.
@@ -1457,14 +1457,14 @@ public:
     /// Returns Acad::eInvalidInput if the operation fails.
     /// Returns Acad::eNotApplicable if current column type is kNoColumns.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setWidth(double value);
+  ACDBCORE2D_PORT Acad::ErrorStatus setWidth(double value);
     ///<summary> 
     /// Column width. All columns have the same width.
     ///</summary>
     /// <returns>
     /// Returns column width.
     /// </returns>
-	ACDBCORE2D_PORT double width() const;
+  ACDBCORE2D_PORT double width() const;
     ///<summary> 
     /// Set the column gutter width. All columns have the same gutter width.
     /// This can't be set if current column type is kNoColumns.
@@ -1476,14 +1476,14 @@ public:
     /// Returns Acad::eInvalidInput if the operation fails.
     /// Returns Acad::eNotApplicable if current column type is kNoColumns.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setGutter(double value);
+  ACDBCORE2D_PORT Acad::ErrorStatus setGutter(double value);
     ///<summary> 
     /// Column gutter width. All columns have the same gutter width.
     ///</summary>
     /// <returns>
     /// Returns column width.
     /// </returns>
-	ACDBCORE2D_PORT double gutter() const;
+  ACDBCORE2D_PORT double gutter() const;
     ///<summary> 
     ///Set the total width of the columns. The actual width of the columns and 
     ///the gutter width is adjusted to fit within this total. This can't be set 
@@ -1496,7 +1496,7 @@ public:
     ///Returns Acad::eInvalidInput if the operation fails.
     ///Returns Acad::eNotApplicable if current column type is kNoColumns.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setTotalWidth(double value);
+  ACDBCORE2D_PORT Acad::ErrorStatus setTotalWidth(double value);
     ///<summary> 
     ///Get the total width for all the static columns.
     ///</summary>
@@ -1504,7 +1504,7 @@ public:
     ///Returns total width of the static columns.  The gutter width is included
     ///in the total.
     /// </returns>
-	ACDBCORE2D_PORT double totalWidth() const;
+  ACDBCORE2D_PORT double totalWidth() const;
     ///<summary> 
     ///Gets the flow reversed setting, which determines how columns are added. 
     ///Normally columns flow from left (the first) to right (the last).
@@ -1512,7 +1512,7 @@ public:
     /// <returns>
     ///Returns true if the flow of the column is reversed.
     /// </returns>
-	ACDBCORE2D_PORT bool isFlowReversed() const;
+  ACDBCORE2D_PORT bool isFlowReversed() const;
     ///<summary> 
     ///Set the flow reverse flag of the columns. This can't be set if current 
     ///column type is kNoColumns.
@@ -1523,14 +1523,14 @@ public:
     ///Returns Acad::eInvalidInput if the operation fails.
     ///Returns Acad::eNotApplicable if current column type is kNoColumns.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setIsFlowReversed(bool isFlowReversed);
+  ACDBCORE2D_PORT Acad::ErrorStatus setIsFlowReversed(bool isFlowReversed);
 private:
-	friend class TextEditor;
-	AcDbTextEditorColumns();
-	~AcDbTextEditorColumns();
-	AcDbTextEditorColumns(const AcDbTextEditorColumns&);
-	AcDbTextEditorColumns& operator=(const AcDbTextEditorColumns&);
-	TextEditor* m_pImp;
+  friend class TextEditor;
+  AcDbTextEditorColumns();
+  ~AcDbTextEditorColumns();
+  AcDbTextEditorColumns(const AcDbTextEditorColumns&);
+  AcDbTextEditorColumns& operator=(const AcDbTextEditorColumns&);
+  TextEditor* m_pImp;
 };
 ///<summary> 
 /// The AcDbTextEditorWipeout class represents the wipe out object in editor.
@@ -1546,21 +1546,21 @@ public:
     ///<returns>
     /// Minimum allowable value.
     ///</returns>
-	ACDBCORE2D_PORT static double minBackgroundScaleFactor();
+  ACDBCORE2D_PORT static double minBackgroundScaleFactor();
     ///<summary> 
     ///Maximum allowable value of background scale factor.
     ///</summary>
     ///<returns>
     ///Maximum allowable value.
     ///</returns>
-	ACDBCORE2D_PORT static double maxBackgroundScaleFactor();
+  ACDBCORE2D_PORT static double maxBackgroundScaleFactor();
     ///<summary> 
     /// Get Enable background fill (wipeout) state.
     ///</summary>
     ///<returns>
     /// Return true if background fill is enabled.
     ///</returns>
-	ACDBCORE2D_PORT bool enableBackgroundFill() const;
+  ACDBCORE2D_PORT bool enableBackgroundFill() const;
     ///<summary> 
     /// Enable background fill (wipeout).
     ///</summary>
@@ -1569,14 +1569,14 @@ public:
     ///Returns Acad::eOk if the operation succeeds.
     ///Returns Acad::eInvalidInput if the operation fails.
     ///</returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setEnableBackgroundFill(bool bEnable);
+  ACDBCORE2D_PORT Acad::ErrorStatus setEnableBackgroundFill(bool bEnable);
     ///<summary> 
     /// Get the current background fill color.
     ///</summary>
     ///<returns>
     /// Returns background fill color.
     ///</returns>
-	ACDBCORE2D_PORT AcCmColor getBackgroundFillColor() const;
+  ACDBCORE2D_PORT AcCmColor getBackgroundFillColor() const;
     ///<summary> 
     /// Set background fill (wipeout) color.
     ///</summary>
@@ -1585,14 +1585,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     ///</returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setBackgroundFillColor(AcCmColor color);
+  ACDBCORE2D_PORT Acad::ErrorStatus setBackgroundFillColor(AcCmColor color);
     ///<summary> 
     /// Returns true if background color is in use. Otherwise, returns false. 
     ///</summary>
     ///<returns>
     ///Return true if use background color is in use.
     ///</returns>
-	ACDBCORE2D_PORT bool useBackgroundColor() const;
+  ACDBCORE2D_PORT bool useBackgroundColor() const;
     ///<summary> 
     /// Enable background fill (wipeout).
     ///</summary>
@@ -1604,14 +1604,14 @@ public:
     ///Returns Acad::eOk if the operation succeeds.
     ///Returns Acad::eInvalidInput if the operation fails.
     ///</returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setUseBackgroundColor(bool bUse);
+  ACDBCORE2D_PORT Acad::ErrorStatus setUseBackgroundColor(bool bUse);
     ///<summary> 
     /// Get the current background scale factor.
     ///</summary>
     ///<returns>
     ///Returns Background scale factor.
     ///</returns>
-	ACDBCORE2D_PORT double getBackgroundScaleFactor() const;
+  ACDBCORE2D_PORT double getBackgroundScaleFactor() const;
     ///<summary> 
     ///Set background scale factor.
     ///</summary>
@@ -1622,14 +1622,14 @@ public:
     ///Returns Acad::eOk if the operation succeeds.
     ///Returns Acad::eInvalidInput if the operation fails.
     ///</returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setBackgroundScaleFactor(double factor);
+  ACDBCORE2D_PORT Acad::ErrorStatus setBackgroundScaleFactor(double factor);
 private:
-	AcDbTextEditorWipeout();
-	~AcDbTextEditorWipeout();
-	AcDbTextEditorWipeout(const AcDbTextEditorWipeout&);
-	AcDbTextEditorWipeout& operator=(const AcDbTextEditorWipeout&);
-	TextEditor* m_pEditor;
-	friend class TextEditor;
+  AcDbTextEditorWipeout();
+  ~AcDbTextEditorWipeout();
+  AcDbTextEditorWipeout(const AcDbTextEditorWipeout&);
+  AcDbTextEditorWipeout& operator=(const AcDbTextEditorWipeout&);
+  TextEditor* m_pEditor;
+  friend class TextEditor;
 };
 ///<summary> 
 /// The AcDbTextEditorStack represents the stack object properties in text editor. 
@@ -1643,52 +1643,52 @@ public:
     /// <summary>
     /// This enumerator describe the stack type.
     /// </summary>
-	enum StackType
-	{
+  enum StackType
+  {
         /// <summary>
         /// Stacks the selected text with the first number on top of the second 
         /// number separated by a horizontal line. 
         /// </summary>
-		kHorizontalStack,
+    kHorizontalStack,
         /// <summary>
         /// Stacks the selected text with the first number on top of the second 
         /// number separated by a diagonal line. 
         /// </summary>
-		kDiagonalStack,
+    kDiagonalStack,
         /// <summary>
         /// Stacks the selected text with the first number on top of the second
         /// number. There is no line between the numbers. 
         /// </summary>
-		kToleranceStack,
+    kToleranceStack,
         /// <summary>
         /// A variation of the Tolerance style that aligns the decimal point of
         /// both the upper and lower numbers of selected text.
         /// </summary>
-		kDecimalStack
-	};
+    kDecimalStack
+  };
     ///<summary> 
     /// Constructor. It will create a horizontal stack with 1.0 scale factor.
     ///</summary>
-	ACDBCORE2D_PORT AcDbTextEditorStack();
+  ACDBCORE2D_PORT AcDbTextEditorStack();
     ///<summary> 
     /// Destructor.
     ///</summary>
-	ACDBCORE2D_PORT ~AcDbTextEditorStack();
+  ACDBCORE2D_PORT ~AcDbTextEditorStack();
     ///<summary> 
     /// Copy constructor.
     ///</summary>
-	ACDBCORE2D_PORT AcDbTextEditorStack(const AcDbTextEditorStack&);
+  ACDBCORE2D_PORT AcDbTextEditorStack(const AcDbTextEditorStack&);
     ///<summary> 
     /// Operator =.
     ///</summary>
-	ACDBCORE2D_PORT AcDbTextEditorStack& operator=(const AcDbTextEditorStack&);
+  ACDBCORE2D_PORT AcDbTextEditorStack& operator=(const AcDbTextEditorStack&);
     ///<summary> 
     /// Get StackType.
     ///</summary>
     /// <returns>
     /// Returns StackType.
     /// </returns>
-	ACDBCORE2D_PORT StackType type() const;
+  ACDBCORE2D_PORT StackType type() const;
     ///<summary> 
     /// Set StackType.
     ///</summary>
@@ -1697,7 +1697,7 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setType(StackType type);
+  ACDBCORE2D_PORT Acad::ErrorStatus setType(StackType type);
     ///<summary> 
     /// Get the fraction's alignment type. The default alignment is kFlowCenter.
     /// kFlowTop: Aligns the top of the fraction with the top of the text line. 
@@ -1707,7 +1707,7 @@ public:
     /// <returns>
     /// Returns stack flow alignment.
     /// </returns>
-	ACDBCORE2D_PORT AcDbTextEditorSelectionBase::FlowAlign alignType() const;
+  ACDBCORE2D_PORT AcDbTextEditorSelectionBase::FlowAlign alignType() const;
     ///<summary> 
     /// Set the fraction's alignment type.
     ///</summary>
@@ -1716,14 +1716,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setAlignType(AcDbTextEditorSelectionBase::FlowAlign align);
+  ACDBCORE2D_PORT Acad::ErrorStatus setAlignType(AcDbTextEditorSelectionBase::FlowAlign align);
     ///<summary> 
     /// Get top of stack string.
     ///</summary>
     /// <returns>
     /// Returns top of stack string.
     /// </returns>
-	ACDBCORE2D_PORT AcString top() const;
+  ACDBCORE2D_PORT AcString top() const;
     ///<summary> 
     /// Set top of stack string.
     ///</summary>
@@ -1732,14 +1732,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setTop(const AcString& top);
+  ACDBCORE2D_PORT Acad::ErrorStatus setTop(const AcString& top);
     ///<summary> 
     /// Get bottom of stack string.
     ///</summary>
     /// <returns>
     /// Returns bottom of stack string.
     /// </returns>
-	ACDBCORE2D_PORT AcString bottom() const;
+  ACDBCORE2D_PORT AcString bottom() const;
     ///<summary> 
     /// Set bottom of stack string.
     ///</summary>
@@ -1748,14 +1748,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setBottom(const AcString& bottom);
+  ACDBCORE2D_PORT Acad::ErrorStatus setBottom(const AcString& bottom);
     ///<summary> 
     /// Get stack scale.
     ///</summary>
     /// <returns>
     /// Returns stack scale.
     /// </returns>
-	ACDBCORE2D_PORT double scale() const;
+  ACDBCORE2D_PORT double scale() const;
     ///<summary> 
     /// Set stack scale.
     ///</summary>
@@ -1765,14 +1765,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setScale(double scale);
+  ACDBCORE2D_PORT Acad::ErrorStatus setScale(double scale);
     ///<summary> 
     /// Get stack decimal character.
     ///</summary>
     /// <returns>
     /// Returns stack decimal character.
     /// </returns>
-	ACDBCORE2D_PORT wchar_t decimalChar() const;
+  ACDBCORE2D_PORT wchar_t decimalChar() const;
     ///<summary> 
     /// Set stack decimal character.
     ///</summary>
@@ -1781,23 +1781,23 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setDecimalChar(wchar_t decimalChar);
+  ACDBCORE2D_PORT Acad::ErrorStatus setDecimalChar(wchar_t decimalChar);
     ///<summary> 
     /// Maximum allowable stack scale.
     ///</summary>
     /// <returns>
     /// Returns minimum allowable stack scale.
     /// </returns>
-	ACDBCORE2D_PORT static double minStackScale();
+  ACDBCORE2D_PORT static double minStackScale();
     ///<summary> 
     /// Minimum allowable stack scale.
     ///</summary>
     /// <returns>
     /// Returns Minimum allowable stack scale.
     /// </returns>
-	ACDBCORE2D_PORT static double maxStackScale();
+  ACDBCORE2D_PORT static double maxStackScale();
 private:
-	AcDbImpTextEditorStack* m_pImpStack;
+  AcDbImpTextEditorStack* m_pImpStack;
 };
 ///<summary> 
 /// The AcDbTextEditor represent the text editor in the db. You can create a text 
@@ -1821,43 +1821,43 @@ public:
     /// <summary>
     /// These flags describe text find mode.
     /// </summary>
-	enum TextFindFlags
-	{
+  enum TextFindFlags
+  {
         /// <summary>
         /// Set this flag to find the text with case sensitive.
         /// </summary>
-		kFindMatchCase = 1 << 0,
+    kFindMatchCase = 1 << 0,
         /// <summary>
         /// Set this flag to find the text to match the whole word.
         /// </summary>
-		kFindWholeWord = 1 << 1,
+    kFindWholeWord = 1 << 1,
         /// <summary>
         /// Set this flag to find the text to match half/full form.
         /// </summary>
-		kFindHalfFullForm = 1 << 2,
+    kFindHalfFullForm = 1 << 2,
         /// <summary>
         /// Set this flag to find the text without the comparison of accent.
         /// </summary>
-		kFindIgnoreAccent = 1 << 3,
+    kFindIgnoreAccent = 1 << 3,
         /// <summary>
         /// Set this flag to find the text with wild cards.
         /// </summary>
-		kFindUseWildcards = 1 << 4
-	};
+    kFindUseWildcards = 1 << 4
+  };
     /// <summary>
     /// This enumerator describes text find exit status.
     /// </summary>
-	enum ExitStatus
-	{
+  enum ExitStatus
+  {
         /// <summary>
         /// Exit find and replace directly without changes.
         /// </summary>
-		kExitQuit = 0,
+    kExitQuit = 0,
         /// <summary>
         /// Exit find and replace, saving the changes to the entity.
         /// </summary>
-		kExitSave
-	};
+    kExitSave
+  };
     ///<summary> 
     /// Factory method, it creates the text editor object from a AcDbMText entity.
     ///</summary>
@@ -1866,17 +1866,17 @@ public:
     /// AcDbTextEditor object pointer. If you don't use it, please call close() 
     /// to release it.
     /// </returns>
-	ACDBCORE2D_PORT static AcDbTextEditor* createDbTextEditor(AcDbMText* pMText);
+  ACDBCORE2D_PORT static AcDbTextEditor* createDbTextEditor(AcDbMText* pMText);
     ///<summary> 
     /// Close the AcDbTextEditor object.
     ///</summary>
     /// <param name="stat">Exit flag to specify if save the text editor changes 
     /// back to entity.</param>
-	ACDBCORE2D_PORT virtual void close(ExitStatus stat);
+  ACDBCORE2D_PORT virtual void close(ExitStatus stat);
     ///<summary> 
     /// Re-wrap, re-adjust and refresh all the text lines in editor.
     ///</summary>
-	ACDBCORE2D_PORT void redraw();
+  ACDBCORE2D_PORT void redraw();
     ///<summary> 
     /// Gets TextEditor AcDbTextEditorColumns Object. If the defined width of the
     /// MTEXT is zero, it doesn't support the columns. It will return NULL in that
@@ -1885,14 +1885,14 @@ public:
     /// <returns>
     /// Returns the AcDbTextEditorColumns object for the TextEditor.
     /// </returns>
-	ACDBCORE2D_PORT AcDbTextEditorColumns* columns();
+  ACDBCORE2D_PORT AcDbTextEditorColumns* columns();
     ///<summary> 
     /// Gets TextEditor AcDbTextEditorWipeout Object.
     ///</summary>
     /// <returns>
     /// Returns the AcDbTextEditorWipeout object for the TextEditor.
     /// </returns>
-	ACDBCORE2D_PORT AcDbTextEditorWipeout* wipeout();
+  ACDBCORE2D_PORT AcDbTextEditorWipeout* wipeout();
     ///<summary> 
     /// Gets AcDbTextEditorParagraphIterator that iterates all the paragraphs 
     /// in the TextEditor. The caller of this function must delete the iterator
@@ -1902,7 +1902,7 @@ public:
     /// Returns an AcDbTextEditorParagraphIterator object for the TextEditor
     /// paragraphs.
     /// </returns>
-	ACDBCORE2D_PORT AcDbTextEditorParagraphIterator* newParagraphsIterator();
+  ACDBCORE2D_PORT AcDbTextEditorParagraphIterator* newParagraphsIterator();
     ///<summary> 
     /// Get current selection in the TextEditor. selection() and cursor() are 
     /// mutually exclusive, if selection != NULL then cursor()==NULL and vice versa.
@@ -1911,7 +1911,7 @@ public:
     /// Returns a pointer to the current TextEditor selection.
     /// If there is no current selection then the return value is NULL.
     /// </returns>
-	ACDBCORE2D_PORT virtual AcDbTextEditorSelection* selection();
+  ACDBCORE2D_PORT virtual AcDbTextEditorSelection* selection();
     ///<summary> 
     /// Get current TextEditor cursor. selection() and cursor() are mutually exclusive,
     /// if selection != NULL then cursor()==NULL and vice versa.
@@ -1920,7 +1920,7 @@ public:
     /// Returns a pointer to the current TextEditor cursor.
     /// If there is no cursor then the return value is NULL.
     /// </returns>
-	ACDBCORE2D_PORT virtual AcDbTextEditorCursor* cursor();
+  ACDBCORE2D_PORT virtual AcDbTextEditorCursor* cursor();
     ///<summary> 
     /// Clear current selection in the TextEditor. After call the function, the 
     /// selection() function will return NULL. There is no selection object in text
@@ -1932,7 +1932,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus clearSelection();
+  ACDBCORE2D_PORT Acad::ErrorStatus clearSelection();
     ///<summary> 
     /// Makes a selection of text in the TextEditor. After call the function, the
     /// cursor() function will return NULL. There is no current cursor object in 
@@ -1948,7 +1948,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus makeSelection(const AcDbTextEditorLocation* pStart, const AcDbTextEditorLocation* pEnd);
+  ACDBCORE2D_PORT Acad::ErrorStatus makeSelection(const AcDbTextEditorLocation* pStart, const AcDbTextEditorLocation* pEnd);
     ///<summary> 
     /// Find first text match in a selection.
     /// Note that the location in text editor is volatile object. If you saved one location,
@@ -1970,7 +1970,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus findText(const ACHAR* text, int flags, AcDbTextEditorLocation*& pStart, AcDbTextEditorLocation*& pEnd);
+  ACDBCORE2D_PORT Acad::ErrorStatus findText(const ACHAR* text, int flags, AcDbTextEditorLocation*& pStart, AcDbTextEditorLocation*& pEnd);
     ///<summary> 
     /// Set Attachment point for TextEditor object.
     ///</summary>
@@ -1979,14 +1979,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setAttachment(AcDbMText::AttachmentPoint attachment);
+  ACDBCORE2D_PORT Acad::ErrorStatus setAttachment(AcDbMText::AttachmentPoint attachment);
     ///<summary> 
     /// Returns a value describing the attachment point.
     ///</summary>
     /// <returns>
     /// Returns AcDbMText::AttachmentPoint for describing the text editor Attachment point.
     /// </returns>
-	ACDBCORE2D_PORT AcDbMText::AttachmentPoint attachment() const;
+  ACDBCORE2D_PORT AcDbMText::AttachmentPoint attachment() const;
     ///<summary> 
     /// Set text Style from style index. The index should be between 0 and the 
     /// value returned by getStyleCount() function.
@@ -1996,7 +1996,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setStyle(int index);
+  ACDBCORE2D_PORT Acad::ErrorStatus setStyle(int index);
     ///<summary> 
     /// Set text Style from style object id.
     ///</summary>
@@ -2005,7 +2005,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setStyle(AcDbObjectId styleId);
+  ACDBCORE2D_PORT Acad::ErrorStatus setStyle(AcDbObjectId styleId);
     ///<summary> 
     /// Get TextEditor Textstyle index from textstyle name.
     ///</summary>
@@ -2013,14 +2013,14 @@ public:
     /// <returns>
     /// Returns TextEditor Textstyle index.
     /// </returns>
-	ACDBCORE2D_PORT int getIndexFromStyleName(const AcString& styleName);
+  ACDBCORE2D_PORT int getIndexFromStyleName(const AcString& styleName);
     ///<summary> 
     /// Get Text style count in current Text editor.
     ///</summary>
     /// <returns>
     /// Returns TextEditor Textstyle count.
     /// </returns>
-	ACDBCORE2D_PORT int getStyleCount() const;
+  ACDBCORE2D_PORT int getStyleCount() const;
     ///<summary> 
     /// Get Textstyle name from textstyle index. The index should be between 0 
     /// and the value returned by getStyleCount() function.
@@ -2029,7 +2029,7 @@ public:
     /// <returns>
     /// Returns TextEditor Textstyle name.
     /// </returns>
-	ACDBCORE2D_PORT AcString getStyleName(int index) const;
+  ACDBCORE2D_PORT AcString getStyleName(int index) const;
     ///<summary> 
     /// Get TextEditor Textstyle object id from textstyle index. The index should
     /// be between 0 and the value returned by getStyleCount() function.
@@ -2038,14 +2038,14 @@ public:
     /// <returns>
     /// Returns Textstyle object id.
     /// </returns>
-	ACDBCORE2D_PORT AcDbObjectId style(int index) const;
+  ACDBCORE2D_PORT AcDbObjectId style(int index) const;
     ///<summary> 
     /// Get current Textstyle index.
     ///</summary>
     /// <returns>
     /// Returns current Textstyle index.
     /// </returns>
-	ACDBCORE2D_PORT int currentStyleIndex() const;
+  ACDBCORE2D_PORT int currentStyleIndex() const;
     ///<summary> 
     /// Check if TextStyle is annotative.
     ///</summary>
@@ -2053,7 +2053,7 @@ public:
     /// <returns>
     /// Returns true if textstyle is annotative.
     /// </returns>
-	ACDBCORE2D_PORT bool isAnnotativeStyle(int index) const;
+  ACDBCORE2D_PORT bool isAnnotativeStyle(int index) const;
     ///<summary> 
     /// Check if the text style is vertical and its font is SHX.
     ///</summary>
@@ -2061,7 +2061,7 @@ public:
     /// True if the text style is vertical and its font is SHX. Otherwise it returns
     /// false.
     /// </returns>
-	ACDBCORE2D_PORT bool isVerticalSHX() const;
+  ACDBCORE2D_PORT bool isVerticalSHX() const;
     ///<summary> 
     /// Check if the text style is vertical and its font is True Type.
     ///</summary>
@@ -2069,7 +2069,7 @@ public:
     /// True if the text style is vertical and its font is True Type. Otherwise
     /// it returns false.
     /// </returns>
-	ACDBCORE2D_PORT bool isVerticalTTF() const;
+  ACDBCORE2D_PORT bool isVerticalTTF() const;
     ///<summary> 
     /// Set Defined Width of MText being edited.
     ///</summary>
@@ -2077,14 +2077,14 @@ public:
     /// <returns>
     /// Returns Acad::ErrorStatus return code.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setDefinedWidth(double width);
+  ACDBCORE2D_PORT Acad::ErrorStatus setDefinedWidth(double width);
     ///<summary> 
     /// Get Defined Width of MText being edited.
     ///</summary>
     /// <returns>
     /// Returns Defined Width of MText being edited.
     /// </returns>
-	ACDBCORE2D_PORT double definedWidth() const;
+  ACDBCORE2D_PORT double definedWidth() const;
     ///<summary> 
     /// Set Defined Height of MText being edited.
     ///</summary>
@@ -2092,14 +2092,14 @@ public:
     /// <returns>
     /// Returns Acad::ErrorStatus return code.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setDefinedHeight(double height);
+  ACDBCORE2D_PORT Acad::ErrorStatus setDefinedHeight(double height);
     ///<summary> 
     /// Get Defined Height of MText being edited.
     ///</summary>
     /// <returns>
     /// Returns Defined Height of MText being edited.
     /// </returns>
-	ACDBCORE2D_PORT double definedHeight() const;
+  ACDBCORE2D_PORT double definedHeight() const;
     ///<summary> 
     /// Get the nominal text height of the MText object. This value is the initial
     /// char height from AcDbMText::textHeight() method.
@@ -2107,7 +2107,7 @@ public:
     /// <returns>
     /// Returns Text Height of MText being edited.
     /// </returns>
-	ACDBCORE2D_PORT double textHeight() const;
+  ACDBCORE2D_PORT double textHeight() const;
     ///<summary> 
     /// Set Text Height of MText being edited.
     ///</summary>
@@ -2115,28 +2115,28 @@ public:
     /// <returns>
     /// Returns Acad::ErrorStatus return code.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setTextHeight(double textHeight);
+  ACDBCORE2D_PORT Acad::ErrorStatus setTextHeight(double textHeight);
     ///<summary>
     /// Get actualWidth of MText being edited.
     ///</summary>
     /// <returns>
     /// Returns actualWidth of MText being edited.
     /// </returns>
-	ACDBCORE2D_PORT double actualWidth() const;
+  ACDBCORE2D_PORT double actualWidth() const;
     ///<summary> 
     /// Get actualHeight of MText being edited.
     ///</summary>
     /// <returns>
     /// Returns actualHeight of MText being edited.
     /// </returns>
-	ACDBCORE2D_PORT double actualHeight() const;
+  ACDBCORE2D_PORT double actualHeight() const;
     ///<summary> 
     /// Select all the TextEditor text.
     ///</summary>
     /// <returns>
     /// Returns Acad::ErrorStatus return code.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus selectAll();
+  ACDBCORE2D_PORT Acad::ErrorStatus selectAll();
     ///<summary> 
     /// Set auto CAPS on or off.
     ///</summary>
@@ -2145,14 +2145,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setAutoCAPS(bool autoCAPS);
+  ACDBCORE2D_PORT Acad::ErrorStatus setAutoCAPS(bool autoCAPS);
     ///<summary> 
     /// Get auto CAPS state.
     ///</summary>
     /// <returns>
     /// Returns true if the auto CAPS flag is on, otherwise returns false.
     /// </returns>
-	ACDBCORE2D_PORT bool autoCAPS();
+  ACDBCORE2D_PORT bool autoCAPS();
     ///<summary>
     /// Enable Numbering for all the paragraphs of the whole text editor. 
     ///</summary>
@@ -2161,14 +2161,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setEnableNumbering(bool bEnable);
+  ACDBCORE2D_PORT Acad::ErrorStatus setEnableNumbering(bool bEnable);
     ///<summary> 
     /// get numbering enabled state for paragraphs. 
     ///</summary>
     /// <returns>
     /// Returns true if numbering is enabled.
     /// </returns>
-	ACDBCORE2D_PORT bool numberingEnabled() const;
+  ACDBCORE2D_PORT bool numberingEnabled() const;
     ///<summary> 
     /// Set auto list enabled for paragraphs. You can only call the function when
     /// the numbering is enabled, otherwise it will return Acad::eInvalidInput.
@@ -2178,7 +2178,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setAutolistEnabled(bool enabled);
+  ACDBCORE2D_PORT Acad::ErrorStatus setAutolistEnabled(bool enabled);
     ///<summary> 
     /// get auto list enabled for paragraphs. If the numbering is not enabled, it
     /// will return false.
@@ -2186,7 +2186,7 @@ public:
     /// <returns>
     /// Returns true if auto list is enabled for paragraph.
     /// </returns>
-	ACDBCORE2D_PORT bool autolistEnabled() const;
+  ACDBCORE2D_PORT bool autolistEnabled() const;
     ///<summary> 
     /// Set tab only delimiter for paragraphs. You can only call the function when
     /// the numbering is enabled, otherwise it will return Acad::eInvalidInput.
@@ -2196,7 +2196,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setTabOnlyDelimiter(bool tabOnlyDelimiter);
+  ACDBCORE2D_PORT Acad::ErrorStatus setTabOnlyDelimiter(bool tabOnlyDelimiter);
     ///<summary> 
     /// get tab only delimiter for paragraphs. If the numbering is not enabled, it
     /// will return false.
@@ -2204,14 +2204,14 @@ public:
     /// <returns>
     /// Returns true if tab only delimiter is set for paragraph.
     /// </returns>
-	ACDBCORE2D_PORT bool tabOnlyDelimiter() const;
+  ACDBCORE2D_PORT bool tabOnlyDelimiter() const;
     ///<summary> 
     /// Get the fonts number in the whole text editor.
     ///</summary>
     /// <returns>
     /// Return the fonts number.
     /// </returns>
-	ACDBCORE2D_PORT int getFontCount() const;
+  ACDBCORE2D_PORT int getFontCount() const;
     ///<summary> 
     /// Get TextEditor font name from the specified font index. 
     ///</summary>
@@ -2219,7 +2219,7 @@ public:
     /// <returns>
     /// Returns TextEditor font name.
     /// </returns>
-	ACDBCORE2D_PORT AcString getFontName(int index) const;
+  ACDBCORE2D_PORT AcString getFontName(int index) const;
     ///<summary> 
     ///Check if the specified text editor font is True Type.
     ///</summary>
@@ -2227,21 +2227,21 @@ public:
     /// <returns>
     /// Returns true if the font is True Type.
     /// </returns>
-	ACDBCORE2D_PORT bool isTrueTypeFont(int index) const;
+  ACDBCORE2D_PORT bool isTrueTypeFont(int index) const;
     ///<summary> 
     /// Get the count of stack objects in the whole text editor.
     ///</summary>
     /// <returns>
     /// Return the stack num.
     /// </returns>
-	ACDBCORE2D_PORT int stackCount() const;
+  ACDBCORE2D_PORT int stackCount() const;
     ///<summary> 
     /// Get the default value of stack scale.
     ///</summary>
     /// <returns>
     /// Returns default stack scale.
     /// </returns>
-	ACDBCORE2D_PORT double defaultStackScale() const;
+  ACDBCORE2D_PORT double defaultStackScale() const;
     ///<summary> 
     /// Set the default value of stack scale.
     ///</summary>
@@ -2251,14 +2251,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setDefaultStackScale(double scale);
+  ACDBCORE2D_PORT Acad::ErrorStatus setDefaultStackScale(double scale);
     ///<summary> 
     /// Get the default value of stack alignment.
     ///</summary>
     /// <returns>
     /// Returns default stack alignment.
     /// </returns>
-	ACDBCORE2D_PORT AcDbTextEditorSelectionBase::FlowAlign defaultStackAlignment() const;
+  ACDBCORE2D_PORT AcDbTextEditorSelectionBase::FlowAlign defaultStackAlignment() const;
     ///<summary> 
     /// Set the default value of stack alignment.
     ///</summary>
@@ -2267,31 +2267,31 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACDBCORE2D_PORT Acad::ErrorStatus setDefaultStackAlignment(AcDbTextEditorSelectionBase::FlowAlign alignment);
+  ACDBCORE2D_PORT Acad::ErrorStatus setDefaultStackAlignment(AcDbTextEditorSelectionBase::FlowAlign alignment);
     ///<summary> 
     /// Gets the start location for the whole text editor
     ///</summary>
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the start of the text editor.
     /// </returns>
-	ACDBCORE2D_PORT virtual AcDbTextEditorLocation* startOfText() override;
+  ACDBCORE2D_PORT virtual AcDbTextEditorLocation* startOfText() override;
     ///<summary> 
     /// Gets the end location for the whole text editor.
     ///</summary>
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the end of the text editor.
     /// </returns>
-	ACDBCORE2D_PORT virtual AcDbTextEditorLocation* endOfText() override;
+  ACDBCORE2D_PORT virtual AcDbTextEditorLocation* endOfText() override;
 protected:
-	ACDBCORE2D_PORT AcDbTextEditor()
-		: m_pImp(NULL)
-	{
-	}
-	ACDBCORE2D_PORT virtual ~AcDbTextEditor();
-	friend class AcDbTextEditorLocation;
-	friend class AcDbTextEditorParagraphIterator;
-	TextEditor* m_pImp;
+  ACDBCORE2D_PORT AcDbTextEditor()
+    : m_pImp(NULL)
+  {
+  }
+  ACDBCORE2D_PORT virtual ~AcDbTextEditor();
+  friend class AcDbTextEditorLocation;
+  friend class AcDbTextEditorParagraphIterator;
+  TextEditor* m_pImp;
 private:
-	AcDbTextEditor(const AcDbTextEditor& editor);
-	AcDbTextEditor& operator=(const AcDbTextEditor& editor);
+  AcDbTextEditor(const AcDbTextEditor& editor);
+  AcDbTextEditor& operator=(const AcDbTextEditor& editor);
 };

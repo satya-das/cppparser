@@ -19,17 +19,17 @@
 class AcRxCopyOnWriteObject : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxCopyOnWriteObject, ACBASE_PORT);
-	ACBASE_PORT AcRxCopyOnWriteObject(AcRxObject* pData);
-	ACBASE_PORT AcRxCopyOnWriteObject(const AcRxCopyOnWriteObject& other);
-	ACBASE_PORT ~AcRxCopyOnWriteObject();
-	ACBASE_PORT const AcRxCopyOnWriteObject& operator=(const AcRxCopyOnWriteObject& other);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxCopyOnWriteObject, ACBASE_PORT);
+  ACBASE_PORT AcRxCopyOnWriteObject(AcRxObject* pData);
+  ACBASE_PORT AcRxCopyOnWriteObject(const AcRxCopyOnWriteObject& other);
+  ACBASE_PORT ~AcRxCopyOnWriteObject();
+  ACBASE_PORT const AcRxCopyOnWriteObject& operator=(const AcRxCopyOnWriteObject& other);
 protected:
-	ACBASE_PORT AcRxObject* write();
-	ACBASE_PORT const AcRxObject* read() const;
-	ACBASE_PORT void unshare();
+  ACBASE_PORT AcRxObject* write();
+  ACBASE_PORT const AcRxObject* read() const;
+  ACBASE_PORT void unshare();
 private:
-	void* m_pData;
+  void* m_pData;
 };
 ///////////////////////////////////////////////////////////////////////////////
 // Definition of helper macros

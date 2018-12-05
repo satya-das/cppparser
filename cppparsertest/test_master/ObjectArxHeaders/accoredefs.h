@@ -10,16 +10,16 @@
 //
 #pragma  once
 #ifndef ACCOREDEFS_H
-#	define ACCOREDEFS_H
-#	ifndef ACCORE_PORT
-#		ifdef ACCORE_API
-#			define ACCORE_PORT	_declspec(dllexport)
-#			define ACCORE_DATA_PORT	_declspec(dllexport)
-#			define ACCORE_STATIC_DATA_PORT	_declspec(dllexport) static
-#		else 
-#			define ACCORE_PORT
-#			define ACCORE_DATA_PORT	_declspec(dllimport)
-#			define ACCORE_STATIC_DATA_PORT	_declspec(dllimport) static
-#		endif
-#	endif
+#  define ACCOREDEFS_H
+#  ifndef ACCORE_PORT
+#    ifdef ACCORE_API
+#      define ACCORE_PORT	_declspec(dllexport)
+#      define ACCORE_DATA_PORT	_declspec(dllexport)
+#      define ACCORE_STATIC_DATA_PORT	_declspec(dllexport) static
+#    else 
+#      define ACCORE_PORT
+#      define ACCORE_DATA_PORT	_declspec(dllimport)
+#      define ACCORE_STATIC_DATA_PORT	_declspec(dllimport) static
+#    endif
+#  endif
 #endif

@@ -9,40 +9,40 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _RXSHAREDOBJ_H_
-#	define _RXSHAREDOBJ_H_
-#	pragma  once
-#	include "acbasedefs.h"
-#	include "PAL/api/def.h"
-#	include "adesk.h"
-#	include "pimplapi.h"
-#	include "AcHeapOpers.h"
-#	include <memory>
-#	undef PAL
+#  define _RXSHAREDOBJ_H_
+#  pragma  once
+#  include "acbasedefs.h"
+#  include "PAL/api/def.h"
+#  include "adesk.h"
+#  include "pimplapi.h"
+#  include "AcHeapOpers.h"
+#  include <memory>
+#  undef PAL
 namespace Autodesk
 {
-	namespace AutoCAD	
+  namespace AutoCAD  
 {
-		namespace PAL		
+    namespace PAL    
 {
-			class AcRxSharedObjImp;
-		}
-	}
+      class AcRxSharedObjImp;
+    }
+  }
 }
 class AcRxSharedObject : public Pimpl::ApiPart<AcHeapOperators, Autodesk::AutoCAD::PAL::AcRxSharedObjImp>
 {
 private:
-	AcRxSharedObject(Autodesk::AutoCAD::PAL::AcRxSharedObjImp* soImp);
-	AcRxSharedObject(const AcRxSharedObject& from);
-	AcRxSharedObject& operator=(const AcRxSharedObject& from);
-	AcRxSharedObject(const wchar_t*);
+  AcRxSharedObject(Autodesk::AutoCAD::PAL::AcRxSharedObjImp* soImp);
+  AcRxSharedObject(const AcRxSharedObject& from);
+  AcRxSharedObject& operator=(const AcRxSharedObject& from);
+  AcRxSharedObject(const wchar_t*);
 public:
-	ACBASE_PORT AcRxSharedObject();
-	ACBASE_PORT AcRxSharedObject(void* nativeHandle);
-	ACBASE_PORT ~AcRxSharedObject();
-	ACBASE_PORT AcRxSharedObject(AcRxSharedObject&& from);
-	ACBASE_PORT AcRxSharedObject& operator=(AcRxSharedObject&& from);
-	ACBASE_PORT bool isLoaded() const;
-	ACBASE_PORT void* getSymbol(const char* name) const;
-	ACBASE_PORT static AcRxSharedObject tryLoad(const wchar_t* path, bool autoRelease = true);
+  ACBASE_PORT AcRxSharedObject();
+  ACBASE_PORT AcRxSharedObject(void* nativeHandle);
+  ACBASE_PORT ~AcRxSharedObject();
+  ACBASE_PORT AcRxSharedObject(AcRxSharedObject&& from);
+  ACBASE_PORT AcRxSharedObject& operator=(AcRxSharedObject&& from);
+  ACBASE_PORT bool isLoaded() const;
+  ACBASE_PORT void* getSymbol(const char* name) const;
+  ACBASE_PORT static AcRxSharedObject tryLoad(const wchar_t* path, bool autoRelease = true);
 };
 #endif

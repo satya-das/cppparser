@@ -36,11 +36,11 @@
 class ACDBCORE2D_PORT AcDbAssocEdgeActionParam : public AcDbAssocActionParam
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocEdgeActionParam);
+  ACRX_DECLARE_MEMBERS(AcDbAssocEdgeActionParam);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocEdgeActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocEdgeActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary><para>
     /// The input AcDbEdgeRef is a non-persistent reference to an edge geometry, 
     /// the AcDbAssocEdgeActionParam will make a persistent reference to that edge 
@@ -63,7 +63,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setEdgeRef(const AcDbEdgeRef& edgeRef, bool isReadDependency = true, bool isWriteDependency = false, int dependencyOrder = 0);
+  virtual Acad::ErrorStatus setEdgeRef(const AcDbEdgeRef& edgeRef, bool isReadDependency = true, bool isWriteDependency = false, int dependencyOrder = 0);
     /// <summary> <para>
     /// Returns references to the transient subentities of an AcDbEntity, that 
     /// correspond to the persistent subentity that this edge action parameter 
@@ -91,7 +91,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getEdgeRef(AcArray<AcDbEdgeRef>& edgeRefs) const;
+  virtual Acad::ErrorStatus getEdgeRef(AcArray<AcDbEdgeRef>& edgeRefs) const;
     /// <summary><para>
     /// Sets new geometry of the referenced subentity of the AcDbEntity the action parameter
     /// depends on via an AcDbAssocDependency or AcDbAssocGeomDependency.
@@ -106,7 +106,7 @@ public:
     /// <param name="pNewEdgeCurve"> New curve of the edge subentity (copied, not reused). </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setEdgeSubentityGeometry(const AcGeCurve3d* pNewEdgeCurve);
+  virtual Acad::ErrorStatus setEdgeSubentityGeometry(const AcGeCurve3d* pNewEdgeCurve);
     /// <summary>
     /// If this action parameter depends on an AcDbEntity via an AcDbAssocDependency
     /// or AcDbAssocGeomDependency, it returns AcDbCompoundObjectId of the entity 
@@ -119,6 +119,6 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getDependentOnCompoundObject(AcDbCompoundObjectId& compoundId) const;
+  Acad::ErrorStatus getDependentOnCompoundObject(AcDbCompoundObjectId& compoundId) const;
 };
 #pragma  pack (pop)

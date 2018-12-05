@@ -66,11 +66,11 @@
 class ACDBCORE2D_PORT AcDbAssocDependency : public AcDbObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocDependency);
+  ACRX_DECLARE_MEMBERS(AcDbAssocDependency);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject. </param>
     ///
-	explicit AcDbAssocDependency(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocDependency(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> 
     /// Returns AcDbObjectId of an object of a class derived from 
     /// AcDbAssocDependencyBody, or a null id if no dependency body object
@@ -84,7 +84,7 @@ public:
     /// or null id.
     /// </returns>
     ///
-	AcDbObjectId dependencyBody() const;
+  AcDbObjectId dependencyBody() const;
     /// <summary> 
     /// Sets AcDbObjectId of an object of a class derived from 
     /// AcDbAssocDependencyBody. The AcDbAssocDependencyBody object becomes 
@@ -98,11 +98,11 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setDependencyBody(const AcDbObjectId& dependencyBodyId);
+  Acad::ErrorStatus setDependencyBody(const AcDbObjectId& dependencyBodyId);
     /// <summary> Get the current AcDbAssocStatus of this dependency. </summary>
     /// <returns> The AcDbAssocStatus of this dependency. </returns>
     ///
-	AcDbAssocStatus status() const;
+  AcDbAssocStatus status() const;
     /// <summary> <para>
     /// Sets the AcDbAssocStatus of the dependency. If the status is one of the 
     /// codes that indicate that the action owning the dependency will need to 
@@ -133,7 +133,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setStatus(AcDbAssocStatus newStatus, bool notifyOwningAction = true);
+  Acad::ErrorStatus setStatus(AcDbAssocStatus newStatus, bool notifyOwningAction = true);
     /// <summary>
     /// Returns true iff the AcDbAssocAction owning the dependency uses the 
     /// value of the dependent-on AcDbObject. It just returns the value of a bool 
@@ -145,7 +145,7 @@ public:
     /// <para> false = Action does not use the value of the dependent-on object. </para>
     /// </returns>
     ///
-	bool isReadDependency() const;
+  bool isReadDependency() const;
     /// <summary>
     /// Returns true iff the AcDbAssocAction owning the dependency changes the 
     /// value of the dependent-on AcDbObject. It just returns the value of a bool 
@@ -157,19 +157,19 @@ public:
     /// <para> false = Action does not change the value of the dependent-on object. </para>
     /// </returns>
     ///
-	bool isWriteDependency() const;
+  bool isWriteDependency() const;
     /// <summary>
     /// Sets what isReadDependency() should return.
     /// </summary>
     /// <param name="yesNo"> Value that isReadDependency() should return. </param>
     ///
-	void setIsReadDependency(bool yesNo);
+  void setIsReadDependency(bool yesNo);
     /// <summary>
     /// Sets what isWriteDependency() should return.
     /// </summary>
     /// <param name="yesNo"> Value that isWriteDependency() should return. </param>
     ///
-	void setIsWriteDependency(bool yesNo);
+  void setIsWriteDependency(bool yesNo);
     /// <summary> <para>
     /// Returns true iff the AcDbAssocAction owning the dependency requires the 
     /// dependent-on AcDbObject to be in the expected "object state" with 
@@ -199,14 +199,14 @@ public:
     /// </para>
     /// </returns>
     ///
-	bool isObjectStateDependent() const;
+  bool isObjectStateDependent() const;
     /// <summary>
     /// Sets what isObjectStateDependent() should return. It just sets the bool 
     /// data member owned by AcDbAssocDependency.
     /// </summary>
     /// <param name="yesNo"> Value that isObjectStateDependent() should return. </param>
     ///
-	void setIsObjectStateDependent(bool yesNo);
+  void setIsObjectStateDependent(bool yesNo);
     /// <summary> <para>
     /// Returns order of the dependency, i.e. the order where it should be
     /// positioned in the list of all dependencies on an AcDbObject. Dependencies 
@@ -223,7 +223,7 @@ public:
     /// value is 0.
     /// </returns>
     ///
-	int order() const;
+  int order() const;
     /// <summary>
     /// Sets what order() should return. It just sets the int data member owned 
     /// by AcDbAssocDependency. Notice that if a dependency has already been
@@ -232,17 +232,17 @@ public:
     /// </summary>
     /// <param name="yesNo"> Value that order() should return. </param>
     ///
-	void setOrder(int newOrder);
+  void setOrder(int newOrder);
     /// <summary> 
     /// Every dependency is owned (in the logical as well as in the AutoCAD 
     /// database sense) by an AcDbAssocAction.
     /// </summary>
     /// <returns> The owning AcDbAssocAction. </returns>
     ///
-	AcDbObjectId owningAction() const
-	{
-		return ownerId();
-	}
+  AcDbObjectId owningAction() const
+  {
+    return ownerId();
+  }
     /// <summary> <para>
     /// Every dependency is owned (in the logical as well as in the AutoCAD 
     /// database sense) by an AcDbAssocAction. 
@@ -253,7 +253,7 @@ public:
     /// <param name="actionId"> The AcDbAssocAction owning this dependency. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setOwningAction(const AcDbObjectId& actionId);
+  Acad::ErrorStatus setOwningAction(const AcDbObjectId& actionId);
     /// <summary>
     /// A dependency is attached to the dependent-on AcDbObject as a persistent 
     /// reactor.
@@ -263,7 +263,7 @@ public:
     /// if the dependency is not attached to any object.
     /// </returns>
     ///
-	AcDbObjectId dependentOnObject() const;
+  AcDbObjectId dependentOnObject() const;
     /// <summary>
     /// A dependency is attached as a persistent reactors to all objects of
     /// the AcDbCompoundObjectId. If the dependency does not use AcDbCompoundObjectId, 
@@ -276,7 +276,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getDependentOnCompoundObject(AcDbCompoundObjectId& compoundId) const;
+  Acad::ErrorStatus getDependentOnCompoundObject(AcDbCompoundObjectId& compoundId) const;
     /// <summary>
     /// Returns true if the dependency is using AcDbCompoundObjectId to depend 
     /// on the dependent-on-object.
@@ -285,7 +285,7 @@ public:
     /// True iff AcDbCompoundObjectId is used to identify the dependent-on-object.
     /// </returns>
     ///
-	bool isDependentOnCompoundObject() const;
+  bool isDependentOnCompoundObject() const;
     /// <summary>
     /// All dependencies attached to the same AcDbObject are kept in a doubly-linked 
     /// list. The order in the list is determied by the order() property of the 
@@ -296,7 +296,7 @@ public:
     /// AcDbObjectId::kNull if it is the first dependency in the list.
     /// </returns>
     ///
-	AcDbObjectId prevDependencyOnObject() const;
+  AcDbObjectId prevDependencyOnObject() const;
     /// <summary>
     /// All dependencies attached to the same AcDbObject are kept in a doubly-linked 
     /// list. The order in the list is determied by the order() property of the 
@@ -307,7 +307,7 @@ public:
     /// AcDbObjectId::kNull if it is the last dependency in the list.
     /// </returns>
     ///
-	AcDbObjectId nextDependencyOnObject() const;
+  AcDbObjectId nextDependencyOnObject() const;
     /// <summary>
     /// A dependency is attached to the dependent-on AcDbObject as a persistent 
     /// reactor, but it may also not be attached to any object. In this case 
@@ -315,10 +315,10 @@ public:
     /// </summary>
     /// <returns> true iff the dependency it attached to an object. </returns>
     ///
-	bool isAttachedToObject() const
-	{
-		return !dependentOnObject().isNull();
-	}
+  bool isAttachedToObject() const
+  {
+    return !dependentOnObject().isNull();
+  }
     /// <summary> <para>
     /// Attaches this dependency to a given AcDbCompoundObjectId as a persistent 
     /// reactor and also orders it to be at the correct position in the list
@@ -346,7 +346,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus attachToObject(const AcDbCompoundObjectId& compoundId);
+  Acad::ErrorStatus attachToObject(const AcDbCompoundObjectId& compoundId);
     /// <summary>
     /// Transfers the dependency from the current object to another object.
     /// It does it by first detaching it from its current object and then attaching
@@ -355,14 +355,14 @@ public:
     /// such as the AcDbAssocPersSubentId owned by AcDbAssocGeomDependency.
     /// </summary>
     ///
-	Acad::ErrorStatus transferToObject(const AcDbCompoundObjectId& compoundId);
+  Acad::ErrorStatus transferToObject(const AcDbCompoundObjectId& compoundId);
     /// <summary> 
     /// Returns current status of the dependentOnObject, can be eOk, 
     /// eNotInitializedYet or eInvalidObjectId.
     /// </summary>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus dependentOnObjectStatus() const;
+  Acad::ErrorStatus dependentOnObjectStatus() const;
     /// <summary> 
     /// Detaches this dependency from the AcDbObject it is currently attached 
     /// to. It also detatches it from the list of persistent reactors of the
@@ -372,7 +372,7 @@ public:
     /// </summary>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus detachFromObject();
+  Acad::ErrorStatus detachFromObject();
     /// <summary> <para>
     /// Updates the object the dependency depends on, based on the information
     /// the dependency obtains from the owning action. If the dependency owns 
@@ -386,7 +386,7 @@ public:
     /// </para> </summary>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus updateDependentOnObject();
+  Acad::ErrorStatus updateDependentOnObject();
     /// <summary> <para>
     /// Sets the dependent-on object of this dependency to be the given 
     /// AcDbCompoundObjectId.
@@ -405,7 +405,7 @@ public:
     /// The AcDbCompoundObjectId the dependency should depend-on (may be null).
     /// </param>
     ///
-	void setDependentOnObject(const AcDbCompoundObjectId& compoundId);
+  void setDependentOnObject(const AcDbCompoundObjectId& compoundId);
     /// <summary> 
     /// Gets the first dependency on the given AcDbObject. Dependencies are attached 
     /// to AcDbObjects in the form of persistent reactors and are ordered on the
@@ -422,7 +422,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus getFirstDependencyOnObject(const AcDbObject* pObject, AcDbObjectId& firstDependencyId);
+  static Acad::ErrorStatus getFirstDependencyOnObject(const AcDbObject* pObject, AcDbObjectId& firstDependencyId);
     /// <summary> 
     /// Gets all dependencies on the given AcDbObject. Dependencies are attached 
     /// to AcDbObjects in the form of persistent reactors and are ordered on the
@@ -438,7 +438,7 @@ public:
     /// <param name="dependencyIds"> Returned AcDbObjectIds of the AcDbAssocDependencies. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus getDependenciesOnObject(const AcDbObject* pObject, bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& dependencyIds);
+  static Acad::ErrorStatus getDependenciesOnObject(const AcDbObject* pObject, bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& dependencyIds);
     /// <summary> 
     /// Gets all dependencies on the given AcDbObject and notifies them about a
     /// change by setting their status. It notifies both the primary dependencies
@@ -453,7 +453,7 @@ public:
     /// <param name="newStatus"> The new status to be set to the dependencies. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus notifyDependenciesOnObject(const AcDbObject* pObject, AcDbAssocStatus newStatus);
+  static Acad::ErrorStatus notifyDependenciesOnObject(const AcDbObject* pObject, AcDbAssocStatus newStatus);
     /// <summary> <para>
     /// Returns whether some dependency methods delegate to the action that
     /// owns the dependency if the method is not directly implemented in the
@@ -473,7 +473,7 @@ public:
     /// The default is yes, i.e. the dependencies do delegate.
     /// </returns>
     /// 
-	bool isDelegatingToOwningAction() const;
+  bool isDelegatingToOwningAction() const;
     /// <summary> <para>
     /// Controls whether some dependency methods delegate to the action that
     /// owns the dependency if the method is not directly implemented in the
@@ -493,7 +493,7 @@ public:
     /// The default is yes, i.e. the dependencies do delegate.
     /// </param>
     ///
-	void setIsDelegatingToOwningAction(bool yesNo);
+  void setIsDelegatingToOwningAction(bool yesNo);
     /// <summary> <para>
     /// Returns true iff the dependency currently holds the cached value of the 
     /// "thing" it depends on. It does not necessarily mean that the cached value
@@ -519,7 +519,7 @@ public:
     /// returns false.
     /// </returns>
     ///
-	bool hasCachedValue() const;
+  bool hasCachedValue() const;
     /// <summary> <para>
     /// This predicate returns true iff the dependent-on "thing" really changed 
     /// in such a way that the change is relevant to this particular dependency 
@@ -550,13 +550,13 @@ public:
     /// <para> false = The object change is irrelevant and can be ignored. </para>
     /// </returns>
     ///
-	bool isRelevantChange() const;
+  bool isRelevantChange() const;
     /// <summary>
     /// Dependencies can be notified about arbitrary events using the following 
     /// method.
     /// </summary>
     ///
-	Acad::ErrorStatus notification(AcDbAssocNotificationData* pNotifData);
+  Acad::ErrorStatus notification(AcDbAssocNotificationData* pNotifData);
     /// <summary> <para>
     /// This method returns  true iff this dependency depends on exactly the 
     /// same "thing" (such as on the same subentity of the same entity) as the
@@ -582,7 +582,7 @@ public:
     /// <para> false = They depend on different "things". </para> 
     /// </returns>
     ///
-	bool isDependentOnTheSameThingAs(const AcDbAssocDependency* pOtherDependency) const;
+  bool isDependentOnTheSameThingAs(const AcDbAssocDependency* pOtherDependency) const;
     /// <summary>
     /// Returns true iff the dependent on object is read-only, i.e. the object
     /// is not allowed to be changed. The default implementation returns true
@@ -591,7 +591,7 @@ public:
     /// </summary>
     /// <returns> True the dependent-on object is not allowed to be changed. </returns>
     ///
-	bool isDependentOnObjectReadOnly() const;
+  bool isDependentOnObjectReadOnly() const;
     /// <summary> <para>
     /// Compares this dependency with the given dependency and returns true if 
     /// and only if they are equal (whatever it means). Both dependencies need
@@ -612,7 +612,7 @@ public:
     /// <param name="pOtherDependency"> The other dependency needs to be open for read. </param>
     /// <returns> True iff the two dependencies are equal. </returns>
     ///
-	bool isEqualTo(const AcDbAssocDependency* pOtherDependency) const;
+  bool isEqualTo(const AcDbAssocDependency* pOtherDependency) const;
     /// <summary> <para>
     /// Predicate that returns true iff the system is currently evaluating an
     /// action or a network of actions. 
@@ -628,7 +628,7 @@ public:
     /// </para> </summary>
     /// <returns> True iff action evaluation is in progress. </returns>
     ///
-	bool isActionEvaluationInProgress() const;
+  bool isActionEvaluationInProgress() const;
     /// <summary> 
     /// Returns the current AcDbAssocEvaluationCallback set by the 
     /// AcDbAssocAction::evaluate() call, or NULL if no action evaluation 
@@ -637,7 +637,7 @@ public:
     /// </summary>
     /// <returns> The current AcDbAssocEvaluationCallback or NULL. </returns>
     ///
-	AcDbAssocEvaluationCallback* currentEvaluationCallback() const;
+  AcDbAssocEvaluationCallback* currentEvaluationCallback() const;
     /// <summary> <para>
     /// Called by the AcDbAssocAction::evaluateDependencies() to update the 
     /// "dirty" dependencies of the action. The custom dependency classes 
@@ -655,7 +655,7 @@ public:
     /// setIsDelegatingToOwningAction(false).
     /// </para> </summary>
     ///
-	void evaluate();
+  void evaluate();
     /// <summary> <para>
     /// Implementation of the persistent reactor notification callback. 
     /// </para> <para>
@@ -666,7 +666,7 @@ public:
     /// <param name="dbObj"> </param>
     /// <param name="isErasing"> </param>
     ///
-	virtual void erased(const AcDbObject* dbObj, Adesk::Boolean isErasing = true) override;
+  virtual void erased(const AcDbObject* dbObj, Adesk::Boolean isErasing = true) override;
     /// <summary> <para>
     /// Implementation of the persistent reactor notification callback. 
     /// </para> <para>
@@ -676,7 +676,7 @@ public:
     /// </para> </summary>
     /// <param name="dbObj"> </param>
     ///
-	virtual void modified(const AcDbObject* dbObj) override;
+  virtual void modified(const AcDbObject* dbObj) override;
     /// <summary> <para>
     /// Implementation of the persistent reactor notification callback. 
     /// </para> <para>
@@ -689,13 +689,13 @@ public:
     /// <param name="pDbObj"> The original object. </param>
     /// <param name="pNewObj"> The newly created clone. </param>
     ///
-	virtual void copied(const AcDbObject* pDbObj, const AcDbObject* pNewObj) override;
+  virtual void copied(const AcDbObject* pDbObj, const AcDbObject* pNewObj) override;
 private:
-	void setPrevDependencyOnObject(const AcDbObjectId& depId);
-	void setNextDependencyOnObject(const AcDbObjectId& depId);
-	friend class AcDbImpAssocDependency;
-	friend class AcDbAssocDeepCloneRxEventReactor;
-	friend class AcDbAssocDeepCloneData;
+  void setPrevDependencyOnObject(const AcDbObjectId& depId);
+  void setNextDependencyOnObject(const AcDbObjectId& depId);
+  friend class AcDbImpAssocDependency;
+  friend class AcDbAssocDeepCloneRxEventReactor;
+  friend class AcDbAssocDeepCloneData;
 };
 /// <summary>
 /// Allows to disable change notifications to AcDbAssocDependencies.
@@ -704,10 +704,10 @@ private:
 class ACDBCORE2D_PORT AcDbAssocDependencyNotificationDisabler
 {
 public:
-	explicit AcDbAssocDependencyNotificationDisabler(bool disableIt = true);
-	~AcDbAssocDependencyNotificationDisabler();
-	static bool isDisabled();
+  explicit AcDbAssocDependencyNotificationDisabler(bool disableIt = true);
+  ~AcDbAssocDependencyNotificationDisabler();
+  static bool isDisabled();
 private:
-	const bool mPrev;
+  const bool mPrev;
 };
 #pragma  pack ( pop )

@@ -13,8 +13,8 @@
 #include "acdbport.h"
 #include "mgdhost-core2d.h"
 #ifndef MGDHOST_H
-#	define MGDHOST_H	1
-#	pragma  once
+#  define MGDHOST_H	1
+#  pragma  once
 ACDB_PORT HRESULT ADESK_STDCALL acdbInitializeManagedLayer();
 ACDB_PORT HRESULT ADESK_STDCALL acdbTerminateManagedLayer();
 #endif

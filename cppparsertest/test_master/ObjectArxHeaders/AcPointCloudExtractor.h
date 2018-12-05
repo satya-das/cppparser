@@ -22,44 +22,44 @@ public:
     /// Extraction type, outline or floorplan
     /// </summary>
     ///
-	enum ExtractionType
-	{
-		kOutLine,
-		kAllLine
-	};
+  enum ExtractionType
+  {
+    kOutLine,
+    kAllLine
+  };
     /// <summary>
     /// Extract type, out line or floorplan.
     /// </summary>
     ///
-	ExtractionType m_extractionType;
+  ExtractionType m_extractionType;
     /// <summary>
     /// Maxium points to process. it should be bigger than 0.
     /// Usually 5000 -2000000 is reasonable.
     /// </summary>
     ///
-	unsigned int m_processPoints;
+  unsigned int m_processPoints;
     /// <summary>
     /// Collect line tolerance. It should be bigger than 0.
     /// </summary>
     ///
-	double m_fillGap;
+  double m_fillGap;
     /// <summary>
     /// Collect line within this angle if distance is within fillgap.
     /// Usually 0-10 is reasonable.
     /// </summary>
     ///
-	unsigned int m_snapAngle;
+  unsigned int m_snapAngle;
     /// <summary>
     /// Minium segment length. It should be bigger than 0.
     /// </summary>
     ///
-	double m_minSegLength;
+  double m_minSegLength;
     /// <summary>
     /// If use line segments only or include arcs
     /// </summary>
     ///
-	bool m_useLineSegmentOnly;
-	ExtractOption();
+  bool m_useLineSegmentOnly;
+  ExtractOption();
 };
 /// <summary>
 /// Point cloud line extraction process callback
@@ -68,43 +68,43 @@ public:
 class ACDB_PORT IPointCloudExtracProgressCallback
 {
 public:
-	IPointCloudExtracProgressCallback(void)
-	{
-	}
-	virtual ~IPointCloudExtracProgressCallback()
-	{
-	}
+  IPointCloudExtracProgressCallback(void)
+  {
+  }
+  virtual ~IPointCloudExtracProgressCallback()
+  {
+  }
     /// <summary>
     /// Update progressing, from 0 ~ 99.    
     /// </summary>
     ///
-	virtual void updateProgress(int progress) = 0;
+  virtual void updateProgress(int progress) = 0;
     /// <summary>
     /// Update caption displayed in the progress dialog if there's any
     /// </summary>
     ///
-	virtual void updateCaption(const AcString& caption) = 0;
+  virtual void updateCaption(const AcString& caption) = 0;
     /// <summary>
     /// Whether or not the callback is cancelled.
     /// return true if cancelled.
     /// </summary>
     ///
-	virtual bool cancelled() const = 0;
+  virtual bool cancelled() const = 0;
     /// <summary>
     /// Cancel the progress.
     /// </summary>
     ///
-	virtual void cancel() = 0;
+  virtual void cancel() = 0;
     /// <summary>
     /// Update the remaining time of the progress. In seconds.
     /// </summary>
     ///
-	virtual void updateRemainTime(double remainTime) = 0;
+  virtual void updateRemainTime(double remainTime) = 0;
     /// <summary>
     /// End the process.
     /// </summary>
     ///
-	virtual void end() = 0;
+  virtual void end() = 0;
 };
 /// <summary>
 /// Utility class to do point cloud line extraction and line output.
@@ -125,7 +125,7 @@ public:
     /// <param name="progress">The call back function for the progress.</param>
     /// <return> Return Acad::eOk if success, otherwise return Acad::eNotApplicable.</return>
     ///
-	static Acad::ErrorStatus extract(AcDbPointCloudEx* pointCloud, const AcGeVector3d& planeZDirection, const AcGeVector3d& planeXDirection, AcGePoint3d pointPlane, const ExtractOption& extractOption, AcPointCloudExtractResult& outlineResult, IPointCloudExtracProgressCallback* progress = 0);
+  static Acad::ErrorStatus extract(AcDbPointCloudEx* pointCloud, const AcGeVector3d& planeZDirection, const AcGeVector3d& planeXDirection, AcGePoint3d pointPlane, const ExtractOption& extractOption, AcPointCloudExtractResult& outlineResult, IPointCloudExtracProgressCallback* progress = 0);
     /// <summary>
     /// append line from extraction result.
     /// <return> Return the line's object ids appended.</return>
@@ -136,7 +136,7 @@ public:
     /// <param name="color">The color you want set for the linework.</param>
     /// <return> Return the object ids for the linework.</return>
     ///
-	static AcDbObjectIdArray appendLineProfile(const AcPointCloudExtractResult& profile, AcDbObjectId spaceId, AcString layer, AcCmColor color);
+  static AcDbObjectIdArray appendLineProfile(const AcPointCloudExtractResult& profile, AcDbObjectId spaceId, AcString layer, AcCmColor color);
     /// <summary>
     /// append poly line from extraction result.
     /// <return> Return the pline's object ids appended.</return>
@@ -147,5 +147,5 @@ public:
     /// <param name="color">The color you want set for the plines.</param>
     /// <return> Return the object ids for the plines.</return>
     ///
-	static AcDbObjectIdArray appendPolylineProfile(const AcPointCloudExtractResult& profile, AcDbObjectId spaceId, AcString layer, AcCmColor color, double polylineWidth);
+  static AcDbObjectIdArray appendPolylineProfile(const AcPointCloudExtractResult& profile, AcDbObjectId spaceId, AcString layer, AcCmColor color, double polylineWidth);
 };

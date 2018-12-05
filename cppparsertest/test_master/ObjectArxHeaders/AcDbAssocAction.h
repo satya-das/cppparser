@@ -120,11 +120,11 @@
 class ACDBCORE2D_PORT AcDbAssocAction : public AcDbObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocAction);
+  ACRX_DECLARE_MEMBERS(AcDbAssocAction);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject. </param>
     ///
-	explicit AcDbAssocAction(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocAction(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> 
     /// Returns AcDbObjectId of an object of a class derived from 
     /// AcDbAssocActionBody, or a null id if no action body object has been set.
@@ -137,7 +137,7 @@ public:
     /// or null id.
     /// </returns>
     ///
-	AcDbObjectId actionBody() const;
+  AcDbObjectId actionBody() const;
     /// <summary> 
     /// Takes an AcDbObjectId of an AcDbAssocAction and returns AcDbObjectId of 
     /// an object of a class derived from AcDbAssocActionBody, or a null id if 
@@ -152,7 +152,7 @@ public:
     /// or null id.
     /// </returns>
     ///
-	static AcDbObjectId actionBody(const AcDbObjectId& actionId);
+  static AcDbObjectId actionBody(const AcDbObjectId& actionId);
     /// <summary> 
     /// Sets AcDbObjectId of an object of a class derived from AcDbAssocActionBody. 
     /// The AcDbAssocActionBody object becomes owned by this AcDbAssocAction 
@@ -165,17 +165,17 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setActionBody(const AcDbObjectId& actionBodyId);
+  Acad::ErrorStatus setActionBody(const AcDbObjectId& actionBodyId);
     /// <summary> 
     /// If the action body is a proxy, the action is not evaluatable.
     /// </summary>
     /// <returns> True if the action is not evaluatable, false otherwise. </returns>
     ///
-	bool isActionBodyAProxy() const;
+  bool isActionBodyAProxy() const;
     /// <summary> Gets the current AcDbAssocStatus of this action. </summary>
     /// <returns> The AcDbAssocStatus of this action. </returns>
     ///
-	AcDbAssocStatus status() const;
+  AcDbAssocStatus status() const;
     /// <summary> <para>
     /// Sets the AcDbAssocStatus of the action. If the status is one of the codes
     /// that indicate that the action will need to be evaluated (the 
@@ -209,7 +209,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setStatus(AcDbAssocStatus newStatus, bool notifyOwningNetwork = true, bool setInOwnedActions = false);
+  Acad::ErrorStatus setStatus(AcDbAssocStatus newStatus, bool notifyOwningNetwork = true, bool setInOwnedActions = false);
     /// <summary> <para>
     /// Every action except for the topmost AcDbAssocNetwork is "logically" owned 
     /// by a single AcDbAssocNetwork. 
@@ -225,7 +225,7 @@ public:
     /// if it is the topmost AcDbAssocNetwork.
     /// </returns>
     ///
-	AcDbObjectId owningNetwork() const;
+  AcDbObjectId owningNetwork() const;
     /// <summary> <para>
     /// Every action except for the topmost AcDbAssocNetwork is logically owned 
     /// by a single AcDbAssocNetwork. 
@@ -244,7 +244,7 @@ public:
     /// <param name="alsoSetAsDatabaseOwner"> Make the network the database owner of this action. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setOwningNetwork(const AcDbObjectId& networkId, bool alsoSetAsDatabaseOwner);
+  Acad::ErrorStatus setOwningNetwork(const AcDbObjectId& networkId, bool alsoSetAsDatabaseOwner);
     /// <summary> <para>
     /// Gets AcDbAssocDependencies of this action. The default implementation 
     /// obtains all dependencies owned by the base action class and selects the 
@@ -260,7 +260,7 @@ public:
     /// <param name="dependencyIds"> Returned AcDbObjectIds of AcDbAssocDependencies. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getDependencies(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& dependencyIds) const;
+  Acad::ErrorStatus getDependencies(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& dependencyIds) const;
     /// <summary>
     /// Adds the given AcDbAssocDependency to this action. The dependency may 
     /// either become owned by this action (if setThisActionAsOwningAction is true) 
@@ -275,7 +275,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus addDependency(const AcDbObjectId& dependencyId, bool setThisActionAsOwningAction = true);
+  Acad::ErrorStatus addDependency(const AcDbObjectId& dependencyId, bool setThisActionAsOwningAction = true);
     /// <summary>
     /// Utility method that creates a new AcDbAssocDependency of the given pDependencyClass,
     /// possibly owning an AcDbAssocDependencyBody of the given pDependencyBodyClass,
@@ -289,7 +289,7 @@ public:
     /// <param name="dependencyId"> AcDbObjectId of the newly created dependency. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus addDependency(AcRxClass* pDependencyClass, AcRxClass* pDependencyBodyClass, bool isReadDep, bool isWriteDep, int order, AcDbObjectId& dependencyId);
+  Acad::ErrorStatus addDependency(AcRxClass* pDependencyClass, AcRxClass* pDependencyBodyClass, bool isReadDep, bool isWriteDep, int order, AcDbObjectId& dependencyId);
     /// <summary>
     /// Removes the given AcDbAssocDependency from this action.
     /// </summary>
@@ -299,7 +299,7 @@ public:
     /// <param name="alsoEraseIt"> Erases the dependency after removing it. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus removeDependency(const AcDbObjectId& dependencyId, bool alsoEraseIt);
+  Acad::ErrorStatus removeDependency(const AcDbObjectId& dependencyId, bool alsoEraseIt);
     /// <summary> <para>
     /// Removes all AcDbAssocDependencies kept in the vector of dependencies
     /// of this action and optionally also erases them.
@@ -312,7 +312,7 @@ public:
     /// <param name="alsoEraseThem"> Erase the AcDbAssocDependencies after removing them. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus removeAllDependencies(bool alsoEraseThem);
+  Acad::ErrorStatus removeAllDependencies(bool alsoEraseThem);
     /// <summary> <para>
     /// Get AcDbObjects that this action depends on or modifies. The default 
     /// implementation collects all object on which the action has 
@@ -331,7 +331,7 @@ public:
     /// <param name="objectIds"> Returned AcDbObjectIds of the AcDbObjects. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getDependentObjects(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& objectIds) const;
+  Acad::ErrorStatus getDependentObjects(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& objectIds) const;
     /// <summary> <para>
     /// Checks whether the given AcDbAssocDependency is owned by this action,
     /// either directly, or if this action is a network, is owned by an action 
@@ -354,7 +354,7 @@ public:
     /// </param>
     /// <returns> True iff the given dependency is owned by this action. </returns>
     ///
-	bool isOwnedDependency(const AcDbAssocDependency* pDependency) const;
+  bool isOwnedDependency(const AcDbAssocDependency* pDependency) const;
     /// <summary> <para>
     /// Checks whether the given AcDbAssocDependency, owned by this action, 
     /// is external to this action, i.e. it depends on an AcDbObject that is 
@@ -372,7 +372,7 @@ public:
     /// </param>
     /// <returns> True iff the given dependency is external to this action. </returns>
     ///
-	bool isExternalDependency(const AcDbAssocDependency* pDependency) const;
+  bool isExternalDependency(const AcDbAssocDependency* pDependency) const;
     /// <summary> <para>
     /// Delegated from the owned dependency's AcDbAssocDependency::isRelevantChange() 
     /// predicate. It allows the owning action, instead of the dependency itself, 
@@ -398,7 +398,7 @@ public:
     /// implementation returns true. 
     /// </returns>
     ///
-	bool isRelevantDependencyChange(const AcDbAssocDependency* pDependency) const;
+  bool isRelevantDependencyChange(const AcDbAssocDependency* pDependency) const;
     /// <summary> <para>
     /// Delegated from the owned dependency's AcDbAssocDependency::hasCachedValue() 
     /// predicate. It allows the owning action, instead of the dependency itself, 
@@ -422,7 +422,7 @@ public:
     /// implementation returns false. 
     /// </returns>
     ///
-	bool hasDependencyCachedValue(const AcDbAssocDependency* pDependency) const;
+  bool hasDependencyCachedValue(const AcDbAssocDependency* pDependency) const;
     /// <summary> <para>
     /// Delegated from the owned dependency's AcDbAssocDependency::isDependentOnTheSameThingAs() 
     /// predicate. It allows the owning action, instead of the dependency itself, 
@@ -444,7 +444,7 @@ public:
     /// The default implementation returns false. 
     /// </returns>
     ///
-	bool areDependenciesOnTheSameThing(const AcDbAssocDependency* pDependency1, const AcDbAssocDependency* pDependency2) const;
+  bool areDependenciesOnTheSameThing(const AcDbAssocDependency* pDependency1, const AcDbAssocDependency* pDependency2) const;
     /// <summary> <para>
     /// Delegated from he owned dependency's AcDbAssocDependency::isEqualTo() 
     /// predicate. It allows the owning action, instead of the dependency itself, 
@@ -466,12 +466,12 @@ public:
     /// default implementation returns false. 
     /// </returns>
     ///
-	bool areDependenciesEqual(const AcDbAssocDependency* pDependency1, const AcDbAssocDependency* pDependency2) const;
+  bool areDependenciesEqual(const AcDbAssocDependency* pDependency1, const AcDbAssocDependency* pDependency2) const;
     /// <summary>
     /// General mechanism by which an action can be notified about events.
     /// </summary>
     ///
-	Acad::ErrorStatus notification(AcDbAssocNotificationData* pNotifData);
+  Acad::ErrorStatus notification(AcDbAssocNotificationData* pNotifData);
     /// <summary> <para>
     /// Called from the owned dependency's AcDbAssocDependency::copied() 
     /// persistent reactor callback. It notifies the owning action about the fact 
@@ -487,7 +487,7 @@ public:
     /// <param name="pDbObj"> The original object. </param>
     /// <param name="pNewObj"> The newly created clone. </param>
     ///
-	void dependentObjectCloned(const AcDbAssocDependency* pDependency, const AcDbObject* pDbObj, const AcDbObject* pNewObj);
+  void dependentObjectCloned(const AcDbAssocDependency* pDependency, const AcDbObject* pDbObj, const AcDbObject* pNewObj);
     /// <summary> <para>
     /// Called just before the end of the main deep-cloning loop (before
     /// AcRxEventReactor::beginDeepCloneXlation() reactor notification), when 
@@ -513,7 +513,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus addMoreObjectsToDeepClone(AcDbIdMapping& idMap, AcDbObjectIdArray& additionalObjectsToClone) const;
+  Acad::ErrorStatus addMoreObjectsToDeepClone(AcDbIdMapping& idMap, AcDbObjectIdArray& additionalObjectsToClone) const;
     /// <summary> <para>
     /// Called from AcRxEventReactor::endDeepClone() reactor notification method 
     /// (ids of the clones have already been translated) to inform the source 
@@ -527,7 +527,7 @@ public:
     /// <param name="idMap"> The AcDbIdMapping of the current deep cloning session. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus postProcessAfterDeepClone(AcDbIdMapping& idMap);
+  Acad::ErrorStatus postProcessAfterDeepClone(AcDbIdMapping& idMap);
     /// <summary> <para>
     /// Called from AcRxEventReactor::cancelDeepClone() reactor notification 
     /// method. Notice that the source action can obtain its clone by consulting 
@@ -541,7 +541,7 @@ public:
     /// <param name="idMap"> The AcDbIdMapping of the current deep cloning session. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus postProcessAfterDeepCloneCancel(AcDbIdMapping& idMap);
+  Acad::ErrorStatus postProcessAfterDeepCloneCancel(AcDbIdMapping& idMap);
     /// <summary> <para>
     /// Predicate that returns true iff the system is currently evaluating an
     /// action or a network of actions. 
@@ -557,7 +557,7 @@ public:
     /// </para> </summary>
     /// <returns> True iff action evaluation is in progress. </returns>
     ///
-	bool isActionEvaluationInProgress() const;
+  bool isActionEvaluationInProgress() const;
     /// <summary> 
     /// Returns the current AcDbAssocEvaluationCallback set by the 
     /// AcDbAssocAction::evaluate() call, or NULL if no action evaluation 
@@ -566,7 +566,7 @@ public:
     /// </summary>
     /// <returns> The current AcDbAssocEvaluationCallback or NULL. </returns>
     ///
-	AcDbAssocEvaluationCallback* currentEvaluationCallback() const;
+  AcDbAssocEvaluationCallback* currentEvaluationCallback() const;
     /// <summary>
     /// This method needs to be called from the client code evaluateOverride() 
     /// method, usually after the client code inspected the dependencies, found 
@@ -576,7 +576,7 @@ public:
     /// </summary>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus evaluateDependencies();
+  Acad::ErrorStatus evaluateDependencies();
     /// <summary> <para>
     /// Delegated from the owned dependency's AcDbAssocDependency::evaluateOverride()
     /// method. It allows the owning action, instead of the dependency itself, 
@@ -592,7 +592,7 @@ public:
     /// for read. 
     /// </param>
     ///
-	void evaluateDependency(AcDbAssocDependency* pDependency);
+  void evaluateDependency(AcDbAssocDependency* pDependency);
     /// <summary> <para>
     /// This callback is called from AcDbAssocDependency::setStatus(..., true) 
     /// and notifies the action owning the dependency that the status of the 
@@ -608,7 +608,7 @@ public:
     /// <param name="previousStatus"> Previous status of the dependency. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus ownedDependencyStatusChanged(AcDbAssocDependency* pOwnedDependency, AcDbAssocStatus previousStatus);
+  Acad::ErrorStatus ownedDependencyStatusChanged(AcDbAssocDependency* pOwnedDependency, AcDbAssocStatus previousStatus);
     /// <summary>
     /// Notifes the action that the owner of the action was transformed, such as
     /// that all entities in the AcDbBlockTableRecord owning the network that owns 
@@ -617,7 +617,7 @@ public:
     /// <param name="transform"> The provided transformation matrix. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus transformActionBy(const AcGeMatrix3d& transform);
+  Acad::ErrorStatus transformActionBy(const AcGeMatrix3d& transform);
     /// <summary> <para>
     /// Compares this action with the given action and returns true if and only
     /// if they are equal (whatever it means). Both actions need to be open at
@@ -629,7 +629,7 @@ public:
     /// <param name="pOtherAction"> The other action needs to be open for read. </param>
     /// <returns> True iff the two actions are equal. </returns>
     ///
-	bool isEqualTo(const AcDbAssocAction* pOtherAction) const;
+  bool isEqualTo(const AcDbAssocAction* pOtherAction) const;
     /// <summary> <para>
     /// This method provides default implementation suitable for most 
     /// circumstances, but actions may override it to define their special 
@@ -669,7 +669,7 @@ public:
     /// be determined at this time.
     /// </returns>
     ///
-	AcDbAssocEvaluationPriority evaluationPriority() const;
+  AcDbAssocEvaluationPriority evaluationPriority() const;
     /// <summary> <para>
     /// Lets the action report all other actions that need to be evaluated because 
     /// this action is evaluated. It is repeatedly used to transitively collect 
@@ -694,7 +694,7 @@ public:
     /// scheduled to evaluate when this action is evaluated.
     /// </param>
     ///
-	void getDependentActionsToEvaluate(AcDbActionsToEvaluateCallback* pActionsToEvaluateCallback) const;
+  void getDependentActionsToEvaluate(AcDbActionsToEvaluateCallback* pActionsToEvaluateCallback) const;
     /// <summary> <para>
     /// This method is called by the client code to evaluate an action or an
     /// associative network. It is the crux of the whole associative mechanism.
@@ -748,7 +748,7 @@ public:
     /// for more details.
     /// </param>
     ///
-	void evaluate(AcDbAssocEvaluationCallback* pEvaluationCallback);
+  void evaluate(AcDbAssocEvaluationCallback* pEvaluationCallback);
     /// <summary> <para>
     /// Starting from this AcDbAssocAction, checks this AcDbAssocAction and its 
     /// owners (in "physical" AutoCAD database object owhership sense) until an 
@@ -762,7 +762,7 @@ public:
     /// owns this AcDbAssocAction.
     /// </returns>
     ///
-	AcDbObjectId objectThatOwnsNetworkInstance() const;
+  AcDbObjectId objectThatOwnsNetworkInstance() const;
     /// <summary> 
     /// This function is called to notify the action when a there is a drag 
     /// operation in progress and some objects the action depends on, either
@@ -770,7 +770,7 @@ public:
     /// </summary> 
     /// <param name="status"> See the AcDb::DragStat enum. </param>
     ///
-	void dragStatus(const AcDb::DragStat status);
+  void dragStatus(const AcDb::DragStat status);
     /// <summary>
     /// A static method to get all actions depending on the given AcDbObject
     /// (these actions have AcDbAssocDependencies on this object).
@@ -784,7 +784,7 @@ public:
     /// <param name="actionIds"> Returned AcDbObjectIds of the AcDbAssocActions. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus getActionsDependentOnObject(const AcDbObject* pObject, bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& actionIds);
+  static Acad::ErrorStatus getActionsDependentOnObject(const AcDbObject* pObject, bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& actionIds);
     /// <summary><para>
     /// Detaches the write-dependencies on the object from the object and marks
     /// the dependencies with kErasedAssocStatus. It does it in the reverse order,
@@ -821,7 +821,7 @@ public:
     /// </para></param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus removeActionsControllingObject(const AcDbObjectId& objectToRemoveActionsFrom, int readOnlyDependencyHandling = 0, const AcDbObjectId& objectToRedirectReadOnlyDependenciesTo = AcDbObjectId::kNull);
+  static Acad::ErrorStatus removeActionsControllingObject(const AcDbObjectId& objectToRemoveActionsFrom, int readOnlyDependencyHandling = 0, const AcDbObjectId& objectToRedirectReadOnlyDependenciesTo = AcDbObjectId::kNull);
     /// <summary> <para>
     /// Finds actions that need to be evaluated when the given action is evaluated, 
     /// and changes their status to a evaluation request status, so that they will 
@@ -838,7 +838,7 @@ public:
     /// been marked to evaluate. 
     /// </para></summary>
     ///
-	static Acad::ErrorStatus markDependentActionsToEvaluate(const AcDbObjectId& actionId);
+  static Acad::ErrorStatus markDependentActionsToEvaluate(const AcDbObjectId& actionId);
     /// <summary>
     /// Returns true if and only if there is an action with a write-dependency
     /// on the given AcDbObject and the action status is not isToBeSkipped().
@@ -847,7 +847,7 @@ public:
     /// <param name="pObject"> AcDbObject whose actions are checked. </param>
     /// <returns> True if and only if there is an active action on the object. </returns>
     ///
-	static bool doesObjectHaveActiveActions(const AcDbObject* pObject);
+  static bool doesObjectHaveActiveActions(const AcDbObject* pObject);
     /// <summary> 
     /// Removes all owned AcDbAssocActionParams, optionally also erasing them. 
     /// </summary>
@@ -857,11 +857,11 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus removeAllParams(bool alsoEraseThem);
+  Acad::ErrorStatus removeAllParams(bool alsoEraseThem);
     /// <summary> Returns then number of the owned AcDbAssocActionParams. </summary>
     /// <returns> Number of the owned AcDbAssocActionParameters. </returns>
     ///
-	int paramCount() const;
+  int paramCount() const;
     /// <summary> 
     /// Returns an array of the owned AcDbAssocActionParams. 
     /// </summary>
@@ -872,7 +872,7 @@ public:
     /// more than just momentarily accessing its elements.
     /// </returns>
     ///
-	const AcDbObjectIdArray& ownedParams() const;
+  const AcDbObjectIdArray& ownedParams() const;
     /// <summary> 
     /// Adds a new AcDbAssocActionParam. This AcDbAssocAction  becomes the database 
     /// owner of this action parameter.
@@ -888,7 +888,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus addParam(const AcDbObjectId& paramId, int& paramIndex);
+  Acad::ErrorStatus addParam(const AcDbObjectId& paramId, int& paramIndex);
     /// <summary> 
     /// Utility methods that creates a new AcDbAssocActionParam of the given 
     /// pParamClass and with the given paramName and adds it to the database and 
@@ -900,7 +900,7 @@ public:
     /// <param name="paramIndex"> Index of the newly created action parameter. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus addParam(const AcString& paramName, AcRxClass* pParamClass, AcDbObjectId& paramId, int& paramIndex);
+  Acad::ErrorStatus addParam(const AcString& paramName, AcRxClass* pParamClass, AcDbObjectId& paramId, int& paramIndex);
     /// <summary> 
     /// Removes the AcDbAssocActionParam, optionally also erasing it. 
     /// </summary>
@@ -911,7 +911,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus removeParam(const AcDbObjectId& paramId, bool alsoEraseIt);
+  Acad::ErrorStatus removeParam(const AcDbObjectId& paramId, bool alsoEraseIt);
     /// <summary> 
     /// Returns all owned AcDbAssocActionParams with the given name. Notice that
     /// more than one action parameter may have the same name. The parameters are 
@@ -922,7 +922,7 @@ public:
     /// <param name="paramName">  The name of the action parameter. </param>
     /// <returns> All owned action parameters with the given name. </returns>
     ///
-	const AcDbObjectIdArray& paramsAtName(const AcString& paramName) const;
+  const AcDbObjectIdArray& paramsAtName(const AcString& paramName) const;
     /// <summary> 
     /// Returns an owned AcDbAssocActionParam specified by its name and optional 
     /// index among all parameters with the same name. The default index 0 means
@@ -932,7 +932,7 @@ public:
     /// <param name="index"> Index among all parameters with the same name. </param>
     /// <returns> The owned action parameter or a null AcDbObjectId if not found. </returns>
     ///
-	AcDbObjectId paramAtName(const AcString& paramName, int index = 0) const;
+  AcDbObjectId paramAtName(const AcString& paramName, int index = 0) const;
     /// <summary> 
     /// Returns an owned AcDbAssocActionParam in the array of all action parameters 
     /// owned by this AcDbAssocAction.
@@ -940,14 +940,14 @@ public:
     /// <param name="paramIndex"> Index in the array of all action parameters. </param>
     /// <returns> The owned action parameter or a null AcDbObjectId if not found. </returns>
     ///
-	AcDbObjectId paramAtIndex(int paramIndex) const;
+  AcDbObjectId paramAtIndex(int paramIndex) const;
     /// <summary> 
     /// Returns names of all owned value action parameters. The names of the value
     /// action parameters are arbitrary case-sensitive strings but must be unique.
     /// </summary>
     /// <param name="paramNames"> Names of all owned value action parameters. </param>
     ///
-	void ownedValueParamNames(AcArray<AcString>& paramNames) const;
+  void ownedValueParamNames(AcArray<AcString>& paramNames) const;
     /// <summary> 
     /// Obtains arrays of values, expressions and evaluatorIds for a given value 
     /// action parameter. The arrays can be of any length, but in most cases they 
@@ -964,7 +964,7 @@ public:
     /// If a value action parameter with the given name is not found, returns Acad::eNullPtr.
     /// </returns>
     ///
-	Acad::ErrorStatus getValueParamArray(const AcString& paramName, AcArray<AcDbEvalVariant>& values, AcArray<AcString>& expressions, AcArray<AcString>& evaluatorIds) const;
+  Acad::ErrorStatus getValueParamArray(const AcString& paramName, AcArray<AcDbEvalVariant>& values, AcArray<AcString>& expressions, AcArray<AcString>& evaluatorIds) const;
     /// <summary> 
     /// The same as getValueParamArray() but returns just the valueIndex's element 
     /// of the returned array.
@@ -979,7 +979,7 @@ public:
     /// Acad::eNullPtr. If the valueIndex is out of range, returns Acad::eInvalidIndex.
     /// </returns>
     ///
-	Acad::ErrorStatus getValueParam(const AcString& paramName, AcDbEvalVariant& value, AcString& expression, AcString& evaluatorId, int valueIndex = 0) const;
+  Acad::ErrorStatus getValueParam(const AcString& paramName, AcDbEvalVariant& value, AcString& expression, AcString& evaluatorId, int valueIndex = 0) const;
     /// <summary><para> 
     /// Sets arrays of values, expressions and evaluatorIds for a given value 
     /// action parameter. The arrays can be of any length, but in most cases they 
@@ -1006,7 +1006,7 @@ public:
     /// <param name="silentMode">    Do not print error message if the expression string is invalid. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setValueParamArray(const AcString& paramName, const AcArray<AcDbEvalVariant>& values, const AcArray<AcString>& expressions, const AcArray<AcString>& evaluatorIds, AcArray<AcString>& errorMessages, bool silentMode);
+  Acad::ErrorStatus setValueParamArray(const AcString& paramName, const AcArray<AcDbEvalVariant>& values, const AcArray<AcString>& expressions, const AcArray<AcString>& evaluatorIds, AcArray<AcString>& errorMessages, bool silentMode);
     /// <summary><para>
     /// The same as setValueParamArray() but sets just the valueIndex's element. 
     /// If the existing array is shorter that ther given valueIndex, the array
@@ -1025,18 +1025,18 @@ public:
     /// <param name="valueIndex">    Index of the array element to set. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setValueParam(const AcString& paramName, const AcDbEvalVariant& value, const AcString& expression, const AcString& evaluatorId, AcString& errorMessage, bool silentMode, int valueIndex = 0);
+  Acad::ErrorStatus setValueParam(const AcString& paramName, const AcDbEvalVariant& value, const AcString& expression, const AcString& evaluatorId, AcString& errorMessage, bool silentMode, int valueIndex = 0);
     /// <summary> Returns AcValue::UnitType of the value parameter. </summary>
     /// <param name="paramName"> The name of the value action parameter. </param>
     /// <returns> The AcValue::UnitType of the value parameter. </returns>
     ///
-	AcValue::UnitType valueParamUnitType(const AcString& paramName) const;
+  AcValue::UnitType valueParamUnitType(const AcString& paramName) const;
     /// <summary> Sets the AcValue::UnitType of the value parameter. </summary>
     /// <param name="paramName"> The name of the value action parameter. </param>
     /// <param name="unitType"> AcValue::UnitType. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setValueParamUnitType(const AcString& paramName, AcValue::UnitType unitType);
+  Acad::ErrorStatus setValueParamUnitType(const AcString& paramName, AcValue::UnitType unitType);
     /// <summary> 
     /// Removes the value parameter and also erases the corresponding AcDbAssocVariables, 
     /// if there are any. 
@@ -1044,7 +1044,7 @@ public:
     /// <param name="paramName"> The name of the value action parameter to remove. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus removeValueParam(const AcString& paramName);
+  Acad::ErrorStatus removeValueParam(const AcString& paramName);
     /// <summary><para>
     /// Each individual value of a value action parameter may either be a constant, 
     /// or defined by an expression. When it is defined by an expression, the value 
@@ -1070,7 +1070,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus valueParamInputVariables(const AcString& paramName, AcDbObjectIdArray& variableIds) const;
+  Acad::ErrorStatus valueParamInputVariables(const AcString& paramName, AcDbObjectIdArray& variableIds) const;
     /// <summary><para>
     /// The value parameter can keep AcDbObjectId of an "output" dependency (of 
     /// any kind) on a controlled object. The value parameter (expected to have 
@@ -1094,7 +1094,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setValueParamControlledObjectDep(const AcString& paramName, const AcDbObjectId& controlledObjectDepId);
+  Acad::ErrorStatus setValueParamControlledObjectDep(const AcString& paramName, const AcDbObjectId& controlledObjectDepId);
     /// <summary><para>
     /// Updates the "propery" of the controlled object from the current value of 
     /// a value action parameter.
@@ -1105,7 +1105,7 @@ public:
     /// <param name="paramName"> The name of the value action parameter. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus updateValueParamControlledObject(const AcString& paramName) const;
+  Acad::ErrorStatus updateValueParamControlledObject(const AcString& paramName) const;
     /// <summary><para>
     /// Updates the value of the value action parameter from the current value of
     /// a named "property" of the controlled object.
@@ -1116,7 +1116,7 @@ public:
     /// <param name="paramName"> The name of the value action parameter. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus updateValueParamFromControlledObject(const AcString& paramName);
+  Acad::ErrorStatus updateValueParamFromControlledObject(const AcString& paramName);
     /// <summary><para>
     /// Updates named properties of all objects that are linked with value action 
     /// paramerters.
@@ -1126,7 +1126,7 @@ public:
     /// </para></summary>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus updateAllObjectsControlledByValueParams() const;
+  Acad::ErrorStatus updateAllObjectsControlledByValueParams() const;
     /// <summary>
     /// Transforms all constant geometries in all owned AcDbAssocParam(eters). 
     /// Example of a constant geometry is an AcGeCurve3d* in AcDbAssocEdgeActionParam
@@ -1138,7 +1138,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus transformAllConstantGeometryParams(const AcGeMatrix3d& transform);
+  Acad::ErrorStatus transformAllConstantGeometryParams(const AcGeMatrix3d& transform);
     /// <summary>
     /// Scales values of all value action parameters whose units indicate they 
     /// represent distances. If the value is defined by an expression, the expression 
@@ -1149,7 +1149,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus scaleAllDistanceValueParams(double scaleFactor);
-	friend class AcDbImpAssocAction;
+  Acad::ErrorStatus scaleAllDistanceValueParams(double scaleFactor);
+  friend class AcDbImpAssocAction;
 };
 #pragma  pack (pop)

@@ -24,11 +24,11 @@
 class ACDB_PORT AcDbAssocPathActionParam : public AcDbAssocCompoundActionParam
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocPathActionParam);
+  ACRX_DECLARE_MEMBERS(AcDbAssocPathActionParam);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocPathActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocPathActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary>
     /// Sets the AcDbAssocPathActionParam from a sequence of AcDbEdgeRefs.
     /// </summary>
@@ -42,7 +42,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setEdgeRefArray(const AcArray<AcDbEdgeRef>& edgeRefs, int dependencyOrder = 0);
+  virtual Acad::ErrorStatus setEdgeRefArray(const AcArray<AcDbEdgeRef>& edgeRefs, int dependencyOrder = 0);
     /// <summary>
     /// Changes a single segment in the AcDbAssocPathActionParam.
     /// </summary>
@@ -52,7 +52,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus updateEdgeRef(int edgeRefIndex, const AcDbEdgeRef& edgeRef);
+  virtual Acad::ErrorStatus updateEdgeRef(int edgeRefIndex, const AcDbEdgeRef& edgeRef);
     /// <summary><para>
     /// Returns an array of references to transient subentities of AcDbEntities 
     /// that correspond to persistent subentities that this AcDbAssocPathActionParam 
@@ -75,6 +75,6 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getEdgeRefArray(AcArray<AcArray<AcDbEdgeRef> >& edgeRefs) const;
+  virtual Acad::ErrorStatus getEdgeRefArray(AcArray<AcArray<AcDbEdgeRef> >& edgeRefs) const;
 };
 #pragma  pack (pop)

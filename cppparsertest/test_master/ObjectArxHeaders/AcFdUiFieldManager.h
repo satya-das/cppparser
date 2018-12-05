@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #pragma  once
 #if  _MSC_VER > 1000
-#	pragma  once
+#  pragma  once
 #endif
 #include "AcFdUi.h"
 #include "AcFdUiFieldDialogHook.h"
@@ -25,13 +25,13 @@ class CAcFdUiFieldDialogHook;
 class ACFDUI_PORT CAcFdUiFieldManager : public CObject
 {
 public:
-	CAcFdUiFieldManager(void);
-	~CAcFdUiFieldManager();
-	BOOL RegisterFieldDialogHook(CAcFdUiFieldDialogHook* pDlgHook);
-	BOOL UnregisterFieldDialogHook(const CAcFdUiFieldDialogHook* pDlgHook);
-	int GetRegisteredDialogHooks(AcFdUiFieldDialogHookArray& hooks);
+  CAcFdUiFieldManager(void);
+  ~CAcFdUiFieldManager();
+  BOOL RegisterFieldDialogHook(CAcFdUiFieldDialogHook* pDlgHook);
+  BOOL UnregisterFieldDialogHook(const CAcFdUiFieldDialogHook* pDlgHook);
+  int GetRegisteredDialogHooks(AcFdUiFieldDialogHookArray& hooks);
 protected:
-	void* mpImpObj;
+  void* mpImpObj;
 private:
-	friend class AcFdUiSystemInternals;
+  friend class AcFdUiSystemInternals;
 };

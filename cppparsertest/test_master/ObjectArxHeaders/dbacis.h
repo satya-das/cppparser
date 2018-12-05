@@ -16,13 +16,13 @@
 // exported to be used by platform clients
 //
 #ifndef DB_API_DBACIS_H
-#	define DB_API_DBACIS_H
-#	include "acdb.h"
-#	include "acadstrc.h"
-#	include "AcArray.h"
-#	include "acdbport.h"
+#  define DB_API_DBACIS_H
+#  include "acdb.h"
+#  include "acadstrc.h"
+#  include "AcArray.h"
+#  include "acdbport.h"
 class AcDbDatabase;
-#	pragma  pack (push, 8)
+#  pragma  pack (push, 8)
 class AcDbDwgFiler;
 class AcDbDxfFiler;
 class AcDbObject;
@@ -122,14 +122,14 @@ ACDB_PORT Acad::ErrorStatus acdbModelerSaveEntitiesToDxfFiler(AcDbDxfFiler* file
 /// 
 enum ModelerRestoreOptions
 {
-	kReadForeignEntities = 0x01,
-	kReadUnknownEntities = 0x02,
-	kLoseUnknownCustomAttributes = 0x04,
-	kReadStrangerEntityDefault = (kReadForeignEntities | kReadUnknownEntities | kLoseUnknownCustomAttributes),
-	kModelerRestoreOptionsFuture1 = 0x08,
-	kModelerRestoreOptionsFuture2 = 0x10,
-	kModelerRestoreOptionsFuture3 = 0x20,
-	kModelerRestoreOptionsFuture4 = 0x40
+  kReadForeignEntities = 0x01,
+  kReadUnknownEntities = 0x02,
+  kLoseUnknownCustomAttributes = 0x04,
+  kReadStrangerEntityDefault = (kReadForeignEntities | kReadUnknownEntities | kLoseUnknownCustomAttributes),
+  kModelerRestoreOptionsFuture1 = 0x08,
+  kModelerRestoreOptionsFuture2 = 0x10,
+  kModelerRestoreOptionsFuture3 = 0x20,
+  kModelerRestoreOptionsFuture4 = 0x40
 };
 ///////////////////////////////////////////////////////////////////////////////
 /// <summary>
@@ -176,5 +176,5 @@ ACDB_PORT Acad::ErrorStatus acdbModelerRestoreEntitiesFromDwgFiler(AcDbDwgFiler*
 /// <param name="restoreOptions">A valid combination of ModelerRestoreOptions enum values </param>
 ///
 ACDB_PORT Acad::ErrorStatus acdbModelerRestoreEntityFromDxfFiler(AcDbDxfFiler* filer, ENTITY*& pEntity, int* pModelerVersion = nullptr, unsigned restoreOptions = kReadStrangerEntityDefault);
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

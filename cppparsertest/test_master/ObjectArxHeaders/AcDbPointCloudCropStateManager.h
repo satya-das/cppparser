@@ -30,7 +30,7 @@ public:
     /// Return Acad::eOk if it success to restore the crop state.
     /// Return Acad::eNotApplicable if there is no this "name" crop state.
     /// </returns>
-	Acad::ErrorStatus restoreCropState(const AcString& name);
+  Acad::ErrorStatus restoreCropState(const AcString& name);
     /// <summary>
     /// Get all the crop states name.
     /// </summary>
@@ -41,7 +41,7 @@ public:
     /// Return Acad::eOk if it success.
     /// Return Acad::eNotApplicable if it meets errors.
     /// </returns>
-	Acad::ErrorStatus getAllCropStates(AcArray<AcString>& states) const;
+  Acad::ErrorStatus getAllCropStates(AcArray<AcString>& states) const;
     /// <summary>
     /// Remove the specified crop state. 
     /// </summary>
@@ -52,7 +52,7 @@ public:
     /// Return Acad::eOk if it success to restore the crop state.
     /// Return Acad::eNotApplicable if there is no this "name" crop state.
     /// </returns>
-	Acad::ErrorStatus removeCropState(const AcString& name);
+  Acad::ErrorStatus removeCropState(const AcString& name);
     /// <summary>
     /// Rename the specified crop state. Note that the name should honor the rules for symbol names.
     /// These general rules are: 
@@ -82,7 +82,7 @@ public:
     /// Return Acad::eOk if it success to restore the crop state.
     /// Return Acad::eNotApplicable if there is no this "name" crop state.
     /// </returns>
-	Acad::ErrorStatus renameCropState(const AcString& oldName, const AcString& newName);
+  Acad::ErrorStatus renameCropState(const AcString& oldName, const AcString& newName);
     /// <summary>
     /// Save the current crop, and specify a name. It honors the rules for symbol names. 
     /// These general rules are: 
@@ -109,7 +109,7 @@ public:
     /// Return Acad::eOk if it success to add the crop state.
     /// Return Acad::eDuplicateRecordName if it has this "name" crop states.
     /// </returns>
-	Acad::ErrorStatus addCropState(const AcString& state);
+  Acad::ErrorStatus addCropState(const AcString& state);
     /// <summary>
     /// Get the current crop state name. 
     /// </summary>
@@ -118,12 +118,12 @@ public:
     /// crop state, it returns empty string. If you changed crop properties, 
     /// or change the invisible scans/regions, it also return empty string.
     /// </returns>
-	AcString currentCropState() const;
+  AcString currentCropState() const;
 private:
-	AcDbPointCloudCropStateManager();
-	AcDbPointCloudCropStateManager(AcDbPointCloudEx* pCloud);
-	virtual ~AcDbPointCloudCropStateManager();
-	AcDbPointCloudCropStateManagerImp* m_pImpCropStatesManager;
-	friend class PointCloudExImp;
-	friend class PointCloudCropStateRoundtripManager;
+  AcDbPointCloudCropStateManager();
+  AcDbPointCloudCropStateManager(AcDbPointCloudEx* pCloud);
+  virtual ~AcDbPointCloudCropStateManager();
+  AcDbPointCloudCropStateManagerImp* m_pImpCropStatesManager;
+  friend class PointCloudExImp;
+  friend class PointCloudCropStateRoundtripManager;
 };

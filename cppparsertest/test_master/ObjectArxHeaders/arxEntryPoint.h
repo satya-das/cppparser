@@ -19,36 +19,36 @@
 #include "ads.h"
 #include "dbxEntryPoint.h"
 #ifdef __ATLCOM_H__
-#	include "dynpropmgr.h"
+#  include "dynpropmgr.h"
 #endif
 //-----------------------------------------------------------------------------
 struct _ARXCOMMAND_ENTRY
 {
-	const ACHAR* pszCmdGroupName;
-	const ACHAR* pszCmdGlobalName;
-	const ACHAR* pszCmdLocalName;
-	Adesk::Int32 commandFlags;
-	AcRxFunctionPtr pCmdFct;
-	AcEdUIContext* pUIContext;
-	UINT localNameID;
+  const ACHAR* pszCmdGroupName;
+  const ACHAR* pszCmdGlobalName;
+  const ACHAR* pszCmdLocalName;
+  Adesk::Int32 commandFlags;
+  AcRxFunctionPtr pCmdFct;
+  AcEdUIContext* pUIContext;
+  UINT localNameID;
 };
 #pragma  section("ARXCOMMAND$__a", read, shared)
 #pragma  section("ARXCOMMAND$__z", read, shared)
 #pragma  section("ARXCOMMAND$__m", read, shared)
 #ifndef _ADESK_MAC_
-#	define ARXCOMMAND_FIRST_ENTRYNAME	"ARXCOMMAND$__a"
+#  define ARXCOMMAND_FIRST_ENTRYNAME	"ARXCOMMAND$__a"
 #else 
-#	define ARXCOMMAND_FIRST_ENTRYNAME	"ARXCOMMAND$__m"
+#  define ARXCOMMAND_FIRST_ENTRYNAME	"ARXCOMMAND$__m"
 #endif
 #define ARXCOMMAND_LAST_ENTRYNAME	"ARXCOMMAND$__z"
 #ifndef _ADESK_MAC_
-#	if  defined(_WIN64) || defined(_AC64)
-#		define ACED_ARXCOMMAND_ENTRY_PRAGMA	(group,globCmd) __pragma(comment(linker, "/include:__pArxCmdMap_" #group #globCmd)) ;
-#	else 
-#		define ACED_ARXCOMMAND_ENTRY_PRAGMA	(group,globCmd) __pragma(comment(linker, "/include:___pArxCmdMap_" #group #globCmd)) ;
-#	endif
+#  if  defined(_WIN64) || defined(_AC64)
+#    define ACED_ARXCOMMAND_ENTRY_PRAGMA	(group,globCmd) __pragma(comment(linker, "/include:__pArxCmdMap_" #group #globCmd)) ;
+#  else 
+#    define ACED_ARXCOMMAND_ENTRY_PRAGMA	(group,globCmd) __pragma(comment(linker, "/include:___pArxCmdMap_" #group #globCmd)) ;
+#  endif
 #else 
-#	define ACED_ARXCOMMAND_ENTRY_PRAGMA	(group,globCmd)
+#  define ACED_ARXCOMMAND_ENTRY_PRAGMA	(group,globCmd)
 #endif
 #define ACED_ARXCOMMAND_ENTRY_AUTO	(classname, group, globCmd, locCmd, cmdFlags, UIContext) \
     __declspec(selectany) _ARXCOMMAND_ENTRY __ArxCmdMap_##group##globCmd = { _RXST(#group), _RXST(#globCmd), _RXST(#locCmd), cmdFlags, classname::group ##globCmd, UIContext, 0 } ; \
@@ -61,28 +61,28 @@ struct _ARXCOMMAND_ENTRY
 //-----------------------------------------------------------------------------
 struct _ADSSYMBOL_ENTRY
 {
-	const ACHAR* pszName;
-	int (*fptr) ();
-	bool bRegFunc;
-	UINT nameID;
+  const ACHAR* pszName;
+  int (*fptr) ();
+  bool bRegFunc;
+  UINT nameID;
 };
 #pragma  section("ADSSYMBOL$__a", read, shared)
 #pragma  section("ADSSYMBOL$__z", read, shared)
 #pragma  section("ADSSYMBOL$__m", read, shared)
 #ifndef _ADESK_MAC_
-#	define ADSSYMBOL_FIRST_ENTRYNAME	"ADSSYMBOL$__a"
+#  define ADSSYMBOL_FIRST_ENTRYNAME	"ADSSYMBOL$__a"
 #else 
-#	define ADSSYMBOL_FIRST_ENTRYNAME	"ADSSYMBOL$__m"
+#  define ADSSYMBOL_FIRST_ENTRYNAME	"ADSSYMBOL$__m"
 #endif
 #define ADSSYMBOL_LAST_ENTRYNAME	"ADSSYMBOL$__z"
 #ifndef _ADESK_MAC_
-#	if  defined(_WIN64) || defined(_AC64)
-#		define ACED_ADSSYMBOL_ENTRY_PRAGMA	(name) __pragma(comment(linker, "/include:__pAdsSymbolMap_" #name)) ;
-#	else 
-#		define ACED_ADSSYMBOL_ENTRY_PRAGMA	(name) __pragma(comment(linker, "/include:___pAdsSymbolMap_" #name)) ;
-#	endif
+#  if  defined(_WIN64) || defined(_AC64)
+#    define ACED_ADSSYMBOL_ENTRY_PRAGMA	(name) __pragma(comment(linker, "/include:__pAdsSymbolMap_" #name)) ;
+#  else 
+#    define ACED_ADSSYMBOL_ENTRY_PRAGMA	(name) __pragma(comment(linker, "/include:___pAdsSymbolMap_" #name)) ;
+#  endif
 #else 
-#	define ACED_ADSSYMBOL_ENTRY_PRAGMA	(name)
+#  define ACED_ADSSYMBOL_ENTRY_PRAGMA	(name)
 #endif
 #define ACED_ADSSYMBOL_ENTRY_AUTO	(classname, name, regFunc) \
     __declspec(selectany) _ADSSYMBOL_ENTRY __AdsSymbolMap_##name = { _RXST(#name), classname::ads_ ##name, regFunc, -1 } ; \
@@ -103,133 +103,133 @@ class AcRxArxApp : public AcRxDbxApp
 {
 #ifdef __ATLCOM_H__
 protected:
-	AcRxDynPropManager* m_pDynPropManager;
+  AcRxDynPropManager* m_pDynPropManager;
 #endif
 #ifdef __ATLCOM_H__
 public:
-	AcRxArxApp()
-		: AcRxDbxApp()
-		, m_pDynPropManager(NULL)
-	{
-	}
+  AcRxArxApp()
+    : AcRxDbxApp()
+    , m_pDynPropManager(NULL)
+  {
+  }
 #else 
-	AcRxArxApp()
-		: AcRxDbxApp()
-	{
-	}
+  AcRxArxApp()
+    : AcRxDbxApp()
+  {
+  }
 #endif
-	virtual AcRx::AppRetCode On_kInitAppMsg(void* pkt)
-	{
-		AcRx::AppRetCode retCode = AcRxDbxApp::On_kInitAppMsg(pkt);
+  virtual AcRx::AppRetCode On_kInitAppMsg(void* pkt)
+  {
+    AcRx::AppRetCode retCode = AcRxDbxApp::On_kInitAppMsg(pkt);
 #ifdef __ATLCOM_H__
         //----- Register Dynamic Properties
-		m_pDynPropManager = new AcRxDynPropManager;
+    m_pDynPropManager = new AcRxDynPropManager;
 #endif
         //----- Register ARX comamnds
-		_ARXCOMMAND_ENTRY** ppArxCmdMapEntryFirst = &__pArxCmdMapEntryFirst + 1;
-		_ARXCOMMAND_ENTRY** ppArxCmdMapEntryLast = &__pArxCmdMapEntryLast;
-		ACHAR buffer[133];
-		for (_ARXCOMMAND_ENTRY** ppEntry = ppArxCmdMapEntryFirst; ppEntry < ppArxCmdMapEntryLast; ppEntry++)
-		{
-			if (*ppEntry != NULL)
-			{
-				if ((*ppEntry)->pszCmdLocalName == NULL)
-				{
-					::LoadString(m_hdllInstance, (*ppEntry)->localNameID, buffer, 132);
-				}
-				acedRegCmds->addCommand((*ppEntry)->pszCmdGroupName, (*ppEntry)->pszCmdGlobalName, (*ppEntry)->pszCmdLocalName == NULL ? buffer : (*ppEntry)->pszCmdLocalName, (*ppEntry)->commandFlags, (*ppEntry)->pCmdFct, (*ppEntry)->pUIContext, -1, ((*ppEntry)->commandFlags & ACRX_CMD_SESSION) ? NULL : m_hdllInstance, NULL);
-			}
-		}
-		return (retCode);
-	}
-	virtual AcRx::AppRetCode On_kUnloadAppMsg(void* pkt)
-	{
-		AcRx::AppRetCode retCode = AcRxDbxApp::On_kUnloadAppMsg(pkt);
+    _ARXCOMMAND_ENTRY** ppArxCmdMapEntryFirst = &__pArxCmdMapEntryFirst + 1;
+    _ARXCOMMAND_ENTRY** ppArxCmdMapEntryLast = &__pArxCmdMapEntryLast;
+    ACHAR buffer[133];
+    for (_ARXCOMMAND_ENTRY** ppEntry = ppArxCmdMapEntryFirst; ppEntry < ppArxCmdMapEntryLast; ppEntry++)
+    {
+      if (*ppEntry != NULL)
+      {
+        if ((*ppEntry)->pszCmdLocalName == NULL)
+        {
+          ::LoadString(m_hdllInstance, (*ppEntry)->localNameID, buffer, 132);
+        }
+        acedRegCmds->addCommand((*ppEntry)->pszCmdGroupName, (*ppEntry)->pszCmdGlobalName, (*ppEntry)->pszCmdLocalName == NULL ? buffer : (*ppEntry)->pszCmdLocalName, (*ppEntry)->commandFlags, (*ppEntry)->pCmdFct, (*ppEntry)->pUIContext, -1, ((*ppEntry)->commandFlags & ACRX_CMD_SESSION) ? NULL : m_hdllInstance, NULL);
+      }
+    }
+    return (retCode);
+  }
+  virtual AcRx::AppRetCode On_kUnloadAppMsg(void* pkt)
+  {
+    AcRx::AppRetCode retCode = AcRxDbxApp::On_kUnloadAppMsg(pkt);
 #ifdef __ATLCOM_H__
         //----- Unregister Dynamic Properties
-		if (m_pDynPropManager != NULL)
-		{
-			delete m_pDynPropManager;
-			m_pDynPropManager = NULL;
-		}
+    if (m_pDynPropManager != NULL)
+    {
+      delete m_pDynPropManager;
+      m_pDynPropManager = NULL;
+    }
 #endif
-		_ARXCOMMAND_ENTRY** ppArxCmdMapEntryFirst = &__pArxCmdMapEntryFirst + 1;
-		_ARXCOMMAND_ENTRY** ppArxCmdMapEntryLast = &__pArxCmdMapEntryLast;
-		for (_ARXCOMMAND_ENTRY** ppEntry = ppArxCmdMapEntryFirst; ppEntry < ppArxCmdMapEntryLast; ppEntry++)
-		{
-			if (*ppEntry != NULL)
-			{
-				acedRegCmds->removeCmd((*ppEntry)->pszCmdGroupName, (*ppEntry)->pszCmdGlobalName);
-			}
-		}
-		return (retCode);
-	}
-	virtual AcRx::AppRetCode On_kLoadDwgMsg(void* pkt)
-	{
-		AcRx::AppRetCode retCode = AcRxDbxApp::On_kLoadDwgMsg(pkt);
+    _ARXCOMMAND_ENTRY** ppArxCmdMapEntryFirst = &__pArxCmdMapEntryFirst + 1;
+    _ARXCOMMAND_ENTRY** ppArxCmdMapEntryLast = &__pArxCmdMapEntryLast;
+    for (_ARXCOMMAND_ENTRY** ppEntry = ppArxCmdMapEntryFirst; ppEntry < ppArxCmdMapEntryLast; ppEntry++)
+    {
+      if (*ppEntry != NULL)
+      {
+        acedRegCmds->removeCmd((*ppEntry)->pszCmdGroupName, (*ppEntry)->pszCmdGlobalName);
+      }
+    }
+    return (retCode);
+  }
+  virtual AcRx::AppRetCode On_kLoadDwgMsg(void* pkt)
+  {
+    AcRx::AppRetCode retCode = AcRxDbxApp::On_kLoadDwgMsg(pkt);
         //----- Register ADS Symbols
-		_ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryFirst = &__pAdsSymbolMapEntryFirst + 1;
-		_ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryLast = &__pAdsSymbolMapEntryLast;
-		ACHAR buffer[133];
-		int param = 0;
-		for (_ADSSYMBOL_ENTRY** ppEntry = ppAdsSymbolMapEntryFirst; ppEntry < ppAdsSymbolMapEntryLast; ppEntry++)
-		{
-			if (*ppEntry != NULL)
-			{
-				if ((*ppEntry)->pszName == NULL)
-				{
-					::LoadString(m_hdllInstance, (*ppEntry)->nameID, buffer, 132);
-				}
-				acedDefun((*ppEntry)->pszName == NULL ? buffer : (*ppEntry)->pszName, param);
-				if ((*ppEntry)->bRegFunc == true)
-				{
-					acedRegFunc((*ppEntry)->fptr, param);
-				}
-				param++;
-			}
-		}
-		return (retCode);
-	}
-	virtual AcRx::AppRetCode On_kUnloadDwgMsg(void* pkt)
-	{
-		AcRx::AppRetCode retCode = AcRxDbxApp::On_kUnloadDwgMsg(pkt);
+    _ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryFirst = &__pAdsSymbolMapEntryFirst + 1;
+    _ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryLast = &__pAdsSymbolMapEntryLast;
+    ACHAR buffer[133];
+    int param = 0;
+    for (_ADSSYMBOL_ENTRY** ppEntry = ppAdsSymbolMapEntryFirst; ppEntry < ppAdsSymbolMapEntryLast; ppEntry++)
+    {
+      if (*ppEntry != NULL)
+      {
+        if ((*ppEntry)->pszName == NULL)
+        {
+          ::LoadString(m_hdllInstance, (*ppEntry)->nameID, buffer, 132);
+        }
+        acedDefun((*ppEntry)->pszName == NULL ? buffer : (*ppEntry)->pszName, param);
+        if ((*ppEntry)->bRegFunc == true)
+        {
+          acedRegFunc((*ppEntry)->fptr, param);
+        }
+        param++;
+      }
+    }
+    return (retCode);
+  }
+  virtual AcRx::AppRetCode On_kUnloadDwgMsg(void* pkt)
+  {
+    AcRx::AppRetCode retCode = AcRxDbxApp::On_kUnloadDwgMsg(pkt);
         //----- Unregister ADS Symbols
-		_ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryFirst = &__pAdsSymbolMapEntryFirst + 1;
-		_ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryLast = &__pAdsSymbolMapEntryLast;
-		ACHAR buffer[133];
-		int param = 0;
-		for (_ADSSYMBOL_ENTRY** ppEntry = ppAdsSymbolMapEntryFirst; ppEntry < ppAdsSymbolMapEntryLast; ppEntry++)
-		{
-			if (*ppEntry != NULL)
-			{
-				if ((*ppEntry)->pszName == NULL)
-				{
-					::LoadString(m_hdllInstance, (*ppEntry)->nameID, buffer, 132);
-				}
-				acedUndef((*ppEntry)->pszName == NULL ? buffer : (*ppEntry)->pszName, param++);
-			}
-		}
-		return (retCode);
-	}
-	virtual AcRx::AppRetCode On_kInvkSubrMsg(void* pkt)
-	{
-		AcRx::AppRetCode retCode = AcRxDbxApp::On_kInvkSubrMsg(pkt);
+    _ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryFirst = &__pAdsSymbolMapEntryFirst + 1;
+    _ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryLast = &__pAdsSymbolMapEntryLast;
+    ACHAR buffer[133];
+    int param = 0;
+    for (_ADSSYMBOL_ENTRY** ppEntry = ppAdsSymbolMapEntryFirst; ppEntry < ppAdsSymbolMapEntryLast; ppEntry++)
+    {
+      if (*ppEntry != NULL)
+      {
+        if ((*ppEntry)->pszName == NULL)
+        {
+          ::LoadString(m_hdllInstance, (*ppEntry)->nameID, buffer, 132);
+        }
+        acedUndef((*ppEntry)->pszName == NULL ? buffer : (*ppEntry)->pszName, param++);
+      }
+    }
+    return (retCode);
+  }
+  virtual AcRx::AppRetCode On_kInvkSubrMsg(void* pkt)
+  {
+    AcRx::AppRetCode retCode = AcRxDbxApp::On_kInvkSubrMsg(pkt);
         //----- Dispatch ADS symbol calls
-		int param = acedGetFunCode();
-		_ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryFirst = &__pAdsSymbolMapEntryFirst + 1;
-		_ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryLast = &__pAdsSymbolMapEntryLast;
-		int paramIter = 0;
-		for (_ADSSYMBOL_ENTRY** ppEntry = ppAdsSymbolMapEntryFirst; ppEntry < ppAdsSymbolMapEntryLast; ppEntry++)
-		{
-			if (*ppEntry != NULL)
-			{
-				if (paramIter++ == param)
-				{
-					(*((*ppEntry)->fptr))();
-					break;
-				}
-			}
-		}
-		return (retCode);
-	}
+    int param = acedGetFunCode();
+    _ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryFirst = &__pAdsSymbolMapEntryFirst + 1;
+    _ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryLast = &__pAdsSymbolMapEntryLast;
+    int paramIter = 0;
+    for (_ADSSYMBOL_ENTRY** ppEntry = ppAdsSymbolMapEntryFirst; ppEntry < ppAdsSymbolMapEntryLast; ppEntry++)
+    {
+      if (*ppEntry != NULL)
+      {
+        if (paramIter++ == param)
+        {
+          (*((*ppEntry)->fptr))();
+          break;
+        }
+      }
+    }
+    return (retCode);
+  }
 };

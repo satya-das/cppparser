@@ -12,15 +12,15 @@
 //  AcPublishReactors.h - Reactors File
 //
 #ifndef _ACPUBLISHREACTORS_H
-#	define _ACPUBLISHREACTORS_H
-#	include "rxobject.h"
-#	include "AcArray.h"
-#	include "AcPlDSDData.h"
-#	include "AcPlDSDEntry.h"
-#	include "AcDMMUtils.h"
-#	include "AcDMMEPlotProperty.h"
-#	include "AcPlPlotErrorHandler.h"
-#	include "AcPlPlotLogger.h"
+#  define _ACPUBLISHREACTORS_H
+#  include "rxobject.h"
+#  include "AcArray.h"
+#  include "AcPlDSDData.h"
+#  include "AcPlDSDEntry.h"
+#  include "AcDMMUtils.h"
+#  include "AcDMMEPlotProperty.h"
+#  include "AcPlPlotErrorHandler.h"
+#  include "AcPlPlotLogger.h"
 // Classes defined in this header file:
 class AcPublishReactorManager;
 class AcPublishReactor;
@@ -40,26 +40,26 @@ public:
     /// <remarks>
     /// creates an empty name value pair
     /// </remarks>
-	AcNameValuePair()
-	{
-		m_pName = NULL;
-		m_pValue = NULL;
-	}
+  AcNameValuePair()
+  {
+    m_pName = NULL;
+    m_pValue = NULL;
+  }
     /// <summary>
     /// destructor
     /// </summary>
     ///
-	~AcNameValuePair()
-	{
-		if (NULL != m_pName)
-		{
-			delete[] m_pName;
-		}
-		if (NULL != m_pValue)
-		{
-			delete[] m_pValue;
-		}
-	}
+  ~AcNameValuePair()
+  {
+    if (NULL != m_pName)
+    {
+      delete[] m_pName;
+    }
+    if (NULL != m_pValue)
+    {
+      delete[] m_pValue;
+    }
+  }
     /// <summary>
     /// constructs a name value pair from a name and a value
     /// </summary>
@@ -72,31 +72,31 @@ public:
     /// The value string, a null-terminated msbcs string.
     /// </param>
     ///
-	AcNameValuePair(const ACHAR* name, const ACHAR* value)
-	{
-		if (NULL != name)
-		{
-			size_t nSize = ::wcslen(name) + 1;
-			m_pName = new ACHAR[nSize];
-			errno_t err = ::wcscpy_s(m_pName, nSize, name);
-			assert(err == 0);
-		}
-		else 
-		{
-			m_pName = NULL;
-		}
-		if (NULL != value)
-		{
-			size_t nSize = ::wcslen(value) + 1;
-			m_pValue = new ACHAR[nSize];
-			errno_t err = ::wcscpy_s(m_pValue, nSize, value);
-			assert(err == 0);
-		}
-		else 
-		{
-			m_pValue = NULL;
-		}
-	}
+  AcNameValuePair(const ACHAR* name, const ACHAR* value)
+  {
+    if (NULL != name)
+    {
+      size_t nSize = ::wcslen(name) + 1;
+      m_pName = new ACHAR[nSize];
+      errno_t err = ::wcscpy_s(m_pName, nSize, name);
+      assert(err == 0);
+    }
+    else 
+    {
+      m_pName = NULL;
+    }
+    if (NULL != value)
+    {
+      size_t nSize = ::wcslen(value) + 1;
+      m_pValue = new ACHAR[nSize];
+      errno_t err = ::wcscpy_s(m_pValue, nSize, value);
+      assert(err == 0);
+    }
+    else 
+    {
+      m_pValue = NULL;
+    }
+  }
     /// <summary>
     /// Copy constructor
     /// </summary>
@@ -105,12 +105,12 @@ public:
     /// the object to be copied
     /// </param>
     ///
-	AcNameValuePair(const AcNameValuePair& src)
-		: m_pName(NULL)
-		, m_pValue(NULL)
-	{
-		*this = src;
-	}
+  AcNameValuePair(const AcNameValuePair& src)
+    : m_pName(NULL)
+    , m_pValue(NULL)
+  {
+    *this = src;
+  }
     /// <summary>
     /// accessor for the item name
     /// </summary>
@@ -118,10 +118,10 @@ public:
     /// <returns>
     /// a const pointer to the null terminated mbcs name string
     /// </returns>
-	const ACHAR* name() const
-	{
-		return m_pName;
-	}
+  const ACHAR* name() const
+  {
+    return m_pName;
+  }
     /// <summary>
     /// accessor for the item value
     /// </summary>
@@ -129,10 +129,10 @@ public:
     /// <returns>
     /// a const pointer to the null terminated mbcs value string
     /// </returns>
-	const ACHAR* value() const
-	{
-		return m_pValue;
-	}
+  const ACHAR* value() const
+  {
+    return m_pValue;
+  }
     /// <summary>
     /// mutator for the item name
     /// </summary>
@@ -140,24 +140,24 @@ public:
     /// <param name="name">
     /// a const pointer to an mbcs string to be assigned as item name
     /// </param>
-	void setName(const ACHAR* name)
-	{
-		if (NULL != m_pName)
-		{
-			delete[] m_pName;
-		}
-		if (NULL != name)
-		{
-			size_t nSize = ::wcslen(name) + 1;
-			m_pName = new ACHAR[nSize];
-			errno_t err = ::wcscpy_s(m_pName, nSize, name);
-			assert(err == 0);
-		}
-		else 
-		{
-			m_pName = NULL;
-		}
-	}
+  void setName(const ACHAR* name)
+  {
+    if (NULL != m_pName)
+    {
+      delete[] m_pName;
+    }
+    if (NULL != name)
+    {
+      size_t nSize = ::wcslen(name) + 1;
+      m_pName = new ACHAR[nSize];
+      errno_t err = ::wcscpy_s(m_pName, nSize, name);
+      assert(err == 0);
+    }
+    else 
+    {
+      m_pName = NULL;
+    }
+  }
     /// <summary>
     /// mutator for the item value
     /// </summary>
@@ -165,24 +165,24 @@ public:
     /// <param name="value">
     /// a const pointer to an mbcs string to be assigned as item value
     /// </param>
-	void setValue(const ACHAR* value)
-	{
-		if (NULL != m_pValue)
-		{
-			delete[] m_pValue;
-		}
-		if (NULL != value)
-		{
-			size_t nSize = ::wcslen(value) + 1;
-			m_pValue = new ACHAR[nSize];
-			errno_t err = ::wcscpy_s(m_pValue, nSize, value);
-			assert(err == 0);
-		}
-		else 
-		{
-			m_pValue = NULL;
-		}
-	}
+  void setValue(const ACHAR* value)
+  {
+    if (NULL != m_pValue)
+    {
+      delete[] m_pValue;
+    }
+    if (NULL != value)
+    {
+      size_t nSize = ::wcslen(value) + 1;
+      m_pValue = new ACHAR[nSize];
+      errno_t err = ::wcscpy_s(m_pValue, nSize, value);
+      assert(err == 0);
+    }
+    else 
+    {
+      m_pValue = NULL;
+    }
+  }
     /// <summary>
     /// operator= also used by copy constructor
     /// </summary>
@@ -194,21 +194,21 @@ public:
     /// <returns>
     /// returns this object
     /// </returns>
-	AcNameValuePair& operator=(const AcNameValuePair& src)
-	{
-		if (this == &src)
-		{
-			return *this;
-		}
-		setName(src.m_pName);
-		setValue(src.m_pValue);
-		return *this;
-	}
+  AcNameValuePair& operator=(const AcNameValuePair& src)
+  {
+    if (this == &src)
+    {
+      return *this;
+    }
+    setName(src.m_pName);
+    setValue(src.m_pValue);
+    return *this;
+  }
 private:
     // TODO: Should we upgrade to use XML instead of INI?
     //
-	ACHAR* m_pName;
-	ACHAR* m_pValue;
+  ACHAR* m_pName;
+  ACHAR* m_pValue;
 };
 typedef AcArray<AcNameValuePair> AcNameValuePairVec;
 /// <summary>
@@ -229,16 +229,16 @@ public:
     /// construct this object, it is created by the DMM and handed
     /// to their reactors
     /// </remarks>
-	AcPublishBeforeJobInfo()
-	{
-	}
+  AcPublishBeforeJobInfo()
+  {
+  }
     /// <summary>
     /// destructor
     /// </summary>
     ///
-	virtual ~AcPublishBeforeJobInfo()
-	{
-	}
+  virtual ~AcPublishBeforeJobInfo()
+  {
+  }
     /// <summary>
     /// read only accesss to the DSD object
     /// </summary>
@@ -246,7 +246,7 @@ public:
     /// <returns>
     /// a const pointer to the DSD object for this publish job
     /// </returns>
-	virtual const AcPlDSDData* GetDSDData() = 0;
+  virtual const AcPlDSDData* GetDSDData() = 0;
     /// <summary>
     /// read/write access to the client's private DSD data
     /// </summary>
@@ -261,7 +261,7 @@ public:
     /// otherwise this returns a const AcNameValuePairVec object with
     /// name value pairs for the section requested.
     /// </returns>
-	virtual const AcNameValuePairVec GetPrivateData(const ACHAR* sectionName) = 0;
+  virtual const AcNameValuePairVec GetPrivateData(const ACHAR* sectionName) = 0;
     /// <summary>
     /// replaces a section of the same name
     /// will fail if it attempts to replace a "recognized" section of
@@ -284,9 +284,9 @@ public:
     /// returns true if section data is updated in the dsd data object
     /// successfully, otherwise returns false.
     /// </returns>
-	virtual bool WritePrivateSection(const ACHAR* sectionName, const AcNameValuePairVec nameValuePairVec) = 0;
+  virtual bool WritePrivateSection(const ACHAR* sectionName, const AcNameValuePairVec nameValuePairVec) = 0;
     // bool for bg/fg (this isn't in public dsd data)
-	virtual bool JobWillPublishInBackground() = 0;
+  virtual bool JobWillPublishInBackground() = 0;
 };
 /// <summary>
 /// This class is the context information supplied by the 
@@ -306,16 +306,16 @@ public:
     /// construct this object, it is created by the DMM and handed
     /// to their reactors
     /// </remarks>
-	AcPublishBeginJobInfo()
-	{
-	}
+  AcPublishBeginJobInfo()
+  {
+  }
     /// <summary>
     /// destructor
     /// </summary>
     ///
-	virtual ~AcPublishBeginJobInfo()
-	{
-	}
+  virtual ~AcPublishBeginJobInfo()
+  {
+  }
     /// <summary>
     /// read only accesss to the DSD object
     /// </summary>
@@ -323,7 +323,7 @@ public:
     /// <returns>
     /// a const pointer to the DSD object for this publish job
     /// </returns>
-	virtual const AcPlDSDData* GetDSDData() = 0;
+  virtual const AcPlDSDData* GetDSDData() = 0;
     /// <summary>
     /// read/write access to the client's private DSD data
     /// </summary>
@@ -338,7 +338,7 @@ public:
     /// otherwise this returns a const AcNameValuePairVec object with
     /// name value pairs for the section requested.
     /// </returns>
-	virtual const AcNameValuePairVec GetPrivateData(const ACHAR* sectionName) = 0;
+  virtual const AcNameValuePairVec GetPrivateData(const ACHAR* sectionName) = 0;
     /// <summary>
     /// replaces a section of the same name
     /// will fail if it attempts to replace a "recognized" section of
@@ -361,9 +361,9 @@ public:
     /// returns true if section data is updated in the dsd data object
     /// successfully, otherwise returns false.
     /// </returns>
-	virtual bool WritePrivateSection(const ACHAR* sectionName, const AcNameValuePairVec nameValuePairVec) = 0;
+  virtual bool WritePrivateSection(const ACHAR* sectionName, const AcNameValuePairVec nameValuePairVec) = 0;
     // bool for bg/fg (this isn't in public dsd data)
-	virtual bool JobWillPublishInBackground() = 0;
+  virtual bool JobWillPublishInBackground() = 0;
     // plot logger
     /// <summary>
     /// provides access to the plot logger object
@@ -376,7 +376,7 @@ public:
     /// <remarks>
     /// clients don't need to create or destroy this object
     /// </remarks>
-	virtual AcPlPlotLogger* GetPlotLogger() = 0;
+  virtual AcPlPlotLogger* GetPlotLogger() = 0;
 };
 /// <summary>
 /// This class is the context information supplied by the 
@@ -395,16 +395,16 @@ public:
     /// construct this object, it is created by the DMM and handed
     /// to their reactors
     /// </remarks>
-	AcPublishSheetInfo()
-	{
-	}
+  AcPublishSheetInfo()
+  {
+  }
     /// <summary>
     /// destructor
     /// </summary>
     ///
-	virtual ~AcPublishSheetInfo()
-	{
-	}
+  virtual ~AcPublishSheetInfo()
+  {
+  }
     /// <summary>
     /// This provides some details about the sheet which is about to
     /// be plotted.
@@ -413,7 +413,7 @@ public:
     /// <returns>
     /// a const pointer to a DSD Entry object describing the sheet
     /// </returns>
-	virtual const AcPlDSDEntry* GetDSDEntry() = 0;
+  virtual const AcPlDSDEntry* GetDSDEntry() = 0;
     /// <summary>
     /// supplies the unique sheet Id (GUID)
     /// </summary>
@@ -421,7 +421,7 @@ public:
     /// <returns>
     /// a const pointer to the GUID string for this sheet
     /// </returns>
-	virtual const ACHAR* GetUniqueId() = 0;
+  virtual const ACHAR* GetUniqueId() = 0;
     /// <summary>
     /// provides access to the plot logger object
     /// </summary>
@@ -433,7 +433,7 @@ public:
     /// <remarks>
     /// clients don't need to create or destroy this object
     /// </remarks>
-	virtual AcPlPlotLogger* GetPlotLogger() = 0;
+  virtual AcPlPlotLogger* GetPlotLogger() = 0;
 };
 /// <summary>
 /// This class is the context information supplied by the OnBeginAggregation 
@@ -455,16 +455,16 @@ public:
     /// construct this object, it is created by the DMM and handed
     /// to their reactors
     /// </remarks>
-	AcPublishAggregationInfo()
-	{
-	}
+  AcPublishAggregationInfo()
+  {
+  }
     /// <summary>
     /// destructor
     /// </summary>
     ///
-	virtual ~AcPublishAggregationInfo()
-	{
-	}
+  virtual ~AcPublishAggregationInfo()
+  {
+  }
     /// <summary>
     /// This allows clients to add a list of global properties
     /// to the DWF file's EPlot global section
@@ -474,7 +474,7 @@ public:
     /// a vector of AcDMMEPlotProperties
     /// </param>
     ///
-	virtual void AddGlobalProperties(AcDMMEPlotPropertyVec props) = 0;
+  virtual void AddGlobalProperties(AcDMMEPlotPropertyVec props) = 0;
     /// <summary>
     /// This allows clients to add a list of global resources (files)
     /// to the DWF file
@@ -485,7 +485,7 @@ public:
     /// type, role and a full path to the resource to be added
     /// </param>
     ///
-	virtual void AddGlobalResources(AcDMMResourceVec resources) = 0;
+  virtual void AddGlobalResources(AcDMMResourceVec resources) = 0;
     /// <summary>
     /// provides access to the plot logger object
     /// </summary>
@@ -497,7 +497,7 @@ public:
     /// <remarks>
     /// clients don't need to create or destroy this object
     /// </remarks>
-	virtual AcPlPlotLogger* GetPlotLogger() = 0;
+  virtual AcPlPlotLogger* GetPlotLogger() = 0;
     /// <summary>
     /// supplies the full path to the final DWF file
     /// </summary>
@@ -505,7 +505,7 @@ public:
     /// <returns>
     /// a const pointer to the full path to the final DWF file
     /// </returns>
-	virtual const ACHAR* dwfFileName() = 0;
+  virtual const ACHAR* dwfFileName() = 0;
     /// <summary>
     /// supplies the password, if any, needed to open the DWF file
     /// </summary>
@@ -513,7 +513,7 @@ public:
     /// <returns>
     /// a const pointer to the password, if any, needed to open the DWF file
     /// </returns>
-	virtual const ACHAR* dwfPassword() = 0;
+  virtual const ACHAR* dwfPassword() = 0;
 };
 /////////////////////////////////////////////////////////////
 /// class AcPublishReactorInfo;
@@ -532,15 +532,15 @@ public:
     /// clients don't need to construct this class, it is handed
     /// to their reactors
     /// </summary>
-	AcPublishReactorInfo()
-	{
-	}
+  AcPublishReactorInfo()
+  {
+  }
     /// <summary>
     /// destructor
     /// </summary>
-	virtual ~AcPublishReactorInfo()
-	{
-	}
+  virtual ~AcPublishReactorInfo()
+  {
+  }
     /// <summary>
     /// supplies the full path to the final DWF file
     /// </summary>
@@ -548,7 +548,7 @@ public:
     /// <returns>
     /// a const pointer to the full path to the final DWF file
     /// </returns>
-	virtual const ACHAR* dwfFileName() = 0;
+  virtual const ACHAR* dwfFileName() = 0;
     /// <summary>
     /// supplies the full path to the temporary DWF file for this page
     /// </summary>
@@ -557,7 +557,7 @@ public:
     /// a const pointer to the full path to the temporary DWF file for this 
     /// page
     /// </returns>
-	virtual const ACHAR* tempDwfFileName() = 0;
+  virtual const ACHAR* tempDwfFileName() = 0;
     /// <summary>
     /// supplies the password, if any, needed to open the DWF file
     /// </summary>
@@ -565,7 +565,7 @@ public:
     /// <returns>
     /// a const pointer to the password, if any, needed to open the DWF file
     /// </returns>
-	virtual const ACHAR* dwfPassword() = 0;
+  virtual const ACHAR* dwfPassword() = 0;
     /// <summary>
     /// is this job being published to multisheet DWF?
     /// </summary>
@@ -574,7 +574,7 @@ public:
     /// true if this job is being published to multisheet DWF.
     /// </returns>
     ///
-	virtual bool isMultiSheetDwf() = 0;
+  virtual bool isMultiSheetDwf() = 0;
 };
 /////////////////////////////////////////////////////////////
 /// class AcPublishReactor
@@ -669,7 +669,7 @@ public:
     /// the client reactor, providing context information and methods
     /// </param>
     ///
-	virtual void OnAboutToBeginBackgroundPublishing(AcPublishBeforeJobInfo* pInfo);
+  virtual void OnAboutToBeginBackgroundPublishing(AcPublishBeforeJobInfo* pInfo);
     /// <summary>
     /// Brackets the entire plot operation; useful for initialization
     /// and discriminating between various databases
@@ -680,7 +680,7 @@ public:
     /// the client reactor, providing context information and methods
     /// </param>
     ///
-	virtual void OnAboutToBeginPublishing(AcPublishBeginJobInfo* pInfo);
+  virtual void OnAboutToBeginPublishing(AcPublishBeginJobInfo* pInfo);
     /// <summary>
     /// Brackets the entire plot operation; useful for initialization
     /// and discriminating between various databases
@@ -691,7 +691,7 @@ public:
     /// the client reactor, providing context information and methods
     /// </param>
     ///
-	virtual void OnBeginPublishingSheet(AcPublishSheetInfo* pInfo);
+  virtual void OnBeginPublishingSheet(AcPublishSheetInfo* pInfo);
     /// <summary>
     /// This notification is sent after all of the temporary DWF files
     /// for the job have been plotted and aggregation into a single
@@ -709,7 +709,7 @@ public:
     /// once for each page, just before the password is applied.
     /// </remarks>
     ///
-	virtual void OnBeginAggregation(AcPublishAggregationInfo* pInfo);
+  virtual void OnBeginAggregation(AcPublishAggregationInfo* pInfo);
     /// <summary>
     /// This notification is sent when the publish job is about to end.
     /// This might be due to cancellation or an error, or it might be
@@ -727,7 +727,7 @@ public:
     /// files have been published.
     /// </remarks>
     ///
-	virtual void OnAboutToEndPublishing(AcPublishReactorInfo* pInfo);
+  virtual void OnAboutToEndPublishing(AcPublishReactorInfo* pInfo);
     /// <summary>
     /// This notification is sent after a multipage DWF has been aggregated
     /// but before the temporary DWF file have been moved to its final
@@ -746,7 +746,7 @@ public:
     /// its final destination.
     /// </remarks>
     ///
-	virtual void OnAboutToMoveFile(AcPublishReactorInfo* pInfo);
+  virtual void OnAboutToMoveFile(AcPublishReactorInfo* pInfo);
     /// <summary>
     /// This notification is sent at the end of the Publish job
     /// </summary>
@@ -756,7 +756,7 @@ public:
     /// the client reactor, providing context information and methods
     /// </param>
     ///
-	virtual void OnEndPublish(AcPublishReactorInfo* pInfo);
+  virtual void OnEndPublish(AcPublishReactorInfo* pInfo);
     /// <summary>
     /// This notification is sent if the job is being cancelled or
     /// aborted due to user input or due to an error
@@ -767,21 +767,21 @@ public:
     /// the client reactor, providing context information and methods
     /// </param>
     ///
-	virtual void OnCancelledOrFailedPublishing(AcPublishReactorInfo* pInfo);
+  virtual void OnCancelledOrFailedPublishing(AcPublishReactorInfo* pInfo);
     /// <summary>
     /// Public d'tor
     /// </summary>
-	virtual ~AcPublishReactor()
-	{
-	}
+  virtual ~AcPublishReactor()
+  {
+  }
 protected:
     /// <summary>
     /// Protected constructor; you must derive to instantiate one
     /// of these.
     /// </summary>
-	AcPublishReactor()
-	{
-	}
+  AcPublishReactor()
+  {
+  }
 };
 /*
 // Base class inlines for OnBegin and OnEnd methods:

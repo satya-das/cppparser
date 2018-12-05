@@ -10,7 +10,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 #ifndef _ID_H
-#	define _ID_H
+#  define _ID_H
 /*              ID.H
 
     Define AutoCAD version numbers       
@@ -41,16 +41,16 @@
     
 
  */
-#	define ACADV_RELMAJOR	23 /*ReleaseMajor*/
-#	define ACADV_RELMINOR	0  /*ReleaseMinor*/
+#  define ACADV_RELMAJOR	23 /*ReleaseMajor*/
+#  define ACADV_RELMINOR	0  /*ReleaseMinor*/
 /* The ASM_ values below should be updated whenever we get a new ASM drop.
    Check the File Version and Product Version on any asm dll. */
-#	define ASM_FILE_RELMAJOR	223
-#	define ASM_FILE_RELMINOR	0
-#	define ASM_FILE_RELPOINT	1
-#	define ASM_FILE_RELPATCH	1930
-#	define ASM_PROD_RELMAJOR	223
-#	define ASM_PROD_RELMINOR	0
-#	define ASM_PROD_RELPOINT	1
-#	define ASM_PROD_RELPATCH	1930
+#  define ASM_FILE_RELMAJOR	223
+#  define ASM_FILE_RELMINOR	0
+#  define ASM_FILE_RELPOINT	1
+#  define ASM_FILE_RELPATCH	1930
+#  define ASM_PROD_RELMAJOR	223
+#  define ASM_PROD_RELMINOR	0
+#  define ASM_PROD_RELPOINT	1
+#  define ASM_PROD_RELPATCH	1930
 #endif

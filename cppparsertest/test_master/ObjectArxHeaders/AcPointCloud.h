@@ -28,31 +28,31 @@ class IPointCloudFilter;
 class ACDB_PORT AcViewFrustum
 {
 public:
-	AcViewFrustum();
-	~AcViewFrustum();
-	void setNearUpperRight(double x, double y, double z);
-	void setNearUpperLeft(double x, double y, double z);
-	void setNearLowerLeft(double x, double y, double z);
-	void setNearLowerRight(double x, double y, double z);
-	void setFarUpperRight(double x, double y, double z);
-	void setFarUpperLeft(double x, double y, double z);
-	void setFarLowerLeft(double x, double y, double z);
-	void setFarLowerRight(double x, double y, double z);
-	void nearUpperRight(double& x, double& y, double& z) const;
-	void nearUpperLeft(double& x, double& y, double& z) const;
-	void nearLowerLeft(double& x, double& y, double& z) const;
-	void nearLowerRight(double& x, double& y, double& z) const;
-	void farUpperRight(double& x, double& y, double& z) const;
-	void farUpperLeft(double& x, double& y, double& z) const;
-	void farLowerLeft(double& x, double& y, double& z) const;
-	void farLowerRight(double& x, double& y, double& z) const;
-	void setNearClip(bool clip);
-	bool nearClip() const;
-	void setFarClip(bool clip);
-	bool farClip() const;
-	AcPointCloudViewFrustum* asPointCloudFrustum() const;
+  AcViewFrustum();
+  ~AcViewFrustum();
+  void setNearUpperRight(double x, double y, double z);
+  void setNearUpperLeft(double x, double y, double z);
+  void setNearLowerLeft(double x, double y, double z);
+  void setNearLowerRight(double x, double y, double z);
+  void setFarUpperRight(double x, double y, double z);
+  void setFarUpperLeft(double x, double y, double z);
+  void setFarLowerLeft(double x, double y, double z);
+  void setFarLowerRight(double x, double y, double z);
+  void nearUpperRight(double& x, double& y, double& z) const;
+  void nearUpperLeft(double& x, double& y, double& z) const;
+  void nearLowerLeft(double& x, double& y, double& z) const;
+  void nearLowerRight(double& x, double& y, double& z) const;
+  void farUpperRight(double& x, double& y, double& z) const;
+  void farUpperLeft(double& x, double& y, double& z) const;
+  void farLowerLeft(double& x, double& y, double& z) const;
+  void farLowerRight(double& x, double& y, double& z) const;
+  void setNearClip(bool clip);
+  bool nearClip() const;
+  void setFarClip(bool clip);
+  bool farClip() const;
+  AcPointCloudViewFrustum* asPointCloudFrustum() const;
 private:
-	void* m_pData;
+  void* m_pData;
 };
 //////////////////////////////////////////////////////////////////////////////
 /// <summary>
@@ -62,7 +62,7 @@ class ACDB_PORT AcPcPointFloat
 {
 public:
     /// <summary>Position</summary>
-	float m_x, m_y, m_z;
+  float m_x, m_y, m_z;
     /// <summary>
     /// Color format: 0xAARRGGBB
     /// Alpha needs to be >0 for the points to be visible
@@ -71,7 +71,7 @@ public:
     /// 0xff000000 - Black
     /// 0xffffffff - White
     /// </summary>
-	DWORD m_argb;
+  DWORD m_argb;
 };
 //////////////////////////////////////////////////////////////////////////////
 /// <summary>
@@ -81,7 +81,7 @@ class ACDB_PORT AcPcPointDouble
 {
 public:
     /// <summary>Position</summary>
-	double m_x, m_y, m_z;
+  double m_x, m_y, m_z;
     /// <summary>
     /// Color format: 0xAARRGGBB
     /// Alpha needs to be >0 for the points to be visible
@@ -90,7 +90,7 @@ public:
     /// 0xff000000 - Black
     /// 0xffffffff - White
     /// </summary>
-	DWORD m_argb;
+  DWORD m_argb;
 };
 //////////////////////////////////////////////////////////////////////////////
 /// <summary>
@@ -100,11 +100,11 @@ class ACDB_PORT AcPcPointAttributes
 {
 public:
     /// <summary>Intensity, range 0 - 1</summary>
-	float m_intensity;
+  float m_intensity;
     /// <summary>Normal value</summary>
-	float m_nx, m_ny, m_nz;
+  float m_nx, m_ny, m_nz;
     /// <summary>Classification value</summary>
-	BYTE m_classification;
+  BYTE m_classification;
 };
 //////////////////////////////////////////////////////////////////////////////
 /// <summary>
@@ -127,47 +127,47 @@ public:
 class ACDB_PORT IAcPcDataBuffer
 {
 public:
-	virtual ~IAcPcDataBuffer()
-	{
-	}
+  virtual ~IAcPcDataBuffer()
+  {
+  }
     ///<summary>Indicate if the points are in single or double precision.</summary>
-	virtual bool nativeDbl() = 0;
+  virtual bool nativeDbl() = 0;
     ///<summary>Resize the buffer. This may be a destructive operation.</summary>
-	virtual bool resize(DWORD size) = 0;
+  virtual bool resize(DWORD size) = 0;
     ///<summary>Shrink the buffer without destroying its contents.</summary>
-	virtual bool shrink(DWORD size) = 0;
+  virtual bool shrink(DWORD size) = 0;
     /// <summary>Return the number of points in the buffer.</summary>
-	virtual DWORD size() const = 0;
+  virtual DWORD size() const = 0;
     /// <summary>Return a array of single precision points.
     /// This may return NULL if the buffer is not single precision.</summary>
-	virtual AcPcPointFloat* floatPoints() = 0;
+  virtual AcPcPointFloat* floatPoints() = 0;
     /// <summary>Return a array of double precision points.
     /// This may return NULL if the buffer is not double precision.</summary>
-	virtual AcPcPointDouble* doublePoints() = 0;
+  virtual AcPcPointDouble* doublePoints() = 0;
     /// <summary>Return a array of point attributes.
     /// This may return NULL if the point cloud don't have such attributes.</summary>
-	virtual AcPcPointAttributes* pointAttributes() = 0;
+  virtual AcPcPointAttributes* pointAttributes() = 0;
     /// <summary>Return a point in single precision.
     /// This will work regardless of the native precision of the buffer.</summary>
-	virtual bool floatPoint(DWORD ptIx, AcPcPointFloat& pt) const = 0;
+  virtual bool floatPoint(DWORD ptIx, AcPcPointFloat& pt) const = 0;
     /// <summary>Return a point in double precision.
     /// This will work regardless of the native precision of the buffer.</summary>
-	virtual bool doublePoint(DWORD ptIx, AcPcPointDouble& pt) const = 0;
+  virtual bool doublePoint(DWORD ptIx, AcPcPointDouble& pt) const = 0;
     /// <summary>Set a point in single precision.
     /// This will work regardless of the native precision of the buffer.</summary>
-	virtual bool setFloatPoint(DWORD ptIx, AcPcPointFloat& pt) = 0;
+  virtual bool setFloatPoint(DWORD ptIx, AcPcPointFloat& pt) = 0;
     /// <summary>Set a point in double precision.
     /// This will work regardless of the native precision of the buffer.</summary>
-	virtual bool setDoublePoint(DWORD ptIx, AcPcPointDouble& pt) = 0;
+  virtual bool setDoublePoint(DWORD ptIx, AcPcPointDouble& pt) = 0;
     /// <summary>Get the translation offset of the points.
     /// This offset needs to be added to each point in order to get the 
     /// original location of the point in the point cloud</summary>
-	virtual bool offset(double& x, double& y, double& z) const = 0;
+  virtual bool offset(double& x, double& y, double& z) const = 0;
     /// <summary>This transform needs to be applied to the points to
     /// get the points in world space.</summary>
-	virtual bool entityTransform(AcGeMatrix3d& matrix) const = 0;
+  virtual bool entityTransform(AcGeMatrix3d& matrix) const = 0;
     /// <summary>Copy the contents of the given buffer.</summary>
-	virtual void copyFrom(IAcPcDataBuffer const& from) = 0;
+  virtual void copyFrom(IAcPcDataBuffer const& from) = 0;
 };
 //////////////////////////////////////////////////////////////////////////////
 /// <summary>
@@ -186,7 +186,7 @@ public:
     ///
     /// <param name="inBuffer">The input buffer includes the original points</param>
     /// <param name="outBuffer">The output buffer includes the points after filtering</param>
-	virtual void doFilter(const IAcPcDataBuffer& inBuffer, IAcPcDataBuffer& outBuffer) = 0;
+  virtual void doFilter(const IAcPcDataBuffer& inBuffer, IAcPcDataBuffer& outBuffer) = 0;
 };
 //////////////////////////////////////////////////////////////////////////////
 /// <summary>
@@ -198,23 +198,23 @@ class ACDB_PORT IAcPcPointProcessor
 {
 public:
     /// <summary>Return true to cancel processing.</summary>
-	virtual bool cancel() = 0;
+  virtual bool cancel() = 0;
     /// <summary>Called to abort the process</summary>
-	virtual void abort() = 0;
+  virtual void abort() = 0;
     /// <summary>Called after the last call to ProcessPoints</summary>
-	virtual void finished() = 0;
+  virtual void finished() = 0;
     /// <summary>Process point in buffer. This will be called repeatedly with 
     /// new buffer contents until all points have been processed.</summary>
-	virtual bool processPoints() = 0;
+  virtual bool processPoints() = 0;
     /// <summary>Filter, if available, to filter points.
     /// Called before processPoints() on the next batch of points.</summary>
-	virtual IAcPcPointFilter* filter() = 0;
+  virtual IAcPcPointFilter* filter() = 0;
     /// <summary>The buffer used to store points</summary>
-	IAcPcDataBuffer* buffer();
+  IAcPcDataBuffer* buffer();
     /// <summary>For internal use</summary>
-	void setBuffer(IAcPcDataBuffer* buffer);
+  void setBuffer(IAcPcDataBuffer* buffer);
 private:
-	IAcPcDataBuffer* mpBuffer;
+  IAcPcDataBuffer* mpBuffer;
 };
 //////////////////////////////////////////////////////////////////////////////
 /// <summary>

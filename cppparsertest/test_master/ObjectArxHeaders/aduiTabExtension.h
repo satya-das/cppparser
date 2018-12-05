@@ -14,8 +14,8 @@
 //                  
 /////////////////////////////////////////////////////////////////////////////
 #ifndef _aduiTabExtension_h
-#	define _aduiTabExtension_h
-#	pragma  pack (push, 8)
+#  define _aduiTabExtension_h
+#  pragma  pack (push, 8)
 /////////////////////////////////////////////////////////////////////////////
 // This class manages extended tabs in a tab extensible dialog.
 // A tab extensible dialog has one instance of this class in the
@@ -23,31 +23,31 @@
 class ADUI_PORT CAdUiTabExtensionManager
 {
 public:
-	CAdUiTabExtensionManager();
-	virtual ~CAdUiTabExtensionManager();
+  CAdUiTabExtensionManager();
+  virtual ~CAdUiTabExtensionManager();
 // Tab Extension Manager
 private:
-	CString m_dlgName;
-	CAdUiTabMainDialog* m_pDlg;
-	CAdUiTab* m_pTabCtrl;
+  CString m_dlgName;
+  CAdUiTabMainDialog* m_pDlg;
+  CAdUiTab* m_pTabCtrl;
         // Adds tabs to a dialog that have been registered by a particular application.
-	BOOL AddApplicationTabs(LPCTSTR pszAppName);
+  BOOL AddApplicationTabs(LPCTSTR pszAppName);
 public:
         // This function in called in the OnInitDialog() of a tab extensible
         // dialog to add extended tabs to itself.
-	int AddExtendedTabs();
+  int AddExtendedTabs();
         // Actually adds an extended tab.
-	virtual BOOL AddTab(HINSTANCE hInstRes, UINT uTemplateID, LPCTSTR pszTabName, CAdUiTabChildDialog* pDialog);
+  virtual BOOL AddTab(HINSTANCE hInstRes, UINT uTemplateID, LPCTSTR pszTabName, CAdUiTabChildDialog* pDialog);
         // Return the dialog name used as a registry key for extended tabs.
-	virtual LPCTSTR GetDialogName();
+  virtual LPCTSTR GetDialogName();
         // Initialize the manager.
-	void Initialize(CAdUiTab* pTabCtrl, CAdUiTabMainDialog* pDlg);
-	CAdUiTab* GetTabControl() const
-	{
-		return m_pTabCtrl;
-	}
+  void Initialize(CAdUiTab* pTabCtrl, CAdUiTabMainDialog* pDlg);
+  CAdUiTab* GetTabControl() const
+  {
+    return m_pTabCtrl;
+  }
 };
 /////////////////////////////////////////////////////////////////////////////
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif
 /////////////////////////////////////////////////////////////////////////////

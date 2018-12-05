@@ -14,25 +14,25 @@
 // This file contains the class AcGePointEnt3d - An abstract base
 // class to represent point entities.
 #ifndef AC_GEPENT3D_H
-#	define AC_GEPENT3D_H
-#	include "adesk.h"
-#	include "geent3d.h"
-#	pragma  pack (push, 8)
+#  define AC_GEPENT3D_H
+#  include "adesk.h"
+#  include "geent3d.h"
+#  pragma  pack (push, 8)
 class GE_DLLEXPIMPORT AcGePointEnt3d : public AcGeEntity3d
 {
 public:
     // Return point coordinates.
     //
-	AcGePoint3d point3d() const;
+  AcGePoint3d point3d() const;
     // Conversion operator to convert to AcGePoint3d.
     //
-	operator AcGePoint3d() const;
+  operator AcGePoint3d() const;
     // Assignment operator.
     //
-	AcGePointEnt3d& operator =(const AcGePointEnt3d& pnt);
+  AcGePointEnt3d& operator =(const AcGePointEnt3d& pnt);
 protected:
-	AcGePointEnt3d();
-	AcGePointEnt3d(const AcGePointEnt3d&);
+  AcGePointEnt3d();
+  AcGePointEnt3d(const AcGePointEnt3d&);
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

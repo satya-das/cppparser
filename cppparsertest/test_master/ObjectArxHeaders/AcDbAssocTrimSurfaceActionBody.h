@@ -29,11 +29,11 @@
 class ACDB_PORT AcDbAssocTrimSurfaceActionBody : public AcDbAssocPathBasedSurfaceActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocTrimSurfaceActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocTrimSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocTrimSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocTrimSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> 
     /// Set trim info about how tools are used to trim the blank
     /// </summary>
@@ -41,25 +41,25 @@ public:
     /// <param name="bAutoExtend">  If the tools should be extended to trim the blank, if they are simple, analytic geometry </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setTrimInfo(const AcArray<AcDbSurfaceTrimInfo> trimInfoArray, bool bAutoExtend);
+  Acad::ErrorStatus setTrimInfo(const AcArray<AcDbSurfaceTrimInfo> trimInfoArray, bool bAutoExtend);
     /// <summary> 
     /// Make the trim action semi-associative(permanent), so the trimmed area will stay unchanged if tools are modified
     /// </summary>
     /// <returns> Acad::ErrorStatus. </returns>
     ///   
-	Acad::ErrorStatus makeTrimPermanent();
+  Acad::ErrorStatus makeTrimPermanent();
     /// <summary> 
     /// Undo the trimmed area generated in this action to go back to untrimmed condition
     /// </summary>
     /// <returns> Acad::ErrorStatus. </returns>
     ///   
-	Acad::ErrorStatus untrim();
+  Acad::ErrorStatus untrim();
     /// <summary> 
     /// Get trimmed area generated in this action
     /// </summary>
     /// <returns> Trimmed area. </returns>
     ///
-	double getTrimmedArea() const;
+  double getTrimmedArea() const;
     /// <summary> 
     /// Create an instance of AcDbAssocTrimSurfaceActionBody
     /// </summary>
@@ -74,6 +74,6 @@ public:
     /// always use it to trim the blank </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcArray<AcDbSurfaceTrimInfo>& trimInfo, bool bAutoExtend, bool bEnabled, AcDbObjectIdArray& createdActionIds);
+  static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcArray<AcDbSurfaceTrimInfo>& trimInfo, bool bAutoExtend, bool bEnabled, AcDbObjectIdArray& createdActionIds);
 };
 #pragma  pack (pop)

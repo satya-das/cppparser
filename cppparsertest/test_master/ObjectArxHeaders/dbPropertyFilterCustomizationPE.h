@@ -42,7 +42,7 @@
 class AcDbPropertyFilterCustomizationPE : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbPropertyFilterCustomizationPE);
+  ACRX_DECLARE_MEMBERS(AcDbPropertyFilterCustomizationPE);
     /// <summary>
     /// Gives an ARxClass a chance to opt out of the CUI
     /// property filter customization framework.
@@ -65,7 +65,7 @@ public:
     /// Returning "true" would block participation.
     /// </returns>
     ///
-	virtual bool vetoCustomization(AcFilterablePropertyContext context, AcRxClass* pCls) const = 0;
+  virtual bool vetoCustomization(AcFilterablePropertyContext context, AcRxClass* pCls) const = 0;
     /// <summary>
     /// Gives an ARxClass a chance to do its own creation of an entity
     /// instance that will be used for interrogation by the CUI
@@ -117,6 +117,6 @@ public:
     /// in the summary for this protocol extension interface.
     /// </returns>
     ///
-	virtual bool createObject(AcDbDatabase* pDb, AcRxClass* pCls, AcDbEntity** ppEnt, AcDbObjectId& objId, const AcString& sGUID) const = 0;
+  virtual bool createObject(AcDbDatabase* pDb, AcRxClass* pCls, AcDbEntity** ppEnt, AcDbObjectId& objId, const AcString& sGUID) const = 0;
 };
 #pragma  pack (pop)

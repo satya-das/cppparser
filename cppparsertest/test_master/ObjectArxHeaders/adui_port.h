@@ -11,16 +11,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Note: _ADUI_BUILD should be defined only when building the DLL.
 #ifdef _ADUI_BUILD
-#	define ADUI_PORT	__declspec(dllexport)
+#  define ADUI_PORT	__declspec(dllexport)
 #else 
-#	define ADUI_PORT
+#  define ADUI_PORT
 #endif
 #ifdef ADESK_NO_VTABLE
-#	define ADUI_NO_VTABLE	ADESK_NO_VTABLE
+#  define ADUI_NO_VTABLE	ADESK_NO_VTABLE
 #else 
-#	ifdef _MSC_VER
-#		define ADUI_NO_VTABLE	__declspec(novtable)
-#	else 
-#		define ADUI_NO_VTABLE
-#	endif
+#  ifdef _MSC_VER
+#    define ADUI_NO_VTABLE	__declspec(novtable)
+#  else 
+#    define ADUI_NO_VTABLE
+#  endif
 #endif

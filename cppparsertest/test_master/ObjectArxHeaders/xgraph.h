@@ -34,59 +34,59 @@
 //
 //
 #ifndef AD_XGRAPH_H
-#	define AD_XGRAPH_H	1
-#	include "graph.h"
-#	include "AdAChar.h"
-#	pragma  pack (push, 8)
+#  define AD_XGRAPH_H	1
+#  include "graph.h"
+#  include "AdAChar.h"
+#  pragma  pack (push, 8)
 // =====================================
 //      Xref Graph Classes
 // =====================================
 class AcDbXrefGraphNode : public AcDbGraphNode
 {
 public:
-	AcDbXrefGraphNode(const ACHAR* pName = NULL, const AcDbObjectId& btrId = AcDbObjectId::kNull, AcDbDatabase* pDb = NULL, AcDb::XrefStatus status = AcDb::kXrfResolved);
-	virtual ~AcDbXrefGraphNode();
-	const ACHAR* name() const;
-	AcDbObjectId btrId() const;
-	AcDbDatabase* database() const;
-	Acad::ErrorStatus setName(const ACHAR* pName);
-	void setBtrId(const AcDbObjectId& id);
-	void setDatabase(AcDbDatabase* pDb);
-	bool isNested() const;
-	AcDb::XrefStatus xrefStatus() const;
-	void setXrefStatus(AcDb::XrefStatus stat);
-	AcDb::XrefNotificationStatus xrefNotificationStatus() const;
-	void setXrefNotificationStatus(AcDb::XrefNotificationStatus stat);
-	void* xData()
-	{
-		return mpxdata;
-	}
-	void setxData(void* pXData)
-	{
-		mpxdata = pXData;
-	}
-	Acad::ErrorStatus xrefReadSubstatus() const;
+  AcDbXrefGraphNode(const ACHAR* pName = NULL, const AcDbObjectId& btrId = AcDbObjectId::kNull, AcDbDatabase* pDb = NULL, AcDb::XrefStatus status = AcDb::kXrfResolved);
+  virtual ~AcDbXrefGraphNode();
+  const ACHAR* name() const;
+  AcDbObjectId btrId() const;
+  AcDbDatabase* database() const;
+  Acad::ErrorStatus setName(const ACHAR* pName);
+  void setBtrId(const AcDbObjectId& id);
+  void setDatabase(AcDbDatabase* pDb);
+  bool isNested() const;
+  AcDb::XrefStatus xrefStatus() const;
+  void setXrefStatus(AcDb::XrefStatus stat);
+  AcDb::XrefNotificationStatus xrefNotificationStatus() const;
+  void setXrefNotificationStatus(AcDb::XrefNotificationStatus stat);
+  void* xData()
+  {
+    return mpxdata;
+  }
+  void setxData(void* pXData)
+  {
+    mpxdata = pXData;
+  }
+  Acad::ErrorStatus xrefReadSubstatus() const;
 private:
-	void* mpxdata;
-	ACHAR* mpName;
-	AcDbObjectId mBtrId;
+  void* mpxdata;
+  ACHAR* mpName;
+  AcDbObjectId mBtrId;
     // AcDbDatabase* uses base class data() member
-	AcDb::XrefStatus mStatus;
-	AcDb::XrefNotificationStatus mNotifyStatus;
+  AcDb::XrefStatus mStatus;
+  AcDb::XrefNotificationStatus mNotifyStatus;
 };
 class AcDbXrefGraph : public AcDbGraph
 {
 public:
-	AcDbXrefGraph(AcDbXrefGraphNode* pHostDwg = NULL);
-	virtual ~AcDbXrefGraph();
-	AcDbXrefGraphNode* xrefNode(const ACHAR* pName) const;
-	AcDbXrefGraphNode* xrefNode(AcDbObjectId btrId) const;
-	AcDbXrefGraphNode* xrefNode(const AcDbDatabase* pDb) const;
-	AcDbXrefGraphNode* xrefNode(int idx) const;
-	AcDbXrefGraphNode* hostDwg() const;
-	Adesk::Boolean markUnresolvedTrees();
+  AcDbXrefGraph(AcDbXrefGraphNode* pHostDwg = NULL);
+  virtual ~AcDbXrefGraph();
+  AcDbXrefGraphNode* xrefNode(const ACHAR* pName) const;
+  AcDbXrefGraphNode* xrefNode(AcDbObjectId btrId) const;
+  AcDbXrefGraphNode* xrefNode(const AcDbDatabase* pDb) const;
+  AcDbXrefGraphNode* xrefNode(int idx) const;
+  AcDbXrefGraphNode* hostDwg() const;
+  Adesk::Boolean markUnresolvedTrees();
     // cycle detection
-	virtual Adesk::Boolean findCycles(AcDbGraphNode* pStart = NULL);
+  virtual Adesk::Boolean findCycles(AcDbGraphNode* pStart = NULL);
 };
 // =====================================
 //      General Utility functions
@@ -102,52 +102,52 @@ Acad::ErrorStatus acedGetCurDwgXrefGraph(AcDbXrefGraph&, Adesk::Boolean includeG
 // AcDbXrefGraphNode inlines ...
 inline const ACHAR* AcDbXrefGraphNode::name() const
 {
-	return mpName;
+  return mpName;
 }
 inline AcDbObjectId AcDbXrefGraphNode::btrId() const
 {
-	return mBtrId;
+  return mBtrId;
 }
 inline AcDbDatabase* AcDbXrefGraphNode::database() const
 {
-	return (AcDbDatabase*) data();
+  return (AcDbDatabase*) data();
 }
 inline void AcDbXrefGraphNode::setBtrId(const AcDbObjectId& id)
 {
-	mBtrId = id;
+  mBtrId = id;
 }
 inline void AcDbXrefGraphNode::setDatabase(AcDbDatabase* pDb)
 {
-	setData(pDb);
+  setData(pDb);
 }
 inline bool AcDbXrefGraphNode::isNested() const
 {
-	return !isMarkedAs(kFirstLevel);
+  return !isMarkedAs(kFirstLevel);
 }
 inline AcDb::XrefStatus AcDbXrefGraphNode::xrefStatus() const
 {
-	return mStatus;
+  return mStatus;
 }
 inline void AcDbXrefGraphNode::setXrefStatus(AcDb::XrefStatus stat)
 {
-	mStatus = stat;
+  mStatus = stat;
 }
 inline AcDb::XrefNotificationStatus AcDbXrefGraphNode::xrefNotificationStatus() const
 {
-	return mNotifyStatus;
+  return mNotifyStatus;
 }
 inline void AcDbXrefGraphNode::setXrefNotificationStatus(AcDb::XrefNotificationStatus stat)
 {
-	mNotifyStatus = stat;
+  mNotifyStatus = stat;
 }
 // AcDbXrefGraph inlines ...
 inline AcDbXrefGraphNode* AcDbXrefGraph::xrefNode(int idx) const
 {
-	return (AcDbXrefGraphNode*) node(idx);
+  return (AcDbXrefGraphNode*) node(idx);
 }
 inline AcDbXrefGraphNode* AcDbXrefGraph::hostDwg() const
 {
-	return (AcDbXrefGraphNode*) rootNode();
+  return (AcDbXrefGraphNode*) rootNode();
 }
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

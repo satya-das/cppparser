@@ -11,11 +11,11 @@
 //
 //  acedinpt.h - Definition of AcEdInputPointManager and related stuff
 #ifndef _ACEDINPT_H
-#	define _ACEDINPT_H
-#	include "rxobject.h"
-#	include "dbmain.h"
-#	pragma  pack (push, 8)
-#	pragma  warning (disable: 4786)
+#  define _ACEDINPT_H
+#  include "rxobject.h"
+#  include "dbmain.h"
+#  pragma  pack (push, 8)
+#  pragma  warning (disable: 4786)
 class AcEdInputPointFilter;
 class AcEdInputPointMonitor;
 class AcApDocument;
@@ -35,16 +35,16 @@ class AcGeVector3d;
 class AcEdInputPointManager
 {
 public:
-	virtual ~AcEdInputPointManager()
-	{
-	}
+  virtual ~AcEdInputPointManager()
+  {
+  }
     // registerPointFilter
     //
     // Invoke to register a point filter.  returns Acad::eOK if no filter
     // is currently in use, else returns Acad::eIllegalReplacement.  It's
     // not nice to hog the filter slot!
     //
-	virtual Acad::ErrorStatus registerPointFilter(AcEdInputPointFilter* pFilter) = 0;
+  virtual Acad::ErrorStatus registerPointFilter(AcEdInputPointFilter* pFilter) = 0;
     // revokePointFilter
     //
     // Used to revoke the current Point Filter.  Returns Acad::eOk if there
@@ -53,12 +53,12 @@ public:
     // do so, find out what it is (see currentPointFilter) and put it back,
     // right quick!
     //
-	virtual Acad::ErrorStatus revokePointFilter() = 0;
+  virtual Acad::ErrorStatus revokePointFilter() = 0;
     // currentPointFilter
     //
     // Returns the active point filter, if there is one, and NULL otherwise.
     //
-	virtual AcEdInputPointFilter* currentPointFilter() const = 0;
+  virtual AcEdInputPointFilter* currentPointFilter() const = 0;
     // addPointMonitor
     //
     // Used to add a point monitor to the active set.  Adding the same
@@ -66,14 +66,14 @@ public:
     // to be returned.  Each monitor will be invoked once and only once
     // per input point event. Otherwise, Acad::eOk will be returned.
     //
-	virtual Acad::ErrorStatus addPointMonitor(AcEdInputPointMonitor* pMonitor) = 0;
+  virtual Acad::ErrorStatus addPointMonitor(AcEdInputPointMonitor* pMonitor) = 0;
     // removePointMonitor
     //
     // Used in remove a Point Monitor from the active set.
     // Returns Acad::eOk if the monitor indicated by the input address
     // was in the set, and Acad::eInvalidKey if it wasn't.
     //
-	virtual Acad::ErrorStatus removePointMonitor(AcEdInputPointMonitor* pMonitor) = 0;
+  virtual Acad::ErrorStatus removePointMonitor(AcEdInputPointMonitor* pMonitor) = 0;
     // addInputContextReactor
     //
     // Add an input context reactor.  Find out what the user is currently
@@ -83,14 +83,14 @@ public:
     // reactor twice (as compared by address) will cause Acad::eDuplicateKey
     // to be returned. Otherwise, Acad::eOk will be returned.
     //
-	virtual Acad::ErrorStatus addInputContextReactor(AcEdInputContextReactor* pReactor) = 0;
+  virtual Acad::ErrorStatus addInputContextReactor(AcEdInputContextReactor* pReactor) = 0;
     // removeInputContextReactor
     //
     // Used in remove an input context reactor from the active set.
     // Returns Acad::eOk if the reactor indicated by the input address
     // was in the set, and Acad::eInvalidKey if it wasn't.
     //
-	virtual Acad::ErrorStatus removeInputContextReactor(AcEdInputContextReactor* pReact) = 0;
+  virtual Acad::ErrorStatus removeInputContextReactor(AcEdInputContextReactor* pReact) = 0;
     // Enable and disable cursor graphics for the associated document.
     // Intended for use in conjunction with custom cursor graphics.
     // IMPORTANT: This pair of calls operates on an internal counter, so
@@ -105,18 +105,18 @@ public:
     //
     // Currenly Acad::eOk is always returned.
     //
-	virtual Acad::ErrorStatus disableSystemCursorGraphics() = 0;
+  virtual Acad::ErrorStatus disableSystemCursorGraphics() = 0;
     // enableSystemCursorGraphics
     //
     // Returns Acad::eOk unless the disble count was already 0, in which
     // case Acad::eInvalidContext is returned.
     //
-	virtual Acad::ErrorStatus enableSystemCursorGraphics() = 0;
+  virtual Acad::ErrorStatus enableSystemCursorGraphics() = 0;
     // systemCursorDisableCount
     //
     // Returns the count of callers who have the cursor disabled.
     //
-	virtual int systemCursorDisableCount() const = 0;
+  virtual int systemCursorDisableCount() const = 0;
     // turnOnForcedPick
     //
     // This call causes the AutoCAD input event mechanism to do a pick under the
@@ -133,7 +133,7 @@ public:
     //
     // Currenly Acad::eOk is always returned.
     //
-	virtual Acad::ErrorStatus turnOnForcedPick() = 0;
+  virtual Acad::ErrorStatus turnOnForcedPick() = 0;
     // turnOffForcedPick
     //
     // decrements the forced pick counter, and if the counter hits 0,
@@ -144,16 +144,16 @@ public:
     // Returns Acad::eOk unless the forced pick count was already 0, in which
     // case Acad::eInvalidContext is returned.
     //
-	virtual Acad::ErrorStatus turnOffForcedPick() = 0;
+  virtual Acad::ErrorStatus turnOffForcedPick() = 0;
     // forcedPickCount
     //
     // Returns the count of callers who have forced picking turned on.
     //
-	virtual int forcedPickCount() const = 0;
-	virtual int mouseHasMoved() const = 0;
-	virtual Acad::ErrorStatus turnOnSubentityWindowSelection() = 0;
-	virtual Acad::ErrorStatus turnOffSubentityWindowSelection() = 0;
-	virtual void enableMultiSubentPathSelection(bool bEnable) = 0;
+  virtual int forcedPickCount() const = 0;
+  virtual int mouseHasMoved() const = 0;
+  virtual Acad::ErrorStatus turnOnSubentityWindowSelection() = 0;
+  virtual Acad::ErrorStatus turnOffSubentityWindowSelection() = 0;
+  virtual void enableMultiSubentPathSelection(bool bEnable) = 0;
     /**
      * This method registers a sub-selection filter
      *
@@ -163,7 +163,7 @@ public:
      *  initialize the filter data, e.g. get a list of AcRxClass* that this
      *  filter applies to. Otherwise, eOk.
      */
-	virtual Acad::ErrorStatus addSubSelectFilter(AcEdSubSelectFilter* pSSSubFilter) = 0;
+  virtual Acad::ErrorStatus addSubSelectFilter(AcEdSubSelectFilter* pSSSubFilter) = 0;
     /**
      * This method unregisters a sub-selection filter
      *
@@ -171,7 +171,7 @@ public:
      *
      * @returns eKeyNotFound if the object does not exist. eOk otherwise.
      */
-	virtual Acad::ErrorStatus removeSubSelectFilter(AcEdSubSelectFilter* pSSSubFilter) = 0;
+  virtual Acad::ErrorStatus removeSubSelectFilter(AcEdSubSelectFilter* pSSSubFilter) = 0;
 };
 // AcEdInputPointFilter
 //
@@ -179,88 +179,88 @@ public:
 // "Input Point Notification and Input Point filter" mechanism.
 class AcEdImpInputPointFilterResult;
 class AcEdImpInputPointManager;
-#	ifndef _ADESK_MAC_
-#		ifndef ACAD_PORT
-#			ifdef ACAD_API
-#				define ACAD_PORT	_declspec(dllexport)
-#			else 
-#				define ACAD_PORT
-#			endif
-#		endif
-#	else 
+#  ifndef _ADESK_MAC_
+#    ifndef ACAD_PORT
+#      ifdef ACAD_API
+#        define ACAD_PORT	_declspec(dllexport)
+#      else 
+#        define ACAD_PORT
+#      endif
+#    endif
+#  else 
 // On OS X, we will export all symbols by default and will use GCC
 // attributes to exclude symbols we don't want to export.
 // In this case, we do want to export the AcEdInputPoint symbol
-#		undef ACAD_PORT
-#		define ACAD_PORT
-#	endif
+#    undef ACAD_PORT
+#    define ACAD_PORT
+#  endif
 class ACAD_PORT AcEdInputPoint
 {
 private:
-	AcEdImpInputPointManager* m_pImpMgr;
-	AcEdInputPoint(AcEdImpInputPointManager* pImpMgr);
-	AcEdInputPoint& operator=(const AcEdInputPoint&);
+  AcEdImpInputPointManager* m_pImpMgr;
+  AcEdInputPoint(AcEdImpInputPointManager* pImpMgr);
+  AcEdInputPoint& operator=(const AcEdInputPoint&);
 public:
-	AcApDocument* document() const;
-	bool pointComputed() const;
-	int history() const;
-	const AcGePoint3d& lastPoint() const;
-	const AcGePoint3d& rawPoint() const;
-	const AcGePoint3d& grippedPoint() const;
-	const AcGePoint3d& cartesianSnappedPoint() const;
-	const AcGePoint3d& osnappedPoint() const;
-	const AcDb::OsnapMask osnapMask() const;
-	const AcArray<AcDbCustomOsnapMode*>& customOsnapModes() const;
-	const AcDb::OsnapMask osnapOverrides() const;
-	const AcArray<AcDbCustomOsnapMode*>& customOsnapOverrides() const;
-	const AcArray<AcDbObjectId>& pickedEntities() const;
-	const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >& nestedPickedEntities() const;
-	const AcArray<Adesk::GsMarker>& gsSelectionMark() const;
-	const AcArray<AcDbObjectId>& keyPointEntities() const;
-	const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >& nestedKeyPointEntities() const;
-	const AcArray<Adesk::GsMarker>& keyPointGsSelectionMark() const;
-	const AcArray<AcGeCurve3d*>& alignmentPaths() const;
-	const AcGePoint3d& computedPoint() const;
-	const ACHAR* tooltipString() const;
-	AcGiViewportDraw* drawContext() const;
-	friend class AcEdImpInputPointManager;
+  AcApDocument* document() const;
+  bool pointComputed() const;
+  int history() const;
+  const AcGePoint3d& lastPoint() const;
+  const AcGePoint3d& rawPoint() const;
+  const AcGePoint3d& grippedPoint() const;
+  const AcGePoint3d& cartesianSnappedPoint() const;
+  const AcGePoint3d& osnappedPoint() const;
+  const AcDb::OsnapMask osnapMask() const;
+  const AcArray<AcDbCustomOsnapMode*>& customOsnapModes() const;
+  const AcDb::OsnapMask osnapOverrides() const;
+  const AcArray<AcDbCustomOsnapMode*>& customOsnapOverrides() const;
+  const AcArray<AcDbObjectId>& pickedEntities() const;
+  const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >& nestedPickedEntities() const;
+  const AcArray<Adesk::GsMarker>& gsSelectionMark() const;
+  const AcArray<AcDbObjectId>& keyPointEntities() const;
+  const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >& nestedKeyPointEntities() const;
+  const AcArray<Adesk::GsMarker>& keyPointGsSelectionMark() const;
+  const AcArray<AcGeCurve3d*>& alignmentPaths() const;
+  const AcGePoint3d& computedPoint() const;
+  const ACHAR* tooltipString() const;
+  AcGiViewportDraw* drawContext() const;
+  friend class AcEdImpInputPointManager;
 };
 class ACAD_PORT AcEdInputPointFilterResult
 {
 private:
-	AcEdImpInputPointFilterResult* m_pImp;
-	AcEdInputPointFilterResult();
-	AcEdInputPointFilterResult& operator=(const AcEdInputPointFilterResult&);
+  AcEdImpInputPointFilterResult* m_pImp;
+  AcEdInputPointFilterResult();
+  AcEdInputPointFilterResult& operator=(const AcEdInputPointFilterResult&);
 public:
-	~AcEdInputPointFilterResult();
-	void setNewPoint(const AcGePoint3d& newValue);
-	void setDisplayOsnapGlyph(bool newValue);
-	void setNewTooltipString(const ACHAR* newValue);
-	void setRetry(bool newValue);
-	const AcGePoint3d& newPoint() const;
-	bool displayOsnapGlyph() const;
-	const ACHAR* newTooltipString() const;
-	bool retry() const;
-	friend class AcEdImpInputPointManager;
+  ~AcEdInputPointFilterResult();
+  void setNewPoint(const AcGePoint3d& newValue);
+  void setDisplayOsnapGlyph(bool newValue);
+  void setNewTooltipString(const ACHAR* newValue);
+  void setRetry(bool newValue);
+  const AcGePoint3d& newPoint() const;
+  bool displayOsnapGlyph() const;
+  const ACHAR* newTooltipString() const;
+  bool retry() const;
+  friend class AcEdImpInputPointManager;
 };
 class AcEdImpInputPointMonitorResult;
 class ACAD_PORT AcEdInputPointMonitorResult
 {
 private:
-	AcEdImpInputPointMonitorResult* m_pImp;
-	AcEdInputPointMonitorResult();
-	AcEdInputPointMonitorResult& operator=(const AcEdInputPointMonitorResult&);
+  AcEdImpInputPointMonitorResult* m_pImp;
+  AcEdInputPointMonitorResult();
+  AcEdInputPointMonitorResult& operator=(const AcEdInputPointMonitorResult&);
 public:
-	~AcEdInputPointMonitorResult();
-	void setAdditionalTooltipString(const ACHAR*);
-	bool appendToTooltipStr() const;
-	const ACHAR* additionalTooltipString() const;
-	friend class AcEdImpInputPointManager;
+  ~AcEdInputPointMonitorResult();
+  void setAdditionalTooltipString(const ACHAR*);
+  bool appendToTooltipStr() const;
+  const ACHAR* additionalTooltipString() const;
+  friend class AcEdImpInputPointManager;
 };
 class AcEdInputPointFilter : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcEdInputPointFilter);
+  ACRX_DECLARE_MEMBERS(AcEdInputPointFilter);
     // processInputPoint
     //
     // This callback is made every time an input event results in an
@@ -314,12 +314,12 @@ public:
     //
     // Return Status:  Acad::eOk should always be returned.
     //
-	ADESK_DEPRECATED virtual Acad::ErrorStatus processInputPoint(bool&, AcGePoint3d&, bool&, bool&, ACHAR*&, bool&, AcGiViewportDraw*, AcApDocument*, bool, int, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, AcDb::OsnapMask, const AcArray<AcDbCustomOsnapMode*>&, AcDb::OsnapMask, const AcArray<AcDbCustomOsnapMode*>&, const AcArray<AcDbObjectId>&, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >&, const AcArray<Adesk::GsMarker>&, const AcArray<AcDbObjectId>&, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >&, const AcArray<Adesk::GsMarker>&, const AcArray<AcGeCurve3d*>&, const AcGePoint3d&, const ACHAR*)
-	{
-		return Acad::eOk;
-	}
+  ADESK_DEPRECATED virtual Acad::ErrorStatus processInputPoint(bool&, AcGePoint3d&, bool&, bool&, ACHAR*&, bool&, AcGiViewportDraw*, AcApDocument*, bool, int, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, AcDb::OsnapMask, const AcArray<AcDbCustomOsnapMode*>&, AcDb::OsnapMask, const AcArray<AcDbCustomOsnapMode*>&, const AcArray<AcDbObjectId>&, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >&, const AcArray<Adesk::GsMarker>&, const AcArray<AcDbObjectId>&, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >&, const AcArray<Adesk::GsMarker>&, const AcArray<AcGeCurve3d*>&, const AcGePoint3d&, const ACHAR*)
+  {
+    return Acad::eOk;
+  }
     // --- end of processInputPoint (big one, eh?)
-	ACAD_PORT virtual Acad::ErrorStatus processInputPoint(const AcEdInputPoint& input, AcEdInputPointFilterResult& output);
+  ACAD_PORT virtual Acad::ErrorStatus processInputPoint(const AcEdInputPoint& input, AcEdInputPointFilterResult& output);
     // revokeInputFilter
     //
     // This callback is made whenever a filter is revoked.  If another filter
@@ -336,10 +336,10 @@ public:
     // can query the new filter's class and take whatever action is necessary.
     // which is hopefully nothing, else you have an unstable sequence.
     //
-	virtual AcEdInputPointFilter* revokeInputFilter(AcEdInputPointFilter*)
-	{
-		return this;
-	}
+  virtual AcEdInputPointFilter* revokeInputFilter(AcEdInputPointFilter*)
+  {
+    return this;
+  }
 };
 // AcEdInputPointMonitor
 //
@@ -348,7 +348,7 @@ public:
 class AcEdInputPointMonitor : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcEdInputPointMonitor);
+  ACRX_DECLARE_MEMBERS(AcEdInputPointMonitor);
     // monitorInputPoint
     //
     // This callback is under the exact same conditions as AcEdInputPointFilter,
@@ -381,15 +381,15 @@ public:
     //
     // Return Status:  Acad::eOk should always be returned.
     //
-	ADESK_DEPRECATED virtual Acad::ErrorStatus monitorInputPoint(bool&, ACHAR*&, AcGiViewportDraw*, AcApDocument*, bool, int, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, AcDb::OsnapMask, const AcArray<AcDbCustomOsnapMode*>&, AcDb::OsnapMask, const AcArray<AcDbCustomOsnapMode*>&, const AcArray<AcDbObjectId>&, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >&, const AcArray<Adesk::GsMarker>&, const AcArray<AcDbObjectId>&, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >&, const AcArray<Adesk::GsMarker>&, const AcArray<AcGeCurve3d*>&, const AcGePoint3d&, const ACHAR*)
-	{
-		return Acad::eOk;
-	}
-	ACAD_PORT virtual Acad::ErrorStatus monitorInputPoint(const AcEdInputPoint& input, AcEdInputPointMonitorResult& output);
-	virtual bool excludeFromOsnapCalculation(const AcArray<AcDbObjectId>&, Adesk::GsMarker)
-	{
-		return false;
-	}
+  ADESK_DEPRECATED virtual Acad::ErrorStatus monitorInputPoint(bool&, ACHAR*&, AcGiViewportDraw*, AcApDocument*, bool, int, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, AcDb::OsnapMask, const AcArray<AcDbCustomOsnapMode*>&, AcDb::OsnapMask, const AcArray<AcDbCustomOsnapMode*>&, const AcArray<AcDbObjectId>&, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >&, const AcArray<Adesk::GsMarker>&, const AcArray<AcDbObjectId>&, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >&, const AcArray<Adesk::GsMarker>&, const AcArray<AcGeCurve3d*>&, const AcGePoint3d&, const ACHAR*)
+  {
+    return Acad::eOk;
+  }
+  ACAD_PORT virtual Acad::ErrorStatus monitorInputPoint(const AcEdInputPoint& input, AcEdInputPointMonitorResult& output);
+  virtual bool excludeFromOsnapCalculation(const AcArray<AcDbObjectId>&, Adesk::GsMarker)
+  {
+    return false;
+  }
 };
 class AcEdInputContextReactor
 {
@@ -412,120 +412,120 @@ class AcEdInputContextReactor
 // keyword.
 //
 public:
-	virtual ~AcEdInputContextReactor()
-	{
-	}
-	virtual void beginGetPoint(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
-	{
-	}
-	virtual void endGetPoint(Acad::PromptStatus, const AcGePoint3d&, const ACHAR*&)
-	{
-	}
-	virtual void beginGetAngle(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
-	{
-	}
-	virtual void endGetAngle(Acad::PromptStatus, double&, const ACHAR*&)
-	{
-	}
-	virtual void beginGetDistance(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
-	{
-	}
-	virtual void endGetDistance(Acad::PromptStatus, double&, const ACHAR*&)
-	{
-	}
-	virtual void beginGetOrientation(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
-	{
-	}
-	virtual void endGetOrientation(Acad::PromptStatus, double&, const ACHAR*&)
-	{
-	}
-	virtual void beginGetCorner(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
-	{
-	}
-	virtual void endGetCorner(Acad::PromptStatus, AcGePoint3d&, const ACHAR*&)
-	{
-	}
+  virtual ~AcEdInputContextReactor()
+  {
+  }
+  virtual void beginGetPoint(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
+  {
+  }
+  virtual void endGetPoint(Acad::PromptStatus, const AcGePoint3d&, const ACHAR*&)
+  {
+  }
+  virtual void beginGetAngle(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
+  {
+  }
+  virtual void endGetAngle(Acad::PromptStatus, double&, const ACHAR*&)
+  {
+  }
+  virtual void beginGetDistance(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
+  {
+  }
+  virtual void endGetDistance(Acad::PromptStatus, double&, const ACHAR*&)
+  {
+  }
+  virtual void beginGetOrientation(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
+  {
+  }
+  virtual void endGetOrientation(Acad::PromptStatus, double&, const ACHAR*&)
+  {
+  }
+  virtual void beginGetCorner(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
+  {
+  }
+  virtual void endGetCorner(Acad::PromptStatus, AcGePoint3d&, const ACHAR*&)
+  {
+  }
     // *ScaleFactor is the same as *Distance, except a negative
     // value can be returned.  There is no exported ADS/LISP/ActiveX equivalent.
     //
-	virtual void beginGetScaleFactor(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
-	{
-	}
-	virtual void endGetScaleFactor(Acad::PromptStatus, double&, const ACHAR*&)
-	{
-	}
+  virtual void beginGetScaleFactor(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
+  {
+  }
+  virtual void endGetScaleFactor(Acad::PromptStatus, double&, const ACHAR*&)
+  {
+  }
     // Begin Nongeometric value input contexts.
     // Design note:  No mistake, getstring() does NOT do keywords!
     //
-	virtual void beginGetString(const ACHAR*, int)
-	{
-	}
-	virtual void endGetString(Acad::PromptStatus, ACHAR*)
-	{
-	}
-	virtual void beginGetKeyword(const ACHAR*, int, const ACHAR*)
-	{
-	}
-	virtual void endGetKeyword(Acad::PromptStatus, const ACHAR*&)
-	{
-	}
-	virtual void beginGetInteger(const int*, const ACHAR*, int, const ACHAR*)
-	{
-	}
-	virtual void endGetInteger(Acad::PromptStatus, int&, const ACHAR*&)
-	{
-	}
+  virtual void beginGetString(const ACHAR*, int)
+  {
+  }
+  virtual void endGetString(Acad::PromptStatus, ACHAR*)
+  {
+  }
+  virtual void beginGetKeyword(const ACHAR*, int, const ACHAR*)
+  {
+  }
+  virtual void endGetKeyword(Acad::PromptStatus, const ACHAR*&)
+  {
+  }
+  virtual void beginGetInteger(const int*, const ACHAR*, int, const ACHAR*)
+  {
+  }
+  virtual void endGetInteger(Acad::PromptStatus, int&, const ACHAR*&)
+  {
+  }
     // *Color() is effectively a ranged-checked *Integer()
-	virtual void beginGetColor(const int*, const ACHAR*, int, const ACHAR*)
-	{
-	}
-	virtual void endGetColor(Acad::PromptStatus, int&, const ACHAR*&)
-	{
-	}
-	virtual void beginGetReal(const double*, const ACHAR*, int, const ACHAR*)
-	{
-	}
-	virtual void endGetReal(Acad::PromptStatus, double&, const ACHAR*&)
-	{
-	}
-	virtual void beginEntsel(const ACHAR*, int, const ACHAR*)
-	{
-	}
-	virtual void endEntsel(Acad::PromptStatus, AcDbObjectId&, AcGePoint3d&, const ACHAR*)
-	{
-	}
+  virtual void beginGetColor(const int*, const ACHAR*, int, const ACHAR*)
+  {
+  }
+  virtual void endGetColor(Acad::PromptStatus, int&, const ACHAR*&)
+  {
+  }
+  virtual void beginGetReal(const double*, const ACHAR*, int, const ACHAR*)
+  {
+  }
+  virtual void endGetReal(Acad::PromptStatus, double&, const ACHAR*&)
+  {
+  }
+  virtual void beginEntsel(const ACHAR*, int, const ACHAR*)
+  {
+  }
+  virtual void endEntsel(Acad::PromptStatus, AcDbObjectId&, AcGePoint3d&, const ACHAR*)
+  {
+  }
     // These two callbacks service both acedNEntSel() and acedNEntSelP()
     // calls.  The differences are immaterial with regard to monitoring
     // input.
     //
-	virtual void beginNentsel(const ACHAR*, Adesk::Boolean, int, const ACHAR*)
-	{
-	}
-	virtual void endNentsel(Acad::PromptStatus, AcDbObjectId, const AcGePoint3d&, const AcGeMatrix3d&, const resbuf*, const ACHAR*)
-	{
-	}
-	virtual void beginSSGet(const ACHAR*, int, const ACHAR*, const ACHAR*, const AcArray<AcGePoint3d>&, const resbuf*)
-	{
-	}
-	virtual void endSSGet(Acad::PromptStatus, const AcArray<AcDbObjectId>&)
-	{
-	}
+  virtual void beginNentsel(const ACHAR*, Adesk::Boolean, int, const ACHAR*)
+  {
+  }
+  virtual void endNentsel(Acad::PromptStatus, AcDbObjectId, const AcGePoint3d&, const AcGeMatrix3d&, const resbuf*, const ACHAR*)
+  {
+  }
+  virtual void beginSSGet(const ACHAR*, int, const ACHAR*, const ACHAR*, const AcArray<AcGePoint3d>&, const resbuf*)
+  {
+  }
+  virtual void endSSGet(Acad::PromptStatus, const AcArray<AcDbObjectId>&)
+  {
+  }
     // These two callbacks cover internal AutoCAD drag sequences, acedDraggen()
     // and AcEdJig drag sequences also.
     //
-	virtual void beginDragSequence(const ACHAR*)
-	{
-	}
-	virtual void endDragSequence(Acad::PromptStatus, AcGePoint3d&, AcGeVector3d&)
-	{
-	}
+  virtual void beginDragSequence(const ACHAR*)
+  {
+  }
+  virtual void endDragSequence(Acad::PromptStatus, AcGePoint3d&, AcGeVector3d&)
+  {
+  }
     // Quiescent state begin/end notification
-	virtual void beginQuiescentState()
-	{
-	}
-	virtual void endQuiescentState()
-	{
-	}
+  virtual void beginQuiescentState()
+  {
+  }
+  virtual void endQuiescentState()
+  {
+  }
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

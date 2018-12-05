@@ -9,11 +9,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _RXOVERRULE_H
-#	define _RXOVERRULE_H
-#	include "acbasedefs.h"
-#	include "rxobject.h"
-#	include "acarray.h"
-#	pragma  pack (push, 8)
+#  define _RXOVERRULE_H
+#  include "acbasedefs.h"
+#  include "rxobject.h"
+#  include "acarray.h"
+#  pragma  pack (push, 8)
 /// <description>
 /// Internal use only. Base class for all overrules.
 /// </description>                                                      
@@ -21,10 +21,10 @@ class AcRxOverruleIteratorBase;
 class ADESK_NO_VTABLE AcRxOverruleBase : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxOverruleBase, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxOverruleBase, ACBASE_PORT);
 private:
-	mutable AcRxOverruleIteratorBase* m_pIter;
-	friend class AcRxOverruleInternals;
+  mutable AcRxOverruleIteratorBase* m_pIter;
+  friend class AcRxOverruleInternals;
 };
 /// <property name="versionspecific" value="=18.0.0.0" />
 /// 
@@ -45,14 +45,14 @@ private:
 /// default implementations that delegate to the default behavior
 /// for the targeted class. 
 /// </description>  
-#	pragma  warning( push )
-#	pragma  warning( disable : 4275 )
+#  pragma  warning( push )
+#  pragma  warning( disable : 4275 )
 class ACBASE_PORT AcRxOverrule : public AcRxOverruleBase
 {
 public:
     // --- AcRxObject protocol
-	ACRX_DECLARE_MEMBERS(AcRxOverrule);
-	virtual ~AcRxOverrule();
+  ACRX_DECLARE_MEMBERS(AcRxOverrule);
+  virtual ~AcRxOverrule();
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -65,7 +65,7 @@ public:
     /// <remarks>
     /// If pOverruledSubject is database resident then it is open for read. 
     /// </remarks>                                                   
-	virtual bool isApplicable(const AcRxObject* pOverruledSubject) const = 0;
+  virtual bool isApplicable(const AcRxObject* pOverruledSubject) const = 0;
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -84,7 +84,7 @@ public:
     /// <returns>
     /// Returns true if the overrule is successfully added.
     /// </returns>                                                       
-	static Acad::ErrorStatus addOverrule(AcRxClass* pClass, AcRxOverrule* pOverrule, bool bAddAtLast = false);
+  static Acad::ErrorStatus addOverrule(AcRxClass* pClass, AcRxOverrule* pOverrule, bool bAddAtLast = false);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -98,7 +98,7 @@ public:
     /// <returns>
     /// Returns Acad::Ok if the overrule was registered and is now removed from the overrule collection by this call.
     /// </returns>                                                 
-	static Acad::ErrorStatus removeOverrule(AcRxClass* pClass, AcRxOverrule* pOverrule);
+  static Acad::ErrorStatus removeOverrule(AcRxClass* pClass, AcRxOverrule* pOverrule);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -109,7 +109,7 @@ public:
     /// Overrule can be turned ON or OFF across the entire application. Does not
     /// support per-document enabling or disabling.
     /// </remarks>                                                  
-	static void setIsOverruling(bool bIsOverruling);
+  static void setIsOverruling(bool bIsOverruling);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -118,7 +118,7 @@ public:
     /// <returns>
     /// Returns true if overruling is currently turned on, false otherwise. 
     /// </returns>                                                  
-	static bool isOverruling(void);
+  static bool isOverruling(void);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -135,7 +135,7 @@ public:
     ///   - An overrule (of, or derived from, pOverruleClass) is registered; 
     ///   - The above overrule is targeting objects of pSubject's type. 
     /// </remarks>                                                  
-	static bool hasOverrule(const AcRxObject* pSubject, AcRxClass* pOverruleClass);
+  static bool hasOverrule(const AcRxObject* pSubject, AcRxClass* pOverruleClass);
 };
 /// <property name="versionspecific" value="=19.0.0.0" />
 /// 
@@ -145,13 +145,13 @@ public:
 class ACBASE_PORT AcRxQueryXOverrule : public AcRxOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcRxQueryXOverrule);
+  ACRX_DECLARE_MEMBERS(AcRxQueryXOverrule);
     /// <property name="versionspecific" value="=19.0.0.0" />
     /// 
     /// <description>
     /// Default Constructor.
     /// </description>
-	AcRxQueryXOverrule();
+  AcRxQueryXOverrule();
     /// <property name="versionspecific" value="=19.0.0.0" />
     /// 
     /// <description>
@@ -165,8 +165,8 @@ public:
     /// The default implementation of AcRxQueryXOverrule::queryX calls the 
     /// protected AcRxObject::subQueryX method.
     /// </remarks>
-	virtual AcRxObject* queryX(const AcRxObject* pSubject, const AcRxClass* protocolClass) const;
+  virtual AcRxObject* queryX(const AcRxObject* pSubject, const AcRxClass* protocolClass) const;
 };
-#	pragma  warning( pop ) 
-#	pragma  pack (pop)
+#  pragma  warning( pop ) 
+#  pragma  pack (pop)
 #endif

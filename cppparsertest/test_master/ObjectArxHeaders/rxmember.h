@@ -36,7 +36,7 @@ class AcRxPromotingQueryContext;
 class AcRxMember : public Pimpl::ApiPart<AcRxObject, AcRxMemberImp>
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxMember, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxMember, ACBASE_PORT);
     /// <summary>
     /// Returns the name of the member
     /// </summary>
@@ -45,7 +45,7 @@ public:
     /// Returns const ACHAR* that points to the name 
     /// </returns>
     ///
-	ACBASE_PORT const ACHAR* name() const;
+  ACBASE_PORT const ACHAR* name() const;
     /// <summary>
     /// Returns the localized name of the member, if any.
     /// </summary>
@@ -54,7 +54,7 @@ public:
     /// Returns AcString object that contains the name 
     /// </returns>
     ///
-	ACBASE_PORT AcString localName() const;
+  ACBASE_PORT AcString localName() const;
     /// <summary>
     /// Returns the type of the member.
     /// </summary>
@@ -63,7 +63,7 @@ public:
     /// Returns const reference to an AcRxValueType object 
     /// </returns>
     ///
-	ACBASE_PORT const AcRxValueType& type() const;
+  ACBASE_PORT const AcRxValueType& type() const;
     /// <summary>
     /// Returns the immutable collection of attributes for this member.
     /// </summary>
@@ -72,7 +72,7 @@ public:
     /// Returns const reference to an AcRxAttributeCollection object 
     /// </returns>
     ///
-	ACBASE_PORT const AcRxAttributeCollection& attributes() const;
+  ACBASE_PORT const AcRxAttributeCollection& attributes() const;
     /// <summary>
     /// Returns the collection of attributes for this member.
     /// </summary>
@@ -81,7 +81,7 @@ public:
     /// Returns reference to an AcRxAttributeCollection object 
     /// </returns>
     ///
-	ACBASE_PORT AcRxAttributeCollection& attributes();
+  ACBASE_PORT AcRxAttributeCollection& attributes();
     /// <summary>
     /// Returns the owner of this member.
     /// </summary>
@@ -90,7 +90,7 @@ public:
     /// Returns pointer to an AcRxObject if it has an owner, otherwise it returns NULL 
     /// </returns>
     ///
-	ACBASE_PORT const AcRxObject* owner() const;
+  ACBASE_PORT const AcRxObject* owner() const;
     /// <summary>
     /// Returns the children of this member.
     /// </summary>
@@ -99,27 +99,27 @@ public:
     /// Returns pointer to an AcArray object if it has children 
     /// </returns>
     ///
-	ACBASE_PORT const AcArray<const AcRxMember*>* children() const;
+  ACBASE_PORT const AcArray<const AcRxMember*>* children() const;
     /// <summary>
     /// deletes the member passed in and sends "goodbye" notification via AcRxMemberReactor.
     /// </summary>
     ///
-	ACBASE_PORT static void deleteMember(const AcRxMember* pMember);
+  ACBASE_PORT static void deleteMember(const AcRxMember* pMember);
 #pragma  push_macro("new")
 #undef new
     /// <summary>
     /// new operator
     /// </summary>
-	ACBASE_PORT static void* operator new(size_t size);
+  ACBASE_PORT static void* operator new(size_t size);
     /// <summary>
     /// debug new operator
     /// </summary>
-	ACBASE_PORT static void* operator new(size_t size, const char* pFName, int nLine);
+  ACBASE_PORT static void* operator new(size_t size, const char* pFName, int nLine);
 #pragma  pop_macro("new")
 protected:
-	friend class AcRxMemberImp;
-	ACBASE_PORT virtual ~AcRxMember();
-	ACBASE_PORT AcRxMember(AcRxMemberImp*);
+  friend class AcRxMemberImp;
+  ACBASE_PORT virtual ~AcRxMember();
+  ACBASE_PORT AcRxMember(AcRxMemberImp*);
     /// <summary>
     /// The function returns the localized name of the member, if any.
     /// Derived class can override function to provide custom implementation.
@@ -129,7 +129,7 @@ protected:
     /// Returns AcString object that contains the name 
     /// </returns>
     ///
-	ACBASE_PORT virtual AcString subLocalName() const;
+  ACBASE_PORT virtual AcString subLocalName() const;
     /// <summary>
     /// The function returns the children of the member.
     /// The difference between subChildren and subChildrenEx is in memory management. 
@@ -146,7 +146,7 @@ protected:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus subChildren(AcArray<const AcRxMember*>& children) const;
+  ACBASE_PORT virtual Acad::ErrorStatus subChildren(AcArray<const AcRxMember*>& children) const;
 #ifndef __GNUC__
 #else 
 #endif
@@ -155,17 +155,17 @@ protected:
 public:
     //protected delete operators so that client code is forced to delete AcRxMember objects
     //using deleteMember above.
-	ACBASE_PORT static void operator delete(void* p);
-	ACBASE_PORT static void operator delete(void* p, const char* pFName, int nLine);
-	ACBASE_PORT static void operator delete[](void* p);
-	ACBASE_PORT static void operator delete[](void* p, const char* pFName, int nLine);
+  ACBASE_PORT static void operator delete(void* p);
+  ACBASE_PORT static void operator delete(void* p, const char* pFName, int nLine);
+  ACBASE_PORT static void operator delete[](void* p);
+  ACBASE_PORT static void operator delete[](void* p, const char* pFName, int nLine);
 #pragma  pop_macro("delete")    
 #pragma  push_macro("new")
 #undef new
 private:
     //made private so that arrays cannot be created.
-	static void* operator new[](size_t size);
-	static void* operator new[](size_t size, const char* pFName, int nLine);
+  static void* operator new[](size_t size);
+  static void* operator new[](size_t size, const char* pFName, int nLine);
 #pragma  pop_macro("new")    
     /// <summary>
     /// The function returns the children of the member.
@@ -184,7 +184,7 @@ private:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus subChildrenEx(AcArray<const AcRxMember*>*& pChildren) const;
+  ACBASE_PORT virtual Acad::ErrorStatus subChildrenEx(AcArray<const AcRxMember*>*& pChildren) const;
 };
 //*************************************************************************
 // AcRxEnumTag
@@ -196,7 +196,7 @@ private:
 class AcRxEnumTag : public AcRxMember
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxEnumTag, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxEnumTag, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -209,7 +209,7 @@ public:
     /// The value of the enumeration constant.
     /// </param>
     ///
-	ACBASE_PORT AcRxEnumTag(const ACHAR* name, const AcRxValue& value);
+  ACBASE_PORT AcRxEnumTag(const ACHAR* name, const AcRxValue& value);
     /// <summary>
     /// Returns the value of the enumeration constant.
     /// </summary>
@@ -218,7 +218,7 @@ public:
     /// Returns const reference to an AcRxValue value 
     /// </returns>
     ///
-	ACBASE_PORT const AcRxValue& value() const;
+  ACBASE_PORT const AcRxValue& value() const;
     /// <summary>
     /// Returns a localized string representation of the 
     /// enumeration constant, if available. If the member has 
@@ -231,13 +231,13 @@ public:
     /// Returns AcString object that contains the name 
     /// </returns>
     ///
-	ACBASE_PORT AcString alternateLocalName() const;
+  ACBASE_PORT AcString alternateLocalName() const;
 protected:
     /// <summary>
     /// Destructor
     /// </summary>
     ///
-	ACBASE_PORT ~AcRxEnumTag();
+  ACBASE_PORT ~AcRxEnumTag();
     /// <summary>
     /// Derived class can override this method to provide custom implementation.
     /// </summary>
@@ -246,7 +246,7 @@ protected:
     /// Returns AcString object that contains the name 
     /// </returns>
     ///
-	ACBASE_PORT virtual AcString subAlternateLocalName() const;
+  ACBASE_PORT virtual AcString subAlternateLocalName() const;
 };
 //*************************************************************************
 // AcRxMemberCollection
@@ -262,7 +262,7 @@ public:
     /// Destructor
     /// </summary>
     ///
-	ACBASE_PORT virtual ~AcRxMemberCollection();
+  ACBASE_PORT virtual ~AcRxMemberCollection();
     /// <summary>
     /// Returns the number of members in the collection.
     /// </summary>
@@ -271,7 +271,7 @@ public:
     /// Returns the number of AcRxMember objects in the collection 
     /// </returns>
     ///
-	virtual int count() const;
+  virtual int count() const;
     /// <summary>
     /// This method returns a member at the passed in index.
     /// </summary>
@@ -284,16 +284,16 @@ public:
     /// Returns a pointer to AcRxMember object at the passed in index.
     /// </returns>
     ///
-	virtual AcRxMember* getAt(int index) const;
+  virtual AcRxMember* getAt(int index) const;
 protected:
     /// <summary>
     /// Constructor
     /// </summary>
     ///
-	ACBASE_PORT AcRxMemberCollection();
+  ACBASE_PORT AcRxMemberCollection();
 private:
-	friend class AcRxMemberCollectionImp;
-	AcRxMemberCollection(AcRxMemberCollectionImp* pImp);
+  friend class AcRxMemberCollectionImp;
+  AcRxMemberCollection(AcRxMemberCollectionImp* pImp);
 };
 //*************************************************************************
 // AcRxMemberCollectionBuilder
@@ -316,16 +316,16 @@ public:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus add(AcRxMember* member);
+  ACBASE_PORT Acad::ErrorStatus add(AcRxMember* member);
     /// <summary>
     /// returns the owner of the collection
     /// </summary>
-	ACBASE_PORT const AcRxClass* owner() const;
+  ACBASE_PORT const AcRxClass* owner() const;
 private:
-	friend class AcRxMemberCollectionImp;
-	AcRxMemberCollectionBuilder(AcRxMemberCollectionImp*, const AcRxClass* owner);
-	~AcRxMemberCollectionBuilder();
-	const AcRxClass* m_owner;
+  friend class AcRxMemberCollectionImp;
+  AcRxMemberCollectionBuilder(AcRxMemberCollectionImp*, const AcRxClass* owner);
+  ~AcRxMemberCollectionBuilder();
+  const AcRxClass* m_owner;
 };
 //*************************************************************************
 // AcRxMemberIterator
@@ -342,7 +342,7 @@ public:
     /// Destructor
     /// </summary>
     ///
-	ACBASE_PORT virtual ~AcRxMemberIterator();
+  ACBASE_PORT virtual ~AcRxMemberIterator();
     /// <summary>
     /// The function reports whether the iterator has iterated to the end.
     /// </summary>
@@ -351,7 +351,7 @@ public:
     /// It returns true if it has reached the end, otherwise it returns false.
     /// </returns>
     ///
-	ACBASE_PORT virtual bool done();
+  ACBASE_PORT virtual bool done();
     /// <summary>
     /// Positions the iterator to the next object in the structure. 
     /// </summary>
@@ -360,7 +360,7 @@ public:
     /// Returns true if and only if the iterator is not done.
     /// </returns>
     ///
-	ACBASE_PORT virtual bool next();
+  ACBASE_PORT virtual bool next();
     /// <summary>
     /// The function tries to return the value at the iterator's 
     /// current location.
@@ -370,7 +370,7 @@ public:
     /// Returns a pointer to AcRxMember if successful, otherwise it returns NULL.
     /// </returns>
     ///
-	ACBASE_PORT virtual AcRxMember* current() const;
+  ACBASE_PORT virtual AcRxMember* current() const;
     /// <summary>
     /// Returns a member identified by the name.
     /// </summary>
@@ -384,16 +384,16 @@ public:
     /// if there is no such AcRxMember with the name.
     /// </returns>
     ///
-	ACBASE_PORT virtual AcRxMember* find(const ACHAR* name) const;
+  ACBASE_PORT virtual AcRxMember* find(const ACHAR* name) const;
 protected:
     /// <summary>
     /// Constructor
     /// </summary>
     ///
-	ACBASE_PORT AcRxMemberIterator();
+  ACBASE_PORT AcRxMemberIterator();
 private:
-	friend class AcRxMemberIteratorImp;
-	AcRxMemberIterator(AcRxMemberIteratorImp*);
+  friend class AcRxMemberIteratorImp;
+  AcRxMemberIterator(AcRxMemberIteratorImp*);
 };
 //*************************************************************************
 // AcRxMemberQueryContext
@@ -407,7 +407,7 @@ private:
 class AcRxMemberQueryContext : public Pimpl::ApiPart<AcRxObject, AcRxMemberQueryContextImp>
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxMemberQueryContext, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxMemberQueryContext, ACBASE_PORT);
     /// <summary>
     /// This method is called by AcRxMemberQueryEngine::newMemberIterator to 
     /// get the members relevant to the context.
@@ -421,19 +421,19 @@ public:
     /// Returns the pointer to AcRxMemberIterator if there are members, otherwise it returns NULL.
     /// </returns>
     ///
-	ACBASE_PORT AcRxMemberIterator* newMemberIterator(const AcArray<const AcRxClass*>& facets) const;
+  ACBASE_PORT AcRxMemberIterator* newMemberIterator(const AcArray<const AcRxClass*>& facets) const;
 protected:
-	friend class AcRxMemberQueryContextImp;
+  friend class AcRxMemberQueryContextImp;
     /// <summary>
     /// Constructor
     /// </summary>
     ///
-	ACBASE_PORT AcRxMemberQueryContext();
+  ACBASE_PORT AcRxMemberQueryContext();
     /// <summary>
     /// Destructor
     /// </summary>
     ///
-	ACBASE_PORT virtual ~AcRxMemberQueryContext();
+  ACBASE_PORT virtual ~AcRxMemberQueryContext();
     /// <summary>
     /// The derived class must override this method and return the members 
     /// appropriate to the context.
@@ -447,7 +447,7 @@ protected:
     /// Returns pointer to AcRxMemberIterator if there are members; otherwise, returns NULL.
     /// </returns>
     ///
-	virtual AcRxMemberIterator* subNewMemberIterator(const AcArray<const AcRxClass*>& facets) const = 0;
+  virtual AcRxMemberIterator* subNewMemberIterator(const AcArray<const AcRxClass*>& facets) const = 0;
 };
 //*************************************************************************
 // AcRxFacetProvider
@@ -464,7 +464,7 @@ protected:
 class AcRxFacetProvider : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxFacetProvider, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxFacetProvider, ACBASE_PORT);
     /// <summary>
     /// This method is called by AcRxMemberQueryEngine everytime AcRxMemberQueryEngine::newMemberIterator
     /// is called. The derived class can add the facets that supply additional 
@@ -484,7 +484,7 @@ public:
     /// supply additonal members.
     /// </param>
     ///
-	virtual void getFacets(const AcRxObject* pO, const AcRxMemberQueryContext* pContext, AcArray<const AcRxClass*>& facets) = 0;
+  virtual void getFacets(const AcRxObject* pO, const AcRxMemberQueryContext* pContext, AcArray<const AcRxClass*>& facets) = 0;
 };
 //*************************************************************************
 // AcRxMemberReactor
@@ -501,9 +501,9 @@ public:
     /// Destructor
     /// </summary>
     ///
-	virtual ~AcRxMemberReactor()
-	{
-	}
+  virtual ~AcRxMemberReactor()
+  {
+  }
     /// <summary>
     /// This function is invoked when the member is being deleted from memory.
     /// </summary>
@@ -512,10 +512,10 @@ public:
     /// Passed in const pointer to the object being destroyed.
     /// </param>
     ///
-	virtual void goodbye(const AcRxMember* pMember)
-	{
-		(pMember);
-	}
+  virtual void goodbye(const AcRxMember* pMember)
+  {
+    (pMember);
+  }
 };
 //*************************************************************************
 // AcRxMemberQueryEngine
@@ -537,7 +537,7 @@ public:
     /// Returns pointer to an AcRxMemberQueryEngine if successful, otherwise returns NULL.
     /// </returns>
     ///
-	ACBASE_PORT static AcRxMemberQueryEngine* theEngine();
+  ACBASE_PORT static AcRxMemberQueryEngine* theEngine();
     /// <summary>
     /// This method can be used to find an AcRxMember of an object using the name.
     /// </summary>
@@ -558,7 +558,7 @@ public:
     /// Returns pointer to an AcRxMember if successful, otherwise returns NULL.
     /// </returns>
     ///
-	ACBASE_PORT AcRxMember* find(const AcRxObject* pO, const ACHAR* name, const AcRxMemberQueryContext* pContext = NULL) const;
+  ACBASE_PORT AcRxMember* find(const AcRxObject* pO, const ACHAR* name, const AcRxMemberQueryContext* pContext = NULL) const;
     /// <summary>
     /// This method can be used to get the members of an object.
     /// </summary>
@@ -575,7 +575,7 @@ public:
     /// Returns pointer to AcRxMemberIterator if there are members, otherwise returns NULL.
     /// </returns>
     ///
-	ACBASE_PORT AcRxMemberIterator* newMemberIterator(const AcRxObject* pO, const AcRxMemberQueryContext* pContext = NULL) const;
+  ACBASE_PORT AcRxMemberIterator* newMemberIterator(const AcRxObject* pO, const AcRxMemberQueryContext* pContext = NULL) const;
     /// <summary>
     /// This method can be used to query the defaultContext that can be 
     /// used to query for members.
@@ -585,7 +585,7 @@ public:
     /// Returns pointer to AcRxMemberQueryContext.
     /// </returns>
     ///
-	ACBASE_PORT const AcRxMemberQueryContext* defaultContext();
+  ACBASE_PORT const AcRxMemberQueryContext* defaultContext();
     /// <summary>
     /// This method can be used to query the promotingContext that can be 
     /// used to query for members. The promoting context can be used when 
@@ -599,7 +599,7 @@ public:
     /// Returns pointer to AcRxPromotingQueryContext.
     /// </returns>
     ///
-	ACBASE_PORT const AcRxPromotingQueryContext* promotingContext();
+  ACBASE_PORT const AcRxPromotingQueryContext* promotingContext();
     /// <summary>
     /// This method can be be used to add a facet provider. 
     /// </summary>
@@ -610,7 +610,7 @@ public:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus addFacetProvider(AcRxFacetProvider* pProvider);
+  ACBASE_PORT Acad::ErrorStatus addFacetProvider(AcRxFacetProvider* pProvider);
     /// <summary>
     /// This method can be be used to remove a facet provider. 
     /// </summary>
@@ -621,7 +621,7 @@ public:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus removeFacetProvider(AcRxFacetProvider* pProvider);
+  ACBASE_PORT Acad::ErrorStatus removeFacetProvider(AcRxFacetProvider* pProvider);
     /// <summary>
     /// Adds AcRxMemberReactor reactor
     /// </summary>
@@ -630,7 +630,7 @@ public:
     /// Input AcRxMemberReactor to add
     /// </param>
     ///
-	ACBASE_PORT void addReactor(AcRxMemberReactor* pReactor);
+  ACBASE_PORT void addReactor(AcRxMemberReactor* pReactor);
     /// <summary>
     /// Removes AcRxMemberReactor reactor
     /// </summary>
@@ -639,11 +639,11 @@ public:
     /// Input AcRxMemberReactor to remove
     /// </param>
     ///
-	ACBASE_PORT void removeReactor(AcRxMemberReactor* pReactor);
+  ACBASE_PORT void removeReactor(AcRxMemberReactor* pReactor);
 private:
-	friend class AcRxMemberQueryEngineImp;
-	AcRxMemberQueryEngine(AcRxMemberQueryEngineImp*);
-	~AcRxMemberQueryEngine();
+  friend class AcRxMemberQueryEngineImp;
+  AcRxMemberQueryEngine(AcRxMemberQueryEngineImp*);
+  ~AcRxMemberQueryEngine();
 };
 /// <summary>
 /// Base class for overrules for AcRxMember.
@@ -653,22 +653,22 @@ class AcRxMemberOverrule : public AcRxOverruleBase
 {
 public:
     //Utility class to store a member, overrule pair
-	struct Record	
+  struct Record  
 {
-		AcRxMember* m_pMember;
-		AcRxMemberOverrule* m_pOverrule;
-		Record()
-			: m_pMember(NULL)
-			, m_pOverrule(NULL)
-		{
-		}
-		Record(AcRxMember* pMember, AcRxMemberOverrule* pOverrule)
-			: m_pMember(pMember)
-			, m_pOverrule(pOverrule)
-		{
-		}
-	};
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxMemberOverrule, ACBASE_PORT);
+    AcRxMember* m_pMember;
+    AcRxMemberOverrule* m_pOverrule;
+    Record()
+      : m_pMember(NULL)
+      , m_pOverrule(NULL)
+    {
+    }
+    Record(AcRxMember* pMember, AcRxMemberOverrule* pOverrule)
+      : m_pMember(pMember)
+      , m_pOverrule(pOverrule)
+    {
+    }
+  };
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxMemberOverrule, ACBASE_PORT);
     /// <summary>
     /// Adds an overrule for the specified member.
     /// </summary>
@@ -684,7 +684,7 @@ public:
     /// to be added is the one to be executed first.
     /// </param>
     ///
-	ACBASE_PORT static Acad::ErrorStatus addOverrule(AcRxMember* pOverruledSubject, AcRxMemberOverrule* pOverrule, bool bAddAtLast = false);
+  ACBASE_PORT static Acad::ErrorStatus addOverrule(AcRxMember* pOverruledSubject, AcRxMemberOverrule* pOverrule, bool bAddAtLast = false);
     /// <summary>
     /// Removes an overrule from the specified member.
     /// </summary>
@@ -696,7 +696,7 @@ public:
     /// The overrule object to be removed.
     /// </param>
     ///
-	ACBASE_PORT static Acad::ErrorStatus removeOverrule(AcRxMember* pOverruledSubject, AcRxMemberOverrule* pOverrule);
+  ACBASE_PORT static Acad::ErrorStatus removeOverrule(AcRxMember* pOverruledSubject, AcRxMemberOverrule* pOverrule);
     /// <summary>
     /// Removes overrules
     /// </summary>
@@ -705,5 +705,5 @@ public:
     /// Member, overrule pairs to remove.
     /// </param>
     ///
-	ACBASE_PORT static Acad::ErrorStatus removeOverrules(const AcArray<Record>& overrules);
+  ACBASE_PORT static Acad::ErrorStatus removeOverrules(const AcArray<Record>& overrules);
 };

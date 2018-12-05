@@ -14,12 +14,12 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _RXREGSVC_H
-#	define _RXREGSVC_H	1
-#	include "rxdlinkr.h"
-#	include "adesk.h"
-#	include "AcArray.h"
-#	include "PAL/api/AcLocale.h"
-#	pragma  pack (push, 8)
+#  define _RXREGSVC_H	1
+#  include "rxdlinkr.h"
+#  include "adesk.h"
+#  include "AcArray.h"
+#  include "PAL/api/AcLocale.h"
+#  pragma  pack (push, 8)
 // Load a module, given its file name. 
 //
 bool acrxLoadModule(const ACHAR* moduleName, bool printit, bool asCmd = false);
@@ -128,5 +128,5 @@ bool acrxRegisterAppMDIAware(void* appId);
 // ARX application is NOT MDI aware this is the default.
 //
 bool acrxRegisterAppNotMDIAware(void* appId);
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

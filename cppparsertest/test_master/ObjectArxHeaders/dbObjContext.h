@@ -26,17 +26,17 @@
 class AcDbObjectContext : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbObjectContext);
+  ACRX_DECLARE_MEMBERS(AcDbObjectContext);
     /// <summary>
     /// Default constructor.
     /// </summary>
     /// 
-	AcDbObjectContext();
+  AcDbObjectContext();
     /// <summary>
     /// Destructor.  Performs any necessary cleanup of the context data.
     /// </summary>
     /// 
-	virtual ~AcDbObjectContext();
+  virtual ~AcDbObjectContext();
     /// <summary>
     /// The name of the object context.
     /// </summary>
@@ -57,7 +57,7 @@ public:
     /// time. 
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus getName(AcString& name) const = 0;
+  virtual Acad::ErrorStatus getName(AcString& name) const = 0;
     /// <summary>
     /// Sets the name of the object context.
     /// </summary>
@@ -75,7 +75,7 @@ public:
     /// Custom object contexts implement this method to support renaming
     /// context object instances.
     /// </remarks>
-	virtual Acad::ErrorStatus setName(const AcString& name) = 0;
+  virtual Acad::ErrorStatus setName(const AcString& name) = 0;
     /// <summary>
     /// The unique context identifier
     /// </summary>
@@ -94,7 +94,7 @@ public:
     /// will not be used as a memory address by core AutoCAD.
     /// </remarks>
     ///
-	virtual Adesk::LongPtr uniqueIdentifier() const = 0;
+  virtual Adesk::LongPtr uniqueIdentifier() const = 0;
     /// <summary>
     /// The name of the containing collection.
     /// </summary>
@@ -111,6 +111,6 @@ public:
     /// determine whether a context object is allowed in a collection instance. 
     /// </remarks>
     ///
-	virtual AcString collectionName() const = 0;
+  virtual AcString collectionName() const = 0;
 };
 #pragma  pack(pop)

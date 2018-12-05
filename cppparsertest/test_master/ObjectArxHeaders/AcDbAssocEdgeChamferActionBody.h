@@ -25,18 +25,18 @@
 class ACDB_PORT AcDbAssocEdgeChamferActionBody : public AcDbAssocPathBasedSurfaceActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocEdgeChamferActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocEdgeChamferActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject. </param>
     ///
-	explicit AcDbAssocEdgeChamferActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocEdgeChamferActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> Method to set input edges for chamfer. </summary>
     /// <param name="chamferEdges"> List of input edges. </param>
     /// <param name="baseFace"> Face subent id for base face from which chamfer
     /// base distance is to be measured. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setInput(const AcDbFullSubentPathArray& chamferEdges, const AcDbSubentId& baseFace);
+  Acad::ErrorStatus setInput(const AcDbFullSubentPathArray& chamferEdges, const AcDbSubentId& baseFace);
     /// <summary><para> 
     /// Sets base distance value for chamfer, expression and evaluatorId for 
     /// this action. If there is no expression, the expression string and the
@@ -50,7 +50,7 @@ public:
     /// <param name="evaluatorId"> evaluator id. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setBaseDistance(double baseDistance, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setBaseDistance(double baseDistance, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Sets other distance value for chamfer, expression and evaluatorId for 
     /// this action. If there is no expression, the expression string and the
@@ -64,7 +64,7 @@ public:
     /// <param name="evaluatorId"> evaluator id. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setOtherDistance(double otherDistance, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setOtherDistance(double otherDistance, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Gets base distance value for chamfer, expression and evaluatorId for 
     /// this action. If there is no expression, the expression string and the
@@ -77,7 +77,7 @@ public:
     /// <param name="evaluatorId"> evaluator id. </param>
     /// <returns> base distance value. </returns>
     ///
-	double baseDistance(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  double baseDistance(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary><para> 
     /// Gets other distance value for chamfer, expression and evaluatorId for 
     /// this action. If there is no expression, the expression string and the
@@ -90,14 +90,14 @@ public:
     /// <param name="evaluatorId"> evaluator id. </param>
     /// <returns> other distance value. </returns>
     ///
-	double otherDistance(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  double otherDistance(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary>
     /// Implements abstract method AcDbAssocActionBody::evaluateOverride(), this
     /// method is called while evaluating the parent action that owns this action 
     /// body object.
     /// </summary>
     ///
-	virtual void evaluateOverride() override;
+  virtual void evaluateOverride() override;
     /// <summary>
     /// Utility function to create AcDbAssocEdgeChamferActionBody and attach 
     /// dependencies and actions for given chamferEdges.
@@ -111,6 +111,6 @@ public:
     /// created instance of AcDbAssocEdgeChamferActionBody. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     /// 
-	static Acad::ErrorStatus createInstance(const AcDbFullSubentPathArray& chamferEdges, const AcDbSubentId& baseFace, double baseDistance, double otherDistance, bool bEnabled, AcDbObjectId& createdActionId);
+  static Acad::ErrorStatus createInstance(const AcDbFullSubentPathArray& chamferEdges, const AcDbSubentId& baseFace, double baseDistance, double otherDistance, bool bEnabled, AcDbObjectId& createdActionId);
 };
 #pragma  pack (pop)

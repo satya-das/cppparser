@@ -1,7 +1,7 @@
 struct S
 {
-	int x;
-	double y;
+  int x;
+  double y;
 };
 S s;
 s.x = 4;

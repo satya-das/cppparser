@@ -15,10 +15,10 @@
 //                the changes to the function definitions to make them
 //                compatible with the application interface.
 #ifndef _ads_db_h
-#	define _ads_db_h	1
-#	ifndef DISABLE_OLD_ADS_NAMES
-#		include "adsmigr.h"
-#	endif
-#	include "acdbads.h"
-#	include "acutads.h"
+#  define _ads_db_h	1
+#  ifndef DISABLE_OLD_ADS_NAMES
+#    include "adsmigr.h"
+#  endif
+#  include "acdbads.h"
+#  include "acutads.h"
 #endif

@@ -12,18 +12,18 @@
 // This is a layer of commonality between the two iterators needed for
 // RxIDDictionary; RxDictSkipListIterator, and RxDictArrayIterator.
 #ifndef _RXDITER_H
-#	define _RXDITER_H	1
-#	include "rxobject.h"
-#	include "rxiter.h"
-#	include "AdAChar.h"
-#	pragma  pack (push, 8)
+#  define _RXDITER_H	1
+#  include "rxobject.h"
+#  include "rxiter.h"
+#  include "AdAChar.h"
+#  pragma  pack (push, 8)
 class AcRxDictionaryIterator : public AcRxIterator
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxDictionaryIterator, ACBASE_PORT);
-	virtual const ACHAR* key() const = 0;
-	virtual AcRxObject* object() const = 0;
-	virtual Adesk::UInt32 id() const = 0;
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxDictionaryIterator, ACBASE_PORT);
+  virtual const ACHAR* key() const = 0;
+  virtual AcRxObject* object() const = 0;
+  virtual Adesk::UInt32 id() const = 0;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

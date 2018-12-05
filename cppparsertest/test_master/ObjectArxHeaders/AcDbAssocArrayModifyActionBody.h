@@ -30,34 +30,34 @@ class AcDbVertexRef;
 ///
 class ACDB_PORT AcDbAssocArrayModifyActionBody : public AcDbAssocArrayActionBody
 {
-	ACDB_DECLARE_MEMBERS(AcDbAssocArrayModifyActionBody);
+  ACDB_DECLARE_MEMBERS(AcDbAssocArrayModifyActionBody);
 public:
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject. </param>
     ///
-	explicit AcDbAssocArrayModifyActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocArrayModifyActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> Destructor. </summary>
     ///
-	~AcDbAssocArrayModifyActionBody();
+  ~AcDbAssocArrayModifyActionBody();
     /// <summary> Obtains list of items which are being overriden by this
     /// action. </summary>
     /// <param name="indices"> The output list of spatial indices. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getOverridenItems(AcArray<AcDbItemLocator>& indices) const;
+  Acad::ErrorStatus getOverridenItems(AcArray<AcDbItemLocator>& indices) const;
     /// <summary> Sets the list of items which are to be overriden by this
     /// action. </summary>
     /// <param name="indices"> The input list of spatial indices. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setOverridenItems(const AcArray<AcDbItemLocator>& indices);
+  Acad::ErrorStatus setOverridenItems(const AcArray<AcDbItemLocator>& indices);
     /// <summary> Checks whether an item at given index is controlled by this
     /// action. This method returns true if this item is being overridden by
     /// this action.</summary>
     /// <param name="item"> The input reference of array item. </param>
     /// <returns> true, if the item is controlled by this action. </returns>
     ///
-	virtual bool controlsItem(const AcDbAssocArrayItem& item) const override;
+  virtual bool controlsItem(const AcDbAssocArrayItem& item) const override;
     /// <summary><para> Creates associative array modification action body to
     /// override given set of items from the array. This method is also 
     /// responsible for creating action and attaching appropriate dependencies. 
@@ -72,5 +72,5 @@ public:
     /// <param name="actionBodyId">  The returned array action body id. </param>
     /// <returns> Acad::ErrorStatus </returns>
     ///
-	static Acad::ErrorStatus createInstance(AcDbObjectId arrayId, const AcArray<AcDbItemLocator>& indices, const AcDbObjectIdArray& substEntities, AcDbVertexRef& basePoint, AcDbObjectId& actionBodyId);
+  static Acad::ErrorStatus createInstance(AcDbObjectId arrayId, const AcArray<AcDbItemLocator>& indices, const AcDbObjectIdArray& substEntities, AcDbVertexRef& basePoint, AcDbObjectId& actionBodyId);
 };

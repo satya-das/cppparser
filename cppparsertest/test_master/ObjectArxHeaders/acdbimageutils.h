@@ -12,7 +12,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef ACDB_DBXUTIL_H
-#	define ACDB_DBXUTIL_H	1
-#	include "acdbport.h"
+#  define ACDB_DBXUTIL_H	1
+#  include "acdbport.h"
 ACDB_PORT bool acdbGetPreviewBitmapFromDwg(const ACHAR* pszDwgfilename, HBITMAP* pPreviewBmp, HPALETTE* pRetPal);
 #endif

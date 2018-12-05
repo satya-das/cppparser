@@ -23,11 +23,11 @@
 class ACDBCORE2D_PORT AcDbAssocVertexActionParam : public AcDbAssocActionParam
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocVertexActionParam);
+  ACRX_DECLARE_MEMBERS(AcDbAssocVertexActionParam);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocVertexActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocVertexActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary><para>
     /// The input AcDbVertexRef is a non-persistent reference to a vertex geometry,
     /// the AcDbAssocVertexActionParam will make a persistent reference to that vertex. 
@@ -50,7 +50,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setVertexRef(const AcDbVertexRef& vertexRef, bool isReadDependency = true, bool isWriteDependency = false, int dependencyOrder = 0);
+  virtual Acad::ErrorStatus setVertexRef(const AcDbVertexRef& vertexRef, bool isReadDependency = true, bool isWriteDependency = false, int dependencyOrder = 0);
     /// <summary> <para>
     /// Returns references to the transient subentities of an AcDbEntity, that 
     /// correspond to the persistent subentity that this vertex action parameter 
@@ -71,7 +71,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getVertexRef(AcArray<AcDbVertexRef>& vertexRefs) const;
+  virtual Acad::ErrorStatus getVertexRef(AcArray<AcDbVertexRef>& vertexRefs) const;
     /// <summary>
     /// A utility method that calls getVertexRef(AcArray AcDbVertexRef) and
     /// returns the first AcDbVertexRef in the array, or an non-eOk ErrorStatus 
@@ -85,7 +85,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getVertexRef(AcDbVertexRef& vertexRef) const;
+  Acad::ErrorStatus getVertexRef(AcDbVertexRef& vertexRef) const;
     /// <summary><para>
     /// Sets new geometry of the referenced subentity of the AcDbEntity the action parameter
     /// depends on via an AcDbAssocDependency or AcDbAssocGeomDependency.
@@ -100,7 +100,7 @@ public:
     /// <param name="newPosition"> New coordinates of the vertex subentity. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setVertexSubentityGeometry(const AcGePoint3d& newPosition);
+  virtual Acad::ErrorStatus setVertexSubentityGeometry(const AcGePoint3d& newPosition);
     /// <summary>
     /// If this action parameter depends on an AcDbEntity via an AcDbAssocDependency
     /// or AcDbAssocGeomDependency, it returns AcDbCompoundObjectId of the entity 
@@ -113,6 +113,6 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getDependentOnCompoundObject(AcDbCompoundObjectId& compoundId) const;
+  Acad::ErrorStatus getDependentOnCompoundObject(AcDbCompoundObjectId& compoundId) const;
 };
 #pragma  pack (pop)

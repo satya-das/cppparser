@@ -15,7 +15,7 @@
 //                the changes to the function definitions to make them
 //                compatible with the application interface.
 #ifndef _ads_h
-#	define _ads_h	1
-#	include "ads_db.h"
-#	include "acedads.h"
+#  define _ads_h	1
+#  include "ads_db.h"
+#  include "acedads.h"
 #endif

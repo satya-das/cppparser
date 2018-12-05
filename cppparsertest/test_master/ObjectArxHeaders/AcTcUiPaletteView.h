@@ -23,27 +23,27 @@
 class ACTCUI_PORT CAcTcUiPaletteView : public CAcTcUiCatalogView
 {
 public:
-	CAcTcUiPaletteView();
-	virtual ~CAcTcUiPaletteView();
+  CAcTcUiPaletteView();
+  virtual ~CAcTcUiPaletteView();
 protected:
-	virtual DROPEFFECT DragEnter(ADUI_DRAGDATA* pDragData);
-	virtual DROPEFFECT DragOver(ADUI_DRAGDATA* pDragData);
-	virtual void DragLeave(ADUI_DRAGDATA* pDragData);
-	virtual DROPEFFECT Drop(ADUI_DRAGDATA* pDragData);
-	virtual DROPEFFECT DropEx(ADUI_DRAGDATA* pDragData);
+  virtual DROPEFFECT DragEnter(ADUI_DRAGDATA* pDragData);
+  virtual DROPEFFECT DragOver(ADUI_DRAGDATA* pDragData);
+  virtual void DragLeave(ADUI_DRAGDATA* pDragData);
+  virtual DROPEFFECT Drop(ADUI_DRAGDATA* pDragData);
+  virtual DROPEFFECT DropEx(ADUI_DRAGDATA* pDragData);
     //{{AFX_VIRTUAL(CAcTcUiPaletteView)
     //}}AFX_VIRTUAL
     // Protected constructor
-	CAcTcUiPaletteView(AcTcUiSystemInternals*);
+  CAcTcUiPaletteView(AcTcUiSystemInternals*);
     //{{AFX_MSG(CAcTcUiPaletteView)
-	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-	afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
-	afx_msg void OnInvokeCommand(UINT nID);
-	afx_msg void OnPaletteRemove();
-	afx_msg void OnCatalogItemSpecifyImage();
-	afx_msg void OnCatalogItemRemoveImage();
-	afx_msg void OnCatalogItemUpdateImage();
+  afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+  afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+  afx_msg void OnInvokeCommand(UINT nID);
+  afx_msg void OnPaletteRemove();
+  afx_msg void OnCatalogItemSpecifyImage();
+  afx_msg void OnCatalogItemRemoveImage();
+  afx_msg void OnCatalogItemUpdateImage();
     //}}AFX_MSG
-	DECLARE_MESSAGE_MAP()
+  DECLARE_MESSAGE_MAP()
 };
 #endif

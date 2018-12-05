@@ -36,25 +36,25 @@ public:
     /// This enum is type of relation betweem tool and trimmed area.
     /// </summary>
     ///
-	enum TrimRelation
-	{
+  enum TrimRelation
+  {
         /// <summary>
         /// Trimmed area is outside the tool.
         /// </summary>
         ///
-		outside_tool,
+    outside_tool,
         /// <summary>
         /// Trimmed area is inside the tool.
         /// </summary>
         ///
-		inside_tool
-	};
+    inside_tool
+  };
     /// <summary> Default constructor. </summary>
     ///
-	AcDbSurfaceTrimInfo();
+  AcDbSurfaceTrimInfo();
     /// <summary> Default destructor. </summary>
     ///
-	virtual ~AcDbSurfaceTrimInfo();
+  virtual ~AcDbSurfaceTrimInfo();
     /// <summary>
     /// set the information about tool if it is an object of AcDbCurve
     /// </summary>
@@ -67,7 +67,7 @@ public:
     /// <param name="relation">
     /// the relation between tool and trimmed area on blank - inside the tool or outside
     /// </param>
-	void setTrimInfo(const AcDbCompoundObjectId& curveId, const AcGeVector3d& projVector, TrimRelation relation);
+  void setTrimInfo(const AcDbCompoundObjectId& curveId, const AcGeVector3d& projVector, TrimRelation relation);
     /// <summary>
     /// set the information about tool if it is a wire body generated from a curve
     /// </summary>
@@ -80,7 +80,7 @@ public:
     /// <param name="relation">
     /// the relation between tool and trimmed area on blank - inside the tool or outside
     /// </param>
-	void setTrimInfo(ENTITY* pWireBody, const AcGeVector3d& projVector, TrimRelation relation);
+  void setTrimInfo(ENTITY* pWireBody, const AcGeVector3d& projVector, TrimRelation relation);
     /// <summary>
     /// set the information about tool if it is an object of AcDbSurface/AcDbRegion
     /// </summary>
@@ -93,7 +93,7 @@ public:
     /// <param name="subentId">
     /// face subentity id that will be used for trimming if the surface has more than one faces
     /// </param>
-	void setTrimInfo(const AcDbCompoundObjectId& surfaceId, TrimRelation relation, const AcDbSubentId& subentId);
+  void setTrimInfo(const AcDbCompoundObjectId& surfaceId, TrimRelation relation, const AcDbSubentId& subentId);
     /// <summary>
     /// set the information about tool if it is an ASM body from an AcDbSurface/AcDbRegion object
     /// </summary>
@@ -106,18 +106,18 @@ public:
     /// <param name="subentId">
     /// face subentity id that will be used for trimming if the surface has more than one faces
     /// </param>
-	void setTrimInfo(ENTITY* pAsmBody, TrimRelation relation, const AcDbSubentId& subentId);
+  void setTrimInfo(ENTITY* pAsmBody, TrimRelation relation, const AcDbSubentId& subentId);
     /// <summary>
     /// if the tool is a curve (either an object of AcDbCurve or a wire body in ASM)
     /// </summary> 
     ///
-	bool isCurve() const;
+  bool isCurve() const;
     /// <summary>
     /// For Autodesk Internal Use only.
     /// the ASM body of the tool.
     /// </summary> 
     ///
-	ENTITY* toolBody() const;
+  ENTITY* toolBody() const;
     /// <summary>
     /// For Autodesk Internal Use only.
     /// set the ASM body of the tool, the tool is represented as either an ASM body or AcDbCompoundObjectId
@@ -125,59 +125,59 @@ public:
     /// will be used
     /// </summary> 
     ///
-	void setToolBody(ENTITY* pEntity);
+  void setToolBody(ENTITY* pEntity);
     /// <summary>
     /// returns the AcDbCompoundObjectId of the tool, if an ASM body is used, it will return 
     /// AcDbCompoundObjectId::nullId()
     /// </summary> 
     ///
-	AcDbCompoundObjectId toolBodyId() const;
+  AcDbCompoundObjectId toolBodyId() const;
     /// <summary>
     /// sets the AcDbCompoundObjectId of the tool, the tool is represented as either an ASM body 
     /// or AcDbCompoundObjectId if this method is called, the AcDbCompoundObjectId will be stored 
     /// and any ASM data that is previously set will be cleared
     /// </summary> 
     ///
-	void setToolBodyId(const AcDbCompoundObjectId& toolId);
+  void setToolBodyId(const AcDbCompoundObjectId& toolId);
     /// <summary>
     /// returns the TrimRelation between the tool and trimmed area on the blank
     /// </summary> 
     ///
-	TrimRelation relation() const;
+  TrimRelation relation() const;
     /// <summary>
     /// sets the TrimRelation between the tool and trimmed area on the blank
     /// </summary> 
     ///
-	void setRelation(TrimRelation relation);
+  void setRelation(TrimRelation relation);
     /// <summary>
     /// returns the projection vector if the tool is a curve. it is meaningless if 
     /// the tool is a surface/region
     /// </summary> 
     ///
-	AcGeVector3d projVector() const;
+  AcGeVector3d projVector() const;
     /// <summary>
     /// sets the projection vector if the tool is a curve. it shouldn't be called and 
     /// has no effect if the tool is a surface/region
     /// </summary> 
     ///
-	void setProjVector(const AcGeVector3d& projVector);
+  void setProjVector(const AcGeVector3d& projVector);
     /// <summary>
     /// returns the subentity id of the face that is used to trim the blank, if
     /// the tool is a surface/region. Returns kNullSubentId if the tool is a curve
     /// </summary> 
     ///
-	AcDbSubentId faceSubentId() const;
+  AcDbSubentId faceSubentId() const;
 private:
-	bool mbCurve;
+  bool mbCurve;
     // the projection vector that a curve uses to project onto the blank
-	AcGeVector3d mProjVector;
+  AcGeVector3d mProjVector;
     // tool can be either an AcDbCompoundObjectId (db-resident) or 
     // an ENTITY pointer (non-database resident), they are mutual exclusive
-	AcDbCompoundObjectId mToolBodyId;
+  AcDbCompoundObjectId mToolBodyId;
     // optional face subentity id, if the tool has more than one faces
-	AcDbSubentId mToolFaceSubentId;
-	mutable ENTITY* mToolBody;
+  AcDbSubentId mToolFaceSubentId;
+  mutable ENTITY* mToolBody;
     // the relation between the tool and the trimmed piece (outside or inside)
-	TrimRelation mRelation;
+  TrimRelation mRelation;
 };
 #pragma  pack (pop)

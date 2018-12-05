@@ -16,54 +16,54 @@
 class __declspec(novtable) IAcDbPointCloudDataBuffer
 {
 public:
-	enum DataType
-	{
-		kIntensity = 0x00000001,
-		kClassification = 0x00000002,
-		kColor = 0x00000004,
-		kNormal = 0x00000008
-	};
-	typedef Adesk::UInt8 RGBA[4];
-	virtual ~IAcDbPointCloudDataBuffer()
-	{
-	}
+  enum DataType
+  {
+    kIntensity = 0x00000001,
+    kClassification = 0x00000002,
+    kColor = 0x00000004,
+    kNormal = 0x00000008
+  };
+  typedef Adesk::UInt8 RGBA[4];
+  virtual ~IAcDbPointCloudDataBuffer()
+  {
+  }
     /// <summary>
     /// Returns the number of points in this buffer
     /// </summary>
-	virtual Adesk::UInt64 numPoints() const = 0;
+  virtual Adesk::UInt64 numPoints() const = 0;
     /// <summary>
     /// Returns a pointer to the array of points
     /// </summary>
-	virtual const AcGePoint3d* points() const = 0;
+  virtual const AcGePoint3d* points() const = 0;
     /// <summary>
     /// Returns a pointer to the array of point normals, or NULL if not available
     /// </summary>
-	virtual const AcGeVector3d* normals() const = 0;
+  virtual const AcGeVector3d* normals() const = 0;
     /// <summary>
     /// Returns the pointer to the array of point colors, or NULL if not available.
     /// Note that RGB corresponds to red, green, blue color values. The "A" value is reserved for internal usage.
     /// </summary>
-	virtual const RGBA* colors() const = 0;
+  virtual const RGBA* colors() const = 0;
     /// <summary>
     /// Returns the pointer to the array of point intensities, or NULL if not available
     /// </summary>
-	virtual const Adesk::UInt8* intensity() const = 0;
+  virtual const Adesk::UInt8* intensity() const = 0;
     /// <summary>
     /// Returns the pointer to the array of point classifications, or NULL if not available
     /// </summary>
-	virtual const Adesk::UInt8* classifications() const = 0;
+  virtual const Adesk::UInt8* classifications() const = 0;
     /// <summary>
     /// Gives the matrix that transforms this buffer's points from its local coordinate system to WCS.
     /// </summary>
-	virtual const AcGeMatrix3d& transform() const = 0;
+  virtual const AcGeMatrix3d& transform() const = 0;
     /// <summary>
     /// Releases this buffer's allocated memory.
     /// </summary>
-	virtual void freeObject() = 0;
+  virtual void freeObject() = 0;
     /// <summary>
     /// Reserved for internal use. Do not call this method.
     /// </summary>
-	virtual void* getBuffer() const = 0;
+  virtual void* getBuffer() const = 0;
 };
 /// <summary>
 /// Implement this interface to filter points based on point's coordinate.
@@ -76,18 +76,18 @@ public:
     /// <summmary>
     /// Represents whether a given point is inside, outside, or in the edge of a filter.
     /// </summmary>
-	enum FilterResult
-	{
-		FILTER_INSIDE = 0,
-		FILTER_OUTSIDE,
-		FILTER_INTERSECTS
-	};
+  enum FilterResult
+  {
+    FILTER_INSIDE = 0,
+    FILTER_OUTSIDE,
+    FILTER_INTERSECTS
+  };
     /// <summmary>
     /// Destructor
     /// </summmary>
-	virtual ~IAcDbPointCloudSpatialFilter()
-	{
-	}
+  virtual ~IAcDbPointCloudSpatialFilter()
+  {
+  }
     /// <summary>
     /// Tests whether an axis-aligned box is inside, outside or on the border of the volume of interest.
     /// </summary>
@@ -104,7 +104,7 @@ public:
     /// Note: If your filter does not support individual point filtering, you
     /// should only returns FILTER_OUTSIDE or FILTER_OUTSIDE here.
     /// </remarks>
-	virtual FilterResult testCell(const AcGePoint3d& min, const AcGePoint3d& max) const = 0;
+  virtual FilterResult testCell(const AcGePoint3d& min, const AcGePoint3d& max) const = 0;
     /// <summary>
     /// Tests if the point is inside the volume of interest
     /// </summary>
@@ -119,7 +119,7 @@ public:
     /// Note: This function will be called once for every point in the cells that
     /// are intersected (testCell() returned FILTER_INTERSECTS) so it needs to be very fast.
     /// </remarks>
-	virtual FilterResult testPoint(const AcGePoint3d& point) const = 0;
+  virtual FilterResult testPoint(const AcGePoint3d& point) const = 0;
     /// <summmary>
     /// Creates a copy of this filter that represents the current filter's volume of interest
     /// after being transformed by the given transformation matrix.
@@ -128,7 +128,7 @@ public:
     /// <returns>
     /// Returns a transformed filter.
     /// </returns>
-	virtual IAcDbPointCloudSpatialFilter* transformFilter(const AcGeMatrix3d& mat) const = 0;
+  virtual IAcDbPointCloudSpatialFilter* transformFilter(const AcGeMatrix3d& mat) const = 0;
     /// <summmary>
     /// Creates a clone of the filter and returns a pointer to the clone.
     /// The filter will always be cloned before it's used.
@@ -139,12 +139,12 @@ public:
     /// <returns>
     /// Returns a copy of the filter.
     /// </returns>
-	virtual IAcDbPointCloudSpatialFilter* clone() const = 0;
+  virtual IAcDbPointCloudSpatialFilter* clone() const = 0;
     /// <summmary>
     /// Deletes the filter itself.
     /// Typically this would be implemented using 'delete this;'.
     /// </summmary>
-	virtual void freeObject() = 0;
+  virtual void freeObject() = 0;
 };
 /// <summary>
 /// This interface filters points based on point's attribute
@@ -156,9 +156,9 @@ public:
 class __declspec(novtable) IAcDbPointCloudAttributeFilter
 {
 public:
-	virtual ~IAcDbPointCloudAttributeFilter()
-	{
-	}
+  virtual ~IAcDbPointCloudAttributeFilter()
+  {
+  }
     /// <summmary>
     /// Checks if a point passes this filter.
     /// </summmary>
@@ -166,7 +166,7 @@ public:
     /// <param name="intensity">The intensity. Note that this value is not defined if the corresponding scan does not have intensity</param>
     /// <param name="normal">The surface normal. Note that normal value is not in WCS.</param>
     /// <param name="classification">The classification. If the corresponding scan does not have classification then this value is zero</param>
-	virtual bool testPoint(const Adesk::UInt8 rgba[4], Adesk::UInt8 intensity, const float normal[3], Adesk::UInt8 classification) const = 0;
+  virtual bool testPoint(const Adesk::UInt8 rgba[4], Adesk::UInt8 intensity, const float normal[3], Adesk::UInt8 classification) const = 0;
     /// <summmary>
     /// Creates a clone of the filter and returns a pointer to the clone.
     /// The filter will always be cloned before it's used.
@@ -177,7 +177,7 @@ public:
     /// <returns>
     /// Returns a copy of the filter.
     /// </returns>
-	virtual IAcDbPointCloudAttributeFilter* clone() const = 0;
+  virtual IAcDbPointCloudAttributeFilter* clone() const = 0;
     /// <summmary>
     /// Creates a copy of this filter that represents the current filter's volume of interest
     /// after being transformed by the given transformation matrix.
@@ -186,12 +186,12 @@ public:
     /// <returns>
     /// Returns a transformed filter.
     /// </returns>
-	virtual IAcDbPointCloudAttributeFilter* transformFilter(const AcGeMatrix3d& mat) const = 0;
+  virtual IAcDbPointCloudAttributeFilter* transformFilter(const AcGeMatrix3d& mat) const = 0;
     /// <summmary>
     /// Deletes the filter itself.
     /// Typically this would be implemented using 'delete this;'.
     /// </summmary>
-	virtual void freeObject() = 0;
+  virtual void freeObject() = 0;
 };
 /// <summary>
 /// This interface processes all point data inside of a point cloud.
@@ -199,14 +199,14 @@ public:
 class __declspec(novtable) IAcDbPointCloudPointProcessor
 {
 public:
-	enum ProcessSate
-	{
-		Abort,
-		Continue
-	};
-	virtual ~IAcDbPointCloudPointProcessor()
-	{
-	}
+  enum ProcessSate
+  {
+    Abort,
+    Continue
+  };
+  virtual ~IAcDbPointCloudPointProcessor()
+  {
+  }
     /// <description>
     /// Processes the point data inside the data buffer.
     /// </description>
@@ -215,5 +215,5 @@ public:
     /// Abort -- cancel the current processing.
     /// Continue -- continue to the next buffer.
     /// </returns>
-	virtual ProcessSate process(const IAcDbPointCloudDataBuffer* buffer) = 0;
+  virtual ProcessSate process(const IAcDbPointCloudDataBuffer* buffer) = 0;
 };

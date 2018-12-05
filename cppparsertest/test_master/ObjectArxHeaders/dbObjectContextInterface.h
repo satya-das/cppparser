@@ -44,7 +44,7 @@ ACDBCORE2D_PORT const AcString& acdbAnnotationScaleCollectionName();
 class AcDbObjectContextInterface : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbObjectContextInterface);
+  ACRX_DECLARE_MEMBERS(AcDbObjectContextInterface);
     /// <summary>
     /// Determines if a particular context type is supported by the object. 
     /// </summary>
@@ -67,7 +67,7 @@ public:
     /// the object currently participates in any contexts of that type. See
     /// also the hasContext() method. 
     /// </remarks>
-	virtual bool supportsCollection(const AcDbObject* pObject, const AcString& collectionName) const = 0;
+  virtual bool supportsCollection(const AcDbObject* pObject, const AcString& collectionName) const = 0;
     /// <summary>
     /// Determines if an object is currently active in a partuclar context. 
     /// </summary>
@@ -84,7 +84,7 @@ public:
     /// Returns true if the object supports the context type and is currently
     /// active in the specified context instance.
     /// </returns>
-	virtual bool hasContext(const AcDbObject* pObject, const AcDbObjectContext& context) const = 0;
+  virtual bool hasContext(const AcDbObject* pObject, const AcDbObjectContext& context) const = 0;
     /// <summary>
     /// Adds a context to the list of active contexts for an object.
     /// </summary>
@@ -104,7 +104,7 @@ public:
     /// exists. 
     /// </returns>
     ///
-	virtual Acad::ErrorStatus addContext(AcDbObject* pObject, const AcDbObjectContext& context) const = 0;
+  virtual Acad::ErrorStatus addContext(AcDbObject* pObject, const AcDbObjectContext& context) const = 0;
     /// <summary>
     /// Removes a contextfrom the list of active contexts for an object.
     /// </summary>
@@ -122,6 +122,6 @@ public:
     /// object does not support the context type. 
     /// </returns>
     ///    
-	virtual Acad::ErrorStatus removeContext(AcDbObject* pObject, const AcDbObjectContext& context) const = 0;
+  virtual Acad::ErrorStatus removeContext(AcDbObject* pObject, const AcDbObjectContext& context) const = 0;
 };
 #pragma  pack (pop)

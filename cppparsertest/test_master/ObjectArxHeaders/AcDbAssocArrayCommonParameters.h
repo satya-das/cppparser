@@ -29,10 +29,10 @@ class AcDbFaceRef;
 class ACDB_PORT AcDbAssocArrayCommonParameters : public AcDbAssocArrayParameters
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocArrayCommonParameters);
+  ACRX_DECLARE_MEMBERS(AcDbAssocArrayCommonParameters);
     /// <summary> Default destructor.</summary>
     ///
-	virtual ~AcDbAssocArrayCommonParameters();
+  virtual ~AcDbAssocArrayCommonParameters();
     /// <summary> 
     /// Gets the level count of the array.
     /// If there is no expression for a particular param,
@@ -42,17 +42,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns level count. </returns>
     ///
-	int levelCount(AcString& expression, AcString& evaluatorId) const;
-	inline int levelCount() const
-	{
-		AcString expression, evaluatorId;
-		return levelCount(expression, evaluatorId);
-	}
-	inline int levelCount(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return levelCount(expression, evaluatorId);
-	}
+  int levelCount(AcString& expression, AcString& evaluatorId) const;
+  inline int levelCount() const
+  {
+    AcString expression, evaluatorId;
+    return levelCount(expression, evaluatorId);
+  }
+  inline int levelCount(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return levelCount(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets the level spacing of the array.
     /// If there is no expression for a particular param,
@@ -62,17 +62,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns level spacing. </returns>
     ///
-	double levelSpacing(AcString& expression, AcString& evaluatorId) const;
-	inline double levelSpacing() const
-	{
-		AcString expression, evaluatorId;
-		return levelSpacing(expression, evaluatorId);
-	}
-	inline double levelSpacing(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return levelSpacing(expression, evaluatorId);
-	}
+  double levelSpacing(AcString& expression, AcString& evaluatorId) const;
+  inline double levelSpacing() const
+  {
+    AcString expression, evaluatorId;
+    return levelSpacing(expression, evaluatorId);
+  }
+  inline double levelSpacing(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return levelSpacing(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets the row count of the array.
     /// If there is no expression for a particular param,
@@ -82,17 +82,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns row count. </returns>
     ///
-	int rowCount(AcString& expression, AcString& evaluatorId) const;
-	inline int rowCount() const
-	{
-		AcString expression, evaluatorId;
-		return rowCount(expression, evaluatorId);
-	}
-	inline int rowCount(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return rowCount(expression, evaluatorId);
-	}
+  int rowCount(AcString& expression, AcString& evaluatorId) const;
+  inline int rowCount() const
+  {
+    AcString expression, evaluatorId;
+    return rowCount(expression, evaluatorId);
+  }
+  inline int rowCount(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return rowCount(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets the row elevation of the array.
     /// If there is no expression for a particular param,
@@ -102,17 +102,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns row elevation. </returns>
     ///
-	double rowElevation(AcString& expression, AcString& evaluatorId) const;
-	inline double rowElevation() const
-	{
-		AcString expression, evaluatorId;
-		return rowElevation(expression, evaluatorId);
-	}
-	inline double rowElevation(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return rowElevation(expression, evaluatorId);
-	}
+  double rowElevation(AcString& expression, AcString& evaluatorId) const;
+  inline double rowElevation() const
+  {
+    AcString expression, evaluatorId;
+    return rowElevation(expression, evaluatorId);
+  }
+  inline double rowElevation(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return rowElevation(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets the row spacing of the array.
     /// If there is no expression for a particular param,
@@ -122,17 +122,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns row spacing. </returns>
     ///
-	double rowSpacing(AcString& expression, AcString& evaluatorId) const;
-	inline double rowSpacing() const
-	{
-		AcString expression, evaluatorId;
-		return rowSpacing(expression, evaluatorId);
-	}
-	inline double rowSpacing(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return rowSpacing(expression, evaluatorId);
-	}
+  double rowSpacing(AcString& expression, AcString& evaluatorId) const;
+  inline double rowSpacing() const
+  {
+    AcString expression, evaluatorId;
+    return rowSpacing(expression, evaluatorId);
+  }
+  inline double rowSpacing(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return rowSpacing(expression, evaluatorId);
+  }
     /// <summary> 
     /// Sets the level count of the array.
     /// If there is no expression for the parameter, the expression string and 
@@ -144,7 +144,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setLevelCount(int nLevels, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setLevelCount(int nLevels, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the level spacing of the array.
     /// If there is no expression for the parameter, the expression string and 
@@ -156,7 +156,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setLevelSpacing(double offset, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setLevelSpacing(double offset, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the row count of the array.
     /// If there is no expression for the parameter, the expression string and 
@@ -168,7 +168,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setRowCount(int nRows, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setRowCount(int nRows, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the row elevation of the array.
     /// If there is no expression for the parameter, the expression string and 
@@ -180,7 +180,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setRowElevation(double elevation, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setRowElevation(double elevation, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the row spacing of the array.
     /// If there is no expression for the parameter, the expression string and 
@@ -192,7 +192,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setRowSpacing(double offset, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setRowSpacing(double offset, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary>
     /// Obtains array base plane geometry definition if there was any base
     /// plane information was set to the parameters. Base plane can be defined
@@ -207,7 +207,7 @@ public:
     /// will return empty face ref. </param>
     /// <returns> Acad::ErrorStatus </returns>
     ///
-	Acad::ErrorStatus getBasePlane(AcDbVertexRef& basePoint, AcGeVector3d& normal, AcDbFaceRef* pFace = NULL) const;
+  Acad::ErrorStatus getBasePlane(AcDbVertexRef& basePoint, AcGeVector3d& normal, AcDbFaceRef* pFace = NULL) const;
     /// <summary>
     /// Sets array base plane geometry definition. Base plane is surface or
     /// plane information on which array is laid out.
@@ -219,7 +219,7 @@ public:
     /// passed the base plane is defined based on input normal. </param>
     /// <returns> Acad::ErrorStatus </returns>
     ///
-	Acad::ErrorStatus setBasePlane(const AcDbVertexRef& basePoint, const AcGeVector3d& normal, const AcDbFaceRef* pFace = NULL);
+  Acad::ErrorStatus setBasePlane(const AcDbVertexRef& basePoint, const AcGeVector3d& normal, const AcDbFaceRef* pFace = NULL);
     /// <summary>
     /// Obtains canonical form of given item locator. The given locator may be
     /// counted wrt start or end, but the returned canonical form is always
@@ -228,8 +228,8 @@ public:
     /// <param name="locator">  The input item locator or spatial index. </param>
     /// <returns> Canonical form of input locator. </returns>
     ///
-	virtual AcDbItemLocator getCanonicalForm(const AcDbItemLocator& locator) const;
+  virtual AcDbItemLocator getCanonicalForm(const AcDbItemLocator& locator) const;
 protected:
-	friend class AcDbImpAssocArrayCommonParameters;
-	explicit AcDbAssocArrayCommonParameters(AcDbImpAssocArrayCommonParameters* pSelf);
+  friend class AcDbImpAssocArrayCommonParameters;
+  explicit AcDbAssocArrayCommonParameters(AcDbImpAssocArrayCommonParameters* pSelf);
 };

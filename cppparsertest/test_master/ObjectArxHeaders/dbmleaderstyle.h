@@ -10,10 +10,10 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 #ifndef __DBMLEADERSTYLE_H__
-#	define __DBMLEADERSTYLE_H__
-#	pragma  once
-#	include "AcString.h"
-#	include "dbmain.h"
+#  define __DBMLEADERSTYLE_H__
+#  pragma  once
+#  include "AcString.h"
+#  include "dbmain.h"
 ////////////////////////////////////////////////////////////////////////
 // class AcDbMLeader
 ////////////////////////////////////////////////////////////////////////
@@ -32,8 +32,8 @@ public:
     /// This enum is content type of mleader.
     /// </summary>
     ///
-	enum ContentType
-	{
+  enum ContentType
+  {
         /// <summary>
         /// mleader has none content
         /// </summary>
@@ -41,7 +41,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kNoneContent = 0,
+    kNoneContent = 0,
         /// <summary>
         /// mleader has block content
         /// </summary>
@@ -49,7 +49,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kBlockContent = 1,
+    kBlockContent = 1,
         /// <summary>
         /// mleader has mtext content
         /// </summary>
@@ -57,7 +57,7 @@ public:
         /// <value>
         /// 2
         /// </value>
-		kMTextContent = 2,
+    kMTextContent = 2,
         /// <summary>
         /// mleader has tolerance content
         /// </summary>
@@ -65,14 +65,14 @@ public:
         /// <value>
         /// 3
         /// </value>
-		kToleranceContent = 3
-	};
+    kToleranceContent = 3
+  };
     /// <summary>
     /// This enum is draw mleader order type.
     /// </summary>
     ///
-	enum DrawMLeaderOrderType
-	{
+  enum DrawMLeaderOrderType
+  {
         /// <summary>
         /// draw mleader content first
         /// </summary>
@@ -80,7 +80,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kDrawContentFirst = 0,
+    kDrawContentFirst = 0,
         /// <summary>
         /// draw mleader leaderline first
         /// </summary>
@@ -88,14 +88,14 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kDrawLeaderFirst = 1
-	};
+    kDrawLeaderFirst = 1
+  };
     /// <summary>
     /// This enum is draw mleaderLine order type.
     /// </summary>
     ///
-	enum DrawLeaderOrderType
-	{
+  enum DrawLeaderOrderType
+  {
         /// <summary>
         /// draw leaderline head first
         /// </summary>
@@ -103,7 +103,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kDrawLeaderHeadFirst = 0,
+    kDrawLeaderHeadFirst = 0,
         /// <summary>
         /// draw leaderline tail first
         /// </summary>
@@ -111,14 +111,14 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kDrawLeaderTailFirst = 1
-	};
+    kDrawLeaderTailFirst = 1
+  };
     /// <summary>
     /// This enum is leader type of mleader.
     /// </summary>
     ///
-	enum LeaderType
-	{
+  enum LeaderType
+  {
         /// <summary>
         /// invisible leader
         /// </summary>
@@ -126,7 +126,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kInVisibleLeader = 0,
+    kInVisibleLeader = 0,
         /// <summary>
         /// straight line leader
         /// </summary>
@@ -134,7 +134,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kStraightLeader = 1,
+    kStraightLeader = 1,
         /// <summary>
         /// spline line leader
         /// </summary>
@@ -142,14 +142,14 @@ public:
         /// <value>
         /// 2
         /// </value>
-		kSplineLeader = 2
-	};
+    kSplineLeader = 2
+  };
     /// <summary>
     /// This enum is text attachment direction of mleader text content.
     /// </summary>
     ///
-	enum TextAttachmentDirection
-	{
+  enum TextAttachmentDirection
+  {
         /// <summary>
         /// Horizontally attach to mtext content
         /// </summary>
@@ -157,7 +157,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kAttachmentHorizontal = 0,
+    kAttachmentHorizontal = 0,
         /// <summary>
         /// Vertically attach to mtext content
         /// </summary>
@@ -165,14 +165,14 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kAttachmentVertical = 1
-	};
+    kAttachmentVertical = 1
+  };
     /// <summary>
     /// This enum is text attachment type of mleader text content.
     /// </summary>
     ///
-	enum TextAttachmentType
-	{
+  enum TextAttachmentType
+  {
         /// <summary>
         /// attach to top of top text line of mtext content
         /// </summary>
@@ -180,7 +180,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kAttachmentTopOfTop = 0,
+    kAttachmentTopOfTop = 0,
         /// <summary>
         /// attach to middle of top text line of mtext content
         /// </summary>
@@ -188,7 +188,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kAttachmentMiddleOfTop = 1,
+    kAttachmentMiddleOfTop = 1,
         /// <summary>
         /// attach to middle of mtext content
         /// </summary>
@@ -196,7 +196,7 @@ public:
         /// <value>
         /// 2
         /// </value>
-		kAttachmentMiddle = 2,
+    kAttachmentMiddle = 2,
         /// <summary>
         /// attach to middle of bottom text line of mtext content
         /// </summary>
@@ -204,7 +204,7 @@ public:
         /// <value>
         /// 3
         /// </value>
-		kAttachmentMiddleOfBottom = 3,
+    kAttachmentMiddleOfBottom = 3,
         /// <summary>
         /// attach to bottom of bottom text line of mtext content
         /// </summary>
@@ -212,7 +212,7 @@ public:
         /// <value>
         /// 4
         /// </value>
-		kAttachmentBottomOfBottom = 4,
+    kAttachmentBottomOfBottom = 4,
         /// <summary>
         /// attach to bottom of bottom text line of mtext content and draw a underline
         /// </summary>
@@ -220,7 +220,7 @@ public:
         /// <value>
         /// 5
         /// </value>
-		kAttachmentBottomLine = 5,
+    kAttachmentBottomLine = 5,
         /// <summary>
         /// attach to bottom of top text line of mtext content and draw a underline
         /// </summary>
@@ -228,7 +228,7 @@ public:
         /// <value>
         /// 6
         /// </value>
-		kAttachmentBottomOfTopLine = 6,
+    kAttachmentBottomOfTopLine = 6,
         /// <summary>
         /// attach to bottom of top text line of mtext content
         /// </summary>
@@ -236,7 +236,7 @@ public:
         /// <value>
         /// 7
         /// </value>
-		kAttachmentBottomOfTop = 7,
+    kAttachmentBottomOfTop = 7,
         /// <summary>
         /// attach to bottom of top text line of mtext content, and draw underline to whole mtext
         /// </summary>
@@ -244,7 +244,7 @@ public:
         /// <value>
         /// 8
         /// </value>
-		kAttachmentAllLine = 8,
+    kAttachmentAllLine = 8,
         /// <summary>
         /// vertically attach to center of mtext content top/bottom
         /// </summary>
@@ -252,7 +252,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kAttachmentCenter = 9,
+    kAttachmentCenter = 9,
         /// <summary>
         /// vertically attach to center of mtext content top/bottom, and draw a overline/underline
         /// </summary>
@@ -260,14 +260,14 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kAttachmentLinedCenter = 10
-	};
+    kAttachmentLinedCenter = 10
+  };
     /// <summary>
     /// This enum is text angle type of mleader text content.
     /// </summary>
     ///
-	enum TextAngleType
-	{
+  enum TextAngleType
+  {
         /// <summary>
         /// The direction of text is according to the last leaderline segment.
         /// </summary>
@@ -275,7 +275,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kInsertAngle = 0,
+    kInsertAngle = 0,
         /// <summary>
         /// The direction of text is always horizontal.
         /// </summary>
@@ -283,7 +283,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kHorizontalAngle = 1,
+    kHorizontalAngle = 1,
         /// <summary>
         /// The direction of text is according to the last leaderline segment and text is always right-side up.
         /// </summary>
@@ -291,14 +291,14 @@ public:
         /// <value>
         /// 2
         /// </value>
-		kAlwaysRightReadingAngle = 2
-	};
+    kAlwaysRightReadingAngle = 2
+  };
     /// <summary>
     /// This enum is text alignment type.
     /// </summary>
     ///
-	enum TextAlignmentType
-	{
+  enum TextAlignmentType
+  {
         /// <summary>
         /// Left-justifies text in the MText.
         /// </summary>
@@ -306,7 +306,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kLeftAlignment = 0,
+    kLeftAlignment = 0,
         /// <summary>
         /// Centers text in MText.
         /// </summary>
@@ -314,7 +314,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kCenterAlignment = 1,
+    kCenterAlignment = 1,
         /// <summary>
         /// Right-justifies text in MText.
         /// </summary>
@@ -322,14 +322,14 @@ public:
         /// <value>
         /// 2
         /// </value>
-		kRightAlignment = 2
-	};
+    kRightAlignment = 2
+  };
     /// <summary>
     /// This enum is block connection type of mleader block content.
     /// </summary>
     ///
-	enum BlockConnectionType
-	{
+  enum BlockConnectionType
+  {
         /// <summary>
         /// Connect to extents of block.
         /// </summary>
@@ -337,7 +337,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kConnectExtents = 0,
+    kConnectExtents = 0,
         /// <summary>
         /// Connect to block base(origin) point.
         /// </summary>
@@ -345,14 +345,14 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kConnectBase = 1
-	};
+    kConnectBase = 1
+  };
     /// <summary>
     /// This enum is leader direction type.
     /// </summary>
     ///
-	enum LeaderDirectionType
-	{
+  enum LeaderDirectionType
+  {
         /// <summary>
         /// unkown direction leader.
         /// </summary>
@@ -360,7 +360,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kUnknownLeader = 0,
+    kUnknownLeader = 0,
         /// <summary>
         /// left leader.
         /// </summary>
@@ -368,7 +368,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kLeftLeader = 1,
+    kLeftLeader = 1,
         /// <summary>
         /// right leader.
         /// </summary>
@@ -376,7 +376,7 @@ public:
         /// <value>
         /// 2
         /// </value>
-		kRightLeader = 2,
+    kRightLeader = 2,
         /// <summary>
         /// top leader.
         /// </summary>
@@ -384,7 +384,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kTopLeader = 3,
+    kTopLeader = 3,
         /// <summary>
         /// bottom leader.
         /// </summary>
@@ -392,14 +392,14 @@ public:
         /// <value>
         /// 2
         /// </value>
-		kBottomLeader = 4
-	};
+    kBottomLeader = 4
+  };
     /// <summary>
     /// This enum is segment angle type.
     /// </summary>
     ///
-	enum SegmentAngleType
-	{
+  enum SegmentAngleType
+  {
         /// <summary>
         /// Any degrees.
         /// </summary>
@@ -407,7 +407,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kAny = 0,
+    kAny = 0,
         /// <summary>
         /// 15 degrees.
         /// </summary>
@@ -415,7 +415,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-		k15 = 1,
+    k15 = 1,
         /// <summary>
         /// 30 degrees.
         /// </summary>
@@ -423,7 +423,7 @@ public:
         /// <value>
         /// 2
         /// </value>
-		k30 = 2,
+    k30 = 2,
         /// <summary>
         /// 45 degrees.
         /// </summary>
@@ -431,7 +431,7 @@ public:
         /// <value>
         /// 3
         /// </value>
-		k45 = 3,
+    k45 = 3,
         /// <summary>
         /// 60 degrees.
         /// </summary>
@@ -439,7 +439,7 @@ public:
         /// <value>
         /// 4
         /// </value>
-		k60 = 4,
+    k60 = 4,
         /// <summary>
         /// 90 degrees.
         /// </summary>
@@ -447,7 +447,7 @@ public:
         /// <value>
         /// 5
         /// </value>
-		k90 = 6,
+    k90 = 6,
         /// <summary>
         /// 180 degrees.
         /// </summary>
@@ -455,8 +455,8 @@ public:
         /// <value>
         /// 6
         /// </value>
-		kHorz = 12
-	};
+    kHorz = 12
+  };
     /// <summary>
     /// Default constructor.
     /// </summary>
@@ -465,7 +465,7 @@ public:
     /// Default constructor.
     /// </remarks>
     ///
-	AcDbMLeaderStyle();
+  AcDbMLeaderStyle();
     /// <summary>
     /// Default destructor.
     /// </summary>
@@ -474,8 +474,8 @@ public:
     /// Default destructor.
     /// </remarks>
     ///
-	virtual ~AcDbMLeaderStyle();
-	ACDB_DECLARE_MEMBERS(AcDbMLeaderStyle);
+  virtual ~AcDbMLeaderStyle();
+  ACDB_DECLARE_MEMBERS(AcDbMLeaderStyle);
     /// <summary>
     /// Get the name of AcDbMLeaderStyle
     /// </summary>
@@ -487,8 +487,8 @@ public:
     /// <returns>
     /// Return Acae::eOk if Successful
     /// </returns>
-	virtual Acad::ErrorStatus getName(AcString& sName) const;
-	virtual Acad::ErrorStatus getName(ACHAR*& pszName) const final;
+  virtual Acad::ErrorStatus getName(AcString& sName) const;
+  virtual Acad::ErrorStatus getName(ACHAR*& pszName) const final;
     /// <summary>
     /// Set the name of AcDbMLeaderStyle
     /// </summary>
@@ -500,7 +500,7 @@ public:
     /// <returns>
     /// Return Acae::eOk if Successful
     /// </returns>
-	virtual Acad::ErrorStatus setName(const ACHAR* pszName);
+  virtual Acad::ErrorStatus setName(const ACHAR* pszName);
     /// <summary>
     /// Return if the AcDbMLeaderStyle can be renamed.
     /// </summary>
@@ -508,7 +508,7 @@ public:
     /// <returns>
     /// Return true if the AcDbMLeaderStyle is not Standard style.
     /// </returns>
-	bool isRenamable() const;
+  bool isRenamable() const;
     /// <summary>
     /// Return the pointer to a string containing the description of this mleader style.
     /// </summary>
@@ -516,7 +516,7 @@ public:
     /// <returns>
     /// Return the pointer to a string containing the description of this mleader style.
     /// </returns>
-	virtual const ACHAR* description(void) const;
+  virtual const ACHAR* description(void) const;
     /// <summary>
     /// Set the pointer to a string containing the description of this mleader style.
     /// </summary>
@@ -528,7 +528,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus setDescription(const ACHAR* pszDescription);
+  virtual Acad::ErrorStatus setDescription(const ACHAR* pszDescription);
     /// <summary>
     /// Return an unsigned integer representing the operation bit set for the AcDbMLeaderStyle object.
     /// </summary>
@@ -536,7 +536,7 @@ public:
     /// <returns>
     /// Return an unsigned integer representing the operation bit set for the AcDbMLeaderStyle object.
     /// </returns>
-	virtual Adesk::UInt32 bitFlags() const;
+  virtual Adesk::UInt32 bitFlags() const;
     /// <summary>
     /// Set the operation bit set for the AcDbMLeaderStyle object.
     /// </summary>
@@ -548,7 +548,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus setBitFlags(Adesk::UInt32 flags);
+  virtual Acad::ErrorStatus setBitFlags(Adesk::UInt32 flags);
     /// <summary>
     /// Set the content type of AcDbMLeaderStyle.
     /// </summary>
@@ -560,7 +560,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setContentType(ContentType contentType);
+  Acad::ErrorStatus setContentType(ContentType contentType);
     /// <summary>
     /// Return the content type of AcDbMLeaderStyle.
     /// </summary>
@@ -568,7 +568,7 @@ public:
     /// <returns>
     /// Return the content type of AcDbMLeaderStyle.
     /// </returns>
-	ContentType contentType() const;
+  ContentType contentType() const;
     /// <summary>
     /// Set the order of MLeader creation.
     /// </summary>
@@ -580,7 +580,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setDrawMLeaderOrderType(DrawMLeaderOrderType drawMLeaderOrderType);
+  Acad::ErrorStatus setDrawMLeaderOrderType(DrawMLeaderOrderType drawMLeaderOrderType);
     /// <summary>
     /// Return the order of MLeader creation.
     /// </summary>
@@ -588,7 +588,7 @@ public:
     /// <returns>
     /// Return the order of MLeader creation.
     /// </returns>
-	DrawMLeaderOrderType drawMLeaderOrderType() const;
+  DrawMLeaderOrderType drawMLeaderOrderType() const;
     /// <summary>
     /// Set the order of Leader line creation when creating a MLeader.
     /// </summary>
@@ -600,7 +600,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setDrawLeaderOrderType(DrawLeaderOrderType drawLeaderOrderType);
+  Acad::ErrorStatus setDrawLeaderOrderType(DrawLeaderOrderType drawLeaderOrderType);
     /// <summary>
     /// Return the order of Leader line creation when creating a MLeader.
     /// </summary>
@@ -608,7 +608,7 @@ public:
     /// <returns>
     /// Return the order of Leader line creation when creating a MLeader.
     /// </returns>
-	DrawLeaderOrderType drawLeaderOrderType() const;
+  DrawLeaderOrderType drawLeaderOrderType() const;
     /// <summary>
     /// Set the max number of segment points in leader lines.
     /// </summary>
@@ -624,7 +624,7 @@ public:
     /// <remarks>
     /// If maxLeaderSegmentsPoints is 0, the max number of points is unlimited.
     /// </remarks>
-	Acad::ErrorStatus setMaxLeaderSegmentsPoints(int maxLeaderSegmentsPoints);
+  Acad::ErrorStatus setMaxLeaderSegmentsPoints(int maxLeaderSegmentsPoints);
     /// <summary>
     /// Return the max number of segment points in leader lines.
     /// </summary>
@@ -633,7 +633,7 @@ public:
     /// Return the max number of segment points in leader lines.
     /// If the max number of points is unlimited, 0 will be returned.
     /// </returns>
-	int maxLeaderSegmentsPoints() const;
+  int maxLeaderSegmentsPoints() const;
     /// <summary>
     /// Set the first segment angle constraint when creating a MLeader
     /// </summary>
@@ -649,7 +649,7 @@ public:
     /// <remarks>
     /// If angle is kAny, the angle constraint is unused.
     /// </remarks>
-	Acad::ErrorStatus setFirstSegmentAngleConstraint(SegmentAngleType angle);
+  Acad::ErrorStatus setFirstSegmentAngleConstraint(SegmentAngleType angle);
     /// <summary>
     /// Return the first segment angle constraint when creating a MLeader.
     /// </summary>
@@ -658,7 +658,7 @@ public:
     /// Return the first segment angle constraint when creating a MLeader.
     /// If the angle constraint is unused, kAny will be returned.
     /// </returns>
-	SegmentAngleType firstSegmentAngleConstraint() const;
+  SegmentAngleType firstSegmentAngleConstraint() const;
     /// <summary>
     /// Set the second segment angle constraint when creating a MLeader
     /// </summary>
@@ -674,7 +674,7 @@ public:
     /// <remarks>
     /// If angle is kAny, the angle constraint is unused.
     /// </remarks>
-	Acad::ErrorStatus setSecondSegmentAngleConstraint(SegmentAngleType angle);
+  Acad::ErrorStatus setSecondSegmentAngleConstraint(SegmentAngleType angle);
     /// <summary>
     /// Return the second segment angle constraint when creating a MLeader.
     /// </summary>
@@ -683,7 +683,7 @@ public:
     /// Return the second segment angle constraint when creating a MLeader.
     /// If the angle constraint is unused, kAny will be returned. 
     /// </returns>
-	SegmentAngleType secondSegmentAngleConstraint() const;
+  SegmentAngleType secondSegmentAngleConstraint() const;
     /// <summary>
     /// Set the leader line type.
     /// </summary>
@@ -695,7 +695,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setLeaderLineType(LeaderType leaderLineType);
+  Acad::ErrorStatus setLeaderLineType(LeaderType leaderLineType);
     /// <summary>
     /// Return the leader line type.
     /// </summary>
@@ -703,7 +703,7 @@ public:
     /// <returns>
     /// Return the leader line type.
     /// </returns>
-	LeaderType leaderLineType() const;
+  LeaderType leaderLineType() const;
     /// <summary>
     /// Set the color of leader lines.
     /// </summary>
@@ -715,7 +715,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setLeaderLineColor(const AcCmColor& leaderLineColor);
+  Acad::ErrorStatus setLeaderLineColor(const AcCmColor& leaderLineColor);
     /// <summary>
     /// Return the color of leader lines.
     /// </summary>
@@ -723,7 +723,7 @@ public:
     /// <returns>
     /// Return the color of leader lines.
     /// </returns>
-	AcCmColor leaderLineColor() const;
+  AcCmColor leaderLineColor() const;
     /// <summary>
     /// Set the linetype of leader lines.
     /// </summary>
@@ -735,7 +735,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setLeaderLineTypeId(AcDbObjectId leaderLineTypeId);
+  Acad::ErrorStatus setLeaderLineTypeId(AcDbObjectId leaderLineTypeId);
     /// <summary>
     /// Return the linetype Id of leader lines.
     /// </summary>
@@ -743,7 +743,7 @@ public:
     /// <returns>
     /// Return the linetype Id of leader lines.
     /// </returns>
-	AcDbObjectId leaderLineTypeId() const;
+  AcDbObjectId leaderLineTypeId() const;
     /// <summary>
     /// Set the line weight of leader lines.
     /// </summary>
@@ -755,7 +755,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setLeaderLineWeight(AcDb::LineWeight leaderLineWeight);
+  Acad::ErrorStatus setLeaderLineWeight(AcDb::LineWeight leaderLineWeight);
     /// <summary>
     /// Return the line weight of leader lines.
     /// </summary>
@@ -763,7 +763,7 @@ public:
     /// <returns>
     /// Return the line weight of leader lines.
     /// </returns>
-	AcDb::LineWeight leaderLineWeight() const;
+  AcDb::LineWeight leaderLineWeight() const;
     /// <summary>
     /// Enable/disable landing of leader line.
     /// </summary>
@@ -779,7 +779,7 @@ public:
     /// <remarks>
     /// If disable landing, the landing gap will be ignored.
     /// </remarks>
-	Acad::ErrorStatus setEnableLanding(bool enableLanding);
+  Acad::ErrorStatus setEnableLanding(bool enableLanding);
     /// <summary>
     /// Indicate whether landing of leader line is enabled.
     /// </summary>
@@ -787,7 +787,7 @@ public:
     /// <returns>
     /// If landing of leader line is enabled, returns true; otherwise, returns false.
     /// </returns>
-	bool enableLanding() const;
+  bool enableLanding() const;
     /// <summary>
     /// Set the gap between MText and the tail of leader lines.
     /// </summary>
@@ -799,7 +799,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setLandingGap(double landingGap);
+  Acad::ErrorStatus setLandingGap(double landingGap);
     /// <summary>
     /// Return the gap between MText and the tail of leader lines.
     /// </summary>
@@ -807,7 +807,7 @@ public:
     /// <returns>
     /// Return the gap between MText and the tail of leader lines.
     /// </returns>
-	double landingGap() const;
+  double landingGap() const;
     /// <summary>
     /// Enable or disable dog-leg leader lines.
     /// </summary>
@@ -819,7 +819,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setEnableDogleg(bool enableDogleg);
+  Acad::ErrorStatus setEnableDogleg(bool enableDogleg);
     /// <summary>
     /// Indicate whether dog-leg leader lines are enabled.
     /// </summary>
@@ -827,7 +827,7 @@ public:
     /// <returns>
     /// Return true if dog-leg leader lines are enabled; otherwise, returns false.
     /// </returns>
-	bool enableDogleg() const;
+  bool enableDogleg() const;
     /// <summary>
     /// Return the length of dog-leg leader line.
     /// </summary>
@@ -839,7 +839,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setDoglegLength(double doglegLength);
+  Acad::ErrorStatus setDoglegLength(double doglegLength);
     /// <summary>
     /// Return the length of dog-leg leader line.
     /// </summary>
@@ -847,7 +847,7 @@ public:
     /// <returns>
     /// Return the length of dog-leg leader line.
     /// </returns>
-	double doglegLength() const;
+  double doglegLength() const;
     /// <summary>
     /// Set the arrow symbol id by arrow name.
     /// </summary>
@@ -859,7 +859,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setArrowSymbolId(const ACHAR* name);
+  Acad::ErrorStatus setArrowSymbolId(const ACHAR* name);
     /// <summary>
     /// Set the arrow symbol by objectId.
     /// </summary>
@@ -871,7 +871,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setArrowSymbolId(AcDbObjectId arrowSymbolId);
+  Acad::ErrorStatus setArrowSymbolId(AcDbObjectId arrowSymbolId);
     /// <summary>
     /// Return objectId of the arrow symbol.
     /// </summary>
@@ -879,7 +879,7 @@ public:
     /// <returns>
     /// Return objectId of the arrow symbol.
     /// </returns>
-	AcDbObjectId arrowSymbolId() const;
+  AcDbObjectId arrowSymbolId() const;
     /// <summary>
     /// Set the arrow size.
     /// </summary>
@@ -891,7 +891,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setArrowSize(double arrowSize);
+  Acad::ErrorStatus setArrowSize(double arrowSize);
     /// <summary>
     /// Return arrow size.
     /// </summary>
@@ -899,7 +899,7 @@ public:
     /// <returns>
     /// Return arrow size.
     /// </returns>
-	double arrowSize() const;
+  double arrowSize() const;
     /// <summary>
     /// Set the default text displayed in MText of balloon content.
     /// </summary>
@@ -915,7 +915,7 @@ public:
     /// <remarks>
     /// This function just copies the mtext's content and fields.
     /// </remarks>
-	Acad::ErrorStatus setDefaultMText(const AcDbMText* defaultMText);
+  Acad::ErrorStatus setDefaultMText(const AcDbMText* defaultMText);
     /// <summary>
     /// Return the default mtext
     /// </summary>
@@ -923,7 +923,7 @@ public:
     /// <returns>
     /// Return the cloned mtext. If there is no default mtext, return NULL.
     /// </returns>
-	AcDbMText* defaultMText() const;
+  AcDbMText* defaultMText() const;
     /// <summary>
     /// Set text style by objectId.
     /// </summary>
@@ -935,7 +935,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setTextStyleId(AcDbObjectId textStyleId);
+  Acad::ErrorStatus setTextStyleId(AcDbObjectId textStyleId);
     /// <summary>
     /// Return the objectId of text style.
     /// </summary>
@@ -943,7 +943,7 @@ public:
     /// <returns>
     /// Return the objectId of text style.
     /// </returns>
-	AcDbObjectId textStyleId() const;
+  AcDbObjectId textStyleId() const;
     /// <summary>
     /// Set the type of text attachment to specific direction leader.
     /// </summary>
@@ -958,7 +958,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setTextAttachmentType(TextAttachmentType textAttachmentType, LeaderDirectionType leaderDirection);
+  Acad::ErrorStatus setTextAttachmentType(TextAttachmentType textAttachmentType, LeaderDirectionType leaderDirection);
     /// <summary>
     /// Returns text attachment type of specific direction leader.
     /// </summary>
@@ -970,7 +970,7 @@ public:
     /// <returns>
     /// Return text attachment type.
     /// </returns>
-	TextAttachmentType textAttachmentType(LeaderDirectionType leaderDirection) const;
+  TextAttachmentType textAttachmentType(LeaderDirectionType leaderDirection) const;
     /// <remarks>
     /// Deprecated: This method will be removed in a future release.
     /// Instead, use the method:
@@ -979,7 +979,7 @@ public:
     ///                                         LeaderDirectionType leaderDirection);
     /// </code>
     /// </remarks>
-	Acad::ErrorStatus setTextAttachmentType(TextAttachmentType textAttachmentType);
+  Acad::ErrorStatus setTextAttachmentType(TextAttachmentType textAttachmentType);
     /// <remarks>
     /// Deprecated: This method will be removed in a future release.
     /// Instead, use the method:
@@ -987,7 +987,7 @@ public:
     /// TextAttachmentType textAttachmentType(LeaderDirectionType leaderDirection) const;
     /// </code>
     /// </remarks>
-	TextAttachmentType textAttachmentType() const;
+  TextAttachmentType textAttachmentType() const;
     /// <summary>
     /// Set the angle type of text with respect to the last leader line segment.
     /// </summary>
@@ -999,7 +999,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setTextAngleType(TextAngleType textAngleType);
+  Acad::ErrorStatus setTextAngleType(TextAngleType textAngleType);
     /// <summary>
     /// Return the angle type of text with respect to the last leader line segment.
     /// </summary>
@@ -1007,7 +1007,7 @@ public:
     /// <returns>
     /// Return the angle type of text with respect to the last leader line segment.
     /// </returns>
-	TextAngleType textAngleType() const;
+  TextAngleType textAngleType() const;
     /// <summary>
     /// Set text alignment type.
     /// </summary>
@@ -1019,7 +1019,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setTextAlignmentType(TextAlignmentType textAlignmentType);
+  Acad::ErrorStatus setTextAlignmentType(TextAlignmentType textAlignmentType);
     /// <summary>
     /// Return text alignment type.
     /// </summary>
@@ -1027,7 +1027,7 @@ public:
     /// <returns>
     /// Return text alignment type.
     /// </returns>
-	TextAlignmentType textAlignmentType() const;
+  TextAlignmentType textAlignmentType() const;
     /// <summary>
     /// Input true to always align text on the left when creating a mleader.
     /// </summary>
@@ -1039,7 +1039,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setTextAlignAlwaysLeft(bool bAlwaysLeft);
+  Acad::ErrorStatus setTextAlignAlwaysLeft(bool bAlwaysLeft);
     /// <summary>
     /// Return true if always align text on the left when creating a mleader.
     /// </summary>
@@ -1047,7 +1047,7 @@ public:
     /// <returns>
     /// Return true if always align text on the left when creating a mleader.
     /// </returns>
-	bool textAlignAlwaysLeft() const;
+  bool textAlignAlwaysLeft() const;
     /// <summary>
     /// Set text color of MText.
     /// </summary>
@@ -1059,7 +1059,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setTextColor(const AcCmColor& textColor);
+  Acad::ErrorStatus setTextColor(const AcCmColor& textColor);
     /// <summary>
     /// Return text color of MText.
     /// </summary>
@@ -1067,7 +1067,7 @@ public:
     /// <returns>
     /// Return text color of MText.
     /// </returns>
-	AcCmColor textColor() const;
+  AcCmColor textColor() const;
     /// <summary>
     /// Set the text height of MText.
     /// </summary>
@@ -1079,7 +1079,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setTextHeight(double textHeight);
+  Acad::ErrorStatus setTextHeight(double textHeight);
     /// <summary>
     /// Return text height of MText.
     /// </summary>
@@ -1087,7 +1087,7 @@ public:
     /// <returns>
     /// Return text height of MText.
     /// </returns>
-	double textHeight() const;
+  double textHeight() const;
     /// <summary>
     /// Display or hide text frame around the MText.
     /// </summary>
@@ -1099,7 +1099,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setEnableFrameText(bool enableFrameText);
+  Acad::ErrorStatus setEnableFrameText(bool enableFrameText);
     /// <summary>
     /// Indicate whether or not the text frame is displayed around the MText.
     /// </summary>
@@ -1107,7 +1107,7 @@ public:
     /// <returns>
     /// Return true if the text frame is enabled; otherwise, return false.
     /// </returns>
-	bool enableFrameText() const;
+  bool enableFrameText() const;
     /// <summary>
     /// Set the alignment space value.
     /// </summary>
@@ -1119,7 +1119,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setAlignSpace(double alignSpace);
+  Acad::ErrorStatus setAlignSpace(double alignSpace);
     /// <summary>
     /// Return alignment space value.
     /// </summary>
@@ -1127,7 +1127,7 @@ public:
     /// <returns>
     /// Return alignment space value.
     /// </returns>
-	double alignSpace() const;
+  double alignSpace() const;
     /// <summary>
     /// Set the Id of the block by name.
     /// </summary>
@@ -1139,7 +1139,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setBlockId(const ACHAR* name);
+  Acad::ErrorStatus setBlockId(const ACHAR* name);
     /// <summary>
     /// Set the Id of the block referenced by MLeader, it's a block table record id.
     /// </summary>
@@ -1151,7 +1151,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setBlockId(AcDbObjectId blockId);
+  Acad::ErrorStatus setBlockId(AcDbObjectId blockId);
     /// <summary>
     /// Return the Id of the block table record referenced by MLeader.
     /// </summary>
@@ -1159,7 +1159,7 @@ public:
     /// <returns>
     /// Return the Id of the block table record referenced by MLeader.
     /// </returns>
-	AcDbObjectId blockId() const;
+  AcDbObjectId blockId() const;
     /// <summary>
     /// Set block color in block content.
     /// </summary>
@@ -1171,7 +1171,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setBlockColor(const AcCmColor& blockColor);
+  Acad::ErrorStatus setBlockColor(const AcCmColor& blockColor);
     /// <summary>
     /// Return block color in block content.
     /// </summary>
@@ -1179,7 +1179,7 @@ public:
     /// <returns>
     /// Return block color in block content.
     /// </returns>
-	AcCmColor blockColor() const;
+  AcCmColor blockColor() const;
     /// <summary>
     /// Set the scale of the block referenced by MLeader.
     /// </summary>
@@ -1196,7 +1196,7 @@ public:
     /// Currently AutoCAD and the ARX API libraries make no use of this method.
     /// This method is deprecated and will be removed in a future version.
     /// </remarks>
-	Acad::ErrorStatus setBlockScale(const AcGeScale3d& scale);
+  Acad::ErrorStatus setBlockScale(const AcGeScale3d& scale);
     /// <summary>
     /// Return the sacle of the block referenced by MLeader.
     /// </summary>
@@ -1209,7 +1209,7 @@ public:
     /// Currently AutoCAD and the ARX API libraries make no use of this method.
     /// This method is deprecated and will be removed in a future version.
     /// </remarks>
-	AcGeScale3d blockScale() const;
+  AcGeScale3d blockScale() const;
     /// <summary>
     /// Disable/enable the blockScale value managed by setBlockScale().
     /// </summary>
@@ -1226,7 +1226,7 @@ public:
     /// Currently AutoCAD and the ARX API libraries make no use of this method.
     /// This method is deprecated and will be removed in a future version.
     /// </remarks>
-	Acad::ErrorStatus setEnableBlockScale(bool enableBlockScale);
+  Acad::ErrorStatus setEnableBlockScale(bool enableBlockScale);
     /// <summary>
     /// Indicate whether the blockScale value managed by setBlockScale() works.
     /// </summary>
@@ -1239,7 +1239,7 @@ public:
     /// Currently AutoCAD and the ARX API libraries make no use of this method.
     /// This method is deprecated and will be removed in a future version.
     /// </remarks>
-	bool enableBlockScale() const;
+  bool enableBlockScale() const;
     /// <summary>
     /// Set the rotation of the block referenced by MLeader.
     /// </summary>
@@ -1256,7 +1256,7 @@ public:
     /// Currently AutoCAD and the ARX API libraries make no use of this method.
     /// This method is deprecated and will be removed in a future version.
     /// </remarks>
-	Acad::ErrorStatus setBlockRotation(double rotation);
+  Acad::ErrorStatus setBlockRotation(double rotation);
     /// <summary>
     /// Return the rotation of the block referenced by MLeader.
     /// </summary>
@@ -1269,7 +1269,7 @@ public:
     /// Currently AutoCAD and the ARX API libraries make no use of this method.
     /// This method is deprecated and will be removed in a future version.
     /// </remarks>
-	double blockRotation() const;
+  double blockRotation() const;
     /// <summary>
     /// Disable/enable the blockRotation value managed by setBlockRotation().
     /// </summary>
@@ -1286,7 +1286,7 @@ public:
     /// Currently AutoCAD and the ARX API libraries make no use of this method.
     /// This method is deprecated and will be removed in a future version.
     /// </remarks>
-	Acad::ErrorStatus setEnableBlockRotation(bool enableBlockRotation);
+  Acad::ErrorStatus setEnableBlockRotation(bool enableBlockRotation);
     /// <summary>
     /// Indicate whether the blockRotation value managed by setBlockRotation() works.
     /// </summary>
@@ -1299,7 +1299,7 @@ public:
     /// Currently AutoCAD and the ARX API libraries make no use of this method.
     /// This method is deprecated and will be removed in a future version.
     /// </remarks>
-	bool enableBlockRotation() const;
+  bool enableBlockRotation() const;
     /// <summary>
     /// Set block connection type.
     /// </summary>
@@ -1311,7 +1311,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setBlockConnectionType(BlockConnectionType blockConnectionType);
+  Acad::ErrorStatus setBlockConnectionType(BlockConnectionType blockConnectionType);
     /// <summary>
     /// Return block connection type.
     /// </summary>
@@ -1319,7 +1319,7 @@ public:
     /// <returns>
     /// Return block connection type.
     /// </returns>
-	BlockConnectionType blockConnectionType() const;
+  BlockConnectionType blockConnectionType() const;
     /// <summary>
     /// Set the scale of mleader created by this style.
     /// </summary>
@@ -1331,7 +1331,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setScale(double scale);
+  Acad::ErrorStatus setScale(double scale);
     /// <summary>
     /// Return the scale of mleader created by this style.
     /// </summary>
@@ -1339,7 +1339,7 @@ public:
     /// <returns>
     /// Return the scale of mleader created by this style.
     /// </returns>
-	double scale() const;
+  double scale() const;
     /// <summary>
     /// Indicate whether properties were changed.
     /// </summary>
@@ -1347,7 +1347,7 @@ public:
     /// <returns>
     /// Return true if properties were changed; otherwise, returns false.
     /// </returns>
-	bool overwritePropChanged() const;
+  bool overwritePropChanged() const;
     /// <summary>
     /// Add this AcDbMLeaderStyle into database.
     /// </summary>
@@ -1365,7 +1365,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus postMLeaderStyleToDb(AcDbDatabase* pDb, const ACHAR* styleName, AcDbObjectId& mleaderStyleId);
+  Acad::ErrorStatus postMLeaderStyleToDb(AcDbDatabase* pDb, const ACHAR* styleName, AcDbObjectId& mleaderStyleId);
     /// <summary>
     /// Set the annotative status of AcDbMLeaderStyle.
     /// </summary>
@@ -1377,7 +1377,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setAnnotative(bool isAnnotative);
+  Acad::ErrorStatus setAnnotative(bool isAnnotative);
     /// <summary>
     /// Return AcDbMLeaderStyle's annotative status.
     /// </summary>
@@ -1386,7 +1386,7 @@ public:
     /// Return true if this is a annotative AcDbMLeaderStyle;
     /// Otherwise, return false.
     /// </returns>
-	bool annotative() const;
+  bool annotative() const;
     /// <summary>
     /// Set the break size used for breaking leader lines.
     /// </summary>
@@ -1398,7 +1398,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setBreakSize(double size);
+  Acad::ErrorStatus setBreakSize(double size);
     /// <summary>
     /// Return the size of the gap used for breaking leader lines.
     /// </summary>
@@ -1406,7 +1406,7 @@ public:
     /// <returns>
     /// Return the size of the gap used for breaking leader lines.
     /// </returns>
-	double breakSize() const;
+  double breakSize() const;
     /// <summary>
     /// Sets text attachment Direction of MText content.
     /// </summary>
@@ -1419,7 +1419,7 @@ public:
     /// Returns Acad::eOk if successful.Return values for errors are implementation-dependent.
     /// </returns>
     ///
-	Acad::ErrorStatus setTextAttachmentDirection(AcDbMLeaderStyle::TextAttachmentDirection textAttachmentDirection);
+  Acad::ErrorStatus setTextAttachmentDirection(AcDbMLeaderStyle::TextAttachmentDirection textAttachmentDirection);
     /// <summary>
     /// Gets text attachment direction of MText content.
     /// </summary>
@@ -1428,7 +1428,7 @@ public:
     /// Returns text attachment direction of MText content.
     /// </returns>
     ///
-	TextAttachmentDirection textAttachmentDirection() const;
+  TextAttachmentDirection textAttachmentDirection() const;
     /// <summary>
     /// Sets if horizontal leader lines are automatically extended to text.
     /// </summary>
@@ -1441,7 +1441,7 @@ public:
     /// Returns Acad::eOk if successful.Return values for errors are implementation-dependent.
     /// </returns>
     ///
-	Acad::ErrorStatus setExtendLeaderToText(bool value);
+  Acad::ErrorStatus setExtendLeaderToText(bool value);
     /// <summary>
     /// Gets if horizontal leader lines are automatically extended to text.
     /// </summary>
@@ -1450,7 +1450,7 @@ public:
     /// Returns true if horizontal leader lines are automatically extended to text; otherwise, returns false.
     /// </returns>
     ///
-	bool extendLeaderToText() const;
+  bool extendLeaderToText() const;
 protected:
     /// <summary>
     /// Gets corresponding COM wrapper class ID.
@@ -1464,11 +1464,11 @@ protected:
     /// Returns Acad::eOk if successful.Return values for errors are implementation-dependent.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // Deprecated method. Please use the overload taking AcString & arg
 inline Acad::ErrorStatus AcDbMLeaderStyle::getName(ACHAR*& pName) const
 {
-	return ::acutGetAcStringConvertToAChar(this, &AcDbMLeaderStyle::getName, pName);
+  return ::acutGetAcStringConvertToAChar(this, &AcDbMLeaderStyle::getName, pName);
 }
 #endif

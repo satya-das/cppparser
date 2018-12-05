@@ -69,7 +69,7 @@ class AcRxProtocolReactorManagerFactory;
 class ADESK_NO_VTABLE AcRxProtocolReactor : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcRxProtocolReactor);
+  ACRX_DECLARE_MEMBERS(AcRxProtocolReactor);
 };
 ////////////////////// AcRxProtocolReactorIterator class //////////////////////
 //
@@ -87,7 +87,7 @@ public:
 class ADESK_NO_VTABLE AcRxProtocolReactorIterator : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcRxProtocolReactorIterator);
+  ACRX_DECLARE_MEMBERS(AcRxProtocolReactorIterator);
     // The AcRxClass of the AcRxProtocolReactors returned by the
     // iterator.
     
@@ -99,12 +99,12 @@ public:
     /// A pointer to the AcRxClass type.
     /// </returns>
     ///
-	virtual AcRxClass* reactorClass() const = 0;
+  virtual AcRxClass* reactorClass() const = 0;
     /// <summary>
     /// Rewinds the iterator to the beginning of the list.
     /// </summary>
     /// 
-	virtual void start() = 0;
+  virtual void start() = 0;
     /// <summary>
     /// Advances the iterator to the next item in the list.
     /// </summary>
@@ -114,7 +114,7 @@ public:
     /// reached the end of the list.
     /// </returns>
     ///
-	virtual bool next() = 0;
+  virtual bool next() = 0;
     /// <summary>
     /// Determines whether the iterator has reached the end of the list.
     /// </summary>
@@ -124,7 +124,7 @@ public:
     /// reached the end of the list.
     /// </returns>
     ///
-	virtual bool done() const = 0;
+  virtual bool done() const = 0;
     /// <summary>
     /// Returns the AcRxProtocolReactor at the current iterator position.
     /// </summary>
@@ -134,7 +134,7 @@ public:
     /// position.
     /// </returns>
     ///
-	virtual AcRxProtocolReactor* object() const = 0;
+  virtual AcRxProtocolReactor* object() const = 0;
 };
 ////////////////////// AcRxProtocolReactorList class //////////////////////////
 //
@@ -152,7 +152,7 @@ public:
 class ADESK_NO_VTABLE AcRxProtocolReactorList : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcRxProtocolReactorList);
+  ACRX_DECLARE_MEMBERS(AcRxProtocolReactorList);
     /// <summary>
     /// Returns the AcRxClass type returned by the iterator.
     /// </summary>
@@ -160,7 +160,7 @@ public:
     /// <returns>
     /// A pointer to the AcRxClass type.
     /// </returns>
-	virtual AcRxClass* reactorClass() const = 0;
+  virtual AcRxClass* reactorClass() const = 0;
     /// <summary>
     /// Adds a reactor to the collection. 
     /// </summary>
@@ -174,7 +174,7 @@ public:
     /// <paramref name="pReactor"/> is not a kind of <c>reactorClass()</c>.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus addReactor(AcRxProtocolReactor* pReactor) = 0;
+  virtual Acad::ErrorStatus addReactor(AcRxProtocolReactor* pReactor) = 0;
     /// <summary>
     /// Removes a reactor from the collection.
     /// </summary>
@@ -183,7 +183,7 @@ public:
     /// A pointer to the reactor to remove from the collection.
     /// </param>
     ///
-	virtual void removeReactor(AcRxProtocolReactor* pReactor) = 0;
+  virtual void removeReactor(AcRxProtocolReactor* pReactor) = 0;
     /// <summary>
     /// Obtains an iterator on the contents of the list.
     /// </summary>
@@ -197,7 +197,7 @@ public:
     /// Callers are responsible for deleting the returned iterator. 
     /// </remarks>
     ///
-	virtual AcRxProtocolReactorIterator* newIterator() const = 0;
+  virtual AcRxProtocolReactorIterator* newIterator() const = 0;
 };
 ////////////////////// AcRxProtocolReactorListIterator class //////////////////
 //
@@ -215,12 +215,12 @@ public:
 class ADESK_NO_VTABLE AcRxProtocolReactorListIterator : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcRxProtocolReactorListIterator);
+  ACRX_DECLARE_MEMBERS(AcRxProtocolReactorListIterator);
     /// <summary>
     /// Rewinds the iterator to the beginning of the list.
     /// </summary>
     /// 
-	virtual void start() = 0;
+  virtual void start() = 0;
     /// <summary>
     /// Advances the iterator to the next item in the list.
     /// </summary>
@@ -230,7 +230,7 @@ public:
     /// reached the end of the list.
     /// </returns>
     ///
-	virtual bool next() = 0;
+  virtual bool next() = 0;
     /// <summary>
     /// Determines whether the iterator has reached the end of the list.
     /// </summary>
@@ -240,7 +240,7 @@ public:
     /// reached the end of the list.
     /// </returns>
     ///
-	virtual bool done() const = 0;
+  virtual bool done() const = 0;
     /// <summary>
     /// Returns the AcRxProtocolReactorList at the current iterator position.
     /// </summary>
@@ -250,7 +250,7 @@ public:
     /// iterator position.
     /// </returns>
     ///
-	virtual AcRxProtocolReactorList* object() const = 0;
+  virtual AcRxProtocolReactorList* object() const = 0;
 };
 ////////////////////// AcRxProtocolReactorManager class ///////////////////////
 //
@@ -269,7 +269,7 @@ public:
 class ADESK_NO_VTABLE AcRxProtocolReactorManager : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcRxProtocolReactorManager);
+  ACRX_DECLARE_MEMBERS(AcRxProtocolReactorManager);
     /// <summary>
     /// Returns an AcRxProtocolReactorList for a specific reactor class.
     /// </summary>
@@ -287,7 +287,7 @@ public:
     /// returned.
     /// </remarks>
     /// 
-	virtual AcRxProtocolReactorList* createReactorList(AcRxClass* pReactorClass) = 0;
+  virtual AcRxProtocolReactorList* createReactorList(AcRxClass* pReactorClass) = 0;
     /// <summary>
     /// Returns an iterator for all of the AcRxProtocolReactorLists instances
     /// contained in the manager. 
@@ -303,7 +303,7 @@ public:
     /// Callers are responsible for deleting the returned iterator. 
     /// </remarks>
     ///
-	virtual AcRxProtocolReactorListIterator* newIterator() const = 0;
+  virtual AcRxProtocolReactorListIterator* newIterator() const = 0;
 };
 ////////////////////// AcRxProtocolReactorManagerFactory class ////////////////
 //
@@ -316,7 +316,7 @@ public:
 class ADESK_NO_VTABLE AcRxProtocolReactorManagerFactory : public AcRxService
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcRxProtocolReactorManagerFactory);
+  ACRX_DECLARE_MEMBERS(AcRxProtocolReactorManagerFactory);
     /// <summary>
     /// Returns the reactor manager for the specified AcRxClass.
     /// </summary>
@@ -336,7 +336,7 @@ public:
     /// class a new one is created and returned to the caller.
     /// </remarks>
     ///
-	virtual AcRxProtocolReactorManager* createReactorManager(AcRxClass* pRxClass) const = 0;
+  virtual AcRxProtocolReactorManager* createReactorManager(AcRxClass* pRxClass) const = 0;
 };
 /////////////////////// Macros ////////////////////////////////////////////////
 // The following macros facilitate access to framework classes.

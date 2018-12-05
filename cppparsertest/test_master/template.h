@@ -3,7 +3,7 @@ template <typename _T>
 class A
 {
 public:
-	A(_T x);
+  A(_T x);
 private:
-	_T x_;
+  _T x_;
 };

@@ -47,11 +47,11 @@
 class ACDBCORE2D_PORT AcDbAssocGeomDependency : public AcDbAssocDependency
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocGeomDependency);
+  ACRX_DECLARE_MEMBERS(AcDbAssocGeomDependency);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocGeomDependency(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocGeomDependency(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> 
     /// Returns pointer to the internally held AcDbAssocPersSubentId that
     /// identifies a subentity of the dependent-on entity. The returned pointer 
@@ -61,7 +61,7 @@ public:
     /// </summary>
     /// <returns> Pointer to the internal AcDbAssocPersSubentId or NULL. </returns>
     ///
-	const AcDbAssocPersSubentId* persistentSubentId() const;
+  const AcDbAssocPersSubentId* persistentSubentId() const;
     /// <summary> 
     /// Returns the transient AcDbSubentIds of the dependent-on entity
     /// corresponding to the internally held AcDbAssocPersSubentId. Notice that
@@ -75,7 +75,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getTransientSubentIds(AcArray<AcDbSubentId>& transientSubentIds) const;
+  Acad::ErrorStatus getTransientSubentIds(AcArray<AcDbSubentId>& transientSubentIds) const;
     /// <summary>
     /// Sets the internally held AcDbAssocPersSubentId to persistently identify
     /// the given subentity. The subentity must be on the entity the dependency
@@ -86,14 +86,14 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setSubentity(const AcDbSubentId& transientSubentId);
+  Acad::ErrorStatus setSubentity(const AcDbSubentId& transientSubentId);
     /// <summary>
     /// Returns the type of the persistently referenced subentity or 
     /// kNullSubentType if no subentity is referenced.
     /// </summary>
     /// <returns> The referenced subentity type. </returns>
     ///
-	AcDb::SubentType subentType() const;
+  AcDb::SubentType subentType() const;
     /// <summary>
     /// Returns the number of transient AcDbSubentIds corresponding to the
     /// internally held AcDbAssocPersSubentId. In typical cases it is just 
@@ -102,7 +102,7 @@ public:
     /// </summary>
     /// <returns> The transient subentity count (usually 1). </returns>
     ///
-	int transientSubentCount() const;
+  int transientSubentCount() const;
     /// <summary>
     /// Returns true iff the dependency keeps cache of the referenced subentity
     /// geometry (even if the cache may currently be empty). The initial state 
@@ -113,7 +113,7 @@ public:
     /// geometry. 
     /// </returns>
     ///
-	bool isCachingSubentityGeometry() const;
+  bool isCachingSubentityGeometry() const;
     /// <summary>
     /// Sets whether the dependency is to keep the cache of the referenced 
     /// subentity geometry. The initial state is false, i.e. the dependency 
@@ -123,7 +123,7 @@ public:
     /// cache of the referenced subentity geometry.
     /// </param>
     ///
-	void setCachingSubentityGeometry(bool yesNo);
+  void setCachingSubentityGeometry(bool yesNo);
     /// <summary>
     /// Gets coordinates of vertex subentities corresponding to the internally 
     /// held AcDbAssocPersSubentId, which must identify a vertex subentity type.
@@ -133,7 +133,7 @@ public:
     /// <param name="vertexPositions"> Returned coordinates of vertex subentities. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getVertexSubentityGeometry(AcGePoint3dArray& vertexPositions) const;
+  Acad::ErrorStatus getVertexSubentityGeometry(AcGePoint3dArray& vertexPositions) const;
     /// <summary>
     /// Gets curves of edge subentities corresponding to the internally 
     /// held AcDbAssocPersSubentId, which must identify an edge subentity type. 
@@ -147,7 +147,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getEdgeSubentityGeometry(AcArray<AcGeCurve3d*>& edgeCurves) const;
+  Acad::ErrorStatus getEdgeSubentityGeometry(AcArray<AcGeCurve3d*>& edgeCurves) const;
     /// <summary>
     /// Gets surfaces of face subentities corresponding to the internally 
     /// held AcDbAssocPersSubentId, which must identify a face subentity type. 
@@ -161,7 +161,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getFaceSubentityGeometry(AcArray<AcGeSurface*>& faceSurfaces) const;
+  Acad::ErrorStatus getFaceSubentityGeometry(AcArray<AcGeSurface*>& faceSurfaces) const;
     /// <summary>
     /// Sets coordinates of vertex subentities corresponding to the internally 
     /// held AcDbAssocPersSubentId, which must identify a vertex subentity type.
@@ -173,7 +173,7 @@ public:
     /// <param name="newVertexPositions">  New coordinates of vertex subentities. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setVertexSubentityGeometry(const AcGePoint3dArray& newVertexPositions);
+  Acad::ErrorStatus setVertexSubentityGeometry(const AcGePoint3dArray& newVertexPositions);
     /// <summary>
     /// Sets curves of edge subentities corresponding to the internally 
     /// held AcDbAssocPersSubentId, which must identify an edge subentity type. 
@@ -189,7 +189,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setEdgeSubentityGeometry(const AcArray<const AcGeCurve3d*>& newEdgeCurves);
+  Acad::ErrorStatus setEdgeSubentityGeometry(const AcArray<const AcGeCurve3d*>& newEdgeCurves);
     /// <summary>
     /// Sets surfaces of face subentities corresponding to the internally 
     /// held AcDbAssocPersSubentId, which must identify a surface subentity type. 
@@ -205,7 +205,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setFaceSubentityGeometry(const AcArray<const AcGeSurface*>& newFaceSurfaces);
+  Acad::ErrorStatus setFaceSubentityGeometry(const AcArray<const AcGeSurface*>& newFaceSurfaces);
     /// <summary>
     /// Called by the client code to inform the AcDbAssocGeomDependency that 
     /// the object, whose subentity it depends on, has been mirrored. The 
@@ -216,7 +216,7 @@ public:
     /// </summary>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus dependentOnObjectMirrored();
+  Acad::ErrorStatus dependentOnObjectMirrored();
     /// <summary>
     /// Returns true iff the dependency keeps cache of the referenced subentity
     /// geometry and the cache is not empty.
@@ -282,6 +282,6 @@ public:
     /// <param name="newSubentId"> The new AcDbSubentId in the new object. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus redirectToAnotherSubentity(const AcDbObjectId& oldObjectId, const AcDbSubentId& oldSubentId, const AcDbObjectId& newObjectId, const AcDbSubentId& newSubentId);
+  static Acad::ErrorStatus redirectToAnotherSubentity(const AcDbObjectId& oldObjectId, const AcDbSubentId& oldSubentId, const AcDbObjectId& newObjectId, const AcDbSubentId& newSubentId);
 };
 #pragma  pack (pop)

@@ -34,10 +34,10 @@ class AcDbGeomRef;
 class ACDB_PORT AcDbAssocArrayParameters : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocArrayParameters);
+  ACRX_DECLARE_MEMBERS(AcDbAssocArrayParameters);
     /// <summary> Default destructor. </summary>
     /// 
-	virtual ~AcDbAssocArrayParameters();
+  virtual ~AcDbAssocArrayParameters();
     /// <summary><para> 
     /// Sets value, expression and evaluatorId for a given value action parameter
     /// If there is no expression for the parameter, the expression string and 
@@ -65,7 +65,7 @@ public:
     /// <param name="pUnitType">    The unit type to set. If it is NULL, the default value is AcValue::kUnitless</param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setValueParam(const AcString& paramName, const AcDbEvalVariant& value, const AcString& expression, const AcString& evaluatorId, AcString& errorMessage, AcValue::UnitType* pUnitType = NULL);
+  Acad::ErrorStatus setValueParam(const AcString& paramName, const AcDbEvalVariant& value, const AcString& expression, const AcString& evaluatorId, AcString& errorMessage, AcValue::UnitType* pUnitType = NULL);
     /// <summary> 
     /// Obtains value, expression and evaluatorId for a given value action param
     /// owned by this parameter. If there is no expression for a particular param,
@@ -80,7 +80,7 @@ public:
     /// If a value action parameter with the given name is not found, returns Acad::eNotInGroup.
     /// </returns>
     ///
-	Acad::ErrorStatus getValueParam(const AcString& paramName, AcDbEvalVariant& value, AcString& expression, AcString& evaluatorId, AcValue::UnitType& unitType) const;
+  Acad::ErrorStatus getValueParam(const AcString& paramName, AcDbEvalVariant& value, AcString& expression, AcString& evaluatorId, AcValue::UnitType& unitType) const;
     /// <summary><para> 
     /// Sets a pointer to AcDbGeomRef for a given geometry action parameter
     /// such as AcDbAssocVertexActionParam, AcDbAssocPathActionParam or
@@ -96,7 +96,7 @@ public:
     /// parameter. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setGeomParam(const AcString& paramName, const AcDbGeomRef* pGeomRef, AcDbObjectId& paramId);
+  Acad::ErrorStatus setGeomParam(const AcString& paramName, const AcDbGeomRef* pGeomRef, AcDbObjectId& paramId);
     /// <summary> 
     /// Obtains pointer to AcDbGeomRef for a given geometry action parameter
     /// owned by this parameter. 
@@ -111,21 +111,21 @@ public:
     /// If a geometry action parameter with the given name is not found, returns Acad::eNotInGroup.
     /// </returns>
     ///
-	Acad::ErrorStatus getGeomParam(const AcString& paramName, AcDbGeomRef*& pGeomRef, AcDbObjectId& paramId) const;
+  Acad::ErrorStatus getGeomParam(const AcString& paramName, AcDbGeomRef*& pGeomRef, AcDbObjectId& paramId) const;
     /// <summary> 
     /// Returns names of all owned value action parameters. The names of the value
     /// action parameters are arbitrary case-sensitive strings but must be unique.
     /// </summary>
     /// <param name="paramNames"> Names of all owned value action parameters. </param>
     ///
-	void ownedValueParamNames(AcArray<AcString>& paramNames) const;
+  void ownedValueParamNames(AcArray<AcString>& paramNames) const;
     /// <summary> 
     /// Returns names of all owned geometry action parameters. The names of the geometry
     /// action parameters are arbitrary case-sensitive strings but must be unique.
     /// </summary>
     /// <param name="paramNames"> Names of all owned geometry action parameters. </param>
     ///
-	void ownedGeomParamNames(AcArray<AcString>& paramNames) const;
+  void ownedGeomParamNames(AcArray<AcString>& paramNames) const;
     /// <summary> 
     /// Sets input AcDbAssocArrayActionBody as owner. When owner is not set the
     /// parameters are locally cached with this object. Once it is set all the
@@ -135,19 +135,19 @@ public:
     /// <param name="pOwner"> The assoc array action to be set as owner. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setOwner(class AcDbAssocArrayActionBody* pOwner);
+  Acad::ErrorStatus setOwner(class AcDbAssocArrayActionBody* pOwner);
     /// <summary> 
     /// Gets the owner AcDbAssocArrayActionBody pointer for read.
     /// </summary>
     /// <returns> Pointer to AcDbAssocArrayActionBody. </returns>
     ///
-	const AcDbAssocArrayActionBody* owner() const;
+  const AcDbAssocArrayActionBody* owner() const;
     /// <summary> 
     /// Gets the owner AcDbAssocArrayActionBody pointer for write.
     /// </summary>
     /// <returns> Pointer to AcDbAssocArrayActionBody. </returns>
     ///
-	AcDbAssocArrayActionBody* owner();
+  AcDbAssocArrayActionBody* owner();
     /// <summary> 
     /// Copies the parameters from other object. The input object must be of the 
     /// class.
@@ -155,7 +155,7 @@ public:
     /// <param name="other"> The other input parameter to be copied from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus copyFrom(const AcRxObject* other);
+  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other);
     /// <summary> <para>
     /// Obtains list of items patterned by the set of owned parameters. Each
     /// parameters class uses its own logic based on owned value as well as 
@@ -170,7 +170,7 @@ public:
     /// <param name="items"> The updated list of items. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getItems(AcArray<AcDbAssocArrayItem*>& items) const = 0;
+  virtual Acad::ErrorStatus getItems(AcArray<AcDbAssocArrayItem*>& items) const = 0;
     /// <summary>
     /// Obtains position as well as orientation of an item at given spatial 
     /// index specified by the locator.
@@ -182,7 +182,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getItemPosition(const AcDbItemLocator& locator, AcGePoint3d& position, AcGeMatrix3d& xform) const = 0;
+  virtual Acad::ErrorStatus getItemPosition(const AcDbItemLocator& locator, AcGePoint3d& position, AcGeMatrix3d& xform) const = 0;
     /// <summary>
     /// Obtains canonical form of given item locator. The given locator may be
     /// counted wrt start or end, but the returned canonical form is always
@@ -191,7 +191,7 @@ public:
     /// <param name="locator">  The input item locator or spatial index. </param>
     /// <returns> Canonical form of input locator. </returns>
     ///
-	virtual AcDbItemLocator getCanonicalForm(const AcDbItemLocator& locator) const = 0;
+  virtual AcDbItemLocator getCanonicalForm(const AcDbItemLocator& locator) const = 0;
     /// <summary>
     /// Obtains grip data based on the grip mode. The default implementation 
     /// returns Acad::eNotImplementedYet error code. The UI code calls this
@@ -202,7 +202,7 @@ public:
     /// <param name="pGrip"> The returned grip data for input grip mode. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getGripPointAt(unsigned int mode, AcDbArrayGripAppData*& pGrip) const;
+  virtual Acad::ErrorStatus getGripPointAt(unsigned int mode, AcDbArrayGripAppData*& pGrip) const;
     /// <summary>
     /// Obtains all grips supported by this parameters class. This method will be 
     /// called when system wants to show grips of the array controlled by its
@@ -213,7 +213,7 @@ public:
     /// parameters class. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getGripPoints(AcArray<AcDbArrayGripAppData*>& grips) const;
+  virtual Acad::ErrorStatus getGripPoints(AcArray<AcDbArrayGripAppData*>& grips) const;
     /// <summary>
     /// This method is responsible for updating value action params based on
     /// a particular grip movement. Default implementation doesn't do anything.
@@ -228,7 +228,7 @@ public:
     /// <returns> Acad::eOwnerToBeTransformed if this call needs to be handled
     /// by owner, Acad::ErrorStatus otherwise. </returns>
     ///
-	virtual Acad::ErrorStatus moveGripPointAt(const AcDbArrayGripAppData* pGrip, const AcGeVector3d& offset, int& modificationBit);
+  virtual Acad::ErrorStatus moveGripPointAt(const AcDbArrayGripAppData* pGrip, const AcGeVector3d& offset, int& modificationBit);
     /// <summary>
     /// Obtains all stretch points supported by this parameters class. This method will be 
     /// called when system wants to stretch of the array controlled by its
@@ -238,9 +238,9 @@ public:
     /// parameters class. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getStretchPoints(AcGePoint3dArray& stretchPoints);
+  virtual Acad::ErrorStatus getStretchPoints(AcGePoint3dArray& stretchPoints);
 protected:
-	friend class AcDbImpAssocArrayParameters;
-	explicit AcDbAssocArrayParameters(AcDbImpAssocArrayParameters* pSelf = NULL);
-	AcDbImpAssocArrayParameters* mpSelf;
+  friend class AcDbImpAssocArrayParameters;
+  explicit AcDbAssocArrayParameters(AcDbImpAssocArrayParameters* pSelf = NULL);
+  AcDbImpAssocArrayParameters* mpSelf;
 };

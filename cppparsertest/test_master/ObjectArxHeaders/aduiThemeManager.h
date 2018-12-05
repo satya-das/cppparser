@@ -9,16 +9,16 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 #ifndef _ADUI_THEME_MANAGER_H_
-#	define _ADUI_THEME_MANAGER_H_
+#  define _ADUI_THEME_MANAGER_H_
 ///<summary>Internal use only</summary>
 class CAdUiThemeMgrReactor
 {
 public:
-	CAdUiThemeMgrReactor();
-	virtual void ThemeAdded(const CString& strThemeName) = 0;
-	virtual void ThemeRemoved(const CString& strThemeName) = 0;
-	virtual void SystemColorChanged() = 0;
-	virtual ~CAdUiThemeMgrReactor();
+  CAdUiThemeMgrReactor();
+  virtual void ThemeAdded(const CString& strThemeName) = 0;
+  virtual void ThemeRemoved(const CString& strThemeName) = 0;
+  virtual void SystemColorChanged() = 0;
+  virtual ~CAdUiThemeMgrReactor();
 };
 /// <summary>
 /// The theme manager manages all the UI themes used by the application.
@@ -31,12 +31,12 @@ public:
 /// </remarks>
 class CAdUiThemeManager
 {
-	friend class CAdUiThemeMgrReactor;
+  friend class CAdUiThemeMgrReactor;
 public:
     ///<summary>Internal use only</summary>
-	CAdUiThemeManager();
+  CAdUiThemeManager();
     ///<summary>Internal use only</summary>
-	~CAdUiThemeManager();
+  ~CAdUiThemeManager();
     /// <summary>
     /// Gets a named theme 
     /// </summary>
@@ -53,7 +53,7 @@ public:
     /// ReleaseTheme() should be called to decrement it when the theme is no 
     /// longer needed by the client code.
     /// </remarks>
-	CAdUiTheme* GetTheme(const ACHAR* pThemeName);
+  CAdUiTheme* GetTheme(const ACHAR* pThemeName);
     /// <summary>
     /// Releases a theme object by decreasing its reference count.
     /// The theme will be removed when its reference count reaches 0.
@@ -69,7 +69,7 @@ public:
     /// ReleaseTheme() should be called to decrement it when the theme is no 
     /// longer needed by the client code.
     /// </remarks>
-	BOOL ReleaseTheme(CAdUiTheme* pTheme);
+  BOOL ReleaseTheme(CAdUiTheme* pTheme);
     /// <summary>
     /// Indicates whether pThemeName is registerd with the Theme manager.
     /// </summary>
@@ -77,21 +77,21 @@ public:
     //// Name of the theme to query
     /// </param>
     /// <returns>TRUE if pThemeName is registered, FALSE otherwise.</returns>
-	BOOL HasTheme(const ACHAR* pThemeName) const;
+  BOOL HasTheme(const ACHAR* pThemeName) const;
     ///<summary>Internal use only</summary>
-	void SystemColorChanged();
+  void SystemColorChanged();
     ///<summary>Internal use only</summary>
-	void ActiveThemeChanged();
+  void ActiveThemeChanged();
 private:
-	int RemoveTheme(const ACHAR* pThemeName);
-	void Cleanup();
-	int GetThemeIndex(const ACHAR* pThemeName) const;
-	int GetThemeIndex(const CAdUiTheme* pTheme) const;
-	BOOL RegisterThemeMgrReactor(CAdUiThemeMgrReactor* pReactor);
-	BOOL UnregisterThemeMgrReactor(CAdUiThemeMgrReactor* pReactor);
-	void NotifyThemeAddedReactors(const CString& strThemeName);
-	void NotifySysColorReactors();
-	CObArray m_list;
-	CTypedPtrArray<CPtrArray, CAdUiThemeMgrReactor*> m_arrayThemeMgrReactors;
+  int RemoveTheme(const ACHAR* pThemeName);
+  void Cleanup();
+  int GetThemeIndex(const ACHAR* pThemeName) const;
+  int GetThemeIndex(const CAdUiTheme* pTheme) const;
+  BOOL RegisterThemeMgrReactor(CAdUiThemeMgrReactor* pReactor);
+  BOOL UnregisterThemeMgrReactor(CAdUiThemeMgrReactor* pReactor);
+  void NotifyThemeAddedReactors(const CString& strThemeName);
+  void NotifySysColorReactors();
+  CObArray m_list;
+  CTypedPtrArray<CPtrArray, CAdUiThemeMgrReactor*> m_arrayThemeMgrReactors;
 };
 #endif

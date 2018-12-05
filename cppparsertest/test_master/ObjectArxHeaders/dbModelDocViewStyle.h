@@ -10,12 +10,12 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 #ifndef __ACDBMODELDOCVIEWSTYLE_H__
-#	define __ACDBMODELDOCVIEWSTYLE_H__
-#	pragma  once
-#	include "acdbport.h"
-#	include "dbmain.h"
-#	include "dbmtext.h"
-#	include "AcString.h"
+#  define __ACDBMODELDOCVIEWSTYLE_H__
+#  pragma  once
+#  include "acdbport.h"
+#  include "dbmain.h"
+#  include "dbmtext.h"
+#  include "AcString.h"
 class AcDbImpModelDocViewStyle;
 class ACDBCORE2D_PORT AcDbModelDocViewStyle : public AcDbObject
 {
@@ -30,26 +30,26 @@ protected:
     /// from constructor of derived class.
     /// </remarks>
     ///
-	AcDbModelDocViewStyle();
-	ACDB_DECLARE_MEMBERS(AcDbModelDocViewStyle);
+  AcDbModelDocViewStyle();
+  ACDB_DECLARE_MEMBERS(AcDbModelDocViewStyle);
 public:
     /// <summary>
     /// Enumeration defining attachment point for label
     /// </summary>
-	enum AttachmentPoint
-	{
-		kAboveView = 0,
-		kBelowView = 1
-	};
+  enum AttachmentPoint
+  {
+    kAboveView = 0,
+    kBelowView = 1
+  };
     /// <summary>
     /// Enumeration defining label text alignment
     /// </summary>
-	enum TextAlignment
-	{
-		kTextAlignmentLeft = 0,
-		kTextAlignmentCenter = 1,
-		kTextAlignmentRight = 2
-	};
+  enum TextAlignment
+  {
+    kTextAlignmentLeft = 0,
+    kTextAlignmentCenter = 1,
+    kTextAlignmentRight = 2
+  };
     /// <summary>
     /// Default destructor.
     /// </summary>
@@ -58,7 +58,7 @@ public:
     /// Default destructor.
     /// </remarks>
     ///
-	virtual ~AcDbModelDocViewStyle();
+  virtual ~AcDbModelDocViewStyle();
     /// <summary>
     /// Get the name of AcDbModelDocViewStyle
     /// </summary>
@@ -70,7 +70,7 @@ public:
     /// <returns>
     /// Return Acae::eOk if Successful
     /// </returns>
-	virtual Acad::ErrorStatus getName(ACHAR*& pszName) const final;
+  virtual Acad::ErrorStatus getName(ACHAR*& pszName) const final;
     /// <summary>
     /// Get the name of AcDbModelDocViewStyle
     /// </summary>
@@ -82,7 +82,7 @@ public:
     /// <returns>
     /// Return Acae::eOk if Successful
     /// </returns>
-	virtual Acad::ErrorStatus getName(AcString& strName) const;
+  virtual Acad::ErrorStatus getName(AcString& strName) const;
     /// <summary>
     /// Set the name of AcDbModelDocViewStyle
     /// </summary>
@@ -94,7 +94,7 @@ public:
     /// <returns>
     /// Return Acae::eOk if Successful
     /// </returns>
-	virtual Acad::ErrorStatus setName(const ACHAR* pszName);
+  virtual Acad::ErrorStatus setName(const ACHAR* pszName);
     /// <summary>
     /// Return the pointer to a string containing the description of this view style.
     /// </summary>
@@ -102,7 +102,7 @@ public:
     /// <returns>
     /// Return the pointer to a string containing the description of this view style.
     /// </returns>
-	virtual const ACHAR* description(void) const;
+  virtual const ACHAR* description(void) const;
     /// <summary>
     /// Get the description of AcDbModelDocViewStyle
     /// </summary>
@@ -110,7 +110,7 @@ public:
     /// <param name="strDescription">
     /// Output the description of AcDbModelDocViewStyle
     /// </param>
-	virtual void getDescription(AcString& strDescription) const;
+  virtual void getDescription(AcString& strDescription) const;
     /// <summary>
     /// Set the pointer to a string containing the description of this view style.
     /// </summary>
@@ -122,7 +122,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus setDescription(const ACHAR* pszDescription);
+  virtual Acad::ErrorStatus setDescription(const ACHAR* pszDescription);
     /// <summary>
     /// This function sets the object properties to the default values
     /// of the database indicated by pDb. If pDb == NULL, then the
@@ -137,7 +137,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	void setDatabaseDefaults(AcDbDatabase* pDb);
+  void setDatabaseDefaults(AcDbDatabase* pDb);
     /// <summary>
     /// Add this object into database.
     /// </summary>
@@ -155,7 +155,7 @@ public:
     /// <returns>
     /// Return Acad::eOk if successful.
     /// </returns>
-	Acad::ErrorStatus postViewStyleToDb(AcDbDatabase* pDb, const ACHAR* styleName, AcDbObjectId& viewStyleId);
+  Acad::ErrorStatus postViewStyleToDb(AcDbDatabase* pDb, const ACHAR* styleName, AcDbObjectId& viewStyleId);
     /// <summary>
     /// Indicate whether properties were changed.
     /// </summary>
@@ -163,7 +163,7 @@ public:
     /// <returns>
     /// Return true if properties were changed; otherwise, returns false.
     /// </returns>
-	bool isModifiedForRecompute() const;
+  bool isModifiedForRecompute() const;
     /// <summary>
     /// Returns default view name based on index for 1 it returns A, for 2 B, ...AA, AB, ....
     /// </summary>
@@ -178,7 +178,7 @@ public:
     /// <returns>
     /// Return view name
     /// </returns>
-	AcString defaultViewName(int index) const;
+  AcString defaultViewName(int index) const;
     /// <summary>
     /// Checks whether label name is valid.
     /// </summary>
@@ -190,7 +190,7 @@ public:
     /// <returns>
     /// Return true if name is valid label string
     /// </returns>
-	bool isViewNameValid(const ACHAR* pName) const;
+  bool isViewNameValid(const ACHAR* pName) const;
     /// <summary>
     /// Calculate position of view label. This function receives bounding box
     /// of the view, attachment and offset and then calculate position of the text.
@@ -214,7 +214,7 @@ public:
     /// Offset position of view label defines relative position to alignment point
     /// on bounding box.
     /// </returns>
-	static AcGePoint3d calculateViewLabelPosition(AcGeVector2d& offsetVector, AcDbMText::AttachmentPoint& textAlignment, AcDbModelDocViewStyle::AttachmentPoint attachment, double offset, const AcGePoint3d& minPt, const AcGePoint3d& maxPt);
+  static AcGePoint3d calculateViewLabelPosition(AcGeVector2d& offsetVector, AcDbMText::AttachmentPoint& textAlignment, AcDbModelDocViewStyle::AttachmentPoint attachment, double offset, const AcGePoint3d& minPt, const AcGePoint3d& maxPt);
     /// <summary>
     /// Set view label to initial position. This function receives bounding box
     /// of the view, attachment and offset and then calculate position of the text
@@ -237,7 +237,7 @@ public:
     /// Offset position of view label defines relative position to alignment point
     /// on bounding box.
     /// </returns>
-	static AcGeVector2d setViewLabelPosition(AcDbMText* pMText, AcDbModelDocViewStyle::AttachmentPoint attachment, double offset, const AcGePoint3d& minPt, const AcGePoint3d& maxPt);
+  static AcGeVector2d setViewLabelPosition(AcDbMText* pMText, AcDbModelDocViewStyle::AttachmentPoint attachment, double offset, const AcGePoint3d& minPt, const AcGePoint3d& maxPt);
     /// <summary>
     /// Updates view label's position. This function receives bounding box
     /// of the view, attachment and offset and then calculate position of the text
@@ -260,18 +260,18 @@ public:
     /// Offset position of view label defines relative position to alignment point
     /// on bounding box.
     /// </returns>
-	static AcGeVector2d updateViewLabelPosition(AcDbMText* pMText, AcDbModelDocViewStyle::AttachmentPoint& attachment, const AcGePoint3d& minPt, const AcGePoint3d& maxPt);
+  static AcGeVector2d updateViewLabelPosition(AcDbMText* pMText, AcDbModelDocViewStyle::AttachmentPoint& attachment, const AcGePoint3d& minPt, const AcGePoint3d& maxPt);
 protected:
     // For internal use only
     //
-	virtual Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
-	virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
+  virtual Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
+  virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
 private:
-	friend class AcDbImpModelDocViewStyle;
+  friend class AcDbImpModelDocViewStyle;
 };
 // deprecated method. Please use the overload taking AcString & arg
 inline Acad::ErrorStatus AcDbModelDocViewStyle::getName(ACHAR*& pName) const
 {
-	return ::acutGetAcStringConvertToAChar(this, &AcDbModelDocViewStyle::getName, pName);
+  return ::acutGetAcStringConvertToAChar(this, &AcDbModelDocViewStyle::getName, pName);
 }
 #endif

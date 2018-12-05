@@ -42,7 +42,7 @@ public:
     /// Note: If your filter does not support individual point filtering, you
     /// should only return -1 or 1 here.
     /// </remarks>
-	virtual int testCell(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) const = 0;
+  virtual int testCell(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) const = 0;
     /// <summary>
     /// Test if the point is inside the volume of interest
     /// </summary>
@@ -59,7 +59,7 @@ public:
     /// Note: This function will be called once for every point in the cells that
     /// are intersected (testCell() returned 0) so it needs to be very fast.
     /// </remarks>
-	virtual bool testPoint(float x, float y, float z) const = 0;
+  virtual bool testPoint(float x, float y, float z) const = 0;
     /// <summary>
     /// This is an optimization hook that the implementer may ignore.
     /// The engine calls this method to promise to the IPointCloudFilter object that
@@ -75,16 +75,16 @@ public:
     /// <param name="maxZ">Max Z coordinate value of the test cell</param>
     /// <param name="numTests">approximate number of testPoint() calls that the engine
     /// is going to make before the next such call</param>
-	virtual void prepareForCell(double& minX, double& minY, double& minZ, double& maxX, double& maxY, double& maxZ, long numTests)
-	{
-		UNREFERENCED_PARAMETER(minX);
-		UNREFERENCED_PARAMETER(minY);
-		UNREFERENCED_PARAMETER(minZ);
-		UNREFERENCED_PARAMETER(maxX);
-		UNREFERENCED_PARAMETER(maxY);
-		UNREFERENCED_PARAMETER(maxZ);
-		UNREFERENCED_PARAMETER(numTests);
-	}
+  virtual void prepareForCell(double& minX, double& minY, double& minZ, double& maxX, double& maxY, double& maxZ, long numTests)
+  {
+    UNREFERENCED_PARAMETER(minX);
+    UNREFERENCED_PARAMETER(minY);
+    UNREFERENCED_PARAMETER(minZ);
+    UNREFERENCED_PARAMETER(maxX);
+    UNREFERENCED_PARAMETER(maxY);
+    UNREFERENCED_PARAMETER(maxZ);
+    UNREFERENCED_PARAMETER(numTests);
+  }
     /// <summmary>
     /// This function creates a clone of the filter and returns a pointer to the clone
     /// The filter will always be cloned before it's used.
@@ -94,31 +94,31 @@ public:
     /// <returns>
     /// Return a copy of the filter.
     /// </returns>
-	virtual IPointCloudFilter* clone() const = 0;
+  virtual IPointCloudFilter* clone() const = 0;
     /// <summmary>
     /// The engine will call this when it is done with a filter.
     /// This should delete the filter.
     /// Typically this would be implemented using 'delete this;'.
     /// </summmary>
-	virtual void freeObject(void) = 0;
+  virtual void freeObject(void) = 0;
     /// <summmary>
     /// Returns a bool value indicating whether the filter is inverted.
     /// The default value is false.
     /// </summmary>
     ///
     /// <returns>ture if the filter is inverted</returns>
-	virtual bool isInverted() const
-	{
-		return false;
-	}
+  virtual bool isInverted() const
+  {
+    return false;
+  }
     /// <summmary>
     /// Set the filter as inverted or not, then we can get opposite result of original filter
     /// </summmary>
     /// <param name="bInverted">a bool value indicating whether the filter is inverted</param>
-	virtual void setIsInverted(bool bInverted)
-	{
-		UNREFERENCED_PARAMETER(bInverted);
-	}
+  virtual void setIsInverted(bool bInverted)
+  {
+    UNREFERENCED_PARAMETER(bInverted);
+  }
 };
 /// <summary>
 /// Extend the interface IPointCloudFilter 
@@ -134,7 +134,7 @@ public:
     /// <returns>
     /// Return a transformed filter.
     /// </returns>
-	virtual IPointCloudFilter2* transformFilter(const double* transform4x4) const = 0;
+  virtual IPointCloudFilter2* transformFilter(const double* transform4x4) const = 0;
     /// <summmary>
     /// Checks to see if the given point is inside, or outside of filter
     /// in IPointCloudFilter we have testPoint method whose parameter is float
@@ -145,8 +145,8 @@ public:
     /// -1 -- the point is rejected (outside the volume of interest)
     ///  1 -- the point is fully accepted (inside the volume of interest)
     /// </returns>
-	virtual int testPoint(const double* pointData) const = 0;
-	virtual ~IPointCloudFilter2()
-	{
-	}
+  virtual int testPoint(const double* pointData) const = 0;
+  virtual ~IPointCloudFilter2()
+  {
+  }
 };

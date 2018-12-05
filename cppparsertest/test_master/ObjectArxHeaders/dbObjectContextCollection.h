@@ -12,13 +12,13 @@
 // DESCRIPTION: Abstract base class for collections of AcDbObjectContext
 //              objects
 #ifndef ACDB_OBJECTCONTEXTCOLLECTION_H
-#	define ACDB_OBJECTCONTEXTCOLLECTION_H
-#	pragma  once
-#	include "acdb.h"
-#	include "dbmain.h"
-#	include "AcString.h"
-#	include "dbObjContext.h"
-#	pragma  pack (push, 8)
+#  define ACDB_OBJECTCONTEXTCOLLECTION_H
+#  pragma  once
+#  include "acdb.h"
+#  include "dbmain.h"
+#  include "AcString.h"
+#  include "dbObjContext.h"
+#  pragma  pack (push, 8)
 class AcDbObjectContextCollectionIterator;
 ////////////////////////////////////////////////////////////////////////
 // class AcDbObjectContextCollection 
@@ -42,7 +42,7 @@ class AcDbObjectContextCollectionIterator;
 class ADESK_NO_VTABLE AcDbObjectContextCollection : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbObjectContextCollection);
+  ACRX_DECLARE_MEMBERS(AcDbObjectContextCollection);
     /// <summary>
     /// The name of the context collection.
     /// </summary>
@@ -57,7 +57,7 @@ public:
     /// manager, and to identify the kinds of context objects that may be added
     /// to the collection. (See also AcDbObjectContext::collectionName()).
     /// </remarks>
-	virtual AcString name() const = 0;
+  virtual AcString name() const = 0;
     /// <summary>
     /// The current context for the collection.
     /// </summary>
@@ -82,7 +82,7 @@ public:
     /// method.  Applications are responsible for deleting the returned object. 
     /// </remarks>
     ///
-	virtual AcDbObjectContext* currentContext(const AcDbObject* pRequestingObject) const = 0;
+  virtual AcDbObjectContext* currentContext(const AcDbObject* pRequestingObject) const = 0;
     /// <summary>
     /// Sets the current context for the collection.
     /// </summary>
@@ -101,7 +101,7 @@ public:
     /// collection. 
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus setCurrentContext(const AcDbObjectContext* pContext) = 0;
+  virtual Acad::ErrorStatus setCurrentContext(const AcDbObjectContext* pContext) = 0;
     /// <summary>
     /// Adds a copy of a context to the collection.
     /// </summary>
@@ -119,7 +119,7 @@ public:
     /// be unique, the copied context added to the collection may be assigned
     /// a different identifier than the context it is copied from. 
     /// </remarks>
-	virtual Acad::ErrorStatus addContext(const AcDbObjectContext* pContext) = 0;
+  virtual Acad::ErrorStatus addContext(const AcDbObjectContext* pContext) = 0;
     // to set the currentContext() to NULL. 
     /// <summary>
     /// Removes a context from the collection.
@@ -139,7 +139,7 @@ public:
     /// The active context cannot be removed from a collection.
     /// </remarks>
     /// 
-	virtual Acad::ErrorStatus removeContext(const AcString& contextName) = 0;
+  virtual Acad::ErrorStatus removeContext(const AcString& contextName) = 0;
     /// <summary>
     /// For internal use only.
     /// </summary>
@@ -151,7 +151,7 @@ public:
     /// <remarks>
     /// For internal use only.
     /// </remarks>
-	virtual Acad::ErrorStatus lockContext(const AcDbObjectContext* pContext) = 0;
+  virtual Acad::ErrorStatus lockContext(const AcDbObjectContext* pContext) = 0;
     /// <summary>
     /// For internal use only.
     /// </summary>
@@ -163,7 +163,7 @@ public:
     /// <remarks>
     /// For internal use only.
     /// </remarks>
-	virtual Acad::ErrorStatus unlockContext() = 0;
+  virtual Acad::ErrorStatus unlockContext() = 0;
     /// <summary>
     /// For internal use only.
     /// </summary>
@@ -175,7 +175,7 @@ public:
     /// <remarks>
     /// For internal use only.
     /// </remarks>
-	virtual bool locked() const = 0;
+  virtual bool locked() const = 0;
     /// <summary>
     /// Gets a copy of a context with the specified name. 
     /// </summary>
@@ -194,7 +194,7 @@ public:
     /// delete on the returned pointer.
     /// </remarks>
     ///
-	virtual AcDbObjectContext* getContext(const AcString& contextName) const = 0;
+  virtual AcDbObjectContext* getContext(const AcString& contextName) const = 0;
     /// <summary>
     /// Determines whether a context with the specified name exists in the
     /// collection.
@@ -209,7 +209,7 @@ public:
     /// collection.
     /// </returns>
     ///
-	virtual bool hasContext(const AcString& contextName) const = 0;
+  virtual bool hasContext(const AcString& contextName) const = 0;
     /// <summary>
     /// Returns a private iterator to the contexts in the collection.
     /// </summary>
@@ -224,7 +224,7 @@ public:
     /// needed by calling delete on the returned pointer.
     /// </remarks>
     ///
-	virtual AcDbObjectContextCollectionIterator* newIterator() const = 0;
+  virtual AcDbObjectContextCollectionIterator* newIterator() const = 0;
 };
 ////////////////////////////////////////////////////////////////////////
 // class AcDbObjectContextCollectionIterator
@@ -245,7 +245,7 @@ public:
 class ADESK_NO_VTABLE AcDbObjectContextCollectionIterator : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbObjectContextCollectionIterator);
+  ACRX_DECLARE_MEMBERS(AcDbObjectContextCollectionIterator);
     /// <summary>
     /// Positions the iterator to the beginning of the collection.
     /// </summary>
@@ -254,7 +254,7 @@ public:
     /// Returns Acad::eOk if successful.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus start() = 0;
+  virtual Acad::ErrorStatus start() = 0;
     /// <summary>
     /// Positions the iterator to the next context in the collection.
     /// </summary>
@@ -263,7 +263,7 @@ public:
     /// Returns true if the iterator was positioned to a context in the
     /// collection, or false if it has reached the end of the collection.
     /// </returns>
-	virtual bool next() = 0;
+  virtual bool next() = 0;
     /// <summary>
     /// Determines whether the iterator has reached the end of the collection.
     /// </summary>
@@ -272,7 +272,7 @@ public:
     /// Returns true if the iterator has reached the end of the collection.
     /// </returns>
     /// 
-	virtual bool done() const = 0;
+  virtual bool done() const = 0;
     /// <summary> 
     /// Retrieves a copy of the context at the current position of the
     /// iterator. 
@@ -291,7 +291,7 @@ public:
     /// by calling delete on the returned pointer when it is no longer needed. 
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus getContext(AcDbObjectContext*& pObjectContext) const = 0;
+  virtual Acad::ErrorStatus getContext(AcDbObjectContext*& pObjectContext) const = 0;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

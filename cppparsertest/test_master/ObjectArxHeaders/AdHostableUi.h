@@ -9,11 +9,11 @@
 //////////////////////////////////////////////////////////////////////////////
 #pragma  once
 #ifndef ADHOSTABLEUI_H
-#	define ADHOSTABLEUI_H
-#	include "adesk.h"
-#	ifdef ADHOSTABLE_API
-#		define ADHOSTABLE_PORT	__declspec(dllexport)
-#	else 
-#		define ADHOSTABLE_PORT
-#	endif
+#  define ADHOSTABLEUI_H
+#  include "adesk.h"
+#  ifdef ADHOSTABLE_API
+#    define ADHOSTABLE_PORT	__declspec(dllexport)
+#  else 
+#    define ADHOSTABLE_PORT
+#  endif
 #endif

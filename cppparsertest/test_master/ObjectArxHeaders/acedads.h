@@ -9,26 +9,26 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _acedads_h
-#	define _acedads_h	1
-#	ifdef __cplusplus
-#		include "Adesk.h"
-#	endif
-#	include "adsdef.h"
-#	include "accoredefs.h"
-#	include "acbasedefs.h"
-#	include "acmem.h"
-#	include "AdAChar.h"
-#	pragma  pack (push, 8)
+#  define _acedads_h	1
+#  ifdef __cplusplus
+#    include "Adesk.h"
+#  endif
+#  include "adsdef.h"
+#  include "accoredefs.h"
+#  include "acbasedefs.h"
+#  include "acmem.h"
+#  include "AdAChar.h"
+#  pragma  pack (push, 8)
 // AdInt32 is obsolete and will be removed in the future
 // Please use Adesk::Int32, int32_t or int instead
-#	ifdef AdInt32
-#		undef AdInt32
-#	endif
-#	ifdef __cplusplus
-#		define AdInt32	Adesk::Int32
-#	else 
-#		define AdInt32	long
-#	endif
+#  ifdef AdInt32
+#    undef AdInt32
+#  endif
+#  ifdef __cplusplus
+#    define AdInt32	Adesk::Int32
+#  else 
+#    define AdInt32	long
+#  endif
 // LINKAGE: The following functions are exported with both extern "C" and C++ linkage.
 // The extern "C" linkage allows use by legacy C modules (*.c as opposed to *.cpp).
 // New modules should be written in C++, as we may some day drop support for C.
@@ -37,17 +37,17 @@
 /* External function definitions accessible from applications */
 const ACHAR* acedGetAppName();
 int acedUpdate(int vport, ads_point p1, ads_point p2);
-#	if  defined(_WINDEF_) || defined(_ADESK_MAC_)
+#  if  defined(_WINDEF_) || defined(_ADESK_MAC_)
 /* AutoCAD graphics window handle */
 HWND adsw_acadMainWnd();
-#		ifndef adsw_hwndAcad
-#			define adsw_hwndAcad	adsw_acadMainWnd()
-#		endif
+#    ifndef adsw_hwndAcad
+#      define adsw_hwndAcad	adsw_acadMainWnd()
+#    endif
 /* MFC "Document View" window handle */
 ACCORE_PORT HWND adsw_acadDocWnd();
-#	endif
-#	define acedCommand	MustSwitchTo_acedCommandC_or_acedCommandS - - !
-#	define acedCmd	MustSwitchTo_acedCmdC_or_acedCmdS - - !
+#  endif
+#  define acedCommand	MustSwitchTo_acedCommandC_or_acedCommandS - - !
+#  define acedCmd	MustSwitchTo_acedCmdC_or_acedCmdS - - !
 /* Register an ADS function handler */
 int acedRegFunc(int (*fhdl) (void), int fcode);
 /* Check for a console break */
@@ -75,24 +75,24 @@ int acedRetNil(void);
 int acedRetVoid(void);
 /* AutoCAD Entity access routines */
 int acedEntSel(const ACHAR* str, ads_name entres, ads_point ptres);
-#	ifdef __cplusplus
+#  ifdef __cplusplus
 class AcSelectionPreview;
 ACCORE_PORT int acedEntSel(const ACHAR* str, ads_name entres, ads_point ptres, AcSelectionPreview* pSelectionPreview);
-#	endif
+#  endif
 int acedNEntSel(const ACHAR* str, ads_name entres, ads_point ptres, ads_point xformres[4], struct resbuf** refstkres);
 int acedNEntSelP(const ACHAR* str, ads_name entres, ads_point ptres, int pickflag, ads_matrix xformres, struct resbuf** refstkres);
 int acedSSGet(const ACHAR* str, const void* pt1, const void* pt2, const struct resbuf* filter, ads_name ss);
-#	ifdef __cplusplus
+#  ifdef __cplusplus
 ACCORE_PORT int acedSSGet(const ACHAR* str, const void* pt1, const void* pt2, const struct resbuf* filter, ads_name ss, AcSelectionPreview* pSelectionPreview);
-#	endif
+#  endif
 int acedSSGetFirst(struct resbuf** gset, struct resbuf** pset);
 int acedSSSetFirst(const ads_name pset, const ads_name unused);
 int acedSSFree(const ads_name sname);
-#	ifdef __cplusplus
+#  ifdef __cplusplus
 int acedSSLength(const ads_name sname, Adesk::Int32* len);
-#	else 
+#  else 
 int acedSSLength(const ads_name sname, long* len);
-#	endif
+#  endif
 int acedSSAdd(const ads_name ename, const ads_name sname, ads_name result);
 int acedSSDel(const ads_name ename, const ads_name ss);
 int acedSSMemb(const ads_name ename, const ads_name ss);
@@ -119,9 +119,9 @@ int acedFNSplit(const ACHAR* pathToSplit, ACHAR* prebuf, size_t nPreBufLen, ACHA
     platform-independent Help these are the only values available to you.  
     If you are using acedHelp() to call WinHelp() you can include the Windows 
     header file winuser.h and use the full WinHelp() API.  */
-#	define HELP_CONTENTS	0x0003L  /* display first topic */
-#	define HELP_HELPONHELP	0x0004L  /* Display help on using help */
-#	define HELP_PARTIALKEY	0x0105L  /* Display Search dialog */
+#  define HELP_CONTENTS	0x0003L  /* display first topic */
+#  define HELP_HELPONHELP	0x0004L  /* Display help on using help */
+#  define HELP_PARTIALKEY	0x0105L  /* Display Search dialog */
 struct resbuf* acedArxLoaded(void);
 int acedArxLoad(const ACHAR* app);
 int acedArxUnload(const ACHAR* app);
@@ -208,9 +208,9 @@ int acdbDisToF(const ACHAR* str, int unit, ads_real* v);
 int acdbInters(const ads_point from1, const ads_point to1, const ads_point from2, const ads_point to2, int teston, ads_point result);
 int acdbSNValid(const ACHAR* tbstr, int pipetest);
 int ads_queueexpr(const ACHAR* expr);
-#	ifdef __cplusplus
-#		include "acadstrc.h"
-#		include "AcString.h"
+#  ifdef __cplusplus
+#    include "acadstrc.h"
+#    include "AcString.h"
 ACCORE_PORT int acedGetString(int cronly, const ACHAR* prompt, AcString& sResult);
 ACCORE_PORT int acedGetKword(const ACHAR* prompt, AcString& sResult);
 ACCORE_PORT int acedGetInput(AcString& sOut);
@@ -218,26 +218,26 @@ Acad::ErrorStatus acutNewString(const ACHAR* pInput, ACHAR*& pOutput);
 // Deprecated. Please use acedGetInput(AcString &sOut) instead
 inline int acedGetFullInput(ACHAR*& pStr)
 {
-	AcString sOut;
-	const int nRet = ::acedGetInput(sOut);
-	::acutNewString(sOut.constPtr(), pStr);
-	return nRet;
+  AcString sOut;
+  const int nRet = ::acedGetInput(sOut);
+  ::acutNewString(sOut.constPtr(), pStr);
+  return nRet;
 }
 // Deprecated. Please use acedGetKword (const ACHAR *prompt, AcString & sResult) instead
 inline int acedGetFullKword(const ACHAR* pString, ACHAR*& pStr)
 {
-	AcString sOut;
-	const int nRet = ::acedGetKword(pString, sOut);
-	::acutNewString(sOut.constPtr(), pStr);
-	return nRet;
+  AcString sOut;
+  const int nRet = ::acedGetKword(pString, sOut);
+  ::acutNewString(sOut.constPtr(), pStr);
+  return nRet;
 }
 // Deprecated. Please use acedGetString (int cronly, const ACHAR *prompt, AcString &sResult)
 inline int acedGetFullString(int cronly, const ACHAR* pString, ACHAR*& pResult)
 {
-	AcString sResult;
-	const int nRet = ::acedGetString(cronly, pString, sResult);
-	::acutNewString(sResult.constPtr(), pResult);
-	return nRet;
+  AcString sResult;
+  const int nRet = ::acedGetString(cronly, pString, sResult);
+  ::acutNewString(sResult.constPtr(), pResult);
+  return nRet;
 }
 // C++ templates that allow callers to omit the buffer length argument if they're
 // passing in a fixed size character array
@@ -245,37 +245,37 @@ inline int acedGetFullString(int cronly, const ACHAR* pString, ACHAR*& pResult)
 template <size_t nBufLen>
 inline int acedGetEnv(const wchar_t* pszName, wchar_t (& buf)[nBufLen])
 {
-	return ::acedGetEnv(pszName, buf, nBufLen);
+  return ::acedGetEnv(pszName, buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acedGetInput(wchar_t (& buf)[nBufLen])
 {
-	return ::acedGetInput(buf, nBufLen);
+  return ::acedGetInput(buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acedGetString(int cronly, const wchar_t* prompt, wchar_t (& buf)[nBufLen])
 {
-	return ::acedGetString(cronly, prompt, buf, nBufLen);
+  return ::acedGetString(cronly, prompt, buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acedFindFile(const wchar_t* pszName, wchar_t (& buf)[nBufLen])
 {
-	return ::acedFindFile(pszName, buf, nBufLen);
+  return ::acedFindFile(pszName, buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acedFindTrustedFile(const wchar_t* pszName, wchar_t (& buf)[nBufLen])
 {
-	return ::acedFindTrustedFile(pszName, buf, nBufLen);
+  return ::acedFindTrustedFile(pszName, buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acedGetKword(const wchar_t* pszPrompt, wchar_t (& buf)[nBufLen])
 {
-	return ::acedGetKword(pszPrompt, buf, nBufLen);
+  return ::acedGetKword(pszPrompt, buf, nBufLen);
 }
 template <size_t nPreBufLen, size_t nNameBufLen, size_t nExtBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, wchar_t (& prebuf)[nPreBufLen], wchar_t (& namebuf)[nNameBufLen], wchar_t (& extbuf)[nExtBufLen])
 {
-	return ::acedFNSplit(pathToSplit, prebuf, nPreBufLen, namebuf, nNameBufLen, extbuf, nExtBufLen);
+  return ::acedFNSplit(pathToSplit, prebuf, nPreBufLen, namebuf, nNameBufLen, extbuf, nExtBufLen);
 }
 // Template overloads to handle legacy callers who pass only ptr args and no sizes.
 // NULL is usually defined as 0, so it will bind to the size_t args.
@@ -287,41 +287,41 @@ inline int acedFNSplit(const wchar_t* pathToSplit, wchar_t (& prebuf)[nPreBufLen
 template <size_t nNameBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, size_t nPre, wchar_t (& namebuf)[nNameBufLen], size_t nExt)
 {
-	return ::acedFNSplit(pathToSplit, nullptr, nPre, namebuf, nNameBufLen, nullptr, nExt);
+  return ::acedFNSplit(pathToSplit, nullptr, nPre, namebuf, nNameBufLen, nullptr, nExt);
 }
 // Invoked by acedFNSplit(path, NULL, NULL, extbuf);
 template <size_t nExtBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, size_t nPre, size_t nName, wchar_t (& extbuf)[nExtBufLen])
 {
-	return ::acedFNSplit(pathToSplit, nullptr, nPre, nullptr, nName, extbuf, nExtBufLen);
+  return ::acedFNSplit(pathToSplit, nullptr, nPre, nullptr, nName, extbuf, nExtBufLen);
 }
 // Invoked by acedFNSplit(path, NULL, namebuf, extbuf);
 template <size_t nNameBufLen, size_t nExtBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, size_t nPre, wchar_t (& namebuf)[nNameBufLen], wchar_t (& extbuf)[nExtBufLen])
 {
-	return ::acedFNSplit(pathToSplit, nullptr, nPre, namebuf, nNameBufLen, extbuf, nExtBufLen);
+  return ::acedFNSplit(pathToSplit, nullptr, nPre, namebuf, nNameBufLen, extbuf, nExtBufLen);
 }
 // Invoked by acedFNSplit(path, prebuf, NULL, NULL);
 template <size_t nPreBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, wchar_t (& prebuf)[nPreBufLen], size_t nName, size_t nExt)
 {
-	return ::acedFNSplit(pathToSplit, prebuf, nPreBufLen, nullptr, nName, nullptr, nExt);
+  return ::acedFNSplit(pathToSplit, prebuf, nPreBufLen, nullptr, nName, nullptr, nExt);
 }
 template <size_t nBufLen>
 inline int acdbAngToS(ads_real v, int unit, int prec, wchar_t (& buf)[nBufLen])
 {
-	return ::acdbAngToS(v, unit, prec, buf, nBufLen);
+  return ::acdbAngToS(v, unit, prec, buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acdbRawAngToS(ads_real v, int unit, int prec, wchar_t (& buf)[nBufLen])
 {
-	return ::acdbRawAngToS(v, unit, prec, buf, nBufLen);
+  return ::acdbRawAngToS(v, unit, prec, buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acdbRToS(ads_real v, int unit, int prec, wchar_t (& buf)[nBufLen])
 {
-	return ::acdbRToS(v, unit, prec, buf, nBufLen);
+  return ::acdbRToS(v, unit, prec, buf, nBufLen);
 }
-#	endif
-#	pragma  pack (pop)
+#  endif
+#  pragma  pack (pop)
 #endif

@@ -15,99 +15,99 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #if  !defined(AFX_INETSTRC_H__4D0B9A84_B226_11d1_A4B1_0060B0576A88__INCLUDED_)
-#	define AFX_INETSTRC_H__4D0B9A84_B226_11d1_A4B1_0060B0576A88__INCLUDED_
-#	pragma  pack (push, 8)
+#  define AFX_INETSTRC_H__4D0B9A84_B226_11d1_A4B1_0060B0576A88__INCLUDED_
+#  pragma  pack (push, 8)
 // for status values, used as exception codes
 //
 namespace AcadInet
 {
-	const int StatusBase = 20000;
-	enum Status
-	{
+  const int StatusBase = 20000;
+  enum Status
+  {
 		// eveything went through just fine
 		//
-		statusOk = StatusBase,
-		statusInCache,
+    statusOk = StatusBase,
+    statusInCache,
 		// File access
 		//
 		// ATTENTION: If you add a status code to this group, you must also add it to the method that
 		//            maps actual return codes from file I/O-related exceptions or errors to one of 
 		//            the following.
 		//
-		statusFileNotFound,
-		statusBadPath,
-		statusTooManyOpenFiles,
-		statusFileAccessDenied,
-		statusInvalidFileHandle,
-		statusDirectoryFull,
-		statusHardwareError,
-		statusSharingViolation,
-		statusDiskFull,
-		statusFileGenericError,
+    statusFileNotFound,
+    statusBadPath,
+    statusTooManyOpenFiles,
+    statusFileAccessDenied,
+    statusInvalidFileHandle,
+    statusDirectoryFull,
+    statusHardwareError,
+    statusSharingViolation,
+    statusDiskFull,
+    statusFileGenericError,
 		// AcadInet-specific
 		//
-		statusValidURL,
-		statusNotAnURL,
-		statusNoWinInet,
-		statusOldWinInet,
-		statusNoAcadInet,
-		statusNotImplemented,
-		statusProtocolNotSupported,
-		statusCreateInternetSessionFailed,
-		statusInternetSessionConnectFailed,
-		statusInternetSessionOpenFailed,
-		statusInvalidAccessType,
-		statusFileOpenFailed,
-		statusHttpOpenRequestFailed,
-		statusUserCancelledTransfer,
+    statusValidURL,
+    statusNotAnURL,
+    statusNoWinInet,
+    statusOldWinInet,
+    statusNoAcadInet,
+    statusNotImplemented,
+    statusProtocolNotSupported,
+    statusCreateInternetSessionFailed,
+    statusInternetSessionConnectFailed,
+    statusInternetSessionOpenFailed,
+    statusInvalidAccessType,
+    statusFileOpenFailed,
+    statusHttpOpenRequestFailed,
+    statusUserCancelledTransfer,
 		// WinInet-specific
 		//
 		// ATTENTION: If you add a status code to this group, you must also add it to the method that
 		//            maps actual return codes from Internet transfer requests to one of the following.
 		//
-		statusHttpBadRequest,
-		statusHttpAccessDenied,
-		statusHttpPaymentRequired,
-		statusHttpRequestForbidden,
-		statusHttpObjectNotFound,
-		statusHttpBadMethod,
-		statusHttpNoAcceptableResponse,
-		statusHttpProxyAuthorizationRequired,
-		statusHttpTimedOut,
-		statusHttpConflict,
-		statusHttpResourceGone,
-		statusHttpLengthRequired,
-		statusHttpPreconditionFailure,
-		statusHttpRequestTooLarge,
-		statusHttpUriTooLong,
-		statusHttpUnsupportedMedia,
-		statusHttpServerError,
-		statusHttpNotSupported,
-		statusHttpBadGateway,
-		statusHttpServiceUnavailable,
-		statusHttpGatewayTimeout,
-		statusHttpVersionNotSupported,
-		statusInternetError,
+    statusHttpBadRequest,
+    statusHttpAccessDenied,
+    statusHttpPaymentRequired,
+    statusHttpRequestForbidden,
+    statusHttpObjectNotFound,
+    statusHttpBadMethod,
+    statusHttpNoAcceptableResponse,
+    statusHttpProxyAuthorizationRequired,
+    statusHttpTimedOut,
+    statusHttpConflict,
+    statusHttpResourceGone,
+    statusHttpLengthRequired,
+    statusHttpPreconditionFailure,
+    statusHttpRequestTooLarge,
+    statusHttpUriTooLong,
+    statusHttpUnsupportedMedia,
+    statusHttpServerError,
+    statusHttpNotSupported,
+    statusHttpBadGateway,
+    statusHttpServiceUnavailable,
+    statusHttpGatewayTimeout,
+    statusHttpVersionNotSupported,
+    statusInternetError,
 		// corresponding to the MFC CException
 		//
-		statusGenericException,
+    statusGenericException,
 		// all others
 		//
-		statusUnknownError
-	};
+    statusUnknownError
+  };
 }
 // flags used in the invocation of CProxyInet::TransferFile(), and, correspondingly,
 // in CAcadInetFacade::TransferFile()
 //
 namespace AcadInet
 {
-	enum
-	{
-		TF_VALIDATE_URL = 0x01,
-		TF_DOWNLOAD_FILE = 0x02,
-		TF_UPLOAD_FILE = 0x04,
-		TF_IGNORE_CACHE = 0x08
-	};
+  enum
+  {
+    TF_VALIDATE_URL = 0x01,
+    TF_DOWNLOAD_FILE = 0x02,
+    TF_UPLOAD_FILE = 0x04,
+    TF_IGNORE_CACHE = 0x08
+  };
 }
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

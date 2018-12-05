@@ -11,8 +11,8 @@
 //
 //
 #ifndef _AD_DBAUDITRECREATE_H
-#	define _AD_DBAUDITRECREATE_H	1
-#	include "acdb.h"
+#  define _AD_DBAUDITRECREATE_H	1
+#  include "acdb.h"
 /// <summary>
 /// AcDbAuditRecreatePE
 ///
@@ -44,7 +44,7 @@
 class AcDbAuditRecreatePE : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAuditRecreatePE);
+  ACRX_DECLARE_MEMBERS(AcDbAuditRecreatePE);
     /// <summary>
     /// replace is invoked as the first step to create a
     /// replacement object for a missing or corrupted object.
@@ -85,15 +85,15 @@ public:
     /// next.
     /// </remarks>
     ///
-	virtual bool replace(AcDbObject*& pNewObj, AcDbObjectId originalObjId, AcRxClass* pObjClass, AcDbDatabase* pDb, AcDbAuditInfo* pAuditInfo)
-	{
-		ADESK_UNREFED_PARAM(pNewObj);
-		ADESK_UNREFED_PARAM(originalObjId);
-		ADESK_UNREFED_PARAM(pObjClass);
-		ADESK_UNREFED_PARAM(pDb);
-		ADESK_UNREFED_PARAM(pAuditInfo);
-		return false;
-	}
+  virtual bool replace(AcDbObject*& pNewObj, AcDbObjectId originalObjId, AcRxClass* pObjClass, AcDbDatabase* pDb, AcDbAuditInfo* pAuditInfo)
+  {
+    ADESK_UNREFED_PARAM(pNewObj);
+    ADESK_UNREFED_PARAM(originalObjId);
+    ADESK_UNREFED_PARAM(pObjClass);
+    ADESK_UNREFED_PARAM(pDb);
+    ADESK_UNREFED_PARAM(pAuditInfo);
+    return false;
+  }
     /// <summary>
     /// redirect is invoked as the second attempt to establish a
     /// replacement object for a missing or corrupted object.
@@ -135,14 +135,14 @@ public:
     /// if false is returned, then object recreation fails.
     /// </remarks>
     ///
-	virtual bool redirect(AcDbObjectId& newObjId, AcDbObjectId originalObjId, AcRxClass* pObjClass, AcDbDatabase* pDb, AcDbAuditInfo* pAuditInfo)
-	{
-		ADESK_UNREFED_PARAM(newObjId);
-		ADESK_UNREFED_PARAM(originalObjId);
-		ADESK_UNREFED_PARAM(pObjClass);
-		ADESK_UNREFED_PARAM(pDb);
-		ADESK_UNREFED_PARAM(pAuditInfo);
-		return false;
-	}
+  virtual bool redirect(AcDbObjectId& newObjId, AcDbObjectId originalObjId, AcRxClass* pObjClass, AcDbDatabase* pDb, AcDbAuditInfo* pAuditInfo)
+  {
+    ADESK_UNREFED_PARAM(newObjId);
+    ADESK_UNREFED_PARAM(originalObjId);
+    ADESK_UNREFED_PARAM(pObjClass);
+    ADESK_UNREFED_PARAM(pDb);
+    ADESK_UNREFED_PARAM(pAuditInfo);
+    return false;
+  }
 };
 #endif

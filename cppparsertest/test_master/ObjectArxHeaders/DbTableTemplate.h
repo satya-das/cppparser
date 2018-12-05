@@ -23,15 +23,15 @@ class AcDbTable;
 //*************************************************************************
 class AcDbTableTemplate : public AcDbTableContent
 {
-	ACDB_DECLARE_MEMBERS(AcDbTableTemplate);
+  ACDB_DECLARE_MEMBERS(AcDbTableTemplate);
 public:
-	AcDbTableTemplate(void);
-	AcDbTableTemplate(const AcDbTable* pTable, AcDb::TableCopyOption nCopyOption);
-	virtual ~AcDbTableTemplate();
-	virtual Acad::ErrorStatus capture(const AcDbTable* pTable, AcDb::TableCopyOption nCopyOption);
-	virtual Acad::ErrorStatus createTable(AcDbTable*& pTable, AcDb::TableCopyOption nCopyOption);
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  AcDbTableTemplate(void);
+  AcDbTableTemplate(const AcDbTable* pTable, AcDb::TableCopyOption nCopyOption);
+  virtual ~AcDbTableTemplate();
+  virtual Acad::ErrorStatus capture(const AcDbTable* pTable, AcDb::TableCopyOption nCopyOption);
+  virtual Acad::ErrorStatus createTable(AcDbTable*& pTable, AcDb::TableCopyOption nCopyOption);
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
 };

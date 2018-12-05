@@ -21,7 +21,7 @@ class AcGsConfig;
 struct AcGsClientViewInfo;
 class AcDbDatabase;
 #ifndef DRAWBRIDGE_API
-#	define DRAWBRIDGE_API	__declspec(dllimport)
+#  define DRAWBRIDGE_API	__declspec(dllimport)
 #endif
 class AcGsManager
 {
@@ -29,15 +29,15 @@ public:
     /// <description>
     /// Default constructor.
     /// </description>
-	AcGsManager(void)
-	{
-	}
+  AcGsManager(void)
+  {
+  }
     /// <description>
     /// Destructor.
     /// </description>
-	virtual ~AcGsManager()
-	{
-	}
+  virtual ~AcGsManager()
+  {
+  }
     /// <description>
     /// Create an AcGsModel using the specified kernel.
     /// </description>
@@ -45,7 +45,7 @@ public:
     /// <returns>
     /// The new AcGsModel.
     /// </returns>
-	virtual AcGsModel* createAutoCADModel(AcGsGraphicsKernel& kernel) = 0;
+  virtual AcGsModel* createAutoCADModel(AcGsGraphicsKernel& kernel) = 0;
     /// <description>
     /// Creates an AcGsView using the specified kernel and viewport table record.
     /// Created AcGsView is added to the GUI's AcGsDevice
@@ -55,7 +55,7 @@ public:
     /// <returns>
     /// The new AcGsView.
     /// </returns>
-	virtual AcGsView* createAutoCADViewport(AcGsGraphicsKernel& kernel, AcDbViewportTableRecord* pVTR) = 0;
+  virtual AcGsView* createAutoCADViewport(AcGsGraphicsKernel& kernel, AcDbViewportTableRecord* pVTR) = 0;
     /// <description>
     /// Create an AcGsView using the specified kernel and drawable.
     /// Created AcGsView is added to the GUI's AcGsDevice
@@ -65,7 +65,7 @@ public:
     /// <returns>
     /// The new AcGsView.
     /// </returns>
-	virtual AcGsView* createAutoCADView(AcGsGraphicsKernel& kernel, AcGiDrawable* pDrawable) = 0;
+  virtual AcGsView* createAutoCADView(AcGsGraphicsKernel& kernel, AcGiDrawable* pDrawable) = 0;
     /// <description>
     /// Create an AcGsDevice using the specified kernel and window.
     /// </description>
@@ -74,7 +74,7 @@ public:
     /// <returns>
     /// The new AcGsDevice.
     /// </returns>
-	virtual AcGsDevice* createAutoCADDevice(AcGsGraphicsKernel& kernel, AcGsWindowingSystemID id) = 0;
+  virtual AcGsDevice* createAutoCADDevice(AcGsGraphicsKernel& kernel, AcGsWindowingSystemID id) = 0;
     /// <description>
     /// Create an offscreen AcGsDevice using the specified kernel.
     /// </description>
@@ -82,23 +82,23 @@ public:
     /// <returns>
     /// The new AcGsDevice.
     /// </returns>
-	virtual AcGsDevice* createAutoCADOffScreenDevice(AcGsGraphicsKernel& kernel) = 0;
+  virtual AcGsDevice* createAutoCADOffScreenDevice(AcGsGraphicsKernel& kernel) = 0;
     /// <description>
     /// Destroy the specified AcGsModel. Corresponds to createAutoCADModel().
     /// </description>
     /// <param name="pModel">Input model to be destroyed.</param>
-	virtual void destroyAutoCADModel(AcGsModel* pModel) = 0;
+  virtual void destroyAutoCADModel(AcGsModel* pModel) = 0;
     /// <description>
     /// Destroy the specified AcGsView. Corresponds to createAutoCADView().
     /// Specified view will be removed from the GUI's AcGsDevice.
     /// </description>
     /// <param name="pView">Input view to be destroyed.</param>
-	virtual void destroyAutoCADView(AcGsView* pView) = 0;
+  virtual void destroyAutoCADView(AcGsView* pView) = 0;
     /// <description>
     /// Destroy the specified AcGsDevice. Corresponds to createAutoCADDevice().
     /// </description>
     /// <param name="pDevice">Input device to be destroyed.</param>
-	virtual void destroyAutoCADDevice(AcGsDevice* pDevice) = 0;
+  virtual void destroyAutoCADDevice(AcGsDevice* pDevice) = 0;
     /// <description>
     /// Creates an AcGsView with the same kernel used to create the specified device and with the specified viewport table record.
     /// Created AcGsView is added to the specified device.
@@ -108,7 +108,7 @@ public:
     /// <returns>
     /// The new AcGsView.
     /// </returns>
-	virtual AcGsView* createViewport(AcGsDevice* pDevice, AcDbViewportTableRecord* pVTR) = 0;
+  virtual AcGsView* createViewport(AcGsDevice* pDevice, AcDbViewportTableRecord* pVTR) = 0;
     /// <description>
     /// Create an AcGsView with the same kernel used to create the specified device.
     /// Note that there is no associated viewport table record with this AcGsView.
@@ -118,7 +118,7 @@ public:
     /// <returns>
     /// The new AcGsView.
     /// </returns>
-	virtual AcGsView* createView(AcGsDevice* pDevice) = 0;
+  virtual AcGsView* createView(AcGsDevice* pDevice) = 0;
     /// <description>
     /// Destroy the specified AcGsView. Corresponds to createView() and createViewport().
     /// Specified AcGsView is removed from associated AcGsDevice.
@@ -126,7 +126,7 @@ public:
     /// </description>
     /// <param name="pView">Input view to be destroyed.</param>
     /// <param name="pVTR">[Optional] Associated view table record. Not destroyed by this function.</param>
-	virtual void destroyView(AcGsView*, AcDbViewportTableRecord* pVTR = nullptr) = 0;
+  virtual void destroyView(AcGsView*, AcDbViewportTableRecord* pVTR = nullptr) = 0;
     /// <description>
     /// Get the AcGsModel associated with the current AutoCAD database and the specified kernel.
     /// </description>
@@ -134,7 +134,7 @@ public:
     /// <returns>
     /// The AcGsModel associated with the current AutoCAD database and the specified kernel.
     /// </returns>
-	virtual AcGsModel* getDBModel(AcGsGraphicsKernel& kernel) = 0;
+  virtual AcGsModel* getDBModel(AcGsGraphicsKernel& kernel) = 0;
     /// <description>
     /// Get the AcGsDevice associated with the specified kernel.
     /// </description>
@@ -142,7 +142,7 @@ public:
     /// <returns>
     /// The AcGsDevice associated with the specified kernel.
     /// </returns>
-	virtual AcGsDevice* getGUIDevice(AcGsGraphicsKernel& kernel) = 0;
+  virtual AcGsDevice* getGUIDevice(AcGsGraphicsKernel& kernel) = 0;
     /// <description>
     /// Set the association between the specified database and model for the current display.
     /// </description>
@@ -150,7 +150,7 @@ public:
     /// <param name="pModel">Input model to associate with database.</param>
     /// <remarks>The model must have been created by the current display's graphics kernel.
     /// </remarks>
-	virtual void setGsModel(const AcDbDatabase* pDb, AcGsModel* pModel) = 0;
+  virtual void setGsModel(const AcDbDatabase* pDb, AcGsModel* pModel) = 0;
     /// <description>
     /// Get the current display's model that is associated with the specified database.
     /// </description>
@@ -158,7 +158,7 @@ public:
     /// <returns>
     /// The AcGsModel associated with the database.
     /// </returns>
-	virtual AcGsModel* gsModel(const AcDbDatabase* pDb) const = 0;
+  virtual AcGsModel* gsModel(const AcDbDatabase* pDb) const = 0;
     /// <description>
     /// Set the association between the specified database and highlight model for the current display.
     /// </description>
@@ -166,7 +166,7 @@ public:
     /// <param name="pModel">Input highlight model to associate with database.</param>
     /// <remarks>The highlight model must have been created by the current display's graphics kernel.
     /// </remarks>
-	virtual void setGsHighlightModel(const AcDbDatabase* pDb, AcGsModel* pModel) = 0;
+  virtual void setGsHighlightModel(const AcDbDatabase* pDb, AcGsModel* pModel) = 0;
     /// <description>
     /// Get the current display's highlight model that is associated with the specified database.
     /// </description>
@@ -174,7 +174,7 @@ public:
     /// <returns>
     /// The highlight AcGsModel associated with the database.
     /// </returns>
-	virtual AcGsModel* gsHighlightModel(const AcDbDatabase* pDb) const = 0;
+  virtual AcGsModel* gsHighlightModel(const AcDbDatabase* pDb) const = 0;
     /// <description>
     /// Get an offscreen device for the specified kernel. 
     /// </description>
@@ -185,7 +185,7 @@ public:
     /// <returns>
     /// A valid AcGsDevice if successful, otherwise null. 
     /// </returns>
-	virtual AcGsDevice* getOffScreenDevice(AcGsGraphicsKernel& kernel) = 0;
+  virtual AcGsDevice* getOffScreenDevice(AcGsGraphicsKernel& kernel) = 0;
     /// <description>
     /// Get an offscreen view for the specified kernel. 
     /// View is created without an associated viewport table record. If one is required, use createView(...)
@@ -200,7 +200,7 @@ public:
     /// <returns>
     /// A valid offscreen AcGsView if successful, otherwise null. 
     /// </returns>
-	virtual AcGsView* getOffScreenView(AcGsGraphicsKernel& kernel, AcGsClientViewInfo& clientViewInfo) = 0;
+  virtual AcGsView* getOffScreenView(AcGsGraphicsKernel& kernel, AcGsClientViewInfo& clientViewInfo) = 0;
     /// <description>
     /// Test for an AcGsModel association with the specified AcDbDatabase. 
     /// </description>
@@ -211,7 +211,7 @@ public:
     /// <returns>
     /// Returns true if there is a model associated with the database.  
     /// </returns>
-	virtual bool hasGsModel(const AcDbDatabase* pDb) const = 0;
+  virtual bool hasGsModel(const AcDbDatabase* pDb) const = 0;
     /// <description>
     /// Invalidate the AcGsModel associated with the specified AcDbDatabase.
     /// </description>
@@ -219,7 +219,7 @@ public:
     /// <returns>
     /// Returns false if the database has no associated model. 
     /// </returns>
-	virtual bool invalidateGsModel(const AcDbDatabase* pDb) = 0;
+  virtual bool invalidateGsModel(const AcDbDatabase* pDb) = 0;
     /// <description>
     /// Acquire a reference to the graphics kernel compatible with the specified descriptor.
     /// </description>
@@ -236,7 +236,7 @@ public:
     /// <returns>
     /// The graphics kernel object.
     /// </returns>
-	DRAWBRIDGE_API static AcGsGraphicsKernel* acquireGraphicsKernel(const AcGsKernelDescriptor& descriptor);
+  DRAWBRIDGE_API static AcGsGraphicsKernel* acquireGraphicsKernel(const AcGsKernelDescriptor& descriptor);
     /// <description>
     /// Release a reference to the specified graphics kernel.
     /// </description>
@@ -244,12 +244,12 @@ public:
     /// This method is static, so it should be called as AcGsManager::releaseGraphicsKernel(pKernel).
     /// </remarks>
     /// <param name="pKernel">Input kernel to release.</param>
-	DRAWBRIDGE_API static void releaseGraphicsKernel(AcGsGraphicsKernel* pKernel);
+  DRAWBRIDGE_API static void releaseGraphicsKernel(AcGsGraphicsKernel* pKernel);
     /// <description>
     /// Get the global AcGsConfig object. This object controls the configuration for all graphics kernels.
     /// </description>
     /// <returns>
     /// The global AcGsConfig object.
     /// </returns>
-	DRAWBRIDGE_API static AcGsConfig* getConfig(void);
+  DRAWBRIDGE_API static AcGsConfig* getConfig(void);
 };

@@ -17,27 +17,27 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _aduiImage_h
-#	define _aduiImage_h
-#	if  _MSC_VER >= 1000
-#		pragma  once
-#	endif
-#	ifndef _WINDOWS_
-#		include <afxwin.h>
-#		include <afxext.h>
-#	endif
+#  define _aduiImage_h
+#  if  _MSC_VER >= 1000
+#    pragma  once
+#  endif
+#  ifndef _WINDOWS_
+#    include <afxwin.h>
+#    include <afxext.h>
+#  endif
 // GDIPlus will not compile with our MACRO for "new", therefore we are saving off
 // our macro while we compile GDIPlus, then set it back.
-#	pragma  push_macro("new")
-#	undef new
-#	include <minmax.h>
-#	include <gdiplus.h>
-#	undef min
-#	undef max
-#	pragma  pop_macro("new")
-#	include <WinDef.h>
-#	include "aduiTheme.h"
-#	define ICON_16	16
-#	define ICON_32	32
+#  pragma  push_macro("new")
+#  undef new
+#  include <minmax.h>
+#  include <gdiplus.h>
+#  undef min
+#  undef max
+#  pragma  pop_macro("new")
+#  include <WinDef.h>
+#  include "aduiTheme.h"
+#  define ICON_16	16
+#  define ICON_32	32
 ///////////////////////////////////////////////////////////////////////////////
 /// class CAdUiImage
 ///////////////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ public:
     /// <param name="bIsThemed"> 
     /// If true, dark/light theme support for image resource. 
     /// </param>
-	CAdUiImage(bool bIsThemed = false);
+  CAdUiImage(bool bIsThemed = false);
     /// <summary> 
     /// Create a new CAdUiImage object with resource file name.
     /// </summary>
@@ -64,7 +64,7 @@ public:
     /// <param name="bIsThemed"> 
     /// If true, dark/light theme support for image resource. 
     /// </param>
-	CAdUiImage(LPCWSTR pFile, bool bIsThemed = false);
+  CAdUiImage(LPCWSTR pFile, bool bIsThemed = false);
     /// <summary> 
     /// Create a new CAdUiImage object from bitmap handle.
     /// </summary>
@@ -74,20 +74,20 @@ public:
     /// <param name="format"> 
     /// Specify the image format. 
     /// </param>
-	CAdUiImage(HBITMAP hbmp, Gdiplus::PixelFormat format);
+  CAdUiImage(HBITMAP hbmp, Gdiplus::PixelFormat format);
     /// <summary>
     /// Destroys this CAdUiImage object.
     /// </summary>
-	virtual ~CAdUiImage();
+  virtual ~CAdUiImage();
     /// <summary> 
     /// Set CAdUiImage resource empty.
     /// </summary>
-	virtual void Empty();
+  virtual void Empty();
     /// <summary> 
     /// Reload image resource. 
     /// If this class is themed CAdUiImage class, resource will be reloaded based on drak/light theme.
     /// </summary>
-	virtual bool Reload();
+  virtual bool Reload();
     /// <summary> 
     /// Load image resource by resource file name. 
     /// </summary>
@@ -97,65 +97,65 @@ public:
     /// <returns> 
     /// Reture true if load resource success. Otherwise, return false.
     /// </returns>
-	bool Load(LPCWSTR pFile);
+  bool Load(LPCWSTR pFile);
     /// <summary> 
     /// Get whether this object is themed.
     /// </summary>
     /// <returns> 
     /// whether this object is themed.
     /// </returns>
-	bool IsThemed()
-	{
-		return m_bIsThemed;
-	}
+  bool IsThemed()
+  {
+    return m_bIsThemed;
+  }
     /// <summary> 
     /// Set this object IsThemed flag.
     /// </summary>
     /// <param name="bIsThemed"> 
     /// If true, dark/light theme support for image resource.
     /// </param>
-	void SetIsThemed(bool bIsThemed)
-	{
-		m_bIsThemed = bIsThemed;
-	}
+  void SetIsThemed(bool bIsThemed)
+  {
+    m_bIsThemed = bIsThemed;
+  }
     /// <summary> 
     /// Set CAdUiTheme that is used as current theme. 
     /// </summary>
     /// <param name="theme"> 
     /// Specify the new CAdUiTheme.
     /// </param>
-	void SetTheme(const CAdUiTheme* theme);
+  void SetTheme(const CAdUiTheme* theme);
     /// <summary> 
     /// Get image width. 
     /// </summary>
     /// <returns> 
     /// Image width.
     /// </returns>
-	unsigned int GetWidth() const;
+  unsigned int GetWidth() const;
     /// <summary> 
     /// Get iamge height.
     /// </summary>
     /// <returns> 
     /// Image height.
     /// </returns>
-	unsigned int GetHeight() const;
+  unsigned int GetHeight() const;
     /// <summary> 
     /// Get Gdiplus::Bitmap pointer.
     /// </summary>
     /// <returns> 
     /// Gdiplus::Bitmap pointer.
     /// </returns>
-	Gdiplus::Bitmap* GetBitmap() const
-	{
-		return m_pBitmap;
-	}
+  Gdiplus::Bitmap* GetBitmap() const
+  {
+    return m_pBitmap;
+  }
     /// <summary> 
     /// Set Gdiplus::Bitmap pointer.
     /// </summary>
     /// <param name="theme"> 
     /// Specify the new Gdiplus::Bitmap.
     /// </param>
-	void SetBitmap(Gdiplus::Bitmap* pBitmap);
+  void SetBitmap(Gdiplus::Bitmap* pBitmap);
     /// <summary> 
     /// Draw current image resource. 
     /// </summary>
@@ -174,7 +174,7 @@ public:
     /// <returns> 
     /// If success, return true. Otherwise, return false.
     /// </returns>
-	bool DrawImage(CDC* pDC, int x, int y, bool isDisabled = false);
+  bool DrawImage(CDC* pDC, int x, int y, bool isDisabled = false);
     /// <summary> 
     /// Draw current image resource. 
     /// </summary>
@@ -199,7 +199,7 @@ public:
     /// <returns> 
     /// If success, return true. Otherwise, return false.
     /// </returns>
-	bool DrawImage(CDC* pDC, int x, int y, int width, int height, bool isDisabled = false);
+  bool DrawImage(CDC* pDC, int x, int y, int width, int height, bool isDisabled = false);
     /// <summary> 
     /// Draw current image resource. 
     /// </summary>
@@ -230,7 +230,7 @@ public:
     /// <returns> 
     /// If success, return true. Otherwise, return false.
     /// </returns>
-	bool DrawImage(CDC* pDC, int x, int y, int srcx, int srcy, int srcwidth, int srcheight, bool isDisabled = false);
+  bool DrawImage(CDC* pDC, int x, int y, int srcx, int srcy, int srcwidth, int srcheight, bool isDisabled = false);
     /// <summary> 
     /// Draw current image resource. 
     /// </summary>
@@ -267,7 +267,7 @@ public:
     /// <returns> 
     /// If success, return true. Otherwise, return false.
     /// </returns>
-	bool DrawImage(CDC* pDC, int x, int y, int width, int height, int srcx, int srcy, int srcwidth, int srcheight, bool isDisabled = false);
+  bool DrawImage(CDC* pDC, int x, int y, int width, int height, int srcx, int srcy, int srcwidth, int srcheight, bool isDisabled = false);
     /// <summary> 
     /// Get themed file name based on the orginal file name.
     /// </summary>
@@ -280,36 +280,36 @@ public:
     /// <returns> 
     /// Reture themed file name based on the orginal file name. 
     /// </returns>
-	static CString GetThemedFileName(LPCTSTR pName, const CAdUiTheme* pTheme = NULL);
+  static CString GetThemedFileName(LPCTSTR pName, const CAdUiTheme* pTheme = NULL);
 protected:
-	Gdiplus::Bitmap* m_pBitmap;
-	bool m_bIsThemed;
-	const CAdUiTheme* m_pTheme;
-	CString m_name;
+  Gdiplus::Bitmap* m_pBitmap;
+  bool m_bIsThemed;
+  const CAdUiTheme* m_pTheme;
+  CString m_name;
     /// <summary> 
     /// Return true, if the theme is dark.  
     /// </summary>
     /// <returns> 
     /// Return true, if the theme is dark.
     /// </returns>
-	bool CAdUiImage::IsThemeDark() const;
+  bool CAdUiImage::IsThemeDark() const;
     /// <summary> 
     /// Return true, if the current palette theme is dark.  
     /// </summary>
     /// <returns> 
     /// Return true, if the current palette theme is dark.
     /// </returns>
-	static bool IsCurrentPaletteThemeDark();
+  static bool IsCurrentPaletteThemeDark();
 private:
-	void commonCtr(bool bIsThemed);
-	void clear();
-	void drawImage(CDC* pDC, int x, int y, int width, int height, int srcx, int srcy, int srcwidth, int srcheight, bool isDisabled);
-	static unsigned int g_instanceCount;
-	static Gdiplus::GdiplusStartupInput g_gdiplusStartupInput;
-	static ULONG_PTR g_gdiplusToken;
+  void commonCtr(bool bIsThemed);
+  void clear();
+  void drawImage(CDC* pDC, int x, int y, int width, int height, int srcx, int srcy, int srcwidth, int srcheight, bool isDisabled);
+  static unsigned int g_instanceCount;
+  static Gdiplus::GdiplusStartupInput g_gdiplusStartupInput;
+  static ULONG_PTR g_gdiplusToken;
     // not allowed
-	CAdUiImage(const CAdUiImage& image);
-	CAdUiImage& operator=(const CAdUiImage& image);
+  CAdUiImage(const CAdUiImage& image);
+  CAdUiImage& operator=(const CAdUiImage& image);
 };
 ///////////////////////////////////////////////////////////////////////////////
 /// class CAdUiImageResource
@@ -321,24 +321,24 @@ private:
 class ADUI_PORT CAdUiImageResource : public CAdUiImage
 {
 protected:
-	HGLOBAL m_hBuffer;
-	UINT m_lightId;
-	UINT m_darkId;
-	LPCTSTR m_pType;
-	CString m_strType;
-	HMODULE m_hInst;
+  HGLOBAL m_hBuffer;
+  UINT m_lightId;
+  UINT m_darkId;
+  LPCTSTR m_pType;
+  CString m_strType;
+  HMODULE m_hInst;
 public:
     /// <summary> 
     /// Create a new object without resource.
     /// </summary>
-	CAdUiImageResource();
+  CAdUiImageResource();
     /// <summary> 
     /// Create a new CAdUiImageResource object.
     /// </summary>
     /// <param name="bIsThemed"> 
     /// If true, dark/light theme support for image resource. 
     /// </param>
-	CAdUiImageResource(bool bIsThemed);
+  CAdUiImageResource(bool bIsThemed);
     /// <summary> 
     /// Create a new CAdUiImageResource object by resource ID string.
     /// </summary>
@@ -354,7 +354,7 @@ public:
     /// <param name="bIsThemed"> 
     /// If true, dark/light theme support for image resource. 
     /// </param>
-	CAdUiImageResource(LPCTSTR pName, LPCTSTR pType = RT_RCDATA, HMODULE hInst = NULL, bool bIsThemed = false);
+  CAdUiImageResource(LPCTSTR pName, LPCTSTR pType = RT_RCDATA, HMODULE hInst = NULL, bool bIsThemed = false);
     /// <summary> 
     /// Create a new CAdUiImageResource object by resource ID.
     /// </summary>
@@ -367,7 +367,7 @@ public:
     /// <param name="hInst"> 
     /// Specify resource module handle.
     /// </param>
-	CAdUiImageResource(UINT id, LPCTSTR pType = RT_RCDATA, HMODULE hInst = NULL);
+  CAdUiImageResource(UINT id, LPCTSTR pType = RT_RCDATA, HMODULE hInst = NULL);
     /// <summary> 
     /// Create a new CAdUiImageResource object by resource ID.
     /// </summary>
@@ -380,7 +380,7 @@ public:
     /// <param name="hInst"> 
     /// Specify resource module handle.
     /// </param>
-	CAdUiImageResource(UINT id, UINT type, HMODULE hInst = NULL);
+  CAdUiImageResource(UINT id, UINT type, HMODULE hInst = NULL);
     /// <summary> 
     /// Create a new CAdUiImageResource object.
     /// </summary>
@@ -396,7 +396,7 @@ public:
     /// <param name="hInst"> 
     /// Specify resource module handle.
     /// </param>
-	CAdUiImageResource(UINT lightId, UINT darkId, LPCTSTR pType = RT_RCDATA, HMODULE hInst = NULL);
+  CAdUiImageResource(UINT lightId, UINT darkId, LPCTSTR pType = RT_RCDATA, HMODULE hInst = NULL);
     /// <summary> 
     /// Create a new CAdUiImageResource object.
     /// </summary>
@@ -412,20 +412,20 @@ public:
     /// <param name="hInst"> 
     /// Specify resource module handle.
     /// </param>
-	CAdUiImageResource(UINT lightId, UINT darkId, UINT type, HMODULE hInst = NULL);
+  CAdUiImageResource(UINT lightId, UINT darkId, UINT type, HMODULE hInst = NULL);
     /// <summary>
     /// Destroys this CAdUiImageResource object.
     /// </summary>
-	virtual ~CAdUiImageResource();
+  virtual ~CAdUiImageResource();
     /// <summary> 
     /// Set CAdUiImage resource empty.
     /// </summary>
-	virtual void Empty();
+  virtual void Empty();
     /// <summary> 
     /// Reload image resource. 
     /// If this class is themed CAdUiImage class, resource will be reloaded based on drak/light theme.
     /// </summary>
-	virtual bool Reload();
+  virtual bool Reload();
     /// <summary> 
     /// Load resource by resource ID string.
     /// </summary>
@@ -441,7 +441,7 @@ public:
     /// <returns> 
     /// If success, return true. Otherwise, return false.
     /// </returns>
-	bool Load(LPCTSTR pName, LPCTSTR pType = RT_RCDATA, HMODULE hInst = NULL);
+  bool Load(LPCTSTR pName, LPCTSTR pType = RT_RCDATA, HMODULE hInst = NULL);
     /// <summary> 
     /// Load resource by resource ID.
     /// </summary>
@@ -457,7 +457,7 @@ public:
     /// <returns> 
     /// If success, return true. Otherwise, return false.
     /// </returns>
-	bool Load(UINT id, LPCTSTR pType = RT_RCDATA, HMODULE hInst = NULL);
+  bool Load(UINT id, LPCTSTR pType = RT_RCDATA, HMODULE hInst = NULL);
     /// <summary> 
     /// Load resource by resource ID.
     /// </summary>
@@ -473,7 +473,7 @@ public:
     /// <returns> 
     /// If success, return true. Otherwise, return false.
     /// </returns>
-	bool Load(UINT id, UINT type, HMODULE hInst = NULL);
+  bool Load(UINT id, UINT type, HMODULE hInst = NULL);
     /// <summary> 
     /// Load resource by resource ID.
     /// </summary>
@@ -492,7 +492,7 @@ public:
     /// <returns> 
     /// If success, return true. Otherwise, return false.
     /// </returns>
-	bool Load(UINT lightId, UINT darkId, LPCTSTR pType = RT_RCDATA, HMODULE hInst = NULL);
+  bool Load(UINT lightId, UINT darkId, LPCTSTR pType = RT_RCDATA, HMODULE hInst = NULL);
     /// <summary> 
     /// Load resource by resource ID.
     /// </summary>
@@ -511,7 +511,7 @@ public:
     /// <returns> 
     /// If success, return true. Otherwise, return false.
     /// </returns>>
-	bool Load(UINT lightId, UINT darkId, UINT type, HMODULE hInst = NULL);
+  bool Load(UINT lightId, UINT darkId, UINT type, HMODULE hInst = NULL);
     /// <summary> 
     /// Get themed file name based on the orginal file name.
     /// </summary>
@@ -524,16 +524,16 @@ public:
     /// <returns> 
     /// Reture themed file name based on the orginal file name. 
     /// </returns>
-	static CString GetThemedResourceName(LPCTSTR pName, const CAdUiTheme* pTheme = NULL);
+  static CString GetThemedResourceName(LPCTSTR pName, const CAdUiTheme* pTheme = NULL);
 private:
-	bool loadIcon(LPCTSTR pName, HMODULE hInst = NULL);
-	bool loadResource(LPCTSTR pName, LPCTSTR pType, HMODULE hInst);
-	bool isPredefinedResourceType(LPCTSTR pType);
-	bool isValidPredefinedResourceType(LPCTSTR pType);
-	void saveType(LPCTSTR pType);
-	void clear();
+  bool loadIcon(LPCTSTR pName, HMODULE hInst = NULL);
+  bool loadResource(LPCTSTR pName, LPCTSTR pType, HMODULE hInst);
+  bool isPredefinedResourceType(LPCTSTR pType);
+  bool isValidPredefinedResourceType(LPCTSTR pType);
+  void saveType(LPCTSTR pType);
+  void clear();
     // not allowed
-	CAdUiImageResource(const CAdUiImageResource& image);
-	CAdUiImageResource& operator=(const CAdUiImageResource& image);
+  CAdUiImageResource(const CAdUiImageResource& image);
+  CAdUiImageResource& operator=(const CAdUiImageResource& image);
 };
 #endif

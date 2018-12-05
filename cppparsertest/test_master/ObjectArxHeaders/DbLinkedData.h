@@ -22,19 +22,19 @@
 //*************************************************************************
 class AcDbLinkedData : public AcDbObject
 {
-	ACDB_DECLARE_MEMBERS(AcDbLinkedData);
+  ACDB_DECLARE_MEMBERS(AcDbLinkedData);
 public:
-	ACDB_PORT AcDbLinkedData(void);
-	ACDB_PORT virtual ~AcDbLinkedData();
-	ACDB_PORT virtual Acad::ErrorStatus clear(void);
-	ACDB_PORT virtual bool isEmpty(void) const;
-	ACDB_PORT virtual const ACHAR* name(void) const;
-	ACDB_PORT virtual Acad::ErrorStatus setName(const ACHAR* pszName);
-	ACDB_PORT virtual const ACHAR* description(void) const;
-	ACDB_PORT virtual Acad::ErrorStatus setDescription(const ACHAR* pszDescription);
-	ACDB_PORT virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-	ACDB_PORT virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-	ACDB_PORT virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-	ACDB_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  ACDB_PORT AcDbLinkedData(void);
+  ACDB_PORT virtual ~AcDbLinkedData();
+  ACDB_PORT virtual Acad::ErrorStatus clear(void);
+  ACDB_PORT virtual bool isEmpty(void) const;
+  ACDB_PORT virtual const ACHAR* name(void) const;
+  ACDB_PORT virtual Acad::ErrorStatus setName(const ACHAR* pszName);
+  ACDB_PORT virtual const ACHAR* description(void) const;
+  ACDB_PORT virtual Acad::ErrorStatus setDescription(const ACHAR* pszDescription);
+  ACDB_PORT virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  ACDB_PORT virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  ACDB_PORT virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  ACDB_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
 };
 typedef AcArray<AcDbLinkedData*> AcDbDataArray;

@@ -26,18 +26,18 @@
 class ACDBCORE2D_PORT AcDbAssocObjectActionParam : public AcDbAssocActionParam
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocObjectActionParam);
+  ACRX_DECLARE_MEMBERS(AcDbAssocObjectActionParam);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocObjectActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocObjectActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary>
     /// Returns the AcDbObject the action parameter depends on.
     /// </summary>
     /// <param name="object"> The returned AcDbObject the action parameter depends on. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getObject(AcDbCompoundObjectId& object) const;
+  Acad::ErrorStatus getObject(AcDbCompoundObjectId& object) const;
     /// <summary>
     /// Makes the action parameter depend on the given AcDbObject via an AcDbAssocDependency.
     /// </summary>
@@ -50,6 +50,6 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setObject(const AcDbCompoundObjectId& object, bool isReadDependency = true, bool isWriteDependency = false, int dependencyOrder = 0);
+  Acad::ErrorStatus setObject(const AcDbCompoundObjectId& object, bool isReadDependency = true, bool isWriteDependency = false, int dependencyOrder = 0);
 };
 #pragma  pack (pop)

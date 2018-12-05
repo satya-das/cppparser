@@ -13,153 +13,153 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef AD_CORE_RXMFCAPI_H
-#	define AD_CORE_RXMFCAPI_H	1
-#	pragma  pack (push, 8)
-#	include "AcCoreDefs.h"
-#	include "AcHeapOpers.h"
+#  define AD_CORE_RXMFCAPI_H	1
+#  pragma  pack (push, 8)
+#  include "AcCoreDefs.h"
+#  include "AcHeapOpers.h"
 class AcCommandToolTipInfo;
 struct AcColorSettings
 {
     /* Solid background color for various contexts */
-	DWORD dwGfxModelBkColor;
-	DWORD dwGfxLayoutBkColor;
-	DWORD dwPaperBkColor;
-	DWORD dwParallelBkColor;
-	DWORD dwBEditBkColor;
-	DWORD dwCmdLineBkColor;
-	DWORD dwPlotPrevBkColor;
+  DWORD dwGfxModelBkColor;
+  DWORD dwGfxLayoutBkColor;
+  DWORD dwPaperBkColor;
+  DWORD dwParallelBkColor;
+  DWORD dwBEditBkColor;
+  DWORD dwCmdLineBkColor;
+  DWORD dwPlotPrevBkColor;
     /* Background color for 3D perspective projection */
-	DWORD dwSkyGradientZenithColor;
-	DWORD dwSkyGradientHorizonColor;
-	DWORD dwGroundGradientOriginColor;
-	DWORD dwGroundGradientHorizonColor;
-	DWORD dwEarthGradientAzimuthColor;
-	DWORD dwEarthGradientHorizonColor;
+  DWORD dwSkyGradientZenithColor;
+  DWORD dwSkyGradientHorizonColor;
+  DWORD dwGroundGradientOriginColor;
+  DWORD dwGroundGradientHorizonColor;
+  DWORD dwEarthGradientAzimuthColor;
+  DWORD dwEarthGradientHorizonColor;
     /* Crosshair color for various contexts */
-	DWORD dwModelCrossHairColor;
-	DWORD dwLayoutCrossHairColor;
-	DWORD dwParallelCrossHairColor;
-	DWORD dwPerspectiveCrossHairColor;
-	DWORD dwBEditCrossHairColor;
+  DWORD dwModelCrossHairColor;
+  DWORD dwLayoutCrossHairColor;
+  DWORD dwParallelCrossHairColor;
+  DWORD dwPerspectiveCrossHairColor;
+  DWORD dwBEditCrossHairColor;
     /* Ground plane grid major lines for various contexts */
-	DWORD dwParallelGridMajorLines;
-	DWORD dwPerspectiveGridMajorLines;
+  DWORD dwParallelGridMajorLines;
+  DWORD dwPerspectiveGridMajorLines;
     /* Ground plane grid minor lines for various contexts */
-	DWORD dwParallelGridMinorLines;
-	DWORD dwPerspectiveGridMinorLines;
+  DWORD dwParallelGridMinorLines;
+  DWORD dwPerspectiveGridMinorLines;
     /* Ground plane grid axis lines for various contexts */
-	DWORD dwParallelGridAxisLines;
-	DWORD dwPerspectiveGridAxisLines;
+  DWORD dwParallelGridAxisLines;
+  DWORD dwPerspectiveGridAxisLines;
     /* Text window color */
-	DWORD dwTextForeColor, dwTextBkColor;
+  DWORD dwTextForeColor, dwTextBkColor;
     /* Command line text color */
-	DWORD dwCmdLineForeColor;
-	DWORD dwCmdLineTempPromptBkColor;
-	DWORD dwCmdLineTempPromptTextColor;
-	DWORD dwCmdLineCmdOptKeywordColor;
-	DWORD dwCmdLineCmdOptBkColor;
-	DWORD dwCmdLineCmdOptHighlightedColor;
+  DWORD dwCmdLineForeColor;
+  DWORD dwCmdLineTempPromptBkColor;
+  DWORD dwCmdLineTempPromptTextColor;
+  DWORD dwCmdLineCmdOptKeywordColor;
+  DWORD dwCmdLineCmdOptBkColor;
+  DWORD dwCmdLineCmdOptHighlightedColor;
     /* AutoTrack vector color for various contexts */
     // Note: dwAutoTrackingVecColor indicates autotrack vector color in model space.
     // We didn't change its name to dwModelATrackVecColor because that might break
     // existing arx app.
-	DWORD dwAutoTrackingVecColor;
-	DWORD dwLayoutATrackVecColor;
-	DWORD dwParallelATrackVecColor;
-	DWORD dwPerspectiveATrackVecColor;
-	DWORD dwBEditATrackVecColor;
+  DWORD dwAutoTrackingVecColor;
+  DWORD dwLayoutATrackVecColor;
+  DWORD dwParallelATrackVecColor;
+  DWORD dwPerspectiveATrackVecColor;
+  DWORD dwBEditATrackVecColor;
     /* Autosnap Marker color for various contexts */
-	DWORD dwModelASnapMarkerColor;
-	DWORD dwLayoutASnapMarkerColor;
-	DWORD dwParallelASnapMarkerColor;
-	DWORD dwPerspectiveASnapMarkerColor;
-	DWORD dwBEditASnapMarkerColor;
+  DWORD dwModelASnapMarkerColor;
+  DWORD dwLayoutASnapMarkerColor;
+  DWORD dwParallelASnapMarkerColor;
+  DWORD dwPerspectiveASnapMarkerColor;
+  DWORD dwBEditASnapMarkerColor;
     /* Drafting Tool tip color for various contexts */
-	DWORD dwModelDftingTooltipColor;
-	DWORD dwLayoutDftingTooltipColor;
-	DWORD dwParallelDftingTooltipColor;
-	DWORD dwPerspectiveDftingTooltipColor;
-	DWORD dwBEditDftingTooltipColor;
+  DWORD dwModelDftingTooltipColor;
+  DWORD dwLayoutDftingTooltipColor;
+  DWORD dwParallelDftingTooltipColor;
+  DWORD dwPerspectiveDftingTooltipColor;
+  DWORD dwBEditDftingTooltipColor;
     /* Drafting Tool tip background color for various contexts */
-	DWORD dwModelDftingTooltipBkColor;
-	DWORD dwLayoutDftingTooltipBkColor;
-	DWORD dwParallelDftingTooltipBkColor;
-	DWORD dwPerspectiveDftingTooltipBkColor;
-	DWORD dwBEditDftingTooltipBkColor;
+  DWORD dwModelDftingTooltipBkColor;
+  DWORD dwLayoutDftingTooltipBkColor;
+  DWORD dwParallelDftingTooltipBkColor;
+  DWORD dwPerspectiveDftingTooltipBkColor;
+  DWORD dwBEditDftingTooltipBkColor;
     /* Light glyphs color for various contexts */
-	DWORD dwModelLightGlyphs;
-	DWORD dwLayoutLightGlyphs;
-	DWORD dwParallelLightGlyphs;
-	DWORD dwPerspectiveLightGlyphs;
-	DWORD dwBEditLightGlyphs;
+  DWORD dwModelLightGlyphs;
+  DWORD dwLayoutLightGlyphs;
+  DWORD dwParallelLightGlyphs;
+  DWORD dwPerspectiveLightGlyphs;
+  DWORD dwBEditLightGlyphs;
     /* Light Hotspot color for various contexts */
-	DWORD dwModelLightHotspot;
-	DWORD dwLayoutLightHotspot;
-	DWORD dwParallelLightHotspot;
-	DWORD dwPerspectiveLightHotspot;
-	DWORD dwBEditLightHotspot;
+  DWORD dwModelLightHotspot;
+  DWORD dwLayoutLightHotspot;
+  DWORD dwParallelLightHotspot;
+  DWORD dwPerspectiveLightHotspot;
+  DWORD dwBEditLightHotspot;
     /* Light Falloff color for various contexts */
-	DWORD dwModelLightFalloff;
-	DWORD dwLayoutLightFalloff;
-	DWORD dwParallelLightFalloff;
-	DWORD dwPerspectiveLightFalloff;
-	DWORD dwBEditLightFalloff;
+  DWORD dwModelLightFalloff;
+  DWORD dwLayoutLightFalloff;
+  DWORD dwParallelLightFalloff;
+  DWORD dwPerspectiveLightFalloff;
+  DWORD dwBEditLightFalloff;
     /* Light start limit color for various contexts */
-	DWORD dwModelLightStartLimit;
-	DWORD dwLayoutLightStartLimit;
-	DWORD dwParallelLightStartLimit;
-	DWORD dwPerspectiveLightStartLimit;
-	DWORD dwBEditLightStartLimit;
+  DWORD dwModelLightStartLimit;
+  DWORD dwLayoutLightStartLimit;
+  DWORD dwParallelLightStartLimit;
+  DWORD dwPerspectiveLightStartLimit;
+  DWORD dwBEditLightStartLimit;
     /* Light end limit color for various contexts */
-	DWORD dwModelLightEndLimit;
-	DWORD dwLayoutLightEndLimit;
-	DWORD dwParallelLightEndLimit;
-	DWORD dwPerspectiveLightEndLimit;
-	DWORD dwBEditLightEndLimit;
+  DWORD dwModelLightEndLimit;
+  DWORD dwLayoutLightEndLimit;
+  DWORD dwParallelLightEndLimit;
+  DWORD dwPerspectiveLightEndLimit;
+  DWORD dwBEditLightEndLimit;
     /* Camera glyphs color for various contexts */
-	DWORD dwModelCameraGlyphs;
-	DWORD dwLayoutCameraGlyphs;
-	DWORD dwParallelCameraGlyphs;
-	DWORD dwPerspectiveCameraGlyphs;
+  DWORD dwModelCameraGlyphs;
+  DWORD dwLayoutCameraGlyphs;
+  DWORD dwParallelCameraGlyphs;
+  DWORD dwPerspectiveCameraGlyphs;
     /* Camera frustrum plane color for various contexts */
-	DWORD dwModelCameraFrustrum;
-	DWORD dwLayoutCameraFrustrum;
-	DWORD dwParallelCameraFrustrum;
-	DWORD dwPerspectiveCameraFrustrum;
+  DWORD dwModelCameraFrustrum;
+  DWORD dwLayoutCameraFrustrum;
+  DWORD dwParallelCameraFrustrum;
+  DWORD dwPerspectiveCameraFrustrum;
     /* Camera clipping plane color for various contexts */
-	DWORD dwModelCameraClipping;
-	DWORD dwLayoutCameraClipping;
-	DWORD dwParallelCameraClipping;
-	DWORD dwPerspectiveCameraClipping;
+  DWORD dwModelCameraClipping;
+  DWORD dwLayoutCameraClipping;
+  DWORD dwParallelCameraClipping;
+  DWORD dwPerspectiveCameraClipping;
     /* Flags - set if true */
 
     /* Flags for use tint X, Y, Z for crosshair */
-	int nModelCrosshairUseTintXYZ;
-	int nLayoutCrosshairUseTintXYZ;
-	int nParallelCrosshairUseTintXYZ;
-	int nPerspectiveCrosshairUseTintXYZ;
-	int nBEditCrossHairUseTintXYZ;
+  int nModelCrosshairUseTintXYZ;
+  int nLayoutCrosshairUseTintXYZ;
+  int nParallelCrosshairUseTintXYZ;
+  int nPerspectiveCrosshairUseTintXYZ;
+  int nBEditCrossHairUseTintXYZ;
     /* Flags for use tint X, Y, Z for AutoTrack Vector */
-	int nModelATrackVecUseTintXYZ;
-	int nLayoutATrackVecUseTintXYZ;
-	int nParallelATrackVecUseTintXYZ;
-	int nPerspectiveATrackVecUseTintXYZ;
-	int nBEditATrackVecUseTintXYZ;
+  int nModelATrackVecUseTintXYZ;
+  int nLayoutATrackVecUseTintXYZ;
+  int nParallelATrackVecUseTintXYZ;
+  int nPerspectiveATrackVecUseTintXYZ;
+  int nBEditATrackVecUseTintXYZ;
     /* Flags for use tint X, Y, Z for Drafting Tooltip Bk tint */
-	int nModelDftingTooltipBkUseTintXYZ;
-	int nLayoutDftingTooltipBkUseTintXYZ;
-	int nParallelDftingTooltipBkUseTintXYZ;
-	int nPerspectiveDftingTooltipBkUseTintXYZ;
-	int nBEditDftingTooltipBkUseTintXYZ;
+  int nModelDftingTooltipBkUseTintXYZ;
+  int nLayoutDftingTooltipBkUseTintXYZ;
+  int nParallelDftingTooltipBkUseTintXYZ;
+  int nPerspectiveDftingTooltipBkUseTintXYZ;
+  int nBEditDftingTooltipBkUseTintXYZ;
     /* Flags for use tint X, Y, Z for Ground plane grid major lines */
-	int nParallelGridMajorLineTintXYZ;
-	int nPerspectiveGridMajorLineTintXYZ;
+  int nParallelGridMajorLineTintXYZ;
+  int nPerspectiveGridMajorLineTintXYZ;
     /* Flags for use tint X, Y, Z for Ground plane grid minor lines */
-	int nParallelGridMinorLineTintXYZ;
-	int nPerspectiveGridMinorLineTintXYZ;
+  int nParallelGridMinorLineTintXYZ;
+  int nPerspectiveGridMinorLineTintXYZ;
     /* Flags for use tint X, Y, Z for Ground plane grid axis lines */
-	int nParallelGridAxisLineTintXYZ;
-	int nPerspectiveGridAxisLineTintXYZ;
+  int nParallelGridAxisLineTintXYZ;
+  int nPerspectiveGridAxisLineTintXYZ;
 };
 // AutoCAD windows' colors
 ACCORE_PORT bool acedGetCurrentColors(AcColorSettings* pColorSettings);
@@ -169,34 +169,34 @@ ACCORE_PORT bool acedGetSystemColors(AcColorSettings* pColorSettings);
 struct AcColorSettingsEx
 {
     // Light Web color for various contexts 
-	DWORD dwModelLightWeb;
-	DWORD dwLayoutLightWeb;
-	DWORD dwParallelLightWeb;
-	DWORD dwPerspectiveLightWeb;
-	DWORD dwBEditLightWeb;
+  DWORD dwModelLightWeb;
+  DWORD dwLayoutLightWeb;
+  DWORD dwParallelLightWeb;
+  DWORD dwPerspectiveLightWeb;
+  DWORD dwBEditLightWeb;
     // Light Web(missingfile) color for various contexts
-	DWORD dwModelLightWebMissingFile;
-	DWORD dwLayoutLightWebMissingFile;
-	DWORD dwParallelLightWebMissingFile;
-	DWORD dwPerspectiveLightWebMissingFile;
-	DWORD dwBEditLightWebMissingFile;
+  DWORD dwModelLightWebMissingFile;
+  DWORD dwLayoutLightWebMissingFile;
+  DWORD dwParallelLightWebMissingFile;
+  DWORD dwPerspectiveLightWebMissingFile;
+  DWORD dwBEditLightWebMissingFile;
     // Light Web shape(extend source) color for various contexts
-	DWORD dwModelLightWebShape;
-	DWORD dwLayoutLightWebShape;
-	DWORD dwParallelLightWebShape;
-	DWORD dwPerspectiveLightWebShape;
-	DWORD dwBEditLightWebShape;
+  DWORD dwModelLightWebShape;
+  DWORD dwLayoutLightWebShape;
+  DWORD dwParallelLightWebShape;
+  DWORD dwPerspectiveLightWebShape;
+  DWORD dwBEditLightWebShape;
     // Light Web lux at distance color for various contexts
-	DWORD dwModelLightWebLuxAtDist;
-	DWORD dwLayoutLightWebLuxAtDist;
-	DWORD dwParallelLightWebLuxAtDist;
-	DWORD dwPerspectiveLightWebLuxAtDist;
-	DWORD dwBEditLightWebLuxAtDist;
+  DWORD dwModelLightWebLuxAtDist;
+  DWORD dwLayoutLightWebLuxAtDist;
+  DWORD dwParallelLightWebLuxAtDist;
+  DWORD dwPerspectiveLightWebLuxAtDist;
+  DWORD dwBEditLightWebLuxAtDist;
     /* Block editor constraints colors */
-	DWORD dwBEditUnconstrainedColor;
-	DWORD dwBEditPartiallyConstrainedColor;
-	DWORD dwBEditFullyConstrainedColor;
-	DWORD dwBEditOverConstrainedColor;
+  DWORD dwBEditUnconstrainedColor;
+  DWORD dwBEditPartiallyConstrainedColor;
+  DWORD dwBEditFullyConstrainedColor;
+  DWORD dwBEditOverConstrainedColor;
 };
 // AutoCAD windows' colors
 ACCORE_PORT bool acedGetCurrentColorsEx(AcColorSettings* pColorSettings, AcColorSettingsEx* pColorSettingsEx);
@@ -206,49 +206,49 @@ ACCORE_PORT bool acedGetSystemColorsEx(AcColorSettings* pColorSettings, AcColorS
 struct AcColorSettingsEx2
 {
     /* Ground plane grid major lines for various contexts */
-	DWORD dw2DModelGridMajorLines;
-	DWORD dwLayoutGridMajorLines;
-	DWORD dwBEditGridMajorLines;
+  DWORD dw2DModelGridMajorLines;
+  DWORD dwLayoutGridMajorLines;
+  DWORD dwBEditGridMajorLines;
     /* Ground plane grid minor lines for various contexts */
-	DWORD dw2DModelGridMinorLines;
-	DWORD dwLayoutGridMinorLines;
-	DWORD dwBEditGridMinorLines;
+  DWORD dw2DModelGridMinorLines;
+  DWORD dwLayoutGridMinorLines;
+  DWORD dwBEditGridMinorLines;
     /* Ground plane grid axis lines for various contexts */
-	DWORD dw2DModelGridAxisLines;
-	DWORD dwLayoutGridAxisLines;
-	DWORD dwBEditGridAxisLines;
+  DWORD dw2DModelGridAxisLines;
+  DWORD dwLayoutGridAxisLines;
+  DWORD dwBEditGridAxisLines;
     /* Dynamic Dimension Line color for various contexts */
-	DWORD dwModelDynamicDimensionLineColor;
-	DWORD dwLayoutDynamicDimensionLineColor;
-	DWORD dwParallelDynamicDimensionLineColor;
-	DWORD dwPerspectiveDynamicDimensionLineColor;
-	DWORD dwBEditDynamicDimensionLineColor;
+  DWORD dwModelDynamicDimensionLineColor;
+  DWORD dwLayoutDynamicDimensionLineColor;
+  DWORD dwParallelDynamicDimensionLineColor;
+  DWORD dwPerspectiveDynamicDimensionLineColor;
+  DWORD dwBEditDynamicDimensionLineColor;
     /* Rubber-band Line color for various contexts */
-	DWORD dwModelRubberBandLineColor;
-	DWORD dwLayoutRubberBandLineColor;
-	DWORD dwParallelRubberBandLineColor;
-	DWORD dwPerspectiveRubberBandLineColor;
-	DWORD dwBEditRubberBandLineColor;
+  DWORD dwModelRubberBandLineColor;
+  DWORD dwLayoutRubberBandLineColor;
+  DWORD dwParallelRubberBandLineColor;
+  DWORD dwPerspectiveRubberBandLineColor;
+  DWORD dwBEditRubberBandLineColor;
     /* Drafting Tool tip contour color for various contexts */
-	DWORD dwModelDftingTooltipContourColor;
-	DWORD dwLayoutDftingTooltipContourColor;
-	DWORD dwParallelDftingTooltipContourColor;
-	DWORD dwPerspectiveDftingTooltipContourColor;
-	DWORD dwBEditDftingTooltipContourColor;
+  DWORD dwModelDftingTooltipContourColor;
+  DWORD dwLayoutDftingTooltipContourColor;
+  DWORD dwParallelDftingTooltipContourColor;
+  DWORD dwPerspectiveDftingTooltipContourColor;
+  DWORD dwBEditDftingTooltipContourColor;
     /* Flags for use tint X, Y, Z for Ground plane grid major lines */
-	int n2DModelGridMajorLineTintXYZ;
-	int nLayoutGridMajorLineTintXYZ;
-	int nBEditGridMajorLineTintXYZ;
+  int n2DModelGridMajorLineTintXYZ;
+  int nLayoutGridMajorLineTintXYZ;
+  int nBEditGridMajorLineTintXYZ;
     /* Flags for use tint X, Y, Z for Ground plane grid minor lines */
-	int n2DModelGridMinorLineTintXYZ;
-	int nLayoutGridMinorLineTintXYZ;
-	int nBEditGridMinorLineTintXYZ;
+  int n2DModelGridMinorLineTintXYZ;
+  int nLayoutGridMinorLineTintXYZ;
+  int nBEditGridMinorLineTintXYZ;
     /* Flags for use tint X, Y, Z for Ground plane grid axis lines */
-	int n2DModelGridAxisLineTintXYZ;
-	int nLayoutGridAxisLineTintXYZ;
-	int nBEditGridAxisLineTintXYZ;
+  int n2DModelGridAxisLineTintXYZ;
+  int nLayoutGridAxisLineTintXYZ;
+  int nBEditGridAxisLineTintXYZ;
     /* Control vertices hull color for various contexts */
-	DWORD dwControlVerticesHullColor;
+  DWORD dwControlVerticesHullColor;
 };
 // AutoCAD windows' colors
 ACCORE_PORT bool acedGetCurrentColorsEx2(AcColorSettings* pColorSettings, AcColorSettingsEx* pColorSettingsEx, AcColorSettingsEx2* pColorSettingsEx2);
@@ -259,15 +259,15 @@ ACCORE_PORT bool acedGetSystemColorsEx2(AcColorSettings* pColorSettings, AcColor
 struct AcColorSettingsEx3
 {
     /* 3d autosnap Marker color for various contexts */
-	DWORD dwModel3dASnapMarkerColor;
-	DWORD dwLayout3dASnapMarkerColor;
-	DWORD dwParallel3dASnapMarkerColor;
-	DWORD dwPerspective3dASnapMarkerColor;
-	DWORD dwBEdit3dASnapMarkerColor;
+  DWORD dwModel3dASnapMarkerColor;
+  DWORD dwLayout3dASnapMarkerColor;
+  DWORD dwParallel3dASnapMarkerColor;
+  DWORD dwPerspective3dASnapMarkerColor;
+  DWORD dwBEdit3dASnapMarkerColor;
     /* Viewport control for various contexts */
-	DWORD dw2DModelVportControl;
-	DWORD dwParallelVportControl;
-	DWORD dwPerspectiveVportControl;
+  DWORD dw2DModelVportControl;
+  DWORD dwParallelVportControl;
+  DWORD dwPerspectiveVportControl;
 };
 ACCORE_PORT bool acedGetCurrentColorsEx3(AcColorSettings* pColorSettings, AcColorSettingsEx* pColorSettingsEx, AcColorSettingsEx2* pColorSettingsEx2, AcColorSettingsEx3* pColorSettingsEx3);
 ACCORE_PORT bool acedSetCurrentColorsEx3(AcColorSettings* pColorSettings, AcColorSettingsEx* pColorSettingsEx, AcColorSettingsEx2* pColorSettingsEx2, AcColorSettingsEx3* pColorSettingsEx3);
@@ -277,7 +277,7 @@ ACCORE_PORT bool acedGetSystemColorsEx3(AcColorSettings* pColorSettings, AcColor
 */
 typedef double acedDwgPoint[3];
 // AutoCAD coordinates and viewports
-#	ifndef _ADESK_CROSS_PLATFORM_
+#  ifndef _ADESK_CROSS_PLATFORM_
 /* acedCoordFromPixelToWorld
 * Takes a coordinate in Window's coordinate (mouse coordinate)
 * and converts it to current viewport world coordinate
@@ -293,7 +293,7 @@ ACCORE_PORT bool acedCoordFromPixelToWorld(int windnum, CPoint ptIn, acedDwgPoin
 * and converts it to Windows' coordinate.
 */
 ACCORE_PORT bool acedCoordFromWorldToPixel(int windnum, const acedDwgPoint ptIn, CPoint& ptOut);
-#	endif
+#  endif
 // Progress Bar API
 
 /* acedSetStatusBarProgressMeter
@@ -389,10 +389,10 @@ ACCORE_PORT TaskId acedExecuteOnMainThread(const AcedRunLoopFn pfn, void* pConte
 class IAcEdRunLoopTask : public AcHeapOperators
 {
 public:
-	virtual ~IAcEdRunLoopTask()
-	{
-	}
-	virtual void execute() = 0;
+  virtual ~IAcEdRunLoopTask()
+  {
+  }
+  virtual void execute() = 0;
 };
 /* acedExecuteOnMainThread
  * Dispatches a task to be executed on AutoCAD main thread.
@@ -459,5 +459,5 @@ ACCORE_PORT bool acedDrawingStatusBarsVisible();
 // will be restored, otherwise the dialog will terminate and allow the queued
 // commands to be processed.
 ACCORE_PORT bool acedIsInputPending();
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

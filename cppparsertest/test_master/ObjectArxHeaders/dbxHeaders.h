@@ -28,43 +28,43 @@
 #pragma  pack (push, 8)
 #pragma  warning (disable: 4311 4312)
 #ifdef _MANAGED
-#	pragma  warning( disable : 4561 )
+#  pragma  warning( disable : 4561 )
 #endif
 //-----------------------------------------------------------------------------
 #ifdef _FULLDEBUG_
-#	define AC_FULL_DEBUG	1
-#	pragma  message ("Warning! _FULLDEBUG_ is deprecated.")
+#  define AC_FULL_DEBUG	1
+#  pragma  message ("Warning! _FULLDEBUG_ is deprecated.")
 #endif
 #ifndef AC_FULL_DEBUG
-#	pragma  comment (lib ,"rxapi.lib")
-#	pragma  comment (lib ,"acdb23.lib")
-#	pragma  comment (lib ,"acge23.lib")
-#	pragma  comment (lib ,"acISMobj23.lib")
-#	pragma  comment (lib ,"acgiapi.lib")
-#	pragma  comment (lib ,"axdb.lib")
-#	pragma  comment (lib ,"ac1st23.lib") 
-#	ifdef _BREP_SUPPORT_
-#		pragma  comment (lib ,"acgex23.lib")
-#		pragma  comment (lib ,"acbr23.lib")
-#	endif
+#  pragma  comment (lib ,"rxapi.lib")
+#  pragma  comment (lib ,"acdb23.lib")
+#  pragma  comment (lib ,"acge23.lib")
+#  pragma  comment (lib ,"acISMobj23.lib")
+#  pragma  comment (lib ,"acgiapi.lib")
+#  pragma  comment (lib ,"axdb.lib")
+#  pragma  comment (lib ,"ac1st23.lib") 
+#  ifdef _BREP_SUPPORT_
+#    pragma  comment (lib ,"acgex23.lib")
+#    pragma  comment (lib ,"acbr23.lib")
+#  endif
 #else 
-#	pragma  comment (lib ,"rxapi.lib")
-#	pragma  comment (lib ,"acdb23d.lib")
-#	pragma  comment (lib ,"acge23d.lib")
-#	pragma  comment (lib ,"acISMobj23d.lib")
-#	pragma  comment (lib ,"acgiapi.lib")
-#	pragma  comment (lib ,"axdb.lib")
-#	pragma  comment (lib ,"ac1st23d.lib") 
-#	ifdef _BREP_SUPPORT_
-#		pragma  comment (lib ,"acgex23d.lib")
-#		pragma  comment (lib ,"acbr23d.lib")
-#	endif
+#  pragma  comment (lib ,"rxapi.lib")
+#  pragma  comment (lib ,"acdb23d.lib")
+#  pragma  comment (lib ,"acge23d.lib")
+#  pragma  comment (lib ,"acISMobj23d.lib")
+#  pragma  comment (lib ,"acgiapi.lib")
+#  pragma  comment (lib ,"axdb.lib")
+#  pragma  comment (lib ,"ac1st23d.lib") 
+#  ifdef _BREP_SUPPORT_
+#    pragma  comment (lib ,"acgex23d.lib")
+#    pragma  comment (lib ,"acbr23d.lib")
+#  endif
 #endif
 #ifdef _HLR_SUPPORT_
-#	pragma  comment (lib ,"AsdkHlrApi23.lib")
+#  pragma  comment (lib ,"AsdkHlrApi23.lib")
 #endif
 #ifdef _AMODELER_SUPPORT_
-#	pragma  comment (lib, "aecmodeler.lib")
+#  pragma  comment (lib, "aecmodeler.lib")
 #endif
 #pragma  comment (lib, "acdbmgd.lib")
 //----- Rx Kernels
@@ -158,7 +158,7 @@
 #include "dbDataTable.h"
 #include "dbfilter.h"
 #ifndef _MANAGED
-#	include "dbgrip.h"
+#  include "dbgrip.h"
 #endif
 #include "dbappgrip.h"
 #include "dbidmap.h"
@@ -297,33 +297,33 @@
 #include "gevptar.h"
 //----- .NET extensions
 #ifdef _MANAGED
-#	include <vcclr.h>
-#	include "mgdinterop.h"
+#  include <vcclr.h>
+#  include "mgdinterop.h"
 #endif
 //----- Db COM extensions
 #ifdef __ATLCOM_H__
-#	ifndef _ACRXAPP
-#		include "axdb.h"
-#	else 
-#		include "acadi.h"
-#	endif
-#	include "oleaprot.h"
-#	include "category.h"
-#	include "axobjref.h"
-#	include "axboiler.h"
-#	include "acpi.h"
-#	include "opmdialog.h"
-#	include "opmimp.h"
-#	include "opmdrvr.h"
-#	include "opmext.h"
-#	include "axtempl.h"
-#	include "axpnt2d.h"
-#	include "axpnt3d.h"
-#	include "axmat3d.h"
-#	include "axlock.h"
-#	include "dynprops.h"
-#	include "acpexctl.h"
-#	include "AcPp.h"
+#  ifndef _ACRXAPP
+#    include "axdb.h"
+#  else 
+#    include "acadi.h"
+#  endif
+#  include "oleaprot.h"
+#  include "category.h"
+#  include "axobjref.h"
+#  include "axboiler.h"
+#  include "acpi.h"
+#  include "opmdialog.h"
+#  include "opmimp.h"
+#  include "opmdrvr.h"
+#  include "opmext.h"
+#  include "axtempl.h"
+#  include "axpnt2d.h"
+#  include "axpnt3d.h"
+#  include "axmat3d.h"
+#  include "axlock.h"
+#  include "dynprops.h"
+#  include "acpexctl.h"
+#  include "AcPp.h"
 #endif
 //----- AutoCAD utils
 #include "acut.h"
@@ -338,93 +338,93 @@
 #include "dbxEntryPoint.h"
 //----- ObjectDBX specific
 #ifdef _DBX_HOST_APPLICATION_
-#	include "truetypetext.h"
-#	include "dbhaext.h"
-#	include "acdbxref.h"
+#  include "truetypetext.h"
+#  include "dbhaext.h"
+#  include "acdbxref.h"
 #endif
 //----- BRep
 #ifdef _BREP_SUPPORT_
-#	include "brbctrav.h"
-#	include "brbetrav.h"
-#	include "brbftrav.h"
-#	include "brbrep.h"
-#	include "brbstrav.h"
-#	include "brbvtrav.h"
-#	include "brcplx.h"
-#	include "brcstrav.h"
-#	include "bredge.h"
-#	include "brelem.h"
-#	include "brelem2d.h"
-#	include "breltrav.h"
-#	include "brent.h"
-#	include "brentrav.h"
-#	include "brface.h"
-#	include "brfltrav.h"
-#	include "brgbl.h"
-#	include "brhit.h"
-#	include "brletrav.h"
-#	include "brloop.h"
-#	include "brlvtrav.h"
-#	include "brm2dctl.h"
-#	include "brmctl.h"
-#	include "brment.h"
-#	include "brmesh.h"
-#	include "brmesh2d.h"
-#	include "brmetrav.h"
-#	include "brnode.h"
-#	include "brprops.h"
-#	include "brsftrav.h"
-#	include "brshell.h"
-#	include "brtrav.h"
-#	include "brvetrav.h"
-#	include "brvltrav.h"
-#	include "brvtx.h"
+#  include "brbctrav.h"
+#  include "brbetrav.h"
+#  include "brbftrav.h"
+#  include "brbrep.h"
+#  include "brbstrav.h"
+#  include "brbvtrav.h"
+#  include "brcplx.h"
+#  include "brcstrav.h"
+#  include "bredge.h"
+#  include "brelem.h"
+#  include "brelem2d.h"
+#  include "breltrav.h"
+#  include "brent.h"
+#  include "brentrav.h"
+#  include "brface.h"
+#  include "brfltrav.h"
+#  include "brgbl.h"
+#  include "brhit.h"
+#  include "brletrav.h"
+#  include "brloop.h"
+#  include "brlvtrav.h"
+#  include "brm2dctl.h"
+#  include "brmctl.h"
+#  include "brment.h"
+#  include "brmesh.h"
+#  include "brmesh2d.h"
+#  include "brmetrav.h"
+#  include "brnode.h"
+#  include "brprops.h"
+#  include "brsftrav.h"
+#  include "brshell.h"
+#  include "brtrav.h"
+#  include "brvetrav.h"
+#  include "brvltrav.h"
+#  include "brvtx.h"
 #endif
 //----- Hidden Line removal API
 #ifdef _HLR_SUPPORT_
-#	include "Hlr.h"
-#	include "BasePex.h"
+#  include "Hlr.h"
+#  include "BasePex.h"
 #endif
 //----- Amodeler
 #ifdef _AMODELER_SUPPORT_
-#	include "amodeler.h"
-#	include "body.h"
-#	include "callback.h"
-#	include "check.h"
-#	include "circle3d.h"
-#	include "color.h"
-#	include "curve.h"
-#	include "darray.h"
-#	include "deviat.h"
-#	include "dxfinpln.h"
-#	include "dxfout.h"
-#	include "edge.h"
-#	include "entity.h"
-#	include "enums.h"
-#	include "epsilon.h"
-#	include "errcodes.h"
-#	include "face.h"
-#	include "flags.h"
-#	include "global.h"
-#	include "interval.h"
-#	include "ipoint2d.h"
-#	include "ipoint3d.h"
-#	include "ivect2d.h"
-#	include "ivect3d.h"
-#	include "line3d.h"
-#	include "massert.h"
-#	include "morphmap.h"
-#	include "plane.h"
-#	include "point2d.h"
-#	include "point3d.h"
-#	include "surface.h"
-#	include "transf3d.h"
-#	include "util.h"
-#	include "vector2d.h"
-#	include "vector3d.h"
-#	include "vertdata.h"
-#	include "vertex.h"
-#	include "vertsurf.h"
-#	include "wallcrnr.h"
+#  include "amodeler.h"
+#  include "body.h"
+#  include "callback.h"
+#  include "check.h"
+#  include "circle3d.h"
+#  include "color.h"
+#  include "curve.h"
+#  include "darray.h"
+#  include "deviat.h"
+#  include "dxfinpln.h"
+#  include "dxfout.h"
+#  include "edge.h"
+#  include "entity.h"
+#  include "enums.h"
+#  include "epsilon.h"
+#  include "errcodes.h"
+#  include "face.h"
+#  include "flags.h"
+#  include "global.h"
+#  include "interval.h"
+#  include "ipoint2d.h"
+#  include "ipoint3d.h"
+#  include "ivect2d.h"
+#  include "ivect3d.h"
+#  include "line3d.h"
+#  include "massert.h"
+#  include "morphmap.h"
+#  include "plane.h"
+#  include "point2d.h"
+#  include "point3d.h"
+#  include "surface.h"
+#  include "transf3d.h"
+#  include "util.h"
+#  include "vector2d.h"
+#  include "vector3d.h"
+#  include "vertdata.h"
+#  include "vertex.h"
+#  include "vertsurf.h"
+#  include "wallcrnr.h"
 #endif
 #pragma  pack (pop)

@@ -31,25 +31,25 @@
 class ACDB_PORT AcDbAssocPatchSurfaceActionBody : public AcDbAssocPathBasedSurfaceActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocPatchSurfaceActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocPatchSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocPatchSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocPatchSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> 
     /// Set constraint points of the resulting patch surface
     /// </summary>
     /// <param name="constraintPoints">  Array of constraint points. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setConstraintPoints(const AcArray<AcDbVertexRef>& constraintPoints);
+  Acad::ErrorStatus setConstraintPoints(const AcArray<AcDbVertexRef>& constraintPoints);
     /// <summary> 
     /// Set constraint curves of the resulting patch surface
     /// </summary>
     /// <param name="constraintCurves">  Array of constraint curves. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setConstraintCurves(const AcArray<AcDbEdgeRef>& constraintCurves);
+  Acad::ErrorStatus setConstraintCurves(const AcArray<AcDbEdgeRef>& constraintCurves);
     /// <summary><para> 
     /// Set continuity of the resulting patch surface. It can be only used on patch surface created from edge subentity
     /// </para><para>
@@ -61,7 +61,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setContinuity(int continuity, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setContinuity(int continuity, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Get continuity of the resulting patch surface. It can be only used on patch surface created from edge subentity
     /// </para><para>
@@ -72,14 +72,14 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Continuity of the resulting patch surface. </returns>
     ///
-	int continuity(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  int continuity(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary> 
     /// Get location of continuity grip point of the resulting patch surface
     /// </summary>
     /// <param name="gripPt">  Position of the continuity grip point. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getContinuityGripPoint(AcGePoint3d& gripPt) const;
+  Acad::ErrorStatus getContinuityGripPoint(AcGePoint3d& gripPt) const;
     /// <summary><para> 
     /// Set bulge factor the resulting patch surface. It can be only used on patch surface created from edge subentity
     /// </para><para>
@@ -91,7 +91,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setBulge(double bulge, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setBulge(double bulge, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Get bulge factor of resulting patch surface. It can be only used on patch surface created from edge subentity
     /// </para><para>
@@ -102,7 +102,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Bulge. </returns>
     ///
-	double bulge(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  double bulge(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary> 
     /// Create an instance of AcDbAssocPatchSurfaceActionBody, if the input is subentity edge 
     /// with continuity and bulge info
@@ -120,7 +120,7 @@ public:
     /// action will be erased and the resulting surface will not regenerate and become a generic surface. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus createInstance(const AcDbObjectId& patchSurfaceId, const AcArray<AcDbEdgeRef>& profileCurves, const AcArray<AcDbEdgeRef>& constraintCurves, const AcArray<AcDbVertexRef>& constraintPoints, int nContinuity, double dBulge, bool bEnabled, AcDbObjectId& createdActionId);
+  static Acad::ErrorStatus createInstance(const AcDbObjectId& patchSurfaceId, const AcArray<AcDbEdgeRef>& profileCurves, const AcArray<AcDbEdgeRef>& constraintCurves, const AcArray<AcDbVertexRef>& constraintPoints, int nContinuity, double dBulge, bool bEnabled, AcDbObjectId& createdActionId);
     /// <summary> 
     /// Create an instance of AcDbAssocPatchSurfaceActionBody, if the input is AcDbCurve
     /// without continuity and bulge info
@@ -137,6 +137,6 @@ public:
     /// the patch surface. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus createInstance(const AcDbObjectId& patchSurfaceId, const AcArray<AcDbEdgeRef>& profileCurves, const AcArray<AcDbEdgeRef>& constraintCurves, const AcArray<AcDbVertexRef>& constraintPoints, bool bEnabled, AcDbObjectId& createdActionId);
+  static Acad::ErrorStatus createInstance(const AcDbObjectId& patchSurfaceId, const AcArray<AcDbEdgeRef>& profileCurves, const AcArray<AcDbEdgeRef>& constraintCurves, const AcArray<AcDbVertexRef>& constraintPoints, bool bEnabled, AcDbObjectId& createdActionId);
 };
 #pragma  pack (pop)

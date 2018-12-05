@@ -24,7 +24,7 @@ class AcDbImpAssocArrayPolarParameters;
 class ACDB_PORT AcDbAssocArrayPolarParameters : public AcDbAssocArrayCommonParameters
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocArrayPolarParameters);
+  ACRX_DECLARE_MEMBERS(AcDbAssocArrayPolarParameters);
     /// <summary> Constructor.</summary>
     /// <param name="angle">  The input angle formed by any two adjacent items and 
     /// the center of polar array. The value should be between 0-360 degrees. </param>
@@ -35,10 +35,10 @@ public:
     /// <param name="levelCount">  The input number of levels. </param>
     /// <param name="rowElevation">  The input elevation between adjacent rows. </param>
     ///
-	AcDbAssocArrayPolarParameters(double angle = 15, double rowSpacing = 1, double levelSpacing = 1, int itemCount = 1, int rowCount = 1, int levelCount = 1, double rowElevation = 1);
+  AcDbAssocArrayPolarParameters(double angle = 15, double rowSpacing = 1, double levelSpacing = 1, int itemCount = 1, int rowCount = 1, int levelCount = 1, double rowElevation = 1);
     /// <summary> Default destructor.</summary>
     ///
-	virtual ~AcDbAssocArrayPolarParameters();
+  virtual ~AcDbAssocArrayPolarParameters();
     /// <summary> 
     /// Following list of enums can be used as input to method
     /// getGripPointAt(unsigned int, AcDbArrayGripAppData* &) to get specific 
@@ -46,75 +46,75 @@ public:
     /// path array.
     /// </summary>
     ///
-	enum GripModes
-	{
+  enum GripModes
+  {
         /// <summary> 
         /// Moves the polar array.
         /// </summary>
         ///
-		kCenterPointGrip = 1 << 0,
+    kCenterPointGrip = 1 << 0,
         /// <summary> 
         /// Changes radius of the polar array.
         /// </summary>
         ///
-		kStretchRadiusGrip = 1 << 1,
+    kStretchRadiusGrip = 1 << 1,
         /// <summary> 
         /// Changes number of rows.
         /// </summary>
         ///
-		kRowCountGrip = 1 << 2,
+    kRowCountGrip = 1 << 2,
         /// <summary> 
         /// Changes distance between rows.
         /// </summary>
         ///
-		kRowSpacingGrip = 1 << 3,
+    kRowSpacingGrip = 1 << 3,
         /// <summary> 
         /// Changes distance between rows by distributing the move uniformly 
         /// across all the rows.
         /// </summary>
         ///
-		kUniformRowSpacingGrip = 1 << 4,
+    kUniformRowSpacingGrip = 1 << 4,
         /// <summary> 
         /// Changes number of levels.
         /// </summary>
         ///
-		kLevelCountGrip = 1 << 5,
+    kLevelCountGrip = 1 << 5,
         /// <summary> 
         /// Changes distance between levels.
         /// </summary>
         ///
-		kLevelSpacingGrip = 1 << 6,
+    kLevelSpacingGrip = 1 << 6,
         /// <summary> 
         /// Changes distance between levels by distributing the move uniformly 
         /// across all the levels.
         /// </summary>
         ///
-		kUniformLevelSpacingGrip = 1 << 7,
+    kUniformLevelSpacingGrip = 1 << 7,
         /// <summary> 
         /// Changes number of items.
         /// </summary>
         ///
-		kItemCountGrip = 1 << 8,
+    kItemCountGrip = 1 << 8,
         /// <summary> 
         /// Changes angle between items. 
         /// </summary>
         ///
-		kAngleBetweenItemsGrip = 1 << 9,
+    kAngleBetweenItemsGrip = 1 << 9,
         /// <summary> 
         /// Changes the fill angle of Polar array.
         /// </summary>
         ///
-		kFillAngleGrip = 1 << 10
-	};
+    kFillAngleGrip = 1 << 10
+  };
     /// <summary> 
     /// Specifies the direction of the arc which array items depend on.
     /// </summary>
     ///
-	enum Direction
-	{
-		kClockwise,
-		kCounterClockwise
-	};
+  enum Direction
+  {
+    kClockwise,
+    kCounterClockwise
+  };
     /// <summary> 
     /// Gets the item count of the polar array.
     /// If there is no expression for a particular param,
@@ -124,17 +124,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns item count. </returns>
     ///
-	int itemCount(AcString& expression, AcString& evaluatorId) const;
-	inline int itemCount() const
-	{
-		AcString expression, evaluatorId;
-		return itemCount(expression, evaluatorId);
-	}
-	inline int itemCount(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return itemCount(expression, evaluatorId);
-	}
+  int itemCount(AcString& expression, AcString& evaluatorId) const;
+  inline int itemCount() const
+  {
+    AcString expression, evaluatorId;
+    return itemCount(expression, evaluatorId);
+  }
+  inline int itemCount(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return itemCount(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets the angle between items of the polar array.
     /// The value is between (0-360] degrees.
@@ -145,17 +145,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns angle between items. </returns>
     ///
-	double angleBetweenItems(AcString& expression, AcString& evaluatorId) const;
-	inline double angleBetweenItems() const
-	{
-		AcString expression, evaluatorId;
-		return angleBetweenItems(expression, evaluatorId);
-	}
-	inline double angleBetweenItems(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return angleBetweenItems(expression, evaluatorId);
-	}
+  double angleBetweenItems(AcString& expression, AcString& evaluatorId) const;
+  inline double angleBetweenItems() const
+  {
+    AcString expression, evaluatorId;
+    return angleBetweenItems(expression, evaluatorId);
+  }
+  inline double angleBetweenItems(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return angleBetweenItems(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets angle between first and last item in array.
     /// The value is between (0-360] degrees.
@@ -166,17 +166,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns angle between first and last item. </returns>
     ///
-	double fillAngle(AcString& expression, AcString& evaluatorId) const;
-	inline double fillAngle() const
-	{
-		AcString expression, evaluatorId;
-		return fillAngle(expression, evaluatorId);
-	}
-	inline double fillAngle(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return fillAngle(expression, evaluatorId);
-	}
+  double fillAngle(AcString& expression, AcString& evaluatorId) const;
+  inline double fillAngle() const
+  {
+    AcString expression, evaluatorId;
+    return fillAngle(expression, evaluatorId);
+  }
+  inline double fillAngle(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return fillAngle(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets the angle for the first item in array.
     /// The value should be between 0-360 degrees.
@@ -187,19 +187,19 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns angle between first and last item. </returns>
     ///
-	double startAngle(AcString& expression, AcString& evaluatorId) const;
+  double startAngle(AcString& expression, AcString& evaluatorId) const;
     /// <summary> 
     /// Gets the direction of arc.
     /// </summary>
     /// <returns> Returns the direction of arc. </returns>
     ///
-	Direction direction() const;
+  Direction direction() const;
     /// <summary> 
     /// Gets the retate rotate items option.
     /// </summary>
     /// <returns> Returns whether to rotate items. </returns>
     ///
-	bool rotateItems() const;
+  bool rotateItems() const;
     /// <summary> 
     /// Gets the radius of the polar array.
     /// If there is no expression for a particular param,
@@ -209,17 +209,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns the radius. </returns>
     ///
-	double radius(AcString& expression, AcString& evaluatorId) const;
-	inline double radius() const
-	{
-		AcString expression, evaluatorId;
-		return radius(expression, evaluatorId);
-	}
-	inline double radius(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return radius(expression, evaluatorId);
-	}
+  double radius(AcString& expression, AcString& evaluatorId) const;
+  inline double radius() const
+  {
+    AcString expression, evaluatorId;
+    return radius(expression, evaluatorId);
+  }
+  inline double radius(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return radius(expression, evaluatorId);
+  }
     /// <summary> 
     /// Sets the item count of the polar array.
     /// If there is no expression for the parameter, the expression string and 
@@ -231,7 +231,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setItemCount(int nItems, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setItemCount(int nItems, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the angle between items of the polar array.
     /// The input value will be rounded off to (0-360] degree
@@ -244,7 +244,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setAngleBetweenItems(double angle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setAngleBetweenItems(double angle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets angle between first and last item in array.
     /// The value will be rounded off to (0-360] degree
@@ -257,7 +257,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setFillAngle(double fillAngle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setFillAngle(double fillAngle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the angle for the first item in polar array.
     /// The value will be rounded off to [0-360] degree
@@ -270,21 +270,21 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setStartAngle(double angle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setStartAngle(double angle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the direction of arc.
     /// </summary>
     /// <param name="direction"> The input direction of arc. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setDirection(Direction direction);
+  Acad::ErrorStatus setDirection(Direction direction);
     /// <summary> 
     /// Sets whether to rotate items or not.
     /// </summary>
     /// <param name="bRotateItems"> The input boolean to set. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setRotateItems(bool bRotateItems);
+  Acad::ErrorStatus setRotateItems(bool bRotateItems);
     /// <summary> 
     /// Sets the radius of the polar array.
     /// If there is no expression for the parameter, the expression string and 
@@ -296,7 +296,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setRadius(double radius, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setRadius(double radius, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> <para>
     /// Obtains list of items patterned by the set of owned parameters. Each
     /// parameters class uses its own logic based on owned value as well as 
@@ -311,7 +311,7 @@ public:
     /// <param name="items"> The updated list of items. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getItems(AcArray<AcDbAssocArrayItem*>& items) const;
+  virtual Acad::ErrorStatus getItems(AcArray<AcDbAssocArrayItem*>& items) const;
     /// <summary>
     /// Obtains position as well as orientation of an item at given spatial 
     /// index specified by the locator.
@@ -323,8 +323,8 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getItemPosition(const AcDbItemLocator& locator, AcGePoint3d& position, AcGeMatrix3d& xform) const;
+  virtual Acad::ErrorStatus getItemPosition(const AcDbItemLocator& locator, AcGePoint3d& position, AcGeMatrix3d& xform) const;
 protected:
-	friend class AcDbImpAssocArrayPolarParameters;
-	explicit AcDbAssocArrayPolarParameters(AcDbImpAssocArrayPolarParameters* pSelf);
+  friend class AcDbImpAssocArrayPolarParameters;
+  explicit AcDbAssocArrayPolarParameters(AcDbImpAssocArrayPolarParameters* pSelf);
 };

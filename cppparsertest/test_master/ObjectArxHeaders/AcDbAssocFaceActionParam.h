@@ -25,11 +25,11 @@
 class ACDB_PORT AcDbAssocFaceActionParam : public AcDbAssocActionParam
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocFaceActionParam);
+  ACRX_DECLARE_MEMBERS(AcDbAssocFaceActionParam);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocFaceActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocFaceActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary><para>
     /// The input AcDbFaceRef is a non-persistent reference to a face geometry, 
     /// the AcDbAssocEdgeActionParam will make a persistent reference to that face. 
@@ -50,7 +50,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setFaceRef(const AcDbFaceRef& faceRef, bool isReadDependency = true, bool isWriteDependency = false, int dependencyOrder = 0);
+  virtual Acad::ErrorStatus setFaceRef(const AcDbFaceRef& faceRef, bool isReadDependency = true, bool isWriteDependency = false, int dependencyOrder = 0);
     /// <summary> <para>
     /// Returns references to the transient subentities of an AcDbEntity, that 
     /// correspond to the persistent subentity that this face action parameter 
@@ -75,7 +75,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getFaceRef(AcArray<AcDbFaceRef>& faceRefs) const;
+  virtual Acad::ErrorStatus getFaceRef(AcArray<AcDbFaceRef>& faceRefs) const;
     /// <summary><para>
     /// Sets new geometry of the referenced subentity of the AcDbEntity the action parameter
     /// depends on via an AcDbAssocDependency or AcDbAssocGeomDependency.
@@ -90,7 +90,7 @@ public:
     /// <param name="pNewFaceSurface"> New surface of the face subentity (copied, not reused). </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setFaceSubentityGeometry(const AcGeSurface* pNewFaceSurface);
+  virtual Acad::ErrorStatus setFaceSubentityGeometry(const AcGeSurface* pNewFaceSurface);
     /// <summary>
     /// If this action parameter depends on an AcDbEntity via an AcDbAssocGeomDependency, 
     /// it returns AcDbCompoundObjectId of the entity this dependency depends on.
@@ -102,6 +102,6 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getDependentOnCompoundObject(AcDbCompoundObjectId& compoundId) const;
+  Acad::ErrorStatus getDependentOnCompoundObject(AcDbCompoundObjectId& compoundId) const;
 };
 #pragma  pack (pop)

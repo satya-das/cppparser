@@ -19,20 +19,20 @@ public:
     /// It can be used to get/set specific property override of Xref layer
     /// The corresponding value of sysvar "VISRETAINMODE" is listed as below also
     /// </summary>
-	enum XRefLayerPropertyOverrideType
-	{
-		On = 0,
-		Freeze = 1,
-		Lock = 2,
-		Plot = 3,
-		Color = 4,
-		Linetype = 5,
-		Lineweight = 6,
-		Transparency = 7,
-		PlotStyle = 8,
-		NewVPFreeze = 9,
-		Description = 10
-	};
+  enum XRefLayerPropertyOverrideType
+  {
+    On = 0,
+    Freeze = 1,
+    Lock = 2,
+    Plot = 3,
+    Color = 4,
+    Linetype = 5,
+    Lineweight = 6,
+    Transparency = 7,
+    PlotStyle = 8,
+    NewVPFreeze = 9,
+    Description = 10
+  };
     /// <summary>
     /// This function is to check whether the Xref layer property is overridden or not in host drawing.
     /// If xdata flag is not found in the Xref layer, we will use Xref cache to compare the layer property from Xref and current layer property in host drawing,
@@ -48,7 +48,7 @@ public:
     /// <returns>
     /// Returns true if the given property is overridden in XRef layer (in host drawing)
     /// </returns>
-	static bool hasXRefLayerOverride(const AcDbObjectId& hostLayerId, XRefLayerPropertyOverrideType property);
+  static bool hasXRefLayerOverride(const AcDbObjectId& hostLayerId, XRefLayerPropertyOverrideType property);
     /// <summary>
     /// Shortcut of hasXrefLayerOverride, return true if any Xref layer property override found in the Xref layer
     /// </summary>
@@ -58,7 +58,7 @@ public:
     /// <returns>
     /// return true if any XRef layer property override found in the layer
     /// </returns>
-	static bool hasAnyXRefLayerOverrides(const AcDbObjectId& hostLayerId);
+  static bool hasAnyXRefLayerOverrides(const AcDbObjectId& hostLayerId);
     /// <summary>
     /// Shortcut of hasXrefLayerOverride, return true if any Xref layer property override found in the host drawing
     /// </summary>
@@ -68,7 +68,7 @@ public:
     /// <returns>
     /// return true if any XRef layer property override found in the host drawing
     /// </returns>
-	static bool hasAnyXRefLayerOverrides(AcDbDatabase* pHostDb);
+  static bool hasAnyXRefLayerOverrides(AcDbDatabase* pHostDb);
     /// <summary>
     /// Check whether the external reference has layer overrides
     /// </summary>
@@ -78,7 +78,7 @@ public:
     /// <returns>
     /// return true if the external reference has layer overrides
     /// </returns>
-	static bool hasXRefLayerOverride(AcDbBlockReference* pRef);
+  static bool hasXRefLayerOverride(AcDbBlockReference* pRef);
     /// <summary>
     /// This function is set which layer property is overridden in a Xref layer (in host drawing)
     /// the flag is saved in xdata of Xref layer with in the host drawing
@@ -92,7 +92,7 @@ public:
     /// <returns>
     /// return Acad::eOk if override is successfully added
     /// </returns>
-	static Acad::ErrorStatus addXRefLayerOverride(const AcDbObjectId& hostLayerId, XRefLayerPropertyOverrideType property);
+  static Acad::ErrorStatus addXRefLayerOverride(const AcDbObjectId& hostLayerId, XRefLayerPropertyOverrideType property);
     /// <summary>
     /// This function is to turn off the flag in XRef layer indicating which layer property will be overridden
     /// </summary>
@@ -105,7 +105,7 @@ public:
     /// <returns>
     /// return Acad::eOk if override is successfully removed
     /// </returns>
-	static Acad::ErrorStatus removeXRefLayerOverride(const AcDbObjectId& hostLayerId, XRefLayerPropertyOverrideType property);
+  static Acad::ErrorStatus removeXRefLayerOverride(const AcDbObjectId& hostLayerId, XRefLayerPropertyOverrideType property);
 	/// <summary>
 	/// shortcut of removeXRefLayerOverrides, remove specified layer property override in the whole drawing
 	/// </summary>
@@ -118,7 +118,7 @@ public:
 	/// <returns>
 	/// return Acad::eOk if override is successfully removed
 	/// </returns>
-	static Acad::ErrorStatus removeXRefLayerOverride(AcDbDatabase* pHostDb, XRefLayerPropertyOverrideType property);
+  static Acad::ErrorStatus removeXRefLayerOverride(AcDbDatabase* pHostDb, XRefLayerPropertyOverrideType property);
 	/// <summary>
     /// Shortcut of removeXRefLayerOverride, remove all XRef layer property overrides
     /// </summary>
@@ -128,7 +128,7 @@ public:
     /// <returns>
     /// return Acad::eOk if all overrides of this layer are successfully removed
     /// </returns>
-	static Acad::ErrorStatus removeXRefLayerOverrides(const AcDbObjectId& hostLayerId);
+  static Acad::ErrorStatus removeXRefLayerOverrides(const AcDbObjectId& hostLayerId);
     /// <summary>
     /// shortcut of removeXRefLayerOverride, remove all XRef layer property overrides in the whole drawing
     /// </summary>
@@ -138,7 +138,7 @@ public:
     /// <returns>
     /// return Acad::eOk if all overrides of this layer are successfully removed
     /// </returns>
-	static Acad::ErrorStatus removeXRefLayerOverrides(AcDbDatabase* pHostDb);
+  static Acad::ErrorStatus removeXRefLayerOverrides(AcDbDatabase* pHostDb);
     /// <summary>
     /// To enable Xref layer override recording
     /// if override recording is enabled, then any modification on Xref layer property will be automatically marked as an override,
@@ -147,14 +147,14 @@ public:
     /// or modified with AcDbLayerTableRecord APIs.
     /// Note: by default the Xref override recording is enabled
     /// </summary>
-	static void enableXRefLayerPropertyOverrideRecording();
+  static void enableXRefLayerPropertyOverrideRecording();
     /// <summary>
     /// To disable XRef layer override recording
     /// if override recording is disabled, then the modification on XRef layer property will *not* be automatically marked as an override
     /// xdata flag will *not* be added for this layer property in layer table record's xdata
     /// note: by default the xref override recording is enabled
     /// </summary>
-	static void disableXRefLayerPropertyOverrideRecording();
+  static void disableXRefLayerPropertyOverrideRecording();
     /// <summary>
     /// To check whether XRef layer override recording is enabled
     /// If override recording is enabled, then any modification on Xref layer property will be automatically marked as an override
@@ -162,5 +162,5 @@ public:
     /// <returns>
     /// return true if XRef layer override recording is enabled, otherwise return false
     /// </returns>
-	static bool isXRefLayerPropertyOverrideRecordingEnabled();
+  static bool isXRefLayerPropertyOverrideRecordingEnabled();
 };

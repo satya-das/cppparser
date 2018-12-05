@@ -23,11 +23,11 @@
 class ACDB_PORT AcDbAssocSweptSurfaceActionBody : public AcDbAssocPathBasedSurfaceActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocSweptSurfaceActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocSweptSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocSweptSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocSweptSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary><para> 
     /// Set scale factor of the resulting swept surface (correspondent to scale factor in AcDbSweepOptions)
     /// </para><para>
@@ -39,7 +39,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setScaleFactor(double scale, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setScaleFactor(double scale, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Get scale factor of the resulting swept surface (correspondent to scale factor in AcDbSweepOptions)
     /// </para><para>
@@ -50,7 +50,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Scale factor. </returns>
     ///
-	double scaleFactor(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  double scaleFactor(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary><para> 
     /// Set align angle of the resulting swept surface (correspondent to align angle in AcDbSweepOptions)
     /// </para><para>
@@ -62,7 +62,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setAlignAngle(double angle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setAlignAngle(double angle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Get align angle of the resulting swept surface (correspondent to align angle in AcDbSweepOptions)
     /// </para><para>
@@ -73,7 +73,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Align angle. </returns>
     ///
-	double alignAngle(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  double alignAngle(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary><para> 
     /// Set twist angle of the resulting swept surface (correspondent to twist angle in AcDbSweepOptions)
     /// </para><para>
@@ -85,7 +85,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setTwistAngle(double angle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setTwistAngle(double angle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Get twist angle of the resulting swept surface (correspondent to twist angle in AcDbSweepOptions)
     /// </para><para>
@@ -96,7 +96,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Twist angle. </returns>
     ///
-	double twistAngle(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  double twistAngle(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary> 
     /// Create an instance of AcDbAssocSweptSurfaceActionBody
     /// </summary>
@@ -108,6 +108,6 @@ public:
     /// <param name="createdActionId"> Id of created action. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcDbPathRef& sweepProfile, const AcDbPathRef& sweepPathProfile, const AcDbSweepOptions& sweptOptions, bool bEnabled, AcDbObjectId& createdActionId);
+  static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcDbPathRef& sweepProfile, const AcDbPathRef& sweepPathProfile, const AcDbSweepOptions& sweptOptions, bool bEnabled, AcDbObjectId& createdActionId);
 };
 #pragma  pack (pop)

@@ -19,10 +19,10 @@
 class ACDB_PORT AcPerpendicularConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcPerpendicularConstraint);
+  ACRX_DECLARE_MEMBERS(AcPerpendicularConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcPerpendicularConstraint(bool bCreateImp = true);
+  AcPerpendicularConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a Normal constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -32,10 +32,10 @@ public:
 class ACDB_PORT AcNormalConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcNormalConstraint);
+  ACRX_DECLARE_MEMBERS(AcNormalConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcNormalConstraint(bool bCreateImp = true);
+  AcNormalConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a PointCurve (coincident) constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -45,10 +45,10 @@ public:
 class ACDB_PORT AcPointCurveConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcPointCurveConstraint);
+  ACRX_DECLARE_MEMBERS(AcPointCurveConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcPointCurveConstraint(bool bCreateImp = true);
+  AcPointCurveConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a Colinear (coincident) constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -58,10 +58,10 @@ public:
 class ACDB_PORT AcColinearConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcColinearConstraint);
+  ACRX_DECLARE_MEMBERS(AcColinearConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcColinearConstraint(bool bCreateImp = true);
+  AcColinearConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a PointCoincidence (coincident) constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -71,10 +71,10 @@ public:
 class ACDB_PORT AcPointCoincidenceConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcPointCoincidenceConstraint);
+  ACRX_DECLARE_MEMBERS(AcPointCoincidenceConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcPointCoincidenceConstraint(bool bCreateImp = true);
+  AcPointCoincidenceConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a Concentric constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -84,10 +84,10 @@ public:
 class ACDB_PORT AcConcentricConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcConcentricConstraint);
+  ACRX_DECLARE_MEMBERS(AcConcentricConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcConcentricConstraint(bool bCreateImp = true);
+  AcConcentricConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a Concentric constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -97,7 +97,7 @@ public:
 class ACDB_PORT AcCenterPointConstraint : public AcConcentricConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcCenterPointConstraint);
+  ACRX_DECLARE_MEMBERS(AcCenterPointConstraint);
 };
 /// <summary>
 /// This class represents a Tangent constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -107,10 +107,10 @@ public:
 class ACDB_PORT AcTangentConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcTangentConstraint);
+  ACRX_DECLARE_MEMBERS(AcTangentConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcTangentConstraint(bool bCreateImp = true);
+  AcTangentConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a EqualRadius constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -120,10 +120,10 @@ public:
 class ACDB_PORT AcEqualRadiusConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcEqualRadiusConstraint);
+  ACRX_DECLARE_MEMBERS(AcEqualRadiusConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcEqualRadiusConstraint(bool bCreateImp = true);
+  AcEqualRadiusConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a EqualDistance constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -133,10 +133,10 @@ public:
 class ACDB_PORT AcEqualDistanceConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcEqualDistanceConstraint);
+  ACRX_DECLARE_MEMBERS(AcEqualDistanceConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcEqualDistanceConstraint(bool bCreateImp = true);
+  AcEqualDistanceConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a EqualLength constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -146,10 +146,10 @@ public:
 class ACDB_PORT AcEqualLengthConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcEqualLengthConstraint);
+  ACRX_DECLARE_MEMBERS(AcEqualLengthConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcEqualLengthConstraint(bool bCreateImp = true);
+  AcEqualLengthConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a Parallel constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -159,7 +159,7 @@ public:
 class ACDB_PORT AcParallelConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcParallelConstraint);
+  ACRX_DECLARE_MEMBERS(AcParallelConstraint);
   /// <summary> 
   /// Default constructor.
   /// </summary>
@@ -168,7 +168,7 @@ public:
   /// The default value is true.
   /// </param>
   ///
-	AcParallelConstraint(bool bCreateImp = true);
+  AcParallelConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a Horizontal constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -178,10 +178,10 @@ public:
 class ACDB_PORT AcHorizontalConstraint : public AcParallelConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcHorizontalConstraint);
+  ACRX_DECLARE_MEMBERS(AcHorizontalConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcHorizontalConstraint(bool bCreateImp = true);
+  AcHorizontalConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a Vertical constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -191,10 +191,10 @@ public:
 class ACDB_PORT AcVerticalConstraint : public AcParallelConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcVerticalConstraint);
+  ACRX_DECLARE_MEMBERS(AcVerticalConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcVerticalConstraint(bool bCreateImp = true);
+  AcVerticalConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a EqualCurvature constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -204,10 +204,10 @@ public:
 class ACDB_PORT AcEqualCurvatureConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcEqualCurvatureConstraint);
+  ACRX_DECLARE_MEMBERS(AcEqualCurvatureConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcEqualCurvatureConstraint(bool bCreateImp = true);
+  AcEqualCurvatureConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a Symmetric constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -217,10 +217,10 @@ public:
 class ACDB_PORT AcSymmetricConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcSymmetricConstraint);
+  ACRX_DECLARE_MEMBERS(AcSymmetricConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcSymmetricConstraint(bool bCreateImp = true);
+  AcSymmetricConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a MidPoint constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -230,10 +230,10 @@ public:
 class ACDB_PORT AcMidPointConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcMidPointConstraint);
+  ACRX_DECLARE_MEMBERS(AcMidPointConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcMidPointConstraint(bool bCreateImp = true);
+  AcMidPointConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a Fixed constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -243,10 +243,10 @@ public:
 class ACDB_PORT AcFixedConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcFixedConstraint);
+  ACRX_DECLARE_MEMBERS(AcFixedConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcFixedConstraint(bool bCreateImp = true);
+  AcFixedConstraint(bool bCreateImp = true);
 };
 /// <summary>
 /// This class represents a EqualHelpParameter constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -256,10 +256,10 @@ public:
 class ACDB_PORT AcEqualHelpParameterConstraint : public AcGeomConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcEqualHelpParameterConstraint);
+  ACRX_DECLARE_MEMBERS(AcEqualHelpParameterConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcEqualHelpParameterConstraint(bool bCreateImp = true);
+  AcEqualHelpParameterConstraint(bool bCreateImp = true);
   /// <summary> 
   /// Returns pointers to the two AcHelpParameter objects which this constraint is connected to.
   /// </summary>
@@ -271,7 +271,7 @@ public:
   /// </param>
   /// <returns> Returns Acad::eOk if successful. </returns>
   ///
-	Acad::ErrorStatus getEqualHelpParameters(AcHelpParameter*& pHelpParameter1, AcHelpParameter*& pHelpParameter2) const;
+  Acad::ErrorStatus getEqualHelpParameters(AcHelpParameter*& pHelpParameter1, AcHelpParameter*& pHelpParameter2) const;
 };
 /// <summary>
 /// This class represents a G2Smooth composite constraint node in the owning AcDbAssoc2dConstraintGroup.
@@ -282,9 +282,9 @@ public:
 class ACDB_PORT AcG2SmoothConstraint : public AcCompositeConstraint
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcG2SmoothConstraint);
+  ACRX_DECLARE_MEMBERS(AcG2SmoothConstraint);
   /// <summary> default constructor. </summary>
   /// 
-	AcG2SmoothConstraint(bool bCreateImp = true);
+  AcG2SmoothConstraint(bool bCreateImp = true);
 };
 #pragma  pack (pop)

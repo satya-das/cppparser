@@ -18,20 +18,20 @@
 // agreement. 
 /////////////////////////////////////////////////////////////////////////////// 
 #ifndef _ODDBDATABASE_INCLUDED_
-#	define _ODDBDATABASE_INCLUDED_
-#	include "DD_PackPush.h"
-#	include "RxObject.h"
-#	include "DbObjectId.h"
-#	include "RxObjectImpl.h"
-#	include "OdString.h"
-#	include "DbDate.h"
-#	include "OdCodePage.h"
-#	include "OdToolKit.h"
-#	include "DbObject.h"
-#	include "CmColor.h"
-#	include "DbSecurity.h"
-#	include "DbSystemServices.h"
-#	include "ViewportDefs.h"
+#  define _ODDBDATABASE_INCLUDED_
+#  include "DD_PackPush.h"
+#  include "RxObject.h"
+#  include "DbObjectId.h"
+#  include "RxObjectImpl.h"
+#  include "OdString.h"
+#  include "DbDate.h"
+#  include "OdCodePage.h"
+#  include "OdToolKit.h"
+#  include "DbObject.h"
+#  include "CmColor.h"
+#  include "DbSecurity.h"
+#  include "DbSystemServices.h"
+#  include "ViewportDefs.h"
 class OdDbObject;
 class OdDbSymbolTable;
 class OdDbBlockTable;
@@ -172,179 +172,179 @@ typedef OdSmartPtr<OdDbDatabase> OdDbDatabasePtr;
 */
 namespace OdDb
 {
-	enum UnitsValue
-	{
-		kUnitsUndefined = 0,
-		kUnitsInches = 1,
-		kUnitsFeet = 2,
-		kUnitsMiles = 3,
-		kUnitsMillimeters = 4,
-		kUnitsCentimeters = 5,
-		kUnitsMeters = 6,
-		kUnitsKilometers = 7,
-		kUnitsMicroinches = 8,
-		kUnitsMils = 9,
-		kUnitsYards = 10,
-		kUnitsAngstroms = 11,
-		kUnitsNanometers = 12,
-		kUnitsMicrons = 13,
-		kUnitsDecimeters = 14,
-		kUnitsDekameters = 15,
-		kUnitsHectometers = 16,
-		kUnitsGigameters = 17,
-		kUnitsAstronomical = 18,
-		kUnitsLightYears = 19,
-		kUnitsParsecs = 20,
-		kUnitsMax = kUnitsParsecs
-	};
-	enum SaveType
-	{
-		kDwg = 0,
-		kDxf = 1,
-		kDxb = 2,
-		kUnknown = -1
-	};
-	enum EndCaps
-	{
-		kEndCapNone = 0,
-		kEndCapRound = 1,
-		kEndCapAngle = 2,
-		kEndCapSquare = 3
-	};
-	enum JoinStyle
-	{
-		kJnStylNone = 0,
-		kJnStylRound = 1,
-		kJnStylAngle = 2,
-		kJnStylFlat = 3
-	};
-	enum DuplicateLinetypeLoading
-	{
-		kDltNotApplicable = 0,
-		kDltIgnore = 1,
-		kDltReplace = 2
-	};
-	enum TimeZone
-	{
-		kInternationalDateLine = -12000,
-		kMidwayIsland = -11000,
-		kHawaii = -10000,
-		kAlaska = -9000,
-		kPacific = -8000,
-		kMountain = -7000,
-		kArizona = -7001,
-		kMazatlan = -7002,
-		kCentral = -6000,
-		kCentralAmerica = -6001,
-		kMexicoCity = -6002,
-		kSaskatchewan = -6003,
-		kEastern = -5000,
-		kIndiana = -5001,
-		kBogota = -5002,
-		kAtlanticCanada = -4000,
-		kCaracas = -4001,
-		kSantiago = -4002,
-		kNewfoundland = -3300,
-		kBrasilia = -3000,
-		kBuenosAires = -3001,
-		kGreenland = -3002,
-		kMidAtlantic = -2000,
-		kAzores = -1000,
-		kCapeVerde = -1001,
-		kUTC = 0,
-		kGMT = 1,
-		kMonrovia = 2,
-		kBerlin = 1000,
-		kParis = 1001,
-		kPrague = 1002,
-		kSarajevo = 1003,
-		kWestCentralAfrica = 1004,
-		kAthens = 2000,
-		kEasternEurope = 2001,
-		kCairo = 2002,
-		kHarare = 2003,
-		kHelsinki = 2004,
-		kJerusalem = 2005,
-		kMoscow = 3000,
-		kRiyadh = 3001,
-		kBaghdad = 3002,
-		kEastAfrica = 3003,
-		kTehran = 3300,
-		kAbuDhabi = 4000,
-		kCaucasus = 4001,
-		kKabul = 4300,
-		kEkaterinburg = 5000,
-		kIslamabad = 5001,
-		kKolkata = 5300,
-		kKathmandu = 5450,
-		kAlmaty = 6000,
-		kDhaka = 6001,
-		kSriLanka = 6002,
-		kRangoon = 6300,
-		kBangkok = 7000,
-		kKrasnoyarsk = 7001,
-		kBeijing = 8000,
-		kSingapore = 8001,
-		kTaipei = 8002,
-		kIrkutsk = 8003,
-		kPerth = 8004,
-		kTokyo = 9000,
-		kSeoul = 9001,
-		kYakutsk = 9002,
-		kAdelaide = 9300,
-		kDarwin = 9301,
-		kSydney = 10000,
-		kGuam = 10001,
-		kBrisbane = 10002,
-		kHobart = 10003,
-		kVladivostock = 10004,
-		kMagadan = 11000,
-		kWellington = 12000,
-		kFiji = 12001,
-		kTonga = 13000
-	};
-	enum ShadowFlags
-	{
-		kShadowsCastAndReceive = 0x00,
-		kShadowsDoesNotReceive = 0x01,
-		kShadowsDoesNotCast = 0x02,
-		kShadowsIgnore = kShadowsDoesNotCast | kShadowsDoesNotReceive
-	};
+  enum UnitsValue
+  {
+    kUnitsUndefined = 0,
+    kUnitsInches = 1,
+    kUnitsFeet = 2,
+    kUnitsMiles = 3,
+    kUnitsMillimeters = 4,
+    kUnitsCentimeters = 5,
+    kUnitsMeters = 6,
+    kUnitsKilometers = 7,
+    kUnitsMicroinches = 8,
+    kUnitsMils = 9,
+    kUnitsYards = 10,
+    kUnitsAngstroms = 11,
+    kUnitsNanometers = 12,
+    kUnitsMicrons = 13,
+    kUnitsDecimeters = 14,
+    kUnitsDekameters = 15,
+    kUnitsHectometers = 16,
+    kUnitsGigameters = 17,
+    kUnitsAstronomical = 18,
+    kUnitsLightYears = 19,
+    kUnitsParsecs = 20,
+    kUnitsMax = kUnitsParsecs
+  };
+  enum SaveType
+  {
+    kDwg = 0,
+    kDxf = 1,
+    kDxb = 2,
+    kUnknown = -1
+  };
+  enum EndCaps
+  {
+    kEndCapNone = 0,
+    kEndCapRound = 1,
+    kEndCapAngle = 2,
+    kEndCapSquare = 3
+  };
+  enum JoinStyle
+  {
+    kJnStylNone = 0,
+    kJnStylRound = 1,
+    kJnStylAngle = 2,
+    kJnStylFlat = 3
+  };
+  enum DuplicateLinetypeLoading
+  {
+    kDltNotApplicable = 0,
+    kDltIgnore = 1,
+    kDltReplace = 2
+  };
+  enum TimeZone
+  {
+    kInternationalDateLine = -12000,
+    kMidwayIsland = -11000,
+    kHawaii = -10000,
+    kAlaska = -9000,
+    kPacific = -8000,
+    kMountain = -7000,
+    kArizona = -7001,
+    kMazatlan = -7002,
+    kCentral = -6000,
+    kCentralAmerica = -6001,
+    kMexicoCity = -6002,
+    kSaskatchewan = -6003,
+    kEastern = -5000,
+    kIndiana = -5001,
+    kBogota = -5002,
+    kAtlanticCanada = -4000,
+    kCaracas = -4001,
+    kSantiago = -4002,
+    kNewfoundland = -3300,
+    kBrasilia = -3000,
+    kBuenosAires = -3001,
+    kGreenland = -3002,
+    kMidAtlantic = -2000,
+    kAzores = -1000,
+    kCapeVerde = -1001,
+    kUTC = 0,
+    kGMT = 1,
+    kMonrovia = 2,
+    kBerlin = 1000,
+    kParis = 1001,
+    kPrague = 1002,
+    kSarajevo = 1003,
+    kWestCentralAfrica = 1004,
+    kAthens = 2000,
+    kEasternEurope = 2001,
+    kCairo = 2002,
+    kHarare = 2003,
+    kHelsinki = 2004,
+    kJerusalem = 2005,
+    kMoscow = 3000,
+    kRiyadh = 3001,
+    kBaghdad = 3002,
+    kEastAfrica = 3003,
+    kTehran = 3300,
+    kAbuDhabi = 4000,
+    kCaucasus = 4001,
+    kKabul = 4300,
+    kEkaterinburg = 5000,
+    kIslamabad = 5001,
+    kKolkata = 5300,
+    kKathmandu = 5450,
+    kAlmaty = 6000,
+    kDhaka = 6001,
+    kSriLanka = 6002,
+    kRangoon = 6300,
+    kBangkok = 7000,
+    kKrasnoyarsk = 7001,
+    kBeijing = 8000,
+    kSingapore = 8001,
+    kTaipei = 8002,
+    kIrkutsk = 8003,
+    kPerth = 8004,
+    kTokyo = 9000,
+    kSeoul = 9001,
+    kYakutsk = 9002,
+    kAdelaide = 9300,
+    kDarwin = 9301,
+    kSydney = 10000,
+    kGuam = 10001,
+    kBrisbane = 10002,
+    kHobart = 10003,
+    kVladivostock = 10004,
+    kMagadan = 11000,
+    kWellington = 12000,
+    kFiji = 12001,
+    kTonga = 13000
+  };
+  enum ShadowFlags
+  {
+    kShadowsCastAndReceive = 0x00,
+    kShadowsDoesNotReceive = 0x01,
+    kShadowsDoesNotCast = 0x02,
+    kShadowsIgnore = kShadowsDoesNotCast | kShadowsDoesNotReceive
+  };
   /** Description: 
     Specifies settings that affect the shape of the  
     lofted solid or surface. 
   */
-	enum LoftParamType
-	{
-		kLoftNoParam = 0x00,
-		kLoftNoTwist = 0x01,
-		kLoftAlignDirection = 0x02,
-		kLoftSimplify = 0x04,
-		kLoftClose = 0x08,
-		kLoftDefault = kLoftNoTwist | kLoftAlignDirection | kLoftSimplify
-	};
+  enum LoftParamType
+  {
+    kLoftNoParam = 0x00,
+    kLoftNoTwist = 0x01,
+    kLoftAlignDirection = 0x02,
+    kLoftSimplify = 0x04,
+    kLoftClose = 0x08,
+    kLoftDefault = kLoftNoTwist | kLoftAlignDirection | kLoftSimplify
+  };
   /** Description: 
     Specifies the normals of the lofted object where it 
     passes through cross section curves. 
   */
-	enum LoftNormalsType
-	{
-		kLoftRuled = 0,
-		kLoftSmooth = 1,
-		kLoftFirstNormal = 2,
-		kLoftLastNormal = 3,
-		kLoftEndsNormal = 4,
-		kLoftAllNormal = 5,
-		kLoftUseDraftAngles = 6
-	};
+  enum LoftNormalsType
+  {
+    kLoftRuled = 0,
+    kLoftSmooth = 1,
+    kLoftFirstNormal = 2,
+    kLoftLastNormal = 3,
+    kLoftEndsNormal = 4,
+    kLoftAllNormal = 5,
+    kLoftUseDraftAngles = 6
+  };
     /** Description: 
       Specifies how the entity interacts with collision detection. 
     */
-	enum CollisionType
-	{
-		kCollisionTypeNone = 0,
-		kCollisionTypeSolid = 1
-	};
+  enum CollisionType
+  {
+    kCollisionTypeNone = 0,
+    kCollisionTypeSolid = 1
+  };
 }
 /** Description: 
     This class represents a complete drawing file. 
@@ -357,20 +357,20 @@ namespace OdDb
 class TOOLKIT_EXPORT OdDbDatabase : public OdDbObject
 {
 protected:
-	OdDbDatabase();
+  OdDbDatabase();
 public:
-	void getClassID(void** pClsid) const;
-#	ifdef ZW_NEW_INTERFACES
-	void RemoveObjectIdFromHandleTree(OdDbObjectId ObjId);
-	void AddObjectIdToHandleTree(OdDbObjectId ObjId);
-#	endif
-	ODRX_DECLARE_MEMBERS(OdDbDatabase);
-	void addRef();
-	void release();
+  void getClassID(void** pClsid) const;
+#  ifdef ZW_NEW_INTERFACES
+  void RemoveObjectIdFromHandleTree(OdDbObjectId ObjId);
+  void AddObjectIdToHandleTree(OdDbObjectId ObjId);
+#  endif
+  ODRX_DECLARE_MEMBERS(OdDbDatabase);
+  void addRef();
+  void release();
   /** Description: 
     Returns the OdDbHostAppServices object associated with this *database* object. 
   */
-	OdDbHostAppServices* appServices() const;
+  OdDbHostAppServices* appServices() const;
   /** Description: 
     Adds the default set of objects and settings to this *database* object. 
  
@@ -388,8 +388,8 @@ public:
     Arguments: 
     measurement (I) Units of *measurement*. 
   */
-	void initialize(OdDb::MeasurementValue measurement = OdDb::kEnglish);
-	virtual ~OdDbDatabase();
+  void initialize(OdDb::MeasurementValue measurement = OdDb::kEnglish);
+  virtual ~OdDbDatabase();
   /** Description: 
     Adds an object to this *database* object, and returns its Object ID. 
  
@@ -402,7 +402,7 @@ public:
     A unique *handle* will be generated if *handle* is not supplied or is 0. 
  
   */
-	OdDbObjectId addOdDbObject(OdDbObject* pObject, OdDbObjectId ownerId = OdDbObjectId::kNull, OdDbHandle handle = 0);
+  OdDbObjectId addOdDbObject(OdDbObject* pObject, OdDbObjectId ownerId = OdDbObjectId::kNull, OdDbHandle handle = 0);
   /** Description: 
     Adds the specified *name* to the APPID table of this *database* object. 
  
@@ -412,153 +412,153 @@ public:
     Remarks: 
     True if and only if the specified *name* had not been, and is now, in the APPID table. 
   */
-	bool newRegApp(const OdString& regAppName);
+  bool newRegApp(const OdString& regAppName);
   /** Description: 
     Returns the Object ID of the BlockTable of this *database* object. 
   */
-	OdDbObjectId getBlockTableId() const;
+  OdDbObjectId getBlockTableId() const;
   /** Description: 
     Returns the Object ID of the LayerTable of this *database* object. 
   */
-	OdDbObjectId getLayerTableId() const;
+  OdDbObjectId getLayerTableId() const;
   /** Description: 
     Returns the Object ID of the TextStyleTable of this *database* object. 
   */
-	OdDbObjectId getTextStyleTableId() const;
+  OdDbObjectId getTextStyleTableId() const;
   /** Description: 
     Returns the Object ID of the LinetypeTable of this *database* object. 
   */
-	OdDbObjectId getLinetypeTableId() const;
+  OdDbObjectId getLinetypeTableId() const;
   /** Description: 
     Returns the Object ID of the ViewTable of this *database* object. 
   */
-	OdDbObjectId getViewTableId() const;
+  OdDbObjectId getViewTableId() const;
   /** Description: 
     Returns the Object ID of the UCSTable of this *database* object. 
   */
-	OdDbObjectId getUCSTableId() const;
+  OdDbObjectId getUCSTableId() const;
   /** Description: 
     Returns the Object ID of the ViewportTable of this *database* object. 
   */
-	OdDbObjectId getViewportTableId() const;
+  OdDbObjectId getViewportTableId() const;
   /** Description: 
     Returns the Object ID of the RegAppTable of this *database* object. 
   */
-	OdDbObjectId getRegAppTableId() const;
+  OdDbObjectId getRegAppTableId() const;
   /** Description: 
     Returns the Object ID of the DimStyleTable of this *database* object. 
   */
-	OdDbObjectId getDimStyleTableId() const;
+  OdDbObjectId getDimStyleTableId() const;
   /** Description: 
     Returns the Object ID of the MLineStyle dictionary of this *database* object. 
     Arguments: 
     createIfNotFound (I) Controls the creation of the object if it does not exist. 
   */
-	OdDbObjectId getMLStyleDictionaryId(bool createIfNotFound = true) const;
+  OdDbObjectId getMLStyleDictionaryId(bool createIfNotFound = true) const;
   /** Description: 
     Returns the Object ID of the Group dictionary of this *database* object. 
     Arguments: 
     createIfNotFound (I) Controls the creation of the object if it does not exist. 
   */
-	OdDbObjectId getGroupDictionaryId(bool createIfNotFound = true) const;
+  OdDbObjectId getGroupDictionaryId(bool createIfNotFound = true) const;
   /** Description: 
     Returns the Object ID of the Layout dictionary of this *database* object. 
     Arguments: 
     createIfNotFound (I) Controls the creation of the object if it does not exist. 
   */
-	OdDbObjectId getLayoutDictionaryId(bool createIfNotFound = true) const;
+  OdDbObjectId getLayoutDictionaryId(bool createIfNotFound = true) const;
   /** Description: 
     Returns the Object ID of the PlotStyleName dictionary of this *database* object. 
     Arguments: 
     createIfNotFound (I) Controls the creation of the object if it does not exist. 
   */
-	OdDbObjectId getPlotStyleNameDictionaryId(bool createIfNotFound = true) const;
+  OdDbObjectId getPlotStyleNameDictionaryId(bool createIfNotFound = true) const;
   /** Description: 
     Returns the Object ID of the NamedObjects dictionary of this *database* object. 
   */
-	OdDbObjectId getNamedObjectsDictionaryId() const;
+  OdDbObjectId getNamedObjectsDictionaryId() const;
   /** Description: 
     Returns the Object ID of the PlotSettings dictionary of this *database* object. 
     Arguments: 
     createIfNotFound (I) Controls the creation of the object if it does not exist. 
   */
-	OdDbObjectId getPlotSettingsDictionaryId(bool createIfNotFound = true) const;
+  OdDbObjectId getPlotSettingsDictionaryId(bool createIfNotFound = true) const;
   /** Description: 
     Returns the Object ID of the Color dictionary of this *database* object. 
     Arguments: 
     createIfNotFound (I) Controls the creation of the object if it does not exist. 
   */
-	OdDbObjectId getColorDictionaryId(bool createIfNotFound = true) const;
+  OdDbObjectId getColorDictionaryId(bool createIfNotFound = true) const;
   /** Description: 
     Returns the Object ID of the Material dictionary of this *database* object. 
     Arguments: 
     createIfNotFound (I) Controls the creation of the object if it does not exist. 
   */
-	OdDbObjectId getMaterialDictionaryId(bool createIfNotFound = true) const;
+  OdDbObjectId getMaterialDictionaryId(bool createIfNotFound = true) const;
   /** Description: 
     Returns the Object ID of the VisualStyle dictionary of this *database* object. 
     Arguments: 
     createIfNotFound (I) Controls the creation of the object if it does not exist. 
   */
-	OdDbObjectId getVisualStyleDictionaryId(bool createIfNotFound = true) const;
+  OdDbObjectId getVisualStyleDictionaryId(bool createIfNotFound = true) const;
   /** Description: 
     Returns the Object ID of the TableStyle dictionary of this *database* object. 
     Arguments: 
     createIfNotFound (I) Controls the creation of the object if it does not exist. 
   */
-	OdDbObjectId getTableStyleDictionaryId(bool createIfNotFound = true) const;
+  OdDbObjectId getTableStyleDictionaryId(bool createIfNotFound = true) const;
   /** Description: 
     Returns the Object ID of the current TableStyle of this *database* object. 
   */
-	OdDbObjectId tablestyle() const;
+  OdDbObjectId tablestyle() const;
   /** Description: 
     Sets the Object ID of the current TableStyle of this *database* object. 
     Arguments: 
     objectId (I) Object ID. 
   */
-	void setTablestyle(OdDbObjectId objectId);
+  void setTablestyle(OdDbObjectId objectId);
   /** Description: 
     Returns the Object ID of the "ACAD" RegApp object of this *database* object. 
   */
-	OdDbObjectId getRegAppAcadId() const;
+  OdDbObjectId getRegAppAcadId() const;
   /** Description: 
     Returns the Object ID of the "Continuous" Linetype object of this *database* object. 
   */
-	OdDbObjectId getLinetypeContinuousId() const;
+  OdDbObjectId getLinetypeContinuousId() const;
   /** Description: 
     Returns the Object ID of the "ByLayer" Linetype object of this *database* object. 
   */
-	OdDbObjectId getLinetypeByLayerId() const;
+  OdDbObjectId getLinetypeByLayerId() const;
   /** Description: 
     Returns the Object ID of the "ByBlock" Linetype object of this *database* object. 
   */
-	OdDbObjectId getLinetypeByBlockId() const;
+  OdDbObjectId getLinetypeByBlockId() const;
   /** Description: 
     Returns the Object ID of the ModelSpace Block object of this *database* object. 
   */
-	OdDbObjectId getModelSpaceId() const;
+  OdDbObjectId getModelSpaceId() const;
   /** Description: 
     Returns the Object ID of the PaperSpace Block object of this *database* object. 
   */
-	OdDbObjectId getPaperSpaceId() const;
+  OdDbObjectId getPaperSpaceId() const;
   /** Description: 
     Returns the Object ID of the "Standard" text style object of this *database* object. 
   */
-	OdDbObjectId getTextStyleStandardId() const;
+  OdDbObjectId getTextStyleStandardId() const;
   /** Description: 
     Returns the Object ID of the "Standard" dimension style object of this *database* object. 
   */
-	OdDbObjectId getDimStyleStandardId() const;
+  OdDbObjectId getDimStyleStandardId() const;
   /** Description: 
     Returns the Object ID of the "0" layer object of this *database* object. 
   */
-	OdDbObjectId getLayerZeroId() const;
+  OdDbObjectId getLayerZeroId() const;
   /** Description: 
     Returns the Object ID of the "DEFPOINTS" layer object of this *database* object. 
     Arguments: 
     createIfNotFound (I) Controls the creation of the object if it does not exist. 
  */
-	OdDbObjectId getLayerDefpointsId(bool createIfNotFound = false) const;
+  OdDbObjectId getLayerDefpointsId(bool createIfNotFound = false) const;
   /** Description: 
     Returns the object ID of the section manager.  
  
@@ -566,7 +566,7 @@ public:
     The ID may be null if the database  
     has never contained any section planes. 
   */
-	OdDbObjectId getSectionManager() const;
+  OdDbObjectId getSectionManager() const;
   /** Description: 
     Returns the Class DXF Name for the specified class. 
  
@@ -577,7 +577,7 @@ public:
     OdRxClass 
   */ 
   /** { Secret } */
-	const OdString classDxfName(const OdRxClass* pClass);
+  const OdString classDxfName(const OdRxClass* pClass);
   /** Description: 
     Returns the Object ID corresponding to the specified *handle* object in this *database*. 
  
@@ -596,7 +596,7 @@ public:
     See Also: 
     OdDbObjectId 
   */
-	OdDbObjectId getOdDbObjectId(const OdDbHandle& objHandle, bool createIfNotFound = false, OdUInt32 xRefId = 0);
+  OdDbObjectId getOdDbObjectId(const OdDbHandle& objHandle, bool createIfNotFound = false, OdUInt32 xRefId = 0);
   /** Description: 
     Writes the contents of this *database* object to the specified StreamBuf object. 
  
@@ -632,17 +632,17 @@ public:
     Throws: 
     OdError if the write is unsuccessful. 
   */
-	void writeFile(OdStreamBuf* pStreamBuf, OdDb::SaveType fileType, OdDb::DwgVersion fileVersion, bool saveThumbnailImage = false, int dxfPrecision = 16);
+  void writeFile(OdStreamBuf* pStreamBuf, OdDb::SaveType fileType, OdDb::DwgVersion fileVersion, bool saveThumbnailImage = false, int dxfPrecision = 16);
   /** 
     Arguments: 
     filename (I) Name of the file to which the data are to be written. 
   */
-	void writeFile(const OdString& filename, OdDb::SaveType fileType, OdDb::DwgVersion fileVersion, bool saveThumbnailImage = false, int dxfPrecision = 16)
-	{
-		closeInput();
-		OdStreamBufPtr pFile = odSystemServices()->createFile(filename, Oda::kFileWrite, Oda::kShareDenyReadWrite, Oda::kCreateAlways);
-		writeFile(pFile, fileType, fileVersion, saveThumbnailImage, dxfPrecision);
-	}
+  void writeFile(const OdString& filename, OdDb::SaveType fileType, OdDb::DwgVersion fileVersion, bool saveThumbnailImage = false, int dxfPrecision = 16)
+  {
+    closeInput();
+    OdStreamBufPtr pFile = odSystemServices()->createFile(filename, Oda::kFileWrite, Oda::kShareDenyReadWrite, Oda::kCreateAlways);
+    writeFile(pFile, fileType, fileVersion, saveThumbnailImage, dxfPrecision);
+  }
   /** Description: 
     Reads the contents of the specified StreamBuf object or file into this *database* object. 
  
@@ -661,7 +661,7 @@ public:
     Throws: 
     OdError if the write is unsuccessful. 
   */
-	void readFile(OdStreamBuf* pStreamBuf, bool partialLoad = false, OdDbAuditInfo* pAuditInfo = 0, const OdPassword& password = OdPassword(), bool allowCPConversion = false);
+  void readFile(OdStreamBuf* pStreamBuf, bool partialLoad = false, OdDbAuditInfo* pAuditInfo = 0, const OdPassword& password = OdPassword(), bool allowCPConversion = false);
   /** 
     Arguments: 
     filename (I) Name of the file from which the data are to be read. 
@@ -678,10 +678,10 @@ public:
     Oda::kShareDenyNo            0x40        deny none mode 
  
   */
-	void readFile(const OdString& filename, bool partialLoad = false, Oda::FileShareMode shareMode = Oda::kShareDenyWrite, const OdPassword& password = OdPassword(), bool allowCPConversion = false)
-	{
-		readFile(odSystemServices()->createFile(filename, Oda::kFileRead, shareMode), partialLoad, 0, password, allowCPConversion);
-	}
+  void readFile(const OdString& filename, bool partialLoad = false, Oda::FileShareMode shareMode = Oda::kShareDenyWrite, const OdPassword& password = OdPassword(), bool allowCPConversion = false)
+  {
+    readFile(odSystemServices()->createFile(filename, Oda::kFileRead, shareMode), partialLoad, 0, password, allowCPConversion);
+  }
   /** Description: 
     Forces all data to be loaded from the input file associated with this *database* object, and closes the file. 
  
@@ -689,7 +689,7 @@ public:
     Client applications will normally not need to call this function. 
   */ 
   /** { Secret } */
-	void closeInput();
+  void closeInput();
   /** Description: 
     Returns the approximate number of objects in this *database* object. 
  
@@ -700,7 +700,7 @@ public:
     This number is used to construct an OdDbObjectIdArray that can hold all the objects in the *database*, avoiding 
     memory fragmentation and increasing performance. 
   */
-	OdInt32 approxNumObjects() const;
+  OdInt32 approxNumObjects() const;
   /** Description: 
     Returns the *version* of this *database* object. 
  
@@ -710,14 +710,14 @@ public:
     Arguments: 
     pMaintReleaseVer (I) Pointer to the MaintReleaseVer object to receive the maintenance *release* *version*. 
   */
-	OdDb::DwgVersion version(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
+  OdDb::DwgVersion version(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
   /** Description: 
     Returns the number of times this *database* object has been saved since it was opened. 
  
     Remarks: 
     This number may be zero. 
   */
-	OdInt32 numberOfSaves() const;
+  OdInt32 numberOfSaves() const;
   /** Description: 
     Returns the *version* to which this *database* object was last saved. 
  
@@ -727,7 +727,7 @@ public:
     Remarks: 
     The maintenance *release* *version* is returned if and only if pMaintReleaseVer != 0. 
   */
-	OdDb::DwgVersion lastSavedAsVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
+  OdDb::DwgVersion lastSavedAsVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
   /** Description: 
     Returns the FileType of the file from which this *database* object was read. 
  
@@ -739,7 +739,7 @@ public:
     OdDb::kDwg    0       DWG file. 
     OdDb::kDxf    0       DXF file. 
   */
-	OdDb::SaveType originalFileType() const;
+  OdDb::SaveType originalFileType() const;
   /** Description: 
     Returns the *version* of the file from which this *database* object was read. 
  
@@ -749,7 +749,7 @@ public:
     Remarks: 
     The maintenance *release* *version* is returned if and only if pMaintReleaseVer != 0. 
   */
-	OdDb::DwgVersion originalFileVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
+  OdDb::DwgVersion originalFileVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
   /** Description: 
     Returns the *version* of the application that created the file from which this *database* object was read. 
  
@@ -759,7 +759,7 @@ public:
     Remarks: 
     The maintenance *release* *version* is returned if and only if pMaintReleaseVer != 0. 
   */
-	OdDb::DwgVersion originalFileSavedByVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
+  OdDb::DwgVersion originalFileSavedByVersion(OdDb::MaintReleaseVer* pMaintReleaseVer = 0) const;
    /** 
     Description: 
     Adds the specified *reactor* to this object's *reactor* list. 
@@ -767,14 +767,14 @@ public:
     Arguments: 
     pReactor (I) Pointer to the *reactor* object. 
   */
-	void addReactor(OdDbDatabaseReactor* pReactor) const;
+  void addReactor(OdDbDatabaseReactor* pReactor) const;
   /** Description: 
     Removes the specified *reactor* from this object's *reactor* list. 
  
     Arguments: 
     pReactor (I) Pointer to the *reactor* object. 
   */
-	void removeReactor(OdDbDatabaseReactor* pReactor) const;
+  void removeReactor(OdDbDatabaseReactor* pReactor) const;
   /** Description: 
     Returns the R14 DIMFIT system variable of this *database* object. 
  
@@ -796,7 +796,7 @@ public:
     2           2         5 
     2           3         5 
   */
-	int dimfit() const;
+  int dimfit() const;
   /** Description: 
     Returns the R14 DIMUNIT system variable of this *database* object. 
  
@@ -826,7 +826,7 @@ public:
  
     All other input combinations return 2. 
   */
-	int dimunit() const;
+  int dimunit() const;
   /** Description: 
     Sets the R14 DIMFIT system variable of this *database* object. 
  
@@ -836,7 +836,7 @@ public:
     Remarks: 
     The DIMFIT value will be converted to DIMATFIT and DIMTMOVE values. The complete mapping is as follows: 
   */
-	void setDimfit(int val);
+  void setDimfit(int val);
   /** Description: 
     Sets the R14 DIMUNIT system variable of this *database* object. 
  
@@ -846,7 +846,7 @@ public:
     Remarks: 
     The DIMUNIT value will be converted to DIMLUNIT and DIMFRAC values. 
   */
-	void setDimunit(int val);
+  void setDimunit(int val);
   /** Description: 
     Deep clones a set of objects, and appends the clones to the specified in owner object. 
  
@@ -869,7 +869,7 @@ public:
     wblockCloneObjects() 
  
   */
-	void deepCloneObjects(const OdDbObjectIdArray& objectIds, OdDbObjectId ownerId, OdDbIdMapping& idMap, bool deferXlation = false);
+  void deepCloneObjects(const OdDbObjectIdArray& objectIds, OdDbObjectId ownerId, OdDbIdMapping& idMap, bool deferXlation = false);
   /** Description: 
     Shallow clones a set of objects, and appends the clones to the specified in owner object. 
  
@@ -903,7 +903,7 @@ public:
     deepCloneObjects() 
  
   */
-	void wblockCloneObjects(const OdDbObjectIdArray& objectIds, OdDbObjectId ownerId, OdDbIdMapping& idMap, OdDb::DuplicateRecordCloning duplicateRecordCloning, bool deferXlation = false);
+  void wblockCloneObjects(const OdDbObjectIdArray& objectIds, OdDbObjectId ownerId, OdDbIdMapping& idMap, OdDb::DuplicateRecordCloning duplicateRecordCloning, bool deferXlation = false);
   /** Description: 
     Terminates a call to deepCloneObjects() or wblockCloneObjects(). 
  
@@ -916,7 +916,7 @@ public:
     This call is necessary only when a call to deepCloneObjects() or wblockCloneObjects() is made with deferXlation == true, 
     and no call will be made with deferXlation == false. 
   */
-	void abortDeepClone(OdDbIdMapping& idMap);
+  void abortDeepClone(OdDbIdMapping& idMap);
   /** Description: 
     Performs an *audit* operation on the header of this *database* object. 
  
@@ -926,18 +926,18 @@ public:
     Remarks: 
     The specified OdDbAuditInfo object controls the *audit*, and receives the *audit* status. 
   */
-	void audit(OdDbAuditInfo* pAuditInfo);
+  void audit(OdDbAuditInfo* pAuditInfo);
   /** Description: 
     Starts a new transaction of this *database* object. 
   */
-	virtual void startTransaction();
+  virtual void startTransaction();
   /** Description: 
     Ends the current transaction associated with this *database* object. 
  
     Remarks: 
     This function commits all changes to objects since the start of the current transaction. 
   */
-	virtual void endTransaction();
+  virtual void endTransaction();
   /** Description: 
     Aborts the current transaction associated with this *database* object. 
  
@@ -946,25 +946,25 @@ public:
     since the start of the current transaction. This rollback occurs for 
     all transaction-resident objects. 
   */
-	virtual void abortTransaction();
+  virtual void abortTransaction();
   /** Description: 
     Returns the number of active transactions associated with this *database* object. 
   */
-	virtual int numActiveTransactions();
+  virtual int numActiveTransactions();
   /** Description: 
     Adds a transaction *reactor* to this *database* object. 
  
     Arguments: 
     reactor (I) Transaction *reactor*. 
   */
-	virtual void addTransactionReactor(OdDbTransactionReactor* reactor);
+  virtual void addTransactionReactor(OdDbTransactionReactor* reactor);
   /** Description: 
     Removes the specified transaction *reactor* from this *database* object. 
  
     Arguments: 
     reactor (I) Transaction *reactor*. 
   */
-	virtual void removeTransactionReactor(OdDbTransactionReactor* reactor);
+  virtual void removeTransactionReactor(OdDbTransactionReactor* reactor);
   /** Description: 
     Returns the thumbnail bitmap associated with this *database* object. 
  
@@ -974,7 +974,7 @@ public:
     Arguments: 
     dataLength (O) Receives the data length of the thumbnail. 
   */
-	const void* thumbnailBitmap(OdUInt32& dataLength) const;
+  const void* thumbnailBitmap(OdUInt32& dataLength) const;
   /** Description: 
     Sets the thumbnail bitmap associated with this *database* object. 
  
@@ -985,35 +985,35 @@ public:
     dataLength (I) Data length of the thumbnail. 
     pBMPData (I) Pointer to the bitmap data. 
   */
-	void setThumbnailBitmap(const void* pBMPData, OdUInt32 dataLength);
+  void setThumbnailBitmap(const void* pBMPData, OdUInt32 dataLength);
   /** Description: 
     Returns the state of the RetainOriginalThumbnailBitmap flag. 
   */
-	bool retainOriginalThumbnailBitmap() const;
+  bool retainOriginalThumbnailBitmap() const;
   /** Description: 
     Controls the state of the RetainOriginalThumbnailBitmap flag. 
  
     Arguments: 
     retain (I) Retain if and only if true. 
   */
-	void setRetainOriginalThumbnailBitmap(bool retain);
-	void dwgOutFields(OdDbDwgFiler* pFiler) const;
-	OdResult dwgInFields(OdDbDwgFiler* pFiler);
+  void setRetainOriginalThumbnailBitmap(bool retain);
+  void dwgOutFields(OdDbDwgFiler* pFiler) const;
+  OdResult dwgInFields(OdDbDwgFiler* pFiler);
 /** { Secret } */
-#	define VAR_DEF	(type, name, def_value, metric_def_value, reserve1, reserve2)\ 
+#  define VAR_DEF	(type, name, def_value, metric_def_value, reserve1, reserve2)\ 
   /** Description: Returns the ##NAME system variable of this *database* object. \ 
     Remarks: ##remarks \ 
     Notes: ##notes \ 
     See Also: ##see_also \ 
   */ \ 
   type get##name() const; 
-#	include "SysVarDefs.h"
-#	undef VAR_DEF
-#	undef RO_VAR_DEF
+#  include "SysVarDefs.h"
+#  undef VAR_DEF
+#  undef RO_VAR_DEF
 /** { Secret } */
-#	define RO_VAR_DEF	(type, name, def_value, metric_def_value, reserve1, reserve2) 
+#  define RO_VAR_DEF	(type, name, def_value, metric_def_value, reserve1, reserve2) 
 /** { Secret } */
-#	define VAR_DEF	(type, name, def_value, metric_def_value, reserve1, reserve2)\ 
+#  define VAR_DEF	(type, name, def_value, metric_def_value, reserve1, reserve2)\ 
   /** Description: Sets the ##NAME system variable for this *database* object. \ 
     Arguments: val (I) New value for ##NAME.  ##RANGE  \ 
     Remarks: ##remarks \ 
@@ -1021,11 +1021,11 @@ public:
     See Also: ##see_also \ 
   */ \ 
   void set##name(type val); 
-#	include "SysVarDefs.h"
-#	undef RO_VAR_DEF
-#	undef VAR_DEF
+#  include "SysVarDefs.h"
+#  undef RO_VAR_DEF
+#  undef VAR_DEF
 /** { Secret } */
-#	define VAR_DEF	(type, name, dxf, def_value, metric_def_value, reserve1, reserve2)\ 
+#  define VAR_DEF	(type, name, dxf, def_value, metric_def_value, reserve1, reserve2)\ 
   /** Description: Returns the DIM##NAME system variable of this *database* object. \ 
     Remarks: ##remarks \ 
     Notes: ##notes \ 
@@ -1040,20 +1040,20 @@ public:
     See Also: ##see_also \ 
   */ \ 
   void setDim##name(type val); 
-#	include "DimVarDefs.h"
-#	undef VAR_DEF
+#  include "DimVarDefs.h"
+#  undef VAR_DEF
   /** Description: 
     Returns the TDCREATE system variable of this *database* object. 
     Remarks: 
     TDUCREATE represents the time and date, in Local Time, that the *database* was created.  
   */
-	OdDbDate getTDCREATE() const;
+  OdDbDate getTDCREATE() const;
   /** Description: 
     Returns the TDUPDATE system variable of this *database* object. 
     Remarks: 
     TDUUPDATE represents the time and date, in Local Time, that the *database* was last saved. 
   */
-	OdDbDate getTDUPDATE() const;
+  OdDbDate getTDUPDATE() const;
   /** Description: 
     Returns the specified system variable of this *database* object. 
  
@@ -1068,7 +1068,7 @@ public:
     See also: 
     System Variables 
   */
-	OdResBufPtr getSysVar(const OdString& name) const;
+  OdResBufPtr getSysVar(const OdString& name) const;
   /** Description: 
     Sets the specified system variable of this *database* object. 
  
@@ -1082,13 +1082,13 @@ public:
     See also: 
     System Variables 
   */
-	void setSysVar(const OdString& name, const OdResBuf* pValue);
+  void setSysVar(const OdString& name, const OdResBuf* pValue);
   /** Description: 
     Returns the next available *handle* number of this *database* object. 
     Remarks: 
     Use OdDbHandle::getIntoAsciiBuffer() to return the hex string *version* of the *handle*. 
   */
-	OdDbHandle handseed() const;
+  OdDbHandle handseed() const;
   /** Description: 
     Copies the dimension variables of this *database* object to the 
     specified DimStyleTableRecord. 
@@ -1096,19 +1096,19 @@ public:
     Arguments: 
     pDestination (I) Pointer to the destination record. 
   */
-	void getDimstyleData(OdDbDimStyleTableRecord* pDestination) const;
+  void getDimstyleData(OdDbDimStyleTableRecord* pDestination) const;
   /** Description: 
     Copies the dimension style data from the specified DimStyleTableRecord 
     to the dimension variables of this *database* object. 
     Arguments: 
     pSource (I) Pointer to the source record. 
   */
-	void setDimstyleData(const OdDbDimStyleTableRecord* pSource);
+  void setDimstyleData(const OdDbDimStyleTableRecord* pSource);
   /** Description: 
     Arguments: 
     objectId (I) Object ID of the source record. 
   */
-	void setDimstyleData(OdDbObjectId objectId);
+  void setDimstyleData(OdDbObjectId objectId);
   /** Description: 
     Loads a linetype into this *database* object. 
  
@@ -1130,11 +1130,11 @@ public:
     Throws: 
     An appropriate error if not successful. 
   */
-	void loadLineTypeFile(const OdString& ltName, const OdString& filename, OdDb::DuplicateLinetypeLoading dlt = OdDb::kDltNotApplicable);
+  void loadLineTypeFile(const OdString& ltName, const OdString& filename, OdDb::DuplicateLinetypeLoading dlt = OdDb::kDltNotApplicable);
   /** Description: 
       Returns the *name* of the file associated with this *database* object. 
   */
-	OdString getFilename() const;
+  OdString getFilename() const;
   /** Description: 
     Removes the Object IDs from the specified array that are hard referenced 
     in this *database* object. 
@@ -1148,7 +1148,7 @@ public:
     Arguments: 
     objectIds (I/O) Array of Object IDs. 
   */
-	void purge(OdDbObjectIdArray& objectIds) const;
+  void purge(OdDbObjectIdArray& objectIds) const;
   /** Description: 
       Returns a count of hard references to each of the specified Object IDs. 
  
@@ -1163,23 +1163,23 @@ public:
       The caller must *initialize* the elements of count to zero or an appropriate value 
       before calling this function. 
   */
-	void countHardReferences(const OdDbObjectIdArray& objectIds, OdUInt32* counts) const;
+  void countHardReferences(const OdDbObjectIdArray& objectIds, OdUInt32* counts) const;
   /** Description: 
       Returns the Object ID of the active layout of this *database* object. 
   */
-	OdDbObjectId currentLayoutId() const;
+  OdDbObjectId currentLayoutId() const;
   /** Description: 
     Sets the current layout of this *database* object. 
  
     Arguments: 
     layoutName (I) Name of the layout. 
   */
-	virtual void setCurrentLayout(const OdString& layoutName);
+  virtual void setCurrentLayout(const OdString& layoutName);
   /** 
     Arguments: 
     layoutId (I) Object ID of layout. 
   */
-	virtual void setCurrentLayout(const OdDbObjectId& layoutId);
+  virtual void setCurrentLayout(const OdDbObjectId& layoutId);
   /** Description: 
       Returns the *name* of the active layout of this *database* object. 
  
@@ -1189,12 +1189,12 @@ public:
       Remarks: 
       If allowModel == false, an empty string will be returned if the active layout is ModelSpace. 
   */
-	virtual OdString findActiveLayout(bool allowModel) const;
+  virtual OdString findActiveLayout(bool allowModel) const;
   /** Description: 
     Returns the Object ID of the BlockTableRecord associated with the active 
     layout of this *database* object. 
   */
-	virtual OdDbObjectId getActiveLayoutBTRId() const;
+  virtual OdDbObjectId getActiveLayoutBTRId() const;
   /** Description: 
     Returns the Object ID of the specified layout in this *database* object. 
      
@@ -1204,14 +1204,14 @@ public:
     Remarks: 
     Returns a null Object ID if the specified layout is not found. 
   */
-	virtual OdDbObjectId findLayoutNamed(const OdString& layoutName) const;
+  virtual OdDbObjectId findLayoutNamed(const OdString& layoutName) const;
   /** Description: 
     Deletes the specified layout from this *database* object. 
      
     Arguments: 
     layoutName (I) Layout *name*. 
   */
-	virtual void deleteLayout(const OdString& layoutName);
+  virtual void deleteLayout(const OdString& layoutName);
   /** Description: 
     Creates a new layout with the specified *name* in this *database* object. 
      
@@ -1223,26 +1223,26 @@ public:
     layoutName (I) Layout *name*. 
     pBlockTableRecId (I) Pointer to the BlockTableRecID to receive the Object ID of the new BlockTableRecord object. 
   */
-	virtual OdDbObjectId createLayout(const OdString& layoutName, OdDbObjectId* pBlockTableRecId = 0);
+  virtual OdDbObjectId createLayout(const OdString& layoutName, OdDbObjectId* pBlockTableRecId = 0);
   /** Description: 
     Returns the number of layouts in this *database* object. 
   */
-	virtual int countLayouts() const;
+  virtual int countLayouts() const;
   /** Description: 
     Renames the specified layout in this *database* object. 
     Arguments: 
     oldName (I) Old *name*. 
     newName (I) New *name*. 
   */
-	virtual void renameLayout(const OdString& oldName, const OdString& newName);
+  virtual void renameLayout(const OdString& oldName, const OdString& newName);
   /** Description: 
       Starts *undo* recording of this *database* object. 
   */
-	void startUndoRecord();
+  void startUndoRecord();
   /** Description: 
       Returns true if *undo* information exists of this *database* object.  
   */
-	bool hasUndo() const;
+  bool hasUndo() const;
   /** Description: 
     Performs an *undo* operation on this *database* object.   
      
@@ -1252,25 +1252,25 @@ public:
  
     At least 1 undo step is always supported by DWGdirect for internal needs. 
   */
-	void undo();
-	void blockUndoRecording(bool bBegin);
-	bool isUndoBlockStarted();
-	void setUndoMark();
-	bool hasUndoMark() const;
-	void undoBack();
-	int getUNDOMARKS() const;
-	void clearUndo();
+  void undo();
+  void blockUndoRecording(bool bBegin);
+  bool isUndoBlockStarted();
+  void setUndoMark();
+  bool hasUndoMark() const;
+  void undoBack();
+  int getUNDOMARKS() const;
+  void clearUndo();
   /** Description: 
     Returns true if *redo* information exists of this *database* object. 
   */
-	bool hasRedo() const;
+  bool hasRedo() const;
   /** Description: 
     Performs a *redo* operation on this *database* object. 
      
     Remarks: 
     Restores operations undone by the last *undo*.  
   */
-	void redo();
+  void redo();
   /** Description: 
     Performs an *audit* operation on the this entire *database* object. 
  
@@ -1280,9 +1280,9 @@ public:
     Remarks: 
     The specified AuditInfo object controls the *audit*, and receives the *audit* status. 
   */
-	void auditDatabase(OdDbAuditInfo* pAuditInfo);
-	void applyPartialUndo(OdDbDwgFiler* pUndoFiler, OdRxClass* pClassObj);
-	OdDbDwgFiler* undoFiler();
+  void auditDatabase(OdDbAuditInfo* pAuditInfo);
+  void applyPartialUndo(OdDbDwgFiler* pUndoFiler, OdRxClass* pClassObj);
+  OdDbDwgFiler* undoFiler();
   /** Description: 
     Mimics the INSERT command of this *database* object. 
          
@@ -1304,9 +1304,9 @@ public:
     If xfm is specified, all ModelSpace entities in pSource are *copied* (or moved) into the  
     ModelSpace of this *database* object and transformed by xfm.  
   */
-	OdDbObjectId insert(const OdString& destinationBlockName, OdDbDatabase* pSource, bool preserveSourceDatabase = true);
-	OdDbObjectId insert(const OdString& sourceBlockName, const OdString& destinationBlockName, OdDbDatabase* pSource, bool preserveSourceDatabase = true);
-	void insert(const OdGeMatrix3d& xfm, OdDbDatabase* pSource, bool preserveSourceDatabase = true);
+  OdDbObjectId insert(const OdString& destinationBlockName, OdDbDatabase* pSource, bool preserveSourceDatabase = true);
+  OdDbObjectId insert(const OdString& sourceBlockName, const OdString& destinationBlockName, OdDbDatabase* pSource, bool preserveSourceDatabase = true);
+  void insert(const OdGeMatrix3d& xfm, OdDbDatabase* pSource, bool preserveSourceDatabase = true);
   /** Description: 
      Mimics the WBLOCK command of this *database* object. 
       
@@ -1320,15 +1320,15 @@ public:
       
      If called with no arguments, the entire contents of this *database* object are wblocked. 
   */
-	OdDbDatabasePtr wblock(const OdDbObjectIdArray& outObjIds, const OdGePoint3d& basePoint);
-	OdDbDatabasePtr wblock(OdDbObjectId blockId);
-	OdDbDatabasePtr wblock();
+  OdDbDatabasePtr wblock(const OdDbObjectIdArray& outObjIds, const OdGePoint3d& basePoint);
+  OdDbDatabasePtr wblock(OdDbObjectId blockId);
+  OdDbDatabasePtr wblock();
  /**  
     Note: 
     As implemented, this function does nothing but return a null SmartPointer. 
     It will be fully implemented in a future *release*. 
   */
-	OdDbObjectPtr wblockClone(OdDbIdMapping& ownerIdMap) const;
+  OdDbObjectPtr wblockClone(OdDbIdMapping& ownerIdMap) const;
   /** Description: 
     Sets the security parameters of this *database* object. 
      
@@ -1340,7 +1340,7 @@ public:
     As implemented, this function ignores setDbMod, and never modifies the DBMOD variable. 
     It will be fully implemented in a future *release*. 
   */
-	void setSecurityParams(const OdSecurityParams& secParams, bool setDbMod = true);
+  void setSecurityParams(const OdSecurityParams& secParams, bool setDbMod = true);
   /** Description: 
     Returns the security parameters of this *database* object. 
     Arguments:   
@@ -1348,27 +1348,27 @@ public:
     Remarks: 
     Returns true if and only if secParams.nFlags!=0 && secParams.password is not empty. 
   */
-	bool securityParams(OdSecurityParams& secParams) const;
+  bool securityParams(OdSecurityParams& secParams) const;
   /** Description: 
     Returns the OdFileDependencyManager object of this *database* object. 
   */
-	OdFileDependencyManagerPtr fileDependencyManager() const;
+  OdFileDependencyManagerPtr fileDependencyManager() const;
   /** Description: 
     Recalculates the *extents* of this *database* object. 
   */
-	void updateExt();
+  void updateExt();
   /** Description: 
       Returns true if and only if this *database* object was created by an educational *version* of AutoCAD. 
   */
-	bool isEMR() const;
+  bool isEMR() const;
   /** Description: 
     Returns the Object ID of the OdDbBlockTableRecord that references this *database* object as an Xref. 
   */
-	OdDbObjectId xrefBlockId() const;
+  OdDbObjectId xrefBlockId() const;
   /** Description: 
     Returns true if and only if this *database* object is partially opened.  
   */
-	bool isPartiallyOpened() const;
+  bool isPartiallyOpened() const;
   /** Description: 
     Sets the current UCS of this *database* object.  
  
@@ -1392,9 +1392,9 @@ public:
     OdDb::kLeftView       5       Left view with respect to the UCS  
     OdDb::kRightView      6       Right view with respect to the UCS  
   */
-	void setCurrentUCS(OdDb::OrthographicView viewType);
-	void setCurrentUCS(const OdDbObjectId& ucsId);
-	void setCurrentUCS(const OdGePoint3d& origin, const OdGeVector3d& xAxis, const OdGeVector3d& yAxis);
+  void setCurrentUCS(OdDb::OrthographicView viewType);
+  void setCurrentUCS(const OdDbObjectId& ucsId);
+  void setCurrentUCS(const OdGePoint3d& origin, const OdGeVector3d& xAxis, const OdGeVector3d& yAxis);
   /** Description: 
     Returns the UCS *origin* and orthographic view type for the current UCS. 
  
@@ -1414,7 +1414,7 @@ public:
     OdDb::kLeftView       5       Left view with respect to the UCS  
     OdDb::kRightView      6       Right view with respect to the UCS  
   */
-	OdGePoint3d getUCSBASEORG(OdDb::OrthographicView viewType) const;
+  OdGePoint3d getUCSBASEORG(OdDb::OrthographicView viewType) const;
   /** Description: 
     Sets the UCS *origin* and orthographic view type for the current UCS. 
  
@@ -1435,7 +1435,7 @@ public:
     OdDb::kLeftView       5       Left view with respect to the UCS  
     OdDb::kRightView      6       Right view with respect to the UCS  
   */
-	void setUCSBASEORG(OdDb::OrthographicView viewType, const OdGePoint3d& origin);
+  void setUCSBASEORG(OdDb::OrthographicView viewType, const OdGePoint3d& origin);
   /** Description: 
     Returns the UCS *origin* and orthographic view type for the current PaperSpace UCS. 
  
@@ -1455,7 +1455,7 @@ public:
     OdDb::kLeftView       5       Left view with respect to the UCS  
     OdDb::kRightView      6       Right view with respect to the UCS  
   */
-	OdGePoint3d getPUCSBASEORG(OdDb::OrthographicView viewType) const;
+  OdGePoint3d getPUCSBASEORG(OdDb::OrthographicView viewType) const;
  /** Description: 
     Sets the UCS *origin* and orthographic view type for the current PaperSpace UCS. 
  
@@ -1476,7 +1476,7 @@ public:
     OdDb::kLeftView       5       Left view with respect to the UCS  
     OdDb::kRightView      6       Right view with respect to the UCS  
   */
-	void setPUCSBASEORG(OdDb::OrthographicView viewType, const OdGePoint3d& origin);
+  void setPUCSBASEORG(OdDb::OrthographicView viewType, const OdGePoint3d& origin);
   /** Description: 
     Returns the DIMSTYLE system variable of this database object. 
     Remarks: 
@@ -1484,7 +1484,7 @@ public:
     Arguments: 
     val (I) New value for DIMSTYLE. 
   */
-	void setDIMSTYLE(const OdDbObjectId& val);
+  void setDIMSTYLE(const OdDbObjectId& val);
   /*   
   bool plotStyleMode() const; 
  
@@ -1542,18 +1542,18 @@ public:
   virtual bool isViewportClipped(short index); 
  
   */
-	OdDbObjectId byLayerMaterialId() const;
-	OdDbObjectId byBlockMaterialId() const;
-	OdDbObjectId globalMaterialId() const;
-	OdDbObjectId activeViewportId() const;
+  OdDbObjectId byLayerMaterialId() const;
+  OdDbObjectId byBlockMaterialId() const;
+  OdDbObjectId globalMaterialId() const;
+  OdDbObjectId activeViewportId() const;
   //[Added by chinaweal renkangcheng [2007/09/29] 
   //Reason:New Interface 
-#	ifdef ZW_NEW_INTERFACES
-	short ret_type();
+#  ifdef ZW_NEW_INTERFACES
+  short ret_type();
    /** Description: 
     Returns true if the database saved with transformation, otherwise returns false. 
   */
-	bool isFileNeedTransformed();
+  bool isFileNeedTransformed();
   /** Description: 
 	Sets the flag *bTransform* to the database. 
     Arguments: 
@@ -1566,12 +1566,12 @@ public:
     true				0       saved with tramsformation  
     false				1       saved without tramsformation  
   */
-	void setFileNeedTransformed(bool bTransform = false);
-#	endif
+  void setFileNeedTransformed(bool bTransform = false);
+#  endif
   //]Added by chinaweal renkangcheng [2007/09/29] 
 private:
-	friend class OdDbDatabaseImpl;
-	OdDbDatabaseImpl* m_pImpl;
+  friend class OdDbDatabaseImpl;
+  OdDbDatabaseImpl* m_pImpl;
 };
 /** Fills in OdThumbnailImage object from stream. Throws appropriate exception if an error occurred. 
 */
@@ -1771,5 +1771,5 @@ TOOLKIT_EXPORT extern void odDbLoadMlineStyleFile(OdDbDatabase& db, const OdStri
     filename (I) Name of the MlineStyle file from which to load. 
   */
 TOOLKIT_EXPORT extern void odDbSaveMlineStyleFile(OdDbDatabase& Db, OdStreamBuf& filename);
-#	include "DD_PackPop.h"
+#  include "DD_PackPop.h"
 #endif

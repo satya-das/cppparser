@@ -11,19 +11,19 @@
 //
 //
 #ifndef AD_DBDICTDFLT_H
-#	define AD_DBDICTDFLT_H
-#	include "dbdict.h"
-#	pragma  pack(push, 8)
+#  define AD_DBDICTDFLT_H
+#  include "dbdict.h"
+#  pragma  pack(push, 8)
 class AcDbImpDictionaryWithDefault;
 class AcDbDictionaryWithDefault : public AcDbDictionary
 {
-	ACDB_DECLARE_MEMBERS(AcDbDictionaryWithDefault);
+  ACDB_DECLARE_MEMBERS(AcDbDictionaryWithDefault);
 public:
-	AcDbDictionaryWithDefault();
-	virtual ~AcDbDictionaryWithDefault();
-	Acad::ErrorStatus setDefaultId(const AcDbObjectId& newId);
-	AcDbObjectId defaultId() const;
-	virtual Acad::ErrorStatus getObjectBirthVersion(AcDb::AcDbDwgVersion& ver, AcDb::MaintenanceReleaseVersion& maintVer);
+  AcDbDictionaryWithDefault();
+  virtual ~AcDbDictionaryWithDefault();
+  Acad::ErrorStatus setDefaultId(const AcDbObjectId& newId);
+  AcDbObjectId defaultId() const;
+  virtual Acad::ErrorStatus getObjectBirthVersion(AcDb::AcDbDwgVersion& ver, AcDb::MaintenanceReleaseVersion& maintVer);
 };
-#	pragma  pack(pop)
+#  pragma  pack(pop)
 #endif

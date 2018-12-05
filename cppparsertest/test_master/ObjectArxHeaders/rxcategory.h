@@ -27,7 +27,7 @@
 class AcRxCategory : public AcRxMember
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxCategory, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxCategory, ACBASE_PORT);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -41,7 +41,7 @@ public:
     /// Child category lifetimes are determined by the lifetime of their owner.
     /// When a category is freed all of its children are also freed. 
     /// </remarks>
-	ACBASE_PORT AcRxCategory(const ACHAR* name, AcRxCategory* pOwner);
+  ACBASE_PORT AcRxCategory(const ACHAR* name, AcRxCategory* pOwner);
     /// <summary>
     /// Removes a child category from an owning category.
     /// </summary>
@@ -52,7 +52,7 @@ public:
     /// Returns Acad::eOk if successful. Returns Acad::eKeyNotFound if the
     /// child could not be found on this object. 
     /// </returns>
-	ACBASE_PORT Acad::ErrorStatus removeChild(AcRxCategory* pChildCategory);
+  ACBASE_PORT Acad::ErrorStatus removeChild(AcRxCategory* pChildCategory);
     /// <summary>
     /// Recursively finds the first descendant category with the specified
     /// name.
@@ -68,13 +68,13 @@ public:
     /// beneath the referenced category. The first descendant with a matching
     /// name is returned to the caller. 
     /// </remarks>
-	ACBASE_PORT AcRxCategory* findDescendant(const ACHAR* name) const;
+  ACBASE_PORT AcRxCategory* findDescendant(const ACHAR* name) const;
     /// <summary>
     /// The special, global root category node. All application-supplied
     /// categories should be added to the root category or one of its
     /// descendants. 
     /// </summary>
-	ACBASE_PORT static AcRxCategory* rootCategory();
+  ACBASE_PORT static AcRxCategory* rootCategory();
 private:
     /// <summary>
     /// Destructor.
@@ -82,7 +82,7 @@ private:
     /// <remarks>
     /// The destructor frees all children categories.
     /// <remarks>
-	ACBASE_PORT virtual ~AcRxCategory();
+  ACBASE_PORT virtual ~AcRxCategory();
 };
 ACBASE_PORT Acad::ErrorStatus acdbGetLegacyCategoryId(const AcRxCategory* pCategory, int& legacyId);
 ACBASE_PORT Acad::ErrorStatus acdbSetLegacyCategoryId(AcRxCategory* pCategory, int legacyId);

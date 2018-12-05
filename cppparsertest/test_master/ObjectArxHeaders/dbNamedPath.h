@@ -16,10 +16,10 @@
 //
 #pragma  warning( disable: 4275 4251 )
 #ifdef SCENEDLLIMPEXP
-#	undef SCENEDLLIMPEXP
+#  undef SCENEDLLIMPEXP
 #endif
 #ifdef SCENEOE
-#	define SCENEDLLIMPEXP	__declspec( dllexport )
+#  define SCENEDLLIMPEXP	__declspec( dllexport )
 #else 
 // Note: we don't use __declspec(dllimport) here, because of the
 // "local vtable" problem with msvc.  If you use __declspec(dllimport),
@@ -36,7 +36,7 @@
 // memory indefinitely, there is no problem with vtables unexpectedly
 // going away.
 // 
-#	define SCENEDLLIMPEXP
+#  define SCENEDLLIMPEXP
 #endif
 const ACHAR ACDB_NAMEDPATH_DICTIONARY[] = ACRX_T("ACAD_NAMEDPATH");
 Acad::ErrorStatus SCENEDLLIMPEXP acdbGetNamedPathDictionary(AcDbDatabase* pDb, AcDbDictionary*& pDict, AcDb::OpenMode mode, bool createIfNonExist);
@@ -46,57 +46,57 @@ class AcGeCurve3d;
 class SCENEDLLIMPEXP AcDbNamedPath : public AcDbObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbNamedPath);
-	virtual ~AcDbNamedPath();
-	virtual Acad::ErrorStatus getGeometry(AcGeCurve3d*& pCurveGeometry) const = 0;
+  ACRX_DECLARE_MEMBERS(AcDbNamedPath);
+  virtual ~AcDbNamedPath();
+  virtual Acad::ErrorStatus getGeometry(AcGeCurve3d*& pCurveGeometry) const = 0;
 protected:
-	AcDbNamedPath(AcDbImpNamedPath* pImp);
-	AcDbImpNamedPath* imp() const;
+  AcDbNamedPath(AcDbImpNamedPath* pImp);
+  AcDbImpNamedPath* imp() const;
 private:
-	friend class AcDbImpNamedPath;
-	AcDbImpNamedPath* mpImp;
+  friend class AcDbImpNamedPath;
+  AcDbImpNamedPath* mpImp;
 };
 class SCENEDLLIMPEXP AcDbCurvePath : public AcDbNamedPath
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbCurvePath);
-	AcDbCurvePath();
-	virtual ~AcDbCurvePath();
-	virtual Acad::ErrorStatus getGeometry(AcGeCurve3d*& pCurveGeometry) const;
-	Acad::ErrorStatus setGeometry(const AcDbObjectId& id);
-	AcDbObjectId entityId() const;
+  ACRX_DECLARE_MEMBERS(AcDbCurvePath);
+  AcDbCurvePath();
+  virtual ~AcDbCurvePath();
+  virtual Acad::ErrorStatus getGeometry(AcGeCurve3d*& pCurveGeometry) const;
+  Acad::ErrorStatus setGeometry(const AcDbObjectId& id);
+  AcDbObjectId entityId() const;
     // AcDbObject protocol
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler);
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler);
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const;
 protected:
     // AcGiDrawable protocol
     //
-	virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits);
+  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits);
 private:
-	friend class AcDbImpCurvePath;
+  friend class AcDbImpCurvePath;
 };
 class SCENEDLLIMPEXP AcDbPointPath : public AcDbNamedPath
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbPointPath);
-	AcDbPointPath();
-	virtual ~AcDbPointPath();
-	virtual Acad::ErrorStatus getGeometry(AcGeCurve3d*& pCurveGeometry) const;
-	Acad::ErrorStatus setGeometry(const AcGePoint3d& pt);
+  ACRX_DECLARE_MEMBERS(AcDbPointPath);
+  AcDbPointPath();
+  virtual ~AcDbPointPath();
+  virtual Acad::ErrorStatus getGeometry(AcGeCurve3d*& pCurveGeometry) const;
+  Acad::ErrorStatus setGeometry(const AcGePoint3d& pt);
     // AcDbObject protocol
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler);
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler);
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const;
 protected:
     // AcGiDrawable protocol
     //
-	virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits);
+  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits);
 #ifndef _ADESK_MAC_
 private:
-	friend class AcDbPointPath;
+  friend class AcDbPointPath;
 #endif
 };
 #pragma  pack(pop)

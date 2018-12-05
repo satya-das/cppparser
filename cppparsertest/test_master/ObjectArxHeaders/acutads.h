@@ -8,14 +8,14 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _acutilads_h
-#	define _acutilads_h	1
-#	include "adsdef.h"
-#	include "AdAChar.h"
-#	include "acdbport.h"
-#	include <stdarg.h>
+#  define _acutilads_h	1
+#  include "adsdef.h"
+#  include "AdAChar.h"
+#  include "acdbport.h"
+#  include <stdarg.h>
 // These functions are exported with both extern "C" and C++ linkage. We may
 // eventually drop support for C applications.
-#	pragma  pack (push, 8)
+#  pragma  pack (push, 8)
 void acad__assert(const ACHAR*, const ACHAR*, int);
 int acutCvUnit(ads_real value, const ACHAR* oldunit, const ACHAR* newunit, ads_real* result);
 int acutWcMatch(const ACHAR* string, const ACHAR* pattern);
@@ -41,22 +41,22 @@ int acutIsGraph(int c);
 int acutIsCntrl(int c);
 int acutToUpper(int c);
 int acutToLower(int c);
-#	pragma  pack (pop)
-#	ifdef __cplusplus
+#  pragma  pack (pop)
+#  ifdef __cplusplus
 int acutVSPrintf(wchar_t* buf, size_t nBufLen, const wchar_t* fmt, va_list va);
 template <size_t nBufLen>
 inline int acutSPrintf(wchar_t (& buf)[nBufLen], const ACHAR* format, ...)
 {
-	va_list va;
-	va_start(va, format);
-	const int nRet = ::acutVSPrintf(buf, nBufLen, format, va);
-	va_end(va);
-	return nRet;
+  va_list va;
+  va_start(va, format);
+  const int nRet = ::acutVSPrintf(buf, nBufLen, format, va);
+  va_end(va);
+  return nRet;
 }
 template <size_t nBufLen>
 inline int acutVSPrintf(wchar_t (& buf)[nBufLen], const ACHAR* format, va_list va)
 {
-	return ::acutVSPrintf(buf, nBufLen, format, va);
+  return ::acutVSPrintf(buf, nBufLen, format, va);
 }
-#	endif
+#  endif
 #endif

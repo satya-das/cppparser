@@ -10,9 +10,9 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 #ifndef _rxsrvice_h
-#	define _rxsrvice_h	1
-#	include "rxobject.h"
-#	pragma  pack (push, 8)
+#  define _rxsrvice_h	1
+#  include "rxobject.h"
+#  pragma  pack (push, 8)
 extern "C" {
 typedef AcRx::AppRetCode (*DepFuncPtr) (AcRx::AppMsgCode, void*);
 }
@@ -21,23 +21,23 @@ class AcRxService;
 class AcRxService : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcRxService);
-	AcRxService();
-	virtual ~AcRxService();
-	AcRxObject* getSysInfo() const;
-	void setSysInfo(AcRxObject* sysInfoObj);
-	void addDependency();
-	void removeDependency();
-	Adesk::Boolean unloadable() const;
+  ACRX_DECLARE_MEMBERS(AcRxService);
+  AcRxService();
+  virtual ~AcRxService();
+  AcRxObject* getSysInfo() const;
+  void setSysInfo(AcRxObject* sysInfoObj);
+  void addDependency();
+  void removeDependency();
+  Adesk::Boolean unloadable() const;
     // The following functions are not currently implemented
     // They are present as place holders so that they can be
     // implemented in the future without breaking binary
     // compatibility
     //
-	DepFuncPtr dependencyFunctionPtr();
-	void setDependencyFunctionPtr(DepFuncPtr);
+  DepFuncPtr dependencyFunctionPtr();
+  void setDependencyFunctionPtr(DepFuncPtr);
 private:
-	AcRxServicePrototype* mpImpService;
+  AcRxServicePrototype* mpImpService;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

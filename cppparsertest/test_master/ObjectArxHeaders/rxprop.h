@@ -42,7 +42,7 @@ class AcRxIndexedPropertyImp;
 class AcRxPropertyBase : public AcRxMember
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxPropertyBase, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxPropertyBase, ACBASE_PORT);
     /// <summary>
     /// This method can be used to check if the property is a readonly property.
     /// </summary>
@@ -53,10 +53,10 @@ public:
     ///
     /// <returns> Returns true if the property is readonly, otherwise returns false</returns>
     ///
-	ACBASE_PORT bool isReadOnly(const AcRxObject* pO) const;
+  ACBASE_PORT bool isReadOnly(const AcRxObject* pO) const;
 protected:
-	ACBASE_PORT ~AcRxPropertyBase();
-	ACBASE_PORT AcRxPropertyBase(AcRxPropertyBaseImp*);
+  ACBASE_PORT ~AcRxPropertyBase();
+  ACBASE_PORT AcRxPropertyBase(AcRxPropertyBaseImp*);
 };
 //*************************************************************************
 // AcRxProperty
@@ -69,7 +69,7 @@ protected:
 class AcRxProperty : public AcRxPropertyBase
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxProperty, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxProperty, ACBASE_PORT);
     /// <summary>
     /// The method can be used to get the property value from an object.
     /// </summary>
@@ -84,7 +84,7 @@ public:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus getValue(const AcRxObject* pO, AcRxValue& value) const;
+  ACBASE_PORT Acad::ErrorStatus getValue(const AcRxObject* pO, AcRxValue& value) const;
     /// <summary>
     /// The method can be used to set the property value to an object.
     ///
@@ -100,13 +100,13 @@ public:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus setValue(AcRxObject* pO, const AcRxValue& value) const;
+  ACBASE_PORT Acad::ErrorStatus setValue(AcRxObject* pO, const AcRxValue& value) const;
 protected:
     /// <summary>
     /// Destructor
     /// </summary>
     ///
-	ACBASE_PORT ~AcRxProperty();
+  ACBASE_PORT ~AcRxProperty();
     /// <summary>
     /// Protected constructor for derived class.
     /// </summary>
@@ -122,7 +122,7 @@ protected:
     /// <param name="owner">Optional. It can be used to set the owner of the property. 
     /// </param>
     ///
-	ACBASE_PORT AcRxProperty(const ACHAR* name, const AcRxValueType& type, const AcRxObject* owner = NULL);
+  ACBASE_PORT AcRxProperty(const ACHAR* name, const AcRxValueType& type, const AcRxObject* owner = NULL);
     /// <summary>
     /// Derived class can override this function to supply the property value.
     /// </summary>
@@ -137,7 +137,7 @@ protected:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus subGetValue(const AcRxObject* pO, AcRxValue& value) const;
+  ACBASE_PORT virtual Acad::ErrorStatus subGetValue(const AcRxObject* pO, AcRxValue& value) const;
     /// <summary>
     /// Derived class can override this function to set the property value to the object.
     /// </summary>
@@ -152,10 +152,10 @@ protected:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus subSetValue(AcRxObject* pO, const AcRxValue& value) const;
-	friend class AcRxPropertyImp;
-	friend class AcRxPropertyOverrule;
-	AcRxProperty(AcRxPropertyImp*);
+  ACBASE_PORT virtual Acad::ErrorStatus subSetValue(AcRxObject* pO, const AcRxValue& value) const;
+  friend class AcRxPropertyImp;
+  friend class AcRxPropertyOverrule;
+  AcRxProperty(AcRxPropertyImp*);
 };
 //*************************************************************************
 // AcRxPropertyOverrule
@@ -168,7 +168,7 @@ protected:
 class AcRxPropertyOverrule : public AcRxMemberOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxPropertyOverrule, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxPropertyOverrule, ACBASE_PORT);
     /// <summary>
     /// Allows overruling the getValue method of a property
     /// </summary>
@@ -183,7 +183,7 @@ public:
     /// out parameter, value retrieved
     /// </param>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus getValue(const AcRxProperty* pProp, const AcRxObject* pO, AcRxValue& value) const;
+  ACBASE_PORT virtual Acad::ErrorStatus getValue(const AcRxProperty* pProp, const AcRxObject* pO, AcRxValue& value) const;
     /// <summary>
     /// Allows overruling the setValue method of a property
     /// </summary>
@@ -198,7 +198,7 @@ public:
     /// Value being set
     /// </param>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus setValue(const AcRxProperty* pProp, AcRxObject* pO, const AcRxValue& value) const;
+  ACBASE_PORT virtual Acad::ErrorStatus setValue(const AcRxProperty* pProp, AcRxObject* pO, const AcRxValue& value) const;
 };
 //*************************************************************************
 // AcRxPromotingQueryContext
@@ -213,7 +213,7 @@ public:
 class AcRxPromotingQueryContext : public AcRxMemberQueryContext
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxPromotingQueryContext, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxPromotingQueryContext, ACBASE_PORT);
 };
 //*************************************************************************
 // AcRxValueIterator
@@ -230,7 +230,7 @@ public:
     /// Destructor
     /// </summary>
     ///
-	ACBASE_PORT virtual ~AcRxValueIterator();
+  ACBASE_PORT virtual ~AcRxValueIterator();
     /// <summary>
     /// The function reports whether the iterator has iterated to the end. 
     /// </summary>
@@ -239,7 +239,7 @@ public:
     /// It returns true if it has reached the end, otherwise it returns false.
     /// </returns>
     ///
-	ACBASE_PORT virtual bool done();
+  ACBASE_PORT virtual bool done();
     /// <summary>
     /// Positions the iterator to the next value in the structure.
     /// </summary>
@@ -248,7 +248,7 @@ public:
     /// Returns true if and only if the iterator is not done.
     /// </returns>
     ///
-	ACBASE_PORT virtual bool next();
+  ACBASE_PORT virtual bool next();
     /// <summary>
     /// The function tries to return the value at the iterator's 
     /// current location.
@@ -258,16 +258,16 @@ public:
     /// Returns an AcRxValue if successful, otherwise it returns an empty value.
     /// </returns>
     ///
-	ACBASE_PORT virtual AcRxValue current() const;
+  ACBASE_PORT virtual AcRxValue current() const;
 protected:
     /// <summary>
     /// Protected constructor for derived class.
     /// </summary>
     ///
-	ACBASE_PORT AcRxValueIterator();
+  ACBASE_PORT AcRxValueIterator();
 private:
-	friend class AcRxValueIteratorImp;
-	AcRxValueIterator(AcRxValueIteratorImp*);
+  friend class AcRxValueIteratorImp;
+  AcRxValueIterator(AcRxValueIteratorImp*);
 };
 //*************************************************************************
 // AcRxCollectionProperty
@@ -279,7 +279,7 @@ private:
 class AcRxCollectionProperty : public AcRxPropertyBase
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxCollectionProperty, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxCollectionProperty, ACBASE_PORT);
     /// <summary>
     /// The method returns a value iterator. 
     /// </summary>
@@ -292,7 +292,7 @@ public:
     /// Returns pointer to an AcRxValueIterator object if successful, otherwise returns NULL 
     /// </returns>
     ///
-	ACBASE_PORT AcRxValueIterator* newValueIterator(const AcRxObject* pO) const;
+  ACBASE_PORT AcRxValueIterator* newValueIterator(const AcRxObject* pO) const;
     /// <summary>
     /// The method can be used to get the number of properties in the collection.
     ///
@@ -310,13 +310,13 @@ public:
     /// It returns true if the count can be returned, otherwise it returns false.
     /// </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus tryGetCount(const AcRxObject* pO, int& count) const;
+  ACBASE_PORT Acad::ErrorStatus tryGetCount(const AcRxObject* pO, int& count) const;
 protected:
     /// <summary>
     /// Destructor
     /// </summary>
     ///
-	ACBASE_PORT ~AcRxCollectionProperty();
+  ACBASE_PORT ~AcRxCollectionProperty();
     /// <summary>
     /// The derived class can override this method and return pointer to 
     /// AcRxValueIterator object.
@@ -328,7 +328,7 @@ protected:
     ///
     /// <returns> Returns pointer to an AcRxValueIterator if successful, otherwise returns NULL </returns>
     ///
-	ACBASE_PORT virtual AcRxValueIterator* subNewValueIterator(const AcRxObject* pO) const;
+  ACBASE_PORT virtual AcRxValueIterator* subNewValueIterator(const AcRxObject* pO) const;
     /// <summary>
     /// The derived class can override this method and return the number of 
     /// properties in the collection.
@@ -346,7 +346,7 @@ protected:
     /// It returns true if the count can be returned, otherwise it returns false.
     /// </returns>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus subTryGetCount(const AcRxObject* pO, int& count) const;
+  ACBASE_PORT virtual Acad::ErrorStatus subTryGetCount(const AcRxObject* pO, int& count) const;
     /// <summary>
     /// Protected constructor for derived class.
     /// </summary>
@@ -362,10 +362,10 @@ protected:
     /// Optional parameter that can be used to set the owner of the property. 
     /// </param>
     ///
-	ACBASE_PORT AcRxCollectionProperty(const ACHAR* name, const AcRxValueType& type, const AcRxObject* owner = NULL);
-	friend class AcRxCollectionPropertyImp;
-	friend class AcRxCollectionPropertyOverrule;
-	AcRxCollectionProperty(AcRxCollectionPropertyImp* pImp);
+  ACBASE_PORT AcRxCollectionProperty(const ACHAR* name, const AcRxValueType& type, const AcRxObject* owner = NULL);
+  friend class AcRxCollectionPropertyImp;
+  friend class AcRxCollectionPropertyOverrule;
+  AcRxCollectionProperty(AcRxCollectionPropertyImp* pImp);
 };
 //*************************************************************************
 // AcRxCollectionPropertyOverrule
@@ -378,9 +378,9 @@ protected:
 class AcRxCollectionPropertyOverrule : public AcRxMemberOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxCollectionPropertyOverrule, ACBASE_PORT);
-	ACBASE_PORT virtual AcRxValueIterator* newValueIterator(const AcRxCollectionProperty* pProp, const AcRxObject* pO) const;
-	ACBASE_PORT virtual Acad::ErrorStatus tryGetCount(const AcRxCollectionProperty* pProp, const AcRxObject* pO, int& count) const;
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxCollectionPropertyOverrule, ACBASE_PORT);
+  ACBASE_PORT virtual AcRxValueIterator* newValueIterator(const AcRxCollectionProperty* pProp, const AcRxObject* pO) const;
+  ACBASE_PORT virtual Acad::ErrorStatus tryGetCount(const AcRxCollectionProperty* pProp, const AcRxObject* pO, int& count) const;
 };
 //*************************************************************************
 // AcRxIndexedProperty
@@ -393,7 +393,7 @@ public:
 class AcRxIndexedProperty : public AcRxCollectionProperty
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxIndexedProperty, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxIndexedProperty, ACBASE_PORT);
     /// <summary>
     /// The method can be used to get the property value at the specified index.
     ///
@@ -415,7 +415,7 @@ public:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus getValue(const AcRxObject* pO, int index, AcRxValue& value) const;
+  ACBASE_PORT Acad::ErrorStatus getValue(const AcRxObject* pO, int index, AcRxValue& value) const;
     /// <summary>
     /// The method can be used to set the property value at the specified index.
     ///
@@ -438,7 +438,7 @@ public:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus setValue(AcRxObject* pO, int index, const AcRxValue& value) const;
+  ACBASE_PORT Acad::ErrorStatus setValue(AcRxObject* pO, int index, const AcRxValue& value) const;
     /// <summary>
     /// The method can be used to insert the property value at the specified index.
     ///
@@ -461,7 +461,7 @@ public:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus insertValue(AcRxObject* pO, int index, const AcRxValue& value) const;
+  ACBASE_PORT Acad::ErrorStatus insertValue(AcRxObject* pO, int index, const AcRxValue& value) const;
     /// <summary>
     /// The method can be used to remove the value from the collection.
     ///
@@ -480,13 +480,13 @@ public:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus removeValue(AcRxObject* pO, int index) const;
+  ACBASE_PORT Acad::ErrorStatus removeValue(AcRxObject* pO, int index) const;
 protected:
     /// <summary>
     /// Destructor
     /// </summary>
     ///
-	ACBASE_PORT ~AcRxIndexedProperty();
+  ACBASE_PORT ~AcRxIndexedProperty();
     /// <summary>
     /// Derived class will need to override this method to return the value
     /// at the specified index.
@@ -508,7 +508,7 @@ protected:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus subGetValue(const AcRxObject* pO, int index, AcRxValue& value) const;
+  virtual Acad::ErrorStatus subGetValue(const AcRxObject* pO, int index, AcRxValue& value) const;
     /// <summary>
     /// Derived class will need to override this method to set the property value 
     /// at the specified index.
@@ -530,7 +530,7 @@ protected:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus subSetValue(AcRxObject* pO, int index, const AcRxValue& value) const;
+  ACBASE_PORT virtual Acad::ErrorStatus subSetValue(AcRxObject* pO, int index, const AcRxValue& value) const;
     /// <summary>
     /// Derived class will need to override this method to insert the property value 
     /// at the specified index.
@@ -552,7 +552,7 @@ protected:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus subInsertValue(AcRxObject* pO, int index, const AcRxValue& value) const;
+  ACBASE_PORT virtual Acad::ErrorStatus subInsertValue(AcRxObject* pO, int index, const AcRxValue& value) const;
     /// <summary>
     /// Derived class will need to override this method to remove the value 
     /// at the specified index.
@@ -570,7 +570,7 @@ protected:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus subRemoveValue(AcRxObject* pO, int index) const;
+  ACBASE_PORT virtual Acad::ErrorStatus subRemoveValue(AcRxObject* pO, int index) const;
     /// <summary>
     /// Protected constructor for derived class.
     /// </summary>
@@ -586,10 +586,10 @@ protected:
     /// Optional parameter that can be used to set the owner of the property. 
     /// </param>
     ///
-	ACBASE_PORT AcRxIndexedProperty(const ACHAR* name, const AcRxValueType& type, const AcRxObject* owner = NULL);
+  ACBASE_PORT AcRxIndexedProperty(const ACHAR* name, const AcRxValueType& type, const AcRxObject* owner = NULL);
 private:
-	friend class AcRxIndexedPropertyImp;
-	AcRxIndexedProperty(AcRxIndexedPropertyImp* pImp);
+  friend class AcRxIndexedPropertyImp;
+  AcRxIndexedProperty(AcRxIndexedPropertyImp* pImp);
 };
 //*************************************************************************
 // AcRxIndexedProperty
@@ -602,7 +602,7 @@ private:
 class AcRxDictionaryProperty : public AcRxCollectionProperty
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxDictionaryProperty, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxDictionaryProperty, ACBASE_PORT);
     /// <summary>
     /// The method gets the value associated with the specified key.
     ///
@@ -625,7 +625,7 @@ public:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus getValue(const AcRxObject* pO, const ACHAR* key, AcRxValue& value) const;
+  ACBASE_PORT Acad::ErrorStatus getValue(const AcRxObject* pO, const ACHAR* key, AcRxValue& value) const;
     /// <summary>
     /// The method sets the value associated with the specified key.
     ///
@@ -648,13 +648,13 @@ public:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	ACBASE_PORT Acad::ErrorStatus setValue(AcRxObject* pO, const ACHAR* key, const AcRxValue& value) const;
+  ACBASE_PORT Acad::ErrorStatus setValue(AcRxObject* pO, const ACHAR* key, const AcRxValue& value) const;
 protected:
     /// <summary>
     /// Destructor
     /// </summary>
     ///
-	ACBASE_PORT ~AcRxDictionaryProperty();
+  ACBASE_PORT ~AcRxDictionaryProperty();
     /// <summary>
     /// Derived class will need to override this method to return the value
     /// associated with the key.
@@ -676,7 +676,7 @@ protected:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus subGetValue(const AcRxObject* pO, const ACHAR* key, AcRxValue& value) const;
+  ACBASE_PORT virtual Acad::ErrorStatus subGetValue(const AcRxObject* pO, const ACHAR* key, AcRxValue& value) const;
     /// <summary>
     /// Derived class will need to override this method to set the property value 
     /// associated with the key.
@@ -698,7 +698,7 @@ protected:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-	ACBASE_PORT virtual Acad::ErrorStatus subSetValue(AcRxObject* pO, const ACHAR* key, const AcRxValue& value) const;
+  ACBASE_PORT virtual Acad::ErrorStatus subSetValue(AcRxObject* pO, const ACHAR* key, const AcRxValue& value) const;
     /// <summary>
     /// Protected constructor for derived class.
     /// </summary>
@@ -714,8 +714,8 @@ protected:
     /// Optional parameter that can be used to set the owner of the property. 
     /// </param>
     ///
-	ACBASE_PORT AcRxDictionaryProperty(const ACHAR* name, const AcRxValueType& type, const AcRxObject* owner = NULL);
+  ACBASE_PORT AcRxDictionaryProperty(const ACHAR* name, const AcRxValueType& type, const AcRxObject* owner = NULL);
 private:
-	friend class AcRxDictionaryPropertyImp;
-	AcRxDictionaryProperty(AcRxDictionaryPropertyImp* pImp);
+  friend class AcRxDictionaryPropertyImp;
+  AcRxDictionaryProperty(AcRxDictionaryPropertyImp* pImp);
 };

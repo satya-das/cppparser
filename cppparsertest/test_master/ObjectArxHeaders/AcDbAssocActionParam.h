@@ -49,11 +49,11 @@
 class ACDBCORE2D_PORT AcDbAssocActionParam : public AcDbObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocActionParam);
+  ACRX_DECLARE_MEMBERS(AcDbAssocActionParam);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject. </param>
     ///
-	AcDbAssocActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  AcDbAssocActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> 
     /// Returns the action parameter name. It may be any string, possibly empty.
     /// The parameter name is case sensitive. Multiple action parameters owned
@@ -61,7 +61,7 @@ public:
     /// </summary>
     /// <returns> The name of the action parameter. </returns>
     ///
-	const AcString& name() const;
+  const AcString& name() const;
     /// <summary>
     /// Sets the parameter name. It may be any string, possibly empty. 
     /// The parameter name is case sensitive. Multiple action parameters owned
@@ -70,7 +70,7 @@ public:
     /// <param name="newName">  New name of this action parameter. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setName(const AcString& newName);
+  virtual Acad::ErrorStatus setName(const AcString& newName);
     /// <summary>
     /// Resets the contents of the parameter to "empty" state, optionally
     /// erasing all objects that the parameter physically or logically owns, 
@@ -85,14 +85,14 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus makeParamEmpty(bool alsoEraseOwnedObjects);
+  virtual Acad::ErrorStatus makeParamEmpty(bool alsoEraseOwnedObjects);
     /// <summary>
     /// If the parameter has some dependencies, it detaches and erases them,
     /// making the parameter not depend on any other object.
     /// </summary>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus detachDependencies();
+  virtual Acad::ErrorStatus detachDependencies();
     /// <summary>
     /// Similar to detachDependencies() but before detaching the dependencies,
     /// it may also make a backup copy of the current contents of the dependent-on
@@ -101,7 +101,7 @@ public:
     /// </summary>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus makeParamConstant();
+  virtual Acad::ErrorStatus makeParamConstant();
     /// <summary>
     /// Transforms any constant geometry kept in the action parameter, such as 
     /// AcGeCurve3d* or AcGePoint3d.
@@ -109,7 +109,7 @@ public:
     /// <param name="transform"> The transform to be applied to the constant geometry. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus transformConstantGeometry(const AcGeMatrix3d& transform);
+  virtual Acad::ErrorStatus transformConstantGeometry(const AcGeMatrix3d& transform);
     /// <summary>
     /// Climbs up the action parameter ownership hierarchy (action parameters may 
     /// be owned by other parameters, such as by AcDbAssocCompoundActionParam), 
@@ -119,7 +119,7 @@ public:
     /// The AcDbAssocAction that owns (directly or indirectly) this action parameter. 
     ///</returns>
     ///
-	AcDbObjectId parentAction() const;
+  AcDbObjectId parentAction() const;
     /// <summary>
     /// Returns all dependencies that the action parameter references. These 
     /// dependencies are "physically" owned by the action, but may be "logically" 
@@ -132,7 +132,7 @@ public:
     /// <param name="dependencyIds"> Returned AcDbObjectIds of AcDbAssocDependencies. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getDependencies(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& dependencyIds) const;
+  virtual Acad::ErrorStatus getDependencies(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& dependencyIds) const;
     /// <summary>
     /// Utility method that just calls getDependencies() on the action parameter and 
     /// returns AcDbCompoundObjectIds these dependencies depend on. Notice that the
@@ -145,7 +145,7 @@ public:
     /// <param name="dependencyIds"> Returned AcDbCompoundObjectIds the dependencies depend on. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getCompoundObjectIds(bool readDependenciesWanted, bool writeDependenciesWanted, AcArray<AcDbCompoundObjectId>& compoundObjectIds) const;
+  Acad::ErrorStatus getCompoundObjectIds(bool readDependenciesWanted, bool writeDependenciesWanted, AcArray<AcDbCompoundObjectId>& compoundObjectIds) const;
     /// <summary>
     /// Returns the internal AcDbAssocStatus member data of the action parameter. 
     /// If alsoCheckDependencies, it also considers the status of all the dependencies 
@@ -154,7 +154,7 @@ public:
     /// kIsUpToDateAssoc it the least severe.
     /// </summary>
     ///
-	AcDbAssocStatus status(bool alsoCheckDependencies) const;
+  AcDbAssocStatus status(bool alsoCheckDependencies) const;
     /// <summary><para>
     /// Sets the internal AcDbAssocStatus member data of the action parameter, including
     /// setting the same newStatus in action parameters owning this action parameter.
@@ -175,7 +175,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setStatus(AcDbAssocStatus newStatus, bool notifyParentAction = true, bool setInOwnedParams = false);
+  Acad::ErrorStatus setStatus(AcDbAssocStatus newStatus, bool notifyParentAction = true, bool setInOwnedParams = false);
     /// <summary><para>
     /// Called from AcDbAssocManager::auditAssociativeData() after file open and possibly
     /// after some other scenarios when the associative data may need to be audited and fixed-up.
@@ -205,7 +205,7 @@ public:
     /// the custom code.
     /// </para></summary>
     ///
-	virtual void auditAssociativeData(AcDbAssocStatus& parentActionHandling);
+  virtual void auditAssociativeData(AcDbAssocStatus& parentActionHandling);
     /// <summary>
     /// Using this method the action parameter reveals its AcDbStepIds and AcDbPersSubentIds
     /// to the AcDbAssocPersSubentManager.
@@ -214,7 +214,7 @@ public:
     /// <param name="persSubentIds"> The array of returned  AcDbPersSubentIds. </param>
     /// <remarks> This method is currently for internal use only. </remarks>
     ///
-	virtual void collectPersSubentNamingDataOverride(AcDbPersStepIdArray& stepIds, AcDbPersSubentIdArray& persSubentIds) const;
+  virtual void collectPersSubentNamingDataOverride(AcDbPersStepIdArray& stepIds, AcDbPersSubentIdArray& persSubentIds) const;
     /// <summary>
     /// Using this method the action parameter asks the AcDbAssocPersSubentManager 
     /// to remap its AcDbPersStepIds and PersSubentIds after the action parameter 
@@ -226,6 +226,6 @@ public:
     /// </param>
     /// <remarks> This method is currently for internal use only. </remarks>
     ///
-	virtual void clonePersSubentNamingDataOverride(AcDbAssocPersSubentManagerCloner* pCloner);
+  virtual void clonePersSubentNamingDataOverride(AcDbAssocPersSubentManagerCloner* pCloner);
 };
 #pragma  pack (pop)

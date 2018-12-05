@@ -46,7 +46,7 @@
 class AcDbAppEntityGrips : public AcRxProtocolReactor
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAppEntityGrips);
+  ACRX_DECLARE_MEMBERS(AcDbAppEntityGrips);
     /// <summary>
     /// Returns the application-defined grip points for an entity. 
     /// </summary>
@@ -81,7 +81,7 @@ public:
     /// grips. See also AcDbEntity::getGripPoints().
     /// </remarks>
     /// 
-	virtual Acad::ErrorStatus getGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags, AcDbEntity* pEntity) = 0;
+  virtual Acad::ErrorStatus getGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags, AcDbEntity* pEntity) = 0;
     /// <summary>
     /// Moves a grip point returned by a previous call to
     /// <c>AcDbAppEntityGrips::getGripPoints()</c>.
@@ -111,7 +111,7 @@ public:
     /// See also AcDbEntity::moveGripPointsAt().
     /// </remarks>
     /// 
-	virtual Acad::ErrorStatus moveGripPointsAt(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags, AcDbEntity* pEntity) = 0;
+  virtual Acad::ErrorStatus moveGripPointsAt(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags, AcDbEntity* pEntity) = 0;
     /// <summary>
     /// Grip status callback function.
     /// </summary>
@@ -132,7 +132,7 @@ public:
     /// associated with any AcDbGripData structures.
     /// </remarks>
     ///
-	virtual void gripStatus(const AcDb::GripStat status, AcDbEntity* pEntity) = 0;
+  virtual void gripStatus(const AcDb::GripStat status, AcDbEntity* pEntity) = 0;
 };
 ////////////////////////////////////////////////////////////////////////
 // class AcDbBlockInsertionPoints
@@ -146,7 +146,7 @@ public:
 class AcDbBlockInsertionPoints : public AcRxProtocolReactor
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbBlockInsertionPoints);
+  ACRX_DECLARE_MEMBERS(AcDbBlockInsertionPoints);
         /// <summary>
         /// Returns the application-defined insertion points for a block.
         /// </summary>
@@ -188,6 +188,6 @@ public:
         /// cursor on the entity. 
         /// The size of the returned arrays must be the same.
         /// </remarks>
-	virtual Acad::ErrorStatus getInsertionPoints(const AcDbBlockTableRecord* pBlock, const AcDbBlockReference* pBlkRef, AcGePoint3dArray& insPts, AcGeVector3dArray& alignmentDirections) = 0;
+  virtual Acad::ErrorStatus getInsertionPoints(const AcDbBlockTableRecord* pBlock, const AcDbBlockReference* pBlkRef, AcGePoint3dArray& insPts, AcGeVector3dArray& alignmentDirections) = 0;
 };
 #pragma  pack(pop)

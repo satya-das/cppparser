@@ -22,11 +22,11 @@
 class ACDB_PORT AcDbAssocNetworkSurfaceActionBody : public AcDbAssocPathBasedSurfaceActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocNetworkSurfaceActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocNetworkSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocNetworkSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocNetworkSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> 
     /// Get continuity of a specified profile that used to create the resulting network surface
     /// </summary>
@@ -36,7 +36,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getContinuity(AcDbAssocLoftedSurfaceActionBody::ProfileType type, int& continuity, AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  Acad::ErrorStatus getContinuity(AcDbAssocLoftedSurfaceActionBody::ProfileType type, int& continuity, AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary> 
     /// Set continuity of a specified profile that used to create the resulting network surface
     /// </summary>
@@ -46,7 +46,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setContinuity(AcDbAssocLoftedSurfaceActionBody::ProfileType type, int continuity, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setContinuity(AcDbAssocLoftedSurfaceActionBody::ProfileType type, int continuity, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary> 
     /// Get bulge of a specified profile that used to create the resulting network surface
     /// </summary>
@@ -56,7 +56,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getBulge(AcDbAssocLoftedSurfaceActionBody::ProfileType type, double& bulge, AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  Acad::ErrorStatus getBulge(AcDbAssocLoftedSurfaceActionBody::ProfileType type, double& bulge, AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary> 
     /// Set bulge of a specified profile that used to create the resulting network surface
     /// </summary>
@@ -66,7 +66,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setBulge(AcDbAssocLoftedSurfaceActionBody::ProfileType type, double bulge, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setBulge(AcDbAssocLoftedSurfaceActionBody::ProfileType type, double bulge, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary> 
     /// Create an instance of AcDbAssocNetworkSurfaceActionBody
     /// </summary>
@@ -79,6 +79,6 @@ public:
     /// <param name="createdActionId"> Id of created action. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcArray<AcDbPathRef>& crossSections, const AcArray<AcDbPathRef>& guideCurves, const AcArray<int>& continuityArray, const AcArray<double>& bulgeArray, bool bEnabled, AcDbObjectId& createdActionId);
+  static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcArray<AcDbPathRef>& crossSections, const AcArray<AcDbPathRef>& guideCurves, const AcArray<int>& continuityArray, const AcArray<double>& bulgeArray, bool bEnabled, AcDbObjectId& createdActionId);
 };
 #pragma  pack (pop)

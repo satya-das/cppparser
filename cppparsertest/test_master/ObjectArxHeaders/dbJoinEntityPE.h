@@ -18,7 +18,7 @@
 class AcDbJoinEntityPE : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbJoinEntityPE);
+  ACRX_DECLARE_MEMBERS(AcDbJoinEntityPE);
     /// <summary>
     /// This method allows application to join secondary entity to the given primary entity.
     /// </summary>
@@ -44,7 +44,7 @@ public:
     /// Applications can implement this protocol extension for other entity types.
     /// </remarks>
     /// 
-	virtual Acad::ErrorStatus joinEntity(AcDbEntity* pPrimaryEntity, AcDbEntity* pSecondaryEntity, const AcGeTol& tol = AcGeContext::gTol) const = 0;
+  virtual Acad::ErrorStatus joinEntity(AcDbEntity* pPrimaryEntity, AcDbEntity* pSecondaryEntity, const AcGeTol& tol = AcGeContext::gTol) const = 0;
     /// <summary>
     /// This method allows application to join entities to the given primary entity.
     /// </summary>
@@ -74,7 +74,7 @@ public:
     /// Applications can implement this protocol extension for other entity types.
     /// </remarks>
     ///     
-	virtual Acad::ErrorStatus joinEntities(AcDbEntity* pPrimaryEntity, const AcArray<AcDbEntity*>& otherEntities, AcGeIntArray& joinedEntityIndices, const AcGeTol& tol = AcGeContext::gTol) const = 0;
+  virtual Acad::ErrorStatus joinEntities(AcDbEntity* pPrimaryEntity, const AcArray<AcDbEntity*>& otherEntities, AcGeIntArray& joinedEntityIndices, const AcGeTol& tol = AcGeContext::gTol) const = 0;
 };
 #pragma  pack (pop)
 //#endif

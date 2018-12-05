@@ -23,8 +23,8 @@ class AcDbMText;
 class ACDBCORE2D_PORT AcDbGeoPositionMarker : public AcDbEntity
 {
 public:
-	enum TextAlignmentType
-	{
+  enum TextAlignmentType
+  {
         /// <summary>
         /// Left-justifies text in the MText.
         /// </summary>
@@ -32,7 +32,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-		kLeftAlignment = 0,
+    kLeftAlignment = 0,
         /// <summary>
         /// Centers text in MText.
         /// </summary>
@@ -40,7 +40,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-		kCenterAlignment = 1,
+    kCenterAlignment = 1,
         /// <summary>
         /// Right-justifies text in MText.
         /// </summary>
@@ -48,60 +48,60 @@ public:
         /// <value>
         /// 2
         /// </value>
-		kRightAlignment = 2
-	};
-	ACRX_DECLARE_MEMBERS(AcDbGeoPositionMarker);
-	AcDbGeoPositionMarker();
-	AcDbGeoPositionMarker(const AcGePoint3d& position, double radius, double landingGap);
+    kRightAlignment = 2
+  };
+  ACRX_DECLARE_MEMBERS(AcDbGeoPositionMarker);
+  AcDbGeoPositionMarker();
+  AcDbGeoPositionMarker(const AcGePoint3d& position, double radius, double landingGap);
     /// <summary> Get/Set Insertion point of the position marker. </summary>
     ///
-	AcGePoint3d position() const;
-	Acad::ErrorStatus setPosition(const AcGePoint3d& position);
+  AcGePoint3d position() const;
+  Acad::ErrorStatus setPosition(const AcGePoint3d& position);
     /// <summary> Get/Set radius of the position marker. </summary>
     ///
-	double radius() const;
-	Acad::ErrorStatus setRadius(double radius);
+  double radius() const;
+  Acad::ErrorStatus setRadius(double radius);
     /// <summary> Get/Set position marker text label. </summary>
     ///
-	AcString text() const;
-	Acad::ErrorStatus setText(const AcString& text);
+  AcString text() const;
+  Acad::ErrorStatus setText(const AcString& text);
     /// <summary> Get/Set position marker MText label. </summary>
     ///
-	AcDbMText* mtext() const;
-	Acad::ErrorStatus setMText(const AcDbMText* pMText);
+  AcDbMText* mtext() const;
+  Acad::ErrorStatus setMText(const AcDbMText* pMText);
     /// <summary> Get/Set the visibility of the MText label. </summary>
     ///
-	bool mtextVisible() const;
-	Acad::ErrorStatus setMTextVisible(bool visible);
+  bool mtextVisible() const;
+  Acad::ErrorStatus setMTextVisible(bool visible);
     /// <summary> Get/Set landing gap of the position marker. </summary>
     ///
-	double landingGap() const;
-	Acad::ErrorStatus setLandingGap(double landingGap);
+  double landingGap() const;
+  Acad::ErrorStatus setLandingGap(double landingGap);
     /// <summary> Get/Set label text frame enabling. </summary>
     ///
-	bool enableFrameText() const;
-	Acad::ErrorStatus setEnableFrameText(bool enableFrameText);
+  bool enableFrameText() const;
+  Acad::ErrorStatus setEnableFrameText(bool enableFrameText);
     /// <summary> Get/Set label text alignment type. </summary>
     ///
-	TextAlignmentType textAlignmentType() const;
-	Acad::ErrorStatus setTextAlignmentType(TextAlignmentType textAlignmentType);
+  TextAlignmentType textAlignmentType() const;
+  Acad::ErrorStatus setTextAlignmentType(TextAlignmentType textAlignmentType);
     /// <summary> Get/Set the notes. </summary>
     ///
-	AcString notes() const;
-	Acad::ErrorStatus setNotes(const AcString& notes);
+  AcString notes() const;
+  Acad::ErrorStatus setNotes(const AcString& notes);
     /// <summary> Get/Set the Geographical location of the position marker. </summary>
     ///
-	AcGePoint3d geoPosition() const;
-	Acad::ErrorStatus setGeoPosition(const AcGePoint3d& position);
-	Acad::ErrorStatus latLonAlt(double& lat, double& lon, double& alt) const;
-	Acad::ErrorStatus setLatLonAlt(double lat, double lon, double alt);
+  AcGePoint3d geoPosition() const;
+  Acad::ErrorStatus setGeoPosition(const AcGePoint3d& position);
+  Acad::ErrorStatus latLonAlt(double& lat, double& lon, double& alt) const;
+  Acad::ErrorStatus setLatLonAlt(double lat, double lon, double alt);
     /// <summary> The normal of the position marker. </summary>
     ///
-	AcGeVector3d normal() const;
+  AcGeVector3d normal() const;
     /// <summary> The text style Object ID of the position marker text. </summary>
     ///
-	AcDbObjectId textStyle() const;
+  AcDbObjectId textStyle() const;
 protected:
-	virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #pragma  pack (pop)

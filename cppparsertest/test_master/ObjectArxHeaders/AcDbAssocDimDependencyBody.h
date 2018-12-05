@@ -28,11 +28,11 @@
 class ACDB_PORT AcDbAssocDimDependencyBody : public AcDbAssocDimDependencyBodyBase
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocDimDependencyBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocDimDependencyBody);
     /// <summary> Default constructor.</summary>
-	AcDbAssocDimDependencyBody();
+  AcDbAssocDimDependencyBody();
     /// <summary> Destructor. </summary>
-	virtual ~AcDbAssocDimDependencyBody();
+  virtual ~AcDbAssocDimDependencyBody();
     // Implementation of pure virtual methods in the AcDbAssocDimDependencyBodyBase 
     // class. They deal with the controlled entity that is assumed to be an 
     /// AcDbDimension
@@ -40,28 +40,28 @@ public:
     /// <summary> Returns the text of the controlled AcDimension. </summary>
     /// <returns> AcDbDimension text. </returns>
     ///
-	virtual AcString getEntityTextOverride() const override;
+  virtual AcString getEntityTextOverride() const override;
     /// <summary> Sets the text property in the controlled AcDbDimension. </summary>
     /// <param  name="newText"> New text to set in the AcDbDimension.</param>
     /// <returns> Acad::eOk if successful. </returns>
     ///
-	virtual Acad::ErrorStatus setEntityTextOverride(const AcString& newText) override;
+  virtual Acad::ErrorStatus setEntityTextOverride(const AcString& newText) override;
     /// <summary> Gets the measurement from the controlled AcDbDimension. </summary>
     /// <returns> AcDbDimension measurement. </returns>
     ///
-	virtual double getEntityMeasurementOverride() const override;
+  virtual double getEntityMeasurementOverride() const override;
     /// <summary> Returns true iff the attachment of the controlled AcDbDimension
     /// changed, such as the AcDbDimension has been repositioned. </summary>
     /// <returns> Returns true if attachment changed. </returns>
     ///
-	virtual bool isEntityAttachmentChangedOverride() const override;
+  virtual bool isEntityAttachmentChangedOverride() const override;
     // Overridden method from the AcDbAssocDependencyBody base class
 
     /// <summary> Updates position, size and orientation of the controlled AcDbDimension.
     /// </summary>
     /// <returns> Acad::eOk if successful. </returns>
     ///
-	virtual Acad::ErrorStatus updateDependentOnObjectOverride() override;
+  virtual Acad::ErrorStatus updateDependentOnObjectOverride() override;
     /// <summary>
     /// "Pseudo constructor". Creates a new AcDbAssocDependency object owning 
     /// a new AcDbAssocDimDependencyBody object and makes the dependent-on object
@@ -73,5 +73,5 @@ public:
     /// <param name="dimDepBodyId"> AcDbObjectId of the created AcDbAssocDimDependencyBody. </param>
     /// <returns> Acad::eOk if successful. </returns>
     ///
-	static Acad::ErrorStatus createAndPostToDatabase(const AcDbObjectId& dimId, AcDbObjectId& dimDepId, AcDbObjectId& dimDepBodyId);
+  static Acad::ErrorStatus createAndPostToDatabase(const AcDbObjectId& dimId, AcDbObjectId& dimDepId, AcDbObjectId& dimDepBodyId);
 };

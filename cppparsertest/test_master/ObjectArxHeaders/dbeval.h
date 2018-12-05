@@ -91,7 +91,7 @@ typedef AcArray<AcDbEvalVariant, AcArrayObjectCopyReallocator<AcDbEvalVariant> >
 class AcDbEvalVariant : public resbuf, public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbEvalVariant);
+  ACRX_DECLARE_MEMBERS(AcDbEvalVariant);
     /// <summary>
     /// Default constructor.
     /// </summary>
@@ -100,7 +100,7 @@ public:
     /// AcDbEvalVariant::kNone.  
     /// </remarks>
     ///
-	AcDbEvalVariant();
+  AcDbEvalVariant();
     /// <summary>
     /// Copy contstructor.
     /// </summary>
@@ -109,7 +109,7 @@ public:
     /// The object to copy from. 
     /// </param>
     ///
-	AcDbEvalVariant(const AcDbEvalVariant& other);
+  AcDbEvalVariant(const AcDbEvalVariant& other);
     /// <summary>
     /// Move contstructor.
     /// </summary>
@@ -118,7 +118,7 @@ public:
     /// The object to move from. 
     /// </param>
     ///
-	ACDBCORE2D_PORT AcDbEvalVariant(AcDbEvalVariant&& other);
+  ACDBCORE2D_PORT AcDbEvalVariant(AcDbEvalVariant&& other);
     /// <summary>
     /// Copy contstructor.
     /// </summary>
@@ -127,7 +127,7 @@ public:
     /// A pointer to the object to copy from. 
     /// </param>
     ///
-	AcDbEvalVariant(const AcDbEvalVariant* pOther);
+  AcDbEvalVariant(const AcDbEvalVariant* pOther);
     /// <summary>
     /// Destructor.
     /// </summary>
@@ -138,7 +138,7 @@ public:
     /// using acutRelRb().
     /// </remarks>
     ///
-	~AcDbEvalVariant();
+  ~AcDbEvalVariant();
     /// <summary>
     /// Constructs an AcDbEvalVariant wrapping a double value.
     /// </summary>
@@ -151,7 +151,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kDouble.
     /// </remarks>
     ///
-	AcDbEvalVariant(double dVal);
+  AcDbEvalVariant(double dVal);
     /// <summary>
     /// Constructs an AcDbEvalVariant wrapping a short integer value.
     /// </summary>
@@ -164,7 +164,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kShort.
     /// </remarks>
     /// 
-	AcDbEvalVariant(short iVal);
+  AcDbEvalVariant(short iVal);
     /// <summary>
     /// Constructs an AcDbEvalVariant wrapping a string value.
     /// </summary>
@@ -177,7 +177,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kString.
     /// </remarks>
     /// 
-	AcDbEvalVariant(const ACHAR* szVal);
+  AcDbEvalVariant(const ACHAR* szVal);
     /// <summary>
     /// Constructs an AcDbEvalVariant wrapping a long value.
     /// </summary>
@@ -190,7 +190,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kLong.
     /// </remarks>
     /// 
-	AcDbEvalVariant(Adesk::Int32 lVal);
+  AcDbEvalVariant(Adesk::Int32 lVal);
     /// <summary>
     /// Constructs an AcDbEvalVariant wrapping an AcDbObjectId.
     /// </summary>
@@ -203,7 +203,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kOldId.
     /// </remarks>
     /// 
-	AcDbEvalVariant(const AcDbObjectId& id);
+  AcDbEvalVariant(const AcDbObjectId& id);
     /// <summary>
     /// Constructs an AcDbEvalVariant wrapping a 2D point.
     /// </summary>
@@ -216,7 +216,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kPoint2d
     /// </remarks>
     /// 
-	AcDbEvalVariant(const AcGePoint2d& pt);
+  AcDbEvalVariant(const AcGePoint2d& pt);
     /// <summary>
     /// Constructs an AcDbEvalVariant wrapping a 3D point. 
     /// </summary>
@@ -229,7 +229,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kPoint3d.
     /// </remarks>
     /// 
-	AcDbEvalVariant(const AcGePoint3d& pt);
+  AcDbEvalVariant(const AcGePoint3d& pt);
     /// <summary>
     /// Constructs an AcDbEvalVariant from a resbuf.
     /// </summary>
@@ -241,7 +241,7 @@ public:
     /// <remarks>
     /// The variant type is set to rb.restype.
     /// </remarks>
-	AcDbEvalVariant(const resbuf& rb);
+  AcDbEvalVariant(const resbuf& rb);
     /// <summary>
     /// Assigns an AcDbEvalVariant to a resbuf.
     /// </summary>
@@ -258,7 +258,7 @@ public:
     /// The variant type is set to rb.restype.
     /// </remarks>
     /// 
-	AcDbEvalVariant& operator=(const resbuf& rb);
+  AcDbEvalVariant& operator=(const resbuf& rb);
     /// <summary>
     /// Assigns an AcDbEvalVariant to a double value.
     /// </summary>
@@ -275,7 +275,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kDouble.
     /// </remarks>
     /// 
-	AcDbEvalVariant& operator=(double dVal);
+  AcDbEvalVariant& operator=(double dVal);
     /// <summary>
     /// Assigns an AcDbEvalVariant to a short value.
     /// </summary>
@@ -292,7 +292,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kShort.
     /// </remarks>
     /// 
-	AcDbEvalVariant& operator=(short iVal);
+  AcDbEvalVariant& operator=(short iVal);
     /// <summary>
     /// Assigns an AcDbEvalVariant to a long value.
     /// </summary>
@@ -309,7 +309,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kLong.
     /// </remarks>
     /// 
-	AcDbEvalVariant& operator=(Adesk::Int32 lVal);
+  AcDbEvalVariant& operator=(Adesk::Int32 lVal);
     /// <summary>
     /// Assigns an AcDbEvalVariant to a character string.
     /// </summary>
@@ -326,7 +326,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kString.
     /// </remarks>
     /// 
-	AcDbEvalVariant& operator=(const ACHAR* szVal);
+  AcDbEvalVariant& operator=(const ACHAR* szVal);
     /// <summary>
     /// Assigns an AcDbEvalVariant to the value stored in another
     /// AcDbEvalVariant.
@@ -340,7 +340,7 @@ public:
     /// A reference to the updated variant.
     /// </returns>
     ///
-	AcDbEvalVariant& operator=(const AcDbEvalVariant& other);
+  AcDbEvalVariant& operator=(const AcDbEvalVariant& other);
     /// <summary>
     /// Moves an AcDbEvalVariant to the value stored in another
     /// AcDbEvalVariant.
@@ -354,7 +354,7 @@ public:
     /// A reference to the updated variant.
     /// </returns>
     ///
-	ACDBCORE2D_PORT AcDbEvalVariant& operator=(AcDbEvalVariant&& other);
+  ACDBCORE2D_PORT AcDbEvalVariant& operator=(AcDbEvalVariant&& other);
     /// <summary>
     /// Assigns an AcDbEvalVariant to the value of an AcDbObjectId.
     /// </summary>
@@ -371,7 +371,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kOldId.
     /// </remarks>
     /// 
-	AcDbEvalVariant& operator=(const AcDbObjectId& id);
+  AcDbEvalVariant& operator=(const AcDbObjectId& id);
     /// <summary>
     /// Assigns an AcDbEvalVariant to a 2D point value.
     /// </summary>
@@ -388,7 +388,7 @@ public:
     /// The variant type is set to AcDbEvalVariant::kPoint2d.
     /// </remarks>
     /// 
-	AcDbEvalVariant& operator=(const AcGePoint2d& pt);
+  AcDbEvalVariant& operator=(const AcGePoint2d& pt);
     /// <summary>
     /// Assigns an AcDbEvalVariant to a 3D point value.
     /// </summary>
@@ -405,13 +405,13 @@ public:
     /// The variant type is set to AcDbEvalVariant::kPoint3d.
     /// </remarks>
     /// 
-	AcDbEvalVariant& operator=(const AcGePoint3d& pt);
+  AcDbEvalVariant& operator=(const AcGePoint3d& pt);
     /// <summary>
     /// Clears the contents of the AcDbEvalVariant and frees any allocated
     /// memory, including resbuf chains descending from this AcDbEvalVariant.
     /// Changed the <c>AcDbEvalVariant::restype</c> to AcDbEvalVariant::kNone.
     /// </summary>
-	void clear();
+  void clear();
     /// <summary> 
     /// Copies the value and data from a source AcDbEvalVariant object into this object.
     /// </summary>
@@ -424,7 +424,7 @@ public:
     /// Returns Acad::eOk if successful. Returns Acad::eWrongObjectType if
     /// <c>pObject</c> is not an AcDbEvalVariant. 
     /// </returns>
-	virtual Acad::ErrorStatus copyFrom(const AcRxObject* pOther) override;
+  virtual Acad::ErrorStatus copyFrom(const AcRxObject* pOther) override;
     /// <summary> 
     /// Tests whether this AcDbEvalVariant is less than another.
     /// This operator may only be used if both AcDbEvalVariants are of
@@ -439,7 +439,7 @@ public:
     /// data type is not kDouble, kShort, kLong, or kString then
     /// a value of false will be returned.
     /// </returns>
-	bool operator <(const AcDbEvalVariant& val) const;
+  bool operator <(const AcDbEvalVariant& val) const;
     /// <summary> 
     /// Tests whether this AcDbEvalVariant is greater than another.
     /// This operator may only be used if both AcDbEvalVariants are of
@@ -454,7 +454,7 @@ public:
     /// data type is not kDouble, kShort, kLong, or kString then
     /// a value of false will be returned.
     /// </returns>
-	bool operator >(const AcDbEvalVariant& val) const;
+  bool operator >(const AcDbEvalVariant& val) const;
     /// <summary> 
     /// Tests whether this AcDbEvalVariant is less than or equal to another.
     /// This operator may only be used if both AcDbEvalVariants are of
@@ -469,7 +469,7 @@ public:
     /// or if the data type is not kDouble, kShort, kLong, or kString then
     /// a value of false will be returned.
     /// </returns>
-	bool operator <=(const AcDbEvalVariant& val) const;
+  bool operator <=(const AcDbEvalVariant& val) const;
     /// <summary> 
     /// Tests whether this AcDbEvalVariant is greater than or equal to another.
     /// This operator may only be used if both AcDbEvalVariants are of
@@ -484,7 +484,7 @@ public:
     /// or if the data type is not kDouble, kShort, kLong, or kString then
     /// a value of false will be returned.
     /// </returns>
-	bool operator >=(const AcDbEvalVariant& val) const;
+  bool operator >=(const AcDbEvalVariant& val) const;
     /// <summary> 
     /// Tests whether this AcDbEvalVariant is equal to another.
     /// </summary>
@@ -496,7 +496,7 @@ public:
     /// If the two AcDbEvalVariants are of different types then
     /// a value of false will be returned.
     /// </returns>
-	bool operator ==(const AcDbEvalVariant& val) const;
+  bool operator ==(const AcDbEvalVariant& val) const;
     /// <summary> 
     /// Tests whether this AcDbEvalVariant is unequal to another.
     /// </summary>
@@ -508,27 +508,27 @@ public:
     /// If the two AcDbEvalVariants are of different types then
     /// a value of true will be returned.
     /// </returns>
-	bool operator !=(const AcDbEvalVariant& val) const;
-	Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const;
-	Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
-	Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const;
-	Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler);
-	AcDb::DwgDataType getType() const;
-	Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, double value);
-	Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, short value);
-	Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, Adesk::Int32 value);
-	Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, const AcString& value);
-	ACDBCORE2D_PORT Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, const wchar_t* value);
-	Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, AcDbObjectId value);
-	Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, const AcGePoint3d& value);
-	Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, const AcGePoint2d& value);
-	Acad::ErrorStatus getValue(double& value) const;
-	Acad::ErrorStatus getValue(short& value) const;
-	Acad::ErrorStatus getValue(Adesk::Int32& value) const;
-	ACDBCORE2D_PORT Acad::ErrorStatus getValue(AcString& value) const;
-	Acad::ErrorStatus getValue(AcDbObjectId& value, AcDbDatabase* pDb = NULL) const;
-	ACDBCORE2D_PORT Acad::ErrorStatus getValue(AcGePoint3d& value) const;
-	Acad::ErrorStatus getValue(AcGePoint2d& value) const;
+  bool operator !=(const AcDbEvalVariant& val) const;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler);
+  AcDb::DwgDataType getType() const;
+  Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, double value);
+  Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, short value);
+  Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, Adesk::Int32 value);
+  Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, const AcString& value);
+  ACDBCORE2D_PORT Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, const wchar_t* value);
+  Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, AcDbObjectId value);
+  Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, const AcGePoint3d& value);
+  Acad::ErrorStatus setValue(AcDb::DxfCode groupcode, const AcGePoint2d& value);
+  Acad::ErrorStatus getValue(double& value) const;
+  Acad::ErrorStatus getValue(short& value) const;
+  Acad::ErrorStatus getValue(Adesk::Int32& value) const;
+  ACDBCORE2D_PORT Acad::ErrorStatus getValue(AcString& value) const;
+  Acad::ErrorStatus getValue(AcDbObjectId& value, AcDbDatabase* pDb = NULL) const;
+  ACDBCORE2D_PORT Acad::ErrorStatus getValue(AcGePoint3d& value) const;
+  Acad::ErrorStatus getValue(AcGePoint2d& value) const;
     /// <summary>
     /// Converts an AcDbEvalVariant to an AcRxValue.
     /// </summary>
@@ -542,7 +542,7 @@ public:
     /// Returns Acad::eOk if successful, returns eInvalidInput if the
     /// conversion could not be performed. 
     /// </returns>
-	Acad::ErrorStatus toAcRxValue(const AcRxValueType& type, AcRxValue& value) const;
+  Acad::ErrorStatus toAcRxValue(const AcRxValueType& type, AcRxValue& value) const;
     /// <summary>
     /// Converts an AcRxValue to an AcDbEvalVariant. 
     /// </summary>
@@ -553,7 +553,7 @@ public:
     /// Returns Acad::eOk if successful, returns eInvalidInput if the
     /// conversion could not be performed and leaves the variant unmodified. 
     /// </returns>
-	Acad::ErrorStatus fromAcRxValue(const AcRxValue& value);
+  Acad::ErrorStatus fromAcRxValue(const AcRxValue& value);
 protected:
     /// <summary>
     /// Initializes the contents of the AcDbEvalVariant. 
@@ -562,16 +562,16 @@ protected:
     /// <remarks>
     /// Called by constructor overloads to initialize the base resbuf memory. 
     /// </remarks>
-	void init();
+  void init();
 private:
-	void takeStateFrom(AcDbEvalVariant& other);
+  void takeStateFrom(AcDbEvalVariant& other);
 };
 class AcDbEvalEdgeInfo;
 class AcDbEvalIdMap
 {
 public:
-	virtual AcDbEvalNodeId find(const AcDbEvalNodeId& key) = 0;
-	virtual void kill() = 0;
+  virtual AcDbEvalNodeId find(const AcDbEvalNodeId& key) = 0;
+  virtual void kill() = 0;
 };
 ////////////////////////////////////////////////////////////////////////
 // class AcDbEvalGraph
@@ -611,23 +611,23 @@ public:
     /// Special AcDbEvalNodeId values. 
     /// </summary>
     /// 
-	enum NodeId
-	{
+  enum NodeId
+  {
         /// <summary>
         /// Null node Id. 
         /// </summary>
-		kNullNodeId = 0
-	};
-	ACDB_DECLARE_MEMBERS(AcDbEvalGraph);
+    kNullNodeId = 0
+  };
+  ACDB_DECLARE_MEMBERS(AcDbEvalGraph);
     /// <summary>
     /// Default constructor, constructs an empty graph.
     /// </summary>
     /// 
-	AcDbEvalGraph();
+  AcDbEvalGraph();
     /// <summary>
     /// Destructor.
     /// </summary>
-	virtual ~AcDbEvalGraph();
+  virtual ~AcDbEvalGraph();
     /* Management */
 
     // This set of static methods deal with managing the
@@ -649,7 +649,7 @@ public:
     /// <returns>
     /// Returns true if the graph exists. 
     /// </returns>
-	static bool hasGraph(const AcDbObject* pObj, const ACHAR* pKey);
+  static bool hasGraph(const AcDbObject* pObj, const ACHAR* pKey);
     /// <summary>
     /// Retrieves a graph, if one exists, from the supplied object with the
     /// requested open mode. The object must be database resident.
@@ -679,7 +679,7 @@ public:
     /// returned graph when it is no longer needed. 
     /// </remarks>
     ///
-	static Acad::ErrorStatus getGraph(const AcDbObject* pObj, const ACHAR* pKey, AcDbEvalGraph** pGraph, const AcDb::OpenMode mode);
+  static Acad::ErrorStatus getGraph(const AcDbObject* pObj, const ACHAR* pKey, AcDbEvalGraph** pGraph, const AcDb::OpenMode mode);
     /// <summary>
     /// Creates a graph on the object at the supplied key. The object must be
     /// database resident.
@@ -697,7 +697,7 @@ public:
     /// already exists on the object. 
     /// </returns>
     ///
-	static Acad::ErrorStatus createGraph(AcDbObject* pObj, const ACHAR* pKey);
+  static Acad::ErrorStatus createGraph(AcDbObject* pObj, const ACHAR* pKey);
     /// <summary>
     /// Removes the graph, if one exists, at the supplied key. The object must
     /// be database resident. 
@@ -715,7 +715,7 @@ public:
     /// graph does not exist.
     /// </returns>
     ///
-	static Acad::ErrorStatus removeGraph(AcDbObject* pObj, const ACHAR* pKey);
+  static Acad::ErrorStatus removeGraph(AcDbObject* pObj, const ACHAR* pKey);
     /// <summary>
     /// Determines if a graph exists at the supplied key in the databae.
     /// </summary>
@@ -731,7 +731,7 @@ public:
     /// Returns true if the graph exists.
     /// </returns>
     ///
-	static bool hasGraph(AcDbDatabase* pDb, const ACHAR* pKey);
+  static bool hasGraph(AcDbDatabase* pDb, const ACHAR* pKey);
     /// <summary>
     /// Retrieves the graph from the database. This method
     /// provides the ability to associate a graph with a database
@@ -761,7 +761,7 @@ public:
     /// returned graph when it is no longer needed. 
     /// </remarks>
     ///
-	static Acad::ErrorStatus getGraph(AcDbDatabase* pDb, const ACHAR* pKey, AcDbEvalGraph** pGraph, const AcDb::OpenMode mode);
+  static Acad::ErrorStatus getGraph(AcDbDatabase* pDb, const ACHAR* pKey, AcDbEvalGraph** pGraph, const AcDb::OpenMode mode);
     /// <summary>
     /// Creates a graph at the specified key for the database. This method
     /// provides the ability to associate a graph witha  database (instead of a
@@ -779,7 +779,7 @@ public:
     /// Returns Acad::eOk if successful.
     /// </returns>
     /// 
-	static Acad::ErrorStatus createGraph(AcDbDatabase* pDb, const ACHAR* pKey);
+  static Acad::ErrorStatus createGraph(AcDbDatabase* pDb, const ACHAR* pKey);
     /// <summary>
     /// Removes a graph at the specified key for the database.
     /// </summary>
@@ -795,7 +795,7 @@ public:
     /// Returns Acad::eOk if successful. Returns Acad::eKeyNotFound if there is
     /// no graph with that key associated to the database 
     /// </returns>
-	static Acad::ErrorStatus removeGraph(AcDbDatabase* pDb, const ACHAR* pKey);
+  static Acad::ErrorStatus removeGraph(AcDbDatabase* pDb, const ACHAR* pKey);
     /// <summary>
     /// Replaces the graph on the object.
     /// </summary>
@@ -818,7 +818,7 @@ public:
     /// of object (i.e. not an AcDbEvalGraph).
     /// </returns>
     ///
-	static Acad::ErrorStatus replaceGraph(AcDbObject* pObj, const ACHAR* pKey, AcDbObjectId grphId);
+  static Acad::ErrorStatus replaceGraph(AcDbObject* pObj, const ACHAR* pKey, AcDbObjectId grphId);
     /* Graph Query/Edit */
 
     // This set of methods are to do with editing the graph - i.e. adding,
@@ -852,7 +852,7 @@ public:
     /// <c>pNode</c> when it is no longer needed. 
     /// </remarks>
     /// 
-	virtual Acad::ErrorStatus addNode(AcDbEvalExpr* pNode, AcDbEvalNodeId& id);
+  virtual Acad::ErrorStatus addNode(AcDbEvalExpr* pNode, AcDbEvalNodeId& id);
     /// <summary>
     /// Removes a node from the graph. 
     /// </summary>
@@ -866,7 +866,7 @@ public:
     /// node with the specified id exists in the graph.
     /// </returns>
     /// 
-	virtual Acad::ErrorStatus removeNode(const AcDbEvalNodeId& id);
+  virtual Acad::ErrorStatus removeNode(const AcDbEvalNodeId& id);
     /// <summary>
     /// Removes a node from the graph. Assumes the object is already opened
     ///  for read or write.
@@ -881,7 +881,7 @@ public:
     /// if the node does not exist in the graph.
     /// </returns>
     /// 
-	virtual Acad::ErrorStatus removeNode(AcDbEvalExpr* pNode);
+  virtual Acad::ErrorStatus removeNode(AcDbEvalExpr* pNode);
     /// <summary>
     /// Returns an array of all node ids contained in the graph.
     /// </summary>
@@ -894,7 +894,7 @@ public:
     /// Returns Acad::eOk if successful. 
     /// </returns>
     ///
-	virtual Acad::ErrorStatus getAllNodes(AcDbEvalNodeIdArray& nodes) const;
+  virtual Acad::ErrorStatus getAllNodes(AcDbEvalNodeIdArray& nodes) const;
     /// <summary>
     /// Opens a node in the graph given its node id. 
     /// </summary>
@@ -918,7 +918,7 @@ public:
     /// Callers must call close() on the returned node pointer when it is no
     /// longer needed.
     /// </remarks>
-	virtual Acad::ErrorStatus getNode(const AcDbEvalNodeId& nodeId, AcDb::OpenMode mode, AcDbObject** ppNode) const;
+  virtual Acad::ErrorStatus getNode(const AcDbEvalNodeId& nodeId, AcDb::OpenMode mode, AcDbObject** ppNode) const;
     /// <summary>
     /// Adds a non-invertable edge between two nodes in the graph.
     /// </summary>
@@ -935,7 +935,7 @@ public:
     /// either of the nodes are not resident in the graph. 
     /// </returns>
     ///
-	virtual Acad::ErrorStatus addEdge(const AcDbEvalNodeId& idFrom, const AcDbEvalNodeId& idTo);
+  virtual Acad::ErrorStatus addEdge(const AcDbEvalNodeId& idFrom, const AcDbEvalNodeId& idTo);
     /// <summary>
     /// Adds an edge between two nodes in the graph.
     /// </summary>
@@ -956,7 +956,7 @@ public:
     /// either of the nodes are not resident in the graph. 
     /// </returns>
     ///
-	virtual Acad::ErrorStatus addEdge(const AcDbEvalNodeId& idFrom, const AcDbEvalNodeId& idTo, bool bInvertible);
+  virtual Acad::ErrorStatus addEdge(const AcDbEvalNodeId& idFrom, const AcDbEvalNodeId& idTo, bool bInvertible);
     /// <summary>
     /// Removes an edge between to nodes in the graph.
     /// </summary>
@@ -973,7 +973,7 @@ public:
     /// an edge between the nodes does not exist.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus removeEdge(const AcDbEvalNodeId& idFrom, const AcDbEvalNodeId& idTo);
+  virtual Acad::ErrorStatus removeEdge(const AcDbEvalNodeId& idFrom, const AcDbEvalNodeId& idTo);
     /// <summary>
     /// Returns a list of incoming edges to a node in the graph.
     /// </summary>
@@ -991,7 +991,7 @@ public:
     /// the node with the specified id does not exist in the graph.
     /// </returns>
     /// 
-	virtual Acad::ErrorStatus getIncomingEdges(const AcDbEvalNodeId& nodeId, AcDbEvalEdgeInfoArray& edges) const;
+  virtual Acad::ErrorStatus getIncomingEdges(const AcDbEvalNodeId& nodeId, AcDbEvalEdgeInfoArray& edges) const;
     /// <summary>
     /// Returns a list of outgoing edges from a node in the graph.
     /// </summary>
@@ -1009,7 +1009,7 @@ public:
     /// the node with the specified id does not exist in the graph.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus getOutgoingEdges(const AcDbEvalNodeId& nodeId, AcDbEvalEdgeInfoArray& edges) const;
+  virtual Acad::ErrorStatus getOutgoingEdges(const AcDbEvalNodeId& nodeId, AcDbEvalEdgeInfoArray& edges) const;
     /// <summary>
     /// Returns information about an edge between two nodes in a graph. 
     /// </summary>
@@ -1029,7 +1029,7 @@ public:
     /// either of the nodes with the specified id does not exist in the graph.
     /// Returns Acad::eGraphEdgeNotFound if edge exists between the nodes. 
     /// </returns>
-	virtual Acad::ErrorStatus getEdgeInfo(const AcDbEvalNodeId& nodeFrom, const AcDbEvalNodeId& nodeTo, AcDbEvalEdgeInfo& einfo) const;
+  virtual Acad::ErrorStatus getEdgeInfo(const AcDbEvalNodeId& nodeFrom, const AcDbEvalNodeId& nodeTo, AcDbEvalEdgeInfo& einfo) const;
     /// <summary>
     /// Adds the nodes from one graph to another graph by moving the nodes and
     /// edges from the source graph to this graph.
@@ -1054,7 +1054,7 @@ public:
     /// of the operation.
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus addGraph(AcDbEvalGraph* pGraphToAdd, AcDbEvalIdMap*& idMap);
+  virtual Acad::ErrorStatus addGraph(AcDbEvalGraph* pGraphToAdd, AcDbEvalIdMap*& idMap);
     /* Evaluation */
 
     /// <summary>
@@ -1074,7 +1074,7 @@ public:
     /// method. 
     /// </remarks>
     /// 
-	virtual Acad::ErrorStatus evaluate() const;
+  virtual Acad::ErrorStatus evaluate() const;
     /// <summary>
     /// Evaluates the class by traversing the graph and invoking
     /// <c>AcDbEvalExpr::evaluate()</c> on all of the visited nodes. 
@@ -1098,7 +1098,7 @@ public:
     /// method. 
     /// </remarks>
     /// 
-	virtual Acad::ErrorStatus evaluate(const AcDbEvalContext* pContext) const;
+  virtual Acad::ErrorStatus evaluate(const AcDbEvalContext* pContext) const;
     /// <summary>
     /// Evaluates the class by traversing the graph and invoking
     /// <c>AcDbEvalExpr::evaluate()</c> on all of the visited nodes. 
@@ -1127,7 +1127,7 @@ public:
     /// method. 
     /// </remarks>
     /// 
-	virtual Acad::ErrorStatus evaluate(const AcDbEvalContext* pContext, const AcDbEvalNodeIdArray* activatedNodes) const;
+  virtual Acad::ErrorStatus evaluate(const AcDbEvalContext* pContext, const AcDbEvalNodeIdArray* activatedNodes) const;
     /// <summary>
     /// Activates a collection of nodes in a graph.
     /// </summary>
@@ -1149,7 +1149,7 @@ public:
     /// If activatedNodes is empty, all the nodes in the graph are deactivated.
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus activate(const AcDbEvalNodeIdArray& activatedNodes) const;
+  virtual Acad::ErrorStatus activate(const AcDbEvalNodeIdArray& activatedNodes) const;
     /// <summary>
     /// Activates a collection of nodes in a graph.
     /// </summary>
@@ -1174,7 +1174,7 @@ public:
     /// If activatedNodes is empty, all the nodes in the graph are deactivated.
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus activate(const AcDbEvalNodeIdArray& activatedNodes, AcDbEvalNodeIdArray* pActiveSubgraph) const;
+  virtual Acad::ErrorStatus activate(const AcDbEvalNodeIdArray& activatedNodes, AcDbEvalNodeIdArray* pActiveSubgraph) const;
     /// <summary>
     /// Activates a collection of nodes in a graph.
     /// </summary>
@@ -1202,7 +1202,7 @@ public:
     /// If activatedNodes is empty, all the nodes in the graph are deactivated.
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus activate(const AcDbEvalNodeIdArray& activatedNodes, AcDbEvalNodeIdArray* pActiveSubgraph, AcDbEvalNodeIdArray* pCycleNodes) const;
+  virtual Acad::ErrorStatus activate(const AcDbEvalNodeIdArray& activatedNodes, AcDbEvalNodeIdArray* pActiveSubgraph, AcDbEvalNodeIdArray* pCycleNodes) const;
     /// <summary>
     /// Determines whether the specified node is activated in the graph.
     /// </summary>
@@ -1220,7 +1220,7 @@ public:
     /// node with the specified id exists in the graph. 
     /// </returns>
     ///
-	virtual Acad::ErrorStatus getIsActive(const AcDbEvalNodeId& id, bool& bIsActive) const;
+  virtual Acad::ErrorStatus getIsActive(const AcDbEvalNodeId& id, bool& bIsActive) const;
     /// <summary>
     /// Determines whether two graphs are 'equal' with equality defined
     /// as Graph A equals Graph B if A is a subgraph of B and B is a subgraph
@@ -1236,7 +1236,7 @@ public:
     /// true if the graphs are equal. 
     /// </returns>
     ///
-	virtual bool equals(const AcDbEvalGraph* pOther) const;
+  virtual bool equals(const AcDbEvalGraph* pOther) const;
     /// <summary>
     /// Determines whether the 'this' graph is a subgraph of the graph 
     /// passed in as an argument. 'A is a subgraph of B' is defined by
@@ -1260,7 +1260,7 @@ public:
     /// true if 'this' is a subgraph of 'pOther'
     /// </returns>
     ///
-	virtual bool isSubgraphOf(const AcDbEvalGraph* pOther) const;
+  virtual bool isSubgraphOf(const AcDbEvalGraph* pOther) const;
     /// <summary>
     /// Adds this graph to the database, giving it a 
     /// handle and an object ID. 
@@ -1282,7 +1282,7 @@ public:
     /// Returns Acad::eOk if successful.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus postInDatabase(AcDbObjectId& objId, AcDbDatabase* pDb);
+  virtual Acad::ErrorStatus postInDatabase(AcDbObjectId& objId, AcDbDatabase* pDb);
 };
 ////////////////////////////////////////////////////////////////////////
 // class AcDbEvalEdgeInfo
@@ -1304,13 +1304,13 @@ public:
     /// <summary>
     /// Constructor.
     ///Adesk::UInt32 </summary>
-	AcDbEvalEdgeInfo()
-		: mFlags(0)
-		, mRefCount(0)
-	{
-		mIdFrom = AcDbEvalGraph::kNullNodeId;
-		mIdTo = AcDbEvalGraph::kNullNodeId;
-	}
+  AcDbEvalEdgeInfo()
+    : mFlags(0)
+    , mRefCount(0)
+  {
+    mIdFrom = AcDbEvalGraph::kNullNodeId;
+    mIdTo = AcDbEvalGraph::kNullNodeId;
+  }
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -1327,13 +1327,13 @@ public:
     /// <param name="count">
     /// Description to come. 
     /// </param>
-	AcDbEvalEdgeInfo(AcDbEvalNodeId from, AcDbEvalNodeId to, Adesk::Int32 flags, Adesk::UInt32 count)
-		: mIdFrom(from)
-		, mIdTo(to)
-		, mFlags(flags)
-		, mRefCount(count)
-	{
-	}
+  AcDbEvalEdgeInfo(AcDbEvalNodeId from, AcDbEvalNodeId to, Adesk::Int32 flags, Adesk::UInt32 count)
+    : mIdFrom(from)
+    , mIdTo(to)
+    , mFlags(flags)
+    , mRefCount(count)
+  {
+  }
     /// <summary>
     /// The originating node of the edge.
     /// </summary>
@@ -1341,7 +1341,7 @@ public:
     /// <returns>
     /// The edge's originating node id. 
     /// </returns>
-	AcDbEvalNodeId from() const;
+  AcDbEvalNodeId from() const;
     /// <summary>
     /// The terminal node of the edge.
     /// </summary>
@@ -1349,7 +1349,7 @@ public:
     /// <returns>
     /// The edge's terminating node id. 
     /// </returns>
-	AcDbEvalNodeId to() const;
+  AcDbEvalNodeId to() const;
     /// <summary>
     /// Description to come.
     /// </summary>
@@ -1358,7 +1358,7 @@ public:
     /// Description to come.
     /// </returns>
     ///
-	Adesk::UInt32 refCount() const;
+  Adesk::UInt32 refCount() const;
     /// <summary> 
     /// Indicates whether the edge is invertable, i.e. whether the originating
     /// and terminating nodes can be swapped depending on which of the nodes is
@@ -1368,7 +1368,7 @@ public:
     /// <returns>
     /// Returns true if the edge is invertable. 
     /// </returns>
-	bool isInvertible() const;
+  bool isInvertible() const;
     /// <summary>
     /// Tests whether an edge is suppressed, i.e. temporarily considered
     /// 'removed' from the graph during activation and/or evaluation.
@@ -1381,7 +1381,7 @@ public:
     /// true if the edge is active.
     /// </returns>
     ///
-	bool isSuppressed() const;
+  bool isSuppressed() const;
     /// <summary>
     /// Member wise equality
     /// </summary>
@@ -1394,12 +1394,12 @@ public:
     /// true if the two items are equal
     /// </returns>
     ///
-	bool operator ==(const AcDbEvalEdgeInfo& other) const;
+  bool operator ==(const AcDbEvalEdgeInfo& other) const;
 private:
-	AcDbEvalNodeId mIdFrom;
-	AcDbEvalNodeId mIdTo;
-	Adesk::Int32 mFlags;
-	Adesk::UInt32 mRefCount;
+  AcDbEvalNodeId mIdFrom;
+  AcDbEvalNodeId mIdTo;
+  Adesk::Int32 mFlags;
+  Adesk::UInt32 mRefCount;
 };
 ////////////////////////////////////////////////////////////////////////
 // class AcDbEvalExpr
@@ -1413,18 +1413,18 @@ private:
 /// </summary>
 class AcDbEvalExpr : public AcDbObject
 {
-	ACDB_DECLARE_MEMBERS(AcDbEvalExpr);
+  ACDB_DECLARE_MEMBERS(AcDbEvalExpr);
 public:
     /// <summary>
     /// Default constructor.
     /// </summary>
     /// 
-	AcDbEvalExpr();
+  AcDbEvalExpr();
     /// <summary>
     /// Destructor. 
     /// </summary>
     /// 
-	virtual ~AcDbEvalExpr();
+  virtual ~AcDbEvalExpr();
     /* Graph methods */
     
     /// <summary>
@@ -1448,7 +1448,7 @@ public:
     /// graph pointer. 
     /// </remarks>
     ///
-	Acad::ErrorStatus getGraph(AcDbEvalGraph** pGraph, AcDb::OpenMode mode) const;
+  Acad::ErrorStatus getGraph(AcDbEvalGraph** pGraph, AcDb::OpenMode mode) const;
     /// <summary>
     /// Returns the id of the node. 
     /// </summary>
@@ -1464,7 +1464,7 @@ public:
     /// will be AcDbEvalGraph::kNullNodeId;
     /// </remarks>
     ///
-	AcDbEvalNodeId nodeId() const;
+  AcDbEvalNodeId nodeId() const;
     /* Graph notification methods */
 
     /// <summary>
@@ -1480,7 +1480,7 @@ public:
     /// been added to the graph. 
     /// </remarks>
     ///
-	virtual void addedToGraph(AcDbEvalGraph* pGraph);
+  virtual void addedToGraph(AcDbEvalGraph* pGraph);
     /// <summary>
     /// Called when a node is removed from a graph.
     /// </summary>
@@ -1494,7 +1494,7 @@ public:
     /// been removed from the graph.
     /// </remarks>
     ///
-	virtual void removedFromGraph(AcDbEvalGraph* pGraph);
+  virtual void removedFromGraph(AcDbEvalGraph* pGraph);
     /// <summary>
     /// Called when a node with a shared edge to this node is removed from the
     /// graph.
@@ -1509,7 +1509,7 @@ public:
     /// edges to the node being removed. 
     /// </remarks>
     ///
-	virtual void adjacentNodeRemoved(const AcDbEvalNodeId& adjNodeId);
+  virtual void adjacentNodeRemoved(const AcDbEvalNodeId& adjNodeId);
     /// <summary>
     /// Called when an edge on the node is removed. 
     /// </summary>
@@ -1522,7 +1522,7 @@ public:
     /// AcDbEvalGraph::removeEdge() calls this method on node at either end of
     /// the edge being removed.
     /// </remarks>
-	virtual void adjacentEdgeRemoved(const AcDbEvalNodeId& adjEdgeNodeId);
+  virtual void adjacentEdgeRemoved(const AcDbEvalNodeId& adjEdgeNodeId);
     /// <summary>
     /// Called when an edge is added.
     /// </summary>
@@ -1547,7 +1547,7 @@ public:
     /// invertible edge, for example, Four notifications will occur.
     /// </remarks>
     ///
-	virtual void adjacentEdgeAdded(const AcDbEvalNodeId& fromId, const AcDbEvalNodeId& toId, bool bIsInvertible);
+  virtual void adjacentEdgeAdded(const AcDbEvalNodeId& fromId, const AcDbEvalNodeId& toId, bool bIsInvertible);
     /// <summary>
     /// Called when a node is about to be moved from pFromGraph to another
     /// graph.
@@ -1562,7 +1562,7 @@ public:
     /// just before it is added to the destination graph.
     /// </remarks>
     ///
-	virtual void movedFromGraph(AcDbEvalGraph* pFromGraph);
+  virtual void movedFromGraph(AcDbEvalGraph* pFromGraph);
     /// <summary>
     /// Called when a node is done being moved from pFromGraph to another
     /// graph.
@@ -1580,7 +1580,7 @@ public:
     /// graph in the addGraph operation.
     /// </remarks>
     ///
-	virtual void movedIntoGraph(AcDbEvalGraph* pIntoGraph);
+  virtual void movedIntoGraph(AcDbEvalGraph* pIntoGraph);
     /// <summary>
     /// Called exactly once for each node in a graph after all nodes 
     /// in a graph had their ids changed.
@@ -1602,7 +1602,7 @@ public:
     /// Nodes should not alter the map.
     /// </remarks>
     ///
-	virtual void remappedNodeIds(AcDbEvalIdMap& idMap);
+  virtual void remappedNodeIds(AcDbEvalIdMap& idMap);
     /// <summary>
     /// Called when a node is done being inserted due to a copy
     /// operation from one graph to another.
@@ -1620,7 +1620,7 @@ public:
     /// graph structure in the source graph.
     /// </remarks>
     ///
-	virtual void copiedIntoGraph(AcDbEvalGraph* pIntoGraph);
+  virtual void copiedIntoGraph(AcDbEvalGraph* pIntoGraph);
     /// <summary>
     /// Returns whether this node should be actived
     /// </summary>
@@ -1631,7 +1631,7 @@ public:
     /// nodes are by default activatable.
     /// </remarks>
     ///
-	virtual bool isActivatable();
+  virtual bool isActivatable();
     /// <summary>
     /// Called on graph resident nodes that become active. 
     /// </summary>
@@ -1646,7 +1646,7 @@ public:
     /// activation arrray, on every node being activated by the call. 
     /// </remarks>
     ///
-	virtual void activated(AcDbEvalNodeIdArray& argumentActiveList);
+  virtual void activated(AcDbEvalNodeIdArray& argumentActiveList);
     /// <summary>
     /// Called on graph resident nodes before traversing the graph in a call to
     /// AcDbEvalGraph::evaluate().
@@ -1661,7 +1661,7 @@ public:
     /// be traversed during the graph evaluation.
     /// </remarks>
     ///
-	virtual void graphEvalStart(bool bNodeIsActive);
+  virtual void graphEvalStart(bool bNodeIsActive);
     /// <summary>
     /// Called on graph resident nodes after traversing the graph in a call to
     /// AcDbEvalGraph::evaluate().
@@ -1676,7 +1676,7 @@ public:
     /// visited during the taversal of the graph.
     /// </remarks>
     ///
-	virtual void graphEvalEnd(bool bNodeIsActive);
+  virtual void graphEvalEnd(bool bNodeIsActive);
     /// <summary>
     /// Called on graph resident nodes after aborting the traversal of the
     /// graph in a call to AcDbEvalGraph::evaluate().
@@ -1691,7 +1691,7 @@ public:
     /// in the traversal list of an aborted graph evaluation. 
     /// </remarks>
     ///
-	virtual void graphEvalAbort(bool bNodeIsActive);
+  virtual void graphEvalAbort(bool bNodeIsActive);
     /* Evaluation methods */
 
     /// <summary>
@@ -1714,7 +1714,7 @@ public:
     /// The default implementation does nothing and returns Acad::eOk.
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus evaluate(const AcDbEvalContext* ctxt);
+  virtual Acad::ErrorStatus evaluate(const AcDbEvalContext* ctxt);
     /// <summary>
     /// Determines if two AcDbEvalExprs are equal. The default
     /// implementation is to check that the concrete class types
@@ -1729,7 +1729,7 @@ public:
     /// true if the objects are equal. 
     /// </returns>
     ///
-	virtual bool equals(const AcDbEvalExpr* pOther) const;
+  virtual bool equals(const AcDbEvalExpr* pOther) const;
     /* Expression value methods */
 
     /// <summary>
@@ -1746,7 +1746,7 @@ public:
     /// (<c>AcDbEvalVariant::Type::kNone</c>).
     /// </remarks>
     ///
-	AcDbEvalVariant value() const;
+  AcDbEvalVariant value() const;
     /// <summary>
     /// Adds this object to the database, giving it a 
     /// handle and an object ID. 
@@ -1769,7 +1769,7 @@ public:
     /// Returns Acad::eOk if successful.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus postInDatabase(AcDbObjectId& objId, AcDbDatabase* pDb);
+  virtual Acad::ErrorStatus postInDatabase(AcDbObjectId& objId, AcDbDatabase* pDb);
 protected:
     /// <summary>
     /// The value of the expression. <seealso cref="value"/>.
@@ -1781,8 +1781,8 @@ protected:
     /// (<c>AcDbEvalVaraint::Type::kNone</c>).
     /// </remarks>
     ///
-	AcDbEvalVariant m_lastValue;
-	friend class AcDbImpEvalExpr;
+  AcDbEvalVariant m_lastValue;
+  friend class AcDbImpEvalExpr;
 };
 ////////////////////////////////////////////////////////////////////////
 // class AcDbEvalConnectable
@@ -1797,13 +1797,13 @@ protected:
 ///
 class AcDbEvalConnectable : public AcDbEvalExpr
 {
-	ACDB_DECLARE_MEMBERS(AcDbEvalConnectable);
+  ACDB_DECLARE_MEMBERS(AcDbEvalConnectable);
 public:
     /// <summary>
     /// Destructor.
     /// </summary>
     ///
-	virtual ~AcDbEvalConnectable();
+  virtual ~AcDbEvalConnectable();
     /* Connection Inspection */
 
     /// <summary>
@@ -1818,7 +1818,7 @@ public:
     /// Acad::eOk if successful.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus getConnectionNames(AcStringArray& names) const;
+  virtual Acad::ErrorStatus getConnectionNames(AcStringArray& names) const;
     /// <summary>
     /// Tests whether an object exposes a connection.
     /// </summary>
@@ -1831,7 +1831,7 @@ public:
     /// True if a connection with the specified name exists.
     /// </returns>
     ///
-	virtual bool hasConnectionNamed(const AcString& name) const;
+  virtual bool hasConnectionNamed(const AcString& name) const;
     /// <summary>
     /// Returns the <c>AcDbEvalVariant::Type</c> of a named connection.
     /// </summary>
@@ -1848,7 +1848,7 @@ public:
     /// connection with the specified name exists. 
     /// </returns>
     ///
-	virtual Acad::ErrorStatus getConnectionType(const AcString& name, AcDb::DwgDataType& type) const;
+  virtual Acad::ErrorStatus getConnectionType(const AcString& name, AcDb::DwgDataType& type) const;
     /* Connection Operations */
 
     /// <summary>
@@ -1867,7 +1867,7 @@ public:
     /// connection with the specified name exists. 
     /// </returns>
     ///
-	virtual Acad::ErrorStatus getConnectionValue(const AcString& name, AcDbEvalVariant& value) const;
+  virtual Acad::ErrorStatus getConnectionValue(const AcString& name, AcDbEvalVariant& value) const;
     /// <summary>
     /// Sets the value of a named connection.
     /// </summary>
@@ -1883,7 +1883,7 @@ public:
     /// Returns Acad::eOk if successful. Returns Acad::eKeyNotFound if no
     /// connection with the specified name exists. 
     /// </returns>
-	virtual Acad::ErrorStatus setConnectionValue(const AcString& name, const AcDbEvalVariant& value);
+  virtual Acad::ErrorStatus setConnectionValue(const AcString& name, const AcDbEvalVariant& value);
     /// <summary>
     /// Connects a named connection on this object to a connection on
     /// another AcDbEvalConnectable. Both objects must be graph-resident.
@@ -1904,7 +1904,7 @@ public:
     /// object does not expose its respective named connection. 
     /// </returns>
     ///
-	virtual Acad::ErrorStatus connectTo(const AcString& thisConnection, const AcDbEvalNodeId sourceConnectableId, const AcString& sourceConnectionName);
+  virtual Acad::ErrorStatus connectTo(const AcString& thisConnection, const AcDbEvalNodeId sourceConnectableId, const AcString& sourceConnectionName);
     /// <summary>
     /// Disconnects a named connection on this object from a connection on
     /// another AcDbEvalConnectable. Both objects must be graph-resident.
@@ -1925,7 +1925,7 @@ public:
     /// object does not expose its respective named connection. 
     /// </returns>
     ///
-	virtual Acad::ErrorStatus disconnectFrom(const AcString& thisConnection, const AcDbEvalNodeId sourceConnectableId, const AcString& sourceConnectionName);
+  virtual Acad::ErrorStatus disconnectFrom(const AcString& thisConnection, const AcDbEvalNodeId sourceConnectableId, const AcString& sourceConnectionName);
     /// <summary>
     /// Determines whether a connection is allowed between to objects.
     /// </summary>
@@ -1946,7 +1946,7 @@ public:
     /// named connection. 
     /// </returns>
     ///
-	virtual bool connectionAllowed(const AcString& thisConnection, const AcDbEvalNodeId sourceConnectableId, const AcString& sourceConnectionName) const;
+  virtual bool connectionAllowed(const AcString& thisConnection, const AcDbEvalNodeId sourceConnectableId, const AcString& sourceConnectionName) const;
     /*---- Connection Information ---*/
     
     /// <summary>
@@ -1966,7 +1966,7 @@ public:
     /// Acad::eKeyNotFound if the object does not expose the named connection. 
     /// </returns>
     ///
-	virtual Acad::ErrorStatus getConnectedObjects(const AcString& thisConnection, AcDbEvalNodeIdArray& connectedObjects) const;
+  virtual Acad::ErrorStatus getConnectedObjects(const AcString& thisConnection, AcDbEvalNodeIdArray& connectedObjects) const;
     /// <summary>
     /// Returns a list connection names shared between a named connection on this 
     /// object and another connected object. 
@@ -1989,13 +1989,13 @@ public:
     /// Acad::eKeyNotFound if the object does not expose the named connection. 
     /// </returns>
     ///
-	virtual Acad::ErrorStatus getConnectedNames(const AcString& thisConnection, const AcDbEvalNodeId sourceConnectableId, AcStringArray& sourceConnectionNames) const;
+  virtual Acad::ErrorStatus getConnectedNames(const AcString& thisConnection, const AcDbEvalNodeId sourceConnectableId, AcStringArray& sourceConnectionNames) const;
 protected:
     /// <summary>
     /// Default constructor.
     /// </summary>
     ///
-	AcDbEvalConnectable();
+  AcDbEvalConnectable();
 };
 ////////////////////////////////////////////////////////////////////////
 // class AcDbEvalContext 
@@ -2019,13 +2019,13 @@ public:
     /// Default constructor.
     /// </summary>
     /// 
-	AcDbEvalContext();
+  AcDbEvalContext();
     /// <summary>
     /// Destructor.
     /// </summary>
     ///
-	virtual ~AcDbEvalContext();
-	ACRX_DECLARE_MEMBERS(AcDbEvalContext);
+  virtual ~AcDbEvalContext();
+  ACRX_DECLARE_MEMBERS(AcDbEvalContext);
     /* Collection access methods */
 
     /// <summary>
@@ -2040,7 +2040,7 @@ public:
     /// If an AcDbEvalContextPair with the specified key already exists it is
     /// replaced with the new pair.
     /// </remarks>
-	virtual void insertAt(const AcDbEvalContextPair& pair);
+  virtual void insertAt(const AcDbEvalContextPair& pair);
     /// <summary>
     /// Removes an AcDbEvalContextPair from the context. 
     /// </summary>
@@ -2049,7 +2049,7 @@ public:
     /// The key of the AcDbEvalContextPair to remove from the context.
     /// </param>
     ///
-	virtual void removeAt(const ACHAR* szKey);
+  virtual void removeAt(const ACHAR* szKey);
     /// <summary>
     /// Returns an AcDbEvalContextPair stored in the context. 
     /// </summary>
@@ -2069,7 +2069,7 @@ public:
     /// name="pair"/> is updated with the value from the context. 
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus getAt(AcDbEvalContextPair& pair) const;
+  virtual Acad::ErrorStatus getAt(AcDbEvalContextPair& pair) const;
     /// <summary>
     /// Returns a new AcDbEvalContextIterator for the context.
     /// </summary>
@@ -2079,10 +2079,10 @@ public:
     /// is no longer needed by calling <c>delete</c>.
     /// </returns>
     ///
-	virtual AcDbEvalContextIterator* newIterator() const;
+  virtual AcDbEvalContextIterator* newIterator() const;
 private:
-	AcDbImpEvalContext* mpImp;
-	friend class AcDbImpEvalContextIterator;
+  AcDbImpEvalContext* mpImp;
+  friend class AcDbImpEvalContextIterator;
 };
 ////////////////////////////////////////////////////////////////////////
 // class AcDbEvalContextPair
@@ -2107,7 +2107,7 @@ public:
     /// Default constructor.
     /// </summary>
     /// 
-	AcDbEvalContextPair();
+  AcDbEvalContextPair();
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -2119,12 +2119,12 @@ public:
     /// A pointer to the data stored in the context pair. 
     /// </param>
     ///
-	AcDbEvalContextPair(const ACHAR* szKey, void* pValue);
+  AcDbEvalContextPair(const ACHAR* szKey, void* pValue);
     /// <summary>
     /// Destructor.
     /// </summary>
     ///
-	virtual ~AcDbEvalContextPair();
+  virtual ~AcDbEvalContextPair();
     /// <summary>
     /// Sets the key used to lookup the pair in an AcDbEvalContext.
     /// </summary>
@@ -2133,7 +2133,7 @@ public:
     /// The key used to lookup the pair in an AcDbEvalContext.
     /// </param>
     /// 
-	void setKey(const ACHAR* szKey);
+  void setKey(const ACHAR* szKey);
     /// <summary>
     /// Gets the key used to lookup the pair in an AcDbEvalContext.
     /// </summary>
@@ -2142,7 +2142,7 @@ public:
     /// The key used to lookup the pair in an AcDbEvalContext.
     /// </returns>
     /// 
-	const ACHAR* key() const;
+  const ACHAR* key() const;
     /// <summary>
     /// Sets the values stored with the pair in an AcDbEvalContext.
     /// </summary>
@@ -2155,7 +2155,7 @@ public:
     /// The memory pointed to by <paramref name="pValue"/> must be allocated and
     /// freed by the caller. 
     /// </remarks>
-	void setValue(void* pValue);
+  void setValue(void* pValue);
     /// <summary>
     /// Gets the values stored with the pair in an AcDbEvalContext.
     /// </summary>
@@ -2164,10 +2164,10 @@ public:
     /// The value stored in the AcDbEvalContextPair.
     /// </returns>
     ///
-	void* value() const;
+  void* value() const;
 private:
-	ACHAR* mKey;
-	void* mValue;
+  ACHAR* mKey;
+  void* mValue;
 };
 ////////////////////////////////////////////////////////////////////////
 // class AcDbEvalContextIterator
@@ -2188,18 +2188,18 @@ public:
     /// Default constructor.
     /// </summary>
     ///
-	AcDbEvalContextIterator();
+  AcDbEvalContextIterator();
     /// <summary>
     /// Destructor.
     /// </summary>
     ///
-	virtual ~AcDbEvalContextIterator();
-	ACRX_DECLARE_MEMBERS(AcDbEvalContextIterator);
+  virtual ~AcDbEvalContextIterator();
+  ACRX_DECLARE_MEMBERS(AcDbEvalContextIterator);
     /// <summary>
     /// Initializes the iterator to the start of the collection.
     /// </summary>
     ///
-	virtual void start();
+  virtual void start();
     /// <summary>
     /// Advances the iterator to the next object in the collection.
     /// </summary>
@@ -2208,7 +2208,7 @@ public:
     /// Returns true when the iterator has reached the end of the collection.
     /// </returns>
     ///
-	virtual bool next();
+  virtual bool next();
     /// <summary>
     /// Determines whether the iterator has reached the end of the collection.
     /// </summary>
@@ -2217,7 +2217,7 @@ public:
     /// Returns true if the iterator has reached the end of the collection.
     /// </returns>
     /// 
-	virtual bool done() const;
+  virtual bool done() const;
     /// <summary>
     /// Returns the AcDbEvalContextPair at the current iterator position.
     /// </summary>
@@ -2225,10 +2225,10 @@ public:
     /// <returns>
     /// The AcDbEvalContextPair at the current iterator position.
     /// </returns>
-	virtual AcDbEvalContextPair contextPair() const;
+  virtual AcDbEvalContextPair contextPair() const;
 private:
-	AcDbEvalContextIterator(AcDbEvalContext* pContext);
-	AcDbImpEvalContextIterator* mpImp;
-	friend class AcDbImpEvalContext;
+  AcDbEvalContextIterator(AcDbEvalContext* pContext);
+  AcDbImpEvalContextIterator* mpImp;
+  friend class AcDbImpEvalContext;
 };
 #pragma  pack(pop)

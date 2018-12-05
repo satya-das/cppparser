@@ -40,39 +40,39 @@ public:
     /// set to Isolines in any of the Visual Styles.
     /// </summary>
     ///
-	enum WireframeType
-	{
+  enum WireframeType
+  {
         /// <summary> 
         /// The quilt representation is controlled by the SURFV and SURFU
         /// at creation time for surfaces.
         /// </summary>
         ///
-		kIsolines = 0,
+    kIsolines = 0,
         /// <summary> 
         /// The quilt representation is based on the projection of
         /// the knot structure of surface.
         /// </summary>
         ///
-		kIsoparms = 1
-	};
+    kIsoparms = 1
+  };
     /// <summary>
     /// Defines possible edge extension types as input for extendEdges or 
     /// createExtendSurface methods.
     /// </summary>
     ///
-	enum EdgeExtensionType
-	{
+  enum EdgeExtensionType
+  {
         /// <summary> Edges will be extended. </summary>
-		kExtendEdge = 0x000,
+    kExtendEdge = 0x000,
         /// <summary> Edges will be stretched. </summary>
-		kStretchEdge = 0x001
-	};
-	AcDbSurface();
-	virtual ~AcDbSurface();
-	ACDB_DECLARE_MEMBERS(AcDbSurface);
+    kStretchEdge = 0x001
+  };
+  AcDbSurface();
+  virtual ~AcDbSurface();
+  ACDB_DECLARE_MEMBERS(AcDbSurface);
     // Create a swept surface from 2D entity with thickness
     // or a planar surface from a closed curve or a region.
-	static Acad::ErrorStatus createFrom(const AcDbEntity* pFromEntity, AcDbSurface*& pNewSurface);
+  static Acad::ErrorStatus createFrom(const AcDbEntity* pFromEntity, AcDbSurface*& pNewSurface);
     /// <summary> 
     /// Creates an extruded surface from the given profile using the specified options
     /// and adds the surface to the current database.
@@ -94,7 +94,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createExtrudedSurface(AcDb3dProfile* pSweep, const AcGeVector3d& directionVec, AcDbSweepOptions& sweepOptions, AcDbExtrudedSurface*& newExtrudedSurface);
+  ACDB_PORT static Acad::ErrorStatus createExtrudedSurface(AcDb3dProfile* pSweep, const AcGeVector3d& directionVec, AcDbSweepOptions& sweepOptions, AcDbExtrudedSurface*& newExtrudedSurface);
     /// <summary> 
     /// Creates an extruded surface from the given profile using the specified options
     /// and adds the surface to the current database.
@@ -119,7 +119,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createExtrudedSurface(AcDb3dProfile* pSweep, const AcGeVector3d& directionVec, AcDbSweepOptions& sweepOptions, bool bAssociativeEnabled, AcDbObjectId& newExtrudedSurfaceId);
+  ACDB_PORT static Acad::ErrorStatus createExtrudedSurface(AcDb3dProfile* pSweep, const AcGeVector3d& directionVec, AcDbSweepOptions& sweepOptions, bool bAssociativeEnabled, AcDbObjectId& newExtrudedSurfaceId);
     /// <summary> 
     /// Creates a revolved surface from the given profile using the specified options.
     /// </summary>
@@ -152,7 +152,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createRevolvedSurface(AcDb3dProfile* pRev, const AcGePoint3d& axisPnt, const AcGeVector3d& axisDir, double revAngle, double startAngle, AcDbRevolveOptions& revolveOptions, AcDbRevolvedSurface*& newRevolvedSurface);
+  ACDB_PORT static Acad::ErrorStatus createRevolvedSurface(AcDb3dProfile* pRev, const AcGePoint3d& axisPnt, const AcGeVector3d& axisDir, double revAngle, double startAngle, AcDbRevolveOptions& revolveOptions, AcDbRevolvedSurface*& newRevolvedSurface);
     /// <summary> 
     /// Creates a revolved surface from the given profile using the specified options.
     /// </summary>
@@ -188,7 +188,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createRevolvedSurface(AcDb3dProfile* pRev, const AcGePoint3d& axisPnt, const AcGeVector3d& axisDir, double revAngle, double startAngle, AcDbRevolveOptions& revolveOptions, bool bAssociativeEnabled, AcDbObjectId& newSurfaceId);
+  ACDB_PORT static Acad::ErrorStatus createRevolvedSurface(AcDb3dProfile* pRev, const AcGePoint3d& axisPnt, const AcGeVector3d& axisDir, double revAngle, double startAngle, AcDbRevolveOptions& revolveOptions, bool bAssociativeEnabled, AcDbObjectId& newSurfaceId);
     /// <summary> 
     /// Creates a revolved surface from the given profile using the specified options.
     /// </summary>
@@ -226,7 +226,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createRevolvedSurface(AcDb3dProfile* pRev, AcDb3dProfile* pAxis, bool flipAxisDirection, double revAngle, double startAngle, AcDbRevolveOptions& revolveOptions, AcDbRevolvedSurface*& newRevolvedSurface);
+  ACDB_PORT static Acad::ErrorStatus createRevolvedSurface(AcDb3dProfile* pRev, AcDb3dProfile* pAxis, bool flipAxisDirection, double revAngle, double startAngle, AcDbRevolveOptions& revolveOptions, AcDbRevolvedSurface*& newRevolvedSurface);
     /// <summary> 
     /// Creates a revolved surface from the given profile using the specified options.
     /// </summary>
@@ -267,7 +267,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createRevolvedSurface(AcDb3dProfile* pRev, AcDb3dProfile* pAxis, bool flipAxisDirection, double revAngle, double startAngle, AcDbRevolveOptions& revolveOptions, bool bAssociativeEnabled, AcDbObjectId& newRevolvedSurfaceId);
+  ACDB_PORT static Acad::ErrorStatus createRevolvedSurface(AcDb3dProfile* pRev, AcDb3dProfile* pAxis, bool flipAxisDirection, double revAngle, double startAngle, AcDbRevolveOptions& revolveOptions, bool bAssociativeEnabled, AcDbObjectId& newRevolvedSurfaceId);
     /// <summary> 
     /// Creates a swept surface from the given profile using the specified options.
     /// </summary>
@@ -289,7 +289,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createSweptSurface(AcDb3dProfile* pSweep, AcDb3dProfile* pPath, AcDbSweepOptions& sweepOptions, AcDbSweptSurface*& newSweptSurface);
+  ACDB_PORT static Acad::ErrorStatus createSweptSurface(AcDb3dProfile* pSweep, AcDb3dProfile* pPath, AcDbSweepOptions& sweepOptions, AcDbSweptSurface*& newSweptSurface);
     /// <summary> 
     /// Creates a swept surface from the given profile using the specified options.
     /// </summary>
@@ -314,7 +314,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createSweptSurface(AcDb3dProfile* pSweep, AcDb3dProfile* pPath, AcDbSweepOptions& sweepOptions, bool bAssociativeEnabled, AcDbObjectId& newSurfaceId);
+  ACDB_PORT static Acad::ErrorStatus createSweptSurface(AcDb3dProfile* pSweep, AcDb3dProfile* pPath, AcDbSweepOptions& sweepOptions, bool bAssociativeEnabled, AcDbObjectId& newSurfaceId);
     /// <summary> 
     /// Creates a lofted surface from the given profiles using the specified options
     /// and adds it to the current database.  The cross sections, guides, and path
@@ -349,7 +349,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createLoftedSurface(const AcArray<AcDbLoftProfile*>& crossSections, const AcArray<AcDbLoftProfile*>& guides, AcDbLoftProfile* pPath, AcDbLoftOptions& loftOptions, AcDbSurface*& newSurface);
+  ACDB_PORT static Acad::ErrorStatus createLoftedSurface(const AcArray<AcDbLoftProfile*>& crossSections, const AcArray<AcDbLoftProfile*>& guides, AcDbLoftProfile* pPath, AcDbLoftOptions& loftOptions, AcDbSurface*& newSurface);
     /// <summary> 
     /// Creates a lofted surface from the given profiles using the specified options
     /// and adds it to the current database.  The cross sections, guides, and path
@@ -387,7 +387,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createLoftedSurface(const AcArray<AcDbLoftProfile*>& crossSections, const AcArray<AcDbLoftProfile*>& guides, AcDbLoftProfile* pPath, AcDbLoftOptions& loftOptions, bool bAssociativeEnabled, AcDbObjectId& newSurfaceId);
+  ACDB_PORT static Acad::ErrorStatus createLoftedSurface(const AcArray<AcDbLoftProfile*>& crossSections, const AcArray<AcDbLoftProfile*>& guides, AcDbLoftProfile* pPath, AcDbLoftOptions& loftOptions, bool bAssociativeEnabled, AcDbObjectId& newSurfaceId);
 	/// <summary> 
     /// Creates a network surface and adds it to the current database.
     /// A network surface is similar to a lofted surface where the u profiles are
@@ -409,7 +409,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createNetworkSurface(const AcArray<AcDb3dProfile*>& uProfiles, const AcArray<AcDb3dProfile*>& vProfiles, AcDbSurface*& newSurface);
+  ACDB_PORT static Acad::ErrorStatus createNetworkSurface(const AcArray<AcDb3dProfile*>& uProfiles, const AcArray<AcDb3dProfile*>& vProfiles, AcDbSurface*& newSurface);
 	/// <summary> 
     /// Creates a network surface and adds it to the current database.
     /// A network surface is similar to a lofted surface where the u profiles are
@@ -434,7 +434,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createNetworkSurface(const AcArray<AcDb3dProfile*>& uProfiles, const AcArray<AcDb3dProfile*>& vProfiles, bool bAssociativeEnabled, AcDbObjectId& newSurfaceId);
+  ACDB_PORT static Acad::ErrorStatus createNetworkSurface(const AcArray<AcDb3dProfile*>& uProfiles, const AcArray<AcDb3dProfile*>& vProfiles, bool bAssociativeEnabled, AcDbObjectId& newSurfaceId);
     /// <summary> 
     /// Create patch surface by specifying one of the following:
     ///   + edges which must form a closed loop. 
@@ -465,7 +465,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createPatchSurface(const AcDbPathRef& pathRef, const AcDbObjectIdArray& constraintIds, int continuity, double bulge, AcDbSurface*& newSurface);
+  ACDB_PORT static Acad::ErrorStatus createPatchSurface(const AcDbPathRef& pathRef, const AcDbObjectIdArray& constraintIds, int continuity, double bulge, AcDbSurface*& newSurface);
     /// <summary> 
     /// Create an associative patch surface by specifying one of the following:
     ///   + edges which must form a closed loop. 
@@ -499,7 +499,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createPatchSurface(const AcDbPathRef& pathRef, const AcDbObjectIdArray& constraintIds, int continuity, double bulge, bool bAssociativeEnabled, AcDbObjectId& newSurfaceId);
+  ACDB_PORT static Acad::ErrorStatus createPatchSurface(const AcDbPathRef& pathRef, const AcDbObjectIdArray& constraintIds, int continuity, double bulge, bool bAssociativeEnabled, AcDbObjectId& newSurfaceId);
     /// <summary> 
     ///  Creates a blend surface from the given profiles using the specified options
     ///  and adds it to the current database. The startProfile and endProfile must
@@ -521,7 +521,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createBlendSurface(AcDbLoftProfile* startProfile, AcDbLoftProfile* endProfile, AcDbBlendOptions* blendOptions, AcDbSurface*& blendSurface);
+  ACDB_PORT static Acad::ErrorStatus createBlendSurface(AcDbLoftProfile* startProfile, AcDbLoftProfile* endProfile, AcDbBlendOptions* blendOptions, AcDbSurface*& blendSurface);
     /// <summary> 
     ///  Creates a blend surface from the given profiles using the specified options
     ///  and adds it to the current database. The startProfile and endProfile must
@@ -546,7 +546,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createBlendSurface(AcDbLoftProfile* startProfile, AcDbLoftProfile* endProfile, AcDbBlendOptions* blendOptions, bool bAssociativeEnabled, AcDbObjectId& blendSurfaceId);
+  ACDB_PORT static Acad::ErrorStatus createBlendSurface(AcDbLoftProfile* startProfile, AcDbLoftProfile* endProfile, AcDbBlendOptions* blendOptions, bool bAssociativeEnabled, AcDbObjectId& blendSurfaceId);
     /// <summary> 
     ///  Creates a tangent surface between two surface edges with constant radius
     ///  and trim or no trim the original surfaces to it.
@@ -584,7 +584,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createFilletSurface(const AcDbObjectId& surfId1, const AcGePoint3d& pickPt1, const AcDbObjectId& surfId2, const AcGePoint3d& pickPt2, double radius, AcDb::FilletTrimMode trimMode, const AcGeVector3d& projDir, AcDbSurface*& filletSurface);
+  ACDB_PORT static Acad::ErrorStatus createFilletSurface(const AcDbObjectId& surfId1, const AcGePoint3d& pickPt1, const AcDbObjectId& surfId2, const AcGePoint3d& pickPt2, double radius, AcDb::FilletTrimMode trimMode, const AcGeVector3d& projDir, AcDbSurface*& filletSurface);
     /// <summary> 
     ///  Creates a tangent surface between two surface edges with constant radius
     ///  and trim or no trim the original surfaces to it.
@@ -625,7 +625,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createFilletSurface(const AcDbObjectId& surfId1, const AcGePoint3d& pickPt1, const AcDbObjectId& surfId2, const AcGePoint3d& pickPt2, double radius, AcDb::FilletTrimMode trimMode, const AcGeVector3d& projDir, bool bAssociativeEnabled, AcDbObjectId& filletSurfaceId);
+  ACDB_PORT static Acad::ErrorStatus createFilletSurface(const AcDbObjectId& surfId1, const AcGePoint3d& pickPt1, const AcDbObjectId& surfId2, const AcGePoint3d& pickPt2, double radius, AcDb::FilletTrimMode trimMode, const AcGeVector3d& projDir, bool bAssociativeEnabled, AcDbObjectId& filletSurfaceId);
     /// <summary> 
     /// Creates an offset surface.
     /// </summary>
@@ -642,7 +642,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createOffsetSurface(AcDbEntity* pInputSurface, double offsetDistance, AcDbEntity*& offsetSurface);
+  ACDB_PORT static Acad::ErrorStatus createOffsetSurface(AcDbEntity* pInputSurface, double offsetDistance, AcDbEntity*& offsetSurface);
     /// <summary> 
     /// Creates an offset surface and adds it to the current database.
     /// </summary>
@@ -662,7 +662,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createOffsetSurface(AcDbEntity* pInputSurface, double offsetDistance, bool bAssociativeEnabled, AcDbObjectId& offsetSurfaceId);
+  ACDB_PORT static Acad::ErrorStatus createOffsetSurface(AcDbEntity* pInputSurface, double offsetDistance, bool bAssociativeEnabled, AcDbObjectId& offsetSurfaceId);
     /// <summary> 
     /// Creates an extend surface from the given set of edges from a surface
     /// and adds the surface to the current database. All input edges 
@@ -690,7 +690,7 @@ public:
     /// Acad::eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus createExtendSurface(AcDbObjectId sourceSurface, const AcArray<AcDbSubentId>& edges, double extDist, EdgeExtensionType extOption, bool bAssociativeEnabled, AcDbObjectId& newExtendSurfaceId);
+  ACDB_PORT static Acad::ErrorStatus createExtendSurface(AcDbObjectId sourceSurface, const AcArray<AcDbSubentId>& edges, double extDist, EdgeExtensionType extOption, bool bAssociativeEnabled, AcDbObjectId& newExtendSurfaceId);
     /// <summary> 
     /// Trims a surface with given cutting surfaces/curves. A surface can be trimmed by other surfaces
     /// or curves. When curves are used, the actual trimming boundary is formed by projecting the curves
@@ -731,24 +731,24 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT static Acad::ErrorStatus trimSurface(const AcDbObjectId& blankSurfaceId, const AcDbObjectIdArray& toolIds, const AcDbObjectIdArray& toolCurveIds, const AcArray<AcGeVector3d> projVectors, const AcGePoint3d& pickPoint, const AcGeVector3d& viewVector, bool bAutoExtend, bool bAssociativeEnabled);
+  ACDB_PORT static Acad::ErrorStatus trimSurface(const AcDbObjectId& blankSurfaceId, const AcDbObjectIdArray& toolIds, const AcDbObjectIdArray& toolCurveIds, const AcArray<AcGeVector3d> projVectors, const AcGePoint3d& pickPoint, const AcGeVector3d& viewVector, bool bAutoExtend, bool bAssociativeEnabled);
     // Convert planar surface to region.  Return separate region for each face.
-	virtual Acad::ErrorStatus convertToRegion(AcArray<AcDbEntity*>& regions);
+  virtual Acad::ErrorStatus convertToRegion(AcArray<AcDbEntity*>& regions);
     // Create a 3DSOLID by thickening the surface by a 
     // specified amount.
-	virtual Acad::ErrorStatus thicken(double thickness, bool bBothSides, AcDb3dSolid*& pSolid) const;
-	virtual Acad::ErrorStatus createInterferenceObjects(AcArray<AcDbEntity*>& interferenceObjects, AcDbEntity* pEntity, unsigned int flags) const;
-	virtual Acad::ErrorStatus booleanUnion(const AcDbSurface* pSurface2, AcDbSurface*& pNewSurface);
-	virtual Acad::ErrorStatus booleanSubtract(const AcDbSurface* pSurface2, AcDbSurface*& pNewSurface);
-	virtual Acad::ErrorStatus booleanSubtract(const AcDb3dSolid* pSolid, AcDbSurface*& pNewSurface);
-	virtual Acad::ErrorStatus booleanIntersect(const AcDbSurface* pSurface2, AcArray<AcDbEntity*>& intersectionEntities);
-	virtual Acad::ErrorStatus booleanIntersect(const AcDb3dSolid* pSolid, AcArray<AcDbEntity*>& intersectionEntities);
-	virtual Acad::ErrorStatus imprintEntity(const AcDbEntity* pEntity);
-	virtual Acad::ErrorStatus createSectionObjects(const AcGePlane& sectionPlane, AcArray<AcDbEntity*>& sectionObjects) const;
-	virtual Acad::ErrorStatus sliceByPlane(const AcGePlane& slicePlane, AcDbSurface*& pNegHalfSurface, AcDbSurface*& pNewSurface);
-	virtual Acad::ErrorStatus sliceBySurface(const AcDbSurface* pSlicingSurface, AcDbSurface*& pNegHalfSurface, AcDbSurface*& pNewSurface);
-	virtual Acad::ErrorStatus chamferEdges(const AcArray<AcDbSubentId *>& edgeSubentIds, const AcDbSubentId& baseFaceSubentId, double baseDist, double otherDist);
-	virtual Acad::ErrorStatus filletEdges(const AcArray<AcDbSubentId *>& edgeSubentIds, const AcGeDoubleArray& radius, const AcGeDoubleArray& startSetback, const AcGeDoubleArray& endSetback);
+  virtual Acad::ErrorStatus thicken(double thickness, bool bBothSides, AcDb3dSolid*& pSolid) const;
+  virtual Acad::ErrorStatus createInterferenceObjects(AcArray<AcDbEntity*>& interferenceObjects, AcDbEntity* pEntity, unsigned int flags) const;
+  virtual Acad::ErrorStatus booleanUnion(const AcDbSurface* pSurface2, AcDbSurface*& pNewSurface);
+  virtual Acad::ErrorStatus booleanSubtract(const AcDbSurface* pSurface2, AcDbSurface*& pNewSurface);
+  virtual Acad::ErrorStatus booleanSubtract(const AcDb3dSolid* pSolid, AcDbSurface*& pNewSurface);
+  virtual Acad::ErrorStatus booleanIntersect(const AcDbSurface* pSurface2, AcArray<AcDbEntity*>& intersectionEntities);
+  virtual Acad::ErrorStatus booleanIntersect(const AcDb3dSolid* pSolid, AcArray<AcDbEntity*>& intersectionEntities);
+  virtual Acad::ErrorStatus imprintEntity(const AcDbEntity* pEntity);
+  virtual Acad::ErrorStatus createSectionObjects(const AcGePlane& sectionPlane, AcArray<AcDbEntity*>& sectionObjects) const;
+  virtual Acad::ErrorStatus sliceByPlane(const AcGePlane& slicePlane, AcDbSurface*& pNegHalfSurface, AcDbSurface*& pNewSurface);
+  virtual Acad::ErrorStatus sliceBySurface(const AcDbSurface* pSlicingSurface, AcDbSurface*& pNegHalfSurface, AcDbSurface*& pNewSurface);
+  virtual Acad::ErrorStatus chamferEdges(const AcArray<AcDbSubentId *>& edgeSubentIds, const AcDbSubentId& baseFaceSubentId, double baseDist, double otherDist);
+  virtual Acad::ErrorStatus filletEdges(const AcArray<AcDbSubentId *>& edgeSubentIds, const AcGeDoubleArray& radius, const AcGeDoubleArray& startSetback, const AcGeDoubleArray& endSetback);
     /// <summary> 
     /// This method creates associative chamfers at the specified edges of the 
     /// surface based on input bAssociativeEnabled.
@@ -772,7 +772,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT Acad::ErrorStatus chamferEdges(const AcArray<AcDbSubentId *>& edgeSubentIds, const AcDbSubentId& baseFaceSubentId, double baseDist, double otherDist, bool bAssociativeEnabled);
+  ACDB_PORT Acad::ErrorStatus chamferEdges(const AcArray<AcDbSubentId *>& edgeSubentIds, const AcDbSubentId& baseFaceSubentId, double baseDist, double otherDist, bool bAssociativeEnabled);
     /// <summary> 
     /// This method creates associative fillets at the specified edges of the 
     /// surface based on input bAssociativeEnabled.
@@ -790,32 +790,32 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT Acad::ErrorStatus filletEdges(const AcArray<AcDbSubentId *>& edgeSubentIds, double radius, bool bAssociativeEnabled);
-	virtual Acad::ErrorStatus setSubentColor(const AcDbSubentId& subentId, const AcCmColor& color);
-	virtual Acad::ErrorStatus getSubentColor(const AcDbSubentId& subentId, AcCmColor& color) const;
-	virtual Acad::ErrorStatus setSubentMaterial(const AcDbSubentId& subentId, const AcDbObjectId& matId);
-	virtual Acad::ErrorStatus getSubentMaterial(const AcDbSubentId& subentId, AcDbObjectId& matId) const;
-	virtual Acad::ErrorStatus setSubentMaterialMapper(const AcDbSubentId& subentId, const AcGiMapper& mapper);
-	virtual Acad::ErrorStatus getSubentMaterialMapper(const AcDbSubentId& subentId, AcGiMapper& mapper) const;
-	virtual Acad::ErrorStatus getArea(double& area) const;
-	ACDB_PORT virtual void dragStatus(const AcDb::DragStat) override;
-	virtual void* ASMBodyCopy(bool bDeepCopy = false) const;
-	virtual void const * getLockedASMBody();
-	virtual void unlockASMBody();
-	virtual void* getLockedWritableASMBody();
-	virtual void commitWritableASMBody();
-	virtual Acad::ErrorStatus setASMBody(const void* modelerBody);
-	virtual AcDbSubentId internalSubentId(void* ent) const;
-	virtual void* internalSubentPtr(const AcDbSubentId& id) const;
+  ACDB_PORT Acad::ErrorStatus filletEdges(const AcArray<AcDbSubentId *>& edgeSubentIds, double radius, bool bAssociativeEnabled);
+  virtual Acad::ErrorStatus setSubentColor(const AcDbSubentId& subentId, const AcCmColor& color);
+  virtual Acad::ErrorStatus getSubentColor(const AcDbSubentId& subentId, AcCmColor& color) const;
+  virtual Acad::ErrorStatus setSubentMaterial(const AcDbSubentId& subentId, const AcDbObjectId& matId);
+  virtual Acad::ErrorStatus getSubentMaterial(const AcDbSubentId& subentId, AcDbObjectId& matId) const;
+  virtual Acad::ErrorStatus setSubentMaterialMapper(const AcDbSubentId& subentId, const AcGiMapper& mapper);
+  virtual Acad::ErrorStatus getSubentMaterialMapper(const AcDbSubentId& subentId, AcGiMapper& mapper) const;
+  virtual Acad::ErrorStatus getArea(double& area) const;
+  ACDB_PORT virtual void dragStatus(const AcDb::DragStat) override;
+  virtual void* ASMBodyCopy(bool bDeepCopy = false) const;
+  virtual void const * getLockedASMBody();
+  virtual void unlockASMBody();
+  virtual void* getLockedWritableASMBody();
+  virtual void commitWritableASMBody();
+  virtual Acad::ErrorStatus setASMBody(const void* modelerBody);
+  virtual AcDbSubentId internalSubentId(void* ent) const;
+  virtual void* internalSubentPtr(const AcDbSubentId& id) const;
     // AcDbObject methods
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
-	virtual Adesk::UInt16 uIsolineDensity() const;
-	virtual Acad::ErrorStatus setUIsolineDensity(Adesk::UInt16 numIsolines);
-	virtual Adesk::UInt16 vIsolineDensity() const;
-	virtual Acad::ErrorStatus setVIsolineDensity(Adesk::UInt16 numIsolines);
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  virtual Adesk::UInt16 uIsolineDensity() const;
+  virtual Acad::ErrorStatus setUIsolineDensity(Adesk::UInt16 numIsolines);
+  virtual Adesk::UInt16 vIsolineDensity() const;
+  virtual Acad::ErrorStatus setVIsolineDensity(Adesk::UInt16 numIsolines);
     /// <summary> 
     /// Get WireframeType.
     /// </summary>
@@ -823,7 +823,7 @@ public:
     /// WireframeType.
     /// </returns>
     ///
-	ACDB_PORT WireframeType getWireframeType() const;
+  ACDB_PORT WireframeType getWireframeType() const;
     /// <summary> 
     /// Set WireframeType.
     /// </summary>
@@ -834,7 +834,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT Acad::ErrorStatus setWireframeType(WireframeType type);
+  ACDB_PORT Acad::ErrorStatus setWireframeType(WireframeType type);
     /// <summary> 
     /// Return the perimeter of surface.
     /// </summary>
@@ -845,7 +845,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT Acad::ErrorStatus getPerimeter(double& perimeter) const;
+  ACDB_PORT Acad::ErrorStatus getPerimeter(double& perimeter) const;
     // advanced surface methods
     //
 
@@ -856,7 +856,7 @@ public:
     /// Creation action body id.
     /// </returns>
     ///
-	AcDbObjectId ACDB_PORT creationActionBodyId() const;
+  AcDbObjectId ACDB_PORT creationActionBodyId() const;
     /// <summary>
     /// Get moddification action body IDs. 
     /// </summary>
@@ -867,7 +867,7 @@ public:
     /// eOk if successful.
     /// </returns>
     ///
-	Acad::ErrorStatus ACDB_PORT modificationActionBodyIds(AcDbObjectIdArray& modificationActionBodyIds) const;
+  Acad::ErrorStatus ACDB_PORT modificationActionBodyIds(AcDbObjectIdArray& modificationActionBodyIds) const;
     /// <summary>
     /// Extends the edges of this surface by mergeing the extended/stretched
     /// edges to existing surface.
@@ -888,7 +888,7 @@ public:
     /// Acad::eOk if successful.
     /// </returns>
     ///
-	ACDB_PORT Acad::ErrorStatus extendEdges(AcDbFullSubentPathArray& edges, double extDist, EdgeExtensionType extOption, bool bAssociativeEnabled);
+  ACDB_PORT Acad::ErrorStatus extendEdges(AcDbFullSubentPathArray& edges, double extDist, EdgeExtensionType extOption, bool bAssociativeEnabled);
     /// <summary>
     /// Ray test with the surface. This function will create a ray starting
     /// from rayBasePoint with ray direction defined by rayDir. The rayRadius
@@ -916,7 +916,7 @@ public:
     /// Return Acad::eOk if successful.
     /// </returns>
     ///
-	Acad::ErrorStatus ACDB_PORT rayTest(const AcGePoint3d& rayBasePoint, const AcGeVector3d& rayDir, double rayRadius, AcArray<AcDbSubentId>& subEntIds, AcGeDoubleArray& parameters) const;
+  Acad::ErrorStatus ACDB_PORT rayTest(const AcGePoint3d& rayBasePoint, const AcGeVector3d& rayDir, double rayRadius, AcArray<AcDbSubentId>& subEntIds, AcGeDoubleArray& parameters) const;
     // TODO: need to add the work for multi-face body case.
     /// <summary>
     /// Convert to nurb surfaces. The caller should free the returned nurb surface.
@@ -928,12 +928,12 @@ public:
     /// Return Acad::eOk if successful.
     /// </returns>
     ///
-	Acad::ErrorStatus ACDB_PORT convertToNurbSurface(AcDbNurbSurfaceArray& nsArray);
+  Acad::ErrorStatus ACDB_PORT convertToNurbSurface(AcDbNurbSurfaceArray& nsArray);
     // AcDbEntity override
-	virtual Acad::ErrorStatus getPlane(AcGePlane& plane, AcDb::Planarity& planarity) const override;
+  virtual Acad::ErrorStatus getPlane(AcGePlane& plane, AcDb::Planarity& planarity) const override;
 protected:
     // AcDbEntity methods
-	virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 public:
     /// <summary>
     /// This method creates non-database resident entities
@@ -971,7 +971,7 @@ public:
     /// </example>
     /// <seealso cref="AcArray, AcDbPoint" />
     ///
-	Acad::ErrorStatus projectOnToSurface(const AcDbEntity* pEntityToProject, const AcGeVector3d& projectionDirection, AcArray<AcDbEntity*>& projectedEntities) const;
+  Acad::ErrorStatus projectOnToSurface(const AcDbEntity* pEntityToProject, const AcGeVector3d& projectionDirection, AcArray<AcDbEntity*>& projectedEntities) const;
     /// <summary>
     /// This method is used by AutoCAD to determine whether or not to use
     /// cached graphics for the object.  If the method returns true, then
@@ -979,6 +979,6 @@ public:
     /// return true. Only database resident entities can use graphics
     /// caching, so this method is not called for entities not in an AcDbDatabase.
     /// </summary>
-	ACDB_PORT virtual bool usesGraphicsCache();
+  ACDB_PORT virtual bool usesGraphicsCache();
 };
 #pragma  pack(pop)

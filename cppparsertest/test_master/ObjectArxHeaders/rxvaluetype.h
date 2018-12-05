@@ -17,9 +17,9 @@
 class AcRxProperty;
 class AcRxValue;
 #ifdef NDEBUG
-#	define ACRXVALUE_ASSERT	(x)
+#  define ACRXVALUE_ASSERT	(x)
 #else 
-#	define ACRXVALUE_ASSERT	(x) if (!(x)) acutAssertMessage(ACRX_T(#x), ACRX_T(__FILE__), __LINE__, 0 ); else
+#  define ACRXVALUE_ASSERT	(x) if (!(x)) acutAssertMessage(ACRX_T(#x), ACRX_T(__FILE__), __LINE__, 0 ); else
 #endif
 //*************************************************************************
 // IAcRxNonBlittableType
@@ -47,7 +47,7 @@ public:
     /// Input pointer to the source object to copy from.
     /// </param>
     ///
-	virtual void construct(void* dest, const void* source) const = 0;
+  virtual void construct(void* dest, const void* source) const = 0;
     /// <summary>
     /// The function is called to copy the source object to the destination object.
     /// </summary>
@@ -60,7 +60,7 @@ public:
     /// Input pointer to the source object to copy from.
     /// </param>
     ///
-	virtual void assign(void* dest, const void* source) const = 0;
+  virtual void assign(void* dest, const void* source) const = 0;
     /// <summary>
     /// This is called to destroy the non blittable type object.
     /// </summary>
@@ -69,7 +69,7 @@ public:
     /// Pointer to the object that was created using the construct function.
     /// </param>
     ///
-	virtual void destruct(const void* instance) const = 0;
+  virtual void destruct(const void* instance) const = 0;
 };
 //*************************************************************************
 // IAcRxNonBlittableType
@@ -91,7 +91,7 @@ public:
     ///
     /// <returns> Returns the number of enumerators in the enumeration </returns>
     ///
-	virtual int count() const = 0;
+  virtual int count() const = 0;
     /// <summary>
     /// Returns the tag at the specified index.
     /// </summary>
@@ -102,7 +102,7 @@ public:
     ///
     /// <returns> Returns a reference to AcRxEnumTag object at the specified index.</returns>
     ///
-	virtual const AcRxEnumTag& getAt(int index) const = 0;
+  virtual const AcRxEnumTag& getAt(int index) const = 0;
 };
 //*************************************************************************
 // IAcRxReferenceType
@@ -119,12 +119,12 @@ public:
 class IAcRxReferenceType
 {
 public:
-	enum OpenMode
-	{
-		kForRead = 0,
-		kForWrite = 1,
-		kForNotify = 2
-	};
+  enum OpenMode
+  {
+    kForRead = 0,
+    kForWrite = 1,
+    kForNotify = 2
+  };
     /// <summary>
     /// Returns the object that is dereferenced.
     /// </summary>
@@ -139,7 +139,7 @@ public:
     ///
     /// <returns> Returns the AcRxObject if successful, otherwise, returns NULL.</returns>
     ///
-	virtual AcRxObject* beginDereferencing(const AcRxValue& value, OpenMode mode) const = 0;
+  virtual AcRxObject* beginDereferencing(const AcRxValue& value, OpenMode mode) const = 0;
     /// <summary>
     /// Closes the dereferenced object. This function must be called for 
     /// any dereferenced object. The dereferenced object is invalid after 
@@ -152,12 +152,12 @@ public:
     ///
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
-	virtual Acad::ErrorStatus endDereferencing(AcRxObject* pO) const = 0;
+  virtual Acad::ErrorStatus endDereferencing(AcRxObject* pO) const = 0;
 };
 class IAcRxObjectValue
 {
 public:
-	virtual const AcRxObject* getRxObject(const AcRxValue& value) const = 0;
+  virtual const AcRxObject* getRxObject(const AcRxValue& value) const = 0;
 };
 //*************************************************************************
 // AcRxValueType
@@ -171,12 +171,12 @@ public:
 class AcRxValueType : public AcRxClass
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxValueType, ACBASE_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxValueType, ACBASE_PORT);
     /// <summary>
     /// Destructor
     /// </summary>
     ///
-	ACBASE_PORT ~AcRxValueType();
+  ACBASE_PORT ~AcRxValueType();
     /// <summary>
     /// Compares the value type for equality with another AcRxValueType.
     /// </summary>
@@ -189,10 +189,10 @@ public:
     /// Returns true if the types are same; otherwise, returns false.
     /// </returns>
     ///
-	bool operator==(const AcRxValueType& rhs) const
-	{
-		return this == &rhs;
-	}
+  bool operator==(const AcRxValueType& rhs) const
+  {
+    return this == &rhs;
+  }
     /// <summary>
     /// Returns false if the objects are equal, true if they are not equal.
     /// </summary>
@@ -205,15 +205,15 @@ public:
     /// Returns false if the objects are equal, true if they are not equal.
     /// </returns>
     ///
-	bool operator!=(const AcRxValueType& rhs) const
-	{
-		return this != &rhs;
-	}
+  bool operator!=(const AcRxValueType& rhs) const
+  {
+    return this != &rhs;
+  }
     /// <summary>
     /// Throws a bad cast exception.
     /// </summary>
     ///
-	ACBASE_PORT static void __declspec(noreturn) badCast();
+  ACBASE_PORT static void __declspec(noreturn) badCast();
     /// <summary>
     /// Returns the size of the type.
     /// </summary>
@@ -222,10 +222,10 @@ public:
     /// Returns the size of the type in bytes.
     /// </returns>
     ///
-	unsigned int size() const
-	{
-		return m_size;
-	}
+  unsigned int size() const
+  {
+    return m_size;
+  }
     /// <summary>
     /// Determines if the type is blittable. Blittable types can be safely copied with memcpy.
     /// </summary>
@@ -234,10 +234,10 @@ public:
     /// Returns true if the type is blittable; otherwise, returns false.
     /// </returns>
     ///
-	bool isBlittable() const
-	{
-		return m_pNonBlittable == 0;
-	}
+  bool isBlittable() const
+  {
+    return m_pNonBlittable == 0;
+  }
     /// <summary>
     /// Determines if the type is an enum.
     /// </summary>
@@ -246,10 +246,10 @@ public:
     /// Returns true if the type is an enum; otherwise, returns false.
     /// </returns>
     ///
-	bool isEnum() const
-	{
-		return m_pEnum != 0;
-	}
+  bool isEnum() const
+  {
+    return m_pEnum != 0;
+  }
     /// <summary>
     /// Determines if the type is a reference type. If it supports IAcRxReferenceType.
     /// </summary>
@@ -258,10 +258,10 @@ public:
     /// Returns true if it is a reference type; otherwise, returns false.
     /// </returns>
     ///
-	bool isReference() const
-	{
-		return m_pRef != 0;
-	}
+  bool isReference() const
+  {
+    return m_pRef != 0;
+  }
     /// <summary>
     /// Returns the object that implements IAcRxNonBlittableType, for a non blittable type.
     /// </summary>
@@ -270,10 +270,10 @@ public:
     /// Returns pointer to an object that implements IAcRxNonBlittableType, for a non blittable type.
     /// </returns>
     ///
-	const IAcRxNonBlittableType* nonBlittable() const
-	{
-		return m_pNonBlittable;
-	}
+  const IAcRxNonBlittableType* nonBlittable() const
+  {
+    return m_pNonBlittable;
+  }
     /// <summary>
     /// Returns the object that implements IAcRxEnumeration, for an enum type.
     /// </summary>
@@ -282,10 +282,10 @@ public:
     /// Returns pointer to an object that implements IAcRxEnumeration, for an enum type.
     /// </returns>
     ///
-	const IAcRxEnumeration* enumeration() const
-	{
-		return m_pEnum;
-	}
+  const IAcRxEnumeration* enumeration() const
+  {
+    return m_pEnum;
+  }
     /// <summary>
     /// Returns the object that implements IAcRxReferenceType, for a reference type.
     /// </summary>
@@ -294,24 +294,24 @@ public:
     /// Returns pointer to an object that implements IAcRxReferenceType, for a reference type.
     /// </returns>
     ///
-	const IAcRxReferenceType* reference() const
-	{
-		return m_pRef;
-	}
-	const IAcRxObjectValue* rxObjectValue() const
-	{
-		return m_pRxObjValue;
-	}
+  const IAcRxReferenceType* reference() const
+  {
+    return m_pRef;
+  }
+  const IAcRxObjectValue* rxObjectValue() const
+  {
+    return m_pRxObjValue;
+  }
     /// <summary>
     /// StringFormat enums can be used to specify as to how the string needs to be 
     /// formatted in the toString function. If the string needs to be formatted 
     /// depending on the current locale.
     /// </summary>
-	enum StringFormat
-	{
-		kStringFormatGlobal = 0,
-		kStringFormatCurrent = 1
-	};
+  enum StringFormat
+  {
+    kStringFormatGlobal = 0,
+    kStringFormatCurrent = 1
+  };
     /// <summary>
     /// This method can be used to obtain the string representation of the value.
     /// Normally there is no need to call this method, instead the toString 
@@ -339,22 +339,22 @@ public:
     /// Returns the number of characters that was written.
     /// </returns>
     ///
-	int toString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, StringFormat format) const
-	{
-		ACRXVALUE_ASSERT(instance != NULL);
-		if (instance == NULL)
-		{
-			return -1;
-		}
-		ACRXVALUE_ASSERT((sizeInACHARs == 0) == (buffer == NULL));
-		if ((sizeInACHARs == 0) != (buffer == NULL))
-		{
-			return -1;
-		}
+  int toString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, StringFormat format) const
+  {
+    ACRXVALUE_ASSERT(instance != NULL);
+    if (instance == NULL)
+    {
+      return -1;
+    }
+    ACRXVALUE_ASSERT((sizeInACHARs == 0) == (buffer == NULL));
+    if ((sizeInACHARs == 0) != (buffer == NULL))
+    {
+      return -1;
+    }
         //buffer==NULL && size==0 means that we should calculate the required length
         //of the buffer and return it
-		return subToString(instance, buffer, sizeInACHARs, format);
-	}
+    return subToString(instance, buffer, sizeInACHARs, format);
+  }
     /// <summary>
     /// This method is used to compare two values.
     /// Normally there is no need to call this method, instead the equality 
@@ -373,30 +373,30 @@ public:
     /// Returns true if the values are same; otherwise, returns false.
     /// </returns>
     ///
-	bool equalTo(const void* a, const void* b) const
-	{
-		ACRXVALUE_ASSERT(a != NULL);
-		if (a == NULL)
-		{
-			return false;
-		}
-		ACRXVALUE_ASSERT(b != NULL);
-		if (b == NULL)
-		{
-			return false;
-		}
-		return subEqualTo(a, b);
-	}
+  bool equalTo(const void* a, const void* b) const
+  {
+    ACRXVALUE_ASSERT(a != NULL);
+    if (a == NULL)
+    {
+      return false;
+    }
+    ACRXVALUE_ASSERT(b != NULL);
+    if (b == NULL)
+    {
+      return false;
+    }
+    return subEqualTo(a, b);
+  }
     /// <summary>
     /// This class MUST BE specialized for supported types. It provides mapping from
     /// C++ type to AcRxValueType.
     /// </summary>
-	template <typename ValueType>
-	struct Desc	
+  template <typename ValueType>
+  struct Desc  
 {
-		static const AcRxValueType& value();
-		static void del();
-	};
+    static const AcRxValueType& value();
+    static void del();
+  };
 protected:
     /// <summary>
     /// Constructor.
@@ -429,7 +429,7 @@ protected:
     /// call back function.
     /// </param>
     ///
-	ACBASE_PORT AcRxValueType(const ACHAR* name, const ACHAR* parent, const IAcRxNonBlittableType& nonBlittable, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
+  ACBASE_PORT AcRxValueType(const ACHAR* name, const ACHAR* parent, const IAcRxNonBlittableType& nonBlittable, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -452,7 +452,7 @@ protected:
     /// call back function.
     /// </param>
     ///
-	ACBASE_PORT AcRxValueType(const ACHAR* name, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
+  ACBASE_PORT AcRxValueType(const ACHAR* name, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -480,7 +480,7 @@ protected:
     /// call back function.
     /// </param>
     ///
-	ACBASE_PORT AcRxValueType(const ACHAR* name, const IAcRxNonBlittableType& pNonBlittable, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
+  ACBASE_PORT AcRxValueType(const ACHAR* name, const IAcRxNonBlittableType& pNonBlittable, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -508,7 +508,7 @@ protected:
     /// call back function.
     /// </param>
     ///
-	ACBASE_PORT AcRxValueType(const ACHAR* name, const IAcRxEnumeration& pEnum, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
+  ACBASE_PORT AcRxValueType(const ACHAR* name, const IAcRxEnumeration& pEnum, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -541,8 +541,8 @@ protected:
     /// call back function.
     /// </param>
     ///
-	ACBASE_PORT AcRxValueType(const ACHAR* name, const IAcRxEnumeration& pEnum, const IAcRxNonBlittableType& pNonBlittable, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
-	ACBASE_PORT AcRxValueType(const ACHAR* name, const IAcRxEnumeration* pEnum, const IAcRxNonBlittableType* pNonBlittable, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
+  ACBASE_PORT AcRxValueType(const ACHAR* name, const IAcRxEnumeration& pEnum, const IAcRxNonBlittableType& pNonBlittable, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
+  ACBASE_PORT AcRxValueType(const ACHAR* name, const IAcRxEnumeration* pEnum, const IAcRxNonBlittableType* pNonBlittable, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
     /// <summary>
     /// Constructor.  This should only be used for types that are references or pointers.
     /// </summary>
@@ -570,7 +570,7 @@ protected:
     /// call back function.
     /// </param>
     ///
-	ACBASE_PORT AcRxValueType(const ACHAR* name, const IAcRxReferenceType& pRef, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
+  ACBASE_PORT AcRxValueType(const ACHAR* name, const IAcRxReferenceType& pRef, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
     /// <summary>
     /// Constructor
     /// </summary>
@@ -603,26 +603,26 @@ protected:
     /// call back function.
     /// </param>
     ///
-	ACBASE_PORT AcRxValueType(const ACHAR* name, const IAcRxObjectValue& rxObjValue, const IAcRxNonBlittableType& pNonBlittable, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
+  ACBASE_PORT AcRxValueType(const ACHAR* name, const IAcRxObjectValue& rxObjValue, const IAcRxNonBlittableType& pNonBlittable, unsigned int size, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL);
 private:
-	virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, StringFormat format) const = 0;
-	virtual bool subEqualTo(const void* a, const void* b) const = 0;
-	AcRxValueType(const AcRxValueType& rhs);
-	AcRxValueType& operator=(const AcRxValueType& rhs);
+  virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, StringFormat format) const = 0;
+  virtual bool subEqualTo(const void* a, const void* b) const = 0;
+  AcRxValueType(const AcRxValueType& rhs);
+  AcRxValueType& operator=(const AcRxValueType& rhs);
     //members declared on the API-side of Pimpl for performance reasons (so that they can be inlined)
-	IAcRxNonBlittableType* m_pNonBlittable;
-	IAcRxEnumeration* m_pEnum;
-	IAcRxReferenceType* m_pRef;
-	IAcRxObjectValue* m_pRxObjValue;
-	void* m_unused1;
-	unsigned int m_size;
+  IAcRxNonBlittableType* m_pNonBlittable;
+  IAcRxEnumeration* m_pEnum;
+  IAcRxReferenceType* m_pRef;
+  IAcRxObjectValue* m_pRxObjValue;
+  void* m_unused1;
+  unsigned int m_size;
 };
 //specialization for 'no type'
 template <>
 struct AcRxValueType ::Desc<void>
 {
-	ACBASE_PORT static const AcRxValueType& value();
-	static void del();
+  ACBASE_PORT static const AcRxValueType& value();
+  static void del();
 };
 class Storage;
 //protect against shenanigans
@@ -632,15 +632,15 @@ class Storage;
 //(C++ does not allow calling the ctor directly)
 inline void* operator new(size_t size, Storage* loc)
 {
-	ADESK_UNREFED_PARAM(size);
-	return loc;
+  ADESK_UNREFED_PARAM(size);
+  return loc;
 }
 #pragma  pop_macro("new")
 #pragma  push_macro("delete")
 #undef delete
 inline void operator delete(void* p, Storage* loc)
 {
-	ADESK_UNREFED_PARAM(p);
-	(loc);
+  ADESK_UNREFED_PARAM(p);
+  (loc);
 }
 #pragma  pop_macro("delete")

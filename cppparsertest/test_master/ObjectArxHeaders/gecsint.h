@@ -11,15 +11,15 @@
 // Description: class  AcGeCurveSurfInt to hold data for intersections
 // of a 3d curve and a surface.
 #ifndef AC_GECSINT_H
-#	define AC_GECSINT_H
-#	include "adesk.h"
-#	include "geent3d.h"
-#	include "geponc3d.h"
-#	include "geponsrf.h"
-#	include "geintrvl.h"
-#	include "gegbl.h"
-#	include "gegblabb.h"
-#	pragma  pack (push, 8)
+#  define AC_GECSINT_H
+#  include "adesk.h"
+#  include "geent3d.h"
+#  include "geponc3d.h"
+#  include "geponsrf.h"
+#  include "geintrvl.h"
+#  include "gegbl.h"
+#  include "gegblabb.h"
+#  pragma  pack (push, 8)
 class AcGeCurve3d;
 class AcGeSurface;
 // The intersection class constructor references curve and surface objects, but the
@@ -39,28 +39,28 @@ class GX_DLLEXPIMPORT AcGeCurveSurfInt : public AcGeEntity3d
 public:
     // Constructors.
     //
-	AcGeCurveSurfInt();
-	AcGeCurveSurfInt(const AcGeCurve3d& crv, const AcGeSurface& srf, const AcGeTol& tol = AcGeContext::gTol);
-	AcGeCurveSurfInt(const AcGeCurveSurfInt& src);
+  AcGeCurveSurfInt();
+  AcGeCurveSurfInt(const AcGeCurve3d& crv, const AcGeSurface& srf, const AcGeTol& tol = AcGeContext::gTol);
+  AcGeCurveSurfInt(const AcGeCurveSurfInt& src);
     // General query functions.
     //
-	const AcGeCurve3d* curve() const;
-	const AcGeSurface* surface() const;
-	AcGeTol tolerance() const;
+  const AcGeCurve3d* curve() const;
+  const AcGeSurface* surface() const;
+  AcGeTol tolerance() const;
     // Intersection query methods.
     //
-	int numIntPoints(AcGeIntersectError& err) const;
-	AcGePoint3d intPoint(int intNum, AcGeIntersectError& err) const;
-	void getIntParams(int intNum, double& param1, AcGePoint2d& param2, AcGeIntersectError& err) const;
-	void getPointOnCurve(int intNum, AcGePointOnCurve3d&, AcGeIntersectError& err) const;
-	void getPointOnSurface(int intNum, AcGePointOnSurface&, AcGeIntersectError& err) const;
-	void getIntConfigs(int intNum, AcGe::csiConfig& lower, AcGe::csiConfig& higher, Adesk::Boolean& smallAngle, AcGeIntersectError& err) const;
+  int numIntPoints(AcGeIntersectError& err) const;
+  AcGePoint3d intPoint(int intNum, AcGeIntersectError& err) const;
+  void getIntParams(int intNum, double& param1, AcGePoint2d& param2, AcGeIntersectError& err) const;
+  void getPointOnCurve(int intNum, AcGePointOnCurve3d&, AcGeIntersectError& err) const;
+  void getPointOnSurface(int intNum, AcGePointOnSurface&, AcGeIntersectError& err) const;
+  void getIntConfigs(int intNum, AcGe::csiConfig& lower, AcGe::csiConfig& higher, Adesk::Boolean& smallAngle, AcGeIntersectError& err) const;
     // Set functions.
     //
-	AcGeCurveSurfInt& set(const AcGeCurve3d& cvr, const AcGeSurface& srf, const AcGeTol& tol = AcGeContext::gTol);
+  AcGeCurveSurfInt& set(const AcGeCurve3d& cvr, const AcGeSurface& srf, const AcGeTol& tol = AcGeContext::gTol);
     // Assignment operator.
     //
-	AcGeCurveSurfInt& operator =(const AcGeCurveSurfInt& crvInt);
+  AcGeCurveSurfInt& operator =(const AcGeCurveSurfInt& crvInt);
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

@@ -10,16 +10,16 @@
 #pragma  once
 namespace Autodesk
 {
-	namespace RealityStudio	
+  namespace RealityStudio  
 {
-		namespace SDK		
+    namespace SDK    
 {
-			namespace Interface			
+      namespace Interface      
 {
-				class ARCSpatialFilter;
-			}
-		}
-	}
+        class ARCSpatialFilter;
+      }
+    }
+  }
 }
 class AcDbPointCloudDxfHandler;
 /// <summary>
@@ -35,56 +35,56 @@ public:
     /// <summary>
     /// This enumeration defines the crop type (i.e., the shape of the cropping region).
     /// </summary>
-	enum CropType
-	{
+  enum CropType
+  {
         /// <summary>
         /// Undefined type
         /// </summary>
-		kInvalid = 0,
+    kInvalid = 0,
         /// <summary>
         /// Rectangular type
         /// </summary>
-		kRectangular,
+    kRectangular,
         /// <summary>
         /// Polygonal type
         /// </summary>
-		kPolygonal,
+    kPolygonal,
         /// <summary>
         /// Circle type
         /// </summary>
-		kCircular
-	};
+    kCircular
+  };
     /// <summary>
     /// Default constructor
     /// </summary>
-	AcDbPointCloudCrop();
+  AcDbPointCloudCrop();
     /// <summary>
     /// Copy constructor
     /// </summary>
     /// <param name="other"> the AcDbPointCloudCrop object that will be copied. </param>
-	AcDbPointCloudCrop(const AcDbPointCloudCrop& other);
+  AcDbPointCloudCrop(const AcDbPointCloudCrop& other);
     /// <summary>
     /// Destructor
     /// </summary>
-	virtual ~AcDbPointCloudCrop();
+  virtual ~AcDbPointCloudCrop();
     /// <summary>
     /// Equality operator.
     /// </summary>
     /// <param name="other"> the object to which this cropping region will be compared. </param>
     /// <returns>Returns true if the input object is the same as the current one, or false otherwise.</returns>
-	bool operator ==(const AcDbPointCloudCrop& other) const;
+  bool operator ==(const AcDbPointCloudCrop& other) const;
     /// <summary>
     /// Inequality operator.
     /// </summary>
     /// <param name="other"> the object to which this cropping region will be compared. </param>
     /// <returns>Returns true if the input object is not the same as the current one or false otherwise.</returns>
-	bool operator !=(const AcDbPointCloudCrop& other) const;
+  bool operator !=(const AcDbPointCloudCrop& other) const;
     /// <summary>
     /// Assignment operator.
     /// </summary>
     /// <param name="other"> the cropping region to which this object will be assiged. </param>
     /// <returns>Returns a reference of current object.</returns>
-	AcDbPointCloudCrop& operator=(const AcDbPointCloudCrop& other);
+  AcDbPointCloudCrop& operator=(const AcDbPointCloudCrop& other);
     // AcDbEntity helpers used by AcDbPointCloudEx
     //
 
@@ -93,13 +93,13 @@ public:
     /// </summary>
     /// <param name="pFiler">Input filer to use</param>
     /// <returns>Returns Acad::eOk if successful or error code otherwise.</returns>
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
     /// <summary>
     /// Writes out the cropping boundary information to a dwg pFiler.
     /// </summary>
     /// <param name="pFiler">Output filer to use</param>
     /// <returns>Returns Acad::eOk if successful or error code otherwise.</returns>
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const;
     /// <summary>
     /// Reads the cropping boundary information via from a dxf pFiler. The flags that are passed in are
     /// essentially data IDs. 
@@ -110,7 +110,7 @@ public:
     /// <param name="dxfXCoord">XCoord flag used to read data to pFile</param>
     /// <param name="dxfNormalX">NormalX flag used to read data to pFile</param>
     /// <returns>Returns Acad::eOk if successful or error code otherwise.</returns>
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler, Adesk::Int16& dxfInt8, Adesk::Int16& dxfInt32, Adesk::Int16& dxfXCoord, Adesk::Int16& dxfNormalX);
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler, Adesk::Int16& dxfInt8, Adesk::Int16& dxfInt32, Adesk::Int16& dxfXCoord, Adesk::Int16& dxfNormalX);
     /// <summary>
     /// Writes out the cropping boundary information to a dxf pFiler. The flags that are passed in are
     /// essentially data IDs. 
@@ -121,7 +121,7 @@ public:
     /// <param name="dxfXCoord">XCoord flag used to write data to pFile</param>
     /// <param name="dxfNormalX">NormalX flag used to write data to pFile</param>
     /// <returns>Returns Acad::eOk if successful or error code otherwise.</returns>
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler, Adesk::Int16& dxfInt8, Adesk::Int16& dxfInt32, Adesk::Int16& dxfXCoord, Adesk::Int16& dxfNormalX) const;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler, Adesk::Int16& dxfInt8, Adesk::Int16& dxfInt32, Adesk::Int16& dxfXCoord, Adesk::Int16& dxfNormalX) const;
     /// <summary>
     /// Converts the crop boundary to an ARCSpatialFilter, which are used by internal 
     /// data management classes.
@@ -131,7 +131,7 @@ public:
     /// to release it.
     /// </returns>
     /// <remarks> internal use </remarks>
-	virtual Autodesk::RealityStudio::SDK::Interface::ARCSpatialFilter* toSpatialFilter() const;
+  virtual Autodesk::RealityStudio::SDK::Interface::ARCSpatialFilter* toSpatialFilter() const;
     /// <summary>
     /// Draws the cropping boundary in the point cloud's model coordinate system. This method
     /// is called by AcDbPointCloudEx::subWorldDraw().
@@ -140,37 +140,37 @@ public:
     /// The reference to AcGiGeometry that was given to AcDbPointCloudEx::subWorldDraw().
     /// </param>
     /// <remarks> internal use </remarks>
-	virtual void draw(AcGiGeometry& geom);
+  virtual void draw(AcGiGeometry& geom);
     /// <summary>
     /// Clears all cropping boundary information.
     /// </summary>
-	void clear();
+  void clear();
     /// <summary>
     /// Checks if this object represents a valid cropping boundary.
     /// </summary>
     /// <returns>
     /// Returns true if the cropping boundary is valid, or false otherwise.
     /// </returns>
-	bool isValid() const;
+  bool isValid() const;
     /// <summary>
     /// Gets the cropping boundary type for this object.
     /// </summary>
     /// <returns>
     /// Returns the type of point cloud crop.
     /// </returns>
-	CropType type() const;
+  CropType type() const;
     /// <summary>
     /// Sets the cropping boundary type for this object.
     /// </summary>
     /// <param name="type"> type of point cloud crop </param>
-	void setCropType(CropType type);
+  void setCropType(CropType type);
     /// <summary>
     /// Gets whether this cropping boundary is allowing points inside of itself or outside.
     /// </summary>
     /// <returns>
     /// Returns true if points inside this region are allowed, or false otherwise.
     /// </returns>
-	bool isInside() const;
+  bool isInside() const;
     /// <summary>
     /// Sets whether this cropping boundary is allowing points inside of itself or outside.
     /// The default value is inside.
@@ -178,14 +178,14 @@ public:
     /// <param name="bInside">
     /// Whether to allow points inside this region.
     /// </param>
-	void setInside(bool bInside);
+  void setInside(bool bInside);
     /// <summary>
     /// Gets whether this cropping region's results are to be inverted.
     /// </summary>
     /// <returns>
     /// Returns true if cropping result will be inverted, or false otherwise.
     /// </returns>
-	bool isInverted() const;
+  bool isInverted() const;
     /// <summary>
     /// Sets whether this cropping region's results are to be inverted.
     /// </summary>
@@ -199,7 +199,7 @@ public:
     /// If the flag is true, the results of all crop boundaries from the first
     /// added one until this current one will be reversed.
     /// </remarks>
-	void setInvert(bool toInvert);
+  void setInvert(bool toInvert);
     /// <summary>
     /// Gets the plane on which this cropping boundary is defined.
     /// </summary>
@@ -209,14 +209,14 @@ public:
     /// <returns>
     /// Returns true if getting the plane successfully, or false otherwise.
     /// </returns>
-	bool getCropPlane(AcGePlane& plane);
+  bool getCropPlane(AcGePlane& plane);
     /// <summary>
     /// Sets the plane on which this cropping boundary is defined.
     /// </summary>
     /// <param name="plane">
     /// The plane of this cropping boundary.
     /// </param>
-	void setCropPlane(const AcGePlane& plane);
+  void setCropPlane(const AcGePlane& plane);
     ///<summary>
     /// Returns the number of points that describe the cropping boundary.
     ///</summary>
@@ -225,7 +225,7 @@ public:
     /// If the crop type is a polygonal, the count of points is more than 3.
     /// If the crop type is a circle, the count of points if 2.
     /// </returns>
-	int length() const;
+  int length() const;
     /// <summary>
     /// Sets the points array for point cloud crop boundary.
     /// </summary>
@@ -235,12 +235,12 @@ public:
     /// Polygonal -- 1st, 2nd, 3rd, and etc. points, and the last point is also 1st point again. 
     /// Circular, there are 2 points, center point and any point which is on the circle's circumference.
     /// </param>
-	void set(const AcGePoint3dArray& points);
+  void set(const AcGePoint3dArray& points);
     /// <summary>
     /// Gets a reference to the internal array of the cropping boundary points.
     /// </summary>
     /// <returns>Returns a reference to the internal array.</returns>
-	const AcGePoint3dArray& get();
+  const AcGePoint3dArray& get();
     /// <summary>
     /// Sets the DXF handler for a rectangular crop. The previous handler will be released.
     /// The handler will be used to read dxf item data and deal with some errors.
@@ -248,13 +248,13 @@ public:
     /// </summary>
     /// <param name="dxfHandler">The DXF handler.</param>
     /// <remarks> internal use </remarks>
-	void setDxfHandler(AcDbPointCloudDxfHandler* dxfHandler);
+  void setDxfHandler(AcDbPointCloudDxfHandler* dxfHandler);
 private:
     // member variables
-	CropType m_cropType;
-	bool m_isInside;
-	bool m_isInverted;
-	AcGePlane m_cropPlane;
-	AcGePoint3dArray m_point3dArray;
-	AcDbPointCloudDxfHandler* m_dxfHandler;
+  CropType m_cropType;
+  bool m_isInside;
+  bool m_isInverted;
+  AcGePlane m_cropPlane;
+  AcGePoint3dArray m_point3dArray;
+  AcDbPointCloudDxfHandler* m_dxfHandler;
 };

@@ -43,13 +43,13 @@
 // axis).
 //
 #ifndef AC_GECONE_H
-#	define AC_GECONE_H
-#	include "gegbl.h"
-#	include "geintrvl.h"
-#	include "gevec3d.h"
-#	include "gesurf.h"
-#	include "gearc3d.h"
-#	pragma  pack (push, 8)
+#  define AC_GECONE_H
+#  include "gegbl.h"
+#  include "geintrvl.h"
+#  include "gevec3d.h"
+#  include "gesurf.h"
+#  include "gearc3d.h"
+#  pragma  pack (push, 8)
 class AcGePoint3d;
 class AcGeVector3d;
 class AcGeCircArc3d;
@@ -58,35 +58,35 @@ class AcGeLinearEnt3d;
 class GX_DLLEXPIMPORT AcGeCone : public AcGeSurface
 {
 public:
-	AcGeCone();
-	AcGeCone(double cosineAngle, double sineAngle, const AcGePoint3d& baseOrigin, double baseRadius, const AcGeVector3d& axisOfSymmetry);
-	AcGeCone(double cosineAngle, double sineAngle, const AcGePoint3d& baseOrigin, double baseRadius, const AcGeVector3d& axisOfSymmetry, const AcGeVector3d& refAxis, const AcGeInterval& height, double startAngle, double endAngle);
-	AcGeCone(const AcGeCone& cone);
+  AcGeCone();
+  AcGeCone(double cosineAngle, double sineAngle, const AcGePoint3d& baseOrigin, double baseRadius, const AcGeVector3d& axisOfSymmetry);
+  AcGeCone(double cosineAngle, double sineAngle, const AcGePoint3d& baseOrigin, double baseRadius, const AcGeVector3d& axisOfSymmetry, const AcGeVector3d& refAxis, const AcGeInterval& height, double startAngle, double endAngle);
+  AcGeCone(const AcGeCone& cone);
     // Geometric properties.
     //
-	double baseRadius() const;
-	AcGePoint3d baseCenter() const;
-	void getAngles(double& start, double& end) const;
-	double halfAngle() const;
-	void getHalfAngle(double& cosineAngle, double& sineAngle) const;
-	void getHeight(AcGeInterval& range) const;
-	double heightAt(double u) const;
-	AcGeVector3d axisOfSymmetry() const;
-	AcGeVector3d refAxis() const;
-	AcGePoint3d apex() const;
-	Adesk::Boolean isClosed(const AcGeTol& tol = AcGeContext::gTol) const;
-	Adesk::Boolean isOuterNormal() const;
-	AcGeCone& setBaseRadius(double radius);
-	AcGeCone& setAngles(double startAngle, double endAngle);
-	AcGeCone& setHeight(const AcGeInterval& height);
-	AcGeCone& set(double cosineAngle, double sineAngle, const AcGePoint3d& baseCenter, double baseRadius, const AcGeVector3d& axisOfSymmetry);
-	AcGeCone& set(double cosineAngle, double sineAngle, const AcGePoint3d& baseCenter, double baseRadius, const AcGeVector3d& axisOfSymmetry, const AcGeVector3d& refAxis, const AcGeInterval& height, double startAngle, double endAngle);
+  double baseRadius() const;
+  AcGePoint3d baseCenter() const;
+  void getAngles(double& start, double& end) const;
+  double halfAngle() const;
+  void getHalfAngle(double& cosineAngle, double& sineAngle) const;
+  void getHeight(AcGeInterval& range) const;
+  double heightAt(double u) const;
+  AcGeVector3d axisOfSymmetry() const;
+  AcGeVector3d refAxis() const;
+  AcGePoint3d apex() const;
+  Adesk::Boolean isClosed(const AcGeTol& tol = AcGeContext::gTol) const;
+  Adesk::Boolean isOuterNormal() const;
+  AcGeCone& setBaseRadius(double radius);
+  AcGeCone& setAngles(double startAngle, double endAngle);
+  AcGeCone& setHeight(const AcGeInterval& height);
+  AcGeCone& set(double cosineAngle, double sineAngle, const AcGePoint3d& baseCenter, double baseRadius, const AcGeVector3d& axisOfSymmetry);
+  AcGeCone& set(double cosineAngle, double sineAngle, const AcGePoint3d& baseCenter, double baseRadius, const AcGeVector3d& axisOfSymmetry, const AcGeVector3d& refAxis, const AcGeInterval& height, double startAngle, double endAngle);
     // Assignment operator.
     //
-	AcGeCone& operator =(const AcGeCone& cone);
+  AcGeCone& operator =(const AcGeCone& cone);
     // Intersection with a linear entity
     //
-	Adesk::Boolean intersectWith(const AcGeLinearEnt3d& linEnt, int& intn, AcGePoint3d& p1, AcGePoint3d& p2, const AcGeTol& tol = AcGeContext::gTol) const;
+  Adesk::Boolean intersectWith(const AcGeLinearEnt3d& linEnt, int& intn, AcGePoint3d& p1, AcGePoint3d& p2, const AcGeTol& tol = AcGeContext::gTol) const;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

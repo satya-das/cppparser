@@ -8,26 +8,26 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _ANav_h
-#	define _ANav_h
-#	if  _MSC_VER >= 1000
-#		pragma  once
-#	endif
+#  define _ANav_h
+#  if  _MSC_VER >= 1000
+#    pragma  once
+#  endif
 /////////////////////////////////////////////////////////////////////////////
 // ANAV_PORT is defined to export classes and functions when building the DLL.
-#	ifndef ANAV_PORT
-#		define ANAV_PORT
-#	endif
+#  ifndef ANAV_PORT
+#    define ANAV_PORT
+#  endif
 /////////////////////////////////////////////////////////////////////////////
 // File Navigation prototypes
-#	include <adui.h>
-#	include <afxole.h>
-#	include <AnavListCtrl.h>
-#	include <ANavData.h>
-#	include <ANavFilter.h>
-#	include <ANavArray.h>
-#	include <ANavDataArray.h>
-#	include <ANavFilterArray.h>
-#	include <ANavDialog.h>
+#  include <adui.h>
+#  include <afxole.h>
+#  include <AnavListCtrl.h>
+#  include <ANavData.h>
+#  include <ANavFilter.h>
+#  include <ANavArray.h>
+#  include <ANavDataArray.h>
+#  include <ANavFilterArray.h>
+#  include <ANavDialog.h>
 /////////////////////////////////////////////////////////////////////////////
 
 //{{AFX_INSERT_LOCATION}}

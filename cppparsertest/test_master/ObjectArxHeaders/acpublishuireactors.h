@@ -11,13 +11,13 @@
 //  AcPublishUIReactors.h - Reactors File
 //
 #ifndef _ACPUBLISHUIREACTORS_H
-#	define _ACPUBLISHUIREACTORS_H
-#	include "AdAChar.h"
-#	include "AcPublishReactors.h"
-#	include "rxobject.h"
-#	include "acarray.h"
-#	include "AcPlDSDData.h"
-#	include "AcPublishReactors.h"
+#  define _ACPUBLISHUIREACTORS_H
+#  include "AdAChar.h"
+#  include "AcPublishReactors.h"
+#  include "rxobject.h"
+#  include "acarray.h"
+#  include "AcPlDSDData.h"
+#  include "AcPublishReactors.h"
 /// <summary>
 /// This class is the context information supplied by the 
 /// OnInitPublishOptionsDialog notifier of AcPublishUIReactor. You do not need
@@ -36,16 +36,16 @@ public:
     /// construct this object, it is created by the Publishing app
     /// and handed to their reactors
     /// </remarks>
-	AcPublishUIReactorInfo()
-	{
-	}
+  AcPublishUIReactorInfo()
+  {
+  }
     /// <summary>
     /// destructor
     /// </summary>
     ///
-	virtual ~AcPublishUIReactorInfo()
-	{
-	}
+  virtual ~AcPublishUIReactorInfo()
+  {
+  }
     /// <summary>
     /// read only accesss to the DSD object
     /// </summary>
@@ -53,7 +53,7 @@ public:
     /// <returns>
     /// a const pointer to the DSD object for this publish job
     /// </returns>
-	virtual const AcPlDSDData* GetDSDData() = 0;
+  virtual const AcPlDSDData* GetDSDData() = 0;
     /// <summary>
     /// read/write access to the client's private DSD data
     /// </summary>
@@ -68,7 +68,7 @@ public:
     /// otherwise this returns a const AcNameValuePairVec object with
     /// name value pairs for the section requested.
     /// </returns>
-	virtual const AcNameValuePairVec GetPrivateData(const ACHAR* sectionName) = 0;
+  virtual const AcNameValuePairVec GetPrivateData(const ACHAR* sectionName) = 0;
     /// <summary>
     /// replaces a section of the same name
     /// will fail if it attempts to replace a "recognized" section of
@@ -91,9 +91,9 @@ public:
     /// returns true if section data is updated in the dsd data object
     /// successfully, otherwise returns false.
     /// </returns>
-	virtual bool WritePrivateSection(const ACHAR* sectionName, const AcNameValuePairVec nameValuePairVec) = 0;
+  virtual bool WritePrivateSection(const ACHAR* sectionName, const AcNameValuePairVec nameValuePairVec) = 0;
     // bool for bg/fg (this isn't in public dsd data)
-	virtual bool JobWillPublishInBackground() = 0;
+  virtual bool JobWillPublishInBackground() = 0;
 };
 ////////////////////////////////////////////////////////////////////
 /// class AcPublishUIReactor
@@ -127,7 +127,7 @@ public:
     /// to set or get their private section data
     /// </param>
     ///
-	virtual void OnInitPublishOptionsDialog(IUnknown** pUnk, AcPublishUIReactorInfo* pInfo);
+  virtual void OnInitPublishOptionsDialog(IUnknown** pUnk, AcPublishUIReactorInfo* pInfo);
     /// <summary>
     /// Event Fired just when the Export to DWF/PDF Publish Options dialog 
     /// is about to be displayed. Gives users of this reactor to add their
@@ -152,7 +152,7 @@ public:
     /// The parameter is reserved for the future, now it is not used.
     /// </param>
     ///
-	virtual void OnInitExportOptionsDialog(IUnknown** pUnk, AcPublishUIReactorInfo* pInfo);
+  virtual void OnInitExportOptionsDialog(IUnknown** pUnk, AcPublishUIReactorInfo* pInfo);
     ///////////////////////////////////////////////////////////////////////////////
     /// <summary>
     /// Envent Fired just when Read/Save options from/to Registry 
@@ -167,7 +167,7 @@ public:
     /// true, read options data from registry
     /// false, save options data to registy
     /// </param>
-	virtual void PersistenceRegistryForExportOptionsDialog(const ACHAR* lpszRegRoot, bool bIsReadRegistry = true);
+  virtual void PersistenceRegistryForExportOptionsDialog(const ACHAR* lpszRegRoot, bool bIsReadRegistry = true);
     /// <summary>
     /// Event Fired just when the Auto Publish Settings dialog is about 
     /// to be displayed. Gives users of this reactor to add their
@@ -192,7 +192,7 @@ public:
     /// The parameter is reserved for the future, now it is not used.
     /// </param>
     ///
-	virtual void OnInitAutoPublishSettingsDialog(IUnknown** pUnk, AcPublishUIReactorInfo* pInfo);
+  virtual void OnInitAutoPublishSettingsDialog(IUnknown** pUnk, AcPublishUIReactorInfo* pInfo);
     ////////////////////////////////////////////////////////////////////////////////
     /// <summary>
     /// Envent Fired just when Read/Save options from/to Registry 
@@ -207,21 +207,21 @@ public:
     /// true, read options data from registry
     /// false, save options data to registy
     /// </param>
-	virtual void PersistenceRegistryForAutoPublishDialog(const ACHAR* lpszRegRoot, bool bIsReadRegistry = true);
+  virtual void PersistenceRegistryForAutoPublishDialog(const ACHAR* lpszRegRoot, bool bIsReadRegistry = true);
     /// <summary>
     /// Public d'tor
     /// </summary>
-	virtual ~AcPublishUIReactor()
-	{
-	}
+  virtual ~AcPublishUIReactor()
+  {
+  }
 protected:
     /// <summary>
     /// Protected constructor; you must derive to instantiate one
     /// of these.
     /// </summary>
-	AcPublishUIReactor()
-	{
-	}
+  AcPublishUIReactor()
+  {
+  }
 };
 /*
 // Base class inlines for AcPublish UI events
@@ -266,23 +266,23 @@ public:
     /// <param name="bIsReadRegistry">
     /// true, read options data from registry
     /// false, save options data to registy
-	virtual void PersistenceRegistryForPubishOptionsDialog(const ACHAR* lpszRegRoot, bool bIsReadRegistry = true)
-	{
-	}
+  virtual void PersistenceRegistryForPubishOptionsDialog(const ACHAR* lpszRegRoot, bool bIsReadRegistry = true)
+  {
+  }
     /// <summary>
     /// Public d'tor
     /// </summary>
-	virtual ~AcPublishUIReactor2()
-	{
-	}
+  virtual ~AcPublishUIReactor2()
+  {
+  }
 protected:
     /// <summary>
     /// Protected constructor; you must derive to instantiate one
     /// of these.
     /// </summary>
-	AcPublishUIReactor2()
-	{
-	}
+  AcPublishUIReactor2()
+  {
+  }
 };
 // Global functions to add and remove reactors that clients call for 
 // AcPublish UI reactor notifications

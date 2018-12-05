@@ -49,47 +49,47 @@
 //            DIAM, if only the tolerance equalVector is set tighter than
 //            equalPoint/DIAM
 #ifndef AC_GETOL_H
-#	define AC_GETOL_H
-#	ifndef unix
-#		include <stdlib.h>
-#	endif
-#	include "gedll.h"
-#	include "gedblar.h"
-#	pragma  pack (push, 8)
+#  define AC_GETOL_H
+#  ifndef unix
+#    include <stdlib.h>
+#  endif
+#  include "gedll.h"
+#  include "gedblar.h"
+#  pragma  pack (push, 8)
 class GE_DLLEXPIMPORT AcGeTol
 {
 public:
-	AcGeTol();
+  AcGeTol();
     // Inquiry functions.
     //
-	double equalPoint() const;
-	double equalVector() const;
+  double equalPoint() const;
+  double equalVector() const;
     // Set functions.
     //
-	void setEqualPoint(double val);
-	void setEqualVector(double val);
+  void setEqualPoint(double val);
+  void setEqualVector(double val);
 private:
-	double mTolArr[5];
-	int mAbs;
-	friend class AcGeTolA;
+  double mTolArr[5];
+  int mAbs;
+  friend class AcGeTolA;
 };
 // Inlines for AcGeTol
 //
 inline void AcGeTol::setEqualVector(double val)
 {
-	mTolArr[1] = val;
+  mTolArr[1] = val;
 }
 inline double AcGeTol::equalVector() const
 {
-	return mTolArr[1];
+  return mTolArr[1];
 }
 inline void AcGeTol::setEqualPoint(double val)
 {
-	mTolArr[0] = val;
+  mTolArr[0] = val;
 }
 inline double AcGeTol::equalPoint() const
 {
-	return mTolArr[0];
+  return mTolArr[0];
 }
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

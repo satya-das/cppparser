@@ -20,7 +20,7 @@
 #include "dbmain.h"
 #pragma  warning( disable: 4275 4251 )
 #ifdef SCENEOE
-#	define DLLIMPEXP	__declspec(dllexport)
+#  define DLLIMPEXP	__declspec(dllexport)
 #else 
 //----- Note: we don't use __declspec(dllimport) here, because of the
 //----- "local vtable" problem with msvc. If you use __declspec(dllimport),
@@ -36,7 +36,7 @@
 //----- the ctor. And, since we expect the server dll to remain in
 //----- memory indefinitely, there is no problem with vtables unexpectedly
 //----- going away.
-#	define DLLIMPEXP
+#  define DLLIMPEXP
 #endif
 #include "AcGiLightTraits.h"
 #include "rxboiler.h"
@@ -56,30 +56,30 @@ class AcDbImpSun;
 class LIGHTDLLIMPEXP AcDbSun : public AcDbObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbSun);
+  ACRX_DECLARE_MEMBERS(AcDbSun);
 private:
-	static Adesk::UInt32 kCurrentVersionNumber;
+  static Adesk::UInt32 kCurrentVersionNumber;
 public:
     /// <summary>
     /// Constructor.
     /// </summary>
-	AcDbSun();
+  AcDbSun();
     /// <summary>
     /// Destructor.
     /// </summary>
-	~AcDbSun();
+  ~AcDbSun();
     // AcGiDrawable methods
-	virtual AcGiDrawable* drawable() override;
-	virtual DrawableType drawableType() const override
-	{
-		return AcGiDrawable::kDistantLight;
-	}
+  virtual AcGiDrawable* drawable() override;
+  virtual DrawableType drawableType() const override
+  {
+    return AcGiDrawable::kDistantLight;
+  }
     // AcDbObject methods
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-	virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
     /// <summary>
     /// Gets the Sun's on/off state.
     /// </summary>
@@ -87,7 +87,7 @@ public:
     /// <returns>
     /// True if the Sun status is on.
     /// </returns>
-	virtual bool isOn() const;
+  virtual bool isOn() const;
     /// <summary>
     /// Sets the Sun on/off status.
     /// </summary>
@@ -99,7 +99,7 @@ public:
     /// <returns>
     /// Acad::eOk if the operation is successful.
     /// </returns>
-	virtual Acad::ErrorStatus setOn(bool value);
+  virtual Acad::ErrorStatus setOn(bool value);
     /// <summary>
     /// Gets the Sun light intensity.
     /// </summary>
@@ -107,7 +107,7 @@ public:
     /// <returns>
     /// The intensity of the Sun's light.
     /// </returns>
-	virtual double intensity() const;
+  virtual double intensity() const;
     /// <summary>
     /// Sets the Sun's light intensity.
     /// </summary>
@@ -120,7 +120,7 @@ public:
     /// <returns>
     /// Acad::eOk if the operation is successful.
     /// </returns>
-	virtual Acad::ErrorStatus setIntensity(double intensity);
+  virtual Acad::ErrorStatus setIntensity(double intensity);
     /// <summary>
     /// Gets the color of the Sun's light.
     /// </summary>
@@ -128,7 +128,7 @@ public:
     /// <returns>
     /// The color of the Sun's light.
     /// </returns>
-	virtual const AcCmColor& sunColor() const;
+  virtual const AcCmColor& sunColor() const;
     /// <summary>
     /// Sets the color of the Sun's light.
     /// </summary>
@@ -140,7 +140,7 @@ public:
     /// <returns>
     /// Acad::eOk if the operation is successful.
     /// </returns>
-	virtual Acad::ErrorStatus setSunColor(const AcCmColor& color);
+  virtual Acad::ErrorStatus setSunColor(const AcCmColor& color);
     /// <summary>
     /// Gets the computed photometric color of the Sun from Sun Direction and Sky Parameters 
     /// </summary>
@@ -152,7 +152,7 @@ public:
     /// <returns>
     /// The color of the computed Sun's light.
     /// </returns>
-	virtual const AcGiColorRGB& sunColorPhotometric(const double multiplier);
+  virtual const AcGiColorRGB& sunColorPhotometric(const double multiplier);
     /// <summary>
     /// Gets the shadow parameters: shadow type, map size, edge softness, and on/off state.
     /// </summary>
@@ -165,7 +165,7 @@ public:
     /// <remarks>
     /// AutoCAD no longer makes active use of this property.
     /// </remarks>
-	virtual const AcGiShadowParameters& shadowParameters() const;
+  virtual const AcGiShadowParameters& shadowParameters() const;
     /// <summary>
     /// Sets the shadow parameters: shadow type, map size, edge softness, and on/off state.
     /// </summary>
@@ -177,7 +177,7 @@ public:
     /// <remarks>
     /// AutoCAD no longer makes active use of this property.
     /// </remarks>
-	virtual void setShadowParameters(const AcGiShadowParameters& params);
+  virtual void setShadowParameters(const AcGiShadowParameters& params);
     /// <summary>
     /// Sets the Date and Time for the Sun, which affects its position relative to the model.
     /// </summary>
@@ -194,7 +194,7 @@ public:
     /// Other parameters that affect the position of the sun: latitude, longitude, 
     /// north direction, and time zone.
     /// </remarks>
-	virtual Acad::ErrorStatus setDateTime(const AcDbDate& datetime);
+  virtual Acad::ErrorStatus setDateTime(const AcDbDate& datetime);
     /// <summary>
     /// Gets the Date and Time for the Sun, two of the factors affecting the position 
     /// of the sun relative to the model.
@@ -208,7 +208,7 @@ public:
     /// Other parameters that affect the position of the sun: latitude, longitude, 
     /// north direction, and time zone.
     /// </remarks>
-	virtual const AcDbDate& dateTime() const;
+  virtual const AcDbDate& dateTime() const;
     /// <summary>
     /// Turns on and off Daylight Saving Time. This affects the interpretation 
     /// of the Sun Time parameter.
@@ -221,7 +221,7 @@ public:
     /// <returns>
     /// Acad::eOk if the operation is successful.
     /// </returns>
-	virtual Acad::ErrorStatus setDayLightSavingsOn(bool value);
+  virtual Acad::ErrorStatus setDayLightSavingsOn(bool value);
     /// <summary>
     /// Gets the Daylight Saving Time on/off status.
     /// </summary>
@@ -229,23 +229,23 @@ public:
     /// <returns>
     /// True if Daylight Saving Time is On.
     /// </returns>
-	virtual bool isDayLightSavingsOn() const;
+  virtual bool isDayLightSavingsOn() const;
     /// <summary>
     /// For internal use only.
     /// </summary>
-	virtual Acad::ErrorStatus setAzimuth(double azimuth);
+  virtual Acad::ErrorStatus setAzimuth(double azimuth);
     /// <summary>
     /// For internal use only.
     /// </summary>
-	virtual double azimuth() const;
+  virtual double azimuth() const;
     /// <summary>
     /// For internal use only.
     /// </summary>
-	virtual Acad::ErrorStatus setAltitude(double altitude);
+  virtual Acad::ErrorStatus setAltitude(double altitude);
     /// <summary>
     /// For internal use only.
     /// </summary>
-	virtual double altitude() const;
+  virtual double altitude() const;
     /// <summary>
     /// Gets the direction (vector) of the sun's light rays.
     /// </summary>
@@ -253,11 +253,11 @@ public:
     /// <returns>
     /// The direction vector of sunlight, from the Sun to the model.
     /// </returns>
-	virtual const AcGeVector3d& sunDirection() const;
+  virtual const AcGeVector3d& sunDirection() const;
     /// <summary>
     /// For internal use only.
     /// </summary>
-	virtual void setSunDirection(const AcGeVector3d& sundir);
+  virtual void setSunDirection(const AcGeVector3d& sundir);
     /// <summary>
     /// Sets the sky parameters: render sky, multiplier, haze, horizon height,
     /// horizon blur, ground color, night color, aerial perspective on/off, 
@@ -275,7 +275,7 @@ public:
     /// information could not be set, or if any of the values passed in are
     /// invalid.
     /// </returns>
-	Acad::ErrorStatus setSkyParameters(const AcGiSkyParameters& params);
+  Acad::ErrorStatus setSkyParameters(const AcGiSkyParameters& params);
     /// <summary>
     /// Gets the sky parameters: render sky, multiplier, haze, horizon height,
     /// horizon blur, ground color, night color, aerial perspective on/off, 
@@ -292,10 +292,10 @@ public:
     /// Returns eOk on success. Returns an error if the sky parameter 
     /// information could not be retrieved.
     /// </returns>
-	Acad::ErrorStatus skyParameters(AcGiSkyParameters& params) const;
+  Acad::ErrorStatus skyParameters(AcGiSkyParameters& params) const;
 protected:
     // AcGiDrawable methods
-	virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 private:
-	AcDbImpSun* mpAcDbImpSun;
+  AcDbImpSun* mpAcDbImpSun;
 };

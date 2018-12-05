@@ -12,41 +12,41 @@
 //                access to AutoCAD Editor-specific services.
 //
 #ifndef _ACED_H
-#	define _ACED_H
-#	include "adesk.h"
-#	include "acadapidef.h"
-#	include "rxevent.h"
-#	include "ads.h"
-#	pragma  pack (push, 8)
+#  define _ACED_H
+#  include "adesk.h"
+#  include "acadapidef.h"
+#  include "rxevent.h"
+#  include "ads.h"
+#  pragma  pack (push, 8)
 struct IDispatch;
 class CAdUiPathname;
 /* Name of Registered Service Object for constructing AutoCAD-specific
    instances.
 */
-#	define ACED_SERVICES	ACRX_T("AcEdServices")
-#	define ACED_EDITOR_OBJ	ACRX_T("AcEditor")
+#  define ACED_SERVICES	ACRX_T("AcEdServices")
+#  define ACED_EDITOR_OBJ	ACRX_T("AcEditor")
 // The various modes for context menus.
 enum AcadContextMenuMode
 {
-	kDefault = 0,
-	kEdit,
-	kCommand,
-	kHotGrip,
-	kOsnap,
-#	ifdef _ADESK_MAC_
-	kCMPaperSpace,
-#	endif
+  kDefault = 0,
+  kEdit,
+  kCommand,
+  kHotGrip,
+  kOsnap,
+#  ifdef _ADESK_MAC_
+  kCMPaperSpace,
+#  endif
 };
-#	include "aced-xref.h"
+#  include "aced-xref.h"
 enum undoSubcommandActivities
 {
-	kNone = 0,
-	kOne = 1,
-	kAll = 2
+  kNone = 0,
+  kOne = 1,
+  kAll = 2
 };
-#	pragma  pack (pop)
-#	include "accmd.h"
-#	pragma  pack (push, 8)
+#  pragma  pack (pop)
+#  include "accmd.h"
+#  pragma  pack (push, 8)
 struct AcEdCommandStruc;
 class AcString;
 class AcRxVariable;
@@ -61,7 +61,7 @@ class AcEdImpSysVarIterator;
 ACAD_PORT bool acedCmdLookup2(const ACHAR* cmdStr, bool globalLookup, AcEdCommandStruc* retStruc, int sf = ACRX_CMD_DEFUN);
 inline bool acedCmdLookup(const ACHAR* cmdStr, bool globalLookup, AcEdCommandStruc* retStruc, bool skipUndef = false)
 {
-	return ::acedCmdLookup2(cmdStr, globalLookup, retStruc, skipUndef ? (ACRX_CMD_DEFUN | ACRX_CMD_UNDEFINED) : ACRX_CMD_DEFUN);
+  return ::acedCmdLookup2(cmdStr, globalLookup, retStruc, skipUndef ? (ACRX_CMD_DEFUN | ACRX_CMD_UNDEFINED) : ACRX_CMD_DEFUN);
 }
 /* Given a string representing a command name, looks throught stack of
  * registered command dictionaries and if found, changes the undefine
@@ -153,7 +153,7 @@ Adesk::Boolean acedSetColorDialog(int& nColor, Adesk::Boolean bAllowMetaColor, i
  * tabs: specifies which selection method tabs to display to the user
  */
 Adesk::Boolean acedSetColorDialogTrueColor(AcCmColor& color, Adesk::Boolean bAllowMetaColor, const AcCmColor& curLayerColor, AcCm::DialogTabs tabs = (AcCm::DialogTabs) (AcCm::kACITab | AcCm::kTrueColorTab | AcCm::kColorBookTab));
-#	if  defined(_ADESK_WINDOWS_)
+#  if  defined(_ADESK_WINDOWS_)
 // We don't needs these for the OSX/GCC port.
 /* Defines a callback prototype to be used with the callback version of the 
  * set color dialog.
@@ -172,7 +172,7 @@ typedef void (ADESK_STDCALL *AcEdColorDialogCallbackFunction) (void* pCallbackDa
  * pCallbackData: context data for the callback method
  */
 ACAD_PORT Adesk::Boolean acedSetColorDialogTrueColorWithCallback(AcCmColor& color, Adesk::Boolean bAllowMetaColor, const AcCmColor& curLayerColor, AcCm::DialogTabs tabs = (AcCm::DialogTabs) (AcCm::kACITab | AcCm::kTrueColorTab | AcCm::kColorBookTab), AcEdColorDialogCallbackFunction callback = NULL, void* pCallbackData = NULL);
-#	endif
+#  endif
 /* Prompt the user for a color on the command line. Return TRUE on OK else FALSE.
  * promptString : Part of the string for prompting the user for a true color.  It 
  *          mesh into the form of "promptString [Truecolor/COlorbook]<byLayer>: ".
@@ -269,196 +269,196 @@ void acedDisableDefaultARXExceptionHandler(Adesk::Boolean disable = Adesk::kTrue
 Acad::ErrorStatus acedVportTableRecords2Vports();
 Acad::ErrorStatus acedVports2VportTableRecords();
 Acad::ErrorStatus acedVPLayer(const AcDbObjectId& vpId, const AcDbObjectIdArray& layerIds, AcDb::VpFreezeOps operation);
-#	define acedServices	AcEdServices::cast(acrxServiceDictionary->at(ACED_SERVICES))
+#  define acedServices	AcEdServices::cast(acrxServiceDictionary->at(ACED_SERVICES))
 class AcEdCommand;
 class AcEdServices : public AcRxService
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcEdServices);
-	virtual AcEdCommand* newAcEdCommand(AcRxFunctionPtr cmdFcnAddr, Adesk::Int32 cmdFlags) const = 0;
+  ACRX_DECLARE_MEMBERS(AcEdServices);
+  virtual AcEdCommand* newAcEdCommand(AcRxFunctionPtr cmdFcnAddr, Adesk::Int32 cmdFlags) const = 0;
 };
 class AcDbDatabase;
 class AcEditorReactor : public AcRxEventReactor
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcEditorReactor);
-	AcEditorReactor()
-	{
-	}
+  ACRX_DECLARE_MEMBERS(AcEditorReactor);
+  AcEditorReactor()
+  {
+  }
     // Command Events
     //
-	virtual void unknownCommand(const ACHAR* cmdStr, AcDbVoidPtrArray* al);
-	virtual void commandWillStart(const ACHAR* cmdStr);
-	virtual void commandEnded(const ACHAR* cmdStr);
-	virtual void commandCancelled(const ACHAR* cmdStr);
-	virtual void commandFailed(const ACHAR* cmdStr);
+  virtual void unknownCommand(const ACHAR* cmdStr, AcDbVoidPtrArray* al);
+  virtual void commandWillStart(const ACHAR* cmdStr);
+  virtual void commandEnded(const ACHAR* cmdStr);
+  virtual void commandCancelled(const ACHAR* cmdStr);
+  virtual void commandFailed(const ACHAR* cmdStr);
     // Lisp Events
     //
-	virtual void lispWillStart(const ACHAR* firstLine);
-	virtual void lispEnded();
-	virtual void lispCancelled();
+  virtual void lispWillStart(const ACHAR* firstLine);
+  virtual void lispEnded();
+  virtual void lispCancelled();
     // DXF In/Out Events.
     //
-	virtual void beginDxfIn(AcDbDatabase*) override;
-	virtual void abortDxfIn(AcDbDatabase*) override;
-	virtual void dxfInComplete(AcDbDatabase*) override;
+  virtual void beginDxfIn(AcDbDatabase*) override;
+  virtual void abortDxfIn(AcDbDatabase*) override;
+  virtual void dxfInComplete(AcDbDatabase*) override;
     //
-	virtual void beginDxfOut(AcDbDatabase*) override;
-	virtual void abortDxfOut(AcDbDatabase*) override;
-	virtual void dxfOutComplete(AcDbDatabase*) override;
+  virtual void beginDxfOut(AcDbDatabase*) override;
+  virtual void abortDxfOut(AcDbDatabase*) override;
+  virtual void dxfOutComplete(AcDbDatabase*) override;
     // DWG Open Events.
     //
-	ADESK_DEPRECATED virtual void beginDwgOpen(ACHAR*) final
-	{
-	}
-	virtual void beginDwgOpen(const ACHAR*)
-	{
-	}
-	virtual void endDwgOpen(const ACHAR* filename, AcDbDatabase* pDb);
-	virtual void initialDwgFileOpenComplete(AcDbDatabase* pDwg) override;
+  ADESK_DEPRECATED virtual void beginDwgOpen(ACHAR*) final
+  {
+  }
+  virtual void beginDwgOpen(const ACHAR*)
+  {
+  }
+  virtual void endDwgOpen(const ACHAR* filename, AcDbDatabase* pDb);
+  virtual void initialDwgFileOpenComplete(AcDbDatabase* pDwg) override;
     // Notify about upgrade and downgrade open. Currently upublished
     // apis.
-	virtual void curDocOpenUpgraded(AcDbDatabase*, const CAdUiPathname&)
-	{
-	}
-	virtual void curDocOpenDowngraded(AcDbDatabase*, const CAdUiPathname&)
-	{
-	}
+  virtual void curDocOpenUpgraded(AcDbDatabase*, const CAdUiPathname&)
+  {
+  }
+  virtual void curDocOpenDowngraded(AcDbDatabase*, const CAdUiPathname&)
+  {
+  }
     // DWG/Save Events.
     //
-	virtual void databaseConstructed(AcDbDatabase*) override;
-	virtual void databaseToBeDestroyed(AcDbDatabase*) override;
-	virtual void beginSave(AcDbDatabase*, const ACHAR* pIntendedName) override;
-	virtual void saveComplete(AcDbDatabase*, const ACHAR* pActualName) override;
-	virtual void abortSave(AcDbDatabase*) override;
+  virtual void databaseConstructed(AcDbDatabase*) override;
+  virtual void databaseToBeDestroyed(AcDbDatabase*) override;
+  virtual void beginSave(AcDbDatabase*, const ACHAR* pIntendedName) override;
+  virtual void saveComplete(AcDbDatabase*, const ACHAR* pActualName) override;
+  virtual void abortSave(AcDbDatabase*) override;
     // Insert Events.
     //
-	virtual void beginInsert(AcDbDatabase* pTo, const ACHAR* pBlockName, AcDbDatabase* pFrom) override;
-	virtual void beginInsert(AcDbDatabase* pTo, const AcGeMatrix3d& xform, AcDbDatabase* pFrom) override;
-	virtual void otherInsert(AcDbDatabase* pTo, AcDbIdMapping& idMap, AcDbDatabase* pFrom) override;
-	virtual void abortInsert(AcDbDatabase* pTo) override;
-	virtual void endInsert(AcDbDatabase* pTo) override;
+  virtual void beginInsert(AcDbDatabase* pTo, const ACHAR* pBlockName, AcDbDatabase* pFrom) override;
+  virtual void beginInsert(AcDbDatabase* pTo, const AcGeMatrix3d& xform, AcDbDatabase* pFrom) override;
+  virtual void otherInsert(AcDbDatabase* pTo, AcDbIdMapping& idMap, AcDbDatabase* pFrom) override;
+  virtual void abortInsert(AcDbDatabase* pTo) override;
+  virtual void endInsert(AcDbDatabase* pTo) override;
     // Wblock Events.
     //
-	virtual void wblockNotice(AcDbDatabase* pDb) override;
-	virtual void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom, const AcGePoint3d*& insertionPoint) override;
-	virtual void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom, AcDbObjectId blockId) override;
-	virtual void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom) override;
-	virtual void otherWblock(AcDbDatabase* pTo, AcDbIdMapping&, AcDbDatabase* pFrom) override;
-	virtual void abortWblock(AcDbDatabase* pTo) override;
-	virtual void endWblock(AcDbDatabase* pTo) override;
+  virtual void wblockNotice(AcDbDatabase* pDb) override;
+  virtual void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom, const AcGePoint3d*& insertionPoint) override;
+  virtual void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom, AcDbObjectId blockId) override;
+  virtual void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom) override;
+  virtual void otherWblock(AcDbDatabase* pTo, AcDbIdMapping&, AcDbDatabase* pFrom) override;
+  virtual void abortWblock(AcDbDatabase* pTo) override;
+  virtual void endWblock(AcDbDatabase* pTo) override;
     // Deep Clone Events.
     //
-	virtual void beginDeepClone(AcDbDatabase* pTo, AcDbIdMapping&) override;
-	virtual void beginDeepCloneXlation(AcDbIdMapping&, Acad::ErrorStatus*) override;
-	virtual void abortDeepClone(AcDbIdMapping&) override;
-	virtual void endDeepClone(AcDbIdMapping&) override;
+  virtual void beginDeepClone(AcDbDatabase* pTo, AcDbIdMapping&) override;
+  virtual void beginDeepCloneXlation(AcDbIdMapping&, Acad::ErrorStatus*) override;
+  virtual void abortDeepClone(AcDbIdMapping&) override;
+  virtual void endDeepClone(AcDbIdMapping&) override;
     // Sys Var Events.
     //
-	virtual void sysVarChanged(const ACHAR* varName, Adesk::Boolean success);
+  virtual void sysVarChanged(const ACHAR* varName, Adesk::Boolean success);
     // The final overloads is only to catch mis-declared overrides and are not actually used
-	virtual void sysVarChanged(const ACHAR*, int) final
-	{
-	}
-	virtual void sysVarWillChange(const ACHAR* varName);
+  virtual void sysVarChanged(const ACHAR*, int) final
+  {
+  }
+  virtual void sysVarWillChange(const ACHAR* varName);
     // XREF-related Events
     //
-	virtual void beginAttach(AcDbDatabase* pTo, const ACHAR*, AcDbDatabase* pFrom) override;
-	virtual void otherAttach(AcDbDatabase* pTo, AcDbDatabase* pFrom) override;
-	virtual void abortAttach(AcDbDatabase* pFrom) override;
-	virtual void endAttach(AcDbDatabase* pTo) override;
-	virtual void redirected(AcDbObjectId newId, AcDbObjectId oldId) override;
-	virtual void comandeered(AcDbDatabase* pTo, AcDbObjectId id, AcDbDatabase* pFrom) override;
-	virtual void beginRestore(AcDbDatabase* pTo, const ACHAR*, AcDbDatabase* pFrom) override;
-	virtual void abortRestore(AcDbDatabase* pTo) override;
-	virtual void endRestore(AcDbDatabase* pTo) override;
+  virtual void beginAttach(AcDbDatabase* pTo, const ACHAR*, AcDbDatabase* pFrom) override;
+  virtual void otherAttach(AcDbDatabase* pTo, AcDbDatabase* pFrom) override;
+  virtual void abortAttach(AcDbDatabase* pFrom) override;
+  virtual void endAttach(AcDbDatabase* pTo) override;
+  virtual void redirected(AcDbObjectId newId, AcDbObjectId oldId) override;
+  virtual void comandeered(AcDbDatabase* pTo, AcDbObjectId id, AcDbDatabase* pFrom) override;
+  virtual void beginRestore(AcDbDatabase* pTo, const ACHAR*, AcDbDatabase* pFrom) override;
+  virtual void abortRestore(AcDbDatabase* pTo) override;
+  virtual void endRestore(AcDbDatabase* pTo) override;
     // More XREF related Events
     // 
-	virtual void xrefSubcommandBindItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
-	virtual void xrefSubcommandAttachItem(AcDbDatabase* pHost, int activity, const ACHAR* pPath) override;
-	virtual void xrefSubcommandOverlayItem(AcDbDatabase* pHost, int activity, const ACHAR* pPath) override;
-	virtual void xrefSubcommandDetachItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
-	virtual void xrefSubcommandPathItem(int activity, AcDbObjectId blockId, const ACHAR* pNewPath) override;
-	virtual void xrefSubcommandReloadItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
-	virtual void xrefSubcommandUnloadItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
+  virtual void xrefSubcommandBindItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
+  virtual void xrefSubcommandAttachItem(AcDbDatabase* pHost, int activity, const ACHAR* pPath) override;
+  virtual void xrefSubcommandOverlayItem(AcDbDatabase* pHost, int activity, const ACHAR* pPath) override;
+  virtual void xrefSubcommandDetachItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
+  virtual void xrefSubcommandPathItem(int activity, AcDbObjectId blockId, const ACHAR* pNewPath) override;
+  virtual void xrefSubcommandReloadItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
+  virtual void xrefSubcommandUnloadItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
     // UNDO Events 
     //
-	virtual void undoSubcommandAuto(int activity, Adesk::Boolean state);
-	virtual void undoSubcommandAuto(int, int) final
-	{
-	}
-	virtual void undoSubcommandControl(int activity, int option);
-	virtual void undoSubcommandBegin(int activity);
-	virtual void undoSubcommandEnd(int activity);
-	virtual void undoSubcommandMark(int activity);
-	virtual void undoSubcommandBack(int activity);
-	virtual void undoSubcommandNumber(int activity, int num);
-	virtual void pickfirstModified();
-	virtual void layoutSwitched(const ACHAR* newLayoutName);
+  virtual void undoSubcommandAuto(int activity, Adesk::Boolean state);
+  virtual void undoSubcommandAuto(int, int) final
+  {
+  }
+  virtual void undoSubcommandControl(int activity, int option);
+  virtual void undoSubcommandBegin(int activity);
+  virtual void undoSubcommandEnd(int activity);
+  virtual void undoSubcommandMark(int activity);
+  virtual void undoSubcommandBack(int activity);
+  virtual void undoSubcommandNumber(int activity, int num);
+  virtual void pickfirstModified();
+  virtual void layoutSwitched(const ACHAR* newLayoutName);
     // Layout switch is about to occur
-	virtual void layoutToBeSwitched(const ACHAR*, const ACHAR*)
-	{
-	}
+  virtual void layoutToBeSwitched(const ACHAR*, const ACHAR*)
+  {
+  }
     // Drawing area has moved or resized
-	virtual void dwgViewResized(Adesk::LongPtr)
-	{
-	}
+  virtual void dwgViewResized(Adesk::LongPtr)
+  {
+  }
     // (Unpublished) triggered at the end of drsubs.cpp, fullregen()
-	virtual void fullRegenEnded(AcDbDatabase*, const AcDbIntArray&)
-	{
-	}
+  virtual void fullRegenEnded(AcDbDatabase*, const AcDbIntArray&)
+  {
+  }
     //window messages
-	virtual void docFrameMovedOrResized(Adesk::LongPtr hwndDocFrame, bool bMoved);
-	virtual void mainFrameMovedOrResized(Adesk::LongPtr hwndMainFrame, bool bMoved);
+  virtual void docFrameMovedOrResized(Adesk::LongPtr hwndDocFrame, bool bMoved);
+  virtual void mainFrameMovedOrResized(Adesk::LongPtr hwndMainFrame, bool bMoved);
     //Mouse events
-	virtual void beginDoubleClick(const AcGePoint3d& clickPoint);
-	virtual void beginRightClick(const AcGePoint3d& clickPoint);
+  virtual void beginDoubleClick(const AcGePoint3d& clickPoint);
+  virtual void beginRightClick(const AcGePoint3d& clickPoint);
     // Toolbar Size changes
-	virtual void toolbarBitmapSizeWillChange(Adesk::Boolean bLarge);
-	virtual void toolbarBitmapSizeChanged(Adesk::Boolean bLarge);
-	virtual void toolbarBitmapSizeWillChange(int) final
-	{
-	}
-	virtual void toolbarBitmapSizeChanged(int) final
-	{
-	}
+  virtual void toolbarBitmapSizeWillChange(Adesk::Boolean bLarge);
+  virtual void toolbarBitmapSizeChanged(Adesk::Boolean bLarge);
+  virtual void toolbarBitmapSizeWillChange(int) final
+  {
+  }
+  virtual void toolbarBitmapSizeChanged(int) final
+  {
+  }
     // WblockObjects - begin new pFrom database
-	virtual void beginWblockObjects(AcDbDatabase* pFrom, AcDbIdMapping&) override;
+  virtual void beginWblockObjects(AcDbDatabase* pFrom, AcDbIdMapping&) override;
     // Partial Open Events
     //
-	virtual void partialOpenNotice(AcDbDatabase* pDb) override;
-	virtual void objectsLazyLoaded(const AcDbObjectIdArray& idArray);
+  virtual void partialOpenNotice(AcDbDatabase* pDb) override;
+  virtual void objectsLazyLoaded(const AcDbObjectIdArray& idArray);
     // Close and Quit Events.
     //
     // One can call veto() during this notifcation to stop
     // AutoCAD from shutting down the document
     // The AcDbDatabase * arg may be null if the doc hasn't been fully opened yet
-	virtual void beginDocClose(AcDbDatabase*)
-	{
-	}
+  virtual void beginDocClose(AcDbDatabase*)
+  {
+  }
     // docCloseAborted is fired to all reactors that received
     // the beginDocClose event when the last reactor vetos the close
-	virtual void docCloseAborted(AcDbDatabase*)
-	{
-	}
+  virtual void docCloseAborted(AcDbDatabase*)
+  {
+  }
     // This notification is fired when the legacy beginClose event used to be fired,
     // after the beginDocClose() notifications
     // The AcDbDatabase * arg may be null if the doc hasn't been fully opened yet
-	virtual void docCloseWillStart(AcDbDatabase*)
-	{
-	}
+  virtual void docCloseWillStart(AcDbDatabase*)
+  {
+  }
     // This method is no longer called and will be removed in a future release.
     // Please use docCloseWillStart() instead
-	ADESK_DEPRECATED virtual void beginClose(AcDbDatabase*) final;
-	virtual void beginCloseAll()
-	{
-	}
-	virtual void beginQuit();
-	virtual void quitAborted();
-	virtual void quitWillStart();
-	virtual void modelessOperationWillStart(const ACHAR* contextStr);
-	virtual void modelessOperationEnded(const ACHAR* contextStr);
-	virtual void cmdIUnkModified(const ACHAR* strCommand);
+  ADESK_DEPRECATED virtual void beginClose(AcDbDatabase*) final;
+  virtual void beginCloseAll()
+  {
+  }
+  virtual void beginQuit();
+  virtual void quitAborted();
+  virtual void quitWillStart();
+  virtual void modelessOperationWillStart(const ACHAR* contextStr);
+  virtual void modelessOperationEnded(const ACHAR* contextStr);
+  virtual void cmdIUnkModified(const ACHAR* strCommand);
     /// <summary>
     ///
     ///  Sends notification on the start of an xref subcommand. The xref
@@ -518,7 +518,7 @@ public:
     ///  in case the subcommand already has the Block Table Record open.
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus xrefSubCommandStart(AcXrefSubCommand subcmd, const AcDbObjectIdArray& btrIds, const ACHAR* const * btrNames, const ACHAR* const * paths);
+  virtual Acad::ErrorStatus xrefSubCommandStart(AcXrefSubCommand subcmd, const AcDbObjectIdArray& btrIds, const ACHAR* const * btrNames, const ACHAR* const * paths);
     /// <summary>
     /// Notification just before an Xref is locked via 
     /// AcEdXrefFileLock::lockFile().
@@ -528,38 +528,38 @@ public:
     /// The xref block table record id that is to be locked.
     /// </param>
     ///
-	virtual void preXrefLockFile(AcDbObjectId btrId);
-	virtual void viewChanged();
-	virtual void fullRegenWillStart(AcDbDatabase*)
-	{
-	}
+  virtual void preXrefLockFile(AcDbObjectId btrId);
+  virtual void viewChanged();
+  virtual void fullRegenWillStart(AcDbDatabase*)
+  {
+  }
 protected:
-	Acad::ErrorStatus veto();
+  Acad::ErrorStatus veto();
 private:
-	Adesk::UInt8 mVeto = 0;
-	friend class AcEditorImp;
+  Adesk::UInt8 mVeto = 0;
+  friend class AcEditorImp;
 };
 // These names are retired. Please use AcEditorReactor instead
-#	define AcEditorReactor2	AcEditorReactor
-#	define AcEditorReactor3	AcEditorReactor
-#	define acedEditor	AcEditor::cast(acrxSysRegistry()->at(ACED_EDITOR_OBJ))
+#  define AcEditorReactor2	AcEditorReactor
+#  define AcEditorReactor3	AcEditorReactor
+#  define acedEditor	AcEditor::cast(acrxSysRegistry()->at(ACED_EDITOR_OBJ))
 class AcEditor : public AcRxEvent
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcEditor);
-	virtual void addReactor(AcRxEventReactor* newObj) = 0;
-	virtual void removeReactor(AcRxEventReactor* delObj) = 0;
+  ACRX_DECLARE_MEMBERS(AcEditor);
+  virtual void addReactor(AcRxEventReactor* newObj) = 0;
+  virtual void removeReactor(AcRxEventReactor* delObj) = 0;
 };
 class AcEdUIContext : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcEdUIContext);
+  ACRX_DECLARE_MEMBERS(AcEdUIContext);
     // Returns a pointer to an HMENU value.
-	virtual void* getMenuContext(const AcRxClass*, const AcDbObjectIdArray&) = 0;
+  virtual void* getMenuContext(const AcRxClass*, const AcDbObjectIdArray&) = 0;
     // Returns a pointer to an HMENU value.
-	virtual void* getMenuContext(const AcRxClass*, const AcDbObjectIdArray&, const AcArray<AcDbFullSubentPathArray, AcArrayObjectCopyReallocator<AcDbFullSubentPathArray> >& subentIds);
-	virtual void onCommand(Adesk::UInt32) = 0;
-	virtual void OnUpdateMenu();
+  virtual void* getMenuContext(const AcRxClass*, const AcDbObjectIdArray&, const AcArray<AcDbFullSubentPathArray, AcArrayObjectCopyReallocator<AcDbFullSubentPathArray> >& subentIds);
+  virtual void onCommand(Adesk::UInt32) = 0;
+  virtual void OnUpdateMenu();
 };
 Adesk::Boolean acedAddObjectContextMenu(AcRxClass* pClass, AcEdUIContext* pContext, const void* appId);
 Adesk::Boolean acedRemoveObjectContextMenu(AcRxClass* pClass, AcEdUIContext* pContext);
@@ -597,12 +597,12 @@ void acedEditToleranceInteractive(AcDbFcf* pTol);
 int acedEditMTextInteractive(AcDbMText* pMText, bool useNewUI = false, bool allowTabs = false);
 enum DimstyleTabSuppressed
 {
-	kSymbolsArrowsTabSuppressed = 0x01,
-	kTextTabSuppressed = 0x02,
-	kFitTabSuppressed = 0x04,
-	kPrimaryTabSuppressed = 0x08,
-	kAlternateTabSuppressed = 0x10,
-	kToleranceTabSuppressed = 0x20
+  kSymbolsArrowsTabSuppressed = 0x01,
+  kTextTabSuppressed = 0x02,
+  kFitTabSuppressed = 0x04,
+  kPrimaryTabSuppressed = 0x08,
+  kAlternateTabSuppressed = 0x10,
+  kToleranceTabSuppressed = 0x20
 };
 int acedEditDimstyleInteractiveEx(AcDbDatabase* pDb, AcDbDimStyleTableRecord* pRec, int familyType, const ACHAR* title = NULL, int tabCtrlFlags = 0);
 //  AutoCAD color to RGB conversion function
@@ -627,7 +627,7 @@ Acad::ErrorStatus acedGetFullSubentPathsForCurrentSelection(const AcDbObjectId& 
 class AcDbHatch;
 class AcDbEntity;
 // AutoCAD's IDispatch pointer
-#	define acedGetIDispatch	AcadGetIDispatch
+#  define acedGetIDispatch	AcadGetIDispatch
 IDispatch* acedGetIDispatch(bool bAddRef);
 // Get the current viewport id.  Returns null id if no vports open.
 // The id returned will refer to a viewport entity (AcDbViewport) if
@@ -663,16 +663,16 @@ AcDbObjectId acedGetCurViewportObjectId();
 // can later call pEnt->handOverTo() to exchange the new AcDbHatch for pEnt in 
 // the database, but the associativity cannot be re-established.
 Acad::ErrorStatus acedConvertEntityToHatch(AcDbHatch* pHatch, AcDbEntity*& pEnt, bool transferId);
-#	include "aced-hatch.h"
+#  include "aced-hatch.h"
 Acad::ErrorStatus acedManageHatchEditorReactor(AcDbObjectId hatchId, AcHatchEdReact action, AcDbObjectId boundaryId = AcDbObjectId::kNull, AcHatchNotifier notifyType = kNobody, bool transformed = false);
 // DrawOrder Inheritance command type
 enum AcEdDrawOrderCmdType
 {
-	kDrawOrderNone = 0,
-	kDrawOrderBottom,
-	kDrawOrderTop,
-	kDrawOrderBelow,
-	kDrawOrderAbove
+  kDrawOrderNone = 0,
+  kDrawOrderBottom,
+  kDrawOrderTop,
+  kDrawOrderBelow,
+  kDrawOrderAbove
 };
 // acedDrawOrderInherit() is called to set DrawOrder on the new childArray object(s).
 // It should be called after the childArray objects are added to the space/db, but before
@@ -717,9 +717,9 @@ ACAD_PORT Acad::ErrorStatus acedGetUnitsValueString(AcDb::UnitsValue units, AcSt
 // Deprecated. Please use the above overload instead
 inline const AcString* acedGetUnitsValueString(AcDb::UnitsValue units)
 {
-	static AcString sRetVal;
-	::acedGetUnitsValueString(units, sRetVal);
-	return &sRetVal;
+  static AcString sRetVal;
+  ::acedGetUnitsValueString(units, sRetVal);
+  return &sRetVal;
 }
 /// <summary>
 /// This function computes the conversion factor that blocks and xrefs 
@@ -751,10 +751,10 @@ bool acedIsUsrbrkDisabled();
 bool acedIsInBackgroundMode();
 enum BlockEditModeFlags
 {
-	kBlkEditModeNone = 0x0,
-	kBlkEditModeActive = 0x01,
-	kBlkEditModeOpen = 0x02,
-	kBlkEditModeDirty = 0x04
+  kBlkEditModeNone = 0x0,
+  kBlkEditModeActive = 0x01,
+  kBlkEditModeOpen = 0x02,
+  kBlkEditModeDirty = 0x04
 };
 unsigned int acedGetBlockEditMode();
 void acedOpenDocWindowsMinimized(bool bMinimized);
@@ -837,14 +837,14 @@ ACAD_PORT bool acedScaleImageWithGDIPlus(const AcGiImageBGRA32* pSrcImg, const A
 class AcEdSysVarIterator
 {
 public:
-	ACAD_PORT AcEdSysVarIterator();
-	ACAD_PORT ~AcEdSysVarIterator();
-	ACAD_PORT void step();
-	ACAD_PORT const AcRxVariable* getSysVar();
-	ACAD_PORT void reset();
-	ACAD_PORT bool done() const;
+  ACAD_PORT AcEdSysVarIterator();
+  ACAD_PORT ~AcEdSysVarIterator();
+  ACAD_PORT void step();
+  ACAD_PORT const AcRxVariable* getSysVar();
+  ACAD_PORT void reset();
+  ACAD_PORT bool done() const;
 private:
-	AcEdImpSysVarIterator* m_pImp = nullptr;
+  AcEdImpSysVarIterator* m_pImp = nullptr;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

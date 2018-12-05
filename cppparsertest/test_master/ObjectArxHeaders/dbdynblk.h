@@ -45,33 +45,33 @@ public:
     /// Describes the units (if any) of the property. Clients may use this
     /// information to format the property in their user interface. 
     /// </summary>
-	enum UnitsType
-	{
+  enum UnitsType
+  {
         /// <summary>
         /// No units defined.
         /// </summary>
-		kNoUnits = 0,
+    kNoUnits = 0,
         /// <summary>
         /// Property represents and angle between two vectors.
         /// </summary>
-		kAngular,
+    kAngular,
         /// <summary>
         /// Property represents a distance between two points.
         /// </summary>
-		kDistance,
+    kDistance,
         /// <summary>
         /// Property represents a two-dimensional area.
         /// </summary>
-		kArea
-	};
+    kArea
+  };
     /// <summary>
     /// Default constructor.
     /// </summary>
-	AcDbDynBlockReferenceProperty();
+  AcDbDynBlockReferenceProperty();
     /// <summary>
     /// Destructor.
     /// </summary>
-	virtual ~AcDbDynBlockReferenceProperty();
+  virtual ~AcDbDynBlockReferenceProperty();
     /// <summary>
     /// Copy constructor.
     /// </summary>
@@ -79,7 +79,7 @@ public:
     /// <param name="other">
     /// The dynamic block property to construct a copy of.
     /// </param>
-	AcDbDynBlockReferenceProperty(const AcDbDynBlockReferenceProperty& other);
+  AcDbDynBlockReferenceProperty(const AcDbDynBlockReferenceProperty& other);
     /// <summary>
     /// Assignment operator.
     /// </summary>
@@ -94,7 +94,7 @@ public:
     /// property on a dynamic block instance. The actual property value is not
     /// changed. 
     /// </remarks>
-	AcDbDynBlockReferenceProperty& operator=(const AcDbDynBlockReferenceProperty& other);
+  AcDbDynBlockReferenceProperty& operator=(const AcDbDynBlockReferenceProperty& other);
     /// <summary>
     /// The AcDbObjectId of the dynamic block reference containing the property.
     /// </summary>
@@ -103,7 +103,7 @@ public:
     /// Returns the AcDbObjectId of the dynamic block reference containing the
     /// property represented by the AcDbDynBlockReferenceProperty.
     /// </returns>
-	AcDbObjectId blockId() const;
+  AcDbObjectId blockId() const;
     /// <summary>
     /// The property name.
     /// </summary>
@@ -116,7 +116,7 @@ public:
     /// Property names are guaranteed to be unique amongst all properties on a
     /// given block reference. 
     /// </remarks>
-	AcString propertyName() const;
+  AcString propertyName() const;
     /// <summary>
     /// The property type.
     /// </summary>
@@ -124,7 +124,7 @@ public:
     /// <returns>
     /// The value type of the property.
     /// </returns>
-	AcDb::DwgDataType propertyType() const;
+  AcDb::DwgDataType propertyType() const;
     /// <summary>
     /// Whether the property is read-only.
     /// </summary>
@@ -133,7 +133,7 @@ public:
     /// Returns true if the property value can be changed by calls to
     /// <c>setValue()</c>.
     /// </returns>
-	bool readOnly() const;
+  bool readOnly() const;
     /// <summary>
     /// Whether the property is displayed by Property Palette when the block
     /// reference containing the property is selected.
@@ -143,7 +143,7 @@ public:
     /// Returns true if the property is displayed by Property Palette when the
     /// block reference containing the property is selected. 
     /// </returns>
-	bool show() const;
+  bool show() const;
     /// <summary>
     /// Whether the property is visible in the current visibility state.
     /// </summary>
@@ -151,7 +151,7 @@ public:
     /// <returns>
     /// Returns true if the property is visible in the current visibility state. 
     /// </returns>
-	bool ACDB_PORT visibleInCurrentVisibilityState() const;
+  bool ACDB_PORT visibleInCurrentVisibilityState() const;
     /// <summary>
     /// The property description.
     /// </summary>
@@ -159,7 +159,7 @@ public:
     /// <returns>
     /// An property description as an AcString object.
     /// </returns>
-	AcString description() const;
+  AcString description() const;
     /// <summary>
     /// The units of the property.
     /// </summary>
@@ -172,7 +172,7 @@ public:
     /// Clients may use this information to format the property consistently in
     /// their user interface.
     /// </remarks>
-	UnitsType unitsType() const;
+  UnitsType unitsType() const;
     /// <summary>
     /// Returns the allowed values for the property.
     /// </summary>
@@ -194,7 +194,7 @@ public:
     /// allowed property values are defined by a list. Mimimum, maximum, and
     /// unrestricted property types are not supported by this method.
     /// </remarks>
-	Acad::ErrorStatus getAllowedValues(AcDbEvalVariantArray& values);
+  Acad::ErrorStatus getAllowedValues(AcDbEvalVariantArray& values);
     /// <summary>
     /// The current value of the property on the block.
     /// </summary>
@@ -202,7 +202,7 @@ public:
     /// <returns>
     /// Returns the current value of the property as an AcDbEvalVariant.
     /// </returns>
-	AcDbEvalVariant value() const;
+  AcDbEvalVariant value() const;
     /// <summary>
     /// Sets the current value of the property on the block.
     /// </summary>
@@ -222,15 +222,15 @@ public:
     /// list or is out of range. In this case the method succeeds but no error
     /// is returned. 
     /// </remarks>
-	Acad::ErrorStatus setValue(const AcDbEvalVariant& value);
+  Acad::ErrorStatus setValue(const AcDbEvalVariant& value);
     /// <summary>
     /// Compare whether these two properties belongs to the same block reference
     /// </summary>
-	bool operator==(const AcDbDynBlockReferenceProperty& other);
+  bool operator==(const AcDbDynBlockReferenceProperty& other);
 private:
-	AcDbImpDynBlockReferenceProperty* mpImp;
-	friend class AcDbImpDynBlockReferenceProperty;
-	friend class AcDbImpDynBlockReference;
+  AcDbImpDynBlockReferenceProperty* mpImp;
+  friend class AcDbImpDynBlockReferenceProperty;
+  friend class AcDbImpDynBlockReference;
 };
 typedef AcArray<AcDbDynBlockReferenceProperty, AcArrayObjectCopyReallocator<AcDbDynBlockReferenceProperty> > AcDbDynBlockReferencePropertyArray;
 /// <summary>
@@ -249,7 +249,7 @@ public:
     /// The AcDbObjectId of the AcDbBlockReference to get dynamic block
     /// information from.
     /// </param>
-	AcDbDynBlockReference(AcDbObjectId blockRefId);
+  AcDbDynBlockReference(AcDbObjectId blockRefId);
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -262,11 +262,11 @@ public:
     /// <remarks>
     /// For internal use only.
     /// </remarks>
-	AcDbDynBlockReference(AcDbBlockReference* pRef);
+  AcDbDynBlockReference(AcDbBlockReference* pRef);
     /// <summary>
     /// Destructor.
     /// </summary>
-	virtual ~AcDbDynBlockReference();
+  virtual ~AcDbDynBlockReference();
     /// <summary>
     /// Static method for determining whether an AcDbBlockTableRecord contains
     /// dynamic block information.
@@ -280,7 +280,7 @@ public:
     /// Returns true if <paramref name="blockTableRecordId"/> is an
     /// AcDbBlockTableRecord and contains dynamic block information.
     /// </returns>
-	static bool isDynamicBlock(AcDbObjectId blockTableRecordId);
+  static bool isDynamicBlock(AcDbObjectId blockTableRecordId);
     /// <summary>
     /// Determines whether the AcDbBlockReference passed to the class
     /// constructor contains dynamic block information.
@@ -290,7 +290,7 @@ public:
     /// Returns true if the AcDbBlockReference passed to the class constructor
     /// contains dynamic block information. 
     /// </returns>
-	bool isDynamicBlock() const;
+  bool isDynamicBlock() const;
     /// <summary> 
     /// The AcDbObjectId of the block reference.
     /// </summary>
@@ -298,7 +298,7 @@ public:
     /// <returns>
     /// Returns the AcDbObjectId of the block reference.
     /// </returns>
-	AcDbObjectId blockId() const;
+  AcDbObjectId blockId() const;
     /// <summary>
     /// Returns a collection of AcDbDynBlockReferenceProperty instances
     /// referencing dynamic block properties on the AcDbBlockReference.
@@ -312,7 +312,7 @@ public:
     /// If the AcDbBlockReference contains no dynamic property information the
     /// returned array is empty.
     /// </remarks>
-	void getBlockProperties(AcDbDynBlockReferencePropertyArray& properties) const;
+  void getBlockProperties(AcDbDynBlockReferencePropertyArray& properties) const;
     /// <summary>
     /// Resets the AcDbBlockReference to the default state of the dynamic
     /// block.
@@ -326,7 +326,7 @@ public:
     /// All properties on the AcDbBlockReference are set to match the values in
     /// the block definition.  
     /// </remarks>
-	Acad::ErrorStatus resetBlock();
+  Acad::ErrorStatus resetBlock();
     /// <summary>
     /// Converts the dynamic block instance to a legacy (non-dynamic) 
     /// anonymous block.
@@ -341,7 +341,7 @@ public:
     /// properties at their current values and ceases to become a dynamic
     /// block. It becomes an anonymous block for all purposes.
     /// </remarks>
-	Acad::ErrorStatus convertToStaticBlock();
+  Acad::ErrorStatus convertToStaticBlock();
     /// <summary>
     /// Converts the dynamic block instance to a legacy (non-dynamic) block.
     /// </summary>
@@ -362,7 +362,7 @@ public:
     /// drawing and must satisfy all of the naming restrictions of normal block
     /// references.
     /// </remarks>
-	Acad::ErrorStatus convertToStaticBlock(const AcString& newBlockName);
+  Acad::ErrorStatus convertToStaticBlock(const AcString& newBlockName);
     /// <summary>
     /// The dynamic block definition.
     /// </summary>
@@ -372,7 +372,7 @@ public:
     /// AcDbBlockTableRecord) if the block reference is a dynamic block,
     /// otherwise it returns AcDbObjectId::kNull.
     /// </returns>
-	AcDbObjectId dynamicBlockTableRecord() const;
+  AcDbObjectId dynamicBlockTableRecord() const;
     /// <summary>
     /// The anonymous block definition used to draw the dynamic block.
     /// </summary>
@@ -391,10 +391,10 @@ public:
     /// should not be modified by client applications directly. 
     /// </remarks>
     ///
-	AcDbObjectId anonymousBlockTableRecord() const;
+  AcDbObjectId anonymousBlockTableRecord() const;
 private:
-	AcDbDynBlockReference();
-	AcDbImpDynBlockReference* mpImp;
+  AcDbDynBlockReference();
+  AcDbImpDynBlockReference* mpImp;
 };
 /// <summary>
 /// A utility class for accessing information about dynamic block definitions
@@ -412,11 +412,11 @@ public:
     /// The AcDbObjectId of the AcDbBlockTableRecord to get dynamic block
     /// information from.
     /// </param>
-	ACDB_PORT AcDbDynBlockTableRecord(AcDbObjectId blockTableRecordId);
+  ACDB_PORT AcDbDynBlockTableRecord(AcDbObjectId blockTableRecordId);
     /// <summary>
     /// Destructor.
     /// </summary>
-	ACDB_PORT virtual ~AcDbDynBlockTableRecord();
+  ACDB_PORT virtual ~AcDbDynBlockTableRecord();
     /// <summary>
     /// Determines whether the AcDbBlockTableRecord passed to the class
     /// constructor contains dynamic block information.
@@ -426,7 +426,7 @@ public:
     /// Returns true if the AcDbBlockTableRecord passed to the class constructor
     /// contains dynamic block information. 
     /// </returns>
-	ACDB_PORT bool isDynamicBlock() const;
+  ACDB_PORT bool isDynamicBlock() const;
     /// <summary> 
     /// The AcDbObjectId of the block table record.
     /// </summary>
@@ -434,7 +434,7 @@ public:
     /// <returns>
     /// Returns the AcDbObjectId of the block table record. 
     /// </returns>
-	ACDB_PORT AcDbObjectId blockTableRecordId() const;
+  ACDB_PORT AcDbObjectId blockTableRecordId() const;
     /// <summary> 
     /// Obtains the list of anonymous blocks created from the dynamic block
     /// definition.
@@ -454,7 +454,7 @@ public:
     /// contents of a dynamic block definition when a reference to the
     /// definition needs a modified copy of the block geometry. 
     /// </remarks>
-	ACDB_PORT Acad::ErrorStatus getAnonymousBlockIds(AcDbObjectIdArray& anonymousIds) const;
+  ACDB_PORT Acad::ErrorStatus getAnonymousBlockIds(AcDbObjectIdArray& anonymousIds) const;
     /// <summary>
     /// Updates the anonymous blocks created from this dynamic block definition
     /// to reflect any changes made to the dynamic block definition. 
@@ -474,9 +474,9 @@ public:
     /// that no longer exist. When complete all references to the dynamic block
     /// reflect the new state of the block definition. 
     /// </remarks>
-	ACDB_PORT Acad::ErrorStatus updateAnonymousBlocks() const;
+  ACDB_PORT Acad::ErrorStatus updateAnonymousBlocks() const;
 private:
-	AcDbDynBlockTableRecord();
-	AcDbImpDynBlockTableRecord* mpImp;
+  AcDbDynBlockTableRecord();
+  AcDbImpDynBlockTableRecord* mpImp;
 };
 #pragma  pack (pop)

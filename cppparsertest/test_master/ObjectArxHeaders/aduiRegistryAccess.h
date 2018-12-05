@@ -8,99 +8,99 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _aduiRegistryAccess_h
-#	define _aduiRegistryAccess_h
-#	pragma  pack (push, 8)
-#	if  _MSC_VER >= 1000
-#		pragma  once
-#	endif
+#  define _aduiRegistryAccess_h
+#  pragma  pack (push, 8)
+#  if  _MSC_VER >= 1000
+#    pragma  once
+#  endif
 // This file is also built as part of accore.dll separately from the rest of
 // AdUi.  To do so, we can only use a part of MFC, so a little tweaking is
 // needed.
 // 
-#	ifdef ACUTIL_INTERNAL
-#		include "fake_windows_accore.h"
-#		ifdef ADUI_PORT
-#			undef ADUI_PORT
-#		endif
-#		ifdef ACCORE_BUILD
-#			define ADUI_PORT	__declspec(dllexport)
-#		else 
-#			define ADUI_PORT
-#		endif
-#	endif
-#	ifndef ADUI_PORT
-#		define ADUI_PORT
-#	endif
+#  ifdef ACUTIL_INTERNAL
+#    include "fake_windows_accore.h"
+#    ifdef ADUI_PORT
+#      undef ADUI_PORT
+#    endif
+#    ifdef ACCORE_BUILD
+#      define ADUI_PORT	__declspec(dllexport)
+#    else 
+#      define ADUI_PORT
+#    endif
+#  endif
+#  ifndef ADUI_PORT
+#    define ADUI_PORT
+#  endif
 //////////////////////////////////////////////////////////////////////////////
 // Note: These classes are for INTERNAL USE ONLY and may be slated for removal.
 class ADUI_PORT CAdUiRegistryAccess
 {
 public:
     // Construction/destruction:
-	CAdUiRegistryAccess();
-	CAdUiRegistryAccess(HKEY hKey, const CString& sSubkey);
-	virtual ~CAdUiRegistryAccess();
+  CAdUiRegistryAccess();
+  CAdUiRegistryAccess(HKEY hKey, const CString& sSubkey);
+  virtual ~CAdUiRegistryAccess();
     // Allows this class to be used anywhere an HKEY is valid...
-	operator HKEY() const;
+  operator HKEY() const;
     // Access control: Opens to (another) key.
-	virtual BOOL Open(HKEY hKey, const CString& sSubkey);
-	virtual void Close();
-	BOOL IsOpen();
+  virtual BOOL Open(HKEY hKey, const CString& sSubkey);
+  virtual void Close();
+  BOOL IsOpen();
     // Enumeration mechanism:
-	BOOL EnumKeyNames(DWORD dwEntryIndex, CString& sKeyName);
-	BOOL EnumValueNames(DWORD dwEntryIndex, CString& sValueName, LPDWORD lpdwType = NULL);
+  BOOL EnumKeyNames(DWORD dwEntryIndex, CString& sKeyName);
+  BOOL EnumValueNames(DWORD dwEntryIndex, CString& sValueName, LPDWORD lpdwType = NULL);
     // Note: 1) Enumerate from 0 up to end, or from end back to 0.
     //       2) do not alter the key or value being enumerated during the enumeration
     // (These are caveats presented by the underlying API calls...)
 
     // returns REG_... types, or REG_NONE if the key doesn't exist.
-	DWORD ValueType(const CString& sValueName, LPDWORD lpdwSize = NULL);
+  DWORD ValueType(const CString& sValueName, LPDWORD lpdwSize = NULL);
     // GetAccess:
-	CString GetString(const CString& sValueName);
+  CString GetString(const CString& sValueName);
     // NOTE that GetDWord returns 0 on failure! It also returns 0
     // if the value is indeed 0. BEWARE USING THIS FUNCTION!
-	DWORD GetDWord(const CString& sValueName);
+  DWORD GetDWord(const CString& sValueName);
     // Note: If the value doesn't exist, dwDefault will be returned instead of 0.
-	DWORD GetDWordWithDefaultValue(const CString& sValueName, DWORD dwDefault);
-	BOOL GetBinary(const CString& sValueName, LPBYTE pbData, DWORD& dwSize);
+  DWORD GetDWordWithDefaultValue(const CString& sValueName, DWORD dwDefault);
+  BOOL GetBinary(const CString& sValueName, LPBYTE pbData, DWORD& dwSize);
 protected:
     // Derivation for write permission can override this:
-	void CommonConstruction();
-	HKEY m_hKey;
-	CString m_sSubkey;
+  void CommonConstruction();
+  HKEY m_hKey;
+  CString m_sSubkey;
 };
 class ADUI_PORT CAdUiRegistryWriteAccess : public CAdUiRegistryAccess
 {
 public:
     // Construction/destruction:
-	CAdUiRegistryWriteAccess();
-	CAdUiRegistryWriteAccess(HKEY hKey, const CString& sSubkey);
-	virtual ~CAdUiRegistryWriteAccess();
-	virtual BOOL Open(HKEY hKey, const CString& sSubkey);
-	BOOL SetString(const CString& cValueName, const CString& sValue);
-	BOOL SetDWord(const CString& sValueName, DWORD dwValue);
-	BOOL SetBinary(const CString& sValueName, const BYTE* pbData, DWORD dwLen);
+  CAdUiRegistryWriteAccess();
+  CAdUiRegistryWriteAccess(HKEY hKey, const CString& sSubkey);
+  virtual ~CAdUiRegistryWriteAccess();
+  virtual BOOL Open(HKEY hKey, const CString& sSubkey);
+  BOOL SetString(const CString& cValueName, const CString& sValue);
+  BOOL SetDWord(const CString& sValueName, DWORD dwValue);
+  BOOL SetBinary(const CString& sValueName, const BYTE* pbData, DWORD dwLen);
 };
 class ADUI_PORT CAdUiRegistryDeleteAccess : public CAdUiRegistryWriteAccess
 {
 public:
-	CAdUiRegistryDeleteAccess();
-	CAdUiRegistryDeleteAccess(HKEY hKey, const CString& sSubkey);
-	virtual ~CAdUiRegistryDeleteAccess();
+  CAdUiRegistryDeleteAccess();
+  CAdUiRegistryDeleteAccess(HKEY hKey, const CString& sSubkey);
+  virtual ~CAdUiRegistryDeleteAccess();
     // Deletes a specific value
-	BOOL DeleteValue(const CString& sValueName);
+  BOOL DeleteValue(const CString& sValueName);
     // Deletes all values under this key
-	BOOL DeleteAllValues();
+  BOOL DeleteAllValues();
     // Deletes a specific subkey; (note: in Win95, this is the same as below)
-	BOOL DeleteKey(const CString& sKeyName);
+  BOOL DeleteKey(const CString& sKeyName);
     // Deletes a specific subkey, and all sub-keys beneath it (needed in NT)
-	BOOL DeleteKeyAndSubkeys(const CString& sKeyName);
+  BOOL DeleteKeyAndSubkeys(const CString& sKeyName);
     // Deletes all subkeys in the current key; like "del *.* /s" is to DOS (dangerous!)
-	BOOL DeleteAllKeys();
+  BOOL DeleteAllKeys();
 };
 //////////////////////////////////////////////////////////////////////////////
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Developer Studio will insert additional declarations immediately before the previous line.
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif
 //////////////////////////////////////////////////////////////////////////////

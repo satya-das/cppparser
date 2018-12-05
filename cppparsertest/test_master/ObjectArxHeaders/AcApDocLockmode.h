@@ -12,8 +12,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef ACAPDOCLOCKMODE_H
-#	define ACAPDOCLOCKMODE_H
-#	pragma  pack (push, 8)
+#  define ACAPDOCLOCKMODE_H
+#  pragma  pack (push, 8)
 struct AcAp
 {
     // The value order of this enum is important - and determines
@@ -21,16 +21,16 @@ struct AcAp
     // share a common bit - so that (mode & kWrite) will be true
     // for either lock mode.
     //
-	enum DocLockMode
-	{
-		kNone = 0x00,
-		kAutoWrite = 0x01,
-		kNotLocked = 0x02,
-		kWrite = 0x04,
-		kProtectedAutoWrite = 0x14,
-		kRead = 0x20,
-		kXWrite = 0x40
-	};
+  enum DocLockMode
+  {
+    kNone = 0x00,
+    kAutoWrite = 0x01,
+    kNotLocked = 0x02,
+    kWrite = 0x04,
+    kProtectedAutoWrite = 0x14,
+    kRead = 0x20,
+    kXWrite = 0x40
+  };
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

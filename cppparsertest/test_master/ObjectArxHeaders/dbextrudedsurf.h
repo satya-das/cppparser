@@ -15,21 +15,21 @@
 // ASM extruded surfaces.  
 #pragma  once
 #ifndef DBEXTRUDEDSURF_H
-#	define DBEXTRUDEDSURF_H
-#	include "dbsurf.h"
-#	pragma  pack(push, 8)
+#  define DBEXTRUDEDSURF_H
+#  include "dbsurf.h"
+#  pragma  pack(push, 8)
 class AcDbExtrudedSurface : public AcDbSurface
 {
 public:
     /// <summary> 
     /// Default constructor.
     /// </summary>
-	AcDbExtrudedSurface();
+  AcDbExtrudedSurface();
     /// <summary> 
     /// Destructor.
     /// </summary>
-	virtual ~AcDbExtrudedSurface();
-	ACDB_DECLARE_MEMBERS(AcDbExtrudedSurface);
+  virtual ~AcDbExtrudedSurface();
+  ACDB_DECLARE_MEMBERS(AcDbExtrudedSurface);
     /// <summary> 
     /// Creates an extruded surface from the given profile using the specified options.
     /// </summary>
@@ -47,7 +47,7 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus createExtrudedSurface(AcDbEntity* pSweepEnt, const AcGeVector3d& directionVec, AcDbSweepOptions& sweepOptions);
+  virtual Acad::ErrorStatus createExtrudedSurface(AcDbEntity* pSweepEnt, const AcGeVector3d& directionVec, AcDbSweepOptions& sweepOptions);
     /// <summary> 
     /// Returns the entity that was extruded.
     /// </summary>
@@ -55,7 +55,7 @@ public:
     /// Copy of the entity that was extruded to create the surface.  The caller
     /// should not delete this pointer or post it to the database.
     /// </returns>
-	AcDbEntity* getSweepEntity() const;
+  AcDbEntity* getSweepEntity() const;
     /// <summary> 
     /// Returns the data of the profile from which the surface was extruded.
     /// </summary>
@@ -67,7 +67,7 @@ public:
     /// Otherwise it will only contain the curve that was extracted from the
     /// edge.
     /// </returns>
-	ACDB_PORT AcDb3dProfile* sweepProfile() const;
+  ACDB_PORT AcDb3dProfile* sweepProfile() const;
     /// <summary> 
     /// Returns the extrusion vector.
     /// </summary>
@@ -75,7 +75,7 @@ public:
     /// Vector in which the profile was extruded to create the surface.
     /// The extrusion height is equal to the length of this vector.
     /// </returns>
-	AcGeVector3d getSweepVec() const;
+  AcGeVector3d getSweepVec() const;
     /// <summary> 
     /// Set the extrusion vector of the surface.
     /// </summary>
@@ -85,14 +85,14 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setSweepVec(const AcGeVector3d& sweepVec);
+  Acad::ErrorStatus setSweepVec(const AcGeVector3d& sweepVec);
     /// <summary> 
     /// Returns the extrusion height.
     /// </summary>
     /// <returns>
     /// Extrusion height.
     /// </returns>
-	double getHeight() const;
+  double getHeight() const;
     /// <summary> 
     /// Set the extrusion height.
     /// </summary>
@@ -102,14 +102,14 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setHeight(double height);
+  Acad::ErrorStatus setHeight(double height);
     /// <summary> 
     /// Gets the options that were used to create the surface.
     /// </summary>
     /// <param name="sweepOptions"> 
     /// Output options that were used to create the surface. 
     /// </param>
-	void getSweepOptions(AcDbSweepOptions& sweepOptions) const;
+  void getSweepOptions(AcDbSweepOptions& sweepOptions) const;
     /// <summary> 
     /// Set the extrusion options.
     /// </summary>
@@ -119,7 +119,7 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setSweepOptions(const AcDbSweepOptions& sweepOptions);
+  Acad::ErrorStatus setSweepOptions(const AcDbSweepOptions& sweepOptions);
     /// <summary> 
     /// Set the extrusion vector and options.
     /// </summary>
@@ -132,16 +132,16 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setExtrude(const AcGeVector3d& sweepVec, const AcDbSweepOptions& sweepOptions);
+  Acad::ErrorStatus setExtrude(const AcGeVector3d& sweepVec, const AcDbSweepOptions& sweepOptions);
     // AcDbObject methods
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
-	virtual bool isDependent() const;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  virtual bool isDependent() const;
 protected:
     // AcDbEntity methods
-	virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
-#	pragma  pack(pop)
+#  pragma  pack(pop)
 #endif

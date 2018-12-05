@@ -16,9 +16,9 @@
 // blend surface.
 #pragma  once
 #ifndef DBBLENDOPTIONS_H
-#	define DBBLENDOPTIONS_H
-#	include "acdb.h"
-#	pragma  pack(push, 8)
+#  define DBBLENDOPTIONS_H
+#  include "acdb.h"
+#  pragma  pack(push, 8)
 /// <summary>Utility class to specify options for blend surface. </summary>
 ///
 class ACDB_PORT AcDbBlendOptions
@@ -26,10 +26,10 @@ class ACDB_PORT AcDbBlendOptions
 public:
     /// <summary> Default constructor. </summary>
     ///
-	AcDbBlendOptions();
+  AcDbBlendOptions();
     /// <summary> Default destructor. </summary>
     ///
-	~AcDbBlendOptions();
+  ~AcDbBlendOptions();
     /// <summary>
     ///   <para>The drive mode property defines which section(s) "drive" the creation of the planes </para>
     ///   <para>containing the planar guides. Any of the two input sections can be selected for </para>
@@ -38,17 +38,17 @@ public:
     ///   <para>and direction (if supplied).</para>
     /// </summary>
     ///
-	enum DriveModeType
-	{
-		kDriveModeFirst = 0,
-		kDriveModeSecond = 1,
-		kDriveModeBoth = 2
-	};
+  enum DriveModeType
+  {
+    kDriveModeFirst = 0,
+    kDriveModeSecond = 1,
+    kDriveModeBoth = 2
+  };
     /// <summary>Assignment operator for AcDbBlendOptions.</summary>
     /// <param name="src">Input specifying source AcDbBlendOptions object</param>
     /// <returns>Return AcDbBlendOptions object</returns>
     ///
-	AcDbBlendOptions& operator =(const AcDbBlendOptions& src);
+  AcDbBlendOptions& operator =(const AcDbBlendOptions& src);
     /// <summary>
     ///   <para>The simplify option allows the application to replace the output ASM procedural </para>
     ///   <para>blend spline surface with an analytic surface, but only if the analytic surface </para>
@@ -56,7 +56,7 @@ public:
     /// </summary>
     /// <returns>Return true or false. The default value is true. </returns>
     ///
-	bool simplify() const;
+  bool simplify() const;
     /// <summary>
     ///   <para>The simplify option allows the application to replace the output ASM procedural </para>
     ///   <para>blend spline surface with an analytic surface, but only if the analytic surface </para>
@@ -64,7 +64,7 @@ public:
     /// </summary>
     /// <param name="val"> Input specifying true or false </param>
     /// <returns> Return Acad::eOk if successful. </returns>
-	Acad::ErrorStatus setSimplify(bool val);
+  Acad::ErrorStatus setSimplify(bool val);
     /// <summary>
     ///   <para>The solid option allows the implementation to stitch the output surface to the </para>
     ///   <para>input section curves in order to produce a solid body. This function is reserved </para>
@@ -73,7 +73,7 @@ public:
     /// </summary>
     /// <returns>Return true or false.</returns>
     ///
-	bool solid() const;
+  bool solid() const;
     /// <summary>
     ///   <para>The solid option allows the implementation to stitch the output surface to the </para>
     ///   <para>input section curves in order to produce a solid body. This function is reserved </para>
@@ -83,7 +83,7 @@ public:
     /// <param name="val">Input specifying true or false</param>
     /// <returns>Return Acad::eOk if successful.</returns>
     ///
-	Acad::ErrorStatus setSolid(bool val);
+  Acad::ErrorStatus setSolid(bool val);
     /// <summary>
     ///   <para>The quality option controls how many planar curves (aka planar guides) blending </para>
     ///   <para>between the input sections are made by the implementation to constrain the </para>
@@ -97,7 +97,7 @@ public:
     /// </summary>
     /// <returns>Return an unsigned integer</returns>
     ///
-	unsigned int quality() const;
+  unsigned int quality() const;
     /// <summary>
     ///   <para>The quality option controls how many planar curves (aka planar guides) blending </para>
     ///   <para>between the input sections are made by the implementation to constrain the </para>
@@ -112,7 +112,7 @@ public:
     /// <param name="val">Input specifying a non-negative integer value for quality</param>
     /// <returns>Return Acad::eOk if successful</returns>
     ///
-	Acad::ErrorStatus setQuality(unsigned int val);
+  Acad::ErrorStatus setQuality(unsigned int val);
     /// <summary>
     ///   <para>The coplanar point is an optional property that can be supplied to constrain the </para>
     ///   <para>set of planes containing the planar guides made by the implementation. If set, </para>
@@ -124,7 +124,7 @@ public:
     /// </summary>
     /// <returns>Return an AcGePoint3d point</returns>
     ///
-	AcGePoint3d* coplanarPoint() const;
+  AcGePoint3d* coplanarPoint() const;
     /// <summary>
     ///   <para>The coplanar point is an optional property that can be supplied to constrain the </para>
     ///   <para>set of planes containing the planar guides made by the implementation. If set, </para>
@@ -137,7 +137,7 @@ public:
     /// <param name="pPt">Input specifying an AcGePoint3d point</param>
     /// <returns>Return Acad::eOk if successful</returns>
     ///
-	Acad::ErrorStatus setCoplanarPoint(const AcGePoint3d* pPt);
+  Acad::ErrorStatus setCoplanarPoint(const AcGePoint3d* pPt);
     /// <summary>
     ///   <para>The coplanar direction is an optional property that can be supplied to constrain </para>
     ///   <para>the set of planes containing the planar guides made by the implementation. If </para>
@@ -146,7 +146,7 @@ public:
     /// </summary>
     /// <returns>Return an AcGeVector3d vector</returns>
     ///
-	AcGeVector3d* coplanarDirection() const;
+  AcGeVector3d* coplanarDirection() const;
     /// <summary>
     ///   <para>The coplanar direction is an optional property that can be supplied to constrain </para>
     ///   <para>the set of planes containing the planar guides made by the implementation. If </para>
@@ -156,7 +156,7 @@ public:
     /// <param name="pDir">Input specifying AcGeVector3d vector for coplanar direction</param>
     /// <returns>Return Acad::eOk if successful</returns>
     ///
-	Acad::ErrorStatus setCoplanarDirection(const AcGeVector3d* pDir);
+  Acad::ErrorStatus setCoplanarDirection(const AcGeVector3d* pDir);
     /// <summary>
     ///   <para>The drive mode property defines which section(s) "drive" the creation of the </para>
     ///   <para>planes containing the planar guides. Any of the two input sections can be </para>
@@ -166,7 +166,7 @@ public:
     /// </summary>
     /// <returns>Return 0,1 or 2 representing kDriveModeFirst, kDriveModeSecond or DriveModeBoth respectively.</returns>
     ///
-	AcDbBlendOptions::DriveModeType driveMode() const;
+  AcDbBlendOptions::DriveModeType driveMode() const;
     /// <summary>
     ///   <para>The drive mode property defines which section(s) "drive" the creation of the </para>
     ///   <para>planes containing the planar guides. Any of the two input sections can be </para>
@@ -177,10 +177,10 @@ public:
     /// <param name="val">Input integer of value 0, 1, or 2 representing kDriveModeFirst, kDriveModeSecond or DriveModeBoth respectively.</param>
     /// <returns>Return Acad::eOk if successful</returns>
     ///
-	Acad::ErrorStatus setDriveMode(AcDbBlendOptions::DriveModeType val);
+  Acad::ErrorStatus setDriveMode(AcDbBlendOptions::DriveModeType val);
 private:
-	void* mpImpBlendOptions;
-	friend class AcDbImpBlendOptions;
+  void* mpImpBlendOptions;
+  friend class AcDbImpBlendOptions;
 };
-#	pragma  pack(pop)
+#  pragma  pack(pop)
 #endif

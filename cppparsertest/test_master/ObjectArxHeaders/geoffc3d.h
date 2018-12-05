@@ -14,31 +14,31 @@
 // This file contains the class AcGeOffsetCurve3d - A mathematical
 // entity used to represent an exact offset of a 3d curve.
 #ifndef AC_GEOFFC3D_H
-#	define AC_GEOFFC3D_H
-#	include "gecurv3d.h"
-#	pragma  pack (push, 8)
+#  define AC_GEOFFC3D_H
+#  include "gecurv3d.h"
+#  pragma  pack (push, 8)
 class GE_DLLEXPIMPORT AcGeOffsetCurve3d : public AcGeCurve3d
 {
 public:
     // Constructors
     //
-	AcGeOffsetCurve3d(const AcGeCurve3d& baseCurve, const AcGeVector3d& planeNormal, double offsetDistance);
-	AcGeOffsetCurve3d(const AcGeOffsetCurve3d& offsetCurve);
+  AcGeOffsetCurve3d(const AcGeCurve3d& baseCurve, const AcGeVector3d& planeNormal, double offsetDistance);
+  AcGeOffsetCurve3d(const AcGeOffsetCurve3d& offsetCurve);
 	// Query methods
 	//
-	const AcGeCurve3d* curve() const;
-	AcGeVector3d normal() const;
-	double offsetDistance() const;
-	Adesk::Boolean paramDirection() const;
-	AcGeMatrix3d transformation() const;
+  const AcGeCurve3d* curve() const;
+  AcGeVector3d normal() const;
+  double offsetDistance() const;
+  Adesk::Boolean paramDirection() const;
+  AcGeMatrix3d transformation() const;
 	// Set methods
 	//
-	AcGeOffsetCurve3d& setCurve(const AcGeCurve3d& baseCurve);
-	AcGeOffsetCurve3d& setNormal(const AcGeVector3d& planeNormal);
-	AcGeOffsetCurve3d& setOffsetDistance(double offsetDistance);
+  AcGeOffsetCurve3d& setCurve(const AcGeCurve3d& baseCurve);
+  AcGeOffsetCurve3d& setNormal(const AcGeVector3d& planeNormal);
+  AcGeOffsetCurve3d& setOffsetDistance(double offsetDistance);
     // Assignment operator.
     //
-	AcGeOffsetCurve3d& operator =(const AcGeOffsetCurve3d& offsetCurve);
+  AcGeOffsetCurve3d& operator =(const AcGeOffsetCurve3d& offsetCurve);
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

@@ -8,17 +8,17 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _acui_h
-#	define _acui_h
-#	if  _MSC_VER >= 1000
-#		pragma  once
-#	endif
+#  define _acui_h
+#  if  _MSC_VER >= 1000
+#    pragma  once
+#  endif
 /////////////////////////////////////////////////////////////////////////////
 // Note: _ACUI_BUILD should be defined only when building the DLL.
-#	ifdef _ACUI_BUILD
-#		define ACUI_PORT	__declspec(dllexport)
-#	else 
-#		define ACUI_PORT
-#	endif
+#  ifdef _ACUI_BUILD
+#    define ACUI_PORT	__declspec(dllexport)
+#  else 
+#    define ACUI_PORT
+#  endif
 /////////////////////////////////////////////////////////////////////////////
 // Initialize the extension DLL, register the classes, etc
 // Call this exported function from your Dll or Executable once
@@ -36,23 +36,23 @@ ACUI_PORT void AcUiRootKey(CString& rootKey);
 typedef CAdUiRegistryAccess CAcUiRegistryAccess;
 typedef CAdUiRegistryDeleteAccess CAcUiRegistryDeleteAccess;
 typedef CAdUiRegistryWriteAccess CAcUiRegistryWriteAccess;
-#	ifdef _ADESK_WINDOWS_
-#		include "acuiButton.h"
-#		include "acuiDialogWorksheet.h"
-#		include "acuiDialog.h"
-#		include "acuiTabCtrl.h"
+#  ifdef _ADESK_WINDOWS_
+#    include "acuiButton.h"
+#    include "acuiDialogWorksheet.h"
+#    include "acuiDialog.h"
+#    include "acuiTabCtrl.h"
 typedef CAcUiTabChildDialog CAcUiTabExtension;
 /////////////////////////////////////////////////////////////////////////////
-#		include "aced.h"
-#		include "acuiDock.h"
-#		include "acuiEdit.h"
-#		include "acuiHeaderCtrl.h"
-#		include "acuiListBox.h"
-#		include "acuiListCtrl.h"
-#		include "acuiComboBox.h"
-#		include "acuiPathname.h"
-#		include "acuiNavDialog.h"
-#	endif
+#    include "aced.h"
+#    include "acuiDock.h"
+#    include "acuiEdit.h"
+#    include "acuiHeaderCtrl.h"
+#    include "acuiListBox.h"
+#    include "acuiListCtrl.h"
+#    include "acuiComboBox.h"
+#    include "acuiPathname.h"
+#    include "acuiNavDialog.h"
+#  endif
 /////////////////////////////////////////////////////////////////////////////
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Developer Studio will insert additional declarations immediately before the previous line.

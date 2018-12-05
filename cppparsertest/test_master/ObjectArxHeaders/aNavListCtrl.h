@@ -8,31 +8,31 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _ANavListCtrl_h
-#	define _ANavListCtrl_h
-#	pragma  once
+#  define _ANavListCtrl_h
+#  pragma  once
 class CNavListCtrl;
 class CNavDropSource : public COleDropSource
 {
 public:
-	CNavDropSource();
-	CNavListCtrl* m_pListCtrl;
+  CNavDropSource();
+  CNavListCtrl* m_pListCtrl;
     // Overrides
-	SCODE GiveFeedback(DROPEFFECT dropEffect);
+  SCODE GiveFeedback(DROPEFFECT dropEffect);
 };
 class ANAV_PORT CNavListCtrl : public CAdUiListCtrl
 {
 public:
-	CNavListCtrl();
+  CNavListCtrl();
 // ClassWizard-controlled
     //{{AFX_VIRTUAL(CNavListCtrl)
     //}}AFX_VIRTUAL
 protected:
     //{{AFX_MSG(CNavListCtrl)
-	afx_msg void OnBeginDrag(NMHDR* pNMHDR, LRESULT* pResult);
+  afx_msg void OnBeginDrag(NMHDR* pNMHDR, LRESULT* pResult);
     //}}AFX_MSG
-	afx_msg LRESULT OnHandleDrag(UINT_PTR pDataSource, LPARAM nSelectedItem);
-	DECLARE_MESSAGE_MAP()
-	CImageList* m_pDragImage;
-	CNavDropSource m_dropSource;
+  afx_msg LRESULT OnHandleDrag(UINT_PTR pDataSource, LPARAM nSelectedItem);
+  DECLARE_MESSAGE_MAP()
+  CImageList* m_pDragImage;
+  CNavDropSource m_dropSource;
 };
 #endif

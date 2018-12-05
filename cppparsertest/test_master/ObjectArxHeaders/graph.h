@@ -25,120 +25,120 @@
 //    information and enable several query methods to return information
 //    about any cycles found.
 #ifndef AD_GRAPH_H
-#	define AD_GRAPH_H	1
-#	include "dbmain.h"
-#	pragma  pack (push, 8)
+#  define AD_GRAPH_H	1
+#  include "dbmain.h"
+#  pragma  pack (push, 8)
 class AcDbGraph;
 // =====================================
 //      Generic Graph Classes
 // =====================================
 class AcDbGraphNode : public AcHeapOperators
 {
-	friend class AcDbGraph;
+  friend class AcDbGraph;
 public:
-	AcDbGraphNode(void* pData = NULL);
-	virtual ~AcDbGraphNode();
+  AcDbGraphNode(void* pData = NULL);
+  virtual ~AcDbGraphNode();
     // Enum values used to mark nodes using markAs(), etc.
     //
-	enum Flags
-	{
-		kNone = 0x00,
-		kVisited = 0x01,
-		kOutsideRefed = 0x02,
-		kSelected = 0x04,
-		kInList = 0x08,
-		kListAll = 0x0E,
-		kFirstLevel = 0x10,
-		kUnresTree = 0x20,
-		kAll = 0x2F
-	};
+  enum Flags
+  {
+    kNone = 0x00,
+    kVisited = 0x01,
+    kOutsideRefed = 0x02,
+    kSelected = 0x04,
+    kInList = 0x08,
+    kListAll = 0x0E,
+    kFirstLevel = 0x10,
+    kUnresTree = 0x20,
+    kAll = 0x2F
+  };
                                                   // not clear kFirstLevel,
                                                   // which is read-only
-	void* data() const;
-	void setData(void*);
-	int numOut() const;
-	int numIn() const;
-	AcDbGraphNode* in(int) const;
-	AcDbGraphNode* out(int) const;
-	Acad::ErrorStatus addRefTo(AcDbGraphNode*);
-	Acad::ErrorStatus removeRefTo(AcDbGraphNode*);
-	Acad::ErrorStatus disconnectAll();
-	AcDbGraph* owner() const;
-	bool isMarkedAs(Adesk::UInt8 flags) const;
-	Acad::ErrorStatus markAs(Adesk::UInt8 flags);
-	Acad::ErrorStatus clear(Adesk::UInt8 flags);
-	Acad::ErrorStatus markTree(Adesk::UInt8 flags, AcDbVoidPtrArray* = NULL);
+  void* data() const;
+  void setData(void*);
+  int numOut() const;
+  int numIn() const;
+  AcDbGraphNode* in(int) const;
+  AcDbGraphNode* out(int) const;
+  Acad::ErrorStatus addRefTo(AcDbGraphNode*);
+  Acad::ErrorStatus removeRefTo(AcDbGraphNode*);
+  Acad::ErrorStatus disconnectAll();
+  AcDbGraph* owner() const;
+  bool isMarkedAs(Adesk::UInt8 flags) const;
+  Acad::ErrorStatus markAs(Adesk::UInt8 flags);
+  Acad::ErrorStatus clear(Adesk::UInt8 flags);
+  Acad::ErrorStatus markTree(Adesk::UInt8 flags, AcDbVoidPtrArray* = NULL);
     // Circularity detection methods
-	int numCycleOut() const;
-	int numCycleIn() const;
-	AcDbGraphNode* cycleIn(int) const;
-	AcDbGraphNode* cycleOut(int) const;
-	AcDbGraphNode* nextCycleNode() const;
-	bool isCycleNode() const;
-	void setEdgeGrowthRate(int outEdgeRate, int inEdgeRate);
+  int numCycleOut() const;
+  int numCycleIn() const;
+  AcDbGraphNode* cycleIn(int) const;
+  AcDbGraphNode* cycleOut(int) const;
+  AcDbGraphNode* nextCycleNode() const;
+  bool isCycleNode() const;
+  void setEdgeGrowthRate(int outEdgeRate, int inEdgeRate);
 private:
     // These are currently not supported
     //
-	AcDbGraphNode(const AcDbGraphNode&);
-	AcDbGraphNode& operator =(const AcDbGraphNode&);
-	AcDbVoidPtrArray mOutgoing;
-	AcDbVoidPtrArray mIncoming;
-	void* mpData;
-	void setFirstLevel(Adesk::Boolean);
-	Adesk::UInt8 mFlags;
+  AcDbGraphNode(const AcDbGraphNode&);
+  AcDbGraphNode& operator =(const AcDbGraphNode&);
+  AcDbVoidPtrArray mOutgoing;
+  AcDbVoidPtrArray mIncoming;
+  void* mpData;
+  void setFirstLevel(Adesk::Boolean);
+  Adesk::UInt8 mFlags;
     // Circularity detection
-	Acad::ErrorStatus setOwner(AcDbGraph*);
-	Acad::ErrorStatus resetCycles();
-	Acad::ErrorStatus removeCycleRefTo(AcDbGraphNode*);
-	Acad::ErrorStatus clearCycles();
-	AcDbGraph* mpOwner;
-	AcDbVoidPtrArray* mpCycleOut;
-	AcDbVoidPtrArray* mpCycleIn;
+  Acad::ErrorStatus setOwner(AcDbGraph*);
+  Acad::ErrorStatus resetCycles();
+  Acad::ErrorStatus removeCycleRefTo(AcDbGraphNode*);
+  Acad::ErrorStatus clearCycles();
+  AcDbGraph* mpOwner;
+  AcDbVoidPtrArray* mpCycleOut;
+  AcDbVoidPtrArray* mpCycleIn;
 };
 class AcDbGraph : public AcHeapOperators
 {
-	friend class AcDbGraphNode;
+  friend class AcDbGraphNode;
 public:
-	AcDbGraph(AcDbGraphNode* pRoot = NULL);
-	virtual ~AcDbGraph();
-	AcDbGraphNode* node(int index) const;
-	AcDbGraphNode* rootNode() const;
-	int numNodes() const;
-	bool isEmpty() const;
-	Acad::ErrorStatus addNode(AcDbGraphNode*);
-	Acad::ErrorStatus addEdge(AcDbGraphNode* pFrom, AcDbGraphNode* pTo);
-	Acad::ErrorStatus delNode(AcDbGraphNode*);
-	void reset();
-	void clearAll(Adesk::UInt8 flags);
-	void getOutgoing(AcDbVoidPtrArray&);
+  AcDbGraph(AcDbGraphNode* pRoot = NULL);
+  virtual ~AcDbGraph();
+  AcDbGraphNode* node(int index) const;
+  AcDbGraphNode* rootNode() const;
+  int numNodes() const;
+  bool isEmpty() const;
+  Acad::ErrorStatus addNode(AcDbGraphNode*);
+  Acad::ErrorStatus addEdge(AcDbGraphNode* pFrom, AcDbGraphNode* pTo);
+  Acad::ErrorStatus delNode(AcDbGraphNode*);
+  void reset();
+  void clearAll(Adesk::UInt8 flags);
+  void getOutgoing(AcDbVoidPtrArray&);
     // Cycle detection
-	virtual Adesk::Boolean findCycles(AcDbGraphNode* pStart = NULL);
-	Acad::ErrorStatus breakCycleEdge(AcDbGraphNode* pFrom, AcDbGraphNode* pTo);
-	void setNodeGrowthRate(int rate);
+  virtual Adesk::Boolean findCycles(AcDbGraphNode* pStart = NULL);
+  Acad::ErrorStatus breakCycleEdge(AcDbGraphNode* pFrom, AcDbGraphNode* pTo);
+  void setNodeGrowthRate(int rate);
 protected:
-	Acad::ErrorStatus clearAllCycles();
+  Acad::ErrorStatus clearAllCycles();
 private:
     // These are currently not supported
     //
-	AcDbGraph(const AcDbGraph&);
-	AcDbGraph& operator =(const AcDbGraph&);
-	AcDbVoidPtrArray mNodes;
+  AcDbGraph(const AcDbGraph&);
+  AcDbGraph& operator =(const AcDbGraph&);
+  AcDbVoidPtrArray mNodes;
     // Cycle detection
-	AcDbVoidPtrArray* mpCycleNodes;
-	void setDirty();
-	bool mDirty;
+  AcDbVoidPtrArray* mpCycleNodes;
+  void setDirty();
+  bool mDirty;
 };
 class AcDbGraphStack : public AcHeapOperators
 {
 public:
-	AcDbGraphStack(int initPhysicalLength = 0, int initGrowLength = 8);
-	~AcDbGraphStack();
-	Acad::ErrorStatus push(AcDbGraphNode*);
-	AcDbGraphNode* pop();
-	AcDbGraphNode* top() const;
-	bool isEmpty() const;
+  AcDbGraphStack(int initPhysicalLength = 0, int initGrowLength = 8);
+  ~AcDbGraphStack();
+  Acad::ErrorStatus push(AcDbGraphNode*);
+  AcDbGraphNode* pop();
+  AcDbGraphNode* top() const;
+  bool isEmpty() const;
 private:
-	AcDbVoidPtrArray mStack;
+  AcDbVoidPtrArray mStack;
 };
 // =====================================
 //      Inline methods
@@ -147,100 +147,100 @@ private:
 // AcDbGraphNode inlines ...
 inline void* AcDbGraphNode::data() const
 {
-	return mpData;
+  return mpData;
 }
 inline void AcDbGraphNode::setData(void* pData)
 {
-	mpData = pData;
+  mpData = pData;
 }
 inline int AcDbGraphNode::numOut() const
 {
-	return mOutgoing.length();
+  return mOutgoing.length();
 }
 inline int AcDbGraphNode::numIn() const
 {
-	return mIncoming.length();
+  return mIncoming.length();
 }
 inline AcDbGraphNode* AcDbGraphNode::in(int idx) const
 {
-	return (AcDbGraphNode*) mIncoming.at(idx);
+  return (AcDbGraphNode*) mIncoming.at(idx);
 }
 inline AcDbGraphNode* AcDbGraphNode::out(int idx) const
 {
-	return (AcDbGraphNode*) mOutgoing.at(idx);
+  return (AcDbGraphNode*) mOutgoing.at(idx);
 }
 inline bool AcDbGraphNode::isMarkedAs(Adesk::UInt8 flag) const
 {
-	return (this->mFlags & flag) != 0;
+  return (this->mFlags & flag) != 0;
 }
 inline AcDbGraph* AcDbGraphNode::owner() const
 {
-	return mpOwner;
+  return mpOwner;
 }
 inline Acad::ErrorStatus AcDbGraphNode::setOwner(AcDbGraph* pOwn)
 {
-	assert(!mpOwner);
-	if (mpOwner)
-	{
-		return Acad::eInvalidOwnerObject;
-	}
-	mpOwner = pOwn;
-	return Acad::eOk;
+  assert(!mpOwner);
+  if (mpOwner)
+  {
+    return Acad::eInvalidOwnerObject;
+  }
+  mpOwner = pOwn;
+  return Acad::eOk;
 }
 inline int AcDbGraphNode::numCycleOut() const
 {
-	return mpCycleOut == NULL ? 0 : mpCycleOut->length();
+  return mpCycleOut == NULL ? 0 : mpCycleOut->length();
 }
 inline int AcDbGraphNode::numCycleIn() const
 {
-	return mpCycleIn == NULL ? 0 : mpCycleIn->length();
+  return mpCycleIn == NULL ? 0 : mpCycleIn->length();
 }
 inline AcDbGraphNode* AcDbGraphNode::cycleOut(int idx) const
 {
-	return (AcDbGraphNode*) (mpCycleOut == NULL ? NULL : mpCycleOut->at(idx));
+  return (AcDbGraphNode*) (mpCycleOut == NULL ? NULL : mpCycleOut->at(idx));
 }
 inline AcDbGraphNode* AcDbGraphNode::cycleIn(int idx) const
 {
-	return (AcDbGraphNode*) (mpCycleIn == NULL ? NULL : mpCycleIn->at(idx));
+  return (AcDbGraphNode*) (mpCycleIn == NULL ? NULL : mpCycleIn->at(idx));
 }
 inline AcDbGraphNode* AcDbGraphNode::nextCycleNode() const
 {
-	assert(mpCycleOut != NULL);
-	return cycleOut(0);
+  assert(mpCycleOut != NULL);
+  return cycleOut(0);
 }
 inline bool AcDbGraphNode::isCycleNode() const
 {
-	return mpCycleIn != NULL || mpCycleOut != NULL;
+  return mpCycleIn != NULL || mpCycleOut != NULL;
 }
 // AcDbGraph inlines ...
 inline int AcDbGraph::numNodes() const
 {
-	return mNodes.length();
+  return mNodes.length();
 }
 inline AcDbGraphNode* AcDbGraph::node(int idx) const
 {
-	return (AcDbGraphNode*) mNodes.at(idx);
+  return (AcDbGraphNode*) mNodes.at(idx);
 }
 inline AcDbGraphNode* AcDbGraph::rootNode() const
 {
-	return (numNodes() > 0) ? node(0) : NULL;
+  return (numNodes() > 0) ? node(0) : NULL;
 }
 inline bool AcDbGraph::isEmpty() const
 {
-	return numNodes() == 0;
+  return numNodes() == 0;
 }
 inline void AcDbGraph::setDirty()
 {
-	mDirty = true;
+  mDirty = true;
 }
 // XreGraphStack inlines ...
 inline bool AcDbGraphStack::isEmpty() const
 {
-	return mStack.isEmpty();
+  return mStack.isEmpty();
 }
 inline AcDbGraphNode* AcDbGraphStack::top() const
 {
-	return isEmpty() ? NULL : (AcDbGraphNode*) mStack.last();
+  return isEmpty() ? NULL : (AcDbGraphNode*) mStack.last();
 }
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

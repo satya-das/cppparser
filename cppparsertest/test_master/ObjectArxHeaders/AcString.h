@@ -11,13 +11,13 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _Ac_String_h_
-#	define _Ac_String_h_
-#	include "acbasedefs.h"
-#	include "adesk.h"
-#	include "AcHeapOpers.h"
-#	include "AdAChar.h"
-#	include "rxresource.h"
-#	include <cstdarg>
+#  define _Ac_String_h_
+#  include "acbasedefs.h"
+#  include "adesk.h"
+#  include "AcHeapOpers.h"
+#  include "AdAChar.h"
+#  include "rxresource.h"
+#  include <cstdarg>
 class AcDbHandle;
 class AcRxResourceInstance;
 // Notes:
@@ -34,41 +34,41 @@ class AcString : public AcHeapOperators
 {
 public:
     // Encoding type
-	enum Encoding
-	{
-		Utf8
-	};
+  enum Encoding
+  {
+    Utf8
+  };
     //
     // Constructors and destructor
     //
     // Default ctor, initializes to empty string.
-	ACBASE_PORT AcString();
+  ACBASE_PORT AcString();
     // Initialize with a single Unicode character
     // wch : input character
-	ACBASE_PORT AcString(wchar_t wch);
+  ACBASE_PORT AcString(wchar_t wch);
     // Initialize from utf-8 string.
     // psz : input pointer to source string.
-	ACBASE_PORT AcString(const char* psz, Encoding encoding);
+  ACBASE_PORT AcString(const char* psz, Encoding encoding);
     // Initialize from a Unicode string
     // wpsz : input pointer to zero terminated source string
-	ACBASE_PORT AcString(const wchar_t* pwsz);
+  ACBASE_PORT AcString(const wchar_t* pwsz);
     // Initialize from a Unicode string
     // wpsz : input pointer to source
     // count: number of characters to use from the input string
-	ACBASE_PORT AcString(const wchar_t* pwsz, unsigned int count);
+  ACBASE_PORT AcString(const wchar_t* pwsz, unsigned int count);
     // Copy constructor
     // acs : input reference to an existing AcString object
-	ACBASE_PORT AcString(const AcString& acs);
+  ACBASE_PORT AcString(const AcString& acs);
     // Move constructor
     // acs : input reference to an existing temp AcString object
-	ACBASE_PORT AcString(AcString&& acs);
+  ACBASE_PORT AcString(AcString&& acs);
     // Values for the nCtorFlags arg of the following constructor
-	enum eFormat
-	{
-		kSigned = 0x0002,
-		kUnSigned = 0x0003,
-		kHex = 0x0004
-	};
+  enum eFormat
+  {
+    kSigned = 0x0002,
+    kUnSigned = 0x0003,
+    kHex = 0x0004
+  };
     // Multi-purpose constructor, takes an unsigned argument and
     // uses it either to load a resource string or to create a
     // numerical string (base 10 or hex).
@@ -83,109 +83,109 @@ public:
     /// </description>
     /// <param name="nCtorFlags">input flags, indicating type of construction</param>
     /// <param name="nArg">input argument value, interpreted according to flags</param>
-	ACBASE_PORT AcString(eFormat nCtorFlags, unsigned nArg);
+  ACBASE_PORT AcString(eFormat nCtorFlags, unsigned nArg);
     /// <description>
     ///  repeat a character n times.
     /// </description>
     /// <param name="ch">character value</param>
     /// <param name="nRepeatTimes">repate times</param>
-	ACBASE_PORT AcString(ACHAR ch, unsigned nRepeatTimes);
+  ACBASE_PORT AcString(ACHAR ch, unsigned nRepeatTimes);
     /// <description>
     ///  Formats an AcDbHandle value in hex, as in: "a2f".
     /// </description>
     /// <param name="h">input reference to an acdb handle value</param>
-	ACBASE_PORT AcString(const AcDbHandle& h);
+  ACBASE_PORT AcString(const AcDbHandle& h);
     /// <description>
     ///  Load String from resource instance
     /// </description>
     /// <param name="hDll">AxResourceInstance object to load string</param>
     /// <param name="nId">input id of the string resource in the specified resource dll</param>
-	ACBASE_PORT AcString(const AcRxResourceInstance& hDll, unsigned int nId);
+  ACBASE_PORT AcString(const AcRxResourceInstance& hDll, unsigned int nId);
     // Destructor: frees up memory.
-	ACBASE_PORT ~AcString();
+  ACBASE_PORT ~AcString();
     //
     // Querying methods
     //
 
     // Get a pointer to the current string as Unicode UTF-8.  This
     // pointer is only valid until the AcString object is modified!
-	ACBASE_PORT const char* utf8Ptr() const;
+  ACBASE_PORT const char* utf8Ptr() const;
     // Get a pointer to the current string (in Unicode).  This pointer
     // is only valid until this AcString object is next modified!
-	const wchar_t* kwszPtr() const;
+  const wchar_t* kwszPtr() const;
     // Get a pointer to the current string as a wchar_t pointer.
     // Pointer is only valid until this AcString is next modified.
-	const wchar_t* constPtr() const;
-	const wchar_t* kTCharPtr() const;
+  const wchar_t* constPtr() const;
+  const wchar_t* kTCharPtr() const;
     // Get a pointer to the current string in ACHARs.
-	const ACHAR* kACharPtr() const;
+  const ACHAR* kACharPtr() const;
     // Get a pointer to the current string (in Unicode).  Pointer
     // is valid only until this AcString is next modified.
-	operator const wchar_t*() const;
+  operator const wchar_t*() const;
     // Test whether the current string value is empty.  I.e.,
     // logical length is zero.
-	bool isEmpty() const;
+  bool isEmpty() const;
     // Return logical length of (i.e. number of characters in) the string.
     //
-	ACBASE_PORT unsigned length() const;
+  ACBASE_PORT unsigned length() const;
     // Return length of the current string, in wchar_t units.
     // Deprecated. Please use length() instead
-	unsigned tcharLength() const
-	{
-		return this->length();
-	}
+  unsigned tcharLength() const
+  {
+    return this->length();
+  }
     // Returns the number of characters (not including the null terminator)
     // that this string can contain without growing its buffer
     // Note that capacity() is always >= length()
-	ACBASE_PORT unsigned capacity() const;
+  ACBASE_PORT unsigned capacity() const;
     // Grows or (possibly) shrinks the buffer to match the requested capacity 
     // Shrink requests may be ignored, depending on current buffer size,
     // string length and refcount.
     // Returns true if the buffer was reallocated, false if not
-	ACBASE_PORT bool reserve(unsigned nCapacity);
+  ACBASE_PORT bool reserve(unsigned nCapacity);
     // Returns true if all chars are in the ascii range: 0x20..0x7f
-	ACBASE_PORT bool isAscii() const;
+  ACBASE_PORT bool isAscii() const;
     //
     // Parsing methods.
     //
-	enum
-	{
+  enum
+  {
         // Enum value allowing caller to specify how to handle errors
         // (invalid chars or overflow) during string parsing.
-		kParseZero = 0,
-		kParseMinus1 = 0x01,
-		kParseAssert = 0x02,
-		kParseExcept = 0x04,
-		kParseNoEmpty = 0x08,
-		kParseDefault = (kParseAssert | kParseZero)
-	};
+    kParseZero = 0,
+    kParseMinus1 = 0x01,
+    kParseAssert = 0x02,
+    kParseExcept = 0x04,
+    kParseNoEmpty = 0x08,
+    kParseDefault = (kParseAssert | kParseZero)
+  };
     // Parse the current string as decimal, return a signed int
     // nFlags : input bits specifying how to do the parsing
-	ACBASE_PORT int asDeci(int nFlags = kParseDefault) const;
+  ACBASE_PORT int asDeci(int nFlags = kParseDefault) const;
     // Parse the current string as hexadecimal, return a signed int
     // nFlags : input bits specifying how to do the parsing
-	ACBASE_PORT int asHex(int nFlags = kParseDefault) const;
+  ACBASE_PORT int asHex(int nFlags = kParseDefault) const;
     // Parse the current string as decimal, return an unsigned int
     // nFlags : input bits specifying how to do the parsing
-	ACBASE_PORT unsigned int asUDeci(int nFlags = kParseDefault) const;
+  ACBASE_PORT unsigned int asUDeci(int nFlags = kParseDefault) const;
     // Parse the current string as hexadecimal, return an unsigned int
     // nFlags : input bits specifying how to do the parsing
-	ACBASE_PORT unsigned int asUHex(int nFlags = kParseDefault) const;
+  ACBASE_PORT unsigned int asUHex(int nFlags = kParseDefault) const;
     // Parse the current string as decimal, return a signed int64
     // nFlags : input bits specifying how to do the parsing
-	ACBASE_PORT int64_t asDeci64(int nFlags = kParseDefault) const;
+  ACBASE_PORT int64_t asDeci64(int nFlags = kParseDefault) const;
     // Parse the current string as hexadecimal, return a signed int64
     // nFlags : input bits specifying how to do the parsing
-	ACBASE_PORT int64_t asHex64(int nFlags = kParseDefault) const;
+  ACBASE_PORT int64_t asHex64(int nFlags = kParseDefault) const;
     // Parse the current string as decimal, return an unsigned int64
     // nFlags : input bits specifying how to do the parsing
-	ACBASE_PORT Adesk::UInt64 asUDeci64(int nFlags = kParseDefault) const;
+  ACBASE_PORT Adesk::UInt64 asUDeci64(int nFlags = kParseDefault) const;
     // Parse the current string as hexadecimal, return an unsigned int64
     // nFlags : input bits specifying how to do the parsing
-	ACBASE_PORT Adesk::UInt64 asUHex64(int nFlags = kParseDefault) const;
+  ACBASE_PORT Adesk::UInt64 asUHex64(int nFlags = kParseDefault) const;
     // Parse the current string as hexadecimal.  Return the handle.
     // nFlags : input bits specifying how to do the parsing
-	ACBASE_PORT AcDbHandle asAcDbHandle(int nFlags = kParseDefault) const;
+  ACBASE_PORT AcDbHandle asAcDbHandle(int nFlags = kParseDefault) const;
     //
     // Find char/string/one of a string of chars, from front or back
     // Return the position (index) at which the character or substring
@@ -196,7 +196,7 @@ public:
 
     // Find a single char in the string.
     // ch : input char to search for
-	int find(ACHAR ch) const;
+  int find(ACHAR ch) const;
     /// <description>
     ///  Find a single char in the string.
     /// </description>
@@ -206,7 +206,7 @@ public:
     /// return the position of find result
     /// -1 indicates not found
     /// </returns>
-	ACBASE_PORT int find(ACHAR ch, int nStartFrom) const;
+  ACBASE_PORT int find(ACHAR ch, int nStartFrom) const;
     /// <description>
     ///  Find a substring in the string
     /// </description>
@@ -215,25 +215,25 @@ public:
     /// return the position of find result
     /// -1 indicates not found
     /// </returns>
-	ACBASE_PORT int find(const ACHAR* psz) const;
+  ACBASE_PORT int find(const ACHAR* psz) const;
     // Find an AcString in the string.
     // acs : input string object to search for
-	ACBASE_PORT int find(const AcString& acs) const;
+  ACBASE_PORT int find(const AcString& acs) const;
     // Find any of a group of chars in the string.
     // psz : input pointer to string of chars to search for
-	ACBASE_PORT int findOneOf(const ACHAR* psz) const;
+  ACBASE_PORT int findOneOf(const ACHAR* psz) const;
     // Find last occurrence of a char in the string
     // ch : input char to search for
-	int findRev(ACHAR ch) const;
+  int findRev(ACHAR ch) const;
     // Find last occurrence of any of a group of chars in the string
     // psz : input pointer to string of chars to search for
-	ACBASE_PORT int findRev(const ACHAR* psz) const;
+  ACBASE_PORT int findRev(const ACHAR* psz) const;
     // Find last occurrence of a group of chars in the string
     // psz : input ptr to the string of chars to search for
-	ACBASE_PORT int findOneOfRev(const ACHAR* psz) const;
+  ACBASE_PORT int findOneOfRev(const ACHAR* psz) const;
     // Find last occurrence of a string in the string
     // acs : input reference to the string to search for
-	ACBASE_PORT int findRev(const AcString& acs) const;
+  ACBASE_PORT int findRev(const AcString& acs) const;
     //
     // Extraction methods
     // Note: mid() and substr() are the same thing - we define both
@@ -248,24 +248,24 @@ public:
     /// <returns>
     /// return the substring
     /// </returns>
-	AcString mid(int nStart) const;
+  AcString mid(int nStart) const;
     // Get a substring from the string.  (same as substr() method)
     // nStart : input index (in bytes) from the start of the string
     // nNumChars : input number of chars (not bytes) to retrieve.
     //             if nNumChars is -1, then return the rest of the string
-	AcString mid(int nStart, int nNumChars) const;
+  AcString mid(int nStart, int nNumChars) const;
     // Get a substring from the start of string.
     // nNumChars : input number of chars (not bytes) to retrieve.
     //             if nNumChars is -1, then return the rest of the string
-	AcString substr(int numChars) const;
+  AcString substr(int numChars) const;
     // Get a substring from the string.  (same as mid() method)
     // nStart : input index (in bytes) from the start of the string
     // nNumChars : input number of chars (not bytes) to retrieve.
     //             if nNumChars is -1, then return the rest of the string
-	ACBASE_PORT AcString substr(int nStart, int nNumChars) const;
+  ACBASE_PORT AcString substr(int nStart, int nNumChars) const;
     // Get a substring from the end of string.
     // nNumChars : input number of chars (not bytes) to retrieve.
-	ACBASE_PORT AcString substrRev(int numChars) const;
+  ACBASE_PORT AcString substrRev(int numChars) const;
     /// <description>
     /// Return a nNumChars length substring from the start of string.
     /// </description>
@@ -273,7 +273,7 @@ public:
     /// <returns>
     /// return the substring
     /// </returns>
-	AcString left(int nNumChars) const;
+  AcString left(int nNumChars) const;
     /// <description>
     /// Return a nNumChars length substring from the end of string.
     /// </description>
@@ -281,127 +281,127 @@ public:
     /// <returns>
     /// return the substring
     /// </returns>
-	AcString right(int nNumChars) const;
+  AcString right(int nNumChars) const;
     //
     // Assignment operators and methods
     //
     
     // assign a Unicode char to the string
     // wch : input char to assign
-	AcString& assign(wchar_t wch);
+  AcString& assign(wchar_t wch);
     // assign a string of (ansi) chars to the string
     // psz : input pointer to the string of chars to assign
     // encoding: input Encoding type
-	ACBASE_PORT AcString& assign(const char* psz, Encoding encoding);
+  ACBASE_PORT AcString& assign(const char* psz, Encoding encoding);
     // assign a string of Unicode chars to the string
     // pwsz : input pointer to the string of chars to assign
-	ACBASE_PORT AcString& assign(const wchar_t* pwsz);
+  ACBASE_PORT AcString& assign(const wchar_t* pwsz);
     // assign an AcString object to the string
     // acs : input reference to the AcString
-	ACBASE_PORT AcString& assign(const AcString& acs);
+  ACBASE_PORT AcString& assign(const AcString& acs);
     // assign an AcDbHandle object to the string (format it as hex)
     // h : input reference to the AcDbHandle object
-	ACBASE_PORT AcString& assign(const AcDbHandle& h);
+  ACBASE_PORT AcString& assign(const AcDbHandle& h);
     // assign a Unicode char to the string
     // wch : input char to assign
-	AcString& operator =(wchar_t wch);
+  AcString& operator =(wchar_t wch);
     // assign a string of Unicode chars to the string
     // pwsz : input pointer to the string of chars to assign
-	AcString& operator =(const wchar_t* pwsz);
+  AcString& operator =(const wchar_t* pwsz);
     // assign an AcString object to the string
     // acs : input reference to the AcString
-	AcString& operator =(const AcString& acs);
+  AcString& operator =(const AcString& acs);
     // move a temp AcString object to the string
     // acs : input reference to the temp AcString
-	ACBASE_PORT AcString& operator =(AcString&& acs);
+  ACBASE_PORT AcString& operator =(AcString&& acs);
     // assign an AcDbHandle object to the string (format it as hex)
     // h : input reference to the AcDbHandle object
-	AcString& operator =(const AcDbHandle& h);
+  AcString& operator =(const AcDbHandle& h);
     // Set the string to be empty.
-	ACBASE_PORT AcString& setEmpty();
+  ACBASE_PORT AcString& setEmpty();
     // Set the string from a resource string
     // hDll : AxResourceInstance object to load string
     // nId : input id of the string resource in the specified resource dll
-	ACBASE_PORT bool loadString(const AcRxResourceInstance& hDll, unsigned nId);
+  ACBASE_PORT bool loadString(const AcRxResourceInstance& hDll, unsigned nId);
     // Format the string using "printf" rules.
     // pszFmt : input pointer to the printf format string
-	ACBASE_PORT AcString& format(const ACHAR* pszFmt, ...);
+  ACBASE_PORT AcString& format(const ACHAR* pszFmt, ...);
     // Format the string using "printf" rules
     // pszFmt : input pointer to the printf format string
     // args : input variable args list, containing values to be formatted
-	ACBASE_PORT AcString& formatV(const ACHAR* pszFmt, va_list args);
+  ACBASE_PORT AcString& formatV(const ACHAR* pszFmt, va_list args);
     /// <description>
     /// Append formated data to this string using "printf" rules
     /// </description>
     /// <param name="pszFmt">input pointer to the printf format string</param>
     /// <param name="args">input variable args list, containing values to be formatted</param>
     /// <returns> Reference to this AcString.</returns>
-	ACBASE_PORT AcString& appendFormat(const ACHAR* pszFmt, ...);
+  ACBASE_PORT AcString& appendFormat(const ACHAR* pszFmt, ...);
     //
     // Modifying operators and methods
     //
 
     // append a Unicode char to the end of the string
     // wch : input char to append
-	AcString& operator +=(wchar_t wch);
+  AcString& operator +=(wchar_t wch);
     // append a Unicode string to the end of the string
     // pwsz : input pointer to the Unicode string
-	AcString& operator +=(const wchar_t* pwsz);
+  AcString& operator +=(const wchar_t* pwsz);
     // append an AcString object to the end of the string
     // acs : input reference to the AcString
-	AcString& operator +=(const AcString& acs);
+  AcString& operator +=(const AcString& acs);
     // append a Unicode char to the end of the string
     // wch : input char to append
-	AcString& append(wchar_t wch);
+  AcString& append(wchar_t wch);
     // append a char string to the end of the string
     // psz : input pointer to the (ansi) char string
     // encoding: input Encoding type
-	ACBASE_PORT AcString& append(const char* psz, Encoding encoding);
+  ACBASE_PORT AcString& append(const char* psz, Encoding encoding);
     // append a Unicode string to the end of the string
     // pwsz : input pointer to the Unicode string
-	ACBASE_PORT AcString& append(const wchar_t* pwsz);
+  ACBASE_PORT AcString& append(const wchar_t* pwsz);
     // append an AcString object to the end of the string
     // acs : input reference to the AcString
-	ACBASE_PORT AcString& append(const AcString& acs);
+  ACBASE_PORT AcString& append(const AcString& acs);
     // Catenation operators and methods  These are like append,
     // but they do not modify the current string.  They return a
     // new combined string.
 
     // Copy the string and append a Unicode char to it
     // ch : input char to append to the string copy
-	AcString operator +(wchar_t wch) const;
+  AcString operator +(wchar_t wch) const;
     // Copy the string and append a string of Unicode chars to it
     // pwsz : input pointer to the string to append
-	AcString operator +(const wchar_t* pwsz) const;
+  AcString operator +(const wchar_t* pwsz) const;
     // Copy the string and append an AcString to it
     // pwsz : input reference to the AcString to append
-	AcString operator +(const AcString& acs) const;
+  AcString operator +(const AcString& acs) const;
     // Copy the string and append a Unicode char to it
     // ch : input char to append to the string copy
-	AcString concat(wchar_t wch) const;
+  AcString concat(wchar_t wch) const;
     // Copy the string and append a string of chars to it
     // psz : input pointer to the (ansi) string to append
     // encoding: input Encoding type
-	ACBASE_PORT AcString concat(const char* psz, Encoding encoding) const;
+  ACBASE_PORT AcString concat(const char* psz, Encoding encoding) const;
     // Copy the string and append a string of Unicode chars to it
     // pwsz : input pointer to the string to append
-	ACBASE_PORT AcString concat(const wchar_t* pwsz) const;
+  ACBASE_PORT AcString concat(const wchar_t* pwsz) const;
     // Copy the string and append an AcString to it
     // pwsz : input reference to the AcString to append
-	ACBASE_PORT AcString concat(const AcString& acs) const;
+  ACBASE_PORT AcString concat(const AcString& acs) const;
     // These copy the current string and then insert the char or
     // string in front of it.  They're used by the global "+" operators.
 
     // Copy the string and insert a char in front of it
     // ch : input char to insert
-	AcString precat(ACHAR ch) const;
+  AcString precat(ACHAR ch) const;
     // Copy the string and insert a string of chars in front of it
     // psz : input pointer to the string of (ansi) chars to insert
     // encoding: input Encoding type
-	ACBASE_PORT AcString precat(const char* psz, Encoding encoding) const;
+  ACBASE_PORT AcString precat(const char* psz, Encoding encoding) const;
     // Copy the string and insert a string of chars in front of it
     // psz : input pointer to the string of chars to insert
-	ACBASE_PORT AcString precat(const wchar_t* psz) const;
+  ACBASE_PORT AcString precat(const wchar_t* psz) const;
     //
     // Comparison operators and methods
     // The int return value is -1, 0 or 1, indicating <, == or >
@@ -409,17 +409,17 @@ public:
 
     // Compare the string to a single Unicode char
     // wch : input char to compare to
-	int compare(wchar_t wch) const;
+  int compare(wchar_t wch) const;
     // Compare the string to a string of (ansi) chars
     // psz : input pointer to the string of chars to compare to
     // encoding: input Encoding type
-	ACBASE_PORT int compare(const char* psz, Encoding encoding) const;
+  ACBASE_PORT int compare(const char* psz, Encoding encoding) const;
     // Compare the string to a string of Unicode chars
     // pwsz : input pointer to the string of chars to compare to
-	ACBASE_PORT int compare(const wchar_t* pwsz) const;
+  ACBASE_PORT int compare(const wchar_t* pwsz) const;
     // Compare the string to a string of Unicode chars
     // acs : input reference of the other AcString to compare to
-	int compare(const AcString& acs) const;
+  int compare(const AcString& acs) const;
     /// <description>
     /// Compare the string to another string using collation
     /// </description>
@@ -427,7 +427,7 @@ public:
     /// <returns>
     /// Zero if the strings are identical, <0 if this AcString object is less than lpsz, or >0 if this AcString object is greater than lpsz.
     /// </returns>
-	ACBASE_PORT int collate(const wchar_t* pwsz) const;
+  ACBASE_PORT int collate(const wchar_t* pwsz) const;
     /// <description>
     /// Compare the string to another AcString object using collation
     /// </description>
@@ -435,20 +435,20 @@ public:
     /// <returns>
     /// Zero if the strings are identical, <0 if this AcString object is less than acs, or >0 if this AcString object is greater than acs.
     /// </returns>
-	int collate(const AcString& acs) const;
+  int collate(const AcString& acs) const;
     // Compare the string case-independently to a Unicode char
     // wch : input char to compare to
-	int compareNoCase(wchar_t wch) const;
+  int compareNoCase(wchar_t wch) const;
     // Compare the string case-independently to a string of chars
     // psz : input pointer to the string of (ansi) chars to compare to
     // encoding: input Encoding type
-	ACBASE_PORT int compareNoCase(const char* psz, Encoding encoding) const;
+  ACBASE_PORT int compareNoCase(const char* psz, Encoding encoding) const;
     // Compare the string case-independently to a string of Unicode chars
     // pwsz : input pointer to the string of chars to compare to
-	ACBASE_PORT int compareNoCase(const wchar_t* pwsz) const;
+  ACBASE_PORT int compareNoCase(const wchar_t* pwsz) const;
     // Compare the string case-independently to another AcString
     // acs : input reference to the other AcString
-	int compareNoCase(const AcString& acs) const;
+  int compareNoCase(const AcString& acs) const;
     /// <description>
     /// compares two AcStrings for equality, ignoring case
     /// useful as a comparator function for STL functions
@@ -458,7 +458,7 @@ public:
     /// <returns>
     /// return true if the strings are identical
     /// </returns>
-	static bool equalsNoCase(const AcString& left, const AcString& right);
+  static bool equalsNoCase(const AcString& left, const AcString& right);
     /// <description>
     /// Compare the string case-independently to another string
     /// </description>
@@ -466,7 +466,7 @@ public:
     /// <returns>
     /// Zero if the strings are identical, <0 if this AcString object is less than psz, or >0 if this AcString object is greater than psz.
     /// </returns>
-	ACBASE_PORT int collateNoCase(const wchar_t* psz) const;
+  ACBASE_PORT int collateNoCase(const wchar_t* psz) const;
     /// <description>
     /// Compare the string case-independently to another AcString
     /// </description>
@@ -474,61 +474,61 @@ public:
     /// <returns>
     /// Zero if the strings are identical, <0 if this AcString object is less than acs, or >0 if this AcString object is greater than acs.
     /// </returns>
-	int collateNoCase(const AcString& acs) const;
+  int collateNoCase(const AcString& acs) const;
     // Compare the string for equality with a Unicode char
     // wch : input char to compare to
-	bool operator ==(wchar_t wch) const;
+  bool operator ==(wchar_t wch) const;
     // Compare the string for equality with a string of Unicode chars
     // pwsz : input pointer to the string of chars
-	bool operator ==(const wchar_t* pwsz) const;
+  bool operator ==(const wchar_t* pwsz) const;
     // Compare the string for equality with another AcString
     // acs : input reference to the other AcString
-	bool operator ==(const AcString& acs) const;
+  bool operator ==(const AcString& acs) const;
     // Compare the string for non-equality with a Unicode char
     // wch : input char to compare to
-	bool operator !=(wchar_t wch) const;
+  bool operator !=(wchar_t wch) const;
     // Compare the string for non-equality with a string of Unicode chars
     // pwsz : input pointer to the string of chars
-	bool operator !=(const wchar_t* pwsz) const;
+  bool operator !=(const wchar_t* pwsz) const;
     // Compare the string for non-equality with another AcString
     // acs : input reference to the other AcString
-	bool operator !=(const AcString& acs) const;
+  bool operator !=(const AcString& acs) const;
     // Compare the string for greater than a Unicode char
     // wch : input char to compare to
-	bool operator >(wchar_t wch) const;
+  bool operator >(wchar_t wch) const;
     // Compare the string for greater than a string of Unicode chars
     // pwsz : input pointer to the string of chars to compare to
-	bool operator >(const wchar_t* pwsz) const;
+  bool operator >(const wchar_t* pwsz) const;
     // Compare the string for greater than another AcString
     // acs : input reference to the other AcString
-	bool operator >(const AcString& acs) const;
+  bool operator >(const AcString& acs) const;
     // Compare the string for greater than or equal to a Unicode char
     // wch : input char to compare to
-	bool operator >=(wchar_t wch) const;
+  bool operator >=(wchar_t wch) const;
     // Compare the string for greater than/equal to a string of Unicode chars
     // pwsz : input pointer to the string of chars
-	bool operator >=(const wchar_t* pwsz) const;
+  bool operator >=(const wchar_t* pwsz) const;
     // Compare the string for greater than or equal to another AcString
     // acs : input reference to the other AcString
-	bool operator >=(const AcString& acs) const;
+  bool operator >=(const AcString& acs) const;
     // Compare the string for less than a Unicode char
     // wch : input char to compare to
-	bool operator <(wchar_t wch) const;
+  bool operator <(wchar_t wch) const;
     // Compare the string for less than a string of Unicode chars
     // pwsz : input pointer to the string of chars to compare to
-	bool operator <(const wchar_t* pwsz) const;
+  bool operator <(const wchar_t* pwsz) const;
     // Compare the string for less than another AcString
     // acs : input reference to the other AcString
-	bool operator <(const AcString& acs) const;
+  bool operator <(const AcString& acs) const;
     // Compare the string for less than or equal to a Unicode char
     // wch : input char to compare to
-	bool operator <=(wchar_t wch) const;
+  bool operator <=(wchar_t wch) const;
     // Compare the string for less than/equal to a string of Unicode chars
     // pwsz : input pointer to the string of chars
-	bool operator <=(const wchar_t* pwsz) const;
+  bool operator <=(const wchar_t* pwsz) const;
     // Compare the string for less or equal to than another AcString
     // acs : input reference to the other AcString
-	bool operator <=(const AcString& acs) const;
+  bool operator <=(const AcString& acs) const;
     // The match() methods return how many chars (not bytes) match
     // between two strings.  Not fully implemented yet (non-ascii
     // chars not supported yet).
@@ -536,98 +536,98 @@ public:
     // Return the number of chars that match a string of chars
     // psz : input pointer to the string of (ansi) chars
     // encoding: input Encoding type
-	ACBASE_PORT int match(const char* psz, Encoding encoding) const;
+  ACBASE_PORT int match(const char* psz, Encoding encoding) const;
     // Return the number of chars matching a string of Unicode chars
     // pwsz : input pointer to the string of chars
-	ACBASE_PORT int match(const wchar_t* pwsz) const;
+  ACBASE_PORT int match(const wchar_t* pwsz) const;
     // Return the number of chars matching another AcString
     // acs : input reference to the other AcString
-	ACBASE_PORT int match(const AcString& acs) const;
+  ACBASE_PORT int match(const AcString& acs) const;
     // Return number of chars case-independently matching a string of chars
     // psz : input pointer to the string of (ansi) chars
     // encoding: input Encoding type
-	ACBASE_PORT int matchNoCase(const char* psz, Encoding encoding) const;
+  ACBASE_PORT int matchNoCase(const char* psz, Encoding encoding) const;
     // Return number of chars case-indep'ly matching a string of Unicode chars
     // pwsz : input pointer to the string of chars
-	ACBASE_PORT int matchNoCase(const wchar_t* pwsz) const;
+  ACBASE_PORT int matchNoCase(const wchar_t* pwsz) const;
     // Return number of chars case-indep'ly matching another AcString
     // acs : input reference to the other AcString
-	ACBASE_PORT int matchNoCase(const AcString& acs) const;
+  ACBASE_PORT int matchNoCase(const AcString& acs) const;
     /// <description>
     /// Make the lower case letters ('a' ~ 'z') to upper case letters.
     /// </description>
     /// <returns> Reference to this AcString.</returns>
-	ACBASE_PORT AcString& makeUpper();
+  ACBASE_PORT AcString& makeUpper();
     /// <description>
     /// Make the upper case letters ('A' ~ 'Z') to lower case letters.
     /// </description>
     /// <returns> Reference to this AcString.</returns>
-	ACBASE_PORT AcString& makeLower();
+  ACBASE_PORT AcString& makeLower();
     /// <description>
     /// make the string reversed
     /// </description>
     /// <returns>
     /// </returns>
-	ACBASE_PORT AcString& makeReverse();
+  ACBASE_PORT AcString& makeReverse();
     /// <summary> Remove designated character wch from beginning of the string.</summary>
     /// <returns> Reference to this AcString.</returns>
     /// <remarks> No-op if wch arg is null character.</remarks>
     ///
-	ACBASE_PORT AcString& trimLeft(wchar_t wch);
+  ACBASE_PORT AcString& trimLeft(wchar_t wch);
     /// <summary> Remove designated character wch from the end of the string.</summary>
     /// <returns> Reference to this AcString.</returns>
     /// <remarks> No-op if wch arg is null character.</remarks>
     ///
-	ACBASE_PORT AcString& trimRight(wchar_t wch);
+  ACBASE_PORT AcString& trimRight(wchar_t wch);
     /// <summary> Remove designated character wch from both ends of the string.</summary>
     /// <returns> Reference to this AcString.</returns>
     /// <remarks> No-op if wch arg is null character.</remarks>
     ///
-	ACBASE_PORT AcString& trim(wchar_t wch);
+  ACBASE_PORT AcString& trim(wchar_t wch);
     /// <summary> Remove all whitespace characters from beginning of the string.</summary>
     /// <returns> Reference to this AcString.</returns>
     ///
-	AcString& trimLeft();
+  AcString& trimLeft();
     /// <summary> Remove all designated characters from beginning of the string.</summary>
     /// <returns> Reference to this AcString.</returns>
     /// <remarks> Trims whitespace if pwszChars arg is null.</remarks>
     ///
-	ACBASE_PORT AcString& trimLeft(const wchar_t* pwszChars);
+  ACBASE_PORT AcString& trimLeft(const wchar_t* pwszChars);
     /// <summary> Remove all whitespace characters from the end of the string.</summary>
     /// <returns> Reference to this AcString.</returns>
     ///
-	AcString& trimRight();
+  AcString& trimRight();
     /// <summary> Remove all designated characters from the end of the string.</summary>
     /// <returns> Reference to this AcString.</returns>
     /// <remarks> Trims whitespace if pwszChars arg is null.</remarks>
     ///
-	ACBASE_PORT AcString& trimRight(const wchar_t* pwszChars);
+  ACBASE_PORT AcString& trimRight(const wchar_t* pwszChars);
     /// <summary> Remove all whitespace characters from both ends of the string.</summary>
     /// <returns> Reference to this AcString.</returns>
     ///
-	AcString& trim();
+  AcString& trim();
     /// <summary> Remove all designated characters from both ends of the string.</summary>
     /// <returns> Reference to this AcString.</returns>
     /// <remarks> Trims whitespace if pwszChars arg is null.</remarks>
     ///
-	ACBASE_PORT AcString& trim(const wchar_t* pwszChars);
+  ACBASE_PORT AcString& trim(const wchar_t* pwszChars);
     /// <summary> Remove all occurrences of the specified character.
     /// <returns> Number of characters removed. Zero if the string was not changed.</returns>
     /// <remarks> Removes whitespace chars if wch arg is zero.</remarks>
     ///
-	ACBASE_PORT int remove(wchar_t wch);
+  ACBASE_PORT int remove(wchar_t wch);
     /// <summary> Remove all occurrences of whitespace.
     /// <returns> Number of characters removed. Zero if the string was not changed.</returns>
     ///
-	int remove()
-	{
-		return this->remove(0);
-	}
+  int remove()
+  {
+    return this->remove(0);
+  }
     /// <summary> Extract substring up to the first instance of a designated character.</summary>
     /// <returns> AcString that contains the substring</returns>
     ///
-	ACBASE_PORT AcString spanExcluding(const wchar_t* pwszChars) const;
-#	if   defined(_AFX) || defined (__OSX_WINAPI_UNIX_STRING_H__) || defined(__ATLSTR_H__)
+  ACBASE_PORT AcString spanExcluding(const wchar_t* pwszChars) const;
+#  if   defined(_AFX) || defined (__OSX_WINAPI_UNIX_STRING_H__) || defined(__ATLSTR_H__)
     //
     // MFC CString-using methods.  The CStringA class is the ansi
     // code page based CString, while CStringW is Unicode based.
@@ -637,44 +637,44 @@ public:
 
     // Construct an AcString from a CStringW
     // csw : input reference to the CStringW
-	AcString(const CStringW& csw);
+  AcString(const CStringW& csw);
     // Initialize this AcString from a CStringW
     // csw : input reference to the CStringW
-	AcString& operator =(const CStringW& csw);
+  AcString& operator =(const CStringW& csw);
     // Append a CStringW to this AcString
     // csa : input reference to the CStringW
-	AcString& operator +=(const CStringW& csw);
+  AcString& operator +=(const CStringW& csw);
     // Compare this string to a CStringW
     // csw : input reference to the CStringW
-	int compare(const CStringW& csw) const;
+  int compare(const CStringW& csw) const;
     // Compare this string case independently to a CStringW
     // csw : input reference to the CStringW
-	int compareNoCase(const CStringW& csw) const;
+  int compareNoCase(const CStringW& csw) const;
     // Compare for equality with a CStringW
     // csw : input reference to the CStringW
-	bool operator ==(const CStringW&) const;
+  bool operator ==(const CStringW&) const;
     // Compare for non-equality with a CStringW
     // csw : input reference to the CStringW
-	bool operator !=(const CStringW&) const;
+  bool operator !=(const CStringW&) const;
     // Compare for less than a CStringW
     // csw : input reference to the CStringW
-	bool operator <(const CStringW&) const;
+  bool operator <(const CStringW&) const;
     // Compare for less than or equal to a CStringW
     // csw : input reference to the CStringW
-	bool operator <=(const CStringW&) const;
+  bool operator <=(const CStringW&) const;
     // Compare for greater than a CStringW
     // csw : input reference to the CStringW
-	bool operator >(const CStringW&) const;
+  bool operator >(const CStringW&) const;
     // Compare for greater than or equal to a CStringW
     // csw : input reference to the CStringW
-	bool operator >=(const CStringW&) const;
+  bool operator >=(const CStringW&) const;
     // Return number of chars matching a CStringW
     // csw : input reference to the CStringW
-	int match(const CStringW& csw) const;
+  int match(const CStringW& csw) const;
     // Return number of chars case-independently matching a CStringW
     // csw : input reference to the CStringW
-	int matchNoCase(const CStringW& csw) const;
-#	endif
+  int matchNoCase(const CStringW& csw) const;
+#  endif
     /// <description>
     /// Rplaces instances of the substring with instances of the new string 
     /// </description>
@@ -683,7 +683,7 @@ public:
     /// <returns>
     /// Return the number of replaced instances of the substring. Zero if the string is not changed.
     /// </returns>
-	ACBASE_PORT int replace(const wchar_t* pwszOld, const wchar_t* pwszNew);
+  ACBASE_PORT int replace(const wchar_t* pwszOld, const wchar_t* pwszNew);
     /// <description>
     /// Replace a character with another.
     /// </description>
@@ -692,7 +692,7 @@ public:
     /// <returns>
     /// Return the number of replaced instances of the wchOld. Zero if the string is not changed.
     /// </returns>
-	ACBASE_PORT int replace(wchar_t wchOld, wchar_t wchNew);
+  ACBASE_PORT int replace(wchar_t wchOld, wchar_t wchNew);
     /// <description>
     /// Deletes character(s) from a string starting with the character at given index.
     /// </description>
@@ -701,7 +701,7 @@ public:
     /// <returns>
     /// Return the length of the changed string.
     /// </returns>
-	ACBASE_PORT int deleteAtIndex(int iIndex, int nCount = 1);
+  ACBASE_PORT int deleteAtIndex(int iIndex, int nCount = 1);
     /// <description>
     /// Finds the next token in a target string
     /// </description>
@@ -710,7 +710,7 @@ public:
     /// <returns>
     /// return an AcString object containing the current token value.
     /// </returns>
-	ACBASE_PORT AcString tokenize(const wchar_t* pszTokens, int& iStart);
+  ACBASE_PORT AcString tokenize(const wchar_t* pszTokens, int& iStart);
     /// <description>
     /// Set the character at the given postion to the specified character.
     /// </description>
@@ -719,7 +719,7 @@ public:
     /// <returns>
     /// Return the AcString object after character is set
     /// </returns>
-	ACBASE_PORT AcString& setAt(int nIndex, ACHAR ch);
+  ACBASE_PORT AcString& setAt(int nIndex, ACHAR ch);
     /// <description>
     /// Get one character at the given postion from the string.
     /// </description>
@@ -730,13 +730,13 @@ public:
     ///           Indexing via [] may also work, causing an implicit call to
     ///           the const wchar_t * operator
     /// </remarks>
-	wchar_t getAt(int nIndex) const;
+  wchar_t getAt(int nIndex) const;
     /// <summary>
     /// Inserts a single character at the given index within the string.
     /// </summary>
     /// <param name="nIndex">The index of the character before which the insertion will take place.</param>
     /// <param name="ch">The character to be inserted.</param>
-	ACBASE_PORT AcString& insert(int nIndex, wchar_t ch);
+  ACBASE_PORT AcString& insert(int nIndex, wchar_t ch);
     /// <description>
     /// Inserts a substring at the given index within the string.
     /// </description>
@@ -745,7 +745,7 @@ public:
     /// <returns>
     /// Return the AcString object after substring is inserted
     /// </returns>
-	ACBASE_PORT AcString& insert(int nIndex, const wchar_t* pwsz);
+  ACBASE_PORT AcString& insert(int nIndex, const wchar_t* pwsz);
     /// <description>
     /// Returns a wchar_t pointer to the internal character buffer for the string object. 
     /// The returned buffer allows direct modification of string contents. If you use the
@@ -764,7 +764,7 @@ public:
     /// wchar_t pointer to the object’s (null-terminated) character buffer.
     /// Fails and returns nullptr if nMinBufferLength is < 0.
     /// </returns>
-	ACBASE_PORT ACHAR* getBuffer(int nMinBufferLength = 0);
+  ACBASE_PORT ACHAR* getBuffer(int nMinBufferLength = 0);
     /// <description>
     /// Use releaseBuffer() to end use of a buffer allocated by getBuffer function.
     /// The address returned by getBuffer is invalid after the call to releaseBuffer.
@@ -778,14 +778,14 @@ public:
     /// <returns>
     /// return true if succeed.
     /// </returns>
-	ACBASE_PORT bool releaseBuffer(int nNewLength = -1);
+  ACBASE_PORT bool releaseBuffer(int nNewLength = -1);
 private:
-	friend class AcStringImp;
-	wchar_t* m_wsz;
+  friend class AcStringImp;
+  wchar_t* m_wsz;
 };
-#	ifdef AC_ACARRAY_H
+#  ifdef AC_ACARRAY_H
 typedef AcArray< AcString, AcArrayObjectCopyReallocator< AcString > > AcStringArray;
-#	endif
+#  endif
 //
 // Global operators
 //
@@ -848,323 +848,323 @@ AcString operator +(const wchar_t* pwsz, const AcString& acs);
 //
 operator const wchar_t*()
 {
-	return this->kwszPtr();
+  return this->kwszPtr();
 }
 inline const wchar_t* AcString::constPtr() const
 {
-	return this->kwszPtr();
+  return this->kwszPtr();
 }
 inline const wchar_t* AcString::kTCharPtr() const
 {
-	return this->kwszPtr();
+  return this->kwszPtr();
 }
 inline const ACHAR* AcString::kACharPtr() const
 {
-	return this->kwszPtr();
+  return this->kwszPtr();
 }
 inline bool AcString::isEmpty() const
 {
-	return this->m_wsz[0] == L'\0';
+  return this->m_wsz[0] == L'\0';
 }
 inline wchar_t AcString::getAt(int nIndex) const
 {
-	return this->m_wsz[nIndex];
+  return this->m_wsz[nIndex];
 }
 // Searching inlines
 //
 inline int AcString::find(ACHAR ch) const
 {
-	const ACHAR str[2] = {ch, '\0'};
-	return this->findOneOf(str);
+  const ACHAR str[2] = {ch, '\0'};
+  return this->findOneOf(str);
 }
 inline int AcString::findRev(ACHAR ch) const
 {
-	const ACHAR str[2] = {ch, '\0'};
-	return this->findOneOfRev(str);
+  const ACHAR str[2] = {ch, '\0'};
+  return this->findOneOfRev(str);
 }
 // Extraction inlines
 //
 inline AcString AcString::mid(int nStart, int nNumChars) const
 {
-	return this->substr(nStart, nNumChars);
+  return this->substr(nStart, nNumChars);
 }
 inline AcString AcString::mid(int nStart) const
 {
-	return this->mid(nStart, -1);
+  return this->mid(nStart, -1);
 }
 inline AcString AcString::substr(int nNumChars) const
 {
-	return this->substr(0, nNumChars);
+  return this->substr(0, nNumChars);
 }
 inline AcString AcString::left(int nNumChars) const
 {
-	return this->substr(nNumChars);
+  return this->substr(nNumChars);
 }
 inline AcString AcString::right(int nNumChars) const
 {
-	return this->substrRev(nNumChars);
+  return this->substrRev(nNumChars);
 }
 inline AcString& AcString::trimLeft(wchar_t wch)
 {
-	const wchar_t wszChars[] = {wch, L'\0'};
-	return this->trimLeft(wszChars);
+  const wchar_t wszChars[] = {wch, L'\0'};
+  return this->trimLeft(wszChars);
 }
 inline AcString& AcString::trimLeft()
 {
-	return this->trimLeft(nullptr);
+  return this->trimLeft(nullptr);
 }
 inline AcString& AcString::trimRight(wchar_t wch)
 {
-	const wchar_t wszChars[] = {wch, L'\0'};
-	return this->trimRight(wszChars);
+  const wchar_t wszChars[] = {wch, L'\0'};
+  return this->trimRight(wszChars);
 }
 inline AcString& AcString::trimRight()
 {
-	return this->trimRight(nullptr);
+  return this->trimRight(nullptr);
 }
 inline AcString& AcString::trim(wchar_t wch)
 {
-	const wchar_t wszChars[] = {wch, L'\0'};
-	return this->trim(wszChars);
+  const wchar_t wszChars[] = {wch, L'\0'};
+  return this->trim(wszChars);
 }
 inline AcString& AcString::trim()
 {
-	return this->trim(nullptr);
+  return this->trim(nullptr);
 }
 inline AcString& AcString::trim(const wchar_t* pwszChars)
 {
-	return this->trimRight(pwszChars).trimLeft(pwszChars);
+  return this->trimRight(pwszChars).trimLeft(pwszChars);
 }
 // Assignment inlines
 //
 inline AcString& AcString::assign(wchar_t wch)
 {
-	const wchar_t wstr[2] = {wch, L'\0'};
-	return this->assign(wstr);
+  const wchar_t wstr[2] = {wch, L'\0'};
+  return this->assign(wstr);
 }
 inline AcString& AcString::(wchar_t wch)
 {
-	return this->assign(wch);
+  return this->assign(wch);
 }
 inline AcString& AcString::(const wchar_t* pwsz)
 {
-	return this->assign(pwsz);
+  return this->assign(pwsz);
 }
 inline AcString& AcString::(const AcString& acs)
 {
-	return this->assign(acs);
+  return this->assign(acs);
 }
 inline AcString& AcString::(const AcDbHandle& h)
 {
-	return this->assign(h);
+  return this->assign(h);
 }
 // Modifying inlines
 //
 inline AcString& AcString::(wchar_t wch)
 {
-	return this->append(wch);
+  return this->append(wch);
 }
 inline AcString& AcString::(const wchar_t* pwsz)
 {
-	return this->append(pwsz);
+  return this->append(pwsz);
 }
 inline AcString& AcString::(const AcString& acs)
 {
-	return this->append(acs);
+  return this->append(acs);
 }
 inline AcString& AcString::append(wchar_t wch)
 {
-	const wchar_t wstr[2] = {wch, L'\0'};
-	return this->append(wstr);
+  const wchar_t wstr[2] = {wch, L'\0'};
+  return this->append(wstr);
 }
 // Concatenation inlines
 inline AcString AcString::(wchar_t wch) const
 {
-	return this->concat(wch);
+  return this->concat(wch);
 }
 inline AcString AcString::(const wchar_t* pwsz) const
 {
-	return this->concat(pwsz);
+  return this->concat(pwsz);
 }
 inline AcString AcString::(const AcString& acs) const
 {
-	return this->concat(acs);
+  return this->concat(acs);
 }
 inline AcString AcString::concat(wchar_t wch) const
 {
-	const wchar_t wstr[2] = {wch, L'\0'};
-	return this->concat(wstr);
+  const wchar_t wstr[2] = {wch, L'\0'};
+  return this->concat(wstr);
 }
 inline AcString AcString::precat(wchar_t ch) const
 {
-	const wchar_t str[2] = {ch, '\0'};
-	return this->precat(str);
+  const wchar_t str[2] = {ch, '\0'};
+  return this->precat(str);
 }
 // Comparison inlines
 //
 inline const wchar_t* AcString::kwszPtr() const
 {
-	return this->m_wsz;
+  return this->m_wsz;
 }
 inline int AcString::compare(wchar_t wch) const
 {
-	const wchar_t wstr[2] = {wch, L'\0'};
-	return this->compare(wstr);
+  const wchar_t wstr[2] = {wch, L'\0'};
+  return this->compare(wstr);
 }
 inline int AcString::compare(const AcString& acs) const
 {
-	return this->compare(acs.kwszPtr());
+  return this->compare(acs.kwszPtr());
 }
 inline int AcString::compareNoCase(wchar_t wch) const
 {
-	const wchar_t wstr[2] = {wch, L'\0'};
-	return this->compareNoCase(wstr);
+  const wchar_t wstr[2] = {wch, L'\0'};
+  return this->compareNoCase(wstr);
 }
 inline int AcString::compareNoCase(const AcString& acs) const
 {
-	return this->compareNoCase(acs.kwszPtr());
+  return this->compareNoCase(acs.kwszPtr());
 }
 inline int AcString::collate(const AcString& acs) const
 {
-	return this->collate(acs.kwszPtr());
+  return this->collate(acs.kwszPtr());
 }
 inline int AcString::collateNoCase(const AcString& acs) const
 {
-	return this->collateNoCase(acs.kwszPtr());
+  return this->collateNoCase(acs.kwszPtr());
 }
 inline bool AcString::(wchar_t wch) const
 {
-	return this->compare(wch) == 0;
+  return this->compare(wch) == 0;
 }
 inline bool AcString::(const wchar_t* pwsz) const
 {
-	return this->compare(pwsz) == 0;
+  return this->compare(pwsz) == 0;
 }
 inline bool AcString::(const AcString& acs) const
 {
-	return this->compare(acs) == 0;
+  return this->compare(acs) == 0;
 }
 inline bool AcString::(wchar_t wch) const
 {
-	return this->compare(wch) != 0;
+  return this->compare(wch) != 0;
 }
 inline bool AcString::(const wchar_t* pwsz) const
 {
-	return this->compare(pwsz) != 0;
+  return this->compare(pwsz) != 0;
 }
 inline bool AcString::(const AcString& acs) const
 {
-	return this->compare(acs) != 0;
+  return this->compare(acs) != 0;
 }
 inline bool AcString::(wchar_t wch) const
 {
-	return this->compare(wch) > 0;
+  return this->compare(wch) > 0;
 }
 inline bool AcString::(const wchar_t* pwsz) const
 {
-	return this->compare(pwsz) > 0;
+  return this->compare(pwsz) > 0;
 }
 inline bool AcString::(const AcString& acs) const
 {
-	return this->compare(acs) > 0;
+  return this->compare(acs) > 0;
 }
 inline bool AcString::(wchar_t wch) const
 {
-	return this->compare(wch) >= 0;
+  return this->compare(wch) >= 0;
 }
 inline bool AcString::(const wchar_t* pwsz) const
 {
-	return this->compare(pwsz) >= 0;
+  return this->compare(pwsz) >= 0;
 }
 inline bool AcString::(const AcString& acs) const
 {
-	return this->compare(acs) >= 0;
+  return this->compare(acs) >= 0;
 }
 inline bool AcString::(wchar_t wch) const
 {
-	return this->compare(wch) < 0;
+  return this->compare(wch) < 0;
 }
 inline bool AcString::(const wchar_t* pwsz) const
 {
-	return this->compare(pwsz) < 0;
+  return this->compare(pwsz) < 0;
 }
 inline bool AcString::(const AcString& acs) const
 {
-	return this->compare(acs) < 0;
+  return this->compare(acs) < 0;
 }
 inline bool AcString::(wchar_t wch) const
 {
-	return this->compare(wch) <= 0;
+  return this->compare(wch) <= 0;
 }
 inline bool AcString::(const wchar_t* pwsz) const
 {
-	return this->compare(pwsz) <= 0;
+  return this->compare(pwsz) <= 0;
 }
 inline bool AcString::(const AcString& acs) const
 {
-	return this->compare(acs) <= 0;
+  return this->compare(acs) <= 0;
 }
 // Inline global operators
 inline bool operator ==(wchar_t wch, const AcString& acs)
 {
-	return acs.compare(wch) == 0;
+  return acs.compare(wch) == 0;
 }
 inline bool operator ==(const wchar_t* pwsz, const AcString& acs)
 {
-	return acs.compare(pwsz) == 0;
+  return acs.compare(pwsz) == 0;
 }
 inline bool operator !=(wchar_t wch, const AcString& acs)
 {
-	return acs.compare(wch) != 0;
+  return acs.compare(wch) != 0;
 }
 inline bool operator !=(const wchar_t* pwsz, const AcString& acs)
 {
-	return acs.compare(pwsz) != 0;
+  return acs.compare(pwsz) != 0;
 }
 inline bool operator >(wchar_t wch, const AcString& acs)
 {
-	return acs.compare(wch) < 0;
+  return acs.compare(wch) < 0;
 }
 inline bool operator >(const wchar_t* pwsz, const AcString& acs)
 {
-	return acs.compare(pwsz) < 0;
+  return acs.compare(pwsz) < 0;
 }
 inline bool operator >=(wchar_t wch, const AcString& acs)
 {
-	return acs.compare(wch) <= 0;
+  return acs.compare(wch) <= 0;
 }
 inline bool operator >=(const wchar_t* pwsz, const AcString& acs)
 {
-	return acs.compare(pwsz) <= 0;
+  return acs.compare(pwsz) <= 0;
 }
 inline bool operator <(wchar_t wch, const AcString& acs)
 {
-	return acs.compare(wch) > 0;
+  return acs.compare(wch) > 0;
 }
 inline bool operator <(const wchar_t* pwsz, const AcString& acs)
 {
-	return acs.compare(pwsz) > 0;
+  return acs.compare(pwsz) > 0;
 }
 inline bool operator <=(wchar_t wch, const AcString& acs)
 {
-	return acs.compare(wch) >= 0;
+  return acs.compare(wch) >= 0;
 }
 inline bool operator <=(const wchar_t* pwsz, const AcString& acs)
 {
-	return acs.compare(pwsz) >= 0;
+  return acs.compare(pwsz) >= 0;
 }
 // These don't modify the AcString.  They return a copy.
 inline AcString operator +(ACHAR ch, const AcString& acs)
 {
-	return acs.precat(ch);
+  return acs.precat(ch);
 }
 inline AcString operator +(const wchar_t* pwsz, const AcString& acs)
 {
-	return acs.precat(pwsz);
+  return acs.precat(pwsz);
 }
 inline bool AcString::equalsNoCase(const AcString& left, const AcString& right)
 {
-	return left.compareNoCase(right) == 0;
+  return left.compareNoCase(right) == 0;
 }
 // Return a unique identifier (pointer) for the input string, to allow fast compares
 // using pointer values instead of strings.
@@ -1175,107 +1175,107 @@ inline bool AcString::equalsNoCase(const AcString& left, const AcString& right)
 class AcUniqueString
 {
 public:
-	ACBASE_PORT static const AcUniqueString* Intern(const wchar_t*);
+  ACBASE_PORT static const AcUniqueString* Intern(const wchar_t*);
 };
 // We can do inline operators that deal with CStrings, without getting
 // into binary format dependencies.  Don't make these out-of-line
 // functions, because then we'll have a dependency between our
 // components and CString-using clients.
 //
-#	if  defined(_AFX) || defined(__OSX_WINAPI_UNIX_STRING_H__) || defined(__ATLSTR_H__)
+#  if  defined(_AFX) || defined(__OSX_WINAPI_UNIX_STRING_H__) || defined(__ATLSTR_H__)
 inline AcString::AcString(const CStringW& csw)
-	: AcString()
+  : AcString()
 {
-	const wchar_t* pwsz = (const wchar_t*) csw;
-	*this = pwsz;
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  *this = pwsz;
 }
 inline AcString& AcString::(const CStringW& csw)
 {
-	const wchar_t* pwsz = (const wchar_t*) csw;
-	return this->assign(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return this->assign(pwsz);
 }
 inline AcString& AcString::(const CStringW& csw)
 {
-	const wchar_t* pwsz = (const wchar_t*) csw;
-	return this->append(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return this->append(pwsz);
 }
 inline int AcString::compare(const CStringW& csw) const
 {
-	const wchar_t* pwsz = (const wchar_t*) csw;
-	return this->compare(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return this->compare(pwsz);
 }
 inline int AcString::compareNoCase(const CStringW& csw) const
 {
-	const wchar_t* pwsz = (const wchar_t*) csw;
-	return this->compareNoCase(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return this->compareNoCase(pwsz);
 }
 inline int AcString::match(const CStringW& csw) const
 {
-	const wchar_t* pwsz = (const wchar_t*) csw;
-	return this->match(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return this->match(pwsz);
 }
 inline int AcString::matchNoCase(const CStringW& csw) const
 {
-	const wchar_t* pwsz = (const wchar_t*) csw;
-	return this->matchNoCase(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return this->matchNoCase(pwsz);
 }
 inline bool AcString::(const CStringW& csw) const
 {
-	return this->compare(csw) == 0;
+  return this->compare(csw) == 0;
 }
 inline bool AcString::(const CStringW& csw) const
 {
-	return this->compare(csw) != 0;
+  return this->compare(csw) != 0;
 }
 inline bool AcString::(const CStringW& csw) const
 {
-	return this->compare(csw) > 0;
+  return this->compare(csw) > 0;
 }
 inline bool AcString::(const CStringW& csw) const
 {
-	return this->compare(csw) >= 0;
+  return this->compare(csw) >= 0;
 }
 inline bool AcString::(const CStringW& csw) const
 {
-	return this->compare(csw) < 0;
+  return this->compare(csw) < 0;
 }
 inline bool AcString::(const CStringW& csw) const
 {
-	return this->compare(csw) <= 0;
+  return this->compare(csw) <= 0;
 }
-#		if  defined(_AFX) && !defined(__cplusplus_cli)
+#    if  defined(_AFX) && !defined(__cplusplus_cli)
 // Global CString-related operators
 inline bool operator ==(const CStringW& csw, const AcString& acs)
 {
-	return acs.compare(csw) == 0;
+  return acs.compare(csw) == 0;
 }
 inline bool operator !=(const CStringW& csw, const AcString& acs)
 {
-	return acs.compare(csw) != 0;
+  return acs.compare(csw) != 0;
 }
 inline bool operator >(const CStringW& csw, const AcString& acs)
 {
-	return acs.compare(csw) < 0;
+  return acs.compare(csw) < 0;
 }
 inline bool operator >=(const CStringW& csw, const AcString& acs)
 {
-	return acs.compare(csw) <= 0;
+  return acs.compare(csw) <= 0;
 }
 inline bool operator <(const CStringW& csw, const AcString& acs)
 {
-	return acs.compare(csw) > 0;
+  return acs.compare(csw) > 0;
 }
 inline bool operator <=(const CStringW& csw, const AcString& acs)
 {
-	return acs.compare(csw) >= 0;
+  return acs.compare(csw) >= 0;
 }
-#			ifndef DISABLE_CSTRING_PLUS_ACSTRING
+#      ifndef DISABLE_CSTRING_PLUS_ACSTRING
 inline AcString operator +(const CStringW& csw, const AcString& acs)
 {
-	const wchar_t* pwsz = (const wchar_t*) csw;
-	return acs.precat(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return acs.precat(pwsz);
 }
-#			endif
-#		endif
-#	endif
+#      endif
+#    endif
+#  endif
 #endif

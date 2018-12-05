@@ -22,15 +22,15 @@
 /// AcDMMReactor
 /// </summary>
 #ifndef _ACDMMAPI_H
-#	define _ACDMMAPI_H
+#  define _ACDMMAPI_H
 // These are lightweight objects containing the data but not the complex
 // behavior of the corresponding DWF toolkit object
-#	include "AdAChar.h"
-#	include "AcDMMEPlotProperty.h"
-#	include "AcDMMEPlotProperties.h"
-#	include "AcDMMutils.h"
-#	include "AcPlPlotLogger.h"
-#	include "Ac3dDwfNavTree.h"
+#  include "AdAChar.h"
+#  include "AcDMMEPlotProperty.h"
+#  include "AcDMMEPlotProperties.h"
+#  include "AcDMMutils.h"
+#  include "AcPlPlotLogger.h"
+#  include "Ac3dDwfNavTree.h"
 ///////////////////////////////////////////////////////////
 // class AcDMMSheetReactorInfo
 ///////////////////////////////////////////////////////////
@@ -49,74 +49,74 @@ public:
     /// <summary>
     /// describes the plot area (what to plot) requested
     /// </summary>
-	enum PlotArea
-	{
+  enum PlotArea
+  {
         /// <summary>
         /// plot display, the visible portion of the picture
         /// </summary>
-		kDisplay = 0,
+    kDisplay = 0,
         /// <summary>
         /// plot extents, i.e. all geometry
         /// </summary>
-		kExtents = 1,
+    kExtents = 1,
         /// <summary>
         /// plot the limits set by the user
         /// </summary>
-		kLimits = 2,
+    kLimits = 2,
         /// <summary>
         /// plot a named view
         /// </summary>
-		kView,
+    kView,
         /// <summary>
         /// plot a user specified window - a rectangular area
         /// </summary>
-		kWindow,
+    kWindow,
         /// <summary>
         /// plot the extents of the layout
         /// </summary>
-		kLayout
-	};
+    kLayout
+  };
     /// <summary>
     /// how much camera rotation is applied for this plot
     /// </summary>
-	enum PlotRotation
-	{
+  enum PlotRotation
+  {
         /// <summary>
         /// 0 degrees camera rotation
         /// </summary>
-		k0degrees,
+    k0degrees,
         /// <summary>
         /// 90 degrees camera rotation
         /// </summary>
-		k90degrees,
+    k90degrees,
         /// <summary>
         /// 180 degrees camera rotation, i.e., plot upside down
         /// </summary>
-		k180degrees,
+    k180degrees,
         /// <summary>
         /// 270 degrees camera rotation
         /// </summary>
-		k270degrees
-	};
+    k270degrees
+  };
     /// <summary>
     /// the configured media units. This will always be dimensional
     /// for DWF plots.
     /// </summary>
-	enum PlotMediaUnits
-	{
+  enum PlotMediaUnits
+  {
         /// <summary>
         /// using imperial units
         /// </summary>
-		kInches,
+    kInches,
         /// <summary>
         ///  using metric units
         /// </summary>
-		kMillimeters,
+    kMillimeters,
         /// <summary>
         /// using dimensionaless raster units, not expected for DWF
         /// </summary>
-		kPixels
-	};
+    kPixels
+  };
     /// <summary>
     /// provides access to the plotLogger object
     /// </summary>
@@ -125,7 +125,7 @@ public:
     /// a pointer to an AcPlPlotLogger service
     /// </returns>
     ///
-	virtual AcPlPlotLogger* GetPlotLogger() = 0;
+  virtual AcPlPlotLogger* GetPlotLogger() = 0;
     /// <summary>
     /// accessor for the database being plotted
     /// </summary>
@@ -133,7 +133,7 @@ public:
     /// <returns>
     /// a pointer to the database being plotted
     /// </returns>
-	virtual AcDbDatabase* database() const = 0;
+  virtual AcDbDatabase* database() const = 0;
     /// <summary>
     /// query the current plot status
     /// </summary> 
@@ -144,7 +144,7 @@ public:
     /// <remarks>
     /// most useful in OnEndSheet callbacks
     /// </remarks>
-	virtual bool isPlotJobCancelled() const = 0;
+  virtual bool isPlotJobCancelled() const = 0;
     /// <summary>
     /// This allows clients to add a list of properties 
     /// to the DWF file, to be associated with this page but not
@@ -156,7 +156,7 @@ public:
     /// a vector of AcDMMEPlotProperties
     /// </param>
     ///
-	virtual void AddPageProperties(AcDMMEPlotPropertyVec props) = 0;
+  virtual void AddPageProperties(AcDMMEPlotPropertyVec props) = 0;
     /// <summary>
     /// This allows clients to add a list of resources (files)
     /// to the DWF file, to be associated with this page but not
@@ -168,7 +168,7 @@ public:
     /// type, role and a full path to the resource to be added
     /// </param>
     ///
-	virtual void AddPageResources(AcDMMResourceVec resources) = 0;
+  virtual void AddPageResources(AcDMMResourceVec resources) = 0;
     ///////////////// WHAT TO PRINT /////////////////////////
 
     /// <summary>
@@ -179,14 +179,14 @@ public:
     /// this returns a const pointer to the GUID assigned the first time this 
     /// layout was published (it gets reused on republish)
     /// </returns>
-	virtual const ACHAR* UniqueLayoutId() = 0;
+  virtual const ACHAR* UniqueLayoutId() = 0;
     /// <summary>
     /// accessor for this layout's object ID
     /// </summary>
     /// <returns>
     /// AcDbLayout object ID
     /// </returns>
-	virtual AcDbObjectId plotLayoutId() const = 0;
+  virtual AcDbObjectId plotLayoutId() const = 0;
     /// <summary>
     /// is this the Model tab or a layout?
     /// </summary>
@@ -194,7 +194,7 @@ public:
     /// <returns>
     /// true if this is the Model tab
     /// </returns>
-	virtual bool isModelLayout() const = 0;
+  virtual bool isModelLayout() const = 0;
     // qv Plot Area of Print dialog
     /// <summary>
     /// accessor for the configured plot area (what to plot)
@@ -204,7 +204,7 @@ public:
     /// a PlotArea enum
     /// </returns>
     ///
-	virtual PlotArea plotArea() const = 0;
+  virtual PlotArea plotArea() const = 0;
     /// <summary>
     /// accessor for the configured plot rotation (camera rotation)
     /// </summary>
@@ -213,7 +213,7 @@ public:
     /// a PlotRotation enum
     /// </returns>
     ///
-	virtual PlotRotation plotRotation() const = 0;
+  virtual PlotRotation plotRotation() const = 0;
     /// <summary>
     /// accessor for the configured plot media units
     /// </summary>
@@ -222,7 +222,7 @@ public:
     /// a PlotMediaUnits enum
     /// </returns>
     ///
-	virtual PlotMediaUnits plotMediaUnits() const = 0;
+  virtual PlotMediaUnits plotMediaUnits() const = 0;
     /// <summary>
     /// accessor for the configured paper scale. Divided by the
     /// drawing scale, this gives the plot scale in use
@@ -232,7 +232,7 @@ public:
     /// the paper scale as a double precision number
     /// </returns>
     ///
-	virtual double paperScale() const = 0;
+  virtual double paperScale() const = 0;
     /// <summary>
     /// accessor for the configured drawing scale aka model scale
     /// </summary>
@@ -245,7 +245,7 @@ public:
     /// this is useful when considered together with the paper scale
     /// the plot scale is "paper scale" : "drawing scale"
     /// </remarks>
-	virtual double drawingScale() const = 0;
+  virtual double drawingScale() const = 0;
     /// <summary>
     /// accessor for the x coordinate of the plot origin, in media units, 
     /// from the corner of the paper.
@@ -263,7 +263,7 @@ public:
     /// <seealso cref="effectivePlotOffsetXdevice"/>
     /// <seealso cref="effectivePlotOffsetYdevice"/>
     ///
-	virtual double originX() const = 0;
+  virtual double originX() const = 0;
     /// <summary>
     /// accessor for the y coordinate of the plot origin, in media units, 
     /// from the corner of the paper.
@@ -281,7 +281,7 @@ public:
     /// <seealso cref="effectivePlotOffsetXdevice"/>
     /// <seealso cref="effectivePlotOffsetYdevice"/>
     ///
-	virtual double originY() const = 0;
+  virtual double originY() const = 0;
     /// <summary>
     /// accessor for x coordinate of the lower left corner of the plot window
     /// </summary>
@@ -300,7 +300,7 @@ public:
     /// <seealso cref="plotWindowMaxX"/>
     /// <seealso cref="plotWindowMaxY"/>
     ///
-	virtual double plotWindowMinX() const = 0;
+  virtual double plotWindowMinX() const = 0;
     /// <summary>
     /// accessor for y coordinate of the lower left corner of the plot window
     /// </summary>
@@ -319,7 +319,7 @@ public:
     /// <seealso cref="plotWindowMaxX"/>
     /// <seealso cref="plotWindowMaxY"/>
     ///
-	virtual double plotWindowMinY() const = 0;
+  virtual double plotWindowMinY() const = 0;
     /// <summary>
     /// accessor for x coordinate of the upper right corner of the plot window
     /// </summary>
@@ -338,7 +338,7 @@ public:
     /// <seealso cref="plotWindowMinY"/>
     /// <seealso cref="plotWindowMaxY"/>
     ///
-	virtual double plotWindowMaxX() const = 0;
+  virtual double plotWindowMaxX() const = 0;
     /// <summary>
     /// accessor for y coordinate of the upper right corner of the plot window
     /// </summary>
@@ -357,7 +357,7 @@ public:
     /// <seealso cref="plotWindowMinY"/>
     /// <seealso cref="plotWindowMaxX"/>
     ///
-	virtual double plotWindowMaxY() const = 0;
+  virtual double plotWindowMaxY() const = 0;
     /// <summary>
     /// accessor for the name of the view bring plotted
     /// </summary>
@@ -372,7 +372,7 @@ public:
     ///
     /// <seealso cref="plotArea"/>
     ///
-	virtual const TCHAR* viewPlotted() const = 0;
+  virtual const TCHAR* viewPlotted() const = 0;
     /// <summary>
     /// is a plot scale specified or is it scale "to fit"
     /// </summary>
@@ -381,7 +381,7 @@ public:
     /// true if a plot scale was specified
     /// </returns>
     ///
-	virtual bool isScaleSpecified() const = 0;
+  virtual bool isScaleSpecified() const = 0;
     /// <summary>
     /// is hidden line removal configured?
     /// </summary>
@@ -390,7 +390,7 @@ public:
     /// true if this plot is done with hidden line removal
     /// </returns>
     ///
-	virtual bool areLinesHidden() const = 0;
+  virtual bool areLinesHidden() const = 0;
     /// <summary>
     /// are lineweights being plotted?
     /// </summary>
@@ -399,7 +399,7 @@ public:
     /// true if lineweights are configured to be plotted
     /// </returns>
     ///
-	virtual bool arePlottingLineWeights() const = 0;
+  virtual bool arePlottingLineWeights() const = 0;
     /// <summary>
     /// are lineweights being scaled?
     /// </summary>
@@ -408,7 +408,7 @@ public:
     /// true if lineweights are being scaled
     /// </returns>
     ///
-	virtual bool areScalingLineWeights() const = 0;
+  virtual bool areScalingLineWeights() const = 0;
     // display extents; world coordinates
 
     /// <summary>
@@ -424,7 +424,7 @@ public:
     /// <seealso cref="AcDMMSheetReactorInfo.displayMaxX"/>
     /// <seealso cref="AcDMMSheetReactorInfo.displayMaxY"/>
     ///
-	virtual double displayMinX() const = 0;
+  virtual double displayMinX() const = 0;
     /// <summary>
     /// accessor for y coordinate of the lower left corner of the display
     /// </summary>
@@ -438,7 +438,7 @@ public:
     /// <seealso cref="AcDMMSheetReactorInfo.displayMaxX"/>
     /// <seealso cref="AcDMMSheetReactorInfo.displayMaxY"/>
     ///
-	virtual double displayMinY() const = 0;
+  virtual double displayMinY() const = 0;
     /// <summary>
     /// accessor for x coordinate of the upper right corner of the display
     /// </summary>
@@ -452,7 +452,7 @@ public:
     /// <seealso cref="AcDMMSheetReactorInfo.displayMinY"/>
     /// <seealso cref="AcDMMSheetReactorInfo.displayMaxY"/>
     ///
-	virtual double displayMaxX() const = 0;
+  virtual double displayMaxX() const = 0;
     /// <summary>
     /// accessor for y coordinate of the upper right corner of the display
     /// </summary>
@@ -466,7 +466,7 @@ public:
     /// <seealso cref="AcDMMSheetReactorInfo.displayMinY"/>
     /// <seealso cref="AcDMMSheetReactorInfo.displayMaxX"/>
     ///
-	virtual double displayMaxY() const = 0;
+  virtual double displayMaxY() const = 0;
     // unprintable area on the layout, measured from nearest edge, 
     // in PlotMediaUnits
 
@@ -480,7 +480,7 @@ public:
     /// printable area, in the configured media units
     /// </returns>
     ///
-	virtual double layoutMarginMinX() const = 0;
+  virtual double layoutMarginMinX() const = 0;
     /// <summary>
     /// accessor for distance from the bottom edge of the paper to the
     /// bottom edge of the printable area
@@ -491,7 +491,7 @@ public:
     /// printable area, in the configured media units
     /// </returns>
     ///
-	virtual double layoutMarginMinY() const = 0;
+  virtual double layoutMarginMinY() const = 0;
     /// <summary>
     /// accessor for distance from the right edge of the paper to the
     /// right edge of the printable area
@@ -502,7 +502,7 @@ public:
     /// printable area, in the configured media units
     /// </returns>
     ///
-	virtual double layoutMarginMaxX() const = 0;
+  virtual double layoutMarginMaxX() const = 0;
     /// <summary>
     /// accessor for distance from the top edge of the paper to the
     /// top edge of the printable area
@@ -513,7 +513,7 @@ public:
     /// printable area, in the configured media units
     /// </returns>
     ///
-	virtual double layoutMarginMaxY() const = 0;
+  virtual double layoutMarginMaxY() const = 0;
     ///////////////////// HOW TO PRINT /////////////////////////////
 
     /// <summary>
@@ -524,7 +524,7 @@ public:
     /// the width of the printable area, in the configured media units
     /// </returns>
     ///
-	virtual double printableBoundsX() const = 0;
+  virtual double printableBoundsX() const = 0;
     /// <summary>
     /// accessor for the height of the printable area
     /// </summary>
@@ -533,7 +533,7 @@ public:
     /// the height of the printable area, in the configured media units
     /// </returns>
     ///
-	virtual double printableBoundsY() const = 0;
+  virtual double printableBoundsY() const = 0;
     /// <summary>
     /// accessor for the width of the configured media
     /// </summary>
@@ -542,7 +542,7 @@ public:
     /// the width of the configured media, in the configured media units
     /// </returns>
     ///
-	virtual double maxBoundsX() const = 0;
+  virtual double maxBoundsX() const = 0;
     /// <summary>
     /// accessor for the height of the configured media
     /// </summary>
@@ -551,7 +551,7 @@ public:
     /// the height of the configured media, in the configured media units
     /// </returns>
     ///
-	virtual double maxBoundsY() const = 0;
+  virtual double maxBoundsY() const = 0;
     /// <summary>
     /// accessor for the configured vector resolution in dots per inch
     /// </summary>
@@ -560,7 +560,7 @@ public:
     /// the configured vector resolution
     /// </returns>
     ///
-	virtual double stepsPerInch() const = 0;
+  virtual double stepsPerInch() const = 0;
     /// <summary>
     /// accessor for the configured device name (pc3 file or device name)
     /// </summary>
@@ -569,7 +569,7 @@ public:
     /// the configured plotter name (pc3 file or device name)
     /// </returns>
     ///
-	virtual const TCHAR* configuration() const = 0;
+  virtual const TCHAR* configuration() const = 0;
     /// <summary>
     /// accessor for the plot to file path (directory)
     /// </summary>
@@ -578,7 +578,7 @@ public:
     /// the plot to file path
     /// </returns>
     ///
-	virtual const TCHAR* plotToFilePath() const = 0;
+  virtual const TCHAR* plotToFilePath() const = 0;
     /// <summary>
     /// accessor for the plot to file filename
     /// </summary>
@@ -587,7 +587,7 @@ public:
     /// the plot to file filename
     /// </returns>
     ///
-	virtual const TCHAR* plotToFileName() const = 0;
+  virtual const TCHAR* plotToFileName() const = 0;
     /// <summary>
     /// accessor for the canonical name of the configured media size
     /// </summary>
@@ -596,7 +596,7 @@ public:
     /// the canonical name of the configured media size
     /// </returns>
     ///
-	virtual const TCHAR* canonicalMediaName() const = 0;
+  virtual const TCHAR* canonicalMediaName() const = 0;
     /// <summary>
     /// accessor for x coordinate of the lower left corner of the plot bounds
     /// </summary>
@@ -611,7 +611,7 @@ public:
     /// (Note: this is what is requested to be plotted; some clipping may occur
     /// depending on media size and rotation.)
     /// </remarks>
-	virtual double plotBoundsMinX() const = 0;
+  virtual double plotBoundsMinX() const = 0;
     /// <summary>
     /// accessor for y coordinate of the lower left corner of the plot bounds
     /// </summary>
@@ -626,7 +626,7 @@ public:
     /// (Note: this is what is requested to be plotted; some clipping may occur
     /// depending on media size and rotation.)
     /// </remarks>
-	virtual double plotBoundsMinY() const = 0;
+  virtual double plotBoundsMinY() const = 0;
     /// <summary>
     /// accessor for x coordinate of the upper right corner of the plot bounds
     /// </summary>
@@ -641,7 +641,7 @@ public:
     /// (Note: this is what is requested to be plotted; some clipping may occur
     /// depending on media size and rotation.)
     /// </remarks>
-	virtual double plotBoundsMaxX() const = 0;
+  virtual double plotBoundsMaxX() const = 0;
     /// <summary>
     /// accessor for y coordinate of the upper right corner of the plot bounds
     /// </summary>
@@ -656,7 +656,7 @@ public:
     /// (Note: this is what is requested to be plotted; some clipping may occur
     /// depending on media size and rotation.)
     /// </remarks>
-	virtual double plotBoundsMaxY() const = 0;
+  virtual double plotBoundsMaxY() const = 0;
     /// <summary>
     /// accessor for x coordinate of the lower left corner of the printable
     /// bounds
@@ -679,7 +679,7 @@ public:
     /// (what the user requested to plot.)  In this case, the
     /// plot is clipped.
     /// </remarks>
-	virtual double layoutBoundsMinX() const = 0;
+  virtual double layoutBoundsMinX() const = 0;
     /// <summary>
     /// accessor for y coordinate of the lower left corner of the printable
     /// bounds
@@ -702,7 +702,7 @@ public:
     /// (what the user requested to plot.)  In this case, the
     /// plot is clipped.
     /// </remarks>
-	virtual double layoutBoundsMinY() const = 0;
+  virtual double layoutBoundsMinY() const = 0;
     /// <summary>
     /// accessor for x coordinate of the upper right corner of the printable
     /// bounds
@@ -725,7 +725,7 @@ public:
     /// (what the user requested to plot.)  In this case, the
     /// plot is clipped.
     /// </remarks>
-	virtual double layoutBoundsMaxX() const = 0;
+  virtual double layoutBoundsMaxX() const = 0;
     /// <summary>
     /// accessor for y coordinate of the upper right corner of the printable
     /// bounds
@@ -748,7 +748,7 @@ public:
     /// (what the user requested to plot.)  In this case, the
     /// plot is clipped.
     /// </remarks>
-	virtual double layoutBoundsMaxY() const = 0;
+  virtual double layoutBoundsMaxY() const = 0;
     // May differ from origin, above, depending on rotation, scaling, etc.
 
     /// <summary>
@@ -761,7 +761,7 @@ public:
     /// in configured media units
     /// </returns>
     ///
-	virtual double effectivePlotOffsetX() const = 0;
+  virtual double effectivePlotOffsetX() const = 0;
     /// <summary>
     /// accessor for y coordinate of the effective plot origin
     /// in media units
@@ -772,7 +772,7 @@ public:
     /// in configured media units
     /// </returns>
     ///
-	virtual double effectivePlotOffsetY() const = 0;
+  virtual double effectivePlotOffsetY() const = 0;
     /// <summary>
     /// accessor for x coordinate of the effective plot origin
     /// in device coordinates (pixels)
@@ -783,7 +783,7 @@ public:
     /// in device coordinates (pixels)
     /// </returns>
     ///
-	virtual int effectivePlotOffsetXdevice() const = 0;
+  virtual int effectivePlotOffsetXdevice() const = 0;
     /// <summary>
     /// accessor for y coordinate of the effective plot origin
     /// in device coordinates (pixels)
@@ -794,7 +794,7 @@ public:
     /// in device coordinates (pixels)
     /// </returns>
     ///
-	virtual int effectivePlotOffsetYdevice() const = 0;
+  virtual int effectivePlotOffsetYdevice() const = 0;
     /// <summary>
     /// Are we publishing a 3D DWF?
     /// </summary>
@@ -803,7 +803,7 @@ public:
     /// returns true if the sheet is being published to a 3D DWF
     /// </returns>
     ///
-	virtual bool publishingTo3DDwf() const = 0;
+  virtual bool publishingTo3DDwf() const = 0;
     /// <summary>
     /// Call this method to register the root of your Ac3DDwfNavTreeNode 
     /// during the Begin Sheet reactor call. Note the first client who 
@@ -827,7 +827,7 @@ public:
     /// passed in
     /// </returns>
     ///
-	virtual bool set3dDwfNavigationTreeNode(const Ac3dDwfNavTreeNode* root) = 0;
+  virtual bool set3dDwfNavigationTreeNode(const Ac3dDwfNavTreeNode* root) = 0;
     /// <summary>
     /// Call this method to get the current Ac3DDwfNavTreeNode root node. If 
     /// there is no root node registered, a NULL pointer is returned. If a root
@@ -841,21 +841,21 @@ public:
     /// no root node registered, a NULL pointer is returned.
     /// </returns>
     ///
-	virtual Ac3dDwfNavTreeNode* get3dDwfNavigationTreeNode() = 0;
+  virtual Ac3dDwfNavTreeNode* get3dDwfNavigationTreeNode() = 0;
     /// <summary>
     /// destructor
     /// </summary>
-	virtual ~AcDMMSheetReactorInfo()
-	{
-	}
+  virtual ~AcDMMSheetReactorInfo()
+  {
+  }
 protected:
     /// <summary>
     /// constructor - you don't construct this class. It is handed to you
     /// as context information in the reactor
     /// </summary>
-	AcDMMSheetReactorInfo()
-	{
-	}
+  AcDMMSheetReactorInfo()
+  {
+  }
 };
 ///////////////////////////////////////////////////////////
 // class AcDMMEntityReactorInfo
@@ -880,7 +880,7 @@ public:
     /// <remarks>
     /// in case you'd like to know if the plot is being cancelled
     /// </remarks>
-	virtual bool isCancelled() const = 0;
+  virtual bool isCancelled() const = 0;
     /// <summary>
     /// compute a unique entity id string
     /// </summary>
@@ -892,7 +892,7 @@ public:
     /// <remarks>
     /// This is handy for use as a unique Properties Id.
     /// </remarks>
-	virtual const wchar_t* UniqueEntityId() = 0;
+  virtual const wchar_t* UniqueEntityId() = 0;
     /// <summary>
     /// accessor for the current entity 
     /// </summary>
@@ -904,7 +904,7 @@ public:
     /// <remarks>
     /// You'll use this to identify the entities of interest to you.
     /// </remarks>
-	virtual AcDbEntity* entity() const = 0;
+  virtual AcDbEntity* entity() const = 0;
     /// <summary>
     /// compute the effective layer ID
     /// </summary>
@@ -916,7 +916,7 @@ public:
     /// <remarks>
     /// useful for objects on Layer 0
     /// </remarks>
-	virtual AcDbObjectId effectiveBlockLayerId() const = 0;
+  virtual AcDbObjectId effectiveBlockLayerId() const = 0;
     /// <summary>
     /// determine if this entity has already been assigned a Node
     /// </summary>
@@ -938,7 +938,7 @@ public:
     /// false if no node has been assigned
     /// </returns>
     ///
-	virtual bool GetCurrentEntityNode(AcDMMNode& node, AcDbObjectIdArray objIds) const = 0;
+  virtual bool GetCurrentEntityNode(AcDMMNode& node, AcDbObjectIdArray objIds) const = 0;
     /// <summary>
     /// fetch the next unused node number
     /// </summary>
@@ -952,7 +952,7 @@ public:
     /// an empty string as its name. (Node name is optional.)
     /// </remarks>
     ///
-	virtual int GetNextAvailableNodeId() const = 0;
+  virtual int GetNextAvailableNodeId() const = 0;
     /// <summary>
     /// look up any entity ID in the map of Id to node, find out if a Node
     /// has already been assigned to a particular entity.
@@ -978,7 +978,7 @@ public:
     /// <returns>
     /// returns true if this entity has already been assigned a NodeId
     /// </returns>
-	virtual bool GetEntityNode(AcDbObjectId id, AcDbObjectIdArray objIds, int& nodeId) const = 0;
+  virtual bool GetEntityNode(AcDbObjectId id, AcDbObjectIdArray objIds, int& nodeId) const = 0;
     /// <summary>
     /// finds a Node given its Id
     /// </summary>
@@ -991,7 +991,7 @@ public:
     /// NULL if node not found, otherwise returns a const pointer to the Node.
     /// </returns>
     ///
-	virtual const AcDMMNode* GetNode(int nodeId) const = 0;
+  virtual const AcDMMNode* GetNode(int nodeId) const = 0;
     /// <summary>
     /// provides access to the plotLogger object
     /// </summary>
@@ -1000,7 +1000,7 @@ public:
     /// a pointer to an AcPlPlotLogger service
     /// </returns>
     ///
-	virtual AcPlPlotLogger* GetPlotLogger() = 0;
+  virtual AcPlPlotLogger* GetPlotLogger() = 0;
     ///////////////// Feedback functions  /////////////////
 
     /// <summary>
@@ -1034,7 +1034,7 @@ public:
     /// Only add Nodes to entities for which you are publishing properties.
     /// </remarks>
     ///
-	virtual bool SetCurrentNode(int nodeId, AcDbObjectIdArray objIds) = 0;
+  virtual bool SetCurrentNode(int nodeId, AcDbObjectIdArray objIds) = 0;
     /// <summary>
     /// allows client to change node name but not node number
     /// </summary>
@@ -1051,7 +1051,7 @@ public:
     /// <returns>
     /// true on success, false if the Node doesn't exist
     /// </returns>
-	virtual bool SetNodeName(int nodeNumber, const wchar_t* name) = 0;
+  virtual bool SetNodeName(int nodeNumber, const wchar_t* name) = 0;
     /// <summary>
     /// Allows a client to add free-floating AcDMMEPlotProperties objects.
     /// Each of these has a unique Id and may reference other 
@@ -1082,7 +1082,7 @@ public:
     /// the Object just created. 
     /// </remarks>
     ///
-	virtual bool AddProperties(const AcDMMEPlotProperties* props) = 0;
+  virtual bool AddProperties(const AcDMMEPlotProperties* props) = 0;
     /// <summary>
     /// Assign a vector of AcDMMEplotProperties Ids to a Node.
     /// </summary>
@@ -1112,19 +1112,19 @@ public:
     /// EPlotProperties element
     /// </remarks>
     ///
-	virtual bool AddPropertiesIds(AcDMMStringVec* IdVec, AcDMMNode& node) = 0;
+  virtual bool AddPropertiesIds(AcDMMStringVec* IdVec, AcDMMNode& node) = 0;
     /// <summary>
     /// Forces the graphic pipeline to be flushed, to ensure synchronization;
     /// when control returns, all geometry will have been pushed
     /// down to the driver. 
     /// </summary>
     ///
-	virtual void flush() = 0;
+  virtual void flush() = 0;
     /// <summary>
     /// If for any reason, you need to cancel the entire plot operation...
     /// </summary>
     /// 
-	virtual void cancelTheJob() = 0;
+  virtual void cancelTheJob() = 0;
     /// <summary>
     /// assign a NodeId to any EntityId
     /// </summary>
@@ -1158,7 +1158,7 @@ public:
     /// this allows the child to determine the parent's Node ID
     /// </remarks>
     ///
-	virtual bool AddNodeToMap(AcDbObjectId Id, AcDbObjectIdArray objIds, int nodeId) = 0;
+  virtual bool AddNodeToMap(AcDbObjectId Id, AcDbObjectIdArray objIds, int nodeId) = 0;
     /// <summary>
     /// Call this method to add 3D DWF properties to entities when OnBeginEntity
     /// notification is received. You can call this n times to add n number of 
@@ -1181,7 +1181,7 @@ public:
     /// returns true if property is added successfully
     /// </returns>
     ///
-	virtual bool add3DDwfProperty(const wchar_t* category, const wchar_t* name, const wchar_t* value) = 0;
+  virtual bool add3DDwfProperty(const wchar_t* category, const wchar_t* name, const wchar_t* value) = 0;
     /// <summary>
     /// Call this method to add 3D DWF properties to entities when OnBeginEntity
     /// notification is received. You can call this n times to add n number of 
@@ -1216,7 +1216,7 @@ public:
     /// returns true if attribute is added successfully
     /// </returns>
     ///
-	virtual bool add3DDwfAttribute(const wchar_t* category, const wchar_t* name, const wchar_t* ns, const wchar_t* nsUrl, const wchar_t* attName, const wchar_t* attVal) = 0;
+  virtual bool add3DDwfAttribute(const wchar_t* category, const wchar_t* name, const wchar_t* ns, const wchar_t* nsUrl, const wchar_t* attName, const wchar_t* attVal) = 0;
     /// <summary>
     /// Call this method to get an array of graphic Node ID's associated 
     /// with this entity
@@ -1225,7 +1225,7 @@ public:
     /// <returns>
     /// returns the graphic Node ID's associated with entity
     /// </returns>
-	virtual const AcArray<long>& getGraphicIDs() = 0;
+  virtual const AcArray<long>& getGraphicIDs() = 0;
     /// <summary>
     /// Call this  method to get the the block ref path for the current entity
     /// </summary>
@@ -1233,17 +1233,17 @@ public:
     /// <returns>
     /// returns the block ref path for the current entity
     /// </returns>
-	virtual const AcDbObjectIdArray& getEntityBlockRefPath() = 0;
+  virtual const AcDbObjectIdArray& getEntityBlockRefPath() = 0;
     /// <summary>
     /// destructor
     /// </summary>
-	virtual ~AcDMMEntityReactorInfo()
-	{
-	}
+  virtual ~AcDMMEntityReactorInfo()
+  {
+  }
 protected:
-	AcDMMEntityReactorInfo()
-	{
-	}
+  AcDMMEntityReactorInfo()
+  {
+  }
 };
 ///////////////////////////////////////////////////////////////////
 /// class AcDMMReactor
@@ -1269,7 +1269,7 @@ public:
     /// functions to clients.
     /// </param>
     ///
-	virtual void OnBeginSheet(AcDMMSheetReactorInfo* pInfo);
+  virtual void OnBeginSheet(AcDMMSheetReactorInfo* pInfo);
     /// <summary>
     /// this reactor is called before each entity is plotted. This
     /// allows a client to determine if this entity is one for which
@@ -1285,7 +1285,7 @@ public:
     /// functions to clients.
     /// </param>
     ///
-	virtual void OnBeginEntity(AcDMMEntityReactorInfo* pInfo);
+  virtual void OnBeginEntity(AcDMMEntityReactorInfo* pInfo);
     /// <summary>
     /// this reactor is called after each entity is plotted. 
     /// </summary>
@@ -1296,7 +1296,7 @@ public:
     /// functions to clients.
     /// </param>
     ///
-	virtual void OnEndEntity(AcDMMEntityReactorInfo* pInfo);
+  virtual void OnEndEntity(AcDMMEntityReactorInfo* pInfo);
     /// <summary>
     /// this reactor is called after all entities on the sheet have been
     /// plotted, to let clients that plotting of the sheet is complete.
@@ -1310,22 +1310,22 @@ public:
     /// functions to clients.
     /// </param>
     ///
-	virtual void OnEndSheet(AcDMMSheetReactorInfo* pInfo);
+  virtual void OnEndSheet(AcDMMSheetReactorInfo* pInfo);
     /// <summary>
     /// destructor
     /// </summary>
     ///
-	virtual ~AcDMMReactor()
-	{
-	}
+  virtual ~AcDMMReactor()
+  {
+  }
 protected:
     /// <summary>
     /// constructor
     /// protected, you must derive to instantiate one of these
     /// </summary>
-	AcDMMReactor()
-	{
-	}
+  AcDMMReactor()
+  {
+  }
 };
 /// base class inlines for OnBegin and OnEnd methods
 /// this is the default behavior for methods you choose

@@ -28,34 +28,34 @@ public:
     /// The type of a profile in creating a lofted surface.
     /// </summary>
     ///
-	enum ProfileType
-	{
+  enum ProfileType
+  {
         /// <summary>
         /// First profile of cross section, can be a point or curve/subentity edge
         /// </summary>
         ///
-		kStartCrossSection = 0x01,
+    kStartCrossSection = 0x01,
         /// <summary>
         /// Last profile of cross section, can be a point or curve/subentity edge
         /// </summary>
         ///
-		kEndCrossSection = 0x02,
+    kEndCrossSection = 0x02,
         /// <summary>
         /// First profile of guide curves
         /// </summary>
         ///
-		kStartGuide = 0x04,
+    kStartGuide = 0x04,
         /// <summary>
         /// Last profile of guide curves
         /// </summary>
         ///
-		kEndGuide = 0x08
-	};
-	ACRX_DECLARE_MEMBERS(AcDbAssocLoftedSurfaceActionBody);
+    kEndGuide = 0x08
+  };
+  ACRX_DECLARE_MEMBERS(AcDbAssocLoftedSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocLoftedSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocLoftedSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary>
     /// <para> Get continuity of a specific profile of the resulting lofted surface </para>
     /// <para>
@@ -73,7 +73,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getContinuity(ProfileType type, int& continuity, AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  Acad::ErrorStatus getContinuity(ProfileType type, int& continuity, AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary>
     /// <para> Set continuity of a specific profile of the resulting lofted surface </para>
     /// <para>
@@ -91,7 +91,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setContinuity(ProfileType type, int continuity, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setContinuity(ProfileType type, int continuity, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary>
     /// <para> Get bulge factor of a specific profile of the resulting lofted surface </para>
     /// <para>
@@ -109,7 +109,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getBulge(ProfileType type, double& bulge, AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  Acad::ErrorStatus getBulge(ProfileType type, double& bulge, AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary>
     /// <para> Set bulge factor of a specific profile of the resulting lofted surface </para>
     /// <para>
@@ -127,7 +127,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setBulge(ProfileType type, double bulge, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setBulge(ProfileType type, double bulge, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary> 
     /// Create an instance of AcDbAssocLoftedSurfaceActionBody
     /// </summary>
@@ -142,6 +142,6 @@ public:
     /// <param name="createdActionId"> Id of created new lofted surface action. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcArray<AcDbGeomRef *>& crossSections, const AcArray<AcDbPathRef>& guideCurves, const AcDbPathRef& pathCurve, const AcDbLoftOptions& loftOptions, const AcArray<int>& continuityArray, const AcArray<double>& bulgeArray, bool bEnabled, AcDbObjectId& createdActionId);
+  static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcArray<AcDbGeomRef *>& crossSections, const AcArray<AcDbPathRef>& guideCurves, const AcDbPathRef& pathCurve, const AcDbLoftOptions& loftOptions, const AcArray<int>& continuityArray, const AcArray<double>& bulgeArray, bool bEnabled, AcDbObjectId& createdActionId);
 };
 #pragma  pack (pop)

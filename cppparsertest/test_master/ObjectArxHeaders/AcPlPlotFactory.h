@@ -8,30 +8,30 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _ACPLPLOTFACTORY_H
-#	define _ACPLPLOTFACTORY_H
+#  define _ACPLPLOTFACTORY_H
 //
 //  AcPlPlotFactory   - makes plot engines
 //
-#	include "AcPl.h"
+#  include "AcPl.h"
 class AcPlPlotEngine;
 class AcPlPlotFactory
 {
 public:
-	enum PreviewEngineFlags
-	{
-		kShowPlot = 0x0001,
-		kShowNextSheet = 0x0002,
-		kShowPreviousSheet = 0x0004
-	};
-	ACPL_PORT static Acad::ErrorStatus createPublishEngine(AcPlPlotEngine * &pEngine);
-	ACPL_PORT static Acad::ErrorStatus createPreviewEngine(AcPlPlotEngine*& pPreview, long nPreviewFlags = kShowPlot);
+  enum PreviewEngineFlags
+  {
+    kShowPlot = 0x0001,
+    kShowNextSheet = 0x0002,
+    kShowPreviousSheet = 0x0004
+  };
+  ACPL_PORT static Acad::ErrorStatus createPublishEngine(AcPlPlotEngine * &pEngine);
+  ACPL_PORT static Acad::ErrorStatus createPreviewEngine(AcPlPlotEngine*& pPreview, long nPreviewFlags = kShowPlot);
 };
 // Possible plotting system states
 enum ProcessPlotState
 {
-	kNotPlotting = 0,
-	kForegroundPlotting,
-	kBackgroundPlotting,
+  kNotPlotting = 0,
+  kForegroundPlotting,
+  kBackgroundPlotting,
                             // this process is the foreground process.
 };
 // Method for determining current state of the plotting subsystem

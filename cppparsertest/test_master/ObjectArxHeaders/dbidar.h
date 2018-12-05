@@ -69,8 +69,8 @@
 // The grow length must be a positive number, that is, zero is an illegal
 // grow length.
 #ifndef AC_DBIDAR_H
-#	define AC_DBIDAR_H
-#	include "dbid.h"
-#	include "acarray.h"
+#  define AC_DBIDAR_H
+#  include "dbid.h"
+#  include "acarray.h"
 typedef AcArray<AcDbObjectId> AcDbObjectIdArray;
 #endif

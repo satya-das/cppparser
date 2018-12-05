@@ -11,9 +11,9 @@
 //
 //      Header file for auditing routines
 #ifndef DB_DBAUDITA_H
-#	define DB_DBAUDITA_H	1
-#	include "AdAChar.h"
-#	pragma  pack(push, 8)
+#  define DB_DBAUDITA_H	1
+#  include "AdAChar.h"
+#  pragma  pack(push, 8)
 class AcDbDatabase;
 class AcDbAuditInfo;
 class AcDbImpAuditInfo;
@@ -42,7 +42,7 @@ class AcDbObject;
 // else we didn't fix them!     
 // Return local status              
 //
-#	define ACDB_AUDIT_RETURN	(pAuditInfo, baseEs, localEs, boilDownLocalStatus)        \
+#  define ACDB_AUDIT_RETURN	(pAuditInfo, baseEs, localEs, boilDownLocalStatus)        \
     return (baseEs != eOk)                ?  \
                baseEs                     :  \
                (eOk == localEs)           ?  \
@@ -55,28 +55,28 @@ class AcDbObject;
 class AcDbAuditInfo
 {
 public:
-	friend class AcDbImpAuditInfo;
-	friend class AcDbAuditImp;
-	enum AuditPass
-	{
-		PASS1 = 1,
-		PASS2 = 2
-	};
-	AcDbAuditInfo();
-	~AcDbAuditInfo();
-	bool fixErrors(void) const;
+  friend class AcDbImpAuditInfo;
+  friend class AcDbAuditImp;
+  enum AuditPass
+  {
+    PASS1 = 1,
+    PASS2 = 2
+  };
+  AcDbAuditInfo();
+  ~AcDbAuditInfo();
+  bool fixErrors(void) const;
                                                  // be fixed.
-	int numErrors() const;
-	int numFixes(void) const;
-	void errorsFound(int count);
+  int numErrors() const;
+  int numFixes(void) const;
+  void errorsFound(int count);
                                             // of errors found.
-	void errorsFixed(int count);
+  void errorsFixed(int count);
                                             // errors fixed.
-	AuditPass auditPass(void) const;
+  AuditPass auditPass(void) const;
                                             // number:
                                             // 1 = pass 1,
                                             // 2 = pass 2.
-	void printError(const ACHAR* name, const ACHAR* value, const ACHAR* validation, const ACHAR* defaultValue);
+  void printError(const ACHAR* name, const ACHAR* value, const ACHAR* validation, const ACHAR* defaultValue);
                                             // message string to the
                                             // Audit report file.
                                             // Obeys AUDITCTL.
@@ -84,12 +84,12 @@ public:
     // Same as above except that name is automatically constructed
     // from the AcDbObject.
     //
-	void printError(const AcDbObject* pObj, const ACHAR* value, const ACHAR* validation, const ACHAR* defaultValue);
-	void requestRegen();
-	void resetNumEntities();
-	void incNumEntities();
-	int numEntities();
-	void printNumEntities(const ACHAR* msg);
+  void printError(const AcDbObject* pObj, const ACHAR* value, const ACHAR* validation, const ACHAR* defaultValue);
+  void requestRegen();
+  void resetNumEntities();
+  void incNumEntities();
+  int numEntities();
+  void printNumEntities(const ACHAR* msg);
     /// <summary>
     /// fetchObject is invoked from AcDbObject::audit() override members, as
     /// well as the AcDb recovery-audit complex.   Its purpose is to retrieve
@@ -150,7 +150,7 @@ public:
     /// considered to be invalid.
     /// </remarks>
     ///
-	Acad::ErrorStatus fetchObject(AcDbObjectId originalObjId, AcDbObjectId& newObjId, AcRxClass* pObjClass, bool uneraseIfPossible = false, bool createIfNotFound = true, bool externalDbOk = false);
+  Acad::ErrorStatus fetchObject(AcDbObjectId originalObjId, AcDbObjectId& newObjId, AcRxClass* pObjClass, bool uneraseIfPossible = false, bool createIfNotFound = true, bool externalDbOk = false);
     /// <summary>
     /// registerObject is invoked from AcDb Recover and Audit internals, and can
     /// also be invoked from AcDbObject::audit(), dwgInFields() and any other
@@ -194,7 +194,7 @@ public:
     /// must be invoked to establish the new object id.
     /// </remarks>
     ///
-	Acad::ErrorStatus registerObject(AcDbHandle handle, bool objIsValid, AcRxClass* pObjClass);
+  Acad::ErrorStatus registerObject(AcDbHandle handle, bool objIsValid, AcRxClass* pObjClass);
     /// <summary>
     /// updateObject is invoked from AcDb Recover and Audit internals, and can
     /// also be invoked from AcDbObject::audit(), dwgInFields() and any other
@@ -271,27 +271,27 @@ public:
     /// entry or not.
     /// </remarks>
     ///
-	Acad::ErrorStatus updateObject(AcDbHandle handle, bool setFileObjIsValid, bool setNewObjIsValid, bool setFileObjClass, bool setNewObjClass, bool setNewObjId, bool fileObjIsValid, bool newObjIsValid, AcRxClass* pFileObjClass, AcRxClass* pNewObjClass, AcDbObjectId newObjId);
+  Acad::ErrorStatus updateObject(AcDbHandle handle, bool setFileObjIsValid, bool setNewObjIsValid, bool setFileObjClass, bool setNewObjClass, bool setNewObjId, bool fileObjIsValid, bool newObjIsValid, AcRxClass* pFileObjClass, AcRxClass* pNewObjClass, AcDbObjectId newObjId);
 private:
-	AcDbImpAuditInfo* getImpAudit() const;
-	AcDbImpAuditInfo* mpImpAudit;
+  AcDbImpAuditInfo* getImpAudit() const;
+  AcDbImpAuditInfo* mpImpAudit;
 };
 //    Class to hold the call back function.
 class AcDbRecover
 {
 public:
-	virtual int callBack(AcDbDatabase*) = 0;
+  virtual int callBack(AcDbDatabase*) = 0;
 };
 class AcDbImpRecoverCallBack;
 class AcDbRecoverCallBack
 {
 public:
-	AcDbRecoverCallBack();
-	virtual ~AcDbRecoverCallBack();
-	virtual Acad::ErrorStatus registerCallBack(AcDbRecover*);
-	virtual Acad::ErrorStatus removeCallBack();
+  AcDbRecoverCallBack();
+  virtual ~AcDbRecoverCallBack();
+  virtual Acad::ErrorStatus registerCallBack(AcDbRecover*);
+  virtual Acad::ErrorStatus removeCallBack();
 private:
-	AcDbImpRecoverCallBack* mpImpRecoverCallBack;
+  AcDbImpRecoverCallBack* mpImpRecoverCallBack;
 };
-#	pragma  pack(pop)
+#  pragma  pack(pop)
 #endif

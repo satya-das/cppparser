@@ -13,8 +13,8 @@
 //               an Acad::ErrorStatus enum value for a string
 //               describing the error message.
 #ifndef _AD_ACESTEXT_H
-#	define _AD_ACESTEXT_H	1
-#	include "acdb.h"
-#	include "AdAChar.h"
+#  define _AD_ACESTEXT_H	1
+#  include "acdb.h"
+#  include "AdAChar.h"
 const ACHAR* acadErrorStatusText(Acad::ErrorStatus);
 #endif

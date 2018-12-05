@@ -14,15 +14,15 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _ACGS_H
-#	define _ACGS_H
-#	include "adesk.h"
-#	include "acdb.h"
-#	include "stdlib.h"
-#	include "AdAChar.h"
-#	include "acgitransient.h"
-#	include "AcCoreDefs.h"
-#	include "acgidefs.h"
-#	pragma  pack (push, 8)
+#  define _ACGS_H
+#  include "adesk.h"
+#  include "acdb.h"
+#  include "stdlib.h"
+#  include "AdAChar.h"
+#  include "acgitransient.h"
+#  include "AcCoreDefs.h"
+#  include "acgidefs.h"
+#  pragma  pack (push, 8)
 Adesk::Boolean acgsGetDisplayInfo(int& drawingWidth, int& drawingHeight, int& aspectWidth, int& aspectHeight);
 Adesk::Boolean acgsGetViewportInfo(int viewportNumber, int& left, int& bottom, int& right, int& top);
 class AcDbDatabase;
@@ -31,39 +31,39 @@ class AcGiDrawable;
 class AcGsScreenShot
 {
 public:
-	virtual Adesk::Boolean getSize(int& width, int& height, int& depth) const = 0;
-	virtual Adesk::Boolean getColorMap(int index, Adesk::UInt8& red, Adesk::UInt8& green, Adesk::UInt8& blue) const = 0;
-	virtual void const * getScanline(int offsetFromLeft, int offsetFromTop) const = 0;
-#	ifdef new
-#		define DISABLING_LEAK_CHECK
-#		undef new
-#	endif
-	void* operator new(size_t size);
+  virtual Adesk::Boolean getSize(int& width, int& height, int& depth) const = 0;
+  virtual Adesk::Boolean getColorMap(int index, Adesk::UInt8& red, Adesk::UInt8& green, Adesk::UInt8& blue) const = 0;
+  virtual void const * getScanline(int offsetFromLeft, int offsetFromTop) const = 0;
+#  ifdef new
+#    define DISABLING_LEAK_CHECK
+#    undef new
+#  endif
+  void* operator new(size_t size);
     // Be sure to delete your screen shot when you are through with it.
-	void operator delete(void* p);
-#	ifndef PRODUCTION
-	void* operator new(size_t size, const char*, int)
-	{
-		return operator new(size);
-	}
-#		if  _MSC_VER >= 1200
+  void operator delete(void* p);
+#  ifndef PRODUCTION
+  void* operator new(size_t size, const char*, int)
+  {
+    return operator new(size);
+  }
+#    if  _MSC_VER >= 1200
         // vc6 requires matching delete for each new
-	void operator delete(void* p, const char*, int)
-	{
-		delete p;
-	}
-#		endif
-#	endif
-#	ifdef DISABLING_LEAK_CHECK
-#		define new	DEBUG_NEW
-#		undef DISABLING_LEAK_CHECK
-#	endif
-	AcGsScreenShot();
-	virtual ~AcGsScreenShot();
+  void operator delete(void* p, const char*, int)
+  {
+    delete p;
+  }
+#    endif
+#  endif
+#  ifdef DISABLING_LEAK_CHECK
+#    define new	DEBUG_NEW
+#    undef DISABLING_LEAK_CHECK
+#  endif
+  AcGsScreenShot();
+  virtual ~AcGsScreenShot();
 };
 // Compatibility definition
 //
-#	define ScreenShot	AcGsScreenShot
+#  define ScreenShot	AcGsScreenShot
 AcGsScreenShot* acgsGetScreenShot(int viewportNumber);
 void acgsSetViewportRenderFlag(int viewportNumber);
 Adesk::Boolean acgsDisplayImage(int viewportNumber, Adesk::Int32 originLeft, Adesk::Int32 originTop, int imageWidth, int imageHeight, void const * imageData, int hasTransparency);
@@ -73,27 +73,27 @@ Adesk::Boolean acgsSetCustomUpdateMethod(acgsCustomUpdateMethod custom_update_me
 ACCORE_PORT void acgsRedrawShortTermGraphics(int minx, int miny, int maxx, int maxy);
 struct AcGs
 {
-	enum LinePattern
-	{
-		eSolid = 0,
-		eDashed = 1,
-		eDotted = 2,
-		eDashDot = 3,
-		eShortDash = 4,
-		eMediumDash = 5,
-		eLongDash = 6,
-		eDoubleShortDash = 7,
-		eDoubleMediumDash = 8,
-		eDoubleLongDash = 9,
-		eMediumLongDash = 10,
-		eMediumDashShortDashShortDash = 11,
-		eLongDashShortDash = 12,
-		eLongDashDotDot = 13,
-		eLongDashDot = 14,
-		eMediumDashDotShortDashDot = 15,
-		eSparseDot = 16,
-		eDefaultLinePattern = eDotted
-	};
+  enum LinePattern
+  {
+    eSolid = 0,
+    eDashed = 1,
+    eDotted = 2,
+    eDashDot = 3,
+    eShortDash = 4,
+    eMediumDash = 5,
+    eLongDash = 6,
+    eDoubleShortDash = 7,
+    eDoubleMediumDash = 8,
+    eDoubleLongDash = 9,
+    eMediumLongDash = 10,
+    eMediumDashShortDashShortDash = 11,
+    eLongDashShortDash = 12,
+    eLongDashDotDot = 13,
+    eLongDashDot = 14,
+    eMediumDashDotShortDashDot = 15,
+    eSparseDot = 16,
+    eDefaultLinePattern = eDotted
+  };
 };
 ACCORE_PORT void acgsSetHighlightColor(Adesk::UInt16 colorIndex);
 ACCORE_PORT Adesk::UInt16 acgsGetHighlightColor(void);
@@ -130,10 +130,10 @@ Adesk::Boolean acgsGetOrthoViewParameters(int viewportNumber, AcDb::Orthographic
 class AcGs2DViewLimitManager
 {
 public:
-	virtual ~AcGs2DViewLimitManager()
-	{
-	}
-	virtual bool testView(AcGePoint3d const& target, double dFieldHeight) = 0;
+  virtual ~AcGs2DViewLimitManager()
+  {
+  }
+  virtual bool testView(AcGePoint3d const& target, double dFieldHeight) = 0;
 };
 AcGs2DViewLimitManager* acgsCreate2DViewLimitManager(int viewportNumber);
 void acgsDestroy2DViewLimitManager(AcGs2DViewLimitManager* pLimitManager);
@@ -207,5 +207,5 @@ ACCORE_PORT void acgsSetGsModel(const AcDbDatabase* pDb, AcGsModel* pModel);
 /// This is a convenience wrapper for AcGsManager::setGsHighlightModel().
 /// </remarks>
 ACCORE_PORT void acgsSetGsHighlightModel(const AcDbDatabase* pDb, AcGsModel* pModel);
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

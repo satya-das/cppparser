@@ -23,11 +23,11 @@
 class AcDbDynamicUCSPE : public AcRxObject
 {
 public:
-	enum Flags
-	{
-		kDefault = 0x00
-	};
-	ACRX_DECLARE_MEMBERS(AcDbDynamicUCSPE);
+  enum Flags
+  {
+    kDefault = 0x00
+  };
+  ACRX_DECLARE_MEMBERS(AcDbDynamicUCSPE);
     // Contract:
     // The implementer is expected to populate the result array 
     // with one or more AcGePlane objects and return Acad::eOk if successful.
@@ -41,7 +41,7 @@ public:
     // Return Acad::eWrongObjectType if the object under the cursor is unsupported.
     // Return Acad::eWrongSubentityType if the subent under the cursor is unsupported.
     //
-	virtual Acad::ErrorStatus getCandidatePlanes(AcArray<AcGePlane>& results, double& distToEdge, double& objWidth, double& objHeight, AcDbEntity* pEnt, const AcDbSubentId& subentId, const AcGePlane& viewplane, AcDbDynamicUCSPE::Flags flags = kDefault) const = 0;
+  virtual Acad::ErrorStatus getCandidatePlanes(AcArray<AcGePlane>& results, double& distToEdge, double& objWidth, double& objHeight, AcDbEntity* pEnt, const AcDbSubentId& subentId, const AcGePlane& viewplane, AcDbDynamicUCSPE::Flags flags = kDefault) const = 0;
 };
 //
 //  Version 2 of DUCS Protocol extension abstract base class. 
@@ -53,15 +53,15 @@ class CPoint;
 class AcDbNonSubEntDynamicUCSPE : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcDbNonSubEntDynamicUCSPE, ACDBCORE2D_PORT);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcDbNonSubEntDynamicUCSPE, ACDBCORE2D_PORT);
     // Contract:
     // For get the dynamic UCS plane for the cursor location
-	virtual Acad::ErrorStatus getCandidatePlane(AcDbEntity* Ent, const CPoint& pt, AcGePlane& result, double& distToEdge, double& objWidth, double& objHeight, void*& context) = 0;
+  virtual Acad::ErrorStatus getCandidatePlane(AcDbEntity* Ent, const CPoint& pt, AcGePlane& result, double& distToEdge, double& objWidth, double& objHeight, void*& context) = 0;
     // Contract:
     // Let the point cloud object to render a custom visual feedback on screen to indicate the dynamic UCS plane
-	virtual Acad::ErrorStatus highlightPlane(AcDbEntity* Ent, void* context) = 0;
+  virtual Acad::ErrorStatus highlightPlane(AcDbEntity* Ent, void* context) = 0;
     // Contract:
     // Let the point cloud object to stop rendering(clearing) the visual feedback
-	virtual Acad::ErrorStatus dehighlightPlane(AcDbEntity* Ent, void* context) = 0;
+  virtual Acad::ErrorStatus dehighlightPlane(AcDbEntity* Ent, void* context) = 0;
 };
 #pragma  pack (pop)

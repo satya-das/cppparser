@@ -23,25 +23,25 @@
 //
 // See adeskabb.h for abbreviations of the following names.
 #ifndef _ADESK_H
-#	define _ADESK_H
-#	include <cstdint>
-#	include <stddef.h>
-#	include "AdAChar.h"
-#	define Adesk_Boolean_is_bool	1
-#	define Adesk_Int32_is_int	1
-#	pragma  pack (push, 8)
-#	if  defined(_MSC_VER)
-#		ifndef _ADESK_CROSS_PLATFORM_
-#			define _ADESK_WINDOWS_	1
-#		endif
-#	elif  defined(__clang__)
-#		if  defined(_ADESK_MAC_)
-#			define __w64
-#		endif
-#	endif
-#	if  (defined(_MSC_VER) && defined(_WIN64)) || (defined(__clang__) && defined(__LP64__))
-#		define _AC64	1
-#	endif
+#  define _ADESK_H
+#  include <cstdint>
+#  include <stddef.h>
+#  include "AdAChar.h"
+#  define Adesk_Boolean_is_bool	1
+#  define Adesk_Int32_is_int	1
+#  pragma  pack (push, 8)
+#  if  defined(_MSC_VER)
+#    ifndef _ADESK_CROSS_PLATFORM_
+#      define _ADESK_WINDOWS_	1
+#    endif
+#  elif  defined(__clang__)
+#    if  defined(_ADESK_MAC_)
+#      define __w64
+#    endif
+#  endif
+#  if  (defined(_MSC_VER) && defined(_WIN64)) || (defined(__clang__) && defined(__LP64__))
+#    define _AC64	1
+#  endif
 struct Adesk
 {
     // The types Int8, Int16 and Int32 will be conditionally compiled
@@ -57,59 +57,59 @@ struct Adesk
     // fix is to consistently use Adesk::Int32 and Adesk::UInt32 in place
     // of longs so we can normalize this all between the two platforms.
     //
-	typedef int8_t Int8;
-	typedef int16_t Int16;
+  typedef int8_t Int8;
+  typedef int16_t Int16;
     //
     // The unsigned versions of the above types.
     //
-	typedef uint8_t UInt8;
-	typedef uint16_t UInt16;
-	typedef int32_t Int32;
-	typedef uint32_t UInt32;
-	typedef int64_t Int64;
-	typedef uint64_t UInt64;
+  typedef uint8_t UInt8;
+  typedef uint16_t UInt16;
+  typedef int32_t Int32;
+  typedef uint32_t UInt32;
+  typedef int64_t Int64;
+  typedef uint64_t UInt64;
     // Convenient abbreviations (use optionally).
     // Todo: consider removing these from adesk.h
     //
-	typedef unsigned char uchar;
-	typedef unsigned short ushort;
-	typedef unsigned int uint;
+  typedef unsigned char uchar;
+  typedef unsigned short ushort;
+  typedef unsigned int uint;
     // integer/unsigned integers that can hold a pointer value.
     // These change size depending on the platform and should NEVER
     // be streamed out to permanent storage.
-#	if  !defined(_WIN64) && !defined (_AC64)
-	static_assert(sizeof(void*) == 4, "ptr size in 32-bit windows build?");
-	typedef int32_t LongPtr;
-	typedef uint32_t ULongPtr;
-	typedef int32_t IntPtr;
-	typedef uint32_t UIntPtr;
-#	else 
-	static_assert(sizeof(void*) == 8, "ptr size in 64-bit build?");
-	typedef int64_t LongPtr;
-	typedef uint64_t ULongPtr;
-	typedef int64_t IntPtr;
-	typedef uint64_t UIntPtr;
-#	endif
-	typedef LongPtr IntDbId;
-	typedef IntPtr GsMarker;
+#  if  !defined(_WIN64) && !defined (_AC64)
+  static_assert(sizeof(void*) == 4, "ptr size in 32-bit windows build?");
+  typedef int32_t LongPtr;
+  typedef uint32_t ULongPtr;
+  typedef int32_t IntPtr;
+  typedef uint32_t UIntPtr;
+#  else 
+  static_assert(sizeof(void*) == 8, "ptr size in 64-bit build?");
+  typedef int64_t LongPtr;
+  typedef uint64_t ULongPtr;
+  typedef int64_t IntPtr;
+  typedef uint64_t UIntPtr;
+#  endif
+  typedef LongPtr IntDbId;
+  typedef IntPtr GsMarker;
     // Logical type (Note: never use int when Boolean is intended!)
     // Please transition from Boolean type to native bool..
     //
-	typedef bool Boolean;
-	static const bool kFalse = false;
-	static const bool kTrue = true;
-	using Time64 = int64_t;
+  typedef bool Boolean;
+  static const bool kFalse = false;
+  static const bool kTrue = true;
+  using Time64 = int64_t;
 };
 // Please transition from NULL macro to native nullptr..
-#	undef NULL
-#	define NULL	0
-#	ifdef _ADESK_MAC_
-#		ifdef nil
-#			undef nil
-#		endif
-#		define nil	__DARWIN_NULL
-#	endif
-#	pragma  pack (pop)
+#  undef NULL
+#  define NULL	0
+#  ifdef _ADESK_MAC_
+#    ifdef nil
+#      undef nil
+#    endif
+#    define nil	__DARWIN_NULL
+#  endif
+#  pragma  pack (pop)
 // Use ADESK_NO_VTABLE on base classes which:
 //   1. have virtual methods
 //   2. are never instantiated
@@ -123,95 +123,95 @@ struct Adesk
 // Make sure though that the base class is never instantiated.  Making
 // the ctor protected or using pure virtual methods can help with this.
 //
-#	if  defined(_MSC_VER)
-#		define ADESK_NO_VTABLE	__declspec(novtable)
-#		define ADESK_STDCALL	__stdcall
-#		define ADESK_DEPRECATED	__declspec(deprecated)
-#		define ADESK_DEPRECATED_MSG	(MSG) __declspec(deprecated(MSG))
-#		define ADESK_DATA_IMPORT	__declspec(dllimport)
-#		define ADESK_PACK_BEGIN	__pragma(pack(push,1))
-#		define ADESK_PACK_END	__pragma(pack(pop))
-#		define ADESK_HIDDEN_SYMBOL
-#	else 
-#		define ADESK_NO_VTABLE
+#  if  defined(_MSC_VER)
+#    define ADESK_NO_VTABLE	__declspec(novtable)
+#    define ADESK_STDCALL	__stdcall
+#    define ADESK_DEPRECATED	__declspec(deprecated)
+#    define ADESK_DEPRECATED_MSG	(MSG) __declspec(deprecated(MSG))
+#    define ADESK_DATA_IMPORT	__declspec(dllimport)
+#    define ADESK_PACK_BEGIN	__pragma(pack(push,1))
+#    define ADESK_PACK_END	__pragma(pack(pop))
+#    define ADESK_HIDDEN_SYMBOL
+#  else 
+#    define ADESK_NO_VTABLE
     // The GCC 4.0 compiler doesn't seem to support the stdcall attribute
     // for 64-bit builds. If we use it, we just get a ton of warnings
     // from the compiler mentioning that it isn't supported.
-#		if  defined(__LP64__) || defined(__clang__)
-#			define ADESK_STDCALL
-#		else 
-#			define ADESK_STDCALL	__attribute__((stdcall))   
-#		endif
-#		define ADESK_DEPRECATED	__attribute__((__deprecated__))
-#		define ADESK_DEPRECATED_MSG	(MSG) __attribute__((__deprecated__))
-#		define ADESK_DATA_IMPORT	extern
+#    if  defined(__LP64__) || defined(__clang__)
+#      define ADESK_STDCALL
+#    else 
+#      define ADESK_STDCALL	__attribute__((stdcall))   
+#    endif
+#    define ADESK_DEPRECATED	__attribute__((__deprecated__))
+#    define ADESK_DEPRECATED_MSG	(MSG) __attribute__((__deprecated__))
+#    define ADESK_DATA_IMPORT	extern
     // Redefine __declspec(method) for gcc
-#		define __declspec	(method) __declspec_##method
-#		define _declspec	(method) __declspec_##method
-#		define __declspec_selectany	__attribute__ ((__weak__))
-#		define __declspec_dllexport	__attribute__ ((__visibility__("default")))
-#		define __declspec_dllimport
-#		define __declspec_noinline	__attribute__ ((__noinline__))
-#		define __declspec_noreturn	__attribute__ ((__noreturn__))
-#		define __declspec_deprecated	__attribute__ ((__deprecated__))
-#		define __declspec_novtable
-#		define __declspec_allocate	(name) __attribute__ ((section("__DATA," name)))
-#		define ADESK_PACK_BEGIN
-#		define ADESK_PACK_END	__attribute__((packed))
-#		define ADESK_HIDDEN_SYMBOL	__attribute__ ((visibility("hidden"))) 
-#	endif
-#	if  defined(_MSC_EXTENSIONS) || defined (__clang__)
-#		define ADESK_OVERRIDE	override
-#		if  defined(_MSC_VER) && (_MSC_VER <= 1600) //VS2010 and earlier
-#			define ADESK_SEALED	sealed
-#		else 
-#			define ADESK_SEALED	final
-#		endif
-#	else 
-#		define ADESK_OVERRIDE
-#		define ADESK_SEALED
-#	endif
-#	define MIGRATION_ERRORS
-#	if  defined(_MSC_VER) && defined (MIGRATION_ERRORS) || defined(__clang__)
-#		define ADESK_SEALED_VIRTUAL	virtual
-#		if  !defined(ADESK_SEALED)
-#			define ADESK_SEALED	sealed
-#		endif
-#	else 
-#		define ADESK_SEALED_VIRTUAL
-#		if  !defined(ADESK_SEALED)
-#			define ADESK_SEALED	sealed
-#		endif
-#	endif
+#    define __declspec	(method) __declspec_##method
+#    define _declspec	(method) __declspec_##method
+#    define __declspec_selectany	__attribute__ ((__weak__))
+#    define __declspec_dllexport	__attribute__ ((__visibility__("default")))
+#    define __declspec_dllimport
+#    define __declspec_noinline	__attribute__ ((__noinline__))
+#    define __declspec_noreturn	__attribute__ ((__noreturn__))
+#    define __declspec_deprecated	__attribute__ ((__deprecated__))
+#    define __declspec_novtable
+#    define __declspec_allocate	(name) __attribute__ ((section("__DATA," name)))
+#    define ADESK_PACK_BEGIN
+#    define ADESK_PACK_END	__attribute__((packed))
+#    define ADESK_HIDDEN_SYMBOL	__attribute__ ((visibility("hidden"))) 
+#  endif
+#  if  defined(_MSC_EXTENSIONS) || defined (__clang__)
+#    define ADESK_OVERRIDE	override
+#    if  defined(_MSC_VER) && (_MSC_VER <= 1600) //VS2010 and earlier
+#      define ADESK_SEALED	sealed
+#    else 
+#      define ADESK_SEALED	final
+#    endif
+#  else 
+#    define ADESK_OVERRIDE
+#    define ADESK_SEALED
+#  endif
+#  define MIGRATION_ERRORS
+#  if  defined(_MSC_VER) && defined (MIGRATION_ERRORS) || defined(__clang__)
+#    define ADESK_SEALED_VIRTUAL	virtual
+#    if  !defined(ADESK_SEALED)
+#      define ADESK_SEALED	sealed
+#    endif
+#  else 
+#    define ADESK_SEALED_VIRTUAL
+#    if  !defined(ADESK_SEALED)
+#      define ADESK_SEALED	sealed
+#    endif
+#  endif
 //
 // Compiler indentification
 //
-#	if  defined(__INTEL_COMPILER) || defined (_MSC_VER)
-#		define ADESK_FORCE_INLINE	__forceinline
-#	else 
-#		define ADESK_FORCE_INLINE	inline
-#	endif
-#	ifdef _ADESK_WINDOWS_
-#		define VA_ARG_WCHAR	(ap, t)      va_arg(ap, wchar_t)
-#	else 
-#		define VA_ARG_WCHAR	(ap, t)      va_arg(ap, int)
-#	endif
-#	ifdef _ADESK_UNITTEST_
-#		ifdef ADESK_SEALED
-#			undef ADESK_SEALED
-#		endif
-#		define ADESK_SEALED
-#	endif
-#	ifdef _MSC_VER
-#		define ADESK_UNREFED_PARAM	(x) x
-#	elif  defined(__clang__)
-#		define ADESK_UNREFED_PARAM	(x) (void)(x);
-#	else 
-#	endif
-#	ifdef _MSC_VER
-#		define ADESK_UNREACHABLE	__assume(false)
-#	elif  defined(__clang__)
-#		define ADESK_UNREACHABLE	__builtin_unreachable()
-#	else 
-#	endif
+#  if  defined(__INTEL_COMPILER) || defined (_MSC_VER)
+#    define ADESK_FORCE_INLINE	__forceinline
+#  else 
+#    define ADESK_FORCE_INLINE	inline
+#  endif
+#  ifdef _ADESK_WINDOWS_
+#    define VA_ARG_WCHAR	(ap, t)      va_arg(ap, wchar_t)
+#  else 
+#    define VA_ARG_WCHAR	(ap, t)      va_arg(ap, int)
+#  endif
+#  ifdef _ADESK_UNITTEST_
+#    ifdef ADESK_SEALED
+#      undef ADESK_SEALED
+#    endif
+#    define ADESK_SEALED
+#  endif
+#  ifdef _MSC_VER
+#    define ADESK_UNREFED_PARAM	(x) x
+#  elif  defined(__clang__)
+#    define ADESK_UNREFED_PARAM	(x) (void)(x);
+#  else 
+#  endif
+#  ifdef _MSC_VER
+#    define ADESK_UNREACHABLE	__assume(false)
+#  elif  defined(__clang__)
+#    define ADESK_UNREACHABLE	__builtin_unreachable()
+#  else 
+#  endif
 #endif

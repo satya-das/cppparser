@@ -17,13 +17,13 @@ class AcString;
 class AcDbManagedHost
 {
 public:
-	virtual int version()
-	{
-		return 1;
-	}
-	virtual Acad::ErrorStatus load(const ACHAR* fname) = 0;
-	virtual bool loadIndirectString(const AcString& resAssemblyPath, const AcString& cmdString, AcString& localCmd) = 0;
-	virtual bool isLoaded() = 0;
+  virtual int version()
+  {
+    return 1;
+  }
+  virtual Acad::ErrorStatus load(const ACHAR* fname) = 0;
+  virtual bool loadIndirectString(const AcString& resAssemblyPath, const AcString& cmdString, AcString& localCmd) = 0;
+  virtual bool isLoaded() = 0;
 };
 ACDBCORE2D_PORT AcDbManagedHost* ADESK_STDCALL acdbGetManagedHost();
 ACDBCORE2D_PORT Acad::ErrorStatus ADESK_STDCALL acdbSetManagedHost(AcDbManagedHost* pHost);

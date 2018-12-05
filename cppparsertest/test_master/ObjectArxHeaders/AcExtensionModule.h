@@ -17,10 +17,10 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _AcExtensionModule_h
-#	define _AcExtensionModule_h
-#	if  _MSC_VER >= 1000
-#		pragma  once
-#	endif
+#  define _AcExtensionModule_h
+#  if  _MSC_VER >= 1000
+#    pragma  once
+#  endif
 /////////////////////////////////////////////////////////////////////////////
 // CAcExtensionModule - MFC Extension Module and Resource Manager
 //
@@ -39,86 +39,86 @@
 class CAcExtensionModule
 {
 public:
-	CAcExtensionModule();
-	~CAcExtensionModule();
+  CAcExtensionModule();
+  ~CAcExtensionModule();
 protected:
-	BOOL m_bAttached;
-	HINSTANCE m_hDefaultResource;
-	HINSTANCE m_hModuleResource;
-#	ifndef _ADESK_MAC_
-	AFX_EXTENSION_MODULE m_module;
-#	endif
+  BOOL m_bAttached;
+  HINSTANCE m_hDefaultResource;
+  HINSTANCE m_hModuleResource;
+#  ifndef _ADESK_MAC_
+  AFX_EXTENSION_MODULE m_module;
+#  endif
 public:
-	BOOL Attached();
-	HINSTANCE DefaultResourceInstance();
-	HINSTANCE ModuleResourceInstance();
+  BOOL Attached();
+  HINSTANCE DefaultResourceInstance();
+  HINSTANCE ModuleResourceInstance();
         // Attaches the Extension DLL to MFC and updates the member
         // resource handles. Pass hInst as the module's resources.
         // Returns TRUE on success and FALSE otherwise. 
         // On success a corresponding call to DetachInstance() is
         // required before the DLL terminates.
-	BOOL AttachInstance(HINSTANCE hInst);
+  BOOL AttachInstance(HINSTANCE hInst);
         // Detaches the Extension DLL from MFC.
-	void DetachInstance();
+  void DetachInstance();
 };
 inline CAcExtensionModule::CAcExtensionModule()
-	: m_bAttached(FALSE)
-	, m_hDefaultResource(NULL)
-	, m_hModuleResource(NULL)
+  : m_bAttached(FALSE)
+  , m_hDefaultResource(NULL)
+  , m_hModuleResource(NULL)
 {
-#	ifndef _ADESK_MAC_
-	m_module.bInitialized = FALSE;
-	m_module.hModule = NULL;
-	m_module.hResource = NULL;
-	m_module.pFirstSharedClass = NULL;
-	m_module.pFirstSharedFactory = NULL;
-#	endif
+#  ifndef _ADESK_MAC_
+  m_module.bInitialized = FALSE;
+  m_module.hModule = NULL;
+  m_module.hResource = NULL;
+  m_module.pFirstSharedClass = NULL;
+  m_module.pFirstSharedFactory = NULL;
+#  endif
 }
 inline CAcExtensionModule::~CAcExtensionModule()
 {
 }
 inline BOOL CAcExtensionModule::Attached()
 {
-	return m_bAttached;
+  return m_bAttached;
 }
 inline BOOL CAcExtensionModule::AttachInstance(HINSTANCE hInst)
 {
-	if (m_bAttached)
-	{
-		return FALSE;
-	}
-#	ifndef _ADESK_MAC_
-	m_bAttached = AfxInitExtensionModule(m_module, hInst);
-#	else 
-	m_bAttached = true;
-#	endif
-	if (m_bAttached)
-	{
-		m_hDefaultResource = AfxGetResourceHandle();
-		m_hModuleResource = hInst;
-#	ifndef _ADESK_MAC_
-		new CDynLinkLibrary(m_module);
-#	endif
-	}
-	return m_bAttached;
+  if (m_bAttached)
+  {
+    return FALSE;
+  }
+#  ifndef _ADESK_MAC_
+  m_bAttached = AfxInitExtensionModule(m_module, hInst);
+#  else 
+  m_bAttached = true;
+#  endif
+  if (m_bAttached)
+  {
+    m_hDefaultResource = AfxGetResourceHandle();
+    m_hModuleResource = hInst;
+#  ifndef _ADESK_MAC_
+    new CDynLinkLibrary(m_module);
+#  endif
+  }
+  return m_bAttached;
 }
 inline HINSTANCE CAcExtensionModule::DefaultResourceInstance()
 {
-	return m_hDefaultResource;
+  return m_hDefaultResource;
 }
 inline void CAcExtensionModule::DetachInstance()
 {
-	if (m_bAttached)
-	{
-#	ifndef _ADESK_MAC_
-		AfxTermExtensionModule(m_module);
-#	endif
-		m_bAttached = FALSE;
-	}
+  if (m_bAttached)
+  {
+#  ifndef _ADESK_MAC_
+    AfxTermExtensionModule(m_module);
+#  endif
+    m_bAttached = FALSE;
+  }
 }
 inline HINSTANCE CAcExtensionModule::ModuleResourceInstance()
 {
-	return m_hModuleResource;
+  return m_hModuleResource;
 }
 /////////////////////////////////////////////////////////////////////////////
 // CAcModuleResourceOverride - Switch between default and module's resources
@@ -154,36 +154,36 @@ inline HINSTANCE CAcExtensionModule::ModuleResourceInstance()
 class CAcModuleResourceOverride
 {
 public:
-	CAcModuleResourceOverride();
-	CAcModuleResourceOverride(HINSTANCE hInst);
-	~CAcModuleResourceOverride();
-	static HINSTANCE ResourceInstance()
-	{
-		return m_extensionModule.ModuleResourceInstance();
-	}
+  CAcModuleResourceOverride();
+  CAcModuleResourceOverride(HINSTANCE hInst);
+  ~CAcModuleResourceOverride();
+  static HINSTANCE ResourceInstance()
+  {
+    return m_extensionModule.ModuleResourceInstance();
+  }
 private:
-	static CAcExtensionModule& m_extensionModule;
-	HINSTANCE m_previousResourceInstance;
+  static CAcExtensionModule& m_extensionModule;
+  HINSTANCE m_previousResourceInstance;
 };
 inline CAcModuleResourceOverride::CAcModuleResourceOverride()
-	: CAcModuleResourceOverride(NULL)
+  : CAcModuleResourceOverride(NULL)
 {
 }
 inline CAcModuleResourceOverride::CAcModuleResourceOverride(HINSTANCE hInst)
 {
-	m_previousResourceInstance = AfxGetResourceHandle();
-	HINSTANCE hInstanceToSet = m_extensionModule.ModuleResourceInstance();
-	if (hInst)
-	{
-		hInstanceToSet = hInst;
-	}
-	AfxSetResourceHandle(hInstanceToSet);
+  m_previousResourceInstance = AfxGetResourceHandle();
+  HINSTANCE hInstanceToSet = m_extensionModule.ModuleResourceInstance();
+  if (hInst)
+  {
+    hInstanceToSet = hInst;
+  }
+  AfxSetResourceHandle(hInstanceToSet);
 }
 inline CAcModuleResourceOverride::~CAcModuleResourceOverride()
 {
-	ASSERT(m_previousResourceInstance);
-	AfxSetResourceHandle(m_previousResourceInstance);
-	m_previousResourceInstance = NULL;
+  ASSERT(m_previousResourceInstance);
+  AfxSetResourceHandle(m_previousResourceInstance);
+  m_previousResourceInstance = NULL;
 }
 /////////////////////////////////////////////////////////////////////////////
 // Extension Module Decalaration and Implementation Macros
@@ -218,9 +218,9 @@ inline CAcModuleResourceOverride::~CAcModuleResourceOverride()
 // add the following to the module's main include file:
 //
 //      AC_DECLARE_EXTENSION_MODULE(myDLL)
-#	define AC_DECLARE_EXTENSION_MODULE	(exm)        \
+#  define AC_DECLARE_EXTENSION_MODULE	(exm)        \
     extern CAcExtensionModule exm;
-#	define AC_IMPLEMENT_EXTENSION_MODULE	(exm)      \
+#  define AC_IMPLEMENT_EXTENSION_MODULE	(exm)      \
     CAcExtensionModule exm;                     \
     CAcExtensionModule& CAcModuleResourceOverride::m_extensionModule = exm;
 /////////////////////////////////////////////////////////////////////////////

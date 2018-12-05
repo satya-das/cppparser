@@ -17,10 +17,10 @@
 // files that provide assert-like macros.
 // 
 #ifndef _ACUTASRT_H
-#	define _ACUTASRT_H
-#	include "pal/api/def.h"
-#	include "AdAChar.h"
-#	pragma  pack (push, 8)
+#  define _ACUTASRT_H
+#  include "pal/api/def.h"
+#  include "AdAChar.h"
+#  pragma  pack (push, 8)
 ACPAL_PORT void acutAssertMessage(const ACHAR* condition, const ACHAR* filename, int lineNumber, const ACHAR* status);
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

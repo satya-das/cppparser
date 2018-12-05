@@ -16,57 +16,57 @@
 //  functions of AcEdSymbolUtilities::Services.
 //
 #ifndef _ACSYMUTL_H
-#	define _ACSYMUTL_H
-#	include <assert.h>
-#	include "acadstrc.h"
-#	include "dbsymutl.h"
-#	pragma  pack (push, 8)
-#	define ACEDSYMUTIL_SERVICES_CURRENT_VERSION	100
+#  define _ACSYMUTL_H
+#  include <assert.h>
+#  include "acadstrc.h"
+#  include "dbsymutl.h"
+#  pragma  pack (push, 8)
+#  define ACEDSYMUTIL_SERVICES_CURRENT_VERSION	100
 class AcDbDatabase;
 namespace AcEdSymbolUtilities
 {
-	enum CrSpMode
-	{
-		kCrEndsInput = true,
-		kCrSpEndsInput = false
-	};
-	enum NameCaseMode
-	{
-		kPreserveCase = true,
-		kForceToUpper = false
-	};
-	class Services	
+  enum CrSpMode
+  {
+    kCrEndsInput = true,
+    kCrSpEndsInput = false
+  };
+  enum NameCaseMode
+  {
+    kPreserveCase = true,
+    kForceToUpper = false
+  };
+  class Services  
 {
-	public:
-		enum
-		{
-			kCurrentVersion = ACEDSYMUTIL_SERVICES_CURRENT_VERSION
-		};
-		virtual unsigned version() const = 0;
-		virtual Acad::PromptStatus getCompatibleSymbolString(ACHAR*& pResponse, const ACHAR* prompt, AcDbDatabase* pDb) const = 0;
-		virtual Acad::PromptStatus getSymbolString(ACHAR*& pResponse, const ACHAR* prompt, bool onlyCrEndsInput, bool preserveCase) const = 0;
-	};
+  public:
+    enum
+    {
+      kCurrentVersion = ACEDSYMUTIL_SERVICES_CURRENT_VERSION
+    };
+    virtual unsigned version() const = 0;
+    virtual Acad::PromptStatus getCompatibleSymbolString(ACHAR*& pResponse, const ACHAR* prompt, AcDbDatabase* pDb) const = 0;
+    virtual Acad::PromptStatus getSymbolString(ACHAR*& pResponse, const ACHAR* prompt, bool onlyCrEndsInput, bool preserveCase) const = 0;
+  };
 // For use by AcEdSymbolUtilities only!
-#	define ACEDSYMUTIL_SERVICESNAME_WITH_VERSION_1	(n,v) n ## v
-#	define ACEDSYMUTIL_SERVICESNAME_WITH_VERSION	(n,v) \
+#  define ACEDSYMUTIL_SERVICESNAME_WITH_VERSION_1	(n,v) n ## v
+#  define ACEDSYMUTIL_SERVICESNAME_WITH_VERSION	(n,v) \
         ACEDSYMUTIL_SERVICESNAME_WITH_VERSION_1(n,v)
-#	define ACEDSYMUTIL_SERVICES_NAME	ACEDSYMUTIL_SERVICESNAME_WITH_VERSION( \
+#  define ACEDSYMUTIL_SERVICES_NAME	ACEDSYMUTIL_SERVICESNAME_WITH_VERSION( \
             servicesPtr, \
             ACEDSYMUTIL_SERVICES_CURRENT_VERSION)
-	extern const Services* ACEDSYMUTIL_SERVICES_NAME();
+  extern const Services* ACEDSYMUTIL_SERVICES_NAME();
 // --------- Inline definitions ---------
-	inline const Services* servicesPtr()
-	{
-		const Services* pSymUtil = ACEDSYMUTIL_SERVICES_NAME();
-		assert(pSymUtil != 0);
-		assert(pSymUtil->version() == Services::kCurrentVersion);
-		return pSymUtil;
-	}
+  inline const Services* servicesPtr()
+  {
+    const Services* pSymUtil = ACEDSYMUTIL_SERVICES_NAME();
+    assert(pSymUtil != 0);
+    assert(pSymUtil->version() == Services::kCurrentVersion);
+    return pSymUtil;
+  }
 }
 typedef AcEdSymbolUtilities::Services AcEdSymUtilServices;
 inline const AcEdSymUtilServices* acedSymUtil()
 {
-	return AcEdSymbolUtilities::servicesPtr();
+  return AcEdSymbolUtilities::servicesPtr();
 }
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

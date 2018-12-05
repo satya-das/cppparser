@@ -24,11 +24,11 @@ class AcDbRevolveOptions;
 class ACDB_PORT AcDbAssocRevolvedSurfaceActionBody : public AcDbAssocPathBasedSurfaceActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocRevolvedSurfaceActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocRevolvedSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocRevolvedSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocRevolvedSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary><para> 
     /// Set revolve angle of the resulting revolved surface
     /// </para><para>
@@ -40,7 +40,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setRevolveAngle(double angle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setRevolveAngle(double angle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Get revolve angle of the resulting revolved surface
     /// </para><para>
@@ -51,7 +51,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Revolve angle. </returns>
     ///
-	double revolveAngle(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  double revolveAngle(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary> 
     /// Create an instance of AcDbAssocRevolvedSurfaceActionBody
     /// </summary>
@@ -66,6 +66,6 @@ public:
     /// <param name="createdActionId"> Id of created action. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcDbPathRef& revolvePath, const AcDbPathRef& axisPath, double dAngle, double dStartAngle, const AcDbRevolveOptions& revolveOptions, bool bFlipAxisDirection, bool bEnabled, AcDbObjectId& createdActionId);
+  static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcDbPathRef& revolvePath, const AcDbPathRef& axisPath, double dAngle, double dStartAngle, const AcDbRevolveOptions& revolveOptions, bool bFlipAxisDirection, bool bEnabled, AcDbObjectId& createdActionId);
 };
 #pragma  pack (pop)

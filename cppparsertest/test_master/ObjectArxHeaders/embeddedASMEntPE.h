@@ -13,6 +13,6 @@
 class AcDbEmbeddedASMEntPropsPE : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbEmbeddedASMEntPropsPE);
-	ACDB_PORT virtual void setIsEmbeddedEnt(AcDbObject* pObj, bool bIsEmbedded = true);
+  ACRX_DECLARE_MEMBERS(AcDbEmbeddedASMEntPropsPE);
+  ACDB_PORT virtual void setIsEmbeddedEnt(AcDbObject* pObj, bool bIsEmbedded = true);
 };

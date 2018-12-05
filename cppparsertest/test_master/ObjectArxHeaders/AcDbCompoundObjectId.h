@@ -29,12 +29,12 @@
 class ACDBCORE2D_PORT AcDbCompoundObjectId : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbCompoundObjectId);
+  ACRX_DECLARE_MEMBERS(AcDbCompoundObjectId);
     /// <summary> 
     /// The default constructor creates an empty AcDbCompoundObjectId.
     /// </summary> 
     ///
-	AcDbCompoundObjectId();
+  AcDbCompoundObjectId();
     /// <summary> 
     /// Creates AcDbCompoundObjectId from an ordinary AcDbObjectId. If the
     /// host database is null, the host database is obtained from the given 
@@ -46,10 +46,10 @@ public:
     /// <param name="pHostDatabase"> The host database. If null, the database 
     /// is taken from the AcDbObjectId (even if it is in XREF database). </param>
     ///
-	AcDbCompoundObjectId(const AcDbObjectId& id, AcDbDatabase* pHostDatabase = NULL);
+  AcDbCompoundObjectId(const AcDbObjectId& id, AcDbDatabase* pHostDatabase = NULL);
     /// <summary> Copy constructor. </summary> 
     ///
-	AcDbCompoundObjectId(const AcDbCompoundObjectId&);
+  AcDbCompoundObjectId(const AcDbCompoundObjectId&);
     /// <summary> 
     /// Creates AcDbCompoundObjectId from an ordinary AcDbObjectId and a path
     /// of AcDbBlockReferences. If the host database is null, the host database 
@@ -68,37 +68,37 @@ public:
     /// is taken from the first AcDbBlockReference id in the path (even if it is 
     /// in XREF database). </param>
     ///
-	AcDbCompoundObjectId(const AcDbObjectId& id, const AcDbObjectIdArray& path, AcDbDatabase* pHostDatabase = NULL);
-	virtual ~AcDbCompoundObjectId();
-	AcDbCompoundObjectId& operator =(const AcDbObjectId&);
-	AcDbCompoundObjectId& operator =(const AcDbCompoundObjectId&);
-	bool operator ==(const AcDbCompoundObjectId&) const;
-	bool operator !=(const AcDbCompoundObjectId& other) const
-	{
-		return !(*this == other);
-	}
+  AcDbCompoundObjectId(const AcDbObjectId& id, const AcDbObjectIdArray& path, AcDbDatabase* pHostDatabase = NULL);
+  virtual ~AcDbCompoundObjectId();
+  AcDbCompoundObjectId& operator =(const AcDbObjectId&);
+  AcDbCompoundObjectId& operator =(const AcDbCompoundObjectId&);
+  bool operator ==(const AcDbCompoundObjectId&) const;
+  bool operator !=(const AcDbCompoundObjectId& other) const
+  {
+    return !(*this == other);
+  }
     /// <summary> Returns the first AcDbObjectId (of an AcDbBlockReference) 
     /// in the path, or the leaf-node AcDbObjectId, if there is no path.
     /// </summary>
     ///
-	AcDbObjectId topId() const;
+  AcDbObjectId topId() const;
     /// <summary> Returns the leaf-node AcDbObjectId that resides in the 
     /// AcDbBlockTableRecord that the last AcDbBlockReference in the path references, 
     /// or simply the AcDbObjectId if there is no path. 
     /// </summary>
     ///
-	AcDbObjectId leafId() const;
+  AcDbObjectId leafId() const;
     /// <summary> Returns the full path, i.e. the given path of AcDbBlockReference
     /// ids appended with the leaf AcDbObjectId.
     /// </summary>
     ///
-	Acad::ErrorStatus getFullPath(AcDbObjectIdArray& fullPath) const;
+  Acad::ErrorStatus getFullPath(AcDbObjectIdArray& fullPath) const;
     /// <summary> Returns the AcDbBlockReference path. </summary>
     ///
-	Acad::ErrorStatus getPath(AcDbObjectIdArray& path) const;
+  Acad::ErrorStatus getPath(AcDbObjectIdArray& path) const;
     /// <summary> Sets the AcDbCompoundObjectId to be empty, containing no data. </summary>
     ///
-	void setEmpty();
+  void setEmpty();
     /// <summary> 
     /// Sets this AcDbCompoundObjectId from an ordinary AcDbObjectId. If the
     /// host database is null, the host database is obtained from the given 
@@ -110,10 +110,10 @@ public:
     /// <param name="pHostDatabase"> The host database. If null, the database 
     /// is taken from the AcDbObjectId (even if it is in XREF database). </param>
     ///
-	Acad::ErrorStatus set(const AcDbObjectId&, AcDbDatabase* pHostDatabase = NULL);
+  Acad::ErrorStatus set(const AcDbObjectId&, AcDbDatabase* pHostDatabase = NULL);
     /// <summary> Sets this AcDbCompoundObjectId from another AcDbCompoundObjectId. </summary>
     ///
-	Acad::ErrorStatus set(const AcDbCompoundObjectId&, AcDbDatabase* pHostDatabase = NULL);
+  Acad::ErrorStatus set(const AcDbCompoundObjectId&, AcDbDatabase* pHostDatabase = NULL);
     /// <summary> 
     /// Sets this AcDbCompoundObjectId from an ordinary AcDbObjectId and a path
     /// of AcDbBlockReferences. If the host database is null, the host database 
@@ -133,7 +133,7 @@ public:
     /// in XREF database). </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus set(const AcDbObjectId& id, const AcDbObjectIdArray& path, AcDbDatabase* pHostDatabase = NULL);
+  Acad::ErrorStatus set(const AcDbObjectId& id, const AcDbObjectIdArray& path, AcDbDatabase* pHostDatabase = NULL);
     /// <summary> Sets this AcDbCompoundObjectId from the path that contains the 
     /// path of AcDbBlockReferences apppended by the leaf AcDbObjectId. 
     /// </summary> 
@@ -144,35 +144,35 @@ public:
     /// is taken from the first AcDbBlockReference id in the fullPath. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setFullPath(const AcDbObjectIdArray& fullPath, AcDbDatabase* pHostDatabase = NULL);
+  Acad::ErrorStatus setFullPath(const AcDbObjectIdArray& fullPath, AcDbDatabase* pHostDatabase = NULL);
     /// <summary> Checks if the AcDbCompoundObjectId contains no data. </summary>
     ///
-	bool isEmpty() const;
+  bool isEmpty() const;
     /// <summary> Returns true if the AcDbCompoundObjectId is valid. The given
     /// validityCheckingLevel specifies the level of testing. Bigger number means
     /// more thorough checks are being performed. At this moment the 
     /// validityCheckingLevel argument is unused but will be used in the future.
     /// </summary>
     ///
-	bool isValid(int validityCheckingLevel = 1) const;
+  bool isValid(int validityCheckingLevel = 1) const;
     /// <summary> Returns true if the AcDbCompoundObjectId is from an external 
     /// drawing. </summary>
     ///
-	bool isExternal() const;
+  bool isExternal() const;
     /// <summary> Returns true if there is no path, only the leaf id (which may be null). 
     /// </summary>
     ///
-	bool isSimpleObjectId() const;
-	enum Status
-	{
-		kValid = 0,
-		kWasLoadedNowUnloaded = 1,
-		kCouldNotResolveNonTerminal = 2,
-		kCouldNotResolveTerminal = 3,
-		kCouldNotResolveTooEarly = 4,
-		kIncompatibleIdType = 1000
-	};
-	Status status() const;
+  bool isSimpleObjectId() const;
+  enum Status
+  {
+    kValid = 0,
+    kWasLoadedNowUnloaded = 1,
+    kCouldNotResolveNonTerminal = 2,
+    kCouldNotResolveTerminal = 3,
+    kCouldNotResolveTooEarly = 4,
+    kIncompatibleIdType = 1000
+  };
+  Status status() const;
     /// <summary> 
     /// Returns the compound transform from the leaf object to the world,
     /// concatennating all the AcDbBlockReference transforms, from the most nested
@@ -183,35 +183,35 @@ public:
     /// <param name="trans"> The returned compound transform. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getTransform(AcGeMatrix3d& trans) const;
+  Acad::ErrorStatus getTransform(AcGeMatrix3d& trans) const;
     /// <summary> Remaps all the AcDbObjectIds in this AcDbCompoundObjectId by 
     /// the given AcDbIdMapping. Returns true if any remapping actually happened, 
     /// false otherwise. </summary>
     /// <param name="idMap"> See the description of the AcDbIdMapping class. </param>
     /// <returns> True if some ids actually changed, false otherwise. </returns>
     ///
-	bool remap(const AcDbIdMapping& idMap);
-	Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler, AcDbDatabase* pHostDatabase) const;
+  bool remap(const AcDbIdMapping& idMap);
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler, AcDbDatabase* pHostDatabase) const;
     /// <remarks>
     /// The ownerVersion greater or equal to 0 means the new format, less than 0
     /// means the old format (w/o the class name and object version) that we need 
     /// to maintain only to be able to read Beta1/2 drawings.
     /// </remarks>
     ///
-	Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler, int ownerVersion);
-	Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler, AcDbDatabase* pHostDatabase) const;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler, int ownerVersion);
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler, AcDbDatabase* pHostDatabase) const;
     /// <remarks>
     /// The ownerVersion greater or equal to 0 means the new format, less than 0
     /// means the old format (w/o the class name and object version) that we need 
     /// to maintain only to be able to read Beta1/2 drawings.
     /// </remarks>
     ///
-	Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler, AcDbDatabase* pHostDatabase, int ownerVersion);
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler, AcDbDatabase* pHostDatabase, int ownerVersion);
     /// <summary> Returns an empty AcDbCompoundObjectId. </summary> 
     ///
-	static const AcDbCompoundObjectId& nullId();
+  static const AcDbCompoundObjectId& nullId();
 private:
-	class AcDbImpCompoundObjectId* mpImp;
+  class AcDbImpCompoundObjectId* mpImp;
 };
 /// <summary>
 /// Protocol extension used by AcDbCompoundObjectId::getTransform() to find the 
@@ -226,11 +226,11 @@ private:
 class ACDBCORE2D_PORT AcDbParentTransformOfChildPE : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbParentTransformOfChildPE);
+  ACRX_DECLARE_MEMBERS(AcDbParentTransformOfChildPE);
     /// <summary>
     /// Returns the transform of the child object in the parent object.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus getParentTransformOfChild(const AcDbObject* pThisParent, const AcDbObjectId& childId, AcGeMatrix3d&) = 0;
+  virtual Acad::ErrorStatus getParentTransformOfChild(const AcDbObject* pThisParent, const AcDbObjectId& childId, AcGeMatrix3d&) = 0;
 };
 #pragma  pack (pop)

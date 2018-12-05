@@ -23,20 +23,20 @@ typedef void (*AcRxMemberCollectionConstructorPtr) (AcRxMemberCollectionBuilder&
 class AcRxClass : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS_EXPIMP(AcRxClass, ACBASE_PORT);
-	ACBASE_PORT AcRxObject* addX(AcRxClass*, AcRxObject*);
+  ACRX_DECLARE_MEMBERS_EXPIMP(AcRxClass, ACBASE_PORT);
+  ACBASE_PORT AcRxObject* addX(AcRxClass*, AcRxObject*);
     // Deprecated: The getX() method will be removed in a future
     // release.  Please use queryX() instead.
-	ACBASE_PORT AcRxObject* getX(const AcRxClass*);
-	ACBASE_PORT AcRxObject* delX(AcRxClass*);
-	ACBASE_PORT AcRxObject* queryX(const AcRxClass*);
-	ACBASE_PORT AcRxObject* create();
-	ACBASE_PORT const ACHAR* appName() const;
-	ACBASE_PORT const ACHAR* dxfName() const;
-	ACBASE_PORT const ACHAR* name() const;
-	ACBASE_PORT void getClassVersion(int& dwgVer, int& maintVer) const;
-	ACBASE_PORT int proxyFlags() const;
-	bool isDerivedFrom(const AcRxClass*) const;
+  ACBASE_PORT AcRxObject* getX(const AcRxClass*);
+  ACBASE_PORT AcRxObject* delX(AcRxClass*);
+  ACBASE_PORT AcRxObject* queryX(const AcRxClass*);
+  ACBASE_PORT AcRxObject* create();
+  ACBASE_PORT const ACHAR* appName() const;
+  ACBASE_PORT const ACHAR* dxfName() const;
+  ACBASE_PORT const ACHAR* name() const;
+  ACBASE_PORT void getClassVersion(int& dwgVer, int& maintVer) const;
+  ACBASE_PORT int proxyFlags() const;
+  bool isDerivedFrom(const AcRxClass*) const;
     /// <summary>
     /// Static method for checking if first (left) class arg is derived from second (right) one
     /// </summary>
@@ -48,28 +48,28 @@ public:
     ///           All RxClasses are in the derived from AcRxObject::desc()
     /// </remarks>
     ///
-	ACBASE_PORT static bool isDerivedFrom(const AcRxClass* pDerived, const AcRxClass* pBase);
-	ACBASE_PORT AcRxClass* myParent() const;
-	ACBASE_PORT virtual AcRx::Ordering comparedTo(const AcRxObject*) const override;
-	ACBASE_PORT AppNameChangeFuncPtr appNameCallbackPtr() const;
-	ACBASE_PORT const AcRxSet* descendants() const;
-	ACBASE_PORT AcRxMemberCollection* members() const;
-	ACBASE_PORT const AcRxAttributeCollection& attributes() const;
-	ACBASE_PORT AcRxAttributeCollection& attributes();
+  ACBASE_PORT static bool isDerivedFrom(const AcRxClass* pDerived, const AcRxClass* pBase);
+  ACBASE_PORT AcRxClass* myParent() const;
+  ACBASE_PORT virtual AcRx::Ordering comparedTo(const AcRxObject*) const override;
+  ACBASE_PORT AppNameChangeFuncPtr appNameCallbackPtr() const;
+  ACBASE_PORT const AcRxSet* descendants() const;
+  ACBASE_PORT AcRxMemberCollection* members() const;
+  ACBASE_PORT const AcRxAttributeCollection& attributes() const;
+  ACBASE_PORT AcRxAttributeCollection& attributes();
 protected:
-	AcRxClass(const ACHAR* name, const ACHAR* parent, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData);
-	virtual ~AcRxClass();
+  AcRxClass(const ACHAR* name, const ACHAR* parent, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData);
+  virtual ~AcRxClass();
 private:
     // Private unimplemented overload of AcRxObject::isKindOf(), to cause compile errors
     // on incorrect usage such as this: pClass->isKindOf(pOtherClass).
     // What you really want to use is: pClass->isDerivedFrom(pOtherClass)
     //
-	void isKindOf(void*);
-	AcRxClass();
-	friend class AcRxImpClass;
-	AcRxImpClass* m_pImp;
-	AcRxClass(const AcRxClass&);
-	AcRxClass operator =(const AcRxClass&);
+  void isKindOf(void*);
+  AcRxClass();
+  friend class AcRxImpClass;
+  AcRxImpClass* m_pImp;
+  AcRxClass(const AcRxClass&);
+  AcRxClass operator =(const AcRxClass&);
 };
 using PseudoConstructor = AcRxObject* (*) ();
 ;
@@ -81,11 +81,11 @@ ACBASE_PORT void acrxBuildClassHierarchy();
 ACBASE_PORT void deleteAcRxClass(AcRxClass* pClassObj);
 inline bool AcRxClass::isDerivedFrom(const AcRxClass* pOtherClass) const
 {
-	return AcRxClass::isDerivedFrom(this, pOtherClass);
+  return AcRxClass::isDerivedFrom(this, pOtherClass);
 }
 inline bool AcRxObject::isKindOf(const AcRxClass* pOtherClass) const
 {
-	return AcRxClass::isDerivedFrom(this->isA(), pOtherClass);
+  return AcRxClass::isDerivedFrom(this->isA(), pOtherClass);
 }
 typedef void (*RxInitFuncPtr) ();
 AcRxClass* acrxQueueClassForInitialization(AcRxClass** pgpDesc, RxInitFuncPtr rxInit);

@@ -8,8 +8,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef __GEOTYPE_H
-#	define __GEOTYPE_H
-#	pragma  pack (push, 8)
+#  define __GEOTYPE_H
+#  pragma  pack (push, 8)
 /// <summary>
 /// AcGeoMapType enum is used by both LiveMap and AcDbGeoMap which is a snapshot of the livemap. 
 /// </summary>
@@ -17,19 +17,19 @@
 enum AcGeoMapType
 {
     /// <summary> LiveMap is turned off. This is not used by AcDbGeoMap::mapType. </summary>
-	kNoMap = 0,
+  kNoMap = 0,
     /// <summary>
     /// Map in aerial view.
     /// </summary>
-	kAerial = 1,
+  kAerial = 1,
     /// <summary>
     /// Map in road view.
     /// </summary>
-	kRoad = 2,
+  kRoad = 2,
     /// <summary>
     /// Map in hybrid view.
     /// </summary>
-	kHybrid = 3
+  kHybrid = 3
 };
 /// <summary>
 /// AcGeoMapResolution enum is applied to LiveMap Zoom Level (or Level Of Detail) number. 
@@ -40,19 +40,19 @@ enum AcGeoMapResolution
     /// <summary>
     /// One level less than current zoom level
     /// </summary>
-	kCoarse = -1,
+  kCoarse = -1,
     /// <summary>
     /// Same as current zoom level
     /// </summary>
-	kOptimal = 0,
+  kOptimal = 0,
     /// <summary>
     /// One level higher than current zoom level
     /// </summary>
-	kFine = 1,
+  kFine = 1,
     /// <summary>
     /// Two levels higher than current zoom level
     /// </summary>
-	kFiner = 2
+  kFiner = 2
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

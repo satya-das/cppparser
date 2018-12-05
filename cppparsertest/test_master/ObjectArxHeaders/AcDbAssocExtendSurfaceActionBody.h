@@ -31,11 +31,11 @@ class AcDbSurface;
 class ACDB_PORT AcDbAssocExtendSurfaceActionBody : public AcDbAssocPathBasedSurfaceActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocExtendSurfaceActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocExtendSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocExtendSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocExtendSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary><para> 
     /// Set extension distance
     /// </para><para>
@@ -47,7 +47,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setDistance(double distance, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setDistance(double distance, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Get extension distance and its possible expression
     /// </para><para>
@@ -58,7 +58,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Extension distance. </returns>
     ///
-	double distance(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  double distance(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary> 
     /// Create an instance of AcDbAssocExtendSurfaceActionBody
     /// </summary>
@@ -73,6 +73,6 @@ public:
     /// action will be erased and the resulting surface will not regenerate and become a generic surface. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcArray<AcDbEdgeRef>& extendEdges, double distance, AcDbSurface::EdgeExtensionType option, bool bEnabled, AcDbObjectId& createdActionId);
+  static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcArray<AcDbEdgeRef>& extendEdges, double distance, AcDbSurface::EdgeExtensionType option, bool bEnabled, AcDbObjectId& createdActionId);
 };
 #pragma  pack (pop)

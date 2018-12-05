@@ -17,11 +17,11 @@ class AcGiParameterImp;
 //
 class ACDBCORE2D_PORT AcGiParameter : public AcRxCopyOnWriteObject
 {
-	friend class AcGiParameterImp;
-	ACRX_DECLARE_MEMBERS_READWRITE(AcGiParameter, AcGiParameterImp);
+  friend class AcGiParameterImp;
+  ACRX_DECLARE_MEMBERS_READWRITE(AcGiParameter, AcGiParameterImp);
 public:
-	AcGiParameter(AcGiParameterImp* pImp);
-	AcGiParameter(const AcGiParameter& other);
-	const AcGiParameter& operator=(const AcGiParameter& other);
+  AcGiParameter(AcGiParameterImp* pImp);
+  AcGiParameter(const AcGiParameter& other);
+  const AcGiParameter& operator=(const AcGiParameter& other);
 };
 #pragma  pack(pop)

@@ -10,10 +10,10 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 #ifndef ACDB_ANNOTATIONSCALE_H
-#	define ACDB_ANNOTATIONSCALE_H
-#	pragma  once
-#	pragma  pack(push, 8)
-#	include "dbObjContext.h"
+#  define ACDB_ANNOTATIONSCALE_H
+#  pragma  once
+#  pragma  pack(push, 8)
+#  include "dbObjContext.h"
 class AcDbImpAnnotationScale;
 ////////////////////////////////////////////////////////////////////////
 // class AcDbAnnotationScale
@@ -28,17 +28,17 @@ class AcDbImpAnnotationScale;
 class AcDbAnnotationScale : public AcDbObjectContext, public AcHeapOperators
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAnnotationScale);
+  ACRX_DECLARE_MEMBERS(AcDbAnnotationScale);
     /// <summary>
     /// Default constructor.
     /// </summary>
     ///
-	AcDbAnnotationScale();
+  AcDbAnnotationScale();
     /// <summary>
     /// Destructor.  Performs any necessary cleanup of the context data.
     /// </summary>
     ///
-	virtual ~AcDbAnnotationScale();
+  virtual ~AcDbAnnotationScale();
     /// <summary>
     /// The name of the annotation scale.
     /// </summary>
@@ -58,7 +58,7 @@ public:
     /// use the context ID, which is guaranteed to be unique and invariant over
     /// time. 
     /// </remarks>
-	virtual Acad::ErrorStatus getName(AcString& name) const override;
+  virtual Acad::ErrorStatus getName(AcString& name) const override;
     /// <summary>
     /// Sets the name of the annotation scale. 
     /// </summary>
@@ -75,7 +75,7 @@ public:
     /// Annotation scale names are not guaranteed to be unique.
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus setName(const AcString& name) override;
+  virtual Acad::ErrorStatus setName(const AcString& name) override;
     /// <summary>
     /// The unique annotation scale identifier
     /// </summary>
@@ -89,7 +89,7 @@ public:
     /// object and is unique amongst all annotation scale context instances.
     /// </remarks>
     ///
-	virtual Adesk::LongPtr uniqueIdentifier() const override;
+  virtual Adesk::LongPtr uniqueIdentifier() const override;
     /// <summary>
     /// The name of the annotation scale collection. 
     /// </summary>
@@ -103,7 +103,7 @@ public:
     /// string returned by this method.
     /// </remarks>    
     ///
-	virtual AcString collectionName() const override;
+  virtual AcString collectionName() const override;
     /// <summary>
     /// Copies the annotation scale context data into this scale instance. 
     /// </summary>
@@ -118,7 +118,7 @@ public:
     /// if the parameter passed is not of the correct type.
     /// </returns>
     ///
-	virtual Acad::ErrorStatus copyFrom(const AcRxObject* pOther) override;
+  virtual Acad::ErrorStatus copyFrom(const AcRxObject* pOther) override;
     /// <summary>
     /// The paper units portion of the annotation scale. 
     /// </summary>
@@ -138,7 +138,7 @@ public:
     /// 0.083.
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus getPaperUnits(double& dPaperUnits) const;
+  virtual Acad::ErrorStatus getPaperUnits(double& dPaperUnits) const;
     /// <summary>
     /// Sets the paper units portion of the annotation scale. 
     /// </summary>
@@ -158,7 +158,7 @@ public:
     /// units scale of 12.0, for an effective scale of 0.083.
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus setPaperUnits(double dPaperUnits);
+  virtual Acad::ErrorStatus setPaperUnits(double dPaperUnits);
     /// <summary>
     /// The drawing units portion of the annotation scale. 
     /// </summary>
@@ -178,7 +178,7 @@ public:
     /// 0.083.
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus getDrawingUnits(double& dDrawingUnits) const;
+  virtual Acad::ErrorStatus getDrawingUnits(double& dDrawingUnits) const;
     /// <summary>
     /// Sets the drawing units portion of the annotation scale. 
     /// </summary>
@@ -198,7 +198,7 @@ public:
     /// units scale of 12.0, for an effective scale of 0.083.
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus setDrawingUnits(const double dDrawingUnits);
+  virtual Acad::ErrorStatus setDrawingUnits(const double dDrawingUnits);
     /// <summary>
     /// Gets the annotation scale factor.
     /// </summary>
@@ -218,7 +218,7 @@ public:
     /// 0.083.
     /// </remarks>
     ///
-	virtual Acad::ErrorStatus getScale(double& dScale) const;
+  virtual Acad::ErrorStatus getScale(double& dScale) const;
     /// <summary>
     /// Determies whether the scale is temporarily stored in the drawing. 
     /// </summary>
@@ -242,7 +242,7 @@ public:
     /// collection. Temporary scales are not filed out to a drawing when it is
     /// saved. 
     /// </remarks>
-	virtual Acad::ErrorStatus getIsTemporaryScale(bool& bTemporary) const;
+  virtual Acad::ErrorStatus getIsTemporaryScale(bool& bTemporary) const;
     /// <summary>
     /// Determies whether the given id matches the scale id. 
     /// </summary>
@@ -263,22 +263,22 @@ public:
     /// class to have different unique identifiers but refer to the same
     /// underlying scale instance.
     /// </remarks>
-	virtual bool matchScaleId(Adesk::LongPtr id) const;
+  virtual bool matchScaleId(Adesk::LongPtr id) const;
 protected:
-	AcDbImpAnnotationScale* mpImp;
-	friend class AcDbSystemInternals;
-	AcDbAnnotationScale(bool);
+  AcDbImpAnnotationScale* mpImp;
+  friend class AcDbSystemInternals;
+  AcDbAnnotationScale(bool);
 };
 // Notification of Annotation Scale change.
 class ACDBCORE2D_PORT AcDbAnnotationScaleReactor : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAnnotationScaleReactor);
-	virtual void annotationScaleChanged(const AcDbDatabase* pDb, const AcDbViewport* pVP, const AcDbAnnotationScale* pScale, const bool bInitializing);
+  ACRX_DECLARE_MEMBERS(AcDbAnnotationScaleReactor);
+  virtual void annotationScaleChanged(const AcDbDatabase* pDb, const AcDbViewport* pVP, const AcDbAnnotationScale* pScale, const bool bInitializing);
 };
 // Add an AcDbAnnotationScaleReactor reactor.
 ACDBCORE2D_PORT bool acdbAddAnnotationScaleReactor(AcDbAnnotationScaleReactor* pReactor);
 // Remove an AcDbAnnotationScaleReactor reactor.
 ACDBCORE2D_PORT bool acdbRemoveAnnotationScaleReactor(AcDbAnnotationScaleReactor* pReactor);
-#	pragma  pack(pop)
+#  pragma  pack(pop)
 #endif

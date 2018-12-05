@@ -24,7 +24,7 @@ class AcDbImpAssocArrayRectangularParameters;
 class ACDB_PORT AcDbAssocArrayRectangularParameters : public AcDbAssocArrayCommonParameters
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocArrayRectangularParameters);
+  ACRX_DECLARE_MEMBERS(AcDbAssocArrayRectangularParameters);
     /// <summary> 
     /// Following list of enums can be used as input to method
     /// getGripPointAt(unsigned int, AcDbArrayGripAppData* &) to get specific 
@@ -32,89 +32,89 @@ public:
     /// rectangular array.
     /// </summary>
     ///
-	enum GripModes
-	{
+  enum GripModes
+  {
         /// <summary> 
         /// Moves the array object.
         /// </summary>
         ///
-		kStretchGrip = 1 << 0,
+    kStretchGrip = 1 << 0,
         /// <summary> 
         /// Changes number of rows.
         /// </summary>
         ///
-		kRowCountGrip = 1 << 1,
+    kRowCountGrip = 1 << 1,
         /// <summary> 
         /// Changes distance between rows.
         /// </summary>
         ///
-		kRowSpacingGrip = 1 << 2,
+    kRowSpacingGrip = 1 << 2,
         /// <summary> 
         /// Changes distance between rows by distributing the move uniformly 
         /// across all the rows.
         /// </summary>
         ///
-		kUniformRowSpacingGrip = 1 << 3,
+    kUniformRowSpacingGrip = 1 << 3,
         /// <summary> 
         /// Changes number of columns.
         /// </summary>
         ///
-		kColumnCountGrip = 1 << 4,
+    kColumnCountGrip = 1 << 4,
         /// <summary> 
         /// Changes distance between columns.
         /// </summary>
         ///
-		kColumnSpacingGrip = 1 << 5,
+    kColumnSpacingGrip = 1 << 5,
         /// <summary> 
         /// Changes distance between columns by distributing the move uniformly 
         /// across all the columns.
         /// </summary>
         ///
-		kUniformColSpacingGrip = 1 << 6,
+    kUniformColSpacingGrip = 1 << 6,
         /// <summary> 
         /// Changes number of rows and columns at the same time.
         /// </summary>
-		kRowColumnCountGrip = 1 << 7,
+    kRowColumnCountGrip = 1 << 7,
         /// <summary> 
         /// Changes distance between rows and columns at the same time.
         /// </summary>
         ///
-		kRowColumnSpacingGrip = 1 << 8,
+    kRowColumnSpacingGrip = 1 << 8,
         /// <summary> 
         /// Changes the angle formed by the first row and the first column 
         /// w/o changing row direction.
         /// </summary>
         ///
-		kColumnDirectionGrip = 1 << 9,
+    kColumnDirectionGrip = 1 << 9,
         /// <summary> 
         /// Changes the angle formed by the first row and the first column 
         /// w/o changing column direction.
         /// </summary>
         ///
-		kRowDirectionGrip = 1 << 10,
+    kRowDirectionGrip = 1 << 10,
         /// <summary> 
         /// Changes number of levels.
         /// </summary>
         ///
-		kLevelCountGrip = 1 << 11,
+    kLevelCountGrip = 1 << 11,
         /// <summary> 
         /// Changes distance between levels.
         /// </summary>
         ///
-		kLevelSpacingGrip = 1 << 12,
+    kLevelSpacingGrip = 1 << 12,
         /// <summary> 
         /// Changes distance between levels by distributing the move uniformly 
         /// across all the levels.
         /// </summary>
         ///
-		kUniformLevelSpacingGrip = 1 << 13,
+    kUniformLevelSpacingGrip = 1 << 13,
         /// <summary> 
         /// Changes the row axis angle(or column direction) while keeping the angle constant  
         /// between the first row and the first column. 
         /// </summary>
         ///
-		kRowAxisAngleGrip = 1 << 14
-	};
+    kRowAxisAngleGrip = 1 << 14
+  };
     /// <summary> 
     /// Constructor to update count and spacing of rows, columns and levels 
     /// along with row elevation and axis angle.
@@ -128,12 +128,12 @@ public:
     /// <param name="rowElevation">  The input elevation between adjacent rows. </param>
     /// <param name="axesAngle">  The input angle between the first row and first column. </param>
     ///
-	AcDbAssocArrayRectangularParameters(double columnSpacing = 1, double rowSpacing = 1, double levelSpacing = 1, int columnCount = 1, int rowCount = 1, int levelCount = 1, double rowElevation = 1, double axesAngle = 90);
+  AcDbAssocArrayRectangularParameters(double columnSpacing = 1, double rowSpacing = 1, double levelSpacing = 1, int columnCount = 1, int rowCount = 1, int levelCount = 1, double rowElevation = 1, double axesAngle = 90);
     /// <summary> 
     /// Default destructor.
     /// </summary>
     ///
-	virtual ~AcDbAssocArrayRectangularParameters();
+  virtual ~AcDbAssocArrayRectangularParameters();
     /// <summary> 
     /// Gets the column count of the rectangular array.
     /// If there is no expression for a particular param,
@@ -143,17 +143,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns column count. </returns>
     ///
-	int columnCount(AcString& expression, AcString& evaluatorId) const;
-	inline int columnCount() const
-	{
-		AcString expression, evaluatorId;
-		return columnCount(expression, evaluatorId);
-	}
-	inline int columnCount(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return columnCount(expression, evaluatorId);
-	}
+  int columnCount(AcString& expression, AcString& evaluatorId) const;
+  inline int columnCount() const
+  {
+    AcString expression, evaluatorId;
+    return columnCount(expression, evaluatorId);
+  }
+  inline int columnCount(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return columnCount(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets the column spacing of the rectangular array.
     /// If there is no expression for a particular param,
@@ -163,17 +163,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns column spacing. </returns>
     ///
-	double columnSpacing(AcString& expression, AcString& evaluatorId) const;
-	inline double columnSpacing() const
-	{
-		AcString expression, evaluatorId;
-		return columnSpacing(expression, evaluatorId);
-	}
-	inline double columnSpacing(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return columnSpacing(expression, evaluatorId);
-	}
+  double columnSpacing(AcString& expression, AcString& evaluatorId) const;
+  inline double columnSpacing() const
+  {
+    AcString expression, evaluatorId;
+    return columnSpacing(expression, evaluatorId);
+  }
+  inline double columnSpacing(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return columnSpacing(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets the axes angle of the rectangular array. the values should be between 
     /// 0-360 degrees.
@@ -184,17 +184,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns axes angle. </returns>
     ///
-	double axesAngle(AcString& expression, AcString& evaluatorId) const;
-	inline double axesAngle() const
-	{
-		AcString expression, evaluatorId;
-		return axesAngle(expression, evaluatorId);
-	}
-	inline double axesAngle(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return axesAngle(expression, evaluatorId);
-	}
+  double axesAngle(AcString& expression, AcString& evaluatorId) const;
+  inline double axesAngle() const
+  {
+    AcString expression, evaluatorId;
+    return axesAngle(expression, evaluatorId);
+  }
+  inline double axesAngle(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return axesAngle(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets the direction vector for X axis of the rectangular array. It also
     /// provides Y axis direction optionally. Y axis is at axes angle from
@@ -205,7 +205,7 @@ public:
     /// </param>
     /// <returns> Returns X axis direction vector. </returns>
     ///
-	AcGeVector3d axisDirection(AcGeVector3d* pYAxis = NULL) const;
+  AcGeVector3d axisDirection(AcGeVector3d* pYAxis = NULL) const;
     /// <summary> 
     /// Sets the column count of the rectangular array.
     /// If there is no expression for the parameter, the expression string and 
@@ -217,7 +217,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setColumnCount(int nColumns, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setColumnCount(int nColumns, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the column spacing of the rectangular array.
     /// If there is no expression for the parameter, the expression string and 
@@ -229,7 +229,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setColumnSpacing(double offset, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setColumnSpacing(double offset, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets angle between row and column axes of the rectangular array. The values would be rounded off 
     /// to (0-360) degrees. The default value is 90 degree.
@@ -242,7 +242,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setAxesAngle(double axesAngle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setAxesAngle(double axesAngle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the X axis direction for rectangular array. The Y axis is 
     /// at axis angle from X axis wrt its base normal. The base plane
@@ -251,7 +251,7 @@ public:
     /// <param name="xAxis">  The axis direction to set. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setAxisDirection(const AcGeVector3d& xAxis);
+  Acad::ErrorStatus setAxisDirection(const AcGeVector3d& xAxis);
     /// <summary> <para>
     /// Obtains list of items patterned by the set of owned parameters. Each
     /// parameters class uses its own logic based on owned value as well as 
@@ -266,7 +266,7 @@ public:
     /// <param name="items"> The updated list of items. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getItems(AcArray<AcDbAssocArrayItem*>& items) const;
+  virtual Acad::ErrorStatus getItems(AcArray<AcDbAssocArrayItem*>& items) const;
     /// <summary>
     /// Obtains position as well as orientation of an item at given spatial 
     /// index specified by the locator.
@@ -278,8 +278,8 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getItemPosition(const AcDbItemLocator& locator, AcGePoint3d& position, AcGeMatrix3d& xform) const;
+  virtual Acad::ErrorStatus getItemPosition(const AcDbItemLocator& locator, AcGePoint3d& position, AcGeMatrix3d& xform) const;
 protected:
-	friend class AcDbImpAssocArrayRectangularParameters;
-	explicit AcDbAssocArrayRectangularParameters(AcDbImpAssocArrayRectangularParameters* pSelf);
+  friend class AcDbImpAssocArrayRectangularParameters;
+  explicit AcDbAssocArrayRectangularParameters(AcDbImpAssocArrayRectangularParameters* pSelf);
 };

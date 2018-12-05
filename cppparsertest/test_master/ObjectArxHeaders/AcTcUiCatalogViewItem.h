@@ -55,31 +55,31 @@ class CAcTcUiCatalogView;
 #define ACTCUI_CVIR_WORLDRECT	(0x1 << 5)
 class ACTCUI_PORT CAcTcUiCatalogViewItem : public CObject
 {
-	friend class CAcTcUiImpCatalogView;
+  friend class CAcTcUiImpCatalogView;
 public:
-	virtual ~CAcTcUiCatalogViewItem();
-	BOOL Render(BOOL bEraseBackground = FALSE);
-	BOOL Render(CDC* pDC, int x, int y);
-	BOOL GetRect(LPRECT lpRect, int nCode) const;
-	AcTcCatalogItem* GetCatalogItem(void) const;
-	BOOL SetCatalogItem(AcTcCatalogItem* pCatalogItem);
-	DWORD GetStyle(void) const;
-	DWORD GetState(void) const;
-	BOOL SetState(DWORD dwState);
-	BOOL GetPosition(LPPOINT lpPoint) const;
-	DWORD GetData(void) const;
-	BOOL SetData(DWORD dwData);
-	BOOL Highlight(BOOL bHighlight = TRUE);
-	BOOL Select(BOOL bSelect = TRUE);
-	BOOL Halo(BOOL bHalo = TRUE);
+  virtual ~CAcTcUiCatalogViewItem();
+  BOOL Render(BOOL bEraseBackground = FALSE);
+  BOOL Render(CDC* pDC, int x, int y);
+  BOOL GetRect(LPRECT lpRect, int nCode) const;
+  AcTcCatalogItem* GetCatalogItem(void) const;
+  BOOL SetCatalogItem(AcTcCatalogItem* pCatalogItem);
+  DWORD GetStyle(void) const;
+  DWORD GetState(void) const;
+  BOOL SetState(DWORD dwState);
+  BOOL GetPosition(LPPOINT lpPoint) const;
+  DWORD GetData(void) const;
+  BOOL SetData(DWORD dwData);
+  BOOL Highlight(BOOL bHighlight = TRUE);
+  BOOL Select(BOOL bSelect = TRUE);
+  BOOL Halo(BOOL bHalo = TRUE);
 protected:
     // Constructors are protected so that this object can only be 
     // created by CAcTcUiCatalogView.
-	CAcTcUiCatalogViewItem(CAcTcUiCatalogView* pCatalogView);
-	CAcTcUiCatalogViewItem(CAcTcUiCatalogView* pCatalogView, AcTcCatalogItem* pCatalogItem, const CSize& sizeImage, DWORD dwStyle = ACTCUI_CVISTYLE_PUSHBUTTON);
-	void* mpImpObj;
+  CAcTcUiCatalogViewItem(CAcTcUiCatalogView* pCatalogView);
+  CAcTcUiCatalogViewItem(CAcTcUiCatalogView* pCatalogView, AcTcCatalogItem* pCatalogItem, const CSize& sizeImage, DWORD dwStyle = ACTCUI_CVISTYLE_PUSHBUTTON);
+  void* mpImpObj;
 private:
-	friend class AcTcUiSystemInternals;
+  friend class AcTcUiSystemInternals;
 };
 // Array of CAcTcUiCatalogViewItem objects
 typedef CTypedPtrArray<CPtrArray, CAcTcUiCatalogViewItem*> CAcTcUiCatalogViewItemArray;

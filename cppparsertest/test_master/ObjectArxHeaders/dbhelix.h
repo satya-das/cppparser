@@ -11,11 +11,11 @@
 //
 // DESCRIPTION: Exported class for Helix - AcDbHelix
 #ifndef ACDB_DBHELIX_H
-#	define ACDB_DBHELIX_H
-#	include "gegbl.h"
-#	include "dbmain.h"
-#	include "dbspline.h"
-#	pragma  pack (push, 8)
+#  define ACDB_DBHELIX_H
+#  include "gegbl.h"
+#  include "dbmain.h"
+#  include "dbspline.h"
+#  pragma  pack (push, 8)
 ////////////////////////////////////////////////////////////////////////
 // class AcDbHelix 
 ////////////////////////////////////////////////////////////////////////
@@ -39,47 +39,47 @@ public:
     /// Special constrain type values. 
     /// </summary>
     /// 
-	enum ConstrainType
-	{
+  enum ConstrainType
+  {
         /// <summary>
         /// Constrain turn height. 
         /// </summary>
         /// 
-		kTurnHeight = 0,
+    kTurnHeight = 0,
         /// <summary>
         /// Constrain turns. 
         /// </summary>
         /// 
-		kTurns = 1,
+    kTurns = 1,
         /// <summary>
         /// Constrain height. 
         /// </summary>
         /// 
-		kHeight = 2
-	};
-	ACDB_DECLARE_MEMBERS(AcDbHelix);
+    kHeight = 2
+  };
+  ACDB_DECLARE_MEMBERS(AcDbHelix);
     /// <summary>
     /// Default constructor.
     /// </summary>
-	AcDbHelix();
+  AcDbHelix();
     /// <summary>
     /// Destructor.
     /// </summary>
-	virtual ~AcDbHelix();
+  virtual ~AcDbHelix();
     /// <summary>
     /// Constructs the embedded spline data.
     /// </summary>
     /// <returns>
     /// Returns Acad::eOk if succssful.
     /// </returns>
-	Acad::ErrorStatus createHelix();
+  Acad::ErrorStatus createHelix();
     /// <summary>
     /// Axis point for the helix 
     /// </summary>
     /// <returns>
     /// Returns the start point the axis for the helix 
     /// </returns>
-	virtual AcGePoint3d axisPoint() const;
+  virtual AcGePoint3d axisPoint() const;
     /// <summary>
     /// Sets the start point the axis for the helix 
     /// </summary>
@@ -93,14 +93,14 @@ public:
     /// <returns>
     /// Returns Acad::eOk if succssful.
     /// </returns>
-	virtual Acad::ErrorStatus setAxisPoint(const AcGePoint3d& axisPoint, const bool bMoveStartPoint = true);
+  virtual Acad::ErrorStatus setAxisPoint(const AcGePoint3d& axisPoint, const bool bMoveStartPoint = true);
     /// <summary>
     /// Start point for the helix
     /// </summary>
     /// <returns>
     /// Returns the start point of the helix
     /// </returns>
-	virtual AcGePoint3d startPoint() const;
+  virtual AcGePoint3d startPoint() const;
     /// <summary>
     /// Sets the start point of the helix 
     /// </summary>
@@ -110,14 +110,14 @@ public:
     /// <returns>
     /// Returns Acad::eOk if succssful.
     /// </returns>
-	virtual Acad::ErrorStatus setStartPoint(const AcGePoint3d& startPoint);
+  virtual Acad::ErrorStatus setStartPoint(const AcGePoint3d& startPoint);
     /// <summary>
     /// Vector of the axis of the helix
     /// </summary>
     /// <returns>
     /// Returns the vector for the axis of the helix
     /// </returns>
-	virtual AcGeVector3d axisVector() const;
+  virtual AcGeVector3d axisVector() const;
     /// <summary>
     /// Sets the vector for the axis for the helix 
     /// </summary>
@@ -127,14 +127,14 @@ public:
     /// <returns>
     /// Returns Acad::eOk if succssful.
     /// </returns>
-	virtual Acad::ErrorStatus setAxisVector(const AcGeVector3d& axisVector);
+  virtual Acad::ErrorStatus setAxisVector(const AcGeVector3d& axisVector);
     /// <summary>
     /// Height of the helix
     /// </summary>
     /// <returns>
     /// Returns the height of the helix
     /// </returns>
-	virtual double height() const;
+  virtual double height() const;
     /// <summary>
     /// Sets the height of the helix
     /// </summary>
@@ -148,14 +148,14 @@ public:
     /// This will change the turnHeight property, keeping the number of turns
     /// constant
     /// </remarks>
-	virtual Acad::ErrorStatus setHeight(double dHeight);
+  virtual Acad::ErrorStatus setHeight(double dHeight);
     /// <summary>
     /// Base radius of the helix
     /// </summary>
     /// <returns>
     /// Returns the base radius of the helix
     /// </returns>
-	virtual double baseRadius() const;
+  virtual double baseRadius() const;
     /// <summary>
     /// Sets the base radius of the helix
     /// </summary>
@@ -165,14 +165,14 @@ public:
     /// <returns>
     /// Returns Acad::eOk if succssful.
     /// </returns>
-	virtual Acad::ErrorStatus setBaseRadius(double dRadius);
+  virtual Acad::ErrorStatus setBaseRadius(double dRadius);
     /// <summary>
     /// Top radius of the helix
     /// </summary>
     /// <returns>
     /// Returns the top radius of the helix
     /// </returns>
-	virtual double topRadius() const;
+  virtual double topRadius() const;
     /// <summary>
     /// Sets the top radius of the helix
     /// </summary>
@@ -182,82 +182,82 @@ public:
     /// <returns>
     /// Returns Acad::eOk if succssful.
     /// </returns>
-	virtual Acad::ErrorStatus setTopRadius(double dRadius);
+  virtual Acad::ErrorStatus setTopRadius(double dRadius);
     /// <summary>
     /// Number of turns (revolutions) of the helix
     /// </summary>
     /// <returns>
     /// Returns the number of turns (revolutions)
     /// </returns>
-	virtual double turns() const;
+  virtual double turns() const;
     /// <summary>
     /// Sets the number of turns (revolutions)
     /// </summary>
     /// <returns>
     /// Returns Acad::eOk if succssful.
     /// </returns>
-	virtual Acad::ErrorStatus setTurns(double dTurns);
+  virtual Acad::ErrorStatus setTurns(double dTurns);
     /// <summary>
     /// Turn height (distance between threads)
     /// </summary>
     /// <returns>
     /// Returns the turn height (distance between threads)
     /// </returns>
-	virtual double turnHeight() const;
+  virtual double turnHeight() const;
     /// <summary>
     /// Sets the turn height (distance between threads)
     /// </summary>
     /// <returns>
     /// Returns Acad::eOk if succssful.
     /// </returns>
-	virtual Acad::ErrorStatus setTurnHeight(double dTurnHeight);
+  virtual Acad::ErrorStatus setTurnHeight(double dTurnHeight);
     /// <summary>
     /// Twist of the helix (clockwise or counter-clockwise)
     /// </summary>
     /// <returns>
     /// Returns the twist of the helix (clockwise or counter-clockwise)
     /// </returns>
-	virtual Adesk::Boolean twist() const;
+  virtual Adesk::Boolean twist() const;
     /// <summary>
     /// Sets the twist of the helix (clockwise or counter-clockwise)
     /// </summary>
     /// <returns>
     /// Returns Acad::eOk if succssful.
     /// </returns>
-	virtual Acad::ErrorStatus setTwist(Adesk::Boolean bTwist);
+  virtual Acad::ErrorStatus setTwist(Adesk::Boolean bTwist);
     /// <summary>
     /// Constrain property of the helix
     /// </summary>
     /// <returns>
     /// Returns the constrain property of the helix
     /// </returns>
-	virtual ConstrainType constrain() const;
+  virtual ConstrainType constrain() const;
     /// <summary>
     /// Sets the constrain property of the helix
     /// </summary>
     /// <returns>
     /// Returns Acad::eOk if succssful.
     /// </returns>
-	virtual Acad::ErrorStatus setConstrain(ConstrainType constrain);
+  virtual Acad::ErrorStatus setConstrain(ConstrainType constrain);
     /// <summary>
     /// Turn slope of the helix
     /// </summary>
     /// <returns>
     /// Returns the turn slope angle of the helix
     /// </returns>
-	virtual double turnSlope() const;
+  virtual double turnSlope() const;
     /// <summary>
     /// Total length of the helix
     /// </summary>
     /// <returns>
     /// Returns the total length of the helix
     /// </returns>
-	virtual double totalLength() const;
+  virtual double totalLength() const;
     /// <summary>
     /// Reverses the parameterization of the curve
     /// The start becomes the end and visa versa
     /// </summary>
-	virtual Acad::ErrorStatus reverseCurve() override;
+  virtual Acad::ErrorStatus reverseCurve() override;
 protected:
     /// <summary>
     /// Gets the corresponding COM wrapper class ID.
@@ -268,7 +268,7 @@ protected:
     /// <returns>
     /// Returns Acad::eOk if succssful.
     /// </returns>
-	virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

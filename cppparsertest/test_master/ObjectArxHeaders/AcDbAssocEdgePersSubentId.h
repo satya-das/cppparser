@@ -29,8 +29,8 @@
 class ACDBCORE2D_PORT AcDbAssocEdgePersSubentId : public AcDbAssocPersSubentId
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocEdgePersSubentId);
-	AcDbAssocEdgePersSubentId();
+  ACRX_DECLARE_MEMBERS(AcDbAssocEdgePersSubentId);
+  AcDbAssocEdgePersSubentId();
     /// <summary> 
     /// Constructor that creates an AcDbAssocEdgePersSubentId and initializes it 
     /// by indices of the two edge vertices, or generally, by two arbitrary index
@@ -45,8 +45,8 @@ public:
     /// <param  name="vertexIdentifier1"> Identifier of the start vertex of the edge. </param>
     /// <param  name="vertexIdentifier2"> Identifier of the end vertex of the edge. </param>
     ///
-	explicit AcDbAssocEdgePersSubentId(int vertexIdentifier1, int vertexIdentifier2);
-	explicit AcDbAssocEdgePersSubentId(int vertexIdentifier1, int vertexIdentifier2, bool isSegArcCenter, bool isSegMidpoint);
+  explicit AcDbAssocEdgePersSubentId(int vertexIdentifier1, int vertexIdentifier2);
+  explicit AcDbAssocEdgePersSubentId(int vertexIdentifier1, int vertexIdentifier2, bool isSegArcCenter, bool isSegMidpoint);
     /// <summary>
     /// Returns number 1 if not null or 0 if null.
     /// </summary>
@@ -54,27 +54,27 @@ public:
     /// <param  name="pDatabase"> Not used. </param>
     /// <returns> Returns count 1 or 0. </returns>
     ///
-	virtual int transientSubentCount(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(pDatabase);
-		return !isNull() ? 1 : 0;
-	}
+  virtual int transientSubentCount(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(pDatabase);
+    return !isNull() ? 1 : 0;
+  }
     /// <summary> Returns AcDb::kEdgeSubentType or AcDb::kVertexSubentType. </summary>
     /// <param  name="pEntity">   Not used. </param>
     /// <param  name="pDatabase"> Not used. </param>
     /// <returns> AcDb::kEdgeSubentType or AcDb::kVertexSubentType. </returns>
     ///
-	virtual AcDb::SubentType subentType(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override;
+  virtual AcDb::SubentType subentType(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override;
     /// <summary> 
     /// Returns true iff the AcDbAssocEdgePersSubentId does not identify any subentity.
     /// </summary>
     /// <returns> True iff the AcDbAssocEdgePersSubentId does not identify any subentity. </returns>
     ///
-	virtual bool isNull() const override
-	{
-		return mIndex1 == 0;
-	}
+  virtual bool isNull() const override
+  {
+    return mIndex1 == 0;
+  }
     /// <summary>
     /// Returns true iff this and the other AcDbAssocEdgePersSubentId reference
     /// exactly the same subentity of the same entity. It simply compares the 
@@ -85,54 +85,54 @@ public:
     /// <param  name="pOther"> The other AcDbAssocEdgePersSubentId. </param>
     /// <returns> True iff this and the other AcDbAssocEdgePersSubentId are equal. </returns>
     ///
-	virtual bool isEqualTo(const AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pOther) const override;
+  virtual bool isEqualTo(const AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pOther) const override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to read the object data from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to read the object data from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     /// <summary> The standard protocol. </summary>
     /// <param  name="pAuditInfo"> See the AcDbAuditInfo documentation. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
+  virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
     /// <summary> Returns the value of the internal index1 data member. </summary>
     /// <returns> Value of the internal index1 data member. </returns>
     ///
-	int index1() const;
+  int index1() const;
     /// <summary> Returns the value of the internal index2 data member. </summary>
     /// <returns> Value of the internal index2 data member. </returns>
     ///
-	int index2() const;
+  int index2() const;
     /// <summary> 
     /// Returns true if the AcDbAssocEdgePersSubentId identifies a vertex subentity 
     /// that is the center of an arc polyline segment. 
     /// </summary>
     ///
-	bool isSegmentArcCenter() const;
+  bool isSegmentArcCenter() const;
     /// <summary> 
     /// Returns true if the AcDbAssocEdgePersSubentId identifies a vertex subentity
     /// that is the midpoint of a polyline segment. 
     /// </summary>
     ///
-	bool isSegmentMidpoint() const;
+  bool isSegmentMidpoint() const;
 private:
-	int mIndex1;
-	int mIndex2;
+  int mIndex1;
+  int mIndex2;
 };
 #pragma  pack (pop)

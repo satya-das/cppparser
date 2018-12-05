@@ -21,18 +21,18 @@
 class AcDbCompoundObjectId;
 class AcDbIdMapping;
 #ifndef ADESK_UNREFED_PARAM
-#	define ADESK_UNREFED_PARAM	(P)  (P)
+#  define ADESK_UNREFED_PARAM	(P)  (P)
 #endif
 /// <summary> Rigid set type. </summary>
 ///
 enum RigidSetType
 {
   /// <summary> Not a rigid set. </summary>
-	kNotRigidSet = 0,
+  kNotRigidSet = 0,
   /// <summary> A rigid set that can be uniformly scaled. </summary>
-	kScalableRigidSet,
+  kScalableRigidSet,
   /// <summary> A rigid set that cannot be scaled. </summary>
-	kNonScalableRigidSet
+  kNonScalableRigidSet
 };
 /// <summary> <para>
 /// AcRx protocol extension base class that defines protocol to obtain a persistent 
@@ -52,7 +52,7 @@ enum RigidSetType
 class ACDBCORE2D_PORT AcDbAssocPersSubentIdPE : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocPersSubentIdPE);
+  ACRX_DECLARE_MEMBERS(AcDbAssocPersSubentIdPE);
     /// <summary> <para>
     /// Mapping: AcDbSubentId --> AcDbAssocPersSubentId
     /// <para> </para>
@@ -77,12 +77,12 @@ public:
     /// <param name="subentId"> Transient AcDbSubentId. </param>
     /// <returns> The newly created AcDbAssocPersSubentId or NULL if it cannot be created. </returns>
     ///
-	virtual AcDbAssocPersSubentId* createNewPersSubent(AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbCompoundObjectId&, const AcDbSubentId& subentId)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(pDatabase);
-		return new AcDbAssocSimplePersSubentId(subentId);
-	}
+  virtual AcDbAssocPersSubentId* createNewPersSubent(AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbCompoundObjectId&, const AcDbSubentId& subentId)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(pDatabase);
+    return new AcDbAssocSimplePersSubentId(subentId);
+  }
     /// <summary>
     /// Needs to be called when an AcDbAssocPersSubentId is no more needed, to inform
     /// to release and resources possibly associated with this AcDbAssocPersSubentId.
@@ -106,13 +106,13 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus releasePersSubent(AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pPerSubentId)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(pDatabase);
-		ADESK_UNREFED_PARAM(pPerSubentId);
-		return Acad::eOk;
-	}
+  virtual Acad::ErrorStatus releasePersSubent(AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pPerSubentId)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(pDatabase);
+    ADESK_UNREFED_PARAM(pPerSubentId);
+    return Acad::eOk;
+  }
     /// <summary>
     /// Redirects the given AcDbAssocPersSubentId that currently refers to a subentity
     /// in the current entity to refer to the same subentity in the new entity.
@@ -151,15 +151,15 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus transferPersSubentToAnotherEntity(AcDbEntity* pToEntity, AcDbDatabase* pToDatabase, AcDbEntity* pFromEntity, AcDbDatabase* pFromDatabase, const AcDbAssocPersSubentId* pPersSubentId)
-	{
-		ADESK_UNREFED_PARAM(pToEntity);
-		ADESK_UNREFED_PARAM(pToDatabase);
-		ADESK_UNREFED_PARAM(pFromEntity);
-		ADESK_UNREFED_PARAM(pFromDatabase);
-		ADESK_UNREFED_PARAM(pPersSubentId);
-		return Acad::eOk;
-	}
+  virtual Acad::ErrorStatus transferPersSubentToAnotherEntity(AcDbEntity* pToEntity, AcDbDatabase* pToDatabase, AcDbEntity* pFromEntity, AcDbDatabase* pFromDatabase, const AcDbAssocPersSubentId* pPersSubentId)
+  {
+    ADESK_UNREFED_PARAM(pToEntity);
+    ADESK_UNREFED_PARAM(pToDatabase);
+    ADESK_UNREFED_PARAM(pFromEntity);
+    ADESK_UNREFED_PARAM(pFromDatabase);
+    ADESK_UNREFED_PARAM(pPersSubentId);
+    return Acad::eOk;
+  }
     /// <summary><para>
     /// Allows to automatically call releasePersSubent() on the AcDbAssocPersSubentId if
     /// it is no more used. What "no more used" means, who checks for it, and which code 
@@ -200,14 +200,14 @@ public:
     /// <param  name="yesNo"> Make the given AcDbAssocPersSubentId purgeable or not. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus makePersSubentPurgeable(AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pPerSubentId, bool yesNo)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(pDatabase);
-		ADESK_UNREFED_PARAM(yesNo);
-		ADESK_UNREFED_PARAM(pPerSubentId);
-		return Acad::eOk;
-	}
+  virtual Acad::ErrorStatus makePersSubentPurgeable(AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pPerSubentId, bool yesNo)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(pDatabase);
+    ADESK_UNREFED_PARAM(yesNo);
+    ADESK_UNREFED_PARAM(pPerSubentId);
+    return Acad::eOk;
+  }
     /// <summary> <para>
     /// Mapping: AcDbAssocPersSubentId --> AcDbSubentId(s)
     /// </para> <para>
@@ -231,7 +231,7 @@ public:
     /// <param  name="subents"> The returned AcDbSubentIds. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getTransientSubentIds(const AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pPersSubentId, AcArray<AcDbSubentId>& subents) const;
+  virtual Acad::ErrorStatus getTransientSubentIds(const AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pPersSubentId, AcArray<AcDbSubentId>& subents) const;
     /// <summary>
     /// Gets all subentities of the given type. The default implementation
     /// just returns Acad::eNotImplemented.
@@ -241,13 +241,13 @@ public:
     /// <param name="allSubentIds">  Returned AcDbSubentIds of the required type. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getAllSubentities(const AcDbEntity* pEntity, AcDb::SubentType subentType, AcArray<AcDbSubentId>& allSubentIds)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(subentType);
-		ADESK_UNREFED_PARAM(allSubentIds);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus getAllSubentities(const AcDbEntity* pEntity, AcDb::SubentType subentType, AcArray<AcDbSubentId>& allSubentIds)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(subentType);
+    ADESK_UNREFED_PARAM(allSubentIds);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Gets all subentities of the given class for kClassSubentType subentity type.
     /// The default implementation just returns Acad::eNotImplemented.
@@ -257,13 +257,13 @@ public:
     /// <param name="allSubentIds">  Returned AcDbSubentIds of the required type. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getAllSubentities(const AcDbEntity* pEntity, const AcRxClass* pSubentClass, AcArray<AcDbSubentId>& allSubentIds)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(pSubentClass);
-		ADESK_UNREFED_PARAM(allSubentIds);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus getAllSubentities(const AcDbEntity* pEntity, const AcRxClass* pSubentClass, AcArray<AcDbSubentId>& allSubentIds)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(pSubentClass);
+    ADESK_UNREFED_PARAM(allSubentIds);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Gets the vertex AcDbSubentIds corresponding to the given edge AcDbSubentId.
     /// This protocol is needed to query the relations between the edge and vertex
@@ -287,15 +287,15 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getEdgeVertexSubentities(const AcDbEntity* pEntity, const AcDbSubentId& edgeSubentId, AcDbSubentId& startVertexSubentId, AcDbSubentId& endVertexSubentId, AcArray<AcDbSubentId>& otherVertexSubentIds)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(edgeSubentId);
-		ADESK_UNREFED_PARAM(startVertexSubentId);
-		ADESK_UNREFED_PARAM(endVertexSubentId);
-		ADESK_UNREFED_PARAM(otherVertexSubentIds);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus getEdgeVertexSubentities(const AcDbEntity* pEntity, const AcDbSubentId& edgeSubentId, AcDbSubentId& startVertexSubentId, AcDbSubentId& endVertexSubentId, AcArray<AcDbSubentId>& otherVertexSubentIds)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(edgeSubentId);
+    ADESK_UNREFED_PARAM(startVertexSubentId);
+    ADESK_UNREFED_PARAM(endVertexSubentId);
+    ADESK_UNREFED_PARAM(otherVertexSubentIds);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Gets the vertex AcDbSubentIds corresponding to the given edge AcDbSubentId
     /// whose geometry is defined by a spline. 
@@ -324,16 +324,16 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getSplineEdgeVertexSubentities(const AcDbEntity* pEntity, const AcDbSubentId& edgeSubentId, AcDbSubentId& startVertexSubentId, AcDbSubentId& endVertexSubentId, AcArray<AcDbSubentId>& controlPointSubentIds, AcArray<AcDbSubentId>& fitPointSubentIds)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(edgeSubentId);
-		ADESK_UNREFED_PARAM(startVertexSubentId);
-		ADESK_UNREFED_PARAM(endVertexSubentId);
-		ADESK_UNREFED_PARAM(controlPointSubentIds);
-		ADESK_UNREFED_PARAM(fitPointSubentIds);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus getSplineEdgeVertexSubentities(const AcDbEntity* pEntity, const AcDbSubentId& edgeSubentId, AcDbSubentId& startVertexSubentId, AcDbSubentId& endVertexSubentId, AcArray<AcDbSubentId>& controlPointSubentIds, AcArray<AcDbSubentId>& fitPointSubentIds)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(edgeSubentId);
+    ADESK_UNREFED_PARAM(startVertexSubentId);
+    ADESK_UNREFED_PARAM(endVertexSubentId);
+    ADESK_UNREFED_PARAM(controlPointSubentIds);
+    ADESK_UNREFED_PARAM(fitPointSubentIds);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Gets the coordinates of a vertex subentity. The default implementation
     /// just returns Acad::eNotImplemented.
@@ -343,13 +343,13 @@ public:
     /// <param name="vertexPosition"> Returned coordinates of the vertex subentity. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getVertexSubentityGeometry(const AcDbEntity* pEntity, const AcDbSubentId& vertexSubentId, AcGePoint3d& vertexPosition)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(vertexSubentId);
-		ADESK_UNREFED_PARAM(vertexPosition);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus getVertexSubentityGeometry(const AcDbEntity* pEntity, const AcDbSubentId& vertexSubentId, AcGePoint3d& vertexPosition)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(vertexSubentId);
+    ADESK_UNREFED_PARAM(vertexPosition);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Gets the curve of an edge subentity. The default implementation
     /// just returns Acad::eNotImplemented.
@@ -359,13 +359,13 @@ public:
     /// <param name="pEdgeCurve"> Returned curve of the edge subentity (the caller becomes its owner). </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getEdgeSubentityGeometry(const AcDbEntity* pEntity, const AcDbSubentId& edgeSubentId, AcGeCurve3d*& pEdgeCurve)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(edgeSubentId);
-		ADESK_UNREFED_PARAM(pEdgeCurve);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus getEdgeSubentityGeometry(const AcDbEntity* pEntity, const AcDbSubentId& edgeSubentId, AcGeCurve3d*& pEdgeCurve)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(edgeSubentId);
+    ADESK_UNREFED_PARAM(pEdgeCurve);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Gets the surface of a face subentity. The default implementation
     /// just returns Acad::eNotImplemented.
@@ -375,13 +375,13 @@ public:
     /// <param name="pFaceSurface"> Returned surface of the face subentity (the caller becomes its owner). </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getFaceSubentityGeometry(const AcDbEntity* pEntity, const AcDbSubentId& faceSubentId, AcGeSurface*& pFaceSurface)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(faceSubentId);
-		ADESK_UNREFED_PARAM(pFaceSurface);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus getFaceSubentityGeometry(const AcDbEntity* pEntity, const AcDbSubentId& faceSubentId, AcGeSurface*& pFaceSurface)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(faceSubentId);
+    ADESK_UNREFED_PARAM(pFaceSurface);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Change the geometry of a vertex subentity. The subentity can also be
     /// transformed, but for doing so there already is AcDbEntity protocol so
@@ -393,13 +393,13 @@ public:
     /// <param name="newVertexPosition"> New coordinates of the vertex subentity. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setVertexSubentityGeometry(AcDbEntity* pEntity, const AcDbSubentId& vertexSubentId, const AcGePoint3d& newVertexPosition)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(vertexSubentId);
-		ADESK_UNREFED_PARAM(newVertexPosition);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus setVertexSubentityGeometry(AcDbEntity* pEntity, const AcDbSubentId& vertexSubentId, const AcGePoint3d& newVertexPosition)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(vertexSubentId);
+    ADESK_UNREFED_PARAM(newVertexPosition);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Change the curve of an edge subentity. The subentity can also be
     /// transformed, but for doing so there already is AcDbEntity protocol so
@@ -411,13 +411,13 @@ public:
     /// <param name="pNewEdgeCurve"> New curve of the edge subentity (copied, not reused). </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setEdgeSubentityGeometry(AcDbEntity* pEntity, const AcDbSubentId& edgeSubentId, const AcGeCurve3d* pNewEdgeCurve)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(edgeSubentId);
-		ADESK_UNREFED_PARAM(pNewEdgeCurve);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus setEdgeSubentityGeometry(AcDbEntity* pEntity, const AcDbSubentId& edgeSubentId, const AcGeCurve3d* pNewEdgeCurve)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(edgeSubentId);
+    ADESK_UNREFED_PARAM(pNewEdgeCurve);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Change the surface of a face subentity. The subentity can also be
     /// transformed, but for doing so there already is AcDbEntity protocol so
@@ -429,13 +429,13 @@ public:
     /// <param name="pNewFaceSurface"> New surface of the face subentity (copied, not reused). </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setFaceSubentityGeometry(AcDbEntity* pEntity, const AcDbSubentId& faceSubentId, const AcGeSurface* pNewFaceSurface)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(faceSubentId);
-		ADESK_UNREFED_PARAM(pNewFaceSurface);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus setFaceSubentityGeometry(AcDbEntity* pEntity, const AcDbSubentId& faceSubentId, const AcGeSurface* pNewFaceSurface)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(faceSubentId);
+    ADESK_UNREFED_PARAM(pNewFaceSurface);
+    return Acad::eNotImplemented;
+  }
     /// <summary><para>
     /// Gets the geometry of a subentity. 
     /// </para><para>
@@ -451,7 +451,7 @@ public:
     /// <param name="pSubentityGeometry"> Returned geometry of the subentity. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getSubentityGeometry(const AcDbEntity* pEntity, const AcDbSubentId& subentId, AcGeEntity3d*& pSubentityGeometry);
+  virtual Acad::ErrorStatus getSubentityGeometry(const AcDbEntity* pEntity, const AcDbSubentId& subentId, AcGeEntity3d*& pSubentityGeometry);
     /// <summary><para>
     /// Changes the geometry of a subentity. 
     /// </para><para>
@@ -467,7 +467,7 @@ public:
     /// <param name="pNewSubentityGeometry"> New geometry of the subentity (copied, not reused). </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setSubentityGeometry(AcDbEntity* pEntity, const AcDbSubentId& subentId, const AcGeEntity3d* pNewSubentityGeometry);
+  virtual Acad::ErrorStatus setSubentityGeometry(AcDbEntity* pEntity, const AcDbSubentId& subentId, const AcGeEntity3d* pNewSubentityGeometry);
     /// <summary><para>
     /// Gets silhouette curves of a face at the given projection. If transientSilhIds is empty, 
     /// it returns all of them because it is the way silhouettes are usually evaluated by the
@@ -500,17 +500,17 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getFaceSilhouetteGeometry(AcDbEntity* pEntity, AcRxObject* pContext, const AcDbSubentId& faceSubentId, const AcGeMatrix3d* pEntityTransform, class AcDbGeometryProjector* pGeometryProjector, AcArray<int>& transientSilhIds, AcArray<AcGeCurve3d*>& silhCurves)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(pContext);
-		ADESK_UNREFED_PARAM(faceSubentId);
-		ADESK_UNREFED_PARAM(pEntityTransform);
-		ADESK_UNREFED_PARAM(pGeometryProjector);
-		ADESK_UNREFED_PARAM(transientSilhIds);
-		silhCurves.removeAll();
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus getFaceSilhouetteGeometry(AcDbEntity* pEntity, AcRxObject* pContext, const AcDbSubentId& faceSubentId, const AcGeMatrix3d* pEntityTransform, class AcDbGeometryProjector* pGeometryProjector, AcArray<int>& transientSilhIds, AcArray<AcGeCurve3d*>& silhCurves)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(pContext);
+    ADESK_UNREFED_PARAM(faceSubentId);
+    ADESK_UNREFED_PARAM(pEntityTransform);
+    ADESK_UNREFED_PARAM(pGeometryProjector);
+    ADESK_UNREFED_PARAM(transientSilhIds);
+    silhCurves.removeAll();
+    return Acad::eNotImplemented;
+  }
     /// <summary><para>
     /// Returns a persistent silhouette id for the given transient silhouette id of a face. 
     /// Notice that a transient silhouette id is just an integer number but a persistent
@@ -539,17 +539,17 @@ public:
     /// <param name="transientSilhId"> Transient id of a silhouette of a face </param>
     /// <returns> Persistent silhouette id, or 0 if cannot be created. </returns>
     ///
-	virtual AcDbAssocPersSubentId* createNewPersFaceSilhouetteId(AcDbEntity* pEntity, AcDbDatabase* pDatabase, AcRxObject* pContext, const AcDbCompoundObjectId&, const AcDbSubentId& faceSubentId, const AcGeMatrix3d* pEntityTransform, class AcDbGeometryProjector* pGeometryProjector, int transientSilhId)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(pDatabase);
-		ADESK_UNREFED_PARAM(pContext);
-		ADESK_UNREFED_PARAM(faceSubentId);
-		ADESK_UNREFED_PARAM(pEntityTransform);
-		ADESK_UNREFED_PARAM(pGeometryProjector);
-		ADESK_UNREFED_PARAM(transientSilhId);
-		return NULL;
-	}
+  virtual AcDbAssocPersSubentId* createNewPersFaceSilhouetteId(AcDbEntity* pEntity, AcDbDatabase* pDatabase, AcRxObject* pContext, const AcDbCompoundObjectId&, const AcDbSubentId& faceSubentId, const AcGeMatrix3d* pEntityTransform, class AcDbGeometryProjector* pGeometryProjector, int transientSilhId)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(pDatabase);
+    ADESK_UNREFED_PARAM(pContext);
+    ADESK_UNREFED_PARAM(faceSubentId);
+    ADESK_UNREFED_PARAM(pEntityTransform);
+    ADESK_UNREFED_PARAM(pGeometryProjector);
+    ADESK_UNREFED_PARAM(transientSilhId);
+    return NULL;
+  }
     /// <summary><para>
     /// Returns all transient silhouette ids for the given persistent silhouette id of a face. 
     /// Notice that a transient silhouette id is just an integer number but a persistent
@@ -580,18 +580,18 @@ public:
     /// </param>
     /// <returns> Persistent silhouette id, or 0 if cannot be obtained. </returns>
     ///
-	virtual Acad::ErrorStatus getTransientFaceSilhouetteIds(AcDbEntity* pEntity, AcDbDatabase* pDatabase, AcRxObject* pContext, const AcDbSubentId& faceSubentId, const AcGeMatrix3d* pEntityTransform, class AcDbGeometryProjector* pGeometryProjector, const AcDbAssocPersSubentId* pPersSilhId, AcArray<int>& transientSilhIds)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(pDatabase);
-		ADESK_UNREFED_PARAM(pContext);
-		ADESK_UNREFED_PARAM(faceSubentId);
-		ADESK_UNREFED_PARAM(pEntityTransform);
-		ADESK_UNREFED_PARAM(pGeometryProjector);
-		ADESK_UNREFED_PARAM(pPersSilhId);
-		transientSilhIds.removeAll();
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus getTransientFaceSilhouetteIds(AcDbEntity* pEntity, AcDbDatabase* pDatabase, AcRxObject* pContext, const AcDbSubentId& faceSubentId, const AcGeMatrix3d* pEntityTransform, class AcDbGeometryProjector* pGeometryProjector, const AcDbAssocPersSubentId* pPersSilhId, AcArray<int>& transientSilhIds)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(pDatabase);
+    ADESK_UNREFED_PARAM(pContext);
+    ADESK_UNREFED_PARAM(faceSubentId);
+    ADESK_UNREFED_PARAM(pEntityTransform);
+    ADESK_UNREFED_PARAM(pGeometryProjector);
+    ADESK_UNREFED_PARAM(pPersSilhId);
+    transientSilhIds.removeAll();
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Call this method to obtain block transformation matrix for a given 
     /// sub-entity within the block reference.
@@ -604,14 +604,14 @@ public:
     /// <param name="trans"> Output block transformation matrix. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getSubentGeometryXform(const AcDbEntity* pEntity, const AcDbObjectIdArray& fullSubentPath, AcGeMatrix3d& trans) const
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(fullSubentPath);
-		ADESK_UNREFED_PARAM(trans);
-		trans.setToIdentity();
-		return Acad::eOk;
-	}
+  virtual Acad::ErrorStatus getSubentGeometryXform(const AcDbEntity* pEntity, const AcDbObjectIdArray& fullSubentPath, AcGeMatrix3d& trans) const
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(fullSubentPath);
+    ADESK_UNREFED_PARAM(trans);
+    trans.setToIdentity();
+    return Acad::eOk;
+  }
     /// <summary> <para>
     /// Mirrors the given AcDbAssocPersSubentId, i.e. it changes it so that it
     /// identitifies the same subentity in the mirrored entity as it identified
@@ -637,13 +637,13 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus mirrorPersSubent(const AcDbEntity* pMirroredEntity, AcDbDatabase* pDatabase, AcDbAssocPersSubentId* pPersSubentIdToMirror)
-	{
-		ADESK_UNREFED_PARAM(pMirroredEntity);
-		ADESK_UNREFED_PARAM(pDatabase);
-		ADESK_UNREFED_PARAM(pPersSubentIdToMirror);
-		return Acad::eOk;
-	}
+  virtual Acad::ErrorStatus mirrorPersSubent(const AcDbEntity* pMirroredEntity, AcDbDatabase* pDatabase, AcDbAssocPersSubentId* pPersSubentIdToMirror)
+  {
+    ADESK_UNREFED_PARAM(pMirroredEntity);
+    ADESK_UNREFED_PARAM(pDatabase);
+    ADESK_UNREFED_PARAM(pPersSubentIdToMirror);
+    return Acad::eOk;
+  }
     /// <summary>
     /// Returns kScalableRigidSet or kNonScalableRigidSet if the entity is a rigid 
     /// set, i.e. it can be rotated and translated as a whole, but its subentities 
@@ -653,11 +653,11 @@ public:
     /// <param name="pEntity"> The entity must be open for read. </param>
     /// <returns> kScalableRigidSet or kNonScalableRigidSet if the entity is a rigid set. </returns>
     ///
-	virtual int getRigidSetState(const AcDbEntity* pEntity)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		return kNotRigidSet;
-	}
+  virtual int getRigidSetState(const AcDbEntity* pEntity)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    return kNotRigidSet;
+  }
     /// <summary>
     /// Get the transformation of the rigid set entity.
     /// The default implementation returns Acad::eNotApplicable.
@@ -666,12 +666,12 @@ public:
     /// <param name="trans"> The returned transformation matrix. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getRigidSetTransform(const AcDbEntity* pEntity, AcGeMatrix3d& trans)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(trans);
-		return Acad::eNotApplicable;
-	}
+  virtual Acad::ErrorStatus getRigidSetTransform(const AcDbEntity* pEntity, AcGeMatrix3d& trans)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(trans);
+    return Acad::eNotApplicable;
+  }
     /// <summary>
     /// Set the transformation of the rigid set entity.
     /// The default implementation returns Acad::eNotApplicable.
@@ -680,11 +680,11 @@ public:
     /// <param name="trans"> New transformation matrix of the rigid set entity. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus setRigidSetTransform(AcDbEntity* pEntity, const AcGeMatrix3d& trans)
-	{
-		ADESK_UNREFED_PARAM(pEntity);
-		ADESK_UNREFED_PARAM(trans);
-		return Acad::eNotApplicable;
-	}
+  virtual Acad::ErrorStatus setRigidSetTransform(AcDbEntity* pEntity, const AcGeMatrix3d& trans)
+  {
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(trans);
+    return Acad::eNotApplicable;
+  }
 };
 #pragma  pack (pop)

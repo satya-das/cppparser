@@ -14,16 +14,16 @@
 //
 //
 #ifndef AD_DBIMAGE_H
-#	define AD_DBIMAGE_H
-#	include "dbmain.h"
-#	include "acgi.h"
-#	pragma  pack (push, 8)
+#  define AD_DBIMAGE_H
+#  include "dbmain.h"
+#  include "acgi.h"
+#  pragma  pack (push, 8)
 class AcDbImage : public AcDbEntity
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbImage);
-	virtual AcGiSentScanLines* getScanLines(const AcGiRequestScanLines&) const = 0;
-	virtual Adesk::Boolean freeScanLines(AcGiSentScanLines*) const = 0;
+  ACRX_DECLARE_MEMBERS(AcDbImage);
+  virtual AcGiSentScanLines* getScanLines(const AcGiRequestScanLines&) const = 0;
+  virtual Adesk::Boolean freeScanLines(AcGiSentScanLines*) const = 0;
 };
-#	pragma  pack (pop) 
+#  pragma  pack (pop) 
 #endif

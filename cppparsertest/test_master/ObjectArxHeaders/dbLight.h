@@ -25,7 +25,7 @@
 #include "dbents.h"
 #pragma  warning( disable: 4275 4251 )
 #ifdef SCENEOE
-#	define LIGHTDLLIMPEXP	__declspec(dllexport)
+#  define LIGHTDLLIMPEXP	__declspec(dllexport)
 #else 
 //----- Note: we don't use __declspec(dllimport) here, because of the
 //----- "local vtable" problem with msvc. If you use __declspec(dllimport),
@@ -41,7 +41,7 @@
 //----- the ctor. And, since we expect the server dll to remain in
 //----- memory indefinitely, there is no problem with vtables unexpectedly
 //----- going away.
-#	define LIGHTDLLIMPEXP
+#  define LIGHTDLLIMPEXP
 #endif
 #include "AcGiLightTraits.h"
 //-----------------------------------------------------------------------------
@@ -60,34 +60,34 @@ class AcDbImpLight;
 class LIGHTDLLIMPEXP AcDbLight : public AcDbEntity
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbLight);
+  ACRX_DECLARE_MEMBERS(AcDbLight);
 private:
-	static Adesk::UInt32 kCurrentVersionNumber;
+  static Adesk::UInt32 kCurrentVersionNumber;
 public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-	AcDbLight();
+  AcDbLight();
     /// <summary>
     /// Destructor.
     /// </summary>
-	~AcDbLight();
-	virtual Acad::ErrorStatus subClose() override;
+  ~AcDbLight();
+  virtual Acad::ErrorStatus subClose() override;
     //----- AcDbEntity protocols
     //- Dwg Filing protocol
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-	virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
     //----- AcDbEntity protocols
     //- Graphics protocol
-	virtual AcGiDrawable::DrawableType drawableType() const override;
-	virtual bool castShadows() const override;
-	virtual void setCastShadows(bool newVal) override;
-	virtual bool receiveShadows() const override;
-	virtual void setReceiveShadows(bool newVal) override;
-	virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  virtual AcGiDrawable::DrawableType drawableType() const override;
+  virtual bool castShadows() const override;
+  virtual void setCastShadows(bool newVal) override;
+  virtual bool receiveShadows() const override;
+  virtual void setReceiveShadows(bool newVal) override;
+  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
     /// <summary>
     /// Gets the name of the Light object.
     /// </summary>
@@ -95,7 +95,7 @@ public:
     /// <returns>
     /// Returns the name of the light object.
     /// </returns>
-	virtual const AcString& name() const;
+  virtual const AcString& name() const;
     /// <summary>
     /// Sets the name of the light object.
     /// </summary>
@@ -107,7 +107,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if the name is valid.
     /// </returns>
-	virtual Acad::ErrorStatus setName(const AcString& name);
+  virtual Acad::ErrorStatus setName(const AcString& name);
     /// <summary>
     /// Gets the type of Light object.
     /// </summary>
@@ -115,7 +115,7 @@ public:
     /// <returns>
     /// Returns the type of the light object. Possible values are: SpotLight, PointLight and DistantLight.
     /// </returns>
-	virtual AcGiDrawable::DrawableType lightType() const;
+  virtual AcGiDrawable::DrawableType lightType() const;
     /// <summary>
     /// Sets the type of the light object.
     /// </summary>
@@ -127,7 +127,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if the type is valid.
     /// </returns>
-	virtual Acad::ErrorStatus setLightType(AcGiDrawable::DrawableType type);
+  virtual Acad::ErrorStatus setLightType(AcGiDrawable::DrawableType type);
     /// <summary>
     /// Gets the Light on/off state.
     /// </summary>
@@ -135,7 +135,7 @@ public:
     /// <returns>
     /// True if the light is on.
     /// </returns>
-	virtual bool isOn() const;
+  virtual bool isOn() const;
     /// <summary>
     /// Sets whether the Light is On/Off.
     /// </summary>
@@ -147,7 +147,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk.
     /// </returns>
-	virtual Acad::ErrorStatus setOn(bool value);
+  virtual Acad::ErrorStatus setOn(bool value);
     /// <summary>
     /// Gets the plottable state of the light.
     /// </summary>
@@ -155,7 +155,7 @@ public:
     /// <returns>
     /// True if the light is plottable.
     /// </returns>
-	virtual bool isPlottable() const;
+  virtual bool isPlottable() const;
     /// <summary>
     /// Sets the plottable state of the light.
     /// </summary>
@@ -167,7 +167,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk.
     /// </returns>
-	virtual Acad::ErrorStatus setIsPlottable(bool plot);
+  virtual Acad::ErrorStatus setIsPlottable(bool plot);
     /// <summary>
     /// Gets the emitted color of the light.
     /// </summary>
@@ -175,7 +175,7 @@ public:
     /// <returns>
     /// The light color.
     /// </returns>  
-	virtual const AcCmColor& lightColor() const;
+  virtual const AcCmColor& lightColor() const;
     /// <summary>
     /// Sets the emitted light color.
     /// </summary>
@@ -187,7 +187,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if the color is valid.
     /// </returns>
-	virtual Acad::ErrorStatus setLightColor(const AcCmColor& color);
+  virtual Acad::ErrorStatus setLightColor(const AcCmColor& color);
     /// <summary>
     /// Gets the light intensity.
     /// </summary>
@@ -196,7 +196,7 @@ public:
     /// The light intensity.  A value of 0.0 indicates 
     /// that the light is off. 
     /// </returns>
-	virtual double intensity() const;
+  virtual double intensity() const;
     /// <summary>
     /// Sets the light intensity.
     /// </summary>
@@ -208,7 +208,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if a valid intensity value is passed in.
     /// </returns>
-	virtual Acad::ErrorStatus setIntensity(double intensity);
+  virtual Acad::ErrorStatus setIntensity(double intensity);
     /// <summary>
     /// Sets the light attenuation:attenuation type, use limits, start limits, end limits
     /// </summary>
@@ -216,7 +216,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if the attenuation parameters are valid.
     /// </returns>
-	virtual void setLightAttenuation(const AcGiLightAttenuation& params);
+  virtual void setLightAttenuation(const AcGiLightAttenuation& params);
     /// <summary>
     /// Gets the light attenuation:attenuation type, use limits, start limits, end limits
     /// </summary>
@@ -224,7 +224,7 @@ public:
     /// <returns>
     /// The light attenuation:attenuation type, use limits, start limits, end limits
     /// </returns>
-	virtual const AcGiLightAttenuation& lightAttenuation() const;
+  virtual const AcGiLightAttenuation& lightAttenuation() const;
     /// <summary>
     /// Sets the position of the light source. The coordinate space is defined
     /// by the current context.
@@ -237,7 +237,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if the operation is successful.
     /// </returns>
-	virtual Acad::ErrorStatus setPosition(const AcGePoint3d& pos);
+  virtual Acad::ErrorStatus setPosition(const AcGePoint3d& pos);
     /// <summary>
     /// Gets the position of the light source, in the coordinate space of the
     /// current context. (WCS)
@@ -250,7 +250,7 @@ public:
     /// <remarks>
     /// Valid for spot and point light types only.
     /// </remarks>
-	virtual const AcGePoint3d& position() const;
+  virtual const AcGePoint3d& position() const;
     /// <summary>
     /// Gets the position of the light target location, in the coordinate space of the
     /// current context. (WCS)
@@ -263,7 +263,7 @@ public:
     /// <remarks>
     /// Valid for spot light type only.
     /// </remarks>
-	virtual const AcGePoint3d& targetLocation() const;
+  virtual const AcGePoint3d& targetLocation() const;
     /// <summary>
     /// Sets the position of the light target location, in the coordinate space of the
     /// current context. (WCS)
@@ -276,7 +276,7 @@ public:
     /// <remarks>
     /// Valid for spot light type only.
     /// </remarks>
-	virtual Acad::ErrorStatus setTargetLocation(const AcGePoint3d& newVal);
+  virtual Acad::ErrorStatus setTargetLocation(const AcGePoint3d& newVal);
     /// <summary>
     /// Sets the hotspot and falloff angles.
     ///
@@ -321,7 +321,7 @@ public:
 
 
     /// </remarks>
-	virtual Acad::ErrorStatus setHotspotAndFalloff(double hotspot, double falloff);
+  virtual Acad::ErrorStatus setHotspotAndFalloff(double hotspot, double falloff);
     /// <summary>
     /// Gets the hotspot angle of this spot light.
     /// </summary>
@@ -333,7 +333,7 @@ public:
     /// <remarks>
     /// Valid for spot light type only.
     /// </remarks>
-	virtual double hotspotAngle() const;
+  virtual double hotspotAngle() const;
     /// <summary>
     /// The falloff angle of this spot light.
     /// </summary>
@@ -345,7 +345,7 @@ public:
     /// <remarks>
     /// Valid for spot light type only.
     /// </remarks>
-	virtual double falloffAngle() const;
+  virtual double falloffAngle() const;
     /// <summary>
     /// Gets the direction (vector) that the rays of a distant light travel in.
     /// </summary>
@@ -358,7 +358,7 @@ public:
     /// <remarks>
     /// Valid for distant light type only.
     /// </remarks>
-	virtual const AcGeVector3d& lightDirection() const;
+  virtual const AcGeVector3d& lightDirection() const;
     /// <summary>
     /// Sets the direction the light rays of a distant light travel in. This vector is in the
     /// direction of the light rays (from light to object).
@@ -371,25 +371,25 @@ public:
     /// <remarks>
     /// Valid for distant light type only.
     /// </remarks>
-	virtual Acad::ErrorStatus setLightDirection(const AcGeVector3d& lightvec);
+  virtual Acad::ErrorStatus setLightDirection(const AcGeVector3d& lightvec);
     /// <summary>
     /// The physical intensity method.
     /// </summary>
-	enum PhysicalIntensityMethod
-	{
+  enum PhysicalIntensityMethod
+  {
         /// <summary>
         /// Peak intensity.
         /// </summary>
-		kPeakIntensity = 0,
+    kPeakIntensity = 0,
         /// <summary>
         /// Flux.
         /// </summary>
-		kFlux,
+    kFlux,
         /// <summary>
         /// Illuminance.
         /// </summary>
-		kIlluminance
-	};
+    kIlluminance
+  };
     /// <summary>
     /// Gets the physical intensity method of the light.  This indicates
     /// how the physical intensity of the light is specified, either 
@@ -404,7 +404,7 @@ public:
     /// Only applies if LIGHTINGUNITS is set to photometric
     /// lighting units (i.e. 1 for American or 2 for International).
     /// </remarks>
-	AcDbLight::PhysicalIntensityMethod physicalIntensityMethod() const;
+  AcDbLight::PhysicalIntensityMethod physicalIntensityMethod() const;
     /// <summary>
     /// Sets the physical intensity method of the light.  This indicates
     /// how the physical intensity of the light is specified, either 
@@ -423,7 +423,7 @@ public:
     /// <remarks>
     /// Only applies if light type is kWebLight.
     /// </remarks>
-	Acad::ErrorStatus setPhysicalIntensityMethod(AcDbLight::PhysicalIntensityMethod method);
+  Acad::ErrorStatus setPhysicalIntensityMethod(AcDbLight::PhysicalIntensityMethod method);
     /// <summary>
     /// Gets the physical intensity of the light.  The units are based on
     /// the physical intensity method (i.e. candela if kPeakIntensity,
@@ -438,7 +438,7 @@ public:
     /// Only applies if LIGHTINGUNITS is set to photometric
     /// lighting units (i.e. 1 for American or 2 for International).
     /// </remarks>
-	double physicalIntensity() const;
+  double physicalIntensity() const;
     /// <summary>
     /// Sets the physical intensity of the light.  The units are based on
     /// the physical intensity method (i.e. candela if kPeakIntensity,
@@ -457,7 +457,7 @@ public:
     /// This value only applies if LIGHTINGUNITS is set to photometric
     /// lighting units (i.e. 1 for American or 2 for International).
     /// </remarks>
-	Acad::ErrorStatus setPhysicalIntensity(double physicalIntensity);
+  Acad::ErrorStatus setPhysicalIntensity(double physicalIntensity);
     /// <summary>
     /// Gets the illuminance distance of the light.
     /// </summary>
@@ -471,7 +471,7 @@ public:
     /// lighting units (i.e. 1 for American or 2 for International) and
     /// physcial intensity method is kIlluminance.
     /// </remarks>
-	double illuminanceDistance() const;
+  double illuminanceDistance() const;
     /// <summary>
     /// Sets the illuminance distance of the light.
     /// </summary>
@@ -489,21 +489,21 @@ public:
     /// lighting units (i.e. 1 for American or 2 for International) and
     /// physcial intensity method is kIlluminance.
     /// </remarks>
-	Acad::ErrorStatus setIlluminanceDistance(double distance);
+  Acad::ErrorStatus setIlluminanceDistance(double distance);
     /// <summary>
     /// The lamp color type of the light.
     /// </summary>
-	enum LampColorType
-	{
+  enum LampColorType
+  {
         /// <summary>
         /// Color specified as a Kelvin color temperature.
         /// </summary>
-		kKelvin = 0,
+    kKelvin = 0,
         /// <summary>
         /// Color specified as a preset lamp color.
         /// </summary>
-		kPreset
-	};
+    kPreset
+  };
     /// <summary>
     /// Gets the lamp color type of the light.  This indicates how the lamp
     /// color of the light is specified, either as a Kelvin color temperature
@@ -518,7 +518,7 @@ public:
     /// Only applies if LIGHTINGUNITS is set to photometric
     /// lighting units (i.e. 1 for American or 2 for International).
     /// </remarks>
-	AcDbLight::LampColorType lampColorType() const;
+  AcDbLight::LampColorType lampColorType() const;
     /// <summary>
     /// Sets the lamp color type of the light.  This indicates how the lamp
     /// color of the light is specified, either as a Kelvin color temperature
@@ -537,7 +537,7 @@ public:
     /// This value only applies if LIGHTINGUNITS is set to photometric
     /// lighting units (i.e. 1 for American or 2 for International).
     /// </remarks>
-	Acad::ErrorStatus setLampColorType(AcDbLight::LampColorType colorType);
+  Acad::ErrorStatus setLampColorType(AcDbLight::LampColorType colorType);
     /// <summary>
     /// Gets the Kelvin color tempature of the light.
     /// </summary>
@@ -551,7 +551,7 @@ public:
     /// lighting units (i.e. 1 for American or 2 for International) and 
     /// lamp color type is kKelvin.
     /// </remarks>
-	double lampColorTemp() const;
+  double lampColorTemp() const;
     /// <summary>
     /// Sets the Kelvin color tempature of the light.
     /// </summary>
@@ -569,73 +569,73 @@ public:
     /// lighting units (i.e. 1 for American or 2 for International) and 
     /// lamp color type is kKelvin.
     /// </remarks>
-	Acad::ErrorStatus setLampColorTemp(double colorTemp);
+  Acad::ErrorStatus setLampColorTemp(double colorTemp);
     /// <summary>
     /// The preset lamp color of the light.
     /// </summary>
-	enum LampColorPreset
-	{
+  enum LampColorPreset
+  {
         /// <summary>
         /// D65White lamp color.
         /// </summary>
-		kD65White = 0,
+    kD65White = 0,
         /// <summary>
         /// Fluorescent lamp color.
         /// </summary>
-		kFluorescent,
+    kFluorescent,
         /// <summary>
         /// Cool White lamp color.
         /// </summary>
-		kCoolWhite,
+    kCoolWhite,
         /// <summary>
         /// White Fluorescent lamp color.
         /// </summary>
-		kWhiteFluorescent,
+    kWhiteFluorescent,
         /// <summary>
         /// Daylight Fluorescent lamp color.
         /// </summary>
-		kDaylightFluorescent,
+    kDaylightFluorescent,
         /// <summary>
         /// Incandescent lamp color.
         /// </summary>
-		kIncandescent,
+    kIncandescent,
         /// <summary>
         /// Xenon lamp color.
         /// </summary>
-		kXenon,
+    kXenon,
         /// <summary>
         /// Halogen lamp color.
         /// </summary>
-		kHalogen,
+    kHalogen,
         /// <summary>
         /// Quartz lamp color.
         /// </summary>
-		kQuartz,
+    kQuartz,
         /// <summary>
         /// Metal Halide lamp color.
         /// </summary>
-		kMetalHalide,
+    kMetalHalide,
         /// <summary>
         /// Mercury lamp color.
         /// </summary>
-		kMercury,
+    kMercury,
         /// <summary>
         /// Phosphor Mercury lamp color.
         /// </summary>
-		kPhosphorMercury,
+    kPhosphorMercury,
         /// <summary>
         /// High Pressure Sodium lamp color.
         /// </summary>
-		kHighPressureSodium,
+    kHighPressureSodium,
         /// <summary>
         /// Low Pressure Sodium lamp color.
         /// </summary>
-		kLowPressureSodium,
+    kLowPressureSodium,
         /// <summary>
         /// Custom lamp color.
         /// </summary>
-		kCustom
-	};
+    kCustom
+  };
     /// <summary>
     /// Gets the preset lamp color of the light.
     /// </summary>
@@ -649,7 +649,7 @@ public:
     /// lighting units (i.e. 1 for American or 2 for International) and
     /// lamp color type is kPreset.
     /// </remarks>
-	AcDbLight::LampColorPreset lampColorPreset() const;
+  AcDbLight::LampColorPreset lampColorPreset() const;
     /// <summary>
     /// Sets the preset lamp color of the light.
     /// </summary>
@@ -668,7 +668,7 @@ public:
     /// lighting units (i.e. 1 for American or 2 for International) and
     /// lamp color type is kPreset.
     /// </remarks>
-	Acad::ErrorStatus setLampColorPreset(AcDbLight::LampColorPreset colorPreset);
+  Acad::ErrorStatus setLampColorPreset(AcDbLight::LampColorPreset colorPreset);
     /// <summary>
     /// Gets the RGB value for the light's lamp color.
     /// </summary>
@@ -686,7 +686,7 @@ public:
     /// Only applies if LIGHTINGUNITS is set to photometric
     /// lighting units (i.e. 1 for American or 2 for International).
     /// </remarks>
-	Acad::ErrorStatus lampColorRGB(AcGiColorRGB& rgbColor) const;
+  Acad::ErrorStatus lampColorRGB(AcGiColorRGB& rgbColor) const;
     // <summary>
     /// Sets the corresponding RGB color for the light's preset lamp color.  
     /// This value only applies if the light's color type is ColorType::kPreset.
@@ -707,7 +707,7 @@ public:
     /// kPreset, the RGB color is predetermined; therefore, the RGB color 
     /// cannot be modifed in either case.
     /// </remarks>
-	Acad::ErrorStatus setLampColorRGB(AcGiColorRGB rgbColor);
+  Acad::ErrorStatus setLampColorRGB(AcGiColorRGB rgbColor);
     /// <summary>
     /// Gets the final color of the light.  This is determined by a
     /// combination of the Lamp color and the Filter Color.
@@ -727,7 +727,7 @@ public:
     /// Only applies if LIGHTINGUNITS is set to photometric
     /// lighting units (i.e. 1 for American or 2 for International).
     /// </remarks>
-	Acad::ErrorStatus resultingColor(AcCmColor& rgbColor) const;
+  Acad::ErrorStatus resultingColor(AcCmColor& rgbColor) const;
     /// <summary>
     /// Gets the path to the file containing the light's goniometric
     /// data (e.g. Illuminating Engineering Society or IES file).
@@ -746,7 +746,7 @@ public:
     /// Only applies if LIGHTINGUNITS is set to photometric
     /// lighting units (i.e. 1 for American or 2 for International).
     /// </remarks>
-	Acad::ErrorStatus webFile(AcString& webFile) const;
+  Acad::ErrorStatus webFile(AcString& webFile) const;
     /// <summary>
     /// Sets the path to the file containing the light's goniometric
     /// data (e.g. Illuminating Engineering Society or IES file).
@@ -764,7 +764,7 @@ public:
     /// This value only applies if LIGHTINGUNITS is set to photometric
     /// lighting units (i.e. 1 for American or 2 for International).
     /// </remarks>
-	Acad::ErrorStatus setWebFile(const ACHAR* webFile);
+  Acad::ErrorStatus setWebFile(const ACHAR* webFile);
     /// <summary>
     /// Gets the rotation offset (specified in XYZ Euler angles) used to 
     /// orient the goniometric data relative to the light orientation.
@@ -783,7 +783,7 @@ public:
     /// Only applies if LIGHTINGUNITS is set to photometric
     /// lighting units (i.e. 1 for American or 2 for International).
     /// </remarks>
-	Acad::ErrorStatus webRotation(AcGeVector3d& rotation) const;
+  Acad::ErrorStatus webRotation(AcGeVector3d& rotation) const;
     /// <summary>
     /// Sets the rotation offset (specified in XYZ Euler angles) used to 
     /// orient the goniometric data relative to the light orientation.
@@ -801,7 +801,7 @@ public:
     /// This value only applies if LIGHTINGUNITS is set to photometric
     /// lighting units (i.e. 1 for American or 2 for International).
     /// </remarks>
-	Acad::ErrorStatus setWebRotation(AcGeVector3d rotation);
+  Acad::ErrorStatus setWebRotation(AcGeVector3d rotation);
     /// <summary>
     /// Is a target grip displayed for orienting the light?
     /// </summary>
@@ -809,7 +809,7 @@ public:
     /// <returns>
     /// True if the light displays a target grip.
     /// </returns>
-	bool hasTarget() const;
+  bool hasTarget() const;
     /// <summary>
     /// Determines if the light displays a target grip for orienting
     /// the light.
@@ -823,7 +823,7 @@ public:
     /// Returns eOk on success. Returns an error if the hasTarget information 
     /// could not be set.
     /// </returns>
-	Acad::ErrorStatus setHasTarget(bool hasTarget);
+  Acad::ErrorStatus setHasTarget(bool hasTarget);
     /// <summary>
     /// Gets the shadow parameters:shadow type, mapsize, softness, on/off,
     /// area-sampled shadow parameters
@@ -838,7 +838,7 @@ public:
     /// Returns eOk on success. Returns an error if the shadow parameter information 
     /// could not be retrieved.
     /// </returns>
-	Acad::ErrorStatus shadowParameters(AcGiShadowParameters& params) const;
+  Acad::ErrorStatus shadowParameters(AcGiShadowParameters& params) const;
     /// <summary>
     /// Sets the shadow parameters: shadows on/off, shadow type, mapsize, softness,
     /// area-sampled shadow parameters
@@ -853,25 +853,25 @@ public:
     /// Returns eOk on success. Returns an error if the shadow parameter information 
     /// could not be set, or if any of the values passed in are invalid.
     /// </returns>
-	Acad::ErrorStatus setShadowParameters(const AcGiShadowParameters& params);
+  Acad::ErrorStatus setShadowParameters(const AcGiShadowParameters& params);
     /// <summary>
     /// Glyph Display type
     /// </summary>
-	enum GlyphDisplayType
-	{
+  enum GlyphDisplayType
+  {
         /// <summary>
         /// Auto. 
         /// </summary>
-		kGlyphDisplayAuto = 0,
+    kGlyphDisplayAuto = 0,
         /// <summary>
         /// On.
         /// </summary>
-		kGlyphDisplayOn,
+    kGlyphDisplayOn,
         /// <summary>
         /// Off.
         /// </summary>
-		kGlyphDisplayOff
-	};
+    kGlyphDisplayOff
+  };
     /// <summary>
     /// Gets the display state of the light glyph.
     /// </summary>
@@ -879,7 +879,7 @@ public:
     /// <returns>
     /// Glyph display type.
     /// </returns>
-	GlyphDisplayType glyphDisplay() const;
+  GlyphDisplayType glyphDisplay() const;
     /// <summary>
     /// Sets the display state of the light glyph.
     /// </summary>
@@ -891,33 +891,33 @@ public:
     /// <returns>
     /// Returns Acad::eOk.
     /// </returns>
-	Acad::ErrorStatus setGlyphDisplay(GlyphDisplayType type);
+  Acad::ErrorStatus setGlyphDisplay(GlyphDisplayType type);
 protected:
     //----- AcDbEntity protocols
     //- Graphics protocol
-	virtual void subViewportDraw(AcGiViewportDraw* mode) override;
-	virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* mode) override;
-	virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
-	virtual Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds) const override;
-	virtual Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds, const AcGeMatrix3d& insertionMat) const override;
-	virtual Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
-	virtual Acad::ErrorStatus subGetTransformedCopy(const AcGeMatrix3d& xform, AcDbEntity*& pEnt) const override;
-	virtual void subList() const override;
-	virtual Acad::ErrorStatus subGetGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const override;
-	virtual Acad::ErrorStatus subMoveGripPointsAt(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags) override;
-	virtual Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
-	virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary) const override;
-	virtual Acad::ErrorStatus subHighlight(const AcDbFullSubentPath& subId, const Adesk::Boolean highlightAll) const override;
-	virtual Acad::ErrorStatus subUnhighlight(const AcDbFullSubentPath& subId, const Adesk::Boolean highlightAll) const override;
-	virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
-	virtual Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
+  virtual void subViewportDraw(AcGiViewportDraw* mode) override;
+  virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* mode) override;
+  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  virtual Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds) const override;
+  virtual Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds, const AcGeMatrix3d& insertionMat) const override;
+  virtual Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
+  virtual Acad::ErrorStatus subGetTransformedCopy(const AcGeMatrix3d& xform, AcDbEntity*& pEnt) const override;
+  virtual void subList() const override;
+  virtual Acad::ErrorStatus subGetGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const override;
+  virtual Acad::ErrorStatus subMoveGripPointsAt(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags) override;
+  virtual Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
+  virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary) const override;
+  virtual Acad::ErrorStatus subHighlight(const AcDbFullSubentPath& subId, const Adesk::Boolean highlightAll) const override;
+  virtual Acad::ErrorStatus subUnhighlight(const AcDbFullSubentPath& subId, const Adesk::Boolean highlightAll) const override;
+  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  virtual Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
 private:
-	friend class AcDbImpLight;
-	Adesk::UInt32 baseSetAttributes(AcGiDrawableTraits* pTraits);
-	Acad::ErrorStatus baseDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary) const;
-	Acad::ErrorStatus baseWblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary) const;
-	Acad::ErrorStatus baseHighlight(const AcDbFullSubentPath& subId, const Adesk::Boolean highlightAll) const;
-	Acad::ErrorStatus baseUnhighlight(const AcDbFullSubentPath& subId, const Adesk::Boolean highlightAll) const;
-	AcDbImpLight* mpAcDbImpLight;
-	bool mSelected;
+  friend class AcDbImpLight;
+  Adesk::UInt32 baseSetAttributes(AcGiDrawableTraits* pTraits);
+  Acad::ErrorStatus baseDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary) const;
+  Acad::ErrorStatus baseWblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary) const;
+  Acad::ErrorStatus baseHighlight(const AcDbFullSubentPath& subId, const Adesk::Boolean highlightAll) const;
+  Acad::ErrorStatus baseUnhighlight(const AcDbFullSubentPath& subId, const Adesk::Boolean highlightAll) const;
+  AcDbImpLight* mpAcDbImpLight;
+  bool mSelected;
 };

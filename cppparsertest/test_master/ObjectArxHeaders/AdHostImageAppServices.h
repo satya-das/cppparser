@@ -14,8 +14,8 @@
 // Forward class declarations
 namespace Atil
 {
-	class ImageFormatCodec;
-	class ProgressCallbackInterface;
+  class ImageFormatCodec;
+  class ProgressCallbackInterface;
 }
 class AdHostImageAppServices;
 ////////////////////////////////////////////////////////////////////////
@@ -59,7 +59,7 @@ public:
     /// "bmp;dib;rle;tif;tiff;cal;mil;rst;cg4;gp4;cals;gif"
     /// </returns>
     ///
-	virtual const ACHAR* imageFileExtensions(bool bRefresh = false) = 0;
+  virtual const ACHAR* imageFileExtensions(bool bRefresh = false) = 0;
     /// 
     /// <summary>
     /// Use this function to get the filtered list of image 
@@ -87,7 +87,7 @@ public:
     /// Autodesk Animator FLI/FLC File:fli,flc;Graphic Interchange format:gif"  
     /// </returns>
     ///
-	virtual const ACHAR* imageFilterString(bool bRefresh = false) = 0;
+  virtual const ACHAR* imageFilterString(bool bRefresh = false) = 0;
     /// 
     /// <summary>
     /// Registers the supplied format codec with the imaging library.
@@ -102,7 +102,7 @@ public:
     /// Returns true if the registration succeeded.
     /// </returns>
     ///
-	virtual bool registerFormatCodec(Atil::ImageFormatCodec& codec) = 0;
+  virtual bool registerFormatCodec(Atil::ImageFormatCodec& codec) = 0;
     /// 
     /// <summary>
     /// Use this method to find out if a format codec is already registered 
@@ -119,7 +119,7 @@ public:
     /// with the imaging library.
     /// </returns>
     ///
-	virtual bool formatCodecRegistered(Atil::ImageFormatCodec& codec) = 0;
+  virtual bool formatCodecRegistered(Atil::ImageFormatCodec& codec) = 0;
     /// 
     /// <summary>
     /// Re-registers the input format codec with the imaging library.
@@ -134,7 +134,7 @@ public:
     /// Returns true if the reregistration process succeeded.
     /// </returns>
     ///
-	virtual bool reRegisterFormatCodec(Atil::ImageFormatCodec& codec) = 0;
+  virtual bool reRegisterFormatCodec(Atil::ImageFormatCodec& codec) = 0;
     /// 
     /// <summary>
     /// Unregisters the input format codec with the imaging library.
@@ -149,7 +149,7 @@ public:
     /// Returns true if the un-registration process succeeded.
     /// </returns>
     ///
-	virtual bool unRegisterFormatCodec(Atil::ImageFormatCodec& codec) = 0;
+  virtual bool unRegisterFormatCodec(Atil::ImageFormatCodec& codec) = 0;
     /// 
     /// <summary>
     /// Registers a progress call back with the imaging library.
@@ -164,7 +164,7 @@ public:
     /// Returns the pointer to the old Atil::ProgressCallbackInterface object.
     /// </returns>
     ///
-	virtual Atil::ProgressCallbackInterface* registerProgressCallback(Atil::ProgressCallbackInterface* pCallback) = 0;
+  virtual Atil::ProgressCallbackInterface* registerProgressCallback(Atil::ProgressCallbackInterface* pCallback) = 0;
 };
 /// 
 /// <summary>

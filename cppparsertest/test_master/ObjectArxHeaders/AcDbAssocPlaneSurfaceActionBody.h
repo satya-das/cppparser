@@ -23,11 +23,11 @@
 class ACDB_PORT AcDbAssocPlaneSurfaceActionBody : public AcDbAssocPathBasedSurfaceActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocPlaneSurfaceActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocPlaneSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocPlaneSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocPlaneSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> 
     /// Create an instance of AcDbAssocPlaneSurfaceActionBody
     /// </summary>
@@ -37,6 +37,6 @@ public:
     /// <param name="createdActionId"> Id of created action. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcDbPathRef& inputPath, bool bEnabled, AcDbObjectId& createdActionId);
+  static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcDbPathRef& inputPath, bool bEnabled, AcDbObjectId& createdActionId);
 };
 #pragma  pack (pop)

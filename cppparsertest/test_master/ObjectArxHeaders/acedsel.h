@@ -13,11 +13,11 @@
 //              currently consists solely of the AcEdSolidSubentitySelector.
 //
 #ifndef _ACEDSEL_H
-#	define _ACEDSEL_H
-#	include "AcArray.h"
-#	include "acadstrc.h"
-#	include "acgitransient.h"
-#	pragma  pack (push, 8)
+#  define _ACEDSEL_H
+#  include "AcArray.h"
+#  include "acadstrc.h"
+#  include "acgitransient.h"
+#  pragma  pack (push, 8)
 class AcDbObjectId;
 class AcDbSubentId;
 class AcEdSelectedTransientImp;
@@ -25,27 +25,27 @@ class AcGsDCRect;
 class AcEdSolidSubentitySelector
 {
 public:
-	AcEdSolidSubentitySelector();
-	~AcEdSolidSubentitySelector();
-	Acad::ErrorStatus selectFaces(AcDbObjectId& selectedSolidId, AcArray<AcDbSubentId *>& faceSet);
+  AcEdSolidSubentitySelector();
+  ~AcEdSolidSubentitySelector();
+  Acad::ErrorStatus selectFaces(AcDbObjectId& selectedSolidId, AcArray<AcDbSubentId *>& faceSet);
 };
 class AcEdSelectedTransient
 {
 public:
-	AcEdSelectedTransient();
-	AcEdSelectedTransient(const AcEdSelectedTransient& source);
-	AcEdSelectedTransient& operator=(const AcEdSelectedTransient& source);
-	~AcEdSelectedTransient();
-	AcGiDrawable* parent();
-	AcGiDrawable* drawable();
-	Adesk::GsMarker marker();
-	AcGiTransientDrawingMode mode();
-	int subDrawingMode();
+  AcEdSelectedTransient();
+  AcEdSelectedTransient(const AcEdSelectedTransient& source);
+  AcEdSelectedTransient& operator=(const AcEdSelectedTransient& source);
+  ~AcEdSelectedTransient();
+  AcGiDrawable* parent();
+  AcGiDrawable* drawable();
+  Adesk::GsMarker marker();
+  AcGiTransientDrawingMode mode();
+  int subDrawingMode();
 protected:
-	AcEdSelectedTransientImp* mImp;
-	friend class AcEdTransientSelectionInternals;
+  AcEdSelectedTransientImp* mImp;
+  friend class AcEdTransientSelectionInternals;
 };
 //This function returns all transients that draw any geometry inside the pickbox. 
 Acad::ErrorStatus acedSelectTransients(const AcGsDCRect& rect, int viewportNumber, AcArray<AcEdSelectedTransient>& result);
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

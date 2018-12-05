@@ -24,11 +24,11 @@
 class ACDBCORE2D_PORT AcDbAssocCompoundActionParam : public AcDbAssocActionParam
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocCompoundActionParam);
+  ACRX_DECLARE_MEMBERS(AcDbAssocCompoundActionParam);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject. </param>
     ///
-	explicit AcDbAssocCompoundActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocCompoundActionParam(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> 
     /// Removes all owned AcDbAssocActionParams, optionally also erasing them. 
     /// </summary>
@@ -39,11 +39,11 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus removeAllParams(bool alsoEraseThem);
+  virtual Acad::ErrorStatus removeAllParams(bool alsoEraseThem);
     /// <summary> Returns then number of the owned AcDbAssocActionParams. </summary>
     /// <returns> Number of the owned AcDbAssocActionParams. </returns>
     ///
-	int paramCount() const;
+  int paramCount() const;
     /// <summary> 
     /// Returns an array of the owned AcDbAssocActionParams. 
     /// </summary>
@@ -54,7 +54,7 @@ public:
     /// more than just momentarily accessing its elements.
     /// </returns>
     ///
-	const AcDbObjectIdArray& ownedParams() const;
+  const AcDbObjectIdArray& ownedParams() const;
     /// <summary> 
     /// Adds a new AcDbAssocActionParam. The AcDbAssocCompoundActionParam
     /// becomes the database owner of this action parameter.
@@ -71,7 +71,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus addParam(const AcDbObjectId& paramId, int& paramIndex);
+  Acad::ErrorStatus addParam(const AcDbObjectId& paramId, int& paramIndex);
     /// <summary> 
     /// Removes the AcDbAssocActionParam, optionally also erasing it. 
     /// </summary>
@@ -82,7 +82,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus removeParam(const AcDbObjectId& paramId, bool alsoEraseIt);
+  Acad::ErrorStatus removeParam(const AcDbObjectId& paramId, bool alsoEraseIt);
     /// <summary> 
     /// Returns all owned AcDbAssocActionParams with the given name. Notice that
     /// more than one action parameter may have the same name. The parameters are 
@@ -93,7 +93,7 @@ public:
     /// <param name="paramName">  The name of the action parameter. </param>
     /// <returns> All owned action parameters with the given name. </returns>
     ///
-	const AcDbObjectIdArray& paramsAtName(const AcString& paramName) const;
+  const AcDbObjectIdArray& paramsAtName(const AcString& paramName) const;
     /// <summary> 
     /// Returns an owned AcDbAssocActionParam specified by its name and optional 
     /// index among all parameters with the same name. The default index 0 means
@@ -103,7 +103,7 @@ public:
     /// <param name="index"> Index among all parameters with the same name. </param>
     /// <returns> The owned action parameter or a null AcDbObjectId if not found. </returns>
     ///
-	AcDbObjectId paramAtName(const AcString& paramName, int index = 0) const;
+  AcDbObjectId paramAtName(const AcString& paramName, int index = 0) const;
     /// <summary> 
     /// Returns an owned AcDbAssocActionParam in the array of all action parameters 
     /// owned by this AcDbAssocCompoundActionParam.
@@ -111,6 +111,6 @@ public:
     /// <param name="paramIndex"> Index in the array of all action parameters. </param>
     /// <returns> The owned action parameter or a null AcDbObjectId if not found. </returns>
     ///
-	AcDbObjectId paramAtIndex(int paramIndex) const;
+  AcDbObjectId paramAtIndex(int paramIndex) const;
 };
 #pragma  pack (pop)

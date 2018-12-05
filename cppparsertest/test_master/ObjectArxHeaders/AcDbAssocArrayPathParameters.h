@@ -25,7 +25,7 @@ class AcDbEdgeRef;
 class ACDB_PORT AcDbAssocArrayPathParameters : public AcDbAssocArrayCommonParameters
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocArrayPathParameters);
+  ACRX_DECLARE_MEMBERS(AcDbAssocArrayPathParameters);
     /// <summary> 
     /// Following list of enums can be used as input to method
     /// getGripPointAt(unsigned int, AcDbArrayGripAppData* &) to get specific 
@@ -33,64 +33,64 @@ public:
     /// path array.
     /// </summary>
     ///
-	enum GripModes
-	{
+  enum GripModes
+  {
         /// <summary> 
         /// Moves the array object.
         /// </summary>
         ///
-		kStretchGrip = 1 << 0,
+    kStretchGrip = 1 << 0,
         /// <summary> 
         /// Changes number of rows.
         /// </summary>
         ///
-		kRowCountGrip = 1 << 1,
+    kRowCountGrip = 1 << 1,
         /// <summary> 
         /// Changes distance between rows.
         /// </summary>
         ///
-		kRowSpacingGrip = 1 << 2,
+    kRowSpacingGrip = 1 << 2,
         /// <summary> 
         /// Changes distance between rows by distributing the move uniformly 
         /// across all the rows.
         /// </summary>
         ///
-		kUniformRowSpacingGrip = 1 << 3,
+    kUniformRowSpacingGrip = 1 << 3,
         /// <summary> 
         /// Changes number of levels.
         /// </summary>
         ///
-		kLevelCountGrip = 1 << 4,
+    kLevelCountGrip = 1 << 4,
         /// <summary> 
         /// Changes distance between levels.
         /// </summary>
         ///
-		kLevelSpacingGrip = 1 << 5,
+    kLevelSpacingGrip = 1 << 5,
         /// <summary> 
         /// Changes distance between levels by distributing the move uniformly 
         /// across all the levels.
         /// </summary>
         ///
-		kUniformLevelSpacingGrip = 1 << 6,
+    kUniformLevelSpacingGrip = 1 << 6,
         /// <summary> 
         /// Changes number of items.
         /// </summary>
         ///
-		kItemCountGrip = 1 << 7,
+    kItemCountGrip = 1 << 7,
         /// <summary> 
         /// Used in measure method only.
         /// Changes distance between items. 
         /// </summary>
         ///
-		kItemSpacingGrip = 1 << 8,
+    kItemSpacingGrip = 1 << 8,
         /// <summary> 
         /// Used in measure method only.
         /// Changes distance between items by distributing the move uniformly 
         /// across all the items.
         /// </summary>
         ///
-		kUniformItemSpacingGrip = 1 << 9
-	};
+    kUniformItemSpacingGrip = 1 << 9
+  };
     /// <summary> Constructor.</summary>
     /// <param name="itemSpacing">  The input spacing between adjacent items. </param>
     /// <param name="rowSpacing">  The input spacing between adjacent rows. </param>
@@ -100,27 +100,27 @@ public:
     /// <param name="levelCount">  The input number of levels. </param>
     /// <param name="rowElevation">  The input elevation between adjacent rows. </param>
     ///
-	AcDbAssocArrayPathParameters(double itemSpacing = 1, double rowSpacing = 1, double levelSpacing = 1, int itemCount = 1, int rowCount = 1, int levelCount = 1, double rowElevation = 1);
+  AcDbAssocArrayPathParameters(double itemSpacing = 1, double rowSpacing = 1, double levelSpacing = 1, int itemCount = 1, int rowCount = 1, int levelCount = 1, double rowElevation = 1);
     /// <summary> Default destructor.</summary>
     ///
-	virtual ~AcDbAssocArrayPathParameters();
+  virtual ~AcDbAssocArrayPathParameters();
     /// <summary> 
     /// The method of arraying items along the path.
     /// </summary>
     ///
-	enum Method
-	{
+  enum Method
+  {
         /// <summary> 
         /// Divide method arranges given number of items on entire path equidistantly.  
         /// </summary>
         ///
-		kDivide,
+    kDivide,
         /// <summary> 
         /// Mesure method arranges given number of items at specified item spacing along the path.
         /// </summary>
         ///
-		kMeasure
-	};
+    kMeasure
+  };
     /// <summary> 
     /// Gets the item count of the path array.
     /// If there is no expression for a particular param,
@@ -130,17 +130,17 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns item count. </returns>
     ///
-	int itemCount(AcString& expression, AcString& evaluatorId) const;
-	inline int itemCount() const
-	{
-		AcString expression, evaluatorId;
-		return itemCount(expression, evaluatorId);
-	}
-	inline int itemCount(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return itemCount(expression, evaluatorId);
-	}
+  int itemCount(AcString& expression, AcString& evaluatorId) const;
+  inline int itemCount() const
+  {
+    AcString expression, evaluatorId;
+    return itemCount(expression, evaluatorId);
+  }
+  inline int itemCount(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return itemCount(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets the item spacing of the path array.
     /// If there is no expression for a particular param,
@@ -150,35 +150,35 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns item spacing. </returns>
     ///
-	double itemSpacing(AcString& expression, AcString& evaluatorId) const;
-	inline double itemSpacing() const
-	{
-		AcString expression, evaluatorId;
-		return itemSpacing(expression, evaluatorId);
-	}
-	inline double itemSpacing(AcString& expression) const
-	{
-		AcString evaluatorId;
-		return itemSpacing(expression, evaluatorId);
-	}
+  double itemSpacing(AcString& expression, AcString& evaluatorId) const;
+  inline double itemSpacing() const
+  {
+    AcString expression, evaluatorId;
+    return itemSpacing(expression, evaluatorId);
+  }
+  inline double itemSpacing(AcString& expression) const
+  {
+    AcString evaluatorId;
+    return itemSpacing(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets the AcDbEdgeRef that identifies the path of the path array.
     /// </summary>
     /// <returns> Returns the AcDbEdgeRef that identifies the path. </returns>
     ///
-	AcDbEdgeRef path() const;
+  AcDbEdgeRef path() const;
     /// <summary> 
     /// Gets the method of arraying items along the path.
     /// </summary>
     /// <returns> Returns the method of arraying items along the path. Default method is kMeasure</returns>
     ///
-	Method method() const;
+  Method method() const;
     /// <summary> 
     /// Gets the align items option.
     /// </summary>
     /// <returns> Returns whether to align items. Default value is true</returns>
     ///
-	bool alignItems() const;
+  bool alignItems() const;
     /// <summary> 
     /// Gets the start offset of the path array.
     /// If there is no expression for a particular param,
@@ -188,12 +188,12 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns start offset. </returns>
     ///
-	double startOffset(AcString& expression, AcString& evaluatorId) const;
-	inline double startOffset() const
-	{
-		AcString expression, evaluatorId;
-		return startOffset(expression, evaluatorId);
-	}
+  double startOffset(AcString& expression, AcString& evaluatorId) const;
+  inline double startOffset() const
+  {
+    AcString expression, evaluatorId;
+    return startOffset(expression, evaluatorId);
+  }
     /// <summary> 
     /// Gets the end offset of the path array.
     /// End offset is only avaliable for Divide method.
@@ -204,12 +204,12 @@ public:
     /// <param name="evaluatorId"> The returned evaluatorId. </param>
     /// <returns> Returns end offset. </returns>
     ///
-	double endOffset(AcString& expression, AcString& evaluatorId) const;
-	inline double endOffset() const
-	{
-		AcString expression, evaluatorId;
-		return endOffset(expression, evaluatorId);
-	}
+  double endOffset(AcString& expression, AcString& evaluatorId) const;
+  inline double endOffset() const
+  {
+    AcString expression, evaluatorId;
+    return endOffset(expression, evaluatorId);
+  }
     /// <summary> 
     /// Sets the item count of the path array.
     /// If there is no expression for the parameter, the expression string and 
@@ -221,7 +221,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setItemCount(int nItems, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setItemCount(int nItems, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the item spacing of the path array.
     /// If there is no expression for the parameter, the expression string and 
@@ -233,28 +233,28 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setItemSpacing(double offset, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setItemSpacing(double offset, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the path of the path array.
     /// </summary>
     /// <param name="edgeRef">   The AcDbEdgeRef to set. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setPath(const AcDbEdgeRef& edgeRef);
+  Acad::ErrorStatus setPath(const AcDbEdgeRef& edgeRef);
     /// <summary> 
     /// Sets the method of arraying items along the path.
     /// </summary>
     /// <param name="method"> The input method of arraying items along the path. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setMethod(Method method);
+  Acad::ErrorStatus setMethod(Method method);
     /// <summary> 
     /// Sets whether to align items or not.
     /// </summary>
     /// <param name="bAlignItems"> The boolean value to set. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setAlignItems(bool bAlignItems);
+  Acad::ErrorStatus setAlignItems(bool bAlignItems);
     /// <summary> 
     /// Sets the start offset of the path array.
     /// If there is no expression for the parameter, the expression string and 
@@ -266,7 +266,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setStartOffset(double startOffset, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setStartOffset(double startOffset, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the end offset of the path array.
     /// End offset is only avaliable for Divide method.
@@ -279,7 +279,7 @@ public:
     /// <param name="errorMessage"> The returned error message for the individual expression. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setEndOffset(double endOffset, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
+  Acad::ErrorStatus setEndOffset(double endOffset, const AcString& expression = AcString(), const AcString& evaluatorId = AcString(), AcString& errorMessage = dummyString());
     /// <summary> 
     /// Sets the direction of path curve.
     /// if bAlongParams is false, then the parameter of this path curve is reversed
@@ -288,7 +288,7 @@ public:
     /// <param name="bAlongParams"> The boolean value to set. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setPathDirection(bool bAlongParams);
+  Acad::ErrorStatus setPathDirection(bool bAlongParams);
     /// <summary> <para>
     /// Obtains list of items patterned by the set of owned parameters. Each
     /// parameters class uses its own logic based on owned value as well as 
@@ -303,7 +303,7 @@ public:
     /// <param name="items"> The updated list of items. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getItems(AcArray<AcDbAssocArrayItem*>& items) const;
+  virtual Acad::ErrorStatus getItems(AcArray<AcDbAssocArrayItem*>& items) const;
     /// <summary>
     /// Obtains position as well as orientation of an item at given spatial 
     /// index specified by the locator.
@@ -315,13 +315,13 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus getItemPosition(const AcDbItemLocator& locator, AcGePoint3d& position, AcGeMatrix3d& xform) const;
-	inline Acad::ErrorStatus getItemPosition(const AcDbItemLocator& locator, AcGePoint3d& position) const
-	{
-		AcGeMatrix3d xform;
-		return getItemPosition(locator, position, xform);
-	}
+  virtual Acad::ErrorStatus getItemPosition(const AcDbItemLocator& locator, AcGePoint3d& position, AcGeMatrix3d& xform) const;
+  inline Acad::ErrorStatus getItemPosition(const AcDbItemLocator& locator, AcGePoint3d& position) const
+  {
+    AcGeMatrix3d xform;
+    return getItemPosition(locator, position, xform);
+  }
 protected:
-	friend class AcDbImpAssocArrayPathParameters;
-	explicit AcDbAssocArrayPathParameters(AcDbImpAssocArrayPathParameters* pSelf);
+  friend class AcDbImpAssocArrayPathParameters;
+  explicit AcDbAssocArrayPathParameters(AcDbImpAssocArrayPathParameters* pSelf);
 };

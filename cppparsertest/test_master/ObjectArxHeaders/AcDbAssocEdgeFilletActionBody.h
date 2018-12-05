@@ -24,16 +24,16 @@
 class ACDB_PORT AcDbAssocEdgeFilletActionBody : public AcDbAssocPathBasedSurfaceActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocEdgeFilletActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocEdgeFilletActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject. </param>
     ///
-	explicit AcDbAssocEdgeFilletActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocEdgeFilletActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> Method to set input edges for fillet. </summary>
     /// <param name="filletEdges"> List of input edges. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setInputEdges(const AcDbFullSubentPathArray& filletEdges);
+  Acad::ErrorStatus setInputEdges(const AcDbFullSubentPathArray& filletEdges);
     /// <summary><para> 
     /// Sets fillet radius value, expression and evaluatorId for this action.
     /// If there is no expression, the expression string and the evaluatorId 
@@ -47,7 +47,7 @@ public:
     /// <param name="evaluatorId"> evaluator id. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setRadius(double radius, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setRadius(double radius, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Gets fillet radius value, expression and evaluatorId for this action.
     /// If there is no expression, the expression string and the evaluatorId 
@@ -60,14 +60,14 @@ public:
     /// <param name="evaluatorId"> evaluator id. </param>
     /// <returns> Radius value. </returns>
     ///
-	double radius(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  double radius(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary>
     /// Implements abstract method AcDbAssocActionBody::evaluateOverride(), this
     /// method is called while evaluating the parent action that owns this action 
     /// body object.
     /// </summary>
     ///
-	virtual void evaluateOverride() override;
+  virtual void evaluateOverride() override;
     /// <summary><para>
     /// Utility function to create AcDbAssocEdgeFilletActionBody and attach 
     /// dependencies and actions for given filletEdges.
@@ -83,6 +83,6 @@ public:
     /// created instance of AcDbAssocEdgeFilletActionBody. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     /// 
-	static Acad::ErrorStatus createInstance(const AcDbFullSubentPathArray& filletEdges, double radius, bool bEnabled, AcDbObjectId& createdActionId);
+  static Acad::ErrorStatus createInstance(const AcDbFullSubentPathArray& filletEdges, double radius, bool bEnabled, AcDbObjectId& createdActionId);
 };
 #pragma  pack (pop)

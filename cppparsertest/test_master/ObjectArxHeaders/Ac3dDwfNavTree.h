@@ -26,7 +26,7 @@
 ///
 /// </summary>
 #ifndef AC3DDWFNAVTREE_H
-#	define AC3DDWFNAVTREE_H
+#  define AC3DDWFNAVTREE_H
 class Ac3dDwfNavTreeNode : public AcRxObject
 {
 public:
@@ -37,7 +37,7 @@ public:
     /// <returns>
     /// returns the name of the tree node.
     /// </returns>
-	virtual const AcString& displayName() const = 0;
+  virtual const AcString& displayName() const = 0;
     /// <summary>
     /// This method is called to get the graphic identifiers for this tree 
     /// node
@@ -46,7 +46,7 @@ public:
     /// <returns>
     /// returns the graphic identifiers for this tree node
     /// </returns>
-	virtual const AcArray<long>& keys() const = 0;
+  virtual const AcArray<long>& keys() const = 0;
     /// <summary>
     /// This method is called to get the number of descendants for this
     /// tree node. Number of descendants includes children, grandchildren
@@ -56,7 +56,7 @@ public:
     /// <returns>
     /// returns the number of descendants in the tree node.
     /// </returns>
-	virtual int nDescendants() const = 0;
+  virtual int nDescendants() const = 0;
     /// <summary>
     /// This method is called to get the flag to see if this node should
     /// be displayed as a group or not. The default implementation appends
@@ -66,7 +66,7 @@ public:
     /// <returns>
     /// returns true if tree node is a group.
     /// </returns>
-	virtual bool isGroup() const = 0;
+  virtual bool isGroup() const = 0;
     /// <summary>
     /// This method is called to get an array of all the tree node children
     /// of this tree node.
@@ -75,7 +75,7 @@ public:
     /// <returns>
     /// returns a array of all the children of this tree node.
     /// </returns>
-	virtual const AcArray<const Ac3dDwfNavTreeNode*>& children() const = 0;
+  virtual const AcArray<const Ac3dDwfNavTreeNode*>& children() const = 0;
     /// <summary>
     /// This method is called to get the flag to see if node is grouped
     /// by block. If this is true, all the descendants graphics will be grouped
@@ -85,7 +85,7 @@ public:
     /// <returns>
     /// returns true if node is grouped by block.
     /// </returns>
-	virtual bool isBlock() const = 0;
+  virtual bool isBlock() const = 0;
     /// <summary>
     /// Call this method to add a child to the root node. When trying to
     /// register the Ac3dDwfNavTreeNode root in the AcDMMSheetReactorInfo, only
@@ -104,7 +104,7 @@ public:
     /// to the root node
     /// </returns>
     ///
-	virtual bool addChild(const Ac3dDwfNavTreeNode* node) = 0;
+  virtual bool addChild(const Ac3dDwfNavTreeNode* node) = 0;
     /// <summary>
     /// Call this method to remoave a child from the root node. When trying to
     /// register the Ac3dDwfNavTreeNode root in the AcDMMSheetReactorInfo, only
@@ -123,6 +123,6 @@ public:
     /// the navigation tree
     /// </returns>
     ///
-	virtual bool removeChild(const Ac3dDwfNavTreeNode* node) = 0;
+  virtual bool removeChild(const Ac3dDwfNavTreeNode* node) = 0;
 };
 #endif

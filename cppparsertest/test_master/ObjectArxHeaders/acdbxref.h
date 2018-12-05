@@ -87,31 +87,31 @@ Acad::ErrorStatus acdbGetHostDwgXrefGraph(AcDbDatabase* pHostDb, AcDbXrefGraph& 
 class AcDbXrefObjectId
 {
 public:
-	AcDbXrefObjectId();
-	AcDbXrefObjectId(const AcDbXrefObjectId& other);
-	AcDbXrefObjectId& operator=(const AcDbXrefObjectId& other);
-	bool operator==(const AcDbXrefObjectId& other) const;
-	bool operator!=(const AcDbXrefObjectId& other) const;
-	bool isValid(void) const;
-	bool isXref(void) const
-	{
-		return !m_handle.isNull();
-	}
-	bool isNull(void) const
-	{
-		return m_localId.isNull();
-	}
-	Acad::ErrorStatus setNull(void);
-	Acad::ErrorStatus setXrefId(AcDbObjectId xrefBlkId, const AcDbHandle& hObject);
-	Acad::ErrorStatus getXrefId(AcDbObjectId& xrefBlkId, AcDbHandle& hObject) const;
-	Acad::ErrorStatus setLocalId(AcDbObjectId objId);
-	Acad::ErrorStatus getLocalId(AcDbObjectId& objId) const;
-	Acad::ErrorStatus resolveObjectId(AcDbObjectId& id) const;
-	Acad::ErrorStatus serializeToResbuf(resbuf*& pResBuf, resbuf*& pEndOfChain) const;
-	Acad::ErrorStatus serializeFromResbuf(const resbuf* pResBuf, resbuf*& pNextInChain);
+  AcDbXrefObjectId();
+  AcDbXrefObjectId(const AcDbXrefObjectId& other);
+  AcDbXrefObjectId& operator=(const AcDbXrefObjectId& other);
+  bool operator==(const AcDbXrefObjectId& other) const;
+  bool operator!=(const AcDbXrefObjectId& other) const;
+  bool isValid(void) const;
+  bool isXref(void) const
+  {
+    return !m_handle.isNull();
+  }
+  bool isNull(void) const
+  {
+    return m_localId.isNull();
+  }
+  Acad::ErrorStatus setNull(void);
+  Acad::ErrorStatus setXrefId(AcDbObjectId xrefBlkId, const AcDbHandle& hObject);
+  Acad::ErrorStatus getXrefId(AcDbObjectId& xrefBlkId, AcDbHandle& hObject) const;
+  Acad::ErrorStatus setLocalId(AcDbObjectId objId);
+  Acad::ErrorStatus getLocalId(AcDbObjectId& objId) const;
+  Acad::ErrorStatus resolveObjectId(AcDbObjectId& id) const;
+  Acad::ErrorStatus serializeToResbuf(resbuf*& pResBuf, resbuf*& pEndOfChain) const;
+  Acad::ErrorStatus serializeFromResbuf(const resbuf* pResBuf, resbuf*& pNextInChain);
 private:
-	AcDbObjectId m_localId;
+  AcDbObjectId m_localId;
                                         // otherwise, it is the block table record of the xref
-	AcDbHandle m_handle;
+  AcDbHandle m_handle;
                                         // to within the Xref
 };

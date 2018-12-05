@@ -85,24 +85,24 @@
 class ACDBCORE2D_PORT AcDbAssocActionBody : public AcDbObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocActionBody);
-	explicit AcDbAssocActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
-	virtual ~AcDbAssocActionBody();
+  ACRX_DECLARE_MEMBERS(AcDbAssocActionBody);
+  explicit AcDbAssocActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  virtual ~AcDbAssocActionBody();
     /// <summary>
     /// Returns AcDbObjectId of the parent AcDbAssocAction that owns this 
     /// action body object.
     /// </summary>
     ///
-	AcDbObjectId parentAction() const
-	{
-		return ownerId();
-	}
+  AcDbObjectId parentAction() const
+  {
+    return ownerId();
+  }
     /// <summary>
     /// Returns AcDbObjectId of the parent AcDbAssocAction that owns the given  
     /// action body object.
     /// </summary>
     ///
-	static AcDbObjectId parentAction(const AcDbObjectId& actionBodyId);
+  static AcDbObjectId parentAction(const AcDbObjectId& actionBodyId);
     // The following non-virtual methods are just shortcuts that just forward 
     // to the parent AcDbAssocAction class, to save some typing for the
     // implementers of the derived custom action body classes
@@ -112,218 +112,218 @@ public:
     /// owns this action body object.
     /// </summary>
     ///
-	AcDbAssocStatus status() const;
+  AcDbAssocStatus status() const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus setStatus(AcDbAssocStatus newStatus, bool notifyOwningNetwork = true, bool setInOwnedActions = false) const;
+  Acad::ErrorStatus setStatus(AcDbAssocStatus newStatus, bool notifyOwningNetwork = true, bool setInOwnedActions = false) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	AcDbObjectId owningNetwork() const;
+  AcDbObjectId owningNetwork() const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus getDependencies(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& dependencyIds) const;
+  Acad::ErrorStatus getDependencies(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& dependencyIds) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus addDependency(const AcDbObjectId& dependencyId, bool setThisActionAsOwningAction = true) const;
+  Acad::ErrorStatus addDependency(const AcDbObjectId& dependencyId, bool setThisActionAsOwningAction = true) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus addDependency(AcRxClass* pDependencyClass, AcRxClass* pDependencyBodyClass, bool isReadDep, bool isWriteDep, int order, AcDbObjectId& dependencyId) const;
+  Acad::ErrorStatus addDependency(AcRxClass* pDependencyClass, AcRxClass* pDependencyBodyClass, bool isReadDep, bool isWriteDep, int order, AcDbObjectId& dependencyId) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus removeDependency(const AcDbObjectId& dependencyId, bool alsoEraseIt) const;
+  Acad::ErrorStatus removeDependency(const AcDbObjectId& dependencyId, bool alsoEraseIt) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus removeAllDependencies(bool alsoEraseThem) const;
+  Acad::ErrorStatus removeAllDependencies(bool alsoEraseThem) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus evaluateDependencies() const;
+  Acad::ErrorStatus evaluateDependencies() const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	bool isActionEvaluationInProgress() const;
+  bool isActionEvaluationInProgress() const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	AcDbAssocEvaluationCallback* currentEvaluationCallback() const;
+  AcDbAssocEvaluationCallback* currentEvaluationCallback() const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus removeAllParams(bool alsoEraseThem) const;
+  Acad::ErrorStatus removeAllParams(bool alsoEraseThem) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	int paramCount() const;
+  int paramCount() const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	const AcDbObjectIdArray& ownedParams() const;
+  const AcDbObjectIdArray& ownedParams() const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus addParam(const AcDbObjectId& paramId, int& paramIndex) const;
+  Acad::ErrorStatus addParam(const AcDbObjectId& paramId, int& paramIndex) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus addParam(const AcString& paramName, AcRxClass* pParamClass, AcDbObjectId& paramId, int& paramIndex) const;
+  Acad::ErrorStatus addParam(const AcString& paramName, AcRxClass* pParamClass, AcDbObjectId& paramId, int& paramIndex) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus removeParam(const AcDbObjectId& paramId, bool alsoEraseIt) const;
+  Acad::ErrorStatus removeParam(const AcDbObjectId& paramId, bool alsoEraseIt) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	const AcDbObjectIdArray& paramsAtName(const AcString& paramName) const;
+  const AcDbObjectIdArray& paramsAtName(const AcString& paramName) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	AcDbObjectId paramAtName(const AcString& paramName, int index = 0) const;
+  AcDbObjectId paramAtName(const AcString& paramName, int index = 0) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	AcDbObjectId paramAtIndex(int paramIndex) const;
+  AcDbObjectId paramAtIndex(int paramIndex) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	void ownedValueParamNames(AcArray<AcString>& paramNames) const;
+  void ownedValueParamNames(AcArray<AcString>& paramNames) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus getValueParamArray(const AcString& paramName, AcArray<AcDbEvalVariant>& values, AcArray<AcString>& expressions, AcArray<AcString>& evaluatorIds) const;
+  Acad::ErrorStatus getValueParamArray(const AcString& paramName, AcArray<AcDbEvalVariant>& values, AcArray<AcString>& expressions, AcArray<AcString>& evaluatorIds) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus getValueParam(const AcString& paramName, AcDbEvalVariant& value, AcString& expression, AcString& evaluatorId, int valueIndex = 0) const;
+  Acad::ErrorStatus getValueParam(const AcString& paramName, AcDbEvalVariant& value, AcString& expression, AcString& evaluatorId, int valueIndex = 0) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus setValueParamArray(const AcString& paramName, const AcArray<AcDbEvalVariant>& values, const AcArray<AcString>& expressions, const AcArray<AcString>& evaluatorIds, AcArray<AcString>& errorMessages, bool silentMode) const;
+  Acad::ErrorStatus setValueParamArray(const AcString& paramName, const AcArray<AcDbEvalVariant>& values, const AcArray<AcString>& expressions, const AcArray<AcString>& evaluatorIds, AcArray<AcString>& errorMessages, bool silentMode) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus setValueParam(const AcString& paramName, const AcDbEvalVariant& value, const AcString& expression, const AcString& evaluatorId, AcString& errorMessage, bool silentMode, int valueIndex = 0) const;
+  Acad::ErrorStatus setValueParam(const AcString& paramName, const AcDbEvalVariant& value, const AcString& expression, const AcString& evaluatorId, AcString& errorMessage, bool silentMode, int valueIndex = 0) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	AcValue::UnitType valueParamUnitType(const AcString& paramName) const;
+  AcValue::UnitType valueParamUnitType(const AcString& paramName) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus setValueParamUnitType(const AcString& paramName, AcValue::UnitType unitType) const;
+  Acad::ErrorStatus setValueParamUnitType(const AcString& paramName, AcValue::UnitType unitType) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus removeValueParam(const AcString& paramName) const;
+  Acad::ErrorStatus removeValueParam(const AcString& paramName) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus valueParamInputVariables(const AcString& paramName, AcDbObjectIdArray& variableIds) const;
+  Acad::ErrorStatus valueParamInputVariables(const AcString& paramName, AcDbObjectIdArray& variableIds) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus setValueParamControlledObjectDep(const AcString& paramName, const AcDbObjectId& controlledObjectDepId) const;
+  Acad::ErrorStatus setValueParamControlledObjectDep(const AcString& paramName, const AcDbObjectId& controlledObjectDepId) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus updateValueParamControlledObject(const AcString& paramName) const;
+  Acad::ErrorStatus updateValueParamControlledObject(const AcString& paramName) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus updateValueParamFromControlledObject(const AcString& paramName) const;
+  Acad::ErrorStatus updateValueParamFromControlledObject(const AcString& paramName) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus updateAllObjectsControlledByValueParams() const;
+  Acad::ErrorStatus updateAllObjectsControlledByValueParams() const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus transformAllConstantGeometryParams(const AcGeMatrix3d& transform) const;
+  Acad::ErrorStatus transformAllConstantGeometryParams(const AcGeMatrix3d& transform) const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
     /// </summary>
     ///
-	Acad::ErrorStatus scaleAllDistanceValueParams(double scaleFactor) const;
+  Acad::ErrorStatus scaleAllDistanceValueParams(double scaleFactor) const;
     /// <summary>
     /// Utility function that returns true if the action owns any dependency whose
     /// status is kErasedAssocStatus or whose dependent-on object cannot be
     /// opened. AcDbAssocValueDependencies are ignored.
     /// </summary>
     ///
-	bool hasAnyErasedOrBrokenDependencies() const;
+  bool hasAnyErasedOrBrokenDependencies() const;
     /// <summary> <para>
     /// Utility function that creates AcDbAssocAction and AcDbAssocActionBody
     /// of the required class, makes the action own the action body and posts 
@@ -336,7 +336,7 @@ public:
     /// the AcDbBlockTableRecord.
     /// </para> </summary>
     ///
-	static Acad::ErrorStatus createActionAndActionBodyAndPostToDatabase(AcRxClass* pActionBodyClass, const AcDbObjectId& objectId, AcDbObjectId& createdActionId, AcDbObjectId& createdActionBodyId);
+  static Acad::ErrorStatus createActionAndActionBodyAndPostToDatabase(AcRxClass* pActionBodyClass, const AcDbObjectId& objectId, AcDbObjectId& createdActionId, AcDbObjectId& createdActionBodyId);
     /// <summary>
     /// Utility static method that returns all action bodies of all actions that 
     /// have the requested type of dependencies on the given object. Notice that
@@ -346,7 +346,7 @@ public:
     /// are NULL, the type of action bodies are not returned.
     /// </summary>
     ///
-	static Acad::ErrorStatus getActionBodiesOnObject(const AcDbObject* pObject, bool ignoreInternalActions, bool ignoreSuppressedActions, AcDbObjectId* pWriteOnlyActionBodyId, AcDbObjectIdArray* pReadWriteActionBodyIds, AcDbObjectIdArray* pReadOnlyActionBodyIds = NULL);
+  static Acad::ErrorStatus getActionBodiesOnObject(const AcDbObject* pObject, bool ignoreInternalActions, bool ignoreSuppressedActions, AcDbObjectId* pWriteOnlyActionBodyId, AcDbObjectIdArray* pReadWriteActionBodyIds, AcDbObjectIdArray* pReadOnlyActionBodyIds = NULL);
     // Virtual methods that can be overridden by the derived classes
 
     /// <summary>
@@ -355,219 +355,219 @@ public:
     /// this is how the behavior of custom actions is implemented.
     /// </summary>
     ///
-	virtual void evaluateOverride() = 0;
+  virtual void evaluateOverride() = 0;
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus getDependenciesOverride(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& dependencyIds) const
-	{
-		ADESK_UNREFED_PARAM(readDependenciesWanted);
-		ADESK_UNREFED_PARAM(writeDependenciesWanted);
-		ADESK_UNREFED_PARAM(dependencyIds);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus getDependenciesOverride(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& dependencyIds) const
+  {
+    ADESK_UNREFED_PARAM(readDependenciesWanted);
+    ADESK_UNREFED_PARAM(writeDependenciesWanted);
+    ADESK_UNREFED_PARAM(dependencyIds);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus getDependentObjectsOverride(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& objectIds) const
-	{
-		ADESK_UNREFED_PARAM(readDependenciesWanted);
-		ADESK_UNREFED_PARAM(writeDependenciesWanted);
-		ADESK_UNREFED_PARAM(objectIds);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus getDependentObjectsOverride(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& objectIds) const
+  {
+    ADESK_UNREFED_PARAM(readDependenciesWanted);
+    ADESK_UNREFED_PARAM(writeDependenciesWanted);
+    ADESK_UNREFED_PARAM(objectIds);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus removeAllDependenciesOverride(bool alsoEraseThem)
-	{
-		ADESK_UNREFED_PARAM(alsoEraseThem);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus removeAllDependenciesOverride(bool alsoEraseThem)
+  {
+    ADESK_UNREFED_PARAM(alsoEraseThem);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus isOwnedDependencyOverride(const AcDbAssocDependency* pDependency, bool& isOwnedDependency) const
-	{
-		ADESK_UNREFED_PARAM(pDependency);
-		ADESK_UNREFED_PARAM(isOwnedDependency);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus isOwnedDependencyOverride(const AcDbAssocDependency* pDependency, bool& isOwnedDependency) const
+  {
+    ADESK_UNREFED_PARAM(pDependency);
+    ADESK_UNREFED_PARAM(isOwnedDependency);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus isExternalDependencyOverride(const AcDbAssocDependency* pDependency, bool& isExternalDependency) const
-	{
-		ADESK_UNREFED_PARAM(pDependency);
-		ADESK_UNREFED_PARAM(isExternalDependency);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus isExternalDependencyOverride(const AcDbAssocDependency* pDependency, bool& isExternalDependency) const
+  {
+    ADESK_UNREFED_PARAM(pDependency);
+    ADESK_UNREFED_PARAM(isExternalDependency);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus hasDependencyCachedValueOverride(const AcDbAssocDependency* pDependency, bool& hasDepCachedValue) const
-	{
-		ADESK_UNREFED_PARAM(pDependency);
-		ADESK_UNREFED_PARAM(hasDepCachedValue);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus hasDependencyCachedValueOverride(const AcDbAssocDependency* pDependency, bool& hasDepCachedValue) const
+  {
+    ADESK_UNREFED_PARAM(pDependency);
+    ADESK_UNREFED_PARAM(hasDepCachedValue);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus isRelevantDependencyChangeOverride(const AcDbAssocDependency* pDependency, bool& isRelevantDepChange) const
-	{
-		ADESK_UNREFED_PARAM(pDependency);
-		ADESK_UNREFED_PARAM(isRelevantDepChange);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus isRelevantDependencyChangeOverride(const AcDbAssocDependency* pDependency, bool& isRelevantDepChange) const
+  {
+    ADESK_UNREFED_PARAM(pDependency);
+    ADESK_UNREFED_PARAM(isRelevantDepChange);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus areDependenciesOnTheSameThingOverride(const AcDbAssocDependency* pDependency1, const AcDbAssocDependency* pDependency2, bool& areDependentOnSameThing) const
-	{
-		ADESK_UNREFED_PARAM(pDependency1);
-		ADESK_UNREFED_PARAM(pDependency2);
-		ADESK_UNREFED_PARAM(areDependentOnSameThing);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus areDependenciesOnTheSameThingOverride(const AcDbAssocDependency* pDependency1, const AcDbAssocDependency* pDependency2, bool& areDependentOnSameThing) const
+  {
+    ADESK_UNREFED_PARAM(pDependency1);
+    ADESK_UNREFED_PARAM(pDependency2);
+    ADESK_UNREFED_PARAM(areDependentOnSameThing);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus areDependenciesEqualOverride(const AcDbAssocDependency* pDependency1, const AcDbAssocDependency* pDependency2, bool& areEqual) const
-	{
-		ADESK_UNREFED_PARAM(pDependency1);
-		ADESK_UNREFED_PARAM(pDependency2);
-		ADESK_UNREFED_PARAM(areEqual);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus areDependenciesEqualOverride(const AcDbAssocDependency* pDependency1, const AcDbAssocDependency* pDependency2, bool& areEqual) const
+  {
+    ADESK_UNREFED_PARAM(pDependency1);
+    ADESK_UNREFED_PARAM(pDependency2);
+    ADESK_UNREFED_PARAM(areEqual);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus evaluateDependencyOverride(AcDbAssocDependency* pDependency)
-	{
-		ADESK_UNREFED_PARAM(pDependency);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus evaluateDependencyOverride(AcDbAssocDependency* pDependency)
+  {
+    ADESK_UNREFED_PARAM(pDependency);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus dependentObjectClonedOverride(const AcDbAssocDependency* pDependency, const AcDbObject* pDbObj, const AcDbObject* pNewObj)
-	{
-		ADESK_UNREFED_PARAM(pDependency);
-		ADESK_UNREFED_PARAM(pDbObj);
-		ADESK_UNREFED_PARAM(pNewObj);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus dependentObjectClonedOverride(const AcDbAssocDependency* pDependency, const AcDbObject* pDbObj, const AcDbObject* pNewObj)
+  {
+    ADESK_UNREFED_PARAM(pDependency);
+    ADESK_UNREFED_PARAM(pDbObj);
+    ADESK_UNREFED_PARAM(pNewObj);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus addMoreObjectsToDeepCloneOverride(AcDbIdMapping&, AcDbObjectIdArray&) const
-	{
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus addMoreObjectsToDeepCloneOverride(AcDbIdMapping&, AcDbObjectIdArray&) const
+  {
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus postProcessAfterDeepCloneOverride(AcDbIdMapping&)
-	{
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus postProcessAfterDeepCloneOverride(AcDbIdMapping&)
+  {
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus postProcessAfterDeepCloneCancelOverride(AcDbIdMapping&)
-	{
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus postProcessAfterDeepCloneCancelOverride(AcDbIdMapping&)
+  {
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus ownedDependencyStatusChangedOverride(AcDbAssocDependency* pOwnedDependency, AcDbAssocStatus previousStatus)
-	{
-		ADESK_UNREFED_PARAM(pOwnedDependency);
-		ADESK_UNREFED_PARAM(previousStatus);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus ownedDependencyStatusChangedOverride(AcDbAssocDependency* pOwnedDependency, AcDbAssocStatus previousStatus)
+  {
+    ADESK_UNREFED_PARAM(pOwnedDependency);
+    ADESK_UNREFED_PARAM(previousStatus);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus isEqualToOverride(const AcDbAssocAction* pOtherAction, bool& isEqual) const
-	{
-		ADESK_UNREFED_PARAM(pOtherAction);
-		ADESK_UNREFED_PARAM(isEqual);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus isEqualToOverride(const AcDbAssocAction* pOtherAction, bool& isEqual) const
+  {
+    ADESK_UNREFED_PARAM(pOtherAction);
+    ADESK_UNREFED_PARAM(isEqual);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus evaluationPriorityOverride(AcDbAssocEvaluationPriority& priority) const
-	{
-		ADESK_UNREFED_PARAM(priority);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus evaluationPriorityOverride(AcDbAssocEvaluationPriority& priority) const
+  {
+    ADESK_UNREFED_PARAM(priority);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus getDependentActionsToEvaluateOverride(AcDbActionsToEvaluateCallback* pActionsToEvaluateCallback) const
-	{
-		ADESK_UNREFED_PARAM(pActionsToEvaluateCallback);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus getDependentActionsToEvaluateOverride(AcDbActionsToEvaluateCallback* pActionsToEvaluateCallback) const
+  {
+    ADESK_UNREFED_PARAM(pActionsToEvaluateCallback);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus transformActionByOverride(const AcGeMatrix3d&)
-	{
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus transformActionByOverride(const AcGeMatrix3d&)
+  {
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. It does not need to be overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus dragStatusOverride(const AcDb::DragStat status)
-	{
-		ADESK_UNREFED_PARAM(status);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus dragStatusOverride(const AcDb::DragStat status)
+  {
+    ADESK_UNREFED_PARAM(status);
+    return Acad::eNotImplemented;
+  }
     /// <summary><para>
     /// This method may be overridden in derived action body clases.
     /// </para><para>    
@@ -589,11 +589,11 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus removeActionsControllingObjectOverride(AcDbObject* pControlledObject)
-	{
-		ADESK_UNREFED_PARAM(pControlledObject);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus removeActionsControllingObjectOverride(AcDbObject* pControlledObject)
+  {
+    ADESK_UNREFED_PARAM(pControlledObject);
+    return Acad::eNotImplemented;
+  }
     /// <summary><para>
     /// Called from AcDbAssocManager::auditAssociativeData() after file open and possibly
     /// after some other scenarios when the associative data may need to be audited and fixed-up.
@@ -623,7 +623,7 @@ public:
     /// the custom code.
     /// </para></summary>
     ///
-	virtual void auditAssociativeDataOverride(AcDbAssocStatus& parentActionHandling);
+  virtual void auditAssociativeDataOverride(AcDbAssocStatus& parentActionHandling);
     /// <summary>
     /// General notification that the action body can receive. The information 
     /// about the notification is passed in an AcDbAssocNotificationData object. 
@@ -636,7 +636,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus notificationOverride(class AcDbAssocNotificationData* pNotificationData);
+  virtual Acad::ErrorStatus notificationOverride(class AcDbAssocNotificationData* pNotificationData);
     /// <summary>
     /// Using this method the action body reveals its AcDbStepIds and AcDbPersSubentIds
     /// to the AcDbAssocPersSubentManager.
@@ -645,7 +645,7 @@ public:
     /// <param name="stepIds">       The array of returned AcDbPersStepIds.    </param>
     /// <param name="persSubentIds"> The array of returned  AcDbPersSubentIds. </param>
     ///
-	virtual Acad::ErrorStatus collectPersSubentNamingDataOverride(AcDbPersStepIdArray& stepIds, AcDbPersSubentIdArray& persSubentIds) const;
+  virtual Acad::ErrorStatus collectPersSubentNamingDataOverride(AcDbPersStepIdArray& stepIds, AcDbPersSubentIdArray& persSubentIds) const;
     /// <summary>
     /// Using this method the action body asks the AcDbAssocPersSubentManager 
     /// to remap its AcDbPersStepIds and PersSubentIds after the action body 
@@ -657,7 +657,7 @@ public:
     /// its AcDbPersStepIds and PersSubentIds.
     /// </param>
     //
-	virtual Acad::ErrorStatus clonePersSubentNamingDataOverride(class AcDbAssocPersSubentManagerCloner* pCloner);
+  virtual Acad::ErrorStatus clonePersSubentNamingDataOverride(class AcDbAssocPersSubentManagerCloner* pCloner);
 };
 /// <summary>
 /// Just to be able to specify output AcString parameters by default value.

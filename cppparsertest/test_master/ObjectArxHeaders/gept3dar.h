@@ -68,13 +68,13 @@
 // The grow length must be a positive number, that is, zero is an illegal
 // grow length.
 #ifndef AC_GEPT3DAR_H
-#	define AC_GEPT3DAR_H
-#	include "adesk.h"
-#	include "assert.h"
-#	include "gepnt3d.h"
-#	include "acarray.h"
+#  define AC_GEPT3DAR_H
+#  include "adesk.h"
+#  include "assert.h"
+#  include "gepnt3d.h"
+#  include "acarray.h"
 typedef AcArray<AcGePoint3d> AcGePoint3dArray;
-#	if  GE_LOCATED_NEW
+#  if  GE_LOCATED_NEW
 GE_DLLEXPIMPORT AcGe::metaTypeIndex AcGeGetMetaTypeIndex(AcGePoint3dArray* pT);
-#	endif
+#  endif
 #endif

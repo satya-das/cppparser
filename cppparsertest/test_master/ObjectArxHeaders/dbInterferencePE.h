@@ -22,11 +22,11 @@
 class AcDbInterferencePE : public AcRxObject
 {
 public:
-	enum Flags
-	{
-		kDefault = 0x00
-	};
-	ACRX_DECLARE_MEMBERS(AcDbInterferencePE);
+  enum Flags
+  {
+    kDefault = 0x00
+  };
+  ACRX_DECLARE_MEMBERS(AcDbInterferencePE);
     // Contract:
     // Implementer is expected to create new AcDbEntity instance(s), based 
     // on interference between the two provided entities, and append the
@@ -36,7 +36,7 @@ public:
     // between the provided entities, they should return "eNotApplicable" 
     // or "eNotImplementedYet".
     // If the provided objects do not intersect, return "eNoIntersections".
-	virtual Acad::ErrorStatus createInterferenceObjects(AcArray<AcDbEntity*>& interferenceObjects, AcDbEntity* pEnt1, AcDbEntity* pEnt2, unsigned int flags) const = 0;
+  virtual Acad::ErrorStatus createInterferenceObjects(AcArray<AcDbEntity*>& interferenceObjects, AcDbEntity* pEnt1, AcDbEntity* pEnt2, unsigned int flags) const = 0;
 };
 #pragma  pack (pop)
 //#endif

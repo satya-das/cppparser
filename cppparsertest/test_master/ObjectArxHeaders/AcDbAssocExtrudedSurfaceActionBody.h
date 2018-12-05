@@ -25,11 +25,11 @@ class AcDbSweepOptions;
 class ACDB_PORT AcDbAssocExtrudedSurfaceActionBody : public AcDbAssocPathBasedSurfaceActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocExtrudedSurfaceActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocExtrudedSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocExtrudedSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocExtrudedSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary><para> 
     /// Set taper angle of the resulting extruded surface( correspondent to draft angle in AcDbSweepOptions )
     /// </para><para>
@@ -41,7 +41,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setTaperAngle(double dTaperAngle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setTaperAngle(double dTaperAngle, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Get taper angle of the resulting extruded surface( correspondent to draft angle in AcDbSweepOptions )
     /// </para><para>
@@ -52,7 +52,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Taper angle. </returns>
     ///
-	double taperAngle(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  double taperAngle(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary><para> 
     /// Set extrusion height of the resulting extruded surface
     /// </para><para>
@@ -64,7 +64,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setHeight(double dHeight, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setHeight(double dHeight, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Get extrusion height of the resulting extruded surface
     /// </para><para>
@@ -75,7 +75,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Extrusion height. </returns>
     ///
-	double height(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  double height(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary> 
     /// Create an instance of AcDbAssocExtrudedSurfaceActionBody
     /// </summary>
@@ -87,6 +87,6 @@ public:
     /// <param name="createdActionId"> Id of created action. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcDbPathRef& inputPath, const AcGeVector3d& directionVec, const AcDbSweepOptions& sweptOptions, bool bEnabled, AcDbObjectId& createdActionId);
+  static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcDbPathRef& inputPath, const AcGeVector3d& directionVec, const AcDbSweepOptions& sweptOptions, bool bEnabled, AcDbObjectId& createdActionId);
 };
 #pragma  pack (pop)

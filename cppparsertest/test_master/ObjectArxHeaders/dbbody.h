@@ -16,31 +16,31 @@
 // supported through this class is implemented in the class
 // AcDbImpBody and its base classes.
 #ifndef GEOMENT_DBBODY_H
-#	define GEOMENT_DBBODY_H
-#	include "dbmain.h"
-#	include "dbsubeid.h"
-#	pragma  pack (push, 8)
+#  define GEOMENT_DBBODY_H
+#  include "dbmain.h"
+#  include "dbsubeid.h"
+#  pragma  pack (push, 8)
 class AcDbBody : public AcDbEntity
 {
-	ACDB_DECLARE_MEMBERS(AcDbBody);
+  ACDB_DECLARE_MEMBERS(AcDbBody);
 public:
-	AcDbBody();
-	virtual ~AcDbBody();
-	virtual Adesk::Boolean isNull() const;
-	ACDB_PORT virtual void dragStatus(const AcDb::DragStat) override;
-	virtual void* ASMBodyCopy(bool bDeepCopy = false) const;
-	virtual void const * getLockedASMBody();
-	virtual void unlockASMBody();
-	virtual void* getLockedWritableASMBody();
-	virtual void commitWritableASMBody();
-	virtual Acad::ErrorStatus setASMBody(const void* modelerBody);
-	virtual AcDbSubentId internalSubentId(void*) const;
-	virtual void* internalSubentPtr(const AcDbSubentId& id) const;
-	static Acad::ErrorStatus acisOut(const ACHAR* fileName, const AcDbVoidPtrArray&);
-	static Acad::ErrorStatus acisIn(const ACHAR* fileName, AcDbVoidPtrArray&);
-	virtual Adesk::UInt32 numChanges() const;
-	ACDB_PORT virtual bool usesGraphicsCache();
-	void invalidateCachedBodySubentIds();
+  AcDbBody();
+  virtual ~AcDbBody();
+  virtual Adesk::Boolean isNull() const;
+  ACDB_PORT virtual void dragStatus(const AcDb::DragStat) override;
+  virtual void* ASMBodyCopy(bool bDeepCopy = false) const;
+  virtual void const * getLockedASMBody();
+  virtual void unlockASMBody();
+  virtual void* getLockedWritableASMBody();
+  virtual void commitWritableASMBody();
+  virtual Acad::ErrorStatus setASMBody(const void* modelerBody);
+  virtual AcDbSubentId internalSubentId(void*) const;
+  virtual void* internalSubentPtr(const AcDbSubentId& id) const;
+  static Acad::ErrorStatus acisOut(const ACHAR* fileName, const AcDbVoidPtrArray&);
+  static Acad::ErrorStatus acisIn(const ACHAR* fileName, AcDbVoidPtrArray&);
+  virtual Adesk::UInt32 numChanges() const;
+  ACDB_PORT virtual bool usesGraphicsCache();
+  void invalidateCachedBodySubentIds();
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

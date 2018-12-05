@@ -23,7 +23,7 @@
 class ACDBCORE2D_PORT AcDbAssocParamBasedActionBody : public AcDbAssocActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocParamBasedActionBody);
-	explicit AcDbAssocParamBasedActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  ACRX_DECLARE_MEMBERS(AcDbAssocParamBasedActionBody);
+  explicit AcDbAssocParamBasedActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
 };
 #pragma  pack (pop)

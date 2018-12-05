@@ -19,9 +19,9 @@
 //  functions provided with the AcUtil library and DLL.
 //
 #ifndef _ACUTIL_H
-#	define _ACUTIL_H
-#	include "acadstrc.h"
-#	pragma  pack (push, 8)
+#  define _ACUTIL_H
+#  include "acadstrc.h"
+#  pragma  pack (push, 8)
 bool acutSplitString(size_t& numLeftBytes, const ACHAR*& pRight, const ACHAR* source, unsigned int delimiter);
 void acutTrimWhiteSpace(ACHAR* pStr);
 bool acutWcMatchEx(const ACHAR* string, const ACHAR* pattern, bool ignoreCase);
@@ -29,7 +29,7 @@ size_t acutXStrLength(const ACHAR* str);
 Acad::ErrorStatus acutXStrNormalize(ACHAR*& pStr, bool preserveCase);
 inline Acad::ErrorStatus acutXStrUppercase(ACHAR*& pStr)
 {
-	return acutXStrNormalize(pStr, false);
+  return acutXStrNormalize(pStr, false);
 }
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

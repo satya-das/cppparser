@@ -11,14 +11,14 @@
 //
 #pragma  once
 #if  defined (ACDBCORE2D_API)
-#	define ACDBCORE2D_PORT	_declspec(dllexport)
-#	define ACDBCORE2D_DATA_PORT	_declspec(dllexport)
+#  define ACDBCORE2D_PORT	_declspec(dllexport)
+#  define ACDBCORE2D_DATA_PORT	_declspec(dllexport)
 #else 
-#	if  defined (ACDBCORE2D_STATIC)
-#		define ACDBCORE2D_PORT
-#		define ACDBCORE2D_DATA_PORT
-#	else 
-#		define ACDBCORE2D_PORT
-#		define ACDBCORE2D_DATA_PORT	_declspec(dllimport)
-#	endif
+#  if  defined (ACDBCORE2D_STATIC)
+#    define ACDBCORE2D_PORT
+#    define ACDBCORE2D_DATA_PORT
+#  else 
+#    define ACDBCORE2D_PORT
+#    define ACDBCORE2D_DATA_PORT	_declspec(dllimport)
+#  endif
 #endif

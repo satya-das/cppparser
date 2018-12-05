@@ -16,10 +16,10 @@
 //
 #pragma  warning( disable: 4275 4251 )
 #ifdef SCENEDLLIMPEXP
-#	undef SCENEDLLIMPEXP
+#  undef SCENEDLLIMPEXP
 #endif
 #ifdef SCENEOE
-#	define SCENEDLLIMPEXP	__declspec( dllexport )
+#  define SCENEDLLIMPEXP	__declspec( dllexport )
 #else 
 // Note: we don't use __declspec(dllimport) here, because of the
 // "local vtable" problem with msvc.  If you use __declspec(dllimport),
@@ -36,7 +36,7 @@
 // memory indefinitely, there is no problem with vtables unexpectedly
 // going away.
 // 
-#	define SCENEDLLIMPEXP
+#  define SCENEDLLIMPEXP
 #endif
 const ACHAR ACDB_MOTIONPATH_DICTIONARY[] = ACRX_T("ACAD_MOTION");
 Acad::ErrorStatus SCENEDLLIMPEXP acdbGetMotionPathDictionary(AcDbDatabase* pDb, AcDbDictionary*& pDict, AcDb::OpenMode mode, bool createIfNonExist);
@@ -45,32 +45,32 @@ class AcDbImpMotionPath;
 class SCENEDLLIMPEXP AcDbMotionPath : public AcDbObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbMotionPath);
-	AcDbMotionPath();
-	virtual ~AcDbMotionPath();
-	AcDbObjectId cameraPath() const;
-	Acad::ErrorStatus setCameraPath(const AcDbObjectId& id);
-	AcDbObjectId targetPath() const;
-	Acad::ErrorStatus setTargetPath(const AcDbObjectId& id);
-	AcDbObjectId viewTableRecordId() const;
-	Acad::ErrorStatus setViewTableRecordId(const AcDbObjectId& id);
-	Adesk::UInt32 frames() const;
-	Acad::ErrorStatus setFrames(Adesk::UInt16 frames);
-	Adesk::UInt32 frameRate() const;
-	Acad::ErrorStatus setFrameRate(Adesk::UInt16 rate);
-	bool cornerDecel() const;
-	Acad::ErrorStatus setCornerDecel(bool cornerDecel);
+  ACRX_DECLARE_MEMBERS(AcDbMotionPath);
+  AcDbMotionPath();
+  virtual ~AcDbMotionPath();
+  AcDbObjectId cameraPath() const;
+  Acad::ErrorStatus setCameraPath(const AcDbObjectId& id);
+  AcDbObjectId targetPath() const;
+  Acad::ErrorStatus setTargetPath(const AcDbObjectId& id);
+  AcDbObjectId viewTableRecordId() const;
+  Acad::ErrorStatus setViewTableRecordId(const AcDbObjectId& id);
+  Adesk::UInt32 frames() const;
+  Acad::ErrorStatus setFrames(Adesk::UInt16 frames);
+  Adesk::UInt32 frameRate() const;
+  Acad::ErrorStatus setFrameRate(Adesk::UInt16 rate);
+  bool cornerDecel() const;
+  Acad::ErrorStatus setCornerDecel(bool cornerDecel);
     // AcDbObject protocol
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler);
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler);
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const;
 protected:
     // AcGiDrawable protocol
     //
-	virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits);
-	AcDbImpMotionPath* imp() const;
+  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits);
+  AcDbImpMotionPath* imp() const;
 private:
-	friend class AcDbImpMotionPath;
-	AcDbImpMotionPath* mpImp;
+  friend class AcDbImpMotionPath;
+  AcDbImpMotionPath* mpImp;
 };

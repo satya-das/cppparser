@@ -24,13 +24,13 @@
 class AcDbPropertiesOverrule : public AcRxOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbPropertiesOverrule);
+  ACRX_DECLARE_MEMBERS(AcDbPropertiesOverrule);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
     /// Default Constructor.
     /// </description>  
-	ACDBCORE2D_PORT AcDbPropertiesOverrule();
+  ACDBCORE2D_PORT AcDbPropertiesOverrule();
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -42,7 +42,7 @@ public:
     /// The default implementation of AcDbPropertiesOverrule::list calls the 
     /// protected virtual AcDbEntity::subList method. 
     /// </remarks>                      
-	ACDBCORE2D_PORT virtual void list(const AcDbEntity* pSubject);
+  ACDBCORE2D_PORT virtual void list(const AcDbEntity* pSubject);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -56,7 +56,7 @@ public:
     /// The default implementation of AcDbPropertiesOverrule::getClassID calls 
     /// the protected virtual AcDbObject::subGetClassID method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getClassID(const AcDbObject* pSubject, CLSID* pClsid);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getClassID(const AcDbObject* pSubject, CLSID* pClsid);
 };
 /// <property name="versionspecific" value="=18.0.0.0" />
 /// 
@@ -70,13 +70,13 @@ public:
 class AcDbOsnapOverrule : public AcRxOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbOsnapOverrule);
+  ACRX_DECLARE_MEMBERS(AcDbOsnapOverrule);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
     /// Default Constructor.
     /// </description>  
-	ACDBCORE2D_PORT AcDbOsnapOverrule();
+  ACDBCORE2D_PORT AcDbOsnapOverrule();
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -102,7 +102,7 @@ public:
     /// The default implementation of AcDbOsnapOverrule::getOsnapPoints calls 
     /// the protected virtual AcDbEntity::subGetOsnapPoints method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getOsnapPoints(const AcDbEntity* pSubject, AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getOsnapPoints(const AcDbEntity* pSubject, AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -129,8 +129,8 @@ public:
     /// The default implementation of AcDbOsnapOverrule::getOsnapPoints calls 
     /// the protected virtual AcDbEntity::subGetOsnapPoints method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getOsnapPoints(const AcDbEntity* pSubject, AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds, const AcGeMatrix3d& insertionMat);
-	ACDBCORE2D_PORT virtual bool isContentSnappable(const AcDbEntity* pSubject);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getOsnapPoints(const AcDbEntity* pSubject, AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds, const AcGeMatrix3d& insertionMat);
+  ACDBCORE2D_PORT virtual bool isContentSnappable(const AcDbEntity* pSubject);
 };
 /// <property name="versionspecific" value="=18.0.0.0" />
 /// 
@@ -144,13 +144,13 @@ public:
 class AcDbTransformOverrule : public AcRxOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbTransformOverrule);
+  ACRX_DECLARE_MEMBERS(AcDbTransformOverrule);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
     /// Default Constructor.
     /// </description>  
-	ACDBCORE2D_PORT AcDbTransformOverrule();
+  ACDBCORE2D_PORT AcDbTransformOverrule();
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -164,7 +164,7 @@ public:
     /// The default implementation of AcDbTransformOverrule::transformBy calls 
     /// the protected virtual AcDbEntity::subTransformBy method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus transformBy(AcDbEntity* pSubject, const AcGeMatrix3d& xform);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus transformBy(AcDbEntity* pSubject, const AcGeMatrix3d& xform);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -181,7 +181,7 @@ public:
     /// The default implementation of AcDbTransformOverrule::getTransformedCopy 
     /// calls the protected virtual AcDbEntity::subGetTransformedCopy method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getTransformedCopy(const AcDbEntity* pSubject, const AcGeMatrix3d& xform, AcDbEntity*& pEnt);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getTransformedCopy(const AcDbEntity* pSubject, const AcGeMatrix3d& xform, AcDbEntity*& pEnt);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -198,7 +198,7 @@ public:
     /// The default implementation of AcDbTransformOverrule::explode calls 
     /// the protected virtual AcDbEntity::subExplode method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus explode(const AcDbEntity* pSubject, AcDbVoidPtrArray& entitySet);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus explode(const AcDbEntity* pSubject, AcDbVoidPtrArray& entitySet);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -212,7 +212,7 @@ public:
     /// The default implementation of AcDbTransformOverrule::cloneMeForDragging 
     /// calls the protected virtual AcDbEntity::subCloneMeForDragging method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Adesk::Boolean cloneMeForDragging(AcDbEntity* pSubject);
+  ACDBCORE2D_PORT virtual Adesk::Boolean cloneMeForDragging(AcDbEntity* pSubject);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -226,7 +226,7 @@ public:
     /// The default implementation of AcDbTransformOverrule::hideMeForDragging calls 
     /// the protected virtual AcDbEntity::subHideMeForDragging method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual bool hideMeForDragging(const AcDbEntity* pSubject);
+  ACDBCORE2D_PORT virtual bool hideMeForDragging(const AcDbEntity* pSubject);
 };
 /// <property name="versionspecific" value="=18.0.0.0" />
 /// 
@@ -240,13 +240,13 @@ public:
 class AcDbGripOverrule : public AcRxOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbGripOverrule);
+  ACRX_DECLARE_MEMBERS(AcDbGripOverrule);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
     /// Default Constructor.
     /// </description>  
-	ACDBCORE2D_PORT AcDbGripOverrule();
+  ACDBCORE2D_PORT AcDbGripOverrule();
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -263,7 +263,7 @@ public:
     /// The default implementation of AcDbGripOverrule::getGripPoints calls the 
     /// protected virtual AcDbEntity::subGetGripPoints method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getGripPoints(const AcDbEntity* pSubject, AcGePoint3dArray& gripPoints, AcDbIntArray& osnapModes, AcDbIntArray& geomIds);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getGripPoints(const AcDbEntity* pSubject, AcGePoint3dArray& gripPoints, AcDbIntArray& osnapModes, AcDbIntArray& geomIds);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -281,7 +281,7 @@ public:
     /// The default implementation of AcDbGripOverrule::moveGripPointsAt calls the 
     /// protected virtual AcDbEntity::subMoveGripPointsAt method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus moveGripPointsAt(AcDbEntity* pSubject, const AcDbIntArray& indices, const AcGeVector3d& offset);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus moveGripPointsAt(AcDbEntity* pSubject, const AcDbIntArray& indices, const AcGeVector3d& offset);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -303,7 +303,7 @@ public:
     /// The default implementation of AcDbGripOverrule::getGripPoints calls the 
     /// protected virtual AcDbEntity::subGetGripPoints method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getGripPoints(const AcDbEntity* pSubject, AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getGripPoints(const AcDbEntity* pSubject, AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -322,7 +322,7 @@ public:
     /// The default implementation of AcDbGripOverrule::moveGripPointsAt calls the 
     /// protected virtual AcDbEntity::subMoveGripPointsAt method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus moveGripPointsAt(AcDbEntity* pSubject, const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus moveGripPointsAt(AcDbEntity* pSubject, const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -337,7 +337,7 @@ public:
     /// The default implementation of AcDbGripOverrule::getStretchPoints calls the 
     /// protected virtual AcDbEntity::subGetStretchPoints method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getStretchPoints(const AcDbEntity* pSubject, AcGePoint3dArray& stretchPoints);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getStretchPoints(const AcDbEntity* pSubject, AcGePoint3dArray& stretchPoints);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -354,7 +354,7 @@ public:
     /// The default implementation of AcDbGripOverrule::moveStretchPointsAt calls 
     /// the protected virtual AcDbEntity::subMoveStretchPointsAt method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus moveStretchPointsAt(AcDbEntity* pSubject, const AcDbIntArray& indices, const AcGeVector3d& offset);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus moveStretchPointsAt(AcDbEntity* pSubject, const AcDbIntArray& indices, const AcGeVector3d& offset);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -368,7 +368,7 @@ public:
     /// The default implementation of AcDbGripOverrule::gripStatus calls the 
     /// protected virtual AcDbEntity::subGripStatus method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual void gripStatus(AcDbEntity* pSubject, const AcDb::GripStat status);
+  ACDBCORE2D_PORT virtual void gripStatus(AcDbEntity* pSubject, const AcDb::GripStat status);
 };
 /// <property name="versionspecific" value="=18.0.0.0" />
 /// 
@@ -382,13 +382,13 @@ public:
 class AcDbSubentityOverrule : public AcRxOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbSubentityOverrule);
+  ACRX_DECLARE_MEMBERS(AcDbSubentityOverrule);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
     /// Default Constructor.
     /// </description>  
-	ACDBCORE2D_PORT AcDbSubentityOverrule();
+  ACDBCORE2D_PORT AcDbSubentityOverrule();
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -403,7 +403,7 @@ public:
     /// The default implementation of AcDbSubentityOverrule::addSubentPaths calls 
     /// the protected virtual AcDbEntity::subAddSubentPaths method. 
     /// </remarks> 
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus addSubentPaths(AcDbEntity* pSubject, const AcDbFullSubentPathArray& newPaths);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus addSubentPaths(AcDbEntity* pSubject, const AcDbFullSubentPathArray& newPaths);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -418,7 +418,7 @@ public:
     /// The default implementation of AcDbSubentityOverrule::deleteSubentPaths calls 
     /// the protected virtual AcDbEntity::subDeleteSubentPaths method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus deleteSubentPaths(AcDbEntity* pSubject, const AcDbFullSubentPathArray& paths);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus deleteSubentPaths(AcDbEntity* pSubject, const AcDbFullSubentPathArray& paths);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -435,7 +435,7 @@ public:
     /// The default implementation of AcDbSubentityOverrule::transformSubentPathsBy 
     /// calls the protected virtual AcDbEntity::subTransformSubentPathsBy method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus transformSubentPathsBy(AcDbEntity* pSubject, const AcDbFullSubentPathArray& paths, const AcGeMatrix3d& xform);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus transformSubentPathsBy(AcDbEntity* pSubject, const AcDbFullSubentPathArray& paths, const AcGeMatrix3d& xform);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -458,7 +458,7 @@ public:
     /// The default implementation of AcDbSubentityOverrule::getGripPointsAtSubentPath 
     /// calls the protected virtual AcDbEntity::subGetGripPointsAtSubentPath method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getGripPointsAtSubentPath(const AcDbEntity* pSubject, const AcDbFullSubentPath& path, AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getGripPointsAtSubentPath(const AcDbEntity* pSubject, const AcDbFullSubentPath& path, AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -478,7 +478,7 @@ public:
     /// The default implementation of AcDbSubentityOverrule::moveGripPointsAtSubentPaths 
     /// calls the protected virtual AcDbEntity::subMoveGripPointsAtSubentPaths method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus moveGripPointsAtSubentPaths(AcDbEntity* pSubject, const AcDbFullSubentPathArray& paths, const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus moveGripPointsAtSubentPaths(AcDbEntity* pSubject, const AcDbFullSubentPathArray& paths, const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -518,7 +518,7 @@ public:
     /// The default implementation of AcDbSubentityOverrule::getSubentPathsAtGsMarker 
     /// calls the protected virtual AcDbEntity::subGetSubentPathsAtGsMarker method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getSubentPathsAtGsMarker(const AcDbEntity* pSubject, AcDb::SubentType type, Adesk::GsMarker gsMark, const AcGePoint3d& pickPoint, const AcGeMatrix3d& viewXform, int& numPaths, AcDbFullSubentPath*& subentPaths, int numInserts = 0, AcDbObjectId* entAndInsertStack = NULL);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getSubentPathsAtGsMarker(const AcDbEntity* pSubject, AcDb::SubentType type, Adesk::GsMarker gsMark, const AcGePoint3d& pickPoint, const AcGeMatrix3d& viewXform, int& numPaths, AcDbFullSubentPath*& subentPaths, int numInserts = 0, AcDbObjectId* entAndInsertStack = NULL);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -536,7 +536,7 @@ public:
     /// The default implementation of AcDbSubentityOverrule::getGsMarkersAtSubentPath 
     /// calls the protected virtual AcDbEntity::subGetGsMarkersAtSubentPath method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getGsMarkersAtSubentPath(const AcDbEntity* pSubject, const AcDbFullSubentPath& subPath, AcArray<Adesk::GsMarker>& gsMarkers);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getGsMarkersAtSubentPath(const AcDbEntity* pSubject, const AcDbFullSubentPath& subPath, AcArray<Adesk::GsMarker>& gsMarkers);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -551,7 +551,7 @@ public:
     /// The default implementation of AcDbSubentityOverrule::subentPtr calls the 
     /// protected virtual AcDbEntity::subentPtr method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual AcDbEntity* subentPtr(const AcDbEntity* pSubject, const AcDbFullSubentPath& id);
+  ACDBCORE2D_PORT virtual AcDbEntity* subentPtr(const AcDbEntity* pSubject, const AcDbFullSubentPath& id);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -566,7 +566,7 @@ public:
     /// The default implementation of AcDbSubentityOverrule::subentGripStatus 
     /// calls the protected virtual AcDbEntity::subentGripStatus method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual void subentGripStatus(AcDbEntity* pSubject, const AcDb::GripStat status, const AcDbFullSubentPath& subentity);
+  ACDBCORE2D_PORT virtual void subentGripStatus(AcDbEntity* pSubject, const AcDb::GripStat status, const AcDbFullSubentPath& subentity);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -581,7 +581,7 @@ public:
     /// The default implementation of AcDbSubentityOverrule::getCompoundObjectTransform 
     /// calls the protected virtual AcDbEntity::subGetCompoundObjectTransform method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getCompoundObjectTransform(const AcDbEntity* pSubject, AcGeMatrix3d& xMat);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getCompoundObjectTransform(const AcDbEntity* pSubject, AcGeMatrix3d& xMat);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -597,7 +597,7 @@ public:
     /// The default implementation of AcDbSubentityOverrule::getSubentPathGeomExtents 
     /// calls the protected virtual AcDbEntity::subGetSubentPathGeomExtents method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getSubentPathGeomExtents(const AcDbEntity* pSubject, const AcDbFullSubentPath& path, AcDbExtents& extents);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getSubentPathGeomExtents(const AcDbEntity* pSubject, const AcDbFullSubentPath& path, AcDbExtents& extents);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -613,7 +613,7 @@ public:
     /// The default implementation of AcDbSubentityOverrule::getSubentClassId 
     /// calls the protected virtual AcDbEntity::subGetSubentClassId method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getSubentClassId(const AcDbEntity* pSubject, const AcDbFullSubentPath& path, CLSID* clsId);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getSubentClassId(const AcDbEntity* pSubject, const AcDbFullSubentPath& path, CLSID* clsId);
 };
 /// <property name="versionspecific" value="=18.0.0.0" />
 /// 
@@ -627,13 +627,13 @@ public:
 class AcDbHighlightOverrule : public AcRxOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbHighlightOverrule);
+  ACRX_DECLARE_MEMBERS(AcDbHighlightOverrule);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
     /// Default Constructor.
     /// </description>  
-	ACDBCORE2D_PORT AcDbHighlightOverrule();
+  ACDBCORE2D_PORT AcDbHighlightOverrule();
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -650,7 +650,7 @@ public:
     /// The default implementation of AcDbHighlightOverrule::highlight calls the 
     /// protected virtual AcDbEntity::subHighlight method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus highlight(const AcDbEntity* pSubject, const AcDbFullSubentPath& subId = kNullSubent, const Adesk::Boolean highlightAll = false);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus highlight(const AcDbEntity* pSubject, const AcDbFullSubentPath& subId = kNullSubent, const Adesk::Boolean highlightAll = false);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -667,7 +667,7 @@ public:
     /// The default implementation of AcDbHighlightOverrule::unhighlight calls the 
     /// protected virtual AcDbEntity::subUnhighlight method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus unhighlight(const AcDbEntity* pSubject, const AcDbFullSubentPath& subId = kNullSubent, const Adesk::Boolean highlightAll = false);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus unhighlight(const AcDbEntity* pSubject, const AcDbFullSubentPath& subId = kNullSubent, const Adesk::Boolean highlightAll = false);
 };
 /// <property name="versionspecific" value="=18.0.0.0" />
 /// 
@@ -681,13 +681,13 @@ public:
 class AcDbHighlightStateOverrule : public AcRxOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbHighlightStateOverrule);
+  ACRX_DECLARE_MEMBERS(AcDbHighlightStateOverrule);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
     /// Default Constructor.
     /// </description>  
-	ACDBCORE2D_PORT AcDbHighlightStateOverrule();
+  ACDBCORE2D_PORT AcDbHighlightStateOverrule();
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -704,7 +704,7 @@ public:
     /// The default implementation of AcDbHighlightStateOverrule::pushHighlight calls
     /// the protected AcDbEntity::subPushHighlight method.
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus pushHighlight(AcDbEntity* pSubject, const AcDbFullSubentPath& subId, AcGiHighlightStyle highlightStyle);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus pushHighlight(AcDbEntity* pSubject, const AcDbFullSubentPath& subId, AcGiHighlightStyle highlightStyle);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -719,7 +719,7 @@ public:
     /// The default implementation of AcDbHighlightStateOverrule::popHighlight calls
     /// the protected AcDbEntity::subPopHighlight method.
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus popHighlight(AcDbEntity* pSubject, const AcDbFullSubentPath& subId);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus popHighlight(AcDbEntity* pSubject, const AcDbFullSubentPath& subId);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -734,7 +734,7 @@ public:
     /// The default implementation of AcDbHighlightStateOverrule::highlightState calls
     /// the protected AcDbEntity::subHighlightState method.
     /// </remarks>
-	ACDBCORE2D_PORT virtual AcGiHighlightStyle highlightState(AcDbEntity* pSubject, const AcDbFullSubentPath& subId);
+  ACDBCORE2D_PORT virtual AcGiHighlightStyle highlightState(AcDbEntity* pSubject, const AcDbFullSubentPath& subId);
 };
 /// <property name="versionspecific" value="=18.1.0.0" />
 /// 
@@ -748,13 +748,13 @@ public:
 class AcDbVisibilityOverrule : public AcRxOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbVisibilityOverrule);
+  ACRX_DECLARE_MEMBERS(AcDbVisibilityOverrule);
     /// <property name="versionspecific" value="=18.1.0.0" />
     /// 
     /// <description>
     /// Default Constructor.
     /// </description>
-	ACDBCORE2D_PORT AcDbVisibilityOverrule();
+  ACDBCORE2D_PORT AcDbVisibilityOverrule();
     /// <property name="versionspecific" value="=18.1.0.0" />
     /// 
     /// <description>
@@ -767,7 +767,7 @@ public:
     /// The default implementation of AcDbVisibilityOverrule::visibility calls the 
     /// protected AcDbEntity::subVisibility method.
     /// </remarks>
-	ACDBCORE2D_PORT virtual AcDb::Visibility visibility(const AcDbEntity* pSubject);
+  ACDBCORE2D_PORT virtual AcDb::Visibility visibility(const AcDbEntity* pSubject);
     /// <property name="versionspecific" value="=18.1.0.0" />
     /// 
     /// <description>
@@ -783,7 +783,7 @@ public:
     /// The default implementation of AcDbVisibilityOverrule::setVisibility calls the 
     /// protected AcDbEntity::subSetVisibility method.
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus setVisibility(AcDbEntity* pSubject, AcDb::Visibility newVal, Adesk::Boolean doSubents = true);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus setVisibility(AcDbEntity* pSubject, AcDb::Visibility newVal, Adesk::Boolean doSubents = true);
 };
 /// <property name="versionspecific" value="=18.0.0.0" />
 /// 
@@ -797,13 +797,13 @@ public:
 class AcDbGeometryOverrule : public AcRxOverrule
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbGeometryOverrule);
+  ACRX_DECLARE_MEMBERS(AcDbGeometryOverrule);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
     /// Default Constructor.
     /// </description>  
-	ACDBCORE2D_PORT AcDbGeometryOverrule();
+  ACDBCORE2D_PORT AcDbGeometryOverrule();
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -826,7 +826,7 @@ public:
     /// The default implementation of AcDbGeometryOverrule::intersectWith calls 
     /// the protected virtual AcDbEntity::subIntersectWith method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus intersectWith(const AcDbEntity* pSubject, const AcDbEntity* pEnt, AcDb::Intersect intType, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus intersectWith(const AcDbEntity* pSubject, const AcDbEntity* pEnt, AcDb::Intersect intType, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -851,7 +851,7 @@ public:
     /// The default implementation of AcDbGeometryOverrule::intersectWith calls 
     /// the protected virtual AcDbEntity::subIntersectWith method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus intersectWith(const AcDbEntity* pSubject, const AcDbEntity* pEnt, AcDb::Intersect intType, const AcGePlane& projPlane, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus intersectWith(const AcDbEntity* pSubject, const AcDbEntity* pEnt, AcDb::Intersect intType, const AcGePlane& projPlane, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0);
     /// <property name="versionspecific" value="=18.0.0.0" />
     /// 
     /// <description>
@@ -865,6 +865,6 @@ public:
     /// The default implementation of AcDbGeometryOverrule::getGeomExtents calls 
     /// the protected virtual AcDbEntity::subGetGeomExtents method. 
     /// </remarks>
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus getGeomExtents(const AcDbEntity* pSubject, AcDbExtents& extents);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus getGeomExtents(const AcDbEntity* pSubject, AcDbExtents& extents);
 };
 #pragma  pack (pop)

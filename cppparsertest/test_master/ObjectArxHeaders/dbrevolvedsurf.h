@@ -15,21 +15,21 @@
 // ASM revolved surfaces. 
 #pragma  once
 #ifndef DBREVOLVEDSURF_H
-#	define DBREVOLVEDSURF_H
-#	include "dbsurf.h"
-#	pragma  pack(push, 8)
+#  define DBREVOLVEDSURF_H
+#  include "dbsurf.h"
+#  pragma  pack(push, 8)
 class AcDbRevolvedSurface : public AcDbSurface
 {
 public:
     /// <summary> 
     /// Default constructor.
     /// </summary>
-	AcDbRevolvedSurface();
+  AcDbRevolvedSurface();
     /// <summary> 
     /// Destructor.
     /// </summary>
-	virtual ~AcDbRevolvedSurface();
-	ACDB_DECLARE_MEMBERS(AcDbRevolvedSurface);
+  virtual ~AcDbRevolvedSurface();
+  ACDB_DECLARE_MEMBERS(AcDbRevolvedSurface);
     /// <summary> 
     /// Creates a revolved surface from the given profile using the specified options.
     /// </summary>
@@ -59,7 +59,7 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	virtual Acad::ErrorStatus createRevolvedSurface(AcDbEntity* pRevEnt, const AcGePoint3d& axisPnt, const AcGeVector3d& axisDir, double revAngle, double startAngle, AcDbRevolveOptions& revolveOptions);
+  virtual Acad::ErrorStatus createRevolvedSurface(AcDbEntity* pRevEnt, const AcGePoint3d& axisPnt, const AcGeVector3d& axisDir, double revAngle, double startAngle, AcDbRevolveOptions& revolveOptions);
     /// <summary> 
     /// Returns the entity that was revolved.
     /// </summary>
@@ -67,7 +67,7 @@ public:
     /// Copy of the entity that was revolved to create the surface.  The caller
     /// should not delete this pointer or post it to the database.
     /// </returns>
-	AcDbEntity* getRevolveEntity() const;
+  AcDbEntity* getRevolveEntity() const;
     /// <summary> 
     /// Returns the data of the profile from which the surface was revolved.
     /// </summary>
@@ -79,14 +79,14 @@ public:
     /// Otherwise it will only contain the curve that was extracted from the
     /// edge.
     /// </returns>
-	ACDB_PORT AcDb3dProfile* revolveProfile() const;
+  ACDB_PORT AcDb3dProfile* revolveProfile() const;
     /// <summary> 
     /// Returns point on the axis of revolution.
     /// </summary>
     /// <returns>
     /// Point on the axis of revolution.
     /// </returns>
-	AcGePoint3d getAxisPnt() const;
+  AcGePoint3d getAxisPnt() const;
     /// <summary> 
     /// Set the point on the axis of revolution.
     /// </summary>
@@ -96,14 +96,14 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setAxisPnt(const AcGePoint3d& pnt);
+  Acad::ErrorStatus setAxisPnt(const AcGePoint3d& pnt);
     /// <summary> 
     /// Returns direction vector of the axis of revolution.
     /// </summary>
     /// <returns>
     /// Direction vector of the axis of revolution.
     /// </returns>
-	AcGeVector3d getAxisVec() const;
+  AcGeVector3d getAxisVec() const;
     /// <summary> 
     /// Set the direction vector of the axis of revolution.
     /// </summary>
@@ -114,14 +114,14 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setAxisVec(const AcGeVector3d& vec);
+  Acad::ErrorStatus setAxisVec(const AcGeVector3d& vec);
     /// <summary> 
     /// Returns the angle of revolution.
     /// </summary>
     /// <returns>
     /// Angle of revolution in radians.
     /// </returns>
-	double getRevolveAngle() const;
+  double getRevolveAngle() const;
     /// <summary> 
     /// Set the angle of revolution.
     /// </summary>
@@ -131,7 +131,7 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setRevolveAngle(double ang);
+  Acad::ErrorStatus setRevolveAngle(double ang);
     /// <summary> 
     /// Returns the start angle.  The original profile was rotated by this angle
     /// about the axis of revolution before starting the revolve.
@@ -139,14 +139,14 @@ public:
     /// <returns>
     /// Start angle in radians.
     /// </returns>
-	double getStartAngle() const;
+  double getStartAngle() const;
     /// <summary> 
     /// Gets the options that were used to create the surface.
     /// </summary>
     /// <param name="revolveOptions"> 
     /// Output options that were used to create the surface. 
     /// </param>
-	void getRevolveOptions(AcDbRevolveOptions& revolveOptions) const;
+  void getRevolveOptions(AcDbRevolveOptions& revolveOptions) const;
     /// <summary> 
     /// Set the revolve options.
     /// </summary>
@@ -156,7 +156,7 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setRevolveOptions(const AcDbRevolveOptions& revolveOptions);
+  Acad::ErrorStatus setRevolveOptions(const AcDbRevolveOptions& revolveOptions);
     /// <summary> 
     /// Set the axis of revolution, revolve angle, and options.
     /// </summary>
@@ -176,16 +176,16 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-	Acad::ErrorStatus setRevolve(const AcGePoint3d& axisPnt, const AcGeVector3d& axisVec, double revAngle, const AcDbRevolveOptions& revolveOptions);
+  Acad::ErrorStatus setRevolve(const AcGePoint3d& axisPnt, const AcGeVector3d& axisVec, double revAngle, const AcDbRevolveOptions& revolveOptions);
     // AcDbObject methods
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
-	virtual bool isDependent() const;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  virtual bool isDependent() const;
 protected:
     // AcDbEntity methods
-	virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
-#	pragma  pack(pop)
+#  pragma  pack(pop)
 #endif

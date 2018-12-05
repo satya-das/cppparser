@@ -25,11 +25,11 @@
 class ACDB_PORT AcDbAssocFilletSurfaceActionBody : public AcDbAssocSurfaceActionBody
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocFilletSurfaceActionBody);
+  ACRX_DECLARE_MEMBERS(AcDbAssocFilletSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocFilletSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocFilletSurfaceActionBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary> 
     /// Get hint points that are used to create the resulting surface
     /// </summary>
@@ -37,7 +37,7 @@ public:
     /// <param name="pickPt">  Returned pick point. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getHintPoints(AcGePoint3d hintPoints[2]) const;
+  Acad::ErrorStatus getHintPoints(AcGePoint3d hintPoints[2]) const;
     /// <summary> 
     /// Set hint points that are used to create the resulting surface
     /// </summary>
@@ -45,7 +45,7 @@ public:
     /// <param name="pickPt">  New value of the pick point. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setHintPoints(const AcGePoint3d hintPoints[2], const AcGeVector3d& viewDir);
+  Acad::ErrorStatus setHintPoints(const AcGePoint3d hintPoints[2], const AcGeVector3d& viewDir);
     /// <summary><para> 
     /// Set radius of the resulting fillet surface
     /// </para><para>
@@ -57,7 +57,7 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, if an expression is used. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setRadius(double dRadius, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
+  Acad::ErrorStatus setRadius(double dRadius, const AcString& expression = AcString(), const AcString& evaluatorId = AcString());
     /// <summary><para> 
     /// Get radius of the resulting fillet surface
     /// </para><para>
@@ -68,20 +68,20 @@ public:
     /// <param name="evaluatorId"> The id of the expression evaluator that is used to parse the expression, empty string if no expression is being used </param>
     /// <returns> Fillet radius. </returns>
     ///
-	double radius(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
+  double radius(AcString& expression = dummyString(), AcString& evaluatorId = dummyString()) const;
     /// <summary> 
     /// Set trim mode that is used to trim the two input surfaces
     /// </summary>
     /// <param name="trimMode">  New value of the parameter. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus setTrimMode(AcDb::FilletTrimMode trimMode);
+  Acad::ErrorStatus setTrimMode(AcDb::FilletTrimMode trimMode);
     /// <summary> 
     /// Get trim mode that is used to trim the two input surfaces
     /// </summary>
     /// <returns> Trim mode. </returns>
     ///
-	AcDb::FilletTrimMode trimMode() const;
+  AcDb::FilletTrimMode trimMode() const;
     /// <summary> 
     /// Get fillet handle data
     /// </summary>
@@ -91,7 +91,7 @@ public:
     /// <param name="filletNormal">  The normal direction of fillet arc. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus getFilletHandleData(AcGePoint3d& pt, AcGeVector3d& dir, AcGePoint3d& filletCenPt, AcGeVector3d& filletNormal) const;
+  Acad::ErrorStatus getFilletHandleData(AcGePoint3d& pt, AcGeVector3d& dir, AcGePoint3d& filletCenPt, AcGeVector3d& filletNormal) const;
     /// <summary> 
     /// Create an instance of AcDbAssocFilletSurfaceActionBody
     /// </summary>
@@ -109,6 +109,6 @@ public:
     /// action will be erased and the resulting surface will not regenerate and become a generic surface. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcDbObjectId& inputSurfaceId1, const AcGePoint3d& pickPt1, const AcDbObjectId& inputSurfaceId2, const AcGePoint3d& pickPt2, double radius, AcDb::FilletTrimMode trimMode, const AcGeVector3d& viewDir, bool bEnabled, AcDbObjectId& createdActionId);
+  static Acad::ErrorStatus createInstance(const AcDbObjectId& resultingSurfaceId, const AcDbObjectId& inputSurfaceId1, const AcGePoint3d& pickPt1, const AcDbObjectId& inputSurfaceId2, const AcGePoint3d& pickPt2, double radius, AcDb::FilletTrimMode trimMode, const AcGeVector3d& viewDir, bool bEnabled, AcDbObjectId& createdActionId);
 };
 #pragma  pack (pop)

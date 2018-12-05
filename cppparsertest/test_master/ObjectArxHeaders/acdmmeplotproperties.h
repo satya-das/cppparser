@@ -13,9 +13,9 @@
 // the proxy EPlotProperties object
 //
 #ifndef AcDMMEPlotProperties_h
-#	define AcDMMEPlotProperties_h
-#	include "AcDMMEPlotProperty.h"
-#	include "AcDMMUtils.h"
+#  define AcDMMEPlotProperties_h
+#  include "AcDMMEPlotProperty.h"
+#  include "AcDMMUtils.h"
 /////////////////////////////////////////////////////////////////////
 // class AcDMMEPlotProperties
 /////////////////////////////////////////////////////////////////////
@@ -45,10 +45,10 @@ public:
     /// Constructs an empty AcDMMEPlotProperties object.
     /// </remarks>
     ///
-	AcDMMEPlotProperties()
-		: m_id(NULL)
-	{
-	}
+  AcDMMEPlotProperties()
+    : m_id(NULL)
+  {
+  }
     /// <summary>
     /// Copy constructor
     /// </summary>
@@ -57,24 +57,24 @@ public:
     /// the object to be copied
     /// </param>
     ///
-	AcDMMEPlotProperties(const AcDMMEPlotProperties& src)
-		: m_id(NULL)
-	{
-		*this = src;
-	}
+  AcDMMEPlotProperties(const AcDMMEPlotProperties& src)
+    : m_id(NULL)
+  {
+    *this = src;
+  }
     /// <summary>
     /// Destructor
     /// </summary>
     ///
-	~AcDMMEPlotProperties()
-	{
-		m_properties.removeAll();
-		m_refs.removeAll();
-		if (NULL != m_id)
-		{
-			delete m_id;
-		}
-	}
+  ~AcDMMEPlotProperties()
+  {
+    m_properties.removeAll();
+    m_refs.removeAll();
+    if (NULL != m_id)
+    {
+      delete m_id;
+    }
+  }
     /// <summary>
     /// Adds a new AcDMMEPlotProperty object to the internal vector of 
     /// properties
@@ -84,14 +84,14 @@ public:
     /// the property to be added to this Properties list
     /// </param>
     ///
-	void AddProperty(const AcDMMEPlotProperty* property)
-	{
-		if (NULL == property)
-		{
-			return ;
-		}
-		m_properties.append(*property);
-	}
+  void AddProperty(const AcDMMEPlotProperty* property)
+  {
+    if (NULL == property)
+    {
+      return ;
+    }
+    m_properties.append(*property);
+  }
     /// <summary>
     /// Creates and adds a new AcDMMEPlotProperty object to the internal 
     /// vector of properties.
@@ -105,11 +105,11 @@ public:
     /// the new property's value
     /// </param>
     ///
-	void AddProperty(wchar_t* name, wchar_t* value)
-	{
-		AcDMMEPlotProperty newProp(name, value);
-		m_properties.append(newProp);
-	}
+  void AddProperty(wchar_t* name, wchar_t* value)
+  {
+    AcDMMEPlotProperty newProp(name, value);
+    m_properties.append(newProp);
+  }
     /// <summary>
     /// accessor for the internal vector of AcDMMEPlotProperty objects
     /// contained by this object
@@ -119,10 +119,10 @@ public:
     /// Returns a const reference to the internal Vector of 
     /// AcDMMEPlotProperty objects contained by this object
     /// </returns>
-	const AcDMMEPlotPropertyVec& GetProperties() const
-	{
-		return m_properties;
-	}
+  const AcDMMEPlotPropertyVec& GetProperties() const
+  {
+    return m_properties;
+  }
     /// <summary>
     /// accessor for individual properties in the internal vector of
     /// AcDMMEPlotProperties contained in this object
@@ -142,14 +142,14 @@ public:
     /// check GetProperties().size() before calling this method.
     /// </remarks>
     /// 
-	const AcDMMEPlotProperty* GetProperty(unsigned long index) const
-	{
-		if (m_properties.length() <= (int) index)
-		{
-			return NULL;
-		}
-		return &m_properties[index];
-	}
+  const AcDMMEPlotProperty* GetProperty(unsigned long index) const
+  {
+    if (m_properties.length() <= (int) index)
+    {
+      return NULL;
+    }
+    return &m_properties[index];
+  }
     /// <summary>
     /// mutator for the Id attribute of this object
     /// </summary>
@@ -169,24 +169,24 @@ public:
     /// WARNING - these Ids are processed in a space delimited list. Your
     /// properties will not behave as expected if the Id contains spaces.
     /// </remarks>
-	void SetId(const wchar_t* id)
-	{
-		if (NULL != m_id)
-		{
-			delete m_id;
-		}
-		if (NULL != id)
-		{
-			size_t nSize = ::wcslen(id) + 1;
-			m_id = new wchar_t[nSize];
-			errno_t err = ::wcscpy_s(m_id, nSize, id);
-			assert(err == 0);
-		}
-		else 
-		{
-			m_id = NULL;
-		}
-	}
+  void SetId(const wchar_t* id)
+  {
+    if (NULL != m_id)
+    {
+      delete m_id;
+    }
+    if (NULL != id)
+    {
+      size_t nSize = ::wcslen(id) + 1;
+      m_id = new wchar_t[nSize];
+      errno_t err = ::wcscpy_s(m_id, nSize, id);
+      assert(err == 0);
+    }
+    else 
+    {
+      m_id = NULL;
+    }
+  }
     /// <summary>
     /// accessor for the Id attribute.
     /// </summary>
@@ -199,10 +199,10 @@ public:
     /// <remarks>
     /// Returns the unique identifier for this AcDMMEPlotProperties element.
     /// </remarks> 
-	const wchar_t* GetId() const
-	{
-		return m_id;
-	}
+  const wchar_t* GetId() const
+  {
+    return m_id;
+  }
     /// <summary>
     /// Sets the vector of the unique identifiers of the EPlotProperties 
     /// objects referenced (inherited) by this object.
@@ -218,14 +218,14 @@ public:
     /// considered part of this EPlotProperties instance as if they were 
     /// contained directly by this instance.
     /// </remarks>
-	void SetRefs(const AcDMMStringVec& refs)
-	{
-		m_refs.removeAll();
-		for (int i = 0; i < refs.length(); i++)
-		{
-			m_refs.append(refs.at(i));
-		}
-	}
+  void SetRefs(const AcDMMStringVec& refs)
+  {
+    m_refs.removeAll();
+    for (int i = 0; i < refs.length(); i++)
+    {
+      m_refs.append(refs.at(i));
+    }
+  }
     /// <summary>
     /// accessor for the vector of Unicode string identifications of 
     /// referenced AcDMMEPlotProperties objects
@@ -235,10 +235,10 @@ public:
     /// a const pointer to the vector of Unicode string identifications of 
     /// referenced AcDMMEPlotProperties objects
     /// </returns>
-	const AcDMMStringVec* GetRefs() const
-	{
-		return &m_refs;
-	}
+  const AcDMMStringVec* GetRefs() const
+  {
+    return &m_refs;
+  }
     /// <summary>
     /// operator= also used by copy constructor
     /// </summary>
@@ -250,24 +250,24 @@ public:
     /// <returns>
     /// returns this object
     /// </returns>
-	AcDMMEPlotProperties& operator=(const AcDMMEPlotProperties& src)
-	{
-		if (this == &src)
-		{
-			return *this;
-		}
-		m_properties.removeAll();
-		for (int i = 0; i < src.m_properties.length(); i++)
-		{
-			m_properties.append(src.m_properties.at(i));
-		}
-		SetId(src.m_id);
-		SetRefs(src.m_refs);
-		return *this;
-	}
+  AcDMMEPlotProperties& operator=(const AcDMMEPlotProperties& src)
+  {
+    if (this == &src)
+    {
+      return *this;
+    }
+    m_properties.removeAll();
+    for (int i = 0; i < src.m_properties.length(); i++)
+    {
+      m_properties.append(src.m_properties.at(i));
+    }
+    SetId(src.m_id);
+    SetRefs(src.m_refs);
+    return *this;
+  }
 private:
-	AcDMMEPlotPropertyVec m_properties;
-	wchar_t* m_id;
-	AcDMMStringVec m_refs;
+  AcDMMEPlotPropertyVec m_properties;
+  wchar_t* m_id;
+  AcDMMStringVec m_refs;
 };
 #endif

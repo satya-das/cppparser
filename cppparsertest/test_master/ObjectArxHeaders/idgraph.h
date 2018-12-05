@@ -18,33 +18,33 @@
 //
 //
 #ifndef AD_IDGRAPH_H
-#	define AD_IDGRAPH_H	1
-#	include "graph.h"
-#	include "dbidmap.h"
-#	pragma  pack (push, 8)
+#  define AD_IDGRAPH_H	1
+#  include "graph.h"
+#  include "dbidmap.h"
+#  pragma  pack (push, 8)
 // =====================================
 //      Object Id Graph Classes
 // =====================================
 class AcDbObjectIdGraphNode : public AcDbGraphNode
 {
 public:
-	AcDbObjectIdGraphNode(const AcDbObjectId id);
-	virtual ~AcDbObjectIdGraphNode();
-	AcDbObjectId id() const;
+  AcDbObjectIdGraphNode(const AcDbObjectId id);
+  virtual ~AcDbObjectIdGraphNode();
+  AcDbObjectId id() const;
 private:
-	AcDbObjectId mId;
+  AcDbObjectId mId;
 };
 class AcDbObjectIdGraph : public AcDbGraph
 {
 public:
-	AcDbObjectIdGraph();
-	virtual ~AcDbObjectIdGraph();
-	Acad::ErrorStatus addNode(AcDbObjectIdGraphNode*);
-	Acad::ErrorStatus delNode(AcDbObjectIdGraphNode*);
-	AcDbObjectIdGraphNode* findNode(const AcDbObjectId) const;
-	AcDbObjectIdGraphNode* idNode(int idx) const;
+  AcDbObjectIdGraph();
+  virtual ~AcDbObjectIdGraph();
+  Acad::ErrorStatus addNode(AcDbObjectIdGraphNode*);
+  Acad::ErrorStatus delNode(AcDbObjectIdGraphNode*);
+  AcDbObjectIdGraphNode* findNode(const AcDbObjectId) const;
+  AcDbObjectIdGraphNode* idNode(int idx) const;
 private:
-	AcDbIdMapping mIdNodeMap;
+  AcDbIdMapping mIdNodeMap;
 };
 // =====================================
 //      Inline methods
@@ -53,12 +53,12 @@ private:
 // AcDbObjectIdGraphNode inlines
 inline AcDbObjectId AcDbObjectIdGraphNode::id() const
 {
-	return mId;
+  return mId;
 }
 // AcDbObjectId inlines ...
 inline AcDbObjectIdGraphNode* AcDbObjectIdGraph::idNode(int idx) const
 {
-	return (AcDbObjectIdGraphNode*) node(idx);
+  return (AcDbObjectIdGraphNode*) node(idx);
 }
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

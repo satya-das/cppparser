@@ -71,7 +71,7 @@ public:
     /// <param name="openErased"> Opens the object even if it is erased. </param>
     /// <param name="openOnLockedLayer"> Opens the object even on the locked layer. </param>
     ///
-	AcDbAssocObjectPointer(AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased = false, bool openOnLockedLayer = false);
+  AcDbAssocObjectPointer(AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased = false, bool openOnLockedLayer = false);
     /// <summary> Constructor. </summary>
     /// <param name="pActionBeingEvaluated"> The action that is just being evaluated. </param>
     /// <param name="objectId"> AcDbObjectId of the object that should be opened. </param>
@@ -79,7 +79,7 @@ public:
     /// <param name="openErased"> Opens the object even if it is erased. </param>
     /// <param name="openOnLockedLayer"> Opens the object even on the locked layer. </param>
     ///
-	AcDbAssocObjectPointer(AcDbAssocAction* pActionBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased = false, bool openOnLockedLayer = false);
+  AcDbAssocObjectPointer(AcDbAssocAction* pActionBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased = false, bool openOnLockedLayer = false);
     /// <summary> Constructor. </summary>
     /// <param name="pActionBodyBeingEvaluated"> The body of action that is just being evaluated. </param>
     /// <param name="objectId"> AcDbObjectId of the object that should be opened. </param>
@@ -87,7 +87,7 @@ public:
     /// <param name="openErased"> Opens the object even if it is erased. </param>
     /// <param name="openOnLockedLayer"> Opens the object even on the locked layer. </param>
     ///
-	AcDbAssocObjectPointer(const AcDbAssocActionBody* pActionBodyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased = false, bool openOnLockedLayer = false);
+  AcDbAssocObjectPointer(const AcDbAssocActionBody* pActionBodyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased = false, bool openOnLockedLayer = false);
     /// <summary> Constructor. </summary>
     /// <param name="pDependencyBeingEvaluated"> The dependency whose action is just being evaluated. </param>
     /// <param name="objectId"> AcDbObjectId of the object that should be opened. </param>
@@ -95,7 +95,7 @@ public:
     /// <param name="openErased"> Opens the object even if it is erased. </param>
     /// <param name="openOnLockedLayer"> Opens the object even on the locked layer. </param>
     ///
-	AcDbAssocObjectPointer(const AcDbAssocDependency* pDependencyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased = false, bool openOnLockedLayer = false);
+  AcDbAssocObjectPointer(const AcDbAssocDependency* pDependencyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased = false, bool openOnLockedLayer = false);
     /// <summary> Constructor. </summary>
     /// <param name="pDependencyBodyBeingEvaluated"> The body of dependency whose action is just being evaluated. </param>
     /// <param name="objectId"> AcDbObjectId of the object that should be opened. </param>
@@ -103,328 +103,328 @@ public:
     /// <param name="openErased"> Opens the object even if it is erased. </param>
     /// <param name="openOnLockedLayer"> Opens the object even on the locked layer. </param>
     ///
-	AcDbAssocObjectPointer(const AcDbAssocDependencyBody* pDependencyBodyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased = false, bool openOnLockedLayer = false);
+  AcDbAssocObjectPointer(const AcDbAssocDependencyBody* pDependencyBodyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased = false, bool openOnLockedLayer = false);
     /// <summary> Constructor. </summary>
     /// <param name="pActionBeingEvaluated"> The action that is just being evaluated. </param>
     /// <param name="pObject"> Existing AcDbObject that is passed as input argument 
     /// to the client callback code. See the class summary for more details. </param>
     ///
-	AcDbAssocObjectPointer(AcDbAssocAction* pActionBeingEvaluated, ACDB_CLASS* pObject);
+  AcDbAssocObjectPointer(AcDbAssocAction* pActionBeingEvaluated, ACDB_CLASS* pObject);
     /// <summary> Constructor. </summary>
     /// <param name="pActionBodyBeingEvaluated"> The body of action that is just being evaluated. </param>
     /// <param name="pObject"> Existing AcDbObject that is passed as input argument 
     /// to the client callback code. See the class summary for more details. </param>
     ///
-	AcDbAssocObjectPointer(const AcDbAssocActionBody* pActionBodyBeingEvaluated, ACDB_CLASS* pObject);
+  AcDbAssocObjectPointer(const AcDbAssocActionBody* pActionBodyBeingEvaluated, ACDB_CLASS* pObject);
     /// <summary> Destructor. </summary>
     ///
-	~AcDbAssocObjectPointer();
+  ~AcDbAssocObjectPointer();
     /// <summary> Gets the open status of the associated object. </summary>
     /// <returns> Returns the open status of the associated object. </returns>
     ///
-	Acad::ErrorStatus openStatus() const;
+  Acad::ErrorStatus openStatus() const;
     /// <summary> Gets whether there is a substitute object. </summary>
     /// <returns> Returns true if the substitute object exists. </returns>
     ///
-	bool isSubstituteObject() const
-	{
-		return mpSubstituteObject != NULL;
-	}
+  bool isSubstituteObject() const
+  {
+    return mpSubstituteObject != NULL;
+  }
     /// <summary> Gets the constant pointer of the associated object. </summary>
     /// <returns> Returns the constant pointer of the associated object. </returns>
     ///
-	const ACDB_CLASS* operator->() const
-	{
-		return mpObject;
-	}
+  const ACDB_CLASS* operator->() const
+  {
+    return mpObject;
+  }
     /// <summary> Gets the pointer of the associated object. </summary>
     /// <returns> Returns the pointer of the associated object. </returns>
     ///
-	ACDB_CLASS* operator->()
-	{
-		return mpObject;
-	}
+  ACDB_CLASS* operator->()
+  {
+    return mpObject;
+  }
     /// <summary> Gets the constant pointer of the associated object. </summary>
     ///
-	operator const ACDB_CLASS*() const
-	{
-		return mpObject;
-	}
+  operator const ACDB_CLASS*() const
+  {
+    return mpObject;
+  }
     /// <summary> Gets the pointer of the associated object. </summary>
     ///
-	operator ACDB_CLASS*()
-	{
-		return mpObject;
-	}
+  operator ACDB_CLASS*()
+  {
+    return mpObject;
+  }
 private:
-	AcDbAssocAction* const mpActionBeingEvaluated;
-	const AcDbAssocActionBody* const mpActionBodyBeingEvaluated;
-	const AcDbAssocDependency* const mpDependencyBeingEvaluated;
-	const AcDbAssocDependencyBody* const mpDependencyBodyBeingEvaluated;
-	const AcDbObjectId mObjectId;
-	AcDbSmartObjectPointer<ACDB_CLASS> mObjectPtr;
-	ACDB_CLASS* mpObject;
-	AcDbObject* mpSubstituteObject;
-	Acad::ErrorStatus mSubstituteObjectErrorStatus;
+  AcDbAssocAction* const mpActionBeingEvaluated;
+  const AcDbAssocActionBody* const mpActionBodyBeingEvaluated;
+  const AcDbAssocDependency* const mpDependencyBeingEvaluated;
+  const AcDbAssocDependencyBody* const mpDependencyBodyBeingEvaluated;
+  const AcDbObjectId mObjectId;
+  AcDbSmartObjectPointer<ACDB_CLASS> mObjectPtr;
+  ACDB_CLASS* mpObject;
+  AcDbObject* mpSubstituteObject;
+  Acad::ErrorStatus mSubstituteObjectErrorStatus;
     /// <summary> set up the associated object. </summary>
     ///
-	void setup(AcDbAssocAction* pActionBeingEvaluated, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer);
+  void setup(AcDbAssocAction* pActionBeingEvaluated, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer);
     /// <summary> Constructor. Disabled </summary>
     ///
-	AcDbAssocObjectPointer();
+  AcDbAssocObjectPointer();
     /// <summary> Constructor. Disabled </summary>
     ///
-	AcDbAssocObjectPointer(const AcDbAssocObjectPointer&);
+  AcDbAssocObjectPointer(const AcDbAssocObjectPointer&);
     /// <summary> Overrides the operator = . Disabled </summary>
     ///
-	AcDbAssocObjectPointer& operator =(const AcDbAssocObjectPointer&);
+  AcDbAssocObjectPointer& operator =(const AcDbAssocObjectPointer&);
 };
 ACDBCORE2D_PORT AcDbAssocAction* acdbAssocGetCurrentlyEvaluatedActionPointer(const AcDbDatabase*);
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
-	: mpActionBeingEvaluated(acdbAssocGetCurrentlyEvaluatedActionPointer(objectId.database()))
-	, mpActionBodyBeingEvaluated(NULL)
-	, mpDependencyBeingEvaluated(NULL)
-	, mpDependencyBodyBeingEvaluated(NULL)
-	, mObjectId(objectId)
-	, mpObject(NULL)
-	, mpSubstituteObject(NULL)
-	, mSubstituteObjectErrorStatus(Acad::eNullObjectId)
+  : mpActionBeingEvaluated(acdbAssocGetCurrentlyEvaluatedActionPointer(objectId.database()))
+  , mpActionBodyBeingEvaluated(NULL)
+  , mpDependencyBeingEvaluated(NULL)
+  , mpDependencyBodyBeingEvaluated(NULL)
+  , mObjectId(objectId)
+  , mpObject(NULL)
+  , mpSubstituteObject(NULL)
+  , mSubstituteObjectErrorStatus(Acad::eNullObjectId)
 {
-	setup(mpActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
+  setup(mpActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
 }
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbAssocAction* pActionBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
-	: mpActionBeingEvaluated(pActionBeingEvaluated)
-	, mpActionBodyBeingEvaluated(NULL)
-	, mpDependencyBeingEvaluated(NULL)
-	, mpDependencyBodyBeingEvaluated(NULL)
-	, mObjectId(objectId)
-	, mpObject(NULL)
-	, mpSubstituteObject(NULL)
-	, mSubstituteObjectErrorStatus(Acad::eNullObjectId)
+  : mpActionBeingEvaluated(pActionBeingEvaluated)
+  , mpActionBodyBeingEvaluated(NULL)
+  , mpDependencyBeingEvaluated(NULL)
+  , mpDependencyBodyBeingEvaluated(NULL)
+  , mObjectId(objectId)
+  , mpObject(NULL)
+  , mpSubstituteObject(NULL)
+  , mSubstituteObjectErrorStatus(Acad::eNullObjectId)
 {
-	setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
+  setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
 }
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAssocActionBody* pActionBodyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
-	: mpActionBeingEvaluated(NULL)
-	, mpActionBodyBeingEvaluated(pActionBodyBeingEvaluated)
-	, mpDependencyBeingEvaluated(NULL)
-	, mpDependencyBodyBeingEvaluated(NULL)
-	, mObjectId(objectId)
-	, mpObject(NULL)
-	, mpSubstituteObject(NULL)
-	, mSubstituteObjectErrorStatus(Acad::eNullObjectId)
+  : mpActionBeingEvaluated(NULL)
+  , mpActionBodyBeingEvaluated(pActionBodyBeingEvaluated)
+  , mpDependencyBeingEvaluated(NULL)
+  , mpDependencyBodyBeingEvaluated(NULL)
+  , mObjectId(objectId)
+  , mpObject(NULL)
+  , mpSubstituteObject(NULL)
+  , mSubstituteObjectErrorStatus(Acad::eNullObjectId)
 {
 #ifdef ASSERT
-	ASSERT(mpActionBodyBeingEvaluated != NULL);
+  ASSERT(mpActionBodyBeingEvaluated != NULL);
 #endif
-	AcDbSmartObjectPointer<AcDbAssocAction> pActionBeingEvaluated;
-	if (mpActionBodyBeingEvaluated != NULL)
-	{
-		pActionBeingEvaluated.open(mpActionBodyBeingEvaluated->parentAction(), AcDb::kForRead, true);
-	}
-	setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
+  AcDbSmartObjectPointer<AcDbAssocAction> pActionBeingEvaluated;
+  if (mpActionBodyBeingEvaluated != NULL)
+  {
+    pActionBeingEvaluated.open(mpActionBodyBeingEvaluated->parentAction(), AcDb::kForRead, true);
+  }
+  setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
 }
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAssocDependency* pDependencyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
-	: mpActionBeingEvaluated(NULL)
-	, mpActionBodyBeingEvaluated(NULL)
-	, mpDependencyBeingEvaluated(pDependencyBeingEvaluated)
-	, mpDependencyBodyBeingEvaluated(NULL)
-	, mObjectId(objectId)
-	, mpObject(NULL)
-	, mpSubstituteObject(NULL)
-	, mSubstituteObjectErrorStatus(Acad::eNullObjectId)
+  : mpActionBeingEvaluated(NULL)
+  , mpActionBodyBeingEvaluated(NULL)
+  , mpDependencyBeingEvaluated(pDependencyBeingEvaluated)
+  , mpDependencyBodyBeingEvaluated(NULL)
+  , mObjectId(objectId)
+  , mpObject(NULL)
+  , mpSubstituteObject(NULL)
+  , mSubstituteObjectErrorStatus(Acad::eNullObjectId)
 {
 #ifdef ASSERT
-	ASSERT(mpDependencyBeingEvaluated != NULL);
+  ASSERT(mpDependencyBeingEvaluated != NULL);
 #endif
-	AcDbSmartObjectPointer<AcDbAssocAction> pActionBeingEvaluated;
-	if (mpDependencyBeingEvaluated != NULL)
-	{
-		pActionBeingEvaluated.open(mpDependencyBeingEvaluated->owningAction(), AcDb::kForRead, true);
-	}
-	setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
+  AcDbSmartObjectPointer<AcDbAssocAction> pActionBeingEvaluated;
+  if (mpDependencyBeingEvaluated != NULL)
+  {
+    pActionBeingEvaluated.open(mpDependencyBeingEvaluated->owningAction(), AcDb::kForRead, true);
+  }
+  setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
 }
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAssocDependencyBody* pDependencyBodyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
-	: mpActionBeingEvaluated(NULL)
-	, mpActionBodyBeingEvaluated(NULL)
-	, mpDependencyBeingEvaluated(NULL)
-	, mpDependencyBodyBeingEvaluated(pDependencyBodyBeingEvaluated)
-	, mObjectId(objectId)
-	, mpObject(NULL)
-	, mpSubstituteObject(NULL)
-	, mSubstituteObjectErrorStatus(Acad::eNullObjectId)
+  : mpActionBeingEvaluated(NULL)
+  , mpActionBodyBeingEvaluated(NULL)
+  , mpDependencyBeingEvaluated(NULL)
+  , mpDependencyBodyBeingEvaluated(pDependencyBodyBeingEvaluated)
+  , mObjectId(objectId)
+  , mpObject(NULL)
+  , mpSubstituteObject(NULL)
+  , mSubstituteObjectErrorStatus(Acad::eNullObjectId)
 {
 #ifdef ASSERT
-	ASSERT(mpDependencyBodyBeingEvaluated != NULL);
+  ASSERT(mpDependencyBodyBeingEvaluated != NULL);
 #endif
-	AcDbSmartObjectPointer<AcDbAssocAction> pActionBeingEvaluated;
-	if (mpDependencyBodyBeingEvaluated != NULL)
-	{
-		AcDbSmartObjectPointer<AcDbAssocDependency> pDependencyBeingEvaluated(mpDependencyBodyBeingEvaluated->parentDependency(), AcDb::kForRead, true);
-		if (pDependencyBeingEvaluated.openStatus() == Acad::eOk)
-		{
-			pActionBeingEvaluated.open(pDependencyBeingEvaluated->owningAction(), AcDb::kForRead, true);
-		}
-	}
-	setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
+  AcDbSmartObjectPointer<AcDbAssocAction> pActionBeingEvaluated;
+  if (mpDependencyBodyBeingEvaluated != NULL)
+  {
+    AcDbSmartObjectPointer<AcDbAssocDependency> pDependencyBeingEvaluated(mpDependencyBodyBeingEvaluated->parentDependency(), AcDb::kForRead, true);
+    if (pDependencyBeingEvaluated.openStatus() == Acad::eOk)
+    {
+      pActionBeingEvaluated.open(pDependencyBeingEvaluated->owningAction(), AcDb::kForRead, true);
+    }
+  }
+  setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
 }
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbAssocAction* pActionBeingEvaluated, ACDB_CLASS* pObject)
-	: mpActionBeingEvaluated(pActionBeingEvaluated)
-	, mpActionBodyBeingEvaluated(NULL)
-	, mpDependencyBeingEvaluated(NULL)
-	, mpDependencyBodyBeingEvaluated(NULL)
-	, mObjectId(AcDbObjectId::kNull)
-	, mpObject(pObject)
-	, mpSubstituteObject(pObject)
-	, mSubstituteObjectErrorStatus(pObject != NULL ? Acad::eOk : Acad::eNullObjectId)
+  : mpActionBeingEvaluated(pActionBeingEvaluated)
+  , mpActionBodyBeingEvaluated(NULL)
+  , mpDependencyBeingEvaluated(NULL)
+  , mpDependencyBodyBeingEvaluated(NULL)
+  , mObjectId(AcDbObjectId::kNull)
+  , mpObject(pObject)
+  , mpSubstituteObject(pObject)
+  , mSubstituteObjectErrorStatus(pObject != NULL ? Acad::eOk : Acad::eNullObjectId)
 {
 #ifdef ASSERT
-	ASSERT(mpActionBeingEvaluated != NULL);
+  ASSERT(mpActionBeingEvaluated != NULL);
 #endif
-	if (pActionBeingEvaluated != NULL)
-	{
-		AcDbAssocEvaluationCallback* const pCallback = pActionBeingEvaluated->currentEvaluationCallback();
-		if (pCallback != NULL)
-		{
-			AcDbObject* pInputObject = pObject;
-			pCallback->beginActionEvaluationUsingObject(pActionBeingEvaluated, AcDbObjectId::kNull, true, true, pInputObject);
+  if (pActionBeingEvaluated != NULL)
+  {
+    AcDbAssocEvaluationCallback* const pCallback = pActionBeingEvaluated->currentEvaluationCallback();
+    if (pCallback != NULL)
+    {
+      AcDbObject* pInputObject = pObject;
+      pCallback->beginActionEvaluationUsingObject(pActionBeingEvaluated, AcDbObjectId::kNull, true, true, pInputObject);
             // If the passed-in objectId is null, the callback should treat 
             // its pSubstituteObject argument as an input argument and should 
             // not change its value
             //
 #ifdef ASSERT
-			ASSERT(pInputObject == pObject);
+      ASSERT(pInputObject == pObject);
 #endif
-		}
-	}
+    }
+  }
 }
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAssocActionBody* pActionBodyBeingEvaluated, ACDB_CLASS* pObject)
-	: mpActionBeingEvaluated(NULL)
-	, mpActionBodyBeingEvaluated(pActionBodyBeingEvaluated)
-	, mpDependencyBeingEvaluated(NULL)
-	, mpDependencyBodyBeingEvaluated(NULL)
-	, mObjectId(AcDbObjectId::kNull)
-	, mpObject(pObject)
-	, mpSubstituteObject(pObject)
-	, mSubstituteObjectErrorStatus(pObject != NULL ? Acad::eOk : Acad::eNullObjectId)
+  : mpActionBeingEvaluated(NULL)
+  , mpActionBodyBeingEvaluated(pActionBodyBeingEvaluated)
+  , mpDependencyBeingEvaluated(NULL)
+  , mpDependencyBodyBeingEvaluated(NULL)
+  , mObjectId(AcDbObjectId::kNull)
+  , mpObject(pObject)
+  , mpSubstituteObject(pObject)
+  , mSubstituteObjectErrorStatus(pObject != NULL ? Acad::eOk : Acad::eNullObjectId)
 {
 #ifdef ASSERT
-	ASSERT(mpActionBodyBeingEvaluated != NULL);
+  ASSERT(mpActionBodyBeingEvaluated != NULL);
 #endif
-	if (mpActionBodyBeingEvaluated != NULL)
-	{
-		AcDbSmartObjectPointer<AcDbAssocAction> pActionBeingEvaluated(mpActionBodyBeingEvaluated->parentAction(), AcDb::kForRead, true);
-		if (pActionBeingEvaluated != NULL)
-		{
-			AcDbAssocEvaluationCallback* const pCallback = pActionBeingEvaluated->currentEvaluationCallback();
-			if (pCallback != NULL)
-			{
-				AcDbObject* pInputObject = pObject;
-				pCallback->beginActionEvaluationUsingObject(pActionBeingEvaluated, AcDbObjectId::kNull, true, true, pInputObject);
+  if (mpActionBodyBeingEvaluated != NULL)
+  {
+    AcDbSmartObjectPointer<AcDbAssocAction> pActionBeingEvaluated(mpActionBodyBeingEvaluated->parentAction(), AcDb::kForRead, true);
+    if (pActionBeingEvaluated != NULL)
+    {
+      AcDbAssocEvaluationCallback* const pCallback = pActionBeingEvaluated->currentEvaluationCallback();
+      if (pCallback != NULL)
+      {
+        AcDbObject* pInputObject = pObject;
+        pCallback->beginActionEvaluationUsingObject(pActionBeingEvaluated, AcDbObjectId::kNull, true, true, pInputObject);
                 // If the passed-in objectId is null, the callback should treat 
                 // its pSubstituteObject argument as an input argument and should 
                 // not change its value
                 //
 #ifdef ASSERT
-				ASSERT(pInputObject == pObject);
+        ASSERT(pInputObject == pObject);
 #endif
-			}
-		}
-	}
+      }
+    }
+  }
 }
 template <typename ACDB_CLASS>
 inline void AcDbAssocObjectPointer<ACDB_CLASS>::setup(AcDbAssocAction* pActionBeingEvaluated, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
 {
-	mpObject = NULL;
-	mpSubstituteObject = NULL;
-	mSubstituteObjectErrorStatus = Acad::eNullObjectId;
-	if (mObjectId.isNull())
-	{
-		return ;
-	}
-	if (pActionBeingEvaluated != NULL)
-	{
-		AcDbAssocEvaluationCallback* const pCallback = pActionBeingEvaluated->currentEvaluationCallback();
-		if (pCallback != NULL)
-		{
-			pCallback->beginActionEvaluationUsingObject(pActionBeingEvaluated, mObjectId, true, openMode == AcDb::kForWrite, mpSubstituteObject);
-			if (mpSubstituteObject != NULL)
-			{
-				mpObject = ACDB_CLASS::cast(mpSubstituteObject);
-				mSubstituteObjectErrorStatus = mpObject != NULL ? Acad::eOk : Acad::eNotThatKindOfClass;
-			}
-		}
-	}
-	if (mpSubstituteObject == NULL)
-	{
-		if (mObjectPtr.open(mObjectId, openMode, openErased, openOnLockedLayer) == Acad::eOk)
-		{
-			mpObject = mObjectPtr;
+  mpObject = NULL;
+  mpSubstituteObject = NULL;
+  mSubstituteObjectErrorStatus = Acad::eNullObjectId;
+  if (mObjectId.isNull())
+  {
+    return ;
+  }
+  if (pActionBeingEvaluated != NULL)
+  {
+    AcDbAssocEvaluationCallback* const pCallback = pActionBeingEvaluated->currentEvaluationCallback();
+    if (pCallback != NULL)
+    {
+      pCallback->beginActionEvaluationUsingObject(pActionBeingEvaluated, mObjectId, true, openMode == AcDb::kForWrite, mpSubstituteObject);
+      if (mpSubstituteObject != NULL)
+      {
+        mpObject = ACDB_CLASS::cast(mpSubstituteObject);
+        mSubstituteObjectErrorStatus = mpObject != NULL ? Acad::eOk : Acad::eNotThatKindOfClass;
+      }
+    }
+  }
+  if (mpSubstituteObject == NULL)
+  {
+    if (mObjectPtr.open(mObjectId, openMode, openErased, openOnLockedLayer) == Acad::eOk)
+    {
+      mpObject = mObjectPtr;
 #ifdef ASSERT
-			ASSERT(mpObject != NULL);
+      ASSERT(mpObject != NULL);
 #endif
-		}
-	}
+    }
+  }
 }
 inline AcDbAssocObjectPointer<ACDB_CLASS>::~AcDbAssocObjectPointer()
 {
-	if (mObjectId.isNull() && mpSubstituteObject == NULL)
-	{
-		return ;
-	}
-	if (mpActionBeingEvaluated != NULL)
-	{
-		AcDbAssocEvaluationCallback* const pCallback = mpActionBeingEvaluated->currentEvaluationCallback();
-		if (pCallback != NULL)
-		{
-			pCallback->endActionEvaluationUsingObject(mpActionBeingEvaluated, mObjectId, mpObject);
-		}
-	}
-	else 
-	{
-		AcDbSmartObjectPointer<AcDbAssocAction> pActionBeingEvaluated;
-		if (mpActionBodyBeingEvaluated != NULL)
-		{
-			pActionBeingEvaluated.open(mpActionBodyBeingEvaluated->parentAction(), AcDb::kForRead, true);
-		}
-		else 
-		{
-			if (mpDependencyBeingEvaluated != NULL)
-			{
-				pActionBeingEvaluated.open(mpDependencyBeingEvaluated->owningAction(), AcDb::kForRead, true);
-			}
-			else 
-			{
-				if (mpDependencyBodyBeingEvaluated != NULL)
-				{
-					AcDbSmartObjectPointer<AcDbAssocDependency> pDependencyBeingEvaluated(mpDependencyBodyBeingEvaluated->parentDependency(), AcDb::kForRead, true);
-					if (pDependencyBeingEvaluated.openStatus() == Acad::eOk)
-					{
-						pActionBeingEvaluated.open(pDependencyBeingEvaluated->owningAction(), AcDb::kForRead, true);
-					}
-				}
-			}
-		}
-		if (pActionBeingEvaluated.openStatus() == Acad::eOk)
-		{
-			AcDbAssocEvaluationCallback* const pCallback = pActionBeingEvaluated->currentEvaluationCallback();
-			if (pCallback != NULL)
-			{
-				pCallback->endActionEvaluationUsingObject(pActionBeingEvaluated, mObjectId, mpObject);
-			}
-		}
-	}
+  if (mObjectId.isNull() && mpSubstituteObject == NULL)
+  {
+    return ;
+  }
+  if (mpActionBeingEvaluated != NULL)
+  {
+    AcDbAssocEvaluationCallback* const pCallback = mpActionBeingEvaluated->currentEvaluationCallback();
+    if (pCallback != NULL)
+    {
+      pCallback->endActionEvaluationUsingObject(mpActionBeingEvaluated, mObjectId, mpObject);
+    }
+  }
+  else 
+  {
+    AcDbSmartObjectPointer<AcDbAssocAction> pActionBeingEvaluated;
+    if (mpActionBodyBeingEvaluated != NULL)
+    {
+      pActionBeingEvaluated.open(mpActionBodyBeingEvaluated->parentAction(), AcDb::kForRead, true);
+    }
+    else 
+    {
+      if (mpDependencyBeingEvaluated != NULL)
+      {
+        pActionBeingEvaluated.open(mpDependencyBeingEvaluated->owningAction(), AcDb::kForRead, true);
+      }
+      else 
+      {
+        if (mpDependencyBodyBeingEvaluated != NULL)
+        {
+          AcDbSmartObjectPointer<AcDbAssocDependency> pDependencyBeingEvaluated(mpDependencyBodyBeingEvaluated->parentDependency(), AcDb::kForRead, true);
+          if (pDependencyBeingEvaluated.openStatus() == Acad::eOk)
+          {
+            pActionBeingEvaluated.open(pDependencyBeingEvaluated->owningAction(), AcDb::kForRead, true);
+          }
+        }
+      }
+    }
+    if (pActionBeingEvaluated.openStatus() == Acad::eOk)
+    {
+      AcDbAssocEvaluationCallback* const pCallback = pActionBeingEvaluated->currentEvaluationCallback();
+      if (pCallback != NULL)
+      {
+        pCallback->endActionEvaluationUsingObject(pActionBeingEvaluated, mObjectId, mpObject);
+      }
+    }
+  }
 }
 template <typename ACDB_CLASS>
 inline Acad::ErrorStatus AcDbAssocObjectPointer<ACDB_CLASS>::openStatus() const
 {
-	return mpSubstituteObject != NULL ? mSubstituteObjectErrorStatus : mObjectPtr.openStatus();
+  return mpSubstituteObject != NULL ? mSubstituteObjectErrorStatus : mObjectPtr.openStatus();
 }
 #pragma  pack (pop)

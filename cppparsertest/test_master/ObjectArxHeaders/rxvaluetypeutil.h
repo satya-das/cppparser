@@ -30,10 +30,10 @@ public:
     /// call back function.
     /// </param>
     ///
-	AcRxValueTypePOD(const ACHAR* name, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, sizeof(ValueType), memberConstruct, userData)
-	{
-	}
+  AcRxValueTypePOD(const ACHAR* name, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
+    : AcRxValueType(name, sizeof(ValueType), memberConstruct, userData)
+  {
+  }
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -57,10 +57,10 @@ public:
     /// call back function.
     /// </param>
     ///
-	AcRxValueTypePOD(const ACHAR* name, const IAcRxEnumeration& pEnum, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, pEnum, sizeof(ValueType), memberConstruct, userData)
-	{
-	}
+  AcRxValueTypePOD(const ACHAR* name, const IAcRxEnumeration& pEnum, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
+    : AcRxValueType(name, pEnum, sizeof(ValueType), memberConstruct, userData)
+  {
+  }
     /// <summary>
     /// Constructor.  This should only be used for ValueTypes that are references or pointers (i.e. sizeof(ValueType) == sizeof(void*)).
     /// </summary>
@@ -84,23 +84,23 @@ public:
     /// call back function.
     /// </param>
     ///
-	AcRxValueTypePOD(const ACHAR* name, const IAcRxReferenceType& pRef, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, pRef, sizeof(ValueType), memberConstruct, userData)
-	{
-	}
-	virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
-	virtual bool subEqualTo(const void* a, const void* b) const override;
+  AcRxValueTypePOD(const ACHAR* name, const IAcRxReferenceType& pRef, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
+    : AcRxValueType(name, pRef, sizeof(ValueType), memberConstruct, userData)
+  {
+  }
+  virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
+  virtual bool subEqualTo(const void* a, const void* b) const override;
 };
 #ifdef __GNUC__
 template <typename ValueType>
 int AcRxValueTypePOD<ValueType>::subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const
 {
-	return -1;
+  return -1;
 }
 template <typename ValueType>
 bool AcRxValueTypePOD<ValueType>::subEqualTo(const void* a, const void* b) const
 {
-	return false;
+  return false;
 }
 #endif
 #pragma  warning(push)
@@ -111,74 +111,74 @@ bool AcRxValueTypePOD<ValueType>::subEqualTo(const void* a, const void* b) const
 template <typename ValueType>
 class AcRxEnumType : public AcRxValueTypePOD<ValueType>, public IAcRxEnumeration
 {
-	AcArray<const AcRxEnumTag*> m_tags;
+  AcArray<const AcRxEnumTag*> m_tags;
 public:
-	AcRxEnumType(const ACHAR* name, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueTypePOD<ValueType>(name, *this, memberConstruct, userData)
-	{
-	}
-	~AcRxEnumType()
-	{
-		for (int i = m_tags.length() - 1; i >= 0; i--)
-		{
-			AcRxMember::deleteMember(m_tags[i]);
-		}
-	}
-	virtual int count() const override
-	{
-		return m_tags.length();
-	}
-	virtual const AcRxEnumTag& getAt(int i) const override
-	{
-		return *m_tags[i];
-	}
-	void append(AcRxEnumTag& tag)
-	{
-		m_tags.append(&tag);
-		void acdbImpSetOwnerForEnumTag(const AcRxClass*, AcRxEnumTag*);
-		acdbImpSetOwnerForEnumTag(this, &tag);
-	}
+  AcRxEnumType(const ACHAR* name, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
+    : AcRxValueTypePOD<ValueType>(name, *this, memberConstruct, userData)
+  {
+  }
+  ~AcRxEnumType()
+  {
+    for (int i = m_tags.length() - 1; i >= 0; i--)
+    {
+      AcRxMember::deleteMember(m_tags[i]);
+    }
+  }
+  virtual int count() const override
+  {
+    return m_tags.length();
+  }
+  virtual const AcRxEnumTag& getAt(int i) const override
+  {
+    return *m_tags[i];
+  }
+  void append(AcRxEnumTag& tag)
+  {
+    m_tags.append(&tag);
+    void acdbImpSetOwnerForEnumTag(const AcRxClass*, AcRxEnumTag*);
+    acdbImpSetOwnerForEnumTag(this, &tag);
+  }
 #ifdef __GNUC__
-	virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
-	virtual bool subEqualTo(const void* a, const void* b) const override;
+  virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
+  virtual bool subEqualTo(const void* a, const void* b) const override;
 #endif
 };
 #pragma  warning(pop)
 template <typename T>
 class AcRxNonBlittableType : public AcRxValueType
 {
-	class NonBlittable : public IAcRxNonBlittableType
+  class NonBlittable : public IAcRxNonBlittableType
 {
-	virtual void construct(void* dest, const void* source) const override
-	{
-		(AcRxValue*) dest  T(*(T*) source);
-	}
-	virtual void assign(void* dest, const void* source) const override
-	{
-		((T*) dest)->operator =(*(T*) source);
-	}
-	virtual void destruct(const void* instance) const override
-	{
-		((T*) instance)->~T();
-	}
+  virtual void construct(void* dest, const void* source) const override
+  {
+    (AcRxValue*) dest  T(*(T*) source);
+  }
+  virtual void assign(void* dest, const void* source) const override
+  {
+    ((T*) dest)->operator =(*(T*) source);
+  }
+  virtual void destruct(const void* instance) const override
+  {
+    ((T*) instance)->~T();
+  }
 } m_nonBlittable;
-	virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
-	virtual bool subEqualTo(const void* a, const void* b) const override;
+  virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
+  virtual bool subEqualTo(const void* a, const void* b) const override;
 public:
-	AcRxNonBlittableType(const ACHAR* name, const ACHAR* parent, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, parent, m_nonBlittable, sizeof(T), memberConstruct, userData)
-	{
-	}
-	AcRxNonBlittableType(const ACHAR* name, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, m_nonBlittable, sizeof(T), memberConstruct, userData)
-	{
-	}
-	AcRxNonBlittableType(const ACHAR* name, const IAcRxEnumeration& enumeration, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, enumeration, m_nonBlittable, sizeof(T), memberConstruct, userData)
-	{
-	}
-	AcRxNonBlittableType(const ACHAR* name, const IAcRxObjectValue& rxObjValue, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
-		: AcRxValueType(name, rxObjValue, m_nonBlittable, sizeof(T), memberConstruct, userData)
-	{
-	}
+  AcRxNonBlittableType(const ACHAR* name, const ACHAR* parent, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
+    : AcRxValueType(name, parent, m_nonBlittable, sizeof(T), memberConstruct, userData)
+  {
+  }
+  AcRxNonBlittableType(const ACHAR* name, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
+    : AcRxValueType(name, m_nonBlittable, sizeof(T), memberConstruct, userData)
+  {
+  }
+  AcRxNonBlittableType(const ACHAR* name, const IAcRxEnumeration& enumeration, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
+    : AcRxValueType(name, enumeration, m_nonBlittable, sizeof(T), memberConstruct, userData)
+  {
+  }
+  AcRxNonBlittableType(const ACHAR* name, const IAcRxObjectValue& rxObjValue, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
+    : AcRxValueType(name, rxObjValue, m_nonBlittable, sizeof(T), memberConstruct, userData)
+  {
+  }
 };

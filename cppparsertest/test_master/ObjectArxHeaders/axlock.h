@@ -8,10 +8,10 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _AXLOCK_H
-#	define _AXLOCK_H
-#	include "acadstrc.h"
-#	include "AcDbCore2dDefs.h"
-#	pragma  pack (push, 8)
+#  define _AXLOCK_H
+#  include "acadstrc.h"
+#  include "AcDbCore2dDefs.h"
+#  pragma  pack (push, 8)
 class AcDbDatabase;
 class AcDbObjectId;
 class AcAxDocLock
@@ -33,34 +33,34 @@ public:
     // Document activation is disabled to deal with the possibility that 
     // a user could attempt to activate another document while a local 
     // COM client is in the process of appending a new entity.
-	enum DocLockType
-	{
-		kNormal = 0,
-		kCurDocSwitch = 1,
+  enum DocLockType
+  {
+    kNormal = 0,
+    kCurDocSwitch = 1,
                                 //  document activation is disabled in
                                 //  this mode.
-	};
+  };
     // Constructors are responsible for performing all necessary
     // operations and keeping track of what must be undone in
     // the destructor.
-	AcAxDocLock();
-	AcAxDocLock(const AcDbObjectId& objectId, DocLockType = kNormal);
-	AcAxDocLock(AcDbDatabase* pDatabase, DocLockType = kNormal);
+  AcAxDocLock();
+  AcAxDocLock(const AcDbObjectId& objectId, DocLockType = kNormal);
+  AcAxDocLock(AcDbDatabase* pDatabase, DocLockType = kNormal);
     // Destructor is responsible for reseting everything to its prior
     // state. This is done using information cached during construction.
-	~AcAxDocLock();
+  ~AcAxDocLock();
     // Return lock status to caller. Use this function after construction
     // to determine whether the locking succeeded or not.
-	ACDBCORE2D_PORT Acad::ErrorStatus lockStatus() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus lockStatus() const;
     // Return the pointer of document which has been successfully locked. 
-	ACDBCORE2D_PORT void* document() const;
+  ACDBCORE2D_PORT void* document() const;
 private:
-	void lockDocument(AcDbDatabase* pDatabase, DocLockType lockType = kNormal);
-	void initialize();
-	Acad::ErrorStatus m_lockStatus;
-	void* m_pDocToUnlock;
-	void* m_pCurDocToRestore;
-	bool m_restoreActivation;
+  void lockDocument(AcDbDatabase* pDatabase, DocLockType lockType = kNormal);
+  void initialize();
+  Acad::ErrorStatus m_lockStatus;
+  void* m_pDocToUnlock;
+  void* m_pCurDocToRestore;
+  bool m_restoreActivation;
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

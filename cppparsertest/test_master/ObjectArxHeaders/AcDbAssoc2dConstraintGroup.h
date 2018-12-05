@@ -23,7 +23,7 @@
 #pragma  pack (push, 8)
 class AcAutoConstrainEvaluationCallback;
 #ifndef UNREFERENCED_PARAMETER
-#	define UNREFERENCED_PARAMETER	(P)  (P)
+#  define UNREFERENCED_PARAMETER	(P)  (P)
 #endif
 /// <summary> <para>
 /// The AcDbAssoc2dConstraintGroup class represents a set of geometric constraint 
@@ -58,57 +58,57 @@ class AcAutoConstrainEvaluationCallback;
 class ACDB_PORT AcDbAssoc2dConstraintGroup : public AcDbAssocAction
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssoc2dConstraintGroup);
+  ACRX_DECLARE_MEMBERS(AcDbAssoc2dConstraintGroup);
   /// <summary> The solution status of this constraint group. </summary>
   ///
-	enum SolutionStatus
-	{
+  enum SolutionStatus
+  {
     /// <summary>
     /// All constrained geometries are fully constrained.
     /// The degree of freedom of the entire model is 0.
     /// </summary>
     ///
-		kWellDefined = 0,
+    kWellDefined = 0,
     /// <summary>
     /// Some or all constrained geometries are under constrained.
     /// The degree of freedom of the entire model is larger than 0.
     /// </summary>
     ///
-		kUnderConstrained,
+    kUnderConstrained,
     /// <summary>
     /// Some or all constrained geometries are over constrained.
     /// Normally this is because duplicate or redundant constraints are added.
     /// </summary>
     ///
-		kOverConstrained,
+    kOverConstrained,
     /// <summary>
     /// Some or all constrained geometries/constraints are inconsistent.
     /// Normally this is because invalid constraints are added.
     /// For example, two lines are made both parallel and perpendicular.
     /// </summary>
     ///
-		kInconsistent,
+    kInconsistent,
     /// <summary>
     /// Some or all constrained geometries/constraints are not evaluated.
     /// Normally this means new constrained geometries or constraints are
     /// added since last evaluation.
     /// </summary>
     ///
-		kNotEvaluated,
+    kNotEvaluated,
     /// <summary>
     /// Not able to get the solution status.
     /// Normally this means fatal errors.
     /// </summary>
     ///
-		kNotAvailable,
+    kNotAvailable,
     /// <summary>
     /// Evaluation produced result that may be considered valid by DCM but is
     /// rejected by the client code, such as when degenerate geometry was created
     /// and the client code does not want to accept it.
     /// </summary>
     ///
-		kRejectedByClient
-	};
+    kRejectedByClient
+  };
   /// <summary>
   /// Default constructor.
   /// </summary>
@@ -117,7 +117,7 @@ public:
   /// Default value is AcGePlane::kXYPlane.
   /// </param>
   ///
-	AcDbAssoc2dConstraintGroup(const AcGePlane& plane = AcGePlane::kXYPlane);
+  AcDbAssoc2dConstraintGroup(const AcGePlane& plane = AcGePlane::kXYPlane);
   /// <summary> 
   /// Gets the work plane of this constraint group. This work plane defines the 
   /// mapping from the internal coordinate system of the constraint group in which 
@@ -127,7 +127,7 @@ public:
   /// </summary>
   /// <returns> AcGePlane </returns>
   ///
-	const AcGePlane getWorkPlane() const;
+  const AcGePlane getWorkPlane() const;
   /// <summary> 
   /// Sets the work plane of this constraint group. This API 
   /// re-initializes all AcConstrainedGeometry objects owned by it.
@@ -138,7 +138,7 @@ public:
   /// <param name="newPlane"> The given new work plane. </param>
   /// <returns> void </returns>
   ///
-	void setWorkPlane(const AcGePlane& newPlane);
+  void setWorkPlane(const AcGePlane& newPlane);
   /// <summary> 
   /// Transforms the work plane of the constraint group by the rigid motion
   /// component of the transformation matrix. If the transformation matrix also 
@@ -149,14 +149,14 @@ public:
   /// <param name="transform"> The given transformation matrix. </param>
   /// <returns> Returns Acad::eOk. </returns>
   ///
-	Acad::ErrorStatus transformActionBy(const AcGeMatrix3d& transform);
+  Acad::ErrorStatus transformActionBy(const AcGeMatrix3d& transform);
   /// <summary> 
   /// Get the remaining DOF (Degree of Freedom) of this constraint group.
   /// It includes the positional DOF of a well-defined model. 
   /// </summary>
   /// <returns>int</returns>
   ///
-	int getDOF();
+  int getDOF();
   /// <summary> 
   /// Get the solution evaluation status of this constraint group.
   /// Normally this method should only be called after an evaluation
@@ -167,7 +167,7 @@ public:
   /// </param>
   /// <returns>SolutionStatus</returns>
   ///
-	SolutionStatus solutionStatus(bool bAlsoCheckForConstraints = true) const;
+  SolutionStatus solutionStatus(bool bAlsoCheckForConstraints = true) const;
   /// <summary> 
   /// Get the evaluation status of the passed in constrained geometry.
   /// Normally this method should only be called after an evaluation
@@ -178,7 +178,7 @@ public:
   /// </param>
   /// <returns>SolutionStatus</returns>
   ///
-	SolutionStatus geometryStatus(const AcConstrainedGeometry* pConsGeom) const;
+  SolutionStatus geometryStatus(const AcConstrainedGeometry* pConsGeom) const;
   /// <summary> 
   /// Get the evaluation status of the passed in constraint.
   /// </summary>
@@ -187,7 +187,7 @@ public:
   /// </param>
   /// <returns>SolutionStatus</returns>
   ///
-	SolutionStatus constraintStatus(const AcGeomConstraint* pConstraint) const;
+  SolutionStatus constraintStatus(const AcGeomConstraint* pConstraint) const;
   /// <summary> 
   /// Create and add a new AcConstrainedGeometry object into this constraint group.
   /// Caller should not cache the pointer returned for future use.
@@ -207,7 +207,7 @@ public:
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
   ///
-	Acad::ErrorStatus addConstrainedGeometry(const AcDbFullSubentPath& subentPath, AcConstrainedGeometry*& pConsGeom);
+  Acad::ErrorStatus addConstrainedGeometry(const AcDbFullSubentPath& subentPath, AcConstrainedGeometry*& pConsGeom);
   /// <summary> 
   /// Delete an existing AcConstrainedGeometry object which is internally held.
   /// This function also remove and erase the AcDbAssocGeomDependency object
@@ -218,7 +218,7 @@ public:
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
   ///
-	Acad::ErrorStatus deleteConstrainedGeometry(const AcDbObjectId& geomDependencyId);
+  Acad::ErrorStatus deleteConstrainedGeometry(const AcDbObjectId& geomDependencyId);
   /// <summary> 
   /// Get pointer to the corresponding internally held AcConstrainedGeometry.
   /// The pointer returned might be temporary and caller should not cache it
@@ -239,7 +239,7 @@ public:
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
   ///
-	Acad::ErrorStatus getConstrainedGeometry(const AcDbFullSubentPath& fullSubentPath, AcConstrainedGeometry*& pConsGeom, bool bCreateArcLineMid = false);
+  Acad::ErrorStatus getConstrainedGeometry(const AcDbFullSubentPath& fullSubentPath, AcConstrainedGeometry*& pConsGeom, bool bCreateArcLineMid = false);
   /// <summary> 
   /// Get pointer to the corresponding internally held AcConstrainedGeometry.
   /// The pointer returned might be temporary and caller should not cache it
@@ -272,7 +272,7 @@ public:
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
   ///
-	Acad::ErrorStatus getConstrainedGeometry(const AcDbAssocGeomDependency* pGeomDependency, AcConstrainedGeometry*& pConsGeom, AcDb::ImplicitPointType* pPtType = NULL, int defPtIndex = -1, bool bCreateArcLineMid = false);
+  Acad::ErrorStatus getConstrainedGeometry(const AcDbAssocGeomDependency* pGeomDependency, AcConstrainedGeometry*& pConsGeom, AcDb::ImplicitPointType* pPtType = NULL, int defPtIndex = -1, bool bCreateArcLineMid = false);
   /// <summary> 
   /// Get all AcConstrainedGeometry objects in this constraint group,
   /// including AcConstraintImplicitPoint objects which are associated
@@ -283,7 +283,7 @@ public:
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
   ///
-	Acad::ErrorStatus getConstrainedGeometries(AcArray<AcConstrainedGeometry*>& aConstGeom) const;
+  Acad::ErrorStatus getConstrainedGeometries(AcArray<AcConstrainedGeometry*>& aConstGeom) const;
   /// <summary> 
   /// Create and add a geometrical constraint into this constraint group.
   /// </summary>
@@ -310,7 +310,7 @@ public:
   /// Returns Acad::eInvalidInput or Acad::eNotApplicable for other errors.
   /// </returns>
   ///
-	Acad::ErrorStatus addGeometricalConstraint(AcGeomConstraint::GeomConstraintType type, const AcDbFullSubentPathArray& aPaths, AcGeomConstraint** ppNewConstraint = NULL, const AcGeMatrix3d* pUCSCoord = NULL);
+  Acad::ErrorStatus addGeometricalConstraint(AcGeomConstraint::GeomConstraintType type, const AcDbFullSubentPathArray& aPaths, AcGeomConstraint** ppNewConstraint = NULL, const AcGeMatrix3d* pUCSCoord = NULL);
   /// <summary> 
   /// Create and add a geometrical constraint into this constraint group.
   /// </summary>
@@ -337,7 +337,7 @@ public:
   /// Returns Acad::eInvalidInput or Acad::eNotApplicable for other errors.
   /// </returns>
   ///
-	Acad::ErrorStatus addGeometricalConstraint(AcGeomConstraint::GeomConstraintType type, const AcArray<AcConstrainedGeometry*>& apConsGeoms, AcGeomConstraint** ppNewConstraint = NULL, const AcGeMatrix3d* pUCSCoord = NULL);
+  Acad::ErrorStatus addGeometricalConstraint(AcGeomConstraint::GeomConstraintType type, const AcArray<AcConstrainedGeometry*>& apConsGeoms, AcGeomConstraint** ppNewConstraint = NULL, const AcGeMatrix3d* pUCSCoord = NULL);
   /// <summary> 
   /// Create and add a distance constraint into this constraint group.
   /// </summary>
@@ -371,7 +371,7 @@ public:
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
   ///
-	Acad::ErrorStatus addDistanceConstraint(AcConstrainedGeometry* pConsGeom1, AcConstrainedGeometry* pConsGeom2, AcDistanceConstraint::DirectionType directionType, AcDbObjectId valueDependencyId, AcDbObjectId dimDependencyId, const AcGeVector3d* pFixedDirection = NULL, const AcConstrainedLine* pDirectionLine = NULL, AcDistanceConstraint** ppNewDisConstraint = NULL);
+  Acad::ErrorStatus addDistanceConstraint(AcConstrainedGeometry* pConsGeom1, AcConstrainedGeometry* pConsGeom2, AcDistanceConstraint::DirectionType directionType, AcDbObjectId valueDependencyId, AcDbObjectId dimDependencyId, const AcGeVector3d* pFixedDirection = NULL, const AcConstrainedLine* pDirectionLine = NULL, AcDistanceConstraint** ppNewDisConstraint = NULL);
   /// <summary> 
   /// Create and add an angle constraint into this constraint group.
   /// </summary>
@@ -396,7 +396,7 @@ public:
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
   ///
-	Acad::ErrorStatus addAngleConstraint(AcConstrainedLine* pConsLine1, AcConstrainedLine* pConsLine2, AcAngleConstraint::SectorType sectorType, AcDbObjectId valueDependencyId, AcDbObjectId dimDependencyId, AcAngleConstraint** ppNewAngConstraint = NULL);
+  Acad::ErrorStatus addAngleConstraint(AcConstrainedLine* pConsLine1, AcConstrainedLine* pConsLine2, AcAngleConstraint::SectorType sectorType, AcDbObjectId valueDependencyId, AcDbObjectId dimDependencyId, AcAngleConstraint** ppNewAngConstraint = NULL);
   /// <summary> 
   /// Create and add a 3point angle constraint into this constraint group.
   /// </summary>
@@ -426,7 +426,7 @@ public:
   /// Default value is NULL.
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
-	Acad::ErrorStatus add3PointAngleConstraint(AcConstrainedPoint* pConsPoint1, AcConstrainedPoint* pConsPoint2, AcConstrainedPoint* pConsPoint3, AcAngleConstraint::SectorType sectorType, AcDbObjectId valueDependencyId, AcDbObjectId dimDependencyId, Ac3PointAngleConstraint** ppNewAngConstraint = NULL);
+  Acad::ErrorStatus add3PointAngleConstraint(AcConstrainedPoint* pConsPoint1, AcConstrainedPoint* pConsPoint2, AcConstrainedPoint* pConsPoint3, AcAngleConstraint::SectorType sectorType, AcDbObjectId valueDependencyId, AcDbObjectId dimDependencyId, Ac3PointAngleConstraint** ppNewAngConstraint = NULL);
   /// <summary> 
   /// Create and add a radius or diameter constraint into this constraint group.
   /// </summary>
@@ -446,7 +446,7 @@ public:
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
   ///
-	Acad::ErrorStatus addRadiusDiameterConstraint(AcConstrainedGeometry* pConsGeom, AcRadiusDiameterConstraint::RadiusDiameterConstrType type, AcDbObjectId valueDependencyId, AcDbObjectId dimDependencyId, AcRadiusDiameterConstraint** ppNewRadDiaConstraint = NULL);
+  Acad::ErrorStatus addRadiusDiameterConstraint(AcConstrainedGeometry* pConsGeom, AcRadiusDiameterConstraint::RadiusDiameterConstrType type, AcDbObjectId valueDependencyId, AcDbObjectId dimDependencyId, AcRadiusDiameterConstraint** ppNewRadDiaConstraint = NULL);
   /// <summary> 
   /// Delete an existing AcGeomConstraint object which is internally held.
   /// </summary>
@@ -456,7 +456,7 @@ public:
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
   ///
-	Acad::ErrorStatus deleteConstraint(AcGeomConstraint* pGeomConst);
+  Acad::ErrorStatus deleteConstraint(AcGeomConstraint* pGeomConst);
   /// <summary> 
   /// Get all AcGeomConstraint objects in this constraint group,
   /// including topological and dimensional constraints
@@ -466,7 +466,7 @@ public:
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
   ///
-	Acad::ErrorStatus getConstraints(AcArray<AcGeomConstraint*>& apConstraints) const;
+  Acad::ErrorStatus getConstraints(AcArray<AcGeomConstraint*>& apConstraints) const;
   /// <summary> 
   /// define constraints that can be added to an under-constrained model.
   /// </summary>
@@ -484,7 +484,7 @@ public:
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
   /// 
-	Acad::ErrorStatus autoConstrain(const AcDbFullSubentPathArray& aPaths, const AcGeTol& tol, AcAutoConstrainEvaluationCallback* pCallback);
+  Acad::ErrorStatus autoConstrain(const AcDbFullSubentPathArray& aPaths, const AcGeTol& tol, AcAutoConstrainEvaluationCallback* pCallback);
   /// <summary> 
   /// Get all AcDbAssocGeomDependency objects which are connected by constraints.
   /// </summary>
@@ -497,7 +497,7 @@ public:
   /// </param>
   /// <returns>Returns Acad::eOk if successful.</returns>
   ///
-	Acad::ErrorStatus getAllConnectedGeomDependencies(const AcDbObjectIdArray& srcGeomDependencyIds, AcDbObjectIdArray& allConnectedGeomDependencyIds) const;
+  Acad::ErrorStatus getAllConnectedGeomDependencies(const AcDbObjectIdArray& srcGeomDependencyIds, AcDbObjectIdArray& allConnectedGeomDependencyIds) const;
   /// <summary> 
   /// Get pointer to AcConstraintGroupNode object.
   /// </summary>
@@ -506,14 +506,14 @@ public:
   /// </param>
   /// <returns>Returns pointer to AcConstraintGroupNode if successful, otherwise NULL</returns>
   ///
-	AcConstraintGroupNode* getGroupNodePtr(const AcGraphNode::Id nodeId) const;
+  AcConstraintGroupNode* getGroupNodePtr(const AcGraphNode::Id nodeId) const;
   /// <summary> 
   /// Regenerate the internal dimension system.
   /// For internal use only.
   /// </summary>
   /// <returns>Returns void</returns>
   ///
-	void regenDimensionSystem();
+  void regenDimensionSystem();
   /// <summary>
   /// Called by the client code to inform the constraint group that dependent 
   /// entity for <paramref name="pGeomDependency"/> has been mirrored. The 
@@ -526,21 +526,21 @@ public:
   /// implicit point needs to be updated for mirror action. </param>
   /// <returns> Acad::ErrorStatus. </returns>
   ///
-	Acad::ErrorStatus geometryMirrored(AcDbAssocGeomDependency* pGeomDependency);
+  Acad::ErrorStatus geometryMirrored(AcDbAssocGeomDependency* pGeomDependency);
   /// <summary>
   /// See the explanation of AcDbAssoc2dConstraintCallback. Multiple global callbacks 
   /// can be registered and they apply to all AcDbAssoc2dConstraintGroup.
   /// </summary>
   /// <param name="pCallback"> The callback to be registered. </param>
   ///
-	static void addGlobalCallback(class AcDbAssoc2dConstraintCallback* pCallback);
+  static void addGlobalCallback(class AcDbAssoc2dConstraintCallback* pCallback);
   /// <summary>
   /// See the explanation of AcDbAssoc2dConstraintCallback. Multiple global callbacks 
   /// can be registered and they apply to all AcDbAssoc2dConstraintGroup.
   /// </summary>
   /// <param name="pCallback"> The callback to be unregistered. </param>
   ///
-	static void removeGlobalCallback(class AcDbAssoc2dConstraintCallback* pCallback);
+  static void removeGlobalCallback(class AcDbAssoc2dConstraintCallback* pCallback);
   /// <summary>
   /// Returns a callback that is the collection of all callbacks registered by
   /// client code. This function is meant mostly for private use and there should
@@ -553,7 +553,7 @@ public:
   /// registered by the client code. The returned pointer is never null.
   /// </returns>
   ///
-	static class AcDbAssoc2dConstraintCallback* globalCallback();
+  static class AcDbAssoc2dConstraintCallback* globalCallback();
   /// <summary><para>
   /// Primarily for internal use only.
   /// <summary><para>
@@ -569,8 +569,8 @@ public:
   /// first set to kIsUpToDateAssocStatus and then to kChangedDirectlyAssocStatus.
   /// </para></summary>
   /// 
-	static void setDoNotCheckNewlyAddedConstraints(bool doNotCheck);
-	static bool doNotCheckNewlyAddedConstraints();
+  static void setDoNotCheckNewlyAddedConstraints(bool doNotCheck);
+  static bool doNotCheckNewlyAddedConstraints();
 };
 /// <summary>
 /// Client code can register callback(s) derived from AcDbAssoc2dConstraintCallback 
@@ -582,14 +582,14 @@ class AcDbAssoc2dConstraintCallback
 public:
     /// <summary>Default constructor. </summary>
     ///
-	AcDbAssoc2dConstraintCallback()
-	{
-	}
+  AcDbAssoc2dConstraintCallback()
+  {
+  }
     /// <summary>Destructor. </summary>
     ///
-	virtual ~AcDbAssoc2dConstraintCallback()
-	{
-	}
+  virtual ~AcDbAssoc2dConstraintCallback()
+  {
+  }
     /// <summary>
     /// Allows client code to veto erasing a dimension constraint when a 
     /// dimension constraint is not satisfied and being erased during relax 
@@ -605,11 +605,11 @@ public:
     /// erased.
     /// </returns>
     ///
-	virtual bool canBeRelaxed(const class AcExplicitConstraint* pConstraint)
-	{
-		UNREFERENCED_PARAMETER(pConstraint);
-		return false;
-	}
+  virtual bool canBeRelaxed(const class AcExplicitConstraint* pConstraint)
+  {
+    UNREFERENCED_PARAMETER(pConstraint);
+    return false;
+  }
     /// <summary>
     /// This function will be called when a constraint is
     /// deactivated/reactivated. This notification takes place when
@@ -621,11 +621,11 @@ public:
     /// <param name="pConstraint"> The constraint that is to be
     /// activated/deactivated. </param>
     ///
-	virtual void constraintDeactivated(const AcExplicitConstraint* pConstraint, bool bDeactivated = true)
-	{
-		UNREFERENCED_PARAMETER(pConstraint);
-		UNREFERENCED_PARAMETER(bDeactivated);
-	}
+  virtual void constraintDeactivated(const AcExplicitConstraint* pConstraint, bool bDeactivated = true)
+  {
+    UNREFERENCED_PARAMETER(pConstraint);
+    UNREFERENCED_PARAMETER(bDeactivated);
+  }
 };
 /// <summary>
 /// Client needs to implement this callback to provide constraint priorities
@@ -634,12 +634,12 @@ public:
 ///
 class ACDB_PORT AcAutoConstrainEvaluationCallback
 {
-	friend class AcDbImpAssoc2dConstraintGroup;
-	friend class AcAutoConstraintEvalManager;
+  friend class AcDbImpAssoc2dConstraintGroup;
+  friend class AcAutoConstraintEvalManager;
 public:
-	virtual ~AcAutoConstrainEvaluationCallback()
-	{
-	}
+  virtual ~AcAutoConstrainEvaluationCallback()
+  {
+  }
   /// <summary> 
   /// This function will be called when system finds a possible constraint between given set of
   /// constrained geometries. This function expects to get an override to increase, decrease or
@@ -658,13 +658,13 @@ public:
   /// geometries. Higher value of priority means this contraint will be given preference over
   /// other possible constraint and will be applied earlier.</param>
   ///
-	virtual void getConstraintPriorityOverride(AcGeomConstraint::GeomConstraintType type, const AcArray<const AcConstrainedGeometry*>& geometries, int& priority) const
-	{
-		UNREFERENCED_PARAMETER(type);
-		UNREFERENCED_PARAMETER(geometries);
-		UNREFERENCED_PARAMETER(priority);
-		return ;
-	}
+  virtual void getConstraintPriorityOverride(AcGeomConstraint::GeomConstraintType type, const AcArray<const AcConstrainedGeometry*>& geometries, int& priority) const
+  {
+    UNREFERENCED_PARAMETER(type);
+    UNREFERENCED_PARAMETER(geometries);
+    UNREFERENCED_PARAMETER(priority);
+    return ;
+  }
   /// <summary>
   /// define order of the constraints type in which it can be used for autoConstrain.
   /// </summary>
@@ -674,14 +674,14 @@ public:
   /// for autoconstraint.
   /// </param>
   /// 
-	virtual void getAutoConstrainPriority(AcArray<AcGeomConstraint::GeomConstraintType>& constraintList) const
-	{
-		constraintList.setLogicalLength(0);
-		for (int type = (int) AcGeomConstraint::kHorizontal; type < (int) AcGeomConstraint::kEqualRadius; ++type)
-		{
-			constraintList.append((AcGeomConstraint::GeomConstraintType) type);
-		}
-	}
+  virtual void getAutoConstrainPriority(AcArray<AcGeomConstraint::GeomConstraintType>& constraintList) const
+  {
+    constraintList.setLogicalLength(0);
+    for (int type = (int) AcGeomConstraint::kHorizontal; type < (int) AcGeomConstraint::kEqualRadius; ++type)
+    {
+      constraintList.append((AcGeomConstraint::GeomConstraintType) type);
+    }
+  }
   /// <summary>
   /// Checks if evaluation is canecelled by caller. If this function returns
   /// true the autoconstraint evaluation from DCM will be cancelled.
@@ -690,10 +690,10 @@ public:
   /// True to cancel the evaluation else False.
   /// </returns>
   /// 
-	virtual bool isEvaluationCancelled()
-	{
-		return false;
-	}
+  virtual bool isEvaluationCancelled()
+  {
+    return false;
+  }
   /// <summary>
   /// Returns list of constraints found by autoconstraint evaluation.
   /// </summary>
@@ -704,27 +704,27 @@ public:
   /// Number of constraints found by autoconstraint evaluation.
   /// </returns>
   /// 
-	int getTotalConstraints(AcArray<AcGeomConstraint*>* pConstraints) const;
+  int getTotalConstraints(AcArray<AcGeomConstraint*>* pConstraints) const;
 private:
   /// <summary>Returns mask for DCM autoconstrain evaluation. This function is
   /// is for internal use only.</summary>
   /// <returns>mask for DCM autoconstrain evaluation.</returns>
-	int getAutoConstraintMask() const;
+  int getAutoConstraintMask() const;
   /// <summary>Validates autoconstraint data. This function is
   /// is for internal use only.</summary>
   /// <param name="pData">Data for validation.</param>
-	void validate(void* pData);
+  void validate(void* pData);
   /// <summarry> Checks if the constraint is of the given constraint type.
   /// </summary>
   /// <param name="type">GeomConstraint type for check.</param>
   /// <param name="pConstraint">Pointer to GeomConstraint which needs to be 
   /// checked for given <paramref name="type"/>.</param>
   /// <returns> true, if valid constraint type, else false.<returns>
-	bool isValidConstraintType(AcGeomConstraint::GeomConstraintType type, const AcGeomConstraint* pConstraint) const;
+  bool isValidConstraintType(AcGeomConstraint::GeomConstraintType type, const AcGeomConstraint* pConstraint) const;
   /// <summary>This method is called by AcAutoConstraintEvalManager to notify 
   /// the callback for constraint added event.</summary>
   /// <param name="pNewCons">Pointer to the constraint that has been added.</param>
-	void constraintAdded(AcGeomConstraint* pNewCons);
-	AcArray<AcGeomConstraint*> mConstraints;
+  void constraintAdded(AcGeomConstraint* pNewCons);
+  AcArray<AcGeomConstraint*> mConstraints;
 };
 #pragma  pack (pop)

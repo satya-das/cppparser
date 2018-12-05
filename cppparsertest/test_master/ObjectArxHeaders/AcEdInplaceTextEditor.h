@@ -10,9 +10,9 @@
 //
 // AcEdInplaceTextEditor - provides application level services in accore.dll
 #ifndef AcEdInplaceTextEditor_H
-#	define AcEdInplaceTextEditor_H
-#	include "dbtexteditor.h"
-#	include "AcCoreDefs.h"
+#  define AcEdInplaceTextEditor_H
+#  include "dbtexteditor.h"
+#  include "AcCoreDefs.h"
 class IPE_Editor;
 class AcEdInplaceTextEditor;
 class IAcEdInplaceTextEditorHost;
@@ -30,63 +30,63 @@ public:
     /// Constructor. It will create a AcEdInplaceTextEditorSettings object with 
     /// default settings for the common MTEXT object.
     ///</summary>
-	ACCORE_PORT AcEdInplaceTextEditorSettings();
+  ACCORE_PORT AcEdInplaceTextEditorSettings();
     ///<summary> 
     /// Destructor.
     ///</summary>
-	ACCORE_PORT ~AcEdInplaceTextEditorSettings();
+  ACCORE_PORT ~AcEdInplaceTextEditorSettings();
     ///<summary> 
     /// The enum type is for the source entity type. You can create a memory MTEXT
     /// object for the complex entity like table cell or multi-attribute to invoke
     /// the text editor.
     ///</summary>
-	enum EntityType
-	{
+  enum EntityType
+  {
         /// <summary>
         /// This is common MTEXT object.
         /// </summary>
-		kDefault,
+    kDefault,
         /// <summary>
         /// This is a table cell. The current MTEXT is the content copy of the table
         /// cell.
         /// </summary>
-		kTableCell,
+    kTableCell,
         /// <summary>
         /// This is multi-attribute. The current MTEXT is the content copy of the 
         /// multi-attribute.
         /// </summary>
-		kMultiAttribute
-	};
+    kMultiAttribute
+  };
     ///<summary> 
     /// The enum type is to specify the editing flags when invoking the text editor.
     /// You can set one or several flags for the text editor.
     ///</summary>
-	enum EditFlags
-	{
+  enum EditFlags
+  {
         ///<summary> 
         /// After invoked the text editor, it has opaque back ground.
         ///</summary>
-		kForceOpaqueBackground = 1 << 0,
+    kForceOpaqueBackground = 1 << 0,
         ///<summary> 
         /// After invoked the text editor, it will select all the characters in 
         /// the text editor. This flag and kCursorAtEnd are mutually exclusive,
         /// if user set the kSelectAll and kCursorAtEnd, it will ignore the kCursorAtEnd.
         ///</summary>
-		kSelectAll = 1 << 1,
+    kSelectAll = 1 << 1,
         ///<summary> 
         /// After invoked the text editor, the current cursor is placed at the end
         /// of the text editor. This flag and kSelectAll are mutually exclusive,
         /// if user set the kSelectAll and kCursorAtEnd, it will ignore the kCursorAtEnd.
         ///</summary>
-		kCursorAtEnd = 1 << 2
-	};
+    kCursorAtEnd = 1 << 2
+  };
     ///<summary> 
     /// Get the editing flags you specified.
     ///</summary>
     ///<returns>
     /// Return the editing flags from current setting.
     ///</returns>
-	ACCORE_PORT int editFlags() const;
+  ACCORE_PORT int editFlags() const;
     ///<summary> 
     /// Set the editing flags.
     ///</summary>
@@ -95,7 +95,7 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus setEditFlags(int flags);
+  ACCORE_PORT Acad::ErrorStatus setEditFlags(int flags);
     ///<summary> 
     /// Get the source entity type for current editing MTEXT object. You can create
     /// a memory copy of MTEXT for the complex entity like table cell or multi-attribute.
@@ -103,7 +103,7 @@ public:
     ///<returns>
     /// Return the entity type you set.
     ///</returns>
-	ACCORE_PORT EntityType sourceEntityType() const;
+  ACCORE_PORT EntityType sourceEntityType() const;
     ///<summary> 
     /// Set the source entity type flag for the current editing MTEXT.
     ///</summary>
@@ -112,14 +112,14 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus setSourceEntityType(EntityType type);
+  ACCORE_PORT Acad::ErrorStatus setSourceEntityType(EntityType type);
     ///<summary> 
     /// Check if the text editor supports the paragraph.
     ///</summary>
     /// <returns>
     /// Returns true if it supports the paragraph. Otherwise it will return false.
     /// </returns>
-	ACCORE_PORT bool tabSupported() const;
+  ACCORE_PORT bool tabSupported() const;
     ///<summary> 
     /// Set if the text editor supports the paragraph. Note that if the current input
     /// type is table cell or simple MTEXT, it will ignore the setting and they don't
@@ -130,7 +130,7 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus setSupportTab(bool bTab);
+  ACCORE_PORT Acad::ErrorStatus setSupportTab(bool bTab);
     ///<summary> 
     /// Check to see if the input entity is a simple MTEXT object. For the simple
     /// MTEXT it has no columns, no paragraphs and so on. It has only basic MTEXT
@@ -140,7 +140,7 @@ public:
     /// Returns true if it specified the input entity is a simple MTEXT object. 
     /// Otherwise it will return false.
     /// </returns>
-	ACCORE_PORT bool simpleMText() const;
+  ACCORE_PORT bool simpleMText() const;
     ///<summary> 
     /// Specify that the input entity is a simple MTEXT object.
     ///</summary>
@@ -149,7 +149,7 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus setSimpleMText(bool bSimpleMText);
+  ACCORE_PORT Acad::ErrorStatus setSimpleMText(bool bSimpleMText);
     ///<summary> 
     /// Get the defined height setting in the text editor. This setting will work if
     /// the input entity is not a database resident object. Otherwise the defined height
@@ -158,7 +158,7 @@ public:
     /// <returns>
     /// Returns the defined height value in the setting.
     /// </returns>
-	ACCORE_PORT double definedHeight() const;
+  ACCORE_PORT double definedHeight() const;
     ///<summary> 
     /// Set the defined height for the non-database resident input entity.
     ///</summary>
@@ -167,12 +167,12 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus setDefinedHeight(double height);
+  ACCORE_PORT Acad::ErrorStatus setDefinedHeight(double height);
 protected:
-	AcEdInplaceTextEditorSettingsImp* m_pImp;
+  AcEdInplaceTextEditorSettingsImp* m_pImp;
 private:
-	AcEdInplaceTextEditorSettings(const AcEdInplaceTextEditorSettings& editor);
-	AcEdInplaceTextEditorSettings& operator=(const AcEdInplaceTextEditorSettings& editor);
+  AcEdInplaceTextEditorSettings(const AcEdInplaceTextEditorSettings& editor);
+  AcEdInplaceTextEditorSettings& operator=(const AcEdInplaceTextEditorSettings& editor);
 };
 ///<summary> 
 /// This classs represents the in-place text editor in ACAD. It inherits from the 
@@ -195,11 +195,11 @@ public:
     /// Current text editor object pointer; return NULL if there is no
     /// active in place text editor.
     /// </returns>
-	ACCORE_PORT static AcEdInplaceTextEditor* current();
+  ACCORE_PORT static AcEdInplaceTextEditor* current();
     /// <summary>
     /// For internal use only.
     /// </summary>
-	ACCORE_PORT void setHost(IAcEdInplaceTextEditorHost* pHost);
+  ACCORE_PORT void setHost(IAcEdInplaceTextEditorHost* pHost);
     ///<summary> 
     ///Invoke the in-place text editor for the MTEXT object. If there is a active 
     ///in-place text editor, it will close the current in-place text editor and invoke
@@ -212,7 +212,7 @@ public:
     /// Returns Acad::eOk if it invoke the in-place text editor successfully. Otherwise
     /// it returns the Acad::eInvalidInput.
     /// </returns>
-	ACCORE_PORT static Acad::ErrorStatus invoke(AcDbMText* pMtext, const AcEdInplaceTextEditorSettings* pSettings);
+  ACCORE_PORT static Acad::ErrorStatus invoke(AcDbMText* pMtext, const AcEdInplaceTextEditorSettings* pSettings);
     ///<summary> 
     ///Invoke the in-place text editor for the TEXT object. If there is a active 
     ///in-place text editor, it will close the current in-place text editor and invoke
@@ -227,265 +227,265 @@ public:
     /// Returns Acad::eOk if it invoke the in-place text editor successfully. Otherwise
     /// it returns the Acad::eInvalidInput.
     /// </returns>
-	ACCORE_PORT static Acad::ErrorStatus invoke(AcDbText* pText, AcDbObjectIdArray* appendedEntities);
+  ACCORE_PORT static Acad::ErrorStatus invoke(AcDbText* pText, AcDbObjectIdArray* appendedEntities);
     // Enums for text editor operation undo type.
     /// <summary>
     /// Describes the undo type for each kind of operation.
     /// </summary>
-	enum TextUndoType
-	{
+  enum TextUndoType
+  {
         /// <summary>
         /// Undo type for typing operation in text editor.
         /// </summary>
-		kUndoTyping = 1,
+    kUndoTyping = 1,
         /// <summary>
         /// Undo type for the operation to toggle bold on.
         /// </summary>
-		kUndoBoldOn,
+    kUndoBoldOn,
         /// <summary>
         /// Undo type for the operation to toggle bold off.
         /// </summary>
-		kUndoBoldOff,
+    kUndoBoldOff,
         /// <summary>
         /// Undo type for the operation to toggle italic on.
         /// </summary>
-		kUndoItalicOn,
+    kUndoItalicOn,
         /// <summary>
         /// Undo type for the operation to toggle italic off.
         /// </summary>
-		kUndoItalicOff,
+    kUndoItalicOff,
         /// <summary>
         /// Undo type for the operation to toggle underline on.
         /// </summary>
-		kUndoUnderlineOn,
+    kUndoUnderlineOn,
         /// <summary>
         /// Undo type for the operation to toggle underline off.
         /// </summary>
-		kUndoUnderlineOff,
+    kUndoUnderlineOff,
         /// <summary>
         /// Undo type for the operation to toggle overline on.
         /// </summary>
-		kUndoOverlineOn,
+    kUndoOverlineOn,
         /// <summary>
         /// Undo type for the operation to toggle overline off.
         /// </summary>
-		kUndoOverlineOff,
+    kUndoOverlineOff,
         /// <summary>
         /// Undo type for the operation to set font.
         /// </summary>
-		kUndoFont,
+    kUndoFont,
         /// <summary>
         /// Undo type for the operation to set height.
         /// </summary>
-		kUndoHeight,
+    kUndoHeight,
         /// <summary>
         /// Undo type for the operation to set color.
         /// </summary>
-		kUndoColor,
+    kUndoColor,
         /// <summary>
         /// Undo type for the operation to set oblique angle.
         /// </summary>
-		kUndoObliqueAngle,
+    kUndoObliqueAngle,
         /// <summary>
         /// Undo type for the operation to set width scale.
         /// </summary>
-		kUndoWidthScale,
+    kUndoWidthScale,
         /// <summary>
         /// Undo type for the operation to set tracking factor.
         /// </summary>
-		kUndoTrackingFactor,
+    kUndoTrackingFactor,
         /// <summary>
         /// Undo type for the operation to set language.
         /// </summary>
-		kUndoLanguage,
+    kUndoLanguage,
         /// <summary>
         /// Undo type for the operation to input a back space.
         /// </summary>
-		kUndoBackspace,
+    kUndoBackspace,
         /// <summary>
         /// Undo type for the operation to delete.
         /// </summary>
-		kUndoDelete,
+    kUndoDelete,
         /// <summary>
         /// Undo type for the operation to paste.
         /// </summary>
-		kUndoPaste,
+    kUndoPaste,
         /// <summary>
         /// Undo type for the operation to cut.
         /// </summary>
-		kUndoCut,
+    kUndoCut,
         /// <summary>
         /// Undo type for the operation to create stack.
         /// </summary>
-		kUndoStack,
+    kUndoStack,
         /// <summary>
         /// Undo type for the operation to remove stack.
         /// </summary>
-		kUndoUnstack,
+    kUndoUnstack,
         /// <summary>
         /// Undo type for the operation to set stack properties.
         /// </summary>
-		kUndoStackProperties,
+    kUndoStackProperties,
         /// <summary>
         /// Undo type for the operation to insert field.
         /// </summary>
-		kUndoFieldInsert,
+    kUndoFieldInsert,
         /// <summary>
         /// Undo type for the operation to convert the field.
         /// </summary>
-		kUndoFieldConvert,
+    kUndoFieldConvert,
         /// <summary>
         /// Undo type for the operation to update the field.
         /// </summary>
-		kUndoFieldUpdate,
+    kUndoFieldUpdate,
         /// <summary>
         /// Undo type for the operation to insert symbol.
         /// </summary>
-		kUndoSymbolInsert,
+    kUndoSymbolInsert,
         /// <summary>
         /// For internal use only.
         /// </summary>
-		kUndoAutoField,
+    kUndoAutoField,
         /// <summary>
         /// For internal use only.
         /// </summary>
-		kUndoAutoStack,
+    kUndoAutoStack,
         /// <summary>
         /// For internal use only.
         /// </summary>
-		kUndoAutoSymbol,
+    kUndoAutoSymbol,
         /// <summary>
         /// For internal use only.
         /// </summary>
-		kUndoAutoDTextEscape,
+    kUndoAutoDTextEscape,
         /// <summary>
         /// For internal use only.
         /// </summary>
-		kUndoAutoMifOrCif,
+    kUndoAutoMifOrCif,
         /// <summary>
         /// For internal use only.
         /// </summary>
-		kUndoAutoDimension,
+    kUndoAutoDimension,
         /// <summary>
         /// For internal use only..
         /// </summary>
-		kUndoAutoDimBreak,
+    kUndoAutoDimBreak,
         /// <summary>
         /// Undo type for the operation to check spelling automatically.
         /// </summary>
-		kUndoAutoSpell,
+    kUndoAutoSpell,
         /// <summary>
         /// Undo type for the operation to set text style.
         /// </summary>
-		kUndoStyle,
+    kUndoStyle,
         /// <summary>
         /// Undo type for the operation to set the attachment automatically.
         /// </summary>
-		kUndoAttachment,
+    kUndoAttachment,
         /// <summary>
         /// Undo type for the operation to change the case.
         /// </summary>
-		kUndoChangeCase,
+    kUndoChangeCase,
         /// <summary>
         /// Undo type for the operation to import text.
         /// </summary>
-		kUndoImportText,
+    kUndoImportText,
         /// <summary>
         /// Undo type for the operation to combine paragraphs.
         /// </summary>
-		kUndoCombineParagraphs,
+    kUndoCombineParagraphs,
         /// <summary>
         /// Undo type for the operation to remove character formatting.
         /// </summary>
-		kUndoRemoveCharFormatting,
+    kUndoRemoveCharFormatting,
         /// <summary>
         /// Undo type for the operation to remove paragraph formatting.
         /// </summary>
-		kUndoRemoveParaFormatting,
+    kUndoRemoveParaFormatting,
         /// <summary>
         /// Undo type for the operation to remove all kind of formatting.
         /// </summary>
-		kUndoRemoveAllFormatting,
+    kUndoRemoveAllFormatting,
         /// <summary>
         /// Undo type for the operation to replace all matched text.
         /// </summary>
-		kUndoReplaceAll,
+    kUndoReplaceAll,
         /// <summary>
         /// Undo type for the operation to replace matched text.
         /// </summary>
-		kUndoReplace,
+    kUndoReplace,
         /// <summary>
         /// Undo type for the operation to set paragraph attributes.
         /// </summary>
-		kUndoParagraphAttributes,
+    kUndoParagraphAttributes,
         /// <summary>
         /// Undo type for the operation to set defined width.
         /// </summary>
-		kUndoSetDefinedWidth,
+    kUndoSetDefinedWidth,
         /// <summary>
         /// Undo type for the operation to set defined height.
         /// </summary>
-		kUndoSetDefinedHeight,
+    kUndoSetDefinedHeight,
         /// <summary>
         /// Undo type for the operation to set character attributes.
         /// </summary>
-		kUndoCharAttributes,
+    kUndoCharAttributes,
         /// <summary>
         /// Undo type for wipeout operation.
         /// </summary>
-		kUndoWipeout,
+    kUndoWipeout,
         /// <summary>
         /// For internal use only.
         /// </summary>
-		kUndoDimensionInsert,
+    kUndoDimensionInsert,
         /// <summary>
         /// For internal use only.
         /// </summary>
-		kUndoDimBreakInsert,
+    kUndoDimBreakInsert,
         /// <summary>
         /// For internal use only.
         /// </summary>
-		kUndoCustomConvert,
+    kUndoCustomConvert,
         /// <summary>
         /// Undo type for the operation to delete and move selection.
         /// </summary>
-		kUndoDeleteAndMoveSelection,
+    kUndoDeleteAndMoveSelection,
         /// <summary>
         /// Undo type for the operation to number the paragraph.
         /// </summary>
-		kUndoParagraphNumbering,
+    kUndoParagraphNumbering,
         /// <summary>
         /// Undo type for the operation to set cursor attributes.
         /// </summary>
-		kUndoCursorAttributes,
+    kUndoCursorAttributes,
         /// <summary>
         /// Undo type for the operation to columns operation.
         /// </summary>
-		kUndoColumns,
+    kUndoColumns,
         /// <summary>
         /// Undo type for the operation to set annotation scaling state.
         /// </summary>
-		kUndoAnnoState,
+    kUndoAnnoState,
         /// <summary>
         /// For internal use only.
         /// </summary>
-		kUndoDimensionTweak,
+    kUndoDimensionTweak,
         /// <summary>
         /// For internal use only.
         /// </summary>
-		kUndoDimensionSymbol,
+    kUndoDimensionSymbol,
         /// <summary>
         /// For internal use only.
         /// </summary>
-		kUndoDimensionTemplate
-	};
+    kUndoDimensionTemplate
+  };
     ///<summary> 
     /// Check that there is something to undo.
     ///</summary>
     /// <returns>
     /// Returns true if there is something to undo.
     /// </returns>
-	ACCORE_PORT bool canUndo() const;
+  ACCORE_PORT bool canUndo() const;
     ///<summary> 
     /// Undo last operation. If it can't undo (the canUndo() returns false), it 
     /// will return Acad::eInvalidInput for you.
@@ -494,14 +494,14 @@ public:
     /// Returns Acad::eOk if the undo succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus undo();
+  ACCORE_PORT Acad::ErrorStatus undo();
     ///<summary> 
     /// Check that there is something to redo.
     ///</summary>
     /// <returns>
     /// Returns true if there is something to redo.
     /// </returns>
-	ACCORE_PORT bool canRedo() const;
+  ACCORE_PORT bool canRedo() const;
     ///<summary> 
     /// Redo last operation. If it can't redo (the canRedo() returns false), it 
     /// will return Acad::eInvalidInput for you.
@@ -510,7 +510,7 @@ public:
     /// Returns Acad::eOk if the redo succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus redo();
+  ACCORE_PORT Acad::ErrorStatus redo();
     ///<summary> 
     /// Add undo marker in the TextEditor undo queue.
     ///</summary>
@@ -518,28 +518,28 @@ public:
     /// <returns>
     /// Returns Acad::ErrorStatus return code.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus addUndoMarker(TextUndoType type);
+  ACCORE_PORT Acad::ErrorStatus addUndoMarker(TextUndoType type);
     ///<summary> 
     /// Check that it can cut the text.
     ///</summary>
     /// <returns>
     /// Returns true if it can cut the text, otherwise returns false.
     /// </returns>
-	ACCORE_PORT bool canCut() const;
+  ACCORE_PORT bool canCut() const;
     ///<summary> 
     /// Check that it can copy the text.
     ///</summary>
     /// <returns>
     /// Returns true if it can copy the text, otherwise returns false.
     /// </returns>
-	ACCORE_PORT bool canCopy() const;
+  ACCORE_PORT bool canCopy() const;
     ///<summary> 
     /// Check that it can paste the text.
     ///</summary>
     /// <returns>
     /// Returns true if it can paste the text, otherwise returns false.
     /// </returns>
-	ACCORE_PORT bool canPaste() const;
+  ACCORE_PORT bool canPaste() const;
     ///<summary> 
     /// It will cut the current selected text in editor and save the text in clipboard.
     /// Note that it will delete current selection and there is no selection after called
@@ -550,7 +550,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus cut();
+  ACCORE_PORT Acad::ErrorStatus cut();
     ///<summary> 
     /// It will copy the current selected text in editor and save the text in clipboard.
     /// This function will not affect the selection object in text editor. If the canCopy()
@@ -560,7 +560,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus copy();
+  ACCORE_PORT Acad::ErrorStatus copy();
     ///<summary> 
     /// It will paste the text in clipboard to text editor at the current text editor
     /// selectable object (cursor or selection). If it selected some text, after called
@@ -571,7 +571,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus paste();
+  ACCORE_PORT Acad::ErrorStatus paste();
     ///<summary> 
     /// In the function it will paste the text with the following text editor default 
     /// char formats and without paragraph formats.
@@ -591,14 +591,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus pasteWithoutFormats();
+  ACCORE_PORT Acad::ErrorStatus pasteWithoutFormats();
     ///<summary> 
     /// Check if the in place text editor undo recording is disabled.
     ///</summary>
     /// <returns>
     /// Returns true if the undo recording is disabled, otherwise returns false.
     /// </returns>
-	ACCORE_PORT bool undoRecordingDisabled();
+  ACCORE_PORT bool undoRecordingDisabled();
     ///<summary> 
     /// It will stop/start the in place text editor undo recording. Note that after 
     /// stopped the undo recording, text editor will not record any changes from
@@ -609,7 +609,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus setUndoRecordingDisable(bool disabled);
+  ACCORE_PORT Acad::ErrorStatus setUndoRecordingDisable(bool disabled);
     ///<summary> 
     /// Set Annotative. It can only set the annotative property when the input 
     /// entity is MTEXT object. 
@@ -619,49 +619,49 @@ public:
     /// Returns Acad::eOk if the operation succeeded.
     /// Returns Acad::eInvalidInput if the operation fails.
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus setAnnotative(bool bSet);
+  ACCORE_PORT Acad::ErrorStatus setAnnotative(bool bSet);
     ///<summary> 
     /// Get annotative state.
     ///</summary>
     /// <returns>
     /// Returns true if TextEditor is in annotative state.
     /// </returns>
-	ACCORE_PORT bool annotative() const;
+  ACCORE_PORT bool annotative() const;
     ///<summary> 
     /// Check if the current entity for in place text editor is tale cell.
     ///</summary>
     /// <returns>
     /// True if the entity is table cell.
     /// </returns>
-	ACCORE_PORT bool isTableCell() const;
+  ACCORE_PORT bool isTableCell() const;
     ///<summary> 
     /// Check if the current entity for in place text editor is simple MTEXT object.
     ///</summary>
     /// <returns>
     /// True if the entity is simple MTEXT.
     /// </returns>
-	ACCORE_PORT bool isSimpleMtext() const;
+  ACCORE_PORT bool isSimpleMtext() const;
     ///<summary> 
     /// Check if the current entity for in place text editor is text object.
     ///</summary>
     /// <returns>
     /// True if the entity is text object.
     /// </returns>
-	ACCORE_PORT bool isText() const;
+  ACCORE_PORT bool isText() const;
     ///<summary> 
     /// Check if the current entity for in place text editor is multi-line attribute.
     ///</summary>
     /// <returns>
     /// True if the entity is multi-line attribute.
     /// </returns>
-	ACCORE_PORT bool isMultiAttribute() const;
+  ACCORE_PORT bool isMultiAttribute() const;
     ///<summary> 
     /// Check if the current in place text editor supports paragraph.
     ///</summary>
     /// <returns>
     /// True if the current in place text editor supports paragraph.
     /// </returns>
-	ACCORE_PORT bool isParagraphSupported() const;
+  ACCORE_PORT bool isParagraphSupported() const;
     ///<summary> 
     /// Replace all the matched strings in current Text Editor. And it will pop out
     /// a message box to prompt that it has completed.
@@ -673,7 +673,7 @@ public:
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void replaceAllMatchItems(int findFlags, const AcString& findStr, const AcString& replaceStr) const;
+  ACCORE_PORT void replaceAllMatchItems(int findFlags, const AcString& findStr, const AcString& replaceStr) const;
     ///<summary> 
     /// Replace the current selected matched string in Text Editor. It will clear 
     /// the current selection and the cursor will be placed at the end of the replaced text. 
@@ -687,7 +687,7 @@ public:
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void replaceCurrentMatchItem(int findFlags, const AcString& findStr, const AcString& replaceStr) const;
+  ACCORE_PORT void replaceCurrentMatchItem(int findFlags, const AcString& findStr, const AcString& replaceStr) const;
     ///<summary> 
     /// Find the matched string in Text Editor from the current cursor or the end 
     /// location of the current selection. It will select and highlight the matched 
@@ -699,7 +699,7 @@ public:
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void findMatchItem(int findFlags, const AcString& findStr) const;
+  ACCORE_PORT void findMatchItem(int findFlags, const AcString& findStr) const;
     ///<summary> 
     /// Set if the current text editor can exit.
     ///</summary>
@@ -707,56 +707,56 @@ public:
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void setCanExitInplaceEditor(bool bCanExit);
+  ACCORE_PORT void setCanExitInplaceEditor(bool bCanExit);
     ///<summary> 
     /// Check if the current text editor can exit.
     ///</summary>
     /// <returns>
     /// bool
     /// </returns>
-	ACCORE_PORT bool canExitInplaceEditor();
+  ACCORE_PORT bool canExitInplaceEditor();
     ///<summary> 
     /// Remove Text editor highlight.
     ///</summary>
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void removeHightlight();
+  ACCORE_PORT void removeHightlight();
     ///<summary> 
     /// Draw text editor highlight.
     ///</summary>
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void drawHighlight();
+  ACCORE_PORT void drawHighlight();
     ///<summary> 
     /// Get Text editor alignment from its attachment point.
     ///</summary>
     /// <returns>
     /// Return the Text editor alignment.
     /// </returns>
-	ACCORE_PORT AcDbTextEditorParagraph::AlignmentType getAlignmentFromAttachment() const;
+  ACCORE_PORT AcDbTextEditorParagraph::AlignmentType getAlignmentFromAttachment() const;
     ///<summary> 
     /// Get Text editor entity's layer color.
     ///</summary>
     /// <returns>
     /// Return the color of text editor entity.
     /// </returns>
-	ACCORE_PORT COLORREF layerColor() const;
+  ACCORE_PORT COLORREF layerColor() const;
     ///<summary> 
     /// Check if the text editor speller enabled.
     ///</summary>
     /// <returns>
     /// True if the speller is enabled.
     /// </returns>
-	ACCORE_PORT bool spellerEnabled() const;
+  ACCORE_PORT bool spellerEnabled() const;
     ///<summary> 
     /// Toggles on and off as-you-type-spelling. .
     ///</summary>
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void toggleSpelling();
+  ACCORE_PORT void toggleSpelling();
     ///<summary> 
     /// Insert the context in the file name file to the text editor.
     ///</summary>
@@ -764,14 +764,14 @@ public:
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void insertFile(const AcString& fileName);
+  ACCORE_PORT void insertFile(const AcString& fileName);
     ///<summary> 
     /// Check if the current text editor supports ruler.
     ///</summary>
     /// <returns>
     /// True if the ruler is supported.
     /// </returns>
-	ACCORE_PORT bool rulerSupported() const;
+  ACCORE_PORT bool rulerSupported() const;
     ///<summary> 
     /// Sets or unsets the display of the ruler.
     ///</summary>
@@ -779,14 +779,14 @@ public:
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void setRulerHidden(bool hideRuler);
+  ACCORE_PORT void setRulerHidden(bool hideRuler);
     ///<summary> 
     /// Check if the Ruler is hidden.
     ///</summary>
     /// <returns>
     /// True if the ruler is hidden.
     /// </returns>
-	ACCORE_PORT bool rulerHidden() const;
+  ACCORE_PORT bool rulerHidden() const;
     ///<summary> 
     /// Sets or unsets the In-place Editor Background. If the background is
     /// opaque then underlying geometry will be occluded. Note that if the forcedOpaqueBackground()
@@ -797,7 +797,7 @@ public:
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void setOpaqueBackground(bool opaqueBackground);
+  ACCORE_PORT void setOpaqueBackground(bool opaqueBackground);
     ///<summary> 
     /// Check if the In-place Editor Background is opaque. If the background is
     /// opaque then underlying geometry will be occluded.
@@ -805,7 +805,7 @@ public:
     /// <returns>
     /// True if the background is opaque.
     /// </returns>
-	ACCORE_PORT bool opaqueBackground();
+  ACCORE_PORT bool opaqueBackground();
     ///<summary> 
     /// Check if the In-place Editor Background is forced opaque. If the current input
     /// entity type is kTableCell, the wysiwyg setting is off or the invoking setting
@@ -815,20 +815,20 @@ public:
     /// <returns>
     /// True if the background is forced opaque.
     /// </returns>
-	ACCORE_PORT bool forcedOpaqueBackground();
+  ACCORE_PORT bool forcedOpaqueBackground();
     ///<summary> 
     /// Check if the In-place Editor wysiwyg is on.
     ///</summary>
     /// <returns>
     /// True if the wysiwyg setting is on, otherwise returns false.
     /// </returns>
-	ACCORE_PORT bool wysiwyg();
+  ACCORE_PORT bool wysiwyg();
     ///<summary> 
     /// Set the In-place Editor to be wysiwyg. If this is toggled on then the 
     /// In-place Editor is always show the text as it appears in the view
     /// even if the zoom is such that the text is very small.
     ///</summary>
-	ACCORE_PORT void enableWysiwyg();
+  ACCORE_PORT void enableWysiwyg();
     /// <summary> 
     /// This function is used to exit the InPlace Editor.
     /// </summary>
@@ -836,14 +836,14 @@ public:
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT virtual void close(ExitStatus stat);
+  ACCORE_PORT virtual void close(ExitStatus stat);
     /// <summary> 
     /// This function is used to invoke the other symbol dialog.
     /// </summary>
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void otherSymbol();
+  ACCORE_PORT void otherSymbol();
     /// <summary> 
     /// Sets or unsets the display of the tool bar.
     /// </summary>
@@ -851,14 +851,14 @@ public:
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void setToolbarHidden(bool bHideToolbar);
+  ACCORE_PORT void setToolbarHidden(bool bHideToolbar);
     /// <summary> 
     /// Check if the toolbar is hidden.
     /// </summary>
     /// <returns>
     /// True if the toolbar is hidden.
     /// </returns>
-	ACCORE_PORT bool toolbarHidden() const;
+  ACCORE_PORT bool toolbarHidden() const;
     /// <summary> 
     /// Sets or unsets the display of the tool bar option.
     /// </summary>
@@ -866,14 +866,14 @@ public:
     /// <returns>
     /// void
     /// </returns>
-	ACCORE_PORT void setToolbarOptionHidden(bool bHideOption);
+  ACCORE_PORT void setToolbarOptionHidden(bool bHideOption);
     ///<summary> 
     /// Check if the toolbar option is hidden.
     ///</summary>
     /// <returns>
     /// True if the toolbar option is hidden.
     /// </returns>
-	ACCORE_PORT bool toolbarOptionHidden() const;
+  ACCORE_PORT bool toolbarOptionHidden() const;
     /// <summary> 
     /// Invoke the text editor columns menu.
     /// </summary>
@@ -884,7 +884,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus columnMenusInput(AcGePoint2d* menuPt, HWND parentHandle);
+  ACCORE_PORT Acad::ErrorStatus columnMenusInput(AcGePoint2d* menuPt, HWND parentHandle);
     /// <summary> 
     /// Invoke the text editor attachment menu.
     /// </summary>
@@ -895,7 +895,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus attachmentMenusInput(AcGePoint2d* menuPt, HWND parentHandle);
+  ACCORE_PORT Acad::ErrorStatus attachmentMenusInput(AcGePoint2d* menuPt, HWND parentHandle);
     ///<summary> 
     /// Invoke the text editor line space menu.
     ///</summary>
@@ -906,7 +906,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus lineSpaceMenusInput(AcGePoint2d* menuPt, HWND parentHandle);
+  ACCORE_PORT Acad::ErrorStatus lineSpaceMenusInput(AcGePoint2d* menuPt, HWND parentHandle);
     /// <summary> 
     /// Invoke the text editor paragraph numbering menu.
     /// </summary>
@@ -917,7 +917,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus numberingMenusInput(AcGePoint2d* menuPt, HWND parentHandle);
+  ACCORE_PORT Acad::ErrorStatus numberingMenusInput(AcGePoint2d* menuPt, HWND parentHandle);
     /// <summary> 
     /// Invoke the text editor symbol menu.
     /// </summary>
@@ -928,7 +928,7 @@ public:
     ///Returns Acad::eOk if the operation succeeds.
     ///Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus symbolMenusInput(AcGePoint2d* menuPt, HWND parentHandle);
+  ACCORE_PORT Acad::ErrorStatus symbolMenusInput(AcGePoint2d* menuPt, HWND parentHandle);
     /// <summary> 
     /// Invoke all the text editor context menu.
     /// </summary>
@@ -939,7 +939,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus contextMenusInput(AcGePoint2d* menuPt, HWND parentHandle);
+  ACCORE_PORT Acad::ErrorStatus contextMenusInput(AcGePoint2d* menuPt, HWND parentHandle);
     /// <summary> 
     /// Invoke the text editor paragraph dialog.
     /// </summary>
@@ -947,7 +947,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus invokeParagraphDialog();
+  ACCORE_PORT Acad::ErrorStatus invokeParagraphDialog();
     /// <summary> 
     /// Invoke the text editor wipe out dialog.
     /// </summary>
@@ -955,7 +955,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus invokeWipeoutDialog();
+  ACCORE_PORT Acad::ErrorStatus invokeWipeoutDialog();
     ///<summary> 
     /// Invoke the text editor columns setting dialog.
     ///</summary>
@@ -964,7 +964,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus invokeColumnsDialog(int iStaticColumnCount = 0);
+  ACCORE_PORT Acad::ErrorStatus invokeColumnsDialog(int iStaticColumnCount = 0);
     /// <summary> 
     /// Invoke the text editor find and replace dialog.
     /// </summary>
@@ -972,7 +972,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus invokeFindReplaceDialog();
+  ACCORE_PORT Acad::ErrorStatus invokeFindReplaceDialog();
     /// <summary> 
     /// Invoke the text editor import text dialog.
     /// </summary>
@@ -980,7 +980,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus invokeImportTextDialog();
+  ACCORE_PORT Acad::ErrorStatus invokeImportTextDialog();
     /// <summary> 
     /// Invoke the text editor field dialog.
     /// </summary>
@@ -990,7 +990,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus invokeFieldDialog(AcDbField* pField = NULL);
+  ACCORE_PORT Acad::ErrorStatus invokeFieldDialog(AcDbField* pField = NULL);
     /// <summary> 
     /// Invoke the text editor speller setting dialog.
     /// </summary>
@@ -998,7 +998,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus invokeSpellSettingDialog();
+  ACCORE_PORT Acad::ErrorStatus invokeSpellSettingDialog();
     /// <summary> 
     /// Invoke the text editor speller dictionary dialog.
     /// </summary>
@@ -1006,7 +1006,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus invokeSpellerDictionaryDialog();
+  ACCORE_PORT Acad::ErrorStatus invokeSpellerDictionaryDialog();
     /// <summary> 
     /// Invoke the text editor text hight light color dialog.
     /// </summary>
@@ -1014,7 +1014,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus invokeHightlightColorDialog();
+  ACCORE_PORT Acad::ErrorStatus invokeHightlightColorDialog();
     /// <summary> 
     /// Invoke the text editor help dialog.
     /// </summary>
@@ -1022,7 +1022,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus invokeHelpDialog();
+  ACCORE_PORT Acad::ErrorStatus invokeHelpDialog();
     /// <summary> 
     /// Invoke the text editor new feature work shop dialog.
     /// </summary>
@@ -1030,7 +1030,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ADESK_DEPRECATED Acad::ErrorStatus ACCORE_PORT invokeNewFeatureWorkshop();
+  ADESK_DEPRECATED Acad::ErrorStatus ACCORE_PORT invokeNewFeatureWorkshop();
     /// <summary> 
     /// Invoke the text editor stack properties dialog.
     /// </summary>
@@ -1038,7 +1038,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus invokeStackPropertyDialog();
+  ACCORE_PORT Acad::ErrorStatus invokeStackPropertyDialog();
     /// <summary> 
     /// Change the text editor to static column type and set column count.
     /// Different with set column type and count directly to AcDbTextEditorColumns which is got from the editor,
@@ -1049,14 +1049,14 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-	ACCORE_PORT Acad::ErrorStatus setStaticColumnsWithCount(int columnCount);
+  ACCORE_PORT Acad::ErrorStatus setStaticColumnsWithCount(int columnCount);
 protected:
-	AcEdInplaceTextEditor();
-	~AcEdInplaceTextEditor();
-	AcEdInplaceTextEditor(const AcEdInplaceTextEditor&);
-	AcEdInplaceTextEditor& operator=(const AcEdInplaceTextEditor&);
-	friend class AcEdInplaceTextEditorImp;
-	AcEdInplaceTextEditorImp* m_pEditorImp;
-	IPE_Editor* m_pIPEEditorImp;
+  AcEdInplaceTextEditor();
+  ~AcEdInplaceTextEditor();
+  AcEdInplaceTextEditor(const AcEdInplaceTextEditor&);
+  AcEdInplaceTextEditor& operator=(const AcEdInplaceTextEditor&);
+  friend class AcEdInplaceTextEditorImp;
+  AcEdInplaceTextEditorImp* m_pEditorImp;
+  IPE_Editor* m_pIPEEditorImp;
 };
 #endif

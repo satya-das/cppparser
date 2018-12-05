@@ -14,10 +14,10 @@
 // Object reference proxy and smart pointer template classes
 //
 #ifndef __AXOBJREF_H_
-#	define __AXOBJREF_H_
-#	include "dbobjptr.h"
-#	pragma  pack (push, 8)
-#	pragma  warning (disable : 4786)
+#  define __AXOBJREF_H_
+#  include "dbobjptr.h"
+#  pragma  pack (push, 8)
+#  pragma  warning (disable : 4786)
 //
 // ---- AcAxObjectRef Class ----
 //
@@ -57,107 +57,107 @@
 class AcAxObjectRef
 {
 public:
-	AcAxObjectRef();
-	AcAxObjectRef(AcDbObjectId objId);
-	AcAxObjectRef(AcDbObject*& pObj);
-	~AcAxObjectRef();
-	Acad::ErrorStatus acquire(AcDbObjectId objId);
-	Acad::ErrorStatus acquire(AcDbObject * &pObj);
-	Acad::ErrorStatus release(AcDbObjectId& objId, AcDbObject*& pObj);
-	bool isNull();
-	AcDbObjectId objectId();
+  AcAxObjectRef();
+  AcAxObjectRef(AcDbObjectId objId);
+  AcAxObjectRef(AcDbObject*& pObj);
+  ~AcAxObjectRef();
+  Acad::ErrorStatus acquire(AcDbObjectId objId);
+  Acad::ErrorStatus acquire(AcDbObject * &pObj);
+  Acad::ErrorStatus release(AcDbObjectId& objId, AcDbObject*& pObj);
+  bool isNull();
+  AcDbObjectId objectId();
 private:
     // Disallow copy constructor and assignment
-	AcAxObjectRef(AcAxObjectRef& ref);
-	AcAxObjectRef& operator=(AcAxObjectRef& ref);
-	void internalRelease();
+  AcAxObjectRef(AcAxObjectRef& ref);
+  AcAxObjectRef& operator=(AcAxObjectRef& ref);
+  void internalRelease();
     // Object references
-	AcDbObjectId m_objId;
-	AcDbObject* m_pObj;
+  AcDbObjectId m_objId;
+  AcDbObject* m_pObj;
 };
 inline AcAxObjectRef::AcAxObjectRef()
-	: m_objId(NULL)
-	, m_pObj(NULL)
+  : m_objId(NULL)
+  , m_pObj(NULL)
 {
 }
 inline AcAxObjectRef::AcAxObjectRef(AcDbObjectId objId)
-	: m_objId(NULL)
-	, m_pObj(NULL)
+  : m_objId(NULL)
+  , m_pObj(NULL)
 {
-	acquire(objId);
+  acquire(objId);
 }
 inline AcAxObjectRef::AcAxObjectRef(AcDbObject*& pObj)
-	: m_objId(NULL)
-	, m_pObj(NULL)
+  : m_objId(NULL)
+  , m_pObj(NULL)
 {
-	acquire(pObj);
+  acquire(pObj);
 }
 inline AcAxObjectRef::~AcAxObjectRef()
 {
-	internalRelease();
+  internalRelease();
 }
 inline Acad::ErrorStatus AcAxObjectRef::acquire(AcDbObjectId objId)
 {
-	if (objId.isNull())
-	{
-		return Acad::eNullObjectId;
-	}
-	internalRelease();
-	m_objId = objId;
-	return Acad::eOk;
+  if (objId.isNull())
+  {
+    return Acad::eNullObjectId;
+  }
+  internalRelease();
+  m_objId = objId;
+  return Acad::eOk;
 }
 inline Acad::ErrorStatus AcAxObjectRef::acquire(AcDbObject*& pObj)
 {
-	if (NULL == pObj)
-	{
-		return Acad::eNullObjectPointer;
-	}
-	if (!pObj->objectId().isNull())
-	{
-		return acquire(pObj->objectId());
-	}
-	internalRelease();
-	m_pObj = pObj;
-	pObj = NULL;
-	return Acad::eOk;
+  if (NULL == pObj)
+  {
+    return Acad::eNullObjectPointer;
+  }
+  if (!pObj->objectId().isNull())
+  {
+    return acquire(pObj->objectId());
+  }
+  internalRelease();
+  m_pObj = pObj;
+  pObj = NULL;
+  return Acad::eOk;
 }
 inline Acad::ErrorStatus AcAxObjectRef::release(AcDbObjectId& objId, AcDbObject*& pObj)
 {
-	if (isNull())
-	{
-		return Acad::eNullObjectPointer;
-	}
-	pObj = m_pObj;
-	objId = m_objId;
-	m_pObj = NULL;
-	m_objId.setNull();
-	return Acad::eOk;
+  if (isNull())
+  {
+    return Acad::eNullObjectPointer;
+  }
+  pObj = m_pObj;
+  objId = m_objId;
+  m_pObj = NULL;
+  m_objId.setNull();
+  return Acad::eOk;
 }
 inline void AcAxObjectRef::internalRelease()
 {
-	if (NULL != m_pObj)
-	{
-		if (m_pObj->objectId().isNull())
-		{
-			delete m_pObj;
-		}
-		else 
-		{
+  if (NULL != m_pObj)
+  {
+    if (m_pObj->objectId().isNull())
+    {
+      delete m_pObj;
+    }
+    else 
+    {
             // Somebody forgot to get back the pointer to close
             // the object
             //_ASSERTE(NULL == m_pObj && m_pObj->objectId().isNull());
-		}
-		m_pObj = NULL;
-	}
-	m_objId.setNull();
+    }
+    m_pObj = NULL;
+  }
+  m_objId.setNull();
 }
 inline bool AcAxObjectRef::isNull()
 {
-	return (NULL == m_pObj && m_objId.isNull());
+  return (NULL == m_pObj && m_objId.isNull());
 }
 inline AcDbObjectId AcAxObjectRef::objectId()
 {
-	return m_objId;
+  return m_objId;
 }
 // ---- Class AcAxObjectRefPtr ----
 //
@@ -188,69 +188,69 @@ template <typename T_OBJECT>
 class AcAxObjectRefPtr : public AcDbObjectPointer<T_OBJECT>
 {
 public:
-	AcAxObjectRefPtr();
-	AcAxObjectRefPtr(AcAxObjectRef* const pRef, AcDb::OpenMode mode, bool openErased = false);
-	~AcAxObjectRefPtr();
+  AcAxObjectRefPtr();
+  AcAxObjectRefPtr(AcAxObjectRef* const pRef, AcDb::OpenMode mode, bool openErased = false);
+  ~AcAxObjectRefPtr();
 private:
     // Disallow copy constructor, assignment operator
-	AcAxObjectRefPtr(AcAxObjectRefPtr& pObj);
-	AcAxObjectRefPtr& operator=(AcAxObjectRefPtr& pObj);
-	AcAxObjectRef* const m_pRef;
+  AcAxObjectRefPtr(AcAxObjectRefPtr& pObj);
+  AcAxObjectRefPtr& operator=(AcAxObjectRefPtr& pObj);
+  AcAxObjectRef* const m_pRef;
 };
 template <typename T_OBJECT>
 inline AcAxObjectRefPtr<T_OBJECT>::AcAxObjectRefPtr()
-	: AcDbObjectPointer<T_OBJECT>()
-	, m_pRef(NULL)
+  : AcDbObjectPointer<T_OBJECT>()
+  , m_pRef(NULL)
 {
 }
 template <typename T_OBJECT>
 inline AcAxObjectRefPtr<T_OBJECT>::AcAxObjectRefPtr(AcAxObjectRef* const pRef, AcDb::OpenMode mode, bool openErased)
-	: m_pRef(pRef)
+  : m_pRef(pRef)
 {
     //_ASSERTE(NULL != pRef);
-	if (NULL == pRef)
-	{
-		this->m_status = Acad::eNullObjectPointer;
-		return ;
-	}
+  if (NULL == pRef)
+  {
+    this->m_status = Acad::eNullObjectPointer;
+    return ;
+  }
     // Acquire the reference as either an objectId or pointer
-	AcDbObjectId objId = pRef->objectId();
+  AcDbObjectId objId = pRef->objectId();
     // If it is a non-null objectId just open it
-	if (!objId.isNull())
-	{
-		this->m_status = acdbOpenObject(this->m_ptr, objId, mode, openErased);
-	}
-	else 
-	{
-		AcDbObject* pTmp = NULL;
-		m_pRef->release(objId, pTmp);
+  if (!objId.isNull())
+  {
+    this->m_status = acdbOpenObject(this->m_ptr, objId, mode, openErased);
+  }
+  else 
+  {
+    AcDbObject* pTmp = NULL;
+    m_pRef->release(objId, pTmp);
         // Check for downcast of AcDbObject pointer to T_OBJECT
         // Restore object reference if this cast fails
-		T_OBJECT* pTyped = T_OBJECT::cast(pTmp);
-		if (NULL == pTyped)
-		{
-			this->m_ptr = NULL;
-			m_pRef->acquire(pTmp);
-			this->m_status = Acad::eNotThatKindOfClass;
-		}
-		else 
-		{
-			acquire(pTyped);
-		}
-	}
+    T_OBJECT* pTyped = T_OBJECT::cast(pTmp);
+    if (NULL == pTyped)
+    {
+      this->m_ptr = NULL;
+      m_pRef->acquire(pTmp);
+      this->m_status = Acad::eNotThatKindOfClass;
+    }
+    else 
+    {
+      acquire(pTyped);
+    }
+  }
 }
 inline AcAxObjectRefPtr<T_OBJECT>::~AcAxObjectRefPtr()
 {
     // If the objectid is null we need to release
     // our reference and store it on the AcAxObjectRef.
-	if (NULL != this->m_ptr && this->m_ptr->objectId().isNull())
-	{
-		T_OBJECT* pTmp;
-		release(pTmp);
-		m_pRef->acquire(reinterpret_cast<AcDbObject*&>(pTmp));
-	}
+  if (NULL != this->m_ptr && this->m_ptr->objectId().isNull())
+  {
+    T_OBJECT* pTmp;
+    release(pTmp);
+    m_pRef->acquire(reinterpret_cast<AcDbObject*&>(pTmp));
+  }
 }
 typedef AcAxObjectRefPtr<AcDbObject> AcDbObjectRefPtr;
 typedef AcAxObjectRefPtr<AcDbEntity> AcDbEntityRefPtr;
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

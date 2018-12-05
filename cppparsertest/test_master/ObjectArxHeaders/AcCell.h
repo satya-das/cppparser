@@ -16,16 +16,16 @@
 #pragma  once
 typedef struct AcCell
 {
-	int mnRow;
-	int mnColumn;
+  int mnRow;
+  int mnColumn;
 } AcCell;
 typedef AcArray<AcCell> AcCellArray;
 typedef struct AcCellRange
 {
-	int mnTopRow;
-	int mnLeftColumn;
-	int mnBottomRow;
-	int mnRightColumn;
-	bool operator==(const AcCellRange& other) const;
+  int mnTopRow;
+  int mnLeftColumn;
+  int mnBottomRow;
+  int mnRightColumn;
+  bool operator==(const AcCellRange& other) const;
 } AcCellRange;
 typedef AcArray<AcCellRange> AcCellRangeArray;

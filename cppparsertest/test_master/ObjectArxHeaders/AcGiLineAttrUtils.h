@@ -21,6 +21,6 @@ class AcGiLineAttrUtils
 {
 public:
     // Index is an 8-bit integer value
-	static char acgiLineWeightToIndex(AcDb::LineWeight lw);
-	static AcDb::LineWeight acgiIndexToLineWeight(char index);
+  static char acgiLineWeightToIndex(AcDb::LineWeight lw);
+  static AcDb::LineWeight acgiIndexToLineWeight(char index);
 };

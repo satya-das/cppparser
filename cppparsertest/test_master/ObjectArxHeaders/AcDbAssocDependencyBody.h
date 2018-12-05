@@ -78,18 +78,18 @@
 class ACDBCORE2D_PORT AcDbAssocDependencyBody : public AcDbObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocDependencyBody);
-	explicit AcDbAssocDependencyBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
-	virtual ~AcDbAssocDependencyBody();
+  ACRX_DECLARE_MEMBERS(AcDbAssocDependencyBody);
+  explicit AcDbAssocDependencyBody(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  virtual ~AcDbAssocDependencyBody();
     /// <summary>
     /// Returns AcDbObjectId of the parent AcDbAssocDependency that owns this 
     /// dependency body object.
     /// </summary>
     ///
-	AcDbObjectId parentDependency() const
-	{
-		return ownerId();
-	}
+  AcDbObjectId parentDependency() const
+  {
+    return ownerId();
+  }
     // The following non-virtual methods are just shortcuts that just forward 
     // to the parent AcDbAssocDependency class, to save some typing for the
     // implementers of the derived custom dependency body classes
@@ -99,46 +99,46 @@ public:
     /// owns this dependency body object.
     /// </summary>
     ///
-	AcDbAssocStatus status() const;
+  AcDbAssocStatus status() const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocDependency that
     /// owns this dependency body object.
     /// </summary>
     ///
-	Acad::ErrorStatus setStatus(AcDbAssocStatus newStatus, bool notifyOwningAction = true);
+  Acad::ErrorStatus setStatus(AcDbAssocStatus newStatus, bool notifyOwningAction = true);
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocDependency that
     /// owns this dependency body object.
     /// </summary>
     ///
-	AcDbObjectId owningAction() const;
+  AcDbObjectId owningAction() const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocDependency that
     /// owns this dependency body object.
     /// </summary>
     ///
-	AcDbObjectId dependentOnObject() const;
+  AcDbObjectId dependentOnObject() const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocDependency that
     /// owns this dependency body object.
     /// </summary>
     ///
-	bool isAttachedToObject() const
-	{
-		return !dependentOnObject().isNull();
-	}
+  bool isAttachedToObject() const
+  {
+    return !dependentOnObject().isNull();
+  }
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocDependency that
     /// owns this dependency body object.
     /// </summary>
     ///
-	bool isActionEvaluationInProgress() const;
+  bool isActionEvaluationInProgress() const;
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocDependency that
     /// owns this dependency body object.
     /// </summary>
     ///
-	AcDbAssocEvaluationCallback* currentEvaluationCallback() const;
+  AcDbAssocEvaluationCallback* currentEvaluationCallback() const;
     // Virtual methods that can be overridden by the derived classes
 
     /// <summary>
@@ -146,95 +146,95 @@ public:
     /// class that owns this dependency body object. It has to be overridden.
     /// </summary>
     ///
-	virtual void evaluateOverride() = 0;
+  virtual void evaluateOverride() = 0;
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocDependency 
     /// class that owns this dependency body object. It does not need to be 
     /// overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus updateDependentOnObjectOverride()
-	{
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus updateDependentOnObjectOverride()
+  {
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocDependency 
     /// class that owns this dependency body object. It does not need to be 
     /// overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus hasCachedValueOverride(bool& hasCachedVal) const
-	{
-		ADESK_UNREFED_PARAM(hasCachedVal);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus hasCachedValueOverride(bool& hasCachedVal) const
+  {
+    ADESK_UNREFED_PARAM(hasCachedVal);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocDependency 
     /// class that owns this dependency body object. It does not need to be 
     /// overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus isRelevantChangeOverride(bool& isRelevChange) const
-	{
-		ADESK_UNREFED_PARAM(isRelevChange);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus isRelevantChangeOverride(bool& isRelevChange) const
+  {
+    ADESK_UNREFED_PARAM(isRelevChange);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocDependency 
     /// class that owns this dependency body object. It does not need to be 
     /// overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus isDependentOnTheSameThingAsOverride(const AcDbAssocDependency* pOtherDependency, bool& isDependentOnSameThing) const
-	{
-		ADESK_UNREFED_PARAM(pOtherDependency);
-		ADESK_UNREFED_PARAM(isDependentOnSameThing);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus isDependentOnTheSameThingAsOverride(const AcDbAssocDependency* pOtherDependency, bool& isDependentOnSameThing) const
+  {
+    ADESK_UNREFED_PARAM(pOtherDependency);
+    ADESK_UNREFED_PARAM(isDependentOnSameThing);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocDependency 
     /// class that owns this dependency body object. It does not need to be 
     /// overridden.
     /// </summary>
     ///
-	virtual Acad::ErrorStatus isEqualToOverride(const AcDbAssocDependency* pOtherDependency, bool& isEqual) const
-	{
-		ADESK_UNREFED_PARAM(pOtherDependency);
-		ADESK_UNREFED_PARAM(isEqual);
-		return Acad::eNotImplemented;
-	}
+  virtual Acad::ErrorStatus isEqualToOverride(const AcDbAssocDependency* pOtherDependency, bool& isEqual) const
+  {
+    ADESK_UNREFED_PARAM(pOtherDependency);
+    ADESK_UNREFED_PARAM(isEqual);
+    return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding persistent reactor callback method of the 
     /// parent AcDbAssocDependency class that owns this dependency body object. 
     /// It does not need to be overridden.
     /// </summary>
     ///
-	virtual void erasedOverride(const AcDbObject* pDbObj, Adesk::Boolean isErasing)
-	{
-		ADESK_UNREFED_PARAM(pDbObj);
-		ADESK_UNREFED_PARAM(isErasing);
-	}
+  virtual void erasedOverride(const AcDbObject* pDbObj, Adesk::Boolean isErasing)
+  {
+    ADESK_UNREFED_PARAM(pDbObj);
+    ADESK_UNREFED_PARAM(isErasing);
+  }
     /// <summary>
     /// Called from the modified() persistent reactor callback method of the 
     /// parent AcDbAssocDependency class that owns this dependency body object. 
     /// It does not need to be overridden.
     /// </summary>
     ///
-	virtual void modifiedOverride(const AcDbObject* pDbObj)
-	{
-		ADESK_UNREFED_PARAM(pDbObj);
-	}
+  virtual void modifiedOverride(const AcDbObject* pDbObj)
+  {
+    ADESK_UNREFED_PARAM(pDbObj);
+  }
     /// <summary>
     /// Called from the copied() persistent reactor callback method of the 
     /// parent AcDbAssocDependency class that owns this dependency body object. 
     /// It does not need to be overridden.
     /// </summary>
     ///
-	virtual void clonedOverride(const AcDbObject* pDbObj, const AcDbObject* pNewObj)
-	{
-		ADESK_UNREFED_PARAM(pDbObj);
-		ADESK_UNREFED_PARAM(pNewObj);
-	}
+  virtual void clonedOverride(const AcDbObject* pDbObj, const AcDbObject* pNewObj)
+  {
+    ADESK_UNREFED_PARAM(pDbObj);
+    ADESK_UNREFED_PARAM(pNewObj);
+  }
     /// <summary><para>
     /// Called from AcDbAssocManager::auditAssociativeData() after file open and possibly
     /// after some other scenarios when the associative data may need to be audited and fixed-up.
@@ -264,6 +264,6 @@ public:
     /// the custom code.
     /// </para></summary>
     ///
-	virtual void auditAssociativeDataOverride(AcDbAssocStatus& parentActionHandling);
+  virtual void auditAssociativeDataOverride(AcDbAssocStatus& parentActionHandling);
 };
 #pragma  pack (pop)

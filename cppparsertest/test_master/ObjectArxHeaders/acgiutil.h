@@ -10,11 +10,11 @@
 //
 //
 #ifndef _ACGIUTIL_H
-#	define _ACGIUTIL_H	1
-#	include "dbid.h"
-#	include "AdAChar.h"
-#	include "acgi.h"
-#	pragma  pack (push, 8)
+#  define _ACGIUTIL_H	1
+#  include "dbid.h"
+#  include "AdAChar.h"
+#  include "acgi.h"
+#  pragma  pack (push, 8)
 Acad::ErrorStatus fromAcDbTextStyle(AcGiTextStyle&, const AcDbObjectId& AcDbStyleId);
 Acad::ErrorStatus fromAcDbTextStyle(AcGiTextStyle&, const ACHAR* AcDbStyleName);
 // This version of toAcDbTextStyle will use the styleName of the
@@ -43,5 +43,5 @@ Acad::ErrorStatus toAcDbTextStyle(AcGiTextStyle&, const ACHAR* AcDbStyleName);
 // object that maps to the AcGiTextStyle's name.
 //
 Acad::ErrorStatus toAcDbTextStyle(AcGiTextStyle&, const ACHAR* AcDbStyleName, AcDbObjectId& AcDbStyleId);
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

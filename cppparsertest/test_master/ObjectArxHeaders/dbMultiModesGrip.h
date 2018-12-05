@@ -13,11 +13,11 @@
 //  dbMultiModesGrip.h - public header file for AcDbMultiModesGripPE API
 //
 #ifndef _DBMULTIMODESGRIP_H
-#	define _DBMULTIMODESGRIP_H
-#	include "acdb.h"
-#	include "dbmain.h"
-#	include "acstring.h"
-#	pragma  pack (push, 8)
+#  define _DBMULTIMODESGRIP_H
+#  include "acdb.h"
+#  include "dbmain.h"
+#  include "acstring.h"
+#  pragma  pack (push, 8)
 ////////////////////////////////////////////////////////////////////////
 // class AcDbMultiModesGripPE (abstract)
 ////////////////////////////////////////////////////////////////////////
@@ -53,138 +53,138 @@
 class ADESK_NO_VTABLE AcDbMultiModesGripPE : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbMultiModesGripPE);
+  ACRX_DECLARE_MEMBERS(AcDbMultiModesGripPE);
     /// <summary>
     /// The type of a grip.
     /// </summary>
-	enum GripType
-	{
+  enum GripType
+  {
         /// <summary>
         /// The primary grip. Always shown if host's GRIPS variable is not 0;
         /// </summary>
-		kPrimary,
+    kPrimary,
         /// <summary>
         /// The secondary grip. Only shown when host's GRIPS variable is 2;
         /// </summary>
-		kSecondary
-	};
+    kSecondary
+  };
     /// <summary>
     /// The numerical identifier of a grip mode.
     /// </summary>
-	enum GripModeIdentifier
-	{
+  enum GripModeIdentifier
+  {
         /// <summary>
         /// Default
         /// </summary>
-		kNone = 0,
+    kNone = 0,
         /// <summary>
         /// Stretch at the grip point
         /// </summary>
-		kMove,
+    kMove,
         /// <summary>
         /// The start of custom mode types.
         /// All custom mode types should be larger than this value.
         /// </summary>
-		kCustomStart = 100
-	};
+    kCustomStart = 100
+  };
     /// <summary>
     /// The type of actions the grip editing complex takes when a mode
     /// is becoming current.
     /// </summary>
-	enum GripActionType
-	{
+  enum GripActionType
+  {
         /// <summary>
         /// Instructs the grip editor to proceed with dragging. The mode
         /// specific behavior is determined by object's moveGripPointsAt
         /// current mode awareness.
         /// </summary>
-		kDragOn = 0,
+    kDragOn = 0,
         /// <summary>
         /// Instructs the grip editor to call moveGripPointsAt once and
         /// end dragging sequence.
         /// </summary>
-		kImmediate,
+    kImmediate,
         /// <summary>
         /// External command, specified as GripMode::CommandString, is called.
         /// </summary>
-		kCommand
-	};
+    kCommand
+  };
     /// <summary>
     /// The type of canvas cursor can be specified for each mode.
     /// </summary>
-	enum GripCursorType
-	{
+  enum GripCursorType
+  {
         /// <summary>
         /// No cursor change, using default.
         /// </summary>
-		kcNone = 0,
+    kcNone = 0,
         /// <summary>
         /// Default cursor combined with a plus sign.
         /// </summary>
-		kcCrosshairPlus,
+    kcCrosshairPlus,
         /// <summary>
         /// Default cursor combined with a minus sign.
         /// </summary>
-		kcCrosshairMinus,
+    kcCrosshairMinus,
         /// <summary>
         /// Default cursor combined with a curve sign.
         /// </summary>        
-		kcCrosshairCurve,
+    kcCrosshairCurve,
         /// <summary>
         /// Default cursor combined with a straight line sign.
         /// </summary>
-		kcCrosshairLine,
+    kcCrosshairLine,
         /// <summary>
         /// Default cursor combined with an angle sign. For future use.
         /// </summary>
-		kcCrosshairAngle
-	};
+    kcCrosshairAngle
+  };
     /// <summary>
     /// The type that contains all information to present a single mode.
     /// </summary>
-	struct GripMode	
+  struct GripMode  
 {
         /// <summary>
         /// Default constructor
         /// </summary>
-		GripMode();
+    GripMode();
         /// <summary>
         /// The unique identifier among the collection of modes this PE implements. 
         /// </summary>
-		unsigned int Mode;
+    unsigned int Mode;
         /// <summary>
         /// The display string of this mode in various UI elements (including haver menu and object context menu).
         /// </summary>
-		AcString DisplayString;
+    AcString DisplayString;
         /// <summary>
         /// The string tool tip of this mode. (For future use.)
         /// </summary>
-		AcString ToolTip;
+    AcString ToolTip;
         /// <summary>
         /// The command line version of display string for this mode.
         /// </summary>
-		AcString CLIDisplayString;
+    AcString CLIDisplayString;
         /// <summary>
         /// The command line prompt string when this mode is switched as current.
         /// </summary>
-		AcString CLIPromptString;
+    AcString CLIPromptString;
         /// <summary>
         /// The command line keyword list associated to CLIPromptString.
         /// </summary>
-		AcString CLIKeywordList;
+    AcString CLIKeywordList;
         /// <summary>
         /// The type of cursor this mode uses.
         /// </summary>
-		GripCursorType CursorType;
+    GripCursorType CursorType;
         /// <summary>
         /// The action type of this mode uses.
         /// </summary>
-		GripActionType ActionType;
+    GripActionType ActionType;
         /// <summary>
         /// Optional. If the action type is kCommand, the command used for this mode.
         /// </summary>
-		AcString CommandString;
-	};
+    AcString CommandString;
+  };
     /// <summary>
     /// Queries an object, on a given grip point, for the available modes it provides. It also
     /// returns the mode that is current.
@@ -198,7 +198,7 @@ public:
     /// <param name="curMode"> The returned identifier of current mode. </param>
     /// <returns> true if successful. </returns>
     ///
-	virtual bool getGripModes(AcDbEntity* pThis, AcDbGripData* pGripData, AcArray<GripMode>& modes, unsigned int& curMode) const = 0;
+  virtual bool getGripModes(AcDbEntity* pThis, AcDbGripData* pGripData, AcArray<GripMode>& modes, unsigned int& curMode) const = 0;
     /// <summary>
     /// Gets the current mode identifier.
     /// </summary>
@@ -206,7 +206,7 @@ public:
     /// <param name="pGripData"> The grip whose mode id is requested. </param>
     /// <returns> The returned identifier of current mode. </returns>
     ///
-	virtual unsigned int mode(AcDbEntity* pThis, AcDbGripData* pGripData) const = 0;
+  virtual unsigned int mode(AcDbEntity* pThis, AcDbGripData* pGripData) const = 0;
     /// <summary>
     /// Gets the current mode.
     /// </summary>
@@ -214,7 +214,7 @@ public:
     /// <param name="pGripData"> The grip whose mode is requested. </param>
     /// <returns> The mode object which is current. </returns>
     ///
-	virtual GripMode modeEx(AcDbEntity* pThis, AcDbGripData* pGripData) const = 0;
+  virtual GripMode modeEx(AcDbEntity* pThis, AcDbGripData* pGripData) const = 0;
     /// <summary>
     /// Sets the current mode.
     /// </summary>
@@ -223,7 +223,7 @@ public:
     /// <param name="newMode"> The numerical identifier for the new current mode. </param>
     /// <returns> true of successful. </returns>
     ///
-	virtual bool setMode(AcDbEntity* pThis, AcDbGripData* pGripData, unsigned int newMode) = 0;
+  virtual bool setMode(AcDbEntity* pThis, AcDbGripData* pGripData, unsigned int newMode) = 0;
     /// <summary>
     /// Gets the grip type of a given grip.
     /// </summary>
@@ -231,18 +231,18 @@ public:
     /// <param name="pGripData"> The grip whose grip type is requested. </param>
     /// <returns> The grip type of the grip. </returns>
     ///
-	virtual GripType gripType(AcDbEntity* pThis, AcDbGripData* pGripData) const = 0;
+  virtual GripType gripType(AcDbEntity* pThis, AcDbGripData* pGripData) const = 0;
     /// <summary>
     /// resets current mode to default (up to each concrate class to say what is the default).
     /// </summary>
     /// <param name="pThis"> The AcDbEntity whose current mode is reset to default. </param>
-	virtual void reset(AcDbEntity* pThis) = 0;
+  virtual void reset(AcDbEntity* pThis) = 0;
 };
 inline AcDbMultiModesGripPE::GripMode::GripMode()
-	: Mode(AcDbMultiModesGripPE::kMove)
-	, ActionType(kDragOn)
-	, CursorType(kcNone)
+  : Mode(AcDbMultiModesGripPE::kMove)
+  , ActionType(kDragOn)
+  , CursorType(kcNone)
 {
 }
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

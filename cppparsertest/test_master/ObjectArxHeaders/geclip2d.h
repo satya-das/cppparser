@@ -20,29 +20,29 @@
 // boundary into multiple convex boundaries.)
 //
 #ifndef AC_GECLIP2D_H
-#	define AC_GECLIP2D_H
-#	include "adesk.h"
-#	include "assert.h"
-#	include "geent2d.h"
-#	include "gepnt2d.h"
-#	include "gept2dar.h"
-#	include "gegbl.h"
-#	include "geintarr.h"
-#	pragma  pack (push, 8)
+#  define AC_GECLIP2D_H
+#  include "adesk.h"
+#  include "assert.h"
+#  include "geent2d.h"
+#  include "gepnt2d.h"
+#  include "gept2dar.h"
+#  include "gegbl.h"
+#  include "geintarr.h"
+#  pragma  pack (push, 8)
 class AcGeImpClipBoundary2d;
 class GE_DLLEXPIMPORT AcGeClipBoundary2d : public AcGeEntity2d
 {
 public:
-	AcGeClipBoundary2d();
+  AcGeClipBoundary2d();
     // Initialize for ortho-aligned rectangular clip boundary.
     //
-	AcGeClipBoundary2d(const AcGePoint2d& cornerA, const AcGePoint2d& cornerB);
+  AcGeClipBoundary2d(const AcGePoint2d& cornerA, const AcGePoint2d& cornerB);
     // Initialize for convex polyline/polygon clip boundary (1 or more edges).  
     //
-	AcGeClipBoundary2d(const AcGePoint2dArray& clipBoundary);
+  AcGeClipBoundary2d(const AcGePoint2dArray& clipBoundary);
 	// Copy constructor.
 	//
-	AcGeClipBoundary2d(const AcGeClipBoundary2d& src);
+  AcGeClipBoundary2d(const AcGeClipBoundary2d& src);
     // Notes on set() methods:
     // 1) set() need be called only once after the creation of the clipper.  
     //    The clipper can then be reused by calling
@@ -50,14 +50,14 @@ public:
 
     // Initialize for ortho-aligned rectangular clip boundary.
     //
-	AcGe::ClipError set(const AcGePoint2d& cornerA, const AcGePoint2d& cornerB);
+  AcGe::ClipError set(const AcGePoint2d& cornerA, const AcGePoint2d& cornerB);
     // Initialize for convex polyline/polygon clip boundary (1 or more edges).  
     // 1) Counterclockwise orientation is
     //    assumed if there is only one non-colinear clipping edge in the polygon.
     // 2) If more than one non-colinear edge is supplied, the orientation of the edges
     //    is computed automagically.
     //
-	AcGe::ClipError set(const AcGePoint2dArray& clipBoundary);
+  AcGe::ClipError set(const AcGePoint2dArray& clipBoundary);
     // Optional clipped segment source information (below) is interpreted as follows:
     // Let srcInx(n) := (*pClippedSegmentSourceLabel).at(n).
     //
@@ -75,13 +75,13 @@ public:
     
     // Clip a closed polygon, creating a second closed polygon.
     //
-	AcGe::ClipError clipPolygon(const AcGePoint2dArray& rawVertices, AcGePoint2dArray& clippedVertices, AcGe::ClipCondition& clipCondition, AcGeIntArray* pClippedSegmentSourceLabel = 0) const;
+  AcGe::ClipError clipPolygon(const AcGePoint2dArray& rawVertices, AcGePoint2dArray& clippedVertices, AcGe::ClipCondition& clipCondition, AcGeIntArray* pClippedSegmentSourceLabel = 0) const;
     // Clip a polyline, creating a second polyline.
     //
-	AcGe::ClipError clipPolyline(const AcGePoint2dArray& rawVertices, AcGePoint2dArray& clippedVertices, AcGe::ClipCondition& clipCondition, AcGeIntArray* pClippedSegmentSourceLabel = 0) const;
+  AcGe::ClipError clipPolyline(const AcGePoint2dArray& rawVertices, AcGePoint2dArray& clippedVertices, AcGe::ClipCondition& clipCondition, AcGeIntArray* pClippedSegmentSourceLabel = 0) const;
     // Assignment operator.
     //
-	AcGeClipBoundary2d& operator =(const AcGeClipBoundary2d& crvInt);
+  AcGeClipBoundary2d& operator =(const AcGeClipBoundary2d& crvInt);
 };
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

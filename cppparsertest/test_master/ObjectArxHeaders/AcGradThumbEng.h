@@ -12,8 +12,8 @@
 //                
 //
 #ifndef _ACGRADTHUMB_H
-#	define _ACGRADTHUMB_H
-#	include "dbcolor.h"
+#  define _ACGRADTHUMB_H
+#  include "dbcolor.h"
 // CAcGradientThumbnailEngine defines the interface to the gradient thumbnail generation engine.
 //
 // Use the function createGradientThumbnailEngine() to get a pointer to an instace of the engine.
@@ -23,15 +23,15 @@
 class CAcGradientThumbnailEngine
 {
 public:
-	virtual ~CAcGradientThumbnailEngine()
-	{
-	}
-	virtual Acad::ErrorStatus gradientThumbnailsSetRotation(double angle) = 0;
-	virtual Acad::ErrorStatus gradientThumbnailsSetShift(bool bShifted) = 0;
-	virtual Acad::ErrorStatus gradientThumbnailsSetStartColor(AcCmEntityColor startColor) = 0;
-	virtual Acad::ErrorStatus gradientThumbnailsSetStopColor(AcCmEntityColor stopColor) = 0;
-	virtual Acad::ErrorStatus gradientThumbnailsRender(void) = 0;
-	virtual Acad::ErrorStatus gradientThumbnailsDrawBitmap(int gradientNumber, HDC hDC, int xPos, int yPos) = 0;
+  virtual ~CAcGradientThumbnailEngine()
+  {
+  }
+  virtual Acad::ErrorStatus gradientThumbnailsSetRotation(double angle) = 0;
+  virtual Acad::ErrorStatus gradientThumbnailsSetShift(bool bShifted) = 0;
+  virtual Acad::ErrorStatus gradientThumbnailsSetStartColor(AcCmEntityColor startColor) = 0;
+  virtual Acad::ErrorStatus gradientThumbnailsSetStopColor(AcCmEntityColor stopColor) = 0;
+  virtual Acad::ErrorStatus gradientThumbnailsRender(void) = 0;
+  virtual Acad::ErrorStatus gradientThumbnailsDrawBitmap(int gradientNumber, HDC hDC, int xPos, int yPos) = 0;
 };
 ACCORE_PORT CAcGradientThumbnailEngine* createGradientThumbnailEngine();
 #endif

@@ -13,16 +13,16 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 #ifndef AD_DBXUTIL_H
-#	define AD_DBXUTIL_H	1
-#	include "adesk.h"
-#	include "acadstrc.h"
-#	include "adesk.h"
-#	include "adsdef.h"
-#	include "dbidar.h"
-#	include "dbid.h"
-#	include "acutmem.h"
-#	include "acgi.h"
-#	pragma  pack (push, 8)
+#  define AD_DBXUTIL_H	1
+#  include "adesk.h"
+#  include "acadstrc.h"
+#  include "adesk.h"
+#  include "adsdef.h"
+#  include "dbidar.h"
+#  include "dbid.h"
+#  include "acutmem.h"
+#  include "acgi.h"
+#  pragma  pack (push, 8)
 class AcGeMatrix3d;
 class AcDbObject;
 class AcDbOle2Frame;
@@ -141,11 +141,11 @@ Acad::ErrorStatus acdbGetCurUserViewportId(AcDbDatabase* pDb, AcDbObjectId& vpId
 class AcDbDisableAnnoAutoScale
 {
 public:
-	AcDbDisableAnnoAutoScale();
-	~AcDbDisableAnnoAutoScale();
+  AcDbDisableAnnoAutoScale();
+  ~AcDbDisableAnnoAutoScale();
 private:
-	short mSaveAnnoAutoScale;
-	short mSaveAnnoAutoScaleLayout;
+  short mSaveAnnoAutoScale;
+  short mSaveAnnoAutoScaleLayout;
 };
 // acdbGetUnitsConversion
 //
@@ -371,5 +371,5 @@ Acad::ErrorStatus acdbConvertGelibCurveToAcDbCurve(const AcGeCurve3d& geCurve, A
 /// <param name="tol">Optional input tolerance.</param>
 /// <returns>Returns eOk if successful.</returns>
 Acad::ErrorStatus acdbAssignGelibCurveToAcDbCurve(const AcGeCurve3d& geCurve, AcDbCurve* pDbCurve, AcGeVector3d* normal = NULL, const AcGeTol& tol = AcGeContext::gTol);
-#	pragma  pack (pop)
+#  pragma  pack (pop)
 #endif

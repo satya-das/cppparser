@@ -37,11 +37,11 @@
 class ACDBCORE2D_PORT AcDbAssocNetwork : public AcDbAssocAction
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocNetwork);
+  ACRX_DECLARE_MEMBERS(AcDbAssocNetwork);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>
     ///
-	explicit AcDbAssocNetwork(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
+  explicit AcDbAssocNetwork(AcDbAssocCreateImpObject createImpObject = kAcDbAssocCreateImpObject);
     /// <summary>
     /// Returns reference to the *internal* array of AcDbObjectIds of all owned
     /// AcDbAssocActions. If used for anything more than just a simple iteration,
@@ -52,7 +52,7 @@ public:
     /// Reference to the internal array of AcDbObjectIds of the owned AcDbAssocActions. 
     /// </returns>
     ///
-	const AcDbObjectIdArray& getActions() const;
+  const AcDbObjectIdArray& getActions() const;
     /// <summary>
     /// Returns reference to the *internal* array of AcDbObjectIds of owned
     /// AcDbAssocActions whose AcDbAssocStatus indicates that they need to be 
@@ -67,7 +67,7 @@ public:
     /// AcDbAssocActions that need to be evaluated.
     /// </returns>
     ///
-	const AcDbObjectIdArray& getActionsToEvaluate() const;
+  const AcDbObjectIdArray& getActionsToEvaluate() const;
     /// <summary> <para>
     /// Adds an AcDbAssocAction to be owned by this network. The action being
     /// added must not be owned by any network. Every action except for the topmost 
@@ -85,7 +85,7 @@ public:
     /// <param name="alsoSetAsDatabaseOwner"> Make this network the database owner of the action. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus addAction(const AcDbObjectId& actionId, bool alsoSetAsDatabaseOwner);
+  Acad::ErrorStatus addAction(const AcDbObjectId& actionId, bool alsoSetAsDatabaseOwner);
     /// <summary> 
     /// Removes an AcDbAssocAction from the network and optionally erases it.
     /// The action being removed must be owned by this network.
@@ -94,7 +94,7 @@ public:
     /// <param name="alsoEraseIt"> Erase the action after removing it. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus removeAction(const AcDbObjectId& actionId, bool alsoEraseIt);
+  Acad::ErrorStatus removeAction(const AcDbObjectId& actionId, bool alsoEraseIt);
     /// <summary> <para>
     /// Adds the given AcDbAssocActions to be owned by this network. The actions 
     /// being added must not be owned by any network.
@@ -111,7 +111,7 @@ public:
     /// <param name="alsoSetAsDatabaseOwner"> Make this network the database owner of the actions. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus addActions(const AcDbObjectIdArray& actionIds, bool alsoSetAsDatabaseOwner);
+  Acad::ErrorStatus addActions(const AcDbObjectIdArray& actionIds, bool alsoSetAsDatabaseOwner);
     /// <summary> 
     /// Removes all AcDbAssocActions from the network and optionally erases them. 
     /// The network will become empty.
@@ -119,7 +119,7 @@ public:
     /// <param name="alsoEraseThem"> Erase the actions after removing them. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus removeAllActions(bool alsoEraseThem);
+  Acad::ErrorStatus removeAllActions(bool alsoEraseThem);
     /// <summary>
     /// This callback is called from AcDbAssocAction::setStatus(..., true) 
     /// and notifies the network owing the action that the status of the 
@@ -130,7 +130,7 @@ public:
     /// <param name="previousStatus"> Previous status of the action. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	Acad::ErrorStatus ownedActionStatusChanged(AcDbAssocAction* pOwnedAction, AcDbAssocStatus previousStatus);
+  Acad::ErrorStatus ownedActionStatusChanged(AcDbAssocAction* pOwnedAction, AcDbAssocStatus previousStatus);
     /// <summary> <para>
     /// Returns AcDbObjectId of the AcDbAssocNetwork owned by the given 
     /// database, optionally creating a new one if it does not exist yet. 
@@ -151,7 +151,7 @@ public:
     /// </param>
     /// <returns> AcDbObjectId of the existing or newly created AcDbAssocNetwork. </returns>
     ///
-	static AcDbObjectId getInstanceFromDatabase(AcDbDatabase* pDatabase, bool createIfDoesNotExist, const AcString& dictionaryKey = ACRX_T(""));
+  static AcDbObjectId getInstanceFromDatabase(AcDbDatabase* pDatabase, bool createIfDoesNotExist, const AcString& dictionaryKey = ACRX_T(""));
     /// <summary> <para>
     /// Returns AcDbObjectId of the AcDbAssocNetwork owned by the extension 
     /// dictionary of the given AcDbObject, optionally creating a new one if it 
@@ -180,7 +180,7 @@ public:
     /// </param>
     /// <returns> AcDbObjectId of the existing or newly created AcDbAssocNetwork. </returns>
     ///
-	static AcDbObjectId getInstanceFromObject(const AcDbObjectId& owningObjectId, bool createIfDoesNotExist, bool addToTopLevelNetwork = true, const AcString& dictionaryKey = ACRX_T(""));
+  static AcDbObjectId getInstanceFromObject(const AcDbObjectId& owningObjectId, bool createIfDoesNotExist, bool addToTopLevelNetwork = true, const AcString& dictionaryKey = ACRX_T(""));
     /// <summary> 
     /// Removes the network and the sub-dictionary that owns it from the extension 
     /// dictionary of the object.
@@ -197,7 +197,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus removeInstanceFromObject(const AcDbObjectId& owningObjectId, bool alsoEraseIt, const AcString& dictionaryKey = ACRX_T(""));
+  static Acad::ErrorStatus removeInstanceFromObject(const AcDbObjectId& owningObjectId, bool alsoEraseIt, const AcString& dictionaryKey = ACRX_T(""));
     /// <summary> 
     /// Removes the network and the sub-dictionary that owns it from the named 
     /// object dictionary of the database.
@@ -214,7 +214,7 @@ public:
     /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	static Acad::ErrorStatus removeInstanceFromDatabase(AcDbDatabase* pDatabase, bool alsoEraseIt, const AcString& dictionaryKey = ACRX_T(""));
+  static Acad::ErrorStatus removeInstanceFromDatabase(AcDbDatabase* pDatabase, bool alsoEraseIt, const AcString& dictionaryKey = ACRX_T(""));
 };
 /// <summary>
 /// A simple class to iterate over all AcDbAssocActions of an AcDbAssocNetwork.
@@ -247,14 +247,14 @@ public:
     /// may be added/removed to/from the network.
     /// </summary>
     ///
-	explicit AcDbAssocNetworkIterator(const AcDbAssocNetwork* pNetwork)
-		: mpNetwork(pNetwork)
-		, mIndex(-1)
-	{
+  explicit AcDbAssocNetworkIterator(const AcDbAssocNetwork* pNetwork)
+    : mpNetwork(pNetwork)
+    , mIndex(-1)
+  {
 #ifdef ASSERT
-		ASSERT(mpNetwork != NULL);
+    ASSERT(mpNetwork != NULL);
 #endif
-	}
+  }
     /// <summary>
     /// Returns the current element the iterator is pointing to, or 
     /// AcDbObjectId::kNull if the iteration hasn't started yet or the 
@@ -262,20 +262,20 @@ public:
     /// </summary> 
     /// <returns> The current AcDbAssocAction or null. </returns>
     ///
-	AcDbObjectId current() const
-	{
-		if (mpNetwork != NULL && 0 <= mIndex && mIndex < mpNetwork->getActions().length())
-		{
-			return mpNetwork->getActions()[mIndex];
-		}
-		else 
-		{
+  AcDbObjectId current() const
+  {
+    if (mpNetwork != NULL && 0 <= mIndex && mIndex < mpNetwork->getActions().length())
+    {
+      return mpNetwork->getActions()[mIndex];
+    }
+    else 
+    {
 #ifdef ASSERT
-			ASSERT(false);
+      ASSERT(false);
 #endif
-			return AcDbObjectId::kNull;
-		}
-	}
+      return AcDbObjectId::kNull;
+    }
+  }
     /// <summary>
     /// Advances the iterator to the next AcDbAssocAction in the network. 
     /// </summary> 
@@ -284,20 +284,20 @@ public:
     /// AcDbAssocAction in the network. 
     /// </returns>
     ///
-	bool moveNext()
-	{
-		return mpNetwork != NULL ? ++mIndex < mpNetwork->getActions().length() : false;
-	}
+  bool moveNext()
+  {
+    return mpNetwork != NULL ? ++mIndex < mpNetwork->getActions().length() : false;
+  }
     /// <summary>
     /// Position the iterator before the first action in the network.
     /// </summary> 
     ///
-	void reset()
-	{
-		mIndex = -1;
-	}
+  void reset()
+  {
+    mIndex = -1;
+  }
 private:
-	const AcDbAssocNetwork* const mpNetwork;
-	int mIndex;
+  const AcDbAssocNetwork* const mpNetwork;
+  int mIndex;
 };
 #pragma  pack (pop)

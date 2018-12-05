@@ -37,10 +37,10 @@
 class ACDBCORE2D_PORT AcDbAssocManager : public AcDbObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocManager);
+  ACRX_DECLARE_MEMBERS(AcDbAssocManager);
     /// <summary> Default constructor. </summary>
     ///
-	AcDbAssocManager();
+  AcDbAssocManager();
     /// <summary><para>
     /// Evaluates the top-level AcDbAssocNetwork of the given database, using the
     /// global evaluation callback. The top-level network owns subnetworks, such 
@@ -79,7 +79,7 @@ public:
     /// <param name="callbackOrder"> Order of the optional AcDbAssocEvaluationCallback. </param>
     /// <returns> Returns true if any evaluation happened, false otherwise. </returns>
     ///
-	static bool evaluateTopLevelNetwork(AcDbDatabase* pDatabase, AcDbAssocEvaluationCallback* pCallback = NULL, int callbackOrder = 0);
+  static bool evaluateTopLevelNetwork(AcDbDatabase* pDatabase, AcDbAssocEvaluationCallback* pCallback = NULL, int callbackOrder = 0);
     /// <summary> <para>
     /// Returns the global AcDbAssocEvaluationCallback that is used while dragging,
     /// when evaluating the top-level associative network on document lock mode 
@@ -98,7 +98,7 @@ public:
     /// </para> </summary>
     /// <returns> The global AcDbAssocEvaluationMultiCallback object. </returns>
     ///
-	static AcDbAssocEvaluationCallback* globalEvaluationMultiCallback();
+  static AcDbAssocEvaluationCallback* globalEvaluationMultiCallback();
     /// <summary>
     /// Adds the given user-provided AcDbAssocEvaluationCallback to the global 
     /// AcDbAssocEvaluationMultiCallback.
@@ -118,7 +118,7 @@ public:
     /// Acad::eInvalidInput if pCallback pointer is NULL, otherwise Acad::eOk.
     /// </returns>
     ///
-	static Acad::ErrorStatus addGlobalEvaluationCallback(AcDbAssocEvaluationCallback* pCallback, int order);
+  static Acad::ErrorStatus addGlobalEvaluationCallback(AcDbAssocEvaluationCallback* pCallback, int order);
     /// <summary>
     /// Removes the given user-provided evaluation callback from the global 
     /// AcDbAssocEvaluationMultiCallback.
@@ -131,20 +131,20 @@ public:
     /// AcDbAssocEvaluationMultiCallback, otherwise Acad::eOk.
     /// </returns>
     ///
-	static Acad::ErrorStatus removeGlobalEvaluationCallback(AcDbAssocEvaluationCallback* pCallback);
+  static Acad::ErrorStatus removeGlobalEvaluationCallback(AcDbAssocEvaluationCallback* pCallback);
     /// <summary>
     /// Returns all evaluation callbacks kept in the global AcDbAssocEvaluationMultiCallback.
     /// </summary>
     /// <param name="callbacks"> The returned evaluation callbacks. </param>
     /// <param name="orders"> The returned evaluation callback orders. </param>
     ///
-	static void getGlobalEvaluationCallbacks(AcArray<AcDbAssocEvaluationCallback*>& callbacks, AcArray<int>& orders);
+  static void getGlobalEvaluationCallbacks(AcArray<AcDbAssocEvaluationCallback*>& callbacks, AcArray<int>& orders);
     /// <summary>
     /// Returns true if action evaluation is currently in progress for the given
     /// database.
     /// </summary>
     ///
-	static bool isActionEvaluationInProgress(const AcDbDatabase*);
+  static bool isActionEvaluationInProgress(const AcDbDatabase*);
     /// <summary><para>
     /// Allows the custom action body's evaluateOverride() code or any other code to request 
     /// one more evaluation of the top-level network of a database, even if the top-level network 
@@ -177,27 +177,27 @@ public:
     /// top-level network as is currently being evaluated.
     /// </para></summary>
     ///
-	static Acad::ErrorStatus requestToEvaluate(const AcDbObjectId& objectId, AcDbAssocStatus newStatus = kChangedDirectlyAssocStatus, bool ownedActionsAlso = true);
+  static Acad::ErrorStatus requestToEvaluate(const AcDbObjectId& objectId, AcDbAssocStatus newStatus = kChangedDirectlyAssocStatus, bool ownedActionsAlso = true);
     /// <summary>
     /// Returns the current AcDbAssocEvaluationCallback if action evaluation is in
     /// progress for the given database, or NULL otherwise.
     /// </summary>
     ///
-	static AcDbAssocEvaluationCallback* getCurrentEvaluationCallback(const AcDbDatabase*);
+  static AcDbAssocEvaluationCallback* getCurrentEvaluationCallback(const AcDbDatabase*);
     /// <summary>
     /// Returns true iff the given database has some associative data, in particular
     /// if there is a global AcDbAssocNetwork for the whole database. See the
     /// related AcDbAssocNetwork::getInstanceFromDatabase() method.
     /// </summary>
     ///
-	static bool hasAssocNetwork(const AcDbDatabase* pDatabase);
+  static bool hasAssocNetwork(const AcDbDatabase* pDatabase);
     /// <summary>
     /// Returns the action of the given database that is currently being evaluated,
     /// or AcDbObjectId::kNull is no evaluation of the top-level network of the database 
     /// is happening.
     /// </summary>
     ///
-	static AcDbObjectId currentlyEvaluatedAction(const AcDbDatabase*);
+  static AcDbObjectId currentlyEvaluatedAction(const AcDbDatabase*);
     /// <summary>
     /// Audits the associative data in the database and tries to fix the errors
     /// that might have happened during round-trip, due to lazy-erase, etc.
@@ -206,7 +206,7 @@ public:
     /// <param name="traverseWholeDatabase"> If true, all objects in the database
     /// are visited and checked, and therefore loaded into memory. </param>
     ///
-	static Acad::ErrorStatus auditAssociativeData(AcDbDatabase* pDatabase, bool traverseWholeDatabase);
+  static Acad::ErrorStatus auditAssociativeData(AcDbDatabase* pDatabase, bool traverseWholeDatabase);
     /// <summary><para> 
     /// If the given database is a host database, sets an internal flag indicating
     /// that AcDbAssocActions in the host database may need to sync-up with changed 
@@ -221,7 +221,7 @@ public:
     /// </para></summary>
     /// <param name="pDatabase"> Host or XREF database. </param>
     ///
-	static Acad::ErrorStatus markSyncUpWithXrefsNeeded(AcDbDatabase* pDatabase);
+  static Acad::ErrorStatus markSyncUpWithXrefsNeeded(AcDbDatabase* pDatabase);
     /// <summary>
     /// If the given host database does not have a flag set indicating that it may 
     /// need to sync-up with changed XREFs (see markSyncUpWithXrefsNeeded() mthod), 
@@ -241,7 +241,7 @@ public:
     /// </summary>
     /// <param name="pHostDatabase"> Host database. XREF databases are ignored. </param>
     ///
-	static Acad::ErrorStatus syncUpWithXrefs(AcDbDatabase* pHostDatabase);
+  static Acad::ErrorStatus syncUpWithXrefs(AcDbDatabase* pHostDatabase);
     /// <summary>
     /// This is an internal method that initializes the Associative Framework 
     /// subsystem. Must be called before the subsystem is first used and may 
@@ -250,13 +250,13 @@ public:
     /// </summary>
     /// <returns> Should always return Acad::eOk. </returns>
     ///
-	static Acad::ErrorStatus initialize();
+  static Acad::ErrorStatus initialize();
     /// <summary>
     /// This is an internal method that uninitializes the Associative Framework 
     /// subsystem during AutoCAD shutdown. Client code must not call this method.
     /// </summary>
     ///
-	static void uninitialize();
+  static void uninitialize();
     /// <summary>
     /// Enable/disable the progress meter while evaluating the top-level network.
     /// Once set, it stays enabled/disabled for all evaluations of all databases,
@@ -265,7 +265,7 @@ public:
     /// <param name="enableIt"> Enable or disable the prgress meter. </param>
     /// <param name="progressLabel"> Text label to display. </param>
     ///
-	static void enableProgressMeter(bool enableIt, const AcString& progressLabel = AcString());
+  static void enableProgressMeter(bool enableIt, const AcString& progressLabel = AcString());
 };
 /// <summary>
 /// The constructor disables or enables all top-level network evaluations for the 
@@ -277,12 +277,12 @@ public:
 class ACDBCORE2D_PORT AcDbAssocNetworkEvaluationDisabler
 {
 public:
-	explicit AcDbAssocNetworkEvaluationDisabler(AcDbDatabase*, bool disableIt = true);
-	~AcDbAssocNetworkEvaluationDisabler();
-	static bool isDisabled(const AcDbDatabase*);
+  explicit AcDbAssocNetworkEvaluationDisabler(AcDbDatabase*, bool disableIt = true);
+  ~AcDbAssocNetworkEvaluationDisabler();
+  static bool isDisabled(const AcDbDatabase*);
 private:
-	AcDbDatabase* mpDatabase;
-	bool mPreviouslyDisabled;
+  AcDbDatabase* mpDatabase;
+  bool mPreviouslyDisabled;
 };
 #pragma  warning( pop ) 
 #pragma  pack (pop)

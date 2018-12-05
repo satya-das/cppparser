@@ -1,8 +1,8 @@
 #ifndef _OdFontServices_h_Included_
-#	define _OdFontServices_h_Included_
-#	include "RxObject.h"
-#	include "Gi/GiTextStyle.h"
-#	include "Gi/GiExport.h"
+#  define _OdFontServices_h_Included_
+#  include "RxObject.h"
+#  include "Gi/GiTextStyle.h"
+#  include "Gi/GiExport.h"
 class OdDbDatabase;
 /** Description: 
     This class is the base class for classes that provide platform-dependent font services for DWGdirect. 
@@ -19,27 +19,27 @@ public:
     textStyle (O) Receives the TextStyle record. 
     pDb (I) Pointer to the *database*. 
   */
-	virtual void loadStyleRec(OdGiTextStyle& textStyle, OdDbDatabase* pDb) const = 0;
+  virtual void loadStyleRec(OdGiTextStyle& textStyle, OdDbDatabase* pDb) const = 0;
   /** Description: 
     Returns the FontFilePath for the specified OdGiTextStyle and OdDbDatabase objects. 
     Arguments: 
     textStyle (I) TextStyle object. 
     pDb (I) Pointer to the *database*. 
   */
-	virtual OdString getFontFilePath(OdGiTextStyle& textStyle, OdDbDatabase* pDb) const = 0;
+  virtual OdString getFontFilePath(OdGiTextStyle& textStyle, OdDbDatabase* pDb) const = 0;
   /** Description: 
     Returns the BigFontFilePath for the specified OdGiTextStyle and OdDbDatabase objects. 
     Arguments: 
     textStyle (I) TextStyle object. 
     pDb (I) Pointer to the *database*. 
   */
-	virtual OdString getBigFontFilePath(OdGiTextStyle& textStyle, OdDbDatabase* pDb) const = 0;
+  virtual OdString getBigFontFilePath(OdGiTextStyle& textStyle, OdDbDatabase* pDb) const = 0;
   /** Description: 
     Returns the default OdFont object associated with this FontServices object. 
   */
-	virtual OdFontPtr defaultFont() const = 0;
+  virtual OdFontPtr defaultFont() const = 0;
 };
-#	define ODDB_FONT_SERVICES	DD_T("OdDbFontServices") 
+#  define ODDB_FONT_SERVICES	DD_T("OdDbFontServices") 
 /** Description: 
     This template class is a specialization of the OdSmartPtr class for OdFontServices object pointers. 
 */

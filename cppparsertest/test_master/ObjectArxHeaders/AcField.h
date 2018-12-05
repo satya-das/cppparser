@@ -38,28 +38,28 @@ class AcDbEvalVariant;
 class AcFdFieldEvaluator : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcFdFieldEvaluator);
-	ACDBCORE2D_PORT AcFdFieldEvaluator(void);
-	ACDBCORE2D_PORT virtual ~AcFdFieldEvaluator();
-	ACDBCORE2D_PORT virtual const ACHAR* evaluatorId(void) const;
-	ACDBCORE2D_PORT virtual const ACHAR* evaluatorId(AcDbField* pField);
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus initialize(AcDbField* pField);
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus compile(AcDbField* pField, AcDbDatabase* pDb, AcFdFieldResult* pResult);
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus evaluate(AcDbField* pField, int nContext, AcDbDatabase* pDb, AcFdFieldResult* pResult);
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus format(AcDbField* pField, AcString& sValue);
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus format(AcDbField* pField, ACHAR*& pszValue) final;
+  ACRX_DECLARE_MEMBERS(AcFdFieldEvaluator);
+  ACDBCORE2D_PORT AcFdFieldEvaluator(void);
+  ACDBCORE2D_PORT virtual ~AcFdFieldEvaluator();
+  ACDBCORE2D_PORT virtual const ACHAR* evaluatorId(void) const;
+  ACDBCORE2D_PORT virtual const ACHAR* evaluatorId(AcDbField* pField);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus initialize(AcDbField* pField);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus compile(AcDbField* pField, AcDbDatabase* pDb, AcFdFieldResult* pResult);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus evaluate(AcDbField* pField, int nContext, AcDbDatabase* pDb, AcFdFieldResult* pResult);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus format(AcDbField* pField, AcString& sValue);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus format(AcDbField* pField, ACHAR*& pszValue) final;
 protected:
-	AcFdFieldEvaluator(void*);
-	void* mpImpObj;
+  AcFdFieldEvaluator(void*);
+  void* mpImpObj;
 private:
-	friend class AcFdSystemInternals;
+  friend class AcFdSystemInternals;
 };
 // This overload which allocates an ACHAR buffer is deprecated
 // Please use the other overload which takes an AcString & arg
 inline Acad::ErrorStatus AcFdFieldEvaluator::format(AcDbField* pField, ACHAR*& pszValue)
 {
-	AcString sValue;
-	return ::acutAcStringToAChar(sValue, pszValue, this->format(pField, sValue));
+  AcString sValue;
+  return ::acutAcStringToAChar(sValue, pszValue, this->format(pField, sValue));
 }
 //*************************************************************************
 // AcFdFieldEvaluatorLoader
@@ -67,16 +67,16 @@ inline Acad::ErrorStatus AcFdFieldEvaluator::format(AcDbField* pField, ACHAR*& p
 class AcFdFieldEvaluatorLoader : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcFdFieldEvaluatorLoader);
-	ACDBCORE2D_PORT AcFdFieldEvaluatorLoader(void);
-	ACDBCORE2D_PORT AcFdFieldEvaluatorLoader(void*);
-	ACDBCORE2D_PORT ~AcFdFieldEvaluatorLoader();
-	ACDBCORE2D_PORT virtual AcFdFieldEvaluator* getEvaluator(const ACHAR* pszEvalId);
-	ACDBCORE2D_PORT virtual AcFdFieldEvaluator* findEvaluator(AcDbField* pField, const ACHAR*& pszEvalId);
+  ACRX_DECLARE_MEMBERS(AcFdFieldEvaluatorLoader);
+  ACDBCORE2D_PORT AcFdFieldEvaluatorLoader(void);
+  ACDBCORE2D_PORT AcFdFieldEvaluatorLoader(void*);
+  ACDBCORE2D_PORT ~AcFdFieldEvaluatorLoader();
+  ACDBCORE2D_PORT virtual AcFdFieldEvaluator* getEvaluator(const ACHAR* pszEvalId);
+  ACDBCORE2D_PORT virtual AcFdFieldEvaluator* findEvaluator(AcDbField* pField, const ACHAR*& pszEvalId);
 protected:
-	void* mpImpObj;
+  void* mpImpObj;
 private:
-	friend class AcFdSystemInternals;
+  friend class AcFdSystemInternals;
 };
 //*************************************************************************
 // AcFdFieldEngine
@@ -84,19 +84,19 @@ private:
 class AcFdFieldEngine : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcFdFieldEngine);
-	ACDBCORE2D_PORT AcFdFieldEngine();
-	ACDBCORE2D_PORT virtual ~AcFdFieldEngine();
-	ACDBCORE2D_PORT Acad::ErrorStatus registerEvaluatorLoader(AcFdFieldEvaluatorLoader* pLoader);
-	ACDBCORE2D_PORT Acad::ErrorStatus unregisterEvaluatorLoader(AcFdFieldEvaluatorLoader* pLoader);
-	ACDBCORE2D_PORT int evaluatorLoaderCount(void) const;
-	ACDBCORE2D_PORT AcFdFieldEvaluatorLoader* getEvaluatorLoader(int iIndex);
-	ACDBCORE2D_PORT AcFdFieldEvaluator* getEvaluator(const ACHAR* pszEvalId);
-	ACDBCORE2D_PORT AcFdFieldEvaluator* findEvaluator(AcDbField* pField, const ACHAR*& pszEvalId);
+  ACRX_DECLARE_MEMBERS(AcFdFieldEngine);
+  ACDBCORE2D_PORT AcFdFieldEngine();
+  ACDBCORE2D_PORT virtual ~AcFdFieldEngine();
+  ACDBCORE2D_PORT Acad::ErrorStatus registerEvaluatorLoader(AcFdFieldEvaluatorLoader* pLoader);
+  ACDBCORE2D_PORT Acad::ErrorStatus unregisterEvaluatorLoader(AcFdFieldEvaluatorLoader* pLoader);
+  ACDBCORE2D_PORT int evaluatorLoaderCount(void) const;
+  ACDBCORE2D_PORT AcFdFieldEvaluatorLoader* getEvaluatorLoader(int iIndex);
+  ACDBCORE2D_PORT AcFdFieldEvaluator* getEvaluator(const ACHAR* pszEvalId);
+  ACDBCORE2D_PORT AcFdFieldEvaluator* findEvaluator(AcDbField* pField, const ACHAR*& pszEvalId);
 protected:
-	void* mpImpObj;
+  void* mpImpObj;
 private:
-	friend class AcFdSystemInternals;
+  friend class AcFdSystemInternals;
 };
 //*************************************************************************
 // AcFdFieldResult
@@ -104,10 +104,10 @@ private:
 class AcFdFieldResult : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcFdFieldResult);
-	AcFdFieldResult(void);
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus setFieldValue(const AcValue* pValue);
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus setEvaluationStatus(int nStatus, int dwErrCode = 0, const ACHAR* pszMsg = NULL);
+  ACRX_DECLARE_MEMBERS(AcFdFieldResult);
+  AcFdFieldResult(void);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus setFieldValue(const AcValue* pValue);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus setEvaluationStatus(int nStatus, int dwErrCode = 0, const ACHAR* pszMsg = NULL);
 };
 //*************************************************************************
 // AcFdFieldValue
@@ -115,24 +115,24 @@ public:
 class AcFdFieldValue : public AcValue
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcFdFieldValue);
-	ACDBCORE2D_PORT AcFdFieldValue(void);
-	ACDBCORE2D_PORT AcFdFieldValue(AcFdFieldValue::DataType nDataType);
-	ACDBCORE2D_PORT AcFdFieldValue(const AcFdFieldValue& value);
-	ACDBCORE2D_PORT AcFdFieldValue(const ACHAR* pszValue);
-	ACDBCORE2D_PORT AcFdFieldValue(Adesk::Int32 lValue);
-	ACDBCORE2D_PORT AcFdFieldValue(double fValue);
-	ACDBCORE2D_PORT AcFdFieldValue(const Adesk::Time64& date);
-	ACDBCORE2D_PORT AcFdFieldValue(const std::tm& date);
-	ACDBCORE2D_PORT AcFdFieldValue(const AcGePoint2d& pt);
-	ACDBCORE2D_PORT AcFdFieldValue(double x, double y);
-	ACDBCORE2D_PORT AcFdFieldValue(const AcGePoint3d& pt);
-	ACDBCORE2D_PORT AcFdFieldValue(double x, double y, double z);
-	ACDBCORE2D_PORT AcFdFieldValue(const AcDbObjectId& id);
-	ACDBCORE2D_PORT AcFdFieldValue(const resbuf& rb);
-	ACDBCORE2D_PORT AcFdFieldValue(const AcDbEvalVariant& evalVar);
-	ACDB_PORT AcFdFieldValue(const VARIANT& var);
-	ACDBCORE2D_PORT AcFdFieldValue(const void* pBuf, uint32_t dwBufSize);
+  ACRX_DECLARE_MEMBERS(AcFdFieldValue);
+  ACDBCORE2D_PORT AcFdFieldValue(void);
+  ACDBCORE2D_PORT AcFdFieldValue(AcFdFieldValue::DataType nDataType);
+  ACDBCORE2D_PORT AcFdFieldValue(const AcFdFieldValue& value);
+  ACDBCORE2D_PORT AcFdFieldValue(const ACHAR* pszValue);
+  ACDBCORE2D_PORT AcFdFieldValue(Adesk::Int32 lValue);
+  ACDBCORE2D_PORT AcFdFieldValue(double fValue);
+  ACDBCORE2D_PORT AcFdFieldValue(const Adesk::Time64& date);
+  ACDBCORE2D_PORT AcFdFieldValue(const std::tm& date);
+  ACDBCORE2D_PORT AcFdFieldValue(const AcGePoint2d& pt);
+  ACDBCORE2D_PORT AcFdFieldValue(double x, double y);
+  ACDBCORE2D_PORT AcFdFieldValue(const AcGePoint3d& pt);
+  ACDBCORE2D_PORT AcFdFieldValue(double x, double y, double z);
+  ACDBCORE2D_PORT AcFdFieldValue(const AcDbObjectId& id);
+  ACDBCORE2D_PORT AcFdFieldValue(const resbuf& rb);
+  ACDBCORE2D_PORT AcFdFieldValue(const AcDbEvalVariant& evalVar);
+  ACDB_PORT AcFdFieldValue(const VARIANT& var);
+  ACDBCORE2D_PORT AcFdFieldValue(const void* pBuf, uint32_t dwBufSize);
 };
 //*************************************************************************
 // AcFdFieldReactor
@@ -140,9 +140,9 @@ public:
 class AcFdFieldReactor : public AcRxObject
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcFdFieldReactor);
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus beginEvaluateFields(int nContext, AcDbDatabase* pDb);
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus endEvaluateFields(int nContext, AcDbDatabase* pDb);
+  ACRX_DECLARE_MEMBERS(AcFdFieldReactor);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus beginEvaluateFields(int nContext, AcDbDatabase* pDb);
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus endEvaluateFields(int nContext, AcDbDatabase* pDb);
 };
 typedef AcArray<AcFdFieldReactor*> FieldReactors;
 //*************************************************************************

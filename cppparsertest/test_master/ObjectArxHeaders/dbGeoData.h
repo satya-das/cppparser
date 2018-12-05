@@ -19,9 +19,9 @@
 class AcDbGeoDataReactor
 {
 public:
-	virtual ~AcDbGeoDataReactor()
-	{
-	}
+  virtual ~AcDbGeoDataReactor()
+  {
+  }
     /// <summary>
     /// This method will be called when the coordinate system is about to change.
     /// Custom classes can return Acad::eVetoed to veto the change.
@@ -41,10 +41,10 @@ public:
     ///
     /// <returns>Custom classes can return Acad::eVetoed to veto the change.</returns>
     ///
-	virtual Acad::ErrorStatus geoCoordinateSystemWillChange(AcDbDatabase*, const AcString&, const AcString&)
-	{
-		return Acad::eOk;
-	}
+  virtual Acad::ErrorStatus geoCoordinateSystemWillChange(AcDbDatabase*, const AcString&, const AcString&)
+  {
+    return Acad::eOk;
+  }
     /// <summary>
     /// This method will be called after the coordinate system has been changed.
     /// </summary>
@@ -61,9 +61,9 @@ public:
     /// The newly set coordinate system ID.
     /// </param>
     ///
-	virtual void geoCoordinateSystemChanged(AcDbDatabase*, const AcString&, const AcString&)
-	{
-	}
+  virtual void geoCoordinateSystemChanged(AcDbDatabase*, const AcString&, const AcString&)
+  {
+  }
 };
 // AcDbGeoData Object
 
@@ -120,25 +120,25 @@ public:
     ///actual real coordinates contained internall to objects in the host
     /// database.
     /// </summary>
-	enum TypeOfCoordinates
-	{
+  enum TypeOfCoordinates
+  {
         /// <summary>
         /// Georeferencing information has not been established, or for some
         /// resaon is invalid or inconsistent.
         /// </summary>
-		kCoordTypUnknown = 0,
+    kCoordTypUnknown = 0,
         /// <summary>
         /// The design coordinate system is considered to be local, aka
         /// an engineering coordinate system.
         /// </summary>
-		kCoordTypLocal,
+    kCoordTypLocal,
         /// <summary>
         /// The design coordinate system is known to be a grid system.  That is,
         /// coordinates of a defined Coordinate Reference System of the Projected
         /// Type; implying that conversion to geodetic coordinates is possible
         /// with reasonably high precision.
         /// </summary>
-		kCoordTypGrid,
+    kCoordTypGrid,
         /// <summary>
         /// The design coordinate system is known to be a geodetic system.  That
         /// is, coordinates of a defined Coordinate Reference System of the
@@ -146,21 +146,21 @@ public:
         /// referenced to the Reference System is possible with reasonably
         /// high precision.
         /// </summary>
-		kCoordTypGeographic
-	};
+    kCoordTypGeographic
+  };
     /// <summary>
     /// The following enumerates the algorithms currently supported for
     /// dealing with the Grid Scale Factor distortion introduced by the
     /// projection used in coordinate systems of the grid type.
     /// </summary>
-	enum ScaleEstimationMethod
-	{
+  enum ScaleEstimationMethod
+  {
         /// <summary>
         /// This algorithm simply does nothing, implying that innsofar as grid
         /// scale distortion is concerned, design coordinates are the same as
         /// grid coordinates.
         /// </summary>
-		kScaleEstMethodUnity = 1,
+    kScaleEstMethodUnity = 1,
         /// <summary>
         /// This algorithm uses a constant, user specified, scale factor to
         /// correct for grid scale distortion introduced by the projection upon
@@ -169,7 +169,7 @@ public:
         /// based.  The specific value used is specified by the setUserScale
         /// member function.
         /// </summary>
-		kScaleEstMethodUserDefined,
+    kScaleEstMethodUserDefined,
         /// <summary>
         /// This algorithm uses the grid scale factor of the referenced 
         /// coordinate reference system (i.e. grid) as determined at the local
@@ -177,7 +177,7 @@ public:
         /// implies that the projection upon which the specified grid is based
         /// is of the conformal type.
         /// </summary>
-		kScaleEstMethodReferencePoint,
+    kScaleEstMethodReferencePoint,
         /// <summary>
         /// This algorithm corrects for grid scale distortion by evaluating
         /// the grid scale distortion at each point in the local coordinate
@@ -185,18 +185,18 @@ public:
         /// projection upon which the specified grid is based is of the
         /// conformal type.
         /// </summary>
-		kScaleEstMethodPrismoidal
-	};
-	ACDBCORE2D_DECLARE_MEMBERS(AcDbGeoData);
-	ACDBCORE2D_PORT AcDbGeoData();
-	ACDBCORE2D_PORT virtual ~AcDbGeoData();
+    kScaleEstMethodPrismoidal
+  };
+  ACDBCORE2D_DECLARE_MEMBERS(AcDbGeoData);
+  ACDBCORE2D_PORT AcDbGeoData();
+  ACDBCORE2D_PORT virtual ~AcDbGeoData();
     //=========================================================================
     // Host Database Methods
     //=========================================================================
-	ACDBCORE2D_PORT AcDbObjectId blockTableRecordId() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setBlockTableRecordId(const AcDbObjectId& blockId);
-	ACDBCORE2D_PORT Acad::ErrorStatus postToDb(AcDbObjectId& objId);
-	ACDBCORE2D_PORT Acad::ErrorStatus eraseFromDb(void);
+  ACDBCORE2D_PORT AcDbObjectId blockTableRecordId() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setBlockTableRecordId(const AcDbObjectId& blockId);
+  ACDBCORE2D_PORT Acad::ErrorStatus postToDb(AcDbObjectId& objId);
+  ACDBCORE2D_PORT Acad::ErrorStatus eraseFromDb(void);
     //=========================================================================
     // Georeferencing Functions
     //=========================================================================
@@ -207,8 +207,8 @@ public:
     /// and consumers of this object should not change this value.
     /// Default = kCoordTypUnknown.
     /// </summary>
-	ACDBCORE2D_PORT TypeOfCoordinates coordinateType() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setCoordinateType(TypeOfCoordinates designCoordinateType);
+  ACDBCORE2D_PORT TypeOfCoordinates coordinateType() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setCoordinateType(TypeOfCoordinates designCoordinateType);
     /// <summary>
     /// Use these methods to examine/set the design coordinates of the point
     /// associated with the location specified by the setReferencePoint
@@ -223,8 +223,8 @@ public:
     /// correction and grid scale distortion calculations.
     /// NO DEFAULT:  msut be specified.
     /// </summary>
-	ACDBCORE2D_PORT AcGePoint3d designPoint() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setDesignPoint(const AcGePoint3d& point);
+  ACDBCORE2D_PORT AcGePoint3d designPoint() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setDesignPoint(const AcGePoint3d& point);
     /// <summary>
     /// Use these methods to examine/set the Reference point to be associated
     /// with the design coordinates specified by the setDesignPoint method.
@@ -235,28 +235,28 @@ public:
     /// coordinates of the kCoordTypGrid or kCoordTypGeodetic types, this
     /// specification is not required.
     /// </summary>
-	ACDBCORE2D_PORT AcGePoint3d referencePoint() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setReferencePoint(const AcGePoint3d& point);
+  ACDBCORE2D_PORT AcGePoint3d referencePoint() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setReferencePoint(const AcGePoint3d& point);
     /// <summary>
     /// Unit scale is the factor by which design coordinate must be multiplied
     /// to produce meters.  In the case of the setHorizontalUnits method, the
     /// method calculates the appropriate scale factor.
     /// Default = 1.0 (i.e. meters)
     /// </summary>
-	ACDBCORE2D_PORT double horizontalUnitScale() const;
-	ACDBCORE2D_PORT AcDb::UnitsValue horizontalUnits() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setHorizontalUnitScale(double horzUnitScale);
-	ACDBCORE2D_PORT Acad::ErrorStatus setHorizontalUnits(AcDb::UnitsValue horizUnits);
+  ACDBCORE2D_PORT double horizontalUnitScale() const;
+  ACDBCORE2D_PORT AcDb::UnitsValue horizontalUnits() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setHorizontalUnitScale(double horzUnitScale);
+  ACDBCORE2D_PORT Acad::ErrorStatus setHorizontalUnits(AcDb::UnitsValue horizUnits);
     /// <summary>
     /// Unit scale is the factor by which design coordinate must be multiplied
     /// to produce meters.  In the case of the setVerticalUnits method, the
     /// method calculates the appropriate scale factor.
     /// Default = 1.0 (i.e. meters)
     /// </summary>
-	ACDBCORE2D_PORT double verticalUnitScale() const;
-	ACDBCORE2D_PORT AcDb::UnitsValue verticalUnits() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setVerticalUnitScale(double vertUnitScale);
-	ACDBCORE2D_PORT Acad::ErrorStatus setVerticalUnits(AcDb::UnitsValue vertUnits);
+  ACDBCORE2D_PORT double verticalUnitScale() const;
+  ACDBCORE2D_PORT AcDb::UnitsValue verticalUnits() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setVerticalUnitScale(double vertUnitScale);
+  ACDBCORE2D_PORT Acad::ErrorStatus setVerticalUnits(AcDb::UnitsValue vertUnits);
     //=========================================================================
     // Grid Coordinate System Methods
     //=========================================================================
@@ -271,7 +271,7 @@ public:
     /// to validate this string by them self.
     /// Default = null string.
     /// </summary>
-	ACDBCORE2D_PORT const ACHAR* coordinateSystem() const;
+  ACDBCORE2D_PORT const ACHAR* coordinateSystem() const;
     /// <summary>
     /// </summary>
     /// <param name="coordinateSystem">
@@ -280,21 +280,21 @@ public:
     /// </param>
     /// <returns>Returns Acad::eOk if successful.</returns>
     ///
-	ACDBCORE2D_PORT Acad::ErrorStatus setCoordinateSystem(const ACHAR* coordinateSystem);
+  ACDBCORE2D_PORT Acad::ErrorStatus setCoordinateSystem(const ACHAR* coordinateSystem);
     /// <summary>
     /// Applications can define a method to validate the coordinate system passed
     /// to setCoordinaSystem by providing a static method with the following
     /// signature.  Register the method with AutoCAD using the
     /// AcDbGeoData::setValidateCoordinateSystemCallback method declared below
     /// </summary>
-	typedef bool (*ACDBGEODATA_VALIDATE_CS) (const ACHAR* coordinateSystem);
+  typedef bool (*ACDBGEODATA_VALIDATE_CS) (const ACHAR* coordinateSystem);
     /// <summary>
     /// Use this function to set the callback method described above.  To
     /// unregister the application-specific callback, call this method with
     /// the NULL pointer as its only arguemnet.. 
     /// </summary>
-	ACDBCORE2D_PORT static Acad::ErrorStatus setValidateCoordinateSystemCallback(ACDBGEODATA_VALIDATE_CS pFuncValidateCs);
-	ACDBCORE2D_PORT static ACDBGEODATA_VALIDATE_CS getValidateCoordinateSystemCallback();
+  ACDBCORE2D_PORT static Acad::ErrorStatus setValidateCoordinateSystemCallback(ACDBGEODATA_VALIDATE_CS pFuncValidateCs);
+  ACDBCORE2D_PORT static ACDBGEODATA_VALIDATE_CS getValidateCoordinateSystemCallback();
     //=========================================================================
     // Local Coordinate System Definition Properties
     //=========================================================================
@@ -305,8 +305,8 @@ public:
     /// the local to grid portion of a LocalToGridToReference transformation.
     /// Default = (0,0,1).
     /// </summary>
-	ACDBCORE2D_PORT AcGeVector3d upDirection() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setUpDirection(const AcGeVector3d& vec);
+  ACDBCORE2D_PORT AcGeVector3d upDirection() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setUpDirection(const AcGeVector3d& vec);
     /// <summary>
     /// Use these methods examine/set the azimuth of the local grid Y axis relative
     /// to true north.  When returned as a double, the value returned is in radians
@@ -317,9 +317,9 @@ public:
     /// a unit vector, and the provided vector will be normalized before use.
     /// Defult = (0,1);
     /// </summary>
-	ACDBCORE2D_PORT double northDirection() const;
-	ACDBCORE2D_PORT AcGeVector2d northDirectionVector() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setNorthDirectionVector(const AcGeVector2d& north);
+  ACDBCORE2D_PORT double northDirection() const;
+  ACDBCORE2D_PORT AcGeVector2d northDirectionVector() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setNorthDirectionVector(const AcGeVector2d& north);
     /// <summary>
     /// Use these methods to examine/set the algorithm which is to be used when
     /// applying grid scale distortion corrections in the local to grid portion
@@ -328,8 +328,8 @@ public:
     /// point.
     /// Default = kScaleEstMethodReferencePoint
     /// </summary>
-	ACDBCORE2D_PORT ScaleEstimationMethod scaleEstimationMethod() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setScaleEstimationMethod(ScaleEstimationMethod value);
+  ACDBCORE2D_PORT ScaleEstimationMethod scaleEstimationMethod() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setScaleEstimationMethod(ScaleEstimationMethod value);
     /// <summary>
     /// Use these methods to get/set the user specified scale factor to be used
     /// in the local to grid portion of any transformation in such cases where
@@ -338,8 +338,8 @@ public:
     /// is applied relative to the specified Design point.
     /// Default = 1.0
     /// </summary>
-	ACDBCORE2D_PORT double scaleFactor() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setScaleFactor(double value);
+  ACDBCORE2D_PORT double scaleFactor() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setScaleFactor(double value);
     /// <summary>
     /// Use these methods examine/set the state of the internal state which
     /// controls the application of the sea level correction to horizontal
@@ -349,8 +349,8 @@ public:
     /// Sea level corrections are applied relative to the Design point.
     /// Default = false;
     /// </summary>
-	ACDBCORE2D_PORT bool doSeaLevelCorrection() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setDoSeaLevelCorrection(bool seaLevelCorrectionOn);
+  ACDBCORE2D_PORT bool doSeaLevelCorrection() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setDoSeaLevelCorrection(bool seaLevelCorrectionOn);
     /// <summary>
     /// Use this method to specify, in meters, the elevation which is to be
     /// used in the sea level correction algorithm.  In the event that this
@@ -358,8 +358,8 @@ public:
     /// consuming application to activate sea level correction will fail.
     /// Default = NAN
     /// </summary>
-	ACDBCORE2D_PORT double seaLevelElevation() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setSeaLevelElevation(double value);
+  ACDBCORE2D_PORT double seaLevelElevation() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setSeaLevelElevation(double value);
     /// <summary>
     /// Use this method to specify the radius, in meters, of the ellipsoid
     /// model to be used in the sea level correction algorithm.  Should the
@@ -372,8 +372,8 @@ public:
     /// Default = Meridional radius of curvature of the WGS84 ellipsoid at
     ///           the latitude of the Reference Point.
     /// </summary>
-	ACDBCORE2D_PORT double coordinateProjectionRadius() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setCoordinateProjectionRadius(double value);
+  ACDBCORE2D_PORT double coordinateProjectionRadius() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setCoordinateProjectionRadius(double value);
     //=========================================================================
     // GEORSS support
     //=========================================================================
@@ -381,20 +381,20 @@ public:
     /// This returns the georss tag.  This is automatically updated to the
     /// global point if set.  For more information see http://georss.org/
     /// </summary>
-	ACDBCORE2D_PORT const ACHAR* geoRSSTag() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setGeoRSSTag(const ACHAR* rssTag);
+  ACDBCORE2D_PORT const ACHAR* geoRSSTag() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setGeoRSSTag(const ACHAR* rssTag);
     //=============================================================================
     // Observation Methods
     //=============================================================================
     // Geospatial (currently) has no requirements with regard to these members.
-	ACDBCORE2D_PORT const ACHAR* observationFrom() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setObservationFrom(const ACHAR* from);
+  ACDBCORE2D_PORT const ACHAR* observationFrom() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setObservationFrom(const ACHAR* from);
     // Geospatial (currently) has no requirements with regard to these members.
-	ACDBCORE2D_PORT const ACHAR* observationTo() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setObservationTo(const ACHAR* to);
+  ACDBCORE2D_PORT const ACHAR* observationTo() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setObservationTo(const ACHAR* to);
     // Geospatial (currently) has no requirements with regard to these members.
-	ACDBCORE2D_PORT const ACHAR* observationCoverage() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus setObservationCoverage(const ACHAR* coverage);
+  ACDBCORE2D_PORT const ACHAR* observationCoverage() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus setObservationCoverage(const ACHAR* coverage);
     //=========================================================================
     // Mesh and coordinate system transformation support
     //=========================================================================
@@ -411,25 +411,25 @@ public:
     /// A valid mesh with at least one point is a requirement for a valid object.
     /// Default = empty
     /// </summary>
-	ACDBCORE2D_PORT int numMeshPoints() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus getMeshPointMap(int index, AcGePoint2d& sourcePt, AcGePoint2d& destPt) const;
-	ACDBCORE2D_PORT Acad::ErrorStatus getMeshPointMaps(AcGePoint2dArray& sourcePts, AcGePoint2dArray& destPts) const;
-	ACDBCORE2D_PORT Acad::ErrorStatus addMeshPointMap(int index, const AcGePoint2d& sourcePt, const AcGePoint2d& destPt);
-	ACDBCORE2D_PORT Acad::ErrorStatus setMeshPointMaps(const AcGePoint2dArray& sourcePts, const AcGePoint2dArray& destPts);
-	ACDBCORE2D_PORT Acad::ErrorStatus resetMeshPointMaps();
+  ACDBCORE2D_PORT int numMeshPoints() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus getMeshPointMap(int index, AcGePoint2d& sourcePt, AcGePoint2d& destPt) const;
+  ACDBCORE2D_PORT Acad::ErrorStatus getMeshPointMaps(AcGePoint2dArray& sourcePts, AcGePoint2dArray& destPts) const;
+  ACDBCORE2D_PORT Acad::ErrorStatus addMeshPointMap(int index, const AcGePoint2d& sourcePt, const AcGePoint2d& destPt);
+  ACDBCORE2D_PORT Acad::ErrorStatus setMeshPointMaps(const AcGePoint2dArray& sourcePts, const AcGePoint2dArray& destPts);
+  ACDBCORE2D_PORT Acad::ErrorStatus resetMeshPointMaps();
     /// <summary>
     /// the Mesh transformation is done via approximation from Delaunay triangulation.
     /// These methods allow the access to this triangulation mesh.
     /// </summary>
-	ACDBCORE2D_PORT int numMeshFaces() const;
-	ACDBCORE2D_PORT Acad::ErrorStatus getMeshFace(int faceIndex, int& p0, int& p1, int& p2) const;
-	ACDBCORE2D_PORT Acad::ErrorStatus addMeshFace(int faceIndex, int p0, int p1, int p2);
+  ACDBCORE2D_PORT int numMeshFaces() const;
+  ACDBCORE2D_PORT Acad::ErrorStatus getMeshFace(int faceIndex, int& p0, int& p1, int& p2) const;
+  ACDBCORE2D_PORT Acad::ErrorStatus addMeshFace(int faceIndex, int p0, int p1, int p2);
     /// <summary>
     /// After adding points or triangles this method will update the transform.
     /// This has to be called before transforming any points.  This method must
     /// must be called before this object is posted to the host database.
     /// </summary>
-	ACDBCORE2D_PORT Acad::ErrorStatus updateTransformationMatrix();
+  ACDBCORE2D_PORT Acad::ErrorStatus updateTransformationMatrix();
     //=============================================================================
     // Transformation
     //=============================================================================
@@ -461,30 +461,30 @@ public:
     ///  eGeoDataOutOfRangeFallbackTriggered: outside of useful range of datum transformation, fallback method used
     ///  eGeoDataOutOfRangeNoTransformation: outside of useful range of datum transformation, coordinates unshifted.
     /// </summary>
-	ACDBCORE2D_PORT Acad::ErrorStatus transformToLonLatAlt(const AcGePoint3d& dwgPt, AcGePoint3d& geoPt) const;
-	ACDBCORE2D_PORT Acad::ErrorStatus transformToLonLatAlt(double x, double y, double z, double& lon, double& lat, double& alt) const;
-	ACDBCORE2D_PORT Acad::ErrorStatus transformFromLonLatAlt(const AcGePoint3d& geoPt, AcGePoint3d& dwgPt) const;
-	ACDBCORE2D_PORT Acad::ErrorStatus transformFromLonLatAlt(double lon, double lat, double alt, double& x, double& y, double& z) const;
+  ACDBCORE2D_PORT Acad::ErrorStatus transformToLonLatAlt(const AcGePoint3d& dwgPt, AcGePoint3d& geoPt) const;
+  ACDBCORE2D_PORT Acad::ErrorStatus transformToLonLatAlt(double x, double y, double z, double& lon, double& lat, double& alt) const;
+  ACDBCORE2D_PORT Acad::ErrorStatus transformFromLonLatAlt(const AcGePoint3d& geoPt, AcGePoint3d& dwgPt) const;
+  ACDBCORE2D_PORT Acad::ErrorStatus transformFromLonLatAlt(double lon, double lat, double alt, double& x, double& y, double& z) const;
     /// <summary>
     /// Applications can define alternative coordinate transformation methods by
     /// providing static methods with the following signatures.  Register the methods
     /// with AutoCAD using the AcDbGeoData::setTransformCallbacks method below.
     /// </summary>
-	typedef Acad::ErrorStatus (*ACDBGEODATA_GEOGRAPHICTODWG) (const AcDbGeoData* pGeoData, const double& dblLongitude, const double& dblLatitude, const double& dblAltitude, double& dblDwgX, double& dblDwgY, double& dblDwgZ);
-	typedef Acad::ErrorStatus (*ACDBGEODATA_DWGTOGEOGRAPHIC) (const AcDbGeoData* pGeoData, const double& dblDwgX, const double& dblDwgY, const double& dblDwgZ, double& dblLongitude, double& dblLatitude, double& dblAltitude);
+  typedef Acad::ErrorStatus (*ACDBGEODATA_GEOGRAPHICTODWG) (const AcDbGeoData* pGeoData, const double& dblLongitude, const double& dblLatitude, const double& dblAltitude, double& dblDwgX, double& dblDwgY, double& dblDwgZ);
+  typedef Acad::ErrorStatus (*ACDBGEODATA_DWGTOGEOGRAPHIC) (const AcDbGeoData* pGeoData, const double& dblDwgX, const double& dblDwgY, const double& dblDwgZ, double& dblLongitude, double& dblLatitude, double& dblAltitude);
     /// <summary>
     /// Use this function to set callback methods.  To unregister the application-specific
     /// callbacks, call this method with NULL for the second and third arguments. 
     /// </summary>
-	ACDBCORE2D_PORT static Acad::ErrorStatus setTransformCallbacks(const ACHAR* zoneDescription, ACDBGEODATA_GEOGRAPHICTODWG pFuncGeoToDwg, ACDBGEODATA_DWGTOGEOGRAPHIC pFuncDwgToGeo);
-	ACDBCORE2D_PORT static const ACHAR* getTransformCallbacks(ACDBGEODATA_GEOGRAPHICTODWG& pFuncGeoToDwg, ACDBGEODATA_DWGTOGEOGRAPHIC& pFuncDwgToGeo);
+  ACDBCORE2D_PORT static Acad::ErrorStatus setTransformCallbacks(const ACHAR* zoneDescription, ACDBGEODATA_GEOGRAPHICTODWG pFuncGeoToDwg, ACDBGEODATA_DWGTOGEOGRAPHIC pFuncDwgToGeo);
+  ACDBCORE2D_PORT static const ACHAR* getTransformCallbacks(ACDBGEODATA_GEOGRAPHICTODWG& pFuncGeoToDwg, ACDBGEODATA_DWGTOGEOGRAPHIC& pFuncDwgToGeo);
     //=========================================================================
     // Overridden methods from AcDbObject
     //=========================================================================
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
-	ACDBCORE2D_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
+  ACDBCORE2D_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
 };
 //=============================================================================
 //  Global API functions 

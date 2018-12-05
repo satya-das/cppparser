@@ -27,28 +27,28 @@
 class ACDBCORE2D_PORT AcDbAssocIndexPersSubentId : public AcDbAssocPersSubentId
 {
 #ifdef __GNUC__
-	typedef AcDbAssocPersSubentId __super;
-	static_assert((std::is_same<__super, AcDbAssocPersSubentId>::value), "Incorrect __super class");
+  typedef AcDbAssocPersSubentId __super;
+  static_assert((std::is_same<__super, AcDbAssocPersSubentId>::value), "Incorrect __super class");
 #endif
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocIndexPersSubentId);
-	explicit AcDbAssocIndexPersSubentId(AcDb::SubentType subentType = AcDb::kNullSubentType, unsigned int index = 0);
-	bool operator ==(const AcDbAssocIndexPersSubentId& other) const
-	{
-		return mSubentType == other.mSubentType && mIndex == other.mIndex;
-	}
-	bool operator <(const AcDbAssocIndexPersSubentId& other) const
-	{
-		return mSubentType != other.mSubentType ? mSubentType < other.mSubentType : mIndex < other.mIndex;
-	}
-	virtual AcDb::SubentType subentType(const AcDbEntity*, AcDbDatabase*) const override
-	{
-		return mSubentType;
-	}
-	virtual bool isNull() const override
-	{
-		return mSubentType == AcDb::kNullSubentType;
-	}
+  ACRX_DECLARE_MEMBERS(AcDbAssocIndexPersSubentId);
+  explicit AcDbAssocIndexPersSubentId(AcDb::SubentType subentType = AcDb::kNullSubentType, unsigned int index = 0);
+  bool operator ==(const AcDbAssocIndexPersSubentId& other) const
+  {
+    return mSubentType == other.mSubentType && mIndex == other.mIndex;
+  }
+  bool operator <(const AcDbAssocIndexPersSubentId& other) const
+  {
+    return mSubentType != other.mSubentType ? mSubentType < other.mSubentType : mIndex < other.mIndex;
+  }
+  virtual AcDb::SubentType subentType(const AcDbEntity*, AcDbDatabase*) const override
+  {
+    return mSubentType;
+  }
+  virtual bool isNull() const override
+  {
+    return mSubentType == AcDb::kNullSubentType;
+  }
     /// <summary><para>
     /// Writes the raw data of this class. It does not call the parent class
     /// AcDbAssocPersSubentId::dwg/dxfOutFields() that would write the class name.
@@ -60,7 +60,7 @@ public:
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::eOk. </returns>
     ///
-	virtual Acad::ErrorStatus dwgOutFieldsData(AcDbDwgFiler* pFiler) const;
+  virtual Acad::ErrorStatus dwgOutFieldsData(AcDbDwgFiler* pFiler) const;
     /// <summary><para>
     /// Writes the raw data of this class. It does not call the parent class
     /// AcDbAssocPersSubentId::dwg/dxfOutFields() that would write the class name.
@@ -72,56 +72,56 @@ public:
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::eOk. </returns>
     ///
-	virtual Acad::ErrorStatus dxfOutFieldsData(AcDbDxfFiler* pFiler) const;
+  virtual Acad::ErrorStatus dxfOutFieldsData(AcDbDxfFiler* pFiler) const;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to read the object data from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to read the object data from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     // New methods
-	unsigned int index() const
-	{
-		return mIndex;
-	}
-	void setSubentType(AcDb::SubentType subentType)
-	{
-		mSubentType = subentType;
-	}
-	void setIndex(unsigned int newIndex)
-	{
-		mIndex = newIndex;
-	}
+  unsigned int index() const
+  {
+    return mIndex;
+  }
+  void setSubentType(AcDb::SubentType subentType)
+  {
+    mSubentType = subentType;
+  }
+  void setIndex(unsigned int newIndex)
+  {
+    mIndex = newIndex;
+  }
 private:
     // For round-tripping via AcDbAssocSimplePersSubentId, encoding the
     // actual class type in subentType(), because it may only be in the range
     // of 0..3, so we have enough bits available to encode additional info.
     // Calls the virtual roundTripOffset() method to get the offset
     //
-	int encodeActualClassInSubentType() const;
-	static const int kRoundTripOffset = 1000000;
-	virtual int roundTripOffset() const
-	{
-		return kRoundTripOffset;
-	}
-	friend void roundTripReadViaAcDbAssocSimplePersSubentId(AcDbAssocPersSubentId*&);
+  int encodeActualClassInSubentType() const;
+  static const int kRoundTripOffset = 1000000;
+  virtual int roundTripOffset() const
+  {
+    return kRoundTripOffset;
+  }
+  friend void roundTripReadViaAcDbAssocSimplePersSubentId(AcDbAssocPersSubentId*&);
 protected:
-	AcDb::SubentType mSubentType;
-	unsigned int mIndex;
+  AcDb::SubentType mSubentType;
+  unsigned int mIndex;
 };
 /// <summary><para>
 /// AcDbAssocPersSubentId returned by AcDAssocExternalPersSubentIdManager and 
@@ -137,20 +137,20 @@ protected:
 class ACDBCORE2D_PORT AcDbAssocExternalIndexPersSubentId : public AcDbAssocIndexPersSubentId
 {
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocExternalIndexPersSubentId);
-	explicit AcDbAssocExternalIndexPersSubentId(AcDb::SubentType subentType = AcDb::kNullSubentType, unsigned int index = 0)
-		: AcDbAssocIndexPersSubentId(subentType, index)
-	{
-	}
+  ACRX_DECLARE_MEMBERS(AcDbAssocExternalIndexPersSubentId);
+  explicit AcDbAssocExternalIndexPersSubentId(AcDb::SubentType subentType = AcDb::kNullSubentType, unsigned int index = 0)
+    : AcDbAssocIndexPersSubentId(subentType, index)
+  {
+  }
 private:
     // For round-tripping to older dwg file format versions via AcDbAssocSimplePersSubentId
     //
-	static const int kRoundTripOffset = 2000000;
-	virtual int roundTripOffset() const override
-	{
-		return kRoundTripOffset;
-	}
-	friend void roundTripReadViaAcDbAssocSimplePersSubentId(AcDbAssocPersSubentId*&);
+  static const int kRoundTripOffset = 2000000;
+  virtual int roundTripOffset() const override
+  {
+    return kRoundTripOffset;
+  }
+  friend void roundTripReadViaAcDbAssocSimplePersSubentId(AcDbAssocPersSubentId*&);
 };
 /// <summary>
 /// Represents the persistent subentity id by an AcDbObjectId and a (persistent) 
@@ -164,32 +164,32 @@ private:
 class ACDBCORE2D_PORT AcDbAssocObjectAndIndexPersSubentId : public AcDbAssocIndexPersSubentId
 {
 #ifdef __GNUC__
-	typedef AcDbAssocIndexPersSubentId __super;
-	static_assert((std::is_same<__super, AcDbAssocIndexPersSubentId>::value), "Incorrect __super class");
+  typedef AcDbAssocIndexPersSubentId __super;
+  static_assert((std::is_same<__super, AcDbAssocIndexPersSubentId>::value), "Incorrect __super class");
 #endif
 public:
-	ACRX_DECLARE_MEMBERS(AcDbAssocObjectAndIndexPersSubentId);
-	AcDbAssocObjectAndIndexPersSubentId()
-	{
-	}
-	AcDbAssocObjectAndIndexPersSubentId(const AcDbObjectId& objId, AcDb::SubentType subentType, unsigned int index);
-	bool operator ==(const AcDbAssocObjectAndIndexPersSubentId& other) const;
-	bool operator  <(const AcDbAssocObjectAndIndexPersSubentId& other) const;
-	AcDbObjectId objectId() const
-	{
-		return mObjectId;
-	}
-	void setObjectId(const AcDbObjectId& objId)
-	{
-		mObjectId = objId;
-	}
-	virtual Acad::ErrorStatus dwgOutFieldsData(AcDbDwgFiler*) const override;
-	virtual Acad::ErrorStatus dxfOutFieldsData(AcDbDxfFiler*) const override;
-	virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
-	virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
-	virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
-	virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
+  ACRX_DECLARE_MEMBERS(AcDbAssocObjectAndIndexPersSubentId);
+  AcDbAssocObjectAndIndexPersSubentId()
+  {
+  }
+  AcDbAssocObjectAndIndexPersSubentId(const AcDbObjectId& objId, AcDb::SubentType subentType, unsigned int index);
+  bool operator ==(const AcDbAssocObjectAndIndexPersSubentId& other) const;
+  bool operator  <(const AcDbAssocObjectAndIndexPersSubentId& other) const;
+  AcDbObjectId objectId() const
+  {
+    return mObjectId;
+  }
+  void setObjectId(const AcDbObjectId& objId)
+  {
+    mObjectId = objId;
+  }
+  virtual Acad::ErrorStatus dwgOutFieldsData(AcDbDwgFiler*) const override;
+  virtual Acad::ErrorStatus dxfOutFieldsData(AcDbDxfFiler*) const override;
+  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
+  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
+  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
+  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
 private:
-	AcDbObjectId mObjectId;
+  AcDbObjectId mObjectId;
 };
 #pragma  pack (pop)

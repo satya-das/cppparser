@@ -13,8 +13,8 @@
 //  dbosnap2.h - header file for custom osnap api
 //
 #ifndef _DBOSNAP2_H
-#	define _DBOSNAP2_H
-#	include "dbosnap.h"
+#  define _DBOSNAP2_H
+#  include "dbosnap.h"
 class AcDbCustomOsnapMode2 : public AcDbCustomOsnapMode
 {
 public:
@@ -28,10 +28,10 @@ public:
     /// <returns>
     /// Returns a handle to an icon. The icon you supply should be in size of 16*16.
     /// </returns>
-	virtual HICON menuIcon()
-	{
-		return NULL;
-	}
+  virtual HICON menuIcon()
+  {
+    return NULL;
+  }
     /// <summary>
     /// This method is called to get an icon that will be displayed on osnap 
     /// right-clicking menu for dark theme.
@@ -42,10 +42,10 @@ public:
     /// <returns>
     /// Returns a handle to an icon. The icon you supply should be in size of 16*16.
     /// </returns>
-	virtual HICON menuIconForDarkTheme()
-	{
-		return NULL;
-	}
+  virtual HICON menuIconForDarkTheme()
+  {
+    return NULL;
+  }
     /// <summary>
     /// This method is called to get a string used for displaying on osnap 
     /// right-clicking menu.
@@ -53,9 +53,9 @@ public:
     /// <returns>
     /// Returns Custom OSNAP mode display string.
     /// </returns>
-	virtual const ACHAR* displayString()
-	{
-		return localModeString();
-	}
+  virtual const ACHAR* displayString()
+  {
+    return localModeString();
+  }
 };
 #endif
