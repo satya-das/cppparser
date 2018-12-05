@@ -410,6 +410,15 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   */
 }
 
+<ctxDefine>{ID}\((({WS}*{ID}{WS}*,{WS}*)*{ID}{WS}*)*\) {
+  set_token_and_yyposn();
+  ENDCONTEXT();
+  BEGINCONTEXT(ctxDefineDefn);
+  gDefLooksLike = kComplexDef;
+  oyytext = yytext + yyleng;
+  RETURN(tknID);
+}
+
 <ctxDefine>{ID} {
   set_token_and_yyposn();
   ENDCONTEXT();
@@ -434,6 +443,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
   else
   { // It does not look like simple #define.
+    if (oyytext == 0)
+      oyytext = yytext;
     gDefLooksLike = kComplexDef;
   }
 }
