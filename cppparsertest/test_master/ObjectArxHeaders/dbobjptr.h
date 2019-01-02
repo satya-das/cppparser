@@ -344,6 +344,7 @@ inline AcDbObjectPointerBase<T_OBJECT>::AcDbObjectPointerBase(AcDbObjectId objId
   , m_status(acdbOpenObject(m_ptr, objId, mode, openErased))
 {
 }
+template <typename T_OBJECT>
 inline AcDbObjectPointerBase<T_OBJECT>::~AcDbObjectPointerBase()
 {
   if (m_ptr != NULL)
@@ -390,12 +391,12 @@ inline T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::object()
   return m_ptr;
 }
 template <typename T_OBJECT>
-inline const T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::() const
+inline const T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::operator->() const
 {
   return object();
 }
 template <typename T_OBJECT>
-inline T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::()
+inline T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::operator->()
 {
   return object();
 }
@@ -638,7 +639,7 @@ inline AcDbObjectPointerBase<T_OBJECT>::AcDbObjectPointerBase(T_OBJECT* pObject)
   }
 }
 template <typename T_OBJECT>
-inline void AcDbObjectPointerBase<T_OBJECT>::(T_OBJECT* pObject)
+inline void AcDbObjectPointerBase<T_OBJECT>::operator=(T_OBJECT* pObject)
 {
   if (pObject == NULL)
   {
@@ -667,19 +668,19 @@ inline AcDbSymbolTableRecordPointer<T_OBJECT>::
 {
 }
 template <typename T_OBJECT>
-inline void AcDbObjectPointer<T_OBJECT>::(T_OBJECT* pObject)
+inline void AcDbObjectPointer<T_OBJECT>::operator=(T_OBJECT* pObject)
 {
-  AcDbObjectPointerBase<T_OBJECT>::(pObject);
+  AcDbObjectPointerBase<T_OBJECT>::operator =(pObject);
 }
 template <typename T_OBJECT>
-inline void AcDbSymbolTablePointer<T_OBJECT>::(T_OBJECT* pObject)
+inline void AcDbSymbolTablePointer<T_OBJECT>::operator=(T_OBJECT* pObject)
 {
-  AcDbObjectPointerBase<T_OBJECT>::(pObject);
+  AcDbObjectPointerBase<T_OBJECT>::operator =(pObject);
 }
 template <typename T_OBJECT>
-inline void AcDbSymbolTableRecordPointer<T_OBJECT>::(T_OBJECT* pObject)
+inline void AcDbSymbolTableRecordPointer<T_OBJECT>::operator=(T_OBJECT* pObject)
 {
-  AcDbObjectPointerBase<T_OBJECT>::(pObject);
+  AcDbObjectPointerBase<T_OBJECT>::operator =(pObject);
 }
 #  endif
 #  pragma  pack (pop)

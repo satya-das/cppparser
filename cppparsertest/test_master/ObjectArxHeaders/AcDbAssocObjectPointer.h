@@ -373,6 +373,7 @@ inline void AcDbAssocObjectPointer<ACDB_CLASS>::setup(AcDbAssocAction* pActionBe
     }
   }
 }
+template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::~AcDbAssocObjectPointer()
 {
   if (mObjectId.isNull() && mpSubstituteObject == NULL)

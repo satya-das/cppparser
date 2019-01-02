@@ -942,33 +942,33 @@ inline AcString& AcString::assign(wchar_t wch)
   const wchar_t wstr[2] = {wch, L'\0'};
   return this->assign(wstr);
 }
-inline AcString& AcString::(wchar_t wch)
+inline AcString& AcString::operator =(wchar_t wch)
 {
   return this->assign(wch);
 }
-inline AcString& AcString::(const wchar_t* pwsz)
+inline AcString& AcString::operator =(const wchar_t* pwsz)
 {
   return this->assign(pwsz);
 }
-inline AcString& AcString::(const AcString& acs)
+inline AcString& AcString::operator =(const AcString& acs)
 {
   return this->assign(acs);
 }
-inline AcString& AcString::(const AcDbHandle& h)
+inline AcString& AcString::operator =(const AcDbHandle& h)
 {
   return this->assign(h);
 }
 // Modifying inlines
 //
-inline AcString& AcString::(wchar_t wch)
+inline AcString& AcString::operator +=(wchar_t wch)
 {
   return this->append(wch);
 }
-inline AcString& AcString::(const wchar_t* pwsz)
+inline AcString& AcString::operator +=(const wchar_t* pwsz)
 {
   return this->append(pwsz);
 }
-inline AcString& AcString::(const AcString& acs)
+inline AcString& AcString::operator +=(const AcString& acs)
 {
   return this->append(acs);
 }
@@ -978,15 +978,15 @@ inline AcString& AcString::append(wchar_t wch)
   return this->append(wstr);
 }
 // Concatenation inlines
-inline AcString AcString::(wchar_t wch) const
+inline AcString AcString::operator +(wchar_t wch) const
 {
   return this->concat(wch);
 }
-inline AcString AcString::(const wchar_t* pwsz) const
+inline AcString AcString::operator +(const wchar_t* pwsz) const
 {
   return this->concat(pwsz);
 }
-inline AcString AcString::(const AcString& acs) const
+inline AcString AcString::operator +(const AcString& acs) const
 {
   return this->concat(acs);
 }
@@ -1032,75 +1032,75 @@ inline int AcString::collateNoCase(const AcString& acs) const
 {
   return this->collateNoCase(acs.kwszPtr());
 }
-inline bool AcString::(wchar_t wch) const
+inline bool AcString::operator ==(wchar_t wch) const
 {
   return this->compare(wch) == 0;
 }
-inline bool AcString::(const wchar_t* pwsz) const
+inline bool AcString::operator ==(const wchar_t* pwsz) const
 {
   return this->compare(pwsz) == 0;
 }
-inline bool AcString::(const AcString& acs) const
+inline bool AcString::operator ==(const AcString& acs) const
 {
   return this->compare(acs) == 0;
 }
-inline bool AcString::(wchar_t wch) const
+inline bool AcString::operator !=(wchar_t wch) const
 {
   return this->compare(wch) != 0;
 }
-inline bool AcString::(const wchar_t* pwsz) const
+inline bool AcString::operator !=(const wchar_t* pwsz) const
 {
   return this->compare(pwsz) != 0;
 }
-inline bool AcString::(const AcString& acs) const
+inline bool AcString::operator !=(const AcString& acs) const
 {
   return this->compare(acs) != 0;
 }
-inline bool AcString::(wchar_t wch) const
+inline bool AcString::operator >(wchar_t wch) const
 {
   return this->compare(wch) > 0;
 }
-inline bool AcString::(const wchar_t* pwsz) const
+inline bool AcString::operator >(const wchar_t* pwsz) const
 {
   return this->compare(pwsz) > 0;
 }
-inline bool AcString::(const AcString& acs) const
+inline bool AcString::operator >(const AcString& acs) const
 {
   return this->compare(acs) > 0;
 }
-inline bool AcString::(wchar_t wch) const
+inline bool AcString::operator >=(wchar_t wch) const
 {
   return this->compare(wch) >= 0;
 }
-inline bool AcString::(const wchar_t* pwsz) const
+inline bool AcString::operator >=(const wchar_t* pwsz) const
 {
   return this->compare(pwsz) >= 0;
 }
-inline bool AcString::(const AcString& acs) const
+inline bool AcString::operator >=(const AcString& acs) const
 {
   return this->compare(acs) >= 0;
 }
-inline bool AcString::(wchar_t wch) const
+inline bool AcString::operator <(wchar_t wch) const
 {
   return this->compare(wch) < 0;
 }
-inline bool AcString::(const wchar_t* pwsz) const
+inline bool AcString::operator <(const wchar_t* pwsz) const
 {
   return this->compare(pwsz) < 0;
 }
-inline bool AcString::(const AcString& acs) const
+inline bool AcString::operator <(const AcString& acs) const
 {
   return this->compare(acs) < 0;
 }
-inline bool AcString::(wchar_t wch) const
+inline bool AcString::operator <=(wchar_t wch) const
 {
   return this->compare(wch) <= 0;
 }
-inline bool AcString::(const wchar_t* pwsz) const
+inline bool AcString::operator <=(const wchar_t* pwsz) const
 {
   return this->compare(pwsz) <= 0;
 }
-inline bool AcString::(const AcString& acs) const
+inline bool AcString::operator <=(const AcString& acs) const
 {
   return this->compare(acs) <= 0;
 }
@@ -1189,12 +1189,12 @@ inline AcString::AcString(const CStringW& csw)
   const wchar_t* pwsz = (const wchar_t*) csw;
   *this = pwsz;
 }
-inline AcString& AcString::(const CStringW& csw)
+inline AcString& AcString::operator=(const CStringW& csw)
 {
   const wchar_t* pwsz = (const wchar_t*) csw;
   return this->assign(pwsz);
 }
-inline AcString& AcString::(const CStringW& csw)
+inline AcString& AcString::operator+=(const CStringW& csw)
 {
   const wchar_t* pwsz = (const wchar_t*) csw;
   return this->append(pwsz);
@@ -1219,27 +1219,27 @@ inline int AcString::matchNoCase(const CStringW& csw) const
   const wchar_t* pwsz = (const wchar_t*) csw;
   return this->matchNoCase(pwsz);
 }
-inline bool AcString::(const CStringW& csw) const
+inline bool AcString::operator ==(const CStringW& csw) const
 {
   return this->compare(csw) == 0;
 }
-inline bool AcString::(const CStringW& csw) const
+inline bool AcString::operator !=(const CStringW& csw) const
 {
   return this->compare(csw) != 0;
 }
-inline bool AcString::(const CStringW& csw) const
+inline bool AcString::operator >(const CStringW& csw) const
 {
   return this->compare(csw) > 0;
 }
-inline bool AcString::(const CStringW& csw) const
+inline bool AcString::operator >=(const CStringW& csw) const
 {
   return this->compare(csw) >= 0;
 }
-inline bool AcString::(const CStringW& csw) const
+inline bool AcString::operator <(const CStringW& csw) const
 {
   return this->compare(csw) < 0;
 }
-inline bool AcString::(const CStringW& csw) const
+inline bool AcString::operator <=(const CStringW& csw) const
 {
   return this->compare(csw) <= 0;
 }

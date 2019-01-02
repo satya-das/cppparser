@@ -589,7 +589,7 @@ inline AcRxValue::AcRxValue(const ACHAR* const& value)
   memcpy_s(&m_value, sizeof(const ACHAR*), &value, sizeof(const ACHAR*));
 }
 template <>
-inline AcRxValue& AcRxValue::(const ACHAR* const& rhs)
+inline AcRxValue& AcRxValue::operator=(const ACHAR* const& rhs)
 {
   *this = AcRxValue(rhs);
   return *this;

@@ -98,24 +98,24 @@ public:
     //
   double entry[3][3];
 };
-inline bool AcGeMatrix2d::(const AcGeMatrix2d& otherMatrix) const
+inline bool AcGeMatrix2d::operator ==(const AcGeMatrix2d& otherMatrix) const
 {
   return this->isEqualTo(otherMatrix);
 }
 // This operator is the logical negation of the `==' operator.
 //
-inline bool AcGeMatrix2d::(const AcGeMatrix2d& otherMatrix) const
+inline bool AcGeMatrix2d::operator !=(const AcGeMatrix2d& otherMatrix) const
 {
   return !this->isEqualTo(otherMatrix);
 }
 // Return a reference to the element in position [row][column]
 // of the `entry' array.
 //
-inline double AcGeMatrix2d::(unsigned int row, unsigned int column) const
+inline double AcGeMatrix2d::operator ()(unsigned int row, unsigned int column) const
 {
   return entry[row][column];
 }
-inline double& AcGeMatrix2d::(unsigned int row, unsigned int column)
+inline double& AcGeMatrix2d::operator ()(unsigned int row, unsigned int column)
 {
   return entry[row][column];
 }

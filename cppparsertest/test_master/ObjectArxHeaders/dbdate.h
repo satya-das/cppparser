@@ -118,19 +118,19 @@ private:
   friend class AcDbImpDate;
   class AcDbImpDate* mpImpDate;
 };
-inline const AcDbDate AcDbDate::(const AcDbDate& d) const
+inline const AcDbDate AcDbDate::operator +(const AcDbDate& d) const
 {
   return AcDbDate(*this) += d;
 }
-inline const AcDbDate AcDbDate::(const AcDbDate& d) const
+inline const AcDbDate AcDbDate::operator -(const AcDbDate& d) const
 {
   return AcDbDate(*this) -= d;
 }
-inline bool AcDbDate::(const AcDbDate& d) const
+inline bool AcDbDate::operator <(const AcDbDate& d) const
 {
   return !operator >=(d);
 }
-inline bool AcDbDate::(const AcDbDate& d) const
+inline bool AcDbDate::operator <=(const AcDbDate& d) const
 {
   return !operator >(d);
 }

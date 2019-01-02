@@ -114,29 +114,29 @@ inline AcDbHandle::AcDbHandle(Adesk::UInt64 val)
 {
   this->set64BitVal(val);
 }
-inline AcDbHandle& AcDbHandle::(const AcDbHandle& handle)
+inline AcDbHandle& AcDbHandle::operator=(const AcDbHandle& handle)
 {
   this->set64BitVal(handle.get64BitVal());
   return *this;
 }
-inline AcDbHandle& AcDbHandle::(Adesk::UInt64 val)
+inline AcDbHandle& AcDbHandle::operator=(Adesk::UInt64 val)
 {
   this->set64BitVal(val);
   return *this;
 }
-inline AcDbHandle AcDbHandle::(const AcDbHandle& handle) const
+inline AcDbHandle AcDbHandle::operator+(const AcDbHandle& handle) const
 {
   AcDbHandle tHandle(*this);
   tHandle.set64BitVal(tHandle.get64BitVal() + handle.get64BitVal());
   return tHandle;
 }
-inline AcDbHandle AcDbHandle::(Adesk::ULongPtr val) const
+inline AcDbHandle AcDbHandle::operator+(Adesk::ULongPtr val) const
 {
   AcDbHandle tHandle(*this);
   tHandle.set64BitVal(tHandle.get64BitVal() + val);
   return tHandle;
 }
-inline bool AcDbHandle::(const AcDbHandle& handle) const
+inline bool AcDbHandle::operator >(const AcDbHandle& handle) const
 {
   return this->get64BitVal() > handle.get64BitVal();
 }
@@ -158,11 +158,11 @@ inline int AcDbHandle::compare(const AcDbHandle& handle) const
     }
   }
 }
-inline bool AcDbHandle::(const AcDbHandle& handle) const
+inline bool AcDbHandle::operator==(const AcDbHandle& handle) const
 {
   return this->get64BitVal() == handle.get64BitVal();
 }
-inline bool AcDbHandle::(const AcDbHandle& handle) const
+inline bool AcDbHandle::operator!=(const AcDbHandle& handle) const
 {
   return this->get64BitVal() != handle.get64BitVal();
 }
@@ -178,7 +178,7 @@ inline bool AcDbHandle::isOne(void) const
 {
   return this->get64BitVal() == 1;
 }
-inline AcDbHandle& AcDbHandle::(void)
+inline AcDbHandle& AcDbHandle::operator++(void)
 {
   this->set64BitVal(get64BitVal() + 1);
   return *this;
@@ -191,7 +191,7 @@ inline void AcDbHandle::decrement(void)
 {
   this->set64BitVal(get64BitVal() - 1);
 }
-inline AcDbHandle AcDbHandle::(int)
+inline AcDbHandle AcDbHandle::operator++(int)
 {
   AcDbHandle tempHandle = *this;
   ++(*this);
@@ -201,7 +201,7 @@ operator Adesk::UInt64()
 {
   return get64BitVal();
 }
-inline bool AcDbHandle::(const AcDbHandle& handle) const
+inline bool AcDbHandle::operator <(const AcDbHandle& handle) const
 {
   return this->get64BitVal() < handle.get64BitVal();
 }

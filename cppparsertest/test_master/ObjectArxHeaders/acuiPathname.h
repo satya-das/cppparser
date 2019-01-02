@@ -42,12 +42,12 @@ protected:
         // the guts of the assignment operator
   ACCORE_PORT virtual void AssignCopy(const CAcUiPathname&);
 };
-inline const CAcUiPathname& CAcUiPathname::(const CAcUiPathname& pathSrc)
+inline const CAcUiPathname& CAcUiPathname::operator=(const CAcUiPathname& pathSrc)
 {
   AssignCopy(pathSrc);
   return *this;
 }
-inline const CAcUiPathname& CAcUiPathname::(const CAcUiPathname* pathSrc)
+inline const CAcUiPathname& CAcUiPathname::operator=(const CAcUiPathname* pathSrc)
 {
   AssignCopy ( *pathSrc);
   return *this;

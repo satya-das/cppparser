@@ -37,6 +37,7 @@ CNavArray<T>::CNavArray()
   : CTypedPtrArray<CObArray, T*>()
 {
 }
+template <typename T>
 CNavArray<T>::~CNavArray()
 {
   RemoveAllData();

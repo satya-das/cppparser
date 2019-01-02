@@ -33,7 +33,7 @@ public:
   static void deallocate(AcStackAllocator* p, void* pParent)
   {
     p->~AcStackAllocator();
-    AcStackAllocator::(p, pParent);
+    AcStackAllocator::operator delete(p, pParent);
   }
 protected:
   static void operator delete(void* p)

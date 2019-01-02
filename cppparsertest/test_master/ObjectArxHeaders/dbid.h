@@ -228,12 +228,12 @@ inline AcDbObjectId& AcDbObjectId::setFromOldId(Adesk::IntDbId oldId)
   this->mId = reinterpret_cast<AcDbStub*>(oldId);
   return *this;
 }
-inline AcDbObjectId& AcDbObjectId::(const AcDbObjectId& id)
+inline AcDbObjectId& AcDbObjectId::operator =(const AcDbObjectId& id)
 {
   mId = id.mId;
   return *this;
 }
-inline AcDbObjectId& AcDbObjectId::(const AcDbStub* pStub)
+inline AcDbObjectId& AcDbObjectId::operator =(const AcDbStub* pStub)
 {
   mId = const_cast<AcDbStub*>(pStub);
   return *this;
@@ -242,51 +242,51 @@ operator AcDbStub*()
 {
   return mId;
 }
-inline bool AcDbObjectId::(const AcDbObjectId& id) const
+inline bool AcDbObjectId::operator <(const AcDbObjectId& id) const
 {
   return mId < id.mId;
 }
-inline bool AcDbObjectId::(const AcDbObjectId& id) const
+inline bool AcDbObjectId::operator >(const AcDbObjectId& id) const
 {
   return mId > id.mId;
 }
-inline bool AcDbObjectId::(const AcDbObjectId& id) const
+inline bool AcDbObjectId::operator <=(const AcDbObjectId& id) const
 {
   return mId <= id.mId;
 }
-inline bool AcDbObjectId::(const AcDbObjectId& id) const
+inline bool AcDbObjectId::operator >=(const AcDbObjectId& id) const
 {
   return mId >= id.mId;
 }
-inline bool AcDbObjectId::(const AcDbObjectId& id) const
+inline bool AcDbObjectId::operator ==(const AcDbObjectId& id) const
 {
   return mId == id.mId;
 }
-inline bool AcDbObjectId::(const AcDbObjectId& id) const
+inline bool AcDbObjectId::operator !=(const AcDbObjectId& id) const
 {
   return mId != id.mId;
 }
-inline bool AcDbObjectId::(const AcDbStub* pStub) const
+inline bool AcDbObjectId::operator <(const AcDbStub* pStub) const
 {
   return mId < pStub;
 }
-inline bool AcDbObjectId::(const AcDbStub* pStub) const
+inline bool AcDbObjectId::operator >(const AcDbStub* pStub) const
 {
   return mId > pStub;
 }
-inline bool AcDbObjectId::(const AcDbStub* pStub) const
+inline bool AcDbObjectId::operator <=(const AcDbStub* pStub) const
 {
   return mId <= pStub;
 }
-inline bool AcDbObjectId::(const AcDbStub* pStub) const
+inline bool AcDbObjectId::operator >=(const AcDbStub* pStub) const
 {
   return mId >= pStub;
 }
-inline bool AcDbObjectId::(const AcDbStub* pStub) const
+inline bool AcDbObjectId::operator ==(const AcDbStub* pStub) const
 {
   return mId == pStub;
 }
-inline bool AcDbObjectId::(const AcDbStub* pStub) const
+inline bool AcDbObjectId::operator !=(const AcDbStub* pStub) const
 {
   return mId != pStub;
 }
@@ -302,36 +302,36 @@ inline AcDbHardOwnershipId::AcDbHardOwnershipId(const AcDbStub* pStub)
   : AcDbObjectId(pStub)
 {
 }
-inline AcDbHardOwnershipId& AcDbHardOwnershipId::(const AcDbHardOwnershipId& id)
+inline AcDbHardOwnershipId& AcDbHardOwnershipId::operator  =(const AcDbHardOwnershipId& id)
 {
-  AcDbObjectId::(id);
+  AcDbObjectId::operator=(id);
   return *this;
 }
-inline AcDbHardOwnershipId& AcDbHardOwnershipId::(const AcDbObjectId& id)
+inline AcDbHardOwnershipId& AcDbHardOwnershipId::operator =(const AcDbObjectId& id)
 {
-  AcDbObjectId::(id);
+  AcDbObjectId::operator=(id);
   return *this;
 }
-inline AcDbHardOwnershipId& AcDbHardOwnershipId::(const AcDbStub* pStub)
+inline AcDbHardOwnershipId& AcDbHardOwnershipId::operator =(const AcDbStub* pStub)
 {
   mId = const_cast<AcDbStub*>(pStub);
   return *this;
 }
-inline bool AcDbHardOwnershipId::(const AcDbObjectId& id) const
+inline bool AcDbHardOwnershipId::operator !=(const AcDbObjectId& id) const
 {
-  return AcDbObjectId::(id);
+  return AcDbObjectId::operator!=(id);
 }
-inline bool AcDbHardOwnershipId::(const AcDbStub* pStub) const
+inline bool AcDbHardOwnershipId::operator !=(const AcDbStub* pStub) const
 {
-  return AcDbObjectId::(pStub);
+  return AcDbObjectId::operator!=(pStub);
 }
-inline bool AcDbHardOwnershipId::(const AcDbObjectId& id) const
+inline bool AcDbHardOwnershipId::operator ==(const AcDbObjectId& id) const
 {
-  return AcDbObjectId::(id);
+  return AcDbObjectId::operator==(id);
 }
-inline bool AcDbHardOwnershipId::(const AcDbStub* pStub) const
+inline bool AcDbHardOwnershipId::operator ==(const AcDbStub* pStub) const
 {
-  return AcDbObjectId::(pStub);
+  return AcDbObjectId::operator==(pStub);
 }
 operator AcDbStub*()
 {
@@ -349,36 +349,36 @@ inline AcDbSoftOwnershipId::AcDbSoftOwnershipId(const AcDbStub* pStub)
   : AcDbObjectId(pStub)
 {
 }
-inline AcDbSoftOwnershipId& AcDbSoftOwnershipId::(const AcDbSoftOwnershipId& id)
+inline AcDbSoftOwnershipId& AcDbSoftOwnershipId::operator =(const AcDbSoftOwnershipId& id)
 {
-  AcDbObjectId::(id);
+  AcDbObjectId::operator=(id);
   return *this;
 }
-inline AcDbSoftOwnershipId& AcDbSoftOwnershipId::(const AcDbObjectId& id)
+inline AcDbSoftOwnershipId& AcDbSoftOwnershipId::operator =(const AcDbObjectId& id)
 {
-  AcDbObjectId::(id);
+  AcDbObjectId::operator=(id);
   return *this;
 }
-inline AcDbSoftOwnershipId& AcDbSoftOwnershipId::(const AcDbStub* pStub)
+inline AcDbSoftOwnershipId& AcDbSoftOwnershipId::operator =(const AcDbStub* pStub)
 {
   mId = const_cast<AcDbStub*>(pStub);
   return *this;
 }
-inline bool AcDbSoftOwnershipId::(const AcDbObjectId& id) const
+inline bool AcDbSoftOwnershipId::operator !=(const AcDbObjectId& id) const
 {
-  return AcDbObjectId::(id);
+  return AcDbObjectId::operator!=(id);
 }
-inline bool AcDbSoftOwnershipId::(const AcDbStub* pStub) const
+inline bool AcDbSoftOwnershipId::operator !=(const AcDbStub* pStub) const
 {
-  return AcDbObjectId::(pStub);
+  return AcDbObjectId::operator!=(pStub);
 }
-inline bool AcDbSoftOwnershipId::(const AcDbObjectId& id) const
+inline bool AcDbSoftOwnershipId::operator ==(const AcDbObjectId& id) const
 {
-  return AcDbObjectId::(id);
+  return AcDbObjectId::operator==(id);
 }
-inline bool AcDbSoftOwnershipId::(const AcDbStub* pStub) const
+inline bool AcDbSoftOwnershipId::operator ==(const AcDbStub* pStub) const
 {
-  return AcDbObjectId::(pStub);
+  return AcDbObjectId::operator==(pStub);
 }
 operator AcDbStub*()
 {
@@ -396,36 +396,36 @@ inline AcDbHardPointerId::AcDbHardPointerId(const AcDbStub* pStub)
   : AcDbObjectId(pStub)
 {
 }
-inline AcDbHardPointerId& AcDbHardPointerId::(const AcDbHardPointerId& id)
+inline AcDbHardPointerId& AcDbHardPointerId::operator =(const AcDbHardPointerId& id)
 {
-  AcDbObjectId::(id);
+  AcDbObjectId::operator=(id);
   return *this;
 }
-inline AcDbHardPointerId& AcDbHardPointerId::(const AcDbObjectId& id)
+inline AcDbHardPointerId& AcDbHardPointerId::operator =(const AcDbObjectId& id)
 {
-  AcDbObjectId::(id);
+  AcDbObjectId::operator=(id);
   return *this;
 }
-inline AcDbHardPointerId& AcDbHardPointerId::(const AcDbStub* pStub)
+inline AcDbHardPointerId& AcDbHardPointerId::operator =(const AcDbStub* pStub)
 {
   mId = const_cast<AcDbStub*>(pStub);
   return *this;
 }
-inline bool AcDbHardPointerId::(const AcDbObjectId& id) const
+inline bool AcDbHardPointerId::operator !=(const AcDbObjectId& id) const
 {
-  return AcDbObjectId::(id);
+  return AcDbObjectId::operator!=(id);
 }
-inline bool AcDbHardPointerId::(const AcDbStub* pStub) const
+inline bool AcDbHardPointerId::operator !=(const AcDbStub* pStub) const
 {
-  return AcDbObjectId::(pStub);
+  return AcDbObjectId::operator!=(pStub);
 }
-inline bool AcDbHardPointerId::(const AcDbObjectId& id) const
+inline bool AcDbHardPointerId::operator ==(const AcDbObjectId& id) const
 {
-  return AcDbObjectId::(id);
+  return AcDbObjectId::operator==(id);
 }
-inline bool AcDbHardPointerId::(const AcDbStub* pStub) const
+inline bool AcDbHardPointerId::operator ==(const AcDbStub* pStub) const
 {
-  return AcDbObjectId::(pStub);
+  return AcDbObjectId::operator==(pStub);
 }
 operator AcDbStub*()
 {
@@ -443,36 +443,36 @@ inline AcDbSoftPointerId::AcDbSoftPointerId(const AcDbStub* pStub)
   : AcDbObjectId(pStub)
 {
 }
-inline AcDbSoftPointerId& AcDbSoftPointerId::(const AcDbSoftPointerId& id)
+inline AcDbSoftPointerId& AcDbSoftPointerId::operator =(const AcDbSoftPointerId& id)
 {
-  AcDbObjectId::(id);
+  AcDbObjectId::operator=(id);
   return *this;
 }
-inline AcDbSoftPointerId& AcDbSoftPointerId::(const AcDbObjectId& id)
+inline AcDbSoftPointerId& AcDbSoftPointerId::operator =(const AcDbObjectId& id)
 {
-  AcDbObjectId::(id);
+  AcDbObjectId::operator=(id);
   return *this;
 }
-inline AcDbSoftPointerId& AcDbSoftPointerId::(const AcDbStub* pStub)
+inline AcDbSoftPointerId& AcDbSoftPointerId::operator =(const AcDbStub* pStub)
 {
   mId = const_cast<AcDbStub*>(pStub);
   return *this;
 }
-inline bool AcDbSoftPointerId::(const AcDbObjectId& id) const
+inline bool AcDbSoftPointerId::operator !=(const AcDbObjectId& id) const
 {
-  return AcDbObjectId::(id);
+  return AcDbObjectId::operator!=(id);
 }
-inline bool AcDbSoftPointerId::(const AcDbStub* pStub) const
+inline bool AcDbSoftPointerId::operator !=(const AcDbStub* pStub) const
 {
-  return AcDbObjectId::(pStub);
+  return AcDbObjectId::operator!=(pStub);
 }
-inline bool AcDbSoftPointerId::(const AcDbObjectId& id) const
+inline bool AcDbSoftPointerId::operator ==(const AcDbObjectId& id) const
 {
-  return AcDbObjectId::(id);
+  return AcDbObjectId::operator==(id);
 }
-inline bool AcDbSoftPointerId::(const AcDbStub* pStub) const
+inline bool AcDbSoftPointerId::operator ==(const AcDbStub* pStub) const
 {
-  return AcDbObjectId::(pStub);
+  return AcDbObjectId::operator==(pStub);
 }
 operator AcDbStub*()
 {

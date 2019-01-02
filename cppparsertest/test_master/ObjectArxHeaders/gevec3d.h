@@ -154,26 +154,26 @@ inline AcGeVector3d::AcGeVector3d(double xx, double yy, double zz)
   , z(zz)
 {
 }
-inline bool AcGeVector3d::(const AcGeVector3d& v) const
+inline bool AcGeVector3d::operator ==(const AcGeVector3d& v) const
 {
   return this->isEqualTo(v);
 }
 // This operator is the logical negation of the `==' operator.
 //
-inline bool AcGeVector3d::(const AcGeVector3d& v) const
+inline bool AcGeVector3d::operator !=(const AcGeVector3d& v) const
 {
   return !this->isEqualTo(v);
 }
 // Returns a vector that is formed from adding the components of
 // this vector with `v'.
 //
-inline AcGeVector3d AcGeVector3d::(const AcGeVector3d& v) const
+inline AcGeVector3d AcGeVector3d::operator +(const AcGeVector3d& v) const
 {
   return AcGeVector3d(x + v.x, y + v.y, z + v.z);
 }
 // This is equivalent to the statement `thisVec = thisVec + v;'
 //
-inline AcGeVector3d& AcGeVector3d::(const AcGeVector3d& v)
+inline AcGeVector3d& AcGeVector3d::operator +=(const AcGeVector3d& v)
 {
   x += v.x;
   y += v.y;
@@ -182,13 +182,13 @@ inline AcGeVector3d& AcGeVector3d::(const AcGeVector3d& v)
 }
 // Using this operator is equivalent to using `thisVec + (-v);'
 //
-inline AcGeVector3d AcGeVector3d::(const AcGeVector3d& v) const
+inline AcGeVector3d AcGeVector3d::operator -(const AcGeVector3d& v) const
 {
   return AcGeVector3d(x - v.x, y - v.y, z - v.z);
 }
 // This is equivalent to the statement `thisVec = thisVec - v;'
 //
-inline AcGeVector3d& AcGeVector3d::(const AcGeVector3d& v)
+inline AcGeVector3d& AcGeVector3d::operator -=(const AcGeVector3d& v)
 {
   x -= v.x;
   y -= v.y;
@@ -205,7 +205,7 @@ inline AcGeVector3d& AcGeVector3d::setToSum(const AcGeVector3d& v1, const AcGeVe
 // Returns a vector that is formed by negating each of the components
 // of this vector.
 //
-inline AcGeVector3d AcGeVector3d::() const
+inline AcGeVector3d AcGeVector3d::operator -() const
 {
   return AcGeVector3d(-x, -y, -z);
 }
@@ -221,13 +221,13 @@ inline AcGeVector3d& AcGeVector3d::negate()
 // This operator returns a vector that is the scalar product of
 // `s' and this vector.
 //
-inline AcGeVector3d AcGeVector3d::(double s) const
+inline AcGeVector3d AcGeVector3d::operator *(double s) const
 {
   return AcGeVector3d(x * s, y * s, z * s);
 }
 // This is equivalent to the statement `v = v * s'.
 //
-inline AcGeVector3d& AcGeVector3d::(double s)
+inline AcGeVector3d& AcGeVector3d::operator *=(double s)
 {
   x *= s;
   y *= s;
@@ -244,14 +244,14 @@ inline AcGeVector3d& AcGeVector3d::setToProduct(const AcGeVector3d& v, double s)
 // Returns a vector such that each of the coordinates of this vector
 // have been divided by val.
 //
-inline AcGeVector3d AcGeVector3d::(double val) const
+inline AcGeVector3d AcGeVector3d::operator /(double val) const
 {
   return AcGeVector3d(x / val, y / val, z / val);
 }
 // This is equivalent to the statement `v = v / val;'
 // Each coordinate of this vector is divided by val.
 //
-inline AcGeVector3d& AcGeVector3d::(double val)
+inline AcGeVector3d& AcGeVector3d::operator /=(double val)
 {
   x /= val;
   y /= val;
@@ -282,11 +282,11 @@ inline AcGeVector3d& AcGeVector3d::set(double xx, double yy, double zz)
 // Indexes the vector as if it were an array.  `x' is index `0',
 // `y' is index `1' and `z' is index `2'.
 //
-inline double AcGeVector3d::(unsigned int i) const
+inline double AcGeVector3d::operator [](unsigned int i) const
 {
   return *(&x + i);
 }
-inline double& AcGeVector3d::(unsigned int i)
+inline double& AcGeVector3d::operator [](unsigned int i)
 {
   return *(&x + i);
 }

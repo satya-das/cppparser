@@ -71,21 +71,21 @@ public:
     //
   double sx, sy;
 };
-inline double AcGeScale2d::(unsigned int i) const
+inline double AcGeScale2d::operator [](unsigned int i) const
 {
   return *(&sx + i);
 }
-inline double& AcGeScale2d::(unsigned int i)
+inline double& AcGeScale2d::operator [](unsigned int i)
 {
   return *(&sx + i);
 }
-inline bool AcGeScale2d::(const AcGeScale2d& s) const
+inline bool AcGeScale2d::operator ==(const AcGeScale2d& s) const
 {
   return this->isEqualTo(s);
 }
 // This operator is the logical negation of the `==' operator.
 //
-inline bool AcGeScale2d::(const AcGeScale2d& s) const
+inline bool AcGeScale2d::operator !=(const AcGeScale2d& s) const
 {
   return !this->isEqualTo(s);
 }

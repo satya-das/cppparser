@@ -105,20 +105,20 @@ inline AcGePoint3d::AcGePoint3d(double xx, double yy, double zz)
   , z(zz)
 {
 }
-inline bool AcGePoint3d::(const AcGePoint3d& p) const
+inline bool AcGePoint3d::operator ==(const AcGePoint3d& p) const
 {
   return this->isEqualTo(p);
 }
 // This operator is the logical negation of the `==' operator.
 //
-inline bool AcGePoint3d::(const AcGePoint3d& p) const
+inline bool AcGePoint3d::operator !=(const AcGePoint3d& p) const
 {
   return !this->isEqualTo(p);
 }
 // Returns a point such that each of the coordinates of this point
 // have been multiplied by val.
 //
-inline AcGePoint3d AcGePoint3d::(double val) const
+inline AcGePoint3d AcGePoint3d::operator *(double val) const
 {
   return AcGePoint3d(x * val, y * val, z * val);
 }
@@ -132,7 +132,7 @@ inline AcGePoint3d operator *(double val, const AcGePoint3d& p)
 // This is equivalent to the statement `p = p * val;'
 // Each coordinate of this point is multiplied by val.
 //
-inline AcGePoint3d& AcGePoint3d::(double val)
+inline AcGePoint3d& AcGePoint3d::operator *=(double val)
 {
   x *= val;
   y *= val;
@@ -142,14 +142,14 @@ inline AcGePoint3d& AcGePoint3d::(double val)
 // Returns a point such that each of the coordinates of this point
 // have been divided by val.
 //
-inline AcGePoint3d AcGePoint3d::(double val) const
+inline AcGePoint3d AcGePoint3d::operator /(double val) const
 {
   return AcGePoint3d(x / val, y / val, z / val);
 }
 // This is equivalent to the statement `p = p / val;'
 // Each coordinate of this point is divided by val.
 //
-inline AcGePoint3d& AcGePoint3d::(double val)
+inline AcGePoint3d& AcGePoint3d::operator /=(double val)
 {
   x /= val;
   y /= val;
@@ -161,13 +161,13 @@ inline AcGePoint3d& AcGePoint3d::(double val)
 // the vector had been cast to a translation matrix and then
 // multiplied with the point.)
 //
-inline AcGePoint3d AcGePoint3d::(const AcGeVector3d& v) const
+inline AcGePoint3d AcGePoint3d::operator +(const AcGeVector3d& v) const
 {
   return AcGePoint3d(x + v.x, y + v.y, z + v.z);
 }
 // This is equivalent to the statement `p = p + v;'
 //
-inline AcGePoint3d& AcGePoint3d::(const AcGeVector3d& v)
+inline AcGePoint3d& AcGePoint3d::operator +=(const AcGeVector3d& v)
 {
   x += v.x;
   y += v.y;
@@ -176,13 +176,13 @@ inline AcGePoint3d& AcGePoint3d::(const AcGeVector3d& v)
 }
 // This is equivalent to the statement `p + (-v);'
 //
-inline AcGePoint3d AcGePoint3d::(const AcGeVector3d& v) const
+inline AcGePoint3d AcGePoint3d::operator -(const AcGeVector3d& v) const
 {
   return AcGePoint3d(x - v.x, y - v.y, z - v.z);
 }
 // This is equivalent to the statement `p = p - v;'
 //
-inline AcGePoint3d& AcGePoint3d::(const AcGeVector3d& v)
+inline AcGePoint3d& AcGePoint3d::operator -=(const AcGeVector3d& v)
 {
   x -= v.x;
   y -= v.y;
@@ -193,7 +193,7 @@ inline AcGePoint3d& AcGePoint3d::(const AcGeVector3d& v)
 // then, `v' is equivalent to the translation that takes
 // `p0' to `p1'.  (This point is `p1').
 //
-inline AcGeVector3d AcGePoint3d::(const AcGePoint3d& p) const
+inline AcGeVector3d AcGePoint3d::operator -(const AcGePoint3d& p) const
 {
   return AcGeVector3d(x - p.x, y - p.y, z - p.z);
 }
@@ -217,11 +217,11 @@ inline AcGePoint3d& AcGePoint3d::set(double xx, double yy, double zz)
 // Indexes the point as if it were an array.  `x' is index `0',
 // `y' is index `1', `z' is index `2'.
 //
-inline double AcGePoint3d::(unsigned int i) const
+inline double AcGePoint3d::operator [](unsigned int i) const
 {
   return *(&x + i);
 }
-inline double& AcGePoint3d::(unsigned int i)
+inline double& AcGePoint3d::operator [](unsigned int i)
 {
   return *(&x + i);
 }

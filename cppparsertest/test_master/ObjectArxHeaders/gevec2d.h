@@ -126,26 +126,26 @@ inline AcGeVector2d::AcGeVector2d(double xx, double yy)
   , y(yy)
 {
 }
-inline bool AcGeVector2d::(const AcGeVector2d& v) const
+inline bool AcGeVector2d::operator ==(const AcGeVector2d& v) const
 {
   return this->isEqualTo(v);
 }
 // This operator is the logical negation of the `==' operator.
 //
-inline bool AcGeVector2d::(const AcGeVector2d& v) const
+inline bool AcGeVector2d::operator !=(const AcGeVector2d& v) const
 {
   return !this->isEqualTo(v);
 }
 // This operator returns a vector that is the scalar product of
 // `s' and this vector.
 //
-inline AcGeVector2d AcGeVector2d::(double s) const
+inline AcGeVector2d AcGeVector2d::operator *(double s) const
 {
   return AcGeVector2d(x * s, y * s);
 }
 // This is equivalent to the statement `v = v * s'.
 //
-inline AcGeVector2d& AcGeVector2d::(double s)
+inline AcGeVector2d& AcGeVector2d::operator *=(double s)
 {
   x *= s;
   y *= s;
@@ -160,14 +160,14 @@ inline AcGeVector2d& AcGeVector2d::setToProduct(const AcGeVector2d& v, double s)
 // Returns a vector such that each of the coordinates of this vector
 // have been divided by val.
 //
-inline AcGeVector2d AcGeVector2d::(double val) const
+inline AcGeVector2d AcGeVector2d::operator /(double val) const
 {
   return AcGeVector2d(x / val, y / val);
 }
 // This is equivalent to the statement `v = v / val;'
 // Each coordinate of this vector is divided by val.
 //
-inline AcGeVector2d& AcGeVector2d::(double val)
+inline AcGeVector2d& AcGeVector2d::operator /=(double val)
 {
   x /= val;
   y /= val;
@@ -176,13 +176,13 @@ inline AcGeVector2d& AcGeVector2d::(double val)
 // Returns a vector that is formed from adding the components of
 // this vector with `v'.
 //
-inline AcGeVector2d AcGeVector2d::(const AcGeVector2d& v) const
+inline AcGeVector2d AcGeVector2d::operator +(const AcGeVector2d& v) const
 {
   return AcGeVector2d(x + v.x, y + v.y);
 }
 // This is equivalent to the statement `thisVec = thisVec + v;'
 //
-inline AcGeVector2d& AcGeVector2d::(const AcGeVector2d& v)
+inline AcGeVector2d& AcGeVector2d::operator +=(const AcGeVector2d& v)
 {
   x += v.x;
   y += v.y;
@@ -190,13 +190,13 @@ inline AcGeVector2d& AcGeVector2d::(const AcGeVector2d& v)
 }
 // Using this operator is equivalent to using `thisVec + (-v);'
 //
-inline AcGeVector2d AcGeVector2d::(const AcGeVector2d& v) const
+inline AcGeVector2d AcGeVector2d::operator -(const AcGeVector2d& v) const
 {
   return AcGeVector2d(x - v.x, y - v.y);
 }
 // This is equivalent to the statement `thisVec = thisVec - v;'
 //
-inline AcGeVector2d& AcGeVector2d::(const AcGeVector2d& v)
+inline AcGeVector2d& AcGeVector2d::operator -=(const AcGeVector2d& v)
 {
   x -= v.x;
   y -= v.y;
@@ -211,7 +211,7 @@ inline AcGeVector2d& AcGeVector2d::setToSum(const AcGeVector2d& v1, const AcGeVe
 // Returns a vector that is formed by negating each of the components
 // of this vector.
 //
-inline AcGeVector2d AcGeVector2d::() const
+inline AcGeVector2d AcGeVector2d::operator -() const
 {
   return AcGeVector2d(-x, -y);
 }
@@ -252,11 +252,11 @@ inline AcGeVector2d& AcGeVector2d::set(double xx, double yy)
 // Indexes the vector as if it were an array.  `x' is index `0',
 // `y' is index `1'.
 //
-inline double AcGeVector2d::(unsigned int i) const
+inline double AcGeVector2d::operator [](unsigned int i) const
 {
   return *(&x + i);
 }
-inline double& AcGeVector2d::(unsigned int i)
+inline double& AcGeVector2d::operator [](unsigned int i)
 {
   return *(&x + i);
 }

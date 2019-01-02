@@ -115,11 +115,11 @@ inline AcDbSubentId::AcDbSubentId(AcRxClass* pTypeClass, Adesk::GsMarker i)
   , mpTypeClass(pTypeClass)
 {
 }
-inline bool AcDbSubentId::(const AcDbSubentId& id) const
+inline bool AcDbSubentId::operator ==(const AcDbSubentId& id) const
 {
   return ((mIndex == id.mIndex) && (mType == id.mType) && (mpTypeClass == id.mpTypeClass));
 }
-inline bool AcDbSubentId::(const AcDbSubentId& id) const
+inline bool AcDbSubentId::operator !=(const AcDbSubentId& id) const
 {
   return ((mIndex != id.mIndex) || (mType != id.mType) || (mpTypeClass != id.mpTypeClass));
 }

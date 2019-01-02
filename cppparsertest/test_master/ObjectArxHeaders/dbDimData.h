@@ -115,7 +115,7 @@ inline AcDbDimData::~AcDbDimData()
     delete mpDim;
   }
 }
-inline AcDbDimData& AcDbDimData::(const AcDbDimData& src)
+inline AcDbDimData& AcDbDimData::operator =(const AcDbDimData& src)
 {
   if (this == &src)
   {

@@ -184,7 +184,7 @@ inline AcDMMWideString operator+(const AcDMMWideString& wsLeft, const AcDMMWideS
   wsRet += wsRight;
   return (wsRet);
 }
-inline const AcDMMWideString& AcDMMWideString::(AcDMMWideString ws)
+inline const AcDMMWideString& AcDMMWideString::operator +=(AcDMMWideString ws)
 {
   if (!ws.IsEmpty())
   {
@@ -233,14 +233,14 @@ operator PCWIDESTR()
 {
   return (m_pData ? m_pData : L"");
 }
-inline const AcDMMWideString& AcDMMWideString::(const AcDMMWideString& ws)
+inline const AcDMMWideString& AcDMMWideString::operator=(const AcDMMWideString& ws)
 {
   Empty();
   m_iLength = ws.m_iLength;
   Alloc(ws.m_pData, ws.m_iLength);
   return (*this);
 }
-inline const AcDMMWideString& AcDMMWideString::(PCWIDESTR pwsz)
+inline const AcDMMWideString& AcDMMWideString::operator=(PCWIDESTR pwsz)
 {
   Empty();
   m_iLength = (unsigned) wcslen(pwsz);

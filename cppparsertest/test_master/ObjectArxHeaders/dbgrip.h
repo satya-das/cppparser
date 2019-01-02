@@ -206,7 +206,7 @@ inline AcDbGripData::AcDbGripData(const AcDbGripData& src)
   m_pCLIPromptFunc = src.getCLIPromptFunc();
   m_pCLIDisplayStringFunc = src.getCLIDisplayStringFunc();
 }
-inline AcDbGripData& AcDbGripData::(const AcDbGripData& rtSide)
+inline AcDbGripData& AcDbGripData::operator =(const AcDbGripData& rtSide)
 {
   m_gripPt = rtSide.gripPoint();
   m_pAppData = rtSide.appData();

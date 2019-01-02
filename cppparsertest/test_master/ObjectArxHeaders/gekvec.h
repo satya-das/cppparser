@@ -109,12 +109,12 @@ inline Adesk::Boolean AcGeKnotVector::isValid(int i) const
 {
   return i >= 0 && i < mData.logicalLength();
 }
-inline double& AcGeKnotVector::(int i)
+inline double& AcGeKnotVector::operator [](int i)
 {
   assert(isValid(i));
   return mData[i];
 }
-inline const double AcGeKnotVector::(int i) const
+inline const double AcGeKnotVector::operator [](int i) const
 {
   assert(isValid(i));
   return mData[i];

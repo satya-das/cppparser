@@ -202,7 +202,7 @@ struct AcArrayItemCopierSelector<T, true>
 };
 template <typename T>
 using AcArrayAllocator = typename AcArrayItemCopierSelector<T, std::is_trivial<T>::value>::allocator;
-template <typename T, typename R>
+template <typename T, typename R = AcArrayAllocator<T>>
 class AcArray
 {
 public:
@@ -364,13 +364,13 @@ inline bool AcArray<T,R>::isValid(int i) const
   return i >= 0 && i < mLogicalLen;
 }
 template <typename T, typename R>
-inline T& AcArray<T,R>::(int i)
+inline T& AcArray<T,R>::operator [](int i)
 {
   AC_ARRAY_ASSERT(this->isValid(i));
   return mpArray[i];
 }
 template <typename T, typename R>
-inline const T& AcArray<T,R>::(int i) const
+inline const T& AcArray<T,R>::operator [](int i) const
 {
   AC_ARRAY_ASSERT(this->isValid(i));
   return mpArray[i];
@@ -502,6 +502,7 @@ inline AcArray<T,R>::AcArray(AcArray<T,R>&& src)
   this->moveOtherIntoThis(src);
 }
 // Dtor
+template <typename T, typename R>
 inline AcArray<T,R>::~AcArray()
 {
   this->setPhysicalLength(0);
@@ -510,7 +511,7 @@ inline AcArray<T,R>::~AcArray()
 // The grow length of this array is not affected by this operation.
 //
 template <typename T, typename R>
-inline AcArray<T,R>& AcArray<T,R>::(const AcArray<T,R>& src)
+inline AcArray<T,R>& AcArray<T,R>::operator =(const AcArray<T,R>& src)
 {
   if (this != &src)
   {
@@ -520,7 +521,7 @@ inline AcArray<T,R>& AcArray<T,R>::(const AcArray<T,R>& src)
 }
 // Move assignment operator
 template <typename T, typename R>
-inline AcArray<T,R>& AcArray<T,R>::(AcArray<T,R>&& src)
+inline AcArray<T,R>& AcArray<T,R>::operator =(AcArray<T,R>&& src)
 {
   if (this != &src)
   {
@@ -536,7 +537,7 @@ inline AcArray<T,R>& AcArray<T,R>::(AcArray<T,R>&& src)
 // false is returned.
 //
 template <typename T, typename R>
-bool AcArray<T,R>::(const AcArray<T,R>& cpr) const
+bool AcArray<T,R>::operator ==(const AcArray<T,R>& cpr) const
 {
   if (mLogicalLen == cpr.mLogicalLen)
   {

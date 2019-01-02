@@ -239,6 +239,7 @@ inline AcAxObjectRefPtr<T_OBJECT>::AcAxObjectRefPtr(AcAxObjectRef* const pRef, A
     }
   }
 }
+template <typename T_OBJECT>
 inline AcAxObjectRefPtr<T_OBJECT>::~AcAxObjectRefPtr()
 {
     // If the objectid is null we need to release

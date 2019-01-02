@@ -202,16 +202,16 @@ inline AcCmEntityColor::AcCmEntityColor(Adesk::UInt8 red, Adesk::UInt8 green, Ad
   mRGBM.mdata.blue = blue;
   mRGBM.mdata.colorMethod = kByColor;
 }
-inline AcCmEntityColor& AcCmEntityColor::(const AcCmEntityColor& color)
+inline AcCmEntityColor& AcCmEntityColor::operator=(const AcCmEntityColor& color)
 {
   mRGBM.whole = color.mRGBM.whole;
   return *this;
 }
-inline bool AcCmEntityColor::(const AcCmEntityColor& color) const
+inline bool AcCmEntityColor::operator==(const AcCmEntityColor& color) const
 {
   return mRGBM.whole == color.mRGBM.whole;
 }
-inline bool AcCmEntityColor::(const AcCmEntityColor& color) const
+inline bool AcCmEntityColor::operator!=(const AcCmEntityColor& color) const
 {
   return mRGBM.whole != color.mRGBM.whole;
 }

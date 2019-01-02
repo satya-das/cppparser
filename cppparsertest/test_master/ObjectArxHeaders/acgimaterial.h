@@ -164,7 +164,7 @@ public:
   ACRX_DECLARE_MEMBERS(AcGiMaterialTexture);
   virtual bool operator==(const AcGiMaterialTexture& texture) const;
 };
-inline bool AcGiMaterialTexture::(const AcGiMaterialTexture& texture) const
+inline bool AcGiMaterialTexture::operator==(const AcGiMaterialTexture& texture) const
 {
   return (texture.isA() == isA());
 }

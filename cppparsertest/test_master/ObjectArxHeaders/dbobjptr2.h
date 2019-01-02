@@ -431,6 +431,7 @@ inline AcDbSmartObjectPointer<ACDB_CLASS>::AcDbSmartObjectPointer(AcDbObjectId o
     // outside pointer to set, so we feed its own member to its constructor.
     // then, mWritable takes an object that is open in some way.
 }
+template <typename ACDB_CLASS>
 inline AcDbSmartObjectPointer<ACDB_CLASS>::~AcDbSmartObjectPointer()
 {
     // mReadable and mWritable destructors do all the work.
@@ -474,12 +475,12 @@ inline ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::object()
   return mReadable.object();
 }
 template <typename ACDB_CLASS>
-inline const ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::() const
+inline const ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::operator->() const
 {
   return object();
 }
 template <typename ACDB_CLASS>
-inline ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::()
+inline ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::operator->()
 {
   return object();
 }
@@ -563,7 +564,7 @@ inline AcDbSmartObjectPointer<ACDB_CLASS>::AcDbSmartObjectPointer(ACDB_CLASS* pO
   acquire(pObject);
 }
 template <typename ACDB_CLASS>
-inline void AcDbSmartObjectPointer<ACDB_CLASS>::(ACDB_CLASS* pObject)
+inline void AcDbSmartObjectPointer<ACDB_CLASS>::operator=(ACDB_CLASS* pObject)
 {
   acquire(pObject);
 }

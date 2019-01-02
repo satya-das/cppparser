@@ -369,12 +369,12 @@ inline bool CAdUiPathname::HadPrefix(void) const
 {
   return m_had_prefix;
 }
-inline const CAdUiPathname& CAdUiPathname::(const CAdUiPathname& pathSrc)
+inline const CAdUiPathname& CAdUiPathname::operator=(const CAdUiPathname& pathSrc)
 {
   AssignCopy(pathSrc);
   return *this;
 }
-inline const CAdUiPathname& CAdUiPathname::(const CAdUiPathname* pathSrc)
+inline const CAdUiPathname& CAdUiPathname::operator=(const CAdUiPathname* pathSrc)
 {
   AssignCopy ( *pathSrc);
   return *this;
