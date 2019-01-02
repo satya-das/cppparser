@@ -143,7 +143,7 @@ extern int yylex();
   CppParamList*         paramList;
   CppConstructor*       cppCtorObj;
   CppDestructor*        cppDtorObj;
-  CppTypeCoverter*      cppTypeConverter;
+  CppTypeConverter*     cppTypeConverter;
   CppMemInitList*       memInitList;
   CppInheritanceList*   inheritList;
   CppIdentifierList*    identifierList;
@@ -801,10 +801,10 @@ varattrib         : tknConst    { $$ = kConst; }
                   ;
 
 typeconverter     : tknOperator vartype '(' optvoid ')' {
-                    $$ = new CppTypeCoverter($2, std::string());
+                    $$ = new CppTypeConverter($2, std::string());
                   }
                   | identifier tknScopeResOp tknOperator vartype '(' optvoid ')' {
-                    $$ = new CppTypeCoverter($4, mergeCppToken($1, $2));
+                    $$ = new CppTypeConverter($4, mergeCppToken($1, $2));
                   }
                   | functype typeconverter {
                     $$ = $2;
@@ -816,7 +816,7 @@ typeconverter     : tknOperator vartype '(' optvoid ')' {
                   }
                   | apidecor typeconverter {
                     $$ = $2;
-                    $$->apidecor_ = $1;
+                    $$->docer1_ = $1;
                   }
                   | templatespecifier typeconverter {
                     $$ = $2;
@@ -920,7 +920,7 @@ funcdecl          : vartype apidecor funcname '(' paramlist ')' {
 funcname          : operfuncname { $$ = $1; }
                   | identifier   { $$ = $1; }
                   | tknScopeResOp operfuncname { $$ = mergeCppToken($1, $2); }
-                  | identifier tknScopeResOp operfuncname { $$ = mergeCppToken($1, $2); }
+                  | identifier tknScopeResOp operfuncname { $$ = mergeCppToken($1, $3); }
                   ;
 
 operfuncname      : tknOperator '+' { $$ = mergeCppToken($1, $2); }

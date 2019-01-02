@@ -111,7 +111,7 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
     case CppObj::kDestructor:
       return emitDestructor((CppDestructor*) cppObj, stm, indentation);
     case CppObj::kTypeConverter:
-      return emitTypeConverter((CppTypeCoverter*) cppObj, stm, indentation);
+      return emitTypeConverter((CppTypeConverter*) cppObj, stm, indentation);
     case CppObj::kFunctionPtr:
       return emitFunctionPtr((CppFunctionPtr*) cppObj, stm, indentation);
     case CppObj::kIfBlock:
@@ -385,6 +385,11 @@ void CppWriter::emitTemplSpec(const CppTemplateParamListP& templSpec, std::ostre
         stm << "typename ";
       }
       stm << param->paramName_;
+      if (param->defaultParam_)
+      {
+        stm << " = ";
+        emit(param->defaultParam_.get(), stm, CppIndent(), true);
+      }
       sep = ", ";
     }
   }
@@ -620,6 +625,8 @@ void CppWriter::emitDestructor(const CppDestructor* dtorObj,
                                std::ostream&        stm,
                                CppIndent            indentation /* = CppIndent()*/) const
 {
+  if (dtorObj->templSpec_)
+    emitTemplSpec(dtorObj->templSpec_, stm, indentation);
   stm << indentation;
   if (!dtorObj->docer1_.empty())
     stm << dtorObj->docer1_ << ' ';
@@ -643,7 +650,7 @@ void CppWriter::emitDestructor(const CppDestructor* dtorObj,
   }
 }
 
-void CppWriter::emitTypeConverter(const CppTypeCoverter* typeConverterObj,
+void CppWriter::emitTypeConverter(const CppTypeConverter* typeConverterObj,
                                   std::ostream&          stm,
                                   CppIndent              indentation) const
 {

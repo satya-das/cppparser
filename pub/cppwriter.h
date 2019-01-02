@@ -87,7 +87,7 @@ public:
   virtual void emitDestructor(const CppDestructor* dtorObj,
                               std::ostream&        stm,
                               CppIndent            indentation = CppIndent()) const;
-  virtual void emitTypeConverter(const CppTypeCoverter* typeConverterObj,
+  virtual void emitTypeConverter(const CppTypeConverter* typeConverterObj,
                                  std::ostream&          stm,
                                  CppIndent              indentation = CppIndent()) const;
   virtual void emitDocComment(const CppDocComment* docCommentObj,
