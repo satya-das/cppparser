@@ -117,7 +117,7 @@ struct CppObj
   /// @return true if object is a function-like type.
   bool isFunctionLike() const
   {
-    return objType_ == kFunction || objType_ == kConstructor || objType_ == kDestructor;
+    return objType_ == kFunction || objType_ == kConstructor || objType_ == kDestructor || objType_ == kTypeConverter;
   }
   bool isClassLike() const;
   bool isNamespaceLike() const;
@@ -1030,7 +1030,7 @@ struct CppTypeConverter : public CppFunctionBase
   CppVarType*           to_{nullptr};
 
   CppTypeConverter(CppVarType* type, std::string name)
-    : CppFunctionBase(CppObj::kTypeConverter, type->prot_, name, 0)
+    : CppFunctionBase(CppObj::kTypeConverter, type->prot_, std::move(name), 0)
     , to_(type)
   {
   }

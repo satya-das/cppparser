@@ -55,6 +55,12 @@ CppFunction* newFunction(Params... params)
   return gObjFactory->CreateFunction(params...);
 }
 
+template <typename... Params>
+CppTypeConverter* newTypeConverter(Params... params)
+{
+  return gObjFactory->CreateTypeConverter(params...);
+}
+
 template <class Iter>
 inline std::reverse_iterator<Iter> rev(Iter i)
 {

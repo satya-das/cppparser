@@ -65,3 +65,8 @@ CppFunction* CppObjFactory::CreateFunction(CppObjProtLevel prot,
 {
   return new CppFunction(prot, std::move(name), retType, params, attr);
 }
+
+CppTypeConverter* CppObjFactory::CreateTypeConverter(CppVarType* type, std::string name) const
+{
+  return new CppTypeConverter(type, std::move(name));
+}

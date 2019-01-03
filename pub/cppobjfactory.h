@@ -50,4 +50,5 @@ public:
                                          CppVarType*     retType,
                                          CppParamList*   params,
                                          unsigned int    attr) const;
+  virtual CppTypeConverter* CreateTypeConverter(CppVarType* type, std::string name) const;
 };

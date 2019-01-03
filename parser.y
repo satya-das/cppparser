@@ -801,10 +801,10 @@ varattrib         : tknConst    { $$ = kConst; }
                   ;
 
 typeconverter     : tknOperator vartype '(' optvoid ')' {
-                    $$ = new CppTypeConverter($2, std::string());
+                    $$ = newTypeConverter($2, $1);
                   }
                   | identifier tknScopeResOp tknOperator vartype '(' optvoid ')' {
-                    $$ = new CppTypeConverter($4, mergeCppToken($1, $2));
+                    $$ = newTypeConverter($4, mergeCppToken($1, $3));
                   }
                   | functype typeconverter {
                     $$ = $2;
