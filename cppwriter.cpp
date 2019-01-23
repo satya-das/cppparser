@@ -426,10 +426,11 @@ void CppWriter::emitCompound(const CppCompound* compoundObj,
     }
     --indentation;
   }
-  if (compoundObj->compoundType_ & kNamespace)
-    stm << indentation++ << "\n{\n";
+  if (compoundObj->isNamespaceLike())
+    stm << '\n' << indentation << "{\n";
   else if (compoundObj->compoundType_ == kExternCBlock)
     stm << indentation << "extern \"C\" {\n";
+  ++indentation;
 
   CppObjProtLevel lastProtLevel = kUnknownProt;
   for (CppObjArray::const_iterator memItr = compoundObj->members_.begin(); memItr != compoundObj->members_.end();

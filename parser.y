@@ -801,10 +801,10 @@ varattrib         : tknConst    { $$ = kConst; }
                   ;
 
 typeconverter     : tknOperator vartype '(' optvoid ')' {
-                    $$ = newTypeConverter($2, makeCppToken($1.sz, $3.sz-1));
+                    $$ = newTypeConverter($2, makeCppToken($1.sz, $3.sz));
                   }
                   | identifier tknScopeResOp tknOperator vartype '(' optvoid ')' {
-                    $$ = newTypeConverter($4, makeCppToken($1.sz, $5.sz-1));
+                    $$ = newTypeConverter($4, makeCppToken($1.sz, $5.sz));
                   }
                   | functype typeconverter {
                     $$ = $2;
