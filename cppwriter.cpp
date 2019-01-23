@@ -654,6 +654,8 @@ void CppWriter::emitTypeConverter(const CppTypeConverter* typeConverterObj,
                                   std::ostream&          stm,
                                   CppIndent              indentation) const
 {
+  if (typeConverterObj->templSpec_)
+    emitTemplSpec(typeConverterObj->templSpec_, stm, indentation);
   stm << indentation << "operator ";
   emitVarType(typeConverterObj->to_, stm);
   stm << "()";

@@ -137,6 +137,18 @@ bool CppCompound::hasPureVirtual() const
   return *hasPureVirtual_;
 }
 
+bool CppCompound::triviallyConstructable() const
+{
+  if (ctors_.empty())
+    return true;
+  for (auto* ctor : ctors_)
+  {
+    if (!ctor->hasParams())
+      return true;
+  }
+  return false;
+}
+
 void CppCompound::assignSpecialMember(const CppObj* mem)
 {
   if (mem->objType_ == kConstructor)
