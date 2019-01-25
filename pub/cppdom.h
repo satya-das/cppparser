@@ -121,6 +121,9 @@ struct CppObj
   }
   bool isClassLike() const;
   bool isNamespaceLike() const;
+  bool isTypedefLike() const {
+    return (objType_ == kTypedefName) || (objType_ == kUsingDecl);
+  }
   bool isPreProcessorType() const
   {
     return objType_ > kCPreProcessorTypeStarts && objType_ < kCPreProcessorTypeEnds;
