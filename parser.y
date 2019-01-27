@@ -697,8 +697,11 @@ vardecllist       : typeidentifier opttypemodifier tknID ',' opttypemodifier tkn
                   ;
 
 varinit           : vardecl '(' typeidentifier '*' tknID      [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
+                  | vardecl '(' typeidentifier '*' '*' tknID  [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
+                  | vardecl '(' typeidentifier '*' '&' tknID  [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl '(' typeidentifier '&' tknID      [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl '(' typeidentifier tknAnd tknID   [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
+                  | vardecl '(' typeidentifier ')'            [gParamModPos = $3.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl '=' expr {
                     $$ = $1;
                     $$->varDecl_.assign_.reset($3);
@@ -1425,7 +1428,7 @@ externcblock      : tknExternC block [ZZVALID;] {$$ = $2; $$->compoundType_ = kE
 expr              : tknStrLit                                                 { $$ = new CppExpr((std::string) $1, kNone);          }
                   | tknCharLit                                                { $$ = new CppExpr((std::string) $1, kNone);          }
                   | tknNumber                                                 { $$ = new CppExpr((std::string) $1, kNone);          }
-                  | funcname                                                  { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | funcname [ if ($1.sz == gParamModPos) YYERROR; ]          { $$ = new CppExpr((std::string) $1, kNone);          }
                   | '{' expr '}'                                              { $$ = new CppExpr($2, CppExpr::kInitializer);        }
                   | '{' /*empty expr*/ '}'                                    { $$ = new CppExpr((CppExpr*)nullptr, CppExpr::kInitializer);   }
                   | '-' expr %prec UNARYMINUS                                 { $$ = new CppExpr($2, kUnaryMinus);                  }
