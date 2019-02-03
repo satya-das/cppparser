@@ -24,6 +24,15 @@
 #include "cppdom.h"
 #include "cpputil.h"
 
+CppCompound* CppObj::root() const
+{
+  if (owner_ == nullptr)
+    return (objType_ == kCompound) ? const_cast<CppCompound*>(static_cast<const CppCompound*>(this)) : nullptr;
+  if (owner_->owner_ == nullptr)
+    return owner_;
+  return owner_->root();
+}
+
 bool CppConstructor::isCopyConstructor() const
 {
   if (isCopyConstructor_)

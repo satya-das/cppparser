@@ -137,6 +137,7 @@ struct CppObj
   {
     return protectionLevel() == kPrivate;
   }
+  CppCompound* root() const;
 };
 
 struct CppExpr;
