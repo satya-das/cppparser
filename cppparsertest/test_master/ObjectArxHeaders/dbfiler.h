@@ -159,7 +159,7 @@ public:
             // Note: there are no filer methods for explicitly reading or
             // writing a single text character.
             //
-  Acad::ErrorStatus readItem(ACHAR * *pVal);
+  Acad::ErrorStatus readItem(ACHAR** pVal);
   Acad::ErrorStatus writeItem(const ACHAR* val);
   Acad::ErrorStatus writeItem(const AcString& val);
   Acad::ErrorStatus readItem(ads_binary* pVal);

@@ -1,6 +1,6 @@
 void SwitchTest()
 {
-  switch(  GetParam())
+  switch(GetParam())
   {
     case 1:
       What();

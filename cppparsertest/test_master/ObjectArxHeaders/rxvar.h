@@ -95,8 +95,8 @@ public:
     kTypeDeprecated = 16
   };
     ///<summary>Represents a bounded range.</summary>
-  struct Range  
-{
+  struct Range
+  {
     Range()
       : lowerBound(0)
       , upperBound(0)

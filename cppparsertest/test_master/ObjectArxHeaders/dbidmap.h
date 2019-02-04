@@ -61,7 +61,7 @@ public:
 private:
   friend class AcDbSystemInternals;
   friend class AcDbImpIdMappingIter;
-  AcDbIdMapping(const AcDbIdMapping&);
+  AcDbIdMapping(const AcDbIdMapping&) = delete;
   AcDbIdMapping& operator=(const AcDbIdMapping&);
   AcDbImpIdMapping* mpImp;
 };
@@ -79,7 +79,7 @@ public:
 private:
   friend class AcDbSystemInternals;
   AcDbImpIdMappingIter* mpImp;
-  AcDbIdMappingIter(const AcDbIdMappingIter&);
+  AcDbIdMappingIter(const AcDbIdMappingIter&) = delete;
   AcDbIdMappingIter& operator=(const AcDbIdMappingIter&);
 };
 inline AcDbObjectId AcDbIdPair::key() const

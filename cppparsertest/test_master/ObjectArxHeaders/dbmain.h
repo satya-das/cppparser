@@ -467,7 +467,7 @@ public:
   Acad::ErrorStatus wblock(AcDbDatabase*& pOutputDb, const AcDbObjectIdArray& outObjIds, const AcGePoint3d& basePoint);
   Acad::ErrorStatus wblock(AcDbDatabase* pOutputDb, const AcDbObjectIdArray& outObjIds, const AcGePoint3d& basePoint, AcDb::DuplicateRecordCloning drc);
   Acad::ErrorStatus wblock(AcDbDatabase*& pOutputDb, AcDbObjectId blockId);
-  Acad::ErrorStatus wblock(AcDbDatabase * &pOutputDb);
+  Acad::ErrorStatus wblock(AcDbDatabase*& pOutputDb);
     // This will force the current WBLOCK* operation to result in
     // a database copy.  Only use this method if your application
     // does some special handling during WBLOCK* notifications and
@@ -1035,7 +1035,7 @@ private:
   friend class AcDbSystemInternals;
   AcDbImpDatabase* mpImpDb = nullptr;
     // No copy construction or assignment
-  AcDbDatabase(const AcDbDatabase&);
+  AcDbDatabase(const AcDbDatabase&) = delete;
   AcDbDatabase& operator =(const AcDbDatabase&);
 };
 // Helper function for legacy functions that return an allocated ACHAR buffer.
@@ -1399,7 +1399,7 @@ private:
   friend class AcDbObjectOverrule;
   AcDbImpObject* mpImpObject = nullptr;
     // No copy construction or assignment (but there is a copyFrom method)
-  AcDbObject(const AcDbObject&);
+  AcDbObject(const AcDbObject&) = delete;
   AcDbObject& operator =(const AcDbObject&);
 };
 class ADESK_NO_VTABLE AcDbXObject : public AcRxObject
@@ -1855,7 +1855,7 @@ protected:
   ACDBCORE2D_PORT virtual Acad::ErrorStatus subPopHighlight(const AcDbFullSubentPath& subId);
   ACDBCORE2D_PORT virtual AcGiHighlightStyle subHighlightState(const AcDbFullSubentPath& subId);
     // No copy construction or assignment (but there is a copyFrom method)
-  AcDbEntity(const AcDbEntity&);
+  AcDbEntity(const AcDbEntity&) = delete;
   AcDbEntity& operator =(const AcDbEntity&);
 };
 // Note: makes sense to put this inline, even though it's

@@ -653,8 +653,8 @@ class AcRxMemberOverrule : public AcRxOverruleBase
 {
 public:
     //Utility class to store a member, overrule pair
-  struct Record  
-{
+  struct Record
+  {
     AcRxMember* m_pMember;
     AcRxMemberOverrule* m_pOverrule;
     Record()

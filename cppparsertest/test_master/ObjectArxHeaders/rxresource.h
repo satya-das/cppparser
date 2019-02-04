@@ -20,10 +20,10 @@ class AcString;
 #  undef PAL
 namespace Autodesk
 {
-  namespace AutoCAD  
-{
-    namespace PAL    
-{
+  namespace AutoCAD
+  {
+    namespace PAL
+    {
       class AcRxResourceInstanceImp;
     }
   }
@@ -39,7 +39,7 @@ public:
     /// <summary>
     /// Move constructor
     /// </summary>
-  AcRxResourceInstance(AcRxResourceInstance&&);
+  AcRxResourceInstance(AcRxResourceInstance&&) = delete;
     /// <summary>
     /// Assignment operator
     /// </summary>

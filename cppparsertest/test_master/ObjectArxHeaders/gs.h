@@ -804,8 +804,8 @@ public:
     // ************************************************************************
     // GSN additions
     // ************************************************************************
-  struct EffectStatus  
-{
+  struct EffectStatus
+  {
     const AcUniqueString* pUniqueString;
     AcString effectName;
     int bEnabled;
@@ -813,8 +813,8 @@ public:
     int bAvailable;
     int nFeatureLevel;
   };
-  struct CertificationData  
-{
+  struct CertificationData
+  {
     AcString sCardName;
     AcString sDriverVersion;
     AcString sProductDriverURL;

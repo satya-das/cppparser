@@ -104,7 +104,7 @@ enum AcDbAssocStatus
 ///
 inline int evaluationRequestSeverityLevel(AcDbAssocStatus status)
 {
-  switch(  status)
+  switch(status)
   {
     case kChangedDirectlyAssocStatus:
       return 3;

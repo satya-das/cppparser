@@ -43,8 +43,8 @@ namespace AcDbSymbolUtilities
     kAllowVerticalBar = true,
     kNoVerticalBar = false
   };
-  class Services  
-{
+  class Services
+  {
   public:
     enum
     {

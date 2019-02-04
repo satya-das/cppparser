@@ -14,8 +14,8 @@
 #  include "rxobject.h"
 #  pragma  pack (push, 8)
 extern "C" {
-typedef AcRx::AppRetCode (*DepFuncPtr) (AcRx::AppMsgCode, void*);
-}
+  typedef AcRx::AppRetCode (*DepFuncPtr) (AcRx::AppMsgCode, void*);
+  }
 class AcRxServicePrototype;
 class AcRxService;
 class AcRxService : public AcRxObject

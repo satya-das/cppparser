@@ -253,15 +253,15 @@ public:
     // a lot of related data, so beware what you reference after calling.
     // It can only be invoked from the application context.
   ACCORE_PORT Acad::ErrorStatus appContextCloseDocument(AcApDocument* pDoc);
-  struct DocOpenParams  
-{
-    union     
-{
+  struct DocOpenParams
+  {
+    union 
+    {
       const ACHAR* mpszFileName;
       const wchar_t* mpwszFileName;
     };
-    union     
-{
+    union 
+    {
       const ACHAR* mpszViewName;
       const wchar_t* mpwszViewName;
       const double* mpCoords;

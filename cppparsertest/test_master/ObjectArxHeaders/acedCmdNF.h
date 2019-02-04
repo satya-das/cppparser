@@ -23,7 +23,7 @@ extern "C" {
 // false if $FIBERWORLD is 0
 // On both Windows-based and Mac-based AutoCAD, by default returns "false"
 //
-ACAD_PORT bool acedFiberWorld();
+  ACAD_PORT bool acedFiberWorld();
 //
 // acedCommandS:  syntax-compatible replacement of acedCommand,
 //                use for "full commands", not partial ones.
@@ -38,15 +38,15 @@ ACAD_PORT bool acedFiberWorld();
 //                transparent "builtin" commands may not be nested.
 //                
 //
-int acedCommandS(int rtype, ...);
+  int acedCommandS(int rtype, ...);
 // acedCmdS
 //
 // Does the same thing with the same restructions as acedCommandS,
 // with a resbuf chain rather than a veriable arguments list.
 // Two more supplied parameters are intended for future use.
 //
-class AcApDocument;
-int acedCmdS(const resbuf* rb, bool forFutureUse = false, AcApDocument* pForFutureUse = NULL);
+  class AcApDocument;
+  int acedCmdS(const resbuf* rb, bool forFutureUse = false, AcApDocument* pForFutureUse = NULL);
 // acedCommandC, acedCmdC:
 // "coroutine" relationship with calling command processor.
 // Queues up the resbuf chain for feeding to the
@@ -129,9 +129,9 @@ int acedCmdS(const resbuf* rb, bool forFutureUse = false, AcApDocument* pForFutu
 //          invocation of functions registered via acedDefun
 //          is incomplete in ACAD 2011.
 //
-typedef int (*AcEdCoroutineCallback) (void* pData);
-ACAD_PORT int acedCommandC(AcEdCoroutineCallback pCallback, void* pReturnFcnParms, int rtype, ...);
-ACAD_PORT int acedCmdC(AcEdCoroutineCallback pCallback, void* pReturnFcnParms, const struct resbuf* rb);
+  typedef int (*AcEdCoroutineCallback) (void* pData);
+  ACAD_PORT int acedCommandC(AcEdCoroutineCallback pCallback, void* pReturnFcnParms, int rtype, ...);
+  ACAD_PORT int acedCmdC(AcEdCoroutineCallback pCallback, void* pReturnFcnParms, const struct resbuf* rb);
 // acedPendingCmdCTokens
 //
 // This predicate should be checked immediately after calling
@@ -154,7 +154,7 @@ ACAD_PORT int acedCmdC(AcEdCoroutineCallback pCallback, void* pReturnFcnParms, c
 // false when there are no pending comand tokens, in which
 //       case the caller should proceed normally.
 //      
-ACAD_PORT bool acedPendingCmdCTokens();
+  ACAD_PORT bool acedPendingCmdCTokens();
 // acedResumingInvocation
 //
 // Returns
@@ -174,7 +174,7 @@ ACAD_PORT bool acedPendingCmdCTokens();
 // false in all other conditions, including whenever acedFiberWorld()
 //       is true.
 //
-ACAD_PORT bool acedResumingInvocation();
+  ACAD_PORT bool acedResumingInvocation();
 // acedCallBackOnCancel
 //
 // If you have made a call to acedCommandC or acedCmdC and wish to
@@ -183,16 +183,16 @@ ACAD_PORT bool acedResumingInvocation();
 // and a CANCEL or other error occurs, your callback will not be
 // called, instead AutoCAD will directly cancel the command state.
 //
-ACAD_PORT void acedCallBackOnCancel();
+  ACAD_PORT void acedCallBackOnCancel();
 // acedCmdCWasCancelled
 //
 // When your registered callback is called in response to a CANCEL or error,
 // this function will return true, else it will return false.
 //
-ACAD_PORT bool acedCmdCWasCancelled();
+  ACAD_PORT bool acedCmdCWasCancelled();
 #pragma  pack (pop)
 #ifdef __cplusplus
-}
+  }
 #endif
 // acedPendingFiberlessDocSwitch:
 //
@@ -213,4 +213,4 @@ ACAD_PORT bool acedCmdCWasCancelled();
 // use something like AcApDocumentManager::sendStringToExecute
 // to the new document to perpetuate control.
 //
-ACAD_PORT bool acedPendingFiberlessDocSwitch(AcApDocument * *pNextActiveDocument = NULL);
+ACAD_PORT bool acedPendingFiberlessDocSwitch(AcApDocument** pNextActiveDocument = NULL);

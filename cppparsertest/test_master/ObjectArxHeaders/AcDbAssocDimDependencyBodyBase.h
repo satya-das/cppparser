@@ -364,8 +364,8 @@ public:
     /// when the dependency is not yet fully setup and these notifications would 
     /// complain about the data being in inconsistent state. </summary>
     ///
-  class ACDB_PORT NotificationIgnorer  
-{
+  class ACDB_PORT NotificationIgnorer
+  {
   public:
         /// <summary> Default constructor. </summary>
     NotificationIgnorer();

@@ -359,7 +359,7 @@ public:
   }
   static uint8_t MIFIndexFromCodePageId(code_page_id codePageId)
   {
-    switch(    codePageId)
+    switch(codePageId)
     {
       case code_page_id::CODE_PAGE_DOS932:
       case code_page_id::CODE_PAGE_ANSI_932:

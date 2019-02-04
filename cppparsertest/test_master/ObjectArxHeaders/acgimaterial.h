@@ -216,7 +216,7 @@ public:
     // Generic Texture properties
   void setDefinition(const AcGiVariant& definition);
   AcGiVariant definition(void) const;
-  void definition(AcGiVariant * &pDefinition);
+  void definition(AcGiVariant*& pDefinition);
 protected:
   AcGiVariant m_definition;
 };

@@ -20,10 +20,10 @@
 #  undef PAL
 namespace Autodesk
 {
-  namespace AutoCAD  
-{
-    namespace PAL    
-{
+  namespace AutoCAD
+  {
+    namespace PAL
+    {
       class AcRxSharedObjImp;
     }
   }
@@ -32,9 +32,9 @@ class AcRxSharedObject : public Pimpl::ApiPart<AcHeapOperators, Autodesk::AutoCA
 {
 private:
   AcRxSharedObject(Autodesk::AutoCAD::PAL::AcRxSharedObjImp* soImp);
-  AcRxSharedObject(const AcRxSharedObject& from);
+  AcRxSharedObject(const AcRxSharedObject& from) = delete;
   AcRxSharedObject& operator=(const AcRxSharedObject& from);
-  AcRxSharedObject(const wchar_t*);
+  AcRxSharedObject(const wchar_t*) = delete;
 public:
   ACBASE_PORT AcRxSharedObject();
   ACBASE_PORT AcRxSharedObject(void* nativeHandle);

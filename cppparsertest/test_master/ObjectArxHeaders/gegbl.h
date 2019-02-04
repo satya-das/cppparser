@@ -35,7 +35,7 @@ struct AcGeContext
   GE_DLLDATAEXIMP static void (*gOrthoVector) (const AcGeVector3d&, AcGeVector3d&);
 #  endif
 #  ifndef unix
-  GE_DLLDATAEXIMP static void* (*gAllocMem)(size_t);
+  GE_DLLDATAEXIMP static void* (*gAllocMem) (size_t);
   GE_DLLDATAEXIMP static void (*gFreeMem) (void*);
 #  endif
 #  ifdef GE_LOCATED_NEW

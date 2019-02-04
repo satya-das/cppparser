@@ -62,7 +62,7 @@ public:
   AcAxObjectRef(AcDbObject*& pObj);
   ~AcAxObjectRef();
   Acad::ErrorStatus acquire(AcDbObjectId objId);
-  Acad::ErrorStatus acquire(AcDbObject * &pObj);
+  Acad::ErrorStatus acquire(AcDbObject*& pObj);
   Acad::ErrorStatus release(AcDbObjectId& objId, AcDbObject*& pObj);
   bool isNull();
   AcDbObjectId objectId();

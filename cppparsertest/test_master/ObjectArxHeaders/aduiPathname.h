@@ -27,12 +27,12 @@ bool WasAbsoluteHelper(path_category pc);
 bool IsValidOnColon(const AcString* work);
 namespace Autodesk
 {
-  namespace AutoCAD  
-{
-    namespace PAL    
-{
-      namespace FileIO      
-{
+  namespace AutoCAD
+  {
+    namespace PAL
+    {
+      namespace FileIO
+      {
         class File;
       }
     }

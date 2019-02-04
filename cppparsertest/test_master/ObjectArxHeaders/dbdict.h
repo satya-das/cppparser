@@ -45,7 +45,7 @@ class ADESK_NO_VTABLE AcDbDictionaryIterator : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcDbDictionaryIterator);
-  AcDbDictionaryIterator(const AcDbDictionaryIterator&);
+  AcDbDictionaryIterator(const AcDbDictionaryIterator&) = delete;
   AcDbDictionaryIterator& operator =(const AcDbDictionaryIterator&);
   virtual ~AcDbDictionaryIterator()
   {
@@ -79,7 +79,7 @@ class AcDbDictionary : public AcDbObject
 public:
   AcDbDictionary();
   virtual ~AcDbDictionary();
-  AcDbDictionary(const AcDbDictionary&);
+  AcDbDictionary(const AcDbDictionary&) = delete;
   AcDbDictionary& operator =(const AcDbDictionary&);
     // Get an entry by name.
     //

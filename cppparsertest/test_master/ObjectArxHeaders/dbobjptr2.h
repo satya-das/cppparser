@@ -89,7 +89,7 @@ public:
     }
   }
     // Disallow copy ctor and asst oper
-  ReadableAcDbObject(const ReadableAcDbObject&);
+  ReadableAcDbObject(const ReadableAcDbObject&) = delete;
   ReadableAcDbObject& operator =(const ReadableAcDbObject&);
   void enableRead(ACDB_CLASS*& pObj, AcDbObjectId id, bool bOpenErased)
   {
@@ -231,7 +231,7 @@ public:
     replaceObject(pObj, enableNow);
   }
     // Disallow copy ctor and asst oper
-  WritableAcDbObject(const WritableAcDbObject&);
+  WritableAcDbObject(const WritableAcDbObject&) = delete;
   WritableAcDbObject operator =(const WritableAcDbObject&);
   void replaceObject(AcDbObject* pObj, bool enableNow = true)
   {
@@ -386,7 +386,7 @@ public:
   AcDbSmartObjectPointer(AcDbObjectId objId, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false, bool openOnLockedLayer = false);
   ~AcDbSmartObjectPointer();
     // Disallow copy ctor and asst oper
-  AcDbSmartObjectPointer(const AcDbSmartObjectPointer&);
+  AcDbSmartObjectPointer(const AcDbSmartObjectPointer&) = delete;
   AcDbSmartObjectPointer& operator =(const AcDbSmartObjectPointer&);
   const ACDB_CLASS* object() const;
   ACDB_CLASS* object();
@@ -402,8 +402,8 @@ public:
 #  endif
   Acad::ErrorStatus openStatus() const;
   Acad::ErrorStatus open(AcDbObjectId objId, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false, bool openOnLockedLayer = false);
-  Acad::ErrorStatus acquire(ACDB_CLASS * &pObjToAcquire);
-  Acad::ErrorStatus release(ACDB_CLASS * &pReleasedObj);
+  Acad::ErrorStatus acquire(ACDB_CLASS*& pObjToAcquire);
+  Acad::ErrorStatus release(ACDB_CLASS*& pReleasedObj);
   Acad::ErrorStatus close();
   Acad::ErrorStatus create();
 protected:
@@ -484,11 +484,13 @@ inline ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::operator->()
 {
   return object();
 }
+template <typename ACDB_CLASS>
 operator const ACDB_CLASS*()
 {
   return object();
 }
 #  if  DBOBJPTR_EXPOSE_PTR_REF
+template <typename ACDB_CLASS>
 operator ACDB_CLASS*&()
 {
     // Allows direct modification of the pointer member
@@ -500,6 +502,7 @@ operator ACDB_CLASS*&()
   return mReadable.mpObj;
 }
 #  else 
+template <typename ACDB_CLASS>
 operator ACDB_CLASS*()
 {
   return object();

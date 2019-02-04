@@ -415,7 +415,7 @@ public:
   BOOL GetAutoRefresh(void) const;
   int GetReferencePath(LPTSTR pszString, int cchSize, int nFlag) const;
   BOOL SetReferencePath(LPCTSTR pszString, int nFlag);
-  BOOL GetCustomData(IUnknown * *ppCustomData);
+  BOOL GetCustomData(IUnknown** ppCustomData);
   BOOL SetNewID(BOOL bRecursive = FALSE);
   BOOL DeleteImageFile(BOOL bRecursive = FALSE);
   int GetLinkFilePath(LPTSTR pszString, int cchSize) const;
@@ -492,8 +492,8 @@ public:
   AcTcStockTool(const AcTcStockTool& srcItem);
   virtual ~AcTcStockTool();
   AcTcTool* CreateTool(BOOL bSetDefaults = TRUE);
-  BOOL CreateAcadStockTool(IUnknown * *ppStockTool);
-  BOOL CreateAcadTool(IUnknown * *ppUnknown);
+  BOOL CreateAcadStockTool(IUnknown** ppStockTool);
+  BOOL CreateAcadTool(IUnknown** ppUnknown);
   BOOL GetComClassID(CLSID& clsid) const;
   BOOL SetComClassID(const CLSID& clsid);
   int GetModuleFileName(LPTSTR pszString, int cchSize) const;
@@ -515,7 +515,7 @@ public:
   AcTcTool(const AcTcTool& srcItem);
   virtual ~AcTcTool();
   virtual BOOL Execute(int nFlag, HWND hWnd, POINT point, DWORD dwKeyState);
-  BOOL GetToolData(IUnknown * *ppUnknown);
+  BOOL GetToolData(IUnknown** ppUnknown);
   AcTcStockTool* GetStockTool(void) const;
   BOOL CreateAcadTool(IUnknown** ppTool, BOOL bLoadData = TRUE);
   BOOL GetStockToolID(GUID* pId) const;
@@ -531,7 +531,7 @@ public:
   AcTcTool* GetCurrentShape(void) const;
   BOOL SetCurrentShape(AcTcTool* pTool);
   BOOL SetCurrentShape(const GUID& id);
-  BOOL GetActiveShapes(AcTcCatalogItem * *pItems, INT_PTR & nNumItems);
+  BOOL GetActiveShapes(AcTcCatalogItem** pItems, INT_PTR& nNumItems);
   BOOL SetActiveShapes(AcTcCatalogItem** pItems, int nNumItems);
 protected:
     // Protected constructor

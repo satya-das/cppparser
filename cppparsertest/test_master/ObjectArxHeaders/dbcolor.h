@@ -73,8 +73,8 @@ public:
     // overlap with colorMethod!
     //
     // Also note that RGBM is public because it's used by AcDbEntity
-  union RGBM  
-{
+  union RGBM
+  {
     Adesk::UInt32 whole;
     Adesk::Int16 indirect;
     struct 
@@ -489,8 +489,8 @@ public:
   }
   void serializeIn(Adesk::UInt32);
 private:
-  union AM  
-{
+  union AM
+  {
     struct 
 {
   Adesk::UInt8 alpha;

@@ -142,8 +142,8 @@ public:
     /// <summary>
     /// The type that contains all information to present a single mode.
     /// </summary>
-  struct GripMode  
-{
+  struct GripMode
+  {
         /// <summary>
         /// Default constructor
         /// </summary>

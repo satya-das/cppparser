@@ -28,10 +28,10 @@ class AcDbDxfFiler;
 class AcDbObject;
 class ENTITY;
 extern "C" {
-void acdbModelerStart();
-void acdbModelerEnd();
-Adesk::Boolean acdbIsModelerStarted();
-}
+  void acdbModelerStart();
+  void acdbModelerEnd();
+  Adesk::Boolean acdbIsModelerStarted();
+  }
 ///////////////////////////////////////////////////////////////////////////////
 /// <summary>
 /// Get the modeler version that is appropriate for the given drawing version

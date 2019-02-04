@@ -141,7 +141,7 @@ public:
     // AcDbCurve methods.
     //**********************************************************************
 
-    DBCURVE_METHODS
+//    DBCURVE_METHODS
 
     //*************************************************************************
     // Overridden methods from AcDEntity

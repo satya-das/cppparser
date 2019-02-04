@@ -13,12 +13,12 @@ static const TCHAR* kpPointCloudExDictionaryName = ACRX_T("ACAD_POINTCLOUD_EX_DI
 class PointCloudDefExImp;
 namespace Autodesk
 {
-  namespace RealityStudio  
-{
-    namespace SDK    
-{
-      namespace Interface      
-{
+  namespace RealityStudio
+  {
+    namespace SDK
+    {
+      namespace Interface
+      {
         class IRCData;
       }
     }

@@ -14,12 +14,12 @@ double d[2 * 7];
 class FwdDeclClass;
 const FwdDeclClass* XXX;
 extern "C" {
-int i, j, *pi;
-void FunctionWithoutParam();
-void FunctionWithOneParam(float* x);
-void FunctionWithTwoParam(int, double);
-typedef void (APIENTRY *PFNGLADDSWAPHINTRECTWINPROC) (GLint x, GLint y, GLsizei width, GLsizei height);
-}
+  int i, j, *pi;
+  void FunctionWithoutParam();
+  void FunctionWithOneParam(float* x);
+  void FunctionWithTwoParam(int, double);
+  typedef void (APIENTRY *PFNGLADDSWAPHINTRECTWINPROC) (GLint x, GLint y, GLsizei width, GLsizei height);
+  }
 /**
  * Multiple line block comment to document code
  */

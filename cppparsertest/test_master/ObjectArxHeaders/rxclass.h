@@ -68,7 +68,7 @@ private:
   AcRxClass();
   friend class AcRxImpClass;
   AcRxImpClass* m_pImp;
-  AcRxClass(const AcRxClass&);
+  AcRxClass(const AcRxClass&) = delete;
   AcRxClass operator =(const AcRxClass&);
 };
 using PseudoConstructor = AcRxObject* (*) ();

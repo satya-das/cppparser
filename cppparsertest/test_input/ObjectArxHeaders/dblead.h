@@ -26,7 +26,7 @@ public:
     AcDbLeader();
     ~AcDbLeader();
     ACDB_DECLARE_MEMBERS(AcDbLeader);
-    DBCURVE_METHODS
+//    DBCURVE_METHODS
 
     // Leader orientation.
     //

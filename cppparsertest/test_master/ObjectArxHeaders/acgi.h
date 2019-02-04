@@ -274,8 +274,8 @@ public:
   void setRed(Adesk::UInt8 red);
   void setAlpha(Adesk::UInt8 alpha);
 private:
-  union   
-{
+  union 
+  {
     Adesk::UInt32 m_whole;
         // The GCC compiler requires the PIXEL struct to be anonymous as well.
         // I don't think we need the PIXEL struct identifier, so this should work.
@@ -459,13 +459,14 @@ public:
     kString,
     kTable
   };
-  class EnumType  
-{
+  class EnumType
+  {
   public:
     explicit EnumType(int value)
       : m_value(value)
     {
     }
+    template <typename T>
     operator T()
     {
       return static_cast<T>(m_value);

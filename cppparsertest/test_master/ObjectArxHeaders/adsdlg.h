@@ -37,9 +37,9 @@
 #  ifdef __cplusplus
 extern "C" {
 #  endif
-typedef void* ads_hdlg;
-typedef void* ads_htile;
-typedef struct 
+  typedef void* ads_hdlg;
+  typedef void* ads_htile;
+  typedef struct 
 {
   ads_hdlg dialog;
   ads_htile tile;
@@ -59,7 +59,7 @@ typedef struct
 #  ifndef _PROTEUS_H
     /* ADS user's function, passed to AutoCAD to be called later
      */
-typedef void (*CLIENTFUNC) (ads_callback_packet* cpkt);
+  typedef void (*CLIENTFUNC) (ads_callback_packet* cpkt);
 #  endif
 #  define NULLCB	((CLIENTFUNC)0)
 #  define BAD_DIALOG	NULL
@@ -97,32 +97,32 @@ typedef void (*CLIENTFUNC) (ads_callback_packet* cpkt);
 #  define TILE_STR_LIMIT	2035 /* limit of DCL dialog strings */
 /* Dialog Functions
  */
-int ads_load_dialog(const ACHAR* dclfile, int* dcl_id);
-int ads_unload_dialog(int dcl_id);
-int ads_new_dialog(const ACHAR* dlgname, int dcl_id, CLIENTFUNC def_callback, ads_hdlg* hdlg);
-int ads_new_positioned_dialog(const ACHAR* dlgname, int dcl_id, CLIENTFUNC def_callback, int x, int y, ads_hdlg* hdlg);
-int ads_start_dialog(ads_hdlg hdlg, int* status);
-int ads_term_dialog(void);
-int ads_action_tile(ads_hdlg hdlg, const ACHAR* key, CLIENTFUNC tilefunc);
-int ads_done_dialog(ads_hdlg hdlg, int status);
-int ads_done_positioned_dialog(ads_hdlg hdlg, int status, int* x_result, int* y_result);
-int ads_set_tile(ads_hdlg hdlg, const ACHAR* key, const ACHAR* value);
-int ads_client_data_tile(ads_hdlg hdlg, const ACHAR* key, void* clientdata);
-int ads_get_tile(ads_hdlg hdlg, const ACHAR* key, ACHAR* value, int maxlen);
-int ads_get_attr(ads_hdlg hdlg, const ACHAR* key, ACHAR* attr, ACHAR* value, int len);
-int ads_get_attr_string(ads_htile tile, ACHAR* attr, ACHAR* value, int len);
-int ads_start_list(ads_hdlg hdlg, const ACHAR* key, short operation, short index);
-int ads_add_list(const ACHAR* item);
-int ads_end_list(void);
-int ads_mode_tile(ads_hdlg hdlg, const ACHAR* key, short mode);
-int ads_dimensions_tile(ads_hdlg hdlg, const ACHAR* key, short* cx, short* cy);
-int ads_start_image(ads_hdlg hdlg, const ACHAR* key);
-int ads_vector_image(short x1, short y1, short x2, short y2, short color);
-int ads_fill_image(short x1, short y1, short x2, short y2, short color);
-int ads_slide_image(short x1, short y1, short x2, short y2, const ACHAR* slnam);
-int ads_end_image(void);
+  int ads_load_dialog(const ACHAR* dclfile, int* dcl_id);
+  int ads_unload_dialog(int dcl_id);
+  int ads_new_dialog(const ACHAR* dlgname, int dcl_id, CLIENTFUNC def_callback, ads_hdlg* hdlg);
+  int ads_new_positioned_dialog(const ACHAR* dlgname, int dcl_id, CLIENTFUNC def_callback, int x, int y, ads_hdlg* hdlg);
+  int ads_start_dialog(ads_hdlg hdlg, int* status);
+  int ads_term_dialog(void);
+  int ads_action_tile(ads_hdlg hdlg, const ACHAR* key, CLIENTFUNC tilefunc);
+  int ads_done_dialog(ads_hdlg hdlg, int status);
+  int ads_done_positioned_dialog(ads_hdlg hdlg, int status, int* x_result, int* y_result);
+  int ads_set_tile(ads_hdlg hdlg, const ACHAR* key, const ACHAR* value);
+  int ads_client_data_tile(ads_hdlg hdlg, const ACHAR* key, void* clientdata);
+  int ads_get_tile(ads_hdlg hdlg, const ACHAR* key, ACHAR* value, int maxlen);
+  int ads_get_attr(ads_hdlg hdlg, const ACHAR* key, ACHAR* attr, ACHAR* value, int len);
+  int ads_get_attr_string(ads_htile tile, ACHAR* attr, ACHAR* value, int len);
+  int ads_start_list(ads_hdlg hdlg, const ACHAR* key, short operation, short index);
+  int ads_add_list(const ACHAR* item);
+  int ads_end_list(void);
+  int ads_mode_tile(ads_hdlg hdlg, const ACHAR* key, short mode);
+  int ads_dimensions_tile(ads_hdlg hdlg, const ACHAR* key, short* cx, short* cy);
+  int ads_start_image(ads_hdlg hdlg, const ACHAR* key);
+  int ads_vector_image(short x1, short y1, short x2, short y2, short color);
+  int ads_fill_image(short x1, short y1, short x2, short y2, short color);
+  int ads_slide_image(short x1, short y1, short x2, short y2, const ACHAR* slnam);
+  int ads_end_image(void);
 #  ifdef __cplusplus
-}
+  }
 #  endif
 #  pragma  pack (pop)
 #endif

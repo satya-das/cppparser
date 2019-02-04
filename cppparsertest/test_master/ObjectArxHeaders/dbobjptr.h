@@ -197,8 +197,8 @@ public:
 #  endif
   Acad::ErrorStatus openStatus() const;
   Acad::ErrorStatus open(AcDbObjectId objId, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false);
-  Acad::ErrorStatus acquire(T_OBJECT * &pObjToAcquire);
-  Acad::ErrorStatus release(T_OBJECT * &pReleasedObj);
+  Acad::ErrorStatus acquire(T_OBJECT*& pObjToAcquire);
+  Acad::ErrorStatus release(T_OBJECT*& pReleasedObj);
   Acad::ErrorStatus close();
   Acad::ErrorStatus create();
 protected:
@@ -211,7 +211,7 @@ protected:
   Acad::ErrorStatus m_status;
 private:
     // Copy and assignment prohibited.
-  AcDbObjectPointerBase(const AcDbObjectPointerBase&);
+  AcDbObjectPointerBase(const AcDbObjectPointerBase&) = delete;
   AcDbObjectPointerBase& operator=(const AcDbObjectPointerBase&);
   Acad::ErrorStatus closeInternal();
 };
@@ -237,7 +237,7 @@ public:
   Acad::ErrorStatus open(AcDbObjectId objId, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false);
 private:
     // Copy and assignment prohibited.
-  AcDbObjectPointer(const AcDbObjectPointer&);
+  AcDbObjectPointer(const AcDbObjectPointer&) = delete;
   AcDbObjectPointer& operator=(const AcDbObjectPointer&);
 };
 typedef AcDbObjectPointer<AcDbDictionary> AcDbDictionaryPointer;
@@ -271,7 +271,7 @@ public:
   Acad::ErrorStatus open(AcDbDatabase* pDb, AcDb::OpenMode mode = AcDb::kForRead);
 private:
     // Copy and assignment prohibited.
-  AcDbSymbolTablePointer(const AcDbSymbolTablePointer&);
+  AcDbSymbolTablePointer(const AcDbSymbolTablePointer&) = delete;
   AcDbSymbolTablePointer& operator=(const AcDbSymbolTablePointer&);
     // Restrict T_OBJECT to AcDbSymbolTable and derived classes.
   typedef typename T_OBJECT::RecordType T2;
@@ -317,7 +317,7 @@ public:
   Acad::ErrorStatus open(const ACHAR* name, AcDbDatabase* pDb, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false);
 private:
     // Copy and assignment prohibited.
-  AcDbSymbolTableRecordPointer(const AcDbSymbolTableRecordPointer&);
+  AcDbSymbolTableRecordPointer(const AcDbSymbolTableRecordPointer&) = delete;
   AcDbSymbolTableRecordPointer& operator=(const AcDbSymbolTableRecordPointer&);
     // Restrict T_OBJECT to AcDbSymbolTableRecord and derived classes.
   typedef typename T_OBJECT::TableType T2;
@@ -400,17 +400,20 @@ inline T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::operator->()
 {
   return object();
 }
+template <typename T_OBJECT>
 operator const T_OBJECT*()
 {
   return object();
 }
 #  if  DBOBJPTR_EXPOSE_PTR_REF
+template <typename T_OBJECT>
 operator T_OBJECT*&()
 {
     // Allows direct modification of the pointer member
   return this->m_ptr;
 }
 #  else 
+template <typename T_OBJECT>
 operator T_OBJECT*()
 {
   return object();

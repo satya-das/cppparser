@@ -92,8 +92,8 @@ private:
     // Union enforces alignment
   union 
 {
-  struct   
-{
+  struct 
+  {
     Adesk::UInt32 mLow;
     Adesk::UInt32 mHigh;
   };

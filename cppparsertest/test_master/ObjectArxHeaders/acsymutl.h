@@ -35,8 +35,8 @@ namespace AcEdSymbolUtilities
     kPreserveCase = true,
     kForceToUpper = false
   };
-  class Services  
-{
+  class Services
+  {
   public:
     enum
     {

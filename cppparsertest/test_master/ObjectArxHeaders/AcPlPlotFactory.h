@@ -23,7 +23,7 @@ public:
     kShowNextSheet = 0x0002,
     kShowPreviousSheet = 0x0004
   };
-  ACPL_PORT static Acad::ErrorStatus createPublishEngine(AcPlPlotEngine * &pEngine);
+  ACPL_PORT static Acad::ErrorStatus createPublishEngine(AcPlPlotEngine*& pEngine);
   ACPL_PORT static Acad::ErrorStatus createPreviewEngine(AcPlPlotEngine*& pPreview, long nPreviewFlags = kShowPlot);
 };
 // Possible plotting system states

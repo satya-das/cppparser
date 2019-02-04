@@ -467,20 +467,20 @@ private:
   template <bool Inlined>
   void initBlittable(const void* value, size_t size);
   template <typename T, bool inlined>
-  class InitNonBlittable  
-{
+  class InitNonBlittable
+  {
   public:
     static void init(AcRxValue& rxValue, const T& value);
   };
   template <typename T>
-  class InitNonBlittable<T, true>  
-{
+  class InitNonBlittable<T, true>
+  {
   public:
     static void init(AcRxValue& rxValue, const T& value);
   };
   template <typename T>
-  class InitNonBlittable<T, false>  
-{
+  class InitNonBlittable<T, false>
+  {
   public:
     static void init(AcRxValue& rxValue, const T& value);
   };

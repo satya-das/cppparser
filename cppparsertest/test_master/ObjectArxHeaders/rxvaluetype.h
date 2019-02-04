@@ -392,8 +392,8 @@ public:
     /// C++ type to AcRxValueType.
     /// </summary>
   template <typename ValueType>
-  struct Desc  
-{
+  struct Desc
+  {
     static const AcRxValueType& value();
     static void del();
   };

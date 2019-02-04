@@ -768,7 +768,7 @@ inline UINT AcCFile::Read(LPTSTR lpBuf, UINT nCount)
     }
     wchar_t wch = 0;
     bool bReadOk = false;
-    switch(    this->mChFmtr.getFormat())
+    switch(this->mChFmtr.getFormat())
     {
       case AdCharFormatter::kAnsi:
         bReadOk = ::acReadAnsiCharFromCFile(this, wch, &(this->mChFmtr));
@@ -877,7 +877,7 @@ inline LPTSTR AcCStdioFile::ReadString(LPTSTR lpsz, UINT nMax)
     }
     wchar_t wch = 0;
     bool bReadOk = false;
-    switch(    this->mChFmtr.getFormat())
+    switch(this->mChFmtr.getFormat())
     {
       case AdCharFormatter::kAnsi:
         bReadOk = ::acReadAnsiCharFromCFile(this, wch, &(this->mChFmtr));
@@ -920,7 +920,7 @@ inline BOOL AcCStdioFile::ReadString(CString& rString)
   {
     wchar_t wch = 0;
     bool bReadOk = false;
-    switch(    this->mChFmtr.getFormat())
+    switch(this->mChFmtr.getFormat())
     {
       case AdCharFormatter::kAnsi:
         bReadOk = ::acReadAnsiCharFromCFile(this, wch, &(this->mChFmtr));

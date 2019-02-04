@@ -10,12 +10,12 @@
 #pragma  once
 namespace Autodesk
 {
-  namespace RealityStudio  
-{
-    namespace SDK    
-{
-      namespace Interface      
-{
+  namespace RealityStudio
+  {
+    namespace SDK
+    {
+      namespace Interface
+      {
         class ARCSpatialFilter;
       }
     }
