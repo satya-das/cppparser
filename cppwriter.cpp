@@ -613,6 +613,8 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj,
   }
   else
   {
+    if (ctorObj->isDeleted())
+      stm << " = delete";
     stm << ";\n";
   }
 }
@@ -652,8 +654,8 @@ void CppWriter::emitDestructor(const CppDestructor* dtorObj,
 }
 
 void CppWriter::emitTypeConverter(const CppTypeConverter* typeConverterObj,
-                                  std::ostream&          stm,
-                                  CppIndent              indentation) const
+                                  std::ostream&           stm,
+                                  CppIndent               indentation) const
 {
   if (typeConverterObj->templSpec_)
     emitTemplSpec(typeConverterObj->templSpec_, stm, indentation);
