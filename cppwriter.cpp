@@ -430,7 +430,9 @@ void CppWriter::emitCompound(const CppCompound* compoundObj,
     stm << '\n' << indentation << "{\n";
   else if (compoundObj->compoundType_ == kExternCBlock)
     stm << indentation << "extern \"C\" {\n";
-  ++indentation;
+
+  if (!compoundObj->isCppFile())
+    ++indentation;
 
   CppObjProtLevel lastProtLevel = kUnknownProt;
   for (CppObjArray::const_iterator memItr = compoundObj->members_.begin(); memItr != compoundObj->members_.end();
@@ -1018,7 +1020,7 @@ void CppWriter::emitForBlock(const CppForBlock* forBlock, std::ostream& stm, Cpp
 void CppWriter::emitSwitchBlock(const CppSwitchBlock* switchBlock, std::ostream& stm, CppIndent indentation) const
 {
   stm << indentation << "switch(";
-  emitExpr(switchBlock->cond_, stm, indentation);
+  emitExpr(switchBlock->cond_, stm);
   stm << ")\n";
   stm << indentation++ << "{\n";
   for (const auto& caseStmt : *(switchBlock->body_))

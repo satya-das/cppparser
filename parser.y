@@ -1484,7 +1484,7 @@ expr              : tknStrLit                                                 { 
                   | tknDynamicCast '<' vartype '>' '(' expr ')'               { $$ = new CppExpr($3, kDynamicCast, $6);             }
                   | tknReinterpretCast '<' vartype '>' '(' expr ')'           { $$ = new CppExpr($3, kReinterpretCast, $6);         }
                   | '(' expr ')'                                              { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
-                  | tknNew expr                                               { $$ = $2; $2->flags_ |= CppExpr::kNew;               }
+                  | tknNew typeidentifier                                     { $$ = new CppExpr((std::string) $2, CppExpr::kNew);  }
                   | tknNew '(' expr ')' expr %prec tknNew                     { $$ = new CppExpr($3, kPlacementNew, $5);            }
                   | tknScopeResOp tknNew '(' expr ')' expr %prec tknNew       { $$ = new CppExpr($4, kPlacementNew, $6);            }
                   | tknDelete  expr                                           { $$ = $2; $2->flags_ |= CppExpr::kDelete;            }
