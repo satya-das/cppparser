@@ -1,6 +1,6 @@
-project(cppparser)
+cmake_minimum_required(VERSION 2.8.7)
 
-cmake_minimum_required(VERSION 3.4)
+project(cppparser)
 
 include("../common/cmake/conf.cmake")
 
