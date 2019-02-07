@@ -571,7 +571,7 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
                   ;
 
-optnumsignspec    :                 { $$ = makeCppToken(nullptr, 0U); }
+optnumsignspec    :                 { $$ = makeCppToken(nullptr, nullptr); }
                   | tknNumSignSpec  { $$ = $1; }
                   ;
 
