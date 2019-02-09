@@ -19,7 +19,7 @@ set_source_files_properties(parser.tab.h GENERATED)
 
 add_custom_command(
 	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.cpp ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.h
-	COMMAND ${CMAKE_BINARY_DIR}/third_party/btyacc_tp/btyacc -b parser -d ${CMAKE_CURRENT_SOURCE_DIR}/parser.y
+	COMMAND $<TARGET_FILE:btyacc> -b parser -d ${CMAKE_CURRENT_SOURCE_DIR}/parser.y
 #	COMMAND ${CMAKE_COMMAND} -E copy y_tab.c ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.cpp
 #	COMMAND ${CMAKE_COMMAND} -E copy y_tab.h ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.h
 	COMMAND ${CMAKE_COMMAND} -E copy parser.tab.c ${CMAKE_CURRENT_SOURCE_DIR}/parser.tab.cpp
