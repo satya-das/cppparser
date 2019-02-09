@@ -687,12 +687,12 @@ vardeclstmt       : vardecl ';'             [ZZVALID;] { $$ = $1; }
 
 vardecllist       : typeidentifier opttypemodifier tknID ',' opttypemodifier tknID {
                     $$ = new CppVarList($1);
-                    $$->addVarDecl(CppVarDeclInList($2, {$3}));
-                    $$->addVarDecl(CppVarDeclInList($5, {$6}));
+                    $$->addVarDecl(CppVarDeclInList($2, CppVarDecl{$3}));
+                    $$->addVarDecl(CppVarDeclInList($5, CppVarDecl{$6}));
                   }
                   | vardecllist ',' opttypemodifier tknID {
                     $$ = $1;
-                    $$->addVarDecl(CppVarDeclInList($3, {$4}));
+                    $$->addVarDecl(CppVarDeclInList($3, CppVarDecl{$4}));
                   }
                   ;
 

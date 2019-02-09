@@ -1,8 +1,12 @@
-cmake_minimum_required(VERSION 2.8.7)
+include("../common/cmake/conf.cmake")
+cmake_policy(SET CMP0054 NEW)
 
 project(cppparser)
 
-include("../common/cmake/conf.cmake")
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd\"4996\"")
+	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /wd\"4996\"")
+endif()
 
 add_subdirectory(third_party/btyacc_tp)
 
