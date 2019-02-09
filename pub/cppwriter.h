@@ -204,6 +204,9 @@ inline std::ostream& operator<<(std::ostream& stm, CppObjProtLevel prot)
     case kPrivate:
       stm << "private";
       break;
+      
+    default:
+      break;
   }
   return stm;
 }
@@ -223,6 +226,9 @@ inline std::ostream& operator<<(std::ostream& stm, CppCompoundType cmpndType)
       break;
     case kUnion:
       stm << "union";
+      break;
+      
+    default:
       break;
   }
   return stm;

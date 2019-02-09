@@ -355,9 +355,9 @@ protected:
              std::uint32_t   typeAttr,
              CppTypeModifier modifier)
     : CppObj(type, prot)
-    , typeModifier_(modifier)
     , baseType_(std::move(cleanseIdentifier(baseType)))
     , typeAttr_(typeAttr)
+    , typeModifier_(modifier)
   {
   }
 };
@@ -529,12 +529,12 @@ struct CppMacroCall : CppObj
 
 struct CppEnumItem
 {
+  std::string name_;
   union
   {
     CppExpr* val_;
     CppObj*  anyItem_;
   };
-  std::string name_;
 
   CppEnumItem(std::string name, CppExpr* val = nullptr)
     : name_(std::move(name))
@@ -644,9 +644,9 @@ private:
   const CppDestructor*               dtor_{nullptr};
 
 public:
+  CppCompoundType       compoundType_;
   std::string           name_;
   CppObjArray           members_; // Objects arranged in sequential order from top to bottom.
-  CppCompoundType       compoundType_;
   CppInheritanceList*   inheritList_;
   std::string           apidecor_;
   CppTemplateParamListP templSpec_{nullptr};
@@ -1123,6 +1123,13 @@ struct CppExpr;
  */
 struct CppExprAtom
 {
+  union
+  {
+    std::string* atom;
+    CppExpr*     expr;
+    CppVarType*  varType; //!< For type cast, and sizeof expression.
+  };
+
   enum
   {
     kInvalid,
@@ -1130,12 +1137,6 @@ struct CppExprAtom
     kExpr,
     kVarType
   } type;
-  union
-  {
-    std::string* atom;
-    CppExpr*     expr;
-    CppVarType*  varType; //!< For type cast, and sizeof expression.
-  };
 
   bool isExpr() const
   {
@@ -1225,8 +1226,8 @@ struct CppExpr : public CppObj
   CppExpr(CppExprAtom e1, CppOperType op, CppExprAtom e2, short flags)
     : CppObj(CppObj::kExpression, kUnknownProt)
     , expr1_(e1)
-    , oper_(op)
     , expr2_(e2)
+    , oper_(op)
     , flags_(flags)
   {
   }
@@ -1374,6 +1375,9 @@ inline void CppExprAtom::destroy()
       break;
     case CppExprAtom::kVarType:
       delete varType;
+      break;
+
+    default:
       break;
   }
 }

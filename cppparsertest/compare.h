@@ -24,17 +24,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #pragma once
 
 #include <iostream>
-#include <strstream>
+#include <sstream>
 
-#include <boost/system/config.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
+#include <boost/system/config.hpp>
 
 namespace bfs = boost::filesystem;
 namespace bpo = boost::program_options;
 
-template<typename _Itr1, typename _Itr2, typename _Pr>
-inline std::pair<_Itr1, _Itr2> compare_ranges(_Itr1 firstRangeStart, _Itr1 firstRangeEnd, _Itr2 secondRangeStart, _Itr2 secondRangeEnd, _Pr pred)
+template <typename _Itr1, typename _Itr2, typename _Pr>
+inline std::pair<_Itr1, _Itr2>
+compare_ranges(_Itr1 firstRangeStart, _Itr1 firstRangeEnd, _Itr2 secondRangeStart, _Itr2 secondRangeEnd, _Pr pred)
 {
   auto i1 = firstRangeStart;
   auto i2 = secondRangeStart;
@@ -44,16 +45,15 @@ inline std::pair<_Itr1, _Itr2> compare_ranges(_Itr1 firstRangeStart, _Itr1 first
   return std::make_pair(i1, i2);
 }
 
-inline std::pair<int, int> compareContents(/*const*/ std::strstreambuf& buf1, /*const*/ std::strstreambuf& buf2)
+inline std::pair<int, int> compareContents(const std::string& buf1, const std::string& buf2)
 {
-  int r = 0; // Number of lines read.
-  int c = 0; // Number of chars read in a line.
-  auto b1 = buf1.str();
-  auto e1 = b1 + buf1.pcount();
-  auto b2 = buf2.str();
-  auto e2 = b2 + buf2.pcount();
-  auto diffInfo = compare_ranges(b1, e1, b2, e2, [&r, &c](auto c1, auto c2)->bool
-  {
+  int  r        = 0; // Number of lines read.
+  int  c        = 0; // Number of chars read in a line.
+  auto b1       = buf1.begin();
+  auto e1       = buf1.end();
+  auto b2       = buf2.begin();
+  auto e2       = buf2.end();
+  auto diffInfo = compare_ranges(b1, e1, b2, e2, [&r, &c](auto c1, auto c2) -> bool {
     if (c1 != c2)
       return false;
     if (c1 == '\n')
@@ -74,12 +74,12 @@ inline std::pair<int, int> compareContents(/*const*/ std::strstreambuf& buf1, /*
 
 inline std::pair<int, int> compareFiles(std::ifstream& file1, std::ifstream& file2)
 {
-  std::strstreambuf buf1;
+  std::stringbuf buf1;
   file1 >> &buf1;
-  std::strstreambuf buf2;
+  std::stringbuf buf2;
   file2 >> &buf2;
 
-  return compareContents(buf1, buf2);
+  return compareContents(buf1.str(), buf2.str());
 }
 
 enum FileCompareResult
@@ -105,7 +105,10 @@ inline FileCompareResult compareFiles(const bfs::path& path1, const bfs::path& p
   return kSameFiles;
 }
 
-inline void reportFileComparisonError(FileCompareResult result, const bfs::path& path1, const bfs::path& path2, std::pair<int, int>& diffStartsAt)
+inline void reportFileComparisonError(FileCompareResult    result,
+                                      const bfs::path&     path1,
+                                      const bfs::path&     path2,
+                                      std::pair<int, int>& diffStartsAt)
 {
   if (result == kFailedToOpen1stFile)
   {
@@ -119,7 +122,9 @@ inline void reportFileComparisonError(FileCompareResult result, const bfs::path&
   {
     int r, c;
     std::tie(r, c) = diffStartsAt;
-    std::cerr << "CppParserTest: File comparison failed while comparing " << path1.string() << " and " << path2.string() << "\n";
-    std::cerr << "CppParserTest: Error is around line#" << r << " and column#" << c << " in file " << path1.string() << "\n";
+    std::cerr << "CppParserTest: File comparison failed while comparing " << path1.string() << " and " << path2.string()
+              << "\n";
+    std::cerr << "CppParserTest: Error is around line#" << r << " and column#" << c << " in file " << path1.string()
+              << "\n";
   }
 }

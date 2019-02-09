@@ -90,10 +90,11 @@ public:
     {
       ret += indentStr();
     }
+    
+    return ret;
   }
   void emit(std::ostream& stm) const
   {
-    static const char* indent[] = {"\t", " ", "  ", "   ", "    "};
     for (std::uint16_t i = 0; i < initialLevel_ + indentLevel_; ++i)
     {
       stm << indentStr();

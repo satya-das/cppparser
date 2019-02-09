@@ -134,6 +134,9 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
 
     case CppObj::kBlob:
       return emitBlob((CppBlob*) cppObj, stm);
+
+    default:
+      break;
   }
 }
 
@@ -814,6 +817,9 @@ inline void emitOperator(std::ostream& stm, CppOperType op)
     case kArrowStar:
       stm << "->*";
       break;
+
+    default:
+      break;
   }
 }
 
@@ -831,6 +837,9 @@ void CppWriter::emitExprAtom(const CppExprAtom& exprAtm,
       break;
     case CppExprAtom::kVarType:
       emitVarType(exprAtm.varType, stm);
+
+    default:
+      break;
   }
 }
 
