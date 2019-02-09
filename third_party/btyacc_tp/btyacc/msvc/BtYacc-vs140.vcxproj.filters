@@ -13,103 +13,71 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="test">
-      <UniqueIdentifier>{11c89d2d-76d4-4fee-84d6-166c891672d6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\empty.y" />
-    <None Include="..\test\ansiC.y">
-      <Filter>test</Filter>
-    </None>
-    <None Include="..\test\ansiC2.y">
-      <Filter>test</Filter>
-    </None>
-    <None Include="..\test\error.y">
-      <Filter>test</Filter>
-    </None>
-    <None Include="..\test\ftp.y">
-      <Filter>test</Filter>
-    </None>
-    <None Include="..\test\t1.y">
-      <Filter>test</Filter>
-    </None>
-    <None Include="..\test\t2.y">
-      <Filter>test</Filter>
-    </None>
-    <None Include="..\test\test.y">
-      <Filter>test</Filter>
-    </None>
-    <None Include="..\manpage" />
-    <None Include="..\build.h.in" />
-    <None Include="..\test\t3.y">
-      <Filter>test</Filter>
-    </None>
-    <None Include="CHANGELOG" />
-    <None Include="Makefile" />
-    <None Include="manpage" />
-    <None Include="README" />
-    <None Include="skel2c" />
-    <None Include="README.BYACC" />
-    <None Include="makefile.dos" />
-    <None Include="btyaccpa.ske" />
-    <None Include="push.skel" />
+    <None Include="..\test\ansiC.y" />
+    <None Include="..\test\ansiC2.y" />
+    <None Include="..\CHANGELOG" />
+    <None Include="..\README" />
+    <None Include="..\skel2c" />
+    <None Include="..\README.BYACC" />
+    <None Include="..\btyaccpa.ske" />
+    <None Include="..\makefile.dos" />
+    <None Include="..\push.skel" />
+    <None Include="..\.travis.yml" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="closure.c">
+    <ClCompile Include="..\closure.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="dtor.c">
+    <ClCompile Include="..\dtor.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="error.c">
+    <ClCompile Include="..\error.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="lalr.c">
+    <ClCompile Include="..\lalr.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="lr0.c">
+    <ClCompile Include="..\lr0.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="main.c">
+    <ClCompile Include="..\main.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="mkpar.c">
+    <ClCompile Include="..\mkpar.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="mstring.c">
+    <ClCompile Include="..\mstring.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="output.c">
+    <ClCompile Include="..\output.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="reader.c">
+    <ClCompile Include="..\reader.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="readskel.c">
+    <ClCompile Include="..\readskel.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="skeleton.c">
+    <ClCompile Include="..\skeleton.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="symtab.c">
+    <ClCompile Include="..\symtab.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="verbose.c">
+    <ClCompile Include="..\verbose.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="warshall.c">
+    <ClCompile Include="..\warshall.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="defs.h">
+    <ClInclude Include="..\defs.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="mstring.h">
+    <ClInclude Include="..\mstring.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

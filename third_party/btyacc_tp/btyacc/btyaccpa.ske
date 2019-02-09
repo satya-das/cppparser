@@ -11,6 +11,7 @@
 */
 #define YYBTYACC 1
 
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -135,8 +136,8 @@ struct yyparsestate {
   YYPOSN       *psp;         /* position stack pointer */
   YYPOSN        pos;         /* position as returned by universal action */
 #endif /* YYPOSN */
-  int           lexeme;      /* index of the conflict lexeme in the lexical queue */
-  unsigned int  stacksize;   /* current maximum stack size */
+  ptrdiff_t     lexeme;      /* index of the conflict lexeme in the lexical queue */
+  size_t        stacksize;   /* current maximum stack size */
   Yshort        ctry;        /* index in yyctable[] for this conflict */
 };
 
@@ -194,8 +195,8 @@ static Yshort *yylexemes=0;
 int yyparse(void);
 int yylex(void);
 
-static void YYSCopy(YYSTYPE *to, YYSTYPE *from, int size) {
-  int i;                             
+static void YYSCopy(YYSTYPE *to, YYSTYPE *from, ptrdiff_t size) {
+  ptrdiff_t i;
   for (i = size-1; i >= 0; i--)
     to[i] = from[i];
 }
@@ -209,8 +210,8 @@ static void YYPCopy(YYPOSN *to, YYPOSN *from, int size) {
 #endif /* YYPOSN */
 
 static int yyexpand() {
-  int p = yylvp-yylvals;
-  int s = yylvlim-yylvals;
+  ptrdiff_t p = yylvp-yylvals;
+  ptrdiff_t s = yylvlim-yylvals;
   s += YYSTACKGROWTH;
 #ifdef __cplusplus
   Yshort  *tl = yylexemes; 
@@ -271,7 +272,7 @@ static int YYLex1() {
 }
 
 static void YYMoreStack(struct yyparsestate *yyps) {
-  int p = yyps->ssp - yyps->ss;                               
+  ptrdiff_t p = yyps->ssp - yyps->ss;
 #ifdef __cplusplus
   Yshort  *tss = yyps->ss;
   yyps->ss = new Yshort [yyps->stacksize + YYSTACKGROWTH];   
@@ -303,7 +304,7 @@ static void YYMoreStack(struct yyparsestate *yyps) {
 #endif /* YYPOSN */
 }
 
-static struct yyparsestate *YYNewState(int size) {
+static struct yyparsestate *YYNewState(size_t size) {
 #ifdef __cplusplus
   yyparsestate *p = new yyparsestate;
   p->ss = new Yshort [size + 4];

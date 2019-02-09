@@ -15,9 +15,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="test.output" />
+    <None Include="..\test\error.y" />
+    <None Include="..\test\ftp.y" />
+    <None Include="..\test\runtests" />
+    <None Include="..\test\t1.y" />
+    <None Include="..\test\t2.y" />
+    <None Include="..\test\t3.y" />
+    <None Include="..\test\test.y" />
     <None Include="t3.output" />
-    <None Include="t3.y" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="t3.tab.c">

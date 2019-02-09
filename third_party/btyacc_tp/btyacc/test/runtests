@@ -138,6 +138,7 @@ rm -f .run .fail tmp.txt
 
 if [ $fail -gt 0 ]; then
     echo "$fail tests FAILED, $pass tests PASSED"
+    exit 1
 else
     echo "$pass tests PASSED"
 fi

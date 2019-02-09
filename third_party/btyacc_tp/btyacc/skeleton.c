@@ -18,6 +18,7 @@ static char *banner[] =
     "*/",
     "#define YYBTYACC 1",
     "",
+    "#include <stddef.h>",
     "#include <stdio.h>",
     "#include <stdlib.h>",
     "#include <string.h>",
@@ -29,7 +30,7 @@ static char *banner[] =
 
 static char *tables[] =
 {
-    "#line 21 \"btyaccpa.ske\"",
+    "#line 22 \"btyaccpa.ske\"",
     "",
     "#ifdef __cplusplus",
     "#define _C_ \"C\"",
@@ -64,7 +65,7 @@ static char *tables[] =
 
 static char *header[] =
 {
-    "#line 51 \"btyaccpa.ske\"",
+    "#line 52 \"btyaccpa.ske\"",
     "",
     "/*",
     "** YYPOSN is user-defined text position type.",
@@ -152,8 +153,8 @@ static char *header[] =
     "  YYPOSN       *psp;         /* position stack pointer */",
     "  YYPOSN        pos;         /* position as returned by universal action */",
     "#endif /* YYPOSN */",
-    "  int           lexeme;      /* index of the conflict lexeme in the lexical queue */",
-    "  unsigned int  stacksize;   /* current maximum stack size */",
+    "  ptrdiff_t     lexeme;      /* index of the conflict lexeme in the lexical queue */",
+    "  size_t        stacksize;   /* current maximum stack size */",
     "  Yshort        ctry;        /* index in yyctable[] for this conflict */",
     "};",
     "",
@@ -211,8 +212,8 @@ static char *header[] =
     "int yyparse(void);",
     "int yylex(void);",
     "",
-    "static void YYSCopy(YYSTYPE *to, YYSTYPE *from, int size) {",
-    "  int i;                             ",
+    "static void YYSCopy(YYSTYPE *to, YYSTYPE *from, ptrdiff_t size) {",
+    "  ptrdiff_t i;",
     "  for (i = size-1; i >= 0; i--)",
     "    to[i] = from[i];",
     "}",
@@ -226,8 +227,8 @@ static char *header[] =
     "#endif /* YYPOSN */",
     "",
     "static int yyexpand() {",
-    "  int p = yylvp-yylvals;",
-    "  int s = yylvlim-yylvals;",
+    "  ptrdiff_t p = yylvp-yylvals;",
+    "  ptrdiff_t s = yylvlim-yylvals;",
     "  s += YYSTACKGROWTH;",
     "#ifdef __cplusplus",
     "  Yshort  *tl = yylexemes; ",
@@ -288,7 +289,7 @@ static char *header[] =
     "}",
     "",
     "static void YYMoreStack(struct yyparsestate *yyps) {",
-    "  int p = yyps->ssp - yyps->ss;                               ",
+    "  ptrdiff_t p = yyps->ssp - yyps->ss;",
     "#ifdef __cplusplus",
     "  Yshort  *tss = yyps->ss;",
     "  yyps->ss = new Yshort [yyps->stacksize + YYSTACKGROWTH];   ",
@@ -320,7 +321,7 @@ static char *header[] =
     "#endif /* YYPOSN */",
     "}",
     "",
-    "static struct yyparsestate *YYNewState(int size) {",
+    "static struct yyparsestate *YYNewState(size_t size) {",
     "#ifdef __cplusplus",
     "  yyparsestate *p = new yyparsestate;",
     "  p->ss = new Yshort [size + 4];",
@@ -371,7 +372,7 @@ static char *header[] =
 
 static char *body[] =
 {
-    "#line 353 \"btyaccpa.ske\"",
+    "#line 354 \"btyaccpa.ske\"",
     "",
     "/*",
     "** Parser function",
@@ -824,7 +825,7 @@ static char *body[] =
 
 static char *trailer[] =
 {
-    "#line 801 \"btyaccpa.ske\"",
+    "#line 802 \"btyaccpa.ske\"",
     "",
     "  default:",
     "    break;",
