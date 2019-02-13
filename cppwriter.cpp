@@ -374,7 +374,7 @@ void CppWriter::emitTemplSpec(const CppTemplateParamListP& templSpec, std::ostre
   stm << indentation << "template <";
   if (templSpec)
   {
-    auto* sep = "";
+    const char* sep = "";
     for (auto& param : *templSpec)
     {
       stm << sep;

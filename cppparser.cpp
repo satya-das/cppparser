@@ -156,7 +156,7 @@ CppParser::ByteArray CppParser::readFile(const char* filename)
     size_t size = static_cast<size_t>(in.tellg());
     contents.resize(size + 3); // For adding last 2 nulls and a new line.
     in.seekg(0, std::ios::beg);
-    in.read(&contents[0], size);
+    in.read(contents.data(), size);
     in.close();
     auto len = stripChar(contents.data(), size, '\r');
     assert(len <= size);
