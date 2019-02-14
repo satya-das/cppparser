@@ -121,7 +121,8 @@ struct CppObj
   }
   bool isClassLike() const;
   bool isNamespaceLike() const;
-  bool isTypedefLike() const {
+  bool isTypedefLike() const
+  {
     return (objType_ == kTypedefName) || (objType_ == kUsingDecl);
   }
   bool isPreProcessorType() const
@@ -576,10 +577,12 @@ struct CppInheritInfo
 {
   std::string     baseName;
   CppObjProtLevel inhType;
+  bool            isVirtual{false};
 
-  CppInheritInfo(std::string _baseName, CppObjProtLevel _inhType)
+  CppInheritInfo(std::string _baseName, CppObjProtLevel _inhType, bool virtualInheritance = false)
     : baseName(std::move(_baseName))
     , inhType(_inhType)
+    , isVirtual(virtualInheritance)
   {
   }
 };
@@ -610,9 +613,9 @@ using CppTemplateParamListP = std::unique_ptr<CppTemplateParamList>;
 
 struct CppFwdClsDecl : public CppObj
 {
-  CppCompoundType cmpType_;
-  std::string     name_;
-  std::uint32_t   attr_{0};
+  CppCompoundType       cmpType_;
+  std::string           name_;
+  std::uint32_t         attr_{0};
   CppTemplateParamListP templSpec_{nullptr};
 
   CppFwdClsDecl(CppObjProtLevel prot, std::string name, CppCompoundType cmpType = kNoCompound)
@@ -1032,7 +1035,7 @@ struct CppDestructor : public CppFunctionBase
 
 struct CppTypeConverter : public CppFunctionBase
 {
-  CppVarType*           to_{nullptr};
+  CppVarType* to_{nullptr};
 
   CppTypeConverter(CppVarType* type, std::string name)
     : CppFunctionBase(CppObj::kTypeConverter, type->prot_, std::move(name), 0)

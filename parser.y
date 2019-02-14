@@ -146,6 +146,7 @@ extern int yylex();
   CppTypeConverter*     cppTypeConverter;
   CppMemInitList*       memInitList;
   CppInheritanceList*   inheritList;
+  bool                  inheritType;
   CppIdentifierList*    identifierList;
   CppNtMemInit          memInit;
   CppFuncThrowSpec*     funcThrowSpec;
@@ -251,6 +252,7 @@ extern int yylex();
 %type  <compoundType>       compoundSpecifier
 %type  <attr>               varattrib exptype optfuncattrib functype optfunctype
 %type  <inheritList>        optinheritlist
+%type  <inheritType>        optinherittype
 %type  <protLevel>          protlevel changeprotlevel
 %type  <identifierList>     identifierlist
 %type  <funcThrowSpec>      functhrowspec optfuncthrowspec
@@ -1311,14 +1313,22 @@ classdefn         : compoundSpecifier optapidecor identifier optinheritlist optc
                   ;
 
 optinheritlist    : { $$ = 0; }
-                  | ':' protlevel identifier [ZZVALID;]        { $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $3, $2)); }
-                  | optinheritlist ',' protlevel identifier [ZZVALID;]  { $$ = $1; $$->push_back(CppInheritInfo((std::string) $4, $3)); }
+                  | ':' protlevel optinherittype identifier                 [ZZVALID;] {
+                    $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $4, $2, $3));
+                  }
+                  | optinheritlist ',' protlevel optinherittype identifier  [ZZVALID;] {
+                    $$ = $1; $$->push_back(CppInheritInfo((std::string) $5, $3, $4));
+                  }
                   ;
 
 protlevel         :        { $$ = kUnknownProt;}
                   | tknPublic    { $$ = kPublic;    }
                   | tknProtected  { $$ = kProtected;  }
                   | tknPrivate  { $$ = kPrivate;  }
+                  ;
+
+optinherittype    : { $$ = false; }
+                  | tknVirtual { $$ = true; }
                   ;
 
 fwddecl           : compoundSpecifier identifier ';' [ZZVALID;] { $$ = new CppFwdClsDecl(gCurProtLevel, $2, $1); }
