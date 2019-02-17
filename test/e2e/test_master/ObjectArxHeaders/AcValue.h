@@ -110,7 +110,7 @@ public:
   operator const ACHAR*() const;
   operator Adesk::Int32() const;
   operator double() const;
-  operator Adesk::Time64();
+  operator Adesk::Time64() const;
   operator AcGePoint2d() const;
   operator AcGePoint3d() const;
   operator AcDbObjectId() const;

@@ -21,34 +21,49 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/***************************************************************************************/
+
 #pragma once
 
-#include "cppobjfactory.h"
+#include "cppast.h"
+#include "cppconst.h"
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
+#include "cppobj-accessor.h"
 
-class CppParser
+inline bool isConst(const CppFunctionBase* func)
 {
-public:
-  CppParser(CppObjFactoryPtr objFactory = nullptr);
-  CppParser(CppParser&& rhs)
-    : objFactory_(std::move(rhs.objFactory_))
-  {
-  }
+  return (func->attr() & kConst) == kConst;
+}
+inline bool isVirtual(const CppFunctionBase* func)
+{
+  return (func->attr() & kVirtual) == kVirtual;
+}
+inline bool isPureVirtual(const CppFunctionBase* func)
+{
+  return (func->attr() & kPureVirtual) == kPureVirtual;
+}
+inline bool isStatic(const CppFunctionBase* func)
+{
+  return (func->attr() & kStatic) == kStatic;
+}
+inline bool isInline(const CppFunctionBase* func)
+{
+  return (func->attr() & kInline) == kInline;
+}
+inline bool isOverride(const CppFunctionBase* func)
+{
+  return (func->attr() & kOverride) == kOverride;
+}
+inline bool isDeleted(const CppFunctionBase* func)
+{
+  return (func->attr() & kDelete) == kDelete;
+}
+inline bool isFinal(const CppFunctionBase* func)
+{
+  return (func->attr() & kFinal) == kFinal;
+}
 
-public:
-  void addKnownMacro(std::string knownMacro);
-  void addKnownMacros(const std::vector<std::string>& knownMacros);
-
-  void addKnownApiDecor(std::string knownApiDecor);
-  void addKnownApiDecors(const std::vector<std::string>& knownApiDecor);
-
-  bool addRenamedKeyword(const std::string& keyword, std::string renamedKeyword);
-
-public:
-  CppCompoundPtr parseFile(const std::string& filename);
-  CppCompoundPtr parseStream(char* stm, size_t stmSize);
-
-private:
-  CppObjFactoryPtr objFactory_;
-};
+inline bool isMethod(CppConstFunctionEPtr func)
+{
+  return func->owner() && isClassLike(func->owner());
+}

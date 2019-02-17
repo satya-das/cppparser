@@ -22,69 +22,71 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include "cppparser.h"
-#include "cppwriter.h"
 #include "compare.h"
+#include "cppwriter.h"
 #include "options.h"
 
 #include <fstream>
 #include <iostream>
 #include <utility>
 
-#include <boost/system/config.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
+#include <boost/system/config.hpp>
 
 namespace bfs = boost::filesystem;
 namespace bpo = boost::program_options;
 
 //////////////////////////////////////////////////////////////////////////
 
-static bool parseAndEmitFormatted(CppParser &parser, const bfs::path &inputFilePath, const bfs::path &outputFilePath, const CppWriter &cppWriter)
+static bool parseAndEmitFormatted(CppParser&       parser,
+                                  const bfs::path& inputFilePath,
+                                  const bfs::path& outputFilePath,
+                                  const CppWriter& cppWriter)
 {
-  CppCompound *progUnit = parser.parseFile(inputFilePath.string().c_str());
-  if (progUnit == NULL)
+  auto progUnit = parser.parseFile(inputFilePath.string().c_str());
+  if (!progUnit)
     return false;
   bfs::create_directories(outputFilePath.parent_path());
   std::ofstream stm(outputFilePath.string());
-  cppWriter.emit(progUnit, stm);
-  delete progUnit;
+  cppWriter.emit(progUnit.get(), stm);
 
   return true;
 }
 
-static bool performParsing(CppParser &parser, const std::string &inputPath)
+static bool performParsing(CppParser& parser, const std::string& inputPath)
 {
-  CppCompound *progUnit = parser.parseFile(inputPath.c_str());
-  if (progUnit == nullptr)
+  auto progUnit = parser.parseFile(inputPath.c_str());
+  if (!progUnit)
     return false;
-  delete progUnit;
 
   return true;
 }
 
-static std::pair<size_t, size_t> performTest(CppParser &parser, const TestParam &params)
+static std::pair<size_t, size_t> performTest(CppParser& parser, const TestParam& params)
 {
   size_t numInputFiles = 0;
-  size_t numFailed = 0;
+  size_t numFailed     = 0;
 
-  CppWriter cppWriter;
-  auto inputPathLen = params.inputPath.string().length();
+  CppWriter                cppWriter;
+  auto                     inputPathLen = params.inputPath.string().length();
   std::vector<std::string> failedFiles;
-  for (bfs::recursive_directory_iterator dirItr(params.inputPath); dirItr != bfs::recursive_directory_iterator(); ++dirItr)
+  for (bfs::recursive_directory_iterator dirItr(params.inputPath); dirItr != bfs::recursive_directory_iterator();
+       ++dirItr)
   {
     bfs::path file = *dirItr;
     if (bfs::is_regular_file(file))
     {
       ++numInputFiles;
       std::cout << "CppParserTest: Parsing " << file.string() << "...\n";
-      auto fileRelPath = file.string().substr(inputPathLen);
-      bfs::path outfile = params.outputPath / fileRelPath;
+      auto      fileRelPath = file.string().substr(inputPathLen);
+      bfs::path outfile     = params.outputPath / fileRelPath;
       bfs::remove(outfile);
       if (parseAndEmitFormatted(parser, file, outfile, cppWriter) && bfs::exists(outfile))
       {
-        bfs::path masfile = params.masterPath / fileRelPath;
+        bfs::path           masfile = params.masterPath / fileRelPath;
         std::pair<int, int> diffStartInfo;
-        auto rez = compareFiles(outfile, masfile, diffStartInfo);
+        auto                rez = compareFiles(outfile, masfile, diffStartInfo);
         if (rez == kSameFiles)
           continue;
         reportFileComparisonError(rez, outfile, masfile, diffStartInfo);
@@ -102,7 +104,7 @@ static std::pair<size_t, size_t> performTest(CppParser &parser, const TestParam 
   {
     std::cerr << "\n\n";
     std::cerr << "Parsing failure summary.\n------------------------\n";
-    for (const auto &s : failedFiles)
+    for (const auto& s : failedFiles)
     {
       std::cerr << s << '\n';
     }
@@ -112,27 +114,43 @@ static std::pair<size_t, size_t> performTest(CppParser &parser, const TestParam 
   return std::make_pair(numInputFiles, numFailed);
 }
 
-void addKnownMacrosToParser(CppParser &parser)
+CppParser constructCppParserForTest()
 {
+  CppParser parser;
   parser.addKnownApiDecors({"ODRX_ABSTRACT",
                             "FIRSTDLL_EXPORT",
                             "GE_DLLEXPIMPORT",
-                            "ADESK_NO_VTABLE"});
+                            "ADESK_NO_VTABLE",
+                            "ACDBCORE2D_PORT",
+                            "ACBASE_PORT",
+                            "ACCORE_PORT",
+                            "ACDB_PORT",
+                            "ACPAL_PORT",
+                            "ACAD_PORT"});
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
                          "DECLARE_DYNAMIC",
                          "ACPL_DECLARE_MEMBERS",
                          "DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION",
                          "DBSYMUTL_MAKE_HASSYMBOLID_FUNCTION",
-                         "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION"});
+                         "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION",
+                         "ACRX_DECLARE_MEMBERS_EXPIMP",
+                         "ACRX_DECLARE_MEMBERS_ACBASE_PORT_EXPIMP",
+                         "ACRX_DECLARE_MEMBERS"});
+
+  parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
+  parser.addRenamedKeyword("final", "ADESK_SEALED");
+  parser.addRenamedKeyword("override", "ADESK_OVERRIDE");
+
+  return std::move(parser);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
-  CppParser parser;
-  addKnownMacrosToParser(parser);
+  CppParser parser = constructCppParserForTest();
+
   ArgParser argParser;
-  auto optionParseResult = argParser.parse(argc, argv);
+  auto      optionParseResult = argParser.parse(argc, argv);
   if (optionParseResult == ArgParser::kParsingError)
   {
     argParser.emitError();

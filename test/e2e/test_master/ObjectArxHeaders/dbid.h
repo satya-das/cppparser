@@ -238,7 +238,7 @@ inline AcDbObjectId& AcDbObjectId::operator =(const AcDbStub* pStub)
   mId = const_cast<AcDbStub*>(pStub);
   return *this;
 }
-operator AcDbStub*()
+operator AcDbStub*() const
 {
   return mId;
 }
@@ -333,7 +333,7 @@ inline bool AcDbHardOwnershipId::operator ==(const AcDbStub* pStub) const
 {
   return AcDbObjectId::operator==(pStub);
 }
-operator AcDbStub*()
+operator AcDbStub*() const
 {
   return mId;
 }
@@ -380,7 +380,7 @@ inline bool AcDbSoftOwnershipId::operator ==(const AcDbStub* pStub) const
 {
   return AcDbObjectId::operator==(pStub);
 }
-operator AcDbStub*()
+operator AcDbStub*() const
 {
   return mId;
 }
@@ -427,7 +427,7 @@ inline bool AcDbHardPointerId::operator ==(const AcDbStub* pStub) const
 {
   return AcDbObjectId::operator==(pStub);
 }
-operator AcDbStub*()
+operator AcDbStub*() const
 {
   return mId;
 }
@@ -474,7 +474,7 @@ inline bool AcDbSoftPointerId::operator ==(const AcDbStub* pStub) const
 {
   return AcDbObjectId::operator==(pStub);
 }
-operator AcDbStub*()
+operator AcDbStub*() const
 {
   return mId;
 }

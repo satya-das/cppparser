@@ -23,7 +23,7 @@
 
 #pragma once
 
-#include "cppdom.h"
+#include "cppast.h"
 
 /*!
  * \brief Factory class to create various CppObj instances.
@@ -34,21 +34,24 @@
 class CppObjFactory
 {
 public:
-  virtual CppCompound* CreateCompound(std::string name, CppObjProtLevel prot, CppCompoundType type) const;
-  virtual CppCompound* CreateCompound(CppObjProtLevel prot, CppCompoundType type = kUnknownCompound) const;
+  virtual CppCompound* CreateCompound(std::string name, CppAccessType accessType, CppCompoundType type) const;
+  virtual CppCompound* CreateCompound(CppAccessType   accessType,
+                                      CppCompoundType type = CppCompoundType::kUnknownCompound) const;
   virtual CppCompound* CreateCompound(std::string name, CppCompoundType type) const;
   virtual CppCompound* CreateCompound(CppCompoundType type) const;
 
-  virtual CppConstructor* CreateConstructor(CppObjProtLevel prot,
-                                            std::string     name,
-                                            CppParamList*   params,
-                                            CppMemInitList* memInitList,
-                                            unsigned int    attr) const;
-  virtual CppDestructor*  CreateDestructor(CppObjProtLevel prot, std::string name, unsigned int attr) const;
-  virtual CppFunction*    CreateFunction(CppObjProtLevel prot,
-                                         std::string     name,
-                                         CppVarType*     retType,
-                                         CppParamList*   params,
-                                         unsigned int    attr) const;
+  virtual CppConstructor*   CreateConstructor(CppAccessType   accessType,
+                                              std::string     name,
+                                              CppParamVector* params,
+                                              CppMemInitList* memInitList,
+                                              unsigned int    attr) const;
+  virtual CppDestructor*    CreateDestructor(CppAccessType accessType, std::string name, unsigned int attr) const;
+  virtual CppFunction*      CreateFunction(CppAccessType   accessType,
+                                           std::string     name,
+                                           CppVarType*     retType,
+                                           CppParamVector* params,
+                                           unsigned int    attr) const;
   virtual CppTypeConverter* CreateTypeConverter(CppVarType* type, std::string name) const;
 };
+
+using CppObjFactoryPtr = std::unique_ptr<CppObjFactory>;

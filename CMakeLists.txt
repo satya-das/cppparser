@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 2.8.7)
 include("../common/cmake/conf.cmake")
 cmake_policy(SET CMP0054 NEW)
 
@@ -13,6 +14,9 @@ add_subdirectory(third_party/btyacc_tp)
 add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
 
 add_subdirectory(../common/third_party/boost_tp/cmake  ${CMAKE_BINARY_DIR}/boost)
+
+include_directories(../common/third_party)
+enable_testing()
 
 #############################################
 ## CppParser
@@ -38,15 +42,16 @@ add_custom_command(
 )
 
 set(CPPPARSER_SOURCES
-	cppparser.cpp
-	cppdom.cpp
-	cppprog.cpp
-	cppwriter.cpp
-	cppobjfactory.cpp
-	parser.l
-	parser.y
-	parser.lex.cpp
-	parser.tab.cpp
+	src/cppparser.cpp
+	src/cppast.cpp
+	src/cppprog.cpp
+	src/cppwriter.cpp
+	src/cppobjfactory.cpp
+	src/parser.l
+	src/parser.y
+	src/parser.lex.cpp
+	src/parser.tab.cpp
+	src/utils.cpp
 )
 
 add_library(cppparser STATIC ${CPPPARSER_SOURCES})
@@ -68,10 +73,11 @@ target_include_directories(
 
 #############################################
 ## CppParserTest
-file( GLOB CPPPARSERTEST_SOURCES
-	cppparsertest/*.cpp
+
+add_executable(cppparsertest
+	test/app/cppparsertest.cpp
 )
-add_executable(cppparsertest ${CPPPARSERTEST_SOURCES})
+
 target_link_libraries(cppparsertest
 	PRIVATE
 		cppparser
@@ -79,12 +85,53 @@ target_link_libraries(cppparsertest
 		boost_program_options
 		boost_system
 )
-enable_testing()
-set(CPPPARSERTEST_DIR ${CMAKE_CURRENT_LIST_DIR}/cppparsertest)
+
+set(E2E_TEST_DIR ${CMAKE_CURRENT_LIST_DIR}/test/e2e)
 set(CTEST_OUTPUT_ON_FAILURE 1)
 add_test(
 	NAME ParserTest
-	COMMAND cppparsertest --input-folder=${CPPPARSERTEST_DIR}/test_input
-		--output-folder=${CPPPARSERTEST_DIR}/test_output
-		--master-files-folder=${CPPPARSERTEST_DIR}/test_master
+	COMMAND cppparsertest --input-folder=${E2E_TEST_DIR}/test_input
+		--output-folder=${E2E_TEST_DIR}/test_output
+		--master-files-folder=${E2E_TEST_DIR}/test_master
 )
+
+#############################################
+## Unit Test
+
+add_executable(cppparserunittest
+	${CMAKE_CURRENT_LIST_DIR}/test/unit/main.cpp
+	${CMAKE_CURRENT_LIST_DIR}/test/unit/test-hello-world.cpp
+)
+
+target_link_libraries(cppparserunittest
+	PRIVATE
+		cppparser
+		boost_filesystem
+		boost_program_options
+		boost_system
+)
+set(UNIT_TEST_DIR ${CMAKE_CURRENT_LIST_DIR}/test/unit)
+add_test(
+	NAME ParserUnitTest
+	COMMAND cppparserunittest
+)
+
+find_program(
+	MARKDOWN_PP
+	"markdown-pp"
+	PATHS ENV PATH
+)
+
+if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
+	add_custom_command(
+		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/README.md
+		COMMAND ${MARKDOWN_PP} ${CMAKE_CURRENT_SOURCE_DIR}/src/README.mdpp -o ${CMAKE_CURRENT_SOURCE_DIR}/README.md
+		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/README.mdpp ${RESPATHS} ${EXAMPLE_HEADERS}
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	)
+	add_custom_target(
+		ReadMe ALL
+		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
+else()
+  message("Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
+endif()

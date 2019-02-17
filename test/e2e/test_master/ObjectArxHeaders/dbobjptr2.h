@@ -485,7 +485,7 @@ inline ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::operator->()
   return object();
 }
 template <typename ACDB_CLASS>
-operator const ACDB_CLASS*()
+operator const ACDB_CLASS*() const
 {
   return object();
 }

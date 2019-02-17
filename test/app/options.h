@@ -25,25 +25,23 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <iostream>
 
-#include <boost/system/config.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
+#include <boost/system/config.hpp>
 
-namespace bfs = boost::filesystem;
+namespace fs  = boost::filesystem;
 namespace bpo = boost::program_options;
 
 struct TestParam
 {
-  bfs::path inputPath;
-  bfs::path outputPath;
-  bfs::path masterPath;
+  fs::path inputPath;
+  fs::path outputPath;
+  fs::path masterPath;
 
   bool isValid() const
   {
-    if (!bfs::is_directory(inputPath) ||
-        (bfs::exists(outputPath) && !bfs::is_directory(outputPath)) ||
-        (!bfs::is_directory(masterPath))
-       )
+    if (!fs::is_directory(inputPath) || (fs::exists(outputPath) && !fs::is_directory(outputPath))
+        || (!fs::is_directory(masterPath)))
       return false;
     return true;
   }
@@ -54,15 +52,16 @@ struct TestParam
     outputPath.make_preferred();
     masterPath.make_preferred();
 
-    std::cout << outputPath.string() << std::endl;;
-    bfs::create_directories(outputPath);
+    std::cout << outputPath.string() << std::endl;
+    ;
+    fs::create_directories(outputPath);
   }
 };
 
 class ArgParser
 {
   bpo::options_description desc_;
-  bpo::variables_map vm_;
+  bpo::variables_map       vm_;
 
 public:
   enum ParseResult
@@ -76,20 +75,18 @@ public:
 
 public:
   ArgParser()
-    : desc_(
-      "Automatic testing of CppParser by doing three steps:\n"
-      "1) Parse each files in input folder.\n"
-      "2) Emit C/C++ source from parsed data into output folder.\n"
-      "3) Compare each files generated in step (2) with corresponding master file.\n"
-    )
+    : desc_("Automatic testing of CppParser by doing three steps:\n"
+            "1) Parse each files in input folder.\n"
+            "2) Emit C/C++ source from parsed data into output folder.\n"
+            "3) Compare each files generated in step (2) with corresponding master file.\n")
   {
-    desc_.add_options()
-    ("help,h", "produce help message")
-    ("input-folder,i", bpo::value<std::string>(), "Input folder from where test files are picked.")
-    ("output-folder,o", bpo::value<std::string>(), "Output folder for emitting files after parsing.")
-    ("master-files-folder,m", bpo::value<std::string>(), "Folder where master files are kept that are used to compare with actuals.")
-    ("parse-single-file,p", bpo::value<std::string>(), "To test parsing of single file.")
-    ;
+    desc_.add_options()("help,h", "produce help message")(
+      "input-folder,i", bpo::value<std::string>(), "Input folder from where test files are picked.")(
+      "output-folder,o", bpo::value<std::string>(), "Output folder for emitting files after parsing.")(
+      "master-files-folder,m",
+      bpo::value<std::string>(),
+      "Folder where master files are kept that are used to compare with actuals.")(
+      "parse-single-file,p", bpo::value<std::string>(), "To test parsing of single file.");
   }
 
   ParseResult parse(int argc, char** argv)
@@ -100,13 +97,11 @@ public:
       return kHelpSought;
     if (vm_.count("parse-single-file"))
       return kParseSingleFile;
-    if ((vm_.count("input-folder") == 0) &&
-        (vm_.count("output-folder") == 0) &&
-        (vm_.count("master-files-folder") == 0))
+    if ((vm_.count("input-folder") == 0) && (vm_.count("output-folder") == 0)
+        && (vm_.count("master-files-folder") == 0))
       return kParseAndCompareUsingDefaultPaths;
-    if ((vm_.count("input-folder") != 0) &&
-        (vm_.count("output-folder") != 0) &&
-        (vm_.count("master-files-folder") != 0))
+    if ((vm_.count("input-folder") != 0) && (vm_.count("output-folder") != 0)
+        && (vm_.count("master-files-folder") != 0))
       return kParseAndCompare;
 
     return kParsingError;
@@ -115,18 +110,19 @@ public:
   TestParam extractParamsForFullTest() const
   {
     TestParam param;
+    auto      defaultTestFolderParent = fs::path(__FILE__).parent_path().parent_path() / "e2e";
     if (vm_.count("input-folder"))
       param.inputPath = vm_["input-folder"].as<std::string>();
     else
-      param.inputPath = bfs::path(__FILE__).parent_path() / "test_input";
+      param.inputPath = defaultTestFolderParent / "test_input";
     if (vm_.count("output-folder"))
       param.outputPath = vm_["output-folder"].as<std::string>();
     else
-      param.outputPath = bfs::path(__FILE__).parent_path() / "test_output";
+      param.outputPath = defaultTestFolderParent / "test_output";
     if (vm_.count("master-files-folder"))
       param.masterPath = vm_["master-files-folder"].as<std::string>();
     else
-      param.masterPath = bfs::path(__FILE__).parent_path() / "test_master";
+      param.masterPath = defaultTestFolderParent / "test_master";
     param.setup();
     return param;
   }

@@ -229,7 +229,7 @@ inline void AcDMMWideString::Empty()
   }
   m_iLength = 0;
 }
-operator PCWIDESTR()
+operator PCWIDESTR() const
 {
   return (m_pData ? m_pData : L"");
 }

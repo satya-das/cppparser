@@ -21,10 +21,11 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __CPPPROG_H__
-#define __CPPPROG_H__
+#pragma once
 
-#include "cppdom.h"
+#include "cppast.h"
+#include "cppparser.h"
+#include "cpptypetree.h"
 
 #include <map>
 #include <set>
@@ -32,45 +33,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-struct CppTypeTreeNode;
-/**
- * \brief Represents the tree of C++ types.
- * All C++ types of a program can be arranged in a form of tree.
- * The root of the tree is the global namespace which contains other compound objects like namespace, class, struct,
- * etc. And each of those compound object can form another branch of tree.
- * \note This tree has no relation with
- * inheritance hierarchy.
- */
-typedef std::map<std::string, CppTypeTreeNode> CppTypeTree;
-
-struct CppObjSetCmp {
-  bool operator() (const CppObj* lhs, const CppObj* rhs) {
-    return lhs->objType_ < rhs->objType_;
-  }
-};
-
-typedef std::set<const CppObj*, CppObjSetCmp> CppObjSet;
-/**
- * \brief A node in a CppTypeTree.
- */
-struct CppTypeTreeNode
-{
-  /**
-   * This needs to be a set because same namespace can be defined multiple times.
-   * But members of all those definition will belong to single namespace.
-   * Also, A class can be forward declared before full definition.
-   */
-  CppObjSet        cppObjSet;
-  CppTypeTree      children;
-  CppTypeTreeNode* parent;
-
-  CppTypeTreeNode()
-    : parent(nullptr)
-  {
-  }
-};
-
-typedef std::vector<CppCompound*> CppCompoundArray;
+using CppCompoundArray = std::vector<CppCompoundPtr>;
 
 /**
  * \brief Represents an entire C++ program.
@@ -78,18 +41,9 @@ typedef std::vector<CppCompound*> CppCompoundArray;
 class CppProgram
 {
 public:
-  CppProgram();
-  CppProgram(CppProgram&&)      = delete;
-  CppProgram(const CppProgram&) = delete;
+  CppProgram(const std::string& folder, CppParser parser = CppParser());
 
 public:
-  /**
-   * Adds a new file DOM to this program.
-   * \warning It is a no-op if \a cppDom is not of kCppFile type.
-   */
-  void addCppDom(CppCompound* cppDom);
-  void addCompound(const CppCompound* compound, const CppCompound* parent);
-  void addCompound(const CppCompound* compound, CppTypeTreeNode* parentTypeNode);
   /**
    * Finds the CppTypeTreeNode object corresponding to a given name.
    * @param name Name of type for which CppTypeTreeNode needs to be found.
@@ -106,29 +60,34 @@ public:
    */
   const CppTypeTreeNode* typeTreeNodeFromCppObj(const CppObj* cppObj) const;
   /**
-   * @return An array of CppCompoundObj each element of which represents DOM of a C++ file.
+   * @return An array of CppCompound each element of which represents AST of a C++ file.
    */
-  const CppCompoundArray& getFileDOMs() const;
+  const CppCompoundArray& getFileAsts() const;
 
-protected:
+public:
+  /**
+   * Adds a new file AST to this program.
+   * \warning It is a no-op if \a cppAst is not of CppCompoundType::kCppFile type.
+   */
+  void addCppAst(CppCompoundPtr cppAst);
+  void addCompound(const CppCompound* compound, const CppCompound* parent);
+  void addCompound(const CppCompound* compound, CppTypeTreeNode* parentTypeNode);
+
+private:
   void loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeNode);
 
-protected:
-  typedef std::map<const CppObj*, CppTypeTreeNode*> CppObjToTypeNodeMap;
+private:
+  using CppObjToTypeNodeMap = std::map<const CppObj*, CppTypeTreeNode*>;
 
-  CppCompoundArray            fileDoms_;        ///< Array of all top level DOMs corresponding to files.
+  CppCompoundArray            fileAsts_;        ///< Array of all top level ASTs corresponding to files.
   CppTypeTreeNode             cppTypeTreeRoot_; ///< Repository of all compound objects arranged as type-tree.
   mutable CppObjToTypeNodeMap cppObjToTypeNode_;
+  CppParser                   parser_;
 };
 
-inline CppProgram::CppProgram()
+inline const CppCompoundArray& CppProgram::getFileAsts() const
 {
-  cppObjToTypeNode_[nullptr] = &cppTypeTreeRoot_;
-}
-
-inline const CppCompoundArray& CppProgram::getFileDOMs() const
-{
-  return fileDoms_;
+  return fileAsts_;
 }
 
 inline const CppTypeTreeNode* CppProgram::typeTreeNodeFromCppObj(const CppObj* cppObj) const
@@ -136,5 +95,3 @@ inline const CppTypeTreeNode* CppProgram::typeTreeNodeFromCppObj(const CppObj* c
   CppObjToTypeNodeMap::const_iterator itr = cppObjToTypeNode_.find(cppObj);
   return itr == cppObjToTypeNode_.end() ? nullptr : itr->second;
 }
-
-#endif //__CPPPROG_H__

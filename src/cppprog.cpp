@@ -22,22 +22,43 @@
  */
 
 #include "cppprog.h"
+#include "cpputil.h"
+#include "utils.h"
+
+#include "cppcompound-accessor.h"
+#include "cppfunc-accessor.h"
+#include "cppobj-accessor.h"
+#include "cppvar-accessor.h"
 
 //////////////////////////////////////////////////////////////////////////
 
-void CppProgram::addCppDom(CppCompound* cppDom)
+CppProgram::CppProgram(const std::string& folder, CppParser parser)
+  : parser_(std::move(parser))
 {
-  if (cppDom->compoundType_ != kCppFile)
+  cppObjToTypeNode_[nullptr] = &cppTypeTreeRoot_;
+
+  auto files = collectFiles(folder);
+  for (const auto& f : files)
+  {
+    auto cppAst = parser_.parseFile(f.c_str());
+    if (cppAst)
+      addCppAst(std::move(cppAst));
+  }
+}
+
+void CppProgram::addCppAst(CppCompoundPtr cppAst)
+{
+  if (!isCppFile(cppAst.get()))
     return;
-  loadType(cppDom, &cppTypeTreeRoot_);
-  fileDoms_.push_back(cppDom);
+  loadType(cppAst.get(), &cppTypeTreeRoot_);
+  fileAsts_.emplace_back(std::move(cppAst));
 }
 
 void CppProgram::addCompound(const CppCompound* compound, CppTypeTreeNode* parentTypeNode)
 {
-  if (compound->name_.empty())
+  if (compound->name().empty())
     return;
-  auto& childNode = parentTypeNode->children[compound->name_];
+  auto& childNode = parentTypeNode->children[compound->name()];
   childNode.cppObjSet.insert(compound);
   childNode.parent            = parentTypeNode;
   cppObjToTypeNode_[compound] = &childNode;
@@ -55,25 +76,24 @@ void CppProgram::loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeN
 {
   if (cppCompound == NULL)
     return;
-  if (cppCompound->isCppFile()) // Type node for file object should be the root itself.
+  if (isCppFile(cppCompound)) // Type node for file object should be the root itself.
   {
     cppObjToTypeNode_[cppCompound] = typeNode;
     typeNode->cppObjSet.insert(cppCompound);
   }
-  for (auto* mem : cppCompound->members_)
-  {
-    if (mem->objType_ == CppObj::kCompound)
+  forEachMember(cppCompound, [&](const CppObj* mem) {
+    if (isCompound(mem))
     {
       addCompound((CppCompound*) mem, typeNode);
     }
-    else if (mem->objType_ == CppObj::kEnum)
+    else if (isEnum(mem))
     {
       CppTypeTreeNode& childNode = typeNode->children[((CppEnum*) mem)->name_];
       childNode.cppObjSet.insert(mem);
       childNode.parent       = typeNode;
       cppObjToTypeNode_[mem] = &childNode;
     }
-    else if (mem->objType_ == CppObj::kTypedefName)
+    else if (isTypedefName(mem))
     {
       auto*            typedefName = static_cast<const CppTypedefName*>(mem);
       CppTypeTreeNode& childNode   = typeNode->children[typedefName->var_->name()];
@@ -81,17 +101,17 @@ void CppProgram::loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeN
       childNode.parent       = typeNode;
       cppObjToTypeNode_[mem] = &childNode;
     }
-    else if (mem->objType_ == CppObj::kFunctionPtr)
+    else if (isFunctionPtr(mem))
     {
       CppTypeTreeNode& childNode = typeNode->children[((CppFunctionPtr*) mem)->name_];
       childNode.cppObjSet.insert(mem);
       childNode.parent       = typeNode;
       cppObjToTypeNode_[mem] = &childNode;
     }
-    else if (mem->objType_ == CppObj::kFwdClsDecl)
+    else if (isFwdClsDecl(mem))
     {
-      auto* fwdCls = static_cast<CppFwdClsDecl*>(mem);
-      if (!(fwdCls->attr_ & kFriend))
+      auto* fwdCls = static_cast<const CppFwdClsDecl*>(mem);
+      if (!(fwdCls->attr() & kFriend))
       {
         CppTypeTreeNode& childNode = typeNode->children[((CppFwdClsDecl*) mem)->name_];
         childNode.cppObjSet.insert(mem);
@@ -99,7 +119,9 @@ void CppProgram::loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeN
         cppObjToTypeNode_[mem] = &childNode;
       }
     }
-  }
+
+    return false;
+  });
 }
 
 const CppTypeTreeNode* CppProgram::findTypeNode(const std::string& name, const CppTypeTreeNode* typeNode) const

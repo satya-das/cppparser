@@ -197,7 +197,7 @@ inline AcDbHandle AcDbHandle::operator++(int)
   ++(*this);
   return tempHandle;
 }
-operator Adesk::UInt64()
+operator Adesk::UInt64() const
 {
   return get64BitVal();
 }

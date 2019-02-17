@@ -23,32 +23,20 @@
 
 #pragma once
 
+#include "cppast.h"
 #include "cppconst.h"
 
-inline CppObjProtLevel defaultProtectionLevel(CppCompoundType type)
+inline CppAccessType defaultAccessType(CppCompoundType type)
 {
-  return (type == kClass) ? kPrivate : kPublic;
+  return (type == CppCompoundType::kClass) ? CppAccessType::kPrivate : CppAccessType::kPublic;
 }
 
-inline CppObjProtLevel effectiveProtectionLevel(CppObjProtLevel protLevel, CppCompoundType ownerType)
+inline CppAccessType effectiveAccessType(CppAccessType objAccessType, CppCompoundType ownerType)
 {
-  return (protLevel != kUnknownProt) ? protLevel : defaultProtectionLevel(ownerType);
+  return (objAccessType != CppAccessType::kUnknown) ? objAccessType : defaultAccessType(ownerType);
 }
 
-inline CppObjProtLevel resolveInheritanceType(CppObjProtLevel inheritanceType, CppCompoundType type)
+inline CppAccessType resolveInheritanceType(CppAccessType inheritanceType, CppCompoundType type)
 {
-  return (inheritanceType != kUnknownProt) ? inheritanceType : defaultProtectionLevel(type);
-}
-
-inline bool isMemberPublic(CppObjProtLevel protLevel, CppCompoundType ownerType)
-{
-  return effectiveProtectionLevel(protLevel, ownerType) == kPublic;
-}
-inline bool isMemberProtected(CppObjProtLevel protLevel, CppCompoundType ownerType)
-{
-  return effectiveProtectionLevel(protLevel, ownerType) == kProtected;
-}
-inline bool isMemberPrivate(CppObjProtLevel protLevel, CppCompoundType ownerType)
-{
-  return effectiveProtectionLevel(protLevel, ownerType) == kPrivate;
+  return (inheritanceType != CppAccessType::kUnknown) ? inheritanceType : defaultAccessType(type);
 }

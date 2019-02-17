@@ -21,10 +21,9 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __CPPPARSER_CPPWRITER_H__
-#define __CPPPARSER_CPPWRITER_H__
+#pragma once
 
-#include "cppdom.h"
+#include "cppast.h"
 #include "cppindent.h"
 
 #include <string>
@@ -32,7 +31,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 /**
- * Responsible for emitting C/C++ source from CppDom data structure.
+ * Responsible for emitting C/C++ source from CppAst data structure.
  * Implementation of emitting various C/C++ objects should never change
  * the style of code generated. Addition of new functionality and bug fixes
  * are allowed but care must be taken not to change the style of emitted code.
@@ -88,8 +87,8 @@ public:
                               std::ostream&        stm,
                               CppIndent            indentation = CppIndent()) const;
   virtual void emitTypeConverter(const CppTypeConverter* typeConverterObj,
-                                 std::ostream&          stm,
-                                 CppIndent              indentation = CppIndent()) const;
+                                 std::ostream&           stm,
+                                 CppIndent               indentation = CppIndent()) const;
   virtual void emitDocComment(const CppDocComment* docCommentObj,
                               std::ostream&        stm,
                               CppIndent            indentation = CppIndent()) const;
@@ -103,7 +102,7 @@ public:
   virtual void emitBlob(const CppBlob* blobObj, std::ostream& stm) const;
 
   virtual void emitVarType(const CppVarType* varTypeObj, std::ostream& stm) const;
-  virtual void emitParamList(const CppParamList* paramListObj, std::ostream& stm) const;
+  virtual void emitParamList(const CppParamVector* paramListObj, std::ostream& stm) const;
   virtual void emitExprAtom(const CppExprAtom& exprObj, std::ostream& stm, CppIndent indentation = CppIndent()) const;
 
   virtual void emitIfBlock(const CppIfBlock* ifBlock, std::ostream& stm, CppIndent indentation = CppIndent()) const;
@@ -120,7 +119,7 @@ public:
 
 public:
   void emitVar(const CppVar* varObj, std::ostream& stm, bool skipName) const;
-  void emitParamList(const CppParamList* paramListObj, std::ostream& stm, bool skipName) const;
+  void emitParamList(const CppParamVector* paramListObj, std::ostream& stm, bool skipName) const;
   void emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& stm, bool skipName) const;
   void emitFunction(const CppFunction* funcObj, std::ostream& stm, bool skipParamName) const;
   void emitConstructor(const CppConstructor* ctorObj, std::ostream& stm, bool skipParamName) const;
@@ -139,7 +138,7 @@ private:
                        CppIndent             indentation,
                        bool                  skipParamName) const;
 
-  void emitTemplSpec(const CppTemplateParamListP& templSpec, std::ostream& stm, CppIndent indentation) const;
+  void emitTemplSpec(const CppTemplateParamList* templSpec, std::ostream& stm, CppIndent indentation) const;
   void emitVarDecl(std::ostream& stm, const CppVarDecl& varDecl, bool skipName) const;
 
 private:
@@ -170,7 +169,7 @@ inline void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, bool ski
 
 inline void CppWriter::emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& stm, bool skipName) const
 {
-  if (funcPtrObj->attr_ & kTypedef)
+  if (funcPtrObj->attr() & kTypedef)
     return; // Typedef of funcptr without name makes no sense.
   emitFunction(funcPtrObj, stm, CppIndent(), skipName, skipName);
 }
@@ -191,20 +190,20 @@ inline std::ostream& operator<<(std::ostream& stm, const CppIndent& indentation)
   return stm;
 }
 
-inline std::ostream& operator<<(std::ostream& stm, CppObjProtLevel prot)
+inline std::ostream& operator<<(std::ostream& stm, CppAccessType accessType)
 {
-  switch (prot)
+  switch (accessType)
   {
-    case kPublic:
+    case CppAccessType::kPublic:
       stm << "public";
       break;
-    case kProtected:
+    case CppAccessType::kProtected:
       stm << "protected";
       break;
-    case kPrivate:
+    case CppAccessType::kPrivate:
       stm << "private";
       break;
-      
+
     default:
       break;
   }
@@ -215,23 +214,21 @@ inline std::ostream& operator<<(std::ostream& stm, CppCompoundType cmpndType)
 {
   switch (cmpndType)
   {
-    case kNamespace:
+    case CppCompoundType::kNamespace:
       stm << "namespace";
       break;
-    case kClass:
+    case CppCompoundType::kClass:
       stm << "class";
       break;
-    case kStruct:
+    case CppCompoundType::kStruct:
       stm << "struct";
       break;
-    case kUnion:
+    case CppCompoundType::kUnion:
       stm << "union";
       break;
-      
+
     default:
       break;
   }
   return stm;
 }
-
-#endif //__CPPPARSER_CPPWRITER_H__

@@ -21,17 +21,13 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "cppdom.h"
+#include "cppast.h"
 #include "cpputil.h"
 
-CppCompound* CppObj::root() const
-{
-  if (owner_ == nullptr)
-    return (objType_ == kCompound) ? const_cast<CppCompound*>(static_cast<const CppCompound*>(this)) : nullptr;
-  if (owner_->owner_ == nullptr)
-    return owner_;
-  return owner_->root();
-}
+#include "cppcompound-accessor.h"
+#include "cppfunc-accessor.h"
+#include "cppobj-accessor.h"
+#include "cppvar-accessor.h"
 
 bool CppConstructor::isCopyConstructor() const
 {
@@ -41,21 +37,24 @@ bool CppConstructor::isCopyConstructor() const
   isCopyConstructor_ = false;
   if (!params_ || (params_->size() != 1))
     return false;
-  const auto param = params_->front().varObj;
-  if (param->varType_->typeModifier_.ptrLevel_ != 0)
+  const auto& param = params_->front();
+  if (!isVar(param.get()))
     return false;
-  if (!param->varType_->isConst() || !param->varType_->isByRef())
+  const auto* var = static_cast<const CppVar*>(param.get());
+  if (ptrLevel(var->varType()) != 0)
     return false;
-  auto templStartPos = param->varType_->baseType_.find('<');
+  if (!isConst(var->varType()) || !isByRef(var->varType()))
+    return false;
+  auto templStartPos = var->varType()->baseType().find('<');
   if (templStartPos != std::string::npos)
   {
-    while(isspace(param->varType_->baseType_[--templStartPos]))
+    while (isspace(var->varType()->baseType()[--templStartPos]))
       ;
     ++templStartPos;
-    if(param->varType_->baseType_.substr(0, templStartPos) != name_)
+    if (var->varType()->baseType().substr(0, templStartPos) != name_)
       return false;
   }
-  else if (param->varType_->baseType_ != name_)
+  else if (var->varType()->baseType() != name_)
   {
     return false;
   }
@@ -71,21 +70,26 @@ bool CppConstructor::isMoveConstructor() const
   isMoveConstructor_ = false;
   if (!params_ || (params_->size() != 1))
     return false;
-  const auto param = params_->front().varObj;
-  if (param->varType_->typeModifier_.ptrLevel_ != 0)
+  const auto& param = params_->front();
+  if (!isVar(param.get()))
     return false;
-  if (param->varType_->isConst() || !param->varType_->isByRValueRef())
+  const auto* var = static_cast<const CppVar*>(param.get());
+  if (ptrLevel(var->varType()) != 0)
     return false;
-  auto templStartPos = param->varType_->baseType_.find('<');
+  if (ptrLevel(var->varType()) != 0)
+    return false;
+  if (isConst(var->varType()) || !isByRValueRef(var->varType()))
+    return false;
+  auto templStartPos = var->varType()->baseType().find('<');
   if (templStartPos != std::string::npos)
   {
-    while(isspace(param->varType_->baseType_[--templStartPos]))
+    while (isspace(var->varType()->baseType()[--templStartPos]))
       ;
     ++templStartPos;
-    if(param->varType_->baseType_.substr(0, templStartPos) != name_)
+    if (var->varType()->baseType().substr(0, templStartPos) != name_)
       return false;
   }
-  else if (param->varType_->baseType_ != name_)
+  else if (var->varType()->baseType() != name_)
   {
     return false;
   }
@@ -95,54 +99,55 @@ bool CppConstructor::isMoveConstructor() const
 
 bool CppCompound::hasPublicVirtualMethod() const
 {
-  if (!isClassLike())
+  if (!isClassLike(this))
     return false;
   if (hasVirtual_)
     return *hasVirtual_;
   hasVirtual_ = false;
-  for (auto mem : members_)
-  {
-    if ((mem->objType_ == kFunction) && isMemberPublic(mem->protectionLevel(), compoundType_))
+  forEachMember(this, [&](const CppObj* mem) {
+    if (isFunction(mem) && isPublic(mem))
     {
       auto func = (CppFunction*) mem;
-      if (func->attr_ & (kVirtual | kOverride))
+      if (func->attr() & (kVirtual | kOverride))
       {
         hasVirtual_ = true;
-        break;
+        return true;
       }
     }
-  }
+    return false;
+  });
   return *hasVirtual_;
 }
 
 bool CppCompound::hasPureVirtual() const
 {
-  if (!isClassLike())
+  if (!isClassLike(this))
     return false;
   if (hasPureVirtual_)
     return *hasPureVirtual_;
   hasPureVirtual_ = false;
-  for (auto mem : members_)
-  {
-    if (mem->objType_ == kFunction)
+  forEachMember(this, [&](const CppObj* mem) {
+    if (isFunction(mem))
     {
       auto func = static_cast<const CppFunction*>(mem);
-      if (func->isPureVirtual())
+      if (isPureVirtual(func))
       {
         hasPureVirtual_ = true;
-        break;
+        return true;
       }
     }
-    else if (mem->objType_ == kDestructor)
+    else if (isDestructor(mem))
     {
       auto dtor = static_cast<const CppDestructor*>(mem);
-      if (dtor->isPureVirtual())
+      if (isPureVirtual(dtor))
       {
         hasPureVirtual_ = true;
-        break;
+        return true;
       }
     }
-  }
+
+    return false;
+  });
   return *hasPureVirtual_;
 }
 
@@ -160,7 +165,7 @@ bool CppCompound::triviallyConstructable() const
 
 void CppCompound::assignSpecialMember(const CppObj* mem)
 {
-  if (mem->objType_ == kConstructor)
+  if (mem->objType_ == CppObjType::kConstructor)
   {
     auto* ctor = static_cast<const CppConstructor*>(mem);
     ctors_.push_back(ctor);
@@ -169,8 +174,13 @@ void CppCompound::assignSpecialMember(const CppObj* mem)
     else if (ctor->isMoveConstructor())
       moveCtor_ = ctor;
   }
-  else if (mem->objType_ == kDestructor)
+  else if (mem->objType_ == CppObjType::kDestructor)
   {
     dtor_ = static_cast<const CppDestructor*>(mem);
   }
+}
+
+CppObjType objType(const CppObj* cppObj)
+{
+  return cppObj->objType_;
 }

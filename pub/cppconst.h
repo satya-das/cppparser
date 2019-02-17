@@ -25,7 +25,55 @@
 
 #include <cstdint>
 
-enum CppCompoundType
+enum class CppObjType : std::uint8_t
+{
+  kUnknown = 0x0000,
+  kDocComment,
+
+  kCPreProcessorTypeStarts, // Any preprocessor type must come after this
+  kHashIf,                  // #if, #ifdef, #ifndef, #else, #elif.
+  kHashInclude,             // #include
+  kHashDefine,              // #define
+  kHashUndef,               // #undef
+  kHashPragma,              // #pragma
+  kHashError,
+  kUnRecogPrePro, // Any unrecognized pre-processor.
+  kCPreProcessorTypeEnds,
+
+  kCppStatementObjectTypeStarts,
+  kVarType, // Just the type of variable.
+  kVar,     // A variable declaration.
+  kVarList, // List of variables declared as comma separated identifiers.
+  kTypedefName,
+  kTypedefNameList,
+  kNamespaceAlias,
+  kUsingNamespaceDecl,
+  kUsingDecl,
+  kEnum,
+  kCompound,   // file, namespace, class, struct, union, block.
+  kFwdClsDecl, // Forward declaration of compound type.
+  kFunction,
+  kConstructor,
+  kDestructor,
+  kTypeConverter,
+  kFunctionPtr, // Function proc declaration using typedef. e.g. typedef void (*fp) (void);
+  kExpression,  // A C++ expression
+  kExpressionList,
+  kFuncCall, // A function call expression
+  kMacroCall,
+  kBlob, // Some unparsed/unrecognized part of C++ source code.
+  kCppStatementObjectTypeEnds,
+
+  kCppControlStatementStarts,
+  kIfBlock,
+  kForBlock,
+  kWhileBlock,
+  kDoWhileBlock,
+  kSwitchBlock,
+  kCppControlStatementEnds,
+};
+
+enum /*class*/ CppCompoundType : std::uint8_t
 {
   kUnknownCompound = 0x00,
   kNoCompound      = 0x00,
@@ -38,15 +86,15 @@ enum CppCompoundType
   kExternCBlock    = 0x40,
 };
 
-enum CppObjProtLevel : std::uint8_t
+enum class CppAccessType : std::uint8_t
 {
-  kUnknownProt,
+  kUnknown,
   kPublic,
   kPrivate,
   kProtected
 };
 
-enum CppOperType
+enum /*class*/ CppOperator : std::uint8_t
 {
   kNone,
 
@@ -117,7 +165,7 @@ enum CppOperType
 /**
  * State of variable or function.
  */
-enum CppIdentifierAttrib
+enum /*class*/ CppIdentifierAttrib : std::uint32_t
 {
   kFuncParam   = 0x0001, // If the identifier is actually function parameter.
   kConst       = 0x0002,
@@ -142,15 +190,23 @@ enum CppIdentifierAttrib
 /**
  * Type of references a variable can have in a C++ program.
  */
-enum CppRefType : std::uint8_t
+enum class CppRefType : std::uint8_t
 {
   kNoRef,  // No reference.
   kByRef,  // Simple reference, e.g. int& x.
   kRValRef // R-value reference, e.g. in move constructor.
 };
 
+enum class AssignType
+{
+  kNone,
+  kUsingEqual,
+  kUsingBracket,
+  kUsingBraces
+};
+
 /// Miscellaneous constants for readability of code
-enum
+enum : std::uint8_t
 {
   kNoPtr      = 0,
   kPtr        = 1,

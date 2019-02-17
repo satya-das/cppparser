@@ -1,8 +1,0 @@
-BUGS:
-" = 0" in pure virtual is missing.
-throw spec of ctor is missing.
-" = delete" of copy-ctor and assignment operator are missing.
-"override" missing from pure virtual
-"throw()" is missing from all function declarations.
-protection level change in conditions like #ifdef applies in all conditions.
-Make members of CppCompound private.

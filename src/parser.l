@@ -27,12 +27,12 @@
 IMPORTANT: This file contains code to tokenify the input using flex
 For simplicity and ease of tracking error in input lexer's output is always a string (represented by CppToken).
 Responsiblity of token synthesis is solely on parser.
-For this very reason this file does not use any class that are defined in cppdom.h
+For this very reason this file does not use any class that are defined in cppast.h
 */
 
 %{
+#include "cppast.h" // To shutup the compiler
 #include "cppconst.h" // To shutup the compiler
-#include "cppdom.h" // To shutup the compiler
 
 #include "cpptoken.h"
 #include "parser.tab.h"

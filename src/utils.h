@@ -23,11 +23,12 @@
 
 #pragma once
 
-#include "cppdom.h"
+#include "cppast.h"
 #include "cppobjfactory.h"
 #include "cpptoken.h"
 
 #include <iterator>
+#include <vector>
 
 extern CppObjFactory* gObjFactory;
 
@@ -67,32 +68,7 @@ inline std::reverse_iterator<Iter> rev(Iter i)
   return std::reverse_iterator<Iter>(i);
 }
 
-inline CppToken classNameFromIdentifier(const CppToken& identifier)
-{
-  if (identifier.sz == nullptr)
-    return identifier;
+CppToken classNameFromIdentifier(const CppToken& identifier);
 
-  auto rbeg = rev(identifier.sz + identifier.len);
-  if (*rbeg != '>')
-    return identifier;
-  auto rend     = rev(identifier.sz);
-  int  numTempl = 1;
-  for (++rbeg; rbeg != rend; ++rbeg)
-  {
-    if (*rbeg == '<')
-    {
-      --numTempl;
-      if (numTempl == 0)
-      {
-        CppToken clsName{identifier.sz, static_cast<size_t>(std::distance(rbeg, rend)) - 1};
-        return clsName;
-      }
-    }
-    else if (*rbeg == '>')
-    {
-      ++numTempl;
-    }
-  }
-
-  return CppToken{nullptr, 0U};
-}
+std::vector<char>        readFile(const std::string& filename);
+std::vector<std::string> collectFiles(const std::string& folder);

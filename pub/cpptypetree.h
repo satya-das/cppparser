@@ -23,32 +23,48 @@
 
 #pragma once
 
-#include "cppobjfactory.h"
+#include "cppast.h"
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
+#include <map>
+#include <set>
 
-class CppParser
+struct CppTypeTreeNode;
+/**
+ * \brief Represents the tree of types in a C++ program.
+ *
+ * All C++ types of a program can be arranged in form of a tree.
+ * The root of the tree is the global namespace which contains other compound objects like namespace, class, struct,
+ * etc. And each of those compound object can form another branch of tree.
+ *
+ * \note This tree has no relation with inheritance hierarchy.
+ */
+using CppTypeTree = std::map<std::string, CppTypeTreeNode>;
+
+struct CppObjSetCmp
 {
-public:
-  CppParser(CppObjFactoryPtr objFactory = nullptr);
-  CppParser(CppParser&& rhs)
-    : objFactory_(std::move(rhs.objFactory_))
+  bool operator()(const CppObj* lhs, const CppObj* rhs) const
+  {
+    return lhs->objType_ < rhs->objType_;
+  }
+};
+
+using CppObjSet = std::set<const CppObj*, CppObjSetCmp>;
+/**
+ * \brief A node in a CppTypeTree.
+ */
+struct CppTypeTreeNode
+{
+  /**
+   * This needs to be a set because same namespace can be defined multiple times.
+   * But members of all those definition will belong to single namespace.
+   * Also, A class can be forward declared before full definition.
+   */
+  CppObjSet        cppObjSet;
+  CppTypeTree      children;
+  CppTypeTreeNode* parent;
+
+  CppTypeTreeNode()
+    : parent(nullptr)
   {
   }
-
-public:
-  void addKnownMacro(std::string knownMacro);
-  void addKnownMacros(const std::vector<std::string>& knownMacros);
-
-  void addKnownApiDecor(std::string knownApiDecor);
-  void addKnownApiDecors(const std::vector<std::string>& knownApiDecor);
-
-  bool addRenamedKeyword(const std::string& keyword, std::string renamedKeyword);
-
-public:
-  CppCompoundPtr parseFile(const std::string& filename);
-  CppCompoundPtr parseStream(char* stm, size_t stmSize);
-
-private:
-  CppObjFactoryPtr objFactory_;
 };

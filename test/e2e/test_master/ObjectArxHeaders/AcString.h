@@ -846,7 +846,7 @@ AcString operator +(wchar_t wch, const AcString& acs);
 AcString operator +(const wchar_t* pwsz, const AcString& acs);
 // Accessing inlines
 //
-operator const wchar_t*()
+operator const wchar_t*() const
 {
   return this->kwszPtr();
 }

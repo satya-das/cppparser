@@ -401,7 +401,7 @@ inline T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::operator->()
   return object();
 }
 template <typename T_OBJECT>
-operator const T_OBJECT*()
+operator const T_OBJECT*() const
 {
   return object();
 }

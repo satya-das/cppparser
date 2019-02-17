@@ -23,14 +23,14 @@
 
 #include "cppobjfactory.h"
 
-CppCompound* CppObjFactory::CreateCompound(std::string name, CppObjProtLevel prot, CppCompoundType type) const
+CppCompound* CppObjFactory::CreateCompound(std::string name, CppAccessType accessType, CppCompoundType type) const
 {
-  return new CppCompound(std::move(name), prot, type);
+  return new CppCompound(std::move(name), accessType, type);
 }
 
-CppCompound* CppObjFactory::CreateCompound(CppObjProtLevel prot, CppCompoundType type) const
+CppCompound* CppObjFactory::CreateCompound(CppAccessType accessType, CppCompoundType type) const
 {
-  return new CppCompound(prot, type);
+  return new CppCompound(accessType, type);
 }
 
 CppCompound* CppObjFactory::CreateCompound(std::string name, CppCompoundType type) const
@@ -43,27 +43,27 @@ CppCompound* CppObjFactory::CreateCompound(CppCompoundType type) const
   return new CppCompound(type);
 }
 
-CppConstructor* CppObjFactory::CreateConstructor(CppObjProtLevel prot,
+CppConstructor* CppObjFactory::CreateConstructor(CppAccessType   accessType,
                                                  std::string     name,
-                                                 CppParamList*   params,
+                                                 CppParamVector* params,
                                                  CppMemInitList* memInitList,
                                                  unsigned int    attr) const
 {
-  return new CppConstructor(prot, std::move(name), params, memInitList, attr);
+  return new CppConstructor(accessType, std::move(name), params, memInitList, attr);
 }
 
-CppDestructor* CppObjFactory::CreateDestructor(CppObjProtLevel prot, std::string name, unsigned int attr) const
+CppDestructor* CppObjFactory::CreateDestructor(CppAccessType accessType, std::string name, unsigned int attr) const
 {
-  return new CppDestructor(prot, name, attr);
+  return new CppDestructor(accessType, name, attr);
 }
 
-CppFunction* CppObjFactory::CreateFunction(CppObjProtLevel prot,
+CppFunction* CppObjFactory::CreateFunction(CppAccessType   accessType,
                                            std::string     name,
                                            CppVarType*     retType,
-                                           CppParamList*   params,
+                                           CppParamVector* params,
                                            unsigned int    attr) const
 {
-  return new CppFunction(prot, std::move(name), retType, params, attr);
+  return new CppFunction(accessType, std::move(name), retType, params, attr);
 }
 
 CppTypeConverter* CppObjFactory::CreateTypeConverter(CppVarType* type, std::string name) const
