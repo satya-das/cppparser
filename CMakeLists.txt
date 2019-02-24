@@ -37,7 +37,7 @@ add_custom_command(
 
 add_custom_command(
 	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.lex.cpp
-	COMMAND flex -o${CMAKE_CURRENT_SOURCE_DIR}/parser.lex.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.l
+	COMMAND flex -o${CMAKE_CURRENT_SOURCE_DIR}/src/parser.lex.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.l
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.l ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.tab.h
 )
 
