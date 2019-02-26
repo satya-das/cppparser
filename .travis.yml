@@ -24,7 +24,7 @@ script:
   - git clone https://github.com/satya-das/common.git
   - mkdir -p build_results/GNU
   - cd build_results/GNU
-  - cmake -DCMAKE_C_COMPILER=`which gcc-5` -DCMAKE_CXX_COMPILER=`which g++-5` ../../cib/
+  - cmake -DCMAKE_C_COMPILER=`which gcc-5` -DCMAKE_CXX_COMPILER=`which g++-5` ../../cppparser/
   - make
   - make test
 
