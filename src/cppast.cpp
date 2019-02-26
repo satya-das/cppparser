@@ -182,5 +182,5 @@ void CppCompound::assignSpecialMember(const CppObj* mem)
 
 CppObjType objType(const CppObj* cppObj)
 {
-  return cppObj->objType_;
+  return cppObj ? cppObj->objType_ : CppObjType::kUnknown;
 }
