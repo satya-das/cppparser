@@ -1,4 +1,9 @@
-# CppParser
+CppParser
+=========
+
+[![Build Status](https://travis-ci.com/satya-das/cppparser.svg?branch=master)](https://travis-ci.com/satya-das/cppparser)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2a1f6c5c8c149be816f1514ec491c98)](https://www.codacy.com/app/satya-das/cppparser?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=satya-das/cppparser&amp;utm_campaign=Badge_Grade)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 An easy, fast, and robust library to parse C/C++ source.
 
