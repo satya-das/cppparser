@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 2.8.7)
-include("../common/cmake/conf.cmake")
-cmake_policy(SET CMP0054 NEW)
 
 project(cppparser)
+
+enable_testing()
+
+include("../common/cmake/conf.cmake")
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd\"4996\"")
@@ -16,7 +18,6 @@ add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
 add_subdirectory(../common/third_party/boost_tp/cmake  ${CMAKE_BINARY_DIR}/boost)
 
 include_directories(../common/third_party)
-enable_testing()
 
 #############################################
 ## CppParser

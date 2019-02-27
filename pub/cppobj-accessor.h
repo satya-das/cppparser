@@ -138,7 +138,7 @@ inline bool isClassLike(const CppObj* cppObj)
   if (!isCompound(cppObj))
     return false;
   auto* compound = static_cast<const CppCompound*>(cppObj);
-  return (compound->compoundType() & CppCompoundType::kClass) >= CppCompoundType::kClass;
+  return (compound->compoundType() & CppCompoundType::kClass) == CppCompoundType::kClass;
 }
 
 inline bool isClassLike(const CppObjPtr& cppObj)
