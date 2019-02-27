@@ -8,11 +8,12 @@ CppParser
 An easy, fast, and robust library to parse C/C++ source.
 
 ## Features
-- No pre-processing, even preprocessors are part of the ast.
-- Even most comments are preserved too and are part of the ast.
+- No pre-processing, and preprocessors are part of the ast.
+- Most comments are preserved too.
 - Developed from scratch and uses back-tracking yacc (BtYacc) to write C++ grammer, that means **no dependency on libclang**.
-- The result of parsing is the AST where elements of a file are arranged in a tree.
-- Minimum dependency. Only external dependency is a [lexer](https://github.com/westes/flex) which is by default available on unix like platforms and can be easily get on Windows.
+- The result of parsing is an AST where elements of a file are arranged in a tree.
+- Minimum dependency. Only external dependency is a [lexer](https://github.com/westes/flex) which is by default available on unix like platforms and can be easily [get on Windows](http://gnuwin32.sourceforge.net/packages/flex.htm).
+- Parsing of multi-file program is supported too.
 
 ## Motivation 
 CppParser can be used to build tools that need parsing of C/C++ files.
@@ -20,18 +21,18 @@ I am using it to develop [cib](https://github.com/satya-das/cib/) which implemen
 
 ## Example
 
-To begin with we will see an example of parsing a hellp-world program and see what is the AST that `cppparser` creates:
+To begin with we will see an example of parsing a hello-world program and see what is the AST that `CppParser` creates:
 !INCLUDECODE "test/unit/test-files/hello-world.cpp" (c++)
 
 For the above hello-world program we can expect that when it is parsed the generated AST should look like following:
 ![AST for Hello World program](https://github.com/satya-das/cppparser/blob/master/src/readme-assets/HelloWorldAST.svg "AST for Hello World program")
 
-So, how we are going to access these elements of AST using `cppparser`?
+So, how we are going to access these elements of AST using `CppParser`?
 Below is the program written as unit-test for validating the correctness of generated AST:
 
 !INCLUDECODE "test/unit/test-hello-world.cpp" (c++)
 
-This is example is a real one and is part of actual unit test of cppparser.
+**This example is a real one and is part of actual unit test of CppParser**.
 
 ## Building CppParser
 
@@ -39,13 +40,13 @@ This is example is a real one and is part of actual unit test of cppparser.
 
 ```sh
 git clone https://github.com/satya-das/common.git
-git clone https://github.com/satya-das/cppparser.git
+git clone https://github.com/satya-das/CppParser.git
 ```
 
 ## Configure and build
 
 ```sh
-cd cppparser
+cd CppParser
 mkdir builds
 cd builds
 cmake ..
@@ -55,7 +56,7 @@ make && make test
 *Alternatively, if you prefer `Ninja` instead of `make`*:
 
 ```sh
-cd cppparser
+cd CppParser
 mkdir builds
 cd builds
 cmake -G Ninja ..
