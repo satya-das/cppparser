@@ -29,7 +29,7 @@ int main()
 ```
 
 For the above hello-world program we can expect that when it is parsed the generated AST should look like following:
-![AST for Hello World program](https://github.com/satya-das/cppparser/src/readme-assets/HelloWorldAST.svg "AST for Hello World program")
+![AST for Hello World program](https://github.com/satya-das/cppparser/blob/master/src/readme-assets/HelloWorldAST.svg "AST for Hello World program")
 
 So, how we are going to access these elements of AST using `cppparser`?
 Below is the program written as unit-test for validating the correctness of generated AST:
