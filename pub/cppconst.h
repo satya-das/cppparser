@@ -133,8 +133,10 @@ enum /*class*/ CppOperator : std::uint8_t
   kXorEqual,
   kAndEqual,
   kOrEqual,
-  kLeftShift,   // <<
-  kRightShift,  // >>
+  kLeftShift, // <<
+  kInsertion = kLeftShift,
+  kRightShift, // >>
+  kExtraction = kRightShift,
   kLShiftEqual, // <<=
   kRShiftEqual, // >>=
   kCmpEqual,    // ==

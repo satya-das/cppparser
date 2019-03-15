@@ -30,5 +30,5 @@ TEST_CASE(" Parsing hello world program")
 
   CppExprEPtr coutHelloWorld = mainBodyMembers[0];
   REQUIRE(coutHelloWorld);
-  CHECK(coutHelloWorld->oper_ == CppOperator::kLeftShift);
+  CHECK(coutHelloWorld->oper_ == CppOperator::kInsertion);
 }
