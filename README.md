@@ -92,7 +92,7 @@ git clone https://github.com/satya-das/CppParser.git
 ## Configure and build
 
 ```sh
-cd CppParser
+cd cppparser
 mkdir builds
 cd builds
 cmake ..
@@ -102,7 +102,7 @@ make && make test
 *Alternatively, if you prefer `Ninja` instead of `make`*:
 
 ```sh
-cd CppParser
+cd cppparser
 mkdir builds
 cd builds
 cmake -G Ninja ..
