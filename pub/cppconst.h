@@ -70,6 +70,7 @@ enum class CppObjType : std::uint8_t
   kWhileBlock,
   kDoWhileBlock,
   kSwitchBlock,
+  kTryBlock,
   kCppControlStatementEnds,
 };
 

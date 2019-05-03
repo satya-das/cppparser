@@ -1470,6 +1470,38 @@ struct CppSwitchBlock : public CppObj
 
 using CppSwitchBlockEPtr = CppEasyPtr<CppSwitchBlock>;
 
+struct CppCatchBlock
+{
+  const CppVarTypePtr  exceptionType_;
+  const std::string    exceptionName_;
+  const CppCompoundPtr catchStmt_;
+};
+
+using CppCatchBlockPtr = std::unique_ptr<CppCatchBlock>;
+
+using CppCatchBlocks = std::vector<CppCatchBlockPtr>;
+
+struct CppTryBlock : public CppObj
+{
+  static constexpr CppObjType kObjectType = CppObjType::kTryBlock;
+  const CppCompoundPtr        tryStmt_;
+
+  CppTryBlock(CppCompound* tryStmt, CppCatchBlock* firstCatchBlock)
+    : CppObj(kObjectType, CppAccessType::kUnknown)
+    , tryStmt_(tryStmt)
+  {
+    catchBlocks_.emplace_back(firstCatchBlock);
+  }
+
+  void addCatchBlock(CppCatchBlock* catchBlock)
+  {
+    catchBlocks_.emplace_back(catchBlock);
+  }
+
+private:
+  CppCatchBlocks catchBlocks_;
+};
+
 /**
  * \brief A stream of text that represents some content in a C++ program.
 

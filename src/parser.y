@@ -168,6 +168,8 @@ extern int yylex();
   CppForBlock*            forBlock;
   CppSwitchBlock*         switchBlock;
   CppSwitchBody*          switchBody;
+  CppTryBlock*            tryBlock;
+  CppCatchBlock*          catchBlock;
 
   CppDefine*              hashDefine;
   CppUndef*               hashUndef;
@@ -249,6 +251,8 @@ extern int yylex();
 %type  <forBlock>           forblock;
 %type  <switchBlock>        switchstmt;
 %type  <switchBody>         caselist;
+%type  <tryBlock>           tryblock;
+%type  <catchBlock>         catchblock;
 %type  <cppFuncPointerObj>  functionpointer funcpointerdecl
 %type  <cppFuncObj>         funcdecl funcdeclstmt funcdefn
 %type  <cppCtorObj>         ctordecl ctordeclstmt ctordefn
@@ -397,6 +401,7 @@ stmt              : vardeclstmt         { $$ = $1; }
                   | pragma              { $$ = $1; }
                   | block               { $$ = $1; }
                   | switchstmt          { $$ = $1; }
+                  | tryblock            { $$ = $1; }
                   | usingdecl           { $$ = $1; }
                   | usingnamespacedecl  { $$ = $1; }
                   | namespacealias      { $$ = $1; }
@@ -474,6 +479,20 @@ forblock          : tknFor '(' optexpr ';' optexpr ';' optexpr ')' stmt {
                   }
                   | tknFor '(' varinit ';' optexpr ';' optexpr ')' stmt {
                     $$ = new CppForBlock($3, $5, $7, $9);
+                  }
+                  ;
+
+tryblock          : tknTry block catchblock {
+                    $$ = new CppTryBlock($2, $3);
+                  }
+                  | tryblock catchblock {
+                    $$ = $1;
+                    $$->addCatchBlock($2);
+                  }
+                  ;
+
+catchblock        : tknCatch '(' vartype optid ')' block {
+                    $$ = new CppCatchBlock{CppVarTypePtr($3), $4, CppCompoundPtr($6)};
                   }
                   ;
 

@@ -95,8 +95,6 @@ public:
     bpo::notify(vm_);
     if (vm_.count("help"))
       return kHelpSought;
-    if (vm_.count("parse-single-file"))
-      return kParseSingleFile;
     if ((vm_.count("input-folder") == 0) && (vm_.count("output-folder") == 0)
         && (vm_.count("master-files-folder") == 0))
       return kParseAndCompareUsingDefaultPaths;
