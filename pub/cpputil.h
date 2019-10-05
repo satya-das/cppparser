@@ -40,3 +40,8 @@ inline CppAccessType resolveInheritanceType(CppAccessType inheritanceType, CppCo
 {
   return (inheritanceType != CppAccessType::kUnknown) ? inheritanceType : defaultAccessType(type);
 }
+
+inline bool isUniquePtr(const CppVarType* varType)
+{
+  return (varType->baseType().compare(0, 15, "std::unique_ptr") == 0);
+}
