@@ -409,7 +409,7 @@ stmt              : vardeclstmt         { $$ = $1; }
                   | ';'                 { $$ = nullptr; }  /* blank statement */
                   ;
 
-macrocall         : tknMacro
+macrocall         : tknMacro [ZZVALID;]
                   {
                     $$ = $1;
                   }
@@ -571,6 +571,7 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | optnumsignspec tknInt                 { $$ = mergeCppToken($1, $2); }
                   | optnumsignspec tknShort               { $$ = mergeCppToken($1, $2); }
                   | optnumsignspec tknChar                { $$ = mergeCppToken($1, $2); }
+                  | tknNumSignSpec                        { $$ = $1;}
                   | tknVoid                               { $$ = $1; }
                   | tknLong typeidentifier                { $$ = mergeCppToken($1, $2); }
                   | tknNumSignSpec                        { $$ = $1; }
@@ -644,10 +645,10 @@ enumdefn          : tknEnum optid '{' enumitemlist '}' ';'                      
                   }
                   ;
 
-enumfwddecl       : tknEnum tknID ':' identifier ';'                                [ZZVALID;] {
+enumfwddecl       : tknEnum tknID ':' typeidentifier ';'                                [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $2, nullptr, false, $4);
                   }
-                  | tknEnum tknClass tknID ':' identifier ';'                       [ZZVALID;] {
+                  | tknEnum tknClass tknID ':' typeidentifier ';'                       [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $3, nullptr, true, $5);
                   }
                   | tknEnum tknClass tknID ';'                                      [ZZVALID;] {
@@ -942,6 +943,11 @@ funcname          : operfuncname { $$ = $1; }
                   | identifier   { $$ = $1; }
                   | tknScopeResOp operfuncname { $$ = mergeCppToken($1, $2); }
                   | identifier tknScopeResOp operfuncname { $$ = mergeCppToken($1, $3); }
+                  /* For function style type casting */
+                  | tknInt      { $$ = $1; }
+                  | tknShort    { $$ = $1; }
+                  | tknChar     { $$ = $1; }
+                  | tknLong     { $$ = $1; }
                   ;
 
 operfuncname      : tknOperator '+'               { $$ = mergeCppToken($1, $2); }

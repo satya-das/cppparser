@@ -139,7 +139,9 @@ CppParser constructCppParserForTest()
                          "ACRX_DECLARE_MEMBERS_ACBASE_PORT_EXPIMP",
                          "ACRX_DECLARE_MEMBERS",
                          
-                         "SkDEBUGCODE"
+                         "SkDEBUGCODE",
+                         "SK_BEGIN_REQUIRE_DENSE",
+                         "SK_END_REQUIRE_DENSE"
                          });
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");

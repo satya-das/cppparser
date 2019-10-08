@@ -211,6 +211,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   {
     // yyinput() has bug (see https://github.com/westes/flex/pull/396)
     // So, I am exploiting yyless() by passing value bigger than yyleng.
+    auto savedlen = yyleng;
     auto input = [&]() {
       yyless(yyleng+1);
       return yytext[yyleng-1];
@@ -237,7 +238,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
     }
     else
     {
-      yyless(yyleng-1);
+      yyless(savedlen+1);
     }
     set_token_and_yyposn();
     RETURN(tknMacro);
