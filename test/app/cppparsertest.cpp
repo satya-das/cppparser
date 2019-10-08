@@ -126,7 +126,8 @@ CppParser constructCppParserForTest()
                             "ACCORE_PORT",
                             "ACDB_PORT",
                             "ACPAL_PORT",
-                            "ACAD_PORT"});
+                            "ACAD_PORT",
+                            });
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
                          "DECLARE_DYNAMIC",
@@ -136,7 +137,10 @@ CppParser constructCppParserForTest()
                          "DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION",
                          "ACRX_DECLARE_MEMBERS_EXPIMP",
                          "ACRX_DECLARE_MEMBERS_ACBASE_PORT_EXPIMP",
-                         "ACRX_DECLARE_MEMBERS"});
+                         "ACRX_DECLARE_MEMBERS",
+                         
+                         "SkDEBUGCODE"
+                         });
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("final", "ADESK_SEALED");

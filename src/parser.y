@@ -261,7 +261,7 @@ extern int yylex();
 %type  <memInitList>        meminitlist
 %type  <memInit>            meminit
 %type  <compoundType>       compoundSpecifier
-%type  <attr>               varattrib exptype optfuncattrib functype optfunctype
+%type  <attr>               varattrib exptype optfuncattrib functype optfunctype optfinal
 %type  <inheritList>        optinheritlist
 %type  <inheritType>        optinherittype
 %type  <objAccessType>      protlevel changeprotlevel
@@ -627,7 +627,7 @@ enumitemlist      : { $$ = 0; }
 enumdefn          : tknEnum optid '{' enumitemlist '}' ';'                                          [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $2, $4);
                   }
-                  | tknEnum optapidecor tknID ':' typeidentifier '{' enumitemlist '}' ';'           [ZZVALID;] {
+                  | tknEnum optapidecor optid ':' typeidentifier '{' enumitemlist '}' ';'           [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $3, $7, false, $5);
                   };
                   | tknEnum optapidecor tknID '{' enumitemlist '}' ';'                              [ZZVALID;] {
@@ -1065,6 +1065,7 @@ functype          : optfunctype tknStatic      { $$ = $1 | kStatic;    }
                   | optfunctype tknExternC     { $$ = $1 | kExternC;   }
                   | optfunctype tknExplicit    { $$ = $1 | kExplicit;  }
                   | optfunctype tknFriend      { $$ = $1 | kFriend;    }
+                  | optfunctype tknConstExpr   { $$ = $1 | kConstExpr; }
                   ;
 
 optfuncattrib     : tknConst       { $$ = kConst; }
@@ -1186,6 +1187,8 @@ meminitlist       : { $$ = nullptr; }
 
 meminit           : identifier '(' expr ')'     { $$ = CppNtMemInit{$1, $3}; }
                   | identifier '(' ')'          { $$ = CppNtMemInit{$1, nullptr}; }
+                  | identifier '{' expr '}'     { $$ = CppNtMemInit{$1, $3}; }
+                  | identifier '{' '}'          { $$ = CppNtMemInit{$1, nullptr}; }
                   ;
 
 dtordeclstmt      : dtordecl ';' [ZZVALID;]     { $$ = $1; }
@@ -1263,6 +1266,10 @@ dtordecl          : '~' tknID '(' optvoid ')' %prec DTORDECL
                     $$ = $1;
                     $$->throwSpec($2);
                   }
+                  | dtordecl tknOverride {
+                    $$ = $1;
+                    $$->addAttr(kOverride);
+                  }
                   ;
 
 optvoid           :
@@ -1286,7 +1293,7 @@ classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
                       }
                   ;
 
-classdefn         : compoundSpecifier optapidecor identifier optinheritlist optcomment '{'
+classdefn         : compoundSpecifier optapidecor identifier optfinal optinheritlist optcomment '{'
                   [
                     ZZVALID;
                     gCompoundStack.push(classNameFromIdentifier($3));
@@ -1303,11 +1310,12 @@ classdefn         : compoundSpecifier optapidecor identifier optinheritlist optc
                     gCurAccessType = gAccessTypeStack.top();
                     gAccessTypeStack.pop();
 
-                    $$ = $8 ? $8 : newCompound(gCurAccessType);
+                    $$ = $9 ? $9 : newCompound(gCurAccessType);
                     $$->compoundType($1);
                     $$->apidecor($2);
                     $$->name($3);
-                    $$->inheritanceList($4);
+                    $$->inheritanceList($5);
+                    $$->addAttr($4);
                   }
                   | compoundSpecifier optinheritlist optcomment
                     '{' { gAccessTypeStack.push(gCurAccessType); gCurAccessType = CppAccessType::kUnknown; }
@@ -1326,6 +1334,10 @@ classdefn         : compoundSpecifier optapidecor identifier optinheritlist optc
                     $$ = $2;
                     $$->templateParamList($1);
                   }
+                  ;
+
+optfinal          : { $$ = 0; }
+                  | tknFinal { $$ = kFinal; }
                   ;
 
 optinheritlist    : { $$ = 0; }
@@ -1456,6 +1468,7 @@ expr              : tknStrLit                                                 { 
                   | tknNumber                                                 { $$ = new CppExpr((std::string) $1, kNone);          }
                   | funcname [ if ($1.sz == gParamModPos) YYERROR; ]          { $$ = new CppExpr((std::string) $1, kNone);          }
                   | '{' expr '}'                                              { $$ = new CppExpr($2, CppExpr::kInitializer);        }
+                  | '{' expr ',' '}'                                          { $$ = new CppExpr($2, CppExpr::kInitializer);        }
                   | '{' /*empty expr*/ '}'                                    { $$ = new CppExpr((CppExpr*)nullptr, CppExpr::kInitializer);   }
                   | '-' expr %prec UNARYMINUS                                 { $$ = new CppExpr($2, kUnaryMinus);                  }
                   | '~' expr                                                  { $$ = new CppExpr($2, kBitToggle);                   }
@@ -1502,6 +1515,7 @@ expr              : tknStrLit                                                 { 
                   | expr tknArrow expr                                        { $$ = new CppExpr($1, kArrow, $3);                   }
                   | expr tknArrowStar expr                                    { $$ = new CppExpr($1, kArrowStar, $3);               }
                   | expr '[' expr ']' %prec SUBSCRIPT                         { $$ = new CppExpr($1, kArrayElem, $3);               }
+                  | expr '[' ']' %prec SUBSCRIPT                              { $$ = new CppExpr($1, kArrayElem);                   }
                   | expr '(' ')' %prec FUNCCALL                               { $$ = new CppExpr($1, kFunctionCall);                }
                   | expr '(' expr ')' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                     { $$ = new CppExpr($2, kCStyleCast, $4);              }

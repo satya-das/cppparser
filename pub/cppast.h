@@ -824,6 +824,11 @@ struct CppCompound : public CppObj
   }
   bool triviallyConstructable() const;
 
+  void addAttr(std::uint32_t _attr)
+  {
+    attr_ |= _attr;
+  }
+
 private:
   void assignSpecialMember(const CppObj* mem);
 
@@ -834,6 +839,7 @@ private:
   CppInheritanceListPtr   inheritanceList_;
   std::string             apidecor_;
   CppTemplateParamListPtr templSpec_;
+  std::uint32_t           attr_ {0};
 
   std::vector<const CppConstructor*> ctors_;
   const CppConstructor*              copyCtor_{nullptr};

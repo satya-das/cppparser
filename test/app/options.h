@@ -94,7 +94,14 @@ public:
     bpo::store(bpo::parse_command_line(argc, argv, desc_), vm_);
     bpo::notify(vm_);
     if (vm_.count("help"))
+    {
+      std::cout << desc_ << "\n";
+      exit(0);
       return kHelpSought;
+    }
+
+    if (vm_.count("parse-single-file") != 0)
+      return kParseSingleFile;
     if ((vm_.count("input-folder") == 0) && (vm_.count("output-folder") == 0)
         && (vm_.count("master-files-folder") == 0))
       return kParseAndCompareUsingDefaultPaths;
@@ -121,6 +128,7 @@ public:
       param.masterPath = vm_["master-files-folder"].as<std::string>();
     else
       param.masterPath = defaultTestFolderParent / "test_master";
+
     param.setup();
     return param;
   }
