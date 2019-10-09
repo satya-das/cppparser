@@ -232,7 +232,7 @@ extern int yylex();
 %type  <cppVarType>         vartype
 %type  <cppVarObj>          vardecl varinit vardeclstmt
 %type  <varOrFuncPtr>       param
-%type  <str>                funcobj /* Identify funcobj as str, at least for time being */
+%type  <str>                funcobjstr /* Identify funcobjstr as str, at least for time being */
 %type  <str>                templatearg templatearglist /* For time being. We may need to make it more robust in future. */
 %type  <cppVarObjList>      vardecllist vardeclliststmt
 %type  <paramList>          paramlist
@@ -543,7 +543,7 @@ hashif            : tknPreProHash tknIf tknPreProDef            [ZZVALID;]  { $$
                   | tknPreProHash tknEndIf                      [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kEndIf      ); }
                   ;
 
-hasherror         : tknPreProHash tknHashError                  [ZZVALID;]  { $$ = new CppHashError($2); }
+hasherror         : tknPreProHash tknHashError tknStrLit        [ZZVALID;]  { $$ = new CppHashError($3); }
                   ;
 
 pragma            : tknPreProHash tknPragma tknPreProDef        [ZZVALID;]  { $$ = new CppPragma($3); }
@@ -610,6 +610,7 @@ enumitem          : tknID           { $$ = new CppEnumItem($1);     }
                   | tknID '=' expr  { $$ = new CppEnumItem($1, $3); }
                   | doccomment      { $$ = new CppEnumItem($1);     }
                   | hashif          { $$ = new CppEnumItem($1);     }
+                  | hasherror       { $$ = new CppEnumItem($1);     }
                   ;
 
 enumitemlist      : { $$ = 0; }
@@ -943,7 +944,7 @@ funcdecl          : vartype apidecor funcname '(' paramlist ')' {
                   }
                   ;
 
-funcobj           : typeidentifier '(' paramlist ')' {
+funcobjstr        : typeidentifier '(' paramlist ')' {
                     delete $3;
                     $$ = mergeCppToken($1, $4);
                   }
@@ -1050,7 +1051,7 @@ templatearg       :                               { $$ = makeCppToken(nullptr, n
                   | tknConst templatearg          { $$ = mergeCppToken($1, $2); }
                   | templatearg tknConst          { $$ = mergeCppToken($1, $2); }
                   | tknNumber                     { $$ = $1; }
-                  | funcobj                       { $$ = $1; }
+                  | funcobjstr                       { $$ = $1; }
                   | templatearg '*'               {
                     auto p = $1.sz + $1.len;
                     while (*p && (*p != '*'))

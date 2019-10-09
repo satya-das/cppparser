@@ -607,7 +607,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   ++gLineNo;
 }
 
-<ctxPreprocessor>error{WS}[^\n]*{NL} {
+<ctxPreprocessor>error{WS} {
   set_token_and_yyposn();
   ENDCONTEXT();
   ++gLineNo;
