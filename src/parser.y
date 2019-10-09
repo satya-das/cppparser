@@ -232,6 +232,7 @@ extern int yylex();
 %type  <cppVarType>         vartype
 %type  <cppVarObj>          vardecl varinit vardeclstmt
 %type  <varOrFuncPtr>       param
+%type  <str>                funcobj /* Identify funcobj as str, at least for time being */
 %type  <str>                templatearg templatearglist /* For time being. We may need to make it more robust in future. */
 %type  <cppVarObjList>      vardecllist vardeclliststmt
 %type  <paramList>          paramlist
@@ -942,6 +943,12 @@ funcdecl          : vartype apidecor funcname '(' paramlist ')' {
                   }
                   ;
 
+funcobj           : typeidentifier '(' paramlist ')' {
+                    delete $3;
+                    $$ = mergeCppToken($1, $4);
+                  }
+                  ;
+
 funcname          : operfuncname { $$ = $1; }
                   | identifier   { $$ = $1; }
                   | tknScopeResOp operfuncname { $$ = mergeCppToken($1, $2); }
@@ -1043,6 +1050,7 @@ templatearg       :                               { $$ = makeCppToken(nullptr, n
                   | tknConst templatearg          { $$ = mergeCppToken($1, $2); }
                   | templatearg tknConst          { $$ = mergeCppToken($1, $2); }
                   | tknNumber                     { $$ = $1; }
+                  | funcobj                       { $$ = $1; }
                   | templatearg '*'               {
                     auto p = $1.sz + $1.len;
                     while (*p && (*p != '*'))
