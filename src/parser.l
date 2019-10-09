@@ -193,6 +193,10 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   ++gLineNo;
 }
 
+<*>__attribute__{WS}*\(\(.*\)\) {
+  /* Ignore as of now */
+}
+
 <ctxGeneral>^{WS}*{NL} {
   ++gLineNo;
 }
@@ -525,6 +529,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknStdHdrInclude);
 }
 
+<ctxInclude>{ID} {
+  set_token_and_yyposn();
+  RETURN(tknStdHdrInclude);
+}
+
 <ctxInclude>{NL} {
   ENDCONTEXT();
   ++gLineNo;
@@ -572,6 +581,10 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   ENDCONTEXT();
   BEGINCONTEXT(ctxPreProBody);
   RETURN(tknPragma);
+}
+
+<ctxPreProBody>.*\\{WS}*{NL} {
+  ++gLineNo;
 }
 
 <ctxPreProBody>.* {
@@ -884,12 +897,12 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknNumber);
 }
 
-<ctxGeneral,ctxInclude>"\"".*"\"" {
+<ctxGeneral,ctxInclude>"\""[^"]*"\"" {
   set_token_and_yyposn();
   RETURN(tknStrLit);
 }
 
-<ctxGeneral>(L)?"\"".*"\"" {
+<ctxGeneral>(L)?"\""[^"]*"\"" {
   set_token_and_yyposn();
   RETURN(tknStrLit);
 }

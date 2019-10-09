@@ -225,7 +225,7 @@ extern int yylex();
 %type  <str>                macrocall
 %type  <cppObj>             stmt functptrtype
 %type  <typeModifier>       opttypemodifier typemodifier
-%type  <cppEnum>            enumdefn enumfwddecl
+%type  <cppEnum>            enumdefn enumfwddecl enumdefnstmt
 %type  <enumItem>           enumitem
 %type  <enumItemList>       enumitemlist
 %type  <fwdDeclObj>         fwddecl
@@ -371,7 +371,7 @@ stmtlist          : stmt {
 
 stmt              : vardeclstmt         { $$ = $1; }
                   | vardeclliststmt     { $$ = $1; }
-                  | enumdefn            { $$ = $1; }
+                  | enumdefnstmt        { $$ = $1; }
                   | enumfwddecl         { $$ = $1; }
                   | typedefnamestmt     { $$ = $1; }
                   | typedefliststmt     { $$ = $1; }
@@ -625,24 +625,27 @@ enumitemlist      : { $$ = 0; }
                   }
                   ;
 
-enumdefn          : tknEnum optid '{' enumitemlist '}' ';'                                          [ZZVALID;] {
+enumdefn          : tknEnum optid '{' enumitemlist '}'                                           [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $2, $4);
                   }
-                  | tknEnum optapidecor optid ':' typeidentifier '{' enumitemlist '}' ';'           [ZZVALID;] {
+                  | tknEnum optapidecor optid ':' typeidentifier '{' enumitemlist '}'            [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $3, $7, false, $5);
                   };
-                  | tknEnum optapidecor tknID '{' enumitemlist '}' ';'                              [ZZVALID;] {
+                  | tknEnum optapidecor tknID '{' enumitemlist '}'                               [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $3, $5, false);
                   };
-                  | tknEnum tknClass optapidecor tknID ':' typeidentifier '{' enumitemlist '}' ';'  [ZZVALID;] {
+                  | tknEnum tknClass optapidecor tknID ':' typeidentifier '{' enumitemlist '}'   [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $4, $8, true, $6);
                   }
-                  | tknEnum tknClass optapidecor tknID '{' enumitemlist '}' ';'                     [ZZVALID;] {
+                  | tknEnum tknClass optapidecor tknID '{' enumitemlist '}'                      [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $4, $6, true);
                   }
-                  | tknTypedef tknEnum optapidecor optid '{' enumitemlist '}' tknID ';'             [ZZVALID;] {
+                  | tknTypedef tknEnum optapidecor optid '{' enumitemlist '}' tknID              [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $8, $6);
                   }
+                  ;
+
+enumdefnstmt      : enumdefn ';' { $$ = $1; }
                   ;
 
 enumfwddecl       : tknEnum tknID ':' typeidentifier ';'                                [ZZVALID;] {
@@ -1472,6 +1475,7 @@ externcblock      : tknExternC block [ZZVALID;] {$$ = $2; $$->compoundType(CppCo
 expr              : tknStrLit                                                 { $$ = new CppExpr((std::string) $1, kNone);          }
                   | tknCharLit                                                { $$ = new CppExpr((std::string) $1, kNone);          }
                   | tknNumber                                                 { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | '+' tknNumber                                             { $$ = new CppExpr((std::string) $2, kNone);          }
                   | funcname [ if ($1.sz == gParamModPos) YYERROR; ]          { $$ = new CppExpr((std::string) $1, kNone);          }
                   | '{' expr '}'                                              { $$ = new CppExpr($2, CppExpr::kInitializer);        }
                   | '{' expr ',' '}'                                          { $$ = new CppExpr($2, CppExpr::kInitializer);        }
@@ -1524,6 +1528,8 @@ expr              : tknStrLit                                                 { 
                   | expr '[' ']' %prec SUBSCRIPT                              { $$ = new CppExpr($1, kArrayElem);                   }
                   | expr '(' ')' %prec FUNCCALL                               { $$ = new CppExpr($1, kFunctionCall);                }
                   | expr '(' expr ')' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  /* TODO: Properly support uniform initialization */
+                  | expr '{' expr '}' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                     { $$ = new CppExpr($2, kCStyleCast, $4);              }
                   | tknConstCast '<' vartype '>' '(' expr ')'                 { $$ = new CppExpr($3, kConstCast, $6);               }
                   | tknStaticCast '<' vartype '>' '(' expr ')'                { $$ = new CppExpr($3, kStaticCast, $6);              }
