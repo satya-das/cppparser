@@ -352,7 +352,12 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknTypename);
 }
 
-<ctxGeneral>^{WS}*"/*" {
+<ctxGeneral>^{WS}*"/**" {
+  oyytext = yytext;
+  BEGINCONTEXT(ctxDocBlockComment);
+}
+
+<ctxGeneral>^{WS}*"/*!" {
   oyytext = yytext;
   BEGINCONTEXT(ctxDocBlockComment);
 }
@@ -381,7 +386,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   /* Ignore block comment if it does not stand all alone */
 }
 
-<*>^{WS}*"//".* {
+<*>^{WS}*"///".* {
   set_token_and_yyposn();
   RETURN(tknDocLineComment);
 }
