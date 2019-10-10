@@ -630,8 +630,11 @@ enumitemlist      : { $$ = 0; }
 enumdefn          : tknEnum optid '{' enumitemlist '}'                                           [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $2, $4);
                   }
-                  | tknEnum optapidecor optid ':' typeidentifier '{' enumitemlist '}'            [ZZVALID;] {
+                  | tknEnum optapidecor tknID ':' typeidentifier '{' enumitemlist '}'            [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $3, $7, false, $5);
+                  };
+                  | tknEnum ':' typeidentifier '{' enumitemlist '}'                              [ZZVALID;] {
+                    $$ = new CppEnum(gCurAccessType, "", $5, false, $3);
                   };
                   | tknEnum optapidecor tknID '{' enumitemlist '}'                               [ZZVALID;] {
                     $$ = new CppEnum(gCurAccessType, $3, $5, false);
@@ -1420,17 +1423,17 @@ templateparamlist : {
                   }
                   ;
 
-templateparam     : tknTypename tknID {
+templateparam     : tknTypename optid {
                     $$ = new CppTemplateParam(nullptr, $2);
                   }
-                  | tknTypename tknID '=' vartype {
+                  | tknTypename optid '=' vartype {
                     $$ = new CppTemplateParam(nullptr, $2);
                     $$->defaultParam($4);
                   }
-                  | tknClass tknID {
+                  | tknClass optid {
                     $$ = new CppTemplateParam(nullptr, $2);
                   }
-                  | tknClass tknID '=' vartype {
+                  | tknClass optid '=' vartype {
                     $$ = new CppTemplateParam(nullptr, $2);
                     $$->defaultParam($4);
                   }
