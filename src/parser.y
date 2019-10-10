@@ -254,7 +254,7 @@ extern int yylex();
 %type  <switchBody>         caselist;
 %type  <tryBlock>           tryblock;
 %type  <catchBlock>         catchblock;
-%type  <cppFuncPointerObj>  functionpointer funcpointerdecl
+%type  <cppFuncPointerObj>  functionpointer funcpointerdecl funcobj
 %type  <cppFuncObj>         funcdecl funcdeclstmt funcdefn
 %type  <cppCtorObj>         ctordecl ctordeclstmt ctordefn
 %type  <cppDtorObj>         dtordecl dtordeclstmt dtordefn
@@ -679,6 +679,9 @@ usingdecl         : tknUsing tknID '=' vartype ';' {
                   | tknUsing tknID '=' functionpointer ';' {
                     $$ = new CppUsingDecl($2, $4);
                   }
+                  | tknUsing tknID '=' funcobj ';' {
+                    $$ = new CppUsingDecl($2, $4);
+                  }
                   | tknUsing tknID '=' classdefn ';' {
                     $$ = new CppUsingDecl($2, $4);
                   }
@@ -899,6 +902,12 @@ functionpointer   : functype vartype '(' optapidecor identifier tknScopeResOp '*
                   | functionpointer optfuncattrib {
                     $$ = $1;
                     $$->addAttr($2);
+                  }
+                  ;
+
+
+funcobj           : vartype '(' paramlist ')' {
+                    $$ = new CppFunctionPtr(gCurAccessType, "", $1, $3, 0);
                   }
                   ;
 
