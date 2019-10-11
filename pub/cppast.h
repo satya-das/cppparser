@@ -254,6 +254,8 @@ struct CppVarType : public CppObj
 {
   static constexpr CppObjType kObjectType = CppObjType::kVarType;
 
+  bool paramPack_ {false};
+
   CppVarType(std::string baseType, CppTypeModifier modifier = CppTypeModifier());
   CppVarType(CppAccessType accessType, std::string baseType, CppTypeModifier modifier);
   CppVarType(CppAccessType accessType, CppCompound* compound, CppTypeModifier modifier);
@@ -976,6 +978,7 @@ struct CppFunction : public CppFuncCtorBase
   static constexpr CppObjType kObjectType = CppObjType::kFunction;
 
   const CppVarTypePtr retType_;
+  CppExprPtr returnDeclType_;
 
   CppFunction(CppAccessType   accessType,
               std::string     name,

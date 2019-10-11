@@ -352,6 +352,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknTypename);
 }
 
+<ctxGeneral>decltype/{TS}+ {
+  set_token_and_yyposn();
+  RETURN(tknDecltype);
+}
+
 <ctxGeneral>^{WS}*"/**" {
   oyytext = yytext;
   BEGINCONTEXT(ctxDocBlockComment);

@@ -185,7 +185,7 @@ extern int yylex();
 %token  <str>   tknEnum
 %token  <str>   tknPreProDef
 %token  <str>   tknClass tknStruct tknUnion tknNamespace
-%token  <str>   tknTemplate tknTypename
+%token  <str>   tknTemplate tknTypename tknDecltype
 %token  <str>   tknDocBlockComment tknDocLineComment
 %token  <str>   tknScopeResOp
 %token  <str>   tknNumSignSpec // signed/unsigned
@@ -778,6 +778,10 @@ vartype           : typeidentifier opttypemodifier {
                     $$ = $2;
                     $$->addAttr($1);
                   }
+                  | vartype tknEllipsis {
+                    $$ = $1;
+                    $$->paramPack_ = true;
+                  }
                   ;
 
 varidentifier     : identifier              { $$ = $1; }
@@ -953,6 +957,10 @@ funcdecl          : vartype apidecor funcname '(' paramlist ')' {
                   | funcdecl optfuncattrib {
                     $$ = $1;
                     $$->addAttr($2);
+                  }
+                  | funcdecl tknArrow tknDecltype '(' expr ')' {
+                    $$ = $1;
+                    $$->returnDeclType_.reset($5);
                   }
                   ;
 
@@ -1568,6 +1576,7 @@ expr              : tknStrLit                                                 { 
                   | tknThrow                                                  { $$ = new CppExpr(CppExprAtom(), CppExpr::kThrow);   }
                   | tknSizeOf '(' vartype ')'                                 { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
                   | tknSizeOf '(' expr ')'                                    { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
+                  | expr tknEllipsis                                          { $$ = $1; /* TODO */ }
                   ;
 
 exprstmt          : expr ';'  [ZZVALID;]              { $$ = $1; }
