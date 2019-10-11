@@ -141,7 +141,10 @@ CppParser constructCppParserForTest()
                          
                          "SkDEBUGCODE",
                          "SK_BEGIN_REQUIRE_DENSE",
-                         "SK_END_REQUIRE_DENSE"
+                         "SK_END_REQUIRE_DENSE",
+                         "GR_MAKE_BITFIELD_CLASS_OPS",
+                         "SK_C_PLUS_PLUS_END_GUARD",
+                         "GPU_DRIVER_BUG_WORKAROUNDS"
                          });
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");

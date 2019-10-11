@@ -29,14 +29,11 @@
 
 namespace fs = boost::filesystem;
 
-CppToken classNameFromIdentifier(const CppToken& identifier)
+static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
 {
-  if (identifier.sz == nullptr)
-    return identifier;
-
   auto rbeg = rev(identifier.sz + identifier.len);
-  if (*rbeg != '>')
-    return identifier;
+  assert (*rbeg == '>');
+
   auto rend     = rev(identifier.sz);
   int  numTempl = 1;
   for (++rbeg; rbeg != rend; ++rbeg)
@@ -57,6 +54,22 @@ CppToken classNameFromIdentifier(const CppToken& identifier)
   }
 
   return CppToken{nullptr, 0U};
+}
+
+CppToken classNameFromIdentifier(const CppToken& identifier)
+{
+  if (identifier.sz == nullptr)
+    return identifier;
+
+  if (identifier.sz[identifier.len-1] == '>')
+    return classNameFromTemplatedIdentifier(identifier);
+  
+  const char* scopeResolutor = "::";
+  const char* end = identifier.sz + identifier.len;
+  auto itr = std::find_end(identifier.sz, end, scopeResolutor, scopeResolutor+2);
+  if (itr == end)
+    return identifier;
+  return CppToken{itr+2, end - itr - 2};
 }
 
 std::vector<char> readFile(const std::string& filename)

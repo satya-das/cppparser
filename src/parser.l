@@ -612,7 +612,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   ++gLineNo;
 }
 
-<ctxPreprocessor>error{WS} {
+<ctxPreprocessor>error{WS}[^\n]*{NL} {
   set_token_and_yyposn();
   ENDCONTEXT();
   ++gLineNo;
@@ -922,7 +922,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknCharLit);
 }
 
-<ctxGeneral>\(|\)|\{|\}|\[|\]|,|;|#|=|\*|\+|-|\.|\/|\~|\<|\>|%|&|\||:|\?|\! {
+<ctxGeneral>\(|\)|\{|\}|\[|\]|,|;|#|=|\*|\+|-|\.|\/|\~|\<|\>|%|\^|&|\||:|\?|\! {
   set_token_and_yyposn();
   RETURN(yytext[0]);
 }

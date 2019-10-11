@@ -543,7 +543,7 @@ hashif            : tknPreProHash tknIf tknPreProDef            [ZZVALID;]  { $$
                   | tknPreProHash tknEndIf                      [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kEndIf      ); }
                   ;
 
-hasherror         : tknPreProHash tknHashError tknStrLit        [ZZVALID;]  { $$ = new CppHashError($3); }
+hasherror         : tknPreProHash tknHashError        [ZZVALID;]  { $$ = new CppHashError($2); }
                   ;
 
 pragma            : tknPreProHash tknPragma tknPreProDef        [ZZVALID;]  { $$ = new CppPragma($3); }
@@ -608,6 +608,7 @@ optid             :                 { $$ = makeCppToken(nullptr, nullptr); }
 
 enumitem          : tknID           { $$ = new CppEnumItem($1);     }
                   | tknID '=' expr  { $$ = new CppEnumItem($1, $3); }
+                  | expr            { $$ = new CppEnumItem("", $1);     }
                   | doccomment      { $$ = new CppEnumItem($1);     }
                   | hashif          { $$ = new CppEnumItem($1);     }
                   | hasherror       { $$ = new CppEnumItem($1);     }
@@ -913,8 +914,8 @@ functionpointer   : functype vartype '(' optapidecor identifier tknScopeResOp '*
                   ;
 
 
-funcobj           : vartype '(' paramlist ')' {
-                    $$ = new CppFunctionPtr(gCurAccessType, "", $1, $3, 0);
+funcobj           : vartype optapidecor '(' paramlist ')' {
+                    $$ = new CppFunctionPtr(gCurAccessType, "", $1, $4, 0);
                   }
                   ;
 
@@ -964,9 +965,9 @@ funcdecl          : vartype apidecor funcname '(' paramlist ')' {
                   }
                   ;
 
-funcobjstr        : typeidentifier '(' paramlist ')' {
-                    delete $3;
-                    $$ = mergeCppToken($1, $4);
+funcobjstr        : typeidentifier apidecor '(' paramlist ')' {
+                    delete $4;
+                    $$ = mergeCppToken($1, $5);
                   }
                   ;
 
