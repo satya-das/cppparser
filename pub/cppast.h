@@ -137,6 +137,19 @@ struct CppInclude : public CppObj
   }
 };
 
+struct CppImport : public CppObj
+{
+  static constexpr CppObjType kObjectType = CppObjType::kHashImport;
+
+  const std::string name_;
+
+  CppImport(std::string name)
+    : CppObj(kObjectType, CppAccessType::kUnknown)
+    , name_(std::move(name))
+  {
+  }
+};
+
 using CppIncludeEPtr = CppEasyPtr<CppInclude>;
 
 /**

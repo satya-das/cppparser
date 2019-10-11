@@ -534,6 +534,13 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknInclude);
 }
 
+<ctxPreprocessor>import/{WS} {
+  ENDCONTEXT();
+  set_token_and_yyposn();
+  BEGINCONTEXT(ctxInclude);
+  RETURN(tknImport);
+}
+
 <ctxInclude><.*> {
   set_token_and_yyposn();
   RETURN(tknStdHdrInclude);

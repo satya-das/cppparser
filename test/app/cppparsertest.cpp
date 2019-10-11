@@ -127,6 +127,8 @@ CppParser constructCppParserForTest()
                             "ACDB_PORT",
                             "ACPAL_PORT",
                             "ACAD_PORT",
+
+                            "SK_API"
                             });
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
@@ -143,6 +145,7 @@ CppParser constructCppParserForTest()
                          "SK_BEGIN_REQUIRE_DENSE",
                          "SK_END_REQUIRE_DENSE",
                          "GR_MAKE_BITFIELD_CLASS_OPS",
+                         "SK_C_PLUS_PLUS_BEGIN_GUARD",
                          "SK_C_PLUS_PLUS_END_GUARD",
                          "GPU_DRIVER_BUG_WORKAROUNDS"
                          });

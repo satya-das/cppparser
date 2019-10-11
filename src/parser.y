@@ -174,6 +174,7 @@ extern int yylex();
   CppDefine*              hashDefine;
   CppUndef*               hashUndef;
   CppInclude*             hashInclude;
+  CppImport*              hashImport;
   CppHashIf*              hashIf;
   CppHashError*           hashError;
   CppPragma*              hashPragma;
@@ -211,7 +212,7 @@ extern int yylex();
 
 %token  tknPreProHash /* When # is encountered for pre processor definition */
 %token  tknDefine tknUndef
-%token  tknInclude
+%token  tknInclude tknImport
 %token  tknIf tknIfDef tknIfNDef tknElse tknElIf tknEndIf
 %token  tknFor tknWhile tknDo tknSwitch tknCase tknDefault
 %token  tknReturn
@@ -272,6 +273,7 @@ extern int yylex();
 %type  <hashDefine>         define
 %type  <hashUndef>          undef
 %type  <hashInclude>        include
+%type  <hashImport>         import
 %type  <hashIf>             hashif
 %type  <hashError>          hasherror
 %type  <hashPragma>         pragma
@@ -397,6 +399,7 @@ stmt              : vardeclstmt         { $$ = $1; }
                   | define              { $$ = $1; }
                   | undef               { $$ = $1; }
                   | include             { $$ = $1; }
+                  | import              { $$ = $1; }
                   | hashif              { $$ = $1; }
                   | hasherror           { $$ = $1; }
                   | pragma              { $$ = $1; }
@@ -531,6 +534,11 @@ undef             : tknPreProHash tknUndef tknID                [ZZVALID;]  { $$
 include           : tknPreProHash tknInclude tknStrLit          [ZZVALID;]  { $$ = new CppInclude((std::string) $3); }
                   | tknPreProHash tknInclude tknStdHdrInclude   [ZZVALID;]  { $$ = new CppInclude((std::string) $3); }
                   ;
+
+import            : tknPreProHash tknImport tknStrLit          [ZZVALID;]  { $$ = new CppImport((std::string) $3); }
+                  | tknPreProHash tknImport tknStdHdrInclude   [ZZVALID;]  { $$ = new CppImport((std::string) $3); }
+                  ;
+
 /*
 preprocessor    : tknPreProHash tknUnRecogPrePro tknPreProDef { $$ = new CppUnRecogPrePro((std::string) $2, (std::string) $3); }
           ;
@@ -568,9 +576,12 @@ identifier        : tknID                                 { $$ = $1; }
 
 typeidentifier    : identifier                            { $$ = $1; }
                   | optnumsignspec tknLongLong            { $$ = mergeCppToken($1, $2); }
+                  | optnumsignspec tknLongLong tknInt     { $$ = mergeCppToken($1, $3); }
                   | optnumsignspec tknLong                { $$ = mergeCppToken($1, $2); }
+                  | optnumsignspec tknLong tknInt         { $$ = mergeCppToken($1, $3); }
                   | optnumsignspec tknInt                 { $$ = mergeCppToken($1, $2); }
                   | optnumsignspec tknShort               { $$ = mergeCppToken($1, $2); }
+                  | optnumsignspec tknShort tknInt        { $$ = mergeCppToken($1, $3); }
                   | optnumsignspec tknChar                { $$ = mergeCppToken($1, $2); }
                   | tknNumSignSpec                        { $$ = $1;}
                   | tknVoid                               { $$ = $1; }
@@ -882,6 +893,14 @@ funcdefn          : funcdecl block [ZZVALID;] {
                   }
                   ;
 
+/*
+lambda            : '[' paramlist ']' '(' paramlist ')' block [ZZVALID;] {
+                    $$ = newFunction(gCurAccessType, "CPPPARSER:LAMBDA", nullptr, $5, 0);
+                    $$->defn($7 ? $7 : newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock));
+                  }
+                  ;
+*/
+
 functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $2->addAttr(kTypedef);
                     $$ = $2;
@@ -965,7 +984,7 @@ funcdecl          : vartype apidecor funcname '(' paramlist ')' {
                   }
                   ;
 
-funcobjstr        : typeidentifier apidecor '(' paramlist ')' {
+funcobjstr        : typeidentifier optapidecor '(' paramlist ')' {
                     delete $4;
                     $$ = mergeCppToken($1, $5);
                   }
@@ -1385,6 +1404,12 @@ optinheritlist    : { $$ = 0; }
                   }
                   | optinheritlist ',' protlevel optinherittype identifier  [ZZVALID;] {
                     $$ = $1; $$->push_back(CppInheritInfo((std::string) $5, $3, $4));
+                  }
+                  | ':' optinherittype protlevel identifier                 [ZZVALID;] {
+                    $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $4, $3, $2));
+                  }
+                  | optinheritlist ',' optinherittype protlevel identifier  [ZZVALID;] {
+                    $$ = $1; $$->push_back(CppInheritInfo((std::string) $5, $4, $3));
                   }
                   ;
 

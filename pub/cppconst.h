@@ -33,6 +33,7 @@ enum class CppObjType : std::uint8_t
   kCPreProcessorTypeStarts, // Any preprocessor type must come after this
   kHashIf,                  // #if, #ifdef, #ifndef, #else, #elif.
   kHashInclude,             // #include
+  kHashImport,              // #import
   kHashDefine,              // #define
   kHashUndef,               // #undef
   kHashPragma,              // #pragma
