@@ -36,7 +36,7 @@ inline bool isConst(const CppFunctionBase* func)
 }
 inline bool isVirtual(const CppFunctionBase* func)
 {
-  return (func->attr() & kVirtual) == kVirtual;
+  return (func->attr() & (kVirtual | kOverride)) == kVirtual;
 }
 inline bool isPureVirtual(const CppFunctionBase* func)
 {

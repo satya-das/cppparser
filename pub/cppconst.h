@@ -177,7 +177,7 @@ enum /*class*/ CppIdentifierAttrib : std::uint32_t
   kInline      = 0x0010,
   kVirtual     = 0x0020,
   kPureVirtual = 0x0040 | kVirtual,
-  kOverride    = 0x0080 | kVirtual,
+  kOverride    = 0x0080,
   kExplicit    = 0x0100,
   kFriend      = 0x0200,
   kTypedef     = 0x0400, // Function pointer is used in typedef.
