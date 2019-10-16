@@ -357,7 +357,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknDecltype);
 }
 
-<ctxGeneral>^{WS}*"/**" {
+<ctxGeneral>^{WS}*"/*"[^ \ta-zA-Z0-9]+ {
   oyytext = yytext;
   BEGINCONTEXT(ctxDocBlockComment);
 }
@@ -368,6 +368,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxDocBlockComment>.*"*"+"/"/{WS}*{NL} {
+  ++gLineNo;
   yylval.str = makeCppToken(oyytext, yytext+yyleng-oyytext);
   ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
   RETURN(tknDocBlockComment);
@@ -391,12 +392,12 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   /* Ignore block comment if it does not stand all alone */
 }
 
-<*>^{WS}*"///".* {
+<*>^{WS}*"//"[^ \t\na-zA-Z0-9]+[^\n]* {
   set_token_and_yyposn();
   RETURN(tknDocLineComment);
 }
 
-<*>"//".* {
+<*>"//"[^\n]* {
 }
 
 <ctxGeneral>^{WS}*# {

@@ -619,7 +619,7 @@ optid             :                 { $$ = makeCppToken(nullptr, nullptr); }
 
 enumitem          : tknID           { $$ = new CppEnumItem($1);     }
                   | tknID '=' expr  { $$ = new CppEnumItem($1, $3); }
-                  | expr            { $$ = new CppEnumItem("", $1);     }
+                  /*| expr            { $$ = new CppEnumItem("", $1);     }*/
                   | doccomment      { $$ = new CppEnumItem($1);     }
                   | hashif          { $$ = new CppEnumItem($1);     }
                   | hasherror       { $$ = new CppEnumItem($1);     }
