@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,13 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:
-//
-// The AcDbRegion class is the interface class for representing
-// regions inside AutoCAD.  All the functionality supported by
-// this class is implemented in the class AcDbImpRegion and its
-// base classes.
 #ifndef GEOMENT_DBREGION_H
 #  define GEOMENT_DBREGION_H
 #  include "dbmain.h"

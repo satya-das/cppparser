@@ -94,9 +94,6 @@ public:
     /// filing operations to determine what data to read or write.
     /// </summary>
   static int classVersion();
-    // create / get point cloud dictionary
-    //
-
     /// <summary>
     /// This function creates a new point cloud extension dictionary. 
     /// If the dictionary could not be created,
@@ -138,9 +135,6 @@ public:
     /// Input AcDbPointCloudDefEx object for which to find the dictionary.
     /// </param>
   static AcDbDictionary* getPointCloudExDictionary(AcDbPointCloudDefEx* pDefEx);
-    // Overridden methods from AcDbObject
-    // 
-
     /// <summary>
     /// This function is called by dwgIn(). Its purpose is to allow this object to read in its data. 
     /// </summary>
@@ -399,9 +393,6 @@ public:
     /// Destructor
     /// </summary>
   virtual ~AcDbPointCloudDefReactorEx();
-    // Overridden methods from AcDbObject
-    // 
-
     /// <summary>
     /// This function is called by dwgIn(). Its purpose is to allow the object to read in its data. 
     /// </summary>
@@ -442,9 +433,6 @@ public:
     /// Returns Acad::eOk if successful.
     /// </returns>
   virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-    // Notification
-    //
-
     /// <summary>
     /// This method is called when the AcDbPointCloudDefEx object is deleted.
     /// It responds by deleting the AcDbPointCloudEx entity that owns the reactor.

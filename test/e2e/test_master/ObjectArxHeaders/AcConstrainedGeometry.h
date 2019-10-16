@@ -46,7 +46,6 @@ public:
   /// <returns> pointer to AcConstrainedRigidSet. </returns>
   ///
   AcConstrainedRigidSet* getOwningRigidSet() const;
-  // Get the list of Constraints referencing this constrained geometry
   /// <summary> 
   /// Returns the array of pointer to AcGeomConstraint objects which 
   /// reference this constrained geometry. For a bounded line, arc or
@@ -661,8 +660,6 @@ public:
   ///
   AcGeMatrix3d transform() const;
 };
-// For internal use only
-
 /// <summary>
 /// Information about the geometric transformation applied to geometric entities 
 /// and/or their subentities. For internal use only.

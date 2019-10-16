@@ -46,7 +46,6 @@ public:
 /// a non-DWG window.</summary>
 class AcApDocWindow : public AcApWindow
 {
-// Properties
 public:
     /// <summary>Gets the document associated with the window. </summary>
     /// <returns>Returns the document instance if available. Returns nullptr if documentWindowLoaded event
@@ -67,7 +66,6 @@ public:
     /// <remarks>This only change private value before this window is added to document window manager.
     /// MFC window close button and private value change after this window is added to document window manager.</remarks>
   ACAD_PORT void setCanClose(bool bCanClose);
-// Operations
     /// <summary>Closes the window. </summary>
   ACAD_PORT void close();
     /// <summary>Activates the window. </summary>
@@ -88,7 +86,6 @@ protected:
     /// <remarks>Derived type should initialize the document instance and call this function inside
     /// overloaded version of <code>onLoad()</code>.</remarks>
   ACAD_PORT virtual void setDocument(AcRxObject* document);
-// Events
     /// <summary>Called when the document window is being created.</summary>
     /// <param name="hWnd">The native handle of the newly created window.</param>
     /// <remarks>Derived types should override this function to initialize the content
@@ -111,7 +108,6 @@ public:
   ACAD_PORT AcApDocWindow();
     /// <summary>Initializes an instance of AcApDocWindow.</summary>
   ACAD_PORT virtual ~AcApDocWindow();
-// IAdHostWindow memebers
     /// <summary>Obtains the native window handle.</summary>
   ACAD_PORT virtual HWND windowHandle() override;
 private:

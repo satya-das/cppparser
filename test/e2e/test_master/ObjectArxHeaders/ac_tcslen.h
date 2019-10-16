@@ -7,7 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #pragma  once
 #ifndef _AC_TCSLEN_
 #  define _AC_TCSLEN_
@@ -39,7 +38,6 @@
 #      undef strlen
 #    endif
 #    define strlen	ac_strlen
-// use inline to prevent multiple definition errors.
 __declspec(noinline) inline unsigned ac_wcslen(const wchar_t* s)
 {
   unsigned n = 0;

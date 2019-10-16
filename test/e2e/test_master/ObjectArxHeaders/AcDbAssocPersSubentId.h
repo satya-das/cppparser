@@ -201,7 +201,6 @@ public:
     /// the existing one, if any).
     /// /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
-    //
   static Acad::ErrorStatus createObjectAndDwgInFields(AcDbDatabase* pDatabase, AcDbDwgFiler* pFiler, AcDbAssocPersSubentId*& pCreatedPersSubentId);
     /// <summary>
     /// A static method that reads the class identification of the actual 
@@ -220,7 +219,6 @@ public:
     /// the existing one, if any).
     /// /// </param>
     /// <returns> Acad::ErrorStatus. </returns>
-    //
   static Acad::ErrorStatus createObjectAndDxfInFields(AcDbDxfFiler* pFiler, AcDbAssocPersSubentId*& pCreatedPersSubentId);
     /// <summary>
     /// The standard filing protocol. The AcDbAssocPersSubentId base class

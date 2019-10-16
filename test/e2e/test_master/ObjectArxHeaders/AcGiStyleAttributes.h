@@ -1,4 +1,3 @@
-// 
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// AcGiStyleAttributes interface
 #ifndef __AcGiStyleAttributes_H_Defined__
 #  define __AcGiStyleAttributes_H_Defined__
 #  include "AcGiLineAttributes.h"
@@ -25,7 +22,6 @@ public:
     kPlotStyle = 0x08,
     kEverything = 0x0F
   };
-    // Ctor/dtor/copy
   AcGiStyleAttributes()
   {
   }
@@ -33,30 +29,18 @@ public:
   virtual ~AcGiStyleAttributes()
   {
   }
-    // Member data access
-    // Color
   AcCmEntityColor& getColorAttribute();
   const AcCmEntityColor& getColorAttribute() const;
   void setColorAttribute(const AcCmEntityColor& color);
-    // Complex line type
   AcDbObjectId linetypeObjectId() const;
   void setLinetypeObjectId(const AcDbObjectId& newId);
-    // Plot style
   AcDbObjectId plotStyleNameId() const;
   void setPlotStyleName(const AcDbObjectId& newId);
-    // Interface methods - Other line attributes
   virtual AcGiLineAttributes* getLineAttribute() = 0;
   virtual const AcGiLineAttributes* getLineAttribute() const = 0;
   virtual void setLineAttribute(const AcGiLineAttributes* pLineAttributes) = 0;
   virtual void EnsureColorVisibility(AcCmEntityColor& color) = 0;
 protected:
-    /* The style engine will resolve the color, taking into account color
-        policy, dither, specified color, assigned pen number, and dimming.
-        If m_colorAttribute.isByColor() then use
-        getColorAttribute().color();
-        if m_colorAttribute.isByPen() then use
-        getColorAttribute().penIndex()
-    */
   AcCmEntityColor m_colorAttribute;
   AcDbObjectId m_idLinetype;
   AcDbObjectId m_idPlotstyle;

@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//
 #ifndef AD_DBDICTDFLT_H
 #  define AD_DBDICTDFLT_H
 #  include "dbdict.h"

@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,9 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// Default implementation for Layer Filter.
-//
 #ifndef AD_DBLYFILT_H
 #  define AD_DBLYFILT_H
 #  include "dbfilter.h"

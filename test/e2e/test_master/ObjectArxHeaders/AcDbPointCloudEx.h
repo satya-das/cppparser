@@ -54,9 +54,6 @@ public:
     /// Destructor.
     /// </summary>
   virtual ~AcDbPointCloudEx();
-    // AcDbObject Overrides
-    //
-    // erase
     /// <summary>
     /// Called from within erase() before anything else is done.
     /// </summary>
@@ -71,7 +68,6 @@ public:
     /// erase operation is immediately terminated.
     /// </returns>
   virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing);
-    // Filing
     /// <summary>
     /// This function is called by dwgIn(). Its purpose is to allow the object to read in its data. 
     /// </summary>
@@ -139,8 +135,6 @@ public:
     /// Returns Acad::eOk if successful.
     /// </returns>
   virtual Acad::ErrorStatus copyFrom(const AcRxObject* pObj);
-    // AcDbEntity Overrides
-    //
     /// <summary>
     /// Get the ECS matrix from this entity.
     /// </summary>
@@ -160,8 +154,6 @@ public:
     /// </param>
   virtual void dragStatus(const AcDb::DragStat status) override;
 protected:
-    // AcDbEntity Overrides
-    //
     /// <summary>
     /// Override the virtual function for AcDbEnity::list().
     /// </summary>
@@ -186,8 +178,6 @@ protected:
     /// Returns Acad::eOk if successful.
     /// </returns>
   virtual Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
-    // AcDbOsnapOverrule
-    //
     /// <summary>
     /// Override the virtual function for AcDbEnity::isContentSnappable().
     /// </summary>
@@ -195,8 +185,6 @@ protected:
     /// Returns true if this entity can be snapped to, otherwise false.
     /// </returns>
   virtual bool subIsContentSnappable() const override;
-    // AcGiDrawable interface
-    //
     /// <summary>
     /// Override the virtual function for the drawing of point cloud.
     /// </summary>
@@ -218,9 +206,6 @@ protected:
     /// </returns>
   virtual Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
 public:
-    // AcDbPointCloudDefEx specific protocol
-    //
-
     /// <summary>
     /// Sets the ID of the AcDbPointCloudDefEx object containing the point cloud data file.
     /// Internal Use.
@@ -251,9 +236,6 @@ public:
     /// Returns the ID of a point cloud extension entity's reactor.
     /// </summary>
   AcDbObjectId reactorId() const;
-    // PointCloud routines
-    //
-
     /// <summary>
     /// Returns whether the attached point cloud is locked or not.
     /// </summary>
@@ -400,9 +382,6 @@ public:
     /// If point cloud name is NULL, it will return Acad::eNull.
     /// </returns>
   Acad::ErrorStatus setPointCloudName(const AcString& name);
-    // cropping boundary methods
-    // 
-
     /// <summary>
     /// Returns the number of cropping boundaries that are set on this entity.
     /// </summary>
@@ -485,9 +464,6 @@ public:
     /// </param>
     /// <returns> Returns Acad::eOk only. </returns>
   Acad::ErrorStatus setShowCropped(bool bShowCropped);
-    // Stylization
-    //
-
     /// <summary>
     /// This enumeration defines stylization mode that is used when displaying this point cloud entity.
     /// </summary>
@@ -543,9 +519,6 @@ public:
     /// Returns the stylization mode that is used when displaying this point cloud entity.
     /// </summary>
   StylizationType stylizationType() const;
-    // color scheme
-    //
-
     /// <summary>
     /// Returns the current color scheme name that corresponds to the current stylization mode.
     /// This property only applies when the point cloud is being displayed using a stylization mode
@@ -627,9 +600,6 @@ public:
         /// </summary>
     kHidePoints
   };
-    // Colormap - Intensity
-    // 
-
     /// <summary>
     /// Color schemes can be treated as distinct bands or as gradients. This function indicates 
     /// whether or not the intensity color scheme is being displayed as a gradient.
@@ -683,9 +653,6 @@ public:
     /// The display option to be set.
     /// </param>
   void setIntensityOutOfRangeBehavior(DispOptionOutOfRange dispOp);
-    // Colormap - Elevation
-    // 
-
     /// <summary>
     /// Color schemes can be treated as distinct bands or as gradients. This function indicates
     /// whether or not the elevation color scheme is being displayed as a gradient.
@@ -754,9 +721,6 @@ public:
     /// The display option to be set.
     /// </param>
   void setElevationOutOfRangeBehavior(DispOptionOutOfRange dispOp);
-    // limit box
-    //
-
     /// <summary>
     /// Returns the limit box of this point cloud entity.
     /// Internal Use.
@@ -791,9 +755,6 @@ public:
     /// false: the points on the limit box boundary will not be highlighted.
     /// </param>
   void setHighlightLimitboxBoundary(bool val);
-    // Point cloud data (AcPointCloudItem)
-    //
-
     /// <summary>
     /// Get the list of AcPointCloudItems, which includes the scan items and region items.
     /// </summary>

@@ -10,11 +10,6 @@
 #ifndef _ACGI_DEFS_H
 #  define _ACGI_DEFS_H	1
 #  include "adesk.h"
-// These are the current kinds of viewport regeneration modes.
-// This mode is not settable by the user, but it can be queried 
-// in case you need to take different actions for different
-// regeneration modes.
-//
 enum AcGiRegenType
 {
   eAcGiRegenTypeInvalid = 0,
@@ -25,42 +20,30 @@ enum AcGiRegenType
   kAcGiForExplode,
   kAcGiSaveWorldDrawForProxy
 };
-// No longer supported and will be removed
-//
 #  define kAcGiSaveWorldDrawForR12	kAcGiForExplode 
-// These are the current face filling modes
-//
 enum AcGiFillType
 {
   kAcGiFillAlways = 1,
   kAcGiFillNever
 };
-// These are the edge visibility types
-//
 enum AcGiVisibility
 {
   kAcGiInvisible = 0,
   kAcGiVisible,
   kAcGiSilhouette
 };
-// These are the types of arcs
-//
 enum AcGiArcType
 {
   kAcGiArcSimple = 0,
   kAcGiArcSector,
   kAcGiArcChord
 };
-// These are the possible types of vertex orientation 
-// 
 enum AcGiOrientationType
 {
   kAcGiCounterClockwise = -1,
   kAcGiNoOrientation = 0,
   kAcGiClockwise = 1
 };
-// This signifies how to calculate maximum deviation for tessellation
-//
 enum AcGiDeviationType
 {
   kAcGiMaxDevForCircle = 0,
@@ -69,8 +52,6 @@ enum AcGiDeviationType
   kAcGiMaxDevForIsoline,
   kAcGiMaxDevForFacet
 };
-// Raster image organization
-//
 enum AcGiImageOrg
 {
   kAcGiBitonal,
@@ -83,8 +64,6 @@ enum AcGiImageOrg
   kAcGiBGR,
   kAcGiRGB
 };
-// Raster image orientation
-//
 enum AcGiImageOrient
 {
   kAcGiXLeftToRightTopFirst,
@@ -96,7 +75,6 @@ enum AcGiImageOrient
   kAcGiYBottomToTopLeftFirst,
   kAcGiYBottomToTopRightFirst
 };
-// scale filter method to use
 enum AcGiScaleFilterType
 {
   kDefaultScaleFilter,
@@ -108,21 +86,18 @@ enum AcGiScaleFilterType
   kBsplineScaleFilter,
   kLanczos3ScaleFilter
 };
-// rotation filter method to use
 enum AcGiRotationFilterType
 {
   kDefaultRotationFilter,
   kInterpolatedRotationFilter,
   kNearestRotationFilter
 };
-// how to interpret nRasterRatio
 enum AcGiScaleType
 {
   kDefaultScale,
   kRelativeScale,
   kUnTransformedScale
 };
-// highlight style
 enum AcGiHighlightStyle
 {
   kAcGiHighlightNone,

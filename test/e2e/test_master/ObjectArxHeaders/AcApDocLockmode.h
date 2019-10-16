@@ -16,11 +16,6 @@
 #  pragma  pack (push, 8)
 struct AcAp
 {
-    // The value order of this enum is important - and determines
-    // the level of locking.  Also, kWrite and kProtectedAutoWrite
-    // share a common bit - so that (mode & kWrite) will be true
-    // for either lock mode.
-    //
   enum DocLockMode
   {
     kNone = 0x00,

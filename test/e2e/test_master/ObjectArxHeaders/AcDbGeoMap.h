@@ -37,8 +37,6 @@ public:
 	/// <summary> Destructor. </summary>
 	///
   virtual ~AcDbGeoMap();
-	// AcDbGeoMap protocol
-
 	/// <summary> Returns the bottom left corner point of the image frame. </summary>
 	///
   AcGePoint3d bottomLeftPt() const;
@@ -119,37 +117,32 @@ public:
     /// <returns>Returns true if successful.</returns>
 	///
   Adesk::Boolean updateMapImage(Adesk::Boolean bReset = Adesk::kFalse);
-    // AcDbObject protocol
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
   virtual Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler* undoFiler, AcRxClass* classObj) override;
-    // AcDbEntity protocol
-  virtual Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds) const override;
-  virtual Acad::ErrorStatus subGetGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const override;
-  virtual Acad::ErrorStatus subGetGripPoints(AcGePoint3dArray& gripPoints, AcDbIntArray& osnapModes, AcDbIntArray& geomIds) const override;
-  virtual Acad::ErrorStatus subMoveGripPointsAt(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags) override;
-  virtual Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
-  virtual Acad::ErrorStatus subIntersectWith(const AcDbEntity* ent, AcDb::Intersect intType, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0) const override;
-  virtual Acad::ErrorStatus subMoveGripPointsAt(const AcDbIntArray& indices, const AcGeVector3d& offset) override;
-  virtual Acad::ErrorStatus subIntersectWith(const AcDbEntity* ent, AcDb::Intersect intType, const AcGePlane& projPlane, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0) const override;
-    // AcDbImage protocol
-  virtual AcGiSentScanLines* getScanLines(const AcGiRequestScanLines& req) const override;
-  virtual Adesk::Boolean freeScanLines(AcGiSentScanLines* pSSL) const override;
-    // AcDbRasterImage protocol
-  virtual AcDbObjectId imageDefId() const override;
+  Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds) const override;
+  Acad::ErrorStatus subGetGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const override;
+  Acad::ErrorStatus subGetGripPoints(AcGePoint3dArray& gripPoints, AcDbIntArray& osnapModes, AcDbIntArray& geomIds) const override;
+  Acad::ErrorStatus subMoveGripPointsAt(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags) override;
+  Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
+  Acad::ErrorStatus subIntersectWith(const AcDbEntity* ent, AcDb::Intersect intType, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0) const override;
+  Acad::ErrorStatus subMoveGripPointsAt(const AcDbIntArray& indices, const AcGeVector3d& offset) override;
+  Acad::ErrorStatus subIntersectWith(const AcDbEntity* ent, AcDb::Intersect intType, const AcGePlane& projPlane, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0) const override;
+  AcGiSentScanLines* getScanLines(const AcGiRequestScanLines& req) const override;
+  Adesk::Boolean freeScanLines(AcGiSentScanLines* pSSL) const override;
+  AcDbObjectId imageDefId() const override;
 	/// <summary> 
 	/// Given an empty array, this function adds the image frame vertices to represent the four corners of the image.  
 	/// </summary>
 	///
     /// <param name="verts"> Returns a 3D point array of 4 corners </param>
 	///
-  virtual Acad::ErrorStatus getVertices(AcGePoint3dArray& verts) const override;
-	// bGetCachedValue is required by override but has no effect
-  virtual AcGeVector2d imageSize(Adesk::Boolean bGetCachedValue = Adesk::kFalse) const override;
-  virtual const AcGePoint2dArray& clipBoundary() const override;
+  Acad::ErrorStatus getVertices(AcGePoint3dArray& verts) const override;
+  AcGeVector2d imageSize(Adesk::Boolean bGetCachedValue = Adesk::kFalse) const override;
+  const AcGePoint2dArray& clipBoundary() const override;
 	/// <summary> 
 	/// Given an empty array, this function adds the embeded image vertices to represent the four corners of the image.  
 	/// </summary>
@@ -157,34 +150,29 @@ public:
     /// <param name="verts"> Returns a 3D point array of 4 corners </param>
 	///
   Acad::ErrorStatus getImageVertices(AcGePoint3dArray& verts) const;
-  virtual Acad::ErrorStatus setBrightness(Adesk::Int8 value) override;
+  Acad::ErrorStatus setBrightness(Adesk::Int8 value) override;
 	/// <summary> Returns the current brightness value of the image. </summary>
 	///
-  virtual Adesk::Int8 brightness() const override;
-  virtual Acad::ErrorStatus setContrast(Adesk::Int8 value) override;
+  Adesk::Int8 brightness() const override;
+  Acad::ErrorStatus setContrast(Adesk::Int8 value) override;
 	/// <summary> Returns the current contrast value of the image. </summary>
 	///
-  virtual Adesk::Int8 contrast() const override;
-  virtual Acad::ErrorStatus setFade(Adesk::Int8 value) override;
+  Adesk::Int8 contrast() const override;
+  Acad::ErrorStatus setFade(Adesk::Int8 value) override;
 	/// <summary> Returns the current fade value of the image. </summary>
 	///
-  virtual Adesk::Int8 fade() const override;
-  virtual void getOrientation(AcGePoint3d& origin, AcGeVector3d& u, AcGeVector3d& v) const override;
+  Adesk::Int8 fade() const override;
+  void getOrientation(AcGePoint3d& origin, AcGeVector3d& u, AcGeVector3d& v) const override;
 protected:
-    // AcDbObject protocol
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
-  virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWorldDraw) override;
-  virtual void subViewportDraw(AcGiViewportDraw* pViewportDraw) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWorldDraw) override;
+  void subViewportDraw(AcGiViewportDraw* pViewportDraw) override;
   virtual void subList() const override;
-    // AcDbEntity protocol
-  virtual Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
+  Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 private:
   GeoMapImp* m_pImp;
   friend class AcDbGeoMapSystemInternals;
-    // These are here because otherwise dllexport tries to export the
-    // private methods of AcDbRasterImage.
-    // error C2248: 'AcDbRasterImage::operator delete[]' : cannot access private member declared in class 'AcDbRasterImage'
   void* operator new[](size_t nSize)
   {
     return (void*) 0;

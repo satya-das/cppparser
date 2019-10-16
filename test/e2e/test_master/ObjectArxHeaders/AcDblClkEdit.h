@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,16 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DoubleClickEdit.h - Double-click Editing (for external developers)
-//
-// DESCRIPTION: AcDbDoubleClickEdit Protocol extension abstract base class
-//
-// NOTE:
-// Default implementation to be attached to AcDbEntity as a catch-all. This
-// guarantees that this protocol extension will be found  for any entity so
-// the search up the AcRxClass tree will not fail and abort AutoCAD.  
-//
 #ifndef DOUBLECLICKEDIT_H
 #  define DOUBLECLICKEDIT_H
 #  include "acdb.h"

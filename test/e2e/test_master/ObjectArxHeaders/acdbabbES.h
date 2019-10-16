@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,13 +7,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// acdbabb.h: Abbreviations for definitions in acdb.h
-// 2/21/94: Up to date with respect to acdb.h
 #ifdef AD_ACDBABBES_H
-// This file should only be included by .cpp files.  If it's
-// included twice, we assume it's because it is being included
-// by .h file(s), and so we complain.
 #endif
 #define AD_ACDBABBES_H	1
 #include "acadstrc.h"
@@ -46,7 +39,6 @@ typedef AcDb::SubentType SubentType;
 typedef AcDb::GeomId GeomId;
 typedef AcDb::GeomType GeomType;
 typedef AcDb::OrthographicView OrthographicView;
-// Acad::ErrorStatus
 const Acad::ErrorStatus eOk = Acad::eOk;
 const Acad::ErrorStatus eNotImplementedYet = Acad::eNotImplementedYet;
 const Acad::ErrorStatus eNotApplicable = Acad::eNotApplicable;
@@ -338,13 +330,11 @@ const Acad::ErrorStatus eAlreadyHasRepresentation = Acad::eAlreadyHasRepresentat
 const Acad::ErrorStatus eNoRepresentation = Acad::eNoRepresentation;
 const Acad::ErrorStatus eNoIntersections = Acad::eNoIntersections;
 const Acad::ErrorStatus eEmbeddedIntersections = Acad::eEmbeddedIntersections;
-// solid chamfer/fillet
 const Acad::ErrorStatus eFailedToSetEdgeChamfers = Acad::eFailedToSetEdgeChamfers;
 const Acad::ErrorStatus eNoConnectedBlendSet = Acad::eNoConnectedBlendSet;
 const Acad::ErrorStatus eFailedToBlend = Acad::eFailedToBlend;
 const Acad::ErrorStatus eFailedToSetEdgeRounds = Acad::eFailedToSetEdgeRounds;
 const Acad::ErrorStatus eFailedToSetVertexRounds = Acad::eFailedToSetVertexRounds;
-//Associative Network related errors.
 const Acad::ErrorStatus eFailedToEvaluate = Acad::eFailedToEvaluate;
 const Acad::ErrorStatus eFailedToEvaluateDependents = Acad::eFailedToEvaluateDependents;
 const Acad::ErrorStatus eInvalidExpression = Acad::eInvalidExpression;
@@ -353,10 +343,8 @@ const Acad::ErrorStatus eInconsistentConstraint = Acad::eInconsistentConstraint;
 const Acad::ErrorStatus eOverDefinedConstraint = Acad::eOverDefinedConstraint;
 const Acad::ErrorStatus eInvalidParameterName = Acad::eInvalidParameterName;
 const Acad::ErrorStatus eReferencedInEquation = Acad::eReferencedInEquation;
-// string user parameters
 const Acad::ErrorStatus eStringNotAllowedInExpression = Acad::eStringNotAllowedInExpression;
 const Acad::ErrorStatus eTooManyActiveCommands = Acad::eTooManyActiveCommands;
-// parametric surface
 const Acad::ErrorStatus eUnableToTrimLastPiece = Acad::eUnableToTrimLastPiece;
 const Acad::ErrorStatus eUnableToTrimSurface = Acad::eUnableToTrimSurface;
 const Acad::ErrorStatus eModifyingAssociativeEntity = Acad::eModifyingAssociativeEntity;
@@ -368,5 +356,4 @@ const Acad::ErrorStatus eNotConnected = Acad::eNotConnected;
 const Acad::ErrorStatus eNoInputPath = Acad::eNoInputPath;
 const Acad::ErrorStatus eNotAssociative = Acad::eNotAssociative;
 const Acad::ErrorStatus eNotG1Continuous = Acad::eNotG1Continuous;
-// Associative Array 
 const Acad::ErrorStatus eChangedAgainstAssociativity = Acad::eChangedAgainstAssociativity;

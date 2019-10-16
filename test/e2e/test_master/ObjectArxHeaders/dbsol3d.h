@@ -7,11 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:
-//
-// The AcDb3dSolid class is the interface class for representing B-REP solids.
-//
 #pragma  once
 #ifndef GEOMENT_DBSOL3D_H
 #  define GEOMENT_DBSOL3D_H
@@ -38,19 +33,14 @@ public:
   virtual Acad::ErrorStatus createWedge(double xLen, double yLen, double zLen);
   virtual Acad::ErrorStatus extrude(const AcDbRegion* region, double height, double taperAngle = 0.0);
   virtual Acad::ErrorStatus extrudeAlongPath(const AcDbRegion* region, const AcDbCurve* path, double taperAngle = 0.0);
-    // Calls to this function should be replaced with calls to createRevolvedSolid.
   virtual Acad::ErrorStatus revolve(const AcDbRegion* region, const AcGePoint3d& axisPoint, const AcGeVector3d& axisDir, double angleOfRevolution);
-    // Create revolved solid by revolving an entity or face.
   virtual Acad::ErrorStatus createRevolvedSolid(AcDbEntity* pRevEnt, const AcGePoint3d& axisPnt, const AcGeVector3d& axisDir, double revAngle, double startAngle, AcDbRevolveOptions& revolveOptions);
   virtual Acad::ErrorStatus createRevolvedSolid(AcDbEntity* pRevEnt, const AcDbSubentId& faceSubentId, const AcGePoint3d& axisPnt, const AcGeVector3d& axisDir, double revAngle, double startAngle, AcDbRevolveOptions& revolveOptions);
-    // Create swept solid by sweeping an entity or face along a path.
   virtual Acad::ErrorStatus createSweptSolid(AcDbEntity* pSweepEnt, AcDbEntity* pPathEnt, AcDbSweepOptions& sweepOptions);
   virtual Acad::ErrorStatus createSweptSolid(AcDbEntity* pSweepEnt, const AcDbSubentId& faceSubentId, AcDbEntity* pPathEnt, AcDbSweepOptions& sweepOptions);
-    // Create extruded solid by extruding an entity or face.
   virtual Acad::ErrorStatus createExtrudedSolid(AcDbEntity* pSweepEnt, const AcGeVector3d& directionVec, AcDbSweepOptions& sweepOptions);
   virtual Acad::ErrorStatus createExtrudedSolid(AcDbEntity* pSweepEnt, const AcDbSubentId& faceSubentId, const AcGeVector3d& directionVec, AcDbSweepOptions& sweepOptions);
   virtual Acad::ErrorStatus createExtrudedSolid(AcDbEntity* pSweepEnt, const AcDbSubentId& faceSubentId, double height, AcDbSweepOptions& sweepOptions);
-    // Create lofted solid.
   virtual Acad::ErrorStatus createLoftedSolid(AcArray<AcDbEntity*>& crossSectionCurves, AcArray<AcDbEntity*>& guideCurves, AcDbEntity* pPathCurve, AcDbLoftOptions& loftOptions);
     /// <summary> 
     /// Creates a lofted solid from the given profiles using the specified options.
@@ -99,8 +89,6 @@ public:
   ACDB_PORT virtual Acad::ErrorStatus stlOut(const ACHAR* fileName, Adesk::Boolean asciiFormat, double maxSurfaceDeviation = 0.0) const;
   virtual AcDbSubentId internalSubentId(void* ent) const;
   virtual void* internalSubentPtr(const AcDbSubentId& id) const;
-    // Subentity acquisition.
-    //
   virtual Acad::ErrorStatus booleanOper(AcDb::BoolOperType operation, AcDb3dSolid* solid);
   virtual Acad::ErrorStatus getSlice(const AcGePlane& plane, Adesk::Boolean getNegHalfToo, AcDb3dSolid*& negHalfSolid);
   virtual Acad::ErrorStatus getSlice(AcDbSurface* pSurface, bool bGetNegHalfToo, AcDb3dSolid*& pNegHalfSolid);

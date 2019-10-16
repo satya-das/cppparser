@@ -7,13 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// AcHeapOpers.h - Provides the AcHeapOperators base class.  Use this
-//              base class as a simple way to give your class local
-//              new and delete operators.  It guarantees that the
-//              objects will be created and destroyed on the same
-//              heap (the acad heap) at all times.
-//
 #pragma  once
 #include "adesk.h"
 #include "acheapmanager.h"
@@ -72,7 +65,6 @@ public:
       ::acHeapFree(nullptr, p);
     }
   }
-        // Unicode: leaving pFName as char for now
   static void operator delete(void* p, const char*, int)
   {
     if (p != NULL)

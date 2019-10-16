@@ -1485,69 +1485,11 @@ public:
     val (I) New value for DIMSTYLE. 
   */
   void setDIMSTYLE(const OdDbObjectId& val);
-  /*   
-  bool plotStyleMode() const; 
- 
-  static bool isValidLineWeight(int weight); 
- 
-  static OdDb::LineWeight getNearestLineWeight(int weight); 
- 
-  void forceWblockDatabaseCopy(); 
-  
-  void auditXData(OdDbAuditInfo* pInfo); 
- 
-  OdDbUndoController* undoController() const; 
- 
-  void restoreOriginalXrefSymbols(); 
- 
-  void restoreForwardingXrefSymbols(); 
- 
-  void setDimblk(const OdChar*); 
-  void setDimblk1(const OdChar*); 
-  void setDimblk2(const OdChar*); 
-  void setDimldrblk(const OdChar*); 
- 
-  void getDimstyleChildData(const OdRxClass *pDimClass, 
-                            OdDbDimStyleTableRecordPtr& pRec, 
-                            OdDbObjectId &style) const; 
- 
-  OdDbObjectId getDimstyleChildId(const OdRxClass *pDimClass, 
-                                  OdDbObjectId &parentStyle) const; 
- 
-  OdDbObjectId getDimstyleParentId(OdDbObjectId &childStyle) const; 
- 
-  void getDimRecentStyleList(OdDbObjectIdArray& objIds) const; 
- 
-  void applyPartialOpenFilters(const OdDbSpatialFilter* pSpatialFilter, 
-                               const OdDbLayerFilter* pLayerFilter); 
- 
-  void disablePartialOpen(); 
- 
-  void newFingerprintGuid(); 
- 
-  void newVersionGuid(); 
- 
-  double viewportScaleDefault() const; 
- 
-  void setViewportScaleDefault(double newDefaultVPScale); 
- 
-  OdDbObjectId getPaperSpaceVportId() const; 
- 
-  virtual void copyLayout(const OdChar* copyname, const OdChar* newname); 
- 
-  virtual void cloneLayout(const OdDbLayout* pLBTR, const OdChar* newname, int newTabOrder); 
- 
-  virtual OdDbObjectId getNonRectVPIdFromClipId(const OdDbObjectId& clipId); 
- 
-  virtual bool isViewportClipped(short index); 
- 
-  */
   OdDbObjectId byLayerMaterialId() const;
   OdDbObjectId byBlockMaterialId() const;
   OdDbObjectId globalMaterialId() const;
   OdDbObjectId activeViewportId() const;
   //[Added by chinaweal renkangcheng [2007/09/29] 
-  //Reason:New Interface 
 #  ifdef ZW_NEW_INTERFACES
   short ret_type();
    /** Description: 
@@ -1576,11 +1518,6 @@ private:
 /** Fills in OdThumbnailImage object from stream. Throws appropriate exception if an error occurred. 
 */
 TOOLKIT_EXPORT void odDbGetPreviewBitmap(OdStreamBuf* pStreamBuf, OdThumbnailImage* pPreview);
-// The functions below provide write access to "Read-Only" *database* variables. 
-// Actually they are a OdDb::kludge for bypassing non-implemented DD functionality 
-// or to repair invalid drawings. 
-// They should be used with care. 
- 
 /** Description: 
     Sets the DWGCODEPAGE value in the specified OdDbDatabase instance. 
      

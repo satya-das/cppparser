@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,23 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//  DESCRIPTION: Definitions for the AutoCAD native command definition
-//               mechanism.
-//
-
-// NOTE: before adding any new command constants here,
-// check with the undocumented ACRX_CMD_... constants
-// defined in coresrc/command.cpp to make sure that
-// there is no overlap.
-//
-// ARX command bits which are not exported yet, but which could
-// be of use in the R13 time frame.  We should look at these in
-// R14 to determine if they should be exported. BCH 10/3/95
-// The value of ACRX_CMD_NOPAPERSPACE was changed from 0x10 to
-// 0x40 by submission S049-JH2 because it conflicted with the
-// value of ACRX_CMD_NOMULTIPLE.  JH 1/3/97.
-//
 #ifndef _ACCMD_H
 #  define _ACCMD_H
 #  include "adesk.h"
@@ -40,8 +22,6 @@ struct AcEdCommandStruc
   AcRxFunctionPtr fcnAddr;
   long flags;
   void* app;
-	//This member should obviate the need to the ones above
-	//since they are already contained in AcEdCommand.
   AcEdCommand* cmd;
 };
 #  pragma  pack (pop)
@@ -93,8 +73,6 @@ protected:
   AcEdCommandEventArgs(const AcEdCommandEventArgs& other);
   AcEdCommandEventArgs& operator=(const AcEdCommandEventArgs& other);
 };
-// AcEdCommandReactor - receives notifications on command start/end for 
-// specific commands. Attach to desired AcEdCommand instances.
 class AcEdCommandReactor : public AcRxObject
 {
 public:
@@ -103,12 +81,6 @@ public:
   virtual void commandEnded(AcEdCommand* pCmd, AcEdCommandEventArgs* data);
   virtual void goodbye(AcEdCommand* pCmd, AcEdCommandEventArgs* data);
 };
-// AcEdCommandReactor - notified when commands are added/removed 
-// and also start/end.
-// NOTE: If you need to monitor start/end of a specific command, recommend 
-// using AcEdCommandReactor instead. This allows you to attach directly to 
-// the desired command.
-// 
 class AcEdCommandStackReactor : public AcRxObject
 {
 public:

@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,10 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//  DESCRIPTION:  Header for Rx application definitions and C
-//                access to AutoCAD Editor-specific services.
-//
 #pragma  once
 #ifndef _ACED_XREF_H
 #  define _ACED_XREF_H

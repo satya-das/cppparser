@@ -25,8 +25,6 @@
 #    include <afxwin.h>
 #    include <afxext.h>
 #  endif
-// GDIPlus will not compile with our MACRO for "new", therefore we are saving off
-// our macro while we compile GDIPlus, then set it back.
 #  pragma  push_macro("new")
 #  undef new
 #  include <minmax.h>
@@ -307,7 +305,6 @@ private:
   static unsigned int g_instanceCount;
   static Gdiplus::GdiplusStartupInput g_gdiplusStartupInput;
   static ULONG_PTR g_gdiplusToken;
-    // not allowed
   CAdUiImage(const CAdUiImage& image);
   CAdUiImage& operator=(const CAdUiImage& image);
 };
@@ -532,7 +529,6 @@ private:
   bool isValidPredefinedResourceType(LPCTSTR pType);
   void saveType(LPCTSTR pType);
   void clear();
-    // not allowed
   CAdUiImageResource(const CAdUiImageResource& image);
   CAdUiImageResource& operator=(const CAdUiImageResource& image);
 };

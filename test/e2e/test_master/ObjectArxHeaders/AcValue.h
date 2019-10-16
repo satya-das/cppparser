@@ -129,7 +129,7 @@ public:
   ACDBCORE2D_PORT AcValue& operator=(const AcCmColor& clr);
   ACDBCORE2D_PORT bool operator==(const AcValue& val) const;
   ACDBCORE2D_PORT bool operator!=(const AcValue& val) const;
-  virtual Adesk::Boolean isEqualTo(const AcRxObject* pOther) const override;
+  Adesk::Boolean isEqualTo(const AcRxObject* pOther) const override;
   ACDBCORE2D_PORT bool get(const ACHAR*& pszValue) const;
   ACDBCORE2D_PORT bool get(AcString& sValue) const;
   bool get(ACHAR*& pszValue) const;
@@ -185,7 +185,6 @@ protected:
   void* mpImpObj;
 private:
   friend class AcSystemInternals;
-    // Helper method for the inlines below
   static bool ACharAllocHelper(const AcString& sValue, ACHAR*& pszValue, bool bRet)
   {
     pszValue = nullptr;
@@ -197,19 +196,16 @@ private:
   }
 };
 Acad::ErrorStatus acutNewString(const ACHAR* pInput, ACHAR*& pOutput);
-// This overload is deprecated. Please use the overload taking AcString & arg instead
 inline bool AcValue::get(ACHAR*& pszValue) const
 {
   AcString sValue;
   return ACharAllocHelper(sValue, pszValue, this->get(sValue));
 }
-// This overload is deprecated. Please use the overload taking AcString & arg instead
 inline bool AcValue::format(ACHAR*& pszValue) const
 {
   AcString sValue;
   return ACharAllocHelper(sValue, pszValue, this->format(sValue));
 }
-// This overload is deprecated. Please use the overload taking AcString & arg instead
 inline bool AcValue::format(const ACHAR* pszFormat, ACHAR*& pszValue) const
 {
   AcString sValue;

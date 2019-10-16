@@ -1,6 +1,5 @@
 #ifndef AD_DBENTS_H
 #  define AD_DBENTS_H
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -10,42 +9,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//
-//  DESCRIPTION: Exported pre-R13 Entity classes
-//
-//  AcRxObject
-//    AcDbObject
-//      AcDbEntity
-//        AcDbText
-//          AcDbAttribute
-//          AcDbAttributeDefinition
-//        AcDbBlockBegin
-//        AcDbBlockEnd
-//        AcDbSequenceEnd
-//        AcDbBlockReference
-//          AcDbMInsertBlock
-//        AcDbVertex
-//          AcDb2dVertex
-//          AcDb3dPolylineVertex
-//          AcDbPolygonMeshVertex
-//          AcDbPolyFaceMeshVertex
-//          AcDbFaceRecord
-//        AcDbCurve
-//          AcDb2dPolyline
-//          AcDb3dPolyline
-//          AcDbArc
-//          AcDbCircle
-//          AcDbLine
-//        AcDbPoint
-//        AcDbFace
-//        AcDbPolyFaceMesh
-//        AcDbPolygonMesh
-//        AcDbTrace
-//        AcDbSolid
-//        AcDbShape
-//        AcDbViewport
-//
 #  include "dbmain.h"
 #  include "dbcurve.h"
 #  include "gescl3d.h"
@@ -117,10 +80,10 @@ public:
   Acad::ErrorStatus setVerticalMode(AcDb::TextVertMode);
   int correctSpelling();
   virtual Acad::ErrorStatus adjustAlignment(const AcDbDatabase* pDb = nullptr);
-  virtual Acad::ErrorStatus setField(const ACHAR* pszPropName, AcDbField* pField, AcDbObjectId& fieldId) override;
-  virtual Acad::ErrorStatus removeField(AcDbObjectId fieldId) override;
-  virtual Acad::ErrorStatus removeField(const ACHAR* pszPropName, AcDbObjectId& returnId) override;
-  virtual Acad::ErrorStatus removeField(const ACHAR* pszPropName) override;
+  Acad::ErrorStatus setField(const ACHAR* pszPropName, AcDbField* pField, AcDbObjectId& fieldId) override;
+  Acad::ErrorStatus removeField(AcDbObjectId fieldId) override;
+  Acad::ErrorStatus removeField(const ACHAR* pszPropName, AcDbObjectId& returnId) override;
+  Acad::ErrorStatus removeField(const ACHAR* pszPropName) override;
   Acad::ErrorStatus convertFieldToText();
   enum AcTextAlignment
   {
@@ -145,8 +108,6 @@ public:
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
-// This overload is deprecated. It allocates a char buffer that the caller is
-// responsible for freeing. Please use the other overload, taking an (AcString &) arg
 inline ACHAR* AcDbText::textString() const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbText::textString);
@@ -179,7 +140,6 @@ public:
   virtual Acad::ErrorStatus adjustAlignment(const AcDbDatabase* pDb = nullptr) override;
   bool lockPositionInBlock() const;
   Acad::ErrorStatus setLockPositionInBlock(bool bValue);
-    // multiline attribute definition support
   bool isMTextAttributeDefinition() const;
   AcDbMText* getMTextAttributeDefinition() const;
   const AcDbMText* getMTextAttributeDefinitionConst() const;
@@ -190,14 +150,10 @@ public:
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
-// This overload is deprecated. It allocates a char buffer that the caller is
-// responsible for freeing. Please use the other overload, taking an (AcString &) arg
 inline ACHAR* AcDbAttributeDefinition::prompt() const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbAttributeDefinition::prompt);
 }
-// This overload is deprecated. It allocates a char buffer that the caller is
-// responsible for freeing. Please use the other overload, taking an (AcString &) arg
 inline ACHAR* AcDbAttributeDefinition::tag() const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbAttributeDefinition::tag);
@@ -224,7 +180,6 @@ public:
   Acad::ErrorStatus setAttributeFromBlock(const AcDbAttributeDefinition* pAttdef, const AcGeMatrix3d& blkXform);
   bool lockPositionInBlock() const;
   Acad::ErrorStatus setLockPositionInBlock(bool bValue);
-    // multiline attribute support
   bool isMTextAttribute() const;
   AcDbMText* getMTextAttribute() const;
   const AcDbMText* getMTextAttributeConst() const;
@@ -236,8 +191,6 @@ public:
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
-// This overload is deprecated. It allocates a char buffer that the caller is
-// responsible for freeing. Please use the other overload, taking an (AcString &) arg
 inline ACHAR* AcDbAttribute::tag() const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbAttribute::tag);
@@ -325,9 +278,6 @@ public:
   ~AcDbVertex();
   ACDB_DECLARE_MEMBERS(AcDbVertex);
 };
-// Inline for performance, because derived classes' dtors
-// call this explicitly.
-//
 inline AcDbVertex::~AcDbVertex()
 {
 }
@@ -339,8 +289,6 @@ public:
   ACDB_DECLARE_MEMBERS(AcDb2dVertex);
   AcDb2dVertex(const AcGePoint3d& position, double bulge = 0, double startWidth = 0, double endWidth = 0, double tangent = 0, Adesk::Int32 vertexIdentifier = 0);
   AcDb::Vertex2dType vertexType() const;
-    // This method accesses the position in ECS.  See AcDb2dPolyline for WCS.
-    //
   AcGePoint3d position() const;
   Acad::ErrorStatus setPosition(const AcGePoint3d&);
   double startWidth() const;
@@ -394,12 +342,9 @@ class AcDbFaceRecord : public AcDbVertex
 {
 public:
   AcDbFaceRecord();
-    // Use negative values to indicate invisible faces
   AcDbFaceRecord(Adesk::Int16 vtx0, Adesk::Int16 vtx1, Adesk::Int16 vtx2, Adesk::Int16 vtx3);
   ~AcDbFaceRecord();
   ACDB_DECLARE_MEMBERS(AcDbFaceRecord);
-    // Input index must be 0-3.
-    //
   Acad::ErrorStatus getVertexAt(Adesk::UInt16 faceIdx, Adesk::Int16& vtxIdx) const;
   Acad::ErrorStatus setVertexAt(Adesk::UInt16 faceIdx, Adesk::Int16 vtxIdx);
   Acad::ErrorStatus isEdgeVisibleAt(Adesk::UInt16 faceIndex, Adesk::Boolean& visible) const;
@@ -440,8 +385,6 @@ public:
   Acad::ErrorStatus splineFit();
   Acad::ErrorStatus splineFit(AcDb::Poly2dType splineType, Adesk::Int16 splineSegs);
   Acad::ErrorStatus curveFit();
-    // Vertex access
-    //
   Acad::ErrorStatus appendVertex(AcDb2dVertex*);
   Acad::ErrorStatus appendVertex(AcDbObjectId& objId, AcDb2dVertex*);
   Acad::ErrorStatus insertVertexAt(const AcDb2dVertex* pIndexVert, AcDb2dVertex* pNewVertex);
@@ -449,15 +392,9 @@ public:
   Acad::ErrorStatus openVertex(AcDb2dVertex*&, AcDbObjectId vertId, AcDb::OpenMode, bool openErasedOne = false) const;
   Acad::ErrorStatus openSequenceEnd(AcDbSequenceEnd*&, AcDb::OpenMode);
   AcDbObjectIterator* vertexIterator() const;
-    // Vertex position in WCS
-    //
   AcGePoint3d vertexPosition(const AcDb2dVertex& vert) const;
-    // Does nothing and returns Acad::eOk if already closed or the start and end 
-    // vertices do not coincide
-    //
   ACDBCORE2D_PORT Acad::ErrorStatus makeClosedIfStartAndEndVertexCoincide(double distTol);
 protected:
-    // AcDbEntity overrides
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 inline Adesk::Boolean AcDb2dPolyline::isPeriodic() const
@@ -495,8 +432,6 @@ public:
   Acad::ErrorStatus straighten();
   Acad::ErrorStatus splineFit();
   Acad::ErrorStatus splineFit(AcDb::Poly3dType splineType, Adesk::Int16 splineSegs);
-    // Vertex access
-    //
   Acad::ErrorStatus appendVertex(AcDb3dPolylineVertex*);
   Acad::ErrorStatus appendVertex(AcDbObjectId& objId, AcDb3dPolylineVertex*);
   Acad::ErrorStatus insertVertexAt(const AcDb3dPolylineVertex* pIndexVert, AcDb3dPolylineVertex* pNewVertex);
@@ -505,7 +440,6 @@ public:
   Acad::ErrorStatus openSequenceEnd(AcDbSequenceEnd*&, AcDb::OpenMode);
   AcDbObjectIterator* vertexIterator() const;
 protected:
-    // AcDbEntity overrides
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 inline Adesk::Boolean AcDb3dPolyline::isPeriodic() const
@@ -520,7 +454,6 @@ inline Acad::ErrorStatus AcDb3dPolyline::getStartParam(double& param) const
 inline Acad::ErrorStatus AcDb3dPolyline::extend(double newparam)
 {
   newparam;
-    // extending a pline based on a parameter is not supported.
   return Acad::eNotApplicable;
 }
 class AcDbArc : public AcDbCurve
@@ -614,7 +547,7 @@ public:
   AcDbLine(const AcGePoint3d& start, const AcGePoint3d& end);
   ~AcDbLine();
   ACDB_DECLARE_MEMBERS(AcDbLine);
-  DBCURVE_METHODS virtual Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const override;
+  DBCURVE_METHODS Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const override;
   AcGePoint3d startPoint() const;
   Acad::ErrorStatus setStartPoint(const AcGePoint3d&);
   AcGePoint3d endPoint() const;
@@ -658,7 +591,6 @@ public:
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
   double ecsRotation() const;
   Acad::ErrorStatus setEcsRotation(double);
-    // AcDbEntity overrides
   virtual Adesk::Boolean isPlanar() const override
   {
     return Adesk::kTrue;
@@ -730,8 +662,6 @@ public:
   Acad::ErrorStatus straighten();
   Acad::ErrorStatus surfaceFit();
   Acad::ErrorStatus surfaceFit(AcDb::PolyMeshType surfType, Adesk::Int16 surfu, Adesk::Int16 surfv);
-    // Vertex access
-    //
   Acad::ErrorStatus appendVertex(AcDbPolygonMeshVertex*);
   Acad::ErrorStatus appendVertex(AcDbObjectId& objId, AcDbPolygonMeshVertex*);
   Acad::ErrorStatus openVertex(AcDbPolygonMeshVertex*&, AcDbObjectId vertId, AcDb::OpenMode, bool openErasedOne = false);
@@ -766,7 +696,6 @@ public:
   AcDbTrace(const AcGePoint3d& pt0, const AcGePoint3d& pt1, const AcGePoint3d& pt2, const AcGePoint3d& pt3);
   ~AcDbTrace();
   ACDB_DECLARE_MEMBERS(AcDbTrace);
-    // returns eInvalidIndex if index is out of range
   Acad::ErrorStatus getPointAt(Adesk::UInt16 idx, AcGePoint3d& PntRes) const;
   Acad::ErrorStatus setPointAt(Adesk::UInt16 idx, const AcGePoint3d&);
   double thickness() const;
@@ -816,7 +745,6 @@ public:
   Acad::ErrorStatus setShapeNumber(Adesk::Int16);
   AcDbObjectId styleId() const;
   Acad::ErrorStatus setStyleId(AcDbObjectId id);
-    // Obsolete names for the "shape style id" get/set methods:
   AcDbObjectId shapeIndex() const
   {
     return this->styleId();
@@ -828,9 +756,6 @@ public:
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
-// This overload returns a buffer which the caller is responsible for freeing.
-// It will be removed soon. Please use the overload taking (AcString &) arg
-//
 inline ACHAR* AcDbShape::name() const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbShape::name);
@@ -842,7 +767,6 @@ public:
   AcDbViewport();
   ~AcDbViewport();
   ACDB_DECLARE_MEMBERS(AcDbViewport);
-    // view association
   Acad::ErrorStatus setModelView(const AcDbXrefObjectId& xrefObjId);
   Acad::ErrorStatus getModelView(AcDbXrefObjectId& xrefObjId) const;
   Acad::ErrorStatus removeModelView(void);
@@ -853,8 +777,6 @@ public:
   Acad::ErrorStatus getLabelBlock(AcDbObjectId& objId) const;
   Acad::ErrorStatus removeLabelBlock(void);
   Acad::ErrorStatus syncModelView(void);
-    // Thumbnails
-
     /// <summary>
     /// This function provides BITMAP thumbnail of viewport as output
     /// </summary>
@@ -885,8 +807,6 @@ public:
     /// <remarks> Internal use only </remarks>
     ///
   Acad::ErrorStatus setPreviewImage(const Atil::Image* pPreviewImage);
-    // Set methods will return eCannotChangeActiveViewport if called
-    // when the Viewport is currently active.  
   double height() const;
   Acad::ErrorStatus setHeight(double);
   double width() const;
@@ -902,8 +822,6 @@ public:
   Acad::ErrorStatus setViewTarget(const AcGePoint3d&);
   AcGeVector3d viewDirection() const;
   Acad::ErrorStatus setViewDirection(const AcGeVector3d&);
-    // Model Space height, and center in Display coordinates
-    //
   double viewHeight() const;
   Acad::ErrorStatus setViewHeight(double ht);
   AcGePoint2d viewCenter() const;
@@ -924,10 +842,8 @@ public:
   Acad::ErrorStatus setFrontClipAtEyeOn();
   Acad::ErrorStatus setFrontClipAtEyeOff();
   ACDBCORE2D_PORT Acad::ErrorStatus setFrontClipAtEyeOn(bool bOn);
-    // FrontZ 
   double frontClipDistance() const;
   Acad::ErrorStatus setFrontClipDistance(double newVal);
-    // BackZ 
   double backClipDistance() const;
   Acad::ErrorStatus setBackClipDistance(double newVal);
   bool isPerspectiveOn() const;
@@ -1009,24 +925,18 @@ public:
   Acad::ErrorStatus setPreviousBackground(AcDbObjectId backgroundId, AcGiDrawable::DrawableType type = AcGiDrawable::kGeometry);
   Acad::ErrorStatus setPreviousBackground(AcDbObjectId backgroundId, AcGiDrawable::DrawableType type, bool bForcedSwitch);
   bool previousBackgroundForcedSwitch(void) const;
-    // Visual Styles
   AcDbObjectId visualStyle() const;
   Acad::ErrorStatus setVisualStyle(const AcDbObjectId oidVisualStyle);
-    // Viewport Lighting
-    //
   bool isDefaultLightingOn() const;
   Acad::ErrorStatus setDefaultLightingOn(bool on);
   AcGiViewportTraits::DefaultLightingType defaultLightingType() const;
   Acad::ErrorStatus setDefaultLightingType(AcGiViewportTraits::DefaultLightingType typ);
-    // Brightness controls the relative intensity of lights.
   double brightness() const;
   Acad::ErrorStatus setBrightness(double);
-    // Contrast controls intensity of ambient light, relative to other lights.
   double contrast() const;
   Acad::ErrorStatus setContrast(double);
   AcCmColor ambientLightColor() const;
   Acad::ErrorStatus setAmbientLightColor(const AcCmColor& clr);
-    // A single sun (distant light) can be associated with each viewport.
   AcDbObjectId sunId() const;
   Acad::ErrorStatus setSun(AcDbObjectId& retId, AcDbObject* pSun);
   Acad::ErrorStatus setSun(AcDbObjectId& retId, AcDbObject* pSun, bool eraseOldSun);
@@ -1035,8 +945,6 @@ public:
   Acad::ErrorStatus setUnlocked();
   ACDBCORE2D_PORT Acad::ErrorStatus setLocked(bool);
   Acad::ErrorStatus setAnnotationScale(const AcDbAnnotationScale* pScaleObj);
-    // get current annotation scale, return a pointer to AcDbAnnotationScale, 
-    // caller is responsible for releasing the memory later
   AcDbAnnotationScale* annotationScale() const;
   bool isTransparent() const;
   Acad::ErrorStatus setTransparent();
@@ -1099,28 +1007,19 @@ public:
   virtual void modified(const AcDbObject*) override;
   virtual void copied(const AcDbObject* pDbObj, const AcDbObject* pNewObj) override;
   virtual void subObjModified(const AcDbObject* pDbObj, const AcDbObject* pSubObj) override;
-    // UCS query methods.
-    //
   Acad::ErrorStatus getUcs(AcGePoint3d& origin, AcGeVector3d& xAxis, AcGeVector3d& yAxis) const;
   bool isUcsOrthographic(AcDb::OrthographicView& view) const;
   AcDbObjectId ucsName() const;
   double elevation() const;
-    // UCS set methods.
-    //
   Acad::ErrorStatus setUcs(const AcGePoint3d& origin, const AcGeVector3d& xAxis, const AcGeVector3d& yAxis);
   Acad::ErrorStatus setUcs(AcDb::OrthographicView view);
   Acad::ErrorStatus setUcs(const AcDbObjectId& ucsId);
   Acad::ErrorStatus setUcsToWorld();
   Acad::ErrorStatus setElevation(double elev);
-    // Orthographic view methods.
-    //
   bool isViewOrthographic(AcDb::OrthographicView& view) const;
   Acad::ErrorStatus setViewDirection(AcDb::OrthographicView view);
-    // Methods to get/set UCSVP for viewport.
-    //
   bool isUcsSavedWithViewport() const;
   void setUcsPerViewport(bool ucsvp);
-    // ShadePlot enum and get/set methods
   enum ShadePlotType
   {
     kAsDisplayed = 0,
@@ -1139,13 +1038,8 @@ public:
   Acad::ErrorStatus toneOperatorParameters(AcGiToneOperatorParameters& params) const;
   Acad::ErrorStatus setToneOperatorParameters(const AcGiToneOperatorParameters& params);
 protected:
-    // AcDbEntity overrides
-    //
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
-// This overload returns a buffer which the caller is responsible for freeing.
-// It will be removed soon. Please use the overload taking (AcString &) arg
-//
 inline Acad::ErrorStatus AcDbViewport::plotStyleSheet(ACHAR*& pName) const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbViewport::plotStyleSheet, pName);

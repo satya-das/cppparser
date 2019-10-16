@@ -30,7 +30,6 @@
 #ifndef __AD_APPFRAME_H__
 #  define __AD_APPFRAME_H__
 #  include "AdExportDef.h"
-// forward declarations
 class AdImpApplicationFrame;
 class AdImpMenuBar;
 class AdVisualElementBase;
@@ -337,8 +336,6 @@ public:
   void ShowClicUI();
 protected:
   AdApplicationFrame(HWND hWndMainFrame);
-    // Data members
-
     /// <summar>
     /// Member pointer to the single instance of the application frame; there can be only one per application.
     /// </summary>

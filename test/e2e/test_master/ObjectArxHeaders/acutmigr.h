@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,18 +7,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//  DESCRIPTION:
-//
-//  This header file provides inline functions, macros, etc. to
-//  assist migration to the new AcUtil functions.  This header file
-//  may not be available in a subsequent release of ObjectARX.
 #ifndef _ACUTMIGR_H
 #  define _ACUTMIGR_H
 #  include "acutmem.h"
 #  pragma  pack (push, 8)
-// Unicode: leaving newBuffer and delBuffer pointer args as char *.
-//
 inline Acad::ErrorStatus newBuffer(char*& pOutput, size_t size)
 {
   return ::acutNewBuffer(pOutput, size);

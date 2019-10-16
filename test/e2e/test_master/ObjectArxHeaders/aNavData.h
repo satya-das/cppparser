@@ -18,11 +18,7 @@
 #    pragma  once
 #  endif
 /////////////////////////////////////////////////////////////////////////////
-// File Navigation data - result from a file navigation dialog is returned in this class.
-
-// Forward declarations.
 class CNavPathname;
-// The following identifies the type of the datum.
 enum NAV_DATA_TYPE
 {
   kNavUnknown,
@@ -37,10 +33,8 @@ enum NAV_DATA_TYPE
 class ANAV_PORT CNavData : public CObject
 {
 public:
-// Constructor and destructor.    
   CNavData();
   virtual ~CNavData();
-// Common Attributes and Helpers
 protected:
   NAV_DATA_TYPE m_dataType;
   LPITEMIDLIST m_id;
@@ -51,7 +45,6 @@ protected:
   CString m_password;
   CString m_extensionName;
 public:
-// Set/Get functions.
   NAV_DATA_TYPE GetDataType();
   void SetDataType(NAV_DATA_TYPE dataType);
   LPITEMIDLIST GetID();
@@ -71,9 +64,6 @@ public:
   LPCTSTR GetExtensionName();
   void SetExtensionName(LPCTSTR name);
   BOOL GetURL(CString& strURL);
-// User may use these data/functions to store any adidtional data 
-// But it is user's responsibility to allocate/deallocate 
-// appropriate memory
 protected:
   void* m_userData;
 public:
@@ -83,5 +73,4 @@ public:
 #  pragma  warning(pop)
 /////////////////////////////////////////////////////////////////////////////
 //{{AFX_INSERT_LOCATION}}
-// Microsoft Developer Studio will insert additional declarations immediately before the previous line.
 #endif

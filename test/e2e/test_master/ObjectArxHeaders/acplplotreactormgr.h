@@ -7,18 +7,13 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//  DESCRIPTION:  Header for Document and Document Manager Classes.
-//
 #ifndef ACPLPLOTREACTORMGR_H
 #  define ACPLPLOTREACTORMGR_H
 #  include "AcPl.h"
 class ADESK_NO_VTABLE AcPlPlotReactorMgr
 {
 public:
-    // Adds the given reactor to the reactor chain
   ACPL_PORT void addReactor(AcPlPlotReactor* pReactor);
-    // Removes the given reactor from the reactor chain
   ACPL_PORT void removeReactor(AcPlPlotReactor* pReactor);
 };
 ACPL_PORT AcPlPlotReactorMgr* __stdcall acplPlotReactorMgrPtr();

@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//
 #ifndef __AXMAT3D_H_
 #  define __AXMAT3D_H_
 #  include "gemat3d.h"
@@ -25,16 +22,13 @@
 class AXAUTOEXP AcAxMatrix3d : public AcGeMatrix3d
 {
 public:
-    // constructors
   AcAxMatrix3d();
   AcAxMatrix3d(const VARIANT* var);
   AcAxMatrix3d(const VARIANT& var);
   AcAxMatrix3d(const SAFEARRAY* safeArrayPt);
-    // equal operators
   AcAxMatrix3d& operator=(const VARIANT* var);
   AcAxMatrix3d& operator=(const VARIANT& var);
   AcAxMatrix3d& operator=(const SAFEARRAY* safeArrayPt);
-    // utilities
 private:
   AcAxMatrix3d& fromSafeArray(const SAFEARRAY* safeArrayPt);
 };

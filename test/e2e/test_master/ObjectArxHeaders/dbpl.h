@@ -7,9 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:  Lightweight polyline API header file.
-//
 #pragma  once
 #ifndef AD_DBPL_H
 #  define AD_DBPL_H	1
@@ -82,9 +79,6 @@ public:
   Adesk::Boolean hasBulges() const;
   Adesk::Boolean hasVertexIdentifiers() const;
   Adesk::Boolean hasWidth() const;
-    // Does nothing and returns Acad::eOk if already closed or the start and end 
-    // vertices do not coincide
-    //
   ACDBCORE2D_PORT Acad::ErrorStatus makeClosedIfStartAndEndVertexCoincide(double distTol);
     //**********************************************************************
     // AcDbCurve methods.

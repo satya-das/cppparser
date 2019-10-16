@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,12 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//
-// DESCRIPTION:
-//
-// The AcDbBlendOptions class is used to encapsulate options for
-// blend surface.
 #pragma  once
 #ifndef DBBLENDOPTIONS_H
 #  define DBBLENDOPTIONS_H

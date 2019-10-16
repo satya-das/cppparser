@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,47 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// 
-//  rxprotevnt.h
-//    
-//     AcRxObject
-//       AcRxProtocolReactor
-//       AcRxProtocolReactorIterator
-//       AcRxProtocolReactorList
-//       AcRxProtocolReactorListIterator
-//       AcRxProtocolReactorManager
-//       AcRxProtocolReactorManagerFactory
-//
-//  DESCRIPTION:
-//
-//  The classes in this file comprise a framework for attaching reactor-like
-//  objects to AcRx classes via the AcRx protoocol extension mechanism. Unlike
-//  normal protocol extensions, there may be more than one object implementing
-//  an event interface for a given event class on a single AcRx object. 
-//
-//  The classes in this file allow define the base reactor class which is a simple 
-//  base class for run time type identification. 
-//
-//  Applications derive from specific reactor classes and attach an instance of
-//  their objects implementing the reactor to a specific AcRx class via the
-//  AcRxprotocolReactorManager.
-//
-//  The AcRxProtocolReactor framework manages the reactors as follows:
-//
-//  AcRxClass
-//    -> AcRxProtocolReactorManager (at most 1 per AcRx class)
-//       -> AcRxProtocolReactorList (any number, 
-//                                   indexed by AcRxProtocolReactor class)
-//           -> AcRxProtocolReactor (any number)
-//
-//  Note that the framework does not manage the allocation/deallocation of the
-//  reactors themselves. Applications must allocate reactors, add them a
-//  reactor list associated with one (or more) classes. Before unloading
-//  applications should remove the reactors from the reactor lists and free the
-//  associated memory. Applications typically do the allocation when loaded and
-//  deallocation when unloaded but the actual timing is left up to the
-//  applications. 
 #pragma  once
 #include "rxdefs.h"
 #include "acadstrc.h"
@@ -88,9 +46,6 @@ class ADESK_NO_VTABLE AcRxProtocolReactorIterator : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcRxProtocolReactorIterator);
-    // The AcRxClass of the AcRxProtocolReactors returned by the
-    // iterator.
-    
     /// <summary>
     /// Returns the AcRxClass type returned by the iterator.
     /// </summary>
@@ -339,23 +294,10 @@ public:
   virtual AcRxProtocolReactorManager* createReactorManager(AcRxClass* pRxClass) const = 0;
 };
 /////////////////////// Macros ////////////////////////////////////////////////
-// The following macros facilitate access to framework classes.
-
-// acrxProtocolReactors macro
-// Returns a poitner to the global AcRxProtocolReactorManagerFactory instance. 
-//
 #define acrxProtocolReactors	AcRxProtocolReactorManagerFactory::cast(acrxServiceDictionary-> \
                                         at(ACRX_PROTOCOL_REACTOR_MANAGER))
-// ACRX_PROTOCOL_REACTOR_MANAGER_AT(acrxClass)
-// Returns a pointer to the AcRxProtocolReactorManager associated with the 
-// specified acrxClass.
-//
 #define ACRX_PROTOCOL_REACTOR_MANAGER_AT(acrxClass)	 \
 acrxProtocolReactors->createReactorManager(acrxClass)
-// ACRX_PROTOCOL_REACTOR_LIST(acrxClass, reactorClass)
-// Returns a pointer to the AcRxProtocolReactorList associated with the 
-// specified acrxClass and containing zero or more reactorClass instances.
-//
 #define ACRX_PROTOCOL_REACTOR_LIST_AT(acrxClass, reactorClass)	 \
     ACRX_PROTOCOL_REACTOR_MANAGER_AT(acrxClass)->createReactorList(reactorClass)
 #pragma  pack (pop)

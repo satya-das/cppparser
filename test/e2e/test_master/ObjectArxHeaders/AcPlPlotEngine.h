@@ -7,11 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//  AcPlPlotPageInfo      - interface for prescan info
-//  AcPlPreviewEngine     - interface with plotting pipeline for previewing
-//  AcPlPlotEngine        - interface with plotting pipeline for plotting
-//
 #ifndef _ACPLPLOTENGINE_H
 #  define _ACPLPLOTENGINE_H
 #  include "AdAChar.h"
@@ -23,7 +18,6 @@ class AcPlPlotProgress;
 class AcPlPlotInfo;
 class AcDbPlotSettings;
 class AcPlPlotConfig;
-// Status values for ACPL_PREVIEWENDPLOT
 enum PreviewStatus
 {
   kNormal = 0,
@@ -32,8 +26,6 @@ enum PreviewStatus
   kNext,
   kPrevious
 };
-// Struct ACPL_PREVIEWENDPLOT, in/out parameter modified by AcPlPlotEngine::endPlot()
-// if the engine was created with AcPlPlotFactory::createPreviewEngine.
 struct ACPL_PREVIEWENDPLOT
 {
   PreviewStatus nStatus;
@@ -55,10 +47,8 @@ class ADESK_NO_VTABLE AcPlPlotEngine
 public:
   virtual Acad::ErrorStatus beginPlot(AcPlPlotProgress* pPlotProgress, void* pParams = NULL);
   virtual Acad::ErrorStatus endPlot(void* pParams = NULL);
-    // This plotInfo must not be deleted until endDocument().
   virtual Acad::ErrorStatus beginDocument(AcPlPlotInfo& plotInfo, const ACHAR* pDocname, void* pParams = NULL, Adesk::Int32 nCopies = 1, bool bPlotToFile = false, const ACHAR* pFileName = NULL);
   virtual Acad::ErrorStatus endDocument(void* pParams = NULL);
-    // This plotInfo may be the same as for beginDocument().
   virtual Acad::ErrorStatus beginPage(AcPlPlotPageInfo& pageInfo, AcPlPlotInfo& plotInfo, bool bLastPage, void* pParams = NULL);
   virtual Acad::ErrorStatus endPage(void* pParams = NULL);
   virtual Acad::ErrorStatus beginGenerateGraphics(void* pParams = NULL);

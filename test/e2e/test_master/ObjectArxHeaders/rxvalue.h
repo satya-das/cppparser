@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -135,12 +134,10 @@ public:
     ///
   ~AcRxValue()
   {
-        //if the type is non-blittable then we must call destructor
     if (!type().isBlittable())
     {
       type().nonBlittable()->destruct(valuePtr());
     }
-        //finally free memory if necessary
     if (!isInlined())
     {
       deallocate(m_value.m_ptr);
@@ -263,7 +260,6 @@ public:
   AcRxValue(const ValueType& value)
     : m_type(AcRxValueType::Desc<ValueType>::value())
   {
-        //this should have been specialized otherwise
     ACRXVALUE_ASSERT(m_type.isBlittable());
   }
     /// <summary>
@@ -568,7 +564,6 @@ private:
   ACBASE_PORT void deallocate(void* p) const;
 #pragma  endregion
 };
-//each AcRxValue instance is 32 bytes long (on both 32 and 64 bit)
 static_assert(sizeof(AcRxValue) == 32, "Size mismatch.");
 template <>
 struct AcRxValueType ::Desc< const ACHAR* >
@@ -634,7 +629,6 @@ inline void AcRxValue::initBlittable<false>(const void* value, size_t size)
 template <typename T>
 inline void AcRxValue::InitNonBlittable< T, true>::init(AcRxValue& rxValue, const T& value)
 {
-    //call global placement new defined above so that we can call copy constructor
   (Storage*) (rxValue.inlineValuePtr())  T(value);
 }
 template <typename T>
@@ -776,11 +770,8 @@ public:
   ACBASE_PORT virtual AcRxValue* value() override;
 };
 /////////////////////////////////////////////////////////////////////
-//specializations
 #pragma  region AcString
 class AcString;
-//template<> 
-//struct AcRxValueType::Desc<AcString> 
 //{
 //    ACBASE_PORT static const AcRxValueType& value() throw();
 //    static void del();

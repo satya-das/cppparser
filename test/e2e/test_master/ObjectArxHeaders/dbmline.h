@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,9 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION: Exported AcDbMline Entity class
-//  dbmline.h - multi-line entity
 #ifndef AD_DBMLINE_H
 #  define AD_DBMLINE_H
 #  include "dbmain.h"

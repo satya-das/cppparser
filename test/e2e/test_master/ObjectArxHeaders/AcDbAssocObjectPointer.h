@@ -294,10 +294,6 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbAssocActio
     {
       AcDbObject* pInputObject = pObject;
       pCallback->beginActionEvaluationUsingObject(pActionBeingEvaluated, AcDbObjectId::kNull, true, true, pInputObject);
-            // If the passed-in objectId is null, the callback should treat 
-            // its pSubstituteObject argument as an input argument and should 
-            // not change its value
-            //
 #ifdef ASSERT
       ASSERT(pInputObject == pObject);
 #endif
@@ -328,10 +324,6 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
       {
         AcDbObject* pInputObject = pObject;
         pCallback->beginActionEvaluationUsingObject(pActionBeingEvaluated, AcDbObjectId::kNull, true, true, pInputObject);
-                // If the passed-in objectId is null, the callback should treat 
-                // its pSubstituteObject argument as an input argument and should 
-                // not change its value
-                //
 #ifdef ASSERT
         ASSERT(pInputObject == pObject);
 #endif

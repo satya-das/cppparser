@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -23,8 +22,6 @@
 /// </summary>
 #ifndef _ACDMMAPI_H
 #  define _ACDMMAPI_H
-// These are lightweight objects containing the data but not the complex
-// behavior of the corresponding DWF toolkit object
 #  include "AdAChar.h"
 #  include "AcDMMEPlotProperty.h"
 #  include "AcDMMEPlotProperties.h"
@@ -43,9 +40,6 @@
 class AcDMMSheetReactorInfo
 {
 public:
-    // Access to plot info:
-
-    // Enums for returns, below.
     /// <summary>
     /// describes the plot area (what to plot) requested
     /// </summary>
@@ -195,7 +189,6 @@ public:
     /// true if this is the Model tab
     /// </returns>
   virtual bool isModelLayout() const = 0;
-    // qv Plot Area of Print dialog
     /// <summary>
     /// accessor for the configured plot area (what to plot)
     /// </summary>
@@ -409,8 +402,6 @@ public:
     /// </returns>
     ///
   virtual bool areScalingLineWeights() const = 0;
-    // display extents; world coordinates
-
     /// <summary>
     /// accessor for x coordinate of the lower left corner of the display
     /// </summary>
@@ -467,9 +458,6 @@ public:
     /// <seealso cref="AcDMMSheetReactorInfo.displayMaxX"/>
     ///
   virtual double displayMaxY() const = 0;
-    // unprintable area on the layout, measured from nearest edge, 
-    // in PlotMediaUnits
-
     /// <summary>
     /// accessor for distance from the left edge of the paper to the
     /// left edge of the printable area
@@ -749,8 +737,6 @@ public:
     /// plot is clipped.
     /// </remarks>
   virtual double layoutBoundsMaxY() const = 0;
-    // May differ from origin, above, depending on rotation, scaling, etc.
-
     /// <summary>
     /// accessor for x coordinate of the effective plot origin
     /// in media units
@@ -1342,8 +1328,6 @@ inline void AcDMMReactor::OnEndEntity(AcDMMEntityReactorInfo* pInfo)
 inline void AcDMMReactor::OnEndSheet(AcDMMSheetReactorInfo* pInfo)
 {
 }
-// Global functions that clients call to add and remove reactors
-
 /// <summary>
 /// the global function clients should call to add a reactor
 /// </summary>

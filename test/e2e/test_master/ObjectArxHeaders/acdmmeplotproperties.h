@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,10 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// AcDMMEPlotProperties.h
-// the proxy EPlotProperties object
-//
 #ifndef AcDMMEPlotProperties_h
 #  define AcDMMEPlotProperties_h
 #  include "AcDMMEPlotProperty.h"

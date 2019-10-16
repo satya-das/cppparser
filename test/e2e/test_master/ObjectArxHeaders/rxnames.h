@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,10 +7,8 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #ifndef _RXNAMES_H
 #  define _RXNAMES_H
-/* Arx System Constant Text String Identifiers */
 #  define ACRX_CLASS_DICTIONARY	ACRX_T("ClassDictionary")
 #  define ACRX_DYNAMIC_LINKER	ACRX_T("DynamicLinker")
 #  define ACRX_SERVICE_DICTIONARY	ACRX_T("ServiceDictionary")

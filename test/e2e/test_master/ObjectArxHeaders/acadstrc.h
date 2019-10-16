@@ -7,9 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// acadstrc.h:   definition of struct Acad which contains the
-//               ErrorStatus enumerated type values
 #ifndef AD_ACADSTRC_H
 #  define AD_ACADSTRC_H	1
 #  pragma  pack (push, 8)
@@ -318,7 +315,6 @@ struct Acad
     eDwgShareDemandLoad = 500,
     eDwgShareReadAccess = 501,
     eDwgShareWriteAccess = 502,
-                             // Plot
     eLoadFailed = 503,
     eDeviceNotFound = 504,
     eNoCurrentConfig = 505,
@@ -345,25 +341,16 @@ struct Acad
     eNotMultiPageCapable = 526,
     eBackgroundPlotInProgress = 527,
     eNotShownInPropertyPalette = 528,
-                             // Sub Selection for Table Object
-                             //
     eSubSelectionSetEmpty = 550,
-                             // Geometric Modeling 
     eNoIntersections = 551,
     eEmbeddedIntersections = 552,
-                             // Layer property overrides
-                             //
     eNoOverride = 570,
     eNoStoredOverrides = 571,
     eUnableToRetrieveOverrides = 572,
     eUnableToStoreOverrides = 573,
     eUnableToRemoveOverrides = 574,
-                             // Layer Reconciliation
-                             //
     eNoStoredReconcileStatus = 580,
     eUnableToStoreReconcileStatus = 581,
-                             // View Association
-                             //
     eInvalidObjectId = 600,
     eInvalidXrefObjectId = 601,
     eNoViewAssociation = 602,
@@ -374,7 +361,6 @@ struct Acad
     eUnableToGetLabelBlock = 607,
     eUnableToRemoveAssociation = 608,
     eUnableToSyncModelView = 609,
-                             // Data links
     eDataLinkAdapterNotFound = 650,
     eDataLinkInvalidAdapterId = 651,
     eDataLinkNotFound = 652,
@@ -386,31 +372,20 @@ struct Acad
     eDataLinkSourceIsWriteProtected = 658,
     eDataLinkExcelNotFound = 659,
     eDataLinkOtherError = 660,
-                             // Xref notification
-                             //
     eXrefReloaded = 700,
     eXrefReloadImpossibleAtThisTime = 701,
-                             // DWG Security
-                             //
     eSecInitializationFailure = 1001,
     eSecErrorReadingFile = 1002,
     eSecErrorWritingFile = 1003,
-                             //
-                             // Status codes specific to Digital Signatures
-                             //
     eSecInvalidDigitalID = 1101,
     eSecErrorGeneratingTimestamp = 1102,
     eSecErrorComputingSignature = 1103,
     eSecErrorWritingSignature = 1104,
-                             //
-                             // Status codes specific to password-based protection
-                             //
     eSecErrorEncryptingData = 1201,
     eSecErrorCipherNotSupported = 1202,
     eSecErrorDecryptingData = 1203,
     eNoAcDbHostApplication = 1300,
     eNoUnderlayHost = 1301,
-                             // Status codes for Point Cloud indexing
     ePCUnknown = 1400,
     ePCLargeData = 1401,
     ePCUnknownFileType = 1402,
@@ -429,15 +404,9 @@ struct Acad
     ePCLastImporterUnfinished = 1415,
     ePCNoEngineInfo = 1416,
     ePCInProgress = 1417,
-                             // BEGIN: Internet-related status codes
-
-                             // eveything went through just fine
-                             //
     eInetBase = 20000,
     eInetOk = eInetBase,
     eInetInCache,
-                             // File access
-                             // 
     eInetFileNotFound,
     eInetBadPath,
     eInetTooManyOpenFiles,
@@ -448,8 +417,6 @@ struct Acad
     eInetSharingViolation,
     eInetDiskFull,
     eInetFileGenericError,
-                             // AcadInet-specific
-                             //
     eInetValidURL,
     eInetNotAnURL,
     eInetNoWinInet,
@@ -464,8 +431,6 @@ struct Acad
     eInetFileOpenFailed,
     eInetHttpOpenRequestFailed,
     eInetUserCancelledTransfer,
-                             // WinInet-specific
-                             //
     eInetHttpBadRequest,
     eInetHttpAccessDenied,
     eInetHttpPaymentRequired,
@@ -489,35 +454,22 @@ struct Acad
     eInetHttpGatewayTimeout,
     eInetHttpVersionNotSupported,
     eInetInternetError,
-                             // corresponding to the MFC CException
-                             //
     eInetGenericException,
-                             // all others
-                             //
     eInetUnknownError,
-                             // END: Internet-related status codes
-
-                             // AcDbCustomOsnapManager specific
     eAlreadyActive,
     eAlreadyInactive,
-                             // End AcDbCustomOsnapManager specific
-
-                             // AcDbEval
     eGraphEdgeNotFound,
     eGraphNodeNotFound,
     eGraphNodeAlreadyExists,
     eGraphEdgeAlreadyExists,
     eGraphCyclesFound,
-                             // AcDbBlockRepresentation
     eAlreadyHasRepresentation,
     eNoRepresentation,
-                             // solid chamfer/fillet
     eFailedToSetEdgeChamfers,
     eNoConnectedBlendSet,
     eFailedToBlend,
     eFailedToSetEdgeRounds,
     eFailedToSetVertexRounds,
-                             // visual styles
     eVSNotFound,
     eVSTrue,
     eVSFalse,
@@ -526,12 +478,10 @@ struct Acad
     eVSAPIOnlyValues,
     eVSIsInUse,
     eVSIsAcadDefault,
-                             // solid history evaluation
     eEmptyOperand,
     eNoEntitiesFromPersistentIds,
     eFailedCurveCheck,
     eMaxNodes,
-                             //Associative Network related errors.
     eFailedToEvaluate,
     eFailedToEvaluateDependents,
     eInvalidExpression,
@@ -542,13 +492,10 @@ struct Acad
     eInvalidParameterName,
     eReferencedInEquation,
     eEntityRestricedInDOF,
-                             // large object support
     eDataTooLarge,
     eNearSizeLimit,
-                             // string user parameters
     eStringNotAllowedInExpression,
     eTooManyActiveCommands,
-                             // parametric surface
     eUnableToTrimLastPiece,
     eUnableToTrimSurface,
     eModifyingAssociativeEntity,
@@ -559,121 +506,55 @@ struct Acad
     eNotConnected,
     eNoInputPath,
     eNotAssociative,
-                             // ASM G1 discontinuity error 
     eNotG1Continuous,
     eOwnerToBeTransformed,
     eMustBeInteger,
     eMustBePositiveInteger,
-                             // Associative Array
     eChangedAgainstAssociativity,
     eItemCountChanged,
-                             // AdIntImgServices error
     eGetAdIntImgServicesFailed,
-                             // Atil::Image error
     eReadImageBufferFailed,
     eWriteImageBufferFailed,
     eGetImageBytesFailed,
     eGetImageDIBFailed,
     eConvertImageFormatFailed,
-                             // get preview image error
     eGetPreviewImageFailed,
     eInvalidPreviewImage,
-                             // Live Preview error
     eDelayMore,
     ePreviewFailed,
     eAbortPreview,
     eEndPreview,
     eNoPreviewContext,
-                             // Cloud error
     eFileNotInCloud
   };
-    // The following enums represent bits in a "history" value, which indicates
-    // what all point filters had an effect on the point on a particular
-    // system event.
-    //
-    // The bits are independent from one another, except:
-    // - only one flag out of eOrtho and ePolarAng will be returned at any
-    //   given callout.
-    // - If eNotDigitizer is set, then none of the following will ever be
-    //   set:  eGripped, eCartSnapped, eOrtho, eCyclingPt
-    //   but the rest of the flags are independent.  In eNotDigitizer events,
-    //   the rawPoint, postGrippedPoint, cartesianSnappedPoint and orthoPoint
-    //   values will all be identical.
-    // - (history & eCoordPending) is really an mask for any of the 3 coordinate
-    //   point enums directly preceding it.
   enum PointHistory
   {
     eTablet = 0x0001,
-                                                     // cursor tracking, as opposed
-                                                     // to tablet mode.
     eNotDigitizer = 0x0002,
-                                                     // at keyboard or fed by
-                                                     // by program or script or
-                                                     // menu macro expansion or
-                                                     // digitizer pick event;
-                                                     // anything but digitizer
-                                                     // motion.
     eLastPt = 0x0004,
-                                                     // valid.
     eGripped = 0x008,
     eCartSnapped = 0x0010,
-                                                     // cartesian snap, that is.)
     eOrtho = 0x0020,
     eCyclingPt = 0x0040,
-                                                     // "cycling" so this is not
-                                                     // the necessarily the
-                                                     // "best" osnap/alignment
-                                                     // computation.
     eOsnapped = 0x0080,
     ePolarAngle = 0x0100,
     eAligned = 0x0400,
     eAppFiltered = 0x0800,
-                                                     // registered (only monitors
-                                                     // will get this bit).
     eForcedPick = 0x1000,
     ePickMask = 0xE000,
-                                                     // mode" bits to compare with
-                                                     // eDidNotPick,
-                                                     // eUsedPickBox and
-                                                     // eUsedOsnapBox as enums.
-                                                     // more of the 7 values may
-                                                     // be used in the future.
     eDidNotPick = 0x0000,
-                                                     // !eForcedPick & no OSNAP
-                                                     // was performed.
     eUsedPickBox = 0x2000,
-                                                     // box. used as enum within
     eUsedOsnapBox = 0x4000,
-                                                     // box.
     ePickAborted = 0x8000,
-                                                     // apertureEntities has been
-                                                     // aborted because of out-
-                                                     // stating mouse move messages
-                                                     // in AutoCAD's message queue.
     eXPending = 0x10000,
     eYPending = 0x20000,
     eZPending = 0x40000,
     eCoordPending = 0x70000,
-                                                     // pending coordinate bits.
     eFromKeyboard = 0x80000,
-                                                     // in by the user
     eNotInteractive = 0x100000,
-                                                     // menu macro expansion, a LISP
-                                                     // (command) call or ads_command().
     eDirectDistance = 0x200000,
-                                                     // for a point
-    eGizmoConstrainted = 0x400000,
-                                                     // on the point
+    eGizmoConstrainted = 0x400000
   };
-    // Acad::PromptStatus
-    //
-    // Define an enum sequence
-    // in the image of the RT* return statuses defined in ADSCODES.H.
-    // In fact, these values can be directly interchanged with ads_get*()
-    // function return statuses, except for eDirect as noted below.
-    // I suggest it be scoped in class Acad, which
-    // also scopes ErrorStatus.
-    //
   enum PromptStatus
   {
     eNone = 5000,
@@ -684,10 +565,7 @@ struct Acad
     eRejected = -5003,
     eFailed = -5004,
     eKeyword = -5005,
-    eDirect = -5999,
-                             // nested within another geometric value prompt,
-                             // (such as angle) and the entered response was
-                             // such a value rather than a point.
+    eDirect = -5999
   };
 };
 #  pragma  pack (pop)

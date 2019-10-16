@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,11 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:
-//
-// This file contains the class AcGePointEnt3d - An abstract base
-// class to represent point entities.
 #ifndef AC_GEPENT3D_H
 #  define AC_GEPENT3D_H
 #  include "adesk.h"
@@ -21,14 +15,8 @@
 class GE_DLLEXPIMPORT AcGePointEnt3d : public AcGeEntity3d
 {
 public:
-    // Return point coordinates.
-    //
   AcGePoint3d point3d() const;
-    // Conversion operator to convert to AcGePoint3d.
-    //
   operator AcGePoint3d() const;
-    // Assignment operator.
-    //
   AcGePointEnt3d& operator =(const AcGePointEnt3d& pnt);
 protected:
   AcGePointEnt3d();

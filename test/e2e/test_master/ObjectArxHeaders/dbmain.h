@@ -7,10 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// dbmain.h
-//
-// DESCRIPTION: Main Exported Database Library Definitions
 #ifndef AD_DBMAIN_H
 #  define AD_DBMAIN_H
 #  include <stddef.h>
@@ -112,24 +108,14 @@ namespace Atil
 #  include "AcArray.h"
 #  pragma  pack(push, 8)
 class AcLocale;
-// For getClassID without pulling in wtypes.h
-//
 struct _GUID;
 typedef struct _GUID CLSID;
 class AcDbGripData;
 typedef AcArray<AcDbGripData*, AcArrayMemCopyReallocator<AcDbGripData*> > AcDbGripDataPtrArray;
 typedef AcArray<AcDbFullSubentPath, AcArrayObjectCopyReallocator<AcDbFullSubentPath> > AcDbFullSubentPathArray;
 extern const AcDbFullSubentPath kNullSubent;
-// Global Variables: API exports as functions.
-//
-
-// DXF Code --> Data Type mapping function
-//
 AcDb::DwgDataType acdbGroupCodeToType(AcDb::DxfCode pCode);
-// If acdbGroupCodeToType(pField->restype) == kDwgText or kDwgBChunk, then free the string
-// or buffer, and set the rstring or buf pointer to null.  Does not free the resbuf itself.
 void acdbFreeResBufContents(resbuf* pField);
-// Returns null id if arg is not a persistent reactor
 ACDBCORE2D_PORT AcDbObjectId acdbPersistentReactorObjectId(const void* pSomething);
 inline bool acdbIsPersistentReactor(const void* pSomething)
 {
@@ -137,10 +123,6 @@ inline bool acdbIsPersistentReactor(const void* pSomething)
 }
 ACDB_PORT bool acdbDisplayPreviewFromDwg(const ACHAR* pszDwgfilename, void* pPreviewWnd, const Adesk::UInt32* pBgColor = nullptr);
 bool acdbIsCustomObject(const AcDbObjectId& id);
-// Object Open Functions:  Exchange an object Id and 
-// open mode for a pointer to the corresponding object.
-//
-
 /// <summary>
 /// This function opens an AcDbObject for read, write or notify access
 /// </summary>
@@ -172,7 +154,6 @@ ACDBCORE2D_PORT Acad::ErrorStatus acdbOpenObject(AcDbObject*& pObj, AcDbObjectId
 /// </remarks>
 ///
 ACDBCORE2D_PORT Acad::ErrorStatus acdbOpenObject(AcDbObject*& pObj, AcDbObjectId id, AcRxClass* (*pfDesc) (), AcDb::OpenMode mode, bool openErased);
-// To be deprecated. Please use acdbOpenObject() instead
 inline Acad::ErrorStatus acdbOpenAcDbObject(AcDbObject*& pObj, AcDbObjectId id, AcDb::OpenMode mode, bool openErasedObject = false)
 {
   return ::acdbOpenObject(pObj, id, mode, openErasedObject, nullptr);
@@ -191,32 +172,19 @@ inline Acad::ErrorStatus acdbOpenObject(T_OBJECT*& pObj, AcDbObjectId id, AcDb::
 {
   return ::acdbOpenObject((AcDbObject*&) pObj, id, &T_OBJECT::desc, mode, openErased);
 }
-// Special overload for the base AcDbObject * type
-// Works with smart pointers
 inline Acad::ErrorStatus acdbOpenObject(AcDbObject*& pObj, AcDbObjectId id, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false)
 {
   return ::acdbOpenObject(pObj, id, mode, openErased, nullptr);
 }
-//
-// Special case overload for AcDbEntity type.
-// Avoids the overhead of desc() and isKindOf()
-//
 ACDBCORE2D_PORT Acad::ErrorStatus acdbOpenObject(AcDbEntity*& pEnt, AcDbObjectId id, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false);
-// To be deprecated. Please use acdbOpenObject() instead
 inline Acad::ErrorStatus acdbOpenAcDbEntity(AcDbEntity*& pEnt, AcDbObjectId id, AcDb::OpenMode mode, bool openErasedEntity = false)
 {
   return ::acdbOpenObject(pEnt, id, mode, openErasedEntity);
 }
 Acad::ErrorStatus acdbResurrectMeNow(const AcDbObjectId& id);
-// Translate between AcDbObjectName and ads_name, for use
-// with ADS library functions.
-//
 Acad::ErrorStatus acdbGetAdsName(ads_name& objName, AcDbObjectId objId);
 Acad::ErrorStatus acdbGetObjectId(AcDbObjectId& objId, const ads_name objName);
 Acad::ErrorStatus acdbValKey(const ads_name lname);
-//  Mark an object as referenced, so it doesn't get automatically
-//  purged after initial regen.
-//
 Acad::ErrorStatus acdbSetReferenced(AcDbObjectId objId);
 /// <summary>
 // Get the array of currently active Databases
@@ -228,53 +196,27 @@ ACDBCORE2D_PORT const AcArray<AcDbDatabase *>& acdbActiveDatabaseArray();
 class AcDbViewTableRecord;
 class AcDbViewport;
 class AcDbObjectContextManager;
-// Load an mline style file by name.
 Acad::ErrorStatus acdbLoadMlineStyleFile(const ACHAR* sname, const ACHAR* fname);
-// Load a linetype file by ltype name, and file name.  ltname may be wild.
 Acad::ErrorStatus acdbLoadLineTypeFile(const ACHAR* ltname, const ACHAR* fname, AcDbDatabase* pDb);
-//  Allocate memory from, and release it to, the AcDbObject
-//  memory pool.  Any memory which will be freed by deleting an
-//  AcDbObject should be allocated from this pool.   
-//
 void* acdbAlloc(size_t);
 void* acdbRealloc(void*, size_t);
 void acdbFree(void*);
-//Explicit init/term functions for AcDb.
-//On Windows dynamic libraries have a 2 phase init that acdb has grown
-//to rely on:
-//1. Global constructors are called.
-//2. DllMain is called.
-//On the Mac there's no DllMain so clients must call these functions
-//to properly init/term acdb. Most clients won't have to explicity call
-//these functions because we implicity call acdbInitialize when 
-//acdbSetHostApplicationServices and acdbValidateSetup are called.
-//Multiple calls to these functions are OK. Calls after the first are
-//ignored.
 ACDB_PORT void acdbInitialize();
 ACDB_PORT void acdbTerminate();
-// ObjectDBX Host Apps must call this startup code after fulfilling
-// all relevant contracts, eg registering a HostAppService object
-
 /// <summary>
 /// This call controls which language resources RealDWG will attempt to load and use.
 /// </summary>
 /// <param name="loc">input locale value</param>
 /// <returns>Returns Acad::eOk if successful.</returns>
 ACDBCORE2D_PORT Acad::ErrorStatus acdbValidateSetup(const AcLocale& loc);
-// ObjectDBX Host Apps must call this shutdown code before exiting
-//
 Acad::ErrorStatus acdbCleanUp();
 const ACHAR* acdbOriginalXrefFullPathFor(const AcDbDatabase*);
-//  sets the default graphics context for an application.
-//  return value is the previous default graphics context (may be nullptr).
 AcGiContext* acdbSetDefaultAcGiContext(AcGiContext*);
-//  DXF
 Acad::ErrorStatus acdbGetThumbnailBitmapFromDxfFile(const ACHAR* filename, void*& pBitmap);
 class AcDbDatabase : public AcRxObject, public AcHeapOperators
 {
 public:
   ACRX_DECLARE_MEMBERS(AcDbDatabase);
-    // constructor & destructor
   ACDBCORE2D_PORT AcDbDatabase(bool buildDefaultDrawing = true, bool noDocument = false);
   ACDBCORE2D_PORT virtual ~AcDbDatabase();
     /// <summary>
@@ -294,11 +236,9 @@ public:
     /// </remarks>
     ///
   ACDBCORE2D_PORT Acad::ErrorStatus addAcDbObject(AcDbObjectId& id, AcDbObject* pObj);
-    // For Autodesk internal use only
   ACDBCORE2D_PORT Acad::ErrorStatus addAcDbObject(AcDbObject* pObj);
   static Acad::ErrorStatus markObjectNonPersistent(AcDbObjectId id, bool value);
   static bool isObjectNonPersistent(AcDbObjectId id);
-    // Symbol Tables
   Acad::ErrorStatus getBlockTable(AcDbSymbolTable*& pTable, AcDb::OpenMode mode = AcDb::kForRead);
   Acad::ErrorStatus getLayerTable(AcDbSymbolTable*& pTable, AcDb::OpenMode mode = AcDb::kForRead);
   Acad::ErrorStatus getTextStyleTable(AcDbSymbolTable*& pTable, AcDb::OpenMode mode = AcDb::kForRead);
@@ -361,7 +301,6 @@ public:
   ACDBCORE2D_PORT AcDbObjectId scaleListDictionaryId() const;
   ACDBCORE2D_PORT AcDbObjectId namedObjectsDictionaryId() const;
   ACDBCORE2D_PORT AcDbObjectId plotSettingsDictionaryId() const;
-    // Template helper method for getting symtab ids
   template <typename TableType>
   AcDbObjectId getSymbolTableId() const;
   AcDbObjectId layerZero() const;
@@ -374,37 +313,20 @@ public:
   AcDbObjectId paperSpaceVportId() const;
   AcDbObjectId currentSpaceId() const;
   Acad::ErrorStatus reclaimMemoryFromErasedObjects(const AcDbObjectIdArray& erasedObjects);
-    // Traverse the db and remove non-purgeable ids from the array
   Acad::ErrorStatus purge(AcDbObjectIdArray& ids);
   Acad::ErrorStatus purge(AcDbObjectIdGraph& idGraph);
   Acad::ErrorStatus countHardReferences(const AcDbObjectIdArray& ids, Adesk::UInt32* pCount);
-    // Exchange (handle, xrefId) or name for AcDbObjectId 
-    //
   Acad::ErrorStatus getAcDbObjectId(AcDbObjectId& retId, bool createIfNotFound, const AcDbHandle& objHandle, Adesk::UInt32 xRefId = 0);
-    // Class Dxf Name for this database.
-    //
   const ACHAR* classDxfName(const AcRxClass* pClass);
   bool hasClass(const AcRxClass* pClass) const;
-    // Filing Operations
-    //
   enum OpenMode
   {
     kForReadAndReadShare = 1,
-                                        // other writers. (_SH_DENYWR)
     kForReadAndWriteNoShare = 2,
-                                        // other writers. (_SH_DENYRW)
     kForReadAndAllShare = 3,
-                                        // Closes dwg file after open. (_SH_DENYNO)
-                                        // Internally calls closeInput(true)
-    kTryForReadShare = 4,
-                                        // if that fails, then try kForReadAndAllShare 
+    kTryForReadShare = 4
   };
-    // Note that the old overload of this method which took an int _SH_DENYxxx
-    // arg is removed. You have to call this method using the OpenMode arg
-    // to specify the access and sharing. See above OpenMode comments for
-    // the mapping from _SH_DENYxxx to kXXXShare enum vals.
   ACDBCORE2D_PORT Acad::ErrorStatus readDwgFile(const ACHAR* fileName, OpenMode shmode = kForReadAndReadShare, bool bAllowCPConversion = false, const wchar_t* wszPassword = nullptr);
-    // Currently for internal use only
   ACDBCORE2D_PORT Acad::ErrorStatus readDwgFile(AcDwgFileHandle* pDwgFile, bool bAllowCPConversion = false, const wchar_t* wszPassword = nullptr);
     /// <summary>
     /// Returns true if this database was read in from a dwg file on disk
@@ -413,7 +335,6 @@ public:
     /// NOTE: closeInput() should be called before using this function to
     ///       be sure that all objects in the drawing have been read in.
     /// </summary>
-    //
   ACDBCORE2D_PORT bool needsRecovery() const;
   ACDBCORE2D_PORT void setFullSaveRequired();
   inline Acad::ErrorStatus saveAs(const ACHAR* fileName, const SecurityParams* pSecParams = 0)
@@ -468,30 +389,14 @@ public:
   Acad::ErrorStatus wblock(AcDbDatabase* pOutputDb, const AcDbObjectIdArray& outObjIds, const AcGePoint3d& basePoint, AcDb::DuplicateRecordCloning drc);
   Acad::ErrorStatus wblock(AcDbDatabase*& pOutputDb, AcDbObjectId blockId);
   Acad::ErrorStatus wblock(AcDbDatabase*& pOutputDb);
-    // This will force the current WBLOCK* operation to result in
-    // a database copy.  Only use this method if your application
-    // does some special handling during WBLOCK* notifications and
-    // you can only do that correctly if the WBLOCK* results in a
-    // database copy.  Needless to say, a database copy will slow
-    // down WBLOCK* and increase memory requirements.
-    //
   void forceWblockDatabaseCopy();
-    // If preserveSourceDatabase is true, the contents of pDb will not
-    // be changed.  If it is false, objects from pDb could be physically
-    // moved into the database on which insert() is called.  The latter
-    // is much faster.  But pDb will be left in a state where it depends
-    // on "this" database (the one on which insert() was called) for vital
-    // data.  So pDb should be deleted before "this" database is deleted.
-    //
   Acad::ErrorStatus insert(AcDbObjectId& blockId, const ACHAR* pBlockName, AcDbDatabase* pDb, bool preserveSourceDatabase = true);
   Acad::ErrorStatus insert(const AcGeMatrix3d& xform, AcDbDatabase* pDb, bool preserveSourceDatabase = true);
   Acad::ErrorStatus insert(AcDbObjectId& blockId, const ACHAR* pSourceBlockName, const ACHAR* pDestinationBlockName, AcDbDatabase* pDb, bool preserveSourceDatabase = true);
   ACDBCORE2D_PORT Acad::ErrorStatus deepCloneObjects(const AcDbObjectIdArray& objectIds, const AcDbObjectId& owner, AcDbIdMapping& idMap, bool deferXlation = false);
   ACDBCORE2D_PORT Acad::ErrorStatus wblockCloneObjects(const AcDbObjectIdArray& objectIds, const AcDbObjectId& owner, AcDbIdMapping& idMap, AcDb::DuplicateRecordCloning drc, bool deferXlation = false);
   void abortDeepClone(AcDbIdMapping& idMap);
-    // Can return eInvalidInput, eObjectToBeDeleted, eDuplicateKey or eOk
   ACDBCORE2D_PORT Acad::ErrorStatus addReactor(AcDbDatabaseReactor* pReactor) const;
-    // Can return eInvalidInput, eKeyNotFound or eOk
   ACDBCORE2D_PORT Acad::ErrorStatus removeReactor(AcDbDatabaseReactor* pReactor) const;
   Acad::ErrorStatus auditXData(AcDbAuditInfo* pInfo);
   AcDbUndoController* undoController() const;
@@ -505,9 +410,6 @@ public:
   Acad::ErrorStatus restoreOriginalXrefSymbols();
   Acad::ErrorStatus restoreForwardingXrefSymbols();
   AcDbObjectId xrefBlockId() const;
-    // Access to ThumbnailImage (preview)
-    // These functions take a windows BITMAPINFO*
-    //
     /// <summary>
     /// This function provides BITMAP thumbnail of database as return value
     /// </summary>
@@ -539,12 +441,9 @@ public:
   Acad::ErrorStatus setThumbnailImage(const Atil::Image* pPreviewImage);
   bool retainOriginalThumbnailBitmap() const;
   void setRetainOriginalThumbnailBitmap(bool retain);
-    // methods to set and retrieve security-related information
   bool setSecurityParams(const SecurityParams* pSecParams, bool bSetDbMod = true);
   const SecurityParams* cloneSecurityParams();
   static void disposeSecurityParams(const SecurityParams* pSecParams);
-    // Header variables exposed via DXF and/or SETVAR
-    //
   bool dimaso() const;
   Acad::ErrorStatus setDimaso(bool aso);
   bool dimsho() const;
@@ -711,7 +610,6 @@ public:
   Acad::ErrorStatus setChamferd(double val);
   double facetres() const;
   Acad::ErrorStatus setFacetres(double facetres);
-    // 3DDWF
   double get3dDwfPrec() const;
   Acad::ErrorStatus set3dDwfPrec(double DwfPrec);
   ACDBCORE2D_PORT Acad::ErrorStatus getMenu(AcString& sMenuName) const;
@@ -759,7 +657,6 @@ public:
   Acad::ErrorStatus setCmlscale(double scale);
   double celtscale() const;
   Acad::ErrorStatus setCeltscale(double scale);
-    // Paper space variable access
   AcGePoint3d pinsbase() const;
   Acad::ErrorStatus setPinsbase(const AcGePoint3d& base);
   AcGePoint3d pextmin() const;
@@ -795,7 +692,6 @@ public:
   Acad::ErrorStatus setStepSize(double stepSize);
   bool realWorldScale() const;
   Acad::ErrorStatus setRealWorldScale(const bool realWorldScale);
-    // Model space variable access
   AcGePoint3d insbase() const;
   Acad::ErrorStatus setInsbase(const AcGePoint3d& base);
   AcGePoint3d extmin() const;
@@ -825,13 +721,8 @@ public:
 /// The EMR flag gets set when a drawing is  saved in a EMR (Student Version) product. 
 /// </summary>
   bool isEMR() const;
-    // Dimension variable api:
-    //
 #  undef DBDIMVAR_H
 #  include "dbdimvar.h"
-    // DEPRECATED METHODS!
-    // These are supported but will be removed in future releases:
-    //
   Acad::ErrorStatus getDimpost(ACHAR*& pOutput) const;
   Acad::ErrorStatus getDimapost(ACHAR*& pOutput) const;
   ACDBCORE2D_PORT Acad::ErrorStatus getDimblk(AcString& sOutput) const;
@@ -844,8 +735,6 @@ public:
   int dimunit() const;
   Acad::ErrorStatus setDimfit(int fit);
   Acad::ErrorStatus setDimunit(int unit);
-    //
-    // end DEPRECATED METHODS!
   Acad::ErrorStatus getDimRecentStyleList(AcDbObjectIdArray& objIds) const;
   Acad::ErrorStatus loadLineTypeFile(const ACHAR* ltn, const ACHAR* filename);
   ACDBCORE2D_PORT Acad::ErrorStatus getProjectName(AcString& sProjectName) const;
@@ -860,9 +749,6 @@ public:
   Acad::ErrorStatus getFilename(const ACHAR*& pOutput) const;
   bool isPartiallyOpened() const;
   Acad::ErrorStatus applyPartialOpenFilters(const AcDbSpatialFilter* pSpatialFilter, const AcDbLayerFilter* pLayerFilter);
-    // This will abort the current partial open operation and
-    // continue in a full open of the database.
-    //
   void disablePartialOpen();
   ACDBCORE2D_PORT Acad::ErrorStatus getFingerprintGuid(AcString& guidString) const;
   Acad::ErrorStatus getFingerprintGuid(ACHAR*& guidString) const;
@@ -870,26 +756,18 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus getVersionGuid(AcString& guidString) const;
   Acad::ErrorStatus getVersionGuid(ACHAR*& guidString) const;
   Acad::ErrorStatus setVersionGuid(const ACHAR* pNewGuid);
-    // New text sysvars
-    //
   int tstackalign() const;
   Acad::ErrorStatus setTStackAlign(int val);
   int tstacksize() const;
   Acad::ErrorStatus setTStackSize(int val);
   AcDb::UnitsValue insunits() const;
   Acad::ErrorStatus setInsunits(const AcDb::UnitsValue units);
-    // Plot Style Legacy
   bool plotStyleMode() const;
-    // Default paperspace viewport scale
   double viewportScaleDefault() const;
   Acad::ErrorStatus setViewportScaleDefault(double newDefaultVPScale);
-    // dwg watermark
   bool dwgFileWasSavedByAutodeskSoftware() const;
-    // Layer state manager API
   AcDbLayerStateManager* getLayerStateManager() const;
-    // Object context manager API
   AcDbObjectContextManager* objectContextManager() const;
-    // When entity traversals are sorted (AcDb::kSortEnts*).
   Adesk::UInt8 sortEnts() const;
   Acad::ErrorStatus setSortEnts(Adesk::UInt8 sortEnts);
   Adesk::UInt8 drawOrderCtl() const;
@@ -908,39 +786,24 @@ public:
   Acad::ErrorStatus setIntersectDisplay(Adesk::UInt8 val);
   Adesk::UInt16 intersectColor() const;
   Acad::ErrorStatus setIntersectColor(Adesk::UInt16 val);
-    // For the ACAD_TABLESTYLE dictionary
   Acad::ErrorStatus getTableStyleDictionary(AcDbDictionary*& pDict, AcDb::OpenMode mode = AcDb::kForRead);
   AcDbObjectId tableStyleDictionaryId() const;
-    // The following functions are similar to setDimstyle/dimstyle
-    //
   AcDbObjectId tablestyle() const;
   Acad::ErrorStatus setTablestyle(AcDbObjectId objId);
-    // For the ACAD_MLEADERSTYLE dictionary
   Acad::ErrorStatus getMLeaderStyleDictionary(AcDbDictionary*& pDict, AcDb::OpenMode mode = AcDb::kForRead);
   AcDbObjectId mleaderStyleDictionaryId() const;
-    // The following functions are similar to setDimstyle/dimstyle
-    //
   AcDbObjectId mleaderstyle() const;
   Acad::ErrorStatus setMLeaderstyle(AcDbObjectId objId);
-    // For the ACAD_DETAILVIEWSTYLE dictionary
   ACDBCORE2D_PORT Acad::ErrorStatus getDetailViewStyleDictionary(AcDbDictionary*& pDict, AcDb::OpenMode mode = AcDb::kForRead);
   ACDBCORE2D_PORT AcDbObjectId detailViewStyleDictionaryId() const;
   ACDBCORE2D_PORT AcDbObjectId detailViewStyle() const;
-    //Do not change format of setDetailViewStyle function! 
-    //We need to preserve format which SymbolTableInfo struct defines for AcDiObservableCollection datatype (AcDiImpManager object)
   ACDBCORE2D_PORT Acad::ErrorStatus setDetailViewStyle(AcDbObjectId objId);
-    // For the ACAD_SECTIONVIEWSTYLE dictionary
   ACDBCORE2D_PORT Acad::ErrorStatus getSectionViewStyleDictionary(AcDbDictionary*& pDict, AcDb::OpenMode mode = AcDb::kForRead);
   ACDBCORE2D_PORT AcDbObjectId sectionViewStyleDictionaryId() const;
   ACDBCORE2D_PORT AcDbObjectId sectionViewStyle() const;
-    //Do not change format of setSectionViewStyle function! 
-    //We need to preserve format which SymbolTableInfo struct defines for AcDiObservableCollection datatype (AcDiImpManager object)
   ACDBCORE2D_PORT Acad::ErrorStatus setSectionViewStyle(AcDbObjectId objId);
   Acad::ErrorStatus evaluateFields(int nContext, const ACHAR* pszPropName = nullptr, AcDbDatabase* pDb = nullptr, int* pNumFound = nullptr, int* pNumEvaluated = nullptr);
-    // Get all AcDbViewports in all AcDbLayouts in the database
   Acad::ErrorStatus getViewportArray(AcDbObjectIdArray& vportIds, bool bGetPaperspaceVports = true) const;
-    // Get names of all visual styles in the database (visual styles for
-    // internal use only are excluded)
   Acad::ErrorStatus getVisualStyleList(AcArray<const ACHAR*>& vstyleList);
   Adesk::UInt8 solidHist() const;
   Acad::ErrorStatus setSolidHist(Adesk::UInt8 val);
@@ -962,7 +825,6 @@ public:
   Acad::ErrorStatus setLoftMag1(double mag1);
   double loftMag2() const;
   Acad::ErrorStatus setLoftMag2(double mag2);
-    // Lat and long are in decimal degrees, not radians!
   double latitude() const;
   Acad::ErrorStatus setLatitude(double lat);
   double longitude() const;
@@ -971,7 +833,6 @@ public:
   Acad::ErrorStatus setNorthDirection(double northdir);
   AcDb::TimeZone timeZone() const;
   Acad::ErrorStatus setTimeZone(AcDb::TimeZone tz);
-    // Offsets measured in hours difference from UTC
   Acad::ErrorStatus getTimeZoneInfo(AcDb::TimeZone tz, double& offset, AcString& desc) const;
   Acad::ErrorStatus setTimeZoneAsUtcOffset(double offset);
   bool geoMarkerVisibility() const;
@@ -1034,13 +895,9 @@ public:
 private:
   friend class AcDbSystemInternals;
   AcDbImpDatabase* mpImpDb = nullptr;
-    // No copy construction or assignment
   AcDbDatabase(const AcDbDatabase&) = delete;
   AcDbDatabase& operator =(const AcDbDatabase&);
 };
-// Helper function for legacy functions that return an allocated ACHAR buffer.
-// Might want to move these helpers to their own header..
-//
 template <typename ObjType>
 inline Acad::ErrorStatus acutGetAcStringConvertToAChar(const ObjType* pObj, Acad::ErrorStatus (*pFunc) (AcString&) const, ACHAR*& pOutput)
 {
@@ -1065,7 +922,6 @@ inline ACHAR* acutGetAcStringConvertToAChar(const ObjType* pObj, Acad::ErrorStat
   }
   return pRet;
 }
-// Helper functions to take result of a query returning AcString and convert it to ACHAR
 inline ACHAR* acutAcStringToAChar(const AcString& s, Acad::ErrorStatus es)
 {
   ACHAR* pBuf = nullptr;
@@ -1084,8 +940,6 @@ inline Acad::ErrorStatus acutAcStringToAChar(const AcString& s, ACHAR*& pBuf, Ac
   }
   return ::acutNewString(s.kwszPtr(), pBuf);
 }
-// These getXXX() overloads which allocate an ACHAR buffer are deprecated and will be removed.
-// Please use the methods taking AcString reference arg instead.
 inline Acad::ErrorStatus AcDbDatabase::getDimpost(ACHAR*& pOutput) const
 {
   return ::acutNewString(this->dimpost(), pOutput);
@@ -1130,7 +984,6 @@ inline Acad::ErrorStatus AcDbDatabase::getVersionGuid(ACHAR*& pOutput) const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getVersionGuid, pOutput);
 }
-//  Backward compatibility.
 inline Acad::ErrorStatus acdbSaveAs2004(AcDbDatabase* pDb, const ACHAR* fileName)
 {
   return pDb->saveAs(fileName, false, AcDb::kDHL_1800);
@@ -1177,8 +1030,6 @@ class ADESK_NO_VTABLE AcDbObject : public AcGiDrawable, public AcHeapOperators
   ACDB_DECLARE_MEMBERS(AcDbObject);
 public:
   virtual ~AcDbObject();
-    // Associated Objects
-    //
   AcDbObjectId objectId() const;
   AcDbObjectId ownerId() const;
   virtual Acad::ErrorStatus setOwnerId(AcDbObjectId objId);
@@ -1187,8 +1038,6 @@ public:
   Acad::ErrorStatus createExtensionDictionary();
   AcDbObjectId extensionDictionary() const;
   Acad::ErrorStatus releaseExtensionDictionary();
-    // Open/Close/Cancel/Undo/Erase
-    //
   Acad::ErrorStatus upgradeOpen();
   Acad::ErrorStatus upgradeFromNotify(Adesk::Boolean& wasWritable);
   Acad::ErrorStatus downgradeOpen();
@@ -1206,11 +1055,7 @@ public:
   Acad::ErrorStatus swapIdWith(AcDbObjectId otherId, Adesk::Boolean swapXdata = false, Adesk::Boolean swapExtDict = false);
   virtual Acad::ErrorStatus subSwapIdWith(AcDbObjectId otherId, Adesk::Boolean swapXdata = false, Adesk::Boolean swapExtDict = false);
   virtual Acad::ErrorStatus swapReferences(const AcDbIdMapping& idMap);
-    // Audit
-    //
   virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo);
-    // Filing
-    //
   Acad::ErrorStatus dwgIn(AcDbDwgFiler* pFiler);
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler);
   Acad::ErrorStatus dwgOut(AcDbDwgFiler* pFiler) const;
@@ -1231,22 +1076,12 @@ public:
     /// <returns>Returns the filer's status, which is Acad::eOk if successful.</returns>    
   ACDBCORE2D_PORT Acad::ErrorStatus dxfOut(AcDbDxfFiler* pFiler, bool bAllXdata, const AcDbObjectIdArray* pRegAppIds) const;
   virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const;
-    // Merge style for insert-style operations. Defaults to kDrcIgnore.
-    //
   virtual AcDb::DuplicateRecordCloning mergeStyle() const;
-    // XData
-    //
   virtual resbuf* xData(const ACHAR* regappName = nullptr) const;
   virtual Acad::ErrorStatus setXData(const resbuf* xdata);
   Acad::ErrorStatus xDataTransformBy(const AcGeMatrix3d& xform);
-    // Binary chunks.  Note: the data args should be void *.  We'll
-    // change those in an upcoming release... 
-    //
   Acad::ErrorStatus setBinaryData(const ACHAR* key, Adesk::Int32 size, const char* data);
   Acad::ErrorStatus getBinaryData(const ACHAR* key, Adesk::Int32& size, char*& data) const;
-    // XObject
-    // Open/Notify/Undo/Modified State Predicates
-    //
   Adesk::Boolean isEraseStatusToggled() const;
   Adesk::Boolean isErased() const;
   Adesk::Boolean isReadEnabled() const;
@@ -1261,22 +1096,14 @@ public:
   Adesk::Boolean isCancelling() const;
   Adesk::Boolean isReallyClosing() const;
   Adesk::Boolean isTransactionResident() const;
-    // Formerly isAZombie()
-    //
   Adesk::Boolean isAProxy() const;
-    // Access State Assertions
-    //
   void assertReadEnabled() const;
   void assertWriteEnabled(Adesk::Boolean autoUndo = true, Adesk::Boolean recordModified = true);
   void assertNotifyEnabled() const;
-    // Undo 
-    //
   bool isUndoRecordingDisabled() const;
   void disableUndoRecording(Adesk::Boolean disable);
   AcDbDwgFiler* undoFiler();
   virtual Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler* undoFiler, AcRxClass* classObj);
-    // Notification
-    //
 /// <summary>
 /// Adds a non-persistent reactor to the currently open object
 /// </summary>
@@ -1326,8 +1153,6 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus removePersistentReactor(AcDbObjectId objId);
   ACDBCORE2D_PORT bool hasReactor(const AcDbObjectReactor* pReactor) const;
   ACDBCORE2D_PORT bool hasPersistentReactor(AcDbObjectId objId) const;
-    // Note: May return nullptr. Also, each array entry's value is actually an
-    // AcDbObjectReactor * or a mangled AcDbObjectId. 
   ACDBCORE2D_PORT const AcDbVoidPtrArray* reactors() const;
   virtual void recvPropagateModify(const AcDbObject* subObj);
   virtual void xmitPropagateModify() const;
@@ -1335,8 +1160,6 @@ public:
   ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus wblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const;
   void setAcDbObjectIdsInFlux();
   Adesk::Boolean isAcDbObjectIdsInFlux() const;
-    // Notification for persistent reactors.
-    //
   virtual void cancelled(const AcDbObject* dbObj);
   virtual void copied(const AcDbObject* dbObj, const AcDbObject* newObj);
   virtual void erased(const AcDbObject* dbObj, Adesk::Boolean bErasing);
@@ -1350,28 +1173,17 @@ public:
   virtual void reappended(const AcDbObject* dbObj);
   virtual void objectClosed(const AcDbObjectId objId);
   virtual void modifiedGraphics(const AcDbEntity* dbEnt);
-    // AcRxObject Protocol
-    // Derived classes should not override these member implementations.
-    //
   virtual AcRxObject* clone() const override;
   virtual Acad::ErrorStatus copyFrom(const AcRxObject* pSrc) override;
-    // Save to previous versions.
-    //
   bool hasSaveVersionOverride();
   void setHasSaveVersionOverride(bool bSetIt);
   virtual Acad::ErrorStatus getObjectSaveVersion(const AcDbDwgFiler* pFiler, AcDb::AcDbDwgVersion& ver, AcDb::MaintenanceReleaseVersion& maintVer);
   virtual Acad::ErrorStatus getObjectSaveVersion(const AcDbDxfFiler* pFiler, AcDb::AcDbDwgVersion& ver, AcDb::MaintenanceReleaseVersion& maintVer);
   Acad::ErrorStatus getObjectBirthVersion(AcDb::AcDbDwgVersion& ver, AcDb::MaintenanceReleaseVersion& maintVer);
-    // Saving as previous versions.
-    //
   virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData);
   virtual AcGiDrawable* drawable();
-    // AcGiDrawable interface
-    //
   virtual Adesk::Boolean isPersistent() const override;
   virtual AcDbObjectId id() const override;
-    // Get corresponding COM wrapper class ID
-    //
   ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getClassID(CLSID* pClsid) const;
   bool hasFields(void) const;
   Acad::ErrorStatus getField(const ACHAR* pszPropName, AcDbObjectId& fieldId) const;
@@ -1384,21 +1196,16 @@ public:
   Acad::ErrorStatus getFieldDictionary(AcDbDictionary*& pFieldDict, AcDb::OpenMode mode = AcDb::kForRead) const;
 protected:
   AcDbObject();
-    // AcGiDrawable interface
   virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
   virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWd) override;
   virtual void subViewportDraw(AcGiViewportDraw* pVd) override;
-    // AcDbPropertiesOverrule related
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const;
-    // AcDbObjectOverrule related
   virtual Acad::ErrorStatus subDeepClone(AcDbObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const;
   virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const;
 private:
-    //friend class AcDbSystemInternals;
   friend class AcDbPropertiesOverrule;
   friend class AcDbObjectOverrule;
   AcDbImpObject* mpImpObject = nullptr;
-    // No copy construction or assignment (but there is a copyFrom method)
   AcDbObject(const AcDbObject&) = delete;
   AcDbObject& operator =(const AcDbObject&);
 };
@@ -1449,8 +1256,6 @@ public:
   virtual Acad::ErrorStatus setColorIndex(Adesk::UInt16 colorIndex);
   virtual Adesk::UInt16 penIndex() const;
   virtual Acad::ErrorStatus setPenIndex(Adesk::UInt16 penIndex);
-    // --- AcRxObject protocol
-    //
   virtual Acad::ErrorStatus copyFrom(const AcRxObject*) override;
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
@@ -1461,7 +1266,6 @@ private:
   Adesk::UInt16 refCount = 0;
   AcCmEntityColor mColor;
 };
-// These overloads are deprecated.  Please use the AcString-based overloads instead.
 inline Acad::ErrorStatus AcCmComplexColor::getDescription(ACHAR*& desc) const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcCmComplexColor::getDescription, desc);
@@ -1520,8 +1324,6 @@ public:
   Acad::ErrorStatus getDictionaryKey(AcString& sKey) const;
   Acad::ErrorStatus getDictionaryKey(ACHAR* pKey, size_t nLen) const;
   Acad::ErrorStatus setNamesFromDictionaryKey(const ACHAR* pKey);
-    // --- AcRxObject protocol
-    //
   Acad::ErrorStatus dwgIn(AcDbDwgFiler* pInputFiler);
   Acad::ErrorStatus dwgOut(AcDbDwgFiler* pOutputFiler) const;
   Acad::ErrorStatus dxfIn(AcDbDxfFiler* pFiler, int groupCodeOffset = 0);
@@ -1545,7 +1347,6 @@ private:
   AcString msBookName;
   Adesk::UInt8 mNameFlags = 0;
 };
-// These overloads are deprecated.  Please use the AcString-based overloads instead.
 inline Acad::ErrorStatus AcCmColor::getDescription(ACHAR*& desc) const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcCmColor::getDescription, desc);
@@ -1582,31 +1383,10 @@ public:
 private:
   Adesk::UInt32 mHSB = 0;
 };
-// the following functions convert strings to AcCmColor instances
-// Parameters:
-//        clr  - reference to an instance of AcCmColor.  This instance
-//               will be filled out with the color value corresponding
-//             to pInput or pBookName, pColorName
-//      pInput - pointer to a string representation of a color.  This
-//             can be an ACI color [ByBlock, red, 70] or an RGB color
-//             [120,12,36]
-//        pBookName - pointer to a string specifying the name of a
-//               colorbook
-//        pColorName - pointer to a string specifying the name of a
-//             color in the colorbook identified by pBookName
-//
-// Return values:
-//        Acad::eOk                    for success
-//        Acad::eBadColor                for an invalid string or strings
-//      Acad::eInvalidInput            if no colorbooks are present
-//      Acad::eNotImplementedYet    if certain dlls are not present
-//
 Acad::ErrorStatus accmGetColorFromACIName(AcCmColor& clr, const ACHAR* pInput);
 Acad::ErrorStatus accmGetColorFromRGBName(AcCmColor& clr, const ACHAR* pInput);
 Acad::ErrorStatus ACDBCORE2D_PORT accmGetFromHSBName(AcCmHSB& hsb, const ACHAR* pInput);
 Acad::ErrorStatus accmGetColorFromColorBookName(AcCmColor& clr, const ACHAR* pBookName, const ACHAR* pColorName);
-// the following function gets localized names for the standard
-//  AutoCAD colors: ByBlock, red, yellow, green, ..., ByLayer
 void accmGetLocalizedColorNames(const ACHAR* colors[9]);
 class AcDbColor : public AcDbObject
 {
@@ -1617,8 +1397,6 @@ public:
   void getColor(AcCmColor& color) const;
   void setColor(const AcCmColor& color);
   const AcCmEntityColor& entityColor(void) const;
-    // Saving as previous versions.
-    //
   virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
@@ -1637,9 +1415,7 @@ public:
   virtual ~AcDbEntity();
   AcDbObjectId blockId() const;
   AcCmColor color() const;
-    // setColor()'s pDb arg is used for looking up named colors when entity is non-db-resident
   ACDBCORE2D_PORT virtual Acad::ErrorStatus setColor(const AcCmColor& color, bool doSubents, AcDbDatabase* pDb);
-    // Deprecated method. Calls the above overload. Marked final to prevent overrides
   virtual Acad::ErrorStatus setColor(const AcCmColor& color, bool doSubents = true) final;
   Adesk::UInt16 colorIndex() const;
   virtual Acad::ErrorStatus setColorIndex(Adesk::UInt16 color, Adesk::Boolean doSubents = true);
@@ -1733,8 +1509,6 @@ public:
   }
   virtual void getEcs(AcGeMatrix3d& retVal) const;
   ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getGeomExtents(AcDbExtents& extents) const;
-    // Subentity acquisition and manipulation
-    //
   ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus addSubentPaths(const AcDbFullSubentPathArray& newPaths);
   ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus deleteSubentPaths(const AcDbFullSubentPathArray& paths);
   ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getSubentClassId(const AcDbFullSubentPath& path, CLSID* clsId) const;
@@ -1778,8 +1552,6 @@ public:
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
   virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
   virtual AcGiDrawable* drawable() override;
-    // AcGiDrawable interface
-    //
   virtual bool bounds(AcDbExtents& bounds) const override;
   ACDBCORE2D_PORT_VIRTUAL Adesk::Boolean cloneMeForDragging();
   ACDBCORE2D_PORT_VIRTUAL bool hideMeForDragging() const;
@@ -1788,22 +1560,17 @@ public:
   ACDBCORE2D_PORT_VIRTUAL void subentGripStatus(const AcDb::GripStat status, const AcDbFullSubentPath& subentity);
   ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getGripEntityUCS(const void* pGripAppData, AcGeVector3d& normalVec, AcGePoint3d& origin, AcGeVector3d& xAxis) const;
 protected:
-    // Makes AcDbEntity an abstract class.
   AcDbEntity();
-    // AcDbPropertiesOverrule related
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
   virtual void subList() const;
-    // AcDbOsnapOverrule
   virtual Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds) const;
   virtual Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds, const AcGeMatrix3d& insertionMat) const;
   virtual bool subIsContentSnappable() const;
-    // AcDbTransformOverrule
   virtual Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform);
   virtual Acad::ErrorStatus subGetTransformedCopy(const AcGeMatrix3d& xform, AcDbEntity*& pEnt) const;
   virtual Acad::ErrorStatus subExplode(AcDbVoidPtrArray& entitySet) const;
   virtual Adesk::Boolean subCloneMeForDragging();
   virtual bool subHideMeForDragging() const;
-    // AcDbGripOverrule
   virtual Acad::ErrorStatus subGetGripPoints(AcGePoint3dArray& gripPoints, AcDbIntArray& osnapModes, AcDbIntArray& geomIds) const;
   virtual Acad::ErrorStatus subGetGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const;
   virtual Acad::ErrorStatus subMoveGripPointsAt(const AcDbIntArray& indices, const AcGeVector3d& offset);
@@ -1811,7 +1578,6 @@ protected:
   virtual Acad::ErrorStatus subGetStretchPoints(AcGePoint3dArray& stretchPoints) const;
   virtual Acad::ErrorStatus subMoveStretchPointsAt(const AcDbIntArray& indices, const AcGeVector3d& offset);
   virtual Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const;
-    // AcDbSubentityOverrule related
   virtual Acad::ErrorStatus subGetSubentClassId(const AcDbFullSubentPath& path, CLSID* clsId) const;
   virtual Acad::ErrorStatus subAddSubentPaths(const AcDbFullSubentPathArray& newPaths);
   virtual Acad::ErrorStatus subDeleteSubentPaths(const AcDbFullSubentPathArray& paths);
@@ -1824,13 +1590,10 @@ protected:
   virtual AcDbEntity* subSubentPtr(const AcDbFullSubentPath& id) const;
   virtual void subGripStatus(const AcDb::GripStat status);
   virtual void subSubentGripStatus(const AcDb::GripStat status, const AcDbFullSubentPath& subentity);
-    // AcDbHighlightOverrule related
   virtual Acad::ErrorStatus subHighlight(const AcDbFullSubentPath& subId = kNullSubent, const Adesk::Boolean highlightAll = false) const;
   virtual Acad::ErrorStatus subUnhighlight(const AcDbFullSubentPath& subId = kNullSubent, const Adesk::Boolean highlightAll = false) const;
-    // AcDbVisibilityOverrule related
   ACDBCORE2D_PORT virtual AcDb::Visibility subVisibility() const;
   ACDBCORE2D_PORT virtual Acad::ErrorStatus subSetVisibility(AcDb::Visibility newVal, Adesk::Boolean doSubents = true);
-    // AcDbGeometryOverrule related
   virtual Acad::ErrorStatus subIntersectWith(const AcDbEntity* pEnt, AcDb::Intersect intType, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0) const;
   virtual Acad::ErrorStatus subIntersectWith(const AcDbEntity* pEnt, AcDb::Intersect intType, const AcGePlane& projPlane, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0) const;
   virtual Acad::ErrorStatus subGetGripEntityUCS(const void* pGripAppData, AcGeVector3d& normalVec, AcGePoint3d& origin, AcGeVector3d& xAxis) const;
@@ -1850,25 +1613,15 @@ public:
   Acad::ErrorStatus popHighlight(const AcDbFullSubentPath& subId);
   AcGiHighlightStyle highlightState(const AcDbFullSubentPath& subId);
 protected:
-    // AcDbHighlightStateOverrule related
   ACDBCORE2D_PORT virtual Acad::ErrorStatus subPushHighlight(const AcDbFullSubentPath& subId, AcGiHighlightStyle highlightStyle);
   ACDBCORE2D_PORT virtual Acad::ErrorStatus subPopHighlight(const AcDbFullSubentPath& subId);
   ACDBCORE2D_PORT virtual AcGiHighlightStyle subHighlightState(const AcDbFullSubentPath& subId);
-    // No copy construction or assignment (but there is a copyFrom method)
   AcDbEntity(const AcDbEntity&) = delete;
   AcDbEntity& operator =(const AcDbEntity&);
 };
-// Note: makes sense to put this inline, even though it's
-// a virtual, because all derived classes' dtors will call
-// this dtor directly.
-//
 inline AcDbEntity::~AcDbEntity()
 {
-    // Do Nothing, AcDbObject destructor takes care of imp object.
 }
-// These next 4 inlined methods are deprecated and will be removed in a future release.
-// Please use the overloads which take AcString & arg instead
-//
 inline ACHAR* AcDbEntity::plotStyleName() const
 {
   AcString sName;
@@ -2063,7 +1816,6 @@ inline Acad::ErrorStatus AcDbDatabase::getDimStyleTable(AcDbDimStyleTable*& pTab
   return getSymbolTable(pTable, mode);
 }
 /////////////////////////////////////////////////////////////////////////
-// Text Finder API.
 #  define AC_SRCH_BLOCK	0x01
 #  define AC_SRCH_DIM_TEXT	0x02
 #  define AC_SRCH_TEXT	0x04

@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -54,9 +53,6 @@ enum eExpandedClipDataTypes
 };
 const int nBlockFileSize = 260;
 const int nSignatureSize = 4;
-// Clipboard and drag and drop information stored in the format
-// CAcadDoc::m_cfPrivate ("AutoCAD.r15").
-//
 typedef struct tagClipboardInfo
 {
   ACHAR szTempFile[nBlockFileSize];

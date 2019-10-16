@@ -7,13 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:
-//
-// This file contains the struct "AcGe" containing run time identificators,
-// as well as some other enums. This file contains a strusture
-// AcGeContext that contains all global variables needed by the 2d
-// and 3d Geometry Library.
 #ifndef AC_GEGBL_H
 #  define AC_GEGBL_H
 #  include <stdlib.h>
@@ -25,13 +18,9 @@
 class AcGeVector3d;
 struct AcGeContext
 {
-    // System wide default tolerance.
-    //
   GE_DLLDATAEXIMP static AcGeTol gTol;
   GE_DLLDATAEXIMP static void (*gErrorFunc) ();
 #  ifndef GELIB2D
-    // Function to calculate a vector which is orthogonal to the given vector.
-    //
   GE_DLLDATAEXIMP static void (*gOrthoVector) (const AcGeVector3d&, AcGeVector3d&);
 #  endif
 #  ifndef unix

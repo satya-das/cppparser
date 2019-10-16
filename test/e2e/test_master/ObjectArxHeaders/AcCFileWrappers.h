@@ -15,11 +15,6 @@
 //                  Write, ReadString and WriteString methods.
 //
 //////////////////////////////////////////////////////////////////////////////
-
-// Note: 1. this header should be included *after* mfc headers
-//       2. there is a duplicate copy of this header file in heidi\source\heidi,
-//          please update the copy in heidi whenever this file gets updated.
-//        
 #pragma  once
 #pragma  warning(push, 4)
 #include "AdCharFmt.h"
@@ -33,7 +28,6 @@
 #else 
 #  define AcCFile_Assert(x)
 #endif
-// forward declarations
 #ifdef UNICODE
 void acByteSwap(wchar_t& wch);
 void acWriteWCharToCFile(wchar_t wch, CFile* pFile, unsigned nFmt, bool bUseCIF);
@@ -43,7 +37,6 @@ bool acReadUtf8CharFromCFile(CFile* pCFile, wchar_t& wch, AdCharFormatter* pChFm
 bool acReadUtf16CharFromCFile(CFile* pCFile, wchar_t& wch, AdCharFormatter* pChFmtr);
 #endif
 unsigned acCheckCFileCharFormat(CFile* pCFile);
-// Used by AcCFile and AcCStdioFile
 class AcOutputBufMgr
 {
 public:
@@ -118,7 +111,6 @@ inline bool AcOutputBufMgr::detachBuffer()
   this->mnBufSize = 0;
   return true;
 }
-// client requests the pointer and says how many bytes he may need
 inline void* AcOutputBufMgr::requestBytes(unsigned nBytesNeeded)
 {
   AcCFile_Assert(this->hasBuffer());
@@ -140,11 +132,8 @@ inline void* AcOutputBufMgr::requestBytes(unsigned nBytesNeeded)
     return NULL;
   }
   this->mnBytesRequested = nBytesNeeded;
-    // return next free slot in the buffer
   return reinterpret_cast<char*>(this->mpBuffer) + this->mnByteCount;
 }
-// client tells us how many bytes he used, and we return how many
-// bytes are left in the buffer.
 inline unsigned AcOutputBufMgr::takeBytes(unsigned nBytesUsed)
 {
   AcCFile_Assert(this->hasBuffer());
@@ -173,19 +162,15 @@ inline bool AcOutputBufMgr::reset()
 class AcCFile : public CFile
 {
 public:
-    // declare compatible ctors and dtor
   AcCFile();
   AcCFile(HANDLE hFile);
   AcCFile(LPCTSTR lpszFileName, UINT nOpenFlags);
   virtual ~AcCFile();
-    // Override the base filing operations
   virtual UINT Read(void* lpBuf, UINT nCount);
   virtual void Write(const void* lpBuf, UINT nCount);
-    // And add our own overloads
   virtual UINT Read(LPTSTR lpBuf, UINT nCount);
   virtual void Write(LPCTSTR pString, UINT nCount);
   virtual void Write(LPCTSTR pString);
-    // Format related methods
   unsigned getCharFormat() const
   {
     return this->mChFmtr.getFormat();
@@ -212,11 +197,6 @@ public:
   }
   bool readBOM();
   bool writeBOM();
-    // Buffering methods, for performance.  Client can provide a buffer
-    // for output, so that a minimum number of writes to the underlying
-    // file are done.  This helps greatly when writing across a high
-    // latency network.
-    //
   bool attachBuffer(void* pBuffer, unsigned nBufSize);
   bool detachBuffer();
   bool flushBytes();
@@ -229,16 +209,13 @@ private:
 class AcCStdioFile : public CStdioFile
 {
 public:
-    // declare compatible ctors and dtor
   AcCStdioFile();
   AcCStdioFile(FILE* pOpenStream);
   AcCStdioFile(LPCTSTR lpszFileName, UINT nOpenFlags);
   virtual ~AcCStdioFile();
-    // Override the string filing operations
   virtual void WriteString(LPCTSTR lpsz);
   virtual LPTSTR ReadString(LPTSTR lpsz, UINT nMax);
   virtual BOOL ReadString(CString& rString);
-    // Format related methdos
   unsigned getCharFormat() const
   {
     return this->mChFmtr.getFormat();
@@ -265,11 +242,6 @@ public:
   }
   bool readBOM();
   bool writeBOM();
-    // Buffering methods, for performance.  Client can provide a buffer
-    // for output, so that a minimum number of writes to the underlying
-    // file are done.  This helps greatly when writing across a high
-    // latency network.
-    //
   bool attachBuffer(void* pBuffer, unsigned nBufSize);
   bool detachBuffer();
   bool flushBytes();
@@ -279,43 +251,23 @@ private:
   AcOutputBufMgr mOutputBufMgr;
 };
 #endif
-// This is the helper function to determine file type of the 
-// currently opened CFile. It is compiled both under MBCS and 
-// UNICODE builds.  If no BOM is present, we return kAnsi.
 inline unsigned acCheckCFileCharFormat(CFile* pCFile)
 {
   AcCFile_Assert(pCFile != NULL);
   AcCFile_Assert((pCFile->m_hFile) != (CFile::hFileNull));
-    // Skip type check for too small files.
   const int nLength = (int) pCFile->GetLength();
   if (nLength <= 3)
   {
     return AdCharFormatter::kAnsi;
   }
-    // Backup current file pointer position.
-    // Note: we might want to require that this method be called right
-    // after open, when the file pointer is still 0.  And then we
-    // could leave the file pointer positioned after the BOM on return.
-    //
   const ULONGLONG ullPrevPos = pCFile->GetPosition();
   pCFile->Seek(0L, SEEK_SET);
   DWORD dwMagicCode = 0;
-    // Note: if file is not opened for read, this will throw
-    // an exception.
   pCFile->Read(&dwMagicCode, 4);
-    // Restore file pointer position.
   pCFile->Seek(ullPrevPos, SEEK_SET);
-    // Note: if we found a BOM, we might want to seek beyond
-    // it, so caller doesn't run into it.
-
-    // Determine file's char type by header.
   const unsigned nCharFmt = AdCharFormatter::lookupBOM(dwMagicCode);
   return (nCharFmt == AdCharFormatter::kUnknown) ? AdCharFormatter::kAnsi : nCharFmt;
 }
-// CFile never expands LFs (you can't open a CFile with
-// typeBinary mode).  So callers won't be expecting it
-// to happen.  They can override this behavior by calling
-// AcCFile::setExpandLF(true) if they want to.
 inline AcCFile::AcCFile()
   : mChFmtr(AdCharFormatter::kAnsi, false, false)
 {
@@ -363,7 +315,6 @@ inline void AcCFile::Write(LPCTSTR lpBuf, UINT nCount)
     }
     else 
     {
-            // worst case is 8 bytes (utf-32 cr-lf)
       const int kReservedSize = 8;
       void* pOutBuf = this->mOutputBufMgr.requestBytes(kReservedSize);
       const int nBytes = this->mChFmtr.wcharToBytes(lpBuf[i], reinterpret_cast<char*>(pOutBuf), kReservedSize);
@@ -381,8 +332,6 @@ inline void AcCFile::Write(LPCTSTR lpBuf, UINT nCount)
 inline void AcCFile::Write(LPCTSTR lpBuf)
 {
 #ifndef UNICODE
-    // Unfortunately, hard cast is needed to change size_t 
-    // to UINT to avoid new 64-bit compatible warnings.
   this->Write(lpBuf, (UINT) strlen(lpBuf));
 #else 
   this->Write(lpBuf, AdCharFormatter::wcsLength(lpBuf));
@@ -449,8 +398,6 @@ inline bool AcCFile::readBOM()
       }
     }
   }
-    // If got here, then no BOM found, so reset 
-    // to file beginning. Leave format what it was.
   this->SeekToBegin();
   return false;
 }
@@ -507,27 +454,21 @@ inline bool AcCFile::flushBytes()
 #ifdef UNICODE
 inline void acByteSwap(wchar_t& wch)
 {
-    // the &-ing is probably unnecessary, but it doesn't hurt
   const wchar_t lobits = (wch >> 8) & 0x00ff;
   const wchar_t hibits = (wch << 8) & 0xff00;
   wch = lobits | hibits;
 }
 inline bool acReadCIFFromCFile(CFile* pCFile, wchar_t& wch)
 {
-    // leading slash has already been read.  See if we can read
-    // a \U+xxxx or \M+nxxyy sequence.
   const ULONGLONG nCurPos = pCFile->GetPosition();
   char chbuf[9];
   chbuf[0] = '\\';
-    // try reading 6 more, assuming its CIF.  If it looks like
-    // MIF, then read one more.
   const unsigned nCharRead = pCFile->Read(chbuf + 1, 1);
   AcCFile_Assert(nCharRead <= 1);
   if (nCharRead == 1)
   {
     if (chbuf[1] == 'U' || chbuf[1] == 'u')
     {
-            // read five more chars, to get "+xxxx"
       const unsigned nMoreCharsRead = pCFile->Read(chbuf + 2, 5);
       AcCFile_Assert(nMoreCharsRead <= 5);
       chbuf[2 + nMoreCharsRead] = 0;
@@ -543,7 +484,6 @@ inline bool acReadCIFFromCFile(CFile* pCFile, wchar_t& wch)
     {
       if (chbuf[1] == 'M' || chbuf[1] == 'm')
       {
-            // read six more chars, to get "+nxxyy"
         const unsigned nMoreCharsRead = pCFile->Read(chbuf + 2, 6);
         AcCFile_Assert(nMoreCharsRead <= 6);
         chbuf[2 + nMoreCharsRead] = 0;
@@ -557,7 +497,6 @@ inline bool acReadCIFFromCFile(CFile* pCFile, wchar_t& wch)
       }
     }
   }
-    // If got here, then no MIF or CIF
   pCFile->Seek(nCurPos, SEEK_SET);
   return false;
 }
@@ -565,19 +504,6 @@ inline bool acReadAnsiCharFromCFile(CFile* pCFile, wchar_t& wch, AdCharFormatter
 {
   char chbuf[2];
   const bool bUseCIF = pChFmtr->getUseCIF();
-    // Note: we are here calling the Read method which takes a
-    // void * argument.  If pCFile is an AcCFile object, then
-    // we end up in AcCFile::Read, which then calls CFile::Read.
-    // If pCFile is an AcCStdioFile, then we end up in
-    // CFile::Read immediately.
-    //
-    // Note also about Read(): if the file is open as a text
-    // file, then \r\n are automatically converted to \n.  But
-    // if file is opened as binary, then the \r and \n come
-    // back separately.  That is probably not desired by the caller,
-    // but that's the way it work.  If they don't like it, they
-    // should open the file as text.
-    //
   const int nCharsRead = pCFile->Read(chbuf, 1);
   if (nCharsRead <= 0)
   {
@@ -615,8 +541,6 @@ inline bool acReadAnsiCharFromCFile(CFile* pCFile, wchar_t& wch, AdCharFormatter
     AcCFile_Assert(nTrailingCharsRead == 1);
     if (nTrailingCharsRead != 1)
     {
-            // malformed file, ends halfway through a doublebyte char!
-            // should we throw an exception?
       return false;
     }
     bDoubleByte = true;
@@ -625,7 +549,6 @@ inline bool acReadAnsiCharFromCFile(CFile* pCFile, wchar_t& wch, AdCharFormatter
   AcCFile_Assert(nConverted == 1);
   if (nConverted != 1)
   {
-        // error condition?
   }
   return true;
 }
@@ -633,15 +556,6 @@ inline bool acReadUtf8CharFromCFile(CFile* pCFile, wchar_t& wch, AdCharFormatter
 {
   char chbuf[4];
   wch = 0;
-    // Note: UTF-8 encodes a single character in 1 to 4 bytes. 
-    // The following bit patterns in the first byte determine the 
-    // length of bytes that a particular character was encoded in:
-    // 
-    // 0xxxxxxx (0x7F): Character that takes up one byte.
-    // 110xxxxx (0xC0): Character that takes up two bytes.
-    // 1110xxxx (0xE0): Character that takes up tree bytes.
-    // 11110xxx (0xF0): Character that takes up four bytes.
-    //
   unsigned nCharsRead = pCFile->Read(chbuf, 1);
   if (nCharsRead <= 0)
   {
@@ -650,7 +564,6 @@ inline bool acReadUtf8CharFromCFile(CFile* pCFile, wchar_t& wch, AdCharFormatter
   AcCFile_Assert(nCharsRead == 1);
   unsigned nByteCount = 1;
   unsigned char firstByte = (unsigned char) chbuf[0];
-    // Characters that taking up one byte.
   if (!(firstByte & 0x80))
   {
     wch = (wchar_t) firstByte;
@@ -671,10 +584,6 @@ inline bool acReadUtf8CharFromCFile(CFile* pCFile, wchar_t& wch, AdCharFormatter
     }
     return true;
   }
-    // Characters that taking up multiple bytes. Note the sequence 
-    // of checking for these bits is important, always start with 
-    // 0xF0 and later move on to a lower value. (For an example the 
-    // case of 0xF0, it will be true for all these test cases.)
   if ((firstByte & 0xF0) == 0xF0)
   {
     nByteCount = 4;
@@ -693,7 +602,6 @@ inline bool acReadUtf8CharFromCFile(CFile* pCFile, wchar_t& wch, AdCharFormatter
       }
     }
   }
-    // Read the remaining bytes to complete the character.
   if (nByteCount > 1)
   {
     nCharsRead = pCFile->Read(&chbuf[1], nByteCount - 1);
@@ -701,13 +609,9 @@ inline bool acReadUtf8CharFromCFile(CFile* pCFile, wchar_t& wch, AdCharFormatter
     AcCFile_Assert(nCharsRead == (nByteCount - 1));
   }
   const int nConverted = ::MultiByteToWideChar(CP_UTF8, 0, chbuf, nByteCount, &wch, 1);
-    // Unicode: If we frequently encounter ill-formed UTF8 file, 
-    // we might want to consider returning false instead of bringing 
-    // up an assertion.
   AcCFile_Assert(nConverted == 1);
   if (nConverted != 1)
   {
-        // error condition?
   }
   return true;
 }
@@ -722,12 +626,10 @@ inline bool acReadUtf16CharFromCFile(CFile* pCFile, wchar_t& wch, AdCharFormatte
   }
   AcCFile_Assert(nCharsRead == 2);
   const unsigned nFileFormat = pChFmtr->getFormat();
-    // Perform a byte swap for Big Endian case.
   if (nFileFormat == AdCharFormatter::kUtf16BE)
   {
     acByteSwap(wch);
   }
-    // New line expansion expected, read next wchar_t.
   if (wch == L'\r' && pChFmtr->getExpandLF())
   {
     wchar_t wchNewLine = 0;
@@ -756,8 +658,6 @@ inline UINT AcCFile::Read(LPTSTR lpBuf, UINT nCount)
 #ifndef UNICODE
   return this->CFile::Read(lpBuf, nCount);
 #else 
-    // read a char at a time, converting to unicode and
-    // appending to the buffer or CString
   UINT nDestIndex = 0;
   for (;;)
   {
@@ -792,12 +692,6 @@ inline UINT AcCFile::Read(LPTSTR lpBuf, UINT nCount)
 #endif
 }
 #ifdef _ADESK_WINDOWS_
-// CStdioFile::Write() will expand LFs if the file is open
-// as typeText.  It will leave them unexpanded if it's open
-// as typeBinary.  Since we send our chars to this Write()
-// method, the LF expansion is handled for us and we want to
-// disable our own LF expansion.  Thus, expandLF is set to false.
-//
 inline AcCStdioFile::AcCStdioFile()
   : mChFmtr(AdCharFormatter::kAnsi, true, false)
 {
@@ -834,7 +728,6 @@ inline void AcCStdioFile::WriteString(LPCTSTR lpsz)
     }
     else 
     {
-            // worst case is 8 bytes (utf-32 cr-lf)
       const int kReservedSize = 8;
       void* pOutBuf = this->mOutputBufMgr.requestBytes(kReservedSize);
       const int nBytes = this->mChFmtr.wcharToBytes(wch, reinterpret_cast<char*>(pOutBuf), kReservedSize);
@@ -850,9 +743,6 @@ inline void AcCStdioFile::WriteString(LPCTSTR lpsz)
   }
 #  endif
 }
-// nMax is the maximum number of characters to read, not counting
-// the null terminator.  This method always appends a null terminator.
-// Thus, nMax should be one less than the size of the Buffer.
 inline LPTSTR AcCStdioFile::ReadString(LPTSTR lpsz, UINT nMax)
 {
 #  ifndef UNICODE
@@ -864,8 +754,6 @@ inline LPTSTR AcCStdioFile::ReadString(LPTSTR lpsz, UINT nMax)
   {
     return NULL;
   }
-    // read a char at a time, converting to unicode and
-    // appending to the buffer
   bool bGotAnyData = false;
   UINT nDestIndex = 0;
   for (;;)
@@ -913,8 +801,6 @@ inline BOOL AcCStdioFile::ReadString(CString& rString)
   return this->CStdioFile::ReadString(rString);
 #  else 
   rString.Empty();
-    // read a char at a time, converting to unicode and
-    // appending to the CString
   bool bGotAnyData = false;
   for (;;)
   {
@@ -1004,8 +890,6 @@ inline bool AcCStdioFile::readBOM()
       }
     }
   }
-    // If got here, then no BOM found, so reset 
-    // to file beginning. Leave format what it was.
   this->SeekToBegin();
   return false;
 }

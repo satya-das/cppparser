@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION: Exported AcDbRay Entity class
 #ifndef AD_DBRAY_H
 #  define AD_DBRAY_H	1
 #  include "dbmain.h"
@@ -23,7 +20,7 @@ public:
   AcDbRay();
   ~AcDbRay();
   ACDB_DECLARE_MEMBERS(AcDbRay);
-  DBCURVE_METHODS virtual Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const override;
+  DBCURVE_METHODS Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const override;
   AcGePoint3d basePoint() const;
   void setBasePoint(const AcGePoint3d& pt);
   AcGeVector3d unitDir() const;
@@ -52,7 +49,6 @@ inline Acad::ErrorStatus AcDbRay::getStartParam(double& startParam) const
 }
 inline Acad::ErrorStatus AcDbRay::getEndParam(double&) const
 {
-    // endParam for a Ray is positive infinity
   return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbRay::getEndPoint(AcGePoint3d&) const

@@ -1,4 +1,3 @@
-// 
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,16 +7,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//
-// acdb.h:   Definitions for AutoCAD Database Library, including AcDb class
-//           shared between Internal and 3rd party Developers
 #ifndef AD_ACDB_H
 #  define AD_ACDB_H	1
 #  include "adesk.h"
 #  include "AdAChar.h"
-// String Constants
-//
 #  define ACDB_MODEL_SPACE	ACRX_T(/*MSG0*/"*Model_Space")
 #  define ACDB_PAPER_SPACE	ACRX_T(/*MSG0*/"*Paper_Space")
 #  define ACDB_NULL_HANDLE	ACRX_T("\0\0\0\0\0\0\0")  // deprecated - use empty string instead
@@ -47,8 +40,6 @@
 #  define ACDB_ASSOCNETWORK_DICTIONARY	ACRX_T(/*MSG0*/"ACAD_ASSOCNETWORK")
 #  define ACDB_SECTIONSTYLE_DICTIONARY	ACRX_T(/*MSG0*/"ACAD_SECTIONVIEWSTYLE")
 #  define ACDB_DETAILSTYLE_DICTIONARY	ACRX_T(/*MSG0*/"ACAD_DETAILVIEWSTYLE")
-// Formerly #define ACDB_ANNOTATIONSCALES_COLLECTION ACRX_T(/*MSG0*/"ACDB_ANNOTATIONSCALES")
-// acdbAnnotationScaleCollectionName() is declared in dbObjectContextInterface.h
 #  define ACDB_ANNOTATIONSCALES_COLLECTION	acdbAnnotationScaleCollectionName()
 #  pragma  pack(push, 8)
 struct AcDb
@@ -155,9 +146,6 @@ struct AcDb
     kDxfLayerLinetype = 61,
     kDxfViewportGridMajor = 61,
     kDxfColor = 62,
-                             // Removed codes intended
-                             // only for internal
-                             // use:  63-65
     kDxfHasSubentities = 66,
     kDxfViewportVisibility = 67,
     kDxfViewportActive = 68,
@@ -177,18 +165,9 @@ struct AcDb
     kDxfLinetypePDC = 73,
     kDxfInt32 = 90,
     kDxfVertexIdentifier = 91,
-                             // Subclass Section Marker
-                             //
-                             // to be followed by subclass name.
-                             //
     kDxfSubclass = 100,
     kDxfEmbeddedObjectStart = 101,
     kDxfControlString = 102,
-                             // DimVarTableRecords have been using 5 for a
-                             // string value.  With R13, they get a handle
-                             // value as well.  Since 5 is already in use,
-                             // we use 105 for this special case.
-                             //
     kDxfDimVarHandle = 105,
     kDxfUCSOrg = 110,
     kDxfUCSOriX = 111,
@@ -196,18 +175,11 @@ struct AcDb
     kDxfXReal = 140,
     kDxfViewBrightness = 141,
     kDxfViewContrast = 142,
-                             // 64-bit integers can only be used with
-                             // AcDbDwgVersion kDHL_1024 and higher.
-                             //
     kDxfInt64 = 160,
     kDxfXInt16 = 170,
-                             // 180 - 189 cannot be used
-
-                             // 190-199 are invalid
     kDxfNormalX = 210,
     kDxfNormalY = 220,
     kDxfNormalZ = 230,
-                             // 260-269 are invalid
     kDxfXXInt16 = 270,
     kDxfInt8 = 280,
     kDxfRenderMode = 281,
@@ -215,11 +187,8 @@ struct AcDb
     kDxfShadowFlags = 284,
     kDxfBool = 290,
     kDxfDefaultLightingOn = 292,
-                             //  More string values 300-309
     kDxfXTextString = 300,
-                             //  Arbitrary Binary Chunks 310-319
     kDxfBinaryChunk = 310,
-                             //  Arbitrary Object Handles 320-329
     kDxfArbHandle = 320,
     kDxfSoftPointerId = 330,
     kDxfViewBackgroundId = 332,
@@ -235,18 +204,13 @@ struct AcDb
     kDxfSoftOwnershipId = 350,
     kDxfHardOwnershipId = 360,
     kDxfSunId = 361,
-                             // New base entity properties
-                             // Lineweight is either an integer
-                             // or "BYLAYER" or "BYBLOCK"
     kDxfLineWeight = 370,
     kDxfPlotStyleNameType = 380,
     kDxfPlotStyleNameId = 390,
     kDxfXXXInt16 = 400,
     kDxfLayoutName = 410,
-                             // Extended color information for base entities
     kDxfColorRGB = 420,
     kDxfColorName = 430,
-                             // New base entity property Alpha is an integer
     kDxfAlpha = 440,
     kDxfGradientObjType = 450,
     kDxfGradientPatType = 451,
@@ -283,12 +247,8 @@ struct AcDb
     kDxfXdScale = 1042,
     kDxfXdInteger16 = 1070,
     kDxfXdInteger32 = 1071,
-                             // This enum value should always be set to whatever the highest
-                             // enum value is.
     kDxfXdMax = kDxfXdInteger32
   };
-    // Primitives.
-    //
   enum DwgDataType
   {
     kDwgNull = 0,
@@ -307,8 +267,6 @@ struct AcDb
     kDwgInt64 = 13,
     kDwgNotRecognized = 19
   };
-    // OsnapMask:  Specifies Osnap Operation.
-    //
   enum OsnapMask
   {
     kOsMaskEnd = 1,
@@ -330,9 +288,6 @@ struct AcDb
     kOsMaskRelPolar = 0x100000,
     kOsMaskNoneOverride = 0x200000
   };
-    // OsnapMode:  Specifies Object query.
-    //             Binary and Virtual Operations not represented.
-    //
   enum OsnapMode
   {
     kOsModeEnd = 1,
@@ -454,12 +409,7 @@ struct AcDb
     kEdgeSubentType = 2,
     kVertexSubentType = 3,
 ////////////////////////////////////////////////////////////
-                                                          //
-                   // Mline specific type                 //
-                                                          //
     kMlineSubentCache = 4,
-                                                          //   of the beholder.
-                                                          //
 ////////////////////////////////////////////////////////////
     kClassSubentType = 5,
     kAxisSubentType = 6,
@@ -538,397 +488,6 @@ struct AcDb
     kDHL_Unknown = 254,
     kDHL_Max = 255
   };
-    // kDHL_1012, kMRelease0 = R13c0-3
-    // kDHL_1012, kMRelease1 = R13c0-3
-    // kDHL_1012, kMRelease4 = R13c4
-    // kDHL_1012, kMRelease5 = R13c4_m
-    // kDHL_1012, kMRelease6 = R13c4a
-
-    // kDHL_1013, kMRelease0 = Sedona s000..s045
-    // kDHL_1013, kMRelease1 = Sedona s046..s050
-    // kDHL_1013, kMRelease2 = Sedona s051..s052
-    // kDHL_1013, kMRelease3 = Sedona s053..s054
-    // kDHL_1013, kMRelease4 = Sedona s055..s059
-    // kDHL_1013, kMRelease5 = Sedona s060..s063
-    // kDHL_1013, kMRelease6 = Sedona s064..
-    // kDHL_1014, kMRelease0 = R14.0
-
-    // kDHL_1500, kMRelease0  = Tahoe t010..t016
-    // kDHL_1500, kMRelease1  = Tahoe t017
-    // kDHL_1500, kMRelease2  = Tahoe t018, t019
-    // kDHL_1500, kMRelease3  = Tahoe t020
-    // kDHL_1500, kMRelease4  = Tahoe t021..t023
-    // kDHL_1500, kMRelease5  = Tahoe t024
-    // kDHL_1500, kMRelease6  = Tahoe t025..t027
-    // kDHL_1500, kMRelease7  = Tahoe t028
-    // kDHL_1500, kMRelease8  = Tahoe t029
-    // kDHL_1500, kMRelease9  = Tahoe t030
-    // kDHL_1500, kMRelease10 = Tahoe t031..t033
-    // kDHL_1500, kMRelease11 = Tahoe t034
-    // kDHL_1500, kMRelease12 = Tahoe t035..t036
-    // kDHL_1500, kMRelease13 = Tahoe t037..t038
-    // kDHL_1500, kMRelease14 = Tahoe t039
-    // kDHL_1500, kMRelease15 = Tahoe t040..t041
-    // kDHL_1500, kMRelease17 = Tahoe t042
-    // kDHL_1500, kMRelease20 = Tahoe t047
-    // kDHL_1500, kMRelease21 = Tahoe t048
-    // kDHL_1500, kMRelease22 = Tahoe t049..t050
-    // kDHL_1500, kMRelease23 = Tahoe t051
-    // kDHL_1500, kMRelease24 = Tahoe t052..t053
-    // kDHL_1500, kMRelease25 = Tahoe t054
-    // kDHL_1500, kMRelease26 = Tahoe t055
-    // kDHL_1500, kMRelease27 = Tahoe t056
-    // kDHL_1500, kMRelease28 = not used
-    // kDHL_1500, kMRelease29 = Tahoe t057
-    // kDHL_1500, kMRelease30 = Tahoe t058
-    // kDHL_1500, kMRelease31 = Tahoe t059
-    // kDHL_1500, kMRelease32 = Tahoe t060
-    // kDHL_1500, kMRelease33 = Tahoe t061
-    // kDHL_1500, kMRelease34 = Tahoe t062..t063
-    // kDHL_1500, kMRelease35 = Tahoe t064
-    // kDHL_1500, kMRelease36 = Tahoe t065
-    // kDHL_1500, kMRelease37 = Tahoe t066
-    // kDHL_1500, kMRelease38 = Tahoe t067
-    // kDHL_1500, kMRelease39 = Tahoe t068
-    // kDHL_1500, kMRelease40 = Tahoe t069..t070 (fmt changed, tho this didn't)
-    // kDHL_1500, kMRelease41 = Tahoe t071
-    // kDHL_1500, kMRelease42 = Tahoe t072
-    // kDHL_1500, kMRelease43 = Tahoe t073
-    // kDHL_1500, kMRelease44 = Tahoe t074
-    // kDHL_1500, kMRelease45 = Tahoe t075..t077
-    // kDHL_1500, kMRelease46 = Tahoe t078
-    // kDHL_1015, kMRelease0  = Tahoe t079..t080
-    // kDHL_1015, kMRelease1  = Tahoe t081..t083
-    // kDHL_1015, kMRelease2  = Tahoe t084..t086
-    // kDHL_1015, kMRelease3  = Tahoe t087..t088
-    // kDHL_1015, kMRelease4  = Tahoe t089..t091
-    // kDHL_1015, kMRelease5  = Tahoe t092..t094
-    // kDHL_1015, kMRelease6  = Tahoe t095..
-    // kDHL_1015, kMRelease7  = Banff u002..
-    // kDHL_1015, kMRelease8  = Banff u016..
-    // kDHL_1015, kMRelease9  = Banff u028..
-    // kDHL_1015, kMRelease10 = Banff u070..
-    // kDHL_1015, kMRelease11 = Banff SP3...
-    // kDHL_1015, kMRelease12 = Kirkland K001...
-    // kDHL_1015, kMRelease13 = Kirkland K009 (Banff SP3 merge)
-    // kDHL_1015, kMRelease14 = Kirkland K039...
-    // kDHL_1015, kMRelease14 = Red Deer V001...V012
-    // kDHL_1015, kMRelease15 = Red Deer V051+ SaveAs 2000
-    // kDHL_1016, kMRelease16...17 unused by Red Deer
-    // kDHL_1016, kMRelease18 = Red Deer V013...V039+
-    // kDHL_1016, kMRelease19 = Red Deer V040..
-    // kDHL_1800, kMRelease0  = Red Deer v032..v033 (not kDHL_CURRENT yet)
-    // kDHL_1800, kMRelease1  = Red Deer v034..v050 (not kDHL_CURRENT yet)
-    // kDHL_1800('AC401h'), kMRelease0  = Red Deer v051+ (kDHL_CURRENT)
-    // kDHL_1800('AC402b'), kMRelease0  = Red Deer v062+ (kDHL_CURRENT)
-    // kDHL_1800, kMRelease0 = RedDeer shipping
-    // kDHL_1800, kMRelease1 = RedDeer service pack
-    // kDHL_1800, kMRelease21 = Neo n020
-    // kDHL_1800, kMRelease22 = Neo n021...
-    // kDHL_1800, kMRelease23 = Neo n023...
-    // kDHL_1800, kMRelease24 = Neo n025...Alpha1
-    // kDHL_1800, kMRelease25 = Neo n026...
-    // kDHL_1800, kMRelease26 = Neo n027...
-    // kDHL_1800, kMRelease27 = Neo n030...Alpha2
-    // kDHL_1800, kMRelease28 = Neo n031...
-    // kDHL_1800, kMRelease29 = Neo n032...
-    // kDHL_1800, kMRelease30 = Neo n034...Beta1    
-    // kDHL_1800, kMRelease31 = Neo n035...
-    // kDHL_1800, kMRelease32 = Neo n036...
-    // kDHL_1800, kMRelease33 = Neo n041, N042, N041.100...
-    // kDHL_1800, kMRelease34 = Neo n041.101....Beta2
-    // kDHL_1800, kMRelease35 = Neo n043...    
-    // kDHL_1800, kMRelease36 = Neo n045, n046, n047...    
-    // kDHL_1800, kMRelease37 = Neo n046.100....Beta3
-    // kDHL_1800, kMRelease38 = Neo n048... 
-    // kDHL_1800, kMRelease39 = Neo n058...n063 (fcs)
-    // kDHL_1800, kMRelease55 = Rio z002...z023
-    // kDHL_1800, kMRelease56 = Rio z024 (alpha1)
-    // kDHL_1800, kMRelease57 = Rio z025...
-    // kDHL_1800, kMRelease58 = Rio z026...    
-    // kDHL_1800, kMRelease59 = Rio z029...
-    // kDHL_1800, kMRelease60 = Rio z030...
-    // kDHL_1800, kMRelease61 = Rio z031...
-    // kDHL_1800, kMRelease62 = Rio z032...    
-    // kDHL_1800, kMRelease63 = Rio z033...
-    // kDHL_1800, kMRelease64 = Rio z034... (beta 1)
-    // kDHL_1800, kMRelease65 = Rio z035...
-    // kDHL_1800, kMRelease66 = Rio z036...
-    // kDHL_1800, kMRelease67 = Rio z038... (beta 2)
-    // kDHL_1800, kMRelease68 = Rio z039...
-    // kDHL_1800, kMRelease69 = Rio z041...
-    // kDHL_1800, kMRelease70 = Rio z045... (beta 3)    
-    // kDHL_1800, kMRelease71 = Rio z046...
-    // kDHL_1800, kMRelease72 = Rio z048.100...    (beta 4)
-    // kDHL_1800, kMRelease73 = Rio z049...   
-    // kDHL_1800, kMRelease74 = Rio z050.100...    (beta 5)
-    // kDHL_1800, kMRelease75 = Rio z051... 
-    // kDHL_1800, kMRelease76 = Rio z052...Rio release candidate 1
-    // kDHL_1800, kMRelease100 = PostRio ...  
-    // kDHL_2100a ('AC701a'), kMRelease0  = PostRio (not kDHL_Current yet)  
-    // kDHL_2100a, kMRelease10 = PostRio a032...
-    // kDHL_2100a, kMRelease13 = PostRio a041
-    // kDHL_1021, kMRelease0   = PostRio a043
-    // kDHL_1021, kMRelease1   = PostRio shipping, Spago b001...b016
-    // kDHL_1021, kMRelease2   = PostRio SP1
-    // kDHL_1021, kMRelease3   = PostRio SP2 (Vista)
-    // kDHL_1021, kMRelease15  = Spago b017...b028, alpha 2
-    // kDHL_1021, kMRelease16  = Spago b029...
-    // kDHL_1021, kMRelease17  = Spago b030...b031
-    // kDHL_1021, kMRelease18 = Spago b032 (Beta 1)...
-    // kDHL_1021, kMRelease19 = Spago b033...
-    // kDHL_1021, kMRelease20 = Spago b036...(Beta 2)...
-    // kDHL_1021, kMRelease21 = Spago b038...
-    // kDHL_1021, kMRelease22 = Spago b039...
-    // kDHL_1021, kMRelease23 = Spago b040...(Beta 3)...
-    // kDHL_1021, kMRelease24 = Spago b041...
-    // kDHL_1021, kMRelease25 = Spago b043...(Beta 4)... FCS
-    // kDHL_1021, kMRelease45 = Raptor c004...
-    // kDHL_1021, kMRelease46 = Raptor c030... (Alpha 1)
-    // kDHL_1021, kMRelease47 = Raptor c041... (Beta 2)
-    // kDHL_1021, kMRelease48 = Raptor c045... (Beta 3)
-    // kDHL_1021, kMRelease49 = Raptor c049... (Beta 4)
-    // kDHL_1021, kMRelease50 = Raptor c054... (RTM)
-    // kDHL_1021, kMRelease100 = Gator  d006...d015
-    // kDHL_1021, kMRelease101 = Gator  d016...d027
-    // kDHL_1021, kMRelease102 = Gator  d028 (Alpha 1)
-    // kDHL_2400a (''), kMRelease0  = Gator d016 (not kDHL_Current yet)  
-    // kDHL_2400a (''), kMRelease1  = Gator d017...d022
-    // kDHL_2400a (''), kMRelease2  = Gator d023...d027
-    // kDHL_2400a (''), kMRelease3  = Gator d028 (Alpha 1)...d033
-    // kDHL_1024, kMRelease0  = Gator d034 (Beta 1)
-    // kDHL_1024, kMRelease1  = Gator d035 ..d038
-    // kDHL_1024, kMRelease2  = Gator d039.. d044
-    // kDHL_1024, kMRelease3  = Gator d045 (Beta 3)
-    // kDHL_1024, kMRelease4  = Gator d046,d047
-    // kDHL_1024, kMRelease5  = Gator d048 (Beta 4) .. d051
-    // kDHL_1024, kMRelease6  = Gator d052 (RC1) ... Hammer e000...e003
-    // kDHL_1024, kMRelease25 = Hammer e004 ...
-    // kDHL_1024, kMRelease26 = Hammer e020, Branch X AutoCAD Hammer 3D Alpha 2 ...
-    // kDHL_1024, kMRelease27 = Hammer e021  Incremented again so only Branch X alpha 2 uses 26.
-    // kDHL_1024, kMRelease28 = Hammer e024, Branch X AutoCAD Hammer 3D Alpha 3 ...
-    // kDHL_1024, kMRelease29 = Hammer e024  Incremented again so only Branch X alpha 3 uses 28.
-    // kDHL_1024, kMRelease30 = Hammer e027, Branch X AutoCAD Hammer 3D Alpha 4 ...
-    // kDHL_1024, kMRelease31 = Hammer e027  Incremented again so only Branch X alpha 4 uses 30.
-    // kDHL_1024, kMRelease32 = Hammer e031 (beta 1) ... e035.
-    // kDHL_1024, kMRelease33 = Hammer e036 (Beta 2) ...
-    // kDJL_1024, kMRelease34 = Hammer e040 (Beta 3) ...
-    // kDJL_1024, kMRelease35 = Hammer e044 (Beta 4) ...
-    // kDJL_1024, kMRelease36 = Hammer e047 (Release Candidate beta ) ...
-    // kDJL_1024, kMRelease37 = Hammer e048 (Release Candidate 1 ) ... f002
-    // kDJL_1024, kMRelease37 = Hammer e048 (Release Candidate 1 ) ...
-    // kDJL_1024, kMRelease55 = Ironman f003 ...
-    // kDHL_1024, kMRelease56 = Ironman F024 Branch U AutoCAD Iroman Alpha 1 ...
-    // kDHL_1024, kMRelease57 = Ironman F024 Incremented again so only Branch U alpha 1 uses 56.
-    // kDHL_1024, kMRelease58 = Ironman F029 Ironman Alpha 2.
-    // kDHL_1024, kMRelease59 = Ironman F029 Incremented again so only Alpha 2 uses 58.
-    // kDHL_1024, kMRelease60 = Ironman F036 Ironman Beta 1
-    // kDHL_1024, kMRelease61 = Ironman F040 Ironman Beta 2
-    // kDHL_1024, kMRelease62 = Ironman F045 Rebuild and F046 mainstream Ironman Beta 3
-    // kDHL_1024, kMRelease63 = Ironman F049 Ironman Release Candidate preview & Ironman FCS
-    // kDHL_1024, kMRelease64 = Ironman F051 base - Branch Z AutoCAD 2012 DesignScript Alpha 1
-    // kDHL_1024, kMRelease65 = Ironman F103 Ironman SP1
-    // kDHL_1024, kMRelease66 = Ironman F051 base - Branch Z AutoCAD 2012 DesignScript Alpha 2
-    // kDHL_1024, kMRelease100 = Jaws g000 ... g021w3 (2010 format)
-    // kDHL_1024, kMRelease101 = Jaws g021w4 ...g031w1 (2010 format)
-    // kDHL_1024, kMRelease50 = Jaws g0321w1 ...g032w2 (2010 format)
-    // kDHL_1024, kMRelease102 = Jaws G033 ... (2010 format)
-    // kDHL_1024, kMRelease103 = Jaws G034... 2010 format for Jaws Alpha 1
-    // kDHL_1024, kMRelease104 = Jaws G038... 2010 format for Jaws Beta  1  
-    // kDHL_1024, kMRelease105 = Jaws G042... 2010 format for Jaws Beta  2  
-    // kDHL_1024, kMRelease106 = Jaws G047... 2010 format for Jaws possible RealDWG RTV (reciendend) 
-    // kDHL_1024, kMRelease107 = Jaws G047.100... 2010 format for Jaws Beta  3
-    // kDHL_1024, kMRelease108 = Jaws G048... 2010 format for Jaws RealDWG RTV try 2
-    // kDHL_1024, kMRelease108 = Jaws G054... 2010 format for AutoCAD 2013 FCS
-    // kDHL_1024, kMRelease109 = Kastle TP1 H008.300... 2010 format for Shoreline Tech Preview 1
-    // kDHL_1024, kMRelease110 = Jaws SP1 beta... 2010 format for AutoCAD 2013 FCS 
-    // kDHL_1024, kMRelease111 = Kastle mainstream H011
-    // kDHL_1024, kMRelease112 = Branch J Customer Council Release Build
-    // kDHL_1024, kMRelease113 = Kastle mainstream H016 - set to kMRelease112 in Branch J
-    // kDHL_1024, kMRelease114 = Kastle mainstream H018 - Shoreline TP2
-    // kDHL_1024, kMRelease115 = Kastle H019 Point Cloud Council 1 build
-    // kDHL_1024, kMRelease116 = Kastle mainstream H023
-    // kDHL_1024, kMRelease117 = Kastle H024 Point Cloud Council 2 build
-    // kDHL_1024, kMRelease118 = Kastle mainstream H026 - Kastle Alpha 1, Suites IB#2
-    // kDHL_1024, kMRelease119 = Jaws SP2  
-
-    // kDHL_1024, kMRelease150 = Keystone mainstream I000 
-    // kDHL_1024, kMRelease151 = Keystone Pre-Alpha I003.100
-    // kDHL_1024, kMRelease152 = Keystone  I004
-    // kDHL_1024, kMRelease153 = Keystone  I010
-    // kDHL_1024, kMRelease154 = Keystone I015 +  Keystone RC1 rebuild
-    // kDHL_1024, kMRelease155 = Keystone I016 
-    // kDHL_1024, kMRelease156 = Keystone SP1 I103,  + Longbow J018 Reality Capture Customer Council 1 build.
-    // kDHL_1024, kMRelease157 = Keystone SP1 I104
-
-    // Mac starts from 165
-    // kDHL_1024, kMRelease165 = SandStone (AutoCAD for Mac 2014) Beta 2 I018
-    // kDHL_1024, kMRelease166 = SandStone (AutoCAD for Mac 2014) RC Beta I018
-    // kDHL_1024, kMRelease167 = SandStone (AutoCAD for Mac 2014) FCS I018
-    
-    // kDHL_1024, kMRelease175 = Longbow Alpha J023  
-    // kDHL_1024, kMRelease176 = Longbow Integration build #1 J026 
-    // kDHL_1024, kMRelease177 = Longbow Integration build #2 J035
-    // kDHL_1024, kMRelease178 = Longbow - J038.100 rebuild and J039 mainstream
-    // kDHL_1024, kMRelease179 = Longbow - J043 in mainstream 
-    // kDHL_1024, kMRelease180 = Longbow - J047 RC Candidate build
-    // kDHL_1024, kMRelease181 = Longbow - RTV candidate - J049, FCS J051
-    // kDHL_1024, kMRelease182 = Longbow - SP1 stream startup
-
-    // Mac starts from 190 for LightSaber
-    // kDHL_1024, kMRelease190 = LightSaber Alpha J047
-    // kDHL_1024, kMRelease191 = Lightsaber Alpha 2 J048
-    // kDHL_1024, kMRelease192 = Lightsaber Beta J051
-    // kDHL_1024, kMRelease193 = Lightsaber Beta 2 J051
-    // kDHL_1024, kMRelease194 = Lightsaber RC Beta J051
-    // kDHL_1024, kMRelease195 = Lightsaber FCS J051
-
-    // kDHL_1024, kMRelease200 = Maestro mainstream K000
-    // kDHL_1024, kMRelease201 = Maestro mainstream Alpha M022
-    // kDHL_1024, kMRelease202 = Maestro mainstream Beta 1  M038.100
-    // kDHL_1024, kMRelease203 = Maestro mainstream Beta 2 M043.100
-    // kDHL_1024, kMRelease204 = Maestro mainstream RC 1 M047.100
-    // kDHL_1024, kMRelease205 = Maestro mainstream FCS M048
-    // kDHL_1024, kMRelease206 = Maestro mainstream SP1 stream start 
-    
-    // Mac Mandalore release start from 210.
-    // kDHL_1024, kMRelease210 = Mandalore Alpha 1 M048                        
-    // kDHL_1024, kMRelease211 = Mandalore Alpha 2
-    // kDHL_1024, kMRelease212 = Mandalore Beta 1 
-    // kDHL_1024, kMRelease213 = Mandalore Beta 2
-
-    // kDHL_1024, kMRelease225 = Nautilus mainstream N001  
-
-    // Mac Naboo (Nautilus base) release start from 235
-    // kDHL_1024, kMRelease235 = Naboo mainstream N049 
-
-
-
-
-    /* **** Jaws 2013 versioning ***** */
-    // kDHL_2700a (''), kMRelease0 = Jaws g000...g031 2013 format (not kDHL_Current yet)
-    // kDHL_2700a (''), kMRelease0 = Jaws g032...     2013 format is current
-    // kDHL_2700a (''), kMRelease1 = Jaws g033...     
-    // kDHL_2700a kMRelease2 =  Jaws G034 (Alpha) 2013 format is now current.
-    // kDHL_1027 kMRelease0 =  Jaws G037 
-    // kDHL_1027 kMRelease1 =  Jaws G038 Beta 1 build 
-    // kDHL_1027 kMRelease2 =  Jaws G038.100 Beta 1 final build and G039 build
-    // kDHL_1027 kMRelease3 =  Jaws G040 base - Branch Z AutoCAD 2013 DesignScript Alpha 3
-    // kDHL_1027 kMRelease4 =  Jaws G042 Beta 2 build
-    // kDHL_1027 kMRelease5 =  Jaws G047 RealDWG RTV (reciended)
-    // kDHL_1027 kMRelease6 =  Jaws G047.100 Beta 3 build
-    // kDHL_1027 kMRelease7 =  Jaws G048  RealDWG RTV try 2
-    // kDHL_1027 kMRelease8 =  Jaws G054  for AutoCAD 2013 FCS
-    // kDHL_1027 kMRelease9 =  = Kastle TP1 H008.300... 2010 format for Shoreline Tech Preview 1
-    // kDHL_1027 kMRelease10 =  Jaws SP1 beta... 2010 format for AutoCAD 2013 FCS
-    // kDHL_1027 kMRelease11 =  Kastle mainstream H011
-    // kDHL_1027 kMRelease12 =  // we will update this value when we up-integrated into main. I expect it will be H015.
-    // kDHL_1027 kMRelease13 = Branch J Customer Council Release Build
-    // kDHL_1027 kMRelease14 =  Kastle mainstream H016 - set to kMRelease13 in Branch J
-    // kDHL_1027 kMRelease15 =  Kastle mainstream H018 - Shoreline TP2
-    // kDHL_1027 kMRelease16 = Kastle H019 for Kastle Point Cloud Council 1
-    // kDHL_1027 kMRelease17 = Kastle mainstream H023
-    // kDHL_1027 kMRelease18 = Kastle H024 for Kastle Point Cloud Council 2
-    // kDHL_1027 kMRelease19 = Kastle mainstream H026 - Kastle Alpha 1, Suites IB#2
-    // kDHL_1027 kMRelease20 =  Jaws SP2
-
-    // kDHL_1027 kMRelease50 = Keystone mainstream I000 
-    // kDHL_1027 kMRelease51 = Keystone Pre-Alpha I003.100  
-    // kDHL_1027 kMRelease52 = Keystone Pre-Alpha I004
-    // kDHL_1027 kMRelease53 = Keystone Preview I010  
-    // kDHL_1027 kMRelease54 = Keystone I015 +  Keystone RC1 rebuild
-    // kDHL_1027 kMRelease55 = Keystone I016
-    // kDHL_1027 kMRelease56 = Keystone SP1 I103,  + Longbow J018 Reality Capture Customer Council 1 build.
-    // kDHL_1027 kMRelease57 = Keystone SP1 I104
-
-    // Mac starts from 65
-    // kDHL_1027 kMRelease65 = SandStone (AutoCAD for Mac 2014) Beta 2
-    // kDHL_1027 kMRelease66 = SandStone (AutoCAD for Mac 2014) RC Beta
-    // kDHL_1027 kMRelease67 = SandStone (AutoCAD for Mac 2014) FCS
-
-    // kDHL_1027 kMRelease75 = Longbow Alpha J023 
-    // kDHL_1027 kMRelease76 = Longbow Integration Build #1 - J026
-    // kDHL_1027 kMRelease77 = Longbow Integration Build #2 - J035
-    // kDHL_1027 kMRelease78 = Longbow  Beta 1 - J038.100 rebuild and J039 mainstream 
-    // kDHL_1027 kMRelease79 = Longbow  Beta 2 - J043 in mainstream 
-    // kDHL_1027 kMRelease80 = Longbow  RC Beta - J047 in mainstream
-    // kDHL_1027 kMRelease81 = Longbow  RTV candidate - J049, FCS J051
-    // kDHL_1027 kMRelease82 = Longbow  SP1 stream startup
-
-    // Mac starts from 90 for LightSaber
-    // kDHL_1027 kMRelease90 = LightSaber (AutoCAD for Mac 2014) Alpha
-    // kDHL_1027 kMRelease91 = Lightsaber (AutoCAD for Mac 2014) Alpha 2
-    // kDHL_1027 kMRelease92 = Lightsaber (AutoCAD for Mac 2014) Beta
-    // kDHL_1027 kMRelease93 = Lightsaber (AutoCAD for Mac 2014) Beta 2
-    // kDHL_1027 kMRelease94 = Lightsaber (AutoCAD for Mac 2014) RC Beta
-    // kDHL_1027 kMRelease95 = Lightsaber (AutoCAD for Mac 2014) FCS
-
-    // kDHL_1027 kMRelease100 = Maestro mainstream K000
-    // kDHL_1027 kMRelease101 = Maestro mainstream Alpha M022
-    // kDHL_1027 kMRelease102 = Maestro mainstream Beta 1 M038.100, SP1 is M038.300
-    // kDHL_1027 kMRelease103 = Maestro mainstream Beta 2 M043.100
-    // kDHL_1027 kMRelease104 = Maestro mainstream RC 1 M047.100
-    // kDHL_1027 kMRelease105 = Maestro mainstream FCS M048
-    // kDHL_1027 kMRelease106 = Maestro SP1 stream start 
-
-
-    // Mac Mandalore release start from 110
-    // kDHL_1027 kMRelease110 = Mandalore Alpha 1 M048
-    // kDHL_1027 kMRelease111 = Mandalore Alpha 2
-    // kDHL_1027 kMRelease112 = Mandalore Beta 1 
-    // kDHL_1027 kMRelease113 = Mandalore Beta 2 
-    // kDHL_1027 kMRelease114 = Mandalore RC 1 M047.100
-    // kDHL_1027 kMRelease115 = Mandalore FCS M048
-
-    // kDHL_1027 kMRelease125 = Nautilus mainstream N000
-    // kDHL_1027 kMRelease125 Extend  version  2 = Nautilus Beta 1  N040
-    // kDHL_1027 kMRelease125 Extend  version  3 = Nautilus Beta 2  N044
-    // kDHL_1027 kMRelease125 Extend  version  4 = Nautilus RC Beta  N048
-    // kDHL_1027 kMRelease125 Extend  version  5 = Nautilus FCS - N052
-    // kDHL_1027 kMRelease125 Extend  version  6 = Nautilus hotfix 2
-    // kDHL_1027 kMRelease125 Extend  version  7 = Nautilus hotfix 3
-    // kDHL_1027 kMRelease125 Extend  version  8 = Nautilus Service Pack 1
-    // kDHL_1027 kMRelease125 Extend  version  9 = Nautilus Update 1
-    // kDHL_1027 kMRelease125 Extend  version  10 = Nautilus Update 2
-
-
-    // kDHL_1027 kMRelease125 Extend  version  45 = Omega  O000
-    // kDHL_1027 kMRelease125 Extend  version  48 = Omega  O043
-    // kDHL_1027 kMRelease125 Extend  version  49 = Omega  O044
-    // kDHL_1027 kMRelease125 Extend  version  50 = Omega  O048
-    // kDHL_1027 kMRelease125 Extend  version  51 = Omega  O049
-    // kDHL_1027 kMRelease125 Extend  version  52 = Omega  O049 + Hotfix TFS bug 174329
-    // kDHL_1027 kMRelease125 Extend  version  53 = Omega  O071
-    // kDHL_1027 kMRelease125 Extend  version  55 = Omega  O105
-
-    // Mac Nabool release 
-    // kDHL_1027 kMRelease125 Extend  version  15 = Naboo Alpha 1
-    // kDHL_1027 kMRelease125 Extend  version  16 = Naboo Alpha 2
-    // kDHL_1027 kMRelease125 Extend  version  17 = Naboo Alpha 3   
-    // kDHL_1027 kMRelease125 Extend  version  18 = Naboo Alpha 4 
-    // kDHL_1027 kMRelease125 Extend  version  19 = Naboo Beta 1                                
-    // kDHL_1027 kMRelease125 Extend  version  20 = Naboo Beta 2
-    // kDHL_1027 kMRelease125 Extend  version  21 = Naboo Beta 3 
-    // kDHL_1027 kMRelease125 Extend  version  22 = Naboo Beta RC       
-    // kDHL_1027 kMRelease125 Extend  version  26 = Naboo FCS
-
-    // kDHL_3200a kMRelease0 = Omega Development
-    // kDHL_1032 kMRelease0 = Omega Beta 1
-    // kDHL_1032 kMRelease1 Extend Version 48 = Omega Beta Update
-    // kDHL_1032 kMRelease2 Extend Version 49 = Omega O044
-    // kDHL_1032 kMRelease3 Extend Version 50 = Omega O048
-    // kDHL_1032 kMRelease4 Extend Version 51 = Omega O049 (FCS)
-    // kDHL_1032 kMRelease5 Extend Version 52 = Omega O049 (FCS) + Hotfix TFS bug 174329
-    // kDHL_1032 kMRelease6 Extend Version 53 = Omega O071
-    // kDHL_1032 kMRelease8 Extend Version 55 = Omega O105
-    
-    // Pi Development
-    // kDHL_1032 kMRelease50 Extend Version 100 = Pi P000
-    // kDHL_1032 kMRelease51 Extend Version 101 = Pi P037 for Beta 1 / IB #2
-    // kDHL_1032 kMRelease52 Extend Version 102 = Pi P041 for Beta 1 Update 1
-    // kDHL_1032 kMRelease53 Extend Version 103 = Pi P042 for Beta 1 Update 2 
-    // kDHL_1032 kMRelease54 Extend Version 104 = Pi P045 for the RC Beta
-    // kDHL_1032 kMRelease55 Extend Version 105 = Pi P046 for the FCS
   enum MaintenanceReleaseVersion
   {
     kMRelease0 = 0,
@@ -1188,38 +747,12 @@ struct AcDb
     kMRelease253 = 253,
     kMRelease254 = 254,
     kMRelease255 = 255,
-                             // Whenever kMReleaseNewest is incremented, please increment
-                             // kMReleaseExtendedNewest by the same amount.  And, when
-                             // kMReleaseNewest is reset to 0 for a dwg/dxf format change,
-                             // please increment kMReleaseExtendedNewest by 1.  That way
-                             // kMReleaseExtendedNewest will remain a unique indicator going
-                             // forward even when dwg/dxf format changes.
-                             //
     kMReleaseNewest = kMRelease55,
     kMRelease2010Newest = kMRelease226,
     kMReleaseCurrent = kMReleaseNewest,
     kMReleaseUnknown = 2147483646,
     kMReleaseMax = 2147483647,
     kMRelease2010Max = 255,
-                             // The "Extended" values are for use with the
-                             // AcDbDwgFiler::extendedDwgMaintenanceReleaseVersion() and
-                             // AcDbDxfFiler::extendedDwgMaintenanceReleaseVersion()
-                             // methods.
-                             //
-                             // If the AcDb::AcDbDwgVersion obtained from the filer's
-                             // dwgVersion() method is equal to kDHL_1027 and the
-                             // AcDb::MaintenanceReleaseVersion obtained from the
-                             // filer's dwgVersion() method is equal to
-                             // kMReleaseCheckExtended, then the file being processed may
-                             // have an extended maintenance release version, otherwise it
-                             // will not.
-                             //
-                             // Since this value will now be incrementing indefinitely,
-                             // once it exceeds kMRelease255, please simply use literal
-                             // integer values for it rather than creating new enum values
-                             // above.
-                             //
-                             // Reserved for Fusion Doc: Extended values 150-200
     kMReleaseExtendedNewest = kMRelease105,
     kMReleaseExtendedCurrent = kMReleaseExtendedNewest,
     kMReleaseCheckExtended = kMRelease125
@@ -1251,11 +784,6 @@ struct AcDb
     kInsert = 9,
     kGrpFlags = 10
   };
-    // kDcInsert     => Database INSERT in which entities from the source
-    //                  database could be moved into the destination database.
-    // kDcInsertCopy => Database INSERT in which the source database is left
-    //                  intact. Objects are copied to the destination database.
-    //
   enum DeepCloneType
   {
     kDcCopy = 0,
@@ -1270,8 +798,6 @@ struct AcDb
     kDcInsertCopy = 10,
     kDcWblkObjects = 11
   };
-    // Handling for duplicate Symbol and Dictionary records
-    //
   enum DuplicateRecordCloning
   {
     kDrcNotApplicable = 0,
@@ -1332,9 +858,6 @@ struct AcDb
     kUnitsUSSurveyMile = 24,
     kUnitsMax = kUnitsUSSurveyMile
   };
-    // Time zone enum names may change from time to time, but enum values must
-    // not, as they are stored in drawings. Enum values support adding new zones,
-    // as long as backward compatibility of drawings is taken into consideration.
   enum TimeZone
   {
     kInternationalDateLine = -12000,
@@ -1414,7 +937,6 @@ struct AcDb
     kFiji = 12001,
     kTonga = 13000
   };
-    // lineweights are in 100ths of a millimeter
   enum LineWeight
   {
     kLnWt000 = 0,
@@ -1516,8 +1038,6 @@ struct AcDb
     kThaw,
     kReset
   };
-    // If adding to the following enum you must change the array
-    // in constant_cpp.h and the initialization string in constant.xmf.
   enum reservedStringEnumType
   {
     kByLayer = 0,
@@ -1547,8 +1067,6 @@ struct AcDb
     kVSShaded = 24,
     kReservedStringCount
   };
-    // SortEntsFlags:  Specifies when entity traversals are in sorted order
-    //
   enum SortEntsFlags
   {
     kSortEntsSelection = 0x01,
@@ -1593,7 +1111,6 @@ struct AcDb
   };
   enum UpdateOption
   {
-                             // adapter specific update option
     kUpdateOptionNone = 0,
     kUpdateOptionSkipFormat = 0x20000,
     kUpdateOptionUpdateRowHeight = 0x40000,
@@ -1615,8 +1132,6 @@ struct AcDb
     kDataLinkGetSourceContextOther = 4,
     kDataLinkGetSourceContextOrignalPath = (0x1 << 8)
   };
-    // AcDbTable and AcTbTableStyle specific enum
-    //
   enum CellType
   {
     kUnknownCell = 0,
@@ -1674,7 +1189,6 @@ struct AcDb
   enum CellProperty
   {
     kCellPropInvalid = 0,
-                             // Content properties
     kCellPropDataType = 0x1,
     kCellPropDataFormat = 0x2,
     kCellPropRotation = 0x4,
@@ -1684,7 +1198,6 @@ struct AcDb
     kCellPropTextStyle = 0x40,
     kCellPropTextHeight = 0x80,
     kCellPropAutoScale = 0x100,
-                             // Cell properties
     kCellPropBackgroundColor = 0x200,
     kCellPropMarginLeft = 0x400,
     kCellPropMarginTop = 0x800,
@@ -1693,11 +1206,8 @@ struct AcDb
     kCellPropMarginHorzSpacing = 0x20000,
     kCellPropMarginVertSpacing = 0x40000,
     kCellPropContentLayout = 0x4000,
-                             // Row/col properties
     kCellPropMergeAll = 0x8000,
-                             // Table properties
     kCellPropFlowDirBtoT = 0x10000,
-                             // Combos
     kCellPropDataTypeAndFormat = (kCellPropDataType | kCellPropDataFormat),
     kCellPropContent = (kCellPropDataType | kCellPropDataFormat | kCellPropRotation | kCellPropScale | kCellPropContentColor | kCellPropTextStyle | kCellPropTextHeight | kCellPropAutoScale),
     kCellPropBitProperties = (kCellPropAutoScale | kCellPropMergeAll | kCellPropFlowDirBtoT),
@@ -1734,7 +1244,6 @@ struct AcDb
     kGridLineStyleSingle = 1,
     kGridLineStyleDouble = 2
   };
-    // For internal use only
   enum CellOption
   {
     kCellOptionNone = 0,
@@ -1882,18 +1391,11 @@ struct AcDb
   {
     kAllGridLines = kAllGridLineTypes
   };
-    // DrawOrderFlags:  Specifies draw order behavior when editing existing
-    //                  entities or creating new "derived" entities
-    //
   enum DrawOrderFlags
   {
     kDrawOrderInPlaceEditOn = 0x01,
     kDrawOrderInheritanceOn = 0x02
   };
-    // UpdateThumbnailFlags:  Specifies whether a drawing save includes
-    //                        updating thumbnails for sheet views, model 
-    //                        views, or sheets
-    //
   enum UpdateThumbnailFlags
   {
     kUpdateModelViews = 0x01,
@@ -1902,32 +1404,22 @@ struct AcDb
     kUpdateWhenAccessed = 0x08,
     kUpdateWhenSaving = 0x10
   };
-    // EnhancedBlockEvalType: Used in evaluating the graphs that support
-    //                        Enhanced Blocks.  Specifies what sort of
-    //                        operation this evaluation pass is supporting.
-    //                        Used in an AcDbEvalContext container in 
-    //                        conjunction with the ACDB_ENHANCED_BLOCK_EVALKEY.
   enum EnhancedBlockEvalType
   {
     kInitialization = 1,
     kForUpdate = 2,
     kForRefresh = 3
   };
-    // SliceModelType: Specifies flags for slicing solid, surface or region.
   enum SliceModelType
   {
     kKeepBothSides = 0x01,
     kUseCurrentColor = 0x02
   };
-    // CollisionType: Specifies how the entity interacts with collision
-    //                detection.
   enum CollisionType
   {
     kCollisionTypeNone = 0,
     kCollisionTypeSolid = 1
   };
-    // LoftParamType: Specifies settings that affect the shape of the 
-    // lofted solid or surface.
   enum LoftParamType
   {
     kLoftNoParam = 0x00,
@@ -1938,8 +1430,6 @@ struct AcDb
     kLoftPeriodic = 0x10,
     kLoftDefault = kLoftNoTwist | kLoftAlignDirection | kLoftSimplify
   };
-    // LoftNormalsType: Specifies the normals of the lofted object where it
-    // passes through cross section curves.
   enum LoftNormalsType
   {
     kLoftRuled = 0,

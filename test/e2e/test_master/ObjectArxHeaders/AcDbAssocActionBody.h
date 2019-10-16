@@ -103,10 +103,6 @@ public:
     /// </summary>
     ///
   static AcDbObjectId parentAction(const AcDbObjectId& actionBodyId);
-    // The following non-virtual methods are just shortcuts that just forward 
-    // to the parent AcDbAssocAction class, to save some typing for the
-    // implementers of the derived custom action body classes
-
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocAction that 
     /// owns this action body object.
@@ -347,8 +343,6 @@ public:
     /// </summary>
     ///
   static Acad::ErrorStatus getActionBodiesOnObject(const AcDbObject* pObject, bool ignoreInternalActions, bool ignoreSuppressedActions, AcDbObjectId* pWriteOnlyActionBodyId, AcDbObjectIdArray* pReadWriteActionBodyIds, AcDbObjectIdArray* pReadOnlyActionBodyIds = NULL);
-    // Virtual methods that can be overridden by the derived classes
-
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
     /// that owns this action body object. This method has to be overridden and
@@ -656,7 +650,6 @@ public:
     /// AcDbAssocPersSubentManagerCloner that the action body uses to remap 
     /// its AcDbPersStepIds and PersSubentIds.
     /// </param>
-    //
   virtual Acad::ErrorStatus clonePersSubentNamingDataOverride(class AcDbAssocPersSubentManagerCloner* pCloner);
 };
 /// <summary>

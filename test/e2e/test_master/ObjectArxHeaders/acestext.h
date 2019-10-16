@@ -7,11 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//
-// acestext.h:   Define an exported function that exchanges
-//               an Acad::ErrorStatus enum value for a string
-//               describing the error message.
 #ifndef _AD_ACESTEXT_H
 #  define _AD_ACESTEXT_H	1
 #  include "acdb.h"

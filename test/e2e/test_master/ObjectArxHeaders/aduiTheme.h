@@ -39,7 +39,6 @@ class CAcColorTheme;
 enum AdUiThemeElement
 {
   kUnknownElements = -1,
-    // Theme fonts
   kPaletteFontCaption,
   kPaletteFontTab,
   kPaletteFontToolTip,
@@ -48,9 +47,6 @@ enum AdUiThemeElement
   kWorksheetFontCaption,
   kInspectorItemFont,
   kInspectorRootFont,
-    // Theme colors
-
-    // Palette Set Colors
   kPaletteBackground,
   kPaletteCaptionBackground,
   kPaletteCaptionInactive,
@@ -72,7 +68,6 @@ enum AdUiThemeElement
   kPaletteScrollBackground,
   kPaletteScrollThumb,
   kPaletteScrollArrow,
-    // Worksheets
   kWorksheetBackground,
   kWorksheetCaptionBackground,
   kWorksheetCaptionText,
@@ -83,7 +78,6 @@ enum AdUiThemeElement
   kWorksheetScrollThumb,
   kWorksheetBorder,
   kWorksheetGripHighlight,
-    // Property Inspectors
   kInspector,
   kInspectorTop,
   kInspectorCat,
@@ -102,11 +96,9 @@ enum AdUiThemeElement
   kInspectorCatChevron2,
   kInspectorSubChevron,
   kInspectorCellHighlight,
-    // Panel Colors
   kPanelBackground,
   kPanelSashBackground,
   kPanelBorder,
-    //General control colors
   kControlBorder,
   kControlBackground,
   kDisabledControlBorder,
@@ -117,7 +109,6 @@ enum AdUiThemeElement
   kControlActiveText,
   kControlText,
   kControlInactiveText,
-    // Extra Palette Set Colors
   kPaletteFrameInnerBorder,
   kPaletteFrameOuterBorder,
   kPaletteFrameBackground,
@@ -141,7 +132,6 @@ enum AdUiThemeElement
   kPaletteColumnHeaderBackground,
   kPaletteHyperlinkText,
   kPaletteTreeOrListBackground,
-    // Anchor Bar Colors
   kAnchorBarOuterBorder,
   kAnchorBarEmbossRightBottom,
   kAnchorBarEmbossLeftTop,
@@ -150,23 +140,19 @@ enum AdUiThemeElement
   kAnchorBarGradient2,
   kAnchorBarActiveTitleBackground,
   kAnchorBarCaptionText,
-    // Other Colors
   kGrabBarDotDark,
   kGrabBarDotLight,
   kControlBarTitleBackground,
-    // Application Frame Window Colors
   kAppFrameBorder,
   kAppFrameOuterBorder,
   kAppFrameAFGradientTop,
   kAppFrameAFGradientBottom,
-    // Application Frame Caption area
   kAppFrameCaptionActiveGradientTop,
   kAppFrameCaptionActiveGradientBottom,
   kAppFrameCaptionInActiveGradientTop,
   kAppFrameCaptionInActiveGradientBottom,
   kAppFrameCaptionOuterBorder,
   kAppFrameCaptionInnerBorder,
-    // Application Frame Quick Access Toolbar
   kAppFrameQATGradientTop,
   kAppFrameQATGradientBottom,
   kAppFrameQATOuterBorder,
@@ -175,7 +161,6 @@ enum AdUiThemeElement
   kAppFrameQATButtonsRolloverBorder,
   kAppFrameQATButtonsClickBorder,
   kAppFrameQATFlyoutButtonText,
-    // Application Frame Menu Browser Button
   kAppFrameBigMBBGradientFillTop,
   kAppFrameBigMBBGradientFillMiddleUpper,
   kAppFrameBigMBBGradientFillMiddleLower,
@@ -184,12 +169,10 @@ enum AdUiThemeElement
   kAppFrameSmallMBBGradientFillMiddleUpper,
   kAppFrameSmallMBBGradientFillMiddleLower,
   kAppFrameSmallMBBGradientFillBottom,
-    // Application Frame Document name text
   kAppFrameDocNameProductNameText,
   kAppFrameDocNameFileNameText,
   kAppFrameDocNameInactiveProductNameText,
   kAppFrameDocNameInactiveFileNameText,
-    // Application Frame Menu Bar
   kAppFrameMenuBarMenuText,
   kAppFrameMenuBarMenuHighlightText,
   kAppFrameMenuBarMenuDeHighlightText,
@@ -197,7 +180,6 @@ enum AdUiThemeElement
   kAppFrameMenuBarRolloverFill,
   kAppFrameMenuBarClickBorder,
   kAppFrameMenuBarClickFill,
-    // Application Frame application window control buttons
   kAppFrameAppWindowControlButtonsRolloverGradientBorderTop,
   kAppFrameAppWindowControlButtonsRolloverGradientBorderMiddle,
   kAppFrameAppWindowControlButtonsRolloverGradientBorderBottom,
@@ -212,12 +194,9 @@ enum AdUiThemeElement
   kAppFrameAppWindowControlButtonsClickGradientFillMiddleUpper,
   kAppFrameAppWindowControlButtonsClickGradientFillMiddleLower,
   kAppFrameAppWindowControlButtonsClickGradientFillBottom,
-    // Application Frame Info Center Toggle Button color
   kAppFrameInfoCenterToggleButtonText,
-    // Application Frame Zero Doc state background
   kAppFrameZeroDocBackgroundGradientTop,
   kAppFrameZeroDocBackgroundGradientBottom,
-    //Status bar colors.
   kStatusBarPaneUnSelectedTopGradient,
   kStatusBarPaneUnSelectedBottomGradient,
   kStatusBarPaneRolloverGradient1,
@@ -234,7 +213,6 @@ enum AdUiThemeElement
   kStatusBarBkGrdInnerLine,
   kStatusBarBkGrdTopGradient,
   kStatusBarBkGrdBottomGradient,
-    //Toolbar specific colors
   kToolbarGripDarkDot,
   kToolbarGripLightDot,
   kToolbarGripBackground,
@@ -242,7 +220,6 @@ enum AdUiThemeElement
   kToolbarBackground,
   kToolbarRolloverBorder,
   kToolbarCloseButton,
-    //Square Button colors
   kSquareButtonHoverBorder,
   kSquareButtonHoverHighlight,
   kSquareButtonHoverBackgroundTop,
@@ -251,7 +228,6 @@ enum AdUiThemeElement
   kSquareButtonClickHighlight,
   kSquareButtonClickBackgroundTop,
   kSquareButtonClickBackgroundBottom,
-    //Combo box colors
   kComboBoxBackgroundTop,
   kComboBoxBackgroundBottom,
   kComboBoxActiveBackgroundTop,
@@ -265,21 +241,18 @@ enum AdUiThemeElement
   kComboBoxSelectBackgroundTop,
   kComboBoxSelectBackgroundBottom,
   kComboBoxHoverSelectHighlight,
-    //Spin control colors
   kSpinControlHighlight,
   kSpinControlBorder,
   kSpinControlClickBackgroundTop,
   kSpinControlClickBackgroundBottom,
   kSpinControlBackgroundTop,
   kSpinControlBackgroundBottom,
-    //Text input colors
   kTextInputInnerShadow,
   kTextInputActiveBackgroundTop,
   kTextInputActiveBackgroundBottom,
   kTextInputActiveHighlight,
   kTextInputActiveText,
   kTextInputActiveBorder,
-    //splitter control colors
   kCategoryExpander,
   kCategoryExpanderShadow,
   kGroupGrip,
@@ -287,7 +260,6 @@ enum AdUiThemeElement
   kCategoryBackground,
   kCategoryBorder,
   kCategoryActiveText,
-    //List box colors
   kListBoxHoverBackgroundTop,
   kListBoxHoverBackgroundBottom,
   kListBoxHoverBorder,
@@ -302,7 +274,6 @@ enum AdUiThemeElement
   kListBoxSelectHoverBorder,
   kListBoxInnerShadow,
   kListBoxSelectText,
-    //Tree and List control colors
   kTreeControlLine
 };
 /// <summary>
@@ -553,10 +524,7 @@ public:
   {
     m_nRefCount++;
   }
-    // assignment operator
   CAdUiTheme& operator=(const CAdUiTheme& Theme);
-    // utility methods
-
     /// <summary>
     /// Does alpha blending of a translucent foreground color with an opaque background color
     /// to produce a new opaque foreground color.
@@ -581,7 +549,6 @@ private:
   void InitializeFontsForDialog();
   void SendThemeModifiedNotifications(AdUiThemeElement nElement) const;
   void CheckXP();
-    // Are XP themes supported (FUTURE USE!)
   BOOL UsesXP()
   {
     return m_bUsesXPThemes;

@@ -1,12 +1,4 @@
-//
-//  Copyright 2018 Autodesk, Inc.  All rights reserved.
-//
-//  Use of this software is subject to the terms of the Autodesk license 
-//  agreement provided at the time of installation or download, or which 
-//  otherwise accompanies this software in either electronic or hard copy form.   
-//
 #pragma  once
-// category ID: negative values are 'standard' categories,  positive are control-specific
 #define PROPCAT_Nil	-1
 #define PROPCAT_Misc	-2
 #define PROPCAT_Font	-3

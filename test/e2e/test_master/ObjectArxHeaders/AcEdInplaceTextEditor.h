@@ -7,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// AcEdInplaceTextEditor - provides application level services in accore.dll
 #ifndef AcEdInplaceTextEditor_H
 #  define AcEdInplaceTextEditor_H
 #  include "dbtexteditor.h"
@@ -228,7 +226,6 @@ public:
     /// it returns the Acad::eInvalidInput.
     /// </returns>
   ACCORE_PORT static Acad::ErrorStatus invoke(AcDbText* pText, AcDbObjectIdArray* appendedEntities);
-    // Enums for text editor operation undo type.
     /// <summary>
     /// Describes the undo type for each kind of operation.
     /// </summary>

@@ -13,8 +13,6 @@
 #  include "AdAChar.h"
 #  include "acdbport.h"
 #  include <stdarg.h>
-// These functions are exported with both extern "C" and C++ linkage. We may
-// eventually drop support for C applications.
 #  pragma  pack (push, 8)
 void acad__assert(const ACHAR*, const ACHAR*, int);
 int acutCvUnit(ads_real value, const ACHAR* oldunit, const ACHAR* newunit, ads_real* result);

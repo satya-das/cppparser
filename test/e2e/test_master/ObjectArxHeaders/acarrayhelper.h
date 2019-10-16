@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,13 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// acarrayhelper.h
-//
-// DESCRIPTION:
-//              Specialized templates to enable the following types
-//              to use certain allocators.
-//
 #if  defined(ADSK_ACGEVECTOR2D_DEFINED) && defined(AC_ACARRAY_H)
 #  undef ADSK_ACGEVECTOR2D_DEFINED
 template <>

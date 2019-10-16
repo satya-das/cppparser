@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION: Exported AcDbLongTransaction classes
 #ifndef AD_DBLTRANS_H
 #  define AD_DBLTRANS_H	1
 #  include "dbmain.h"
@@ -49,8 +46,6 @@ public:
   Acad::ErrorStatus addToWorkSet(AcDbObjectId id);
   Acad::ErrorStatus removeFromWorkSet(AcDbObjectId id);
   Acad::ErrorStatus syncWorkSet();
-    // The parameter includes both erased and removed objects
-    //
   Acad::ErrorStatus newWorkSetIterator(AcDbLongTransWorkSetIterator*& pNewIter, bool incRemovedObjs = false, bool incSecondaryObjs = false) const;
   AcDbObjectId originObject(AcDbObjectId id) const;
   bool workSetHas(AcDbObjectId id, bool bIncErased = false) const;

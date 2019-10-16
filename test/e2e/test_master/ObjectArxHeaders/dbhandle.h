@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,13 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//
-// DESCRIPTION:
-//
-// This file contains the interface of the AcDbHandle class.
-// Instances of this class encapsulate an 8-byte AutoCAD database
-// handle value.
 #ifndef AD_DBHANDLE_H
 #  define AD_DBHANDLE_H	1
 #  include "adesk.h"
@@ -29,13 +21,11 @@ public:
   AcDbHandle(Adesk::UInt64);
   AcDbHandle& operator=(const AcDbHandle&);
   AcDbHandle& operator=(const ACHAR*);
-    // This gets the hex digits into a string buffer.
   bool getIntoAsciiBuffer(ACHAR* pBuf, size_t nBufLen) const;
   enum
   {
     kStrSiz = 17
   };
-    // Helper template for fixed size arrays
   template <size_t nBufLen>
   inline bool getIntoAsciiBuffer(wchar_t (& buf)[nBufLen]) const
   {
@@ -51,7 +41,6 @@ public:
   void setHigh(Adesk::UInt32 high);
   bool isOne(void) const;
     /////// Implementation Class Members: Not for 3rd Party Consumption ///////
-    //
   AcDbHandle& operator++();
   AcDbHandle operator++(int);
   void increment(void);
@@ -89,7 +78,6 @@ private:
   {
     mHandle.mWord64 = val;
   }
-    // Union enforces alignment
   union 
 {
   struct 

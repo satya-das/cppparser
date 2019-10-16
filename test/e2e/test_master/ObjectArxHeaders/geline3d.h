@@ -7,11 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:
-//
-// This file contains the class AcGeLinearEnt3d - A mathematical entity
-// used to represent a line in 3-space.
 #ifndef AC_GELINE3D_H
 #  define AC_GELINE3D_H
 #  include "gelent3d.h"
@@ -24,17 +19,11 @@ public:
   GE_DLLEXPIMPORT AcGeLine3d(const AcGeLine3d& line);
   GE_DLLEXPIMPORT AcGeLine3d(const AcGePoint3d& pnt, const AcGeVector3d& vec);
   GE_DLLEXPIMPORT AcGeLine3d(const AcGePoint3d& pnt1, const AcGePoint3d& pnt2);
-    // The x-axis, y-axis, and z-axis lines.
-    //
   GE_DLLDATAEXIMP static const AcGeLine3d kXAxis;
   GE_DLLDATAEXIMP static const AcGeLine3d kYAxis;
   GE_DLLDATAEXIMP static const AcGeLine3d kZAxis;
-    // Set methods.
-    //
   GE_DLLEXPIMPORT AcGeLine3d& set(const AcGePoint3d& pnt, const AcGeVector3d& vec);
   GE_DLLEXPIMPORT AcGeLine3d& set(const AcGePoint3d& pnt1, const AcGePoint3d& pnt2);
-    // Assignment operator.
-    //
   GE_DLLEXPIMPORT AcGeLine3d& operator =(const AcGeLine3d& line);
 };
 #  pragma  pack (pop)

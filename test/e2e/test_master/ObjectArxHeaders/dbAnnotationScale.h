@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,7 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #ifndef ACDB_ANNOTATIONSCALE_H
 #  define ACDB_ANNOTATIONSCALE_H
 #  pragma  once
@@ -269,16 +267,13 @@ protected:
   friend class AcDbSystemInternals;
   AcDbAnnotationScale(bool);
 };
-// Notification of Annotation Scale change.
 class ACDBCORE2D_PORT AcDbAnnotationScaleReactor : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcDbAnnotationScaleReactor);
   virtual void annotationScaleChanged(const AcDbDatabase* pDb, const AcDbViewport* pVP, const AcDbAnnotationScale* pScale, const bool bInitializing);
 };
-// Add an AcDbAnnotationScaleReactor reactor.
 ACDBCORE2D_PORT bool acdbAddAnnotationScaleReactor(AcDbAnnotationScaleReactor* pReactor);
-// Remove an AcDbAnnotationScaleReactor reactor.
 ACDBCORE2D_PORT bool acdbRemoveAnnotationScaleReactor(AcDbAnnotationScaleReactor* pReactor);
 #  pragma  pack(pop)
 #endif

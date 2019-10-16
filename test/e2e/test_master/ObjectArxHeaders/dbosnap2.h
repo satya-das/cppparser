@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,10 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-
-//
-//  dbosnap2.h - header file for custom osnap api
-//
 #ifndef _DBOSNAP2_H
 #  define _DBOSNAP2_H
 #  include "dbosnap.h"

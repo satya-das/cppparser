@@ -1,4 +1,3 @@
-//
 /////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,15 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//
-//  truetypetext.h - General-purpose TrueType functions
-//
-//  DESCRIPTION:
-//
-//  This header file contains declarations of general-purpose truetype text
-//  functions provided with the AcUtil library and DLL.
-//
 #ifndef _TRUETYPETEXT_H_
 #  define _TRUETYPETEXT_H_
 #  define UC_DEGREE_SYMBOL	0x00B0
@@ -99,7 +89,6 @@ public:
     }
     if (!raw)
     {
-            // only need temporary string if converting %% sequences
       size_t nSize;
       if (m_iLen + 1 > m_kBufferLen)
       {
@@ -122,8 +111,6 @@ public:
     }
     else 
     {
-            // It is okay to cast away constness here -- we only call process_underoverline
-            // which takes a const pointer
       m_pBuffer = const_cast<wchar_t*>(text);
     }
   }

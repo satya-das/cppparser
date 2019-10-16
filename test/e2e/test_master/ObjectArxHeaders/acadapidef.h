@@ -7,7 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #pragma  once
 #ifndef ACADAPIDEF_H
 #  define ACADAPIDEF_HH
@@ -20,8 +19,6 @@
 #      endif
 #    endif
 #  else 
-// On OS X, we will export all symbols by default and will use GCC
-// attributes to exclude symbols we don't want to export.
 #    define ACAD_PORT
 #  endif
 #endif

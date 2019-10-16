@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,7 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #if  !defined(_ACHTMLAPI_H_INCLUDED_)
 #  define _ACHTMLAPI_H_INCLUDED_
 #  if  _MSC_VER >= 1000

@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION: Exported class for Helix - AcDbHelix
 #ifndef ACDB_DBHELIX_H
 #  define ACDB_DBHELIX_H
 #  include "gegbl.h"
@@ -257,7 +254,7 @@ public:
     /// Reverses the parameterization of the curve
     /// The start becomes the end and visa versa
     /// </summary>
-  virtual Acad::ErrorStatus reverseCurve() override;
+  Acad::ErrorStatus reverseCurve() override;
 protected:
     /// <summary>
     /// Gets the corresponding COM wrapper class ID.
@@ -268,7 +265,7 @@ protected:
     /// <returns>
     /// Returns Acad::eOk if succssful.
     /// </returns>
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #  pragma  pack (pop)
 #endif

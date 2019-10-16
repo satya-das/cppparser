@@ -25,11 +25,6 @@ class AcApLongTransactionReactor : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcApLongTransactionReactor);
-    // To identify and connect this notification with the deepClone
-    // notifications, AcDbLongTransactionWorkSet::activeIdMap()
-    // will return the cloning idMap.  CheckOut and CheckIn, for
-    // the same transaction, will use different maps.  
-    //
   virtual void beginCheckOut(AcDbLongTransaction&, AcDbObjectIdArray& originList);
   virtual void endCheckOut(AcDbLongTransaction&);
   virtual void beginCheckIn(AcDbLongTransaction&);
@@ -51,8 +46,6 @@ public:
   virtual AcDbObjectId currentLongTransactionFor(const AcApDocument* pDoc) const = 0;
   virtual void addReactor(AcApLongTransactionReactor*) = 0;
   virtual void removeReactor(AcApLongTransactionReactor*) = 0;
-    // For filtering classes out of Long Transactions
-    //
   virtual Acad::ErrorStatus addClassFilter(AcRxClass*) = 0;
   virtual bool isFiltered(AcRxClass*) const = 0;
 };

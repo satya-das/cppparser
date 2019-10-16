@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION: Exported class for underlay definitions in dwg file - AcDbUnderlayDefintion
 #ifndef ACDB_DBUNDERLAYDEF_H
 #  define ACDB_DBUNDERLAYDEF_H
 #  pragma  once

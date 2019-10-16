@@ -21,8 +21,6 @@
 #include "acdb.h"
 #include "gepnt3d.h"
 #pragma  pack (push, 8)
-// Forward class declarations of the main classes of the Associative Framework.
-//
 class AcDbAssocAction;
 class AcDbAssocActionBody;
 class AcDbAssocNetwork;
@@ -49,8 +47,6 @@ namespace PersSubentNaming
   class AnnotationData;
   class PersSubentManager;
 }
-// ASM entities
-//
 class ENTITY;
 class COEDGE;
 class EDGE;
@@ -539,8 +535,6 @@ enum AcDbAssocCreateImpObject
     /// <summary> The API class should not create the corresponding imp object. </summary> 
   kAcDbAssocDoNotCreateImpObject = 1
 };
-// The following typedefs are ids used by AcDbAssocPersSubentManager
-//
 typedef unsigned AcDbPersElemId;
 typedef AcDbPersElemId AcDbPersStepId;
 typedef AcDbPersElemId AcDbPersSubentId;
@@ -549,11 +543,6 @@ typedef AcArray<AcDbPersStepId> AcDbPersStepIdArray;
 typedef AcArray<AcDbPersSubentId> AcDbPersSubentIdArray;
 typedef AcArray<AcDbPersElemIdArray> AcDbPersElemIdArray2d;
 const AcDbPersElemId kAcDbPersNullId = 0;
-// For debugging. When a network, action or dependency in the top-level network 
-// or any of its subnetworks has some integrity issues, it asserts and returns 
-// not eOk. It mainly checks general integrity issues, not issues specific to 
-// the particular action body types
-//
 ACDBCORE2D_PORT Acad::ErrorStatus checkTopLevelNetworkIntegrity(const AcDbDatabase*);
 /// <summary> Dimensional constraint type. </summary>
 ///
@@ -645,7 +634,6 @@ private:
 };
 class AcString;
 class AcDbEvalVariant;
-// For expressions used in AcDbAssocVariables (for internal use)
 ACDBCORE2D_PORT bool acdbIsExpressionAConstant(const AcString& expression, AcDbEvalVariant& val);
 ACDBCORE2D_PORT bool acdbIsExpressionANegativeConstant(const AcString& expression);
 ACDBCORE2D_PORT bool acdbIsIdentifier(const AcString& name);

@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,11 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:
-//
-// This file contains the class AcGeSplineEnt2d - A mathematical entity
-// used to represent a different types of spline curves in 3-space.
 #ifndef AC_GESPNT2d_H
 #  define AC_GESPNT2d_H
 #  include "gecurv2d.h"
@@ -26,8 +20,6 @@ class AcGeKnotVector;
 class GE_DLLEXPIMPORT AcGeSplineEnt2d : public AcGeCurve2d
 {
 public:
-    // Definition of spline
-    //
   Adesk::Boolean isRational() const;
   int degree() const;
   int order() const;
@@ -39,17 +31,11 @@ public:
   double endParam() const;
   AcGePoint2d startPoint() const;
   AcGePoint2d endPoint() const;
-    // Interpolation data
-    //
   Adesk::Boolean hasFitData() const;
-    // Editting
-    //
   double knotAt(int idx) const;
   AcGeSplineEnt2d& setKnotAt(int idx, double val);
   AcGePoint2d controlPointAt(int idx) const;
   AcGeSplineEnt2d& setControlPointAt(int idx, const AcGePoint2d& pnt);
-    // Assignment operator.
-    //
   AcGeSplineEnt2d& operator =(const AcGeSplineEnt2d& spline);
 protected:
   AcGeSplineEnt2d();

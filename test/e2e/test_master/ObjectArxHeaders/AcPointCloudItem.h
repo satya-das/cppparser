@@ -225,7 +225,6 @@ public:
   AcPointCloudItemType itemType() const;
 private:
   void copyItem(const AcPointCloudItem& other);
-    // data fields
   AcString m_name;
   AcString m_projectName;
   AcString m_guid;

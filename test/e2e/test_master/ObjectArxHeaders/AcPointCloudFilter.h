@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,7 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #pragma  once
 #include "AcPointCloudEngineAPI.h"
 /// <summary>
@@ -32,7 +30,6 @@ protected:
   IPointCloudFilter* mpRightFilter;
 private:
   bool mbIsInverted;
-    // outlawed
   PointCloudBinaryOperatorFilter& operator =(const PointCloudBinaryOperatorFilter&);
 };
 /// <summary>

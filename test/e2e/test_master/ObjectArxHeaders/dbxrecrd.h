@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION: AcDbXrecord class definition.
 #ifndef ACDB_XRECORD_H
 #  define ACDB_XRECORD_H
 #  include "AdAChar.h"
@@ -23,15 +20,11 @@ class AcDbXrecord : public AcDbObject
 public:
   AcDbXrecord();
   virtual ~AcDbXrecord();
-    // auxDb parameter only useded when working with
-    // non-Database-resident instances.
   Acad::ErrorStatus rbChain(resbuf** ppRb, AcDbDatabase* auxDb = NULL) const;
   Acad::ErrorStatus setFromRbChain(const resbuf& pRb, AcDbDatabase* auxDb = NULL);
   ACDBCORE2D_PORT Acad::ErrorStatus appendRbChain(const resbuf& pRb);
   bool isXlateReferences() const;
   void setXlateReferences(bool translate);
-    // Overridden methods from AcDbObject
-    //
   virtual Acad::ErrorStatus subClose() override;
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;

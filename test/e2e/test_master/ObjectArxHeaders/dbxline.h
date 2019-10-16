@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION: Exported AcDbXline Entity class
 #ifndef AD_DBXLINE_H
 #  define AD_DBXLINE_H	1
 #  include "dbmain.h"
@@ -23,7 +20,7 @@ public:
   AcDbXline();
   ~AcDbXline();
   ACDB_DECLARE_MEMBERS(AcDbXline);
-  DBCURVE_METHODS virtual Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const override;
+  DBCURVE_METHODS Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const override;
   AcGePoint3d basePoint() const;
   void setBasePoint(const AcGePoint3d& pt);
   AcGeVector3d unitDir() const;
@@ -51,7 +48,6 @@ inline Acad::ErrorStatus AcDbXline::getStartParam(double&) const
 }
 inline Acad::ErrorStatus AcDbXline::getEndParam(double&) const
 {
-    // endParam for an Xline is positive infinity
   return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbXline::getStartPoint(AcGePoint3d&) const

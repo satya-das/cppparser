@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,12 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// AcDbIndex is the base class for all index implementations.
-//
-// These indexes are associated with Block Spaces, and can be used
-// to perform an efficient filtered traversal of the block.
-//
 #ifndef AD_DBLYINDX_H
 #  define AD_DBLYINDX_H
 #  include "dbindex.h"

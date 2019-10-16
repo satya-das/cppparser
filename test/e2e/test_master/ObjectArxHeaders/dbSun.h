@@ -10,12 +10,6 @@
 //-----------------------------------------------------------------------------
 //----- AcDbSun.h : Declaration of the AcDbSun class
 //-----------------------------------------------------------------------------
-// DESCRIPTION:
-//
-// This API extends AcDb to support creation of the Sun object
-
-//  AcDbObject
-//      AcDbSun
 #pragma  once
 #include "dbmain.h"
 #pragma  warning( disable: 4275 4251 )
@@ -41,7 +35,6 @@
 #include "AcGiLightTraits.h"
 #include "rxboiler.h"
 #include "dbLight.h"
-//forward declaration for the imp class
 class AcDbImpSun;
 /// <summary>
 /// Container for all properties relating to a sun object.
@@ -68,13 +61,11 @@ public:
     /// Destructor.
     /// </summary>
   ~AcDbSun();
-    // AcGiDrawable methods
   virtual AcGiDrawable* drawable() override;
   virtual DrawableType drawableType() const override
   {
     return AcGiDrawable::kDistantLight;
   }
-    // AcDbObject methods
   virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
@@ -294,7 +285,6 @@ public:
     /// </returns>
   Acad::ErrorStatus skyParameters(AcGiSkyParameters& params) const;
 protected:
-    // AcGiDrawable methods
   virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 private:
   AcDbImpSun* mpAcDbImpSun;

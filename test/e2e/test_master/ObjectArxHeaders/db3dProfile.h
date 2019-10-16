@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,12 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//
-// DESCRIPTION:
-//
-// The AcDb3dProfile class is used to encapsulate profile information for
-// certain commands such as EXTRUDE, REVOLVE, SWEEP, and LOFT. 
 #pragma  once
 #ifndef DB3DPROFILE_H
 #  define DB3DPROFILE_H

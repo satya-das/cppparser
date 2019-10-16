@@ -51,7 +51,6 @@ public:
   const AcGeVector3d& modelEdgeDirection() const;
   const AcGePoint3d identifierPosition() const;
     ///////////////////////////////////////////////////////////////////////
-    // *** Internal-use-only methods ***
   Acad::ErrorStatus setBoundaryType(BoundaryType bndType);
   Acad::ErrorStatus setModelEdgeType(AcDbDetailViewStyle::ModelEdge modelEdgeType);
   Acad::ErrorStatus setPickPoints(const AcGePoint3dArray& pickPoints);

@@ -7,7 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #pragma  once
 #include "AcGeomConstraint.h"
 #pragma  pack (push, 8)

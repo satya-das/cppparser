@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,30 +7,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//  DESCRIPTION:  
-//
-//  Interface and classes that implements pickfirst based sub selection
-//  and 'picking in space' for entities in a pickfirst set through
-//  using a callback mechanism with the AcEdInputPointManager and
-//  a specific kind of AcEdInputContextReactor.
 #pragma  once
 #include "acedinpt.h"
-// Typedef mapping old name to new name
 typedef AcDbFullSubentPathArray AcSubentPathArray;
 class AcGiViewport;
-// This is the main class which contains all the implementation for
-// 'pick in space' hit testing and 'sub-entity-selection' based on
-// callbacks from the AcEdInputPointManager. This is a Filter class,
-// i.e. needs to be registered with the AcEdInputPointManager
-// through addSubSelectFilter(), and likewise removed by 
-// removeSubSelectFilter() when the application is unloaded.
-// 
-// For each type of entity that supports this kind of sub-selection
-// it is expected that they will derive a concrete SubSelect filter
-// from AcEdSSetSubSelectFilter, and implement the necessary methods
-// indicated below.
-//
 class AcEdSubSelectFilter
 {
 public:
@@ -65,8 +44,6 @@ public:
   {
     return Acad::eOk;
   }
-    // The following three methods do the subselection and sub-highlight.
-
     /**
      * This method is used to ask the application to do the actual
      * hit test, testing for the point in an entity.

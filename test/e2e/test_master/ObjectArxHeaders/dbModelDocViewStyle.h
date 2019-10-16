@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,7 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #ifndef __ACDBMODELDOCVIEWSTYLE_H__
 #  define __ACDBMODELDOCVIEWSTYLE_H__
 #  pragma  once
@@ -262,14 +260,11 @@ public:
     /// </returns>
   static AcGeVector2d updateViewLabelPosition(AcDbMText* pMText, AcDbModelDocViewStyle::AttachmentPoint& attachment, const AcGePoint3d& minPt, const AcGePoint3d& maxPt);
 protected:
-    // For internal use only
-    //
   virtual Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
   virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
 private:
   friend class AcDbImpModelDocViewStyle;
 };
-// deprecated method. Please use the overload taking AcString & arg
 inline Acad::ErrorStatus AcDbModelDocViewStyle::getName(ACHAR*& pName) const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbModelDocViewStyle::getName, pName);

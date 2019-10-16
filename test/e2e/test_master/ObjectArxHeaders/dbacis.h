@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,13 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//
-// DESCRIPTION:
-//
-// Internal AutoCAD functions dealing with ASM-based entities which are 
-// exported to be used by platform clients
-//
 #ifndef DB_API_DBACIS_H
 #  define DB_API_DBACIS_H
 #  include "acdb.h"

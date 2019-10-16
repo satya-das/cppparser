@@ -1,7 +1,5 @@
 #ifndef AD_DBFILER_H
 #  define AD_DBFILER_H
-//
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -11,45 +9,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DBFILER.H  -- AutoCAD Database Filer Definitions
-//
-// DESCRIPTION:
-//
-// This file contains "filer" class definitions, which are passed to
-// AcDbObject objects by their parent AcDbDatabase object to
-// perform I/O operations in various contexts.
-//
-// Common Filer Contracts are:
-//
-// 1. The Database object always controls the creation of the
-//    filers, and passing them to objects.  The Database object
-//    itself surrounds filing calls with I/O of class name/ID/DXF_name
-//    maps, and common object information such as class IDs/DXF names,
-//    checksums, record lengths and other common record information.
-//    The database object also handles file section and object
-//    sentinels for database recovery purposes.
-//
-// 2. For different I/O contexts, 3 different sets of AcDbObject
-//    members are defined:  DXF, DWG File, and Paging
-//    While DWG File and Paging members are supplied pagers of the
-//    same abstract class, implementations of some members,
-//    particularly those concerned with AcDbObjectId and AcDbHandle objects,
-//    are very different.  Usage contract differs as follows, reason being
-//    that notification chains are NOT limited to database objects:
-//
-//    Paging:  For Notification chains, use "void" filer method to
-//               save/restore pointer.  Do not bother to pull out
-//               of other notification chains.
-//
-//    DWG file: Pull out of other notification chains, and record
-//                what is needed for reconstruction.
-//
-// 3. The filer methods of AcDbObject subclasses are named the same
-//    as the parent class's methods, with "Fields" appended (as in
-//    dwgInFields()).  Each such method (with a few exceptions in
-//    class AcDbEntity) must invoke the same method in its parent
-//    *before* performing any of its own filing actions.
 #  include <stdarg.h>
 #  include "AdAChar.h"
 #  include "acdb.h"
@@ -86,11 +45,8 @@ public:
   virtual AcDb::FilerType filerType() const = 0;
   virtual void setFilerStatus(Acad::ErrorStatus es) = 0;
   virtual void resetFilerStatus() = 0;
-    // version of the drawing file being read or written by this filer
   virtual Acad::ErrorStatus dwgVersion(AcDb::AcDbDwgVersion& ver, AcDb::MaintenanceReleaseVersion& maintVer) const;
   ACDBCORE2D_PORT virtual Acad::ErrorStatus extendedDwgMaintenanceReleaseVersion(AcDb::MaintenanceReleaseVersion& maintVer) const;
-    //        readXxx() and writeXxx() functions
-    //
   virtual Acad::ErrorStatus readHardOwnershipId(AcDbHardOwnershipId* pVal) = 0;
   virtual Acad::ErrorStatus writeHardOwnershipId(const AcDbHardOwnershipId& val) = 0;
   virtual Acad::ErrorStatus readSoftOwnershipId(AcDbSoftOwnershipId* pVal) = 0;
@@ -101,9 +57,6 @@ public:
   virtual Acad::ErrorStatus writeSoftPointerId(const AcDbSoftPointerId& val) = 0;
   virtual Acad::ErrorStatus readInt8(Adesk::Int8* pVal) = 0;
   virtual Acad::ErrorStatus writeInt8(Adesk::Int8 val) = 0;
-    // Note: use of readString(ACHAR **) is discouraged, because
-    // caller has to free the returned string.  It may be phased
-    // out in a future release.
   virtual Acad::ErrorStatus readString(ACHAR** pVal) = 0;
   virtual Acad::ErrorStatus writeString(const ACHAR* pVal) = 0;
   virtual Acad::ErrorStatus readString(AcString& val) = 0;
@@ -146,8 +99,6 @@ public:
   virtual Acad::ErrorStatus writeBytes(const void* pSrc, Adesk::UIntPtr nBytes) = 0;
   virtual Acad::ErrorStatus readAddress(void** pVal);
   virtual Acad::ErrorStatus writeAddress(const void* pVal);
-    //        readItem() and writeItem() functions
-    //
   Acad::ErrorStatus readItem(AcDbHardOwnershipId* pId);
   Acad::ErrorStatus writeItem(const AcDbHardOwnershipId& id);
   Acad::ErrorStatus readItem(AcDbSoftOwnershipId* pId);
@@ -156,9 +107,6 @@ public:
   Acad::ErrorStatus writeItem(const AcDbHardPointerId& id);
   Acad::ErrorStatus readItem(AcDbSoftPointerId* pId);
   Acad::ErrorStatus writeItem(const AcDbSoftPointerId& id);
-            // Note: there are no filer methods for explicitly reading or
-            // writing a single text character.
-            //
   Acad::ErrorStatus readItem(ACHAR** pVal);
   Acad::ErrorStatus writeItem(const ACHAR* val);
   Acad::ErrorStatus writeItem(const AcString& val);
@@ -181,9 +129,6 @@ public:
   Acad::ErrorStatus readItem(Adesk::Boolean* pVal);
   Acad::ErrorStatus writeItem(Adesk::Boolean val);
 #  if  !defined(Adesk_Boolean_is_bool) 
-            // We only need this when Adesk_Boolean_is_bool is
-            // not defined since we have it covered already in
-            // the Adesk::Boolean overload.
   Acad::ErrorStatus readItem(bool* pVal);
   Acad::ErrorStatus writeItem(bool val);
 #  endif
@@ -224,22 +169,16 @@ public:
   virtual Acad::ErrorStatus setError(const ACHAR* errMsg, ...);
   virtual const ACHAR* errorMessage() const;
   virtual AcDb::FilerType filerType() const = 0;
-    // working database being read or written by this filer
   virtual AcDbDatabase* database() const = 0;
-    // version of the drawing file being read or written by this filer
   virtual Acad::ErrorStatus dwgVersion(AcDb::AcDbDwgVersion& ver, AcDb::MaintenanceReleaseVersion& maintVer) const;
   ACDBCORE2D_PORT virtual Acad::ErrorStatus extendedDwgMaintenanceReleaseVersion(AcDb::MaintenanceReleaseVersion& maintVer) const;
   virtual int precision() const;
   virtual void setPrecision(int prec);
-    // Number of decimal digits printed in ASCII DXF file
-    //
   enum
   {
     kDfltPrec = -1,
     kMaxPrec = 16
   };
-    //        readXxx and writeXxx functions
-    //
   virtual Acad::ErrorStatus readResBuf(resbuf* pRb);
   virtual Acad::ErrorStatus writeResBuf(const resbuf& rb);
   virtual Acad::ErrorStatus writeObjectId(AcDb::DxfCode code, const AcDbObjectId& id) = 0;
@@ -263,8 +202,6 @@ public:
   virtual Acad::ErrorStatus writeVector2d(AcDb::DxfCode code, const AcGeVector2d& val, int prec = kDfltPrec) = 0;
   virtual Acad::ErrorStatus writeVector3d(AcDb::DxfCode code, const AcGeVector3d& val, int prec = kDfltPrec) = 0;
   virtual Acad::ErrorStatus writeScale3d(AcDb::DxfCode code, const AcGeScale3d& val, int prec = kDfltPrec) = 0;
-    //        readItem and writeItem functions
-    //
   Acad::ErrorStatus readItem(resbuf* pItem);
   Acad::ErrorStatus writeItem(const resbuf& pItem);
   Acad::ErrorStatus writeItem(AcDb::DxfCode dc, const AcDbObjectId& id);
@@ -279,9 +216,6 @@ public:
   Acad::ErrorStatus writeItem(AcDb::DxfCode dc, Adesk::UInt16 val);
   Acad::ErrorStatus writeItem(AcDb::DxfCode dc, Adesk::UInt8 val);
 #  ifndef Adesk_Boolean_is_bool
-    // CAUTION: "int" parameters go to writeBoolean when Adesk_Boolean_is_bool
-    // is not defined. When it is defined, the bool overload handles this
-    // case.
   Acad::ErrorStatus writeItem(AcDb::DxfCode dc, Adesk::Boolean val);
 #  endif
   Acad::ErrorStatus writeItem(AcDb::DxfCode dc, bool val);

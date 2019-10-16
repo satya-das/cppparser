@@ -7,10 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:C ADS definitions supported in Arx environment, plus
-//             a few acrxXX function definitions.
-//
 #ifndef _ADSRXDEF_H_
 #  define _ADSRXDEF_H_	1
 #  pragma  pack (push, 8)
@@ -18,12 +14,9 @@ typedef struct fchnd
 {
   struct fchnd* next;
   int fcode;
-  int (*fhdl) ();
+  int(*fhdl)();
 } FunHandList;
 class AcRxGenHand;
-/* The following typedef is used for maintaining a connection between
- * AutoLISP and an RXADS application.  It is for internal use only
- */
 class RxADSAppTableEntryType
 {
 public:

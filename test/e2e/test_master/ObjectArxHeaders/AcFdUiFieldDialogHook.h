@@ -31,7 +31,6 @@ class ACFDUI_PORT CAcFdUiFieldDialogHook : public CObject
 public:
   CAcFdUiFieldDialogHook(void);
   ~CAcFdUiFieldDialogHook();
-    // For internal use only
   virtual BOOL CreateInstance(CAcFdUiFieldDialogHook*& pHook);
   virtual int GetEvaluatorIds(CStringArray& evalIds);
   virtual BOOL BeginFieldDialog(CAcFdUiFieldDialog* pFieldDlg, AcDbDatabase* pDb, int nContext);

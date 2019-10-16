@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,13 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// dimptref.h: Definition of AcDbPointRef and AcDbOsnapPointRef classes
-//
-// AcDbPointRef
-//   AcDbOsnapPointRef
-//
-//
 #ifndef AD_DIMREFPT_H
 #  define AD_DIMREFPT_H
 typedef AcArray<AcDbFullSubentPath, AcArrayObjectCopyReallocator<AcDbFullSubentPath> > AcDbFullSubentPathArray;
@@ -50,8 +42,6 @@ public:
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer, AcDbDatabase* pDb) = 0;
   virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer, AcDbDatabase* pDb) const = 0;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer, AcDbDatabase* pDb) = 0;
-    // Notification functions required by the AcRfGeom stuff
-    //
   virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing)
   {
     ADESK_UNREFED_PARAM(erasing);
@@ -72,13 +62,10 @@ public:
     return Acad::eOk;
   }
   virtual void updateDueToMirror(bool inMirror = false) = 0;
-    // utility functions...
-    // filing AcDbPointRef class
   static Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer, AcDbDatabase* pDb, AcDbPointRef*& pPointRef);
   static Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer, AcDbDatabase* pDb, const AcDbPointRef* pPointRef);
   static Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer, AcDbDatabase* pDb, AcDbPointRef*& pPointRef);
   static Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer, AcDbDatabase* pDb, const AcDbPointRef* pPointRef);
-    // nested entities
   static AcDbEntity* subentPtr(const AcDbFullSubentPath& objPath, bool& isCloned, bool& reverseArc, bool& isStandAloneArc);
   static bool calcTransform(const AcDbObjectIdArray& ids, AcGeMatrix3d& A_Ecs2Wcs);
   static AcGeMatrix3d wcsToDcsMatrix(const AcDbViewport* pVPort);
@@ -140,10 +127,6 @@ private:
   AcGePoint3d mPoint;
   AcDbPointRef* mpLastPointRef;
   bool mUpdateDueToMirror;
-    // handle array is used for xref geometry that reside in external
-    // database. We cannot use idArray because objectId is not persistent
-    // after SAVE/OPEN round-tripping.
-    // 
   AcDbHandleArrayPtRef mHandleArray;
   AcDbHandleArrayPtRef mIntHandleArray;
 };

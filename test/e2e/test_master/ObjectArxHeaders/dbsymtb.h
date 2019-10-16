@@ -1,4 +1,3 @@
-//
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,12 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// dbsymtb.h
-//
-// DESCRIPTION: Exported protocol for AutoCAD's built in symbol
-//              tables, their table  specific record types, and
-//              their iterators.
 #ifndef AD_DBSYMTB_H
 #  define AD_DBSYMTB_H
 #  include "dbmain.h"
@@ -74,8 +67,6 @@ public:
     AcDbObjectId id;
     return this->appendAcDbEntity(id, pEntity);
   }
-    // Note: does not close the entity. Caller must close it
-    // after entity is successfully appended.
   Acad::ErrorStatus appendAcDbEntity(AcDbObjectId& pOutputId, AcDbEntity* pEntity);
   Acad::ErrorStatus newIterator(AcDbBlockTableRecordIterator*& pIterator, bool atBeginning = true, bool skipDeleted = true) const;
   Acad::ErrorStatus comments(ACHAR*& pString) const;
@@ -102,37 +93,16 @@ public:
   AcDbObjectId getLayoutId() const;
   Acad::ErrorStatus setLayoutId(AcDbObjectId);
   Acad::ErrorStatus newBlockReferenceIdIterator(AcDbBlockReferenceIdIterator*& pIter) const;
-    // AcDbBlockReferenceIdIterator will be going away. 
-    // Use getBlockReferenceIds() instead.
-    //
   Acad::ErrorStatus getBlockReferenceIds(AcDbObjectIdArray& ids, bool bDirectOnly = true, bool bForceValidity = false) const;
   Acad::ErrorStatus getErasedBlockReferenceIds(AcDbObjectIdArray&);
-    // getSortentsTable 
-    //
-    // Returns the sortents table opened as requested, sparing the caller
-    // the work of getting the extension dictionary and looking the sortents
-    // table up in it.
-    // If the dictionary is successfully opened and returned, it is the
-    // caller's responsibility to close it.
-    //
-    // ErrorStatus returns errors if the sortents dictionary cannot be opened,
-    //             doesn't exist, and createIfNecessary
-    //             is false, or if createIfNecessary is true, but
-    //             the BTR is not open for write, or if its
-    //             extension dictionary could not be created or
-    //             opened.
-    //                            
   Acad::ErrorStatus getSortentsTable(AcDbSortentsTable*& pSortents, AcDb::OpenMode openMode = AcDb::kForRead, bool createIfNecessary = false);
   AcDbDatabase* xrefDatabase(bool incUnres = false) const;
   bool isUnloaded() const;
   Acad::ErrorStatus setIsUnloaded(bool isUnloaded);
   AcDb::XrefStatus xrefStatus() const;
-    // Drawable API
-    //
-  virtual AcGiDrawable* drawable() override;
+  AcGiDrawable* drawable() override;
   virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
   virtual Acad::ErrorStatus assumeOwnershipOf(const AcDbObjectIdArray& entitiesToMove);
-    // Block scaling and exploding control
   enum BlockScaling
   {
     kAny,
@@ -187,9 +157,7 @@ public:
   AcDbObjectId plotStyleNameId() const;
   Acad::ErrorStatus setPlotStyleName(const ACHAR* newName);
   Acad::ErrorStatus setPlotStyleName(const AcDbObjectId& newId);
-    // Drawable API
-    //
-  virtual AcGiDrawable* drawable() override;
+  AcGiDrawable* drawable() override;
   bool isInUse() const;
   ACHAR* description() const;
   ACDBCORE2D_PORT Acad::ErrorStatus description(AcString&) const;
@@ -197,8 +165,6 @@ public:
   bool isHidden() const;
   Acad::ErrorStatus setIsHidden(bool on);
   static bool isHidden(AcDbObjectId);
-    // Property override API
-    //
   AcCmColor color(const AcDbObjectId& viewportId, bool& isOverride) const;
   Acad::ErrorStatus setColor(const AcCmColor& color, const AcDbObjectId& viewportId);
   AcDbObjectId linetypeObjectId(const AcDbObjectId& viewportId, bool& isOverride) const;
@@ -206,7 +172,6 @@ public:
   AcDb::LineWeight lineWeight(const AcDbObjectId& viewportId, bool& isOverride) const;
   Acad::ErrorStatus setLineWeight(AcDb::LineWeight weight, const AcDbObjectId& viewportId);
   ACDBCORE2D_PORT Acad::ErrorStatus plotStyleName(const AcDbObjectId& viewportId, AcString& sName, bool& isOverride) const;
-    // The overload returning an ACHAR buffer is deprecated
   ACHAR* plotStyleName(const AcDbObjectId& viewportId, bool& isOverride) const;
   AcDbObjectId plotStyleNameId(const AcDbObjectId& viewportId, bool& isOverride) const;
   Acad::ErrorStatus setPlotStyleName(const ACHAR* newName, const AcDbObjectId& viewportId);
@@ -228,9 +193,7 @@ public:
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
-// Utility for changing Layer Table Records in the Current Drawing
 Acad::ErrorStatus applyCurDwgLayerTableChanges();
-// AcDbTextStyleTableRecord:
 class AcDbTextStyleTable;
 class AcDbTextStyleTableRecord : public AcDbSymbolTableRecord
 {
@@ -312,7 +275,6 @@ public:
   Acad::ErrorStatus comments(const ACHAR*& pString) const;
   ACDBCORE2D_PORT Acad::ErrorStatus comments(AcString& sComments) const;
   Acad::ErrorStatus setComments(const ACHAR* pString);
-    // These methods are deprecated. Please use the comments() methods
   Acad::ErrorStatus asciiDescription(ACHAR*& pString) const
   {
     return comments(pString);
@@ -351,9 +313,7 @@ public:
   Acad::ErrorStatus textAt(int index, ACHAR*& text) const;
   Acad::ErrorStatus textAt(int index, const ACHAR*& text) const;
   Acad::ErrorStatus setTextAt(int index, const ACHAR* text);
-    // Drawable API
-    //
-  virtual AcGiDrawable* drawable() override;
+  AcGiDrawable* drawable() override;
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
@@ -389,49 +349,35 @@ public:
   void setBackClipEnabled(bool enabled);
   bool frontClipAtEye() const;
   void setFrontClipAtEye(bool atEye);
-    // Background
   const AcDbObjectId& background() const;
   AcDbObjectId& background();
   Acad::ErrorStatus setBackground(const AcDbObjectId& backgroundId);
-   // VisualStyle
   AcDbObjectId visualStyle() const;
   Acad::ErrorStatus setVisualStyle(const AcDbObjectId& visualStyleId);
-    // Viewport Lighting
-    //
   bool isDefaultLightingOn() const;
   Acad::ErrorStatus setDefaultLightingOn(bool on);
   AcGiViewportTraits::DefaultLightingType defaultLightingType() const;
   Acad::ErrorStatus setDefaultLightingType(AcGiViewportTraits::DefaultLightingType typ);
-    // Brightness controls the relative intensity of lights.
   double brightness() const;
   Acad::ErrorStatus setBrightness(double);
-    // Contrast controls intensity of ambient light, relative to other lights.
   double contrast() const;
   Acad::ErrorStatus setContrast(double);
   AcCmColor ambientLightColor() const;
   Acad::ErrorStatus setAmbientLightColor(const AcCmColor& clr);
-    // A single sun (distant light) can be associated with each viewport.
   AcDbObjectId sunId() const;
   Acad::ErrorStatus setSun(AcDbObjectId& retId, AcDbObject* pSun);
   Acad::ErrorStatus setSun(AcDbObjectId& retId, AcDbObject* pSun, bool eraseOldSun);
-    // Tone operator parameters
   Acad::ErrorStatus toneOperatorParameters(AcGiToneOperatorParameters& params) const;
   Acad::ErrorStatus setToneOperatorParameters(const AcGiToneOperatorParameters& params);
-    // UCS query methods.
-    //
   Acad::ErrorStatus getUcs(AcGePoint3d& origin, AcGeVector3d& xAxis, AcGeVector3d& yAxis) const;
   bool isUcsOrthographic(AcDb::OrthographicView& view) const;
   AcDbObjectId ucsName() const;
   double elevation() const;
-    // UCS set methods.
-    //
   Acad::ErrorStatus setUcs(const AcGePoint3d& origin, const AcGeVector3d& xAxis, const AcGeVector3d& yAxis);
   Acad::ErrorStatus setUcs(AcDb::OrthographicView view);
   Acad::ErrorStatus setUcs(const AcDbObjectId& ucsId);
   Acad::ErrorStatus setUcsToWorld();
   Acad::ErrorStatus setElevation(double elev);
-    // Orthographic view methods.
-    //
   bool isViewOrthographic(AcDb::OrthographicView& view) const;
   Acad::ErrorStatus setViewDirection(AcDb::OrthographicView view);
 };
@@ -461,7 +407,6 @@ public:
   Acad::ErrorStatus setViewAssociatedToViewport(bool bVPflag);
   bool isCameraPlottable() const;
   Acad::ErrorStatus setIsCameraPlottable(bool plottable);
-    // Live Section
   AcDbObjectId liveSection() const;
   Acad::ErrorStatus setLiveSection(const AcDbObjectId& liveSectionId);
     /// <summary>
@@ -494,15 +439,10 @@ public:
     /// <remarks> Internal use only </remarks>
     ///
   Acad::ErrorStatus setPreviewImage(const Atil::Image* pPreviewImage);
-    // Camera methods
   AcDbObjectId camera() const;
   Acad::ErrorStatus setCamera(AcDbObjectId cameraId);
-    // Annotation scaling methods
-    // Caller of this method will have to delete the AcDbAnnotationScale object
-    // that is returned
   AcDbAnnotationScale* annotationScale() const;
   Acad::ErrorStatus setAnnotationScale(const AcDbAnnotationScale* pScaleObj);
-    // A single sun (distant light) can be associated with each view.
   AcDbObjectId sunId() const;
   Acad::ErrorStatus setSun(AcDbObjectId& retId, AcDbObject* pSun);
   Acad::ErrorStatus setSun(AcDbObjectId& retId, AcDbObject* pSun, bool eraseOldSun);
@@ -577,7 +517,6 @@ public:
   AcGsView* gsView() const;
   bool isUcsSavedWithViewport() const;
   void setUcsPerViewport(bool ucsvp);
-    // GridDisplay
   bool isGridBoundToLimits() const;
   void setGridBoundToLimits(bool enabled);
   bool isGridAdaptive() const;
@@ -588,15 +527,12 @@ public:
   void setGridFollow(bool enabled);
   Adesk::Int16 gridMajor() const;
   void setGridMajor(Adesk::Int16 value);
-    // Background
   Acad::ErrorStatus setBackground(const AcDbObjectId& backgroundId);
   AcDbObjectId previousBackground(AcGiDrawable::DrawableType type = AcGiDrawable::kGeometry) const;
   Acad::ErrorStatus setPreviousBackground(AcDbObjectId backgroundId, AcGiDrawable::DrawableType type = AcGiDrawable::kGeometry);
   Acad::ErrorStatus setPreviousBackground(AcDbObjectId backgroundId, AcGiDrawable::DrawableType type, bool bForcedSwitch);
   bool previousBackgroundForcedSwitch(void) const;
-    // Drawable API
-    //
-  virtual AcGiDrawable* drawable() override;
+  AcGiDrawable* drawable() override;
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
@@ -619,14 +555,9 @@ public:
   AcDbDimStyleTableRecord();
   virtual ~AcDbDimStyleTableRecord();
   typedef AcDbDimStyleTable TableType;
-    // Dimension variable api:
-    //
 #  undef DBDIMVAR_H
 #  include "dbdimvar.h"
   AcDbObjectId arrowId(AcDb::DimArrowFlags whichArrow) const;
-    // DEPRECATED METHODS!
-    // These are supported but will be removed in future releases:
-    //
   Acad::ErrorStatus getDimpost(ACHAR*& pOutput) const;
   Acad::ErrorStatus getDimapost(ACHAR*& pOutput) const;
   ACDBCORE2D_PORT Acad::ErrorStatus getDimblk(AcString& sOutput) const;
@@ -639,8 +570,6 @@ public:
   int dimunit() const;
   Acad::ErrorStatus setDimfit(int fit);
   Acad::ErrorStatus setDimunit(int unit);
-    //
-    // end DEPRECATED METHODS!
   bool isModifiedForRecompute() const;
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
@@ -974,18 +903,6 @@ protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 ///// AcDbSymbolTableIterator
-//
-// This class is responsible for iterating over the records in a symbol
-// table.
-//
-// This is a completely "generic" symbol table iterator in that it can 
-// be used to iterate over the contents of any AcDbSymbolTable subclass.
-// However, symbol table specific iterators are defined below.
-//
-// One major item of note.  The creation of one of these iterators
-// requires the opening (for read) of the table being iterated over.
-// This read stays in effect until the iterator is destroyed.
-//
 class AcDbSymbolTableIterator
 {
 public:
@@ -1149,9 +1066,6 @@ private:
   AcDbBlockTableRecordIterator();
   friend class AcDbImpBlockTableRecord;
 };
-// This class will be removed in the next release.   Instead, use
-// AcDbBlockTableRecord::getBlockReferenceIds().
-//
 class AcDbBlockReferenceIdIterator
 {
 public:
@@ -1179,8 +1093,6 @@ private:
   AcDbObjectIdArray mAry;
 };
 #  pragma  pack(pop)
-// These are deprecated and will be removed in the future. Please
-// use the methods that take an AcString & arg.
 inline Acad::ErrorStatus AcDbSymbolTableRecord::getName(ACHAR*& pName) const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbSymbolTableRecord::getName, pName);

@@ -13,7 +13,6 @@
 #    pragma  once
 #  endif
 /////////////////////////////////////////////////////////////////////////////
-// File Navigation Data Array
 #  pragma  warning(push)
 #  pragma  warning(disable : 4275)
 class ANAV_PORT CNavDataArray : public CNavArray<CNavData>
@@ -25,5 +24,4 @@ public:
 #  pragma  warning(pop)
 /////////////////////////////////////////////////////////////////////////////
 //{{AFX_INSERT_LOCATION}}
-// Microsoft Developer Studio will insert additional declarations immediately before the previous line.
 #endif

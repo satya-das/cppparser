@@ -7,11 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:
-// Provides a namespace-like struct for gelib.
-//
-//
 #ifndef AC_GEGBLGE_H
 #  define AC_GEGBLGE_H
 #  include "gelibver.h"
@@ -190,13 +185,6 @@ struct AcGe
     kArg1OnThis,
     kArg1InsideThis
   };
-// Curve/surface intersection configuration.
-// Categorize an intersection and categorize a neighborhood of the 
-// curve just above or below the curve/surface intersection.  
-// 'Above' and 'below' is with respect to the curve parameterization.
-// If an intersection is not empty, coincident or tangent, it is transverse.
-// 'Inside' and 'outside' the surface is with respect to its surface normal
-// orientation.
   enum csiConfig
   {
     kXUnknown,
@@ -207,24 +195,12 @@ struct AcGe
     kXCoincident,
     kXCoincidentUnbounded
   };
-// Categorize the surface/surface intersection component.
   enum ssiType
   {
     kSSITransverse,
     kSSITangent,
-                            // Surface normals identical at any point within the component.
-    kSSIAntiTangent,
-                            // Surface normals opposite at any point within the component.
+    kSSIAntiTangent
   };
- // Surface/surface intersection configuration.
-// Categorize the neighborhood of a surface just to the left or right of the
-// surface/surface intersection curve with respect to the other surface.  
-// Inside (outside) means that the neighborhood is inside (outside) the 
-// other surface with respect to the surface normal orientation 
-// of the other surface.
-// The surface neighborhoods 'left' and 'right' of a curve on a surface
-// are with respect to its surface normal orientation and the direction of
-// the curve parameterization.
   enum ssiConfig
   {
     kSSIUnknown,

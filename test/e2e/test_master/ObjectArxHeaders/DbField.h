@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -26,12 +25,10 @@ typedef AcArray<AcDbField*> AcDbFieldArray;
 //*************************************************************************
 typedef struct AcFd
 {
-    // Enum for acdbEvaluateFields
   enum EvalFields
   {
     kEvalRecursive = (0x1 << 0)
   };
-    // Options for function acdbConvertFieldsToText()
   enum ConvertFieldToText
   {
     kConvertFieldToTextNone = 0,
@@ -103,7 +100,6 @@ public:
     kEvaluatedText = (0x1 << 1),
     kEvaluatedChildren = (0x1 << 2),
     kObjectReference = (0x1 << 3),
-                                                // this field as object reference if this is not text field. Used only in getFieldCode().
     kAddMarkers = (0x1 << 4),
     kEscapeBackslash = (0x1 << 5),
     kStripOptions = (0x1 << 6),
@@ -111,11 +107,8 @@ public:
     kTextField = (0x1 << 8),
     kPreserveOptions = (0x1 << 9),
     kDetachChildren = (0x1 << 10),
-                                                // Used only in setFieldCode().
     kChildObjectReference = (0x1 << 11),
-                                                // Used only in getFieldCode().
-    kForExpression = (0x1 << 12),
-                                                // Get the value in a format which can be used in arithmatic expressions. Used only in getFieldCode().
+    kForExpression = (0x1 << 12)
   };
   enum FilingOption
   {
@@ -168,15 +161,12 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus getData(const ACHAR* pszKey, AcValue* pData) const;
   ACDBCORE2D_PORT Acad::ErrorStatus setData(const ACHAR* pszKey, const AcValue* pData);
   ACDBCORE2D_PORT Acad::ErrorStatus setData(const ACHAR* pszKey, const AcValue* pData, bool bRecursive);
-    // Base class overrides
   ACDBCORE2D_PORT virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
   ACDBCORE2D_PORT virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
   ACDBCORE2D_PORT virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
   ACDBCORE2D_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
   ACDBCORE2D_PORT virtual Acad::ErrorStatus subClose() override;
 };
-// These two inlines exist because of the deprecated method taking ACHAR **.
-// Otherwise we could use default params as in (int * pnErrCode = nullptr)
 inline AcDbField::EvalStatus AcDbField::evaluationStatus(int* pnErrCode) const
 {
   AcString* pNullStr = nullptr;
@@ -186,7 +176,6 @@ inline AcDbField::EvalStatus AcDbField::evaluationStatus() const
 {
   return this->evaluationStatus(nullptr);
 }
-// this overload is deprecated. Please call the one taking AcString * arg
 inline AcDbField::EvalStatus AcDbField::evaluationStatus(int* pnErrCode, ACHAR** pszErrMsg) const
 {
   AcString sErrMsg;
@@ -205,23 +194,19 @@ inline AcDbField::EvalStatus AcDbField::evaluationStatus(int* pnErrCode, ACHAR**
   }
   return es;
 }
-// this overload is deprecated. Please call the one taking AcString * arg
 inline Acad::ErrorStatus AcDbField::getFieldCode(ACHAR*& pszFieldCode, AcDbField::FieldCodeFlag nFlag, AcArray<AcDbField*>* pChildFields, AcDb::OpenMode mode) const
 {
   AcString sFieldCode;
   return ::acutAcStringToAChar(sFieldCode, pszFieldCode, this->getFieldCode(sFieldCode, nFlag, pChildFields, mode));
 }
-// this overload is deprecated. Please call the one taking AcString * arg
 inline Acad::ErrorStatus AcDbField::getFormat(ACHAR*& pszFormat) const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbField::getFormat, pszFormat);
 }
-// this overload is deprecated. Please call the one taking AcString * arg
 inline Acad::ErrorStatus AcDbField::getValue(ACHAR*& pszValue) const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbField::getValue, pszValue);
 }
-// this overload is deprecated. Please call the one taking AcString * args
 inline Acad::ErrorStatus AcDbField::getHyperlink(ACHAR** pszName, ACHAR** pszDescription, ACHAR** pszSubLocation, ACHAR** pszDisplayString, Adesk::Int32* pFlag) const
 {
   AcString sName, sDescription, sSubLocation, sDisplayString;
@@ -274,8 +259,6 @@ ACDBCORE2D_PORT Acad::ErrorStatus acdbEvaluateFields(const AcDbObjectIdArray& ob
 ACDBCORE2D_PORT Acad::ErrorStatus acdbConvertFieldsToText(AcDbDatabase* pDb, const AcStringArray* pEvalIds, AcFd::ConvertFieldToText nOption);
 ACDBCORE2D_PORT Acad::ErrorStatus acdbConvertFieldsToText(const AcDbObjectIdArray& objIds, const AcStringArray* pEvalIds, AcFd::ConvertFieldToText nOption);
 ACDBCORE2D_PORT Acad::ErrorStatus acdbMakeFieldCode(const ACHAR* pszFieldExpr, AcString& sFieldCode, const ACHAR* pszEvalId = nullptr, const ACHAR* pszFormat = nullptr, const AcHyperlink* pHyperlink = nullptr);
-// This overload which allocates an ACHAR buf is deprecated.
-// Please use the above overload taking AcString & arg instead
 inline Acad::ErrorStatus acdbMakeFieldCode(const ACHAR* pszFieldExpr, ACHAR*& pszFieldCode, const ACHAR* pszEvalId, const ACHAR* pszFormat, const AcHyperlink* pHyperlink)
 {
   AcString sFieldCode;

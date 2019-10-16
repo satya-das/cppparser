@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,38 +7,17 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// ========= graph.h:  AcDbGraph classes ================ 
-//
-//    This header defines classes:
-//
-//    AcDbGraph - a generic graph container class
-//    AcDbGraphNode - the nodes for the graph container
-//    AcDbGraphStack - stack for graph nodes
-//
-//    Detection for circular references is done by internally creating
-//    a duplicate set of references in each node and then triming away
-//    all leaf nodes, which terminate without circularity.  If any nodes
-//    remain in the duplicate graph, those nodes exist in a cycle.
-//    AcDbGraph::findCycles() is used to set up the internal cycle
-//    information and enable several query methods to return information
-//    about any cycles found.
 #ifndef AD_GRAPH_H
 #  define AD_GRAPH_H	1
 #  include "dbmain.h"
 #  pragma  pack (push, 8)
 class AcDbGraph;
-// =====================================
-//      Generic Graph Classes
-// =====================================
 class AcDbGraphNode : public AcHeapOperators
 {
   friend class AcDbGraph;
 public:
   AcDbGraphNode(void* pData = NULL);
   virtual ~AcDbGraphNode();
-    // Enum values used to mark nodes using markAs(), etc.
-    //
   enum Flags
   {
     kNone = 0x00,
@@ -52,8 +30,6 @@ public:
     kUnresTree = 0x20,
     kAll = 0x2F
   };
-                                                  // not clear kFirstLevel,
-                                                  // which is read-only
   void* data() const;
   void setData(void*);
   int numOut() const;
@@ -68,7 +44,6 @@ public:
   Acad::ErrorStatus markAs(Adesk::UInt8 flags);
   Acad::ErrorStatus clear(Adesk::UInt8 flags);
   Acad::ErrorStatus markTree(Adesk::UInt8 flags, AcDbVoidPtrArray* = NULL);
-    // Circularity detection methods
   int numCycleOut() const;
   int numCycleIn() const;
   AcDbGraphNode* cycleIn(int) const;
@@ -77,8 +52,6 @@ public:
   bool isCycleNode() const;
   void setEdgeGrowthRate(int outEdgeRate, int inEdgeRate);
 private:
-    // These are currently not supported
-    //
   AcDbGraphNode(const AcDbGraphNode&);
   AcDbGraphNode& operator =(const AcDbGraphNode&);
   AcDbVoidPtrArray mOutgoing;
@@ -86,7 +59,6 @@ private:
   void* mpData;
   void setFirstLevel(Adesk::Boolean);
   Adesk::UInt8 mFlags;
-    // Circularity detection
   Acad::ErrorStatus setOwner(AcDbGraph*);
   Acad::ErrorStatus resetCycles();
   Acad::ErrorStatus removeCycleRefTo(AcDbGraphNode*);
@@ -111,19 +83,15 @@ public:
   void reset();
   void clearAll(Adesk::UInt8 flags);
   void getOutgoing(AcDbVoidPtrArray&);
-    // Cycle detection
   virtual Adesk::Boolean findCycles(AcDbGraphNode* pStart = NULL);
   Acad::ErrorStatus breakCycleEdge(AcDbGraphNode* pFrom, AcDbGraphNode* pTo);
   void setNodeGrowthRate(int rate);
 protected:
   Acad::ErrorStatus clearAllCycles();
 private:
-    // These are currently not supported
-    //
   AcDbGraph(const AcDbGraph&);
   AcDbGraph& operator =(const AcDbGraph&);
   AcDbVoidPtrArray mNodes;
-    // Cycle detection
   AcDbVoidPtrArray* mpCycleNodes;
   void setDirty();
   bool mDirty;
@@ -140,11 +108,6 @@ public:
 private:
   AcDbVoidPtrArray mStack;
 };
-// =====================================
-//      Inline methods
-// =====================================
-
-// AcDbGraphNode inlines ...
 inline void* AcDbGraphNode::data() const
 {
   return mpData;
@@ -212,7 +175,6 @@ inline bool AcDbGraphNode::isCycleNode() const
 {
   return mpCycleIn != NULL || mpCycleOut != NULL;
 }
-// AcDbGraph inlines ...
 inline int AcDbGraph::numNodes() const
 {
   return mNodes.length();
@@ -233,7 +195,6 @@ inline void AcDbGraph::setDirty()
 {
   mDirty = true;
 }
-// XreGraphStack inlines ...
 inline bool AcDbGraphStack::isEmpty() const
 {
   return mStack.isEmpty();

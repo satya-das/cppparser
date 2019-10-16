@@ -7,12 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//
-// DESCRIPTION:
-//
-// The AcDbPlaneSurface class is the interface class for representing
-// ASM plane surfaces.  
 #pragma  once
 #ifndef DBPLANESURF_H
 #  define DBPLANESURF_H
@@ -24,9 +18,7 @@ public:
   AcDbPlaneSurface();
   virtual ~AcDbPlaneSurface();
   ACDB_DECLARE_MEMBERS(AcDbPlaneSurface);
-    // Create plane surface from region.
   virtual Acad::ErrorStatus createFromRegion(AcDbRegion* pRegion);
-    // AcDbObject methods
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;

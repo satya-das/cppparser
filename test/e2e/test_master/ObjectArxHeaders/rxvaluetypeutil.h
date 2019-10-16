@@ -1,9 +1,3 @@
-//
-//  Copyright 2018 Autodesk, Inc.  All rights reserved.
-//
-//  Use of this software is subject to the terms of the Autodesk license 
-//  agreement provided at the time of installation or download, or which 
-//  otherwise accompanies this software in either electronic or hard copy form.   
 #pragma  once
 #include "rxmember.h"
 #include "rxvalue.h"
@@ -104,9 +98,6 @@ bool AcRxValueTypePOD<ValueType>::subEqualTo(const void* a, const void* b) const
 }
 #endif
 #pragma  warning(push)
-//Disable warning about 'unsafe' use of 'this' pointer. It is actually safe here because 
-//we simply store the pointer and don't try to use it immediately.
-//
 #pragma  warning(disable: 4355) 
 template <typename ValueType>
 class AcRxEnumType : public AcRxValueTypePOD<ValueType>, public IAcRxEnumeration

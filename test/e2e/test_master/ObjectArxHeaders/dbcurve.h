@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,9 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//
-// DESCRIPTION: API Abstract class for "Curve" entities.
 #ifndef AD_DBCURVE_H
 #  define AD_DBCURVE_H
 #  include "dbmain.h"
@@ -25,54 +21,34 @@ class ADESK_NO_VTABLE AcDbCurve : public AcDbEntity
   ACDB_DECLARE_MEMBERS(AcDbCurve);
 public:
   virtual ~AcDbCurve();
-    // Curve property tests.
-    //
   virtual Adesk::Boolean isClosed() const;
   virtual Adesk::Boolean isPeriodic() const;
-    // Get planar and start/end geometric properties.
-    //
   virtual Acad::ErrorStatus getStartParam(double&) const;
   virtual Acad::ErrorStatus getEndParam(double&) const;
   virtual Acad::ErrorStatus getStartPoint(AcGePoint3d&) const;
   virtual Acad::ErrorStatus getEndPoint(AcGePoint3d&) const;
-    // Conversions to/from parametric/world/distance.
-    //
   virtual Acad::ErrorStatus getPointAtParam(double, AcGePoint3d&) const;
   virtual Acad::ErrorStatus getParamAtPoint(const AcGePoint3d&, double&) const;
   virtual Acad::ErrorStatus getDistAtParam(double param, double& dist) const;
   virtual Acad::ErrorStatus getParamAtDist(double dist, double& param) const;
   virtual Acad::ErrorStatus getDistAtPoint(const AcGePoint3d&, double&) const;
   virtual Acad::ErrorStatus getPointAtDist(double, AcGePoint3d&) const;
-    // Derivative information.
-    //
   virtual Acad::ErrorStatus getFirstDeriv(double param, AcGeVector3d& firstDeriv) const;
   virtual Acad::ErrorStatus getFirstDeriv(const AcGePoint3d&, AcGeVector3d& firstDeriv) const;
   virtual Acad::ErrorStatus getSecondDeriv(double param, AcGeVector3d& secDeriv) const;
   virtual Acad::ErrorStatus getSecondDeriv(const AcGePoint3d&, AcGeVector3d& secDeriv) const;
-    // Closest point on curve.
-    //
   virtual Acad::ErrorStatus getClosestPointTo(const AcGePoint3d& givenPnt, AcGePoint3d& pointOnCurve, Adesk::Boolean extend = Adesk::kFalse) const;
   virtual Acad::ErrorStatus getClosestPointTo(const AcGePoint3d& givenPnt, const AcGeVector3d& direction, AcGePoint3d& pointOnCurve, Adesk::Boolean extend = Adesk::kFalse) const;
-    // Get a projected copy of the curve.
-    //
   virtual Acad::ErrorStatus getOrthoProjectedCurve(const AcGePlane&, AcDbCurve*& projCrv) const;
   virtual Acad::ErrorStatus getProjectedCurve(const AcGePlane&, const AcGeVector3d& projDir, AcDbCurve*& projCrv) const;
-    // Get offset, spline and split copies of the curve.
-    //
   virtual Acad::ErrorStatus getOffsetCurves(double offsetDist, AcDbVoidPtrArray& offsetCurves) const;
   virtual Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const;
   virtual Acad::ErrorStatus getSpline(AcDbSpline*& spline) const;
   virtual Acad::ErrorStatus getSplitCurves(const AcGeDoubleArray& params, AcDbVoidPtrArray& curveSegments) const;
   virtual Acad::ErrorStatus getSplitCurves(const AcGePoint3dArray& points, AcDbVoidPtrArray& curveSegments) const;
-    // Extend the curve.
-    //
   virtual Acad::ErrorStatus extend(double newParam);
   virtual Acad::ErrorStatus extend(Adesk::Boolean extendStart, const AcGePoint3d& toPoint);
-    // Area calculation.
-    //
   virtual Acad::ErrorStatus getArea(double&) const;
-    // Reverse the curve.
-    //
   virtual Acad::ErrorStatus reverseCurve();
     /// <summary>
     /// This function returns an AcGeCurve3d that is geometrically identical to
@@ -117,7 +93,6 @@ public:
 protected:
   AcDbCurve();
 };
-// Protocols of AcDbCurve available in macro from.
 #  define DBCURVE_METHODS	virtual Adesk::Boolean isClosed() const ADESK_OVERRIDE; \
 virtual Adesk::Boolean isPeriodic() const ADESK_OVERRIDE; \
 virtual Adesk::Boolean isPlanar() const ADESK_OVERRIDE; \

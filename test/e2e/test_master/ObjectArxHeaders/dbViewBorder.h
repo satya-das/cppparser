@@ -7,7 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #pragma  once
 #pragma  pack (push, 8)
 #ifndef ACSYNERGY_PORT
@@ -61,9 +60,7 @@ public:
   double scale() const;
   Adesk::UInt32 shadedDPI() const;
   AcDbObjectId viewportId() const;
-    // AcGiDrawable protocols
   virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWd);
-    // AcDbObject protocols
   virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing);
   virtual Acad::ErrorStatus subDeepClone(AcDbObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const;
   virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const;
@@ -74,7 +71,6 @@ public:
   virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo);
   virtual Acad::ErrorStatus subGetStretchPoints(AcGePoint3dArray& stretchPoints) const;
   virtual Acad::ErrorStatus subMoveStretchPointsAt(const AcDbIntArray& indices, const AcGeVector3d& offset);
-    // AcDbEntity protocols
   virtual Acad::ErrorStatus subGetGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const;
   virtual Acad::ErrorStatus subGetGripPoints(AcGePoint3dArray& gripPoints, AcDbIntArray& osnapModes, AcDbIntArray& geomIds) const;
   virtual Acad::ErrorStatus subMoveGripPointsAt(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags);
@@ -95,7 +91,6 @@ public:
   virtual void saveAs(AcGiWorldDraw* mode, AcDb::SaveType st);
   virtual Acad::ErrorStatus setLayer(const ACHAR* newVal, Adesk::Boolean doSubents = true, bool allowHiddenLayer = false);
   virtual Acad::ErrorStatus setLayer(AcDbObjectId newVal, Adesk::Boolean doSubents = true, bool allowHiddenLayer = false);
-    // Internal use only methods
   Acad::ErrorStatus setViewportId(const AcDbObjectId& viewportId);
   AcGePoint2d centerPoint(bool exludeSketchEnts = true) const;
   AcGePoint3d centerPoint3d(bool exludeSketchEnts = true) const;
@@ -106,7 +101,6 @@ public:
   void setTransientEnts(const AcArray<AcDbEntity*>& traientEnts);
   void setDisableUnHighlight(bool bIsDisable);
   bool hitTest(const AcGePoint3d& inputPt) const;
-    // Internal use only - subentity related methods
   Acad::ErrorStatus getSubentColor(const AcDbSubentId& subentId, AcCmColor& color) const;
   Acad::ErrorStatus setSubentColor(const AcDbSubentId& subentId, const AcCmColor& color);
   Acad::ErrorStatus getSubentLayerId(const AcDbSubentId& subentId, AcDbObjectId& layerId) const;

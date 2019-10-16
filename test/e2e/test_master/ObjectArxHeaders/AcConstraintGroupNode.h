@@ -10,8 +10,6 @@
 #pragma  once
 #include "AcGraphNode.h"
 #pragma  pack (push, 8)
-// Forward class declarations.
-//
 class AcImpConstraintGroupNode;
 class AcDbImpAssoc2dConstraintGroup;
 class AcDbAssoc2dConstraintGroupUtil;

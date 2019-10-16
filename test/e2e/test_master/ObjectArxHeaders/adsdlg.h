@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,32 +7,17 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-// 
-//   DESCRIPTION:
-//       Definitions for ADS Programmable Dialogue Boxes
 #ifndef _adsdlg_h
 #  define _adsdlg_h	1
 #  include "ads.h"
 #  include "AdAChar.h"
 #  pragma  pack (push, 8)
-/* Defined only for OS/2 DLL Version 
- */
 #  ifndef CALLB
 #    define CALLB
 #  endif
-/* There is a clash between the alignment required within structures for
-   ADS and that required for members within Zortech structs and classes.
-   ADS requires byte alignment (-a1) while 32-bit Zortech requires 4-byte
-   alignment (-a4).  To work around this clash the alignment is set to one
-   at the top of this header file and restored to four at the bottom so
-   that ADS structures are byte-aligned.
- */
 #  ifdef __ZTC__
 #    pragma  ZTC align 1
 #  endif
-/* Ensure that C++ modules use the right linking conventions when calling
-   functions contained in C.
- */
 #  ifdef __cplusplus
 extern "C" {
 #  endif
@@ -48,32 +32,21 @@ extern "C" {
   int reason;
   long x, y;
 } ads_callback_packet;
-/* The following are used in tile callback packets. Their meaning
-   for each kind of tile can be found in the Programmable Dialogue
-   Boxes documentation.
-*/
 #  define CBR_SELECT	1
 #  define CBR_LOST_FOCUS	2
 #  define CBR_DRAG	3
 #  define CBR_DOUBLE_CLICK	4
 #  ifndef _PROTEUS_H
-    /* ADS user's function, passed to AutoCAD to be called later
-     */
   typedef void (*CLIENTFUNC) (ads_callback_packet* cpkt);
 #  endif
 #  define NULLCB	((CLIENTFUNC)0)
 #  define BAD_DIALOG	NULL
-/* Return by reference integers for ads_start_dialog
- */
 #  define DLGCANCEL	0 /* User pressed Cancel or equivalent */
 #  define DLGOK	1 /* User pressed Ok */
 #  define DLGALLDONE	-1 /* All dialogs terminated with
                            term_dialog */
 #  define DLGSTATUS	2 /* start of user return codes */
 #  ifndef _PROCONST_H
-/* Preventing redefined warnings.
-   List argument type for ads_start_list();
- */
 #    define LIST_CHANGE	((short) 1) /* Change selected listbox contents */
 #    define LIST_APPEND	((short) 2) /* Append new listbox entry */
 #    define LIST_NEW	((short) 3) /* Delete old list and create new list */
@@ -87,16 +60,10 @@ extern "C" {
                                      auto-clearing of old string */
 #    define MODE_FLIP	((short) 4) /* Invert current state */
 #  endif
-/* For buffers that receive values for tiles.  The number is
-   arbitrary--it's just here to allow changing them all from
-   one place.
- */
 #  ifndef _PROTEUS_H
 #    define MAX_TILE_STR	40
 #  endif
 #  define TILE_STR_LIMIT	2035 /* limit of DCL dialog strings */
-/* Dialog Functions
- */
   int ads_load_dialog(const ACHAR* dclfile, int* dcl_id);
   int ads_unload_dialog(int dcl_id);
   int ads_new_dialog(const ACHAR* dlgname, int dcl_id, CLIENTFUNC def_callback, ads_hdlg* hdlg);

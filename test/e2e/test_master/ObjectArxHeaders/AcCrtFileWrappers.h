@@ -13,8 +13,6 @@
 // Description:     Wrapper classes for clib FILE functions
 //
 //////////////////////////////////////////////////////////////////////////////
-
-//        
 #pragma  once
 #include "PAL/API/def.h"
 #include "stdio.h"
@@ -36,8 +34,6 @@
 class AcFILE
 {
 public:
-    // fwrite() expands LF's for us, so we set the formatter's mode
-    // to not do the LF expansion.
   AcFILE()
     : mpFILE(NULL)
     , mChFmtr(AdCharFormatter::kAnsi, false, false)
@@ -136,13 +132,7 @@ inline int AcFILE::fputs(const wchar_t* pStr)
 inline wchar_t* AcFILE::fgets(wchar_t* pBuf, int nChars)
 {
   AcFILE_Assert(this->mpFILE != NULL);
-    // Need room for null, so it doesn't make sense to pass
-    // a count of 1 or less.
   AcFILE_Assert(nChars > 1);
-    // We don't know how many widechars the ansi chars
-    // will turn into, so we have to read them one
-    // at a time.  Read until we hit newline, eof
-    // or nChars.
   wchar_t* pSavePtr = pBuf;
   for (;;)
   {
@@ -175,10 +165,7 @@ inline wchar_t* AcFILE::fgets(wchar_t* pBuf, int nChars)
 ADESK_DEPRECATED inline int AcFILE::fscanf(const wchar_t* pFmtStr, ...)
 {
   AcFILE_Assert(this->mpFILE != NULL);
-    // TODO: Remove this, it's meant to shut the compiler up.
   pFmtStr = NULL;
-    // UNICODE: TODO: SPAGO: There is no existing client of fscanf 
-    // method. Implement this method when time allows/need arises.
   AcFILE_Assert(false);
   return -1;
 }
@@ -206,9 +193,6 @@ inline int AcFILE::ungetc(wchar_t c)
   const unsigned nBytes = this->mChFmtr.wcharToBytes(c, chBuf, sizeof(chBuf));
   AcFILE_Assert(nBytes >= 1);
   AcFILE_Assert(nBytes <= 8);
-    // Note: for now we can only unget a single char.  So if
-    // the wide char got converted to CIF or double-byte,
-    // we fail.  Todo: fix this if it's really needed.
   if (nBytes == 1 && ::ungetc(chBuf[0], this->mpFILE) == chBuf[0])
   {
     return c;
@@ -276,8 +260,6 @@ inline bool AcFILE::readBOM()
       }
     }
   }
-    // If got here, then no BOM found, so reset 
-    // to file beginning. Leave format what it was.
   ::rewind(this->mpFILE);
   return false;
 }
@@ -344,10 +326,6 @@ inline bool AcFILE::parseUtf16(wchar_t& wch)
   }
   return true;
 }
-// This helper function writes data to the file depending on the value of 
-// nOptions. In case of fputs zero is returned when successful and incase 
-// of fprintf the return value is the number of bytes.
-// 
 inline int AcFILE::fputsWorker(const wchar_t* pSrc, int nOptions)
 {
   AcFILE_Assert(this->mpFILE != NULL);

@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,7 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #pragma  once
 #include "AcDbCore2dDefs.h"
 #pragma  pack (push, 8)
@@ -65,8 +63,6 @@ public:
   {
   }
 };
-// AcDbGeoData Object
-
 ///// <summary>
 /// This object identifies the geographical space a design is located in.  It
 /// also provides all the information necessary to accurately map a design
@@ -386,13 +382,10 @@ public:
     //=============================================================================
     // Observation Methods
     //=============================================================================
-    // Geospatial (currently) has no requirements with regard to these members.
   ACDBCORE2D_PORT const ACHAR* observationFrom() const;
   ACDBCORE2D_PORT Acad::ErrorStatus setObservationFrom(const ACHAR* from);
-    // Geospatial (currently) has no requirements with regard to these members.
   ACDBCORE2D_PORT const ACHAR* observationTo() const;
   ACDBCORE2D_PORT Acad::ErrorStatus setObservationTo(const ACHAR* to);
-    // Geospatial (currently) has no requirements with regard to these members.
   ACDBCORE2D_PORT const ACHAR* observationCoverage() const;
   ACDBCORE2D_PORT Acad::ErrorStatus setObservationCoverage(const ACHAR* coverage);
     //=========================================================================
@@ -489,9 +482,7 @@ public:
 //=============================================================================
 //  Global API functions 
 //=============================================================================
-//
 ACDBCORE2D_PORT Acad::ErrorStatus acdbGetGeoDataObjId(AcDbDatabase* pDb, AcDbObjectId& objId);
-// Insertion method.
 ACDBCORE2D_PORT Acad::ErrorStatus acdbGetGeoDataTransform(AcDbDatabase* pDbSource, AcDbDatabase* pDbTarget, AcGePoint3d& insertionPt, double& rotation, double& scale);
 /// <summary>
 /// This function registers a reactor derived from AcDbGeoDataReactor.

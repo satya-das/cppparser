@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//   acedxref.h  -  XREF API Definitions
 #ifndef _ACEDXREF_H
 #  define _ACEDXREF_H
 #  pragma  pack (push, 8)

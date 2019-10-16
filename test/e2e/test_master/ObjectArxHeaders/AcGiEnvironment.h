@@ -7,10 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// This API extends AcGi to support backgrounds, environmental objects
-// and render settings
-//
 #pragma  once
 #include "acgi.h"
 #include "AcGiLightTraits.h"
@@ -24,7 +20,6 @@ class ACDBCORE2D_PORT AcGiSolidBackgroundTraits : public AcGiNonEntityTraits
 {
 public:
   ACRX_DECLARE_MEMBERS(AcGiSolidBackgroundTraits);
-    // solid background
   virtual void setColorSolid(const AcCmEntityColor& color) = 0;
   virtual AcCmEntityColor colorSolid(void) const = 0;
 };
@@ -229,14 +224,9 @@ public:
   virtual bool shadowsEnabled() const = 0;
   virtual void setDiagnosticBackgroundEnabled(bool enabled) = 0;
   virtual bool diagnosticBackgroundEnabled() const = 0;
-    // Model scale relative to meters. For example, if model is drawn in mm,
-    // scaleFactor is 0.001.
   virtual void setModelScaleFactor(double scaleFactor) = 0;
   virtual double modelScaleFactor(void) const = 0;
 };
-// The available filtering methods (kernels) used to combine samples into
-// a pixel color.
-//
 enum AcGiMrFilter
 {
   krBox = 0,
@@ -245,8 +235,6 @@ enum AcGiMrFilter
   krMitchell,
   krLanczos
 };
-// The available methods for computing ray-traced shadows.
-// 
 enum AcGiMrShadowMode
 {
   krSimple = 0,

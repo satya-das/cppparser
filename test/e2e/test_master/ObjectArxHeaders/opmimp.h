@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,13 +7,8 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #ifndef _OPMIMP_H
 #  define _OPMIMP_H
-//prevent the MS header "use_ansi.h" from outputing
-//its linker directives, we expect clients to specify
-//what flavor (debug/release) of the C++ runtime they want to
-//link against.
 #  pragma  push_macro("_USE_ANSI_CPP")
 #  define _USE_ANSI_CPP
 #  include <vector>
@@ -45,7 +39,6 @@ struct ACAD_OPMPROPMAP_ENTRY
     {                                                               \
         static ACAD_OPMPROPMAP_ENTRY pPropMap[] =                   \
         {
-// DescriptionID, dispID, catagoryID, catagoryNameID, elements string list ID (semi-colon separator), predefined strings ID (semi-colon separator), predefined values, grouping, editable property, other, proppage
 #  define OPMPROP_ENTRY(nDesID, dpid, ctid, ctNameID, elementsID, predefID, vals, grp, editable, other, clsid, ellipsesTxt)	      \
         {nDesID, dpid, ctid, ctNameID, elementsID, predefID, vals, grp, editable, &other, &clsid, &IID_IDispatch, OLESTR(ellipsesTxt)},
 #  define OPMPROP_CAT_ENTRY(nDesID, dpid, ctid, ctNameID)	      \
@@ -78,9 +71,6 @@ struct PER_PROP_DISP_ENTRY
   DWORD m_dwIntegralHeight;
   long m_nWeight;
 };
-// use this #define for the textcolor item in PROP_DISP_ENTRY in order to use the
-// default UI label color in the UI; any other value for textcolor is treated
-// as a COLORREF
 #  ifndef PROP_TEXTCOLOR_DEFAULT
 #    define PROP_TEXTCOLOR_DEFAULT	0x80000008
 #  endif

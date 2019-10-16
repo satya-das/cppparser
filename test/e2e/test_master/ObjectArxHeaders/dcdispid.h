@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,13 +7,9 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// dcdispid.h : DISP ids for Design Explorer API
-//
 #ifndef DCDISPID_H
 #  define DCDISPID_H
 #  define ACDC_MAKE_DISPID(ID)	    (ID + 100)
-// IAcDcContentBrowser methods
 #  define DISPID_IAcDcContentBrowser_AddPaletteItem	ACDC_MAKE_DISPID(1)
 #  define DISPID_IAcDcContentBrowser_AddNavigatorNode	ACDC_MAKE_DISPID(2)
 #  define DISPID_IAcDcContentBrowser_GetDCFrameWindow	ACDC_MAKE_DISPID(3)
@@ -33,7 +28,6 @@
 #  define DISPID_IAcDcContentBrowser_GetPaneInfo	ACDC_MAKE_DISPID(16)
 #  define DISPID_IAcDcContentBrowser_SetPaletteViewType	ACDC_MAKE_DISPID(17)
 #  define DISPID_IAcDcContentBrowser_NavigateTo	ACDC_MAKE_DISPID(18)
-// IAcDcContentView methods
 #  define DISPID_IAcDcContentView_Initialize	ACDC_MAKE_DISPID(101)
 #  define DISPID_IAcDcContentView_SetImageLists	ACDC_MAKE_DISPID(102)
 #  define DISPID_IAcDcContentView_Refresh	ACDC_MAKE_DISPID(103)

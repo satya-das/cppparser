@@ -13,16 +13,12 @@
 #    pragma  once
 #  endif
 /////////////////////////////////////////////////////////////////////////////
-// Note: _ACUI_BUILD should be defined only when building the DLL.
 #  ifdef _ACUI_BUILD
 #    define ACUI_PORT	__declspec(dllexport)
 #  else 
 #    define ACUI_PORT
 #  endif
 /////////////////////////////////////////////////////////////////////////////
-// Initialize the extension DLL, register the classes, etc
-// Call this exported function from your Dll or Executable once
-// - an ideal location is the InitInstance() member function 
 ACUI_PORT void InitAcUiDLL();
 /////////////////////////////////////////////////////////////////////////////
 ACUI_PORT HINSTANCE AcUiAppResourceInstance();
@@ -55,6 +51,5 @@ typedef CAcUiTabChildDialog CAcUiTabExtension;
 #  endif
 /////////////////////////////////////////////////////////////////////////////
 //{{AFX_INSERT_LOCATION}}
-// Microsoft Developer Studio will insert additional declarations immediately before the previous line.
 #endif
 //////////////////////////////////////////////////////////////////////////////

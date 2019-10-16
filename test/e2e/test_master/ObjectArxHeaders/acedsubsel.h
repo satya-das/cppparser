@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -16,7 +15,6 @@ class AcDbFullSubentPath;
 #  include "acdb.h"
 #  include "adsdef.h"
 #  pragma  pack (push, 8)
-/* AutoCAD Sub-entity selection set routines */
 int acedSSSubentLength(const ads_name sname, Adesk::Int32 index, Adesk::Int32* len);
 int acedSSSubentAdd(const AcDbFullSubentPath& subentity, const ads_name sname, ads_name result);
 int acedSSSubentDel(const AcDbFullSubentPath& subentity, const ads_name ss);

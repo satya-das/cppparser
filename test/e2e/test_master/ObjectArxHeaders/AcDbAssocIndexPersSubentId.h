@@ -93,7 +93,6 @@ public:
     /// <returns> Acad::ErrorStatus. </returns>
     ///
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-    // New methods
   unsigned int index() const
   {
     return mIndex;
@@ -107,11 +106,6 @@ public:
     mIndex = newIndex;
   }
 private:
-    // For round-tripping via AcDbAssocSimplePersSubentId, encoding the
-    // actual class type in subentType(), because it may only be in the range
-    // of 0..3, so we have enough bits available to encode additional info.
-    // Calls the virtual roundTripOffset() method to get the offset
-    //
   int encodeActualClassInSubentType() const;
   static const int kRoundTripOffset = 1000000;
   virtual int roundTripOffset() const
@@ -143,8 +137,6 @@ public:
   {
   }
 private:
-    // For round-tripping to older dwg file format versions via AcDbAssocSimplePersSubentId
-    //
   static const int kRoundTripOffset = 2000000;
   virtual int roundTripOffset() const override
   {

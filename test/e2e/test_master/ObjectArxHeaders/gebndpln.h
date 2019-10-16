@@ -7,11 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:
-//
-// This file contains the class AcGeBoundedPlane - A mathematical entity
-// used to represent a 4-side bounded plane in 3-space.
 #ifndef AC_GEBNDPLN_H
 #  define AC_GEBNDPLN_H
 #  include "geplanar.h"
@@ -29,17 +24,11 @@ public:
   AcGeBoundedPlane(const AcGeBoundedPlane& plane);
   AcGeBoundedPlane(const AcGePoint3d& origin, const AcGeVector3d& uVec, const AcGeVector3d& vVec);
   AcGeBoundedPlane(const AcGePoint3d& p1, const AcGePoint3d& origin, const AcGePoint3d& p2);
-    // Intersection.
-    //
   Adesk::Boolean intersectWith(const AcGeLinearEnt3d& linEnt, AcGePoint3d& point, const AcGeTol& tol = AcGeContext::gTol) const;
   Adesk::Boolean intersectWith(const AcGePlane& plane, AcGeLineSeg3d& results, const AcGeTol& tol = AcGeContext::gTol) const;
   Adesk::Boolean intersectWith(const AcGeBoundedPlane& plane, AcGeLineSeg3d& result, const AcGeTol& tol = AcGeContext::gTol) const;
-    // Set methods.
-    //
   AcGeBoundedPlane& set(const AcGePoint3d& origin, const AcGeVector3d& uVec, const AcGeVector3d& vVec);
   AcGeBoundedPlane& set(const AcGePoint3d& p1, const AcGePoint3d& origin, const AcGePoint3d& p2);
-    // Assignment operator.
-    //
   AcGeBoundedPlane& operator =(const AcGeBoundedPlane& bplane);
 };
 #  pragma  pack (pop)

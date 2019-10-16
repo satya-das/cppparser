@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,9 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//  AcPublishReactors.h - Reactors File
-//
 #ifndef _ACPUBLISHREACTORS_H
 #  define _ACPUBLISHREACTORS_H
 #  include "rxobject.h"
@@ -21,7 +17,6 @@
 #  include "AcDMMEPlotProperty.h"
 #  include "AcPlPlotErrorHandler.h"
 #  include "AcPlPlotLogger.h"
-// Classes defined in this header file:
 class AcPublishReactorManager;
 class AcPublishReactor;
 class AcPublishReactorInfo;
@@ -205,8 +200,6 @@ public:
     return *this;
   }
 private:
-    // TODO: Should we upgrade to use XML instead of INI?
-    //
   ACHAR* m_pName;
   ACHAR* m_pValue;
 };
@@ -285,7 +278,6 @@ public:
     /// successfully, otherwise returns false.
     /// </returns>
   virtual bool WritePrivateSection(const ACHAR* sectionName, const AcNameValuePairVec nameValuePairVec) = 0;
-    // bool for bg/fg (this isn't in public dsd data)
   virtual bool JobWillPublishInBackground() = 0;
 };
 /// <summary>
@@ -362,9 +354,7 @@ public:
     /// successfully, otherwise returns false.
     /// </returns>
   virtual bool WritePrivateSection(const ACHAR* sectionName, const AcNameValuePairVec nameValuePairVec) = 0;
-    // bool for bg/fg (this isn't in public dsd data)
   virtual bool JobWillPublishInBackground() = 0;
-    // plot logger
     /// <summary>
     /// provides access to the plot logger object
     /// </summary>
@@ -442,9 +432,6 @@ public:
 /// </summary>
 class AcPublishAggregationInfo
 {
-    // this is context data for the AboutToBeginAggregation notifier
-    // it allows clients to add ePlot global properties and resources
-    // to the DWF
 public:
     /// <summary>
     /// default constructor
@@ -812,8 +799,6 @@ inline void AcPublishReactor::OnEndPublish(AcPublishReactorInfo* pInfo)
 inline void AcPublishReactor::OnCancelledOrFailedPublishing(AcPublishReactorInfo* pInfo)
 {
 }
-// Global functions to add and remove reactors that clients call
-
 /// <summary>
 /// global function clients should call to add a reactor
 /// </summary>

@@ -33,8 +33,6 @@ public:
   AcDbAssocDimDependencyBody();
     /// <summary> Destructor. </summary>
   virtual ~AcDbAssocDimDependencyBody();
-    // Implementation of pure virtual methods in the AcDbAssocDimDependencyBodyBase 
-    // class. They deal with the controlled entity that is assumed to be an 
     /// AcDbDimension
 
     /// <summary> Returns the text of the controlled AcDimension. </summary>
@@ -55,8 +53,6 @@ public:
     /// <returns> Returns true if attachment changed. </returns>
     ///
   virtual bool isEntityAttachmentChangedOverride() const override;
-    // Overridden method from the AcDbAssocDependencyBody base class
-
     /// <summary> Updates position, size and orientation of the controlled AcDbDimension.
     /// </summary>
     /// <returns> Acad::eOk if successful. </returns>

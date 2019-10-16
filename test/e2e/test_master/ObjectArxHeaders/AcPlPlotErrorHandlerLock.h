@@ -7,9 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//  DESCRIPTION:  Header for Plot Error Handler Lock.
-//
 #ifndef ACPLPLOTERRORHANDLERLOCK_H
 #  define ACPLPLOTERRORHANDLERLOCK_H
 #  include "AdAChar.h"

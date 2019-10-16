@@ -37,18 +37,12 @@ typedef CTypedPtrArray<CPtrArray, AcTcCatalog*> AcTcCatalogArray;
 typedef CTypedPtrArray<CPtrArray, CAcTcUiToolPaletteSet*> AcTcUiToolPaletteSetArray;
 typedef CTypedPtrArray<CPtrArray, CAcTcUiToolPalette*> AcTcUiToolPaletteArray;
 typedef CTypedPtrArray<CPtrArray, CAcTcUiCatalogView*> AcTcUiCatalogViewArray;
-// Drag and drop formats
-//
 #  define ACTCUI_DRAGFORMAT_CUSTOM	(0x1 << 0)
 #  define ACTCUI_DRAGFORMAT_IDROP	(0x1 << 1)
 #  define ACTCUI_DRAGFORMAT_HDROP	(0x1 << 2)
-// For creating a new default palette set
-//
 #  define ACTCUI_CNPS_NOCREATEWINDOW	(0x1 << 0)
 #  define ACTCUI_CNPS_NOADD	(0x1 << 1)
 #  define ACTCUI_CNPS_CREATEHIDDEN	(0x1 << 2)
-// Clipboard formats
-//
 #  define CF_ACTC_CATALOG_ITEM_17_11	ACRX_T(/*MSGO*/"CF_ACTC_CATALOG_ITEM_17_11")
 #  define CF_ACTCUI_CATALOG_ITEM_HEADER_17_11	ACRX_T(/*MSGO*/"CF_ACTCUI_CATALOG_ITEM_HEADER_17_11")
 #  define CF_ACTC_CATALOG_ITEM_17_1	ACRX_T(/*MSGO*/"CF_ACTC_CATALOG_ITEM_17_1")
@@ -64,14 +58,10 @@ typedef CTypedPtrArray<CPtrArray, CAcTcUiCatalogView*> AcTcUiCatalogViewArray;
 #  define CF_IDROP_ACTCUI_CATALOG	ACRX_T(/*MSGO*/"CF_IDROP.XML_ACTCUI_CATALOG")
 #  define CF_IDROP_ACTCUI_STOCKTOOL	ACRX_T(/*MSGO*/"CF_IDROP.XML_ACTCUI_STOCKTOOL")
 #  define CF_ACTCUI_TOOLBAR_ITEM	ACRX_T(/*MSGO*/"CF_ACTCUI_TOOLBAR_ITEM")
-// AcTcUiPasteItems flags
-//
 #  define ACTCUI_PI_SHOW_PROGRESS	(0x1 << 0)
 #  define ACTCUI_PI_USE_NEW_IDS	(0x1 << 1)
 #  define ACTCUI_PI_BREAK_SOURCE_LINK	(0x1 << 2)      // For internal use
 #  define ACTCUI_PI_NOTIFY_TOOLS	(0x1 << 3)      // For internal use
-// Structure for drag and drop header information
-//
 typedef struct ACTCUI_DRAG_HEADER
 {
   DWORD mdwDragFormat;

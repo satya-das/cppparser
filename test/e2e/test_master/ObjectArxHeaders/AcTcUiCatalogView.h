@@ -24,52 +24,27 @@
 typedef CTypedPtrArray<CPtrArray, AcTcCatalogItem*> AcTcCatalogItemArray;
 class AcTcUiSystemInternals;
 class CAcTcUiScheme;
-// Catalog view tray default id
 #define ACTCUI_IDW_CATALOGVIEW	0xFFFF
-// Catalog view styles
-// Bits 1 to 8 are used by ACTCUI_CVISTYLE_*
-//
-// Show text
 #define ACTCUI_CVSTYLE_SHOWTEXT	ACTCUI_CVISTYLE_SHOWTEXT
-// Save the item order in catalog (and profile)
 #define ACTCUI_CVSTYLE_SAVE_ORDER_IN_CATALOG	(0x1 << 11)
-// Don't show Quick Start Link
 #define ACTCUI_CVSTYLE_NO_QSL	(0x1 << 12)
-// Disallow selection
 #define ACTCUI_CVSTYLE_NO_SELECTION	(0x1 << 13)
-// Don't display view button
 #define ACTCUI_CVSTYLE_NO_VIEW_BUTTON	(0x1 << 14)
-// List view
 #define ACTCUI_CVSTYLE_LISTVIEW	(0x1 << 15)
-// Show tool tips for the catalog view items
 #define ACTCUI_CVSTYLE_TOOLTIPS	(0x1 << 16)
-// Allow multiple selection
 #define ACTCUI_CVSTYLE_MULTISELECT	(0x1 << 17)
-// Enable in-place editing of name
 #define ACTCUI_CVSTYLE_EDITLABELS	(0x1 << 18)
-// Enable hover selection
 #define ACTCUI_CVSTYLE_HOVERSELECT	(0x1 << 19)
-// Disallow drag and drop of items
 #define ACTCUI_CVSTYLE_NO_DRAGDROP	(0x1 << 20)
-// Disallow cut operation
 #define ACTCUI_CVSTYLE_NO_CUT	(0x1 << 21)
-// Disallow copy operation
 #define ACTCUI_CVSTYLE_NO_COPY	(0x1 << 22)
-// Disallow paste operation                 
 #define ACTCUI_CVSTYLE_NO_PASTE	(0x1 << 23)
-// Disallow refresh operation               
 #define ACTCUI_CVSTYLE_NO_REFRESH	(0x1 << 24)
-// Disallow remove operation                
 #define ACTCUI_CVSTYLE_NO_REMOVE	(0x1 << 25)
-// Disallow rename operation                
 #define ACTCUI_CVSTYLE_NO_RENAME	(0x1 << 26)
-// Disallow properties operation
 #define ACTCUI_CVSTYLE_NO_PROPERTIES	(0x1 << 27)
-// Disallow help operation
 #define ACTCUI_CVSTYLE_NO_HELP	(0x1 << 28)
-// Disallow view operation                  
 #define ACTCUI_CVSTYLE_NO_VIEWOPTIONS	(0x1 << 29)
-// Disallow all the above operations
 #define ACTCUI_CVSTYLE_NO_OPERATIONS	(ACTCUI_CVSTYLE_NO_CUT        | \
                                              ACTCUI_CVSTYLE_NO_COPY       | \
                                              ACTCUI_CVSTYLE_NO_PASTE      | \
@@ -81,25 +56,13 @@ class CAcTcUiScheme;
                                              ACTCUI_CVSTYLE_NO_VIEWOPTIONS)
 #define ACTCUI_CVSTYLE_NO_FLYOUT	(0x1 << 30)
 #define ACTCUI_CVSTYLE_NO_SCROLLBAR	(0x1 << 31)
-// Drag & Drop options, this can be set by the derived class to let the 
-// base class know what catalog items can be accepted in the view during 
-// drag and drop
-//
-// Accept tool items
 #define ACTCUI_DDO_ACCEPT_TOOL	(0x1 << 0)
-// Accept palette items
 #define ACTCUI_DDO_ACCEPT_PALETTE	(0x1 << 1)
-// Accept package items
 #define ACTCUI_DDO_ACCEPT_PACKAGE	(0x1 << 2)
-// Accept category items
 #define ACTCUI_DDO_ACCEPT_CATEGORY	(0x1 << 3)
-// Accept catalog items
 #define ACTCUI_DDO_ACCEPT_CATALOG	(0x1 << 4)
-// Accept stock tool items
 #define ACTCUI_DDO_ACCEPT_STOCKTOOL	(0x1 << 5)
-// Accept files from Windows Explorer
 #define ACTCUI_DDO_ACCEPT_FILES	(0x1 << 6)
-// Accept all the above items
 #define ACTCUI_DDO_ACCEPT_ALL_ITEMS	(ACTCUI_DDO_ACCEPT_TOOL     | \
                                              ACTCUI_DDO_ACCEPT_STOCKTOOL| \
                                              ACTCUI_DDO_ACCEPT_PALETTE  | \
@@ -107,29 +70,16 @@ class CAcTcUiScheme;
                                              ACTCUI_DDO_ACCEPT_CATEGORY | \
                                              ACTCUI_DDO_ACCEPT_CATALOG  | \
                                              ACTCUI_DDO_ACCEPT_FILES)
-// Hit flags
-//
-// Nowhere
 #define ACTCUI_CVHT_NOWHERE	(0x0)
-// On item (in the item's cell)
 #define ACTCUI_CVHT_ITEM	(0x1 << 0)
-// On item's image
 #define ACTCUI_CVHT_ITEMIMAGE	(0x1 << 1)
-// On item's text
 #define ACTCUI_CVHT_ITEMLABEL	(0x1 << 2)
-// On background
 #define ACTCUI_CVHT_BACKGROUND	(0x1 << 3)
-// Above the view rectangle
 #define ACTCUI_CVHT_ABOVE	(0x1 << 4)
-// Below the view rectangle
 #define ACTCUI_CVHT_BELOW	(0x1 << 5)
-// To the left of the view rectangle
 #define ACTCUI_CVHT_LEFT	(0x1 << 6)
-// To the right of the view rectangle
 #define ACTCUI_CVHT_RIGHT	(0x1 << 7)
-// On item's flyout trigger
 #define ACTCUI_CVHT_ITEMTRIGGER	(0x1 << 8)
-// Overlay image alignments
 #define ACTCUI_OVERLAY_ALIGN_TOPLEFT	1
 #define ACTCUI_OVERLAY_ALIGN_TOPRIGHT	2
 #define ACTCUI_OVERLAY_ALIGN_BOTTOMLEFT	3
@@ -196,7 +146,6 @@ public:
   CAcTcUiScheme* GetScheme(void) const;
   BOOL Sort(int nSortOption);
 protected:
-    // Overridables by derived classes
   virtual void OnLButtonClicked(UINT nFlags, CPoint point);
   virtual void OnLButtonDblClicked(UINT nFlags, CPoint point);
   virtual BOOL AddContextMenuItems(CMenu* pMenu, int nHitFlag);
@@ -293,7 +242,6 @@ protected:
   afx_msg LRESULT OnGetItemTextLen(WPARAM wParam, LPARAM lParam);
   afx_msg LRESULT OnGetItemRect(WPARAM wParam, LPARAM lParam);
   DECLARE_MESSAGE_MAP()
-    // Protected constructor
   CAcTcUiCatalogView(AcTcUiSystemInternals*);
   void* mpImpObj;
 private:

@@ -7,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//  DESCRIPTION:  Interface definition for Host Plot Services.
-//
 #ifndef ACPLHOSTAPPSERVICES_H
 #  define ACPLHOSTAPPSERVICES_H
 class AcPlPlotLogger;

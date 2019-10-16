@@ -7,11 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:
-//
-// This file contains the class AcGeFileIO - a utility class that 
-// performs file IO.
 #ifndef AC_GEFILEIO_H
 #  define AC_GEFILEIO_H
 #  include "acadstrc.h"
@@ -87,8 +82,6 @@ class AcGeLibVersion;
 class AcGeFileIO
 {
 public:
- // Write out to file
- //
   GE_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcGeFiler*, const AcGePoint2d&, const AcGeLibVersion& = AcGe::gLibVersion);
   GE_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcGeFiler*, const AcGeVector2d&, const AcGeLibVersion& = AcGe::gLibVersion);
   GE_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcGeFiler*, const AcGeMatrix2d&, const AcGeLibVersion& = AcGe::gLibVersion);
@@ -151,8 +144,6 @@ public:
   GX_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcGeFiler*, const AcGeCurveCurveInt3d&, const AcGeLibVersion& = AcGe::gLibVersion);
   GE_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcGeFiler*, const AcGeLibVersion&);
   GX_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcGeFiler*, const AcGeEllipCone&, const AcGeLibVersion& = AcGe::gLibVersion);
- // Read in from file
- //
   GE_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcGeFiler*, AcGePoint2d&, const AcGeLibVersion& = AcGe::gLibVersion);
   GE_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcGeFiler*, AcGeVector2d&, const AcGeLibVersion& = AcGe::gLibVersion);
   GE_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcGeFiler*, AcGeMatrix2d&, const AcGeLibVersion& = AcGe::gLibVersion);
@@ -214,8 +205,6 @@ public:
   GX_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcGeFiler*, AcGeCurveCurveInt2d&, const AcGeLibVersion& = AcGe::gLibVersion);
   GX_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcGeFiler*, AcGeCurveCurveInt3d&, const AcGeLibVersion& = AcGe::gLibVersion);
   GX_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcGeFiler*, AcGeEllipCone&, const AcGeLibVersion& = AcGe::gLibVersion);
- // There is no version on a version object.
- //
   GE_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcGeFiler*, AcGeLibVersion&);
 private:
   GE_DLLEXPIMPORT static Acad::ErrorStatus writeBoolean(AcGeFiler*, Adesk::Boolean, const AcGeLibVersion&);

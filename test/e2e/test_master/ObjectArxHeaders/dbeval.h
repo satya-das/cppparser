@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,39 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//  dbeval.h
-//    
-//     AcRxObject
-//       AcDbObject
-//         AcDbEvalGraph
-//         AcDbEvalExpr
-//           AcDbEvalConnectable
-//
-//       AcDbEvalContext
-//       AcDbEvalContextPair
-//       AcDbEvalContextIterator
-//       AcDbEvalVariant
-//         
-//
-//  DESCRIPTION:
-//
-//  The classes in this file provide a framework for managing and evaluating a
-//  collection of operations in a specfic order. The framework consists of a
-//  collection of nodes, organized in a graph. By establishing edges between
-//  nodes in the graph and directions on each edge, the graph can sort the
-//  nodes topologically and traverse the nodes in a specific order. 
-//
-//  The nodes themselves (AcDbEvalExpr) implement an evaluate() method that is
-//  called by the graph (AcDbEvalGraph) in the order that the nodes are
-//  traversed. 
-//
-//  Applications typically make use of this framework by implementing custom
-//  objects derived from AcDbEvalExpr and implementing the
-//  AcDbEvalExpr::evaluate() method. Applications instantiate custom nodes, add
-//  them to a graph, add edges between the nodes, and call
-//  AcDbEvalGraph::evaluate() to perform a traversal of the nodes.
-//
 #pragma  once
 #include "dbmain.h"
 #include "dbents.h"
@@ -48,7 +14,6 @@
 #include "adscodes.h"
 #include "adsdef.h"
 #pragma  pack(push, 8)
-// Forward class declarations
 class AcDbEvalGraph;
 class AcDbEvalEdgeInfo;
 class AcDbEvalExpr;
@@ -61,10 +26,6 @@ class AcDbImpEvalContext;
 class AcDbImpEvalContextIterator;
 class AcRxValue;
 class AcRxValueType;
-// Type declarations
-
-// Unique (within an AcDbEvalGraph) identifier assigned to
-// a node (AcDbEvalExpr) in the graph.
 typedef Adesk::UInt32 AcDbEvalNodeId;
 typedef AcArray<AcDbEvalNodeId> AcDbEvalNodeIdArray;
 typedef AcArray<AcDbEvalEdgeInfo*> AcDbEvalEdgeInfoArray;
@@ -628,11 +589,6 @@ public:
     /// Destructor.
     /// </summary>
   virtual ~AcDbEvalGraph();
-    /* Management */
-
-    // This set of static methods deal with managing the
-    // association of an AcDbEvalGraph with an AcDbObject.
-
     /// <summary>
     /// Determines if a graph exists on the supplied object.  The object must 
     /// be database resident.
@@ -819,18 +775,6 @@ public:
     /// </returns>
     ///
   static Acad::ErrorStatus replaceGraph(AcDbObject* pObj, const ACHAR* pKey, AcDbObjectId grphId);
-    /* Graph Query/Edit */
-
-    // This set of methods are to do with editing the graph - i.e. adding,
-    // removing, querying for nodes and edges.  The api is geared towards being
-    // able to work with a non database resident version of the graph, i.e. it
-    // deals with object pointers. 
-    //
-    // For an AcDbGraph which is database resident, the caller must close the
-    // returned nodes after they are done. This also includes add() methods,
-    // e.g. addNode(AcDbEvalExpr* pNode). The caller is expected to close the
-    // supplied pNode argument
-
     /// <summary>
     /// Adds a node to the graph and returns the AcDbEvalNodeId of the newly
     /// added node. 
@@ -1055,8 +999,6 @@ public:
     /// </remarks>
     ///
   virtual Acad::ErrorStatus addGraph(AcDbEvalGraph* pGraphToAdd, AcDbEvalIdMap*& idMap);
-    /* Evaluation */
-
     /// <summary>
     /// Evaluates the class by traversing the graph and invoking
     /// <c>AcDbEvalExpr::evaluate()</c> on all of the visited nodes. 
@@ -1425,8 +1367,6 @@ public:
     /// </summary>
     /// 
   virtual ~AcDbEvalExpr();
-    /* Graph methods */
-    
     /// <summary>
     /// Returns a pointer to the graph owning the node. 
     /// </summary>
@@ -1465,8 +1405,6 @@ public:
     /// </remarks>
     ///
   AcDbEvalNodeId nodeId() const;
-    /* Graph notification methods */
-
     /// <summary>
     /// Called when a node is added to a graph.
     /// </summary>
@@ -1692,8 +1630,6 @@ public:
     /// </remarks>
     ///
   virtual void graphEvalAbort(bool bNodeIsActive);
-    /* Evaluation methods */
-
     /// <summary>
     /// Causes the expression represented by the node to be evaluated. Called
     /// by for a graph-resident node when the node is visited during a call to
@@ -1730,8 +1666,6 @@ public:
     /// </returns>
     ///
   virtual bool equals(const AcDbEvalExpr* pOther) const;
-    /* Expression value methods */
-
     /// <summary>
     /// The value of the variant node. 
     /// </summary>
@@ -1804,8 +1738,6 @@ public:
     /// </summary>
     ///
   virtual ~AcDbEvalConnectable();
-    /* Connection Inspection */
-
     /// <summary>
     /// Returns an array of named connections.
     /// </summary>
@@ -1849,8 +1781,6 @@ public:
     /// </returns>
     ///
   virtual Acad::ErrorStatus getConnectionType(const AcString& name, AcDb::DwgDataType& type) const;
-    /* Connection Operations */
-
     /// <summary>
     /// Returns the value of a named connection.
     /// </summary>
@@ -2026,8 +1956,6 @@ public:
     ///
   virtual ~AcDbEvalContext();
   ACRX_DECLARE_MEMBERS(AcDbEvalContext);
-    /* Collection access methods */
-
     /// <summary>
     /// Inserts an AcDbEvalContextPair into the context. 
     /// </summary>

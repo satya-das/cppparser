@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,16 +7,11 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// This API extends AcGi to support stream draw functionality
-//
 #pragma  once
 #pragma  pack(push, 8)
 class AcGiDrawStreamImp;
 typedef bool (*GraphicsUpdateProc) (const AcArray<AcGiDrawable*>& drawableArray);
 ///////////////////////////////////////////////////////////////////////////////
-// class AcGiDrawStream
-//
 class ACDBCORE2D_PORT AcGiDrawStream : public AcGiDrawable
 {
   friend class AcGiDrawStreamImp;
@@ -32,7 +26,6 @@ public:
   bool isValid() const;
   bool serializeOut(IAcWriteStream* pOutput) const;
   bool serializeIn(IAcReadStream* pInput, AcDbDatabase* pDb = NULL);
-    // Overridden methods from AcGiDrawable
   virtual Adesk::Boolean isPersistent() const override;
   virtual AcDbObjectId id() const override;
   virtual AcGiDrawable::DrawableType drawableType() const override;
@@ -40,7 +33,6 @@ public:
   virtual void setDrawStream(AcGiDrawStream* pStream) override;
   virtual AcGiDrawStream* drawStream() const override;
 protected:
-    // Overridden methods from AcGiDrawable
   virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
   virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWd) override;
   virtual void subViewportDraw(AcGiViewportDraw* pVd) override;

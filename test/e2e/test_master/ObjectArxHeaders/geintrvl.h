@@ -7,19 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:
-//
-// This file contains the class AcGeInterval - a representation
-// for an interval on the real line.  The following kinds of intervals
-// are supported.
-// . Open intervals where the bounds are not finite.
-// . Closed intervals with finite bounds.
-// . Half intervals such that one end is open and not finite,
-//   and the other is closed and finite.
-//
-// Where applicable, all evaluations are performed within the
-// tolerance stored within this class.
 #ifndef AC_GEINTRVL_H
 #  define AC_GEINTRVL_H
 #  include "gegbl.h"
@@ -32,11 +19,7 @@ public:
   AcGeInterval(double lower, double upper, double tol = 1.e-12);
   AcGeInterval(Adesk::Boolean boundedBelow, double bound, double tol = 1.e-12);
   ~AcGeInterval();
-    // Assignment operator.
-    //
   AcGeInterval& operator =(const AcGeInterval& otherInterval);
-    // Get/set methods.
-    //
   double lowerBound() const;
   double upperBound() const;
   double element() const;
@@ -49,40 +32,26 @@ public:
   AcGeInterval& setUpper(double upper);
   AcGeInterval& setLower(double lower);
   AcGeInterval& setTolerance(double tol);
-    // Interval editing.
-    //
   void getMerge(const AcGeInterval& otherInterval, AcGeInterval& result) const;
   int subtract(const AcGeInterval& otherInterval, AcGeInterval& lInterval, AcGeInterval& rInterval) const;
   Adesk::Boolean intersectWith(const AcGeInterval& otherInterval, AcGeInterval& result) const;
-    // Interval characterization.
-    //
   Adesk::Boolean isBounded() const;
   Adesk::Boolean isBoundedAbove() const;
   Adesk::Boolean isBoundedBelow() const;
   Adesk::Boolean isUnBounded() const;
   Adesk::Boolean isSingleton() const;
-    // Relation to other intervals.
-    //
   Adesk::Boolean isDisjoint(const AcGeInterval& otherInterval) const;
   Adesk::Boolean contains(const AcGeInterval& otherInterval) const;
   Adesk::Boolean contains(double val) const;
-    // Continuity
-    //
   Adesk::Boolean isContinuousAtUpper(const AcGeInterval& otherInterval) const;
   Adesk::Boolean isOverlapAtUpper(const AcGeInterval& otherInterval, AcGeInterval& overlap) const;
-    // Equality
-    //
   Adesk::Boolean operator ==(const AcGeInterval& otherInterval) const;
   Adesk::Boolean operator !=(const AcGeInterval& otherInterval) const;
   Adesk::Boolean isEqualAtUpper(const AcGeInterval& otherInterval) const;
   Adesk::Boolean isEqualAtUpper(double value) const;
   Adesk::Boolean isEqualAtLower(const AcGeInterval& otherInterval) const;
   Adesk::Boolean isEqualAtLower(double value) const;
-    // To be used with periodic curves
-    //
   Adesk::Boolean isPeriodicallyOn(double period, double& val);
-    // Comparisons.
-    //
   GE_DLLEXPIMPORT friend Adesk::Boolean operator >(double val, const AcGeInterval& intrvl);
   Adesk::Boolean operator >(double val) const;
   Adesk::Boolean operator >(const AcGeInterval& otherInterval) const;
@@ -98,7 +67,6 @@ public:
 protected:
   friend class AcGeImpInterval;
   class AcGeImpInterval* mpImpInt;
-    // Construct object from its corresponding implementation object.
   AcGeInterval(AcGeImpInterval&, int);
 private:
   int mDelInt;

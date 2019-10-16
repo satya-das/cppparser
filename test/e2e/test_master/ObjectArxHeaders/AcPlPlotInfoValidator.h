@@ -12,7 +12,6 @@
 #  include "AcPlObject.h"
 #  include "AcPlPlotInfo.h"
 class AcPlPlotInfo;
-// Default media matching weights
 #  define DEFAULT_MEDIA_GROUP_WEIGHT	50
 #  define DEFAULT_SHEET_MEDIA_GROUP_WEIGHT	10
 #  define DEFAULT_MEDIA_BOUNDS_WEIGHT	100
@@ -26,7 +25,6 @@ public:
   ACPL_PORT AcPlPlotInfoValidator();
   ACPL_PORT virtual ~AcPlPlotInfoValidator();
   ACPL_DECLARE_MEMBERS(AcPlPlotInfoValidator);
-    // Supported media matching policies
   enum MatchingPolicy
   {
     kMatchDisabled = 1,
@@ -34,7 +32,6 @@ public:
     kMatchEnabledCustom,
     kMatchEnabledTmpCustom
   };
-    // Possible result codes from isCustomPossible()     
   enum eCustomSizeResult
   {
     ePossible = 0x0000,
@@ -53,16 +50,10 @@ public:
     eWidthAndHeightMustBePositive = 0x1000,
     eDeviceLoadFailed = 0x2000
   };
-    // Validate an AcPlPlotInfo object
   ACPL_PORT virtual Acad::ErrorStatus validate(AcPlPlotInfo& info);
-    // Returns a bitwise-OR of eCustomSizeResults bits indicating whether
-    // a custom size is possible for the plot info object provided, using the
-    // current media size and device specified in the info object.
   ACPL_PORT virtual unsigned long isCustomPossible(AcPlPlotInfo& info) const;
-    // Media matching policy used by validator
   ACPL_PORT void setMediaMatchingPolicy(MatchingPolicy policy);
   ACPL_PORT MatchingPolicy matchingPolicy() const;
-    // Media matching weights
   ACPL_PORT void setMediaGroupWeight(unsigned int weight = DEFAULT_MEDIA_GROUP_WEIGHT);
   ACPL_PORT unsigned int mediaGroupWeight() const;
   ACPL_PORT void setSheetMediaGroupWeight(unsigned int weight = DEFAULT_SHEET_MEDIA_GROUP_WEIGHT);
@@ -75,11 +66,9 @@ public:
   ACPL_PORT unsigned int dimensionalWeight() const;
   ACPL_PORT void setSheetDimensionalWeight(unsigned int weight = DEFAULT_SHEET_DIMENSIONAL_WEIGHT);
   ACPL_PORT unsigned int sheetDimensionalWeight() const;
-    // Media matching threshold
   ACPL_PORT void setMediaMatchingThreshold(unsigned int threshold = DEFAULT_THRESHOLD);
   ACPL_PORT unsigned int mediaMatchingThreshold() const;
 protected:
-    // Media matching members
   unsigned int m_mediaBoundsWeight;
   unsigned int m_dimensionalWeight;
   unsigned int m_mediaGroupWeight;

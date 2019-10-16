@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,23 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-//  DESCRIPTION: Definitions for the AutoCAD native command definition
-//               mechanism.
-//
-
-// NOTE: before adding any new command constants here,
-// check with the undocumented ACRX_CMD_... constants
-// defined in coresrc/command.cpp to make sure that
-// there is no overlap.
-//
-// ARX command bits which are not exported yet, but which could
-// be of use in the R13 time frame.  We should look at these in
-// R14 to determine if they should be exported. BCH 10/3/95
-// The value of ACRX_CMD_NOPAPERSPACE was changed from 0x10 to
-// 0x40 by submission S049-JH2 because it conflicted with the
-// value of ACRX_CMD_NOMULTIPLE.  JH 1/3/97.
-//
 #pragma  once
 #ifndef _ACCMD_DEFS_H
 #  define _ACCMD_DEFS_H
@@ -37,13 +19,6 @@
 #  define ACRX_CMD_NOMULTIPLE	0x00000010
 #  define ACRX_CMD_NOTILEMODE	0x00000020 // NOT allowed with TILEMODE == 1
 #  define ACRX_CMD_NOPAPERSPACE	0x00000040 // NOT allowed in Paperspace
-// #define ACRX_CMD_PLOTONLY           0x00000080 // Obsolete
-
-// It's used to let users know the command will be removed in next release or so.  
-// Users should mitigate the change as soon as possible. The command is deprecated
-// by un-defining it immediately after registering with the system.
-// If users really need to use it, they can still use it by prefixing with "." or re-define it.
-// .ETRANSMIT or redefine ETRANSMIT
 #  define ACRX_CMD_DEPRECATED	ACRX_CMD_UNDEFINED // Deprecate command           
 #  define ACRX_CMD_NOOEM	0x00000100
 #  define ACRX_CMD_UNDEFINED	0x00000200
@@ -58,7 +33,6 @@
 #  define ACRX_CMD_SESSION	0x00200000 /* Run cmd handler in the session
                                                   fiber */
 #  define ACRX_CMD_INTERRUPTIBLE	0x00400000 // Supports OPM display of command
-                                               // properties
 #  define ACRX_CMD_NOHISTORY	0x00800000 // Command does not become default
 #  define ACRX_CMD_NO_UNDO_MARKER	0x01000000 // No Undo or Repeat presence.
 #  define ACRX_CMD_NOBEDIT	0x02000000 // blocked during a bedit session

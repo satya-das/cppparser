@@ -7,9 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-// 
-//  DESCRIPTION:  Header for AcRxEventReactor notification.
-//
 #ifndef _ACRX_EVENT_H__
 #  define _ACRX_EVENT_H__
 #  include "acarray.h"
@@ -38,8 +35,6 @@ class AcRxEventReactor : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcRxEventReactor);
-    // DWG/Save Events.
-    //
   ADESK_DEPRECATED virtual void dwgFileOpened(AcDbDatabase*, ACHAR*) final
   {
   }
@@ -52,24 +47,17 @@ public:
   virtual void beginSave(AcDbDatabase*, const ACHAR* pIntendedName);
   virtual void saveComplete(AcDbDatabase*, const ACHAR* pActualName);
   virtual void abortSave(AcDbDatabase*);
-    // DXF In/Out Events.
-    //
   virtual void beginDxfIn(AcDbDatabase*);
   virtual void abortDxfIn(AcDbDatabase*);
   virtual void dxfInComplete(AcDbDatabase*);
-    //
   virtual void beginDxfOut(AcDbDatabase*);
   virtual void abortDxfOut(AcDbDatabase*);
   virtual void dxfOutComplete(AcDbDatabase*);
-    // Insert Events.
-    //
   virtual void beginInsert(AcDbDatabase* pTo, const ACHAR* pBlockName, AcDbDatabase* pFrom);
   virtual void beginInsert(AcDbDatabase* pTo, const AcGeMatrix3d& xform, AcDbDatabase* pFrom);
   virtual void otherInsert(AcDbDatabase* pTo, AcDbIdMapping& idMap, AcDbDatabase* pFrom);
   virtual void abortInsert(AcDbDatabase* pTo);
   virtual void endInsert(AcDbDatabase* pTo);
-    // Wblock Events.
-    //
   virtual void wblockNotice(AcDbDatabase* pDb);
   virtual void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom, const AcGePoint3d*& insertionPoint);
   virtual void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom, AcDbObjectId blockId);
@@ -78,17 +66,11 @@ public:
   virtual void abortWblock(AcDbDatabase* pTo);
   virtual void endWblock(AcDbDatabase* pTo);
   virtual void beginWblockObjects(AcDbDatabase*, AcDbIdMapping&);
-    // Deep Clone Events.
-    //
   virtual void beginDeepClone(AcDbDatabase* pTo, AcDbIdMapping&);
   virtual void beginDeepCloneXlation(AcDbIdMapping&, Acad::ErrorStatus*);
   virtual void abortDeepClone(AcDbIdMapping&);
   virtual void endDeepClone(AcDbIdMapping&);
-    // Partial Open Events.
-    //
   virtual void partialOpenNotice(AcDbDatabase* pDb);
-    // XREF-related Events
-    //
   virtual void beginAttach(AcDbDatabase* pTo, const ACHAR*, AcDbDatabase* pFrom);
   virtual void otherAttach(AcDbDatabase* pTo, AcDbDatabase* pFrom);
   virtual void abortAttach(AcDbDatabase* pFrom);
@@ -98,8 +80,6 @@ public:
   virtual void beginRestore(AcDbDatabase* pTo, const ACHAR*, AcDbDatabase* pFrom);
   virtual void abortRestore(AcDbDatabase* pTo);
   virtual void endRestore(AcDbDatabase* pTo);
-    // More XREF related Events
-    // 
   virtual void xrefSubcommandBindItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId);
   virtual void xrefSubcommandAttachItem(AcDbDatabase* pHost, int activity, const ACHAR* pPath);
   virtual void xrefSubcommandOverlayItem(AcDbDatabase* pHost, int activity, const ACHAR* pPath);

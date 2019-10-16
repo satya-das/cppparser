@@ -7,11 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:
-// Provides an interface for additional overloads to the global new.
-// Implemented in gegbl.cpp
-//
 #ifndef AC_GEGBLNEW_H
 #  define AC_GEGBLNEW_H
 #  ifdef GE_LOCATED_NEW

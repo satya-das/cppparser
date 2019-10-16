@@ -85,9 +85,6 @@ public:
     /// <param name="other"> the cropping region to which this object will be assiged. </param>
     /// <returns>Returns a reference of current object.</returns>
   AcDbPointCloudCrop& operator=(const AcDbPointCloudCrop& other);
-    // AcDbEntity helpers used by AcDbPointCloudEx
-    //
-
     /// <summary>
     /// Reads the cropping boundary information from a dwg pFiler.
     /// </summary>
@@ -250,7 +247,6 @@ public:
     /// <remarks> internal use </remarks>
   void setDxfHandler(AcDbPointCloudDxfHandler* dxfHandler);
 private:
-    // member variables
   CropType m_cropType;
   bool m_isInside;
   bool m_isInverted;

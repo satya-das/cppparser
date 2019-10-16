@@ -9,7 +9,6 @@
 //////////////////////////////////////////////////////////////////////////////
 #pragma  once
 #pragma  pack (push, 8)
-/* Define an error type for this package */
 enum PathErr
 {
   PATH_NOERR = 0,
@@ -27,7 +26,6 @@ enum path_type
   DIR_PATH,
   DEV_PATH
 };
-// What kind of path?
 enum path_category
 {
   DRIVE_TYPE,
@@ -35,7 +33,6 @@ enum path_category
   ROOT_TYPE,
   RELATIVE_TYPE
 };
-// File system types.
 enum FS_TYPE
 {
   NOFS,

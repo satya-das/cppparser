@@ -7,10 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-  
-//
-// IAcApWindow - Provides the interface definition for a generic window 
-// in the application
 #pragma  once
 #ifndef ADHOSTWINDOW_H
 #  define ADHOSTWINDOW_H
@@ -18,8 +14,6 @@
 class IAdHostWindow
 {
 public:
-    // The window identifier. This will generally be a platform or 
-    // application dependent identifier for the window.
   virtual HWND windowHandle() = 0;
 };
 #endif

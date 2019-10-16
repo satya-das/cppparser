@@ -14,14 +14,12 @@
 #    pragma  once
 #  endif
 /////////////////////////////////////////////////////////////////////////////
-// CAcUiDockFrame window - INTERNAL USE ONLY
 class ACUI_PORT CAcUiDockFrame : public CAdUiDockFrame
 {
   DECLARE_DYNCREATE(CAcUiDockFrame);
 public:
   CAcUiDockFrame();
   virtual ~CAcUiDockFrame();
-// ClassWizard-controlled
 	//{{AFX_VIRTUAL(CAcUiDockFrame)
 	//}}AFX_VIRTUAL
 protected:
@@ -31,7 +29,6 @@ protected:
   DECLARE_MESSAGE_MAP()
 };
 /////////////////////////////////////////////////////////////////////////////
-// CAcUiDockControlBar window
 class ACUI_PORT CAcUiDockControlBar : public CAdUiDockControlBar
 {
   DECLARE_DYNCREATE(CAcUiDockControlBar);
@@ -44,14 +41,12 @@ protected:
 };
 #  ifndef NEW_PALETTE
 /////////////////////////////////////////////////////////////////////////////
-// CAcUiPaletteSetDockFrame window - INTERNAL USE ONLY
 class ACUI_PORT CAcUiPaletteSetDockFrame : public CAdUiPaletteSetDockFrame
 {
   DECLARE_DYNCREATE(CAcUiPaletteSetDockFrame);
 public:
   CAcUiPaletteSetDockFrame();
   virtual ~CAcUiPaletteSetDockFrame();
-// ClassWizard-controlled
 	//{{AFX_VIRTUAL(CAcUiPaletteSetDockFrame)
 	//}}AFX_VIRTUAL
 protected:
@@ -64,7 +59,6 @@ protected:
 #  endif
 /////////////////////////////////////////////////////////////////////////////
 //{{AFX_INSERT_LOCATION}}
-// Microsoft Developer Studio will insert additional declarations immediately before the previous line.
 #  pragma  pack (pop)
 #endif
 //////////////////////////////////////////////////////////////////////////////

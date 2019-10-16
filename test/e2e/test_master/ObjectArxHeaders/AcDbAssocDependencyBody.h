@@ -90,10 +90,6 @@ public:
   {
     return ownerId();
   }
-    // The following non-virtual methods are just shortcuts that just forward 
-    // to the parent AcDbAssocDependency class, to save some typing for the
-    // implementers of the derived custom dependency body classes
-
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocDependency that
     /// owns this dependency body object.
@@ -139,8 +135,6 @@ public:
     /// </summary>
     ///
   AcDbAssocEvaluationCallback* currentEvaluationCallback() const;
-    // Virtual methods that can be overridden by the derived classes
-
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocDependency 
     /// class that owns this dependency body object. It has to be overridden.

@@ -99,10 +99,6 @@ OdRxClass* ClassName::isA() const { return g_pDesc; }                           
                                                                                                      \ 
 OdRxObject* ClassName::queryX(const OdRxClass* pClass) const                                         \ 
 { return ::odQueryXImpl<ClassName,ParentClass >(this, pClass); } 
-/* 
-  Description: 
-  Defines initialization functions for OdObjecobjects. 
-*/
 #  define ODRX_DEFINE_INIT_MEMBERS(ClassName,ParentClass,pseudoConsFn, DwgVer,MaintVer,nProxyFlags,szDWGClassName,szDxfName,szAppName)	 \ 
                                                                                                      \ 
 /* Registers this class with DWGdirect.                                         */                   \ 
@@ -522,22 +518,6 @@ public:
     Creates a *clone* of this object, and returns a pointer to the *clone*. 
   */
   virtual OdRxObjectPtr clone() const;
-  /* 
-    Description: 
-    Copies the contents of the specified object into this object. 
-     
-    Arguments: 
-    pSource (I) Pointer to the source object. 
-     
-    Note: 
-    The default implementation of this function does nothing but throw an eNotApplicable exception.  
-     
-    Throws: 
-    @table 
-    Exception     
-    eNotApplicable 
-    
- */
   virtual void copyFrom(const OdRxObject* pSource);
   /** Description: 
     Compares another object to this one in a manner similar to strcmp().  

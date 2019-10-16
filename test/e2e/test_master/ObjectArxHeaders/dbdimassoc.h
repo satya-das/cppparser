@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,11 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// FILE: dimassoc.h
-//
-// DESCRIPTION: Declaration for Dimension Associativity API 
-//              and AcDbDimAssoc class.
 #ifndef AD_DBDIMASSOC_H
 #  define AD_DBDIMASSOC_H
 #  include "dbmain.h"
@@ -28,15 +22,10 @@ class AcDbPointRef;
 class AcDbRadialDimension;
 class AcDbRadialDimensionLarge;
 class AcDbRotatedDimension;
-// Exported AcDbDimAssoc class and some global APIs for external use.
-
-// Class declaration for AcDbDimAssoc
-//
 class AcDbDimAssoc : public AcDbObject
 {
   ACDB_DECLARE_MEMBERS(AcDbDimAssoc);
 public:
-    //ACRX_DECLARE_MEMBERS(AcDbDimAssoc);
   enum
   {
     kMaxPointRefs = 4
@@ -135,53 +124,22 @@ protected:
   Acad::ErrorStatus calculate3PointAngDimArcLocation(const AcGePoint3d* kpOldPts, const AcGePoint3d& kOldArcPt, const AcGePoint3d& kOldTextPt, const AcGePoint3d* kpNewPts, const AcGeVector3d& normal, AcGePoint3d& newArcPt, AcGePoint3d& newTextPt);
   Acad::ErrorStatus calculate2LineAngDimArcLocation(const AcGePoint3d* kpOldPts, const AcGePoint3d& kOldArcPt, const AcGePoint3d& kOldTextPt, const AcGePoint3d* kpNewPts, const AcGeVector3d& kNormal, AcGePoint3d& newArcPt, AcGePoint3d& newTextPt);
 };
-// Post pDimAssoc object to database in the extension 
-// dictionary of the given dimension.
-//
 Acad::ErrorStatus acdbPostDimAssoc(AcDbObjectId dimId, AcDbDimAssoc* pDimAssoc, AcDbObjectId& dimAssocId, bool isActive = true);
-// Perform forced update for the given associative dimension.
-// 
 Acad::ErrorStatus acdbUpdateDimension(AcDbObjectId dimId);
-// Perform forced update for the all dimensions in the database (DIMREGEN)
-// 
 Acad::ErrorStatus acdbUpdateAllDimensions(AcDbDatabase* pDb);
-// Get the AcDbDimAssoc objectId from the given dimension.
-//
 Acad::ErrorStatus acdbGetDimAssocId(AcDbObjectId dimId, AcDbObjectId& dimAssocId);
-// Get the AcDbDimAssoc objectId from the geometry in 
-// AcDbPointRef object.
-//
 Acad::ErrorStatus acdbGetDimAssocIds(AcDbObjectId entId, AcDbObjectIdArray& dimAssocIds);
-// Verify whether the given idPath is a trans-spatial path
-//
 bool acdbIsTransSpatial(const AcDbFullSubentPath& idPath);
 /// Get the object id of the annotation action body associated to
 /// idDim. Annotations include dimension, leader, and mleader. If 
 /// such associativity does not exist, returns Acad::eNotApplicable.
 /// 
 ACDBCORE2D_PORT Acad::ErrorStatus acdbGetAssocAnnotationActionBody(const AcDbObjectId& idDim, AcDbObjectId& idActionBody);
-// Get all non-associative annotations in model space or paper space.
-// The annotations may include dimension, leader, mleader, and any custom
-// objects which have AcDbAnnoMonitorPE implemented.
-//
 ACDBCORE2D_PORT Acad::ErrorStatus acdbGetNonAssocAnnotations(AcDbDatabase* pDb, bool isPaperSpace, AcDbObjectId& blockId, AcDbObjectIdArray& annoIds, bool ignoreOffOrFrozenLayers = false);
-// Check if the specified pEnt resides in a block or external reference.
-//
 ACDBCORE2D_PORT bool acdbIsEntityInBlockOrXref(const AcDbEntity* pEnt);
-// Check if ANNOMONITOR sysvar is ON or OFF
-//
 ACDBCORE2D_PORT bool acdbIsAnnoMonitorOn();
-// Check if associativity alert icon is disabled for the specified pEnt.
-// pEnt can be AbDbDimension, AcDbMLeader or AcDbLeader
-//
 ACDBCORE2D_PORT bool acdbIsAssociativityAlertIconDisabled(AcDbEntity* pEnt);
-// Disable or enable the associativity alert icon for the specified pEnt.
-// pEnt can be AbDbDimension, AcDbMLeader or AcDbLeader
-//
 ACDBCORE2D_PORT bool acdbDisableAssociativityAlertIcon(AcDbEntity* pEnt, bool disable);
-// Check if the specified pObj is associative or not. pObj can be
-// AcDbDimension, AcDbMLeader or AcDbLeader
-//
 ACDBCORE2D_PORT bool acdbIsAssociativeAnnotation(AcDbObject* pObj, bool* pIsPartialAssoc = NULL);
 class AcDbAnnoAlertDisabler
 {
@@ -191,15 +149,6 @@ public:
 private:
   AcDbObjectId m_objId;
 };
-// Get the associativity override nValue for the specified pObj.
-// nValue =  0: non-associative
-// nValue =  1: associative
-//
 ACDBCORE2D_PORT bool acdbGetAssociativityOverride(AcDbEntity* pEnt, int& nValue);
-// Set the associativity override for the specified pObj.
-// nValue =  0: non-associative
-// nValue =  1: associative
-// nValue = -1: clean up override xData and use default associativity
-//
 ACDBCORE2D_PORT bool acdbSetAssociativityOverride(AcDbEntity* pEnt, int nValue);
 #endif

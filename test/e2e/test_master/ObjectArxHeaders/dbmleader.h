@@ -395,7 +395,6 @@ public:
         /// 30
         /// </value>
     kExtendLeaderToText = 30,
-        //add more here...
         /// <summary>
         /// bitset size
         /// </summary>
@@ -732,7 +731,7 @@ public:
     /// A leader cluster is made up by a dog-leg and some leaderLines.
     /// </remarks>
     ///
-  Acad::ErrorStatus addLeader(int& leaderIndex);
+  Acad::ErrorStatus addLeader(int & leaderIndex);
     /// <summary>
     /// Removes the leader cluster with specified index.
     /// </summary>
@@ -2194,8 +2193,6 @@ public:
     /// </returns>
     ///
   Acad::ErrorStatus postMLeaderToDb(AcDbDatabase* pDb);
-    // support dim associativity
-
     /// <summary>
     /// Update leaderLine position if leaderLine is associate with geometries
     /// </summary>

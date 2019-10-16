@@ -11,15 +11,6 @@
 //-----------------------------------------------------------------------------
 //----- AcDbLight.h : Declaration of the AcDbLight class
 //-----------------------------------------------------------------------------
-// DESCRIPTION:
-//
-// This API extends AcDb to support creation of the light objects (SpotLight, PointLight, and the DistantLight)
-
-//   AcDbEntity
-//      AcDbLight
-//          AcDbPointLight
-//          AcDbSpotLight
-//          AcDbDistantLight
 #pragma  once
 #include "dbmain.h"
 #include "dbents.h"
@@ -45,8 +36,6 @@
 #endif
 #include "AcGiLightTraits.h"
 //-----------------------------------------------------------------------------
-
-//forward declaration of the imp class
 class AcDbImpLight;
 /// <summary>
 /// Container for all properties relating to a generic light.
@@ -687,7 +676,6 @@ public:
     /// lighting units (i.e. 1 for American or 2 for International).
     /// </remarks>
   Acad::ErrorStatus lampColorRGB(AcGiColorRGB& rgbColor) const;
-    // <summary>
     /// Sets the corresponding RGB color for the light's preset lamp color.  
     /// This value only applies if the light's color type is ColorType::kPreset.
     /// </summary>

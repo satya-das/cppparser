@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,7 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #ifndef _adsmigr_h
 #  define _adsmigr_h	1
 #  define ads_malloc	acad_malloc
@@ -17,8 +15,6 @@
 #  define ads_realloc	acad_realloc
 #  define ads_calloc	acad_calloc
 #  define ads_strdup	acad__strdup
-// aced related #defines.
-//
 #  define ads_getappname	acedGetAppName
 #  define ads_update	acedUpdate
 #  define ads_command	MustSwitchTo_acedCommandC_or_acedCommandS - - !
@@ -109,12 +105,8 @@
 #  define ads_textbox	acedTextBox
 #  define ads_tablet	acedTablet
 #  define ads_getcname	acedGetCName
-// AcDb related #defines that are available to ObjectDBX
-// applications.
 #  define ads_xdroom	acdbXdRoom
 #  define ads_xdsize	acdbXdSize
-/* NOTE that the result is the SECOND argument,
-   consistent with ADS usage.  The standard C ones require <string.h> */
 #  ifdef __STDC__
 #    define ads_name_set(from, to)	  (memcpy(to, from, sizeof(ads_name)))
 #    define ads_point_set(from,to)	  (memcpy(to, from, sizeof(ads_point)))
@@ -122,18 +114,10 @@
 #    define ads_name_set(from, to)	  (*(to)= *(from), (to)[1]=(from)[1])
 #    define ads_point_set(from, to)	 (*(to)= *(from), (to)[1]=(from)[1], (to)[2]=(from)[2])
 #  endif
-/* Define null value for ads_names.  These values are NOT guaranteed valid;
-   that is, there is no actual guarantee (such as C gives with NULL) that the
-   system will never under any circumstances generate the values as valid data.
-   The correct values will be created as part of the Lisp reinitialization
-   project, if we go through with that one, and will then be inserted here.
-   */
 #  define ads_name_clear(name)	    name[0] = name[1] = 0
 #  define ads_name_nil(name)	      (name[0] == 0 && name[1] == 0)
 #  define ads_name_equal(name1, name2)	  (name1[0]==name2[0] \
                                        && name1[1]==name2[1])
-// AcDb related #defines that are not currently available
-// to ObjectDBX applications.  7/14/98
 #  define ads_entdel	acdbEntDel
 #  define ads_entgetx	acdbEntGetX
 #  define ads_entget	acdbEntGet
@@ -165,10 +149,7 @@
 #  define ads_angtof	acdbAngToF
 #  define ads_rangtof	acdbRawAngToF
 #  define ads_distof	acdbDisToF
-// Obsolete: we don't save as r12 anymore, so the xsave12 arg
-// is ignored.
 #  define ads_regappx(appname, xsave12)	   acdbRegApp(appname)
-// Functions that are now in acutil dll
 #  define ads_printf	acutPrintf
 #  define ads_cvunit	acutCvUnit
 #  define ads_wcmatch	acutWcMatch

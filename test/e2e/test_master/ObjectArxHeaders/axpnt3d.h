@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -25,7 +24,6 @@
 class AXAUTOEXP AcAxPoint3d : public AcGePoint3d
 {
 public:
-    // constructors
   AcAxPoint3d();
   AcAxPoint3d(double x, double y, double z);
   AcAxPoint3d(const AcGePoint3d& pt);
@@ -33,18 +31,15 @@ public:
   AcAxPoint3d(const VARIANT* var);
   AcAxPoint3d(const VARIANT& var);
   AcAxPoint3d(const SAFEARRAY* safeArrayPt);
-    // equal operators
   AcAxPoint3d& operator=(const AcGePoint3d& pt);
   AcAxPoint3d& operator=(const AcGeVector3d& pt);
   AcAxPoint3d& operator=(const VARIANT* var);
   AcAxPoint3d& operator=(const VARIANT& var);
   AcAxPoint3d& operator=(const SAFEARRAY* safeArrayPt);
-    // type requests
   VARIANT* asVariantPtr() const;
   SAFEARRAY* asSafeArrayPtr() const;
   VARIANT& setVariant(VARIANT& var) const;
   VARIANT* setVariant(VARIANT* var) const;
-    // utilities
 private:
   AcAxPoint3d& fromSafeArray(const SAFEARRAY* safeArrayPt);
 };
@@ -52,16 +47,13 @@ private:
 class AXAUTOEXP AcAxPoint3dArray : public AcGePoint3dArray
 {
 public:
-    // equal operators
   AcAxPoint3dArray& append(const AcGePoint3d& pt);
   AcAxPoint3dArray& append(const VARIANT* var);
   AcAxPoint3dArray& append(const VARIANT& var);
   AcAxPoint3dArray& append(const SAFEARRAY* safeArrayPt);
-    // type requests
   SAFEARRAY* asSafeArrayPtr() const;
   VARIANT& setVariant(VARIANT& var) const;
   VARIANT* setVariant(VARIANT* var) const;
-    // utilities
 private:
   AcAxPoint3dArray& fromSafeArray(const SAFEARRAY* safeArrayPt);
 };

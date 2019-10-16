@@ -1,4 +1,3 @@
-// 
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,7 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #ifndef __ACDBSECTIONVIEWSTYLE_H__
 #  define __ACDBSECTIONVIEWSTYLE_H__
 #  pragma  once
@@ -803,7 +801,6 @@ public:
     /// </returns>
   Acad::ErrorStatus setEndLineOvershoot(double length);
 protected:
-    // For internal use only
   virtual Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
   virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
 };

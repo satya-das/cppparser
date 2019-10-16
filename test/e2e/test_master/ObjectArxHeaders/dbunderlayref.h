@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,8 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION: Exported class for underlay references in dwg file - AcDbUnderlayReference
 #ifndef ACDB_DBUNDERLAYREF_H
 #  define ACDB_DBUNDERLAYREF_H
 #  pragma  once

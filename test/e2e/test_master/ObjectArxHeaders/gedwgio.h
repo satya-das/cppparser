@@ -7,11 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// DESCRIPTION:
-//
-// This file contains the class AcGeDwgIO - an utility class that
-// performs DWG file IO.
 #ifndef AC_GEDWGIO_H
 #  define AC_GEDWGIO_H
 #  include "gefileio.h"
@@ -21,8 +16,6 @@ class AcDbDwgFiler;
 class AcGeDwgIO
 {
 public:
-    // Write out to file
-    //
   GE_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcDbDwgFiler*, const AcGePoint2d&);
   GE_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcDbDwgFiler*, const AcGeVector2d&);
   GE_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcDbDwgFiler*, const AcGeMatrix2d&);
@@ -84,8 +77,6 @@ public:
   GX_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcDbDwgFiler*, const AcGeCurveCurveInt2d&);
   GX_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcDbDwgFiler*, const AcGeCurveCurveInt3d&);
   GX_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcDbDwgFiler*, const AcGeEllipCone&);
-    // Read in from file
-    //
   GE_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcDbDwgFiler*, AcGePoint2d&);
   GE_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcDbDwgFiler*, AcGeVector2d&);
   GE_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcDbDwgFiler*, AcGeMatrix2d&);

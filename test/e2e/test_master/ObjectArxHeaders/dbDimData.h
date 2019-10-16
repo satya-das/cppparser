@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,7 +7,6 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
 #ifndef AD_DBDIMDATA_H
 #  define AD_DBDIMDATA_H
 #  include "acdb.h"
@@ -17,7 +15,6 @@
 class AcDbDimData;
 typedef AcArray<AcDbDimData*> AcDbDimDataPtrArray;
 typedef AcGeVector3d (*DimDataSetValueFuncPtr) (AcDbDimData* pThis, AcDbEntity* pEnt, double newValue, const AcGeVector3d& offset);
-// DimDataSetCustomStringFuncPtr is the callback function signature for AcDbDimData::setCustomStringFunc
 typedef AcGeVector3d (*DimDataSetCustomStringFuncPtr) (AcDbDimData* pThis, AcDbEntity* pEnt, const ACHAR* pCustomString, const AcGeVector3d& offset);
 class AcDbDimData
 {

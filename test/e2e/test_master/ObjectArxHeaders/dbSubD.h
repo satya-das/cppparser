@@ -21,8 +21,6 @@ class AcDbSurface;
 class AcGiFaceData;
 class AcGiMapper;
 ///////////////////////////////////////////////////////////////////////////////
-// class AcDbSubDMesh
-//
 class ACDB_PORT AcDbSubDMesh : public AcDbEntity
 {
   ACDB_DECLARE_MEMBERS(AcDbSubDMesh);
@@ -32,7 +30,6 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Methods for AcDbSubDMesh
     ///////////////////////////////////////////////////////////////////////////
-    //
   Acad::ErrorStatus setSubDMesh(const AcGePoint3dArray& vertexArray, const AcArray<Adesk::Int32>& faceArray, int subDLevel);
   Acad::ErrorStatus setSphere(double radius, int divAxis, int divHeight, int subDLevel);
   Acad::ErrorStatus setCylinder(double majorRadius, double minorRadius, double height, int divAxis, int divHeight, int divCap, int subDLevel);
@@ -96,18 +93,15 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Overridden methods from AcDbEntity
     ///////////////////////////////////////////////////////////////////////////
-    //
   virtual void dragStatus(const AcDb::DragStat status) override;
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
     ///////////////////////////////////////////////////////////////////////////
     // Overridden methods from AcGiDrawable
     ///////////////////////////////////////////////////////////////////////////
-    //
   virtual bool bounds(AcDbExtents& retBounds) const override;
     ///////////////////////////////////////////////////////////////////////////
     // Internal use
     ///////////////////////////////////////////////////////////////////////////
-    //
   Acad::ErrorStatus setSphere(const AcGeMatrix3d& xForm, int divAxis, int divHeight, int subDLevel);
   Acad::ErrorStatus setCylinder(const AcGeMatrix3d& xForm, int divAxis, int divHeight, int divCap, int subDLevel);
   Acad::ErrorStatus setCone(const AcGeMatrix3d& xForm, int divAxis, int divHeight, int divCap, double radiusRatio, int subDLevel);
@@ -126,7 +120,6 @@ public:
 ///////////////////////////////////////////////////////////////////////////
 //  Global API functions 
 ///////////////////////////////////////////////////////////////////////////
-//
 struct MeshFaceterSettings
 {
   double faceterDevSurface;

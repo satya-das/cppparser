@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -25,7 +24,6 @@ class AcDbDataLinkManager;
 class AcDbImpDataLinkManager;
 class AcDbDataAdapter;
 class AcTableSystemInternals;
-// Excel data adapter id
 #define ACDB_DATA_ADAPTER_EXCEL	ACRX_T(/*MSG0*/"AcExcel")
 //*************************************************************************
 // AcDbDataLink

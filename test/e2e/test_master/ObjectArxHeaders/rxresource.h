@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -32,7 +31,6 @@ class AcRxResourceInstance : public Pimpl::ApiPart<AcHeapOperators, Autodesk::Au
 {
 public:
   ACBASE_PORT explicit AcRxResourceInstance(const wchar_t* path);
-    //for compatibility with existing code, do not use in new code
   ACBASE_PORT AcRxResourceInstance(void* hInst);
   ACBASE_PORT AcRxResourceInstance(const AcRxResourceInstance& other);
   ACBASE_PORT ~AcRxResourceInstance();
@@ -44,7 +42,6 @@ public:
     /// Assignment operator
     /// </summary>
   AcRxResourceInstance& operator=(AcRxResourceInstance&&);
-    // disable copy assignment operator
   AcRxResourceInstance& operator=(const AcRxResourceInstance& other);
   ACBASE_PORT bool tryLoadString(Adesk::Int32 id, AcString& out) const;
   ACBASE_PORT bool isLoaded() const;

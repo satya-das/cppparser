@@ -1,4 +1,3 @@
-//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,19 +7,11 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// ********************************************************************************
-// MODULE:      AcGiLineAttrUtils.h
-// PURPOSE:     Utility functions to convert between different
-//                line attributes tables
-// HISTORY:     03/17/2002
-// ********************************************************************************
 #pragma  once
 #include "acdb.h"
 class AcGiLineAttrUtils
 {
 public:
-    // Index is an 8-bit integer value
   static char acgiLineWeightToIndex(AcDb::LineWeight lw);
   static AcDb::LineWeight acgiIndexToLineWeight(char index);
 };
