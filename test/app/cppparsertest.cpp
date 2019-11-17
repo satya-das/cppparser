@@ -78,7 +78,7 @@ static std::pair<size_t, size_t> performTest(CppParser& parser, const TestParam&
     if (bfs::is_regular_file(file))
     {
       ++numInputFiles;
-      std::cout << "CppParserTest: Parsing " << file.string() << "...\n";
+      std::cout << "CppParserTest: Parsing " << file.string() << " ...\n";
       auto      fileRelPath = file.string().substr(inputPathLen);
       bfs::path outfile     = params.outputPath / fileRelPath;
       bfs::remove(outfile);
@@ -128,7 +128,8 @@ CppParser constructCppParserForTest()
                             "ACPAL_PORT",
                             "ACAD_PORT",
 
-                            "SK_API"
+                            "SK_API",
+                            "SK_CAPABILITY"
                             });
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
@@ -147,7 +148,8 @@ CppParser constructCppParserForTest()
                          "GR_MAKE_BITFIELD_CLASS_OPS",
                          "SK_C_PLUS_PLUS_BEGIN_GUARD",
                          "SK_C_PLUS_PLUS_END_GUARD",
-                         "GPU_DRIVER_BUG_WORKAROUNDS"
+                         "GPU_DRIVER_BUG_WORKAROUNDS",
+                         "GR_MAKE_BITFIELD_OPS"
                          });
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");

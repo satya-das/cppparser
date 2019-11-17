@@ -62,10 +62,18 @@ int GetKeywordId(const std::string& keyword) {
 #endif
 
 static int gLog = 0;
-#define ZZVALID   { \
+#define ZZLOG     { \
   if (gLog) \
-    printf("YYVALID @line#%d\n", __LINE__); \
+    printf("ZZLOG @line#%d, parsing stream line#%d\n", __LINE__, gLineNo); \
+}
+
+#define ZZVALID   { \
+  ZZLOG;\
   YYVALID; }
+
+#define ZZERROR   do{ \
+  ZZLOG;\
+  YYERROR; } while(0)
   
 /** {Globals} */
 /**
@@ -156,6 +164,8 @@ extern int yylex();
   CppIdentifierList*      identifierList;
   CppNtMemInit            memInit;
   CppFuncThrowSpec*       funcThrowSpec;
+  CppTemplateArg*         templateArg;
+  CppAsmBlock*            asmBlock;
   CppCompoundType         compoundType;
   unsigned short          ptrLevel;
   CppRefType              refType;
@@ -184,6 +194,7 @@ extern int yylex();
 %token  <str>   tknTypedef tknUsing
 %token  <str>   tknLongLong tknLong tknInt tknShort tknChar
 %token  <str>   tknEnum
+%token  <str>   tknAuto
 %token  <str>   tknPreProDef
 %token  <str>   tknClass tknStruct tknUnion tknNamespace
 %token  <str>   tknTemplate tknTypename tknDecltype
@@ -199,14 +210,15 @@ extern int yylex();
 %token  <str>   tknConstCast tknStaticCast tknDynamicCast tknReinterpretCast
 %token  <str>   tknTry tknCatch tknThrow tknSizeOf
 %token  <str>   tknOperator tknPlusEq tknMinusEq tknMulEq tknDivEq tknPerEq tknXorEq tknAndEq tknOrEq
-%token  <str>   tknLShift tknRShift tknLShiftEq tknRShiftEq tknCmpEq tknNotEq tknLessEq tknGreaterEq
+%token  <str>   tknLShift /*tknRShift*/ tknLShiftEq tknRShiftEq tknCmpEq tknNotEq tknLessEq tknGreaterEq
 %token  <str>   tkn3WayCmp tknAnd tknOr tknInc tknDec tknArrow tknArrowStar
-%token  <str>   '<' '>' // We will need the position of these operators in stream when used for declaring template instance.
+%token  <str>   tknLT tknGT // We will need the position of these operators in stream when used for declaring template instance.
 %token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']' ';'
 %token  <str>   tknNew tknDelete
 %token  <str>   tknConst tknConstExpr // For templatearg parsing it is made as str type.
 %token  <str>   tknVoid // For the cases when void is used as function parameter.
 %token  <str>   tknOverride // override is not a reserved keyword
+%token  <str>   tknAsm
 
 %token  tknStatic tknExtern tknVirtual tknInline tknExplicit tknFriend tknVolatile tknFinal tknNoExcept
 
@@ -221,8 +233,9 @@ extern int yylex();
 
 %type  <str>                optapidecor apidecor
 %type  <str>                optnumsignspec
-%type  <str>                identifier typeidentifier templidentifier varidentifier optid operfuncname funcname
+%type  <str>                identifier typeidentifier templidentifier varidentifier optid id operfuncname funcname
 %type  <str>                doccommentstr
+%type  <str>                rshift
 %type  <str>                macrocall
 %type  <cppObj>             stmt functptrtype
 %type  <typeModifier>       opttypemodifier typemodifier
@@ -234,7 +247,8 @@ extern int yylex();
 %type  <cppVarObj>          vardecl varinit vardeclstmt
 %type  <varOrFuncPtr>       param
 %type  <str>                funcobjstr /* Identify funcobjstr as str, at least for time being */
-%type  <str>                templatearg templatearglist /* For time being. We may need to make it more robust in future. */
+%type  <templateArg>        templatearg templatearglist /* For time being. We may need to make it more robust in future. */
+%type  <asmBlock>           asmblock;
 %type  <cppVarObjList>      vardecllist vardeclliststmt
 %type  <paramList>          paramlist
 %type  <typedefName>        typedefname typedefnamestmt
@@ -279,7 +293,7 @@ extern int yylex();
 %type  <hashPragma>         pragma
 
 // precedence as mentioned at https://en.cppreference.com/w/cpp/language/operator_precedence
-%left ','
+%left COMMA
 // &=, ^=, |=, <<=, >>=, *=, /=, %=, +=, -=, =, throw, a?b:c
 %right tknAndEq tknXorEq tknOrEq tknLShiftEq tknRShiftEq tknMulEq tknDivEq tknPerEq tknPlusEq tknMinusEq '=' tknThrow TERNARYCOND tknReturn
 %left tknOr
@@ -288,10 +302,11 @@ extern int yylex();
 %left '^'
 %left '&'
 %left tknCmpEq tknNotEq // ==, !=
-// LESSTHAN and GREATERTHAN are used instead of '<' and '>' because otherwise template <...> was causing problem.
-%left '<' tknLessEq '>' tknGreaterEq           //<, <=, >, >=
+// tknLT and tknGT are used instead of '<', and '>' because otherwise parsing template and template args is very difficult.
+%left tknLT /*tknGT*/ tknLessEq tknGreaterEq
 %left tkn3WayCmp       // <=>
-%left  tknLShift tknRShift
+%left  tknLShift RSHIFT
+
 %left   '+' '-'
 %left   '*' '/' '%'
 %left tknArrowStar
@@ -299,6 +314,7 @@ extern int yylex();
 %left POSTINCR POSTDECR FUNCTIONALCAST FUNCCALL SUBSCRIPT '.' tknArrow
 %left tknScopeResOp
 %right GLOBAL
+%left TEMPLATE
 
 /*
 These are required to remove following ambiguity in the grammer.
@@ -411,6 +427,10 @@ stmt              : vardeclstmt         { $$ = $1; }
                   | namespacealias      { $$ = $1; }
                   | macrocall           { $$ = new CppMacroCall($1, gCurAccessType); }
                   | ';'                 { $$ = nullptr; }  /* blank statement */
+                  | asmblock            { $$ = $1; }
+                  ;
+
+asmblock          | tknAsm              { $$ = new CppAsmBlock($1); }
                   ;
 
 macrocall         : tknMacro [ZZVALID;]
@@ -566,7 +586,7 @@ doccommentstr     : tknDocBlockComment                          [ZZVALID;]  { $$
                   | doccommentstr tknDocLineComment             [ZZVALID;]  { $$ = mergeCppToken($1, $2); }
                   ;
 
-identifier        : tknID                                 { $$ = $1; }
+identifier        : tknID                                        { $$ = $1; }
                   | identifier tknScopeResOp identifier   { $$ = mergeCppToken($1, $3); }
                   | tknScopeResOp identifier %prec GLOBAL { $$ = mergeCppToken($1, $2); }
                   | templidentifier                       { $$ = $1; }
@@ -583,20 +603,21 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | optnumsignspec tknShort               { $$ = mergeCppToken($1, $2); }
                   | optnumsignspec tknShort tknInt        { $$ = mergeCppToken($1, $3); }
                   | optnumsignspec tknChar                { $$ = mergeCppToken($1, $2); }
-                  | tknNumSignSpec                        { $$ = $1;}
+                  | tknNumSignSpec                        { $$ = $1; }
+                  | tknAuto                               { $$ = $1; }
                   | tknVoid                               { $$ = $1; }
                   | tknLong typeidentifier                { $$ = mergeCppToken($1, $2); }
                   | tknNumSignSpec                        { $$ = $1; }
                   | tknClass identifier [
                     if (gTemplateParamStart == $1.sz)
-                      YYERROR;
+                      ZZERROR;
                   ]                                       { $$ = mergeCppToken($1, $2); }
                   | tknStruct identifier                  { $$ = mergeCppToken($1, $2); }
                   | tknUnion identifier                   { $$ = mergeCppToken($1, $2); }
                   | tknEnum  identifier                   { $$ = mergeCppToken($1, $2); }
                   | tknTypename identifier  [
                     if (gTemplateParamStart == $1.sz)
-                      YYERROR;
+                      ZZERROR;
                   ]                                       { $$ = mergeCppToken($1, $2); }
                   | tknEllipsis                           { $$ = $1; }
                   | tknTypename tknEllipsis               { $$ = mergeCppToken($1, $2); }
@@ -608,13 +629,18 @@ optnumsignspec    :                 { $$ = makeCppToken(nullptr, nullptr); }
                   | tknNumSignSpec  { $$ = $1; }
                   ;
 
-templidentifier   : identifier '<' templatearglist '>' {
+templidentifier   : identifier tknLT templatearglist tknGT {
                     $$ = mergeCppToken($1, $4);
                   }
                   ;
 
+id                : tknID         {
+                    $$ = $1;
+                  }
+                  ;
+
 optid             :                 { $$ = makeCppToken(nullptr, nullptr); }
-                  | tknID           { $$ = $1; }
+                  | id              { $$ = $1; }
                   ;
 
 enumitem          : tknID           { $$ = new CppEnumItem($1);     }
@@ -726,7 +752,7 @@ vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
 vardeclstmt       : vardecl ';'             [ZZVALID;] { $$ = $1; }
                   | varinit ';'             [ZZVALID;] { $$ = $1; }
                   | apidecor vardeclstmt    [ZZVALID;] { $$ = $2; $$->apidecor($1); }
-                  | exptype vardeclstmt     [ZZVALID;] { $$ = $2; $$->addAttr($1); }
+                  | vardeclstmt             [ZZVALID;] { $$ = $1; }
                   ;
 
 vardecllist       : typeidentifier opttypemodifier tknID ',' opttypemodifier tknID {
@@ -740,12 +766,12 @@ vardecllist       : typeidentifier opttypemodifier tknID ',' opttypemodifier tkn
                   }
                   ;
 
-varinit           : vardecl '(' typeidentifier '*' tknID      [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '(' typeidentifier '*' '*' tknID  [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '(' typeidentifier '*' '&' tknID  [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '(' typeidentifier '&' tknID      [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '(' typeidentifier tknAnd tknID   [gParamModPos = $4.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '(' typeidentifier ')'            [gParamModPos = $3.sz; YYERROR;] { $$ = nullptr; } //FuncDeclHack
+varinit           : vardecl '(' typeidentifier '*' tknID      [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
+                  | vardecl '(' typeidentifier '*' '*' tknID  [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
+                  | vardecl '(' typeidentifier '*' '&' tknID  [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
+                  | vardecl '(' typeidentifier '&' tknID      [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
+                  | vardecl '(' typeidentifier tknAnd tknID   [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
+                  | vardecl '(' typeidentifier ')'            [gParamModPos = $3.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl '=' expr {
                     $$ = $1;
                     $$->assign($3, AssignType::kUsingEqual);
@@ -758,9 +784,13 @@ varinit           : vardecl '(' typeidentifier '*' tknID      [gParamModPos = $4
                     $$ = $1;
                     $$->assign($3, AssignType::kUsingBraces);
                   }
+                  | tknConstExpr varinit {
+                    $$ = $2;
+                    $$->addAttr(kConstExpr);
+                  }
                   ;
 
-vardecl           : vartype varidentifier {
+vardecl           : vartype varidentifier         {
                     $$ = new CppVar($1, $2.toString());
                   }
                   | vardecl '[' expr ']' {
@@ -775,9 +805,12 @@ vardecl           : vartype varidentifier {
                     $$ = $1;
                     $$->bitField($3);
                   }
+                  | templatespecifier vardecl {
+                    $$ = $2;
+                  }
                   ;
 
-vartype           : typeidentifier opttypemodifier {
+vartype           : typeidentifier opttypemodifier         {
                     $$ = new CppVarType(gCurAccessType, $1, $2);
                   }
                   | classdefn {
@@ -796,7 +829,7 @@ vartype           : typeidentifier opttypemodifier {
                   }
                   ;
 
-varidentifier     : identifier              { $$ = $1; }
+varidentifier     : identifier             { $$ = $1; }
                   | '(' '&' tknID ')'       { $$ = mergeCppToken($1, $4); }
                   | '(' '*' tknID ')'       { $$ = mergeCppToken($1, $4); }
                   | '(' '*' '*' tknID ')'   { $$ = mergeCppToken($1, $5); }
@@ -849,6 +882,8 @@ exptype           : tknStatic     { $$ = kStatic;  }
 varattrib         : tknConst      { $$ = kConst;      }
                   | tknVolatile   { $$ = kVolatile;   }
                   | tknConstExpr  { $$ = kConstExpr;  }
+                  | exptype varattrib { $$ = $1 | $2; }
+                  | varattrib exptype { $$ = $1 | $2; }
                   ;
 
 typeconverter     : tknOperator vartype '(' optvoid ')' {
@@ -895,7 +930,7 @@ funcdefn          : funcdecl block [ZZVALID;] {
 
 /*
 lambda            : '[' paramlist ']' '(' paramlist ')' block [ZZVALID;] {
-                    $$ = newFunction(gCurAccessType, "CPPPARSER:LAMBDA", nullptr, $5, 0);
+                    $$ = newFunction(gCurAccessType, CPPPARSER::LAMBDA, nullptr, $5, 0);
                     $$->defn($7 ? $7 : newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock));
                   }
                   ;
@@ -948,6 +983,15 @@ funcdecl          : vartype apidecor funcname '(' paramlist ')' {
                   | vartype funcname '(' paramlist ')' {
                     $$ = newFunction(gCurAccessType, $2, $1, $4, 0);
                   }
+                  | vartype tknConstExpr funcname '(' paramlist ')' {
+                    $$ = newFunction(gCurAccessType, $3, $1, $5, kConstExpr);
+                  }
+                  | tknAuto funcname '(' paramlist ')' tknArrow vartype {
+                    $$ = newFunction(gCurAccessType, $2, $7, $4, kTrailingRet);
+                  }
+                  | tknAuto tknConstExpr funcname '(' paramlist ')' tknArrow vartype {
+                    $$ = newFunction(gCurAccessType, $3, $8, $5, kTrailingRet | kConstExpr);
+                  }
                   | apidecor funcdecl {
                     $$ = $2;
                     if (!$$->decor1().empty())
@@ -992,6 +1036,7 @@ funcobjstr        : typeidentifier optapidecor '(' paramlist ')' {
 
 funcname          : operfuncname { $$ = $1; }
                   | identifier   { $$ = $1; }
+                  | typeidentifier { $$ = $1; }
                   | tknScopeResOp operfuncname { $$ = mergeCppToken($1, $2); }
                   | identifier tknScopeResOp operfuncname { $$ = mergeCppToken($1, $3); }
                   /* For function style type casting */
@@ -999,6 +1044,9 @@ funcname          : operfuncname { $$ = $1; }
                   | tknShort    { $$ = $1; }
                   | tknChar     { $$ = $1; }
                   | tknLong     { $$ = $1; }
+                  ;
+
+rshift            : tknGT tknGT %prec RSHIFT [ if ($2.sz != ($1.sz + 1)) ZZERROR; ] { $$ = mergeCppToken($1, $2); }
                   ;
 
 operfuncname      : tknOperator '+'               { $$ = mergeCppToken($1, $2); }
@@ -1012,8 +1060,8 @@ operfuncname      : tknOperator '+'               { $$ = mergeCppToken($1, $2); 
                   | tknOperator '~'               { $$ = mergeCppToken($1, $2); }
                   | tknOperator '!'               { $$ = mergeCppToken($1, $2); }
                   | tknOperator '='               { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '<'               { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '>'               { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknLT             { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknGT             { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknPlusEq         { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknMinusEq        { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknMulEq          { $$ = mergeCppToken($1, $2); }
@@ -1023,7 +1071,7 @@ operfuncname      : tknOperator '+'               { $$ = mergeCppToken($1, $2); 
                   | tknOperator tknAndEq          { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknOrEq           { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknLShift         { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknRShift         { $$ = mergeCppToken($1, $2); }
+                  | tknOperator rshift            { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknLShiftEq       { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknRShiftEq       { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknCmpEq          { $$ = mergeCppToken($1, $2); }
@@ -1057,15 +1105,15 @@ paramlist         : { $$ = nullptr; }
                   }
                   ;
 
-param             : varinit                 { $$ = $1; $1->addAttr(kFuncParam);  }
-                  | vartype '=' expr        {
+param             : varinit                        { $$ = $1; $1->addAttr(kFuncParam);  }
+                  | vartype '=' expr               {
                     auto var = new CppVar($1, std::string());
                     var->addAttr(kFuncParam);
                     var->assign($3, AssignType::kUsingEqual);
                     $$ = var;
                   }
                   | vardecl                 { $$ = $1; $1->addAttr(kFuncParam);  }
-                  | vartype                 {
+                  | vartype                         {
                     auto var = new CppVar($1, std::string());
                     var->addAttr(kFuncParam);
                     $$ = var;
@@ -1086,25 +1134,30 @@ param             : varinit                 { $$ = $1; $1->addAttr(kFuncParam); 
                   }
                   ;
 
-templatearg       :                               { $$ = makeCppToken(nullptr, nullptr); }
-                  | typeidentifier                { $$ = $1; }
-                  | tknConst templatearg          { $$ = mergeCppToken($1, $2); }
-                  | templatearg tknConst          { $$ = mergeCppToken($1, $2); }
-                  | tknNumber                     { $$ = $1; }
-                  | funcobjstr                       { $$ = $1; }
+templatearg       :                               { $$ = nullptr; /*$$ = makeCppToken(nullptr, nullptr);*/ }
+                  | typeidentifier                { $$ = nullptr; /*$$ = $1;*/ }
+                  | tknConst templatearg          { $$ = nullptr; /*$$ = mergeCppToken($1, $2);*/ }
+                  | templatearg tknConst          { $$ = nullptr; /*$$ = mergeCppToken($1, $2);*/ }
+                  | tknNumber                     { $$ = nullptr; /*$$ = $1;*/ }
+                  | funcobjstr                    { $$ = nullptr; /*$$ = $1;*/ }
                   | templatearg '*'               {
+                    $$ = nullptr; /*
                     auto p = $1.sz + $1.len;
                     while (*p && (*p != '*'))
                       ++p;
                     if (*p == '*')
                       ++p;
                     $$ = makeCppToken($1.sz, p - $1.sz);
+                    */
                   }
-                  | typeidentifier '=' identifier { $$ = $1; /* TODO: use 'identifier' too */ }
+                  | templatearg '&'               { $$ = nullptr; }
+                  | expr {
+                    $$ = nullptr;
+                  }
                   ;
 
 templatearglist   : templatearg { $$ = $1; }
-                  | templatearglist ',' templatearg  { $$ = mergeCppToken($1, $3); }
+                  | templatearglist ',' templatearg  { $$ = $1; /*$$ = mergeCppToken($1, $3);*/ }
                   ;
 
 optfunctype       : {
@@ -1169,21 +1222,21 @@ ctordefn          : ctordecl meminitlist block [ZZVALID;]
                     $$->memInitList_  = $2;
                     $$->defn($3);
                   }
-                  | tknID tknScopeResOp tknID [if($1 != $3) YYERROR; else ZZVALID;]
+                  | tknID tknScopeResOp tknID [if($1 != $3) ZZERROR; else ZZVALID;]
                     '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
                   {
                     $$ = newConstructor(gCurAccessType, mergeCppToken($1, $3), $6, $9, 0);
                     $$->defn($10);
                     $$->throwSpec($8);
                   }
-                  | identifier tknScopeResOp tknID tknScopeResOp tknID [if($3 != $5) YYERROR; else ZZVALID;]
+                  | identifier tknScopeResOp tknID tknScopeResOp tknID [if($3 != $5) ZZERROR; else ZZVALID;]
                     '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
                   {
                     $$ = newConstructor(gCurAccessType, mergeCppToken($1, $5), $8, $11, 0);
                     $$->defn($12);
                     $$->throwSpec($10);
                   }
-                  | tknID '<' templatearglist '>' tknScopeResOp tknID [if($1 != $6) YYERROR; else ZZVALID;]
+                  | tknID tknLT templatearglist tknGT tknScopeResOp tknID [if($1 != $6) ZZERROR; else ZZVALID;]
                     '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
                   {
                     $$ = newConstructor(gCurAccessType, mergeCppToken($1, $6), $9, $12, 0);
@@ -1203,9 +1256,9 @@ ctordefn          : ctordecl meminitlist block [ZZVALID;]
 ctordecl          : tknID '(' paramlist ')' %prec CTORDECL
                   [
                     if(gCompoundStack.empty())
-                      YYERROR;
+                      ZZERROR;
                     if(gCompoundStack.top() != $1)
-                      YYERROR;
+                      ZZERROR;
                     else
                       ZZVALID;
                   ]
@@ -1257,19 +1310,19 @@ dtordefn          : dtordecl block [ZZVALID;]
                     $$ = $1;
                     $$->defn($2 ? $2 : newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock));
                   }
-                  | tknID tknScopeResOp '~' tknID [if($1 != $4) YYERROR; else ZZVALID;]
+                  | tknID tknScopeResOp '~' tknID [if($1 != $4) ZZERROR; else ZZVALID;]
                     '(' ')' block
                   {
                     $$ = newDestructor(gCurAccessType, mergeCppToken($1, $4), 0);
                     $$->defn($8 ? $8 : newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock));
                   }
-                  | identifier tknScopeResOp tknID tknScopeResOp '~' tknID [if($3 != $6) YYERROR; else ZZVALID;]
+                  | identifier tknScopeResOp tknID tknScopeResOp '~' tknID [if($3 != $6) ZZERROR; else ZZVALID;]
                     '(' ')' block
                   {
                     $$ = newDestructor(gCurAccessType, mergeCppToken($1, $6), 0);
                     $$->defn($10 ? $10 : newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock));
                   }
-                  | tknID '<' templatearglist '>' tknScopeResOp '~' tknID [if($1 != $7) YYERROR; else ZZVALID;]
+                  | tknID tknLT templatearglist tknGT tknScopeResOp '~' tknID [if($1 != $7) ZZERROR; else ZZVALID;]
                     '(' ')' block
                   {
                     $$ = newDestructor(gCurAccessType, mergeCppToken($1, $7), 0);
@@ -1288,9 +1341,9 @@ dtordefn          : dtordecl block [ZZVALID;]
 dtordecl          : '~' tknID '(' optvoid ')' %prec DTORDECL
                   [
                     if(gCompoundStack.empty())
-                      YYERROR;
+                      ZZERROR;
                     if(gCompoundStack.top() != $2)
-                      YYERROR;
+                      ZZERROR;
                     else
                       ZZVALID;
                   ]
@@ -1413,7 +1466,7 @@ optinheritlist    : { $$ = 0; }
                   }
                   ;
 
-protlevel         :        { $$ = CppAccessType::kUnknown;}
+protlevel         : { $$ = CppAccessType::kUnknown;}
                   | tknPublic    { $$ = CppAccessType::kPublic;    }
                   | tknProtected  { $$ = CppAccessType::kProtected;  }
                   | tknPrivate  { $$ = CppAccessType::kPrivate;  }
@@ -1439,19 +1492,19 @@ compoundSpecifier : tknClass      { $$ = CppCompoundType::kClass;     }
                   | tknNamespace  { $$ = CppCompoundType::kNamespace; }
                   ;
 
-templatespecifier : tknTemplate '<' [gInTemplateSpec = true;] templateparamlist '>' [gInTemplateSpec = false;] {
+templatespecifier : tknTemplate tknLT [gInTemplateSpec = true;] templateparamlist tknGT [gInTemplateSpec = false; ZZVALID; ] {
                     $$ = $4;
                   }
                   ;
 
-templateparamlist : {
+templateparamlist :         {
                     $$ = new CppTemplateParamList;
                   }
-                  | templateparam {
+                  | templateparam         {
                     $$ = new CppTemplateParamList;
                     $$->emplace_back($1);
                   }
-                  | templateparamlist ',' templateparam {
+                  | templateparamlist ',' templateparam         {
                     $$ = $1;
                     $$->emplace_back($3);
                   }
@@ -1474,7 +1527,7 @@ templateparam     : tknTypename optid {
                   | vartype tknID {
                     $$ = new CppTemplateParam($1, $2);
                   }
-                  | vartype tknID '=' expr {
+                  | vartype tknID '=' expr        {
                     $$ = new CppTemplateParam($1, $2);
                     $$->defaultParam($4);
                   }
@@ -1489,22 +1542,22 @@ templateparam     : tknTypename optid {
                   | tknTypename tknID ',' [
                     if (gInTemplateSpec)
                       gTemplateParamStart = $1.sz;
-                    YYERROR;
+                    ZZERROR;
                   ] { $$ = nullptr; }
-                  | tknTypename tknID '>' [
+                  | tknTypename tknID tknGT [
                     if (gInTemplateSpec)
                       gTemplateParamStart = $1.sz;
-                    YYERROR;
+                    ZZERROR;
                   ] { $$ = nullptr; }
                   | tknClass tknID ',' [
                     if (gInTemplateSpec)
                       gTemplateParamStart = $1.sz;
-                    YYERROR;
+                    ZZERROR;
                   ] { $$ = nullptr; }
-                  | tknClass tknID '>' [
+                  | tknClass tknID tknGT [
                     if (gInTemplateSpec)
                       gTemplateParamStart = $1.sz;
-                    YYERROR;
+                    ZZERROR;
                   ] { $$ = nullptr; }
                   // </TemplateParamHack>
                   ;
@@ -1529,9 +1582,15 @@ externcblock      : tknExternC block [ZZVALID;] {$$ = $2; $$->compoundType(CppCo
 
 expr              : tknStrLit                                                 { $$ = new CppExpr((std::string) $1, kNone);          }
                   | tknCharLit                                                { $$ = new CppExpr((std::string) $1, kNone);          }
-                  | tknNumber                                                 { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | tknNumber                                                         { $$ = new CppExpr((std::string) $1, kNone);          }
                   | '+' tknNumber                                             { $$ = new CppExpr((std::string) $2, kNone);          }
-                  | funcname [ if ($1.sz == gParamModPos) YYERROR; ]          { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | funcname
+                    [
+                      if ($1.sz == gParamModPos) {
+                        gParamModPos = nullptr;
+                        ZZERROR;
+                      }
+                    ]                                                         { $$ = new CppExpr((std::string) $1, kNone);          }
                   | '{' expr '}'                                              { $$ = new CppExpr($2, CppExpr::kInitializer);        }
                   | '{' expr ',' '}'                                          { $$ = new CppExpr($2, CppExpr::kInitializer);        }
                   | '{' /*empty expr*/ '}'                                    { $$ = new CppExpr((CppExpr*)nullptr, CppExpr::kInitializer);   }
@@ -1546,15 +1605,27 @@ expr              : tknStrLit                                                 { 
                   | expr tknDec  %prec POSTDECR                               { $$ = new CppExpr($1, kPostDecrement);               }
                   | expr '+' expr                                             { $$ = new CppExpr($1, kPlus, $3);                    }
                   | expr '-' expr                                             { $$ = new CppExpr($1, kMinus, $3);                   }
-                  | expr '*' expr [ if ($2.sz == gParamModPos) YYERROR; ]     { $$ = new CppExpr($1, kMul, $3);                     }
+                  | expr '*' expr
+                    [
+                      if ($2.sz == gParamModPos) {
+                        gParamModPos = nullptr;
+                        ZZERROR;
+                      }
+                    ]                                                         { $$ = new CppExpr($1, kMul, $3);                     }
                   | expr '/' expr                                             { $$ = new CppExpr($1, kDiv, $3);                     }
                   | expr '%' expr                                             { $$ = new CppExpr($1, kPercent, $3);                 }
-                  | expr '&' expr [ if ($2.sz == gParamModPos) YYERROR; ]     { $$ = new CppExpr($1, kBitAnd, $3);                  }
+                  | expr '&' expr
+                    [
+                      if ($2.sz == gParamModPos) {
+                        gParamModPos = nullptr;
+                        ZZERROR;
+                      }
+                    ]                                                         { $$ = new CppExpr($1, kBitAnd, $3);                  }
                   | expr '|' expr                                             { $$ = new CppExpr($1, kBitOr, $3);                   }
                   | expr '^' expr                                             { $$ = new CppExpr($1, kXor, $3);                     }
                   | expr '=' expr                                             { $$ = new CppExpr($1, kEqual, $3);                   }
-                  | expr '<' expr                                             { $$ = new CppExpr($1, kLess, $3);                    }
-                  | expr '>' expr                                             { $$ = new CppExpr($1, kGreater, $3);                 }
+                  | expr tknLT expr                                           { $$ = new CppExpr($1, kLess, $3);                    }
+                  | expr tknGT expr                                           { $$ = new CppExpr($1, kGreater, $3);                 }
                   | expr '?' expr ':' expr %prec TERNARYCOND                  { $$ = new CppExpr($1, $3, $5);                       }
                   | expr tknPlusEq expr                                       { $$ = new CppExpr($1, kPlusEqual, $3);               }
                   | expr tknMinusEq expr                                      { $$ = new CppExpr($1, kMinusEqual, $3);              }
@@ -1565,7 +1636,7 @@ expr              : tknStrLit                                                 { 
                   | expr tknAndEq expr                                        { $$ = new CppExpr($1, kAndEqual, $3);                }
                   | expr tknOrEq expr                                         { $$ = new CppExpr($1, kOrEqual, $3);                 }
                   | expr tknLShift expr                                       { $$ = new CppExpr($1, kLeftShift, $3);               }
-                  | expr tknRShift expr                                       { $$ = new CppExpr($1, kRightShift, $3);              }
+                  | expr rshift expr                                          { $$ = new CppExpr($1, kRightShift, $3);              }
                   | expr tknLShiftEq expr                                     { $$ = new CppExpr($1, kLShiftEqual, $3);             }
                   | expr tknRShiftEq expr                                     { $$ = new CppExpr($1, kRShiftEqual, $3);             }
                   | expr tknCmpEq expr                                        { $$ = new CppExpr($1, kCmpEqual, $3);                }
@@ -1573,9 +1644,15 @@ expr              : tknStrLit                                                 { 
                   | expr tknLessEq expr                                       { $$ = new CppExpr($1, kLessEqual, $3);               }
                   | expr tknGreaterEq expr                                    { $$ = new CppExpr($1, kGreaterEqual, $3);            }
                   | expr tkn3WayCmp expr                                      { $$ = new CppExpr($1, k3WayCmp, $3);                 }
-                  | expr tknAnd expr  [ if ($2.sz == gParamModPos) YYERROR; ] { $$ = new CppExpr($1, kAnd, $3);                     }
+                  | expr tknAnd expr
+                    [
+                      if ($2.sz == gParamModPos) {
+                        gParamModPos = nullptr;
+                        ZZERROR;
+                      }
+                    ]                                                         { $$ = new CppExpr($1, kAnd, $3);                     }
                   | expr tknOr expr                                           { $$ = new CppExpr($1, kOr, $3);                      }
-                  | expr ',' expr                                             { $$ = new CppExpr($1, kComma, $3);                   }
+                  | expr ',' expr %prec COMMA                                 { $$ = new CppExpr($1, kComma, $3);                   }
                   | expr '.' expr                                             { $$ = new CppExpr($1, kDot, $3);                     }
                   | expr tknArrow expr                                        { $$ = new CppExpr($1, kArrow, $3);                   }
                   | expr tknArrowStar expr                                    { $$ = new CppExpr($1, kArrowStar, $3);               }
@@ -1586,10 +1663,10 @@ expr              : tknStrLit                                                 { 
                   /* TODO: Properly support uniform initialization */
                   | expr '{' expr '}' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                     { $$ = new CppExpr($2, kCStyleCast, $4);              }
-                  | tknConstCast '<' vartype '>' '(' expr ')'                 { $$ = new CppExpr($3, kConstCast, $6);               }
-                  | tknStaticCast '<' vartype '>' '(' expr ')'                { $$ = new CppExpr($3, kStaticCast, $6);              }
-                  | tknDynamicCast '<' vartype '>' '(' expr ')'               { $$ = new CppExpr($3, kDynamicCast, $6);             }
-                  | tknReinterpretCast '<' vartype '>' '(' expr ')'           { $$ = new CppExpr($3, kReinterpretCast, $6);         }
+                  | tknConstCast tknLT vartype tknGT '(' expr ')'             { $$ = new CppExpr($3, kConstCast, $6);               }
+                  | tknStaticCast tknLT vartype tknGT '(' expr ')'            { $$ = new CppExpr($3, kStaticCast, $6);              }
+                  | tknDynamicCast tknLT vartype tknGT '(' expr ')'           { $$ = new CppExpr($3, kDynamicCast, $6);             }
+                  | tknReinterpretCast tknLT vartype tknGT '(' expr ')'       { $$ = new CppExpr($3, kReinterpretCast, $6);         }
                   | '(' expr ')'                                              { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
                   | tknNew typeidentifier                                     { $$ = new CppExpr((std::string) $2, CppExpr::kNew);  }
                   | tknNew '(' expr ')' expr %prec tknNew                     { $$ = new CppExpr($3, kPlacementNew, $5);            }
@@ -1602,6 +1679,8 @@ expr              : tknStrLit                                                 { 
                   | tknThrow                                                  { $$ = new CppExpr(CppExprAtom(), CppExpr::kThrow);   }
                   | tknSizeOf '(' vartype ')'                                 { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
                   | tknSizeOf '(' expr ')'                                    { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
+                  | tknSizeOf tknEllipsis '(' vartype ')'                     { $$ = new CppExpr($4, CppExpr::kSizeOf);             }
+                  | tknSizeOf tknEllipsis '(' expr ')'                        { $$ = new CppExpr($4, CppExpr::kSizeOf);             }
                   | expr tknEllipsis                                          { $$ = $1; /* TODO */ }
                   ;
 
@@ -1671,6 +1750,7 @@ CppCompoundPtr parseStream(char* stm, size_t stmSize)
   gLineNo = 1; // Reset so that we do not start counting beyond previous parsing.
   gTemplateParamStart = nullptr;
   gParamModPos = nullptr;
+  gInTemplateSpec = false;
   yyparse();
   cleanupScanBuffer();
   CppCompoundStack tmpStack;

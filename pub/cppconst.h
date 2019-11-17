@@ -62,6 +62,7 @@ enum class CppObjType : std::uint8_t
   kExpressionList,
   kFuncCall, // A function call expression
   kMacroCall,
+  kAsmBlock,
   kBlob, // Some unparsed/unrecognized part of C++ source code.
   kCppStatementObjectTypeEnds,
 
@@ -189,6 +190,7 @@ enum /*class*/ CppIdentifierAttrib : std::uint32_t
   kDelete      = 0x10000,
   kNoExcept    = 0x20000,
   kExternC     = 0x40000,
+  kTrailingRet = 0x80000,
 };
 
 /**

@@ -1540,6 +1540,20 @@ struct CppBlob : public CppObj
   }
 };
 
+// Templare argument needs more robust support.
+// As of now we are treating them just as string.
+// But for parsing we need to have a type.
+struct CppTemplateArg;
+
+struct CppAsmBlock : public CppObj { 
+  const std::string asm_; // Entire asm block including keyword asm.
+
+  CppAsmBlock(std::string asmBlock)
+    : CppObj(CppObjType::kAsmBlock, CppAccessType::kUnknown)
+    , asm_(std::move(asmBlock))
+  {}
+};
+
 //////////////////////////////////////////////////////////////////////////
 
 inline void CppExprAtom::destroy() const

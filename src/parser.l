@@ -37,6 +37,7 @@ For this very reason this file does not use any class that are defined in cppast
 #include "cpptoken.h"
 #include "parser.tab.h"
 
+#include <functional>
 #include <iostream>
 #include <map>
 #include <set>
@@ -97,11 +98,52 @@ int get_context()
   return YYSTATE;
 }
 
-inline void set_token_and_yyposn()
+static void set_token_and_yyposn()
 {
   extern char* yyposn;
   yyposn = yytext;
   yylval.str = makeCppToken(yytext, yyleng);
+}
+
+using YYLessProc = std::function<void(int)>;
+
+// yyless is not available outside of lexing context.
+// So, yylessfn is the callback that caller needs to pass
+// that just calls yyless();
+static void tokenize_bracketed_content(YYLessProc yylessfn)
+{
+  // yyinput() has bug (see https://github.com/westes/flex/pull/396)
+  // So, I am exploiting yyless() by passing value bigger than yyleng.
+  auto savedlen = yyleng;
+  auto input = [&]() {
+    yylessfn(yyleng+1);
+    return yytext[yyleng-1];
+  };
+  int c = 0;
+  while (isspace(c = input()))
+    ;
+  if (c == '(')
+  {
+    int openBracket = 1;
+    for (c = input(); openBracket && (c != EOF); c = input())
+    {
+      if (c == '(')
+      {
+        ++openBracket;
+      }
+      else if (c == ')')
+      {
+        --openBracket;
+        if (!openBracket)
+          break;
+      }
+    }
+  }
+  else
+  {
+    yylessfn(savedlen+1);
+  }
+  set_token_and_yyposn();
 }
 
 /*
@@ -213,53 +255,26 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxGeneral>{ID} {
   if (gMacroNames.count(yytext))
   {
-    // yyinput() has bug (see https://github.com/westes/flex/pull/396)
-    // So, I am exploiting yyless() by passing value bigger than yyleng.
-    auto savedlen = yyleng;
-    auto input = [&]() {
-      yyless(yyleng+1);
-      return yytext[yyleng-1];
-    };
-    int c = 0;
-    while (isspace(c = input()))
-      ;
-    if (c == '(')
-    {
-      int openBracket = 1;
-      for (c = input(); openBracket && (c != EOF); c = input())
-      {
-        if (c == '(')
-        {
-          ++openBracket;
-        }
-        else if (c == ')')
-        {
-          --openBracket;
-          if (!openBracket)
-            break;
-        }
-      }
-    }
-    else
-    {
-      yyless(savedlen+1);
-    }
-    set_token_and_yyposn();
+    tokenize_bracketed_content([&](int l) { yyless(l); } );
     RETURN(tknMacro);
   }
 
-  set_token_and_yyposn();
-  if (gKnownApiDecorNames.count(yylval.str))
+  if (gKnownApiDecorNames.count(yytext))
   {
+    tokenize_bracketed_content([&](int l) { yyless(l); } );
     RETURN(tknApiDecor);
   }
-  else
-  {
-    auto itr = gRenamedKeywords.find(yylval.str);
-    if (itr != gRenamedKeywords.end())
-      return itr->second;
-    RETURN(tknID);
-  }
+
+  set_token_and_yyposn();
+  auto itr = gRenamedKeywords.find(yylval.str);
+  if (itr != gRenamedKeywords.end())
+    return itr->second;
+  RETURN(tknID);
+}
+
+<ctxGeneral>asm/{TS} {
+  tokenize_bracketed_content([&](int l) { yyless(l); } );
+  RETURN(tknAsm);
 }
 
 <ctxGeneral>signed|unsigned/{TS}+ {
@@ -290,6 +305,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxGeneral>char/{TS}+ {
   set_token_and_yyposn();
   RETURN(tknChar);
+}
+
+<ctxGeneral>auto/{TS}+ {
+  set_token_and_yyposn();
+  RETURN(tknAuto);
 }
 
 <ctxGeneral>typedef{TS}+ {
@@ -835,11 +855,6 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknLShift);
 }
 
-<ctxGeneral>">>" {
-  set_token_and_yyposn();
-  RETURN(tknRShift);
-}
-
 <ctxGeneral>"<<=" {
   set_token_and_yyposn();
   RETURN(tknLShiftEq);
@@ -930,9 +945,19 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknCharLit);
 }
 
-<ctxGeneral>\(|\)|\{|\}|\[|\]|,|;|#|=|\*|\+|-|\.|\/|\~|\<|\>|%|\^|&|\||:|\?|\! {
+<ctxGeneral>\(|\)|\{|\}|\[|\]|,|;|#|=|\*|\+|-|\.|\/|\~|%|\^|&|\||:|\?|\! {
   set_token_and_yyposn();
   RETURN(yytext[0]);
+}
+
+<ctxGeneral>">" {
+  set_token_and_yyposn();
+  RETURN(tknGT);
+}
+
+<ctxGeneral>"<" {
+  set_token_and_yyposn();
+  RETURN(tknLT);
 }
 
 <ctxGeneral>\.\.\. {
