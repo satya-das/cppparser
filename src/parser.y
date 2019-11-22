@@ -260,7 +260,7 @@ extern int yylex();
 %type  <templateParamList>  templatespecifier templateparamlist
 %type  <templateParam>      templateparam
 %type  <docCommentObj>      doccomment
-%type  <cppExprObj>         expr exprstmt optexpr
+%type  <cppExprObj>         expr exprlist exprstmt optexpr
 %type  <ifBlock>            ifblock;
 %type  <whileBlock>         whileblock;
 %type  <doWhileBlock>       dowhileblock;
@@ -752,7 +752,7 @@ vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
 vardeclstmt       : vardecl ';'             [ZZVALID;] { $$ = $1; }
                   | varinit ';'             [ZZVALID;] { $$ = $1; }
                   | apidecor vardeclstmt    [ZZVALID;] { $$ = $2; $$->apidecor($1); }
-                  | vardeclstmt             [ZZVALID;] { $$ = $1; }
+                  | exptype vardeclstmt     [ZZVALID;] { $$ = $2; $$->addAttr($1); }
                   ;
 
 vardecllist       : typeidentifier opttypemodifier tknID ',' opttypemodifier tknID {
@@ -773,6 +773,10 @@ varinit           : vardecl '(' typeidentifier '*' tknID      [gParamModPos = $4
                   | vardecl '(' typeidentifier tknAnd tknID   [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl '(' typeidentifier ')'            [gParamModPos = $3.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl '=' expr {
+                    $$ = $1;
+                    $$->assign($3, AssignType::kUsingEqual);
+                  }
+                  | vardecl '=' exprlist {
                     $$ = $1;
                     $$->assign($3, AssignType::kUsingEqual);
                   }
@@ -1036,7 +1040,6 @@ funcobjstr        : typeidentifier optapidecor '(' paramlist ')' {
 
 funcname          : operfuncname { $$ = $1; }
                   | identifier   { $$ = $1; }
-                  | typeidentifier { $$ = $1; }
                   | tknScopeResOp operfuncname { $$ = mergeCppToken($1, $2); }
                   | identifier tknScopeResOp operfuncname { $$ = mergeCppToken($1, $3); }
                   /* For function style type casting */
@@ -1652,7 +1655,6 @@ expr              : tknStrLit                                                 { 
                       }
                     ]                                                         { $$ = new CppExpr($1, kAnd, $3);                     }
                   | expr tknOr expr                                           { $$ = new CppExpr($1, kOr, $3);                      }
-                  | expr ',' expr %prec COMMA                                 { $$ = new CppExpr($1, kComma, $3);                   }
                   | expr '.' expr                                             { $$ = new CppExpr($1, kDot, $3);                     }
                   | expr tknArrow expr                                        { $$ = new CppExpr($1, kArrow, $3);                   }
                   | expr tknArrowStar expr                                    { $$ = new CppExpr($1, kArrowStar, $3);               }
@@ -1660,14 +1662,17 @@ expr              : tknStrLit                                                 { 
                   | expr '[' ']' %prec SUBSCRIPT                              { $$ = new CppExpr($1, kArrayElem);                   }
                   | expr '(' ')' %prec FUNCCALL                               { $$ = new CppExpr($1, kFunctionCall);                }
                   | expr '(' expr ')' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | expr '(' exprlist ')' %prec FUNCCALL                      { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   /* TODO: Properly support uniform initialization */
                   | expr '{' expr '}' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | expr '{' exprlist '}' %prec FUNCCALL                      { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                     { $$ = new CppExpr($2, kCStyleCast, $4);              }
                   | tknConstCast tknLT vartype tknGT '(' expr ')'             { $$ = new CppExpr($3, kConstCast, $6);               }
                   | tknStaticCast tknLT vartype tknGT '(' expr ')'            { $$ = new CppExpr($3, kStaticCast, $6);              }
                   | tknDynamicCast tknLT vartype tknGT '(' expr ')'           { $$ = new CppExpr($3, kDynamicCast, $6);             }
                   | tknReinterpretCast tknLT vartype tknGT '(' expr ')'       { $$ = new CppExpr($3, kReinterpretCast, $6);         }
                   | '(' expr ')'                                              { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
+                  | '(' exprlist ')'                                          { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
                   | tknNew typeidentifier                                     { $$ = new CppExpr((std::string) $2, CppExpr::kNew);  }
                   | tknNew '(' expr ')' expr %prec tknNew                     { $$ = new CppExpr($3, kPlacementNew, $5);            }
                   | tknScopeResOp tknNew '(' expr ')' expr %prec tknNew       { $$ = new CppExpr($4, kPlacementNew, $6);            }
@@ -1683,6 +1688,11 @@ expr              : tknStrLit                                                 { 
                   | tknSizeOf tknEllipsis '(' expr ')'                        { $$ = new CppExpr($4, CppExpr::kSizeOf);             }
                   | expr tknEllipsis                                          { $$ = $1; /* TODO */ }
                   ;
+
+exprlist          : expr ',' expr %prec COMMA                                 { $$ = new CppExpr($1, kComma, $3);                   }
+                  | exprlist ',' expr %prec COMMA                             { $$ = new CppExpr($1, kComma, $3);                   }
+                  ;
+
 
 exprstmt          : expr ';'  [ZZVALID;]              { $$ = $1; }
                   ;
