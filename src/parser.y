@@ -68,10 +68,14 @@ static int gLog = 0;
 }
 
 #define ZZVALID   { \
+  if (gLog) \
+    printf("ZZVALID: ");  \
   ZZLOG;\
   YYVALID; }
 
 #define ZZERROR   do{ \
+  if (gLog) \
+    printf("ZZERROR: ");  \
   ZZLOG;\
   YYERROR; } while(0)
   
@@ -260,7 +264,7 @@ extern int yylex();
 %type  <templateParamList>  templatespecifier templateparamlist
 %type  <templateParam>      templateparam
 %type  <docCommentObj>      doccomment
-%type  <cppExprObj>         expr exprlist exprstmt optexpr
+%type  <cppExprObj>         expr exprlist exprorlist funcargs exprstmt optexpr
 %type  <ifBlock>            ifblock;
 %type  <whileBlock>         whileblock;
 %type  <doWhileBlock>       dowhileblock;
@@ -526,6 +530,9 @@ optexpr           : {
                   | expr {
                     $$ = $1;
                   }
+                  | exprlist {
+                    $$ = $1;
+                  }
                   ;
 
 define            : tknPreProHash tknDefine tknID tknID         [ZZVALID;] {
@@ -772,19 +779,15 @@ varinit           : vardecl '(' typeidentifier '*' tknID      [gParamModPos = $4
                   | vardecl '(' typeidentifier '&' tknID      [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl '(' typeidentifier tknAnd tknID   [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl '(' typeidentifier ')'            [gParamModPos = $3.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '=' expr {
+                  | vardecl '=' exprorlist {
                     $$ = $1;
                     $$->assign($3, AssignType::kUsingEqual);
                   }
-                  | vardecl '=' exprlist {
-                    $$ = $1;
-                    $$->assign($3, AssignType::kUsingEqual);
-                  }
-                  | vardecl '(' expr ')' {
+                  | vardecl '(' funcargs ')' {
                     $$ = $1;
                     $$->assign($3, AssignType::kUsingBracket);
                   }
-                  | vardecl '{' expr '}' {
+                  | vardecl '{' funcargs '}' {
                     $$ = $1;
                     $$->assign($3, AssignType::kUsingBraces);
                   }
@@ -833,8 +836,8 @@ vartype           : typeidentifier opttypemodifier         {
                   }
                   ;
 
-varidentifier     : identifier             { $$ = $1; }
-                  | '(' '&' tknID ')'       { $$ = mergeCppToken($1, $4); }
+varidentifier     : identifier              { $$ = $1; }
+                  | '(' '&' tknID ')'      [ ZZLOG; ] { $$ = mergeCppToken($1, $4); }
                   | '(' '*' tknID ')'       { $$ = mergeCppToken($1, $4); }
                   | '(' '*' '*' tknID ')'   { $$ = mergeCppToken($1, $5); }
                   ;
@@ -1047,6 +1050,7 @@ funcname          : operfuncname { $$ = $1; }
                   | tknShort    { $$ = $1; }
                   | tknChar     { $$ = $1; }
                   | tknLong     { $$ = $1; }
+                  | tknVoid     { $$ = $1; } /* void is used to cast away unused variable. */
                   ;
 
 rshift            : tknGT tknGT %prec RSHIFT [ if ($2.sz != ($1.sz + 1)) ZZERROR; ] { $$ = mergeCppToken($1, $2); }
@@ -1299,10 +1303,10 @@ meminitlist       : { $$ = nullptr; }
                   | meminitlist ',' meminit     { $$ = $1; $$->push_back(CppMemInit($3.mem, $3.init)); }
                   ;
 
-meminit           : identifier '(' expr ')'     { $$ = CppNtMemInit{$1, $3}; }
-                  | identifier '(' ')'          { $$ = CppNtMemInit{$1, nullptr}; }
-                  | identifier '{' expr '}'     { $$ = CppNtMemInit{$1, $3}; }
-                  | identifier '{' '}'          { $$ = CppNtMemInit{$1, nullptr}; }
+meminit           : identifier '(' exprorlist ')'     { $$ = CppNtMemInit{$1, $3}; }
+                  | identifier '(' ')'                { $$ = CppNtMemInit{$1, nullptr}; }
+                  | identifier '{' exprorlist '}'     { $$ = CppNtMemInit{$1, $3}; }
+                  | identifier '{' '}'                { $$ = CppNtMemInit{$1, nullptr}; }
                   ;
 
 dtordeclstmt      : dtordecl ';' [ZZVALID;]     { $$ = $1; }
@@ -1594,6 +1598,8 @@ expr              : tknStrLit                                                 { 
                         ZZERROR;
                       }
                     ]                                                         { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | '{' exprlist '}'                                          { $$ = new CppExpr($2, CppExpr::kInitializer);        }
+                  | '{' exprlist ',' '}'                                      { $$ = new CppExpr($2, CppExpr::kInitializer);        }
                   | '{' expr '}'                                              { $$ = new CppExpr($2, CppExpr::kInitializer);        }
                   | '{' expr ',' '}'                                          { $$ = new CppExpr($2, CppExpr::kInitializer);        }
                   | '{' /*empty expr*/ '}'                                    { $$ = new CppExpr((CppExpr*)nullptr, CppExpr::kInitializer);   }
@@ -1601,7 +1607,7 @@ expr              : tknStrLit                                                 { 
                   | '~' expr                                                  { $$ = new CppExpr($2, kBitToggle);                   }
                   | '!' expr                                                  { $$ = new CppExpr($2, kLogNot);                      }
                   | '*' expr %prec DEREF                                      { $$ = new CppExpr($2, kDerefer);                     }
-                  | '&' expr %prec ADDRESSOF                                  { $$ = new CppExpr($2, kRefer);                       }
+                  | '&' expr %prec ADDRESSOF  [ ZZLOG; ]                                { $$ = new CppExpr($2, kRefer);                       }
                   | tknInc expr  %prec PREINCR                                { $$ = new CppExpr($2, kPreIncrement);                }
                   | expr tknInc  %prec POSTINCR                               { $$ = new CppExpr($1, kPostIncrement);               }
                   | tknDec expr  %prec PREDECR                                { $$ = new CppExpr($2, kPreDecrement);                }
@@ -1661,24 +1667,21 @@ expr              : tknStrLit                                                 { 
                   | expr '[' expr ']' %prec SUBSCRIPT                         { $$ = new CppExpr($1, kArrayElem, $3);               }
                   | expr '[' ']' %prec SUBSCRIPT                              { $$ = new CppExpr($1, kArrayElem);                   }
                   | expr '(' ')' %prec FUNCCALL                               { $$ = new CppExpr($1, kFunctionCall);                }
-                  | expr '(' expr ')' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
-                  | expr '(' exprlist ')' %prec FUNCCALL                      { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | expr '(' exprorlist ')' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   /* TODO: Properly support uniform initialization */
-                  | expr '{' expr '}' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
-                  | expr '{' exprlist '}' %prec FUNCCALL                      { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | expr '{' exprorlist '}' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                     { $$ = new CppExpr($2, kCStyleCast, $4);              }
                   | tknConstCast tknLT vartype tknGT '(' expr ')'             { $$ = new CppExpr($3, kConstCast, $6);               }
                   | tknStaticCast tknLT vartype tknGT '(' expr ')'            { $$ = new CppExpr($3, kStaticCast, $6);              }
                   | tknDynamicCast tknLT vartype tknGT '(' expr ')'           { $$ = new CppExpr($3, kDynamicCast, $6);             }
                   | tknReinterpretCast tknLT vartype tknGT '(' expr ')'       { $$ = new CppExpr($3, kReinterpretCast, $6);         }
-                  | '(' expr ')'                                              { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
-                  | '(' exprlist ')'                                          { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
+                  | '(' exprorlist ')'                                        { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
                   | tknNew typeidentifier                                     { $$ = new CppExpr((std::string) $2, CppExpr::kNew);  }
                   | tknNew '(' expr ')' expr %prec tknNew                     { $$ = new CppExpr($3, kPlacementNew, $5);            }
                   | tknScopeResOp tknNew '(' expr ')' expr %prec tknNew       { $$ = new CppExpr($4, kPlacementNew, $6);            }
                   | tknDelete  expr                                           { $$ = $2; $2->flags_ |= CppExpr::kDelete;            }
                   | tknDelete  '[' ']' expr %prec tknDelete                   { $$ = $4; $4->flags_ |= CppExpr::kDeleteArray;       }
-                  | tknReturn  expr                                           { $$ = $2; $2->flags_ |= CppExpr::kReturn;            }
+                  | tknReturn  exprorlist                                     { $$ = $2; $2->flags_ |= CppExpr::kReturn;            }
                   | tknReturn                                                 { $$ = new CppExpr(CppExprAtom(), CppExpr::kReturn);  }
                   | tknThrow  expr                                            { $$ = $2; $2->flags_ |= CppExpr::kThrow;             }
                   | tknThrow                                                  { $$ = new CppExpr(CppExprAtom(), CppExpr::kThrow);   }
@@ -1693,6 +1696,13 @@ exprlist          : expr ',' expr %prec COMMA                                 { 
                   | exprlist ',' expr %prec COMMA                             { $$ = new CppExpr($1, kComma, $3);                   }
                   ;
 
+exprorlist        : expr      { $$ = $1; }
+                  | exprlist  { $$ = $1; }
+                  ;
+
+funcargs          :             { $$ = nullptr; }
+                  | exprorlist  { $$ = $1;      }
+                  ;
 
 exprstmt          : expr ';'  [ZZVALID;]              { $$ = $1; }
                   ;

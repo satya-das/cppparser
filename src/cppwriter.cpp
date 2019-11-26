@@ -243,13 +243,15 @@ void CppWriter::emitVarDecl(std::ostream& stm, const CppVarDecl& varDecl, bool s
   else if (varDecl.assignType() == AssignType::kUsingBracket)
   {
     stm << '(';
-    emit(varDecl.assignValue(), stm, CppIndent(), true);
+    if (varDecl.assignValue())
+      emit(varDecl.assignValue(), stm, CppIndent(), true);
     stm << ')';
   }
   else if (varDecl.assignType() == AssignType::kUsingBraces)
   {
     stm << '{';
-    emit(varDecl.assignValue(), stm, CppIndent(), true);
+    if (varDecl.assignValue())
+      emit(varDecl.assignValue(), stm, CppIndent(), true);
     stm << '}';
   }
 }

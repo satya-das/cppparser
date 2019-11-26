@@ -159,6 +159,7 @@ enum /*class*/ CppOperator : std::uint8_t
   kFunctionCall,
   kArrayElem, // x[5]
   kCStyleCast,
+  kFunctionStyleCast,
   kConstCast,
   kStaticCast,
   kDynamicCast,

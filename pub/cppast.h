@@ -1033,10 +1033,10 @@ struct CppFunctionPtr : public CppFunction
   CppFunctionPtr(CppAccessType   accessType,
                  std::string     name,
                  CppVarType*     retType,
-                 CppParamVector* args,
+                 CppParamVector* params,
                  std::uint32_t   attr,
                  std::string     ownerName = std::string())
-    : CppFunction(kObjectType, accessType, std::move(name), retType, args, attr)
+    : CppFunction(kObjectType, accessType, std::move(name), retType, params, attr)
     , ownerName_(std::move(ownerName))
   {
   }
