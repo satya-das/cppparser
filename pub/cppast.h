@@ -875,10 +875,41 @@ using CppFuncThrowSpec    = CppIdentifierList;
 using CppCompoundPtr      = std::unique_ptr<CppCompound>;
 using CppFuncThrowSpecPtr = std::unique_ptr<CppFuncThrowSpec>;
 
+struct CppFuncLikeBase : public CppObj
+{
+  const CppFuncThrowSpec* throwSpec() const
+  {
+    return throwSpec_.get();
+  }
+  void throwSpec(CppFuncThrowSpec* _throwSpec)
+  {
+    throwSpec_.reset(_throwSpec);
+  }
+
+  const CppCompound* defn() const
+  {
+    return defn_.get();
+  }
+  void defn(CppCompound* _defn)
+  {
+    defn_.reset(_defn);
+  }
+
+protected:
+  CppFuncLikeBase(CppObjType type, CppAccessType accessType)
+    : CppObj(type, accessType)
+  {
+  }
+
+private:
+  CppCompoundPtr          defn_;   // If it is nullptr then this object is just for declaration.
+  CppFuncThrowSpecPtr     throwSpec_;
+};
+
 /**
  * \brief Base class of constructor, destructor, and functions.
  */
-struct CppFunctionBase : public CppObj
+struct CppFunctionBase : public CppFuncLikeBase
 {
   const std::string name_;
 
@@ -918,40 +949,19 @@ struct CppFunctionBase : public CppObj
     templSpec_.reset(templParamList);
   }
 
-  const CppFuncThrowSpec* throwSpec() const
-  {
-    return throwSpec_.get();
-  }
-  void throwSpec(CppFuncThrowSpec* _throwSpec)
-  {
-    throwSpec_.reset(_throwSpec);
-  }
-
-  const CppCompound* defn() const
-  {
-    return defn_.get();
-  }
-  void defn(CppCompound* _defn)
-  {
-    defn_.reset(_defn);
-  }
-
 protected:
   CppFunctionBase(CppObjType type, CppAccessType accessType, std::string name, std::uint32_t attr)
-    : CppObj(type, accessType)
+    : CppFuncLikeBase(type, accessType)
     , name_(std::move(name))
     , attr_(attr)
-    , defn_(nullptr)
   {
   }
 
 private:
   std::uint32_t           attr_;   // e.g.: const, static, virtual, inline, constexpr, etc.
-  CppCompoundPtr          defn_;   // If it is nullptr then this object is just for declaration.
   std::string             decor1_; // e.g. __declspec(dllexport)
   std::string             decor2_; // e.g. __stdcall
   CppTemplateParamListPtr templSpec_;
-  CppFuncThrowSpecPtr     throwSpec_;
 };
 
 using CppParamVector    = std::vector<CppObjPtr>;
@@ -1012,6 +1022,28 @@ protected:
               std::uint32_t   attr)
     : CppFuncCtorBase(type, accessType, std::move(name), params, attr)
     , retType_(retType)
+  {
+  }
+};
+
+struct CppLambda : public CppFuncLikeBase
+{
+  static constexpr CppObjType kObjectType = CppObjType::kLambda;
+
+  const CppExprPtr        captures_;
+  const CppParamVectorPtr params_;
+  const CppVarTypePtr     retType_;
+  const CppCompoundPtr    defn_;
+
+  CppLambda(CppExpr*        captures,
+            CppParamVector* params,
+            CppCompound*    defn,
+            CppVarType*     retType = nullptr)
+    : CppFuncLikeBase(kObjectType, CppAccessType::kUnknown),
+      captures_(captures),
+      params_(params),
+      retType_(retType),
+      defn_(defn)
   {
   }
 };
@@ -1217,6 +1249,7 @@ struct CppExprAtom
   {
     std::string* atom;
     CppExpr*     expr;
+    CppLambda*   lambda;
     CppVarType*  varType; //!< For type cast, and sizeof expression.
   };
 
@@ -1225,6 +1258,7 @@ struct CppExprAtom
     kInvalid,
     kAtom,
     kExpr,
+    kLambda,
     kVarType
   } type;
 
@@ -1251,6 +1285,11 @@ struct CppExprAtom
   CppExprAtom(CppExpr* e)
     : expr(e)
     , type(kExpr)
+  {
+  }
+  CppExprAtom(CppLambda* l)
+    : lambda(l)
+    , type(kLambda)
   {
   }
   CppExprAtom(CppVarType* vType)
@@ -1331,6 +1370,14 @@ struct CppExpr : public CppObj
     , expr2_(e2)
     , expr3_(e3)
     , oper_(kTertiaryOperator)
+    , flags_(0)
+  {
+  }
+
+  CppExpr(CppLambda* l)
+    : CppObj(kObjectType, CppAccessType::kUnknown)
+    , expr1_(l)
+    , oper_(kNone)
     , flags_(0)
   {
   }
@@ -1568,6 +1615,9 @@ inline void CppExprAtom::destroy() const
       break;
     case CppExprAtom::kVarType:
       delete varType;
+      break;
+    case CppExprAtom::kLambda:
+      delete lambda;
       break;
 
     default:

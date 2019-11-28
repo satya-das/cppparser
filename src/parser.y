@@ -155,6 +155,7 @@ extern int yylex();
   CppVarList*             cppVarObjList;
   CppUnRecogPrePro*       unRecogPreProObj;
   CppExpr*                cppExprObj;
+  CppLambda*              cppLambda;
   CppFunction*            cppFuncObj;
   CppFunctionPtr*         cppFuncPointerObj;
   CppObj*                 varOrFuncPtr;
@@ -265,6 +266,7 @@ extern int yylex();
 %type  <templateParam>      templateparam
 %type  <docCommentObj>      doccomment
 %type  <cppExprObj>         expr exprlist exprorlist funcargs exprstmt optexpr
+%type  <cppLambda>          lambda
 %type  <ifBlock>            ifblock;
 %type  <whileBlock>         whileblock;
 %type  <doWhileBlock>       dowhileblock;
@@ -935,13 +937,13 @@ funcdefn          : funcdecl block [ZZVALID;] {
                   }
                   ;
 
-/*
-lambda            : '[' paramlist ']' '(' paramlist ')' block [ZZVALID;] {
-                    $$ = newFunction(gCurAccessType, CPPPARSER::LAMBDA, nullptr, $5, 0);
-                    $$->defn($7 ? $7 : newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock));
+lambda            : '[' funcargs ']' '(' paramlist ')' block [ZZVALID;] {
+                    $$ = new CppLambda($2, $5, $7);
+                  }
+                  | '[' funcargs ']' '(' paramlist ')' tknArrow vartype block [ZZVALID;] {
+                    $$ = new CppLambda($2, $5, $9, $8);
                   }
                   ;
-*/
 
 functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                     $2->addAttr(kTypedef);
@@ -1666,10 +1668,9 @@ expr              : tknStrLit                                                 { 
                   | expr tknArrowStar expr                                    { $$ = new CppExpr($1, kArrowStar, $3);               }
                   | expr '[' expr ']' %prec SUBSCRIPT                         { $$ = new CppExpr($1, kArrayElem, $3);               }
                   | expr '[' ']' %prec SUBSCRIPT                              { $$ = new CppExpr($1, kArrayElem);                   }
-                  | expr '(' ')' %prec FUNCCALL                               { $$ = new CppExpr($1, kFunctionCall);                }
-                  | expr '(' exprorlist ')' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | expr '(' funcargs ')' %prec FUNCCALL                      { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   /* TODO: Properly support uniform initialization */
-                  | expr '{' exprorlist '}' %prec FUNCCALL                          { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | expr '{' exprorlist '}' %prec FUNCCALL                    { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                     { $$ = new CppExpr($2, kCStyleCast, $4);              }
                   | tknConstCast tknLT vartype tknGT '(' expr ')'             { $$ = new CppExpr($3, kConstCast, $6);               }
                   | tknStaticCast tknLT vartype tknGT '(' expr ')'            { $$ = new CppExpr($3, kStaticCast, $6);              }
@@ -1690,6 +1691,7 @@ expr              : tknStrLit                                                 { 
                   | tknSizeOf tknEllipsis '(' vartype ')'                     { $$ = new CppExpr($4, CppExpr::kSizeOf);             }
                   | tknSizeOf tknEllipsis '(' expr ')'                        { $$ = new CppExpr($4, CppExpr::kSizeOf);             }
                   | expr tknEllipsis                                          { $$ = $1; /* TODO */ }
+                  | lambda                                                    { $$ = new CppExpr($1); }
                   ;
 
 exprlist          : expr ',' expr %prec COMMA                                 { $$ = new CppExpr($1, kComma, $3);                   }

@@ -54,6 +54,7 @@ enum class CppObjType : std::uint8_t
   kCompound,   // file, namespace, class, struct, union, block.
   kFwdClsDecl, // Forward declaration of compound type.
   kFunction,
+  kLambda,
   kConstructor,
   kDestructor,
   kTypeConverter,
