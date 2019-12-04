@@ -26,6 +26,7 @@
 %{
 #include "cpptoken.h"
 #include "cppast.h"
+#include "cppvarinit.h"
 #include "parser.tab.h"
 #include "cppobjfactory.h"
 #include "utils.h"
@@ -153,6 +154,7 @@ extern int yylex();
   CppDocComment*          docCommentObj;
   CppFwdClsDecl*          fwdDeclObj;
   CppVarList*             cppVarObjList;
+  CppVarAssign            cppVarAssign;
   CppUnRecogPrePro*       unRecogPreProObj;
   CppExpr*                cppExprObj;
   CppLambda*              cppLambda;
@@ -250,6 +252,7 @@ extern int yylex();
 %type  <fwdDeclObj>         fwddecl
 %type  <cppVarType>         vartype
 %type  <cppVarObj>          vardecl varinit vardeclstmt
+%type  <cppVarAssign>       varassign
 %type  <varOrFuncPtr>       param
 %type  <str>                funcobjstr /* Identify funcobjstr as str, at least for time being */
 %type  <templateArg>        templatearg templatearglist /* For time being. We may need to make it more robust in future. */
@@ -781,21 +784,24 @@ varinit           : vardecl '(' typeidentifier '*' tknID      [gParamModPos = $4
                   | vardecl '(' typeidentifier '&' tknID      [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl '(' typeidentifier tknAnd tknID   [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl '(' typeidentifier ')'            [gParamModPos = $3.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '=' exprorlist {
+                  | vardecl varassign {
                     $$ = $1;
-                    $$->assign($3, AssignType::kUsingEqual);
-                  }
-                  | vardecl '(' funcargs ')' {
-                    $$ = $1;
-                    $$->assign($3, AssignType::kUsingBracket);
-                  }
-                  | vardecl '{' funcargs '}' {
-                    $$ = $1;
-                    $$->assign($3, AssignType::kUsingBraces);
+                    $$->assign($2.assignValue_, $2.assignType_);
                   }
                   | tknConstExpr varinit {
                     $$ = $2;
                     $$->addAttr(kConstExpr);
+                  }
+                  ;
+
+varassign         : '=' expr {
+                    $$ = CppVarAssign{$2, AssignType::kUsingEqual};
+                  }
+                  | '(' funcargs ')' {
+                    $$ = CppVarAssign{$2, AssignType::kUsingBracket};
+                  }
+                  | '{' funcargs '}' {
+                    $$ = CppVarAssign{$2, AssignType::kUsingBraces};
                   }
                   ;
 

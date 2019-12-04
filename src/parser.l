@@ -35,6 +35,7 @@ For this very reason this file does not use any class that are defined in cppast
 #include "cppconst.h" // To shutup the compiler
 
 #include "cpptoken.h"
+#include "cppvarinit.h"
 #include "parser.tab.h"
 
 #include <functional>
@@ -141,7 +142,7 @@ static void tokenize_bracketed_content(YYLessProc yylessfn)
   }
   else
   {
-    yylessfn(savedlen+1);
+    yylessfn(savedlen);
   }
   set_token_and_yyposn();
 }
