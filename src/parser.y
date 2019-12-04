@@ -252,7 +252,7 @@ extern int yylex();
 %type  <fwdDeclObj>         fwddecl
 %type  <cppVarType>         vartype
 %type  <cppVarObj>          vardecl varinit vardeclstmt
-%type  <cppVarAssign>       varassign
+%type  <cppVarAssign>       varassign optvarassign
 %type  <varOrFuncPtr>       param
 %type  <str>                funcobjstr /* Identify funcobjstr as str, at least for time being */
 %type  <templateArg>        templatearg templatearglist /* For time being. We may need to make it more robust in future. */
@@ -767,14 +767,16 @@ vardeclstmt       : vardecl ';'             [ZZVALID;] { $$ = $1; }
                   | exptype vardeclstmt     [ZZVALID;] { $$ = $2; $$->addAttr($1); }
                   ;
 
-vardecllist       : typeidentifier opttypemodifier tknID ',' opttypemodifier tknID {
+vardecllist       : typeidentifier opttypemodifier tknID optvarassign ',' opttypemodifier tknID optvarassign {
                     $$ = new CppVarList($1);
                     $$->addVarDecl(CppVarDeclInList($2, CppVarDecl{$3}));
-                    $$->addVarDecl(CppVarDeclInList($5, CppVarDecl{$6}));
+                    $$->addVarDecl(CppVarDeclInList($6, CppVarDecl{$7}));
+                    /* TODO: use optvarassign values */
                   }
-                  | vardecllist ',' opttypemodifier tknID {
+                  | vardecllist ',' opttypemodifier tknID optvarassign {
                     $$ = $1;
                     $$->addVarDecl(CppVarDeclInList($3, CppVarDecl{$4}));
+                    /* TODO: use optvarassign values */
                   }
                   ;
 
@@ -803,6 +805,10 @@ varassign         : '=' expr {
                   | '{' funcargs '}' {
                     $$ = CppVarAssign{$2, AssignType::kUsingBraces};
                   }
+                  ;
+
+optvarassign      : { $$ = CppVarAssign{nullptr, AssignType::kNone}; }
+                  | varassign { $$ = $1; }
                   ;
 
 vardecl           : vartype varidentifier         {
