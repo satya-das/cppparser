@@ -53,7 +53,6 @@ public:
 // SkGoodHash should usually be your first choice in hashing data.
 // It should be both reasonably fast and high quality.
 struct SkGoodHash {
-/*
     template <typename K>
     SK_WHEN(sizeof(K) == 4, uint32_t) operator()(const K& k) const {
         return SkChecksum::Mix(*(const uint32_t*)&k);
@@ -63,7 +62,7 @@ struct SkGoodHash {
     SK_WHEN(sizeof(K) != 4, uint32_t) operator()(const K& k) const {
         return SkOpts::hash_fn(&k, sizeof(K), 0);
     }
-*/
+
     uint32_t operator()(const SkString& k) const {
         return SkOpts::hash_fn(k.c_str(), k.size(), 0);
     }

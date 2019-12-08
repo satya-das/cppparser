@@ -635,6 +635,7 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | tknTypename tknEllipsis               { $$ = mergeCppToken($1, $2); }
                   | tknClass tknEllipsis                  { $$ = mergeCppToken($1, $2); }
                   | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
+                  | tknMacro                              { $$ = $1; }
                   ;
 
 optnumsignspec    :                 { $$ = makeCppToken(nullptr, nullptr); }

@@ -48,17 +48,16 @@ public:
 };
 struct SkGoodHash
 {
-/*
-    template <typename K>
-    SK_WHEN(sizeof(K) == 4, uint32_t) operator()(const K& k) const {
-        return SkChecksum::Mix(*(const uint32_t*)&k);
-    }
-
-    template <typename K>
-    SK_WHEN(sizeof(K) != 4, uint32_t) operator()(const K& k) const {
-        return SkOpts::hash_fn(&k, sizeof(K), 0);
-    }
-*/
+  template <typename K>
+  SK_WHEN(sizeof(K) == 4, uint32_t) operator()(const K& k) const
+  {
+    return SkChecksum::Mix(*(const uint32_t*) &k);
+  }
+  template <typename K>
+  SK_WHEN(sizeof(K) != 4, uint32_t) operator()(const K& k) const
+  {
+    return SkOpts::hash_fn(&k, sizeof(K), 0);
+  }
   uint32_t operator()(const SkString& k) const
   {
     return SkOpts::hash_fn(k.c_str(), k.size(), 0);
