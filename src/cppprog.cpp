@@ -30,6 +30,8 @@
 #include "cppobj-accessor.h"
 #include "cppvar-accessor.h"
 
+#include <iostream>
+
 //////////////////////////////////////////////////////////////////////////
 
 CppProgram::CppProgram(const std::string& folder, CppParser parser)
@@ -40,6 +42,7 @@ CppProgram::CppProgram(const std::string& folder, CppParser parser)
   auto files = collectFiles(folder);
   for (const auto& f : files)
   {
+    std::cout << "INFO\t Parsing '" << f << "'\n";
     auto cppAst = parser_.parseFile(f.c_str());
     if (cppAst)
       addCppAst(std::move(cppAst));
