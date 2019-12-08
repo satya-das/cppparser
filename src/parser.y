@@ -786,6 +786,7 @@ varinit           : vardecl '(' typeidentifier '*' tknID      [gParamModPos = $4
                   | vardecl '(' typeidentifier '&' tknID      [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl '(' typeidentifier tknAnd tknID   [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl '(' typeidentifier ')'            [gParamModPos = $3.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
+                  | vardecl '(' ')'            [ZZERROR;] { $$ = nullptr; } //FuncDeclHack
                   | vardecl varassign {
                     $$ = $1;
                     $$->assign($2.assignValue_, $2.assignType_);
@@ -799,7 +800,7 @@ varinit           : vardecl '(' typeidentifier '*' tknID      [gParamModPos = $4
 varassign         : '=' expr {
                     $$ = CppVarAssign{$2, AssignType::kUsingEqual};
                   }
-                  | '(' funcargs ')' {
+                  | '(' exprorlist ')' {
                     $$ = CppVarAssign{$2, AssignType::kUsingBracket};
                   }
                   | '{' funcargs '}' {
