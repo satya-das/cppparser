@@ -8,7 +8,6 @@
 #  define sk_path_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-
 enum sk_path_direction_t
 {
   CW_SK_PATH_DIRECTION,
@@ -67,5 +66,4 @@ SK_API void sk_path_add_oval(sk_path_t*, const sk_rect_t*, sk_path_direction_t);
  */
 SK_API bool sk_path_get_bounds(const sk_path_t*, sk_rect_t*);
 SK_C_PLUS_PLUS_END_GUARD
-
 #endif

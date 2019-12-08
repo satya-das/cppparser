@@ -8,7 +8,6 @@
 #  define sk_imageinfo_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-
 enum sk_colortype_t
 {
   UNKNOWN_SK_COLORTYPE,
@@ -47,5 +46,4 @@ SK_API sk_alphatype_t sk_imageinfo_get_alphatype(const sk_imageinfo_t*);
  */
 SK_API sk_colorspace_t* sk_imageinfo_get_colorspace(const sk_imageinfo_t*);
 SK_C_PLUS_PLUS_END_GUARD
-
 #endif

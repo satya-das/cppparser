@@ -10,7 +10,6 @@
 #  include "include/private/SkMacros.h"
 class SkPath;
 SK_BEGIN_REQUIRE_DENSE
-
 class SK_API SkStrokeRec
 {
 public:
@@ -141,5 +140,4 @@ private:
   uint32_t fStrokeAndFill;
 };
 SK_END_REQUIRE_DENSE
-
 #endif

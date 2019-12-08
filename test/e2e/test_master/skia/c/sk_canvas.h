@@ -8,7 +8,6 @@
 #  define sk_canvas_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-
 /**
     Save the current matrix and clip on the canvas.  When the
     balancing call to sk_canvas_restore() is made, the previous matrix
@@ -140,5 +139,4 @@ SK_API void sk_canvas_draw_image_rect(sk_canvas_t*, const sk_image_t*, const sk_
 */
 SK_API void sk_canvas_draw_picture(sk_canvas_t*, const sk_picture_t*, const sk_matrix_t*, const sk_paint_t*);
 SK_C_PLUS_PLUS_END_GUARD
-
 #endif

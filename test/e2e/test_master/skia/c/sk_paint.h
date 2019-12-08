@@ -8,7 +8,6 @@
 #  define sk_paint_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-
 /**
     Create a new paint with default settings:
         antialias : false
@@ -122,5 +121,4 @@ SK_API void sk_paint_set_maskfilter(sk_paint_t*, sk_maskfilter_t*);
  */
 SK_API void sk_paint_set_xfermode_mode(sk_paint_t*, sk_xfermode_mode_t);
 SK_C_PLUS_PLUS_END_GUARD
-
 #endif

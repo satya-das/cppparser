@@ -69,7 +69,7 @@ public:
 protected:
   GrTexture(GrGpu*, const SkISize&, GrPixelConfig, GrProtected, GrTextureType, GrMipMapsStatus);
   virtual bool onStealBackendTexture(GrBackendTexture*, SkImage::BackendTextureReleaseProc*) = 0;
-  SkTArray < sk_sp < GrRefCntedCallback >> fIdleProcs;
+  SkTArray<sk_sp<GrRefCntedCallback>> fIdleProcs;
   void willRemoveLastRef() override
   {
     fIdleProcs.reset();

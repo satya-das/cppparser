@@ -8,7 +8,6 @@
 #  define sk_data_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-
 /**
     Returns a new empty sk_data_t.  This call must be balanced with a call to
     sk_data_unref().
@@ -57,5 +56,4 @@ SK_API size_t sk_data_get_size(const sk_data_t*);
  */
 SK_API const void* sk_data_get_data(const sk_data_t*);
 SK_C_PLUS_PLUS_END_GUARD
-
 #endif

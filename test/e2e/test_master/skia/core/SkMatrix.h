@@ -26,7 +26,6 @@ class SkString;
     improve performance. SkMatrix is not thread safe unless getType() is called first.
 */
 SK_BEGIN_REQUIRE_DENSE
-
 class SK_API SkMatrix
 {
 public:
@@ -1806,5 +1805,4 @@ private:
   friend class SerializationTest;
 };
 SK_END_REQUIRE_DENSE
-
 #endif

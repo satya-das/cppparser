@@ -8,7 +8,6 @@
 #  define sk_surface_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-
 /**
     Return a new surface, with the memory for the pixels automatically
     allocated.  If the requested surface cannot be created, or the
@@ -56,5 +55,4 @@ SK_API sk_canvas_t* sk_surface_get_canvas(sk_surface_t*);
  */
 SK_API sk_image_t* sk_surface_new_image_snapshot(sk_surface_t*);
 SK_C_PLUS_PLUS_END_GUARD
-
 #endif

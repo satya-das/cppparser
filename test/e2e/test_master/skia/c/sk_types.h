@@ -33,7 +33,6 @@
 #  endif
 ///////////////////////////////////////////////////////////////////////////////////////
 SK_C_PLUS_PLUS_BEGIN_GUARD
-
 typedef uint32_t sk_color_t;
 #  define sk_color_set_argb(a, r, g, b)	   (((a) << 24) | ((r) << 16) | ((g) << 8) | (b))
 #  define sk_color_get_a(c)	               (((c) >> 24) & 0xFF)
@@ -235,5 +234,4 @@ enum sk_xfermode_mode_t
 };
 //////////////////////////////////////////////////////////////////////////////////////////
 SK_C_PLUS_PLUS_END_GUARD
-
 #endif

@@ -140,7 +140,7 @@ public:
     Builder(VertexMode mode, int vertexCount, int indexCount, bool isVolatile, const Sizes&);
     void init(VertexMode mode, int vertexCount, int indexCount, bool isVolatile, const Sizes&);
     sk_sp<SkVertices> fVertices;
-    std::unique_ptr < uint8_t[] > fIntermediateFanIndices;
+    std::unique_ptr<uint8_t[]> fIntermediateFanIndices;
     friend class SkVertices;
   };
   uint32_t uniqueID() const

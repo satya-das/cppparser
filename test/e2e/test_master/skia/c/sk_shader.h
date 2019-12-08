@@ -8,7 +8,6 @@
 #  define sk_shader_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-
 SK_API void sk_shader_ref(sk_shader_t*);
 SK_API void sk_shader_unref(sk_shader_t*);
 enum sk_shader_tilemode_t
@@ -103,5 +102,4 @@ SK_API sk_shader_t* sk_shader_new_sweep_gradient(const sk_point_t* center, const
 */
 SK_API sk_shader_t* sk_shader_new_two_point_conical_gradient(const sk_point_t* start, float startRadius, const sk_point_t* end, float endRadius, const sk_color_t colors[], const float colorPos[], int colorCount, sk_shader_tilemode_t tileMode, const sk_matrix_t* localMatrix);
 SK_C_PLUS_PLUS_END_GUARD
-
 #endif
