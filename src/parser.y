@@ -604,6 +604,7 @@ identifier        : tknID                                        { $$ = $1; }
                   | templidentifier                       { $$ = $1; }
                   | tknOverride                           { $$ = $1; } /* override is not a reserved keyword */
                   | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
+                  | tknMacro                              { $$ = $1; }
                   ;
 
 typeidentifier    : identifier                            { $$ = $1; }
@@ -1214,6 +1215,7 @@ optfuncattrib     : tknConst       { $$ = kConst; }
                   | optfuncattrib tknNoExcept     { $$ = $1 | kNoExcept; }
                   | optfuncattrib '=' tknNumber  [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else ZZVALID;]
                                                   { $$ = $1 | kPureVirtual; }
+                  | tknMacro { $$ = 0; } /* Ignore macros used as function attributes */
                   ;
 
 optfuncthrowspec  : { $$ = nullptr; }
