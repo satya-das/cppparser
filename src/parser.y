@@ -199,7 +199,7 @@ extern int yylex();
 
 %token  <str>   tknID tknStrLit tknCharLit tknNumber tknMacro tknApiDecor
 %token  <str>   tknTypedef tknUsing
-%token  <str>   tknLongLong tknLong tknInt tknShort tknChar
+%token  <str>   tknLongLong tknLong tknInt tknShort tknChar tknDouble tknFloat
 %token  <str>   tknEnum
 %token  <str>   tknAuto
 %token  <str>   tknPreProDef
@@ -832,6 +832,15 @@ vardecl           : vartype varidentifier         {
                   | templatespecifier vardecl {
                     $$ = $2;
                   }
+                  | exptype vardecl {
+                    $$ = $2;
+                    $$->addAttr($1);
+                  }
+                  | varattrib vardecl
+                  {
+                    $$ = $2;
+                    $$->addAttr($1);
+                  }
                   ;
 
 vartype           : typeidentifier opttypemodifier         {
@@ -906,8 +915,6 @@ exptype           : tknStatic     { $$ = kStatic;  }
 varattrib         : tknConst      { $$ = kConst;      }
                   | tknVolatile   { $$ = kVolatile;   }
                   | tknConstExpr  { $$ = kConstExpr;  }
-                  | exptype varattrib { $$ = $1 | $2; }
-                  | varattrib exptype { $$ = $1 | $2; }
                   ;
 
 typeconverter     : tknOperator vartype '(' optvoid ')' {
@@ -1540,28 +1547,28 @@ templateparam     : tknTypename optid {
                   }
                   | tknTypename optid '=' vartype {
                     $$ = new CppTemplateParam(nullptr, $2);
-                    $$->defaultParam($4);
+                    $$->defaultArg($4);
                   }
                   | tknClass optid {
                     $$ = new CppTemplateParam(nullptr, $2);
                   }
                   | tknClass optid '=' vartype {
                     $$ = new CppTemplateParam(nullptr, $2);
-                    $$->defaultParam($4);
+                    $$->defaultArg($4);
                   }
                   | vartype tknID {
                     $$ = new CppTemplateParam($1, $2);
                   }
                   | vartype tknID '=' expr        {
                     $$ = new CppTemplateParam($1, $2);
-                    $$->defaultParam($4);
+                    $$->defaultArg($4);
                   }
                   | vartype { // Can happen when forward declaring
                     $$ = new CppTemplateParam($1, std::string());
                   }
                   | vartype '=' expr { // Can happen when forward declaring
                     $$ = new CppTemplateParam($1, std::string());
-                    $$->defaultParam($3);
+                    $$->defaultArg($3);
                   }
                   // <TemplateParamHack>
                   | tknTypename tknID ',' [

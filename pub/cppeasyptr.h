@@ -44,17 +44,19 @@ public:
   {
   }
 
+  template <typename = std::enable_if<!std::is_const<_TCppObj>::value>>
   CppEasyPtr(CppObj* rawPtr)
     : ptr_(nullptr)
   {
-    if (!std::is_const<_TCppObj>::value && (objType(rawPtr) == _TCppObj::kObjectType))
+    if ((objType(rawPtr) == _TCppObj::kObjectType))
       ptr_ = static_cast<_TCppObj*>(rawPtr);
   }
 
+  template <typename = std::enable_if<std::is_const<_TCppObj>::value>>
   CppEasyPtr(const CppObj* rawPtr)
     : ptr_(nullptr)
   {
-    if (std::is_const<_TCppObj>::value && (objType(rawPtr) == _TCppObj::kObjectType))
+    if ((objType(rawPtr) == _TCppObj::kObjectType))
       ptr_ = static_cast<_TCppObj*>(rawPtr);
   }
 

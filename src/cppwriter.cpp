@@ -47,7 +47,7 @@ static void emitAttribute(std::uint32_t attr, std::ostream& stm)
     stm << "volatile ";
 }
 
-static void emitTypeModifier(CppTypeModifier modifier, std::ostream& stm)
+static void emitTypeModifier(const CppTypeModifier& modifier, std::ostream& stm)
 {
   std::uint8_t constBit = 0;
   for (constBit = 0; constBit < modifier.ptrLevel_; ++constBit)
@@ -211,12 +211,17 @@ void CppWriter::emitBlob(const CppBlob* blobObj, std::ostream& stm) const
 
 void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) const
 {
-  emitAttribute(varTypeObj->typeAttr(), stm);
+  constexpr auto alwaysWestConst = true;
+  const auto     attr            = varTypeObj->typeAttr() | (isConst(varTypeObj) ? CppIdentifierAttrib::kConst : 0);
+  emitAttribute(attr, stm);
   if (varTypeObj->compound())
     emitCompound(varTypeObj->compound(), stm, CppIndent(), false);
   else
     stm << varTypeObj->baseType();
-  emitTypeModifier(varTypeObj->typeModifier(), stm);
+  const auto&           origTypeModifier = varTypeObj->typeModifier();
+  const CppTypeModifier typeModifier{
+    origTypeModifier.refType_, origTypeModifier.ptrLevel_, origTypeModifier.constBits_ & ~1};
+  emitTypeModifier(typeModifier, stm);
 }
 
 void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation) const
@@ -398,10 +403,10 @@ void CppWriter::emitTemplSpec(const CppTemplateParamList* templSpec, std::ostrea
         stm << "typename ";
       }
       stm << param->paramName_;
-      if (param->defaultParam())
+      if (param->defaultArg())
       {
         stm << " = ";
-        emit(param->defaultParam(), stm, CppIndent(), true);
+        emit(param->defaultArg(), stm, CppIndent(), true);
       }
       sep = ", ";
     }

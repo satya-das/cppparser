@@ -267,7 +267,7 @@ struct CppVarType : public CppObj
 {
   static constexpr CppObjType kObjectType = CppObjType::kVarType;
 
-  bool paramPack_ {false};
+  bool paramPack_{false};
 
   CppVarType(std::string baseType, CppTypeModifier modifier = CppTypeModifier());
   CppVarType(CppAccessType accessType, std::string baseType, CppTypeModifier modifier);
@@ -300,18 +300,18 @@ struct CppVarType : public CppObj
   }
   void addAttr(std::uint32_t attr)
   {
-    typeAttr_ |= attr;
-  }
-  void removeAttr(std::uint32_t attr)
-  {
-    typeAttr_ ^= attr;
+    if ((attr & CppIdentifierAttrib::kConst) == 0)
+      typeAttr_ |= attr;
+    else
+      typeModifier_.constBits_ |= 1;
   }
 
-  CppTypeModifier& typeModifier()
+  const CppTypeModifier& typeModifier() const
   {
     return typeModifier_;
   }
-  const CppTypeModifier& typeModifier() const
+
+  CppTypeModifier& typeModifier()
   {
     return typeModifier_;
   }
@@ -629,19 +629,19 @@ struct CppTemplateParam
   {
   }
 
-  CppObj* defaultParam() const
+  CppObj* defaultArg() const
   {
-    return defaultParam_.get();
+    return defaultArg_.get();
   }
 
-  void defaultParam(CppObj* defParam)
+  void defaultArg(CppObj* defParam)
   {
-    assert(!defaultParam_);
-    defaultParam_.reset(defParam);
+    assert(!defaultArg_);
+    defaultArg_.reset(defParam);
   }
 
 private:
-  CppObjPtr defaultParam_; //< Can be CppVarType or CppExpr
+  CppObjPtr defaultArg_; //< Can be CppVarType or CppExpr
 };
 
 using CppTemplateParamList    = std::vector<std::unique_ptr<CppTemplateParam>>;
@@ -854,7 +854,7 @@ private:
   CppInheritanceListPtr   inheritanceList_;
   std::string             apidecor_;
   CppTemplateParamListPtr templSpec_;
-  std::uint32_t           attr_ {0};
+  std::uint32_t           attr_{0};
 
   std::vector<const CppConstructor*> ctors_;
   const CppConstructor*              copyCtor_{nullptr};
@@ -902,8 +902,8 @@ protected:
   }
 
 private:
-  CppCompoundPtr          defn_;   // If it is nullptr then this object is just for declaration.
-  CppFuncThrowSpecPtr     throwSpec_;
+  CppCompoundPtr      defn_; // If it is nullptr then this object is just for declaration.
+  CppFuncThrowSpecPtr throwSpec_;
 };
 
 /**
@@ -1001,7 +1001,7 @@ struct CppFunction : public CppFuncCtorBase
   static constexpr CppObjType kObjectType = CppObjType::kFunction;
 
   const CppVarTypePtr retType_;
-  CppExprPtr returnDeclType_;
+  CppExprPtr          returnDeclType_;
 
   CppFunction(CppAccessType   accessType,
               std::string     name,
@@ -1035,15 +1035,12 @@ struct CppLambda : public CppFuncLikeBase
   const CppVarTypePtr     retType_;
   const CppCompoundPtr    defn_;
 
-  CppLambda(CppExpr*        captures,
-            CppParamVector* params,
-            CppCompound*    defn,
-            CppVarType*     retType = nullptr)
-    : CppFuncLikeBase(kObjectType, CppAccessType::kUnknown),
-      captures_(captures),
-      params_(params),
-      retType_(retType),
-      defn_(defn)
+  CppLambda(CppExpr* captures, CppParamVector* params, CppCompound* defn, CppVarType* retType = nullptr)
+    : CppFuncLikeBase(kObjectType, CppAccessType::kUnknown)
+    , captures_(captures)
+    , params_(params)
+    , retType_(retType)
+    , defn_(defn)
   {
   }
 };
@@ -1592,13 +1589,15 @@ struct CppBlob : public CppObj
 // But for parsing we need to have a type.
 struct CppTemplateArg;
 
-struct CppAsmBlock : public CppObj { 
+struct CppAsmBlock : public CppObj
+{
   const std::string asm_; // Entire asm block including keyword asm.
 
   CppAsmBlock(std::string asmBlock)
     : CppObj(CppObjType::kAsmBlock, CppAccessType::kUnknown)
     , asm_(std::move(asmBlock))
-  {}
+  {
+  }
 };
 
 //////////////////////////////////////////////////////////////////////////

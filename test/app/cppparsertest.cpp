@@ -127,10 +127,10 @@ CppParser constructCppParserForTest()
                             "ACDB_PORT",
                             "ACPAL_PORT",
                             "ACAD_PORT",
+                            "ACPL_PORT",
 
                             "SK_API",
-                            "SK_CAPABILITY"
-                            });
+                            "SK_CAPABILITY"});
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
                          "DECLARE_DYNAMIC",
@@ -141,7 +141,7 @@ CppParser constructCppParserForTest()
                          "ACRX_DECLARE_MEMBERS_EXPIMP",
                          "ACRX_DECLARE_MEMBERS_ACBASE_PORT_EXPIMP",
                          "ACRX_DECLARE_MEMBERS",
-                         
+
                          "SkDEBUGCODE",
                          "SK_BEGIN_REQUIRE_DENSE",
                          "SK_END_REQUIRE_DENSE",
@@ -150,8 +150,7 @@ CppParser constructCppParserForTest()
                          "SK_C_PLUS_PLUS_END_GUARD",
                          "GPU_DRIVER_BUG_WORKAROUNDS",
                          "GR_MAKE_BITFIELD_OPS",
-                         "SK_WHEN"
-                         });
+                         "SK_WHEN"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("final", "ADESK_SEALED");
