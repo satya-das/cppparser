@@ -115,16 +115,16 @@ public:
     x = SCALAR_MIN;
     y = SCALAR_MIN;
   }
-  void operator=(AcGsDCPoint const& r)
+  void operator=(const AcGsDCPoint& r)
   {
     x = r.x;
     y = r.y;
   }
-  bool operator==(AcGsDCPoint const& r) const
+  bool operator==(const AcGsDCPoint& r) const
   {
     return x == r.x && y == r.y;
   }
-  bool operator!=(AcGsDCPoint const& r) const
+  bool operator!=(const AcGsDCPoint& r) const
   {
     return x != r.x || y != r.y;
   }
@@ -141,7 +141,7 @@ public:
   AcGsDCRect(void)
   {
   }
-  AcGsDCRect(AcGsDCPoint const& min, AcGsDCPoint const& max)
+  AcGsDCRect(const AcGsDCPoint& min, const AcGsDCPoint& max)
     : m_min(min)
     , m_max(max)
   {
@@ -155,13 +155,13 @@ public:
   {
     set_null();
   }
-  AcGsDCRect& operator=(AcGsDCRect const& other)
+  AcGsDCRect& operator=(const AcGsDCRect& other)
   {
     m_min = other.m_min;
     m_max = other.m_max;
     return *this;
   }
-  void operator|=(AcGsDCRect const& rightside)
+  void operator|=(const AcGsDCRect& rightside)
   {
     if (m_min.x > rightside.m_min.x)
     {
@@ -180,7 +180,7 @@ public:
       m_max.y = rightside.m_max.y;
     }
   }
-  void operator&=(AcGsDCRect const& rightside)
+  void operator&=(const AcGsDCRect& rightside)
   {
     if (m_min.x < rightside.m_min.x)
     {
@@ -203,11 +203,11 @@ public:
       *this = Null;
     }
   }
-  bool operator==(AcGsDCRect const& rightside) const
+  bool operator==(const AcGsDCRect& rightside) const
   {
     return m_min == rightside.m_min && m_max == rightside.m_max;
   }
-  bool operator!=(AcGsDCRect const& rightside) const
+  bool operator!=(const AcGsDCRect& rightside) const
   {
     return !(*this == rightside);
   }
@@ -223,7 +223,7 @@ public:
 #endif
     return m_min.x > m_max.x;
   }
-  bool within(AcGsDCRect const& rightside) const
+  bool within(const AcGsDCRect& rightside) const
   {
 #ifdef ASSERT
     ASSERT(!is_null());
@@ -286,9 +286,9 @@ public:
   virtual void setViewport(const AcGsDCRect& screen_rect) = 0;
   virtual void getViewport(AcGePoint2d& lowerLeft, AcGePoint2d& upperRight) const = 0;
   virtual void getViewport(AcGsDCRect& screen_rect) const = 0;
-  virtual void setViewportClipRegion(int contours, int const * counts, AcGsDCPoint const * points) = 0;
+  virtual void setViewportClipRegion(int contours, const int* counts, const AcGsDCPoint* points) = 0;
   virtual void removeViewportClipRegion(void) = 0;
-  virtual void setViewportBorderProperties(AcGsColor const& color, int weight) = 0;
+  virtual void setViewportBorderProperties(const AcGsColor& color, int weight) = 0;
   virtual void getViewportBorderProperties(AcGsColor& color, int& weight) const = 0;
   virtual void setViewportBorderVisibility(bool bVisible) = 0;
   virtual bool isViewportBorderVisible(void) const = 0;
@@ -358,7 +358,7 @@ public:
   virtual bool isStereoEnabled(void) const = 0;
   virtual void setStereoParameters(double magnitude, double parallax) = 0;
   virtual void getStereoParameters(double& magnitude, double& parallax) const = 0;
-  virtual void getSnapShot(Atil::Image* pOutput, AcGsDCPoint const& offset) = 0;
+  virtual void getSnapShot(Atil::Image* pOutput, const AcGsDCPoint& offset) = 0;
   virtual bool renderToImage(Atil::Image* pOutput, AcGiDrawable* pSettings, AcGsRenderProgressMonitor* pProgressMonitor, const AcGsDCRect& rectScreen, bool bReuseScene = false) = 0;
   virtual AcGsDevice* getDevice(void) const = 0;
   virtual void setVisualStyle(const AcDbObjectId visualStyleId) = 0;
@@ -533,7 +533,7 @@ public:
   virtual AcGsColor getBackgroundColor(void) = 0;
   virtual void setLogicalPalette(const AcGsColor* palette, int nCount) = 0;
   virtual void setPhysicalPalette(const AcGsColor* palette, int nCount) = 0;
-  virtual void getSnapShot(Atil::Image* pOutput, AcGsDCPoint const& offset) = 0;
+  virtual void getSnapShot(Atil::Image* pOutput, const AcGsDCPoint& offset) = 0;
   virtual void setDeviceRenderer(RendererType type) = 0;
   virtual RendererType getDeviceRenderer(void) = 0;
   virtual void setRenderInterrupter(AcGsRenderInterrupter* pInterrupter) = 0;

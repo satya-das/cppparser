@@ -110,9 +110,9 @@ struct AcGiRequestScanLines
   void* mpDataBuffer = nullptr;
   Adesk::Int32 mRowWidth = 0;
   Adesk::Int32 mNumRows;
-  Adesk::Int32 const * mpBoundaryPoints = nullptr;
+  const Adesk::Int32* mpBoundaryPoints = nullptr;
   Adesk::UInt32 mnContours = 0;
-  Adesk::Int32 const * mpCounts = nullptr;
+  const Adesk::Int32* mpCounts = nullptr;
   AcGiScaleType mScalingType;
   AcGiScaleFilterType mScaleFilterType;
   AcGiRotationFilterType mRotationFilterType;
@@ -662,11 +662,11 @@ protected:
   {
     return nullptr;
   }
-  virtual int getTrueTypeBoundingBox(AcGePoint3d const&, const wchar_t*, int, TextParams const *, AcGePoint3d*, float*)
+  virtual int getTrueTypeBoundingBox(const AcGePoint3d&, const wchar_t*, int, const TextParams*, AcGePoint3d*, float*)
   {
     return 0;
   }
-  virtual int getTrueTypeTextExtents(ACHAR const *, Charset, double, int, int, int, short, short, double, double, AcGePoint2d&, AcGePoint2d&)
+  virtual int getTrueTypeTextExtents(const ACHAR*, Charset, double, int, int, int, short, short, double, double, AcGePoint2d&, AcGePoint2d&)
   {
     return -1;
   }

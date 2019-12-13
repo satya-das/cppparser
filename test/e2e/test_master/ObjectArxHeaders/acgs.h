@@ -32,7 +32,7 @@ class AcGsScreenShot
 public:
   virtual Adesk::Boolean getSize(int& width, int& height, int& depth) const = 0;
   virtual Adesk::Boolean getColorMap(int index, Adesk::UInt8& red, Adesk::UInt8& green, Adesk::UInt8& blue) const = 0;
-  virtual void const * getScanline(int offsetFromLeft, int offsetFromTop) const = 0;
+  virtual const void* getScanline(int offsetFromLeft, int offsetFromTop) const = 0;
 #  ifdef new
 #    define DISABLING_LEAK_CHECK
 #    undef new
@@ -61,7 +61,7 @@ public:
 #  define ScreenShot	AcGsScreenShot
 AcGsScreenShot* acgsGetScreenShot(int viewportNumber);
 void acgsSetViewportRenderFlag(int viewportNumber);
-Adesk::Boolean acgsDisplayImage(int viewportNumber, Adesk::Int32 originLeft, Adesk::Int32 originTop, int imageWidth, int imageHeight, void const * imageData, int hasTransparency);
+Adesk::Boolean acgsDisplayImage(int viewportNumber, Adesk::Int32 originLeft, Adesk::Int32 originTop, int imageWidth, int imageHeight, const void* imageData, int hasTransparency);
 Adesk::Boolean acgsRemoveAnonymousGraphics(int viewportNumber);
 typedef void (*acgsCustomUpdateMethod) (void* pParm, int left, int right, int bottom, int top);
 Adesk::Boolean acgsSetCustomUpdateMethod(acgsCustomUpdateMethod custom_update_method, void* pParm);
@@ -123,7 +123,7 @@ public:
   virtual ~AcGs2DViewLimitManager()
   {
   }
-  virtual bool testView(AcGePoint3d const& target, double dFieldHeight) = 0;
+  virtual bool testView(const AcGePoint3d& target, double dFieldHeight) = 0;
 };
 AcGs2DViewLimitManager* acgsCreate2DViewLimitManager(int viewportNumber);
 void acgsDestroy2DViewLimitManager(AcGs2DViewLimitManager* pLimitManager);

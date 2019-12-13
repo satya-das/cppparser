@@ -13,8 +13,8 @@
 #  include "AdAChar.h"
 #  include "Adesk.h"
 #  pragma  pack (push, 8)
-typedef void (*PolylineCallback) (int, int const *, AcGePoint3d const *, void*);
-typedef void (*UnicodeCallback) (AcFontHandle*, wchar_t const *, int, void*);
+typedef void (*PolylineCallback) (int, const int*, const AcGePoint3d*, void*);
+typedef void (*UnicodeCallback) (AcFontHandle*, const wchar_t*, int, void*);
 class AcGiTextEngine
 {
 public:
@@ -22,9 +22,9 @@ public:
   virtual ~AcGiTextEngine()
   {
   }
-  virtual void getExtents(AcGiTextStyle& ts, ACHAR const * pStr, int nLength, bool bPenUp, bool bRaw, AcGePoint2d& extents) = 0;
-  virtual void tessellate(AcGiTextStyle& ts, ACHAR const * pStr, int nLength, bool bRaw, double deviation, void* pVoid, PolylineCallback pPolylineCallback) = 0;
-  virtual void tessellate(AcGiTextStyle& ts, ACHAR const * pString, int nLength, bool bRaw, void* pVoid, UnicodeCallback pUnicodeCallback, PolylineCallback pPolylineCallback) = 0;
+  virtual void getExtents(AcGiTextStyle& ts, const ACHAR* pStr, int nLength, bool bPenUp, bool bRaw, AcGePoint2d& extents) = 0;
+  virtual void tessellate(AcGiTextStyle& ts, const ACHAR* pStr, int nLength, bool bRaw, double deviation, void* pVoid, PolylineCallback pPolylineCallback) = 0;
+  virtual void tessellate(AcGiTextStyle& ts, const ACHAR* pString, int nLength, bool bRaw, void* pVoid, UnicodeCallback pUnicodeCallback, PolylineCallback pPolylineCallback) = 0;
 };
 #  pragma  pack (pop)
 #endif

@@ -19,9 +19,9 @@ class AcUnderlayLayer
 public:
   AcUnderlayLayer();
   ~AcUnderlayLayer();
-  ACDBCORE2D_PORT AcUnderlayLayer(AcUnderlayLayer const&);
-  ACDBCORE2D_PORT AcUnderlayLayer const& operator=(AcUnderlayLayer const&);
-  ACDBCORE2D_PORT friend bool operator ==(AcUnderlayLayer const& l, AcUnderlayLayer const& r);
+  ACDBCORE2D_PORT AcUnderlayLayer(const AcUnderlayLayer&);
+  ACDBCORE2D_PORT const AcUnderlayLayer& operator=(const AcUnderlayLayer&);
+  ACDBCORE2D_PORT friend bool operator ==(const AcUnderlayLayer& l, const AcUnderlayLayer& r);
   enum State
   {
     kOff = 0,

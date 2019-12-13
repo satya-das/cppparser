@@ -24,7 +24,7 @@ public:
   virtual Acad::ErrorStatus getPerimeter(double&) const;
   virtual Acad::ErrorStatus getArea(double& regionArea) const;
   virtual void* ASMBodyCopy(bool bDeepCopy = false) const;
-  virtual void const * getLockedASMBody();
+  virtual const void* getLockedASMBody();
   virtual void unlockASMBody();
   virtual void* getLockedWritableASMBody();
   virtual void commitWritableASMBody();

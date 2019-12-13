@@ -21,7 +21,7 @@ public:
   virtual Adesk::Boolean isNull() const;
   ACDB_PORT virtual void dragStatus(const AcDb::DragStat) override;
   virtual void* ASMBodyCopy(bool bDeepCopy = false) const;
-  virtual void const * getLockedASMBody();
+  virtual const void* getLockedASMBody();
   virtual void unlockASMBody();
   virtual void* getLockedWritableASMBody();
   virtual void commitWritableASMBody();

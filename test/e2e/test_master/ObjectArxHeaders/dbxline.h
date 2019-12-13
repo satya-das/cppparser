@@ -26,7 +26,7 @@ public:
   AcGeVector3d unitDir() const;
   void setUnitDir(const AcGeVector3d& vec);
   ACDBCORE2D_PORT AcGePoint3d secondPoint() const;
-  ACDBCORE2D_PORT Acad::ErrorStatus setSecondPoint(AcGePoint3d const& pt);
+  ACDBCORE2D_PORT Acad::ErrorStatus setSecondPoint(const AcGePoint3d& pt);
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };

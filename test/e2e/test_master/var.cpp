@@ -3,7 +3,7 @@ int main()
 {
   int i, j;
   const INTP p = &i;
-  INTP const q = &i;
+  const INTP q = &i;
   const int* x = &i;
   int* const y = &i;
   int* const * pcpi;

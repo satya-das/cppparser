@@ -34,14 +34,14 @@ private:
   AcGePoint3d m_under_point[2];
   AcGePoint3d m_strikethrough_point[2];
   AcGePoint3d m_bbox[4];
-  TextParams const * m_pTextParams;
+  const TextParams* m_pTextParams;
   LineSegmentCallback m_pLineSegmentCB;
   void* m_pAction;
   AcGiContext* m_pContext;
 #  define ON	1
 #  define OFF	0
 public:
-  Scores(AcGiContext* pContext, TextParams const * pTextParams, LineSegmentCallback pLineSegment, void* pAction);
+  Scores(AcGiContext* pContext, const TextParams* pTextParams, LineSegmentCallback pLineSegment, void* pAction);
   ~Scores()
   {
   }
@@ -49,10 +49,10 @@ public:
   void under_score(const wchar_t* text, int length);
   void strikethrough_score(const wchar_t* text, int length);
   void close_scores(const wchar_t* text, int length);
-  void draw_vector(AcGePoint3d const& p1, AcGePoint3d const& p2);
+  void draw_vector(const AcGePoint3d& p1, const AcGePoint3d& p2);
 };
-void process_uc_string(wchar_t* uc_string, int& uc_length, TextParams const * tp, int draw_scores, LineSegmentCallback line_segment = NULL, void* action = NULL);
-void process_underoverline(const wchar_t* uc_string, int uc_length, TextParams const * tp, LineSegmentCallback line_segment, void* action = NULL);
+void process_uc_string(wchar_t* uc_string, int& uc_length, const TextParams* tp, int draw_scores, LineSegmentCallback line_segment = NULL, void* action = NULL);
+void process_underoverline(const wchar_t* uc_string, int uc_length, const TextParams* tp, LineSegmentCallback line_segment, void* action = NULL);
 class TrueTypeUnicodeBuffer
 {
 public:

@@ -167,7 +167,7 @@ public:
     /// get the points in world space.</summary>
   virtual bool entityTransform(AcGeMatrix3d& matrix) const = 0;
     /// <summary>Copy the contents of the given buffer.</summary>
-  virtual void copyFrom(IAcPcDataBuffer const& from) = 0;
+  virtual void copyFrom(const IAcPcDataBuffer& from) = 0;
 };
 //////////////////////////////////////////////////////////////////////////////
 /// <summary>
