@@ -258,7 +258,7 @@ struct CppTypeModifier
 
 inline CppTypeModifier makeCppTypeModifier(CppRefType refType, std::uint8_t ptrLevel, std::uint8_t constBits)
 {
-  return CppTypeModifier{refType, ptrLevel, constBits};
+  return CppTypeModifier {refType, ptrLevel, constBits};
 }
 
 using CppCompoundPtr = std::unique_ptr<CppCompound>;
@@ -267,7 +267,7 @@ struct CppVarType : public CppObj
 {
   static constexpr CppObjType kObjectType = CppObjType::kVarType;
 
-  bool paramPack_{false};
+  bool paramPack_ {false};
 
   CppVarType(std::string baseType, CppTypeModifier modifier = CppTypeModifier());
   CppVarType(CppAccessType accessType, std::string baseType, CppTypeModifier modifier);
@@ -329,7 +329,7 @@ private:
   std::string     baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
   CppCompoundPtr  compound_;
   CppTypeModifier typeModifier_;
-  std::uint32_t   typeAttr_{0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
+  std::uint32_t   typeAttr_ {0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
 };
 
 using CppVarTypeEPtr      = CppEasyPtr<CppVarType>;
@@ -394,7 +394,7 @@ struct CppVarDecl
 private:
   std::string   name_;
   CppExprPtr    assignValue_; // Value assigned at declaration.
-  AssignType    assignType_{AssignType::kNone};
+  AssignType    assignType_ {AssignType::kNone};
   CppExprPtr    bitField_;
   CppArraySizes arraySizes_;
 };
@@ -519,8 +519,9 @@ struct CppVarList : public CppObj
 {
   static constexpr CppObjType kObjectType = CppObjType::kVarList;
 
-  const std::string   baseType_;    // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
-  const std::uint32_t typeAttr_{0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
+  const std::string   baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
+  const std::uint32_t typeAttr_ {
+    0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
 
   CppVarList(std::string baseType, CppAccessType accessType = CppAccessType::kUnknown)
     : CppVarList(kObjectType, std::move(baseType), accessType)
@@ -605,7 +606,7 @@ struct CppInheritInfo
 {
   const std::string   baseName;
   const CppAccessType inhType;
-  const bool          isVirtual{false};
+  const bool          isVirtual {false};
 
   CppInheritInfo(std::string _baseName, CppAccessType _inhType, bool virtualInheritance = false)
     : baseName(std::move(_baseName))
@@ -620,7 +621,8 @@ struct CppInheritInfo
  */
 struct CppTemplateParam
 {
-  const std::unique_ptr<const CppVarType> paramType_; //< If not NULL then template param is not of type typename/class
+  // If not nullptr then template param is not of type typename/class
+  const std::unique_ptr<const CppVarType> paramType_;
   const std::string                       paramName_;
 
   CppTemplateParam(const CppVarType* paramType, std::string paramName)
@@ -682,7 +684,7 @@ struct CppFwdClsDecl : public CppObj
 
 private:
   CppTemplateParamListPtr templSpec_;
-  std::uint32_t           attr_{0};
+  std::uint32_t           attr_ {0};
 };
 
 using CppFwdClsDeclEPtr = CppEasyPtr<CppFwdClsDecl>;
@@ -854,12 +856,12 @@ private:
   CppInheritanceListPtr   inheritanceList_;
   std::string             apidecor_;
   CppTemplateParamListPtr templSpec_;
-  std::uint32_t           attr_{0};
+  std::uint32_t           attr_ {0};
 
   std::vector<const CppConstructor*> ctors_;
-  const CppConstructor*              copyCtor_{nullptr};
-  const CppConstructor*              moveCtor_{nullptr};
-  const CppDestructor*               dtor_{nullptr};
+  const CppConstructor*              copyCtor_ {nullptr};
+  const CppConstructor*              moveCtor_ {nullptr};
+  const CppDestructor*               dtor_ {nullptr};
 
   mutable boost::optional<bool> hasVirtual_;
   mutable boost::optional<bool> hasPureVirtual_;
@@ -1336,9 +1338,9 @@ struct CppExpr : public CppObj
     kSizeOf      = 0x100,
   };
 
-  const CppExprAtom expr1_{(CppExpr*) (nullptr)};
-  const CppExprAtom expr2_{(CppExpr*) (nullptr)};
-  const CppExprAtom expr3_{(CppExpr*) (nullptr)};
+  const CppExprAtom expr1_ {(CppExpr*) (nullptr)};
+  const CppExprAtom expr2_ {(CppExpr*) (nullptr)};
+  const CppExprAtom expr3_ {(CppExpr*) (nullptr)};
   const CppOperator oper_;
   short             flags_; // ORed combination of Flag constants.
 
@@ -1459,7 +1461,7 @@ struct CppIfBlock : public CppCommonBlock<CppObjType::kIfBlock>
 {
   CppIfBlock(CppExpr* cond, CppObj* body, CppObj* _else = nullptr)
     : CppCommonBlock(cond, body)
-    , else_{_else}
+    , else_ {_else}
   {
   }
   const CppObj* elsePart() const
