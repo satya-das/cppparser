@@ -966,7 +966,7 @@ void CppWriter::emitIfBlock(const CppIfBlock* ifBlock, std::ostream& stm, CppInd
 {
   stm << indentation;
   stm << "if (";
-  emit(ifBlock->cond_.get(), stm);
+  emit(ifBlock->cond_.get(), stm, CppIndent(), true);
   stm << ")\n";
   stm << indentation << "{\n";
   ++indentation;
@@ -989,7 +989,7 @@ void CppWriter::emitWhileBlock(const CppWhileBlock* whileBlock, std::ostream& st
 {
   stm << indentation;
   stm << "while (";
-  emit(whileBlock->cond_.get(), stm);
+  emit(whileBlock->cond_.get(), stm, CppIndent(), true);
   stm << ")\n";
   stm << indentation << "{\n";
   ++indentation;
@@ -1008,7 +1008,7 @@ void CppWriter::emitDoBlock(const CppDoWhileBlock* doBlock, std::ostream& stm, C
     emit(doBlock->body_.get(), stm, indentation);
   --indentation;
   stm << indentation << "} while (";
-  emit(doBlock->cond_.get(), stm);
+  emit(doBlock->cond_.get(), stm, CppIndent(), true);
   stm << ");\n";
 }
 

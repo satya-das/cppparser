@@ -77,7 +77,7 @@ public:
   }
   T findOrNull(const K& key) const
   {
-    if (T * p = this->find(key))
+    if (T* p = this->find(key))
     {
       return *p;
     }
@@ -261,7 +261,7 @@ public:
   }
   V* find(const K& key) const
   {
-    if (Pair * p = fTable.find(key))
+    if (Pair* p = fTable.find(key))
     {
       return &p->val;
     }
