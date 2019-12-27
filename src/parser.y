@@ -238,6 +238,7 @@ extern int yylex();
 
 %token  tknBlankLine
 
+%type  <str>                strlit
 %type  <str>                optapidecor apidecor
 %type  <str>                optnumsignspec
 %type  <str>                identifier typeidentifier templidentifier varidentifier optid id operfuncname funcname
@@ -1612,9 +1613,13 @@ changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = CppAccessType::kPublic;
 externcblock      : tknExternC block [ZZVALID;] {$$ = $2; $$->compoundType(CppCompoundType::kExternCBlock); }
                   ;
 
-expr              : tknStrLit                                                 { $$ = new CppExpr((std::string) $1, kNone);          }
+strlit            : tknStrLit         { $$ = $1; }
+                  | strlit tknStrLit  { $$ = mergeCppToken($1, $2); }
+                  ;
+
+expr              : strlit                                                    { $$ = new CppExpr((std::string) $1, kNone);          }
                   | tknCharLit                                                { $$ = new CppExpr((std::string) $1, kNone);          }
-                  | tknNumber                                                         { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | tknNumber                                                 { $$ = new CppExpr((std::string) $1, kNone);          }
                   | '+' tknNumber                                             { $$ = new CppExpr((std::string) $2, kNone);          }
                   | funcname
                     [
