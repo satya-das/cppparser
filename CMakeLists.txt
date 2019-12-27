@@ -71,6 +71,11 @@ target_include_directories(
 	PRIVATE
 		hack
 )
+target_compile_definitions(
+	cppparser
+	PRIVATE
+		YY_NO_UNPUT
+)
 
 #############################################
 ## CppParserTest

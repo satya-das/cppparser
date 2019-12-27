@@ -211,15 +211,14 @@ void CppWriter::emitBlob(const CppBlob* blobObj, std::ostream& stm) const
 
 void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) const
 {
-  constexpr auto alwaysWestConst = true;
-  const auto     attr            = varTypeObj->typeAttr() | (isConst(varTypeObj) ? CppIdentifierAttrib::kConst : 0);
+  const auto attr = varTypeObj->typeAttr() | (isConst(varTypeObj) ? CppIdentifierAttrib::kConst : 0);
   emitAttribute(attr, stm);
   if (varTypeObj->compound())
     emitCompound(varTypeObj->compound(), stm, CppIndent(), false);
   else
     stm << varTypeObj->baseType();
   const auto&           origTypeModifier = varTypeObj->typeModifier();
-  const CppTypeModifier typeModifier{
+  const CppTypeModifier typeModifier {
     origTypeModifier.refType_, origTypeModifier.ptrLevel_, origTypeModifier.constBits_ & ~1};
   emitTypeModifier(typeModifier, stm);
 }
@@ -967,7 +966,7 @@ void CppWriter::emitIfBlock(const CppIfBlock* ifBlock, std::ostream& stm, CppInd
 {
   stm << indentation;
   stm << "if (";
-  emitExpr(ifBlock->cond_.get(), stm);
+  emit(ifBlock->cond_.get(), stm);
   stm << ")\n";
   stm << indentation << "{\n";
   ++indentation;
@@ -990,7 +989,7 @@ void CppWriter::emitWhileBlock(const CppWhileBlock* whileBlock, std::ostream& st
 {
   stm << indentation;
   stm << "while (";
-  emitExpr(whileBlock->cond_.get(), stm);
+  emit(whileBlock->cond_.get(), stm);
   stm << ")\n";
   stm << indentation << "{\n";
   ++indentation;
@@ -1009,7 +1008,7 @@ void CppWriter::emitDoBlock(const CppDoWhileBlock* doBlock, std::ostream& stm, C
     emit(doBlock->body_.get(), stm, indentation);
   --indentation;
   stm << indentation << "} while (";
-  emitExpr(doBlock->cond_.get(), stm);
+  emit(doBlock->cond_.get(), stm);
   stm << ");\n";
 }
 

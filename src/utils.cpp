@@ -69,7 +69,8 @@ CppToken classNameFromIdentifier(const CppToken& identifier)
   auto        itr            = std::find_end(identifier.sz, end, scopeResolutor, scopeResolutor + 2);
   if (itr == end)
     return identifier;
-  return CppToken {itr + 2, end - itr - 2};
+  const auto clsNameLen = static_cast<size_t>(end - itr - 2);
+  return CppToken {itr + 2, clsNameLen};
 }
 
 std::vector<char> readFile(const std::string& filename)

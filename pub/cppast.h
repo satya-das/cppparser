@@ -253,7 +253,7 @@ struct CppTypeModifier
   // | ------------------------------------------------
   //
   // It is 8 bit unsigned integer which is enough to store info for pointers of 8 level deep.
-  std::uint8_t constBits_;
+  std::uint32_t constBits_;
 };
 
 inline CppTypeModifier makeCppTypeModifier(CppRefType refType, std::uint8_t ptrLevel, std::uint8_t constBits)
@@ -1446,20 +1446,20 @@ struct CppCommonBlock : public CppObj
 {
   static constexpr CppObjType kObjectType = _ObjType;
 
-  CppCommonBlock(CppExpr* cond, CppObj* body)
+  CppCommonBlock(CppObj* cond, CppObj* body)
     : CppObj(_ObjType, CppAccessType::kUnknown)
     , cond_(cond)
     , body_(body)
   {
   }
 
-  const CppExprPtr cond_;
-  const CppObjPtr  body_;
+  const CppObjPtr cond_;
+  const CppObjPtr body_;
 };
 
 struct CppIfBlock : public CppCommonBlock<CppObjType::kIfBlock>
 {
-  CppIfBlock(CppExpr* cond, CppObj* body, CppObj* _else = nullptr)
+  CppIfBlock(CppObj* cond, CppObj* body, CppObj* _else = nullptr)
     : CppCommonBlock(cond, body)
     , else_ {_else}
   {

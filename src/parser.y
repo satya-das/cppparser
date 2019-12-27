@@ -258,7 +258,7 @@ extern int yylex();
 %type  <varOrFuncPtr>       param
 %type  <str>                funcobjstr /* Identify funcobjstr as str, at least for time being */
 %type  <templateArg>        templatearg templatearglist /* For time being. We may need to make it more robust in future. */
-%type  <asmBlock>           asmblock;
+%type  <asmBlock>           asmblock
 %type  <cppVarObjList>      vardecllist vardeclliststmt
 %type  <paramList>          paramlist
 %type  <typedefName>        typedefname typedefnamestmt
@@ -443,7 +443,7 @@ stmt              : vardeclstmt         { $$ = $1; }
                   | asmblock            { $$ = $1; }
                   ;
 
-asmblock          | tknAsm              { $$ = new CppAsmBlock($1); }
+asmblock          : tknAsm              { $$ = new CppAsmBlock($1); }
                   ;
 
 macrocall         : tknMacro [ZZVALID;]
@@ -493,6 +493,9 @@ block             : '{' optstmtlist '}' {
                   ;
 
 ifblock           : tknIf '(' expr ')' stmt {
+                    $$ = new CppIfBlock($3, $5);
+                  }
+                  | tknIf '(' varinit ')' stmt {
                     $$ = new CppIfBlock($3, $5);
                   }
                   | ifblock tknElse stmt {
