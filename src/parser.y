@@ -631,7 +631,6 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | tknNumSignSpec                        { $$ = $1; }
                   | tknAuto                               { $$ = $1; }
                   | tknVoid                               { $$ = $1; }
-                  | tknLong typeidentifier                { $$ = mergeCppToken($1, $2); }
                   | tknNumSignSpec                        { $$ = $1; }
                   | tknClass identifier [
                     if (gTemplateParamStart == $1.sz)
@@ -1178,22 +1177,8 @@ param             : varinit                        { $$ = $1; $1->addAttr(kFuncP
                   ;
 
 templatearg       :                               { $$ = nullptr; /*$$ = makeCppToken(nullptr, nullptr);*/ }
-                  | typeidentifier                { $$ = nullptr; /*$$ = $1;*/ }
-                  | tknConst templatearg          { $$ = nullptr; /*$$ = mergeCppToken($1, $2);*/ }
-                  | templatearg tknConst          { $$ = nullptr; /*$$ = mergeCppToken($1, $2);*/ }
-                  | tknNumber                     { $$ = nullptr; /*$$ = $1;*/ }
+                  | vartype { $$ = nullptr; /*$$ = mergeCppToken($1, $2);*/ }
                   | funcobjstr                    { $$ = nullptr; /*$$ = $1;*/ }
-                  | templatearg '*'               {
-                    $$ = nullptr; /*
-                    auto p = $1.sz + $1.len;
-                    while (*p && (*p != '*'))
-                      ++p;
-                    if (*p == '*')
-                      ++p;
-                    $$ = makeCppToken($1.sz, p - $1.sz);
-                    */
-                  }
-                  | templatearg '&'               { $$ = nullptr; }
                   | expr {
                     $$ = nullptr;
                   }
@@ -1709,7 +1694,7 @@ expr              : strlit                                                    { 
                   | expr '[' ']' %prec SUBSCRIPT                              { $$ = new CppExpr($1, kArrayElem);                   }
                   | expr '(' funcargs ')' %prec FUNCCALL                      { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   /* TODO: Properly support uniform initialization */
-                  | expr '{' exprorlist '}' %prec FUNCCALL                    { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | tknID '{' exprorlist '}' %prec FUNCCALL                   { $$ = new CppExpr(new CppExpr((std::string) $1, kNone), kFunctionCall, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                     { $$ = new CppExpr($2, kCStyleCast, $4);              }
                   | tknConstCast tknLT vartype tknGT '(' expr ')'             { $$ = new CppExpr($3, kConstCast, $6);               }
                   | tknStaticCast tknLT vartype tknGT '(' expr ')'            { $$ = new CppExpr($3, kStaticCast, $6);              }
