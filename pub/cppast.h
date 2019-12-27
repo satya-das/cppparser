@@ -1504,6 +1504,23 @@ struct CppForBlock : public CppObj
   }
 };
 
+struct CppRangeForBlock : public CppObj
+{
+  static constexpr CppObjType kObjectType = CppObjType::kRangeForBlock;
+
+  const CppVarPtr  var_;
+  const CppExprPtr expr_;
+  const CppObjPtr  body_;
+
+  CppRangeForBlock(CppVar* var, CppExpr* expr, CppObj* body)
+    : CppObj(kObjectType, CppAccessType::kUnknown)
+    , var_(var)
+    , expr_(expr)
+    , body_(body)
+  {
+  }
+};
+
 using CppForBlockEPtr = CppEasyPtr<CppForBlock>;
 
 struct CppCase

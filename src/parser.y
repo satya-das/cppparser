@@ -183,6 +183,7 @@ extern int yylex();
   CppWhileBlock*          whileBlock;
   CppDoWhileBlock*        doWhileBlock;
   CppForBlock*            forBlock;
+  CppRangeForBlock*       forRangeBlock;
   CppSwitchBlock*         switchBlock;
   CppSwitchBody*          switchBody;
   CppTryBlock*            tryBlock;
@@ -275,6 +276,7 @@ extern int yylex();
 %type  <whileBlock>         whileblock;
 %type  <doWhileBlock>       dowhileblock;
 %type  <forBlock>           forblock;
+%type  <forRangeBlock>      forrangeblock;
 %type  <switchBlock>        switchstmt;
 %type  <switchBody>         caselist;
 %type  <tryBlock>           tryblock;
@@ -412,6 +414,7 @@ stmt              : vardeclstmt         { $$ = $1; }
                   | whileblock          { $$ = $1; }
                   | dowhileblock        { $$ = $1; }
                   | forblock            { $$ = $1; }
+                  | forrangeblock       { $$ = $1; }
                   | funcpointerdecl     { $$ = $1; }
                   | funcdeclstmt        { $$ = $1; }
                   | funcdefn            { $$ = $1; }
@@ -513,6 +516,11 @@ forblock          : tknFor '(' optexpr ';' optexpr ';' optexpr ')' stmt {
                   }
                   | tknFor '(' varinit ';' optexpr ';' optexpr ')' stmt {
                     $$ = new CppForBlock($3, $5, $7, $9);
+                  }
+                  ;
+
+forrangeblock     : tknFor '(' vardecl ':' expr ')' stmt {
+                    $$ = new CppRangeForBlock($3, $5, $7);
                   }
                   ;
 
