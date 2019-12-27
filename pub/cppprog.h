@@ -27,13 +27,30 @@
 #include "cppparser.h"
 #include "cpptypetree.h"
 
+#include <functional>
 #include <map>
 #include <set>
 #include <vector>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-using CppCompoundArray = std::vector<CppCompoundPtr>;
+inline bool selectAllFiles(const std::string& file)
+{
+  return true;
+}
+
+inline bool selectHeadersOnly(const std::string& file)
+{
+  const auto dotPos           = file.rfind('.');
+  const auto dotNotFound      = (dotPos == file.npos);
+  const auto dotIsTheLastChar = (dotPos == (file.length() - 1));
+  if (dotNotFound || dotIsTheLastChar)
+    return false;
+  return file[dotPos + 1] == 'h';
+}
+
+using CppCompoundArray    = std::vector<CppCompoundPtr>;
+using CppProgFileSelecter = std::function<bool(const std::string&)>;
 
 /**
  * \brief Represents an entire C++ program.
@@ -41,7 +58,10 @@ using CppCompoundArray = std::vector<CppCompoundPtr>;
 class CppProgram
 {
 public:
-  CppProgram(const std::string& folder, CppParser parser = CppParser());
+  CppProgram(const std::string&         folder,
+             CppParser                  parser       = CppParser(),
+             const CppProgFileSelecter& fileSelector = selectHeadersOnly);
+  CppProgram(const std::vector<std::string>& files, CppParser parser = CppParser());
 
 public:
   /**

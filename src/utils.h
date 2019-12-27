@@ -70,5 +70,7 @@ inline std::reverse_iterator<Iter> rev(Iter i)
 
 CppToken classNameFromIdentifier(const CppToken& identifier);
 
-std::vector<char>        readFile(const std::string& filename);
-std::vector<std::string> collectFiles(const std::string& folder);
+std::vector<char> readFile(const std::string& filename);
+
+using CppProgFileSelecter = std::function<bool(const std::string&)>;
+std::vector<std::string> collectFiles(const std::string& folder, const CppProgFileSelecter& fileSelector);

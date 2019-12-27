@@ -34,12 +34,11 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-CppProgram::CppProgram(const std::string& folder, CppParser parser)
+CppProgram::CppProgram(const std::vector<std::string>& files, CppParser parser)
   : parser_(std::move(parser))
 {
   cppObjToTypeNode_[nullptr] = &cppTypeTreeRoot_;
 
-  auto files = collectFiles(folder);
   for (const auto& f : files)
   {
     std::cout << "INFO\t Parsing '" << f << "'\n";
@@ -47,6 +46,11 @@ CppProgram::CppProgram(const std::string& folder, CppParser parser)
     if (cppAst)
       addCppAst(std::move(cppAst));
   }
+}
+
+CppProgram::CppProgram(const std::string& folder, CppParser parser, const CppProgFileSelecter& fileSelector)
+  : CppProgram(collectFiles(folder, fileSelector), std::move(parser))
+{
 }
 
 void CppProgram::addCppAst(CppCompoundPtr cppAst)

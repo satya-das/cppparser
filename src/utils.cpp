@@ -32,7 +32,7 @@ namespace fs = boost::filesystem;
 static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
 {
   auto rbeg = rev(identifier.sz + identifier.len);
-  assert (*rbeg == '>');
+  assert(*rbeg == '>');
 
   auto rend     = rev(identifier.sz);
   int  numTempl = 1;
@@ -43,7 +43,7 @@ static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
       --numTempl;
       if (numTempl == 0)
       {
-        CppToken clsName{identifier.sz, static_cast<size_t>(std::distance(rbeg, rend)) - 1};
+        CppToken clsName {identifier.sz, static_cast<size_t>(std::distance(rbeg, rend)) - 1};
         return clsName;
       }
     }
@@ -53,7 +53,7 @@ static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
     }
   }
 
-  return CppToken{nullptr, 0U};
+  return CppToken {nullptr, 0U};
 }
 
 CppToken classNameFromIdentifier(const CppToken& identifier)
@@ -61,15 +61,15 @@ CppToken classNameFromIdentifier(const CppToken& identifier)
   if (identifier.sz == nullptr)
     return identifier;
 
-  if (identifier.sz[identifier.len-1] == '>')
+  if (identifier.sz[identifier.len - 1] == '>')
     return classNameFromTemplatedIdentifier(identifier);
-  
+
   const char* scopeResolutor = "::";
-  const char* end = identifier.sz + identifier.len;
-  auto itr = std::find_end(identifier.sz, end, scopeResolutor, scopeResolutor+2);
+  const char* end            = identifier.sz + identifier.len;
+  auto        itr            = std::find_end(identifier.sz, end, scopeResolutor, scopeResolutor + 2);
   if (itr == end)
     return identifier;
-  return CppToken{itr+2, end - itr - 2};
+  return CppToken {itr + 2, end - itr - 2};
 }
 
 std::vector<char> readFile(const std::string& filename)
@@ -94,25 +94,27 @@ std::vector<char> readFile(const std::string& filename)
   return contents;
 }
 
-void collectFiles(const fs::path& path, std::vector<std::string>& files)
+void collectFiles(const fs::path& path, std::vector<std::string>& files, const CppProgFileSelecter& fileSelector)
 {
   if (fs::is_regular_file(path))
   {
-    files.push_back(path.string());
+    auto file = path.string();
+    if (fileSelector(file))
+      files.push_back(std::move(file));
   }
   else if (fs::is_directory(path))
   {
     for (fs::directory_iterator dirItr(path); dirItr != fs::directory_iterator(); ++dirItr)
     {
-      collectFiles(*dirItr, files);
+      collectFiles(*dirItr, files, fileSelector);
     }
   }
 }
 
-std::vector<std::string> collectFiles(const std::string& folder)
+std::vector<std::string> collectFiles(const std::string& folder, const CppProgFileSelecter& fileSelector)
 {
   std::vector<std::string> files;
-  collectFiles(folder, files);
+  collectFiles(folder, files, fileSelector);
   if (!files.empty())
     std::sort(files.begin(), files.end());
 
