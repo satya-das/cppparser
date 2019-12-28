@@ -730,6 +730,11 @@ enumfwddecl       : tknEnum tknID ':' typeidentifier ';'                        
                   }
                   ;
 
+functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
+                    $2->addAttr(kTypedef);
+                    $$ = $2;
+                  }
+
 typedefnamestmt   : typedefname ';'     [ZZVALID;] { $$ = $1; }
                   ;
 
@@ -830,6 +835,9 @@ optvarassign      : { $$ = CppVarAssign{nullptr, AssignType::kNone}; }
 
 vardecl           : vartype varidentifier         {
                     $$ = new CppVar($1, $2.toString());
+                  }
+                  | functionpointer {
+                    $$ = new CppVar(gCurAccessType, $1, CppTypeModifier());
                   }
                   | vardecl '[' expr ']' {
                     $$ = $1;
@@ -980,11 +988,6 @@ lambda            : '[' funcargs ']' '(' paramlist ')' block {
                     $$ = new CppLambda($2, $5, $9, $8);
                   }
                   ;
-
-functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
-                    $2->addAttr(kTypedef);
-                    $$ = $2;
-                  }
 
 functionpointer   : functype vartype '(' optapidecor identifier tknScopeResOp '*' optid ')' '(' paramlist ')' {
                     $$ = new CppFunctionPointer(gCurAccessType, $8, $2, $11, $1, mergeCppToken($5, $6));

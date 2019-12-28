@@ -111,7 +111,7 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
     case CppObjType::kFwdClsDecl:
       return emitFwdDecl((CppFwdClsDecl*) cppObj, stm, indentation);
     case CppObjType::kFunction:
-      return emitFunction((CppFunction*) cppObj, stm, indentation);
+      return emitFunction((CppFunction*) cppObj, stm, !noNewLine, indentation);
     case CppObjType::kConstructor:
       return emitConstructor((CppConstructor*) cppObj, stm, indentation);
     case CppObjType::kDestructor:
@@ -119,7 +119,7 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
     case CppObjType::kTypeConverter:
       return emitTypeConverter((CppTypeConverter*) cppObj, stm, indentation);
     case CppObjType::kFunctionPtr:
-      return emitFunctionPtr((CppFunctionPointer*) cppObj, stm, indentation);
+      return emitFunctionPtr((CppFunctionPointer*) cppObj, stm, !noNewLine, indentation);
     case CppObjType::kIfBlock:
       return emitIfBlock((CppIfBlock*) cppObj, stm, indentation);
     case CppObjType::kWhileBlock:
@@ -507,7 +507,8 @@ void CppWriter::emitFunction(const CppFunction* funcObj,
                              std::ostream&      stm,
                              CppIndent          indentation,
                              bool               skipName,
-                             bool               skipParamName) const
+                             bool               skipParamName,
+                             bool               emitNewLine) const
 {
   if (funcObj->templateParamList())
     emitTemplSpec(funcObj->templateParamList(), stm, indentation);
@@ -565,24 +566,28 @@ void CppWriter::emitFunction(const CppFunction* funcObj,
     emitCompound(funcObj->defn(), stm, indentation);
     stm << --indentation << "}\n";
   }
-  else if ((funcObj->attr() & kFuncParam) == 0)
+  else if (emitNewLine && ((funcObj->attr() & kFuncParam) == 0))
   {
     stm << ";\n";
   }
 }
 
-void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitFunction(const CppFunction* funcObj,
+                             std::ostream&      stm,
+                             bool               emitNewLine,
+                             CppIndent          indentation) const
 {
-  return emitFunction(funcObj, stm, indentation, false, false);
+  return emitFunction(funcObj, stm, indentation, false, false, emitNewLine);
 }
 
 void CppWriter::emitFunctionPtr(const CppFunctionPointer* funcPtrObj,
                                 std::ostream&             stm,
-                                CppIndent                 indentation /* = CppIndent()*/) const
+                                bool                      emitNewLine,
+                                CppIndent                 indentation) const
 {
   if (funcPtrObj->attr() & kTypedef)
     stm << indentation << "typedef ";
-  emitFunction((CppFunction*) funcPtrObj, stm, indentation);
+  emitFunction((CppFunction*) funcPtrObj, stm, emitNewLine, indentation);
 }
 
 void CppWriter::emitConstructor(const CppConstructor* ctorObj,
