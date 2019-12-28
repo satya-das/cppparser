@@ -657,10 +657,12 @@ optnumsignspec    :                 { $$ = makeCppToken(nullptr, nullptr); }
                   | tknNumSignSpec  { $$ = $1; }
                   ;
 
-templidentifier   : identifier tknLT templatearglist tknGT {
-                    $$ = mergeCppToken($1, $4);
-                  }
-                  ;
+templidentifier   : identifier tknLT templatearglist tknGT                  { $$ = mergeCppToken($1, $4); }
+                  | tknTemplate templidentifier                             { $$ = mergeCppToken($1, $2); }
+                  | identifier tknScopeResOp tknTemplate templidentifier    { $$ = mergeCppToken($1, $4); }
+                  | identifier '.' tknTemplate templidentifier              { $$ = mergeCppToken($1, $4); }
+                  | identifier tknArrow tknTemplate templidentifier         { $$ = mergeCppToken($1, $4); }
+                 ;
 
 id                : tknID         {
                     $$ = $1;
