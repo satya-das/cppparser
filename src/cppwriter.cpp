@@ -107,7 +107,7 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
     case CppObjType::kTypedefNameList:
       return emitTypedefList((CppTypedefList*) cppObj, stm, indentation);
     case CppObjType::kCompound:
-      return emitCompound((CppCompound*) cppObj, stm, indentation);
+      return emitCompound((CppCompound*) cppObj, stm, indentation, !noNewLine);
     case CppObjType::kFwdClsDecl:
       return emitFwdDecl((CppFwdClsDecl*) cppObj, stm, indentation);
     case CppObjType::kFunction:
@@ -119,7 +119,7 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
     case CppObjType::kTypeConverter:
       return emitTypeConverter((CppTypeConverter*) cppObj, stm, indentation);
     case CppObjType::kFunctionPtr:
-      return emitFunctionPtr((CppFunctionPtr*) cppObj, stm, indentation);
+      return emitFunctionPtr((CppFunctionPointer*) cppObj, stm, indentation);
     case CppObjType::kIfBlock:
       return emitIfBlock((CppIfBlock*) cppObj, stm, indentation);
     case CppObjType::kWhileBlock:
@@ -214,7 +214,7 @@ void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) con
   const auto attr = varTypeObj->typeAttr() | (isConst(varTypeObj) ? CppIdentifierAttrib::kConst : 0);
   emitAttribute(attr, stm);
   if (varTypeObj->compound())
-    emitCompound(varTypeObj->compound(), stm, CppIndent(), false);
+    emit(varTypeObj->compound(), stm, CppIndent(), true);
   else
     stm << varTypeObj->baseType();
   const auto&           origTypeModifier = varTypeObj->typeModifier();
@@ -495,7 +495,7 @@ void CppWriter::emitParamList(const CppParamVector* paramListObj, std::ostream& 
         emitVar(static_cast<const CppVar*>(param.get()), stm, CppIndent(), skipParamName);
         break;
       case CppObjType::kFunctionPtr:
-        emitFunctionPtr(static_cast<const CppFunctionPtr*>(param.get()), stm, skipParamName);
+        emitFunctionPtr(static_cast<const CppFunctionPointer*>(param.get()), stm, skipParamName);
         break;
       default:
         assert(false);
@@ -576,9 +576,9 @@ void CppWriter::emitFunction(const CppFunction* funcObj, std::ostream& stm, CppI
   return emitFunction(funcObj, stm, indentation, false, false);
 }
 
-void CppWriter::emitFunctionPtr(const CppFunctionPtr* funcPtrObj,
-                                std::ostream&         stm,
-                                CppIndent             indentation /* = CppIndent()*/) const
+void CppWriter::emitFunctionPtr(const CppFunctionPointer* funcPtrObj,
+                                std::ostream&             stm,
+                                CppIndent                 indentation /* = CppIndent()*/) const
 {
   if (funcPtrObj->attr() & kTypedef)
     stm << indentation << "typedef ";

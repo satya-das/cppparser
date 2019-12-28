@@ -110,7 +110,7 @@ void CppProgram::loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeN
     }
     else if (isFunctionPtr(mem))
     {
-      CppTypeTreeNode& childNode = typeNode->children[((CppFunctionPtr*) mem)->name_];
+      CppTypeTreeNode& childNode = typeNode->children[((CppFunctionPointer*) mem)->name_];
       childNode.cppObjSet.insert(mem);
       childNode.parent       = typeNode;
       cppObjToTypeNode_[mem] = &childNode;

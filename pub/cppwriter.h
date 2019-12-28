@@ -77,7 +77,7 @@ public:
                             CppIndent          indentation = CppIndent(),
                             bool               emitNewLine = true) const;
   virtual void emitFunction(const CppFunction* funcObj, std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitFunctionPtr(const CppFunctionPtr* funcPtrObj,
+  virtual void emitFunctionPtr(const CppFunctionPointer* funcPtrObj,
                                std::ostream&         stm,
                                CppIndent             indentation = CppIndent()) const;
   virtual void emitConstructor(const CppConstructor* ctorObj,
@@ -120,14 +120,14 @@ public:
 public:
   void emitVar(const CppVar* varObj, std::ostream& stm, bool skipName) const;
   void emitParamList(const CppParamVector* paramListObj, std::ostream& stm, bool skipName) const;
-  void emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& stm, bool skipName) const;
+  void emitFunctionPtr(const CppFunctionPointer* funcPtrObj, std::ostream& stm, bool skipName) const;
   void emitFunction(const CppFunction* funcObj, std::ostream& stm, bool skipParamName) const;
   void emitConstructor(const CppConstructor* ctorObj, std::ostream& stm, bool skipParamName) const;
 
 private:
   void emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentation, bool noNewLine) const;
   void emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation, bool skipName) const;
-  void emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& stm, CppIndent indentation, bool skipName) const;
+  void emitFunctionPtr(const CppFunctionPointer* funcPtrObj, std::ostream& stm, CppIndent indentation, bool skipName) const;
   void emitFunction(const CppFunction* funcObj,
                     std::ostream&      stm,
                     CppIndent          indentation,
@@ -167,7 +167,7 @@ inline void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, bool ski
   emitVar(varObj, stm, CppIndent(), skipName);
 }
 
-inline void CppWriter::emitFunctionPtr(const CppFunctionPtr* funcPtrObj, std::ostream& stm, bool skipName) const
+inline void CppWriter::emitFunctionPtr(const CppFunctionPointer* funcPtrObj, std::ostream& stm, bool skipName) const
 {
   if (funcPtrObj->attr() & kTypedef)
     return; // Typedef of funcptr without name makes no sense.

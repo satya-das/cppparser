@@ -262,6 +262,9 @@ inline CppTypeModifier makeCppTypeModifier(CppRefType refType, std::uint8_t ptrL
 }
 
 using CppCompoundPtr = std::unique_ptr<CppCompound>;
+using CppObjPtr      = std::unique_ptr<CppObj>;
+
+struct CppFunctionPointer;
 
 struct CppVarType : public CppObj
 {
@@ -272,6 +275,7 @@ struct CppVarType : public CppObj
   CppVarType(std::string baseType, CppTypeModifier modifier = CppTypeModifier());
   CppVarType(CppAccessType accessType, std::string baseType, CppTypeModifier modifier);
   CppVarType(CppAccessType accessType, CppCompound* compound, CppTypeModifier modifier);
+  CppVarType(CppAccessType accessType, CppFunctionPointer* fptr, CppTypeModifier modifier);
   CppVarType(const CppVarType& varType);
 
   const std::string& baseType() const
@@ -282,13 +286,9 @@ struct CppVarType : public CppObj
   {
     baseType_ = std::move(_baseType);
   }
-  CppCompound* compound() const
+  CppObj* compound() const
   {
     return compound_.get();
-  }
-  void compound(CppCompound* _compound)
-  {
-    compound_.reset(_compound);
   }
   std::uint32_t typeAttr() const
   {
@@ -327,7 +327,7 @@ private:
 
 private:
   std::string     baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
-  CppCompoundPtr  compound_;
+  CppObjPtr       compound_;
   CppTypeModifier typeModifier_;
   std::uint32_t   typeAttr_ {0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
 };
@@ -338,7 +338,6 @@ using CppConstVarTypeEPtr = CppEasyPtr<const CppVarType>;
 struct CppExpr;
 using CppExprPtr    = std::unique_ptr<CppExpr>;
 using CppArraySizes = std::vector<CppExprPtr>;
-using CppObjPtr     = std::unique_ptr<CppObj>;
 
 struct CppVarDecl
 {
@@ -421,6 +420,13 @@ struct CppVar : public CppObj
     : CppObj(kObjectType, varType->accessType_)
     , varType_(std::move(varType))
     , varDecl_(std::move(varDecl))
+  {
+  }
+
+  CppVar(CppAccessType accessType, CppFunctionPointer* fptr, CppTypeModifier modifier)
+    : CppObj(kObjectType, accessType)
+    , varType_(new CppVarType(accessType, fptr, modifier))
+    , varDecl_(std::string())
   {
   }
 
@@ -870,7 +876,7 @@ private:
 using CppCompoundEPtr      = CppEasyPtr<CppCompound>;
 using CppConstCompoundEPtr = CppEasyPtr<const CppCompound>;
 
-struct CppFunctionPtr;
+struct CppFunctionPointer;
 
 using CppIdentifierList   = std::vector<std::string>;
 using CppFuncThrowSpec    = CppIdentifierList;
@@ -1055,25 +1061,25 @@ using CppConstFunctionEPtr = CppEasyPtr<const CppFunction>;
 
  * It has all the attributes of a function object and so it is simply derived from CppFunction.
  */
-struct CppFunctionPtr : public CppFunction
+struct CppFunctionPointer : public CppFunction
 {
   static constexpr CppObjType kObjectType = CppObjType::kFunctionPtr;
 
   const std::string ownerName_;
 
-  CppFunctionPtr(CppAccessType   accessType,
-                 std::string     name,
-                 CppVarType*     retType,
-                 CppParamVector* params,
-                 std::uint32_t   attr,
-                 std::string     ownerName = std::string())
+  CppFunctionPointer(CppAccessType   accessType,
+                     std::string     name,
+                     CppVarType*     retType,
+                     CppParamVector* params,
+                     std::uint32_t   attr,
+                     std::string     ownerName = std::string())
     : CppFunction(kObjectType, accessType, std::move(name), retType, params, attr)
     , ownerName_(std::move(ownerName))
   {
   }
 };
 
-using CppFunctionPtrEPtr = CppEasyPtr<CppFunctionPtr>;
+using CppFunctionPointerEPtr = CppEasyPtr<CppFunctionPointer>;
 
 /**
  * Class data member initialization as part of class constructor.
@@ -1171,7 +1177,7 @@ struct CppUsingDecl : public CppObj
   {
   }
 
-  CppUsingDecl(std::string name, CppFunctionPtr* fptr)
+  CppUsingDecl(std::string name, CppFunctionPointer* fptr)
     : CppObj(kObjectType, CppAccessType::kUnknown)
     , name_(std::move(name))
     , cppObj_(fptr)
@@ -1660,6 +1666,13 @@ inline CppVarType::CppVarType(CppAccessType accessType, std::string baseType, Cp
 }
 
 inline CppVarType::CppVarType(CppAccessType accessType, CppCompound* compound, CppTypeModifier modifier)
+  : CppObj(kObjectType, CppAccessType::kUnknown)
+  , compound_(compound)
+  , typeModifier_(modifier)
+{
+}
+
+inline CppVarType::CppVarType(CppAccessType accessType, CppFunctionPointer* compound, CppTypeModifier modifier)
   : CppObj(kObjectType, CppAccessType::kUnknown)
   , compound_(compound)
   , typeModifier_(modifier)

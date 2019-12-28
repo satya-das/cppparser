@@ -159,7 +159,7 @@ extern int yylex();
   CppExpr*                cppExprObj;
   CppLambda*              cppLambda;
   CppFunction*            cppFuncObj;
-  CppFunctionPtr*         cppFuncPointerObj;
+  CppFunctionPointer*         cppFuncPointerObj;
   CppObj*                 varOrFuncPtr;
   CppParamVector*         paramList;
   CppConstructor*         cppCtorObj;
@@ -518,6 +518,9 @@ forblock          : tknFor '(' optexpr ';' optexpr ';' optexpr ')' stmt {
                     $$ = new CppForBlock($3, $5, $7, $9);
                   }
                   | tknFor '(' varinit ';' optexpr ';' optexpr ')' stmt {
+                    $$ = new CppForBlock($3, $5, $7, $9);
+                  }
+                  | tknFor '(' vardecllist ';' optexpr ';' optexpr ')' stmt {
                     $$ = new CppForBlock($3, $5, $7, $9);
                   }
                   ;
@@ -984,19 +987,19 @@ functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
                   }
 
 functionpointer   : functype vartype '(' optapidecor identifier tknScopeResOp '*' optid ')' '(' paramlist ')' {
-                    $$ = new CppFunctionPtr(gCurAccessType, $8, $2, $11, $1, mergeCppToken($5, $6));
+                    $$ = new CppFunctionPointer(gCurAccessType, $8, $2, $11, $1, mergeCppToken($5, $6));
                     $$->decor2($4);
                   }
                   | vartype '(' optapidecor identifier tknScopeResOp '*' optid ')' '(' paramlist ')' {
-                    $$ = new CppFunctionPtr(gCurAccessType, $7, $1, $10, 0, mergeCppToken($4, $5));
+                    $$ = new CppFunctionPointer(gCurAccessType, $7, $1, $10, 0, mergeCppToken($4, $5));
                     $$->decor2($3);
                   }
                   | functype vartype '(' optapidecor '*' optid ')' '(' paramlist ')' {
-                    $$ = new CppFunctionPtr(gCurAccessType, $6, $2, $9, $1);
+                    $$ = new CppFunctionPointer(gCurAccessType, $6, $2, $9, $1);
                     $$->decor2($4);
                   }
                   | vartype '(' optapidecor '*' optid ')' '(' paramlist ')' {
-                    $$ = new CppFunctionPtr(gCurAccessType, $5, $1, $8, 0);
+                    $$ = new CppFunctionPointer(gCurAccessType, $5, $1, $8, 0);
                     $$->decor2($3);
                   }
                   | apidecor functionpointer {
@@ -1011,7 +1014,7 @@ functionpointer   : functype vartype '(' optapidecor identifier tknScopeResOp '*
 
 
 funcobj           : vartype optapidecor '(' paramlist ')' {
-                    $$ = new CppFunctionPtr(gCurAccessType, "", $1, $4, 0);
+                    $$ = new CppFunctionPointer(gCurAccessType, "", $1, $4, 0);
                   }
                   ;
 
@@ -1730,7 +1733,7 @@ funcargs          :             { $$ = nullptr; }
                   | exprorlist  { $$ = $1;      }
                   ;
 
-exprstmt          : expr ';'  [ZZVALID;]              { $$ = $1; }
+exprstmt          : expr ';'              { $$ = $1; }
                   ;
 
 %%
