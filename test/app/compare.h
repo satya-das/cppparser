@@ -122,7 +122,7 @@ inline void reportFileComparisonError(FileCompareResult    result,
   {
     int r, c;
     std::tie(r, c) = diffStartsAt;
-    std::cerr << "CppParserTest: File comparison failed while comparing " << path1.string() << " and " << path2.string()
+    std::cerr << "CppParserTest: File comparison failed while comparing " << path1.string() << " " << path2.string()
               << "\n";
     std::cerr << "CppParserTest: Error is around line#" << r << " and column#" << c << " in file " << path1.string()
               << "\n";
