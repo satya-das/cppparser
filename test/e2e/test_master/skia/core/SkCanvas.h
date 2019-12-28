@@ -1694,18 +1694,12 @@ public:
      */
   enum QuadAAFlags : unsigned
   {
-    kLeft_QuadAAFlag = 0,
-    b0001,
-    kTop_QuadAAFlag = 0,
-    b0010,
-    kRight_QuadAAFlag = 0,
-    b0100,
-    kBottom_QuadAAFlag = 0,
-    b1000,
-    kNone_QuadAAFlags = 0,
-    b0000,
-    kAll_QuadAAFlags = 0,
-    b1111
+    kLeft_QuadAAFlag = 0b0001,
+    kTop_QuadAAFlag = 0b0010,
+    kRight_QuadAAFlag = 0b0100,
+    kBottom_QuadAAFlag = 0b1000,
+    kNone_QuadAAFlags = 0b0000,
+    kAll_QuadAAFlags = 0b1111
   };
     /** This is used by the experimental API below. */
   struct SK_API ImageSetEntry
