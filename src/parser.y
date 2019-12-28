@@ -970,10 +970,10 @@ funcdefn          : funcdecl block [ZZVALID;] {
                   }
                   ;
 
-lambda            : '[' funcargs ']' '(' paramlist ')' block [ZZVALID;] {
+lambda            : '[' funcargs ']' '(' paramlist ')' block {
                     $$ = new CppLambda($2, $5, $7);
                   }
-                  | '[' funcargs ']' '(' paramlist ')' tknArrow vartype block [ZZVALID;] {
+                  | '[' funcargs ']' '(' paramlist ')' tknArrow vartype block {
                     $$ = new CppLambda($2, $5, $9, $8);
                   }
                   ;
