@@ -3,9 +3,9 @@
 GRAMMER_START_LINE=371
 GRAMMER_END_LINE=1764
 
-sed -i                                                                                  \
-  -e "${GRAMMER_START_LINE},${GRAMMER_END_LINE}s/\(\[.*;[ \t]*]\)/\{\/*ToYacc & ToYacc*\/\}/g"        \
-  -e "${GRAMMER_START_LINE},${GRAMMER_END_LINE}s/\(\[\)$/\{\/*ToYacc &/g"                      \
-  -e "${GRAMMER_START_LINE},${GRAMMER_END_LINE}s/\(^[ \t]*\]\)/& ToYacc\*\/\}/g"                \
+sed -i                                                                                                    \
+  -e "${GRAMMER_START_LINE},${GRAMMER_END_LINE}s/\(\[[^'].*;[ \t]*]\)/\{\/*ToYacc & ToYacc*\/\}/g"        \
+  -e "${GRAMMER_START_LINE},${GRAMMER_END_LINE}s/\(\[\)$/\{\/*ToYacc &/g"                                 \
+  -e "${GRAMMER_START_LINE},${GRAMMER_END_LINE}s/\(^[ \t]*\]\)/& ToYacc\*\/\}/g"                          \
   parser.y
 
