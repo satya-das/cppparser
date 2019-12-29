@@ -1454,19 +1454,16 @@ classdefn         : compoundSpecifier optapidecor identifier optfinal optinherit
                   [
                     ZZVALID;
                     gCompoundStack.push(classNameFromIdentifier($3));
-                  ]
-                  {
                     gAccessTypeStack.push(gCurAccessType); gCurAccessType = CppAccessType::kUnknown;
-                  }
+                  ]
                   optstmtlist '}'
                   [
                     ZZVALID;
                     gCompoundStack.pop();
-                  ]
-                  {
                     gCurAccessType = gAccessTypeStack.top();
                     gAccessTypeStack.pop();
-
+                  ]
+                  {
                     $$ = $9 ? $9 : newCompound(gCurAccessType);
                     $$->compoundType($1);
                     $$->apidecor($2);
@@ -1538,7 +1535,9 @@ compoundSpecifier : tknClass      { $$ = CppCompoundType::kClass;     }
                   | tknNamespace  { $$ = CppCompoundType::kNamespace; }
                   ;
 
-templatespecifier : tknTemplate tknLT [gInTemplateSpec = true;] templateparamlist tknGT [gInTemplateSpec = false; ZZVALID; ] {
+templatespecifier : tknTemplate tknLT [gInTemplateSpec = true;]
+                    templateparamlist tknGT [gInTemplateSpec = false; ZZVALID; ]
+                  {
                     $$ = $4;
                   }
                   ;
