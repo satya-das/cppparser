@@ -1,4 +1,10 @@
 #!/bin/bash
 
-sed -i -e 's/\/\*\[ZZVALID;]\*\//[ZZVALID;]/g' -e 's/\/\*\(\[.*\]\)\*\/$/\1/g' -e 's/\/\*\[$/[/g' -e 's/\]\*\/$/]/g' -e '290,1405s/\/\*{$/{/g' -e '290,1405s/\(^[ \t]*\}\)\*\/$/\1/g' parser.y
+GRAMMER_START_LINE=371
+GRAMMER_END_LINE=1764
+
+sed -i                                                                   \
+  -e "${GRAMMER_START_LINE},${GRAMMER_END_LINE}s/{\/\*ToYacc //g"        \
+  -e "${GRAMMER_START_LINE},${GRAMMER_END_LINE}s/ ToYacc\*\/\}//g"       \
+  parser.y
 
