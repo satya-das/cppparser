@@ -242,7 +242,8 @@ extern int yylex();
 %type  <str>                strlit
 %type  <str>                optapidecor apidecor
 %type  <str>                optnumsignspec
-%type  <str>                identifier typeidentifier templidentifier varidentifier optid id operfuncname funcname
+%type  <str>                identifier typeidentifier varidentifier optid id operfuncname funcname
+%type  <str>                templidentifier templqualifiedid
 %type  <str>                doccommentstr
 %type  <str>                rshift
 %type  <str>                macrocall
@@ -620,6 +621,9 @@ identifier        : tknID                                        { $$ = $1; }
                   | tknOverride                           { $$ = $1; } /* override is not a reserved keyword */
                   | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
                   | tknMacro                              { $$ = $1; }
+                  | identifier tknScopeResOp templqualifiedid    { $$ = mergeCppToken($1, $3); }
+                  | identifier '.' templqualifiedid              { $$ = mergeCppToken($1, $3); }
+                  | identifier tknArrow templqualifiedid         { $$ = mergeCppToken($1, $3); }
                   ;
 
 typeidentifier    : identifier                            { $$ = $1; }
@@ -634,7 +638,6 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | tknNumSignSpec                        { $$ = $1; }
                   | tknAuto                               { $$ = $1; }
                   | tknVoid                               { $$ = $1; }
-                  | tknNumSignSpec                        { $$ = $1; }
                   | tknClass identifier [
                     if (gTemplateParamStart == $1.sz)
                       ZZERROR;
@@ -658,11 +661,10 @@ optnumsignspec    :                 { $$ = makeCppToken(nullptr, nullptr); }
                   ;
 
 templidentifier   : identifier tknLT templatearglist tknGT                  { $$ = mergeCppToken($1, $4); }
-                  | tknTemplate templidentifier                             { $$ = mergeCppToken($1, $2); }
-                  | identifier tknScopeResOp tknTemplate templidentifier    { $$ = mergeCppToken($1, $4); }
-                  | identifier '.' tknTemplate templidentifier              { $$ = mergeCppToken($1, $4); }
-                  | identifier tknArrow tknTemplate templidentifier         { $$ = mergeCppToken($1, $4); }
-                 ;
+                  ;
+
+templqualifiedid  : tknTemplate templidentifier                             { $$ = mergeCppToken($1, $2); }
+                  ;
 
 id                : tknID         {
                     $$ = $1;
@@ -983,10 +985,10 @@ funcdefn          : funcdecl block [ZZVALID;] {
                   }
                   ;
 
-lambda            : '[' lambdacapture ']' lambdaparams block {
+lambda            : '[' lambdacapture ']' lambdaparams block [ZZVALID;] {
                     $$ = new CppLambda($2, $4, $5);
                   }
-                  | '[' lambdacapture ']' lambdaparams tknArrow vartype block {
+                  | '[' lambdacapture ']' lambdaparams tknArrow vartype block [ZZVALID;] {
                     $$ = new CppLambda($2, $4, $7, $6);
                   }
                   ;
