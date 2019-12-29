@@ -260,7 +260,7 @@ extern int yylex();
 %type  <templateArg>        templatearg templatearglist /* For time being. We may need to make it more robust in future. */
 %type  <asmBlock>           asmblock
 %type  <cppVarObjList>      vardecllist vardeclliststmt
-%type  <paramList>          paramlist
+%type  <paramList>          paramlist lambdaparams
 %type  <typedefName>        typedefname typedefnamestmt
 %type  <typedefList>        typedeflist typedefliststmt
 %type  <usingNamespaceDecl> usingnamespacedecl
@@ -270,7 +270,7 @@ extern int yylex();
 %type  <templateParamList>  templatespecifier templateparamlist
 %type  <templateParam>      templateparam
 %type  <docCommentObj>      doccomment
-%type  <cppExprObj>         expr exprlist exprorlist funcargs exprstmt optexpr
+%type  <cppExprObj>         expr exprlist exprorlist funcargs exprstmt optexpr lambdacapture captureallbyref captureallbyval
 %type  <cppLambda>          lambda
 %type  <ifBlock>            ifblock;
 %type  <whileBlock>         whileblock;
@@ -983,12 +983,16 @@ funcdefn          : funcdecl block [ZZVALID;] {
                   }
                   ;
 
-lambda            : '[' funcargs ']' '(' paramlist ')' block {
-                    $$ = new CppLambda($2, $5, $7);
+lambda            : '[' lambdacapture ']' lambdaparams block {
+                    $$ = new CppLambda($2, $4, $5);
                   }
-                  | '[' funcargs ']' '(' paramlist ')' tknArrow vartype block {
-                    $$ = new CppLambda($2, $5, $9, $8);
+                  | '[' lambdacapture ']' lambdaparams tknArrow vartype block {
+                    $$ = new CppLambda($2, $4, $7, $6);
                   }
+                  ;
+
+lambdaparams      : { $$ = nullptr; }
+                  | '(' paramlist ')' { $$ = $2; }
                   ;
 
 functionpointer   : functype vartype '(' optapidecor identifier tknScopeResOp '*' optid ')' '(' paramlist ')' {
@@ -1142,6 +1146,9 @@ operfuncname      : tknOperator '+'               { $$ = mergeCppToken($1, $2); 
                   | tknOperator tknNew '[' ']'    { $$ = mergeCppToken($1, $4); }
                   | tknOperator tknDelete         { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknDelete '[' ']' { $$ = mergeCppToken($1, $4); }
+
+                  /* see https://en.cppreference.com/w/cpp/language/user_literal */
+                  | tknOperator tknStrLit id      { $$ = mergeCppToken($1, $3); }
                   ;
 
 paramlist         : { $$ = nullptr; }
@@ -1641,7 +1648,7 @@ expr              : strlit                                                    { 
                   | '~' expr                                                  { $$ = new CppExpr($2, kBitToggle);                   }
                   | '!' expr                                                  { $$ = new CppExpr($2, kLogNot);                      }
                   | '*' expr %prec DEREF                                      { $$ = new CppExpr($2, kDerefer);                     }
-                  | '&' expr %prec ADDRESSOF  [ ZZLOG; ]                                { $$ = new CppExpr($2, kRefer);                       }
+                  | '&' expr %prec ADDRESSOF  [ ZZLOG; ]                      { $$ = new CppExpr($2, kRefer);                       }
                   | tknInc expr  %prec PREINCR                                { $$ = new CppExpr($2, kPreIncrement);                }
                   | expr tknInc  %prec POSTINCR                               { $$ = new CppExpr($1, kPostIncrement);               }
                   | tknDec expr  %prec PREDECR                                { $$ = new CppExpr($2, kPreDecrement);                }
@@ -1724,6 +1731,9 @@ expr              : strlit                                                    { 
                   | tknSizeOf tknEllipsis '(' expr ')'                        { $$ = new CppExpr($4, CppExpr::kSizeOf);             }
                   | expr tknEllipsis                                          { $$ = $1; /* TODO */ }
                   | lambda                                                    { $$ = new CppExpr($1); }
+
+                  /* This is to parse implementation of string user literal, see https://en.cppreference.com/w/cpp/language/user_literal */
+                  | tknNumber id                                              { $$ = new CppExpr((std::string) $1, kNone);          }
                   ;
 
 exprlist          : expr ',' expr %prec COMMA                                 { $$ = new CppExpr($1, kComma, $3);                   }
@@ -1736,6 +1746,17 @@ exprorlist        : expr      { $$ = $1; }
 
 funcargs          :             { $$ = nullptr; }
                   | exprorlist  { $$ = $1;      }
+                  ;
+
+captureallbyref   : '&'  { $$ = new CppExpr("", kRefer); }
+                  ;
+
+captureallbyval   : '='  { $$ = new CppExpr("", kEqual, ""); }
+                  ;
+
+lambdacapture     : funcargs
+                  | captureallbyref
+                  | captureallbyval
                   ;
 
 exprstmt          : expr ';'              { $$ = $1; }
