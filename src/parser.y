@@ -613,16 +613,16 @@ doccommentstr     : tknDocBlockComment                          [ZZVALID;]  { $$
                   | doccommentstr tknDocLineComment             [ZZVALID;]  { $$ = mergeCppToken($1, $2); }
                   ;
 
-identifier        : tknID                                        { $$ = $1; }
-                  | identifier tknScopeResOp identifier   { $$ = mergeCppToken($1, $3); }
-                  | tknScopeResOp identifier %prec GLOBAL { $$ = mergeCppToken($1, $2); }
-                  | templidentifier                       { $$ = $1; }
-                  | tknOverride                           { $$ = $1; } /* override is not a reserved keyword */
-                  | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
-                  | tknMacro                              { $$ = $1; }
-                  | identifier tknScopeResOp templqualifiedid    { $$ = mergeCppToken($1, $3); }
-                  | identifier '.' templqualifiedid              { $$ = mergeCppToken($1, $3); }
-                  | identifier tknArrow templqualifiedid         { $$ = mergeCppToken($1, $3); }
+identifier        : tknID                                         { $$ = $1; }
+                  | identifier tknScopeResOp identifier           { $$ = mergeCppToken($1, $3); }
+                  | tknScopeResOp identifier %prec GLOBAL         { $$ = mergeCppToken($1, $2); }
+                  | templidentifier                               { $$ = $1; }
+                  | tknOverride                                   { $$ = $1; } /* override is not a reserved keyword */
+                  | identifier tknEllipsis                        { $$ = mergeCppToken($1, $2); }
+                  | tknMacro                                      { $$ = $1; }
+                  | identifier tknScopeResOp templqualifiedid     { $$ = mergeCppToken($1, $3); }
+                  | identifier '.' templqualifiedid               { $$ = mergeCppToken($1, $3); }
+                  | identifier tknArrow templqualifiedid          { $$ = mergeCppToken($1, $3); }
                   ;
 
 numbertype        : tknInteger                            { $$ = $1; }
