@@ -240,7 +240,7 @@ extern int yylex();
 %token  tknBlankLine
 
 %type  <str>                strlit
-%type  <str>                optapidecor apidecor
+%type  <str>                optapidecor apidecor apidecortokensq
 %type  <str>                optnumsignspec
 %type  <str>                identifier typeidentifier varidentifier optid id operfuncname funcname
 %type  <str>                templidentifier templqualifiedid
@@ -652,8 +652,7 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | tknEllipsis                           { $$ = $1; }
                   | tknTypename tknEllipsis               { $$ = mergeCppToken($1, $2); }
                   | tknClass tknEllipsis                  { $$ = mergeCppToken($1, $2); }
-                  | identifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
-                  | tknMacro                              { $$ = $1; }
+                  | typeidentifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
                   ;
 
 optnumsignspec    :                 { $$ = makeCppToken(nullptr, nullptr); }
@@ -1611,10 +1610,13 @@ optapidecor       :                     { $$ = makeCppToken(nullptr, nullptr); }
                   | apidecor            { $$ = $1; }
                   ;
 
-apidecor          : tknApiDecor         { $$ = $1; }
-                  | apidecor tknApiDecor{ $$ = mergeCppToken($1, $2); }
+apidecor          : apidecortokensq     { $$ = $1; }
                   | tknID '(' tknID ')' { $$ = mergeCppToken($1, $4); }
                   | tknID               { $$ = $1; }
+                  ;
+
+apidecortokensq   : tknApiDecor                 { $$ = $1; }
+                  | apidecortokensq tknApiDecor { $$ = mergeCppToken($1, $2); }
                   ;
 
 changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = CppAccessType::kPublic;     }
