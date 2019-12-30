@@ -289,7 +289,7 @@ extern int yylex();
 %type  <memInitList>        meminitlist
 %type  <memInit>            meminit
 %type  <compoundType>       compoundSpecifier
-%type  <attr>               varattrib exptype optfuncattrib functype optfunctype optfinal
+%type  <attr>               varattrib exptype optfuncattrib functype optfinal
 %type  <inheritList>        optinheritlist
 %type  <inheritType>        optinherittype
 %type  <objAccessType>      protlevel changeprotlevel
@@ -1194,23 +1194,12 @@ templatearglist   : templatearg { $$ = $1; }
                   | templatearglist ',' templatearg  { $$ = $1; /*$$ = mergeCppToken($1, $3);*/ }
                   ;
 
-optfunctype       : {
-                    $$ = 0;
-                  }
-                  | functype {
-                    $$ = $1;
-                  }
-                  ;
-
-/* Although not all combinations are valid but we don't care. */
-functype          : optfunctype tknStatic      { $$ = $1 | kStatic;    }
-                  | optfunctype tknInline      { $$ = $1 | kInline;    }
-                  | optfunctype tknVirtual     { $$ = $1 | kVirtual;   }
-                  | optfunctype tknExtern      { $$ = $1 | kExtern;    }
-                  | optfunctype tknExternC     { $$ = $1 | kExternC;   }
-                  | optfunctype tknExplicit    { $$ = $1 | kExplicit;  }
-                  | optfunctype tknFriend      { $$ = $1 | kFriend;    }
-                  | optfunctype tknConstExpr   { $$ = $1 | kConstExpr; }
+functype          : exptype              { $$ = $1; }
+                  | tknInline      { $$ = kInline;    }
+                  | tknVirtual     { $$ = kVirtual;   }
+                  | tknExplicit    { $$ = kExplicit;  }
+                  | tknFriend      { $$ = kFriend;    }
+                  | tknConstExpr   { $$ = kConstExpr; }
                   ;
 
 optfuncattrib     : tknConst       { $$ = kConst; }
