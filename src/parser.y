@@ -200,7 +200,7 @@ extern int yylex();
 
 %token  <str>   tknID tknStrLit tknCharLit tknNumber tknMacro tknApiDecor
 %token  <str>   tknTypedef tknUsing
-%token  <str>   tknLongLong tknLong tknInt tknShort tknChar tknDouble tknFloat
+%token  <str>   tknInteger tknChar tknDouble tknFloat
 %token  <str>   tknEnum
 %token  <str>   tknAuto
 %token  <str>   tknPreProDef
@@ -241,8 +241,7 @@ extern int yylex();
 
 %type  <str>                strlit
 %type  <str>                optapidecor apidecor apidecortokensq
-%type  <str>                optnumsignspec
-%type  <str>                identifier typeidentifier varidentifier optid id operfuncname funcname
+%type  <str>                identifier numbertype typeidentifier varidentifier optid id operfuncname funcname
 %type  <str>                templidentifier templqualifiedid
 %type  <str>                doccommentstr
 %type  <str>                rshift
@@ -626,16 +625,14 @@ identifier        : tknID                                        { $$ = $1; }
                   | identifier tknArrow templqualifiedid         { $$ = mergeCppToken($1, $3); }
                   ;
 
-typeidentifier    : identifier                            { $$ = $1; }
-                  | optnumsignspec tknLongLong            { $$ = mergeCppToken($1, $2); }
-                  | optnumsignspec tknLongLong tknInt     { $$ = mergeCppToken($1, $3); }
-                  | optnumsignspec tknLong                { $$ = mergeCppToken($1, $2); }
-                  | optnumsignspec tknLong tknInt         { $$ = mergeCppToken($1, $3); }
-                  | optnumsignspec tknInt                 { $$ = mergeCppToken($1, $2); }
-                  | optnumsignspec tknShort               { $$ = mergeCppToken($1, $2); }
-                  | optnumsignspec tknShort tknInt        { $$ = mergeCppToken($1, $3); }
-                  | optnumsignspec tknChar                { $$ = mergeCppToken($1, $2); }
+numbertype        : tknInteger                            { $$ = $1; }
+                  | tknChar                               { $$ = $1; }
                   | tknNumSignSpec                        { $$ = $1; }
+                  | tknNumSignSpec numbertype             { $$ = mergeCppToken($1, $2); }
+                  ;
+
+typeidentifier    : identifier                            { $$ = $1; }
+                  | numbertype                            { $$ = $1; }
                   | tknAuto                               { $$ = $1; }
                   | tknVoid                               { $$ = $1; }
                   | tknClass identifier [
@@ -653,10 +650,6 @@ typeidentifier    : identifier                            { $$ = $1; }
                   | tknTypename tknEllipsis               { $$ = mergeCppToken($1, $2); }
                   | tknClass tknEllipsis                  { $$ = mergeCppToken($1, $2); }
                   | typeidentifier tknEllipsis                { $$ = mergeCppToken($1, $2); }
-                  ;
-
-optnumsignspec    :                 { $$ = makeCppToken(nullptr, nullptr); }
-                  | tknNumSignSpec  { $$ = $1; }
                   ;
 
 templidentifier   : identifier tknLT templatearglist tknGT                  { $$ = mergeCppToken($1, $4); }
@@ -1094,10 +1087,7 @@ funcname          : operfuncname { $$ = $1; }
                   | tknScopeResOp operfuncname { $$ = mergeCppToken($1, $2); }
                   | identifier tknScopeResOp operfuncname { $$ = mergeCppToken($1, $3); }
                   /* For function style type casting */
-                  | tknInt      { $$ = $1; }
-                  | tknShort    { $$ = $1; }
-                  | tknChar     { $$ = $1; }
-                  | tknLong     { $$ = $1; }
+                  | numbertype  { $$ = $1; }
                   | tknVoid     { $$ = $1; } /* void is used to cast away unused variable. */
                   ;
 
