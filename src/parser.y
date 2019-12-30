@@ -798,13 +798,13 @@ vardecllist       : typeidentifier opttypemodifier id optvarassign ',' opttypemo
                   }
                   ;
 
-varinit           : vardecl '(' typeidentifier '*' id      [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '(' typeidentifier '*' '*' id  [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '(' typeidentifier '*' '&' id  [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '(' typeidentifier '&' id      [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '(' typeidentifier tknAnd id   [gParamModPos = $4.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '(' typeidentifier ')'         [gParamModPos = $3.sz; ZZERROR;] { $$ = nullptr; } //FuncDeclHack
-                  | vardecl '(' ')'             [ZZERROR;] { $$ = nullptr; } //FuncDeclHack
+varinit           : vardecl '(' typeidentifier '*' id      [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+                  | vardecl '(' typeidentifier '*' '*' id  [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+                  | vardecl '(' typeidentifier '*' '&' id  [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+                  | vardecl '(' typeidentifier '&' id      [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+                  | vardecl '(' typeidentifier tknAnd id   [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+                  | vardecl '(' typeidentifier ')'         [gParamModPos = $3.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+                  | vardecl '(' ')'                        [ZZERROR;]                       { /*FuncDeclHack*/ $$ = nullptr; }
                   | vardecl varassign           [ZZLOG;] {
                     $$ = $1;
                     $$->assign($2.assignValue_, $2.assignType_);
