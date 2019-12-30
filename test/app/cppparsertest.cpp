@@ -150,6 +150,7 @@ CppParser constructCppParserForTest()
                          "SK_C_PLUS_PLUS_END_GUARD",
                          "GPU_DRIVER_BUG_WORKAROUNDS",
                          "GR_MAKE_BITFIELD_OPS",
+                         "SK_FLATTENABLE_HOOKS",
                          "SK_WHEN"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");

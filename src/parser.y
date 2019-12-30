@@ -1589,9 +1589,9 @@ optapidecor       :                     { $$ = makeCppToken(nullptr, nullptr); }
                   | apidecor            { $$ = $1; }
                   ;
 
-apidecor          : apidecortokensq     { $$ = $1; }
-                  | tknID '(' tknID ')' { $$ = mergeCppToken($1, $4); }
-                  | tknID               { $$ = $1; }
+apidecor          : apidecortokensq                 { $$ = $1; }
+                  | apidecortokensq '(' tknID ')'   { $$ = mergeCppToken($1, $4); }
+                  | tknID                           { $$ = $1; }
                   ;
 
 apidecortokensq   : tknApiDecor                 { $$ = $1; }
