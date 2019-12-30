@@ -34,7 +34,8 @@ protected:
   void flatten(SkWriteBuffer&) const override;
   bool onFilterPath(SkPath* dst, const SkPath& src, SkStrokeRec*, const SkRect*) const override;
 private:
-  SK_FLATTENABLE_HOOKS(SkDiscretePathEffect) SkScalar fSegLength;
+  SK_FLATTENABLE_HOOKS(SkDiscretePathEffect)
+  SkScalar fSegLength;
   SkScalar fPerterb;
   uint32_t fSeedAssist;
   typedef SkPathEffect INHERITED;

@@ -90,7 +90,7 @@ struct e2f_hdr
   long nlayers;
   unsigned long bgcolor;
   short cmaplen;
-  char * cmap;
+  char* cmap;
 };
 struct e2f_layer
 {

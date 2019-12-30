@@ -99,7 +99,7 @@ enum SelectorType
 struct ads_binary
 {
   short clen;
-  char * buf;
+  char* buf;
 };
 union ads_u_val
 {

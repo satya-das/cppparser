@@ -64,7 +64,8 @@ protected:
   bool onFilterPath(SkPath* dst, const SkPath& src, SkStrokeRec*, const SkRect*) const override;
   void nextSpan(int u, int v, int ucount, SkPath*) const override;
 private:
-  SK_FLATTENABLE_HOOKS(SkLine2DPathEffect) SkScalar fWidth;
+  SK_FLATTENABLE_HOOKS(SkLine2DPathEffect)
+  SkScalar fWidth;
   typedef Sk2DPathEffect INHERITED;
 };
 class SK_API SkPath2DPathEffect : public Sk2DPathEffect
@@ -83,7 +84,8 @@ protected:
   void flatten(SkWriteBuffer&) const override;
   void next(const SkPoint&, int u, int v, SkPath*) const override;
 private:
-  SK_FLATTENABLE_HOOKS(SkPath2DPathEffect) SkPath fPath;
+  SK_FLATTENABLE_HOOKS(SkPath2DPathEffect)
+  SkPath fPath;
   typedef Sk2DPathEffect INHERITED;
 };
 #endif

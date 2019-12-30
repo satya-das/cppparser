@@ -52,7 +52,8 @@ protected:
   SkScalar begin(SkScalar contourLength) const override;
   SkScalar next(SkPath*, SkScalar, SkPathMeasure&) const override;
 private:
-  SK_FLATTENABLE_HOOKS(SkPath1DPathEffect) SkPath fPath;
+  SK_FLATTENABLE_HOOKS(SkPath1DPathEffect)
+  SkPath fPath;
   SkScalar fAdvance;
   SkScalar fInitialOffset;
   Style fStyle;

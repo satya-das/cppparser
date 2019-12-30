@@ -85,7 +85,7 @@ public:
     void reset(const SkDeque& d, IterStart startLoc);
   private:
     SkDeque::Block* fCurBlock;
-    char * fPos;
+    char* fPos;
     size_t fElemSize;
   };
   class F2BIter : private Iter

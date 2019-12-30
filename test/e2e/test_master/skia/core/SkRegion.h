@@ -378,7 +378,7 @@ public:
 
         @return  string representation of SkRegion
     */
-  char * toString();
+  char* toString();
 #  endif
     /** \class SkRegion::Iterator
         Returns sequence of rectangles, sorted along y-axis, then x-axis, that make
@@ -512,7 +512,7 @@ public:
             @param right  pointer to span end; may be nullptr
             @return       true if interval was found
         */
-    bool next(int * left, int * right);
+    bool next(int* left, int* right);
   private:
     const SkRegion::RunType* fRuns;
     int fLeft, fRight;

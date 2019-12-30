@@ -29,7 +29,8 @@ protected:
   void flatten(SkWriteBuffer&) const override;
   bool onFilterPath(SkPath* dst, const SkPath& src, SkStrokeRec*, const SkRect*) const override;
 private:
-  SK_FLATTENABLE_HOOKS(SkCornerPathEffect) SkScalar fRadius;
+  SK_FLATTENABLE_HOOKS(SkCornerPathEffect)
+  SkScalar fRadius;
   typedef SkPathEffect INHERITED;
 };
 #endif

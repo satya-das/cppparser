@@ -23,7 +23,7 @@
 #  include "AcCoreDefs.h"
 #  include "acgidefs.h"
 #  pragma  pack (push, 8)
-Adesk::Boolean acgsGetDisplayInfo(int & drawingWidth, int & drawingHeight, int & aspectWidth, int & aspectHeight);
+Adesk::Boolean acgsGetDisplayInfo(int& drawingWidth, int& drawingHeight, int& aspectWidth, int& aspectHeight);
 Adesk::Boolean acgsGetViewportInfo(int viewportNumber, int& left, int& bottom, int& right, int& top);
 class AcDbDatabase;
 class AcGiDrawable;

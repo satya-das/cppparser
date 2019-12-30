@@ -731,7 +731,7 @@ public:
     /// A leader cluster is made up by a dog-leg and some leaderLines.
     /// </remarks>
     ///
-  Acad::ErrorStatus addLeader(int & leaderIndex);
+  Acad::ErrorStatus addLeader(int& leaderIndex);
     /// <summary>
     /// Removes the leader cluster with specified index.
     /// </summary>

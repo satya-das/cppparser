@@ -517,7 +517,7 @@ ACCORE_PORT void acedSetSupplementalCursorOffset(int x, int y);
 /// </summary>
 /// <param name="x">X offset</param>
 /// <param name="y">Y offset</param>
-ACAD_PORT void acedGetSupplementalCursorOffset(int & x, int & y);
+ACAD_PORT void acedGetSupplementalCursorOffset(int& x, int& y);
 /// <summary>
 /// Gets Dpi scaling value of Windows system.
 /// </summary>

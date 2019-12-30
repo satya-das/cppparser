@@ -31,7 +31,7 @@ public:
 private:
   Error decode(const void* srcPtr, size_t length, bool writeDestination);
   size_t fLength;
-  char * fData;
+  char* fData;
   friend class SkImageBaseBitmap;
 };
 #endif

@@ -1,4 +1,4 @@
-int * pi = new int;
+int* pi = new int;
 Object* p = new Object;
 delete p;
 delete pi;

@@ -63,7 +63,7 @@ static bool SkStrContains(const char string[], const char subchar)
 }
 static char* SkStrDup(const char string[])
 {
-  char * ret = (char*) sk_malloc_throw(strlen(string) + 1);
+  char* ret = (char*) sk_malloc_throw(strlen(string) + 1);
   memcpy(ret, string, strlen(string) + 1);
   return ret;
 }
@@ -187,7 +187,7 @@ public:
   SkString& operator=(const SkString&);
   SkString& operator=(SkString&&);
   SkString& operator=(const char text[]);
-  char * writable_str();
+  char* writable_str();
   char& operator[](size_t n)
   {
     return this->writable_str()[n];

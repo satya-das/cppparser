@@ -682,7 +682,7 @@ namespace
   {
     return {lo, hi};
   }
-  template <int Ix, int N, typename T>
+  template <int... Ix, int N, typename T>
   AI static SkNx<sizeof...(Ix),T> SkNx_shuffle(const SkNx<N,T>& v)
   {
     return {v[Ix]};

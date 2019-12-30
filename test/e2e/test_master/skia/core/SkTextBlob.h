@@ -250,7 +250,7 @@ public:
   {
     SkGlyphID* glyphs;
     SkScalar* pos;
-    char * utf8text;
+    char* utf8text;
     uint32_t* clusters;
     SkPoint* points() const
     {

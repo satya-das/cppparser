@@ -731,7 +731,7 @@ namespace skvx
     return join(cast<D>(src.lo), cast<D>(src.hi));
 #  endif
   }
-  template <int Ix, int N, typename T>
+  template <int... Ix, int N, typename T>
   static Vec<sizeof...(Ix),T> shuffle(const Vec<N,T>& x)
   {
 #  if  !defined(SKNX_NO_SIMD) && defined(__clang__)

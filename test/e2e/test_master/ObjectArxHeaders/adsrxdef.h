@@ -14,7 +14,7 @@ typedef struct fchnd
 {
   struct fchnd* next;
   int fcode;
-  int(*fhdl)();
+  int (*fhdl) ();
 } FunHandList;
 class AcRxGenHand;
 class RxADSAppTableEntryType

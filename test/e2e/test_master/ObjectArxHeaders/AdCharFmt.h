@@ -455,7 +455,7 @@ default:
     {
       return false;
     }
-    mbBuf[0] = (char)(uVal << 4);
+    mbBuf[0] = (char) (uVal << 4);
     if (!isHex<ChType>(pSrcBuf[5], uVal))
     {
       return false;
@@ -465,12 +465,12 @@ default:
     {
       return false;
     }
-    mbBuf[1] = (char)(uVal << 4);
+    mbBuf[1] = (char) (uVal << 4);
     if (!isHex<ChType>(pSrcBuf[7], uVal))
     {
       return false;
     }
-    mbBuf[1] |= (char)(uVal);
+    mbBuf[1] |= (char) (uVal);
     if (mbBuf[0] == 0)
     {
       mbBuf[0] = mbBuf[1];
@@ -637,7 +637,7 @@ default:
           {
             AdCharFmt_Assert(i > cbWritten + 1);
             i--;
-            szDst[i] = (char)((nValue % 10) + '0');
+            szDst[i] = (char) ((nValue % 10) + '0');
             nValue /= 10;
           } while (nValue != 0);
           AdCharFmt_Assert(i == cbWritten + 2);

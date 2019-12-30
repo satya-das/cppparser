@@ -69,8 +69,8 @@ public:
 protected:
   SkLayerDrawLooper();
   void flatten(SkWriteBuffer&) const override;
-  SK_FLATTENABLE_HOOKS(SkLayerDrawLooper);
 private:
+  SK_FLATTENABLE_HOOKS(SkLayerDrawLooper);
   struct Rec
   {
     Rec* fNext;

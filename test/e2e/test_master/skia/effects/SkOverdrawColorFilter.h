@@ -31,7 +31,8 @@ public:
 protected:
   void flatten(SkWriteBuffer& buffer) const override;
 private:
-  SK_FLATTENABLE_HOOKS(SkOverdrawColorFilter) SkOverdrawColorFilter(const SkPMColor colors[kNumColors])
+  SK_FLATTENABLE_HOOKS(SkOverdrawColorFilter)
+  SkOverdrawColorFilter(const SkPMColor colors[kNumColors])
   {
     memcpy(fColors, colors, kNumColors * sizeof(SkPMColor));
   }

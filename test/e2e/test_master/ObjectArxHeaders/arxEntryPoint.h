@@ -61,7 +61,7 @@ struct _ARXCOMMAND_ENTRY
 struct _ADSSYMBOL_ENTRY
 {
   const ACHAR* pszName;
-  int(*fptr)();
+  int (*fptr) ();
   bool bRegFunc;
   UINT nameID;
 };

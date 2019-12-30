@@ -37,7 +37,8 @@ public:
 protected:
   void flatten(SkWriteBuffer&) const override;
 private:
-  SK_FLATTENABLE_HOOKS(SkLumaColorFilter) SkLumaColorFilter();
+  SK_FLATTENABLE_HOOKS(SkLumaColorFilter)
+  SkLumaColorFilter();
   bool onAppendStages(const SkStageRec& rec, bool shaderIsOpaque) const override;
   typedef SkColorFilter INHERITED;
 };
