@@ -1696,11 +1696,12 @@ expr              : strlit                                                [ZZLOG
                     ]                                                     [ZZLOG;] { $$ = new CppExpr($1, kAnd, $3);                     }
                   | expr tknOr expr                                       [ZZLOG;] { $$ = new CppExpr($1, kOr, $3);                      }
                   | expr '.' expr                                         [ZZLOG;] { $$ = new CppExpr($1, kDot, $3);                     }
-                  | expr tknArrow expr                                    [ZZLOG;] { $$ = new CppExpr($1, kArrow, $3);                   }
-                  | expr tknArrowStar expr                                [ZZLOG;] { $$ = new CppExpr($1, kArrowStar, $3);               }
+                  | expr tknArrow funcname                                [ZZLOG;] { $$ = new CppExpr($1, kArrow, CppExprAtom($3));      }
+                  | expr tknArrowStar funcname                            [ZZLOG;] { $$ = new CppExpr($1, kArrowStar, CppExprAtom($3));  }
                   | expr '[' expr ']' %prec SUBSCRIPT                     [ZZLOG;] { $$ = new CppExpr($1, kArrayElem, $3);               }
                   | expr '[' ']' %prec SUBSCRIPT                          [ZZLOG;] { $$ = new CppExpr($1, kArrayElem);                   }
                   | expr '(' funcargs ')' %prec FUNCCALL                  [ZZLOG;] { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | expr tknArrow '~' identifier '(' ')' %prec FUNCCALL   [ZZLOG;] { $$ = new CppExpr(new CppExpr($1, kArrow, CppExprAtom(mergeCppToken($3, $4))), kFunctionCall, (CppExpr*)nullptr); }
                   /* TODO: Properly support uniform initialization */
                   | id '{' exprorlist '}' %prec FUNCCALL                  [ZZLOG;] { $$ = new CppExpr(new CppExpr((std::string) $1, kNone), kFunctionCall, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                 [ZZLOG;] { $$ = new CppExpr($2, kCStyleCast, $4);              }
