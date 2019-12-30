@@ -617,12 +617,10 @@ identifier        : id                                            [ZZLOG;] { $$ 
                   | identifier tknScopeResOp identifier           [ZZLOG;] { $$ = mergeCppToken($1, $3); }
                   | tknScopeResOp identifier %prec GLOBAL         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | templidentifier                               [ZZLOG;] { $$ = $1; }
-                  | tknOverride                                   [ZZLOG;] { $$ = $1; } /* override is not a reserved keyword */
+                  | tknOverride                                   [ZZLOG;] { $$ = $1; /* override is not a reserved keyword */ }
                   | identifier tknEllipsis                        [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknMacro                                      [ZZLOG;] { $$ = $1; }
-                  | identifier tknScopeResOp templqualifiedid     [ZZLOG;] { $$ = mergeCppToken($1, $3); }
-                  | identifier '.' templqualifiedid               [ZZLOG;] { $$ = mergeCppToken($1, $3); }
-                  | identifier tknArrow templqualifiedid          [ZZLOG;] { $$ = mergeCppToken($1, $3); }
+                  | templqualifiedid                              [ZZLOG;] { $$ = $1; }
                   ;
 
 numbertype        : tknInteger                            [ZZLOG;] { $$ = $1; }
