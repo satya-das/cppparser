@@ -430,7 +430,7 @@ public:
 
         @param shader  how geometry is filled with color; if nullptr, color is used instead
     */
-  void setShader(sk_sp < SkShader > shader);
+  void setShader(sk_sp<SkShader> shader);
     /** Returns SkColorFilter if set, or nullptr.
         Does not alter SkColorFilter SkRefCnt.
 
@@ -453,7 +453,7 @@ public:
 
         @param colorFilter  SkColorFilter to apply to subsequent draw
     */
-  void setColorFilter(sk_sp < SkColorFilter > colorFilter);
+  void setColorFilter(sk_sp<SkColorFilter> colorFilter);
     /** Returns SkBlendMode.
         By default, returns SkBlendMode::kSrcOver.
 
@@ -502,7 +502,7 @@ public:
 
         @param pathEffect  replace SkPath with a modification when drawn
     */
-  void setPathEffect(sk_sp < SkPathEffect > pathEffect);
+  void setPathEffect(sk_sp<SkPathEffect> pathEffect);
     /** Returns SkMaskFilter if set, or nullptr.
         Does not alter SkMaskFilter SkRefCnt.
 
@@ -527,7 +527,7 @@ public:
 
         @param maskFilter  modifies clipping mask generated from drawn geometry
     */
-  void setMaskFilter(sk_sp < SkMaskFilter > maskFilter);
+  void setMaskFilter(sk_sp<SkMaskFilter> maskFilter);
     /** Returns SkImageFilter if set, or nullptr.
         Does not alter SkImageFilter SkRefCnt.
 
@@ -551,7 +551,7 @@ public:
 
         @param imageFilter  how SkImage is sampled when transformed
     */
-  void setImageFilter(sk_sp < SkImageFilter > imageFilter);
+  void setImageFilter(sk_sp<SkImageFilter> imageFilter);
     /** Returns true if SkPaint prevents all drawing;
         otherwise, the SkPaint may or may not allow drawing.
 

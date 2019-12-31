@@ -93,7 +93,7 @@ public:
   void setKeywordList(const ACHAR*);
   const ACHAR* dispPrompt();
   void setDispPrompt(const ACHAR*, ...);
-  ACCORE_PORT DragStatus acquireString(ACHAR(&str)[2049]);
+  ACCORE_PORT DragStatus acquireString(ACHAR (&str)[2049]);
   DragStatus acquireAngle(double& ang);
   DragStatus acquireAngle(double& ang, const AcGePoint3d& basePnt);
   DragStatus acquireDist(double& dist);

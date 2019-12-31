@@ -1099,12 +1099,9 @@ funcobjstr        : typeidentifier optapidecor '(' paramlist ')' [ZZLOG;] {
                   ;
 
 funcname          : operfuncname                          [ZZLOG;] { $$ = $1; }
-                  | identifier                            [ZZLOG;] { $$ = $1; }
+                  | typeidentifier                        [ZZLOG;] { $$ = $1; }
                   | tknScopeResOp operfuncname            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | identifier tknScopeResOp operfuncname [ZZLOG;] { $$ = mergeCppToken($1, $3); }
-                  /* For function style type casting */
-                  | numbertype                            [ZZLOG;] { $$ = $1; }
-                  | tknVoid                               [ZZLOG;] { $$ = $1; } /* void is used to cast away unused variable. */
                   ;
 
 rshift            : tknGT tknGT %prec RSHIFT [ if ($2.sz != ($1.sz + 1)) ZZERROR; ] { $$ = mergeCppToken($1, $2); }
@@ -1633,7 +1630,7 @@ expr              : strlit                                                [ZZLOG
                   | tknCharLit                                            [ZZLOG;] { $$ = new CppExpr((std::string) $1, kNone);          }
                   | tknNumber                                             [ZZLOG;] { $$ = new CppExpr((std::string) $1, kNone);          }
                   | '+' tknNumber                                         [ZZLOG;] { $$ = new CppExpr((std::string) $2, kNone);          }
-                  | funcname
+                  | identifier
                     [
                       if ($1.sz == gParamModPos) {
                         gParamModPos = nullptr;
@@ -1717,6 +1714,7 @@ expr              : strlit                                                [ZZLOG
                   | expr '[' expr ']' %prec SUBSCRIPT                     [ZZLOG;] { $$ = new CppExpr($1, kArrayElem, $3);               }
                   | expr '[' ']' %prec SUBSCRIPT                          [ZZLOG;] { $$ = new CppExpr($1, kArrayElem);                   }
                   | expr '(' funcargs ')' %prec FUNCCALL                  [ZZLOG;] { $$ = new CppExpr($1, kFunctionCall, $3);            }
+                  | funcname '(' funcargs ')' %prec FUNCCALL              [ZZLOG;] { $$ = new CppExpr(CppExprAtom($1), kFunctionCall, $3);            }
                   | expr tknArrow '~' identifier '(' ')' %prec FUNCCALL   [ZZLOG;] { $$ = new CppExpr(new CppExpr($1, kArrow, CppExprAtom(mergeCppToken($3, $4))), kFunctionCall, (CppExpr*)nullptr); }
                   /* TODO: Properly support uniform initialization */
                   | identifier '{' exprorlist '}' %prec FUNCCALL          [ZZLOG;] { $$ = new CppExpr(new CppExpr((std::string) $1, kNone), kFunctionCall, $3);            }

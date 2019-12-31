@@ -20,7 +20,7 @@ namespace skstd
   using bool_constant = std::integral_constant<bool, B>;
   template <bool B, typename T, typename F>
   using conditional_t = typename std::conditional<B, T, F>::type;
-  template <bool B, typename T  = void>
+  template <bool B, typename T = void>
   using enable_if_t = typename std::enable_if<B, T>::type;
   template <typename T>
   using remove_const_t = typename std::remove_const<T>::type;

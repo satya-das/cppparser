@@ -112,10 +112,10 @@ public:
   Acad::ErrorStatus computeRayIntersection(const AcGePoint3d& rayStart, const AcGeVector3d& rayDir, AcArray<AcDbSubentId>& retSubents, AcArray<double>& retIntersectDist, AcGePoint3dArray& retIntersectPoint) const;
   Acad::ErrorStatus setVertexNormalArray(AcGeVector3dArray& arr);
   Acad::ErrorStatus setVertexTextureArray(AcGePoint3dArray& arr);
-  Acad::ErrorStatus setVertexColorArray(AcArray < AcCmEntityColor > &arr);
+  Acad::ErrorStatus setVertexColorArray(AcArray<AcCmEntityColor>& arr);
   Acad::ErrorStatus getVertexNormalArray(AcGeVector3dArray& arr);
   Acad::ErrorStatus getVertexTextureArray(AcGePoint3dArray& arr);
-  Acad::ErrorStatus getVertexColorArray(AcArray < AcCmEntityColor > &arr);
+  Acad::ErrorStatus getVertexColorArray(AcArray<AcCmEntityColor>& arr);
 };
 ///////////////////////////////////////////////////////////////////////////
 //  Global API functions 

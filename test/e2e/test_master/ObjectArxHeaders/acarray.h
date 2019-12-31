@@ -148,7 +148,7 @@ public:
   AcArray<T,R>& insertAt(int index, const T& value);
   int append(T&& value);
   int appendMove(T& value);
-  AcArray<T,R>& appendMove(AcArray < T, R > &array);
+  AcArray<T,R>& appendMove(AcArray<T,R>& array);
   AcArray<T,R>& insertAt(int index, T&& value);
   AcArray<T,R>& insertAtMove(int index, T& value);
   AcArray<T,R>& removeAt(int index);
@@ -196,7 +196,7 @@ protected:
   int mGrowLen;
   void insertSpace(int nIndex);
   void copyOtherIntoThis(const AcArray<T,R>& otherArray);
-  void moveOtherIntoThis(AcArray < T, R > &otherArray);
+  void moveOtherIntoThis(AcArray<T,R>& otherArray);
   bool isValid(int) const;
 };
 #  pragma  pack (pop)

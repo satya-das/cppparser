@@ -92,7 +92,7 @@ public:
 
         @param colorSpace  SkColorSpace moved to SkImageInfo
     */
-  void setColorSpace(sk_sp < SkColorSpace > colorSpace);
+  void setColorSpace(sk_sp<SkColorSpace> colorSpace);
     /** Deprecated.
     */
   bool SK_WARN_UNUSED_RESULT reset(const SkMask& mask);

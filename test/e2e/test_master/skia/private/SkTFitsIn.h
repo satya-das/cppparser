@@ -12,7 +12,7 @@
 /**
  * std::underlying_type is only defined for enums. For integral types, we just want the type.
  */
-template <typename T, class Enable  = void>
+template <typename T, typename Enable = void>
 struct sk_strip_enum
 {
   typedef T type;
