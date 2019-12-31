@@ -246,7 +246,7 @@ extern int yylex();
 %type  <str>                doccommentstr
 %type  <str>                rshift
 %type  <str>                macrocall
-%type  <cppObj>             stmt functptrtype
+%type  <cppObj>             stmt
 %type  <typeModifier>       opttypemodifier typemodifier
 %type  <cppEnum>            enumdefn enumfwddecl enumdefnstmt
 %type  <enumItem>           enumitem
@@ -281,7 +281,7 @@ extern int yylex();
 %type  <switchBody>         caselist;
 %type  <tryBlock>           tryblock;
 %type  <catchBlock>         catchblock;
-%type  <cppFuncPointerObj>  functionpointer funcpointerdecl funcobj
+%type  <cppFuncPointerObj>  functionpointer functionptrtype funcpointerdecl funcptrtypedef funcptrortype funcobj
 %type  <cppFuncObj>         funcdecl funcdeclstmt funcdefn
 %type  <cppCtorObj>         ctordecl ctordeclstmt ctordefn
 %type  <cppDtorObj>         dtordecl dtordeclstmt dtordefn
@@ -424,7 +424,7 @@ stmt              : vardeclstmt         [ZZLOG;] { $$ = $1; }
                   | dtordefn            [ZZLOG;] { $$ = $1; }
                   | typeconverterstmt   [ZZLOG;] { $$ = $1; }
                   | externcblock        [ZZLOG;] { $$ = $1; }
-                  | functptrtype        [ZZLOG;] { $$ = $1; }
+                  | funcptrtypedef      [ZZLOG;] { $$ = $1; }
                   | define              [ZZLOG;] { $$ = $1; }
                   | undef               [ZZLOG;] { $$ = $1; }
                   | include             [ZZLOG;] { $$ = $1; }
@@ -725,7 +725,7 @@ enumfwddecl       : tknEnum id ':' typeidentifier ';'                           
                   }
                   ;
 
-functptrtype      : tknTypedef functionpointer ';' [ZZVALID;] {
+funcptrtypedef    : tknTypedef functionpointer ';' [ZZVALID;] {
                     $2->addAttr(kTypedef);
                     $$ = $2;
                   }
@@ -745,7 +745,7 @@ typedefname       : tknTypedef vardecl      [ZZLOG;] { $$ = new CppTypedefName($
 usingdecl         : tknUsing id '=' vartype ';'         [ZZLOG;] {
                     $$ = new CppUsingDecl($2, $4);
                   }
-                  | tknUsing id '=' functionpointer ';' [ZZLOG;] {
+                  | tknUsing id '=' functionptrtype ';' [ZZLOG;] {
                     $$ = new CppUsingDecl($2, $4);
                   }
                   | tknUsing id '=' funcobj ';'         [ZZLOG;] {
@@ -824,8 +824,8 @@ varassign         : '=' expr            [ZZLOG;] {
                   }
                   ;
 
-optvarassign      : [ZZLOG;] { $$ = CppVarAssign{nullptr, AssignType::kNone}; }
-                  | varassign { $$ = $1; }
+optvarassign      :                     [ZZLOG;]  { $$ = CppVarAssign{nullptr, AssignType::kNone}; }
+                  | varassign           [ZZLOG;]  { $$ = $1; }
                   ;
 
 vardecl           : vartype varidentifier       [ZZLOG;]         {
@@ -861,6 +861,9 @@ vardecl           : vartype varidentifier       [ZZLOG;]         {
 
 vartype           : typeidentifier opttypemodifier    [ZZLOG;] {
                     $$ = new CppVarType(gCurAccessType, $1, $2);
+                  }
+                  | functionptrtype                   [ZZLOG;] {
+                    $$ = new CppVarType(gCurAccessType, $1, CppTypeModifier());
                   }
                   | classdefn                         [ZZLOG;] {
                     $$ = new CppVarType(gCurAccessType, $1, CppTypeModifier());
@@ -987,32 +990,47 @@ lambdaparams      :                   [ZZLOG;] { $$ = nullptr; }
                   | '(' paramlist ')' [ZZLOG;] { $$ = $2; }
                   ;
 
-functionpointer   : functype vartype '(' optapidecor identifier tknScopeResOp '*' optid ')' '(' paramlist ')' [ZZLOG;] {
+funcptrortype     : functype vartype '(' optapidecor identifier tknScopeResOp '*' optid ')' '(' paramlist ')' [ZZVALID;] {
                     $$ = new CppFunctionPointer(gCurAccessType, $8, $2, $11, $1, mergeCppToken($5, $6));
                     $$->decor2($4);
                   }
-                  | vartype '(' optapidecor identifier tknScopeResOp '*' optid ')' '(' paramlist ')'          [ZZLOG;] {
+                  | vartype '(' optapidecor identifier tknScopeResOp '*' optid ')' '(' paramlist ')'          [ZZVALID;] {
                     $$ = new CppFunctionPointer(gCurAccessType, $7, $1, $10, 0, mergeCppToken($4, $5));
                     $$->decor2($3);
                   }
-                  | functype vartype '(' optapidecor '*' optid ')' '(' paramlist ')'                          [ZZLOG;] {
+                  | functype vartype '(' optapidecor '*' optid ')' '(' paramlist ')'                          [ZZVALID;] {
                     $$ = new CppFunctionPointer(gCurAccessType, $6, $2, $9, $1);
                     $$->decor2($4);
                   }
-                  | vartype '(' optapidecor '*' optid ')' '(' paramlist ')'                                   [ZZLOG;] {
+                  | vartype '(' optapidecor '*' optid ')' '(' paramlist ')'                                   [ZZVALID;] {
                     $$ = new CppFunctionPointer(gCurAccessType, $5, $1, $8, 0);
                     $$->decor2($3);
                   }
-                  | apidecor functionpointer                                                                  [ZZLOG;] {
+                  | apidecor funcptrortype                                                                    [ZZVALID;] {
                     $$ = $2;
                     $$->decor1($1);
                   }
-                  | functionpointer optfuncattrib                                                             [ZZLOG;] {
+                  | funcptrortype optfuncattrib                                                               [ZZVALID;] {
                     $$ = $1;
                     $$->addAttr($2);
                   }
                   ;
 
+functionpointer   : funcptrortype
+                    [
+                      if ($1->name_.empty() == true) {
+                        ZZERROR;
+                      }
+                    ]
+                  ;
+
+functionptrtype   : funcptrortype
+                    [
+                      if ($1->name_.empty() == false) {
+                        ZZERROR;
+                      }
+                    ]
+                  ;
 
 funcobj           : vartype optapidecor '(' paramlist ')' [ZZLOG;] {
                     $$ = new CppFunctionPointer(gCurAccessType, "", $1, $4, 0);
@@ -1164,7 +1182,7 @@ param             : varinit                        [ZZLOG;] { $$ = $1; $1->addAt
                     var->addAttr(kFuncParam);
                     $$ = var;
                   }
-                  | functionpointer                 [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam);     }
+                  | funcptrortype                   [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam);     }
                   | doccomment param                [ZZLOG;] { $$ = $2; }
                   | vartype '[' expr ']'            [ZZLOG;] {
                     auto var = new CppVar($1, std::string());
