@@ -159,7 +159,7 @@ extern int yylex();
   CppExpr*                cppExprObj;
   CppLambda*              cppLambda;
   CppFunction*            cppFuncObj;
-  CppFunctionPointer*         cppFuncPointerObj;
+  CppFunctionPointer*     cppFuncPointerObj;
   CppObj*                 varOrFuncPtr;
   CppParamVector*         paramList;
   CppConstructor*         cppCtorObj;
@@ -303,6 +303,7 @@ extern int yylex();
 %type  <hashIf>             hashif
 %type  <hashError>          hasherror
 %type  <hashPragma>         pragma
+%type  <cppObj>             preprocessor
 
 // precedence as mentioned at https://en.cppreference.com/w/cpp/language/operator_precedence
 %left COMMA
@@ -425,13 +426,7 @@ stmt              : vardeclstmt         [ZZLOG;] { $$ = $1; }
                   | typeconverterstmt   [ZZLOG;] { $$ = $1; }
                   | externcblock        [ZZLOG;] { $$ = $1; }
                   | funcptrtypedef      [ZZLOG;] { $$ = $1; }
-                  | define              [ZZLOG;] { $$ = $1; }
-                  | undef               [ZZLOG;] { $$ = $1; }
-                  | include             [ZZLOG;] { $$ = $1; }
-                  | import              [ZZLOG;] { $$ = $1; }
-                  | hashif              [ZZLOG;] { $$ = $1; }
-                  | hasherror           [ZZLOG;] { $$ = $1; }
-                  | pragma              [ZZLOG;] { $$ = $1; }
+                  | preprocessor        [ZZLOG;] { $$ = $1; }
                   | block               [ZZLOG;] { $$ = $1; }
                   | switchstmt          [ZZLOG;] { $$ = $1; }
                   | tryblock            [ZZLOG;] { $$ = $1; }
@@ -441,6 +436,15 @@ stmt              : vardeclstmt         [ZZLOG;] { $$ = $1; }
                   | macrocall           [ZZLOG;] { $$ = new CppMacroCall($1, gCurAccessType); }
                   | ';'                 [ZZLOG;] { $$ = nullptr; }  /* blank statement */
                   | asmblock            [ZZLOG;] { $$ = $1; }
+                  ;
+
+preprocessor      : define              [ZZLOG;] { $$ = $1; }
+                  | undef               [ZZLOG;] { $$ = $1; }
+                  | include             [ZZLOG;] { $$ = $1; }
+                  | import              [ZZLOG;] { $$ = $1; }
+                  | hashif              [ZZLOG;] { $$ = $1; }
+                  | hasherror           [ZZLOG;] { $$ = $1; }
+                  | pragma              [ZZLOG;] { $$ = $1; }
                   ;
 
 asmblock          : tknAsm              [ZZLOG;] { $$ = new CppAsmBlock($1); }
@@ -586,10 +590,6 @@ import            : tknPreProHash tknImport tknStrLit           [ZZLOG;]  { $$ =
                   | tknPreProHash tknImport tknStdHdrInclude    [ZZLOG;]  { $$ = new CppImport((std::string) $3); }
                   ;
 
-/*
-preprocessor    : tknPreProHash tknUnRecogPrePro tknPreProDef { $$ = new CppUnRecogPrePro((std::string) $2, (std::string) $3); }
-          ;
-*/
 hashif            : tknPreProHash tknIf tknPreProDef            [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIf,      $3); }
                   | tknPreProHash tknIfDef id                   [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIfDef,   $3); }
                   | tknPreProHash tknIfNDef id                  [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIfNDef,  $3); }
@@ -670,8 +670,8 @@ optid             :       [ZZLOG;] { $$ = makeCppToken(nullptr, nullptr); }
 enumitem          : id           [ZZLOG;]   { $$ = new CppEnumItem($1);     }
                   | id '=' expr  [ZZLOG;]   { $$ = new CppEnumItem($1, $3); }
                   | doccomment   [ZZLOG;]   { $$ = new CppEnumItem($1);     }
-                  | hashif       [ZZLOG;]   { $$ = new CppEnumItem($1);     }
-                  | hasherror    [ZZLOG;]   { $$ = new CppEnumItem($1);     }
+                  | preprocessor [ZZLOG;]   { $$ = new CppEnumItem($1);     }
+                  | macrocall    [ZZLOG;]   { $$ = new CppEnumItem($1);     }
                   ;
 
 enumitemlist      :                           [ZZLOG;] { $$ = 0; }

@@ -152,6 +152,7 @@ CppParser constructCppParserForTest()
                          "GR_MAKE_BITFIELD_OPS",
                          "SK_FLATTENABLE_HOOKS",
                          "SK_USE_FLUENT_IMAGE_FILTER_TYPES_IN_CLASS",
+                         "SK_RASTER_PIPELINE_STAGES",
                          "SK_WHEN"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
