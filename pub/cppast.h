@@ -35,6 +35,7 @@
 
 #include "cppconst.h"
 #include "cppeasyptr.h"
+#include "typemodifier.h"
 
 #include "string-utils.h"
 
@@ -233,36 +234,8 @@ struct CppUnRecogPrePro : public CppObj
 };
 
 using CppUnRecogPreProEPtr = CppEasyPtr<CppUnRecogPrePro>;
-
-struct CppTypeModifier
-{
-  CppRefType   refType_;
-  std::uint8_t ptrLevel_; // Pointer level. e.g. int** ppi has pointer level of 2.
-
-  // Stores bits as per location of const in a var definition.
-  // Below table clarifies the value of const-bits:
-  // --------------------------------------------------
-  // | DEFINITION                             | VALUE |
-  // | ------------------------------------------------
-  // | int const * pi                         | 0b001 |
-  // | int const i                            | 0b001 |
-  // | int * const pi                         | 0b010 |
-  // | int * const * const ppi                | 0b110 |
-  // | int **const ppi                        | 0b100 |
-  // | int const * const * const ppi          | 0b111 |
-  // | ------------------------------------------------
-  //
-  // It is 8 bit unsigned integer which is enough to store info for pointers of 8 level deep.
-  std::uint32_t constBits_;
-};
-
-inline CppTypeModifier makeCppTypeModifier(CppRefType refType, std::uint8_t ptrLevel, std::uint8_t constBits)
-{
-  return CppTypeModifier {refType, ptrLevel, constBits};
-}
-
-using CppCompoundPtr = std::unique_ptr<CppCompound>;
-using CppObjPtr      = std::unique_ptr<CppObj>;
+using CppCompoundPtr       = std::unique_ptr<CppCompound>;
+using CppObjPtr            = std::unique_ptr<CppObj>;
 
 struct CppFunctionPointer;
 
