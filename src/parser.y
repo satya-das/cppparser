@@ -1717,7 +1717,7 @@ expr              : strlit                                                [ZZLOG
                   | funcname '(' funcargs ')' %prec FUNCCALL              [ZZLOG;] { $$ = new CppExpr(CppExprAtom($1), kFunctionCall, $3);            }
                   | expr tknArrow '~' identifier '(' ')' %prec FUNCCALL   [ZZLOG;] { $$ = new CppExpr(new CppExpr($1, kArrow, CppExprAtom(mergeCppToken($3, $4))), kFunctionCall, (CppExpr*)nullptr); }
                   /* TODO: Properly support uniform initialization */
-                  | identifier '{' exprorlist '}' %prec FUNCCALL          [ZZLOG;] { $$ = new CppExpr(new CppExpr((std::string) $1, kNone), kFunctionCall, $3);            }
+                  | identifier '{' funcargs '}' %prec FUNCCALL            [ZZLOG;] { $$ = new CppExpr(new CppExpr((std::string) $1, kNone), kFunctionCall, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                 [ZZLOG;] { $$ = new CppExpr($2, kCStyleCast, $4);              }
                   | tknConstCast tknLT vartype tknGT '(' expr ')'         [ZZLOG;] { $$ = new CppExpr($3, kConstCast, $6);               }
                   | tknStaticCast tknLT vartype tknGT '(' expr ')'        [ZZLOG;] { $$ = new CppExpr($3, kStaticCast, $6);              }

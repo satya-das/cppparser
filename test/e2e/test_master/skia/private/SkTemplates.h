@@ -538,6 +538,6 @@ std::array<skstd::result_of_t<C(std::size_t)>, sizeof...(Is)> SkMakeArrayFromInd
 template <size_t N, typename C>
 std::array<skstd::result_of_t<C(std::size_t)>, N> SkMakeArray(C c)
 {
-  return SkMakeArrayFromIndexSequence(c, skstd::make_index_sequence < N > {});
+  return SkMakeArrayFromIndexSequence(c, skstd::make_index_sequence<N>());
 }
 #endif
