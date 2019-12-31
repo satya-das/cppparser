@@ -138,6 +138,10 @@ static void tokenize_bracketed_content(YYLessProc yylessfn)
         if (!openBracket)
           break;
       }
+      else if (c == '\n')
+      {
+        ++gLineNo;
+      }
     }
   }
   else
