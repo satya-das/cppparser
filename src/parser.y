@@ -1651,7 +1651,7 @@ expr              : strlit                                                [ZZLOG
                   | '~' expr                                              [ZZLOG;] { $$ = new CppExpr($2, kBitToggle);                   }
                   | '!' expr                                              [ZZLOG;] { $$ = new CppExpr($2, kLogNot);                      }
                   | '*' expr %prec DEREF                                  [ZZLOG;] { $$ = new CppExpr($2, kDerefer);                     }
-                  | '&' expr %prec ADDRESSOF  [ ZZLOG; ]                  [ZZLOG;] { $$ = new CppExpr($2, kRefer);                       }
+                  | '&' expr %prec ADDRESSOF                              [ZZLOG;] { $$ = new CppExpr($2, kRefer);                       }
                   | tknInc expr  %prec PREINCR                            [ZZLOG;] { $$ = new CppExpr($2, kPreIncrement);                }
                   | expr tknInc  %prec POSTINCR                           [ZZLOG;] { $$ = new CppExpr($1, kPostIncrement);               }
                   | tknDec expr  %prec PREDECR                            [ZZLOG;] { $$ = new CppExpr($2, kPreDecrement);                }
