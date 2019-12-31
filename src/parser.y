@@ -555,62 +555,62 @@ optexpr           : {
                   }
                   ;
 
-define            : tknPreProHash tknDefine id id         [ZZVALID;] {
+define            : tknPreProHash tknDefine id id            [ZZLOG;] {
                     $$ = new CppDefine(CppDefine::kRename, $3, $4);
                   }
-                  | tknPreProHash tknDefine id               [ZZVALID;] {
+                  | tknPreProHash tknDefine id               [ZZLOG;] {
                     $$ = new CppDefine(CppDefine::kRename, $3);
                   }
-                  | tknPreProHash tknDefine id tknNumber     [ZZVALID;] {
+                  | tknPreProHash tknDefine id tknNumber     [ZZLOG;] {
                     $$ = new CppDefine(CppDefine::kConstNumDef, $3, $4);
                   }
-                  | tknPreProHash tknDefine id tknStrLit     [ZZVALID;] {
+                  | tknPreProHash tknDefine id tknStrLit     [ZZLOG;] {
                     $$ = new CppDefine(CppDefine::kConstStrDef, $3, $4);
                   }
-                  | tknPreProHash tknDefine id tknCharLit    [ZZVALID;] {
+                  | tknPreProHash tknDefine id tknCharLit    [ZZLOG;] {
                     $$ = new CppDefine(CppDefine::kConstCharDef, $3, $4);
                   }
-                  | tknPreProHash tknDefine id tknPreProDef  [ZZVALID;] {
+                  | tknPreProHash tknDefine id tknPreProDef  [ZZLOG;] {
                     $$ = new CppDefine(CppDefine::kComplexMacro, $3, $4);
                   }
                   ;
 
-undef             : tknPreProHash tknUndef id                   [ZZVALID;]  { $$ = new CppUndef($3); }
+undef             : tknPreProHash tknUndef id                   [ZZLOG;]  { $$ = new CppUndef($3); }
                   ;
 
-include           : tknPreProHash tknInclude tknStrLit          [ZZVALID;]  { $$ = new CppInclude((std::string) $3); }
-                  | tknPreProHash tknInclude tknStdHdrInclude   [ZZVALID;]  { $$ = new CppInclude((std::string) $3); }
+include           : tknPreProHash tknInclude tknStrLit          [ZZLOG;]  { $$ = new CppInclude((std::string) $3); }
+                  | tknPreProHash tknInclude tknStdHdrInclude   [ZZLOG;]  { $$ = new CppInclude((std::string) $3); }
                   ;
 
-import            : tknPreProHash tknImport tknStrLit           [ZZVALID;]  { $$ = new CppImport((std::string) $3); }
-                  | tknPreProHash tknImport tknStdHdrInclude    [ZZVALID;]  { $$ = new CppImport((std::string) $3); }
+import            : tknPreProHash tknImport tknStrLit           [ZZLOG;]  { $$ = new CppImport((std::string) $3); }
+                  | tknPreProHash tknImport tknStdHdrInclude    [ZZLOG;]  { $$ = new CppImport((std::string) $3); }
                   ;
 
 /*
 preprocessor    : tknPreProHash tknUnRecogPrePro tknPreProDef { $$ = new CppUnRecogPrePro((std::string) $2, (std::string) $3); }
           ;
 */
-hashif            : tknPreProHash tknIf tknPreProDef            [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kIf,      $3); }
-                  | tknPreProHash tknIfDef id                   [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kIfDef,   $3); }
-                  | tknPreProHash tknIfNDef id                  [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kIfNDef,  $3); }
-                  | tknPreProHash tknElse                       [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kElse       ); }
-                  | tknPreProHash tknElIf  tknPreProDef         [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kElIf,    $3); }
-                  | tknPreProHash tknEndIf                      [ZZVALID;]  { $$ = new CppHashIf(CppHashIf::kEndIf      ); }
+hashif            : tknPreProHash tknIf tknPreProDef            [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIf,      $3); }
+                  | tknPreProHash tknIfDef id                   [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIfDef,   $3); }
+                  | tknPreProHash tknIfNDef id                  [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIfNDef,  $3); }
+                  | tknPreProHash tknElse                       [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kElse       ); }
+                  | tknPreProHash tknElIf  tknPreProDef         [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kElIf,    $3); }
+                  | tknPreProHash tknEndIf                      [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kEndIf      ); }
                   ;
 
-hasherror         : tknPreProHash tknHashError                  [ZZVALID;]  { $$ = new CppHashError($2); }
+hasherror         : tknPreProHash tknHashError                  [ZZLOG;]  { $$ = new CppHashError($2); }
                   ;
 
-pragma            : tknPreProHash tknPragma tknPreProDef        [ZZVALID;]  { $$ = new CppPragma($3); }
+pragma            : tknPreProHash tknPragma tknPreProDef        [ZZLOG;]  { $$ = new CppPragma($3); }
                   ;
 
-doccomment        : doccommentstr                               [ZZVALID;]  { $$ = new CppDocComment((std::string) $1, gCurAccessType); }
+doccomment        : doccommentstr                               [ZZLOG;]  { $$ = new CppDocComment((std::string) $1, gCurAccessType); }
                   ;
 
-doccommentstr     : tknDocBlockComment                          [ZZVALID;]  { $$ = $1; }
-                  | tknDocLineComment                           [ZZVALID;]  { $$ = $1; }
-                  | doccommentstr tknDocBlockComment            [ZZVALID;]  { $$ = mergeCppToken($1, $2); }
-                  | doccommentstr tknDocLineComment             [ZZVALID;]  { $$ = mergeCppToken($1, $2); }
+doccommentstr     : tknDocBlockComment                          [ZZLOG;]  { $$ = $1; }
+                  | tknDocLineComment                           [ZZLOG;]  { $$ = $1; }
+                  | doccommentstr tknDocBlockComment            [ZZLOG;]  { $$ = mergeCppToken($1, $2); }
+                  | doccommentstr tknDocLineComment             [ZZLOG;]  { $$ = mergeCppToken($1, $2); }
                   ;
 
 identifier        : id                                            [ZZLOG;] { $$ = $1; }
@@ -777,10 +777,10 @@ usingnamespacedecl: tknUsing tknNamespace identifier ';'  [ZZLOG;] {
 vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
                   ;
 
-vardeclstmt       : vardecl ';'             [ZZVALID;] { $$ = $1; }
-                  | varinit ';'             [ZZVALID;] { $$ = $1; }
-                  | apidecor vardeclstmt    [ZZVALID;] { $$ = $2; $$->apidecor($1); }
-                  | exptype vardeclstmt     [ZZVALID;] { $$ = $2; $$->addAttr($1); }
+vardeclstmt       : vardecl ';'             [ZZLOG;] { $$ = $1; }
+                  | varinit ';'             [ZZLOG;] { $$ = $1; }
+                  | apidecor vardeclstmt    [ZZLOG;] { $$ = $2; $$->apidecor($1); }
+                  | exptype vardeclstmt     [ZZLOG;] { $$ = $2; $$->addAttr($1); }
                   ;
 
 vardecllist       : typeidentifier opttypemodifier id optvarassign ',' opttypemodifier id optvarassign [ZZLOG;] {
@@ -1719,7 +1719,7 @@ expr              : strlit                                                [ZZLOG
                   | expr '(' funcargs ')' %prec FUNCCALL                  [ZZLOG;] { $$ = new CppExpr($1, kFunctionCall, $3);            }
                   | expr tknArrow '~' identifier '(' ')' %prec FUNCCALL   [ZZLOG;] { $$ = new CppExpr(new CppExpr($1, kArrow, CppExprAtom(mergeCppToken($3, $4))), kFunctionCall, (CppExpr*)nullptr); }
                   /* TODO: Properly support uniform initialization */
-                  | id '{' exprorlist '}' %prec FUNCCALL                  [ZZLOG;] { $$ = new CppExpr(new CppExpr((std::string) $1, kNone), kFunctionCall, $3);            }
+                  | identifier '{' exprorlist '}' %prec FUNCCALL          [ZZLOG;] { $$ = new CppExpr(new CppExpr((std::string) $1, kNone), kFunctionCall, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                 [ZZLOG;] { $$ = new CppExpr($2, kCStyleCast, $4);              }
                   | tknConstCast tknLT vartype tknGT '(' expr ')'         [ZZLOG;] { $$ = new CppExpr($3, kConstCast, $6);               }
                   | tknStaticCast tknLT vartype tknGT '(' expr ')'        [ZZLOG;] { $$ = new CppExpr($3, kStaticCast, $6);              }
@@ -1824,8 +1824,23 @@ void yyerror_detailed  (  char* text,
     *lineEnd = endReplaceChar;
 }
 
+static void setupEnv()
+{
+#if YYDEBUG
+  const char* yys = getenv("ZZDEBUG");
+  
+  if (yys) {
+    const char yyn = *yys;
+    if (yyn >= '1' && yyn <= '9')
+      gLog = 1; 
+  }
+#endif
+}
+
 CppCompoundPtr parseStream(char* stm, size_t stmSize)
 {
+  setupEnv();
+
   gProgUnit = nullptr;
   gCurAccessType = CppAccessType::kUnknown;
   
