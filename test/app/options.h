@@ -53,7 +53,7 @@ struct TestParam
     masterPath.make_preferred();
 
     std::cout << outputPath.string() << std::endl;
-    ;
+
     fs::create_directories(outputPath);
   }
 };
