@@ -227,45 +227,45 @@ public:
   virtual void setModelScaleFactor(double scaleFactor) = 0;
   virtual double modelScaleFactor(void) const = 0;
 };
-enum AcGiMrFilter
+typedef enum
 {
   krBox = 0,
   krTriangle,
   krGauss,
   krMitchell,
   krLanczos
-};
-enum AcGiMrShadowMode
+} AcGiMrFilter;
+typedef enum
 {
   krSimple = 0,
   krSorted,
   krSegments
-};
-enum AcGiMrDiagnosticMode
+} AcGiMrShadowMode;
+typedef enum
 {
   krOff = 0,
   krGrid,
   krPhoton,
   krSamples,
   krBSP
-};
-enum AcGiMrDiagnosticGridMode
+} AcGiMrDiagnosticMode;
+typedef enum
 {
   krObject = 0,
   krWorld,
   krCamera
-};
-enum AcGiMrDiagnosticPhotonMode
+} AcGiMrDiagnosticGridMode;
+typedef enum
 {
   krDensity = 0,
   krIrradiance
-};
-enum AcGiMrDiagnosticBSPMode
+} AcGiMrDiagnosticPhotonMode;
+typedef enum
 {
   krDepth = 0,
   krSize
-};
-enum AcGiMrTileOrder
+} AcGiMrDiagnosticBSPMode;
+typedef enum
 {
   krHilbert = 0,
   krSpiral,
@@ -273,24 +273,24 @@ enum AcGiMrTileOrder
   krRightToLeft,
   krTopToBottom,
   krBottomToTop
-};
-enum AcGiMrExposureType
+} AcGiMrTileOrder;
+typedef enum
 {
   krAutomatic = 0,
   krLogarithmic
-};
-enum AcGiMrFinalGatheringMode
+} AcGiMrExposureType;
+typedef enum
 {
   krFinalGatherOff = 0,
   krFinalGatherOn,
   krFinalGatherAuto
-};
-enum AcGiMrExportMIMode
+} AcGiMrFinalGatheringMode;
+typedef enum
 {
   krExportMIOff = 0,
   krExportMIWithRender,
   krExportMIOnly
-};
+} AcGiMrExportMIMode;
 class ACDBCORE2D_PORT AcGiMentalRayRenderSettingsTraits : public AcGiRenderSettingsTraits
 {
 public:
@@ -365,7 +365,7 @@ public:
 /// <summary>
 /// Render Quit Conditions
 /// </summary>
-enum AcGiQuitCondition
+typedef enum
 {
     /// <summary>
     /// Use render iteration as a quit condition
@@ -377,11 +377,11 @@ enum AcGiQuitCondition
     /// The corresponding target render time needs to be set
     /// </summary>
   krEQuitByRenderTime
-};
+} AcGiQuitCondition;
 /// <summary>
 /// Lighting Mode.
 /// </summary>
-enum AcGiLightingMode
+typedef enum
 {
     /// <summary>
     /// Global illumination off.
@@ -400,11 +400,11 @@ enum AcGiLightingMode
     /// Glossy reflection and refraction on.
     /// </summary>
   krEAdvanced
-};
+} AcGiLightingMode;
 /// <summary>
 /// Filter Type.
 /// </summary>
-enum AcGiFilterType
+typedef enum
 {
     /// <summary>
     /// Box filter type
@@ -431,7 +431,7 @@ enum AcGiFilterType
     /// Default size: 4.0
     /// </summary>
   krEMitchell
-};
+} AcGiFilterType;
 /// <summary>
 /// Abstract interface class that controls all the rendering settings.
 /// </summary>

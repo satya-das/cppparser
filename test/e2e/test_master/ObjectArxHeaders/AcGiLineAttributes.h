@@ -11,7 +11,7 @@
 #  define __AcGiLineAttributes_H_Defined__
 #  include "acdb.h"
 #  include "AcGiLineAttrUtils.h"
-enum AcGiLineType
+typedef enum
 {
   kLineTypeSolid = 0x00,
   kDashed = 0x01,
@@ -48,22 +48,22 @@ enum AcGiLineType
   kSolid_6_Pixels_Blank_6_Pixels = 0x20,
   kDense_Dot = 0x21,
   kDpi_Solid_6_Pixels_Blank_6_Pixels_Long_Term = 0x22
-};
-enum AcGiLineJoinStyle
+} AcGiLineType;
+typedef enum
 {
   kMiterJoin = 0x00,
   kBevelJoin = 0x01,
   kRoundJoin = 0x02,
   kDiamondJoin = 0x03
-};
-enum AcGiLineEndStyle
+} AcGiLineJoinStyle;
+typedef enum
 {
   kButtCap = 0x00,
   kSquareCap = 0x01,
   kRoundCap = 0x02,
   kDiamondCap = 0x03
-};
-enum AcGiLineFillStyle
+} AcGiLineEndStyle;
+typedef enum
 {
   kFillStyleSolid = 0x00,
   kCheckerboard = 0x01,
@@ -75,7 +75,7 @@ enum AcGiLineFillStyle
   kSquare_Dots = 0x07,
   kVertical_Bars = 0x08,
   kUser_Defined = 0x09
-};
+} AcGiLineFillStyle;
 class ADESK_NO_VTABLE AcGiLineAttributes
 {
 public:

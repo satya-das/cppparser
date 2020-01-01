@@ -36,7 +36,7 @@ class CAcColorTheme;
 #    define ANCHORBAR_THEME	ACRX_T(/*MSG0*/"AnchorBar")   
 #    define ACTIVE_THEME	ACRX_T(/*MSG0*/"ACTIVETHEME")
 #    define DIALOG_THEME	ACRX_T(/*MSG0*/"DIALOGTHEME")
-enum AdUiThemeElement
+typedef enum
 {
   kUnknownElements = -1,
   kPaletteFontCaption,
@@ -275,7 +275,7 @@ enum AdUiThemeElement
   kListBoxInnerShadow,
   kListBoxSelectText,
   kTreeControlLine
-};
+} AdUiThemeElement;
 /// <summary>
 /// CAdUiThemeModifiedReactor is a reactor class which receives theme-modified notifications
 /// from CAdUiTheme

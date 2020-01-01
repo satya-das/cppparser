@@ -9,7 +9,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #pragma  once
 #include "AcArray.h"
-enum AcGiTransientDrawingMode
+typedef enum
 {
   kAcGiMain = 0,
   kAcGiSprite,
@@ -18,7 +18,7 @@ enum AcGiTransientDrawingMode
   kAcGiDirectTopmost,
   kAcGiContrast,
   kAcGiDrawingModeCount
-};
+} AcGiTransientDrawingMode;
 class AcGiDrawable;
 class AcGiTransientManager
 {

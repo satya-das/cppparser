@@ -8,7 +8,7 @@
 #  define sk_imageinfo_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-enum sk_colortype_t
+typedef enum
 {
   UNKNOWN_SK_COLORTYPE,
   RGBA_8888_SK_COLORTYPE,
@@ -17,13 +17,13 @@ enum sk_colortype_t
   GRAY_8_SK_COLORTYPE,
   RGBA_F16_SK_COLORTYPE,
   RGBA_F32_SK_COLORTYPE
-};
-enum sk_alphatype_t
+} sk_colortype_t;
+typedef enum
 {
   OPAQUE_SK_ALPHATYPE,
   PREMUL_SK_ALPHATYPE,
   UNPREMUL_SK_ALPHATYPE
-};
+} sk_alphatype_t;
 /**
  *  Allocate a new imageinfo object. If colorspace is not null, it's owner-count will be
  *  incremented automatically.

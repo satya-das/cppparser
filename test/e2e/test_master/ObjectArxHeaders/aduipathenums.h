@@ -9,15 +9,15 @@
 //////////////////////////////////////////////////////////////////////////////
 #pragma  once
 #pragma  pack (push, 8)
-enum PathErr
+typedef enum
 {
   PATH_NOERR = 0,
   PATH_INVALID,
   PATH_BADOP,
   PATH_REFUSED,
   PATH_ERR
-};
-enum path_type
+} PathErr;
+typedef enum
 {
   NO_PATH = 0,
   NEW_PATH,
@@ -25,7 +25,7 @@ enum path_type
   FILE_PATH,
   DIR_PATH,
   DEV_PATH
-};
+} path_type;
 enum path_category
 {
   DRIVE_TYPE,

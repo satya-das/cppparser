@@ -10,7 +10,7 @@
 #ifndef _ACGI_DEFS_H
 #  define _ACGI_DEFS_H	1
 #  include "adesk.h"
-enum AcGiRegenType
+typedef enum
 {
   eAcGiRegenTypeInvalid = 0,
   kAcGiStandardDisplay = 2,
@@ -19,40 +19,40 @@ enum AcGiRegenType
   kAcGiShadedDisplay = kAcGiRenderCommand,
   kAcGiForExplode,
   kAcGiSaveWorldDrawForProxy
-};
+} AcGiRegenType;
 #  define kAcGiSaveWorldDrawForR12	kAcGiForExplode 
-enum AcGiFillType
+typedef enum
 {
   kAcGiFillAlways = 1,
   kAcGiFillNever
-};
-enum AcGiVisibility
+} AcGiFillType;
+typedef enum
 {
   kAcGiInvisible = 0,
   kAcGiVisible,
   kAcGiSilhouette
-};
-enum AcGiArcType
+} AcGiVisibility;
+typedef enum
 {
   kAcGiArcSimple = 0,
   kAcGiArcSector,
   kAcGiArcChord
-};
-enum AcGiOrientationType
+} AcGiArcType;
+typedef enum
 {
   kAcGiCounterClockwise = -1,
   kAcGiNoOrientation = 0,
   kAcGiClockwise = 1
-};
-enum AcGiDeviationType
+} AcGiOrientationType;
+typedef enum
 {
   kAcGiMaxDevForCircle = 0,
   kAcGiMaxDevForCurve,
   kAcGiMaxDevForBoundary,
   kAcGiMaxDevForIsoline,
   kAcGiMaxDevForFacet
-};
-enum AcGiImageOrg
+} AcGiDeviationType;
+typedef enum
 {
   kAcGiBitonal,
   kAcGiPalette,
@@ -63,8 +63,8 @@ enum AcGiImageOrg
   kAcGiABGR,
   kAcGiBGR,
   kAcGiRGB
-};
-enum AcGiImageOrient
+} AcGiImageOrg;
+typedef enum
 {
   kAcGiXLeftToRightTopFirst,
   kAcGiXLeftToRightBottomFirst,
@@ -74,8 +74,8 @@ enum AcGiImageOrient
   kAcGiYTopToBottomRightFirst,
   kAcGiYBottomToTopLeftFirst,
   kAcGiYBottomToTopRightFirst
-};
-enum AcGiScaleFilterType
+} AcGiImageOrient;
+typedef enum
 {
   kDefaultScaleFilter,
   kNearestScaleFilter,
@@ -85,19 +85,19 @@ enum AcGiScaleFilterType
   kCubicScaleFilter,
   kBsplineScaleFilter,
   kLanczos3ScaleFilter
-};
-enum AcGiRotationFilterType
+} AcGiScaleFilterType;
+typedef enum
 {
   kDefaultRotationFilter,
   kInterpolatedRotationFilter,
   kNearestRotationFilter
-};
-enum AcGiScaleType
+} AcGiRotationFilterType;
+typedef enum
 {
   kDefaultScale,
   kRelativeScale,
   kUnTransformedScale
-};
+} AcGiScaleType;
 enum AcGiHighlightStyle
 {
   kAcGiHighlightNone,

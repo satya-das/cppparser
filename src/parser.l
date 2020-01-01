@@ -262,6 +262,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknApiDecor);
 }
 
+<ctxGeneral>alignas {
+  set_token_and_yyposn();
+  RETURN(tknApiDecor);
+}
+
 <ctxGeneral>{ID} {
   if (gMacroNames.count(yytext))
   {

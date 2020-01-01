@@ -871,6 +871,12 @@ vartype           : typeidentifier opttypemodifier    [ZZLOG;] {
                   | classdefn typemodifier            [ZZLOG;] {
                     $$ = new CppVarType(gCurAccessType, $1, $2);
                   }
+                  | enumdefn                          [ZZLOG;] {
+                    $$ = new CppVarType(gCurAccessType, $1, CppTypeModifier());
+                  }
+                  | enumdefn typemodifier             [ZZLOG;] {
+                    $$ = new CppVarType(gCurAccessType, $1, $2);
+                  }
                   | varattrib vartype                 [ZZLOG;] {
                     $$ = $2;
                     $$->addAttr($1);
@@ -1605,9 +1611,10 @@ optapidecor       :             [ZZLOG;] { $$ = makeCppToken(nullptr, nullptr); 
                   | apidecor    [ZZLOG;] { $$ = $1; }
                   ;
 
-apidecor          : apidecortokensq              [ZZLOG;] { $$ = $1; }
-                  | apidecortokensq '(' id ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
-                  | id                           [ZZLOG;] { $$ = $1; }
+apidecor          : apidecortokensq                     [ZZLOG;] { $$ = $1; }
+                  | apidecortokensq '(' id ')'          [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+                  | apidecortokensq '(' tknNumber ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+                  | id                                  [ZZLOG;] { $$ = $1; }
                   ;
 
 apidecortokensq   : tknApiDecor                  [ZZLOG;] { $$ = $1; }

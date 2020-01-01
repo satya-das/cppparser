@@ -17,7 +17,7 @@
 #  pragma  pack (push, 8)
 #  pragma  once
 /////////////////////////////////////////////////////////////////////////////
-enum ADUI_NOTIFY
+typedef enum
 {
   kAdUiNotify_Nothing,
   kAdUiNotify_Generic,
@@ -41,8 +41,8 @@ enum ADUI_NOTIFY
   kAdUiNotify_Validate,
   kAdUiNotify_CommandState,
   kAdUiNotify_ModalState
-};
-enum ADUI_REPLY
+} ADUI_NOTIFY;
+typedef enum
 {
   kAdUiReply_Nothing,
   kAdUiReply_Ok,
@@ -51,18 +51,18 @@ enum ADUI_REPLY
   kAdUiReply_TextTip,
   kAdUiReply_ToolTip,
   kAdUiReply_DrawTip
-};
-enum ADUI_COMMAND_STATE
+} ADUI_REPLY;
+typedef enum
 {
   kAdUiCommand_Cancelled = -1,
   kAdUiCommand_Completed,
   kAdUiCommand_Begun
-};
-enum ADUI_MODAL_STATE
+} ADUI_COMMAND_STATE;
+typedef enum
 {
   kAdUiModal_Begun = 1,
   kAdUiModal_Ended
-};
+} ADUI_MODAL_STATE;
 /////////////////////////////////////////////////////////////////////////////
 class ADUI_PORT CAdUiDrawTipText
 {

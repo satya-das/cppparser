@@ -8,11 +8,11 @@
 #  define sk_path_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-enum sk_path_direction_t
+typedef enum
 {
   CW_SK_PATH_DIRECTION,
   CCW_SK_PATH_DIRECTION
-};
+} sk_path_direction_t;
 /** Create a new, empty path. */
 SK_API sk_path_t* sk_path_new(void);
 /** Release the memory used by a sk_path_t. */

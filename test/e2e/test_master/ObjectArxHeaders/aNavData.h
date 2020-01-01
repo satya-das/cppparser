@@ -19,7 +19,7 @@
 #  endif
 /////////////////////////////////////////////////////////////////////////////
 class CNavPathname;
-enum NAV_DATA_TYPE
+typedef enum
 {
   kNavUnknown,
   kNavShellItem,
@@ -27,7 +27,7 @@ enum NAV_DATA_TYPE
   kNavUNC,
   kNavExtension,
   kNavWebFolders
-};
+} NAV_DATA_TYPE;
 #  pragma  warning(push)
 #  pragma  warning(disable : 4275)
 class ANAV_PORT CNavData : public CObject

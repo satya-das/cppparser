@@ -56,7 +56,10 @@ public:
   virtual void emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation = CppIndent()) const;
   virtual void emitVarList(const CppVarList* varListObj, std::ostream& stm, CppIndent indentation = CppIndent()) const;
-  virtual void emitEnum(const CppEnum* enmObj, std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitEnum(const CppEnum* enmObj,
+                        std::ostream&  stm,
+                        bool           emitNewLine,
+                        CppIndent      indentation = CppIndent()) const;
   virtual void emitTypedef(const CppTypedefName* typedefName,
                            std::ostream&         stm,
                            CppIndent             indentation = CppIndent()) const;

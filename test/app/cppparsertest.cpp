@@ -153,6 +153,11 @@ CppParser constructCppParserForTest()
                          "SK_FLATTENABLE_HOOKS",
                          "SK_USE_FLUENT_IMAGE_FILTER_TYPES_IN_CLASS",
                          "SK_RASTER_PIPELINE_STAGES",
+                         "INTERNAL_DECLARE_SET_TRACE_VALUE_INT",
+                         "INTERNAL_DECLARE_SET_TRACE_VALUE",
+                         "SK_RECORD_TYPES",
+                         "ACT_AS_PTR",
+                         "RECORD",
                          "SK_WHEN"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");

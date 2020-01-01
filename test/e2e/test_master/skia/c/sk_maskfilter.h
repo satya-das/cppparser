@@ -7,13 +7,13 @@
 #ifndef sk_maskfilter_DEFINED
 #  define sk_maskfilter_DEFINED
 #  include "include/c/sk_types.h"
-enum sk_blurstyle_t
+typedef enum
 {
   NORMAL_SK_BLUR_STYLE,
   SOLID_SK_BLUR_STYLE,
   OUTER_SK_BLUR_STYLE,
   INNER_SK_BLUR_STYLE
-};
+} sk_blurstyle_t;
 SK_C_PLUS_PLUS_BEGIN_GUARD
 /**
     Increment the reference count on the given sk_maskfilter_t. Must be

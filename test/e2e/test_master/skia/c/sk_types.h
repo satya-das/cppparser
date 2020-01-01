@@ -39,19 +39,19 @@ typedef uint32_t sk_color_t;
 #  define sk_color_get_r(c)	               (((c) >> 16) & 0xFF)
 #  define sk_color_get_g(c)	               (((c) >>  8) & 0xFF)
 #  define sk_color_get_b(c)	               (((c) >>  0) & 0xFF)
-enum sk_cliptype_t
+typedef enum
 {
   INTERSECT_SK_CLIPTYPE,
   DIFFERENCE_SK_CLIPTYPE
-};
-enum sk_pixelgeometry_t
+} sk_cliptype_t;
+typedef enum
 {
   UNKNOWN_SK_PIXELGEOMETRY,
   RGB_H_SK_PIXELGEOMETRY,
   BGR_H_SK_PIXELGEOMETRY,
   RGB_V_SK_PIXELGEOMETRY,
   BGR_V_SK_PIXELGEOMETRY
-};
+} sk_pixelgeometry_t;
 typedef struct 
 {
   sk_pixelgeometry_t pixelGeometry;
@@ -200,7 +200,7 @@ typedef struct sk_shader_t sk_shader_t;
     For GPU drawing, the destination is a texture or a framebuffer.
 */
 typedef struct sk_surface_t sk_surface_t;
-enum sk_xfermode_mode_t
+typedef enum
 {
   CLEAR_SK_XFERMODE_MODE,
   SRC_SK_XFERMODE_MODE,
@@ -231,7 +231,7 @@ enum sk_xfermode_mode_t
   SATURATION_SK_XFERMODE_MODE,
   COLOR_SK_XFERMODE_MODE,
   LUMINOSITY_SK_XFERMODE_MODE
-};
+} sk_xfermode_mode_t;
 //////////////////////////////////////////////////////////////////////////////////////////
 SK_C_PLUS_PLUS_END_GUARD
 #endif

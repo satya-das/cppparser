@@ -1230,28 +1230,28 @@ public:
   virtual void setSubEntMarkerList(const Adesk::LongPtr* pSubEntMarkerList);
   virtual void setArcSegmentFlags(const bool* pArcSegmentFlags);
 };
-enum AcGiPositionTransformBehavior
+typedef enum
 {
   kAcGiWorldPosition,
   kAcGiViewportPosition,
   kAcGiScreenPosition,
   kAcGiScreenLocalOriginPosition,
   kAcGiWorldWithScreenOffsetPosition
-};
-enum AcGiScaleTransformBehavior
+} AcGiPositionTransformBehavior;
+typedef enum
 {
   kAcGiWorldScale,
   kAcGiViewportScale,
   kAcGiScreenScale,
   kAcGiViewportLocalOriginScale,
   kAcGiScreenLocalOriginScale
-};
-enum AcGiOrientationTransformBehavior
+} AcGiScaleTransformBehavior;
+typedef enum
 {
   kAcGiWorldOrientation,
   kAcGiScreenOrientation,
   kAcGiZAxisOrientation
-};
+} AcGiOrientationTransformBehavior;
 class AcGiGeometry : public AcRxObject
 {
 public:

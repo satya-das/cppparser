@@ -238,6 +238,7 @@ using CppCompoundPtr       = std::unique_ptr<CppCompound>;
 using CppObjPtr            = std::unique_ptr<CppObj>;
 
 struct CppFunctionPointer;
+struct CppEnum;
 
 struct CppVarType : public CppObj
 {
@@ -249,6 +250,7 @@ struct CppVarType : public CppObj
   CppVarType(CppAccessType accessType, std::string baseType, CppTypeModifier modifier);
   CppVarType(CppAccessType accessType, CppCompound* compound, CppTypeModifier modifier);
   CppVarType(CppAccessType accessType, CppFunctionPointer* fptr, CppTypeModifier modifier);
+  CppVarType(CppAccessType accessType, CppEnum* enumObj, CppTypeModifier modifier);
   CppVarType(const CppVarType& varType);
 
   const std::string& baseType() const
@@ -1648,6 +1650,13 @@ inline CppVarType::CppVarType(CppAccessType accessType, CppCompound* compound, C
 inline CppVarType::CppVarType(CppAccessType accessType, CppFunctionPointer* compound, CppTypeModifier modifier)
   : CppObj(kObjectType, CppAccessType::kUnknown)
   , compound_(compound)
+  , typeModifier_(modifier)
+{
+}
+
+inline CppVarType::CppVarType(CppAccessType accessType, CppEnum* enumObj, CppTypeModifier modifier)
+  : CppObj(kObjectType, CppAccessType::kUnknown)
+  , compound_(enumObj)
   , typeModifier_(modifier)
 {
 }

@@ -97,7 +97,7 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
     case CppObjType::kVarList:
       return emitVarList((CppVarList*) cppObj, stm, indentation);
     case CppObjType::kEnum:
-      return emitEnum((CppEnum*) cppObj, stm, indentation);
+      return emitEnum((CppEnum*) cppObj, stm, !noNewLine, indentation);
     case CppObjType::kDocComment:
       return emitDocComment((CppDocComment*) cppObj, stm, indentation);
     case CppObjType::kUsingDecl:
@@ -293,7 +293,7 @@ void CppWriter::emitVarList(const CppVarList* varListObj,
   stm << ";\n";
 }
 
-void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, CppIndent indentation /* = CppIndent()*/) const
+void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, bool emitNewLine, CppIndent indentation) const
 {
   stm << indentation << "enum";
   if (enmObj->isClass_)
@@ -329,7 +329,8 @@ void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, CppIndent ind
     }
     stm << --indentation << "}";
   }
-  stm << ";\n";
+  if (emitNewLine)
+    stm << ";\n";
 }
 
 void CppWriter::emitTypedef(const CppTypedefName* typedefName,
