@@ -302,6 +302,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknInteger);
 }
 
+<ctxGeneral>__int8|__int16|__int32|__int64|__int128/{TS}+ {
+  set_token_and_yyposn();
+  RETURN(tknInteger);
+}
+
 <ctxGeneral>char/{TS}+ {
   set_token_and_yyposn();
   RETURN(tknChar);
