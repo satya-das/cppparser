@@ -530,7 +530,10 @@ void CppWriter::emitFunction(const CppFunction* funcObj,
     stm << "explicit ";
   else if (funcObj->attr() & kFriend)
     stm << "friend ";
-  emitVarType(funcObj->retType_.get(), stm);
+  if (funcObj->attr() & kTrailingRet)
+    stm << "auto";
+  else
+    emitVarType(funcObj->retType_.get(), stm);
   if (funcObj->objType_ == CppObjType::kFunctionPtr)
     stm << " (";
   else
@@ -561,6 +564,11 @@ void CppWriter::emitFunction(const CppFunction* funcObj,
   else if ((funcObj->attr() & kFinal) == kFinal)
     stm << " final";
 
+  if (funcObj->attr() & kTrailingRet)
+  {
+    stm << " -> ";
+    emitVarType(funcObj->retType_.get(), stm);
+  }
   if (!skipParamName && funcObj->defn() && (getEmittingType() != kHeader))
   {
     stm << '\n' << indentation++ << "{\n";

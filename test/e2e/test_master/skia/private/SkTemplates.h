@@ -49,7 +49,7 @@ template <typename T, T* P>
 struct SkFunctionWrapper
 {
   template <typename... Args>
-  auto operator()(Args&& args) const
+  auto operator()(Args&& args) const -> decltype(P(std::forward<Args>(args)...))
   {
     return P(std::forward<Args>(args));
   }
@@ -531,12 +531,12 @@ private:
 };
 using SkAutoFree = std::unique_ptr<void, SkFunctionWrapper<void(void*), sk_free>>;
 template <typename C, std::size_t... Is>
-std::array<skstd::result_of_t<C(std::size_t)>, sizeof...(Is)> SkMakeArrayFromIndexSequence(C c, skstd::index_sequence<Is...>)
+auto SkMakeArrayFromIndexSequence(C c, skstd::index_sequence<Is...>) -> std::array<skstd::result_of_t<C(std::size_t)>, sizeof...(Is)>
 {
   return {{c(Is)}};
 }
 template <size_t N, typename C>
-std::array<skstd::result_of_t<C(std::size_t)>, N> SkMakeArray(C c)
+auto SkMakeArray(C c) -> std::array<skstd::result_of_t<C(std::size_t)>, N>
 {
   return SkMakeArrayFromIndexSequence(c, skstd::make_index_sequence<N>());
 }

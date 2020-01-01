@@ -373,7 +373,7 @@ inline bool operator!=(std::nullptr_t, const sk_sp<T>& b)
   return static_cast<bool>(b);
 }
 template <typename C, typename CT, typename T>
-auto operator<<(std::basic_ostream<C, CT>& os, const sk_sp<T>& sp)
+auto operator<<(std::basic_ostream<C, CT>& os, const sk_sp<T>& sp) -> decltype(os << sp.get())
 {
   return os << sp.get();
 }

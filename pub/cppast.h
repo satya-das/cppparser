@@ -984,7 +984,6 @@ struct CppFunction : public CppFuncCtorBase
   static constexpr CppObjType kObjectType = CppObjType::kFunction;
 
   const CppVarTypePtr retType_;
-  CppExprPtr          returnDeclType_;
 
   CppFunction(CppAccessType   accessType,
               std::string     name,

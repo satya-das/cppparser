@@ -136,6 +136,9 @@ extern int yylex();
 
 %union {
   CppToken                str;
+  CppNtFuncDeclData       funcDeclData;
+  CppNtMemInit            memInit;
+
   CppObj*                 cppObj;
   CppTypeModifier         typeModifier;
   CppVarType*             cppVarType;
@@ -169,7 +172,6 @@ extern int yylex();
   CppInheritanceList*     inheritList;
   bool                    inheritType;
   CppIdentifierList*      identifierList;
-  CppNtMemInit            memInit;
   CppFuncThrowSpec*       funcThrowSpec;
   CppTemplateArg*         templateArg;
   CppAsmBlock*            asmBlock;
@@ -282,6 +284,7 @@ extern int yylex();
 %type  <tryBlock>           tryblock;
 %type  <catchBlock>         catchblock;
 %type  <cppFuncPointerObj>  functionpointer functionptrtype funcpointerdecl funcptrtypedef funcptrortype funcobj
+%type  <funcDeclData>       funcdecldata
 %type  <cppFuncObj>         funcdecl funcdeclstmt funcdefn
 %type  <cppCtorObj>         ctordecl ctordeclstmt ctordefn
 %type  <cppDtorObj>         dtordecl dtordeclstmt dtordefn
@@ -650,6 +653,7 @@ typeidentifier    : identifier                            [ZZLOG;] { $$ = $1; }
                   | tknTypename tknEllipsis               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknClass tknEllipsis                  [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | typeidentifier tknEllipsis            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+                  | tknDecltype '(' expr ')'              [ZZLOG;] { $$ = mergeCppToken($1, $4); delete $3; }
                   ;
 
 templidentifier   : identifier tknLT templatearglist tknGT  [ZZLOG;] { $$ = mergeCppToken($1, $4); }
@@ -1046,21 +1050,33 @@ funcobj           : vartype optapidecor '(' paramlist ')' [ZZLOG;] {
 funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
                   ;
 
-funcdecl          : vartype apidecor funcname '(' paramlist ')'                         [ZZLOG;] {
-                    $$ = newFunction(gCurAccessType, $3, $1, $5, 0);
+funcdecldata      : funcname '(' paramlist ')' [ZZLOG;] {
+                    $$ = CppNtFuncDeclData{$1, $3, 0};
+                  }
+                  | funcname '(' paramlist ')' optfuncattrib [ZZLOG;] {
+                    $$ = CppNtFuncDeclData{$1, $3, $5};
+                  }
+                  ;
+
+funcdecl          : vartype apidecor funcdecldata                                   [ZZVALID;] {
+                    $$ = newFunction(gCurAccessType, $3.funcName, $1, $3.paramList, $3.funcAttr);
                     $$->decor2($2);
                   }
-                  | vartype funcname '(' paramlist ')'                                  [ZZLOG;] {
-                    $$ = newFunction(gCurAccessType, $2, $1, $4, 0);
+                  | vartype funcdecldata                                            [ZZVALID;] {
+                    $$ = newFunction(gCurAccessType, $2.funcName, $1, $2.paramList, $2.funcAttr);
                   }
-                  | vartype tknConstExpr funcname '(' paramlist ')'                     [ZZLOG;] {
-                    $$ = newFunction(gCurAccessType, $3, $1, $5, kConstExpr);
+                  | vartype tknConstExpr funcdecldata                               [ZZVALID;] {
+                    $$ = newFunction(gCurAccessType, $3.funcName, $1, $3.paramList, $3.funcAttr | kConstExpr);
                   }
-                  | tknAuto funcname '(' paramlist ')' tknArrow vartype                 [ZZLOG;] {
-                    $$ = newFunction(gCurAccessType, $2, $7, $4, kTrailingRet);
+                  | tknAuto funcdecldata tknArrow vartype                           [ZZVALID;] {
+                    $$ = newFunction(gCurAccessType, $2.funcName, $4, $2.paramList, $2.funcAttr | kTrailingRet);
                   }
-                  | tknAuto tknConstExpr funcname '(' paramlist ')' tknArrow vartype    [ZZLOG;] {
-                    $$ = newFunction(gCurAccessType, $3, $8, $5, kTrailingRet | kConstExpr);
+                  | tknAuto tknConstExpr funcdecldata tknArrow vartype              [ZZVALID;] {
+                    $$ = newFunction(gCurAccessType, $3.funcName, $5, $3.paramList, $3.funcAttr | kTrailingRet | kConstExpr);
+                  }
+                  | tknConstExpr funcdecl                                               [ZZLOG;] {
+                    $$ = $2;
+                    $$->addAttr(kConstExpr);
                   }
                   | apidecor funcdecl                                                   [ZZLOG;] {
                     $$ = $2;
@@ -1087,14 +1103,6 @@ funcdecl          : vartype apidecor funcname '(' paramlist ')'                 
                   | funcdecl functhrowspec                                              [ZZLOG;] {
                     $$ = $1;
                     $$->throwSpec($2);
-                  }
-                  | funcdecl optfuncattrib                                              [ZZLOG;] {
-                    $$ = $1;
-                    $$->addAttr($2);
-                  }
-                  | funcdecl tknArrow tknDecltype '(' expr ')'                          [ZZLOG;] {
-                    $$ = $1;
-                    $$->returnDeclType_.reset($5);
                   }
                   ;
 

@@ -21,11 +21,12 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __CPPTOKEN_H__
-#define __CPPTOKEN_H__
+#pragma once
 
 #include <cstring>
+#include <memory>
 #include <string>
+#include <vector>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -83,6 +84,16 @@ inline CppToken mergeCppToken(const CppToken& token1, const CppToken& token2)
   return makeCppToken(token1.sz, token2.sz + token2.len - token1.sz);
 }
 
+template <typename _ST>
+inline _ST& operator<<(_ST& stm, const CppToken& token)
+{
+  for (size_t i = 0; i < token.len; ++i)
+    stm << token.sz[i];
+  return stm;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 struct CppExpr;
 
 /* Non-terminal for member initalizer */
@@ -92,12 +103,17 @@ struct CppNtMemInit
   CppExpr* init;
 };
 
-template <typename _ST>
-inline _ST& operator<<(_ST& stm, const CppToken& token)
-{
-  for (size_t i = 0; i < token.len; ++i)
-    stm << token.sz[i];
-  return stm;
-}
+////////////////////////////////////////////////////////////////////////////////////////////////
 
-#endif //__CPPTOKEN_H__
+struct CppObj;
+using CppObjPtr      = std::unique_ptr<CppObj>;
+using CppParamVector = std::vector<CppObjPtr>;
+
+struct CppNtFuncDeclData
+{
+  CppToken        funcName;
+  CppParamVector* paramList;
+  unsigned int    funcAttr;
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////
