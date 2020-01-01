@@ -597,20 +597,29 @@ struct CppInheritInfo
   }
 };
 
+struct CppFunctionPointer;
 /**
  * Parameter types that are used to define a template class or function.
  */
 struct CppTemplateParam
 {
   // If not nullptr then template param is not of type typename/class
-  const std::unique_ptr<const CppVarType> paramType_;
-  const std::string                       paramName_;
+  const std::unique_ptr<const CppObj> paramType_;
+  const std::string                   paramName_;
+
+  CppTemplateParam(std::string paramName)
+    : paramType_(nullptr)
+    , paramName_(std::move(paramName))
+  {
+  }
 
   CppTemplateParam(const CppVarType* paramType, std::string paramName)
     : paramType_(paramType)
     , paramName_(std::move(paramName))
   {
   }
+
+  CppTemplateParam(const CppFunctionPointer* paramType, std::string paramName);
 
   CppObj* defaultArg() const
   {
@@ -1664,4 +1673,10 @@ inline CppVarType::CppVarType(const CppVarType& varType)
   : CppVarType(CppAccessType::kUnknown, varType.baseType(), varType.typeModifier())
 {
   // TODO: clone compound_.
+}
+
+inline CppTemplateParam::CppTemplateParam(const CppFunctionPointer* paramType, std::string paramName)
+  : paramType_(paramType)
+  , paramName_(std::move(paramName))
+{
 }

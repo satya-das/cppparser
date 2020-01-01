@@ -395,7 +395,10 @@ void CppWriter::emitTemplSpec(const CppTemplateParamList* templSpec, std::ostrea
       stm << sep;
       if (param->paramType_)
       {
-        emitVarType(param->paramType_.get(), stm);
+        if (param->paramType_->objType_ == CppVarType::kObjectType)
+          emitVarType(static_cast<const CppVarType*>(param->paramType_.get()), stm);
+        else
+          emitFunctionPtr(static_cast<const CppFunctionPointer*>(param->paramType_.get()), stm, false);
         stm << ' ';
       }
       else

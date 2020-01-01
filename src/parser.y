@@ -1564,17 +1564,17 @@ templateparamlist :                                       [ZZLOG;] {
                   ;
 
 templateparam     : tknTypename optid             [ZZLOG;] {
-                    $$ = new CppTemplateParam(nullptr, $2);
+                    $$ = new CppTemplateParam($2);
                   }
                   | tknTypename optid '=' vartype [ZZLOG;] {
-                    $$ = new CppTemplateParam(nullptr, $2);
+                    $$ = new CppTemplateParam($2);
                     $$->defaultArg($4);
                   }
                   | tknClass optid                [ZZLOG;] {
-                    $$ = new CppTemplateParam(nullptr, $2);
+                    $$ = new CppTemplateParam($2);
                   }
                   | tknClass optid '=' vartype    [ZZLOG;] {
-                    $$ = new CppTemplateParam(nullptr, $2);
+                    $$ = new CppTemplateParam($2);
                     $$->defaultArg($4);
                   }
                   | vartype id                    [ZZLOG;] {
@@ -1583,6 +1583,13 @@ templateparam     : tknTypename optid             [ZZLOG;] {
                   | vartype id '=' expr           [ZZLOG;] {
                     $$ = new CppTemplateParam($1, $2);
                     $$->defaultArg($4);
+                  }
+                  | functionpointer               [ZZLOG;] {
+                    $$ = new CppTemplateParam($1, std::string());
+                  }
+                  | functionpointer '=' expr        [ZZLOG;] {
+                    $$ = new CppTemplateParam($1, std::string());
+                    $$->defaultArg($3);
                   }
                   | vartype                       [ZZLOG;] { // Can happen when forward declaring
                     $$ = new CppTemplateParam($1, std::string());
