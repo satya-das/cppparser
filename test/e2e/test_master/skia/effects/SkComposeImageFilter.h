@@ -7,6 +7,7 @@
 #ifndef SkComposeImageFilter_DEFINED
 #  define SkComposeImageFilter_DEFINED
 #  include "include/core/SkImageFilter.h"
+// DEPRECATED: Use include/effects/SkImageFilters::Compose
 class SK_API SkComposeImageFilter
 {
 public:

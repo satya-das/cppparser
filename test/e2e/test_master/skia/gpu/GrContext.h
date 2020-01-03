@@ -12,6 +12,7 @@
 #  include "include/gpu/GrBackendSurface.h"
 #  include "include/gpu/GrContextOptions.h"
 #  include "include/private/GrRecordingContext.h"
+// We shouldn't need this but currently Android is relying on this being include transitively.
 #  include "include/core/SkUnPreMultiply.h"
 class GrAtlasManager;
 class GrBackendSemaphore;
@@ -170,6 +171,7 @@ public:
      * otherwise marked for deletion, regardless of whether the context is under budget.
      */
   void performDeferredCleanup(std::chrono::milliseconds msNotUsed);
+    // Temporary compatibility API for Android.
   void purgeResourcesNotUsedInMs(std::chrono::milliseconds msNotUsed)
   {
     this->performDeferredCleanup(msNotUsed);
@@ -306,9 +308,11 @@ public:
      * Checks whether any asynchronous work is complete and if so calls related callbacks.
      */
   void checkAsyncWorkCompletion();
+    // Provides access to functions that aren't part of the public API.
   GrContextPriv priv();
   const GrContextPriv priv() const;
     /** Enumerates all cached GPU resources and dumps their memory to traceMemoryDump. */
+    // Chrome is using this!
   void dumpMemoryStatistics(SkTraceMemoryDump* traceMemoryDump) const;
   bool supportsDistanceFieldText() const;
   void storeVkPipelineCacheData();
@@ -337,18 +341,82 @@ public:
     * surface, rewrapping it in a image and drawing the image will require explicit
     * sychronization on the client's part).
     */
+
+    // If possible, create an uninitialized backend texture. The client should ensure that the
+    // returned backend texture is valid.
+    // For the Vulkan backend the layout of the created VkImage will be:
+    //      VK_IMAGE_LAYOUT_UNDEFINED.
   GrBackendTexture createBackendTexture(int width, int height, const GrBackendFormat&, GrMipMapped, GrRenderable, GrProtected = GrProtected::kNo);
+    // If possible, create an uninitialized backend texture. The client should ensure that the
+    // returned backend texture is valid.
+    // If successful, the created backend texture will be compatible with the provided
+    // SkColorType.
+    // For the Vulkan backend the layout of the created VkImage will be:
+    //      VK_IMAGE_LAYOUT_UNDEFINED.
   GrBackendTexture createBackendTexture(int width, int height, SkColorType, GrMipMapped, GrRenderable, GrProtected = GrProtected::kNo);
+    // If possible, create an uninitialized backend texture that is compatible with the
+    // provided characterization. The client should ensure that the returned backend texture
+    // is valid.
+    // For the Vulkan backend the layout of the created VkImage will be:
+    //      VK_IMAGE_LAYOUT_UNDEFINED.
   GrBackendTexture createBackendTexture(const SkSurfaceCharacterization& characterization);
+    // If possible, create a backend texture initialized to a particular color. The client should
+    // ensure that the returned backend texture is valid.
+    // For the Vulkan backend the layout of the created VkImage will be:
+    //      VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL if renderable is kNo
+    //  and VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL if renderable is kYes
   GrBackendTexture createBackendTexture(int width, int height, const GrBackendFormat&, const SkColor4f& color, GrMipMapped, GrRenderable, GrProtected = GrProtected::kNo);
+    // If possible, create a backend texture initialized to a particular color. The client should
+    // ensure that the returned backend texture is valid.
+    // If successful, the created backend texture will be compatible with the provided
+    // SkColorType.
+    // For the Vulkan backend the layout of the created VkImage will be:
+    //      VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL if renderable is kNo
+    //  and VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL if renderable is kYes
   GrBackendTexture createBackendTexture(int width, int height, SkColorType, const SkColor4f& color, GrMipMapped, GrRenderable, GrProtected = GrProtected::kNo);
+    // If possible, create a backend texture initialized to a particular color that is
+    // compatible with the provided characterization. The client should ensure that the
+    // returned backend texture is valid.
+    // For the Vulkan backend the layout of the created VkImage will be:
+    //      VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL
   GrBackendTexture createBackendTexture(const SkSurfaceCharacterization& characterization, const SkColor4f& color);
+    // If possible, create a backend texture initialized with the provided pixmap data. The client
+    // should ensure that the returned backend texture is valid.
+    // If successful, the created backend texture will be compatible with the provided
+    // pixmap(s). Compatible, in this case, means that the backend format will be the result
+    // of calling defaultBackendFormat on the base pixmap's colortype.
+    // If numLevels is 1 a non-mipMapped texture will result. If a mipMapped texture is desired
+    // the data for all the mipmap levels must be provided. In the mipmapped case all the
+    // colortypes of the provided pixmaps must be the same. Additionally, all the miplevels
+    // must be sized correctly (please see SkMipMap::ComputeLevelSize and ComputeLevelCount).
+    // Note: the pixmap's alphatypes and colorspaces are ignored.
+    // For the Vulkan backend the layout of the created VkImage will be:
+    //      VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+    // regardless of the renderability setting
   GrBackendTexture createBackendTexture(const SkPixmap srcData[], int numLevels, GrRenderable, GrProtected);
+    // Helper version of above for a single level.
   GrBackendTexture createBackendTexture(const SkPixmap& srcData, GrRenderable renderable, GrProtected isProtected)
   {
     return this->createBackendTexture(&srcData, 1, renderable, isProtected);
   }
   void deleteBackendTexture(GrBackendTexture);
+    // This interface allows clients to pre-compile shaders and populate the runtime program cache.
+    // The key and data blobs should be the ones passed to the PersistentCache, in SkSL format.
+    //
+    // Steps to use this API:
+    //
+    // 1) Create a GrContext as normal, but set fPersistentCache on GrContextOptions to something
+    //    that will save the cached shader blobs. Set fShaderCacheStrategy to kSkSL. This will
+    //    ensure that the blobs are SkSL, and are suitable for pre-compilation.
+    // 2) Run your application, and save all of the key/data pairs that are fed to the cache.
+    //
+    // 3) Switch over to shipping your application. Include the key/data pairs from above.
+    // 4) At startup (or any convenient time), call precompileShader for each key/data pair.
+    //    This will compile the SkSL to create a GL program, and populate the runtime cache.
+    //
+    // This is only guaranteed to work if the context/device used in step #2 are created in the
+    // same way as the one used in step #4, and the same GrContextOptions are specified.
+    // Using cached shader blobs on a different device or driver are undefined.
   bool precompileShader(const SkData& key, const SkData& data);
 #  ifdef SK_ENABLE_DUMP_GPU
     /** Returns a string with detailed information about the context & GPU, in JSON format. */
@@ -364,15 +432,21 @@ protected:
   virtual GrAtlasManager* onGetAtlasManager() = 0;
   sk_sp<GrContextThreadSafeProxy> fThreadSafeProxy;
 private:
+    // fTaskGroup must appear before anything that uses it (e.g. fGpu), so that it is destroyed
+    // after all of its users. Clients of fTaskGroup will generally want to ensure that they call
+    // wait() on it as they are being destroyed, to avoid the possibility of pending tasks being
+    // invoked after objects they depend upon have already been destroyed.
   std::unique_ptr<SkTaskGroup> fTaskGroup;
   sk_sp<GrGpu> fGpu;
   GrResourceCache* fResourceCache;
   GrResourceProvider* fResourceProvider;
   bool fDidTestPMConversions;
+    // true if the PM/UPM conversion succeeded; false otherwise
   bool fPMUPMConversionsRoundTrip;
   GrContextOptions::PersistentCache* fPersistentCache;
   GrContextOptions::ShaderErrorHandler* fShaderErrorHandler;
   std::unique_ptr<GrClientMappedBufferManager> fMappedBufferManager;
+    // TODO: have the GrClipStackClip use renderTargetContexts and rm this friending
   friend class GrContextPriv;
   typedef GrRecordingContext INHERITED;
 };

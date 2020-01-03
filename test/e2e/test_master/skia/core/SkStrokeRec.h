@@ -135,6 +135,12 @@ private:
   SkScalar fResScale;
   SkScalar fWidth;
   SkScalar fMiterLimit;
+    // The following three members are packed together into a single u32.
+    // This is to avoid unnecessary padding and ensure binary equality for
+    // hashing (because the padded areas might contain garbage values).
+    //
+    // fCap and fJoin are larger than needed to avoid having to initialize
+    // any pad values
   uint32_t fCap;
   uint32_t fJoin;
   uint32_t fStrokeAndFill;

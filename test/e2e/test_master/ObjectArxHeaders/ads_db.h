@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,12 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// 
+//   ADS.H   -    Definitions of the AutoCAD functions for Applications 
+//                This takes the place of xlacad.h (from LISP) and contains
+//                the changes to the function definitions to make them
+//                compatible with the application interface.
 #ifndef _ads_db_h
 #  define _ads_db_h	1
 #  ifndef DISABLE_OLD_ADS_NAMES

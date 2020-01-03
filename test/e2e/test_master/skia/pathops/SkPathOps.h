@@ -11,6 +11,7 @@
 #  include "include/private/SkTDArray.h"
 class SkPath;
 struct SkRect;
+// FIXME: move everything below into the SkPath class
 /**
   *  The logical operations that can be performed when combining two paths.
   */

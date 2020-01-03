@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,23 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  dbappgrip.h
+//    
+//  AcRxObject
+//    AcRxProtocolReactor
+//      AcDbAppEntityGrips
+//
+//
+//  DESCRIPTION:
+//
+//  This file contains classes that define a framework for extending the grips
+//  provided by existing AcDbEntities using an AcRxProtocolReactor.  ObjectDBX
+//  calls the reactor methods when elaborating the grip points for an entity
+//  Applications implement this protocol extension to provide custom grips for
+//  entities. 
+//
+//  
 #pragma  once
 #include "dbmain.h"
 #include "rxprotevnt.h"

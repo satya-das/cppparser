@@ -42,8 +42,31 @@ For this very reason this file does not use any class that are defined in cppast
 #include <iostream>
 #include <map>
 #include <set>
+#include <vector>
 
 static int gLog = 0;
+/**
+ * Comments can appear anywhere in a C/C++ program and unfortunately not all coments can be preserved.
+ *
+ * gTokenizeComment is a flag used to decide if we can tokenize comments.
+
+ * For details of what kind of comments are preserved and what kind are lost, see file test/e2e/test_input/comment_test.h
+ */
+static bool gTokenizeComment = false;
+
+using BracketDepthStack = std::vector<int>;
+/**
+ * We need to keep track of where we are inside the nest of brackets for knowing when we can tokenize comments.
+ * Since we only want to preserve free standing comments and some side comments (in future improvements)
+ * we need to always ignore comments that are inside square brackets, i.e. [].
+ * We also need to ignore comments that are inside round brackets, i.e. (),
+ * except when we are inside lambda which is being passed to a function as parameter:
+ *    func([]() {
+        // This comment should be preserved even when we are eventually inside a round bracket
+      } // And this comment should be ignored
+      ) // This one too;
+ */
+BracketDepthStack gBracketDepthStack = {0};
 
 extern std::set<std::string>        gMacroNames;
 extern std::set<std::string>        gKnownApiDecorNames;
@@ -99,11 +122,45 @@ int get_context()
   return YYSTATE;
 }
 
-static void set_token_and_yyposn()
+enum class TokenSetupFlag
+{
+  None,
+  DisableCommentTokenization,
+  EnableCommentTokenization,
+  ResetCommentTokenization
+};
+
+void setCommentTokenizationState(TokenSetupFlag flag)
+{
+  switch(flag)
+  {
+    case TokenSetupFlag::DisableCommentTokenization:
+      gTokenizeComment = false;
+      break;
+    case TokenSetupFlag::EnableCommentTokenization:
+      gTokenizeComment = true;
+      break;
+    case TokenSetupFlag::ResetCommentTokenization:
+      gTokenizeComment = (gBracketDepthStack.back() == 0);
+      break;
+    case TokenSetupFlag::None:
+      // Nothing to do
+      break;
+  }
+}
+
+static void set_token_and_yyposn(const char* text, size_t len, TokenSetupFlag flag)
 {
   extern char* yyposn;
-  yyposn = yytext;
-  yylval.str = makeCppToken(yytext, yyleng);
+  yyposn = const_cast<char*>(text);
+  yylval.str = makeCppToken(text, len);
+
+  setCommentTokenizationState(flag);
+}
+
+static void set_token_and_yyposn(TokenSetupFlag flag = TokenSetupFlag::DisableCommentTokenization)
+{
+  set_token_and_yyposn(yytext, yyleng, flag);
 }
 
 using YYLessProc = std::function<void(int)>;
@@ -209,8 +266,9 @@ CL   "\'".*"\'"
 /*@}*/
 
 %x ctxGeneral
-%x ctxDocBlockComment
-%x ctxBlockComment
+%x ctxFreeStandingBlockComment
+%x ctxSideBlockComment
+%x ctxBlockCommentInsideMacroDefn
 
 /* This context starts when # is encountered as first thing in line while state is ctxGeneral */
 %x ctxPreprocessor
@@ -248,7 +306,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   ++gLineNo;
 }
 
-<ctxGeneral,ctxDocBlockComment>{NL} {
+<ctxGeneral,ctxFreeStandingBlockComment,ctxSideBlockComment>{NL} {
   ++gLineNo;
 }
 
@@ -352,17 +410,32 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknEnum);
 }
 
-<ctxGeneral>public/{TS}+ {
+<ctxGeneral>public/{WS}*":" {
+  set_token_and_yyposn(TokenSetupFlag::EnableCommentTokenization);
+  RETURN(tknPublic);
+}
+
+<ctxGeneral>public/{TS} {
   set_token_and_yyposn();
   RETURN(tknPublic);
 }
 
-<ctxGeneral>protected/{TS}+ {
+<ctxGeneral>protected/{WS}*":" {
+  set_token_and_yyposn(TokenSetupFlag::EnableCommentTokenization);
+  RETURN(tknProtected);
+}
+
+<ctxGeneral>protected/{TS} {
   set_token_and_yyposn();
   RETURN(tknProtected);
 }
 
-<ctxGeneral>private/{TS}+ {
+<ctxGeneral>private/{WS}*":" {
+  set_token_and_yyposn(TokenSetupFlag::EnableCommentTokenization);
+  RETURN(tknPrivate);
+}
+
+<ctxGeneral>private/{TS} {
   set_token_and_yyposn();
   RETURN(tknPrivate);
 }
@@ -382,46 +455,68 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknDecltype);
 }
 
-<ctxGeneral>^{WS}*"/*"[^ \ta-zA-Z0-9\n]+ {
+<ctxGeneral>^{WS}*"/*" {
   oyytext = yytext;
-  BEGINCONTEXT(ctxDocBlockComment);
+  BEGINCONTEXT(ctxFreeStandingBlockComment);
 }
 
-<ctxGeneral>^{WS}*"/*!" {
+<ctxGeneral>"/*" {
   oyytext = yytext;
-  BEGINCONTEXT(ctxDocBlockComment);
+  BEGINCONTEXT(ctxSideBlockComment);
 }
 
-<ctxDocBlockComment>.*"*"+"/"/{WS}*{NL} {
-  yylval.str = makeCppToken(oyytext, yytext+yyleng-oyytext);
-  ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
-  RETURN(tknDocBlockComment);
+<ctxFreeStandingBlockComment>[^*\n]*"*"+"/"/{WS}*{NL} {
+  ENDCONTEXT();
+  if (gTokenizeComment)
+  {
+    set_token_and_yyposn(oyytext, yytext+yyleng-oyytext, TokenSetupFlag::None);
+    RETURN(tknFreeStandingBlockComment);
+  }
+}
+<ctxFreeStandingBlockComment>[^*\n]*"*"+"/" {
+  ENDCONTEXT();
 }
 
-<*>"/*" {
-  BEGINCONTEXT(ctxBlockComment);
+<ctxSideBlockComment>[^*\n]*"*"+"/" {
+  ENDCONTEXT();
+
+  /*
+  Ignore side comments for time being
+  if (gTokenizeComment)
+    set_token_and_yyposn(oyytext, yytext+yyleng-oyytext, TokenSetupFlag::None);
+    RETURN(tknSideBlockComment);
+  }
+  */
 }
-<ctxBlockComment,ctxDocBlockComment>[^*\n]* {
+
+<ctxSideBlockComment,ctxFreeStandingBlockComment,ctxBlockCommentInsideMacroDefn>[^*\n]* {
 }
-<ctxBlockComment,ctxDocBlockComment>[^*\n]*\n {
+<ctxSideBlockComment,ctxFreeStandingBlockComment,ctxBlockCommentInsideMacroDefn>[^*\n]*\n {
   ++gLineNo;
 }
-<ctxBlockComment,ctxDocBlockComment>{WS}*"*"+[^*/\n]* {
+<ctxSideBlockComment,ctxFreeStandingBlockComment,ctxBlockCommentInsideMacroDefn>{WS}*"*"+[^*/\n]* {
 }
-<ctxBlockComment,ctxDocBlockComment>{WS}*"*"+[^*/\n]*\n {
+<ctxSideBlockComment,ctxFreeStandingBlockComment,ctxBlockCommentInsideMacroDefn>{WS}*"*"+[^*/\n]*\n {
   ++gLineNo;
 }
-<ctxBlockComment,ctxDocBlockComment>[^*\n]*"*"+"/" {
-  ENDCONTEXT(); /* Begin the same state we were before encountering comment. */
-  /* Ignore block comment if it does not stand all alone */
+<ctxSideBlockComment,ctxFreeStandingBlockComment,ctxBlockCommentInsideMacroDefn>. {
 }
 
-<*>^{WS}*"//"[^ \t\na-zA-Z0-9]+[^\n]* {
-  set_token_and_yyposn();
-  RETURN(tknDocLineComment);
+<*>^{WS}*"//"[^\n]* {
+  if (gTokenizeComment)
+  {
+    set_token_and_yyposn(TokenSetupFlag::None);
+    RETURN(tknFreeStandingLineComment);
+  }
 }
 
 <*>"//"[^\n]* {
+  if (gTokenizeComment)
+  {
+    set_token_and_yyposn(TokenSetupFlag::None);
+    // Ignore side comments for time being
+    // RETURN(tknSideLineComment);
+  }
 }
 
 <ctxGeneral>^{WS}*# {
@@ -533,7 +628,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxDefineDefn>{NL} {
-  yylval.str = makeCppToken(oyytext, yytext-oyytext);
+  set_token_and_yyposn(oyytext, yytext-oyytext, TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   ++gLineNo;
   if(gDefLooksLike != kNoDef)
@@ -545,6 +640,35 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   // We are also ignoring the last new-line character
   // It is because we want the #define to conclude if C++ comment is present at the end of #define.
   yyless(yyleng-1);
+}
+
+<ctxDefineDefn>{WS}*"/*"[^\n]*"*/"{WS}*/{NL} {
+}
+
+<ctxDefineDefn>{WS}*"/*" {
+  BEGINCONTEXT(ctxBlockCommentInsideMacroDefn);
+}
+
+<ctxBlockCommentInsideMacroDefn>{NL} {
+  set_token_and_yyposn(oyytext, yytext-oyytext, TokenSetupFlag::DisableCommentTokenization);
+  ENDCONTEXT(); // End ctxBlockCommentInsideMacroDefn
+  ENDCONTEXT(); // End ctxDefineDefn
+  BEGINCONTEXT(ctxSideBlockComment);
+  ++gLineNo;
+  if(gDefLooksLike != kNoDef)
+    RETURN(gDefLooksLike);
+}
+
+<ctxBlockCommentInsideMacroDefn>[^*\n]*"*"+"/" {
+  ENDCONTEXT();
+}
+
+<ctxBlockCommentInsideMacroDefn>.*"*/"/{WS}*"\\"{WS}*{NL} {
+  ENDCONTEXT();
+}
+
+<ctxBlockCommentInsideMacroDefn>.*"\\"{WS}*{NL} {
+  ++gLineNo;
 }
 
 <ctxPreprocessor>undef/{WS} {
@@ -577,6 +701,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxInclude>{NL} {
+  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   ++gLineNo;
 }
@@ -595,7 +720,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxPreprocessor>ifndef/{WS} {
-  set_token_and_yyposn();
+  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  ENDCONTEXT();
   RETURN(tknIfNDef);
 }
 
@@ -613,7 +739,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxPreprocessor>endif/{TS} {
-  set_token_and_yyposn();
+  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  ENDCONTEXT();
   RETURN(tknEndIf);
 }
 
@@ -633,19 +760,20 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxPreProBody>{NL} {
-  yylval.str = makeCppToken(oyytext, yytext-oyytext);
+  set_token_and_yyposn(oyytext, yytext-oyytext, TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   ++gLineNo;
   RETURN(tknPreProDef);
 }
 
 <ctxPreprocessor>{NL} {
+  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   ++gLineNo;
 }
 
 <ctxPreprocessor>error{WS}[^\n]*{NL} {
-  set_token_and_yyposn();
+  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   ++gLineNo;
   RETURN(tknHashError);
@@ -732,70 +860,87 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxGeneral>default/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknDefault);
 }
 
 <ctxGeneral>return/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknReturn);
 }
 
 <ctxGeneral>if/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknIf);
 }
 
 <ctxGeneral>else/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknElse);
 }
 
 <ctxGeneral>for/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknFor);
 }
 
 <ctxGeneral>do/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknDo);
 }
 
 <ctxGeneral>while/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknWhile);
 }
 
 <ctxGeneral>switch/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknSwitch);
 }
 
 <ctxGeneral>case/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknCase);
 }
 
 <ctxGeneral>const_cast/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknConstCast);
 }
 
 <ctxGeneral>static_cast/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknStaticCast);
 }
 
 <ctxGeneral>dynamic_cast/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknDynamicCast);
 }
 
 <ctxGeneral>reinterpret_cast/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknReinterpretCast);
 }
 
 <ctxGeneral>try/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknTry);
 }
 
 <ctxGeneral>catch/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknCatch);
 }
 
 <ctxGeneral>throw/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknThrow);
 }
 
 <ctxGeneral>sizeof/{TS}+ {
+  set_token_and_yyposn();
   RETURN(tknSizeOf);
 }
 
@@ -944,12 +1089,52 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknStrLit);
 }
 
-<ctxGeneral>(L)?"\'"[^\']*"\'" { //' This quote is shutup the IDE
+<ctxGeneral>(L)?"\'"[^\']*"\'" {
   set_token_and_yyposn();
   RETURN(tknCharLit);
 }
 
-<ctxGeneral>\(|\)|\{|\}|\[|\]|,|;|#|=|\*|\+|-|\.|\/|\~|%|\^|&|\||:|\?|\! {
+<ctxGeneral>\(|\[ {
+  set_token_and_yyposn(TokenSetupFlag::DisableCommentTokenization);
+  gBracketDepthStack.back() = gBracketDepthStack.back() + 1;
+  RETURN(yytext[0]);
+}
+
+<ctxGeneral>\)|\] {
+  set_token_and_yyposn(TokenSetupFlag::None);
+  gBracketDepthStack.back() = gBracketDepthStack.back() - 1;
+  RETURN(yytext[0]);
+}
+
+<ctxGeneral>\{ {
+  gBracketDepthStack.push_back(0);
+  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  RETURN(yytext[0]);
+}
+
+<ctxGeneral>\} {
+  gBracketDepthStack.resize(gBracketDepthStack.size() - 1);
+  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  RETURN(yytext[0]);
+}
+
+<ctxGeneral>; {
+  set_token_and_yyposn();
+  gTokenizeComment = true;
+  RETURN(yytext[0]);
+}
+
+<ctxGeneral>: {
+  set_token_and_yyposn(TokenSetupFlag::None);
+  RETURN(yytext[0]);
+}
+
+<ctxGeneral>, {
+  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  RETURN(yytext[0]);
+}
+
+<ctxGeneral>\)|\]|#|=|\*|\+|-|\.|\/|\~|%|\^|&|\||\?|\! {
   set_token_and_yyposn();
   RETURN(yytext[0]);
 }
@@ -976,6 +1161,8 @@ void setupScanBuffer(char* buf, size_t bufsize)
 {
   gParseBuffer = yy_scan_buffer(buf, bufsize);
   gLineNo = 0;
+  oyytext = buf;
+  gTokenizeComment = true;
   BEGINCONTEXT(ctxGeneral);
 }
 
@@ -983,5 +1170,5 @@ void cleanupScanBuffer()
 {
   yy_delete_buffer(gParseBuffer);
   gParseBuffer = nullptr;
+  gTokenizeComment = true;
 }
-

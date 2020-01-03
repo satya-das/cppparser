@@ -4,6 +4,9 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+
+// EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL
+// DO NOT USE -- FOR INTERNAL TESTING ONLY
 #ifndef sk_maskfilter_DEFINED
 #  define sk_maskfilter_DEFINED
 #  include "include/c/sk_types.h"
@@ -15,10 +18,6 @@ typedef enum
   INNER_SK_BLUR_STYLE
 } sk_blurstyle_t;
 SK_C_PLUS_PLUS_BEGIN_GUARD
-/**
-    Increment the reference count on the given sk_maskfilter_t. Must be
-    balanced by a call to sk_maskfilter_unref().
-*/
 SK_API void sk_maskfilter_ref(sk_maskfilter_t*);
 /**
     Decrement the reference count. If the reference count is 1 before

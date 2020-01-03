@@ -65,6 +65,7 @@ public:
   }
   bool operator==(const GrContextThreadSafeProxy& that) const
   {
+        // Each GrContext should only ever have a single thread-safe proxy.
     SkASSERT((this == &that) == (this->contextID() == that.contextID()));
     return this == &that;
   }
@@ -72,10 +73,12 @@ public:
   {
     return !(*this == that);
   }
+    // Provides access to functions that aren't part of the public API.
   GrContextThreadSafeProxyPriv priv();
   const GrContextThreadSafeProxyPriv priv() const;
 private:
   friend class GrContextThreadSafeProxyPriv;
+    // DDL TODO: need to add unit tests for backend & maybe options
   GrContextThreadSafeProxy(GrBackendApi, const GrContextOptions&, uint32_t contextID);
   bool init(sk_sp<const GrCaps>, sk_sp<GrSkSLFPFactoryCache>) override;
   typedef GrContext_Base INHERITED;

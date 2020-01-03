@@ -7,6 +7,9 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  DESCRIPTION:  Header for AcPlPlotProgress.
+//
 #ifndef ACPLPLOTPROGRESS_H
 #  define ACPLPLOTPROGRESS_H
 #  include "AdAChar.h"

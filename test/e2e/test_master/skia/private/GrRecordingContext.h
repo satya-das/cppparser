@@ -27,6 +27,7 @@ public:
   {
     return INHERITED::defaultBackendFormat(ct, renderable);
   }
+    // Provides access to functions that aren't part of the public API.
   GrRecordingContextPriv priv();
   const GrRecordingContextPriv priv() const;
 protected:
@@ -77,6 +78,7 @@ protected:
   }
 private:
   std::unique_ptr<GrDrawingManager> fDrawingManager;
+    // All the GrOp-derived classes use this pool.
   sk_sp<GrOpMemoryPool> fOpMemoryPool;
   std::unique_ptr<GrStrikeCache> fStrikeCache;
   std::unique_ptr<GrTextBlobCache> fTextBlobCache;

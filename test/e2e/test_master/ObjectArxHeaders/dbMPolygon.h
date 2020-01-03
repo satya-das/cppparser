@@ -7,6 +7,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form. 
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #pragma  once
 #undef ACAD_OBJID_INLINE_INTERNAL
 #include "dbhatch.h"
@@ -26,6 +27,8 @@ const double AcDbMPolygonCrossingFuzz = 1E-6;
 #    endif
 #  endif
 #else 
+// On OS X, we will export all symbols by default and will use GCC
+// attributes to exclude symbols we don't want to export.
 #  define ACBASE_PORT
 #endif
 class AcDbMPolygon : public AcDbEntity
@@ -37,18 +40,29 @@ public:
     kInterior,
     kAnnotation
   };
+    // Constructors and Destructors
+    //
   ACMPOLYGON_PORT AcDbMPolygon();
   ACMPOLYGON_PORT virtual ~AcDbMPolygon();
   ACRX_DECLARE_MEMBERS_EXPIMP(AcDbMPolygon, ACMPOLYGON_PORT);
     //*************************************************************************
     // Methods specific to AcDbMPolygon
     //*************************************************************************
+
+    // Mpolygon hatch member access methods.
+    //
   ACMPOLYGON_PORT virtual AcDbHatch* hatch();
+    // Hatch Plane Methods
+    //
   ACMPOLYGON_PORT virtual double elevation() const;
   ACMPOLYGON_PORT virtual Acad::ErrorStatus setElevation(double elevation);
   ACMPOLYGON_PORT virtual AcGeVector3d normal() const;
   ACMPOLYGON_PORT virtual Acad::ErrorStatus setNormal(const AcGeVector3d& normal);
+    // Hatch Graphics Display Control Methods
+    //
   ACMPOLYGON_PORT virtual Acad::ErrorStatus evaluateHatch(bool bUnderestimateNumLines = false);
+    // Hatch Pattern Methods
+    //
   ACMPOLYGON_PORT virtual AcDbHatch::HatchPatternType patternType() const;
   ACMPOLYGON_PORT virtual const TCHAR* patternName() const;
   ACMPOLYGON_PORT virtual Acad::ErrorStatus setPattern(AcDbHatch::HatchPatternType patType, const TCHAR* patName);
@@ -62,11 +76,14 @@ public:
   ACMPOLYGON_PORT virtual Acad::ErrorStatus setPatternDouble(bool isDouble);
   ACMPOLYGON_PORT virtual int numPatternDefinitions() const;
   ACMPOLYGON_PORT virtual Acad::ErrorStatus getPatternDefinitionAt(int index, double& angle, double& baseX, double& baseY, double& offsetX, double& offsetY, AcGeDoubleArray& dashes) const;
+    // Hatch Gradient support
   ACMPOLYGON_PORT Acad::ErrorStatus setGradientAngle(double angle);
   ACMPOLYGON_PORT Acad::ErrorStatus setGradientShift(float shiftValue);
   ACMPOLYGON_PORT Acad::ErrorStatus setGradientOneColorMode(Adesk::Boolean oneColorMode);
   ACMPOLYGON_PORT Acad::ErrorStatus setGradientColors(unsigned int count, AcCmColor* colors, float* values);
   ACMPOLYGON_PORT Acad::ErrorStatus setGradient(AcDbHatch::GradientPatternType gradType, const TCHAR* gradName);
+    // Mpolygon access methods.
+    //
   ACMPOLYGON_PORT virtual AcCmColor patternColor() const;
   ACMPOLYGON_PORT virtual Acad::ErrorStatus setPatternColor(const AcCmColor& pc);
   ACMPOLYGON_PORT virtual double getArea() const;
@@ -75,6 +92,8 @@ public:
   ACMPOLYGON_PORT virtual AcGeVector2d getOffsetVector() const;
   ACMPOLYGON_PORT virtual Acad::ErrorStatus getMPolygonTree(AcDbMPolygonNode*& loopNode) const;
   ACMPOLYGON_PORT virtual void deleteMPolygonTree(AcDbMPolygonNode* loopNode) const;
+    // Mpolygon loop quiry and manipulation methods.
+    //
   ACMPOLYGON_PORT virtual Acad::ErrorStatus appendLoopFromBoundary(const AcDbCircle* pCircle, bool excludeCrossing = true, double tol = AcDbMPolygonCrossingFuzz);
   ACMPOLYGON_PORT virtual Acad::ErrorStatus appendLoopFromBoundary(const AcDbPolyline* pPoly, bool excludeCrossing = true, double tol = AcDbMPolygonCrossingFuzz);
   ACMPOLYGON_PORT virtual Acad::ErrorStatus appendLoopFromBoundary(const AcDb2dPolyline* pPoly, bool excludeCrossing = true, double tol = AcDbMPolygonCrossingFuzz);
@@ -91,6 +110,8 @@ public:
   ACMPOLYGON_PORT virtual void getChildLoops(int curLoop, AcGeIntArray& selectedLoopIndexes) const;
   ACMPOLYGON_PORT virtual int getParentLoop(int curLoop) const;
   ACMPOLYGON_PORT virtual int getClosestLoopTo(const AcGePoint3d& worldPt) const;
+    // Mpolyon loop crossing and inside methods.
+    //
   ACMPOLYGON_PORT virtual int isPointInsideMPolygon(const AcGePoint3d& worldPt, AcGeIntArray& loopsArray, double tol = AcDbMPolygonCrossingFuzz) const;
   ACMPOLYGON_PORT virtual bool isPointOnLoopBoundary(const AcGePoint3d& worldPt, int loop, double tol = AcDbMPolygonCrossingFuzz) const;
   ACMPOLYGON_PORT virtual Acad::ErrorStatus loopCrossesItself(bool& crosses, bool findAll, AcDbMPolygonCrossingArray& crossingsArray, const AcGePoint2dArray& vertexPts, const AcGeDoubleArray& vertexBulges, double tol = AcDbMPolygonCrossingFuzz) const;
@@ -127,12 +148,17 @@ public:
   ACMPOLYGON_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const;
   ACMPOLYGON_PORT virtual Acad::ErrorStatus audit(AcDbAuditInfo*);
   ACMPOLYGON_PORT virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData);
+    // Batch Mpolygon creation (it should have no loops)
+    //
   ACMPOLYGON_PORT virtual Acad::ErrorStatus createLoopsFromBoundaries(const AcDbObjectIdArray& ids, AcDbIntArray& rejectedObjs, bool excludeCrossing = true, double tol = AcDbMPolygonCrossingFuzz);
   ACMPOLYGON_PORT virtual Acad::ErrorStatus createLoops(const AcArray<AcGePoint2dArray,AcArrayObjectCopyReallocator<AcGePoint2dArray> >& vertices, const AcArray<AcGeDoubleArray,AcArrayObjectCopyReallocator<AcGeDoubleArray> >& bulges, AcDbIntArray& rejectedObjs, bool excludeCrossing = true, double tol = AcDbMPolygonCrossingFuzz);
 private:
   friend class AcDbImpMPolygon;
   void* pImp;
 };
+// This class is used during loop editing to store loops.
+// The MpolygonUI.arx application uses this during dragging
+// while in the MPEDT Move command.
 class AcDbMpolygonLoops
 {
 public:
@@ -150,6 +176,7 @@ inline AcDbMpolygonLoops::AcDbMpolygonLoops(int lindex, int gindex, int gcnt)
   mGripIndex = gindex;
   mGripCount = gcnt;
 }
+// This class is used to store one mpolygon loop crossing point.
 class AcDbMPolygonCrossing
 {
 public:
@@ -164,6 +191,7 @@ public:
 private:
   void* pImp;
 };
+// An Array of class AcDbMPolygonCrossing (loop crossing points).
 class AcDbMPolygonCrossingArray
 {
 public:
@@ -184,9 +212,12 @@ inline AcDbMPolygonCrossingArray::~AcDbMPolygonCrossingArray()
     }
   }
 }
+// The following class is used by the getMPolygonTree API to
+//  return the internal tree ordered loops.
 class AcDbMPolygonNode
 {
 public:
+    // Constructor
   AcDbMPolygonNode();
   AcDbMPolygonNode* mParent;
   AcArray<AcDbMPolygonNode*> mChildren;

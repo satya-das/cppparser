@@ -15,6 +15,7 @@
 #  include <stdarg.h>
 #  include <string.h>
 #  include <atomic>
+/*  Some helper functions for C strings */
 static bool SkStrStartsWith(const char string[], const char prefixStr[])
 {
   SkASSERT(string);
@@ -184,6 +185,7 @@ public:
   {
     return !a.equals(b);
   }
+    // these methods edit the string
   SkString& operator=(const SkString&);
   SkString& operator=(SkString&&);
   SkString& operator=(const char text[]);
@@ -341,6 +343,7 @@ private:
     void unref() const;
     bool unique() const;
   private:
+        // Ensure the unsized delete is called.
     void operator delete(void* p)
     {
       ::operator delete(p);
@@ -371,9 +374,15 @@ static void swap(SkString& a, SkString& b)
 }
 enum SkStrSplitMode
 {
+    // Strictly return all results. If the input is ",," and the separator is ',' this will return
+    // an array of three empty strings.
   kStrict_SkStrSplitMode,
+    // Only nonempty results will be added to the results. Multiple separators will be
+    // coalesced. Separators at the beginning and end of the input will be ignored.  If the input is
+    // ",," and the separator is ',', this will return an empty vector.
   kCoalesce_SkStrSplitMode
 };
+// Split str on any characters in delimiters into out.  (Think, strtok with a sane API.)
 void SkStrSplit(const char* str, const char* delimiters, SkStrSplitMode splitMode, SkTArray<SkString>* out);
 inline void SkStrSplit(const char* str, const char* delimiters, SkTArray<SkString>* out)
 {

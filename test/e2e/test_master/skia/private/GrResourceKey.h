@@ -153,6 +153,7 @@ private:
   enum MetaDataIdx
   {
     kHash_MetaDataIdx,
+        // The key domain and size are packed into a single uint32_t.
     kDomainAndSize_MetaDataIdx,
     kLastMetaDataIdx = kDomainAndSize_MetaDataIdx
   };
@@ -168,6 +169,7 @@ private:
     SkASSERT(SkIsAlign4(this->internalSize()));
   }
   friend class TestResource;
+    // bmp textures require 5 uint32_t values.
   SkAutoSTMalloc<kMetaDataCnt + 5, uint32_t> fKey;
 };
 /**
@@ -318,6 +320,7 @@ public:
       : INHERITED::Builder(key, domain, Data32CntForInnerKey(innerKey) + extraData32Cnt)
     {
       SkASSERT(&innerKey != key);
+            // add the inner key to the end of the key so that op[] can be indexed normally.
       uint32_t* innerKeyData = &this->operator[](extraData32Cnt);
       const uint32_t* srcData = innerKey.data();
       (*innerKeyData++) = innerKey.domain();
@@ -327,6 +330,7 @@ public:
   private:
     static int Data32CntForInnerKey(const GrUniqueKey& innerKey)
     {
+            // key data + domain
       return SkToInt((innerKey.dataSize() >> 2) + 1);
     }
   };
@@ -352,6 +356,7 @@ static void gr_init_static_unique_key_once(SkAlignedSTStorage<1, GrUniqueKey>* k
   GrUniqueKey* key = keyStorage->get()  GrUniqueKey;
   GrUniqueKey::Builder builder(key, GrUniqueKey::GenerateDomain(), 0);
 }
+// The cache listens for these messages to purge junk resources proactively.
 class GrUniqueKeyInvalidatedMessage
 {
 public:

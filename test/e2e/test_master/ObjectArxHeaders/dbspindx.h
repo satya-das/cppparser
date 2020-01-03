@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+// (Rights in Technical Data and Computer Software), as applicable.
+//
+// Concrete implementation for 3d spatial indexing.
+//
 #ifndef AD_DBSPINDX_H
 #  define AD_DBSPINDX_H
 #  include "dbindex.h"

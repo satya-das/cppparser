@@ -1,4 +1,5 @@
 #pragma  once
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -8,6 +9,11 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+
+//
+// This API extends AcGi to support material definition and assignment
+//
 #include "AdAChar.h"
 #include "acgi.h"
 #pragma  pack (push, 8)
@@ -67,6 +73,8 @@ public:
     kFinalGatherReceive,
     kFinalGatherCastAndReceive
   };
+    // Set material properties
+    //
   virtual void setAmbient(const AcGiMaterialColor& color) = 0;
   virtual void setDiffuse(const AcGiMaterialColor& color, const AcGiMaterialMap& map) = 0;
   virtual void setSpecular(const AcGiMaterialColor& color, const AcGiMaterialMap& map, double dGloss) = 0;
@@ -80,6 +88,8 @@ public:
   virtual void setIlluminationModel(IlluminationModel model) = 0;
   virtual void setChannelFlags(ChannelFlags flags) = 0;
   virtual void setMode(Mode value) = 0;
+    // Return material properties
+    //
   virtual void ambient(AcGiMaterialColor& color) const = 0;
   virtual void diffuse(AcGiMaterialColor& color, AcGiMaterialMap& map) const = 0;
   virtual void specular(AcGiMaterialColor& color, AcGiMaterialMap& map, double& dGloss) const = 0;
@@ -93,6 +103,8 @@ public:
   virtual IlluminationModel illuminationModel() const = 0;
   virtual ChannelFlags channelFlags() const = 0;
   virtual Mode mode() const = 0;
+    // Set material properties
+    //
   virtual void setColorBleedScale(double value) = 0;
   virtual void setIndirectBumpScale(double value) = 0;
   virtual void setReflectanceScale(double value) = 0;
@@ -103,6 +115,8 @@ public:
   virtual void setNormalMap(const AcGiMaterialMap& map, NormalMapMethod method, double strength) = 0;
   virtual void setGlobalIllumination(GlobalIlluminationMode mode) = 0;
   virtual void setFinalGather(FinalGatherMode mode) = 0;
+    // Get material properties
+    //
   virtual double colorBleedScale() const = 0;
   virtual double indirectBumpScale() const = 0;
   virtual double reflectanceScale() const = 0;
@@ -130,10 +144,14 @@ public:
   AcGiMaterialColor(const AcGiMaterialColor& matColor);
   AcGiMaterialColor& operator=(const AcGiMaterialColor& matColor);
   bool operator==(const AcGiMaterialColor& matColor) const;
+    // Set properties of material color.
+    //
   virtual void set(const AcGiMaterialColor& matColor);
   virtual void setMethod(Method method);
   virtual void setFactor(double dFactor);
   virtual void setColor(const AcCmEntityColor& color);
+    // Return current settings.
+    //
   virtual Method method(void) const;
   virtual double factor(void) const;
   virtual const AcCmEntityColor& color(void) const;
@@ -166,6 +184,7 @@ public:
   AcGiImageFileTexture(const AcGiImageFileTexture& texture);
   AcGiImageFileTexture& operator=(const AcGiImageFileTexture& texture);
   virtual bool operator==(const AcGiMaterialTexture& texture) const override;
+    //AcRxObject protocol
   virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
   virtual void setSourceFileName(const ACHAR* fileName);
   virtual const ACHAR* sourceFileName(void) const;
@@ -192,7 +211,9 @@ public:
   AcGiGenericTexture(const AcGiGenericTexture& texture);
   AcGiGenericTexture& operator=(const AcGiGenericTexture& texture);
   virtual bool operator==(const AcGiMaterialTexture& texture) const override;
+    //AcRxObject protocol
   virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+    // Generic Texture properties
   void setDefinition(const AcGiVariant& definition);
   AcGiVariant definition(void) const;
   void definition(AcGiVariant*& pDefinition);
@@ -210,7 +231,9 @@ public:
   AcGiWoodTexture(const AcGiWoodTexture& texture);
   AcGiWoodTexture& operator=(const AcGiWoodTexture& texture);
   virtual bool operator==(const AcGiMaterialTexture& texture) const override;
+    //AcRxObject protocol
   virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+    // wood properties
   virtual void setColor1(const AcGiMaterialColor& woodColor1);
   virtual const AcGiMaterialColor& color1(void) const;
   virtual void setColor2(const AcGiMaterialColor& woodColor2);
@@ -235,7 +258,9 @@ public:
   AcGiMarbleTexture(const AcGiMarbleTexture& texture);
   AcGiMarbleTexture& operator=(const AcGiMarbleTexture& texture);
   virtual bool operator==(const AcGiMaterialTexture& texture) const override;
+    //AcRxObject protocol
   virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+    // marble properties
   virtual void setStoneColor(const AcGiMaterialColor& stoneColor);
   virtual const AcGiMaterialColor& stoneColor(void) const;
   virtual void setVeinColor(const AcGiMaterialColor& veinColor);
@@ -276,13 +301,21 @@ public:
   AcGiMaterialMap(const AcGiMaterialMap& matMap);
   AcGiMaterialMap& operator=(const AcGiMaterialMap& matMap);
   bool operator==(const AcGiMaterialMap& matMap) const;
+    // Set properties of material map.
+    //
   virtual void set(const AcGiMaterialMap& matMap);
   virtual void setSource(Source source);
+    // Deprecated: The setSourceFileName() method will be removed in a future
+    // release. Instead, use the method of the same name in AcGiImageFileTexture.
   ADESK_DEPRECATED virtual void setSourceFileName(const ACHAR* fileName);
   virtual void setTexture(const AcGiMaterialTexture* pTexture);
   virtual void setBlendFactor(double blendFactor);
   virtual void setMapper(const AcGiMapper& mapper);
+    // Return current settings.
+    //
   virtual Source source(void) const;
+    // Deprecated: The sourceFileName() method will be removed in a future
+    // release. Instead, use the method of the same name in AcGiImageFileTexture.
   ADESK_DEPRECATED virtual const ACHAR* sourceFileName(void) const;
   virtual const AcGiMaterialTexture* texture(void) const;
   virtual double blendFactor(void) const;
@@ -346,13 +379,18 @@ public:
   {
     return !(*this == mapper);
   }
+    // Set properties of material mapper.
+    //
   virtual void set(const AcGiMapper& mapper);
   virtual void setProjection(Projection projection);
   virtual void setAutoTransform(AutoTransform autoTransform);
   virtual void setTransform(const AcGeMatrix3d& transform);
+    // Return current settings.
+    //
   virtual Projection projection(void) const;
   virtual AutoTransform autoTransform(void) const;
   virtual const AcGeMatrix3d& transform(void) const;
+    // New properties for Spago
   void setUTiling(Tiling tiling);
   void setVTiling(Tiling tiling);
   Tiling uTiling(void) const;

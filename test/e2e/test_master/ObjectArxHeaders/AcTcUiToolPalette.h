@@ -37,6 +37,7 @@ public:
   CAcTcUiToolPalette();
   virtual ~CAcTcUiToolPalette();
   CAcTcUiPaletteView* GetView(void);
+    // Base class overrides
   virtual BOOL Create(CAdUiPaletteSet* pParent);
   BOOL Create(DWORD dwStyle, LPCTSTR pszName, CAdUiPaletteSet* pParent, DWORD dwPaletteStyle = 0);
   virtual BOOL Load(IUnknown* pUnk);

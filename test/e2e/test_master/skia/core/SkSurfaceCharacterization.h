@@ -13,6 +13,7 @@
 class SkColorSpace;
 #  if  SK_SUPPORT_GPU
 #    include "include/gpu/GrBackendSurface.h"
+// TODO: remove the GrContext.h include once Flutter is updated
 #    include "include/gpu/GrContext.h"
 #    include "include/gpu/GrContextThreadSafeProxy.h"
 /** \class SkSurfaceCharacterization
@@ -40,6 +41,7 @@ public:
     kNo = false,
     kYes = true
   };
+    // This flag indicates if the surface is wrapping a raw Vulkan secondary command buffer.
   enum class VulkanSecondaryCBCompatible : bool
   {
     kNo = false,
@@ -151,6 +153,7 @@ public:
   {
     return fSurfaceProps;
   }
+    // Is the provided backend texture compatible with this surface characterization?
   bool isCompatible(const GrBackendTexture&) const;
 private:
   friend class SkSurface_Gpu;

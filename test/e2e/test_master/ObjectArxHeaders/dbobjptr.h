@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,91 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+//  DESCRIPTION
+//
+//  The template classes defined in this header file provide
+//  simplified "management" (i.e., opening, closing, creating,
+//  deleting) of AcDbObject's upon construction and destruction.
+//  The constructor provides the necessary arguments to open the
+//  object and the destructor closes the object.  During the
+//  lifetime of the object, clients use operator->() to
+//  manipulate the opened object.  These classes also simplify
+//  creating and deletion of objects.
+//  
+//  One base class, AcDbObjectPointerBase provides the basic
+//  services of opening and closing objects.  Derived classes
+//  provide the real interface to open objects of various types
+//  derived from AcDbObject.  They usually provide additional
+//  constructors that know about the particular ways of opening
+//  an object.  The following template classes are defined in
+//  this header file.
+//
+//  AcDbObjectPointerBase<T_OBJECT>
+//
+//       This class provides the basic services and defines the
+//       basic contracts for using the smart pointers derived
+//       from it.  You normally don't use this class directly,
+//       but may use it to define a derived class to add
+//       constructors that know how to open an object derived
+//       from AcDbObject in alternate forms.
+//
+//  AcDbObjectPointer<T_OBJECT>
+//
+//       This class allows you to access any AcDbObject-based
+//       object given its object ID.  The following pre-defined
+//       typedefs are available.
+//
+//       AcDbDictionaryPointer
+//       AcDbEntityPointer
+//
+//  AcDbSymbolTablePointer<T_OBJECT>
+//
+//       This class allows you to access the symbol tables
+//       associated with every AcDbDatabase.  You can specify
+//       an object ID or a particular database.  The following
+//       pre-defined typedefs are available for individual
+//       symbol-table types.
+//
+//       AcDbBlockTablePointer
+//       AcDbDimStyleTablePointer
+//       AcDbLayerTablePointer
+//       AcDbLinetypeTablePointer
+//       AcDbRegAppTablePointer
+//       AcDbTextStyleTablePointer
+//       AcDbUCSTablePointer
+//       AcDbViewTablePointer
+//       AcDbViewportTablePointer
+//
+//       Note that to open a "plain" symbol table, you may use
+//       AcDbObjectPointer<AcDbSymbolTable>.
+//
+//  AcDbSymbolTableRecordPointer<T_OBJECT>
+//
+//       This class allow you to access symbol-table records by
+//       object ID or by name.  The following pre-defined
+//       typedefs are available for individual symbol-table
+//       record types.
+//
+//       AcDbBlockTableRecordPointer
+//       AcDbDimStyleTableRecordPointer
+//       AcDbLayerTableRecordPointer
+//       AcDbLinetypeTableRecordPointer
+//       AcDbRegAppTableRecordPointer
+//       AcDbTextStyleTableRecordPointer
+//       AcDbUCSTableRecordPointer
+//       AcDbViewTableRecordPointer
+//       AcDbViewportTableRecordPointer
+//
+//       Note that to open a "plain" symbol record, you may use
+//       AcDbObjectPointer<AcDbSymbolTableRecord>.
+//
+// These classes are designed to be type-safe replacements for
+// explicitly using acdbOpenObject(), acdbOpenAcDbObject(), and
+// acdbOpenAcDbEntity().  Using these classes incur opening and
+// close objects, which, under certain circumstances, may be
+// better managed using transactions.
 #ifndef AD_DBOBJPTR_H
 #  define AD_DBOBJPTR_H
 #  include <assert.h>
@@ -21,6 +107,78 @@
 #    define DbObjPtr_Assert(T)
 #  endif
 #  pragma  pack (push, 8)
+// --------- AcDbObjectPointerBase<T_OBJECT> ---------
+//
+// This class provides the basic services for opening and
+// closing objects given its object ID.  It is meant to be a
+// base class from which derived classes may specialize on how
+// objects may be opened.  Template argument T_OBJECT should
+// be AcDbObject or a class derived from AcDbObject that you
+// can open via acdbOpenObject().
+//
+// Contracts:
+//
+// All derived classes must abide by and enforce the following contracts.
+//
+// 1. Copying and assignment are prohibited.  Derived classes
+//    must also prohibit copying and assigment by declaring those
+//    functions private.  These classes contain a pointer to
+//    the real object, so the default constructors provided by
+//    the compiler must not be used.  Copying and assigment do
+//    not have obvious semantics of whether you own the object
+//    or just the pointer.  You can pass AcDbObjectId's and
+//    use these classes to simplify opening the objects by
+//    their ID.
+//
+// 2. Clients must not close the objects themselves by using
+//    the close() member function.  The destructor will close
+//    the object.  These pointer classes are meant to keep the
+//    object open for the lifetime of the pointer object.
+//    Note that an upgradeOpen() may fail, but is compatible
+//    with the semantics of the pointer classes.  A failure to
+//    upgrade will leave the object opened in it's original
+//    mode.
+//
+//    A consequence of this contract means that passing the
+//    pointers returned by operator->() or object() to other
+//    functions may lead to unexpected problems if the other
+//    functions close the object through the pointer.
+//
+// 3. Derived classes should provide the following constructors.
+//
+//    A. A constructor that opens the object by its ID.  This
+//       consistency promotes the use of object IDs and
+//       ensures the "basic" service of opening objects by ID
+//       when using these object-pointer classes.
+//
+//    B. A default constructor, which is mainly needed when
+//       clients wish to use the acquire() member function.
+//
+// 4. All clients will call the openStatus() member function
+//    to determine if the object was successfully opened before
+//    using operator->().
+//
+//    The default constructor provided by AcDbObjectPointerBase<T_OBJECT>
+//    sets the open status to Acad::eNullObjectPointer.
+//
+
+// Enable DBOBJPTR_EXPOSE_PTR_REF in order to allow direct access to the
+// pointer member.  This lets you pass the smart pointer to functions
+// like getAt(), deepClone() and acdbOpenAcDbObject(), which need a
+// reference to an AcDbObject pointer, so they can modify it.
+//
+// Note that this allows the pointer member to be updated externally, so
+// that previously open objects may be left open, creating a "leak".
+//
+// Also, the openStatus() method may not reflect the correct status
+// after an external operation modified the pointer member.
+//
+// This also enables constructors and assignment operators which allow
+// you to directly assign conventional pointers to the smart pointer.
+//
+// Use at your own risk!
+//
+// #define DBOBJPTR_EXPOSE_PTR_REF 1
 template <typename T_OBJECT>
 class AcDbObjectPointerBase
 {
@@ -52,10 +210,20 @@ protected:
   T_OBJECT* m_ptr;
   Acad::ErrorStatus m_status;
 private:
+    // Copy and assignment prohibited.
   AcDbObjectPointerBase(const AcDbObjectPointerBase&) = delete;
   AcDbObjectPointerBase& operator=(const AcDbObjectPointerBase&);
   Acad::ErrorStatus closeInternal();
 };
+// --------- AcDbObjectPointer<T_OBJECT> ---------
+
+// This class allows you to open any AcDbObject given its object ID.
+// The single form of construction is:
+//
+// (AcDbObjectId objId, AcDb::OpenMode mode, bool openErased)
+//
+// These arguments have the same meaning as acdbOpenObject().
+//
 template <typename T_OBJECT>
 class AcDbObjectPointer : public AcDbObjectPointerBase<T_OBJECT>
 {
@@ -68,11 +236,26 @@ public:
 #  endif
   Acad::ErrorStatus open(AcDbObjectId objId, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false);
 private:
+    // Copy and assignment prohibited.
   AcDbObjectPointer(const AcDbObjectPointer&) = delete;
   AcDbObjectPointer& operator=(const AcDbObjectPointer&);
 };
 typedef AcDbObjectPointer<AcDbDictionary> AcDbDictionaryPointer;
 typedef AcDbObjectPointer<AcDbEntity> AcDbEntityPointer;
+// --------- AcDbSymbolTablePointer<T_OBJECT> ---------
+
+// This class allows you to open any AcDbSymbolTable or
+// AcDbSymbolTable-derived object given its object ID or
+// a pointer to the database containing the symbol table.
+// The different forms of construction are:
+//
+// (AcDbObjectId objId, AcDb::OpenMode mode)
+// (AcDbDatabase * pDb, AcDb::OpenMode mode)
+//
+// The object ID and open modes have the same meaning as those of
+// AcDbObjectPointer<T_OBJECT>.  If the database pointer is NULL, the
+// open status after construction is eNullObjectPointer.
+//
 template <typename T_OBJECT>
 class AcDbSymbolTablePointer : public AcDbObjectPointerBase<T_OBJECT>
 {
@@ -87,8 +270,10 @@ public:
   Acad::ErrorStatus open(AcDbObjectId objId, AcDb::OpenMode mode = AcDb::kForRead);
   Acad::ErrorStatus open(AcDbDatabase* pDb, AcDb::OpenMode mode = AcDb::kForRead);
 private:
+    // Copy and assignment prohibited.
   AcDbSymbolTablePointer(const AcDbSymbolTablePointer&) = delete;
   AcDbSymbolTablePointer& operator=(const AcDbSymbolTablePointer&);
+    // Restrict T_OBJECT to AcDbSymbolTable and derived classes.
   typedef typename T_OBJECT::RecordType T2;
 };
 typedef AcDbSymbolTablePointer<AcDbBlockTable> AcDbBlockTablePointer;
@@ -100,6 +285,23 @@ typedef AcDbSymbolTablePointer<AcDbTextStyleTable> AcDbTextStyleTablePointer;
 typedef AcDbSymbolTablePointer<AcDbUCSTable> AcDbUCSTablePointer;
 typedef AcDbSymbolTablePointer<AcDbViewTable> AcDbViewTablePointer;
 typedef AcDbSymbolTablePointer<AcDbViewportTable> AcDbViewportTablePointer;
+// --------- AcDbSymbolTableRecordPointer<T_OBJECT> ---------
+
+// This class allows you to open any AcDbSymbolTableRecord or
+// AcDbSymbolTableRecord-derived object given its object ID or
+// its name and containing database.  The different forms of
+// construction are:
+//
+// (AcDbObjectId objId, AcDb::OpenMode mode, bool openErased)
+// (const ACHAR * name, AcDbDatabase * pDb,
+//  AcDb::OpenMode mode, bool openErased)
+//
+// The object ID, open mode, and open-erased arguments have the
+// same meaning as those for AcDbObjectPointer<T_OBJECT>.  If
+// the name is a null pointer, the open status after
+// construction is eInvalidInput.  If the database pointer is a
+// null pointer, then the open status after construction is
+// eNullObjectPointer.
 template <typename T_OBJECT>
 class AcDbSymbolTableRecordPointer : public AcDbObjectPointerBase<T_OBJECT>
 {
@@ -114,8 +316,10 @@ public:
   Acad::ErrorStatus open(AcDbObjectId objId, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false);
   Acad::ErrorStatus open(const ACHAR* name, AcDbDatabase* pDb, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false);
 private:
+    // Copy and assignment prohibited.
   AcDbSymbolTableRecordPointer(const AcDbSymbolTableRecordPointer&) = delete;
   AcDbSymbolTableRecordPointer& operator=(const AcDbSymbolTableRecordPointer&);
+    // Restrict T_OBJECT to AcDbSymbolTableRecord and derived classes.
   typedef typename T_OBJECT::TableType T2;
 };
 typedef AcDbSymbolTableRecordPointer<AcDbBlockTableRecord> AcDbBlockTableRecordPointer;
@@ -127,6 +331,7 @@ typedef AcDbSymbolTableRecordPointer<AcDbTextStyleTableRecord> AcDbTextStyleTabl
 typedef AcDbSymbolTableRecordPointer<AcDbUCSTableRecord> AcDbUCSTableRecordPointer;
 typedef AcDbSymbolTableRecordPointer<AcDbViewTableRecord> AcDbViewTableRecordPointer;
 typedef AcDbSymbolTableRecordPointer<AcDbViewportTableRecord> AcDbViewportTableRecordPointer;
+// --------- Inline definitions ---------
 template <typename T_OBJECT>
 inline AcDbObjectPointerBase<T_OBJECT>::AcDbObjectPointerBase()
   : m_ptr(NULL)
@@ -173,6 +378,10 @@ inline const T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::object() const
   DbObjPtr_Assert(m_ptr == NULL || m_ptr->isReadEnabled());
   return m_ptr;
 }
+// This function does not modify the object, but we may not make
+// it const.  Doing so will overload it with the const operator->()
+// function above, which is not allowed (we're overloading on
+// const-ness).
 template <typename T_OBJECT>
 inline T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::object()
 {
@@ -200,6 +409,7 @@ operator const T_OBJECT*() const
 template <typename T_OBJECT>
 operator T_OBJECT*&()
 {
+    // Allows direct modification of the pointer member
   return this->m_ptr;
 }
 #  else 

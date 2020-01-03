@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -9,6 +10,8 @@
 //  dbPlotSettings.h
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION: Exported protocol for AcDbPlotSettings
 #ifndef AD_DBPLOTSETTINGS_H
 #  define AD_DBPLOTSETTINGS_H
 #  include "dbmain.h"
@@ -16,6 +19,7 @@
 #  include "AcDbCore2dDefs.h"
 class IAcReadStream;
 #  pragma  pack(push, 8)
+// Class definition for paperspace PlotSettings object
 class AcDbPlotSettings : public AcDbObject
 {
   ACDB_DECLARE_MEMBERS(AcDbPlotSettings);
@@ -23,7 +27,10 @@ public:
   AcDbPlotSettings();
   AcDbPlotSettings(bool ModelType);
   virtual ~AcDbPlotSettings();
+    // Overloads of AcDbObject base class methods
   using AcDbObject::copyFrom;
+    // Note: this overload which takes an AcDbPlotSettings pointer
+    // is deprecated and will be removed in a future release.
   Acad::ErrorStatus copyFrom(AcDbPlotSettings* fromPlotSettings);
   enum PlotPaperUnits
   {

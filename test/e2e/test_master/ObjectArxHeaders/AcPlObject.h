@@ -7,6 +7,9 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  DESCRIPTION:  Base class for client instantiable plot objects
+//
 #ifndef ACPLOBJECT_H
 #  define ACPLOBJECT_H
 #  include "rxobject.h"
@@ -26,6 +29,16 @@ private:
   friend class AcPlSystemInternals;
   AcPlObjectImp* mpPlObjectImp;
 };
+// This macro is NOT intended for application-defined classes derived
+// from AcPlObject when declaring their class header.  This macro declares
+// an internally used form of constructor, which takes the
+// AcPlSystemInternals* argument.  Rx applications should not define
+// such constructors for their database object classes, but they should
+// be ignored by the system anyway.
+//
+// Application-defined classes are advised to use the ACRX_DECLARE_MEMBERS
+// macro instead, and to consult the documentation for related definitions.
+//
 #  define ACPL_DECLARE_MEMBERS(CLASS_NAME)	 \
 private: \
     friend class AcPlSystemInternals; \
@@ -40,6 +53,7 @@ public: \
           ? NULL : (CLASS_NAME*)inPtr; }; \
     ACPL_PORT static void rxInit(); \
     ACPL_PORT static void rxInit(AppNameChangeFuncPtr);
+// Use this macro to define members of classes derived from AcPlObject
 #  define ACPL_DEFINE_MEMBERS(CLASS_NAME, BASE_CLASS)	 \
 ACRX_NO_CONS_DEFINE_MEMBERS(CLASS_NAME, BASE_CLASS) \
 CLASS_NAME::CLASS_NAME(AcPlSystemInternals* pInternals) \

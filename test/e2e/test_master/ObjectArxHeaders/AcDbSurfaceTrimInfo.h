@@ -169,10 +169,15 @@ public:
   AcDbSubentId faceSubentId() const;
 private:
   bool mbCurve;
+    // the projection vector that a curve uses to project onto the blank
   AcGeVector3d mProjVector;
+    // tool can be either an AcDbCompoundObjectId (db-resident) or 
+    // an ENTITY pointer (non-database resident), they are mutual exclusive
   AcDbCompoundObjectId mToolBodyId;
+    // optional face subentity id, if the tool has more than one faces
   AcDbSubentId mToolFaceSubentId;
   mutable ENTITY* mToolBody;
+    // the relation between the tool and the trimmed piece (outside or inside)
   TrimRelation mRelation;
 };
 #pragma  pack (pop)

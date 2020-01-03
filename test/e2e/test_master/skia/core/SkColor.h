@@ -347,6 +347,7 @@ struct SkRGBA4f
       return {fR * invAlpha, fG * invAlpha, fB * invAlpha, fA};
     }
   }
+    // This produces bytes in RGBA order (eg GrColor). Impl. is the same, regardless of kAT
   uint32_t toBytes_RGBA() const;
   static SkRGBA4f FromBytes_RGBA(uint32_t color);
   SkRGBA4f makeOpaque() const

@@ -7,6 +7,9 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+
+
+// DISPIDS for common entity properties
 #define DISPID_ACADCOLOR	0x500
 #define DISPID_ACADLAYER	0x501
 #define DISPID_ACADLINETYPE	0x502

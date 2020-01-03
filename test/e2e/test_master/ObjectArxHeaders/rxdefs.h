@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,14 +8,18 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
 #ifndef _RXDEFS_H_
 #  define _RXDEFS_H_
 #  include "adesk.h"
 #  pragma  pack (push, 8)
+// Deprecated: please use nullptr instead of NULLFCN
 #  define NULLFCN	nullptr
 #  define ACRX_ULONG_MAX	0xFFFFFFFF
 #  define ACRX_ASCII_MAX	255  /* Same as UCHAR_MAX in <limits.h> */
 #  define ACRX_EOS	0          /* End of String Indicator */
+// AcRx:  typedef and enum namespace scoping struct.
 struct AcRx
 {
   typedef void (*FcnPtr) ();
@@ -58,6 +63,8 @@ struct AcRx
     kRetError = 3
   };
 };
+/* These messages are replaced by kLoadDwgMsg, and kUnloadDgwMsg.
+ */
 #  ifndef kLoadADSMsg
 #    define kLoadADSMsg	kLoadDwgMsg
 #    define kUnloadADSMsg	kUnloadDwgMsg

@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,27 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// dbgroup.h
+//
+// AcDbGroup
+//
+// Maintains an ordered collection of database objects with a related iterator.
+// An iterator can be obtained via an existing AcDbGroup object with
+// the newIterator() method.  See below for class descriptions for both
+// AcDbGroup and AcDbGroupIterator.
+//
+// AcDbGroup objects are contained in a special group table (actually a
+// dictionary).  This dictionary can be obtained like this:
+//
+//     AcDbDictionary* pGrpDict = 
+//         acdbHostApplicationServices()->workingDatabase()->groupTable();
+//
+// The AcDbGroup constructor does not add the group to the group dictionary;
+// this must be done explicitly, using the AcDbDictionary protocol.
+//
+// When an entity is erased, it is automatically removed from
+// the groups that contain it.
 #ifndef ACDB_DBGROUP_H
 #  define ACDB_DBGROUP_H
 #  include "dbmain.h"
@@ -107,6 +129,8 @@ public:
   Acad::ErrorStatus setHighlight(bool newVal);
   Acad::ErrorStatus setMaterial(const ACHAR* newVal);
   Acad::ErrorStatus setMaterial(AcDbObjectId newVal);
+    // Overridden methods from AcDbObject
+    //
   virtual Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler* undoFiler, AcRxClass* classObj) override;
   virtual Acad::ErrorStatus subClose() override;
   virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
@@ -119,6 +143,8 @@ public:
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
+// The group iterator class.
+//
 class ADESK_NO_VTABLE AcDbGroupIterator : public AcRxObject
 {
 public:

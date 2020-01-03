@@ -134,6 +134,7 @@ static int SkScalarSignAsInt(SkScalar x)
 {
   return x < 0 ? -1 : (x > 0);
 }
+// Scalar result version of above
 static SkScalar SkScalarSignAsScalar(SkScalar x)
 {
   return x < 0 ? -SK_Scalar1 : ((x > 0) ? SK_Scalar1 : 0);

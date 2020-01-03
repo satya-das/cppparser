@@ -204,6 +204,7 @@ public:
   {
     return DecodeToTexture(ctx, data->data(), data->size(), subset);
   }
+    // Experimental
   enum CompressionType
   {
     kETC1_CompressionType,

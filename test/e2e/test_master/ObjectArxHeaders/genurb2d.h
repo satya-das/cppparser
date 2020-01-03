@@ -7,6 +7,11 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION:
+//
+// This file contains the class AcGeNurbCurve2d - A mathematical entity
+// used to represent a different types of spline curves in 2-space.
 #ifndef AC_GENURB2d_H
 #  define AC_GENURB2d_H
 #  include "gecurv2d.h"
@@ -26,18 +31,30 @@ class AcGeLineSeg2d;
 class GE_DLLEXPIMPORT AcGeNurbCurve2d : public AcGeSplineEnt2d
 {
 public:
+    // Construct spline from control points.
+	//
   AcGeNurbCurve2d();
   AcGeNurbCurve2d(const AcGeNurbCurve2d& src);
   AcGeNurbCurve2d(int degree, const AcGeKnotVector& knots, const AcGePoint2dArray& cntrlPnts, Adesk::Boolean isPeriodic = Adesk::kFalse);
   AcGeNurbCurve2d(int degree, const AcGeKnotVector& knots, const AcGePoint2dArray& cntrlPnts, const AcGeDoubleArray& weights, Adesk::Boolean isPeriodic = Adesk::kFalse);
+    // Construct spline from interpolation data.
+    //
   AcGeNurbCurve2d(int degree, const AcGePolyline2d& fitPolyline, Adesk::Boolean isPeriodic = Adesk::kFalse);
   AcGeNurbCurve2d(const AcGePoint2dArray& fitPoints, const AcGeVector2d& startTangent, const AcGeVector2d& endTangent, Adesk::Boolean startTangentDefined = Adesk::kTrue, Adesk::Boolean endTangentDefined = Adesk::kTrue, const AcGeTol& fitTolerance = AcGeContext::gTol);
+    // specify the fitting points and the wanted knot parameterization
   AcGeNurbCurve2d(const AcGePoint2dArray& fitPoints, const AcGeVector2d& startTangent, const AcGeVector2d& endTangent, Adesk::Boolean startTangentDefined, Adesk::Boolean endTangentDefined, AcGe::KnotParameterization knotParam, const AcGeTol& fitTolerance = AcGeContext::gTol);
   AcGeNurbCurve2d(const AcGePoint2dArray& fitPoints, const AcGeTol& fitTolerance = AcGeContext::gTol);
   AcGeNurbCurve2d(const AcGePoint2dArray& fitPoints, const AcGeVector2dArray& fitTangents, const AcGeTol& fitTolerance = AcGeContext::gTol, Adesk::Boolean isPeriodic = Adesk::kFalse);
+    // Spline representation of ellipse
+	//
   AcGeNurbCurve2d(const AcGeEllipArc2d& ellipse);
+    // Spline representation of line segment
+	//
   AcGeNurbCurve2d(const AcGeLineSeg2d& linSeg);
+    // Construct a cubic spline approximating the curve
   AcGeNurbCurve2d(const AcGeCurve2d& curve, double epsilon = AcGeContext::gTol.equalPoint());
+	// Query methods.
+	//
   int numFitPoints() const;
   Adesk::Boolean getFitPointAt(int index, AcGePoint2d& point) const;
   Adesk::Boolean getFitTolerance(AcGeTol& fitTolerance) const;
@@ -51,6 +68,8 @@ public:
   Adesk::Boolean evalMode() const;
   Adesk::Boolean getParamsOfC1Discontinuity(AcGeDoubleArray& params, const AcGeTol& tol = AcGeContext::gTol) const;
   Adesk::Boolean getParamsOfG1Discontinuity(AcGeDoubleArray& params, const AcGeTol& tol = AcGeContext::gTol) const;
+	// Modification methods.
+	//
   Adesk::Boolean setFitPointAt(int index, const AcGePoint2d& point);
   Adesk::Boolean addFitPointAt(int index, const AcGePoint2d& point);
   Adesk::Boolean deleteFitPointAt(int index);
@@ -76,8 +95,11 @@ public:
   AcGeNurbCurve2d& makeNonPeriodic();
   AcGeNurbCurve2d& makeOpen();
   AcGeNurbCurve2d& elevateDegree(int plusDegree);
+    // add/remove control point.
   Adesk::Boolean addControlPointAt(double newKnot, const AcGePoint2d& point, double weight = 1.0);
   Adesk::Boolean deleteControlPointAt(int index);
+    // Assignment operator.
+    //
   AcGeNurbCurve2d& operator =(const AcGeNurbCurve2d& spline);
 };
 #  pragma  pack (pop)

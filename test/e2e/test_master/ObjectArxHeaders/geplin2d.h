@@ -7,6 +7,11 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION:
+//
+// This file contains the class AcGePolyline2d - A mathematical entity
+// used to represent a different types of spline curves in 3-space.
 #ifndef AC_GEPLIN2D_H
 #  define AC_GEPLIN2D_H
 #  include "gecurv2d.h"
@@ -23,10 +28,16 @@ public:
   AcGePolyline2d(const AcGePolyline2d& src);
   AcGePolyline2d(const AcGePoint2dArray&);
   AcGePolyline2d(const AcGeKnotVector& knots, const AcGePoint2dArray& points);
+    // Approximate curve with polyline
+    //
   AcGePolyline2d(const AcGeCurve2d& crv, double apprEps);
+    // Interpolation data
+    //
   int numFitPoints() const;
   AcGePoint2d fitPointAt(int idx) const;
   AcGeSplineEnt2d& setFitPointAt(int idx, const AcGePoint2d& point);
+    // Assignment operator.
+    //
   AcGePolyline2d& operator =(const AcGePolyline2d& pline);
 };
 #  pragma  pack (pop)

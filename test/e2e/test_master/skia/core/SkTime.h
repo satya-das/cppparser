@@ -18,6 +18,7 @@ public:
   struct DateTime
   {
     int16_t fTimeZoneMinutes;
+                                    // is ahead of or behind UTC.
     uint16_t fYear;
     uint8_t fMonth;
     uint8_t fDayOfWeek;
@@ -42,6 +43,8 @@ public:
 class SkAutoTime
 {
 public:
+    // The label is not deep-copied, so its address must remain valid for the
+    // lifetime of this object
   SkAutoTime(const char* label = nullptr)
     : fLabel(label)
     , fNow(SkTime::GetMSecs())

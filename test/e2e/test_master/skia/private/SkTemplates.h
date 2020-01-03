@@ -43,8 +43,11 @@ static D* SkTAfter(S* ptr, size_t count = 1)
 template <typename D, typename S>
 static D* SkTAddOffset(S* ptr, size_t byteOffset)
 {
+    // The intermediate char* has the same cv-ness as D as this produces better error messages.
+    // This relies on the fact that reinterpret_cast can add constness, but cannot remove it.
   return reinterpret_cast<D*>(reinterpret_cast<sknonstd::same_cv_t<char, D>*>(ptr) + byteOffset);
 }
+// TODO: when C++17 the language is available, use template <auto P>
 template <typename T, T* P>
 struct SkFunctionWrapper
 {
@@ -172,6 +175,7 @@ public:
     {
       if (fCount > kCount)
       {
+                // 'fArray' was allocated last time so free it now
         SkASSERT((T*) fStorage != fArray);
         sk_free(fArray);
       }
@@ -236,6 +240,8 @@ public:
   }
 #  if  defined(SK_BUILD_FOR_GOOGLE3)
 private:
+    // Stack frame size is limited for SK_BUILD_FOR_GOOGLE3. 4k is less than the actual max, but some functions
+    // have multiple large stack allocations.
   static const int kMaxBytes = 4 * 1024;
   static const int kCount = kCountRequested * sizeof(T) > kMaxBytes ? kMaxBytes / sizeof(T) : kCountRequested;
 #  else 
@@ -243,6 +249,7 @@ private:
 #  endif
   int fCount;
   T* fArray;
+    // since we come right after fArray, fStorage should be properly aligned
   char fStorage[kCount * sizeof(T)];
 };
 /** Manages an array of T elements, freeing the array in the destructor.
@@ -344,6 +351,7 @@ public:
       sk_free(fPtr);
     }
   }
+    // doesn't preserve contents
   T* reset(size_t count)
   {
     if (fPtr != fTStorage)
@@ -387,6 +395,7 @@ public:
   {
     return fPtr[index];
   }
+    // Reallocs the array, can be used to shrink the allocation.  Makes no attempt to be intelligent
   void realloc(size_t count)
   {
     if (count > kCount)
@@ -417,8 +426,11 @@ public:
     }
   }
 private:
+    // Since we use uint32_t storage, we might be able to get more elements for free.
   static const size_t kCountWithPadding = SkAlign4(kCountRequested * sizeof(T)) / sizeof(T);
 #  if  defined(SK_BUILD_FOR_GOOGLE3)
+    // Stack frame size is limited for SK_BUILD_FOR_GOOGLE3. 4k is less than the actual max, but some functions
+    // have multiple large stack allocations.
   static const size_t kMaxBytes = 4 * 1024;
   static const size_t kCount = kCountRequested * sizeof(T) > kMaxBytes ? kMaxBytes / sizeof(T) : kCountWithPadding;
 #  else 

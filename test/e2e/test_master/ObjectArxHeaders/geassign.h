@@ -7,6 +7,15 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION:
+//
+//     Useful macros for converting from various C-struct definitions
+//     of points and vectors to their equivalent acgelib definitions.
+//
+//     This header file should ONLY be included in source files,
+//     never headers as it is only intended to be an internal utility
+//     for interfacing to old AutoCad C-code and other 3rd party libraries.
 #ifndef AC_GEASSIGN_H
 #  define AC_GEASSIGN_H
 #  pragma  pack (push, 8)
@@ -22,6 +31,8 @@ inline AcGeVector2d& asVec2d(const double* vec)
 {
   return *((AcGeVector2d*) vec);
 }
+//clang 4.0 has a false positive where AcGePoint2d is treated as alignment of 4. silencing the compiler here
+//error: cast from 'const AcGeVector3d *' to 'double *' increases required alignment from 4 to 8 [-Werror,-Wcast-align]
 #  ifdef __clang__
 #    pragma  clang diagnostic push
 #    pragma  clang diagnostic ignored "-Wcast-align"

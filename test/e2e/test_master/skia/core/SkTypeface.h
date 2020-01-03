@@ -183,6 +183,9 @@ public:
      *  Return the number of glyphs in the typeface.
      */
   int countGlyphs() const;
+    // Table getters -- may fail if the underlying font format is not organized
+    // as 4-byte tables.
+
     /** Return the number of tables in the font. */
   int countTables() const;
     /** Copy into tags[] (allocated by the caller) the list of table tags in
@@ -306,14 +309,17 @@ public:
      *  will not take into account any hinting or other size-specific adjustments.
      */
   SkRect getBounds() const;
+    // PRIVATE / EXPERIMENTAL -- do not call
   void filterRec(SkScalerContextRec* rec) const
   {
     this->onFilterRec(rec);
   }
+    // PRIVATE / EXPERIMENTAL -- do not call
   void getFontDescriptor(SkFontDescriptor* desc, bool* isLocal) const
   {
     this->onGetFontDescriptor(desc, isLocal);
   }
+    // PRIVATE / EXPERIMENTAL -- do not call
   void* internal_private_getCTFontRef() const
   {
     return this->onGetCTFontRef();
@@ -337,10 +343,18 @@ protected:
   virtual SkScalerContext* onCreateScalerContext(const SkScalerContextEffects&, const SkDescriptor*) const = 0;
   virtual void onFilterRec(SkScalerContextRec*) const = 0;
   friend class SkScalerContext;
+    //  Subclasses *must* override this method to work with the PDF backend.
   virtual std::unique_ptr<SkAdvancedTypefaceMetrics> onGetAdvancedMetrics() const = 0;
+    // For type1 postscript fonts only, set the glyph names for each glyph.
+    // destination array is non-null, and points to an array of size this->countGlyphs().
+    // Backends that do not suport type1 fonts should not override.
   virtual void getPostScriptGlyphNames(SkString*) const = 0;
+    // The mapping from glyph to Unicode; array indices are glyph ids.
+    // For each glyph, give the default Unicode value, if it exists.
+    // dstArray is non-null, and points to an array of size this->countGlyphs().
   virtual void getGlyphToUnicodeMap(SkUnichar* dstArray) const = 0;
   virtual std::unique_ptr<SkStreamAsset> onOpenStream(int* ttcIndex) const = 0;
+    // TODO: make pure virtual.
   virtual std::unique_ptr<SkFontData> onMakeFontData() const;
   virtual int onGetVariationDesignPosition(SkFontArguments::VariationPosition::Coordinate coordinates[], int coordinateCount) const = 0;
   virtual int onGetVariationDesignParameters(SkFontParameters::Variation::Axis parameters[], int parameterCount) const = 0;
@@ -374,6 +388,7 @@ private:
     kNormal = 0,
     kBold = 0x01,
     kItalic = 0x02,
+        // helpers
     kBoldItalic = 0x03
   };
   static SkFontStyle FromOldStyle(Style oldStyle);

@@ -7,6 +7,8 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//  DESCRIPTION:  Header for AcPlDSDData.h
+//
 #ifndef ACPLDSDDATA_H
 #  define ACPLDSDDATA_H
 #  pragma  once
@@ -18,12 +20,14 @@
 #  include "AcString.h"
 typedef AcArray<AcPlDSDEntry, AcArrayObjectCopyReallocator <AcPlDSDEntry> > AcPlDSDEntries;
 typedef AcArray<AcPlPrecisionEntry, AcArrayObjectCopyReallocator <AcPlPrecisionEntry> > AcPlPrecisionEntries;
+//3d dwf options for publishing  
 struct AcPl3dDwfOptions
 {
   bool bGroupByXrefHierarchy;
   bool bPublishWithMaterials;
 };
 /////////////////////////////////////////////////////////////////////////////
+// AcPlDSDData - holds the data for a batch plotting operation
 class AcPlDSDData : public AcPlObject
 {
   ACPL_DECLARE_MEMBERS(AcPlDSDData)
@@ -77,6 +81,7 @@ public:
   ACPL_PORT void set3dDwfOptions(const AcPl3dDwfOptions& val);
   ACPL_PORT bool readDSD(const ACHAR* pName);
   ACPL_PORT bool writeDSD(const ACHAR* pName);
+    // The following methods are for internal use only 
   ACPL_PORT bool includeLayerInfo() const;
   ACPL_PORT void setIncludeLayerInfo(bool bOn);
   ACPL_PORT bool lineMerge() const;

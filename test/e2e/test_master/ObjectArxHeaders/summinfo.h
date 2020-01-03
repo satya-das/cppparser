@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,11 +8,19 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  DESCRIPTION:  Header for Summary Info API
+//
 #ifndef _SUMMINFO_H_
 #  define _SUMMINFO_H_
 #  include "rxobject.h"
 #  include "AcString.h"
 #  pragma  pack (push, 8)
+// Note that this class is an AcRxObject, not an AcDbObject.
+// Rather than doing open() and close() calls on it, we do get
+// and put operations on a database, passing instances of this
+// class as values.
+//
 class ADESK_NO_VTABLE AcDbDatabaseSummaryInfo : public AcRxObject
 {
 public:
@@ -40,7 +49,12 @@ public:
   virtual Acad::ErrorStatus setCustomSummaryInfo(int index, const ACHAR* key, const ACHAR* value) = 0;
   virtual Acad::ErrorStatus getCustomSummaryInfo(const ACHAR* customInfoKey, AcString& value) const = 0;
   virtual Acad::ErrorStatus setCustomSummaryInfo(const ACHAR* customInfoKey, const ACHAR* value) = 0;
+    // Note: database() may become obsolete in a future release.
+    //
   virtual AcDbDatabase* database() const = 0;
+    // These overloads are deprecated and will be removed in a future release.
+    // Please use the overloads taking AcString & args instead.
+    //
   virtual Acad::ErrorStatus getTitle(ACHAR*& title) const final;
   virtual Acad::ErrorStatus getSubject(ACHAR*& subject) const final;
   virtual Acad::ErrorStatus getAuthor(ACHAR*& author) const final;
@@ -57,10 +71,13 @@ public:
 protected:
   AcDbDatabaseSummaryInfo();
 private:
+    // Helper method for shimming legacy methods to new ones. Will be
+    // removed along with old deprecated methods.
   typedef Acad::ErrorStatus (*GetPropAcString) (AcString&) const;
   Acad::ErrorStatus getACharString(GetPropAcString pMeth, ACHAR*& rpBuf) const;
 };
 /// -- Begin Deprecated Functions --
+//
 Acad::ErrorStatus acutNewString(const ACHAR* pInput, ACHAR*& pOutput);
 inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getACharString(GetPropAcString pMeth, ACHAR*& rpBuf) const
 {
@@ -134,14 +151,19 @@ inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getCustomSummaryInfo(const ACH
   }
   return es;
 }
+//
 /// -- End Deprecated Functions --
 ACDBCORE2D_PORT Acad::ErrorStatus acdbGetSummaryInfo(AcDbDatabase* pDb, AcDbDatabaseSummaryInfo*& pInfo);
 ACDBCORE2D_PORT Acad::ErrorStatus acdbPutSummaryInfo(const AcDbDatabaseSummaryInfo* pInfo, AcDbDatabase* pDb);
 ACDBCORE2D_PORT Acad::ErrorStatus acdbValidateCustomSummaryInfoKey(const wchar_t* key, const AcDbDatabaseSummaryInfo* pInfo = NULL);
+// Note: this acdbPutSummaryInfo() overload which does not take a
+// database argument may become obsolete in a future release.
+//
 inline Acad::ErrorStatus acdbPutSummaryInfo(const AcDbDatabaseSummaryInfo* pInfo)
 {
   return ::acdbPutSummaryInfo(pInfo, pInfo->database());
 }
+//
 class ADESK_NO_VTABLE AcDbSummaryInfoReactor
 {
 public:
@@ -152,6 +174,9 @@ public:
   {
   }
 };
+// Original code doesn't include double quotation mark in the invalid characters, which might 
+// be a bug. We decide to include " here, but need to check if this will trigger any
+// compatibility problem with existing drawings.
 #  define ACDB_SUMMINFO_INVALID_CHARACTERS	L"<>/\\\":;?*|,=`"
 class ADESK_NO_VTABLE AcDbSummaryInfoManager
 {
@@ -159,6 +184,8 @@ public:
   virtual void addReactor(AcDbSummaryInfoReactor* pReact) = 0;
   virtual void removeReactor(AcDbSummaryInfoReactor* pReact) = 0;
 };
+// Stand-alone function to return the manager
+//
 ACDBCORE2D_PORT AcDbSummaryInfoManager* acdbSummaryInfoManager();
 #  pragma  pack (pop)
 #endif

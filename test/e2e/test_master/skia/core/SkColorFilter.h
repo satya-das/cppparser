@@ -29,6 +29,7 @@ class SkString;
 class SK_API SkColorFilter : public SkFlattenable
 {
 public:
+    // DEPRECATED. skbug.com/8941
   bool asColorMode(SkColor* color, SkBlendMode* mode) const
   {
     return this->onAsAColorMode(color, mode);
@@ -138,6 +139,8 @@ public:
   static sk_sp<SkColorFilter> Blend(SkColor c, SkBlendMode mode);
   static sk_sp<SkColorFilter> Matrix(const SkColorMatrix&);
   static sk_sp<SkColorFilter> Matrix(const float rowMajor[20]);
+    // A version of Matrix which operates in HSLA space instead of RGBA.
+    // I.e. HSLA-to-RGBA(Matrix(RGBA-to-HSLA(input))).
   static sk_sp<SkColorFilter> HSLAMatrix(const float rowMajor[20]);
   static sk_sp<SkColorFilter> LinearToSRGBGamma();
   static sk_sp<SkColorFilter> SRGBToLinearGamma();

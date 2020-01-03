@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,12 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//  
+// DESCRIPTION:
+//      Definition of class AcEdJig, an object onto which you clamp an
+//      AcDbEntity while bending it into shape.  Comes with slots for a
+//      few standard dragging attachments and a built-in tool or two.
+//  
 #ifndef _DBJIG_H_
 #  define _DBJIG_H_	1
 #  if  defined(__cplusplus)

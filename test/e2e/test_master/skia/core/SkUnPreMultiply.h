@@ -11,6 +11,7 @@ class SK_API SkUnPreMultiply
 {
 public:
   typedef uint32_t Scale;
+    // index this table with alpha [0..255]
   static const Scale* GetScaleTable()
   {
     return gTable;

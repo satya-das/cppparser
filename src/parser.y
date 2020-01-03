@@ -208,7 +208,7 @@ extern int yylex();
 %token  <str>   tknPreProDef
 %token  <str>   tknClass tknStruct tknUnion tknNamespace
 %token  <str>   tknTemplate tknTypename tknDecltype
-%token  <str>   tknDocBlockComment tknDocLineComment
+%token  <str>   tknFreeStandingBlockComment tknSideBlockComment tknFreeStandingLineComment tknSideLineComment
 %token  <str>   tknScopeResOp
 %token  <str>   tknNumSignSpec // signed/unsigned
 %token  <str>   tknPublic tknProtected tknPrivate
@@ -596,6 +596,7 @@ import            : tknPreProHash tknImport tknStrLit           [ZZLOG;]  { $$ =
 hashif            : tknPreProHash tknIf tknPreProDef            [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIf,      $3); }
                   | tknPreProHash tknIfDef id                   [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIfDef,   $3); }
                   | tknPreProHash tknIfNDef id                  [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIfNDef,  $3); }
+                  | tknPreProHash tknIfNDef tknApiDecor         [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIfNDef,  $3); }
                   | tknPreProHash tknElse                       [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kElse       ); }
                   | tknPreProHash tknElIf  tknPreProDef         [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kElIf,    $3); }
                   | tknPreProHash tknEndIf                      [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kEndIf      ); }
@@ -610,10 +611,10 @@ pragma            : tknPreProHash tknPragma tknPreProDef        [ZZLOG;]  { $$ =
 doccomment        : doccommentstr                               [ZZLOG;]  { $$ = new CppDocComment((std::string) $1, gCurAccessType); }
                   ;
 
-doccommentstr     : tknDocBlockComment                          [ZZLOG;]  { $$ = $1; }
-                  | tknDocLineComment                           [ZZLOG;]  { $$ = $1; }
-                  | doccommentstr tknDocBlockComment            [ZZLOG;]  { $$ = mergeCppToken($1, $2); }
-                  | doccommentstr tknDocLineComment             [ZZLOG;]  { $$ = mergeCppToken($1, $2); }
+doccommentstr     : tknFreeStandingBlockComment                          [ZZLOG;]  { $$ = $1; }
+                  | tknFreeStandingLineComment                           [ZZLOG;]  { $$ = $1; }
+                  | doccommentstr tknFreeStandingBlockComment            [ZZLOG;]  { $$ = mergeCppToken($1, $2); }
+                  | doccommentstr tknFreeStandingLineComment             [ZZLOG;]  { $$ = mergeCppToken($1, $2); }
                   ;
 
 identifier        : id                                            [ZZLOG;] { $$ = $1; }
@@ -1663,8 +1664,8 @@ expr              : strlit                                                [ZZLOG
                     ]                                                     [ZZLOG;] { $$ = new CppExpr((std::string) $1, kNone);          }
                   | '{' exprlist '}'                                      [ZZLOG;] { $$ = new CppExpr($2, CppExpr::kInitializer);        }
                   | '{' exprlist ',' '}'                                  [ZZLOG;] { $$ = new CppExpr($2, CppExpr::kInitializer);        }
-                  | '{' expr '}'                                          [ZZLOG;] { $$ = new CppExpr($2, CppExpr::kInitializer);        }
-                  | '{' expr ',' '}'                                      [ZZLOG;] { $$ = new CppExpr($2, CppExpr::kInitializer);        }
+                  | '{' exprorlist '}'                                    [ZZLOG;] { $$ = new CppExpr($2, CppExpr::kInitializer);        }
+                  | '{' exprorlist ',' '}'                                [ZZLOG;] { $$ = new CppExpr($2, CppExpr::kInitializer);        }
                   | '{' /*empty expr*/ '}'                                [ZZLOG;] { $$ = new CppExpr((CppExpr*)nullptr, CppExpr::kInitializer);   }
                   | '-' expr %prec UNARYMINUS                             [ZZLOG;] { $$ = new CppExpr($2, kUnaryMinus);                  }
                   | '~' expr                                              [ZZLOG;] { $$ = new CppExpr($2, kBitToggle);                   }
@@ -1768,10 +1769,12 @@ expr              : strlit                                                [ZZLOG
 
 exprlist          : expr ',' expr %prec COMMA                             [ZZLOG;] { $$ = new CppExpr($1, kComma, $3);                   }
                   | exprlist ',' expr %prec COMMA                         [ZZLOG;] { $$ = new CppExpr($1, kComma, $3);                   }
+                  | doccommentstr exprlist                                [ZZLOG;] { $$ = $2; }
                   ;
 
-exprorlist        : expr      [ZZLOG;] { $$ = $1; }
-                  | exprlist  [ZZLOG;] { $$ = $1; }
+exprorlist        : expr                        [ZZLOG;] { $$ = $1; }
+                  | exprlist                    [ZZLOG;] { $$ = $1; }
+                  | doccommentstr exprorlist    [ZZLOG;] { $$ = $2; }
                   ;
 
 funcargs          :             [ZZLOG;] { $$ = nullptr; }

@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,37 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// dbid.h
+//
+// DESCRIPTION:
+//
+// This file contains lightweight id classes distinguishing between
+// different types of object id's. A distinction is made between an
+// owned object and a reference or "pointer to" an object, as well as
+// whether the relationship protects the object from purge (hard/soft).
+//
+// Hard-owner:  
+//
+// An owned object protected from purge. A layer symbol table and
+// layer 0 is an example of a hard-owner relationship.
+//
+// Soft-owner:
+//
+// An owned object not protected from purge. All symbol tables own
+// their records, but that relationship does not usually protect
+// the records from purge.
+//
+// Hard-pointer:
+//
+// A reference to an object that is not owned, but protected from
+// purge. An entity, for example, does not own the layer it is on
+// but its reference to it protects it from purge.
+//
+// Soft-pointer:
+//
+// A reference to an object that is not owned, and not protected
+// from purge. 
 #ifndef _AD_DBID_H
 #  define _AD_DBID_H	1
 #  include "adesk.h"
@@ -28,8 +60,10 @@ public:
   AcDbObjectId& setFromOldId(Adesk::IntDbId oldId);
 #  if  (defined(_WIN64) || defined(_AC64)) && defined(_ADESK_WINDOWS_)
 private:
+    // catch attempts to store the id in and set it from a 32-bit long
   AcDbObjectId& setFromOldId(long);
 public:
+    // need this overload to allow passing of unsigned 64-bit
   inline AcDbObjectId& setFromOldId(Adesk::UIntPtr nUnsignedId)
   {
     const Adesk::IntDbId nSignedId = static_cast<Adesk::IntDbId>(nUnsignedId);
@@ -170,6 +204,8 @@ inline AcDbObjectId::AcDbObjectId()
 {
   mId = nullptr;
 }
+//inline
+//AcDbObjectId::AcDbObjectId(const AcDbObjectId& id)
 //{ mId = id.mId; }
 inline AcDbObjectId::AcDbObjectId(const AcDbStub* pStub)
 {

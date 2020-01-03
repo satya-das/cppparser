@@ -14,6 +14,9 @@
 // Description:     Wrapper classes for std:ofstream and std::ifstream.
 //
 //////////////////////////////////////////////////////////////////////////////
+
+// Note: 1. this header should be included *after* fstream headers
+//        
 #pragma  once
 #ifdef ASSERT
 #  define AcFStream_Assert	ASSERT
@@ -52,6 +55,8 @@ inline AcOfstream::AcOfstream(const wchar_t* pName)
 }
 inline const std::locale& AcFStream_curLocale()
 {
+    // Only set LC_NUMERIC, because we don't want it to start
+    // formatting numbers with comma separators, etc
   static const std::locale loc(std::locale(), std::locale::classic(), LC_NUMERIC);
   return loc;
 }

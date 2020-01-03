@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// dbtrans.h
+//
+//  DESCRIPTION: Header for Transaction Modeler.
 #ifndef _ACDBTRANS_H__
 #  define _ACDBTRANS_H__
 #  include "dbmain.h"

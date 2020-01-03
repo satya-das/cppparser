@@ -21,7 +21,9 @@ public:
      */
   enum LevelOfDetail
   {
+        // Dump only the minimal details to get the total memory usage (Usually just the totals).
     kLight_LevelOfDetail,
+        // Dump the detailed breakdown of the objects in the caches.
     kObjectsBreakdowns_LevelOfDetail
   };
     /**

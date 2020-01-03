@@ -27,9 +27,15 @@ class SkDeferredDisplayList
 {
 #  if  SK_SUPPORT_GPU
 public:
+    // This object is the source from which the lazy proxy backing the DDL will pull its backing
+    // texture when the DDL is replayed. It has to be separately ref counted bc the lazy proxy
+    // can outlive the DDL.
   class SK_API LazyProxyData : public SkRefCnt
   {
   public:
+        // Upon being replayed - this field will be filled in (by the DrawingManager) with the proxy
+        // backing the destination SkSurface. Note that, since there is no good place to clear it
+        // it can become a dangling pointer.
     GrRenderTargetProxy* fReplayDest = nullptr;
   };
 #  else 
@@ -43,6 +49,7 @@ public:
   {
     return fCharacterization;
   }
+    // Provides access to functions that aren't part of the public API.
   SkDeferredDisplayListPriv priv();
   const SkDeferredDisplayListPriv priv() const;
 private:
@@ -51,6 +58,7 @@ private:
   friend class SkDeferredDisplayListPriv;
   const SkSurfaceCharacterization fCharacterization;
 #  if  SK_SUPPORT_GPU
+    // This needs to match the same type in GrCoverageCountingPathRenderer.h
   using PendingPathsMap = std::map<uint32_t, sk_sp<GrCCPerOpsTaskPaths>>;
   SkTArray<sk_sp<GrRenderTask>> fRenderTasks;
   PendingPathsMap fPendingPaths;

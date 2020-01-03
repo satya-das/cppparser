@@ -21,6 +21,9 @@ class AcEdSteeringWheel;
 AcEdSteeringWheel* acedCreateSteeringWheel();
 void acedDestroySteeringWheel(AcEdSteeringWheel* pWheel);
 ///////////////////////////////////////////////////////////////////////////////
+//
+// Interface AcEdSteeringWheel
+//
 class AcEdSteeringWheel
 {
 public:
@@ -38,12 +41,14 @@ public:
   };
   enum MenuType
   {
+        // Steering Wheel Menus
     kMenuNone = 0,
     kMenuInterior,
     kMenuExterior,
     kMenuFull,
     kMenu2D
   };
+    // Message handlers
   virtual void onKeyDown(UINT nChar, UINT nRepCount, UINT nFlags) = 0;
   virtual void onKeyUp(UINT nChar, UINT nRepCount, UINT nFlags) = 0;
   virtual bool onMouseWheel(UINT nFlags, short zDelta, POINT pt) = 0;
@@ -74,6 +79,9 @@ public:
   virtual void removeReactor(AcEdSteeringWheelReactor* pReactor) = 0;
 };
 ///////////////////////////////////////////////////////////////////////////////
+//
+// Interface AcEdSteeringWheelReactor
+//
 class AcEdSteeringWheelReactor
 {
 public:

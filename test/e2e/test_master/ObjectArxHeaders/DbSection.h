@@ -18,6 +18,10 @@
 #include "dbmain.h"
 #include "dbhatch.h"
 #include "acstring.h"
+//prevent the MS header "use_ansi.h" from outputing
+//its linker directives, we expect clients to specify
+//what flavor (debug/release) of the C++ runtime they want to
+//link against.
 #pragma  push_macro("_USE_ANSI_CPP")
 #define _USE_ANSI_CPP
 #include <map>
@@ -304,6 +308,8 @@ public:
     /// <param name="value">  Input the bottom plane. </param>
     /// </summary>
   ACDB_PORT Acad::ErrorStatus setBottomPlane(double);
+    // Base class overrides
+
     /// <summary>
     /// This function is called by dwgIn(). Its purpose is to allow the object to read in its data. 
     /// 
@@ -433,10 +439,12 @@ public:
     /// <remarks> When implementing your own subClose(), it is best not to change any of the object's state at all. But, if you must, then it is best to make such changes after invoking the parent class's subClose(), just in case it returns an error code other than Acad::eOk. If you must change state before invoking the parent class's subClose(), then be prepared to reverse the changes if the parent class returns a status other than Acad::eOk.</remarks>
     /// </summary>
   ACDB_PORT virtual Acad::ErrorStatus subClose() override;
+    // INTERNAL USE ONLY
     /// <summary>
     /// This is internal use only.
     /// </summary>
   ACDB_PORT Acad::ErrorStatus generateSectionGeometry(const AcArray<AcDbEntity*>& entset, AcArray<AcDbEntity*>& intBoundaryEnts, AcArray<AcDbEntity*>& intFillEnts, AcArray<AcDbEntity*>& backgroundEnts, AcArray<AcDbEntity*>& foregroundEnts, AcArray<AcDbEntity*>& curveTangencyEnts) const;
+    // INTERNAL USE ONLY
     /// <summary>
     /// This is internal use only.
     /// </summary>
@@ -501,6 +509,7 @@ public:
     /// <param name="k3dSection"> 3d section. </param>
   enum SectionType
   {
+        // Section types
     kLiveSection = (0x1 << 0),
     k2dSection = (0x1 << 1),
     k3dSection = (0x1 << 2)
@@ -516,6 +525,7 @@ public:
     /// <remarks> Options for section generation. This enum is used to get and set properties for generated section geometry. </remarks>
   enum Geometry
   {
+        // Geometry type
     kIntersectionBoundary = (0x1 << 0),
     kIntersectionFill = (0x1 << 1),
     kBackgroundGeometry = (0x1 << 2),
@@ -533,8 +543,10 @@ public:
     /// <remarks> Description: Generation flags to control section creation. There are three groups of flags: type of section to generate, source, and destination. One value from each group should be OR'd to set the generation options. The options kGenerate2dSection and kGenerate3dSection form the first group to specify the type of section. kSourceAllObjects and kSourceSelectedObjects form the second group to specify the source. kDestinationNewBlock, kDestinationReplaceBlock, and kDestinationFile form the third group to specify destination for the generated geometry. </remarks>
   enum Generation
   {
+        // Source geometry options (bits 0 to 3)
     kSourceAllObjects = (0x1 << 0),
     kSourceSelectedObjects = (0x1 << 1),
+        // Destination options (bits 4 to 8)
     kDestinationNewBlock = (0x1 << 4),
     kDestinationReplaceBlock = (0x1 << 5),
     kDestinationFile = (0x1 << 6)
@@ -977,6 +989,7 @@ public:
 protected:
   ACDB_PORT virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
+// This overload is deprecated. Please use one of the other two overloads instead
 inline Acad::ErrorStatus AcDbSection::getName(ACHAR*& pszName) const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbSection::getName, pszName);

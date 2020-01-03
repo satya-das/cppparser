@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -12,6 +13,8 @@
 #pragma  pack(push, 8)
 class AcGiParameterImp;
 ///////////////////////////////////////////////////////////////////////////////
+// class AcGiParameter
+//
 class ACDBCORE2D_PORT AcGiParameter : public AcRxCopyOnWriteObject
 {
   friend class AcGiParameterImp;

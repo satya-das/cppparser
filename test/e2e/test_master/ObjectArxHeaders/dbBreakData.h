@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #pragma  once
 #include "dbmain.h"
 #pragma  pack (push, 8)
@@ -29,6 +31,7 @@ public:
     //********************************************************************
     // Overridden methods from AcDbObject
     //********************************************************************
+    //
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
@@ -37,6 +40,7 @@ public:
     //********************************************************************
     //  APIs for Internal use only
     //********************************************************************
+    //
   Acad::ErrorStatus updateAssociativity(const AcDbObjectIdArray& ids, int cmdType);
 };
 class AcDbBreakPointRef : public AcDbObject
@@ -66,6 +70,7 @@ public:
     //********************************************************************
     // Overridden methods from AcDbObject
     //********************************************************************
+    //
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
@@ -74,5 +79,6 @@ public:
 //************************************************************************
 //  Global API functions 
 //************************************************************************
+//
 Acad::ErrorStatus acdbGetBreakSubentIndex(AcDbEntity* pEnt, const AcGePoint3d& pickPt, const AcGeVector3d& viewDir, int& subentIndex, AcGePoint3d& ptOnEnt, const AcGeTol& tol = AcGeContext::gTol);
 #pragma  pack (pop)

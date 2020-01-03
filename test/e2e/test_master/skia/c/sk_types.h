@@ -4,6 +4,9 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+
+// EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL
+// DO NOT USE -- FOR INTERNAL TESTING ONLY
 #ifndef sk_types_DEFINED
 #  define sk_types_DEFINED
 #  include <stdint.h>
@@ -34,6 +37,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 SK_C_PLUS_PLUS_BEGIN_GUARD
 typedef uint32_t sk_color_t;
+/* This macro assumes all arguments are >=0 and <=255. */
 #  define sk_color_set_argb(a, r, g, b)	   (((a) << 24) | ((r) << 16) | ((g) << 8) | (b))
 #  define sk_color_get_a(c)	               (((c) >> 24) & 0xFF)
 #  define sk_color_get_r(c)	               (((c) >> 16) & 0xFF)

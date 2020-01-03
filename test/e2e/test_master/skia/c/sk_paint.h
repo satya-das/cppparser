@@ -4,23 +4,13 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+
+// EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL
+// DO NOT USE -- FOR INTERNAL TESTING ONLY
 #ifndef sk_paint_DEFINED
 #  define sk_paint_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-/**
-    Create a new paint with default settings:
-        antialias : false
-        stroke : false
-        stroke width : 0.0f (hairline)
-        stroke miter : 4.0f
-        stroke cap : BUTT_SK_STROKE_CAP
-        stroke join : MITER_SK_STROKE_JOIN
-        color : opaque black
-        shader : NULL
-        maskfilter : NULL
-        xfermode_mode : SRCOVER_SK_XFERMODE_MODE
-*/
 SK_API sk_paint_t* sk_paint_new(void);
 /**
     Release the memory storing the sk_paint_t and unref() all
@@ -44,6 +34,8 @@ SK_API sk_color_t sk_paint_get_color(const sk_paint_t*);
     Set the paint's curent drawing color.
 */
 SK_API void sk_paint_set_color(sk_paint_t*, sk_color_t);
+/* stroke settings */
+
 /**
     Return true iff stroking is enabled rather than filling on this
     sk_paint_t.

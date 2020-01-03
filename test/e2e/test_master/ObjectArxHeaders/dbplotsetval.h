@@ -15,6 +15,7 @@
 //          the object.
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #ifndef AD_DBPLOTSETVAL_H
 #  define AD_DBPLOTSETVAL_H
 #  include "AdAChar.h"

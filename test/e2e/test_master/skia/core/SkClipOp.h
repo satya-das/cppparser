@@ -22,6 +22,7 @@ enum class SkClipOp
   kExtraEnumNeedInternallyPleaseIgnoreWillGoAway4 = 4,
   kExtraEnumNeedInternallyPleaseIgnoreWillGoAway5 = 5,
 #  endif
+    // Used internally for validation, can only shrink to 1 when the deprecated flag is gone
   kMax_EnumValue = 5
 };
 #endif

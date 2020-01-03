@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,31 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// acgiLightTraits.h
+//
+//   AcRxObject
+//     AcGiSubEntityTraits
+//       AcGiDrawableTraits
+//         AcGiNonEntityTraits
+//
+//           AcGiLightTraits
+//             AcGiStandardLightTraits
+//               AcGiPointLightTraits
+//               AcGiSpotLightTraits
+//               AcGiDistantLightTraits
+//             AcGiPhotometricLightTraits
+//     AcGiShadowParameters
+//     AcGiLightAttenuation
+//     AcGiSkyParameters
+//
+//
+// DESCRIPTION:
+//
+// This API extends AcGi to support light and illumination definition.
+// Light entities pass their illumination information along to the graphics
+// system and renderer through the AcGiLightTraits interfaces.
+//
 #pragma  once
 #include "acgi.h"
 #pragma  pack (push, 8)

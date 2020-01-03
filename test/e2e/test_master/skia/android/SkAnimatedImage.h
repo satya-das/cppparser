@@ -108,9 +108,16 @@ private:
     SkBitmap fBitmap;
     int fIndex;
     SkCodecAnimation::DisposalMethod fDisposalMethod;
+        // init() may have to create a new SkPixelRef, if the
+        // current one is already in use by another owner (e.g.
+        // an SkPicture). This determines whether to copy the
+        // existing one to the new one.
     enum class OnInit
     {
+            // Restore the image from the old SkPixelRef to the
+            // new one.
       kRestoreIfNecessary,
+            // No need to restore.
       kNoRestore
     };
     Frame();

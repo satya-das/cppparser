@@ -7,6 +7,11 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+
+//
+// This API extends AcGi to support transient.
+//
 #pragma  once
 #include "AcArray.h"
 typedef enum

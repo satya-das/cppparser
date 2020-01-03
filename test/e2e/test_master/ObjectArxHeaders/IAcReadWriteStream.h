@@ -7,6 +7,9 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  DESCRIPTION: IAcReadStream and IAcWriteStream general purpose
+//  filing interfaces
 #pragma  once
 /// <summary>
 /// Interface for a readable stream.

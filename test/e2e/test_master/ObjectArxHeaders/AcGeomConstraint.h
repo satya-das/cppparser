@@ -10,6 +10,8 @@
 #pragma  once
 #include "AcConstraintGroupNode.h"
 #pragma  pack (push, 8)
+// Forward class declarations.
+//
 class AcConstrainedGeometry;
 class AcHelpParameter;
 class AcEqualHelpParameterConstraint;

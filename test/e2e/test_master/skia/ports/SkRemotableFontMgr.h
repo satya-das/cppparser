@@ -15,8 +15,16 @@ class SkStreamAsset;
 struct SK_API SkFontIdentity
 {
   static const uint32_t kInvalidDataId = 0xFFFFFFFF;
+    // Note that fDataId is a data identifier, not a font identifier.
+    // (fDataID, fTtcIndex) can be seen as a font identifier.
   uint32_t fDataId;
   uint32_t fTtcIndex;
+    // On Linux/FontConfig there is also the ability to specify preferences for rendering
+    // antialias, embedded bitmaps, autohint, hinting, hintstyle, lcd rendering
+    // may all be set or set to no-preference
+    // (No-preference is resolved against globals set by the platform)
+    // Since they may be selected against, these are really 'extensions' to SkFontStyle.
+    // SkFontStyle should pick these up.
   SkFontStyle fFontStyle;
 };
 class SK_API SkRemotableFontIdentitySet : public SkRefCnt

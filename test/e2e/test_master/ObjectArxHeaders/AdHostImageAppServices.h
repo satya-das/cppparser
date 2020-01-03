@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -10,6 +11,7 @@
 #pragma  once
 #include "AdAChar.h"
 #include "adesk.h"
+// Forward class declarations
 namespace Atil
 {
   class ImageFormatCodec;

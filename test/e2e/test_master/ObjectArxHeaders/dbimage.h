@@ -7,6 +7,12 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+// DESCRIPTION:  Class header for AcDbImage. Abstract base class 
+//               for raster images.
+//
+//
 #ifndef AD_DBIMAGE_H
 #  define AD_DBIMAGE_H
 #  include "dbmain.h"

@@ -7,6 +7,9 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  AcPublishUIReactors.h - Reactors File
+//
 #ifndef _ACPUBLISHUIREACTORS_H
 #  define _ACPUBLISHUIREACTORS_H
 #  include "AdAChar.h"
@@ -89,6 +92,7 @@ public:
     /// successfully, otherwise returns false.
     /// </returns>
   virtual bool WritePrivateSection(const ACHAR* sectionName, const AcNameValuePairVec nameValuePairVec) = 0;
+    // bool for bg/fg (this isn't in public dsd data)
   virtual bool JobWillPublishInBackground() = 0;
 };
 ////////////////////////////////////////////////////////////////////
@@ -280,6 +284,9 @@ protected:
   {
   }
 };
+// Global functions to add and remove reactors that clients call for 
+// AcPublish UI reactor notifications
+
 /// <summary>
 /// global function clients should call to add a reactor
 /// </summary>

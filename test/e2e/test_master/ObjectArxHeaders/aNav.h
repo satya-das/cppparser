@@ -13,10 +13,12 @@
 #    pragma  once
 #  endif
 /////////////////////////////////////////////////////////////////////////////
+// ANAV_PORT is defined to export classes and functions when building the DLL.
 #  ifndef ANAV_PORT
 #    define ANAV_PORT
 #  endif
 /////////////////////////////////////////////////////////////////////////////
+// File Navigation prototypes
 #  include <adui.h>
 #  include <afxole.h>
 #  include <AnavListCtrl.h>
@@ -29,4 +31,5 @@
 /////////////////////////////////////////////////////////////////////////////
 
 //{{AFX_INSERT_LOCATION}}
+// Microsoft Developer Studio will insert additional declarations immediately before the previous line.
 #endif

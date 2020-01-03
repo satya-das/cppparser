@@ -193,10 +193,14 @@ private:
   enum GlyphPositioning : uint8_t;
   explicit SkTextBlob(const SkRect& bounds);
   ~SkTextBlob();
+    // Memory for objects of this class is created with sk_malloc rather than operator new and must
+    // be freed with sk_free.
   void operator delete(void* p);
   void* operator new(size_t);
   void* operator new(size_t, void* p);
   static unsigned ScalarsPerGlyph(GlyphPositioning pos);
+    // Call when this blob is part of the key to a cache entry. This allows the cache
+    // to know automatically those entries can be purged when this SkTextBlob is deleted.
   void notifyAddedToCache(uint32_t cacheID) const
   {
     fCacheID.store(cacheID);
@@ -252,6 +256,7 @@ public:
     SkScalar* pos;
     char* utf8text;
     uint32_t* clusters;
+        // Helpers, since the "pos" field can be different types (always some number of floats).
     SkPoint* points() const
     {
       return reinterpret_cast<SkPoint*>(pos);
@@ -326,6 +331,7 @@ public:
         @return        writable glyph buffer and SkPoint buffer
     */
   const RunBuffer& allocRunPos(const SkFont& font, int count, const SkRect* bounds = nullptr);
+    // RunBuffer.pos points to SkRSXform array
   const RunBuffer& allocRunRSXform(const SkFont& font, int count);
 private:
   const RunBuffer& allocRunText(const SkFont& font, int count, SkScalar x, SkScalar y, int textByteCount, SkString lang, const SkRect* bounds = nullptr);

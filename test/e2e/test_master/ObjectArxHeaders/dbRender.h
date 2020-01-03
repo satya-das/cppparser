@@ -7,6 +7,16 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION: 
+// Classes for recording and retrieving render settings and render history.
+//
+// AcDbRenderSettings
+// AcDbMentalRayRenderSettings
+// AcDbRapidRTRenderSettings
+// AcDbRenderGlobal
+// AcDbRenderEntry
+//
 #pragma  once
 #include "AcGiEnvironment.h"
 #ifdef SCENEDLLIMPEXP
@@ -15,6 +25,8 @@
 #ifdef SCENEOE
 #  define SCENEDLLIMPEXP	__declspec( dllexport )
 #else 
+// NOTE: Don't use __declspec( dllimport ) here, to avoid having vtables
+// allocated in the client DLL instead of the server DLL.
 #  define SCENEDLLIMPEXP
 #endif
 class AcDbImpRenderSettings;
@@ -177,6 +189,7 @@ public:
     /// Whether the settings are predefined or not
     /// </summary>
   bool isPredefined() const;
+    // AcDbObject functions
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
@@ -184,6 +197,7 @@ public:
   virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
   virtual bool operator==(const AcDbRenderSettings& settings);
 protected:
+    // AcGiDrawable functions
   virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
   AcDbImpRenderSettings* mpImp;
 };
@@ -799,6 +813,7 @@ public:
     /// The shadow sampling multiplier for area lights.
     /// </summary>
   AcDbMentalRayRenderSettings::ShadowSamplingMultiplier shadowSamplingMultiplier() const;
+    // AcDbObject functions
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
@@ -806,6 +821,7 @@ public:
   virtual bool operator==(const AcDbMentalRayRenderSettings& settings);
   Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
 protected:
+    // AcGiDrawable functions
   virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 private:
   friend class AcDbImpMentalRayRenderSettings;
@@ -902,6 +918,7 @@ public:
 	/// Get the filter height of the RapidRT render settings.
 	/// </summary>
   float filterHeight() const;
+	// AcDbObject functions
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
@@ -913,6 +930,7 @@ public:
   Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
   virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
 protected:
+	// AcGiDrawable functions
   virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 };
 /// <summary>
@@ -1051,12 +1069,14 @@ public:
     /// The full file name on disk of the environment image.
     /// </summary>
   AcString environmentImageFileName() const;
+    // AcDbObject functions
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
   virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
   virtual bool operator==(const AcDbRenderEnvironment& environment);
 protected:
+    // AcGiDrawable functions
   virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
   AcDbImpRenderEnvironment* mpImp;
 };
@@ -1246,6 +1266,7 @@ public:
     /// The exposure control type.
     /// </summary>
   AcGiMrExposureType exposureType() const;
+    // AcDbObject functions
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;

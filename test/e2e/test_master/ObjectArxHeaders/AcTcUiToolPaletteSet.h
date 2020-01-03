@@ -61,6 +61,7 @@ public:
   BOOL SetActivePalette(LPCTSTR pszPalName, BOOL bSearchOnlyCurrentGroup) const;
   CAcTcUiToolPalette* FindPalette(LPCTSTR pszPalName, CAcTcUiToolPaletteGroup** ppGroup, BOOL bSearchOnlyCurrentGroup) const;
 protected:
+    // Protected constructor
   CAcTcUiToolPaletteSet();
   virtual BOOL AddContextMenuItems(CMenu* pMenu, int nHitFlag, int nRightClkTab = 0);
     /// <summary>

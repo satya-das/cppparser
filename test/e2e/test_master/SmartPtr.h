@@ -144,6 +144,9 @@ class OdSmartPtr : public OdBaseObjectPtr
     release();
     internalQueryX(pObject);
   }
+  // Note: Using of SmartPtr<T> as bool expression produce ambiguous call with some compilers. 
+  // Use isNull() method instead. 
+ 
   /** Description: 
     Declared private to prevent use. 
     Note:  

@@ -14,8 +14,15 @@
 #  else 
 #    include <emmintrin.h>
 #  endif
+// This file may assume <= SSE2, but must check SK_CPU_SSE_LEVEL for anything more recent.
+// If you do, make sure this is in a static inline function... anywhere else risks violating ODR.
 namespace 
 {
+// Emulate _mm_floor_ps() with SSE2:
+//   - roundtrip through integers via truncation
+//   - subtract 1 if that's too big (possible for negative values).
+// This restricts the domain of our inputs to a maximum somehwere around 2^31.
+// Seems plenty big.
   AI static __m128 emulate_mm_floor_ps(__m128 v)
   {
     __m128 roundtrip = _mm_cvtepi32_ps(_mm_cvttps_epi32(v));
@@ -535,6 +542,7 @@ namespace
     {
       return (*this == o) ^ 0xffffffff;
     }
+    // operator < and > take a little extra fiddling to make work for unsigned ints.
     AI uint32_t operator[](int k) const
     {
       SkASSERT(0 <= k && k < 2);
@@ -626,6 +634,7 @@ namespace
     {
       return (*this == o) ^ 0xffffffff;
     }
+    // operator < and > take a little extra fiddling to make work for unsigned ints.
     AI uint32_t operator[](int k) const
     {
       SkASSERT(0 <= k && k < 4);
@@ -691,6 +700,9 @@ namespace
     }
     AI static void Load3(const void* ptr, SkNx* r, SkNx* g, SkNx* b)
     {
+        // The idea here is to get 4 vectors that are R G B _ _ _ _ _.
+        // The second load is at a funny location to make sure we don't read past
+        // the bounds of memory.  This is fine, we just need to shift it a little bit.
       const uint8_t* ptr8 = (const uint8_t*) ptr;
       __m128i rgb0 = _mm_loadu_si128((const __m128i*) (ptr8 + 0));
       __m128i rgb1 = _mm_srli_si128(rgb0, 3 * 2);
@@ -849,6 +861,8 @@ namespace
     }
     AI static SkNx Min(const SkNx& a, const SkNx& b)
     {
+        // No unsigned _mm_min_epu16, so we'll shift into a space where we can use the
+        // signed version, _mm_min_epi16, then shift back.
       const uint16_t top = 0x8000;
       const __m128i top_8x = _mm_set1_epi16(top);
       return _mm_add_epi8(top_8x, _mm_min_epi16(_mm_sub_epi8(a.fVec, top_8x), _mm_sub_epi8(b.fVec, top_8x)));
@@ -906,6 +920,7 @@ namespace
 } pun = {fVec};
       return pun.us[k & 3];
     }
+    // TODO as needed
     __m128i fVec;
   };
   template <>
@@ -953,6 +968,7 @@ namespace
     }
     AI SkNx operator <(const SkNx& o) const
     {
+        // There's no unsigned _mm_cmplt_epu8, so we flip the sign bits then use a signed compare.
       auto flip = _mm_set1_epi8(char(0x80));
       return _mm_cmplt_epi8(_mm_xor_si128(flip, fVec), _mm_xor_si128(flip, o.fVec));
     }
@@ -1021,6 +1037,7 @@ namespace
     }
     AI SkNx operator <(const SkNx& o) const
     {
+        // There's no unsigned _mm_cmplt_epu8, so we flip the sign bits then use a signed compare.
       auto flip = _mm_set1_epi8(char(0x80));
       return _mm_cmplt_epi8(_mm_xor_si128(flip, fVec), _mm_xor_si128(flip, o.fVec));
     }
@@ -1059,11 +1076,14 @@ namespace
   AI Sk4h SkNx_cast<uint16_t, int32_t>(const Sk4i& src)
   {
 #  if  0 && SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE41
+    // TODO: This seems to be causing code generation problems.   Investigate?
     return _mm_packus_epi32(src.fVec);
 #  elif  SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSSE3
+    // With SSSE3, we can just shuffle the low 2 bytes from each lane right into place.
     const int _ = ~0;
     return _mm_shuffle_epi8(src.fVec, _mm_setr_epi8(0, 1, 4, 5, 8, 9, 12, 13, _, _, _, _, _, _, _, _));
 #  else 
+    // With SSE2, we have to sign extend our input, making _mm_packs_epi32 do the pack we want.
     __m128i x = _mm_srai_epi32(_mm_slli_epi32(src.fVec, 16), 16);
     return _mm_packs_epi32(x, x);
 #  endif

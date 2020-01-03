@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -48,6 +49,7 @@ public:
   {
     m_cache.restype = RTNONE;
     auto var = AcRxVariablesDictionary::get()->getVariable(name);
+        //we will tolerate sysvars that are missing
     if (var == nullptr)
     {
       return ;

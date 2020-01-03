@@ -55,6 +55,7 @@ private:
     unsigned fPtIndex;
     unsigned fTValue;
     unsigned fType;
+        // See SkPathMeasurePriv.h
     SkScalar getScalarT() const;
     static const Segment* Next(const Segment* seg)
     {
@@ -111,6 +112,7 @@ private:
   SkPath fPath;
   SkScalar fTolerance;
   bool fForceClosed;
+    // temporary
   SkTDArray<SkContourMeasure::Segment> fSegments;
   SkTDArray<SkPoint> fPts;
   SkContourMeasure* buildSegments();

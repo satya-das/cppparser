@@ -7,6 +7,20 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  acutmem.h - General memory allocation functions.
+//
+//  DESCRIPTION:
+//
+//  The following functions are used to handle string values and memory
+//  returned to or from (or passed into) the ObjectARX API.  Function
+//  acutNewString() makes a copy of a string and returns an error status.
+//  Function acutUpdString() performs the same job as acutNewString(),
+//  except that it first frees any string already pointed to by the
+//  output argument.  acutDelString() frees up a string allocated by
+//  acutNewString() or acutUpdString() if the input pointer is non
+//  NULL and then sets the pointer to NULL.
+//
 #ifndef _ACUTMEM_H
 #  define _ACUTMEM_H
 #  include "acadstrc.h"
@@ -56,5 +70,6 @@ inline void acutDelString(wchar_t*& pString)
 ///           Returns Acad::eBufferTooSmall if the string doesn't fit in the buffer
 //
 /// <remarks> nOutputSize must be >= wcslen(pInput) + 1</remarks>
+//
 ACDBCORE2D_PORT Acad::ErrorStatus acutCopyStringToBuffer(const ACHAR* pInput, ACHAR* pOutput, size_t nOutputSize);
 #endif

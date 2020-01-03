@@ -395,6 +395,7 @@ public:
         /// 30
         /// </value>
     kExtendLeaderToText = 30,
+        //add more here...
         /// <summary>
         /// bitset size
         /// </summary>
@@ -2193,6 +2194,8 @@ public:
     /// </returns>
     ///
   Acad::ErrorStatus postMLeaderToDb(AcDbDatabase* pDb);
+    // support dim associativity
+
     /// <summary>
     /// Update leaderLine position if leaderLine is associate with geometries
     /// </summary>

@@ -81,8 +81,13 @@ namespace skstd
   {
   };
 }
+// The sknonstd namespace contains things we would like to be proposed and feel std-ish.
 namespace sknonstd
 {
+// The name 'copy' here is fraught with peril. In this case it means 'append', not 'overwrite'.
+// Alternate proposed names are 'propagate', 'augment', or 'append' (and 'add', but already taken).
+// std::experimental::propagate_const already exists for other purposes in TSv2.
+// These also follow the <dest, source> pattern used by boost.
   template <typename D, typename S>
   struct copy_const
   {
@@ -104,6 +109,9 @@ namespace sknonstd
   };
   template <typename D, typename S>
   using copy_cv_t = typename copy_cv<D, S>::type;
+// The name 'same' here means 'overwrite'.
+// Alternate proposed names are 'replace', 'transfer', or 'qualify_from'.
+// same_xxx<D, S> can be written as copy_xxx<remove_xxx_t<D>, S>
   template <typename D, typename S>
   using same_const = copy_const<skstd::remove_const_t<D>, S>;
   template <typename D, typename S>
@@ -117,5 +125,6 @@ namespace sknonstd
   template <typename D, typename S>
   using same_cv_t = typename same_cv<D, S>::type;
 }
+// Just a pithier wrapper for enable_if_t.
 #  define SK_WHEN(condition, T)	 skstd::enable_if_t<!!(condition), T>
 #endif

@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #pragma  once
 #include "AcArray.h"
 #include "AdAChar.h"
@@ -14,6 +16,9 @@
 #include "dbid.h"
 #include "AcString.h"
 #include "acgi.h"
+// ****************************************************************************
+// Forward declarations
+// ****************************************************************************
 class AcGeMatrix3d;
 class AcGePoint3d;
 class AcGeVector3d;
@@ -31,8 +36,12 @@ namespace Atil
 {
   class Image;
 }
+// ****************************************************************************
+// Helper classes
+// ****************************************************************************
 namespace GS
 {
+    // Error Codes
   enum ErrorStatus
   {
     kSuccess,
@@ -73,6 +82,7 @@ namespace GS
     kBGRA = 1
   };
 }
+// copied (with modification) from limits.h to avoid extra #includes
 #define SCALAR_MIN	(-2147483647 - 1) // minimum (signed) int value
 #define SCALAR_MAX	2147483647      // maximum (signed) int value
 #pragma  pack (push, 8)
@@ -242,6 +252,9 @@ struct AcGsColor
 };
 typedef void* AcGsWindowingSystemID;
 typedef void* AcGsWindowId;
+// ****************************************************************************
+// AcGsNode
+// ****************************************************************************
 class AcGsNode
 {
 public:
@@ -250,6 +263,9 @@ public:
   }
   virtual AcGiDrawable* drawable(void) const = 0;
 };
+// ****************************************************************************
+// AcGsView
+// ****************************************************************************
 class AcGsView
 {
 public:
@@ -281,17 +297,26 @@ public:
   virtual ~AcGsView()
   {
   }
+    // Who created this AcGsView?
   virtual AcGsGraphicsKernel& graphicsKernel(void) = 0;
+    // Viewport size & position in normalized device coords and screen coords
+    //
   virtual void setViewport(const AcGePoint2d& lowerLeft, const AcGePoint2d& upperRight) = 0;
   virtual void setViewport(const AcGsDCRect& screen_rect) = 0;
   virtual void getViewport(AcGePoint2d& lowerLeft, AcGePoint2d& upperRight) const = 0;
   virtual void getViewport(AcGsDCRect& screen_rect) const = 0;
+    // Non-Rectangular Viewports
+    //
   virtual void setViewportClipRegion(int contours, const int* counts, const AcGsDCPoint* points) = 0;
   virtual void removeViewportClipRegion(void) = 0;
+    // Viewport Borders
+    //
   virtual void setViewportBorderProperties(const AcGsColor& color, int weight) = 0;
   virtual void getViewportBorderProperties(AcGsColor& color, int& weight) const = 0;
   virtual void setViewportBorderVisibility(bool bVisible) = 0;
   virtual bool isViewportBorderVisible(void) const = 0;
+    // View transformation
+    //
   virtual void setView(const AcGePoint3d& position, const AcGePoint3d& target, const AcGeVector3d& upVector, double fieldWidth, double fieldHeight, Projection projection = kParallel) = 0;
   virtual AcGePoint3d position(void) const = 0;
   virtual AcGePoint3d target(void) const = 0;
@@ -299,6 +324,8 @@ public:
   virtual bool isPerspective(void) const = 0;
   virtual double fieldWidth(void) const = 0;
   virtual double fieldHeight(void) const = 0;
+    // Clip Planes
+    //
   virtual void setEnableFrontClip(bool enable) = 0;
   virtual bool isFrontClipped(void) const = 0;
   virtual void setFrontClip(double distance) = 0;
@@ -307,32 +334,49 @@ public:
   virtual bool isBackClipped(void) const = 0;
   virtual void setBackClip(double distance) = 0;
   virtual double backClip(void) const = 0;
+    // Matrix
+    //
   virtual AcGeMatrix3d viewingMatrix(void) const = 0;
   virtual AcGeMatrix3d projectionMatrix(void) const = 0;
   virtual AcGeMatrix3d screenMatrix(void) const = 0;
   virtual AcGeMatrix3d worldToDeviceMatrix(void) const = 0;
   virtual AcGeMatrix3d objectToDeviceMatrix(void) const = 0;
+    // Drawables
+    //
   virtual bool add(AcGiDrawable* drawable, AcGsModel* model) = 0;
   virtual bool erase(AcGiDrawable* drawable) = 0;
   virtual void eraseAll(void) = 0;
+    // Validation
+    //
   virtual void invalidate(void) = 0;
   virtual void invalidate(const AcGsDCRect& rect) = 0;
   virtual bool isValid(void) const = 0;
+    // Updates
+    //
   virtual void update(void) = 0;
   virtual void beginInteractivity(double fFrameRateInHz) = 0;
   virtual void endInteractivity(void) = 0;
   virtual bool isInteractive(void) const = 0;
   virtual void flush(void) = 0;
+    // Degradation
+    //
   virtual void setMaximumUpgrade(int step) = 0;
   virtual int maximumUpgrade(void) = 0;
   virtual void setMinimumDegrade(int step) = 0;
   virtual int minimumDegrade(void) = 0;
+    // Visibility
+    //
   virtual void hide(void) = 0;
   virtual void show(void) = 0;
   virtual bool isVisible(void) = 0;
+    // Viewport visibility of layers
+    //
   virtual void freezeLayer(Adesk::IntDbId layerID) = 0;
   virtual void thawLayer(Adesk::IntDbId layerID) = 0;
   virtual void clearFrozenLayers(void) = 0;
+    // Logical View Control
+    //
+
     /// <description>
     /// Notify graphics system that all view-independent viewport draw geometry is invalid and needs to be regenerated in this view.
     /// </description>
@@ -342,6 +386,8 @@ public:
     /// </description>
     /// <param name="pDrawable">Input the drawable that has invalid viewport draw graphics.</param>
   virtual void invalidateCachedViewportGeometry(AcGiDrawable* pDrawable) = 0;
+    // For client-friendly view manipulation
+    //
   virtual void dolly(const AcGeVector3d& vector) = 0;
   virtual void dolly(double x, double y, double z) = 0;
   virtual void roll(double angle) = 0;
@@ -353,25 +399,39 @@ public:
   virtual bool pointInView(const AcGePoint3d& pnt) = 0;
   virtual bool extentsInView(const AcGePoint3d& minPoint, const AcGePoint3d& maxPoint) = 0;
   virtual AcGsView* clone(bool bCloneViewParameters = true, bool bCloneGeometry = false) = 0;
+    // Viewing limits
+    //
   virtual bool exceededBounds(void) = 0;
+    // Stereo
+    //
   virtual void enableStereo(bool bEnable) = 0;
   virtual bool isStereoEnabled(void) const = 0;
   virtual void setStereoParameters(double magnitude, double parallax) = 0;
   virtual void getStereoParameters(double& magnitude, double& parallax) const = 0;
+    // Off-screen Rendering
+    //
   virtual void getSnapShot(Atil::Image* pOutput, const AcGsDCPoint& offset) = 0;
   virtual bool renderToImage(Atil::Image* pOutput, AcGiDrawable* pSettings, AcGsRenderProgressMonitor* pProgressMonitor, const AcGsDCRect& rectScreen, bool bReuseScene = false) = 0;
+    // Device mapping
   virtual AcGsDevice* getDevice(void) const = 0;
+    // Visual Style
   virtual void setVisualStyle(const AcDbObjectId visualStyleId) = 0;
   virtual AcDbObjectId visualStyle(void) const = 0;
   virtual void setVisualStyle(const AcGiVisualStyle& visualStyle) = 0;
   virtual bool visualStyle(AcGiVisualStyle& visualStyle) const = 0;
+    // Background
   virtual void setBackground(const AcDbObjectId backgroundId) = 0;
   virtual AcDbObjectId background(void) const = 0;
+    // Default lighting
   virtual void enableDefaultLighting(bool bEnable, DefaultLightingType type = kTwoLights) = 0;
   virtual void getNumPixelsInUnitSquare(const AcGePoint3d& givenWorldpt, AcGePoint2d& pixelArea, bool includePerspective = true) const = 0;
+    // GS Model
   virtual AcGsModel* getModel(AcGiDrawable*) const = 0;
   virtual void getModelList(AcArray<AcGsModel*>&) const = 0;
   virtual const AcGsClientViewInfo& getClientViewInfo() const = 0;
+    // ************************************************************************
+    // GSN additions
+    // ************************************************************************
   virtual void update(GS::SyncBehavior sync) = 0;
   virtual bool isPointInViewport(const Adesk::Int32 x, const Adesk::Int32 y) = 0;
   virtual AcGsView* clone(bool bCloneViewParameters, ModelCloneOption cloneOption) = 0;
@@ -384,10 +444,15 @@ public:
   virtual EnableIRResult beginInteractiveRender(AcGsRenderProgressMonitor* pProgressMonitor) = 0;
   virtual void endInteractiveRender(void) = 0;
   virtual bool isRendering(void) const = 0;
+    // Fast inteactivity status: 
+    // trace some inteactivity behavior triggered by middle mouse zoom/pan with high frequency.
   virtual void beginFastInteractivity(void) = 0;
   virtual bool endFastInteractivity(void) = 0;
   virtual bool isFastInteractivity(void) = 0;
 };
+// ****************************************************************************
+// AcGsModel
+// ****************************************************************************
 class AcGsModel
 {
 public:
@@ -432,9 +497,14 @@ public:
   virtual ~AcGsModel()
   {
   }
+    // Who created this AcGsModel?
   virtual AcGsGraphicsKernel& graphicsKernel(void) = 0;
+    // Scene graph roots
+    //
   virtual bool addSceneGraphRoot(AcGiDrawable* pRoot) = 0;
   virtual bool eraseSceneGraphRoot(AcGiDrawable* pRoot) = 0;
+    // Change notification
+    //
   virtual void onAdded(AcGiDrawable* pAdded, AcGiDrawable* pParent) = 0;
   virtual void onAdded(AcGiDrawable* pAdded, Adesk::IntDbId parentID) = 0;
   virtual void onModified(AcGiDrawable* pModified, AcGiDrawable* pParent) = 0;
@@ -442,30 +512,57 @@ public:
   virtual void onErased(AcGiDrawable* pErased, AcGiDrawable* pParent) = 0;
   virtual void onErased(AcGiDrawable* pErased, Adesk::IntDbId parentID) = 0;
   virtual void onPaletteModified(void) = 0;
+    // Transformations
+    //
   virtual void setTransform(const AcGeMatrix3d&) = 0;
   virtual AcGeMatrix3d transform(void) const = 0;
   virtual void setExtents(const AcGePoint3d&, const AcGePoint3d&) = 0;
+    // Invalidation notification
+    //
   virtual void invalidate(InvalidationHint hint) = 0;
+    // View overrides
+    //
   virtual void setViewClippingOverride(bool bOverride) = 0;
+    // Visual style
+    //
   virtual void setVisualStyle(const AcDbObjectId visualStyleId) = 0;
   virtual AcDbObjectId visualStyle(void) const = 0;
   virtual void setVisualStyle(const AcGiVisualStyle& visualStyle) = 0;
   virtual bool visualStyle(AcGiVisualStyle& visualStyle) const = 0;
+    // Background
   virtual void setBackground(const AcDbObjectId backgroundId) = 0;
   virtual AcDbObjectId background(void) const = 0;
+    // Linetypes
+    //
   virtual void enableLinetypes(bool bEnable) = 0;
   virtual bool linetypesEnabled(void) const = 0;
+    // Sectioning
+    //
   virtual void setEnableSectioning(bool enable) = 0;
   virtual bool isSectioningEnabled(void) const = 0;
   virtual bool setSectioning(const AcGePoint3dArray& pts, const AcGeVector3d& upVector) = 0;
   virtual bool setSectioning(const AcGePoint3dArray& pts, const AcGeVector3d& upVector, double top, double bottom) = 0;
   virtual void setSectioningVisualStyle(const AcDbObjectId visualStyleId) = 0;
+    // Render Type
+    //
   virtual RenderType renderType(void) = 0;
+    // Shadowing
+    //
   virtual double shadowPlaneLocation(void) const = 0;
   virtual void setShadowPlaneLocation(double planeLocationZ) = 0;
+    // Selection
+    //
   virtual void setSelectable(bool bEnable) = 0;
   virtual bool selectable(void) const = 0;
+    // ************************************************************************
+    // GSN additions
+    // ************************************************************************
+
+    // Draw Order
+    //
   virtual void setDrawOrder(AcGiDrawable* pDrawable, AcGiDrawable* pRelativeDrawable, AcGiDrawable* pParent, OrderActionType action) = 0;
+    // Bounds
+    //
   virtual bool bounds(const AcGiDrawable& drawable, AcGePoint3d& minPt, AcGePoint3d& maxPt) = 0;
   virtual void onModified(AcGiDrawable* pModified, AcGiDrawable* pParent, InvalidationHint hint) = 0;
   virtual void onModified(AcGiDrawable* pModified, Adesk::IntDbId parentID, InvalidationHint hint) = 0;
@@ -502,6 +599,9 @@ public:
     /// <returns>Returns true if lights in blocks are enabled.</returns>
   virtual bool lightsInBlocksEnabled(void) const = 0;
 };
+// ****************************************************************************
+// AcGsDevice
+// ****************************************************************************
 class AcGsDevice
 {
 public:
@@ -517,15 +617,25 @@ public:
   virtual ~AcGsDevice()
   {
   }
+    // Who created this AcGsDevice?
   virtual AcGsGraphicsKernel& graphicsKernel(void) = 0;
+    // Validation
+    //
   virtual void invalidate(void) = 0;
   virtual void invalidate(const AcGsDCRect& rect) = 0;
   virtual bool isValid(void) const = 0;
+    // Updates
+    //
+    // Pass in a rectangle to know which region on the device was updated by the GS
   virtual void update(AcGsDCRect* pUpdatedRect = nullptr) = 0;
+    // Change notification
+    //
   virtual void onSize(int width, int height) = 0;
   virtual void onRealizeForegroundPalette(void) = 0;
   virtual void onRealizeBackgroundPalette(void) = 0;
   virtual void onDisplayChange(int nBitsPerPixel, int nXRes, int nYRes) = 0;
+    // View connections
+    //
   virtual bool add(AcGsView* view) = 0;
   virtual bool erase(AcGsView* view) = 0;
   virtual void eraseAll(void) = 0;
@@ -533,18 +643,32 @@ public:
   virtual AcGsColor getBackgroundColor(void) = 0;
   virtual void setLogicalPalette(const AcGsColor* palette, int nCount) = 0;
   virtual void setPhysicalPalette(const AcGsColor* palette, int nCount) = 0;
+    // Off-screen Rendering
   virtual void getSnapShot(Atil::Image* pOutput, const AcGsDCPoint& offset) = 0;
+    // Device Renderer type
   virtual void setDeviceRenderer(RendererType type) = 0;
   virtual RendererType getDeviceRenderer(void) = 0;
+    // Interruptible traversal
   virtual void setRenderInterrupter(AcGsRenderInterrupter* pInterrupter) = 0;
   virtual AcGsRenderInterrupter* getRenderInterrupter(void) const = 0;
   virtual void setDisplayUpdateSuppressed(bool bSuppressed) = 0;
+    // *************************************************************************
+    // GSN additions
+    // *************************************************************************
   virtual void invalidate(AcGsModel::RenderType pane) = 0;
   virtual void invalidate(const AcGsDCRect& rect, AcGsModel::RenderType pane) = 0;
   virtual void update(AcGsDCRect* pUpdatedRect, GS::SyncBehavior sync) = 0;
   virtual Atil::Image* createSnapshot(const AcGsDCPoint& offset, const AcGsDCRect& imageDim, GS::ImageDataFormat format, GS::ImageOrientation orientation) = 0;
+    // Maximum device size
   virtual int getMaxDeviceWidth(void) = 0;
   virtual int getMaxDeviceHeight(void) = 0;
+    // ************************************************************************
+    // Below functions are for RapidRT Rendering.
+    //
+
+    //
+    // Below four functions are device-related, should only exposed on GsDevice level.
+    //
   virtual void setDesiredFrameRate(float frameRate) = 0;
   virtual void pauseInteractiveRender(void) = 0;
   virtual void resumeInteractiveRender(void) = 0;
@@ -554,11 +678,22 @@ public:
     kSuccess,
     kOutOfMemory
   };
+    //
+    // Below three functions are both device and data relate, so exposed on GsDevice and GsView.
+    //
   virtual EnableIRResult beginInteractiveRender(AcGsRenderProgressMonitor* pProgressMonitor) = 0;
   virtual void endInteractiveRender(void) = 0;
   virtual bool isRendering(void) const = 0;
+    //
+    // End of RapidRT
+    // *************************************************************************
+
+    // Text font kerning display setting
   virtual void setFontKerningDisplay(bool bDisplay) = 0;
 };
+// ****************************************************************************
+// AcGsConfig
+// ****************************************************************************
 class AcGsConfigReactor
 {
 public:
@@ -620,8 +755,10 @@ public:
     kDegradationChannels
   };
   virtual ~AcGsConfig();
+    // dialog, read & write registry
   virtual bool configure(void) = 0;
   virtual bool showConfigDialog(const wchar_t* strInput = nullptr) const = 0;
+    // hardware & software drivers
   virtual void driverName(ACHAR* pszPath, int nStrLen) const = 0;
   virtual int driverVersion(void) const = 0;
   virtual int driverRevision(void) const = 0;
@@ -633,6 +770,7 @@ public:
   virtual void defaultHardwareAcceleratedDriver(ACHAR* pszPath, int nPathStrLen, ACHAR* pszDriver, int nDriverStrLen) const = 0;
   virtual void hardwareAcceleratedDrivers(ACHAR* pszPath, int nPathStrLen, ACHAR** pszDrivers, int nDrivers, int nDriverStrLen) = 0;
   virtual int numHardwareAcceleratedDrivers(void) = 0;
+    // level of detail & dynamic tessellation
   virtual void setDynamicTessellation(bool bDynamicTessellation) = 0;
   virtual bool dynamicTessellation(void) const = 0;
   virtual GS::ErrorStatus setMaxLODs(int nLevels) = 0;
@@ -641,6 +779,7 @@ public:
   virtual int surfaceTessellationTol(void) const = 0;
   virtual GS::ErrorStatus setCurveTessellationTol(int curveTessellationTol) = 0;
   virtual int curveTessellationTol(void) const = 0;
+    // adaptive degradation
   virtual GS::ErrorStatus setFrameRate(int nFramesPerSecond) = 0;
   virtual int frameRate(void) const = 0;
   virtual void setAdaptiveDegradation(bool bAdaptiveDegradation) = 0;
@@ -650,8 +789,10 @@ public:
   virtual void shiftDegradationChainPosition(DegradationChannel, bool bShiftDown) = 0;
   virtual void setCanDegradeChannel(DegradationChannel, bool bDegrade) = 0;
   virtual bool canDegradeChannel(DegradationChannel) const = 0;
+    // performance
   virtual void setRedrawOnWindowExpose(bool bRedrawWindowExpose) = 0;
   virtual bool redrawOnWindowExpose(void) const = 0;
+    // display options
   virtual void setHandedness(Handedness) = 0;
   virtual Handedness handedness(void) const = 0;
   virtual void setDiscardBackFaces(bool bDiscardBackFaces) = 0;
@@ -660,6 +801,9 @@ public:
   virtual Quality transparency(void) const = 0;
   virtual void addReactor(AcGsConfigReactor*) = 0;
   virtual void removeReactor(AcGsConfigReactor*) = 0;
+    // ************************************************************************
+    // GSN additions
+    // ************************************************************************
   struct EffectStatus
   {
     const AcUniqueString* pUniqueString;
@@ -691,6 +835,7 @@ public:
     kEL_HardwareBasic,
     kEL_HardwareAdvanced
   };
+    // hardware features
   virtual AcArray<EffectStatus>* getEffectList(EffectListType type) = 0;
   virtual bool isFeatureEnabled(const AcUniqueString*) const = 0;
   virtual void setFeatureEnabled(const AcUniqueString*, bool bEnable = true) = 0;
@@ -732,8 +877,14 @@ public:
     /// </description>
   virtual bool isLODEnabledInRetainModeWhileInteractive(void) const = 0;
 };
+// ****************************************************************************
+// Access protocol for persistent drawables
+// ****************************************************************************
 typedef AcGiDrawable* (*AcGsGetInterfaceFunc) (Adesk::IntDbId objectId, bool bNeedsValidation);
 typedef void (*AcGsReleaseInterfaceFunc) (AcGiDrawable*);
+// ****************************************************************************
+// AcGsReactor
+// ****************************************************************************
 class AcGsReactor
 {
 public:
@@ -762,6 +913,9 @@ public:
   virtual void gsToBeUnloaded(AcGsGraphicsKernel*)
   {
   }
+    // ************************************************************************
+    // GSN additions
+    // ************************************************************************
   virtual void viewInteractivityToBeChanged(const AcGsView*, bool)
   {
   }
@@ -769,6 +923,9 @@ public:
   {
   }
 };
+// ****************************************************************************
+// AcGsModelReactor
+// ****************************************************************************
 class AcGsModelReactor
 {
 public:
@@ -811,6 +968,9 @@ public:
     return true;
   }
 };
+// ****************************************************************************
+// AcGsDrawablePath
+// ****************************************************************************
 struct AcGsDrawableLink
 {
   Adesk::IntDbId id;
@@ -818,6 +978,9 @@ struct AcGsDrawableLink
   AcGsNode* pNode;
 };
 typedef AcArray<AcGsDrawableLink> AcGsDrawablePath;
+// ****************************************************************************
+// AcGsGraphicsKernel
+// ****************************************************************************
 struct AcGsClientViewInfo
 {
   AcGsClientViewInfo()
@@ -835,12 +998,26 @@ struct AcGsClientViewInfo
   AcGiContextualAttributes* contextualAttributes;
   AcDbObjectId viewportObjectAsObjectId() const;
 };
+//
+// AcGsKernelDescriptor is used to describe the capabilities of
+// a graphics kernel, or to specify the desired capabilities.
+//
+// Sample usage:
+//      AcGsKernelDescriptor descriptor;
+//      descriptor.addRequirement(AcGsKernelDescriptor::k3DDrawing);
+//      requestKernel(descriptor);
+//
+//      const AcGsKernelDescriptor &descriptor = kernel.getDescriptor();
+//      if (descriptor.supports(AcGsKernelDescriptor::k3DDrawing))
+//          ...
+//
 #ifndef DRAWBRIDGE_API
 #  define DRAWBRIDGE_API	__declspec(dllimport)
 #endif
 class AcGsKernelDescriptor : public AcGiKernelDescriptor
 {
 public:
+    // Used by a graphics kernel to define support for a given capability.
   void addSupport(const AcUniqueString* capability)
   {
     if (capability)
@@ -848,10 +1025,12 @@ public:
       append(capability);
     }
   }
+    // Used by a graphics kernel to make sure it supports what a client requires.
   bool requires(const AcUniqueString* capability) const
   {
     return capability ? contains(capability) : false;
   }
+    // Predefined capabilities.
   DRAWBRIDGE_API static const AcUniqueString* k2DDrawing;
   DRAWBRIDGE_API static const AcUniqueString* k3DDrawing;
   DRAWBRIDGE_API static const AcUniqueString* k3DSelection;
@@ -990,11 +1169,17 @@ public:
 protected:
   int m_refCount;
 };
+// ****************************************************************************
+// AcGsRenderInterrupter
+// ****************************************************************************
 class AcGsRenderInterrupter
 {
 public:
   virtual bool interrupt(AcGsView* pView, AcGsModel::RenderType nType) = 0;
 };
+// ****************************************************************************
+// AcGsRenderStatistics
+// ****************************************************************************
 /// <description>
 /// A container for various statistics describing the data used to render an
 /// image.
@@ -1023,6 +1208,9 @@ public:
     /// </description>
   size_t iTriangleCount;
 };
+// ****************************************************************************
+// AcGsRenderProgressMonitor
+// ****************************************************************************
 /// <description>
 /// An interface implemented by a client of the AcGsView::renderToImage function
 /// to get progress reports during the rendering process.

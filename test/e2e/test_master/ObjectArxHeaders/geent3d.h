@@ -7,6 +7,11 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION:
+//
+// This file contains the class GeEntity3d - An abstract base class
+// for all Geometry Library 3d entities.
 #ifndef AC_GEENT3D_H
 #  define AC_GEENT3D_H
 #  include "gegbl.h"
@@ -19,18 +24,28 @@ class GE_DLLEXPIMPORT AcGeEntity3d
 {
 public:
   ~AcGeEntity3d();
+    // Run time type information.
+    //
   Adesk::Boolean isKindOf(AcGe::EntityId entType) const;
   AcGe::EntityId type() const;
+    // Make a copy of the entity.
+    //
   AcGeEntity3d* copy() const;
   AcGeEntity3d& operator =(const AcGeEntity3d& entity);
+    // Equivalence
+    //
   Adesk::Boolean operator ==(const AcGeEntity3d& entity) const;
   Adesk::Boolean operator !=(const AcGeEntity3d& entity) const;
   Adesk::Boolean isEqualTo(const AcGeEntity3d& ent, const AcGeTol& tol = AcGeContext::gTol) const;
+    // Matrix multiplication
+    //
   AcGeEntity3d& transformBy(const AcGeMatrix3d& xfm);
   AcGeEntity3d& translateBy(const AcGeVector3d& translateVec);
   AcGeEntity3d& rotateBy(double angle, const AcGeVector3d& vec, const AcGePoint3d& wrtPoint = AcGePoint3d::kOrigin);
   AcGeEntity3d& mirror(const AcGePlane& plane);
   AcGeEntity3d& scaleBy(double scaleFactor, const AcGePoint3d& wrtPoint = AcGePoint3d::kOrigin);
+    // Point containment
+    //
   Adesk::Boolean isOn(const AcGePoint3d& pnt, const AcGeTol& tol = AcGeContext::gTol) const;
 protected:
   friend class AcGeImpEntity3d;

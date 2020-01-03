@@ -7,6 +7,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #ifndef __ACDBDETAILVIEWSTYLE_H__
 #  define __ACDBDETAILVIEWSTYLE_H__
 #  pragma  once
@@ -573,6 +574,7 @@ public:
     /// </returns>
   Acad::ErrorStatus setBorderLineTypeId(const AcDbObjectId& objId);
 protected:
+    // For internal use only
   virtual Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
   virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
 };

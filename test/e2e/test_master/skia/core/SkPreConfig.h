@@ -4,8 +4,12 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+
+// IWYU pragma: private, include "SkTypes.h"
 #ifndef SkPreConfig_DEFINED
 #  define SkPreConfig_DEFINED
+// Allows embedders that want to disable macros that take arguments to just
+// define that symbol to be one of these
 #  define SK_NOTHING_ARG1(arg1)
 #  define SK_NOTHING_ARG2(arg1, arg2)
 #  define SK_NOTHING_ARG3(arg1, arg2, arg3)
@@ -83,9 +87,14 @@
 #  define SK_CPU_SSE_LEVEL_AVX	51
 #  define SK_CPU_SSE_LEVEL_AVX2	52
 #  define SK_CPU_SSE_LEVEL_AVX512	60
+// When targetting iOS and using gyp to generate the build files, it is not
+// possible to select files to build depending on the architecture (i.e. it
+// is not possible to use hand optimized assembly implementation). In that
+// configuration SK_BUILD_NO_OPTS is defined. Remove optimisation then.
 #  ifdef SK_BUILD_NO_OPTS
 #    define SK_CPU_SSE_LEVEL	0
 #  endif
+// Are we in GCC/Clang?
 #  ifndef SK_CPU_SSE_LEVEL
 #    if  defined(__AVX512F__)
 #      define SK_CPU_SSE_LEVEL	SK_CPU_SSE_LEVEL_AVX512
@@ -105,6 +114,7 @@
 #      define SK_CPU_SSE_LEVEL	SK_CPU_SSE_LEVEL_SSE2
 #    endif
 #  endif
+// Are we in VisualStudio?
 #  ifndef SK_CPU_SSE_LEVEL
 #    if  defined(__AVX2__)
 #      define SK_CPU_SSE_LEVEL	SK_CPU_SSE_LEVEL_AVX2
@@ -121,14 +131,18 @@
 #    endif
 #  endif
 //////////////////////////////////////////////////////////////////////
+// ARM defines
 #  if  defined(__arm__) && (!defined(__APPLE__) || !TARGET_IPHONE_SIMULATOR)
 #    define SK_CPU_ARM32
 #  elif  defined(__aarch64__) && !defined(SK_BUILD_NO_OPTS)
 #    define SK_CPU_ARM64
 #  endif
+// All 64-bit ARM chips have NEON.  Many 32-bit ARM chips do too.
 #  if  !defined(SK_ARM_HAS_NEON) && !defined(SK_BUILD_NO_OPTS) && defined(__ARM_NEON)
 #    define SK_ARM_HAS_NEON
 #  endif
+// Really this __APPLE__ check shouldn't be necessary, but it seems that Apple's Clang defines
+// __ARM_FEATURE_CRC32 for -arch arm64, even though their chips don't support those instructions!
 #  if  defined(__ARM_FEATURE_CRC32) && !defined(__APPLE__)
 #    define SK_ARM_HAS_CRC32
 #  endif

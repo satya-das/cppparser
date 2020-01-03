@@ -12,6 +12,9 @@
 #  define ACAPWINDOW_H
 #  include "IAdHostWindow.h"
 class AcApWindowImp;
+// Note: any class derives from AcApWindow is responsible of creating
+// an AcApWindowImp instance for m_pImp
+//
 class AcApWindow : public IAdHostWindow
 {
 public:

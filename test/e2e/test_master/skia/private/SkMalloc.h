@@ -58,6 +58,8 @@ static void* sk_calloc_throw(size_t size)
 static void* sk_calloc_canfail(size_t size)
 {
 #  if  defined(IS_FUZZING_WITH_LIBFUZZER)
+    // The Libfuzzer environment is very susceptible to OOM, so to avoid those
+    // just pretend we can't allocate more than 200kb.
   if (size > 200000)
   {
     return nullptr;
@@ -65,6 +67,7 @@ static void* sk_calloc_canfail(size_t size)
 #  endif
   return sk_malloc_flags(size, SK_MALLOC_ZERO_INITIALIZE);
 }
+// Performs a safe multiply count * elemSize, checking for overflow
 SK_API extern void* sk_calloc_throw(size_t count, size_t elemSize);
 SK_API extern void* sk_malloc_throw(size_t count, size_t elemSize);
 SK_API extern void* sk_realloc_throw(void* buffer, size_t count, size_t elemSize);
@@ -74,6 +77,8 @@ SK_API extern void* sk_realloc_throw(void* buffer, size_t count, size_t elemSize
 static void* sk_malloc_canfail(size_t size)
 {
 #  if  defined(IS_FUZZING_WITH_LIBFUZZER)
+    // The Libfuzzer environment is very susceptible to OOM, so to avoid those
+    // just pretend we can't allocate more than 200kb.
   if (size > 200000)
   {
     return nullptr;
@@ -82,8 +87,10 @@ static void* sk_malloc_canfail(size_t size)
   return sk_malloc_flags(size, 0);
 }
 SK_API extern void* sk_malloc_canfail(size_t count, size_t elemSize);
+// bzero is safer than memset, but we can't rely on it, so... sk_bzero()
 static void sk_bzero(void* buffer, size_t size)
 {
+    // Please c.f. sk_careful_memcpy.  It's undefined behavior to call memset(null, 0, 0).
   if (size)
   {
     memset(buffer, 0, size);
@@ -104,6 +111,8 @@ static void sk_bzero(void* buffer, size_t size)
  */
 static void* sk_careful_memcpy(void* dst, const void* src, size_t len)
 {
+    // When we pass >0 len we had better already be passing valid pointers.
+    // So we just need to skip calling memcpy when len == 0.
   if (len)
   {
     memcpy(dst, src, len);
@@ -112,6 +121,8 @@ static void* sk_careful_memcpy(void* dst, const void* src, size_t len)
 }
 static void* sk_careful_memmove(void* dst, const void* src, size_t len)
 {
+    // When we pass >0 len we had better already be passing valid pointers.
+    // So we just need to skip calling memcpy when len == 0.
   if (len)
   {
     memmove(dst, src, len);

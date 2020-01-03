@@ -7,6 +7,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #pragma  once
 #ifndef ACCOREDEFS_H
 #  define ACCOREDEFS_H

@@ -7,6 +7,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #pragma  once
 #pragma  pack(push, 8)
 #include "dbmain.h"

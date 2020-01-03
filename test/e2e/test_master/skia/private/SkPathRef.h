@@ -242,6 +242,8 @@ public:
      * Transforms a path ref by a matrix, allocating a new one only if necessary.
      */
   static void CreateTransformedCopy(sk_sp<SkPathRef>* dst, const SkPathRef& src, const SkMatrix& matrix);
+  //  static SkPathRef* CreateFromBuffer(SkRBuffer* buffer);
+
     /**
      * Rollsback a path ref to zero verbs and points with the assumption that the path ref will be
      * repopulated with approximately the same number of verbs and points. A new path ref is created
@@ -335,6 +337,8 @@ public:
     {
     }
     virtual void onChange() = 0;
+        // The caller can use this method to notify the path that it no longer needs to listen. Once
+        // called, the path will remove this listener from the list at some future point.
     void markShouldUnregisterFromPath()
     {
       fShouldUnregisterFromPath.store(true, std::memory_order_relaxed);
@@ -366,17 +370,21 @@ private:
     fSegmentMask = 0;
     fIsOval = false;
     fIsRRect = false;
+        // The next two values don't matter unless fIsOval or fIsRRect are true.
     fRRectOrOvalIsCCW = false;
     fRRectOrOvalStartIdx = 0xAC;
     SkDEBUGCODE(fEditorsAttached.store(0);)
     SkDEBUGCODE(this->validate();)
   }
   void copy(const SkPathRef& ref, int additionalReserveVerbs, int additionalReservePoints);
+    // Doesn't read fSegmentMask, but (re)computes it from the verbs array
   unsigned computeSegmentMask() const;
+    // Return true if the computed bounds are finite.
   static bool ComputePtBounds(SkRect* bounds, const SkPathRef& ref)
   {
     return bounds->setBoundsCheck(ref.points(), ref.countPoints());
   }
+    // called, if dirty, by getBounds()
   void computeBounds() const
   {
     SkDEBUGCODE(this->validate();)
@@ -453,6 +461,7 @@ private:
     fRRectOrOvalIsCCW = isCCW;
     fRRectOrOvalStartIdx = SkToU8(start);
   }
+    // called only by the editor. Note that this is not a const function.
   SkPoint* getWritablePoints()
   {
     SkDEBUGCODE(this->validate();)
@@ -486,6 +495,8 @@ private:
   mutable bool fIsFinite;
   bool fIsOval;
   bool fIsRRect;
+    // Both the circle and rrect special cases have a notion of direction and starting point
+    // The next two variables store that information for either.
   bool fRRectOrOvalIsCCW;
   uint8_t fRRectOrOvalStartIdx;
   uint8_t fSegmentMask;

@@ -23,9 +23,11 @@
 #else 
 #  define ACFD_PORT
 #endif
+// From dbeval.h
 typedef Adesk::UInt32 AcDbEvalNodeId;
 namespace AcFdEval
 {
+    // Option bit flags for object property field
   enum ObjectFieldOption
   {
     kObjFieldNone = 0,
@@ -33,14 +35,17 @@ namespace AcFdEval
     kObjFieldApplyBlockTransform = (0x1 << 1),
     kObjFieldUnresolvedObjectRef = (0x1 << 2)
   };
+    // Option bit flags for sheet set field
   enum SheetSetFieldOption
   {
     kSheetSetNone = 0,
     kSheetSetHyperlink = (0x1 << 0),
     kSheetSetUnresolvedComponent = (0x1 << 1)
   };
+    // Option bit flags for expression field
   enum ExpressionFieldOption
   {
+        // Function types
     kExprFieldNone = 0,
     kExprFieldSum = (0x1 << 0),
     kExprFieldAverage = (0x1 << 1),
@@ -54,7 +59,9 @@ struct IAcSmSheetSet;
 struct IAcSmComponent;
 struct AcHyperlink;
 ACFD_PORT bool AcFdMakeFieldCode(const AcDbObjectId& objId, AcDbEvalNodeId blockParamId, const ACHAR* pszPropOrConnectionName, AcFdEval::ObjectFieldOption nOption, const ACHAR* pszFormat, AcHyperlink* pHyperlink, AcString& pszFieldCode);
+// Forward declare helper for the deprecated inlines. Can be removed when they're removed.
 Acad::ErrorStatus acutNewString(const ACHAR* pInput, ACHAR*& pOutput);
+// Deprecated inline. Please use above overload taking AcString & instead
 inline bool AcFdMakeFieldCode(const AcDbObjectId& objId, AcDbEvalNodeId blockParamId, const ACHAR* pszPropOrConnectionName, AcFdEval::ObjectFieldOption nOption, const ACHAR* pszFormat, AcHyperlink* pHyperlink, ACHAR*& pszFieldCode)
 {
   AcString sFieldCode;
@@ -67,6 +74,7 @@ inline bool AcFdMakeFieldCode(const AcDbObjectId& objId, AcDbEvalNodeId blockPar
   return bRet;
 }
 ACFD_PORT bool AcFdMakeFieldCode(IAcSmDatabase* pSmDb, IAcSmSheetSet* pSmSheetSet, IAcSmComponent* pSmComp, const ACHAR* pszCompName, const ACHAR* pszPropName, AcFdEval::SheetSetFieldOption nOption, const ACHAR* pszFormat, AcString& pszFieldCode);
+// Deprecated inline. Please use above overload taking AcString & instead
 inline bool AcFdMakeFieldCode(IAcSmDatabase* pSmDb, IAcSmSheetSet* pSmSheetSet, IAcSmComponent* pSmComp, const ACHAR* pszCompName, const ACHAR* pszPropName, AcFdEval::SheetSetFieldOption nOption, const ACHAR* pszFormat, ACHAR*& pszFieldCode)
 {
   AcString sFieldCode;
@@ -79,6 +87,7 @@ inline bool AcFdMakeFieldCode(IAcSmDatabase* pSmDb, IAcSmSheetSet* pSmSheetSet, 
   return bRet;
 }
 ACFD_PORT bool AcFdMakeFieldCode(const AcDbObjectId& tableId, const AcDbObjectId& targetTableId, AcFdEval::ExpressionFieldOption nOption, const AcCellRangeArray& cellRanges, const ACHAR* pszFormat, AcHyperlink* pHyperlink, AcString& sFieldCode);
+// Deprecated inline. Please use above overload taking AcString & instead
 inline bool AcFdMakeFieldCode(const AcDbObjectId& tableId, const AcDbObjectId& targetTableId, AcFdEval::ExpressionFieldOption nOption, const AcCellRangeArray& cellRanges, const ACHAR* pszFormat, AcHyperlink* pHyperlink, ACHAR*& pszFieldCode)
 {
   AcString sFieldCode;
@@ -91,6 +100,7 @@ inline bool AcFdMakeFieldCode(const AcDbObjectId& tableId, const AcDbObjectId& t
   return bRet;
 }
 ACFD_PORT bool AcFdExtractData(AcDbField* pField, AcString& sSheetSetFile, AcString& sSheetSetId, AcString& sCompName, AcString& sCompId, AcString& sPropName);
+// Deprecated inline. Please use above overload taking AcString & instead
 inline bool AcFdExtractData(AcDbField* pField, ACHAR*& pszSheetSetFile, ACHAR*& pszSheetSetId, ACHAR*& pszCompName, ACHAR*& pszCompId, ACHAR*& pszPropName)
 {
   AcString sSheetSetFile, sSheetSetId, sCompName, sCompId, sPropName;
@@ -110,6 +120,7 @@ inline bool AcFdExtractData(AcDbField* pField, ACHAR*& pszSheetSetFile, ACHAR*& 
   return bRet;
 }
 ACFD_PORT bool AcFdExtractData(AcDbField* pField, AcDbObjectId& objId, AcString& sPropName);
+// Deprecated inline. Please use above overload taking AcString & instead
 inline bool AcFdExtractData(AcDbField* pField, AcDbObjectId& objId, ACHAR*& pszPropName)
 {
   AcString sPropName;

@@ -132,6 +132,8 @@ public:
     /// <returns> AcGeMatrix3d. </returns>
     ///
   virtual AcGeMatrix3d getTransform() const;
+    //Methods related to source entities.
+    
     /// <summary> Obtains list of source entities for this action. </summary>
     /// <returns> List of source entities used by the action. </returns>
     ///
@@ -175,6 +177,8 @@ public:
     /// <returns> Acad::ErrorStatus. </returns>
     ///
   Acad::ErrorStatus getSourceBasePoint(AcDbVertexRef& vertexRef, AcGePoint3d& position) const;
+    //utility methods.
+    
     /// <summary> Checks if the given entity is an associative array. 
     /// </summary>
     /// <param name="pEntity"> The input entity. </param>

@@ -6,6 +6,8 @@
  */
 #ifndef SkThreadAnnotations_DEFINED
 #  define SkThreadAnnotations_DEFINED
+// The bulk of this code is cribbed from:
+// http://clang.llvm.org/docs/ThreadSafetyAnalysis.html
 #  if  defined(__clang__) && (!defined(SWIG))
 #    define SK_THREAD_ANNOTATION_ATTRIBUTE(x)	   __attribute__((x))
 #  else 
@@ -30,8 +32,10 @@
   SK_THREAD_ANNOTATION_ATTRIBUTE(acquire_capability(__VA_ARGS__))
 #  define SK_ACQUIRE_SHARED	(...) \
   SK_THREAD_ANNOTATION_ATTRIBUTE(acquire_shared_capability(__VA_ARGS__))
+// Would be SK_RELEASE, but that is already in use by SkPostConfig.
 #  define SK_RELEASE_CAPABILITY	(...) \
   SK_THREAD_ANNOTATION_ATTRIBUTE(release_capability(__VA_ARGS__))
+// For symmetry with SK_RELEASE_CAPABILITY.
 #  define SK_RELEASE_SHARED_CAPABILITY	(...) \
   SK_THREAD_ANNOTATION_ATTRIBUTE(release_shared_capability(__VA_ARGS__))
 #  define SK_TRY_ACQUIRE	(...) \

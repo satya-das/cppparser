@@ -260,6 +260,7 @@ public:
   {
     return fColor4f.fA;
   }
+    // Helper that scales the alpha by 255.
   uint8_t getAlpha() const
   {
     return sk_float_round2int(this->getAlphaf() * 255);
@@ -273,6 +274,7 @@ public:
         @param a  alpha component of color
     */
   void setAlphaf(float a);
+    // Helper that accepts an int between 0 and 255, and divides it by 255.0
   void setAlpha(U8CPU a)
   {
     this->setAlphaf(a * (1.0f / 255));
@@ -595,8 +597,10 @@ public:
     */
   const SkRect& computeFastBounds(const SkRect& orig, SkRect* storage) const
   {
+        // Things like stroking, etc... will do math on the bounds rect, assuming that it's sorted.
     SkASSERT(orig.isSorted());
     SkPaint::Style style = this->getStyle();
+        // ultra fast-case: filling with no effects that affect geometry
     if (kFill_Style == style)
     {
       uintptr_t effects = 0;

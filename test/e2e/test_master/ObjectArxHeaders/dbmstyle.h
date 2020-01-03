@@ -7,6 +7,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #ifndef AD_DBMLINESTYLE_H
 #  define AD_DBMLINESTYLE_H
 #  include "dbmain.h"
@@ -16,7 +17,11 @@
 #  define MSTYLE_DESCRIPTION_LENGTH	256
 #  define LTYPE_LENGTH	32
 #  define MLINE_MAX_ELEMENTS	16
+// 10 degrees
+//
 #  define MIN_ANGLE	(10.0 * PI / 180.0)
+// 170 degrees
+//
 #  define MAX_ANGLE	(170.0 * PI / 180.0)
 #  define MSTYLE_DXF_FILL_ON	(0x1)
 #  define MSTYLE_DXF_SHOW_MITERS	(0x2)
@@ -68,11 +73,15 @@ public:
   int numElements() const;
   Acad::ErrorStatus setElement(int& elem, double offset, const AcCmColor& color, AcDbObjectId linetypeId);
   Acad::ErrorStatus getElementAt(int elem, double& offset, AcCmColor& color, AcDbObjectId& linetypeId) const;
+    // --- AcDbObject Protocol
+    //
   virtual Acad::ErrorStatus subErase(Adesk::Boolean pErasing = true) override;
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
   virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+    // --- AcRxObject Protocol
+    //
   virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
 };
 #  pragma  pack (pop)

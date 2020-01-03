@@ -48,19 +48,45 @@ public:
     kPlotTransparency = 0x00800000
   };
   ACPL_PORT Acad::ErrorStatus copyFrom(const AcRxObject* pOther);
+    // Layout to be plotted. Required. 
   ACPL_PORT void setLayout(AcDbObjectId& layoutId);
+    // Layout to be plotted.  
   ACPL_PORT AcDbObjectId layout() const;
+    // AcDbPlotSettings containing the settings to use for the plot. 
+    // Optional, passing NULL removes any existing overrides. 
+    // If not provided the object uses the layout settings. 
   ACPL_PORT void setOverrideSettings(const AcDbPlotSettings* pOverrides);
+    // The current AcDbPlotSettings containing the overrides.
   ACPL_PORT const AcDbPlotSettings* overrideSettings() const;
+    // Provides an AcPlPlotConfig (or PC3/Device name) to use instead of the
+    // config/device specified in the layout or override.  Optional, passing
+    // NULL removes any existing overrides. 
   ACPL_PORT void setDeviceOverride(const AcPlPlotConfig* pconf);
+    // The "merged" AcDbPlotSettings object, created by merging the source
+    // layout with the overrides and device override. 
   ACPL_PORT const AcDbPlotSettings* validatedSettings() const;
+    // Sets the validated AcDbPlotSettings. 
   ACPL_PORT Acad::ErrorStatus setValidatedSettings(const AcDbPlotSettings* pValidatedSettings);
+    // The AcPlPlotConfig for the validated settings
   ACPL_PORT const AcPlPlotConfig* validatedConfig() const;
+    // Sets the validated config
   ACPL_PORT void setValidatedConfig(const AcPlPlotConfig* pConfig);
+    // The AcPlPlotConfig object (or PC3/Device name) 
+    // that will override the output device set in the layout. 
   ACPL_PORT const AcPlPlotConfig* deviceOverride() const;
+    // Returns a bool indicating whether the current overrides have been merged 
+    // with the layout settings. 
   ACPL_PORT bool isValidated() const;
+    // Gets the "changed" bits on the info object to indicate the what
+    // properties of the source layout changed as a result of applying the plot
+    // settings and device overrides.  
   ACPL_PORT unsigned long mergeStatus() const;
+    // Could this object be sufficiently similar to another plot info,
+    // satisfying the requirements of multi-page documents
+    // (Same device name, media size, orientation, etc.)
   ACPL_PORT bool isCompatibleDocument(const AcPlPlotInfo* pOtherInfo) const;
+    // original file path of the current drawing accosicated with the current plot task
+    // this path is now used only for finding plot style. see P038B013LAD1.txt.
   ACPL_PORT AcString& OrgFilePath()
   {
     return m_OrgFilePath;

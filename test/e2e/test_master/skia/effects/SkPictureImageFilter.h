@@ -8,6 +8,7 @@
 #  define SkPictureImageFilter_DEFINED
 #  include "include/core/SkImageFilter.h"
 class SkPicture;
+// DEPRECATED: Use include/effects/SkImageFilters::Picture
 class SK_API SkPictureImageFilter
 {
 public:

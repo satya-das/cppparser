@@ -7,6 +7,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #ifndef _ADUI_THEME_MANAGER_H_
 #  define _ADUI_THEME_MANAGER_H_
 ///<summary>Internal use only</summary>

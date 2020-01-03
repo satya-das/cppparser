@@ -17,6 +17,9 @@
 class SK_API SkVertices : public SkNVRefCnt<SkVertices>
 {
 public:
+    // BoneIndices indicates which (of a maximum of 4 bones) a given vertex will interpolate
+    // between. To indicate that a slot is not used, the convention is to assign the bone index
+    // to 0.
   struct BoneIndices
   {
     uint32_t indices[4];
@@ -33,6 +36,9 @@ public:
       return indices[i];
     }
   };
+    // BoneWeights stores the interpolation weight for each of the (maximum of 4) bones a given
+    // vertex interpolates between. To indicate that a slot is not used, the weight for that
+    // slot should be 0.
   struct BoneWeights
   {
     float weights[4];
@@ -49,6 +55,10 @@ public:
       return weights[i];
     }
   };
+    // Bone stores a 3x2 transformation matrix in column major order:
+    // | scaleX   skewX transX |
+    // |  skewY  scaleY transY |
+    // SkRSXform is insufficient because bones can have non uniform scale.
   struct Bone
   {
     float values[6];
@@ -126,6 +136,7 @@ public:
     {
       return fVertices != nullptr;
     }
+        // if the builder is invalid, these will return 0
     int vertexCount() const;
     int indexCount() const;
     bool isVolatile() const;
@@ -135,11 +146,15 @@ public:
     BoneIndices* boneIndices();
     BoneWeights* boneWeights();
     uint16_t* indices();
+        // Detach the built vertices object. After the first call, this will always return null.
     sk_sp<SkVertices> detach();
   private:
     Builder(VertexMode mode, int vertexCount, int indexCount, bool isVolatile, const Sizes&);
     void init(VertexMode mode, int vertexCount, int indexCount, bool isVolatile, const Sizes&);
+        // holds a partially complete object. only completed in detach()
     sk_sp<SkVertices> fVertices;
+        // Extra storage for intermediate vertices in the case where the client specifies indexed
+        // triangle fans. These get converted to indexed triangles when the Builder is finalized.
     std::unique_ptr<uint8_t[]> fIntermediateFanIndices;
     friend class SkVertices;
   };
@@ -208,6 +223,7 @@ public:
     return fIsVolatile;
   }
   sk_sp<SkVertices> applyBones(const Bone bones[], int boneCount) const;
+    // returns approximate byte size of the vertices object
   size_t approximateSize() const;
     /**
      *  Recreate a vertices from a buffer previously created by calling encode().
@@ -223,10 +239,14 @@ private:
   SkVertices()
   {
   }
+    // these are needed since we've manually sized our allocation (see Builder::init)
   friend class SkNVRefCnt<SkVertices>;
   void operator delete(void* p);
   static sk_sp<SkVertices> Alloc(int vCount, int iCount, uint32_t builderFlags, size_t* arraySize);
+    // we store this first, to pair with the refcnt in our base-class, so we don't have an
+    // unnecessary pad between it and the (possibly 8-byte aligned) ptrs.
   uint32_t fUniqueID;
+    // these point inside our allocation, so none of these can be "freed"
   SkPoint* fPositions;
   SkPoint* fTexs;
   SkColor* fColors;
@@ -238,5 +258,6 @@ private:
   int fIndexCnt;
   bool fIsVolatile;
   VertexMode fMode;
+    // below here is where the actual array data is stored.
 };
 #endif

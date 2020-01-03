@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #ifndef __DBMLEADERSTYLE_H__
 #  define __DBMLEADERSTYLE_H__
 #  pragma  once
@@ -1464,6 +1466,7 @@ protected:
     ///
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
+// Deprecated method. Please use the overload taking AcString & arg
 inline Acad::ErrorStatus AcDbMLeaderStyle::getName(ACHAR*& pName) const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbMLeaderStyle::getName, pName);

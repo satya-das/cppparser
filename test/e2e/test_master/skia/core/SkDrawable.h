@@ -129,6 +129,7 @@ protected:
   {
     return nullptr;
   }
+    // TODO: Delete this once Android gets updated to take the clipBounds version above.
   virtual std::unique_ptr<GpuDrawHandler> onSnapGpuDrawHandler(GrBackendApi, const SkMatrix&)
   {
     return nullptr;

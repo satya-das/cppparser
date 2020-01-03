@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #ifndef __IMGENT_H
 #  define __IMGENT_H
 #  include "dbents.h"
@@ -19,7 +21,11 @@
 #  pragma  pack (push, 8)
 const double kEpsilon = 1.0e-7;
 const int kAllEntityProxyFlags = AcDbProxyEntity::kEraseAllowed | AcDbProxyEntity::kTransformAllowed | AcDbProxyEntity::kColorChangeAllowed | AcDbProxyEntity::kLayerChangeAllowed | AcDbProxyEntity::kLinetypeChangeAllowed | AcDbProxyEntity::kMaterialChangeAllowed | AcDbProxyEntity::kLinetypeScaleChangeAllowed | AcDbProxyEntity::kVisibilityChangeAllowed;
+// Opaque types
+//
 class RasterImageImp;
+// Make compiler shut up
+//
 #  pragma  warning( disable : 4275 ) 
 #  ifdef ISMDLLACCESS
 #    undef ISMDLLACCESS
@@ -28,6 +34,8 @@ class RasterImageImp;
 #    undef ISMDLLACCESSDATA
 #  endif
 #  ifdef ISM_OBJ
+// Classes to be exported have to have ISMDLLACCESS definition in its header.
+// Example: class ISMDLLACCESS AcDbImpRasterImageDef
 #    define ISMDLLACCESS	__declspec(dllexport)
 #    define ISMDLLACCESSDATA
 #  else 
@@ -35,6 +43,7 @@ class RasterImageImp;
 #    define ISMDLLACCESSDATA	__declspec(dllimport)
 #  endif
 ////////////////////// AcDbRasterImage ///////////////////
+//
 class ISMDLLACCESS AcDbRasterImage : public AcDbImage
 {
 public:
@@ -45,29 +54,37 @@ public:
   RasterImageImp* ptrImp() const;
   RasterImageImp* setPtrImp(RasterImageImp* pImp);
     //////////////////// AcDbObject overrides ////////////////////
+    //
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
   virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
   virtual Acad::ErrorStatus subSwapIdWith(AcDbObjectId otherId, Adesk::Boolean swapXdata = Adesk::kFalse, Adesk::Boolean swapExtDict = Adesk::kFalse) override;
     //////////////////// AcDbEntity overrides ////////////////////
+    // 
   virtual void saveAs(AcGiWorldDraw* mode, AcDb::SaveType st) override;
   virtual bool castShadows() const override;
   virtual void setCastShadows(bool newVal) override;
   virtual bool receiveShadows() const override;
   virtual void setReceiveShadows(bool newVal) override;
     ////////////////////// AcDbImage specific protocol ////////////////////
+    //
   virtual AcGiSentScanLines* getScanLines(const AcGiRequestScanLines& req) const override;
   virtual Adesk::Boolean freeScanLines(AcGiSentScanLines* pSSL) const override;
     ////////////////////// AcDbRasterImage specific protocol ////////////////////
+    //
   virtual Acad::ErrorStatus setImageDefId(AcDbObjectId imageId);
   virtual AcDbObjectId imageDefId() const;
   virtual void setReactorId(AcDbObjectId reactorId);
   virtual AcDbObjectId reactorId() const;
+    // Image plane orientation
+    //
   virtual Adesk::Boolean setOrientation(const AcGePoint3d& origin, const AcGeVector3d& uCorner, const AcGeVector3d& vOnPlane);
   virtual void getOrientation(AcGePoint3d& origin, AcGeVector3d& u, AcGeVector3d& v) const;
   virtual AcGeVector2d scale() const;
   virtual AcGeVector2d imageSize(Adesk::Boolean bGetCachedValue = Adesk::kFalse) const;
+    // Clip boundary management protocol
+    //
   enum ClipBoundaryType
   {
     kInvalid,
@@ -93,8 +110,15 @@ public:
   virtual const AcGePoint2dArray& clipBoundary() const;
   virtual ClipBoundaryType clipBoundaryType() const;
   Adesk::Boolean isClipped() const;
+    // Returns either clip boundary or image extents vertices.
+    // Used for object snapping and intersection.
+    //
   virtual Acad::ErrorStatus getVertices(AcGePoint3dArray& verts) const;
+    // Image pixel to model coordinate transform 
+    //
   virtual Acad::ErrorStatus getPixelToModelTransform(AcGeMatrix3d&) const;
+    // Per-entity image display and plot options.
+    //
   enum ImageDisplayOpt
   {
     kShow = 1,
@@ -121,6 +145,7 @@ public:
   AcGePoint3d position() const;
   double rotation() const;
   Acad::ErrorStatus setRotation(double rotation);
+    //aliases for setDisplayOpt/isSetDisplayOpt
   bool isImageShown() const;
   void setShowImage(bool value);
   bool isImageTransparent() const;
@@ -152,6 +177,13 @@ protected:
   friend class AcDbImpRasterImage;
   void baseList() const;
 private:
+    // These are here because otherwise dllexport tries to export the
+    // private methods of AcDbObject.  They're private in AcDbObject
+    // because vc5 does not properly support array new and delete.
+    // It tends to call the wrong delete operator and to not call
+    // the dtors on all elements in the array.  So we make them
+    // private in order to prevent usage of them.
+    //
   void* operator new[](size_t)
   {
     return (void*) 0;
@@ -167,10 +199,13 @@ private:
   static ClassVersion mVersion;
 };
 //////////////////// inlines ////////////////////
+//
+//returns the implementation class pointer
 inline RasterImageImp* AcDbRasterImage::ptrImp() const
 {
   return mpImp;
 }
+//sets the implementation class pointer
 inline RasterImageImp* AcDbRasterImage::setPtrImp(RasterImageImp* pImp)
 {
   RasterImageImp* oldImp = mpImp;
@@ -183,17 +218,24 @@ inline ClassVersion AcDbRasterImage::classVersion()
 }
 inline void pixelToModel(const AcGeMatrix3d& pixToMod, const AcGePoint2d& pixPt, AcGePoint3d& modPt)
 {
+    // Transform pixel coordinates to model space.
+    //
   modPt.set(pixPt.x, pixPt.y, 0);
   modPt.transformBy(pixToMod);
 }
 inline void modelToPixel(const AcGeMatrix3d& modToPix, const AcGePoint3d& modPt, AcGePoint2d& pixPt)
 {
+    // Transform model coordinates to pixel space.
+    //
   AcGePoint3d modelPt = modPt;
   modelPt.transformBy(modToPix);
   pixPt.set(modelPt.x, modelPt.y);
 }
 inline void modelToPixel(const AcGeVector3d& viewDir, const AcGeMatrix3d& modToPix, const AcGePlane& plane, const AcGePoint3d& modPt, AcGePoint2d& pixPt)
 {
+    // Project the point in the viewpoint direction
+    // onto the plane of the image.
+    //
   AcGePoint3d ptOnPlane = modPt.project(plane, viewDir);
   ptOnPlane.transformBy(modToPix);
   pixPt.set(ptOnPlane.x, ptOnPlane.y);

@@ -4,15 +4,13 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+
+// EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL
+// DO NOT USE -- FOR INTERNAL TESTING ONLY
 #ifndef sk_canvas_DEFINED
 #  define sk_canvas_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-/**
-    Save the current matrix and clip on the canvas.  When the
-    balancing call to sk_canvas_restore() is made, the previous matrix
-    and clip are restored.
-*/
 SK_API void sk_canvas_save(sk_canvas_t*);
 /**
     This behaves the same as sk_canvas_save(), but in addition it

@@ -126,7 +126,10 @@ struct SK_API SkPoint3
     accum *= fX;
     accum *= fY;
     accum *= fZ;
+        // accum is either NaN or it is finite (zero).
     SkASSERT(0 == accum || SkScalarIsNaN(accum));
+        // value==value will be true iff value is not NaN
+        // TODO: is it faster to say !accum or accum==accum?
     return !SkScalarIsNaN(accum);
   }
     /** Returns the dot product of a and b, treating them as 3D vectors

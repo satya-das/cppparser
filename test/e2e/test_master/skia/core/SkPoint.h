@@ -408,7 +408,10 @@ struct SK_API SkPoint
     SkScalar accum = 0;
     accum *= fX;
     accum *= fY;
+        // accum is either NaN or it is finite (zero).
     SkASSERT(0 == accum || SkScalarIsNaN(accum));
+        // value==value will be true iff value is not NaN
+        // TODO: is it faster to say !accum or accum==accum?
     return !SkScalarIsNaN(accum);
   }
     /** Returns true if SkPoint is equivalent to SkPoint constructed from (x, y).

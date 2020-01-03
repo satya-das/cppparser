@@ -66,6 +66,7 @@ struct SK_API GrContextOptions
   GrContextOptions()
   {
   }
+    // Suppress prints for the GrContext.
   bool fSuppressPrints = false;
     /** Overrides: These options override feature detection using backend API queries. These
         overrides can only reduce the feature set or limits, never increase them beyond the
@@ -91,6 +92,7 @@ struct SK_API GrContextOptions
      * artifacts along shared edges if care isn't taken to ensure both contours wind in the same
      * direction.
      */
+    // FIXME: Once this is removed from Chrome and Android, rename to fEnable"".
   bool fDisableCoverageCountingPaths = true;
     /**
      * Disables distance field rendering for paths. Distance field computation can be expensive,

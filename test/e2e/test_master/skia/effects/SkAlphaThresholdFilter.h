@@ -8,6 +8,7 @@
 #  define SkAlphaThresholdFilter_DEFINED
 #  include "include/core/SkImageFilter.h"
 class SkRegion;
+// DEPRECATED: Use include/effects/SkImageFilters::AlphaThreshold
 class SK_API SkAlphaThresholdFilter
 {
 public:

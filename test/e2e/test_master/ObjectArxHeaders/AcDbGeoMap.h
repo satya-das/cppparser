@@ -37,6 +37,8 @@ public:
 	/// <summary> Destructor. </summary>
 	///
   virtual ~AcDbGeoMap();
+	// AcDbGeoMap protocol
+
 	/// <summary> Returns the bottom left corner point of the image frame. </summary>
 	///
   AcGePoint3d bottomLeftPt() const;
@@ -117,12 +119,14 @@ public:
     /// <returns>Returns true if successful.</returns>
 	///
   Adesk::Boolean updateMapImage(Adesk::Boolean bReset = Adesk::kFalse);
+    // AcDbObject protocol
   Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
   Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
   Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
   Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
   Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
   virtual Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler* undoFiler, AcRxClass* classObj) override;
+    // AcDbEntity protocol
   Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds) const override;
   Acad::ErrorStatus subGetGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const override;
   Acad::ErrorStatus subGetGripPoints(AcGePoint3dArray& gripPoints, AcDbIntArray& osnapModes, AcDbIntArray& geomIds) const override;
@@ -131,8 +135,10 @@ public:
   Acad::ErrorStatus subIntersectWith(const AcDbEntity* ent, AcDb::Intersect intType, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0) const override;
   Acad::ErrorStatus subMoveGripPointsAt(const AcDbIntArray& indices, const AcGeVector3d& offset) override;
   Acad::ErrorStatus subIntersectWith(const AcDbEntity* ent, AcDb::Intersect intType, const AcGePlane& projPlane, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0) const override;
+    // AcDbImage protocol
   AcGiSentScanLines* getScanLines(const AcGiRequestScanLines& req) const override;
   Adesk::Boolean freeScanLines(AcGiSentScanLines* pSSL) const override;
+    // AcDbRasterImage protocol
   AcDbObjectId imageDefId() const override;
 	/// <summary> 
 	/// Given an empty array, this function adds the image frame vertices to represent the four corners of the image.  
@@ -141,6 +147,7 @@ public:
     /// <param name="verts"> Returns a 3D point array of 4 corners </param>
 	///
   Acad::ErrorStatus getVertices(AcGePoint3dArray& verts) const override;
+	// bGetCachedValue is required by override but has no effect
   AcGeVector2d imageSize(Adesk::Boolean bGetCachedValue = Adesk::kFalse) const override;
   const AcGePoint2dArray& clipBoundary() const override;
 	/// <summary> 
@@ -164,15 +171,20 @@ public:
   Adesk::Int8 fade() const override;
   void getOrientation(AcGePoint3d& origin, AcGeVector3d& u, AcGeVector3d& v) const override;
 protected:
+    // AcDbObject protocol
   Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
   Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWorldDraw) override;
   void subViewportDraw(AcGiViewportDraw* pViewportDraw) override;
   virtual void subList() const override;
+    // AcDbEntity protocol
   Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 private:
   GeoMapImp* m_pImp;
   friend class AcDbGeoMapSystemInternals;
+    // These are here because otherwise dllexport tries to export the
+    // private methods of AcDbRasterImage.
+    // error C2248: 'AcDbRasterImage::operator delete[]' : cannot access private member declared in class 'AcDbRasterImage'
   void* operator new[](size_t nSize)
   {
     return (void*) 0;

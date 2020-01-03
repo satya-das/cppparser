@@ -27,6 +27,7 @@ class GrGLTextureParameters;
 class SkString;
 #  endif
 #  if  !SK_SUPPORT_GPU
+// SkSurface and SkImage rely on a minimal version of these always being available
 class SK_API GrBackendTexture
 {
 public:
@@ -54,6 +55,7 @@ enum class GrGLFormat;
 class SK_API GrBackendFormat
 {
 public:
+    // Creates an invalid backend format.
   GrBackendFormat()
   {
   }
@@ -126,7 +128,11 @@ public:
      * GrColorType::kUnknown.
      */
   GrColorType asMockColorType() const;
+    // If possible, copies the GrBackendFormat and forces the texture type to be Texture2D. If the
+    // GrBackendFormat was for Vulkan and it originally had a GrVkYcbcrConversionInfo, we will
+    // remove the conversion and set the format to be VK_FORMAT_R8G8B8A8_UNORM.
   GrBackendFormat makeTexture2D() const;
+    // Returns true if the backend format has been initialized.
   bool isValid() const
   {
     return fValid;
@@ -167,10 +173,12 @@ private:
 class SK_API GrBackendTexture
 {
 public:
+    // Creates an invalid backend texture.
   GrBackendTexture()
     : fIsValid(false)
   {
   }
+    // The GrGLTextureInfo must have a valid fFormat.
   GrBackendTexture(int width, int height, GrMipMapped, const GrGLTextureInfo& glInfo);
   GrBackendTexture(int width, int height, const GrVkImageInfo& vkInfo);
 #    ifdef SK_METAL
@@ -199,23 +207,42 @@ public:
   {
     return fBackend;
   }
+    // If the backend API is GL, copies a snapshot of the GrGLTextureInfo struct into the passed in
+    // pointer and returns true. Otherwise returns false if the backend API is not GL.
   bool getGLTextureInfo(GrGLTextureInfo*) const;
+    // Call this to indicate that the texture parameters have been modified in the GL context
+    // externally to GrContext.
   void glTextureParametersModified();
 #    ifdef SK_DAWN
+    // If the backend API is Dawn, copies a snapshot of the GrDawnImageInfo struct into the passed
+    // in pointer and returns true. Otherwise returns false if the backend API is not Dawn.
   bool getDawnImageInfo(GrDawnImageInfo*) const;
 #    endif
+    // If the backend API is Vulkan, copies a snapshot of the GrVkImageInfo struct into the passed
+    // in pointer and returns true. This snapshot will set the fImageLayout to the current layout
+    // state. Otherwise returns false if the backend API is not Vulkan.
   bool getVkImageInfo(GrVkImageInfo*) const;
+    // Anytime the client changes the VkImageLayout of the VkImage captured by this
+    // GrBackendTexture, they must call this function to notify Skia of the changed layout.
   void setVkImageLayout(VkImageLayout);
 #    ifdef SK_METAL
+    // If the backend API is Metal, copies a snapshot of the GrMtlTextureInfo struct into the passed
+    // in pointer and returns true. Otherwise returns false if the backend API is not Metal.
   bool getMtlTextureInfo(GrMtlTextureInfo*) const;
 #    endif
+    // Get the GrBackendFormat for this texture (or an invalid format if this is not valid).
   GrBackendFormat getBackendFormat() const;
+    // If the backend API is Mock, copies a snapshot of the GrMockTextureInfo struct into the passed
+    // in pointer and returns true. Otherwise returns false if the backend API is not Mock.
   bool getMockTextureInfo(GrMockTextureInfo*) const;
+    // Returns true if we are working with protected content.
   bool isProtected() const;
+    // Returns true if the backend texture has been initialized.
   bool isValid() const
   {
     return fIsValid;
   }
+    // Returns true if both textures are valid and refer to the same API texture.
   bool isSameTexture(const GrBackendTexture&);
 #    if  GR_TEST_UTILS
   static bool TestingOnly_Equals(const GrBackendTexture&, const GrBackendTexture&);
@@ -233,6 +260,7 @@ private:
   GrBackendTexture(int width, int height, const GrVkImageInfo& vkInfo, sk_sp<GrVkImageLayout> layout);
   sk_sp<GrVkImageLayout> getGrVkImageLayout() const;
 #    endif
+    // Free and release and resources being held by the GrBackendTexture.
   void cleanup();
   bool fIsValid;
   int fWidth;
@@ -257,10 +285,12 @@ private:
 class SK_API GrBackendRenderTarget
 {
 public:
+    // Creates an invalid backend texture.
   GrBackendRenderTarget()
     : fIsValid(false)
   {
   }
+    // The GrGLTextureInfo must have a valid fFormat.
   GrBackendRenderTarget(int width, int height, int sampleCnt, int stencilBits, const GrGLFramebufferInfo& glInfo);
 #    ifdef SK_DAWN
   GrBackendRenderTarget(int width, int height, int sampleCnt, int stencilBits, const GrDawnImageInfo& dawnInfo);
@@ -295,18 +325,34 @@ public:
   {
     return fBackend;
   }
+    // If the backend API is GL, copies a snapshot of the GrGLFramebufferInfo struct into the passed
+    // in pointer and returns true. Otherwise returns false if the backend API is not GL.
   bool getGLFramebufferInfo(GrGLFramebufferInfo*) const;
 #    ifdef SK_DAWN
+    // If the backend API is Dawn, copies a snapshot of the GrDawnImageInfo struct into the passed
+    // in pointer and returns true. Otherwise returns false if the backend API is not Dawn.
   bool getDawnImageInfo(GrDawnImageInfo*) const;
 #    endif
+    // If the backend API is Vulkan, copies a snapshot of the GrVkImageInfo struct into the passed
+    // in pointer and returns true. This snapshot will set the fImageLayout to the current layout
+    // state. Otherwise returns false if the backend API is not Vulkan.
   bool getVkImageInfo(GrVkImageInfo*) const;
+    // Anytime the client changes the VkImageLayout of the VkImage captured by this
+    // GrBackendRenderTarget, they must call this function to notify Skia of the changed layout.
   void setVkImageLayout(VkImageLayout);
 #    ifdef SK_METAL
+    // If the backend API is Metal, copies a snapshot of the GrMtlTextureInfo struct into the passed
+    // in pointer and returns true. Otherwise returns false if the backend API is not Metal.
   bool getMtlTextureInfo(GrMtlTextureInfo*) const;
 #    endif
+    // Get the GrBackendFormat for this render target (or an invalid format if this is not valid).
   GrBackendFormat getBackendFormat() const;
+    // If the backend API is Mock, copies a snapshot of the GrMockTextureInfo struct into the passed
+    // in pointer and returns true. Otherwise returns false if the backend API is not Mock.
   bool getMockRenderTargetInfo(GrMockRenderTargetInfo*) const;
+    // Returns true if we are working with protected content.
   bool isProtected() const;
+    // Returns true if the backend texture has been initialized.
   bool isValid() const
   {
     return fIsValid;
@@ -319,6 +365,7 @@ private:
   sk_sp<GrVkImageLayout> getGrVkImageLayout() const;
   friend class GrVkRenderTarget;
   GrBackendRenderTarget(int width, int height, int sampleCnt, const GrVkImageInfo& vkInfo, sk_sp<GrVkImageLayout> layout);
+    // Free and release and resources being held by the GrBackendTexture.
   void cleanup();
   bool fIsValid;
   int fWidth;

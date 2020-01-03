@@ -29,6 +29,8 @@ public:
   ~SkPictureRecorder();
   enum RecordFlags
   {
+        // If you call drawPicture() or drawDrawable() on the recording canvas, this flag forces
+        // that object to playback its contents immediately rather than reffing the object.
     kPlaybackDrawPicture_RecordFlag = 1 << 0
   };
   enum FinishFlags;

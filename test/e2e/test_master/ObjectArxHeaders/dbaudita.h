@@ -7,6 +7,9 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+//      Header file for auditing routines
 #ifndef DB_DBAUDITA_H
 #  define DB_DBAUDITA_H	1
 #  include "AdAChar.h"
@@ -16,6 +19,29 @@ class AcDbAuditInfo;
 class AcDbImpAuditInfo;
 class AcDbAuditImp;
 class AcDbObject;
+// ACDB_AUDIT_RETURN
+//
+// This macro encapsulates the recommended "contract" for arbitrating
+// audit return statuses between parent class status and local class
+// status.  If either the parent class audit member fails or the
+// local audit member fails, the object audit fails, with the parent
+// class failure taking precedence.  The last parameter is a bool
+// which specifies whether to "boil down" failure status to the
+// recommended audit return values or return the direct local status.
+// If this member doesn't supermessage a parent class, then pass in
+// "eOk" for BaseEs. 
+//
+// if AcDbImpObject::audit failed,
+// then the audit "fails"           
+// else if local test succeeded,     
+// then the audit "succeeds" so far, 
+// return different bad status or    
+//  "boil down" to accepted status     
+// else if audit is to fix errors
+// then say we fixed all errors 
+// else we didn't fix them!     
+// Return local status              
+//
 #  define ACDB_AUDIT_RETURN(pAuditInfo, baseEs, localEs, boilDownLocalStatus)	        \
     return (baseEs != eOk)                ?  \
                baseEs                     :  \
@@ -39,12 +65,25 @@ public:
   AcDbAuditInfo();
   ~AcDbAuditInfo();
   bool fixErrors(void) const;
+                                                 // be fixed.
   int numErrors() const;
   int numFixes(void) const;
   void errorsFound(int count);
+                                            // of errors found.
   void errorsFixed(int count);
+                                            // errors fixed.
   AuditPass auditPass(void) const;
+                                            // number:
+                                            // 1 = pass 1,
+                                            // 2 = pass 2.
   void printError(const ACHAR* name, const ACHAR* value, const ACHAR* validation, const ACHAR* defaultValue);
+                                            // message string to the
+                                            // Audit report file.
+                                            // Obeys AUDITCTL.
+
+    // Same as above except that name is automatically constructed
+    // from the AcDbObject.
+    //
   void printError(const AcDbObject* pObj, const ACHAR* value, const ACHAR* validation, const ACHAR* defaultValue);
   void requestRegen();
   void resetNumEntities();
@@ -237,6 +276,7 @@ private:
   AcDbImpAuditInfo* getImpAudit() const;
   AcDbImpAuditInfo* mpImpAudit;
 };
+//    Class to hold the call back function.
 class AcDbRecover
 {
 public:

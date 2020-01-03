@@ -7,6 +7,7 @@
 #ifndef SkMergeImageFilter_DEFINED
 #  define SkMergeImageFilter_DEFINED
 #  include "include/core/SkImageFilter.h"
+// DEPRECATED: Use include/effects/SkImageFilters::Merge
 class SK_API SkMergeImageFilter
 {
 public:

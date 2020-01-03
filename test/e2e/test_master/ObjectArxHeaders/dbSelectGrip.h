@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+//  dbSelectVPGrip.h - public header file for AcDbSelectVPGrip api
+//
 #ifndef _DBSELECTGRIP_H
 #  define _DBSELECTGRIP_H
 #  include "acdb.h"

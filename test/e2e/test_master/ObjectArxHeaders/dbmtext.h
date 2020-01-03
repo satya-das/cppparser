@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,40 +8,78 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  dbmtext.h - multi-line text entity
 #ifndef AD_DBMTEXT_H
 #  define AD_DBMTEXT_H
 #  include "dbmain.h"
 #  pragma  pack(push, 8)
+//  This structure is used to describe a fragment of text as 
+//  extracted by the explodeFragments() member function.  Each 
+//  fragment consists of a piece of text with a unique 
+//  combination of style information (font, size, color, etc.)
+//
 struct AcDbMTextFragment
 {
+    //  position data
+    //
   AcGePoint3d location;
   AcGeVector3d normal;
   AcGeVector3d direction;
+    //  text characters
+    //
   AcString msText;
+    // This member points to the msText member. It may be removed
+    // in the future. Please use the msText member instead.
   const ACHAR* text = nullptr;
+    //  font names
+    //
   AcString msFont;
+    // This member points to the msFont member. It may be removed
+    // in the future. Please use the msFont member instead.
   const ACHAR* font = nullptr;
   AcString msBigFont;
+    // This member points to the msBigFont member. It may be removed
+    // in the future. Please use the msBigFont member instead.
   const ACHAR* bigfont = nullptr;
+    //  metrics
+    //
   AcGePoint2d extents;
   double capsHeight = 0.0;
   double widthFactor = 0.0;
   double obliqueAngle = 0.0;
   double trackingFactor = 0.0;
   AcCmEntityColor color;
+    //  stack flags
+    //
   unsigned stackTop;
   unsigned stackBottom;
+    //  underline/overline data
+    //
   unsigned underlined;
   unsigned overlined;
   unsigned strikethrough;
   AcGePoint3d underPoints[2] = {};
   AcGePoint3d overPoints[2] = {};
   AcGePoint3d strikePoints[2] = {};
+    //  true type font data
+    //
   AcString msFontName;
+    // This member points to the msFontName member. It may be removed
+    // in the future. Please use the msFontName member instead.
   const ACHAR* fontname = nullptr;
   bool bold = false;
   bool italic = false;
 };
+//  Fragment Enumerator Callback Function Prototype
+//
+//  A pointer to a function of this type is expected by the explodeFragments() 
+//  member function.  The elaboration function is called once for each 
+//  fragment. 'frag' points to the relevant fragment structure. 'param' 
+//  contains the value of the 'param' argument given to the explodeFragments()
+//   member function. The elaboration function must return 1 to continue the 
+//  elaboration operation, or 0 to terminate the operation.
+//
 typedef int (*AcDbMTextEnum) (AcDbMTextFragment*, void*);
 class AcDbText;
 class AcDbMText : public AcDbEntity
@@ -49,25 +88,42 @@ class AcDbMText : public AcDbEntity
 public:
   AcDbMText();
   ~AcDbMText();
+    //  Insertion point
+    //
   AcGePoint3d location() const;
   Acad::ErrorStatus setLocation(const AcGePoint3d&);
+    //  Normal vector
+    // 
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
+    // AcDbEntity override
   virtual Adesk::Boolean isPlanar() const override
   {
     return Adesk::kTrue;
   }
   ACDBCORE2D_PORT Acad::ErrorStatus getPlane(AcGePlane& plane, AcDb::Planarity& type) const override;
+    //  Direction vector
+    //
   AcGeVector3d direction() const;
   Acad::ErrorStatus setDirection(const AcGeVector3d&);
+    //  Rotation angle (radians)
+    // 
   double rotation() const;
   Acad::ErrorStatus setRotation(double);
+    //  Entity width (constraining value)
+    // 
   double width() const;
   Acad::ErrorStatus setWidth(double);
+    //  Descent/Ascent
+    // 
   double ascent() const;
   double descent() const;
+    //  Text Style (sets initial font)
+    //
   AcDbObjectId textStyle() const;
   Acad::ErrorStatus setTextStyle(AcDbObjectId);
+    //  Initial text height (caps height)
+    //
   double textHeight() const;
   Acad::ErrorStatus setTextHeight(double);
   enum AttachmentPoint
@@ -100,6 +156,12 @@ public:
   AttachmentPoint attachment() const;
   Acad::ErrorStatus setAttachment(AttachmentPoint);
   Acad::ErrorStatus setAttachmentMovingLocation(AttachmentPoint);
+    // This latter method will implicitly setLocation based on the
+    // relationship of current and new attachment values in order
+    // to keep the extents of the MText object constant.
+
+    //  Text flow direction
+    //
   enum FlowDirection
   {
     kLtoR = 1,
@@ -110,6 +172,8 @@ public:
   };
   FlowDirection flowDirection() const;
   Acad::ErrorStatus setFlowDirection(FlowDirection);
+    //  Text contents
+    //
   ACDBCORE2D_PORT Acad::ErrorStatus contents(AcString& sContents) const;
   ACHAR* contents() const;
   int setContents(const ACHAR*);
@@ -139,11 +203,19 @@ public:
   int setContentsRTF(const ACHAR* RTFString);
   ACDBCORE2D_PORT Acad::ErrorStatus text(AcString& sText) const;
   ACHAR* text() const;
+    //  Actual extents
+    //
   double actualHeight(AcGiWorldDraw* ctxt = NULL) const;
   double actualWidth() const;
   int correctSpelling();
+    //  Return points marking text box
+    //
   void getBoundingPoints(AcGePoint3dArray&) const;
+    //  Explode text fragments
+    //
   void explodeFragments(AcDbMTextEnum, void*, AcGiWorldDraw* ctxt = NULL) const;
+    //  These strings can be used instead of sprinkling your code 
+    //  with string constants.
   static const ACHAR* const nonBreakSpace();
   static const ACHAR* const overlineOn();
   static const ACHAR* const overlineOff();
@@ -165,6 +237,7 @@ public:
   static const ACHAR* const strikethroughOff();
   Acad::ErrorStatus setLineSpacingStyle(AcDb::LineSpacingStyle eStyle);
   AcDb::LineSpacingStyle lineSpacingStyle() const;
+    // 1.0 = single spaced (default), 2.0 = double-spaced, etc.
   Acad::ErrorStatus setLineSpacingFactor(double dFactor);
   double lineSpacingFactor() const;
   void getEcs(AcGeMatrix3d& retVal) const override;
@@ -215,13 +288,23 @@ public:
   Acad::ErrorStatus setColumnFlowReversed(bool);
   Acad::ErrorStatus getColumnHeight(int, double&) const;
   Acad::ErrorStatus setColumnHeight(int, double);
+    // FOR INTERNAL USE ONLY
   Acad::ErrorStatus setUseWordBreak(bool bEnable);
   bool useWordBreak() const;
+    // FOR INTERNAL USE ONLY
+    
+    // FOR INTERNAL USE ONLY
+    //  Entity height (constraining value)
+    // 
   double height() const;
   Acad::ErrorStatus setHeight(double);
+    // FOR INTERNAL USE ONLY
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
+// These overloads are deprecated and will be removed. Please use the
+// overloads taking AcString & args instead
+//
 inline ACHAR* AcDbMText::contents() const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbMText::contents);

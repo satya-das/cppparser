@@ -1,5 +1,7 @@
 #ifndef DBDIMVAR_H
 #  define DBDIMVAR_H
+//
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -9,6 +11,16 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+// DESCRIPTION: 
+// The api for dimensioning variables shared by 
+//  AcDbDatabase, 
+//  AcDbDimstyleTableRecord, and 
+//  AcDbDimension
+    
+    //  -------------------------  Dimension Style get methods
+    //
 virtual int dimadec() const;
 virtual bool dimalt() const;
 virtual int dimaltd() const;
@@ -87,6 +99,8 @@ virtual double dimmzf() const;
 virtual const ACHAR* dimmzs() const;
 virtual double dimaltmzf() const;
 virtual const ACHAR* dimaltmzs() const;
+    //  -------------------------  Dimension Style set methods
+    //
 virtual Acad::ErrorStatus setDimadec(int v);
 virtual Acad::ErrorStatus setDimalt(bool v);
 virtual Acad::ErrorStatus setDimaltd(int v);

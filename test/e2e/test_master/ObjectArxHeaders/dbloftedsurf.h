@@ -7,6 +7,12 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+// DESCRIPTION:
+//
+// The AcDbLoftedSurface class is the interface class for representing
+// ASM lofted surfaces. 
 #pragma  once
 #ifndef DBLOFTEDSURF_H
 #  define DBLOFTEDSURF_H
@@ -305,6 +311,7 @@ public:
     /// Loft surface type:  ordinary loft, blend, or network.
     /// </returns>
   ACDB_PORT AcDbLoftedSurface::LoftSurfaceType loftSurfaceType() const;
+    // AcDbObject methods
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;

@@ -103,6 +103,8 @@ public:
   {
     if (atomic_conditional_acquire_strong_ref() != 0)
     {
+            // Acquire barrier (L/SL), if not provided above.
+            // Prevents subsequent code from happening before the increment.
       return true;
     }
     return false;
@@ -114,6 +116,7 @@ public:
   {
     SkASSERT(getRefCnt() > 0);
     SkASSERT(getWeakCnt() > 0);
+        // No barrier required.
     (void) fWeakCnt.fetch_add(1, std::memory_order_relaxed);
   }
     /** Decrement the weak reference count. If the weak reference count is 1
@@ -124,9 +127,13 @@ public:
   void weak_unref() const
   {
     SkASSERT(getWeakCnt() > 0);
+        // A release here acts in place of all releases we "should" have been doing in ref().
     if (1 == fWeakCnt.fetch_add(-1, std::memory_order_acq_rel))
     {
+            // Like try_ref(), the acquire is only needed on success, to make sure
+            // code in internal_dispose() doesn't happen before the decrement.
 #  ifdef SK_DEBUG
+            // so our destructor won't complain
       fWeakCnt.store(1, std::memory_order_relaxed);
 #  endif
       this->INHERITED::internal_dispose();
@@ -158,6 +165,7 @@ private:
     weak_dispose();
     weak_unref();
   }
+    /* Invariant: fWeakCnt = #weak + (fRefCnt > 0 ? 1 : 0) */
   mutable std::atomic<int32_t> fWeakCnt;
   typedef SkRefCnt INHERITED;
 };

@@ -18,6 +18,9 @@
 #  include "include/private/SkWeakRefCnt.h"
 class GrBackendFormat;
 class GrCaps;
+// The old libstdc++ uses the draft name "monotonic_clock" rather than "steady_clock". This might
+// not actually be monotonic, depending on how libstdc++ was built. However, this is only currently
+// used for idle resource purging so it shouldn't cause a correctness problem.
 #  if  defined(__GLIBCXX__) && (__GLIBCXX__ < 20130000)
 using GrStdSteadyClock = std::chrono::monotonic_clock;
 #  else 
@@ -60,6 +63,7 @@ enum GrPixelConfig
   kLast_GrPixelConfig = kRG_half_GrPixelConfig
 };
 static const int kGrPixelConfigCnt = kLast_GrPixelConfig + 1;
+// Aliases for pixel configs that match skia's byte order.
 #  ifndef SK_CPU_LENDIAN
 #  endif
 #  if  SK_PMCOLOR_BYTE_ORDER(B,G,R,A)
@@ -111,6 +115,9 @@ static const int kMaskFormatCount = kLast_GrMaskFormat + 1;
 static int GrMaskFormatBytesPerPixel(GrMaskFormat format)
 {
   SkASSERT(format < kMaskFormatCount);
+    // kA8   (0) -> 1
+    // kA565 (1) -> 2
+    // kARGB (2) -> 4
   static const int sBytesPerPixel[] = {1, 2, 4};
   static_assert(SK_ARRAY_COUNT(sBytesPerPixel) == kMaskFormatCount, "array_size_mismatch");
   static_assert(kA8_GrMaskFormat == 0, "enum_order_dependency");
@@ -361,6 +368,7 @@ enum class GrTextureType
 {
   kNone,
   k2D,
+    /* Rectangle uses unnormalized texture coordinates. */
   kRectangle,
   kExternal
 };
@@ -380,7 +388,6 @@ enum GrShaderFlags
   kFragment_GrShaderFlag = 1 << kFragment_GrShaderType
 };
 GR_MAKE_BITFIELD_OPS(GrShaderFlags)
-/** Is the shading language type float (including vectors/matrices)? */
 static bool GrSLTypeIsFloatType(GrSLType type)
 {
   switch(type)
@@ -600,6 +607,7 @@ enum GrVertexAttribType
   kUByte4_GrVertexAttribType,
   kUByte_norm_GrVertexAttribType,
   kUByte4_norm_GrVertexAttribType,
+                                     // 255 -> 1.0f.
   kShort2_GrVertexAttribType,
   kShort4_GrVertexAttribType,
   kUShort2_GrVertexAttribType,
@@ -675,11 +683,22 @@ enum GrAccessPattern
   kStream_GrAccessPattern,
   kLast_GrAccessPattern = kStream_GrAccessPattern
 };
+// Flags shared between the GrSurface & GrSurfaceProxy class hierarchies
 enum class GrInternalSurfaceFlags
 {
   kNone = 0,
+    // Texture-level
+
+    // Means the pixels in the texture are read-only. Cannot also be a GrRenderTarget[Proxy].
   kReadOnly = 1 << 0,
+    // RT-level
+
+    // This flag is for use with GL only. It tells us that the internal render target wraps FBO 0.
   kGLRTFBOIDIs0 = 1 << 1,
+    // This means the render target is multisampled, and internally holds a non-msaa texture for
+    // resolving into. The render target resolves itself by blitting into this internal texture.
+    // (asTexture() might or might not return the internal texture, but if it does, we always
+    // resolve the render target before accessing this texture's data.)
   kRequiresManualMSAAResolve = 1 << 2
 };
 GR_MAKE_BITFIELD_CLASS_OPS(GrInternalSurfaceFlags)
@@ -687,6 +706,7 @@ static int kGrInternalTextureFlagsMask = static_cast<int>(GrInternalSurfaceFlags
 static int kGrInternalRenderTargetFlagsMask = static_cast<int>(GrInternalSurfaceFlags::kGLRTFBOIDIs0 | GrInternalSurfaceFlags::kRequiresManualMSAAResolve);
 static int kGrInternalTextureRenderTargetFlagsMask = kGrInternalTextureFlagsMask | kGrInternalRenderTargetFlagsMask;
 #  ifdef SK_DEBUG
+// Takes a pointer to a GrCaps, and will suppress prints if required
 #    define GrCapsDebugf	(caps, ...)  if (!(caps)->suppressPrints()) SkDebugf(__VA_ARGS__)
 #  else 
 #    define GrCapsDebugf	(caps, ...) do {} while (0)
@@ -738,9 +758,6 @@ enum class GrMipMapsStatus
   kValid
 };
 GR_MAKE_BITFIELD_CLASS_OPS(GpuPathRenderers)
-/**
- * Utility functions for GrPixelConfig
- */
 static GrPixelConfig GrCompressionTypePixelConfig(SkImage::CompressionType compression)
 {
   switch(compression)
@@ -920,6 +937,10 @@ enum class GrColorType
   kRG_1616,
   kRG_F16,
   kRGBA_16161616,
+    // Unusual formats that come up after reading back in cases where we are reassigning the meaning
+    // of a texture format's channels to use for a particular color format but have to read back the
+    // data to a full RGBA quadruple. (e.g. using a R8 texture format as A8 color type but the API
+    // only supports reading to RGBA8.) None of these have SkColorType equivalents.
   kAlpha_8xxx,
   kAlpha_F32xxx,
   kGray_8xxx,
@@ -940,6 +961,7 @@ static SkColorType GrColorTypeToSkColorType(GrColorType ct)
       return kARGB_4444_SkColorType;
     case GrColorType::kRGBA_8888:
       return kRGBA_8888_SkColorType;
+        // Once we add kRGBA_8888_SRGB_SkColorType we should return that here.
     case GrColorType::kRGBA_8888_SRGB:
       return kRGBA_8888_SkColorType;
     case GrColorType::kRGB_888x:
@@ -1022,6 +1044,8 @@ static GrColorType SkColorTypeToGrColorType(SkColorType ct)
   }
   SkUNREACHABLE;
 }
+// This is a temporary means of mapping an SkColorType and format to a
+// GrColorType::kRGBA_8888_SRGB. Once we have an SRGB SkColorType this can go away.
 GrColorType SkColorTypeAndFormatToGrColorType(const GrCaps* caps, SkColorType skCT, const GrBackendFormat& format);
 static uint32_t GrColorTypeComponentFlags(GrColorType ct)
 {
@@ -1081,7 +1105,10 @@ enum class GrColorTypeEncoding
 {
   kUnorm,
   kSRGBUnorm,
-  kFloat
+    // kSnorm,
+  kFloat,
+    // kSint
+    // kUint
 };
 /**
  * Describes a GrColorType by how many bits are used for each color component and how they are
@@ -1246,6 +1273,8 @@ static GrClampType GrColorTypeClampType(GrColorType colorType)
   }
   return GrColorType::kRGBA_F16_Clamped == colorType ? GrClampType::kManual : GrClampType::kNone;
 }
+// Consider a color type "wider" than n if it has more than n bits for any its representable
+// channels.
 static bool GrColorTypeIsWiderThan(GrColorType colorType, int n)
 {
   SkASSERT(n > 0);

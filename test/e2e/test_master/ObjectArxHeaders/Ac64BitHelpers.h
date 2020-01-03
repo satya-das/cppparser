@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,11 +8,16 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #pragma  once
+// replace _tcslen and wcslen with ac_wcslen, which returns unsigned
 #include "ac_tcslen.h"
 #include "adesk.h"
 #include <cwchar>
 #define Ac64Assert	AcTcsLen_Assert
+// The msvc definition of this in windef.h is bad in both 32-bit and
+// 64-bit builds, triggering a Runtime Check assert.
+// #define HIBYTE(w)           ((BYTE)((DWORD_PTR)(w) >> 8))
 #ifdef HIBYTE
 #  undef HIBYTE
 #endif
@@ -34,6 +40,7 @@ inline unsigned int AcUIntPtrToUInt(Adesk::ULongPtr nVal, Adesk::ULongPtr nLimit
   return nRet;
 }
 #pragma  warning(pop)
+// provide a polymophic function to parse INT_PTR string.
 inline Adesk::LongPtr ADESK_STDCALL AcStrToIntPtr(const wchar_t* s)
 {
 #if  defined(_WIN64) || defined(_AC64)

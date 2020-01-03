@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,11 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION:
+//
+// This file contains the class AcGeDxfIO - an utility class that
+// performs DXF file IO.
 #ifndef AC_GEDXFIO_H
 #  define AC_GEDXFIO_H
 #  include "gefileio.h"
@@ -16,6 +22,8 @@ class AcDbDxfFiler;
 class AcGeDxfIO
 {
 public:
+    // Write to file
+    //
   GE_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcDbDxfFiler*, const AcGePoint2d&);
   GE_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcDbDxfFiler*, const AcGeVector2d&);
   GE_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcDbDxfFiler*, const AcGeMatrix2d&);
@@ -77,6 +85,8 @@ public:
   GE_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcDbDxfFiler*, const AcGeCurveCurveInt2d&);
   GE_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcDbDxfFiler*, const AcGeCurveCurveInt3d&);
   GX_DLLEXPIMPORT static Acad::ErrorStatus outFields(AcDbDxfFiler*, const AcGeEllipCone&);
+    // Read from file
+    //
   GE_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcDbDxfFiler*, AcGePoint2d&);
   GE_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcDbDxfFiler*, AcGeVector2d&);
   GE_DLLEXPIMPORT static Acad::ErrorStatus inFields(AcDbDxfFiler*, AcGeMatrix2d&);

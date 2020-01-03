@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -11,6 +12,7 @@
 namespace Pimpl
 {
   class ImpBase;
+    //Simple helper template to implement to help implement the Pimpl Idiom.
   template <typename Base, typename ImpPart>
   class ApiPart : public Base
   {
@@ -19,11 +21,14 @@ namespace Pimpl
       : m_pImp(pImp)
     {
     }
+        //Must be defined by user code to delete m_pImp.
+        //The template cannot do this since ImpPart is not known here.
     ~ApiPart();
   private:
     friend class ImpBase;
     ImpPart* m_pImp;
   };
+    //partial specialization for no base class
   template <typename ImpPart>
   class ApiPart<void, ImpPart>
   {

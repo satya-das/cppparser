@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -63,6 +64,7 @@ private:
   AcDbSubentId mSubentId;
   void* mpUserAppData{nullptr};
 };
+// inlines
 inline AcDb::SubentType AcDbSubentId::type() const
 {
   return mType;

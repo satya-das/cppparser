@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,12 +8,17 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #ifndef __IMGVARS_H
 #  define __IMGVARS_H
 #  include "dbmain.h"
 #  include "imgdef.h"
 #  pragma  pack (push, 8)
+// Opaque types
+//
 class AcDbImpRasterVariables;
+// Silence compiler
+//
 #  pragma  warning( disable : 4275 ) 
 #  ifdef ISMDLLACCESS
 #    undef ISMDLLACCESS
@@ -21,6 +27,8 @@ class AcDbImpRasterVariables;
 #    undef ISMDLLACCESSDATA
 #  endif
 #  ifdef ISM_OBJ
+// Classes to be exported have to have ISMDLLACCESS definition in its header.
+// Example: class ISMDLLACCESS AcDbImpRasterImageDef
 #    define ISMDLLACCESS	__declspec(dllexport)
 #    define ISMDLLACCESSDATA
 #  else 
@@ -32,6 +40,7 @@ class ISMDLLACCESS AcDbRasterVariables : public AcDbObject
 public:
   static ClassVersion classVersion();
   ACRX_DECLARE_MEMBERS(AcDbRasterVariables);
+    // Enums, for the allowable variable values
   enum FrameSettings
   {
     kImageFrameInvalid = -1,
@@ -61,6 +70,13 @@ public:
   virtual Acad::ErrorStatus setUserScale(AcDbRasterImageDef::Units units);
   static AcDbRasterVariables* openRasterVariables(AcDb::OpenMode mode, AcDbDatabase* pDatabase = 0);
 private:
+    // These are here because otherwise dllexport tries to export the
+    // private methods of AcDbObject.  They're private in AcDbObject
+    // because vc5 does not properly support array new and delete.
+    // It tends to call the wrong delete operator and to not call
+    // the dtors on all elements in the array.  So we make them
+    // private in order to prevent usage of them.
+    //
   void* operator new[](size_t)
   {
     return 0;
@@ -72,6 +88,8 @@ private:
   {
     return 0;
   }
+    // Data members
+    //
   AcDbImpRasterVariables* mpImp;
   static ClassVersion mVersion;
 };

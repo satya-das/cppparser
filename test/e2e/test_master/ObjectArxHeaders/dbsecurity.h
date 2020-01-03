@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION: DWG Security - Parameters for encryption/decryption
+//              and digital signatures
+//
 #ifndef __DBSECURITY_H_
 #  define __DBSECURITY_H_
 class AcDbDate;
@@ -25,11 +30,13 @@ struct SecurityParams
 {
   unsigned long cbSize;
   unsigned long ulFlags;
+    // data relevant to password protection
   wchar_t* wszPassword;
   unsigned long ulProvType;
   wchar_t* wszProvName;
   unsigned long ulAlgId;
   unsigned long ulKeyLength;
+    // data relevant to digital signatures
   wchar_t* wszCertSubject;
   wchar_t* wszCertIssuer;
   wchar_t* wszCertSerialNum;

@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -35,6 +36,7 @@ public:
   void getLabelOffsets(AcGeVector3dArray& offsets) const;
   bool isViewDirectionLeft() const;
   bool isHalfSection() const;
+    // *** Internal-use-only methods ***
   Acad::ErrorStatus setSectionPoints(const AcGePoint3dArray& pts);
   Acad::ErrorStatus setSectionPoints(const AcGePoint3dArray& pts, const AcGeDoubleArray& bulges);
   Acad::ErrorStatus addSectionPoint(const AcGePoint3d& pt, double bulge = 0);

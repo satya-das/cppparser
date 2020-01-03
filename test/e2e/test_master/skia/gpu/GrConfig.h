@@ -8,6 +8,16 @@
 #  define GrConfig_DEFINED
 #  include "include/core/SkTypes.h"
 ///////////////////////////////////////////////////////////////////////////////
+// preconfig section:
+//
+// All the work before including GrUserConfig.h should center around guessing
+// what platform we're on, and defining low-level symbols based on that.
+//
+// A build environment may have already defined symbols, so we first check
+// for that
+//
+
+// hack to ensure we know what sort of Apple platform we're on
 #  if  defined(__APPLE_CPP__) || defined(__APPLE_CC__)
 #    include <TargetConditionals.h>
 #  endif
@@ -82,6 +92,9 @@
 #    if      defined(SK_BUILD_FOR_WIN)
 #      define GR_ALWAYSBREAK	SkNO_RETURN_HINT(); __debugbreak()
 #    else 
+        // TODO: do other platforms really not have continuable breakpoints?
+        // sign extend for 64bit architectures to be sure this is
+        // in the high address range
 #      define GR_ALWAYSBREAK	SkNO_RETURN_HINT(); *((int*)(int64_t)(int32_t)0xbeefcafe) = 0;
 #    endif
 #  endif

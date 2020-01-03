@@ -56,6 +56,8 @@ public:
      */
   virtual void addIdleProc(sk_sp<GrRefCntedCallback> idleProc, IdleState)
   {
+        // This is the default implementation for the managed case where the IdleState can be
+        // ignored. Unmanaged backends, e.g. Vulkan, must override this to consider IdleState.
     fIdleProcs.push_back(std::move(idleProc));
   }
     /** Helper version of addIdleProc that creates the ref-counted wrapper. */
@@ -72,6 +74,7 @@ protected:
   SkTArray<sk_sp<GrRefCntedCallback>> fIdleProcs;
   void willRemoveLastRef() override
   {
+        // We're about to be idle in the resource cache. Do our part to trigger the idle callbacks.
     fIdleProcs.reset();
   }
   void computeScratchKey(GrScratchKey*) const override;

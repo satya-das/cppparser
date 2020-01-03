@@ -96,6 +96,7 @@ public:
      *  (i.e. it may not be set to NULL).
      */
   bool isColorFilterNode(SkColorFilter** filterPtr) const;
+    // DEPRECATED : use isColorFilterNode() instead
   bool asColorFilter(SkColorFilter** filterPtr) const
   {
     return this->isColorFilterNode(filterPtr);
@@ -115,7 +116,9 @@ public:
      *  used are filter-specific.
      */
   const SkImageFilter* getInput(int i) const;
+    // Default impl returns union of all input bounds.
   virtual SkRect computeFastBounds(const SkRect& bounds) const;
+    // Can this filter DAG compute the resulting bounds of an object-space rectangle?
   bool canComputeFastBounds() const;
     /**
      *  If this filter can be represented by another filter + a localMatrix, return that filter,

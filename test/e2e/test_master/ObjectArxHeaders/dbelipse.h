@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,16 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+// DESCRIPTION:
+//
+// The AcDbEllipse class represents both a full ellipse and an elliptical
+// arc. The parametrization of the ellipse is the vector equation
+//
+//         P(O) = A * cos(O) + B * sin(O)
+// 
+// where A and B are the semi major and minor axes respectively.
 #ifndef GEOMENT_DBELIPSE_H
 #  define GEOMENT_DBELIPSE_H
 #  include "gegbl.h"
@@ -42,6 +53,7 @@ public:
   Acad::ErrorStatus get(AcGePoint3d& center, AcGeVector3d& unitNormal, AcGeVector3d& majorAxis, double& radiusRatio, double& startAngle, double& endAngle) const;
   Acad::ErrorStatus set(const AcGePoint3d& center, const AcGeVector3d& unitNormal, const AcGeVector3d& majorAxis, double radiusRatio, double startAngle = 0.0, double endAngle = 6.28318530717958647692);
   Adesk::Boolean isNull() const;
+//    DBCURVE_METHODS
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };

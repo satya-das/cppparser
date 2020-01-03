@@ -9,6 +9,10 @@
 #  include <arm_neon.h>
 namespace 
 {
+// ARMv8 has vrndm(q)_f32 to floor floats.  Here we emulate it:
+//   - roundtrip through integers via truncation
+//   - subtract 1 if that's too big (possible for negative values).
+// This restricts the domain of our inputs to a maximum somehwere around 2^31.  Seems plenty big.
   AI static float32x4_t emulate_vrndmq_f32(float32x4_t v)
   {
     auto roundtrip = vcvtq_f32_s32(vcvtq_s32_f32(v));
@@ -383,6 +387,9 @@ namespace
     return vfmaq_f32(a.fVec, f.fVec, m.fVec);
   }
 #  endif
+// It's possible that for our current use cases, representing this as
+// half a uint16x8_t might be better than representing it as a uint16x4_t.
+// It'd make conversion to Sk4b one step simpler.
   template <>
   class SkNx<4, uint16_t>
   {
@@ -593,6 +600,7 @@ namespace
 } pun = {fVec};
       return pun.us[k & 3];
     }
+    // TODO as needed
     uint8x8_t fVec;
   };
   template <>
@@ -790,6 +798,7 @@ namespace
     {
       return vmaxq_s32(a.fVec, b.fVec);
     }
+    // TODO as needed
     AI SkNx thenElse(const SkNx& t, const SkNx& e) const
     {
       return vbslq_s32(vreinterpretq_u32_s32(fVec), t.fVec, e.fVec);
@@ -885,6 +894,7 @@ namespace
     {
       return vminq_u32(a.fVec, b.fVec);
     }
+    // TODO as needed
     AI SkNx mulHi(const SkNx& m) const
     {
       uint64x2_t hi = vmull_u32(vget_high_u32(fVec), vget_high_u32(m.fVec));

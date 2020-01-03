@@ -7,6 +7,9 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  DESCRIPTION:  Header for access to AutoCAD JavaScript-specific services.
+//
 #ifndef _ACJS_H
 #  define _ACJS_H
 #  ifdef _ACJSCORESTUB
@@ -15,6 +18,7 @@
 #    define ACJSCORESTUB_PORT	__declspec(dllimport)
 #  endif
 typedef char* (*AcJsFunctionPtr) (const char*);
+// Mask flags for metadata for native callback function 
 #  define ACJS_FUNC_INVOKEINDOC	0x00000001      // the function needs to be invoked in a document
 #  define ACJS_FUNC_HANDLE_NULLDOC	0x00000002      // the callback should not assert if the current doc is null, used for commands.
 #  define ACJSCORESTUB_DEFUN	"acjsDefun"

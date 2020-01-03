@@ -96,6 +96,9 @@ public:
   struct GradientInfo
   {
     int fColorCount;
+                                    //   of fColors/fColorOffsets on input, and
+                                    //   actual number of colors/offsets on
+                                    //   output.
     SkColor* fColors;
     SkScalar* fColorOffsets;
     SkPoint fPoint[2];
@@ -103,6 +106,7 @@ public:
     SkTileMode fTileMode;
     uint32_t fGradientFlags;
   };
+    // DEPRECATED. skbug.com/8941
   virtual GradientType asAGradient(GradientInfo* info) const;
     //////////////////////////////////////////////////////////////////////////
     //  Methods to create combinations or variants of shaders

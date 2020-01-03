@@ -10,12 +10,21 @@
 #  include "include/core/SkCanvasVirtualEnforcer.h"
 #  include "include/core/SkVertices.h"
 struct SkIRect;
+// SkNoDrawCanvas is a helper for SkCanvas subclasses which do not need to
+// actually rasterize (e.g., analysis of the draw calls).
+//
+// It provides the following simplifications:
+//
+//   * not backed by any device/pixels
+//   * conservative clipping (clipping calls only use rectangles)
+//
 class SK_API SkNoDrawCanvas : public SkCanvasVirtualEnforcer<SkCanvas>
 {
 public:
   SkNoDrawCanvas(int width, int height);
   SkNoDrawCanvas(const SkIRect&);
   explicit SkNoDrawCanvas(sk_sp<SkBaseDevice> device);
+    // Optimization to reset state to be the same as after construction.
   void resetCanvas(int w, int h)
   {
     this->resetForNextPicture(SkIRect::MakeWH(w, h));
@@ -27,6 +36,7 @@ public:
 protected:
   SaveLayerStrategy getSaveLayerStrategy(const SaveLayerRec& rec) override;
   bool onDoSaveBehind(const SkRect*) override;
+    // No-op overrides for aborting rasterization earlier than SkNullBlitter.
   void onDrawAnnotation(const SkRect&, const char[], SkData*) override
   {
   }

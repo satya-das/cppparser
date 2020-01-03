@@ -1073,14 +1073,12 @@ public:
     */
   bool peekPixels(SkPixmap* pixmap) const;
   sk_sp<SkShader> makeShader(SkTileMode tmx, SkTileMode tmy, const SkMatrix* localMatrix = nullptr) const;
+    // defaults to Clamp in x, and y
   sk_sp<SkShader> makeShader(const SkMatrix* localMatrix = nullptr) const;
     /** Asserts if internal values are illegal or inconsistent. Only available if
         SK_DEBUG is defined at compile time.
     */
   SkDEBUGCODE(void validate() const;)
-    /** \class SkBitmap::Allocator
-        Abstract subclass of HeapAllocator.
-    */
   class Allocator : public SkRefCnt
   {
   public:

@@ -74,6 +74,7 @@ static bool SkAlphaTypeIsValid(unsigned value)
 static bool SkColorTypeIsGray(SkColorType ct)
 {
   auto flags = SkColorTypeComponentFlags(ct);
+    // Currently assuming that a color type has only gray or does not have gray.
   SkASSERT(!(kGray_SkColorTypeComponentFlag & flags) || kGray_SkColorTypeComponentFlag == flags);
   return kGray_SkColorTypeComponentFlag == flags;
 }

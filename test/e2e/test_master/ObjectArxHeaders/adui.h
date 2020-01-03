@@ -15,16 +15,33 @@
 #  include "adui_port.h"
 class ADUI_PORT CAdUiThemeManager;
 /////////////////////////////////////////////////////////////////////////////
+// Initialize the extension DLL, register the classes, etc
+// Call this exported function from your Dll or Executable once
+// - an ideal location is the InitInstance() member function 
 void ADUI_PORT InitAdUiDLL();
+// This function shows an alert type dialog with three buttons. Caption
+// string and text for each button are arguments along with a default button
+// 0 based index. Returns 0 based button index or -1 on CANCEL. Button 2
+// is always the CANCEL button.
 int ADUI_PORT AdUiAlertDialog(LPCTSTR captionText, LPCTSTR msg0Text, LPCTSTR button0Text, LPCTSTR button1Text, UINT defButton = 0);
 int ADUI_PORT AdUiDataValidationLevel();
+// Helper function to expand a help file name into a fully-qualified pathname.
 BOOL ADUI_PORT AdUiFindContextHelpFullPath(LPCTSTR fileName, CString& fullPath);
 void ADUI_PORT AdUiSubstituteShellFont(CWnd& dlg, CFont& font);
 CAdUiThemeManager ADUI_PORT* AdUiGetThemeManager();
+// This function finds a suitable parent window for a dialog when none is
+// explicitly supplied. The algorithm obtains the active window 
+// (using GetActiveWindow) and the walks the parent hierarchy (using GetParent)
+// A disabled window or the main window terminates the walk.
 HWND ADUI_PORT AdUiGetSafeParentHwnd();
 ADUI_PORT CWnd* AdUiGetSafeParentWnd();
+// This function allows the client override the AutoCAD's default setting of
+// dock bar's min width. It is related to the DID#1017779. In Spago, the default
+// value is 40px and we change to 150px in Raptor which caused issues to the third
+// party developer. The following API is for them to override AutoCAD default settings.
 bool ADUI_PORT AdUiSetDockBarMinWidth(int width);
 /////////////////////////////////////////////////////////////////////////////
+// Class prototypes
 class ADUI_PORT CAdUiBaseDialog;
 class ADUI_PORT CAdUiComboBox;
 class ADUI_PORT CAdUiDialog;
@@ -58,6 +75,8 @@ struct _dlgControlTag
 typedef _dlgControlTag DLGCTLINFO;
 typedef _dlgControlTag* PDLGCTLINFO;
 #  pragma  pack (pop)
+// For Internal use
+//
 namespace AdUi
 {
   enum AdUiIconMode
@@ -74,6 +93,8 @@ namespace AdUi
   };
 }
 /////////////////////////////////////////////////////////////////////////////
+
+// WINREG.H declares HKEY, needed by aduiRegistryAccess.h
 #  include <winreg.h>
 //// AFXOLE.H declares COleDropTarget needed by aduiDropTarget.h
 #  include <afxole.h>
@@ -102,5 +123,6 @@ namespace AdUi
 #  include "aduiPaletteSet.h"
 /////////////////////////////////////////////////////////////////////////////
 //{{AFX_INSERT_LOCATION}}
+// Microsoft Developer Studio will insert additional declarations immediately before the previous line.
 #endif
 //////////////////////////////////////////////////////////////////////////////

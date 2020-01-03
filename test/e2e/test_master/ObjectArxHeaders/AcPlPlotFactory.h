@@ -9,6 +9,9 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef _ACPLPLOTFACTORY_H
 #  define _ACPLPLOTFACTORY_H
+//
+//  AcPlPlotFactory   - makes plot engines
+//
 #  include "AcPl.h"
 class AcPlPlotEngine;
 class AcPlPlotFactory
@@ -23,11 +26,13 @@ public:
   ACPL_PORT static Acad::ErrorStatus createPublishEngine(AcPlPlotEngine*& pEngine);
   ACPL_PORT static Acad::ErrorStatus createPreviewEngine(AcPlPlotEngine*& pPreview, long nPreviewFlags = kShowPlot);
 };
+// Possible plotting system states
 enum ProcessPlotState
 {
   kNotPlotting = 0,
   kForegroundPlotting,
   kBackgroundPlotting
 };
+// Method for determining current state of the plotting subsystem
 ACPL_PORT ProcessPlotState ADESK_STDCALL acplProcessPlotState();
 #endif

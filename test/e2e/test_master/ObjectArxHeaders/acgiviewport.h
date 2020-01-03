@@ -7,6 +7,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #pragma  once
 #include "acgienvironment.h"
 class AcGiViewportTraits : public AcGiDrawableTraits

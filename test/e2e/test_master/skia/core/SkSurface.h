@@ -853,6 +853,7 @@ public:
   enum FlushFlags
   {
     kNone_FlushFlags = 0,
+        // flush will wait till all submitted GPU work is finished before returning.
     kSyncCpu_FlushFlag = 0x1
   };
   GrSemaphoresSubmitted flush(BackendSurfaceAccess access, FlushFlags flags, int numSemaphores, GrBackendSemaphore signalSemaphores[]);
@@ -894,6 +895,7 @@ public:
 protected:
   SkSurface(int width, int height, const SkSurfaceProps* surfaceProps);
   SkSurface(const SkImageInfo& imageInfo, const SkSurfaceProps* surfaceProps);
+    // called by subclass if their contents have changed
   void dirtyGenerationID()
   {
     fGenerationID = 0;

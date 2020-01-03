@@ -38,6 +38,7 @@ public:
   {
 #  ifdef SK_DEBUG
     SkASSERTF(this->getRefCnt() == 1, "fRefCnt was %d", this->getRefCnt());
+        // illegal value, to catch us if we reuse after delete
     fRefCnt.store(0, std::memory_order_relaxed);
 #  endif
   }
@@ -48,6 +49,9 @@ public:
   {
     if (1 == fRefCnt.load(std::memory_order_acquire))
     {
+            // The acquire barrier is only really needed if we return true.  It
+            // prevents code conditioned on the result of unique() from running
+            // until previous owners are all totally done calling unref().
       return true;
     }
     return false;
@@ -57,6 +61,7 @@ public:
   void ref() const
   {
     SkASSERT(this->getRefCnt() > 0);
+        // No barrier required.
     (void) fRefCnt.fetch_add(1, std::memory_order_relaxed);
   }
     /** Decrement the reference count. If the reference count is 1 before the
@@ -66,8 +71,11 @@ public:
   void unref() const
   {
     SkASSERT(this->getRefCnt() > 0);
+        // A release here acts in place of all releases we "should" have been doing in ref().
     if (1 == fRefCnt.fetch_add(-1, std::memory_order_acq_rel))
     {
+            // Like unique(), the acquire is only needed on success, to make sure
+            // code in internal_dispose() doesn't happen before the decrement.
       this->internal_dispose();
     }
   }
@@ -90,6 +98,8 @@ private:
 #  endif
     delete this;
   }
+    // The following friends are those which override internal_dispose()
+    // and conditionally call SkRefCnt::internal_dispose().
   friend class SkWeakRefCnt;
   mutable std::atomic<int32_t> fRefCnt;
   SkRefCntBase(SkRefCntBase&&) = delete;
@@ -98,10 +108,13 @@ private:
   SkRefCntBase& operator=(const SkRefCntBase&);
 };
 #  ifdef SK_REF_CNT_MIXIN_INCLUDE
+// It is the responsibility of the following include to define the type SkRefCnt.
+// This SkRefCnt should normally derive from SkRefCntBase.
 #    include SK_REF_CNT_MIXIN_INCLUDE
 #  else 
 class SK_API SkRefCnt : public SkRefCntBase
 {
+    // "#include SK_REF_CNT_MIXIN_INCLUDE" doesn't work with this build system.
 #    if  defined(SK_BUILD_FOR_GOOGLE3)
 public:
   void deref() const
@@ -144,6 +157,9 @@ static void SkSafeUnref(T* obj)
   }
 }
 ///////////////////////////////////////////////////////////////////////////////
+
+// This is a variant of SkRefCnt that's Not Virtual, so weighs 4 bytes instead of 8 or 16.
+// There's only benefit to using this if the deriving class does not otherwise need a vtable.
 template <typename Derived>
 class SkNVRefCnt
 {
@@ -159,6 +175,10 @@ public:
     SkASSERTF(rc == 1, "NVRefCnt was %d", rc);
 #  endif
   }
+    // Implementation is pretty much the same as SkRefCntBase. All required barriers are the same:
+    //   - unique() needs acquire when it returns true, and no barrier if it returns false;
+    //   - ref() doesn't need any barrier;
+    //   - unref() needs a release barrier, and an acquire if it's going to call delete.
   bool unique() const
   {
     return 1 == fRefCnt.load(std::memory_order_acquire);
@@ -171,6 +191,7 @@ public:
   {
     if (1 == fRefCnt.fetch_add(-1, std::memory_order_acq_rel))
     {
+            // restore the 1 for our destructor's assert
       SkDEBUGCODE(fRefCnt.store(1, std::memory_order_relaxed));
       delete (const Derived*) this;
     }
@@ -314,6 +335,9 @@ public:
      */
   void reset(T* ptr = nullptr)
   {
+        // Calling fPtr->unref() may call this->~() or this->reset(T*).
+        // http://wg21.cmeerw.net/lwg/issue998
+        // http://wg21.cmeerw.net/lwg/issue2262
     T* oldPtr = fPtr;
     fPtr = ptr;
     SkSafeUnref(oldPtr);

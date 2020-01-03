@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+//  dbAlignment.h - public header file for AcDbAlignment api
+//
 #ifndef _DBALIGNMENT_H
 #  define _DBALIGNMENT_H
 #  include "acdb.h"

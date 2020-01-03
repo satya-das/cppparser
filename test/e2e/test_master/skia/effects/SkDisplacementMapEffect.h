@@ -8,9 +8,11 @@
 #  define SkDisplacementMapEffect_DEFINED
 #  include "include/core/SkImageFilter.h"
 enum class SkColorChannel;
+// DEPRECATED: Use include/effects/SkImageFilters::DisplacementMap
 class SK_API SkDisplacementMapEffect
 {
 public:
+    // DEPRECATED - Use SkColorChannel instead.
   enum ChannelSelectorType
   {
     kUnknown_ChannelSelectorType,

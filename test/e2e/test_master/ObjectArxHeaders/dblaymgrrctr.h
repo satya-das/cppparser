@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+// 
 #ifndef _ACDB_LAYOUT_MANAGER_REACTOR_H
 #  define _ACDB_LAYOUT_MANAGER_REACTOR_H
 #  include "rxobject.h"

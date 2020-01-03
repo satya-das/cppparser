@@ -4,21 +4,13 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+
+// EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL
+// DO NOT USE -- FOR INTERNAL TESTING ONLY
 #ifndef sk_surface_DEFINED
 #  define sk_surface_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-/**
-    Return a new surface, with the memory for the pixels automatically
-    allocated.  If the requested surface cannot be created, or the
-    request is not a supported configuration, NULL will be returned.
-
-    @param sk_imageinfo_t* Specify the width, height, color type, and
-                           alpha type for the surface.
-
-    @param sk_surfaceprops_t* If not NULL, specify additional non-default
-                              properties of the surface.
-*/
 SK_API sk_surface_t* sk_surface_new_raster(const sk_imageinfo_t*, const sk_surfaceprops_t*);
 /**
     Create a new surface which will draw into the specified pixels

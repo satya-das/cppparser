@@ -7,6 +7,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION: Exported protocol for AutoCAD's built in symbol
+//      tables, their table  specific record types, and
+//      their iterators.
 #ifndef AD_DBLAYOUT_H
 #  define AD_DBLAYOUT_H
 #  include "dbmain.h"
@@ -19,6 +23,7 @@ namespace Atil
 }
 typedef struct tagBITMAPINFO BITMAPINFO;
 #  pragma  pack(push, 8)
+// Class definition for paperspace layout object
 class AcDbLayout : public AcDbPlotSettings
 {
   ACDB_DECLARE_MEMBERS(AcDbLayout);
@@ -77,6 +82,9 @@ public:
 protected:
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
+// This overload is deprecated and will be removed. Please use the
+// getName() method, taking an AcString & arg instead
+//
 inline Acad::ErrorStatus AcDbLayout::getLayoutName(ACHAR*& layoutName) const
 {
   return ::acutGetAcStringConvertToAChar(this, &AcDbLayout::getName, layoutName);

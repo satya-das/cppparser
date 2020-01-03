@@ -1,3 +1,4 @@
+// 
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -22,6 +23,7 @@
 class AcDbImpViewSymbol;
 class AcRxSymbolSketch;
 class AcDbAssocViewSymbolConstrGrpPE;
+//
 class ACSYNERGY_PORT AcDbViewSymbol : public AcDbEntity
 {
   friend class AcDbViewSymbolSystemInternals;
@@ -35,6 +37,7 @@ public:
   Acad::ErrorStatus getIdentifier(ACHAR*& pszName) const;
   Acad::ErrorStatus getIdentifier(AcString& sName) const;
   Acad::ErrorStatus setIdentifier(const AcString& sName);
+    // Internal use only methods:
   AcDbObjectId owningViewRep() const;
   void setOwningViewRep(const AcDbObjectId& owner);
   Acad::ErrorStatus createDefinition(AcRxSymbolSketch* pSketchObject);
@@ -42,7 +45,9 @@ public:
   Acad::ErrorStatus setSymbolGeometry(const AcDbObjectIdArray& entIds);
   Acad::ErrorStatus setSymbolGeometry(const AcArray<AcDbObject*>& entities);
   Acad::ErrorStatus updateDefinition();
+    // AcGiDrawable protocols
   virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWd);
+    // AcDbObject protocols
   virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing);
   void objectClosed(const AcDbObjectId dbObjId);
   virtual Acad::ErrorStatus subClose();
@@ -62,6 +67,7 @@ public:
   virtual void subList() const;
   virtual void saveAs(AcGiWorldDraw* mode, AcDb::SaveType st);
 protected:
+    // Makes AcDbViewSymbol an abstract class.
   AcDbViewSymbol();
 private:
   friend class AcDbAssocViewSymbolConstrGrpPE;

@@ -171,6 +171,14 @@ public:
   {
     return !(other == *this);
   }
+    /* When converting from SkMatrix44 to SkMatrix, the third row and
+     * column is dropped.  When converting from SkMatrix to SkMatrix44
+     * the third row and column remain as identity:
+     * [ a b c ]      [ a b 0 c ]
+     * [ d e f ]  ->  [ d e 0 f ]
+     * [ g h i ]      [ 0 0 1 0 ]
+     *                [ g h 0 i ]
+     */
   SkMatrix44(const SkMatrix&);
   SkMatrix44& operator=(const SkMatrix& src);
   operator SkMatrix() const;
@@ -322,6 +330,9 @@ public:
     this->setRowMajord(data);
   }
 #  endif
+    /* This sets the top-left of the matrix and clears the translation and
+     * perspective components (with [3][3] set to 1).  m_ij is interpreted
+     * as the matrix entry at row = i, col = j. */
   void set3x3(SkMScalar m_00, SkMScalar m_10, SkMScalar m_20, SkMScalar m_01, SkMScalar m_11, SkMScalar m_21, SkMScalar m_02, SkMScalar m_12, SkMScalar m_22);
   void set3x3RowMajorf(const float[]);
   void set4x4(SkMScalar m_00, SkMScalar m_10, SkMScalar m_20, SkMScalar m_30, SkMScalar m_01, SkMScalar m_11, SkMScalar m_21, SkMScalar m_31, SkMScalar m_02, SkMScalar m_12, SkMScalar m_22, SkMScalar m_32, SkMScalar m_03, SkMScalar m_13, SkMScalar m_23, SkMScalar m_33);
@@ -425,6 +436,7 @@ public:
   void dump() const;
   double determinant() const;
 private:
+    /* This is indexed by [col][row]. */
   SkMScalar fMat[4][4];
   TypeMask fTypeMask;
   static int kAllPublic_Masks = 0xF;

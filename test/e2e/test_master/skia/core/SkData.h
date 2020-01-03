@@ -52,6 +52,7 @@ public:
   {
     if (fSize)
     {
+            // only assert we're unique if we're not empty
       SkASSERT(this->unique());
     }
     return fPtr;
@@ -153,7 +154,9 @@ private:
   SkData(const void* ptr, size_t size, ReleaseProc, void* context);
   explicit SkData(size_t size);
   ~SkData();
+    // Ensure the unsized delete is called.
   void operator delete(void* p);
+    // shared internal factory
   static sk_sp<SkData> PrivateNewWithCopy(const void* srcOrNull, size_t length);
   static void DummyReleaseProc(const void*, void*);
   typedef SkRefCnt INHERITED;

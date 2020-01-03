@@ -7,11 +7,18 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// 
+//      SCENE.H
+//
+//      This header module is used in the AutoCAD and the Render sides.
 #ifndef AD_SCENE_H
 #  define AD_SCENE_H
 #  include "AdAChar.h"
 #  pragma  pack (push, 8)
 #  define FACEVER	0                    /* The internal version in header rec */
+// These are used in the "id" fields of the structures below.  We leave
+// them as chars (not widechars) for now.
 #  define HEADER	'H'
 #  define ENTITY	'E'
 #  define EVERTEX	'V'
@@ -19,17 +26,20 @@
 #  define CONTOUR	'X'
 #  define SHADER	'D'
 #  define CMESH	'H'
-#  define BLOCK_B	'U'     /* pUsh block */
-#  define BLOCK_E	'O'     /* pOp block */
-#  define E_LAYER	'L'     /* Layer entity */
+#  define BLOCK_B
+#  define BLOCK_E
+#  define E_LAYER
+/* The status field */
 /*#define         CURVE           0x1*/
 #  define TOPBOT	0x2
+/* Bits defined for the entity flags field */
 #  define ENT_HAS_CMESH	1               /* set if cmesh output for this mesh */
 #  define ENT_HAS_XFORM	2               /* set if transform follows entity */
 #  define ENT_HAS_XDATA	4               /* Set if entity has xdata */
 #  define ENT_HAS_NORMAL	8               /* Set if entity has normals */
 #  define ENT_HAS_SUBENT	16              /* Set if entity has subentity */
 #  define RENDER_CACHE	1
+/* The SCENE control mesh record. */
 struct scn_cmesh
 {
   char id;
@@ -41,11 +51,14 @@ struct scn_cmesh
   short m;
   short n;
 };
+/* The SCENE file vertex record. Note that all of the face's
+   vertices will be written sequentially */
 struct scn_vrtc
 {
   char id;
   double vert[3];
 };
+/* The scene file polygonal mesh record */
 struct scn_pmsh
 {
   char id;
@@ -67,11 +80,15 @@ struct scn_pmsh
   __int64 mapperId;
 #  endif
 };
+/* The scene file polygon contour vertex record */
 struct scn_cvrt
 {
   char id;
   long index;
 };
+/* Description of the temporary record used to keep the polygonal mesh
+   vertexes. This record belongs to the temporary file (VERTEX.$AS) which
+   is a binary tree of all of the vertexes of a given polygonal mesh */
 struct scn_node
 {
   double vertex[3];
@@ -79,6 +96,15 @@ struct scn_node
   long left;
   long right;
 };
+/* New record types for the ent2face() facility. We use a slightly
+   different approach than the filmroll file, and treat everything
+   as a polymesh.  We also put out an Entity record for each
+   entity as it is regen'd and this record contains slightly
+   different information than the current scn_ent record.
+*/
+
+/* Size of color map in bytes.  This is a bit-coded color map used
+   to tell the application which colors are used in the ent2face file */
 #  define CMAPSIZE	32
 struct e2f_hdr
 {
@@ -115,6 +141,7 @@ struct e2f_ent
   short color;
   long truecolor;
   long layerindex;
+                                      /* entities layer */
 #  if  !defined(_WIN64) && !defined (_AC64)
   long materialId;
 #  else 

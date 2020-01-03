@@ -154,6 +154,8 @@ public:
      *                       contained within the image).
      */
   bool getSupportedSubset(SkIRect* desiredSubset) const;
+    // TODO: Rename SkCodec::getValidSubset() to getSupportedSubset()
+
     /**
      *  Returns the dimensions of the scaled, partial output image, for an
      *  input sampleSize and subset.
@@ -170,6 +172,10 @@ public:
     /**
      *  Additional options to pass to getAndroidPixels().
      */
+    // FIXME: It's a bit redundant to name these AndroidOptions when this class is already
+    //        called SkAndroidCodec.  On the other hand, it's may be a bit confusing to call
+    //        these Options when SkCodec has a slightly different set of Options.  Maybe these
+    //        should be DecodeOptions or SamplingOptions?
   struct AndroidOptions
   {
     AndroidOptions()
@@ -230,6 +236,10 @@ public:
      *
      *  @return Result kSuccess, or another value explaining the type of failure.
      */
+    // FIXME: It's a bit redundant to name this getAndroidPixels() when this class is already
+    //        called SkAndroidCodec.  On the other hand, it's may be a bit confusing to call
+    //        this getPixels() when it is a slightly different API than SkCodec's getPixels().
+    //        Maybe this should be decode() or decodeSubset()?
   SkCodec::Result getAndroidPixels(const SkImageInfo& info, void* pixels, size_t rowBytes, const AndroidOptions* options);
     /**
      *  Simplified version of getAndroidPixels() where we supply the default AndroidOptions as

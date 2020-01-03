@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,9 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  ssgetfilter.h - Header file for AcEdSelectionSetService and AcEdSSGetFilter
+//
 #ifndef _SSGETFILTER_H
 #  define _SSGETFILTER_H
 #  include "acedinpt.h"
@@ -87,6 +91,10 @@ public:
 };
 Acad::ErrorStatus addSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter* pFilter);
 Acad::ErrorStatus removeSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter* pFilter);
+// please note this function had been using the Windows type boolean
+// for the flag parameter. it has been replaced not with type bool
+// as you might expect, but with the underlying  intrinsic type to
+// avoid changing the exported mangled name
 Acad::ErrorStatus setAllowDuplicateSelection(AcApDocument* pDoc, unsigned char flag);
 bool duplicateSelectionsAllowed(AcApDocument* pDoc);
 namespace AcEdSSGet

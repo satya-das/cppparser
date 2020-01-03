@@ -16,12 +16,14 @@ class CNavDropSource : public COleDropSource
 public:
   CNavDropSource();
   CNavListCtrl* m_pListCtrl;
+    // Overrides
   SCODE GiveFeedback(DROPEFFECT dropEffect);
 };
 class ANAV_PORT CNavListCtrl : public CAdUiListCtrl
 {
 public:
   CNavListCtrl();
+// ClassWizard-controlled
     //{{AFX_VIRTUAL(CNavListCtrl)
     //}}AFX_VIRTUAL
 protected:

@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,10 +8,23 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// dbdynblk.h
+//
+// DESCRIPTION: 
+// Utility classes for dynamic blocks, allows manipulation of dynamic
+// block references, discovering dynamic block properties, and updating
+// dynamic block definitions.
+//
+// AcDbDynBlockReference
+// AcDbDynBlockReferenceProperty
+// AcDbDynBlockTableRecord
+//
 #pragma  once
 #include "dbeval.h"
 #include "acstring.h"
 #pragma  pack (push, 8)
+// Forward class declarations
 class AcDbDynBlockReference;
 class AcDbDynBlockReferenceProperty;
 class AcDbImpDynBlockReference;

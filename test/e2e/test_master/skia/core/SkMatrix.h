@@ -135,6 +135,7 @@ public:
     {
       fTypeMask = this->computeTypeMask();
     }
+        // only return the public masks
     return (TypeMask) (fTypeMask & 0xF);
   }
     /** Returns true if SkMatrix is identity.  Identity matrix is:
@@ -1147,6 +1148,7 @@ public:
     */
   bool SK_WARN_UNUSED_RESULT invert(SkMatrix* inverse) const
   {
+        // Allow the trivial case to be inlined.
     if (this->isIdentity())
     {
       if (inverse)
@@ -1465,6 +1467,7 @@ public:
     */
   void mapRectToQuad(SkPoint dst[4], const SkRect& rect) const
   {
+        // This could potentially be faster if we only transformed each x and y of the rect once.
     rect.toQuad(dst);
     this->mapPoints(dst, 4);
   }
@@ -1707,6 +1710,7 @@ private:
   uint8_t computePerspectiveTypeMask() const;
   void setTypeMask(int mask)
   {
+        // allow kUnknown or a valid mask
     SkASSERT(kUnknown_Mask == mask || (mask & kAllMasks) == mask || ((kUnknown_Mask | kOnlyPerspectiveValid_Mask) & mask) == (kUnknown_Mask | kOnlyPerspectiveValid_Mask));
     fTypeMask = SkToU8(mask);
   }
@@ -1717,6 +1721,7 @@ private:
   }
   void clearTypeMask(int mask)
   {
+        // only allow a valid mask
     SkASSERT((mask & kAllMasks) == mask);
     fTypeMask = fTypeMask & ~mask;
   }
@@ -1789,6 +1794,7 @@ private:
   static void Persp_pts(const SkMatrix&, SkPoint dst[], const SkPoint[], int);
   static void Affine_vpts(const SkMatrix&, SkPoint dst[], const SkPoint[], int);
   static const MapPtsProc gMapPtsProcs[];
+    // return the number of bytes written, whether or not buffer is null
   size_t writeToMemory(void* buffer) const;
     /**
      * Reads data from the buffer parameter

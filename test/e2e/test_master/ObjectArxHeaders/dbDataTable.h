@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,13 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// dbDataTable.H
+//
+// DESCRIPTION: Contains Cell, Column, Row, and Table classes
+//              for general purpose table representation.
+
+// These warnings have to do with exporting classes from dlls...
 #pragma  once
 #pragma  warning( disable: 4275 4251 )
 #include "acarray.h"
@@ -36,6 +44,7 @@ public:
     kBool,
     kVector
   };
+    // Constructors
   AcDbDataCell();
   AcDbDataCell(const AcDbDataCell& rCell);
   AcDbDataCell(bool b);
@@ -82,11 +91,15 @@ public:
   virtual AcDbDataCell::CellType type() const;
 private:
   friend class AcDbSystemInternals;
+//    friend class AcDbImpDataCell;
   AcDbImpDataCell* mpImpDataCell;
 };
 /////////////////////////////////// AcDbDataCellArray /////////////////////////
+// An Array of AcDbDataCells following the standard ARX AcArray template.
+//
 typedef AcArray<AcDbDataCell, AcArrayObjectCopyReallocator<AcDbDataCell> > AcDbDataCellArray;
 //////////////////////////////////// AcDbDataColumn /////////////////////////////
+//
 class AcDbDataColumn : public AcRxObject
 {
 public:
@@ -160,6 +173,7 @@ public:
   virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
   virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
 };
+// This overload is deprecated. Please use the one taking AcString & arg
 inline Acad::ErrorStatus AcDbDataTable::getColumnNameAt(Adesk::UInt32 index, ACHAR*& pName) const
 {
   AcString sName;

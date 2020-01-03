@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -9,6 +10,10 @@
 //  dbcolor.h
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION: True Color Definitions
+
+// headers
 #ifndef AD_DBCOLOR_H
 #  define AD_DBCOLOR_H	1
 #  include "adesk.h"
@@ -17,6 +22,14 @@
 #  include "AcDbCore2dDefs.h"
 #  pragma  pack (push, 8)
 class AcCmEntityColor;
+// It takes care of the color method, which is one of the following: 
+// byBlock, byLayer, or byColor.
+// Depending on this color method it stores RGB, ACI, or Layerindex.
+//
+// Note: To save memory I did the following:
+//          It is not deriving from AcDbXObject. 
+//          No virtual methods.
+//          Color Method stored in last byte mRGBM.
 class AcCmEntityColor
 {
 public:
@@ -26,6 +39,7 @@ public:
     kGreen,
     kBlue
   };
+    // Color Method.
   enum ColorMethod
   {
     kByLayer = 0xC0,
@@ -35,6 +49,7 @@ public:
     kByPen,
     kForeground,
     kLayerOff,
+                         // Run-time states
     kLayerFrozen,
     kNone
   };
@@ -43,6 +58,7 @@ public:
     kACIbyBlock = 0,
     kACIforeground = 7,
     kACIbyLayer = 256,
+                         // Run-time states
     kACIclear = 0,
     kACIstandard = 7,
     kACImaximum = 255,
@@ -50,6 +66,13 @@ public:
     kACIminimum = -255,
     kACIfrozenLayer = -32700
   };
+    // Blue, green, red, and Color Method (byBlock, byLayer, byColor).
+    // Is stored that way for better performance. 
+    //
+    // Note the dependency on struct layout: we assume that indirect does not
+    // overlap with colorMethod!
+    //
+    // Also note that RGBM is public because it's used by AcDbEntity
   union RGBM
   {
     Adesk::UInt32 whole;
@@ -68,16 +91,19 @@ public:
   AcCmEntityColor& operator =(const AcCmEntityColor& color);
   bool operator ==(const AcCmEntityColor& color) const;
   bool operator !=(const AcCmEntityColor& color) const;
+    // Set/get components
   Acad::ErrorStatus setColorMethod(ColorMethod eColorMethod);
   ColorMethod colorMethod() const;
   Acad::ErrorStatus setColor(Adesk::UInt32 color);
   Adesk::UInt32 color() const;
   Acad::ErrorStatus setColorIndex(Adesk::Int16 colorIndex);
   Adesk::Int16 colorIndex() const;
+    // For internal use. Index can only use 24 bits..
   Acad::ErrorStatus setLayerIndex(Adesk::Int32 layerIndex);
   Adesk::Int32 layerIndex() const;
   Acad::ErrorStatus setPenIndex(Adesk::UInt16 penIndex);
   Adesk::UInt16 penIndex() const;
+    // Set/get RGB components
   Acad::ErrorStatus setRGB(Adesk::UInt8 red, Adesk::UInt8 green, Adesk::UInt8 blue);
   Acad::ErrorStatus setRed(Adesk::UInt8 red);
   Acad::ErrorStatus setGreen(Adesk::UInt8 green);
@@ -85,6 +111,7 @@ public:
   Adesk::UInt8 red() const;
   Adesk::UInt8 green() const;
   Adesk::UInt8 blue() const;
+    // Method check
   bool isByColor() const;
   bool isByLayer() const;
   bool isByBlock() const;
@@ -92,23 +119,29 @@ public:
   bool isByPen() const;
   bool isForeground() const;
   bool isLayerOff() const;
+    // Run time states.
   bool isLayerFrozen() const;
   bool isNone() const;
   bool isLayerFrozenOrOff() const;
+    // conversion
   Adesk::UInt32 trueColor() const;
   Adesk::UInt8 trueColorMethod() const;
   Acad::ErrorStatus setTrueColor();
   Acad::ErrorStatus setTrueColorMethod();
+    // static methods for reuse in other classes.
   static Acad::ErrorStatus setColorMethod(RGBM* rgbm, ColorMethod eColorMethod);
   static ColorMethod colorMethod(const RGBM* rgbm);
   static Acad::ErrorStatus setColor(RGBM* rgbm, Adesk::UInt32 color);
   static Adesk::UInt32 color(const RGBM* rgbm);
   ACDBCORE2D_PORT static Acad::ErrorStatus setColorIndex(RGBM* rgbm, Adesk::Int16 colorIndex);
   static Adesk::Int16 colorIndex(const RGBM* rgbm);
+    // For internal use
+    // Can return eNullPtr, eOutOfRange or eOk
   ACDBCORE2D_PORT static Acad::ErrorStatus setLayerIndex(RGBM* rgbm, Adesk::Int32 layerIndex);
   static Adesk::Int32 layerIndex(const RGBM* rgbm);
   ACDBCORE2D_PORT static Acad::ErrorStatus setPenIndex(RGBM* rgbm, Adesk::UInt16 penIndex);
   static Adesk::UInt16 penIndex(const RGBM* rgbm);
+    // Set/get RGB components
   static Acad::ErrorStatus setRGB(RGBM* rgbm, Adesk::UInt8 red, Adesk::UInt8 green, Adesk::UInt8 blue);
   static Acad::ErrorStatus setRed(RGBM* rgbm, Adesk::UInt8 red);
   static Acad::ErrorStatus setGreen(RGBM* rgbm, Adesk::UInt8 green);
@@ -116,6 +149,7 @@ public:
   static Adesk::UInt8 red(const RGBM* rgbm);
   static Adesk::UInt8 green(const RGBM* rgbm);
   static Adesk::UInt8 blue(const RGBM* rgbm);
+    // Method check
   static bool isByColor(const RGBM* rgbm);
   static bool isByLayer(const RGBM* rgbm);
   static bool isByBlock(const RGBM* rgbm);
@@ -123,8 +157,10 @@ public:
   static bool isByPen(const RGBM* rgbm);
   static bool isForeground(const RGBM* rgbm);
   static bool isLayerOff(const RGBM* rgbm);
+    // Run time states.
   static bool isLayerFrozen(const RGBM* rgbm);
   static bool isNone(const RGBM* rgbm);
+    // Look up mapping between ACI and RGB.
   static Adesk::UInt32 trueColor(const RGBM* rgbm);
   ACDBCORE2D_PORT static Adesk::UInt8 trueColorMethod(Adesk::Int16);
   static Acad::ErrorStatus setTrueColor(RGBM* rgbm);
@@ -134,8 +170,14 @@ public:
 protected:
   RGBM mRGBM;
 public:
+    // The Look Up Table (LUT) provides a mapping between ACI and RGB 
+    // and contains each ACI's representation in RGB.
   static const Adesk::UInt8 mLUT[256][3];
 };
+// AcCmEntityColor inline
+//
+
+// Default color method is kByColor.
 inline AcCmEntityColor::AcCmEntityColor()
 {
   mRGBM.whole = 0;
@@ -145,11 +187,14 @@ inline AcCmEntityColor::AcCmEntityColor(const AcCmEntityColor& color)
 {
   mRGBM.whole = color.mRGBM.whole;
 }
+// parameter:   eColorMethod    Color method information (byBlock, byLayer, byColor).
 inline AcCmEntityColor::AcCmEntityColor(ColorMethod eColorMethod)
 {
   mRGBM.whole = 0;
   mRGBM.mdata.colorMethod = static_cast<Adesk::UInt8>(eColorMethod);
 }
+// Default color method is kByColor.
+// parameter:   red, green, blue
 inline AcCmEntityColor::AcCmEntityColor(Adesk::UInt8 red, Adesk::UInt8 green, Adesk::UInt8 blue)
 {
   mRGBM.mdata.red = red;
@@ -170,10 +215,23 @@ inline bool AcCmEntityColor::operator!=(const AcCmEntityColor& color) const
 {
   return mRGBM.whole != color.mRGBM.whole;
 }
+// get Color Method
 inline AcCmEntityColor::ColorMethod AcCmEntityColor::colorMethod() const
 {
   return (ColorMethod) mRGBM.mdata.colorMethod;
 }
+// get RGB
+//
+// return value:    Depending on color method (fourth byte):
+//                  kByLayer:   Layer index in first and second byte.
+//                  kByColor:   RGB and color method.
+//                              First byte blue, second byte green and third byte red.
+//                              Fourth byte is color method.
+//
+//                  kByACI:     ACI index in first and second byte.
+//
+//                  kByBlock,   
+//                  kForeground: Only color method (fourth byte) is valid.    
 inline Adesk::UInt32 AcCmEntityColor::color() const
 {
   return mRGBM.whole;
@@ -194,9 +252,13 @@ inline Acad::ErrorStatus AcCmEntityColor::setColorIndex(Adesk::Int16 colorIndex)
 {
   return setColorIndex(&mRGBM, colorIndex);
 }
+// Return signed 32-bit int obtained from low 3 bytes (24 bits) of the rgb struct
+//
 inline Adesk::Int32 AcCmEntityColor::RGBM::indirect24() const
 {
+    // We can only store a 24-bit index, because of the colorMethod field using bits 24..31
   Adesk::Int32 nRet = this->mnIndirect32;
+    // Do sign extension if bit 23 is set
   if ((nRet & 0x800000) != 0)
   {
     nRet |= 0xff000000;
@@ -211,6 +273,7 @@ inline Acad::ErrorStatus AcCmEntityColor::setLayerIndex(Adesk::Int32 layerIndex)
 {
   return setLayerIndex(&mRGBM, layerIndex);
 }
+// return value:    Layer index.
 inline Adesk::Int32 AcCmEntityColor::layerIndex(const RGBM* rgbm)
 {
   if (rgbm == nullptr)
@@ -247,14 +310,17 @@ inline Adesk::UInt16 AcCmEntityColor::penIndex() const
 {
   return penIndex(&mRGBM);
 }
+// get red
 inline Adesk::UInt8 AcCmEntityColor::red() const
 {
   return mRGBM.mdata.red;
 }
+// get green
 inline Adesk::UInt8 AcCmEntityColor::green() const
 {
   return mRGBM.mdata.green;
 }
+// get blue
 inline Adesk::UInt8 AcCmEntityColor::blue() const
 {
   return mRGBM.mdata.blue;
@@ -299,26 +365,33 @@ inline bool AcCmEntityColor::isNone() const
 {
   return (mRGBM.mdata.colorMethod == kNone || (mRGBM.mdata.colorMethod == kByACI && mRGBM.indirect == kACInone)) ? true : false;
 }
+// parameter:   red, green, blue.
 inline Acad::ErrorStatus AcCmEntityColor::setRGB(Adesk::UInt8 red, Adesk::UInt8 green, Adesk::UInt8 blue)
 {
   return setRGB(&mRGBM, red, green, blue);
 }
+// set red
 inline Acad::ErrorStatus AcCmEntityColor::setRed(Adesk::UInt8 red)
 {
   return setRed(&mRGBM, red);
 }
+// set green
 inline Acad::ErrorStatus AcCmEntityColor::setGreen(Adesk::UInt8 green)
 {
   return setGreen(&mRGBM, green);
 }
+// set blue
 inline Acad::ErrorStatus AcCmEntityColor::setBlue(Adesk::UInt8 blue)
 {
   return setBlue(&mRGBM, blue);
 }
+// converts to true color
+// returns result
 inline Adesk::UInt32 AcCmEntityColor::trueColor() const
 {
   return trueColor(&mRGBM);
 }
+// Base interface class for AcCmColor
 class ADESK_NO_VTABLE AcCmColorBase
 {
 public:
@@ -363,6 +436,7 @@ public:
     kByAlpha,
     kErrorValue
   };
+    // Some Transparency constants
   enum
   {
     kTransparencyByLayer = (unsigned long) kByLayer,
@@ -432,6 +506,7 @@ namespace AcCm
 {
   enum DialogTabs
   {
+        //these flags can be OR-ed 
     kACITab = 1,
     kTrueColorTab = 2,
     kColorBookTab = 4

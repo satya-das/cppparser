@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -24,6 +25,8 @@ class AcRxClass : public AcRxObject
 public:
   ACRX_DECLARE_MEMBERS_EXPIMP(AcRxClass, ACBASE_PORT);
   ACBASE_PORT AcRxObject* addX(AcRxClass*, AcRxObject*);
+    // Deprecated: The getX() method will be removed in a future
+    // release.  Please use queryX() instead.
   ACBASE_PORT AcRxObject* getX(const AcRxClass*);
   ACBASE_PORT AcRxObject* delX(AcRxClass*);
   ACBASE_PORT AcRxObject* queryX(const AcRxClass*);
@@ -57,6 +60,10 @@ protected:
   AcRxClass(const ACHAR* name, const ACHAR* parent, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData);
   virtual ~AcRxClass();
 private:
+    // Private unimplemented overload of AcRxObject::isKindOf(), to cause compile errors
+    // on incorrect usage such as this: pClass->isKindOf(pOtherClass).
+    // What you really want to use is: pClass->isDerivedFrom(pOtherClass)
+    //
   void isKindOf(void*);
   AcRxClass();
   friend class AcRxImpClass;
@@ -70,6 +77,7 @@ ACBASE_PORT AcRxClass* newAcRxClass(const ACHAR* className, const ACHAR* parentC
 ACBASE_PORT AcRxClass* newAcRxClass(const ACHAR* className, const ACHAR* parentClassName, int dwgVer, int maintVer, int proxyFlags = 0, PseudoConstructor pseudoConstructor = NULL, const ACHAR* dxfName = NULL, const ACHAR* appName = NULL, AppNameChangeFuncPtr func = NULL);
 ACBASE_PORT AcRxClass* newAcRxClass(const ACHAR* className, const ACHAR* parentClassName, int dwgVer, int maintVer, int proxyFlags, AcRxObject* (*pseudoConstructor) (), const ACHAR* dxfName, const ACHAR* appName, AppNameChangeFuncPtr func, AcRxMemberCollectionConstructorPtr makeMembers, void* userData = NULL);
 ACBASE_PORT void acrxBuildClassHierarchy();
+// Destruction:  DELETE AcDbObject-derived CLASSES DURING APPLICATION UNLOAD ONLY !!!
 ACBASE_PORT void deleteAcRxClass(AcRxClass* pClassObj);
 inline bool AcRxClass::isDerivedFrom(const AcRxClass* pOtherClass) const
 {

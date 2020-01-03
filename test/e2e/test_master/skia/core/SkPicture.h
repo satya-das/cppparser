@@ -197,6 +197,7 @@ public:
   sk_sp<SkShader> makeShader(SkTileMode tmx, SkTileMode tmy, const SkMatrix* localMatrix, const SkRect* tileRect) const;
   sk_sp<SkShader> makeShader(SkTileMode tmx, SkTileMode tmy, const SkMatrix* localMatrix = nullptr) const;
 private:
+    // Subclass whitelist.
   SkPicture();
   friend class SkBigPicture;
   friend class SkEmptyPicture;
@@ -217,6 +218,7 @@ private:
   static bool StreamIsSKP(SkStream*, struct SkPictInfo*);
   static bool BufferIsSKP(class SkReadBuffer*, struct SkPictInfo*);
   friend bool SkPicture_StreamIsSKP(SkStream*, struct SkPictInfo*);
+    // Returns NULL if this is not an SkBigPicture.
   virtual const class SkBigPicture* asSkBigPicture() const
   {
     return nullptr;

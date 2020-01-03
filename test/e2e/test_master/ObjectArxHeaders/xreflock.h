@@ -7,6 +7,8 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  DESCRIPTION: Header for Xref FileLock & Consistency Check
 #ifndef _XREFLOCK_H
 #  define _XREFLOCK_H
 #  include "rxnames.h"
@@ -104,12 +106,17 @@ private:
     ///
   void collectAllOpenedObjects(AcDbObjectIdArray& openedObjectIds);
   bool hasOpenedObjects();
+    // Temporarily close the opened objects in the XREF database, so that no objects 
+    // are open when saving the XREF database to file. Reopen the objects back to their 
+    // previous open states after the save is completed
+    //
   void closeOpenedObjects(AcDbObjectIdArray& openedObjectIds, AcArray<AcDb::OpenMode>& openModes, AcArray<int>& openCounts);
   void reopenClosedObjects(const AcDbObjectIdArray& openedObjectIds, const AcArray<AcDb::OpenMode>& openModes, const AcArray<int>& openCounts);
   AcDbDatabase* mpXrefDatabase;
   AcEdXrefFileLock mXrefFileLock;
   Acad::ErrorStatus mStatus;
   bool mSaveBackToXrefFile;
+    // Disable
   AcDbXrefFileLocker();
   AcDbXrefFileLocker(const AcDbXrefFileLocker&);
   AcDbXrefFileLocker& operator =(AcDbXrefFileLocker&);

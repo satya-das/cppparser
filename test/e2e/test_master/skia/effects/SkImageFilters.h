@@ -17,6 +17,10 @@
 class SkColorFilter;
 class SkPaint;
 class SkRegion;
+// A set of factory functions providing useful SkImageFilter effects. For image filters that take an
+// input filter, providing nullptr means it will automatically use the dynamic source image. This
+// source depends on how the filter is applied, but is either the contents of a saved layer when
+// drawing with SkCanvas, or an explicit SkImage if using SkImage::makeWithFilter.
 class SK_API SkImageFilters
 {
 public:
@@ -56,6 +60,7 @@ public:
      *  @param cropRect Optional rectangle that crops the input and output.
      */
   static sk_sp<SkImageFilter> Blur(SkScalar sigmaX, SkScalar sigmaY, SkTileMode tileMode, sk_sp<SkImageFilter> input, const SkIRect* cropRect = nullptr);
+    // As above, but defaults to the decal tile mode.
   static sk_sp<SkImageFilter> Blur(SkScalar sigmaX, SkScalar sigmaY, sk_sp<SkImageFilter> input, const SkIRect* cropRect = nullptr)
   {
     return Blur(sigmaX, sigmaY, SkTileMode::kDecal, std::move(input), cropRect);
@@ -127,6 +132,9 @@ public:
      */
   static sk_sp<SkImageFilter> Image(sk_sp<SkImage> image)
   {
+        // Defaults to kHigh_SkFilterQuality because the dstRect of the image filter will be mapped
+        // by the layer matrix set during filtering. If that has a scale factor, then the image
+        // will not be drawn at a 1-to-1 pixel scale, even that is what this appears to create here.
     SkRect r = image ? SkRect::MakeWH(image->width(), image->height()) : SkRect::MakeEmpty();
     return Image(std::move(image), r, r, kHigh_SkFilterQuality);
   }
@@ -209,6 +217,7 @@ public:
      *  @param targetRect The drawing region for the picture.
      */
   static sk_sp<SkImageFilter> Picture(sk_sp<SkPicture> pic, const SkRect& targetRect);
+    // As above, but uses SkPicture::cullRect for the drawing region.
   static sk_sp<SkImageFilter> Picture(sk_sp<SkPicture> pic)
   {
     SkRect target = pic ? pic->cullRect() : SkRect::MakeEmpty();
@@ -228,6 +237,8 @@ public:
      *  @cropRect         Optional rectangle to crop input and output.
      */
   static sk_sp<SkImageFilter> Xfermode(SkBlendMode, sk_sp<SkImageFilter> background, sk_sp<SkImageFilter> foreground = nullptr, const SkIRect* cropRect = nullptr);
+    // Morphology filter effects
+
     /**
      *  Create a filter that dilates each input pixel's channel values to the max value within the
      *  given radii along the x and y axes.
@@ -246,6 +257,8 @@ public:
      *  @param cropRect Optional rectangle that crops the input and output.
      */
   static sk_sp<SkImageFilter> Erode(int radiusX, int radiusY, sk_sp<SkImageFilter> input, const SkIRect* cropRect = nullptr);
+    // Lighting filter effects
+
     /**
      *  Create a filter that calculates the diffuse illumination from a distant light source,
      *  interpreting the alpha channel of the input as the height profile of the surface (to

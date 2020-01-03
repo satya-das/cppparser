@@ -37,6 +37,7 @@ public:
   {
     kUnknown = 0,
     kAnsi,
+        // kAnsiCIF,   should this be a separate type?
     kUtf8,
     kUtf16LE,
     kUtf16BE,
@@ -48,14 +49,18 @@ public:
     , mbUseCIF(bUseCIF)
     , mbExpandLF(bExpandLF)
   {
+        // doesn't make sense to ask for CIF with non-ansi format
     AdCharFmt_Assert(this->mbUseCIF == false || this->mnFormat == kAnsi);
   }
+    // by default, we assume ansi and we *do* expand lfs into cr-lf
   AdCharFormatter()
     : mnFormat(kAnsi)
     , mbUseCIF(false)
     , mbExpandLF(true)
   {
   }
+    // This function assumes you are passing it the first four
+    // bytes of the input file for examination.
   static unsigned lookupBOM(unsigned nBom)
   {
     if ((nBom & 0x00ffffff) == 0xbfbbef)
@@ -80,6 +85,8 @@ public:
     }
     return kUnknown;
   }
+    // Writes the BOM for the given format into the dword and returns
+    // its length.
   static int getBOM(unsigned& nBom, unsigned nFmt)
   {
     if (nFmt == kUtf8)
@@ -125,6 +132,9 @@ public:
       }
     }
   }
+    // Inserts 7 CIF chars of the form "\U+xxxx" into the destination
+    // buffer.  Assumes there is room in the buffer.  Does *not*
+    // append a null terminator.
   template <typename ChType>
   static void putCIF(wchar_t wch, ChType* pDest)
   {
@@ -138,6 +148,8 @@ public:
       wch >>= 4;
     }
   }
+    // Non-static methods for getting and setting local state.
+    //
   bool getUseCIF() const
   {
     return this->mbUseCIF;
@@ -168,6 +180,7 @@ public:
     this->mnFormat = nFormat;
     return nOldFormat;
   }
+    // Static method to get length of a widechar string.
   static unsigned wcsLength(const wchar_t* pStr)
   {
     unsigned nLen = 0;
@@ -178,8 +191,14 @@ public:
     }
     return nLen;
   }
+    // Static method
+    // Requires dest buf is 2 chars for ansi, 4 for utf-8, 7 for ansi+CIF
+    // Returns number of bytes put into buffer.
   ACBASE_PORT static unsigned wcharToAnsiOrUtf8(wchar_t wch, char* pDestBuf, unsigned nDestBufSize, bool bToAnsi, bool bUseCIF, bool bExpandLF);
+    // static method to output utf-16
   ACBASE_PORT static unsigned wcharToUtf16(wchar_t wch, char* pDestBuf, unsigned nDestBufSize, bool bLittleEndian, bool bExpandLF);
+    // Non-static method.  Uses local state info.
+    // Returns number of bytes put into buffer.  Returns 0 if error.
   unsigned wcharToBytes(wchar_t wch, char* pDestBuf, unsigned nDestBufSize) const
   {
     if (this->mnFormat == kAnsi || this->mnFormat == kUtf8)
@@ -207,6 +226,7 @@ public:
   template <typename ChType>
   static bool isHex(ChType ch)
   {
+        // true if in range 0..9, a..f or A..F
     return (ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'F') || (ch >= 'a' && ch <= 'f');
   }
   template <typename ChType>
@@ -234,16 +254,21 @@ public:
     }
     return false;
   }
+    // Static method. 
+    // Returns true if pSrcBuf contains a CIF sequence, or false otherwise.
+    // Assumes the string is null terminated
   template <typename ChType>
   static bool isCIFString(const ChType* pSrcBuf)
   {
     AdCharFmt_Assert(pSrcBuf != NULL);
+        // look for \U+xxxx
     if (pSrcBuf[0] == '\\' && (pSrcBuf[1] == 'U' || pSrcBuf[1] == 'u') && pSrcBuf[2] == '+' && isHex<ChType>(pSrcBuf[3]) && isHex<ChType>(pSrcBuf[4]) && isHex<ChType>(pSrcBuf[5]) && isHex<ChType>(pSrcBuf[6]))
     {
       return true;
     }
     return false;
   }
+    // Takes a string length arg instead of assuming it's null terminated
   template <typename ChType>
   static bool isCIFString(const ChType* pSrcBuf, unsigned nSrcBufSize)
   {
@@ -255,6 +280,8 @@ public:
     }
     return isCIFString<ChType>(pSrcBuf);
   }
+    // Static method. Parse a wide character from a CIF string.
+    // Returns true if parsing is successful, or false otherwise.
   template <typename ChType>
   static bool parseCIF(const ChType* pSrcBuf, wchar_t& wch)
   {
@@ -263,10 +290,12 @@ public:
     {
       return false;
     }
+        // look for "\U+"
     if (pSrcBuf[0] != '\\' || (pSrcBuf[1] != 'U' && pSrcBuf[1] != 'u') || pSrcBuf[2] != '+')
     {
       return false;
     }
+        // look for 4 hex digits
     unsigned uVal;
     if (!isHex<ChType>(pSrcBuf[3], uVal))
     {
@@ -290,16 +319,21 @@ public:
     wch |= (wchar_t) uVal;
     return true;
   }
+    // Static method. 
+    // Returns true if pSrcBuf contains a MIF sequence, or false otherwise.
+    // Assumes the string is null terminated
   template <typename ChType>
   static bool isMIFString(const ChType* pSrcBuf)
   {
     AdCharFmt_Assert(pSrcBuf != NULL);
+        // look for \M+nxxyy, where n is 1..5, x and y are hex digits
     if (pSrcBuf[0] == '\\' && (pSrcBuf[1] == 'M' || pSrcBuf[1] == 'm') && pSrcBuf[2] == '+' && pSrcBuf[3] >= '1' && pSrcBuf[3] <= '5' && isHex<ChType>(pSrcBuf[4]) && isHex<ChType>(pSrcBuf[5]) && isHex<ChType>(pSrcBuf[6]) && isHex<ChType>(pSrcBuf[7]))
     {
       return true;
     }
     return false;
   }
+    // Takes a string length arg instead of assuming it's null terminated
   template <typename ChType>
   static bool isMIFString(const ChType* pSrcBuf, unsigned nSrcBufSize)
   {
@@ -346,6 +380,10 @@ default:
       return 0;
   }
   }
+    // To be obsoleted.
+    // The public API is retained. But will be obsolted. Use putMIF() the code_page_id version instead.
+    // Assumes output buffer is at least 8 chars.  Returns true
+    // if widechar converted to MIF, false otherwise.
   template <typename ChType>
   ADESK_DEPRECATED static bool putMIF(wchar_t wch, ChType* pMbOut, unsigned nWinCodePage)
   {
@@ -384,6 +422,8 @@ default:
     }
     return true;
   }
+    // Assumes output buffer is at least 8 chars.  Returns true
+    // if widechar converted to MIF, false otherwise.
   template <typename ChType>
   static bool putMIF(wchar_t wch, ChType* pMbOut, code_page_id codePageId)
   {
@@ -422,19 +462,27 @@ default:
     }
     return true;
   }
+    // Returns 0 if input char doesn't represent a valid MIF codepage
   template <typename ChType>
   static unsigned getMIFCodePage(ChType ch)
   {
     return ch == '1' ? 932 : ch == '2' ? 950 : ch == '3' ? 949 : ch == '4' ? 1361 : ch == '5' ? 936 : 0;
   }
+    // Returns 0 if input char doesn't represent a valid MIF codepage
   template <typename ChType>
   static code_page_id getMIFCodePageId(ChType ch)
   {
     return ch == '1' ? code_page_id::CODE_PAGE_DOS932 : ch == '2' ? code_page_id::CODE_PAGE_BIG5 : ch == '3' ? code_page_id::CODE_PAGE_KSC5601 : ch == '4' ? code_page_id::CODE_PAGE_JOHAB : ch == '5' ? code_page_id::CODE_PAGE_GB2312 : code_page_id::CODE_PAGE_UNDEFINED;
   }
+    // Static method. Parse a wide character from a MIF string.
+    // Returns true if parsing is successful, or false otherwise.
   template <typename ChType>
   static bool parseMIF(const ChType* pSrcBuf, wchar_t& wch)
   {
+        // Convert the given MIF sequence \M+xyyzz to wide character. 
+        // x represents the index into the code page array, and yy 
+        // represents the lower order byte in a DBCS character, where 
+        // zz represents the higher order byte in a DBCS character.
     AdCharFmt_Assert(pSrcBuf != NULL);
     if (pSrcBuf == NULL)
     {
@@ -471,6 +519,13 @@ default:
       return false;
     }
     mbBuf[1] |= (char) (uVal);
+        // If leading byte is zero, then it's a single byte ansi char
+        // That is, "\M+n00xx" is treated as a single byte char.
+        //
+        // Note, if we get "\M+nxx00", then it will translate xx
+        // as a single byte char (if possible) and then will
+        // append a null terminator.
+        //
     if (mbBuf[0] == 0)
     {
       mbBuf[0] = mbBuf[1];
@@ -479,9 +534,71 @@ default:
     extern bool convertMBStringToOneWideChar(code_page_id codePageId, char* mbBuf, int mbLen, wchar_t& wch);
     return convertMBStringToOneWideChar(codePageId, mbBuf, mbBuf[1] == 0 ? 1 : 2, wch);
   }
+    // To be obsoleted.
+    // The public API is retained. But will be obsolted. Use isNativeToCodePageId() instead.
+    //
+    // Static method. Determine if a given wide character is native 
+    // to the given code page value.
+    //
+    // Note: if pChNative is non-null, it should be pointing to a
+    // char buff, in case the native char is double-byte.
+    // If the pChNative is null, it will return the length of the buffer
+    // it needs to convert this wch to MBCS.
+    //
+    // Return value:
+    // This method returns number of bytes in the equivalent MBCS 
+    // character. If the return value is zero, wch is not native to 
+    // code page specified by nCodePage parameter. If the return value is -1,
+    // The destination buffer length is not enough.
+    // 
   ACBASE_PORT static int isNativeToCodePage(wchar_t wch, unsigned nCodePage, char* pChNative, int bufferLen);
+    // Static method. Determine if a given wide character is native 
+    // to the given code_page_id value.
+    //
+    // Note: if pChNative is non-null, it should be pointing to a
+    // char buff, in case the native char is double-byte.
+    // If the pChNative is null, it will return the length of the buffer
+    // it needs to convert this wch to MBCS.
+    //
+    // Return value:
+    // This method returns number of bytes in the equivalent MBCS 
+    // character. If the return value is zero, wch is not native to 
+    // code page specified by nCodePage parameter. If the return value is -1,
+    // The destination buffer length is not enough.
+    // 
   ACBASE_PORT static int isNativeToCodePageId(wchar_t wch, code_page_id codePageId, char* pChNative, int bufferLen);
+    // Static method. Converts a given wide character string into 
+    // its ANSI/CIF equivalent. 
+    // This method returns the number of characters written to the 
+    // szDst buffer. If szDst is NULL, the return value indicates 
+    // the size of destination buffer required for the conversion, 
+    // in number of characters (including NULL character).
   ACBASE_PORT static int wcharNonNativeToCIF(const wchar_t* szSrc, wchar_t* szDst, size_t cchDstSize, bool b2byteCharToCIF = false);
+    // Static helper method to convert existing CIF sequences in a 
+    // wide string back to their native equivalent. 
+    // 
+    // Parameters:
+    //  - szSrc: Source wide string that might contain CIF sequence 
+    //           to be converted. This parameter cannot be NULL.
+    //  - szDst: Destination wide string buffer where output is to 
+    //           be written. If szDst is NULL and cchDstSize is a 
+    //           negative value, resulting string will be written 
+    //           to szSrc instead. If szDst is NULL and cchDstSize 
+    //           is zero, required buffer size in characters is 
+    //           returned. If szDst is not NULL, cchDstSize must be 
+    //           greater than zero.
+    //  - cchDstSize: Size of szDst buffer in number of wide chars.
+    //                See description for 'szDst' for more details.
+    // 
+    // Return value:
+    //  - If szDst is not NULL and cchDstSize is greater than zero, 
+    //    the return value indicates the number of wide characters 
+    //    written to szDst.
+    //  - If szDst is NULL and cchDstSize is negative, the return 
+    //    value is the number of wide characters written to szSrc.
+    //  - If szDst is NULL and cchDstSize is zero, the return value 
+    //    is buffer size required (in characters) for conversion.
+    // 
   static int wcharFromCIFMIF(const wchar_t* szSrc, wchar_t* szDst, int cchDstSize)
   {
     AdCharFmt_Assert(szSrc != NULL);
@@ -544,6 +661,32 @@ default:
     }
     return cchWritten;
   }
+    // Static method. Converts a given wide character string into 
+    // its ANSI/RTF equivalent. For an example, Unicode character 
+    // 0x65e5 (26085) will be formatted to ANSI string "\u26085?".
+    // 
+    // Parameters:
+    // - codePageId: Code page id value that the conversion is based on.
+    // - szSrc: Source wide string to be converted.
+    // - cchSrcLen: Source wide string length, in the number of 
+    //              wide characters (excluding the NULL character). 
+    //              If szSrc is a null terminated string, this 
+    //              parameter can be -1.
+    // - szDst: Destination ANSI/RTF output buffer. If this argument 
+    //          is NULL, the required buffer size (in bytes) will be 
+    //          returned through pcbDstSize argument (include NULL).
+    // - pcbDstSize: Size of szDst buffer in terms of bytes. After 
+    //               conversion is done, this value will be number 
+    //               of bytes written out to szDst buffer including 
+    //               the null-terminating character. 
+    //               If szDst is NULL, caller can determine required 
+    //               output buffer size from this parameter.
+    // 
+    // Return value:
+    // This method returns the number of wide characters from szSrc 
+    // that have been processed (not including the NULL terminating 
+    // character) and output to szDst. 
+    // 
   static int wcharNonNativeToRTF(code_page_id codePageId, const wchar_t* szSrc, int cchSrcLen, char* szDst, int* pcbDstSize)
   {
     AdCharFmt_Assert(szSrc != NULL);
@@ -579,6 +722,8 @@ default:
       const wchar_t wch = szSrc[cchProcessed];
       if (wch == L'\0')
       {
+                // We don't expect caller to pass us a SrcLen that
+                // exceeds the length of the string.
         if (cchSrcLen < 0)
         {
           break;
@@ -646,6 +791,11 @@ default:
       }
       cchProcessed++;
     }
+        // Null-terminate the destination buffer only when the source 
+        // buffer length is not specified (i.e. it is null-terminated), 
+        // otherwise, the number of bytes written into szBuf can be 
+        // determined through the argument pcbDstSize.
+        // 
     *pcbDstSize = cbWritten;
     if (cchSrcLen < 0)
     {

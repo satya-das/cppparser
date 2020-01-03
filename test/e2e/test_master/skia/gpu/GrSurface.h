@@ -54,6 +54,8 @@ public:
     this->onSetRelease(releaseHelper);
     fReleaseHelper = std::move(releaseHelper);
   }
+    // These match the definitions in SkImage, from whence they came.
+    // TODO: Remove Chrome's need to call this on a GrTexture
   typedef void* ReleaseCtx;
   typedef void (*ReleaseProc) (ReleaseCtx);
   SK_API void setRelease(ReleaseProc proc, ReleaseCtx ctx)
@@ -95,6 +97,7 @@ public:
   {
     return fSurfaceFlags & GrInternalSurfaceFlags::kReadOnly;
   }
+    // Returns true if we are working with protected content.
   bool isProtected() const
   {
     return fIsProtected == GrProtected::kYes;
@@ -126,6 +129,7 @@ protected:
     SkASSERT(!this->asRenderTarget());
     fSurfaceFlags |= GrInternalSurfaceFlags::kReadOnly;
   }
+    // Provides access to methods that should be public within Skia code.
   friend class GrSurfacePriv;
   GrSurface(GrGpu* gpu, const SkISize& size, GrPixelConfig config, GrProtected isProtected)
     : INHERITED(gpu)
@@ -138,6 +142,7 @@ protected:
   }
   ~GrSurface()
   {
+        // check that invokeReleaseProc has been called (if needed)
     SkASSERT(!fReleaseHelper);
   }
   void onRelease() override;
@@ -147,11 +152,15 @@ private:
   {
     return "Surface";
   }
+    // Unmanaged backends (e.g. Vulkan) may want to specially handle the release proc in order to
+    // ensure it isn't called until GPU work related to the resource is completed.
   virtual void onSetRelease(sk_sp<GrRefCntedCallback>)
   {
   }
   void invokeReleaseProc()
   {
+        // Depending on the ref count of fReleaseHelper this may or may not actually trigger the
+        // ReleaseProc to be called.
     fReleaseHelper.reset();
   }
   GrPixelConfig fConfig;

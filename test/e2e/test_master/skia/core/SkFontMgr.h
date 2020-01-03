@@ -88,6 +88,7 @@ public:
      *  must call unref() on the returned object if it is not null.
      */
   sk_sp<SkTypeface> makeFromStream(std::unique_ptr<SkStreamAsset>, int ttcIndex = 0) const;
+    /* Experimental, API subject to change. */
   sk_sp<SkTypeface> makeFromStream(std::unique_ptr<SkStreamAsset>, const SkFontArguments&) const;
     /**
      *  Create a typeface from the specified font data.

@@ -17,12 +17,16 @@
 #pragma  pack(push, 8)
 class AcDbImpHomeView;
 ///////////////////////////////////////////////////////////////////////////////
+//
+// class AcDbHomeView - navigation home view settings class
+//
 class AcDbHomeView
 {
 public:
   ACDBCORE2D_PORT AcDbHomeView();
   ACDBCORE2D_PORT AcDbHomeView(const AcDbHomeView& rhvw);
   ACDBCORE2D_PORT virtual ~AcDbHomeView();
+    // Member variable routines
   ACDBCORE2D_PORT const AcGePoint3d& eye() const;
   ACDBCORE2D_PORT const AcGePoint3d& center() const;
   ACDBCORE2D_PORT const AcGeVector3d& up() const;
@@ -35,8 +39,10 @@ public:
   ACDBCORE2D_PORT void setWidth(double dWidth);
   ACDBCORE2D_PORT void setHeight(double dHeight);
   ACDBCORE2D_PORT void setPerspective(bool bPerspective);
+    // DB access utility
   ACDBCORE2D_PORT Acad::ErrorStatus setHomeView(AcDbDatabase* pDb) const;
   ACDBCORE2D_PORT Acad::ErrorStatus getHomeView(AcDbDatabase* pDb, bool bCreateDefault = false);
+    // Fill members with default values
   ACDBCORE2D_PORT void toggleDefaultSettings();
   ACDBCORE2D_PORT bool operator ==(const AcDbHomeView& rhvw) const;
   ACDBCORE2D_PORT bool operator !=(const AcDbHomeView& rhvw) const;
@@ -45,8 +51,10 @@ public:
 private:
   AcDbImpHomeView* mpImpObj;
 };
+// Navigation home view routine
 ACDBCORE2D_PORT Acad::ErrorStatus acdbSetHomeView(AcDbDatabase* pDb, const AcDbHomeView& hmView);
 ACDBCORE2D_PORT Acad::ErrorStatus acdbGetHomeView(AcDbDatabase* pDb, AcDbHomeView& hmView);
+// ViewCube compass show/hide
 ACDBCORE2D_PORT Acad::ErrorStatus acdbSetShowCompass(AcDbDatabase* pDb, bool bShow);
 ACDBCORE2D_PORT Acad::ErrorStatus acdbGetShowCompass(AcDbDatabase* pDb, bool& bShow);
 #pragma  pack(pop)

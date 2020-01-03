@@ -68,6 +68,14 @@ public:
         be set on a pixelref, but it cannot be cleared once it is set.
     */
   void setImmutable();
+    // Register a listener that may be called the next time our generation ID changes.
+    //
+    // We'll only call the listener if we're confident that we are the only SkPixelRef with this
+    // generation ID.  If our generation ID changes and we decide not to call the listener, we'll
+    // never call it: you must add a new listener for each generation ID change.  We also won't call
+    // the listener when we're certain no one knows what our generation ID is.
+    //
+    // This can be used to invalidate caches keyed by SkPixelRef generation ID.
   struct GenIDChangeListener
   {
     virtual ~GenIDChangeListener()
@@ -75,7 +83,10 @@ public:
     }
     virtual void onChange() = 0;
   };
+    // Takes ownership of listener.  Threadsafe.
   void addGenIDChangeListener(GenIDChangeListener* listener);
+    // Call when this pixelref is part of the key to a resourcecache entry. This allows the cache
+    // to know automatically those entries can be purged when this pixelref is changed or deleted.
   void notifyAddedToCache()
   {
     fAddedToCache.store(true);
@@ -91,6 +102,7 @@ private:
   int fHeight;
   void* fPixels;
   size_t fRowBytes;
+    // Bottom bit indicates the Gen ID is unique.
   bool genIDIsUnique() const
   {
     return SkToBool(fTaggedGenID.load() & 1);
@@ -98,6 +110,7 @@ private:
   mutable std::atomic<uint32_t> fTaggedGenID;
   SkMutex fGenIDChangeListenersMutex;
   SkTDArray<GenIDChangeListener*> fGenIDChangeListeners;
+    // Set true by caches when they cache content that's derived from the current pixels.
   std::atomic<bool> fAddedToCache;
   enum Mutability : char
   {

@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -18,6 +19,8 @@
 #  include "acmem.h"
 #  include "AdAChar.h"
 #  pragma  pack (push, 8)
+// AdInt32 is obsolete and will be removed in the future
+// Please use Adesk::Int32, int32_t or int instead
 #  ifdef AdInt32
 #    undef AdInt32
 #  endif
@@ -26,25 +29,40 @@
 #  else 
 #    define AdInt32	long
 #  endif
+// LINKAGE: The following functions are exported with both extern "C" and C++ linkage.
+// The extern "C" linkage allows use by legacy C modules (*.c as opposed to *.cpp).
+// New modules should be written in C++, as we may some day drop support for C.
+//
+
+/* External function definitions accessible from applications */
 const ACHAR* acedGetAppName();
 int acedUpdate(int vport, ads_point p1, ads_point p2);
 #  if  defined(_WINDEF_) || defined(_ADESK_MAC_)
+/* AutoCAD graphics window handle */
 HWND adsw_acadMainWnd();
 #    ifndef adsw_hwndAcad
 #      define adsw_hwndAcad	adsw_acadMainWnd()
 #    endif
+/* MFC "Document View" window handle */
 ACCORE_PORT HWND adsw_acadDocWnd();
 #  endif
 #  define acedCommand	MustSwitchTo_acedCommandC_or_acedCommandS - - !
 #  define acedCmd	MustSwitchTo_acedCmdC_or_acedCmdS - - !
+/* Register an ADS function handler */
 int acedRegFunc(int (*fhdl) (void), int fcode);
+/* Check for a console break */
 int acedUsrBrk(void);
+/* Define an external subroutine in AutoLISP */
 int acedDefun(const ACHAR* pszName, int nFuncNum);
 int acedDefunEx(const ACHAR* pszGlobalName, const ACHAR* pszLocalName, int nFuncNum);
+/* Define help for that external subroutine */
 int acedSetFunHelp(const ACHAR* pszFunctionName, const ACHAR* pszHelpfile, const ACHAR* pszTopic, int iCmd);
+/* Undefine an external subroutine in AutoLISP */
 int acedUndef(const ACHAR* sname, int nFuncNum);
+// Utilities for external subroutine interface
 int acedGetFunCode(void);
 struct resbuf* acedGetArgs(void);
+/* Return the specified type as a result of external subroutine */
 int acedRetList(const struct resbuf* rbuf);
 int acedRetVal(const struct resbuf* rbuf);
 int acedRetPoint(const ads_point pt);
@@ -55,6 +73,7 @@ int acedRetReal(ads_real rval);
 int acedRetT(void);
 int acedRetNil(void);
 int acedRetVoid(void);
+/* AutoCAD Entity access routines */
 int acedEntSel(const ACHAR* str, ads_name entres, ads_point ptres);
 #  ifdef __cplusplus
 class AcSelectionPreview;
@@ -87,6 +106,7 @@ int acedSSSetKwordCallbackPtr(SSCallbackType pFunc);
 int acedSSGetOtherCallbackPtr(SSCallbackType* pFunc);
 int acedSSSetOtherCallbackPtr(SSCallbackType pFunc);
 int acedTrans(const ads_point pt, const struct resbuf* from, const struct resbuf* to, int disp, ads_point result);
+/* General AutoCAD utility routines */
 int acedSetVar(const ACHAR* sym, const struct resbuf* val);
 int acedInitGet(int val, const ACHAR* kwl);
 int acedGetSym(const ACHAR* sname, struct resbuf** value);
@@ -94,6 +114,11 @@ int acedPutSym(const ACHAR* sname, struct resbuf* value);
 int acedHelp(const ACHAR* szFilename, const ACHAR* szTopic, int iCmd);
 int acedHelpForExternal(const ACHAR* pszFunctionName);
 int acedFNSplit(const ACHAR* pathToSplit, ACHAR* prebuf, size_t nPreBufLen, ACHAR* namebuf, size_t nNameBufLen, ACHAR* extbuf, size_t nExtBufLen);
+/*  These values are identical to those for the WinHelp() call in the 
+    Microsoft Windows(tm) SDK.  If you are using acedHelp() to call AutoCAD 
+    platform-independent Help these are the only values available to you.  
+    If you are using acedHelp() to call WinHelp() you can include the Windows 
+    header file winuser.h and use the full WinHelp() API.  */
 #  define HELP_CONTENTS	0x0003L  /* display first topic */
 #  define HELP_HELPONHELP	0x0004L  /* Display help on using help */
 #  define HELP_PARTIALKEY	0x0105L  /* Display Search dialog */
@@ -101,17 +126,23 @@ struct resbuf* acedArxLoaded(void);
 int acedArxLoad(const ACHAR* app);
 int acedArxUnload(const ACHAR* app);
 int acedInvoke(const struct resbuf* args, struct resbuf** result);
+/* Functions that get system variables */
 int acedGetVar(const ACHAR* sym, struct resbuf* result);
 int acedFindFile(const ACHAR* fname, ACHAR* result, size_t nBufLen);
 int acedFindTrustedFile(const ACHAR* fname, ACHAR* result, size_t nBufLen);
+/* Functions that get/set environment variables */
 int acedGetEnv(const ACHAR* sym, ACHAR* var, size_t nBufLen);
 int acedSetEnv(const ACHAR* sym, const ACHAR* val);
+/* Functions that get/set configurations  variables */
 int acedGetCfg(const ACHAR* sym, ACHAR* var, size_t len);
 int acedSetCfg(const ACHAR* sym, const ACHAR* val);
+/* Functions that get a string */
 int acedGetString(int cronly, const ACHAR* prompt, ACHAR* result, size_t bufsize);
+/* Functions that pass AutoCAD a single string  */
 int acedMenuCmd(const ACHAR* str);
 int acedPrompt(const ACHAR* str);
 int acedAlert(const ACHAR* str);
+/* Functions used to get user input  */
 int acedGetAngle(const ads_point pt, const ACHAR* prompt, ads_real* result);
 int acedGetCorner(const ads_point pt, const ACHAR* prompt, ads_point result);
 int acedGetDist(const ads_point pt, const ACHAR* prompt, ads_real* result);
@@ -122,9 +153,11 @@ int acedGetKword(const ACHAR* prompt, ACHAR* result, size_t nBufLen);
 int acedGetReal(const ACHAR* prompt, ads_real* result);
 int acedGetInput(ACHAR* str, size_t nBufLen);
 int acedVports(struct resbuf** vlist);
+/* Functions for screen flipping */
 int acedTextScr(void);
 int acedGraphScr(void);
 int acedTextPage(void);
+/* Graphics related functions */
 int acedRedraw(const ads_name ent, int mode);
 int acedOsnap(const ads_point pt, const ACHAR* mode, ads_point result);
 int acedGrRead(int track, int* type, struct resbuf* result);
@@ -134,12 +167,19 @@ int acedGrVecs(const struct resbuf* vlist, ads_matrix mat);
 int acedXformSS(const ads_name ssname, ads_matrix genmat);
 int acedDragGen(const ads_name ss, const ACHAR* pmt, int cursor, int (*scnf) (ads_point pt, ads_matrix mt), ads_point p);
 int acedSetView(const struct resbuf* view, int vport);
+/* Functions that put up standard dialogs for user input */
 int acedGetFileD(const ACHAR* title, const ACHAR* defawlt, const ACHAR* ext, int flags, struct resbuf* result);
 int acedGetFileNavDialog(const ACHAR* title, const ACHAR* defawlt, const ACHAR* ext, const ACHAR* dlgname, int flags, struct resbuf** result);
 int acedTextBox(const struct resbuf* args, ads_point pt1, ads_point pt2);
+/*  Function to retrieve or establish AutoCAD's tablet transformation: */
 int acedTablet(const struct resbuf* args, struct resbuf** result);
+/* Function for retrieving the localized or the language independent
+   name of a command. */
 int acedGetCName(const ACHAR* cmd, ACHAR** result);
+// Internal use only. 
 int acedEatCommandThroat(void);
+// The following are AcDb related, but were not able to be moved over
+// to AcDb at this time.  They will be moved in a future release.  7/14/98
 int acdbEntDel(const ads_name ent);
 struct resbuf* acdbEntGetX(const ads_name ent, const struct resbuf* args);
 struct resbuf* acdbEntGet(const ads_name ent);
@@ -175,6 +215,7 @@ ACCORE_PORT int acedGetString(int cronly, const ACHAR* prompt, AcString& sResult
 ACCORE_PORT int acedGetKword(const ACHAR* prompt, AcString& sResult);
 ACCORE_PORT int acedGetInput(AcString& sOut);
 Acad::ErrorStatus acutNewString(const ACHAR* pInput, ACHAR*& pOutput);
+// Deprecated. Please use acedGetInput(AcString &sOut) instead
 inline int acedGetFullInput(ACHAR*& pStr)
 {
   AcString sOut;
@@ -182,6 +223,7 @@ inline int acedGetFullInput(ACHAR*& pStr)
   ::acutNewString(sOut.constPtr(), pStr);
   return nRet;
 }
+// Deprecated. Please use acedGetKword (const ACHAR *prompt, AcString & sResult) instead
 inline int acedGetFullKword(const ACHAR* pString, ACHAR*& pStr)
 {
   AcString sOut;
@@ -189,6 +231,7 @@ inline int acedGetFullKword(const ACHAR* pString, ACHAR*& pStr)
   ::acutNewString(sOut.constPtr(), pStr);
   return nRet;
 }
+// Deprecated. Please use acedGetString (int cronly, const ACHAR *prompt, AcString &sResult)
 inline int acedGetFullString(int cronly, const ACHAR* pString, ACHAR*& pResult)
 {
   AcString sResult;
@@ -196,6 +239,9 @@ inline int acedGetFullString(int cronly, const ACHAR* pString, ACHAR*& pResult)
   ::acutNewString(sResult.constPtr(), pResult);
   return nRet;
 }
+// C++ templates that allow callers to omit the buffer length argument if they're
+// passing in a fixed size character array
+//
 template <size_t nBufLen>
 inline int acedGetEnv(const wchar_t* pszName, wchar_t (& buf)[nBufLen])
 {
@@ -231,21 +277,31 @@ inline int acedFNSplit(const wchar_t* pathToSplit, wchar_t (& prebuf)[nPreBufLen
 {
   return ::acedFNSplit(pathToSplit, prebuf, nPreBufLen, namebuf, nNameBufLen, extbuf, nExtBufLen);
 }
+// Template overloads to handle legacy callers who pass only ptr args and no sizes.
+// NULL is usually defined as 0, so it will bind to the size_t args.
+// If someone passes a different integer value by mistake, we'll forward it to the
+// main acedFNSplit and it will return an error because a ptr arg is null and its
+// corresponding size arg is not zero
+
+// This first one is invoked by acedFNSplit(path, NULL, namebuf, NULL);
 template <size_t nNameBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, size_t nPre, wchar_t (& namebuf)[nNameBufLen], size_t nExt)
 {
   return ::acedFNSplit(pathToSplit, nullptr, nPre, namebuf, nNameBufLen, nullptr, nExt);
 }
+// Invoked by acedFNSplit(path, NULL, NULL, extbuf);
 template <size_t nExtBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, size_t nPre, size_t nName, wchar_t (& extbuf)[nExtBufLen])
 {
   return ::acedFNSplit(pathToSplit, nullptr, nPre, nullptr, nName, extbuf, nExtBufLen);
 }
+// Invoked by acedFNSplit(path, NULL, namebuf, extbuf);
 template <size_t nNameBufLen, size_t nExtBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, size_t nPre, wchar_t (& namebuf)[nNameBufLen], wchar_t (& extbuf)[nExtBufLen])
 {
   return ::acedFNSplit(pathToSplit, nullptr, nPre, namebuf, nNameBufLen, extbuf, nExtBufLen);
 }
+// Invoked by acedFNSplit(path, prebuf, NULL, NULL);
 template <size_t nPreBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, wchar_t (& prebuf)[nPreBufLen], size_t nName, size_t nExt)
 {

@@ -16,6 +16,8 @@
 class GrBackendSemaphore
 {
 public:
+    // For convenience we just set the backend here to OpenGL. The GrBackendSemaphore cannot be used
+    // until either initGL or initVulkan are called which will set the appropriate GrBackend.
   GrBackendSemaphore()
     : fBackend(GrBackendApi::kOpenGL)
     , fGLSync(0)
@@ -38,6 +40,8 @@ public:
     fIsInitialized = false;
 #  endif
   }
+    // It is the creator's responsibility to ref the MTLEvent passed in here, via __bridge_retained.
+    // The other end will wrap this BackendSemaphore and take the ref, via __bridge_transfer.
   void initMetal(GrMTLHandle event, uint64_t value)
   {
     fBackend = GrBackendApi::kMetal;

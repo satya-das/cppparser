@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,14 +8,17 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #pragma  once
 #include "dbmain.h"
 #include "acgi.h"
 #pragma  pack (push, 8)
+// Legacy (shademode) styles
 const ACHAR kszVSFlat[] = ACRX_T("Flat");
 const ACHAR kszVSFlatWithEdges[] = ACRX_T("FlatWithEdges");
 const ACHAR kszVSGouraud[] = ACRX_T("Gouraud");
 const ACHAR kszVSGouraudWithEdges[] = ACRX_T("GouraudWithEdges");
+// Visual Styles
 const ACHAR kszVS2DWireframe[] = ACRX_T("2dWireframe");
 const ACHAR kszVS3DWireframe[] = ACRX_T("Wireframe");
 const ACHAR kszVSBasic[] = ACRX_T("Basic");
@@ -25,8 +29,10 @@ const ACHAR kszVSCustom[] = ACRX_T("Custom");
 const ACHAR kszVSShadesOfGray[] = ACRX_T("Shades of Gray");
 const ACHAR kszVSSketchy[] = ACRX_T("Sketchy");
 const ACHAR kszVSXRay[] = ACRX_T("X-Ray");
+//AirMax Visual Style
 const ACHAR kszVSShadedWithEdges[] = ACRX_T("Shaded with edges");
 const ACHAR kszVSShaded[] = ACRX_T("Shaded");
+// Highlight Visual Styles (internal use only)
 const ACHAR kszVSDim[] = ACRX_T("Dim");
 const ACHAR kszVSBrighten[] = ACRX_T("Brighten");
 const ACHAR kszVSThicken[] = ACRX_T("Thicken");
@@ -34,6 +40,7 @@ const ACHAR kszVSTransparent[] = ACRX_T("Transparent");
 const ACHAR kszVSLinePattern[] = ACRX_T("Linepattern");
 const ACHAR kszVSFacePattern[] = ACRX_T("Facepattern");
 const ACHAR kszVSColorChange[] = ACRX_T("ColorChange");
+// Edge Style Override Visual Styles (internal use only)
 const ACHAR kszVSJitterOff[] = ACRX_T("JitterOff");
 const ACHAR kszVSOverhangOff[] = ACRX_T("OverhangOff");
 const ACHAR kszVSEdgeColorOff[] = ACRX_T("EdgeColorOff");
@@ -342,6 +349,8 @@ public:
     ///
     /// </example>
   bool traitFlag(AcGiVisualStyleProperties::Property flagProp, Adesk::UInt32 flagVal) const;
+    // AcDbObject protocol
+    //
     /// <summary>
     /// Files in the visual style properties from a .dwg format file.
     /// </summary>
@@ -386,6 +395,8 @@ public:
     /// otherwise an error status return indicating type of failure.
     /// </returns>
   virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+    // AcGiDrawable protocol
+    //
     /// <summary>
     /// Returns a pointer to this visual style object.
     /// </summary>
@@ -409,6 +420,7 @@ public:
     /// Input boolean indicating this visual style is for internal use only.
     /// </param>
   virtual void setInternalUseOnly(bool bInternalUseOnly);
+    // Utility functions to map between AcDbVisualStyle and AcGiVisualStyle
     /// <summary>
     /// Copies this visual style to the given destination visual style.
     /// </summary>

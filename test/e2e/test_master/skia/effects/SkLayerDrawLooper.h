@@ -29,6 +29,8 @@ public:
     kShader_Bit = 1 << 4,
     kColorFilter_Bit = 1 << 5,
     kXfermode_Bit = 1 << 6,
+        // unsupported kTextSkewX_Bit  = 1 << 1,
+
         /**
          *  Use the layer's paint entirely, with these exceptions:
          *  - We never override the draw's paint's text_encoding, since that is
@@ -79,6 +81,7 @@ private:
   };
   Rec* fRecs;
   int fCount;
+    // state-machine during the init/next cycle
   class LayerDrawLooperContext : public SkDrawLooper::Context
   {
   public:

@@ -54,6 +54,8 @@ protected:
 private:
   friend class AcFdSystemInternals;
 };
+// This overload which allocates an ACHAR buffer is deprecated
+// Please use the other overload which takes an AcString & arg
 inline Acad::ErrorStatus AcFdFieldEvaluator::format(AcDbField* pField, ACHAR*& pszValue)
 {
   AcString sValue;

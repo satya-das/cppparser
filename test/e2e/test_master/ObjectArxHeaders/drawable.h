@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #ifndef __DRAWABLE_H
 #  define __DRAWABLE_H
 #  include "rxobject.h"
@@ -24,27 +26,69 @@ class ADESK_NO_VTABLE AcGiDrawable : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcGiDrawable);
+    // Combine these flags in the return value
+    // of setAttributes for efficiency of implementation
+    // it is vital that if you use certain aspects of the
+    // API that the correct flags be used. Otherwise the
+    // display system may be incorrectly configured for
+    // subsequent graphics. kIsCompoundObject gives
+    // full access to the AcGi API, enabling the use
+    // of draw() and the AcGi primitives together. Enabling
+    // this makes the elaboration of an object marginally 
+    // slower. So you should use the lowest value appropriate.
+    //
+    //
   enum SetAttributesFlags
   {
+        // Default drawable, just uses acgi primitives and does not use 
+        // nested calls to draw()
     kDrawableNone = 0,
+        // AcDbEntity derived classes (may require some special processing)
     kDrawableIsAnEntity = 1,
+        // (block table record) Uses nesting but does not send down additional 
+        // primitives. It uses draw() exclusively and makes no calls to the 
+        // other AcGi primitives such as circle or shell
     kDrawableUsesNesting = 2,
+        // You MUST specify this value if you nest entities as a block does.
     kDrawableIsCompoundObject = 4,
+        // Drawable specifies when viewportDraw will be called.  Employ 
+        // per-Viewport caching of viewportDraw geometry.  As well, this 
+        // drawable does not use worldDraw.
     kDrawableViewIndependentViewportDraw = 8,
+        // If this entity is not visible (AcDbEntity::visibility())
     kDrawableIsInvisible = 16,
+        // If a compound object has attributes it must specify this value
     kDrawableHasAttributes = 32,
+        // If the geometry you elaborate is dependent on the regentype; for 
+        // instance, if your drawable draws itself as a set of polygons in a 
+        // "shaded" regen-mode but as a set of wires in "standard display", 
+        // specify this flag
     kDrawableRegenTypeDependentGeometry = 64,
+        // Dimensions receive  special handling, behaving similarly to blocks
     kDrawableIsDimension = (kDrawableIsAnEntity + kDrawableIsCompoundObject + 128),
+        // Always regenerate drawable
     kDrawableRegenDraw = 256,
+        // Drawable has single level of detail for regen type 
+        // kAcGiStandardDisplay 
     kDrawableStandardDisplaySingleLOD = 512,
+        // Drawable has single level of detail for regen type 
+        // kAcGiShadedDisplay
     kDrawableShadedDisplaySingleLOD = 1024,
+        // Drawable requires viewportDraw be called on every view change.
     kDrawableViewDependentViewportDraw = 2048,
+        // Drawable requires unique viewportDraw elaboration for each block path.
     kDrawableBlockDependentViewportDraw = 4096,
+        // Drawable is an external reference 
     kDrawableIsExternalReference = 8192,
+        // Drawable will not be plotted
     kDrawableNotPlottable = 16384,
+        // Drawable will never be drawn under the LCS mechanism 
     kDrawableNotAllowLCS = 32768,
+        // this is used for wipeout plotting to pdf.
     kDrawableMergeControlOff = 65536
   };
+    // These are the Drawable types
+    //
   enum DrawableType
   {
     kGeometry = 0,
@@ -66,24 +110,38 @@ public:
 #  pragma  warning(disable: 4100)  // unreferenced formal params in RolloverHit()
   ACDBCORE2D_PORT AcGiDrawable();
   ACDBCORE2D_PORT ~AcGiDrawable();
+    // For default attributes
   ACDBCORE2D_PORT Adesk::UInt32 _VIRTUAL setAttributes(AcGiDrawableTraits* traits);
+    // For geometry shared between multiple viewports
   ACDBCORE2D_PORT Adesk::Boolean _VIRTUAL worldDraw(AcGiWorldDraw* wd);
+    // For viewport-specific geometry
   ACDBCORE2D_PORT void _VIRTUAL viewportDraw(AcGiViewportDraw* vd);
+    // For ViewIndependentViewportDraw caching
+    // return bitwise combination of SetAttributesFlags
+    // for now, 3D GS only investigates kDrawableRegenTypeDependentGeometry
   ACDBCORE2D_PORT Adesk::UInt32 _VIRTUAL viewportDrawLogicalFlags(AcGiViewportDraw* vd);
+    // Persistent/transient
   virtual Adesk::Boolean isPersistent(void) const = 0;
   virtual AcDbObjectId id(void) const = 0;
+    // Drawable type. 
   virtual DrawableType drawableType(void) const
   {
     return kGeometry;
   }
+    // nMouseFlags are identical to the WM_MOUSEMOVE wParam windows message. See MSDN for those flags, they are provided as is.
+    // reset is true if rollover is resetting or leaving your object.
+    // return true if you want rollover to track your object, false to ignore it.
   virtual Adesk::Boolean RolloverHit(Adesk::ULongPtr, Adesk::ULongPtr, Adesk::Boolean)
   {
     return Adesk::kFalse;
   }
+    // Set the bounds of the drawable.  Return false if the drawable has no
+    // bounds, the bounds cannot be set, or the method is unimplemented.
   virtual bool bounds(AcDbExtents&) const
   {
     return false;
   }
+    // Draw stream
   ACDBCORE2D_PORT virtual void setDrawStream(AcGiDrawStream* pStream);
   ACDBCORE2D_PORT virtual AcGiDrawStream* drawStream(void) const;
 #  pragma  warning(pop)

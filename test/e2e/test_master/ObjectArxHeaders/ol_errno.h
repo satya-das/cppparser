@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,13 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//   AutoCAD Release 12 On-Line application Error codes (set in the "_ERRNO"
+//   system variable).
+//
+//   NOTE:  The "_ERRNO" values are subject to change with major  
+//   releases of AutoCAD.  To ensure proper error diagnostics, be
+//   sure to include the proper version of this file with your program.
 #ifndef _OL_ERRNO_H
 #  define _OL_ERRNO_H
 #  define OL_GOOD	0 /* Everything is just fine */
@@ -95,6 +103,7 @@
 #  define OL_ESYMNAM	83 /* Invalid symbol name */
 #  define OL_ESYMVAL	84 /* Invalid symbol value */
 #  define OL_NONDIALOG	85 /* Not allowed while dialogue up */
+      /*  Error codes 86-91 reserved.  */
 #  define OL_ECMDINP	92  /* Illegal while command in progress */
 #  define OL_EBADTYPE	93  /* Bad value type */
 #  define OL_EBADVPID	94  /* Invalid viewport id */
@@ -110,5 +119,8 @@
 #  define OL_BADCTLSTR	104 /* Badly nested control string */
 #  define OL_EXDICT_PR	105 /* Failure to modify extension dict 
                               or Persistent reactor on r12 entity */
+/* If you add a new error code, be sure to add it to the set of errors
+   described by ADS_PERR.C.  In addition, please update the following:
+ */
 #  define MAX_OL_ERRNO	105 /* Could be used for range check */
 #endif

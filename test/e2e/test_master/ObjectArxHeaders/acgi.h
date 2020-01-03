@@ -7,10 +7,24 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+// This is the Graphics Interface for view independent and dependent
+// elaboration of AcDb Entities.
+//
+// The AutoCAD Graphics Interface (AcGi) is a set of objects comprising 
+// an API for elaborating the graphics representation of new AutoCAD
+// entitites.  These objects support many geometric primitives, 
+// transformation matrix querying, and graphical attributes. 
 #ifndef _ACGI_H
 #  define _ACGI_H	1
 #  include "adesk.h"
+// Required for RX
+//
 #  define ACGI_SERVICES	ACRX_T(/*MSG0*/"AcGiServices")
+// Gcc not allow forward declaration of enum 
+// I am moving some enum definitions to acgidefs.h
+// So other header files can include that file instead of forward declaration.
 #  include "acgidefs.h"
 #  include "rxobject.h"
 #  include "AdAChar.h"
@@ -139,6 +153,7 @@ public:
   {
   }
 };
+// To be removed
 enum AcGiColorIntensity
 {
   kAcGiMinColorIntensity = 0x0,
@@ -262,6 +277,11 @@ private:
   union 
   {
     Adesk::UInt32 m_whole;
+        // The GCC compiler requires the PIXEL struct to be anonymous as well.
+        // I don't think we need the PIXEL struct identifier, so this should work.
+        // If not, we'll have to provide a name for the union and update al the code
+        // to use that name.
+        //
     struct 
 {
   Adesk::UInt8 b, g, r, a;
@@ -424,6 +444,10 @@ public:
   AcGiVariant(const AcGiVariant& value);
   AcGiVariant& operator=(const AcGiVariant& value);
   virtual bool operator==(const AcGiVariant& value) const;
+        // note that a variant copy is a deep copy. If describing a hierarchical
+        // data structure, the entire structure is duplicated
+
+    // AcRxObject protocol
   virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
   enum VariantType
   {
@@ -485,19 +509,25 @@ public:
   ACDBCORE2D_PORT Adesk::Int32 asLong() const;
   ACDBCORE2D_PORT Adesk::UInt32 asUlong() const;
   ACDBCORE2D_PORT EnumType asEnum() const;
+    // table access..
   Acad::ErrorStatus getElem(const ACHAR* pKey, AcGiVariant& value) const;
   const AcGiVariant* getElem(const ACHAR* pKey) const;
   void setElem(const ACHAR* pKey, const AcGiVariant&);
   void deleteElem(const ACHAR* pKey);
   int getElemCount() const;
+    //
   ACDBCORE2D_PORT Acad::ErrorStatus getElemAt(int nIndex, AcString&, AcGiVariant&) const;
+    // Deprecated. Caller is responsible for deleting returned ACHAR*
   Acad::ErrorStatus getElemAt(int nIndex, ACHAR*&, AcGiVariant&) const;
   ACDBCORE2D_PORT AcGiVariant* getElemAt(int nIndex, AcString&) const;
+    // Deprecated. Caller is responsible for deleting returned ACHAR*
   AcGiVariant* getElemAt(int nIndex, ACHAR*&) const;
   static bool isEquivalent(const AcGiVariant*, const AcGiVariant*);
 private:
   AcGiImpVariant* mpAcGiImpVariant;
 };
+// Deprecated - please use AcString-based overload
+// caller is responsible for deleting returned ACHAR*
 inline Acad::ErrorStatus AcGiVariant::getElemAt(int nIndex, ACHAR*& pStr, AcGiVariant& var) const
 {
   AcString sElem;
@@ -529,9 +559,21 @@ inline bool operator!=(T left, const AcGiVariant::EnumType right)
 {
   return (right != left);
 }
+//
+// AcGiKernelDescriptor is used to describe the capabilities of
+// a graphics kernel, or to specify the desired capabilities.
+//
+// Sample usage:
+//      const AcGiKernelDescriptor &descriptor = context()->kernel.getDescriptor();
+//      static const AcUniqueString *kRequestedFeature = AcUniqueString::Intern(L"Requested Feature");
+//      if (descriptor.supports(kRequestedFeature))
+//          ...
+//
+// The default graphics kernel supports nothing.
 class AcGiKernelDescriptor : public AcArray<const AcUniqueString *>
 {
 public:
+    // Require support for a given capability.
   void addRequirement(const AcUniqueString* capability)
   {
     if (capability != nullptr)
@@ -539,6 +581,7 @@ public:
       append(capability);
     }
   }
+    // Query support for a given capability.
   bool supports(const AcUniqueString* capability) const
   {
     return capability ? contains(capability) : false;
@@ -579,14 +622,27 @@ public:
   virtual Adesk::Boolean isPlotGeneration() const = 0;
   virtual AcDbDatabase* database() const = 0;
   virtual bool isBoundaryClipping() const = 0;
+    // Which kernel is implementing this AcGi interface? The descriptor is very useful.
+    // The default implementation is a kernel that supports nothing.
   virtual class AcGiGraphicsKernel& graphicsKernel()
   {
     static AcGiGraphicsKernel kernel;
     return kernel;
   }
+    // If your object requires to be redrawn for translation
+    // transforms (MOVE) you can force the system to rerequest 
+    // graphics for all objects in the current drag, including
+    // yourself. Use this option only if you really need to. 
+    // E.g. If your object needs to update for each step in a 
+    // MOVE drag
+    // 
   virtual void disableFastMoveDrag() const
   {
   }
+    // Returns false if this is root level entity, e.g. a line in modelspace
+    // and true if the object is contained within another object like a
+    // block for example.
+    //
   virtual bool isNesting() const
   {
     return false;
@@ -642,6 +698,9 @@ public:
   }
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    // These APIs is provided for internal use only, do not use them
+    // in external applications
+    //
   virtual AcGiContextImp* getImpPtr()
   {
     return nullptr;
@@ -650,6 +709,8 @@ public:
   {
     return nullptr;
   }
+    //
+    // End of Internal use only API
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 protected:
@@ -658,6 +719,9 @@ protected:
   friend class AcDbImpText;
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+    // These APIs is provided for internal use only, do not use them
+    // in external applications
+    //
   virtual AcGiWorldSegmentCallback wSegTaker() const
   {
     return nullptr;
@@ -690,6 +754,8 @@ protected:
   {
     return nullptr;
   }
+    //
+    // End of Internal use only API
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 };
@@ -702,6 +768,8 @@ public:
   virtual AcGiSubEntityTraits& subEntityTraits() const = 0;
   virtual AcGiGeometry* rawGeometry() const = 0;
   virtual Adesk::Boolean isDragging() const = 0;
+    // This function operates against the current active viewport
+    //
   virtual double deviation(const AcGiDeviationType, const AcGePoint3d&) const = 0;
   virtual Adesk::UInt32 numberOfIsolines() const = 0;
   virtual AcGiContext* context() = 0;
@@ -723,6 +791,7 @@ public:
   virtual AcGiViewport& viewport() const = 0;
   virtual AcGiViewportGeometry& geometry() const = 0;
   virtual Adesk::UInt32 sequenceNumber() const = 0;
+    // why is the following method's arg const?
   virtual Adesk::Boolean isValidId(const Adesk::ULongPtr acgiId) const = 0;
   virtual AcDbObjectId viewportObjectId() const = 0;
 };
@@ -730,23 +799,48 @@ class AcGiViewport : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcGiViewport);
+    // Get various view transformations.
+    //
   virtual void getModelToEyeTransform(AcGeMatrix3d&) const = 0;
   virtual void getEyeToModelTransform(AcGeMatrix3d&) const = 0;
   virtual void getWorldToEyeTransform(AcGeMatrix3d&) const = 0;
   virtual void getEyeToWorldTransform(AcGeMatrix3d&) const = 0;
+    // Perspective information.
+    //
   virtual Adesk::Boolean isPerspective() const = 0;
   virtual Adesk::Boolean doPerspective(AcGePoint3d&) const = 0;
   virtual Adesk::Boolean doInversePerspective(AcGePoint3d&) const = 0;
+    // Pixel information.
+    //
   virtual void getNumPixelsInUnitSquare(const AcGePoint3d& givenWorldpt, AcGePoint2d& pixelArea, bool includePerspective = true) const = 0;
+    // Camera information.
+    //
   virtual void getCameraLocation(AcGePoint3d& location) const = 0;
   virtual void getCameraTarget(AcGePoint3d& target) const = 0;
   virtual void getCameraUpVector(AcGeVector3d& upVector) const = 0;
+    // Viewport information.
+    //
   virtual Adesk::ULongPtr viewportId() const = 0;
   virtual Adesk::Int16 acadWindowId() const = 0;
   virtual void getViewportDcCorners(AcGePoint2d& lower_left, AcGePoint2d& upper_right) const = 0;
+    // Clipping
+    //
   virtual Adesk::Boolean getFrontAndBackClipValues(Adesk::Boolean& clip_front, Adesk::Boolean& clip_back, double& front, double& back) const = 0;
+    // The factor returned here affects the linetype scaling in this viewport
+    // 1.0 is the default. Returning a value of 2 will ensure
+    // that the pattern is twice as big as per default.
+    //
   virtual double linetypeScaleMultiplier() const = 0;
+    // If the calculated total pattern length of a linetyped object is less
+    // than this (value in drawing units). Then a continuous pattern is used
+    // instead. Several factors affect the linetype pattern length.
+    // linetypeScaleMultiplier() is one of them. Note: If you set this value
+    // high you could completely prevent the use of linetypes.
+    //
   virtual double linetypeGenerationCriteria() const = 0;
+    // Returns true if the layer is not frozen in this viewport and not globally
+    // frozen. Indicating that geometry on this layer should be regenerated.
+    //
   virtual Adesk::Boolean layerVisible(const AcDbObjectId&) const
   {
     return Adesk::kTrue;
@@ -755,6 +849,8 @@ public:
   {
     return AcGeVector3d::kZAxis;
   }
+    // Provides access to color information that is context-sensitive.
+    //
   virtual const AcGiContextualColors* contextualColors() const
   {
     return NULL;
@@ -762,8 +858,13 @@ public:
 };
 class AcGiContextualColors : public AcRxObject
 {
+//
+// This class returns color information for objects that can have different colors
+// in different display contexts.
+//
 public:
   ACRX_DECLARE_MEMBERS(AcGiContextualColors);
+    // Access to colors.
   virtual Adesk::UInt32 gridMajorLines() const = 0;
   virtual Adesk::UInt32 gridMinorLines() const = 0;
   virtual Adesk::UInt32 gridAxisLines() const = 0;
@@ -778,11 +879,17 @@ public:
   virtual Adesk::UInt32 cameraGlyphs() const = 0;
   virtual Adesk::UInt32 cameraFrustrum() const = 0;
   virtual Adesk::UInt32 cameraClipping() const = 0;
+    // Access to context parameters.
   virtual void setContextFlags(Adesk::UInt32 flg, bool set = true) = 0;
   virtual bool flagsSet(Adesk::UInt32 flg) const = 0;
 };
 class AcGiContextualColors2 : public AcGiContextualColors
 {
+//
+// This class returns color information for objects that can have different colors
+// in different display contexts.  This class also includes the web mesh color 
+// for photometric lights.
+//
 public:
   ACRX_DECLARE_MEMBERS(AcGiContextualColors2);
   virtual AcCmColor webMeshColor(void) const = 0;
@@ -790,6 +897,10 @@ public:
   virtual AcCmColor lightShapeColor(void) const = 0;
   virtual AcCmColor lightDistanceColor(void) const = 0;
 };
+/* AutoCAD reserves a block of 64K marker ids for custom use. The range from INT_MIN thu INT_MIN+65535
+   Callers of setSelectionMarker should not use this range except for the values below.
+   The value of 0 has special meaning and indicates no selection marker.
+*/
 #  define AcGiSelectionMarkerACADReserveStart	(-2147483647 - 1)   // INT_MIN without using limits.h
 #  define AcGiSelectionMarkerACADReserveEnd	(AcGiSelectionMarkerACADReserveStart + 65535)
 #  define AcGiSelectionMarkerACADSelectionPreviewOff	(AcGiSelectionMarkerACADReserveStart + 1)   // turn off selection preview display
@@ -872,6 +983,8 @@ public:
     kNoSelectionFlags = 0x00,
     kSelectionIgnore = 0x01
   };
+    // Set properties of drawn objects.
+    //
   virtual void setColor(const Adesk::UInt16 color) = 0;
   virtual void setTrueColor(const AcCmEntityColor& color) = 0;
   virtual void setLayer(const AcDbObjectId layerId) = 0;
@@ -893,6 +1006,8 @@ public:
   virtual void setSelectionGeom(bool bSelectionflag);
   virtual void setTransparency(const AcCmTransparency& transparency);
   virtual void setFill(const AcGiFill* pFill);
+    // Return current settings.
+    //
   virtual Adesk::UInt16 color(void) const = 0;
   virtual AcCmEntityColor trueColor(void) const = 0;
   virtual AcDbObjectId layerId(void) const = 0;
@@ -997,7 +1112,16 @@ public:
   {
     kVertexRolloverHighlightSize
   };
+    // Rather than using individual calls to the settings it is more efficient
+    // to make this single call for an entity.
+    //
   virtual void setupForEntity(AcDbEntity* pEntity);
+    // Drawables that emit light can add one or more to the model. A unique
+    // object id must be used for each light, though an object may pass
+    // in its own object id.
+    // This implementation ignores light information, so derived classes
+    // must override this method in order to collect and use the illumination.
+    //
   virtual void addLight(const AcDbObjectId& lightId);
   virtual void setLinePattern(const AcGiLineType linePattern);
   virtual AcGiLineType linePattern(void) const;
@@ -1023,6 +1147,8 @@ protected:
   {
   }
 };
+// Default implementation does nothing with the illumination data.
+//
 inline void AcGiDrawableTraits::addLight(const AcDbObjectId&)
 {
 }
@@ -1053,8 +1179,10 @@ class AcGiNonEntityTraits : public AcGiDrawableTraits
 {
 public:
   ACRX_DECLARE_MEMBERS(AcGiNonEntityTraits);
+    // AcGiDrawableTraits interface
   virtual void setupForEntity(AcDbEntity* pEntity) override;
   virtual void addLight(const AcDbObjectId& id) override;
+    // AcGiSubEntityTraits interface
   virtual void setColor(const Adesk::UInt16 color) override;
   virtual Adesk::UInt16 color(void) const override;
   virtual void setTrueColor(const AcCmEntityColor& color) override;
@@ -1260,8 +1388,12 @@ public:
   {
     kTransparencyOff,
     kTransparency1Bit,
-    kTransparency8Bit
+            // with 0 to 254 completely transparent and 255 completely opaque
+    kTransparency8Bit,
+        // from 0 (completely transparent) to 255 (completely opaque)
   };
+    // Coordinate transformations.
+    //
   virtual void getModelToWorldTransform(AcGeMatrix3d&) const = 0;
   virtual void getWorldToModelTransform(AcGeMatrix3d&) const = 0;
   virtual Adesk::Boolean pushModelTransform(const AcGeVector3d& vNormal) = 0;
@@ -1272,6 +1404,8 @@ public:
   virtual AcGeMatrix3d pushScaleTransform(AcGiScaleTransformBehavior behavior, const AcGePoint3d& extents) = 0;
   virtual AcGeMatrix3d pushScaleTransform(AcGiScaleTransformBehavior behavior, const AcGePoint2d& extents) = 0;
   virtual AcGeMatrix3d pushOrientationTransform(AcGiOrientationTransformBehavior behavior) = 0;
+    // For drawing various primitives.
+    //
   virtual Adesk::Boolean circle(const AcGePoint3d& center, const double radius, const AcGeVector3d& normal) const = 0;
   virtual Adesk::Boolean circle(const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&) const = 0;
   virtual Adesk::Boolean circularArc(const AcGePoint3d& center, const double radius, const AcGeVector3d& normal, const AcGeVector3d& startVector, const double sweepAngle, const AcGiArcType arcType = kAcGiArcSimple) const = 0;
@@ -1292,6 +1426,8 @@ public:
   virtual Adesk::Boolean image(const AcGiImageBGRA32& imageSource, const AcGePoint3d& position, const AcGeVector3d& u, const AcGeVector3d& v, TransparencyMode transparencyMode = kTransparency8Bit) const = 0;
   virtual Adesk::Boolean rowOfDots(int count, const AcGePoint3d& start, const AcGeVector3d& step) const = 0;
   virtual Adesk::Boolean ellipticalArc(const AcGePoint3d& center, const AcGeVector3d& normal, double majorAxisLength, double minorAxisLength, double startDegreeInRads, double endDegreeInRads, double tiltDegreeInRads, AcGiArcType arcType = kAcGiArcSimple) const = 0;
+    // If you push a clip boundary onto the stack you must pop it;
+    //
   virtual Adesk::Boolean pushClipBoundary(AcGiClipBoundary* pBoundary) = 0;
   virtual void popClipBoundary() = 0;
   virtual Adesk::Boolean worldLine(const AcGePoint3d pnts[2])
@@ -1303,6 +1439,7 @@ public:
     polyPnts[1] = mat * pnts[1];
     return polyline(2, polyPnts);
   }
+    // array of points
   virtual Adesk::Boolean polypoint(const Adesk::UInt32 nbPoints, const AcGePoint3d* pVertexList, const AcGeVector3d* pNormal = NULL, const Adesk::LongPtr* pSubEntMarkers = NULL) const
   {
     AcGePoint3d pline[2];
@@ -1329,6 +1466,12 @@ class AcGiWorldGeometry : public AcGiGeometry
 public:
   ACRX_DECLARE_MEMBERS(AcGiWorldGeometry);
   virtual void setExtents(AcGePoint3d* pNewExtents) const = 0;
+    // If this drawable is a block and has AcDbAttributes it must call
+    // this method exactly once before sending the attributes to 
+    // draw(). Once this is called the object may draw only attributes
+    // and no more primitives
+    // The attributes must be the last objects rendered
+    //
   virtual void startAttributesSegment()
   {
   }
@@ -1426,6 +1569,8 @@ public:
   ~AcGiTextStyle();
   AcGiTextStyle(AcDbDatabase* pDb = NULL);
   AcGiTextStyle(const ACHAR* fontName, const ACHAR* bigFontName, const double textSize, const double xScale, const double obliqueAngle, const double trPercent, const Adesk::Boolean isBackward, const Adesk::Boolean isUpsideDown, const Adesk::Boolean isVertical, const Adesk::Boolean isOverlined, const Adesk::Boolean isUnderlined, const Adesk::Boolean isStrikethrough = false, const ACHAR* styleName = NULL);
+    // Unicode: change from char to int, since in the implementation, the returned
+    // result is actually bitmask indicating some status result.
   virtual int loadStyleRec(AcDbDatabase* pDb = NULL) const;
   virtual void setTextSize(const double size);
   virtual void setXScale(const double xScale);
@@ -1456,12 +1601,15 @@ public:
   virtual Acad::ErrorStatus setStyleName(const ACHAR*);
   ACDBCORE2D_PORT virtual Acad::ErrorStatus setFont(const ACHAR* pTypeface, Adesk::Boolean bold, Adesk::Boolean italic, Charset charset, Autodesk::AutoCAD::PAL::FontUtils::FontPitch pitch, Autodesk::AutoCAD::PAL::FontUtils::FontFamily family);
   ACDBCORE2D_PORT virtual Acad::ErrorStatus font(AcString& sTypeface, bool& bold, bool& italic, Charset& charset, Autodesk::AutoCAD::PAL::FontUtils::FontPitch& pitch, Autodesk::AutoCAD::PAL::FontUtils::FontFamily& family) const;
+    // deprecated. To be removed. Calls the above overload
   virtual Acad::ErrorStatus font(ACHAR*& pTypeface, bool& bold, bool& italic, Charset& charset, Autodesk::AutoCAD::PAL::FontUtils::FontPitch& pitch, Autodesk::AutoCAD::PAL::FontUtils::FontFamily& family) const final;
   virtual Acad::ErrorStatus extentsBox(const ACHAR* pStr, const Adesk::Boolean penups, const int len, const Adesk::Boolean raw, AcGePoint2d& extMin, AcGePoint2d& extMax, AcGiWorldDraw* ctxt = NULL) const;
   virtual void setTrackKerning(double trackPercent) const;
   virtual bool preLoaded() const;
   virtual void setPreLoaded(bool);
 };
+// Deprecated and will be removed. If you need to override the font() method, please
+// override the one taking AcString & arg.
 inline Acad::ErrorStatus AcGiTextStyle::font(ACHAR*& pTypeface, bool& bold, bool& italic, Charset& charset, Autodesk::AutoCAD::PAL::FontUtils::FontPitch& pitch, Autodesk::AutoCAD::PAL::FontUtils::FontFamily& family) const
 {
   AcString sTypeface;

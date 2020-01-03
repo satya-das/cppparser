@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -49,6 +50,7 @@ private:
 class ACBASE_PORT AcRxOverrule : public AcRxOverruleBase
 {
 public:
+    // --- AcRxObject protocol
   ACRX_DECLARE_MEMBERS(AcRxOverrule);
   virtual ~AcRxOverrule();
     /// <property name="versionspecific" value="=18.0.0.0" />

@@ -535,6 +535,9 @@ public:
   size_t readFromMemory(const void* buffer, size_t length);
 private:
   static int kOpCount = kReplace_Op + 1;
+    // T
+    // [B N L R S]
+    // S
   static int kRectRegionRuns = 7;
   struct RunHead;
   static RunHead* emptyRunHeadPtr()
@@ -542,6 +545,7 @@ private:
     return (SkRegion::RunHead*) -1;
   }
   static RunHead* kRectRunHeadPtr = nullptr;
+    // allocate space for count runs
   void allocateRuns(int count);
   void allocateRuns(int count, int ySpanCount, int intervalCount);
   void allocateRuns(const RunHead& src);
@@ -555,10 +559,15 @@ private:
      *  run data.
      */
   const RunType* getRuns(RunType tmpStorage[], int* intervals) const;
+    // This is called with runs[] that do not yet have their interval-count
+    // field set on each scanline. That is computed as part of this call
+    // (inside ComputeRunBounds).
   bool setRuns(RunType runs[], int count);
   int count_runtype_values(int* itop, int* ibot) const;
   bool isValid() const;
   static void BuildRectRuns(const SkIRect& bounds, RunType runs[kRectRegionRuns]);
+    // If the runs define a simple rect, return true and set bounds to that
+    // rect. If not, return false and ignore bounds.
   static bool RunsAreARect(const SkRegion::RunType runs[], int count, SkIRect* bounds);
     /**
      *  If the last arg is null, just return if the result is non-empty,

@@ -28,7 +28,9 @@ static int32_t SkSignBitTo2sCompliment(int32_t x)
 static int32_t Sk2sComplimentToSignBit(int32_t x)
 {
   int sign = x >> 31;
+    // make x positive
   x = (x ^ sign) - sign;
+    // set the sign bit as needed
   x |= SkLeftShift(sign, 31);
   return x;
 }
@@ -37,12 +39,14 @@ union SkFloatIntUnion
   float fFloat;
   int32_t fSignBitInt;
 };
+// Helper to see a float as its bit pattern (w/o aliasing warnings)
 static int32_t SkFloat2Bits(float x)
 {
   SkFloatIntUnion data;
   data.fFloat = x;
   return data.fSignBitInt;
 }
+// Helper to see a bit pattern as a float (w/o aliasing warnings)
 static float SkBits2Float(int32_t floatAsBits)
 {
   SkFloatIntUnion data;
@@ -75,5 +79,6 @@ static float Sk2sComplimentAsFloat(int32_t x)
 {
   return SkBits2Float(Sk2sComplimentToSignBit(x));
 }
+//  Scalar wrappers for float-bit routines
 #  define SkScalarAs2sCompliment(x)	    SkFloatAs2sCompliment(x)
 #endif

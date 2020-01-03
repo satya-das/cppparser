@@ -4,6 +4,8 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+
+//  Inspired by Rob Johnson's most excellent QuickDraw GX sample code
 #ifndef SkCamera_DEFINED
 #  define SkCamera_DEFINED
 #  include "include/core/SkMatrix.h"
@@ -71,11 +73,13 @@ public:
   SkPatch3D();
   void reset();
   void transform(const SkMatrix3D&, SkPatch3D* dst = nullptr) const;
+    // dot a unit vector with the patch's normal
   SkScalar dotWith(SkScalar dx, SkScalar dy, SkScalar dz) const;
   SkScalar dotWith(const SkVector3D& v) const
   {
     return this->dotWith(v.fX, v.fY, v.fZ);
   }
+    // deprecated, but still here for animator (for now)
   void rotate(SkScalar, SkScalar, SkScalar)
   {
   }

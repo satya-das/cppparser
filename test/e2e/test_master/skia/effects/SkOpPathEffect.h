@@ -12,6 +12,12 @@
 class SK_API SkMergePathEffect
 {
 public:
+    /*  Defers to two other patheffects, and then combines their outputs using the specified op.
+     *  e.g.
+     *      result = output_one op output_two
+     *
+     *  If either one or two is nullptr, then the original path is passed through to the op.
+     */
   static sk_sp<SkPathEffect> Make(sk_sp<SkPathEffect> one, sk_sp<SkPathEffect> two, SkPathOp op);
 };
 class SK_API SkMatrixPathEffect

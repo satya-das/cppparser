@@ -7,6 +7,7 @@ typedef unsigned char GLboolean;
 typedef unsigned int GLenum, GLbitfield;
 WINGDIAPI void APIENTRY glVertex2iv(const GLint* v);
 WINGDIAPI void APIENTRY glVertex2s(GLshort x, GLshort y);
+/* Single line block comment to document code*/
 int x;
 int a[100];
 double d[2 * 7];
@@ -31,6 +32,7 @@ public:
   {
   }
   virtual int PureVirtualMethod() = 0;
+	// Line comment to document code.
   static double& dMem;
   const float* fMem;
   int* const piMem;

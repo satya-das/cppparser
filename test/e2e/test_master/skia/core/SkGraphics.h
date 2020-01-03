@@ -19,6 +19,7 @@ public:
      *  Init() is thread-safe and idempotent.
      */
   static void Init();
+    // We're in the middle of cleaning this up.
   static void Term()
   {
   }

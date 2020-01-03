@@ -7,6 +7,11 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// appinfo.h
+//
+// DESCRIPTION: Definition of class AcadAppInfo.  Used as part of the
+//              unknown command demand load notification mechanism.
 #pragma  once
 #ifndef _appinfo_h
 #  define _appinfo_h	1

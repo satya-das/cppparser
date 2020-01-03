@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -79,6 +80,7 @@ public:
   void setCLIDisplayStringFunc(GripCLIDisplayStringPtr pFunc);
   unsigned int bitFlags() const;
   void setBitFlags(unsigned int flags);
+    // Utility functions for individual bit flag bits
   bool skipWhenShared() const;
   void setSkipWhenShared(bool skip);
   bool isRubberBandLineDisabled() const;

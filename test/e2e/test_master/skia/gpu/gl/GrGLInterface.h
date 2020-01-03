@@ -25,6 +25,7 @@ struct GrGLInterface;
  * appropriate one to build.
  */
 SK_API sk_sp<const GrGLInterface> GrGLMakeNativeInterface();
+// Deprecated alternative to GrGLMakeNativeInterface().
 SK_API const GrGLInterface* GrGLCreateNativeInterface();
 /**
  * GrContext uses the following interface to make all calls into OpenGL. When a
@@ -43,7 +44,11 @@ private:
   typedef SkRefCnt INHERITED;
 public:
   GrGLInterface();
+    // Validates that the GrGLInterface supports its advertised standard. This means the necessary
+    // function pointers have been initialized for both the GL version and any advertised
+    // extensions.
   bool validate() const;
+    // Indicates the type of GL implementation
   union 
   {
     GrGLStandard fStandard;
@@ -179,9 +184,28 @@ public:
   GrGLFunction<GrGLReadBufferFn> fReadBuffer;
   GrGLFunction<GrGLReadPixelsFn> fReadPixels;
   GrGLFunction<GrGLRenderbufferStorageFn> fRenderbufferStorage;
+        //  On OpenGL ES there are multiple incompatible extensions that add support for MSAA
+        //  and ES3 adds MSAA support to the standard. On an ES3 driver we may still use the
+        //  older extensions for performance reasons or due to ES3 driver bugs. We want the function
+        //  that creates the GrGLInterface to provide all available functions and internally
+        //  we will select among them. They all have a method called glRenderbufferStorageMultisample*.
+        //  So we have separate function pointers for GL_IMG/EXT_multisampled_to_texture,
+        //  GL_CHROMIUM/ANGLE_framebuffer_multisample/ES3, and GL_APPLE_framebuffer_multisample
+        //  variations.
+        //
+        //  If a driver supports multiple GL_ARB_framebuffer_multisample-style extensions then we will
+        //  assume the function pointers for the standard (or equivalent GL_ARB) version have
+        //  been preferred over GL_EXT, GL_CHROMIUM, or GL_ANGLE variations that have reduced
+        //  functionality.
+
+        //  GL_EXT_multisampled_render_to_texture (preferred) or GL_IMG_multisampled_render_to_texture
   GrGLFunction<GrGLRenderbufferStorageMultisampleFn> fRenderbufferStorageMultisampleES2EXT;
+        //  GL_APPLE_framebuffer_multisample
   GrGLFunction<GrGLRenderbufferStorageMultisampleFn> fRenderbufferStorageMultisampleES2APPLE;
+        //  This is used to store the pointer for GL_ARB/EXT/ANGLE/CHROMIUM_framebuffer_multisample or
+        //  the standard function in ES3+ or GL 3.0+.
   GrGLFunction<GrGLRenderbufferStorageMultisampleFn> fRenderbufferStorageMultisample;
+        // Pointer to BindUniformLocationCHROMIUM from the GL_CHROMIUM_bind_uniform_location extension.
   GrGLFunction<GrGLBindUniformLocationFn> fBindUniformLocation;
   GrGLFunction<GrGLResolveMultisampleFramebufferFn> fResolveMultisampleFramebuffer;
   GrGLFunction<GrGLSamplerParameteriFn> fSamplerParameteri;
@@ -236,6 +260,7 @@ public:
   GrGLFunction<GrGLVertexAttribIPointerFn> fVertexAttribIPointer;
   GrGLFunction<GrGLVertexAttribPointerFn> fVertexAttribPointer;
   GrGLFunction<GrGLViewportFn> fViewport;
+        /* GL_NV_path_rendering */
   GrGLFunction<GrGLMatrixLoadfFn> fMatrixLoadf;
   GrGLFunction<GrGLMatrixLoadIdentityFn> fMatrixLoadIdentity;
   GrGLFunction<GrGLGetProgramResourceLocationFn> fGetProgramResourceLocation;
@@ -254,19 +279,26 @@ public:
   GrGLFunction<GrGLCoverStrokePathFn> fCoverStrokePath;
   GrGLFunction<GrGLCoverFillPathInstancedFn> fCoverFillPathInstanced;
   GrGLFunction<GrGLCoverStrokePathInstancedFn> fCoverStrokePathInstanced;
+        // NV_path_rendering v1.2
   GrGLFunction<GrGLStencilThenCoverFillPathFn> fStencilThenCoverFillPath;
   GrGLFunction<GrGLStencilThenCoverStrokePathFn> fStencilThenCoverStrokePath;
   GrGLFunction<GrGLStencilThenCoverFillPathInstancedFn> fStencilThenCoverFillPathInstanced;
   GrGLFunction<GrGLStencilThenCoverStrokePathInstancedFn> fStencilThenCoverStrokePathInstanced;
+        // NV_path_rendering v1.3
   GrGLFunction<GrGLProgramPathFragmentInputGenFn> fProgramPathFragmentInputGen;
+        // CHROMIUM_path_rendering
   GrGLFunction<GrGLBindFragmentInputLocationFn> fBindFragmentInputLocation;
+        /* NV_framebuffer_mixed_samples */
   GrGLFunction<GrGLCoverageModulationFn> fCoverageModulation;
+        /* ARB_sync */
   GrGLFunction<GrGLFenceSyncFn> fFenceSync;
   GrGLFunction<GrGLIsSyncFn> fIsSync;
   GrGLFunction<GrGLClientWaitSyncFn> fClientWaitSync;
   GrGLFunction<GrGLWaitSyncFn> fWaitSync;
   GrGLFunction<GrGLDeleteSyncFn> fDeleteSync;
+        /* ARB_internalforamt_query */
   GrGLFunction<GrGLGetInternalformativFn> fGetInternalformativ;
+        /* KHR_debug */
   GrGLFunction<GrGLDebugMessageControlFn> fDebugMessageControl;
   GrGLFunction<GrGLDebugMessageInsertFn> fDebugMessageInsert;
   GrGLFunction<GrGLDebugMessageCallbackFn> fDebugMessageCallback;
@@ -274,9 +306,11 @@ public:
   GrGLFunction<GrGLPushDebugGroupFn> fPushDebugGroup;
   GrGLFunction<GrGLPopDebugGroupFn> fPopDebugGroup;
   GrGLFunction<GrGLObjectLabelFn> fObjectLabel;
+        /* EXT_window_rectangles */
   GrGLFunction<GrGLWindowRectanglesFn> fWindowRectangles;
 } fFunctions;
 #  if  GR_TEST_UTILS
+    // This exists for internal testing.
   virtual void abandon() const;
 #  endif
 };

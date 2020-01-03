@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,11 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  AcDbLMgr.h - Exported Interface class for Database specific 
+//               routines that manipulate and access AcDbLayout 
+//               objects.
+//
 #ifndef _ACDBLMGR_H
 #  define _ACDBLMGR_H
 #  include "adesk.h"
@@ -14,6 +20,7 @@
 #  include "dblayout.h"
 #  include "dblaymgrrctr.h"
 #  pragma  pack (push, 8)
+// The maximum number of layouts in a single drawing.
 #  define MAX_PSPACE_LAYOUTS	256
 class AcDbObjectId;
 class AcDbLayoutManager : public AcRxObject
@@ -38,6 +45,7 @@ public:
     /// <param name="allowModel">Input bool indicating whether or not to allow the ModelSpace layout to be included.</param>
     /// <param name="pDb">Input AcDbDatabase to use.</param>
   virtual Acad::ErrorStatus getActiveLayoutName(AcString& sName, bool allowModel, const AcDbDatabase* pDb = nullptr) = 0;
+    // This overload is deprecated and will be removed. Please use getActiveLayoutName()
   virtual const ACHAR* findActiveLayout(bool allowModel, const AcDbDatabase* pDb = nullptr) final;
     /// <sumary>
     /// This function returns the block table record id for the current AcDbLayout object. If TILEMODE is 1, then this will retrieve the *MODEL_SPACE block table record. If TILEMODE is 0, then this will retrieve the *PAPER_SPACE block table record; which represents the current paper space layout. 
@@ -135,6 +143,7 @@ public:
     /// <param name="delObj">Input pointer to a reactor object</param>
   virtual void removeReactor(AcDbLayoutManagerReactor* delObj) = 0;
 };
+// Deprecated and scheduled for removal. Please use the other overload taking AcString & arg
 inline const ACHAR* AcDbLayoutManager::findActiveLayout(bool allowModel, const AcDbDatabase* pDb)
 {
   static AcString sCachedName;

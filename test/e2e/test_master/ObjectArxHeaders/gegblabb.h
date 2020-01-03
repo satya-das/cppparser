@@ -7,6 +7,30 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION:
+//
+// Using the fully qualified names from the `AcGe' struct can be
+// cumbersome.  If there are no global name conflicts use the
+// following synonyms for convenience.
+//
+// Note:  All interface descriptions must use fully qualified names.
+//        That is, header files MUST NOT include this file and MUST
+//        NOT use these abbreviations.
+//
+// Note:  If any of the following abbreviations cause conflicts and
+//        this file cannot be included, then the acceptable abbreviations
+//        (those that do not cause conflicts) will have to be manually
+//        introduced, or another abbreviation header file will have to
+//        be created containing only the acceptable abbreviations.
+//
+// Note:  When this file is included in a source file, it MUST BE
+//        included AFTER all other include files (except possibly
+//        other abbreviation include files).
+//        For example:
+//            #include "foo.h"
+//            #include "bar.h"
+//            #include "gegblabb.h" // <- Must be last!
 #ifndef AC_GEGBLABB_H
 #  define AC_GEGBLABB_H
 #  include "gegbl.h"

@@ -7,6 +7,11 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION:
+//
+// This file contains the class AcGeRay3d - A mathematical entity
+// used to represent a ray (half line) in 3-space.
 #ifndef AC_GERAY3D_H
 #  define AC_GERAY3D_H
 #  include "gelent3d.h"
@@ -19,8 +24,12 @@ public:
   AcGeRay3d(const AcGeRay3d& line);
   AcGeRay3d(const AcGePoint3d& pnt, const AcGeVector3d& vec);
   AcGeRay3d(const AcGePoint3d& pnt1, const AcGePoint3d& pnt2);
+    // Set methods.
+    //
   AcGeRay3d& set(const AcGePoint3d& pnt, const AcGeVector3d& vec);
   AcGeRay3d& set(const AcGePoint3d& pnt1, const AcGePoint3d& pnt2);
+    // Assignment operator.
+    //
   AcGeRay3d& operator =(const AcGeRay3d& line);
 };
 #  pragma  pack (pop)

@@ -73,11 +73,18 @@ public:
       , fNumPoints(0)
     {
       fSize.set(SK_Scalar1, SK_Scalar1);
+            // 'asPoints' needs to initialize/fill-in 'fClipRect' if it sets
+            // the kUseClip flag
     }
     ~PointData()
     {
       delete[] fPoints;
     }
+        // TODO: consider using passed-in flags to limit the work asPoints does.
+        // For example, a kNoPath flag could indicate don't bother generating
+        // stamped solutions.
+
+        // Currently none of these flags are supported.
     enum PointFlags
     {
       kCircles_PointFlag = 0x01,
@@ -127,8 +134,10 @@ public:
     {
     }
     SkScalar* fIntervals;
+                                        //   Even values represent ons, and odds offs
     int32_t fCount;
     SkScalar fPhase;
+                                        //   mod the sum of all intervals
   };
   DashType asADash(DashInfo* info) const;
   static void RegisterFlattenables();
@@ -162,6 +171,7 @@ protected:
     return kNone_DashType;
   }
 private:
+    // illegal
   SkPathEffect(const SkPathEffect&);
   SkPathEffect& operator=(const SkPathEffect&);
   typedef SkFlattenable INHERITED;

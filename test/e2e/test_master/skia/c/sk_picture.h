@@ -4,14 +4,13 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+
+// EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL
+// DO NOT USE -- FOR INTERNAL TESTING ONLY
 #ifndef sk_picture_DEFINED
 #  define sk_picture_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-/**
-    Create a new sk_picture_recorder_t.  Its resources should be
-    released with a call to sk_picture_recorder_delete().
-*/
 SK_API sk_picture_recorder_t* sk_picture_recorder_new(void);
 /**
     Release the memory and other resources used by this

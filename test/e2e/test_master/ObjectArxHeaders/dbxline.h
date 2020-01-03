@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,8 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION: Exported AcDbXline Entity class
 #ifndef AD_DBXLINE_H
 #  define AD_DBXLINE_H	1
 #  include "dbmain.h"
@@ -48,6 +51,7 @@ inline Acad::ErrorStatus AcDbXline::getStartParam(double&) const
 }
 inline Acad::ErrorStatus AcDbXline::getEndParam(double&) const
 {
+    // endParam for an Xline is positive infinity
   return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbXline::getStartPoint(AcGePoint3d&) const

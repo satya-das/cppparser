@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #ifndef _adsdef_h
 #  define _adsdef_h	1
 #  include <stdint.h>
@@ -27,7 +29,12 @@ typedef int64_t ads_name[2];
 typedef int64_t* ads_namep;
 #  endif
 typedef ads_real ads_matrix[4][4];
+/* When you want something that's explicitly a pointer type and not an array
+   type, use ads_pointp and ads_namep.  Remember that if your function takes an
+   *array* of points, it still declares ads_point[] foo; */
 typedef ads_real* ads_pointp;
+/* To protect macro-redefinition of the X, Y, Z, and T enumerated
+   constants by legacy #define's, we remove their definition. */
 #  ifdef X
 #    undef X
 #  endif
@@ -53,7 +60,11 @@ enum
   T = 3
 };
 #  endif
+/* The PAUSE token for ads_command and ads_cmd
+ */
 #  define PAUSE	ACRX_T("\\")
+/* The ADS_INITGET control bits
+ */
 enum
 {
   RSG_NONULL = 0x0001,
@@ -62,14 +73,23 @@ enum
   RSG_NOLIM = 0x0008,
   RSG_GETZ = 0x0010,
   RSG_DASH = 0x0020,
+                             // (not a GEDIT control bit)
   RSG_2D = 0x0040,
+                             // UD_GETZ control bit to be cleared)
   RSG_OTHER = 0x0080,
   RSG_DDISTFIRST = 0x0100,
   RSG_TRACKUCS = 0x0200,
+                             // (causes the UD_TRACKUCS control bit to be set)
   RSG_NOORTHOZ = 0x0400,
+                             // (causes the UD_NOORTHOZ control bit to be set)
   RSG_NOOSNAP = 0x0800,
   RSG_NODDIST = 0x1000
 };
+/* The following control bits are the old names for the RSG_
+   control bits above.  These names are provided for
+   backward compatibility.  You should use the RSG_ names
+   above.
+ */
 enum
 {
   INP_NNULL = RSG_NONULL,
@@ -96,11 +116,18 @@ enum SelectorType
   SELECT_TYPE_NRVP,
   SELECT_TYPE_OCCLASS
 };
+/* Binary data stream structure
+ */
 struct ads_binary
 {
   short clen;
+    // Unicode: leaving as char * for now, so that clients doing pointer
+    // arithmetic with it will continue to work.  But it really should be 
+    // a void *.
   char* buf;
 };
+/*  Union for storing different ADS data types.
+ */
 union ads_u_val
 {
   ads_real rreal;
@@ -117,8 +144,15 @@ union ads_u_val
   int32_t rlong;
   int64_t mnInt64;
   struct ads_binary rbinary;
+/* TEMPORARY probably, for internal use only at the moment */
+    // Unicode: leave as unsigned char for now
   unsigned char ihandle[8];
 };
+/* The following is the structure definition of the general result buffer.
+   This is used for both passing back results from functions, as well
+   as exotic applications like entity lists, and command function lists.
+   It is as close as we come to the AutoLISP node structure.
+ */
 struct resbuf
 {
   struct resbuf* rbnext;

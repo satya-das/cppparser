@@ -541,8 +541,10 @@ public:
     */
   enum SaveLayerFlagsSet
   {
+        // kPreserveLCDText_SaveLayerFlag  = 1 << 1, (no longer used)
     kInitWithPrevious_SaveLayerFlag = 1 << 2,
     kMaskAgainstCoverage_EXPERIMENTAL_DONT_USE_SaveLayerFlag = 1 << 3,
+        // instead of matching previous layer's colortype, use F16
     kF16ColorType = 1 << 4,
 #  ifdef SK_SUPPORT_LEGACY_CLIPTOLAYERFLAG
     kDontClipToLayer_Legacy_SaveLayerFlag = kDontClipToLayer_PrivateSaveLayerFlag,
@@ -2211,11 +2213,14 @@ public:
     */
   const SkMatrix& getTotalMatrix() const;
     ///////////////////////////////////////////////////////////////////////////
+
+    // don't call
   virtual GrRenderTargetContext* internal_private_accessTopLayerRenderTargetContext();
   SkIRect internal_private_getTopLayerBounds() const
   {
     return getTopLayerBounds();
   }
+    // TEMP helpers until we switch virtual over to const& for src-rect
   void legacy_drawImageRect(const SkImage* image, const SkRect* src, const SkRect& dst, const SkPaint* paint, SrcRectConstraint constraint = kStrict_SrcRectConstraint);
   void legacy_drawBitmapRect(const SkBitmap& bitmap, const SkRect* src, const SkRect& dst, const SkPaint* paint, SrcRectConstraint constraint = kStrict_SrcRectConstraint);
     /**
@@ -2225,12 +2230,17 @@ public:
   void temporary_internal_getRgnClip(SkRegion* region);
   void private_draw_shadow_rec(const SkPath&, const SkDrawShadowRec&);
 protected:
+    // default impl defers to getDevice()->newSurface(info)
   virtual sk_sp<SkSurface> onNewSurface(const SkImageInfo& info, const SkSurfaceProps& props);
+    // default impl defers to its device
   virtual bool onPeekPixels(SkPixmap* pixmap);
   virtual bool onAccessTopLayerPixels(SkPixmap* pixmap);
   virtual SkImageInfo onImageInfo() const;
   virtual bool onGetProps(SkSurfaceProps* props) const;
   virtual void onFlush();
+    // Subclass save/restore notifiers.
+    // Overriders should call the corresponding INHERITED method up the inheritance chain.
+    // getSaveLayerStrategy()'s return value may suppress full layer allocation.
   enum SaveLayerStrategy
   {
     kFullLayer_SaveLayerStrategy,
@@ -2239,10 +2249,12 @@ protected:
   virtual void willSave()
   {
   }
+    // Overriders should call the corresponding INHERITED method up the inheritance chain.
   virtual SaveLayerStrategy getSaveLayerStrategy(const SaveLayerRec&)
   {
     return kFullLayer_SaveLayerStrategy;
   }
+    // returns true if we should actually perform the saveBehind, or false if we should just save.
   virtual bool onDoSaveBehind(const SkRect*)
   {
     return true;
@@ -2263,6 +2275,9 @@ protected:
   {
     this->didConcat(SkMatrix::MakeTrans(dx, dy));
   }
+    // NOTE: If you are adding a new onDraw virtual to SkCanvas, PLEASE add an override to
+    // SkCanvasVirtualEnforcer (in SkCanvasVirtualEnforcer.h). This ensures that subclasses using
+    // that mechanism  will be required to implement the new function.
   virtual void onDrawPaint(const SkPaint& paint);
   virtual void onDrawBehind(const SkPaint& paint);
   virtual void onDrawRect(const SkRect& rect, const SkPaint& paint);
@@ -2275,6 +2290,7 @@ protected:
   virtual void onDrawTextBlob(const SkTextBlob* blob, SkScalar x, SkScalar y, const SkPaint& paint);
   virtual void onDrawPatch(const SkPoint cubics[12], const SkColor colors[4], const SkPoint texCoords[4], SkBlendMode mode, const SkPaint& paint);
   virtual void onDrawPoints(PointMode mode, size_t count, const SkPoint pts[], const SkPaint& paint);
+    // TODO: Remove old signature
   virtual void onDrawVerticesObject(const SkVertices* vertices, SkBlendMode mode, const SkPaint& paint)
   {
     this->onDrawVerticesObject(vertices, nullptr, 0, mode, paint);
@@ -2305,6 +2321,10 @@ protected:
   virtual void onClipPath(const SkPath& path, SkClipOp op, ClipEdgeStyle edgeStyle);
   virtual void onClipRegion(const SkRegion& deviceRgn, SkClipOp op);
   virtual void onDiscard();
+    // Clip rectangle bounds. Called internally by saveLayer.
+    // returns false if the entire rectangle is entirely clipped out
+    // If non-NULL, The imageFilter parameter will be used to expand the clip
+    // and offscreen bounds for any margin required by the filter DAG.
   bool clipRectBounds(const SkRect* bounds, SaveLayerFlags flags, SkIRect* intersection, const SkImageFilter* imageFilter = nullptr);
   SkBaseDevice* getTopDevice() const;
 private:
@@ -2327,6 +2347,7 @@ private:
     }
         /** Cycle to the next device */
     void next();
+        // These reflect the current device in the iterator
     SkBaseDevice* device() const;
     const SkMatrix& matrix() const;
     SkIRect clipBounds() const;
@@ -2334,6 +2355,11 @@ private:
     int x() const;
     int y() const;
   private:
+        // used to embed the SkDrawIter object directly in our instance, w/o
+        // having to expose that class def to the public. There is an assert
+        // in our constructor to ensure that fStorage is large enough
+        // (though needs to be a compile-time-assert!). We use intptr_t to work
+        // safely with 32 and 64 bit machines (to ensure the storage is enough)
     intptr_t fStorage[32];
     class SkDrawIter* fImpl;
     SkPaint fDefaultPaint;
@@ -2347,6 +2373,8 @@ private:
     kOpaque_ShaderOverrideOpacity,
     kNotOpaque_ShaderOverrideOpacity
   };
+    // notify our surface (if we have one) that we are about to draw, so it
+    // can perform copy-on-write or invalidate any cached images
   void predrawNotify(bool willOverwritesEntireSurface = false);
   void predrawNotify(const SkRect* rect, const SkPaint* paint, ShaderOverrideOpacity);
   void predrawNotify(const SkRect* rect, const SkPaint* paint, bool shaderOverrideIsOpaque)
@@ -2356,7 +2384,9 @@ private:
   SkBaseDevice* getDevice() const;
   class MCRec;
   SkDeque fMCStack;
+    // points to top of stack
   MCRec* fMCRec;
+    // the first N recs that can fit here mean we won't call malloc
   static int kMCRecSize = 128;
   static int kMCRecCount = 32;
   static int kDeviceCMSize = 224;
@@ -2391,6 +2421,7 @@ private:
   friend class SkOverdrawCanvas;
   friend class SkRasterHandleAllocator;
 protected:
+    // For use by SkNoDrawCanvas (via SkCanvasVirtualEnforcer, which can't be a friend)
   SkCanvas(const SkIRect& bounds);
 private:
   SkCanvas(const SkBitmap&, std::unique_ptr<SkRasterHandleAllocator>, SkRasterHandleAllocator::Handle);
@@ -2413,7 +2444,11 @@ private:
      */
   void drawClippedToSaveBehind(const SkPaint&);
   void resetForNextPicture(const SkIRect& bounds);
+    // needs gettotalclip()
   friend class SkCanvasStateUtils;
+    // call this each time we attach ourselves to a device
+    //  - constructor
+    //  - internalSaveLayer
   void setupDevice(SkBaseDevice*);
   void init(sk_sp<SkBaseDevice>);
     /**
@@ -2426,6 +2461,7 @@ private:
   void internalSaveLayer(const SaveLayerRec&, SaveLayerStrategy);
   void internalSaveBehind(const SkRect*);
   void internalDrawDevice(SkBaseDevice*, int x, int y, const SkPaint*, SkImage* clipImage, const SkMatrix& clipMatrix);
+    // shared by save() and saveLayer()
   void internalSave();
   void internalRestore();
     /*
@@ -2540,5 +2576,6 @@ private:
   SkAutoCanvasRestore& operator=(SkAutoCanvasRestore&&);
   SkAutoCanvasRestore& operator=(const SkAutoCanvasRestore&);
 };
+// Private
 #  define SkAutoCanvasRestore	(...) SK_REQUIRE_LOCAL_VAR(SkAutoCanvasRestore)
 #endif

@@ -47,6 +47,8 @@
 #  define SK_REQUIRE_LOCAL_VAR(classname)	 \
     static_assert(false, "missing name for " #classname)
 ////////////////////////////////////////////////////////////////////////////////
+
+// Can be used to bracket data types that must be dense, e.g. hash keys.
 #  if  defined(__clang__)  // This should work on GCC too, but GCC diagnostic pop didn't seem to work!
 #    define SK_BEGIN_REQUIRE_DENSE	_Pragma("GCC diagnostic push") \
                                    _Pragma("GCC diagnostic error \"-Wpadded\"")

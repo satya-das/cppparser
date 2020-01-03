@@ -31,12 +31,14 @@ protected:
   {
     return fMatrix;
   }
+    // protected so that subclasses can call this during unflattening
   explicit Sk2DPathEffect(const SkMatrix& mat);
   void flatten(SkWriteBuffer&) const override;
   bool onFilterPath(SkPath*, const SkPath&, SkStrokeRec*, const SkRect*) const override;
   SkMatrix fMatrix, fInverse;
 private:
   bool fMatrixIsInvertible;
+    // illegal
   Sk2DPathEffect(const Sk2DPathEffect&);
   Sk2DPathEffect& operator=(const Sk2DPathEffect&);
   friend class Sk2DPathEffectBlitter;

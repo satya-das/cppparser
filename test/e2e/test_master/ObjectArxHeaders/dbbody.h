@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,13 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+// DESCRIPTION:
+// The AcDbBody class is the interface class for representing
+// general ACIS bodies inside AutoCAD.  All the functionality
+// supported through this class is implemented in the class
+// AcDbImpBody and its base classes.
 #ifndef GEOMENT_DBBODY_H
 #  define GEOMENT_DBBODY_H
 #  include "dbmain.h"

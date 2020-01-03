@@ -68,12 +68,12 @@ static std::pair<size_t, size_t> performTest(CppParser& parser, const TestParam&
   size_t numInputFiles = 0;
   size_t numFailed     = 0;
 
-  CppWriter                cppWriter;
   auto                     inputPathLen = params.inputPath.string().length();
   std::vector<std::string> failedFiles;
   for (bfs::recursive_directory_iterator dirItr(params.inputPath); dirItr != bfs::recursive_directory_iterator();
        ++dirItr)
   {
+    CppWriter cppWriter;
     bfs::path file = *dirItr;
     if (bfs::is_regular_file(file))
     {

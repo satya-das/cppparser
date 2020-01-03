@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION: Definition of Selection-related AcEd constructs, which
+//              currently consists solely of the AcEdSolidSubentitySelector.
+//
 #ifndef _ACEDSEL_H
 #  define _ACEDSEL_H
 #  include "AcArray.h"
@@ -40,6 +45,7 @@ protected:
   AcEdSelectedTransientImp* mImp;
   friend class AcEdTransientSelectionInternals;
 };
+//This function returns all transients that draw any geometry inside the pickbox. 
 Acad::ErrorStatus acedSelectTransients(const AcGsDCRect& rect, int viewportNumber, AcArray<AcEdSelectedTransient>& result);
 #  pragma  pack (pop)
 #endif

@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,17 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// dbtable.h
+//
+//  DESCRIPTION: AcDbTable api class declaration
+//
+//  AcRxObject
+//    AcDbObject
+//      AcDbEntity
+//        AcDbBlockReference
+//          AcDbTable
+//
 #pragma  once
 #include "dbmain.h"
 #include "dbents.h"
@@ -16,6 +28,7 @@
 #pragma  pack(push, 8)
 class AcDbTableIterator;
 class AcDbTableTemplate;
+// Typedef mapping old array name to new
 typedef AcDbFullSubentPathArray AcSubentPathArray;
 class AcDbTable : public AcDbBlockReference
 {
@@ -23,6 +36,7 @@ class AcDbTable : public AcDbBlockReference
 public:
   enum TableStyleOverrides
   {
+        //table
     kTitleSuppressed = 1,
     kHeaderSuppressed = 2,
     kFlowDirection = 3,
@@ -49,6 +63,7 @@ public:
     kTitleRowDataType = 24,
     kHeaderRowDataType = 25,
     kDataRowDataType = 26,
+        // grid color
     kTitleHorzTopColor = 40,
     kTitleHorzInsideColor = 41,
     kTitleHorzBottomColor = 42,
@@ -67,6 +82,7 @@ public:
     kDataVertLeftColor = 55,
     kDataVertInsideColor = 56,
     kDataVertRightColor = 57,
+        // grid line weight
     kTitleHorzTopLineWeight = 70,
     kTitleHorzInsideLineWeight = 71,
     kTitleHorzBottomLineWeight = 72,
@@ -85,6 +101,7 @@ public:
     kDataVertLeftLineWeight = 85,
     kDataVertInsideLineWeight = 86,
     kDataVertRightLineWeight = 87,
+        // grid visibility
     kTitleHorzTopVisibility = 100,
     kTitleHorzInsideVisibility = 101,
     kTitleHorzBottomVisibility = 102,
@@ -103,6 +120,8 @@ public:
     kDataVertLeftVisibility = 115,
     kDataVertInsideVisibility = 116,
     kDataVertRightVisibility = 117,
+        //cell 
+        //
     kCellAlignment = 130,
     kCellBackgroundFillNone = 131,
     kCellBackgroundColor = 132,
@@ -129,13 +148,16 @@ public:
     //********************************************************************
     // Get and set methods for table properties
     //********************************************************************
+    //
   virtual AcDbObjectId tableStyle() const;
   virtual Acad::ErrorStatus setTableStyle(const AcDbObjectId& id);
   virtual AcGeVector3d direction() const;
   virtual Acad::ErrorStatus setDirection(const AcGeVector3d& horzVec);
   virtual Adesk::UInt32 numRows() const;
+    // Use setSize(int nRows, int nCols)
   ADESK_DEPRECATED virtual Acad::ErrorStatus setNumRows(int nRows);
   virtual Adesk::UInt32 numColumns() const;
+    // Use setSize(int nRows, int nCols)
   ADESK_DEPRECATED virtual Acad::ErrorStatus setNumColumns(int nCols);
   virtual double width() const;
   virtual Acad::ErrorStatus setWidth(double width);
@@ -154,9 +176,14 @@ public:
     //********************************************************************
     // Get and set methods for table style overrides
     //********************************************************************
+    //
+    // Use margin(int nRow, int nCol, AcDb::CellMargin nMargin)
   ADESK_DEPRECATED virtual double horzCellMargin() const;
+    // Use setMargin(int nRow, int nCol, AcDb::CellMargin nMargin, double fMargin)
   ADESK_DEPRECATED virtual Acad::ErrorStatus setHorzCellMargin(double gap);
+    // Use margin(int nRow, int nCol, AcDb::CellMargin nMargin)
   ADESK_DEPRECATED virtual double vertCellMargin() const;
+    // Use setMargin(int nRow, int nCol, AcDb::CellMargin nMargin, double fMargin)
   ADESK_DEPRECATED virtual Acad::ErrorStatus setVertCellMargin(double gap);
   virtual AcDb::FlowDirection flowDirection() const;
   virtual Acad::ErrorStatus setFlowDirection(AcDb::FlowDirection flow);
@@ -175,8 +202,11 @@ public:
   ADESK_DEPRECATED virtual Acad::ErrorStatus getDataType(AcValue::DataType& nDataType, AcValue::UnitType& nUnitType, AcDb::RowType type) const;
   ADESK_DEPRECATED virtual Acad::ErrorStatus setDataType(AcValue::DataType nDataType, AcValue::UnitType nUnitType);
   ADESK_DEPRECATED virtual Acad::ErrorStatus setDataType(AcValue::DataType nDataType, AcValue::UnitType nUnitType, int nRowTypes);
+    // For internal use only
   ADESK_DEPRECATED virtual const ACHAR* format(AcDb::RowType type);
+    // For internal use only
   ADESK_DEPRECATED virtual Acad::ErrorStatus setFormat(const ACHAR* pszFormat);
+    // For internal use only
   ADESK_DEPRECATED virtual Acad::ErrorStatus setFormat(const ACHAR* pszFormat, int nRowTypes);
   ADESK_DEPRECATED virtual AcDbObjectId textStyle(AcDb::RowType type = AcDb::kDataRow) const;
   ADESK_DEPRECATED virtual Acad::ErrorStatus setTextStyle(const AcDbObjectId& id, int rowTypes = AcDb::kAllRows);
@@ -193,6 +223,7 @@ public:
     //********************************************************************
     // Get and set methods for common cell properties
     //********************************************************************
+    //
   virtual AcDb::CellType cellType(int row, int col) const;
   ADESK_DEPRECATED virtual Acad::ErrorStatus setCellType(int row, int col, AcDb::CellType type);
   virtual Acad::ErrorStatus getCellExtents(int row, int col, bool isOuterCell, AcGePoint3dArray& pts) const;
@@ -207,18 +238,22 @@ public:
   virtual Acad::ErrorStatus setContentColor(int row, int col, const AcCmColor& color);
   virtual bool cellStyleOverrides(int row, int col, AcDbIntArray& overrides) const;
   void clearCellOverrides(int row, int column);
+    // Use deleteContent(int nRow, int nCol, int nIndex)
   ADESK_DEPRECATED virtual Acad::ErrorStatus deleteCellContent(int row, int col);
   ADESK_DEPRECATED virtual AcDb::RowType rowType(int row) const;
     //********************************************************************
     // Get and set methods for text cell properties
     //********************************************************************
+    //
   Acad::ErrorStatus getDataType(int row, int col, AcValue::DataType& nDataType, AcValue::UnitType& nUnitType) const;
   Acad::ErrorStatus setDataType(int row, int col, AcValue::DataType nDataType, AcValue::UnitType nUnitType);
   AcValue value(int row, int col) const;
   Acad::ErrorStatus setValue(int row, int col, const AcValue& val);
   Acad::ErrorStatus setValue(int row, int col, const wchar_t* pszText, AcValue::ParseOption nOption);
   Acad::ErrorStatus resetValue(int row, int col);
+    // For internal use only
   const ACHAR* format(int row, int col) const;
+    // For internal use only
   ADESK_DEPRECATED Acad::ErrorStatus setFormat(int row, int col, const ACHAR* pszFormat);
   virtual const ACHAR* textStringConst(int row, int col) const;
   virtual ACHAR* textString(int row, int col) const;
@@ -231,24 +266,34 @@ public:
   virtual Acad::ErrorStatus setTextStyle(int row, int col, const AcDbObjectId& id);
   virtual double textHeight(int row, int col) const;
   virtual Acad::ErrorStatus setTextHeight(int row, int col, double height);
+    // Use rotation(int nRow, int nCol, int nContent)
   ADESK_DEPRECATED virtual AcDb::RotationAngle textRotation(int row, int col) const;
+    // Use setRotation(int nRow, int nCol, int nContent, double fContent)
   ADESK_DEPRECATED virtual Acad::ErrorStatus setTextRotation(int row, int col, AcDb::RotationAngle rot);
     //********************************************************************
     // Get and set methods for block cell properties
     //********************************************************************
+    //
+    // Use isAutoScale(int row, int col, int nContent)
   ADESK_DEPRECATED virtual bool isAutoScale(int row, int col) const;
+    // Use setAutoScale(int row, int col, int nContent, autoFit)
   ADESK_DEPRECATED virtual Acad::ErrorStatus setAutoScale(int row, int col, bool autoFit);
   virtual AcDbObjectId blockTableRecordId(int row, int col) const;
   virtual Acad::ErrorStatus setBlockTableRecordId(int row, int col, const AcDbObjectId& blkId, bool autoFit = false);
+    // Use scale(int row, int col, int nContent)
   ADESK_DEPRECATED virtual double blockScale(int row, int col) const;
+    // Use setScale(int row, int col, int nContent, double scale)
   ADESK_DEPRECATED virtual Acad::ErrorStatus setBlockScale(int row, int col, double scale);
+    // Use rotation(int nRow, int nCol, int nContent)
   ADESK_DEPRECATED virtual double blockRotation(int row, int col) const;
+    // Use setRotation(int nRow, int nCol, int nContent, double fContent)
   ADESK_DEPRECATED virtual Acad::ErrorStatus setBlockRotation(int row, int col, double rotAng);
   virtual Acad::ErrorStatus getBlockAttributeValue(int row, int col, const AcDbObjectId& attdefId, ACHAR*& value) const;
   virtual Acad::ErrorStatus setBlockAttributeValue(int row, int col, const AcDbObjectId& attdefId, const ACHAR* value);
     //********************************************************************
     // Get and set methods for cell grid line properties
     //********************************************************************
+    //
   virtual AcCmColor gridColor(int row, int col, AcDb::CellEdgeMask iEdge) const;
   virtual Acad::ErrorStatus setGridColor(int row, int col, short nEdges, const AcCmColor& color);
   virtual AcDb::Visibility gridVisibility(int row, int col, AcDb::CellEdgeMask iEdge) const;
@@ -258,6 +303,7 @@ public:
     //********************************************************************
     // Insert and delete methods for columns and rows
     //********************************************************************
+    //
   virtual Acad::ErrorStatus insertColumns(int col, double width, int nCols = 1);
   virtual Acad::ErrorStatus deleteColumns(int col, int nCols = 1);
   virtual Acad::ErrorStatus insertRows(int row, double height, int nRows = 1);
@@ -265,17 +311,20 @@ public:
     //********************************************************************
     // Merge and unmerge methods
     //********************************************************************
+    //
   virtual Acad::ErrorStatus mergeCells(int minRow, int maxRow, int minCol, int maxCol);
   virtual Acad::ErrorStatus unmergeCells(int minRow, int maxRow, int minCol, int maxCol);
   virtual bool isMergedCell(int row, int col, int* minRow = NULL, int* maxRow = NULL, int* minCol = NULL, int* maxCol = NULL) const;
     //********************************************************************
     // Methods to generate table layout and table block
     //********************************************************************
+    //
   virtual Acad::ErrorStatus generateLayout();
   virtual Acad::ErrorStatus recomputeTableBlock(bool forceUpdate = true);
     //********************************************************************
     // Methods for sub-selection  
     //********************************************************************
+    //
   virtual bool hitTest(const AcGePoint3d& wpt, const AcGeVector3d& wviewVec, double wxaper, double wyaper, int& resultRowIndex, int& resultColumnIndex);
   bool hitTest(const AcGePoint3d& wpt, const AcGeVector3d& wviewVec, double wxaper, double wyaper, int& resultRowIndex, int& resultColumnIndex, int& contentIndex, AcDb::TableHitItem& nItem);
   virtual Acad::ErrorStatus select(const AcGePoint3d& wpt, const AcGeVector3d& wvwVec, const AcGeVector3d& wvwxVec, double wxaper, double wyaper, bool allowOutside, bool bInPickFirst, int& resultRowIndex, int& resultColumnIndex, AcDbFullSubentPathArray* pPaths = NULL) const;
@@ -290,6 +339,7 @@ public:
     //********************************************************************
     // Overridden methods from AcDbObject
     //********************************************************************
+    //
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
@@ -301,11 +351,13 @@ public:
     //********************************************************************
     // Overridden methods from AcDbBlockReference required for AcDbTable
     //********************************************************************
+    //
   virtual Acad::ErrorStatus setPosition(const AcGePoint3d&) override;
   virtual Acad::ErrorStatus setNormal(const AcGeVector3d& newVal) override;
     //********************************************************************
     // Methods for internal use only
     //********************************************************************
+    //
   virtual Acad::ErrorStatus select_next_cell(int dir, int& resultRowIndex, int& resultColumnIndex, AcDbFullSubentPathArray* pPaths = NULL, bool bSupportTextCellOnly = true) const;
   virtual void setRegen();
   virtual void suppressInvisibleGrid(bool value);
@@ -442,6 +494,7 @@ public:
   Acad::ErrorStatus getIndicatorSize(double& fWidth, double& fHeight) const;
   ACDBCORE2D_PORT AcCellRange cellRange() const;
 protected:
+    // Get corresponding COM wrapper class ID
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #pragma  pack(pop)

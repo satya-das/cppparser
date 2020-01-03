@@ -66,6 +66,8 @@ namespace AcDbGripOperations
     kDynamicDimMode = 0x04,
     kNoMultiModesGrip = 0x08
   };
+    // The following are used by the moveGripPointsAt() bitflags parameter,
+    // and refer to how the offset parameter was determined.
   enum MoveGripPointsFlags
   {
     kOsnapped = 0x1,

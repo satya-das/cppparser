@@ -7,9 +7,19 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+// 
+//  DESCRIPTION:  Definition of CAcGradientThumbEngine
+//                
+//
 #ifndef _ACGRADTHUMB_H
 #  define _ACGRADTHUMB_H
 #  include "dbcolor.h"
+// CAcGradientThumbnailEngine defines the interface to the gradient thumbnail generation engine.
+//
+// Use the function createGradientThumbnailEngine() to get a pointer to an instace of the engine.
+//
+// When finished with the engine the pointer returned by createGradientThumbnailEngine() should be deleted
+//
 class CAcGradientThumbnailEngine
 {
 public:

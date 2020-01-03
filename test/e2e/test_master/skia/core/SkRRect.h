@@ -519,8 +519,13 @@ private:
   bool checkCornerContainment(SkScalar x, SkScalar y) const;
   void scaleRadii(const SkRect& rect);
   SkRect fRect = SkRect::MakeEmpty();
+    // Radii order is UL, UR, LR, LL. Use Corner enum to index into fRadii[]
   SkVector fRadii[4] = {{0, 0}, {0, 0}, {0, 0}, {0, 0}};
+    // use an explicitly sized type so we're sure the class is dense (no uninitialized bytes)
   int32_t fType = kEmpty_Type;
+    // TODO: add padding so we can use memcpy for flattening and not copy uninitialized data
+
+    // to access fRadii directly
   friend class SkPath;
   friend class SkRRectPriv;
 };

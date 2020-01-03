@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -350,6 +351,8 @@ public:
     {
       return -1;
     }
+        //buffer==NULL && size==0 means that we should calculate the required length
+        //of the buffer and return it
     return subToString(instance, buffer, sizeInACHARs, format);
   }
     /// <summary>
@@ -606,6 +609,7 @@ private:
   virtual bool subEqualTo(const void* a, const void* b) const = 0;
   AcRxValueType(const AcRxValueType& rhs);
   AcRxValueType& operator=(const AcRxValueType& rhs);
+    //members declared on the API-side of Pimpl for performance reasons (so that they can be inlined)
   IAcRxNonBlittableType* m_pNonBlittable;
   IAcRxEnumeration* m_pEnum;
   IAcRxReferenceType* m_pRef;
@@ -613,6 +617,7 @@ private:
   void* m_unused1;
   unsigned int m_size;
 };
+//specialization for 'no type'
 template <>
 struct AcRxValueType ::Desc<void>
 {
@@ -620,8 +625,10 @@ struct AcRxValueType ::Desc<void>
   static void del();
 };
 class Storage;
+//protect against shenanigans
 #pragma  push_macro("new")
 #undef new
+//define global placement new  so that we can call the constructor 
 //(C++ does not allow calling the ctor directly)
 inline void* operator new(size_t size, Storage* loc)
 {

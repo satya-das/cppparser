@@ -478,6 +478,7 @@ public:
     */
   void updateBoundsCache() const
   {
+        // for now, just calling getBounds() is sufficient
     this->getBounds();
   }
     /** Returns minimum and maximum axes values of the lines and curves in SkPath.
@@ -1347,6 +1348,7 @@ public:
             @return     next SkPath::Verb from verb array
         */
     Verb next(SkPoint pts[4]);
+        // DEPRECATED
     Verb next(SkPoint pts[4], bool, bool = false)
     {
       return this->next(pts);
@@ -1587,7 +1589,17 @@ private:
   friend class Iter;
   friend class SkPathPriv;
   friend class SkPathStroker;
+    /*  Append, in reverse order, the first contour of path, ignoring path's
+        last point. If no moveTo() call has been made for this contour, the
+        first point is automatically set to (0,0).
+    */
   SkPath& reversePathTo(const SkPath&);
+    // called before we add points for lineTo, quadTo, cubicTo, checking to see
+    // if we need to inject a leading moveTo first
+    //
+    //  SkPath path; path.lineTo(...);   <--- need a leading moveTo(0, 0)
+    // SkPath path; ... path.close(); path.lineTo(...) <-- need a moveTo(previous moveTo)
+    //
   inline void injectMoveToIfNeeded();
   inline bool hasOnlyMoveTos() const;
   Convexity internalGetConvexity() const;
@@ -1606,12 +1618,15 @@ private:
     SkDEBUGCODE(this->validate();)
     return fPathRef->hasComputedBounds();
   }
+    // 'rect' needs to be sorted
   void setBounds(const SkRect& rect)
   {
     SkPathRef::Editor ed(&fPathRef);
     ed.setBounds(rect);
   }
   void setPt(int index, SkScalar x, SkScalar y);
+    // Bottlenecks for working with fConvexity and fFirstDirection.
+    // Notice the setters are const... these are mutable atomic fields.
   void setConvexity(Convexity) const;
   void setFirstDirection(uint8_t) const;
   uint8_t getFirstDirection() const;

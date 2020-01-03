@@ -55,6 +55,8 @@ private:
   friend class GrVkHeap;
   bool fUsesSystemHeap;
 };
+// This struct is used to pass in the necessary information to create a VkSamplerYcbcrConversion
+// object for an VkExternalFormatANDROID.
 struct GrVkYcbcrConversionInfo
 {
   GrVkYcbcrConversionInfo()
@@ -80,6 +82,7 @@ struct GrVkYcbcrConversionInfo
     , fFormatFeatures(formatFeatures)
   {
     SkASSERT(fYcbcrModel != VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY);
+        // Either format or externalFormat must be specified.
     SkASSERT((fFormat != VK_FORMAT_UNDEFINED) ^ (externalFormat != 0));
   }
   GrVkYcbcrConversionInfo(VkSamplerYcbcrModelConversion ycbcrModel, VkSamplerYcbcrRange ycbcrRange, VkChromaLocation xChromaOffset, VkChromaLocation yChromaOffset, VkFilter chromaFilter, VkBool32 forceExplicitReconstruction, uint64_t externalFormat, VkFormatFeatureFlags externalFormatFeatures)
@@ -88,6 +91,7 @@ struct GrVkYcbcrConversionInfo
   }
   bool operator==(const GrVkYcbcrConversionInfo& that) const
   {
+        // Invalid objects are not required to have all other fields initialized or matching.
     if (!this->isValid() && !that.isValid())
     {
       return true;
@@ -102,7 +106,11 @@ struct GrVkYcbcrConversionInfo
   {
     return fYcbcrModel != VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY;
   }
+    // Format of the source image. Must be set to VK_FORMAT_UNDEFINED for external images or
+    // a valid image format otherwise.
   VkFormat fFormat;
+    // The external format. Must be non-zero for external images, zero otherwise.
+    // Should be compatible to be used in a VkExternalFormatANDROID struct.
   uint64_t fExternalFormat;
   VkSamplerYcbcrModelConversion fYcbcrModel;
   VkSamplerYcbcrRange fYcbcrRange;
@@ -110,6 +118,8 @@ struct GrVkYcbcrConversionInfo
   VkChromaLocation fYChromaOffset;
   VkFilter fChromaFilter;
   VkBool32 fForceExplicitReconstruction;
+    // For external images format features here should be those returned by a call to
+    // vkAndroidHardwareBufferFormatPropertiesANDROID
   VkFormatFeatureFlags fFormatFeatures;
 };
 struct GrVkImageInfo
@@ -159,6 +169,9 @@ struct GrVkImageInfo
     , fYcbcrConversionInfo(info.fYcbcrConversionInfo)
   {
   }
+    // This gives a way for a client to update the layout of the Image if they change the layout
+    // while we're still holding onto the wrapped texture. They will first need to get a handle
+    // to our internal GrVkImageInfo by calling getTextureHandle on a GrVkTexture.
   void updateImageLayout(VkImageLayout layout)
   {
     fImageLayout = layout;

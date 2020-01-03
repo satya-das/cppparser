@@ -7,6 +7,12 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// Use, duplication, or disclosure by the U.S. Government is subject to 
+// restrictions set forth in FAR 52.227-19 (Commercial Computer
+// Software - Restricted Rights) and DFAR 252.227-7013(c)(1)(ii)
+// (Rights in Technical Data and Computer Software), as applicable.
+//
 #define ASITRYSET	IncreaseGlobalAccount(0); try
 #define ASICATCHALL	catch (int ASITRYCODE)
 #define ASITRYDEL	DecreaseGlobalAccount(0);

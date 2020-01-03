@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,9 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION: Abstract base class for collections of AcDbObjectContext
+//              objects
 #ifndef ACDB_OBJECTCONTEXTCOLLECTION_H
 #  define ACDB_OBJECTCONTEXTCOLLECTION_H
 #  pragma  once
@@ -116,6 +120,7 @@ public:
     /// a different identifier than the context it is copied from. 
     /// </remarks>
   virtual Acad::ErrorStatus addContext(const AcDbObjectContext* pContext) = 0;
+    // to set the currentContext() to NULL. 
     /// <summary>
     /// Removes a context from the collection.
     /// </summary>

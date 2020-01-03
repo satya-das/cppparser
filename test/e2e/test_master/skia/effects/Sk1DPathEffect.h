@@ -10,6 +10,7 @@
 #  include "include/core/SkPath.h"
 #  include "include/core/SkPathEffect.h"
 class SkPathMeasure;
+// This class is not exported to java.
 class SK_API Sk1DPathEffect : public SkPathEffect
 {
 protected:
@@ -49,6 +50,7 @@ protected:
   SkPath1DPathEffect(const SkPath& path, SkScalar advance, SkScalar phase, Style);
   void flatten(SkWriteBuffer&) const override;
   bool onFilterPath(SkPath*, const SkPath&, SkStrokeRec*, const SkRect*) const override;
+    // overrides from Sk1DPathEffect
   SkScalar begin(SkScalar contourLength) const override;
   SkScalar next(SkPath*, SkScalar, SkPathMeasure&) const override;
 private:

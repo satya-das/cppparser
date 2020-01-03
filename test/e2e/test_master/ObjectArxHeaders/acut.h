@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,13 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+//  DESCRIPTION:
+//
+//  This header file contains definitions for the acutil library 
+//
+//
 #pragma  once
 #pragma  pack (push, 8)
 struct AcUt

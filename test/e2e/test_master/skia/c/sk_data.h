@@ -4,14 +4,13 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+
+// EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL
+// DO NOT USE -- FOR INTERNAL TESTING ONLY
 #ifndef sk_data_DEFINED
 #  define sk_data_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-/**
-    Returns a new empty sk_data_t.  This call must be balanced with a call to
-    sk_data_unref().
-*/
 SK_API sk_data_t* sk_data_new_empty(void);
 /**
     Returns a new sk_data_t by copying the specified source data.

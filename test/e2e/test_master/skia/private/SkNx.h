@@ -12,9 +12,11 @@
 #  include <algorithm>
 #  include <limits>
 #  include <type_traits>
+// Every single SkNx method wants to be fully inlined.  (We know better than MSVC).
 #  define AI	SK_ALWAYS_INLINE
 namespace 
 {
+// The default SkNx<N,T> just proxies down to a pair of SkNx<N/2, T>.
   template <int N, typename T>
   struct SkNx
   {
@@ -248,6 +250,7 @@ namespace
       return {Half::Max(x.fLo, y.fLo), Half::Max(x.fHi, y.fHi)};
     }
   };
+// The N -> N/2 recursion bottoms out at N == 1, a scalar value.
   template <typename T>
   struct SkNx<1,T>
   {
@@ -257,6 +260,7 @@ namespace
       : fVal(v)
     {
     }
+    // Android complains against unused parameters, so we guard it
     AI T operator[](int k) const
     {
       SkASSERT(k == 0);
@@ -447,6 +451,7 @@ namespace
       return fVal != 0 ? t : e;
     }
   private:
+    // Helper functions to choose the right float/double methods.  (In <cmath> madness lies...)
     AI static int Abs(int val)
     {
       return val < 0 ? -val : val;
@@ -475,6 +480,7 @@ namespace
     {
       return ::floor(val);
     }
+    // Helper functions for working with floats/doubles as bit patterns.
     template <typename U>
     AI static U ToBits(U v)
     {
@@ -501,6 +507,7 @@ namespace
       return val;
     }
   };
+// Allow scalars on the left or right of binary operators, and things like +=, &=, etc.
 #  define V	template <int N, typename T> AI static SkNx<N,T>
   V operator+(T x, const SkNx<N,T>& y)
   {
@@ -671,22 +678,31 @@ namespace
     return (x = x ^ SkNx<N,T>(y));
   }
 #  undef V
+// SkNx<N,T> ~~> SkNx<N/2,T> + SkNx<N/2,T>
   template <int N, typename T>
   AI static void SkNx_split(const SkNx<N,T>& v, SkNx<N/2,T>* lo, SkNx<N/2,T>* hi)
   {
     *lo = v.fLo;
     *hi = v.fHi;
   }
+// SkNx<N/2,T> + SkNx<N/2,T> ~~> SkNx<N,T>
   template <int N, typename T>
   AI static SkNx<N*2,T> SkNx_join(const SkNx<N,T>& lo, const SkNx<N,T>& hi)
   {
     return {lo, hi};
   }
+// A very generic shuffle.  Can reorder, duplicate, contract, expand...
+//    Sk4f v = { R,G,B,A };
+//    SkNx_shuffle<2,1,0,3>(v)         ~~> {B,G,R,A}
+//    SkNx_shuffle<2,1>(v)             ~~> {B,G}
+//    SkNx_shuffle<2,1,2,1,2,1,2,1>(v) ~~> {B,G,B,G,B,G,B,G}
+//    SkNx_shuffle<3,3,3,3>(v)         ~~> {A,A,A,A}
   template <int... Ix, int N, typename T>
   AI static SkNx<sizeof...(Ix),T> SkNx_shuffle(const SkNx<N,T>& v)
   {
     return {v[Ix]};
   }
+// Cast from SkNx<N, Src> to SkNx<N, Dst>, as if you called static_cast<Dst>(Src).
   template <typename Dst, typename Src, int N>
   AI static SkNx<N,Dst> SkNx_cast(const SkNx<N,Src>& v)
   {
@@ -720,6 +736,7 @@ typedef SkNx<16, uint16_t> Sk16h;
 typedef SkNx<4, int32_t> Sk4i;
 typedef SkNx<8, int32_t> Sk8i;
 typedef SkNx<4, uint32_t> Sk4u;
+// Include platform specific specializations if available.
 #  if  !defined(SKNX_NO_SIMD) && SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE2
 #    include "include/private/SkNx_sse.h"
 #  elif  !defined(SKNX_NO_SIMD) && defined(SK_ARM_HAS_NEON)

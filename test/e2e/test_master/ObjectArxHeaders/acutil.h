@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,16 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  acutil.h - General-purpose AcUtil functions
+//
+//
+//
+//  DESCRIPTION:
+//
+//  This header file contains declarations of general-purpose utility
+//  functions provided with the AcUtil library and DLL.
+//
 #ifndef _ACUTIL_H
 #  define _ACUTIL_H
 #  include "acadstrc.h"

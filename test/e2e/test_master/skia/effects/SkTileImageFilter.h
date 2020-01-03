@@ -7,6 +7,7 @@
 #ifndef SkTileImageFilter_DEFINED
 #  define SkTileImageFilter_DEFINED
 #  include "include/core/SkImageFilter.h"
+// DEPRECATED: Use include/effects/SkImageFilters::Tile
 class SK_API SkTileImageFilter
 {
 public:

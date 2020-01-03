@@ -1,3 +1,4 @@
+// 
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -13,6 +14,7 @@
 #  include "AcGiLineAttrUtils.h"
 typedef enum
 {
+    // Heidi Predefined linetypes
   kLineTypeSolid = 0x00,
   kDashed = 0x01,
   kDotted = 0x02,
@@ -79,9 +81,11 @@ typedef enum
 class ADESK_NO_VTABLE AcGiLineAttributes
 {
 public:
+    // ctor/dtor/init
   virtual ~AcGiLineAttributes()
   {
   }
+        // access methods
   virtual AcDb::LineWeight getLineweight() const = 0;
   virtual void setLineweight(AcDb::LineWeight lweight) = 0;
   virtual AcGiLineJoinStyle getJoinstyle() const = 0;
@@ -92,6 +96,7 @@ public:
   virtual void setLinetype(AcGiLineType linetype) = 0;
   virtual AcGiLineFillStyle getFillstyle() const = 0;
   virtual void setFillstyle(AcGiLineFillStyle fillstyle) = 0;
+    // Flags
   virtual bool isLinetypeAdaptive() const = 0;
   virtual void setLinetypeAdaptive(bool isAdaptive) = 0;
   virtual bool isLineWeightByLayer() const = 0;
@@ -100,6 +105,7 @@ public:
   virtual void setCustomLineweight(bool isCustomLineweight) = 0;
   virtual bool isLineweightDefault() const = 0;
   virtual void setLineweightDefault() = 0;
+    // Cloning
   virtual AcGiLineAttributes* clone() const = 0;
 };
 #endif

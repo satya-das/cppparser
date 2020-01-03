@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,16 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+// DESCRIPTION:
+//
+// This file contains "filer" class definitions of AcDbDeepCloneFiler
+// and AcDbWblockCloneFiler.  These filers maintain a queue of typed
+// object id's. All read/write requests are forwarded to a contained 
+// "real" filer, except for object id's which are removed/added from/to 
+// the queue.  The classes provide protocol for writing either "owned"
+// or "hard" objects in the queue.
 #ifndef AD_DBCFILERS_H
 #  define AD_DBCFILERS_H	1
 #  include "dbfiler.h"
@@ -20,6 +31,8 @@ public:
   ACRX_DECLARE_MEMBERS(AcDbDeepCloneFiler);
   AcDbDeepCloneFiler();
   virtual ~AcDbDeepCloneFiler();
+    // overridden from AcDbDwgFiler 
+    //
   virtual Acad::ErrorStatus filerStatus() const override;
   virtual AcDb::FilerType filerType() const override;
   virtual void setFilerStatus(Acad::ErrorStatus) override;
@@ -34,6 +47,7 @@ public:
   virtual Acad::ErrorStatus writeSoftPointerId(const AcDbSoftPointerId&) override;
   virtual Acad::ErrorStatus readInt8(Adesk::Int8*) override;
   virtual Acad::ErrorStatus writeInt8(Adesk::Int8) override;
+    // This flavor of readString may go away in a future release.
   virtual Acad::ErrorStatus readString(ACHAR**) override;
   virtual Acad::ErrorStatus writeString(const ACHAR*) override;
   virtual Acad::ErrorStatus readString(AcString&) override;
@@ -81,6 +95,8 @@ public:
   virtual Acad::ErrorStatus addReferences(AcDbIdRefQueue&) override;
   virtual bool usesReferences() const override;
   virtual AcDbFilerController& controller() const override;
+    // Protocol specific to AcDbDeepCloneFiler
+    //
   virtual bool getNextOwnedObject(AcDbObjectId& id);
   virtual bool moreOwnedObjects() const;
 protected:

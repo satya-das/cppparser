@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,13 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// dbAnnotativeObjectPE.H
+//
+// DESCRIPTION: Protocol extension base classes
+//                AcDbAnnotativeObjectPE
+//                AcDbPaperOrientationPE
+//
 #pragma  once
 #include "acdb.h"
 #include "dbmain.h"

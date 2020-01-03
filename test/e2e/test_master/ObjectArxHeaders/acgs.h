@@ -27,6 +27,7 @@ Adesk::Boolean acgsGetDisplayInfo(int& drawingWidth, int& drawingHeight, int& as
 Adesk::Boolean acgsGetViewportInfo(int viewportNumber, int& left, int& bottom, int& right, int& top);
 class AcDbDatabase;
 class AcGiDrawable;
+// This class is returned to the user by acgsGetScreenShot, below.
 class AcGsScreenShot
 {
 public:
@@ -38,6 +39,7 @@ public:
 #    undef new
 #  endif
   void* operator new(size_t size);
+    // Be sure to delete your screen shot when you are through with it.
   void operator delete(void* p);
 #  ifndef PRODUCTION
   void* operator new(size_t size, const char*, int)
@@ -45,6 +47,7 @@ public:
     return operator new(size);
   }
 #    if  _MSC_VER >= 1200
+        // vc6 requires matching delete for each new
   void operator delete(void* p, const char*, int)
   {
     delete p;
@@ -58,6 +61,8 @@ public:
   AcGsScreenShot();
   virtual ~AcGsScreenShot();
 };
+// Compatibility definition
+//
 #  define ScreenShot	AcGsScreenShot
 AcGsScreenShot* acgsGetScreenShot(int viewportNumber);
 void acgsSetViewportRenderFlag(int viewportNumber);
@@ -112,11 +117,16 @@ ACCORE_PORT AcGsView* acgsGetCurrent3dAcGsView(int vpNum);
 ACCORE_PORT AcGsView* acgsObtainAcGsView(int vpNum, const class AcGsKernelDescriptor&);
 AcGsModel* acgsGetGsModel(AcGiTransientDrawingMode mode, int subDrawingMode, int viewportNumber);
 class CView;
+// Pass in nullptr to get the AcGsManager associated with the current MDI Client Window;
+// otherwise, be sure that the passed in view is really an AutoCAD MDI Client window.
 AcGsManager* acgsGetGsManager(CView* pView = nullptr);
+// Get the AcGsManager associated with the current MDI Client Window.
 ACCORE_PORT AcGsManager* acgsGetCurrentGsManager();
 class AcGePoint3d;
 class AcGeVector3d;
 Adesk::Boolean acgsGetOrthoViewParameters(int viewportNumber, AcDb::OrthographicView view, AcGeVector3d* pViewDir, AcGeVector3d* pUpVector);
+// Use acgsCreate2DViewLimitManager and acgsDestroy2DViewLimitManager to
+// create and destroy instances of this pure virtual, abstract class
 class AcGs2DViewLimitManager
 {
 public:

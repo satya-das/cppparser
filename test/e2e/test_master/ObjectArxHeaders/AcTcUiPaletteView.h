@@ -33,6 +33,7 @@ protected:
   virtual DROPEFFECT DropEx(ADUI_DRAGDATA* pDragData);
     //{{AFX_VIRTUAL(CAcTcUiPaletteView)
     //}}AFX_VIRTUAL
+    // Protected constructor
   CAcTcUiPaletteView(AcTcUiSystemInternals*);
     //{{AFX_MSG(CAcTcUiPaletteView)
   afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);

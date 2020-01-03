@@ -67,6 +67,7 @@ extern "C" {
   class GLUnurbs;
   class GLUquadric;
   class GLUtesselator;
+/* backwards compatibility: */
   typedef class GLUnurbs GLUnurbsObj;
   typedef class GLUquadric GLUquadricObj;
   typedef class GLUtesselator GLUtesselatorObj;
@@ -75,6 +76,7 @@ extern "C" {
   typedef struct GLUnurbs GLUnurbs;
   typedef struct GLUquadric GLUquadric;
   typedef struct GLUtesselator GLUtesselator;
+/* backwards compatibility: */
   typedef struct GLUnurbs GLUnurbsObj;
   typedef struct GLUquadric GLUquadricObj;
   typedef struct GLUtesselator GLUtesselatorObj;
@@ -118,7 +120,10 @@ extern "C" {
   void APIENTRY gluGetNurbsProperty(GLUnurbs* nobj, GLenum property, GLfloat* value);
   void APIENTRY gluNurbsCallback(GLUnurbs* nobj, GLenum which, void (CALLBACK *fn) ());
 /****           Callback function prototypes    ****/
+
+/* gluQuadricCallback */
   typedef void (CALLBACK *GLUquadricErrorProc) (GLenum);
+/* gluTessCallback */
   typedef void (CALLBACK *GLUtessBeginProc) (GLenum);
   typedef void (CALLBACK *GLUtessEdgeFlagProc) (GLboolean);
   typedef void (CALLBACK *GLUtessVertexProc) (void*);
@@ -131,38 +136,55 @@ extern "C" {
   typedef void (CALLBACK *GLUtessEndDataProc) (void*);
   typedef void (CALLBACK *GLUtessErrorDataProc) (GLenum, void*);
   typedef void (CALLBACK *GLUtessCombineDataProc) (GLdouble[3], void*[4], GLfloat[4], void**, void*);
+/* gluNurbsCallback */
   typedef void (CALLBACK *GLUnurbsErrorProc) (GLenum);
 /****           Generic constants               ****/
+
+/* Version */
 #    define GLU_VERSION_1_1	1
 #    define GLU_VERSION_1_2	1
+/* Errors: (return value 0 = no error) */
 #    define GLU_INVALID_ENUM	100900
 #    define GLU_INVALID_VALUE	100901
 #    define GLU_OUT_OF_MEMORY	100902
 #    define GLU_INCOMPATIBLE_GL_VERSION	100903
+/* StringName */
 #    define GLU_VERSION	100800
 #    define GLU_EXTENSIONS	100801
+/* Boolean */
 #    define GLU_TRUE	GL_TRUE
 #    define GLU_FALSE	GL_FALSE
 /****           Quadric constants               ****/
+
+/* QuadricNormal */
 #    define GLU_SMOOTH	100000
 #    define GLU_FLAT	100001
 #    define GLU_NONE	100002
+/* QuadricDrawStyle */
 #    define GLU_POINT	100010
 #    define GLU_LINE	100011
 #    define GLU_FILL	100012
 #    define GLU_SILHOUETTE	100013
+/* QuadricOrientation */
 #    define GLU_OUTSIDE	100020
 #    define GLU_INSIDE	100021
+/* Callback types: */
+/*      GLU_ERROR               100103 */
+
+
 /****           Tesselation constants           ****/
 #    define GLU_TESS_MAX_COORD	1.0e150
+/* TessProperty */
 #    define GLU_TESS_WINDING_RULE	100140
 #    define GLU_TESS_BOUNDARY_ONLY	100141
 #    define GLU_TESS_TOLERANCE	100142
+/* TessWinding */
 #    define GLU_TESS_WINDING_ODD	100130
 #    define GLU_TESS_WINDING_NONZERO	100131
 #    define GLU_TESS_WINDING_POSITIVE	100132
 #    define GLU_TESS_WINDING_NEGATIVE	100133
 #    define GLU_TESS_WINDING_ABS_GEQ_TWO	100134
+/* TessCallback */
 #    define GLU_TESS_BEGIN	100100  /* void (CALLBACK*)(GLenum    type)  */
 #    define GLU_TESS_VERTEX	100101  /* void (CALLBACK*)(void      *data) */
 #    define GLU_TESS_END	100102  /* void (CALLBACK*)(void)            */
@@ -186,6 +208,7 @@ extern "C" {
                                                             GLfloat   weight[4],
                                                             void      **dataOut,
                                                             void      *polygon_data) */
+/* TessError */
 #    define GLU_TESS_ERROR1	100151
 #    define GLU_TESS_ERROR2	100152
 #    define GLU_TESS_ERROR3	100153
@@ -201,6 +224,8 @@ extern "C" {
 #    define GLU_TESS_COORD_TOO_LARGE	GLU_TESS_ERROR5
 #    define GLU_TESS_NEED_COMBINE_CALLBACK	GLU_TESS_ERROR6
 /****           NURBS constants                 ****/
+
+/* NurbsProperty */
 #    define GLU_AUTO_LOAD_MATRIX	100200
 #    define GLU_CULLING	100201
 #    define GLU_SAMPLING_TOLERANCE	100203
@@ -209,13 +234,21 @@ extern "C" {
 #    define GLU_SAMPLING_METHOD	100205
 #    define GLU_U_STEP	100206
 #    define GLU_V_STEP	100207
+/* NurbsSampling */
 #    define GLU_PATH_LENGTH	100215
 #    define GLU_PARAMETRIC_ERROR	100216
 #    define GLU_DOMAIN_DISTANCE	100217
+/* NurbsTrim */
 #    define GLU_MAP1_TRIM_2	100210
 #    define GLU_MAP1_TRIM_3	100211
+/* NurbsDisplay */
+/*      GLU_FILL                100012 */
 #    define GLU_OUTLINE_POLYGON	100240
 #    define GLU_OUTLINE_PATCH	100241
+/* NurbsCallback */
+/*      GLU_ERROR               100103 */
+
+/* NurbsErrors */
 #    define GLU_NURBS_ERROR1	100251
 #    define GLU_NURBS_ERROR2	100252
 #    define GLU_NURBS_ERROR3	100253
@@ -257,11 +290,13 @@ extern "C" {
   void APIENTRY gluBeginPolygon(GLUtesselator* tess);
   void APIENTRY gluNextContour(GLUtesselator* tess, GLenum type);
   void APIENTRY gluEndPolygon(GLUtesselator* tess);
+/* Contours types -- obsolete! */
 #    define GLU_CW	100120
 #    define GLU_CCW	100121
 #    define GLU_INTERIOR	100122
 #    define GLU_EXTERIOR	100123
 #    define GLU_UNKNOWN	100124
+/* Names without "TESS_" prefix */
 #    define GLU_BEGIN	GLU_TESS_BEGIN
 #    define GLU_VERTEX	GLU_TESS_VERTEX
 #    define GLU_END	GLU_TESS_END

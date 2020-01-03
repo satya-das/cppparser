@@ -74,6 +74,8 @@ struct GrMockOptions
   GrMockOptions()
   {
     using Renderability = ConfigOptions::Renderability;
+        // By default RGBA_8888 and BGRA_8888 are textureable and renderable and
+        // A8 and RGB565 are texturable.
     fConfigOptions[(int) GrColorType::kRGBA_8888].fRenderability = Renderability::kNonMSAA;
     fConfigOptions[(int) GrColorType::kRGBA_8888].fTexturable = true;
     fConfigOptions[(int) GrColorType::kAlpha_8].fTexturable = true;
@@ -91,6 +93,7 @@ struct GrMockOptions
     Renderability fRenderability = kNo;
     bool fTexturable = false;
   };
+    // GrCaps options.
   bool fMipMapSupport = false;
   bool fInstanceAttribSupport = false;
   bool fHalfFloatVertexAttributeSupport = false;
@@ -99,6 +102,7 @@ struct GrMockOptions
   int fMaxRenderTargetSize = 2048;
   int fMaxVertexAttributes = 16;
   ConfigOptions fConfigOptions[kGrColorTypeCnt];
+    // GrShaderCaps options.
   bool fGeometryShaderSupport = false;
   bool fIntegerSupport = false;
   bool fFlatInterpolationSupport = false;
@@ -106,6 +110,7 @@ struct GrMockOptions
   int fMaxFragmentSamplers = 8;
   bool fShaderDerivativeSupport = true;
   bool fDualSourceBlendingSupport = false;
+    // GrMockGpu options.
   bool fFailTextureAllocations = false;
 };
 #endif

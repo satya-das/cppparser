@@ -7,6 +7,8 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION:  Mapping class for object id's.
 #ifndef AD_DBIDMAP_H
 #  define AD_DBIDMAP_H	1
 #  include "acdb.h"

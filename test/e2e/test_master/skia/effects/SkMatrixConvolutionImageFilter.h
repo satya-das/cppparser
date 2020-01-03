@@ -30,6 +30,7 @@ public:
     kRepeat_TileMode,
     kClampToBlack_TileMode,
     kLast_TileMode = kClampToBlack_TileMode,
+      // TODO: remove kMax - it is non-standard but used by Chromium!
     kMax_TileMode = kClampToBlack_TileMode
   };
   static sk_sp<SkImageFilter> Make(const SkISize& kernelSize, const SkScalar* kernel, SkScalar gain, SkScalar bias, const SkIPoint& kernelOffset, TileMode tileMode, bool convolveAlpha, sk_sp<SkImageFilter> input, const SkImageFilter::CropRect* cropRect = nullptr);

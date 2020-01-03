@@ -33,7 +33,9 @@ public:
   }
   void ref() const
   {
+        // Only the cache should be able to add the first ref to a resource.
     SkASSERT(this->getRefCnt() > 0);
+        // No barrier required.
     (void) fRefCnt.fetch_add(1, std::memory_order_relaxed);
   }
   void unref() const
@@ -41,8 +43,15 @@ public:
     SkASSERT(this->getRefCnt() > 0);
     if (1 == fRefCnt.fetch_add(-1, std::memory_order_acq_rel))
     {
+            // At this point we better be the only thread accessing this resource.
+            // Trick out the notifyRefCntWillBeZero() call by adding back one more ref.
       fRefCnt.fetch_add(1, std::memory_order_relaxed);
       static_cast<const DERIVED*>(this)->notifyRefCntWillBeZero();
+            // notifyRefCntWillBeZero() could have done anything, including re-refing this and
+            // passing on to another thread. Take away the ref-count we re-added above and see
+            // if we're back to zero.
+            // TODO: Consider making it so that refs can't be added and merge
+            //  notifyRefCntWillBeZero()/willRemoveLastRef() with notifyRefCntIsZero().
       if (1 == fRefCnt.fetch_add(-1, std::memory_order_acq_rel))
       {
         static_cast<const DERIVED*>(this)->notifyRefCntIsZero();
@@ -65,9 +74,11 @@ protected:
   {
     return SkToBool(this->getRefCnt());
   }
+    // Privileged method that allows going from ref count = 0 to ref count = 1.
   void addInitialRef() const
   {
     SkASSERT(fRefCnt >= 0);
+        // No barrier required.
     (void) fRefCnt.fetch_add(1, std::memory_order_relaxed);
   }
 private:
@@ -201,7 +212,12 @@ public:
   virtual const char* getResourceType() const = 0;
   static uint32_t CreateUniqueID();
 protected:
+    // This must be called by every non-wrapped GrGpuObject. It should be called once the object is
+    // fully initialized (i.e. only from the constructors of the final class).
   void registerWithCache(SkBudgeted);
+    // This must be called by every GrGpuObject that references any wrapped backend objects. It
+    // should be called once the object is fully initialized (i.e. only from the constructors of the
+    // final class).
   void registerWithCacheWrapped(GrWrapCacheable);
   GrGpuResource(GrGpu*);
   virtual ~GrGpuResource();
@@ -263,6 +279,7 @@ private:
   virtual void willRemoveLastRef()
   {
   }
+    // See comments in CacheAccess and ResourcePriv.
   void setUniqueKey(const GrUniqueKey&);
   void removeUniqueKey();
   void notifyRefCntWillBeZero() const;
@@ -273,12 +290,18 @@ private:
 #  ifdef SK_DEBUG
   friend class GrGpu;
 #  endif
+    // An index into a heap when this resource is purgeable or an array when not. This is maintained
+    // by the cache.
   int fCacheArrayIndex;
+    // This value reflects how recently this resource was accessed in the cache. This is maintained
+    // by the cache.
   uint32_t fTimestamp;
   GrStdSteadyClock::time_point fTimeWhenBecamePurgeable;
   static const size_t kInvalidGpuMemorySize = ~static_cast<size_t>(0);
   GrScratchKey fScratchKey;
   GrUniqueKey fUniqueKey;
+    // This is not ref'ed but abandon() or release() will be called before the GrGpu object
+    // is destroyed. Those calls set will this to NULL.
   GrGpu* fGpu;
   mutable size_t fGpuMemorySize = kInvalidGpuMemorySize;
   GrBudgetedType fBudgetedType = GrBudgetedType::kUnbudgetedUncacheable;
@@ -296,6 +319,7 @@ private:
   }
     /** Proxies are allowed to take a resource from no refs to one ref. */
   void ref(GrResourceCache* cache);
+    // No taking addresses of this type.
   const CacheAccess* operator&() const;
   CacheAccess* operator&();
   GrGpuResource* fResource;

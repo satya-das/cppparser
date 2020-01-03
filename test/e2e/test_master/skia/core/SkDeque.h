@@ -88,6 +88,7 @@ public:
     char* fPos;
     size_t fElemSize;
   };
+    // Inherit privately from Iter to prevent access to reverse iteration
   class F2BIter : private Iter
   {
   public:
@@ -115,6 +116,7 @@ public:
     typedef Iter INHERITED;
   };
 private:
+    // allow unit test to call numBlocksAllocated
   friend class DequeUnitTestHelper;
   void* fFront;
   void* fBack;

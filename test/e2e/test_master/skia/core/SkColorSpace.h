@@ -34,6 +34,7 @@ struct SK_API SkColorSpacePrimaries
 };
 namespace SkNamedTransferFn
 {
+// Like SkNamedGamut::kSRGB, keeping this bitwise exactly the same as skcms makes things fastest.
   static skcms_TransferFunction kSRGB = {2.4f, (float) (1 / 1.055), (float) (0.055 / 1.055), (float) (1 / 12.92), 0.04045f, 0.0f, 0.0f};
   static skcms_TransferFunction k2Dot2 = {2.2f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
   static skcms_TransferFunction kLinear = {1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};

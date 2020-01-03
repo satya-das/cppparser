@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,12 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+// DESCRIPTION:
+//
+// The AcDbFcf class represents a geometric tolerance as defined by
+// ANSI Y14.5
 #ifndef DBFCF_H
 #  define DBFCF_H
 #  include "dbmain.h"
@@ -19,6 +26,7 @@ public:
   AcDbFcf();
   AcDbFcf(const ACHAR*, const AcGePoint3d&, const AcGeVector3d&, const AcGeVector3d&);
   virtual ~AcDbFcf();
+    // Geometric or visual properties.
   enum whichLine
   {
     kAll = -1
@@ -54,12 +62,16 @@ public:
   Acad::ErrorStatus setDimstyleData(AcDbDimStyleTableRecord* pNewData);
   Acad::ErrorStatus setDimstyleData(AcDbObjectId newDataId);
   virtual void setDimVars();
+    // Dimension variable get methods in alphabetic order:
+    //
   AcCmColor dimclrd() const;
   AcCmColor dimclrt() const;
   double dimgap() const;
   double dimscale() const;
   AcDbObjectId dimtxsty() const;
   double dimtxt() const;
+    // Dimension variable set methods in alphabetic order:
+    //
   Acad::ErrorStatus setDimclrd(AcCmColor& val);
   Acad::ErrorStatus setDimclrt(AcCmColor& val);
   Acad::ErrorStatus setDimgap(double val);
@@ -67,9 +79,13 @@ public:
   Acad::ErrorStatus setDimtxsty(AcDbObjectId val);
   Acad::ErrorStatus setDimtxt(double val);
 protected:
+    // Get corresponding COM wrapper class ID
+    //
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #  pragma  pack(pop)
+// This overload is deprecated. Please use the one that takes an AcString & arg
+// Note: returns null if line number is out of range
 inline ACHAR* AcDbFcf::text(int lineNo) const
 {
   AcString sText;

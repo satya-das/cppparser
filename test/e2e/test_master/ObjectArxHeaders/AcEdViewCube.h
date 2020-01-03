@@ -21,6 +21,8 @@ class AcDbHomeView;
 class AcEdViewCube;
 class AcEdViewCubeReactor;
 ///////////////////////////////////////////////////////////////////////////////
+// Parts of the ViewCube
+//
 enum AcEdViewCubePart
 {
   FACE_FRONT = 0,
@@ -67,10 +69,16 @@ enum AcEdViewCubePart
   COMPASS_RING
 };
 ///////////////////////////////////////////////////////////////////////////////
+// Create the ViewCube instance for a specify GS view
+//
 AcEdViewCube* acedCreateViewCube(AcGsView* pGsView);
 ///////////////////////////////////////////////////////////////////////////////
+// Destroy the ViewCube
+//
 void acedDestroyViewCube(AcEdViewCube* pCube);
 ///////////////////////////////////////////////////////////////////////////////
+// Interface AcEdViewCube
+//
 class AcEdViewCube
 {
 public:
@@ -128,6 +136,8 @@ public:
   virtual AcEdViewCubePart getActivePart() const = 0;
 };
 ///////////////////////////////////////////////////////////////////////////////
+// Interface AcEdViewCubeReactor
+//
 class AcEdViewCubeReactor
 {
 public:

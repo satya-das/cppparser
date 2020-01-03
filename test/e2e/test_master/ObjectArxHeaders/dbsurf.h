@@ -7,6 +7,11 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION:
+//
+// The AcDbSurface class is the interface class for representing
+// ASM surfaces inside AutoCAD.  
 #pragma  once
 #include "dbmain.h"
 #include "dbsubeid.h"
@@ -65,6 +70,8 @@ public:
   AcDbSurface();
   virtual ~AcDbSurface();
   ACDB_DECLARE_MEMBERS(AcDbSurface);
+    // Create a swept surface from 2D entity with thickness
+    // or a planar surface from a closed curve or a region.
   static Acad::ErrorStatus createFrom(const AcDbEntity* pFromEntity, AcDbSurface*& pNewSurface);
     /// <summary> 
     /// Creates an extruded surface from the given profile using the specified options
@@ -725,7 +732,10 @@ public:
     /// </returns>
     ///
   ACDB_PORT static Acad::ErrorStatus trimSurface(const AcDbObjectId& blankSurfaceId, const AcDbObjectIdArray& toolIds, const AcDbObjectIdArray& toolCurveIds, const AcArray<AcGeVector3d> projVectors, const AcGePoint3d& pickPoint, const AcGeVector3d& viewVector, bool bAutoExtend, bool bAssociativeEnabled);
+    // Convert planar surface to region.  Return separate region for each face.
   virtual Acad::ErrorStatus convertToRegion(AcArray<AcDbEntity*>& regions);
+    // Create a 3DSOLID by thickening the surface by a 
+    // specified amount.
   virtual Acad::ErrorStatus thicken(double thickness, bool bBothSides, AcDb3dSolid*& pSolid) const;
   virtual Acad::ErrorStatus createInterferenceObjects(AcArray<AcDbEntity*>& interferenceObjects, AcDbEntity* pEntity, unsigned int flags) const;
   virtual Acad::ErrorStatus booleanUnion(const AcDbSurface* pSurface2, AcDbSurface*& pNewSurface);
@@ -797,6 +807,7 @@ public:
   virtual Acad::ErrorStatus setASMBody(const void* modelerBody);
   virtual AcDbSubentId internalSubentId(void* ent) const;
   virtual void* internalSubentPtr(const AcDbSubentId& id) const;
+    // AcDbObject methods
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
@@ -835,6 +846,9 @@ public:
     /// </returns>
     ///
   ACDB_PORT Acad::ErrorStatus getPerimeter(double& perimeter) const;
+    // advanced surface methods
+    //
+
     /// <summary> 
     /// Get creation action body ID.
     /// </summary>
@@ -903,6 +917,7 @@ public:
     /// </returns>
     ///
   Acad::ErrorStatus ACDB_PORT rayTest(const AcGePoint3d& rayBasePoint, const AcGeVector3d& rayDir, double rayRadius, AcArray<AcDbSubentId>& subEntIds, AcGeDoubleArray& parameters) const;
+    // TODO: need to add the work for multi-face body case.
     /// <summary>
     /// Convert to nurb surfaces. The caller should free the returned nurb surface.
     /// </summary>
@@ -914,8 +929,10 @@ public:
     /// </returns>
     ///
   Acad::ErrorStatus ACDB_PORT convertToNurbSurface(AcDbNurbSurfaceArray& nsArray);
+    // AcDbEntity override
   virtual Acad::ErrorStatus getPlane(AcGePlane& plane, AcDb::Planarity& planarity) const override;
 protected:
+    // AcDbEntity methods
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 public:
     /// <summary>

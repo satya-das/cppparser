@@ -12,12 +12,14 @@
 #  pragma  once
 #  include "afxtempl.h"
 /////////////////////////////////////////////////////////////////////////////
+// File Navigation Array
 template <typename T>
 class CNavArray : public CTypedPtrArray<CObArray, T*>
 {
 public:
   CNavArray();
   virtual ~CNavArray();
+// Data management
 protected:
   virtual T* NewData();
 public:
@@ -29,6 +31,7 @@ public:
   void RemoveAllData();
 };
 /////////////////////////////////////////////////////////////////////////////
+// File Navigation Array - implementation
 template <typename T>
 CNavArray<T>::CNavArray()
   : CTypedPtrArray<CObArray, T*>()
@@ -40,6 +43,7 @@ CNavArray<T>::~CNavArray()
   RemoveAllData();
 }
 //----------------
+// Data management
 template <typename T>
 T* CNavArray<T>::AddData()
 {
@@ -105,4 +109,5 @@ void CNavArray<T>::RemoveAllData()
 }
 /////////////////////////////////////////////////////////////////////////////
 //{{AFX_INSERT_LOCATION}}
+// Microsoft Developer Studio will insert additional declarations immediately before the previous line.
 #endif

@@ -41,6 +41,9 @@ public:
   {
     return fCharacterization;
   }
+    // The backing canvas will become invalid (and this entry point will return
+    // null) once 'detach' is called.
+    // Note: ownership of the SkCanvas is not transferred via this call.
   SkCanvas* getCanvas();
   std::unique_ptr<SkDeferredDisplayList> detach();
   using PromiseImageTextureContext = void*;

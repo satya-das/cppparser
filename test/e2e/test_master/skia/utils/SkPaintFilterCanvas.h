@@ -25,6 +25,7 @@ public:
   {
     kPicture_Type
   };
+    // Forwarded to the wrapped canvas.
   SkISize getBaseLayerSize() const override
   {
     return proxy()->getBaseLayerSize();
@@ -78,6 +79,7 @@ protected:
   void onDrawShadowRec(const SkPath& path, const SkDrawShadowRec& rec) override;
   void onDrawEdgeAAQuad(const SkRect&, const SkPoint[4], QuadAAFlags, const SkColor4f&, SkBlendMode) override;
   void onDrawEdgeAAImageSet(const ImageSetEntry[], int count, const SkPoint[], const SkMatrix[], const SkPaint*, SrcRectConstraint) override;
+    // Forwarded to the wrapped canvas.
   sk_sp<SkSurface> onNewSurface(const SkImageInfo&, const SkSurfaceProps&) override;
   bool onPeekPixels(SkPixmap* pixmap) override;
   bool onAccessTopLayerPixels(SkPixmap* pixmap) override;

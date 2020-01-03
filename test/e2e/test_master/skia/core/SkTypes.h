@@ -6,6 +6,7 @@
  */
 #ifndef SkTypes_DEFINED
 #  define SkTypes_DEFINED
+// IWYU pragma: begin_exports
 #  include "include/core/SkPreConfig.h"
 #  if  defined (SK_USER_CONFIG_HEADER)
 #    include SK_USER_CONFIG_HEADER
@@ -15,6 +16,8 @@
 #  include "include/core/SkPostConfig.h"
 #  include <stddef.h>
 #  include <stdint.h>
+// IWYU pragma: end_exports
+
 /** \file SkTypes.h
 */
 
@@ -26,6 +29,16 @@ SK_API extern void sk_abort_no_print(void);
 #  ifndef SkDebugf
 SK_API void SkDebugf(const char format[], ...);
 #  endif
+// SkASSERT, SkASSERTF and SkASSERT_RELEASE can be used as stand alone assertion expressions, e.g.
+//    uint32_t foo(int x) {
+//        SkASSERT(x > 4);
+//        return x - 4;
+//    }
+// and are also written to be compatible with constexpr functions:
+//    constexpr uint32_t foo(int x) {
+//        return SkASSERT(x > 4),
+//               x - 4;
+//    }
 #  define SkASSERT_RELEASE(cond)	 \
         static_cast<void>( (cond) ? (void)0 : []{ SK_ABORT("assert(" #cond ")"); }() )
 #  ifdef SK_DEBUG
@@ -46,6 +59,8 @@ SK_API void SkDebugf(const char format[], ...);
 #    define SkDEBUGFAILF	(fmt, ...)
 #    define SkDEBUGCODE	(...)
 #    define SkDEBUGF	(...)
+    // unlike SkASSERT, this macro executes its condition in the non-debug build.
+    // The if is present so that this can be used with functions marked SK_WARN_UNUSED_RESULT.
 #    define SkAssertResult(cond)	         if (cond) {} do {} while(false)
 #  endif
 ////////////////////////////////////////////////////////////////////////////////

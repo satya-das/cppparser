@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,12 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// dbObjectContextInterface.h
+//
+// DESCRIPTION: Protocol extension base class
+//                AcDbObjectContextInterface
+//
 #pragma  once
 #pragma  pack (push, 8)
 #include "acdb.h"

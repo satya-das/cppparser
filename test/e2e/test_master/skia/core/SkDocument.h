@@ -52,11 +52,14 @@ public:
   void abort();
 protected:
   SkDocument(SkWStream*);
+    // note: subclasses must call close() in their destructor, as the base class
+    // cannot do this for them.
   virtual ~SkDocument();
   virtual SkCanvas* onBeginPage(SkScalar width, SkScalar height) = 0;
   virtual void onEndPage() = 0;
   virtual void onClose(SkWStream*) = 0;
   virtual void onAbort() = 0;
+    // Allows subclasses to write to the stream as pages are written.
   SkWStream* getStream()
   {
     return fStream;

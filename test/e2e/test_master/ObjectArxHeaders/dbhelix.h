@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,8 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION: Exported class for Helix - AcDbHelix
 #ifndef ACDB_DBHELIX_H
 #  define ACDB_DBHELIX_H
 #  include "gegbl.h"

@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,12 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION:
+//
+// This file contains the class AcGeExternalCurve3d - A
+// representation for a curve that has its definition external to
+// gelib.
 #ifndef AC_GEEXTC3D_H
 #  define AC_GEEXTC3D_H
 #  include "gecurv3d.h"
@@ -34,11 +41,21 @@ public:
   Adesk::Boolean isEllipArc() const;
   Adesk::Boolean isNurbCurve() const;
   Adesk::Boolean isDefined() const;
+    // Conversion to native gelib curve
+    //
   Adesk::Boolean isNativeCurve(AcGeCurve3d*& nativeCurve) const;
   void getExternalCurve(void*& curveDef) const;
+    // Type of the external curve.
+    //
   AcGe::ExternalEntityKind externalCurveKind() const;
+    // Reset surface
+    //
   AcGeExternalCurve3d& set(void* curveDef, AcGe::ExternalEntityKind curveKind, Adesk::Boolean makeCopy = Adesk::kTrue);
+    // Assignment operator
+    //
   AcGeExternalCurve3d& operator =(const AcGeExternalCurve3d& src);
+    // Ownership of curve
+    //
   Adesk::Boolean isOwnerOfCurve() const;
   AcGeExternalCurve3d& setToOwnCurve();
 };

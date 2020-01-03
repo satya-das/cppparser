@@ -21,6 +21,9 @@ class SkString;
 class SK_API SkFontMgr_Indirect : public SkFontMgr
 {
 public:
+    // TODO: The SkFontMgr is only used for createFromStream/File/Data.
+    // In the future these calls should be broken out into their own interface
+    // with a name like SkFontRenderer.
   SkFontMgr_Indirect(sk_sp<SkFontMgr> impl, sk_sp<SkRemotableFontMgr> proxy)
     : fImpl(std::move(impl))
     , fProxy(std::move(proxy))

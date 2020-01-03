@@ -11,6 +11,7 @@
 class SK_API GrBackendDrawableInfo
 {
 public:
+    // Creates an invalid backend drawable info.
   GrBackendDrawableInfo()
     : fIsValid(false)
   {
@@ -21,6 +22,7 @@ public:
     , fVkInfo(info)
   {
   }
+    // Returns true if the backend texture has been initialized.
   bool isValid() const
   {
     return fIsValid;

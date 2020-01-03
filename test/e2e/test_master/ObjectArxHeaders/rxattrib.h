@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -223,12 +224,14 @@ public:
     /// Returns the id passed to the constructor
     /// </summary>
     /// <returns> Returns the ide passed to the constructor </returns>
+    //
   ACBASE_PORT unsigned int id() const;
     /// <summary>
     /// Returns the sourceHint passed to the constructor
     /// </summary>
     /// <seealso>AcRxResourceLoader</seealso>
     /// <returns> Returns the ide passed to the constructor </returns>
+    //
   ACBASE_PORT unsigned int sourceHint() const;
 };
 //*************************************************************************
@@ -394,12 +397,14 @@ public:
     /// Returns the id passed to the constructor
     /// </summary>
     /// <returns> Returns the ide passed to the constructor </returns>
+    //
   ACBASE_PORT unsigned int id() const;
     /// <summary>
     /// Returns the sourceHint passed to the constructor
     /// </summary>
     /// <seealso>AcRxResourceLoader</seealso>
     /// <returns> Returns the ide passed to the constructor </returns>
+    //
   ACBASE_PORT unsigned int sourceHint() const;
 };
 typedef const AcRxPropertyBase* (*FindPropertyCallback) (const AcRxObject* pObject, const ACHAR* pszPropName);

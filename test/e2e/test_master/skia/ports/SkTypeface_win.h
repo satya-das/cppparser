@@ -36,6 +36,8 @@ SK_API void SkLOGFONTFromTypeface(const SkTypeface* typeface, LOGFONT* lf);
   *  remotely (re)loaded.
   */
 SK_API void SkTypeface_SetEnsureLOGFONTAccessibleProc(void (*) (const LOGFONT&));
+// Experimental!
+//
 class SkFontMgr;
 class SkRemotableFontMgr;
 struct IDWriteFactory;

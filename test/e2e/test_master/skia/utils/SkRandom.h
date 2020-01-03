@@ -143,6 +143,9 @@ public:
     init(seed);
   }
 private:
+    // Initialize state variables with LCG.
+    // We must ensure that both J and K are non-zero, otherwise the
+    // multiply-with-carry step will forevermore return zero.
   void init(uint32_t seed)
   {
     fK = NextLCG(seed);
@@ -175,11 +178,14 @@ private:
   {
     return this->nextS() >> 15;
   }
+    //  See "Numerical Recipes in C", 1992 page 284 for these constants
+    //  For the LCG that sets the initial state from a seed
   enum
   {
     kMul = 1664525,
     kAdd = 1013904223
   };
+    // Constants for the multiply-with-carry steps
   enum
   {
     kKMul = 30345,

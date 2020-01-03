@@ -177,6 +177,7 @@ public:
   }
   void rewind()
   {
+        // same as setCount(0)
     fCount = 0;
   }
     /**
@@ -318,6 +319,7 @@ public:
   {
     this->copyRange(dst, 0, fCount);
   }
+    // routines to treat the array like a stack
   void push_back(const T& v)
   {
     *this->append() = v;
@@ -415,6 +417,8 @@ private:
   void adjustCount(int delta)
   {
     SkASSERT(delta > 0);
+        // We take care to avoid overflow here.
+        // The sum of fCount and delta is at most 4294967294, which fits fine in uint32_t.
     uint32_t count = (uint32_t) fCount + (uint32_t) delta;
     SkASSERT_RELEASE(SkTFitsIn<int>(count));
     this->setCount(SkTo<int>(count));
@@ -430,6 +434,8 @@ private:
   void resizeStorageToAtLeast(int count)
   {
     SkASSERT(count > fReserve);
+        // We take care to avoid overflow here.
+        // The maximum value we can get for reserve here is 2684354563, which fits in uint32_t.
     uint32_t reserve = (uint32_t) count + 4;
     reserve += reserve / 4;
     SkASSERT_RELEASE(SkTFitsIn<int>(reserve));

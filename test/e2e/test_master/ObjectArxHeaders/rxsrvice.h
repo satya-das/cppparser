@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #ifndef _rxsrvice_h
 #  define _rxsrvice_h	1
 #  include "rxobject.h"
@@ -27,6 +29,11 @@ public:
   void addDependency();
   void removeDependency();
   Adesk::Boolean unloadable() const;
+    // The following functions are not currently implemented
+    // They are present as place holders so that they can be
+    // implemented in the future without breaking binary
+    // compatibility
+    //
   DepFuncPtr dependencyFunctionPtr();
   void setDependencyFunctionPtr(DepFuncPtr);
 private:

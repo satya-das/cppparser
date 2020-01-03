@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,13 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// AcDbFilter is the base class for all Filter implementations.
+//
+// An AcDbFilter object can be associated with a block reference, and,
+// if the corresponding Block has the equivalent AcDbIndex, a filtered
+// traversal of the block can be performed.
+//
 #ifndef AD_DBFILTER_H
 #  define AD_DBFILTER_H
 #  include "dbmain.h"

@@ -16,6 +16,7 @@ struct ArithmeticFPInputs
   float k[4];
   bool enforcePMColor;
 };
+// DEPRECATED: Use include/effects/SkImageFilters::Arithmetic
 class SK_API SkArithmeticImageFilter
 {
 public:

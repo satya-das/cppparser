@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -87,6 +88,10 @@ public:
         ///Variables normally ignore attempts to set the same value twice in a row.</summary>
     kTypeFlagsChatty = 8,
         ///<summary> It's used to let users know the sysvar will be removed in next release or so.  
+        // Users should mitigate the change as soon as possible. The sysvar is deprecated by immediate 
+        // un-defining it after registering with the system.
+        // If users really need to use it, they can still use it by prefixing with "." or re-define it.
+        // For example: .TRAYICONS  or redefine TRAYICONS.</summary>
     kTypeDeprecated = 16
   };
     ///<summary>Represents a bounded range.</summary>
@@ -207,6 +212,8 @@ public:
     ///<param name='filter'>Strorage type of variable to reset.</param>
     ///<returns>Returns Acad::eOk if sucessful. Errors out if fails to reset any variable.</returns>
   ACDBCORE2D_PORT Acad::ErrorStatus reset(AcRxVariable::StorageType filter);
+    //Helper functions, we can add more here as we need them
+
     ///<summary>Gets the named boolean value</summary>
     ///<param name='name'>Name of the variable to retrieve</param>
     ///<param name='def'>default value that the function will return if the variable does not exist or if its type is other than bool</param>

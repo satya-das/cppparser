@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -47,6 +48,8 @@ class ADESK_NO_VTABLE AcRxDynamicLinker : public AcRxObject
 public:
   ACRX_DECLARE_MEMBERS(AcRxDynamicLinker);
   virtual void* getSymbolAddress(const ACHAR* serviceName, const char* symbol) const = 0;
+    // Overload it for convenience of callers that want to
+    // put ACRX_T() around all literals.
   virtual void* getSymbolAddress(const ACHAR* serviceName, const ACHAR* symbol) const = 0;
   virtual bool initListedModules(const ACHAR* fileName) = 0;
   virtual bool loadModule(const ACHAR* fileName, bool printit, bool asCmd = false) = 0;
@@ -80,6 +83,8 @@ public:
   virtual AcadApp::ErrorStatus registerApp(AcadApp::LoadReasons alr, const ACHAR* logicalName, void* entryPoint = nullptr) = 0;
   virtual AcadApp::ErrorStatus unregisterApp(const ACHAR* logicalName) = 0;
 };
+//  The kernel creates the one and only dynamic linker, at
+//
 #  define acrxDynamicLinker	AcRxDynamicLinker::cast(acrxSysRegistry()->at(ACRX_DYNAMIC_LINKER))
 class ADESK_NO_VTABLE AcRxDLinkerReactor : public AcRxObject
 {

@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -206,6 +207,8 @@ public:
     /// <returns> Acad::ErrorStatus. </returns>
     ///
   Acad::ErrorStatus setDescription(const AcString& newDescription);
+    // These methods are currently intended for internal use only
+    //
   bool isMergeable() const;
   bool mustMerge() const;
   AcString mergeableVariableName() const;

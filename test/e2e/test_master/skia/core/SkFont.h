@@ -382,6 +382,7 @@ public:
   {
     this->getWidthsBounds(glyphs, count, widths, bounds, nullptr);
   }
+    // DEPRECATED
   void getWidths(const SkGlyphID glyphs[], int count, SkScalar widths[], std::nullptr_t) const
   {
     this->getWidths(glyphs, count, widths);

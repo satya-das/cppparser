@@ -299,6 +299,16 @@ public:
     ///
   virtual Acad::ErrorStatus evaluateAndCacheGeometry() override;
 private:
+    // Deletes the previously stored AcGeCurve3d and sets the constant AcGeCurve3d 
+    // in the AcDbEdgeRef to be a copy of the provided curve. It is allowed to 
+    // pass NULL for the pCurve. 
+    //
+    // This method is private because we hope it will not be needed by the client 
+    // code. We want to keep AcDbGeomRef methods read-only so that these classes
+    // do not overgrow their original purpose of simple container classes. If needed, 
+    // the client code can usually make a new AcDbGeomRef from the existing one instead 
+    // of changing the existing one
+    //
   void setCurve(const AcGeCurve3d* pCurve);
   AcDbSubentId mFaceSubentId;
   AcGeCurve3d* mpCurve;
@@ -435,7 +445,13 @@ public:
     ///
   virtual Acad::ErrorStatus evaluateAndCacheGeometry() override;
 private:
+    // Deletes the previously stored mpReferencedRef and sets it to be a copy
+    // of the provided AcDbGeomRef. It is allowed to pass NULL for the AcDbGeomRef
+    //
   void setReferencedRef(const AcDbGeomRef*);
+    // The following are only used when the vertex is an implied vertex on
+    // some other AcDbSubentRef (i.e. when mType is not kExplicitVertex)
+    //
   ImpliedType mImpliedType;
   const AcDbGeomRef* mpReferencedRef;
   int mIndex;

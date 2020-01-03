@@ -7,6 +7,12 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+// DESCRIPTION:
+//
+// The AcDbRevolvedSurface class is the interface class for representing
+// ASM revolved surfaces. 
 #pragma  once
 #ifndef DBREVOLVEDSURF_H
 #  define DBREVOLVEDSURF_H
@@ -171,12 +177,14 @@ public:
     /// eOk if successful.
     /// </returns>
   Acad::ErrorStatus setRevolve(const AcGePoint3d& axisPnt, const AcGeVector3d& axisVec, double revAngle, const AcDbRevolveOptions& revolveOptions);
+    // AcDbObject methods
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
   virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
   virtual bool isDependent() const;
 protected:
+    // AcDbEntity methods
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #  pragma  pack(pop)

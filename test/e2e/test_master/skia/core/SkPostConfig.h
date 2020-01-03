@@ -4,6 +4,8 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+
+// IWYU pragma: private, include "SkTypes.h"
 #ifndef SkPostConfig_DEFINED
 #  define SkPostConfig_DEFINED
 #  if  !defined(SK_DEBUG) && !defined(SK_RELEASE)
@@ -93,6 +95,7 @@ void DumpStackTrace(int skip_count, void (*w) (const char*, void*), void* arg);
 #    define SK_DUMP_GOOGLE3_STACK()
 #  endif
 #  ifdef SK_BUILD_FOR_WIN
+// permits visual studio to follow error back to source
 #    define SK_DUMP_LINE_FORMAT(message)	 \
     SkDebugf("%s(%d): fatal error: \"%s\"\n", __FILE__, __LINE__, message)
 #  else 
@@ -109,6 +112,8 @@ void DumpStackTrace(int skip_count, void (*w) (const char*, void*), void* arg);
        SkUNREACHABLE; \
     } while (false)
 #  endif
+// If SK_R32_SHIFT is set, we'll use that to choose RGBA or BGRA.
+// If not, we'll default to RGBA everywhere except BGRA on Windows.
 #  if  defined(SK_R32_SHIFT)
 static_assert(SK_R32_SHIFT == 0 || SK_R32_SHIFT == 16, "");
 #  elif  defined(SK_BUILD_FOR_WIN)

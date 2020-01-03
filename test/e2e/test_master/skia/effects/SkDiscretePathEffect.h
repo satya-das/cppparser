@@ -37,6 +37,7 @@ private:
   SK_FLATTENABLE_HOOKS(SkDiscretePathEffect)
   SkScalar fSegLength;
   SkScalar fPerterb;
+    /* Caller-supplied 32 bit seed assist */
   uint32_t fSeedAssist;
   typedef SkPathEffect INHERITED;
 };

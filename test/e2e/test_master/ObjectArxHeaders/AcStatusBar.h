@@ -10,6 +10,8 @@
 #ifndef _ACSTATUSBAR_H
 #  define _ACSTATUSBAR_H	1
 #  pragma  pack (push, 8)
+// enable this to get deprecation warning
+// #define NEW_STATUS_BAR
 #  ifdef NEW_STATUS_BAR
 #    define SB_DEPRECATED	__declspec(deprecated)
 #  else 
@@ -49,6 +51,8 @@ public:
   virtual UINT DisplayContextMenu(CMenu& menu, CPoint point);
   SB_DEPRECATED virtual BOOL ShowTraySettingsDialog();
     //////////////////////////////////////////////////////////////////////////////
+    // Note: These methods are for INTERNAL USE ONLY.  Using these methods may
+    //       adversely affect application functionality
   SB_DEPRECATED virtual void SetContentChanged(BOOL bChanged)
   {
     m_bContentChanged = bChanged;
@@ -72,6 +76,7 @@ public:
   ACAD_PORT void SetID(int id);
   ACAD_PORT CString& GetActiveImageState() const;
   ACAD_PORT void SetActiveImageState(const CString& strActiveImageState);
+   // End INTERNAL USE ONLY.
     //////////////////////////////////////////////////////////////////////////////
 private:
   HICON m_hIcon;
@@ -93,6 +98,7 @@ private:
 #  define ACSB_SUBDIVIDER	(1<<7)
 #  define ACSB_INDETERMINATE	(1<<8)  // Internal Use
 #  define ACSB_ONETIME	(1<<9)      // Internal Use
+//Deprecated styles.
 #  define ACSB_POPOUT	ACSB_INACTIVE
 #  define ACSB_NORMAL	ACSB_ACTIVE
 class AcPane : public AcStatusBarItem
@@ -127,6 +133,8 @@ private:
 typedef void (*AcTrayItemAnimationCallbackFunc) (void*, int);
 typedef void* AcTrayItemAnimationCallbackData;
 //////////////////////////////////////////////////////////////////////////////
+// Note: This class is for INTERNAL USE ONLY.  Using this class may
+//       adversely affect application functionality
 class AcTrayItemAnimationControl
 {
 public:
@@ -213,6 +221,7 @@ private:
   AcTrayItemAnimationCallbackFunc m_pCallbackFunc;
   AcTrayItemAnimationCallbackData m_pCallbackData;
 };
+// End INTERNAL USE ONLY.
 //////////////////////////////////////////////////////////////////////////////
 typedef void (*AcTrayItemBubbleWindowCallbackFunc) (void*, int);
 typedef void* AcTrayItemBubbleWindowCallbackData;
@@ -330,9 +339,12 @@ public:
   virtual BOOL CloseAllBubbleWindows();
   ACAD_PORT void GoToState(const CString& state, AcRxValue* parameter = NULL);
     //////////////////////////////////////////////////////////////////////////////
+    // Note: These methods are for INTERNAL USE ONLY.  Using these methods may
+    //       adversely affect application functionality
   SB_DEPRECATED BOOL PlayAnimation(AcTrayItemAnimationControl* pAnimationControl);
   SB_DEPRECATED void StopAnimation();
   SB_DEPRECATED AcTrayItemAnimationControl* GetAnimationControl() const;
+    // End INTERNAL USE ONLY.
     //////////////////////////////////////////////////////////////////////////////
 private:
   AcTrayItemAnimationControl m_AnimationControl;

@@ -18,6 +18,7 @@ public:
   {
     return INHERITED::defaultBackendFormat(ct, renderable);
   }
+    // Provides access to functions that aren't part of the public API.
   GrImageContextPriv priv();
   const GrImageContextPriv priv() const;
 protected:
@@ -45,6 +46,9 @@ protected:
 private:
   std::unique_ptr<GrProxyProvider> fProxyProvider;
   bool fAbandoned = false;
+    // In debug builds we guard against improper thread handling
+    // This guard is passed to the GrDrawingManager and, from there to all the
+    // GrRenderTargetContexts.  It is also passed to the GrResourceProvider and SkGpuDevice.
   mutable GrSingleOwner fSingleOwner;
   typedef GrContext_Base INHERITED;
 };

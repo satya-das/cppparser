@@ -24,6 +24,8 @@ struct SK_API SkYUVAIndex
   {
     return !(*this == that);
   }
+    // Index in the array of SkYUVAIndex
+    // TODO: rename as Component
   enum Index
   {
     kY_Index = 0,
@@ -42,6 +44,9 @@ struct SK_API SkYUVAIndex
   SkColorChannel fChannel;
   static bool AreValidIndices(const SkYUVAIndex yuvaIndices[4], int* numPlanes)
   {
+        // Note that 'numPlanes' is always filled in even if the indices are not valid.
+        // This means it can always be used to process the backing resources (but be careful
+        // of empty intervening slots).
     int maxSlotUsed = -1;
     bool used[4] = {false, false, false, false};
     bool valid = true;
@@ -67,6 +72,7 @@ struct SK_API SkYUVAIndex
         }
       }
     }
+        // All the used slots should be packed starting at 0 with no gaps
     for (int i = 0; i <= maxSlotUsed; ++i)
     {
       if (!used[i])

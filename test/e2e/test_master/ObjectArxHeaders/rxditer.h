@@ -7,6 +7,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//        
+// DESCRIPTION:  header file for class RxDictIterator
+// This is a layer of commonality between the two iterators needed for
+// RxIDDictionary; RxDictSkipListIterator, and RxDictArrayIterator.
 #ifndef _RXDITER_H
 #  define _RXDITER_H	1
 #  include "rxobject.h"

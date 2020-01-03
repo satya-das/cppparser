@@ -20,6 +20,7 @@ public:
   static const char* FindScalar(const char str[], SkScalar* value);
   static const char* FindScalars(const char str[], SkScalar value[], int count);
   static bool FindBool(const char str[], bool* value);
+    // return the index of str in list[], or -1 if not found
   static int FindList(const char str[], const char list[]);
 };
 #endif

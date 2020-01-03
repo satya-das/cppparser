@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,9 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION: Object context manager class.  This class manages collections
+//              of object contexts for a particular database.
 #ifndef ACDB_OBJECTCONTEXTMANAGER_H
 #  define ACDB_OBJECTCONTEXTMANAGER_H
 #  pragma  once

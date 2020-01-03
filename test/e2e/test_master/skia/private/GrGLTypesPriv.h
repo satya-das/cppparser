@@ -11,9 +11,18 @@
 static int kGrGLFormatCount = static_cast<int>(GrGLFormat::kLast) + 1;
 class GrGLTextureParameters : public SkNVRefCnt<GrGLTextureParameters>
 {
-  using ResetTimestamp = uint64_t;
 public:
+    // We currently consider texture parameters invalid on all textures
+    // GrContext::resetContext(). We use this type to track whether instances of
+    // GrGLTextureParameters were updated before or after the most recent resetContext(). At 10
+    // resets / frame and 60fps a 64bit timestamp will overflow in about a billion years.
+    // TODO: Require clients to use GrBackendTexture::glTextureParametersModified() to invalidate
+    // texture parameters and get rid of timestamp checking.
+  using ResetTimestamp = uint64_t;
+    // This initializes the params to have an expired timestamp. They'll be considered invalid the
+    // first time the texture is used unless set() is called.
   GrGLTextureParameters();
+    // This is texture parameter state that is overridden when a non-zero sampler object is bound.
   struct SamplerOverriddenState
   {
     SamplerOverriddenState();
@@ -24,8 +33,11 @@ public:
     GrGLenum fWrapT;
     GrGLfloat fMinLOD;
     GrGLfloat fMaxLOD;
+        // We always want the border color to be transparent black, so no need to store 4 floats.
+        // Just track if it's been invalidated and no longer the default
     bool fBorderColorInvalid;
   };
+    // Texture parameter state that is not overridden by a bound sampler object.
   struct NonsamplerState
   {
     NonsamplerState();
@@ -47,6 +59,8 @@ public:
   {
     return fNonsamplerState;
   }
+    // SamplerOverriddenState is optional because we don't track it when we're using sampler
+    // objects.
   void set(const SamplerOverriddenState* samplerState, const NonsamplerState& nonsamplerState, ResetTimestamp currTimestamp);
 private:
   static ResetTimestamp kExpiredTimestamp = 0;

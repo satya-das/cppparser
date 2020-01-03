@@ -7,6 +7,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+// Visual Styles AcGi interfaces
+//
 #pragma  once
 #include "acgi.h"
 class AcGiImpVisualStyle;
@@ -24,6 +28,9 @@ namespace AcGiVisualStyleProperties
         /// Invalid property.
         /// </summary>
     kInvalidProperty = -1,
+        // Face properties
+        //
+
         /// <summary>
         /// See FaceLightingModel summary.
         /// </summary>
@@ -56,6 +63,9 @@ namespace AcGiVisualStyleProperties
         /// AcCmColor representing the color applied to produce a "monochromatic" effect on faces.
         /// </summary>
     kFaceMonoColor,
+        // Edge properties
+        //
+
         /// <summary>
         /// See EdgeModel summary.
         /// </summary>
@@ -136,6 +146,9 @@ namespace AcGiVisualStyleProperties
         /// false otherwise.
         /// </summary>
     kEdgeHidePrecision,
+        // Display properties
+        //
+
         /// <summary>
         /// See DisplayStyles summary.
         /// </summary>
@@ -286,10 +299,13 @@ namespace AcGiVisualStyleProperties
         /// <summary>
         /// The number of visual style properties
         /// </summary>
+        // NOTE!!! All new properties should be added immediately above kPropertyCount.
     kPropertyCount,
         /// <summary>
         /// The number of visual style properties for Pre-2013 drawing formats
         /// </summary>
+        // kUseDrawOrder is the first new property added for the 2013 format. It is
+        // also the same value as the pre-2013 property count.
     kPropertyCountPre2013 = kUseDrawOrder
   };
     ////////////////////////////////////////////////////////////////////////////
@@ -698,6 +714,7 @@ namespace AcGiVisualStyleOperations
 /// <remarks>
 /// 
 /// </remarks>
+//
 class AcGiVisualStyle : public AcRxObject
 {
 public:
@@ -710,6 +727,7 @@ public:
     /// </summary>
   enum Type
   {
+        // Legacy (shademode) styles
         /// <summary>
         /// Flat shaded visual style.
         /// </summary>
@@ -738,6 +756,7 @@ public:
         /// Hidden visual style.
         /// </summary>
     kHidden,
+        // Visual Styles
         /// <summary>
         /// Basic default visual style.
         /// </summary>
@@ -754,6 +773,7 @@ public:
         /// Custom, user defined visual visual style.
         /// </summary>
     kCustom,
+        // Highlight visual styles
         /// <summary>
         /// Visual style used for a dimming effect.
         /// </summary>
@@ -778,6 +798,9 @@ public:
         /// Visual style used to apply a change of color.
         /// </summary>
     kColorChange,
+        // Face-only/edge-only visual styles
+        //
+
         /// <summary>
         /// Face properties only visual style.  All non-face properties are set to inherit.
         /// </summary>
@@ -790,6 +813,9 @@ public:
         /// Display properties only visual style.  All non-display properties are set to inherit.
         /// </summary>
     kDisplayOnly,
+        // Edge Style Override visual styles
+        //
+
         /// <summary>
         /// Edge style override visual style with jitter edges off.  All other properties are
         /// set to inherit.

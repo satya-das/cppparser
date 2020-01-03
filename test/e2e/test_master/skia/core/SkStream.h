@@ -110,6 +110,7 @@ public:
   }
   bool SK_WARN_UNUSED_RESULT readScalar(SkScalar*);
   bool SK_WARN_UNUSED_RESULT readPackedUInt(size_t*);
+//SkStreamRewindable
     /** Rewinds to the beginning of the stream. Returns true if the stream is known
      *  to be at the beginning after this call returns.
      */
@@ -131,6 +132,7 @@ public:
   {
     return std::unique_ptr<SkStream>(this->onFork());
   }
+//SkStreamSeekable
     /** Returns true if this stream can report it's current position. */
   virtual bool hasPosition() const
   {
@@ -157,6 +159,7 @@ public:
   {
     return false;
   }
+//SkStreamAsset
     /** Returns true if this stream can report it's total length. */
   virtual bool hasLength() const
   {
@@ -167,7 +170,9 @@ public:
   {
     return 0;
   }
+//SkStreamMemory
     /** Returns the starting address for the data. If this cannot be done, returns NULL. */
+    //TODO: replace with virtual const SkData* getData()
   virtual const void* getMemoryBase()
   {
     return nullptr;
@@ -274,6 +279,7 @@ public:
   virtual bool write(const void* buffer, size_t size) = 0;
   virtual void flush();
   virtual size_t bytesWritten() const = 0;
+    // helpers
   bool write8(U8CPU value)
   {
     uint8_t v = SkToU8(value);
@@ -389,6 +395,7 @@ private:
   SkStreamAsset* onDuplicate() const override;
   SkStreamAsset* onFork() const override;
   std::shared_ptr<FILE> fFILE;
+    // My own council will I keep on sizes and offsets.
   size_t fSize;
   size_t fOffset;
   size_t fOriginalOffset;
@@ -512,6 +519,7 @@ private:
   {
   }
 #  endif
+    // For access to the Block type.
   friend class SkBlockMemoryStream;
   friend class SkBlockMemoryRefCnt;
   typedef SkWStream INHERITED;

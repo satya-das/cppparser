@@ -35,6 +35,7 @@ public:
      * The caller should check that the returned format is valid.
      */
   SK_API GrBackendFormat defaultBackendFormat(SkColorType, GrRenderable) const;
+    // Provides access to functions that aren't part of the public API.
   GrBaseContextPriv priv();
   const GrBaseContextPriv priv() const;
 protected:

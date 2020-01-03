@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #ifndef __DBWIPE_H__
 #  define __DBWIPE_H__
 #  ifdef _DBWIPEOBJ_
@@ -22,6 +24,8 @@ namespace Atil
 }
 #  define WIPEOUTOBJSERVICE	ACRX_T("WipeOut")
 /////////////////////////////////////////////////////////////////////////////
+// AcDbWipeout class
+//
 #  pragma  warning(push)
 #  pragma  warning( disable : 4275 ) 
 class DLLIMPEXP AcDbWipeout : public AcDbRasterImage
@@ -29,7 +33,10 @@ class DLLIMPEXP AcDbWipeout : public AcDbRasterImage
 public:
   ACRX_DECLARE_MEMBERS(AcDbWipeout);
   AcDbWipeout();
+    // AcDbEntity overrides
+    //
   virtual AcRxObject* clone() const override;
+// AcDbRasterImage overwritten methods.
   virtual AcGeVector2d imageSize(Adesk::Boolean bGetCachedValue = Adesk::kFalse) const override;
   AcGiSentScanLines* getScanLines(const AcGiRequestScanLines& req) const override;
   Adesk::Boolean isClipped() const;
@@ -42,6 +49,7 @@ public:
   virtual Acad::ErrorStatus setFade(Adesk::Int8 value) override;
   virtual Adesk::Int8 fade() const override;
   virtual AcGeVector2d scale() const override;
+// Wipeout specific functions
   Acad::ErrorStatus append(AcDbObjectId& id);
   static Acad::ErrorStatus createImageDefinition();
   static Acad::ErrorStatus fitPointsToImage(AcGePoint2dArray& pointArray, AcGePoint2d& minPoint, double& scale, Adesk::Boolean bFlipY = Adesk::kFalse);
@@ -70,6 +78,13 @@ public:
   static long mImageData;
 private:
   Adesk::Boolean mHighlight;
+    // These are here because otherwise dllexport tries to export the
+    // private methods of AcDbObject.  They're private in AcDbObject
+    // because vc5 does not properly support array new and delete.
+    // It tends to call the wrong delete operator and to not call
+    // the dtors on all elements in the array.  So we make them
+    // private in order to prevent usage of them.
+    //
   void* operator new[](size_t nSize)
   {
     return 0;

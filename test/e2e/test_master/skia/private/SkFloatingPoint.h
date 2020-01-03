@@ -19,12 +19,16 @@
 #  elif  defined(SK_ARM_HAS_NEON)
 #    include <arm_neon.h>
 #  endif
+// For _POSIX_VERSION
 #  if  defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
 #    include <unistd.h>
 #  endif
 float SK_FloatSqrt2 = 1.41421356f;
 float SK_FloatPI = 3.14159265f;
 double SK_DoublePI = 3.14159265358979323846264338327950288;
+// C++98 cmath std::pow seems to be the earliest portable way to get float pow.
+// However, on Linux including cmath undefines isfinite.
+// http://gcc.gnu.org/bugzilla/show_bug.cgi?id=14608
 static float sk_float_pow(float base, float exp)
 {
   return powf(base, exp);
@@ -58,6 +62,7 @@ float sk_float_radians_to_degrees(float radians)
   return radians * (180 / SK_FloatPI);
 }
 #  define sk_float_round(x)	 sk_float_floor((x) + 0.5f)
+// can't find log2f on android, but maybe that just a tool bug?
 #  ifdef SK_BUILD_FOR_ANDROID
 static float sk_float_log2(float x)
 {
@@ -82,6 +87,7 @@ static bool sk_floats_are_finite(const float array[], int count)
   {
     prod *= array[i];
   }
+    // At this point, prod will either be NaN or 0
   return prod == 0;
 }
 static bool sk_float_isinf(float x)
@@ -136,6 +142,9 @@ static int64_t sk_float_saturate2int64(float x)
 #  define sk_double_floor2int(x)	      (int)floor(x)
 #  define sk_double_round2int(x)	      (int)floor((x) + 0.5)
 #  define sk_double_ceil2int(x)	       (int)ceil(x)
+// Cast double to float, ignoring any warning about too-large finite values being cast to float.
+// Clang thinks this is undefined, but it's actually implementation defined to return either
+// the largest float or infinity (one of the two bracketing representable floats).  Good enough!
 #  if  defined(__clang__) && (__clang_major__ * 1000 + __clang_minor__) >= 3007
 #  endif
 static float sk_double_to_float(double x)
@@ -146,25 +155,40 @@ static float sk_double_to_float(double x)
 #  define SK_FloatInfinity	(+std::numeric_limits<float>::infinity())
 #  define SK_FloatNegativeInfinity	(-std::numeric_limits<float>::infinity())
 #  define SK_DoubleNaN	std::numeric_limits<double>::quiet_NaN()
+// Returns false if any of the floats are outside of [0...1]
+// Returns true if count is 0
 bool sk_floats_are_unit(const float array[], size_t count);
 static float sk_float_rsqrt_portable(float x)
 {
+    // Get initial estimate.
   int i;
   memcpy(&i, &x, 4);
   i = 0x5F1FFFF9 - (i >> 1);
   float estimate;
   memcpy(&estimate, &i, 4);
+    // One step of Newton's method to refine.
   const float estimate_sq = estimate * estimate;
   estimate *= 0.703952253f * (2.38924456f - x * estimate_sq);
   return estimate;
 }
+// Fast, approximate inverse square root.
+// Compare to name-brand "1.0f / sk_float_sqrt(x)".  Should be around 10x faster on SSE, 2x on NEON.
 static float sk_float_rsqrt(float x)
 {
+// We want all this inlined, so we'll inline SIMD and just take the hit when we don't know we've got
+// it at compile time.  This is going to be too fast to productively hide behind a function pointer.
+//
+// We do one step of Newton's method to refine the estimates in the NEON and portable paths.  No
+// refinement is faster, but very innacurate.  Two steps is more accurate, but slower than 1/sqrt.
+//
+// Optimized constants in the portable path courtesy of http://rrrola.wz.cz/inv_sqrt.html
 #  if  SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE1
   return _mm_cvtss_f32(_mm_rsqrt_ss(_mm_set_ss(x)));
 #  elif  defined(SK_ARM_HAS_NEON)
+    // Get initial estimate.
   const float32x2_t xx = vdup_n_f32(x);
   float32x2_t estimate = vrsqrte_f32(xx);
+    // One step of Newton's method to refine.
   const float32x2_t estimate_sq = vmul_f32(estimate, estimate);
   estimate = vmul_f32(estimate, vrsqrts_f32(xx, estimate_sq));
   return vget_lane_f32(estimate, 0);
@@ -172,11 +196,16 @@ static float sk_float_rsqrt(float x)
   return sk_float_rsqrt_portable(x);
 #  endif
 }
+// This is the number of significant digits we can print in a string such that when we read that
+// string back we get the floating point number we expect.  The minimum value C requires is 6, but
+// most compilers support 9
 #  ifdef FLT_DECIMAL_DIG
 #    define SK_FLT_DECIMAL_DIG	FLT_DECIMAL_DIG
 #  else 
 #    define SK_FLT_DECIMAL_DIG	9
 #  endif
+// IEEE defines how float divide behaves for non-finite values and zero-denoms, but C does not
+// so we have a helper that suppresses the possible undefined-behavior warnings.
 #  ifdef __clang__
 #  endif
 static float sk_ieee_float_divide(float numer, float denom)
@@ -189,6 +218,7 @@ static double sk_ieee_double_divide(double numer, double denom)
 {
   return numer / denom;
 }
+// While we clean up divide by zero, we'll replace places that do divide by zero with this TODO.
 static float sk_ieee_float_divide_TODO_IS_DIVIDE_BY_ZERO_SAFE_HERE(float n, float d)
 {
   return sk_ieee_float_divide(n, d);

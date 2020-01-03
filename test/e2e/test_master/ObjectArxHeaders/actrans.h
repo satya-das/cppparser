@@ -7,6 +7,8 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  DESCRIPTION: Header for Transaction Modeler.
 #ifndef _ACTRANS_H
 #  define _ACTRANS_H
 #  include "rxnames.h"

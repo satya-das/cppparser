@@ -18,6 +18,8 @@
 static unsigned SkAlpha255To256(U8CPU alpha)
 {
   SkASSERT(SkToU8(alpha) == alpha);
+    // this one assues that blending on top of an opaque dst keeps it that way
+    // even though it is less accurate than a+(a>>7) for non-opaque dsts
   return alpha + 1;
 }
 /** Multiplify value by 0..256, and shift the result down 8
@@ -57,6 +59,7 @@ static U8CPU SkUnitScalarClampToByte(SkScalar x)
 #  define SK_BGRA_A32_SHIFT	24
 #  if  defined(SK_PMCOLOR_IS_RGBA) || defined(SK_PMCOLOR_IS_BGRA)
 #  endif
+// Deduce which SK_PMCOLOR_IS_ to define from the _SHIFT defines
 #  if  (SK_A32_SHIFT == SK_RGBA_A32_SHIFT && \
      SK_R32_SHIFT == SK_RGBA_R32_SHIFT && \
      SK_G32_SHIFT == SK_RGBA_G32_SHIFT && \
@@ -111,6 +114,8 @@ static SkPMColor SkPremultiplyARGBInline(U8CPU a, U8CPU r, U8CPU g, U8CPU b)
   }
   return SkPackARGB32(a, r, g, b);
 }
+// When Android is compiled optimizing for size, SkAlphaMulQ doesn't get
+// inlined; forcing inlining significantly improves performance.
 static SK_ALWAYS_INLINE uint32_t SkAlphaMulQ(uint32_t c, unsigned scale)
 {
   uint32_t mask = 0xFF00FF;

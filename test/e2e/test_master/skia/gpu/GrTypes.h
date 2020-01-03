@@ -76,6 +76,7 @@ public:
 private:
   const int fValue;
 };
+// Or-ing a mask always returns another mask.
 template <typename TFlags>
 GrTFlagsMask<TFlags> operator|(GrTFlagsMask<TFlags> a, GrTFlagsMask<TFlags> b)
 {
@@ -96,6 +97,7 @@ inline GrTFlagsMask<TFlags>& operator|=(GrTFlagsMask<TFlags>& a, GrTFlagsMask<TF
 {
   return (a = a | b);
 }
+// And-ing two masks returns another mask; and-ing one with regular flags returns flags.
 template <typename TFlags>
 GrTFlagsMask<TFlags> operator&(GrTFlagsMask<TFlags> a, GrTFlagsMask<TFlags> b)
 {
@@ -140,6 +142,8 @@ inline TFlags& operator&=(TFlags& a, GrTFlagsMask<TFlags> b)
     friend X& operator |=(X&, X); \
     friend constexpr bool operator &(X, X)
 ////////////////////////////////////////////////////////////////////////////////
+
+// compile time versions of min/max
 #  define GR_CT_MAX(a, b)	 (((b) < (a)) ? (a) : (b))
 #  define GR_CT_MIN(a, b)	 (((b) < (a)) ? (b) : (a))
 /**
@@ -265,7 +269,9 @@ enum GrSurfaceOrigin : int
 enum GrGLBackendState
 {
   kRenderTarget_GrGLBackendState = 1 << 0,
+    // Also includes samplers bound to texture units.
   kTextureBinding_GrGLBackendState = 1 << 1,
+    // View state stands for scissor and viewport
   kView_GrGLBackendState = 1 << 2,
   kBlend_GrGLBackendState = 1 << 3,
   kMSAAEnable_GrGLBackendState = 1 << 4,
@@ -285,6 +291,7 @@ static const uint32_t kAll_GrBackendState = 0xffffffff;
 enum GrFlushFlags
 {
   kNone_GrFlushFlags = 0,
+    // flush will wait till all submitted GPU work is finished before returning.
   kSyncCpu_GrFlushFlag = 0x1
 };
 typedef void* GrGpuFinishedContext;

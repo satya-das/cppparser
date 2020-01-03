@@ -7,12 +7,16 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  DESCRIPTION:  Header for AcPlDSDEntry.h
+//
 #ifndef ACPLDSDENTRY_H
 #  define ACPLDSDENTRY_H
 #  pragma  once
 #  include "AcPl.h"
 #  include "AcPlObject.h"
 /////////////////////////////////////////////////////////////////////////////
+// AcPlDSDEntry
 class AcPlDSDEntry : public AcPlObject
 {
   ACPL_DECLARE_MEMBERS(AcPlDSDEntry)

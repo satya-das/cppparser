@@ -80,6 +80,7 @@ enum SkColorType
   kRGBA_F16Norm_SkColorType,
   kRGBA_F16_SkColorType,
   kRGBA_F32_SkColorType,
+    // The following 6 colortypes are just for reading from - not for rendering to
   kR8G8_unorm_SkColorType,
   kA16_float_SkColorType,
   kR16G16_float_SkColorType,

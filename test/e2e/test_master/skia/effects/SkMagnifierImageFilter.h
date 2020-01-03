@@ -8,6 +8,7 @@
 #  define SkMagnifierImageFilter_DEFINED
 #  include "include/core/SkImageFilter.h"
 #  include "include/core/SkRect.h"
+// DEPRECATED: Use include/effects/SkImageFilters::Magnifier
 class SK_API SkMagnifierImageFilter
 {
 public:

@@ -4,11 +4,13 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+
+// EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL EXPERIMENTAL
+// DO NOT USE -- FOR INTERNAL TESTING ONLY
 #ifndef sk_matrix_DEFINED
 #  define sk_matrix_DEFINED
 #  include "include/c/sk_types.h"
 SK_C_PLUS_PLUS_BEGIN_GUARD
-/** Set the matrix to identity */
 void sk_matrix_set_identity(sk_matrix_t*);
 /** Set the matrix to translate by (tx, ty). */
 void sk_matrix_set_translate(sk_matrix_t*, float tx, float ty);

@@ -255,6 +255,7 @@ extern "C" {
 ;
   using GrGLScissorFn = GrGLvoid (*) (GrGLint x, GrGLint y, GrGLsizei width, GrGLsizei height);
 ;
+// GL_CHROMIUM_bind_uniform_location
   using GrGLBindUniformLocationFn = GrGLvoid (*) (GrGLuint program, GrGLint location, const char* name);
 ;
   using GrGLShaderSourceFn = GrGLvoid (*) (GrGLuint shader, GrGLsizei count, const char* const * str, const GrGLint* length);
@@ -355,6 +356,7 @@ extern "C" {
 ;
   using GrGLViewportFn = GrGLvoid (*) (GrGLint x, GrGLint y, GrGLsizei width, GrGLsizei height);
 ;
+/* GL_NV_path_rendering */
   using GrGLMatrixLoadfFn = GrGLvoid (*) (GrGLenum matrixMode, const GrGLfloat* m);
 ;
   using GrGLMatrixLoadIdentityFn = GrGLvoid (*) (GrGLenum);
@@ -389,6 +391,7 @@ extern "C" {
 ;
   using GrGLCoverStrokePathInstancedFn = GrGLvoid (*) (GrGLsizei numPaths, GrGLenum pathNameType, const GrGLvoid* paths, GrGLuint pathBase, GrGLenum coverMode, GrGLenum transformType, const GrGLfloat* transformValues);
 ;
+// NV_path_rendering v1.2
   using GrGLStencilThenCoverFillPathFn = GrGLvoid (*) (GrGLuint path, GrGLenum fillMode, GrGLuint mask, GrGLenum coverMode);
 ;
   using GrGLStencilThenCoverStrokePathFn = GrGLvoid (*) (GrGLuint path, GrGLint reference, GrGLuint mask, GrGLenum coverMode);
@@ -397,18 +400,24 @@ extern "C" {
 ;
   using GrGLStencilThenCoverStrokePathInstancedFn = GrGLvoid (*) (GrGLsizei numPaths, GrGLenum pathNameType, const GrGLvoid* paths, GrGLuint pathBase, GrGLint reference, GrGLuint mask, GrGLenum coverMode, GrGLenum transformType, const GrGLfloat* transformValues);
 ;
+// NV_path_rendering v1.3
   using GrGLProgramPathFragmentInputGenFn = GrGLvoid (*) (GrGLuint program, GrGLint location, GrGLenum genMode, GrGLint components, const GrGLfloat* coeffs);
 ;
+// CHROMIUM_path_rendering
   using GrGLBindFragmentInputLocationFn = GrGLvoid (*) (GrGLuint program, GrGLint location, const GrGLchar* name);
 ;
+/* ARB_program_interface_query */
   using GrGLGetProgramResourceLocationFn = GrGLint (*) (GrGLuint program, GrGLenum programInterface, const GrGLchar* name);
 ;
+/* GL_NV_framebuffer_mixed_samples */
   using GrGLCoverageModulationFn = GrGLvoid (*) (GrGLenum components);
 ;
+/* EXT_multi_draw_indirect */
   using GrGLMultiDrawArraysIndirectFn = GrGLvoid (*) (GrGLenum mode, const GrGLvoid* indirect, GrGLsizei drawcount, GrGLsizei stride);
 ;
   using GrGLMultiDrawElementsIndirectFn = GrGLvoid (*) (GrGLenum mode, GrGLenum type, const GrGLvoid* indirect, GrGLsizei drawcount, GrGLsizei stride);
 ;
+/* ARB_sync */
   using GrGLFenceSyncFn = GrGLsync (*) (GrGLenum condition, GrGLbitfield flags);
 ;
   using GrGLIsSyncFn = GrGLboolean (*) (GrGLsync sync);
@@ -419,8 +428,10 @@ extern "C" {
 ;
   using GrGLDeleteSyncFn = GrGLvoid (*) (GrGLsync sync);
 ;
+/* ARB_internalformat_query */
   using GrGLGetInternalformativFn = GrGLvoid (*) (GrGLenum target, GrGLenum internalformat, GrGLenum pname, GrGLsizei bufSize, GrGLint* params);
 ;
+/* KHR_debug */
   using GrGLDebugMessageControlFn = GrGLvoid (*) (GrGLenum source, GrGLenum type, GrGLenum severity, GrGLsizei count, const GrGLuint* ids, GrGLboolean enabled);
 ;
   using GrGLDebugMessageInsertFn = GrGLvoid (*) (GrGLenum source, GrGLenum type, GrGLuint id, GrGLenum severity, GrGLsizei length, const GrGLchar* buf);
@@ -448,6 +459,8 @@ extern "C" {
   using GrEGLDestroyImageFn = GrEGLBoolean (*) (GrEGLDisplay dpy, GrEGLImage image);
 ;
   }
+// This is a lighter-weight std::function, trying to reduce code size and compile time
+// by only supporting the exact use cases we require.
 template <typename T>
 class GrGLFunction;
 template <typename R, typename... Args>
@@ -456,10 +469,12 @@ class GrGLFunction<R GR_GL_FUNCTION_TYPE(Args...)>
   using Fn = R (*) (Args...);
 ;
 public:
+    // Construct empty.
   GrGLFunction();
   GrGLFunction(std::nullptr_t)
   {
   }
+    // Construct from a simple function pointer.
   GrGLFunction(Fn* fn_ptr)
   {
     static_assert(sizeof(fn_ptr) <= sizeof(fBuf), "fBuf is too small");
@@ -468,6 +483,7 @@ public:
       memcpy(fBuf, &fn_ptr, sizeof(fn_ptr));
     }
   }
+    // Construct from a small closure.
   template <typename Closure>
   GrGLFunction(Closure closure)
     : GrGLFunction()

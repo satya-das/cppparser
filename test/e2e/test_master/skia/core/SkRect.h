@@ -137,6 +137,7 @@ struct SK_API SkIRect
   {
     return fTop;
   }
+    // Experimental
   SkIPoint topLeft() const
   {
     return {fLeft, fTop};
@@ -210,6 +211,7 @@ struct SK_API SkIRect
     {
       return true;
     }
+        // Return true if either exceeds int32_t
     return !SkTFitsIn<int32_t>(w | h);
   }
     /** Returns true if all members in a: fLeft, fTop, fRight, and fBottom; are
@@ -682,6 +684,8 @@ struct SK_API SkRect
     */
   bool isEmpty() const
   {
+        // We write it as the NOT of a non-empty rect, so we will return true if any values
+        // are NaN.
     return !(fLeft < fRight && fTop < fBottom);
   }
     /** Returns true if fLeft is equal to or less than fRight, or if fTop is equal
@@ -706,7 +710,10 @@ struct SK_API SkRect
     accum *= fTop;
     accum *= fRight;
     accum *= fBottom;
+        // accum is either NaN or it is finite (zero).
     SkASSERT(0 == accum || SkScalarIsNaN(accum));
+        // value==value will be true iff value is not NaN
+        // TODO: is it faster to say !accum or accum==accum?
     return !SkScalarIsNaN(accum);
   }
     /** Returns left edge of SkRect, if sorted. Call isSorted() to see if SkRect is valid.
@@ -788,6 +795,7 @@ struct SK_API SkRect
     */
   SkScalar centerX() const
   {
+        // don't use SkScalarHalf(fLeft + fBottom) as that might overflow before the 0.5
     return SkScalarHalf(fLeft) + SkScalarHalf(fRight);
   }
     /** Returns average of top edge and bottom edge. Result does not change if SkRect
@@ -797,6 +805,7 @@ struct SK_API SkRect
     */
   SkScalar centerY() const
   {
+        // don't use SkScalarHalf(fTop + fBottom) as that might overflow before the 0.5
     return SkScalarHalf(fTop) + SkScalarHalf(fBottom);
   }
     /** Returns true if all members in a: fLeft, fTop, fRight, and fBottom; are
@@ -1140,6 +1149,7 @@ public:
   void joinNonEmptyArg(const SkRect& r)
   {
     SkASSERT(!r.isEmpty());
+        // if we are empty, just assign
     if (fLeft >= fRight || fTop >= fBottom)
     {
       *this = r;
@@ -1183,6 +1193,7 @@ public:
     */
   bool contains(const SkRect& r) const
   {
+        // todo: can we eliminate the this->isEmpty check?
     return !r.isEmpty() && !this->isEmpty() && fLeft <= r.fLeft && fTop <= r.fTop && fRight >= r.fRight && fBottom >= r.fBottom;
   }
     /** Returns true if SkRect contains r.
@@ -1195,6 +1206,7 @@ public:
     */
   bool contains(const SkIRect& r) const
   {
+        // todo: can we eliminate the this->isEmpty check?
     return !r.isEmpty() && !this->isEmpty() && fLeft <= SkIntToScalar(r.fLeft) && fTop <= SkIntToScalar(r.fTop) && fRight >= SkIntToScalar(r.fRight) && fBottom >= SkIntToScalar(r.fBottom);
   }
     /** Sets SkIRect by adding 0.5 and discarding the fractional portion of SkRect

@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,16 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+// DESCRIPTION:  Class header for AcDbFrame
+//               Common Base for Raster and OLE 2 Container Features
+//
+//    AcDbEntity
+//      AcDbFrame
+//        AcDbOleFrame
+//          AcDbOle2Frame  
+//
 #ifndef AD_DBFRAME_H
 #  define AD_DBFRAME_H
 #  include "dbmain.h"
@@ -19,6 +30,11 @@ protected:
   ACDB_DECLARE_MEMBERS(AcDbFrame);
 public:
   virtual ~AcDbFrame();
+    // --- AcDbObject Protocol
+
+    // virtual Adesk::Boolean worldDraw(AcGiWorldDraw*);
+    // virtual void viewportDraw(AcGiViewportDraw* mode);
+    // virtual Acad::ErrorStatus getGeomExtents(AcDbExtents& extents) const;
 };
 #  pragma  pack (pop)
 #endif

@@ -7,6 +7,7 @@
 #ifndef SkEncodedOrigin_DEFINED
 #  define SkEncodedOrigin_DEFINED
 #  include "include/core/SkMatrix.h"
+// These values match the orientation www.exif.org/Exif2-2.PDF.
 enum SkEncodedOrigin
 {
   kTopLeft_SkEncodedOrigin = 1,

@@ -7,12 +7,16 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//  DESCRIPTION:  Header for AcPlPrecisionEntry.h
+//
 #ifndef ACPLPRECISIONENTRY_H
 #  define ACPLPRECISIONENTRY_H
 #  pragma  once
 #  include "AcPl.h"
 #  include "AcPlObject.h"
 /////////////////////////////////////////////////////////////////////////////
+// AcPlPrecisionEntry
 class AcPlPrecisionEntry : public AcPlObject
 {
   ACPL_DECLARE_MEMBERS(AcPlPrecisionEntry)

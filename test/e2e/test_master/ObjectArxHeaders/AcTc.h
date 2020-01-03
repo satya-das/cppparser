@@ -29,10 +29,12 @@ class AcTcCatalogSet;
 class AcTcSystemInternals;
 class AcTcImpCatalogItem;
 class AcTcCatalogItemReactor;
+// Context flags
 #define ACTC_IMAGE_NORMAL	(0x1 << 0)
 #define ACTC_IMAGE_SELECTED	(0x1 << 1)
 #define ACTC_IMAGE_HALO	(0x1 << 2)
 #define ACTC_IMAGE_SHADOW	(0x1 << 3)
+// Buffer sizes
 #define ACTC_MAX_CATALOG_ITEM_NAME	256
 #define ACTC_MAX_CATALOG_ITEM_DESCRIPTION	2048
 #define ACTC_MAX_CATALOG_ITEM_KEYWORDS	1024
@@ -56,6 +58,7 @@ class AcTcCatalogItemReactor;
 #define ACTC_MAX_PUBLISHER_NAME	256
 #define ACTC_MAX_PRODUCT_NAME	256
 #define ACTC_MAX_LOCALE	512
+// Commands to execute after downloading stock tool binary files
 #define ACTC_POSTDOWNLOADCMD_EXECUTE	ACRX_T(/*MSGO*/"Execute")
 #define ACTC_DEFAULTDIR_IMAGE	ACRX_T(/*MSGO*/"Images")
 #define ACTC_DEFAULTFILE_IMAGE	ACRX_T(/*MSGO*/"Image")
@@ -186,6 +189,9 @@ struct ACTC_TARGET_PRODUCT_INFO
   DWORD mdwMinVersion;
   DWORD mdwMaxVersion;
 };
+//
+// Classes
+//
 class ACTC_PORT AcTcImage
 {
 public:
@@ -318,6 +324,7 @@ public:
   BOOL SaveCatalogs(void);
   BOOL SaveCatalogs(DWORD dwSaveOption);
 protected:
+    // Protected constructor
   AcTcCatalogSet(DWORD dwCatalogType);
   void* mpImpObj;
 private:
@@ -325,6 +332,7 @@ private:
 };
 class ACTC_PORT AcTcCatalogItem
 {
+    // For protected funcion access from imp class
   friend class AcTcImpCatalogItem;
 public:
   static AcTcCatalogItem* FromFile(LPCTSTR pszFile, BOOL bLoad = FALSE, DWORD dwLoadOption = kLoadLinks);
@@ -429,9 +437,11 @@ public:
   BOOL SetItemOrder(AcTcCatalogItem** pItems, INT_PTR nNumItems);
   AcTc::ItemOption GetOption(void) const;
   BOOL SetOption(AcTc::ItemOption nOption);
+    // Revision
   BOOL GetFileRevision(long& lMajorVersion, long& lMinorVersion) const;
   BOOL GetRevision(long& lMajorVersion, long& lMinorVersion, long& lUserVersion) const;
   BOOL IsUserModified(void) const;
+    // Overridables
   virtual AcTcCatalogItem& operator=(const AcTcCatalogItem& srcItem);
   virtual BOOL Reset(void);
   virtual CatalogItemType GetType(void) const;
@@ -445,7 +455,9 @@ public:
   virtual BOOL CopyFrom(const AcTcCatalogItem* pSrcItem, BOOL bCopyId = FALSE);
   virtual BOOL IsValidChild(const CatalogItemType nType) const;
 protected:
+    // Overridables
   virtual AcTcCatalogItem* CreateObject(void) const;
+    // Protected constructor
   AcTcCatalogItem(AcTcSystemInternals*);
   void* mpImpObj;
 private:
@@ -458,6 +470,7 @@ public:
   AcTcCategory(const AcTcCategory& srcItem);
   virtual ~AcTcCategory();
 protected:
+    // Protected constructor
   AcTcCategory(AcTcSystemInternals*);
 };
 class ACTC_PORT AcTcCatalog : public AcTcCategory
@@ -467,6 +480,7 @@ public:
   AcTcCatalog(const AcTcCatalog& srcItem);
   virtual ~AcTcCatalog();
 protected:
+    // Protected constructor
   AcTcCatalog(AcTcSystemInternals*);
 };
 class ACTC_PORT AcTcStockTool : public AcTcCatalogItem
@@ -487,6 +501,7 @@ public:
   int GetModuleInstallArguments(LPTSTR pszString, int cchSize) const;
   BOOL SetModuleInstallArguments(LPCTSTR pszString);
 protected:
+    // Protected constructor
   AcTcStockTool(AcTcSystemInternals*);
 private:
   friend class AcTcSystemInternals;
@@ -517,6 +532,7 @@ public:
   BOOL GetActiveShapes(AcTcCatalogItem** pItems, INT_PTR& nNumItems);
   BOOL SetActiveShapes(AcTcCatalogItem** pItems, int nNumItems);
 protected:
+    // Protected constructor
   AcTcTool(AcTcSystemInternals*);
 };
 class ACTC_PORT AcTcPackage : public AcTcCatalogItem
@@ -526,6 +542,7 @@ public:
   AcTcPackage(const AcTcPackage& srcItem);
   virtual ~AcTcPackage();
 protected:
+    // Protected constructor
   AcTcPackage(AcTcSystemInternals*);
 };
 class ACTC_PORT AcTcPalette : public AcTcPackage
@@ -535,6 +552,7 @@ public:
   AcTcPalette(const AcTcPalette& srcItem);
   virtual ~AcTcPalette();
 protected:
+    // Protected constructor
   AcTcPalette(AcTcSystemInternals*);
 };
 class ACTC_PORT AcTcCatalogItemReactor
@@ -548,10 +566,14 @@ public:
   virtual void ChildDetached(AcTcCatalogItem* pChild);
 protected:
   void* mpImpObj;
+    // Protected constructor
   AcTcCatalogItemReactor();
 private:
   friend class AcTcSystemInternals;
 };
+//
+// Global exported functions
+//
 ACTC_PORT BOOL AcTcInitialize(void);
 ACTC_PORT BOOL AcTcUninitialize(void);
 ACTC_PORT AcTcManager* AcTcGetManager(void);

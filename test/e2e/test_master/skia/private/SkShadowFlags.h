@@ -6,6 +6,7 @@
  */
 #ifndef SkShadowFlags_DEFINED
 #  define SkShadowFlags_DEFINED
+// A set of flags shared between the SkAmbientShadowMaskFilter and the SkSpotShadowMaskFilter
 enum SkShadowFlags
 {
   kNone_ShadowFlag = 0x00,

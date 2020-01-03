@@ -7,6 +7,7 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
 #ifndef AD_DBLEAD_H
 #  define AD_DBLEAD_H	1
 #  include "dbmain.h"
@@ -21,8 +22,14 @@ public:
   AcDbLeader();
   ~AcDbLeader();
   ACDB_DECLARE_MEMBERS(AcDbLeader);
+//    DBCURVE_METHODS
+
+    // Leader orientation.
+    //
   virtual void setPlane(const AcGePlane&);
   virtual AcGeVector3d normal() const;
+    // Vertex manipulation.
+    //
   virtual int numVertices() const;
   virtual Adesk::Boolean appendVertex(const AcGePoint3d&);
   virtual void removeLastVertex();
@@ -30,25 +37,34 @@ public:
   virtual AcGePoint3d lastVertex() const;
   virtual AcGePoint3d vertexAt(int) const;
   virtual Adesk::Boolean setVertexAt(int, const AcGePoint3d&);
+    // Display characteristics.
+    //
   virtual Adesk::Boolean hasArrowHead() const;
   virtual void enableArrowHead();
   virtual void disableArrowHead();
   ACDBCORE2D_PORT void setHasArrowHead(Adesk::Boolean bEnable);
   virtual Adesk::Boolean hasHookLine() const;
+    //
   virtual void setToSplineLeader();
   virtual void setToStraightLeader();
   virtual Adesk::Boolean isSplined() const;
   ACDBCORE2D_PORT void setSplined(Adesk::Boolean bSplined);
+    //
   virtual AcDbHardPointerId dimensionStyle() const;
   virtual void setDimensionStyle(const AcDbHardPointerId&);
   Acad::ErrorStatus getDimstyleData(AcDbDimStyleTableRecord*& pRecord) const;
   Acad::ErrorStatus setDimstyleData(AcDbDimStyleTableRecord* pNewData);
   Acad::ErrorStatus setDimstyleData(AcDbObjectId newDataId);
+    // Associativity support.
+    //
   virtual Acad::ErrorStatus attachAnnotation(const AcDbObjectId& annoId);
   virtual Acad::ErrorStatus detachAnnotation();
   virtual AcDbObjectId annotationObjId() const;
   ACDBCORE2D_PORT Acad::ErrorStatus setAnnotationObjId(const AcDbObjectId& annoId);
   virtual Acad::ErrorStatus evaluateLeader();
+    //
+    // Relation of leader endpoint to annotation:
+    //
   virtual AcGeVector3d annotationOffset() const;
   virtual Acad::ErrorStatus setAnnotationOffset(const AcGeVector3d& offset);
   enum AnnoType
@@ -61,6 +77,8 @@ public:
   AnnoType annoType() const;
   double annoHeight() const;
   double annoWidth() const;
+    // Dimension variable get methods in alphabetic order:
+    //
   virtual double dimasz() const;
   virtual AcCmColor dimclrd() const;
   virtual double dimgap() const;
@@ -71,6 +89,8 @@ public:
   virtual int dimtad() const;
   virtual AcDbObjectId dimtxsty() const;
   virtual double dimtxt() const;
+    // Dimension variable set methods in alphabetic order:
+    //
   virtual Acad::ErrorStatus setDimasz(double val);
   virtual Acad::ErrorStatus setDimclrd(AcCmColor& val);
   virtual Acad::ErrorStatus setDimgap(double val);
@@ -82,15 +102,26 @@ public:
   virtual Acad::ErrorStatus setDimtad(int val);
   virtual Acad::ErrorStatus setDimtxsty(AcDbObjectId val);
   virtual Acad::ErrorStatus setDimtxt(double val);
+    // Support for persistent reactor to annotation.
+    //
   virtual void modified(const AcDbObject*) override;
   virtual void erased(const AcDbObject*, Adesk::Boolean = Adesk::kTrue) override;
   virtual void goodbye(const AcDbObject*) override;
   virtual void copied(const AcDbObject*, const AcDbObject*) override;
+    // DEPRECATED METHODS!
+    // These are supported but will be removed in future releases:
+    //
   virtual void setDimVars();
   virtual Acad::ErrorStatus setColorIndex(Adesk::UInt16, Adesk::Boolean doSubents = Adesk::kTrue) override;
+    //
+    // end DEPRECATED METHODS!
 protected:
+    // Get corresponding COM wrapper class ID
+    //
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
+// These are methods of AcDbCurve that aren't implemented for AcDbLeader:
+//
 inline Adesk::Boolean AcDbLeader::isClosed() const
 {
   return Adesk::kFalse;

@@ -7,6 +7,12 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+// DESCRIPTION:
+//
+// The AcDbSweptSurface class is the interface class for representing
+// ASM swept surfaces.  
 #pragma  once
 #ifndef DBSWEPTSURF_H
 #  define DBSWEPTSURF_H
@@ -108,6 +114,7 @@ public:
     /// Length of the path curve.
     /// </returns>
   Acad::ErrorStatus getPathLength(double& len) const;
+    // AcDbObject methods
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;

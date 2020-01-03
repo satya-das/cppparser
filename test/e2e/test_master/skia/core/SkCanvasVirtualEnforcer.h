@@ -7,6 +7,9 @@
 #ifndef SkCanvasVirtualEnforcer_DEFINED
 #  define SkCanvasVirtualEnforcer_DEFINED
 #  include "include/core/SkCanvas.h"
+// If you would ordinarily want to inherit from Base (eg SkCanvas, SkNWayCanvas), instead
+// inherit from SkCanvasVirtualEnforcer<Base>, which will make the build fail if you forget
+// to override one of SkCanvas' key virtual hooks.
 template <typename Base>
 class SkCanvasVirtualEnforcer : public Base
 {
@@ -32,6 +35,8 @@ protected:
   virtual void onDrawImageNine(const SkImage* image, const SkIRect& center, const SkRect& dst, const SkPaint* paint) = 0;
   virtual void onDrawImageLattice(const SkImage* image, const SkCanvas::Lattice& lattice, const SkRect& dst, const SkPaint* paint) = 0;
 #  ifdef SK_BUILD_FOR_ANDROID_FRAMEWORK
+    // This is under active development for Chrome and not used in Android. Hold off on adding
+    // implementations in Android's SkCanvas subclasses until this stabilizes.
   void onDrawEdgeAAQuad(const SkRect& rect, const SkPoint clip[4], SkCanvas::QuadAAFlags aaFlags, const SkColor4f& color, SkBlendMode mode) override
   {
   }

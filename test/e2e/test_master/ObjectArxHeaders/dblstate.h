@@ -7,6 +7,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+// DESCRIPTION: AcDbLayerStateManager class definition.
+//
+// WRITTEN: 11/99 by Anil Patel
 #ifndef ACDB_LSTATE_H
 #  define ACDB_LSTATE_H
 #  include "dbmain.h"
@@ -19,6 +23,7 @@ class AcDbLayerStateManager : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcDbLayerStateManager);
+    // Construction/destruction
   AcDbLayerStateManager();
   AcDbLayerStateManager(AcDbDatabase* pHostDb);
   virtual ~AcDbLayerStateManager();
@@ -50,6 +55,7 @@ public:
   };
   bool addReactor(AcDbLayerStateManagerReactor* pReactor);
   bool removeReactor(AcDbLayerStateManagerReactor* pReactor);
+    // Service methods
   AcDbObjectId layerStatesDictionaryId(bool bCreateIfNotPresent = false);
   bool hasLayerState(const ACHAR* sName);
   Acad::ErrorStatus saveLayerState(const ACHAR* sName, LayerStateMask mask);

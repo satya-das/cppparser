@@ -35,9 +35,12 @@ public:
   virtual ~SkRasterHandleAllocator()
   {
   }
+    // The value that is returned to clients of the canvas that has this allocator installed.
   typedef void* Handle;
   struct Rec
   {
+        // When the allocation goes out of scope, this proc is called to free everything associated
+        // with it: the pixels, the "handle", etc. This is passed the pixel address and fReleaseCtx.
     void (*fReleaseProc) (void* pixels, void* ctx);
     void* fReleaseCtx;
     void* fPixels;

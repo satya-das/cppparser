@@ -11,6 +11,7 @@
 #  include "include/private/SkNx.h"
 #  include "include/private/SkTo.h"
 ////////////////////////////////////////////////////////////////////////////////////////////
+// Convert a 16bit pixel to a 32bit pixel
 #  define SK_R16_BITS	5
 #  define SK_G16_BITS	6
 #  define SK_B16_BITS	5
@@ -40,6 +41,9 @@ static unsigned SkB16ToB32(unsigned b)
 #  define SkPacked16ToB32(c)	      SkB16ToB32(SkGetPackedB16(c))
 //////////////////////////////////////////////////////////////////////////////
 #  define SkASSERT_IS_BYTE(x)	     SkASSERT(0 == ((x) & ~0xFF))
+// Reverse the bytes coorsponding to RED and BLUE in a packed pixels. Note the
+// pair of them are in the same 2 slots in both RGBA and BGRA, thus there is
+// no need to pass in the colortype to this function.
 static uint32_t SkSwizzle_RB(uint32_t c)
 {
   static const uint32_t kRBMask = (0xFF << SK_R32_SHIFT) | (0xFF << SK_B32_SHIFT);
@@ -100,6 +104,9 @@ static SkPMColor SkSwizzle_BGRA_to_PMColor(uint32_t c)
 */
 static U8CPU SkComputeLuminance(U8CPU r, U8CPU g, U8CPU b)
 {
+    //The following is
+    //r * SK_LUM_COEFF_R + g * SK_LUM_COEFF_G + b * SK_LUM_COEFF_B
+    //with SK_LUM_COEFF_X in 1.8 fixed point (rounding adjusted to sum to 256).
   return (r * 54 + g * 183 + b * 19) >> 8;
 }
 /** Calculates 256 - (value * alpha256) / 255 in range [0,256],
@@ -110,6 +117,9 @@ static U16CPU SkAlphaMulInv256(U16CPU value, U16CPU alpha256)
   unsigned prod = 0xFFFF - value * alpha256;
   return (prod + (prod >> 8)) >> 8;
 }
+//  The caller may want negative values, so keep all params signed (int)
+//  so we don't accidentally slip into unsigned math and lose the sign
+//  extension when we shift (in SkAlphaMul)
 static int SkAlphaBlend(int src, int dst, int scale256)
 {
   SkASSERT((unsigned) scale256 <= 256);
@@ -194,6 +204,7 @@ static uint32_t SkUnsplay(uint64_t agrb)
 static SkPMColor SkFastFourByteInterp256_32(SkPMColor src, SkPMColor dst, unsigned scale)
 {
   SkASSERT(scale <= 256);
+    // Two 8-bit blends per two 32-bit registers, with space to make sure the math doesn't collide.
   uint32_t src_ag, src_rb, dst_ag, dst_rb;
   SkSplay(src, &src_ag, &src_rb);
   SkSplay(dst, &dst_ag, &dst_rb);
@@ -204,13 +215,17 @@ static SkPMColor SkFastFourByteInterp256_32(SkPMColor src, SkPMColor dst, unsign
 static SkPMColor SkFastFourByteInterp256_64(SkPMColor src, SkPMColor dst, unsigned scale)
 {
   SkASSERT(scale <= 256);
+    // Four 8-bit blends in one 64-bit register, with space to make sure the math doesn't collide.
   return SkUnsplay(SkSplay(src) * scale + (256 - scale) * SkSplay(dst));
 }
+// TODO(mtklein): Replace slow versions with fast versions, using scale + (scale>>7) everywhere.
+
 /**
  * Same as SkFourByteInterp256, but faster.
  */
 static SkPMColor SkFastFourByteInterp256(SkPMColor src, SkPMColor dst, unsigned scale)
 {
+    // On a 64-bit machine, _64 is about 10% faster than _32, but ~40% slower on a 32-bit machine.
   if (sizeof(void*) == 4)
   {
     return SkFastFourByteInterp256_32(src, dst, scale);
@@ -227,6 +242,8 @@ static SkPMColor SkFastFourByteInterp256(SkPMColor src, SkPMColor dst, unsigned 
 static SkPMColor SkFastFourByteInterp(SkPMColor src, SkPMColor dst, U8CPU srcWeight)
 {
   SkASSERT(srcWeight <= 255);
+    // scale = srcWeight + (srcWeight >> 7) is more accurate than
+    // scale = srcWeight + 1, but 7% slower
   return SkFastFourByteInterp256(src, dst, srcWeight + (srcWeight >> 7));
 }
 /**
@@ -249,6 +266,7 @@ static SkPMColor SkBlendARGB32(SkPMColor src, SkPMColor dst, U8CPU aa)
   return (((src_rb + dst_rb) >> 8) & mask) | ((src_ag + dst_ag) & ~mask);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
+// Convert a 32bit pixel to a 16bit pixel (no dither)
 #  define SkR32ToR16_MACRO(r)	   ((unsigned)(r) >> (SK_R32_BITS - SK_R16_BITS))
 #  define SkG32ToG16_MACRO(g)	   ((unsigned)(g) >> (SK_G32_BITS - SK_G16_BITS))
 #  define SkB32ToB16_MACRO(b)	   ((unsigned)(b) >> (SK_B32_BITS - SK_B16_BITS))
@@ -285,6 +303,10 @@ static U16CPU SkPack888ToRGB16(U8CPU r, U8CPU g, U8CPU b)
   return (SkR32ToR16(r) << SK_R16_SHIFT) | (SkG32ToG16(g) << SK_G16_SHIFT) | (SkB32ToB16(b) << SK_B16_SHIFT);
 }
 /////////////////////////////////////////////////////////////////////////////////////////
+
+/*  SrcOver the 32bit src color with the 16bit dst, returning a 16bit value
+    (with dirt in the high 16bits, so caller beware).
+*/
 static U16CPU SkSrcOver32To16(SkPMColor src, uint16_t dst)
 {
   unsigned sr = SkGetPackedR32(src);
@@ -312,6 +334,7 @@ static SkColor SkPixel16ToColor(U16CPU src)
 }
 ///////////////////////////////////////////////////////////////////////////////
 typedef uint16_t SkPMColor16;
+// Put in OpenGL order (r g b a)
 #  define SK_A4444_SHIFT	0
 #  define SK_R4444_SHIFT	12
 #  define SK_G4444_SHIFT	8
@@ -351,8 +374,11 @@ static uint32_t Sk4f_toL32(const Sk4f& px)
 {
   Sk4f v = px;
 #  if  !defined(SKNX_NO_SIMD) && SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE2
+    // SkNx_cast<uint8_t, int32_t>() pins, and we don't anticipate giant floats
 #  elif  !defined(SKNX_NO_SIMD) && defined(SK_ARM_HAS_NEON)
+    // SkNx_cast<uint8_t, int32_t>() pins, and so does Sk4f_round().
 #  else 
+    // No guarantee of a pin.
   v = Sk4f::Max(0, Sk4f::Min(v, 1));
 #  endif
   uint32_t l32;

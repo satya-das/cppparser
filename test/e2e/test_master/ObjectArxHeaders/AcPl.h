@@ -7,12 +7,15 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//  DESCRIPTION:  Common header for plot APIs
+//
 #ifndef ACPL_H
 #  define ACPL_H
 #  if  _MSC_VER >= 1000
 #    pragma  once
 #  endif
 /////////////////////////////////////////////////////////////////////////////
+// Note: _ACPL_BUILD should be defined only when building the DLL.
 #  ifdef _ACPL_BUILD
 #    define ACPL_PORT	__declspec(dllexport)
 #  else 

@@ -10,6 +10,7 @@
 #  ifdef SK_DEBUG
 #    include "include/private/SkMutex.h"
 #    include "include/private/SkThreadID.h"
+// This is a debug tool to verify an object is only being used from one thread at a time.
 class GrSingleOwner
 {
 public:

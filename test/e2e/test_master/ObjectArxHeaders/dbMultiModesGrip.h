@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,10 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+//
+//
+//  dbMultiModesGrip.h - public header file for AcDbMultiModesGripPE API
+//
 #ifndef _DBMULTIMODESGRIP_H
 #  define _DBMULTIMODESGRIP_H
 #  include "acdb.h"

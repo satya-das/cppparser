@@ -17,6 +17,8 @@ class AcDbMaterial : public AcDbObject
 public:
   AcDbMaterial();
   virtual ~AcDbMaterial();
+    // AcDbMaterial protocol
+    //
   virtual Acad::ErrorStatus setName(const ACHAR* pName);
   virtual const ACHAR* name(void) const;
   virtual Acad::ErrorStatus setDescription(const ACHAR* pDescription);
@@ -47,11 +49,14 @@ public:
   virtual Acad::ErrorStatus setChannelFlags(AcGiMaterialTraits::ChannelFlags value);
   virtual AcGiMaterialTraits::Mode mode() const;
   virtual Acad::ErrorStatus setMode(AcGiMaterialTraits::Mode value);
+    // AcDbObject protocol
+    //
   virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
   virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
   virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
   virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
   virtual AcGiDrawable* drawable(void) override;
+    // AcDbMaterial protocol, new material properties for Spago
   double colorBleedScale() const;
   Acad::ErrorStatus setColorBleedScale(double value);
   double indirectBumpScale() const;
@@ -77,7 +82,12 @@ public:
   AcGiMaterialTraits::FinalGatherMode finalGather() const;
   void setFinalGather(AcGiMaterialTraits::FinalGatherMode mode);
   bool isRenamable() const;
+    // WARNING: Caller must **NOT** delete the returned pointer.
+    //
   void* getAdskMaterialData();
+    // WARNING: If bCacheIt == true, then AcDbMaterial takes over responsibility for
+    //          deleting pMatObj and caller must ensure that nothing else deletes it.
+    //
   Acad::ErrorStatus setAdskMaterialData(const void* pMatObj, bool bCacheIt = false);
   void clearAdskMaterialCache();
   enum MaterialFlags

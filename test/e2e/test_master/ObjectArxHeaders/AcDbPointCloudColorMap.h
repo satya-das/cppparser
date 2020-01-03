@@ -233,6 +233,8 @@ public:
     /// Forcefully notifies all of the  AcPointCloudColorSchemeCollectionReactor objects.
     /// </summary>
   void notifyColorSchemeCollectionChanged() const;
+    // Intensity
+
     /// <summary>
     /// Gets the default intensity color scheme's GUID.
     /// </summary>
@@ -244,6 +246,8 @@ public:
     /// <param name="GUID">The the default intensity color scheme's GUID .</param>
     /// <returns> Returns true upon success. </returns>
   bool setDefaultIntensityColorScheme(const AcString GUID);
+    // Elevation
+
     /// <summary>
     /// Gets the default elevation color scheme's GUID
     /// </summary>
@@ -255,6 +259,8 @@ public:
     /// <param name="GUID">The default elevation color scheme's GUID .</param>
     /// <returns> Returns true upon success. </returns>
   bool setDefaultElevationColorScheme(const AcString GUID);
+    // Classification
+
     /// <summary>
     /// Gets the default classification color scheme's GUID
     /// </summary>
@@ -266,6 +272,8 @@ public:
     /// <param name="GUID">The default classification color scheme's GUID.</param>
     /// <returns> Returns true upon success. </returns>
   bool setDefaultClassificationColorScheme(const AcString GUID);
+    // Color Schemes
+
     /// <summary>
     /// Gets the complete list of GUIDs for each intensity and elevation color scheme in this map.
     /// </summary>

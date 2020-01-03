@@ -10,6 +10,8 @@
 #  include "include/core/SkTypes.h"
 #  include "include/private/SkNoncopyable.h"
 #  include "include/private/SkTLogic.h"
+// #include "src/core/SkOpts.h"
+// It's sort of pesky to be able to include SkOpts.h here, so we'll just re-declare what we need.
 namespace SkOpts
 {
   extern uint32_t (*hash_fn) (const void*, size_t, uint32_t);
@@ -46,6 +48,8 @@ public:
     return hash;
   }
 };
+// SkGoodHash should usually be your first choice in hashing data.
+// It should be both reasonably fast and high quality.
 struct SkGoodHash
 {
   template <typename K>

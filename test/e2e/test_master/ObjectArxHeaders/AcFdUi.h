@@ -25,8 +25,14 @@
 class CAcFdUiFieldManager;
 class AcDbField;
 class AcDbDatabase;
+// Category ids
 #define ACFDUI_CATEGORY_ID_ALL	-1
+// Verticals and other applications can use category ids starting from 
+// this
 #define ACFDUI_CATID_USER_FIRST	1000
+// Verticals and other applications can use field ids starting from this
 #define ACFDUI_FIELDID_USER_FIRST	50000
+// Exported public functions
+//
 ACFDUI_PORT CAcFdUiFieldManager* AcFdUiGetFieldManager(void);
 ACFDUI_PORT int AcFdUiInvokeFieldDialog(AcDbField*& pNewField, BOOL bEdit, AcDbDatabase* pDb, CWnd* pParent = NULL);

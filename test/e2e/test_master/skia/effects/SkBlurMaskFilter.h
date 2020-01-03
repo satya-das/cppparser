@@ -6,6 +6,7 @@
  */
 #ifndef SkBlurMaskFilter_DEFINED
 #  define SkBlurMaskFilter_DEFINED
+// we include this since our callers will need to at least be able to ref/unref
 #  include "include/core/SkBlurTypes.h"
 #  include "include/core/SkMaskFilter.h"
 #  include "include/core/SkRect.h"

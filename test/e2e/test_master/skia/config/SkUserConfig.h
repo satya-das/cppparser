@@ -6,6 +6,28 @@
  */
 #ifndef SkUserConfig_DEFINED
 #  define SkUserConfig_DEFINED
+/*  SkTypes.h, the root of the public header files, includes SkPreConfig.h,
+    then SkUserConfig.h, then SkPostConfig.h.
+
+    SkPreConfig.h runs first, and it is responsible for initializing certain
+    skia defines.
+
+    SkPostConfig.h runs last, and its job is to just check that the final
+    defines are consistent (i.e. that we don't have mutually conflicting
+    defines).
+
+    SkUserConfig.h (this file) runs in the middle. It gets to change or augment
+    the list of flags initially set in preconfig, and then postconfig checks
+    that everything still makes sense.
+
+    Below are optional defines that add, subtract, or change default behavior
+    in Skia. Your port can locally edit this file to enable/disable flags as
+    you choose, or these can be delared on your command line (i.e. -Dfoo).
+
+    By default, this include file will always default to having all of the flags
+    commented out, so including it will have no effect.
+*/
+
 ///////////////////////////////////////////////////////////////////////////////
 
 /*  Skia has lots of debug-only code. Often this is just null checks or other

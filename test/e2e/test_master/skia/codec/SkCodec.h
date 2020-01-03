@@ -211,11 +211,14 @@ public:
      */
   SkISize getScaledDimensions(float desiredScale) const
   {
+        // Negative and zero scales are errors.
     SkASSERT(desiredScale > 0.0f);
     if (desiredScale <= 0.0f)
     {
       return SkISize::Make(0, 0);
     }
+        // Upscaling is not supported. Return the original size if the client
+        // requests an upscale.
     if (desiredScale >= 1.0f)
     {
       return this->dimensions();
@@ -603,7 +606,13 @@ public:
   {
     return this->onGetFrameCount();
   }
+    // Sentinel value used when a frame index implies "no frame":
+    // - FrameInfo::fRequiredFrame set to this value means the frame
+    //   is independent.
+    // - Options::fPriorFrame set to this value means no (relevant) prior frame
+    //   is residing in dst's memory.
   static int kNoFrame = -1;
+    // This transitional definition was added in August 2018, and will eventually be removed.
 #  ifdef SK_LEGACY_SKCODEC_NONE_ENUM
   static int kNone = kNoFrame;
 #  endif
@@ -688,6 +697,10 @@ public:
   {
     return this->onGetRepetitionCount();
   }
+    // Register a decoder at runtime by passing two function pointers:
+    //    - peek() to return true if the span of bytes appears to be your encoded format;
+    //    - make() to attempt to create an SkCodec from the given stream.
+    // Not thread safe.
   static void Register(bool (*peek) (const void*, size_t), std::unique_ptr<SkCodec> (*make) (std::unique_ptr<SkStream>, SkCodec::Result*));
 protected:
   const SkEncodedInfo& getEncodedInfo() const
@@ -698,8 +711,10 @@ protected:
   SkCodec(SkEncodedInfo&&, XformFormat srcFormat, std::unique_ptr<SkStream>, SkEncodedOrigin = kTopLeft_SkEncodedOrigin);
   virtual SkISize onGetScaledDimensions(float) const
   {
+        // By default, scaling is not supported.
     return this->dimensions();
   }
+    // FIXME: What to do about subsets??
     /**
      *  Subclasses should override if they support dimensions other than the
      *  srcInfo's.
@@ -726,6 +741,7 @@ protected:
   }
   virtual bool onGetValidSubset(SkIRect*) const
   {
+        // By default, subsets are not supported.
     return false;
   }
     /**
@@ -791,6 +807,9 @@ protected:
      *  Will be called for the appropriate frame, prior to initializing the colorXform.
      */
   virtual bool conversionSupported(const SkImageInfo& dst, bool srcIsOpaque, bool needsColorXform);
+    // Some classes never need a colorXform e.g.
+    // - ICO uses its embedded codec's colorXform
+    // - WBMP is just Black/White
   virtual bool usesColorXform() const
   {
     return true;
@@ -834,6 +853,7 @@ private:
   XformFormat fDstXformFormat;
   skcms_ICCProfile fDstProfile;
   skcms_AlphaFormat fDstXformAlphaFormat;
+    // Only meaningful during scanline decodes.
   int fCurrScanline;
   bool fStartedIncrementalDecode;
   bool initializeColorXform(const SkImageInfo& dstInfo, SkEncodedInfo::Alpha, bool srcIsOpaque);
@@ -861,6 +881,7 @@ private:
      *  Check for a valid Options.fFrameIndex, and decode prior frames if necessary.
      */
   Result handleFrameIndex(const SkImageInfo&, void* pixels, size_t rowBytes, const Options&);
+    // Methods for scanline decoding.
   virtual Result onStartScanlineDecode(const SkImageInfo&, const Options&)
   {
     return kUnimplemented;

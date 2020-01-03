@@ -8,15 +8,18 @@
 #  define SkMorphologyImageFilter_DEFINED
 #  include "include/core/SkImageFilter.h"
 ///////////////////////////////////////////////////////////////////////////////
+// DEPRECATED: Use include/effects/SkImageFilters::Dilate
 class SK_API SkDilateImageFilter
 {
 public:
   static sk_sp<SkImageFilter> Make(int radiusX, int radiusY, sk_sp<SkImageFilter> input, const SkImageFilter::CropRect* cropRect = nullptr);
+    // Registers all morphology filter implementations
   static void RegisterFlattenables();
 private:
   SkDilateImageFilter() = delete;
 };
 ///////////////////////////////////////////////////////////////////////////////
+// DEPRECATED: Use include/effects/SkImageFilters::Erode
 class SK_API SkErodeImageFilter
 {
 public:

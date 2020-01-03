@@ -1,3 +1,4 @@
+//
 //////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright 2018 Autodesk, Inc.  All rights reserved.
@@ -7,6 +8,15 @@
 //  otherwise accompanies this software in either electronic or hard copy form.   
 //
 //////////////////////////////////////////////////////////////////////////////
+// DBMATCH.H
+//
+// DESCRIPTION: AcDbMatchProperties Protocol extension abstract base class
+//
+// NOTE:
+// Default implementation to be attached to AcDbEntity as a catch-all. This
+// guarantees that this protocol extension will be found  for any entity so
+// the search up the AcRxClass tree will not fail and abort AutoCAD.  
+//
 #ifndef ARX_DBMATCH_H
 #  define ARX_DBMATCH_H
 #  include "acdb.h"
