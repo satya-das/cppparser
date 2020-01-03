@@ -74,23 +74,38 @@ int GetKeywordId(const std::string& keyword) {
 #endif
 
 static int gLog = 0;
-#define ZZLOG     { \
-  if (gLog) \
+
+#define ZZLOG               \
+  {                         \
+  if (gLog)                 \
     printf("ZZLOG @line#%d, parsing stream line#%d\n", __LINE__, gLineNo); \
 }
 
-#define ZZVALID   { \
-  if (gLog) \
-    printf("ZZVALID: ");  \
-  ZZLOG;\
-  YYVALID; }
+static int gDisableYyValid = 0;
 
-#define ZZERROR   do{ \
-  if (gLog) \
-    printf("ZZERROR: ");  \
-  ZZLOG;\
-  YYERROR; } while(0)
-  
+#define ZZVALID   {         \
+  if (gLog)                 \
+    printf("ZZVALID: ");    \
+  ZZLOG;                    \
+  if (!gDisableYyValid)     \
+    YYVALID;                \
+  }
+
+#define ZZERROR             \
+  do {                      \
+    if (gLog)               \
+      printf("ZZERROR: ");  \
+    ZZLOG;                  \
+    YYERROR;                \
+  } while(0)
+
+#define ZZVALID_DISABLE     \
+  ++gDisableYyValid;
+
+#define ZZVALID_ENABLE      \
+  --gDisableYyValid;
+
+
 /** {Globals} */
 /**
  * A program unit is the entire parse tree of a source/header file
@@ -1008,11 +1023,11 @@ funcdefn          : funcdecl block [ZZVALID;] {
                   }
                   ;
 
-lambda            : '[' lambdacapture ']' lambdaparams block                    [ZZLOG;] {
-                    $$ = new CppLambda($2, $4, $5);
+lambda            : '[' lambdacapture ']' lambdaparams [ZZVALID_DISABLE;] block  [ZZVALID_ENABLE;] {
+                    $$ = new CppLambda($2, $4, $6);
                   }
-                  | '[' lambdacapture ']' lambdaparams tknArrow vartype block   [ZZLOG;] {
-                    $$ = new CppLambda($2, $4, $7, $6);
+                  | '[' lambdacapture ']' lambdaparams tknArrow vartype [ZZVALID_DISABLE;] block  [ZZVALID_ENABLE;] {
+                    $$ = new CppLambda($2, $4, $8, $6);
                   }
                   ;
 
@@ -1893,6 +1908,7 @@ CppCompoundPtr parseStream(char* stm, size_t stmSize)
   gTemplateParamStart = nullptr;
   gParamModPos = nullptr;
   gInTemplateSpec = false;
+  gDisableYyValid = 0;
   yyparse();
   cleanupScanBuffer();
   CppCompoundStack tmpStack;
