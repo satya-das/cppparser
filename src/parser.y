@@ -23,6 +23,17 @@
 
 // clang-format off
 
+/*
+  TODOs:
+    (1) Parsing of following needs improvements/support:
+      (a) Imp: Function pointer
+      (b) Sup: Reference to array
+      (c) Sup: Pointer to array
+      Need to borrow ideas from https://www.nongnu.org/hcb/
+        and may be http://www.computing.surrey.ac.uk/research/dsrg/fog/CxxGrammar.y too can help.
+
+*/
+
 %{
 #include "cpptoken.h"
 #include "cppast.h"
