@@ -799,6 +799,14 @@ vardecllist       : typeidentifier opttypemodifier id optvarassign ',' opttypemo
                     $$->addVarDecl(CppVarDeclInList($3, CppVarDecl{$4}));
                     /* TODO: use optvarassign values */
                   }
+                  | varattrib vardecllist {
+                    $$ = $2;
+                    $$->addAttr($1);
+                  }
+                  | exptype vardecllist {
+                    $$ = $2;
+                    $$->addAttr($1);
+                  }
                   ;
 
 varinit           : vardecl '(' typeidentifier '*' id      [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }

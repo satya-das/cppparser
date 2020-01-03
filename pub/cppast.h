@@ -500,10 +500,8 @@ struct CppVarList : public CppObj
 {
   static constexpr CppObjType kObjectType = CppObjType::kVarList;
 
-  const std::string   baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
-  const std::uint32_t typeAttr_ {
-    0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
-
+  const std::string baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
+  std::uint32_t     typeAttr_ {0};
   CppVarList(std::string baseType, CppAccessType accessType = CppAccessType::kUnknown)
     : CppVarList(kObjectType, std::move(baseType), accessType)
   {
@@ -517,6 +515,19 @@ struct CppVarList : public CppObj
   const CppVarDeclList& varDeclList() const
   {
     return varDeclList_;
+  }
+
+  std::uint32_t typeAttr() const
+  {
+    return typeAttr_;
+  }
+  void typeAttr(std::uint32_t attr)
+  {
+    typeAttr_ = attr;
+  }
+  void addAttr(std::uint32_t attr)
+  {
+    typeAttr_ |= attr;
   }
 
 protected:
