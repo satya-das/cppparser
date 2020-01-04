@@ -268,10 +268,10 @@ NUM  ([0-9]+((l|L|u|U)*|(\.[0-9]*)?))|\.[0-9]+|(0(b|B)[01']*)|(0(x|X)[0-9a-fA-F]
 DECNUMLIT  (([0-9]+(\.[0-9]*)?)|([0-9]*(\.[0-9]+)))(f|F)?
 
   /* String literal */
-SL   "\"".*"\""
+SL   \"([^"\\]|\\.)*\"
 
   /* Char literal */
-CL   "\'".*"\'"
+CL   \'([^'\\]|\\.)\'
 
 /*@}*/
 
@@ -1093,17 +1093,17 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknNumber);
 }
 
-<ctxGeneral,ctxInclude>"\""[^"]*"\"" {
+<ctxGeneral,ctxInclude>{SL} {
   set_token_and_yyposn();
   RETURN(tknStrLit);
 }
 
-<ctxGeneral>(L)?"\""[^"]*"\"" {
+<ctxGeneral>(L)?{SL} {
   set_token_and_yyposn();
   RETURN(tknStrLit);
 }
 
-<ctxGeneral>(L)?"\'"[^\']*"\'" {
+<ctxGeneral>(L)?{CL} {
   set_token_and_yyposn();
   RETURN(tknCharLit);
 }
