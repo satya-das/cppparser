@@ -301,30 +301,41 @@ void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, bool emitNewL
     stm << " : " << enmObj->underlyingType_;
   if (enmObj->itemList_)
   {
-    stm << '\n';
-    stm << indentation++ << "{\n";
-    for (auto enmItem : *(enmObj->itemList_))
+    const bool isEnumBodyBlob = !enmObj->itemList_->empty() && enmObj->itemList_->front()->val_
+                                && (enmObj->itemList_->front()->val_->objType_ == CppBlob::kObjectType);
+    if (isEnumBodyBlob)
     {
-      if (enmItem->name_.empty())
-      {
-        emit(enmItem->val_.get(), stm, indentation);
-      }
-      else
-      {
-        stm << indentation << enmItem->name_;
-        if (enmItem->val_ && isExpr(enmItem->val_.get()))
-        {
-          auto* expr = static_cast<CppExpr*>(enmItem->val_.get());
-          stm << " = ";
-          emitExpr(expr, stm);
-        }
-        if (enmItem != enmObj->itemList_->back())
-          stm << ",\n";
-        else
-          stm << '\n';
-      }
+      stm << " {";
+      emit(enmObj->itemList_->front()->val_.get(), stm, indentation);
+      stm << '}';
     }
-    stm << --indentation << "}";
+    else
+    {
+      stm << '\n';
+      stm << indentation++ << "{\n";
+      for (auto enmItem : *(enmObj->itemList_))
+      {
+        if (enmItem->name_.empty())
+        {
+          emit(enmItem->val_.get(), stm, indentation);
+        }
+        else
+        {
+          stm << indentation << enmItem->name_;
+          if (enmItem->val_ && isExpr(enmItem->val_.get()))
+          {
+            auto* expr = static_cast<CppExpr*>(enmItem->val_.get());
+            stm << " = ";
+            emitExpr(expr, stm);
+          }
+          if (enmItem != enmObj->itemList_->back())
+            stm << ",\n";
+          else
+            stm << '\n';
+        }
+      }
+      stm << --indentation << "}";
+    }
   }
   if (emitNewLine)
     stm << ";\n";

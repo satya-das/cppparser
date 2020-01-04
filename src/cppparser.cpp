@@ -37,6 +37,7 @@
 std::set<std::string>      gMacroNames;
 std::set<std::string>      gKnownApiDecorNames;
 std::map<std::string, int> gRenamedKeywords;
+bool                       gParseEnumBodyAsBlob = false;
 
 extern CppCompoundPtr parseStream(char* stm, size_t stmSize);
 CppObjFactory*        gObjFactory = nullptr;
@@ -79,6 +80,11 @@ bool CppParser::addRenamedKeyword(const std::string& keyword, std::string rename
   gRenamedKeywords.emplace(std::make_pair(std::move(renamedKeyword), id));
 
   return true;
+}
+
+void CppParser::parseEnumBodyAsBlob()
+{
+  gParseEnumBodyAsBlob = true;
 }
 
 CppCompoundPtr CppParser::parseFile(const std::string& filename)

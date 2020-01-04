@@ -108,6 +108,10 @@ static int LogAndReturn(int ret, int codelinenum, int srclinenum)
 extern int gLineNo;
 const char* oyytext;
 
+//@{ Flags to parse enum body as a blob
+bool gEnumBodyWillBeEncountered = false;
+//@}
+
 // Its a hack because it uses undocumented thing.
 // Returns start of buffer pointer.
 const char* get_start_of_buffer()
@@ -141,7 +145,7 @@ void setCommentTokenizationState(TokenSetupFlag flag)
       gTokenizeComment = true;
       break;
     case TokenSetupFlag::ResetCommentTokenization:
-      gTokenizeComment = (gBracketDepthStack.back() == 0);
+      gTokenizeComment = (!gBracketDepthStack.empty()) && (gBracketDepthStack.back() == 0);
       break;
     case TokenSetupFlag::None:
       // Nothing to do
@@ -240,17 +244,22 @@ extern "C"
 
 /*@ { Comonly used regular expressions. */
 
-  /* White space */
+  /* White space. It doesn't account for new line which is tracked seperately
+     so that we can count line number for reporting error precisely */
 WS	 [ \t]
+
+  /* New line */
+NL	 (\r\n|\r|\n)
+
+  /* White space or new line chars. Should only be used in trainling context so that
+  new lines are always get tracked. */
+WSNL " "|\r\n|\r|\n|\t
 
   /* Token sparator */
 TS	 [^_a-zA-Z0-9]
 
   /* C/C++ identifier */
 ID	 [_a-zA-Z]+[_0-9a-zA-Z]*
-
-  /* New line */
-NL	 (\r\n|\r|\n)
 
   /* Number */
 NUM  ([0-9]+((l|L|u|U)*|(\.[0-9]*)?))|\.[0-9]+|(0(b|B)[01']*)|(0(x|X)[0-9a-fA-F]*)|0(x|X)[0-9a-zA-Z]+
@@ -287,20 +296,10 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 */
 %x ctxPreProBody
 
+/* When we are inside enum body */
+%x ctxEnumBody
+
 %%
-
-<*>{WS}+ {
-  /* Ignore white spaces */
-}
-
-<*>\\{WS}*{NL} {
-  // We will always ignore line continuation character
-  ++gLineNo;
-}
-
-<*>__attribute__{WS}*\(\(.*\)\) {
-  /* Ignore as of now */
-}
 
 <ctxGeneral>^{WS}*{NL} {
   ++gLineNo;
@@ -405,7 +404,13 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknUnion);
 }
 
-<ctxGeneral>enum/{TS}+ {
+<ctxGeneral>enum/{WS}+(class{WS}+)?{ID}?({WS}*":"{WS}*{ID})?{WSNL}*"{" {
+  set_token_and_yyposn();
+  gEnumBodyWillBeEncountered = true;
+  RETURN(tknEnum);
+}
+
+<ctxGeneral>enum/{TS} {
   set_token_and_yyposn();
   RETURN(tknEnum);
 }
@@ -1100,16 +1105,51 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(yytext[0]);
 }
 
-<ctxGeneral>\)|\] {
+<ctxGeneral>")"|"]" {
   set_token_and_yyposn(TokenSetupFlag::None);
   gBracketDepthStack.back() = gBracketDepthStack.back() - 1;
   RETURN(yytext[0]);
 }
 
-<ctxGeneral>\{ {
-  gBracketDepthStack.push_back(0);
-  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+<ctxGeneral>"{" {
+  if (gEnumBodyWillBeEncountered)
+  {
+    gEnumBodyWillBeEncountered = false;
+    BEGINCONTEXT(ctxEnumBody);
+    set_token_and_yyposn(TokenSetupFlag::None);
+    oyytext = yytext+1;
+  }
+  else
+  {
+    gBracketDepthStack.push_back(0);
+    set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  }
   RETURN(yytext[0]);
+}
+
+<ctxEnumBody>"}" {
+  set_token_and_yyposn(TokenSetupFlag::None);
+  ENDCONTEXT();
+  RETURN(yytext[0]);
+}
+
+<ctxEnumBody>[^\}\n]* {
+  // printf("%s", yytext);
+}
+
+<ctxEnumBody>{NL} {
+  ++gLineNo;
+}
+
+<ctxEnumBody>{NL}/"}" {
+  ++gLineNo;
+  set_token_and_yyposn(oyytext, yytext+yyleng-oyytext, TokenSetupFlag::None);
+  RETURN(tknBlob);
+}
+
+<ctxEnumBody>([^\}\n]*|^{WS}*)/"}" {
+  set_token_and_yyposn(oyytext, yytext+yyleng-oyytext, TokenSetupFlag::None);
+  RETURN(tknBlob);
 }
 
 <ctxGeneral>\} {
@@ -1154,6 +1194,19 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknEllipsis);
 }
 
+<*>{WS}+ {
+  /* Ignore white spaces */
+}
+
+<*>\\{WS}*{NL} {
+  // We will always ignore line continuation character
+  ++gLineNo;
+}
+
+<*>__attribute__{WS}*\(\(.*\)\) {
+  /* Ignore as of now */
+}
+
 %%
 
 static YY_BUFFER_STATE gParseBuffer = nullptr;
@@ -1163,6 +1216,7 @@ void setupScanBuffer(char* buf, size_t bufsize)
   gLineNo = 0;
   oyytext = buf;
   gTokenizeComment = true;
+  gEnumBodyWillBeEncountered = false;
   BEGINCONTEXT(ctxGeneral);
 }
 

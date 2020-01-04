@@ -186,6 +186,7 @@ CppParser constructCppParserForTest()
 int main(int argc, char** argv)
 {
   CppParser parser = constructCppParserForTest();
+  parser.parseEnumBodyAsBlob();
 
   ArgParser argParser;
   auto      optionParseResult = argParser.parse(argc, argv);

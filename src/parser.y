@@ -224,6 +224,8 @@ extern int yylex();
   CppHashIf*              hashIf;
   CppHashError*           hashError;
   CppPragma*              hashPragma;
+
+  CppBlob*                blob;
 }
 
 %token  <str>   tknID tknStrLit tknCharLit tknNumber tknMacro tknApiDecor
@@ -255,6 +257,7 @@ extern int yylex();
 %token  <str>   tknVoid // For the cases when void is used as function parameter.
 %token  <str>   tknOverride // override is not a reserved keyword
 %token  <str>   tknAsm
+%token  <str>   tknBlob
 
 %token  tknStatic tknExtern tknVirtual tknInline tknExplicit tknFriend tknVolatile tknFinal tknNoExcept
 
@@ -333,6 +336,8 @@ extern int yylex();
 %type  <hashError>          hasherror
 %type  <hashPragma>         pragma
 %type  <cppObj>             preprocessor
+
+%type  <blob>               blob
 
 // precedence as mentioned at https://en.cppreference.com/w/cpp/language/operator_precedence
 %left COMMA
@@ -703,6 +708,10 @@ enumitem          : id           [ZZLOG;]   { $$ = new CppEnumItem($1);     }
                   | doccomment   [ZZLOG;]   { $$ = new CppEnumItem($1);     }
                   | preprocessor [ZZLOG;]   { $$ = new CppEnumItem($1);     }
                   | macrocall    [ZZLOG;]   { $$ = new CppEnumItem($1);     }
+                  | blob         [ZZLOG;]   { $$ = new CppEnumItem($1);     }
+                  ;
+
+blob              : tknBlob      [ZZLOG;]   { $$ = new CppBlob($1);         }
                   ;
 
 enumitemlist      :                           [ZZLOG;] { $$ = 0; }

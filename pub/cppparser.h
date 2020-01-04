@@ -45,6 +45,8 @@ public:
 
   bool addRenamedKeyword(const std::string& keyword, std::string renamedKeyword);
 
+  void parseEnumBodyAsBlob();
+
 public:
   CppCompoundPtr parseFile(const std::string& filename);
   CppCompoundPtr parseStream(char* stm, size_t stmSize);

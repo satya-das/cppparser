@@ -1570,12 +1570,11 @@ private:
 
 /**
  * \brief A stream of text that represents some content in a C++ program.
-
- * It is basically a quick way to create C++ content while generating source programatically.
  */
 struct CppBlob : public CppObj
 {
-  std::string blob_;
+  static constexpr CppObjType kObjectType = CppObjType::kBlob;
+  std::string                 blob_;
 
   CppBlob(std::string blob)
     : CppObj(CppObjType::kBlob, CppAccessType::kUnknown)
