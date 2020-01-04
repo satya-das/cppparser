@@ -1789,6 +1789,7 @@ expr              : strlit                                                [ZZLOG
                   | tknReinterpretCast tknLT vartype tknGT '(' expr ')'   [ZZLOG;] { $$ = new CppExpr($3, kReinterpretCast, $6);         }
                   | '(' exprorlist ')'                                    [ZZLOG;] { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
                   | tknNew typeidentifier                                 [ZZLOG;] { $$ = new CppExpr((std::string) $2, CppExpr::kNew);  }
+                  | tknNew expr                                           [ZZLOG;] { $$ = new CppExpr($2, CppExpr::kNew);  }
                   | tknNew '(' expr ')' expr %prec tknNew                 [ZZLOG;] { $$ = new CppExpr($3, kPlacementNew, $5);            }
                   | tknScopeResOp tknNew '(' expr ')' expr %prec tknNew   [ZZLOG;] { $$ = new CppExpr($4, kPlacementNew, $6);            }
                   | tknDelete  expr                                       [ZZLOG;] { $$ = $2; $2->flags_ |= CppExpr::kDelete;            }

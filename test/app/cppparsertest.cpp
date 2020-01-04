@@ -175,6 +175,7 @@ CppParser constructCppParserForTest()
                          "RECORD",
                          "GR_DECLARE_FRAGMENT_PROCESSOR_TEST",
                          "GR_DECLARE_GEOMETRY_PROCESSOR_TEST",
+                         "GR_DECLARE_XP_FACTORY_TEST",
                          "SK_WHEN"});
 
   parser.addIgnorableMacros({"SkDEBUGCODE", "SkDEBUGPARAMS"});
