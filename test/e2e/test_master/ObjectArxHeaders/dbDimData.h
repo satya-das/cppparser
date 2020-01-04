@@ -22,22 +22,22 @@ typedef AcGeVector3d (*DimDataSetCustomStringFuncPtr) (AcDbDimData* pThis, AcDbE
 class AcDbDimData
 {
 public:
-  enum DimDataFlags
-  {
-    kDimEditable = 0x1,
-    kDimInvisible = 0x2,
-    kDimFocal = 0x4,
-    kDimHideIfValueIsZero = 0x8,
-    kDimEmptyData = 0x10,
-    kDimResultantLength = 0x20,
-    kDimDeltaLength = 0x40,
-    kDimResultantAngle = 0x80,
-    kDimDeltaAngle = 0x100,
-    kDimRadius = 0x200,
-    kDimCustomValue = 0x400,
-    kDimConstrained = 0x800,
-    kDimCustomString = 0x1000
-  };
+  enum DimDataFlags {
+        kDimEditable           = 0x1,
+        kDimInvisible          = 0x2,
+        kDimFocal              = 0x4,
+        kDimHideIfValueIsZero  = 0x8,
+        kDimEmptyData          = 0x10, //For constraint-unlock support
+        kDimResultantLength    = 0x20,
+        kDimDeltaLength        = 0x40,
+        kDimResultantAngle     = 0x80,
+        kDimDeltaAngle         = 0x100,
+        kDimRadius             = 0x200,
+        kDimCustomValue        = 0x400,
+        kDimConstrained        = 0x800,
+        kDimCustomString       = 0x1000
+
+    };
   AcDbDimData();
   AcDbDimData(AcDbDimension* pDim, DimDataSetValueFuncPtr setDimFunc = NULL, unsigned int bitFlags = 0, void* appData = NULL, DimDataSetCustomStringFuncPtr setCustomStringFunc = NULL);
   ~AcDbDimData();

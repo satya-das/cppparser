@@ -70,11 +70,10 @@ public:
   class Iter
   {
   public:
-    enum IterStart
-    {
-      kFront_IterStart,
-      kBack_IterStart
-    };
+    enum IterStart {
+            kFront_IterStart,
+            kBack_IterStart,
+        };
         /**
          * Creates an uninitialized iterator. Must be reset()
          */

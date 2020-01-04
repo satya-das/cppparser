@@ -21,10 +21,9 @@ public:
      * specified canvas.  Also copies the target canvas matrix and clip bounds.
      */
   SkPaintFilterCanvas(SkCanvas* canvas);
-  enum Type
-  {
-    kPicture_Type
-  };
+  enum Type {
+        kPicture_Type,
+    };
     // Forwarded to the wrapped canvas.
   SkISize getBaseLayerSize() const override
   {

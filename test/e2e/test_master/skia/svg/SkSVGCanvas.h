@@ -11,11 +11,10 @@ class SkWStream;
 class SK_API SkSVGCanvas
 {
 public:
-  enum
-  {
-    kConvertTextToPaths_Flag = 0x01,
-    kNoPrettyXML_Flag = 0x02
-  };
+  enum {
+        kConvertTextToPaths_Flag = 0x01, // emit text as <path>s
+        kNoPrettyXML_Flag        = 0x02, // suppress newlines and tabs in output
+    };
     /**
      *  Returns a new canvas that will generate SVG commands from its draw calls, and send
      *  them to the provided stream. Ownership of the stream is not transfered, and it must

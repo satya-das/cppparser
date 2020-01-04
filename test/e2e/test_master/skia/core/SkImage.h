@@ -205,11 +205,10 @@ public:
     return DecodeToTexture(ctx, data->data(), data->size(), subset);
   }
     // Experimental
-  enum CompressionType
-  {
-    kETC1_CompressionType,
-    kLast_CompressionType = kETC1_CompressionType
-  };
+  enum CompressionType {
+        kETC1_CompressionType,
+        kLast_CompressionType = kETC1_CompressionType,
+    };
     /** Creates a GPU-backed SkImage from compressed data.
 
         SkImage is returned if format of the compressed data is supported.
@@ -452,11 +451,10 @@ public:
         @return                   created SkImage, or nullptr
     */
   static sk_sp<SkImage> MakeFromNV12TexturesCopyWithExternalBackend(GrContext* context, SkYUVColorSpace yuvColorSpace, const GrBackendTexture nv12Textures[2], GrSurfaceOrigin imageOrigin, const GrBackendTexture& backendTexture, sk_sp<SkColorSpace> imageColorSpace = nullptr, TextureReleaseProc textureReleaseProc = nullptr, ReleaseContext releaseContext = nullptr);
-  enum class BitDepth
-  {
-    kU8,
-    kF16
-  };
+  enum class BitDepth {
+        kU8,  //!< uses 8-bit unsigned int per color component
+        kF16, //!< uses 16-bit float per color component
+    };
     /** Creates SkImage from picture. Returned SkImage width and height are set by dimensions.
         SkImage draws picture with matrix and paint, set to bitDepth and colorSpace.
 
@@ -695,11 +693,10 @@ public:
         SkImage pixels may not be cached if memory requirements are too large or
         pixels are not accessible.
     */
-  enum CachingHint
-  {
-    kAllow_CachingHint,
-    kDisallow_CachingHint
-  };
+  enum CachingHint {
+        kAllow_CachingHint,    //!< allows internally caching decoded and copied pixels
+        kDisallow_CachingHint, //!< disallows internally caching decoded and copied pixels
+    };
     /** Copies SkRect of pixels from SkImage to dstPixels. Copy starts at offset (srcX, srcY),
         and does not exceed SkImage (width(), height()).
 
@@ -932,10 +929,9 @@ public:
   static bool MakeBackendTextureFromSkImage(GrContext* context, sk_sp<SkImage> image, GrBackendTexture* backendTexture, BackendTextureReleaseProc* backendTextureReleaseProc);
     /** Deprecated.
      */
-  enum LegacyBitmapMode
-  {
-    kRO_LegacyBitmapMode
-  };
+  enum LegacyBitmapMode {
+        kRO_LegacyBitmapMode, //!< returned bitmap is read-only and immutable
+    };
     /** Deprecated.
         Creates raster SkBitmap with same pixels as SkImage. If legacyBitmapMode is
         kRO_LegacyBitmapMode, returned bitmap is read-only and immutable.

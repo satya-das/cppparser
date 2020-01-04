@@ -31,15 +31,14 @@ public:
     // Assignment operator.
   AcDbLoftOptions& operator =(const AcDbLoftOptions& src);
   bool operator ==(const AcDbLoftOptions&) const;
-  enum NormalOption
-  {
-    kNoNormal,
-    kFirstNormal,
-    kLastNormal,
-    kEndsNormal,
-    kAllNormal,
-    kUseDraftAngles
-  };
+  enum NormalOption {
+            kNoNormal,
+            kFirstNormal,
+            kLastNormal,
+            kEndsNormal,
+            kAllNormal,
+            kUseDraftAngles
+    };
     // Get/set start draft angle.
   double draftStart() const;
   void setDraftStart(double ang);

@@ -375,21 +375,20 @@ public:
     /// <summary>
     /// The physical intensity method.
     /// </summary>
-  enum PhysicalIntensityMethod
-  {
+  enum PhysicalIntensityMethod {
         /// <summary>
         /// Peak intensity.
         /// </summary>
-    kPeakIntensity = 0,
+        kPeakIntensity = 0,
         /// <summary>
         /// Flux.
         /// </summary>
-    kFlux,
+        kFlux,
         /// <summary>
         /// Illuminance.
         /// </summary>
-    kIlluminance
-  };
+        kIlluminance
+    };
     /// <summary>
     /// Gets the physical intensity method of the light.  This indicates
     /// how the physical intensity of the light is specified, either 
@@ -493,17 +492,16 @@ public:
     /// <summary>
     /// The lamp color type of the light.
     /// </summary>
-  enum LampColorType
-  {
+  enum LampColorType {
         /// <summary>
         /// Color specified as a Kelvin color temperature.
         /// </summary>
-    kKelvin = 0,
+        kKelvin = 0,
         /// <summary>
         /// Color specified as a preset lamp color.
         /// </summary>
-    kPreset
-  };
+        kPreset
+    };
     /// <summary>
     /// Gets the lamp color type of the light.  This indicates how the lamp
     /// color of the light is specified, either as a Kelvin color temperature
@@ -573,69 +571,68 @@ public:
     /// <summary>
     /// The preset lamp color of the light.
     /// </summary>
-  enum LampColorPreset
-  {
+  enum LampColorPreset {
         /// <summary>
         /// D65White lamp color.
         /// </summary>
-    kD65White = 0,
+        kD65White = 0,
         /// <summary>
         /// Fluorescent lamp color.
         /// </summary>
-    kFluorescent,
+        kFluorescent,
         /// <summary>
         /// Cool White lamp color.
         /// </summary>
-    kCoolWhite,
+        kCoolWhite,
         /// <summary>
         /// White Fluorescent lamp color.
         /// </summary>
-    kWhiteFluorescent,
+        kWhiteFluorescent,
         /// <summary>
         /// Daylight Fluorescent lamp color.
         /// </summary>
-    kDaylightFluorescent,
+        kDaylightFluorescent,
         /// <summary>
         /// Incandescent lamp color.
         /// </summary>
-    kIncandescent,
+        kIncandescent,
         /// <summary>
         /// Xenon lamp color.
         /// </summary>
-    kXenon,
+        kXenon,
         /// <summary>
         /// Halogen lamp color.
         /// </summary>
-    kHalogen,
+        kHalogen,
         /// <summary>
         /// Quartz lamp color.
         /// </summary>
-    kQuartz,
+        kQuartz,
         /// <summary>
         /// Metal Halide lamp color.
         /// </summary>
-    kMetalHalide,
+        kMetalHalide,
         /// <summary>
         /// Mercury lamp color.
         /// </summary>
-    kMercury,
+        kMercury,
         /// <summary>
         /// Phosphor Mercury lamp color.
         /// </summary>
-    kPhosphorMercury,
+        kPhosphorMercury,
         /// <summary>
         /// High Pressure Sodium lamp color.
         /// </summary>
-    kHighPressureSodium,
+        kHighPressureSodium,
         /// <summary>
         /// Low Pressure Sodium lamp color.
         /// </summary>
-    kLowPressureSodium,
+        kLowPressureSodium,
         /// <summary>
         /// Custom lamp color.
         /// </summary>
-    kCustom
-  };
+        kCustom
+    };
     /// <summary>
     /// Gets the preset lamp color of the light.
     /// </summary>
@@ -857,21 +854,20 @@ public:
     /// <summary>
     /// Glyph Display type
     /// </summary>
-  enum GlyphDisplayType
-  {
+  enum GlyphDisplayType {
         /// <summary>
         /// Auto. 
         /// </summary>
-    kGlyphDisplayAuto = 0,
+        kGlyphDisplayAuto = 0,
         /// <summary>
         /// On.
         /// </summary>
-    kGlyphDisplayOn,
+        kGlyphDisplayOn,
         /// <summary>
         /// Off.
         /// </summary>
-    kGlyphDisplayOff
-  };
+        kGlyphDisplayOff
+    };
     /// <summary>
     /// Gets the display state of the light glyph.
     /// </summary>

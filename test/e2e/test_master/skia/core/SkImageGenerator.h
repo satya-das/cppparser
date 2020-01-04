@@ -175,12 +175,11 @@ protected:
     return false;
   }
 #  if  SK_SUPPORT_GPU
-  enum class TexGenType
-  {
-    kNone,
-    kCheap,
-    kExpensive
-  };
+  enum class TexGenType {
+        kNone,           //image generator does not implement onGenerateTexture
+        kCheap,          //onGenerateTexture is implemented and it is fast (does not render offscreen)
+        kExpensive,      //onGenerateTexture is implemented and it is relatively slow
+    };
   virtual TexGenType onCanGenerateTexture() const
   {
     return TexGenType::kNone;

@@ -34,12 +34,11 @@ const double AcDbMPolygonCrossingFuzz = 1E-6;
 class AcDbMPolygon : public AcDbEntity
 {
 public:
-  enum loopDir
-  {
-    kExterior = 0,
-    kInterior,
-    kAnnotation
-  };
+  enum loopDir {
+        kExterior     = 0,            // counter clockwise
+        kInterior,                    // clockwise
+        kAnnotation                   // text
+    };
     // Constructors and Destructors
     //
   ACMPOLYGON_PORT AcDbMPolygon();

@@ -24,11 +24,9 @@ public:
   ACDBCORE2D_PORT AcUnderlayLayer(const AcUnderlayLayer&);
   ACDBCORE2D_PORT const AcUnderlayLayer& operator=(const AcUnderlayLayer&);
   ACDBCORE2D_PORT friend bool operator ==(const AcUnderlayLayer& l, const AcUnderlayLayer& r);
-  typedef enum
-{
-  kOff = 0,
-  kOn = 1
-} State;
+  typedef enum {
+        kOff=0,
+        kOn=1} State;
   AcString name() const;
   State state() const;
   Acad::ErrorStatus setName(const AcString& name);

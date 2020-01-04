@@ -51,16 +51,15 @@ public:
         Type members become progressively less restrictive; larger values of
         Type have more degrees of freedom than smaller values.
     */
-  enum Type
-  {
-    kEmpty_Type,
-    kRect_Type,
-    kOval_Type,
-    kSimple_Type,
-    kNinePatch_Type,
-    kComplex_Type,
-    kLastType = kComplex_Type
-  };
+  enum Type {
+        kEmpty_Type,                     //!< zero width or height
+        kRect_Type,                      //!< non-zero width and height, and zeroed radii
+        kOval_Type,                      //!< non-zero width and height filled with radii
+        kSimple_Type,                    //!< non-zero width and height with equal radii
+        kNinePatch_Type,                 //!< non-zero width and height with axis-aligned radii
+        kComplex_Type,                   //!< non-zero width and height with arbitrary radii
+        kLastType       = kComplex_Type, //!< largest Type value
+    };
     /** Returns SkRRect::Type, one of:
         kEmpty_Type, kRect_Type, kOval_Type, kSimple_Type, kNinePatch_Type,
         kComplex_Type.
@@ -279,13 +278,12 @@ public:
     /** \enum SkRRect::Corner
         The radii are stored: top-left, top-right, bottom-right, bottom-left.
     */
-  enum Corner
-  {
-    kUpperLeft_Corner,
-    kUpperRight_Corner,
-    kLowerRight_Corner,
-    kLowerLeft_Corner
-  };
+  enum Corner {
+        kUpperLeft_Corner,  //!< index of top-left corner radii
+        kUpperRight_Corner, //!< index of top-right corner radii
+        kLowerRight_Corner, //!< index of bottom-right corner radii
+        kLowerLeft_Corner,  //!< index of bottom-left corner radii
+    };
     /** Returns bounds. Bounds may have zero width or zero height. Bounds right is
         greater than or equal to left; bounds bottom is greater than or equal to top.
         Result is identical to getBounds().

@@ -372,15 +372,15 @@ static void swap(SkString& a, SkString& b)
 {
   a.swap(b);
 }
-enum SkStrSplitMode
-{
+enum SkStrSplitMode {
     // Strictly return all results. If the input is ",," and the separator is ',' this will return
     // an array of three empty strings.
-  kStrict_SkStrSplitMode,
+    kStrict_SkStrSplitMode,
+
     // Only nonempty results will be added to the results. Multiple separators will be
     // coalesced. Separators at the beginning and end of the input will be ignored.  If the input is
     // ",," and the separator is ',', this will return an empty vector.
-  kCoalesce_SkStrSplitMode
+    kCoalesce_SkStrSplitMode
 };
 // Split str on any characters in delimiters into out.  (Think, strtok with a sane API.)
 void SkStrSplit(const char* str, const char* delimiters, SkStrSplitMode splitMode, SkTArray<SkString>* out);

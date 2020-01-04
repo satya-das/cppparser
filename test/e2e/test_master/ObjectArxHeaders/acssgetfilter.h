@@ -99,42 +99,40 @@ Acad::ErrorStatus setAllowDuplicateSelection(AcApDocument* pDoc, unsigned char f
 bool duplicateSelectionsAllowed(AcApDocument* pDoc);
 namespace AcEdSSGet
 {
-  enum AcEdSSGetFlags
-  {
-    kNormal = 0,
-    kPickPoints = 1,
-    kDuplicates = 2,
-    kNestedEntities = 4,
-    kSubEntities = 8,
-    kSinglePick = 16,
-    kPickfirstSet = 32,
-    kPreviousSet = 64,
-    kSubSelection = 128,
-    kUndo = 256,
+  enum AcEdSSGetFlags {
+    kNormal         =   0,
+    kPickPoints     =   1,
+    kDuplicates     =   2,
+    kNestedEntities =   4,
+    kSubEntities    =   8,
+    kSinglePick     =  16,
+    kPickfirstSet   =  32,
+    kPreviousSet    =  64,
+    kSubSelection   = 128,
+    kUndo           = 256,
     kFailedPickAuto = 512,
     kCommandPreview = 1024,
-    kAllViewports = 2048,
-    kForBoxPick = 4096,
+    kAllViewports   = 2048,
+    kForBoxPick     = 4096,
     kPreSelectionHilite = 8192
-  };
-  enum AcEdSSGetModes
-  {
-    kWin = 1,
-    kCross,
-    kBox,
-    kLast,
-    kEntity,
-    kAll,
-    kFence,
-    kCPoly,
-    kWPoly,
-    kPick,
-    kEvery,
-    kXten,
-    kGroup,
-    kPrevious,
-    kMultiple
-  };
+};
+  enum AcEdSSGetModes {
+    kWin = 1,   //  (Window spec)
+    kCross,     //  (Crossing spec)
+    kBox,       //  (Box spec)
+    kLast,      //  (Last)
+    kEntity,    //  (Explicit entity name)
+    kAll,       //  (Select all)
+    kFence,     //  (Fence Selection)
+    kCPoly,     //  (Crossing Poly)
+    kWPoly,     //  (Window Poly)
+    kPick,      //  (Single pick)
+    kEvery,     //  (every entity on single pick)
+    kXten,      //  (ssget "X")
+    kGroup,     //  (selection set from "group" specification)
+    kPrevious,  //  (previous selectionset)
+    kMultiple,  //  (Multiple keyword)
+};
 }
 class AcEdSSGetFilter2 : public AcEdSSGetFilter
 {

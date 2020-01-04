@@ -436,10 +436,9 @@ public:
     /** \enum SkBitmap::AllocFlags
         AllocFlags is obsolete.  We always zero pixel memory when allocated.
     */
-  enum AllocFlags
-  {
-    kZeroPixels_AllocFlag = 1 << 0
-  };
+  enum AllocFlags {
+        kZeroPixels_AllocFlag = 1 << 0, //!< zero pixel memory.  No effect.  This is the default.
+    };
     /** Sets SkImageInfo to info following the rules in setInfo() and allocates pixel
         memory. Memory is zeroed.
 
@@ -1111,10 +1110,9 @@ public:
     bool allocPixelRef(SkBitmap* bitmap) override;
   };
 private:
-  enum Flags
-  {
-    kImageIsVolatile_Flag = 0x02
-  };
+  enum Flags {
+        kImageIsVolatile_Flag   = 0x02,
+    };
   sk_sp<SkPixelRef> fPixelRef;
   SkPixmap fPixmap;
   uint8_t fFlags;

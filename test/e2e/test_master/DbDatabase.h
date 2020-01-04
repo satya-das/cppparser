@@ -172,179 +172,161 @@ typedef OdSmartPtr<OdDbDatabase> OdDbDatabasePtr;
 */
 namespace OdDb
 {
-  enum UnitsValue
-  {
-    kUnitsUndefined = 0,
-    kUnitsInches = 1,
-    kUnitsFeet = 2,
-    kUnitsMiles = 3,
-    kUnitsMillimeters = 4,
-    kUnitsCentimeters = 5,
-    kUnitsMeters = 6,
-    kUnitsKilometers = 7,
-    kUnitsMicroinches = 8,
-    kUnitsMils = 9,
-    kUnitsYards = 10,
-    kUnitsAngstroms = 11,
-    kUnitsNanometers = 12,
-    kUnitsMicrons = 13,
-    kUnitsDecimeters = 14,
-    kUnitsDekameters = 15,
-    kUnitsHectometers = 16,
-    kUnitsGigameters = 17,
-    kUnitsAstronomical = 18,
-    kUnitsLightYears = 19,
-    kUnitsParsecs = 20,
-    kUnitsMax = kUnitsParsecs
+  enum UnitsValue { 
+    kUnitsUndefined    = 0, 
+    kUnitsInches       = 1, 
+    kUnitsFeet         = 2, 
+    kUnitsMiles        = 3, 
+    kUnitsMillimeters  = 4, 
+    kUnitsCentimeters  = 5, 
+    kUnitsMeters       = 6, 
+    kUnitsKilometers   = 7, 
+    kUnitsMicroinches  = 8, 
+    kUnitsMils         = 9, 
+    kUnitsYards        = 10, 
+    kUnitsAngstroms    = 11, 
+    kUnitsNanometers   = 12, 
+    kUnitsMicrons      = 13, 
+    kUnitsDecimeters   = 14, 
+    kUnitsDekameters   = 15, 
+    kUnitsHectometers  = 16, 
+    kUnitsGigameters   = 17, 
+    kUnitsAstronomical = 18, 
+    kUnitsLightYears   = 19, 
+    kUnitsParsecs      = 20, 
+    kUnitsMax          = kUnitsParsecs 
   };
-  enum SaveType
-  {
-    kDwg = 0,
-    kDxf = 1,
-    kDxb = 2,
-    kUnknown = -1
+  enum SaveType { 
+    kDwg   = 0,   // Save as DWG file 
+    kDxf   = 1,   // Save as DXF file 
+    kDxb   = 2,   // Save as binary DXF file 
+    kUnknown = -1 // Database was created from scratch 
   };
-  enum EndCaps
-  {
-    kEndCapNone = 0,
-    kEndCapRound = 1,
-    kEndCapAngle = 2,
-    kEndCapSquare = 3
+  enum EndCaps { 
+    kEndCapNone       =  0, 
+    kEndCapRound      =  1, 
+    kEndCapAngle      =  2, 
+    kEndCapSquare     =  3 
   };
-  enum JoinStyle
-  {
-    kJnStylNone = 0,
-    kJnStylRound = 1,
-    kJnStylAngle = 2,
-    kJnStylFlat = 3
+  enum JoinStyle { 
+    kJnStylNone       =  0, 
+    kJnStylRound      =  1, 
+    kJnStylAngle      =  2, 
+    kJnStylFlat       =  3 
   };
-  enum DuplicateLinetypeLoading
-  {
-    kDltNotApplicable = 0,
-    kDltIgnore = 1,
-    kDltReplace = 2
+  enum DuplicateLinetypeLoading { 
+    kDltNotApplicable = 0, // Not Applicable. 
+    kDltIgnore        = 1, // Ignore duplicate LineTypes. 
+    kDltReplace       = 2  // Replace duplicate LineTypes. 
   };
-  enum TimeZone
-  {
-    kInternationalDateLine = -12000,
-    kMidwayIsland = -11000,
-    kHawaii = -10000,
-    kAlaska = -9000,
-    kPacific = -8000,
-    kMountain = -7000,
-    kArizona = -7001,
-    kMazatlan = -7002,
-    kCentral = -6000,
-    kCentralAmerica = -6001,
-    kMexicoCity = -6002,
-    kSaskatchewan = -6003,
-    kEastern = -5000,
-    kIndiana = -5001,
-    kBogota = -5002,
-    kAtlanticCanada = -4000,
-    kCaracas = -4001,
-    kSantiago = -4002,
-    kNewfoundland = -3300,
-    kBrasilia = -3000,
-    kBuenosAires = -3001,
-    kGreenland = -3002,
-    kMidAtlantic = -2000,
-    kAzores = -1000,
-    kCapeVerde = -1001,
-    kUTC = 0,
-    kGMT = 1,
-    kMonrovia = 2,
-    kBerlin = 1000,
-    kParis = 1001,
-    kPrague = 1002,
-    kSarajevo = 1003,
-    kWestCentralAfrica = 1004,
-    kAthens = 2000,
-    kEasternEurope = 2001,
-    kCairo = 2002,
-    kHarare = 2003,
-    kHelsinki = 2004,
-    kJerusalem = 2005,
-    kMoscow = 3000,
-    kRiyadh = 3001,
-    kBaghdad = 3002,
-    kEastAfrica = 3003,
-    kTehran = 3300,
-    kAbuDhabi = 4000,
-    kCaucasus = 4001,
-    kKabul = 4300,
-    kEkaterinburg = 5000,
-    kIslamabad = 5001,
-    kKolkata = 5300,
-    kKathmandu = 5450,
-    kAlmaty = 6000,
-    kDhaka = 6001,
-    kSriLanka = 6002,
-    kRangoon = 6300,
-    kBangkok = 7000,
-    kKrasnoyarsk = 7001,
-    kBeijing = 8000,
-    kSingapore = 8001,
-    kTaipei = 8002,
-    kIrkutsk = 8003,
-    kPerth = 8004,
-    kTokyo = 9000,
-    kSeoul = 9001,
-    kYakutsk = 9002,
-    kAdelaide = 9300,
-    kDarwin = 9301,
-    kSydney = 10000,
-    kGuam = 10001,
-    kBrisbane = 10002,
-    kHobart = 10003,
-    kVladivostock = 10004,
-    kMagadan = 11000,
-    kWellington = 12000,
-    kFiji = 12001,
-    kTonga = 13000
+  enum TimeZone { 
+    kInternationalDateLine      = -12000,   //(GMT-12:00) International Date Line West 
+    kMidwayIsland               = -11000,   //(GMT-11:00) Midway Island, Samoa 
+    kHawaii                     = -10000,   //(GMT-10:00) Hawaii 
+    kAlaska                     = -9000,    //(GMT-09:00) Alaska 
+    kPacific                    = -8000,    //(GMT-08:00) Pacific Time (US & Canada); Tijuana 
+    kMountain                   = -7000,    //(GMT-07:00) Mountain Time (US & Canada) 
+    kArizona                    = -7001,    //(GMT-07:00) Arizona 
+    kMazatlan                   = -7002,    //(GMT-07:00) Chihuahua, La Paz, Mazatlan 
+    kCentral                    = -6000,    //(GMT-06:00) Central Time (US & Canada) 
+    kCentralAmerica             = -6001,    //(GMT-06:00) Central America 
+    kMexicoCity                 = -6002,    //(GMT-06:00) Guadalajara, Mexico City, Monterrey 
+    kSaskatchewan               = -6003,    //(GMT-06:00) Saskatchewan 
+    kEastern                    = -5000,    //(GMT-05:00) Eastern Time (US & Canada) 
+    kIndiana                    = -5001,    //(GMT-05:00) Indiana (East) 
+    kBogota                     = -5002,    //(GMT-05:00) Bogota, Lima, Quito 
+    kAtlanticCanada             = -4000,    //(GMT-04:00) Atlantic Time (Canada) 
+    kCaracas                    = -4001,    //(GMT-04:00) Caracas, La Paz 
+    kSantiago                   = -4002,    //(GMT-04:00) Santiago 
+    kNewfoundland               = -3300,    //(GMT-03:30) Newfoundland 
+    kBrasilia                   = -3000,    //(GMT-03:00) Brasilia 
+    kBuenosAires                = -3001,    //(GMT-03:00) Buenos Aires, Georgetown 
+    kGreenland                  = -3002,    //(GMT-03:00) Greenland 
+    kMidAtlantic                = -2000,    //(GMT-02:00) Mid-Atlantic 
+    kAzores                     = -1000,    //(GMT-01:00) Azores 
+    kCapeVerde                  = -1001,    //(GMT-01:00) Cape Verde Is. 
+    kUTC                        =     0,    //(UTC) Universal Coordinated Time 
+    kGMT                        =     1,    //(GMT) Greenwich Mean Time: Dublin, Edinburgh, Lisbon, London 
+    kMonrovia                   =     2,    //(GMT) Casablanca, Monrovia 
+    kBerlin                     =  1000,    //(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna 
+    kParis                      =  1001,    //(GMT+01:00) Brussels, Copenhagen, Madrid, Paris 
+    kPrague                     =  1002,    //(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague 
+    kSarajevo                   =  1003,    //(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb 
+    kWestCentralAfrica          =  1004,    //(GMT+01:00) West Central Africa 
+    kAthens                     =  2000,    //(GMT+02:00) Athens, Beirut, Istanbul, Minsk 
+    kEasternEurope              =  2001,    //(GMT+02:00) Bucharest 
+    kCairo                      =  2002,    //(GMT+02:00) Cairo 
+    kHarare                     =  2003,    //(GMT+02:00) Harare, Pretoria 
+    kHelsinki                   =  2004,    //(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius 
+    kJerusalem                  =  2005,    //(GMT+02:00) Jerusalem 
+    kMoscow                     =  3000,    //(GMT+03:00) Moscow, St. Petersburg, Volgograd 
+    kRiyadh                     =  3001,    //(GMT+03:00) Kuwait, Riyadh 
+    kBaghdad                    =  3002,    //(GMT+03:00) Baghdad 
+    kEastAfrica                 =  3003,    //(GMT+03:00) Nairobi 
+    kTehran                     =  3300,    //(GMT+03:30) Tehran 
+    kAbuDhabi                   =  4000,    //(GMT+04:00) Abu Dhabi, Muscat 
+    kCaucasus                   =  4001,    //(GMT+04:00) Baku, Tbilisi, Yerevan 
+    kKabul                      =  4300,    //(GMT+04:30) Kabul 
+    kEkaterinburg               =  5000,    //(GMT+05:00) Ekaterinburg 
+    kIslamabad                  =  5001,    //(GMT+05:00) Islamabad, Karachi, Tashkent 
+    kKolkata                    =  5300,    //(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi 
+    kKathmandu                  =  5450,    //(GMT+05:45) Kathmandu 
+    kAlmaty                     =  6000,    //(GMT+06:00) Almaty, Novosibirsk 
+    kDhaka                      =  6001,    //(GMT+06:00) Astana, Dhaka 
+    kSriLanka                   =  6002,    //(GMT+06:00) Sri Jayawardenepura 
+    kRangoon                    =  6300,    //(GMT+06:30) Rangoon 
+    kBangkok                    =  7000,    //(GMT+07:00) Bangkok, Hanoi, Jakarta 
+    kKrasnoyarsk                =  7001,    //(GMT+07:00) Krasnoyarsk 
+    kBeijing                    =  8000,    //(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi 
+    kSingapore                  =  8001,    //(GMT+08:00) Kuala Lumpur, Singapore 
+    kTaipei                     =  8002,    //(GMT+08:00) Taipei 
+    kIrkutsk                    =  8003,    //(GMT+08:00) Irkutsk, Ulaan Bataar 
+    kPerth                      =  8004,    //(GMT+08:00) Perth 
+    kTokyo                      =  9000,    //(GMT+09:00) Osaka, Sapporo, Tokyo 
+    kSeoul                      =  9001,    //(GMT+09:00) Seoul 
+    kYakutsk                    =  9002,    //(GMT+09:00) Yakutsk 
+    kAdelaide                   =  9300,    //(GMT+09:30) Adelaide 
+    kDarwin                     =  9301,    //(GMT+09:30) Darwin 
+    kSydney                     = 10000,    //(GMT+10:00) Canberra, Melbourne, Sydney 
+    kGuam                       = 10001,    //(GMT+10:00) Guam, Port Moresby 
+    kBrisbane                   = 10002,    //(GMT+10:00) Brisbane 
+    kHobart                     = 10003,    //(GMT+10:00) Hobart 
+    kVladivostock               = 10004,    //(GMT+10:00) Vladivostok 
+    kMagadan                    = 11000,    //(GMT+11:00) Magadan, Solomon Is., New Caledonia 
+    kWellington                 = 12000,    //(GMT+12:00) Auckland, Wellington 
+    kFiji                       = 12001,    //(GMT+12:00) Fiji, Kamchatka, Marshall Is. 
+    kTonga                      = 13000     //(GMT+13:00) Nuku'alofa 
   };
-  enum ShadowFlags
-  {
-    kShadowsCastAndReceive = 0x00,
-    kShadowsDoesNotReceive = 0x01,
-    kShadowsDoesNotCast = 0x02,
-    kShadowsIgnore = kShadowsDoesNotCast | kShadowsDoesNotReceive
-  };
+  enum ShadowFlags { kShadowsCastAndReceive  = 0x00, 
+                         kShadowsDoesNotReceive  = 0x01, 
+                         kShadowsDoesNotCast     = 0x02, 
+                         kShadowsIgnore          = kShadowsDoesNotCast | kShadowsDoesNotReceive};
   /** Description: 
     Specifies settings that affect the shape of the  
     lofted solid or surface. 
   */
-  enum LoftParamType
-  {
-    kLoftNoParam = 0x00,
-    kLoftNoTwist = 0x01,
-    kLoftAlignDirection = 0x02,
-    kLoftSimplify = 0x04,
-    kLoftClose = 0x08,
-    kLoftDefault = kLoftNoTwist | kLoftAlignDirection | kLoftSimplify
-  };
+  enum LoftParamType { kLoftNoParam           = 0x00, 
+                         kLoftNoTwist           = 0x01, 
+                         kLoftAlignDirection    = 0x02, 
+                         kLoftSimplify          = 0x04, 
+                         kLoftClose             = 0x08, 
+                         kLoftDefault           = kLoftNoTwist | kLoftAlignDirection | kLoftSimplify };
   /** Description: 
     Specifies the normals of the lofted object where it 
     passes through cross section curves. 
   */
-  enum LoftNormalsType
-  {
-    kLoftRuled = 0,
-    kLoftSmooth = 1,
-    kLoftFirstNormal = 2,
-    kLoftLastNormal = 3,
-    kLoftEndsNormal = 4,
-    kLoftAllNormal = 5,
-    kLoftUseDraftAngles = 6
-  };
+  enum LoftNormalsType { kLoftRuled            = 0, 
+                          kLoftSmooth           = 1, 
+                          kLoftFirstNormal      = 2, 
+                          kLoftLastNormal       = 3, 
+                          kLoftEndsNormal       = 4, 
+                          kLoftAllNormal        = 5, 
+                          kLoftUseDraftAngles   = 6 };
     /** Description: 
       Specifies how the entity interacts with collision detection. 
     */
-  enum CollisionType
-  {
-    kCollisionTypeNone = 0,
-    kCollisionTypeSolid = 1
-  };
+  enum CollisionType { kCollisionTypeNone  = 0, 
+                             kCollisionTypeSolid = 1 };
 }
 /** Description: 
     This class represents a complete drawing file. 

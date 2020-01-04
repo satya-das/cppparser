@@ -15,27 +15,28 @@ namespace SkCodecAnimation
      *
      *  The numbers correspond to values in a GIF.
      */
-  enum class DisposalMethod
-  {
+  enum class DisposalMethod {
         /**
          *  The next frame should be drawn on top of this one.
          *
          *  In a GIF, a value of 0 (not specified) is also treated as Keep.
          */
-    kKeep = 1,
+        kKeep               = 1,
+
         /**
          *  Similar to Keep, except the area inside this frame's rectangle
          *  should be cleared to the BackGround color (transparent) before
          *  drawing the next frame.
          */
-    kRestoreBGColor = 2,
+        kRestoreBGColor     = 2,
+
         /**
          *  The next frame should be drawn on top of the previous frame - i.e.
          *  disregarding this one.
          *
          *  In a GIF, a value of 4 is also treated as RestorePrevious.
          */
-    kRestorePrevious = 3
-  };
+        kRestorePrevious    = 3,
+    };
 }
 #endif

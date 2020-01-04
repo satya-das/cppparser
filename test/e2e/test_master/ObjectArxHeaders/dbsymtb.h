@@ -133,11 +133,10 @@ public:
   virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
   virtual Acad::ErrorStatus assumeOwnershipOf(const AcDbObjectIdArray& entitiesToMove);
     // Block scaling and exploding control
-  enum BlockScaling
-  {
-    kAny,
-    kUniform
-  };
+  enum BlockScaling {
+        kAny,
+        kUniform
+    };
   AcDbBlockTableRecord::BlockScaling blockScaling() const;
   Acad::ErrorStatus setBlockScaling(AcDbBlockTableRecord::BlockScaling blockScaling);
   Acad::ErrorStatus setExplodable(bool bExplodable);
@@ -174,10 +173,7 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus setLinetypeObjectId(AcDbObjectId id);
   AcDbObjectId materialId() const;
   Acad::ErrorStatus setMaterialId(AcDbObjectId id);
-  enum
-  {
-    kDxfLayerPlotBit = AcDb::kDxfBool
-  };
+  enum { kDxfLayerPlotBit = AcDb::kDxfBool };
   bool isPlottable() const;
   Acad::ErrorStatus setIsPlottable(bool plot);
   AcDb::LineWeight lineWeight() const;

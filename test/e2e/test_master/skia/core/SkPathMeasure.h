@@ -35,12 +35,11 @@ public:
         position and tangent are unchanged.
     */
   bool SK_WARN_UNUSED_RESULT getPosTan(SkScalar distance, SkPoint* position, SkVector* tangent);
-  enum MatrixFlags
-  {
-    kGetPosition_MatrixFlag = 0x01,
-    kGetTangent_MatrixFlag = 0x02,
-    kGetPosAndTan_MatrixFlag = kGetPosition_MatrixFlag | kGetTangent_MatrixFlag
-  };
+  enum MatrixFlags {
+        kGetPosition_MatrixFlag     = 0x01,
+        kGetTangent_MatrixFlag      = 0x02,
+        kGetPosAndTan_MatrixFlag    = kGetPosition_MatrixFlag | kGetTangent_MatrixFlag
+    };
     /** Pins distance to 0 <= distance <= getLength(), and then computes
         the corresponding matrix (by calling getPosTan).
         Returns false if there is no path, or a zero-length path was specified, in which case

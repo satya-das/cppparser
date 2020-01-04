@@ -75,27 +75,29 @@ public:
   /// indicate how the distance between the two geometries are measured.
   /// </summary>
   ///
-  enum DirectionType
-  {
+  enum DirectionType {
     /// <summary>
     /// Not directed distance.
     /// The minimum distance between the two geometries is measured.
     /// </summary>
     ///
-    kNotDirected = 0,
+    kNotDirected         = 0,
+
     /// <summary>
     /// Directed distance with fixed direction.
     /// The distance between the two geometries is measured along the fixed direction.
     /// </summary>
     ///
-    kFixedDirection,
+    kFixedDirection         ,
+
     /// <summary>
     /// Directed distance with relative direction.
     /// The distance between the two geometries is measured along the direction
     /// which is perpendicular to an existing constraint line.
     /// </summary>
     ///
-    kPerpendicularToLine,
+    kPerpendicularToLine    ,
+
     /// <summary>
     /// Directed distance with relative direction.
     /// The distance between the two geometries is measured along the direction
@@ -169,32 +171,34 @@ public:
   /// indicate how the angle between the two lines is measured.
   /// </summary>
   ///
-  enum SectorType
-  {
+  enum SectorType {
     /// <summary>
     /// The angle measured from the forward direction of line 1 to 
     /// the forward direction of line 2 anticlockwise.
     /// </summary>
     ///
     kParallelAntiClockwise = 0,
+
     /// <summary>
     /// The angle measured from the forward direction of line 1 to 
     /// the non forward direction of line 2 clockwise.
     /// </summary>
     ///
     kAntiParallelClockwise = 1,
+
     /// <summary>
     /// The angle measured from the forward direction of line 1 to 
     /// the forward direction of line 2 clockwise.
     /// </summary>
     ///
     kParallelClockwise = 2,
+
     /// <summary>
     /// The angle measured from the forward direction of line 1 to 
     /// the non forward direction of line 2 anticlockwise.
     /// </summary>
     ///
-    kAntiParallelAntiClockwise = 3
+    kAntiParallelAntiClockwise = 3,    
   };
   /// <summary> 
   /// Default constructor.
@@ -276,23 +280,25 @@ public:
   /// indicate whether radius or diameter is measured.
   /// </summary>
   ///
-  enum RadiusDiameterConstrType
-  {
+  enum RadiusDiameterConstrType { 
     /// <summary>
     /// The radius of a constrained circle or arc is measured.
     /// </summary>
     ///
-    kCircleRadius = 0,
+    kCircleRadius   = 0,
+
     /// <summary>
     /// The diameter of a constrained circle or arc is measured.
     /// </summary>
     ///
-    kCircleDiameter,
+    kCircleDiameter    ,
+
     /// <summary>
     /// The minor radius of a constrained (bounded) ellipse is measured.
     /// </summary>
     ///
-    kMinorRadius,
+    kMinorRadius       ,
+
     /// <summary>
     /// The major radius of a constrained (bounded) ellipse is measured.
     /// </summary>

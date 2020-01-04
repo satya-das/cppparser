@@ -84,12 +84,7 @@ struct GrMockOptions
   }
   struct ConfigOptions
   {
-    enum Renderability
-    {
-      kNo,
-      kNonMSAA,
-      kMSAA
-    };
+    enum Renderability { kNo, kNonMSAA, kMSAA };
     Renderability fRenderability = kNo;
     bool fTexturable = false;
   };

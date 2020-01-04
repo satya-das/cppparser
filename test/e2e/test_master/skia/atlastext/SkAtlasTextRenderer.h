@@ -17,11 +17,10 @@
 class SK_API SkAtlasTextRenderer : public SkRefCnt
 {
 public:
-  enum class AtlasFormat
-  {
+  enum class AtlasFormat {
         /** Unsigned normalized 8 bit single channel format. */
-    kA8
-  };
+        kA8
+    };
   struct SDFVertex
   {
         /** Position in device space (not normalized). The third component is w (not z). */

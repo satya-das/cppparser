@@ -191,12 +191,11 @@ public:
         Use kStrokeAndFill_Style to avoid hitting the same pixels twice with a stroke draw and
         a fill draw.
     */
-  enum Style : uint8_t
-  {
-    kFill_Style,
-    kStroke_Style,
-    kStrokeAndFill_Style
-  };
+  enum Style : uint8_t {
+        kFill_Style,          //!< set to fill geometry
+        kStroke_Style,        //!< set to stroke geometry
+        kStrokeAndFill_Style, //!< sets to stroke and fill geometry
+    };
     /** May be used to verify that SkPaint::Style is a legal value.
     */
   static int kStyleCount = kStrokeAndFill_Style + 1;
@@ -322,14 +321,13 @@ public:
     /** \enum SkPaint::Cap
         Cap draws at the beginning and end of an open path contour.
     */
-  enum Cap
-  {
-    kButt_Cap,
-    kRound_Cap,
-    kSquare_Cap,
-    kLast_Cap = kSquare_Cap,
-    kDefault_Cap = kButt_Cap
-  };
+  enum Cap {
+        kButt_Cap,                  //!< no stroke extension
+        kRound_Cap,                 //!< adds circle
+        kSquare_Cap,                //!< adds square
+        kLast_Cap    = kSquare_Cap, //!< largest Cap value
+        kDefault_Cap = kButt_Cap,   //!< equivalent to kButt_Cap
+    };
     /** May be used to verify that SkPaint::Cap is a legal value.
     */
   static int kCapCount = kLast_Cap + 1;
@@ -346,14 +344,13 @@ public:
         not contain the actual join. For instance, a fill path constructed with round joins does
         not necessarily include circles at each connected segment.
     */
-  enum Join : uint8_t
-  {
-    kMiter_Join,
-    kRound_Join,
-    kBevel_Join,
-    kLast_Join = kBevel_Join,
-    kDefault_Join = kMiter_Join
-  };
+  enum Join : uint8_t {
+        kMiter_Join,                 //!< extends to miter limit
+        kRound_Join,                 //!< adds circle
+        kBevel_Join,                 //!< connects outside edges
+        kLast_Join    = kBevel_Join, //!< equivalent to the largest value for Join
+        kDefault_Join = kMiter_Join, //!< equivalent to kMiter_Join
+    };
     /** May be used to verify that SkPaint::Join is a legal value.
     */
   static int kJoinCount = kLast_Join + 1;

@@ -32,89 +32,102 @@ public:
     /// rectangular array.
     /// </summary>
     ///
-  enum GripModes
-  {
+  enum GripModes {
         /// <summary> 
         /// Moves the array object.
         /// </summary>
         ///
-    kStretchGrip = 1 << 0,
+        kStretchGrip             = 1 << 0,
+        
         /// <summary> 
         /// Changes number of rows.
         /// </summary>
         ///
-    kRowCountGrip = 1 << 1,
+        kRowCountGrip            = 1 << 1,
+        
         /// <summary> 
         /// Changes distance between rows.
         /// </summary>
         ///
-    kRowSpacingGrip = 1 << 2,
+        kRowSpacingGrip          = 1 << 2,
+        
         /// <summary> 
         /// Changes distance between rows by distributing the move uniformly 
         /// across all the rows.
         /// </summary>
         ///
-    kUniformRowSpacingGrip = 1 << 3,
+        kUniformRowSpacingGrip   = 1 << 3,
+        
         /// <summary> 
         /// Changes number of columns.
         /// </summary>
         ///
-    kColumnCountGrip = 1 << 4,
+        kColumnCountGrip         = 1 << 4,
+        
         /// <summary> 
         /// Changes distance between columns.
         /// </summary>
         ///
-    kColumnSpacingGrip = 1 << 5,
+        kColumnSpacingGrip       = 1 << 5,
+        
         /// <summary> 
         /// Changes distance between columns by distributing the move uniformly 
         /// across all the columns.
         /// </summary>
         ///
-    kUniformColSpacingGrip = 1 << 6,
+        kUniformColSpacingGrip   = 1 << 6,
+        
         /// <summary> 
         /// Changes number of rows and columns at the same time.
         /// </summary>
-    kRowColumnCountGrip = 1 << 7,
+        kRowColumnCountGrip      = 1 << 7,
+        
         /// <summary> 
         /// Changes distance between rows and columns at the same time.
         /// </summary>
         ///
-    kRowColumnSpacingGrip = 1 << 8,
+        kRowColumnSpacingGrip    = 1 << 8,
+        
         /// <summary> 
         /// Changes the angle formed by the first row and the first column 
         /// w/o changing row direction.
         /// </summary>
         ///
-    kColumnDirectionGrip = 1 << 9,
+        kColumnDirectionGrip     = 1 << 9,
+        
         /// <summary> 
         /// Changes the angle formed by the first row and the first column 
         /// w/o changing column direction.
         /// </summary>
         ///
-    kRowDirectionGrip = 1 << 10,
+        kRowDirectionGrip        = 1 << 10,
+        
         /// <summary> 
         /// Changes number of levels.
         /// </summary>
         ///
-    kLevelCountGrip = 1 << 11,
+        kLevelCountGrip          = 1 << 11,
+        
         /// <summary> 
         /// Changes distance between levels.
         /// </summary>
         ///
-    kLevelSpacingGrip = 1 << 12,
+        kLevelSpacingGrip        = 1 << 12,
+        
         /// <summary> 
         /// Changes distance between levels by distributing the move uniformly 
         /// across all the levels.
         /// </summary>
         ///
-    kUniformLevelSpacingGrip = 1 << 13,
+        kUniformLevelSpacingGrip = 1 << 13,
+
         /// <summary> 
         /// Changes the row axis angle(or column direction) while keeping the angle constant  
         /// between the first row and the first column. 
         /// </summary>
         ///
-    kRowAxisAngleGrip = 1 << 14
-  };
+        kRowAxisAngleGrip        = 1 << 14,
+    };
     /// <summary> 
     /// Constructor to update count and spacing of rows, columns and levels 
     /// along with row elevation and axis angle.

@@ -143,12 +143,11 @@ public:
      *  actual font data (which can be large). This enum controls how serialize() decides what
      *  to serialize.
      */
-  enum class SerializeBehavior
-  {
-    kDoIncludeData,
-    kDontIncludeData,
-    kIncludeDataIfLocal
-  };
+  enum class SerializeBehavior {
+        kDoIncludeData,
+        kDontIncludeData,
+        kIncludeDataIfLocal,
+    };
     /** Write a unique signature to a stream, sufficient to reconstruct a
         typeface referencing the same font when Deserialize is called.
      */
@@ -383,14 +382,14 @@ private:
   friend class SkRandomTypeface;
   friend class SkPDFFont;
     /** Style specifies the intrinsic style attributes of a given typeface */
-  enum Style
-  {
-    kNormal = 0,
-    kBold = 0x01,
-    kItalic = 0x02,
+  enum Style {
+        kNormal = 0,
+        kBold   = 0x01,
+        kItalic = 0x02,
+
         // helpers
-    kBoldItalic = 0x03
-  };
+        kBoldItalic = 0x03
+    };
   static SkFontStyle FromOldStyle(Style oldStyle);
   static SkTypeface* GetDefaultTypeface(Style style = SkTypeface::kNormal);
   friend class SkFontPriv;

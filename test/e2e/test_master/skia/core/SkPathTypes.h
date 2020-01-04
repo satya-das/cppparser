@@ -7,45 +7,40 @@
 #ifndef SkPathTypes_DEFINED
 #  define SkPathTypes_DEFINED
 #  include "include/core/SkTypes.h"
-enum class SkPathFillType
-{
+enum class SkPathFillType {
     /** Specifies that "inside" is computed by a non-zero sum of signed edge crossings */
-  kWinding,
+    kWinding,
     /** Specifies that "inside" is computed by an odd number of edge crossings */
-  kEvenOdd,
+    kEvenOdd,
     /** Same as Winding, but draws outside of the path, rather than inside */
-  kInverseWinding,
+    kInverseWinding,
     /** Same as EvenOdd, but draws outside of the path, rather than inside */
-  kInverseEvenOdd
+    kInverseEvenOdd
 };
-enum class SkPathConvexityType
-{
-  kUnknown,
-  kConvex,
-  kConcave
+enum class SkPathConvexityType {
+    kUnknown,
+    kConvex,
+    kConcave
 };
-enum class SkPathDirection
-{
+enum class SkPathDirection {
     /** clockwise direction for adding closed contours */
-  kCW,
+    kCW,
     /** counter-clockwise direction for adding closed contours */
-  kCCW
+    kCCW,
 };
-enum SkPathSegmentMask
-{
-  kLine_SkPathSegmentMask = 1 << 0,
-  kQuad_SkPathSegmentMask = 1 << 1,
-  kConic_SkPathSegmentMask = 1 << 2,
-  kCubic_SkPathSegmentMask = 1 << 3
+enum SkPathSegmentMask {
+    kLine_SkPathSegmentMask   = 1 << 0,
+    kQuad_SkPathSegmentMask   = 1 << 1,
+    kConic_SkPathSegmentMask  = 1 << 2,
+    kCubic_SkPathSegmentMask  = 1 << 3,
 };
-enum class SkPathVerb
-{
-  kMove,
-  kLine,
-  kQuad,
-  kConic,
-  kCubic,
-  kClose,
-  kDone
+enum class SkPathVerb {
+    kMove,   //!< iter.next returns 1 point
+    kLine,   //!< iter.next returns 2 points
+    kQuad,   //!< iter.next returns 3 points
+    kConic,  //!< iter.next returns 3 points + iter.conicWeight()
+    kCubic,  //!< iter.next returns 4 points
+    kClose,  //!< iter.next returns 1 point (contour's moveTo pt)
+    kDone,   //!< iter.next returns 0 points
 };
 #endif

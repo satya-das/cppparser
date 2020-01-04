@@ -31,48 +31,55 @@ public:
   /// new constraint type to be added between geometries.
   /// </summary>
   ///
-  enum GeomConstraintType
-  {
+  enum GeomConstraintType {
     /// <summary>
     /// Horizontal constraint. Can be applied to a line or two points.
     /// </summary>
     ///
-    kHorizontal = 0,
+    kHorizontal    = 0,
+
     /// <summary>
     /// Vertical constraint. Can be applied to a line or two points.
     /// </summary> 
     ///
-    kVertical,
+    kVertical         ,
+
     /// <summary>
     /// Parallel constraint. Can be applied between two lines.
     /// </summary> 
     ///
-    kParallel,
+    kParallel         ,
+
     /// <summary>
     /// Perpendicular constraint. Can be applied between two lines.
     /// </summary> 
     ///
-    kPerpendicular,
+    kPerpendicular    ,
+
     /// <summary>
     /// Normal constraint. Currently can only be applied between a line and circle(or arc).
     /// </summary> 
     ///
-    kNormal,
+    kNormal           ,
+
     /// <summary>
     /// Colinear constraint. Can be applied between two lines.
     /// </summary> 
     ///
-    kColinear,
+    kColinear         ,
+
     /// <summary>
     /// Coincident constraint. Can be applied between two points, a point and a curve.
     /// </summary> 
     ///
-    kCoincident,
+    kCoincident       ,
+
     /// <summary>
     /// Concentric constraint. Can be applied between any two of circles, ellipses, arcs or bounded ellipses.
     /// </summary> 
     ///
-    kConcentric,
+    kConcentric       ,
+
     /// <summary>
     /// Tangent constraint. Can be applied between two of curves (except two lines).
     /// This constraint is not applicable for closed splines; for bounded splines, 
@@ -80,34 +87,39 @@ public:
     /// start or end point of the other bounded curve.
     /// </summary> 
     ///
-    kTangent,
+    kTangent          ,
+
     /// <summary>
     /// EqualRadius constraint. Can be applied between any two of circles or arcs.
     /// </summary> 
     ///
-    kEqualRadius,
+    kEqualRadius      ,
+
     /// <summary>
     /// EqualLength constraint. Can be applied between two bounded lines (not rays).
     /// </summary> 
     ///
-    kEqualLength,
+    kEqualLength      ,
+
     /// <summary>
     /// Symmetric constraint. Can be applied between two same type geometries.
     /// circle and arc are considered to be the same type of geometry.
     /// The symmetry axis is a line.
     /// </summary>
     ///
-    kSymmetric,
+    kSymmetric		    ,
+
     /// <summary>
     /// G2Smooth constraint. Can be applied between a bounded spline and a bounded curve (including spline).
     /// </summary> 
     ///
-    kG2Smooth,
+    kG2Smooth         ,
+
     /// <summary>
     /// Fix constraint. Can be applied on any supported geometry.
     /// </summary>
     ///
-    kFix
+    kFix			         
   };
   /// <summary> 
   /// Returns the array of pointer to AcConstrainedGeometry objects which this constraint is connected to.

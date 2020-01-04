@@ -17,10 +17,9 @@
 class SK_API SkBitmapRegionDecoder
 {
 public:
-  enum Strategy
-  {
-    kAndroidCodec_Strategy
-  };
+  enum Strategy {
+        kAndroidCodec_Strategy, // Uses SkAndroidCodec for scaling and subsetting
+    };
     /*
      * @param data     Refs the data while this object exists, unrefs on destruction
      * @param strategy Strategy used for scaling and subsetting

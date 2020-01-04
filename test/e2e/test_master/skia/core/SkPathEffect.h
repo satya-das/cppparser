@@ -85,12 +85,11 @@ public:
         // stamped solutions.
 
         // Currently none of these flags are supported.
-    enum PointFlags
-    {
-      kCircles_PointFlag = 0x01,
-      kUsePath_PointFlag = 0x02,
-      kUseClip_PointFlag = 0x04
-    };
+    enum PointFlags {
+            kCircles_PointFlag            = 0x01,   // draw points as circles (instead of rects)
+            kUsePath_PointFlag            = 0x02,   // draw points as stamps of the returned path
+            kUseClip_PointFlag            = 0x04,   // apply 'fClipRect' before drawing the points
+        };
     uint32_t fFlags;
     SkPoint* fPoints;
     int fNumPoints;
@@ -114,11 +113,10 @@ public:
      *  and fCount. If effect can be represented as a dash pattern, allocate space for the intervals
      *  in info, then call asADash again with the same info and the intervals will get copied in.
      */
-  enum DashType
-  {
-    kNone_DashType,
-    kDash_DashType
-  };
+  enum DashType {
+        kNone_DashType, //!< ignores the info parameter
+        kDash_DashType, //!< fills in all of the info parameter
+    };
   struct DashInfo
   {
     DashInfo()

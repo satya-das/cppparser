@@ -93,13 +93,13 @@ public:
       return dst;
     }
   };
-  enum VertexMode
-  {
-    kTriangles_VertexMode,
-    kTriangleStrip_VertexMode,
-    kTriangleFan_VertexMode,
-    kLast_VertexMode = kTriangleFan_VertexMode
-  };
+  enum VertexMode {
+        kTriangles_VertexMode,
+        kTriangleStrip_VertexMode,
+        kTriangleFan_VertexMode,
+
+        kLast_VertexMode = kTriangleFan_VertexMode,
+    };
     /**
      *  Create a vertices by copying the specified arrays. texs, colors, boneIndices, and
      *  boneWeights may be nullptr, and indices is ignored if indexCount == 0.
@@ -121,13 +121,12 @@ public:
     return MakeCopy(mode, vertexCount, positions, texs, colors, nullptr, nullptr, isVolatile);
   }
   struct Sizes;
-  enum BuilderFlags
-  {
-    kHasTexCoords_BuilderFlag = 1 << 0,
-    kHasColors_BuilderFlag = 1 << 1,
-    kHasBones_BuilderFlag = 1 << 2,
-    kIsNonVolatile_BuilderFlag = 1 << 3
-  };
+  enum BuilderFlags {
+        kHasTexCoords_BuilderFlag   = 1 << 0,
+        kHasColors_BuilderFlag      = 1 << 1,
+        kHasBones_BuilderFlag       = 1 << 2,
+        kIsNonVolatile_BuilderFlag  = 1 << 3,
+    };
   class Builder
   {
   public:

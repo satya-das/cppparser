@@ -229,17 +229,15 @@ static const T& SkTPin(const T& value, const T& min, const T& max)
 
 /** Indicates whether an allocation should count against a cache budget.
 */
-enum class SkBudgeted : bool
-{
-  kNo = false,
-  kYes = true
+enum class SkBudgeted : bool {
+    kNo  = false,
+    kYes = true
 };
 /** Indicates whether a backing store needs to be an exact match or can be
     larger than is strictly necessary
 */
-enum class SkBackingFit
-{
-  kApprox,
-  kExact
+enum class SkBackingFit {
+    kApprox,
+    kExact
 };
 #endif

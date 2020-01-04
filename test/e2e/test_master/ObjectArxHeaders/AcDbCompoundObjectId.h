@@ -163,15 +163,14 @@ public:
     /// </summary>
     ///
   bool isSimpleObjectId() const;
-  enum Status
-  {
-    kValid = 0,
-    kWasLoadedNowUnloaded = 1,
-    kCouldNotResolveNonTerminal = 2,
-    kCouldNotResolveTerminal = 3,
-    kCouldNotResolveTooEarly = 4,
-    kIncompatibleIdType = 1000
-  };
+  enum Status {
+        kValid                      = 0,  // Good to go, can be Null
+        kWasLoadedNowUnloaded       = 1,  // Loaded during dwgOpen, then xref was unloaded
+        kCouldNotResolveNonTerminal = 2,  // Couldn't be resolved - xref not found, unloaded when last saved, etc. non-terminal
+        kCouldNotResolveTerminal    = 3,  // Couldn't be resolved, bad sceario - xref dwg replaced, not referenced, etc.
+        kCouldNotResolveTooEarly    = 4,  // Couldn't be resolved yet - too early - xref not finished resolving
+        kIncompatibleIdType         = 1000,
+    };
   Status status() const;
     /// <summary> 
     /// Returns the compound transform from the leaf object to the world,

@@ -64,12 +64,11 @@ protected:
   {
     return fStream;
   }
-  enum State
-  {
-    kBetweenPages_State,
-    kInPage_State,
-    kClosed_State
-  };
+  enum State {
+        kBetweenPages_State,
+        kInPage_State,
+        kClosed_State
+    };
   State getState() const
   {
     return fState;

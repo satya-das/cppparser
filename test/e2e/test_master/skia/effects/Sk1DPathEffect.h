@@ -31,13 +31,13 @@ private:
 class SK_API SkPath1DPathEffect : public Sk1DPathEffect
 {
 public:
-  enum Style
-  {
-    kTranslate_Style,
-    kRotate_Style,
-    kMorph_Style,
-    kLastEnum_Style = kMorph_Style
-  };
+  enum Style {
+        kTranslate_Style,   // translate the shape to each position
+        kRotate_Style,      // rotate the shape about its center
+        kMorph_Style,       // transform each point, and turn lines into curves
+
+        kLastEnum_Style = kMorph_Style,
+    };
     /** Dash by replicating the specified path.
         @param path The path to replicate (dash)
         @param advance The space between instances of path

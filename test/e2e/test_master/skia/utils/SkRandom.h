@@ -180,17 +180,15 @@ private:
   }
     //  See "Numerical Recipes in C", 1992 page 284 for these constants
     //  For the LCG that sets the initial state from a seed
-  enum
-  {
-    kMul = 1664525,
-    kAdd = 1013904223
-  };
+  enum {
+        kMul = 1664525,
+        kAdd = 1013904223
+    };
     // Constants for the multiply-with-carry steps
-  enum
-  {
-    kKMul = 30345,
-    kJMul = 18000
-  };
+  enum {
+        kKMul = 30345,
+        kJMul = 18000,
+    };
   uint32_t fK;
   uint32_t fJ;
 };

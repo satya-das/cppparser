@@ -38,13 +38,12 @@ public:
   virtual ~AcEdSubSelectFilter()
   {
   }
-  enum SubSelectStatus
-  {
-    kSubSelectionNone = 0,
-    kSubSelectionAugment,
-    kSubSelectionExclusive,
-    kSubSelectAll
-  };
+  enum SubSelectStatus {
+        kSubSelectionNone = 0,  // No selection found
+        kSubSelectionAugment,   // Add to the pickfirst set
+        kSubSelectionExclusive, // Remove other entities from the pickfirst set
+        kSubSelectAll           // Select the full entity        
+    };
     /**
      * Gets called by the AcEdInputPointManager instance when
      * the Filter is registered. This method is used to determine

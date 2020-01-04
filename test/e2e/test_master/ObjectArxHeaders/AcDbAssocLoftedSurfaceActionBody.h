@@ -28,29 +28,31 @@ public:
     /// The type of a profile in creating a lofted surface.
     /// </summary>
     ///
-  enum ProfileType
-  {
+  enum ProfileType {
         /// <summary>
         /// First profile of cross section, can be a point or curve/subentity edge
         /// </summary>
         ///
-    kStartCrossSection = 0x01,
+        kStartCrossSection  = 0x01,
+
         /// <summary>
         /// Last profile of cross section, can be a point or curve/subentity edge
         /// </summary>
         ///
-    kEndCrossSection = 0x02,
+        kEndCrossSection    = 0x02,
+
         /// <summary>
         /// First profile of guide curves
         /// </summary>
         ///
-    kStartGuide = 0x04,
+        kStartGuide         = 0x04,
+
         /// <summary>
         /// Last profile of guide curves
         /// </summary>
         ///
-    kEndGuide = 0x08
-  };
+        kEndGuide           = 0x08
+    };
   ACRX_DECLARE_MEMBERS(AcDbAssocLoftedSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>

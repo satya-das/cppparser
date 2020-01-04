@@ -54,56 +54,55 @@ public:
     /**
      *  Error codes for various SkCodec methods.
      */
-  enum Result
-  {
+  enum Result {
         /**
          *  General return value for success.
          */
-    kSuccess,
+        kSuccess,
         /**
          *  The input is incomplete. A partial image was generated.
          */
-    kIncompleteInput,
+        kIncompleteInput,
         /**
          *  Like kIncompleteInput, except the input had an error.
          *
          *  If returned from an incremental decode, decoding cannot continue,
          *  even with more data.
          */
-    kErrorInInput,
+        kErrorInInput,
         /**
          *  The generator cannot convert to match the request, ignoring
          *  dimensions.
          */
-    kInvalidConversion,
+        kInvalidConversion,
         /**
          *  The generator cannot scale to requested size.
          */
-    kInvalidScale,
+        kInvalidScale,
         /**
          *  Parameters (besides info) are invalid. e.g. NULL pixels, rowBytes
          *  too small, etc.
          */
-    kInvalidParameters,
+        kInvalidParameters,
         /**
          *  The input did not contain a valid image.
          */
-    kInvalidInput,
+        kInvalidInput,
         /**
          *  Fulfilling this request requires rewinding the input, which is not
          *  supported for this input.
          */
-    kCouldNotRewind,
+        kCouldNotRewind,
         /**
          *  An internal error, such as OOM.
          */
-    kInternalError,
+        kInternalError,
         /**
          *  This method is not implemented by this codec.
          *  FIXME: Perhaps this should be kUnsupported?
          */
-    kUnimplemented
-  };
+        kUnimplemented,
+    };
     /**
      *  Readable string representing the error code.
      */
@@ -113,19 +112,18 @@ public:
      * instruct the decoder how the output should be selected. (Refer to comments
      * for each value for more details.)
      */
-  enum class SelectionPolicy
-  {
+  enum class SelectionPolicy {
         /**
          *  If the container format contains both still images and image sequences,
          *  SkCodec should choose one of the still images. This is the default.
          */
-    kPreferStillImage,
+        kPreferStillImage,
         /**
          *  If the container format contains both still images and image sequences,
          *  SkCodec should choose one of the image sequences for animation.
          */
-    kPreferAnimation
-  };
+        kPreferAnimation,
+    };
     /**
      *  If this stream represents an encoded image that we know how to decode,
      *  return an SkCodec that can decode it. Otherwise return NULL.
@@ -254,21 +252,20 @@ public:
     /**
      *  Whether or not the memory passed to getPixels is zero initialized.
      */
-  enum ZeroInitialized
-  {
+  enum ZeroInitialized {
         /**
          *  The memory passed to getPixels is zero initialized. The SkCodec
          *  may take advantage of this by skipping writing zeroes.
          */
-    kYes_ZeroInitialized,
+        kYes_ZeroInitialized,
         /**
          *  The memory passed to getPixels has not been initialized to zero,
          *  so the SkCodec must write all zeroes to memory.
          *
          *  This is the default. It will be used if no Options struct is used.
          */
-    kNo_ZeroInitialized
-  };
+        kNo_ZeroInitialized,
+    };
     /**
      *  Additional options to pass to getPixels.
      */
@@ -534,14 +531,14 @@ public:
      *  same for all variations of all image types.  This explains the possible
      *  output row orderings.
      */
-  enum SkScanlineOrder
-  {
+  enum SkScanlineOrder {
         /*
          * By far the most common, this indicates that the image can be decoded
          * reliably using the scanline decoder, and that rows will be output in
          * the logical order.
          */
-    kTopDown_SkScanlineOrder,
+        kTopDown_SkScanlineOrder,
+
         /*
          * This indicates that the scanline decoder reliably outputs rows, but
          * they will be returned in reverse order.  If the scanline format is
@@ -563,8 +560,8 @@ public:
          *
          * Upside down bmps are an example.
          */
-    kBottomUp_SkScanlineOrder
-  };
+        kBottomUp_SkScanlineOrder,
+    };
     /**
      *  An enum representing the order in which scanlines will be returned by
      *  the scanline decoder.
@@ -843,12 +840,11 @@ private:
   const SkEncodedOrigin fOrigin;
   SkImageInfo fDstInfo;
   Options fOptions;
-  enum XformTime
-  {
-    kNo_XformTime,
-    kPalette_XformTime,
-    kDecodeRow_XformTime
-  };
+  enum XformTime {
+        kNo_XformTime,
+        kPalette_XformTime,
+        kDecodeRow_XformTime,
+    };
   XformTime fXformTime;
   XformFormat fDstXformFormat;
   skcms_ICCProfile fDstProfile;

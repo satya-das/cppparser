@@ -33,64 +33,72 @@ public:
     /// path array.
     /// </summary>
     ///
-  enum GripModes
-  {
+  enum GripModes {
         /// <summary> 
         /// Moves the array object.
         /// </summary>
         ///
-    kStretchGrip = 1 << 0,
+        kStretchGrip             = 1 << 0,
+        
         /// <summary> 
         /// Changes number of rows.
         /// </summary>
         ///
-    kRowCountGrip = 1 << 1,
+        kRowCountGrip            = 1 << 1,
+        
         /// <summary> 
         /// Changes distance between rows.
         /// </summary>
         ///
-    kRowSpacingGrip = 1 << 2,
+        kRowSpacingGrip          = 1 << 2,
+        
         /// <summary> 
         /// Changes distance between rows by distributing the move uniformly 
         /// across all the rows.
         /// </summary>
         ///
-    kUniformRowSpacingGrip = 1 << 3,
+        kUniformRowSpacingGrip   = 1 << 3,
+        
         /// <summary> 
         /// Changes number of levels.
         /// </summary>
         ///
-    kLevelCountGrip = 1 << 4,
+        kLevelCountGrip          = 1 << 4,
+        
         /// <summary> 
         /// Changes distance between levels.
         /// </summary>
         ///
-    kLevelSpacingGrip = 1 << 5,
+        kLevelSpacingGrip        = 1 << 5,
+        
         /// <summary> 
         /// Changes distance between levels by distributing the move uniformly 
         /// across all the levels.
         /// </summary>
         ///
-    kUniformLevelSpacingGrip = 1 << 6,
+        kUniformLevelSpacingGrip = 1 << 6,
+        
         /// <summary> 
         /// Changes number of items.
         /// </summary>
         ///
-    kItemCountGrip = 1 << 7,
+        kItemCountGrip           = 1 << 7,
+        
         /// <summary> 
         /// Used in measure method only.
         /// Changes distance between items. 
         /// </summary>
         ///
-    kItemSpacingGrip = 1 << 8,
+        kItemSpacingGrip         = 1 << 8, 
+
         /// <summary> 
         /// Used in measure method only.
         /// Changes distance between items by distributing the move uniformly 
         /// across all the items.
         /// </summary>
         ///
-    kUniformItemSpacingGrip = 1 << 9
-  };
+        kUniformItemSpacingGrip   = 1 << 9,
+    };
     /// <summary> Constructor.</summary>
     /// <param name="itemSpacing">  The input spacing between adjacent items. </param>
     /// <param name="rowSpacing">  The input spacing between adjacent rows. </param>
@@ -108,19 +116,19 @@ public:
     /// The method of arraying items along the path.
     /// </summary>
     ///
-  enum Method
-  {
+  enum Method {
         /// <summary> 
         /// Divide method arranges given number of items on entire path equidistantly.  
         /// </summary>
         ///
-    kDivide,
+        kDivide,
+
         /// <summary> 
         /// Mesure method arranges given number of items at specified item spacing along the path.
         /// </summary>
         ///
-    kMeasure
-  };
+        kMeasure,
+    };
     /// <summary> 
     /// Gets the item count of the path array.
     /// If there is no expression for a particular param,

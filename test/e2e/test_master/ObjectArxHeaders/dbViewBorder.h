@@ -35,21 +35,19 @@ public:
 	/// </summary>
 	///
   virtual ~AcDbViewBorder();
-  enum ViewStyleType
-  {
-    kFromBase = 0,
-    kWireframeVisibleEdges = 1,
-    kWireframeHiddenEdges = 2,
-    kShadedVisibleEdges = 3,
-    kShadedHiddenEdges = 4
-  };
-  enum SourceType
-  {
-    kSourceNotDefined = 0,
-    kInventorSource = 1,
-    kFusionSource = 2,
-    kModelSpaceSource = 3
-  };
+  enum ViewStyleType {
+        kFromBase               = 0,
+        kWireframeVisibleEdges  = 1,
+        kWireframeHiddenEdges   = 2,
+        kShadedVisibleEdges     = 3,
+        kShadedHiddenEdges      = 4
+    };
+  enum SourceType {
+        kSourceNotDefined   = 0,
+        kInventorSource     = 1,
+        kFusionSource       = 2,
+        kModelSpaceSource   = 3
+    };
   AcGePoint3d insertionPoint() const;
   double height() const;
   double width() const;

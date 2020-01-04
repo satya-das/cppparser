@@ -12,13 +12,12 @@
  *  pixels are meant to be "portable" and/or transformed before showing (e.g. rotated, scaled)
  *  then use kUnknown_SkPixelGeometry.
  */
-enum SkPixelGeometry
-{
-  kUnknown_SkPixelGeometry,
-  kRGB_H_SkPixelGeometry,
-  kBGR_H_SkPixelGeometry,
-  kRGB_V_SkPixelGeometry,
-  kBGR_V_SkPixelGeometry
+enum SkPixelGeometry {
+    kUnknown_SkPixelGeometry,
+    kRGB_H_SkPixelGeometry,
+    kBGR_H_SkPixelGeometry,
+    kRGB_V_SkPixelGeometry,
+    kBGR_V_SkPixelGeometry,
 };
 // Returns true iff geo is a known geometry and is RGB.
 static bool SkPixelGeometryIsRGB(SkPixelGeometry geo)
@@ -48,17 +47,15 @@ static bool SkPixelGeometryIsV(SkPixelGeometry geo)
 class SK_API SkSurfaceProps
 {
 public:
-  enum Flags
-  {
-    kUseDeviceIndependentFonts_Flag = 1 << 0
-  };
+  enum Flags {
+        kUseDeviceIndependentFonts_Flag = 1 << 0,
+    };
     /** Deprecated alias used by Chromium. Will be removed. */
   static const Flags kUseDistanceFieldFonts_Flag = kUseDeviceIndependentFonts_Flag;
   SkSurfaceProps(uint32_t flags, SkPixelGeometry);
-  enum InitType
-  {
-    kLegacyFontHost_InitType
-  };
+  enum InitType {
+        kLegacyFontHost_InitType
+    };
   SkSurfaceProps(InitType);
   SkSurfaceProps(uint32_t flags, InitType);
   SkSurfaceProps(const SkSurfaceProps& other);

@@ -21,18 +21,18 @@ SK_API extern void sk_free(void*);
  *  not return, but should either throw an exception or otherwise exit.
  */
 SK_API extern void sk_out_of_memory(void);
-enum
-{
+enum {
     /**
      *  If this bit is set, the returned buffer must be zero-initialized. If this bit is not set
      *  the buffer can be uninitialized.
      */
-  SK_MALLOC_ZERO_INITIALIZE = 1 << 0,
+    SK_MALLOC_ZERO_INITIALIZE   = 1 << 0,
+
     /**
      *  If this bit is set, the implementation must throw/crash/quit if the request cannot
      *  be fulfilled. If this bit is not set, then it should return nullptr on failure.
      */
-  SK_MALLOC_THROW = 1 << 1
+    SK_MALLOC_THROW             = 1 << 1,
 };
 /**
  *  Return a block of memory (at least 4-byte aligned) of at least the specified size.

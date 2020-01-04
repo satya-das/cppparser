@@ -337,17 +337,16 @@ public:
     /// should be used for more specialized and/or less common cases. 
     /// </para></summary>
     /// 
-  enum ImpliedType
-  {
-    kExplicitVertex,
-    kUnknownType,
-    kEdgeStart,
-    kEdgeEnd,
-    kEdgeMid,
-    kEdgeCenter,
-    kEdgeSplineControlPoint,
-    kEdgeSplineFitPoint
-  };
+  enum ImpliedType {
+        kExplicitVertex, // Not an implied vertex (the vertex is directly specified)
+        kUnknownType,
+        kEdgeStart,
+        kEdgeEnd,
+        kEdgeMid,
+        kEdgeCenter,
+        kEdgeSplineControlPoint,
+        kEdgeSplineFitPoint,
+    };
     /// <summary> Default constructor. </summary>
     ///
   AcDbVertexRef();

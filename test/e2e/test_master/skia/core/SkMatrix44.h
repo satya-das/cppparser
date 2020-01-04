@@ -131,18 +131,15 @@ struct SkVector4
 class SK_API SkMatrix44
 {
 public:
-  enum Uninitialized_Constructor
-  {
-    kUninitialized_Constructor
-  };
-  enum Identity_Constructor
-  {
-    kIdentity_Constructor
-  };
-  enum NaN_Constructor
-  {
-    kNaN_Constructor
-  };
+  enum Uninitialized_Constructor {
+        kUninitialized_Constructor
+    };
+  enum Identity_Constructor {
+        kIdentity_Constructor
+    };
+  enum NaN_Constructor {
+        kNaN_Constructor
+    };
   SkMatrix44(Uninitialized_Constructor)
   {
   }
@@ -187,14 +184,13 @@ public:
      */
   static const SkMatrix44& I();
   using TypeMask = uint8_t;
-  enum : TypeMask
-  {
-    kIdentity_Mask = 0,
-    kTranslate_Mask = 1 << 0,
-    kScale_Mask = 1 << 1,
-    kAffine_Mask = 1 << 2,
-    kPerspective_Mask = 1 << 3
-  };
+  enum : TypeMask {
+        kIdentity_Mask = 0,
+        kTranslate_Mask = 1 << 0,    //!< set if the matrix has translation
+        kScale_Mask = 1 << 1,        //!< set if the matrix has any scale != 1
+        kAffine_Mask = 1 << 2,       //!< set if the matrix skews or rotates
+        kPerspective_Mask = 1 << 3,  //!< set if the matrix is in perspective
+    };
     /**
      *  Returns a bitfield describing the transformations the matrix may
      *  perform. The bitfield is computed conservatively, so it may include

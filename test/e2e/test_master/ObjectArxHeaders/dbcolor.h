@@ -33,39 +33,33 @@ class AcCmEntityColor;
 class AcCmEntityColor
 {
 public:
-  enum Color
-  {
-    kRed,
-    kGreen,
-    kBlue
-  };
+  enum Color { kRed,
+                 kGreen,
+                 kBlue
+    };
     // Color Method.
-  enum ColorMethod
-  {
-    kByLayer = 0xC0,
-    kByBlock,
-    kByColor,
-    kByACI,
-    kByPen,
-    kForeground,
-    kLayerOff,
+  enum ColorMethod {   kByLayer =0xC0, 
+                         kByBlock,
+                         kByColor,
+                         kByACI,
+                         kByPen,
+                         kForeground,
+                         kLayerOff,
                          // Run-time states
-    kLayerFrozen,
-    kNone
-  };
-  enum ACIcolorMethod
-  {
-    kACIbyBlock = 0,
-    kACIforeground = 7,
-    kACIbyLayer = 256,
+                         kLayerFrozen,
+                         kNone
+    };
+  enum ACIcolorMethod {kACIbyBlock    = 0,
+                         kACIforeground = 7,
+                         kACIbyLayer    = 256,
                          // Run-time states
-    kACIclear = 0,
-    kACIstandard = 7,
-    kACImaximum = 255,
-    kACInone = 257,
-    kACIminimum = -255,
-    kACIfrozenLayer = -32700
-  };
+                         kACIclear      = 0,    
+                         kACIstandard   = 7,
+                         kACImaximum    = 255,
+                         kACInone       = 257,
+                         kACIminimum    = -255,
+                         kACIfrozenLayer= -32700
+    };
     // Blue, green, red, and Color Method (byBlock, byLayer, byColor).
     // Is stored that way for better performance. 
     //
@@ -429,21 +423,20 @@ public:
 class AcCmTransparency
 {
 public:
-  enum transparencyMethod
-  {
-    kByLayer = 0,
-    kByBlock,
-    kByAlpha,
-    kErrorValue
-  };
+  enum transparencyMethod {
+                kByLayer = 0,
+                kByBlock,
+                kByAlpha,
+
+
+                kErrorValue     // must be last in enum
+            };
     // Some Transparency constants
-  enum
-  {
-    kTransparencyByLayer = (unsigned long) kByLayer,
-    kTransparencyByBlock = (unsigned long) kByBlock,
-    kTransparencySolid = ((unsigned long) (kByAlpha | (0xff << 24))),
-    kTransparencyClear = (unsigned long) kByAlpha
-  };
+  enum {  kTransparencyByLayer    = (unsigned long)kByLayer,
+            kTransparencyByBlock    = (unsigned long)kByBlock,
+            kTransparencySolid      = ((unsigned long)(kByAlpha | (0xff << 24))),
+            kTransparencyClear      = (unsigned long)kByAlpha
+    };
   AcCmTransparency()
   {
     mAM.whole = kTransparencyByLayer;
@@ -504,25 +497,23 @@ private:
 };
 namespace AcCm
 {
-  enum DialogTabs
-  {
+  enum DialogTabs {   
         //these flags can be OR-ed 
-    kACITab = 1,
-    kTrueColorTab = 2,
-    kColorBookTab = 4
-  };
-  enum ACIColors
-  {
-    kACIByBlock = 0,
-    kACIRed = 1,
-    kACIYellow = 2,
-    kACIGreen = 3,
-    kACICyan = 4,
-    kACIBlue = 5,
-    kACIMagenta = 6,
-    kACIForeground = 7,
-    kACIByLayer = 256
-  };
+        kACITab = 1,
+        kTrueColorTab = 2,
+        kColorBookTab = 4,
+    };
+  enum ACIColors {   
+        kACIByBlock     = 0,
+        kACIRed         = 1,
+        kACIYellow      = 2,
+        kACIGreen       = 3,
+        kACICyan        = 4,
+        kACIBlue        = 5,
+        kACIMagenta     = 6,
+        kACIForeground  = 7,
+        kACIByLayer     = 256,
+    };
 }
 #  pragma  pack (pop)
 #  define ADSK_ACCMENTITYCOLOR_DEFINED

@@ -10,12 +10,11 @@
 struct SkBase64
 {
 public:
-  enum Error
-  {
-    kNoError,
-    kPadError,
-    kBadCharError
-  };
+  enum Error {
+        kNoError,
+        kPadError,
+        kBadCharError
+    };
   SkBase64();
   Error decode(const char* src, size_t length);
   char* getData()

@@ -26,23 +26,21 @@ class CAdUiPathname;
 #  define ACED_SERVICES	ACRX_T("AcEdServices")
 #  define ACED_EDITOR_OBJ	ACRX_T("AcEditor")
 // The various modes for context menus.
-enum AcadContextMenuMode
-{
-  kDefault = 0,
-  kEdit,
-  kCommand,
-  kHotGrip,
-  kOsnap,
-#  ifdef _ADESK_MAC_
-  kCMPaperSpace,
-#  endif
+enum AcadContextMenuMode {
+    kDefault = 0,           // No selection set, no command active.
+    kEdit,                  // Select set, no command active.
+    kCommand,               // Command active.
+    kHotGrip,               // Hot grip exists.
+    kOsnap,                 // Shift key down.   
+#ifdef _ADESK_MAC_
+    kCMPaperSpace           // In paper space. 
+#endif
 };
 #  include "aced-xref.h"
-enum undoSubcommandActivities
-{
-  kNone = 0,
-  kOne = 1,
-  kAll = 2
+enum undoSubcommandActivities {
+    kNone = 0,
+    kOne = 1,
+    kAll = 2
 };
 #  pragma  pack (pop)
 #  include "accmd.h"
@@ -595,14 +593,13 @@ void acedEditToleranceInteractive(AcDbFcf* pTol);
 // Replaces the AcDbMText::edit() method
 // pMText must be open at least for Read, preferably for Write
 int acedEditMTextInteractive(AcDbMText* pMText, bool useNewUI = false, bool allowTabs = false);
-enum DimstyleTabSuppressed
-{
-  kSymbolsArrowsTabSuppressed = 0x01,
-  kTextTabSuppressed = 0x02,
-  kFitTabSuppressed = 0x04,
-  kPrimaryTabSuppressed = 0x08,
-  kAlternateTabSuppressed = 0x10,
-  kToleranceTabSuppressed = 0x20
+enum DimstyleTabSuppressed {
+    kSymbolsArrowsTabSuppressed   = 0x01,
+    kTextTabSuppressed            = 0x02,
+    kFitTabSuppressed             = 0x04,
+    kPrimaryTabSuppressed         = 0x08,
+    kAlternateTabSuppressed       = 0x10,
+    kToleranceTabSuppressed       = 0x20
 };
 int acedEditDimstyleInteractiveEx(AcDbDatabase* pDb, AcDbDimStyleTableRecord* pRec, int familyType, const ACHAR* title = NULL, int tabCtrlFlags = 0);
 //  AutoCAD color to RGB conversion function
@@ -666,13 +663,12 @@ Acad::ErrorStatus acedConvertEntityToHatch(AcDbHatch* pHatch, AcDbEntity*& pEnt,
 #  include "aced-hatch.h"
 Acad::ErrorStatus acedManageHatchEditorReactor(AcDbObjectId hatchId, AcHatchEdReact action, AcDbObjectId boundaryId = AcDbObjectId::kNull, AcHatchNotifier notifyType = kNobody, bool transformed = false);
 // DrawOrder Inheritance command type
-enum AcEdDrawOrderCmdType
-{
-  kDrawOrderNone = 0,
-  kDrawOrderBottom,
-  kDrawOrderTop,
-  kDrawOrderBelow,
-  kDrawOrderAbove
+enum AcEdDrawOrderCmdType {
+    kDrawOrderNone = 0,
+    kDrawOrderBottom,
+    kDrawOrderTop,
+    kDrawOrderBelow,
+    kDrawOrderAbove
 };
 // acedDrawOrderInherit() is called to set DrawOrder on the new childArray object(s).
 // It should be called after the childArray objects are added to the space/db, but before
@@ -749,12 +745,11 @@ void acedEnableUsrbrk();
 void acedDisableUsrbrk();
 bool acedIsUsrbrkDisabled();
 bool acedIsInBackgroundMode();
-enum BlockEditModeFlags
-{
-  kBlkEditModeNone = 0x0,
-  kBlkEditModeActive = 0x01,
-  kBlkEditModeOpen = 0x02,
-  kBlkEditModeDirty = 0x04
+enum BlockEditModeFlags {
+    kBlkEditModeNone   = 0x0,
+    kBlkEditModeActive = 0x01,
+    kBlkEditModeOpen   = 0x02,
+    kBlkEditModeDirty  = 0x04
 };
 unsigned int acedGetBlockEditMode();
 void acedOpenDocWindowsMinimized(bool bMinimized);

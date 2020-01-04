@@ -24,13 +24,12 @@ class AcPlPlotInfo;
 class AcDbPlotSettings;
 class AcPlPlotConfig;
 // Status values for ACPL_PREVIEWENDPLOT
-enum PreviewStatus
-{
-  kNormal = 0,
-  kPlot,
-  kCancel,
-  kNext,
-  kPrevious
+enum PreviewStatus {
+    kNormal = 0,
+    kPlot,
+    kCancel,
+    kNext,
+    kPrevious
 };
 // Struct ACPL_PREVIEWENDPLOT, in/out parameter modified by AcPlPlotEngine::endPlot()
 // if the engine was created with AcPlPlotFactory::createPreviewEngine.

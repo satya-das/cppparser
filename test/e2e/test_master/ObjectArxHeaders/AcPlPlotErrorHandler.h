@@ -17,22 +17,20 @@ class AcPlSystemInternals;
 class AcPlPlotErrorHandler : public AcPlObject
 {
 public:
-  enum ErrorResult
-  {
-    kAbort,
-    kRetry,
-    kIgnore
-  };
-  enum Handler
-  {
-    kInfo,
-    kWarning,
-    kError,
-    kARI,
-    kSevere,
-    kTerminal,
-    kNone
-  };
+  enum ErrorResult {
+        kAbort,
+        kRetry,
+        kIgnore
+    };
+  enum Handler {
+        kInfo,
+        kWarning,
+        kError,
+        kARI,
+        kSevere,
+        kTerminal,
+        kNone 
+    };
   ACPL_PORT AcPlPlotErrorHandler();
   ACPL_PORT ~AcPlPlotErrorHandler();
   ACPL_DECLARE_MEMBERS(AcPlPlotErrorHandler);

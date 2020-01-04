@@ -46,75 +46,84 @@ public:
     /// path array.
     /// </summary>
     ///
-  enum GripModes
-  {
+  enum GripModes {
         /// <summary> 
         /// Moves the polar array.
         /// </summary>
         ///
-    kCenterPointGrip = 1 << 0,
+        kCenterPointGrip         = 1 << 0, 
+
         /// <summary> 
         /// Changes radius of the polar array.
         /// </summary>
         ///
-    kStretchRadiusGrip = 1 << 1,
+        kStretchRadiusGrip       = 1 << 1,
+
         /// <summary> 
         /// Changes number of rows.
         /// </summary>
         ///
-    kRowCountGrip = 1 << 2,
+        kRowCountGrip            = 1 << 2,
+        
         /// <summary> 
         /// Changes distance between rows.
         /// </summary>
         ///
-    kRowSpacingGrip = 1 << 3,
+        kRowSpacingGrip          = 1 << 3,
+        
         /// <summary> 
         /// Changes distance between rows by distributing the move uniformly 
         /// across all the rows.
         /// </summary>
         ///
-    kUniformRowSpacingGrip = 1 << 4,
+        kUniformRowSpacingGrip   = 1 << 4,
+        
         /// <summary> 
         /// Changes number of levels.
         /// </summary>
         ///
-    kLevelCountGrip = 1 << 5,
+        kLevelCountGrip          = 1 << 5,
+        
         /// <summary> 
         /// Changes distance between levels.
         /// </summary>
         ///
-    kLevelSpacingGrip = 1 << 6,
+        kLevelSpacingGrip        = 1 << 6,
+        
         /// <summary> 
         /// Changes distance between levels by distributing the move uniformly 
         /// across all the levels.
         /// </summary>
         ///
-    kUniformLevelSpacingGrip = 1 << 7,
+        kUniformLevelSpacingGrip = 1 << 7,
+        
         /// <summary> 
         /// Changes number of items.
         /// </summary>
         ///
-    kItemCountGrip = 1 << 8,
+        kItemCountGrip           = 1 << 8,
+        
         /// <summary> 
         /// Changes angle between items. 
         /// </summary>
         ///
-    kAngleBetweenItemsGrip = 1 << 9,
+        kAngleBetweenItemsGrip   = 1 << 9, 
+
         /// <summary> 
         /// Changes the fill angle of Polar array.
         /// </summary>
         ///
-    kFillAngleGrip = 1 << 10
-  };
+        kFillAngleGrip           = 1 << 10,
+
+    };
     /// <summary> 
     /// Specifies the direction of the arc which array items depend on.
     /// </summary>
     ///
-  enum Direction
-  {
-    kClockwise,
-    kCounterClockwise
-  };
+  enum Direction {
+        kClockwise,
+        kCounterClockwise,
+    };
     /// <summary> 
     /// Gets the item count of the polar array.
     /// If there is no expression for a particular param,

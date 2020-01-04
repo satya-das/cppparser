@@ -27,17 +27,15 @@ public:
 	/// </remarks>
 	///
   AcDbDetailSymbol();
-  enum BoundaryType
-  {
-    kCircularBoundary,
-    kRectangularBoundary,
-    kCustomBoundary
-  };
-  enum OverriddenProperty
-  {
-    kModelEdge = 0x00000001,
-    kIdentifierPosition = 0x00000001 << 1
-  };
+  enum BoundaryType {
+        kCircularBoundary,
+        kRectangularBoundary,
+		kCustomBoundary
+    };
+  enum OverriddenProperty {
+		kModelEdge            = 0x00000001,
+        kIdentifierPosition   = 0x00000001 << 1,
+	};
   BoundaryType boundaryType() const;
   AcDbDetailViewStyle::ModelEdge modelEdgeType() const;
   bool isOverriddenProperty(AcDbDetailSymbol::OverriddenProperty property) const;

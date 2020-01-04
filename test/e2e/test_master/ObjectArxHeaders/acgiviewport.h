@@ -16,12 +16,11 @@ public:
   ACRX_DECLARE_MEMBERS(AcGiViewportTraits);
   virtual void setBackground(const AcDbObjectId backgroundId) = 0;
   virtual AcDbObjectId background() const = 0;
-  enum DefaultLightingType
-  {
-    kOneDistantLight = 0,
-    kTwoDistantLights,
-    kBackLighting
-  };
+  enum DefaultLightingType {
+        kOneDistantLight = 0,
+        kTwoDistantLights,
+        kBackLighting,
+    };
   virtual bool isDefaultLightingOn() const = 0;
   virtual void setDefaultLightingOn(bool on) = 0;
   virtual DefaultLightingType defaultLightingType() const = 0;

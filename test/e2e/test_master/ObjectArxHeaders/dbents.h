@@ -122,24 +122,23 @@ public:
   Acad::ErrorStatus removeField(const ACHAR* pszPropName, AcDbObjectId& returnId) override;
   Acad::ErrorStatus removeField(const ACHAR* pszPropName) override;
   Acad::ErrorStatus convertFieldToText();
-  enum AcTextAlignment
-  {
-    kTextAlignmentLeft = 0,
-    kTextAlignmentCenter = (kTextAlignmentLeft + 1),
-    kTextAlignmentRight = (kTextAlignmentCenter + 1),
-    kTextAlignmentAligned = (kTextAlignmentRight + 1),
-    kTextAlignmentMiddle = (kTextAlignmentAligned + 1),
-    kTextAlignmentFit = (kTextAlignmentMiddle + 1),
-    kTextAlignmentTopLeft = (kTextAlignmentFit + 1),
-    kTextAlignmentTopCenter = (kTextAlignmentTopLeft + 1),
-    kTextAlignmentTopRight = (kTextAlignmentTopCenter + 1),
-    kTextAlignmentMiddleLeft = (kTextAlignmentTopRight + 1),
-    kTextAlignmentMiddleCenter = (kTextAlignmentMiddleLeft + 1),
-    kTextAlignmentMiddleRight = (kTextAlignmentMiddleCenter + 1),
-    kTextAlignmentBottomLeft = (kTextAlignmentMiddleRight + 1),
-    kTextAlignmentBottomCenter = (kTextAlignmentBottomLeft + 1),
-    kTextAlignmentBottomRight = (kTextAlignmentBottomCenter + 1)
-  };
+  enum AcTextAlignment {
+        kTextAlignmentLeft      = 0,
+        kTextAlignmentCenter    = ( kTextAlignmentLeft + 1 ) ,
+        kTextAlignmentRight     = ( kTextAlignmentCenter + 1 ) ,
+        kTextAlignmentAligned   = ( kTextAlignmentRight + 1 ) ,
+        kTextAlignmentMiddle    = ( kTextAlignmentAligned + 1 ) ,
+        kTextAlignmentFit       = ( kTextAlignmentMiddle + 1 ) ,
+        kTextAlignmentTopLeft   = ( kTextAlignmentFit + 1 ) ,
+        kTextAlignmentTopCenter = ( kTextAlignmentTopLeft + 1 ) ,
+        kTextAlignmentTopRight  = ( kTextAlignmentTopCenter + 1 ) ,
+        kTextAlignmentMiddleLeft        = ( kTextAlignmentTopRight + 1 ) ,
+        kTextAlignmentMiddleCenter      = ( kTextAlignmentMiddleLeft + 1 ) ,
+        kTextAlignmentMiddleRight       = ( kTextAlignmentMiddleCenter + 1 ) ,
+        kTextAlignmentBottomLeft        = ( kTextAlignmentMiddleRight + 1 ) ,
+        kTextAlignmentBottomCenter      = ( kTextAlignmentBottomLeft + 1 ) ,
+        kTextAlignmentBottomRight       = ( kTextAlignmentBottomCenter + 1 )
+    };
   ACDBCORE2D_PORT AcTextAlignment justification() const;
   ACDBCORE2D_PORT Acad::ErrorStatus setJustification(AcTextAlignment);
 protected:
@@ -1042,44 +1041,43 @@ public:
   Acad::ErrorStatus setTransparent();
   Acad::ErrorStatus setOpaque();
   ACDBCORE2D_PORT Acad::ErrorStatus setTransparent(bool);
-  enum StandardScaleType
-  {
-    kScaleToFit,
-    kCustomScale,
-    k1_1,
-    k1_2,
-    k1_4,
-    k1_5,
-    k1_8,
-    k1_10,
-    k1_16,
-    k1_20,
-    k1_30,
-    k1_40,
-    k1_50,
-    k1_100,
-    k2_1,
-    k4_1,
-    k8_1,
-    k10_1,
-    k100_1,
-    k1_128in_1ft,
-    k1_64in_1ft,
-    k1_32in_1ft,
-    k1_16in_1ft,
-    k3_32in_1ft,
-    k1_8in_1ft,
-    k3_16in_1ft,
-    k1_4in_1ft,
-    k3_8in_1ft,
-    k1_2in_1ft,
-    k3_4in_1ft,
-    k1in_1ft,
-    k1and1_2in_1ft,
-    k3in_1ft,
-    k6in_1ft,
-    k1ft_1ft
-  };
+  enum StandardScaleType {
+        kScaleToFit,        // Scaled to Fit
+        kCustomScale,       // Scale is not a standard scale
+        k1_1,               // 1:1
+        k1_2,               // 1:2
+        k1_4,               // 1:4
+        k1_5,               // 1:5
+        k1_8,               // 1:8
+        k1_10,              // 1:10
+        k1_16,              // 1:16
+        k1_20,              // 1:20
+        k1_30,              // 1:30
+        k1_40,              // 1:40
+        k1_50,              // 1:50
+        k1_100,             // 1:100
+        k2_1,               // 2:1
+        k4_1,               // 4:1
+        k8_1,               // 8:1
+        k10_1,              // 10:1
+        k100_1,             // 100:1
+        k1_128in_1ft,       // 1/128"= 1'
+        k1_64in_1ft,        // 1/64"= 1'
+        k1_32in_1ft,        // 1/32"= 1'
+        k1_16in_1ft,        // 1/16"= 1'
+        k3_32in_1ft,        // 3/32"= 1'
+        k1_8in_1ft,         // 1/8" = 1'
+        k3_16in_1ft,        // 3/16"= 1'
+        k1_4in_1ft,         // 1/4" = 1'
+        k3_8in_1ft,         // 3/8" = 1'
+        k1_2in_1ft,         // 1/2" = 1'
+        k3_4in_1ft,         // 3/4" = 1'
+        k1in_1ft,           // 1"= 1'
+        k1and1_2in_1ft,     // 1 1/2"= 1'
+        k3in_1ft,           // 3"= 1'
+        k6in_1ft,           // 6"= 1'
+        k1ft_1ft            // 1'= 1'
+    };
   double customScale() const;
   Acad::ErrorStatus setCustomScale(double);
   StandardScaleType standardScale() const;
@@ -1121,15 +1119,14 @@ public:
   bool isUcsSavedWithViewport() const;
   void setUcsPerViewport(bool ucsvp);
     // ShadePlot enum and get/set methods
-  enum ShadePlotType
-  {
-    kAsDisplayed = 0,
-    kWireframe = 1,
-    kHidden = 2,
-    kRendered = 3,
-    kVisualStyle = 4,
-    kRenderPreset = 5
-  };
+  enum ShadePlotType {
+        kAsDisplayed    = 0,
+        kWireframe      = 1,
+        kHidden         = 2,
+        kRendered       = 3,
+        kVisualStyle    = 4,
+        kRenderPreset   = 5
+    };
   ShadePlotType shadePlot() const;
   Acad::ErrorStatus setShadePlot(const ShadePlotType);
   AcDbObjectId shadePlotId() const;

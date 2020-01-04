@@ -113,14 +113,13 @@ public:
         Enum of bit fields for mask returned by getType().
         Used to identify the complexity of SkMatrix, to optimize performance.
     */
-  enum TypeMask
-  {
-    kIdentity_Mask = 0,
-    kTranslate_Mask = 0x01,
-    kScale_Mask = 0x02,
-    kAffine_Mask = 0x04,
-    kPerspective_Mask = 0x08
-  };
+  enum TypeMask {
+        kIdentity_Mask    = 0,    //!< identity SkMatrix; all bits clear
+        kTranslate_Mask   = 0x01, //!< translation SkMatrix
+        kScale_Mask       = 0x02, //!< scale SkMatrix
+        kAffine_Mask      = 0x04, //!< skew or rotate SkMatrix
+        kPerspective_Mask = 0x08, //!< perspective SkMatrix
+    };
     /** Returns a bit field describing the transformations the matrix may
         perform. The bit field is computed conservatively, so it may include
         false positives. For example, when kPerspective_Mask is set, all
@@ -1080,13 +1079,12 @@ public:
         or may restrict SkMatrix to square scaling. If restricted, ScaleToFit specifies
         how SkMatrix maps to the side or center of the destination SkRect.
     */
-  enum ScaleToFit
-  {
-    kFill_ScaleToFit,
-    kStart_ScaleToFit,
-    kCenter_ScaleToFit,
-    kEnd_ScaleToFit
-  };
+  enum ScaleToFit {
+        kFill_ScaleToFit,   //!< scales in x and y to fill destination SkRect
+        kStart_ScaleToFit,  //!< scales and aligns to left and top
+        kCenter_ScaleToFit, //!< scales and aligns to center
+        kEnd_ScaleToFit,    //!< scales and aligns to right and bottom
+    };
     /** Sets SkMatrix to scale and translate src SkRect to dst SkRect. stf selects whether
         mapping completely fills dst or preserves the aspect ratio, and how to align
         src within dst. Returns false if src is empty, and sets SkMatrix to identity.

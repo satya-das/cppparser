@@ -53,11 +53,7 @@ public:
 ;
   using PromiseImageTextureDoneProc = void (*) (PromiseImageTextureContext);
 ;
-  enum class PromiseImageApiVersion
-  {
-    kLegacy,
-    kNew
-  };
+  enum class PromiseImageApiVersion { kLegacy, kNew };
     /**
         Create a new SkImage that is very similar to an SkImage created by MakeFromTexture. The
         difference is that the caller need not have created the texture nor populated it with the

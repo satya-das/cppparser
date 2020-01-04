@@ -8,18 +8,17 @@
 #  define SkEncodedOrigin_DEFINED
 #  include "include/core/SkMatrix.h"
 // These values match the orientation www.exif.org/Exif2-2.PDF.
-enum SkEncodedOrigin
-{
-  kTopLeft_SkEncodedOrigin = 1,
-  kTopRight_SkEncodedOrigin = 2,
-  kBottomRight_SkEncodedOrigin = 3,
-  kBottomLeft_SkEncodedOrigin = 4,
-  kLeftTop_SkEncodedOrigin = 5,
-  kRightTop_SkEncodedOrigin = 6,
-  kRightBottom_SkEncodedOrigin = 7,
-  kLeftBottom_SkEncodedOrigin = 8,
-  kDefault_SkEncodedOrigin = kTopLeft_SkEncodedOrigin,
-  kLast_SkEncodedOrigin = kLeftBottom_SkEncodedOrigin
+enum SkEncodedOrigin {
+    kTopLeft_SkEncodedOrigin     = 1, // Default
+    kTopRight_SkEncodedOrigin    = 2, // Reflected across y-axis
+    kBottomRight_SkEncodedOrigin = 3, // Rotated 180
+    kBottomLeft_SkEncodedOrigin  = 4, // Reflected across x-axis
+    kLeftTop_SkEncodedOrigin     = 5, // Reflected across x-axis, Rotated 90 CCW
+    kRightTop_SkEncodedOrigin    = 6, // Rotated 90 CW
+    kRightBottom_SkEncodedOrigin = 7, // Reflected across x-axis, Rotated 90 CW
+    kLeftBottom_SkEncodedOrigin  = 8, // Rotated 90 CCW
+    kDefault_SkEncodedOrigin     = kTopLeft_SkEncodedOrigin,
+    kLast_SkEncodedOrigin        = kLeftBottom_SkEncodedOrigin,
 };
 /**
  * Given an encoded origin and the width and height of the source data, returns a matrix

@@ -27,32 +27,32 @@ public:
   AcDbLayerStateManager();
   AcDbLayerStateManager(AcDbDatabase* pHostDb);
   virtual ~AcDbLayerStateManager();
-  enum LayerStateMask
-  {
-    kNone = 0x0000,
-    kOn = 0x0001,
-    kFrozen = 0x0002,
-    kLocked = 0x0004,
-    kPlot = 0x0008,
-    kNewViewport = 0x0010,
-    kColor = 0x0020,
-    kLineType = 0x0040,
-    kLineWeight = 0x0080,
-    kPlotStyle = 0x0100,
-    kCurrentViewport = 0x0200,
-    kTransparency = 0x0400,
-    kAll = kOn | kFrozen | kLocked | kPlot | kNewViewport | kColor | kLineType | kLineWeight | kPlotStyle | kCurrentViewport | kTransparency,
-    kStateIsHidden = 0x8000,
-    kLastRestored = 0x10000,
-    kDecomposition = kAll | 0x20000
-  };
-  enum
-  {
-    kUndefDoNothing = 0,
-    kUndefTurnOff = 1,
-    kUndefFreeze = 2,
-    kRestoreAsOverrides = 4
-  };
+  enum LayerStateMask {
+        kNone           = 0x0000,
+        kOn             = 0x0001,
+        kFrozen         = 0x0002,
+        kLocked         = 0x0004,
+        kPlot           = 0x0008,
+        kNewViewport    = 0x0010,
+        kColor          = 0x0020,
+        kLineType       = 0x0040,
+        kLineWeight     = 0x0080,
+        kPlotStyle      = 0x0100,
+        kCurrentViewport = 0x0200,
+        kTransparency   = 0x0400,
+        kAll            = kOn | kFrozen | kLocked | kPlot | kNewViewport |
+                          kColor | kLineType | kLineWeight | kPlotStyle |
+                          kCurrentViewport | kTransparency,
+        kStateIsHidden  = 0x8000,        
+        kLastRestored   = 0x10000,        
+        kDecomposition  = kAll | 0x20000
+    };
+  enum {
+        kUndefDoNothing = 0,
+        kUndefTurnOff = 1,
+        kUndefFreeze = 2,
+        kRestoreAsOverrides = 4
+    };
   bool addReactor(AcDbLayerStateManagerReactor* pReactor);
   bool removeReactor(AcDbLayerStateManagerReactor* pReactor);
     // Service methods

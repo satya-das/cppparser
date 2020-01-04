@@ -229,15 +229,14 @@ public:
   Acad::ErrorStatus setArrowSecondIsFlipped(bool bIsFlipped);
   AcGeMatrix3d blockTransform() const;
     // Spago inspection dimension enhancement
-  enum DimInspect
-  {
-    kShapeRemove = 0,
-    kShapeRound = 1,
-    kShapeAngular = 2,
-    kShapeNone = 4,
-    kShapeLabel = 0x10,
-    kShapeRate = 0x20
-  };
+  enum DimInspect {
+        kShapeRemove  = 0,     // Not displayed
+        kShapeRound   = 1,     // Rounded end (default)
+        kShapeAngular = 2,     // Angular end
+        kShapeNone    = 4,     // No bounding shape
+        kShapeLabel   = 0x10,  // Label separator and alpha field displayed
+        kShapeRate    = 0x20,  // Shape separator and alpha field displayed
+    };
   bool inspection() const;
   Acad::ErrorStatus setInspection(bool val);
   int inspectionFrame() const;
@@ -298,12 +297,9 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus setToleranceSuppressLeadingZeros(bool);
   ACDBCORE2D_PORT bool toleranceSuppressZeroInches() const;
   ACDBCORE2D_PORT Acad::ErrorStatus setToleranceSuppressZeroInches(bool);
-  enum CenterMarkType
-  {
-    kMark = 0,
-    kLine = 1,
-    kNone = 2
-  };
+  enum CenterMarkType { kMark       = 0,
+                            kLine       = 1,
+                            kNone       = 2 };
   ACDBCORE2D_PORT AcDbDimension::CenterMarkType centerMarkType() const;
 protected:
     /// <summary>

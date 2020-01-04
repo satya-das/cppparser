@@ -120,25 +120,27 @@ public:
     ///actual real coordinates contained internall to objects in the host
     /// database.
     /// </summary>
-  enum TypeOfCoordinates
-  {
+  enum TypeOfCoordinates {
         /// <summary>
         /// Georeferencing information has not been established, or for some
         /// resaon is invalid or inconsistent.
         /// </summary>
-    kCoordTypUnknown = 0,
+        kCoordTypUnknown = 0,
+
         /// <summary>
         /// The design coordinate system is considered to be local, aka
         /// an engineering coordinate system.
         /// </summary>
-    kCoordTypLocal,
+        kCoordTypLocal,
+
         /// <summary>
         /// The design coordinate system is known to be a grid system.  That is,
         /// coordinates of a defined Coordinate Reference System of the Projected
         /// Type; implying that conversion to geodetic coordinates is possible
         /// with reasonably high precision.
         /// </summary>
-    kCoordTypGrid,
+        kCoordTypGrid,
+
         /// <summary>
         /// The design coordinate system is known to be a geodetic system.  That
         /// is, coordinates of a defined Coordinate Reference System of the
@@ -146,21 +148,21 @@ public:
         /// referenced to the Reference System is possible with reasonably
         /// high precision.
         /// </summary>
-    kCoordTypGeographic
-  };
+        kCoordTypGeographic
+    };
     /// <summary>
     /// The following enumerates the algorithms currently supported for
     /// dealing with the Grid Scale Factor distortion introduced by the
     /// projection used in coordinate systems of the grid type.
     /// </summary>
-  enum ScaleEstimationMethod
-  {
+  enum ScaleEstimationMethod {
         /// <summary>
         /// This algorithm simply does nothing, implying that innsofar as grid
         /// scale distortion is concerned, design coordinates are the same as
         /// grid coordinates.
         /// </summary>
-    kScaleEstMethodUnity = 1,
+        kScaleEstMethodUnity = 1,
+
         /// <summary>
         /// This algorithm uses a constant, user specified, scale factor to
         /// correct for grid scale distortion introduced by the projection upon
@@ -169,7 +171,8 @@ public:
         /// based.  The specific value used is specified by the setUserScale
         /// member function.
         /// </summary>
-    kScaleEstMethodUserDefined,
+        kScaleEstMethodUserDefined,
+
         /// <summary>
         /// This algorithm uses the grid scale factor of the referenced 
         /// coordinate reference system (i.e. grid) as determined at the local
@@ -177,7 +180,8 @@ public:
         /// implies that the projection upon which the specified grid is based
         /// is of the conformal type.
         /// </summary>
-    kScaleEstMethodReferencePoint,
+        kScaleEstMethodReferencePoint,
+
         /// <summary>
         /// This algorithm corrects for grid scale distortion by evaluating
         /// the grid scale distortion at each point in the local coordinate
@@ -185,8 +189,8 @@ public:
         /// projection upon which the specified grid is based is of the
         /// conformal type.
         /// </summary>
-    kScaleEstMethodPrismoidal
-  };
+        kScaleEstMethodPrismoidal
+    };
   ACDBCORE2D_DECLARE_MEMBERS(AcDbGeoData);
   ACDBCORE2D_PORT AcDbGeoData();
   ACDBCORE2D_PORT virtual ~AcDbGeoData();

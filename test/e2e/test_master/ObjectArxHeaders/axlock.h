@@ -33,11 +33,12 @@ public:
     // Document activation is disabled to deal with the possibility that 
     // a user could attempt to activate another document while a local 
     // COM client is in the process of appending a new entity.
-  enum DocLockType
-  {
-    kNormal = 0,
-    kCurDocSwitch = 1
-  };
+  enum DocLockType {
+        kNormal         = 0,    // Locking to allow write operations
+        kCurDocSwitch   = 1     // Locking + switch the doc context;
+                                //  document activation is disabled in
+                                //  this mode.
+    };
     // Constructors are responsible for performing all necessary
     // operations and keeping track of what must be undone in
     // the destructor.

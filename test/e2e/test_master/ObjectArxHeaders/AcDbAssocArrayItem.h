@@ -26,24 +26,25 @@ public:
     /// Enum to define index type for a 3D item index.
     /// </summary>
     ///
-  enum IndexType
-  {
+  enum IndexType { 
         /// <summary>
         /// Index type indicating item position relative to the first item.
         /// </summary>
         ///
-    kItemIndex,
+        kItemIndex,
+
         /// <summary>
         /// Index type indicating item position relative to the first row.
         /// </summary>
         ///
-    kRowIndex,
+        kRowIndex, 
+
         /// <summary>
         /// Index type indicating item position relative to the first level.
         /// </summary>
         ///
-    kLevelIndex
-  };
+        kLevelIndex,
+    };
     /// <summary>
     /// Default constructor. Object constructed using this constructor remains
     /// uninitialized.

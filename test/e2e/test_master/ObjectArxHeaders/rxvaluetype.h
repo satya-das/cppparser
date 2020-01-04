@@ -119,12 +119,9 @@ public:
 class IAcRxReferenceType
 {
 public:
-  enum OpenMode
-  {
-    kForRead = 0,
-    kForWrite = 1,
-    kForNotify = 2
-  };
+  enum OpenMode { kForRead           = 0,
+                            kForWrite          = 1,
+                            kForNotify         = 2 };
     /// <summary>
     /// Returns the object that is dereferenced.
     /// </summary>
@@ -307,11 +304,10 @@ public:
     /// formatted in the toString function. If the string needs to be formatted 
     /// depending on the current locale.
     /// </summary>
-  enum StringFormat
-  {
-    kStringFormatGlobal = 0,
-    kStringFormatCurrent = 1
-  };
+  enum StringFormat {
+        kStringFormatGlobal = 0,
+        kStringFormatCurrent = 1,
+    };
     /// <summary>
     /// This method can be used to obtain the string representation of the value.
     /// Normally there is no need to call this method, instead the toString 

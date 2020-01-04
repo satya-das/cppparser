@@ -73,27 +73,24 @@ Adesk::Boolean acgsSetCustomUpdateMethod(acgsCustomUpdateMethod custom_update_me
 ACCORE_PORT void acgsRedrawShortTermGraphics(int minx, int miny, int maxx, int maxy);
 struct AcGs
 {
-  enum LinePattern
-  {
-    eSolid = 0,
-    eDashed = 1,
-    eDotted = 2,
-    eDashDot = 3,
-    eShortDash = 4,
-    eMediumDash = 5,
-    eLongDash = 6,
-    eDoubleShortDash = 7,
-    eDoubleMediumDash = 8,
-    eDoubleLongDash = 9,
-    eMediumLongDash = 10,
-    eMediumDashShortDashShortDash = 11,
-    eLongDashShortDash = 12,
-    eLongDashDotDot = 13,
-    eLongDashDot = 14,
-    eMediumDashDotShortDashDot = 15,
-    eSparseDot = 16,
-    eDefaultLinePattern = eDotted
-  };
+  enum LinePattern { eSolid                         = 0,
+                            eDashed                        = 1,
+                            eDotted                        = 2,
+                            eDashDot                       = 3,
+                            eShortDash                     = 4,
+                            eMediumDash                    = 5,
+                            eLongDash                      = 6,
+                            eDoubleShortDash               = 7,
+                            eDoubleMediumDash              = 8,
+                            eDoubleLongDash                = 9,
+                            eMediumLongDash                = 10,
+                            eMediumDashShortDashShortDash  = 11,
+                            eLongDashShortDash             = 12,
+                            eLongDashDotDot                = 13,
+                            eLongDashDot                   = 14,
+                            eMediumDashDotShortDashDot     = 15,
+                            eSparseDot                     = 16,
+                            eDefaultLinePattern            = eDotted };
 };
 ACCORE_PORT void acgsSetHighlightColor(Adesk::UInt16 colorIndex);
 ACCORE_PORT Adesk::UInt16 acgsGetHighlightColor(void);

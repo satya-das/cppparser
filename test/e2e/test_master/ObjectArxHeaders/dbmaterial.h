@@ -90,14 +90,13 @@ public:
     //
   Acad::ErrorStatus setAdskMaterialData(const void* pMatObj, bool bCacheIt = false);
   void clearAdskMaterialCache();
-  enum MaterialFlags
-  {
-    kNone = 0,
-    kIsLegacy = 0x1,
-    kIsModifiedIsValid = 0x2,
-    kIsModified = 0x4,
-    kIsModifiedAndValid = 0x6
-  };
+  enum MaterialFlags {
+        kNone               = 0,
+        kIsLegacy           = 0x1,
+        kIsModifiedIsValid  = 0x2,
+        kIsModified         = 0x4,
+        kIsModifiedAndValid = 0x6  // kIsModifiedIsValid | kIsModified
+    };
   Acad::ErrorStatus getAdskMaterialFlags(MaterialFlags& flags) const;
   Acad::ErrorStatus setAdskMaterialFlags(MaterialFlags flags);
 protected:

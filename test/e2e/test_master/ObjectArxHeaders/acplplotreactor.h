@@ -22,13 +22,12 @@ class ACPL_PORT AcPlPlotReactor : public AcRxObject
 {
 public:
     // Plot Type
-  enum PlotType
-  {
-    kPlot,
-    kPreview,
-    kBackgroundPackaging,
-    kBackgroundPlot
-  };
+  enum PlotType {
+        kPlot,
+        kPreview,
+        kBackgroundPackaging,
+        kBackgroundPlot
+    };
     // Notification for begin of plot
   virtual void beginPlot(AcPlPlotProgress* pPlotProgress, PlotType type);
     // Notification for beginning of an document

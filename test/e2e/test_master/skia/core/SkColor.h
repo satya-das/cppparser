@@ -191,13 +191,13 @@ SK_API SkPMColor SkPreMultiplyColor(SkColor c);
 /** \enum SkColorChannel
     Describes different color channels one can manipulate
 */
-enum class SkColorChannel
-{
-  kR,
-  kG,
-  kB,
-  kA,
-  kLastEnum = kA
+enum class SkColorChannel {
+    kR,  // the red channel
+    kG,  // the green channel
+    kB,  // the blue channel
+    kA,  // the alpha channel
+
+    kLastEnum = kA,
 };
 /** \struct SkRGBA4f
     RGBA color value, holding four floating point components. Color components are always in

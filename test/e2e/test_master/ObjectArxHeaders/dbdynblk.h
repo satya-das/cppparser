@@ -45,25 +45,28 @@ public:
     /// Describes the units (if any) of the property. Clients may use this
     /// information to format the property in their user interface. 
     /// </summary>
-  enum UnitsType
-  {
+  enum UnitsType {
+
         /// <summary>
         /// No units defined.
         /// </summary>
-    kNoUnits = 0,
+        kNoUnits = 0,
+
         /// <summary>
         /// Property represents and angle between two vectors.
         /// </summary>
-    kAngular,
+        kAngular,
+
         /// <summary>
         /// Property represents a distance between two points.
         /// </summary>
-    kDistance,
+        kDistance,
+
         /// <summary>
         /// Property represents a two-dimensional area.
         /// </summary>
-    kArea
-  };
+        kArea
+    };
     /// <summary>
     /// Default constructor.
     /// </summary>

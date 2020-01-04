@@ -57,88 +57,94 @@ public:
     /// <summary>
     /// The type of a grip.
     /// </summary>
-  enum GripType
-  {
+  enum GripType { 
         /// <summary>
         /// The primary grip. Always shown if host's GRIPS variable is not 0;
         /// </summary>
-    kPrimary,
+        kPrimary,
+
         /// <summary>
         /// The secondary grip. Only shown when host's GRIPS variable is 2;
         /// </summary>
-    kSecondary
-  };
+        kSecondary 
+    };
     /// <summary>
     /// The numerical identifier of a grip mode.
     /// </summary>
-  enum GripModeIdentifier
-  {
+  enum GripModeIdentifier {
         /// <summary>
         /// Default
         /// </summary>
-    kNone = 0,
+        kNone = 0,
+
         /// <summary>
         /// Stretch at the grip point
         /// </summary>
-    kMove,
+        kMove,
+
         /// <summary>
         /// The start of custom mode types.
         /// All custom mode types should be larger than this value.
         /// </summary>
-    kCustomStart = 100
-  };
+        kCustomStart = 100,
+    };
     /// <summary>
     /// The type of actions the grip editing complex takes when a mode
     /// is becoming current.
     /// </summary>
-  enum GripActionType
-  {
+  enum GripActionType {
         /// <summary>
         /// Instructs the grip editor to proceed with dragging. The mode
         /// specific behavior is determined by object's moveGripPointsAt
         /// current mode awareness.
         /// </summary>
-    kDragOn = 0,
+        kDragOn = 0,
+
         /// <summary>
         /// Instructs the grip editor to call moveGripPointsAt once and
         /// end dragging sequence.
         /// </summary>
-    kImmediate,
+        kImmediate,
+
         /// <summary>
         /// External command, specified as GripMode::CommandString, is called.
         /// </summary>
-    kCommand
-  };
+        kCommand,
+    };
     /// <summary>
     /// The type of canvas cursor can be specified for each mode.
     /// </summary>
-  enum GripCursorType
-  {
+  enum GripCursorType {
         /// <summary>
         /// No cursor change, using default.
         /// </summary>
-    kcNone = 0,
+        kcNone = 0,
+
         /// <summary>
         /// Default cursor combined with a plus sign.
         /// </summary>
-    kcCrosshairPlus,
+        kcCrosshairPlus,         
+        
         /// <summary>
         /// Default cursor combined with a minus sign.
         /// </summary>
-    kcCrosshairMinus,
+        kcCrosshairMinus,
+
         /// <summary>
         /// Default cursor combined with a curve sign.
         /// </summary>        
-    kcCrosshairCurve,
+        kcCrosshairCurve,
+
         /// <summary>
         /// Default cursor combined with a straight line sign.
         /// </summary>
-    kcCrosshairLine,
+        kcCrosshairLine,      
+        
         /// <summary>
         /// Default cursor combined with an angle sign. For future use.
         /// </summary>
-    kcCrosshairAngle
-  };
+        kcCrosshairAngle,      
+    };
     /// <summary>
     /// The type that contains all information to present a single mode.
     /// </summary>

@@ -27,32 +27,30 @@ public:
   ACPL_PORT virtual ~AcPlPlotInfoValidator();
   ACPL_DECLARE_MEMBERS(AcPlPlotInfoValidator);
     // Supported media matching policies
-  enum MatchingPolicy
-  {
-    kMatchDisabled = 1,
-    kMatchEnabled,
-    kMatchEnabledCustom,
-    kMatchEnabledTmpCustom
-  };
+  enum MatchingPolicy {
+        kMatchDisabled = 1,    // no media matching (default)
+        kMatchEnabled,         // look for matching media and use if found
+        kMatchEnabledCustom,   // create and save custom media size if necessary
+        kMatchEnabledTmpCustom // create temporary custom media size if necessary
+    };
     // Possible result codes from isCustomPossible()     
-  enum eCustomSizeResult
-  {
-    ePossible = 0x0000,
-    eMustCreatePC3 = 0x0001,
-    eRotationRequired = 0x0002,
-    ePC3DirReadOnly = 0x0004,
-    ePMPDirReadOnly = 0x0008,
-    ePMPDirMissing = 0x0010,
-    eUnknownErrPMPDir = 0x0020,
-    ePC3FileReadOnly = 0x0040,
-    eSizeTooBig = 0x0080,
-    eException = 0x0100,
-    eUnknownErrPC3File = 0x0200,
-    eUnknownErrPMPFile = 0x0400,
-    ePMPFileReadOnly = 0x0800,
-    eWidthAndHeightMustBePositive = 0x1000,
-    eDeviceLoadFailed = 0x2000
-  };
+  enum eCustomSizeResult {
+        ePossible           = 0x0000,
+        eMustCreatePC3      = 0x0001,  // no PC3 file, one is required
+        eRotationRequired   = 0x0002,  // size only possible with 90 degree rotation
+        ePC3DirReadOnly     = 0x0004,
+        ePMPDirReadOnly     = 0x0008,
+        ePMPDirMissing      = 0x0010,
+        eUnknownErrPMPDir   = 0x0020,
+        ePC3FileReadOnly    = 0x0040,
+        eSizeTooBig         = 0x0080,
+        eException          = 0x0100,
+        eUnknownErrPC3File  = 0x0200,
+        eUnknownErrPMPFile  = 0x0400,
+        ePMPFileReadOnly    = 0x0800,
+        eWidthAndHeightMustBePositive = 0x1000,
+        eDeviceLoadFailed   = 0x2000
+    };
     // Validate an AcPlPlotInfo object
   ACPL_PORT virtual Acad::ErrorStatus validate(AcPlPlotInfo& info);
     // Returns a bitwise-OR of eCustomSizeResults bits indicating whether

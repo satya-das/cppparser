@@ -44,15 +44,14 @@
 class SK_API SkGradientShader
 {
 public:
-  enum Flags
-  {
+  enum Flags {
         /** By default gradients will interpolate their colors in unpremul space
          *  and then premultiply each of the results. By setting this flag, the
          *  gradients will premultiply their colors first, and then interpolate
          *  between them.
          */
-    kInterpolateColorsInPremul_Flag = 1 << 0
-  };
+        kInterpolateColorsInPremul_Flag = 1 << 0,
+    };
     /** Returns a shader that generates a linear gradient between the two specified points.
         <p />
         @param  pts     The start and end points for the gradient.

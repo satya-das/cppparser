@@ -26,12 +26,11 @@ public:
   float computeYFromX(float x) const;
   SkPoint computeFromT(float t) const;
 private:
-  enum Type
-  {
-    kLine_Type,
-    kCubeRoot_Type,
-    kSolver_Type
-  };
+  enum Type {
+        kLine_Type,     // x == y
+        kCubeRoot_Type, // At^3 == x
+        kSolver_Type,   // general monotonic cubic solver
+    };
   SkPoint fCoeff[3];
   Type fType;
 };

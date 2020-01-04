@@ -10,21 +10,19 @@
 #  include "include/gpu/vk/GrVkMemoryAllocator.h"
 #  include "include/gpu/vk/GrVkTypes.h"
 class GrVkExtensions;
-enum GrVkExtensionFlags
-{
-  kEXT_debug_report_GrVkExtensionFlag = 0x0001,
-  kNV_glsl_shader_GrVkExtensionFlag = 0x0002,
-  kKHR_surface_GrVkExtensionFlag = 0x0004,
-  kKHR_swapchain_GrVkExtensionFlag = 0x0008,
-  kKHR_win32_surface_GrVkExtensionFlag = 0x0010,
-  kKHR_android_surface_GrVkExtensionFlag = 0x0020,
-  kKHR_xcb_surface_GrVkExtensionFlag = 0x0040
+enum GrVkExtensionFlags {
+    kEXT_debug_report_GrVkExtensionFlag    = 0x0001,
+    kNV_glsl_shader_GrVkExtensionFlag      = 0x0002,
+    kKHR_surface_GrVkExtensionFlag         = 0x0004,
+    kKHR_swapchain_GrVkExtensionFlag       = 0x0008,
+    kKHR_win32_surface_GrVkExtensionFlag   = 0x0010,
+    kKHR_android_surface_GrVkExtensionFlag = 0x0020,
+    kKHR_xcb_surface_GrVkExtensionFlag     = 0x0040,
 };
-enum GrVkFeatureFlags
-{
-  kGeometryShader_GrVkFeatureFlag = 0x0001,
-  kDualSrcBlend_GrVkFeatureFlag = 0x0002,
-  kSampleRateShading_GrVkFeatureFlag = 0x0004
+enum GrVkFeatureFlags {
+    kGeometryShader_GrVkFeatureFlag    = 0x0001,
+    kDualSrcBlend_GrVkFeatureFlag      = 0x0002,
+    kSampleRateShading_GrVkFeatureFlag = 0x0004,
 };
 // It is not guarenteed VkPhysicalDeviceProperties2 will be in the client's header so we forward
 // declare it here to be safe.

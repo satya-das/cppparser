@@ -49,72 +49,61 @@ typedef ads_real* ads_pointp;
 #  endif
 #  ifndef _XYZT_DEFINED
 #    define _XYZT_DEFINED
-enum
-{
-  X = 0,
-  Y = 1,
-  Z = 2
-};
-enum
-{
-  T = 3
-};
+enum { X = 0, Y = 1, Z = 2 };
+enum { T = 3 };
 #  endif
 /* The PAUSE token for ads_command and ads_cmd
  */
 #  define PAUSE	ACRX_T("\\")
 /* The ADS_INITGET control bits
  */
-enum
-{
-  RSG_NONULL = 0x0001,
-  RSG_NOZERO = 0x0002,
-  RSG_NONEG = 0x0004,
-  RSG_NOLIM = 0x0008,
-  RSG_GETZ = 0x0010,
-  RSG_DASH = 0x0020,
+enum {
+    RSG_NONULL      = 0x0001,  // Disallow null input 
+    RSG_NOZERO      = 0x0002,  // Disallow zero input 
+    RSG_NONEG       = 0x0004,  // Disallow negative input
+    RSG_NOLIM       = 0x0008,  // Do not check limits
+    RSG_GETZ        = 0x0010,  // Get Z coordinate
+    RSG_DASH        = 0x0020,  // Draw dashed rubber band/box
                              // (not a GEDIT control bit)
-  RSG_2D = 0x0040,
+    RSG_2D          = 0x0040,  // Restrict (getdist) to 2D (causes the
                              // UD_GETZ control bit to be cleared)
-  RSG_OTHER = 0x0080,
-  RSG_DDISTFIRST = 0x0100,
-  RSG_TRACKUCS = 0x0200,
+    RSG_OTHER       = 0x0080,  // Return input string if unknown 
+    RSG_DDISTFIRST  = 0x0100, // Give DD entry precedence over arbitrary input
+    RSG_TRACKUCS    = 0x0200, // Allow UCS tracking for faces 
                              // (causes the UD_TRACKUCS control bit to be set)
-  RSG_NOORTHOZ = 0x0400,
+    RSG_NOORTHOZ    = 0x0400, // Disables polar/ortho tracking in the Z direction 
                              // (causes the UD_NOORTHOZ control bit to be set)
-  RSG_NOOSNAP = 0x0800,
-  RSG_NODDIST = 0x1000
+    RSG_NOOSNAP     = 0x0800,  // Disables object snaps
+    RSG_NODDIST     = 0x1000,  // No direct distance
 };
 /* The following control bits are the old names for the RSG_
    control bits above.  These names are provided for
    backward compatibility.  You should use the RSG_ names
    above.
  */
-enum
-{
-  INP_NNULL = RSG_NONULL,
-  INP_NZERO = RSG_NOZERO,
-  INP_NNEG = RSG_NONEG,
-  INP_NLIM = RSG_NOLIM,
-  INP_DASH = RSG_DASH,
-  INP_NZCOORD = RSG_2D
+enum {
+    INP_NNULL   = RSG_NONULL,
+    INP_NZERO   = RSG_NOZERO,
+    INP_NNEG    = RSG_NONEG,
+    INP_NLIM    = RSG_NOLIM,
+    INP_DASH    = RSG_DASH,
+    INP_NZCOORD = RSG_2D
 };
-enum SelectorType
-{
-  SELECT_TYPE_FREE = 0,
-  SELECT_TYPE_PICK,
-  SELECT_TYPE_WPOLY,
-  SELECT_TYPE_CPOLY,
-  SELECT_TYPE_FENCE,
-  SELECT_TYPE_SUBENTITY,
-  SELECT_TYPE_BAG,
-  SELECT_TYPE_LAST,
-  SELECT_TYPE_LEAF,
-  SELECT_TYPE_GROUP,
-  SELECT_TYPE_PASTE,
-  SELECT_TYPE_HATCHASC,
-  SELECT_TYPE_NRVP,
-  SELECT_TYPE_OCCLASS
+enum SelectorType {
+    SELECT_TYPE_FREE = 0,
+    SELECT_TYPE_PICK,
+    SELECT_TYPE_WPOLY,
+    SELECT_TYPE_CPOLY,
+    SELECT_TYPE_FENCE,
+    SELECT_TYPE_SUBENTITY,
+    SELECT_TYPE_BAG,
+    SELECT_TYPE_LAST,
+    SELECT_TYPE_LEAF,
+    SELECT_TYPE_GROUP,
+    SELECT_TYPE_PASTE,
+    SELECT_TYPE_HATCHASC,
+    SELECT_TYPE_NRVP,
+    SELECT_TYPE_OCCLASS
 };
 /* Binary data stream structure
  */

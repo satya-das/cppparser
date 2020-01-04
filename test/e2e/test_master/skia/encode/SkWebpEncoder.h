@@ -10,11 +10,10 @@
 class SkWStream;
 namespace SkWebpEncoder
 {
-  enum class Compression
-  {
-    kLossy,
-    kLossless
-  };
+  enum class Compression {
+        kLossy,
+        kLossless,
+    };
   struct SK_API Options
   {
         /**

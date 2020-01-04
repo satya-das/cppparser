@@ -64,117 +64,108 @@ class AcTcCatalogItemReactor;
 #define ACTC_DEFAULTFILE_IMAGE	ACRX_T(/*MSGO*/"Image")
 namespace AcTc
 {
-  enum AccessRight
-  {
-    kAccessRead = (0x1 << 0),
-    kAccessReadWrite = (0x1 << 1),
-    kAccessReadOnlyFile = (0x1 << 2),
-    kAccessMultiple = (0x1 << 3),
-    kAccessNewerVersion = (0x1 << 4)
-  };
-  enum CatalogItemType
-  {
-    kItemUnknown = 0,
-    kItemTool = (0x1 << 0),
-    kItemPackage = (0x1 << 1),
-    kItemPalette = (0x1 << 2),
-    kItemCategory = (0x1 << 3),
-    kItemCatalog = (0x1 << 4),
-    kItemStockTool = (0x1 << 5)
-  };
-  enum ReferencePath
-  {
-    kLoadRefPath = 1,
-    kSaveRefPath = 2
-  };
-  enum ImageType
-  {
-    kImageTypeUninitialized = -1,
-    kImageTypeBitmap = 1,
-    kImageTypeMetaFile = 2,
-    kImageTypeIcon = 3,
-    kImageTypeEnhMetaFile = 4,
-    kImageTypeJpeg = 5,
-    kImageTypePng = 6,
-    kImageTypeGif = 7,
-    kImageTypeTif = 8
-  };
-  enum ImageOption
-  {
-    kImageOptionNone = 0x0,
-    kImageOptionRenderBitmapOpaque = (0x1 << 0),
-    kImageOptionUserOverride = (0x1 << 1)
-  };
-  enum LoadOption
-  {
-    kLoadLinks = (0x1 << 0),
-    kLoadImages = (0x1 << 1),
-    kLoadOverlayImages = (0x1 << 2),
-    kDoNotNotifyReactor = (0x1 << 3)
-  };
-  enum SaveOption
-  {
-    kSaveLinksAsLinks = (0x1 << 0),
-    kSaveLinksAsEmbedded = (0x1 << 1),
-    kSaveImages = (0x1 << 2),
-    kSaveAs = (0x1 << 3),
-    kSaveOverlayImages = (0x1 << 4),
-    kSaveAnsi = (0x1 << 5)
-  };
-  enum DownloadOption
-  {
-    kDownloadItem = (0x1 << 0),
-    kDownloadLinkedItem = (0x1 << 1),
-    kDownloadImage = (0x1 << 2),
-    kDownloadStockTool = (0x1 << 3),
-    kDownloadChildren = (0x1 << 4),
-    kDownloadAll = kDownloadItem | kDownloadLinkedItem | kDownloadImage | kDownloadStockTool | kDownloadChildren,
-    kDownloadCleanDownloadDir = (0x1 << 5),
-    kDownloadShowProgress = (0x1 << 6),
-    kDownloadUseNewIds = (0x1 << 7),
-    kDownloadNotifyTool = (0x1 << 12)
-  };
-  enum RefreshOption
-  {
-    kRefreshItem = kDownloadItem,
-    kRefreshLinkedItem = kDownloadLinkedItem,
-    kRefreshImage = kDownloadImage,
-    kRefreshStockTool = kDownloadStockTool,
-    kRefreshChildren = kDownloadChildren,
-    kRefreshAll = kDownloadAll,
-    kRefreshShowProgress = kDownloadShowProgress,
-    kRefreshNotifyTool = (0x1 << 16)
-  };
-  enum CatalogType
-  {
-    kCatalog = (0x1 << 0),
-    kStockToolCatalog = (0x1 << 1),
-    kShapeCatalog = (0x1 << 2)
-  };
-  enum ToolType
-  {
-    kToolNormal = 1,
-    kToolFlyout = 2,
-    kToolText = 3,
-    kToolSeparator = 4
-  };
-  enum SortOption
-  {
-    kSortByName = (0x1 << 0),
-    kSortByStockTool = (0x1 << 1),
-    kSortByCustom = (0x1 << 2),
-    kAscending = (0x1 << 3),
-    kDescending = (0x1 << 4)
-  };
-  enum ItemOption
-  {
-    kItemOptionNone = 0x0,
-    kItemOptionSupportsAutoImage = (0x1 << 0),
-    kItemOptionSupportsUserImage = (0x1 << 1),
-    kItemOptionMenuUpdateImage = (0x1 << 2),
-    kItemOptionMenuSetImage = (0x1 << 3),
-    kItemOptionMenuRemoveImage = (0x1 << 4)
-  };
+  enum AccessRight {
+        kAccessRead             = (0x1 << 0),
+        kAccessReadWrite        = (0x1 << 1),
+        kAccessReadOnlyFile     = (0x1 << 2),
+        kAccessMultiple         = (0x1 << 3),       // For internal use
+        kAccessNewerVersion     = (0x1 << 4),       // For internal use
+    };
+  enum CatalogItemType {
+        kItemUnknown            = 0,
+        kItemTool               = (0x1 << 0),
+        kItemPackage            = (0x1 << 1),
+        kItemPalette            = (0x1 << 2),
+        kItemCategory           = (0x1 << 3),
+        kItemCatalog            = (0x1 << 4),
+        kItemStockTool          = (0x1 << 5),
+    };
+  enum ReferencePath {
+        kLoadRefPath            = 1,
+        kSaveRefPath            = 2,
+    };
+  enum ImageType { 
+        kImageTypeUninitialized = -1,
+        kImageTypeBitmap        = 1,
+        kImageTypeMetaFile      = 2,
+        kImageTypeIcon          = 3,
+        kImageTypeEnhMetaFile   = 4,
+        kImageTypeJpeg          = 5,
+        kImageTypePng           = 6,
+        kImageTypeGif           = 7,
+        kImageTypeTif           = 8
+    };
+  enum ImageOption {
+        kImageOptionNone                = 0x0,
+        kImageOptionRenderBitmapOpaque  = (0x1 << 0),
+        kImageOptionUserOverride        = (0x1 << 1),
+    };
+  enum LoadOption {
+        kLoadLinks              = (0x1 << 0),
+        kLoadImages             = (0x1 << 1),
+        kLoadOverlayImages      = (0x1 << 2),       // For internal use
+        kDoNotNotifyReactor     = (0x1 << 3),       // For internal use
+    };
+  enum SaveOption {
+        kSaveLinksAsLinks       = (0x1 << 0),
+        kSaveLinksAsEmbedded    = (0x1 << 1),
+        kSaveImages             = (0x1 << 2),
+        kSaveAs                 = (0x1 << 3),       // For internal use
+        kSaveOverlayImages      = (0x1 << 4),       // For internal use
+        kSaveAnsi               = (0x1 << 5),       // For internal use
+    };
+  enum DownloadOption { 
+        kDownloadItem           = (0x1 << 0),
+        kDownloadLinkedItem     = (0x1 << 1),
+        kDownloadImage          = (0x1 << 2),
+        kDownloadStockTool      = (0x1 << 3),
+        kDownloadChildren       = (0x1 << 4),
+        kDownloadAll            = kDownloadItem | kDownloadLinkedItem |
+                                  kDownloadImage | kDownloadStockTool |
+                                  kDownloadChildren,
+        kDownloadCleanDownloadDir = (0x1 << 5),
+        kDownloadShowProgress   = (0x1 << 6),
+        kDownloadUseNewIds      = (0x1 << 7),       // For internal use
+        kDownloadNotifyTool     = (0x1 << 12)       // For internal use. Note: kDownloadNotifyTool 
+                                                    // and kRefreshNotifyTool must have different values.
+    };
+  enum RefreshOption { 
+        kRefreshItem            = kDownloadItem,
+        kRefreshLinkedItem      = kDownloadLinkedItem,
+        kRefreshImage           = kDownloadImage,
+        kRefreshStockTool       = kDownloadStockTool,
+        kRefreshChildren        = kDownloadChildren,
+        kRefreshAll             = kDownloadAll,
+        kRefreshShowProgress    = kDownloadShowProgress,
+        kRefreshNotifyTool      = (0x1 << 16)       // For internal use. Note: kDownloadNotifyTool 
+                                                    // and kRefreshNotifyTool must have different values.
+    };
+  enum CatalogType {
+        kCatalog                = (0x1 << 0),
+        kStockToolCatalog       = (0x1 << 1),
+        kShapeCatalog           = (0x1 << 2)
+    };
+  enum ToolType {
+        kToolNormal             = 1,
+        kToolFlyout             = 2,
+        kToolText               = 3,
+        kToolSeparator          = 4,
+    };
+  enum SortOption {
+        kSortByName             = (0x1 << 0),
+        kSortByStockTool        = (0x1 << 1),
+        kSortByCustom           = (0x1 << 2),
+        kAscending              = (0x1 << 3),
+        kDescending             = (0x1 << 4),
+    };
+  enum ItemOption {
+        kItemOptionNone                 = 0x0,
+        kItemOptionSupportsAutoImage    = (0x1 << 0),
+        kItemOptionSupportsUserImage    = (0x1 << 1),
+        kItemOptionMenuUpdateImage      = (0x1 << 2),
+        kItemOptionMenuSetImage         = (0x1 << 3),
+        kItemOptionMenuRemoveImage      = (0x1 << 4),
+    };
 }
 struct ACTC_IMAGE_INFO
 {

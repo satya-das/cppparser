@@ -16,15 +16,14 @@
 class ADESK_NO_VTABLE AcGiStyleAttributes
 {
 public:
-  enum AttributeFlags
-  {
-    kNothing = 0x00,
-    kColor = 0x01,
-    kLine = 0x02,
-    kLineType = 0x04,
-    kPlotStyle = 0x08,
-    kEverything = 0x0F
-  };
+  enum AttributeFlags {
+        kNothing                = 0x00,
+        kColor                  = 0x01,
+        kLine                   = 0x02,
+        kLineType               = 0x04,
+        kPlotStyle              = 0x08,
+        kEverything             = 0x0F
+    };
     // Ctor/dtor/copy
   AcGiStyleAttributes()
   {

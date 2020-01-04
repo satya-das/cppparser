@@ -7,15 +7,14 @@
 #ifndef SkShadowFlags_DEFINED
 #  define SkShadowFlags_DEFINED
 // A set of flags shared between the SkAmbientShadowMaskFilter and the SkSpotShadowMaskFilter
-enum SkShadowFlags
-{
-  kNone_ShadowFlag = 0x00,
+enum SkShadowFlags {
+    kNone_ShadowFlag = 0x00,
     /** The occluding object is not opaque. Knowing that the occluder is opaque allows
     * us to cull shadow geometry behind it and improve performance. */
-  kTransparentOccluder_ShadowFlag = 0x01,
+    kTransparentOccluder_ShadowFlag = 0x01,
     /** Don't try to use analytic shadows. */
-  kGeometricOnly_ShadowFlag = 0x02,
+    kGeometricOnly_ShadowFlag = 0x02,
     /** mask for all shadow flags */
-  kAll_ShadowFlag = 0x03
+    kAll_ShadowFlag = 0x03
 };
 #endif

@@ -13,12 +13,12 @@
 class SK_API SkDropShadowImageFilter
 {
 public:
-  enum ShadowMode
-  {
-    kDrawShadowAndForeground_ShadowMode,
-    kDrawShadowOnly_ShadowMode,
-    kLast_ShadowMode = kDrawShadowOnly_ShadowMode
-  };
+  enum ShadowMode {
+        kDrawShadowAndForeground_ShadowMode,
+        kDrawShadowOnly_ShadowMode,
+
+        kLast_ShadowMode = kDrawShadowOnly_ShadowMode
+    };
   static const int kShadowModeCount = kLast_ShadowMode + 1;
   static sk_sp<SkImageFilter> Make(SkScalar dx, SkScalar dy, SkScalar sigmaX, SkScalar sigmaY, SkColor color, ShadowMode shadowMode, sk_sp<SkImageFilter> input, const SkImageFilter::CropRect* cropRect = nullptr);
   static void RegisterFlattenables();

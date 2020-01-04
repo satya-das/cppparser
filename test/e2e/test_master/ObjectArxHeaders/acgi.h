@@ -42,16 +42,15 @@
 #  pragma  pack (push, 8)
 struct AcGiSentScanLines
 {
-  enum IsmRequestStatus
-  {
-    eOk,
-    eInvalidInput,
-    eInvalidColorDepth,
-    eInvalidPixelRequest,
-    eInvalidDeliveryMethod,
-    eNoValidCompressors,
-    eInsufficientMemory
-  };
+  enum IsmRequestStatus {
+        eOk,                           // No Failure.
+        eInvalidInput,                 // unknown image organization
+        eInvalidColorDepth,            // mColorDepth to big or too small for request
+        eInvalidPixelRequest,          // IefAffine (matrix scaling) failed for some reason
+        eInvalidDeliveryMethod,        // Frame buffer delivery + compression - not valid
+        eNoValidCompressors,           // no compressors for image data
+        eInsufficientMemory            // low memory conditions.. very bad 
+    };
   Adesk::Int8* mpPixelBuffer;
   Adesk::UInt32 mRowBytes;
   void* mpImageId;
@@ -62,24 +61,21 @@ struct AcGiSentScanLines
 };
 struct AcGiRequestScanLines
 {
-  enum IEDitherMethod
-  {
-    kIEAnyPalette,
-    kCustomDithering,
-    kCustomDitheringMethod
-  };
-  enum IEColorSystem
-  {
-    kBitonal,
-    kCMY,
-    kCMYK,
-    kRGB
-  };
-  enum ImagePaletteType
-  {
-    kFromDevice,
-    kFromIeWholeImage
-  };
+  enum IEDitherMethod {
+        kIEAnyPalette,
+        kCustomDithering,
+        kCustomDitheringMethod
+    };
+  enum IEColorSystem {
+        kBitonal,
+        kCMY,
+        kCMYK,
+        kRGB
+    };
+  enum ImagePaletteType {
+        kFromDevice,
+        kFromIeWholeImage
+    };
   AcGiRequestScanLines()
     : mImageOrg(kAcGiBitonal)
     , mImageOrient(kAcGiXLeftToRightTopFirst)
@@ -154,16 +150,15 @@ public:
   }
 };
 // To be removed
-enum AcGiColorIntensity
-{
-  kAcGiMinColorIntensity = 0x0,
-  kAcGiColorIntensity1 = 0x1,
-  kAcGiColorIntensity2 = 0x2,
-  kAcGiColorIntensity3 = 0x3,
-  kAcGiColorIntensity4 = 0x4,
-  kAcGiColorIntensity5 = 0x5,
-  kAcGiColorIntensity6 = 0x6,
-  kAcGiMaxColorIntensity = 0x7
+enum AcGiColorIntensity {
+    kAcGiMinColorIntensity = 0x0,
+    kAcGiColorIntensity1   = 0x1,
+    kAcGiColorIntensity2   = 0x2,
+    kAcGiColorIntensity3   = 0x3,
+    kAcGiColorIntensity4   = 0x4,
+    kAcGiColorIntensity5   = 0x5,
+    kAcGiColorIntensity6   = 0x6,
+    kAcGiMaxColorIntensity = 0x7 
 };
 class AcGiColorRGB
 {
@@ -449,16 +444,15 @@ public:
 
     // AcRxObject protocol
   virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
-  enum VariantType
-  {
-    kUndefined = 0,
-    kBoolean,
-    kInt,
-    kDouble,
-    kColor,
-    kString,
-    kTable
-  };
+  enum VariantType {
+        kUndefined = 0,
+        kBoolean,
+        kInt,
+        kDouble,
+        kColor,
+        kString,
+        kTable,
+    };
   class EnumType
   {
   public:
@@ -913,76 +907,86 @@ public:
     /// This is a new enumeration of valid bitmasks for calls to the
     /// AcGiSubEntityTraits::setDrawFlags() method.
     /// </summary>
-  enum DrawFlags
-  {
+  enum DrawFlags {
         /// <summary>
         /// The default value for the draw flags.This indicates no draw flags are active.
         /// </summary>
-    kNoDrawFlags = 0,
+        kNoDrawFlags                     =   0,
+
         /// <summary>
         /// Indicates that shells or meshes that are part of the entity or sub - entity should
         /// always draw back - facing triangles.This is useful for 3D surfaces or solids that
         /// are not completely closed.Using this flag on closed solids is inefficient, but
         /// will still result in correct visual output.
         /// </summary>
-    kDrawBackfaces = 1,
+
+        kDrawBackfaces                   =   1,
+
         /// <summary>
         /// Indicates that shells or meshes that are part of the entity or subentity should always draw hatches. 
         /// </summary>
-    kDrawHatchGroup = 2,
+        kDrawHatchGroup                  =   2,
+
         /// <summary>
         /// Draw front faces only (i.e. no back faces). Mutually exclusive with kDrawBackfaces flag. 
         /// Specifying them together will give the same behavior as kDrawBackfaces. 
         /// </summary>
-    kDrawFrontfacesOnly = 4,
+        kDrawFrontfacesOnly              =   4,
+
         /// <summary>
         /// Draws with a gradient fill 
         /// </summary>
-    kDrawGradientFill = 8,
+        kDrawGradientFill                =   8,
+
         /// <summary>
         /// Draws with a solid fill 
         /// </summary>
-    kDrawSolidFill = 16,
+        kDrawSolidFill                   =   16,
+
         /// <summary>
         /// Draw with no line weight. Its enum value is 32.
         /// </summary>
-    kDrawNoLineWeight = 32,
+        kDrawNoLineWeight                =   32,
+
         /// <summary>
         /// </summary>
-    kDrawNoOptimization = 64,
+        kDrawNoOptimization              =   64,
+
         /// <summary>
         /// For Autodesk Internal Use Only.
         /// </summary>
-    kDrawUseAcGiEntityForDgnLineType = 128,
+        kDrawUseAcGiEntityForDgnLineType = 128,  // For Autodesk Internal Use Only
+
         /// <summary>
         /// </summary>
-    kDrawFillTextBoundaryStart = 256,
+        kDrawFillTextBoundaryStart       = 256,
+
         /// <summary>
         /// </summary>
-    kDrawFillTextBoundaryEnd = 512,
+        kDrawFillTextBoundaryEnd         = 512,
+
         /// <summary>
         /// </summary>
-    kDrawFillSelectionWindow = 1024,
+        kDrawFillSelectionWindow         = 1024,
+
         /// <summary>
         /// This item controls whether the newly set sub-entity traits, including color, transparency, line type, line weight and plot style, 
         /// will be force convert to ?ByLayer?, when the entity is in an external referenced drawing and the XREFOVERRIDE sysvar in the host drawing is set to 1.
         /// If this flag is set, newly set traits will not be force set to "ByLayer".
         /// If the flag is not set, newly set traits will be force set to "ByLayer".
         /// </summary>
-    kDrawNoForceByLayer = 2048
-  };
-  enum ShadowFlags
-  {
-    kShadowsCastAndReceive = 0x00,
-    kShadowsDoesNotCast = 0x01,
-    kShadowsDoesNotReceive = 0x02,
-    kShadowsIgnore = kShadowsDoesNotCast | kShadowsDoesNotReceive
-  };
-  enum SelectionFlags
-  {
-    kNoSelectionFlags = 0x00,
-    kSelectionIgnore = 0x01
-  };
+        kDrawNoForceByLayer              = 2048
+    };
+  enum ShadowFlags {
+        kShadowsCastAndReceive  = 0x00,
+        kShadowsDoesNotCast     = 0x01,
+        kShadowsDoesNotReceive  = 0x02,
+        kShadowsIgnore          = kShadowsDoesNotCast | kShadowsDoesNotReceive,
+    };
+  enum SelectionFlags {
+        kNoSelectionFlags   =   0x00,
+        kSelectionIgnore    =   0x01
+    };
     // Set properties of drawn objects.
     //
   virtual void setColor(const Adesk::UInt16 color) = 0;
@@ -1108,10 +1112,9 @@ class AcGiDrawableTraits : public AcGiSubEntityTraits
 {
 public:
   ACRX_DECLARE_MEMBERS(AcGiDrawableTraits);
-  enum HighlightProperty
-  {
-    kVertexRolloverHighlightSize
-  };
+  enum HighlightProperty {
+        kVertexRolloverHighlightSize,
+    };
     // Rather than using individual calls to the settings it is more efficient
     // to make this single call for an entity.
     //
@@ -1135,14 +1138,13 @@ public:
   }
 protected:
   friend class AcDbImpLayerTableRecord;
-  enum LayerFlags
-  {
-    kNone = 0x00,
-    kOff = 0x01,
-    kFrozen = 0x02,
-    kZero = 0x04,
-    kLocked = 0x08
-  };
+  enum LayerFlags {
+        kNone       = 0x00,
+        kOff        = 0x01,
+        kFrozen     = 0x02,
+        kZero       = 0x04,
+        kLocked     = 0x08
+    };
   virtual void setLayerFlags(Adesk::UInt8)
   {
   }
@@ -1339,11 +1341,7 @@ public:
   AcGiPolyline();
   AcGiPolyline(Adesk::UInt32 nbPoints, AcGePoint3d* pVertexList, AcGeVector3d* pNormal = NULL, Adesk::LongPtr lBaseSubEntMarker = -1);
   ~AcGiPolyline();
-  enum LinetypeGeneration
-  {
-    kPerSegment,
-    kEndToEnd
-  };
+  enum LinetypeGeneration { kPerSegment, kEndToEnd };
   virtual Adesk::UInt32 points() const;
   virtual const AcGePoint3d* vertexList() const;
   virtual const AcGeVector3d* normal() const;
@@ -1358,40 +1356,36 @@ public:
   virtual void setSubEntMarkerList(const Adesk::LongPtr* pSubEntMarkerList);
   virtual void setArcSegmentFlags(const bool* pArcSegmentFlags);
 };
-typedef enum
-{
-  kAcGiWorldPosition,
-  kAcGiViewportPosition,
-  kAcGiScreenPosition,
-  kAcGiScreenLocalOriginPosition,
-  kAcGiWorldWithScreenOffsetPosition
+typedef enum { 
+     kAcGiWorldPosition,
+     kAcGiViewportPosition,
+     kAcGiScreenPosition,
+     kAcGiScreenLocalOriginPosition,
+     kAcGiWorldWithScreenOffsetPosition
 } AcGiPositionTransformBehavior;
-typedef enum
-{
-  kAcGiWorldScale,
-  kAcGiViewportScale,
-  kAcGiScreenScale,
-  kAcGiViewportLocalOriginScale,
-  kAcGiScreenLocalOriginScale
+typedef enum { 
+     kAcGiWorldScale,
+     kAcGiViewportScale,
+     kAcGiScreenScale,
+     kAcGiViewportLocalOriginScale,
+     kAcGiScreenLocalOriginScale
 } AcGiScaleTransformBehavior;
-typedef enum
-{
-  kAcGiWorldOrientation,
-  kAcGiScreenOrientation,
-  kAcGiZAxisOrientation
+typedef enum { 
+     kAcGiWorldOrientation,
+     kAcGiScreenOrientation,
+     kAcGiZAxisOrientation
 } AcGiOrientationTransformBehavior;
 class AcGiGeometry : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcGiGeometry);
-  enum TransparencyMode
-  {
-    kTransparencyOff,
-    kTransparency1Bit,
+  enum TransparencyMode {
+        kTransparencyOff,  // pixel alpha ignored, all pixels are opaque
+        kTransparency1Bit, // pixel alpha determines transparency on/off,
             // with 0 to 254 completely transparent and 255 completely opaque
-    kTransparency8Bit,
+        kTransparency8Bit, // pixel alpha determines transparency level,
         // from 0 (completely transparent) to 255 (completely opaque)
-  };
+    };
     // Coordinate transformations.
     //
   virtual void getModelToWorldTransform(AcGeMatrix3d&) const = 0;
@@ -1484,12 +1478,11 @@ public:
   virtual Adesk::Boolean polygonEye(const Adesk::UInt32 nbPoints, const AcGePoint3d* pPoints) const = 0;
   virtual Adesk::Boolean polylineDc(const Adesk::UInt32 nbPoints, const AcGePoint3d* pPoints) const = 0;
   virtual Adesk::Boolean polygonDc(const Adesk::UInt32 nbPoints, const AcGePoint3d* pPoints) const = 0;
-  enum ImageSource
-  {
-    kFromDwg,
-    kFromOleObject,
-    kFromRender
-  };
+  enum ImageSource {
+        kFromDwg,
+        kFromOleObject,
+        kFromRender
+    };
   virtual Adesk::Boolean rasterImageDc(const AcGePoint3d& origin, const AcGeVector3d& u, const AcGeVector3d& v, const AcGeMatrix2d& pixelToDc, AcDbObjectId entityId, AcGiImageOrg imageOrg, Adesk::UInt32 imageWidth, Adesk::UInt32 imageHeight, Adesk::Int16 imageColorDepth, Adesk::Boolean transparency, ImageSource source, const AcGeVector3d& unrotatedU, const AcGiImageOrg origionalImageOrg, const AcGeMatrix2d& unrotatedPixelToDc, const Adesk::UInt32 unrotatedImageWidth, const Adesk::UInt32 unrotatedImageHeight) const = 0;
   virtual Adesk::Boolean ownerDrawDc(Adesk::Int32 vpnumber, Adesk::Int32 left, Adesk::Int32 top, Adesk::Int32 right, Adesk::Int32 bottom, const OwnerDraw* pOwnerDraw) const = 0;
   virtual Adesk::Boolean ownerDraw3d(AcGePoint3d&, AcGePoint3d&, OwnerDraw3d*) const
@@ -1545,11 +1538,10 @@ public:
 class ACDBCORE2D_PORT AcGiVertexData : public AcGiParameter
 {
 public:
-  enum MapChannel
-  {
-    kAllChannels,
-    kMapChannels
-  };
+  enum MapChannel {
+        kAllChannels,
+        kMapChannels
+    };
   ACRX_DECLARE_MEMBERS_READWRITE(AcGiVertexData, AcGiImpVertexData);
   ~AcGiVertexData();
   AcGiVertexData();
@@ -1660,18 +1652,17 @@ private:
 class ACDBCORE2D_PORT AcGiGradientFill : public AcGiFill
 {
 public:
-  enum GradientType
-  {
-    kLinear,
-    kCylinder,
-    kInvCylinder,
-    kSpherical,
-    kHemispherical,
-    kCurved,
-    kInvSpherical,
-    kInvHemispherical,
-    kInvCurved
-  };
+  enum GradientType {
+        kLinear,
+        kCylinder,
+        kInvCylinder,
+        kSpherical,
+        kHemispherical,
+        kCurved,
+        kInvSpherical,
+        kInvHemispherical,
+        kInvCurved
+    };
   ACRX_DECLARE_MEMBERS(AcGiGradientFill);
   AcGiGradientFill(double gradientAngle, double gradientShift, bool bAdjustAspect, AcArray<AcCmColor>& gradientColors, AcGiGradientFill::GradientType type);
   AcGiGradientFill(const AcGiGradientFill&);

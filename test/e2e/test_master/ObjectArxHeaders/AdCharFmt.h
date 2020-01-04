@@ -33,17 +33,16 @@
 class AdCharFormatter
 {
 public:
-  enum
-  {
-    kUnknown = 0,
-    kAnsi,
+  enum {
+        kUnknown = 0, 
+        kAnsi, 
         // kAnsiCIF,   should this be a separate type?
-    kUtf8,
-    kUtf16LE,
-    kUtf16BE,
-    kUtf32LE,
-    kUtf32BE
-  };
+        kUtf8,
+        kUtf16LE, 
+        kUtf16BE,
+        kUtf32LE,
+        kUtf32BE
+    };
   AdCharFormatter(unsigned nFormat, bool bUseCIF, bool bExpandLF)
     : mnFormat(nFormat)
     , mbUseCIF(bUseCIF)

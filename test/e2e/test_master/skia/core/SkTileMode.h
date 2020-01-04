@@ -7,27 +7,30 @@
 #ifndef SkTileModes_DEFINED
 #  define SkTileModes_DEFINED
 #  include "include/core/SkTypes.h"
-enum class SkTileMode
-{
+enum class SkTileMode {
     /**
      *  Replicate the edge color if the shader draws outside of its
      *  original bounds.
      */
-  kClamp,
+    kClamp,
+
     /**
      *  Repeat the shader's image horizontally and vertically.
      */
-  kRepeat,
+    kRepeat,
+
     /**
      *  Repeat the shader's image horizontally and vertically, alternating
      *  mirror images so that adjacent images always seam.
      */
-  kMirror,
+    kMirror,
+
     /**
      *  Only draw within the original domain, return transparent-black everywhere else.
      */
-  kDecal,
-  kLastTileMode = kDecal
+    kDecal,
+
+    kLastTileMode = kDecal,
 };
 static int kSkTileModeCount = static_cast<int>(SkTileMode::kLastTileMode) + 1;
 #endif

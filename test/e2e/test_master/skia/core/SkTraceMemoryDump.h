@@ -19,13 +19,13 @@ public:
     /**
      * Enum to specify the level of the requested details for the dump from the Skia objects.
      */
-  enum LevelOfDetail
-  {
+  enum LevelOfDetail {
         // Dump only the minimal details to get the total memory usage (Usually just the totals).
-    kLight_LevelOfDetail,
+        kLight_LevelOfDetail,
+
         // Dump the detailed breakdown of the objects in the caches.
-    kObjectsBreakdowns_LevelOfDetail
-  };
+        kObjectsBreakdowns_LevelOfDetail
+    };
     /**
      *  Appends a new memory dump (i.e. a row) to the trace memory infrastructure.
      *  If dumpName does not exist yet, a new one is created. Otherwise, a new column is appended to

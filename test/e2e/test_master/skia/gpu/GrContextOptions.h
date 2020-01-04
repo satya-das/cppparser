@@ -16,23 +16,21 @@ class SkExecutor;
 #  if  SK_SUPPORT_GPU
 struct SK_API GrContextOptions
 {
-  enum class Enable
-  {
+  enum class Enable {
         /** Forces an option to be disabled. */
-    kNo,
+        kNo,
         /** Forces an option to be enabled. */
-    kYes,
+        kYes,
         /**
          * Uses Skia's default behavior, which may use runtime properties (e.g. driver version).
          */
-    kDefault
-  };
-  enum class ShaderCacheStrategy
-  {
-    kSkSL,
-    kBackendSource,
-    kBackendBinary
-  };
+        kDefault
+    };
+  enum class ShaderCacheStrategy {
+        kSkSL,
+        kBackendSource,
+        kBackendBinary,
+    };
     /**
      * Abstract class which stores Skia data in a cache that persists between sessions. Currently,
      * Skia stores compiled shader binaries (only when glProgramBinary / glGetProgramBinary are

@@ -22,11 +22,10 @@ public:
     /// Extraction type, outline or floorplan
     /// </summary>
     ///
-  enum ExtractionType
-  {
-    kOutLine,
-    kAllLine
-  };
+  enum ExtractionType {
+        kOutLine,
+        kAllLine,
+    };
     /// <summary>
     /// Extract type, out line or floorplan.
     /// </summary>

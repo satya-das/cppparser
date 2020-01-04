@@ -27,18 +27,16 @@ typedef AcArray<AcDbField*> AcDbFieldArray;
 typedef struct AcFd
 {
     // Enum for acdbEvaluateFields
-  enum EvalFields
-  {
-    kEvalRecursive = (0x1 << 0)
-  };
+  enum EvalFields {
+        kEvalRecursive      = (0x1 << 0),       // Recursively evaluate complex objects
+    };
     // Options for function acdbConvertFieldsToText()
-  enum ConvertFieldToText
-  {
-    kConvertFieldToTextNone = 0,
-    kEvaluateBeforeConversion = (0x1 << 0),
-    kExcludeEvaluatorsInList = (0x1 << 1),
-    kIgnoreEvaluatorVersion = (0x1 << 2)
-  };
+  enum ConvertFieldToText {
+        kConvertFieldToTextNone         = 0,
+        kEvaluateBeforeConversion       = (0x1 << 0),
+        kExcludeEvaluatorsInList        = (0x1 << 1),
+        kIgnoreEvaluatorVersion         = (0x1 << 2),
+    };
 } AcFd;
 //*************************************************************************
 // AcHyperlink
@@ -56,71 +54,66 @@ typedef struct AcHyperlink
 class AcDbField : public AcDbObject
 {
 public:
-  enum State
-  {
-    kInitialized = (0x1 << 0),
-    kCompiled = (0x1 << 1),
-    kModified = (0x1 << 2),
-    kEvaluated = (0x1 << 3),
-    kHasCache = (0x1 << 4),
-    kHasFormattedString = (0x1 << 5)
-  };
-  enum EvalOption
-  {
-    kDisable = 0,
-    kOnOpen = (0x1 << 0),
-    kOnSave = (0x1 << 1),
-    kOnPlot = (0x1 << 2),
-    kOnEtransmit = (0x1 << 3),
-    kOnRegen = (0x1 << 4),
-    kOnDemand = (0x1 << 5),
-    kAutomatic = (kOnOpen | kOnSave | kOnPlot | kOnEtransmit | kOnRegen | kOnDemand)
-  };
-  enum EvalContext
-  {
-    kOpen = (0x1 << 0),
-    kSave = (0x1 << 1),
-    kPlot = (0x1 << 2),
-    kEtransmit = (0x1 << 3),
-    kRegen = (0x1 << 4),
-    kDemand = (0x1 << 5),
-    kPreview = (0x1 << 6),
-    kPlotPreview = (0x1 << 7)
-  };
-  enum EvalStatus
-  {
-    kNotYetEvaluated = (0x1 << 0),
-    kSuccess = (0x1 << 1),
-    kEvaluatorNotFound = (0x1 << 2),
-    kSyntaxError = (0x1 << 3),
-    kInvalidCode = (0x1 << 4),
-    kInvalidContext = (0x1 << 5),
-    kOtherError = (0x1 << 6)
-  };
-  enum FieldCodeFlag
-  {
-    kFieldCode = (0x1 << 0),
-    kEvaluatedText = (0x1 << 1),
-    kEvaluatedChildren = (0x1 << 2),
-    kObjectReference = (0x1 << 3),
+  enum State {
+        kInitialized        = (0x1 << 0),       // Field has been initialized by the evaluator
+        kCompiled           = (0x1 << 1),       // Field has beene compiled
+        kModified           = (0x1 << 2),       // Field code has been modified, but not yet evaluated
+        kEvaluated          = (0x1 << 3),       // Field has been evaluated
+        kHasCache           = (0x1 << 4),       // Field has evaluated cache
+        kHasFormattedString = (0x1 << 5),       // For internal use only. Field has cached formatted string. 
+    };
+  enum EvalOption {
+        kDisable            = 0,                // Disable evaluation of field
+        kOnOpen             = (0x1 << 0),       // Evaluate on drawing open
+        kOnSave             = (0x1 << 1),       // Evaluate on drawing save
+        kOnPlot             = (0x1 << 2),       // Evaluate on drawing plot
+        kOnEtransmit        = (0x1 << 3),       // Evaluate on drawing etransmit
+        kOnRegen            = (0x1 << 4),       // Evaluate on drawing regen
+        kOnDemand           = (0x1 << 5),       // Evaluate on demand
+        kAutomatic          = (kOnOpen | kOnSave | kOnPlot | 
+                               kOnEtransmit | kOnRegen | kOnDemand),    // No restriction
+    };
+  enum EvalContext {
+        kOpen               = (0x1 << 0),       // Field is being evaluated during open
+        kSave               = (0x1 << 1),       // Field is being evaluated during save
+        kPlot               = (0x1 << 2),       // Field is being evaluated during plot
+        kEtransmit          = (0x1 << 3),       // Field is being evaluated during etransmit
+        kRegen              = (0x1 << 4),       // Field is being evaluated during regen
+        kDemand             = (0x1 << 5),       // Field is being evaluated on demand
+        kPreview            = (0x1 << 6),       // Field is being evaluated for preview of field result
+        kPlotPreview        = (0x1 << 7),       // Field is being evaluated during plot preview
+    };
+  enum EvalStatus {
+        kNotYetEvaluated    = (0x1 << 0),       // Not yet evaluated
+        kSuccess            = (0x1 << 1),       // Evaluated successfully
+        kEvaluatorNotFound  = (0x1 << 2),       // Evaluator not found
+        kSyntaxError        = (0x1 << 3),       // Field code syntax error
+        kInvalidCode        = (0x1 << 4),       // Invalid field code
+        kInvalidContext     = (0x1 << 5),       // Invalid context to evaluate field
+        kOtherError         = (0x1 << 6),       // Evaluation error
+    };
+  enum FieldCodeFlag {
+        kFieldCode          = (0x1 << 0),       // Get raw field code. Used only in getFieldCode().
+        kEvaluatedText      = (0x1 << 1),       // Get evaluated text. Used only in getFieldCode().
+        kEvaluatedChildren  = (0x1 << 2),       // Get field code with evaluated text for child fields. Used only in getFieldCode().
+        kObjectReference    = (0x1 << 3),       // Get child fields as object references if this is text field or 
                                                 // this field as object reference if this is not text field. Used only in getFieldCode().
-    kAddMarkers = (0x1 << 4),
-    kEscapeBackslash = (0x1 << 5),
-    kStripOptions = (0x1 << 6),
-    kPreserveFields = (0x1 << 7),
-    kTextField = (0x1 << 8),
-    kPreserveOptions = (0x1 << 9),
-    kDetachChildren = (0x1 << 10),
+        kAddMarkers         = (0x1 << 4),       // Include markers around field codes. Used only in getFieldCode().
+        kEscapeBackslash    = (0x1 << 5),       // Convert single backslashes to double backslashes. Used only in getFieldCode().
+        kStripOptions       = (0x1 << 6),       // Strip the standard options from field code. Used only in getFieldCode().
+        kPreserveFields     = (0x1 << 7),       // Try to preserve existing fields. Used only in setFieldCode().
+        kTextField          = (0x1 << 8),       // Treat the field as text with embedded fields. Used only in setFieldCode().
+        kPreserveOptions    = (0x1 << 9),       // Preserve the current standard options. Used only in setFieldCode(). For internal use.
+        kDetachChildren     = (0x1 << 10),      // For internal use. Detach the child fields without erasing/deleting them. 
                                                 // Used only in setFieldCode().
-    kChildObjectReference = (0x1 << 11),
+        kChildObjectReference = (0x1 << 11),    // For internal use. Get child fields as object references. 
                                                 // Used only in getFieldCode().
-    kForExpression = (0x1 << 12),
+        kForExpression      = (0x1 << 12),      // For internal use. Used with kEvaluatedText/kEvaluatedChildren.
                                                 // Get the value in a format which can be used in arithmatic expressions. Used only in getFieldCode().
-  };
-  enum FilingOption
-  {
-    kSkipFilingResult = (0x1 << 0)
-  };
+    };
+  enum FilingOption {
+        kSkipFilingResult   = (0x1 << 0),       // Don't file field value
+    };
   ACDB_DECLARE_MEMBERS(AcDbField);
   ACDBCORE2D_PORT AcDbField(void);
   ACDBCORE2D_PORT AcDbField(const ACHAR* pszFieldCode, bool bTextField = false);

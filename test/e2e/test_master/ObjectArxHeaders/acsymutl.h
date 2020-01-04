@@ -25,23 +25,18 @@
 class AcDbDatabase;
 namespace AcEdSymbolUtilities
 {
-  enum CrSpMode
-  {
-    kCrEndsInput = true,
-    kCrSpEndsInput = false
-  };
-  enum NameCaseMode
-  {
-    kPreserveCase = true,
-    kForceToUpper = false
-  };
+  enum CrSpMode {
+    kCrEndsInput = true
+  , kCrSpEndsInput = false
+};
+  enum NameCaseMode {
+    kPreserveCase = true
+  , kForceToUpper = false
+};
   class Services
   {
   public:
-    enum
-    {
-      kCurrentVersion = ACEDSYMUTIL_SERVICES_CURRENT_VERSION
-    };
+    enum { kCurrentVersion = ACEDSYMUTIL_SERVICES_CURRENT_VERSION };
     virtual unsigned version() const = 0;
     virtual Acad::PromptStatus getCompatibleSymbolString(ACHAR*& pResponse, const ACHAR* prompt, AcDbDatabase* pDb) const = 0;
     virtual Acad::PromptStatus getSymbolString(ACHAR*& pResponse, const ACHAR* prompt, bool onlyCrEndsInput, bool preserveCase) const = 0;

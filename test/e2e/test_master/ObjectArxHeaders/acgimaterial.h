@@ -28,51 +28,46 @@ class AcGiMaterialTraits : public AcGiNonEntityTraits
 {
 public:
   ACRX_DECLARE_MEMBERS(AcGiMaterialTraits);
-  enum IlluminationModel
-  {
-    kBlinnShader = 0,
-    kMetalShader
-  };
-  enum ChannelFlags
-  {
-    kNone = 0x00000,
-    kUseDiffuse = 0x00001,
-    kUseSpecular = 0x00002,
-    kUseReflection = 0x00004,
-    kUseOpacity = 0x00008,
-    kUseBump = 0x00010,
-    kUseRefraction = 0x00020,
-    kUseNormalMap = 0x00040,
-    kUseAll = (kUseDiffuse | kUseSpecular | kUseReflection | kUseOpacity | kUseBump | kUseRefraction | kUseNormalMap)
-  };
-  enum Mode
-  {
-    kRealistic = 0,
-    kAdvanced
-  };
-  enum LuminanceMode
-  {
-    kSelfIllumination = 0,
-    kLuminance
-  };
-  enum NormalMapMethod
-  {
-    kTangentSpace
-  };
-  enum GlobalIlluminationMode
-  {
-    kGlobalIlluminationNone,
-    kGlobalIlluminationCast,
-    kGlobalIlluminationReceive,
-    kGlobalIlluminationCastAndReceive
-  };
-  enum FinalGatherMode
-  {
-    kFinalGatherNone,
-    kFinalGatherCast,
-    kFinalGatherReceive,
-    kFinalGatherCastAndReceive
-  };
+  enum IlluminationModel {
+        kBlinnShader = 0,
+        kMetalShader, 
+    };
+  enum ChannelFlags {
+        kNone          = 0x00000,
+        kUseDiffuse    = 0x00001,
+        kUseSpecular   = 0x00002,
+        kUseReflection = 0x00004,
+        kUseOpacity    = 0x00008,
+        kUseBump       = 0x00010,
+        kUseRefraction = 0x00020,
+        kUseNormalMap  = 0x00040,
+        kUseAll        = (kUseDiffuse | kUseSpecular | kUseReflection 
+                            | kUseOpacity | kUseBump | kUseRefraction
+                            | kUseNormalMap),
+    };
+  enum Mode {
+        kRealistic = 0,
+        kAdvanced, 
+    };
+  enum LuminanceMode {
+        kSelfIllumination = 0,
+        kLuminance,
+    };
+  enum NormalMapMethod {
+        kTangentSpace
+    };
+  enum GlobalIlluminationMode {
+        kGlobalIlluminationNone,
+        kGlobalIlluminationCast,
+        kGlobalIlluminationReceive,
+        kGlobalIlluminationCastAndReceive
+    };
+  enum FinalGatherMode {
+        kFinalGatherNone,
+        kFinalGatherCast,
+        kFinalGatherReceive,
+        kFinalGatherCastAndReceive
+    };
     // Set material properties
     //
   virtual void setAmbient(const AcGiMaterialColor& color) = 0;
@@ -133,11 +128,10 @@ class AcGiMaterialColor : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcGiMaterialColor);
-  enum Method
-  {
-    kInherit = 0,
-    kOverride
-  };
+  enum Method {
+        kInherit = 0,
+        kOverride,     
+    };
   ACGIMAT_IMPEXP static const AcGiMaterialColor kNull;
   AcGiMaterialColor(void);
   virtual ~AcGiMaterialColor();
@@ -195,12 +189,11 @@ class AcGiProceduralTexture : public AcGiMaterialTexture
 {
 public:
   ACRX_DECLARE_MEMBERS(AcGiProceduralTexture);
-  enum Type
-  {
-    kWood = 0,
-    kMarble,
-    kGeneric
-  };
+  enum Type {
+        kWood = 0,
+        kMarble,
+        kGeneric,
+    };
 };
 class AcGiGenericTexture : public AcGiProceduralTexture
 {
@@ -278,23 +271,22 @@ class AcGiMaterialMap : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcGiMaterialMap);
-  enum Source
-  {
-    kScene = 0,
-    kFile,
-    kProcedural
-  };
+  enum Source {
+        kScene = 0,
+        kFile,
+        kProcedural
+    };
     ///<summary>Material map filtering settings.</summary>
-  enum Filter
-  {
+  enum Filter {
         ///<summary>
         /// Uses the default filtering setting rather than explicitly setting a
         /// particular filtering type.
         ///</summary>
-    kFilterDefault = 0,
+        kFilterDefault = 0,
+
         ///<summary>Explicitly disables filtering on this material map.</summary>
-    kFilterNone
-  };
+        kFilterNone
+    };
   ACGIMAT_IMPEXP static const AcGiMaterialMap kNull;
   AcGiMaterialMap(void);
   virtual ~AcGiMaterialMap();
@@ -346,29 +338,26 @@ class AcGiMapper : public AcGiParameter
 {
   ACRX_DECLARE_MEMBERS_READWRITE(AcGiMapper, AcGiImpMapper);
 public:
-  enum Projection
-  {
-    kInheritProjection = 0,
-    kPlanar,
-    kBox,
-    kCylinder,
-    kSphere
-  };
-  enum Tiling
-  {
-    kInheritTiling = 0,
-    kTile,
-    kCrop,
-    kClamp,
-    kMirror
-  };
-  enum AutoTransform
-  {
-    kInheritAutoTransform = 0x0,
-    kNone = 0x1,
-    kObject = 0x2,
-    kModel = 0x4
-  };
+  enum Projection {
+        kInheritProjection = 0,
+        kPlanar,
+        kBox,
+        kCylinder,
+        kSphere
+    };
+  enum Tiling {
+        kInheritTiling = 0,
+        kTile,
+        kCrop,
+        kClamp,
+        kMirror,
+    };
+  enum AutoTransform {
+        kInheritAutoTransform = 0x0,
+        kNone                 = 0x1,
+        kObject               = 0x2,
+        kModel                = 0x4
+    };
   ACGIMAT_IMPEXP static const AcGiMapper kIdentity;
   AcGiMapper(void);
   virtual ~AcGiMapper();

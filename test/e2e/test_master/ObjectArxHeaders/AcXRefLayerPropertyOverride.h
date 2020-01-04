@@ -19,20 +19,19 @@ public:
     /// It can be used to get/set specific property override of Xref layer
     /// The corresponding value of sysvar "VISRETAINMODE" is listed as below also
     /// </summary>
-  enum XRefLayerPropertyOverrideType
-  {
-    On = 0,
-    Freeze = 1,
-    Lock = 2,
-    Plot = 3,
-    Color = 4,
-    Linetype = 5,
-    Lineweight = 6,
-    Transparency = 7,
-    PlotStyle = 8,
-    NewVPFreeze = 9,
-    Description = 10
-  };
+  enum XRefLayerPropertyOverrideType {
+        On           = 0,    //VISRETAINMODE = 1
+        Freeze       = 1,    //VISRETAINMODE = 2
+        Lock         = 2,    //VISRETAINMODE = 4
+        Plot         = 3,    //VISRETAINMODE = 8
+        Color        = 4,    //VISRETAINMODE = 16
+        Linetype     = 5,    //VISRETAINMODE = 32
+        Lineweight   = 6,    //VISRETAINMODE = 64
+        Transparency = 7,    //VISRETAINMODE = 128
+        PlotStyle    = 8,    //VISRETAINMODE = 256
+        NewVPFreeze  = 9,    //VISRETAINMODE = 512
+        Description  = 10    //VISRETAINMODE = 1024
+    };
     /// <summary>
     /// This function is to check whether the Xref layer property is overridden or not in host drawing.
     /// If xdata flag is not found in the Xref layer, we will use Xref cache to compare the layer property from Xref and current layer property in host drawing,

@@ -11,58 +11,57 @@ namespace SkPDF
 {
 /** Table 333 in PDF 32000-1:2008 §14.8.4.2
 */
-  enum class DocumentStructureType
-  {
-    kDocument,
-    kPart,
-    kArt,
-    kSect,
-    kDiv,
-    kBlockQuote,
-    kCaption,
-    kTOC,
-    kTOCI,
-    kIndex,
-    kNonStruct,
-    kPrivate,
-    kH,
-    kH1,
-    kH2,
-    kH3,
-    kH4,
-    kH5,
-    kH6,
-    kP,
-    kL,
-    kLI,
-    kLbl,
-    kLBody,
-    kTable,
-    kTR,
-    kTH,
-    kTD,
-    kTHead,
-    kTBody,
-    kTFoot,
-    kSpan,
-    kQuote,
-    kNote,
-    kReference,
-    kBibEntry,
-    kCode,
-    kLink,
-    kAnnot,
-    kRuby,
-    kRB,
-    kRT,
-    kRP,
-    kWarichu,
-    kWT,
-    kWP,
-    kFigure,
-    kFormula,
-    kForm
-  };
+  enum class DocumentStructureType {
+    kDocument,    //!< Document
+    kPart,        //!< Part
+    kArt,         //!< Article
+    kSect,        //!< Section
+    kDiv,         //!< Division
+    kBlockQuote,  //!< Block quotation
+    kCaption,     //!< Caption
+    kTOC,         //!< Table of Contents
+    kTOCI,        //!< Table of Contents Item
+    kIndex,       //!< Index
+    kNonStruct,   //!< Nonstructural element
+    kPrivate,     //!< Private element
+    kH,           //!< Heading
+    kH1,          //!< Heading level 1
+    kH2,          //!< Heading level 2
+    kH3,          //!< Heading level 3
+    kH4,          //!< Heading level 4
+    kH5,          //!< Heading level 5
+    kH6,          //!< Heading level 6
+    kP,           //!< Paragraph
+    kL,           //!< List
+    kLI,          //!< List item
+    kLbl,         //!< List item label
+    kLBody,       //!< List item body
+    kTable,       //!< Table
+    kTR,          //!< Table row
+    kTH,          //!< Table header cell
+    kTD,          //!< Table data cell
+    kTHead,       //!< Table header row group
+    kTBody,       //!< Table body row group
+    kTFoot,       //!< table footer row group
+    kSpan,        //!< Span
+    kQuote,       //!< Quotation
+    kNote,        //!< Note
+    kReference,   //!< Reference
+    kBibEntry,    //!< Bibliography entry
+    kCode,        //!< Code
+    kLink,        //!< Link
+    kAnnot,       //!< Annotation
+    kRuby,        //!< Ruby annotation
+    kRB,          //!< Ruby base text
+    kRT,          //!< Ruby annotation text
+    kRP,          //!< Ruby punctuation
+    kWarichu,     //!< Warichu annotation
+    kWT,          //!< Warichu text
+    kWP,          //!< Warichu punctuation
+    kFigure,      //!< Figure
+    kFormula,     //!< Formula
+    kForm,        //!< Form control (not like an HTML FORM element)
+};
 /** A node in a PDF structure tree, giving a semantic representation
     of the content.  Each node ID is associated with content
     by passing the SkCanvas and node ID to SkPDF::SetNodeId() when drawing.
@@ -147,10 +146,9 @@ namespace SkPDF
     /** Preferred Subsetter. Only respected if both are compiled in.
         Experimental.
     */
-    enum Subsetter
-    {
-      kHarfbuzz_Subsetter,
-      kSfntly_Subsetter
+    enum Subsetter {
+        kHarfbuzz_Subsetter,
+        kSfntly_Subsetter,
     };
     Subsetter fSubsetter = kHarfbuzz_Subsetter;
   };

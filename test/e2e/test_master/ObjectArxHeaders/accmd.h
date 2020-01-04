@@ -71,11 +71,10 @@ public:
   void removeReactor(AcEdCommandReactor* pReactor);
   Adesk::UInt8 defaultCommandVersion() const;
 };
-enum AcEdCommandStatusFlags
-{
-  kCmdStatusNone = 0x00000,
-  kCmdStatusCancel = 0x00001,
-  kCmdStatusFailed = 0x00002
+enum AcEdCommandStatusFlags {
+    kCmdStatusNone   = 0x00000,
+    kCmdStatusCancel = 0x00001,
+    kCmdStatusFailed = 0x00002,
 };
 AcEdCommandStatusFlags& operator|=(AcEdCommandStatusFlags& f, int i);
 AcEdCommandStatusFlags& operator&=(AcEdCommandStatusFlags& f, int i);

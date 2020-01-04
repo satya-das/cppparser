@@ -174,6 +174,7 @@ CppParser constructCppParserForTest()
                          "SKSL_PRINTF_LIKE",
                          "ACT_AS_PTR",
                          "RECORD",
+                         "GR_DECLARE_FRAGMENT_PROCESSOR_TEST",
                          "SK_WHEN"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");

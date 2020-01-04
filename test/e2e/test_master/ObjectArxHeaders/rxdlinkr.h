@@ -18,30 +18,28 @@ class AcRxService;
 #  pragma  pack (push, 8)
 struct AcadApp
 {
-  enum LoadReasons
-  {
-    kOnProxyDetection = 0x01,
-    kOnAutoCADStartup = 0x02,
-    kOnCommandInvocation = 0x04,
-    kOnLoadRequest = 0x08,
-    kLoadDisabled = 0x10,
-    kTransparentlyLoadable = 0x20,
-    kOnIdleLoad = 0x40
-  };
-  enum ErrorStatus
-  {
-    eOk = 0,
-    eInvalidKey = 1,
-    eInvalidSubKey = 2,
-    eKeyNotFound = 3,
-    eOutOfMemory = 4,
-    eInvalidValue = 5,
-    eValueNotFound = 6,
-    eKeyExists = 7,
-    eRegAccessDenied = 8,
-    eRejected = 9,
-    eUnknownError = 10
-  };
+  enum LoadReasons {
+        kOnProxyDetection       = 0x01,
+        kOnAutoCADStartup       = 0x02,
+        kOnCommandInvocation    = 0x04,
+        kOnLoadRequest          = 0x08,
+        kLoadDisabled           = 0x10,
+        kTransparentlyLoadable  = 0x20,
+        kOnIdleLoad             = 0x40
+    };
+  enum ErrorStatus {
+        eOk             = 0,
+        eInvalidKey     = 1,
+        eInvalidSubKey  = 2,
+        eKeyNotFound    = 3,
+        eOutOfMemory    = 4,
+        eInvalidValue   = 5,
+        eValueNotFound  = 6,
+        eKeyExists      = 7,
+        eRegAccessDenied= 8,
+        eRejected       = 9,
+        eUnknownError   = 10
+    };
 };
 class ADESK_NO_VTABLE AcRxDynamicLinker : public AcRxObject
 {

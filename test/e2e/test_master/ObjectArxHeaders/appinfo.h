@@ -24,33 +24,30 @@ class AcadAppInfo : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcadAppInfo);
-  enum CmdStatus
-  {
-    kNoAction = 0,
-    kRetry = 1,
-    kShowMsg = 2,
-    kNoModule = 3
-  };
-  enum MgdType
-  {
-    kUnManaged = 0,
-    kManaged = 1,
-    kJavaScript = 2
-  };
+  enum CmdStatus {
+        kNoAction    = 0,
+        kRetry       = 1,
+        kShowMsg     = 2,
+        kNoModule    = 3
+    };
+  enum MgdType {
+        kUnManaged   = 0,
+        kManaged     = 1,
+        kJavaScript  = 2
+    };
     /// <summary>
     /// Optimization flags that can be passed to readFromRegistry
     /// </summary>
-  enum ReadFlags
-  {
+  enum ReadFlags {
         /// <summary>
         /// no optimization (default behavior)
         /// </summary>
-    kNone = 0,
+        kNone = 0, 
         /// <summary>
         /// skip findFile, moduleName will return the string as found in the registry
         /// </summary>
-    kSkipFindFileForModuleName = 1
-  };
+        kSkipFindFileForModuleName = 1 
+    };
   typedef AcadAppInfo::CmdStatus (*LoaderFunPtr) (void*);
   AcadAppInfo();
   virtual ~AcadAppInfo();

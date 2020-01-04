@@ -18,20 +18,18 @@ public:
 	/// <summary>
 	/// Enumeration defining label and identifier placement
 	/// </summary>
-  enum IdentifierPlacement
-  {
-    kOutsideBoundary = 0,
-    kOutsideBoundaryWithLeader,
-    kOnBoundary,
-    kOnBoundaryWithLeader
-  };
-  enum ModelEdge
-  {
-    kSmooth = 0,
-    kSmoothWithBorder,
-    kSmoothWithConnectionLine,
-    kJagged
-  };
+  enum IdentifierPlacement {
+		kOutsideBoundary=0,
+        kOutsideBoundaryWithLeader,
+        kOnBoundary,
+        kOnBoundaryWithLeader,
+	};
+  enum ModelEdge {
+        kSmooth = 0,
+        kSmoothWithBorder,
+        kSmoothWithConnectionLine,
+        kJagged,
+    };
   AcDbDetailViewStyle();
   ~AcDbDetailViewStyle();
   ACDB_DECLARE_MEMBERS(AcDbDetailViewStyle);

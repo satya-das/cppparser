@@ -23,8 +23,7 @@ class AcDbMText;
 class ACDBCORE2D_PORT AcDbGeoPositionMarker : public AcDbEntity
 {
 public:
-  enum TextAlignmentType
-  {
+  enum TextAlignmentType {
         /// <summary>
         /// Left-justifies text in the MText.
         /// </summary>
@@ -32,7 +31,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kLeftAlignment = 0,
+        kLeftAlignment = 0,
         /// <summary>
         /// Centers text in MText.
         /// </summary>
@@ -40,7 +39,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kCenterAlignment = 1,
+        kCenterAlignment = 1,
         /// <summary>
         /// Right-justifies text in MText.
         /// </summary>
@@ -48,8 +47,8 @@ public:
         /// <value>
         /// 2
         /// </value>
-    kRightAlignment = 2
-  };
+        kRightAlignment = 2
+    };
   ACRX_DECLARE_MEMBERS(AcDbGeoPositionMarker);
   AcDbGeoPositionMarker();
   AcDbGeoPositionMarker(const AcGePoint3d& position, double radius, double landingGap);

@@ -43,53 +43,47 @@ class AcDbHatch : public AcDbEntity
 public:
     // Enum Definition
     //
-  enum HatchObjectType
-  {
-    kHatchObject = 0,
-    kGradientObject = 1
-  };
-  enum HatchLoopType
-  {
-    kDefault = 0,
-    kExternal = 1,
-    kPolyline = 2,
-    kDerived = 4,
-    kTextbox = 8,
-    kOutermost = 0x10,
-    kNotClosed = 0x20,
-    kSelfIntersecting = 0x40,
-    kTextIsland = 0x80,
-    kDuplicate = 0x100,
-    kIsAnnotative = 0x200,
-    kDoesNotSupportScale = 0x400,
-    kForceAnnoAllVisible = 0x800,
-    kOrientToPaper = 0x1000,
-    kIsAnnotativeBlock = 0x2000
-  };
-  enum HatchEdgeType
-  {
-    kLine = 1,
-    kCirArc = 2,
-    kEllArc = 3,
-    kSpline = 4
-  };
-  enum HatchPatternType
-  {
-    kUserDefined = 0,
-    kPreDefined = 1,
-    kCustomDefined = 2
-  };
-  enum HatchStyle
-  {
-    kNormal = 0,
-    kOuter = 1,
-    kIgnore = 2
-  };
-  enum GradientPatternType
-  {
-    kPreDefinedGradient = 0,
-    kUserDefinedGradient = 1
-  };
+  enum HatchObjectType {
+        kHatchObject      = 0,
+        kGradientObject   = 1
+    };
+  enum HatchLoopType {
+        kDefault             = 0,
+        kExternal            = 1,
+        kPolyline            = 2,
+        kDerived             = 4,
+        kTextbox             = 8,
+        kOutermost           = 0x10,
+        kNotClosed           = 0x20,
+        kSelfIntersecting    = 0x40,
+        kTextIsland          = 0x80,
+        kDuplicate           = 0x100,
+        kIsAnnotative        = 0x200,
+        kDoesNotSupportScale = 0x400,
+        kForceAnnoAllVisible = 0x800,
+        kOrientToPaper       = 0x1000,
+        kIsAnnotativeBlock   = 0x2000
+    };
+  enum HatchEdgeType {
+        kLine             = 1,
+        kCirArc           = 2,
+        kEllArc           = 3,
+        kSpline           = 4 
+    };
+  enum HatchPatternType {
+        kUserDefined      = 0,
+        kPreDefined       = 1,
+        kCustomDefined    = 2 
+    };
+  enum HatchStyle {
+        kNormal           = 0,
+        kOuter            = 1,
+        kIgnore           = 2 
+    };
+  enum GradientPatternType {
+        kPreDefinedGradient     = 0,
+        kUserDefinedGradient    = 1
+    };
     // Constructors and Destructors
     //
   AcDbHatch();

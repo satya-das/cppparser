@@ -60,42 +60,50 @@ public:
     // enum value = (Release # - 12) * 4 + (0 for dwg, 1 for dxf, 2 for dwt,
     // 3 for dws, 4 for xml).  (and xml is obsolete)
     //
-  enum SaveFormat
-  {
-    kUnknown = -1,
-    kR12_dxf = 1,
-    kR13_dwg = 4,
-    kR13_dxf = 5,
-    kR14_dwg = 8,
-    kR14_dxf = 9,
-    k2000_dwg = 12,
-    k2000_dxf = 13,
-    k2000_Template = 14,
-    k2000_Standard = 15,
-    k2000_xml = 16,
-    k2004_dwg = 24,
-    k2004_dxf = 25,
-    k2004_Template = 26,
-    k2004_Standard = 27,
-    k2007_dwg = 36,
-    k2007_dxf = 37,
-    k2007_Template = 38,
-    k2007_Standard = 39,
-    k2010_dwg = 48,
-    k2010_dxf = 49,
-    k2010_Template = 50,
-    k2010_Standard = 51,
-    k2013_dwg = 60,
-    k2013_dxf = 61,
-    k2013_Template = 62,
-    k2013_Standard = 63,
-    k2018_dwg = 64,
-    k2018_dxf = 65,
-    k2018_Template = 66,
-    k2018_Standard = 67,
-    kNative = k2018_dwg,
-    kNative_Template = k2018_Template
-  };
+  enum SaveFormat {
+        kUnknown = -1,      // Invalid format
+        kR12_dxf = 1,       // AutoCAD R12/LT2 DXF (*.dxf)
+
+        kR13_dwg = 4,       // AutoCAD R13/LT95 Drawing (*.dwg)
+        kR13_dxf = 5,       // AutoCAD R13/LT95 DXF (*.dxf)
+
+        kR14_dwg = 8,       // AutoCAD R14/LT97 Drawing (*.dwg)
+        kR14_dxf = 9,       // AutoCAD R14/LT97 DXF (*.dxf)
+
+        k2000_dwg = 12,      // AutoCAD 2000 Drawing (*.dwg)
+        k2000_dxf = 13,      // AutoCAD 2000 DXF (*.dxf)
+        k2000_Template = 14, // 2000 Drawing Template File (*.dwt)
+        k2000_Standard = 15, // 2000(+) Drawing Standard File (*.dws)
+        k2000_xml = 16,      // 2000(+) = DesignXML v1.0 File (*.xml)
+
+        k2004_dwg = 24,      // AutoCAD 2004 Drawing (*.dwg)
+        k2004_dxf = 25,      // AutoCAD 2004 DXF (*.dxf)
+        k2004_Template = 26, // AutoCAD 2004 Template File (*.dwt)
+        k2004_Standard = 27, // 2004 Drawing Standard File (*.dws)
+
+        k2007_dwg = 36,      // AutoCAD 2007 Drawing (*.dwg)
+        k2007_dxf = 37,      // AutoCAD 2007 DXF (*.dxf)
+        k2007_Template = 38, // AutoCAD 2007 Template File (*.dwt)
+        k2007_Standard = 39, // 2007 Drawing Standard File (*.dws)
+
+        k2010_dwg = 48,      // AutoCAD 2010 Drawing (*.dwg)
+        k2010_dxf = 49,      // AutoCAD 2010 DXF (*.dxf)
+        k2010_Template = 50, // AutoCAD 2010 Template File (*.dwt)
+        k2010_Standard = 51, // 2010 Drawing Standard File (*.dws)
+
+        k2013_dwg = 60,      // AutoCAD 2013 Drawing (*.dwg)
+        k2013_dxf = 61,      // AutoCAD 2013 DXF (*.dxf)
+        k2013_Template = 62, // AutoCAD 2013 Template File (*.dwt)
+        k2013_Standard = 63, // 2013 Drawing Standard File (*.dws)
+
+        k2018_dwg = 64,      // AutoCAD 2018 Drawing (*.dwg)
+        k2018_dxf = 65,      // AutoCAD 2018 DXF (*.dxf)
+        k2018_Template = 66, // AutoCAD 2018 Template File (*.dwt)
+        k2018_Standard = 67, // 2018 Drawing Standard File (*.dws)
+
+        kNative = k2018_dwg,  // Current dwg version is 2018
+        kNative_Template = k2018_Template  //Current dwt version is 2018
+     };
   virtual SaveFormat formatForSave() const = 0;
   ACCORE_PORT static Acad::ErrorStatus getDwgVersionFromSaveFormat(SaveFormat docFormat, AcDb::AcDbDwgVersion& dwgVer, AcDb::MaintenanceReleaseVersion& dwgMaintVer);
   virtual AcAp::DocLockMode lockMode(bool bIncludeMyLocks = false) const = 0;
@@ -277,16 +285,13 @@ public:
       kViewWorldCoords = 6
     };
     InitialViewType mnInitialViewType;
-    enum
-    {
-      kDisallowReadOnly = 0x01,
-      kRequireReadOnly = 0x02,
-      kFileNameArgIsUnicode = 0x04,
-      kViewNameArgIsUnicode = 0x08,
-      kUseUIOnErrors = 0x10,
-      kOwnerControlled = 0x20,
-      kUseUI = 0x40
-    };
+    enum {  kDisallowReadOnly       = 0x01,
+                kRequireReadOnly        = 0x02,
+                kFileNameArgIsUnicode   = 0x04,
+                kViewNameArgIsUnicode   = 0x08,
+                kUseUIOnErrors          = 0x10,
+                kOwnerControlled        = 0x20,
+                kUseUI                  = 0x40 };
     int mnFlags;
     const wchar_t* mpwszPassword;
     void* mpOwnerData;

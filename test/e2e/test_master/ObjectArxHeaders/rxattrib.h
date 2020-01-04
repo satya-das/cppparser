@@ -565,17 +565,16 @@ public:
 class AcRxUnitTypeAttribute : public AcRxAttribute
 {
 public:
-  enum UnitType
-  {
-    kUnitless = 0,
-    kDistance = (0x1 << 0),
-    kAngle = (0x1 << 1),
-    kArea = (0x1 << 2),
-    kVolume = (0x1 << 3),
-    kCurrency = (0x1 << 4),
-    kPercentage = (0x1 << 5),
-    kAngleNotTransformed = (0x1 << 16)
-  };
+  enum UnitType {
+        kUnitless           = 0,
+        kDistance           = (0x1 << 0),
+        kAngle              = (0x1 << 1),
+        kArea               = (0x1 << 2),
+        kVolume             = (0x1 << 3),
+        kCurrency           = (0x1 << 4),
+        kPercentage         = (0x1 << 5),
+        kAngleNotTransformed = (0x1 << 16),
+    };
   ACRX_DECLARE_MEMBERS_EXPIMP(AcRxUnitTypeAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor

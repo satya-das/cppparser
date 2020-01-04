@@ -79,18 +79,17 @@ typedef _dlgControlTag* PDLGCTLINFO;
 //
 namespace AdUi
 {
-  enum AdUiIconMode
-  {
-    kSmall = 0,
-    kLarge
-  };
-  enum AdUiImage
-  {
-    kImageSmall = 1,
-    kImageLarge = 2,
-    kImageEnable = 4,
-    kImageDisable = 8
-  };
+  enum AdUiIconMode {
+        kSmall = 0,
+        kLarge
+    };
+  enum AdUiImage {
+        kImageSmall      = 1,
+        kImageLarge      = 2,
+
+        kImageEnable     = 4,
+        kImageDisable    = 8,
+    };
 }
 /////////////////////////////////////////////////////////////////////////////
 

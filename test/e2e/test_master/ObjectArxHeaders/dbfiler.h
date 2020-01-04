@@ -233,11 +233,7 @@ public:
   virtual void setPrecision(int prec);
     // Number of decimal digits printed in ASCII DXF file
     //
-  enum
-  {
-    kDfltPrec = -1,
-    kMaxPrec = 16
-  };
+  enum { kDfltPrec = -1, kMaxPrec  = 16 };
     //        readXxx and writeXxx functions
     //
   virtual Acad::ErrorStatus readResBuf(resbuf* pRb);

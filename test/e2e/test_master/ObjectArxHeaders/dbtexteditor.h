@@ -96,55 +96,53 @@ public:
     /// <summary>
     /// This enumerator describe the flow align types.
     /// </summary>
-  enum FlowAlign
-  {
+  enum FlowAlign {
         /// <summary>
         /// The flow type is base align.
         /// </summary>
-    kFlowBase,
+        kFlowBase,
         /// <summary>
         /// The flow type is center align.
         /// </summary>
-    kFlowCenter,
+        kFlowCenter,
         /// <summary>
         /// The flow type is top align.
         /// </summary>
-    kFlowTop
-  };
+        kFlowTop
+    };
     /// <summary>
     /// This enumerator describe the insert text format types.
     /// </summary>
-  enum InsertTextType
-  {
+  enum InsertTextType {
         /// <summary>
         /// The insert text is in unicode MText format.
         /// </summary>
-    kUnicodeMTextFormat,
+        kUnicodeMTextFormat,
         /// <summary>
         /// The insert text is in MText format.
         /// </summary>
-    kMTextFormat,
+        kMTextFormat,
         /// <summary>
         /// The insert text is in rich text format.
         /// </summary>
-    kRichTextFormat,
+        kRichTextFormat,
         /// <summary>
         /// The insert text is in unicode DText format.
         /// </summary>
-    kUnicodeDTextFormat,
+        kUnicodeDTextFormat,
         /// <summary>
         /// The insert text is in DText format.
         /// </summary>
-    kDTextFormat,
+        kDTextFormat,
         /// <summary>
         /// The insert text is in unicode text format.
         /// </summary>
-    kUnicodeTextFormat,
+        kUnicodeTextFormat,
         /// <summary>
         /// The insert text is in multibyte text format.
         /// </summary>
-    kMultibyteTextFormat
-  };
+        kMultibyteTextFormat
+    };
     ///<summary> 
     /// Set current language. Now we only support the following charset:
     /// ANSI_CHARSET
@@ -803,25 +801,24 @@ public:
     /// <summary>
     /// This enumerator describes the paragraph tab types.
     /// </summary>
-  enum ParagraphTabType
-  {
+  enum ParagraphTabType {
         /// <summary>
         /// The text align the paragraph tab to the left.
         /// </summary>
-    kLeftTab,
+        kLeftTab,
         /// <summary>
         /// The text align the paragraph tab to the center.
         /// </summary>
-    kCenterTab,
+        kCenterTab,
         /// <summary>
         /// The text align the paragraph tab to the right.
         /// </summary>
-    kRightTab,
+        kRightTab,
         /// <summary>
         /// The text align the paragraph tab to the decimal separator.
         /// </summary>
-    kDecimalTab
-  };
+        kDecimalTab,
+    };
     ///<summary> 
     /// Constructor. It will create a left tab with 0 offset distance.
     ///</summary>
@@ -905,94 +902,91 @@ public:
     /// <summary>
     /// Text editor paragraph alignment type.
     /// </summary>
-  enum AlignmentType
-  {
+  enum AlignmentType {
         /// <summary>
         /// Default paragraph alignment.
         /// </summary>
-    kAlignmentDefault,
+        kAlignmentDefault,
         /// <summary>
         /// Paragraph is left alignment.
         /// </summary>
-    kAlignmentLeft,
+        kAlignmentLeft,
         /// <summary>
         /// Paragraph is center alignment.
         /// </summary>
-    kAlignmentCenter,
+        kAlignmentCenter,
         /// <summary>
         /// Paragraph is right alignment.
         /// </summary>
-    kAlignmentRight,
+        kAlignmentRight,
         /// <summary>
         /// Paragraph is justify alignment.
         /// </summary>
-    kAlignmentJustify,
+        kAlignmentJustify,
         /// <summary>
         /// Paragraph is distribute alignment.
         /// </summary>
-    kAlignmentDistribute
-  };
+        kAlignmentDistribute
+    };
     /// <summary>
     /// Text editor paragraph line spacing type.
     /// </summary>
-  enum LineSpacingStyle
-  {
+  enum LineSpacingStyle {
         /// <summary>
         /// Default line spacing.
         /// </summary>
-    kLineSpacingDefault,
+        kLineSpacingDefault,
         /// <summary>
         /// Line spacing is fixed and is never adjusted .
         /// </summary>
-    kLineSpacingExactly,
+        kLineSpacingExactly,
         /// <summary>
         /// Line spacing is a minimum that may be adjusted to accommodate larger
         /// font sizes or graphics that would not otherwise fit within the specified spacing.
         /// </summary>
-    kLineSpacingAtLeast,
+        kLineSpacingAtLeast,
         /// <summary>
         /// Multiple line spacing.
         /// </summary>
-    kLineSpacingMultiple
-  };
+        kLineSpacingMultiple,
+    };
     /// <summary>
     /// Text editor paragraph numbering type.
     /// </summary>
-  enum NumberingType
-  {
+  enum NumberingType {
         /// <summary>
         /// Numbering off.
         /// </summary>
-    kOff = 0,
+        kOff = 0,
         /// <summary>
         /// Bullet numbering.
         /// </summary>
-    kBullet,
+        kBullet,
         /// <summary>
         /// Number numbering.
         /// </summary>
-    kNumber,
+        kNumber,
         /// <summary>
         /// Letter lower numbering.
         /// </summary>
-    kLetterLower,
+        kLetterLower,
         /// <summary>
         /// Letter upper numbering.
         /// </summary>
-    kLetterUpper,
+        kLetterUpper,
         /// <summary>
         /// Number wide numbering.
         /// </summary>
-    kNumberWide,
+        kNumberWide,
         /// <summary>
         /// Letter lower numbering.
         /// </summary>
-    kLetterLowerWide,
+        kLetterLowerWide,
         /// <summary>
         /// Letter upper numbering.
         /// </summary>
-    kLetterUpperWide
-  };
+        kLetterUpperWide,
+    };
     ///<summary> 
     /// Set alignment for paragraph.  AlignmentType defines the paragraph 
     /// alignment.
@@ -1643,29 +1637,28 @@ public:
     /// <summary>
     /// This enumerator describe the stack type.
     /// </summary>
-  enum StackType
-  {
+  enum StackType {
         /// <summary>
         /// Stacks the selected text with the first number on top of the second 
         /// number separated by a horizontal line. 
         /// </summary>
-    kHorizontalStack,
+        kHorizontalStack,
         /// <summary>
         /// Stacks the selected text with the first number on top of the second 
         /// number separated by a diagonal line. 
         /// </summary>
-    kDiagonalStack,
+        kDiagonalStack,
         /// <summary>
         /// Stacks the selected text with the first number on top of the second
         /// number. There is no line between the numbers. 
         /// </summary>
-    kToleranceStack,
+        kToleranceStack,
         /// <summary>
         /// A variation of the Tolerance style that aligns the decimal point of
         /// both the upper and lower numbers of selected text.
         /// </summary>
-    kDecimalStack
-  };
+        kDecimalStack,
+    };
     ///<summary> 
     /// Constructor. It will create a horizontal stack with 1.0 scale factor.
     ///</summary>
@@ -1821,43 +1814,41 @@ public:
     /// <summary>
     /// These flags describe text find mode.
     /// </summary>
-  enum TextFindFlags
-  {
+  enum TextFindFlags {
         /// <summary>
         /// Set this flag to find the text with case sensitive.
         /// </summary>
-    kFindMatchCase = 1 << 0,
+        kFindMatchCase = 1 << 0,
         /// <summary>
         /// Set this flag to find the text to match the whole word.
         /// </summary>
-    kFindWholeWord = 1 << 1,
+        kFindWholeWord = 1 << 1,
         /// <summary>
         /// Set this flag to find the text to match half/full form.
         /// </summary>
-    kFindHalfFullForm = 1 << 2,
+        kFindHalfFullForm = 1 << 2,
         /// <summary>
         /// Set this flag to find the text without the comparison of accent.
         /// </summary>
-    kFindIgnoreAccent = 1 << 3,
+        kFindIgnoreAccent = 1 << 3,
         /// <summary>
         /// Set this flag to find the text with wild cards.
         /// </summary>
-    kFindUseWildcards = 1 << 4
-  };
+        kFindUseWildcards = 1 << 4,
+    };
     /// <summary>
     /// This enumerator describes text find exit status.
     /// </summary>
-  enum ExitStatus
-  {
+  enum ExitStatus {
         /// <summary>
         /// Exit find and replace directly without changes.
         /// </summary>
-    kExitQuit = 0,
+        kExitQuit = 0,
         /// <summary>
         /// Exit find and replace, saving the changes to the entity.
         /// </summary>
-    kExitSave
-  };
+        kExitSave,
+    };
     ///<summary> 
     /// Factory method, it creates the text editor object from a AcDbMText entity.
     ///</summary>

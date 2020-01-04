@@ -85,12 +85,11 @@ public:
   virtual AcGeVector2d imageSize(Adesk::Boolean bGetCachedValue = Adesk::kFalse) const;
     // Clip boundary management protocol
     //
-  enum ClipBoundaryType
-  {
-    kInvalid,
-    kRect,
-    kPoly
-  };
+  enum ClipBoundaryType {
+        kInvalid,
+        kRect,
+        kPoly
+    };
 #  ifndef _ADESK_MAC_
   virtual Acad::ErrorStatus setClipBoundaryToWholeImage(AcGeVector2d& size);
   Acad::ErrorStatus setClipBoundaryToWholeImage()
@@ -119,13 +118,12 @@ public:
   virtual Acad::ErrorStatus getPixelToModelTransform(AcGeMatrix3d&) const;
     // Per-entity image display and plot options.
     //
-  enum ImageDisplayOpt
-  {
-    kShow = 1,
-    kShowUnAligned = 2,
-    kClip = 4,
-    kTransparent = 8
-  };
+  enum ImageDisplayOpt {
+        kShow                   = 1,
+        kShowUnAligned          = 2,
+        kClip                   = 4,
+        kTransparent            = 8
+    };
   virtual void setDisplayOpt(ImageDisplayOpt option, Adesk::Boolean bValue);
   virtual Adesk::Boolean isSetDisplayOpt(ImageDisplayOpt option) const;
   virtual Acad::ErrorStatus setBrightness(Adesk::Int8 value);

@@ -42,45 +42,39 @@ namespace Atil
 namespace GS
 {
     // Error Codes
-  enum ErrorStatus
-  {
-    kSuccess,
-    kOutOfRange,
-    kInvalidInput
-  };
-  enum DeviceType
-  {
-    kScreenDevice = 0,
-    kOffScreenDevice = 1,
-    kSelectionDevice = 2
-  };
-  enum HighlightStyle
-  {
-    kHighlightDashed = 0,
-    kHighlightThicken = 1,
-    kHighlightDashedAndThicken = 2,
-    kHighlightCustom = 3,
-    kHighlightDim = 4,
-    kHighlightThickDim = 5,
-    kHighlightGlow = 6
-  };
+  enum ErrorStatus {
+        kSuccess,
+        kOutOfRange,
+        kInvalidInput
+    };
+  enum DeviceType {
+        kScreenDevice =         0,
+        kOffScreenDevice =      1,
+        kSelectionDevice =      2
+    };
+  enum HighlightStyle {
+        kHighlightDashed =               0,
+        kHighlightThicken =              1,
+        kHighlightDashedAndThicken =     2,
+        kHighlightCustom =               3,
+        kHighlightDim =                  4,
+        kHighlightThickDim =             5,
+        kHighlightGlow =                 6
+    };
     /// Sync behavior - defining if the request runs synchronously
-  enum SyncBehavior
-  {
-    eSync = 0,
-    eAsync = 1
-  };
+  enum SyncBehavior {
+        eSync               = 0,            /// The request runs  synchronously
+        eAsync              = 1,            /// The request runs asynchronously
+    };
     /// Image Properties - For screenshots, thumbnails...etc generated through Gs
-  enum ImageOrientation
-  {
-    kTopDown = 0,
-    kBottomUp = 1
-  };
-  enum ImageDataFormat
-  {
-    kRGBA = 0,
-    kBGRA = 1
-  };
+  enum ImageOrientation {
+        kTopDown            = 0,            //ATIL TopDownLeftRight
+        kBottomUp           = 1             //ATIL BottomUpLeftRight
+    };
+  enum ImageDataFormat {
+        kRGBA               = 0,
+        kBGRA               = 1
+    };
 }
 // copied (with modification) from limits.h to avoid extra #includes
 #define SCALAR_MIN	(-2147483647 - 1) // minimum (signed) int value
@@ -89,14 +83,8 @@ namespace GS
 class AcGsDCPoint
 {
 public:
-  enum MaxFlag
-  {
-    Maximum
-  };
-  enum MinFlag
-  {
-    Minimum
-  };
+  enum MaxFlag { Maximum };
+  enum MinFlag { Minimum };
   AcGsDCPoint(void)
   {
   }
@@ -144,10 +132,7 @@ public:
 class AcGsDCRect
 {
 public:
-  enum NullFlag
-  {
-    Null
-  };
+  enum NullFlag { Null    };
   AcGsDCRect(void)
   {
   }
@@ -269,31 +254,27 @@ public:
 class AcGsView
 {
 public:
-  enum Projection
-  {
-    kParallel,
-    kPerspective
-  };
-  enum SelectionMode
-  {
-    kWindow,
-    kCrossing,
-    kFence,
-    kWPoly,
-    kCPoly
-  };
-  enum DefaultLightingType
-  {
-    kOneLight,
-    kTwoLights,
-    kBackLight
-  };
-  enum ModelCloneOption
-  {
-    kCloneNoModels,
-    kCloneMainPersistentModel,
-    kCloneAllModels
-  };
+  enum Projection {
+        kParallel,
+        kPerspective
+    };
+  enum SelectionMode {
+        kWindow,
+        kCrossing,
+        kFence,
+        kWPoly,
+        kCPoly,
+    };
+  enum DefaultLightingType {
+        kOneLight,
+        kTwoLights,
+        kBackLight
+    };
+  enum ModelCloneOption {
+        kCloneNoModels,
+        kCloneMainPersistentModel,
+        kCloneAllModels
+    };
   virtual ~AcGsView()
   {
   }
@@ -436,11 +417,10 @@ public:
   virtual bool isPointInViewport(const Adesk::Int32 x, const Adesk::Int32 y) = 0;
   virtual AcGsView* clone(bool bCloneViewParameters, ModelCloneOption cloneOption) = 0;
   virtual Atil::Image* createSnapshot(const AcGsDCPoint& offset, const AcGsDCRect& imageDim, GS::ImageDataFormat format, GS::ImageOrientation orientation, bool bOnlyCaptureRenderedImage = false) = 0;
-  enum EnableIRResult
-  {
-    kSuccess,
-    kOutOfMemory
-  };
+  enum EnableIRResult {
+        kSuccess,
+        kOutOfMemory
+    };
   virtual EnableIRResult beginInteractiveRender(AcGsRenderProgressMonitor* pProgressMonitor) = 0;
   virtual void endInteractiveRender(void) = 0;
   virtual bool isRendering(void) const = 0;
@@ -456,44 +436,41 @@ public:
 class AcGsModel
 {
 public:
-  enum RenderType
-  {
-    kMain,
-    kSprite,
-    kDirect,
-    kHighlight,
-    kHighlightSelection,
-    kDirectTopmost,
-    kContrast,
-    kCount
-  };
-  enum InvalidationHint
-  {
-    kInvalidateNone,
-    kInvalidateIsolines,
-    kInvalidateViewportCache,
-    kInvalidateAll,
-    kInvalidateAllStatic,
-    kInvalidateFacets,
-    kInvalidateFills,
-    kInvalidateLinetypes,
-    kInvalidateMaterials,
-    kInvalidateLayers,
-    kInvalidateXrefs,
-    kInvalidateRasterImages,
-    kInvalidateAttributes,
-    kInvalidateUnderlayFrame,
-    kInvalidateLtScale,
-    kInvalidateTransform,
-    kInvalidateTransparencies,
-    kInvalidateDrawableByView
-  };
-  enum OrderActionType
-  {
-    kMoveBelow,
-    kMoveAbove,
-    kSwapOrder
-  };
+  enum RenderType {
+        kMain,              // Use main Z-buffer
+        kSprite,            // Use alternate Z-buffer, for sprites
+        kDirect,            // Render into frame buffer without the z-test
+        kHighlight,         // Render directly onto the device (skipping the frame buffer and the z-test)
+        kHighlightSelection,// Render directly onto the device in selection highlight style (internal only)
+        kDirectTopmost,     // Render above all other render types except contrast, and render without the z-test
+        kContrast,          // Render directly onto the device in contrast style, for transients
+        kCount              // Count of RenderTypes
+    };
+  enum InvalidationHint {
+        kInvalidateNone,
+        kInvalidateIsolines,
+        kInvalidateViewportCache,
+        kInvalidateAll,
+        kInvalidateAllStatic,
+        kInvalidateFacets,
+        kInvalidateFills,
+        kInvalidateLinetypes,
+        kInvalidateMaterials,
+        kInvalidateLayers,
+        kInvalidateXrefs,
+        kInvalidateRasterImages,
+        kInvalidateAttributes,
+        kInvalidateUnderlayFrame,
+        kInvalidateLtScale,
+        kInvalidateTransform,
+        kInvalidateTransparencies,
+        kInvalidateDrawableByView
+    };
+  enum OrderActionType {
+        kMoveBelow,
+        kMoveAbove,
+        kSwapOrder,
+    };
   virtual ~AcGsModel()
   {
   }
@@ -605,15 +582,14 @@ public:
 class AcGsDevice
 {
 public:
-  enum RendererType
-  {
-    kDefault,
-    kSoftware,
-    kSoftwareNewViewsOnly,
-    kFullRender,
-    kSelectionRender,
-    kFbxExportRender
-  };
+  enum RendererType {
+        kDefault,
+        kSoftware,
+        kSoftwareNewViewsOnly,
+        kFullRender,
+        kSelectionRender,
+        kFbxExportRender
+    };
   virtual ~AcGsDevice()
   {
   }
@@ -673,11 +649,10 @@ public:
   virtual void pauseInteractiveRender(void) = 0;
   virtual void resumeInteractiveRender(void) = 0;
   virtual void postRenderProgressCheckingReqeust() = 0;
-  enum EnableIRResult
-  {
-    kSuccess,
-    kOutOfMemory
-  };
+  enum EnableIRResult {
+        kSuccess,
+        kOutOfMemory
+    };
     //
     // Below three functions are both device and data relate, so exposed on GsDevice and GsView.
     //
@@ -721,39 +696,36 @@ class AcGsConfig
 protected:
   AcGsConfig(void);
 public:
-  enum Handedness
-  {
-    kLeft,
-    kRight
-  };
-  enum Quality
-  {
-    kLowQuality,
-    kMediumQuality,
-    kHighQuality
-  };
-  enum DegradationChannel
-  {
-    kViewportDraw,
-    kLineAntialias,
-    kLighting,
-    kTransparencyQuality,
-    kShadowsFull,
-    kTransparency,
-    kDiscardBackfaces,
-    kShadowsGround,
-    kEdgeStyles,
-    kFacetEdges,
-    kFastSilhouette,
-    kTextures,
-    kMaterials,
-    kLightingQuality,
-    kBackgrounds,
-    kIntersectEdges,
-    kFaceted,
-    kWireframe,
-    kDegradationChannels
-  };
+  enum Handedness {
+        kLeft,
+        kRight
+    };
+  enum Quality {
+        kLowQuality,
+        kMediumQuality,
+        kHighQuality
+    };
+  enum DegradationChannel {
+        kViewportDraw,        // Viewport draw objects On to Off
+        kLineAntialias,       // Line antialias On to Off
+        kLighting,            // User lighting to Default lighting
+        kTransparencyQuality, // Transparency quality High to Medium then Medium to Low
+        kShadowsFull,         // Full Shadows to Ground Shadows
+        kTransparency,        // Transparency On to Off
+        kDiscardBackfaces,    // Discard Backfaces Off to On
+        kShadowsGround,       // Ground Shadows to Shadows Off
+        kEdgeStyles,          // Any Edge Style On to All Edge Styles Off
+        kFacetEdges,          // Facet Edges to Isolines
+        kFastSilhouette,      // Fast silhouettes On to Off
+        kTextures,            // Textures On to Off
+        kMaterials,           // Materials On to Off
+        kLightingQuality,     // Lighting Quality Per-Vertex to Per-Face
+        kBackgrounds,         // Backgrounds On to Off
+        kIntersectEdges,      // Face Intersect Edges On to Off
+        kFaceted,             // Faceted to Wireframe
+        kWireframe,           // Wireframe to Bounding box
+        kDegradationChannels
+    };
   virtual ~AcGsConfig();
     // dialog, read & write registry
   virtual bool configure(void) = 0;
@@ -825,16 +797,15 @@ public:
     int nCertificationStatus;
     int nHardwareID;
   };
-  enum EffectListType
-  {
-    kEL_Current,
-    kEL_RegistryHardware,
-    kEL_RegistrySoftware,
-    kEL_File,
-    kEL_HardwareEntry,
-    kEL_HardwareBasic,
-    kEL_HardwareAdvanced
-  };
+  enum EffectListType {
+        kEL_Current,
+        kEL_RegistryHardware,
+        kEL_RegistrySoftware,
+        kEL_File,
+        kEL_HardwareEntry,
+        kEL_HardwareBasic,
+        kEL_HardwareAdvanced
+    };
     // hardware features
   virtual AcArray<EffectStatus>* getEffectList(EffectListType type) = 0;
   virtual bool isFeatureEnabled(const AcUniqueString*) const = 0;
@@ -854,12 +825,11 @@ public:
   virtual AcString getVirtualDeviceName(void) = 0;
   virtual void setGenerateVertexNormals(bool bEnable) = 0;
   virtual bool generateVertexNormals(void) const = 0;
-  enum SpyglassType
-  {
-    kNone = 0,
-    kSoftware,
-    kHardware
-  };
+  enum SpyglassType {
+        kNone = 0,               
+        kSoftware,
+        kHardware
+    };
     /// <description>
     /// Determine if the spyglass screen magnifer is available, and if so
     /// whether or not it's a hardware or software rendering implementation. 
@@ -894,10 +864,7 @@ public:
   virtual ~AcGsReactor()
   {
   }
-  enum ViewUpdateFlags
-  {
-    kCameraChanged = 1
-  };
+  enum ViewUpdateFlags { kCameraChanged = 1 };
   virtual void viewWasCreated(AcGsView*)
   {
   }
@@ -1225,78 +1192,88 @@ public:
     /// The phases of the rendering process.  They are listed in sequential
     /// order from the first phase of rendering to the last phase.
     /// </description>
-  enum Phase
-  {
+  enum Phase {
         /// <description>
         /// The scene translation phase, where AutoCAD entities are converted
         /// into a format suitable for rendering.
         /// </description>
-    kTranslation,
+        kTranslation,
+
         /// <description>
         /// The photon emission phase, which runs if global illumination is
         /// active in the render settings.
         /// </description>
-    kPhotonEmission,
+        kPhotonEmission,
+
         /// <description>
         /// The final gathering phase, if final gathering is active in the
         /// render settings.
         /// </description>
-    kFinalGather,
+        kFinalGather,
+
         /// <description>
         /// The normal rendering phase, which always happens.  Preview image
         /// tiles are generated during this phase only.
         /// </description>
-    kRender,
+        kRender,
+
         /// <description>
         /// This phase only happens when client's machine is relative low-end,
         /// and we will use tile rendering to resolve limited computer recourses.
         /// This phase is for generating tile preview for each tile before the
         /// normal rendering phase.
         /// </description>
-    kDraft,
+        kDraft,
+
         /// <description>
         /// This the first stage of rendering, used for rendering initialization.
         /// </description>
-    kInitialize
-  };
+        kInitialize,
+    };
     /// <description>
     /// The status of the rendering process. 
     /// </description>
-  enum RenderingStatus
-  {
+  enum RenderingStatus {
         /// <description>
         /// Current rendering process is running.
         /// </description>
-    kRendering,
+        kRendering,
+
         /// <description>
         /// Current rendering process is paused.
         /// </description>
-    kPaused,
+        kPaused,
+
         /// <description>
         /// Current rendering process is finished.
         /// </description>
-    kFinished,
+		kFinished,
+
         /// <description>
         /// Current rendering process is canceled.
         /// </description>
-    kAborted,
+		kAborted,
+
 		/// <description>
 		/// Won't start rendering, for current available memory does not meet rendering requirement.
 		/// </description>
-    kWillNotRender,
+		kWillNotRender,
+
 		/// <description>
 		/// Current rendering is approaching out of memory situation, and rendering should be aborted.
 		/// </description>
-    kSoftOutOfMemory,
+		kSoftOutOfMemory,
+
 		/// <description>
 		/// Memory allocation fails during rendering, and AutoCAD has to be restarted right now.
 		/// </description>
-    kHardOutOfMemory,
+		kHardOutOfMemory,
+
         /// <description>
         /// Current rendering process is aborted due to unknown errors.
         /// </description>
-    kError
-  };
+        kError,
+    };
     /// <description>
     /// Called during the the rendering period to report the current rendering
     /// progress, which includes the rendering phase, overall rendering progress

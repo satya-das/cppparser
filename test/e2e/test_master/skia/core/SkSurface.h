@@ -450,11 +450,10 @@ public:
     /** \enum SkSurface::ContentChangeMode
         ContentChangeMode members are parameters to notifyContentWillChange().
     */
-  enum ContentChangeMode
-  {
-    kDiscard_ContentChangeMode,
-    kRetain_ContentChangeMode
-  };
+  enum ContentChangeMode {
+        kDiscard_ContentChangeMode, //!< discards surface on change
+        kRetain_ContentChangeMode,  //!< preserves surface on change
+    };
     /** Notifies that SkSurface contents will be changed by code outside of Skia.
         Subsequent calls to generationID() return a different value.
 
@@ -463,12 +462,11 @@ public:
         @param mode  one of: kDiscard_ContentChangeMode, kRetain_ContentChangeMode
     */
   void notifyContentWillChange(ContentChangeMode mode);
-  enum BackendHandleAccess
-  {
-    kFlushRead_BackendHandleAccess,
-    kFlushWrite_BackendHandleAccess,
-    kDiscardWrite_BackendHandleAccess
-  };
+  enum BackendHandleAccess {
+        kFlushRead_BackendHandleAccess,    //!< back-end object is readable
+        kFlushWrite_BackendHandleAccess,   //!< back-end object is writable
+        kDiscardWrite_BackendHandleAccess, //!< back-end object must be overwritten
+    };
     /** Deprecated.
     */
   static const BackendHandleAccess kFlushRead_TextureHandleAccess = kFlushRead_BackendHandleAccess;
@@ -689,11 +687,7 @@ public:
     /** Controls the gamma that rescaling occurs in for asyncRescaleAndReadPixels() and
         asyncRescaleAndReadPixelsYUV420().
      */
-  enum RescaleGamma : bool
-  {
-    kSrc,
-    kLinear
-  };
+  enum RescaleGamma : bool { kSrc, kLinear };
     /** Makes surface pixel data available to caller, possibly asynchronously. It can also rescale
         the surface pixels.
 
@@ -813,11 +807,10 @@ public:
         GPU calls.
     */
   void flush();
-  enum class BackendSurfaceAccess
-  {
-    kNoAccess,
-    kPresent
-  };
+  enum class BackendSurfaceAccess {
+        kNoAccess,  //!< back-end object will not be used by client
+        kPresent,   //!< back-end surface will be used for presenting to screen
+    };
     /** Issues pending SkSurface commands to the GPU-backed API and resolves any SkSurface MSAA.
         The work that is submitted to the GPU will be dependent on the BackendSurfaceAccess that is
         passed in.
@@ -850,12 +843,11 @@ public:
   GrSemaphoresSubmitted flush(BackendSurfaceAccess access, GrFlushFlags flags, int numSemaphores, GrBackendSemaphore signalSemaphores[], GrGpuFinishedProc finishedProc = nullptr, GrGpuFinishedContext finishedContext = nullptr);
     /** The below enum and flush call are deprecated
      */
-  enum FlushFlags
-  {
-    kNone_FlushFlags = 0,
+  enum FlushFlags {
+        kNone_FlushFlags = 0,
         // flush will wait till all submitted GPU work is finished before returning.
-    kSyncCpu_FlushFlag = 0x1
-  };
+        kSyncCpu_FlushFlag = 0x1,
+    };
   GrSemaphoresSubmitted flush(BackendSurfaceAccess access, FlushFlags flags, int numSemaphores, GrBackendSemaphore signalSemaphores[]);
     /** Deprecated.
     */

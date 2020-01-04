@@ -119,22 +119,21 @@ public:
     /// <summary>
     /// The method used to calculate shadows.
     /// </summary>
-  enum ShadowType
-  {
+  enum ShadowType {
         /// <summary>
         /// Shadows are calculated using a ray-trace algorithm.
         /// </summary>
-    kShadowsRayTraced = 0,
+        kShadowsRayTraced = 0,
         /// <summary>
         /// Shadow maps are created for each light.
         /// </summary>
-    kShadowMaps,
+        kShadowMaps,
         /// <summary>
         /// The area-sampled shadow algorithm models the effect of
         /// extended light sources which typically exhibit penumbra.
         /// </summary>
-    kAreaSampled
-  };
+        kAreaSampled
+    };
     /// <summary>
     /// Sets the method used to calculate shadows cast by this light.
     /// </summary>
@@ -266,29 +265,28 @@ public:
     /// <summary>
     /// The shape of the extended light source.
     /// </summary>
-  enum ExtendedLightShape
-  {
+  enum ExtendedLightShape {
         /// <summary>
         /// Linear lamps (communicated to mental ray as degenerate rectangles).
         /// </summary>
-    kLinear = 0,
+        kLinear = 0,
         /// <summary>
         /// Rectangular extended light source.
         /// </summary>
-    kRectangle,
+        kRectangle,
         /// <summary>
         /// Disk-shaped extended light source.
         /// </summary>
-    kDisk,
+        kDisk,
         /// <summary>
         /// Cylindrical extended light source.
         /// </summary>
-    kCylinder,
+        kCylinder,
         /// <summary>
         /// Spherical extended light source.
         /// </summary>
-    kSphere
-  };
+        kSphere
+    };
     /// <summary>
     /// Sets the shape of the extended light source.
     /// </summary>
@@ -438,24 +436,23 @@ public:
     /// The type of attenuation, or decay, for this light. This only applies
     /// to point and spot lights. Distant lights always have no attenuation.
     /// </summary>
-  enum AttenuationType
-  {
+  enum AttenuationType {
         /// <summary>
         /// No attenuation; emitted light has the same brightness (intensity)
         /// regardless of the distance to the source.
         /// </summary>
-    kNone = 0,
+        kNone = 0,
         /// <summary>
         /// Sets attenuation to be the inverse of the linear distance from the
         /// light. 
         /// </summary>
-    kInverseLinear,
+        kInverseLinear,
         /// <summary>
         /// Sets attenuation to be the inverse of the square of the distance
         /// from the light. 
         /// </summary>
-    kInverseSquare
-  };
+        kInverseSquare
+    };
     /// <summary>
     /// Sets the attenuation type for the light.
     /// </summary>
@@ -1489,43 +1486,46 @@ public:
     /// <summary>
     /// Types of web files
     /// </summary>
-  enum WebFileType
-  {
+  enum WebFileType {
         /// <summary>
         /// Type C web file
         /// </summary>
-    kTypeC = 1,
+        kTypeC = 1,
+
         /// <summary>
         /// Type B web file
         /// </summary>
-    kTypeB = 2,
+        kTypeB = 2,
+
         /// <summary>
         /// Type A web file
         /// </summary>
-    kTypeA = 3
-  };
+        kTypeA = 3
+    };
     /// <summary>
     /// Types of symmetry in the web file
     /// </summary>
-  enum WebSymmetry
-  {
+  enum WebSymmetry {
         /// <summary>
         /// No symmetry
         /// </summary>
-    kNoSymmetry = 0,
+        kNoSymmetry = 0,
+        
         /// <summary>
         /// Symmetric about the XZ plane
         /// </summary>
-    kSingleSymmetry = 1,
+        kSingleSymmetry = 1,
+        
         /// <summary>
         /// Symmetric about the XZ and YZ planes
         /// </summary>
-    kDoubleSymmetry = 2,
+        kDoubleSymmetry = 2,
+
         /// <summary>
         /// Symmetric about the Z axis
         /// </summary>
-    kAxialSymmetry = 3
-  };
+        kAxialSymmetry = 3,
+    };
     /// <summary>
     /// Sets the path to the file containing the light's goniometric
     /// data (i.e. Illuminating Engineering Society or IES file).  Only 

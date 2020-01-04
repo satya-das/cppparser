@@ -120,16 +120,19 @@ ACDB_PORT Acad::ErrorStatus acdbModelerSaveEntitiesToDxfFiler(AcDbDxfFiler* file
 /// Some options enumerated to be used as bit flags, to be used with the entity
 /// restoration (read) functions below.
 /// 
-enum ModelerRestoreOptions
-{
-  kReadForeignEntities = 0x01,
-  kReadUnknownEntities = 0x02,
-  kLoseUnknownCustomAttributes = 0x04,
-  kReadStrangerEntityDefault = (kReadForeignEntities | kReadUnknownEntities | kLoseUnknownCustomAttributes),
-  kModelerRestoreOptionsFuture1 = 0x08,
-  kModelerRestoreOptionsFuture2 = 0x10,
-  kModelerRestoreOptionsFuture3 = 0x20,
-  kModelerRestoreOptionsFuture4 = 0x40
+enum ModelerRestoreOptions {
+    kReadForeignEntities = 0x01,    // Set this to restore foreign entities
+    kReadUnknownEntities = 0x02,   // Set this to restore unknown entities
+    kLoseUnknownCustomAttributes = 0x04, // Unset this to restore unknown custom attributes
+
+    kReadStrangerEntityDefault= (kReadForeignEntities |
+                                kReadUnknownEntities |
+                                kLoseUnknownCustomAttributes), // Recommended default
+
+    kModelerRestoreOptionsFuture1 = 0x08, // Unused, ignore
+    kModelerRestoreOptionsFuture2 = 0x10, // Unused, ignore
+    kModelerRestoreOptionsFuture3 = 0x20, // Unused, ignore
+    kModelerRestoreOptionsFuture4 = 0x40, // Unused, ignore
 };
 ///////////////////////////////////////////////////////////////////////////////
 /// <summary>

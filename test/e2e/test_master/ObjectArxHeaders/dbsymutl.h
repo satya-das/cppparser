@@ -23,33 +23,26 @@
 #  define ACDBSYMUTIL_SERVICES_CURRENT_VERSION	106
 namespace AcDbSymbolUtilities
 {
-  enum CompatibilityMode
-  {
-    kExtendedNames = true,
+  enum CompatibilityMode {
+    kExtendedNames    = true,
     kPreExtendedNames = false
-  };
-  enum NameCaseMode
-  {
-    kPreserveCase = true,
-    kForceToUpper = false
-  };
-  enum NewNameMode
-  {
-    kAsNewName = true,
-    kAsExistingName = false
-  };
-  enum VerticalBarMode
-  {
+};
+  enum NameCaseMode {
+    kPreserveCase     = true,
+    kForceToUpper     = false
+};
+  enum NewNameMode {
+    kAsNewName        = true,
+    kAsExistingName   = false
+};
+  enum VerticalBarMode {
     kAllowVerticalBar = true,
-    kNoVerticalBar = false
-  };
+    kNoVerticalBar    = false
+};
   class Services
   {
   public:
-    enum
-    {
-      kCurrentVersion = ACDBSYMUTIL_SERVICES_CURRENT_VERSION
-    };
+    enum { kCurrentVersion = ACDBSYMUTIL_SERVICES_CURRENT_VERSION };
     virtual int version() const = 0;
     // --------- Pre-defined symbols ---------
     virtual bool isBlockLayoutName(const ACHAR* name) const = 0;

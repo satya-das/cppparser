@@ -18,13 +18,12 @@ struct SK_API SkFontMetrics
      the underline or strikeout metrics may be valid and zero.
      Fonts with embedded bitmaps may not have valid underline or strikeout metrics.
      */
-  enum FontMetricsFlags
-  {
-    kUnderlineThicknessIsValid_Flag = 1 << 0,
-    kUnderlinePositionIsValid_Flag = 1 << 1,
-    kStrikeoutThicknessIsValid_Flag = 1 << 2,
-    kStrikeoutPositionIsValid_Flag = 1 << 3
-  };
+  enum FontMetricsFlags {
+        kUnderlineThicknessIsValid_Flag = 1 << 0, //!< set if fUnderlineThickness is valid
+        kUnderlinePositionIsValid_Flag  = 1 << 1, //!< set if fUnderlinePosition is valid
+        kStrikeoutThicknessIsValid_Flag = 1 << 2, //!< set if fStrikeoutThickness is valid
+        kStrikeoutPositionIsValid_Flag  = 1 << 3, //!< set if fStrikeoutPosition is valid
+    };
   uint32_t fFlags;
   SkScalar fTop;
   SkScalar fAscent;

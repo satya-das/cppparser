@@ -20,22 +20,20 @@ public:
     /// <summary>
     /// Enumeration defining identifier position type
     /// </summary>
-  enum IdentifierPosition
-  {
-    kEndCuttingPlane = 0,
-    kAboveDirectionArrowLine = 1,
-    kAboveDirectionArrowSymbol = 2,
-    kStartDirectionArrow = 3,
-    kEndDirectionArrow = 4
-  };
+  enum IdentifierPosition {
+        kEndCuttingPlane             = 0,
+        kAboveDirectionArrowLine     = 1,
+        kAboveDirectionArrowSymbol   = 2,
+        kStartDirectionArrow         = 3,
+        kEndDirectionArrow           = 4,
+    };
     /// <summary>
     /// Enumeration defining identifier position type
     /// </summary>
-  enum ArrowDirection
-  {
-    kTowardsCuttingPlane = 0,
-    kAwayFromCuttingPlane = 1
-  };
+  enum ArrowDirection {
+        kTowardsCuttingPlane    = 0,
+        kAwayFromCuttingPlane   = 1,
+    };
   AcDbSectionViewStyle();
   ~AcDbSectionViewStyle();
   ACDB_DECLARE_MEMBERS(AcDbSectionViewStyle);

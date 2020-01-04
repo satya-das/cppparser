@@ -22,292 +22,351 @@ namespace AcGiVisualStyleProperties
     /// <summary>
     /// Describes the properties that can be set/get on a visual style.
     /// </summary>
-  enum Property
-  {
+  enum Property {
         /// <summary>
         /// Invalid property.
         /// </summary>
-    kInvalidProperty = -1,
+        kInvalidProperty = -1,
+
         // Face properties
         //
 
         /// <summary>
         /// See FaceLightingModel summary.
         /// </summary>
-    kFaceLightingModel,
+        kFaceLightingModel,
+
         /// <summary>
         /// See FaceLightingQuality summary.
         /// </summary>
-    kFaceLightingQuality,
+        kFaceLightingQuality,
+
         /// <summary>
         /// See FaceColorMode summary.
         /// </summary>
-    kFaceColorMode,
+        kFaceColorMode,
+
         /// <summary>
         /// See FaceModifiers summary.
         /// </summary>
-    kFaceModifiers,
+        kFaceModifiers,
+
         /// <summary>
         /// Double indicating the level of face opacity in the range from 
         /// 0.0 to 1.0, with 1.0 representing full opacity (0% transparent) 
         /// and 0.0 representing no opacity (100% transparent).
         /// </summary>
-    kFaceOpacity,
+        kFaceOpacity,
+
         /// <summary>
         /// Double representing the specular highlight amount (indicating 
         /// reflection and shininess values) of the material that is applied 
         /// to faces. 
         /// </summary>
-    kFaceSpecular,
+        kFaceSpecular,
+
         /// <summary>
         /// AcCmColor representing the color applied to produce a "monochromatic" effect on faces.
         /// </summary>
-    kFaceMonoColor,
+        kFaceMonoColor,
+
         // Edge properties
         //
 
         /// <summary>
         /// See EdgeModel summary.
         /// </summary>
-    kEdgeModel,
+        kEdgeModel,    
+
         /// <summary>
         /// See EdgeStyles summary.
         /// </summary>
-    kEdgeStyles,
+        kEdgeStyles,    
+
         /// <summary>
         /// AcCmColor representing the color applied to intersection edges.
         /// </summary>
-    kEdgeIntersectionColor,
+        kEdgeIntersectionColor,  
+
         /// <summary>
         /// AcCmColor representing the color applied to obscured edges.
         /// </summary>
-    kEdgeObscuredColor,
+        kEdgeObscuredColor,    
+
         /// <summary>
         /// EdgeLinePattern applied to obscured edges.
         /// See EdgeLinePattern summary.
         /// </summary>
-    kEdgeObscuredLinePattern,
+        kEdgeObscuredLinePattern,  
+
         /// <summary>
         /// EdgeLinePattern applied to intersection edges.
         /// See EdgeLinePattern summary.
         /// </summary>
-    kEdgeIntersectionLinePattern,
+        kEdgeIntersectionLinePattern,
+
         /// <summary>
         /// Double, in degrees, indicating the angle threshold above which 
         /// facet edges between adjoining facets will be displayed.
         /// </summary>
-    kEdgeCreaseAngle,
+        kEdgeCreaseAngle,
+
         /// <summary>
         /// See EdgeModifier summary.
         /// </summary>
-    kEdgeModifiers,
+        kEdgeModifiers,
+
         /// <summary>
         /// AcCmColor representing the color applied to edges.
         /// </summary>
-    kEdgeColor,
+        kEdgeColor,
+
         /// <summary>
         /// Double indicating the level of edge opacity in the range from 
         /// 0.0 to 1.0, with 1.0 representing full opacity (0% transparent) 
         /// and 0.0 representing no opacity (100% transparent).
         /// </summary>
-    kEdgeOpacity,
+        kEdgeOpacity,
+
         /// <summary>
         /// Int representing edge width in pixels.
         /// </summary>
-    kEdgeWidth,
+        kEdgeWidth,
+
         /// <summary>
         /// Int representing the amount, in pixels, that edges should overhang
         /// their start and end points.
         /// </summary>
-    kEdgeOverhang,
+        kEdgeOverhang,
+
         /// <summary>
         /// See EdgeJitterAmount summary.
         /// </summary>
-    kEdgeJitterAmount,
+        kEdgeJitterAmount,
+
         /// <summary>
         /// AcCmColor representing the color applied to silhouette edges.
         /// </summary>
-    kEdgeSilhouetteColor,
+        kEdgeSilhouetteColor,
+
         /// <summary>
         /// Short representing silhouette edge width in pixels.
         /// </summary>
-    kEdgeSilhouetteWidth,
+        kEdgeSilhouetteWidth,
+
         /// <summary>
         /// Int from 0 to 100 representing the halo gap.
         /// </summary>
-    kEdgeHaloGap,
+        kEdgeHaloGap,
+
         /// <summary>
         /// Unsigned short, between 0 and 2047, indicating the number of 
         /// isolines to display for curved surfaces.
         /// </summary>
-    kEdgeIsolines,
+        kEdgeIsolines,
+
         /// <summary>
         /// Bool indicating hide precision enabled. True if enabled,
         /// false otherwise.
         /// </summary>
-    kEdgeHidePrecision,
+        kEdgeHidePrecision,
+
         // Display properties
         //
 
         /// <summary>
         /// See DisplayStyles summary.
         /// </summary>
-    kDisplayStyles,
+        kDisplayStyles,
+
         /// <summary>
         /// Double indicating brightness.
         /// </summary>
-    kDisplayBrightness,
+        kDisplayBrightness,
+
         /// <summary>
         /// See DisplayShadowType summary.
         /// </summary>
-    kDisplayShadowType,
+        kDisplayShadowType,
+
         /// <summary>
         /// Bool indicating use DB display draw order. True if enabled,
         /// false otherwise. When true Z depth is ignored for draw order.
         /// </summary>
-    kUseDrawOrder,
+        kUseDrawOrder,
+
         /// <summary>
         /// Bool indicating if viewport transparency is enabled.  True if enabled,
         /// false otherwise.
         /// </summary>
-    kViewportTransparency,
+        kViewportTransparency,
+
         /// <summary>
         /// Bool indicating if lighting is enabled. True if enabled, false
         /// otherwise.
         /// </summary>
-    kLightingEnabled,
+        kLightingEnabled,
+
         /// <summary>
         /// Bool indicating use Posterize global effect. True if enabled,
         /// false otherwise.
         /// </summary>
-    kPosterizeEffect,
+        kPosterizeEffect,
+
         /// <summary>
         /// Bool indicating use Mono global effect. True if enabled,
         /// false otherwise.
         /// </summary>
-    kMonoEffect,
+        kMonoEffect,
+
         /// <summary>
         /// Bool indicating use Blur global effect. True if enabled,
         /// false otherwise.
         /// </summary>
-    kBlurEffect,
+        kBlurEffect,
+
         /// <summary>
         /// Bool indicating use Pencil global effect. True if enabled,
         /// false otherwise.
         /// </summary>
-    kPencilEffect,
+        kPencilEffect,
+
         /// <summary>
         /// Bool indicating use Bloom global effect. True if enabled,
         /// false otherwise.
         /// </summary>
-    kBloomEffect,
+        kBloomEffect,
+
         /// <summary>
         /// Bool indicating use Pastel global effect. True if enabled,
         /// false otherwise.
         /// </summary>
-    kPastelEffect,
+        kPastelEffect,
+
         /// <summary>
         /// Int indicating blur amount. Range [0.0f, 5.0f].
         /// </summary>
-    kBlurAmount,
+        kBlurAmount,
+
         /// <summary>
         /// Float indicating the angle para of pencil effect. Range [0.0f, 360.0f].
         /// </summary>
-    kPencilAngle,
+        kPencilAngle,
+
         /// <summary>
         /// Int indicating the scale para of pencil effect. Range [0.0f, 3.0f].
         /// </summary>
-    kPencilScale,
+        kPencilScale,
+
         /// <summary>
         /// Int indicating the pattern para of pencil effect. Range [0, 3].
         /// </summary>
-    kPencilPattern,
+        kPencilPattern,
+
         /// <summary>
         /// AcCmColor indicating the color para of pencil effect.
         /// </summary>
-    kPencilColor,
+        kPencilColor,
+
         /// <summary>
         /// Float indicating the bright threshold para of bloom effect. Range [0.0f, INF].
         /// </summary>
-    kBloomThreshold,
+        kBloomThreshold,
+
         /// <summary>
         /// Float indicating the radius para of bloom effect. Range [1.0f, 5.0f].
         /// </summary>
-    kBloomRadius,
+        kBloomRadius,
+
         /// <summary>
         /// AcCmColor indicating the tint color para.
         /// </summary>
-    kTintColor,
+        kTintColor,
+
         /// <summary>
         /// Bool indicating the contrast/brightness/power functions are applied
         /// false otherwise.
         /// </summary>
-    kFaceAdjustment,
+        kFaceAdjustment,
+
         /// <summary>
         /// Adjust overall contrast of image, higher giving more contrast.
         /// </summary>
-    kPostContrast,
+        kPostContrast,
+
         /// <summary>
         /// Adjust overall brightness of image, higher making it brighter. 
         /// </summary>
-    kPostBrightness,
+        kPostBrightness,
+
         /// <summary>
         /// Change the power response curve. For example, gamma correction
         /// is a setting of about 0.4. However, this control is meant more
         /// as a way to control the appearance of the mid-tones: a lower number
         /// brightens the midtones more.
         /// </summary>
-    kPostPower,
+        kPostPower,
+
         /// <summary>
         /// Bool indicating the tint color is used. True if enabled,
         /// false otherwise.
         /// </summary>
-    kTintEffect,
+        kTintEffect,
+
         /// <summary>
         /// Float indicating the intensity of bloom effect. Range [0.0f, INF].
         /// </summary>
-    kBloomIntensity,
+        kBloomIntensity,
+
         /// <summary>
         /// AcCmColor overrides the color of drawables
         /// </summary>
-    kColor,
+        kColor,
+
         /// <summary>
         /// Float overrides the transparency of drawables. Range [0.0f, INF].
         /// </summary>
-    kTransparency,
+        kTransparency,
+
         /// <summary>
         /// Int indicating the amount of wiggle.
         /// </summary>
-    kEdgeWiggleAmount,
+        kEdgeWiggleAmount,
+
         /// <summary>
         /// String overrides the edge texture path of drawables.
         /// </summary>
-    kEdgeTexturePath,
+        kEdgeTexturePath,
+
         /// <summary>
         /// Bool. Camera Effect. Keep objects in focus whose distance from the camera is within
         /// the Focus Width around the Focus Distance.
         /// </summary>
-    kDepthOfField,
+        kDepthOfField,
+
         /// <summary>
         /// Float specifies the distance from the camera to focus on.
         /// </summary>
-    kFocusDistance,
+        kFocusDistance,
+
         /// <summary>
         /// Float specifies the distance from the focus distance to keep in focus.
         /// </summary>
-    kFocusWidth,
+        kFocusWidth,
+
         /// <summary>
         /// The number of visual style properties
         /// </summary>
         // NOTE!!! All new properties should be added immediately above kPropertyCount.
-    kPropertyCount,
+        kPropertyCount,
+
         /// <summary>
         /// The number of visual style properties for Pre-2013 drawing formats
         /// </summary>
         // kUseDrawOrder is the first new property added for the 2013 format. It is
         // also the same value as the pre-2013 property count.
-    kPropertyCountPre2013 = kUseDrawOrder
-  };
+        kPropertyCountPre2013 = kUseDrawOrder,
+    };
     ////////////////////////////////////////////////////////////////////////////
     // Face properties
     //
@@ -315,20 +374,19 @@ namespace AcGiVisualStyleProperties
     /// <summary>
     /// Describes the lighting model to apply to the faces of drawables.
     /// </summary>
-  enum FaceLightingModel
-  {
+  enum FaceLightingModel {
         /// <summary>
         /// Faces are not drawn.
         /// </summary>
-    kInvisible,
+        kInvisible,
         /// <summary>
         /// Faces are drawn in a constant color.
         /// </summary>
-    kConstant,
+        kConstant,
         /// <summary>
         /// Faces are drawn to approximate realistic direct lighting.
         /// </summary>
-    kPhong,
+        kPhong,
         /// <summary>
         //  Faces are drawn for technical illustration.
         /// Gooch, A., Gooch, B., Shirley, P., and Cohen, E. 1998.  
@@ -337,94 +395,91 @@ namespace AcGiVisualStyleProperties
         /// on Computer Graphics and Interactive Techniques SIGGRAPH '98.
         /// ACM Press, New York, NY, 447-452.
         /// </summary>
-    kGooch,
+        kGooch,
         /// <summary>
         /// Faces are drawn in zebra stripes for surface analysis.
         /// </summary>
-    kZebra
-  };
+        kZebra
+    };
     /// <summary>
     /// Describes the calculation method used for application of
     /// lighting effects to faces.
     /// </summary>
-  enum FaceLightingQuality
-  {
+  enum FaceLightingQuality {
         /// <summary>
         /// Apply no lighting calculations to the faces.
         /// </summary>
-    kNoLighting,
+        kNoLighting,
         /// <summary>
         /// Each face has a color calculated based on its orientation to the 
         /// light source(s) of the scene. 
         /// </summary>
-    kPerFaceLighting,
+        kPerFaceLighting,
         /// <summary>
         /// Each vertex of a face has its color calculated based on its 
         /// orientation to the light source(s) of the scene. 
         /// </summary>
-    kPerVertexLighting,
+        kPerVertexLighting,
         /// <summary>
         /// Each pixel of a face has its color calculated based on its 
         /// orientation to the light source(s) of the scene. 
         /// </summary>
-    kPerPixelLighting
-  };
+        kPerPixelLighting
+    };
     /// <summary>
     /// Describes modifications that affect the color of a face before 
     /// any lighting and shading calculations have been performed.
     /// </summary>
-  enum FaceColorMode
-  {
+  enum FaceColorMode {
         /// <summary>
         /// No modifications are to be applied to the faces.
         /// </summary>
-    kNoColorMode,
+        kNoColorMode,
         /// <summary>
         /// Apply the color of the drawable to the faces.
         /// </summary>
-    kObjectColor,
+        kObjectColor,
         /// <summary>
         /// Apply the display background color to the faces.
         /// </summary>
-    kBackgroundColor,
+        kBackgroundColor,
         /// <summary>
         /// All faces are treated as having a specific color, resulting in a 
         /// "monochromatic" effect.
         /// </summary>
-    kMono,
+        kMono,
         /// <summary>
         /// All faces have the hue and saturation values of their color mapped 
         /// to the hue and saturation values of a specific color, resulting in
         /// a "tinted" effect.  The luminance value remains unchanged.
         /// </summary>
-    kTint,
+        kTint,
         /// <summary>
         /// Apply a desaturation percentage to the diffuse color of a material.
         /// </summary>
-    kDesaturate
-  };
+        kDesaturate
+    };
     /// <summary>
     /// Bitfield that describes modifications to faces made before any
     /// lighting and shading calculations have been performed.
     /// </summary>
-  enum FaceModifiers
-  {
+  enum FaceModifiers {
         /// <summary>
         /// Apply no face modifiers to the faces.
         /// </summary>
-    kNoFaceModifiers = 0,
+        kNoFaceModifiers    = 0,
         /// <summary>
         /// Apply an opacity value to the faces.  If unset, faces are displayed with
         /// full opacity.  If set, faces are displayed with a specified degree of
         /// opacity from completely opaque to completely transparent.   
         /// </summary>
-    kFaceOpacityFlag = 1,
+        kFaceOpacityFlag    = 1,
         /// <summary>
         /// Apply a specular highlight (indicating reflection and shininess values)
         /// to a material that is applied to the faces.  
         /// </summary>
-    kSpecularFlag = 2
-  };
+        kSpecularFlag       = 2
+    };
     ////////////////////////////////////////////////////////////////////////////
     // Edge properties
     //
@@ -432,193 +487,187 @@ namespace AcGiVisualStyleProperties
     /// <summary>
     /// Describes the model to use as a source of edges.
     /// </summary>
-  enum EdgeModel
-  {
+  enum EdgeModel {
         /// <summary>
         /// No edges will be displayed.
         /// </summary>
-    kNoEdges,
+        kNoEdges,
         /// <summary>
         /// Display isolines, imaginary lines (edges) which represent the curvature
         /// and shape of a drawable.
         /// </summary>
-    kIsolines,
+        kIsolines,
         /// <summary>
         /// Display facet edges, the edges between adjoining facets.
         /// </summary>
-    kFacetEdges
-  };
+        kFacetEdges,
+    };
     /// <summary>
     /// Bitfield which describes the combination of edge styles to display.
     /// </summary>
-  enum EdgeStyles
-  {
+  enum EdgeStyles {
         /// <summary>
         /// No edges styles will be displayed
         /// </summary>
-    kNoEdgeStyle = 0,
+        kNoEdgeStyle        =  0,
         /// <summary>
         /// Visible edges will be displayed.
         /// </summary>
-    kVisibleFlag = 1,
+        kVisibleFlag        =  1,
         /// <summary>
         /// Silhouette edges will be displayed.  A silhouette edge is an edge
         /// connecting a back facing polygon with a front facing polygon.
         /// </summary>
-    kSilhouetteFlag = 2,
+        kSilhouetteFlag     =  2,
         /// <summary>
         /// Obscured edges will be displayed.  An obscured edge is that which
         /// would not be normally be visible when in a shaded view.
         /// </summary>
-    kObscuredFlag = 4,
+        kObscuredFlag       =  4,
         /// <summary>
         /// Intersection edges will be displayed.  An intersection edges is that
         /// which is inferred from intersecting facets.
         /// </summary>
-    kIntersectionFlag = 8
-  };
+        kIntersectionFlag   = 8
+    };
     /// <summary>
     /// Bitfield which describes the combination of modifiers to apply to displayed edges.
     /// </summary>
-  enum EdgeModifiers
-  {
+  enum EdgeModifiers {
         /// <summary>
         /// Apply no modifiers to the edges.
         /// </summary>
-    kNoEdgeModifiers = 0,
+        kNoEdgeModifiers    =   0,
         /// <summary>
         /// Allow an edge to overhang its start and end points by a specified amount.
         /// </summary>
-    kEdgeOverhangFlag = 1,
+        kEdgeOverhangFlag       =   1,
         /// <summary>
         /// Apply a jitter effect to the edges.  The jitter effect is produced by drawing
         /// extra lines adjacent to the original line, with a specific amount of 
         /// perturbation away from the original line.
         /// </summary>
-    kEdgeJitterFlag = 2,
+        kEdgeJitterFlag     =   2,
         /// <summary>
         /// Apply a width > 1 to the edges.
         /// </summary>
-    kEdgeWidthFlag = 4,
+        kEdgeWidthFlag      =   4,
         /// <summary>
         /// Apply a color other than the drawable object color to the edges.
         /// </summary>
-    kEdgeColorFlag = 8,
+        kEdgeColorFlag      =   8,
         /// <summary>
         /// Apply a halo gap percentage to the edges of an object that is hidden
         /// by another object, such that the specified gap is displayed between the
         /// edges of the hidden object and the edges of the object which hides it.  
         /// </summary>
-    kEdgeHaloGapFlag = 16,
+        kEdgeHaloGapFlag    =  16,
         /// <summary>
         /// Force edges to be on top.  Edges will not participate in the Z-ordering
         /// of the displayed drawables.
         /// </summary>
-    kAlwaysOnTopFlag = 64,
+        kAlwaysOnTopFlag    =  64,
         /// <summary>
         /// Apply an opacity value to the edges.  If unset, edges are displayed with
         /// full opacity.  If set, edges are displayed with a specified degree of
         /// opacity from completely opaque to completely transparent.
         /// </summary>
-    kEdgeOpacityFlag = 128,
+        kEdgeOpacityFlag        = 128,
         /// <summary>
         /// Apply a wiggle effect to the edges.  The wiggle effect is produced by drawing
         /// extra lines adjacent to the original line, with a specific amount of 
         /// perturbation away from the original line.
         /// </summary>
-    kEdgeWiggleFlag = 256,
+        kEdgeWiggleFlag         = 256,
         /// <summary>
         /// Apply a texture effect to the edges.  The texture effect is produced by drawing
         /// texure on the original line.
         /// </summary>
-    kEdgeTextureFlag = 512
-  };
+        kEdgeTextureFlag         = 512,
+    };
     /// <summary>
     /// Describes the amount of jitter effect to apply to edges.
     /// </summary>
-  enum EdgeJitterAmount
-  {
+  enum EdgeJitterAmount {
         /// <summary>
         /// A small amount of perturbation will be applied to edges.
         /// </summary>
-    kJitterLow = 1,
+        kJitterLow = 1,
         /// <summary>
         /// A medium amount of perturbation will be applied to edges.
         /// </summary>
-    kJitterMedium,
+        kJitterMedium,
         /// <summary>
         /// A large amount of perturbation will be applied to edges.
         /// </summary>
-    kJitterHigh
-  };
+        kJitterHigh,
+    };
     /// <summary>
     /// Describes the amount of jitter effect to apply to edges.
     /// </summary>
-  enum EdgeWiggleAmount
-  {
+  enum EdgeWiggleAmount {
         /// <summary>
         /// A small amount of perturbation will be applied to edges.
         /// </summary>
-    kWiggleLow = 1,
+        kWiggleLow = 1,
         /// <summary>
         /// A medium amount of perturbation will be applied to edges.
         /// </summary>
-    kWiggleMedium,
+        kWiggleMedium,
         /// <summary>
         /// A large amount of perturbation will be applied to edges.
         /// </summary>
-    kWiggleHigh
-  };
+        kWiggleHigh,
+    };
     /// <summary>
     /// Describes the raster-based line patterns to apply to edges.
     /// </summary>
-  enum EdgeLinePattern
-  {
+  enum EdgeLinePattern {
         /// <summary>
         /// Display edges with a solid line pattern.
         /// </summary>
-    kSolid = 1,
+        kSolid = 1,
         /// <summary>
         /// Display edges with a dashed line pattern.
         /// </summary>
-    kDashedLine,
+        kDashedLine,
         /// <summary>
         /// Display edges with a dotted line pattern.
         /// </summary>
-    kDotted,
+        kDotted,
         /// <summary>
         /// Display edges with a short dashed line pattern.
         /// </summary>
-    kShortDash,
+        kShortDash,
         /// <summary>
         /// Display edges with a medium dashed line pattern.
         /// </summary>
-    kMediumDash,
+        kMediumDash,
         /// <summary>
         /// Display edges with a long dashed line pattern.
         /// </summary>
-    kLongDash,
+        kLongDash,
         /// <summary>
         /// Display edges with a double short dashed line pattern.
         /// </summary>
-    kDoubleShortDash,
+        kDoubleShortDash,
         /// <summary>
         /// Display edges with a double medium dashed line pattern.
         /// </summary>
-    kDoubleMediumDash,
+        kDoubleMediumDash,
         /// <summary>
         /// Display edges with a double long dashed line pattern.
         /// </summary>
-    kDoubleLongDash,
+        kDoubleLongDash,
         /// <summary>
         /// Display edges with a medium long dashed line pattern.
         /// </summary>
-    kMediumLongDash,
+        kMediumLongDash,
         /// <summary>
         /// Display edges with a sparse dotted line pattern.
         /// </summary>
-    kSparseDot
-  };
+        kSparseDot
+    };
     ////////////////////////////////////////////////////////////////////////////
     // Display properties
     //
@@ -626,51 +675,49 @@ namespace AcGiVisualStyleProperties
     /// <summary>
     /// Bitfield which describes the combination of enabled display settings.
     /// </summary>
-  enum DisplayStyles
-  {
+  enum DisplayStyles {
         /// <summary>
         /// No display settings are enabled.
         /// </summary>
-    kNoDisplayStyle = 0,
+        kNoDisplayStyle      =  0,
         /// <summary>
         /// Backgrounds are displayed.
         /// </summary>
-    kBackgroundsFlag = 1,
+        kBackgroundsFlag     =  1,
         /// <summary>
         /// Lighting is displayed.
         /// </summary>
-    kLightingFlag = 2,
+        kLightingFlag        =  2,
         /// <summary>
         /// Materials are displayed.
         /// </summary>
-    kMaterialsFlag = 4,
+        kMaterialsFlag       =  4,
         /// <summary>
         /// Textures are displayed.
         /// </summary>
-    kTexturesFlag = 8
-  };
+        kTexturesFlag        =  8,
+    };
     /// <summary>
     /// Describes the type of shadow to enable.
     /// </summary>
-  enum DisplayShadowType
-  {
+  enum DisplayShadowType {
         /// <summary>
         /// No shadows are displayed.
         /// </summary>
-    kShadowsNone,
+        kShadowsNone,
         /// <summary>
         /// Ground plane shadows are displayed.
         /// </summary>
-    kShadowsGroundPlane,
+        kShadowsGroundPlane,
         /// <summary>
         /// Full shadows are displayed.
         /// </summary>
-    kShadowsFull,
+        kShadowsFull,
         /// <summary>
         /// Full and ground plane shadows are displayed.
         /// </summary>
-    kShadowsFullAndGround
-  };
+        kShadowsFullAndGround,
+    };
 }
 /// <summary>
 /// Container for visual style Operation enumeration.
@@ -681,27 +728,29 @@ namespace AcGiVisualStyleOperations
     /// Describes what kind of operation to perform when setting a visual 
     //  style property.
     /// </summary>
-  enum Operation
-  {
-    kInvalidOperation = -1,
+  enum Operation {
+        kInvalidOperation = -1,
         /// <summary>
         /// Use the last property value specified.  NOTE: Reserved for future 
         /// use.  Specifying this currently will be treated the same as kSet.
         /// </summary>
-    kInherit = 0,
+        kInherit = 0,
+
         /// <summary>
         /// Replace the last property value with the one specified.
         /// </summary>
-    kSet,
+        kSet,
+
         /// <summary>
         /// Disable the specified bits in the property bitmask.
         /// </summary>
-    kDisable,
+        kDisable,
+
         /// <summary>
         /// Enable the specified bits in the property bitmask.
         /// </summary>
-    kEnable
-  };
+        kEnable
+    };
 }
 ////////////////////////////////////////////////////////////////////////
 // class AcGiVisualStyle
@@ -725,94 +774,97 @@ public:
     /// <summary>
     /// Describes the visual style type, based on multiple property settings.
     /// </summary>
-  enum Type
-  {
+  enum Type {
         // Legacy (shademode) styles
         /// <summary>
         /// Flat shaded visual style.
         /// </summary>
-    kFlat,
+        kFlat,
         /// <summary>
         /// Flat shaded visual style with edges displayed.
         /// </summary>
-    kFlatWithEdges,
+        kFlatWithEdges,
         /// <summary>
         /// Gouraud shaded visual style.
         /// </summary>
-    kGouraud,
+        kGouraud,
         /// <summary>
         /// Gouraud shaded visual style with edges displayed.
         /// </summary>
-    kGouraudWithEdges,
+        kGouraudWithEdges,
         /// <summary>
         /// 2D wireframe visual style (using 2D graphics system).
         /// </summary>
-    k2DWireframe,
+        k2DWireframe,
         /// <summary>
         /// 3D wireframe visual style (using 3D graphics system).
         /// </summary>
-    k3DWireframe,
+        k3DWireframe,
         /// <summary>
         /// Hidden visual style.
         /// </summary>
-    kHidden,
+        kHidden,
         // Visual Styles
         /// <summary>
         /// Basic default visual style.
         /// </summary>
-    kBasic,
+        kBasic,
         /// <summary>
         /// Phong shaded visual style.
         /// </summary>
-    kRealistic,
+        kRealistic,
         /// <summary>
         /// Gooch shaded visual style.
         /// </summary>
-    kConceptual,
+        kConceptual,
         /// <summary>
         /// Custom, user defined visual visual style.
         /// </summary>
-    kCustom,
+        kCustom,
         // Highlight visual styles
         /// <summary>
         /// Visual style used for a dimming effect.
         /// </summary>
-    kDim,
+        kDim,
         /// <summary>
         /// Visual style used for a brightening effect.
         /// </summary>
-    kBrighten,
+        kBrighten,
         /// <summary>
         /// Visual style used for a thickening effect.
         /// </summary>
-    kThicken,
+        kThicken,
         /// <summary>
         /// Visual style used to apply a line pattern.
         /// </summary>
-    kLinePattern,
+        kLinePattern,
         /// <summary>
         /// Visual style used to apply a face pattern.
         /// </summary>
-    kFacePattern,
+        kFacePattern,
         /// <summary>
         /// Visual style used to apply a change of color.
         /// </summary>
-    kColorChange,
+        kColorChange,
+
         // Face-only/edge-only visual styles
         //
 
         /// <summary>
         /// Face properties only visual style.  All non-face properties are set to inherit.
         /// </summary>
-    kFaceOnly,
+        kFaceOnly,
+
         /// <summary>
         /// Edge properties only visual style.  All non-edge properties are set to inherit.
         /// </summary>
-    kEdgeOnly,
+        kEdgeOnly,
+
         /// <summary>
         /// Display properties only visual style.  All non-display properties are set to inherit.
         /// </summary>
-    kDisplayOnly,
+        kDisplayOnly,
+
         // Edge Style Override visual styles
         //
 
@@ -820,55 +872,60 @@ public:
         /// Edge style override visual style with jitter edges off.  All other properties are
         /// set to inherit.
         /// </summary>
-    kJitterOff,
+        kJitterOff,
+
         /// <summary>
         /// Edge style override visual style with overhang edges off.  All other properties are
         /// set to inherit.
         /// </summary>
-    kOverhangOff,
+        kOverhangOff,
+
         /// <summary>
         /// Edge style override visual style with edge color off.  All other properties are
         /// set to inherit.
         /// </summary>
-    kEdgeColorOff,
+        kEdgeColorOff,
+
         /// <summary>
         /// shades of gary visual style
         /// </summary>
-    kShadesOfGray,
+        kShadesOfGray,
         /// <summary>
         /// sketchy visual style
         /// </summary>
-    kSketchy,
+        kSketchy,
         /// <summary>
         /// xray visual style
         /// </summary>
-    kXRay,
+        kXRay,
         /// <summary>
         /// shade with edges visual style
         /// </summary>
-    kShadedWithEdges,
+        kShadedWithEdges,
         /// <summary>
         /// shaded visual style
         /// </summary>
-    kShaded,
+        kShaded,
         /// <summary>
         /// dummy visual style
         /// </summary>
-    kByViewport,
+        kByViewport,
         /// <summary>
         /// dummy visual style
         /// </summary>
-    kByLayer,
+        kByLayer,
         /// <summary>
         /// dummy visual style
         /// </summary>
-    kByBlock,
+        kByBlock,
+
         /// <summary>
         /// Visual style with all properties set to inherit.  This effectively
         /// creates an empty style upon which a custom visual style can be built.
         /// </summary>
-    kEmptyStyle
-  };
+        kEmptyStyle,
+
+    };
     /// <summary>
     /// Default constructor.  Initializes members to default values.
     /// </summary>

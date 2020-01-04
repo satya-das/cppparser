@@ -19,8 +19,7 @@
 #  include "include/core/SkTypes.h"
 #  include <stdint.h>
 #  include <vector>
-enum GrDriverBugWorkaroundType
-{
+enum GrDriverBugWorkaroundType {
   ADD_AND_TRUE_TO_LOOP_CONDITION,
   DISABLE_BLEND_EQUATION_ADVANCED,
   DISABLE_DISCARD_FRAMEBUFFER,

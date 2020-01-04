@@ -57,11 +57,10 @@ class AcDbAuditInfo
 public:
   friend class AcDbImpAuditInfo;
   friend class AcDbAuditImp;
-  enum AuditPass
-  {
-    PASS1 = 1,
-    PASS2 = 2
-  };
+  enum AuditPass {
+            PASS1 = 1,
+            PASS2 = 2
+    };
   AcDbAuditInfo();
   ~AcDbAuditInfo();
   bool fixErrors(void) const;

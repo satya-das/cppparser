@@ -21,12 +21,11 @@ class SK_API SkFont
 public:
     /** Whether edge pixels draw opaque or with partial transparency.
     */
-  enum class Edging
-  {
-    kAlias,
-    kAntiAlias,
-    kSubpixelAntiAlias
-  };
+  enum class Edging {
+        kAlias,              //!< no transparent pixels on glyph edges
+        kAntiAlias,          //!< may have transparent pixels on glyph edges
+        kSubpixelAntiAlias,  //!< glyph positioned in pixel using transparency
+    };
     /** Constructs SkFont with default values.
 
         @return  default initialized SkFont
@@ -490,15 +489,14 @@ public:
      */
   void dump() const;
 private:
-  enum PrivFlags
-  {
-    kForceAutoHinting_PrivFlag = 1 << 0,
-    kEmbeddedBitmaps_PrivFlag = 1 << 1,
-    kSubpixel_PrivFlag = 1 << 2,
-    kLinearMetrics_PrivFlag = 1 << 3,
-    kEmbolden_PrivFlag = 1 << 4,
-    kBaselineSnap_PrivFlag = 1 << 5
-  };
+  enum PrivFlags {
+        kForceAutoHinting_PrivFlag      = 1 << 0,
+        kEmbeddedBitmaps_PrivFlag       = 1 << 1,
+        kSubpixel_PrivFlag              = 1 << 2,
+        kLinearMetrics_PrivFlag         = 1 << 3,
+        kEmbolden_PrivFlag              = 1 << 4,
+        kBaselineSnap_PrivFlag          = 1 << 5,
+    };
   static unsigned kAllFlags = kForceAutoHinting_PrivFlag | kEmbeddedBitmaps_PrivFlag | kSubpixel_PrivFlag | kLinearMetrics_PrivFlag | kEmbolden_PrivFlag | kBaselineSnap_PrivFlag;
   sk_sp<SkTypeface> fTypeface;
   SkScalar fSize;

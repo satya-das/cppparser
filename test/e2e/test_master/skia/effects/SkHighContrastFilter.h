@@ -15,13 +15,13 @@
  */
 struct SkHighContrastConfig
 {
-  enum class InvertStyle
-  {
-    kNoInvert,
-    kInvertBrightness,
-    kInvertLightness,
-    kLast = kInvertLightness
-  };
+  enum class InvertStyle {
+        kNoInvert,
+        kInvertBrightness,
+        kInvertLightness,
+
+        kLast = kInvertLightness
+    };
   SkHighContrastConfig()
   {
     fGrayscale = false;

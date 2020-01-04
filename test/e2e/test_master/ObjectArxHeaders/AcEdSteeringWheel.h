@@ -27,27 +27,26 @@ void acedDestroySteeringWheel(AcEdSteeringWheel* pWheel);
 class AcEdSteeringWheel
 {
 public:
-  enum WheelType
-  {
-    kExterior = 0,
-    kInterior,
-    kFull,
-    k2D,
-    kMini,
-    kMiniOther,
-    kMiniEight,
-    kTotalCount,
-    kWheelNone
-  };
-  enum MenuType
-  {
+  enum WheelType {
+        kExterior = 0,		///< View Object Wheel.
+        kInterior,			///< Tour Buiding Wheel.
+        kFull,				///< Full Navigation Wheel.
+        k2D,                ///< 2D Steering Wheel.
+        kMini,		        ///< Mini View Object Wheel.
+        kMiniOther,	        ///< Mini Tour Building Wheel.
+        kMiniEight,	        ///< Mini Full Navigation Wheel.
+
+        kTotalCount,		///< Total number of SteeringWheel types.
+        kWheelNone			///< Marks a disabled SteeringWheel.
+    };
+  enum MenuType {
         // Steering Wheel Menus
-    kMenuNone = 0,
-    kMenuInterior,
-    kMenuExterior,
-    kMenuFull,
-    kMenu2D
-  };
+        kMenuNone = 0,
+        kMenuInterior,
+        kMenuExterior,
+        kMenuFull,
+        kMenu2D
+    };
     // Message handlers
   virtual void onKeyDown(UINT nChar, UINT nRepCount, UINT nFlags) = 0;
   virtual void onKeyUp(UINT nChar, UINT nRepCount, UINT nFlags) = 0;

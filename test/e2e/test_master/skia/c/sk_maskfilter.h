@@ -10,12 +10,11 @@
 #ifndef sk_maskfilter_DEFINED
 #  define sk_maskfilter_DEFINED
 #  include "include/c/sk_types.h"
-typedef enum
-{
-  NORMAL_SK_BLUR_STYLE,
-  SOLID_SK_BLUR_STYLE,
-  OUTER_SK_BLUR_STYLE,
-  INNER_SK_BLUR_STYLE
+typedef enum {
+    NORMAL_SK_BLUR_STYLE,   //!< fuzzy inside and outside
+    SOLID_SK_BLUR_STYLE,    //!< solid inside, fuzzy outside
+    OUTER_SK_BLUR_STYLE,    //!< nothing inside, fuzzy outside
+    INNER_SK_BLUR_STYLE,    //!< fuzzy inside, nothing outside
 } sk_blurstyle_t;
 SK_C_PLUS_PLUS_BEGIN_GUARD
 SK_API void sk_maskfilter_ref(sk_maskfilter_t*);

@@ -36,19 +36,18 @@ public:
     /// This enum is type of relation betweem tool and trimmed area.
     /// </summary>
     ///
-  enum TrimRelation
-  {
+  enum TrimRelation {
         /// <summary>
         /// Trimmed area is outside the tool.
         /// </summary>
         ///
-    outside_tool,
+        outside_tool,
         /// <summary>
         /// Trimmed area is inside the tool.
         /// </summary>
         ///
-    inside_tool
-  };
+        inside_tool,
+    };
     /// <summary> Default constructor. </summary>
     ///
   AcDbSurfaceTrimInfo();

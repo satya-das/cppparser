@@ -42,11 +42,10 @@ struct GrVkAlloc
   VkDeviceSize fSize;
   uint32_t fFlags;
   GrVkBackendMemory fBackendMemory;
-  enum Flag
-  {
-    kNoncoherent_Flag = 0x1,
-    kMappable_Flag = 0x2
-  };
+  enum Flag {
+        kNoncoherent_Flag = 0x1,   // memory must be flushed to device after mapping
+        kMappable_Flag    = 0x2,   // memory is able to be mapped.
+    };
   bool operator==(const GrVkAlloc& that) const
   {
     return fMemory == that.fMemory && fOffset == that.fOffset && fSize == that.fSize && fFlags == that.fFlags && fUsesSystemHeap == that.fUsesSystemHeap;

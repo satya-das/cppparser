@@ -40,60 +40,57 @@ class AcRxVariable
 {
 public:
     ///<summary>Possible storage type values.</summary>
-  enum StorageType
-  {
+  enum StorageType {
         ///<summary>Application wide, does not persist.</summary>
-    kStoragePerSession = 0,
+        kStoragePerSession = 0,
         ///<summary>Application wide, persists per user.</summary>
-    kStoragePerUser = 1,
+        kStoragePerUser = 1,
         ///<summary>Application wide, persists per AutoCAD profile.</summary>
-    kStoragePerProfile = 2,
+        kStoragePerProfile = 2,
         ///<summary>document wide, persists in drawing.</summary>
-    kStoragePerDatabase = 3,
+        kStoragePerDatabase = 3,
         ///<summary>viewport (AcDbViewport and AcDbViewportTableRecord) wide, persists in drawing.</summary>
-    kStoragePerViewport = 4
-  };
+        kStoragePerViewport = 4
+    };
     ///<summary>Possible secondary type values.</summary>
-  enum SecondaryType
-  {
+  enum SecondaryType {
         ///<summary>No secondary data type is specified.</summary>
-    kSecondaryTypeNone = 0,
+        kSecondaryTypeNone = 0,
         ///<summary>The variable is a boolean. Only valid when primaryDataType==RTSHORT</summary>
-    kSecondaryTypeBoolean = 1,
+        kSecondaryTypeBoolean = 1,
         ///<summary>The variable is a RealDWG symbol name. Only valid when primaryDataType==RTSTR</summary>
-    kSecondaryTypeSymbolName = 2,
+        kSecondaryTypeSymbolName = 2,
         ///<summary>The variable represents area value. Only valid when primaryDataType==RTREAL</summary>
-    kSecondaryTypeArea = 3,
+        kSecondaryTypeArea = 3,
         ///<summary>The variable represents distance value. Only valid when primaryDataType==RTREAL</summary>
-    kSecondaryTypeDistance = 4,
+        kSecondaryTypeDistance = 4,
         ///<summary>The variable represents an angle value. Only valid when primaryDataType==RTREAL</summary>
-    kSecondaryTypeAngle = 5,
+        kSecondaryTypeAngle = 5,
         ///<summary>The variable represents a unitless real value. Only valid when primaryDataType==RTREAL</summary>
-    kSecondaryTypeUnitlessReal = 6,
+        kSecondaryTypeUnitlessReal = 6,
         ///<summary>Marks the last item in the enumeration</summary>
-    kSecondaryTypeLast = 6
-  };
+        kSecondaryTypeLast = 6,
+    };
     ///<summary>Possible type flag values. These can be 'OR'-ed together.</summary>
-  enum TypeFlags
-  {
+  enum TypeFlags {
         ///<summary>No type flags are specified.</summary>
-    kTypeFlagsNone = 0,
+        kTypeFlagsNone = 0,
         ///<summary>Spaces are allowed in the variable values. Only valid when primaryDataType==RTSTR</summary>
-    kTypeFlagSpacesAllowed = 1,
+        kTypeFlagSpacesAllowed = 1,
         ///<summary>. character should be interpreted as empty string. Only valid when primaryDataType==RTSTR</summary>
-    kTypeFlagDotMeansEmpty = 2,
+        kTypeFlagDotMeansEmpty = 2, //primaryType == RTSTR
         ///<summary>Variable does not record for undo.</summary>
-    kTypeFlagNoUndo = 4,
+        kTypeFlagNoUndo = 4,
         ///<summary>Variable sends notifications when it is set to the same value as the previous value.
         ///Variables normally ignore attempts to set the same value twice in a row.</summary>
-    kTypeFlagsChatty = 8,
+        kTypeFlagsChatty = 8,
         ///<summary> It's used to let users know the sysvar will be removed in next release or so.  
         // Users should mitigate the change as soon as possible. The sysvar is deprecated by immediate 
         // un-defining it after registering with the system.
         // If users really need to use it, they can still use it by prefixing with "." or re-define it.
         // For example: .TRAYICONS  or redefine TRAYICONS.</summary>
-    kTypeDeprecated = 16
-  };
+        kTypeDeprecated = 16,
+    };
     ///<summary>Represents a bounded range.</summary>
   struct Range
   {

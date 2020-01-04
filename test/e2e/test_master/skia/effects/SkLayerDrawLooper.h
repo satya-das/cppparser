@@ -21,14 +21,14 @@ public:
      *  0 means ignore the layer's paint... except for fColorMode, which is
      *  always applied.
      */
-  enum Bits
-  {
-    kStyle_Bit = 1 << 0,
-    kPathEffect_Bit = 1 << 2,
-    kMaskFilter_Bit = 1 << 3,
-    kShader_Bit = 1 << 4,
-    kColorFilter_Bit = 1 << 5,
-    kXfermode_Bit = 1 << 6,
+  enum Bits {
+        kStyle_Bit      = 1 << 0,   //!< use this layer's Style/stroke settings
+        kPathEffect_Bit = 1 << 2,   //!< use this layer's patheffect
+        kMaskFilter_Bit = 1 << 3,   //!< use this layer's maskfilter
+        kShader_Bit     = 1 << 4,   //!< use this layer's shader
+        kColorFilter_Bit = 1 << 5,  //!< use this layer's colorfilter
+        kXfermode_Bit   = 1 << 6,   //!< use this layer's xfermode
+
         // unsupported kTextSkewX_Bit  = 1 << 1,
 
         /**
@@ -37,8 +37,9 @@ public:
          *    used to interpret the text/len parameters in draw[Pos]Text.
          *  - Color is always computed using the LayerInfo's fColorMode.
          */
-    kEntirePaint_Bits = -1
-  };
+        kEntirePaint_Bits = -1
+
+    };
   typedef int32_t BitFlags;
     /**
      *  Info for how to apply the layer's paint and offset.

@@ -21,21 +21,20 @@ struct SkDeserialProcs;
 class SK_API SkFlattenable : public SkRefCnt
 {
 public:
-  enum Type
-  {
-    kSkColorFilter_Type,
-    kSkDrawable_Type,
-    kSkDrawLooper_Type,
-    kSkImageFilter_Type,
-    kSkMaskFilter_Type,
-    kSkPathEffect_Type,
-    kSkPixelRef_Type,
-    kSkUnused_Type4,
-    kSkShaderBase_Type,
-    kSkUnused_Type,
-    kSkUnused_Type2,
-    kSkNormalSource_Type
-  };
+  enum Type {
+        kSkColorFilter_Type,
+        kSkDrawable_Type,
+        kSkDrawLooper_Type,
+        kSkImageFilter_Type,
+        kSkMaskFilter_Type,
+        kSkPathEffect_Type,
+        kSkPixelRef_Type,
+        kSkUnused_Type4,    // used to be SkRasterizer
+        kSkShaderBase_Type,
+        kSkUnused_Type,     // used to be SkUnitMapper
+        kSkUnused_Type2,
+        kSkNormalSource_Type,
+    };
   typedef sk_sp<SkFlattenable> (*Factory) (SkReadBuffer&);
   SkFlattenable()
   {

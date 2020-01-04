@@ -34,10 +34,7 @@ class AcString : public AcHeapOperators
 {
 public:
     // Encoding type
-  enum Encoding
-  {
-    Utf8
-  };
+  enum Encoding { Utf8 };
     //
     // Constructors and destructor
     //
@@ -63,12 +60,11 @@ public:
     // acs : input reference to an existing temp AcString object
   ACBASE_PORT AcString(AcString&& acs);
     // Values for the nCtorFlags arg of the following constructor
-  enum eFormat
-  {
-    kSigned = 0x0002,
-    kUnSigned = 0x0003,
-    kHex = 0x0004
-  };
+  enum eFormat {
+        kSigned = 0x0002,   // format the arg as signed int
+        kUnSigned = 0x0003, // format the arg as unsigned int
+        kHex = 0x0004  // format the arg as hex
+    };
     // Multi-purpose constructor, takes an unsigned argument and
     // uses it either to load a resource string or to create a
     // numerical string (base 10 or hex).
@@ -148,17 +144,16 @@ public:
     //
     // Parsing methods.
     //
-  enum
-  {
+  enum {
         // Enum value allowing caller to specify how to handle errors
         // (invalid chars or overflow) during string parsing.
-    kParseZero = 0,
-    kParseMinus1 = 0x01,
-    kParseAssert = 0x02,
-    kParseExcept = 0x04,
-    kParseNoEmpty = 0x08,
-    kParseDefault = (kParseAssert | kParseZero)
-  };
+        kParseZero = 0,       // return zero on errors
+        kParseMinus1 = 0x01,  // return -1 or ffff
+        kParseAssert = 0x02,  // pop an assert in debug build
+        kParseExcept = 0x04,  // throw an int exception
+        kParseNoEmpty = 0x08, // treat empty string as error
+        kParseDefault = (kParseAssert | kParseZero)
+    };
     // Parse the current string as decimal, return a signed int
     // nFlags : input bits specifying how to do the parsing
   ACBASE_PORT int asDeci(int nFlags = kParseDefault) const;

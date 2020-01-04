@@ -19,11 +19,10 @@ public:
 
         @deprecated use SkPixelGeometry instead.
     */
-  enum LCDOrientation
-  {
-    kHorizontal_LCDOrientation = 0,
-    kVertical_LCDOrientation = 1
-  };
+  enum LCDOrientation {
+        kHorizontal_LCDOrientation = 0,    //!< this is the default
+        kVertical_LCDOrientation   = 1,
+    };
     /** @deprecated set on Device creation. */
   static void SetSubpixelOrientation(LCDOrientation orientation);
     /** @deprecated get from Device. */
@@ -40,12 +39,11 @@ public:
 
         @deprecated use SkPixelGeometry instead.
      */
-  enum LCDOrder
-  {
-    kRGB_LCDOrder = 0,
-    kBGR_LCDOrder = 1,
-    kNONE_LCDOrder = 2
-  };
+  enum LCDOrder {
+        kRGB_LCDOrder = 0,    //!< this is the default
+        kBGR_LCDOrder = 1,
+        kNONE_LCDOrder = 2,
+    };
     /** @deprecated set on Device creation. */
   static void SetSubpixelOrder(LCDOrder order);
     /** @deprecated get from Device. */

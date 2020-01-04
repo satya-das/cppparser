@@ -29,21 +29,20 @@ class AcDbImpDataColumn;
 class AcDbDataCell : public AcRxObject
 {
 public:
-  enum CellType
-  {
-    kUnknown = 0,
-    kInteger,
-    kDouble,
-    kCharPtr,
-    kPoint,
-    kObjectId,
-    kHardOwnerId,
-    kSoftOwnerId,
-    kHardPtrId,
-    kSoftPtrId,
-    kBool,
-    kVector
-  };
+  enum CellType {
+        kUnknown = 0,
+        kInteger,
+        kDouble,
+        kCharPtr,
+        kPoint,
+        kObjectId,
+        kHardOwnerId,
+        kSoftOwnerId,
+        kHardPtrId,
+        kSoftPtrId,
+        kBool,
+        kVector
+    };
     // Constructors
   AcDbDataCell();
   AcDbDataCell(const AcDbDataCell& rCell);

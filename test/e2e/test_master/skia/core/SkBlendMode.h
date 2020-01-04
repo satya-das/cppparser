@@ -7,40 +7,39 @@
 #ifndef SkBlendMode_DEFINED
 #  define SkBlendMode_DEFINED
 #  include "include/core/SkTypes.h"
-enum class SkBlendMode
-{
-  kClear,
-  kSrc,
-  kDst,
-  kSrcOver,
-  kDstOver,
-  kSrcIn,
-  kDstIn,
-  kSrcOut,
-  kDstOut,
-  kSrcATop,
-  kDstATop,
-  kXor,
-  kPlus,
-  kModulate,
-  kScreen,
-  kLastCoeffMode = kScreen,
-  kOverlay,
-  kDarken,
-  kLighten,
-  kColorDodge,
-  kColorBurn,
-  kHardLight,
-  kSoftLight,
-  kDifference,
-  kExclusion,
-  kMultiply,
-  kLastSeparableMode = kMultiply,
-  kHue,
-  kSaturation,
-  kColor,
-  kLuminosity,
-  kLastMode = kLuminosity
+enum class SkBlendMode {
+    kClear,                           //!< replaces destination with zero: fully transparent
+    kSrc,                             //!< replaces destination
+    kDst,                             //!< preserves destination
+    kSrcOver,                         //!< source over destination
+    kDstOver,                         //!< destination over source
+    kSrcIn,                           //!< source trimmed inside destination
+    kDstIn,                           //!< destination trimmed by source
+    kSrcOut,                          //!< source trimmed outside destination
+    kDstOut,                          //!< destination trimmed outside source
+    kSrcATop,                         //!< source inside destination blended with destination
+    kDstATop,                         //!< destination inside source blended with source
+    kXor,                             //!< each of source and destination trimmed outside the other
+    kPlus,                            //!< sum of colors
+    kModulate,                        //!< product of premultiplied colors; darkens destination
+    kScreen,                //!< multiply inverse of pixels, inverting result; brightens destination
+    kLastCoeffMode     = kScreen,     //!< last porter duff blend mode
+    kOverlay,                         //!< multiply or screen, depending on destination
+    kDarken,                          //!< darker of source and destination
+    kLighten,                         //!< lighter of source and destination
+    kColorDodge,                      //!< brighten destination to reflect source
+    kColorBurn,                       //!< darken destination to reflect source
+    kHardLight,                       //!< multiply or screen, depending on source
+    kSoftLight,                       //!< lighten or darken, depending on source
+    kDifference,                      //!< subtract darker from lighter with higher contrast
+    kExclusion,                       //!< subtract darker from lighter with lower contrast
+    kMultiply,                        //!< multiply source with destination, darkening image
+    kLastSeparableMode = kMultiply,   //!< last blend mode operating separately on components
+    kHue,                           //!< hue of source with saturation and luminosity of destination
+    kSaturation,                    //!< saturation of source with hue and luminosity of destination
+    kColor,                         //!< hue and saturation of source with luminosity of destination
+    kLuminosity,                    //!< luminosity of source with hue and saturation of destination
+    kLastMode          = kLuminosity, //!< last valid value
 };
 /** Returns name of blendMode as null-terminated C string.
 

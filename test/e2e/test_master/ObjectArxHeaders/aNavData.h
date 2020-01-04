@@ -23,14 +23,13 @@
 // Forward declarations.
 class CNavPathname;
 // The following identifies the type of the datum.
-typedef enum
-{
-  kNavUnknown,
-  kNavShellItem,
-  kNavURL,
-  kNavUNC,
-  kNavExtension,
-  kNavWebFolders
+typedef enum {
+    kNavUnknown,        // Unknown data type. 
+    kNavShellItem,      // Standard file system item.
+    kNavURL,            // General URL item.
+    kNavUNC,            // UNC path item.
+    kNavExtension,      // File navigation extension item (includes FTP).
+    kNavWebFolders,     // 'Web Folders' item. (WEBDAV)
 } NAV_DATA_TYPE;
 #  pragma  warning(push)
 #  pragma  warning(disable : 4275)

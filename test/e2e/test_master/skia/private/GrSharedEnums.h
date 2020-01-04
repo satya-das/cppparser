@@ -16,19 +16,18 @@
  * GrProcessorEdgeType will succeed with all values and it is up to the caller to check for
  * a NULL return.
  */
-enum class GrClipEdgeType
-{
-  kFillBW,
-  kFillAA,
-  kInverseFillBW,
-  kInverseFillAA,
-  kHairlineAA,
-  kLast = kHairlineAA
+enum class GrClipEdgeType {
+    kFillBW,
+    kFillAA,
+    kInverseFillBW,
+    kInverseFillAA,
+    kHairlineAA,
+
+    kLast = kHairlineAA
 };
-enum class PMConversion
-{
-  kToPremul = 0,
-  kToUnpremul = 1,
-  kPMConversionCnt = 2
+enum class PMConversion {
+    kToPremul        = 0,
+    kToUnpremul      = 1,
+    kPMConversionCnt = 2
 };
 #endif

@@ -27,29 +27,31 @@ class ACDBCORE2D_PORT AcGraph : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcGraph);
-  enum PartialUndoCode
-  {
+  enum PartialUndoCode {
         /// <summary>
         /// Event of adding a node to the graph.
         /// </summary>
         ///
-    kAddNodePartialUndoCode = 0,
+        kAddNodePartialUndoCode = 0,
+
         /// <summary>
         /// Event of removing a node from the graph.
         /// </summary>
         ///
-    kRemoveNodePartialUndoCode,
+        kRemoveNodePartialUndoCode,
+
         /// <summary>
         /// Event of modifying a node in the graph.
         /// </summary>
         ///
-    kModifyNodePartialUndoCode,
+        kModifyNodePartialUndoCode,
+
         /// <summary>
         /// Event of changing the value of node Id for the next new node.
         /// </summary>
         ///
-    kModifyNextNewNodeIdPartialUndoCode
-  };
+        kModifyNextNewNodeIdPartialUndoCode,
+    };
   typedef NodeIdToPtrMap::iterator iterator;
   typedef NodeIdToPtrMap::const_iterator const_iterator;
     /// <summary> Default constructor. </summary>

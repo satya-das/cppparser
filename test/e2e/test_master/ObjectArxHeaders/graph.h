@@ -40,18 +40,15 @@ public:
   virtual ~AcDbGraphNode();
     // Enum values used to mark nodes using markAs(), etc.
     //
-  enum Flags
-  {
-    kNone = 0x00,
-    kVisited = 0x01,
-    kOutsideRefed = 0x02,
-    kSelected = 0x04,
-    kInList = 0x08,
-    kListAll = 0x0E,
-    kFirstLevel = 0x10,
-    kUnresTree = 0x20,
-    kAll = 0x2F
-  };
+  enum Flags { kNone               = 0x00,
+                    kVisited            = 0x01,   // Cycle: detection
+                    kOutsideRefed       = 0x02,   // List: cannot Detach
+                    kSelected           = 0x04,   // List: user's selection
+                    kInList             = 0x08,   // List: is on it
+                    kListAll            = 0x0E,   // List: for clear all 
+                    kFirstLevel         = 0x10,   // has edge from root
+                    kUnresTree          = 0x20,   // In an Unresolved tree
+                    kAll                = 0x2F };
                                                   // not clear kFirstLevel,
                                                   // which is read-only
   void* data() const;

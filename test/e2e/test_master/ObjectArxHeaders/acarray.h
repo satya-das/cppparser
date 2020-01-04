@@ -214,10 +214,7 @@ public:
   typedef R Allocator;
     // Useful for validating that an AcArray uses the efficient copy method.
     // E.g.: static_assert(AcArray<MyType>::eUsesMemCopy, "AcArray<MyType> uses slow copy!");
-  enum
-  {
-    eUsesMemCopy = std::is_same<R, AcArrayMemCopyReallocator<T> >::value
-  };
+  enum {eUsesMemCopy = std::is_same<R, AcArrayMemCopyReallocator<T> >::value};
     // Assignment and == operators.
     //
   AcArray<T,R>& operator =(const AcArray<T,R>&);

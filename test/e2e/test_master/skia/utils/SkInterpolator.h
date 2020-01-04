@@ -12,12 +12,11 @@
 class SK_API SkInterpolatorBase :  SkNoncopyable
 {
 public:
-  enum Result
-  {
-    kNormal_Result,
-    kFreezeStart_Result,
-    kFreezeEnd_Result
-  };
+  enum Result {
+        kNormal_Result,
+        kFreezeStart_Result,
+        kFreezeEnd_Result
+    };
 protected:
   SkInterpolatorBase();
   ~SkInterpolatorBase();
@@ -59,12 +58,11 @@ public:
   }
   Result timeToT(SkMSec time, SkScalar* T, int* index, bool* exact) const;
 protected:
-  enum Flags
-  {
-    kMirror = 1,
-    kReset = 2,
-    kHasBlend = 4
-  };
+  enum Flags {
+        kMirror = 1,
+        kReset = 2,
+        kHasBlend = 4
+    };
   static SkScalar ComputeRelativeT(SkMSec time, SkMSec prevTime, SkMSec nextTime, const SkScalar blend[4] = nullptr);
   int16_t fFrameCount;
   uint8_t fElemCount;

@@ -46,39 +46,44 @@ public:
     /// This enumeration defines the current state of supported properties in
     /// the point cloud data.
     /// </summary>
-  enum PropState
-  {
+  enum PropState {
         /// <summary>
         /// No scan in the point cloud has the property.
         /// </summary>
-    kNone = -1,
+        kNone = -1,
+
         /// <summary>
         /// Some scans in the point cloud have the property, but some do not.
         /// </summary>
-    kSome = 0,
+        kSome = 0,
+
         /// <summary>
         /// All scans in the point cloud have the property.
         /// </summary>
-    kAll = 1
-  };
+        kAll = 1
+    };
     /// <summary>
     /// This enumeration defines the types of properties that a point cloud can have.
     /// </summary>
-  enum Property
-  {
+  enum Property {
         /// <summary> The Color property. </summary>
-    kColor = 1,
+        kColor          = 1,
+
         /// <summary> The Intensity property. </summary>
-    kIntensity = 2,
+        kIntensity      = 2,
+
         /// <summary> The Classification property. </summary>
-    kClassification = 3,
+        kClassification = 3,
+
         /// <summary> The Normal property. </summary>
-    kNormal = 4,
+        kNormal         = 4,
+
         /// <summary> The Segmentation property. </summary>
-    kSegmentation = 5,
+        kSegmentation   = 5, 
+
         /// <summary> The Geo Graphic property. </summary>
-    kGeoGraphic = 6
-  };
+        kGeoGraphic     = 6
+    };
   ACRX_DECLARE_MEMBERS(AcDbPointCloudDefEx);
     /// <summary>
     /// Default constructor

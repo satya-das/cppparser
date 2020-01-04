@@ -15,21 +15,19 @@
 #pragma  once
 #ifndef _ACED_HATCH_H
 #  define _ACED_HATCH_H
-enum AcHatchNotifier
-{
-  kNobody = 0x00,
-  kImpHatch = 0x01,
-  kBoundary = 0x02,
-  kHatchAndBoundary = (kImpHatch | kBoundary),
-  kAddScale = 0x04
+enum AcHatchNotifier {
+    kNobody           = 0x00,
+    kImpHatch         = 0x01,
+    kBoundary         = 0x02,
+    kHatchAndBoundary = (kImpHatch | kBoundary),
+    kAddScale         = 0x04
 };
-enum AcHatchEdReact
-{
-  kStartHatchWatcher = 1,
-  kSwapHatchId,
-  kUpRootHatchWatcher,
-  kDestroyHatchWatcher,
-  kDisableNextStart,
-  kRecomputeBoundary
+enum AcHatchEdReact {
+    kStartHatchWatcher = 1,
+    kSwapHatchId,
+    kUpRootHatchWatcher, 
+    kDestroyHatchWatcher,
+    kDisableNextStart,
+    kRecomputeBoundary
 };
 #endif

@@ -34,8 +34,7 @@ public:
     /// This enum is the move type use for move mleader object.
     /// </summary>
     ///
-  enum MoveType
-  {
+  enum MoveType {
         /// <summary>
         /// move all mleader points
         /// </summary>
@@ -43,7 +42,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kMoveAllPoints = 0,
+        kMoveAllPoints                  = 0,
         /// <summary>
         /// move all mleader points except leaderline's arrowhead points
         /// </summary>
@@ -51,7 +50,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kMoveAllExceptArrowHeaderPoints = 1,
+        kMoveAllExceptArrowHeaderPoints = 1,
         /// <summary>
         /// move dogleg and mleader content points
         /// </summary>
@@ -59,14 +58,13 @@ public:
         /// <value>
         /// 2
         /// </value>
-    kMoveContentAndDoglegPoints = 2
-  };
+        kMoveContentAndDoglegPoints     = 2
+    };
     /// <summary>
     /// This enum is the gs mark of mleader object.
     /// </summary>
     ///
-  enum gsMarkType
-  {
+  enum gsMarkType {
         /// <summary>
         /// Null gs mark.
         /// </summary>
@@ -74,7 +72,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kNone = 0,
+        kNone               = 0,
         /// <summary>
         /// arrow symbol gs mark.
         /// </summary>
@@ -82,7 +80,7 @@ public:
         /// <value>
         /// from 1 to MAX_LEADERLINE_NUMBER
         /// </value>
-    kArrowMark = 1,
+        kArrowMark          = 1,
         /// <summary>
         /// leaderLine gs mark.
         /// </summary>
@@ -90,7 +88,7 @@ public:
         /// <value>
         /// from kArrowMark  + MAX_LEADERLINE_NUMBER to MAX_LEADERLINE_NUMBER
         /// </value>
-    kLeaderLineMark = kArrowMark + MAX_LEADERLINE_NUMBER,
+        kLeaderLineMark     = kArrowMark  + MAX_LEADERLINE_NUMBER,
         /// <summary>
         /// dogleg gs mark.
         /// </summary>
@@ -98,7 +96,7 @@ public:
         /// <value>
         /// from kLeaderLineMark + MAX_LEADERLINE_NUMBE to MAX_LEADER_NUMBER
         /// </value>
-    kDoglegMark = kLeaderLineMark + MAX_LEADERLINE_NUMBER,
+        kDoglegMark         = kLeaderLineMark + MAX_LEADERLINE_NUMBER,
         /// <summary>
         /// mtext content gs mark.
         /// </summary>
@@ -106,7 +104,7 @@ public:
         /// <value>
         /// kDoglegMark + MAX_LEADER_NUMBER
         /// </value>
-    kMTextMark = kDoglegMark + MAX_LEADER_NUMBER,
+        kMTextMark          = kDoglegMark + MAX_LEADER_NUMBER,
         /// <summary>
         /// mtext underline content gs mark, include text frame if mleader has.
         /// </summary>
@@ -114,7 +112,7 @@ public:
         /// <value>
         /// kMTextMark + 1
         /// </value>
-    kMTextUnderLineMark = kMTextMark + 1,
+        kMTextUnderLineMark = kMTextMark + 1,
         /// <summary>
         /// Tolerance content gs mark
         /// </summary>
@@ -122,7 +120,7 @@ public:
         /// <value>
         /// kMTextUnderLineMark + 1
         /// </value>
-    kToleranceMark = kMTextUnderLineMark + 1,
+        kToleranceMark      = kMTextUnderLineMark + 1,
         /// <summary>
         /// Block content gs mark
         /// </summary>
@@ -130,7 +128,7 @@ public:
         /// <value>
         /// kToleranceMark + 1
         /// </value>
-    kBlockMark = kToleranceMark + 1,
+        kBlockMark          = kToleranceMark + 1,
         /// <summary>
         /// BlockAttribute content gs mark
         /// </summary>
@@ -138,14 +136,13 @@ public:
         /// <value>
         /// from kBlockMark + 1 to 2^(8*sizeof(unsigned short))
         /// </value>
-    kBlockAttribute = kBlockMark + 1
-  };
+        kBlockAttribute     = kBlockMark + 1
+    };
     /// <summary>
     /// This enum is the properties could be overrided in mleader object.
     /// </summary>
     ///
-  enum PropertyOverrideType
-  {
+  enum PropertyOverrideType {
         /// <summary>
         /// type of leaderLine
         /// </summary>
@@ -153,7 +150,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kLeaderLineType = 0,
+        kLeaderLineType         = 0,
         /// <summary>
         /// color of leaderLine
         /// </summary>
@@ -161,7 +158,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kLeaderLineColor = 1,
+        kLeaderLineColor        = 1,
         /// <summary>
         /// line type id of leaderLine
         /// </summary>
@@ -169,7 +166,7 @@ public:
         /// <value>
         /// 2
         /// </value>
-    kLeaderLineTypeId = 2,
+        kLeaderLineTypeId       = 2,
         /// <summary>
         /// line weight id of leaderLine
         /// </summary>
@@ -177,7 +174,7 @@ public:
         /// <value>
         /// 3
         /// </value>
-    kLeaderLineWeight = 3,
+        kLeaderLineWeight       = 3,
         /// <summary>
         /// if enable landing
         /// </summary>
@@ -185,7 +182,7 @@ public:
         /// <value>
         /// 4
         /// </value>
-    kEnableLanding = 4,
+        kEnableLanding          = 4,
         /// <summary>
         /// landing gap
         /// </summary>
@@ -193,7 +190,7 @@ public:
         /// <value>
         /// 5
         /// </value>
-    kLandingGap = 5,
+        kLandingGap             = 5,
         /// <summary>
         /// if enable dogleg
         /// </summary>
@@ -201,7 +198,7 @@ public:
         /// <value>
         /// 6
         /// </value>
-    kEnableDogleg = 6,
+        kEnableDogleg           = 6,
         /// <summary>
         /// dogleg length
         /// </summary>
@@ -209,7 +206,7 @@ public:
         /// <value>
         /// 7
         /// </value>
-    kDoglegLength = 7,
+        kDoglegLength           = 7,
         /// <summary>
         /// block id of arrowSymbol
         /// </summary>
@@ -217,7 +214,7 @@ public:
         /// <value>
         /// 8
         /// </value>
-    kArrowSymbolId = 8,
+        kArrowSymbolId          = 8,
         /// <summary>
         /// size of arrowSymbol
         /// </summary>
@@ -225,7 +222,7 @@ public:
         /// <value>
         /// 9
         /// </value>
-    kArrowSize = 9,
+        kArrowSize              = 9,
         /// <summary>
         /// content type of mleader
         /// </summary>
@@ -233,7 +230,7 @@ public:
         /// <value>
         /// 10
         /// </value>
-    kContentType = 10,
+        kContentType            = 10,
         /// <summary>
         /// text style id of mtext content
         /// </summary>
@@ -241,7 +238,7 @@ public:
         /// <value>
         /// 11
         /// </value>
-    kTextStyleId = 11,
+        kTextStyleId            = 11,
         /// <summary>
         /// text left attachment type of mtext content
         /// </summary>
@@ -249,7 +246,7 @@ public:
         /// <value>
         /// 12
         /// </value>
-    kTextLeftAttachmentType = 12,
+        kTextLeftAttachmentType     = 12,
         /// <summary>
         /// text angle type of mtext content
         /// </summary>
@@ -257,7 +254,7 @@ public:
         /// <value>
         /// 13
         /// </value>
-    kTextAngleType = 13,
+        kTextAngleType          = 13,
         /// <summary>
         /// text alignment type of mtext content
         /// </summary>
@@ -265,7 +262,7 @@ public:
         /// <value>
         /// 14
         /// </value>
-    kTextAlignmentType = 14,
+        kTextAlignmentType      = 14,
         /// <summary>
         /// text color of mtext content
         /// </summary>
@@ -273,7 +270,7 @@ public:
         /// <value>
         /// 15
         /// </value>
-    kTextColor = 15,
+        kTextColor              = 15,
         /// <summary>
         /// text height of mtext content
         /// </summary>
@@ -281,7 +278,7 @@ public:
         /// <value>
         /// 16
         /// </value>
-    kTextHeight = 16,
+        kTextHeight             = 16,
         /// <summary>
         /// if enable frame text
         /// </summary>
@@ -289,7 +286,7 @@ public:
         /// <value>
         /// 17
         /// </value>
-    kEnableFrameText = 17,
+        kEnableFrameText        = 17,
         /// <summary>
         /// if use default mtext defined in mleaderStyle
         /// </summary>
@@ -297,7 +294,7 @@ public:
         /// <value>
         /// 18
         /// </value>
-    kDefaultMText = 18,
+        kDefaultMText           = 18,
         /// <summary>
         /// block table record id of block content
         /// </summary>
@@ -305,7 +302,7 @@ public:
         /// <value>
         /// 19
         /// </value>
-    kBlockId = 19,
+        kBlockId                = 19,
         /// <summary>
         /// color of block content
         /// </summary>
@@ -313,7 +310,7 @@ public:
         /// <value>
         /// 20
         /// </value>
-    kBlockColor = 20,
+        kBlockColor             = 20,
         /// <summary>
         /// scale of block content
         /// </summary>
@@ -321,7 +318,7 @@ public:
         /// <value>
         /// 21
         /// </value>
-    kBlockScale = 21,
+        kBlockScale             = 21,
         /// <summary>
         /// rotation of block content
         /// </summary>
@@ -329,7 +326,7 @@ public:
         /// <value>
         /// 22
         /// </value>
-    kBlockRotation = 22,
+        kBlockRotation          = 22,
         /// <summary>
         /// connection type of block content
         /// </summary>
@@ -337,7 +334,7 @@ public:
         /// <value>
         /// 23
         /// </value>
-    kBlockConnectionType = 23,
+        kBlockConnectionType    = 23,
         /// <summary>
         /// scale of mleader
         /// </summary>
@@ -345,7 +342,7 @@ public:
         /// <value>
         /// 24
         /// </value>
-    kScale = 24,
+        kScale                  = 24,
         /// <summary>
         /// text right attachment type of mtext content
         /// </summary>
@@ -353,7 +350,8 @@ public:
         /// <value>
         /// 25
         /// </value>
-    kTextRightAttachmentType = 25,
+        kTextRightAttachmentType = 25,
+
         /// <summary>
         /// text switch alignment type of mtext content
         /// if set this override, drag grip point of mleader will not changed text alignment type
@@ -362,7 +360,8 @@ public:
         /// <value>
         /// 26
         /// </value>
-    kTextSwitchAlignmentType = 26,
+        kTextSwitchAlignmentType = 26,
+
         /// <summary>
         /// text attachment direction of mtext content
         /// </summary>
@@ -370,7 +369,8 @@ public:
         /// <value>
         /// 27
         /// </value>
-    kTextAttachmentDirection = 27,
+        kTextAttachmentDirection = 27,
+
         /// <summary>
         /// text top attachment type of mtext content
         /// </summary>
@@ -378,7 +378,8 @@ public:
         /// <value>
         /// 28
         /// </value>
-    kTextTopAttachmentType = 28,
+        kTextTopAttachmentType = 28,
+
         /// <summary>
         /// text bottom attachment type of mtext content
         /// </summary>
@@ -386,7 +387,8 @@ public:
         /// <value>
         /// 29
         /// </value>
-    kTextBottomAttachmentType = 29,
+        kTextBottomAttachmentType = 29,
+
         /// <summary>
         /// automatically extend the horizontal leader line to text
         /// </summary>
@@ -394,7 +396,8 @@ public:
         /// <value>
         /// 30
         /// </value>
-    kExtendLeaderToText = 30,
+        kExtendLeaderToText = 30,
+
         //add more here...
         /// <summary>
         /// bitset size
@@ -403,8 +406,8 @@ public:
         /// <value>
         /// 31
         /// </value>
-    kSize = kExtendLeaderToText + 1
-  };
+        kSize = kExtendLeaderToText + 1
+    };
     /// <summary>
     /// Default constructor.
     /// </summary>

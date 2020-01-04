@@ -52,12 +52,11 @@ class ClipBoundaryArray;
 class AcDbPlotSettingsValidator;
 class AcDbLayoutManager;
 class AcPwdCache;
-enum AcSDIValues
-{
-  kMDIEnabled = 0,
-  kSDIUserEnforced,
-  kSDIAppEnforced,
-  kSDIUserAndAppEnforced
+enum AcSDIValues {
+    kMDIEnabled = 0,
+    kSDIUserEnforced,
+    kSDIAppEnforced,
+    kSDIUserAndAppEnforced
 };
 class AcDbHostApplicationProgressMeter
 {
@@ -80,30 +79,28 @@ public:
   ACRX_DECLARE_MEMBERS(AcDbHostApplicationServices);
   ACDBCORE2D_PORT AcDbHostApplicationServices(int createGlobals = 1);
   ACDBCORE2D_PORT virtual ~AcDbHostApplicationServices();
-  enum FindFileHint
-  {
-    kDefault = 0,
-    kFontFile,
-    kCompiledShapeFile,
-    kTrueTypeFontFile,
-    kEmbeddedImageFile,
-    kXRefDrawing,
-    kPatternFile,
-    kARXApplication,
-    kFontMapFile,
-    kUnderlayFile,
-    kDataLinkFile,
-    kPhotometricWebFile,
-    kMaterialMapFile,
-    kCloudOrProjectFile
-  };
-  enum RemapFileContext
-  {
-    kDrawingOpen,
-    kXrefResolution,
-    kRasterResolution,
-    kAfterXrefResolution
-  };
+  enum FindFileHint {
+        kDefault = 0,
+        kFontFile,              // Could be either
+        kCompiledShapeFile,     // shx
+        kTrueTypeFontFile,      // ttf
+        kEmbeddedImageFile,
+        kXRefDrawing,
+        kPatternFile,
+        kARXApplication,
+        kFontMapFile,
+        kUnderlayFile,
+        kDataLinkFile,
+        kPhotometricWebFile,
+        kMaterialMapFile,
+        kCloudOrProjectFile,
+    };
+  enum RemapFileContext {
+        kDrawingOpen,
+        kXrefResolution,
+        kRasterResolution,
+        kAfterXrefResolution
+    };
     // When a file path is required
     //
 private:
@@ -218,12 +215,7 @@ public:
   ACDBCORE2D_PORT virtual const ACHAR* releaseMarketVersion();
   ACDBCORE2D_PORT virtual AcLocale getProductLocale();
   ACDBCORE2D_PORT virtual bool supportsMultiRedo() const;
-  enum ModelerFlavor
-  {
-    kModelerFull = 0,
-    kModelerRegionsOnly = 1,
-    kModelerObjectsOnly = 2
-  };
+  enum ModelerFlavor {kModelerFull=0, kModelerRegionsOnly=1, kModelerObjectsOnly=2};
   ACDBCORE2D_PORT virtual ModelerFlavor getModelerFlavor() const;
   ACDBCORE2D_PORT code_page_id getSystemCodePage() const;
   ACDBCORE2D_PORT virtual AcadInternalServices* acadInternalServices();
@@ -355,12 +347,7 @@ public:
   ACDBCORE2D_PORT void getDefaultPlotCfgInfo(AcString& devName, AcString& styleName);
     // BEGIN: DWG Security-related services
   ACDBCORE2D_PORT virtual Acad::ErrorStatus signingComplete(Acad::ErrorStatus es, const ACHAR* msg, bool* result);
-  enum PasswordOptions
-  {
-    kPasswordOptionDefault = 0,
-    kPasswordOptionUpperCase = 1,
-    kPasswordOptionIsExternalReference = 2
-  };
+  enum PasswordOptions {kPasswordOptionDefault = 0, kPasswordOptionUpperCase =1, kPasswordOptionIsExternalReference = 2};
   ACDBCORE2D_PORT virtual bool getPassword(const ACHAR* dwgName, PasswordOptions options, wchar_t* password, const size_t bufSize);
     /// <summary>
     /// This function is called internally by host applications such as AutoCAD and other ObjectARX applications 
@@ -376,12 +363,11 @@ public:
   ACDBCORE2D_PORT virtual const ACHAR* getColorBookLocation() const;
   ACDBCORE2D_PORT AcPwdCache* getPasswordCache() const;
   ACDBCORE2D_PORT virtual short getKeyState(int nVirtKey) const;
-  enum RequiredVersionFlags
-  {
-    kNoOpen = 0,
-    kReadOnly = 1,
-    kWriteAllowed = 2
-  };
+  enum RequiredVersionFlags {
+        kNoOpen       = 0,
+        kReadOnly     = 1,
+        kWriteAllowed = 2
+    };
   ACDBCORE2D_PORT virtual bool requiredVersionNotAvailable(AcDbHostApplicationServices::RequiredVersionFlags flags, AcDbDatabase* pDb) const;
     // Called when an attempt is made to read in a corrupt drawing.
     // Return true if your application has handled the error and wishes

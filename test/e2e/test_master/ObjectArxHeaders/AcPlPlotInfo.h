@@ -19,34 +19,33 @@ public:
   ACPL_PORT AcPlPlotInfo();
   ACPL_PORT virtual ~AcPlPlotInfo();
   ACPL_DECLARE_MEMBERS(AcPlPlotInfo);
-  enum MergeStatus
-  {
-    kNoChanges = 0x00000000,
-    kPlotCfgName = 0x00000001,
-    kPlotPaperMargins = 0x00000002,
-    kPlotPaperSize = 0x00000004,
-    kCanonicalMediaName = 0x00000008,
-    kPlotOrigin = 0x00000010,
-    kPlotPaperUnits = 0x00000020,
-    kPlotViewportBorders = 0x00000040,
-    kPlotPlotStyles = 0x00000080,
-    kShowPlotStyles = 0x00000100,
-    kPlotRotation = 0x00000200,
-    kPlotCentered = 0x00000400,
-    kPlotHidden = 0x00000800,
-    kShadePlot = 0x00001000,
-    kShadePlotResLevel = 0x00002000,
-    kShadePlotCustomDPI = 0x00004000,
-    kPlotType = 0x00008000,
-    kPlotWindowArea = 0x00010000,
-    kPlotViewName = 0x00020000,
-    kScale = 0x00040000,
-    kCurrentStlyeSheet = 0x00080000,
-    kScaleLineWeights = 0x00100000,
-    kPrintLineWeights = 0x00200000,
-    kDrawViewportsFirst = 0x00400000,
-    kPlotTransparency = 0x00800000
-  };
+  enum MergeStatus {
+        kNoChanges              = 0x00000000,
+        kPlotCfgName            = 0x00000001,
+        kPlotPaperMargins       = 0x00000002,
+        kPlotPaperSize          = 0x00000004,
+        kCanonicalMediaName     = 0x00000008,
+        kPlotOrigin             = 0x00000010,
+        kPlotPaperUnits         = 0x00000020,
+        kPlotViewportBorders    = 0x00000040,
+        kPlotPlotStyles         = 0x00000080,
+        kShowPlotStyles         = 0x00000100,
+        kPlotRotation           = 0x00000200,
+        kPlotCentered           = 0x00000400,
+        kPlotHidden             = 0x00000800,
+        kShadePlot              = 0x00001000,
+        kShadePlotResLevel      = 0x00002000,
+        kShadePlotCustomDPI     = 0x00004000,
+        kPlotType               = 0x00008000,
+        kPlotWindowArea         = 0x00010000,
+        kPlotViewName           = 0x00020000,
+        kScale                  = 0x00040000,
+        kCurrentStlyeSheet      = 0x00080000,
+        kScaleLineWeights       = 0x00100000,
+        kPrintLineWeights       = 0x00200000,
+        kDrawViewportsFirst     = 0x00400000,
+        kPlotTransparency       = 0x00800000
+    };
   ACPL_PORT Acad::ErrorStatus copyFrom(const AcRxObject* pOther);
     // Layout to be plotted. Required. 
   ACPL_PORT void setLayout(AcDbObjectId& layoutId);

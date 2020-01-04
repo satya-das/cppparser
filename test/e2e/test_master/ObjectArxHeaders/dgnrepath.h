@@ -14,13 +14,12 @@
 typedef Adesk::UInt64 AcDgnRefFileId;
 struct AcDbDgnRefFileData
 {
-  enum FileType
-  {
-    kDgnFile = 1,
-    kDwgFile = 2,
-    kImageFile = 3,
-    kOtherFile = 4
-  };
+  enum FileType {
+        kDgnFile   = 1,
+        kDwgFile   = 2,
+        kImageFile = 3,
+        kOtherFile = 4
+    };
   FileType type;
   AcString savedPathAndName;
   AcString foundPathAndName;

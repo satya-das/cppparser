@@ -40,46 +40,44 @@ public:
     /// object for the complex entity like table cell or multi-attribute to invoke
     /// the text editor.
     ///</summary>
-  enum EntityType
-  {
+  enum EntityType {
         /// <summary>
         /// This is common MTEXT object.
         /// </summary>
-    kDefault,
+        kDefault,
         /// <summary>
         /// This is a table cell. The current MTEXT is the content copy of the table
         /// cell.
         /// </summary>
-    kTableCell,
+        kTableCell,
         /// <summary>
         /// This is multi-attribute. The current MTEXT is the content copy of the 
         /// multi-attribute.
         /// </summary>
-    kMultiAttribute
-  };
+        kMultiAttribute
+    };
     ///<summary> 
     /// The enum type is to specify the editing flags when invoking the text editor.
     /// You can set one or several flags for the text editor.
     ///</summary>
-  enum EditFlags
-  {
+  enum EditFlags {
         ///<summary> 
         /// After invoked the text editor, it has opaque back ground.
         ///</summary>
-    kForceOpaqueBackground = 1 << 0,
+        kForceOpaqueBackground = 1 << 0,
         ///<summary> 
         /// After invoked the text editor, it will select all the characters in 
         /// the text editor. This flag and kCursorAtEnd are mutually exclusive,
         /// if user set the kSelectAll and kCursorAtEnd, it will ignore the kCursorAtEnd.
         ///</summary>
-    kSelectAll = 1 << 1,
+        kSelectAll = 1 << 1,
         ///<summary> 
         /// After invoked the text editor, the current cursor is placed at the end
         /// of the text editor. This flag and kSelectAll are mutually exclusive,
         /// if user set the kSelectAll and kCursorAtEnd, it will ignore the kCursorAtEnd.
         ///</summary>
-    kCursorAtEnd = 1 << 2
-  };
+        kCursorAtEnd = 1 << 2,
+    };
     ///<summary> 
     /// Get the editing flags you specified.
     ///</summary>
@@ -232,253 +230,252 @@ public:
     /// <summary>
     /// Describes the undo type for each kind of operation.
     /// </summary>
-  enum TextUndoType
-  {
+  enum TextUndoType {
         /// <summary>
         /// Undo type for typing operation in text editor.
         /// </summary>
-    kUndoTyping = 1,
+        kUndoTyping = 1,
         /// <summary>
         /// Undo type for the operation to toggle bold on.
         /// </summary>
-    kUndoBoldOn,
+        kUndoBoldOn,
         /// <summary>
         /// Undo type for the operation to toggle bold off.
         /// </summary>
-    kUndoBoldOff,
+        kUndoBoldOff,
         /// <summary>
         /// Undo type for the operation to toggle italic on.
         /// </summary>
-    kUndoItalicOn,
+        kUndoItalicOn,
         /// <summary>
         /// Undo type for the operation to toggle italic off.
         /// </summary>
-    kUndoItalicOff,
+        kUndoItalicOff,
         /// <summary>
         /// Undo type for the operation to toggle underline on.
         /// </summary>
-    kUndoUnderlineOn,
+        kUndoUnderlineOn,
         /// <summary>
         /// Undo type for the operation to toggle underline off.
         /// </summary>
-    kUndoUnderlineOff,
+        kUndoUnderlineOff,
         /// <summary>
         /// Undo type for the operation to toggle overline on.
         /// </summary>
-    kUndoOverlineOn,
+        kUndoOverlineOn,
         /// <summary>
         /// Undo type for the operation to toggle overline off.
         /// </summary>
-    kUndoOverlineOff,
+        kUndoOverlineOff,
         /// <summary>
         /// Undo type for the operation to set font.
         /// </summary>
-    kUndoFont,
+        kUndoFont,
         /// <summary>
         /// Undo type for the operation to set height.
         /// </summary>
-    kUndoHeight,
+        kUndoHeight,
         /// <summary>
         /// Undo type for the operation to set color.
         /// </summary>
-    kUndoColor,
+        kUndoColor,
         /// <summary>
         /// Undo type for the operation to set oblique angle.
         /// </summary>
-    kUndoObliqueAngle,
+        kUndoObliqueAngle,
         /// <summary>
         /// Undo type for the operation to set width scale.
         /// </summary>
-    kUndoWidthScale,
+        kUndoWidthScale,
         /// <summary>
         /// Undo type for the operation to set tracking factor.
         /// </summary>
-    kUndoTrackingFactor,
+        kUndoTrackingFactor,
         /// <summary>
         /// Undo type for the operation to set language.
         /// </summary>
-    kUndoLanguage,
+        kUndoLanguage,
         /// <summary>
         /// Undo type for the operation to input a back space.
         /// </summary>
-    kUndoBackspace,
+        kUndoBackspace,
         /// <summary>
         /// Undo type for the operation to delete.
         /// </summary>
-    kUndoDelete,
+        kUndoDelete,
         /// <summary>
         /// Undo type for the operation to paste.
         /// </summary>
-    kUndoPaste,
+        kUndoPaste,
         /// <summary>
         /// Undo type for the operation to cut.
         /// </summary>
-    kUndoCut,
+        kUndoCut,
         /// <summary>
         /// Undo type for the operation to create stack.
         /// </summary>
-    kUndoStack,
+        kUndoStack,
         /// <summary>
         /// Undo type for the operation to remove stack.
         /// </summary>
-    kUndoUnstack,
+        kUndoUnstack,
         /// <summary>
         /// Undo type for the operation to set stack properties.
         /// </summary>
-    kUndoStackProperties,
+        kUndoStackProperties,
         /// <summary>
         /// Undo type for the operation to insert field.
         /// </summary>
-    kUndoFieldInsert,
+        kUndoFieldInsert,
         /// <summary>
         /// Undo type for the operation to convert the field.
         /// </summary>
-    kUndoFieldConvert,
+        kUndoFieldConvert,
         /// <summary>
         /// Undo type for the operation to update the field.
         /// </summary>
-    kUndoFieldUpdate,
+        kUndoFieldUpdate,
         /// <summary>
         /// Undo type for the operation to insert symbol.
         /// </summary>
-    kUndoSymbolInsert,
+        kUndoSymbolInsert,
         /// <summary>
         /// For internal use only.
         /// </summary>
-    kUndoAutoField,
+        kUndoAutoField,
         /// <summary>
         /// For internal use only.
         /// </summary>
-    kUndoAutoStack,
+        kUndoAutoStack,
         /// <summary>
         /// For internal use only.
         /// </summary>
-    kUndoAutoSymbol,
+        kUndoAutoSymbol,
         /// <summary>
         /// For internal use only.
         /// </summary>
-    kUndoAutoDTextEscape,
+        kUndoAutoDTextEscape,
         /// <summary>
         /// For internal use only.
         /// </summary>
-    kUndoAutoMifOrCif,
+        kUndoAutoMifOrCif,
         /// <summary>
         /// For internal use only.
         /// </summary>
-    kUndoAutoDimension,
+        kUndoAutoDimension,
         /// <summary>
         /// For internal use only..
         /// </summary>
-    kUndoAutoDimBreak,
+        kUndoAutoDimBreak,
         /// <summary>
         /// Undo type for the operation to check spelling automatically.
         /// </summary>
-    kUndoAutoSpell,
+        kUndoAutoSpell,
         /// <summary>
         /// Undo type for the operation to set text style.
         /// </summary>
-    kUndoStyle,
+        kUndoStyle,
         /// <summary>
         /// Undo type for the operation to set the attachment automatically.
         /// </summary>
-    kUndoAttachment,
+        kUndoAttachment,
         /// <summary>
         /// Undo type for the operation to change the case.
         /// </summary>
-    kUndoChangeCase,
+        kUndoChangeCase,
         /// <summary>
         /// Undo type for the operation to import text.
         /// </summary>
-    kUndoImportText,
+        kUndoImportText,
         /// <summary>
         /// Undo type for the operation to combine paragraphs.
         /// </summary>
-    kUndoCombineParagraphs,
+        kUndoCombineParagraphs,
         /// <summary>
         /// Undo type for the operation to remove character formatting.
         /// </summary>
-    kUndoRemoveCharFormatting,
+        kUndoRemoveCharFormatting,
         /// <summary>
         /// Undo type for the operation to remove paragraph formatting.
         /// </summary>
-    kUndoRemoveParaFormatting,
+        kUndoRemoveParaFormatting,
         /// <summary>
         /// Undo type for the operation to remove all kind of formatting.
         /// </summary>
-    kUndoRemoveAllFormatting,
+        kUndoRemoveAllFormatting,
         /// <summary>
         /// Undo type for the operation to replace all matched text.
         /// </summary>
-    kUndoReplaceAll,
+        kUndoReplaceAll,
         /// <summary>
         /// Undo type for the operation to replace matched text.
         /// </summary>
-    kUndoReplace,
+        kUndoReplace,
         /// <summary>
         /// Undo type for the operation to set paragraph attributes.
         /// </summary>
-    kUndoParagraphAttributes,
+        kUndoParagraphAttributes,
         /// <summary>
         /// Undo type for the operation to set defined width.
         /// </summary>
-    kUndoSetDefinedWidth,
+        kUndoSetDefinedWidth,
         /// <summary>
         /// Undo type for the operation to set defined height.
         /// </summary>
-    kUndoSetDefinedHeight,
+        kUndoSetDefinedHeight,
         /// <summary>
         /// Undo type for the operation to set character attributes.
         /// </summary>
-    kUndoCharAttributes,
+        kUndoCharAttributes,
         /// <summary>
         /// Undo type for wipeout operation.
         /// </summary>
-    kUndoWipeout,
+        kUndoWipeout,
         /// <summary>
         /// For internal use only.
         /// </summary>
-    kUndoDimensionInsert,
+        kUndoDimensionInsert,
         /// <summary>
         /// For internal use only.
         /// </summary>
-    kUndoDimBreakInsert,
+        kUndoDimBreakInsert,
         /// <summary>
         /// For internal use only.
         /// </summary>
-    kUndoCustomConvert,
+        kUndoCustomConvert,
         /// <summary>
         /// Undo type for the operation to delete and move selection.
         /// </summary>
-    kUndoDeleteAndMoveSelection,
+        kUndoDeleteAndMoveSelection,
         /// <summary>
         /// Undo type for the operation to number the paragraph.
         /// </summary>
-    kUndoParagraphNumbering,
+        kUndoParagraphNumbering,
         /// <summary>
         /// Undo type for the operation to set cursor attributes.
         /// </summary>
-    kUndoCursorAttributes,
+        kUndoCursorAttributes,
         /// <summary>
         /// Undo type for the operation to columns operation.
         /// </summary>
-    kUndoColumns,
+        kUndoColumns,
         /// <summary>
         /// Undo type for the operation to set annotation scaling state.
         /// </summary>
-    kUndoAnnoState,
+        kUndoAnnoState,
         /// <summary>
         /// For internal use only.
         /// </summary>
-    kUndoDimensionTweak,
+        kUndoDimensionTweak,
         /// <summary>
         /// For internal use only.
         /// </summary>
-    kUndoDimensionSymbol,
+        kUndoDimensionSymbol,
         /// <summary>
         /// For internal use only.
         /// </summary>
-    kUndoDimensionTemplate
-  };
+        kUndoDimensionTemplate,
+    };
     ///<summary> 
     /// Check that there is something to undo.
     ///</summary>

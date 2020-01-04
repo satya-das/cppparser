@@ -19,11 +19,7 @@
 #  pragma  pack (push, 8)
 static const unsigned int kPlineVerticesThrehold = 10000;
 class AcDb2dPolyline;
-enum SplineType
-{
-  kFitPoints = 0,
-  kControlPoints = 1
-};
+enum SplineType {kFitPoints = 0, kControlPoints = 1};
 class AcDbSpline : public AcDbCurve
 {
   ACDB_DECLARE_MEMBERS(AcDbSpline);

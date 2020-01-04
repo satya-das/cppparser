@@ -20,59 +20,57 @@ public:
     /// <summary>
     /// return codes
     /// </summary>
-  enum
-  {
+  enum {
             /// <summary>
             /// No errors occurred
             /// </summary>
-    eOk = 0,
+            eOk = 0,
             /// <summary>
             /// This function is not supported for this stream object
             /// </summary>
-    eNotSupported = 1,
+            eNotSupported = 1,
             /// <summary>
             /// The stream is not open
             /// </summary>
-    eNotOpen = 2,
+            eNotOpen = 2,
             /// <summary>
             /// One of the arguments is an invalid value
             /// </summary>
-    eInvalidArg = 3,
+            eInvalidArg = 3,
             /// <summary>
             /// The stream is at the end of the file
             /// </summary>
-    eEndOfFile = 4,
+            eEndOfFile = 4,
             /// <summary>
             /// The disk to which the stream is writing is full
             /// </summary>
-    eDiskFull = 5,
+            eDiskFull = 5,
             /// <summary>
             /// The stream is disconnected
             /// </summary>
-    eDisconnected = 6,
+            eDisconnected = 6,
             /// <summary>
             /// Unknown error
             /// </summary>
-    eJustAnError = 7
-  };
+            eJustAnError = 7
+    };
     /// <summary>
     /// seek mode arguments
     /// </summary>
-  enum
-  {
+  enum {
             /// <summary>
             /// Seek from start of stream
             /// </summary>
-    eFromStart = 0,
+            eFromStart = 0,
             /// <summary>
             /// Seek from current stream position
             /// </summary>
-    eFromCurrent = 1,
+            eFromCurrent = 1,
             /// <summary>
             /// Seek from end of stream
             /// </summary>
-    eFromEnd = 2
-  };
+            eFromEnd = 2
+    };
     /// <summary>
     /// This function sets the stream position to be nDistance from the nMode stream
     /// location.  If nDistance is negative, then the new position will be that distance

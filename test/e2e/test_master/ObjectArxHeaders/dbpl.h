@@ -36,14 +36,13 @@ public:
   virtual Acad::ErrorStatus convertFrom(AcDbEntity*& pPline, Adesk::Boolean transferId = Adesk::kTrue);
   Acad::ErrorStatus convertTo(AcDb2dPolyline*& pPline, Adesk::Boolean transferId = Adesk::kTrue) const;
   Acad::ErrorStatus getPointAt(unsigned int, AcGePoint3d& pt) const;
-  enum SegType
-  {
-    kLine,
-    kArc,
-    kCoincident,
-    kPoint,
-    kEmpty
-  };
+  enum SegType {
+        kLine,
+        kArc,
+        kCoincident,
+        kPoint,
+        kEmpty
+    };
   SegType segType(unsigned int index) const;
   Acad::ErrorStatus getLineSegAt(unsigned int index, AcGeLineSeg2d& ln) const;
   Acad::ErrorStatus getLineSegAt(unsigned int index, AcGeLineSeg3d& ln) const;

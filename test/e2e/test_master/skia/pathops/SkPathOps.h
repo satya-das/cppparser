@@ -15,13 +15,12 @@ struct SkRect;
 /**
   *  The logical operations that can be performed when combining two paths.
   */
-enum SkPathOp
-{
-  kDifference_SkPathOp,
-  kIntersect_SkPathOp,
-  kUnion_SkPathOp,
-  kXOR_SkPathOp,
-  kReverseDifference_SkPathOp
+enum SkPathOp {
+    kDifference_SkPathOp,         //!< subtract the op path from the first path
+    kIntersect_SkPathOp,          //!< intersect the two paths
+    kUnion_SkPathOp,              //!< union (inclusive-or) the two paths
+    kXOR_SkPathOp,                //!< exclusive-or the two paths
+    kReverseDifference_SkPathOp,  //!< subtract the first path from the op path
 };
 /** Set this path to the result of applying the Op to this path and the
     specified path: this = (this op operand).

@@ -28,31 +28,28 @@ typedef Adesk::UInt32 AcDbEvalNodeId;
 namespace AcFdEval
 {
     // Option bit flags for object property field
-  enum ObjectFieldOption
-  {
-    kObjFieldNone = 0,
-    kObjFieldUnresolvedBlockRef = (0x1 << 0),
-    kObjFieldApplyBlockTransform = (0x1 << 1),
-    kObjFieldUnresolvedObjectRef = (0x1 << 2)
-  };
+  enum ObjectFieldOption {
+        kObjFieldNone                   = 0,
+        kObjFieldUnresolvedBlockRef     = (0x1 << 0),
+        kObjFieldApplyBlockTransform    = (0x1 << 1),
+        kObjFieldUnresolvedObjectRef    = (0x1 << 2),
+    };
     // Option bit flags for sheet set field
-  enum SheetSetFieldOption
-  {
-    kSheetSetNone = 0,
-    kSheetSetHyperlink = (0x1 << 0),
-    kSheetSetUnresolvedComponent = (0x1 << 1)
-  };
+  enum SheetSetFieldOption {
+        kSheetSetNone                   = 0,
+        kSheetSetHyperlink              = (0x1 << 0),
+        kSheetSetUnresolvedComponent    = (0x1 << 1),
+    };
     // Option bit flags for expression field
-  enum ExpressionFieldOption
-  {
+  enum ExpressionFieldOption {
         // Function types
-    kExprFieldNone = 0,
-    kExprFieldSum = (0x1 << 0),
-    kExprFieldAverage = (0x1 << 1),
-    kExprFieldCount = (0x1 << 2),
-    kExprFieldCell = (0x1 << 3),
-    kExprFieldEquation = (0x1 << 4)
-  };
+        kExprFieldNone                  = 0,
+        kExprFieldSum                   = (0x1 << 0),
+        kExprFieldAverage               = (0x1 << 1),
+        kExprFieldCount                 = (0x1 << 2),
+        kExprFieldCell                  = (0x1 << 3),
+        kExprFieldEquation              = (0x1 << 4),
+    };
 }
 struct IAcSmDatabase;
 struct IAcSmSheetSet;

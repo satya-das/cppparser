@@ -387,17 +387,17 @@ public:
   bool hasClass(const AcRxClass* pClass) const;
     // Filing Operations
     //
-  enum OpenMode
-  {
-    kForReadAndReadShare = 1,
+  enum OpenMode {
+        kForReadAndReadShare =    1,    // Read Access. Allow other readers but not
                                         // other writers. (_SH_DENYWR)
-    kForReadAndWriteNoShare = 2,
+        kForReadAndWriteNoShare = 2,    // Read+Write Access. Disallow other readers and
                                         // other writers. (_SH_DENYRW)
-    kForReadAndAllShare = 3,
+        kForReadAndAllShare =     3,    // Read Access. Allow other readers and writers.
                                         // Closes dwg file after open. (_SH_DENYNO)
                                         // Internally calls closeInput(true)
-    kTryForReadShare = 4
-  };
+        kTryForReadShare =        4     // 2-step: first try kForReadAndReadShare, and
+                                        // if that fails, then try kForReadAndAllShare 
+    };
     // Note that the old overload of this method which took an int _SH_DENYxxx
     // arg is removed. You have to call this method using the OpenMode arg
     // to specify the access and sharing. See above OpenMode comments for
@@ -1022,12 +1022,11 @@ public:
   Acad::ErrorStatus setMsOleScale(double val);
   Adesk::UInt8 updateThumbnail() const;
   Acad::ErrorStatus setUpdateThumbnail(Adesk::UInt8 val);
-  enum EraseMask
-  {
-    kZeroLengthCurve = 0x01,
-    kEmptyText = 0x02,
-    kAllEmptyObj = 0xFFFFFFFF
-  };
+  enum EraseMask {
+        kZeroLengthCurve = 0x01,  //zero length curves (AcDbCurve derived objects)
+        kEmptyText       = 0x02,  //empty TEXT/MTEXT objects (which contain only spaces, tabs, enters and/or new lines)
+        kAllEmptyObj     = 0xFFFFFFFF
+    };
   Adesk::UInt32 eraseEmptyObjects(const Adesk::UInt32 flags);
   Adesk::UInt32 countEmptyObjects(const Adesk::UInt32 flags);
 private:
@@ -1532,12 +1531,10 @@ public:
   Acad::ErrorStatus dwgInAsTrueColor(AcDbDwgFiler* pInputFiler);
   Acad::ErrorStatus dwgOutAsTrueColor(AcDbDwgFiler* pOutputFiler) const;
 private:
-  enum NameFlags
-  {
-    kNoNames = 0x00,
-    kHasColorName = 0x01,
-    kHasBookName = 0x02
-  };
+  enum NameFlags {    kNoNames            = 0x00,
+                        kHasColorName       = 0x01,
+                        kHasBookName        = 0x02
+                    };
   static const Adesk::UInt16 ComplexColorFlag;
   AcCmEntityColor::RGBM mRGBM;
   AcString msColorName;
@@ -1668,23 +1665,25 @@ public:
     /// <summary>
     /// Enumerates the visual style types that can be set into an entity.
     /// </summary>
-  enum VisualStyleType
-  {
+  enum VisualStyleType {
+
         /// <summary>
         /// Full visual style, defines the overall visual style of the entity.
         /// </summary>
-    kFullVisualStyle,
+        kFullVisualStyle,
+
         /// <summary>
         /// Optional face-only visual style which can vary independently of 
         /// the full visual style.
         /// </summary>
-    kFaceVisualStyle,
+        kFaceVisualStyle,
+
         /// <summary>
         /// Optional edge-only visual style which can vary independently of
         /// the full visual style.
         /// </summary>
-    kEdgeVisualStyle
-  };
+        kEdgeVisualStyle
+    };
     /// <summary>
     /// Sets visual styles for the entity.  
     /// </summary>

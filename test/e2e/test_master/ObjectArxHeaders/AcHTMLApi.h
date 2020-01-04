@@ -20,17 +20,16 @@ bool acedShowHTMLModalWindow(HWND owner, const ACHAR* uriOfHtmlPage, bool persis
 HWND acedShowHTMLModelessWindow(HWND owner, const ACHAR* uriOfHtmlPage, bool persistSizeAndPosition = true);
 struct HtmlWindowOptions
 {
-  enum HtmlWindowFlags
-  {
-    eAllowResize = 0x0001,
-    eAllowMinimize = 0x0002,
-    eAllowMaximize = 0x0004,
-    eInitPosition = 0x0008,
-    eInitSize = 0x0010,
-    eMaxSize = 0x0020,
-    eMinSize = 0x0040,
-    ePersistSizeAndPosition = 0x0080
-  };
+  enum HtmlWindowFlags {
+        eAllowResize             = 0x0001,  // allow dialog to be resizable
+        eAllowMinimize           = 0x0002,  // enable minimize button
+        eAllowMaximize           = 0x0004,  // enable maximize button
+        eInitPosition            = 0x0008,  // specify initial position (x and y fields are used)
+        eInitSize                = 0x0010,  // specify initial size (width and height fields are used)
+        eMaxSize                 = 0x0020,  // specify maximum size (maxWidth and maxHeight fields are used)
+        eMinSize                 = 0x0040,  // specify minimum size (minWidth and minHeight fields are used)
+        ePersistSizeAndPosition  = 0x0080,  // allow dialog size and position to be persisted in registry
+    };
   UINT flags;
   UINT x;
   UINT y;

@@ -38,12 +38,11 @@ public:
     ///   <para>and direction (if supplied).</para>
     /// </summary>
     ///
-  enum DriveModeType
-  {
-    kDriveModeFirst = 0,
-    kDriveModeSecond = 1,
-    kDriveModeBoth = 2
-  };
+  enum DriveModeType {
+        kDriveModeFirst  = 0,
+        kDriveModeSecond = 1,
+        kDriveModeBoth   = 2
+    };
     /// <summary>Assignment operator for AcDbBlendOptions.</summary>
     /// <param name="src">Input specifying source AcDbBlendOptions object</param>
     /// <returns>Return AcDbBlendOptions object</returns>

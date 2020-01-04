@@ -126,33 +126,32 @@ public:
     //
   double textHeight() const;
   Acad::ErrorStatus setTextHeight(double);
-  enum AttachmentPoint
-  {
-    kTopLeft = 1,
-    kTopCenter = 2,
-    kTopRight = 3,
+  enum AttachmentPoint {
+    kTopLeft    = 1,
+    kTopCenter  = 2,
+    kTopRight   = 3,
     kMiddleLeft = 4,
-    kMiddleCenter = 5,
-    kMiddleRight = 6,
+    kMiddleCenter   = 5,
+    kMiddleRight    = 6,
     kBottomLeft = 7,
-    kBottomCenter = 8,
-    kBottomRight = 9,
-    kBaseLeft = 10,
-    kBaseCenter = 11,
-    kBaseRight = 12,
-    kBaseAlign = 13,
-    kBottomAlign = 14,
-    kMiddleAlign = 15,
-    kTopAlign = 16,
-    kBaseFit = 17,
-    kBottomFit = 18,
-    kMiddleFit = 19,
-    kTopFit = 20,
-    kBaseMid = 21,
-    kBottomMid = 22,
-    kMiddleMid = 23,
-    kTopMid = 24
-  };
+    kBottomCenter   = 8,
+    kBottomRight    = 9,
+    kBaseLeft       = 10,   // Reserved for future use
+    kBaseCenter     = 11,   // Reserved for future use
+    kBaseRight      = 12,   // Reserved for future use
+    kBaseAlign      = 13,   // Reserved for future use
+    kBottomAlign    = 14,   // Reserved for future use
+    kMiddleAlign    = 15,   // Reserved for future use
+    kTopAlign       = 16,   // Reserved for future use
+    kBaseFit        = 17,   // Reserved for future use
+    kBottomFit      = 18,   // Reserved for future use
+    kMiddleFit      = 19,   // Reserved for future use
+    kTopFit         = 20,   // Reserved for future use
+    kBaseMid        = 21,   // Reserved for future use
+    kBottomMid      = 22,   // Reserved for future use
+    kMiddleMid      = 23,   // Reserved for future use
+    kTopMid         = 24,   // Reserved for future use
+    };
   AttachmentPoint attachment() const;
   Acad::ErrorStatus setAttachment(AttachmentPoint);
   Acad::ErrorStatus setAttachmentMovingLocation(AttachmentPoint);
@@ -162,14 +161,13 @@ public:
 
     //  Text flow direction
     //
-  enum FlowDirection
-  {
-    kLtoR = 1,
-    kRtoL = 2,
-    kTtoB = 3,
-    kBtoT = 4,
-    kByStyle = 5
-  };
+  enum FlowDirection {
+    kLtoR       = 1,
+    kRtoL       = 2,    //  not currently supported
+    kTtoB       = 3,
+    kBtoT       = 4,    //  not currently supported
+    kByStyle    = 5
+    };
   FlowDirection flowDirection() const;
   Acad::ErrorStatus setFlowDirection(FlowDirection);
     //  Text contents
@@ -266,12 +264,11 @@ public:
   Acad::ErrorStatus removeField(const ACHAR* pszPropName, AcDbObjectId& returnId) override;
   Acad::ErrorStatus removeField(const ACHAR* pszPropName) override;
   Acad::ErrorStatus convertFieldToText();
-  enum ColumnType
-  {
-    kNoColumns,
-    kStaticColumns,
-    kDynamicColumns
-  };
+  enum ColumnType {
+        kNoColumns,
+        kStaticColumns,
+        kDynamicColumns,
+    };
   Acad::ErrorStatus setDynamicColumns(double width, double gutter, bool auto_height);
   Acad::ErrorStatus setStaticColumns(double width, double gutter, int count);
   Acad::ErrorStatus getColumnType(ColumnType&) const;

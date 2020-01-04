@@ -49,11 +49,10 @@ public:
         kCW_Direction travel clockwise; the same added with kCCW_Direction
         travel counterclockwise.
     */
-  enum Direction : int
-  {
-    kCW_Direction = static_cast<int>(SkPathDirection::kCW),
-    kCCW_Direction = static_cast<int>(SkPathDirection::kCCW)
-  };
+  enum Direction : int {
+        kCW_Direction  = static_cast<int>(SkPathDirection::kCW),
+        kCCW_Direction = static_cast<int>(SkPathDirection::kCCW)
+    };
     /** Constructs an empty SkPath. By default, SkPath has no verbs, no SkPoint, and no weights.
         SkPath::FillType is set to kWinding_FillType.
 
@@ -148,13 +147,12 @@ public:
         kInverseWinding_FillType fills where the sum of contour edges is zero;
         kInverseEvenOdd_FillType fills where the number of contour edges is even.
     */
-  enum FillType
-  {
-    kWinding_FillType = static_cast<int>(SkPathFillType::kWinding),
-    kEvenOdd_FillType = static_cast<int>(SkPathFillType::kEvenOdd),
-    kInverseWinding_FillType = static_cast<int>(SkPathFillType::kInverseWinding),
-    kInverseEvenOdd_FillType = static_cast<int>(SkPathFillType::kInverseEvenOdd)
-  };
+  enum FillType {
+        kWinding_FillType        = static_cast<int>(SkPathFillType::kWinding),
+        kEvenOdd_FillType        = static_cast<int>(SkPathFillType::kEvenOdd),
+        kInverseWinding_FillType = static_cast<int>(SkPathFillType::kInverseWinding),
+        kInverseEvenOdd_FillType = static_cast<int>(SkPathFillType::kInverseEvenOdd)
+    };
     /** Returns FillType, the rule used to fill SkPath. FillType of a new SkPath is
         kWinding_FillType.
 
@@ -203,12 +201,11 @@ public:
         Initially SkPath Convexity is kUnknown_Convexity. SkPath Convexity is computed
         if needed by destination SkSurface.
     */
-  enum Convexity : uint8_t
-  {
-    kUnknown_Convexity = static_cast<int>(SkPathConvexityType::kUnknown),
-    kConvex_Convexity = static_cast<int>(SkPathConvexityType::kConvex),
-    kConcave_Convexity = static_cast<int>(SkPathConvexityType::kConcave)
-  };
+  enum Convexity : uint8_t {
+        kUnknown_Convexity = static_cast<int>(SkPathConvexityType::kUnknown),
+        kConvex_Convexity  = static_cast<int>(SkPathConvexityType::kConvex),
+        kConcave_Convexity = static_cast<int>(SkPathConvexityType::kConcave),
+    };
     /** Computes SkPath::Convexity if required, and returns stored value.
         SkPath::Convexity is computed if stored value is kUnknown_Convexity,
         or if SkPath has been altered since SkPath::Convexity was computed or set.
@@ -825,11 +822,10 @@ public:
         Four oval parts with radii (rx, ry) start at last SkPath SkPoint and ends at (x, y).
         ArcSize and Direction select one of the four oval parts.
     */
-  enum ArcSize
-  {
-    kSmall_ArcSize,
-    kLarge_ArcSize
-  };
+  enum ArcSize {
+        kSmall_ArcSize, //!< smaller of arc pair
+        kLarge_ArcSize, //!< larger of arc pair
+    };
     /** Appends arc to SkPath. Arc is implemented by one or more conics weighted to
         describe part of oval with radii (rx, ry) rotated by xAxisRotate degrees. Arc
         curves from last SkPath SkPoint to (x, y), choosing one of four possible routes:
@@ -1157,11 +1153,10 @@ public:
         AddPathMode chooses how addPath() appends. Adding one SkPath to another can extend
         the last contour or start a new contour.
     */
-  enum AddPathMode
-  {
-    kAppend_AddPathMode,
-    kExtend_AddPathMode
-  };
+  enum AddPathMode {
+        kAppend_AddPathMode, //!< appended to destination unaltered
+        kExtend_AddPathMode, //!< add line if prior contour is not closed
+    };
     /** Appends src to SkPath, offset by (dx, dy).
 
         If mode is kAppend_AddPathMode, src verb array, SkPoint array, and conic weights are
@@ -1274,13 +1269,12 @@ public:
         SegmentMask constants correspond to each drawing Verb type in SkPath; for
         instance, if SkPath only contains lines, only the kLine_SegmentMask bit is set.
     */
-  enum SegmentMask
-  {
-    kLine_SegmentMask = kLine_SkPathSegmentMask,
-    kQuad_SegmentMask = kQuad_SkPathSegmentMask,
-    kConic_SegmentMask = kConic_SkPathSegmentMask,
-    kCubic_SegmentMask = kCubic_SkPathSegmentMask
-  };
+  enum SegmentMask {
+        kLine_SegmentMask  = kLine_SkPathSegmentMask,
+        kQuad_SegmentMask  = kQuad_SkPathSegmentMask,
+        kConic_SegmentMask = kConic_SkPathSegmentMask,
+        kCubic_SegmentMask = kCubic_SkPathSegmentMask,
+    };
     /** Returns a mask, where each set bit corresponds to a SegmentMask constant
         if SkPath contains one or more verbs of that type.
         Returns zero if SkPath contains no lines, or curves: quads, conics, or cubics.
@@ -1297,16 +1291,15 @@ public:
         Verb instructs SkPath how to interpret one or more SkPoint and optional conic weight;
         manage contour, and terminate SkPath.
     */
-  enum Verb
-  {
-    kMove_Verb = static_cast<int>(SkPathVerb::kMove),
-    kLine_Verb = static_cast<int>(SkPathVerb::kLine),
-    kQuad_Verb = static_cast<int>(SkPathVerb::kQuad),
-    kConic_Verb = static_cast<int>(SkPathVerb::kConic),
-    kCubic_Verb = static_cast<int>(SkPathVerb::kCubic),
-    kClose_Verb = static_cast<int>(SkPathVerb::kClose),
-    kDone_Verb = static_cast<int>(SkPathVerb::kDone)
-  };
+  enum Verb {
+        kMove_Verb  = static_cast<int>(SkPathVerb::kMove),
+        kLine_Verb  = static_cast<int>(SkPathVerb::kLine),
+        kQuad_Verb  = static_cast<int>(SkPathVerb::kQuad),
+        kConic_Verb = static_cast<int>(SkPathVerb::kConic),
+        kCubic_Verb = static_cast<int>(SkPathVerb::kCubic),
+        kClose_Verb = static_cast<int>(SkPathVerb::kClose),
+        kDone_Verb  = static_cast<int>(SkPathVerb::kDone),
+    };
     /** \class SkPath::Iter
         Iterates through verb array, and associated SkPoint array and conic weight.
         Provides options to treat open contours as closed, and to ignore
@@ -1394,15 +1387,14 @@ public:
     bool fForceClose;
     bool fNeedClose;
     bool fCloseLine;
-    enum SegmentState : uint8_t
-    {
+    enum SegmentState : uint8_t {
             /** The current contour is empty. Starting processing or have just closed a contour. */
-      kEmptyContour_SegmentState,
+            kEmptyContour_SegmentState,
             /** Have seen a move, but nothing else. */
-      kAfterMove_SegmentState,
+            kAfterMove_SegmentState,
             /** Have seen a primitive but not yet closed the path. Also the initial state. */
-      kAfterPrimitive_SegmentState
-    };
+            kAfterPrimitive_SegmentState
+        };
     SegmentState fSegmentState;
     inline const SkPoint& cons_moveTo();
     Verb autoClose(SkPoint pts[2]);

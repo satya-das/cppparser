@@ -22,17 +22,16 @@ class AcDbDatabase;
 class AcGeMatrix3d;
 class AcDbIdMapping;
 class AcGePoint3d;
-enum AcXrefSubCommand
-{
-  kAttach = 0,
-  kBind = 1,
-  kDetach = 2,
-  kOverlay = 3,
-  kPath = 4,
-  kReload = 5,
-  kResolve = 6,
-  kUnload = 7,
-  kXBind = 8
+enum AcXrefSubCommand {
+    kAttach = 0,
+    kBind = 1,
+    kDetach = 2,
+    kOverlay = 3,
+    kPath = 4,
+    kReload = 5,
+    kResolve = 6,
+    kUnload = 7,
+    kXBind = 8
 };
 class AcRxEventReactor : public AcRxObject
 {

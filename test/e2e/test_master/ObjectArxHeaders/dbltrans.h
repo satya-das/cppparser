@@ -36,12 +36,9 @@ public:
   AcDbLongTransaction();
   ~AcDbLongTransaction();
   ACDB_DECLARE_MEMBERS(AcDbLongTransaction);
-  enum
-  {
-    kSameDb = 0,
-    kXrefDb = 1,
-    kUnrelatedDb = 2
-  };
+  enum { kSameDb      = 0,
+           kXrefDb      = 1,
+           kUnrelatedDb = 2  };
   int type() const;
   AcDbObjectId originBlock() const;
   AcDbObjectId destinationBlock() const;

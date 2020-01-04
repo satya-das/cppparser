@@ -7,16 +7,19 @@
 #ifndef SkImageInfoPriv_DEFINED
 #  define SkImageInfoPriv_DEFINED
 #  include "include/core/SkImageInfo.h"
-enum SkColorTypeComponentFlag
-{
-  kRed_SkColorTypeComponentFlag = 0x1,
-  kGreen_SkColorTypeComponentFlag = 0x2,
-  kBlue_SkColorTypeComponentFlag = 0x4,
-  kAlpha_SkColorTypeComponentFlag = 0x8,
-  kGray_SkColorTypeComponentFlag = 0x10,
-  kRG_SkColorTypeComponentFlags = kRed_SkColorTypeComponentFlag | kGreen_SkColorTypeComponentFlag,
-  kRGB_SkColorTypeComponentFlags = kRed_SkColorTypeComponentFlag | kGreen_SkColorTypeComponentFlag | kBlue_SkColorTypeComponentFlag,
-  kRGBA_SkColorTypeComponentFlags = kRGB_SkColorTypeComponentFlags | kAlpha_SkColorTypeComponentFlag
+enum SkColorTypeComponentFlag {
+    kRed_SkColorTypeComponentFlag    = 0x1,
+    kGreen_SkColorTypeComponentFlag  = 0x2,
+    kBlue_SkColorTypeComponentFlag   = 0x4,
+    kAlpha_SkColorTypeComponentFlag  = 0x8,
+    kGray_SkColorTypeComponentFlag   = 0x10,
+    kRG_SkColorTypeComponentFlags    = kRed_SkColorTypeComponentFlag |
+                                       kGreen_SkColorTypeComponentFlag,
+    kRGB_SkColorTypeComponentFlags   = kRed_SkColorTypeComponentFlag |
+                                       kGreen_SkColorTypeComponentFlag |
+                                       kBlue_SkColorTypeComponentFlag,
+    kRGBA_SkColorTypeComponentFlags  = kRGB_SkColorTypeComponentFlags |
+                                       kAlpha_SkColorTypeComponentFlag,
 };
 static uint32_t SkColorTypeComponentFlags(SkColorType ct)
 {

@@ -16,21 +16,20 @@ class AcadPlotInternalServices;
 class ADESK_NO_VTABLE AcPlHostAppServices
 {
 public:
-  enum PlotStatus
-  {
-    kSheetIdxAndName = -5,
-    kDisableCancelSheet = -4,
-    kDwfFilePlotted = -3,
-    kPlottingMsg = -2,
-    kNoPlotYet = -1,
-    kPlotStart = 0,
-    kViewPlotLog = 1,
-    kPlotSuccessful = 2,
-    kPlotHadErrors = 3,
-    kPlotHadSystemError = 4,
-    kViewPlottedFile = 5,
-    kViewFileWhenSuccessful = 6
-  };
+  enum PlotStatus {
+        kSheetIdxAndName        = -5,
+        kDisableCancelSheet     = -4,
+        kDwfFilePlotted         = -3,
+        kPlottingMsg            = -2,
+        kNoPlotYet              = -1,
+        kPlotStart              = 0,
+        kViewPlotLog            = 1,
+        kPlotSuccessful         = 2,
+        kPlotHadErrors          = 3,
+        kPlotHadSystemError     = 4,
+        kViewPlottedFile        = 5,
+        kViewFileWhenSuccessful = 6
+    };
   virtual AcPlPlotLogger* getPlotLogger(void) = 0;
   virtual const AcadPlotInternalServices* acadInternalServices() = 0;
   virtual void updatePlotJobStatus(enum AcPlHostAppServices::PlotStatus nStatus, const ACHAR* szPlotMsg) = 0;

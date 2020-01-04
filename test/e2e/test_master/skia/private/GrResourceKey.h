@@ -150,13 +150,13 @@ protected:
     GrResourceKey* fKey;
   };
 private:
-  enum MetaDataIdx
-  {
-    kHash_MetaDataIdx,
+  enum MetaDataIdx {
+        kHash_MetaDataIdx,
         // The key domain and size are packed into a single uint32_t.
-    kDomainAndSize_MetaDataIdx,
-    kLastMetaDataIdx = kDomainAndSize_MetaDataIdx
-  };
+        kDomainAndSize_MetaDataIdx,
+
+        kLastMetaDataIdx = kDomainAndSize_MetaDataIdx
+    };
   static const uint32_t kMetaDataCnt = kLastMetaDataIdx + 1;
   size_t internalSize() const
   {

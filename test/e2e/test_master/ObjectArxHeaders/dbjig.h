@@ -30,65 +30,64 @@ class AcEdJig : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcEdJig);
-  enum UserInputControls
-  {
-    kGovernedByOrthoMode = 0x000001,
-    kNullResponseAccepted = 0x000002,
-    kDontEchoCancelForCtrlC = 0x000004,
-    kDontUpdateLastPoint = 0x000008,
-    kNoDwgLimitsChecking = 0x000010,
-    kNoZeroResponseAccepted = 0x000020,
-    kNoNegativeResponseAccepted = 0x000040,
-    kAccept3dCoordinates = 0x000080,
-    kAcceptMouseUpAsPoint = 0x000100,
-    kAnyBlankTerminatesInput = 0x000200,
-    kInitialBlankTerminatesInput = 0x000400,
-    kAcceptOtherInputString = 0x000800,
-    kGovernedByUCSDetect = 0x001000,
-    kNoZDirectionOrtho = 0x002000,
-    kImpliedFaceForUCSChange = 0x004000,
-    kUseBasePointElevation = 0x008000,
+  enum UserInputControls {
+        kGovernedByOrthoMode            = 0x000001,
+        kNullResponseAccepted           = 0x000002,
+        kDontEchoCancelForCtrlC         = 0x000004,
+        kDontUpdateLastPoint            = 0x000008,
+        kNoDwgLimitsChecking            = 0x000010,
+        kNoZeroResponseAccepted         = 0x000020,
+        kNoNegativeResponseAccepted     = 0x000040,
+        kAccept3dCoordinates            = 0x000080,
+        kAcceptMouseUpAsPoint           = 0x000100,
+        kAnyBlankTerminatesInput        = 0x000200,
+        kInitialBlankTerminatesInput    = 0x000400,
+        kAcceptOtherInputString         = 0x000800,
+        kGovernedByUCSDetect            = 0x001000,
+        kNoZDirectionOrtho              = 0x002000,
+        kImpliedFaceForUCSChange        = 0x004000,
+        kUseBasePointElevation          = 0x008000,
+
         ///<summary> Disables direct distance input. When this flag is ON a
         ///distance input such as integer or real will not be accepted unless
         ///kAcceptOtherInputString is ON, in that case returned DragStatus is
         ///kOther. </summary>
-    kDisableDirectDistanceInput = 0x010000
-  };
-  enum DragStatus
-  {
-    kModeless = -17,
-    kNoChange = -6,
-    kCancel = -4,
-    kOther = -3,
-    kNull = -1,
-    kNormal = 0,
-    kKW1,
-    kKW2,
-    kKW3,
-    kKW4,
-    kKW5,
-    kKW6,
-    kKW7,
-    kKW8,
-    kKW9
-  };
-  enum CursorType
-  {
-    kNoSpecialCursor = -1,
-    kCrosshair = 0,
-    kRectCursor,
-    kRubberBand,
-    kNotRotated,
-    kTargetBox,
-    kRotatedCrosshair,
-    kCrosshairNoRotate,
-    kInvisible,
-    kEntitySelect,
-    kParallelogram,
-    kEntitySelectNoPersp,
-    kPkfirstOrGrips,
-    kCrosshairDashed
-  };
+        kDisableDirectDistanceInput     = 0x010000,
+    };
+  enum DragStatus {
+        kModeless       = -17,
+        kNoChange       = -6,
+        kCancel         = -4,
+        kOther          = -3,
+        kNull           = -1,
+        kNormal         = 0,
+        kKW1,
+        kKW2,
+        kKW3,
+        kKW4,
+        kKW5,
+        kKW6,
+        kKW7,
+        kKW8,
+        kKW9
+    };
+  enum CursorType {
+        kNoSpecialCursor = -1,           // No Special Cursor Specified
+        kCrosshair = 0,                  // Full Screen Cross Hair. 
+        kRectCursor,                     // Rectangular cursor. 
+        kRubberBand,                     // Rubber band line. 
+        kNotRotated,                     // NotRotated Type. 
+        kTargetBox,                      // Target Box Type. 
+        kRotatedCrosshair,               // Rotated Crosshair w/ rubber band. 
+        kCrosshairNoRotate,              // Crosshairs forced non-rotated. 
+        kInvisible,                      // Invisible cursor. 
+        kEntitySelect,                   // Entity selection target cursor. 
+        kParallelogram,                  // Parallelogram cursor. 
+        kEntitySelectNoPersp,            // Pickbox, suppressed in persp. 
+        kPkfirstOrGrips,                 // Auto-select cursor. 
+        kCrosshairDashed                 // 15 dashed style crosshair cursor
+
+    };
   AcEdJig();
   virtual ~AcEdJig();
   DragStatus drag();
@@ -129,23 +128,28 @@ public:
     /// <summary>
     /// Enumeration controlling the graphics representation of the drag entity during dragging process.
     /// </summary>
-  enum StyleType
-  {
+  enum StyleType {
         /// <summary> Dragger will not modify the entity's visual style during drag. </summary>
-    kNone = 0,
+        kNone = 0, 
+        
         /// <summary> Entity will be hidden during drag. </summary>
-    kHide,
+        kHide,
+        
         /// <summary> The dragger will apply 25% transparency to entity. </summary>
-    kTransparent25,
+        kTransparent25,
+
         /// <summary> The dragger will apply 75% transparency to entity. </summary>
-    kTransparent75,
+        kTransparent75,
+
         /// <summary> The dragger will apply the deletion effect to entity. </summary>
-    kDeletedEffect,
+        kDeletedEffect,
+
         /// <summary> The dragger will apply highlight effect to entity. </summary>
-    kHighlight,
+        kHighlight,
+
         /// <summary> Style was set by client calling setVisualStyle(). </summary>
-    kNotSet
-  };
+        kNotSet
+    };
     /// <summary> Default constructor. The entity will be displayed in its default visual
     /// style.  This is equivalent to setting the style type to kNone. </summary>
   AcEdDragStyle();

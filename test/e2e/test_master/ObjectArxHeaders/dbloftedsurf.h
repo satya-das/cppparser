@@ -295,15 +295,14 @@ public:
     /// </returns>
   ACDB_PORT Acad::ErrorStatus setLoftOptions(const AcDbLoftOptions& loftOptions);
     /// <summary> This enum represents the type of lofted surface. </summary>
-  enum LoftSurfaceType
-  {
+  enum LoftSurfaceType {
         /// <summary> Created from createLoftedSurface(). </summary>
-    kLoftSurf,
+        kLoftSurf,
         /// <summary> Created from createBlendSurface(). </summary>
-    kLoftBlendSurf,
+        kLoftBlendSurf,
         /// <summary> Created from createNetworkSurface(). </summary>
-    kLoftNetworkSurf
-  };
+        kLoftNetworkSurf
+    };
     /// <summary> 
     /// Returns the type of lofted surface.
     /// </summary>

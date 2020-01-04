@@ -20,11 +20,10 @@ public:
     /// Curve type, linesegment or arc.
     /// </summary>
     ///
-  enum ProfileurveType
-  {
-    kLineSeg = 0,
-    kArc
-  };
+  enum ProfileurveType {
+        kLineSeg = 0,
+        kArc,
+    };
 private:
   AcGeLineSeg2d m_seg;
   AcGeCircArc2d m_arc;

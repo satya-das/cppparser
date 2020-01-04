@@ -26,41 +26,47 @@ public:
     /// <summary>
     /// Describes the type of point cloud item
     /// </summary>
-  enum AcPointCloudItemType
-  {
+  enum AcPointCloudItemType {
         /// <summary>
         /// Legacy point cloud (load from a .pcg, .isd file).
         /// </summary>
-    kLegacyPointCloud = 0,
+        kLegacyPointCloud = 0,
+
         /// <summary>
         /// Point cloud project (load from a .rcp file which contains several .rcs files).
         /// </summary>
-    kPointCloudProject,
+        kPointCloudProject,
+
         /// <summary>
         /// Individual scan (load from a .rcs file directly).
         /// </summary>
-    kIndividualScan,
+        kIndividualScan,
+        
         /// <summary>
         /// Scan (a scan file included in a point cloud project file).
         /// </summary>
-    kScan,
+        kScan,
+        
         /// <summary>
         /// A region is a Non-overlapping area that are defined in a point cloud for the purpose of filtering the display of meaningful volumes in the scene.
         /// </summary>
-    kRegion,
+        kRegion,
+        
         /// <summary>
         /// Folder to contain all scan items.
         /// </summary>
-    kScanRootGroup,
+        kScanRootGroup,
+        
         /// <summary>
         /// Folder to contain all region items.
         /// </summary>
-    kRegionRootGroup,
+        kRegionRootGroup, 
+        
         /// <summary>
         /// Points which are not assigned to any region.
         /// </summary>
-    kUnassignedPoint
-  };
+        kUnassignedPoint
+    };
     /// <summary>
     /// Default constructor
     /// </summary>

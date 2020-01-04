@@ -24,12 +24,11 @@ class AcPlPlotConfig : public AcPlObject
 {
   ACPL_DECLARE_MEMBERS(AcPlPlotConfig)
 public:
-  enum PlotToFileCapability
-  {
-    kNoPlotToFile = 0,
-    kPlotToFileAllowed = 1,
-    kMustPlotToFile = 2
-  };
+  enum PlotToFileCapability {
+        kNoPlotToFile       = 0,
+        kPlotToFileAllowed  = 1,
+        kMustPlotToFile     = 2
+    };
   ACPL_PORT virtual ~AcPlPlotConfig();
   ACPL_PORT virtual Acad::ErrorStatus copyFrom(const AcRxObject* pSrc);
     // returns the description field information - driver name

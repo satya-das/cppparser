@@ -23,22 +23,21 @@ class AcDbPointRef : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcDbPointRef);
-  enum OsnapType
-  {
-    kOsnapNone = 0,
-    kOsnapEnd = 1,
-    kOsnapMid = 2,
-    kOsnapCen = 3,
-    kOsnapNode = 4,
-    kOsnapQuad = 5,
-    kOsnapInt = 6,
-    kOsnapIns = 7,
-    kOsnapPerp = 8,
-    kOsnapTan = 9,
-    kOsnapNear = 10,
-    kOsnapApint = 11,
-    kOsnapStart = 13
-  };
+  enum OsnapType { 
+        kOsnapNone         = 0,
+        kOsnapEnd          = 1,
+        kOsnapMid          = 2,
+        kOsnapCen          = 3,
+        kOsnapNode         = 4,
+        kOsnapQuad         = 5, 
+        kOsnapInt          = 6,
+        kOsnapIns          = 7,
+        kOsnapPerp         = 8,
+        kOsnapTan          = 9,
+        kOsnapNear         = 10,
+        kOsnapApint        = 11,
+        kOsnapStart        = 13
+    };
   virtual AcDbPointRef& operator=(const AcDbPointRef& src);
   virtual Acad::ErrorStatus evalPoint(AcGePoint3d& pnt_wcs) = 0;
   virtual Acad::ErrorStatus getEntities(AcDbFullSubentPathArray& ents, bool getLastPtRef = true) const = 0;

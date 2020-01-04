@@ -491,30 +491,33 @@ public:
     /// <summary>
     /// This enumeration defines stylization mode that is used when displaying this point cloud entity.
     /// </summary>
-  enum StylizationType
-  {
+  enum StylizationType {
         /// <summary>
         /// Colors each point based on the colors defined in the scan data.
         /// </summary>
-    kTrueColor = 1,
+        kTrueColor      = 1,
+
         /// <summary>
         /// Assigns all points the color that is defined for the object (AutoCAD's
         /// object color property).
         /// </summary>
-    kSingleColor,
+        kSingleColor,
+
         /// <summary>
         /// Colors each point based on the surface normal of that point. AutoCAD
         /// uses a default hard-coded color scheme for the normals by default.
         /// If the point cloud doesn't have normals, returns Acad::eNotApplicable.
         /// </summary>
-    kNormalRamp,
+        kNormalRamp,
+
         /// <summary>
         /// Colors each point based on the Z (height) value of that point. AutoCAD
         /// uses a default Full color spectrum color scheme by default whose
         /// range is mapped to the lowest and highest intensity values of the
         /// point cloud object(s).
         /// </summary>
-    kHeightRamp,
+        kHeightRamp,
+
         /// <summary>
         /// Colors each point based on the Intensity value of the point, as defined
         /// in the scan data).
@@ -522,13 +525,14 @@ public:
         /// whose range is mapped to the lowest and highest intensity values 
         /// of the point cloud object(s).
         /// </summary>
-    kIntensityRamp,
+        kIntensityRamp,
+
         /// <summary>
         /// Colors each points based on the classification that is assigned to it in the scan data.
         /// AutoCAD uses a default color scheme for LAS classification values.
         /// </summary>
-    kClassificationRamp
-  };
+        kClassificationRamp
+    };
     /// <summary>
     /// Sets the stylization mode to be used when displaying this point cloud entity.
     /// See the documentation for StylizationType for the different types of stylization.
@@ -608,25 +612,26 @@ public:
     /// This enumeration defines the display options for the points which are
     /// out of intensity/elevation range.
     /// </summary>
-  enum DispOptionOutOfRange
-  {
+  enum DispOptionOutOfRange {
         /// <summary>
         /// Uses a maximum color in the color ramp for the points which are
         /// higher than the intensity/elevation range, and
         /// a minimum color in the color ramp for the points which are
         /// lower than the intensity/elevation range.
         /// </summary>
-    kUseMinMaxColors = 0,
+        kUseMinMaxColors = 0,
+
         /// <summary>
         /// Uses the RGB scan color for the points which are out of 
         /// intensity/elevation range.
         /// </summary>
-    kUseRGBScanColors,
+        kUseRGBScanColors,
+
         /// <summary>
         /// Hide points that are outside of intensity/elevation range.
         /// </summary>
-    kHidePoints
-  };
+        kHidePoints
+    };
     // Colormap - Intensity
     // 
 
@@ -932,41 +937,40 @@ public:
     /// <summary>
     /// This enumeration describes the the snapping operations that can be done with point clouds
     /// </summary>
-  enum PointCloudOSnapMode
-  {
+  enum PointCloudOSnapMode {
         /// <summary>
         /// Node - Snaps to closest point in the point cloud
         /// </summary>
-    kOsModePNod = 0,
+        kOsModePNod     = 0,
         /// <summary>
         /// Nearest - Snaps to nearest point on a planar segment
         /// </summary>
-    kOsModePNea = 1,
+        kOsModePNea     = 1,
         /// <summary>
         /// Perpendicular - Snaps perpendicular to the nearest planar segment
         /// </summary>
-    kOsModePPer = 2,
+        kOsModePPer     = 2,
         /// <summary>
         /// Edge Nearest - Snaps to nearest point on an edge (intersection of 2 planes)
         /// </summary>
-    kOsModePEdgeNea = 3,
+        kOsModePEdgeNea = 3,
         /// <summary>
         /// Edge Perpendicular - Snaps perpendicular to an edge (intersection of 2 planes)
         /// </summary>
-    kOsModePEdgePer = 4,
+        kOsModePEdgePer = 4,
         /// <summary>
         /// Intersection - Snaps to intersection point of section line vectors
         /// </summary>
-    kOsModePInt = 5,
+        kOsModePInt     = 5,
         /// <summary>
         /// Centerline - Snaps to nearest point on centerline of cylinder
         /// </summary>
-    kOsModePCL = 6,
+        kOsModePCL      = 6,
         /// <summary>
         /// Node - Snaps to corner (intersection of 3 planes) in the point cloud
         /// </summary>
-    kOsModePCorner = 7
-  };
+        kOsModePCorner  = 7
+    };
     /// <summary>
     /// This function uses the provided snapMode, pickPoint, and lastPoint
     /// to determine all appropriate osnap points for the point cloud.

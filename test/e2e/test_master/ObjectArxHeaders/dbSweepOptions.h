@@ -32,21 +32,20 @@ public:
     // Assignment operator.
   AcDbSweepOptions& operator =(const AcDbSweepOptions& src);
   bool operator ==(const AcDbSweepOptions&) const;
-  enum AlignOption
-  {
-    kNoAlignment,
-    kAlignSweepEntityToPath,
-    kTranslateSweepEntityToPath,
-    kTranslatePathToSweepEntity
-  };
-  enum MiterOption
-  {
-    kDefaultMiter,
-    kOldMiter,
-    kNewMiter,
-    kCrimpMiter,
-    kBendMiter
-  };
+  enum AlignOption {
+            kNoAlignment,
+            kAlignSweepEntityToPath,
+            kTranslateSweepEntityToPath,
+            kTranslatePathToSweepEntity
+            
+    };
+  enum MiterOption {
+            kDefaultMiter,
+            kOldMiter,
+            kNewMiter,
+            kCrimpMiter,
+            kBendMiter
+    };
     // Get/set draft angle.
   double draftAngle() const;
   void setDraftAngle(double ang);

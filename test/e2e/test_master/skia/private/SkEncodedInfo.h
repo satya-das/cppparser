@@ -26,14 +26,14 @@ public:
     skcms_ICCProfile fProfile;
     sk_sp<SkData> fData;
   };
-  enum Alpha
-  {
-    kOpaque_Alpha,
-    kUnpremul_Alpha,
+  enum Alpha {
+        kOpaque_Alpha,
+        kUnpremul_Alpha,
+
         // Each pixel is either fully opaque or fully transparent.
         // There is no difference between requesting kPremul or kUnpremul.
-    kBinary_Alpha
-  };
+        kBinary_Alpha,
+    };
     /*
      * We strive to make the number of components per pixel obvious through
      * our naming conventions.
@@ -42,46 +42,54 @@ public:
      * This sometimes results in redundant Alpha and Color information.
      * Ex: kRGB images must also be kOpaque.
      */
-  enum Color
-  {
+  enum Color {
         // PNG, WBMP
-    kGray_Color,
+        kGray_Color,
+
         // PNG
-    kGrayAlpha_Color,
+        kGrayAlpha_Color,
+
         // PNG with Skia-specific sBIT
         // Like kGrayAlpha, except this expects to be treated as
         // kAlpha_8_SkColorType, which ignores the gray component. If
         // decoded to full color (e.g. kN32), the gray component is respected
         // (so it can share code with kGrayAlpha).
-    kXAlpha_Color,
+        kXAlpha_Color,
+
         // PNG
         // 565 images may be encoded to PNG by specifying the number of
         // significant bits for each channel.  This is a strange 565
         // representation because the image is still encoded with 8 bits per
         // component.
-    k565_Color,
+        k565_Color,
+
         // PNG, GIF, BMP
-    kPalette_Color,
+        kPalette_Color,
+
         // PNG, RAW
-    kRGB_Color,
-    kRGBA_Color,
+        kRGB_Color,
+        kRGBA_Color,
+
         // BMP
-    kBGR_Color,
-    kBGRX_Color,
-    kBGRA_Color,
+        kBGR_Color,
+        kBGRX_Color,
+        kBGRA_Color,
+
         // JPEG, WEBP
-    kYUV_Color,
+        kYUV_Color,
+
         // WEBP
-    kYUVA_Color,
+        kYUVA_Color,
+
         // JPEG
         // Photoshop actually writes inverted CMYK data into JPEGs, where zero
         // represents 100% ink coverage.  For this reason, we treat CMYK JPEGs
         // as having inverted CMYK.  libjpeg-turbo warns that this may break
         // other applications, but the CMYK JPEGs we see on the web expect to
         // be treated as inverted CMYK.
-    kInvertedCMYK_Color,
-    kYCCK_Color
-  };
+        kInvertedCMYK_Color,
+        kYCCK_Color,
+    };
   static SkEncodedInfo Make(int width, int height, Color color, Alpha alpha, int bitsPerComponent)
   {
     return Make(width, height, color, alpha, bitsPerComponent, nullptr);

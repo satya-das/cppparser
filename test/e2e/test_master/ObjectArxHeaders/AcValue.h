@@ -32,49 +32,45 @@ class AcDbDxfFiler;
 class AcValue : public AcRxObject
 {
 public:
-  enum DataType
-  {
-    kUnknown = 0,
-    kLong = (0x1 << 0),
-    kDouble = (0x1 << 1),
-    kString = (0x1 << 2),
-    kDate = (0x1 << 3),
-    kPoint = (0x1 << 4),
-    k3dPoint = (0x1 << 5),
-    kObjectId = (0x1 << 6),
-    kBuffer = (0x1 << 7),
-    kResbuf = (0x1 << 8),
-    kGeneral = (0x1 << 9),
-    kColor = (0x1 << 10)
-  };
-  enum UnitType
-  {
-    kUnitless = 0,
-    kDistance = (0x1 << 0),
-    kAngle = (0x1 << 1),
-    kArea = (0x1 << 2),
-    kVolume = (0x1 << 3),
-    kCurrency = (0x1 << 4),
-    kPercentage = (0x1 << 5),
-    kAngleNotTransformed = (0x1 << 16)
-  };
-  enum ParseOption
-  {
-    kParseOptionNone = 0,
-    kSetDefaultFormat = (0x1 << 0),
-    kPreserveMtextFormat = (0x1 << 1),
-    kConvertTextToValue = (0x1 << 2),
-    kChangeDataType = (0x1 << 3),
-    kParseTextForFieldCode = (0x1 << 4)
-  };
-  enum FormatOption
-  {
-    kFormatOptionNone = 0,
-    kForEditing = (0x1 << 0),
-    kForExpression = (0x1 << 1),
-    kUseMaximumPrecision = (0x1 << 2),
-    kIgnoreMtextFormat = (0x1 << 3)
-  };
+  enum DataType {
+        kUnknown            = 0,
+        kLong               = (0x1 << 0),
+        kDouble             = (0x1 << 1),
+        kString             = (0x1 << 2),
+        kDate               = (0x1 << 3),
+        kPoint              = (0x1 << 4),
+        k3dPoint            = (0x1 << 5),
+        kObjectId           = (0x1 << 6),
+        kBuffer             = (0x1 << 7),
+        kResbuf             = (0x1 << 8),
+        kGeneral            = (0x1 << 9),
+        kColor              = (0x1 << 10),
+    };
+  enum UnitType {
+        kUnitless           = 0,
+        kDistance           = (0x1 << 0),
+        kAngle              = (0x1 << 1),
+        kArea               = (0x1 << 2),
+        kVolume             = (0x1 << 3),
+        kCurrency           = (0x1 << 4),
+        kPercentage         = (0x1 << 5),
+        kAngleNotTransformed = (0x1 << 16),
+    };
+  enum ParseOption {
+        kParseOptionNone        = 0,
+        kSetDefaultFormat       = (0x1 << 0),
+        kPreserveMtextFormat    = (0x1 << 1),
+        kConvertTextToValue     = (0x1 << 2),
+        kChangeDataType         = (0x1 << 3),
+        kParseTextForFieldCode  = (0x1 << 4),
+    };
+  enum FormatOption {
+        kFormatOptionNone       = 0,
+        kForEditing             = (0x1 << 0),
+        kForExpression          = (0x1 << 1),
+        kUseMaximumPrecision    = (0x1 << 2),
+        kIgnoreMtextFormat      = (0x1 << 3),
+    };
   ACDB_PORT static bool isValidDataType(const VARIANT& var);
   ACRX_DECLARE_MEMBERS(AcValue);
   ACDBCORE2D_PORT AcValue(void);

@@ -23,10 +23,9 @@
 class AcDbDynamicUCSPE : public AcRxObject
 {
 public:
-  enum Flags
-  {
-    kDefault = 0x00
-  };
+  enum Flags {
+        kDefault     = 0x00,
+    };
   ACRX_DECLARE_MEMBERS(AcDbDynamicUCSPE);
     // Contract:
     // The implementer is expected to populate the result array 

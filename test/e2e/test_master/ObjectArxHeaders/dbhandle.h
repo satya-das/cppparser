@@ -31,10 +31,7 @@ public:
   AcDbHandle& operator=(const ACHAR*);
     // This gets the hex digits into a string buffer.
   bool getIntoAsciiBuffer(ACHAR* pBuf, size_t nBufLen) const;
-  enum
-  {
-    kStrSiz = 17
-  };
+  enum {kStrSiz = 17};
     // Helper template for fixed size arrays
   template <size_t nBufLen>
   inline bool getIntoAsciiBuffer(wchar_t (& buf)[nBufLen]) const
@@ -74,10 +71,7 @@ public:
   operator Adesk::UInt64() const;
   AcDbHandle operator +(Adesk::ULongPtr) const;
   void print() const;
-  enum
-  {
-    kMaxValueBytes = 8
-  };
+  enum { kMaxValueBytes = 8 };
   int byte(Adesk::UInt32 i) const;
   bool restZeros(int i) const;
 private:

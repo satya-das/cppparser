@@ -25,12 +25,13 @@ class AcDbIdMapping;
 #endif
 /// <summary> Rigid set type. </summary>
 ///
-enum RigidSetType
-{
+enum RigidSetType {
   /// <summary> Not a rigid set. </summary>
   kNotRigidSet = 0,
+
   /// <summary> A rigid set that can be uniformly scaled. </summary>
   kScalableRigidSet,
+
   /// <summary> A rigid set that cannot be scaled. </summary>
   kNonScalableRigidSet
 };

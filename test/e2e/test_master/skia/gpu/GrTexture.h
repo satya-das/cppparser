@@ -39,11 +39,10 @@ public:
      */
   static bool StealBackendTexture(sk_sp<GrTexture>, GrBackendTexture*, SkImage::BackendTextureReleaseProc*);
     /** See addIdleProc. */
-  enum class IdleState
-  {
-    kFlushed,
-    kFinished
-  };
+  enum class IdleState {
+        kFlushed,
+        kFinished
+    };
     /**
      * Installs a proc on this texture. It will be called when the texture becomes "idle". There
      * are two types of idle states as indicated by IdleState. For managed backends (e.g. GL where

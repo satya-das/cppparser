@@ -40,33 +40,32 @@ public:
     /// set to Isolines in any of the Visual Styles.
     /// </summary>
     ///
-  enum WireframeType
-  {
+  enum WireframeType {
         /// <summary> 
         /// The quilt representation is controlled by the SURFV and SURFU
         /// at creation time for surfaces.
         /// </summary>
         ///
-    kIsolines = 0,
+        kIsolines = 0,
+
         /// <summary> 
         /// The quilt representation is based on the projection of
         /// the knot structure of surface.
         /// </summary>
         ///
-    kIsoparms = 1
-  };
+        kIsoparms = 1
+    };
     /// <summary>
     /// Defines possible edge extension types as input for extendEdges or 
     /// createExtendSurface methods.
     /// </summary>
     ///
-  enum EdgeExtensionType
-  {
+  enum EdgeExtensionType {
         /// <summary> Edges will be extended. </summary>
-    kExtendEdge = 0x000,
+        kExtendEdge  = 0x000,
         /// <summary> Edges will be stretched. </summary>
-    kStretchEdge = 0x001
-  };
+        kStretchEdge = 0x001,
+    };
   AcDbSurface();
   virtual ~AcDbSurface();
   ACDB_DECLARE_MEMBERS(AcDbSurface);

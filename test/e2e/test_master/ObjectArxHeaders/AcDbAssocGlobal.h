@@ -70,25 +70,31 @@ typedef AcArray<AcDbAsmEdgeArray> AcDbAsmEdgeArray2d;
 /// to the object the dependency depends on.
 /// </summary>
 ///
-enum AcDbAssocStatus
-{
+enum AcDbAssocStatus {
     /// <summary> Everything is in sync. </summary> 
-  kIsUpToDateAssocStatus = 0,
+    kIsUpToDateAssocStatus = 0,
+
     /// <summary> Explicitly changed (such as by the user). </summary> 
-  kChangedDirectlyAssocStatus,
+    kChangedDirectlyAssocStatus,
+
     /// <summary> Changed indirectly due to something else changed. </summary> 
-  kChangedTransitivelyAssocStatus,
+    kChangedTransitivelyAssocStatus,
+
     /// <summary> No real change, only forces to evaluate. </summary> 
-  kChangedNoDifferenceAssocStatus,
+    kChangedNoDifferenceAssocStatus, 
+
     /// <summary> Action failed to evaluate but evaluation continues. 
     /// Otherwise identical to kIsUpToDateAssocStatus. </summary> 
-  kFailedToEvaluateAssocStatus,
+    kFailedToEvaluateAssocStatus,
+
     /// <summary> Dependent-on object erased or action is to be erased. </summary> 
-  kErasedAssocStatus,
+    kErasedAssocStatus,
+
     /// <summary> Action evaluation suppressed, treated as if evaluated. </summary> 
-  kSuppressedAssocStatus,
+    kSuppressedAssocStatus,  
+
     /// <summary> Dependent-on object is un-resolved (e.g the xref is unloaded). </summary> 
-  kUnresolvedAssocStatus
+    kUnresolvedAssocStatus,  
 };
 /// <summary>
 /// Returns the severity level (positive integer) of those status values that
@@ -154,22 +160,22 @@ inline bool isToBeSkipped(AcDbAssocStatus status)
 /// the action can be evaluated.
 /// </summary>
 ///
-enum AcDbAssocEvaluationPriority
-{
+enum AcDbAssocEvaluationPriority {
     /// <summary> Default "can not be evaluated" priority. </summary>
-  kCannotBeEvaluatedAssocEvaluationPriority = -1000,
+    kCannotBeEvaluatedAssocEvaluationPriority = -1000,
+
     /// <summary> The action evaluatability cannot be determined at this time. </summary>
-  kCannotDermineAssocEvaluationPriority = 0,
+    kCannotDermineAssocEvaluationPriority = 0,
+
     /// <summary> Default "can be evaluated" priority. </summary>
-  kCanBeEvaluatedAssocEvaluationPriority = 1000
+    kCanBeEvaluatedAssocEvaluationPriority = 1000,
 };
 /// <summary>
 /// At the beginning of AcDbAssocActionBody::evaluateOverride() implementation, 
 /// the custom code needs to query the mode in which it should evaluate itself. 
 /// </summary>
 ///
-enum AcDbAssocEvaluationMode
-{
+enum AcDbAssocEvaluationMode {
     /// <summary> <para> 
     /// The standard action evaluation mode in which the objects the action 
     /// depends-on via write-dependencies are modified so that they satisfy 
@@ -180,7 +186,8 @@ enum AcDbAssocEvaluationMode
     /// kErasedAssocStatus (if it wants itself to be erased.)
     /// </para> </summary>
     ///
-  kModifyObjectsAssocEvaluationMode,
+    kModifyObjectsAssocEvaluationMode,
+
     /// <summary> <para> 
     /// The action evaluation mode in which the action is modified so that it 
     /// satisfies the objects the action depends on. The objects are not 
@@ -193,7 +200,7 @@ enum AcDbAssocEvaluationMode
     /// kErasedAssocStatus (if it wants itself to be erased.)
     /// </para> </summary>
     ///
-  kModifyActionAssocEvaluationMode
+    kModifyActionAssocEvaluationMode,
 };
 /// <summary>
 /// While in the middle of evaluation, the action may inquire the client code 
@@ -201,16 +208,18 @@ enum AcDbAssocEvaluationMode
 /// at which stage the dragging is.
 /// </summary>
 ///
-enum AcDbAssocDraggingState
-{
+enum AcDbAssocDraggingState {
     /// <summary> Not inside the dragging loop. </summary>
-  kNotDraggingAssocDraggingState,
+    kNotDraggingAssocDraggingState,
+
     /// <summary> The first drag sample of the dragging loop. </summary>
-  kFirstSampleAssocDraggingState,
+    kFirstSampleAssocDraggingState,
+
     /// <summary> An intemediate drag sample of the dragging loop. </summary>
-  kIntermediateSampleAssocDraggingState,
+    kIntermediateSampleAssocDraggingState,
+
     /// <summary> The last drag sample of the dragging loop. </summary>
-  kLastSampleAssocDraggingState
+    kLastSampleAssocDraggingState,
 };
 /// <summary>
 /// Information about what type of transformation (which AutoCAD command) has 
@@ -218,16 +227,18 @@ enum AcDbAssocDraggingState
 /// on these entities are evaluated.
 /// </summary>
 ///
-enum AcDbAssocTransformationType
-{
+enum AcDbAssocTransformationType {
     /// <summary> Transformation type not specified. </summary>
-  kNotSpecified,
+    kNotSpecified,
+
     /// <summary> Geometries have been changed through strech command. </summary>
-  kStretch,
+    kStretch,
+
     /// <summary> Geometries have been changed through rotate command. </summary>
-  kRotate,
+    kRotate,
+
     /// <summary> Geometries have been changed through move command. </summary>
-  kMove
+    kMove,
 };
 /// <summary> <para>
 /// A mechanism for AcDbAssocActions to notify about the progress of evaluation, 
@@ -557,28 +568,27 @@ const AcDbPersElemId kAcDbPersNullId = 0;
 ACDBCORE2D_PORT Acad::ErrorStatus checkTopLevelNetworkIntegrity(const AcDbDatabase*);
 /// <summary> Dimensional constraint type. </summary>
 ///
-enum AcDbAssocConstraintType
-{
+enum AcDbAssocConstraintType {
     /// <summary> None Associate Constraint </summary>
-  kNoneAssocConstraintType = 0,
+    kNoneAssocConstraintType = 0,
     /// <summary> Distance Associate Constraint </summary>
-  kDistanceAssocConstraintType,
+    kDistanceAssocConstraintType,
     /// <summary> Horizontal Distance Associate Constraint </summary>
-  kHorizontalDistanceAssocConstraintType,
+    kHorizontalDistanceAssocConstraintType,
     /// <summary> Vertical Distance Associate Constraint </summary>
-  kVerticalDistanceAssocConstraintType,
+    kVerticalDistanceAssocConstraintType,
     /// <summary> AcAngleConstraint::kParallelAntiClockwise Associate Constraint </summary>
-  kAngle0AssocConstraintType,
+    kAngle0AssocConstraintType,
     /// <summary> AcAngleConstraint::kAntiParallelClockwise Associate Constraint </summary>
-  kAngle1AssocConstraintType,
+    kAngle1AssocConstraintType,
     /// <summary> AcAngleConstraint::kParallelClockwise Associate Constraint </summary>
-  kAngle2AssocConstraintType,
+    kAngle2AssocConstraintType,
     /// <summary> AcAngleConstraint::kAntiParallelAntiClockwise Associate Constraint </summary>
-  kAngle3AssocConstraintType,
+    kAngle3AssocConstraintType,
     /// <summary> Radius Associate Constraint </summary>
-  kRadiusAssocConstraintType,
+    kRadiusAssocConstraintType,
     /// <summary> Diameter Associate Constraint </summary>
-  kDiameterAssocConstraintType
+    kDiameterAssocConstraintType,
 };
 class AcGeCurve3d;
 /// <summary>

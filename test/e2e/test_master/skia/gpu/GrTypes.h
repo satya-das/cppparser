@@ -200,22 +200,22 @@ static size_t GrSizeAlignDown(size_t x, uint32_t alignment)
 /**
  * Possible 3D APIs that may be used by Ganesh.
  */
-enum class GrBackendApi : unsigned
-{
-  kMetal,
-  kDawn,
-  kOpenGL,
-  kVulkan,
+enum class GrBackendApi : unsigned {
+    kMetal,
+    kDawn,
+    kOpenGL,
+    kVulkan,
     /**
      * Mock is a backend that does not draw anything. It is used for unit tests
      * and to measure CPU overhead.
      */
-  kMock,
+    kMock,
+
     /**
      * Added here to support the legacy GrBackend enum value and clients who referenced it using
      * GrBackend::kOpenGL_GrBackend.
      */
-  kOpenGL_GrBackend = kOpenGL
+    kOpenGL_GrBackend = kOpenGL,
 };
 /**
  * Previously the above enum was not an enum class but a normal enum. To support the legacy use of
@@ -230,26 +230,23 @@ static GrBackendApi kMock_GrBackend = GrBackendApi::kMock;
 /**
  * Used to say whether a texture has mip levels allocated or not.
  */
-enum class GrMipMapped : bool
-{
-  kNo = false,
-  kYes = true
+enum class GrMipMapped : bool {
+    kNo = false,
+    kYes = true
 };
 /*
  * Can a GrBackendObject be rendered to?
  */
-enum class GrRenderable : bool
-{
-  kNo = false,
-  kYes = true
+enum class GrRenderable : bool {
+    kNo = false,
+    kYes = true
 };
 /*
  * Used to say whether texture is backed by protected memory.
  */
-enum class GrProtected : bool
-{
-  kNo = false,
-  kYes = true
+enum class GrProtected : bool {
+    kNo = false,
+    kYes = true
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -257,42 +254,39 @@ enum class GrProtected : bool
  * GPU SkImage and SkSurfaces can be stored such that (0, 0) in texture space may correspond to
  * either the top-left or bottom-left content pixel.
  */
-enum GrSurfaceOrigin : int
-{
-  kTopLeft_GrSurfaceOrigin,
-  kBottomLeft_GrSurfaceOrigin
+enum GrSurfaceOrigin : int {
+    kTopLeft_GrSurfaceOrigin,
+    kBottomLeft_GrSurfaceOrigin,
 };
 /**
  * A GrContext's cache of backend context state can be partially invalidated.
  * These enums are specific to the GL backend and we'd add a new set for an alternative backend.
  */
-enum GrGLBackendState
-{
-  kRenderTarget_GrGLBackendState = 1 << 0,
+enum GrGLBackendState {
+    kRenderTarget_GrGLBackendState     = 1 << 0,
     // Also includes samplers bound to texture units.
-  kTextureBinding_GrGLBackendState = 1 << 1,
+    kTextureBinding_GrGLBackendState   = 1 << 1,
     // View state stands for scissor and viewport
-  kView_GrGLBackendState = 1 << 2,
-  kBlend_GrGLBackendState = 1 << 3,
-  kMSAAEnable_GrGLBackendState = 1 << 4,
-  kVertex_GrGLBackendState = 1 << 5,
-  kStencil_GrGLBackendState = 1 << 6,
-  kPixelStore_GrGLBackendState = 1 << 7,
-  kProgram_GrGLBackendState = 1 << 8,
-  kFixedFunction_GrGLBackendState = 1 << 9,
-  kMisc_GrGLBackendState = 1 << 10,
-  kPathRendering_GrGLBackendState = 1 << 11,
-  kALL_GrGLBackendState = 0xffff
+    kView_GrGLBackendState             = 1 << 2,
+    kBlend_GrGLBackendState            = 1 << 3,
+    kMSAAEnable_GrGLBackendState       = 1 << 4,
+    kVertex_GrGLBackendState           = 1 << 5,
+    kStencil_GrGLBackendState          = 1 << 6,
+    kPixelStore_GrGLBackendState       = 1 << 7,
+    kProgram_GrGLBackendState          = 1 << 8,
+    kFixedFunction_GrGLBackendState    = 1 << 9,
+    kMisc_GrGLBackendState             = 1 << 10,
+    kPathRendering_GrGLBackendState    = 1 << 11,
+    kALL_GrGLBackendState              = 0xffff
 };
 /**
  * This value translates to reseting all the context state for any backend.
  */
 static const uint32_t kAll_GrBackendState = 0xffffffff;
-enum GrFlushFlags
-{
-  kNone_GrFlushFlags = 0,
+enum GrFlushFlags {
+    kNone_GrFlushFlags = 0,
     // flush will wait till all submitted GPU work is finished before returning.
-  kSyncCpu_GrFlushFlag = 0x1
+    kSyncCpu_GrFlushFlag = 0x1,
 };
 typedef void* GrGpuFinishedContext;
 typedef void (*GrGpuFinishedProc) (GrGpuFinishedContext finishedContext);
@@ -326,10 +320,9 @@ struct GrFlushInfo
  * Enum used as return value when flush with semaphores so the client knows whether the semaphores
  * were submitted to GPU or not.
  */
-enum class GrSemaphoresSubmitted : bool
-{
-  kNo = false,
-  kYes = true
+enum class GrSemaphoresSubmitted : bool {
+    kNo = false,
+    kYes = true
 };
 /**
  * Array of SkImages and SkSurfaces which Skia will prepare for external use when passed into a

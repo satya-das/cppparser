@@ -61,26 +61,28 @@ public:
   ACRX_DECLARE_MEMBERS(AcDbAssoc2dConstraintGroup);
   /// <summary> The solution status of this constraint group. </summary>
   ///
-  enum SolutionStatus
-  {
+  enum SolutionStatus {
     /// <summary>
     /// All constrained geometries are fully constrained.
     /// The degree of freedom of the entire model is 0.
     /// </summary>
     ///
     kWellDefined = 0,
+
     /// <summary>
     /// Some or all constrained geometries are under constrained.
     /// The degree of freedom of the entire model is larger than 0.
     /// </summary>
     ///
     kUnderConstrained,
+
     /// <summary>
     /// Some or all constrained geometries are over constrained.
     /// Normally this is because duplicate or redundant constraints are added.
     /// </summary>
     ///
     kOverConstrained,
+
     /// <summary>
     /// Some or all constrained geometries/constraints are inconsistent.
     /// Normally this is because invalid constraints are added.
@@ -88,6 +90,7 @@ public:
     /// </summary>
     ///
     kInconsistent,
+
     /// <summary>
     /// Some or all constrained geometries/constraints are not evaluated.
     /// Normally this means new constrained geometries or constraints are
@@ -95,19 +98,21 @@ public:
     /// </summary>
     ///
     kNotEvaluated,
+
     /// <summary>
     /// Not able to get the solution status.
     /// Normally this means fatal errors.
     /// </summary>
     ///
     kNotAvailable,
+
     /// <summary>
     /// Evaluation produced result that may be considered valid by DCM but is
     /// rejected by the client code, such as when degenerate geometry was created
     /// and the client code does not want to accept it.
     /// </summary>
     ///
-    kRejectedByClient
+    kRejectedByClient,
   };
   /// <summary>
   /// Default constructor.

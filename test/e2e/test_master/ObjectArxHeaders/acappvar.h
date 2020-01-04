@@ -18,10 +18,9 @@
 #  include "acdb.h"
 #  include "acadstrc.h"
 #  pragma  pack (push, 8)
-enum
-{
-  kGroupsOn = 0x01,
-  kHatchAssocOn = 0x02
+enum {
+    kGroupsOn     = 0x01,
+    kHatchAssocOn = 0x02
 };
 class AcDbAppSystemVariables
 {

@@ -11,12 +11,11 @@
 /**
  * Classifies GL contexts by which standard they implement (currently as OpenGL vs. OpenGL ES).
  */
-enum GrGLStandard
-{
-  kNone_GrGLStandard,
-  kGL_GrGLStandard,
-  kGLES_GrGLStandard,
-  kWebGL_GrGLStandard
+enum GrGLStandard {
+    kNone_GrGLStandard,
+    kGL_GrGLStandard,
+    kGLES_GrGLStandard,
+    kWebGL_GrGLStandard,
 };
 static const int kGrGLStandardCnt = 4;
 // The following allow certain interfaces to be turned off at compile time
@@ -50,30 +49,31 @@ static const int kGrGLStandardCnt = 4;
  * The supported GL formats represented as an enum. Actual support by GrContext depends on GL
  * context version and extensions.
  */
-enum class GrGLFormat
-{
-  kUnknown,
-  kRGBA8,
-  kR8,
-  kALPHA8,
-  kLUMINANCE8,
-  kBGRA8,
-  kRGB565,
-  kRGBA16F,
-  kR16F,
-  kRGB8,
-  kRG8,
-  kRGB10_A2,
-  kRGBA4,
-  kSRGB8_ALPHA8,
-  kCOMPRESSED_RGB8_ETC2,
-  kCOMPRESSED_ETC1_RGB8,
-  kR16,
-  kRG16,
-  kRGBA16,
-  kRG16F,
-  kLUMINANCE16F,
-  kLast = kLUMINANCE16F
+enum class GrGLFormat {
+    kUnknown,
+
+    kRGBA8,
+    kR8,
+    kALPHA8,
+    kLUMINANCE8,
+    kBGRA8,
+    kRGB565,
+    kRGBA16F,
+    kR16F,
+    kRGB8,
+    kRG8,
+    kRGB10_A2,
+    kRGBA4,
+    kSRGB8_ALPHA8,
+    kCOMPRESSED_RGB8_ETC2,
+    kCOMPRESSED_ETC1_RGB8,
+    kR16,
+    kRG16,
+    kRGBA16,
+    kRG16F,
+    kLUMINANCE16F,
+
+    kLast = kLUMINANCE16F
 };
 ///////////////////////////////////////////////////////////////////////////////
 /**

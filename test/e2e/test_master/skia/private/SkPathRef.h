@@ -354,15 +354,14 @@ public:
   bool isValid() const;
   SkDEBUGCODE(void validate() const { SkASSERT(this->isValid()); } )
 private:
-  enum SerializationOffsets
-  {
-    kLegacyRRectOrOvalStartIdx_SerializationShift = 28,
-    kLegacyRRectOrOvalIsCCW_SerializationShift = 27,
-    kLegacyIsRRect_SerializationShift = 26,
-    kIsFinite_SerializationShift = 25,
-    kLegacyIsOval_SerializationShift = 24,
-    kSegmentMask_SerializationShift = 0
-  };
+  enum SerializationOffsets {
+        kLegacyRRectOrOvalStartIdx_SerializationShift = 28, // requires 3 bits, ignored.
+        kLegacyRRectOrOvalIsCCW_SerializationShift = 27,    // requires 1 bit, ignored.
+        kLegacyIsRRect_SerializationShift = 26,             // requires 1 bit, ignored.
+        kIsFinite_SerializationShift = 25,                  // requires 1 bit
+        kLegacyIsOval_SerializationShift = 24,              // requires 1 bit, ignored.
+        kSegmentMask_SerializationShift = 0                 // requires 4 bits (deprecated)
+    };
   SkPathRef()
   {
     fBoundsIsDirty = true;
@@ -475,18 +474,16 @@ private:
     return fPoints.begin();
   }
   void callGenIDChangeListeners();
-  enum
-  {
-    kMinSize = 256
-  };
+  enum {
+        kMinSize = 256,
+    };
   mutable SkRect fBounds;
   SkTDArray<SkPoint> fPoints;
   SkTDArray<uint8_t> fVerbs;
   SkTDArray<SkScalar> fConicWeights;
-  enum
-  {
-    kEmptyGenID = 1
-  };
+  enum {
+        kEmptyGenID = 1, // GenID reserved for path ref with zero points and zero verbs.
+    };
   mutable uint32_t fGenerationID;
   SkDEBUGCODE(std::atomic<int> fEditorsAttached;)
   SkMutex fGenIDChangeListenersMutex;

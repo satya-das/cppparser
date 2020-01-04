@@ -97,12 +97,7 @@ public:
     //Display the editor as child of the active popup window
     //Return kUseDefault if you want to instruct the host application to
     //display the default filter dialog.
-  enum DialogResult
-  {
-    kOk = 0,
-    kCancel = 1,
-    kUseDefault = 2
-  };
+  enum DialogResult {kOk = 0, kCancel=1, kUseDefault = 2};
   virtual DialogResult showEditor();
   virtual const ACHAR* filterExpression() const;
   virtual Acad::ErrorStatus setFilterExpression(const ACHAR* expr);

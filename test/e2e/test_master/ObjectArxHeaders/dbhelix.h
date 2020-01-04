@@ -39,24 +39,26 @@ public:
     /// Special constrain type values. 
     /// </summary>
     /// 
-  enum ConstrainType
-  {
+  enum ConstrainType {
+        
         /// <summary>
         /// Constrain turn height. 
         /// </summary>
         /// 
-    kTurnHeight = 0,
+        kTurnHeight = 0,
+
         /// <summary>
         /// Constrain turns. 
         /// </summary>
         /// 
-    kTurns = 1,
+        kTurns      = 1,
+
         /// <summary>
         /// Constrain height. 
         /// </summary>
         /// 
-    kHeight = 2
-  };
+        kHeight     = 2
+    };
   ACDB_DECLARE_MEMBERS(AcDbHelix);
     /// <summary>
     /// Default constructor.

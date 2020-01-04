@@ -35,25 +35,27 @@ public:
     /// <summary>
     /// This enumeration defines the crop type (i.e., the shape of the cropping region).
     /// </summary>
-  enum CropType
-  {
+  enum CropType {
         /// <summary>
         /// Undefined type
         /// </summary>
-    kInvalid = 0,
+        kInvalid = 0,
+
         /// <summary>
         /// Rectangular type
         /// </summary>
-    kRectangular,
+        kRectangular,
+
         /// <summary>
         /// Polygonal type
         /// </summary>
-    kPolygonal,
+        kPolygonal,
+
         /// <summary>
         /// Circle type
         /// </summary>
-    kCircular
-  };
+        kCircular
+    };
     /// <summary>
     /// Default constructor
     /// </summary>

@@ -21,12 +21,11 @@ public:
   {
     memcpy(dst, fMat, sizeof(fMat));
   }
-  enum Axis
-  {
-    kR_Axis = 0,
-    kG_Axis = 1,
-    kB_Axis = 2
-  };
+  enum Axis {
+        kR_Axis = 0,
+        kG_Axis = 1,
+        kB_Axis = 2
+    };
   void setRotate(Axis, float degrees);
   void setSinCos(Axis, float sine, float cosine);
   void preRotate(Axis, float degrees);

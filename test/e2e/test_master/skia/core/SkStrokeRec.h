@@ -13,21 +13,19 @@ SK_BEGIN_REQUIRE_DENSE
 class SK_API SkStrokeRec
 {
 public:
-  enum InitStyle
-  {
-    kHairline_InitStyle,
-    kFill_InitStyle
-  };
+  enum InitStyle {
+        kHairline_InitStyle,
+        kFill_InitStyle
+    };
   SkStrokeRec(InitStyle style);
   SkStrokeRec(const SkPaint&, SkPaint::Style, SkScalar resScale = 1);
   explicit SkStrokeRec(const SkPaint&, SkScalar resScale = 1);
-  enum Style
-  {
-    kHairline_Style,
-    kFill_Style,
-    kStroke_Style,
-    kStrokeAndFill_Style
-  };
+  enum Style {
+        kHairline_Style,
+        kFill_Style,
+        kStroke_Style,
+        kStrokeAndFill_Style
+    };
   static int kStyleCount = kStrokeAndFill_Style + 1;
   Style getStyle() const;
   SkScalar getWidth() const

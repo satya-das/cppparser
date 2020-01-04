@@ -72,10 +72,9 @@ class SkTextBlob;
 */
 class SK_API SkCanvas
 {
-  enum PrivateSaveLayerFlags
-  {
-    kDontClipToLayer_PrivateSaveLayerFlag = 1U << 31
-  };
+  enum PrivateSaveLayerFlags {
+        kDontClipToLayer_PrivateSaveLayerFlag   = 1U << 31,
+    };
 public:
     /** Allocates raster SkCanvas that will draw directly into pixels.
 
@@ -173,10 +172,9 @@ public:
 #  ifdef SK_BUILD_FOR_ANDROID_FRAMEWORK
     /** Private.
      */
-  enum class ColorBehavior
-  {
-    kLegacy
-  };
+  enum class ColorBehavior {
+        kLegacy, //!< placeholder
+    };
     /** Private. For use by Android framework only.
 
         @param bitmap    specifies a bitmap for the canvas to draw into
@@ -539,17 +537,18 @@ public:
         defining how layer allocated by saveLayer() operates. It may be set to zero,
         kPreserveLCDText_SaveLayerFlag, kInitWithPrevious_SaveLayerFlag, or both flags.
     */
-  enum SaveLayerFlagsSet
-  {
+  enum SaveLayerFlagsSet {
         // kPreserveLCDText_SaveLayerFlag  = 1 << 1, (no longer used)
-    kInitWithPrevious_SaveLayerFlag = 1 << 2,
-    kMaskAgainstCoverage_EXPERIMENTAL_DONT_USE_SaveLayerFlag = 1 << 3,
+        kInitWithPrevious_SaveLayerFlag = 1 << 2, //!< initializes with previous contents
+        kMaskAgainstCoverage_EXPERIMENTAL_DONT_USE_SaveLayerFlag =
+                                          1 << 3, //!< experimental: do not use
         // instead of matching previous layer's colortype, use F16
-    kF16ColorType = 1 << 4,
-#  ifdef SK_SUPPORT_LEGACY_CLIPTOLAYERFLAG
-    kDontClipToLayer_Legacy_SaveLayerFlag = kDontClipToLayer_PrivateSaveLayerFlag,
-#  endif
-  };
+        kF16ColorType                   = 1 << 4,
+#ifdef SK_SUPPORT_LEGACY_CLIPTOLAYERFLAG
+        kDontClipToLayer_Legacy_SaveLayerFlag =
+           kDontClipToLayer_PrivateSaveLayerFlag, //!< deprecated
+#endif
+    };
   typedef uint32_t SaveLayerFlags;
     /** \struct SkCanvas::SaveLayerRec
         SaveLayerRec contains the state used to create the layer.
@@ -995,12 +994,11 @@ public:
         Selects if an array of points are drawn as discrete points, as lines, or as
         an open polygon.
     */
-  enum PointMode
-  {
-    kPoints_PointMode,
-    kLines_PointMode,
-    kPolygon_PointMode
-  };
+  enum PointMode {
+        kPoints_PointMode,  //!< draw each point separately
+        kLines_PointMode,   //!< draw each pair of points as a line segment
+        kPolygon_PointMode, //!< draw the array of points as a open polygon
+    };
     /** Draws pts using clip, SkMatrix and SkPaint paint.
         count is the number of points; if count is less than one, has no effect.
         mode may be one of: kPoints_PointMode, kLines_PointMode, or kPolygon_PointMode.
@@ -1265,11 +1263,10 @@ public:
         SrcRectConstraint specifies whether an SkImageFilter is allowed to read pixels
         outside source SkRect.
     */
-  enum SrcRectConstraint
-  {
-    kStrict_SrcRectConstraint,
-    kFast_SrcRectConstraint
-  };
+  enum SrcRectConstraint {
+        kStrict_SrcRectConstraint, //!< sample only inside bounds; slower
+        kFast_SrcRectConstraint,   //!< sample outside bounds; faster
+    };
     /** Draws SkRect src of SkImage image, scaled and translated to fill SkRect dst.
         Additionally transform draw using clip, SkMatrix, and optional SkPaint paint.
 
@@ -1619,12 +1616,11 @@ public:
             Optional setting per rectangular grid entry to make it transparent,
             or to fill the grid entry with a color.
         */
-    enum RectType : uint8_t
-    {
-      kDefault = 0,
-      kTransparent,
-      kFixedColor
-    };
+    enum RectType : uint8_t {
+            kDefault     = 0, //!< draws SkBitmap into lattice rectangle
+            kTransparent,     //!< skips lattice rectangle by making it transparent
+            kFixedColor,      //!< draws one of fColors into lattice rectangle
+        };
     const int* fXDivs;
     const int* fYDivs;
     const RectType* fRectTypes;
@@ -1694,15 +1690,15 @@ public:
     /**
      * Experimental. Controls anti-aliasing of each edge of images in an image-set.
      */
-  enum QuadAAFlags : unsigned
-  {
-    kLeft_QuadAAFlag = 0b0001,
-    kTop_QuadAAFlag = 0b0010,
-    kRight_QuadAAFlag = 0b0100,
-    kBottom_QuadAAFlag = 0b1000,
-    kNone_QuadAAFlags = 0b0000,
-    kAll_QuadAAFlags = 0b1111
-  };
+  enum QuadAAFlags : unsigned {
+        kLeft_QuadAAFlag    = 0b0001,
+        kTop_QuadAAFlag     = 0b0010,
+        kRight_QuadAAFlag   = 0b0100,
+        kBottom_QuadAAFlag  = 0b1000,
+
+        kNone_QuadAAFlags   = 0b0000,
+        kAll_QuadAAFlags    = 0b1111,
+    };
     /** This is used by the experimental API below. */
   struct SK_API ImageSetEntry
   {
@@ -2241,11 +2237,10 @@ protected:
     // Subclass save/restore notifiers.
     // Overriders should call the corresponding INHERITED method up the inheritance chain.
     // getSaveLayerStrategy()'s return value may suppress full layer allocation.
-  enum SaveLayerStrategy
-  {
-    kFullLayer_SaveLayerStrategy,
-    kNoLayer_SaveLayerStrategy
-  };
+  enum SaveLayerStrategy {
+        kFullLayer_SaveLayerStrategy,
+        kNoLayer_SaveLayerStrategy,
+    };
   virtual void willSave()
   {
   }
@@ -2311,11 +2306,10 @@ protected:
   virtual void onDrawPicture(const SkPicture* picture, const SkMatrix* matrix, const SkPaint* paint);
   virtual void onDrawEdgeAAQuad(const SkRect& rect, const SkPoint clip[4], QuadAAFlags aaFlags, const SkColor4f& color, SkBlendMode mode);
   virtual void onDrawEdgeAAImageSet(const ImageSetEntry imageSet[], int count, const SkPoint dstClips[], const SkMatrix preViewMatrices[], const SkPaint* paint, SrcRectConstraint constraint);
-  enum ClipEdgeStyle
-  {
-    kHard_ClipEdgeStyle,
-    kSoft_ClipEdgeStyle
-  };
+  enum ClipEdgeStyle {
+        kHard_ClipEdgeStyle,
+        kSoft_ClipEdgeStyle
+    };
   virtual void onClipRect(const SkRect& rect, SkClipOp op, ClipEdgeStyle edgeStyle);
   virtual void onClipRRect(const SkRRect& rrect, SkClipOp op, ClipEdgeStyle edgeStyle);
   virtual void onClipPath(const SkPath& path, SkClipOp op, ClipEdgeStyle edgeStyle);
@@ -2367,12 +2361,11 @@ private:
   };
   static bool BoundsAffectsClip(SaveLayerFlags);
   static void DrawDeviceWithFilter(SkBaseDevice* src, const SkImageFilter* filter, SkBaseDevice* dst, const SkIPoint& dstOrigin, const SkMatrix& ctm);
-  enum ShaderOverrideOpacity
-  {
-    kNone_ShaderOverrideOpacity,
-    kOpaque_ShaderOverrideOpacity,
-    kNotOpaque_ShaderOverrideOpacity
-  };
+  enum ShaderOverrideOpacity {
+        kNone_ShaderOverrideOpacity,        //!< there is no overriding shader (bitmap or image)
+        kOpaque_ShaderOverrideOpacity,      //!< the overriding shader is opaque
+        kNotOpaque_ShaderOverrideOpacity,   //!< the overriding shader may not be opaque
+    };
     // notify our surface (if we have one) that we are about to draw, so it
     // can perform copy-on-write or invalidate any cached images
   void predrawNotify(bool willOverwritesEntireSurface = false);

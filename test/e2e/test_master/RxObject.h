@@ -25,10 +25,7 @@
 class OdRxClass;
 class OdRxObject;
 class OdRxModule;
-enum OdRxObjMod
-{
-  kOdRxObjAttach
-};
+enum OdRxObjMod { kOdRxObjAttach };
 /** Description: 
     Declares the RunTime Type Identification functions required by OdRxObject objects. 
      
@@ -181,12 +178,11 @@ ODRX_DEFINE_PSEUDOCONSTRUCTOR(ClassName,NEWOBJ_CONSTR)
 */
 namespace OdRx
 {
-  enum Ordering
-  {
-    kLessThan = -1,
-    kEqual = 0,
-    kGreaterThan = 1,
-    kNotOrderable = 2
+  enum Ordering { 
+    kLessThan     =-1, // This object < Specified Object 
+    kEqual        = 0, // This object == Specified Object 
+    kGreaterThan  = 1, // This object > Specified Object 
+    kNotOrderable = 2  // These objects cannot be ordered. 
   };
 }
 /** Description: 

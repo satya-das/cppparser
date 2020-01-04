@@ -51,12 +51,11 @@ public:
     return this->onAsAColorMatrix(matrix);
   }
   bool appendStages(const SkStageRec& rec, bool shaderIsOpaque) const;
-  enum Flags
-  {
+  enum Flags {
         /** If set the filter methods will not change the alpha channel of the colors.
         */
-    kAlphaUnchanged_Flag = 1 << 0
-  };
+        kAlphaUnchanged_Flag = 1 << 0,
+    };
     /** Returns the flags for this filter. Override in subclasses to return custom flags.
     */
   virtual uint32_t getFlags() const

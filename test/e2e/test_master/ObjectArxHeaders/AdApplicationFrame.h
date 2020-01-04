@@ -104,69 +104,64 @@ public:
     /// <summary>
     /// Size constants for the Autodesk Application Frame.
     /// </summary>                                                  
-  enum Ad_AppFrame_Const
-  {
-    kAdApplicationStatusBarHeight_Min = 24,
-    kAdDefaultDpi = 96
-  };
+  enum Ad_AppFrame_Const {
+        kAdApplicationStatusBarHeight_Min = 24,                     // Minimum height of Application Status Bar
+        kAdDefaultDpi = 96
+    };
     /// <summary>
     /// The state of DocumentControl's host window. 
     /// </summary>                                  
-  enum Ad_HostWindow_States
-  {
-    kAd_DocumentActivated = 1,
-    kAd_MenuSelect = 2,
-    kAd_MDIStateChanged = 3,
-    kAd_WindowPosChanged = 4,
-    kAd_SessionInit = 5,
-    kAd_SessionDone = 6,
-    kAd_SettingChanged = 7,
-    kAd_MDIMetricsChanged = 8,
-    kAd_SetWindowText = 9,
-    kAd_VisibilityChanged = 10,
-    kAd_GetWindowText = 11,
-    kAd_GetWindowTextLen = 12,
-    kAd_SysColorChanged = 13
-  };
+  enum Ad_HostWindow_States {
+        kAd_DocumentActivated = 1,
+        kAd_MenuSelect        = 2,
+        kAd_MDIStateChanged   = 3,
+        kAd_WindowPosChanged  = 4,
+        kAd_SessionInit       = 5,
+        kAd_SessionDone       = 6,
+        kAd_SettingChanged    = 7,
+        kAd_MDIMetricsChanged = 8,
+        kAd_SetWindowText     = 9,
+        kAd_VisibilityChanged = 10,
+        kAd_GetWindowText     = 11,
+        kAd_GetWindowTextLen  = 12,
+        kAd_SysColorChanged   = 13
+    };
     /// <summary>
     /// VisualElement's index order for the Autodesk Application
     /// Frame. 
     /// </summary>                                              
-  enum Ad_AppFrame_ToolTipId
-  {
-    kAd_ToolId_ApplicationButton = 1000
-  };
+  enum Ad_AppFrame_ToolTipId {
+        kAd_ToolId_ApplicationButton    = 1000,
+    };
     /// <summary>
     /// Callback ID list for the AppFrame. 
     /// </summary>                         
-  enum Ad_Callback_Index
-  {
-    kAd_ApplicationButton_IsOpen,
-    kAd_ApplicationButton_ShowSmallButton,
-    kAd_ToolTip_Close,
-    kAd_ToolTip_Show,
-    kAd_MenuBar_Show,
-    kAd_MenuBar_ExecuteMenuItem,
-    kAd_WorkSpaceInfo,
-    kAd_GetProductName,
-    kAd_Ribbon_IsDockedTop,
-    kAd_ACAD_InPlotPreview,
-    kAd_ACAD_GetDataSource,
-    kAd_RecalcLayout,
-    kAd_StayActive,
-    kAd_GetMDIClient,
-    kAd_MDIGetActive,
-    kAd_SkipStandardBackgroundDraw,
-    kAd_SkipProductNameUpdate
-  };
+  enum Ad_Callback_Index {
+        kAd_ApplicationButton_IsOpen,
+        kAd_ApplicationButton_ShowSmallButton,
+        kAd_ToolTip_Close,
+        kAd_ToolTip_Show,
+        kAd_MenuBar_Show,
+        kAd_MenuBar_ExecuteMenuItem,
+        kAd_WorkSpaceInfo,
+        kAd_GetProductName,
+        kAd_Ribbon_IsDockedTop,
+        kAd_ACAD_InPlotPreview,
+        kAd_ACAD_GetDataSource,
+        kAd_RecalcLayout,
+        kAd_StayActive,
+        kAd_GetMDIClient,
+        kAd_MDIGetActive,
+        kAd_SkipStandardBackgroundDraw,
+        kAd_SkipProductNameUpdate
+    };
     /// <summary>
     /// Defines the Client application character set, this defaults to Unicode
     /// </summary>                                          
-  enum Ad_Product_Character_Set
-  {
-    kAd_Unicode,
-    kAd_MBCS
-  };
+  enum Ad_Product_Character_Set {
+        kAd_Unicode,
+        kAd_MBCS
+    };
   static void SetResourcesPath(LPCWSTR lpszName);
   static AdApplicationFrame* CreateInstance(HWND hWndMainFrame);
   virtual ~AdApplicationFrame();

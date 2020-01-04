@@ -17,15 +17,15 @@
 class SK_API SkAndroidCodec :  SkNoncopyable
 {
 public:
-  enum class ExifOrientationBehavior
-  {
+  enum class ExifOrientationBehavior {
         /**
          *  Ignore any exif orientation markers in the data.
          *
          *  getInfo's width and height will match the header of the image, and
          *  no processing will be done to match the marker.
          */
-    kIgnore,
+        kIgnore,
+
         /**
          *  Respect the exif orientation marker.
          *
@@ -34,8 +34,8 @@ public:
          *  rotation by 90 degrees, they will be swapped relative to the header.
          *  getAndroidPixels will apply the orientation as well.
          */
-    kRespect
-  };
+        kRespect,
+    };
     /**
      *  Pass ownership of an SkCodec to a newly-created SkAndroidCodec.
      */

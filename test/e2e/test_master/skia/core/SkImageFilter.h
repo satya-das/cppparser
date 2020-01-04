@@ -30,14 +30,13 @@ public:
   class CropRect
   {
   public:
-    enum CropEdge
-    {
-      kHasLeft_CropEdge = 0x01,
-      kHasTop_CropEdge = 0x02,
-      kHasWidth_CropEdge = 0x04,
-      kHasHeight_CropEdge = 0x08,
-      kHasAll_CropEdge = 0x0F
-    };
+    enum CropEdge {
+            kHasLeft_CropEdge   = 0x01,
+            kHasTop_CropEdge    = 0x02,
+            kHasWidth_CropEdge  = 0x04,
+            kHasHeight_CropEdge = 0x08,
+            kHasAll_CropEdge    = 0x0F,
+        };
     CropRect()
     {
     }
@@ -69,11 +68,10 @@ public:
     SkRect fRect;
     uint32_t fFlags;
   };
-  enum MapDirection
-  {
-    kForward_MapDirection,
-    kReverse_MapDirection
-  };
+  enum MapDirection {
+        kForward_MapDirection,
+        kReverse_MapDirection,
+    };
     /**
      * Map a device-space rect recursively forward or backward through the filter DAG.
      * kForward_MapDirection is used to determine which pixels of the destination canvas a source

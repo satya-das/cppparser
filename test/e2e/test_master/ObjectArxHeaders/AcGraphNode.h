@@ -26,10 +26,9 @@ public:
   typedef Adesk::UInt32 Id;
     /// <summary> Null node id </summary>
     ///
-  enum
-  {
-    kNullId = 0
-  };
+  enum {
+		kNullId = 0
+	};
     /// <summary> 
     /// Returns id of the Id object. Each AcGraphNode object has a unique id 
     /// </summary>

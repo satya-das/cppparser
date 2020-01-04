@@ -41,20 +41,18 @@ public:
   static ClassVersion classVersion();
   ACRX_DECLARE_MEMBERS(AcDbRasterVariables);
     // Enums, for the allowable variable values
-  enum FrameSettings
-  {
-    kImageFrameInvalid = -1,
-    kImageFrameOff = 0,
-    kImageFrameAbove = 1,
-    kImageFrameBelow = 2,
-    kImageFrameOnNoPlot = 3
-  };
-  enum ImageQuality
-  {
-    kImageQualityInvalid = -1,
-    kImageQualityDraft = 0,
-    kImageQualityHigh = 1
-  };
+  enum FrameSettings {
+        kImageFrameInvalid  = -1,
+        kImageFrameOff      =  0,
+        kImageFrameAbove    =  1,
+        kImageFrameBelow    =  2,
+        kImageFrameOnNoPlot =  3
+    };
+  enum ImageQuality {
+        kImageQualityInvalid = -1,
+        kImageQualityDraft = 0,
+        kImageQualityHigh  = 1
+    };
   static AcDbRasterVariables* create();
   AcDbRasterVariables();
   virtual ~AcDbRasterVariables();

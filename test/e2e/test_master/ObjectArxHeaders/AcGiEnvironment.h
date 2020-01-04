@@ -237,71 +237,61 @@ public:
 // The available filtering methods (kernels) used to combine samples into
 // a pixel color.
 //
-typedef enum
-{
-  krBox = 0,
-  krTriangle,
-  krGauss,
-  krMitchell,
-  krLanczos
+typedef enum {
+    krBox = 0,
+    krTriangle,
+    krGauss,
+    krMitchell,
+    krLanczos
 } AcGiMrFilter;
 // The available methods for computing ray-traced shadows.
 // 
-typedef enum
-{
-  krSimple = 0,
-  krSorted,
-  krSegments
+typedef enum {
+    krSimple = 0,
+    krSorted,
+    krSegments
 } AcGiMrShadowMode;
-typedef enum
-{
-  krOff = 0,
-  krGrid,
-  krPhoton,
-  krSamples,
-  krBSP
+typedef enum {
+    krOff = 0,
+    krGrid,
+    krPhoton,
+    krSamples,
+    krBSP
 } AcGiMrDiagnosticMode;
-typedef enum
-{
-  krObject = 0,
-  krWorld,
-  krCamera
+typedef enum {
+    krObject = 0,
+    krWorld,
+    krCamera
 } AcGiMrDiagnosticGridMode;
-typedef enum
-{
-  krDensity = 0,
-  krIrradiance
+typedef enum {
+    krDensity = 0,
+    krIrradiance
 } AcGiMrDiagnosticPhotonMode;
-typedef enum
-{
-  krDepth = 0,
-  krSize
+typedef enum {
+    krDepth = 0,
+    krSize
 } AcGiMrDiagnosticBSPMode;
-typedef enum
-{
-  krHilbert = 0,
-  krSpiral,
-  krLeftToRight,
-  krRightToLeft,
-  krTopToBottom,
-  krBottomToTop
+typedef enum {
+    krHilbert = 0,
+    krSpiral,
+    krLeftToRight,
+    krRightToLeft,
+    krTopToBottom,
+    krBottomToTop
 } AcGiMrTileOrder;
-typedef enum
-{
-  krAutomatic = 0,
-  krLogarithmic
+typedef enum {
+    krAutomatic = 0,
+    krLogarithmic
 } AcGiMrExposureType;
-typedef enum
-{
-  krFinalGatherOff = 0,
-  krFinalGatherOn,
-  krFinalGatherAuto
+typedef enum {
+    krFinalGatherOff = 0,
+    krFinalGatherOn,
+    krFinalGatherAuto
 } AcGiMrFinalGatheringMode;
-typedef enum
-{
-  krExportMIOff = 0,
-  krExportMIWithRender,
-  krExportMIOnly
+typedef enum {
+    krExportMIOff = 0,
+    krExportMIWithRender,
+    krExportMIOnly
 } AcGiMrExportMIMode;
 class ACDBCORE2D_PORT AcGiMentalRayRenderSettingsTraits : public AcGiRenderSettingsTraits
 {
@@ -416,33 +406,32 @@ typedef enum
 /// <summary>
 /// Filter Type.
 /// </summary>
-typedef enum
-{
+typedef enum {
     /// <summary>
     /// Box filter type
     /// Default size: 1.0
     /// </summary>
-  krEBox = 0,
+    krEBox = 0,
     /// <summary>
     /// Triangle filter type
     /// Default size: 2.0
     /// </summary>
-  krETriangle,
+    krETriangle,
     /// <summary>
     /// Gaussian filter type
     /// Default size: 3.0
     /// </summary>
-  krEGaussian,
+    krEGaussian,
     /// <summary>
     /// Lanczos filter type
     /// Default size: 4.0
     /// </summary>
-  krELanczos,
+    krELanczos,
     /// <summary>
     /// Mitchell filter type
     /// Default size: 4.0
     /// </summary>
-  krEMitchell
+    krEMitchell
 } AcGiFilterType;
 /// <summary>
 /// Abstract interface class that controls all the rendering settings.
@@ -686,21 +675,20 @@ public:
     /// <summary>
     /// The exterior daylight mode.
     /// </summary>
-  enum ExteriorDaylightMode
-  {
+  enum ExteriorDaylightMode {
         /// <summary>
         /// Off.
         /// </summary>
-    kDaylightOff = 0,
+        kDaylightOff = 0,
         /// <summary>
         /// On.
         /// </summary>
-    kDaylightOn,
+        kDaylightOn,
         /// <summary>
         /// Auto - key off of the sun/sky background status.
         /// </summary>
-    kDaylightAuto
-  };
+        kDaylightAuto
+    };
     /// <summary>
     /// Indicates whether or not exterior daylight is enabled.
     /// </summary>

@@ -28,11 +28,10 @@ namespace Atil
   class Image;
   class FileReadDescriptor;
 }
-enum ClassVersion
-{
-  kVersion1 = 0,
-  kVersion2 = 1,
-  kVersion3 = 2
+enum ClassVersion {
+    kVersion1   = 0,    // S039 Oct 21, 1996
+    kVersion2   = 1,    // S052 Jan 16, 1996
+    kVersion3   = 2     // S061 Mar 21, 1997
 };
 // Make compiler shut up
 //
@@ -99,30 +98,29 @@ public:
   virtual const ACHAR* fileType() const;
   virtual int entityCount(Adesk::Boolean* pbLocked = 0) const;
   virtual void updateEntities() const;
-  enum Units
-  {
-    kNone = 0,
-    kMillimeter = 1,
-    kCentimeter = 2,
-    kMeter = 3,
-    kKilometer = 4,
-    kInch = 5,
-    kFoot = 6,
-    kYard = 7,
-    kMile = 8,
-    kMicroinches = 9,
-    kMils = 10,
-    kAngstroms = 11,
-    kNanometers = 12,
-    kMicrons = 13,
-    kDecimeters = 14,
-    kDekameters = 15,
-    kHectometers = 16,
-    kGigameters = 17,
-    kAstronomical = 18,
-    kLightYears = 19,
-    kParsecs = 20
-  };
+  enum Units {
+        kNone           = 0,
+        kMillimeter     = 1,
+        kCentimeter     = 2,
+        kMeter          = 3,
+        kKilometer      = 4,
+        kInch           = 5,
+        kFoot           = 6,
+        kYard           = 7,
+        kMile           = 8,
+        kMicroinches    = 9,
+        kMils           = 10,
+        kAngstroms      = 11,
+        kNanometers     = 12,
+        kMicrons        = 13,
+        kDecimeters     = 14,
+        kDekameters     = 15,
+        kHectometers    = 16,
+        kGigameters     = 17,
+        kAstronomical   = 18,
+        kLightYears     = 19,
+        kParsecs        = 20
+    };
   virtual Acad::ErrorStatus setResolutionMMPerPixel(const AcGeVector2d& resMMPerPixel);
   virtual AcGeVector2d resolutionMMPerPixel() const;
   virtual void setResolutionUnits(AcDbRasterImageDef::Units units);
@@ -182,10 +180,7 @@ public:
     // Use the following enum constant for the buffer size of
     // of newImageName.
     //
-  enum
-  {
-    kMaxSuggestNameSize = 2049
-  };
+  enum { kMaxSuggestNameSize = 2049 };
   static Acad::ErrorStatus suggestName(AcDbDictionary* pImageDictionary, const ACHAR* pNewImagePathName, ACHAR* newImageName, size_t nSize);
 private:
     // Data members
@@ -226,11 +221,10 @@ public:
   virtual void modified(const AcDbObject* dbObj) override;
     // Delete image notification.
     //
-  enum DeleteImageEvent
-  {
-    kUnload = 1,
-    kErase = 2
-  };
+  enum DeleteImageEvent {
+        kUnload     = 1,
+        kErase      = 2,
+    };
   virtual Adesk::Boolean onDeleteImage(const AcDbRasterImageDef* pImageDef, const Atil::Image* pImage, DeleteImageEvent event, Adesk::Boolean cancelAllowed);
     // Enable/disable notification actions
     //

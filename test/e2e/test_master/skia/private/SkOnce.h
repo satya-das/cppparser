@@ -38,12 +38,7 @@ public:
     }
   }
 private:
-  enum State : uint8_t
-  {
-    NotStarted,
-    Claimed,
-    Done
-  };
+  enum State : uint8_t { NotStarted, Claimed, Done};
   std::atomic<uint8_t> fState{NotStarted};
 };
 #endif

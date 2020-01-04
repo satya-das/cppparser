@@ -12,26 +12,26 @@ class SkWStream;
 class SK_API SkJpegEncoder : public SkEncoder
 {
 public:
-  enum class AlphaOption
-  {
-    kIgnore,
-    kBlendOnBlack
-  };
-  enum class Downsample
-  {
+  enum class AlphaOption {
+        kIgnore,
+        kBlendOnBlack,
+    };
+  enum class Downsample {
         /**
          *  Reduction by a factor of two in both the horizontal and vertical directions.
          */
-    k420,
+        k420,
+
         /**
          *  Reduction by a factor of two in the horizontal direction.
          */
-    k422,
+        k422,
+
         /**
          *  No downsampling.
          */
-    k444
-  };
+        k444,
+    };
   struct Options
   {
         /**

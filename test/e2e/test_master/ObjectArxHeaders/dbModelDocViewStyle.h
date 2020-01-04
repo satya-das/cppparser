@@ -36,20 +36,18 @@ public:
     /// <summary>
     /// Enumeration defining attachment point for label
     /// </summary>
-  enum AttachmentPoint
-  {
-    kAboveView = 0,
-    kBelowView = 1
-  };
+  enum AttachmentPoint {
+        kAboveView    = 0,
+        kBelowView    = 1,
+    };
     /// <summary>
     /// Enumeration defining label text alignment
     /// </summary>
-  enum TextAlignment
-  {
-    kTextAlignmentLeft = 0,
-    kTextAlignmentCenter = 1,
-    kTextAlignmentRight = 2
-  };
+  enum TextAlignment {
+        kTextAlignmentLeft   = 0,
+        kTextAlignmentCenter = 1,
+        kTextAlignmentRight  = 2,
+    };
     /// <summary>
     /// Default destructor.
     /// </summary>

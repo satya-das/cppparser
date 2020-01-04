@@ -611,13 +611,13 @@ public:
     /// Special AcDbEvalNodeId values. 
     /// </summary>
     /// 
-  enum NodeId
-  {
+  enum NodeId {
+        
         /// <summary>
         /// Null node Id. 
         /// </summary>
-    kNullNodeId = 0
-  };
+        kNullNodeId = 0
+    };
   ACDB_DECLARE_MEMBERS(AcDbEvalGraph);
     /// <summary>
     /// Default constructor, constructs an empty graph.

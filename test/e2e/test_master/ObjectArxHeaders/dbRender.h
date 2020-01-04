@@ -774,33 +774,32 @@ public:
     /// <summary>
     /// The shadow sampling multiplier for area lights.
     /// </summary>
-  enum ShadowSamplingMultiplier
-  {
+  enum ShadowSamplingMultiplier {
         /// <summary>
         /// Zero.
         /// </summary>
-    kSamplingMultiplierZero = 0,
+        kSamplingMultiplierZero = 0,
         /// <summary>
         /// One-eighth.
         /// </summary>
-    kSamplingMultiplierOneEighth,
+        kSamplingMultiplierOneEighth,
         /// <summary>
         /// One-fourth.
         /// </summary>
-    kSamplingMultiplierOneFourth,
+        kSamplingMultiplierOneFourth,
         /// <summary>
         /// One-half.
         /// </summary>
-    kSamplingMultiplierOneHalf,
+        kSamplingMultiplierOneHalf,
         /// <summary>
         /// One.
         /// </summary>
-    kSamplingMultiplierOne,
+        kSamplingMultiplierOne,
         /// <summary>
         /// Two.
         /// </summary>
-    kSamplingMultiplierTwo
-  };
+        kSamplingMultiplierTwo
+    };
     /// <summary>
     /// Specifies the shadow sampling multiplier for area lights.
     /// </summary>
@@ -839,21 +838,20 @@ public:
 	/// <summary>
 	/// Render, Target Quit Condition
 	/// </summary>
-  enum RenderTarget
-  {
+  enum RenderTarget {
         /// <summary>
 	    /// By Render Level (iteration)
 	    /// </summary>
-    krLevel = 0,
+		krLevel    = 0,
         /// <summary>
 	    /// By Render Time
 	    /// </summary>
-    krTime = 1,
+		krTime     = 1,
         /// <summary>
 	    /// Until user abort
 	    /// </summary>
-    krInfinite = 2
-  };
+        krInfinite = 2
+	};
 	/// <summary>
 	/// Constructor.
 	/// </summary>
@@ -1092,36 +1090,37 @@ public:
     /// <summary>
     /// The available types of view content to render (render procedures).
     /// </summary>
-  enum Procedure
-  {
+  enum Procedure {
         /// <summary>
         /// Render the complete contents of the view.
         /// </summary>
-    krView = 0,
+        krView = 0,
+
         /// <summary>
         /// Render only the user-defined rectangular region of the view.
         /// </summary>
-    krCrop,
+        krCrop,
+
         /// <summary>
         /// Render only the selected objects in the view.
         /// Deprecated for RapidRT
         /// </summary>
-    krSelected
-  };
+        krSelected
+    };
     /// <summary>
     /// The available output targets for rendering.
     /// </summary>
-  enum Destination
-  {
+  enum Destination {
         /// <summary>
         /// The rendered image appears in the separate Render window.
         /// </summary>
-    krWindow = 0,
+        krWindow = 0,
+
         /// <summary>
         /// The rendered image appears directly in the current viewport.
         /// </summary>
-    krViewport
-  };
+        krViewport
+    };
     /// <summary>
     /// Constructor.
     /// </summary>

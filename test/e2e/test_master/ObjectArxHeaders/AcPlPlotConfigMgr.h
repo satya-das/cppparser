@@ -19,12 +19,11 @@
 class AcPlPlotConfig;
 class HT_Thin_Plot_Config_Manager;
 class HT_Error_Handler;
-enum DeviceType
-{
-  kSystemPrinter = 0,
-  kPC3File = 1,
-  kOneOffConfig = 2,
-  kUninitialized = -1
+enum DeviceType {
+    kSystemPrinter = 0,
+    kPC3File = 1,
+    kOneOffConfig = 2,      // for internal use only
+    kUninitialized = -1
 };
 class AcPlPlotConfigInfo : public AcPlObject
 {
@@ -62,43 +61,40 @@ class ADESK_NO_VTABLE AcPlPlotConfigManager
 {
 public:
     // Refresh Codes
-  enum RefreshCode
-  {
-    kAll,
-    kRefreshDevicesList,
-    kRefreshStyleList,
-    kRefreshSystemDevicesList,
-    kRefreshPC3DevicesList
-  };
+  enum RefreshCode {
+        kAll,
+        kRefreshDevicesList,
+        kRefreshStyleList,
+        kRefreshSystemDevicesList,
+        kRefreshPC3DevicesList
+    };
     // Different type of plot style tables
-  enum StyTypes
-  {
-    kUndefined = 0,
-    kRegular = 0x01,
-    kTranslation = 0x02,
-    kColorDep = 0x04,
-    kAllTypes = 0x07
-  };
+  enum StyTypes {
+        kUndefined      = 0,
+        kRegular        = 0x01,
+        kTranslation    = 0x02,
+        kColorDep       = 0x04,
+        kAllTypes       = 0x07
+    };
     // List of standard pc3 files that are installed by default
-  enum StdConfigs
-  {
-    kNoneDevice,
-    kDefaultWindowsSysPrinter,
-    kDWF6ePlot,
-    kDWFePlotOptForPlotting,
-    kDWFePlotOptForViewing,
-    kPublishToWebDWF,
-    kPublishToWebJPG,
-    kPublishToWebPNG,
-    kDWFxePlot,
-    kPublishToWebDWFx,
-    kPDFePlot,
-    kPDFePlotGeneralDocs,
-    kPDFePlotHighQuality,
-    kPDFePlotSmallerFile,
-    kPDFePlotWebMobile,
-    kSVFePlot
-  };
+  enum StdConfigs {
+        kNoneDevice,
+        kDefaultWindowsSysPrinter,
+        kDWF6ePlot,
+        kDWFePlotOptForPlotting,
+        kDWFePlotOptForViewing,
+        kPublishToWebDWF,
+        kPublishToWebJPG,
+        kPublishToWebPNG,
+        kDWFxePlot,
+        kPublishToWebDWFx,
+        kPDFePlot,
+        kPDFePlotGeneralDocs,   // to specify Pdf pc3 config file for General Documentation.
+        kPDFePlotHighQuality,   // to specify Pdf pc3 config file for High Quality Print.
+        kPDFePlotSmallerFile,   // to specify Pdf pc3 config file for Smallest File Size.
+        kPDFePlotWebMobile,     // to specify Pdf pc3 config file for Web and Mobile.
+        kSVFePlot
+    };
     // Returns the list of system printer, pc3 file installed on the current
     // system. Also includes the None device as the first element of the array
   virtual bool getDevicesList(AcArray<AcPlPlotConfigInfo, AcArrayObjectCopyReallocator <AcPlPlotConfigInfo> >& deviceList);

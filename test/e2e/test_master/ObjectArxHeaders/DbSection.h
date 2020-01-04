@@ -43,37 +43,34 @@ public:
     /// <param name="kPlane"> Section plane extends infinitely in all directions</param>
     /// <param name="kBoundary"> Section plane is bounded by the section line, two side lines, and a back line. However it extends infinitely up and down. </param>
     /// <param name="kVolume"> Section plane is bounded by the front, side, back, top, and bottom lines. </param>
-  enum State
-  {
-    kPlane = (0x1 << 0),
-    kBoundary = (0x1 << 1),
-    kVolume = (0x1 << 2)
-  };
+  enum State {
+        kPlane              = (0x1 << 0),
+        kBoundary           = (0x1 << 1),
+        kVolume             = (0x1 << 2),
+    };
     /// <summary>
     /// Hit flags for section plane. This enum value is returned by the method hitTest. 
     /// </summary>
-  enum SubItem
-  {
-    kNone = 0,
-    kSectionLine = (0x1 << 0),
-    kSectionLineTop = (0x1 << 1),
-    kSectionLineBottom = (0x1 << 2),
-    kBackLine = (0x1 << 3),
-    kBackLineTop = (0x1 << 4),
-    kBackLineBottom = (0x1 << 5),
-    kVerticalLineTop = (0x1 << 6),
-    kVerticalLineBottom = (0x1 << 7)
-  };
+  enum SubItem {
+        kNone               = 0,
+        kSectionLine        = (0x1 << 0),
+        kSectionLineTop     = (0x1 << 1),
+        kSectionLineBottom  = (0x1 << 2),
+        kBackLine           = (0x1 << 3),
+        kBackLineTop        = (0x1 << 4),
+        kBackLineBottom     = (0x1 << 5),
+        kVerticalLineTop    = (0x1 << 6),
+        kVerticalLineBottom = (0x1 << 7),
+    };
     /// <summary>
     /// Height flags for section plane. 
     /// </summary>
     /// <param name="kHeightAboveSectionLine"> Height of the section plane above section line - from the section plane elevation to the top line of the section plane.  </param>
     /// <param name="kHeightBelowSectionLine"> Height of the section plane below the section line - from the section plane elevation to the bottom line of the section plane. </param>
-  enum Height
-  {
-    kHeightAboveSectionLine = 0x1,
-    kHeightBelowSectionLine = 0x2
-  };
+  enum Height {
+        kHeightAboveSectionLine = 0x1,
+        kHeightBelowSectionLine = 0x2,
+    };
   ACDB_DECLARE_MEMBERS(AcDbSection);
     /// <summary>
     /// Default constructor. Constructs a section plane with the type initialized to AcDbSection::kPlane. Since a section plane should have at least two vertices, the section plane constructed by this constructor is invalid until vertices are added. Invalid section planes should not be posted to the database. If they are posted they will remain invisible in the database. 
@@ -507,13 +504,12 @@ public:
     /// <param name="kLiveSection"> Live sectioning.  </param>
     /// <param name="k2dSection"> 2d section. </param>
     /// <param name="k3dSection"> 3d section. </param>
-  enum SectionType
-  {
+  enum SectionType {
         // Section types
-    kLiveSection = (0x1 << 0),
-    k2dSection = (0x1 << 1),
-    k3dSection = (0x1 << 2)
-  };
+        kLiveSection                = (0x1 << 0),       // Live section
+        k2dSection                  = (0x1 << 1),       // 2d section
+        k3dSection                  = (0x1 << 2),       // 3d section
+    };
     /// <summary>
     /// Generation flags to control section creation. There are three groups of flags: type of section to generate, source, and destination. One value from each group should be OR'd to set the generation options. The options kGenerate2dSection and kGenerate3dSection form the first group to specify the type of section. kSourceAllObjects and kSourceSelectedObjects form the second group to specify the source. kDestinationNewBlock, kDestinationReplaceBlock, and kDestinationFile form the third group to specify destination for the generated geometry.
     /// </summary>
@@ -523,15 +519,14 @@ public:
     /// <param name="kForegroundGeometry"> Foreground geometry settings. </param>
     /// <param name="kCurveTangencyLines"> Curve tangency line settings. </param>
     /// <remarks> Options for section generation. This enum is used to get and set properties for generated section geometry. </remarks>
-  enum Geometry
-  {
+  enum Geometry {
         // Geometry type
-    kIntersectionBoundary = (0x1 << 0),
-    kIntersectionFill = (0x1 << 1),
-    kBackgroundGeometry = (0x1 << 2),
-    kForegroundGeometry = (0x1 << 3),
-    kCurveTangencyLines = (0x1 << 4)
-  };
+        kIntersectionBoundary       = (0x1 << 0),       // Intesection boundary
+        kIntersectionFill           = (0x1 << 1),       // Intesection fill
+        kBackgroundGeometry         = (0x1 << 2),       // Background geometry
+        kForegroundGeometry         = (0x1 << 3),       // Foreground geometry
+        kCurveTangencyLines         = (0x1 << 4),       // Curve tangency lines
+    };
     /// <summary>
     /// Generation flags to control section creation. There are three groups of flags: type of section to generate, source, and destination. One value from each group should be OR'd to set the generation options. The options kGenerate2dSection and kGenerate3dSection form the first group to specify the type of section. kSourceAllObjects and kSourceSelectedObjects form the second group to specify the source. kDestinationNewBlock, kDestinationReplaceBlock, and kDestinationFile form the third group to specify destination for the generated geometry.
     /// </summary>
@@ -541,16 +536,16 @@ public:
     /// <param name="kDestinationReplaceBlock"> Replaces an existing block while creating section  </param>
     /// <param name="kDestinationFile"> Saves the generated section in an external file.  </param>
     /// <remarks> Description: Generation flags to control section creation. There are three groups of flags: type of section to generate, source, and destination. One value from each group should be OR'd to set the generation options. The options kGenerate2dSection and kGenerate3dSection form the first group to specify the type of section. kSourceAllObjects and kSourceSelectedObjects form the second group to specify the source. kDestinationNewBlock, kDestinationReplaceBlock, and kDestinationFile form the third group to specify destination for the generated geometry. </remarks>
-  enum Generation
-  {
+  enum Generation {
         // Source geometry options (bits 0 to 3)
-    kSourceAllObjects = (0x1 << 0),
-    kSourceSelectedObjects = (0x1 << 1),
+        kSourceAllObjects           = (0x1 << 0),       // Include all objects
+        kSourceSelectedObjects      = (0x1 << 1),       // Include selected objects
+
         // Destination options (bits 4 to 8)
-    kDestinationNewBlock = (0x1 << 4),
-    kDestinationReplaceBlock = (0x1 << 5),
-    kDestinationFile = (0x1 << 6)
-  };
+        kDestinationNewBlock        = (0x1 << 4),       // Insert as new block
+        kDestinationReplaceBlock    = (0x1 << 5),       // Replace existing block
+        kDestinationFile            = (0x1 << 6),       // Export to a file
+    };
   ACDB_DECLARE_MEMBERS(AcDbSectionSettings);
     /// <summary>
     /// Default constructor. 

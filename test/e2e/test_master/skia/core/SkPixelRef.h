@@ -112,12 +112,11 @@ private:
   SkTDArray<GenIDChangeListener*> fGenIDChangeListeners;
     // Set true by caches when they cache content that's derived from the current pixels.
   std::atomic<bool> fAddedToCache;
-  enum Mutability : char
-  {
-    kMutable,
-    kTemporarilyImmutable,
-    kImmutable
-  };
+  enum Mutability : char {
+        kMutable,               // PixelRefs begin mutable.
+        kTemporarilyImmutable,  // Considered immutable, but can revert to mutable.
+        kImmutable,             // Once set to this state, it never leaves.
+    };
   Mutability fMutability;
   void needsNewGenID();
   void callGenIDChangeListeners();

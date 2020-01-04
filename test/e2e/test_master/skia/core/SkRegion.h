@@ -295,16 +295,15 @@ public:
     /** \enum SkRegion::Op
         The logical operations that can be performed when combining two SkRegion.
     */
-  enum Op
-  {
-    kDifference_Op,
-    kIntersect_Op,
-    kUnion_Op,
-    kXOR_Op,
-    kReverseDifference_Op,
-    kReplace_Op,
-    kLastOp = kReplace_Op
-  };
+  enum Op {
+        kDifference_Op,                      //!< target minus operand
+        kIntersect_Op,                       //!< target intersected with operand
+        kUnion_Op,                           //!< target unioned with operand
+        kXOR_Op,                             //!< target exclusive or with operand
+        kReverseDifference_Op,               //!< operand minus target
+        kReplace_Op,                         //!< replace target with operand
+        kLastOp               = kReplace_Op, //!< last operator
+    };
   static const int kOpCnt = kLastOp + 1;
     /** Replaces SkRegion with the result of SkRegion op rect.
         Returns true if replaced SkRegion is not empty.

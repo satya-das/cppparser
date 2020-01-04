@@ -22,10 +22,9 @@
 class AcDbInterferencePE : public AcRxObject
 {
 public:
-  enum Flags
-  {
-    kDefault = 0x00
-  };
+  enum Flags {
+        kDefault     = 0x00,
+    };
   ACRX_DECLARE_MEMBERS(AcDbInterferencePE);
     // Contract:
     // Implementer is expected to create new AcDbEntity instance(s), based 

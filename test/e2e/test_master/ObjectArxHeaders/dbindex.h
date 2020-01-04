@@ -122,18 +122,21 @@ class AcDbHandleTableIterator;
 class AcDbIndexUpdateData
 {
 public:
-  enum UpdateFlags
-  {
-    kModified = 1,
-    kDeleted = 2,
+  enum UpdateFlags {                      // kModified and kDeleted are READ ONLY.
+            kModified   = 1,   //
+            kDeleted    = 2,   // kDeleted is somewhat redundant with  AcDbObject::isErased()
                                // except that it also accounts for uncreated
                                // objects, and does not force an object to be
                                // paged in.
                 
                                // These two are writable. They are for application use.
-    kProcessed = 4,
-    kUnknownKey = 8
-  };
+            kProcessed  = 4,   // kProcessed can be used to avoid rexamining an id.
+            kUnknownKey = 8    // kUnknownKey is used, for example, to denote unknown
+                               // extents when building the spatial index.
+                
+                               // The remaining bits can be used by applications as
+                               // they wish.  (Bits 3- 7).
+        };
   Acad::ErrorStatus addId(AcDbObjectId id);
         // Bits kModified and kDeleted are never changed by this method, since
         // they refer to the db state of the object. The kProcessed bit and

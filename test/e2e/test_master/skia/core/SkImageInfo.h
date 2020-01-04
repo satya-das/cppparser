@@ -29,13 +29,12 @@ class SkWriteBuffer;
     value is the original RGB multiplied by alpha. Premultiplied color
     components improve performance.
 */
-enum SkAlphaType
-{
-  kUnknown_SkAlphaType,
-  kOpaque_SkAlphaType,
-  kPremul_SkAlphaType,
-  kUnpremul_SkAlphaType,
-  kLastEnum_SkAlphaType = kUnpremul_SkAlphaType
+enum SkAlphaType {
+    kUnknown_SkAlphaType,                          //!< uninitialized
+    kOpaque_SkAlphaType,                           //!< pixel is opaque
+    kPremul_SkAlphaType,                           //!< pixel components are premultiplied by alpha
+    kUnpremul_SkAlphaType,                         //!< pixel components are independent of alpha
+    kLastEnum_SkAlphaType = kUnpremul_SkAlphaType, //!< last valid value
 };
 /** Returns true if SkAlphaType equals kOpaque_SkAlphaType. kOpaque_SkAlphaType is a
     hint that the SkColorType is opaque, or that all alpha values are set to
@@ -65,35 +64,42 @@ static bool SkAlphaTypeIsOpaque(SkAlphaType at)
     kBGRA_8888_SkColorType. On big endian processors, pixels pack into 32-bit
     kRGBA_8888_SkColorType.
 */
-enum SkColorType
-{
-  kUnknown_SkColorType,
-  kAlpha_8_SkColorType,
-  kRGB_565_SkColorType,
-  kARGB_4444_SkColorType,
-  kRGBA_8888_SkColorType,
-  kRGB_888x_SkColorType,
-  kBGRA_8888_SkColorType,
-  kRGBA_1010102_SkColorType,
-  kRGB_101010x_SkColorType,
-  kGray_8_SkColorType,
-  kRGBA_F16Norm_SkColorType,
-  kRGBA_F16_SkColorType,
-  kRGBA_F32_SkColorType,
+enum SkColorType {
+    kUnknown_SkColorType,      //!< uninitialized
+    kAlpha_8_SkColorType,      //!< pixel with alpha in 8-bit byte
+    kRGB_565_SkColorType,      //!< pixel with 5 bits red, 6 bits green, 5 bits blue, in 16-bit word
+    kARGB_4444_SkColorType,    //!< pixel with 4 bits for alpha, red, green, blue; in 16-bit word
+    kRGBA_8888_SkColorType,    //!< pixel with 8 bits for red, green, blue, alpha; in 32-bit word
+    kRGB_888x_SkColorType,     //!< pixel with 8 bits each for red, green, blue; in 32-bit word
+    kBGRA_8888_SkColorType,    //!< pixel with 8 bits for blue, green, red, alpha; in 32-bit word
+    kRGBA_1010102_SkColorType, //!< 10 bits for red, green, blue; 2 bits for alpha; in 32-bit word
+    kRGB_101010x_SkColorType,  //!< pixel with 10 bits each for red, green, blue; in 32-bit word
+    kGray_8_SkColorType,       //!< pixel with grayscale level in 8-bit byte
+    kRGBA_F16Norm_SkColorType, //!< pixel with half floats in [0,1] for red, green, blue, alpha; in 64-bit word
+    kRGBA_F16_SkColorType,     //!< pixel with half floats for red, green, blue, alpha; in 64-bit word
+    kRGBA_F32_SkColorType,     //!< pixel using C float for red, green, blue, alpha; in 128-bit word
+
     // The following 6 colortypes are just for reading from - not for rendering to
-  kR8G8_unorm_SkColorType,
-  kA16_float_SkColorType,
-  kR16G16_float_SkColorType,
-  kA16_unorm_SkColorType,
-  kR16G16_unorm_SkColorType,
-  kR16G16B16A16_unorm_SkColorType,
-  kLastEnum_SkColorType = kR16G16B16A16_unorm_SkColorType,
-#  if  SK_PMCOLOR_BYTE_ORDER(B,G,R,A)
-  kN32_SkColorType = kBGRA_8888_SkColorType,
-#  elif  SK_PMCOLOR_BYTE_ORDER(R,G,B,A)
-  kN32_SkColorType = kRGBA_8888_SkColorType,
-#  else 
-#  endif
+    kR8G8_unorm_SkColorType,   //<! pixel with a uint8_t for red and green
+
+    kA16_float_SkColorType,    //<! pixel with a half float for alpha
+    kR16G16_float_SkColorType, //<! pixel with a half float for red and green
+
+    kA16_unorm_SkColorType,    //<! pixel with a little endian uint16_t for alpha
+    kR16G16_unorm_SkColorType, //<! pixel with a little endian uint16_t for red and green
+    kR16G16B16A16_unorm_SkColorType,//<! pixel with a little endian uint16_t for red, green, blue, and alpha
+
+    kLastEnum_SkColorType     = kR16G16B16A16_unorm_SkColorType, //!< last valid value
+
+#if SK_PMCOLOR_BYTE_ORDER(B,G,R,A)
+    kN32_SkColorType          = kBGRA_8888_SkColorType,//!< native ARGB 32-bit encoding
+
+#elif SK_PMCOLOR_BYTE_ORDER(R,G,B,A)
+    kN32_SkColorType          = kRGBA_8888_SkColorType,//!< native ARGB 32-bit encoding
+
+#else
+    #error "SK_*32_SHIFT values must correspond to BGRA or RGBA byte order"
+#endif
 };
 /** Returns the number of bytes required to store a pixel, including unused padding.
     Returns zero if ct is kUnknown_SkColorType or invalid.
@@ -159,13 +165,13 @@ SK_API bool SkColorTypeValidateAlphaType(SkColorType colorType, SkAlphaType alph
     The identity colorspace exists to provide a utility mapping from Y to R, U to G and V to B.
     It can be used to visualize the YUV planes or to explicitly post process the YUV channels.
 */
-enum SkYUVColorSpace
-{
-  kJPEG_SkYUVColorSpace,
-  kRec601_SkYUVColorSpace,
-  kRec709_SkYUVColorSpace,
-  kIdentity_SkYUVColorSpace,
-  kLastEnum_SkYUVColorSpace = kIdentity_SkYUVColorSpace
+enum SkYUVColorSpace {
+    kJPEG_SkYUVColorSpace,                               //!< describes full range
+    kRec601_SkYUVColorSpace,                             //!< describes SDTV range
+    kRec709_SkYUVColorSpace,                             //!< describes HDTV range
+    kIdentity_SkYUVColorSpace,                           //!< maps Y->R, U->G, V->B
+
+    kLastEnum_SkYUVColorSpace = kIdentity_SkYUVColorSpace, //!< last valid value
 };
 /** \struct SkColorInfo
     Describes pixel and encoding. SkImageInfo can be created from SkColorInfo by

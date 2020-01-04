@@ -671,27 +671,34 @@ public:
 struct ACDB_PORT AcDbAssocTransInfo
 {
     /// <summary> The geometric transformation type. </summary>
-  enum TransType
-  {
+  enum TransType {
         /// <summary> Translation and/or rotation. </summary>
-    kGeneral = 0,
+        kGeneral = 0,
+
         /// <summary> Scaling and/or translation. </summary>
-    kScaling,
+        kScaling,
+
         /// <summary> Circle radius change only. </summary>
-    kRadius,
+        kRadius,
+
         /// <summary> Ellipse major radius change only. </summary>
-    kMajorRadius,
+        kMajorRadius,
+
         /// <summary> Ellipse minor radius change only. </summary>
-    kMinorRadius,
+        kMinorRadius,
+
         /// <summary> Radius fixed. </summary>
-    kFixedRadius,
+        kFixedRadius,
+
         /// <summary> Geometry fixed. </summary>
-    kFixed,
+        kFixed,
+
         /// <summary> Geometry fixed only when possible. </summary>
-    kFixWhenPossible,
+        kFixWhenPossible,
+
         /// <summary> Not a valid transformation type. </summary>
-    kNone
-  };
+        kNone,
+    };
     /// <summary> Default constructor. </summary>
     /// 
   AcDbAssocTransInfo()

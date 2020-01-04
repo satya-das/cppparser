@@ -32,8 +32,7 @@ public:
     /// This enum is content type of mleader.
     /// </summary>
     ///
-  enum ContentType
-  {
+  enum ContentType {
         /// <summary>
         /// mleader has none content
         /// </summary>
@@ -41,7 +40,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kNoneContent = 0,
+        kNoneContent                = 0,
         /// <summary>
         /// mleader has block content
         /// </summary>
@@ -49,7 +48,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kBlockContent = 1,
+        kBlockContent               = 1,
         /// <summary>
         /// mleader has mtext content
         /// </summary>
@@ -57,7 +56,7 @@ public:
         /// <value>
         /// 2
         /// </value>
-    kMTextContent = 2,
+        kMTextContent               = 2,
         /// <summary>
         /// mleader has tolerance content
         /// </summary>
@@ -65,14 +64,13 @@ public:
         /// <value>
         /// 3
         /// </value>
-    kToleranceContent = 3
-  };
+        kToleranceContent           = 3,
+    };
     /// <summary>
     /// This enum is draw mleader order type.
     /// </summary>
     ///
-  enum DrawMLeaderOrderType
-  {
+  enum DrawMLeaderOrderType {
         /// <summary>
         /// draw mleader content first
         /// </summary>
@@ -80,7 +78,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kDrawContentFirst = 0,
+        kDrawContentFirst           = 0,
         /// <summary>
         /// draw mleader leaderline first
         /// </summary>
@@ -88,14 +86,13 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kDrawLeaderFirst = 1
-  };
+        kDrawLeaderFirst            = 1
+    };
     /// <summary>
     /// This enum is draw mleaderLine order type.
     /// </summary>
     ///
-  enum DrawLeaderOrderType
-  {
+  enum DrawLeaderOrderType {
         /// <summary>
         /// draw leaderline head first
         /// </summary>
@@ -103,7 +100,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kDrawLeaderHeadFirst = 0,
+        kDrawLeaderHeadFirst        = 0,
         /// <summary>
         /// draw leaderline tail first
         /// </summary>
@@ -111,14 +108,13 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kDrawLeaderTailFirst = 1
-  };
+        kDrawLeaderTailFirst        = 1
+    };
     /// <summary>
     /// This enum is leader type of mleader.
     /// </summary>
     ///
-  enum LeaderType
-  {
+  enum LeaderType {
         /// <summary>
         /// invisible leader
         /// </summary>
@@ -126,7 +122,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kInVisibleLeader = 0,
+        kInVisibleLeader            = 0,
         /// <summary>
         /// straight line leader
         /// </summary>
@@ -134,7 +130,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kStraightLeader = 1,
+        kStraightLeader             = 1,
         /// <summary>
         /// spline line leader
         /// </summary>
@@ -142,14 +138,13 @@ public:
         /// <value>
         /// 2
         /// </value>
-    kSplineLeader = 2
-  };
+        kSplineLeader               = 2
+    };
     /// <summary>
     /// This enum is text attachment direction of mleader text content.
     /// </summary>
     ///
-  enum TextAttachmentDirection
-  {
+  enum TextAttachmentDirection {
         /// <summary>
         /// Horizontally attach to mtext content
         /// </summary>
@@ -157,7 +152,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kAttachmentHorizontal = 0,
+        kAttachmentHorizontal       = 0,
         /// <summary>
         /// Vertically attach to mtext content
         /// </summary>
@@ -165,14 +160,13 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kAttachmentVertical = 1
-  };
+        kAttachmentVertical         = 1
+    };
     /// <summary>
     /// This enum is text attachment type of mleader text content.
     /// </summary>
     ///
-  enum TextAttachmentType
-  {
+  enum TextAttachmentType {
         /// <summary>
         /// attach to top of top text line of mtext content
         /// </summary>
@@ -180,7 +174,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kAttachmentTopOfTop = 0,
+        kAttachmentTopOfTop         = 0,
         /// <summary>
         /// attach to middle of top text line of mtext content
         /// </summary>
@@ -188,7 +182,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kAttachmentMiddleOfTop = 1,
+        kAttachmentMiddleOfTop      = 1,
         /// <summary>
         /// attach to middle of mtext content
         /// </summary>
@@ -196,7 +190,7 @@ public:
         /// <value>
         /// 2
         /// </value>
-    kAttachmentMiddle = 2,
+        kAttachmentMiddle           = 2,
         /// <summary>
         /// attach to middle of bottom text line of mtext content
         /// </summary>
@@ -204,7 +198,7 @@ public:
         /// <value>
         /// 3
         /// </value>
-    kAttachmentMiddleOfBottom = 3,
+        kAttachmentMiddleOfBottom   = 3,
         /// <summary>
         /// attach to bottom of bottom text line of mtext content
         /// </summary>
@@ -212,7 +206,7 @@ public:
         /// <value>
         /// 4
         /// </value>
-    kAttachmentBottomOfBottom = 4,
+        kAttachmentBottomOfBottom   = 4,
         /// <summary>
         /// attach to bottom of bottom text line of mtext content and draw a underline
         /// </summary>
@@ -220,7 +214,7 @@ public:
         /// <value>
         /// 5
         /// </value>
-    kAttachmentBottomLine = 5,
+        kAttachmentBottomLine       = 5,
         /// <summary>
         /// attach to bottom of top text line of mtext content and draw a underline
         /// </summary>
@@ -228,7 +222,7 @@ public:
         /// <value>
         /// 6
         /// </value>
-    kAttachmentBottomOfTopLine = 6,
+        kAttachmentBottomOfTopLine  = 6,
         /// <summary>
         /// attach to bottom of top text line of mtext content
         /// </summary>
@@ -236,7 +230,7 @@ public:
         /// <value>
         /// 7
         /// </value>
-    kAttachmentBottomOfTop = 7,
+        kAttachmentBottomOfTop      = 7,
         /// <summary>
         /// attach to bottom of top text line of mtext content, and draw underline to whole mtext
         /// </summary>
@@ -244,7 +238,7 @@ public:
         /// <value>
         /// 8
         /// </value>
-    kAttachmentAllLine = 8,
+        kAttachmentAllLine          = 8,
         /// <summary>
         /// vertically attach to center of mtext content top/bottom
         /// </summary>
@@ -252,7 +246,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kAttachmentCenter = 9,
+        kAttachmentCenter           = 9,
         /// <summary>
         /// vertically attach to center of mtext content top/bottom, and draw a overline/underline
         /// </summary>
@@ -260,14 +254,13 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kAttachmentLinedCenter = 10
-  };
+        kAttachmentLinedCenter      = 10
+    };
     /// <summary>
     /// This enum is text angle type of mleader text content.
     /// </summary>
     ///
-  enum TextAngleType
-  {
+  enum TextAngleType {
         /// <summary>
         /// The direction of text is according to the last leaderline segment.
         /// </summary>
@@ -275,7 +268,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kInsertAngle = 0,
+        kInsertAngle                = 0,
         /// <summary>
         /// The direction of text is always horizontal.
         /// </summary>
@@ -283,7 +276,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kHorizontalAngle = 1,
+        kHorizontalAngle            = 1,
         /// <summary>
         /// The direction of text is according to the last leaderline segment and text is always right-side up.
         /// </summary>
@@ -291,14 +284,13 @@ public:
         /// <value>
         /// 2
         /// </value>
-    kAlwaysRightReadingAngle = 2
-  };
+        kAlwaysRightReadingAngle    = 2
+    };
     /// <summary>
     /// This enum is text alignment type.
     /// </summary>
     ///
-  enum TextAlignmentType
-  {
+  enum TextAlignmentType {
         /// <summary>
         /// Left-justifies text in the MText.
         /// </summary>
@@ -306,7 +298,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kLeftAlignment = 0,
+        kLeftAlignment              = 0,
         /// <summary>
         /// Centers text in MText.
         /// </summary>
@@ -314,7 +306,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kCenterAlignment = 1,
+        kCenterAlignment            = 1,
         /// <summary>
         /// Right-justifies text in MText.
         /// </summary>
@@ -322,14 +314,13 @@ public:
         /// <value>
         /// 2
         /// </value>
-    kRightAlignment = 2
-  };
+        kRightAlignment             = 2
+    };
     /// <summary>
     /// This enum is block connection type of mleader block content.
     /// </summary>
     ///
-  enum BlockConnectionType
-  {
+  enum BlockConnectionType {
         /// <summary>
         /// Connect to extents of block.
         /// </summary>
@@ -337,7 +328,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kConnectExtents = 0,
+        kConnectExtents             = 0,
         /// <summary>
         /// Connect to block base(origin) point.
         /// </summary>
@@ -345,14 +336,13 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kConnectBase = 1
-  };
+        kConnectBase                = 1
+    };
     /// <summary>
     /// This enum is leader direction type.
     /// </summary>
     ///
-  enum LeaderDirectionType
-  {
+  enum LeaderDirectionType {
         /// <summary>
         /// unkown direction leader.
         /// </summary>
@@ -360,7 +350,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kUnknownLeader = 0,
+        kUnknownLeader              = 0,
         /// <summary>
         /// left leader.
         /// </summary>
@@ -368,7 +358,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kLeftLeader = 1,
+        kLeftLeader                 = 1,
         /// <summary>
         /// right leader.
         /// </summary>
@@ -376,7 +366,7 @@ public:
         /// <value>
         /// 2
         /// </value>
-    kRightLeader = 2,
+        kRightLeader                = 2,
         /// <summary>
         /// top leader.
         /// </summary>
@@ -384,7 +374,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-    kTopLeader = 3,
+        kTopLeader                  = 3,
         /// <summary>
         /// bottom leader.
         /// </summary>
@@ -392,14 +382,13 @@ public:
         /// <value>
         /// 2
         /// </value>
-    kBottomLeader = 4
-  };
+        kBottomLeader               = 4
+    };
     /// <summary>
     /// This enum is segment angle type.
     /// </summary>
     ///
-  enum SegmentAngleType
-  {
+  enum SegmentAngleType {
         /// <summary>
         /// Any degrees.
         /// </summary>
@@ -407,7 +396,7 @@ public:
         /// <value>
         /// 0
         /// </value>
-    kAny = 0,
+        kAny                        = 0, 
         /// <summary>
         /// 15 degrees.
         /// </summary>
@@ -415,7 +404,7 @@ public:
         /// <value>
         /// 1
         /// </value>
-    k15 = 1,
+        k15                         = 1,
         /// <summary>
         /// 30 degrees.
         /// </summary>
@@ -423,7 +412,7 @@ public:
         /// <value>
         /// 2
         /// </value>
-    k30 = 2,
+        k30                         = 2,
         /// <summary>
         /// 45 degrees.
         /// </summary>
@@ -431,7 +420,7 @@ public:
         /// <value>
         /// 3
         /// </value>
-    k45 = 3,
+        k45                         = 3,
         /// <summary>
         /// 60 degrees.
         /// </summary>
@@ -439,7 +428,7 @@ public:
         /// <value>
         /// 4
         /// </value>
-    k60 = 4,
+        k60                         = 4,
         /// <summary>
         /// 90 degrees.
         /// </summary>
@@ -447,7 +436,7 @@ public:
         /// <value>
         /// 5
         /// </value>
-    k90 = 6,
+        k90                         = 6,
         /// <summary>
         /// 180 degrees.
         /// </summary>
@@ -455,8 +444,8 @@ public:
         /// <value>
         /// 6
         /// </value>
-    kHorz = 12
-  };
+        kHorz                       = 12
+    };
     /// <summary>
     /// Default constructor.
     /// </summary>

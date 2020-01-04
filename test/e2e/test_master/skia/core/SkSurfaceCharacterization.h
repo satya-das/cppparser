@@ -26,27 +26,11 @@ class SkColorSpace;
 class SK_API SkSurfaceCharacterization
 {
 public:
-  enum class Textureable : bool
-  {
-    kNo = false,
-    kYes = true
-  };
-  enum class MipMapped : bool
-  {
-    kNo = false,
-    kYes = true
-  };
-  enum class UsesGLFBO0 : bool
-  {
-    kNo = false,
-    kYes = true
-  };
+  enum class Textureable : bool { kNo = false, kYes = true };
+  enum class MipMapped : bool { kNo = false, kYes = true };
+  enum class UsesGLFBO0 : bool { kNo = false, kYes = true };
     // This flag indicates if the surface is wrapping a raw Vulkan secondary command buffer.
-  enum class VulkanSecondaryCBCompatible : bool
-  {
-    kNo = false,
-    kYes = true
-  };
+  enum class VulkanSecondaryCBCompatible : bool { kNo = false, kYes = true };
   SkSurfaceCharacterization()
     : fCacheMaxResourceBytes(0)
     , fOrigin(kBottomLeft_GrSurfaceOrigin)

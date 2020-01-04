@@ -10,38 +10,35 @@
 class SK_API SkFontStyle
 {
 public:
-  enum Weight
-  {
-    kInvisible_Weight = 0,
-    kThin_Weight = 100,
-    kExtraLight_Weight = 200,
-    kLight_Weight = 300,
-    kNormal_Weight = 400,
-    kMedium_Weight = 500,
-    kSemiBold_Weight = 600,
-    kBold_Weight = 700,
-    kExtraBold_Weight = 800,
-    kBlack_Weight = 900,
-    kExtraBlack_Weight = 1000
-  };
-  enum Width
-  {
-    kUltraCondensed_Width = 1,
-    kExtraCondensed_Width = 2,
-    kCondensed_Width = 3,
-    kSemiCondensed_Width = 4,
-    kNormal_Width = 5,
-    kSemiExpanded_Width = 6,
-    kExpanded_Width = 7,
-    kExtraExpanded_Width = 8,
-    kUltraExpanded_Width = 9
-  };
-  enum Slant
-  {
-    kUpright_Slant,
-    kItalic_Slant,
-    kOblique_Slant
-  };
+  enum Weight {
+        kInvisible_Weight   =    0,
+        kThin_Weight        =  100,
+        kExtraLight_Weight  =  200,
+        kLight_Weight       =  300,
+        kNormal_Weight      =  400,
+        kMedium_Weight      =  500,
+        kSemiBold_Weight    =  600,
+        kBold_Weight        =  700,
+        kExtraBold_Weight   =  800,
+        kBlack_Weight       =  900,
+        kExtraBlack_Weight  = 1000,
+    };
+  enum Width {
+        kUltraCondensed_Width   = 1,
+        kExtraCondensed_Width   = 2,
+        kCondensed_Width        = 3,
+        kSemiCondensed_Width    = 4,
+        kNormal_Width           = 5,
+        kSemiExpanded_Width     = 6,
+        kExpanded_Width         = 7,
+        kExtraExpanded_Width    = 8,
+        kUltraExpanded_Width    = 9,
+    };
+  enum Slant {
+        kUpright_Slant,
+        kItalic_Slant,
+        kOblique_Slant,
+    };
   SkFontStyle(int weight, int width, Slant slant)
     : fValue((SkTPin<int>(weight, kInvisible_Weight, kExtraBlack_Weight)) + (SkTPin<int>(width, kUltraCondensed_Width, kUltraExpanded_Width) << 16) + (SkTPin<int>(slant, kUpright_Slant, kOblique_Slant) << 24))
   {

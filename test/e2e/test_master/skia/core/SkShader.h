@@ -83,16 +83,15 @@ public:
      *  Sweep:
      *      fPoint[0] is the center of the sweep.
      */
-  enum GradientType
-  {
-    kNone_GradientType,
-    kColor_GradientType,
-    kLinear_GradientType,
-    kRadial_GradientType,
-    kSweep_GradientType,
-    kConical_GradientType,
-    kLast_GradientType = kConical_GradientType
-  };
+  enum GradientType {
+        kNone_GradientType,
+        kColor_GradientType,
+        kLinear_GradientType,
+        kRadial_GradientType,
+        kSweep_GradientType,
+        kConical_GradientType,
+        kLast_GradientType = kConical_GradientType,
+    };
   struct GradientInfo
   {
     int fColorCount;

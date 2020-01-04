@@ -49,74 +49,71 @@ public:
     /// <summary>
     /// describes the plot area (what to plot) requested
     /// </summary>
-  enum PlotArea
-  {
+  enum PlotArea {
         /// <summary>
         /// plot display, the visible portion of the picture
         /// </summary>
-    kDisplay = 0,
+        kDisplay = 0,
         /// <summary>
         /// plot extents, i.e. all geometry
         /// </summary>
-    kExtents = 1,
+        kExtents = 1,
         /// <summary>
         /// plot the limits set by the user
         /// </summary>
-    kLimits = 2,
+        kLimits = 2,
         /// <summary>
         /// plot a named view
         /// </summary>
-    kView,
+        kView,
         /// <summary>
         /// plot a user specified window - a rectangular area
         /// </summary>
-    kWindow,
+        kWindow,
         /// <summary>
         /// plot the extents of the layout
         /// </summary>
-    kLayout
-  };
+        kLayout
+    };
     /// <summary>
     /// how much camera rotation is applied for this plot
     /// </summary>
-  enum PlotRotation
-  {
+  enum PlotRotation {
         /// <summary>
         /// 0 degrees camera rotation
         /// </summary>
-    k0degrees,
+        k0degrees,
         /// <summary>
         /// 90 degrees camera rotation
         /// </summary>
-    k90degrees,
+        k90degrees,
         /// <summary>
         /// 180 degrees camera rotation, i.e., plot upside down
         /// </summary>
-    k180degrees,
+        k180degrees,
         /// <summary>
         /// 270 degrees camera rotation
         /// </summary>
-    k270degrees
-  };
+        k270degrees
+    };
     /// <summary>
     /// the configured media units. This will always be dimensional
     /// for DWF plots.
     /// </summary>
-  enum PlotMediaUnits
-  {
+  enum PlotMediaUnits {
         /// <summary>
         /// using imperial units
         /// </summary>
-    kInches,
+        kInches,
         /// <summary>
         ///  using metric units
         /// </summary>
-    kMillimeters,
+        kMillimeters,
         /// <summary>
         /// using dimensionaless raster units, not expected for DWF
         /// </summary>
-    kPixels
-  };
+        kPixels
+    };
     /// <summary>
     /// provides access to the plotLogger object
     /// </summary>

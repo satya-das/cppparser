@@ -18,18 +18,16 @@
 struct Mline
 {
   typedef Adesk::Int8 MlineJustification;
-  enum
-  {
-    kTop = 0,
-    kZero = 1,
-    kBottom = 2
-  };
-  enum
-  {
-    kOpen = 0,
-    kClosed = 1,
-    kMerged = 2
-  };
+  enum {
+        kTop        = 0,
+        kZero       = 1,
+        kBottom     = 2
+    };
+  enum {
+        kOpen         = 0,
+        kClosed       = 1,
+        kMerged       = 2
+    };
 };
 class AcGePlane;
 class AcDbMline : public AcDbEntity

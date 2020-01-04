@@ -24,15 +24,15 @@ class SK_API SkMatrixConvolutionImageFilter
 public:
     /*! \enum TileMode
      * DEPRECATED: Use SkTileMode instead. */
-  enum TileMode
-  {
-    kClamp_TileMode = 0,
-    kRepeat_TileMode,
-    kClampToBlack_TileMode,
-    kLast_TileMode = kClampToBlack_TileMode,
+  enum TileMode {
+      kClamp_TileMode = 0,         /*!< Clamp to the image's edge pixels. */
+      kRepeat_TileMode,        /*!< Wrap around to the image's opposite edge. */
+      kClampToBlack_TileMode,  /*!< Fill with transparent black. */
+      kLast_TileMode = kClampToBlack_TileMode,
+
       // TODO: remove kMax - it is non-standard but used by Chromium!
-    kMax_TileMode = kClampToBlack_TileMode
-  };
+      kMax_TileMode = kClampToBlack_TileMode
+    };
   static sk_sp<SkImageFilter> Make(const SkISize& kernelSize, const SkScalar* kernel, SkScalar gain, SkScalar bias, const SkIPoint& kernelOffset, TileMode tileMode, bool convolveAlpha, sk_sp<SkImageFilter> input, const SkImageFilter::CropRect* cropRect = nullptr);
     /** Construct a matrix convolution image filter.
         @param kernelSize     The kernel size in pixels, in each dimension (N by M).
