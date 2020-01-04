@@ -1449,6 +1449,11 @@ dtordecl          : '~' id '(' optvoid ')' %prec DTORDECL [ZZLOG;]
                     $$ = $2;
                     $$->addAttr($1);
                   }
+                  | dtordecl optfuncattrib    [ZZLOG;]
+                  {
+                    $$ = $1;
+                    $$->addAttr($2);
+                  }
                   | dtordecl '=' tknNumber    [ZZLOG;]
                   {
                     $$ = $1;
@@ -1465,10 +1470,6 @@ dtordecl          : '~' id '(' optvoid ')' %prec DTORDECL [ZZLOG;]
                   | dtordecl functhrowspec    [ZZLOG;] {
                     $$ = $1;
                     $$->throwSpec($2);
-                  }
-                  | dtordecl tknOverride      [ZZLOG;] {
-                    $$ = $1;
-                    $$->addAttr(kOverride);
                   }
                   ;
 
