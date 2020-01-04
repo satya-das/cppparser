@@ -1017,11 +1017,11 @@ funcdefn          : funcdecl block [ZZVALID;] {
                   }
                   ;
 
-lambda            : '[' lambdacapture ']' lambdaparams [ZZVALID_DISABLE;] block  [ZZVALID_ENABLE;] {
-                    $$ = new CppLambda($2, $4, $6);
+lambda            : '[' lambdacapture ']' lambdaparams block {
+                    $$ = new CppLambda($2, $4, $5);
                   }
-                  | '[' lambdacapture ']' lambdaparams tknArrow vartype [ZZVALID_DISABLE;] block  [ZZVALID_ENABLE;] {
-                    $$ = new CppLambda($2, $4, $8, $6);
+                  | '[' lambdacapture ']' lambdaparams tknArrow vartype block {
+                    $$ = new CppLambda($2, $4, $7, $6);
                   }
                   ;
 
