@@ -516,6 +516,8 @@ caselist          : [ZZLOG;] {
                     $$ = $1;
                     $$->emplace_back(nullptr, $4);
                   }
+                  | doccommentstr caselist [ZZLOG;] { $$ = $2; }
+                  | caselist doccommentstr [ZZLOG;] { $$ = $1; }
                   ;
 
 block             : '{' optstmtlist '}' [ZZLOG;] {

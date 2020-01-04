@@ -156,7 +156,6 @@ CppParser constructCppParserForTest()
                          "ACRX_DECLARE_MEMBERS_ACBASE_PORT_EXPIMP",
                          "ACRX_DECLARE_MEMBERS",
 
-                         "SkDEBUGCODE",
                          "SK_BEGIN_REQUIRE_DENSE",
                          "SK_END_REQUIRE_DENSE",
                          "GR_MAKE_BITFIELD_CLASS_OPS",
@@ -175,7 +174,10 @@ CppParser constructCppParserForTest()
                          "ACT_AS_PTR",
                          "RECORD",
                          "GR_DECLARE_FRAGMENT_PROCESSOR_TEST",
+                         "GR_DECLARE_GEOMETRY_PROCESSOR_TEST",
                          "SK_WHEN"});
+
+  parser.addIgnorableMacros({"SkDEBUGCODE", "SkDEBUGPARAMS"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("final", "ADESK_SEALED");

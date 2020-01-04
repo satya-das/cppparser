@@ -36,6 +36,7 @@
 // So, we need globals.
 std::set<std::string>      gMacroNames;
 std::set<std::string>      gKnownApiDecorNames;
+std::set<std::string>      gIgnorableMacroNames;
 std::map<std::string, int> gRenamedKeywords;
 bool                       gParseEnumBodyAsBlob = false;
 
@@ -58,6 +59,17 @@ void CppParser::addKnownMacros(const std::vector<std::string>& knownMacros)
 {
   for (auto& macro : knownMacros)
     gMacroNames.insert(macro);
+}
+
+void CppParser::addIgnorableMacro(std::string ignorableMacro)
+{
+  gIgnorableMacroNames.insert(std::move(ignorableMacro));
+}
+
+void CppParser::addIgnorableMacros(const std::vector<std::string>& ignorableMacros)
+{
+  for (auto& macro : ignorableMacros)
+    gIgnorableMacroNames.insert(macro);
 }
 
 void CppParser::addKnownApiDecor(std::string knownApiDecor)

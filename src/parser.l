@@ -70,6 +70,7 @@ BracketDepthStack gBracketDepthStack = {0};
 
 extern std::set<std::string>        gMacroNames;
 extern std::set<std::string>        gKnownApiDecorNames;
+extern std::set<std::string>        gIgnorableMacroNames;
 extern std::map<std::string, int>   gRenamedKeywords;
 
   // Easy MACRO to quickly push current context and switch to another one.
@@ -325,23 +326,31 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxGeneral>{ID} {
-  if (gMacroNames.count(yytext))
+  if (gIgnorableMacroNames.count(yytext))
   {
     tokenize_bracketed_content([&](int l) { yyless(l); } );
-    RETURN(tknMacro);
+    // Nothing to return. Just ignore
   }
-
-  if (gKnownApiDecorNames.count(yytext))
+  else
   {
-    tokenize_bracketed_content([&](int l) { yyless(l); } );
-    RETURN(tknApiDecor);
-  }
+    if (gMacroNames.count(yytext))
+    {
+      tokenize_bracketed_content([&](int l) { yyless(l); } );
+      RETURN(tknMacro);
+    }
 
-  set_token_and_yyposn();
-  auto itr = gRenamedKeywords.find(yylval.str);
-  if (itr != gRenamedKeywords.end())
-    return itr->second;
-  RETURN(tknID);
+    if (gKnownApiDecorNames.count(yytext))
+    {
+      tokenize_bracketed_content([&](int l) { yyless(l); } );
+      RETURN(tknApiDecor);
+    }
+
+    set_token_and_yyposn();
+    auto itr = gRenamedKeywords.find(yylval.str);
+    if (itr != gRenamedKeywords.end())
+      return itr->second;
+    RETURN(tknID);
+  }
 }
 
 <ctxGeneral>asm/{TS} {

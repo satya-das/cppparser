@@ -40,6 +40,9 @@ public:
   void addKnownMacro(std::string knownMacro);
   void addKnownMacros(const std::vector<std::string>& knownMacros);
 
+  void addIgnorableMacro(std::string ignorableMacro);
+  void addIgnorableMacros(const std::vector<std::string>& ignorableMacros);
+
   void addKnownApiDecor(std::string knownApiDecor);
   void addKnownApiDecors(const std::vector<std::string>& knownApiDecor);
 
