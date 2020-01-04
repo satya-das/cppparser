@@ -255,11 +255,11 @@ extern int yylex();
 %token  <str>   tknNew tknDelete
 %token  <str>   tknConst tknConstExpr // For templatearg parsing it is made as str type.
 %token  <str>   tknVoid // For the cases when void is used as function parameter.
-%token  <str>   tknOverride // override is not a reserved keyword
+%token  <str>   tknOverride tknFinal // override, final are not a reserved keywords
 %token  <str>   tknAsm
 %token  <str>   tknBlob
 
-%token  tknStatic tknExtern tknVirtual tknInline tknExplicit tknFriend tknVolatile tknFinal tknNoExcept
+%token  tknStatic tknExtern tknVirtual tknInline tknExplicit tknFriend tknVolatile tknNoExcept
 
 %token  tknPreProHash /* When # is encountered for pre processor definition */
 %token  tknDefine tknUndef
@@ -930,6 +930,7 @@ vartype           : typeidentifier opttypemodifier    [ZZLOG;] {
                   ;
 
 varidentifier     : identifier          [ZZLOG;]  { $$ = $1; }
+                  | tknFinal            [ZZLOG;]  { $$ = $1; /* final is not a reserved keyword */ }
                   | '(' '&' id ')'      [ZZLOG;]  { $$ = mergeCppToken($1, $4); }
                   | '(' '*' id ')'      [ZZLOG;]  { $$ = mergeCppToken($1, $4); }
                   | '(' '*' '*' id ')'  [ZZLOG;]  { $$ = mergeCppToken($1, $5); }
@@ -1538,7 +1539,7 @@ classdefn         : compoundSpecifier optapidecor identifier optfinal optinherit
                   ;
 
 optfinal          :          [ZZLOG;] { $$ = 0; }
-                  | tknFinal          { $$ = kFinal; }
+                  | tknFinal [ZZLOG;] { $$ = kFinal; }
                   ;
 
 optinheritlist    :                                                         [ZZLOG;] { $$ = 0; }
