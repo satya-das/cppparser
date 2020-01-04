@@ -68,8 +68,11 @@ static std::pair<size_t, size_t> performTest(CppParser& parser, const TestParam&
   size_t numInputFiles = 0;
   size_t numFailed     = 0;
 
+  using FilePair                        = std::pair<std::string, std::string>;
   auto                     inputPathLen = params.inputPath.string().length();
-  std::vector<std::string> failedFiles;
+  std::vector<std::string> parsingFailedFor;
+  std::vector<FilePair>    diffFailedList;
+
   for (bfs::recursive_directory_iterator dirItr(params.inputPath); dirItr != bfs::recursive_directory_iterator();
        ++dirItr)
   {
@@ -90,25 +93,36 @@ static std::pair<size_t, size_t> performTest(CppParser& parser, const TestParam&
         if (rez == kSameFiles)
           continue;
         reportFileComparisonError(rez, outfile, masfile, diffStartInfo);
+        diffFailedList.emplace_back(std::make_pair(outfile.string(), masfile.string()));
       }
       else
       {
         auto filePathStr = file.string();
         std::cerr << "Parsing failed for " << filePathStr << "\n";
-        failedFiles.push_back(filePathStr);
+        parsingFailedFor.push_back(filePathStr);
       }
       ++numFailed;
     }
   }
-  if (!failedFiles.empty())
+  if (!diffFailedList.empty())
+  {
+    std::cerr << "\n\n";
+    std::cerr << "Comparision failure summary.\n------------------------\n";
+    for (const auto& itr : diffFailedList)
+    {
+      std::cerr << itr.first << ' ' << itr.second << '\n';
+    }
+    std::cerr << "Comparision failed for " << diffFailedList.size() << " files.\n\n";
+  }
+  if (!parsingFailedFor.empty())
   {
     std::cerr << "\n\n";
     std::cerr << "Parsing failure summary.\n------------------------\n";
-    for (const auto& s : failedFiles)
+    for (const auto& s : parsingFailedFor)
     {
       std::cerr << s << '\n';
     }
-    std::cerr << "Parsing failed for " << failedFiles.size() << " files.\n\n";
+    std::cerr << "Parsing failed for " << parsingFailedFor.size() << " files.\n\n";
   }
 
   return std::make_pair(numInputFiles, numFailed);
