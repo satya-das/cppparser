@@ -300,7 +300,6 @@ public:
     */
   bool isEmpty() const
   {
-    SkDEBUGCODE(this->validate();)
     return 0 == fPathRef->countVerbs();
   }
     /** Returns if contour is closed.
@@ -318,7 +317,6 @@ public:
     */
   bool isFinite() const
   {
-    SkDEBUGCODE(this->validate();)
     return fPathRef->isFinite();
   }
     /** Returns true if the path is volatile; it will not be altered or discarded
@@ -1598,16 +1596,13 @@ private:
     /** Asserts if SkPath data is inconsistent.
         Debugging check intended for internal use only.
      */
-  SkDEBUGCODE(void validate() const { SkASSERT(this->isValidImpl()); } )
   bool isValidImpl() const;
-  SkDEBUGCODE(void validateRef() const { fPathRef->validate(); } )
   bool isZeroLengthSincePoint(int startPtIndex) const;
     /** Returns if the path can return a bound at no cost (true) or will have to
         perform some computation (false).
      */
   bool hasComputedBounds() const
   {
-    SkDEBUGCODE(this->validate();)
     return fPathRef->hasComputedBounds();
   }
     // 'rect' needs to be sorted

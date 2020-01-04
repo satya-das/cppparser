@@ -42,7 +42,6 @@ public:
     Editor(sk_sp<SkPathRef>* pathRef, int incReserveVerbs = 0, int incReservePoints = 0);
     ~Editor()
     {
-      SkDEBUGCODE(fPathRef->fEditorsAttached--;)
     }
         /**
          * Returns the array of points.
@@ -73,7 +72,6 @@ public:
          */
     SkPoint* growForVerb(int verb, SkScalar weight = 0)
     {
-      SkDEBUGCODE(fPathRef->validate();)
       return fPathRef->growForVerb(verb, weight);
     }
         /**
@@ -352,7 +350,6 @@ public:
   };
   void addGenIDChangeListener(sk_sp<GenIDChangeListener>);
   bool isValid() const;
-  SkDEBUGCODE(void validate() const { SkASSERT(this->isValid()); } )
 private:
   enum SerializationOffsets {
         kLegacyRRectOrOvalStartIdx_SerializationShift = 28, // requires 3 bits, ignored.
@@ -372,8 +369,6 @@ private:
         // The next two values don't matter unless fIsOval or fIsRRect are true.
     fRRectOrOvalIsCCW = false;
     fRRectOrOvalStartIdx = 0xAC;
-    SkDEBUGCODE(fEditorsAttached.store(0);)
-    SkDEBUGCODE(this->validate();)
   }
   void copy(const SkPathRef& ref, int additionalReserveVerbs, int additionalReservePoints);
     // Doesn't read fSegmentMask, but (re)computes it from the verbs array
@@ -386,7 +381,6 @@ private:
     // called, if dirty, by getBounds()
   void computeBounds() const
   {
-    SkDEBUGCODE(this->validate();)
     SkASSERT(fBoundsIsDirty);
     fIsFinite = ComputePtBounds(&fBounds, *this);
     fBoundsIsDirty = false;
@@ -401,16 +395,13 @@ private:
     /** Makes additional room but does not change the counts or change the genID */
   void incReserve(int additionalVerbs, int additionalPoints)
   {
-    SkDEBUGCODE(this->validate();)
     fPoints.setReserve(fPoints.count() + additionalPoints);
     fVerbs.setReserve(fVerbs.count() + additionalVerbs);
-    SkDEBUGCODE(this->validate();)
   }
     /** Resets the path ref with verbCount verbs and pointCount points, all uninitialized. Also
      *  allocates space for reserveVerb additional verbs and reservePoints additional points.*/
   void resetToSize(int verbCount, int pointCount, int conicCount, int reserveVerbs = 0, int reservePoints = 0)
   {
-    SkDEBUGCODE(this->validate();)
     this->callGenIDChangeListeners();
     fBoundsIsDirty = true;
     fGenerationID = 0;
@@ -422,7 +413,6 @@ private:
     fVerbs.setReserve(verbCount + reserveVerbs);
     fVerbs.setCount(verbCount);
     fConicWeights.setCount(conicCount);
-    SkDEBUGCODE(this->validate();)
   }
     /**
      * Increases the verb count by numVbs and point count by the required amount.
@@ -463,14 +453,12 @@ private:
     // called only by the editor. Note that this is not a const function.
   SkPoint* getWritablePoints()
   {
-    SkDEBUGCODE(this->validate();)
     fIsOval = false;
     fIsRRect = false;
     return fPoints.begin();
   }
   const SkPoint* getPoints() const
   {
-    SkDEBUGCODE(this->validate();)
     return fPoints.begin();
   }
   void callGenIDChangeListeners();
@@ -485,7 +473,6 @@ private:
         kEmptyGenID = 1, // GenID reserved for path ref with zero points and zero verbs.
     };
   mutable uint32_t fGenerationID;
-  SkDEBUGCODE(std::atomic<int> fEditorsAttached;)
   SkMutex fGenIDChangeListenersMutex;
   SkTDArray<GenIDChangeListener*> fGenIDChangeListeners;
   mutable uint8_t fBoundsIsDirty;

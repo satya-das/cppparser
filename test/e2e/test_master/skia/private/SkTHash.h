@@ -40,7 +40,7 @@ public:
     if (this != &other)
     {
       this->~SkTHashTable();
-      this  SkTHashTable(std::move(other));
+      new (this) SkTHashTable(std::move(other));
     }
     return *this;
   }
@@ -212,7 +212,6 @@ private:
   void resize(int capacity)
   {
     int oldCapacity = fCapacity;
-    SkDEBUGCODE(int oldCount = fCount);
     fCount = 0;
     fCapacity = capacity;
     SkAutoTArray<Slot> oldSlots = std::move(fSlots);

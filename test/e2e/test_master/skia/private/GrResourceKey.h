@@ -142,7 +142,6 @@ protected:
     uint32_t& operator[](int dataIdx)
     {
       SkASSERT(fKey);
-      SkDEBUGCODE(size_t dataCount = fKey->internalSize() / sizeof(uint32_t) - kMetaDataCnt;)
       SkASSERT(SkToU32(dataIdx) < dataCount);
       return fKey->fKey[kMetaDataCnt + dataIdx];
     }

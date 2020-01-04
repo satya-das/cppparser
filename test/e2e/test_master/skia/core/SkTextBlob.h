@@ -213,7 +213,6 @@ private:
   const SkRect fBounds;
   const uint32_t fUniqueID;
   mutable std::atomic<uint32_t> fCacheID;
-  SkDEBUGCODE(size_t fStorageSize;)
   typedef SkRefCnt INHERITED;
 };
 /** \class SkTextBlobBuilder

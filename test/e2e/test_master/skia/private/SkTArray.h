@@ -203,7 +203,7 @@ public:
   T& push_back()
   {
     void* newT = this->push_back_raw(1);
-    return *newT  T;
+    return *new (newT) T;
   }
     /**
      * Version of above that uses a copy constructor to initialize the new item
@@ -211,7 +211,7 @@ public:
   T& push_back(const T& t)
   {
     void* newT = this->push_back_raw(1);
-    return *newT  T(t);
+    return *new (newT) T(t);
   }
     /**
      * Version of above that uses a move constructor to initialize the new item
@@ -219,7 +219,7 @@ public:
   T& push_back(T&& t)
   {
     void* newT = this->push_back_raw(1);
-    return *newT  T(std::move(t));
+    return *new (newT) T(std::move(t));
   }
     /**
      *  Construct a new T at the back of this array.
@@ -228,7 +228,7 @@ public:
   T& emplace_back(Args&& args)
   {
     void* newT = this->push_back_raw(1);
-    return *newT  T(std::forward<Args>(args));
+    return *new (newT) T(std::forward<Args>(args));
   }
     /**
      * Allocates n more default-initialized T values, and returns the address of

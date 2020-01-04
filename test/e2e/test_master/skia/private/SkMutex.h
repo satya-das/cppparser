@@ -18,12 +18,10 @@ public:
   void acquire()
   {
     fSemaphore.wait();
-    SkDEBUGCODE(fOwner = SkGetThreadID();)
   }
   void release()
   {
     this->assertHeld();
-    SkDEBUGCODE(fOwner = kIllegalThreadID;)
     fSemaphore.signal();
   }
   void assertHeld()
@@ -32,7 +30,6 @@ public:
   }
 private:
   SkSemaphore fSemaphore{1};
-  SkDEBUGCODE(SkThreadID fOwner{kIllegalThreadID};)
 };
 class SK_SCOPED_CAPABILITY SkAutoMutexExclusive
 {

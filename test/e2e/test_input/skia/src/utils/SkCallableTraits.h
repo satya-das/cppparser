@@ -74,8 +74,10 @@ SK_CALLABLE_TRAITS__CV_REF_NE_VARARGS()
 #undef SK_CALLABLE_TRAITS__INSTANCE
 
 // pointer to field
+/*
 template <typename T, typename R>
 struct SkCallableTraits<R T::*> : sk_base_callable_traits<typename std::add_lvalue_reference<R>::type> {};
+*/
 
 #undef SK_CALLABLE_TRAITS__CV_REF_NE_VARARGS
 #undef SK_CALLABLE_TRAITS__REF_NE_VARARGS

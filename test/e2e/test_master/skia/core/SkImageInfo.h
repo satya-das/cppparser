@@ -756,7 +756,6 @@ public:
     /** Asserts if internal values are illegal or inconsistent. Only available if
         SK_DEBUG is defined at compile time.
     */
-  SkDEBUGCODE(void validate() const;)
 private:
   SkColorInfo fColorInfo;
   SkISize fDimensions = {0, 0};

@@ -145,7 +145,6 @@ private:
   friend class GrContextThreadSafeProxy;
   friend class SkDeferredDisplayListRecorder;
   friend class SkSurface;
-  SkDEBUGCODE(void validate() const;)
   SkSurfaceCharacterization(sk_sp<GrContextThreadSafeProxy> contextInfo, size_t cacheMaxResourceBytes, const SkImageInfo& ii, const GrBackendFormat& backendFormat, GrSurfaceOrigin origin, int sampleCnt, Textureable isTextureable, MipMapped isMipMapped, UsesGLFBO0 usesGLFBO0, VulkanSecondaryCBCompatible vulkanSecondaryCBCompatible, GrProtected isProtected, const SkSurfaceProps& surfaceProps)
     : fContextInfo(std::move(contextInfo))
     , fCacheMaxResourceBytes(cacheMaxResourceBytes)
@@ -160,7 +159,6 @@ private:
     , fIsProtected(isProtected)
     , fSurfaceProps(surfaceProps)
   {
-    SkDEBUGCODE(this->validate());
   }
   void set(sk_sp<GrContextThreadSafeProxy> contextInfo, size_t cacheMaxResourceBytes, const SkImageInfo& ii, const GrBackendFormat& backendFormat, GrSurfaceOrigin origin, int sampleCnt, Textureable isTextureable, MipMapped isMipMapped, UsesGLFBO0 usesGLFBO0, VulkanSecondaryCBCompatible vulkanSecondaryCBCompatible, GrProtected isProtected, const SkSurfaceProps& surfaceProps)
   {
@@ -180,7 +178,6 @@ private:
     fVulkanSecondaryCBCompatible = vulkanSecondaryCBCompatible;
     fIsProtected = isProtected;
     fSurfaceProps = surfaceProps;
-    SkDEBUGCODE(this->validate());
   }
   sk_sp<GrContextThreadSafeProxy> fContextInfo;
   size_t fCacheMaxResourceBytes;

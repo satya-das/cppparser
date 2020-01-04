@@ -94,19 +94,16 @@ public:
     {
       fArray.reset(new T[count]);
     }
-    SkDEBUGCODE(fCount = count;)
   }
   SkAutoTArray(SkAutoTArray&& other)
     : fArray(std::move(other.fArray))
   {
-    SkDEBUGCODE(fCount = other.fCount; other.fCount = 0;)
   }
   SkAutoTArray& operator=(SkAutoTArray&& other)
   {
     if (this != &other)
     {
       fArray = std::move(other.fArray);
-      SkDEBUGCODE(fCount = other.fCount; other.fCount = 0;)
     }
     return *this;
   }
@@ -131,7 +128,6 @@ public:
   }
 private:
   std::unique_ptr<T[]> fArray;
-  SkDEBUGCODE(int fCount = 0;)
 };
 /** Wraps SkAutoTArray, with room for kCountRequested elements preallocated.
  */
@@ -472,7 +468,7 @@ void SkInPlaceDeleteCheck(T* obj, void* storage)
 template <typename T, typename... Args>
 T* SkInPlaceNewCheck(void* storage, size_t size, Args&& args)
 {
-  return (sizeof(T) <= size) ? storage  T(std::forward<Args>(args)) : new T(std::forward<Args>(args));
+  return (sizeof(T) <= size) ? new (storage) T(std::forward<Args>(args)) : new T(std::forward<Args>(args));
 }
 /**
  * Reserves memory that is aligned on double and pointer boundaries.

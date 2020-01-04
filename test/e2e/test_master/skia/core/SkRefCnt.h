@@ -192,7 +192,6 @@ public:
     if (1 == fRefCnt.fetch_add(-1, std::memory_order_acq_rel))
     {
             // restore the 1 for our destructor's assert
-      SkDEBUGCODE(fRefCnt.store(1, std::memory_order_relaxed));
       delete (const Derived*) this;
     }
   }
@@ -270,7 +269,6 @@ public:
   ~sk_sp()
   {
     SkSafeUnref(fPtr);
-    SkDEBUGCODE(fPtr = nullptr);
   }
   sk_sp<T>& operator=(std::nullptr_t)
   {

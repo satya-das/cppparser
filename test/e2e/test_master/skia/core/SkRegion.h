@@ -548,7 +548,6 @@ private:
   void allocateRuns(int count);
   void allocateRuns(int count, int ySpanCount, int intervalCount);
   void allocateRuns(const RunHead& src);
-  SkDEBUGCODE(void dump() const;)
   SkIRect fBounds;
   RunHead* fRunHead;
   void freeRuns();

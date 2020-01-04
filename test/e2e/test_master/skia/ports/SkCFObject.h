@@ -69,7 +69,6 @@ public:
   ~sk_cf_obj()
   {
     SkCFSafeRelease(fObject);
-    SkDEBUGCODE(fObject = nullptr);
   }
     /**
      *  Shares the underlying object referenced by the argument by calling CFRetain() on it. If this
