@@ -75,7 +75,7 @@ namespace
     }
     AI SkNx invert() const
     {
-      float32x2_t est0, est1;
+      float32x2_t est0 = vrecpe_f32(fVec), est1;
       return est1;
     }
     AI SkNx operator -() const
@@ -99,7 +99,7 @@ namespace
 #  if  defined(SK_CPU_ARM64)
       return vdiv_f32(fVec, o.fVec);
 #  else 
-      float32x2_t est0, est1, est2;
+      float32x2_t est0 = vrecpe_f32(o.fVec), est1, est2;
       return vmul_f32(fVec, est2);
 #  endif
     }
@@ -157,7 +157,7 @@ namespace
 #  if  defined(SK_CPU_ARM64)
       return vsqrt_f32(fVec);
 #  else 
-      float32x2_t est0, est1, est2;
+      float32x2_t est0 = vrsqrte_f32(fVec), est1, est2;
       return vmul_f32(fVec, est2);
 #  endif
     }
@@ -243,7 +243,7 @@ namespace
     }
     AI SkNx invert() const
     {
-      float32x4_t est0, est1;
+      float32x4_t est0 = vrecpeq_f32(fVec), est1;
       return est1;
     }
     AI SkNx operator -() const
@@ -267,7 +267,7 @@ namespace
 #  if  defined(SK_CPU_ARM64)
       return vdivq_f32(fVec, o.fVec);
 #  else 
-      float32x4_t est0, est1, est2;
+      float32x4_t est0 = vrecpeq_f32(o.fVec), est1, est2;
       return vmulq_f32(fVec, est2);
 #  endif
     }
@@ -325,7 +325,7 @@ namespace
 #  if  defined(SK_CPU_ARM64)
       return vsqrtq_f32(fVec);
 #  else 
-      float32x4_t est0, est1, est2;
+      float32x4_t est0 = vrsqrteq_f32(fVec), est1, est2;
       return vmulq_f32(fVec, est2);
 #  endif
     }

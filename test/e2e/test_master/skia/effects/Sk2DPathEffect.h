@@ -35,8 +35,8 @@ protected:
   explicit Sk2DPathEffect(const SkMatrix& mat);
   void flatten(SkWriteBuffer&) const override;
   bool onFilterPath(SkPath*, const SkPath&, SkStrokeRec*, const SkRect*) const override;
-  SkMatrix fMatrix, fInverse;
 private:
+  SkMatrix fMatrix, fInverse;
   bool fMatrixIsInvertible;
     // illegal
   Sk2DPathEffect(const Sk2DPathEffect&);

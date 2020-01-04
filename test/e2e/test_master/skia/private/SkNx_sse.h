@@ -69,13 +69,13 @@ namespace
     }
     AI static void Store3(void* dst, const SkNx& a, const SkNx& b, const SkNx& c)
     {
-      auto lo, hi;
+      auto lo = _mm_setr_ps(a[0], b[0], c[0], a[1]), hi;
       _mm_storeu_ps((float*) dst, lo);
       _mm_storel_pi(((__m64*) dst) + 2, hi);
     }
     AI static void Store4(void* dst, const SkNx& a, const SkNx& b, const SkNx& c, const SkNx& d)
     {
-      auto lo, hi;
+      auto lo = _mm_setr_ps(a[0], b[0], c[0], d[0]), hi;
       _mm_storeu_ps((float*) dst, lo);
       _mm_storeu_ps(((float*) dst) + 4, hi);
     }
@@ -212,13 +212,13 @@ namespace
     }
     AI static void Load2(const void* ptr, SkNx* x, SkNx* y)
     {
-      SkNx lo, hi;
+      SkNx lo = SkNx::Load((const float*) ptr + 0), hi;
       *x = SkNx(lo[0], lo[2], hi[0], hi[2]);
       *y = SkNx(lo[1], lo[3], hi[1], hi[3]);
     }
     AI static void Load4(const void* ptr, SkNx* r, SkNx* g, SkNx* b, SkNx* a)
     {
-      __m128 v0, v1, v2, v3;
+      __m128 v0 = _mm_loadu_ps(((float*) ptr) + 0), v1, v2, v3;
       _MM_TRANSPOSE4_PS(v0, v1, v2, v3);
       *r = v0;
       *g = v1;
@@ -227,7 +227,7 @@ namespace
     }
     AI static void Store4(void* dst, const SkNx& r, const SkNx& g, const SkNx& b, const SkNx& a)
     {
-      __m128 v0, v1, v2, v3;
+      __m128 v0 = r.fVec, v1, v2, v3;
       _MM_TRANSPOSE4_PS(v0, v1, v2, v3);
       _mm_storeu_ps(((float*) dst) + 0, v0);
       _mm_storeu_ps(((float*) dst) + 4, v1);
@@ -355,7 +355,7 @@ namespace
 #  if  SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE41
     return _mm_mullo_epi32(a, b);
 #  else 
-    __m128i mul20, mul31;
+    __m128i mul20 = _mm_mul_epu32(a, b), mul31;
     return _mm_unpacklo_epi32(_mm_shuffle_epi32(mul20, _MM_SHUFFLE(0, 0, 2, 0)), _mm_shuffle_epi32(mul31, _MM_SHUFFLE(0, 0, 2, 0)));
 #  endif
   }
@@ -690,9 +690,9 @@ namespace
     }
     AI static void Load4(const void* ptr, SkNx* r, SkNx* g, SkNx* b, SkNx* a)
     {
-      __m128i lo, hi;
-      __m128i even, odd;
-      __m128i rg, ba;
+      __m128i lo = _mm_loadu_si128(((__m128i*) ptr) + 0), hi;
+      __m128i even = _mm_unpacklo_epi16(lo, hi), odd;
+      __m128i rg = _mm_unpacklo_epi16(even, odd), ba;
       *r = rg;
       *g = _mm_srli_si128(rg, 8);
       *b = ba;
@@ -792,9 +792,9 @@ namespace
     }
     AI static void Load4(const void* ptr, SkNx* r, SkNx* g, SkNx* b, SkNx* a)
     {
-      __m128i _01, _23, _45, _67;
-      __m128i _02, _13, _46, _57;
-      __m128i rg0123, ba0123, rg4567, ba4567;
+      __m128i _01 = _mm_loadu_si128(((__m128i*) ptr) + 0), _23, _45, _67;
+      __m128i _02 = _mm_unpacklo_epi16(_01, _23), _13, _46, _57;
+      __m128i rg0123 = _mm_unpacklo_epi16(_02, _13), ba0123, rg4567, ba4567;
       *r = _mm_unpacklo_epi64(rg0123, rg4567);
       *g = _mm_unpackhi_epi64(rg0123, rg4567);
       *b = _mm_unpacklo_epi64(ba0123, ba4567);
@@ -825,7 +825,7 @@ namespace
     }
     AI static void Store4(void* ptr, const SkNx& r, const SkNx& g, const SkNx& b, const SkNx& a)
     {
-      __m128i rg0123, rg4567, ba0123, ba4567;
+      __m128i rg0123 = _mm_unpacklo_epi16(r.fVec, g.fVec), rg4567, ba0123, ba4567;
       _mm_storeu_si128((__m128i*) ptr + 0, _mm_unpacklo_epi32(rg0123, ba0123));
       _mm_storeu_si128((__m128i*) ptr + 1, _mm_unpackhi_epi32(rg0123, ba0123));
       _mm_storeu_si128((__m128i*) ptr + 2, _mm_unpacklo_epi32(rg4567, ba4567));
