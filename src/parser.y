@@ -73,18 +73,18 @@ int GetKeywordId(const std::string& keyword) {
 #  define TRUE true
 #endif
 
-static int gLog = 0;
+static int gParseLog = 0;
 
 #define ZZLOG               \
   {                         \
-  if (gLog)                 \
+  if (gParseLog)                 \
     printf("ZZLOG @line#%d, parsing stream line#%d\n", __LINE__, gLineNo); \
 }
 
 static int gDisableYyValid = 0;
 
 #define ZZVALID   {         \
-  if (gLog)                 \
+  if (gParseLog)                 \
     printf("ZZVALID: ");    \
   ZZLOG;                    \
   if (!gDisableYyValid)     \
@@ -93,7 +93,7 @@ static int gDisableYyValid = 0;
 
 #define ZZERROR             \
   do {                      \
-    if (gLog)               \
+    if (gParseLog)               \
       printf("ZZERROR: ");  \
     ZZLOG;                  \
     YYERROR;                \
@@ -892,10 +892,6 @@ vardecl           : vartype varidentifier       [ZZLOG;]         {
                   }
                   | templatespecifier vardecl   [ZZLOG;] {
                     $$ = $2;
-                  }
-                  | exptype vardecl             [ZZLOG;] {
-                    $$ = $2;
-                    $$->addAttr($1);
                   }
                   | varattrib vardecl           [ZZLOG;] {
                     $$ = $2;
@@ -1892,12 +1888,21 @@ void yyerror_detailed  (  char* text,
 static void setupEnv()
 {
 #if YYDEBUG
+  enum {
+    kNoLog    = 0x000,
+    kParseLog = 0x001,
+    kLexLog   = 0x002,
+    kYaccLog  = 0x004
+  };
+
   const char* yys = getenv("ZZDEBUG");
-  
   if (yys) {
-    const char yyn = *yys;
-    if (yyn >= '1' && yyn <= '9')
-      gLog = 1; 
+    const int yyn = *yys - '0';
+    extern int gLexLog;
+
+    gParseLog = ((yyn & kParseLog) ? 1 : 0);
+    gLexLog   = ((yyn & kLexLog)   ? 1 : 0);
+    yydebug   = ((yyn & kYaccLog)  ? 1 : 0);
   }
 #endif
 }

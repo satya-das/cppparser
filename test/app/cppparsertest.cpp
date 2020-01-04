@@ -177,6 +177,8 @@ CppParser constructCppParserForTest()
                          "GR_DECLARE_GEOMETRY_PROCESSOR_TEST",
                          "GR_DECLARE_XP_FACTORY_TEST",
                          "DEFINE_NAMED_APPEND",
+                         "SK_CALLABLE_TRAITS__CV_REF_NE_VARARGS",
+                         "SK_CALLABLE_TRAITS__NE_VARARGS",
                          "SK_WHEN"});
 
   parser.addIgnorableMacros({"SkDEBUGCODE", "SkDEBUGPARAMS", "__bridge", "__bridge_retained", "API_AVAILABLE"});

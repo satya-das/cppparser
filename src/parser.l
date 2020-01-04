@@ -44,7 +44,7 @@ For this very reason this file does not use any class that are defined in cppast
 #include <set>
 #include <vector>
 
-static int gLog = 0;
+int gLexLog = 0;
 /**
  * Comments can appear anywhere in a C/C++ program and unfortunately not all coments can be preserved.
  *
@@ -77,20 +77,20 @@ extern std::map<std::string, int>   gRenamedKeywords;
 #define BEGINCONTEXT(ctx) { \
   int prevState = YYSTATE;  \
   yy_push_state(ctx);       \
-  if (gLog)                 \
+  if (gLexLog)                 \
     printf("@line#%d, pushed state=%d and started state=%d from source code line#%d\n", gLineNo, prevState, YYSTATE, __LINE__); \
 }
 
 #define ENDCONTEXT() {      \
   int prevState = YYSTATE;  \
   yy_pop_state();           \
-  if (gLog)                 \
+  if (gLexLog)                 \
     printf("@line#%d, ended state=%d and starting state=%d from source code line#%d\n", gLineNo, prevState, YYSTATE, __LINE__); \
 }
 
 static int LogAndReturn(int ret, int codelinenum, int srclinenum)
 {
-  if (gLog)
+  if (gLexLog)
   {
     printf("Lex Info: code-line#%d: returning token %d with value '%s' found @line#%d\n",
       codelinenum, ret, yytext, srclinenum);
