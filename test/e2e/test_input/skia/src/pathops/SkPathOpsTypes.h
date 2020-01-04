@@ -39,8 +39,8 @@ enum class SkOpPhase : char {
 class SkOpGlobalState {
 public:
     SkOpGlobalState(SkOpContourHead* head,
-                    SkArenaAlloc* allocator SkDEBUGPARAMS(bool debugSkipAssert)
-                    SkDEBUGPARAMS(const char* testName));
+                    SkArenaAlloc* allocator, bool debugSkipAssert,
+                    const char* testName);
 
     enum {
         kMaxWindingTries = 10

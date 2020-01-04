@@ -156,6 +156,8 @@ CppParser constructCppParserForTest()
                          "INTERNAL_DECLARE_SET_TRACE_VALUE_INT",
                          "INTERNAL_DECLARE_SET_TRACE_VALUE",
                          "SK_RECORD_TYPES",
+                         "SK_OT_BYTE_BITFIELD",
+                         "SKSL_PRINTF_LIKE",
                          "ACT_AS_PTR",
                          "RECORD",
                          "SK_WHEN"});

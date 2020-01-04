@@ -107,8 +107,8 @@ struct SkDCubic {
     int verticalIntersect(double xIntercept, double roots[3]) const;
 
 // add debug only global pointer so asserts can be skipped by fuzzers
-    const SkDCubic& set(const SkPoint pts[kPointCount]
-            SkDEBUGPARAMS(SkOpGlobalState* state = nullptr)) {
+    const SkDCubic& set(const SkPoint pts[kPointCount], 
+            SkOpGlobalState* state = nullptr) {
         fPts[0] = pts[0];
         fPts[1] = pts[1];
         fPts[2] = pts[2];

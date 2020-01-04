@@ -87,7 +87,7 @@ private:
     std::tuple<Ts*...> fPointers;
     size_t fSize;
 };
-
+/*
 class SkMakeZipDetail {
     template<typename T> struct DecayPointer{
         using U = typename std::remove_cv<typename std::remove_reference<T>::type>::type;
@@ -155,4 +155,5 @@ template<typename... Ts>
 inline constexpr auto SkMakeZip(Ts&& ... ts) {
     return SkMakeZipDetail::MakeZip(std::forward<Ts>(ts)...);
 }
+*/
 #endif //SkZip_DEFINED
