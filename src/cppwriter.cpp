@@ -277,14 +277,11 @@ void CppWriter::emitVarList(const CppVarList* varListObj,
                             std::ostream&     stm,
                             CppIndent         indentation /* = CppIndent()*/) const
 {
-  stm << indentation;
-  emitAttribute(varListObj->typeAttr_, stm);
-  stm << varListObj->baseType_ << ' ';
+  emitVar(varListObj->firstVar().get(), stm, indentation);
   auto& varDeclList = varListObj->varDeclList();
   for (size_t i = 0; i < varDeclList.size(); ++i)
   {
-    if (i > 0)
-      stm << ", ";
+    stm << ", ";
     const auto& decl = varDeclList[i];
     emitTypeModifier(decl, stm);
     emitVarDecl(stm, decl, false);

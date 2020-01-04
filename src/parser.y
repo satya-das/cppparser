@@ -814,24 +814,18 @@ vardeclstmt       : vardecl ';'             [ZZLOG;] { $$ = $1; }
                   | exptype vardeclstmt     [ZZLOG;] { $$ = $2; $$->addAttr($1); }
                   ;
 
-vardecllist       : typeidentifier opttypemodifier id optvarassign ',' opttypemodifier id optvarassign [ZZLOG;] {
-                    $$ = new CppVarList($1);
-                    $$->addVarDecl(CppVarDeclInList($2, CppVarDecl{$3}));
-                    $$->addVarDecl(CppVarDeclInList($6, CppVarDecl{$7}));
-                    /* TODO: use optvarassign values */
+vardecllist       : varinit ',' opttypemodifier id optvarassign [ZZLOG;] {
+                    $$ = new CppVarList($1, CppVarDeclInList($3, CppVarDecl{$4}));
+                    /* TODO: Use optvarassign as well */
+                  }
+                  | vardecl ',' opttypemodifier id optvarassign [ZZLOG;] {
+                    $$ = new CppVarList($1, CppVarDeclInList($3, CppVarDecl{$4}));
+                    /* TODO: Use optvarassign as well */
                   }
                   | vardecllist ',' opttypemodifier id optvarassign [ZZLOG;] {
                     $$ = $1;
                     $$->addVarDecl(CppVarDeclInList($3, CppVarDecl{$4}));
-                    /* TODO: use optvarassign values */
-                  }
-                  | varattrib vardecllist {
-                    $$ = $2;
-                    $$->addAttr($1);
-                  }
-                  | exptype vardecllist {
-                    $$ = $2;
-                    $$->addAttr($1);
+                    /* TODO: Use optvarassign as well */
                   }
                   ;
 

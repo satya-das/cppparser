@@ -479,6 +479,7 @@ private:
   std::string   apidecor_; // It holds things like WINAPI, __declspec(dllexport), etc.
 };
 
+using CppVarPtr       = std::unique_ptr<CppVar>;
 using CppVarEPtr      = CppEasyPtr<CppVar>;
 using CppConstVarEPtr = CppEasyPtr<const CppVar>;
 
@@ -500,50 +501,30 @@ struct CppVarList : public CppObj
 {
   static constexpr CppObjType kObjectType = CppObjType::kVarList;
 
-  const std::string baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
-  std::uint32_t     typeAttr_ {0};
-  CppVarList(std::string baseType, CppAccessType accessType = CppAccessType::kUnknown)
-    : CppVarList(kObjectType, std::move(baseType), accessType)
-  {
-  }
+  const CppVarPtr firstVar_;
 
+  CppVarList(CppVar* firstVar, CppVarDeclInList varDecl)
+    : CppObj(kObjectType, firstVar->accessType_)
+    , firstVar_(firstVar)
+  {
+    addVarDecl(std::move(varDecl));
+  }
   void addVarDecl(CppVarDeclInList varDecl)
   {
     varDeclList_.push_back(std::move(varDecl));
   }
-
+  const CppVarPtr& firstVar() const
+  {
+    return firstVar_;
+  }
   const CppVarDeclList& varDeclList() const
   {
     return varDeclList_;
   }
 
-  std::uint32_t typeAttr() const
-  {
-    return typeAttr_;
-  }
-  void typeAttr(std::uint32_t attr)
-  {
-    typeAttr_ = attr;
-  }
-  void addAttr(std::uint32_t attr)
-  {
-    typeAttr_ |= attr;
-  }
-
-protected:
-  CppVarList(CppObjType objType, std::string baseType, CppAccessType accessType = CppAccessType::kUnknown)
-    : CppObj(objType, accessType)
-    , baseType_(std::move(baseType))
-  {
-  }
-
 private:
   CppVarDeclList varDeclList_;
 };
-
-using CppVarEPtr = CppEasyPtr<CppVar>;
-
-using CppVarPtr = std::unique_ptr<CppVar>;
 
 struct CppTypedefName : public CppObj
 {
