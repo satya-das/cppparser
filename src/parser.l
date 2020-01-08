@@ -1224,9 +1224,10 @@ void setupScanBuffer(char* buf, size_t bufsize)
   gParseBuffer = yy_scan_buffer(buf, bufsize);
   gLineNo = 0;
   oyytext = buf;
+  gBracketDepthStack = {0};
   gTokenizeComment = true;
   gEnumBodyWillBeEncountered = false;
-  BEGINCONTEXT(ctxGeneral);
+  BEGIN(ctxGeneral);
 }
 
 void cleanupScanBuffer()
@@ -1234,4 +1235,5 @@ void cleanupScanBuffer()
   yy_delete_buffer(gParseBuffer);
   gParseBuffer = nullptr;
   gTokenizeComment = true;
+  gEnumBodyWillBeEncountered = false;
 }
