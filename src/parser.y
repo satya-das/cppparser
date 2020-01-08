@@ -1769,9 +1769,11 @@ expr              : strlit                                                [ZZLOG
                       }
                     ]                                                     [ZZLOG;] { $$ = new CppExpr($1, kAnd, $3);                     }
                   | expr tknOr expr                                       [ZZLOG;] { $$ = new CppExpr($1, kOr, $3);                      }
-                  | expr '.' expr                                         [ZZLOG;] { $$ = new CppExpr($1, kDot, $3);                     }
+                  | expr '.' funcname                                     [ZZLOG;] { $$ = new CppExpr($1, kDot, CppExprAtom($3));                     }
                   | expr tknArrow funcname                                [ZZLOG;] { $$ = new CppExpr($1, kArrow, CppExprAtom($3));      }
                   | expr tknArrowStar funcname                            [ZZLOG;] { $$ = new CppExpr($1, kArrowStar, CppExprAtom($3));  }
+                  | expr '.' '~' funcname                                 [ZZLOG;] { $$ = new CppExpr($1, kDot, CppExprAtom(mergeCppToken($3, $4)));                     }
+                  | expr tknArrow '~' funcname                            [ZZLOG;] { $$ = new CppExpr($1, kArrow, CppExprAtom(mergeCppToken($3, $4)));      }
                   | expr '[' expr ']' %prec SUBSCRIPT                     [ZZLOG;] { $$ = new CppExpr($1, kArrayElem, $3);               }
                   | expr '[' ']' %prec SUBSCRIPT                          [ZZLOG;] { $$ = new CppExpr($1, kArrayElem);                   }
                   | expr '(' funcargs ')' %prec FUNCCALL                  [ZZLOG;] { $$ = new CppExpr($1, kFunctionCall, $3);            }
