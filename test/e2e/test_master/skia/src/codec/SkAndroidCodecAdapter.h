@@ -7,6 +7,11 @@
 #ifndef SkAndroidCodecAdapter_DEFINED
 #  define SkAndroidCodecAdapter_DEFINED
 #  include "include/codec/SkAndroidCodec.h"
+/**
+ *  This class wraps SkCodec to implement the functionality of SkAndroidCodec.
+ *  The underlying SkCodec implements sampled decodes.  SkCodec's that do not
+ *  implement that are wrapped with SkSampledCodec instead.
+ */
 class SkAndroidCodecAdapter : public SkAndroidCodec
 {
 public:

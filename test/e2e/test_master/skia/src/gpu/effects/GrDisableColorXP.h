@@ -9,6 +9,7 @@
 #  include "include/core/SkRefCnt.h"
 #  include "include/gpu/GrTypes.h"
 #  include "src/gpu/GrXferProcessor.h"
+// See the comment above GrXPFactory's definition about this warning suppression.
 #  if  defined(__GNUC__)
 #    pragma  GCC diagnostic push
 #    pragma  GCC diagnostic ignored "-Wnon-virtual-dtor"

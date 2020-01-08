@@ -13,6 +13,10 @@
 #  include "include/core/SkTypes.h"
 #  include "src/codec/SkColorTable.h"
 #  include "src/codec/SkSwizzler.h"
+/*
+ * This class enables code sharing between its bmp codec subclasses.  The
+ * subclasses actually do the work.
+ */
 class SkBmpCodec : public SkCodec
 {
 public:

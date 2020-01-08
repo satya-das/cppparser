@@ -341,6 +341,13 @@ const GrPrimitiveProcessor::TextureSampler& GrPrimitiveProcessor::IthTextureSamp
   static const TextureSampler kBogus;
   return kBogus;
 }
+//////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Returns the size of the attrib type in bytes.
+ * This was moved from include/private/GrTypesPriv.h in service of Skia dependents that build
+ * with C++11.
+ */
 static size_t GrVertexAttribTypeSize(GrVertexAttribType type)
 {
   switch(type)

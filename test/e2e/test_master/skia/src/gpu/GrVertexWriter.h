@@ -10,6 +10,15 @@
 #  include "src/gpu/GrColor.h"
 #  include "src/gpu/geometry/GrQuad.h"
 #  include <type_traits>
+/**
+ * Helper for writing vertex data to a buffer. Usage:
+ *  GrVertexWriter vertices{target->makeVertexSpace(...)};
+ *  vertices.write(A0, B0, C0, ...);
+ *  vertices.write(A1, B1, C1, ...);
+ *
+ * Supports any number of arguments. Each argument must be POD (plain old data), or an array
+ * thereof.
+ */
 struct GrVertexWriter
 {
   void* fPtr;

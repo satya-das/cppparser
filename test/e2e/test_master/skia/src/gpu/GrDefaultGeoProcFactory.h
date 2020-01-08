@@ -9,6 +9,10 @@
 #  include "src/gpu/GrColorSpaceXform.h"
 #  include "src/gpu/GrGeometryProcessor.h"
 #  include "src/gpu/GrShaderCaps.h"
+/*
+ * A factory for creating default Geometry Processors which simply multiply position by the uniform
+ * view matrix and wire through color, coverage, UV coords if requested.
+ */
 namespace GrDefaultGeoProcFactory
 {
   struct Color

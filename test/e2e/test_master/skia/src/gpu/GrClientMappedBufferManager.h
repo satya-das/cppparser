@@ -10,6 +10,15 @@
 #  include "src/core/SkMessageBus.h"
 #  include "src/gpu/GrGpuBuffer.h"
 #  include <forward_list>
+/**
+ * We sometimes hand clients objects that contain mapped GrGpuBuffers. The client may consume
+ * the mapped buffer on another thread. This object manages receiving messages that buffers are
+ * ready to be unmapped (on the direct GrContext's thread). It also handles cleaning up mapped
+ * buffers if the GrContext is destroyed before the client has finished with the buffer.
+ *
+ * Buffers are first registered using insert() before being passed the client. process() should be
+ * called periodically on the direct GrContext thread to poll for messages and process them.
+ */
 class GrClientMappedBufferManager
 {
 public:

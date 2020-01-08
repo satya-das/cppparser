@@ -11,6 +11,9 @@
 #  include "src/codec/SkBmpCodec.h"
 #  include "src/codec/SkColorTable.h"
 #  include "src/codec/SkSampler.h"
+/*
+ * This class implements the decoding for bmp images that use an RLE encoding
+ */
 class SkBmpRLECodec : public SkBmpCodec
 {
 public:

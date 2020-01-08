@@ -13,6 +13,11 @@
 #  include "src/codec/SkColorTable.h"
 #  include "src/codec/SkSwizzler.h"
 #  include "third_party/gif/SkGifImageReader.h"
+/*
+ *
+ * This class implements the decoding for gif images
+ *
+ */
 class SkGifCodec : public SkCodec
 {
 public:

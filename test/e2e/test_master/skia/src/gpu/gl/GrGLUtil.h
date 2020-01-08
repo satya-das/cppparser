@@ -28,6 +28,9 @@ typedef uint64_t GrGLDriverVersion;
 #  define GR_GL_INVALID_VER	GR_GL_VER(0, 0)
 #  define GR_GLSL_INVALID_VER	GR_GLSL_VER(0, 0)
 #  define GR_GL_DRIVER_UNKNOWN_VER	GR_GL_DRIVER_VER(0, 0, 0)
+/**
+ * The Vendor and Renderer enum values are lazily updated as required.
+ */
 enum GrGLVendor {
     kARM_GrGLVendor,
     kGoogle_GrGLVendor,
@@ -154,6 +157,13 @@ enum class GrGLANGLERenderer {
         (*precision) = GR_GL_INIT_ZERO;                                        \
         GR_GL_CALL(gl, GetShaderPrecisionFormat(st, pt, range, precision));    \
     } while (0)
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Helpers for glGetString()
+ */
+
+// these variants assume caller already has a string from glGetString()
 GrGLVersion GrGLGetVersionFromString(const char* versionString);
 GrGLStandard GrGLGetStandardInUseFromString(const char* versionString);
 GrGLSLVersion GrGLGetGLSLVersionFromString(const char* versionString);
@@ -187,6 +197,8 @@ extern bool gCheckErrorGL;
 #  else 
 #    define GR_GL_CHECK_ERROR_IMPL(IFACE, X)
 #  endif
+// internal macro to conditionally log the gl call using SkDebugf based on
+// compile-time and run-time flags.
 #  if  GR_GL_LOG_CALLS
 extern bool gLogCallsGL;
 #    define GR_GL_LOG_CALLS_IMPL(X)	                             \
@@ -195,26 +207,32 @@ extern bool gLogCallsGL;
 #  else 
 #    define GR_GL_LOG_CALLS_IMPL(X)
 #  endif
+// makes a GL call on the interface and does any error checking and logging
 #  define GR_GL_CALL(IFACE, X)	                                    \
     do {                                                        \
         GR_GL_CALL_NOERRCHECK(IFACE, X);                        \
         GR_GL_CHECK_ERROR_IMPL(IFACE, X);                       \
     } while (false)
+// Variant of above that always skips the error check. This is useful when
+// the caller wants to do its own glGetError() call and examine the error value.
 #  define GR_GL_CALL_NOERRCHECK(IFACE, X)	                         \
     do {                                                        \
         (IFACE)->fFunctions.f##X;                               \
         GR_GL_LOG_CALLS_IMPL(X);                                \
     } while (false)
+// same as GR_GL_CALL but stores the return value of the gl call in RET
 #  define GR_GL_CALL_RET(IFACE, RET, X)	                           \
     do {                                                        \
         GR_GL_CALL_RET_NOERRCHECK(IFACE, RET, X);               \
         GR_GL_CHECK_ERROR_IMPL(IFACE, X);                       \
     } while (false)
+// same as GR_GL_CALL_RET but always skips the error check.
 #  define GR_GL_CALL_RET_NOERRCHECK(IFACE, RET, X)	                \
     do {                                                        \
         (RET) = (IFACE)->fFunctions.f##X;                       \
         GR_GL_LOG_CALLS_IMPL(X);                                \
     } while (false)
+// call glGetError without doing a redundant error check or logging.
 #  define GR_GL_GET_ERROR(IFACE)	 (IFACE)->fFunctions.fGetError()
 static GrGLFormat GrGLFormatFromGLEnum(GrGLenum glFormat)
 {
@@ -264,6 +282,7 @@ default:
     return GrGLFormat::kUnknown;
 }
 }
+/** Returns either the sized internal format or compressed internal format of the GrGLFormat. */
 static GrGLenum GrGLFormatToEnum(GrGLFormat format)
 {
   switch(format)

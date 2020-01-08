@@ -26,6 +26,10 @@
 #  else 
 #    define HAVE_LOCALE_T	1
 #  endif
+/**
+ * Helper class for ensuring that we don't use the wrong locale when building shaders. Android
+ * doesn't support locale in the NDK, so this is a no-op there.
+ */
 class GrAutoLocaleSetter : public SkNoncopyable
 {
 public:

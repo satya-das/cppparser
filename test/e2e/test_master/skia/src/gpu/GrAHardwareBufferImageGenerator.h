@@ -12,6 +12,17 @@ class GrGpuResource;
 extern "C" {
   typedef struct AHardwareBuffer AHardwareBuffer;
   }
+/**
+ *  GrAHardwareBufferImageGenerator allows to create an SkImage attached to
+ *  an existing android native hardware buffer. A hardware buffer has to be
+ *  created with AHARDWAREBUFFER_USAGE_GPU_SAMPLED_IMAGE usage, because it is
+ *  bound to an external texture using an EGLImage. The image generator will
+ *  keep a reference to the hardware buffer for its lifetime. A hardware buffer
+ *  can be shared between processes and same buffer can be used in multiple GPU
+ *  contexts.
+ *  To implement certain features like tiling, Skia may copy the texture to
+ *  avoid OpenGL API limitations.
+ */
 class GrAHardwareBufferImageGenerator : public SkImageGenerator
 {
 public:

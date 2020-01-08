@@ -10,6 +10,11 @@
 #  include "src/core/SkIPoint16.h"
 #  include "src/core/SkMathPriv.h"
 #  include "src/gpu/GrRectanizer.h"
+// This Rectanizer quantizes the incoming rects to powers of 2. Each power
+// of two can have, at most, one active row/shelf. Once a row/shelf for
+// a particular power of two gets full its fRows entry is recycled to point
+// to a new row.
+// The skyline algorithm almost always provides a better packing.
 class GrRectanizerPow2 : public GrRectanizer
 {
 public:

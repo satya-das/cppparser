@@ -12,6 +12,12 @@
 #  include "include/private/SkEncodedInfo.h"
 #  include "include/private/SkNoncopyable.h"
 #  include "src/codec/SkCodecAnimationPriv.h"
+/**
+ *  Base class for a single frame of an animated image.
+ *
+ *  Separate from SkCodec::FrameInfo, which is a pared down
+ *  interface that only contains the info the client needs.
+ */
 class SkFrame : public SkNoncopyable
 {
 public:

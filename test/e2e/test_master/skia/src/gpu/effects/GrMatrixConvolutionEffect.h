@@ -7,6 +7,8 @@
 #ifndef GrMatrixConvolutionEffect_DEFINED
 #  define GrMatrixConvolutionEffect_DEFINED
 #  include "src/gpu/effects/GrTextureDomain.h"
+// A little bit less than the minimum # uniforms required by DX9SM2 (32).
+// Allows for a 5x5 kernel (or 25x1, for that matter).
 #  define MAX_KERNEL_SIZE	25
 class GrMatrixConvolutionEffect : public GrFragmentProcessor
 {

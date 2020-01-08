@@ -7,6 +7,10 @@
 #ifndef GrSDFMaskFilter_DEFINED
 #  define GrSDFMaskFilter_DEFINED
 #  include "include/core/SkMaskFilter.h"
+/** \class GrSDFMaskFilter
+
+    This mask filter converts an alpha mask to a signed distance field representation
+*/
 class GrSDFMaskFilter : public SkMaskFilter
 {
 public:

@@ -14,6 +14,7 @@
 #  include "src/core/SkScalerContext.h"
 #  include "src/utils/SkCharToGlyphCache.h"
 #  include "include/core/SkFontMgr.h"
+// These are forward declared to avoid pimpl but also hide the FreeType implementation.
 typedef struct FT_LibraryRec_* FT_Library;
 typedef struct FT_FaceRec_* FT_Face;
 typedef struct FT_StreamRec_* FT_Stream;

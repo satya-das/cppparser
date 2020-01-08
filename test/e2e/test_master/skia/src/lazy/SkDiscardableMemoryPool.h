@@ -15,6 +15,12 @@
 #      define SK_LAZY_CACHE_STATS	0
 #    endif
 #  endif
+/**
+ *  An implementation of Discardable Memory that manages a fixed-size
+ *  budget of memory.  When the allocated memory exceeds this size,
+ *  unlocked blocks of memory are purged.  If all memory is locked, it
+ *  can exceed the memory-use budget.
+ */
 class SkDiscardableMemoryPool : public SkDiscardableMemory::Factory
 {
 public:

@@ -10,6 +10,9 @@
 #  include "include/core/SkRefCnt.h"
 #  include "include/gpu/GrTypes.h"
 #  include "src/gpu/GrColorSpaceXform.h"
+/**
+ * All the info needed to interpret a color: Color type + alpha type + color space. Also caches
+ * the GrColorSpaceXform from sRGB. */
 class GrColorInfo
 {
 public:

@@ -9,6 +9,11 @@
 #  include "include/core/SkPoint.h"
 #  include "include/private/SkTArray.h"
 #  include <map>
+/**
+ * A bidirectional dictionary mapping between sample patterns (i.e., a list of sample locations) and
+ * unique keys. Since we expect that most render targets will draw from the same small pool of
+ * sample patterns, we favor sample pattern keys over actual arrays of points.
+ */
 class GrSamplePatternDictionary
 {
 public:

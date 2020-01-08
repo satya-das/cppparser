@@ -8,6 +8,9 @@
 #  define GrStencilClip_DEFINED
 #  include "src/gpu/GrAppliedClip.h"
 #  include "src/gpu/GrFixedClip.h"
+/**
+ * Implements GrHardClip with the currently-existing stencil buffer contents and GrFixedClip.
+ */
 class GrStencilClip : public GrHardClip
 {
 public:

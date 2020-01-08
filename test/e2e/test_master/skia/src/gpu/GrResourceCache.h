@@ -32,6 +32,23 @@ static bool SkShouldPostMessageToBus(const GrGpuResourceFreedMessage& msg, uint3
     // The inbox's ID is the unique ID of the owning GrContext.
   return msgBusUniqueID == msg.fOwningUniqueID;
 }
+/**
+ * Manages the lifetime of all GrGpuResource instances.
+ *
+ * Resources may have optionally have two types of keys:
+ *      1) A scratch key. This is for resources whose allocations are cached but not their contents.
+ *         Multiple resources can share the same scratch key. This is so a caller can have two
+ *         resource instances with the same properties (e.g. multipass rendering that ping-pongs
+ *         between two temporary surfaces). The scratch key is set at resource creation time and
+ *         should never change. Resources need not have a scratch key.
+ *      2) A unique key. This key's meaning is specific to the domain that created the key. Only one
+ *         resource may have a given unique key. The unique key can be set, cleared, or changed
+ *         anytime after resource creation.
+ *
+ * A unique key always takes precedence over a scratch key when a resource has both types of keys.
+ * If a resource has neither key type then it will be deleted as soon as the last reference to it
+ * is dropped.
+ */
 class GrResourceCache
 {
 public:

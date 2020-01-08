@@ -9,6 +9,10 @@
 #  include "include/core/SkRefCnt.h"
 #  include "include/private/SkNoncopyable.h"
 #  include "include/private/SkTArray.h"
+/**
+ * A simple non-atomic ref used in the GrBackendApi when we don't want to pay for the overhead of a
+ * threadsafe ref counted object
+ */
 template <typename TSubclass>
 class GrNonAtomicRef : public SkNoncopyable
 {

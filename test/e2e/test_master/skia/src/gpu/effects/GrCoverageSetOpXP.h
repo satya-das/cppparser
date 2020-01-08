@@ -9,6 +9,7 @@
 #  include "include/core/SkRegion.h"
 #  include "include/gpu/GrTypes.h"
 #  include "src/gpu/GrXferProcessor.h"
+// See the comment above GrXPFactory's definition about this warning suppression.
 #  if  defined(__GNUC__)
 #    pragma  GCC diagnostic push
 #    pragma  GCC diagnostic ignored "-Wnon-virtual-dtor"
@@ -17,6 +18,11 @@
 #    pragma  clang diagnostic push
 #    pragma  clang diagnostic ignored "-Wnon-virtual-dtor"
 #  endif
+/**
+ * This xfer processor directly blends the the src coverage with the dst using a set operator. It is
+ * useful for rendering coverage masks using CSG. It can optionally invert the src coverage before
+ * applying the set operator.
+ */
 class GrCoverageSetOpXPFactory : public GrXPFactory
 {
 public:

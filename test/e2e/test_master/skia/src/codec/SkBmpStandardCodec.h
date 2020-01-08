@@ -11,6 +11,10 @@
 #  include "src/codec/SkBmpBaseCodec.h"
 #  include "src/codec/SkColorTable.h"
 #  include "src/codec/SkSwizzler.h"
+/*
+ * This class implements the decoding for bmp images that use "standard" modes,
+ * which essentially means they do not contain bit masks or RLE codes.
+ */
 class SkBmpStandardCodec : public SkBmpBaseCodec
 {
 public:

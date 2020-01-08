@@ -10,6 +10,7 @@
 #  include "include/private/SkTo.h"
 #  include "src/core/SkMathPriv.h"
 #  include <utility>
+/* A comparison functor which performs the comparison 'a < b'. */
 template <typename T>
 struct SkTCompareLT
 {
@@ -75,6 +76,14 @@ void SkTHeapSort_SiftUp(T array[], size_t root, size_t bottom, C lessThan)
   }
   array[root - 1] = x;
 }
+/*  Sifts a broken heap. The input array is a heap from root to bottom
+ *  except that the root entry may be out of place.
+ *
+ *  Sifts the array[root] element from the root down.
+ *
+ *  @param root the one based index into array of the out-of-place root of the heap.
+ *  @param bottom the one based index in the array of the last entry in the heap.
+ */
 template <typename T, typename C>
 void SkTHeapSort_SiftDown(T array[], size_t root, size_t bottom, C lessThan)
 {
@@ -99,6 +108,13 @@ void SkTHeapSort_SiftDown(T array[], size_t root, size_t bottom, C lessThan)
   }
   array[root - 1] = x;
 }
+/** Sorts the array of size count using comparator lessThan using a Heap Sort algorithm. Be sure to
+ *  specialize swap if T has an efficient swap operation.
+ *
+ *  @param array the array to be sorted.
+ *  @param count the number of elements in the array.
+ *  @param lessThan a functor with bool operator()(T a, T b) which returns true if a comes before b.
+ */
 template <typename T, typename C>
 void SkTHeapSort(T array[], size_t count, C lessThan)
 {
@@ -113,11 +129,15 @@ void SkTHeapSort(T array[], size_t count, C lessThan)
     SkTHeapSort_SiftUp(array, 1, i, lessThan);
   }
 }
+/** Sorts the array of size count using comparator '<' using a Heap Sort algorithm. */
 template <typename T>
 void SkTHeapSort(T array[], size_t count)
 {
   SkTHeapSort(array, count, SkTCompareLT<T>());
 }
+///////////////////////////////////////////////////////////////////////////////
+
+/** Sorts the array of size count using comparator lessThan using an Insertion Sort algorithm. */
 template <typename T, typename C>
 static void SkTInsertionSort(T* left, T* right, C lessThan)
 {
@@ -137,6 +157,7 @@ static void SkTInsertionSort(T* left, T* right, C lessThan)
     *hole = std::move(insert);
   }
 }
+///////////////////////////////////////////////////////////////////////////////
 template <typename T, typename C>
 static T* SkTQSort_Partition(T* left, T* right, T* pivot, C lessThan)
 {
@@ -156,6 +177,18 @@ static T* SkTQSort_Partition(T* left, T* right, T* pivot, C lessThan)
   swap(*newPivot, *right);
   return newPivot;
 }
+/*  Intro Sort is a modified Quick Sort.
+ *  When the region to be sorted is a small constant size it uses Insertion Sort.
+ *  When depth becomes zero, it switches over to Heap Sort.
+ *  This implementation recurses on the left region after pivoting and loops on the right,
+ *    we already limit the stack depth by switching to heap sort,
+ *    and cache locality on the data appears more important than saving a few stack frames.
+ *
+ *  @param depth at this recursion depth, switch to Heap Sort.
+ *  @param left the beginning of the region to be sorted.
+ *  @param right the end of the region to be sorted (inclusive).
+ *  @param lessThan a functor with bool operator()(T a, T b) which returns true if a comes before b.
+ */
 template <typename T, typename C>
 void SkTIntroSort(int depth, T* left, T* right, C lessThan)
 {
@@ -178,6 +211,13 @@ void SkTIntroSort(int depth, T* left, T* right, C lessThan)
     left = pivot + 1;
   }
 }
+/** Sorts the region from left to right using comparator lessThan using a Quick Sort algorithm. Be
+ *  sure to specialize swap if T has an efficient swap operation.
+ *
+ *  @param left the beginning of the region to be sorted.
+ *  @param right the end of the region to be sorted (inclusive).
+ *  @param lessThan a functor with bool operator()(T a, T b) which returns true if a comes before b.
+ */
 template <typename T, typename C>
 void SkTQSort(T* left, T* right, C lessThan)
 {
@@ -189,11 +229,13 @@ void SkTQSort(T* left, T* right, C lessThan)
   int depth = 2 * SkNextLog2(SkToU32(right - left));
   SkTIntroSort(depth, left, right, lessThan);
 }
+/** Sorts the region from left to right using comparator '<' using a Quick Sort algorithm. */
 template <typename T>
 void SkTQSort(T* left, T* right)
 {
   SkTQSort(left, right, SkTCompareLT<T>());
 }
+/** Sorts the region from left to right using comparator '* < *' using a Quick Sort algorithm. */
 template <typename T>
 void SkTQSort(T** left, T** right)
 {

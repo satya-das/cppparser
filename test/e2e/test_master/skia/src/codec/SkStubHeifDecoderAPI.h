@@ -6,6 +6,8 @@
  */
 #ifndef SkStubHeifDecoderAPI_DEFINED
 #  define SkStubHeifDecoderAPI_DEFINED
+// This stub implementation of HeifDecoderAPI.h lets us compile SkHeifCodec.cpp
+// even when libheif is not available.  It, of course, does nothing and fails to decode.
 #  include <memory>
 #  include <stddef.h>
 #  include <stdint.h>

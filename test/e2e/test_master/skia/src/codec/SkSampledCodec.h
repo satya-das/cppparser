@@ -8,6 +8,10 @@
 #  define SkSampledCodec_DEFINED
 #  include "include/codec/SkAndroidCodec.h"
 #  include "include/codec/SkCodec.h"
+/**
+ *  This class implements the functionality of SkAndroidCodec.  Scaling will
+ *  be provided by sampling if it cannot be provided by fCodec.
+ */
 class SkSampledCodec : public SkAndroidCodec
 {
 public:

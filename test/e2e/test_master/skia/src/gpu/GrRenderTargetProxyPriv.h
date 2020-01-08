@@ -7,6 +7,9 @@
 #ifndef GrRenderTargetProxyPriv_DEFINED
 #  define GrRenderTargetProxyPriv_DEFINED
 #  include "src/gpu/GrRenderTargetProxy.h"
+/**
+ * This class hides the more specialized capabilities of GrRenderTargetProxy.
+ */
 class GrRenderTargetProxyPriv
 {
 public:

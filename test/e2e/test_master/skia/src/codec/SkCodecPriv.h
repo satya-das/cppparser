@@ -17,6 +17,7 @@
 #  else 
 #    define SkCodecPrintf	(...)
 #  endif
+// Defined in SkCodec.cpp
 bool sk_select_xform_format(SkColorType colorType, bool forColorTable, skcms_PixelFormat* outFormat);
 // FIXME: Consider sharing with dm, nanbench, and tools.
 static float get_scale_from_sample_size(int sampleSize)
@@ -27,6 +28,11 @@ static bool is_valid_subset(const SkIRect& subset, const SkISize& imageDims)
 {
   return SkIRect::MakeSize(imageDims).contains(subset);
 }
+/*
+ * returns a scaled dimension based on the original dimension and the sampleSize
+ * NOTE: we round down here for scaled dimension to match the behavior of SkImageDecoder
+ * FIXME: I think we should call this get_sampled_dimension().
+ */
 static int get_scaled_dimension(int srcDimension, int sampleSize)
 {
   if (sampleSize > srcDimension)
@@ -35,6 +41,12 @@ static int get_scaled_dimension(int srcDimension, int sampleSize)
   }
   return srcDimension / sampleSize;
 }
+/*
+ * Returns the first coordinate that we will keep during a scaled decode.
+ * The output can be interpreted as an x-coordinate or a y-coordinate.
+ *
+ * This does not need to be called and is not called when sampleFactor == 1.
+ */
 static int get_start_coord(int sampleFactor)
 {
   return sampleFactor / 2;
@@ -88,18 +100,30 @@ static bool valid_alpha(SkAlphaType dstAlpha, bool srcIsOpaque)
   }
   return dstAlpha != kOpaque_SkAlphaType;
 }
+/*
+ * If there is a color table, get a pointer to the colors, otherwise return nullptr
+ */
 static const SkPMColor* get_color_ptr(SkColorTable* colorTable)
 {
   return nullptr != colorTable ? colorTable->readColors() : nullptr;
 }
+/*
+ * Compute row bytes for an image using pixels per byte
+ */
 static size_t compute_row_bytes_ppb(int width, uint32_t pixelsPerByte)
 {
   return (width + pixelsPerByte - 1) / pixelsPerByte;
 }
+/*
+ * Compute row bytes for an image using bytes per pixel
+ */
 static size_t compute_row_bytes_bpp(int width, uint32_t bytesPerPixel)
 {
   return width * bytesPerPixel;
 }
+/*
+ * Compute row bytes for an image
+ */
 static size_t compute_row_bytes(int width, uint32_t bitsPerPixel)
 {
   if (bitsPerPixel < 16)
@@ -115,10 +139,18 @@ static size_t compute_row_bytes(int width, uint32_t bitsPerPixel)
     return compute_row_bytes_bpp(width, bytesPerPixel);
   }
 }
+/*
+ * Get a byte from a buffer
+ * This method is unsafe, the caller is responsible for performing a check
+ */
 static uint8_t get_byte(uint8_t* buffer, uint32_t i)
 {
   return buffer[i];
 }
+/*
+ * Get a short from a buffer
+ * This method is unsafe, the caller is responsible for performing a check
+ */
 static uint16_t get_short(uint8_t* buffer, uint32_t i)
 {
   uint16_t result;
@@ -129,6 +161,10 @@ static uint16_t get_short(uint8_t* buffer, uint32_t i)
   return result;
 #  endif
 }
+/*
+ * Get an int from a buffer
+ * This method is unsafe, the caller is responsible for performing a check
+ */
 static uint32_t get_int(uint8_t* buffer, uint32_t i)
 {
   uint32_t result;
@@ -139,6 +175,12 @@ static uint32_t get_int(uint8_t* buffer, uint32_t i)
   return result;
 #  endif
 }
+/*
+ * @param data           Buffer to read bytes from
+ * @param isLittleEndian Output parameter
+ *                       Indicates if the data is little endian
+ *                       Is unaffected on false returns
+ */
 static bool is_valid_endian_marker(const uint8_t* data, bool* isLittleEndian)
 {
     // II indicates Intel (little endian) and MM indicates motorola (big endian).
@@ -185,6 +227,7 @@ static bool is_rgba(SkColorType colorType)
   return (kRGBA_8888_SkColorType == colorType);
 #  endif
 }
+// Method for coverting to a 32 bit pixel.
 typedef uint32_t (*PackColorProc) (U8CPU a, U8CPU r, U8CPU g, U8CPU b);
 static PackColorProc choose_pack_color_proc(bool isPremul, SkColorType colorType)
 {

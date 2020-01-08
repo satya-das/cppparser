@@ -8,6 +8,9 @@
 #  define SkWritePixelsRec_DEFINED
 #  include "include/core/SkImageInfo.h"
 #  include "include/core/SkPixmap.h"
+/**
+ *  Helper class to package and trim the parameters passed to writePixels()
+ */
 struct SkWritePixelsRec
 {
   SkWritePixelsRec(const SkImageInfo& info, const void* pixels, size_t rowBytes, int x, int y)

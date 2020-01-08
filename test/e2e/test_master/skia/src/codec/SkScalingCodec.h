@@ -7,6 +7,7 @@
 #ifndef SkScalingCodec_DEFINED
 #  define SkScalingCodec_DEFINED
 #  include "include/codec/SkCodec.h"
+// Helper class for an SkCodec that supports arbitrary downscaling.
 class SkScalingCodec : public SkCodec
 {
 protected:

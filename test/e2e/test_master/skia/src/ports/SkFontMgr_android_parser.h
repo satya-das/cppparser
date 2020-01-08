@@ -14,6 +14,12 @@
 #  include "include/private/SkTHash.h"
 #  include <climits>
 #  include <limits>
+/** \class SkLanguage
+
+    The SkLanguage class represents a human written language, and is used by
+    text draw operations to determine which glyph to draw when drawing
+    characters with variants (ie Han-derived characters).
+*/
 class SkLanguage
 {
 public:
@@ -119,6 +125,11 @@ namespace SkFontMgr_Android_Parser
 /** Parses font configuration files and appends result to fontFamilies. */
   void GetCustomFontFamilies(SkTDArray<FontFamily*>& fontFamilies, const SkString& basePath, const char* fontsXml, const char* fallbackFontsXml, const char* langFallbackFontsDir = nullptr);
 }
+/** Parses a null terminated string into an integer type, checking for overflow.
+ *  http://www.w3.org/TR/html-markup/datatypes.html#common.data.integer.non-negative-def
+ *
+ *  If the string cannot be parsed into 'value', returns false and does not change 'value'.
+ */
 template <typename T>
 static bool parse_non_negative_integer(const char* s, T* value)
 {
@@ -148,6 +159,17 @@ static bool parse_non_negative_integer(const char* s, T* value)
   *value = n;
   return true;
 }
+/** Parses a null terminated string into a signed fixed point value with bias N.
+ *
+ *  Like http://www.w3.org/TR/html-markup/datatypes.html#common.data.float-def ,
+ *  but may start with '.' and does not support 'e'. '-?((:digit:+(.:digit:+)?)|(.:digit:+))'
+ *
+ *  Checks for overflow.
+ *  Low bit rounding is not defined (is currently truncate).
+ *  Bias (N) required to allow for the sign bit and 4 bits of integer.
+ *
+ *  If the string cannot be parsed into 'value', returns false and does not change 'value'.
+ */
 template <int N, typename T>
 static bool parse_fixed(const char* s, T* value)
 {

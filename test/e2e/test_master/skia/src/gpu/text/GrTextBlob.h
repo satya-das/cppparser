@@ -29,6 +29,20 @@ class SkTextBlobRunIterator;
 // With this flag enabled, the GrTextContext will, as a sanity check, regenerate every blob
 // that comes in to verify the integrity of its cache
 #  define CACHE_SANITY_CHECK	0
+/*
+ * A GrTextBlob contains a fully processed SkTextBlob, suitable for nearly immediate drawing
+ * on the GPU.  These are initially created with valid positions and colors, but invalid
+ * texture coordinates.  The GrTextBlob itself has a few Blob-wide properties, and also
+ * consists of a number of runs.  Runs inside a blob are flushed individually so they can be
+ * reordered.
+ *
+ * The only thing(aside from a memcopy) required to flush a GrTextBlob is to ensure that
+ * the GrAtlas will not evict anything the Blob needs.
+ *
+ * Note: This struct should really be named GrCachedAtasTextBlob, but that is too verbose.
+ *
+ * *WARNING* If you add new fields to this struct, then you may need to to update AssertEqual
+ */
 class GrTextBlob : public SkNVRefCnt<GrTextBlob>, public SkGlyphRunPainterInterface
 {
   struct Run;

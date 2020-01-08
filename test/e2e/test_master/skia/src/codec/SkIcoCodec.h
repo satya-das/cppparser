@@ -11,6 +11,9 @@
 #  include "include/core/SkStream.h"
 #  include "include/core/SkTypes.h"
 #  include "include/private/SkTArray.h"
+/*
+ * This class implements the decoding for bmp images
+ */
 class SkIcoCodec : public SkCodec
 {
 public:

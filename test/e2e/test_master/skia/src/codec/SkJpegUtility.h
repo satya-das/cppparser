@@ -9,11 +9,15 @@
 #  include "include/core/SkStream.h"
 #  include "src/codec/SkJpegPriv.h"
 #  include <setjmp.h>
+// stdio is needed for jpeglib
 #  include <stdio.h>
 extern "C" {
 #  include "jpeglib.h"
 #  include "jerror.h"
   }
+/*
+ * Error handling function
+ */
 void skjpeg_err_exit(j_common_ptr cinfo);
 /*
  * Source handling struct for that allows libjpeg to use our stream object

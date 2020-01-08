@@ -16,6 +16,10 @@ namespace SkSL
 {
   class Compiler;
 }
+/**
+ * Encapsulates information about an OpenGL context including the OpenGL
+ * version, the GrGLStandard type of the context, and GLSL version.
+ */
 class GrGLContextInfo
 {
 public:

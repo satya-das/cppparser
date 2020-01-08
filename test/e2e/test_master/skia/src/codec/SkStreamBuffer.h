@@ -10,6 +10,15 @@
 #  include "include/core/SkStream.h"
 #  include "include/core/SkTypes.h"
 #  include "include/private/SkTHash.h"
+/**
+ *  Helper class for reading from a stream that may not have all its data
+ *  available yet.
+ *
+ *  Used by GIFImageReader, and currently set up for that use case.
+ *
+ *  Buffers up to 256 * 3 bytes (256 colors, with 3 bytes each) to support GIF.
+ *  FIXME (scroggo): Make this more general purpose?
+ */
 class SkStreamBuffer :  SkNoncopyable
 {
 public:

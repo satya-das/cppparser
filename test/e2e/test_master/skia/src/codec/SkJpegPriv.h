@@ -9,6 +9,7 @@
 #  include "include/core/SkStream.h"
 #  include "include/private/SkTArray.h"
 #  include <setjmp.h>
+// stdio is needed for jpeglib
 #  include <stdio.h>
 extern "C" {
 #  include "jpeglib.h"

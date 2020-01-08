@@ -8,6 +8,7 @@
 #  define SkCubicSolver_DEFINED
 #  include "include/core/SkTypes.h"
 #  include "include/private/SkFloatingPoint.h"
+//#define CUBICMAP_TRACK_MAX_ERROR
 namespace SK_OPTS_NS
 {
   static float eval_poly(float t, float b)

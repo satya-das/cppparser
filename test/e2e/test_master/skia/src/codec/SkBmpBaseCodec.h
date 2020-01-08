@@ -8,6 +8,9 @@
 #  define SkBmpBaseCodec_DEFINED
 #  include "include/private/SkTemplates.h"
 #  include "src/codec/SkBmpCodec.h"
+/*
+ * Common base class for SkBmpStandardCodec and SkBmpMaskCodec.
+ */
 class SkBmpBaseCodec : public SkBmpCodec
 {
 public:

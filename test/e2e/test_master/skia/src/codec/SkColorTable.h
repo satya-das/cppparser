@@ -8,6 +8,13 @@
 #  define SkColorTable_DEFINED
 #  include "include/core/SkColor.h"
 #  include "include/core/SkRefCnt.h"
+/** \class SkColorTable
+
+    SkColorTable holds an array SkPMColors (premultiplied 32-bit colors) used by
+    8-bit bitmaps, where the bitmap bytes are interpreted as indices into the colortable.
+
+    SkColorTable is thread-safe.
+*/
 class SkColorTable : public SkRefCnt
 {
 public:

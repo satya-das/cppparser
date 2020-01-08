@@ -9,6 +9,9 @@
 #  include "include/android/SkBitmapRegionDecoder.h"
 #  include "include/codec/SkAndroidCodec.h"
 #  include "include/core/SkBitmap.h"
+/*
+ * This class implements SkBitmapRegionDecoder using an SkAndroidCodec.
+ */
 class SkBitmapRegionCodec : public SkBitmapRegionDecoder
 {
 public:

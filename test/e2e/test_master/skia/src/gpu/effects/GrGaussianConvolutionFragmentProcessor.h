@@ -9,6 +9,11 @@
 #  include "src/gpu/GrCoordTransform.h"
 #  include "src/gpu/GrFragmentProcessor.h"
 #  include "src/gpu/effects/GrTextureDomain.h"
+/**
+ * A 1D Gaussian convolution effect. The kernel is computed as an array of 2 * half-width weights.
+ * Each texel is multiplied by it's weight and summed to determine the filtered color. The output
+ * color is set to a modulation of the filtered and input colors.
+ */
 class GrGaussianConvolutionFragmentProcessor : public GrFragmentProcessor
 {
 public:
