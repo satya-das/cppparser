@@ -819,10 +819,11 @@ usingnamespacedecl: tknUsing tknNamespace identifier ';'  [ZZLOG;] {
 vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
                   ;
 
-vardeclstmt       : vardecl ';'             [ZZLOG;] { $$ = $1; }
-                  | varinit ';'             [ZZLOG;] { $$ = $1; }
-                  | apidecor vardeclstmt    [ZZLOG;] { $$ = $2; $$->apidecor($1); }
-                  | exptype vardeclstmt     [ZZLOG;] { $$ = $2; $$->addAttr($1); }
+vardeclstmt       : vardecl ';'                   [ZZVALID;] { $$ = $1; }
+                  | varinit ';'                   [ZZVALID;] { $$ = $1; }
+                  | apidecor vardeclstmt          [ZZVALID;] { $$ = $2; $$->apidecor($1); }
+                  | exptype vardeclstmt           [ZZVALID;] { $$ = $2; $$->addAttr($1); }
+                  | tknConstExpr vardeclstmt      [ZZVALID;] { $$ = $2; $$->addAttr(kConstExpr); }
                   ;
 
 vardecllist       : varinit ',' opttypemodifier id optvarassign [ZZLOG;] {
@@ -1885,16 +1886,16 @@ void yyerror_detailed  (  char* text,
     *lineEnd = endReplaceChar;
 }
 
+enum {
+  kNoLog    = 0x000,
+  kParseLog = 0x001,
+  kLexLog   = 0x002,
+  kYaccLog  = 0x004
+};
+
 static void setupEnv()
 {
 #if YYDEBUG
-  enum {
-    kNoLog    = 0x000,
-    kParseLog = 0x001,
-    kLexLog   = 0x002,
-    kYaccLog  = 0x004
-  };
-
   const char* yys = getenv("ZZDEBUG");
   if (yys) {
     const int yyn = *yys - '0';
