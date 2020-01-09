@@ -297,7 +297,7 @@ extern int yylex();
 %type  <usingNamespaceDecl> usingnamespacedecl
 %type  <namespaceAlias>     namespacealias
 %type  <usingDecl>          usingdecl
-%type  <cppCompundObj>      stmtlist optstmtlist progunit classdefn classdefnstmt externcblock block
+%type  <cppCompundObj>      stmtlist optstmtlist progunit classdefn namespacedefn classdefnstmt externcblock block
 %type  <templateParamList>  templatespecifier templateparamlist
 %type  <templateParam>      templateparam
 %type  <docCommentObj>      doccomment
@@ -320,7 +320,7 @@ extern int yylex();
 %type  <cppTypeConverter>   typeconverter typeconverterstmt
 %type  <memInitList>        meminitlist
 %type  <memInit>            meminit
-%type  <compoundType>       compoundSpecifier
+%type  <compoundType>       classspecifier
 %type  <attr>               varattrib exptype optfuncattrib functype optfinal
 %type  <inheritList>        optinheritlist
 %type  <inheritType>        optinherittype
@@ -442,6 +442,7 @@ stmt              : vardeclstmt         [ZZLOG;] { $$ = $1; }
                   | typedefnamestmt     [ZZLOG;] { $$ = $1; }
                   | typedefliststmt     [ZZLOG;] { $$ = $1; }
                   | classdefnstmt       [ZZLOG;] { $$ = $1; }
+                  | namespacedefn       [ZZLOG;] { $$ = $1; }
                   | fwddecl             [ZZLOG;] { $$ = $1; }
                   | doccomment          [ZZLOG;] { $$ = $1; }
                   | exprstmt            [ZZLOG;] { $$ = $1; }
@@ -1482,20 +1483,9 @@ optcomment        :            [ZZLOG;]{
                   ;
 
 classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
-                  | classdefn
-                      [
-                        if ($1->compoundType() == CppCompoundType::kNamespace) {
-                          ZZVALID;
-                        } else {
-                          ZZLOG;
-                        }
-                      ]
-                      {
-                        $$ = $1;
-                      }
                   ;
 
-classdefn         : compoundSpecifier optapidecor identifier optfinal optinheritlist optcomment '{'
+classdefn         : classspecifier optapidecor identifier optfinal optinheritlist optcomment '{'
                   [
                     ZZVALID;
                     gCompoundStack.push(classNameFromIdentifier($3));
@@ -1516,7 +1506,7 @@ classdefn         : compoundSpecifier optapidecor identifier optfinal optinherit
                     $$->inheritanceList($5);
                     $$->addAttr($4);
                   }
-                  | compoundSpecifier optinheritlist optcomment
+                  | classspecifier optinheritlist optcomment
                     '{' { gAccessTypeStack.push(gCurAccessType); gCurAccessType = CppAccessType::kUnknown; }
                       optstmtlist
                     '}' [ZZVALID;]
@@ -1532,6 +1522,26 @@ classdefn         : compoundSpecifier optapidecor identifier optfinal optinherit
                   {
                     $$ = $2;
                     $$->templateParamList($1);
+                  }
+                  ;
+
+namespacedefn     : tknNamespace optid '{'
+                  [
+                    ZZVALID;
+                    gCompoundStack.push(classNameFromIdentifier($2));
+                    gAccessTypeStack.push(gCurAccessType); gCurAccessType = CppAccessType::kUnknown;
+                  ]
+                  optstmtlist '}'
+                  [
+                    ZZVALID;
+                    gCompoundStack.pop();
+                    gCurAccessType = gAccessTypeStack.top();
+                    gAccessTypeStack.pop();
+                  ]
+                  {
+                    $$ = $5 ? $5 : newCompound(gCurAccessType);
+                    $$->compoundType(CppCompoundType::kNamespace);
+                    $$->name($2);
                   }
                   ;
 
@@ -1564,8 +1574,8 @@ optinherittype    :             [ZZLOG;] { $$ = false; }
                   | tknVirtual  [ZZLOG;] { $$ = true; }
                   ;
 
-fwddecl           : compoundSpecifier identifier ';'              [ZZVALID;] { $$ = new CppFwdClsDecl(gCurAccessType, $2, $1); }
-                  | compoundSpecifier optapidecor identifier ';'  [ZZVALID;] { $$ = new CppFwdClsDecl(gCurAccessType, $3, $1); }
+fwddecl           : classspecifier identifier ';'              [ZZVALID;] { $$ = new CppFwdClsDecl(gCurAccessType, $2, $1); }
+                  | classspecifier optapidecor identifier ';'  [ZZVALID;] { $$ = new CppFwdClsDecl(gCurAccessType, $3, $1); }
                   | templatespecifier fwddecl [ZZLOG;] {
                     $$ = $2;
                     $$->templateParamList($1);
@@ -1574,10 +1584,9 @@ fwddecl           : compoundSpecifier identifier ';'              [ZZVALID;] { $
                   | tknFriend fwddecl         [ZZVALID;]  { $$ = $2; $$->addAttr(kFriend); }
                   ;
 
-compoundSpecifier : tknClass      [ZZLOG;] { $$ = CppCompoundType::kClass;     }
+classspecifier    : tknClass      [ZZLOG;] { $$ = CppCompoundType::kClass;     }
                   | tknStruct     [ZZLOG;] { $$ = CppCompoundType::kStruct;    }
                   | tknUnion      [ZZLOG;] { $$ = CppCompoundType::kUnion;     }
-                  | tknNamespace  [ZZLOG;] { $$ = CppCompoundType::kNamespace; }
                   ;
 
 templatespecifier : tknTemplate tknLT       [gInTemplateSpec = true;  ZZLOG;   ]
