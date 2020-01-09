@@ -62,7 +62,7 @@ private:
  */
 class SkIStream : public SkBaseIStream {
 public:
-    HRESULT static CreateFromSkStream(std::unique_ptr<SkStreamAsset>, IStream** ppStream);
+    static HRESULT CreateFromSkStream(std::unique_ptr<SkStreamAsset>, IStream** ppStream);
 
     SK_STDMETHODIMP Read(void* pv, ULONG cb, ULONG* pcbRead) override;
     SK_STDMETHODIMP Write(void const* pv, ULONG cb, ULONG* pcbWritten) override;
@@ -84,7 +84,7 @@ private:
  */
 class SkWIStream : public SkBaseIStream {
 public:
-    HRESULT static CreateFromSkWStream(SkWStream* stream, IStream ** ppStream);
+    static HRESULT CreateFromSkWStream(SkWStream* stream, IStream ** ppStream);
 
     SK_STDMETHODIMP Write(void const* pv, ULONG cb, ULONG* pcbWritten) override;
     SK_STDMETHODIMP Commit(DWORD) override;

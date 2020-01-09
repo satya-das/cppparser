@@ -184,7 +184,8 @@ CppParser constructCppParserForTest()
                          "SK_END_REQUIRE_DENSE",
                          "SK_WHEN"});
 
-  parser.addIgnorableMacros({"SkDEBUGCODE", "SkDEBUGPARAMS", "__bridge", "__bridge_retained", "API_AVAILABLE"});
+  parser.addIgnorableMacros(
+    {"SkDEBUGCODE", "SkDEBUGPARAMS", "__bridge", "__bridge_retained", "API_AVAILABLE", "SK_RESTRICT"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("final", "ADESK_SEALED");
