@@ -144,6 +144,7 @@ CppParser constructCppParserForTest()
                             "ACPL_PORT",
 
                             "SK_API",
+                            "SK_BEGIN_REQUIRE_DENSE",
                             "SK_CAPABILITY"});
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
@@ -179,6 +180,8 @@ CppParser constructCppParserForTest()
                          "DEFINE_NAMED_APPEND",
                          "SK_CALLABLE_TRAITS__CV_REF_NE_VARARGS",
                          "SK_CALLABLE_TRAITS__NE_VARARGS",
+                         "SK_STDMETHODIMP_",
+                         "SK_END_REQUIRE_DENSE",
                          "SK_WHEN"});
 
   parser.addIgnorableMacros({"SkDEBUGCODE", "SkDEBUGPARAMS", "__bridge", "__bridge_retained", "API_AVAILABLE"});

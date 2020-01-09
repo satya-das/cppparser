@@ -468,6 +468,7 @@ stmt              : vardeclstmt         [ZZLOG;] { $$ = $1; }
                   | usingnamespacedecl  [ZZLOG;] { $$ = $1; }
                   | namespacealias      [ZZLOG;] { $$ = $1; }
                   | macrocall           [ZZLOG;] { $$ = new CppMacroCall($1, gCurAccessType); }
+                  | macrocall ';'       [ZZLOG;] { $$ = new CppMacroCall(mergeCppToken($1, $2), gCurAccessType); }
                   | ';'                 [ZZLOG;] { $$ = nullptr; }  /* blank statement */
                   | asmblock            [ZZLOG;] { $$ = $1; }
                   ;
@@ -494,9 +495,6 @@ macrocall         : tknMacro [ZZVALID;]
                   | macrocall '(' expr ')' [ZZLOG;] {
                     $$ = mergeCppToken($1, $4);
                     delete $3;
-                  }
-                  | macrocall ';' [ZZLOG;] {
-                    $$ = mergeCppToken($1, $2);
                   }
                   ;
 
@@ -656,7 +654,7 @@ identifier        : id                                            [ZZLOG;] { $$ 
                   | templidentifier                               [ZZLOG;] { $$ = $1; }
                   | tknOverride                                   [ZZLOG;] { $$ = $1; /* override is not a reserved keyword */ }
                   | identifier tknEllipsis                        [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknMacro                                      [ZZLOG;] { $$ = $1; }
+                  | macrocall                                     [ZZLOG;] { $$ = $1; }
                   | templqualifiedid                              [ZZLOG;] { $$ = $1; }
                   ;
 
@@ -823,7 +821,7 @@ vardeclstmt       : vardecl ';'                   [ZZVALID;] { $$ = $1; }
                   | varinit ';'                   [ZZVALID;] { $$ = $1; }
                   | apidecor vardeclstmt          [ZZVALID;] { $$ = $2; $$->apidecor($1); }
                   | exptype vardeclstmt           [ZZVALID;] { $$ = $2; $$->addAttr($1); }
-                  | tknConstExpr vardeclstmt      [ZZVALID;] { $$ = $2; $$->addAttr(kConstExpr); }
+                  | varattrib vardeclstmt         [ZZVALID;] { $$ = $2; $$->addAttr($1); }
                   ;
 
 vardecllist       : varinit ',' opttypemodifier id optvarassign [ZZLOG;] {
@@ -1153,7 +1151,6 @@ funcobjstr        : typeidentifier optapidecor '(' paramlist ')' [ZZLOG;] {
 funcname          : operfuncname                          [ZZLOG;] { $$ = $1; }
                   | typeidentifier                        [ZZLOG;] { $$ = $1; }
                   | tknScopeResOp operfuncname            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | identifier tknScopeResOp operfuncname [ZZLOG;] { $$ = mergeCppToken($1, $3); }
                   ;
 
 rshift            : tknGT tknGT %prec RSHIFT [ if ($2.sz != ($1.sz + 1)) ZZERROR; ] { $$ = mergeCppToken($1, $2); }
@@ -1202,6 +1199,7 @@ operfuncname      : tknOperator '+'               [ZZLOG;] { $$ = mergeCppToken(
                   | tknOperator tknNew '[' ']'    [ZZLOG;] { $$ = mergeCppToken($1, $4); }
                   | tknOperator tknDelete         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknDelete '[' ']' [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+                  | identifier tknScopeResOp operfuncname [ZZLOG;] { $$ = mergeCppToken($1, $3); }
 
                   /* see https://en.cppreference.com/w/cpp/language/user_literal */
                   | tknOperator tknStrLit id      [ZZLOG;] { $$ = mergeCppToken($1, $3); }
@@ -1710,6 +1708,7 @@ expr              : strlit                                                [ZZLOG
                   | '!' expr                                              [ZZLOG;] { $$ = new CppExpr($2, kLogNot);                      }
                   | '*' expr %prec DEREF                                  [ZZLOG;] { $$ = new CppExpr($2, kDerefer);                     }
                   | '&' expr %prec ADDRESSOF                              [ZZLOG;] { $$ = new CppExpr($2, kRefer);                       }
+                  | '&' operfuncname %prec ADDRESSOF                          [ZZLOG;] { $$ = new CppExpr(CppExprAtom($2), kRefer);          }
                   | tknInc expr  %prec PREINCR                            [ZZLOG;] { $$ = new CppExpr($2, kPreIncrement);                }
                   | expr tknInc  %prec POSTINCR                           [ZZLOG;] { $$ = new CppExpr($1, kPostIncrement);               }
                   | tknDec expr  %prec PREDECR                            [ZZLOG;] { $$ = new CppExpr($2, kPreDecrement);                }
