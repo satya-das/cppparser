@@ -208,13 +208,14 @@ public:
         SkSTArray<4, const GrFragmentProcessor*, true> fFPStack;
     };
 
+    using Counter = int (GrFragmentProcessor::*)() const;
+    using Getter = const T& (GrFragmentProcessor::*)(int) const;
     /**
      * Iterates over all the Ts owned by a GrFragmentProcessor and its children or over all the Ts
      * owned by the forest of GrFragmentProcessors in a GrPipeline. FPs are visited in the same
      * order as Iter and each of an FP's Ts are visited in order.
      */
-    template <typename T, int (GrFragmentProcessor::*COUNT)() const,
-              const T& (GrFragmentProcessor::*GET)(int)const>
+    template <typename T, COUNT, GET>
     class FPItemIter : public SkNoncopyable {
     public:
         explicit FPItemIter(const GrFragmentProcessor* fp)

@@ -381,6 +381,8 @@ inline void AcCFile::Write(LPCTSTR lpBuf, UINT nCount)
 inline void AcCFile::Write(LPCTSTR lpBuf)
 {
 #ifndef UNICODE
+    // Unfortunately, hard cast is needed to change size_t 
+    // to UINT to avoid new 64-bit compatible warnings.
   this->Write(lpBuf, (UINT) strlen(lpBuf));
 #else 
   this->Write(lpBuf, AdCharFormatter::wcsLength(lpBuf));

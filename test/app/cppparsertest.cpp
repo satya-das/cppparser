@@ -182,6 +182,8 @@ CppParser constructCppParserForTest()
                          "SK_CALLABLE_TRAITS__NE_VARARGS",
                          "SK_STDMETHODIMP_",
                          "SK_END_REQUIRE_DENSE",
+                         "GR_DECL_BITFIELD_OPS_FRIENDS",
+                         "SK_PRINTF_LIKE",
                          "SK_WHEN"});
 
   parser.addIgnorableMacros(

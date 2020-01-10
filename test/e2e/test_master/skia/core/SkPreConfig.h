@@ -96,6 +96,8 @@
 #  endif
 // Are we in GCC/Clang?
 #  ifndef SK_CPU_SSE_LEVEL
+    // These checks must be done in descending order to ensure we set the highest
+    // available SSE level.
 #    if  defined(__AVX512F__)
 #      define SK_CPU_SSE_LEVEL	SK_CPU_SSE_LEVEL_AVX512
 #    elif  defined(__AVX2__)
@@ -116,6 +118,8 @@
 #  endif
 // Are we in VisualStudio?
 #  ifndef SK_CPU_SSE_LEVEL
+    // These checks must be done in descending order to ensure we set the highest
+    // available SSE level. 64-bit intel guarantees at least SSE2 support.
 #    if  defined(__AVX2__)
 #      define SK_CPU_SSE_LEVEL	SK_CPU_SSE_LEVEL_AVX2
 #    elif  defined(__AVX__)

@@ -275,6 +275,9 @@ public:
   Acad::ErrorStatus writeItem(AcDb::DxfCode dc, Adesk::UInt16 val);
   Acad::ErrorStatus writeItem(AcDb::DxfCode dc, Adesk::UInt8 val);
 #  ifndef Adesk_Boolean_is_bool
+    // CAUTION: "int" parameters go to writeBoolean when Adesk_Boolean_is_bool
+    // is not defined. When it is defined, the bool overload handles this
+    // case.
   Acad::ErrorStatus writeItem(AcDb::DxfCode dc, Adesk::Boolean val);
 #  endif
   Acad::ErrorStatus writeItem(AcDb::DxfCode dc, bool val);

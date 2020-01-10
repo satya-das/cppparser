@@ -474,8 +474,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   BEGINCONTEXT(ctxFreeStandingBlockComment);
 }
 
-<ctxGeneral>"/*" {
+<*>"/*" {
+  /*
+  Ignore side comments for time being
   oyytext = yytext;
+  */
   BEGINCONTEXT(ctxSideBlockComment);
 }
 
@@ -735,7 +738,6 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreprocessor>ifndef/{WS} {
   set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
-  ENDCONTEXT();
   RETURN(tknIfNDef);
 }
 

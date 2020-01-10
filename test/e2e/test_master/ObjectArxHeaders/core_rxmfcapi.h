@@ -278,6 +278,10 @@ ACCORE_PORT bool acedGetSystemColorsEx3(AcColorSettings* pColorSettings, AcColor
 typedef double acedDwgPoint[3];
 // AutoCAD coordinates and viewports
 #  ifndef _ADESK_CROSS_PLATFORM_
+/* acedCoordFromPixelToWorld
+* Takes a coordinate in Window's coordinate (mouse coordinate)
+* and converts it to current viewport world coordinate
+*/
 ACCORE_PORT void acedCoordFromPixelToWorld(const CPoint& ptIn, acedDwgPoint ptOut);
 /* acedCoordFromPixelToWorld
 * Takes a coordinate in Windows' coordinate (mouse coordinate) and

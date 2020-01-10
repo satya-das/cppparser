@@ -172,6 +172,13 @@ default:
     return path.fPathRef->conicWeights();
   }
 #  ifndef SK_LEGACY_PATH_CONVEXITY
+    /** Returns true if path formed by pts is convex.
+
+        @param pts    SkPoint array of path
+        @param count  number of entries in array
+
+        @return       true if pts represent a convex geometry
+    */
   static bool IsConvex(const SkPoint pts[], int count);
 #  endif
     /** Returns true if the underlying SkPathRef has one single owner. */

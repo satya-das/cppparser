@@ -43,6 +43,8 @@ protected:
   virtual bool CanFrameworkTakeFocus();
 };
 #  ifndef NEW_PALETTE
+/////////////////////////////////////////////////////////////////////////////
+// CAcUiPaletteSetDockFrame window - INTERNAL USE ONLY
 class ACUI_PORT CAcUiPaletteSetDockFrame : public CAdUiPaletteSetDockFrame
 {
   DECLARE_DYNCREATE(CAcUiPaletteSetDockFrame);

@@ -57,6 +57,8 @@ extern "C" {
 #  define CBR_DRAG	3
 #  define CBR_DOUBLE_CLICK	4
 #  ifndef _PROTEUS_H
+    /* ADS user's function, passed to AutoCAD to be called later
+     */
   typedef void (*CLIENTFUNC) (ads_callback_packet* cpkt);
 #  endif
 #  define NULLCB	((CLIENTFUNC)0)
@@ -69,6 +71,9 @@ extern "C" {
                            term_dialog */
 #  define DLGSTATUS	2 /* start of user return codes */
 #  ifndef _PROCONST_H
+/* Preventing redefined warnings.
+   List argument type for ads_start_list();
+ */
 #    define LIST_CHANGE	((short) 1) /* Change selected listbox contents */
 #    define LIST_APPEND	((short) 2) /* Append new listbox entry */
 #    define LIST_NEW	((short) 3) /* Delete old list and create new list */

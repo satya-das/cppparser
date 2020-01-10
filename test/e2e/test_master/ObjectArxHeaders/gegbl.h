@@ -30,6 +30,8 @@ struct AcGeContext
   GE_DLLDATAEXIMP static AcGeTol gTol;
   GE_DLLDATAEXIMP static void (*gErrorFunc) ();
 #  ifndef GELIB2D
+    // Function to calculate a vector which is orthogonal to the given vector.
+    //
   GE_DLLDATAEXIMP static void (*gOrthoVector) (const AcGeVector3d&, AcGeVector3d&);
 #  endif
 #  ifndef unix
