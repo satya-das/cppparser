@@ -13,7 +13,8 @@ class GrRecordingContext;
 class GrClearOp : public GrOp
 {
 public:
-  DEFINE_OP_CLASS_ID static std::unique_ptr<GrClearOp> Make(GrRecordingContext* context, const GrFixedClip& clip, const SkPMColor4f& color, GrSurfaceProxy* dstProxy);
+  DEFINE_OP_CLASS_ID
+  static std::unique_ptr<GrClearOp> Make(GrRecordingContext* context, const GrFixedClip& clip, const SkPMColor4f& color, GrSurfaceProxy* dstProxy);
   static std::unique_ptr<GrClearOp> Make(GrRecordingContext* context, const SkIRect& rect, const SkPMColor4f& color, bool fullScreen);
   const char* name() const override
   {

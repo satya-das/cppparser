@@ -11,7 +11,8 @@ class GrRecordingContext;
 class GrFillRRectOp : public GrDrawOp
 {
 public:
-  DEFINE_OP_CLASS_ID static std::unique_ptr<GrFillRRectOp> Make(GrRecordingContext*, GrAAType, const SkMatrix& viewMatrix, const SkRRect&, const GrCaps&, GrPaint&&);
+  DEFINE_OP_CLASS_ID
+  static std::unique_ptr<GrFillRRectOp> Make(GrRecordingContext*, GrAAType, const SkMatrix& viewMatrix, const SkRRect&, const GrCaps&, GrPaint&&);
   const char* name() const override
   {
     return "GrFillRRectOp";

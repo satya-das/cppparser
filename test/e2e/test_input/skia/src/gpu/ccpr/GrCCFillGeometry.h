@@ -126,8 +126,8 @@ inline void GrCCFillGeometry::PrimitiveTallies::operator+=(const PrimitiveTallie
     fConics += b.fConics;
 }
 
-GrCCFillGeometry::PrimitiveTallies
-inline GrCCFillGeometry::PrimitiveTallies::operator-(const PrimitiveTallies& b) const {
+inline GrCCFillGeometry::PrimitiveTallies
+GrCCFillGeometry::PrimitiveTallies::operator-(const PrimitiveTallies& b) const {
     return {fTriangles - b.fTriangles,
             fWeightedTriangles - b.fWeightedTriangles,
             fQuadratics - b.fQuadratics,

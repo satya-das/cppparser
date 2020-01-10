@@ -14,7 +14,8 @@ class GrRecordingContext;
 class GrClearStencilClipOp : public GrOp
 {
 public:
-  DEFINE_OP_CLASS_ID static std::unique_ptr<GrOp> Make(GrRecordingContext* context, const GrFixedClip& clip, bool insideStencilMask, GrRenderTargetProxy* proxy);
+  DEFINE_OP_CLASS_ID
+  static std::unique_ptr<GrOp> Make(GrRecordingContext* context, const GrFixedClip& clip, bool insideStencilMask, GrRenderTargetProxy* proxy);
   const char* name() const override
   {
     return "ClearStencilClip";

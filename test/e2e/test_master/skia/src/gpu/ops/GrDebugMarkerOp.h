@@ -13,7 +13,8 @@ class GrRecordingContext;
 class GrDebugMarkerOp : public GrOp
 {
 public:
-  DEFINE_OP_CLASS_ID static std::unique_ptr<GrOp> Make(GrRecordingContext*, GrRenderTargetProxy*, const SkString&);
+  DEFINE_OP_CLASS_ID
+  static std::unique_ptr<GrOp> Make(GrRecordingContext*, GrRenderTargetProxy*, const SkString&);
   const char* name() const override
   {
     return "DebugMarker";

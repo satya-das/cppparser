@@ -30,7 +30,7 @@ public:
                                                         GrMtlOpsRenderPass* opsRenderPass);
 
     void addCompletedHandler(MTLCommandBufferHandler block) {
-        [fCmdBuffer addCompletedHandler:block];
+//        [fCmdBuffer addCompletedHandler:block];
     }
 
 #ifdef GR_METAL_SDK_SUPPORTS_EVENTS

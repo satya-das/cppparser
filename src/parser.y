@@ -546,6 +546,9 @@ ifblock           : tknIf '(' expr ')' stmt [ZZLOG;] {
 whileblock        : tknWhile '(' expr ')' stmt [ZZLOG;] {
                     $$ = new CppWhileBlock($3, $5);
                   }
+                  | tknWhile '(' varinit ')' stmt [ZZLOG;] {
+                    $$ = new CppWhileBlock($3, $5);
+                  }
                   ;
 
 dowhileblock      : tknDo stmt tknWhile '(' expr ')' [ZZLOG;] {

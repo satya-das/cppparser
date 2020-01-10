@@ -14,7 +14,8 @@ class SkAtlasTextTarget;
 class GrAtlasTextOp : public GrMeshDrawOp
 {
 public:
-  DEFINE_OP_CLASS_ID ~GrAtlasTextOp()
+  DEFINE_OP_CLASS_ID
+  ~GrAtlasTextOp()
   {
     for (int i = 0; i < fGeoCount; i++)
     {

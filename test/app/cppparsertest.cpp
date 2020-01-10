@@ -184,6 +184,7 @@ CppParser constructCppParserForTest()
                          "SK_END_REQUIRE_DENSE",
                          "GR_DECL_BITFIELD_OPS_FRIENDS",
                          "SK_PRINTF_LIKE",
+                         "DEFINE_OP_CLASS_ID",
                          "SK_WHEN"});
 
   parser.addIgnorableMacros(

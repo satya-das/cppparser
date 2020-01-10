@@ -25,10 +25,8 @@ public:
         : INHERITED(gpu)
         , fBounds(SkRect::MakeEmpty())
         , fFillType(GrPathRendering::kWinding_FillType)
-#ifdef SK_DEBUG
         , fSkPath(skPath)
         , fStyle(style)
-#endif
     {
     }
 

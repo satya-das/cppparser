@@ -84,7 +84,7 @@ private:
         GrScissorTest fScissorTest;
         SkIVector fDevToAtlasOffset;  // Translation from device space to location in atlas.
         int fFanTessellationCount = -1;
-        std::unique_ptr<const GrTessellator::WindingVertex[]> fFanTessellation;
+        std::unique_ptr<const GrTessellator::WindingVertex*> fFanTessellation;
     };
 
     // Defines a batch of CCPR primitives. Start indices are deduced by looking at the previous

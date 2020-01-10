@@ -23,7 +23,8 @@ class GrRecordingContext;
 class GrCCDrawPathsOp : public GrDrawOp
 {
 public:
-  DEFINE_OP_CLASS_ID SK_DECLARE_INTERNAL_LLIST_INTERFACE(GrCCDrawPathsOp);
+  DEFINE_OP_CLASS_ID
+  SK_DECLARE_INTERNAL_LLIST_INTERFACE(GrCCDrawPathsOp);
   static std::unique_ptr<GrCCDrawPathsOp> Make(GrRecordingContext*, const SkIRect& clipIBounds, const SkMatrix&, const GrShape&, GrPaint&&);
   ~GrCCDrawPathsOp();
   const char* name() const override

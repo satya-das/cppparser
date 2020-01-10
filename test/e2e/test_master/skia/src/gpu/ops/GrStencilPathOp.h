@@ -15,7 +15,8 @@ class GrRecordingContext;
 class GrStencilPathOp : public GrOp
 {
 public:
-  DEFINE_OP_CLASS_ID static std::unique_ptr<GrOp> Make(GrRecordingContext* context, const SkMatrix& viewMatrix, bool useHWAA, bool hasStencilClip, const GrScissorState& scissor, sk_sp<const GrPath> path);
+  DEFINE_OP_CLASS_ID
+  static std::unique_ptr<GrOp> Make(GrRecordingContext* context, const SkMatrix& viewMatrix, bool useHWAA, bool hasStencilClip, const GrScissorState& scissor, sk_sp<const GrPath> path);
   const char* name() const override
   {
     return "StencilPathOp";

@@ -73,7 +73,8 @@ private:
 class GrDrawPathOp : public GrDrawPathOpBase
 {
 public:
-  DEFINE_OP_CLASS_ID static std::unique_ptr<GrDrawOp> Make(GrRecordingContext*, const SkMatrix& viewMatrix, GrPaint&&, GrAA, sk_sp<const GrPath>);
+  DEFINE_OP_CLASS_ID
+  static std::unique_ptr<GrDrawOp> Make(GrRecordingContext*, const SkMatrix& viewMatrix, GrPaint&&, GrAA, sk_sp<const GrPath>);
   const char* name() const override
   {
     return "DrawPath";
