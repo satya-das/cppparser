@@ -925,6 +925,11 @@ vartype           : typeidentifier opttypemodifier    [ZZLOG;] {
                     $$ = $1;
                     $$->paramPack_ = true;
                   }
+                  | typeidentifier typeidentifier tknScopeResOp typemodifier [ZZLOG;] {
+                    // reference to member declrations. E.g.:
+                    // int GrCCStrokeGeometry::InstanceTallies::* InstanceType
+                    $$ = new CppVarType(gCurAccessType, mergeCppToken($1, $3), $4);
+                  }
                   ;
 
 varidentifier     : identifier          [ZZLOG;]  { $$ = $1; }

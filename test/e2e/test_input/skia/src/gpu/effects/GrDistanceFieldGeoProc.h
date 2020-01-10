@@ -97,14 +97,20 @@ public:
     GrGLSLPrimitiveProcessor* createGLSLInstance(const GrShaderCaps&) const override;
 
 private:
+#ifdef SK_GAMMA_APPLY_TO_A8
     GrDistanceFieldA8TextGeoProc(const GrShaderCaps& caps,
                                  const sk_sp<GrTextureProxy>* proxies,
                                  int numActiveProxies,
                                  const GrSamplerState& params,
-#ifdef SK_GAMMA_APPLY_TO_A8
                                  float distanceAdjust,
-#endif
                                  uint32_t flags, const SkMatrix& localMatrix);
+#else
+    GrDistanceFieldA8TextGeoProc(const GrShaderCaps& caps,
+                                 const sk_sp<GrTextureProxy>* proxies,
+                                 int numActiveProxies,
+                                 const GrSamplerState& params,
+                                 uint32_t flags, const SkMatrix& localMatrix);
+#endif
 
     const TextureSampler& onTextureSampler(int i) const override { return fTextureSamplers[i]; }
 
