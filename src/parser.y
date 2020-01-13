@@ -1355,7 +1355,7 @@ ctordecl          : id '(' paramlist ')' %prec CTORDECL
                   [
                     if(gCompoundStack.empty())
                       ZZERROR;
-                    if(gCompoundStack.top() != $1)
+                    if(classNameFromIdentifier(gCompoundStack.top()) != $1)
                       ZZERROR;
                     else
                       ZZVALID;
@@ -1440,7 +1440,7 @@ dtordecl          : '~' id '(' optvoid ')' %prec DTORDECL [ZZLOG;]
                   [
                     if(gCompoundStack.empty())
                       ZZERROR;
-                    if(gCompoundStack.top() != $2)
+                    if(classNameFromIdentifier(gCompoundStack.top()) != $2)
                       ZZERROR;
                     else
                       ZZVALID;
