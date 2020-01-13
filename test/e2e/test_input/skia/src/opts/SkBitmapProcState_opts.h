@@ -240,8 +240,8 @@ static void decode_packed_coordinates_and_weight(U32 packed, Out* v0, Out* v1, O
 
         while (count >= 4) {
             // We can really get going, loading 4 X-pairs at a time to produce 4 output pixels.
-            int x0[4],
-                x1[4];
+            int x0[4];
+            int x1[4];
             __m128i wx;
 
             // decode_packed_coordinates_and_weight(), 4x.

@@ -96,8 +96,10 @@ private:
 
 };
 
+/*
 extern SkDPoint (SkDCurve::* const Top[])(const SkPoint curve[], SkScalar cWeight,
     double tStart, double tEnd, double* topT);
+*/
 
 static SkDPoint dline_xy_at_t(const SkPoint a[2], SkScalar , double t) {
     SkDLine line;
@@ -123,6 +125,7 @@ static SkDPoint dcubic_xy_at_t(const SkPoint a[4], SkScalar , double t) {
     return cubic.ptAtT(t);
 }
 
+/*
 static SkDPoint (* const CurveDPointAtT[])(const SkPoint[], SkScalar , double ) = {
     nullptr,
     dline_xy_at_t,
@@ -130,6 +133,7 @@ static SkDPoint (* const CurveDPointAtT[])(const SkPoint[], SkScalar , double ) 
     dconic_xy_at_t,
     dcubic_xy_at_t
 };
+*/
 
 static SkDPoint ddline_xy_at_t(const SkDCurve& c, double t) {
     return c.fLine.ptAtT(t);
@@ -147,6 +151,7 @@ static SkDPoint ddcubic_xy_at_t(const SkDCurve& c, double t) {
     return c.fCubic.ptAtT(t);
 }
 
+/*
 static SkDPoint (* const CurveDDPointAtT[])(const SkDCurve& , double ) = {
     nullptr,
     ddline_xy_at_t,
@@ -154,6 +159,7 @@ static SkDPoint (* const CurveDDPointAtT[])(const SkDCurve& , double ) = {
     ddconic_xy_at_t,
     ddcubic_xy_at_t
 };
+*/
 
 static SkPoint fline_xy_at_t(const SkPoint a[2], SkScalar weight, double t) {
     return dline_xy_at_t(a, weight, t).asSkPoint();
@@ -171,6 +177,7 @@ static SkPoint fcubic_xy_at_t(const SkPoint a[4], SkScalar weight, double t) {
     return dcubic_xy_at_t(a, weight, t).asSkPoint();
 }
 
+/*
 static SkPoint (* const CurvePointAtT[])(const SkPoint[], SkScalar , double ) = {
     nullptr,
     fline_xy_at_t,
@@ -178,6 +185,7 @@ static SkPoint (* const CurvePointAtT[])(const SkPoint[], SkScalar , double ) = 
     fconic_xy_at_t,
     fcubic_xy_at_t
 };
+*/
 
 static SkDVector dline_dxdy_at_t(const SkPoint a[2], SkScalar , double ) {
     SkDLine line;
@@ -203,6 +211,7 @@ static SkDVector dcubic_dxdy_at_t(const SkPoint a[4], SkScalar , double t) {
     return cubic.dxdyAtT(t);
 }
 
+/*
 static SkDVector (* const CurveDSlopeAtT[])(const SkPoint[], SkScalar , double ) = {
     nullptr,
     dline_dxdy_at_t,
@@ -210,6 +219,7 @@ static SkDVector (* const CurveDSlopeAtT[])(const SkPoint[], SkScalar , double )
     dconic_dxdy_at_t,
     dcubic_dxdy_at_t
 };
+*/
 
 static SkDVector ddline_dxdy_at_t(const SkDCurve& c, double ) {
     return c.fLine.fPts[1] - c.fLine.fPts[0];
@@ -227,6 +237,7 @@ static SkDVector ddcubic_dxdy_at_t(const SkDCurve& c, double t) {
     return c.fCubic.dxdyAtT(t);
 }
 
+/*
 static SkDVector (* const CurveDDSlopeAtT[])(const SkDCurve& , double ) = {
     nullptr,
     ddline_dxdy_at_t,
@@ -234,6 +245,7 @@ static SkDVector (* const CurveDDSlopeAtT[])(const SkDCurve& , double ) = {
     ddconic_dxdy_at_t,
     ddcubic_dxdy_at_t
 };
+*/
 
 static SkVector fline_dxdy_at_t(const SkPoint a[2], SkScalar , double ) {
     return a[1] - a[0];
@@ -251,6 +263,7 @@ static SkVector fcubic_dxdy_at_t(const SkPoint a[4], SkScalar weight, double t) 
     return dcubic_dxdy_at_t(a, weight, t).asSkVector();
 }
 
+/*
 static SkVector (* const CurveSlopeAtT[])(const SkPoint[], SkScalar , double ) = {
     nullptr,
     fline_dxdy_at_t,
@@ -258,6 +271,7 @@ static SkVector (* const CurveSlopeAtT[])(const SkPoint[], SkScalar , double ) =
     fconic_dxdy_at_t,
     fcubic_dxdy_at_t
 };
+*/
 
 static bool line_is_vertical(const SkPoint a[2], SkScalar , double startT, double endT) {
     SkDLine line;
@@ -288,6 +302,7 @@ static bool cubic_is_vertical(const SkPoint a[4], SkScalar , double startT, doub
             && AlmostEqualUlps(dst[2].fX, dst[3].fX);
 }
 
+/*
 static bool (* const CurveIsVertical[])(const SkPoint[], SkScalar , double , double) = {
     nullptr,
     line_is_vertical,
@@ -295,6 +310,7 @@ static bool (* const CurveIsVertical[])(const SkPoint[], SkScalar , double , dou
     conic_is_vertical,
     cubic_is_vertical
 };
+*/
 
 static void line_intersect_ray(const SkPoint a[2], SkScalar , const SkDLine& ray,
         SkIntersections* i) {
@@ -324,6 +340,7 @@ static void cubic_intersect_ray(const SkPoint a[4], SkScalar , const SkDLine& ra
     i->intersectRay(cubic, ray);
 }
 
+/*
 static void (* const CurveIntersectRay[])(const SkPoint[] , SkScalar , const SkDLine& ,
         SkIntersections* ) = {
     nullptr,
@@ -332,6 +349,7 @@ static void (* const CurveIntersectRay[])(const SkPoint[] , SkScalar , const SkD
     conic_intersect_ray,
     cubic_intersect_ray
 };
+*/
 
 static void dline_intersect_ray(const SkDCurve& c, const SkDLine& ray,  SkIntersections* i) {
     i->intersectRay(c.fLine, ray);
@@ -349,6 +367,7 @@ static void dcubic_intersect_ray(const SkDCurve& c, const SkDLine& ray, SkInters
     i->intersectRay(c.fCubic, ray);
 }
 
+/*
 static void (* const CurveDIntersectRay[])(const SkDCurve& , const SkDLine& , SkIntersections* ) = {
     nullptr,
     dline_intersect_ray,
@@ -356,6 +375,7 @@ static void (* const CurveDIntersectRay[])(const SkDCurve& , const SkDLine& , Sk
     dconic_intersect_ray,
     dcubic_intersect_ray
 };
+*/
 
 static int line_intercept_h(const SkPoint a[2], SkScalar , SkScalar y, double* roots) {
     if (a[0].fY == a[1].fY) {
@@ -405,6 +425,7 @@ static int cubic_intercept_v(const SkPoint a[3], SkScalar , SkScalar x, double* 
     return cubic.set(a).verticalIntersect(x, roots);
 }
 
+/*
 static int (* const CurveIntercept[])(const SkPoint[] , SkScalar , SkScalar , double* ) = {
     nullptr,
     nullptr,
@@ -417,5 +438,6 @@ static int (* const CurveIntercept[])(const SkPoint[] , SkScalar , SkScalar , do
     cubic_intercept_h,
     cubic_intercept_v,
 };
+*/
 
 #endif

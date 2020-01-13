@@ -187,8 +187,21 @@ CppParser constructCppParserForTest()
                          "DEFINE_OP_CLASS_ID",
                          "SK_WHEN"});
 
-  parser.addIgnorableMacros(
-    {"SkDEBUGCODE", "SkDEBUGPARAMS", "__bridge", "__bridge_retained", "API_AVAILABLE", "SK_RESTRICT"});
+  parser.addIgnorableMacros({"SkDEBUGCODE",
+                             "SkDEBUGPARAMS",
+                             "__bridge",
+                             "__bridge_retained",
+                             "API_AVAILABLE",
+                             "SK_RESTRICT",
+                             "DEBUG_COIN_DECLARE_PARAMS",
+                             "PATH_OPS_DEBUG_T_SECT_CODE",
+                             "PATH_OPS_DEBUG_T_SECT_PARAMS",/*
+                             "SK_ACQUIRE",
+                             "SK_RELEASE_CAPABILITY",
+                             "SK_ASSERT_CAPABILITY",
+                             "SK_ACQUIRE_SHARED",
+                             "SK_RELEASE_SHARED_CAPABILITY",
+                             "SK_ASSERT_SHARED_CAPABILITY"*/});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("final", "ADESK_SEALED");

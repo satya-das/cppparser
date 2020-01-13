@@ -17,10 +17,6 @@ class SkIntersections {
 public:
     SkIntersections(SkDEBUGCODE(SkOpGlobalState* globalState = nullptr))
         : fSwap(0)
-#ifdef SK_DEBUG
-        SkDEBUGPARAMS(fDebugGlobalState(globalState))
-        , fDepth(0)
-#endif
     {
         sk_bzero(fPt, sizeof(fPt));
         sk_bzero(fPt2, sizeof(fPt2));

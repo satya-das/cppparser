@@ -41,6 +41,8 @@ private:
     String fBuffer;
 };
 
+}
+
 #else
 
 #include "include/core/SkData.h"
@@ -80,8 +82,8 @@ private:
     mutable String fString;
 };
 
-#endif // SKSL_STANDALONE
-
 } // namespace
+
+#endif // SKSL_STANDALONE
 
 #endif
