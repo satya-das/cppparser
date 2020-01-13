@@ -1160,6 +1160,8 @@ funcobjstr        : typeidentifier optapidecor '(' paramlist ')' [ZZLOG;] {
 funcname          : operfuncname                          [ZZLOG;] { $$ = $1; }
                   | typeidentifier                        [ZZLOG;] { $$ = $1; }
                   | tknScopeResOp operfuncname            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+                  /* final can be a function name too, see SkOpSpan.h :| */
+                  | tknFinal                              [ZZLOG;] { $$ = $1; }
                   ;
 
 rshift            : tknGT tknGT %prec RSHIFT [ if ($2.sz != ($1.sz + 1)) ZZERROR; ] { $$ = mergeCppToken($1, $2); }

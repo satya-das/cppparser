@@ -69,8 +69,10 @@ inline constexpr SkEnumerate<Iter, C> SkMakeEnumerate(C&& c) {
     return SkEnumerate<Iter, C>{std::forward<C>(c)};
 }
 
+/*
 template <class T, std::size_t N, typename Iter = decltype(std::begin(std::declval<T(&)[N]>()))>
 inline constexpr SkEnumerate<Iter> SkMakeEnumerate(T (&a)[N]) {
     return SkEnumerate<Iter>{std::begin(a), std::end(a)};
 }
+*/
 #endif  // SkIota_DEFINED

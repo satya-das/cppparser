@@ -160,7 +160,7 @@ private:
         template <typename F>
         auto visit(F&& f) const -> decltype(f(SkRecords::NoOp())) {
         #define CASE(T) case SkRecords::T##_Type: return f(*(const SkRecords::T*)this->ptr());
-            switch(this->type()) { SK_RECORD_TYPES(CASE) }
+//            switch(this->type()) { SK_RECORD_TYPES(CASE) }
         #undef CASE
             SkDEBUGFAIL("Unreachable");
             static const SkRecords::NoOp noop{};
@@ -171,7 +171,7 @@ private:
         template <typename F>
         auto mutate(F&& f) -> decltype(f((SkRecords::NoOp*)nullptr)) {
         #define CASE(T) case SkRecords::T##_Type: return f((SkRecords::T*)this->ptr());
-            switch(this->type()) { SK_RECORD_TYPES(CASE) }
+//            switch(this->type()) { SK_RECORD_TYPES(CASE) }
         #undef CASE
             SkDEBUGFAIL("Unreachable");
             static const SkRecords::NoOp noop{};

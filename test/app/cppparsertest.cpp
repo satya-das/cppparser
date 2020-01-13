@@ -145,6 +145,7 @@ CppParser constructCppParserForTest()
 
                             "SK_API",
                             "SK_BEGIN_REQUIRE_DENSE",
+                            "SK_WARN_UNUSED_RESULT",
                             "SK_CAPABILITY"});
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
@@ -185,6 +186,7 @@ CppParser constructCppParserForTest()
                          "GR_DECL_BITFIELD_OPS_FRIENDS",
                          "SK_PRINTF_LIKE",
                          "DEFINE_OP_CLASS_ID",
+                         "SHARD",
                          "SK_WHEN"});
 
   parser.addIgnorableMacros({"SkDEBUGCODE",
@@ -195,13 +197,13 @@ CppParser constructCppParserForTest()
                              "SK_RESTRICT",
                              "DEBUG_COIN_DECLARE_PARAMS",
                              "PATH_OPS_DEBUG_T_SECT_CODE",
-                             "PATH_OPS_DEBUG_T_SECT_PARAMS",/*
+                             "PATH_OPS_DEBUG_T_SECT_PARAMS",
                              "SK_ACQUIRE",
                              "SK_RELEASE_CAPABILITY",
                              "SK_ASSERT_CAPABILITY",
                              "SK_ACQUIRE_SHARED",
                              "SK_RELEASE_SHARED_CAPABILITY",
-                             "SK_ASSERT_SHARED_CAPABILITY"*/});
+                             "SK_ASSERT_SHARED_CAPABILITY"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("final", "ADESK_SEALED");
