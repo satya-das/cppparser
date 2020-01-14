@@ -73,8 +73,8 @@ private:
   private:
     id<MTLBuffer> fBuffer;
     size_t fTotalSize;
-    size_t fHead SK_GUARDED_BY(fMutex);
-    size_t fTail SK_GUARDED_BY(fMutex);
+    size_t fHead;
+    size_t fTail;
     SkSpinlock fMutex;
   };
   static size_t kBufferSuballocatorStartSize = 1024 * 1024;

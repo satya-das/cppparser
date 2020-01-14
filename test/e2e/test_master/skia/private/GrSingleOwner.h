@@ -52,8 +52,8 @@ private:
     }
   }
   SkMutex fMutex;
-  SkThreadID fOwner SK_GUARDED_BY(fMutex);
-  int fReentranceCount SK_GUARDED_BY(fMutex);
+  SkThreadID fOwner;
+  int fReentranceCount;
 };
 #  else 
 class GrSingleOwner

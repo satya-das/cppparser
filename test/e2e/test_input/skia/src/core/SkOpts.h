@@ -45,7 +45,7 @@ namespace SkOpts {
                            grayA_to_rgbA;   // i.e. expand to color channels and premultiply
 
     extern void (*memset16)(uint16_t[], uint16_t, int);
-    extern void SK_API (*memset32)(uint32_t[], uint32_t, int);
+    extern void (SK_API *memset32)(uint32_t[], uint32_t, int);
     extern void (*memset64)(uint64_t[], uint64_t, int);
 
     extern void (*rect_memset16)(uint16_t[], uint16_t, int, size_t, int);
@@ -69,8 +69,8 @@ namespace SkOpts {
     // We can't necessarily express the type of SkJumper stage functions here,
     // so we just use this void(*)(void) as a stand-in.
     using StageFn = void(*)(void);
-    extern StageFn stages_highp[SK_RASTER_PIPELINE_STAGES(M)], just_return_highp;
-    extern StageFn stages_lowp [SK_RASTER_PIPELINE_STAGES(M)], just_return_lowp;
+//    extern StageFn stages_highp[SK_RASTER_PIPELINE_STAGES(M)], just_return_highp;
+//    extern StageFn stages_lowp [SK_RASTER_PIPELINE_STAGES(M)], just_return_lowp;
 
     extern void (*start_pipeline_highp)(size_t,size_t,size_t,size_t, void**);
     extern void (*start_pipeline_lowp )(size_t,size_t,size_t,size_t, void**);

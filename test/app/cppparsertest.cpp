@@ -198,11 +198,14 @@ CppParser constructCppParserForTest()
                              "DEBUG_COIN_DECLARE_PARAMS",
                              "PATH_OPS_DEBUG_T_SECT_CODE",
                              "PATH_OPS_DEBUG_T_SECT_PARAMS",
+                             "SK_GUARDED_BY",
                              "SK_ACQUIRE",
+                             "SK_REQUIRES",
                              "SK_RELEASE_CAPABILITY",
                              "SK_ASSERT_CAPABILITY",
                              "SK_ACQUIRE_SHARED",
                              "SK_RELEASE_SHARED_CAPABILITY",
+                             "SK_BLITBWMASK_ARGS",
                              "SK_ASSERT_SHARED_CAPABILITY"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");

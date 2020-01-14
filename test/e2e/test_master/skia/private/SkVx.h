@@ -427,7 +427,8 @@ namespace skvx
 // N == 1 scalar implementations.
   SIT Vec<1,T> if_then_else(const Vec<1,M<T>>& cond, const Vec<1,T>& t, const Vec<1,T>& e)
   {
-    auto t_bits = bit_pun<M<T>>(t), e_bits;
+    auto t_bits = bit_pun<M<T>>(t),
+         e_bits = bit_pun<M<T>>(e);
     return bit_pun<T>((cond.val & t_bits) | (~cond.val & e_bits));
   }
   SIT bool any(const Vec<1,T>& x)

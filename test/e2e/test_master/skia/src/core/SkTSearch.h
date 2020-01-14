@@ -1,17 +1,12 @@
-
 /*
  * Copyright 2006 The Android Open Source Project
  *
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
-
-
 #ifndef SkTSearch_DEFINED
-#define SkTSearch_DEFINED
-
-#include "include/core/SkTypes.h"
-
+#  define SkTSearch_DEFINED
+#  include "include/core/SkTypes.h"
 /**
  *  All of the SkTSearch variants want to return the index (0...N-1) of the
  *  found element, or the bit-not of where to insert the element.
@@ -38,36 +33,42 @@
 template <typename T, typename K, typename LESS>
 int SkTSearch(const T base[], int count, const K& key, size_t elemSize, LESS& less)
 {
-    SkASSERT(count >= 0);
-    if (count <= 0) {
-        return ~0;
+  SkASSERT(count >= 0);
+  if (count <= 0)
+  {
+    return ~0;
+  }
+  SkASSERT(base != nullptr);
+  int lo = 0;
+  int hi = count - 1;
+  while (lo < hi)
+  {
+    int mid = lo + ((hi - lo) >> 1);
+    const T* elem = (const T*) ((const char*) base + mid * elemSize);
+    if (less(*elem, key))
+    {
+      lo = mid + 1;
     }
-
-    SkASSERT(base != nullptr); // base may be nullptr if count is zero
-
-    int lo = 0;
-    int hi = count - 1;
-
-    while (lo < hi) {
-        int mid = lo + ((hi - lo) >> 1);
-        const T* elem = (const T*)((const char*)base + mid * elemSize);
-
-        if (less(*elem, key))
-            lo = mid + 1;
-        else
-            hi = mid;
+    else 
+    {
+      hi = mid;
     }
-
-    const T* elem = (const T*)((const char*)base + hi * elemSize);
-    if (less(*elem, key)) {
-        hi += 1;
-        hi = ~hi;
-    } else if (less(key, *elem)) {
-        hi = ~hi;
+  }
+  const T* elem = (const T*) ((const char*) base + hi * elemSize);
+  if (less(*elem, key))
+  {
+    hi += 1;
+    hi = ~hi;
+  }
+  else 
+  {
+    if (less(key, *elem))
+    {
+      hi = ~hi;
     }
-    return hi;
+  }
+  return hi;
 }
-
 /*
 // Adapts a less-than function to a functor.
 template <typename T, bool (LESS)(const T&, const T&)> struct SkTLessFunctionToFunctorAdaptor {
@@ -82,18 +83,21 @@ int SkTSearch(const T base[], int count, const T& target, size_t elemSize) {
 }
 */
 // Adapts operator < to a functor.
-template <typename T> struct SkTLessFunctor {
-    bool operator()(const T& a, const T& b) { return a < b; }
+template <typename T>
+struct SkTLessFunctor
+{
+  bool operator()(const T& a, const T& b)
+  {
+    return a < b;
+  }
 };
-
 // Specialization for T==K, compare using op <.
 template <typename T>
-int SkTSearch(const T base[], int count, const T& target, size_t elemSize) {
-    static SkTLessFunctor<T> functor;
-    return SkTSearch(base, count, target, elemSize, functor);
+int SkTSearch(const T base[], int count, const T& target, size_t elemSize)
+{
+  static SkTLessFunctor<T> functor;
+  return SkTSearch(base, count, target, elemSize, functor);
 }
-
-/*
 // Similar to SkLessFunctionToFunctorAdaptor but makes the functor interface take T* rather than T.
 template <typename T, bool (LESS)(const T&, const T&)> struct SkTLessFunctionToPtrFunctorAdaptor {
     bool operator() (const T* t, const T* k) { return LESS(*t, *k); }
@@ -107,43 +111,39 @@ int SkTSearch(T* base[], int count, T* target, size_t elemSize) {
     return SkTSearch(base, count, target, elemSize, functor);
 }
 */
-
-int SkStrSearch(const char*const* base, int count, const char target[],
-                size_t target_len, size_t elemSize);
-int SkStrSearch(const char*const* base, int count, const char target[],
-                size_t elemSize);
-
+int SkStrSearch(const char* const * base, int count, const char target[], size_t target_len, size_t elemSize);
+int SkStrSearch(const char* const * base, int count, const char target[], size_t elemSize);
 /** Like SkStrSearch, but treats target as if it were all lower-case. Assumes that
     base points to a table of lower-case strings.
 */
-int SkStrLCSearch(const char*const* base, int count, const char target[],
-                  size_t target_len, size_t elemSize);
-int SkStrLCSearch(const char*const* base, int count, const char target[],
-                  size_t elemSize);
-
+int SkStrLCSearch(const char* const * base, int count, const char target[], size_t target_len, size_t elemSize);
+int SkStrLCSearch(const char* const * base, int count, const char target[], size_t elemSize);
 /** Helper class to convert a string to lower-case, but only modifying the ascii
     characters. This makes the routine very fast and never changes the string
     length, but it is not suitable for linguistic purposes. Normally this is
     used for buiding and searching string tables.
 */
-class SkAutoAsciiToLC {
+class SkAutoAsciiToLC
+{
 public:
-    SkAutoAsciiToLC(const char str[], size_t len = (size_t)-1);
-    ~SkAutoAsciiToLC();
-
-    const char* lc() const { return fLC; }
-    size_t      length() const { return fLength; }
-
+  SkAutoAsciiToLC(const char str[], size_t len = (size_t) -1);
+  ~SkAutoAsciiToLC();
+  const char* lc() const
+  {
+    return fLC;
+  }
+  size_t length() const
+  {
+    return fLength;
+  }
 private:
-    char*   fLC;    // points to either the heap or fStorage
-    size_t  fLength;
-    enum {
+  char* fLC;
+  size_t fLength;
+  enum {
         STORAGE = 64
     };
-    char    fStorage[STORAGE+1];
+  char fStorage[STORAGE + 1];
 };
-
 // Helper when calling qsort with a compare proc that has typed its arguments
-#define SkCastForQSort(compare) reinterpret_cast<int (*)(const void*, const void*)>(compare)
-
+#  define SkCastForQSort(compare)	 reinterpret_cast<int (*)(const void*, const void*)>(compare)
 #endif
