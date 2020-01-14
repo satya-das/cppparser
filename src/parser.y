@@ -321,7 +321,7 @@ extern int yylex();
 %type  <memInitList>        meminitlist
 %type  <memInit>            meminit
 %type  <compoundType>       classspecifier
-%type  <attr>               varattrib exptype optfuncattrib functype optfinal
+%type  <attr>               varattrib exptype optfuncattrib functype optfunctype optfinal
 %type  <inheritList>        optinheritlist
 %type  <inheritType>        optinherittype
 %type  <objAccessType>      protlevel changeprotlevel
@@ -819,6 +819,7 @@ usingnamespacedecl: tknUsing tknNamespace identifier ';'  [ZZLOG;] {
                   ;
 
 vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
+                  | exptype vardecllist ';' [ZZVALID;] { $$ = $2; }
                   ;
 
 vardeclstmt       : vardecl ';'                   [ZZVALID;] { $$ = $1; }
@@ -828,12 +829,14 @@ vardeclstmt       : vardecl ';'                   [ZZVALID;] { $$ = $1; }
                   | varattrib vardeclstmt         [ZZVALID;] { $$ = $2; $$->addAttr($1); }
                   ;
 
-vardecllist       : varinit ',' opttypemodifier id optvarassign [ZZLOG;] {
-                    $$ = new CppVarList($1, CppVarDeclInList($3, CppVarDecl{$4}));
+vardecllist       : optfunctype varinit ',' opttypemodifier id optvarassign [ZZLOG;] {
+                    $2->addAttr($1);
+                    $$ = new CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5}));
                     /* TODO: Use optvarassign as well */
                   }
-                  | vardecl ',' opttypemodifier id optvarassign [ZZLOG;] {
-                    $$ = new CppVarList($1, CppVarDeclInList($3, CppVarDecl{$4}));
+                  | optfunctype vardecl ',' opttypemodifier id optvarassign [ZZLOG;] {
+                    $2->addAttr($1);
+                    $$ = new CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5}));
                     /* TODO: Use optvarassign as well */
                   }
                   | vardecllist ',' opttypemodifier id optvarassign [ZZLOG;] {
@@ -1274,6 +1277,10 @@ functype          : exptype        [ZZLOG;] { $$ = $1; }
                   | tknExplicit    [ZZLOG;] { $$ = kExplicit;  }
                   | tknFriend      [ZZLOG;] { $$ = kFriend;    }
                   | tknConstExpr   [ZZLOG;] { $$ = kConstExpr; }
+                  ;
+
+optfunctype       :                [ZZLOG;] { $$ = 0;}
+                  | functype       [ZZLOG;] { $$ = $1;}
                   ;
 
 optfuncattrib     : tknConst                      [ZZLOG;] { $$ = kConst; }
