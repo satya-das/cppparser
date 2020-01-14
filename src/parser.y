@@ -1217,6 +1217,11 @@ operfuncname      : tknOperator '+'               [ZZLOG;] { $$ = mergeCppToken(
 
                   /* see https://en.cppreference.com/w/cpp/language/user_literal */
                   | tknOperator tknStrLit id      [ZZLOG;] { $$ = mergeCppToken($1, $3); }
+
+                  /* To fix something like:
+                      friend void* operator new<T>(size_t, GrTAllocator*);
+                  */
+                  | operfuncname tknLT templatearglist tknGT [ZZLOG;] { $$ = mergeCppToken($1, $4); }
                   ;
 
 paramlist         :                     [ZZLOG;] { $$ = nullptr; }
