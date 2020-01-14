@@ -111,6 +111,7 @@ const char* oyytext;
 
 //@{ Flags to parse enum body as a blob
 bool gEnumBodyWillBeEncountered = false;
+extern bool gParseEnumBodyAsBlob;
 //@}
 
 // Its a hack because it uses undocumented thing.
@@ -415,7 +416,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>enum/{WS}+(class{WS}+)?{ID}?({WS}*":"{WS}*{ID})?{WSNL}*"{" {
   set_token_and_yyposn();
-  gEnumBodyWillBeEncountered = true;
+  if (gParseEnumBodyAsBlob)
+    gEnumBodyWillBeEncountered = true;
   RETURN(tknEnum);
 }
 
