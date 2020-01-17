@@ -1027,7 +1027,7 @@ public:
     /// Returns Acad::eOk if the operation succeeds.
     /// Returns Acad::eInvalidInput if the operation fails
     /// </returns>
-  ADESK_DEPRECATED Acad::ErrorStatus ACCORE_PORT invokeNewFeatureWorkshop();
+  ADESK_DEPRECATED ACCORE_PORT Acad::ErrorStatus invokeNewFeatureWorkshop();
     /// <summary> 
     /// Invoke the text editor stack properties dialog.
     /// </summary>

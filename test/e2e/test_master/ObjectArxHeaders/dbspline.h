@@ -67,7 +67,8 @@ public:
   double weightAt(int index) const;
   Acad::ErrorStatus setWeightAt(int index, double weight);
   Acad::ErrorStatus insertKnot(double param);
-  DBCURVE_METHODS Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const override;
+  DBCURVE_METHODS
+  Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const override;
     /// <summary>
     /// Generates a polyline to approximate a spline.
     ///

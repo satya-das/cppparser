@@ -223,7 +223,7 @@ enum DefineLooksLike {
   kNumDef		= tknNumber, // #define is used to define a numeric constant.
   kStrLitDef	= tknStrLit, // #define is used to define a string literal.
   kCharLitDef	= tknCharLit, // #define is used to define a character literal.
-  kReDef		= tknID, // #define is used to rename something, e.g. #define CALLTYPE __stdcall
+  kReDef		= tknName, // #define is used to rename something, e.g. #define CALLTYPE __stdcall
   kComplexDef	= tknPreProDef, // It is something beyond our parser can comprehand.
 };
 DefineLooksLike gDefLooksLike;
@@ -313,10 +313,30 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreprocessor>{ID} {
   set_token_and_yyposn();
+  RETURN(tknName);
+}
+
+<ctxPreprocessor>({ID}"::")+{ID} {
+  set_token_and_yyposn();
   RETURN(tknID);
 }
 
 <ctxGeneral>__declspec {
+  set_token_and_yyposn();
+  RETURN(tknApiDecor);
+}
+
+<ctxGeneral>__cdecl {
+  set_token_and_yyposn();
+  RETURN(tknApiDecor);
+}
+
+<ctxGeneral>__stdcall {
+  set_token_and_yyposn();
+  RETURN(tknApiDecor);
+}
+
+<ctxGeneral>afx_msg {
   set_token_and_yyposn();
   RETURN(tknApiDecor);
 }
@@ -350,7 +370,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
     auto itr = gRenamedKeywords.find(yylval.str);
     if (itr != gRenamedKeywords.end())
       return itr->second;
-    RETURN(tknID);
+    RETURN(tknName);
   }
 }
 
@@ -570,7 +590,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   BEGINCONTEXT(ctxDefineDefn);
   gDefLooksLike = kComplexDef;
   oyytext = yytext + yyleng;
-  RETURN(tknID);
+  RETURN(tknName);
 }
 
 <ctxDefine>{ID} {
@@ -579,7 +599,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   BEGINCONTEXT(ctxDefineDefn);
   gDefLooksLike = kNoDef;
   oyytext = 0;
-  RETURN(tknID);
+  RETURN(tknName);
 }
 
 <ctxDefineDefn>{ID} {
@@ -865,6 +885,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxGeneral>volatile/{TS}+ {
   set_token_and_yyposn();
   RETURN(tknVolatile);
+}
+
+<ctxGeneral>mutable/{TS}+ {
+  set_token_and_yyposn();
+  RETURN(tknMutable);
 }
 
 <ctxGeneral>new/{TS}+ {

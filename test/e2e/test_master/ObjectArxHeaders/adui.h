@@ -28,7 +28,7 @@ int ADUI_PORT AdUiDataValidationLevel();
 // Helper function to expand a help file name into a fully-qualified pathname.
 BOOL ADUI_PORT AdUiFindContextHelpFullPath(LPCTSTR fileName, CString& fullPath);
 void ADUI_PORT AdUiSubstituteShellFont(CWnd& dlg, CFont& font);
-CAdUiThemeManager ADUI_PORT* AdUiGetThemeManager();
+CAdUiThemeManager* ADUI_PORT AdUiGetThemeManager();
 // This function finds a suitable parent window for a dialog when none is
 // explicitly supplied. The algorithm obtains the active window 
 // (using GetActiveWindow) and the walks the parent hierarchy (using GetParent)

@@ -23,6 +23,6 @@ private:
   template <ApplyPremul premul, SkTileMode tileMode>
   void shadeSpanInternal(int x, int y, SkPMColor dst[], int count, float bias0, float bias1) const;
   const Sk4fGradientInterval* findInterval(SkScalar fx) const;
-  mutable const Sk4fGradientInterval* fCachedInterval;
+  const mutable Sk4fGradientInterval* fCachedInterval;
 };
 #endif

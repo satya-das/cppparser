@@ -46,7 +46,7 @@ BOOL ADUI_PORT AdUiFindContextHelpFullPath (
 );
 
 void ADUI_PORT AdUiSubstituteShellFont (CWnd& dlg, CFont& font);
-CAdUiThemeManager ADUI_PORT * AdUiGetThemeManager();  // INTERNAL USE ONLY
+CAdUiThemeManager* ADUI_PORT AdUiGetThemeManager();  // INTERNAL USE ONLY
 
 // This function finds a suitable parent window for a dialog when none is
 // explicitly supplied. The algorithm obtains the active window 

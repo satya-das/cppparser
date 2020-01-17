@@ -412,7 +412,8 @@ public:
   ~AcDb2dPolyline();
   ACDB_DECLARE_MEMBERS(AcDb2dPolyline);
   AcDb2dPolyline(AcDb::Poly2dType type, AcGePoint3dArray& vertices, double elevation = 0, Adesk::Boolean closed = Adesk::kFalse, double defStartWidth = 0, double defEndWidth = 0, AcGeDoubleArray* bulges = nullptr, AcArray<Adesk::Int32>* vertexIdentifiers = nullptr);
-  DBCURVE_METHODS AcDb::Poly2dType polyType() const;
+  DBCURVE_METHODS
+  AcDb::Poly2dType polyType() const;
   Acad::ErrorStatus setPolyType(AcDb::Poly2dType);
   Acad::ErrorStatus convertToPolyType(AcDb::Poly2dType newVal);
   Acad::ErrorStatus makeClosed();
@@ -484,7 +485,8 @@ public:
   ~AcDb3dPolyline();
   ACDB_DECLARE_MEMBERS(AcDb3dPolyline);
   AcDb3dPolyline(AcDb::Poly3dType, AcGePoint3dArray& vertices, Adesk::Boolean closed = Adesk::kFalse);
-  DBCURVE_METHODS Acad::ErrorStatus ACDBCORE2D_PORT length(double&) const;
+  DBCURVE_METHODS
+  ACDBCORE2D_PORT Acad::ErrorStatus length(double&) const;
   ACDBCORE2D_PORT Acad::ErrorStatus setClosed(Adesk::Boolean);
   Acad::ErrorStatus makeClosed();
   Acad::ErrorStatus makeOpen();
@@ -530,7 +532,8 @@ public:
   AcDbArc(const AcGePoint3d& center, const AcGeVector3d& normal, double radius, double startAngle, double endAngle);
   ~AcDbArc();
   ACDB_DECLARE_MEMBERS(AcDbArc);
-  DBCURVE_METHODS AcGePoint3d center() const;
+  DBCURVE_METHODS
+  AcGePoint3d center() const;
   Acad::ErrorStatus setCenter(const AcGePoint3d&);
   double radius() const;
   Acad::ErrorStatus setRadius(double);
@@ -566,7 +569,8 @@ public:
   AcDbCircle(const AcGePoint3d& cntr, const AcGeVector3d& nrm, double radius);
   ~AcDbCircle();
   ACDB_DECLARE_MEMBERS(AcDbCircle);
-  DBCURVE_METHODS AcGePoint3d center() const;
+  DBCURVE_METHODS
+  AcGePoint3d center() const;
   Acad::ErrorStatus setCenter(const AcGePoint3d&);
   double radius() const;
   Acad::ErrorStatus setRadius(double);
@@ -613,7 +617,8 @@ public:
   AcDbLine(const AcGePoint3d& start, const AcGePoint3d& end);
   ~AcDbLine();
   ACDB_DECLARE_MEMBERS(AcDbLine);
-  DBCURVE_METHODS Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const override;
+  DBCURVE_METHODS
+  Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const override;
   AcGePoint3d startPoint() const;
   Acad::ErrorStatus setStartPoint(const AcGePoint3d&);
   AcGePoint3d endPoint() const;

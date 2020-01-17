@@ -89,7 +89,7 @@ namespace SkHexadecimalDigits
 // making them safe to use for all types on all platforms, thus solving the
 // problem once and for all!
 template <typename T, typename P>
-static SK_ALWAYS_INLINE T sk_unaligned_load(const P* ptr)
+SK_ALWAYS_INLINE static T sk_unaligned_load(const P* ptr)
 {
     // TODO: static_assert desirable things about T here so as not to be totally abused.
   T val;

@@ -43,8 +43,10 @@ static void emitAttribute(std::uint32_t attr, std::ostream& stm)
 
   if (attr & kConst)
     stm << "const ";
-  else if (attr & kVolatile)
+  if (attr & kVolatile)
     stm << "volatile ";
+  if (attr & kMutable)
+    stm << "mutable ";
 }
 
 static void emitTypeModifier(const CppTypeModifier& modifier, std::ostream& stm)
@@ -218,7 +220,7 @@ void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) con
   else
     stm << varTypeObj->baseType();
   const auto&           origTypeModifier = varTypeObj->typeModifier();
-  const CppTypeModifier typeModifier {
+  const CppTypeModifier typeModifier{
     origTypeModifier.refType_, origTypeModifier.ptrLevel_, origTypeModifier.constBits_ & ~1};
   emitTypeModifier(typeModifier, stm);
 }
@@ -382,7 +384,10 @@ void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj,
   stm << indentation;
   if (fwdDeclObj->attr() & kFriend)
     stm << "friend ";
-  stm << fwdDeclObj->cmpType_ << ' ' << fwdDeclObj->name_ << ";\n";
+  stm << fwdDeclObj->cmpType_ << ' ';
+  if (!fwdDeclObj->apidecor_.empty())
+    stm << fwdDeclObj->apidecor_ << ' ';
+  stm << fwdDeclObj->name_ << ";\n";
 }
 
 void CppWriter::emitMacroCall(const CppMacroCall* macroCallObj,

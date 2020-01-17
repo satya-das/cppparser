@@ -10,8 +10,8 @@
 #  include <string.h>
 // Typically declared in LLVM's msan_interface.h.  Easier for us to just re-declare.
 extern "C" {
-  void __msan_check_mem_is_initialized(const void*, size_t);
-  void __msan_unpoison(const void*, size_t);
+  void __msan_check_mem_is_initialized(const volatile void*, size_t);
+  void __msan_unpoison(const volatile void*, size_t);
   }
 // Code that requires initialized inputs can call this to make it clear that
 // the blame for use of uninitialized data belongs further up the call stack.

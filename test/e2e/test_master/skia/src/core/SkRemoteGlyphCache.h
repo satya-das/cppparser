@@ -169,7 +169,7 @@ public:
     // from a server when serializing the ops must be deserialized before the op
     // is rasterized.
     // Returns false if the data is invalid.
-  SK_API bool readStrikeData(const void* memory, size_t memorySize);
+  SK_API bool readStrikeData(const volatile void* memory, size_t memorySize);
 private:
   class DiscardableStrikePinner;
   static bool ReadGlyph(SkTLazy < SkGlyph > &glyph, Deserializer * deserializer);

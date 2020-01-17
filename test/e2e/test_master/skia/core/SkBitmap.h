@@ -43,7 +43,7 @@ class SkString;
 class SK_API SkBitmap
 {
 public:
-  class Allocator;
+  class SK_API Allocator;
     /** Creates an empty SkBitmap without pixels, with kUnknown_SkColorType,
         kUnknown_SkAlphaType, and with a width and height of zero. SkPixelRef origin is
         set to (0, 0). SkBitmap is not volatile.

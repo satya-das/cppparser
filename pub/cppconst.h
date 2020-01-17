@@ -175,25 +175,26 @@ enum /*class*/ CppOperator : std::uint8_t
  */
 enum /*class*/ CppIdentifierAttrib : std::uint32_t
 {
-  kFuncParam   = 0x0001, // If the identifier is actually function parameter.
-  kConst       = 0x0002,
-  kStatic      = 0x0004,
-  kExtern      = 0x0008,
-  kInline      = 0x0010,
-  kVirtual     = 0x0020,
-  kPureVirtual = 0x0040 | kVirtual,
-  kOverride    = 0x0080,
-  kExplicit    = 0x0100,
-  kFriend      = 0x0200,
-  kTypedef     = 0x0400, // Function pointer is used in typedef.
-  kConstExpr   = 0x1000,
-  kVolatile    = 0x2000,
-  kFinal       = 0x4000,
-  kDefault     = 0x8000,
-  kDelete      = 0x10000,
-  kNoExcept    = 0x20000,
-  kExternC     = 0x40000,
-  kTrailingRet = 0x80000,
+  kFuncParam   = 0x000001, // If the identifier is actually function parameter.
+  kConst       = 0x000002,
+  kStatic      = 0x000004,
+  kExtern      = 0x000008,
+  kInline      = 0x000010,
+  kVirtual     = 0x000020,
+  kPureVirtual = 0x000040 | kVirtual,
+  kOverride    = 0x000080,
+  kExplicit    = 0x000100,
+  kFriend      = 0x000200,
+  kTypedef     = 0x000400, // Function pointer is used in typedef.
+  kConstExpr   = 0x001000,
+  kVolatile    = 0x002000,
+  kFinal       = 0x004000,
+  kDefault     = 0x008000,
+  kDelete      = 0x010000,
+  kNoExcept    = 0x020000,
+  kExternC     = 0x040000,
+  kTrailingRet = 0x080000,
+  kMutable     = 0x100000,
 };
 
 /**

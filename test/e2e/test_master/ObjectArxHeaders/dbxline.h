@@ -23,7 +23,8 @@ public:
   AcDbXline();
   ~AcDbXline();
   ACDB_DECLARE_MEMBERS(AcDbXline);
-  DBCURVE_METHODS Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const override;
+  DBCURVE_METHODS
+  Acad::ErrorStatus getOffsetCurvesGivenPlaneNormal(const AcGeVector3d& normal, double offsetDist, AcDbVoidPtrArray& offsetCurves) const override;
   AcGePoint3d basePoint() const;
   void setBasePoint(const AcGePoint3d& pt);
   AcGeVector3d unitDir() const;
