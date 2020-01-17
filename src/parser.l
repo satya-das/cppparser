@@ -316,11 +316,6 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknName);
 }
 
-<ctxPreprocessor>({ID}"::")+{ID} {
-  set_token_and_yyposn();
-  RETURN(tknID);
-}
-
 <ctxGeneral>__declspec {
   set_token_and_yyposn();
   RETURN(tknApiDecor);
