@@ -655,7 +655,6 @@ doccommentstr     : tknFreeStandingBlockComment                          [ZZLOG;
 identifier        : name                                          [ZZLOG;] { $$ = $1; }
                   | identifier tknScopeResOp identifier           [ZZLOG;] { $$ = mergeCppToken($1, $3); }
                   | id                                            [ZZLOG;] { $$ = $1; }
-                  | tknScopeResOp identifier %prec GLOBAL         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | templidentifier                               [ZZLOG;] { $$ = $1; }
                   | tknOverride                                   [ZZLOG;] { $$ = $1; /* override is not a reserved keyword */ }
                   | identifier tknEllipsis                        [ZZLOG;] { $$ = mergeCppToken($1, $2); }
@@ -670,15 +669,10 @@ numbertype        : tknInteger                            [ZZLOG;] { $$ = $1; }
                   ;
 
 typeidentifier    : identifier                            [ZZLOG;] { $$ = $1; }
+                  | tknScopeResOp identifier %prec GLOBAL [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | numbertype                            [ZZLOG;] { $$ = $1; }
                   | tknAuto                               [ZZLOG;] { $$ = $1; }
                   | tknVoid                               [ZZLOG;] { $$ = $1; }
-                  | tknClass identifier [
-                    if (gTemplateParamStart == $1.sz)
-                      ZZERROR;
-                  ]                                       [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknStruct identifier                  [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknUnion identifier                   [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknEnum  identifier                   [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknTypename identifier  [
                     if (gTemplateParamStart == $1.sz)
@@ -913,6 +907,20 @@ vardecl           : vartype varidentifier       [ZZLOG;]         {
 
 vartype           : typeidentifier opttypemodifier    [ZZLOG;] {
                     $$ = new CppVarType(gCurAccessType, $1, $2);
+                  }
+                  | tknClass identifier opttypemodifier [
+                    if (gTemplateParamStart == $1.sz)
+                      ZZERROR;
+                    else
+                      ZZLOG;
+                  ] {
+                    $$ = new CppVarType(gCurAccessType, mergeCppToken($1, $2), $3);
+                  }
+                  | tknStruct identifier opttypemodifier                 [ZZLOG;] {
+                    $$ = new CppVarType(gCurAccessType, mergeCppToken($1, $2), $3);
+                  }
+                  | tknUnion identifier opttypemodifier                  [ZZLOG;] {
+                    $$ = new CppVarType(gCurAccessType, mergeCppToken($1, $2), $3);
                   }
                   | functionptrtype                   [ZZLOG;] {
                     $$ = new CppVarType(gCurAccessType, $1, CppTypeModifier());
@@ -1579,16 +1587,16 @@ optfinal          :          [ZZLOG;] { $$ = 0; }
                   ;
 
 optinheritlist    :                                                         [ZZLOG;] { $$ = 0; }
-                  | ':' protlevel optinherittype identifier                 [ZZVALID;] {
+                  | ':' protlevel optinherittype typeidentifier                 [ZZVALID;] {
                     $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $4, $2, $3));
                   }
-                  | optinheritlist ',' protlevel optinherittype identifier  [ZZVALID;] {
+                  | optinheritlist ',' protlevel optinherittype typeidentifier  [ZZVALID;] {
                     $$ = $1; $$->push_back(CppInheritInfo((std::string) $5, $3, $4));
                   }
-                  | ':' optinherittype protlevel identifier                 [ZZVALID;] {
+                  | ':' optinherittype protlevel typeidentifier                 [ZZVALID;] {
                     $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $4, $3, $2));
                   }
-                  | optinheritlist ',' optinherittype protlevel identifier  [ZZVALID;] {
+                  | optinheritlist ',' optinherittype protlevel typeidentifier  [ZZVALID;] {
                     $$ = $1; $$->push_back(CppInheritInfo((std::string) $5, $4, $3));
                   }
                   ;
@@ -1603,14 +1611,14 @@ optinherittype    :             [ZZLOG;] { $$ = false; }
                   | tknVirtual  [ZZLOG;] { $$ = true; }
                   ;
 
-fwddecl           : classspecifier identifier ';'              [ZZVALID;] { $$ = new CppFwdClsDecl(gCurAccessType, $2, $1); }
+fwddecl           : classspecifier typeidentifier ';'              [ZZVALID;] { $$ = new CppFwdClsDecl(gCurAccessType, $2, $1); }
                   | classspecifier optapidecor identifier ';'  [ZZVALID;] { $$ = new CppFwdClsDecl(gCurAccessType, $3, $2, $1); }
                   | templatespecifier fwddecl [ZZLOG;] {
                     $$ = $2;
                     $$->templateParamList($1);
                   }
-                  | tknFriend identifier ';'  [ZZVALID;] { $$ = new CppFwdClsDecl(gCurAccessType, $2); }
-                  | tknFriend fwddecl         [ZZVALID;]  { $$ = $2; $$->addAttr(kFriend); }
+                  | tknFriend typeidentifier ';'  [ZZVALID;] { $$ = new CppFwdClsDecl(gCurAccessType, $2); $$->addAttr(kFriend); }
+                  | tknFriend fwddecl             [ZZVALID;] { $$ = $2; $$->addAttr(kFriend); }
                   ;
 
 classspecifier    : tknClass      [ZZLOG;] { $$ = CppCompoundType::kClass;     }

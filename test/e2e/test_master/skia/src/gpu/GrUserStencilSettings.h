@@ -179,7 +179,7 @@ struct GrUserStencilSettings
   }
 };
 template <GrUserStencilTest Test, GrUserStencilOp PassOp, GrUserStencilOp FailOp>
-struct GrUserStencilSettings ::Attrs
+struct GrUserStencilSettings::Attrs
 {
     // Ensure an op that only modifies user bits isn't paired with one that modifies clip bits.
   GR_STATIC_ASSERT(GrUserStencilOp::kKeep == PassOp || GrUserStencilOp::kKeep == FailOp || (PassOp <= kLastUserOnlyStencilOp) == (FailOp <= kLastUserOnlyStencilOp));

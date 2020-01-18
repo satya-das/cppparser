@@ -298,7 +298,7 @@ private:
  * along with an associated GrSamplerState. TextureSamplers don't perform any coord manipulation to
  * account for texture origin.
  */
-class GrPrimitiveProcessor ::TextureSampler
+class GrPrimitiveProcessor::TextureSampler
 {
 public:
   TextureSampler();

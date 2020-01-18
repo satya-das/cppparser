@@ -615,7 +615,7 @@ private:
 };
 //specialization for 'no type'
 template <>
-struct AcRxValueType ::Desc<void>
+struct AcRxValueType::Desc<void>
 {
   ACBASE_PORT static const AcRxValueType& value();
   static void del();

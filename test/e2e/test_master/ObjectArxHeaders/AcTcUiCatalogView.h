@@ -137,7 +137,7 @@ class CAcTcUiScheme;
 #ifndef _ADESK_MAC_
 class ACTCUI_PORT CAcTcUiCatalogView : public CWnd
 {
-   CAcTcUiImpCatalogView;
+  friend CAcTcUiImpCatalogView;
 public:
   CAcTcUiCatalogView();
   CAcTcUiCatalogView(AcTcCatalogItem* pCatalogItem);

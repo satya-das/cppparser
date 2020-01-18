@@ -611,7 +611,7 @@ private:
  * free up atlas space. Thus, this generator is stateful and should be invoked in a loop until the
  * entire sub run has been completed.
  */
-class GrTextBlob ::VertexRegenerator
+class GrTextBlob::VertexRegenerator
 {
 public:
     /**

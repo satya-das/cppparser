@@ -11,7 +11,7 @@
  * This class allows code internal to Skia privileged access to manage the cache keys and budget
  * status of a GrGpuResource object.
  */
-class GrGpuResource ::ResourcePriv
+class GrGpuResource::ResourcePriv
 {
 public:
     /**

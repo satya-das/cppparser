@@ -69,7 +69,7 @@ public:
 // To determine the length of the extended run data, the TextSize must be read.
 //
 // Extended Textblob runs may be mixed with non-extended runs.
-class SkTextBlob ::RunRecord
+class SkTextBlob::RunRecord
 {
 public:
   RunRecord(uint32_t count, uint32_t textSize, const SkPoint& offset, const SkFont& font, GlyphPositioning pos)

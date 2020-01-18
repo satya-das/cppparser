@@ -310,7 +310,7 @@ private:
   typedef GrIORef<GrGpuResource> INHERITED;
   friend class GrIORef<GrGpuResource>;
 };
-class GrGpuResource ::ProxyAccess
+class GrGpuResource::ProxyAccess
 {
 private:
   ProxyAccess(GrGpuResource* resource)

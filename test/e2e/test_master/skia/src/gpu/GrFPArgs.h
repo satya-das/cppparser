@@ -38,7 +38,7 @@ struct GrFPArgs
   SkFilterQuality fFilterQuality;
   const GrColorInfo* fDstColorInfo;
 };
-class GrFPArgs ::WithPreLocalMatrix : public GrFPArgs
+class GrFPArgs::WithPreLocalMatrix : public GrFPArgs
 {
 public:
   WithPreLocalMatrix(const GrFPArgs& args, const SkMatrix& lm)
@@ -63,7 +63,7 @@ private:
   SkMatrix fStorage;
   using INHERITED = GrFPArgs;
 };
-class GrFPArgs ::WithPostLocalMatrix : public GrFPArgs
+class GrFPArgs::WithPostLocalMatrix : public GrFPArgs
 {
 public:
   WithPostLocalMatrix(const GrFPArgs& args, const SkMatrix& lm)

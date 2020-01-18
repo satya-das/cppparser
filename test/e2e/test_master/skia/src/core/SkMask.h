@@ -143,7 +143,7 @@ struct SkMask
   static SkMask PrepareDestination(int radiusX, int radiusY, const SkMask& src);
 };
 template <>
-struct SkMask ::AlphaIter<SkMask::kBW_Format>
+struct SkMask::AlphaIter<SkMask::kBW_Format>
 {
   AlphaIter(const uint8_t* ptr, int offset)
     : fPtr(ptr)
@@ -198,7 +198,7 @@ struct SkMask ::AlphaIter<SkMask::kBW_Format>
   int fOffset;
 };
 template <>
-struct SkMask ::AlphaIter<SkMask::kA8_Format>
+struct SkMask::AlphaIter<SkMask::kA8_Format>
 {
   AlphaIter(const uint8_t* ptr)
     : fPtr(ptr)
@@ -234,7 +234,7 @@ struct SkMask ::AlphaIter<SkMask::kA8_Format>
   const uint8_t* fPtr;
 };
 template <>
-struct SkMask ::AlphaIter<SkMask::kARGB32_Format>
+struct SkMask::AlphaIter<SkMask::kARGB32_Format>
 {
   AlphaIter(const uint32_t* ptr)
     : fPtr(ptr)
@@ -270,7 +270,7 @@ struct SkMask ::AlphaIter<SkMask::kARGB32_Format>
   const uint32_t* fPtr;
 };
 template <>
-struct SkMask ::AlphaIter<SkMask::kLCD16_Format>
+struct SkMask::AlphaIter<SkMask::kLCD16_Format>
 {
   AlphaIter(const uint16_t* ptr)
     : fPtr(ptr)

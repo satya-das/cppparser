@@ -48,7 +48,7 @@ static int compute_intervalcount(const SkRegionPriv::RunType runs[])
   return SkToInt((curr - runs) >> 1);
 }
 #  endif
-struct SkRegion ::RunHead
+struct SkRegion::RunHead
 {
 public:
   std::atomic<int32_t> fRefCnt;

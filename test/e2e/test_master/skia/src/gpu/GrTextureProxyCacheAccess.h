@@ -10,7 +10,7 @@
 /**
  * This class allows GrResourceCache increased privileged access to GrTextureProxy objects.
  */
-class GrTextureProxy ::CacheAccess
+class GrTextureProxy::CacheAccess
 {
 private:
   void setUniqueKey(GrProxyProvider* proxyProvider, const GrUniqueKey& key)

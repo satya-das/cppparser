@@ -361,7 +361,7 @@ private:
     // we're in the midst of converting it to purgeable status.
   bool fPreferVRAMUseOverFlushes = false;
 };
-class GrResourceCache ::ResourceAccess
+class GrResourceCache::ResourceAccess
 {
 private:
   ResourceAccess(GrResourceCache* cache)

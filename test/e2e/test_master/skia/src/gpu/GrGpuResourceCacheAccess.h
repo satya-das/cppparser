@@ -15,7 +15,7 @@ namespace skiatest
 /**
  * This class allows GrResourceCache increased privileged access to GrGpuResource objects.
  */
-class GrGpuResource ::CacheAccess
+class GrGpuResource::CacheAccess
 {
 private:
     /** The cache is allowed to go from no refs to 1 ref. */

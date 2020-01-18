@@ -31,7 +31,7 @@ class CAcTcUiScheme;
 #  ifndef _ADESK_MAC_
 class ACTCUI_PORT CAcTcUiToolPalette : public CAdUiPalette
 {
-   CAcTcUiImpToolPalette;
+  friend CAcTcUiImpToolPalette;
   DECLARE_DYNCREATE(CAcTcUiToolPalette);
 public:
   CAcTcUiToolPalette();

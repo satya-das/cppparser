@@ -571,13 +571,13 @@ private:
 //each AcRxValue instance is 32 bytes long (on both 32 and 64 bit)
 static_assert(sizeof(AcRxValue) == 32, "Size mismatch.");
 template <>
-struct AcRxValueType ::Desc< const ACHAR* >
+struct AcRxValueType::Desc< const ACHAR* >
 {
   ACBASE_PORT static const AcRxValueType& value();
   static void del();
 };
 template <>
-struct AcRxValueType ::Desc< const char* >
+struct AcRxValueType::Desc< const char* >
 {
   ACBASE_PORT static const AcRxValueType& value();
   static void del();
@@ -791,7 +791,7 @@ ACBASE_PORT AcRxValue ::AcRxValue(const AcString& str);
 #pragma  region AcGeMatrix3d
 class AcGeMatrix3d;
 template <>
-struct AcRxValueType ::Desc<AcGeMatrix3d>
+struct AcRxValueType::Desc<AcGeMatrix3d>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -804,7 +804,7 @@ ACDBCORE2D_PORT AcGeMatrix3d* rxvalue_cast<AcGeMatrix3d>(AcRxValue* value);
 #pragma  region AcCmColor
 class AcCmColor;
 template <>
-struct AcRxValueType ::Desc<AcCmColor>
+struct AcRxValueType::Desc<AcCmColor>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -815,7 +815,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcCmColor& clr);
 #pragma  region AcDbDate
 class AcDbDate;
 template <>
-struct AcRxValueType ::Desc<AcDbDate>
+struct AcRxValueType::Desc<AcDbDate>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -826,7 +826,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcDbDate& str);
 #pragma  region AcUnderlayLayer
 class AcUnderlayLayer;
 template <>
-struct AcRxValueType ::Desc<AcUnderlayLayer>
+struct AcRxValueType::Desc<AcUnderlayLayer>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -837,7 +837,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcUnderlayLayer& str);
 #pragma  region AcGiMaterialColor
 class AcGiMaterialColor;
 template <>
-struct AcRxValueType ::Desc<AcGiMaterialColor>
+struct AcRxValueType::Desc<AcGiMaterialColor>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -848,7 +848,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiMaterialColor& clr);
 #pragma  region AcGiMaterialMap
 class AcGiMaterialMap;
 template <>
-struct AcRxValueType ::Desc<AcGiMaterialMap>
+struct AcRxValueType::Desc<AcGiMaterialMap>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -859,7 +859,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiMaterialMap& clr);
 #pragma  region AcDbSweepOptions
 class AcDbSweepOptions;
 template <>
-struct AcRxValueType ::Desc<AcDbSweepOptions>
+struct AcRxValueType::Desc<AcDbSweepOptions>
 {
   ACDB_PORT static const AcRxValueType& value();
   static void del();
@@ -870,7 +870,7 @@ ACDB_PORT AcRxValue ::AcRxValue(const AcDbSweepOptions& sweepOptions);
 #pragma  region AcDbLoftOptions
 class AcDbLoftOptions;
 template <>
-struct AcRxValueType ::Desc<AcDbLoftOptions>
+struct AcRxValueType::Desc<AcDbLoftOptions>
 {
   ACDB_PORT static const AcRxValueType& value();
   static void del();
@@ -881,7 +881,7 @@ ACDB_PORT AcRxValue ::AcRxValue(const AcDbLoftOptions& loftOptions);
 #pragma  region AcGiShadowParameters
 class AcGiShadowParameters;
 template <>
-struct AcRxValueType ::Desc<AcGiShadowParameters>
+struct AcRxValueType::Desc<AcGiShadowParameters>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -892,7 +892,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiShadowParameters& v);
 #pragma  region AcGiSkyParameters
 class AcGiSkyParameters;
 template <>
-struct AcRxValueType ::Desc<AcGiSkyParameters>
+struct AcRxValueType::Desc<AcGiSkyParameters>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -903,7 +903,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiSkyParameters& v);
 #pragma  region AcGiToneOperatorParameters
 class AcGiToneOperatorParameters;
 template <>
-struct AcRxValueType ::Desc<AcGiToneOperatorParameters>
+struct AcRxValueType::Desc<AcGiToneOperatorParameters>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -914,7 +914,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiToneOperatorParameters& v);
 #pragma  region AcGiPhotographicExposureParameters
 class AcGiPhotographicExposureParameters;
 template <>
-struct AcRxValueType ::Desc<AcGiPhotographicExposureParameters>
+struct AcRxValueType::Desc<AcGiPhotographicExposureParameters>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -925,7 +925,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiPhotographicExposureParameters& 
 #pragma  region AcGiLightAttenuation
 class AcGiLightAttenuation;
 template <>
-struct AcRxValueType ::Desc<AcGiLightAttenuation>
+struct AcRxValueType::Desc<AcGiLightAttenuation>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -936,7 +936,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcGiLightAttenuation& v);
 #pragma  region AcDbMText*
 class AcDbMText;
 template <>
-struct AcRxValueType ::Desc<AcDbMText*>
+struct AcRxValueType::Desc<AcDbMText*>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -949,7 +949,7 @@ ACDBCORE2D_PORT AcDbMText* const * rxvalue_cast<AcDbMText*>(const AcRxValue* val
 #pragma  region AcDbTableCellBlockReference
 class AcDbTableCellBlockReference;
 template <>
-struct AcRxValueType ::Desc<AcDbTableCellBlockReference>
+struct AcRxValueType::Desc<AcDbTableCellBlockReference>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -960,7 +960,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcDbTableCellBlockReference& tableCe
 #pragma  region AcDbBlockParamValueSet
 class AcDbBlockParamValueSet;
 template <>
-struct AcRxValueType ::Desc<AcDbBlockParamValueSet>
+struct AcRxValueType::Desc<AcDbBlockParamValueSet>
 {
   ACDB_PORT static const AcRxValueType& value();
   static void del();
@@ -971,7 +971,7 @@ ACDB_PORT AcRxValue ::AcRxValue(const AcDbBlockParamValueSet& blcParamValueSet);
 #pragma  region AcDbBlkParamValueSetValuesArray
 typedef AcArray<double> AcDbBlkParamValueSetValuesArray;
 template <>
-struct AcRxValueType ::Desc<AcDbBlkParamValueSetValuesArray>
+struct AcRxValueType::Desc<AcDbBlkParamValueSetValuesArray>
 {
   ACDB_PORT static const AcRxValueType& value();
   static void del();
@@ -981,7 +981,7 @@ ACDB_PORT AcRxValue ::AcRxValue(const AcDbBlkParamValueSetValuesArray& blockPara
 #pragma  endregion
 #pragma  region AcDbIntArray
 template <>
-struct AcRxValueType ::Desc<AcDbIntArray>
+struct AcRxValueType::Desc<AcDbIntArray>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -992,7 +992,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const AcDbIntArray& intArr);
 #pragma  region DimFillColor
 struct DimFillColor;
 template <>
-struct AcRxValueType ::Desc<DimFillColor>
+struct AcRxValueType::Desc<DimFillColor>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();
@@ -1003,7 +1003,7 @@ ACDBCORE2D_PORT AcRxValue ::AcRxValue(const DimFillColor& dimFillColor);
 #pragma  region AcStringArray
 typedef AcArray<AcString, AcArrayObjectCopyReallocator<AcString> > AcStringArray;
 template <>
-struct AcRxValueType ::Desc<AcStringArray>
+struct AcRxValueType::Desc<AcStringArray>
 {
   ACDBCORE2D_PORT static const AcRxValueType& value();
   static void del();

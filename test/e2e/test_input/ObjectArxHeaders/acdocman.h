@@ -467,7 +467,7 @@ public:
 ACCORE_PORT AcApDocManager* acDocManagerPtr();
 #define acDocManager acDocManagerPtr()
 
-inline AcApDocument* curDoc() { return ::acDocManager->curDocument(); }
+inline AcApDocument* curDoc() { return acDocManager->curDocument(); }
 
 #pragma pack (pop)
 #endif // ACDOCMAND_H

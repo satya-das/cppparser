@@ -61,7 +61,7 @@ private:
     Rec* fRec;
   };
 };
-struct GrWindowRectangles ::Rec : public GrNonAtomicRef<Rec>
+struct GrWindowRectangles::Rec : public GrNonAtomicRef<Rec>
 {
   Rec(const SkIRect* windows, int numWindows)
   {

@@ -384,7 +384,8 @@ void CppWriter::emitFwdDecl(const CppFwdClsDecl* fwdDeclObj,
   stm << indentation;
   if (fwdDeclObj->attr() & kFriend)
     stm << "friend ";
-  stm << fwdDeclObj->cmpType_ << ' ';
+  if (fwdDeclObj->cmpType_ != CppCompoundType::kUnknownCompound)
+    stm << fwdDeclObj->cmpType_ << ' ';
   if (!fwdDeclObj->apidecor_.empty())
     stm << fwdDeclObj->apidecor_ << ' ';
   stm << fwdDeclObj->name_ << ";\n";

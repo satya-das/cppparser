@@ -63,7 +63,7 @@ private:
   virtual void onPrepareDraws(Target*) = 0;
   typedef GrDrawOp INHERITED;
 };
-class GrMeshDrawOp ::Target
+class GrMeshDrawOp::Target
 {
 public:
   virtual ~Target()
