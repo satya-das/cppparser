@@ -43,7 +43,7 @@ static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
       --numTempl;
       if (numTempl == 0)
       {
-        CppToken clsName {identifier.sz, static_cast<size_t>(std::distance(rbeg, rend)) - 1};
+        CppToken clsName{identifier.sz, static_cast<size_t>(std::distance(rbeg, rend)) - 1};
         return clsName;
       }
     }
@@ -53,7 +53,7 @@ static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
     }
   }
 
-  return CppToken {nullptr, 0U};
+  return CppToken{nullptr, 0U};
 }
 
 CppToken classNameFromIdentifier(const CppToken& identifier)
@@ -73,7 +73,7 @@ CppToken classNameFromIdentifier(const CppToken& identifier)
   for (itr = itr + 2; (itr != end) && !isprint(*itr); ++itr)
     ;
   const auto clsNameLen = static_cast<size_t>(end - itr);
-  return CppToken {itr, clsNameLen};
+  return CppToken{itr, clsNameLen};
 }
 
 std::vector<char> readFile(const std::string& filename)
@@ -123,4 +123,27 @@ std::vector<std::string> collectFiles(const std::string& folder, const CppProgFi
     std::sort(files.begin(), files.end());
 
   return files;
+}
+
+std::vector<CppToken> explode(CppToken token, const char* delim)
+{
+  auto const            delimLen = strlen(delim);
+  std::vector<CppToken> elems;
+
+  for (auto* p = token.sz; p < (token.sz + token.len);)
+  {
+    auto* q = strstr(p, delim);
+    if (q != nullptr)
+    {
+      elems.push_back(CppToken{p, q - p});
+      p = q + delimLen;
+    }
+    else
+    {
+      elems.push_back(CppToken{p, token.sz + token.len - p});
+      break;
+    }
+  }
+
+  return elems;
 }

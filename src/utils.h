@@ -74,3 +74,5 @@ std::vector<char> readFile(const std::string& filename);
 
 using CppProgFileSelecter = std::function<bool(const std::string&)>;
 std::vector<std::string> collectFiles(const std::string& folder, const CppProgFileSelecter& fileSelector);
+
+std::vector<CppToken> explode(CppToken token, const char* delim);
