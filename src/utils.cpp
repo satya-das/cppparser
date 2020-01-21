@@ -147,3 +147,15 @@ std::vector<CppToken> explode(CppToken token, const char* delim)
 
   return elems;
 }
+
+std::string pruneClassName(const CppToken& identifier)
+{
+  std::string ret;
+  for (size_t i = 0; i < identifier.len; ++i)
+  {
+    if (isprint(identifier.sz[i]))
+      ret += identifier.sz[i];
+  }
+
+  return ret;
+}

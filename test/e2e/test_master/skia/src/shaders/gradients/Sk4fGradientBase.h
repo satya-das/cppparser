@@ -43,8 +43,7 @@ public:
 private:
   BufferType fIntervals;
 };
-class SkGradientShaderBase::
-GradientShaderBase4fContext : public Context
+class SkGradientShaderBase::GradientShaderBase4fContext : public Context
 {
 public:
   GradientShaderBase4fContext(const SkGradientShaderBase&, const ContextRec&);

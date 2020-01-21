@@ -1539,7 +1539,7 @@ classdefn         : classspecifier optapidecor identifier optfinal optinheritlis
                     $$ = $9 ? $9 : newCompound(gCurAccessType);
                     $$->compoundType($1);
                     $$->apidecor($2);
-                    $$->name($3);
+                    $$->name(pruneClassName($3));
                     $$->inheritanceList($5);
                     $$->addAttr($4);
                   }

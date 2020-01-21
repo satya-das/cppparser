@@ -70,6 +70,8 @@ inline std::reverse_iterator<Iter> rev(Iter i)
 
 CppToken classNameFromIdentifier(const CppToken& identifier);
 
+std::string pruneClassName(const CppToken& identifier);
+
 std::vector<char> readFile(const std::string& filename);
 
 using CppProgFileSelecter = std::function<bool(const std::string&)>;
