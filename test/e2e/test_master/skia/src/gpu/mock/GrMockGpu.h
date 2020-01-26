@@ -18,7 +18,7 @@ class GrMockGpu : public GrGpu
 {
 public:
   static sk_sp<GrGpu> Make(const GrMockOptions*, const GrContextOptions&, GrContext*);
-  ~GrMockGpu()
+  virtual ~GrMockGpu()
   {
   }
   GrOpsRenderPass* getOpsRenderPass(GrRenderTarget*, GrSurfaceOrigin, const SkIRect&, const GrOpsRenderPass::LoadAndStoreInfo&, const GrOpsRenderPass::StencilLoadAndStoreInfo&, const SkTArray<GrTextureProxy*, true>& sampledProxies) override;

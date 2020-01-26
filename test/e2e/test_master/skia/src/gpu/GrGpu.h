@@ -43,7 +43,7 @@ class GrGpu : public SkRefCnt
 {
 public:
   GrGpu(GrContext* context);
-  ~GrGpu();
+  virtual ~GrGpu();
   GrContext* getContext()
   {
     return fContext;

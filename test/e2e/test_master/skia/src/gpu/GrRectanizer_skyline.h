@@ -18,7 +18,7 @@ public:
   {
     this->reset();
   }
-  ~GrRectanizerSkyline()
+  virtual ~GrRectanizerSkyline()
   {
   }
   void reset() override

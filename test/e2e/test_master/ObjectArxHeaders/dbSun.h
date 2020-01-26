@@ -69,17 +69,17 @@ public:
     /// </summary>
   ~AcDbSun();
     // AcGiDrawable methods
-  virtual AcGiDrawable* drawable() override;
-  virtual DrawableType drawableType() const override
+  AcGiDrawable* drawable() override;
+  DrawableType drawableType() const override
   {
     return AcGiDrawable::kDistantLight;
   }
     // AcDbObject methods
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
     /// <summary>
     /// Gets the Sun's on/off state.
     /// </summary>
@@ -295,7 +295,7 @@ public:
   Acad::ErrorStatus skyParameters(AcGiSkyParameters& params) const;
 protected:
     // AcGiDrawable methods
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 private:
   AcDbImpSun* mpAcDbImpSun;
 };

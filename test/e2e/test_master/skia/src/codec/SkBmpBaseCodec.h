@@ -14,7 +14,7 @@
 class SkBmpBaseCodec : public SkBmpCodec
 {
 public:
-  ~SkBmpBaseCodec();
+  virtual ~SkBmpBaseCodec();
     /*
      * Whether fSrcBuffer was successfully created.
      *

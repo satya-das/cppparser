@@ -18,7 +18,7 @@ namespace SkSL
     {
       fFile = fopen(name, "wb");
     }
-    ~FileOutputStream()
+    virtual ~FileOutputStream()
     {
       SkASSERT(!fOpen);
     }

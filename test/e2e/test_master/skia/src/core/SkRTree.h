@@ -29,7 +29,7 @@ class SkRTree : public SkBBoxHierarchy
 {
 public:
   SkRTree();
-  ~SkRTree()
+  virtual ~SkRTree()
   {
   }
   void insert(const SkRect[], int N) override;

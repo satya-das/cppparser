@@ -195,7 +195,7 @@ public:
     : fCubic(c)
   {
   }
-  ~SkTCubic()
+  virtual ~SkTCubic()
   {
   }
   const SkDPoint& operator[](int n) const override

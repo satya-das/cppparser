@@ -297,23 +297,23 @@ public:
   virtual void lispCancelled();
     // DXF In/Out Events.
     //
-  virtual void beginDxfIn(AcDbDatabase*) override;
-  virtual void abortDxfIn(AcDbDatabase*) override;
-  virtual void dxfInComplete(AcDbDatabase*) override;
+  void beginDxfIn(AcDbDatabase*) override;
+  void abortDxfIn(AcDbDatabase*) override;
+  void dxfInComplete(AcDbDatabase*) override;
     //
-  virtual void beginDxfOut(AcDbDatabase*) override;
-  virtual void abortDxfOut(AcDbDatabase*) override;
-  virtual void dxfOutComplete(AcDbDatabase*) override;
+  void beginDxfOut(AcDbDatabase*) override;
+  void abortDxfOut(AcDbDatabase*) override;
+  void dxfOutComplete(AcDbDatabase*) override;
     // DWG Open Events.
     //
-  ADESK_DEPRECATED virtual void beginDwgOpen(ACHAR*) final
+  ADESK_DEPRECATED void beginDwgOpen(ACHAR*) final
   {
   }
   virtual void beginDwgOpen(const ACHAR*)
   {
   }
   virtual void endDwgOpen(const ACHAR* filename, AcDbDatabase* pDb);
-  virtual void initialDwgFileOpenComplete(AcDbDatabase* pDwg) override;
+  void initialDwgFileOpenComplete(AcDbDatabase* pDwg) override;
     // Notify about upgrade and downgrade open. Currently upublished
     // apis.
   virtual void curDocOpenUpgraded(AcDbDatabase*, const CAdUiPathname&)
@@ -324,65 +324,65 @@ public:
   }
     // DWG/Save Events.
     //
-  virtual void databaseConstructed(AcDbDatabase*) override;
-  virtual void databaseToBeDestroyed(AcDbDatabase*) override;
-  virtual void beginSave(AcDbDatabase*, const ACHAR* pIntendedName) override;
-  virtual void saveComplete(AcDbDatabase*, const ACHAR* pActualName) override;
-  virtual void abortSave(AcDbDatabase*) override;
+  void databaseConstructed(AcDbDatabase*) override;
+  void databaseToBeDestroyed(AcDbDatabase*) override;
+  void beginSave(AcDbDatabase*, const ACHAR* pIntendedName) override;
+  void saveComplete(AcDbDatabase*, const ACHAR* pActualName) override;
+  void abortSave(AcDbDatabase*) override;
     // Insert Events.
     //
-  virtual void beginInsert(AcDbDatabase* pTo, const ACHAR* pBlockName, AcDbDatabase* pFrom) override;
-  virtual void beginInsert(AcDbDatabase* pTo, const AcGeMatrix3d& xform, AcDbDatabase* pFrom) override;
-  virtual void otherInsert(AcDbDatabase* pTo, AcDbIdMapping& idMap, AcDbDatabase* pFrom) override;
-  virtual void abortInsert(AcDbDatabase* pTo) override;
-  virtual void endInsert(AcDbDatabase* pTo) override;
+  void beginInsert(AcDbDatabase* pTo, const ACHAR* pBlockName, AcDbDatabase* pFrom) override;
+  void beginInsert(AcDbDatabase* pTo, const AcGeMatrix3d& xform, AcDbDatabase* pFrom) override;
+  void otherInsert(AcDbDatabase* pTo, AcDbIdMapping& idMap, AcDbDatabase* pFrom) override;
+  void abortInsert(AcDbDatabase* pTo) override;
+  void endInsert(AcDbDatabase* pTo) override;
     // Wblock Events.
     //
-  virtual void wblockNotice(AcDbDatabase* pDb) override;
-  virtual void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom, const AcGePoint3d*& insertionPoint) override;
-  virtual void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom, AcDbObjectId blockId) override;
-  virtual void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom) override;
-  virtual void otherWblock(AcDbDatabase* pTo, AcDbIdMapping&, AcDbDatabase* pFrom) override;
-  virtual void abortWblock(AcDbDatabase* pTo) override;
-  virtual void endWblock(AcDbDatabase* pTo) override;
+  void wblockNotice(AcDbDatabase* pDb) override;
+  void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom, const AcGePoint3d*& insertionPoint) override;
+  void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom, AcDbObjectId blockId) override;
+  void beginWblock(AcDbDatabase* pTo, AcDbDatabase* pFrom) override;
+  void otherWblock(AcDbDatabase* pTo, AcDbIdMapping&, AcDbDatabase* pFrom) override;
+  void abortWblock(AcDbDatabase* pTo) override;
+  void endWblock(AcDbDatabase* pTo) override;
     // Deep Clone Events.
     //
-  virtual void beginDeepClone(AcDbDatabase* pTo, AcDbIdMapping&) override;
-  virtual void beginDeepCloneXlation(AcDbIdMapping&, Acad::ErrorStatus*) override;
-  virtual void abortDeepClone(AcDbIdMapping&) override;
-  virtual void endDeepClone(AcDbIdMapping&) override;
+  void beginDeepClone(AcDbDatabase* pTo, AcDbIdMapping&) override;
+  void beginDeepCloneXlation(AcDbIdMapping&, Acad::ErrorStatus*) override;
+  void abortDeepClone(AcDbIdMapping&) override;
+  void endDeepClone(AcDbIdMapping&) override;
     // Sys Var Events.
     //
   virtual void sysVarChanged(const ACHAR* varName, Adesk::Boolean success);
     // The final overloads is only to catch mis-declared overrides and are not actually used
-  virtual void sysVarChanged(const ACHAR*, int) final
+  void sysVarChanged(const ACHAR*, int) final
   {
   }
   virtual void sysVarWillChange(const ACHAR* varName);
     // XREF-related Events
     //
-  virtual void beginAttach(AcDbDatabase* pTo, const ACHAR*, AcDbDatabase* pFrom) override;
-  virtual void otherAttach(AcDbDatabase* pTo, AcDbDatabase* pFrom) override;
-  virtual void abortAttach(AcDbDatabase* pFrom) override;
-  virtual void endAttach(AcDbDatabase* pTo) override;
-  virtual void redirected(AcDbObjectId newId, AcDbObjectId oldId) override;
-  virtual void comandeered(AcDbDatabase* pTo, AcDbObjectId id, AcDbDatabase* pFrom) override;
-  virtual void beginRestore(AcDbDatabase* pTo, const ACHAR*, AcDbDatabase* pFrom) override;
-  virtual void abortRestore(AcDbDatabase* pTo) override;
-  virtual void endRestore(AcDbDatabase* pTo) override;
+  void beginAttach(AcDbDatabase* pTo, const ACHAR*, AcDbDatabase* pFrom) override;
+  void otherAttach(AcDbDatabase* pTo, AcDbDatabase* pFrom) override;
+  void abortAttach(AcDbDatabase* pFrom) override;
+  void endAttach(AcDbDatabase* pTo) override;
+  void redirected(AcDbObjectId newId, AcDbObjectId oldId) override;
+  void comandeered(AcDbDatabase* pTo, AcDbObjectId id, AcDbDatabase* pFrom) override;
+  void beginRestore(AcDbDatabase* pTo, const ACHAR*, AcDbDatabase* pFrom) override;
+  void abortRestore(AcDbDatabase* pTo) override;
+  void endRestore(AcDbDatabase* pTo) override;
     // More XREF related Events
     // 
-  virtual void xrefSubcommandBindItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
-  virtual void xrefSubcommandAttachItem(AcDbDatabase* pHost, int activity, const ACHAR* pPath) override;
-  virtual void xrefSubcommandOverlayItem(AcDbDatabase* pHost, int activity, const ACHAR* pPath) override;
-  virtual void xrefSubcommandDetachItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
-  virtual void xrefSubcommandPathItem(int activity, AcDbObjectId blockId, const ACHAR* pNewPath) override;
-  virtual void xrefSubcommandReloadItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
-  virtual void xrefSubcommandUnloadItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
+  void xrefSubcommandBindItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
+  void xrefSubcommandAttachItem(AcDbDatabase* pHost, int activity, const ACHAR* pPath) override;
+  void xrefSubcommandOverlayItem(AcDbDatabase* pHost, int activity, const ACHAR* pPath) override;
+  void xrefSubcommandDetachItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
+  void xrefSubcommandPathItem(int activity, AcDbObjectId blockId, const ACHAR* pNewPath) override;
+  void xrefSubcommandReloadItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
+  void xrefSubcommandUnloadItem(AcDbDatabase* pHost, int activity, AcDbObjectId blockId) override;
     // UNDO Events 
     //
   virtual void undoSubcommandAuto(int activity, Adesk::Boolean state);
-  virtual void undoSubcommandAuto(int, int) final
+  void undoSubcommandAuto(int, int) final
   {
   }
   virtual void undoSubcommandControl(int activity, int option);
@@ -414,17 +414,17 @@ public:
     // Toolbar Size changes
   virtual void toolbarBitmapSizeWillChange(Adesk::Boolean bLarge);
   virtual void toolbarBitmapSizeChanged(Adesk::Boolean bLarge);
-  virtual void toolbarBitmapSizeWillChange(int) final
+  void toolbarBitmapSizeWillChange(int) final
   {
   }
-  virtual void toolbarBitmapSizeChanged(int) final
+  void toolbarBitmapSizeChanged(int) final
   {
   }
     // WblockObjects - begin new pFrom database
-  virtual void beginWblockObjects(AcDbDatabase* pFrom, AcDbIdMapping&) override;
+  void beginWblockObjects(AcDbDatabase* pFrom, AcDbIdMapping&) override;
     // Partial Open Events
     //
-  virtual void partialOpenNotice(AcDbDatabase* pDb) override;
+  void partialOpenNotice(AcDbDatabase* pDb) override;
   virtual void objectsLazyLoaded(const AcDbObjectIdArray& idArray);
     // Close and Quit Events.
     //
@@ -447,7 +447,7 @@ public:
   }
     // This method is no longer called and will be removed in a future release.
     // Please use docCloseWillStart() instead
-  ADESK_DEPRECATED virtual void beginClose(AcDbDatabase*) final;
+  ADESK_DEPRECATED void beginClose(AcDbDatabase*) final;
   virtual void beginCloseAll()
   {
   }
@@ -545,8 +545,8 @@ class AcEditor : public AcRxEvent
 {
 public:
   ACRX_DECLARE_MEMBERS(AcEditor);
-  virtual void addReactor(AcRxEventReactor* newObj) = 0;
-  virtual void removeReactor(AcRxEventReactor* delObj) = 0;
+  void addReactor(AcRxEventReactor* newObj) = 0;
+  void removeReactor(AcRxEventReactor* delObj) = 0;
 };
 class AcEdUIContext : public AcRxObject
 {

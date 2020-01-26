@@ -15,7 +15,7 @@ class GrDawnTexture : public GrTexture
 public:
   static sk_sp<GrDawnTexture> Make(GrDawnGpu*, const SkISize& size, GrPixelConfig config, dawn::TextureFormat format, GrRenderable, int sampleCnt, SkBudgeted, int mipLevels, GrMipMapsStatus);
   static sk_sp<GrDawnTexture> MakeWrapped(GrDawnGpu*, const SkISize& size, GrPixelConfig config, GrRenderable, int sampleCnt, GrMipMapsStatus, GrWrapCacheable, const GrDawnImageInfo&);
-  ~GrDawnTexture();
+  virtual ~GrDawnTexture();
   GrBackendTexture getBackendTexture() const override;
   GrBackendFormat backendFormat() const override;
   void textureParamsModified() override

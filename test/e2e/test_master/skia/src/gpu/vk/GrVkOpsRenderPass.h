@@ -22,7 +22,7 @@ class GrVkOpsRenderPass : public GrOpsRenderPass, private GrMesh::SendToGpuImpl
 {
 public:
   GrVkOpsRenderPass(GrVkGpu*);
-  ~GrVkOpsRenderPass();
+  virtual ~GrVkOpsRenderPass();
   void begin() override
   {
   }

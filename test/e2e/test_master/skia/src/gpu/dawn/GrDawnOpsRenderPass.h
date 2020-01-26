@@ -17,7 +17,7 @@ class GrDawnOpsRenderPass : public GrOpsRenderPass, private GrMesh::SendToGpuImp
 {
 public:
   GrDawnOpsRenderPass(GrDawnGpu*, GrRenderTarget*, GrSurfaceOrigin, const LoadAndStoreInfo&, const StencilLoadAndStoreInfo&);
-  ~GrDawnOpsRenderPass();
+  virtual ~GrDawnOpsRenderPass();
   void begin() override
   {
   }

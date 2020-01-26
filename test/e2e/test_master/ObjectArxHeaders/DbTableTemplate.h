@@ -30,8 +30,8 @@ public:
   virtual ~AcDbTableTemplate();
   virtual Acad::ErrorStatus capture(const AcDbTable* pTable, AcDb::TableCopyOption nCopyOption);
   virtual Acad::ErrorStatus createTable(AcDbTable*& pTable, AcDb::TableCopyOption nCopyOption);
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
 };

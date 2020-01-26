@@ -14,7 +14,7 @@ class GrDawnBuffer : public GrGpuBuffer
 {
 public:
   GrDawnBuffer(GrDawnGpu* gpu, size_t sizeInBytes, GrGpuBufferType tpye, GrAccessPattern pattern);
-  ~GrDawnBuffer();
+  virtual ~GrDawnBuffer();
   void onMap() override;
   void onUnmap() override;
   bool onUpdateData(const void* src, size_t srcSizeInBytes) override;

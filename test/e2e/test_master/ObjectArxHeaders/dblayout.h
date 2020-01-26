@@ -80,7 +80,7 @@ public:
   bool annoAllVisible() const;
   Acad::ErrorStatus setAnnoAllVisible(bool newVal);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // This overload is deprecated and will be removed. Please use the
 // getName() method, taking an AcString & arg instead

@@ -22,10 +22,10 @@ class AcDbSpatialIndex : public AcDbIndex
 public:
   AcDbSpatialIndex();
   virtual ~AcDbSpatialIndex();
-  virtual AcDbFilteredBlockIterator* newIterator(const AcDbFilter* pFilter) const override;
-  virtual Acad::ErrorStatus rebuildFull(AcDbIndexUpdateData* pIdxData) override;
+  AcDbFilteredBlockIterator* newIterator(const AcDbFilter* pFilter) const override;
+  Acad::ErrorStatus rebuildFull(AcDbIndexUpdateData* pIdxData) override;
 protected:
-  virtual Acad::ErrorStatus rebuildModified(AcDbBlockChangeIterator* iter) override;
+  Acad::ErrorStatus rebuildModified(AcDbBlockChangeIterator* iter) override;
 };
 class AcDbImpSpatialIndexIterator;
 class AcDbSpatialFilter;

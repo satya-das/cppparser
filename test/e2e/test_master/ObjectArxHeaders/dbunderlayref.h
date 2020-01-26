@@ -289,7 +289,7 @@ protected:
     /// </summary>
     /// <param name="pClsid">See AcDbEntity::getClassID()</param>
     /// <returns>See AcDbEntity::getClassID()</returns>
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 /// <summary>
 /// Represents DGN underlays in the drawing. Underlays are similar to raster images
@@ -314,7 +314,7 @@ protected:
     /// </summary>
     /// <param name="pClsid">See AcDbEntity::getClassID()</param>
     /// <returns>See AcDbEntity::getClassID()</returns>
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbPdfReference : public AcDbUnderlayReference
 {
@@ -334,7 +334,7 @@ protected:
     /// </summary>
     /// <param name="pClsid">See AcDbEntity::getClassID()</param>
     /// <returns>See AcDbEntity::getClassID()</returns>
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 public:
     /// <summary>
     /// Gets default contrast value.

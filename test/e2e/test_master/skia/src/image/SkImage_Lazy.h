@@ -29,7 +29,7 @@ public:
     uint32_t fUniqueID;
   };
   SkImage_Lazy(Validator* validator);
-  ~SkImage_Lazy();
+  virtual ~SkImage_Lazy();
   SkIRect onGetSubset() const override
   {
     return SkIRect::MakeXYWH(fOrigin.fX, fOrigin.fY, this->width(), this->height());

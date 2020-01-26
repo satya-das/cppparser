@@ -443,7 +443,7 @@ public:
         // data structure, the entire structure is duplicated
 
     // AcRxObject protocol
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
   enum VariantType {
         kUndefined = 0,
         kBoolean,
@@ -1182,32 +1182,32 @@ class AcGiNonEntityTraits : public AcGiDrawableTraits
 public:
   ACRX_DECLARE_MEMBERS(AcGiNonEntityTraits);
     // AcGiDrawableTraits interface
-  virtual void setupForEntity(AcDbEntity* pEntity) override;
-  virtual void addLight(const AcDbObjectId& id) override;
+  void setupForEntity(AcDbEntity* pEntity) override;
+  void addLight(const AcDbObjectId& id) override;
     // AcGiSubEntityTraits interface
-  virtual void setColor(const Adesk::UInt16 color) override;
-  virtual Adesk::UInt16 color(void) const override;
-  virtual void setTrueColor(const AcCmEntityColor& color) override;
-  virtual AcCmEntityColor trueColor(void) const override;
-  virtual void setLayer(const AcDbObjectId layerId) override;
-  virtual AcDbObjectId layerId(void) const override;
-  virtual void setLineType(const AcDbObjectId linetypeId) override;
-  virtual AcDbObjectId lineTypeId(void) const override;
-  virtual void setSelectionMarker(const Adesk::LongPtr markerId) override;
-  virtual void setFillType(const AcGiFillType fillType) override;
-  virtual AcGiFillType fillType(void) const override;
-  virtual void setLineWeight(const AcDb::LineWeight lw) override;
-  virtual AcDb::LineWeight lineWeight(void) const override;
-  virtual void setThickness(double thickness) override;
-  virtual double thickness(void) const override;
-  virtual void setLineTypeScale(double dScale) override;
-  virtual double lineTypeScale(void) const override;
-  virtual void setMaterial(const AcDbObjectId matId) override;
-  virtual AcDbObjectId materialId(void) const override;
-  virtual void setSelectionGeom(bool bSelectionflag) override;
-  virtual bool selectionGeom(void) const override;
-  virtual void setTransparency(const AcCmTransparency& transparency) override;
-  virtual AcCmTransparency transparency(void) const override;
+  void setColor(const Adesk::UInt16 color) override;
+  Adesk::UInt16 color(void) const override;
+  void setTrueColor(const AcCmEntityColor& color) override;
+  AcCmEntityColor trueColor(void) const override;
+  void setLayer(const AcDbObjectId layerId) override;
+  AcDbObjectId layerId(void) const override;
+  void setLineType(const AcDbObjectId linetypeId) override;
+  AcDbObjectId lineTypeId(void) const override;
+  void setSelectionMarker(const Adesk::LongPtr markerId) override;
+  void setFillType(const AcGiFillType fillType) override;
+  AcGiFillType fillType(void) const override;
+  void setLineWeight(const AcDb::LineWeight lw) override;
+  AcDb::LineWeight lineWeight(void) const override;
+  void setThickness(double thickness) override;
+  double thickness(void) const override;
+  void setLineTypeScale(double dScale) override;
+  double lineTypeScale(void) const override;
+  void setMaterial(const AcDbObjectId matId) override;
+  AcDbObjectId materialId(void) const override;
+  void setSelectionGeom(bool bSelectionflag) override;
+  bool selectionGeom(void) const override;
+  void setTransparency(const AcCmTransparency& transparency) override;
+  AcCmTransparency transparency(void) const override;
 };
 inline void AcGiNonEntityTraits::setupForEntity(AcDbEntity*)
 {
@@ -1594,7 +1594,7 @@ public:
   ACDBCORE2D_PORT virtual Acad::ErrorStatus setFont(const ACHAR* pTypeface, Adesk::Boolean bold, Adesk::Boolean italic, Charset charset, Autodesk::AutoCAD::PAL::FontUtils::FontPitch pitch, Autodesk::AutoCAD::PAL::FontUtils::FontFamily family);
   ACDBCORE2D_PORT virtual Acad::ErrorStatus font(AcString& sTypeface, bool& bold, bool& italic, Charset& charset, Autodesk::AutoCAD::PAL::FontUtils::FontPitch& pitch, Autodesk::AutoCAD::PAL::FontUtils::FontFamily& family) const;
     // deprecated. To be removed. Calls the above overload
-  virtual Acad::ErrorStatus font(ACHAR*& pTypeface, bool& bold, bool& italic, Charset& charset, Autodesk::AutoCAD::PAL::FontUtils::FontPitch& pitch, Autodesk::AutoCAD::PAL::FontUtils::FontFamily& family) const final;
+  Acad::ErrorStatus font(ACHAR*& pTypeface, bool& bold, bool& italic, Charset& charset, Autodesk::AutoCAD::PAL::FontUtils::FontPitch& pitch, Autodesk::AutoCAD::PAL::FontUtils::FontFamily& family) const final;
   virtual Acad::ErrorStatus extentsBox(const ACHAR* pStr, const Adesk::Boolean penups, const int len, const Adesk::Boolean raw, AcGePoint2d& extMin, AcGePoint2d& extMax, AcGiWorldDraw* ctxt = NULL) const;
   virtual void setTrackKerning(double trackPercent) const;
   virtual bool preLoaded() const;

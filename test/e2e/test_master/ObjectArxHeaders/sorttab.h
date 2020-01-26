@@ -146,16 +146,16 @@ public:
   Acad::ErrorStatus setRelativeDrawOrder(const AcDbObjectIdArray& ar);
     // Overridden AcDbObject members
     //
-  virtual Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler*, AcRxClass*) override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
-  virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
+  Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler*, AcRxClass*) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
+  Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
 private:
   friend class AcDbSystemInternals;
   AcDbImpSortentsTable* mpImpObj;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #endif

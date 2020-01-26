@@ -94,21 +94,21 @@ public:
     //*************************************************************************
     // Overridden methods from AcDEntity
     //*************************************************************************
-  virtual void getEcs(AcGeMatrix3d& retVal) const override;
-  virtual Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler* filer, AcRxClass* classobj) override;
+  void getEcs(AcGeMatrix3d& retVal) const override;
+  Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler* filer, AcRxClass* classobj) override;
     //*************************************************************************
     // Overridden methods from AcDbObject
     //*************************************************************************
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
-  virtual void saveAs(AcGiWorldDraw* mode, AcDb::SaveType st) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  void saveAs(AcGiWorldDraw* mode, AcDb::SaveType st) override;
 protected:
     //*************************************************************************
     // Overridden methods from AcDEntity
     //*************************************************************************
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 inline Adesk::Boolean AcDbPolyline::isPlanar() const
 {

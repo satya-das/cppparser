@@ -37,11 +37,11 @@ public:
   virtual Acad::ErrorStatus setLocation(const AcGePoint3d& dcsPoint) = 0;
     // These don't apply to a glyph, and are implemented here as no-ops.
     //
-  virtual Adesk::Boolean isPersistent() const override
+  Adesk::Boolean isPersistent() const override
   {
     return Adesk::kFalse;
   }
-  virtual AcDbObjectId id() const override
+  AcDbObjectId id() const override
   {
     return 0;
   }
@@ -52,21 +52,21 @@ protected:
     // else they cause the system to go directly to the viewportDraw
     // member, after invoking setLocation() as described above.
     //
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits*) override
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits*) override
   {
     return 0;
   }
     // Glyphs typically draw viewport-specific graphics only.  Don't
     // override this unless you have good cause.
     //
-  virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw*) override
+  Adesk::Boolean subWorldDraw(AcGiWorldDraw*) override
   {
     return Adesk::kFalse;
   }
     // Here is what you really have to implement, accounting for location,
     // pixel/display coordinate size ratio and the osnapglyphsize setting.
     //
-  virtual void subViewportDraw(AcGiViewportDraw* vportDrawContext) = 0;
+  void subViewportDraw(AcGiViewportDraw* vportDrawContext) = 0;
 };
 class AcDbCustomOsnapMode
 {

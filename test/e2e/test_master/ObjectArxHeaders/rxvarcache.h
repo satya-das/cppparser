@@ -25,7 +25,7 @@ class AcRxVariableCache : public AcRxVariableReactor
     /// <summary>
     /// Implemenation detail: handles updating the cache when variable changes.
     /// </summary>
-  virtual void changed(const AcRxVariable* sender, const AcRxVariableChangedEventArgs& args) override
+  void changed(const AcRxVariable* sender, const AcRxVariableChangedEventArgs& args) override
   {
     const auto& rb = args.newValue();
     memcpy(&m_cache, &rb, sizeof(rb));

@@ -23,7 +23,7 @@ class SkInternalAtlasTextContext : public GrDeferredUploadTarget
 {
 public:
   static std::unique_ptr<SkInternalAtlasTextContext> Make(sk_sp<SkAtlasTextRenderer>);
-  ~SkInternalAtlasTextContext();
+  virtual ~SkInternalAtlasTextContext();
   SkAtlasTextRenderer* renderer() const
   {
     return fRenderer.get();

@@ -234,7 +234,7 @@ public:
     /// <param name="other"> Pointer to other item. </param>
     /// <returns> Acad::ErrorStatus </returns>
     ///
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
     /// <summary> This function is called by dwgIn(). 
     /// Its purpose is to allow the object to read in its data.
     /// </summary>

@@ -195,13 +195,13 @@ private:
 class SK_API SkStreamRewindable : public SkStream
 {
 public:
-  virtual bool rewind() = 0;
+  bool rewind() = 0;
   std::unique_ptr<SkStreamRewindable> duplicate() const
   {
     return std::unique_ptr<SkStreamRewindable>(this->onDuplicate());
   }
 private:
-  virtual SkStreamRewindable* onDuplicate() const = 0;
+  SkStreamRewindable* onDuplicate() const = 0;
 };
 /** SkStreamSeekable is a SkStreamRewindable for which position, seek, move, and fork are required. */
 class SK_API SkStreamSeekable : public SkStreamRewindable
@@ -215,16 +215,16 @@ public:
   {
     return true;
   }
-  virtual size_t getPosition() const = 0;
-  virtual bool seek(size_t position) = 0;
-  virtual bool move(long offset) = 0;
+  size_t getPosition() const = 0;
+  bool seek(size_t position) = 0;
+  bool move(long offset) = 0;
   std::unique_ptr<SkStreamSeekable> fork() const
   {
     return std::unique_ptr<SkStreamSeekable>(this->onFork());
   }
 private:
-  virtual SkStreamSeekable* onDuplicate() const = 0;
-  virtual SkStreamSeekable* onFork() const = 0;
+  SkStreamSeekable* onDuplicate() const = 0;
+  SkStreamSeekable* onFork() const = 0;
 };
 /** SkStreamAsset is a SkStreamSeekable for which getLength is required. */
 class SK_API SkStreamAsset : public SkStreamSeekable
@@ -234,7 +234,7 @@ public:
   {
     return true;
   }
-  virtual size_t getLength() const = 0;
+  size_t getLength() const = 0;
   std::unique_ptr<SkStreamAsset> duplicate() const
   {
     return std::unique_ptr<SkStreamAsset>(this->onDuplicate());
@@ -244,14 +244,14 @@ public:
     return std::unique_ptr<SkStreamAsset>(this->onFork());
   }
 private:
-  virtual SkStreamAsset* onDuplicate() const = 0;
-  virtual SkStreamAsset* onFork() const = 0;
+  SkStreamAsset* onDuplicate() const = 0;
+  SkStreamAsset* onFork() const = 0;
 };
 /** SkStreamMemory is a SkStreamAsset for which getMemoryBase is required. */
 class SK_API SkStreamMemory : public SkStreamAsset
 {
 public:
-  virtual const void* getMemoryBase() = 0;
+  const void* getMemoryBase() = 0;
   std::unique_ptr<SkStreamMemory> duplicate() const
   {
     return std::unique_ptr<SkStreamMemory>(this->onDuplicate());
@@ -261,8 +261,8 @@ public:
     return std::unique_ptr<SkStreamMemory>(this->onFork());
   }
 private:
-  virtual SkStreamMemory* onDuplicate() const = 0;
-  virtual SkStreamMemory* onFork() const = 0;
+  SkStreamMemory* onDuplicate() const = 0;
+  SkStreamMemory* onFork() const = 0;
 };
 class SK_API SkWStream
 {
@@ -361,7 +361,7 @@ public:
      *  The C FILE stream will be closed in the destructor.
      */
   explicit SkFILEStream(FILE* file);
-  ~SkFILEStream();
+  virtual ~SkFILEStream();
   static std::unique_ptr<SkFILEStream> Make(const char path[])
   {
     std::unique_ptr<SkFILEStream> stream(new SkFILEStream(path));
@@ -463,7 +463,7 @@ class SK_API SkFILEWStream : public SkWStream
 {
 public:
   SkFILEWStream(const char path[]);
-  ~SkFILEWStream();
+  virtual ~SkFILEWStream();
     /** Returns true if the current path could be opened.
     */
   bool isValid() const
@@ -484,7 +484,7 @@ public:
   SkDynamicMemoryWStream();
   SkDynamicMemoryWStream(SkDynamicMemoryWStream&&);
   SkDynamicMemoryWStream& operator=(SkDynamicMemoryWStream&&);
-  ~SkDynamicMemoryWStream();
+  virtual ~SkDynamicMemoryWStream();
   bool write(const void* buffer, size_t size) override;
   size_t bytesWritten() const override;
   bool read(void* buffer, size_t offset, size_t size);

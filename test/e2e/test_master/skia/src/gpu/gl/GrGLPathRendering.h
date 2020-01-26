@@ -29,7 +29,7 @@ public:
      * Create a new GrGLPathRendering object from a given GrGLGpu.
      */
   GrGLPathRendering(GrGLGpu* gpu);
-  ~GrGLPathRendering();
+  virtual ~GrGLPathRendering();
     // GrPathRendering implementations.
   sk_sp<GrPath> createPath(const SkPath&, const GrStyle&) override;
     /* Called when the 3D context state is unknown. */

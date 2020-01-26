@@ -17,7 +17,7 @@ class GrVkTexture : public GrTexture, public GrVkImage
 public:
   static sk_sp<GrVkTexture> MakeNewTexture(GrVkGpu*, SkBudgeted budgeted, const GrSurfaceDesc&, const GrVkImage::ImageDesc&, GrMipMapsStatus);
   static sk_sp<GrVkTexture> MakeWrappedTexture(GrVkGpu*, const GrSurfaceDesc&, GrWrapOwnership, GrWrapCacheable, GrIOType, const GrVkImageInfo&, sk_sp<GrVkImageLayout>);
-  ~GrVkTexture();
+  virtual ~GrVkTexture();
   GrBackendTexture getBackendTexture() const override;
   GrBackendFormat backendFormat() const override
   {

@@ -424,7 +424,7 @@ public:
     /// Returns Acad::eOk if successful. Returns Acad::eWrongObjectType if
     /// <c>pObject</c> is not an AcDbEvalVariant. 
     /// </returns>
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* pOther) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* pOther) override;
     /// <summary> 
     /// Tests whether this AcDbEvalVariant is less than another.
     /// This operator may only be used if both AcDbEvalVariants are of

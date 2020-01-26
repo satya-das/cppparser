@@ -75,14 +75,14 @@ public:
   Acad::ErrorStatus getElementAt(int elem, double& offset, AcCmColor& color, AcDbObjectId& linetypeId) const;
     // --- AcDbObject Protocol
     //
-  virtual Acad::ErrorStatus subErase(Adesk::Boolean pErasing = true) override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  Acad::ErrorStatus subErase(Adesk::Boolean pErasing = true) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
     // --- AcRxObject Protocol
     //
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
 };
 #  pragma  pack (pop)
 #endif

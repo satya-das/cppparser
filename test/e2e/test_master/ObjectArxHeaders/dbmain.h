@@ -1351,8 +1351,8 @@ public:
     // AcRxObject Protocol
     // Derived classes should not override these member implementations.
     //
-  virtual AcRxObject* clone() const override;
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* pSrc) override;
+  AcRxObject* clone() const override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* pSrc) override;
     // Save to previous versions.
     //
   bool hasSaveVersionOverride();
@@ -1366,8 +1366,8 @@ public:
   virtual AcGiDrawable* drawable();
     // AcGiDrawable interface
     //
-  virtual Adesk::Boolean isPersistent() const override;
-  virtual AcDbObjectId id() const override;
+  Adesk::Boolean isPersistent() const override;
+  AcDbObjectId id() const override;
     // Get corresponding COM wrapper class ID
     //
   ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getClassID(CLSID* pClsid) const;
@@ -1383,9 +1383,9 @@ public:
 protected:
   AcDbObject();
     // AcGiDrawable interface
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
-  virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWd) override;
-  virtual void subViewportDraw(AcGiViewportDraw* pVd) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWd) override;
+  void subViewportDraw(AcGiViewportDraw* pVd) override;
     // AcDbPropertiesOverrule related
   virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const;
     // AcDbObjectOverrule related
@@ -1423,9 +1423,9 @@ public:
   virtual AcCmComplexColor* incReference();
   virtual void decReference();
   virtual Acad::ErrorStatus getDescription(AcString& desc) const;
-  virtual Acad::ErrorStatus getDescription(ACHAR*& desc) const final;
+  Acad::ErrorStatus getDescription(ACHAR*& desc) const final;
   virtual Acad::ErrorStatus getExplanation(AcString& expl) const;
-  virtual Acad::ErrorStatus getExplanation(ACHAR*& expl) const final;
+  Acad::ErrorStatus getExplanation(ACHAR*& expl) const final;
   virtual AcCmEntityColor::ColorMethod colorMethod() const;
   virtual Acad::ErrorStatus setColorMethod(AcCmEntityColor::ColorMethod eColorMethod);
   virtual bool isByColor() const;
@@ -1449,12 +1449,12 @@ public:
   virtual Acad::ErrorStatus setPenIndex(Adesk::UInt16 penIndex);
     // --- AcRxObject protocol
     //
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject*) override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject*) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
 private:
   Adesk::UInt16 refCount = 0;
   AcCmEntityColor mColor;
@@ -1485,34 +1485,34 @@ public:
   Acad::ErrorStatus getDescription(ACHAR*& desc) const;
   ACDBCORE2D_PORT Acad::ErrorStatus getExplanation(AcString& expl) const;
   Acad::ErrorStatus getExplanation(ACHAR*& expl) const;
-  virtual AcCmEntityColor::ColorMethod colorMethod() const override;
-  virtual Acad::ErrorStatus setColorMethod(AcCmEntityColor::ColorMethod eColorMethod) override;
-  virtual bool isByColor() const override;
-  virtual bool isByLayer() const override;
-  virtual bool isByBlock() const override;
-  virtual bool isByACI() const override;
-  virtual bool isByPen() const override;
-  virtual bool isForeground() const override;
+  AcCmEntityColor::ColorMethod colorMethod() const override;
+  Acad::ErrorStatus setColorMethod(AcCmEntityColor::ColorMethod eColorMethod) override;
+  bool isByColor() const override;
+  bool isByLayer() const override;
+  bool isByBlock() const override;
+  bool isByACI() const override;
+  bool isByPen() const override;
+  bool isForeground() const override;
   bool isNone() const;
-  virtual Adesk::UInt32 color() const override;
-  virtual Acad::ErrorStatus setColor(Adesk::UInt32 color) override;
-  virtual Acad::ErrorStatus setRGB(Adesk::UInt8 red, Adesk::UInt8 green, Adesk::UInt8 blue) override;
-  virtual Acad::ErrorStatus setRed(Adesk::UInt8 red) override;
-  virtual Acad::ErrorStatus setGreen(Adesk::UInt8 green) override;
-  virtual Acad::ErrorStatus setBlue(Adesk::UInt8 blue) override;
-  virtual Adesk::UInt8 red() const override;
-  virtual Adesk::UInt8 green() const override;
-  virtual Adesk::UInt8 blue() const override;
-  virtual Adesk::UInt16 colorIndex() const override;
-  virtual Acad::ErrorStatus setColorIndex(Adesk::UInt16 colorIndex) override;
-  virtual Adesk::UInt16 penIndex() const override;
-  virtual Acad::ErrorStatus setPenIndex(Adesk::UInt16 penIndex) override;
-  virtual Acad::ErrorStatus setNames(const ACHAR* colorName, const ACHAR* bookName = nullptr) override;
-  virtual const ACHAR* colorName(void) const override;
-  virtual const ACHAR* bookName(void) const override;
-  virtual const ACHAR* colorNameForDisplay(void) override;
-  virtual bool hasColorName(void) const override;
-  virtual bool hasBookName(void) const override;
+  Adesk::UInt32 color() const override;
+  Acad::ErrorStatus setColor(Adesk::UInt32 color) override;
+  Acad::ErrorStatus setRGB(Adesk::UInt8 red, Adesk::UInt8 green, Adesk::UInt8 blue) override;
+  Acad::ErrorStatus setRed(Adesk::UInt8 red) override;
+  Acad::ErrorStatus setGreen(Adesk::UInt8 green) override;
+  Acad::ErrorStatus setBlue(Adesk::UInt8 blue) override;
+  Adesk::UInt8 red() const override;
+  Adesk::UInt8 green() const override;
+  Adesk::UInt8 blue() const override;
+  Adesk::UInt16 colorIndex() const override;
+  Acad::ErrorStatus setColorIndex(Adesk::UInt16 colorIndex) override;
+  Adesk::UInt16 penIndex() const override;
+  Acad::ErrorStatus setPenIndex(Adesk::UInt16 penIndex) override;
+  Acad::ErrorStatus setNames(const ACHAR* colorName, const ACHAR* bookName = nullptr) override;
+  const ACHAR* colorName(void) const override;
+  const ACHAR* bookName(void) const override;
+  const ACHAR* colorNameForDisplay(void) override;
+  bool hasColorName(void) const override;
+  bool hasBookName(void) const override;
   AcCmEntityColor entityColor(void) const;
   int dictionaryKeyLength(void) const;
   Acad::ErrorStatus getDictionaryKey(AcString& sKey) const;
@@ -1615,16 +1615,16 @@ public:
   const AcCmEntityColor& entityColor(void) const;
     // Saving as previous versions.
     //
-  virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
 private:
   AcCmColor m_color;
   AcCmEntityColor m_ecol;
 protected:
-  virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
+  Acad::ErrorStatus subWblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
 };
 class ADESK_NO_VTABLE AcDbEntity : public AcDbObject
 {
@@ -1636,7 +1636,7 @@ public:
     // setColor()'s pDb arg is used for looking up named colors when entity is non-db-resident
   ACDBCORE2D_PORT virtual Acad::ErrorStatus setColor(const AcCmColor& color, bool doSubents, AcDbDatabase* pDb);
     // Deprecated method. Calls the above overload. Marked final to prevent overrides
-  virtual Acad::ErrorStatus setColor(const AcCmColor& color, bool doSubents = true) final;
+  Acad::ErrorStatus setColor(const AcCmColor& color, bool doSubents = true) final;
   Adesk::UInt16 colorIndex() const;
   virtual Acad::ErrorStatus setColorIndex(Adesk::UInt16 color, Adesk::Boolean doSubents = true);
   AcCmEntityColor entityColor() const;
@@ -1769,16 +1769,16 @@ public:
   void setDatabaseDefaults();
   void setDatabaseDefaults(AcDbDatabase* pDb);
   virtual void subSetDatabaseDefaults(AcDbDatabase* pDb);
-  virtual Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler* undoFiler, AcRxClass* classObj) override;
-  virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual AcGiDrawable* drawable() override;
+  Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler* undoFiler, AcRxClass* classObj) override;
+  Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  AcGiDrawable* drawable() override;
     // AcGiDrawable interface
     //
-  virtual bool bounds(AcDbExtents& bounds) const override;
+  bool bounds(AcDbExtents& bounds) const override;
   ACDBCORE2D_PORT_VIRTUAL Adesk::Boolean cloneMeForDragging();
   ACDBCORE2D_PORT_VIRTUAL bool hideMeForDragging() const;
   virtual void dragStatus(const AcDb::DragStat status);
@@ -1789,7 +1789,7 @@ protected:
     // Makes AcDbEntity an abstract class.
   AcDbEntity();
     // AcDbPropertiesOverrule related
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
   virtual void subList() const;
     // AcDbOsnapOverrule
   virtual Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds) const;

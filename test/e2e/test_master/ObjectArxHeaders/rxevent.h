@@ -39,7 +39,7 @@ public:
   ACRX_DECLARE_MEMBERS(AcRxEventReactor);
     // DWG/Save Events.
     //
-  ADESK_DEPRECATED virtual void dwgFileOpened(AcDbDatabase*, ACHAR*) final
+  ADESK_DEPRECATED void dwgFileOpened(AcDbDatabase*, ACHAR*) final
   {
   }
   virtual void dwgFileOpened(AcDbDatabase*, const ACHAR*)

@@ -69,7 +69,7 @@ public:
 #  endif
   static sk_sp<GrContext> MakeMock(const GrMockOptions*, const GrContextOptions&);
   static sk_sp<GrContext> MakeMock(const GrMockOptions*);
-  ~GrContext();
+  virtual ~GrContext();
   sk_sp<GrContextThreadSafeProxy> threadSafeProxy();
     /**
      * The GrContext normally assumes that no outsider is setting state

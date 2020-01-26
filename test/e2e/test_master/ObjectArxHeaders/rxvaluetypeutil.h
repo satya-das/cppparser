@@ -88,8 +88,8 @@ public:
     : AcRxValueType(name, pRef, sizeof(ValueType), memberConstruct, userData)
   {
   }
-  virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
-  virtual bool subEqualTo(const void* a, const void* b) const override;
+  int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
+  bool subEqualTo(const void* a, const void* b) const override;
 };
 #ifdef __GNUC__
 template <typename ValueType>
@@ -124,11 +124,11 @@ public:
       AcRxMember::deleteMember(m_tags[i]);
     }
   }
-  virtual int count() const override
+  int count() const override
   {
     return m_tags.length();
   }
-  virtual const AcRxEnumTag& getAt(int i) const override
+  const AcRxEnumTag& getAt(int i) const override
   {
     return *m_tags[i];
   }
@@ -139,8 +139,8 @@ public:
     acdbImpSetOwnerForEnumTag(this, &tag);
   }
 #ifdef __GNUC__
-  virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
-  virtual bool subEqualTo(const void* a, const void* b) const override;
+  int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
+  bool subEqualTo(const void* a, const void* b) const override;
 #endif
 };
 #pragma  warning(pop)
@@ -149,21 +149,21 @@ class AcRxNonBlittableType : public AcRxValueType
 {
   class NonBlittable : public IAcRxNonBlittableType
 {
-  virtual void construct(void* dest, const void* source) const override
+  void construct(void* dest, const void* source) const override
   {
     (AcRxValue*) dest  T(*(T*) source);
   }
-  virtual void assign(void* dest, const void* source) const override
+  void assign(void* dest, const void* source) const override
   {
     ((T*) dest)->operator =(*(T*) source);
   }
-  virtual void destruct(const void* instance) const override
+  void destruct(const void* instance) const override
   {
     ((T*) instance)->~T();
   }
 } m_nonBlittable;
-  virtual int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
-  virtual bool subEqualTo(const void* a, const void* b) const override;
+  int subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const override;
+  bool subEqualTo(const void* a, const void* b) const override;
 public:
   AcRxNonBlittableType(const ACHAR* name, const ACHAR* parent, AcRxMemberCollectionConstructorPtr memberConstruct, void* userData = NULL)
     : AcRxValueType(name, parent, m_nonBlittable, sizeof(T), memberConstruct, userData)

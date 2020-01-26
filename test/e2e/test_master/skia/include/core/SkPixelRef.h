@@ -28,7 +28,7 @@ class SK_API SkPixelRef : public SkRefCnt
 {
 public:
   SkPixelRef(int width, int height, void* addr, size_t rowBytes);
-  ~SkPixelRef();
+  virtual ~SkPixelRef();
   int width() const
   {
     return fWidth;

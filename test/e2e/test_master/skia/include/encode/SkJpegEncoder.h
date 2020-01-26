@@ -71,7 +71,7 @@ public:
      *  This returns nullptr on an invalid or unsupported |src|.
      */
   static std::unique_ptr<SkEncoder> Make(SkWStream* dst, const SkPixmap& src, const Options& options);
-  ~SkJpegEncoder();
+  virtual ~SkJpegEncoder();
 protected:
   bool onEncodeRows(int numRows) override;
 private:

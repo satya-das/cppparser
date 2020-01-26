@@ -69,12 +69,12 @@ public:
   RasterImageDefImp* setPtrImp(RasterImageDefImp* pImp);
     // AcDbObject overridden methods
     //
-  virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
-  virtual Acad::ErrorStatus subClose() override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
+  Acad::ErrorStatus subClose() override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
     // AcDbRasterImageDef specific methods
     //
   virtual AcGiSentScanLines* makeScanLines(const AcGiRequestScanLines* pReq, const AcGeMatrix2d& pixToScreen, AcGePoint2dArray* pActiveClipBndy = 0, Adesk::Boolean draftQuality = false, Adesk::Boolean isTransparent = false, const double brightness = 50.0, const double contrast = 50.0, const double fade = 0.0) const;
@@ -211,14 +211,14 @@ public:
   ACRX_DECLARE_MEMBERS(AcDbRasterImageDefReactor);
   AcDbRasterImageDefReactor();
   virtual ~AcDbRasterImageDefReactor();
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
     // Notification
     //
-  virtual void erased(const AcDbObject* dbObj, Adesk::Boolean pErasing = true) override;
-  virtual void modified(const AcDbObject* dbObj) override;
+  void erased(const AcDbObject* dbObj, Adesk::Boolean pErasing = true) override;
+  void modified(const AcDbObject* dbObj) override;
     // Delete image notification.
     //
   enum DeleteImageEvent {

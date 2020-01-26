@@ -33,18 +33,18 @@ public:
   bool serializeOut(IAcWriteStream* pOutput) const;
   bool serializeIn(IAcReadStream* pInput, AcDbDatabase* pDb = NULL);
     // Overridden methods from AcGiDrawable
-  virtual Adesk::Boolean isPersistent() const override;
-  virtual AcDbObjectId id() const override;
-  virtual AcGiDrawable::DrawableType drawableType() const override;
-  virtual bool bounds(AcDbExtents& bounds) const override;
-  virtual void setDrawStream(AcGiDrawStream* pStream) override;
-  virtual AcGiDrawStream* drawStream() const override;
+  Adesk::Boolean isPersistent() const override;
+  AcDbObjectId id() const override;
+  AcGiDrawable::DrawableType drawableType() const override;
+  bool bounds(AcDbExtents& bounds) const override;
+  void setDrawStream(AcGiDrawStream* pStream) override;
+  AcGiDrawStream* drawStream() const override;
 protected:
     // Overridden methods from AcGiDrawable
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
-  virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWd) override;
-  virtual void subViewportDraw(AcGiViewportDraw* pVd) override;
-  virtual Adesk::UInt32 subViewportDrawLogicalFlags(AcGiViewportDraw* pVd) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWd) override;
+  void subViewportDraw(AcGiViewportDraw* pVd) override;
+  Adesk::UInt32 subViewportDrawLogicalFlags(AcGiViewportDraw* pVd) override;
   AcGiDrawStreamImp* m_pImp;
 };
 #pragma  pack(pop)

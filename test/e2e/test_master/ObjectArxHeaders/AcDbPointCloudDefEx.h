@@ -155,7 +155,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary>
     /// This function is called by dwgOut(). Its purpose is to allow this object to write out its data. 
     /// </summary>
@@ -165,7 +165,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary>
     /// This function is called by dxfIn(). Its purpose is to allow this object to read in its data. 
     /// </summary>
@@ -175,7 +175,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     /// <summary>
     /// This function is called by dxfOut(). Its purpose is to allow this object to write out its data. 
     /// </summary>
@@ -185,7 +185,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     /// <summary>
     /// Called from within erase() before anything else is done.
     /// </summary>
@@ -197,7 +197,7 @@ public:
     /// If this function returns anything other than Acad::eOk, then the 
     /// erase operation is immediately terminated.
     /// </returns>
-  virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
+  Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
     /// <summary>
     /// Returns a pointer to the ReCap point cloud data, which will
     /// be shared by all AcDbPointCloudEx entities that reference the same ReCap project.
@@ -416,7 +416,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary>
     /// This function is called by dwgOut(). Its purpose is to allow the object to write out its data. 
     /// </summary>
@@ -426,7 +426,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary>
     /// This function is called by dxfIn(). Its purpose is to allow the object to read in its data. 
     /// </summary>
@@ -436,7 +436,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     /// <summary>
     /// This function is called by dxfOut(). Its purpose is to allow the object to write out its data. 
     /// </summary>
@@ -446,7 +446,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     // Notification
     //
 
@@ -463,7 +463,7 @@ public:
     /// <param name="pErasing">
     /// Boolean indicating the erasing status 
     /// </param>
-  virtual void erased(const AcDbObject* dbObj, Adesk::Boolean pErasing = true) override;
+  void erased(const AcDbObject* dbObj, Adesk::Boolean pErasing = true) override;
     /// <summary>
     /// This method is called when the AcDbPointCloudDefEx object is modified.
     /// It responds by redrawing the AcDbPointCloudEx entity that owns the reactor.
@@ -471,7 +471,7 @@ public:
     /// <param name="dbObj">
     /// Pointer to the AcDbPointCloudDefEx object sending the notification
     /// </param>
-  virtual void modified(const AcDbObject* dbObj) override;
+  void modified(const AcDbObject* dbObj) override;
 private:
   static int m_version;
   static Adesk::Boolean m_bIsEnabled;

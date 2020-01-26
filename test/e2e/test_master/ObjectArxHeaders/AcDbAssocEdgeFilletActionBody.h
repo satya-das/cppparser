@@ -67,7 +67,7 @@ public:
     /// body object.
     /// </summary>
     ///
-  virtual void evaluateOverride() override;
+  void evaluateOverride() override;
     /// <summary><para>
     /// Utility function to create AcDbAssocEdgeFilletActionBody and attach 
     /// dependencies and actions for given filletEdges.

@@ -39,7 +39,7 @@ public:
   virtual Acad::ErrorStatus setASMBody(const void* modelerBody);
   virtual Acad::ErrorStatus getAreaProp(const AcGePoint3d& origin, const AcGeVector3d& xAxis, const AcGeVector3d& yAxis, double& perimeter, double& area, AcGePoint2d& centroid, double momInertia[2], double& prodInertia, double prinMoments[2], AcGeVector2d prinAxes[2], double radiiGyration[2], AcGePoint2d& extentsLow, AcGePoint2d& extentsHigh) const;
   virtual Acad::ErrorStatus getPlane(AcGePlane& regionPlane) const;
-  ACDB_PORT virtual void dragStatus(const AcDb::DragStat) override;
+  ACDB_PORT void dragStatus(const AcDb::DragStat) override;
   virtual Adesk::Boolean isNull() const;
   virtual Acad::ErrorStatus getNormal(AcGeVector3d&) const;
   virtual AcDbSubentId internalSubentId(void* ent) const;
@@ -48,7 +48,7 @@ public:
   virtual Adesk::UInt32 numChanges() const;
   ACDB_PORT virtual bool usesGraphicsCache();
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #  pragma  pack(pop)
 #endif

@@ -21,7 +21,7 @@ struct SkIRect;
 class GrTextureContext : public GrSurfaceContext
 {
 public:
-  ~GrTextureContext();
+  virtual ~GrTextureContext();
   GrSurfaceProxy* asSurfaceProxy() override
   {
     return fTextureProxy.get();

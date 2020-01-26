@@ -99,7 +99,7 @@ public:
     /// updates the entity text with the current measurement. </summary>
     /// <returns> Acad::eOk if successful. </returns>
     ///
-  virtual Acad::ErrorStatus updateDependentOnObjectOverride() override;
+  Acad::ErrorStatus updateDependentOnObjectOverride() override;
     /// <summary> Returns the corresponding dimensional constraint node. </summary>
     /// <returns> The dimensional constraint node. </returns>
     ///
@@ -312,30 +312,30 @@ public:
     /// </param>
     /// <returns> Acad::eOk if successful. </returns>
     ///
-  virtual Acad::ErrorStatus isRelevantChangeOverride(bool& isRelevChange) const override;
+  Acad::ErrorStatus isRelevantChangeOverride(bool& isRelevChange) const override;
     /// <summary> This function sets the name and expression in the controlled 
     /// entity text to be the same as the name and expression of the corresponding 
     /// AcDbAssocVariable. </summary>
     ///
-  virtual void evaluateOverride() override;
+  void evaluateOverride() override;
     /// <summary> If the controlled entity text changed, this function sets the 
     /// name and expression of the AcDbAssocVariable to be the same as the name 
     /// and expression in the entity text. </summary>
     /// <param name="pDbObj"> The controlled entity. </param>
     ///
-  virtual void modifiedOverride(const AcDbObject* pDbObj) override;
+  void modifiedOverride(const AcDbObject* pDbObj) override;
     /// <summary> When the dependent-on object (such as an AcDbDimension) is 
     /// erased, the corresponding AcDbAssocVariable is also erased.</summary>
     /// <param name="pDbObj"> The controlled entity. </param>
     /// <param name="isErasing"> Boolean isErasing. </param>
     ///
-  virtual void erasedOverride(const AcDbObject* pDbObj, Adesk::Boolean isErasing) override;
+  void erasedOverride(const AcDbObject* pDbObj, Adesk::Boolean isErasing) override;
     /// <summary> Overridden method from the AcDbObject base class.
     /// It erases the controlled entity, such as the AcDbDimension. </summary>
     /// <param  name="erasing"> Boolean erasing. </param>
     /// <returns> Acad::eOk if successful. </returns>
     ///
-  virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
+  Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
     /// <summary> Formats the given expression to current precision. </summary>
     /// <param  name="expression"> The expression to be formatted. </param>
     /// <param  name="isAngular"> Indicates it is an angular constraint. </param>

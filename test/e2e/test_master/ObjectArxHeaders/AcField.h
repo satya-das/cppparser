@@ -47,7 +47,7 @@ public:
   ACDBCORE2D_PORT virtual Acad::ErrorStatus compile(AcDbField* pField, AcDbDatabase* pDb, AcFdFieldResult* pResult);
   ACDBCORE2D_PORT virtual Acad::ErrorStatus evaluate(AcDbField* pField, int nContext, AcDbDatabase* pDb, AcFdFieldResult* pResult);
   ACDBCORE2D_PORT virtual Acad::ErrorStatus format(AcDbField* pField, AcString& sValue);
-  ACDBCORE2D_PORT virtual Acad::ErrorStatus format(AcDbField* pField, ACHAR*& pszValue) final;
+  ACDBCORE2D_PORT Acad::ErrorStatus format(AcDbField* pField, ACHAR*& pszValue) final;
 protected:
   AcFdFieldEvaluator(void*);
   void* mpImpObj;

@@ -62,7 +62,7 @@ public:
     /// Destructor.
     /// </summary>
   virtual ~AcDbRenderSettings();
-  virtual AcGiDrawable* drawable() override;
+  AcGiDrawable* drawable() override;
     /// <summary>
     /// Sets the name of the render settings.
     /// </summary>
@@ -190,15 +190,15 @@ public:
     /// </summary>
   bool isPredefined() const;
     // AcDbObject functions
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
   virtual bool operator==(const AcDbRenderSettings& settings);
 protected:
     // AcGiDrawable functions
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
   AcDbImpRenderSettings* mpImp;
 };
 /// <summary>
@@ -813,15 +813,15 @@ public:
     /// </summary>
   AcDbMentalRayRenderSettings::ShadowSamplingMultiplier shadowSamplingMultiplier() const;
     // AcDbObject functions
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
   virtual bool operator==(const AcDbMentalRayRenderSettings& settings);
   Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
 protected:
     // AcGiDrawable functions
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 private:
   friend class AcDbImpMentalRayRenderSettings;
   Adesk::UInt32 baseSetAttributes(AcGiDrawableTraits* pTraits);
@@ -917,19 +917,19 @@ public:
 	/// </summary>
   float filterHeight() const;
 	// AcDbObject functions
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
   virtual bool operator==(const AcDbRapidRTRenderSettings& settings);
 	/// <summary>
 	/// Copy all the render settings from an AcDbRapidRTRenderSettings object.
 	/// </summary>
   Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
-  virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
+  Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
 protected:
 	// AcGiDrawable functions
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 };
 /// <summary>
 /// Container for environment-related properties, including fog / depth cue and
@@ -948,7 +948,7 @@ public:
     /// Destructor.
     /// </summary>
   virtual ~AcDbRenderEnvironment();
-  virtual AcGiDrawable* drawable() override;
+  AcGiDrawable* drawable() override;
     /// <summary>
     /// Sets whether a fog effect is applied to the rendered image.
     /// </summary>
@@ -1068,14 +1068,14 @@ public:
     /// </summary>
   AcString environmentImageFileName() const;
     // AcDbObject functions
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
   virtual bool operator==(const AcDbRenderEnvironment& environment);
 protected:
     // AcGiDrawable functions
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
   AcDbImpRenderEnvironment* mpImp;
 };
 /// <summary>
@@ -1266,10 +1266,10 @@ public:
     /// </summary>
   AcGiMrExposureType exposureType() const;
     // AcDbObject functions
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
   Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
 private:
   AcDbImpRenderGlobal* mpImp;

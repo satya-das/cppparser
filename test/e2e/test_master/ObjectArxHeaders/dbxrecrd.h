@@ -32,15 +32,15 @@ public:
   void setXlateReferences(bool translate);
     // Overridden methods from AcDbObject
     //
-  virtual Acad::ErrorStatus subClose() override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
-  virtual AcDb::DuplicateRecordCloning mergeStyle() const override;
+  Acad::ErrorStatus subClose() override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  AcDb::DuplicateRecordCloning mergeStyle() const override;
   virtual void setMergeStyle(AcDb::DuplicateRecordCloning style);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbImpXrecordIterator;
 class AcDbXrecordIterator : public AcRxObject

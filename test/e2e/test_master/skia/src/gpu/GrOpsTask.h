@@ -34,7 +34,7 @@ class GrOpsTask : public GrRenderTask
   using DstProxy = GrXferProcessor::DstProxy;
 public:
   GrOpsTask(sk_sp<GrOpMemoryPool>, sk_sp<GrRenderTargetProxy>, GrAuditTrail*);
-  ~GrOpsTask();
+  virtual ~GrOpsTask();
   GrOpsTask* asOpsTask() override
   {
     return this;

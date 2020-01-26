@@ -81,7 +81,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary>
     /// This function is called by dwgOut(). Its purpose is to allow the object to write out its data. 
     /// </summary>
@@ -91,7 +91,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary>
     /// This function is called by dxfIn(). Its purpose is to allow the object to read in its data. 
     /// </summary>
@@ -101,7 +101,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     /// <summary>
     /// This function is called by dxfOut(). Its purpose is to allow the object to write out its data. 
     /// </summary>
@@ -111,7 +111,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     /// <summary>
     /// This function is called by swapIdWith() before anything else is done. 
     /// It provides a hook into the swapIdWith operation. 
@@ -128,7 +128,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus subSwapIdWith(AcDbObjectId otherId, Adesk::Boolean swapXdata = false, Adesk::Boolean swapExtDict = false) override;
+  Acad::ErrorStatus subSwapIdWith(AcDbObjectId otherId, Adesk::Boolean swapXdata = false, Adesk::Boolean swapExtDict = false) override;
     /// <summary>
     /// Copy the contents of the "other" parameter into this messaged object, whenever feasible.
     /// </summary>
@@ -150,7 +150,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual void getEcs(AcGeMatrix3d& retVal) const override;
+  void getEcs(AcGeMatrix3d& retVal) const override;
     /// <summary>
     /// The function is called when a drag operation involving this entity is starting,
     /// ending, or aborting.
@@ -158,14 +158,14 @@ public:
     /// <param name="status">
     /// Provides information about what is happening with the drag operation.
     /// </param>
-  virtual void dragStatus(const AcDb::DragStat status) override;
+  void dragStatus(const AcDb::DragStat status) override;
 protected:
     // AcDbEntity Overrides
     //
     /// <summary>
     /// Override the virtual function for AcDbEnity::list().
     /// </summary>
-  virtual void subList() const override;
+  void subList() const override;
     /// <summary>
     /// Get the unique class id for this entity.
     /// </summary>
@@ -175,7 +175,7 @@ protected:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
     /// <summary>
     /// Override the virtual function for AcDbEnity::getGeomExtents().
     /// </summary>
@@ -185,7 +185,7 @@ protected:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
+  Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
     // AcDbOsnapOverrule
     //
     /// <summary>
@@ -194,7 +194,7 @@ protected:
     /// <returns>
     /// Returns true if this entity can be snapped to, otherwise false.
     /// </returns>
-  virtual bool subIsContentSnappable() const override;
+  bool subIsContentSnappable() const override;
     // AcGiDrawable interface
     //
     /// <summary>
@@ -206,7 +206,7 @@ protected:
     /// <returns>
     /// Returns true if successful.
     /// </returns>
-  virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* mode) override;
+  Adesk::Boolean subWorldDraw(AcGiWorldDraw* mode) override;
     /// <summary>
     /// Override the virtual function for AcDbEntity::transformBy().
     /// </summary>
@@ -216,7 +216,7 @@ protected:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
+  Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
 public:
     // AcDbPointCloudDefEx specific protocol
     //

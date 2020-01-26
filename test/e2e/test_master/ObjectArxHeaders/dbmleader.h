@@ -439,7 +439,7 @@ public:
     /// Used to read in an AcDbMLeader's data from a DWG file.
     /// </remarks>
     ///
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
     /// <summary>
     /// Used to persist the AcDbMLeader's data to a DWG file.
     /// </summary>
@@ -452,7 +452,7 @@ public:
     /// Used to persist the AcDbMLeader's data to a DWG file.
     /// </remarks>
     ///
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
     /// <summary>
     /// Used to read in an AcDbMLeader's data from a DXF file.
     /// </summary>
@@ -465,7 +465,7 @@ public:
     /// Used to read in an AcDbMLeader's data from a DXF file.
     /// </remarks>
     ///
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
     /// <summary>
     /// Used to persist the AcDbMLeader's data to a DXF file.
     /// </summary>
@@ -478,7 +478,7 @@ public:
     /// Used to persist the AcDbMLeader's data to a DXF file.
     /// </remarks>
     ///
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
     /// <summary>
     /// Called from within close() before anything else is done.
     /// </summary>
@@ -487,7 +487,7 @@ public:
     /// Returns Acad::eOk if successful.Return values for errors are implementation-dependent.
     /// </returns>
     ///
-  virtual Acad::ErrorStatus subClose() override;
+  Acad::ErrorStatus subClose() override;
     /// <summary>
     /// Called from within erase() before anything else is done.
     /// </summary>
@@ -501,7 +501,7 @@ public:
     /// Returns Acad::eOk if successful.Return values for errors are implementation-dependent.
     /// </returns>
     ///
-  virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
+  Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
     /// <summary>
     /// Called whenever the object sending notification was closed.
     /// </summary>
@@ -510,7 +510,7 @@ public:
     /// Passed in objectId of the object sending the notification.
     /// </param>
     ///
-  virtual void objectClosed(const AcDbObjectId dbObjId) override;
+  void objectClosed(const AcDbObjectId dbObjId) override;
     /// <summary>
     /// Called whenever the object sending notification has been modified and the object is being closed.
     /// </summary>
@@ -519,7 +519,7 @@ public:
     /// Passed in pointer to object which has been modified.
     /// </param>
     ///
-  virtual void modified(const AcDbObject* dbObj) override;
+  void modified(const AcDbObject* dbObj) override;
     /// <summary>
     /// Sets input propertyType is override or not.
     /// </summary>
@@ -2291,6 +2291,6 @@ protected:
     /// Returns Acad::eOk if successful.Return values for errors are implementation-dependent.
     /// </returns>
     ///
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #endif

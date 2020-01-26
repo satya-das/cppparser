@@ -129,21 +129,21 @@ public:
   AcDbDictionaryIterator* newIterator() const;
     // AcDbObject Protocol
     //
-  virtual Acad::ErrorStatus subErase(Adesk::Boolean pErasing = Adesk::kTrue) override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual AcDb::DuplicateRecordCloning mergeStyle() const override;
+  Acad::ErrorStatus subErase(Adesk::Boolean pErasing = Adesk::kTrue) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  AcDb::DuplicateRecordCloning mergeStyle() const override;
     // Support for persistent reactor to annotation.
     //
-  virtual void goodbye(const AcDbObject* pObject) override;
-  virtual void erased(const AcDbObject* pObject, bool bErasing) override;
+  void goodbye(const AcDbObject* pObject) override;
+  void erased(const AcDbObject* pObject, bool bErasing) override;
     // Support for saving to previous releases' formats.
     //
-  virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
+  Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // This overload is deprecated and will be removed. Please use the one
 // taking an AcString & arg instead

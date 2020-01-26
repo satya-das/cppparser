@@ -36,15 +36,15 @@ public:
   ACDB_PORT Acad::ErrorStatus getUniqueSectionName(const ACHAR* pszBaseName, AcString& sUniqueName) const;
   Acad::ErrorStatus getUniqueSectionName(const ACHAR* pszBaseName, ACHAR*& pszUniqueName) const;
     // Base class overrides
-  ACDB_PORT virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  ACDB_PORT virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  ACDB_PORT virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  ACDB_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  ACDB_PORT Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  ACDB_PORT Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  ACDB_PORT Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  ACDB_PORT Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     // TODO: These should be protected
   ACDB_PORT AcDbSectionManager(void);
   ACDB_PORT ~AcDbSectionManager();
 protected:
-  ACDB_PORT virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  ACDB_PORT Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // This overload is deprecated. Please use the other overload, taking AcString & arg
 inline Acad::ErrorStatus AcDbSectionManager::getUniqueSectionName(const ACHAR* pszBaseName, ACHAR*& pszUniqueName) const

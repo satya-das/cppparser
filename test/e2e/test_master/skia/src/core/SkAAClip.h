@@ -96,7 +96,7 @@ public:
     : fScanlineScratch(nullptr)
   {
   }
-  ~SkAAClipBlitter();
+  virtual ~SkAAClipBlitter();
   void init(SkBlitter* blitter, const SkAAClip* aaclip)
   {
     SkASSERT(aaclip && !aaclip->isEmpty());

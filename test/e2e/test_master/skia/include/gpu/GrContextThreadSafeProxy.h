@@ -18,7 +18,7 @@ class SkSurfaceCharacterization;
 class SK_API GrContextThreadSafeProxy : public GrContext_Base
 {
 public:
-  ~GrContextThreadSafeProxy();
+  virtual ~GrContextThreadSafeProxy();
     /**
      *  Create a surface characterization for a DDL that will be replayed into the GrContext
      *  that created this proxy. On failure the resulting characterization will be invalid (i.e.,

@@ -46,7 +46,7 @@ public:
     /// <param name="pDb">Input AcDbDatabase to use.</param>
   virtual Acad::ErrorStatus getActiveLayoutName(AcString& sName, bool allowModel, const AcDbDatabase* pDb = nullptr) = 0;
     // This overload is deprecated and will be removed. Please use getActiveLayoutName()
-  virtual const ACHAR* findActiveLayout(bool allowModel, const AcDbDatabase* pDb = nullptr) final;
+  const ACHAR* findActiveLayout(bool allowModel, const AcDbDatabase* pDb = nullptr) final;
     /// <sumary>
     /// This function returns the block table record id for the current AcDbLayout object. If TILEMODE is 1, then this will retrieve the *MODEL_SPACE block table record. If TILEMODE is 0, then this will retrieve the *PAPER_SPACE block table record; which represents the current paper space layout. 
     ///

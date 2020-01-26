@@ -58,7 +58,7 @@ public:
     /// use the context ID, which is guaranteed to be unique and invariant over
     /// time. 
     /// </remarks>
-  virtual Acad::ErrorStatus getName(AcString& name) const override;
+  Acad::ErrorStatus getName(AcString& name) const override;
     /// <summary>
     /// Sets the name of the annotation scale. 
     /// </summary>
@@ -75,7 +75,7 @@ public:
     /// Annotation scale names are not guaranteed to be unique.
     /// </remarks>
     ///
-  virtual Acad::ErrorStatus setName(const AcString& name) override;
+  Acad::ErrorStatus setName(const AcString& name) override;
     /// <summary>
     /// The unique annotation scale identifier
     /// </summary>
@@ -89,7 +89,7 @@ public:
     /// object and is unique amongst all annotation scale context instances.
     /// </remarks>
     ///
-  virtual Adesk::LongPtr uniqueIdentifier() const override;
+  Adesk::LongPtr uniqueIdentifier() const override;
     /// <summary>
     /// The name of the annotation scale collection. 
     /// </summary>
@@ -103,7 +103,7 @@ public:
     /// string returned by this method.
     /// </remarks>    
     ///
-  virtual AcString collectionName() const override;
+  AcString collectionName() const override;
     /// <summary>
     /// Copies the annotation scale context data into this scale instance. 
     /// </summary>
@@ -118,7 +118,7 @@ public:
     /// if the parameter passed is not of the correct type.
     /// </returns>
     ///
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* pOther) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* pOther) override;
     /// <summary>
     /// The paper units portion of the annotation scale. 
     /// </summary>

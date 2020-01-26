@@ -273,6 +273,6 @@ public:
     /// <param  name="pSource"> Source object to copy data from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* pSource) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* pSource) override;
 };
 #pragma  pack (pop)

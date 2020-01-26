@@ -27,7 +27,7 @@ class GrAHardwareBufferImageGenerator : public SkImageGenerator
 {
 public:
   static std::unique_ptr<SkImageGenerator> Make(AHardwareBuffer*, SkAlphaType, sk_sp<SkColorSpace>, GrSurfaceOrigin);
-  ~GrAHardwareBufferImageGenerator();
+  virtual ~GrAHardwareBufferImageGenerator();
   static void DeleteGLTexture(void* ctx);
 protected:
   bool onIsValid(GrContext*) const override;

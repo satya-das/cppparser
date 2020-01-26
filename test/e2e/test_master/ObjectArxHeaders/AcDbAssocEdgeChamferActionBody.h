@@ -97,7 +97,7 @@ public:
     /// body object.
     /// </summary>
     ///
-  virtual void evaluateOverride() override;
+  void evaluateOverride() override;
     /// <summary>
     /// Utility function to create AcDbAssocEdgeChamferActionBody and attach 
     /// dependencies and actions for given chamferEdges.

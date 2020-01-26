@@ -86,11 +86,11 @@ public:
   Adesk::Boolean isDefaultAlignment() const;
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
-  virtual Adesk::Boolean isPlanar() const override
+  Adesk::Boolean isPlanar() const override
   {
     return Adesk::kTrue;
   }
-  virtual Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
+  Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
   double thickness() const;
   Acad::ErrorStatus setThickness(double);
   double oblique() const;
@@ -142,7 +142,7 @@ public:
   ACDBCORE2D_PORT AcTextAlignment justification() const;
   ACDBCORE2D_PORT Acad::ErrorStatus setJustification(AcTextAlignment);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // This overload is deprecated. It allocates a char buffer that the caller is
 // responsible for freeing. Please use the other overload, taking an (AcString &) arg
@@ -175,7 +175,7 @@ public:
   Acad::ErrorStatus setPreset(Adesk::Boolean);
   Adesk::UInt16 fieldLength() const;
   Acad::ErrorStatus setFieldLength(Adesk::UInt16);
-  virtual Acad::ErrorStatus adjustAlignment(const AcDbDatabase* pDb = nullptr) override;
+  Acad::ErrorStatus adjustAlignment(const AcDbDatabase* pDb = nullptr) override;
   bool lockPositionInBlock() const;
   Acad::ErrorStatus setLockPositionInBlock(bool bValue);
     // multiline attribute definition support
@@ -187,7 +187,7 @@ public:
   Acad::ErrorStatus convertIntoMTextAttributeDefinition(Adesk::Boolean val = Adesk::kTrue);
   Acad::ErrorStatus updateMTextAttributeDefinition();
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // This overload is deprecated. It allocates a char buffer that the caller is
 // responsible for freeing. Please use the other overload, taking an (AcString &) arg
@@ -233,7 +233,7 @@ public:
   Acad::ErrorStatus updateMTextAttribute();
   bool isReallyLocked() const;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // This overload is deprecated. It allocates a char buffer that the caller is
 // responsible for freeing. Please use the other overload, taking an (AcString &) arg
@@ -259,11 +259,11 @@ public:
   virtual Acad::ErrorStatus setRotation(double newVal);
   AcGeVector3d normal() const;
   virtual Acad::ErrorStatus setNormal(const AcGeVector3d& newVal);
-  virtual Adesk::Boolean isPlanar() const override
+  Adesk::Boolean isPlanar() const override
   {
     return Adesk::kTrue;
   }
-  virtual Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
+  Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
   AcGeMatrix3d blockTransform() const;
   AcGeMatrix3d nonAnnotationBlockTransform() const;
   virtual Acad::ErrorStatus setBlockTransform(const AcGeMatrix3d&);
@@ -276,7 +276,7 @@ public:
   Acad::ErrorStatus geomExtentsBestFit(AcDbExtents& extents, const AcGeMatrix3d& parentXform = AcGeMatrix3d::kIdentity) const;
   virtual Acad::ErrorStatus explodeToOwnerSpace() const;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbMInsertBlock : public AcDbBlockReference
 {
@@ -294,7 +294,7 @@ public:
   double rowSpacing() const;
   Acad::ErrorStatus setRowSpacing(double);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbBlockBegin : public AcDbEntity
 {
@@ -458,7 +458,7 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus makeClosedIfStartAndEndVertexCoincide(double distTol);
 protected:
     // AcDbEntity overrides
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 inline Adesk::Boolean AcDb2dPolyline::isPeriodic() const
 {
@@ -507,7 +507,7 @@ public:
   AcDbObjectIterator* vertexIterator() const;
 protected:
     // AcDbEntity overrides
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 inline Adesk::Boolean AcDb3dPolyline::isPeriodic() const
 {
@@ -548,7 +548,7 @@ public:
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 inline Adesk::Boolean AcDbArc::isClosed() const
 {
@@ -583,7 +583,7 @@ public:
   double diameter() const;
   Acad::ErrorStatus setDiameter(double);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 inline Adesk::Boolean AcDbCircle::isClosed() const
 {
@@ -628,7 +628,7 @@ public:
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 inline Adesk::Boolean AcDbLine::isClosed() const
 {
@@ -663,13 +663,13 @@ public:
   double ecsRotation() const;
   Acad::ErrorStatus setEcsRotation(double);
     // AcDbEntity overrides
-  virtual Adesk::Boolean isPlanar() const override
+  Adesk::Boolean isPlanar() const override
   {
     return Adesk::kTrue;
   }
-  virtual Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
+  Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbFace : public AcDbEntity
 {
@@ -684,10 +684,10 @@ public:
   Acad::ErrorStatus isEdgeVisibleAt(Adesk::UInt16, Adesk::Boolean&) const;
   Acad::ErrorStatus makeEdgeVisibleAt(Adesk::UInt16);
   Acad::ErrorStatus makeEdgeInvisibleAt(Adesk::UInt16);
-  ACDBCORE2D_PORT virtual Adesk::Boolean isPlanar() const override;
-  ACDBCORE2D_PORT virtual Acad::ErrorStatus getPlane(AcGePlane& plane, AcDb::Planarity& planarity) const override;
+  ACDBCORE2D_PORT Adesk::Boolean isPlanar() const override;
+  ACDBCORE2D_PORT Acad::ErrorStatus getPlane(AcGePlane& plane, AcDb::Planarity& planarity) const override;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbPolyFaceMesh : public AcDbEntity
 {
@@ -705,7 +705,7 @@ public:
   Acad::ErrorStatus openSequenceEnd(AcDbSequenceEnd*&, AcDb::OpenMode);
   AcDbObjectIterator* vertexIterator() const;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbPolygonMesh : public AcDbEntity
 {
@@ -742,7 +742,7 @@ public:
   Acad::ErrorStatus openSequenceEnd(AcDbSequenceEnd*&, AcDb::OpenMode);
   AcDbObjectIterator* vertexIterator() const;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbSolid : public AcDbEntity
 {
@@ -761,7 +761,7 @@ public:
   double elevation() const;
   void setElevation(double);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbTrace : public AcDbEntity
 {
@@ -779,13 +779,13 @@ public:
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
   double elevation() const;
   void setElevation(double);
-  virtual Adesk::Boolean isPlanar() const override
+  Adesk::Boolean isPlanar() const override
   {
     return Adesk::kTrue;
   }
-  virtual Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
+  Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbShape : public AcDbEntity
 {
@@ -811,11 +811,11 @@ public:
   Acad::ErrorStatus setThickness(double);
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
-  virtual Adesk::Boolean isPlanar() const override
+  Adesk::Boolean isPlanar() const override
   {
     return Adesk::kTrue;
   }
-  virtual Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
+  Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
   Adesk::Int16 shapeNumber() const;
   Acad::ErrorStatus setShapeNumber(Adesk::Int16);
   AcDbObjectId styleId() const;
@@ -830,7 +830,7 @@ public:
     return this->setStyleId(id);
   }
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // This overload returns a buffer which the caller is responsible for freeing.
 // It will be removed soon. Please use the overload taking (AcString &) arg
@@ -1098,10 +1098,10 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus setNonRectClipOn(bool bOn);
   AcDbObjectId nonRectClipEntityId() const;
   Acad::ErrorStatus setNonRectClipEntityId(AcDbObjectId);
-  virtual void erased(const AcDbObject*, Adesk::Boolean) override;
-  virtual void modified(const AcDbObject*) override;
-  virtual void copied(const AcDbObject* pDbObj, const AcDbObject* pNewObj) override;
-  virtual void subObjModified(const AcDbObject* pDbObj, const AcDbObject* pSubObj) override;
+  void erased(const AcDbObject*, Adesk::Boolean) override;
+  void modified(const AcDbObject*) override;
+  void copied(const AcDbObject* pDbObj, const AcDbObject* pNewObj) override;
+  void subObjModified(const AcDbObject* pDbObj, const AcDbObject* pSubObj) override;
     // UCS query methods.
     //
   Acad::ErrorStatus getUcs(AcGePoint3d& origin, AcGeVector3d& xAxis, AcGeVector3d& yAxis) const;
@@ -1143,7 +1143,7 @@ public:
 protected:
     // AcDbEntity overrides
     //
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // This overload returns a buffer which the caller is responsible for freeing.
 // It will be removed soon. Please use the overload taking (AcString &) arg

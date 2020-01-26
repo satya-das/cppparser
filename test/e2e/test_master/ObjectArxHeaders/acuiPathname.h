@@ -25,7 +25,7 @@ public:
         //  This routine actually calls ParseRelative with the
         //  current document path (if any) or the current application
         //  path as the relative path.
-  ACCORE_PORT virtual PathErr Parse(const wchar_t*, bool wildcard_ok = false) override;
+  ACCORE_PORT PathErr Parse(const wchar_t*, bool wildcard_ok = false) override;
         // check status for the path
         //  the returned values are defined in aduipathenums.h
   ACCORE_PORT int Status(void);

@@ -1215,14 +1215,14 @@ public:
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the start of a selection.
     /// </returns>
-  ACDBCORE2D_PORT virtual AcDbTextEditorLocation* startOfText() override;
+  ACDBCORE2D_PORT AcDbTextEditorLocation* startOfText() override;
     ///<summary> 
     /// Gets the location of the end of a selection.
     ///</summary>
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the end of a selection.
     /// </returns>
-  ACDBCORE2D_PORT virtual AcDbTextEditorLocation* endOfText() override;
+  ACDBCORE2D_PORT AcDbTextEditorLocation* endOfText() override;
     ///<summary> 
     /// Minimum allowable  line spacing factor.
     ///</summary>
@@ -1340,14 +1340,14 @@ public:
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the start of a column.
     /// </returns>
-  ACDBCORE2D_PORT virtual AcDbTextEditorLocation* startOfText() override;
+  ACDBCORE2D_PORT AcDbTextEditorLocation* startOfText() override;
     ///<summary> 
     /// Gets the end location for the column.
     ///</summary>
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the end of a column.
     /// </returns>
-  ACDBCORE2D_PORT virtual AcDbTextEditorLocation* endOfText() override;
+  ACDBCORE2D_PORT AcDbTextEditorLocation* endOfText() override;
 private:
   AcDbImpTextEditorColumn* m_pImp;
   friend class AcDbTextEditorServices;
@@ -2265,14 +2265,14 @@ public:
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the start of the text editor.
     /// </returns>
-  ACDBCORE2D_PORT virtual AcDbTextEditorLocation* startOfText() override;
+  ACDBCORE2D_PORT AcDbTextEditorLocation* startOfText() override;
     ///<summary> 
     /// Gets the end location for the whole text editor.
     ///</summary>
     /// <returns>
     /// Returns an AcDbTextEditorLocation object for the end of the text editor.
     /// </returns>
-  ACDBCORE2D_PORT virtual AcDbTextEditorLocation* endOfText() override;
+  ACDBCORE2D_PORT AcDbTextEditorLocation* endOfText() override;
 protected:
   ACDBCORE2D_PORT AcDbTextEditor()
     : m_pImp(NULL)

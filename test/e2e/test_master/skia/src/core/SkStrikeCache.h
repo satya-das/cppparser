@@ -34,7 +34,7 @@ class SkStrikeCache : public SkStrikeForGPUCacheInterface
   class Node;
 public:
   SkStrikeCache();
-  ~SkStrikeCache();
+  virtual ~SkStrikeCache();
   class ExclusiveStrikePtr
   {
   public:

@@ -121,11 +121,11 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus setUsingDefaultTextPosition(bool);
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
-  virtual Adesk::Boolean isPlanar() const override
+  Adesk::Boolean isPlanar() const override
   {
     return true;
   }
-  virtual Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
+  Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
   double elevation() const;
   Acad::ErrorStatus setElevation(double);
     /// <summary>
@@ -160,8 +160,8 @@ public:
     // reactor's base class method.
     //
   virtual void erased(AcDbObject* dbObj, Adesk::Boolean bErasing);
-  virtual void objectClosed(const AcDbObjectId dbObj) override;
-  virtual void dragStatus(const AcDb::DragStat status) override;
+  void objectClosed(const AcDbObjectId dbObj) override;
+  void dragStatus(const AcDb::DragStat status) override;
   double horizontalRotation() const;
   Acad::ErrorStatus setHorizontalRotation(double newVal);
     // Functions for accessing the Dimension's defining block
@@ -426,7 +426,7 @@ public:
 protected:
     // Get corresponding COM wrapper class ID
     //
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbAlignedDimension : public AcDbDimension
 {
@@ -451,7 +451,7 @@ public:
 protected:
     // Get corresponding COM wrapper class ID
     //
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbRotatedDimension : public AcDbDimension
 {
@@ -478,7 +478,7 @@ public:
 protected:
     // Get corresponding COM wrapper class ID
     //
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDb3PointAngularDimension : public AcDbDimension
 {
@@ -501,7 +501,7 @@ public:
 protected:
     // Get corresponding COM wrapper class ID
     //
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDb2LineAngularDimension : public AcDbDimension
 {
@@ -526,7 +526,7 @@ public:
 protected:
     // Get corresponding COM wrapper class ID
     //
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbRadialDimension : public AcDbDimension
 {
@@ -549,7 +549,7 @@ public:
 protected:
     // Get corresponding COM wrapper class ID
     //
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbDiametricDimension : public AcDbDimension
 {
@@ -572,7 +572,7 @@ public:
 protected:
     // Get corresponding COM wrapper class ID
     //
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // Arc length dimension class
 class AcDbArcDimension : public AcDbDimension
@@ -636,7 +636,7 @@ public:
   Acad::ErrorStatus setArcSymbolType(const int symbol);
 protected:
     // Get corresponding COM wrapper class ID
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbRadialDimensionLarge : public AcDbDimension
 {
@@ -684,7 +684,7 @@ public:
   Acad::ErrorStatus setExtArcEndAngle(double newAngle);
 protected:
     // Get corresponding COM wrapper class ID
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 /// <property name="versionspecific" value="=18.1.0.0" />
 /// 

@@ -125,7 +125,7 @@ public:
   Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
   Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
   Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
-  virtual Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler* undoFiler, AcRxClass* classObj) override;
+  Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler* undoFiler, AcRxClass* classObj) override;
     // AcDbEntity protocol
   Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds) const override;
   Acad::ErrorStatus subGetGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const override;
@@ -175,10 +175,10 @@ protected:
   Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
   Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWorldDraw) override;
   void subViewportDraw(AcGiViewportDraw* pViewportDraw) override;
-  virtual void subList() const override;
+  void subList() const override;
     // AcDbEntity protocol
   Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 private:
   GeoMapImp* m_pImp;
   friend class AcDbGeoMapSystemInternals;

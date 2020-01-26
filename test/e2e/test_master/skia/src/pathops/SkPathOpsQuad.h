@@ -148,7 +148,7 @@ public:
     : fQuad(q)
   {
   }
-  ~SkTQuad()
+  virtual ~SkTQuad()
   {
   }
   const SkDPoint& operator[](int n) const override

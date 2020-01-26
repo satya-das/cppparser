@@ -56,10 +56,10 @@ public:
   static AcDbRasterVariables* create();
   AcDbRasterVariables();
   virtual ~AcDbRasterVariables();
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
   virtual FrameSettings imageFrame() const;
   virtual Acad::ErrorStatus setImageFrame(FrameSettings value);
   virtual ImageQuality imageQuality() const;

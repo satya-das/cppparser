@@ -65,7 +65,7 @@ public:
         kNoPretty_Flag = 0x01,
     };
   SkXMLStreamWriter(SkWStream*, uint32_t flags = 0);
-  ~SkXMLStreamWriter();
+  virtual ~SkXMLStreamWriter();
   void writeHeader() override;
 protected:
   void onStartElementLen(const char elem[], size_t length) override;
@@ -82,7 +82,7 @@ class SkXMLParserWriter : public SkXMLWriter
 {
 public:
   SkXMLParserWriter(SkXMLParser*);
-  ~SkXMLParserWriter();
+  virtual ~SkXMLParserWriter();
 protected:
   void onStartElementLen(const char elem[], size_t length) override;
   void onEndElement() override;

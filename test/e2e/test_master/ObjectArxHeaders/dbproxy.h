@@ -25,7 +25,7 @@ public:
   virtual const ACHAR* originalDxfName() const = 0;
   virtual const ACHAR* applicationDescription() const = 0;
   virtual Acad::ErrorStatus getReferences(AcDbObjectIdArray&, AcDbIntArray&) const = 0;
-  virtual AcDb::DuplicateRecordCloning mergeStyle() const = 0;
+  AcDb::DuplicateRecordCloning mergeStyle() const = 0;
   enum {kNoOperation          = 0,
           kEraseAllowed         = 0x01,
           kCloningAllowed       = 0x80,

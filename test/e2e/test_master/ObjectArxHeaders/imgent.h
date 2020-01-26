@@ -55,22 +55,22 @@ public:
   RasterImageImp* setPtrImp(RasterImageImp* pImp);
     //////////////////// AcDbObject overrides ////////////////////
     //
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
-  virtual Acad::ErrorStatus subSwapIdWith(AcDbObjectId otherId, Adesk::Boolean swapXdata = Adesk::kFalse, Adesk::Boolean swapExtDict = Adesk::kFalse) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  Acad::ErrorStatus subSwapIdWith(AcDbObjectId otherId, Adesk::Boolean swapXdata = Adesk::kFalse, Adesk::Boolean swapExtDict = Adesk::kFalse) override;
     //////////////////// AcDbEntity overrides ////////////////////
     // 
-  virtual void saveAs(AcGiWorldDraw* mode, AcDb::SaveType st) override;
-  virtual bool castShadows() const override;
-  virtual void setCastShadows(bool newVal) override;
-  virtual bool receiveShadows() const override;
-  virtual void setReceiveShadows(bool newVal) override;
+  void saveAs(AcGiWorldDraw* mode, AcDb::SaveType st) override;
+  bool castShadows() const override;
+  void setCastShadows(bool newVal) override;
+  bool receiveShadows() const override;
+  void setReceiveShadows(bool newVal) override;
     ////////////////////// AcDbImage specific protocol ////////////////////
     //
-  virtual AcGiSentScanLines* getScanLines(const AcGiRequestScanLines& req) const override;
-  virtual Adesk::Boolean freeScanLines(AcGiSentScanLines* pSSL) const override;
+  AcGiSentScanLines* getScanLines(const AcGiRequestScanLines& req) const override;
+  Adesk::Boolean freeScanLines(AcGiSentScanLines* pSSL) const override;
     ////////////////////// AcDbRasterImage specific protocol ////////////////////
     //
   virtual Acad::ErrorStatus setImageDefId(AcDbObjectId imageId);
@@ -151,27 +151,27 @@ public:
   bool isShownClipped() const;
   void setShowClipped(bool value);
 protected:
-  virtual Acad::ErrorStatus subExplode(AcDbVoidPtrArray& entitySet) const override;
-  virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* mode) override;
-  virtual void subViewportDraw(AcGiViewportDraw* mode) override;
-  virtual void subList() const override;
-  virtual Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds) const override;
-  virtual Acad::ErrorStatus subGetGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const override;
-  virtual Acad::ErrorStatus subGetGripPoints(AcGePoint3dArray& gripPoints, AcDbIntArray& osnapModes, AcDbIntArray& geomIds) const override;
-  virtual void subGripStatus(const AcDb::GripStat status) override;
-  virtual Acad::ErrorStatus subMoveGripPointsAt(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags) override;
-  virtual Acad::ErrorStatus subMoveGripPointsAt(const AcDbIntArray& indices, const AcGeVector3d& offset) override;
-  virtual Acad::ErrorStatus subGetStretchPoints(AcGePoint3dArray& stretchPoints) const override;
-  virtual Acad::ErrorStatus subMoveStretchPointsAt(const AcDbIntArray& indices, const AcGeVector3d& offset) override;
-  virtual Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
-  virtual Acad::ErrorStatus subGetTransformedCopy(const AcGeMatrix3d& xform, AcDbEntity*& ent) const override;
-  virtual Acad::ErrorStatus subGetSubentPathsAtGsMarker(AcDb::SubentType type, Adesk::GsMarker gsMark, const AcGePoint3d& pickPoint, const AcGeMatrix3d& viewXform, int& numPaths, AcDbFullSubentPath*& subentPaths, int numInserts = 0, AcDbObjectId* entAndInsertStack = 0) const override;
-  virtual Acad::ErrorStatus subGetGsMarkersAtSubentPath(const AcDbFullSubentPath& subPath, AcArray<Adesk::GsMarker>& gsMarkers) const override;
-  virtual AcDbEntity* subSubentPtr(const AcDbFullSubentPath& id) const override;
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
-  virtual Acad::ErrorStatus subIntersectWith(const AcDbEntity* ent, AcDb::Intersect intType, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0) const override;
-  virtual Acad::ErrorStatus subIntersectWith(const AcDbEntity* ent, AcDb::Intersect intType, const AcGePlane& projPlane, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0) const override;
-  virtual Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
+  Acad::ErrorStatus subExplode(AcDbVoidPtrArray& entitySet) const override;
+  Adesk::Boolean subWorldDraw(AcGiWorldDraw* mode) override;
+  void subViewportDraw(AcGiViewportDraw* mode) override;
+  void subList() const override;
+  Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds) const override;
+  Acad::ErrorStatus subGetGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const override;
+  Acad::ErrorStatus subGetGripPoints(AcGePoint3dArray& gripPoints, AcDbIntArray& osnapModes, AcDbIntArray& geomIds) const override;
+  void subGripStatus(const AcDb::GripStat status) override;
+  Acad::ErrorStatus subMoveGripPointsAt(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags) override;
+  Acad::ErrorStatus subMoveGripPointsAt(const AcDbIntArray& indices, const AcGeVector3d& offset) override;
+  Acad::ErrorStatus subGetStretchPoints(AcGePoint3dArray& stretchPoints) const override;
+  Acad::ErrorStatus subMoveStretchPointsAt(const AcDbIntArray& indices, const AcGeVector3d& offset) override;
+  Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
+  Acad::ErrorStatus subGetTransformedCopy(const AcGeMatrix3d& xform, AcDbEntity*& ent) const override;
+  Acad::ErrorStatus subGetSubentPathsAtGsMarker(AcDb::SubentType type, Adesk::GsMarker gsMark, const AcGePoint3d& pickPoint, const AcGeMatrix3d& viewXform, int& numPaths, AcDbFullSubentPath*& subentPaths, int numInserts = 0, AcDbObjectId* entAndInsertStack = 0) const override;
+  Acad::ErrorStatus subGetGsMarkersAtSubentPath(const AcDbFullSubentPath& subPath, AcArray<Adesk::GsMarker>& gsMarkers) const override;
+  AcDbEntity* subSubentPtr(const AcDbFullSubentPath& id) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subIntersectWith(const AcDbEntity* ent, AcDb::Intersect intType, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0) const override;
+  Acad::ErrorStatus subIntersectWith(const AcDbEntity* ent, AcDb::Intersect intType, const AcGePlane& projPlane, AcGePoint3dArray& points, Adesk::GsMarker thisGsMarker = 0, Adesk::GsMarker otherGsMarker = 0) const override;
+  Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
   friend class AcDbImpRasterImage;
   void baseList() const;
 private:

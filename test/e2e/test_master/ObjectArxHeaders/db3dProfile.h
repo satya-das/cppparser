@@ -87,7 +87,7 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* src) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* src) override;
     /// <summary> 
     /// Returns the profile entity.  If the profile is for an edge or set of
     /// edges then the returned entity will be an AcDbCurve of the edge or edges.
@@ -328,7 +328,7 @@ public:
     /// <returns>
     /// eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* src) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* src) override;
     /// <summary> 
     /// Return the continuity for the profile: 0, 1, or 2, which
     /// corresponds to a continuity of G0, G1, or G2.  By default, the

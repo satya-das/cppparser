@@ -13,7 +13,7 @@ class GrMtlRenderTarget : public GrRenderTarget
 {
 public:
   static sk_sp<GrMtlRenderTarget> MakeWrappedRenderTarget(GrMtlGpu*, const GrSurfaceDesc&, int sampleCnt, id<MTLTexture>);
-  ~GrMtlRenderTarget();
+  virtual ~GrMtlRenderTarget();
   bool canAttemptStencilAttachment() const override
   {
     return true;

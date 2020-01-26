@@ -28,7 +28,7 @@ class GrVkRenderTarget : public GrRenderTarget, public GrVkImage
 public:
   static sk_sp<GrVkRenderTarget> MakeWrappedRenderTarget(GrVkGpu*, const GrSurfaceDesc&, int sampleCnt, const GrVkImageInfo&, sk_sp<GrVkImageLayout>);
   static sk_sp<GrVkRenderTarget> MakeSecondaryCBRenderTarget(GrVkGpu*, const GrSurfaceDesc&, const GrVkDrawableInfo& vkInfo);
-  ~GrVkRenderTarget();
+  virtual ~GrVkRenderTarget();
   GrBackendFormat backendFormat() const override
   {
     return this->getBackendFormat();

@@ -40,7 +40,7 @@ public:
     // For testing use only
   SkTextBlobCacheDiffCanvas(int width, int height, const SkSurfaceProps& props, SkStrikeServer* strikeServer, bool DFTSupport = true);
   SK_API SkTextBlobCacheDiffCanvas(int width, int height, const SkSurfaceProps& props, SkStrikeServer* strikeServer, sk_sp<SkColorSpace> colorSpace, bool DFTSupport);
-  SK_API ~SkTextBlobCacheDiffCanvas();
+  SK_API virtual ~SkTextBlobCacheDiffCanvas();
 protected:
   SkCanvas::SaveLayerStrategy getSaveLayerStrategy(const SaveLayerRec& rec) override;
   bool onDoSaveBehind(const SkRect*) override;
@@ -78,7 +78,7 @@ public:
     }
   };
   SK_API explicit SkStrikeServer(DiscardableHandleManager* discardableHandleManager);
-  SK_API ~SkStrikeServer();
+  SK_API virtual ~SkStrikeServer();
     // Serializes the typeface to be transmitted using this server.
   SK_API sk_sp<SkData> serializeTypeface(SkTypeface*);
     // Serializes the strike data captured using a SkTextBlobCacheDiffCanvas. Any
@@ -140,7 +140,7 @@ public:
   class DiscardableHandleManager : public SkRefCnt
   {
   public:
-    ~DiscardableHandleManager();
+    virtual ~DiscardableHandleManager();
         // Returns true if the handle was unlocked and can be safely deleted. Once
         // successful, subsequent attempts to delete the same handle are invalid.
     virtual bool deleteHandle(SkDiscardableHandleId) = 0;

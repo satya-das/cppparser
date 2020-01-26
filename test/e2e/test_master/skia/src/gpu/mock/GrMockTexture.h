@@ -30,7 +30,7 @@ public:
     }
     this->registerWithCacheWrapped(cacheable);
   }
-  ~GrMockTexture()
+  virtual ~GrMockTexture()
   {
   }
   GrBackendTexture getBackendTexture() const override

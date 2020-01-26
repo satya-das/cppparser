@@ -108,6 +108,14 @@ void CppProgram::loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeN
       childNode.parent       = typeNode;
       cppObjToTypeNode_[mem] = &childNode;
     }
+    else if (isUsingDecl(mem))
+    {
+      auto*            usingDecl = static_cast<const CppUsingDecl*>(mem);
+      CppTypeTreeNode& childNode = typeNode->children[usingDecl->name_];
+      childNode.cppObjSet.insert(mem);
+      childNode.parent       = typeNode;
+      cppObjToTypeNode_[mem] = &childNode;
+    }
     else if (isFunctionPtr(mem))
     {
       CppTypeTreeNode& childNode = typeNode->children[((CppFunctionPointer*) mem)->name_];

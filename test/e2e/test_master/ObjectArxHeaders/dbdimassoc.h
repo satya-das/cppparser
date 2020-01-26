@@ -95,12 +95,12 @@ public:
   Acad::ErrorStatus post(AcDbObjectId dimId, AcDbObjectId& dimAssocId, bool isActive = true);
   Acad::ErrorStatus getDimAssocGeomIds(AcDbObjectIdArray& geomIds) const;
   bool isAllGeomErased() const;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
-  virtual void modifiedGraphics(const AcDbEntity* pObj) override;
-  virtual Acad::ErrorStatus swapReferences(const AcDbIdMapping& idMap) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
+  void modifiedGraphics(const AcDbEntity* pObj) override;
+  Acad::ErrorStatus swapReferences(const AcDbIdMapping& idMap) override;
   Acad::ErrorStatus updateFillet(const AcDbObjectIdArray& ids);
   Acad::ErrorStatus updateAssociativity(const AcDbObjectIdArray& ids);
   Acad::ErrorStatus updateXrefSubentPath();

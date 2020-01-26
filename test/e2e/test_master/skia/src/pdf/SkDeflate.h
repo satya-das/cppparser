@@ -29,7 +29,7 @@ public:
      */
   SkDeflateWStream(SkWStream*, int compressionLevel = -1, bool gzip = false);
     /** The destructor calls finalize(). */
-  ~SkDeflateWStream();
+  virtual ~SkDeflateWStream();
     /** Write the end of the compressed stream.  All subsequent calls to
         write() will fail. Subsequent calls to finalize() do nothing. */
   void finalize();

@@ -147,7 +147,7 @@ public:
     : fConic(c)
   {
   }
-  ~SkTConic()
+  virtual ~SkTConic()
   {
   }
   const SkDPoint& operator[](int n) const override

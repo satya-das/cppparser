@@ -22,7 +22,7 @@ public:
     bool fPacked;
   };
   static GrVkStencilAttachment* Create(GrVkGpu* gpu, int width, int height, int sampleCnt, const Format& format);
-  ~GrVkStencilAttachment();
+  virtual ~GrVkStencilAttachment();
   const GrVkResource* imageResource() const
   {
     return this->resource();

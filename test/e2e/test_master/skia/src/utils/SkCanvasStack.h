@@ -19,7 +19,7 @@ class SkCanvasStack : public SkNWayCanvas
 {
 public:
   SkCanvasStack(int width, int height);
-  ~SkCanvasStack();
+  virtual ~SkCanvasStack();
   void pushCanvas(std::unique_ptr<SkCanvas>, const SkIPoint& origin);
   void removeAll() override;
     /*

@@ -94,7 +94,7 @@ public:
     : fData(skstd::make_unique<T>(std::forward<Args>(args)))
   {
   }
-  ~GrTDeferredProxyUploader()
+  virtual ~GrTDeferredProxyUploader()
   {
         // We need to wait here, so that we don't free fData before the worker thread is done
         // with it. (This happens if the proxy is deleted early due to a full clear or failure

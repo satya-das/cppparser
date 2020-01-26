@@ -29,7 +29,7 @@ protected:
   void drawDevice(SkBaseDevice*, int x, int y, const SkPaint&) override;
 private:
   SkSVGDevice(const SkISize& size, std::unique_ptr<SkXMLWriter>, uint32_t);
-  ~SkSVGDevice();
+  virtual ~SkSVGDevice();
   void drawGlyphRunAsText(const SkGlyphRun&, const SkPoint&, const SkPaint&);
   void drawGlyphRunAsPath(const SkGlyphRun&, const SkPoint&, const SkPaint&);
   struct MxCp;

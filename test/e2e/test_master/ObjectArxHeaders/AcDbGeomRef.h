@@ -83,9 +83,9 @@ public:
     ///
   explicit AcDbSubentRef(const AcDbCompoundObjectId&, const AcDbSubentId& = kNullSubentId);
   AcDbSubentRef& operator =(const AcDbSubentRef&);
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject*) override;
-  virtual void reset() override;
-  virtual bool isEmpty() const override
+  Acad::ErrorStatus copyFrom(const AcRxObject*) override;
+  void reset() override;
+  bool isEmpty() const override
   {
     return mEntityId.isEmpty();
   }
@@ -106,12 +106,12 @@ public:
     /// Creates an AcDbEntity from the subentity of the entity.
     /// </summary>
     ///
-  virtual AcDbEntity* createEntity() const override;
+  AcDbEntity* createEntity() const override;
     /// <summary>
     /// No cached constant geoemtry held in AcDbSubentRef base class.
     /// </summary>
     ///
-  virtual Acad::ErrorStatus evaluateAndCacheGeometry() override
+  Acad::ErrorStatus evaluateAndCacheGeometry() override
   {
     return Acad::eOk;
   }
@@ -163,10 +163,10 @@ public:
     ///
   explicit AcDbFaceRef(const AcDbCompoundObjectId&, const AcDbSubentId& = kNullSubentId, class BODY* = NULL);
   AcDbFaceRef& operator =(const AcDbFaceRef&);
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject*) override;
-  virtual void reset() override;
-  virtual bool isValid() const override;
-  virtual bool isEmpty() const override
+  Acad::ErrorStatus copyFrom(const AcRxObject*) override;
+  void reset() override;
+  bool isValid() const override;
+  bool isEmpty() const override
   {
     return __super::isEmpty() && mpAsmBody == NULL;
   }
@@ -186,12 +186,12 @@ public:
     /// the entity after it is no more needed. 
     /// </summary>
     ///
-  virtual AcDbEntity* createEntity() const override;
+  AcDbEntity* createEntity() const override;
     /// <summary>
     /// For now this method does nothing.
     /// </summary>
     ///
-  virtual Acad::ErrorStatus evaluateAndCacheGeometry() override
+  Acad::ErrorStatus evaluateAndCacheGeometry() override
   {
     return Acad::eOk;
   }
@@ -245,10 +245,10 @@ public:
     ///
   explicit AcDbEdgeRef(const AcGeCurve3d* pGeCurve);
   AcDbEdgeRef& operator =(const AcDbEdgeRef&);
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject*) override;
-  virtual void reset() override;
-  virtual bool isValid() const override;
-  virtual bool isEmpty() const override
+  Acad::ErrorStatus copyFrom(const AcRxObject*) override;
+  void reset() override;
+  bool isValid() const override;
+  bool isEmpty() const override
   {
     return __super::isEmpty() && mpCurve == NULL;
   }
@@ -291,13 +291,13 @@ public:
     /// the entity after it is no more needed. 
     /// </summary>
     ///
-  virtual AcDbEntity* createEntity() const override;
+  AcDbEntity* createEntity() const override;
     /// <summary> 
     /// Calls evaluateCurve() and replaces the current constant AcGeCurve3d* with the
     /// newly evaluated curve.
     /// </summary>
     ///
-  virtual Acad::ErrorStatus evaluateAndCacheGeometry() override;
+  Acad::ErrorStatus evaluateAndCacheGeometry() override;
 private:
     // Deletes the previously stored AcGeCurve3d and sets the constant AcGeCurve3d 
     // in the AcDbEdgeRef to be a copy of the provided curve. It is allowed to 
@@ -381,15 +381,15 @@ public:
     ///
   explicit AcDbVertexRef(ImpliedType, const AcDbEdgeRef& edgeRef, int controlOrFitPointIndex = 0, const AcGePoint3d& = AcGePoint3d::kOrigin);
   AcDbVertexRef& operator =(const AcDbVertexRef&);
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject*) override;
-  virtual void reset() override;
-  virtual bool isValid() const override;
+  Acad::ErrorStatus copyFrom(const AcRxObject*) override;
+  void reset() override;
+  bool isValid() const override;
     /// <summary> 
     /// If referencedRef() is not NULL, returns its AcDbCompoundObjectId, otherwise 
     /// returns AcDbCompoundObjectId from the base-class AcDbSubentRef.
     /// </summary>
     ///
-  virtual const AcDbCompoundObjectId& entity() const override;
+  const AcDbCompoundObjectId& entity() const override;
     /// <summary> 
     /// If referencedRef() is not NULL, returns kNussSubentId, otherwise returns 
     /// AcDbSubentId from the base-class AcDbSubentRef.
@@ -400,7 +400,7 @@ public:
     /// simple AcDbSubentId for it.
     /// </summary>
     ///
-  virtual AcDbSubentId subentId() const override;
+  AcDbSubentId subentId() const override;
     /// <summary> 
     /// The following are for implied vertex refs (see more comments comments 
     /// at ImpliedType enum). The returned referenced AcDbGeomRef is currently 
@@ -442,7 +442,7 @@ public:
     /// newly evaluated point.
     /// </summary>
     ///
-  virtual Acad::ErrorStatus evaluateAndCacheGeometry() override;
+  Acad::ErrorStatus evaluateAndCacheGeometry() override;
 private:
     // Deletes the previously stored mpReferencedRef and sets it to be a copy
     // of the provided AcDbGeomRef. It is allowed to pass NULL for the AcDbGeomRef
@@ -488,10 +488,10 @@ public:
     /// </param>
   AcDbPathRef(const AcDbFullSubentPathArray& edgeSubentPathArr, const AcDbFullSubentPathArray& faceSubentPathArr);
   virtual ~AcDbPathRef();
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject*) override;
-  virtual void reset() override;
-  virtual bool isValid() const override;
-  virtual bool isEmpty() const override;
+  Acad::ErrorStatus copyFrom(const AcRxObject*) override;
+  void reset() override;
+  bool isValid() const override;
+  bool isEmpty() const override;
     /// <summary> Sets the AcDbPathRef from a sequence of AcDbEdgeRefs. </summary>
     ///
   void setEdgeRefs(const AcArray<AcDbEdgeRef>& edges);
@@ -516,12 +516,12 @@ public:
     /// </summary>
     ///
   bool isReferencePath();
-  virtual AcDbEntity* createEntity() const override;
+  AcDbEntity* createEntity() const override;
     /// <summary> 
     /// Calls evaluateAndCacheGeometry() on all the owned AcDbEdgeRefs.
     /// </summary>
     ///
-  virtual Acad::ErrorStatus evaluateAndCacheGeometry() override;
+  Acad::ErrorStatus evaluateAndCacheGeometry() override;
 private:
   AcArray<AcDbEdgeRef> mEdgeRefs;
 };
@@ -543,10 +543,10 @@ public:
   explicit AcDbVectorRef(const AcGeVector3d&);
   virtual ~AcDbVectorRef();
   AcDbVectorRef& operator =(const AcDbVectorRef&);
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject*) override;
-  virtual void reset() override;
-  virtual bool isValid() const override;
-  virtual bool isEmpty() const override;
+  Acad::ErrorStatus copyFrom(const AcRxObject*) override;
+  void reset() override;
+  bool isValid() const override;
+  bool isEmpty() const override;
   const AcGeVector3d vector() const
   {
     return mVector;
@@ -556,12 +556,12 @@ public:
     /// TBD
     /// </summary>
     ///
-  virtual AcDbEntity* createEntity() const override;
+  AcDbEntity* createEntity() const override;
     /// <summary> 
     /// TBD
     /// </summary>
     ///
-  virtual Acad::ErrorStatus evaluateAndCacheGeometry() override;
+  Acad::ErrorStatus evaluateAndCacheGeometry() override;
 private:
   AcGeVector3d mVector;
 };
@@ -585,10 +585,10 @@ public:
   explicit AcDbCoordSystemRef(const AcArray<AcDbSubentRef*>&);
   virtual ~AcDbCoordSystemRef();
   AcDbCoordSystemRef& operator =(const AcDbCoordSystemRef&);
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject*) override;
-  virtual void reset() override;
-  virtual bool isValid() const override;
-  virtual bool isEmpty() const override;
+  Acad::ErrorStatus copyFrom(const AcRxObject*) override;
+  void reset() override;
+  bool isValid() const override;
+  bool isEmpty() const override;
   const AcGeMatrix3d& coordSystem() const
   {
     return mCoordSystem;
@@ -608,7 +608,7 @@ public:
     /// There is no AcDbEntity created from AcDbCoordSystemRef. 
     /// </summary>
     ///
-  virtual AcDbEntity* createEntity() const override
+  AcDbEntity* createEntity() const override
   {
     return NULL;
   }
@@ -617,7 +617,7 @@ public:
     /// the cached coordinate system.
     /// </summary>
     ///
-  virtual Acad::ErrorStatus evaluateAndCacheGeometry() override;
+  Acad::ErrorStatus evaluateAndCacheGeometry() override;
 private:
   AcGeMatrix3d mCoordSystem;
   AcDbCompoundObjectId mEntityId;

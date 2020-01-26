@@ -56,7 +56,7 @@ public:
   {
     return sk_make_sp<SkPDFDevice>(this->size(), fDocument);
   }
-  ~SkPDFDevice();
+  virtual ~SkPDFDevice();
     /**
      *  These are called inside the per-device-layer loop for each draw call.
      *  When these are called, we have already applied any saveLayer

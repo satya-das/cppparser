@@ -189,7 +189,7 @@ public:
   /// </summary>
   /// <returns> AcGePoint3d. </returns>
   ///
-  virtual AcGePoint3d point() const override;
+  AcGePoint3d point() const override;
 };
 /// <summary>
 /// This class represents a constrained curve node in the owning AcDbAssoc2dConstraintGroup.

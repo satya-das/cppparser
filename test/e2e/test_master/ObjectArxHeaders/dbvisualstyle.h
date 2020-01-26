@@ -361,7 +361,7 @@ public:
     /// Returns Acad::ErrorStatus value of Acad::eOk if successful,
     /// otherwise an error status return indicating type of failure.
     /// </returns>
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary>
     /// Files out the visual style properties to a .dwg format file.
     /// </summary>
@@ -372,7 +372,7 @@ public:
     /// Returns Acad::ErrorStatus value of Acad::eOk if successful,
     /// otherwise an error status return indicating type of failure.
     /// </returns>
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary>
     /// Files in the visual style properties from a .dxf format file.
     /// </summary>
@@ -383,7 +383,7 @@ public:
     /// Returns Acad::ErrorStatus value of Acad::eOk if successful,
     /// otherwise an error status return indicating type of failure.
     /// </returns>
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     /// <summary>
     /// Files out the visual style properties to a .dxf format file.
     /// </summary>
@@ -394,7 +394,7 @@ public:
     /// Returns Acad::ErrorStatus value of Acad::eOk if successful,
     /// otherwise an error status return indicating type of failure.
     /// </returns>
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     // AcGiDrawable protocol
     //
     /// <summary>
@@ -403,7 +403,7 @@ public:
     /// <returns>
     /// Returns AcGiDrawable* pointer to this object.
     /// </returns>
-  virtual AcGiDrawable* drawable(void) override;
+  AcGiDrawable* drawable(void) override;
     /// <summary>
     /// Reports whether this visual style is for internal use only
     /// </summary>
@@ -462,7 +462,7 @@ public:
     /// Returns Acad::ErrorStatus Acad::eOk for success, otherwise an error
     /// return value.
     /// </returns>
-  virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
+  Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
   ACDBCORE2D_PORT Acad::ErrorStatus name(AcString& value) const;
 };
 #pragma  pack (pop)

@@ -95,11 +95,11 @@ public:
   Acad::ErrorStatus setElevation(double elevation);
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d& normal);
-  virtual Adesk::Boolean isPlanar() const override
+  Adesk::Boolean isPlanar() const override
   {
     return true;
   }
-  virtual Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
+  Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
     // Hatch Background Color
     //
   AcCmColor backgroundColor() const;
@@ -179,21 +179,21 @@ public:
   Acad::ErrorStatus getHatchLinesData(AcGePoint2dArray& startPts, AcGePoint2dArray& endPts) const;
     // Reactor Methods
     //
-  virtual void modifiedGraphics(const AcDbEntity* pObj) override;
+  void modifiedGraphics(const AcDbEntity* pObj) override;
     // Overridden AcDbObject Methods
     //
-  virtual Acad::ErrorStatus subSwapIdWith(AcDbObjectId otherId, Adesk::Boolean swapXdata = false, Adesk::Boolean swapExtDict = false) override;
+  Acad::ErrorStatus subSwapIdWith(AcDbObjectId otherId, Adesk::Boolean swapXdata = false, Adesk::Boolean swapExtDict = false) override;
     // Used in conjunction with swapIdWith to swap reference definitions
     // as well.
     //
-  virtual Acad::ErrorStatus swapReferences(const AcDbIdMapping& idMap) override;
+  Acad::ErrorStatus swapReferences(const AcDbIdMapping& idMap) override;
   Acad::ErrorStatus getArea(double& a) const;
   Acad::ErrorStatus setOriginPoint(const AcGePoint2d& pt);
   AcGePoint2d originPoint() const;
   AcDbRegion* getRegionArea() const;
   void removeHatchLines();
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #  pragma  pack(pop)
 #endif

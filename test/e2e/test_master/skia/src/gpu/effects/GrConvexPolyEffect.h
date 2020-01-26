@@ -51,7 +51,7 @@ public:
      * Creates an effect that fills inside the rect with AA edges..
      */
   static std::unique_ptr<GrFragmentProcessor> Make(GrClipEdgeType, const SkRect&);
-  ~GrConvexPolyEffect();
+  virtual ~GrConvexPolyEffect();
   const char* name() const override
   {
     return "ConvexPoly";

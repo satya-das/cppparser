@@ -137,7 +137,7 @@ public:
     ///<summary>returns true if this is a DWFx file</summary>
   Adesk::Boolean isDWFx(void) const;
 private:
-  virtual const AcDbUnderlayHost* getUnderlayHost() const override;
+  const AcDbUnderlayHost* getUnderlayHost() const override;
 };
 /// <summary>
 /// Represents DGN underlays in the drawing. Underlays are similar to raster images
@@ -209,7 +209,7 @@ public:
     /// </param>
   void setShowRasterRef(bool bShow);
 private:
-  virtual const AcDbUnderlayHost* getUnderlayHost() const override;
+  const AcDbUnderlayHost* getUnderlayHost() const override;
 };
 class AcDbPdfDefinition : public AcDbUnderlayDefinition
 {
@@ -220,7 +220,7 @@ public:
     ///<summary>Destructor.</summary>
   ACDBCORE2D_PORT virtual ~AcDbPdfDefinition();
 private:
-  virtual const AcDbUnderlayHost* getUnderlayHost() const override;
+  const AcDbUnderlayHost* getUnderlayHost() const override;
 };
 #  pragma  pack (pop)
 #endif

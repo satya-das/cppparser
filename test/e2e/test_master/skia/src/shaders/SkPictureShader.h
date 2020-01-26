@@ -21,7 +21,7 @@ class SkPicture;
 class SkPictureShader : public SkShaderBase
 {
 public:
-  ~SkPictureShader();
+  virtual ~SkPictureShader();
   static sk_sp<SkShader> Make(sk_sp<SkPicture>, SkTileMode, SkTileMode, const SkMatrix*, const SkRect*);
 #  if  SK_SUPPORT_GPU
   std::unique_ptr<GrFragmentProcessor> asFragmentProcessor(const GrFPArgs&) const override;

@@ -14,7 +14,7 @@ public:
     : GrRenderTask(nullptr)
   {
   }
-  ~GrTextureResolveRenderTask();
+  virtual ~GrTextureResolveRenderTask();
   void addProxy(sk_sp<GrSurfaceProxy>, GrSurfaceProxy::ResolveFlags, const GrCaps&);
 private:
   void onPrepare(GrOpFlushState*) override

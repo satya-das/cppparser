@@ -535,19 +535,19 @@ void CppWriter::emitFunction(const CppFunction* funcObj,
     stm << indentation;
   if (!funcObj->decor1().empty())
     stm << funcObj->decor1() << ' ';
-  if (funcObj->attr() & kStatic)
+  if (funcObj->hasAttr(kStatic))
     stm << "static ";
-  else if (funcObj->attr() & kExtern)
+  else if (funcObj->hasAttr(kExtern))
     stm << "extern ";
-  else if (funcObj->attr() & kVirtual)
+  else if (funcObj->hasAttr(kVirtual) && !(funcObj->hasAttr(kOverride) || funcObj->hasAttr(kFinal)))
     stm << "virtual ";
-  else if (funcObj->attr() & kInline)
+  else if (funcObj->hasAttr(kInline))
     stm << "inline ";
-  else if (funcObj->attr() & kExplicit)
+  else if (funcObj->hasAttr(kExplicit))
     stm << "explicit ";
-  else if (funcObj->attr() & kFriend)
+  else if (funcObj->hasAttr(kFriend))
     stm << "friend ";
-  if (funcObj->attr() & kTrailingRet)
+  if (funcObj->hasAttr(kTrailingRet))
     stm << "auto";
   else
     emitVarType(funcObj->retType_.get(), stm);

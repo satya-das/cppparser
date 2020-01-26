@@ -18,7 +18,7 @@ class SkImage_GpuBase : public SkImage_Base
 {
 public:
   SkImage_GpuBase(sk_sp<GrContext>, int width, int height, uint32_t uniqueID, SkColorType, SkAlphaType, sk_sp<SkColorSpace>);
-  ~SkImage_GpuBase();
+  virtual ~SkImage_GpuBase();
   GrContext* context() const final
   {
     return fContext.get();

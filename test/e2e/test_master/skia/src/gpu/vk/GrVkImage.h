@@ -190,7 +190,7 @@ private:
       , fImageTiling(tiling)
     {
     }
-    ~Resource()
+    virtual ~Resource()
     {
       SkASSERT(!fReleaseHelper);
     }

@@ -91,16 +91,16 @@ public:
   virtual bool isSemiAssociativitySatisfiedOverride() const;
     /// <summary> Overridden implementation of the base class method. </summary>
     ///
-  virtual void evaluateOverride() override;
+  void evaluateOverride() override;
     /// <summary> Overridden implementation of the base class method. </summary>
     ///
-  virtual Acad::ErrorStatus getDependentActionsToEvaluateOverride(AcDbActionsToEvaluateCallback*) const override;
+  Acad::ErrorStatus getDependentActionsToEvaluateOverride(AcDbActionsToEvaluateCallback*) const override;
     /// <summary> Overridden implementation of the base class method. </summary>
     ///
-  virtual Acad::ErrorStatus addMoreObjectsToDeepCloneOverride(AcDbIdMapping&, AcDbObjectIdArray& additionalObjectsToClone) const override;
+  Acad::ErrorStatus addMoreObjectsToDeepCloneOverride(AcDbIdMapping&, AcDbObjectIdArray& additionalObjectsToClone) const override;
     /// <summary> Overridden implementation of the base class method. </summary>
     ///
-  virtual Acad::ErrorStatus dragStatusOverride(const AcDb::DragStat) override;
+  Acad::ErrorStatus dragStatusOverride(const AcDb::DragStat) override;
     /// <summary> 
     /// Finds all actions that affected the given topological subentity (face,
     /// edge, vertex) of the given ASM-based entity (AcDbSurface, AcDb3dSolid, 

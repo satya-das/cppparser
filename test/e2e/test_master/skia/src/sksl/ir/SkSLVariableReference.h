@@ -28,7 +28,7 @@ namespace SkSL
         kPointer_RefKind
     };
     VariableReference(int offset, const Variable& variable, RefKind refKind = kRead_RefKind);
-    ~VariableReference();
+    virtual ~VariableReference();
     RefKind refKind() const
     {
       return fRefKind;

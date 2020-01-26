@@ -22,7 +22,7 @@ class GrTextureContext;
 class GrRecordingContext : public GrImageContext
 {
 public:
-  ~GrRecordingContext();
+  virtual ~GrRecordingContext();
   SK_API GrBackendFormat defaultBackendFormat(SkColorType ct, GrRenderable renderable) const
   {
     return INHERITED::defaultBackendFormat(ct, renderable);

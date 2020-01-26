@@ -25,7 +25,7 @@ public:
   {
     fIdatLength = len;
   }
-  ~SkPngCodec();
+  virtual ~SkPngCodec();
 protected:
     // We hold the png_ptr and info_ptr as voidp to avoid having to include png.h
     // or forward declare their types here.  voidp auto-casts to the real pointer types.

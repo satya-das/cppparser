@@ -18,7 +18,7 @@ class GrMtlOpsRenderPass : public GrOpsRenderPass, private GrMesh::SendToGpuImpl
 {
 public:
   GrMtlOpsRenderPass(GrMtlGpu* gpu, GrRenderTarget* rt, GrSurfaceOrigin origin, const GrOpsRenderPass::LoadAndStoreInfo& colorInfo, const GrOpsRenderPass::StencilLoadAndStoreInfo& stencilInfo);
-  ~GrMtlOpsRenderPass();
+  virtual ~GrMtlOpsRenderPass();
   void begin() override
   {
   }

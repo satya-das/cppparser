@@ -150,7 +150,7 @@ public:
   virtual Acad::ErrorStatus setTableName(const ACHAR* pName);
   virtual Acad::ErrorStatus getColumnAt(Adesk::UInt32 index, const AcDbDataColumn*& pCol) const;
   ACDBCORE2D_PORT virtual Acad::ErrorStatus getColumnNameAt(Adesk::UInt32 index, AcString& sName) const;
-  virtual Acad::ErrorStatus getColumnNameAt(Adesk::UInt32 index, ACHAR*& pName) const final;
+  Acad::ErrorStatus getColumnNameAt(Adesk::UInt32 index, ACHAR*& pName) const final;
   virtual Acad::ErrorStatus getColumnTypeAt(Adesk::UInt32 index, AcDbDataCell::CellType& type) const;
   virtual Acad::ErrorStatus getColumnIndexAtName(const ACHAR* pName, Adesk::UInt32& index) const;
   virtual Acad::ErrorStatus appendColumn(AcDbDataCell::CellType type, const ACHAR* pColName = NULL);
@@ -166,11 +166,11 @@ public:
     //*************************************************************************
     // Overridden methods from AcDbObject
     //*************************************************************************
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
-  virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
 };
 // This overload is deprecated. Please use the one taking AcString & arg
 inline Acad::ErrorStatus AcDbDataTable::getColumnNameAt(Adesk::UInt32 index, ACHAR*& pName) const

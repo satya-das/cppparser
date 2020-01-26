@@ -140,7 +140,7 @@ protected:
     , fIsProtected(isProtected)
   {
   }
-  ~GrSurface()
+  virtual ~GrSurface()
   {
         // check that invokeReleaseProc has been called (if needed)
     SkASSERT(!fReleaseHelper);

@@ -14,7 +14,7 @@ class GrMtlBuffer : public GrGpuBuffer
 {
 public:
   static sk_sp<GrMtlBuffer> Make(GrMtlGpu*, size_t size, GrGpuBufferType intendedType, GrAccessPattern, const void* data = nullptr);
-  ~GrMtlBuffer();
+  virtual ~GrMtlBuffer();
   id<MTLBuffer> mtlBuffer() const
   {
     return fMtlBuffer;

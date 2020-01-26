@@ -117,7 +117,7 @@ protected:
   GrTextureProxy(LazyInstantiateCallback&&, const GrBackendFormat&, const GrSurfaceDesc& desc, GrSurfaceOrigin, GrMipMapped, GrMipMapsStatus, const GrSwizzle& textureSwizzle, SkBackingFit, SkBudgeted, GrProtected, GrInternalSurfaceFlags, UseAllocator);
     // Wrapped version
   GrTextureProxy(sk_sp<GrSurface>, GrSurfaceOrigin, const GrSwizzle&, UseAllocator);
-  ~GrTextureProxy();
+  virtual ~GrTextureProxy();
   sk_sp<GrSurface> createSurface(GrResourceProvider*) const override;
   void setTargetKeySync(bool sync)
   {

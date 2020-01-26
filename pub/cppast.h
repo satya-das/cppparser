@@ -838,6 +838,11 @@ struct CppCompound : public CppObj
     attr_ |= _attr;
   }
 
+  bool hasAttr(std::uint32_t _attr) const
+  {
+    return (attr_ & _attr) == _attr;
+  }
+
 private:
   void assignSpecialMember(const CppObj* mem);
 
@@ -914,6 +919,10 @@ struct CppFunctionBase : public CppFuncLikeBase
   void addAttr(std::uint32_t _attr)
   {
     attr_ |= _attr;
+  }
+  bool hasAttr(std::uint32_t _attr) const
+  {
+    return ((attr_ & _attr) == _attr);
   }
 
   const std::string& decor1() const

@@ -64,7 +64,7 @@ public:
   Acad::ErrorStatus getClosestPointTo(const AcGePoint3d& givenPoint, const AcGeVector3d& normal, AcGePoint3d& pointOnCurve, bool extend, bool excludeCaps = false) const;
   void getPlane(AcGePlane&) const;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #  pragma  pack(pop)
 #endif

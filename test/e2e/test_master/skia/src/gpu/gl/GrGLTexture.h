@@ -25,7 +25,7 @@ public:
   };
   static GrTextureType TextureTypeFromTarget(GrGLenum textureTarget);
   GrGLTexture(GrGLGpu*, SkBudgeted, const Desc&, GrMipMapsStatus);
-  ~GrGLTexture()
+  virtual ~GrGLTexture()
   {
   }
   GrBackendTexture getBackendTexture() const override;

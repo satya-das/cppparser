@@ -724,7 +724,7 @@ public:
     /// <returns>
     /// Acad::eOk if copy is successful
     /// </returns>
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
 private:
   bool mbIsActive;
   bool mbChromaticAdaptation;
@@ -789,7 +789,7 @@ public:
     /// <summary>
     /// Sets exact brightness and updates exposure calculated from brightness
     /// </summary>
-  virtual bool setBrightness(double) override;
+  bool setBrightness(double) override;
     /// <summary>
     /// Copies member data from source object
     /// </summary>
@@ -797,7 +797,7 @@ public:
     /// <returns>
     /// Acad::eOk if copy is successful
     /// </returns>
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject*) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject*) override;
     /// <summary>
     /// Converts EV to a calibrated Brightness value
     /// </summary>

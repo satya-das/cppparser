@@ -19,7 +19,7 @@ class SkImage_Gpu : public SkImage_GpuBase
 {
 public:
   SkImage_Gpu(sk_sp<GrContext>, uint32_t uniqueID, SkAlphaType, sk_sp<GrTextureProxy>, sk_sp<SkColorSpace>);
-  ~SkImage_Gpu();
+  virtual ~SkImage_Gpu();
   GrSemaphoresSubmitted onFlush(GrContext*, const GrFlushInfo&) override;
   GrTextureProxy* peekProxy() const override
   {

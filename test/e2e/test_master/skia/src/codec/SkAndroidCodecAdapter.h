@@ -16,7 +16,7 @@ class SkAndroidCodecAdapter : public SkAndroidCodec
 {
 public:
   explicit SkAndroidCodecAdapter(SkCodec*, ExifOrientationBehavior);
-  ~SkAndroidCodecAdapter()
+  virtual ~SkAndroidCodecAdapter()
   {
   }
 protected:

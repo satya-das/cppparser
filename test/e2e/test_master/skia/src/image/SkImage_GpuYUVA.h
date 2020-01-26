@@ -21,19 +21,19 @@ class SkImage_GpuYUVA : public SkImage_GpuBase
 public:
   friend class GrYUVAImageTextureMaker;
   SkImage_GpuYUVA(sk_sp<GrContext>, int width, int height, uint32_t uniqueID, SkYUVColorSpace, sk_sp<GrTextureProxy> proxies[], int numProxies, const SkYUVAIndex[4], GrSurfaceOrigin, sk_sp<SkColorSpace>);
-  ~SkImage_GpuYUVA();
+  virtual ~SkImage_GpuYUVA();
   GrSemaphoresSubmitted onFlush(GrContext*, const GrFlushInfo&) override;
     // This returns the single backing proxy if the YUV channels have already been flattened but
     // nullptr if they have not.
   GrTextureProxy* peekProxy() const override;
   sk_sp<GrTextureProxy> asTextureProxyRef(GrRecordingContext*) const override;
-  virtual bool onIsTextureBacked() const override
+  bool onIsTextureBacked() const override
   {
     return fProxies[0] || fRGBProxy;
   }
   sk_sp<SkImage> onMakeColorTypeAndColorSpace(GrRecordingContext*, SkColorType, sk_sp<SkColorSpace>) const final;
   sk_sp<SkImage> onReinterpretColorSpace(sk_sp<SkColorSpace>) const final;
-  virtual bool isYUVA() const override
+  bool isYUVA() const override
   {
     return true;
   }

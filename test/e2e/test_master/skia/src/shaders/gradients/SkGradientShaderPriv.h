@@ -58,7 +58,7 @@ public:
     SkMatrix fLocalMatrixStorage;
   };
   SkGradientShaderBase(const Descriptor& desc, const SkMatrix& ptsToUnit);
-  ~SkGradientShaderBase();
+  virtual ~SkGradientShaderBase();
   bool isOpaque() const override;
   uint32_t getGradFlags() const
   {

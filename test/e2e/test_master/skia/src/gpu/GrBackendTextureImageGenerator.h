@@ -27,7 +27,7 @@ class GrBackendTextureImageGenerator : public SkImageGenerator
 {
 public:
   static std::unique_ptr<SkImageGenerator> Make(sk_sp<GrTexture>, GrSurfaceOrigin, sk_sp<GrSemaphore>, SkColorType, SkAlphaType, sk_sp<SkColorSpace>);
-  ~GrBackendTextureImageGenerator();
+  virtual ~GrBackendTextureImageGenerator();
 protected:
     // NOTE: We would like to validate that the owning context hasn't been abandoned, but we can't
     // do that safely (we might be on another thread). So assume everything is fine.

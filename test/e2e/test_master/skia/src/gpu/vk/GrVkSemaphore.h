@@ -30,7 +30,7 @@ public:
       , fIsOwned(isOwned)
     {
     }
-    ~Resource()
+    virtual ~Resource()
     {
     }
     VkSemaphore semaphore() const

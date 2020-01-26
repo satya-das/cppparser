@@ -76,7 +76,7 @@ default:
       return nullptr;
   }
   }
-  ~GrConicEffect();
+  virtual ~GrConicEffect();
   const char* name() const override
   {
     return "Conic";
@@ -170,7 +170,7 @@ default:
       return nullptr;
   }
   }
-  ~GrQuadEffect();
+  virtual ~GrQuadEffect();
   const char* name() const override
   {
     return "Quad";

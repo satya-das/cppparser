@@ -58,7 +58,7 @@ private:
   const std::unique_ptr<SkStream> fSkStream;
   ULARGE_INTEGER fLocation;
   explicit SkIStream(std::unique_ptr<SkStreamAsset>);
-  ~SkIStream();
+  virtual ~SkIStream();
 };
 /**
  * A minimal write-only IStream implementation which wraps an SkWIStream.
@@ -73,7 +73,7 @@ public:
 private:
   SkWStream* fSkWStream;
   SkWIStream(SkWStream* stream);
-  ~SkWIStream();
+  virtual ~SkWIStream();
 };
 #  endif
 #endif

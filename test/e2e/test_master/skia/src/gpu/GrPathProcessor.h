@@ -38,9 +38,9 @@ public:
   {
     return false;
   }
-  virtual void getGLSLProcessorKey(const GrShaderCaps& caps, GrProcessorKeyBuilder* b) const override;
-  virtual GrGLSLPrimitiveProcessor* createGLSLInstance(const GrShaderCaps& caps) const override;
-  virtual bool isPathRendering() const override
+  void getGLSLProcessorKey(const GrShaderCaps& caps, GrProcessorKeyBuilder* b) const override;
+  GrGLSLPrimitiveProcessor* createGLSLInstance(const GrShaderCaps& caps) const override;
+  bool isPathRendering() const override
   {
     return true;
   }

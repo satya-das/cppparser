@@ -55,16 +55,16 @@ public:
     // These overloads are deprecated and will be removed in a future release.
     // Please use the overloads taking AcString & args instead.
     //
-  virtual Acad::ErrorStatus getTitle(ACHAR*& title) const final;
-  virtual Acad::ErrorStatus getSubject(ACHAR*& subject) const final;
-  virtual Acad::ErrorStatus getAuthor(ACHAR*& author) const final;
-  virtual Acad::ErrorStatus getKeywords(ACHAR*& keywordlist) const final;
-  virtual Acad::ErrorStatus getComments(ACHAR*& comments) const final;
-  virtual Acad::ErrorStatus getLastSavedBy(ACHAR*& lastSavedBy) const final;
-  virtual Acad::ErrorStatus getRevisionNumber(ACHAR*& revisionNumber) const final;
-  virtual Acad::ErrorStatus getHyperlinkBase(ACHAR*& HyperlinkBase) const final;
-  virtual Acad::ErrorStatus getCustomSummaryInfo(int index, ACHAR*& key, ACHAR*& value) const final;
-  virtual Acad::ErrorStatus getCustomSummaryInfo(const ACHAR* customInfoKey, ACHAR*& value) const final;
+  Acad::ErrorStatus getTitle(ACHAR*& title) const final;
+  Acad::ErrorStatus getSubject(ACHAR*& subject) const final;
+  Acad::ErrorStatus getAuthor(ACHAR*& author) const final;
+  Acad::ErrorStatus getKeywords(ACHAR*& keywordlist) const final;
+  Acad::ErrorStatus getComments(ACHAR*& comments) const final;
+  Acad::ErrorStatus getLastSavedBy(ACHAR*& lastSavedBy) const final;
+  Acad::ErrorStatus getRevisionNumber(ACHAR*& revisionNumber) const final;
+  Acad::ErrorStatus getHyperlinkBase(ACHAR*& HyperlinkBase) const final;
+  Acad::ErrorStatus getCustomSummaryInfo(int index, ACHAR*& key, ACHAR*& value) const final;
+  Acad::ErrorStatus getCustomSummaryInfo(const ACHAR* customInfoKey, ACHAR*& value) const final;
   virtual ~AcDbDatabaseSummaryInfo()
   {
   }

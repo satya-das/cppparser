@@ -33,7 +33,7 @@ public:
   virtual void updateCurrentPaper(Adesk::Boolean zoomToPaper = false) = 0;
   virtual void updateLayoutTabs() = 0;
   virtual Acad::ErrorStatus getActiveTab(AcString& sName) = 0;
-  virtual const ACHAR* findActiveTab() final;
+  const ACHAR* findActiveTab() final;
   virtual Adesk::Boolean showTabs() = 0;
   virtual void setShowTabs(Adesk::Boolean showTabs) = 0;
   virtual Adesk::Boolean showPageSetup() = 0;
@@ -48,7 +48,7 @@ public:
   virtual void setShowPrintBorder(Adesk::Boolean showPrintBorder) = 0;
   virtual Acad::ErrorStatus generateNextNewLayoutName(AcString& sName, AcDbDatabase* useDb = nullptr) = 0;
     // deprecated
-  virtual ACHAR* getNextNewLayoutName(AcDbDatabase* useDb = nullptr) final;
+  ACHAR* getNextNewLayoutName(AcDbDatabase* useDb = nullptr) final;
   virtual void setDefaultPlotConfig(AcDbObjectId layoutBTRId) = 0;
   virtual Acad::ErrorStatus getClipBoundaryElaboration(AcDbObjectId clipId, AcGePoint2dArray*& clipBoundary) = 0;
   virtual Acad::ErrorStatus pointInViewports(const AcGePoint3d& pickPt, AcDbObjectIdArray& viewports) = 0;

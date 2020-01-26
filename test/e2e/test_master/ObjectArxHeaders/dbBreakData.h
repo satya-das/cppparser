@@ -32,11 +32,11 @@ public:
     // Overridden methods from AcDbObject
     //********************************************************************
     //
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
-  virtual void modifiedGraphics(const AcDbEntity* pEnt) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
+  void modifiedGraphics(const AcDbEntity* pEnt) override;
     //********************************************************************
     //  APIs for Internal use only
     //********************************************************************
@@ -70,10 +70,10 @@ public:
     // Overridden methods from AcDbObject
     //********************************************************************
     //
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
 };
 //************************************************************************
 //  Global API functions 

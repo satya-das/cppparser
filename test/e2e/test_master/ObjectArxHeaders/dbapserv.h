@@ -322,7 +322,7 @@ public:
     // Legacy method with non-const prompt arg and final modifier.
     // Derived classes should override the above method, not this one.
     // This method will go away in the future..
-  virtual Adesk::Boolean getSubstituteFont(ACHAR** pFileName, ACHAR* prompt, int type, int fontAlt) final
+  Adesk::Boolean getSubstituteFont(ACHAR** pFileName, ACHAR* prompt, int type, int fontAlt) final
   {
     const ACHAR* pConstPrompt = prompt;
     return this->getSubstituteFont(pFileName, pConstPrompt, type, fontAlt);

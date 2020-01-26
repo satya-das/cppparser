@@ -23,7 +23,7 @@ class GrAtlasManager : public GrOnFlushCallbackObject
 {
 public:
   GrAtlasManager(GrProxyProvider*, GrStrikeCache*, size_t maxTextureBytes, GrDrawOpAtlas::AllowMultitexturing);
-  ~GrAtlasManager();
+  virtual ~GrAtlasManager();
     // Change an expected 565 mask format to 8888 if 565 is not supported (will happen when using
     // Metal on macOS). The actual conversion of the data is handled in get_packed_glyph_image() in
     // GrStrikeCache.cpp

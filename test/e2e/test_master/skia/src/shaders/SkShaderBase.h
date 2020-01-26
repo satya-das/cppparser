@@ -45,7 +45,7 @@ public:
 class SkShaderBase : public SkShader
 {
 public:
-  ~SkShaderBase();
+  virtual ~SkShaderBase();
     /**
      *  Returns true if the shader is guaranteed to produce only a single color.
      *  Subclasses can override this to allow loop-hoisting optimization.

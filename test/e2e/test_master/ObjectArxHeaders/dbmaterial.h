@@ -51,11 +51,11 @@ public:
   virtual Acad::ErrorStatus setMode(AcGiMaterialTraits::Mode value);
     // AcDbObject protocol
     //
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual AcGiDrawable* drawable(void) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  AcGiDrawable* drawable(void) override;
     // AcDbMaterial protocol, new material properties for Spago
   double colorBleedScale() const;
   Acad::ErrorStatus setColorBleedScale(double value);
@@ -100,6 +100,6 @@ public:
   Acad::ErrorStatus getAdskMaterialFlags(MaterialFlags& flags) const;
   Acad::ErrorStatus setAdskMaterialFlags(MaterialFlags flags);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #pragma  pack (pop)

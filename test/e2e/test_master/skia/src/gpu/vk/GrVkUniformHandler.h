@@ -39,7 +39,7 @@ public:
     const GrVkSampler* fImmutableSampler = nullptr;
   };
   typedef GrTAllocator<UniformInfo> UniformInfoArray;
-  ~GrVkUniformHandler();
+  virtual ~GrVkUniformHandler();
   const GrShaderVar& getUniformVariable(UniformHandle u) const override
   {
     return fUniforms[u.toIndex()].fVariable;

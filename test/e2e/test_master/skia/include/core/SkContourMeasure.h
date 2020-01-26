@@ -71,7 +71,7 @@ private:
   const SkScalar fLength;
   const bool fIsClosed;
   SkContourMeasure(SkTDArray<Segment>&& segs, SkTDArray<SkPoint>&& pts, SkScalar length, bool isClosed);
-  ~SkContourMeasure()
+  virtual ~SkContourMeasure()
   {
   }
   const Segment* distanceToSegment(SkScalar distance, SkScalar* t) const;

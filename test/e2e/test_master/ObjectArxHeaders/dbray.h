@@ -32,7 +32,7 @@ public:
   ACDBCORE2D_PORT AcGePoint3d secondPoint() const;
   ACDBCORE2D_PORT Acad::ErrorStatus setSecondPoint(const AcGePoint3d& pt);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 inline Adesk::Boolean AcDbRay::isClosed() const
 {

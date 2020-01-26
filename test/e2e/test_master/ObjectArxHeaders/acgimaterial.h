@@ -177,9 +177,9 @@ public:
   virtual ~AcGiImageFileTexture();
   AcGiImageFileTexture(const AcGiImageFileTexture& texture);
   AcGiImageFileTexture& operator=(const AcGiImageFileTexture& texture);
-  virtual bool operator==(const AcGiMaterialTexture& texture) const override;
+  bool operator==(const AcGiMaterialTexture& texture) const override;
     //AcRxObject protocol
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
   virtual void setSourceFileName(const ACHAR* fileName);
   virtual const ACHAR* sourceFileName(void) const;
 private:
@@ -203,9 +203,9 @@ public:
   virtual ~AcGiGenericTexture();
   AcGiGenericTexture(const AcGiGenericTexture& texture);
   AcGiGenericTexture& operator=(const AcGiGenericTexture& texture);
-  virtual bool operator==(const AcGiMaterialTexture& texture) const override;
+  bool operator==(const AcGiMaterialTexture& texture) const override;
     //AcRxObject protocol
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
     // Generic Texture properties
   void setDefinition(const AcGiVariant& definition);
   AcGiVariant definition(void) const;
@@ -223,9 +223,9 @@ public:
   virtual ~AcGiWoodTexture();
   AcGiWoodTexture(const AcGiWoodTexture& texture);
   AcGiWoodTexture& operator=(const AcGiWoodTexture& texture);
-  virtual bool operator==(const AcGiMaterialTexture& texture) const override;
+  bool operator==(const AcGiMaterialTexture& texture) const override;
     //AcRxObject protocol
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
     // wood properties
   virtual void setColor1(const AcGiMaterialColor& woodColor1);
   virtual const AcGiMaterialColor& color1(void) const;
@@ -250,9 +250,9 @@ public:
   virtual ~AcGiMarbleTexture();
   AcGiMarbleTexture(const AcGiMarbleTexture& texture);
   AcGiMarbleTexture& operator=(const AcGiMarbleTexture& texture);
-  virtual bool operator==(const AcGiMaterialTexture& texture) const override;
+  bool operator==(const AcGiMaterialTexture& texture) const override;
     //AcRxObject protocol
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
     // marble properties
   virtual void setStoneColor(const AcGiMaterialColor& stoneColor);
   virtual const AcGiMaterialColor& stoneColor(void) const;

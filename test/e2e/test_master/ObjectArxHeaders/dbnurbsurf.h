@@ -96,6 +96,6 @@ public:
     // Overridden methods from AcDbEntity
   void dragStatus(const AcDb::DragStat status) override;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #pragma  pack(pop)

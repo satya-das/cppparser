@@ -61,7 +61,7 @@ public:
   }
     /** Destruct, asserting that the weak reference count is 1.
     */
-  ~SkWeakRefCnt()
+  virtual ~SkWeakRefCnt()
   {
 #  ifdef SK_DEBUG
     SkASSERT(getWeakCnt() == 1);

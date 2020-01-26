@@ -24,7 +24,7 @@ public:
   void blitV(int x, int y, int height, SkAlpha alpha) override;
   void blitMask(const SkMask&, const SkIRect& clip) override;
     // A SkSpriteBlitter must implement blitRect.
-  virtual void blitRect(int x, int y, int width, int height) = 0;
+  void blitRect(int x, int y, int width, int height) = 0;
   static SkSpriteBlitter* ChooseL32(const SkPixmap& source, const SkPaint&, SkArenaAlloc*);
   static SkSpriteBlitter* ChooseL565(const SkPixmap& source, const SkPaint&, SkArenaAlloc*);
   static SkSpriteBlitter* ChooseLA8(const SkPixmap& source, const SkPaint&, SkArenaAlloc*);

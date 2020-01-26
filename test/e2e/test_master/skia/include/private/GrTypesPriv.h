@@ -1459,7 +1459,7 @@ public:
   {
     SkASSERT(proc);
   }
-  ~GrRefCntedCallback()
+  virtual ~GrRefCntedCallback()
   {
     fReleaseProc ? fReleaseProc(fReleaseCtx) : void();
   }

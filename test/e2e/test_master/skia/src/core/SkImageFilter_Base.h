@@ -179,7 +179,7 @@ protected:
         kYes = true
     };
   SkImageFilter_Base(const sk_sp<SkImageFilter>* inputs, int inputCount, const CropRect* cropRect);
-  ~SkImageFilter_Base();
+  virtual ~SkImageFilter_Base();
   void flatten(SkWriteBuffer&) const override;
     // DEPRECATED - Use the private context-only variant
   virtual sk_sp<SkSpecialImage> onFilterImage(const Context&, SkIPoint* offset) const = 0;

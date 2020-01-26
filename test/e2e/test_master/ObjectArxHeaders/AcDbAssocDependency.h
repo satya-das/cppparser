@@ -666,7 +666,7 @@ public:
     /// <param name="dbObj"> </param>
     /// <param name="isErasing"> </param>
     ///
-  virtual void erased(const AcDbObject* dbObj, Adesk::Boolean isErasing = true) override;
+  void erased(const AcDbObject* dbObj, Adesk::Boolean isErasing = true) override;
     /// <summary> <para>
     /// Implementation of the persistent reactor notification callback. 
     /// </para> <para>
@@ -676,7 +676,7 @@ public:
     /// </para> </summary>
     /// <param name="dbObj"> </param>
     ///
-  virtual void modified(const AcDbObject* dbObj) override;
+  void modified(const AcDbObject* dbObj) override;
     /// <summary> <para>
     /// Implementation of the persistent reactor notification callback. 
     /// </para> <para>
@@ -689,7 +689,7 @@ public:
     /// <param name="pDbObj"> The original object. </param>
     /// <param name="pNewObj"> The newly created clone. </param>
     ///
-  virtual void copied(const AcDbObject* pDbObj, const AcDbObject* pNewObj) override;
+  void copied(const AcDbObject* pDbObj, const AcDbObject* pNewObj) override;
 private:
   void setPrevDependencyOnObject(const AcDbObjectId& depId);
   void setNextDependencyOnObject(const AcDbObjectId& depId);

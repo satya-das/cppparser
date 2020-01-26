@@ -55,7 +55,7 @@ class SkPDFDocument : public SkDocument
 {
 public:
   SkPDFDocument(SkWStream*, SkPDF::Metadata);
-  ~SkPDFDocument();
+  virtual ~SkPDFDocument();
   SkCanvas* onBeginPage(SkScalar, SkScalar) override;
   void onEndPage() override;
   void onClose(SkWStream*) override;

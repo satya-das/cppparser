@@ -67,8 +67,8 @@ public:
   virtual ~AcDbBlockTableRecord();
   typedef AcDbBlockTable TableType;
   typedef AcArray<Adesk::UInt8> PreviewIcon;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
   Acad::ErrorStatus appendAcDbEntity(AcDbEntity* pEntity)
   {
     AcDbObjectId id;
@@ -130,7 +130,7 @@ public:
     // Drawable API
     //
   AcGiDrawable* drawable() override;
-  virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
+  Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
   virtual Acad::ErrorStatus assumeOwnershipOf(const AcDbObjectIdArray& entitiesToMove);
     // Block scaling and exploding control
   enum BlockScaling {
@@ -146,7 +146,7 @@ public:
   Acad::ErrorStatus postProcessAnnotativeBTR(int& stripCnt, bool bqueryOnly = false, bool bScale = true);
   Acad::ErrorStatus addAnnoScalestoBlkRefs(bool bScale = false);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbLayerTable;
 class AcDbLayerTableRecord : public AcDbSymbolTableRecord
@@ -222,7 +222,7 @@ public:
   Acad::ErrorStatus setIsReconciled(bool bReconcile = true);
   static bool isReconciled(const AcDbObjectId& id);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // Utility for changing Layer Table Records in the Current Drawing
 Acad::ErrorStatus applyCurDwgLayerTableChanges();
@@ -294,7 +294,7 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus font(AcString& sTypeface, bool& bold, bool& italic, Charset& charset, Autodesk::AutoCAD::PAL::FontUtils::FontPitch& pitch, Autodesk::AutoCAD::PAL::FontUtils::FontFamily& family) const;
   Acad::ErrorStatus font(ACHAR*& pTypeface, Adesk::Boolean& bold, Adesk::Boolean& italic, Charset& charset, Autodesk::AutoCAD::PAL::FontUtils::FontPitch& pitch, Autodesk::AutoCAD::PAL::FontUtils::FontFamily& family) const;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbLinetypeTable;
 class AcDbLinetypeTableRecord : public AcDbSymbolTableRecord
@@ -351,7 +351,7 @@ public:
     //
   AcGiDrawable* drawable() override;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class ADESK_NO_VTABLE AcDbAbstractViewTableRecord : public AcDbSymbolTableRecord
 {
@@ -503,7 +503,7 @@ public:
   Acad::ErrorStatus setSun(AcDbObjectId& retId, AcDbObject* pSun);
   Acad::ErrorStatus setSun(AcDbObjectId& retId, AcDbObject* pSun, bool eraseOldSun);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbUCSTable;
 class AcDbUCSTableRecord : public AcDbSymbolTableRecord
@@ -522,7 +522,7 @@ public:
   AcGePoint3d ucsBaseOrigin(AcDb::OrthographicView view) const;
   Acad::ErrorStatus setUcsBaseOrigin(const AcGePoint3d& origin, AcDb::OrthographicView view);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbViewportTable;
 class AcDbViewportTableRecord : public AcDbAbstractViewTableRecord
@@ -594,7 +594,7 @@ public:
     //
   AcGiDrawable* drawable() override;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbRegAppTable;
 class AcDbRegAppTableRecord : public AcDbSymbolTableRecord
@@ -605,7 +605,7 @@ public:
   virtual ~AcDbRegAppTableRecord();
   typedef AcDbRegAppTable TableType;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbDimStyleTable;
 class AcDbDimStyleTableRecord : public AcDbSymbolTableRecord
@@ -639,7 +639,7 @@ public:
     // end DEPRECATED METHODS!
   bool isModifiedForRecompute() const;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class ADESK_NO_VTABLE AcDbSymbolTable : public AcDbObject
 {
@@ -706,7 +706,7 @@ public:
     return this->AcDbSymbolTable::add(recordId, pRecord);
   }
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbLayerTableRecord;
 class AcDbLayerTableIterator;
@@ -738,7 +738,7 @@ public:
   bool hasUnreconciledLayers() const;
   Acad::ErrorStatus getUnreconciledLayers(AcDbObjectIdArray& idArray) const;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbTextStyleTableRecord;
 class AcDbTextStyleTableIterator;
@@ -767,7 +767,7 @@ public:
     return this->AcDbSymbolTable::add(recordId, pRecord);
   }
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbLinetypeTableRecord;
 class AcDbLinetypeTableIterator;
@@ -796,7 +796,7 @@ public:
     return this->AcDbSymbolTable::add(recordId, pRecord);
   }
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbAbstractViewTableRecord;
 class AcDbAbstractViewTableIterator;
@@ -851,7 +851,7 @@ public:
     return this->AcDbSymbolTable::add(recordId, pRecord);
   }
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbUCSTableRecord;
 class AcDbUCSTableIterator;
@@ -880,7 +880,7 @@ public:
     return this->AcDbSymbolTable::add(recordId, pRecord);
   }
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbViewportTableRecord;
 class AcDbViewportTableIterator;
@@ -909,7 +909,7 @@ public:
     return this->AcDbSymbolTable::add(recordId, pRecord);
   }
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbRegAppTableRecord;
 class AcDbRegAppTableIterator;
@@ -938,7 +938,7 @@ public:
     return this->AcDbSymbolTable::add(recordId, pRecord);
   }
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 class AcDbDimStyleTableRecord;
 class AcDbDimStyleTableIterator;
@@ -967,7 +967,7 @@ public:
     return this->AcDbSymbolTable::add(recordId, pRecord);
   }
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 ///// AcDbSymbolTableIterator
 //

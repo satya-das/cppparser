@@ -20,7 +20,7 @@ public:
     bool fPacked;
   };
   static GrMtlStencilAttachment* Create(GrMtlGpu* gpu, int width, int height, int sampleCnt, const Format& format);
-  ~GrMtlStencilAttachment();
+  virtual ~GrMtlStencilAttachment();
   MTLPixelFormat mtlFormat() const
   {
     return fFormat.fInternalFormat;

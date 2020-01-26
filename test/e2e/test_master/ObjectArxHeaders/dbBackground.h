@@ -53,7 +53,7 @@ class SCENEDLLIMPEXP AcDbBackground : public AcDbObject
 public:
   ACRX_DECLARE_MEMBERS(AcDbBackground);
   virtual ~AcDbBackground();
-  virtual AcGiDrawable* drawable() override;
+  AcGiDrawable* drawable() override;
 protected:
   AcDbBackground(AcDbImpBackground* pImp);
   AcDbImpBackground* imp() const;
@@ -72,16 +72,16 @@ public:
   AcCmEntityColor colorSolid(void) const;
     // AcDbObject protocol
     //
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
-  virtual AcGiDrawable::DrawableType drawableType() const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  AcGiDrawable::DrawableType drawableType() const override;
 protected:
     // AcGiDrawable protocol
     //
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 private:
   friend class AcDbImpSolidBackground;
 };
@@ -106,16 +106,16 @@ public:
   double rotation(void) const;
     // AcDbObject protocol
     //
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
     // AcGiDrawable protocol
     //
-  virtual AcGiDrawable::DrawableType drawableType() const override;
+  AcGiDrawable::DrawableType drawableType() const override;
 protected:
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 private:
   friend class AcDbImpGradientBackground;
 };
@@ -144,16 +144,16 @@ public:
   double yScale(void) const;
     // AcDbObject protocol
     //
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
     // AcGiDrawable protocol
     //
-  virtual AcGiDrawable::DrawableType drawableType() const override;
+  AcGiDrawable::DrawableType drawableType() const override;
 protected:
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 private:
   friend class AcDbImpImageBackground;
 };
@@ -178,16 +178,16 @@ public:
   AcCmEntityColor colorGroundPlaneFar(void) const;
     // AcDbObject protocol
     //
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
     // AcGiDrawable protocol
     //
-  virtual AcGiDrawable::DrawableType drawableType() const override;
+  AcGiDrawable::DrawableType drawableType() const override;
 protected:
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 private:
   friend class AcDbImpGroundPlaneBackground;
 };
@@ -202,16 +202,16 @@ public:
   AcDbObjectId sunId(void) const;
     // AcDbObject protocol
     //
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
     // AcGiDrawable protocol
     //
-  virtual AcGiDrawable::DrawableType drawableType() const override;
+  AcGiDrawable::DrawableType drawableType() const override;
 protected:
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 private:
   friend class AcDbImpSkyBackground;
 };
@@ -230,7 +230,7 @@ public:
     /// Destructor.
     /// </summary>
   virtual ~AcDbIBLBackground();
-  virtual AcGiDrawable* drawable() override;
+  AcGiDrawable* drawable() override;
     /// <summary>
     /// Sets whether IBL is currently active
     /// When disabled, the background will be default black transparent
@@ -309,16 +309,16 @@ public:
     /// </returns>
   virtual AcDbObjectId secondaryBackground(void) const;
     // AcDbObject functions
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     // AcGiDrawable protocol
     //
-  virtual AcGiDrawable::DrawableType drawableType() const override;
+  AcGiDrawable::DrawableType drawableType() const override;
   virtual bool operator==(const AcDbIBLBackground& environment);
 protected:
     // AcGiDrawable functions
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
 };
 #pragma  pack (pop)

@@ -802,8 +802,8 @@ public:
   Acad::ErrorStatus setEndLineOvershoot(double length);
 protected:
     // For internal use only
-  virtual Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
-  virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
+  Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
+  Acad::ErrorStatus subWblockClone(AcRxObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
 };
 #  pragma  pack (pop)
 #endif

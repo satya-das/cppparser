@@ -74,7 +74,7 @@ class SkBinaryWriteBuffer : public SkWriteBuffer
 public:
   SkBinaryWriteBuffer();
   SkBinaryWriteBuffer(void* initialStorage, size_t storageSize);
-  ~SkBinaryWriteBuffer();
+  virtual ~SkBinaryWriteBuffer();
   void write(const void* buffer, size_t bytes)
   {
     fWriter.write(buffer, bytes);

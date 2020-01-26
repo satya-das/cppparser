@@ -699,7 +699,7 @@ public:
     /// Returns pointer to the clone if successful; otherwise it returns NULL.
     /// </returns>
     ///
-  ACBASE_PORT virtual AcRxObject* clone() const override;
+  ACBASE_PORT AcRxObject* clone() const override;
     /// <summary>
     /// Copies the contents of other into this object, whenever feasible.
     /// </summary>
@@ -712,7 +712,7 @@ public:
     /// Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status.
     /// </returns>
     ///
-  ACBASE_PORT virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  ACBASE_PORT Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
     /// <summary>
     /// This method can be used to compare to boxed values.
     /// </summary>
@@ -725,12 +725,12 @@ public:
     /// Returns true if the values are same; otherwise, returns false.
     /// </returns>
     ///
-  ACBASE_PORT virtual Adesk::Boolean isEqualTo(const AcRxObject* other) const override;
+  ACBASE_PORT Adesk::Boolean isEqualTo(const AcRxObject* other) const override;
     /// <summary>
     /// For internal use only.
     /// </summary>
     ///
-  ACBASE_PORT virtual AcRx::Ordering comparedTo(const AcRxObject* other) const override;
+  ACBASE_PORT AcRx::Ordering comparedTo(const AcRxObject* other) const override;
   ACBASE_PORT const AcRxObject* rxObject() const;
   ACBASE_PORT AcRxObject* rxObject();
 };
@@ -764,7 +764,7 @@ public:
     /// Returns const reference to an AcRxValue object.
     /// </returns>
     ///
-  ACBASE_PORT virtual const AcRxValue* value() const override;
+  ACBASE_PORT const AcRxValue* value() const override;
     /// <summary>
     /// Returns the value that is boxed.
     /// </summary>
@@ -773,7 +773,7 @@ public:
     /// Returns reference to an AcRxValue object.
     /// </returns>
     ///
-  ACBASE_PORT virtual AcRxValue* value() override;
+  ACBASE_PORT AcRxValue* value() override;
 };
 /////////////////////////////////////////////////////////////////////
 //specializations

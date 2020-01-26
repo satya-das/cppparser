@@ -68,7 +68,7 @@ public:
     /// <returns>
     /// Return Acae::eOk if Successful
     /// </returns>
-  virtual Acad::ErrorStatus getName(ACHAR*& pszName) const final;
+  Acad::ErrorStatus getName(ACHAR*& pszName) const final;
     /// <summary>
     /// Get the name of AcDbModelDocViewStyle
     /// </summary>
@@ -262,8 +262,8 @@ public:
 protected:
     // For internal use only
     //
-  virtual Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
-  virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
+  Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
+  Acad::ErrorStatus subWblockClone(AcRxObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
 private:
   friend class AcDbImpModelDocViewStyle;
 };

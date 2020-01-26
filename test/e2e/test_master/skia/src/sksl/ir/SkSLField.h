@@ -26,7 +26,7 @@ namespace SkSL
       , fFieldIndex(fieldIndex)
     {
     }
-    virtual String description() const override
+    String description() const override
     {
       return fOwner.description() + "." + fOwner.fType.fields()[fFieldIndex].fName;
     }

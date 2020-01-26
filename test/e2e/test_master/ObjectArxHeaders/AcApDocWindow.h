@@ -113,7 +113,7 @@ public:
   ACAD_PORT virtual ~AcApDocWindow();
 // IAdHostWindow memebers
     /// <summary>Obtains the native window handle.</summary>
-  ACAD_PORT virtual HWND windowHandle() override;
+  ACAD_PORT HWND windowHandle() override;
 private:
   AcApDocWindow(const AcApDocWindow&);
   AcApDocWindow& operator=(const AcApDocWindow&);

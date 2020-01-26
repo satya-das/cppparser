@@ -37,7 +37,7 @@ public:
     /// <param  name="pDatabase"> Not used. </param>
     /// <returns> Always returns count 1. </returns>
     ///
-  virtual int transientSubentCount(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
+  int transientSubentCount(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
   {
     UNREFERENCED_PARAMETER(pEntity);
     UNREFERENCED_PARAMETER(pDatabase);
@@ -48,7 +48,7 @@ public:
     /// <param  name="pDatabase"> Not used. </param>
     /// <returns> AcDb::kEdgeSubentType. </returns>
     ///
-  virtual AcDb::SubentType subentType(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
+  AcDb::SubentType subentType(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
   {
     UNREFERENCED_PARAMETER(pEntity);
     UNREFERENCED_PARAMETER(pDatabase);
@@ -60,7 +60,7 @@ public:
     /// </summary>
     /// <returns> Always returns false. </returns>
     ///
-  virtual bool isNull() const override
+  bool isNull() const override
   {
     return false;
   }
@@ -74,6 +74,6 @@ public:
     /// <param  name="pOther"> The other AcDbAssocSingleEdgePersSubentId. </param>
     /// <returns> True iff this and the other AcDbAssocSingleEdgePersSubentId are equal. </returns>
     ///
-  virtual bool isEqualTo(const AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pOther) const override;
+  bool isEqualTo(const AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pOther) const override;
 };
 #pragma  pack (pop)

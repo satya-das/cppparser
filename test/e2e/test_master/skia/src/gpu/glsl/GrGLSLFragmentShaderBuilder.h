@@ -131,7 +131,7 @@ public:
   static uint8_t KeyForSurfaceOrigin(GrSurfaceOrigin);
   GrGLSLFragmentShaderBuilder(GrGLSLProgramBuilder* program);
     // Shared GrGLSLFragmentBuilder interface.
-  virtual SkString ensureCoords2D(const GrShaderVar&) override;
+  SkString ensureCoords2D(const GrShaderVar&) override;
     // GrGLSLFPFragmentBuilder interface.
   const char* sampleOffsets() override;
   void maskOffMultisampleCoverage(const char* mask, ScopeFlags) override;

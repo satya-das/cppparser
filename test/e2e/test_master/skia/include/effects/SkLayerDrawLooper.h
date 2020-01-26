@@ -13,7 +13,7 @@
 class SK_API SkLayerDrawLooper : public SkDrawLooper
 {
 public:
-  ~SkLayerDrawLooper();
+  virtual ~SkLayerDrawLooper();
     /**
      *  Bits specifies which aspects of the layer's paint should replace the
      *  corresponding aspects on the draw's paint.

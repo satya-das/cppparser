@@ -53,7 +53,7 @@ public:
   const GrRenderTargetPriv renderTargetPriv() const;
 protected:
   GrRenderTarget(GrGpu*, const SkISize&, GrPixelConfig, int sampleCount, GrProtected, GrStencilAttachment* = nullptr);
-  ~GrRenderTarget();
+  virtual ~GrRenderTarget();
     // override of GrResource
   void onAbandon() override;
   void onRelease() override;

@@ -22,7 +22,7 @@ class GrRenderTask : public SkRefCnt
 {
 public:
   GrRenderTask(sk_sp<GrSurfaceProxy> target);
-  ~GrRenderTask();
+  virtual ~GrRenderTask();
   void makeClosed(const GrCaps&);
     // These two methods are only invoked at flush time
   void prepare(GrOpFlushState* flushState);

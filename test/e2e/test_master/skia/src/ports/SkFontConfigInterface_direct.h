@@ -14,7 +14,7 @@ class SkFontConfigInterfaceDirect : public SkFontConfigInterface
 {
 public:
   SkFontConfigInterfaceDirect();
-  ~SkFontConfigInterfaceDirect();
+  virtual ~SkFontConfigInterfaceDirect();
   bool matchFamilyName(const char familyName[], SkFontStyle requested, FontIdentity* outFontIdentifier, SkString* outFamilyName, SkFontStyle* outStyle) override;
   SkStreamAsset* openStream(const FontIdentity&) override;
 protected:

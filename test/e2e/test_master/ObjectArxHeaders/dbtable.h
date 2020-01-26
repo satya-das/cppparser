@@ -349,20 +349,20 @@ public:
     // Overridden methods from AcDbObject
     //********************************************************************
     //
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
-  virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
-  virtual Acad::ErrorStatus subClose() override;
-  virtual void objectClosed(const AcDbObjectId objId) override;
-  virtual void erased(const AcDbObject* dbObj, Adesk::Boolean pErasing = true) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
+  Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
+  Acad::ErrorStatus subClose() override;
+  void objectClosed(const AcDbObjectId objId) override;
+  void erased(const AcDbObject* dbObj, Adesk::Boolean pErasing = true) override;
     //********************************************************************
     // Overridden methods from AcDbBlockReference required for AcDbTable
     //********************************************************************
     //
-  virtual Acad::ErrorStatus setPosition(const AcGePoint3d&) override;
-  virtual Acad::ErrorStatus setNormal(const AcGeVector3d& newVal) override;
+  Acad::ErrorStatus setPosition(const AcGePoint3d&) override;
+  Acad::ErrorStatus setNormal(const AcGeVector3d& newVal) override;
     //********************************************************************
     // Methods for internal use only
     //********************************************************************
@@ -504,6 +504,6 @@ public:
   ACDBCORE2D_PORT AcCellRange cellRange() const;
 protected:
     // Get corresponding COM wrapper class ID
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #pragma  pack(pop)

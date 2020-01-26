@@ -28,7 +28,7 @@ class GrMtlGpu : public GrGpu
 {
 public:
   static sk_sp<GrGpu> Make(GrContext* context, const GrContextOptions& options, id<MTLDevice> device, id<MTLCommandQueue> queue);
-  ~GrMtlGpu();
+  virtual ~GrMtlGpu();
   void disconnect(DisconnectType) override;
   const GrMtlCaps& mtlCaps() const
   {

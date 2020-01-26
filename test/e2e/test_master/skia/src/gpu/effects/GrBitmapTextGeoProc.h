@@ -23,7 +23,7 @@ public:
   {
     return sk_sp<GrGeometryProcessor>(new GrBitmapTextGeoProc(caps, color, wideColor, proxies, numActiveProxies, p, format, localMatrix, usesW));
   }
-  ~GrBitmapTextGeoProc()
+  virtual ~GrBitmapTextGeoProc()
   {
   }
   const char* name() const override

@@ -35,7 +35,7 @@ class SkXPSDevice : public SkClipStackDevice
 {
 public:
   SK_API SkXPSDevice(SkISize);
-  SK_API ~SkXPSDevice();
+  SK_API virtual ~SkXPSDevice();
   bool beginPortfolio(SkWStream* outputStream, IXpsOMObjectFactory*);
     /**
       @param unitsPerMeter converts geometry units into physical units.

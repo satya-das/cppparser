@@ -62,7 +62,7 @@ public:
     return sk_sp<GrGeometryProcessor>(new GrDistanceFieldA8TextGeoProc(caps, proxies, numActiveProxies, params, flags, localMatrixIfUsesLocalCoords));
   }
 #  endif
-  ~GrDistanceFieldA8TextGeoProc()
+  virtual ~GrDistanceFieldA8TextGeoProc()
   {
   }
   const char* name() const override
@@ -140,7 +140,7 @@ public:
   {
     return sk_sp<GrGeometryProcessor>(new GrDistanceFieldPathGeoProc(caps, matrix, wideColor, proxies, numActiveProxies, params, flags));
   }
-  ~GrDistanceFieldPathGeoProc()
+  virtual ~GrDistanceFieldPathGeoProc()
   {
   }
   const char* name() const override
@@ -224,7 +224,7 @@ public:
   {
     return sk_sp<GrGeometryProcessor>(new GrDistanceFieldLCDTextGeoProc(caps, proxies, numActiveProxies, params, distanceAdjust, flags, localMatrixIfUsesLocalCoords));
   }
-  ~GrDistanceFieldLCDTextGeoProc()
+  virtual ~GrDistanceFieldLCDTextGeoProc()
   {
   }
   const char* name() const override

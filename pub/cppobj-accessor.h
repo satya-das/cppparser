@@ -100,6 +100,16 @@ inline bool isTypedefName(const CppObjPtr& cppObj)
   return isTypedefName(cppObj.get());
 }
 
+inline bool isUsingDecl(const CppObj* cppObj)
+{
+  return cppObj->objType_ == CppObjType::kUsingDecl;
+}
+
+inline bool isUsingDecl(const CppObjPtr& cppObj)
+{
+  return isUsingDecl(cppObj.get());
+}
+
 inline bool isCompound(const CppObj* cppObj)
 {
   return cppObj->objType_ == CppObjType::kCompound;

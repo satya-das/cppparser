@@ -131,17 +131,17 @@ public:
   Acad::ErrorStatus setMaterial(AcDbObjectId newVal);
     // Overridden methods from AcDbObject
     //
-  virtual Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler* undoFiler, AcRxClass* classObj) override;
-  virtual Acad::ErrorStatus subClose() override;
-  virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
-  virtual void erased(const AcDbObject* dbObj, Adesk::Boolean erasing) override;
-  virtual void goodbye(const AcDbObject* dbObj) override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus applyPartialUndo(AcDbDwgFiler* undoFiler, AcRxClass* classObj) override;
+  Acad::ErrorStatus subClose() override;
+  Acad::ErrorStatus subErase(Adesk::Boolean erasing) override;
+  void erased(const AcDbObject* dbObj, Adesk::Boolean erasing) override;
+  void goodbye(const AcDbObject* dbObj) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // The group iterator class.
 //

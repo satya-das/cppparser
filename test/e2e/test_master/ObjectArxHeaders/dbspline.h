@@ -127,7 +127,7 @@ public:
     // edit
   ACDBCORE2D_PORT Acad::ErrorStatus modifyPositionAndTangent(double param, const AcGePoint3d& point, const AcGeVector3d* deriv);
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #  pragma  pack (pop)
 #endif

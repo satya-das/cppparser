@@ -85,7 +85,7 @@ public:
   ACDB_PORT Acad::ErrorStatus createLoftedSolid(const AcArray<AcDbLoftProfile*>& crossSections, const AcArray<AcDbLoftProfile*>& guides, AcDbLoftProfile* pPath, AcDbLoftOptions& loftOptions);
   virtual Acad::ErrorStatus createFrom(const AcDbEntity* pFromEntity);
   virtual Acad::ErrorStatus getArea(double& area) const;
-  ACDB_PORT virtual void dragStatus(const AcDb::DragStat) override;
+  ACDB_PORT void dragStatus(const AcDb::DragStat) override;
   virtual void* ASMBodyCopy(bool bDeepCopy = false) const;
   virtual const void* getLockedASMBody();
   virtual void unlockASMBody();
@@ -133,7 +133,7 @@ public:
   virtual Acad::ErrorStatus filletEdges(const AcArray<AcDbSubentId *>& edgeSubentIds, const AcGeDoubleArray& radius, const AcGeDoubleArray& startSetback, const AcGeDoubleArray& endSetback);
   ACDB_PORT virtual bool usesGraphicsCache();
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 public:
   Acad::ErrorStatus createSculptedSolid(const AcArray<AcDbEntity*>& limitingBodies, const AcGeIntArray& limitingFlags);
   Acad::ErrorStatus projectOnToSolid(const AcDbEntity* pEntityToProject, const AcGeVector3d& projectionDirection, AcArray<AcDbEntity*>& projectedEntities) const;

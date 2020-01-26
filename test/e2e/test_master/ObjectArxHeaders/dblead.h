@@ -103,21 +103,21 @@ public:
   virtual Acad::ErrorStatus setDimtxt(double val);
     // Support for persistent reactor to annotation.
     //
-  virtual void modified(const AcDbObject*) override;
-  virtual void erased(const AcDbObject*, Adesk::Boolean = Adesk::kTrue) override;
-  virtual void goodbye(const AcDbObject*) override;
-  virtual void copied(const AcDbObject*, const AcDbObject*) override;
+  void modified(const AcDbObject*) override;
+  void erased(const AcDbObject*, Adesk::Boolean = Adesk::kTrue) override;
+  void goodbye(const AcDbObject*) override;
+  void copied(const AcDbObject*, const AcDbObject*) override;
     // DEPRECATED METHODS!
     // These are supported but will be removed in future releases:
     //
   virtual void setDimVars();
-  virtual Acad::ErrorStatus setColorIndex(Adesk::UInt16, Adesk::Boolean doSubents = Adesk::kTrue) override;
+  Acad::ErrorStatus setColorIndex(Adesk::UInt16, Adesk::Boolean doSubents = Adesk::kTrue) override;
     //
     // end DEPRECATED METHODS!
 protected:
     // Get corresponding COM wrapper class ID
     //
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // These are methods of AcDbCurve that aren't implemented for AcDbLeader:
 //

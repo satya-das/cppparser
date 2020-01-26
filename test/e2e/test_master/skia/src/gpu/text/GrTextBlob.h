@@ -225,7 +225,7 @@ default:
   {
     return fSize;
   }
-  ~GrTextBlob()
+  virtual ~GrTextBlob()
   {
     for (int i = 0; i < fRunCountLimit; i++)
     {

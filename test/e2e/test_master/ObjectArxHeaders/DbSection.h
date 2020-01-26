@@ -327,7 +327,7 @@ public:
     /// 
     /// Exercise care in this decision, as currently there exists no flag to inform dwgInFields() whether it is being called during RECOVER, or during another process; for example, OPEN. This implies that a too tolerant version of dwgInFields() may allow an invalid object to be read in, that may or may not be audited later.</remarks>
     /// <param name="pFiler"> Passed in pointer to filer to use to read in the object's data </param>
-  ACDB_PORT virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  ACDB_PORT Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary>
     /// This function is called by dwgOut(). Its purpose is to allow the object to write out its data. 
     /// 
@@ -347,7 +347,7 @@ public:
     /// 
     /// </summary>
     /// <param name="pFiler"> Passed in pointer to filer to use to write out the object's data </param>
-  ACDB_PORT virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  ACDB_PORT Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary>
     /// This function is called by dxfIn(). Its purpose is to allow the object to read in its data. 
     /// 
@@ -375,7 +375,7 @@ public:
     /// This function should return Acad::eOk if successful. In your own custom class implementations of this function, it's easiest to just return pFiler->filerStatus().</remarks>
     /// </summary>
     /// <param name="pFiler"> Passed in pointer to filer to use to read in the object's data  </param>
-  ACDB_PORT virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  ACDB_PORT Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     /// <summary>
     /// This function is called by dxfOut(). Its purpose is to allow the object to write out its data. 
     /// 
@@ -422,7 +422,7 @@ public:
     /// 360  369  hard owner ID  
     /// </summary>
     /// <param name="pFiler"> Passed in pointer to filer to use to write out the object's data </param>
-  ACDB_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  ACDB_PORT Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     /// <summary>
     /// Called from within close() before anything else is done. The default implementation is to return Acad::eOk. However, when overridden in custom classes, it provides a hook into the close operation. If it returns anything other than Acad::eOk, then the close operation is immediately terminated. 
     /// 
@@ -435,7 +435,7 @@ public:
     /// Return Acad::eOk to allow the close operation to continue normally. 
     /// <remarks> When implementing your own subClose(), it is best not to change any of the object's state at all. But, if you must, then it is best to make such changes after invoking the parent class's subClose(), just in case it returns an error code other than Acad::eOk. If you must change state before invoking the parent class's subClose(), then be prepared to reverse the changes if the parent class returns a status other than Acad::eOk.</remarks>
     /// </summary>
-  ACDB_PORT virtual Acad::ErrorStatus subClose() override;
+  ACDB_PORT Acad::ErrorStatus subClose() override;
     // INTERNAL USE ONLY
     /// <summary>
     /// This is internal use only.
@@ -447,7 +447,7 @@ public:
     /// </summary>
   ACDB_PORT Acad::ErrorStatus generateSectionGeometry(const AcDbVoidPtrArray& bodies, const AcDbIntArray& instanceCount, const AcArray<AcGeMatrix3d>& xforms, const AcArray<AcRxClass*>& providerClasses, AcArray<AcDbEntity*>& intBoundaryEnts, AcArray<AcDbEntity*>& intFillEnts, AcArray<AcDbEntity*>& backgroundEnts, AcArray<AcDbEntity*>& foregroundEnts, AcArray<AcDbEntity*>& curveTangencyEnts, AcDbSectionGeometryMap* = NULL) const;
 protected:
-  ACDB_PORT virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  ACDB_PORT Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 public:
     /// <summary>
     /// If a section object is a slice type. If it is, the state will be set as kBoundary and all jogs will be removed.
@@ -982,7 +982,7 @@ public:
     /// <param name="bShow"> Input true if division lines are to be shown, or false if they are to be hidden </param>
   ACDB_PORT Acad::ErrorStatus setDivisionLines(AcDbSectionSettings::SectionType nSecType, AcDbSectionSettings::Geometry nGeometry, bool bShow);
 protected:
-  ACDB_PORT virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  ACDB_PORT Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // This overload is deprecated. Please use one of the other two overloads instead
 inline Acad::ErrorStatus AcDbSection::getName(ACHAR*& pszName) const

@@ -22,26 +22,26 @@ public:
   virtual ~AcDbViewRepBlockReference();
   AcDbObjectId ownerViewportId() const;
     // AcRxObject Protocol
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* pSrc) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* pSrc) override;
     // AcDbObject methods
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
     // AcDbEntity methods
-  virtual void saveAs(AcGiWorldDraw* mode, AcDb::SaveType st) override;
-  virtual Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
-  virtual Acad::ErrorStatus subGetGsMarkersAtSubentPath(const AcDbFullSubentPath& subPath, AcArray<Adesk::GsMarker>& gsMarkers) const override;
+  void saveAs(AcGiWorldDraw* mode, AcDb::SaveType st) override;
+  Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
+  Acad::ErrorStatus subGetGsMarkersAtSubentPath(const AcDbFullSubentPath& subPath, AcArray<Adesk::GsMarker>& gsMarkers) const override;
     // AcDbBlockReference methods
-  virtual AcGePoint3d position() const override;
+  AcGePoint3d position() const override;
 protected:
     // AcDbObject methods
-  virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* mode) override;
-  virtual void subViewportDraw(AcGiViewportDraw* pVd) override;
-  virtual Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
-  virtual Acad::ErrorStatus subPushHighlight(const AcDbFullSubentPath& subId, AcGiHighlightStyle highlightStyle) override;
-  virtual Acad::ErrorStatus subPopHighlight(const AcDbFullSubentPath& subId) override;
+  Adesk::Boolean subWorldDraw(AcGiWorldDraw* mode) override;
+  void subViewportDraw(AcGiViewportDraw* pVd) override;
+  Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
+  Acad::ErrorStatus subPushHighlight(const AcDbFullSubentPath& subId, AcGiHighlightStyle highlightStyle) override;
+  Acad::ErrorStatus subPopHighlight(const AcDbFullSubentPath& subId) override;
 public:
     // internal use only methods
   AcDbViewRepBlockReference();

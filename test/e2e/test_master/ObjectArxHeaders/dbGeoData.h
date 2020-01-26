@@ -485,10 +485,10 @@ public:
     //=========================================================================
     // Overridden methods from AcDbObject
     //=========================================================================
-  ACDBCORE2D_PORT virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
-  ACDBCORE2D_PORT virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
-  ACDBCORE2D_PORT virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
-  ACDBCORE2D_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
+  ACDBCORE2D_PORT Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
+  ACDBCORE2D_PORT Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
+  ACDBCORE2D_PORT Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
+  ACDBCORE2D_PORT Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
 };
 //=============================================================================
 //  Global API functions 

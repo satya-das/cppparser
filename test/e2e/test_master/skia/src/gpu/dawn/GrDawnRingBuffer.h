@@ -14,7 +14,7 @@ class GrDawnRingBuffer : public SkRefCnt
 {
 public:
   GrDawnRingBuffer(GrDawnGpu* gpu, dawn::BufferUsageBit usage);
-  ~GrDawnRingBuffer();
+  virtual ~GrDawnRingBuffer();
   struct Slice
   {
     Slice(dawn::Buffer buffer, int offset)

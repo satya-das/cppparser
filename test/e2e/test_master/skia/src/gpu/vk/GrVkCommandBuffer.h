@@ -140,7 +140,7 @@ class GrVkSecondaryCommandBuffer;
 class GrVkPrimaryCommandBuffer : public GrVkCommandBuffer
 {
 public:
-  ~GrVkPrimaryCommandBuffer();
+  virtual ~GrVkPrimaryCommandBuffer();
   static GrVkPrimaryCommandBuffer* Create(const GrVkGpu* gpu, GrVkCommandPool* cmdPool);
   void begin(const GrVkGpu* gpu);
   void end(GrVkGpu* gpu);

@@ -14,7 +14,7 @@ class GrGLBuffer : public GrGpuBuffer
 {
 public:
   static sk_sp<GrGLBuffer> Make(GrGLGpu*, size_t size, GrGpuBufferType intendedType, GrAccessPattern, const void* data = nullptr);
-  ~GrGLBuffer()
+  virtual ~GrGLBuffer()
   {
         // either release or abandon should have been called by the owner of this object.
     SkASSERT(0 == fBufferID);

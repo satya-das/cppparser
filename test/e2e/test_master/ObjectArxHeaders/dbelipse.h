@@ -55,7 +55,7 @@ public:
   Adesk::Boolean isNull() const;
 //    DBCURVE_METHODS
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #  pragma  pack(pop)
 #endif

@@ -55,7 +55,7 @@ class SK_API GrVkSecondaryCBDrawContext : public SkRefCnt
 {
 public:
   static sk_sp<GrVkSecondaryCBDrawContext> Make(GrContext*, const SkImageInfo&, const GrVkDrawableInfo&, const SkSurfaceProps* props);
-  ~GrVkSecondaryCBDrawContext();
+  virtual ~GrVkSecondaryCBDrawContext();
   SkCanvas* getCanvas();
     // Records all the draws to the imported secondary command buffer and sets any dependent
     // offscreen draws to the GPU.

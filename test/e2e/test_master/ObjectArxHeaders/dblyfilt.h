@@ -22,7 +22,7 @@ class AcDbLayerFilter : public AcDbFilter
 public:
   AcDbLayerFilter();
   virtual ~AcDbLayerFilter();
-  virtual AcRxClass* indexClass() const override;
+  AcRxClass* indexClass() const override;
   virtual Adesk::Boolean isValid() const;
   Acad::ErrorStatus add(const ACHAR* pLayer);
   Acad::ErrorStatus remove(const ACHAR* pLayer);

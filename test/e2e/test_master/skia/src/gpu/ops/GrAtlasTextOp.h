@@ -15,7 +15,7 @@ class GrAtlasTextOp : public GrMeshDrawOp
 {
 public:
   DEFINE_OP_CLASS_ID
-  ~GrAtlasTextOp()
+  virtual ~GrAtlasTextOp()
   {
     for (int i = 0; i < fGeoCount; i++)
     {

@@ -59,10 +59,10 @@ public:
   ACDB_PORT Acad::ErrorStatus repathSourceFiles(const wchar_t* pszBasePath, AcDb::PathOption nOption);
   ACDB_PORT Acad::ErrorStatus getCustomData(const ACHAR* pszKey, AcValue* pData) const;
   ACDB_PORT Acad::ErrorStatus setCustomData(const ACHAR* pszKey, const AcValue* pData);
-  ACDB_PORT virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  ACDB_PORT virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  ACDB_PORT virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  ACDB_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  ACDB_PORT Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  ACDB_PORT Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  ACDB_PORT Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  ACDB_PORT Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
 };
 typedef AcArray<AcDbDataLink*> AcDbDataLinkArray;
 //*************************************************************************

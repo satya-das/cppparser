@@ -30,7 +30,7 @@ class GrGLGpu : public GrGpu, private GrMesh::SendToGpuImpl
 {
 public:
   static sk_sp<GrGpu> Make(sk_sp<const GrGLInterface>, const GrContextOptions&, GrContext*);
-  ~GrGLGpu();
+  virtual ~GrGLGpu();
   void disconnect(DisconnectType) override;
   const GrGLContext& glContext() const
   {

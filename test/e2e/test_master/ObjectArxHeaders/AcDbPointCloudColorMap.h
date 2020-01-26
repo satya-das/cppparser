@@ -355,7 +355,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary>
     /// This function is called by dwgOut(). Its purpose is to allow this object to write out its data. 
     /// </summary>
@@ -365,7 +365,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary>
     /// This function is called by dxfIn(). Its purpose is to allow this object to read in its data. 
     /// </summary>
@@ -375,7 +375,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     /// <summary>
     /// This function is called by dxfOut(). Its purpose is to allow this object to write out its data. 
     /// </summary>
@@ -385,7 +385,7 @@ public:
     /// <returns>
     /// Returns Acad::eOk if successful.
     /// </returns>
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     /// <summary>
     /// Called from within the close() method, before anything else is done.
     /// </summary>
@@ -394,7 +394,7 @@ public:
     /// if this method returns anything other than Acad::eOk,then the 
     /// close operation is immediately terminated.
     /// </returns>
-  virtual Acad::ErrorStatus subClose() override;
+  Acad::ErrorStatus subClose() override;
 private:
   AcDbPointCloudColorMap();
   AcDbPointCloudColorMap(bool initializeDefaults);

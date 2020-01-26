@@ -13,7 +13,7 @@ class GrVkAMDMemoryAllocator : public GrVkMemoryAllocator
 {
 public:
   GrVkAMDMemoryAllocator(VkPhysicalDevice physicalDevice, VkDevice device, sk_sp<const GrVkInterface> interface);
-  ~GrVkAMDMemoryAllocator();
+  virtual ~GrVkAMDMemoryAllocator();
   bool allocateMemoryForImage(VkImage image, AllocationPropertyFlags flags, GrVkBackendMemory*) override;
   bool allocateMemoryForBuffer(VkBuffer buffer, BufferUsage usage, AllocationPropertyFlags flags, GrVkBackendMemory*) override;
   void freeMemory(const GrVkBackendMemory&) override;

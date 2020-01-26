@@ -72,22 +72,22 @@ public:
     /// Destructor.
     /// </summary>
   ~AcDbLight();
-  virtual Acad::ErrorStatus subClose() override;
+  Acad::ErrorStatus subClose() override;
     //----- AcDbEntity protocols
     //- Dwg Filing protocol
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
     //----- AcDbEntity protocols
     //- Graphics protocol
-  virtual AcGiDrawable::DrawableType drawableType() const override;
-  virtual bool castShadows() const override;
-  virtual void setCastShadows(bool newVal) override;
-  virtual bool receiveShadows() const override;
-  virtual void setReceiveShadows(bool newVal) override;
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  AcGiDrawable::DrawableType drawableType() const override;
+  bool castShadows() const override;
+  void setCastShadows(bool newVal) override;
+  bool receiveShadows() const override;
+  void setReceiveShadows(bool newVal) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
     /// <summary>
     /// Gets the name of the Light object.
     /// </summary>
@@ -891,22 +891,22 @@ public:
 protected:
     //----- AcDbEntity protocols
     //- Graphics protocol
-  virtual void subViewportDraw(AcGiViewportDraw* mode) override;
-  virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* mode) override;
-  virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
-  virtual Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds) const override;
-  virtual Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds, const AcGeMatrix3d& insertionMat) const override;
-  virtual Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
-  virtual Acad::ErrorStatus subGetTransformedCopy(const AcGeMatrix3d& xform, AcDbEntity*& pEnt) const override;
-  virtual void subList() const override;
-  virtual Acad::ErrorStatus subGetGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const override;
-  virtual Acad::ErrorStatus subMoveGripPointsAt(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags) override;
-  virtual Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
-  virtual Acad::ErrorStatus subWblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary) const override;
-  virtual Acad::ErrorStatus subHighlight(const AcDbFullSubentPath& subId, const Adesk::Boolean highlightAll) const override;
-  virtual Acad::ErrorStatus subUnhighlight(const AcDbFullSubentPath& subId, const Adesk::Boolean highlightAll) const override;
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
-  virtual Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
+  void subViewportDraw(AcGiViewportDraw* mode) override;
+  Adesk::Boolean subWorldDraw(AcGiWorldDraw* mode) override;
+  Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits) override;
+  Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds) const override;
+  Acad::ErrorStatus subGetOsnapPoints(AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d& pickPoint, const AcGePoint3d& lastPoint, const AcGeMatrix3d& viewXform, AcGePoint3dArray& snapPoints, AcDbIntArray& geomIds, const AcGeMatrix3d& insertionMat) const override;
+  Acad::ErrorStatus subTransformBy(const AcGeMatrix3d& xform) override;
+  Acad::ErrorStatus subGetTransformedCopy(const AcGeMatrix3d& xform, AcDbEntity*& pEnt) const override;
+  void subList() const override;
+  Acad::ErrorStatus subGetGripPoints(AcDbGripDataPtrArray& grips, const double curViewUnitSize, const int gripSize, const AcGeVector3d& curViewDir, const int bitflags) const override;
+  Acad::ErrorStatus subMoveGripPointsAt(const AcDbVoidPtrArray& gripAppData, const AcGeVector3d& offset, const int bitflags) override;
+  Acad::ErrorStatus subDeepClone(AcDbObject* pOwner, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary = true) const override;
+  Acad::ErrorStatus subWblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping& idMap, Adesk::Boolean isPrimary) const override;
+  Acad::ErrorStatus subHighlight(const AcDbFullSubentPath& subId, const Adesk::Boolean highlightAll) const override;
+  Acad::ErrorStatus subUnhighlight(const AcDbFullSubentPath& subId, const Adesk::Boolean highlightAll) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetGeomExtents(AcDbExtents& extents) const override;
 private:
   friend class AcDbImpLight;
   Adesk::UInt32 baseSetAttributes(AcGiDrawableTraits* pTraits);

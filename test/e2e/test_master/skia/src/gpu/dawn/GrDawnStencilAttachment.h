@@ -13,7 +13,7 @@ class GrDawnStencilAttachment : public GrStencilAttachment
 {
 public:
   static GrDawnStencilAttachment* Create(GrDawnGpu* gpu, int width, int height, int sampleCnt);
-  ~GrDawnStencilAttachment();
+  virtual ~GrDawnStencilAttachment();
   dawn::TextureView view() const
   {
     return fView;

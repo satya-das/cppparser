@@ -41,11 +41,11 @@ public:
   {
     return mSubentType != other.mSubentType ? mSubentType < other.mSubentType : mIndex < other.mIndex;
   }
-  virtual AcDb::SubentType subentType(const AcDbEntity*, AcDbDatabase*) const override
+  AcDb::SubentType subentType(const AcDbEntity*, AcDbDatabase*) const override
   {
     return mSubentType;
   }
-  virtual bool isNull() const override
+  bool isNull() const override
   {
     return mSubentType == AcDb::kNullSubentType;
   }
@@ -77,22 +77,22 @@ public:
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to read the object data from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to read the object data from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     // New methods
   unsigned int index() const
   {
@@ -146,7 +146,7 @@ private:
     // For round-tripping to older dwg file format versions via AcDbAssocSimplePersSubentId
     //
   static const int kRoundTripOffset = 2000000;
-  virtual int roundTripOffset() const override
+  int roundTripOffset() const override
   {
     return kRoundTripOffset;
   }
@@ -183,12 +183,12 @@ public:
   {
     mObjectId = objId;
   }
-  virtual Acad::ErrorStatus dwgOutFieldsData(AcDbDwgFiler*) const override;
-  virtual Acad::ErrorStatus dxfOutFieldsData(AcDbDxfFiler*) const override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
+  Acad::ErrorStatus dwgOutFieldsData(AcDbDwgFiler*) const override;
+  Acad::ErrorStatus dxfOutFieldsData(AcDbDxfFiler*) const override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler*) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler*) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler*) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler*) override;
 private:
   AcDbObjectId mObjectId;
 };

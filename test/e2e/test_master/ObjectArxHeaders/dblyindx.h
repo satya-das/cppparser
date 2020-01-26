@@ -24,11 +24,11 @@ class AcDbLayerIndex : public AcDbIndex
 public:
   AcDbLayerIndex();
   virtual ~AcDbLayerIndex();
-  virtual AcDbFilteredBlockIterator* newIterator(const AcDbFilter* pFilter) const override;
-  virtual Acad::ErrorStatus rebuildFull(AcDbIndexUpdateData* pIdxData) override;
+  AcDbFilteredBlockIterator* newIterator(const AcDbFilter* pFilter) const override;
+  Acad::ErrorStatus rebuildFull(AcDbIndexUpdateData* pIdxData) override;
   Acad::ErrorStatus compute(AcDbLayerTable* pLT, AcDbBlockTableRecord* pBTR);
 protected:
-  virtual Acad::ErrorStatus rebuildModified(AcDbBlockChangeIterator* iter) override;
+  Acad::ErrorStatus rebuildModified(AcDbBlockChangeIterator* iter) override;
 };
 class AcDbImpLayerIndexIterator;
 class AcDbLayerFilter;
@@ -37,12 +37,12 @@ class AcDbLayerIndexIterator : public AcDbFilteredBlockIterator
 public:
   AcDbLayerIndexIterator(const AcDbLayerIndex* pIndex, const AcDbLayerFilter* pFilter);
   virtual ~AcDbLayerIndexIterator();
-  virtual Acad::ErrorStatus start() override;
-  virtual AcDbObjectId next() override;
-  virtual AcDbObjectId id() const override;
-  virtual Acad::ErrorStatus seek(AcDbObjectId id) override;
-  virtual double estimatedHitFraction() const override;
-  virtual Acad::ErrorStatus accepts(AcDbObjectId id, Adesk::Boolean& idPassesFilter) const override;
+  Acad::ErrorStatus start() override;
+  AcDbObjectId next() override;
+  AcDbObjectId id() const override;
+  Acad::ErrorStatus seek(AcDbObjectId id) override;
+  double estimatedHitFraction() const override;
+  Acad::ErrorStatus accepts(AcDbObjectId id, Adesk::Boolean& idPassesFilter) const override;
 private:
   AcDbImpLayerIndexIterator* mpImpIter;
 };

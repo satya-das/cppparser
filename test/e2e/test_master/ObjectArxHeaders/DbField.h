@@ -162,11 +162,11 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus setData(const ACHAR* pszKey, const AcValue* pData);
   ACDBCORE2D_PORT Acad::ErrorStatus setData(const ACHAR* pszKey, const AcValue* pData, bool bRecursive);
     // Base class overrides
-  ACDBCORE2D_PORT virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  ACDBCORE2D_PORT virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  ACDBCORE2D_PORT virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  ACDBCORE2D_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  ACDBCORE2D_PORT virtual Acad::ErrorStatus subClose() override;
+  ACDBCORE2D_PORT Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  ACDBCORE2D_PORT Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  ACDBCORE2D_PORT Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  ACDBCORE2D_PORT Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  ACDBCORE2D_PORT Acad::ErrorStatus subClose() override;
 };
 // These two inlines exist because of the deprecated method taking ACHAR **.
 // Otherwise we could use default params as in (int * pnErrCode = nullptr)

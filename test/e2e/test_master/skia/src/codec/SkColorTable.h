@@ -21,7 +21,7 @@ public:
     /** Copy up to 256 colors into a new SkColorTable.
      */
   SkColorTable(const SkPMColor colors[], int count);
-  ~SkColorTable();
+  virtual ~SkColorTable();
     /** Returns the number of colors in the table.
      */
   int count() const

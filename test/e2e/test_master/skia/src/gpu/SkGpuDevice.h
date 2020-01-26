@@ -47,7 +47,7 @@ public:
      * for SkSurfaces.
      */
   static sk_sp<SkGpuDevice> Make(GrContext*, SkBudgeted, const SkImageInfo&, int sampleCount, GrSurfaceOrigin, const SkSurfaceProps*, GrMipMapped mipMapped, InitContents);
-  ~SkGpuDevice()
+  virtual ~SkGpuDevice()
   {
   }
   GrContext* context() const override

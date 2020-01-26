@@ -32,9 +32,9 @@ public:
   ACDB_PORT virtual Acad::ErrorStatus setName(const ACHAR* pszName);
   ACDB_PORT virtual const ACHAR* description(void) const;
   ACDB_PORT virtual Acad::ErrorStatus setDescription(const ACHAR* pszDescription);
-  ACDB_PORT virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  ACDB_PORT virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  ACDB_PORT virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  ACDB_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  ACDB_PORT Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  ACDB_PORT Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  ACDB_PORT Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  ACDB_PORT Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
 };
 typedef AcArray<AcDbLinkedData*> AcDbDataArray;

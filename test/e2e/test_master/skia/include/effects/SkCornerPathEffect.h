@@ -24,7 +24,7 @@ public:
     return radius > 0 ? sk_sp<SkPathEffect>(new SkCornerPathEffect(radius)) : nullptr;
   }
 protected:
-  ~SkCornerPathEffect();
+  virtual ~SkCornerPathEffect();
   explicit SkCornerPathEffect(SkScalar radius);
   void flatten(SkWriteBuffer&) const override;
   bool onFilterPath(SkPath* dst, const SkPath& src, SkStrokeRec*, const SkRect*) const override;

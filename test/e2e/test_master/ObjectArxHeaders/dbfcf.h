@@ -45,7 +45,7 @@ public:
 /// </remarks>
 ///
   ACDBCORE2D_PORT virtual Acad::ErrorStatus text(AcString& sText, int lineNo = kAll) const;
-  virtual ACHAR* text(int lineNo = kAll) const final;
+  ACHAR* text(int lineNo = kAll) const final;
   virtual void setLocation(const AcGePoint3d&);
   virtual AcGePoint3d location() const;
   virtual void setOrientation(const AcGeVector3d& norm, const AcGeVector3d& dir);
@@ -78,7 +78,7 @@ public:
 protected:
     // Get corresponding COM wrapper class ID
     //
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #  pragma  pack(pop)
 // This overload is deprecated. Please use the one that takes an AcString & arg

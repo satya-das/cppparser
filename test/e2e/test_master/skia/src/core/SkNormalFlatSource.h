@@ -25,7 +25,7 @@ private:
   {
   public:
     Provider();
-    ~Provider();
+    virtual ~Provider();
     void fillScanLine(int x, int y, SkPoint3 output[], int count) const override;
   private:
     typedef SkNormalSource::Provider INHERITED;

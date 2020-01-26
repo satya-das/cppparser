@@ -98,7 +98,7 @@ namespace SkSL
     };
 #  endif
     Compiler(Flags flags = kNone_Flags);
-    ~Compiler();
+    virtual ~Compiler();
     Compiler(const Compiler&) = delete;
     Compiler& operator=(const Compiler&);
     /**

@@ -13,7 +13,7 @@ class GrDawnRenderTarget : public GrRenderTarget
 {
 public:
   static sk_sp<GrDawnRenderTarget> MakeWrapped(GrDawnGpu*, const SkISize& size, GrPixelConfig config, int sampleCnt, const GrDawnImageInfo&);
-  ~GrDawnRenderTarget();
+  virtual ~GrDawnRenderTarget();
   bool canAttemptStencilAttachment() const override
   {
     return true;

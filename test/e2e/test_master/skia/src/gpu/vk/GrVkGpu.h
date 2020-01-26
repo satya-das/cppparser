@@ -36,7 +36,7 @@ class GrVkGpu : public GrGpu
 {
 public:
   static sk_sp<GrGpu> Make(const GrVkBackendContext&, const GrContextOptions&, GrContext*);
-  ~GrVkGpu();
+  virtual ~GrVkGpu();
   void disconnect(DisconnectType) override;
   const GrVkInterface* vkInterface() const
   {

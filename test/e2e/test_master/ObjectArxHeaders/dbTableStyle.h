@@ -39,7 +39,7 @@ public:
     // General Properties
     //
   ACDBCORE2D_PORT virtual Acad::ErrorStatus getName(AcString& sName) const;
-  ACDBCORE2D_PORT virtual Acad::ErrorStatus getName(ACHAR*& pszName) const final;
+  ACDBCORE2D_PORT Acad::ErrorStatus getName(ACHAR*& pszName) const final;
   virtual Acad::ErrorStatus setName(const ACHAR* pszName);
   bool isRenamable() const;
   virtual const ACHAR* description(void) const;
@@ -98,11 +98,11 @@ public:
   virtual Acad::ErrorStatus setGridVisibility(AcDb::Visibility visible, int gridLineTypes = AcDb::kAllGridLines, int rowTypes = AcDb::kAllRows);
     // AcDbObject protocol
     //
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
-  virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
     // Utility functions
     //
   virtual Acad::ErrorStatus postTableStyleToDb(AcDbDatabase* pDb, const ACHAR* styleName, AcDbObjectId& tableStyleId);
@@ -169,7 +169,7 @@ protected:
     // Get corresponding COM wrapper class ID
     //********************************************************************
     //
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #  pragma  pack (pop)
 // This overload is deprecated. Please use the one taking AcString & arg instead

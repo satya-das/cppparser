@@ -155,7 +155,7 @@ public:
   bool plotWireframe() const;
   bool plotAsRaster() const;
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #  pragma  pack(pop)
 #endif

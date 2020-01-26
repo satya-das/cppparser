@@ -45,7 +45,7 @@ public:
      *  Simpler version that uses the default size, no cropping, and no postProcess.
      */
   static sk_sp<SkAnimatedImage> Make(std::unique_ptr<SkAndroidCodec>);
-  ~SkAnimatedImage();
+  virtual ~SkAnimatedImage();
     /**
      *  Reset the animation to the beginning.
      */

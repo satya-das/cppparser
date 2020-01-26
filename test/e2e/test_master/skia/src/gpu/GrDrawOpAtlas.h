@@ -304,7 +304,7 @@ private:
     }
   private:
     Plot(int pageIndex, int plotIndex, uint64_t genID, int offX, int offY, int width, int height, GrColorType colorType);
-    ~Plot();
+    virtual ~Plot();
         /**
          * Create a clone of this plot. The cloned plot will take the place of the current plot in
          * the atlas

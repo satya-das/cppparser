@@ -79,7 +79,7 @@ public:
     /** Create a PDF array. Maximum length is 8191.
      */
   SkPDFArray();
-  ~SkPDFArray();
+  virtual ~SkPDFArray();
     // The SkPDFObject interface.
   void emitObject(SkWStream* stream) const override;
     /** The size of the array.
@@ -142,7 +142,7 @@ public:
      *  @param type   The value of the Type entry, nullptr for no type.
      */
   explicit SkPDFDict(const char type[] = nullptr);
-  ~SkPDFDict();
+  virtual ~SkPDFDict();
     // The SkPDFObject interface.
   void emitObject(SkWStream* stream) const override;
     /** The size of the dictionary.

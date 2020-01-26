@@ -57,7 +57,7 @@ public:
   Acad::ErrorStatus origDb(AcDbDatabase*& db) const;
   AcDb::DeepCloneType deepCloneContext() const;
   AcDb::DuplicateRecordCloning duplicateRecordCloning() const;
-  virtual Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
+  Acad::ErrorStatus copyFrom(const AcRxObject* other) override;
 private:
   friend class AcDbSystemInternals;
   friend class AcDbImpIdMappingIter;

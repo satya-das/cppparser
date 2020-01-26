@@ -46,10 +46,10 @@ public:
   AcDbOleFrame();
   virtual ~AcDbOleFrame();
     // --- AcDbObject Protocol
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
     // OLE Specific Methods
   virtual void* getOleObject(void) const;
   virtual void setOleObject(const void* pItem);
@@ -61,20 +61,20 @@ public:
   AcDbOle2Frame();
   virtual ~AcDbOle2Frame();
     // --- AcDbObject Protocol
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
     // --- AcDbEntity Protocol
-  virtual void saveAs(AcGiWorldDraw* mode, AcDb::SaveType st) override;
+  void saveAs(AcGiWorldDraw* mode, AcDb::SaveType st) override;
     // OLE Specific Methods
     // Get pointer to MFC COleClientItem class.
     // WARNING: in RealDWG host applications, the void* points to an
     // object that wraps the COleClientItem not to the COleClientItem
     // itself.
     //
-  virtual void* getOleObject(void) const override;
-  virtual void setOleObject(const void* pItem) override;
+  void* getOleObject(void) const override;
+  void setOleObject(const void* pItem) override;
   void* getOleItemHost() const;
     // These two methods will work for all host applications.
     // The set method will only work on an AcDbOle2Frame entity that is
@@ -172,7 +172,7 @@ public:
   Acad::ErrorStatus setLockAspect(const Adesk::Boolean bLockAspect);
 protected:
     // Get corresponding COM wrapper class ID
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 #  pragma  pack (pop)
 #endif

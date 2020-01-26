@@ -64,7 +64,7 @@ private:
   class FrameHolder : public SkFrameHolder
   {
   public:
-    ~FrameHolder()
+    virtual ~FrameHolder()
     {
     }
     void setScreenSize(int w, int h)

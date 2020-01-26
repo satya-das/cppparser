@@ -23,7 +23,7 @@ public:
   {
     this->reset();
   }
-  ~GrRectanizerPow2()
+  virtual ~GrRectanizerPow2()
   {
   }
   void reset() override

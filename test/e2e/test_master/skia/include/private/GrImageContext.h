@@ -13,7 +13,7 @@ class GrProxyProvider;
 class GrImageContext : public GrContext_Base
 {
 public:
-  ~GrImageContext();
+  virtual ~GrImageContext();
   GrBackendFormat defaultBackendFormat(SkColorType ct, GrRenderable renderable) const
   {
     return INHERITED::defaultBackendFormat(ct, renderable);

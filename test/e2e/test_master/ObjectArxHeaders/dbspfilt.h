@@ -29,7 +29,7 @@ class AcDbSpatialFilter : public AcDbFilter
 public:
   AcDbSpatialFilter();
   virtual ~AcDbSpatialFilter();
-  virtual AcRxClass* indexClass() const override;
+  AcRxClass* indexClass() const override;
     // To Be Obsoleted...
   virtual void queryBounds(AcDbExtents& ext, const AcDbBlockReference* pRefBlkRef) const;
   AcDbSpatialFilter(const AcGePoint2dArray& pts, const AcGeVector3d& normal, double elevation, double frontClip, double backClip, Adesk::Boolean enabled);

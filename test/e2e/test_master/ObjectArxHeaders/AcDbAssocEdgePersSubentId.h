@@ -54,7 +54,7 @@ public:
     /// <param  name="pDatabase"> Not used. </param>
     /// <returns> Returns count 1 or 0. </returns>
     ///
-  virtual int transientSubentCount(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
+  int transientSubentCount(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
   {
     ADESK_UNREFED_PARAM(pEntity);
     ADESK_UNREFED_PARAM(pDatabase);
@@ -65,13 +65,13 @@ public:
     /// <param  name="pDatabase"> Not used. </param>
     /// <returns> AcDb::kEdgeSubentType or AcDb::kVertexSubentType. </returns>
     ///
-  virtual AcDb::SubentType subentType(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override;
+  AcDb::SubentType subentType(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override;
     /// <summary> 
     /// Returns true iff the AcDbAssocEdgePersSubentId does not identify any subentity.
     /// </summary>
     /// <returns> True iff the AcDbAssocEdgePersSubentId does not identify any subentity. </returns>
     ///
-  virtual bool isNull() const override
+  bool isNull() const override
   {
     return mIndex1 == 0;
   }
@@ -85,32 +85,32 @@ public:
     /// <param  name="pOther"> The other AcDbAssocEdgePersSubentId. </param>
     /// <returns> True iff this and the other AcDbAssocEdgePersSubentId are equal. </returns>
     ///
-  virtual bool isEqualTo(const AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pOther) const override;
+  bool isEqualTo(const AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pOther) const override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to read the object data from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to read the object data from. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
     /// <summary> The standard protocol. </summary>
     /// <param  name="pAuditInfo"> See the AcDbAuditInfo documentation. </param>
     /// <returns> Acad::ErrorStatus. </returns>
     ///
-  virtual Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
+  Acad::ErrorStatus audit(AcDbAuditInfo* pAuditInfo) override;
     /// <summary> Returns the value of the internal index1 data member. </summary>
     /// <returns> Value of the internal index1 data member. </returns>
     ///

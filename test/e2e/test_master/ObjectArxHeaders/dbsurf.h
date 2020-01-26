@@ -797,7 +797,7 @@ public:
   virtual Acad::ErrorStatus setSubentMaterialMapper(const AcDbSubentId& subentId, const AcGiMapper& mapper);
   virtual Acad::ErrorStatus getSubentMaterialMapper(const AcDbSubentId& subentId, AcGiMapper& mapper) const;
   virtual Acad::ErrorStatus getArea(double& area) const;
-  ACDB_PORT virtual void dragStatus(const AcDb::DragStat) override;
+  ACDB_PORT void dragStatus(const AcDb::DragStat) override;
   virtual void* ASMBodyCopy(bool bDeepCopy = false) const;
   virtual const void* getLockedASMBody();
   virtual void unlockASMBody();
@@ -807,10 +807,10 @@ public:
   virtual AcDbSubentId internalSubentId(void* ent) const;
   virtual void* internalSubentPtr(const AcDbSubentId& id) const;
     // AcDbObject methods
-  virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
-  virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
-  virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
-  virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
+  Acad::ErrorStatus dwgInFields(AcDbDwgFiler* filer) override;
+  Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* filer) const override;
+  Acad::ErrorStatus dxfInFields(AcDbDxfFiler* filer) override;
+  Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* filer) const override;
   virtual Adesk::UInt16 uIsolineDensity() const;
   virtual Acad::ErrorStatus setUIsolineDensity(Adesk::UInt16 numIsolines);
   virtual Adesk::UInt16 vIsolineDensity() const;
@@ -929,10 +929,10 @@ public:
     ///
   Acad::ErrorStatus ACDB_PORT convertToNurbSurface(AcDbNurbSurfaceArray& nsArray);
     // AcDbEntity override
-  virtual Acad::ErrorStatus getPlane(AcGePlane& plane, AcDb::Planarity& planarity) const override;
+  Acad::ErrorStatus getPlane(AcGePlane& plane, AcDb::Planarity& planarity) const override;
 protected:
     // AcDbEntity methods
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 public:
     /// <summary>
     /// This method creates non-database resident entities

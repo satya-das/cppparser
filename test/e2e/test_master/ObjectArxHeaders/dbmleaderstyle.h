@@ -477,7 +477,7 @@ public:
     /// Return Acae::eOk if Successful
     /// </returns>
   virtual Acad::ErrorStatus getName(AcString& sName) const;
-  virtual Acad::ErrorStatus getName(ACHAR*& pszName) const final;
+  Acad::ErrorStatus getName(ACHAR*& pszName) const final;
     /// <summary>
     /// Set the name of AcDbMLeaderStyle
     /// </summary>
@@ -1453,7 +1453,7 @@ protected:
     /// Returns Acad::eOk if successful.Return values for errors are implementation-dependent.
     /// </returns>
     ///
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // Deprecated method. Please use the overload taking AcString & arg
 inline Acad::ErrorStatus AcDbMLeaderStyle::getName(ACHAR*& pName) const

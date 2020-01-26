@@ -24,7 +24,7 @@ class GrDawnGpu : public GrGpu
 public:
   static sk_sp<GrGpu> Make(const dawn::Device& device, const GrContextOptions&, GrContext*);
   GrDawnGpu(GrContext* context, const GrContextOptions& options, const dawn::Device& device);
-  ~GrDawnGpu();
+  virtual ~GrDawnGpu();
   void disconnect(DisconnectType) override;
   const dawn::Device& device() const
   {
@@ -77,7 +77,7 @@ private:
   void onResetContext(uint32_t resetBits) override
   {
   }
-  virtual void querySampleLocations(GrRenderTarget*, SkTArray<SkPoint>*) override
+  void querySampleLocations(GrRenderTarget*, SkTArray<SkPoint>*) override
   {
   }
   sk_sp<GrTexture> onCreateTexture(const GrSurfaceDesc& desc, const GrBackendFormat&, GrRenderable, int renderTargetSampleCnt, SkBudgeted, GrProtected, int mipLevelCount, uint32_t levelClearMask) override;

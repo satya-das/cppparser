@@ -15,7 +15,7 @@ class GrVkDescriptorSet : public GrVkRecycledResource
 {
 public:
   GrVkDescriptorSet(VkDescriptorSet descSet, GrVkDescriptorPool* pool, GrVkDescriptorSetManager::Handle handle);
-  ~GrVkDescriptorSet()
+  virtual ~GrVkDescriptorSet()
   {
   }
   VkDescriptorSet descriptorSet() const

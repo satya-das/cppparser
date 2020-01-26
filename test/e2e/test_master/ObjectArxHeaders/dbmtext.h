@@ -97,7 +97,7 @@ public:
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
     // AcDbEntity override
-  virtual Adesk::Boolean isPlanar() const override
+  Adesk::Boolean isPlanar() const override
   {
     return Adesk::kTrue;
   }
@@ -297,7 +297,7 @@ public:
   Acad::ErrorStatus setHeight(double);
     // FOR INTERNAL USE ONLY
 protected:
-  virtual Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
+  Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
 // These overloads are deprecated and will be removed. Please use the
 // overloads taking AcString & args instead

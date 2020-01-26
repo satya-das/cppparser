@@ -130,7 +130,7 @@ public:
     return fInterface.get();
   }
   SkSL::Compiler* compiler() const;
-  ~GrGLContext();
+  virtual ~GrGLContext();
 private:
   GrGLContext(ConstructorArgs&& args)
     : INHERITED(std::move(args))

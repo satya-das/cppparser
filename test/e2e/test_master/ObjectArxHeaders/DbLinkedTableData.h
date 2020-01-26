@@ -27,7 +27,7 @@ class AcDbLinkedTableData : public AcDbLinkedData
 public:
   ACDB_PORT AcDbLinkedTableData(void);
   ACDB_PORT virtual ~AcDbLinkedTableData();
-  ACDB_PORT virtual Acad::ErrorStatus clear(void) override;
+  ACDB_PORT Acad::ErrorStatus clear(void) override;
   ACDB_PORT virtual Acad::ErrorStatus copyFrom(const AcDbLinkedTableData* pSrc, AcDb::TableCopyOption nOption);
   ACDB_PORT virtual Acad::ErrorStatus copyFrom(const AcDbLinkedTableData* pSrc, AcDb::TableCopyOption nOption, const AcCellRange& srcRange, const AcCellRange& targetRange, AcCellRange* pNewTargetRange);
   ACDB_PORT AcDbTableIterator* getIterator(void) const;
@@ -108,8 +108,8 @@ public:
   ACDB_PORT virtual Acad::ErrorStatus setBlockAttributeValue(int nRow, int nCol, const AcDbObjectId& idAttDef, const ACHAR* pszAttValue);
   ACDB_PORT virtual Acad::ErrorStatus setBlockAttributeValue(int nRow, int nCol, int nContent, const AcDbObjectId& idAttDef, const ACHAR* pszAttValue);
   ACDB_PORT virtual Acad::ErrorStatus evaluateFormula(void);
-  ACDB_PORT virtual Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
-  ACDB_PORT virtual Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
-  ACDB_PORT virtual Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
-  ACDB_PORT virtual Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+  ACDB_PORT Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
+  ACDB_PORT Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
+  ACDB_PORT Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
+  ACDB_PORT Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
 };

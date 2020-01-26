@@ -20,7 +20,7 @@ class GrSmallPathRenderer : public GrPathRenderer, public GrOnFlushCallbackObjec
 {
 public:
   GrSmallPathRenderer();
-  ~GrSmallPathRenderer();
+  virtual ~GrSmallPathRenderer();
     // GrOnFlushCallbackObject overrides
     //
     // Note: because this class is associated with a path renderer we want it to be removed from
