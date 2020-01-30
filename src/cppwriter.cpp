@@ -165,38 +165,47 @@ void CppWriter::emitInclude(const CppInclude* includeObj, std::ostream& stm) con
 {
   stm << '#' << preproIndent_ << "include " << includeObj->name_ << '\n';
 }
-
 void CppWriter::emitHashIf(const CppHashIf* hashIfObj, std::ostream& stm) const
 {
-  switch (hashIfObj->condType_)
+  emitHashIf(hashIfObj->condType_, hashIfObj->cond_, stm);
+}
+
+void CppWriter::emitEndIf(std::ostream& stm) const
+{
+  stm << '#' << --preproIndent_ << "endif\n";
+}
+
+void CppWriter::emitHashIf(CppHashIf::CondType condType, const std::string& cond, std::ostream& stm) const
+{
+  switch (condType)
   {
     case CppHashIf::kIf:
-      stm << '#' << preproIndent_ << "if " << hashIfObj->cond_ << '\n';
+      stm << '#' << preproIndent_ << "if " << cond << '\n';
       ++preproIndent_;
       break;
 
     case CppHashIf::kIfDef:
-      stm << '#' << preproIndent_ << "ifdef " << hashIfObj->cond_ << '\n';
+      stm << '#' << preproIndent_ << "ifdef " << cond << '\n';
       ++preproIndent_;
       break;
 
     case CppHashIf::kIfNDef:
-      stm << '#' << preproIndent_ << "ifndef " << hashIfObj->cond_ << '\n';
+      stm << '#' << preproIndent_ << "ifndef " << cond << '\n';
       ++preproIndent_;
       break;
 
     case CppHashIf::kElIf:
-      stm << '#' << --preproIndent_ << "elif " << hashIfObj->cond_ << '\n';
+      stm << '#' << --preproIndent_ << "elif " << cond << '\n';
       ++preproIndent_;
       break;
 
     case CppHashIf::kElse:
-      stm << '#' << --preproIndent_ << "else " << hashIfObj->cond_ << '\n';
+      stm << '#' << --preproIndent_ << "else " << cond << '\n';
       ++preproIndent_;
       break;
 
     case CppHashIf::kEndIf:
-      stm << '#' << --preproIndent_ << "endif\n";
+      emitEndIf(stm);
       break;
   }
 }

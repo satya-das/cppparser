@@ -105,6 +105,8 @@ public:
   virtual void emitUndef(const CppUndef* undefObj, std::ostream& stm) const;
   virtual void emitInclude(const CppInclude* includeObj, std::ostream& stm) const;
   virtual void emitHashIf(const CppHashIf* hashIfObj, std::ostream& stm) const;
+  virtual void emitHashIf(CppHashIf::CondType condType, const std::string& cond, std::ostream& stm) const;
+  virtual void emitEndIf(std::ostream& stm) const;
   virtual void emitPragma(const CppPragma* pragmaObj, std::ostream& stm) const;
   virtual void emitBlob(const CppBlob* blobObj, std::ostream& stm) const;
 

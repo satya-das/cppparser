@@ -165,9 +165,9 @@ struct CppHashIf : public CppObj
   enum CondType
   {
     kIf,
-    kElse,
     kIfDef,
     kIfNDef,
+    kElse,
     kElIf,
     kEndIf
   };
