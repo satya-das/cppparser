@@ -12,7 +12,7 @@
 #  include "include/private/SkTLogic.h"
 // SkEnumerate returns a tuple with an index and the value returned by the iterator. The index always
 // starts at 0.
-template <typename Iter, typename C  = skstd::monostate>
+template <typename Iter, typename C = skstd::monostate>
 class SkEnumerate
 {
   using Result = std::tuple<size_t, decltype(*std::declval<Iter>())>;

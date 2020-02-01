@@ -39,7 +39,7 @@ public:
      * must be sure that if a resource of exists in the cache with the given unique key then it is
      * of type T.
      */
-  template <typename T  = GrGpuResource>
+  template <typename T = GrGpuResource>
   typename std::enable_if<std::is_base_of<GrGpuResource, T>::value, sk_sp<T>>::type findByUniqueKey(const GrUniqueKey& key)
   {
     return sk_sp<T>(static_cast<T*>(this->findResourceByUniqueKey(key).release()));

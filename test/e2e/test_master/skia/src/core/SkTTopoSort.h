@@ -9,7 +9,7 @@
 #  include "include/core/SkRefCnt.h"
 #  include "include/private/SkTArray.h"
 #  ifdef SK_DEBUG
-template <typename T, typename Traits  = T>
+template <typename T, typename Traits = T>
 void SkTTopoSort_CheckAllUnmarked(const SkTArray<sk_sp<T>>& graph)
 {
   for (int i = 0; i < graph.count(); ++i)
@@ -18,7 +18,7 @@ void SkTTopoSort_CheckAllUnmarked(const SkTArray<sk_sp<T>>& graph)
     SkASSERT(!Traits::WasOutput(graph[i].get()));
   }
 }
-template <typename T, typename Traits  = T>
+template <typename T, typename Traits = T>
 void SkTTopoSort_CleanExit(const SkTArray<sk_sp<T>>& graph)
 {
   for (int i = 0; i < graph.count(); ++i)
@@ -30,7 +30,7 @@ void SkTTopoSort_CleanExit(const SkTArray<sk_sp<T>>& graph)
 #  endif
 // Recursively visit a node and all the other nodes it depends on.
 // Return false if there is a loop.
-template <typename T, typename Traits  = T>
+template <typename T, typename Traits = T>
 bool SkTTopoSort_Visit(T* node, SkTArray<sk_sp<T>>* result)
 {
   if (Traits::IsTempMarked(node))
@@ -78,7 +78,7 @@ bool SkTTopoSort_Visit(T* node, SkTArray<sk_sp<T>>* result)
 // TODO: potentially add a version that takes a seed node and just outputs that
 // node and all the nodes on which it depends. This could be used to partially
 // flush a GrRenderTask DAG.
-template <typename T, typename Traits  = T>
+template <typename T, typename Traits = T>
 bool SkTTopoSort(SkTArray<sk_sp<T>>* graph)
 {
   SkTArray<sk_sp<T>> result;

@@ -13,7 +13,7 @@
 //   static const Key& GetKey(const T&) { ... }
 //   static uint32_t Hash(const Key&) { ... }
 // We'll look on T for these by default, or you can pass a custom Traits type.
-template <typename T, typename Key, typename Traits  = T, int kGrowPercent = 75>
+template <typename T, typename Key, typename Traits = T, int kGrowPercent = 75>
 class SkTDynamicHash
 {
 public:

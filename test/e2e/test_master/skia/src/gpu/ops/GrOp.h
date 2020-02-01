@@ -182,7 +182,7 @@ public:
      *         // ...
      *     }
      */
-  template <typename OpSubclass  = GrOp>
+  template <typename OpSubclass = GrOp>
   class ChainRange
   {
   private:

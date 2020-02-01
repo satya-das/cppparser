@@ -10,7 +10,7 @@
 namespace skstd
 {
 // std::exchange is in C++14
-  template <typename T, typename U  = T>
+  template <typename T, typename U = T>
   static T exchange(T& obj, U&& new_val)
   {
     T old_val = std::move(obj);

@@ -202,7 +202,7 @@ struct AcArrayItemCopierSelector<T, true>
 };
 template <typename T>
 using AcArrayAllocator = typename AcArrayItemCopierSelector<T, std::is_trivial<T>::value>::allocator;
-template <typename T, typename R  = AcArrayAllocator<T>>
+template <typename T, typename R = AcArrayAllocator<T>>
 class AcArray
 {
 public:

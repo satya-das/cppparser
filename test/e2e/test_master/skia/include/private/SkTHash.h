@@ -19,7 +19,7 @@
 //   - static uint32_t Hash(K)
 // If the key is large and stored inside T, you may want to make K a const&.
 // Similarly, if T is large you might want it to be a pointer.
-template <typename T, typename K, typename Traits  = T>
+template <typename T, typename K, typename Traits = T>
 class SkTHashTable
 {
 public:
@@ -276,7 +276,7 @@ private:
 };
 // Maps K->V.  A more user-friendly wrapper around SkTHashTable, suitable for most use cases.
 // K and V are treated as ordinary copyable C++ types, with no assumed relationship between the two.
-template <typename K, typename V, typename HashK  = SkGoodHash>
+template <typename K, typename V, typename HashK = SkGoodHash>
 class SkTHashMap
 {
 public:
@@ -356,7 +356,7 @@ private:
   SkTHashMap& operator=(const SkTHashMap&);
 };
 // A set of T.  T is treated as an ordinary copyable C++ type.
-template <typename T, typename HashT  = SkGoodHash>
+template <typename T, typename HashT = SkGoodHash>
 class SkTHashSet
 {
 public:

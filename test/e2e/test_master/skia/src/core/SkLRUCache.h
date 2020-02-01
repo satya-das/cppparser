@@ -12,7 +12,7 @@
 /**
  * A generic LRU cache.
  */
-template <typename K, typename V, typename HashK  = SkGoodHash>
+template <typename K, typename V, typename HashK = SkGoodHash>
 class SkLRUCache : public SkNoncopyable
 {
 private:

@@ -1687,6 +1687,11 @@ templateparam     : tknTypename optname             [ZZLOG;] {
                       gTemplateParamStart = $1.sz;
                     ZZERROR;
                   ] { $$ = nullptr; }
+                  | tknTypename name '=' [
+                    if (gInTemplateSpec)
+                      gTemplateParamStart = $1.sz;
+                    ZZERROR;
+                  ] { $$ = nullptr; }
                   | tknTypename name tknGT [
                     if (gInTemplateSpec)
                       gTemplateParamStart = $1.sz;

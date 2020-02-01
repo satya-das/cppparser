@@ -11,7 +11,7 @@
 /** A set that contains pointers to instances of T. Instances can be looked up with key Key.
  * Multiple (possibly same) values can have the same key.
  */
-template <typename T, typename Key, typename HashTraits  = T>
+template <typename T, typename Key, typename HashTraits = T>
 class SkTMultiMap
 {
   struct ValueList
