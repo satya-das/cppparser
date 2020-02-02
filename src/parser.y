@@ -1228,6 +1228,8 @@ operfuncname      : tknOperator '+'               [ZZLOG;] { $$ = mergeCppToken(
                   | tknOperator tknNew '[' ']'    [ZZLOG;] { $$ = mergeCppToken($1, $4); }
                   | tknOperator tknDelete         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknDelete '[' ']' [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+                  | tknOperator typeidentifier    [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+                  | tknOperator typeidentifier '*'       [ZZLOG;] { $$ = mergeCppToken($1, $3); }
                   | identifier tknScopeResOp operfuncname [ZZLOG;] { $$ = mergeCppToken($1, $3); }
 
                   /* see https://en.cppreference.com/w/cpp/language/user_literal */

@@ -233,7 +233,9 @@ CppParser constructCppParserForTest()
                              "SK_ACQUIRE_SHARED",
                              "SK_RELEASE_SHARED_CAPABILITY",
                              "SK_BLITBWMASK_ARGS",
-                             "SK_ASSERT_SHARED_CAPABILITY"});
+                             "SK_ASSERT_SHARED_CAPABILITY",
+                             
+                             "WXUNUSED"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("final", "ADESK_SEALED");

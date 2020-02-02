@@ -2050,7 +2050,7 @@ public:
     @return @true if the given function returns a non-zero value for all
             characters of the @a val string.
 */
-template<bool (T)(const wxUniChar& c)>
+template<bool (*T)(const wxUniChar& c)>
     inline bool wxStringCheck(const wxString& val);
 
 //@}
