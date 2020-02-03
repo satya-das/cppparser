@@ -100,8 +100,8 @@ public:
   {
     return fCurrentSize;
   }
-  using BitmapBlobList = SkTInternalLList<GrTextBlob>;
 private:
+  using BitmapBlobList = SkTInternalLList<GrTextBlob>;
   struct BlobIDCacheEntry
   {
     BlobIDCacheEntry()

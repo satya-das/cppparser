@@ -22,9 +22,9 @@ class GrPipeline;
  */
 class GrMtlPipelineState
 {
+public:
   using UniformInfoArray = GrMtlPipelineStateDataManager::UniformInfoArray;
   using UniformHandle = GrGLSLProgramDataManager::UniformHandle;
-public:
   GrMtlPipelineState(GrMtlGpu* gpu, id<MTLRenderPipelineState> pipelineState, MTLPixelFormat pixelFormat, const GrGLSLBuiltinUniformHandles& builtinUniformHandles, const UniformInfoArray& uniforms, uint32_t uniformBufferSize, uint32_t numSamplers, std::unique_ptr<GrGLSLPrimitiveProcessor> geometryProcessor, std::unique_ptr<GrGLSLXferProcessor> xferPRocessor, std::unique_ptr<std::unique_ptr<GrGLSLFragmentProcessor>[]> fragmentProcessors, int fFragmentProcessorCnt);
   id<MTLRenderPipelineState> mtlPipelineState()
   {

@@ -71,10 +71,10 @@ class GrTexture;
 template <typename ProcessorSmartPtr>
 class GrProcessorTestFactory : private SkNoncopyable
 {
+public:
   using Processor = typename ProcessorSmartPtr::element_type;
   using MakeProc = ProcessorSmartPtr (*) (GrProcessorTestData*);
 ;
-public:
   GrProcessorTestFactory(MakeProc makeProc)
   {
     fMakeProc = makeProc;
@@ -117,9 +117,9 @@ using GrFragmentProcessorTestFactory = GrProcessorTestFactory<std::unique_ptr<Gr
 using GrGeometryProcessorTestFactory = GrProcessorTestFactory<sk_sp<GrGeometryProcessor>>;
 class GrXPFactoryTestFactory : private SkNoncopyable
 {
+public:
   using GetFn = const GrXPFactory* (*) (GrProcessorTestData*);
 ;
-public:
   GrXPFactoryTestFactory(GetFn* getProc)
     : fGetProc(getProc)
   {

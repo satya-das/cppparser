@@ -59,8 +59,8 @@ protected:
   uint8_t fFlags;
   bool fColorsArePremul;
   bool fDither;
-  using INHERITED = Context;
 private:
+  using INHERITED = Context;
   void addMirrorIntervals(const SkGradientShaderBase&, const Sk4f& componentScale, bool reverse);
 };
 #endif

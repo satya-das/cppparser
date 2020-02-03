@@ -157,8 +157,8 @@ public:
   }
   const char* dstColor() override;
   void enableAdvancedBlendEquationIfNeeded(GrBlendEquation) override;
-  using CustomFeatures = GrProcessor::CustomFeatures;
 private:
+  using CustomFeatures = GrProcessor::CustomFeatures;
     // Private public interface, used by GrGLProgramBuilder to build a fragment shader
   void enableCustomOutput();
   void enableSecondaryOutput();

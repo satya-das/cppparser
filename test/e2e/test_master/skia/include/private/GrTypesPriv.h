@@ -1449,10 +1449,10 @@ static GrPixelConfig GrColorTypeToPixelConfig(GrColorType colorType)
  */
 class GrRefCntedCallback : public SkRefCnt
 {
+public:
   using Context = void*;
   using Callback = void (*) (Context);
 ;
-public:
   GrRefCntedCallback(Callback proc, Context ctx)
     : fReleaseProc(proc)
     , fReleaseCtx(ctx)

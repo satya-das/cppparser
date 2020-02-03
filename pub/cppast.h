@@ -1165,28 +1165,28 @@ struct CppUsingDecl : public CppObj
   const CppObjPtr   cppObj_;
 
   CppUsingDecl(std::string name, CppVarType* varType)
-    : CppObj(kObjectType, CppAccessType::kUnknown)
+    : CppObj(kObjectType, varType->accessType_)
     , name_(std::move(name))
     , cppObj_(varType)
   {
   }
 
   CppUsingDecl(std::string name, CppFunctionPointer* fptr)
-    : CppObj(kObjectType, CppAccessType::kUnknown)
+    : CppObj(kObjectType, fptr->accessType_)
     , name_(std::move(name))
     , cppObj_(fptr)
   {
   }
 
   CppUsingDecl(std::string name, CppCompound* compound)
-    : CppObj(kObjectType, CppAccessType::kUnknown)
+    : CppObj(kObjectType, compound->accessType_)
     , name_(std::move(name))
     , cppObj_(compound)
   {
   }
 
-  CppUsingDecl(std::string name)
-    : CppObj(kObjectType, CppAccessType::kUnknown)
+  CppUsingDecl(std::string name, CppAccessType accessType)
+    : CppObj(kObjectType, accessType)
     , name_(std::move(name))
   {
   }

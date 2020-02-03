@@ -18,12 +18,12 @@ class SkEnumerate
   using Result = std::tuple<size_t, decltype(*std::declval<Iter>())>;
   class Iterator
   {
+  public:
     using value_type = Result;
     using difference_type = ptrdiff_t;
     using pointer = value_type*;
     using reference = value_type;
     using iterator_category = std::input_iterator_tag;
-  public:
     Iterator(ptrdiff_t index, Iter it)
       : fIndex(index)
       , fIt(it)

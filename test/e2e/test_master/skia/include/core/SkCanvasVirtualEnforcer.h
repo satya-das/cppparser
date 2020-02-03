@@ -13,6 +13,7 @@
 template <typename Base>
 class SkCanvasVirtualEnforcer : public Base
 {
+public:
   using Base::Base;
 protected:
   void onDrawPaint(const SkPaint& paint) = 0;

@@ -19,8 +19,8 @@ class SkImage;
  */
 class GrProxyProvider
 {
-  using UseAllocator = GrSurfaceProxy::UseAllocator;
 public:
+  using UseAllocator = GrSurfaceProxy::UseAllocator;
   GrProxyProvider(GrImageContext*);
   ~GrProxyProvider();
     /*

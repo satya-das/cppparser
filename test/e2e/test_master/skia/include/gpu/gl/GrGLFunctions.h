@@ -466,9 +466,9 @@ class GrGLFunction;
 template <typename R, typename... Args>
 class GrGLFunction<R GR_GL_FUNCTION_TYPE(Args...)>
 {
+public:
   using Fn = R (*) (Args...);
 ;
-public:
     // Construct empty.
   GrGLFunction();
   GrGLFunction(std::nullptr_t)
@@ -508,9 +508,9 @@ public:
   {
     fCall = nullptr;
   }
+private:
   using Call = R (*) (const void* buf, Args...);
 ;
-private:
   Call* fCall = nullptr;
   size_t fBuf[4];
 };

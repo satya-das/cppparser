@@ -150,8 +150,8 @@ default:
       {
         return !(*this == other);
       }
-      using inner = std::vector<std::unique_ptr<ProgramElement>>::iterator;
     private:
+      using inner = std::vector<std::unique_ptr<ProgramElement>>::iterator;
       iterator(inner begin1, inner end1, inner begin2, inner end2)
         : fIter1(begin1)
         , fEnd1(end1)
@@ -194,8 +194,8 @@ default:
       {
         return !(*this == other);
       }
-      using inner = std::vector<std::unique_ptr<ProgramElement>>::const_iterator;
     private:
+      using inner = std::vector<std::unique_ptr<ProgramElement>>::const_iterator;
       const_iterator(inner begin1, inner end1, inner begin2, inner end2)
         : fIter1(begin1)
         , fEnd1(end1)

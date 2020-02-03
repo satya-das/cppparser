@@ -59,8 +59,8 @@ public:
  */
 class GrOnFlushResourceProvider
 {
-  using UseAllocator = GrSurfaceProxy::UseAllocator;
 public:
+  using UseAllocator = GrSurfaceProxy::UseAllocator;
   explicit GrOnFlushResourceProvider(GrDrawingManager* drawingMgr)
     : fDrawingMgr(drawingMgr)
   {

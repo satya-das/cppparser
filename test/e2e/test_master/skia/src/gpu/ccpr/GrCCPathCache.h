@@ -252,8 +252,8 @@ public:
     // Called once our path mask has been copied into a permanent, 8-bit atlas. This method points
     // the entry at the new atlas and updates the GrCCCCachedAtlas data.
   ReleaseAtlasResult upgradeToLiteralCoverageAtlas(GrCCPathCache*, GrOnFlushResourceProvider*, GrCCAtlas*, const SkIVector& newAtlasOffset);
-  using MaskTransform = GrCCPathCache::MaskTransform;
 private:
+  using MaskTransform = GrCCPathCache::MaskTransform;
   GrCCPathCacheEntry(sk_sp<GrCCPathCache::Key> cacheKey, const MaskTransform& maskTransform)
     : fCacheKey(std::move(cacheKey))
     , fMaskTransform(maskTransform)
@@ -294,8 +294,8 @@ public:
  */
 class GrCCCachedAtlas : public GrNonAtomicRef<GrCCCachedAtlas>
 {
-  using ReleaseAtlasResult = GrCCPathCacheEntry::ReleaseAtlasResult;
 public:
+  using ReleaseAtlasResult = GrCCPathCacheEntry::ReleaseAtlasResult;
   GrCCCachedAtlas(GrCCAtlas::CoverageType type, const GrUniqueKey& textureKey, sk_sp<GrTextureProxy> onFlushProxy)
     : fCoverageType(type)
     , fTextureKey(textureKey)

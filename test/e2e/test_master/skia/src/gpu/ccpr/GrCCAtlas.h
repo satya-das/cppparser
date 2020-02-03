@@ -130,8 +130,8 @@ private:
  */
 class GrCCAtlasStack
 {
-  using CoverageType = GrCCAtlas::CoverageType;
 public:
+  using CoverageType = GrCCAtlas::CoverageType;
   GrCCAtlasStack(CoverageType coverageType, const GrCCAtlas::Specs& specs, const GrCaps* caps)
     : fCoverageType(coverageType)
     , fSpecs(specs)

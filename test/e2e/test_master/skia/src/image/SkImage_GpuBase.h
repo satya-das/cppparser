@@ -54,8 +54,8 @@ public:
   using PromiseImageTextureFulfillProc = SkDeferredDisplayListRecorder::PromiseImageTextureFulfillProc;
   using PromiseImageTextureReleaseProc = SkDeferredDisplayListRecorder::PromiseImageTextureReleaseProc;
   using PromiseImageTextureDoneProc = SkDeferredDisplayListRecorder::PromiseImageTextureDoneProc;
-  using PromiseImageApiVersion = SkDeferredDisplayListRecorder::PromiseImageApiVersion;
 protected:
+  using PromiseImageApiVersion = SkDeferredDisplayListRecorder::PromiseImageApiVersion;
     // Helper for making a lazy proxy for a promise image. The PromiseDoneProc we be called,
     // if not null, immediately if this function fails. Othwerwise, it is installed in the
     // proxy along with the TextureFulfillProc and TextureReleaseProc. PromiseDoneProc must not

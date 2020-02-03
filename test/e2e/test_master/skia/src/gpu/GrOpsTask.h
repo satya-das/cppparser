@@ -31,6 +31,7 @@ class GrOpMemoryPool;
 class GrRenderTargetProxy;
 class GrOpsTask : public GrRenderTask
 {
+private:
   using DstProxy = GrXferProcessor::DstProxy;
 public:
   GrOpsTask(sk_sp<GrOpMemoryPool>, sk_sp<GrRenderTargetProxy>, GrAuditTrail*);

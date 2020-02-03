@@ -19,10 +19,10 @@ class GrGLSLVertexBuilder;
 class GrShaderCaps;
 class GrGLSLPrimitiveProcessor
 {
+public:
   using UniformHandle = GrGLSLProgramDataManager::UniformHandle;
   using SamplerHandle = GrGLSLUniformHandler::SamplerHandle;
   using FPCoordTransformIter = GrFragmentProcessor::CoordTransformIter;
-public:
   struct TransformVar
   {
     TransformVar();

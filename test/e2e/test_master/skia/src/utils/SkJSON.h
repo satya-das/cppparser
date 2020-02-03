@@ -219,8 +219,8 @@ namespace skjson
   template <typename T, Value::Type vtype>
   class VectorValue : public Value
   {
-    using ValueT = T;
   public:
+    using ValueT = T;
     static Type kType = vtype;
     size_t size() const
     {

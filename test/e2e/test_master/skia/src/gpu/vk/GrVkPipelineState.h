@@ -30,9 +30,9 @@ class GrVkUniformBuffer;
  */
 class GrVkPipelineState : public SkRefCnt
 {
+public:
   using UniformInfoArray = GrVkPipelineStateDataManager::UniformInfoArray;
   using UniformHandle = GrGLSLProgramDataManager::UniformHandle;
-public:
   GrVkPipelineState(GrVkGpu* gpu, GrVkPipeline* pipeline, const GrVkDescriptorSetManager::Handle& samplerDSHandle, const GrGLSLBuiltinUniformHandles& builtinUniformHandles, const UniformInfoArray& uniforms, uint32_t uniformSize, const UniformInfoArray& samplers, std::unique_ptr<GrGLSLPrimitiveProcessor> geometryProcessor, std::unique_ptr<GrGLSLXferProcessor> xferProcessor, std::unique_ptr<std::unique_ptr<GrGLSLFragmentProcessor>[]> fragmentProcessors, int fFragmentProcessorCnt);
   ~GrVkPipelineState();
   void setAndBindUniforms(GrVkGpu*, const GrRenderTarget*, GrSurfaceOrigin, const GrPrimitiveProcessor&, const GrPipeline&, GrVkCommandBuffer*);

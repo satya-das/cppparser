@@ -803,7 +803,7 @@ usingdecl         : tknUsing name '=' vartype ';'         [ZZLOG;] {
                     $$->templateParamList($1);
                   }
                   | tknUsing identifier ';'             [ZZLOG;] {
-                    $$ = new CppUsingDecl($2);
+                    $$ = new CppUsingDecl($2, gCurAccessType);
                   }
                   ;
                   ;

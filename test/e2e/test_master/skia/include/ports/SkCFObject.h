@@ -32,8 +32,8 @@ static void SkCFSafeRelease(T obj)
 template <typename T>
 class sk_cf_obj
 {
-  using element_type = T;
 public:
+  using element_type = T;
   sk_cf_obj()
     : fObject(nullptr)
   {

@@ -19,9 +19,9 @@ class GrRenderTargetContext;
  */
 class GrReducedClip
 {
+public:
   using Element = SkClipStack::Element;
   using ElementList = SkTLList<SkClipStack::Element, 16>;
-public:
   GrReducedClip(const SkClipStack&, const SkRect& queryBounds, const GrCaps* caps, int maxWindowRectangles = 0, int maxAnalyticFPs = 0, int maxCCPRClipPaths = 0);
   enum class InitialState : bool {
         kAllIn,

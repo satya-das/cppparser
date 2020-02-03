@@ -22,12 +22,12 @@ class SkZip
   using ReturnTuple = std::tuple<Ts&...>;
   class Iterator
   {
+  public:
     using value_type = ReturnTuple;
     using difference_type = ptrdiff_t;
     using pointer = value_type*;
     using reference = value_type;
     using iterator_category = std::input_iterator_tag;
-  public:
     Iterator(const SkZip* zip, size_t index)
       : fZip(zip)
       , fIndex(index)

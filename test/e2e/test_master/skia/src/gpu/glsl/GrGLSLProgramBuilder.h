@@ -24,9 +24,9 @@ class SkString;
 class GrShaderCaps;
 class GrGLSLProgramBuilder
 {
+public:
   using UniformHandle = GrGLSLUniformHandler::UniformHandle;
   using SamplerHandle = GrGLSLUniformHandler::SamplerHandle;
-public:
   virtual ~GrGLSLProgramBuilder()
   {
   }

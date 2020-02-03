@@ -13,8 +13,8 @@ class SkLinearGradient::LinearGradient4fContext : public GradientShaderBase4fCon
 public:
   LinearGradient4fContext(const SkLinearGradient&, const ContextRec&);
   void shadeSpan(int x, int y, SkPMColor dst[], int count) override;
-  using INHERITED = GradientShaderBase4fContext;
 private:
+  using INHERITED = GradientShaderBase4fContext;
   template <ApplyPremul , SkTileMode >
   class LinearIntervalProcessor;
   template <ApplyPremul premul>

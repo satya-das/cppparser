@@ -29,9 +29,9 @@ class GrTRecorder
 private:
   template <bool IsConst>
   class IterImpl;
+public:
   using iterator = IterImpl<false>;
   using const_iterator = IterImpl<true>;
-public:
     /**
      * Create a recorder.
      *
@@ -155,6 +155,7 @@ inline void GrTRecorder<TBase>::reset()
 template <typename TBase>
 class GrTRecorder<TBase>::IterImpl
 {
+private:
   using T = typename std::conditional<IsConst, const TBase, TBase>::type;
 public:
   IterImpl();
