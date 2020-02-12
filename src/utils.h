@@ -23,44 +23,10 @@
 
 #pragma once
 
-#include "cppast.h"
-#include "cppobjfactory.h"
 #include "cpptoken.h"
 
 #include <iterator>
 #include <vector>
-
-extern CppObjFactory* gObjFactory;
-
-template <typename... Params>
-CppCompound* newCompound(Params... params)
-{
-  return gObjFactory->CreateCompound(params...);
-}
-
-template <typename... Params>
-CppConstructor* newConstructor(Params... params)
-{
-  return gObjFactory->CreateConstructor(params...);
-}
-
-template <typename... Params>
-CppDestructor* newDestructor(Params... params)
-{
-  return gObjFactory->CreateDestructor(params...);
-}
-
-template <typename... Params>
-CppFunction* newFunction(Params... params)
-{
-  return gObjFactory->CreateFunction(params...);
-}
-
-template <typename... Params>
-CppTypeConverter* newTypeConverter(Params... params)
-{
-  return gObjFactory->CreateTypeConverter(params...);
-}
 
 template <class Iter>
 inline std::reverse_iterator<Iter> rev(Iter i)
@@ -73,8 +39,5 @@ CppToken classNameFromIdentifier(const CppToken& identifier);
 std::string pruneClassName(const CppToken& identifier);
 
 std::vector<char> readFile(const std::string& filename);
-
-using CppProgFileSelecter = std::function<bool(const std::string&)>;
-std::vector<std::string> collectFiles(const std::string& folder, const CppProgFileSelecter& fileSelector);
 
 std::vector<CppToken> explode(CppToken token, const char* delim);

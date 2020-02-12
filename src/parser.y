@@ -40,6 +40,7 @@
 #include "cppvarinit.h"
 #include "parser.tab.h"
 #include "cppobjfactory.h"
+#include "obj-factory-helper.h"
 #include "utils.h"
 
 #include <iostream>
@@ -1411,6 +1412,10 @@ ctordecl          : name '(' paramlist ')' %prec CTORDECL
                   | ctordecl functhrowspec     [ZZLOG;] {
                     $$ = $1;
                     $$->throwSpec($2);
+                  }
+                  | ctordecl tknNoExcept     [ZZLOG;] {
+                    $$ = $1;
+                    $$->addAttr(kNoExcept);
                   }
                   | apidecor ctordecl          [ZZLOG;] {
                     $$ = $2;

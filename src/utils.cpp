@@ -21,11 +21,11 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include "cpputil.h"
+
 #include "utils.h"
 
 #include <fstream>
-
-#include <boost/filesystem.hpp>
 
 namespace fs = boost::filesystem;
 
@@ -43,7 +43,7 @@ static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
       --numTempl;
       if (numTempl == 0)
       {
-        CppToken clsName{identifier.sz, static_cast<size_t>(std::distance(rbeg, rend)) - 1};
+        CppToken clsName {identifier.sz, static_cast<size_t>(std::distance(rbeg, rend)) - 1};
         return clsName;
       }
     }
@@ -53,7 +53,7 @@ static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
     }
   }
 
-  return CppToken{nullptr, 0U};
+  return CppToken {nullptr, 0U};
 }
 
 CppToken classNameFromIdentifier(const CppToken& identifier)
@@ -73,7 +73,7 @@ CppToken classNameFromIdentifier(const CppToken& identifier)
   for (itr = itr + 2; (itr != end) && !isprint(*itr); ++itr)
     ;
   const auto clsNameLen = static_cast<size_t>(end - itr);
-  return CppToken{itr, clsNameLen};
+  return CppToken {itr, clsNameLen};
 }
 
 std::vector<char> readFile(const std::string& filename)
@@ -98,7 +98,7 @@ std::vector<char> readFile(const std::string& filename)
   return contents;
 }
 
-void collectFiles(const fs::path& path, std::vector<std::string>& files, const CppProgFileSelecter& fileSelector)
+void collectFiles(std::vector<std::string>& files, const fs::path& path, const CppProgFileSelecter& fileSelector)
 {
   if (fs::is_regular_file(path))
   {
@@ -110,19 +110,12 @@ void collectFiles(const fs::path& path, std::vector<std::string>& files, const C
   {
     for (fs::directory_iterator dirItr(path); dirItr != fs::directory_iterator(); ++dirItr)
     {
-      collectFiles(*dirItr, files, fileSelector);
+      collectFiles(files, *dirItr, fileSelector);
     }
   }
-}
 
-std::vector<std::string> collectFiles(const std::string& folder, const CppProgFileSelecter& fileSelector)
-{
-  std::vector<std::string> files;
-  collectFiles(folder, files, fileSelector);
   if (!files.empty())
     std::sort(files.begin(), files.end());
-
-  return files;
 }
 
 std::vector<CppToken> explode(CppToken token, const char* delim)
@@ -135,12 +128,12 @@ std::vector<CppToken> explode(CppToken token, const char* delim)
     auto* q = strstr(p, delim);
     if (q != nullptr)
     {
-      elems.push_back(CppToken{p, q - p});
+      elems.push_back(CppToken {p, q - p});
       p = q + delimLen;
     }
     else
     {
-      elems.push_back(CppToken{p, token.sz + token.len - p});
+      elems.push_back(CppToken {p, token.sz + token.len - p});
       break;
     }
   }

@@ -23,36 +23,38 @@
 
 #pragma once
 
-#include <boost/filesystem.hpp>
-
 #include "cppast.h"
-#include "cppconst.h"
+#include "cppobjfactory.h"
+#include "cpptoken.h"
 
-namespace fs = boost::filesystem;
+extern CppObjFactory* gObjFactory;
 
-using CppProgFileSelecter = std::function<bool(const std::string&)>;
-
-void collectFiles(std::vector<std::string>& files, const fs::path& path, const CppProgFileSelecter& fileSelector);
-
-inline std::vector<std::string> collectFiles(const std::string& folder, const CppProgFileSelecter& fileSelector)
+template <typename... Params>
+CppCompound* newCompound(Params... params)
 {
-  std::vector<std::string> files;
-  collectFiles(files, folder, fileSelector);
-
-  return files;
+  return gObjFactory->CreateCompound(params...);
 }
 
-inline CppAccessType defaultAccessType(CppCompoundType type)
+template <typename... Params>
+CppConstructor* newConstructor(Params... params)
 {
-  return (type == CppCompoundType::kClass) ? CppAccessType::kPrivate : CppAccessType::kPublic;
+  return gObjFactory->CreateConstructor(params...);
 }
 
-inline CppAccessType effectiveAccessType(CppAccessType objAccessType, CppCompoundType ownerType)
+template <typename... Params>
+CppDestructor* newDestructor(Params... params)
 {
-  return (objAccessType != CppAccessType::kUnknown) ? objAccessType : defaultAccessType(ownerType);
+  return gObjFactory->CreateDestructor(params...);
 }
 
-inline CppAccessType resolveInheritanceType(CppAccessType inheritanceType, CppCompoundType type)
+template <typename... Params>
+CppFunction* newFunction(Params... params)
 {
-  return (inheritanceType != CppAccessType::kUnknown) ? inheritanceType : defaultAccessType(type);
+  return gObjFactory->CreateFunction(params...);
+}
+
+template <typename... Params>
+CppTypeConverter* newTypeConverter(Params... params)
+{
+  return gObjFactory->CreateTypeConverter(params...);
 }

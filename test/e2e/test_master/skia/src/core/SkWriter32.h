@@ -274,13 +274,13 @@ public:
   {
     this->INHERITED::reset(fData.fStorage, SIZE);
   }
+private:
   union 
 {
   void* fPtrAlignment;
   double fDoubleAlignment;
   char fStorage[SIZE];
 } fData;
-private:
   typedef SkWriter32 INHERITED;
 };
 #endif
