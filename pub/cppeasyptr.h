@@ -64,7 +64,7 @@ public:
   CppEasyPtr(const std::unique_ptr<_UCppObj>& ptr)
     : ptr_(nullptr)
   {
-    if (ptr->objType_ == _TCppObj::kObjectType)
+    if (ptr && (ptr->objType_ == _TCppObj::kObjectType))
       ptr_ = static_cast<_TCppObj*>(ptr.get());
   }
 
