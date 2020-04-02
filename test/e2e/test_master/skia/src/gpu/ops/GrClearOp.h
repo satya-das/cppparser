@@ -10,7 +10,7 @@
 #  include "src/gpu/ops/GrOp.h"
 class GrOpFlushState;
 class GrRecordingContext;
-class GrClearOp : public GrOp
+class GrClearOp final : public GrOp
 {
 public:
   DEFINE_OP_CLASS_ID

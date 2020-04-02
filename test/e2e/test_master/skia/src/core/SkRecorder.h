@@ -36,7 +36,7 @@ private:
   SkTDArray<SkDrawable*> fArray;
 };
 // SkRecorder provides an SkCanvas interface for recording into an SkRecord.
-class SkRecorder : public SkCanvasVirtualEnforcer<SkNoDrawCanvas>
+class SkRecorder final : public SkCanvasVirtualEnforcer<SkNoDrawCanvas>
 {
 public:
     // Does not take ownership of the SkRecord.

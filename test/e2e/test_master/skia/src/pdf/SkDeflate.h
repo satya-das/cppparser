@@ -13,7 +13,7 @@
   *
   * See http://en.wikipedia.org/wiki/DEFLATE
   */
-class SkDeflateWStream : public SkWStream
+class SkDeflateWStream final : public SkWStream
 {
 public:
     /** Does not take ownership of the stream.

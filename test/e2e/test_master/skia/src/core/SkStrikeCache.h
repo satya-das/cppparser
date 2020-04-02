@@ -29,7 +29,7 @@ public:
   virtual ~SkStrikePinner();
   virtual bool canDelete() = 0;
 };
-class SkStrikeCache : public SkStrikeForGPUCacheInterface
+class SkStrikeCache final : public SkStrikeForGPUCacheInterface
 {
   class Node;
 public:

@@ -8,7 +8,7 @@
 #  define GrWaitRenderTask_DEFINED
 #  include "src/gpu/GrRenderTask.h"
 #  include "src/gpu/GrSemaphore.h"
-class GrWaitRenderTask : public GrRenderTask
+class GrWaitRenderTask final : public GrRenderTask
 {
 public:
   GrWaitRenderTask(sk_sp<GrSurfaceProxy> proxy, std::unique_ptr<sk_sp<GrSemaphore>[]> semaphores, int numSemaphores)

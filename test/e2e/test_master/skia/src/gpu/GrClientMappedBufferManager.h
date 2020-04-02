@@ -19,7 +19,7 @@
  * Buffers are first registered using insert() before being passed the client. process() should be
  * called periodically on the direct GrContext thread to poll for messages and process them.
  */
-class GrClientMappedBufferManager
+class GrClientMappedBufferManager final
 {
 public:
     /**

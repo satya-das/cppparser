@@ -229,7 +229,7 @@ void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) con
   else
     stm << varTypeObj->baseType();
   const auto&           origTypeModifier = varTypeObj->typeModifier();
-  const CppTypeModifier typeModifier{
+  const CppTypeModifier typeModifier {
     origTypeModifier.refType_, origTypeModifier.ptrLevel_, origTypeModifier.constBits_ & ~1};
   emitTypeModifier(typeModifier, stm);
 }
@@ -455,6 +455,8 @@ void CppWriter::emitCompound(const CppCompound* compoundObj,
     if (!compoundObj->apidecor().empty())
       stm << compoundObj->apidecor() << ' ';
     stm << compoundObj->name();
+    if (compoundObj->hasAttr(kFinal))
+      stm << " final";
   }
   if (compoundObj->inheritanceList())
   {

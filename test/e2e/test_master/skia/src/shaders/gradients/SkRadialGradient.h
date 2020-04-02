@@ -7,7 +7,7 @@
 #ifndef SkRadialGradient_DEFINED
 #  define SkRadialGradient_DEFINED
 #  include "src/shaders/gradients/SkGradientShaderPriv.h"
-class SkRadialGradient : public SkGradientShaderBase
+class SkRadialGradient final : public SkGradientShaderBase
 {
 public:
   SkRadialGradient(const SkPoint& center, SkScalar radius, const Descriptor&);

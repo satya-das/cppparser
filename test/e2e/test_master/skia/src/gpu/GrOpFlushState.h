@@ -18,7 +18,7 @@ class GrGpu;
 class GrOpsRenderPass;
 class GrResourceProvider;
 /** Tracks the state across all the GrOps (really just the GrDrawOps) in a GrOpsTask flush. */
-class GrOpFlushState : public GrDeferredUploadTarget, public GrMeshDrawOp::Target
+class GrOpFlushState final : public GrDeferredUploadTarget, public GrMeshDrawOp::Target
 {
 public:
     // vertexSpace and indexSpace may either be null or an alloation of size

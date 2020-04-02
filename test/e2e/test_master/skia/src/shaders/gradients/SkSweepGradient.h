@@ -7,7 +7,7 @@
 #ifndef SkSweepGradient_DEFINED
 #  define SkSweepGradient_DEFINED
 #  include "src/shaders/gradients/SkGradientShaderPriv.h"
-class SkSweepGradient : public SkGradientShaderBase
+class SkSweepGradient final : public SkGradientShaderBase
 {
 public:
   SkSweepGradient(const SkPoint& center, SkScalar t0, SkScalar t1, const Descriptor&);

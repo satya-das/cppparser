@@ -39,7 +39,7 @@ private:
   virtual void addCubic(const SkPoint pts[]) = 0;
   virtual Combine addPolyLine(const SkPoint pts[], char* edge, char** edgePtr) = 0;
 };
-class SkBasicEdgeBuilder : public SkEdgeBuilder
+class SkBasicEdgeBuilder final : public SkEdgeBuilder
 {
 public:
   explicit SkBasicEdgeBuilder(int clipShift)
@@ -60,7 +60,7 @@ private:
   Combine addPolyLine(const SkPoint pts[], char* edge, char** edgePtr) override;
   const int fClipShift;
 };
-class SkAnalyticEdgeBuilder : public SkEdgeBuilder
+class SkAnalyticEdgeBuilder final : public SkEdgeBuilder
 {
 public:
   SkAnalyticEdgeBuilder()

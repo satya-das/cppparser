@@ -30,7 +30,7 @@
     The Find*Exclusive() method returns SkExclusiveStrikePtr, which releases exclusive ownership
     when they go out of scope.
 */
-class SkStrike : public SkStrikeForGPU
+class SkStrike final : public SkStrikeForGPU
 {
 public:
   SkStrike(const SkDescriptor& desc, std::unique_ptr<SkScalerContext> scaler, const SkFontMetrics&);

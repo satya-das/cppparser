@@ -26,7 +26,7 @@ class GrGLBuffer;
 class GrGLOpsRenderPass;
 class GrPipeline;
 class GrSwizzle;
-class GrGLGpu : public GrGpu, private GrMesh::SendToGpuImpl
+class GrGLGpu final : public GrGpu, private GrMesh::SendToGpuImpl
 {
 public:
   static sk_sp<GrGpu> Make(sk_sp<const GrGLInterface>, const GrContextOptions&, GrContext*);

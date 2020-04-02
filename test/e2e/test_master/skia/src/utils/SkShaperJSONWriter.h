@@ -14,7 +14,7 @@
 #  include "modules/skshaper/include/SkShaper.h"
 #  include "src/core/SkSpan.h"
 class SkJSONWriter;
-class SkShaperJSONWriter : public SkShaper::RunHandler
+class SkShaperJSONWriter final : public SkShaper::RunHandler
 {
 public:
   SkShaperJSONWriter(SkJSONWriter* JSONWriter, const char* utf8, size_t size);

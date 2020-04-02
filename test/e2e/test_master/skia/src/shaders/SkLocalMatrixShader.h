@@ -11,7 +11,7 @@
 #  include "src/shaders/SkShaderBase.h"
 class GrFragmentProcessor;
 class SkArenaAlloc;
-class SkLocalMatrixShader : public SkShaderBase
+class SkLocalMatrixShader final : public SkShaderBase
 {
 public:
   SkLocalMatrixShader(sk_sp<SkShader> proxy, const SkMatrix& localMatrix)

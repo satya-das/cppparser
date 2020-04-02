@@ -9,7 +9,7 @@
 #  include "include/codec/SkCodec.h"
 #  include "include/core/SkColorSpace.h"
 #  include "src/codec/SkSwizzler.h"
-class SkWbmpCodec : public SkCodec
+class SkWbmpCodec final : public SkCodec
 {
 public:
   static bool IsWbmp(const void*, size_t);

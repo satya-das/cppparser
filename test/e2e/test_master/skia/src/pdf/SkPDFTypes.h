@@ -73,7 +73,7 @@ private:
 
     An array object in a PDF.
 */
-class SkPDFArray : public SkPDFObject
+class SkPDFArray final : public SkPDFObject
 {
 public:
     /** Create a PDF array. Maximum length is 8191.
@@ -135,7 +135,7 @@ static std::unique_ptr<SkPDFArray> SkPDFMakeArray(Args... args)
 
     A dictionary object in a PDF.
 */
-class SkPDFDict : public SkPDFObject
+class SkPDFDict final : public SkPDFObject
 {
 public:
     /** Create a PDF dictionary.

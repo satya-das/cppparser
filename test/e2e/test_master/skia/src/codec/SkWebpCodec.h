@@ -18,7 +18,7 @@ extern "C" {
   struct WebPDemuxer;
   void WebPDemuxDelete(WebPDemuxer* dmux);
   }
-class SkWebpCodec : public SkScalingCodec
+class SkWebpCodec final : public SkScalingCodec
 {
 public:
     // Assumes IsWebp was called and returned true.

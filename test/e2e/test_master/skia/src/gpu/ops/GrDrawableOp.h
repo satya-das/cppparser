@@ -11,7 +11,7 @@
 #  include "include/core/SkMatrix.h"
 #  include "src/gpu/GrSemaphore.h"
 class GrRecordingContext;
-class GrDrawableOp : public GrOp
+class GrDrawableOp final : public GrOp
 {
 public:
   DEFINE_OP_CLASS_ID

@@ -11,7 +11,7 @@
 #  include "src/gpu/ops/GrOp.h"
 class GrOpFlushState;
 class GrRecordingContext;
-class GrClearStencilClipOp : public GrOp
+class GrClearStencilClipOp final : public GrOp
 {
 public:
   DEFINE_OP_CLASS_ID

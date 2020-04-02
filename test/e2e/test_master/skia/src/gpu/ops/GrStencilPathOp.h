@@ -12,7 +12,7 @@
 #  include "src/gpu/ops/GrOp.h"
 class GrOpFlushState;
 class GrRecordingContext;
-class GrStencilPathOp : public GrOp
+class GrStencilPathOp final : public GrOp
 {
 public:
   DEFINE_OP_CLASS_ID

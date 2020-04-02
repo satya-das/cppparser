@@ -9,7 +9,7 @@
 #  include "src/core/SkSafeMath.h"
 #  include "src/gpu/GrBuffer.h"
 #  include "src/gpu/GrNonAtomicRef.h"
-class GrCpuBuffer : public GrNonAtomicRef<GrCpuBuffer>, public GrBuffer
+class GrCpuBuffer final : public GrNonAtomicRef<GrCpuBuffer>, public GrBuffer
 {
 public:
   static sk_sp<GrCpuBuffer> Make(size_t size)

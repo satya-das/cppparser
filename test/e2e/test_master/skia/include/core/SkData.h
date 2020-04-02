@@ -14,7 +14,7 @@ class SkStream;
  *  but the actual ptr that is returned (by data() or bytes()) is guaranteed
  *  to always be the same for the life of this instance.
  */
-class SK_API SkData : public SkNVRefCnt<SkData>
+class SK_API SkData final : public SkNVRefCnt<SkData>
 {
 public:
     /**

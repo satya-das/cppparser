@@ -7,7 +7,7 @@
 #ifndef GrTextureResolveRenderTask_DEFINED
 #  define GrTextureResolveRenderTask_DEFINED
 #  include "src/gpu/GrRenderTask.h"
-class GrTextureResolveRenderTask : public GrRenderTask
+class GrTextureResolveRenderTask final : public GrRenderTask
 {
 public:
   GrTextureResolveRenderTask()

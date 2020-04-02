@@ -20,7 +20,7 @@ struct SkDeserialProcs;
     run consists of glyphs, SkPaint, and position. Only parts of SkPaint related to
     fonts and text rendering are used by run.
 */
-class SK_API SkTextBlob : public SkNVRefCnt<SkTextBlob>
+class SK_API SkTextBlob final : public SkNVRefCnt<SkTextBlob>
 {
 private:
   class RunRecord;

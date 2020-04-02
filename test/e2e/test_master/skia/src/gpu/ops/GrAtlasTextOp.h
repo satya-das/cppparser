@@ -11,7 +11,7 @@
 #  include "src/gpu/text/GrTextBlob.h"
 class GrRecordingContext;
 class SkAtlasTextTarget;
-class GrAtlasTextOp : public GrMeshDrawOp
+class GrAtlasTextOp final : public GrMeshDrawOp
 {
 public:
   DEFINE_OP_CLASS_ID

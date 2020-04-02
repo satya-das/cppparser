@@ -7,7 +7,7 @@
 #ifndef SkTwoPointConicalGradient_DEFINED
 #  define SkTwoPointConicalGradient_DEFINED
 #  include "src/shaders/gradients/SkGradientShaderPriv.h"
-class SkTwoPointConicalGradient : public SkGradientShaderBase
+class SkTwoPointConicalGradient final : public SkGradientShaderBase
 {
 public:
     // See https://skia.org/dev/design/conical for what focal data means and how our shader works.

@@ -12,7 +12,7 @@
 /**
  * Implements GrHardClip with scissor and window rectangles.
  */
-class GrFixedClip : public GrHardClip
+class GrFixedClip final : public GrHardClip
 {
 public:
   GrFixedClip();

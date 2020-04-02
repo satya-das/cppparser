@@ -8,7 +8,7 @@
 #  define Sk4fLinearGradient_DEFINED
 #  include "src/shaders/gradients/Sk4fGradientBase.h"
 #  include "src/shaders/gradients/SkLinearGradient.h"
-class SkLinearGradient::LinearGradient4fContext : public GradientShaderBase4fContext
+class SkLinearGradient::LinearGradient4fContext final : public GradientShaderBase4fContext
 {
 public:
   LinearGradient4fContext(const SkLinearGradient&, const ContextRec&);

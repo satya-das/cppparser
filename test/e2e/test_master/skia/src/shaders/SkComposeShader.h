@@ -8,7 +8,7 @@
 #  define SkComposeShader_DEFINED
 #  include "include/core/SkBlendMode.h"
 #  include "src/shaders/SkShaderBase.h"
-class SkShader_Blend : public SkShaderBase
+class SkShader_Blend final : public SkShaderBase
 {
 public:
   SkShader_Blend(SkBlendMode mode, sk_sp<SkShader> dst, sk_sp<SkShader> src, const SkMatrix* lm)
@@ -32,7 +32,7 @@ private:
   const SkBlendMode fMode;
   typedef SkShaderBase INHERITED;
 };
-class SkShader_Lerp : public SkShaderBase
+class SkShader_Lerp final : public SkShaderBase
 {
 public:
   SkShader_Lerp(float weight, sk_sp<SkShader> dst, sk_sp<SkShader> src, const SkMatrix* lm)
@@ -57,7 +57,7 @@ private:
   const float fWeight;
   typedef SkShaderBase INHERITED;
 };
-class SkShader_LerpRed : public SkShaderBase
+class SkShader_LerpRed final : public SkShaderBase
 {
 public:
   SkShader_LerpRed(sk_sp<SkShader> red, sk_sp<SkShader> dst, sk_sp<SkShader> src, const SkMatrix* lm)

@@ -7,7 +7,7 @@
 #ifndef GrCopyRenderTask_DEFINED
 #  define GrCopyRenderTask_DEFINED
 #  include "src/gpu/GrRenderTask.h"
-class GrCopyRenderTask : public GrRenderTask
+class GrCopyRenderTask final : public GrRenderTask
 {
 public:
   static sk_sp<GrRenderTask> Make(sk_sp<GrSurfaceProxy> srcProxy, const SkIRect& srcRect, sk_sp<GrSurfaceProxy> dstProxy, const SkIPoint& dstPoint, const GrCaps*);

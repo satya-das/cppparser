@@ -33,7 +33,7 @@ class SkWBuffer;
  * verb array use ref.verbs()[~i] (because verbs() returns a pointer just beyond the first
  * logical verb or the last verb in memory).
  */
-class SK_API SkPathRef : public SkNVRefCnt<SkPathRef>
+class SK_API SkPathRef final : public SkNVRefCnt<SkPathRef>
 {
 public:
   class Editor

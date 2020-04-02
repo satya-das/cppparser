@@ -38,7 +38,7 @@ struct SkPDFIndirectReference;
  *  An SkPDFDevice is the drawing context for a page or layer of PDF
  *  content.
  */
-class SkPDFDevice : public SkClipStackDevice
+class SkPDFDevice final : public SkClipStackDevice
 {
 public:
     /**

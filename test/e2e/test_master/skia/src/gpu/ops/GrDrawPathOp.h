@@ -70,7 +70,7 @@ private:
   GrProcessorSet fProcessorSet;
   typedef GrDrawOp INHERITED;
 };
-class GrDrawPathOp : public GrDrawPathOpBase
+class GrDrawPathOp final : public GrDrawPathOpBase
 {
 public:
   DEFINE_OP_CLASS_ID

@@ -15,7 +15,7 @@ class SkBBoxHierarchy;
 class SkMatrix;
 class SkRecord;
 // An implementation of SkPicture supporting an arbitrary number of drawing commands.
-class SkBigPicture : public SkPicture
+class SkBigPicture final : public SkPicture
 {
 public:
     // An array of refcounted const SkPicture pointers.

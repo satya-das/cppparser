@@ -11,7 +11,7 @@
 /**
  * Implements GrHardClip with the currently-existing stencil buffer contents and GrFixedClip.
  */
-class GrStencilClip : public GrHardClip
+class GrStencilClip final : public GrHardClip
 {
 public:
   GrStencilClip(uint32_t stencilStackID = SK_InvalidGenID)

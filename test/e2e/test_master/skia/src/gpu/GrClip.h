@@ -125,7 +125,7 @@ private:
 /**
  * Specialized implementation for no clip.
  */
-class GrNoClip : public GrHardClip
+class GrNoClip final : public GrHardClip
 {
 private:
   bool quickContains(const SkRect&) const final

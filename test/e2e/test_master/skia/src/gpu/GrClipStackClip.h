@@ -15,7 +15,7 @@ class GrTextureProxy;
  * GrClipStackClip can apply a generic SkClipStack to the draw state. It may need to generate an
  * 8-bit alpha clip mask and/or modify the stencil buffer during apply().
  */
-class GrClipStackClip : public GrClip
+class GrClipStackClip final : public GrClip
 {
 public:
   GrClipStackClip(const SkClipStack* stack = nullptr)

@@ -12,7 +12,7 @@ class SkCanvas;
 class SkPaint;
 class SkPictureData;
 // The basic picture playback class replays the provided picture into a canvas.
-class SkPicturePlayback :  SkNoncopyable
+class SkPicturePlayback final :  SkNoncopyable
 {
 public:
   SkPicturePlayback(const SkPictureData* data)

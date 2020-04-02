@@ -10,7 +10,7 @@
 #  include "include/private/SkTemplates.h"
 #  include "src/core/SkClipStackDevice.h"
 class SkXMLWriter;
-class SkSVGDevice : public SkClipStackDevice
+class SkSVGDevice final : public SkClipStackDevice
 {
 public:
   static sk_sp<SkBaseDevice> Make(const SkISize& size, std::unique_ptr<SkXMLWriter>, uint32_t flags);

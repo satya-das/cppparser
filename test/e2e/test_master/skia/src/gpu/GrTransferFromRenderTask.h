@@ -7,7 +7,7 @@
 #ifndef GrTransferFromRenderTask_DEFINED
 #  define GrTransferFromRenderTask_DEFINED
 #  include "src/gpu/GrRenderTask.h"
-class GrTransferFromRenderTask : public GrRenderTask
+class GrTransferFromRenderTask final : public GrRenderTask
 {
 public:
   GrTransferFromRenderTask(sk_sp<GrSurfaceProxy> srcProxy, const SkIRect& srcRect, GrColorType surfaceColorType, GrColorType dstColorType, sk_sp<GrGpuBuffer> dstBuffer, size_t dstOffset)

@@ -187,13 +187,13 @@ namespace skjson
     static_assert(false, "Big-endian builds are not supported at this time.");
 #  endif
   };
-  class NullValue : public Value
+  class NullValue final : public Value
   {
   public:
     static Type kType = Type::kNull;
     NullValue();
   };
-  class BoolValue : public Value
+  class BoolValue final : public Value
   {
   public:
     static Type kType = Type::kBool;
@@ -204,7 +204,7 @@ namespace skjson
       return *this->cast<bool>();
     }
   };
-  class NumberValue : public Value
+  class NumberValue final : public Value
   {
   public:
     static Type kType = Type::kNumber;
@@ -246,12 +246,12 @@ namespace skjson
       return *(this->begin() + i);
     }
   };
-  class ArrayValue : public VectorValue<Value, Value::Type::kArray>
+  class ArrayValue final : public VectorValue<Value, Value::Type::kArray>
   {
   public:
     ArrayValue(const Value* src, size_t size, SkArenaAlloc& alloc);
   };
-  class StringValue : public Value
+  class StringValue final : public Value
   {
   public:
     static Type kType = Type::kString;
@@ -283,7 +283,7 @@ default:
     StringValue fKey;
     Value fValue;
   };
-  class ObjectValue : public VectorValue<Member, Value::Type::kObject>
+  class ObjectValue final : public VectorValue<Member, Value::Type::kObject>
   {
   public:
     ObjectValue(const Member* src, size_t size, SkArenaAlloc& alloc);
@@ -292,7 +292,7 @@ default:
     // Not particularly interesting - hiding for disambiguation.
     const Member& operator[](size_t i) const;
   };
-  class DOM : public SkNoncopyable
+  class DOM final : public SkNoncopyable
   {
   public:
     DOM(const char*, size_t);
