@@ -131,7 +131,7 @@ private:
   bool fUsesLocalCoords;
   uint8_t fCoverageScale;
   GrClipEdgeType fEdgeType;
-  static Attribute kAttributes[] = {{"inPosition", kFloat2_GrVertexAttribType, kFloat2_GrSLType}, {"inConicCoeffs", kFloat4_GrVertexAttribType, kHalf4_GrSLType}};
+  static constexpr Attribute kAttributes[] = {{"inPosition", kFloat2_GrVertexAttribType, kFloat2_GrSLType}, {"inConicCoeffs", kFloat4_GrVertexAttribType, kHalf4_GrSLType}};
   GR_DECLARE_GEOMETRY_PROCESSOR_TEST
   typedef GrGeometryProcessor INHERITED;
 };
@@ -225,7 +225,7 @@ private:
   bool fUsesLocalCoords;
   uint8_t fCoverageScale;
   GrClipEdgeType fEdgeType;
-  static Attribute kAttributes[] = {{"inPosition", kFloat2_GrVertexAttribType, kFloat2_GrSLType}, {"inHairQuadEdge", kFloat4_GrVertexAttribType, kHalf4_GrSLType}};
+  static constexpr Attribute kAttributes[] = {{"inPosition", kFloat2_GrVertexAttribType, kFloat2_GrSLType}, {"inHairQuadEdge", kFloat4_GrVertexAttribType, kHalf4_GrSLType}};
   GR_DECLARE_GEOMETRY_PROCESSOR_TEST
   typedef GrGeometryProcessor INHERITED;
 };

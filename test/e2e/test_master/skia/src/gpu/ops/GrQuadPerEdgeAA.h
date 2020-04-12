@@ -120,6 +120,6 @@ namespace GrQuadPerEdgeAA
     //
     // Returns false if the index data could not be allocated.
   bool ConfigureMeshIndices(GrMeshDrawOp::Target* target, GrMesh* mesh, const VertexSpec& spec, int quadCount);
-  static int kNumAAQuadsInIndexBuffer = 512;
+  static constexpr int kNumAAQuadsInIndexBuffer = 512;
 }
 #endif

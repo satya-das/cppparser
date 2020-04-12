@@ -49,8 +49,8 @@ namespace SkSL
   class MetalCodeGenerator : public CodeGenerator
   {
   public:
-    static const char* SAMPLER_SUFFIX = "Smplr";
-    static const char* PACKED_PREFIX = "packed_";
+    static const constexpr char* SAMPLER_SUFFIX = "Smplr";
+    static const constexpr char* PACKED_PREFIX = "packed_";
     enum Precedence {
         kParentheses_Precedence    =  1,
         kPostfix_Precedence        =  2,
@@ -82,12 +82,12 @@ namespace SkSL
     bool generateCode() override;
   protected:
     typedef int Requirements;
-    static Requirements kNo_Requirements = 0;
-    static Requirements kInputs_Requirement = 1 << 0;
-    static Requirements kOutputs_Requirement = 1 << 1;
-    static Requirements kUniforms_Requirement = 1 << 2;
-    static Requirements kGlobals_Requirement = 1 << 3;
-    static Requirements kFragCoord_Requirement = 1 << 4;
+    static constexpr Requirements kNo_Requirements = 0;
+    static constexpr Requirements kInputs_Requirement = 1 << 0;
+    static constexpr Requirements kOutputs_Requirement = 1 << 1;
+    static constexpr Requirements kUniforms_Requirement = 1 << 2;
+    static constexpr Requirements kGlobals_Requirement = 1 << 3;
+    static constexpr Requirements kFragCoord_Requirement = 1 << 4;
     enum IntrinsicKind {
         kSpecial_IntrinsicKind,
         kMetal_IntrinsicKind,

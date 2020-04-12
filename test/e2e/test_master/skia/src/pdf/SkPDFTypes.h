@@ -179,9 +179,9 @@ static std::unique_ptr<SkPDFDict> SkPDFMakeDict(const char* type = nullptr)
   return std::unique_ptr<SkPDFDict>(new SkPDFDict(type));
 }
 #  ifdef SK_PDF_LESS_COMPRESSION
-static bool kSkPDFDefaultDoDeflate = false;
+static constexpr bool kSkPDFDefaultDoDeflate = false;
 #  else 
-static bool kSkPDFDefaultDoDeflate = true;
+static constexpr bool kSkPDFDefaultDoDeflate = true;
 #  endif
 SkPDFIndirectReference SkPDFStreamOut(std::unique_ptr<SkPDFDict> dict, std::unique_ptr<SkStreamAsset> stream, SkPDFDocument* doc, bool deflate = kSkPDFDefaultDoDeflate);
 #endif

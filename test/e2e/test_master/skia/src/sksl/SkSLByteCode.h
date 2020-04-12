@@ -206,7 +206,7 @@ namespace SkSL
   class SK_API ByteCode
   {
   public:
-    static int kVecWidth = 16;
+    static constexpr int kVecWidth = 16;
     ByteCode();
     const ByteCodeFunction* getFunction(const char* name) const
     {

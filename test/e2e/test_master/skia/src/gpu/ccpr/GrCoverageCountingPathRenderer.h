@@ -58,11 +58,11 @@ public:
   void purgeCacheEntriesOlderThan(GrProxyProvider*, const GrStdSteadyClock::time_point&);
     // If a path spans more pixels than this, we need to crop it or else analytic AA can run out of
     // fp32 precision.
-  static float kPathCropThreshold = 1 << 16;
+  static constexpr float kPathCropThreshold = 1 << 16;
   static void CropPath(const SkPath&, const SkIRect& cropbox, SkPath* out);
     // Maximum inflation of path bounds due to stroking (from width, miter, caps). Strokes wider
     // than this will be converted to fill paths and drawn by the CCPR filler instead.
-  static float kMaxBoundsInflationFromStroke = 4096;
+  static constexpr float kMaxBoundsInflationFromStroke = 4096;
   static float GetStrokeDevWidth(const SkMatrix&, const SkStrokeRec&, float* inflationRadius = nullptr);
 private:
   GrCoverageCountingPathRenderer(CoverageType, AllowCaching, uint32_t contextUniqueID);

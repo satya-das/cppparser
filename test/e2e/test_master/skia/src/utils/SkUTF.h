@@ -38,7 +38,7 @@ namespace SkUTF
     set *ptr to end and return -1.
 */
   SkUnichar NextUTF32(const int32_t** ptr, const int32_t* end);
-  unsigned kMaxBytesInUTF8Sequence = 4;
+  constexpr unsigned kMaxBytesInUTF8Sequence = 4;
 /** Convert the unicode codepoint into UTF-8.  If `utf8` is non-null, place the
     result in that array.  Return the number of bytes in the result.  If `utf8`
     is null, simply return the number of bytes that would be used.  For invalid

@@ -53,8 +53,8 @@ namespace SkSL
   class SK_API Compiler : public ErrorReporter
   {
   public:
-    static const char* RTADJUST_NAME = "sk_RTAdjust";
-    static const char* PERVERTEX_NAME = "sk_PerVertex";
+    static const constexpr char* RTADJUST_NAME = "sk_RTAdjust";
+    static const constexpr char* PERVERTEX_NAME = "sk_PerVertex";
     enum Flags {
         kNone_Flags = 0,
         // permits static if/switch statements to be used with non-constant tests. This is used when

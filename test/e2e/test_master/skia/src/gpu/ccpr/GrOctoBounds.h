@@ -120,19 +120,19 @@ public:
     //        | y45 | = | x + y |
     //
     // These methods transform points between device space and 45-degree space.
-  static float Get_x45(float x, float y)
+  static constexpr float Get_x45(float x, float y)
   {
     return x - y;
   }
-  static float Get_y45(float x, float y)
+  static constexpr float Get_y45(float x, float y)
   {
     return x + y;
   }
-  static float Get_x(float x45, float y45)
+  static constexpr float Get_x(float x45, float y45)
   {
     return (x45 + y45) * .5f;
   }
-  static float Get_y(float x45, float y45)
+  static constexpr float Get_y(float x45, float y45)
   {
     return (y45 - x45) * .5f;
   }

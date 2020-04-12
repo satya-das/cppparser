@@ -113,7 +113,7 @@ private:
   }
   virtual void onFreeGPUData(GrVkGpu* gpu) const = 0;
   virtual void onAbandonGPUData() const = 0;
-  static uint32_t kMaxInputBuffers = 2;
+  static constexpr uint32_t kMaxInputBuffers = 2;
   VkBuffer fBoundInputBuffers[kMaxInputBuffers];
   VkBuffer fBoundIndexBuffer;
     // When resetting the command buffer, we remove the tracked resources from their arrays, and

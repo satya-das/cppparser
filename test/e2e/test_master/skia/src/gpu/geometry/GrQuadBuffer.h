@@ -154,10 +154,10 @@ private:
         // Known value to detect if iteration doesn't properly advance through the buffer
   };
   static_assert(sizeof(Header) == sizeof(int32_t), "Header should be 4 bytes");
-  static unsigned kSentinel = 0xbaffe;
-  static int kMetaSize = sizeof(Header) + sizeof(T);
-  static int k2DQuadFloats = 8;
-  static int k3DQuadFloats = 12;
+  static constexpr unsigned kSentinel = 0xbaffe;
+  static constexpr int kMetaSize = sizeof(Header) + sizeof(T);
+  static constexpr int k2DQuadFloats = 8;
+  static constexpr int k3DQuadFloats = 12;
     // Each logical entry in the buffer is a variable length tuple storing device coordinates,
     // optional local coordinates, and metadata. An entry always has a header that defines the
     // quad types of device and local coordinates, and always has metadata of type T. The device
@@ -270,7 +270,7 @@ const float* GrQuadBuffer<T>::unpackQuad(GrQuad::Type type, const float* coords,
     if (quad->quadType() == GrQuad::Type::kPerspective)
     {
             // The output quad was previously perspective, so its ws are not 1s
-      static float kNoPerspectiveWs[4] = {1.f, 1.f, 1.f, 1.f};
+      static constexpr float kNoPerspectiveWs[4] = {1.f, 1.f, 1.f, 1.f};
       memcpy(quad->ws(), kNoPerspectiveWs, 4 * sizeof(float));
     }
         // Else the quad should already have 1s in w

@@ -34,8 +34,8 @@ struct GrCCRenderedPathStats
  */
 struct GrCCPerFlushResourceSpecs
 {
-  static int kFillIdx = 0;
-  static int kStrokeIdx = 1;
+  static constexpr int kFillIdx = 0;
+  static constexpr int kStrokeIdx = 1;
   int fNumCachedPaths = 0;
   int fNumCopiedPaths[2] = {0, 0};
   GrCCRenderedPathStats fCopyPathStats[2];

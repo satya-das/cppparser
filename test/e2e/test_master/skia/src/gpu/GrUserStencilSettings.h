@@ -68,8 +68,8 @@ enum class GrUserStencilTest : uint16_t {
     kEqual,
     kNotEqual
 };
-static GrUserStencilTest kLastClippedStencilTest = GrUserStencilTest::kLEqualIfInClip;
-static int kGrUserStencilTestCount = 1 + (int) GrUserStencilTest::kNotEqual;
+static constexpr GrUserStencilTest kLastClippedStencilTest = GrUserStencilTest::kLEqualIfInClip;
+static constexpr int kGrUserStencilTestCount = 1 + (int) GrUserStencilTest::kNotEqual;
 enum class GrUserStencilOp : uint8_t {
     kKeep,
 
@@ -93,9 +93,9 @@ enum class GrUserStencilOp : uint8_t {
     kSetClipAndReplaceUserBits,
     kZeroClipAndUserBits
 };
-static GrUserStencilOp kLastUserOnlyStencilOp = GrUserStencilOp::kDecMaybeClamp;
-static GrUserStencilOp kLastClipOnlyStencilOp = GrUserStencilOp::kInvertClipBit;
-static int kGrUserStencilOpCount = 1 + (int) GrUserStencilOp::kZeroClipAndUserBits;
+static constexpr GrUserStencilOp kLastUserOnlyStencilOp = GrUserStencilOp::kDecMaybeClamp;
+static constexpr GrUserStencilOp kLastClipOnlyStencilOp = GrUserStencilOp::kInvertClipBit;
+static constexpr int kGrUserStencilOpCount = 1 + (int) GrUserStencilOp::kZeroClipAndUserBits;
 /**
  * This struct is a compile-time constant representation of user stencil settings. It describes in
  * abstract terms how a draw will use the stencil buffer. It gets ODR-used at runtime to define a
@@ -117,12 +117,12 @@ struct GrUserStencilSettings
   {
   };
   template <uint16_t Ref, GrUserStencilTest Test, uint16_t TestMask, GrUserStencilOp PassOp, GrUserStencilOp FailOp, uint16_t WriteMask>
-  static Init<Ref, Test, TestMask, PassOp, FailOp, WriteMask> StaticInit()
+  static constexpr Init<Ref, Test, TestMask, PassOp, FailOp, WriteMask> StaticInit()
   {
     return Init<Ref, Test, TestMask, PassOp, FailOp, WriteMask>();
   }
   template <uint16_t FtRef, uint16_t BkRef, GrUserStencilTest FtTest, GrUserStencilTest BkTest, uint16_t FtTestMask, uint16_t BkTestMask, GrUserStencilOp FtPassOp, GrUserStencilOp BkPassOp, GrUserStencilOp FtFailOp, GrUserStencilOp BkFailOp, uint16_t FtWriteMask, uint16_t BkWriteMask>
-  static InitSeparate<FtRef, BkRef, FtTest, BkTest, FtTestMask, BkTestMask, FtPassOp, BkPassOp, FtFailOp, BkFailOp, FtWriteMask, BkWriteMask> StaticInitSeparate()
+  static constexpr InitSeparate<FtRef, BkRef, FtTest, BkTest, FtTestMask, BkTestMask, FtPassOp, BkPassOp, FtFailOp, BkFailOp, FtWriteMask, BkWriteMask> StaticInitSeparate()
   {
     return InitSeparate<FtRef, BkRef, FtTest, BkTest, FtTestMask, BkTestMask,
                             FtPassOp, BkPassOp, FtFailOp, BkFailOp, FtWriteMask, BkWriteMask>();
@@ -185,35 +185,35 @@ struct GrUserStencilSettings::Attrs
   GR_STATIC_ASSERT(GrUserStencilOp::kKeep == PassOp || GrUserStencilOp::kKeep == FailOp || (PassOp <= kLastUserOnlyStencilOp) == (FailOp <= kLastUserOnlyStencilOp));
     // Ensure an op that only modifies clip bits isn't paired with one that modifies clip and user.
   GR_STATIC_ASSERT(GrUserStencilOp::kKeep == PassOp || GrUserStencilOp::kKeep == FailOp || (PassOp <= kLastClipOnlyStencilOp) == (FailOp <= kLastClipOnlyStencilOp));
-  static bool TestAlwaysPasses(bool hasStencilClip)
+  static constexpr bool TestAlwaysPasses(bool hasStencilClip)
   {
     return (!hasStencilClip && GrUserStencilTest::kAlwaysIfInClip == Test) || GrUserStencilTest::kAlways == Test;
   }
-  static bool DoesNotModifyStencil(bool hasStencilClip)
+  static constexpr bool DoesNotModifyStencil(bool hasStencilClip)
   {
     return (GrUserStencilTest::kNever == Test || GrUserStencilOp::kKeep == PassOp) && (TestAlwaysPasses(hasStencilClip) || GrUserStencilOp::kKeep == FailOp);
   }
-  static bool IsDisabled(bool hasStencilClip)
+  static constexpr bool IsDisabled(bool hasStencilClip)
   {
     return TestAlwaysPasses(hasStencilClip) && DoesNotModifyStencil(hasStencilClip);
   }
-  static bool UsesWrapOps()
+  static constexpr bool UsesWrapOps()
   {
     return GrUserStencilOp::kIncWrap == PassOp || GrUserStencilOp::kDecWrap == PassOp || GrUserStencilOp::kIncWrap == FailOp || GrUserStencilOp::kDecWrap == FailOp;
   }
-  static bool TestIgnoresRef()
+  static constexpr bool TestIgnoresRef()
   {
     return (GrUserStencilTest::kAlwaysIfInClip == Test || GrUserStencilTest::kAlways == Test || GrUserStencilTest::kNever == Test);
   }
-  static uint16_t Flags(bool hasStencilClip)
+  static constexpr uint16_t Flags(bool hasStencilClip)
   {
     return (IsDisabled(hasStencilClip) ? kDisabled_StencilFlag : 0) | (TestAlwaysPasses(hasStencilClip) ? kTestAlwaysPasses_StencilFlag : 0) | (DoesNotModifyStencil(hasStencilClip) ? kNoModifyStencil_StencilFlag : 0) | (UsesWrapOps() ? 0 : kNoWrapOps_StencilFlag);
   }
-  static uint16_t EffectiveTestMask(uint16_t testMask)
+  static constexpr uint16_t EffectiveTestMask(uint16_t testMask)
   {
     return TestIgnoresRef() ? 0 : testMask;
   }
-  static uint16_t EffectiveWriteMask(uint16_t writeMask)
+  static constexpr uint16_t EffectiveWriteMask(uint16_t writeMask)
   {
         // We don't modify the mask differently when hasStencilClip=false because either the entire
         // face gets disabled in that case (e.g. Test=kAlwaysIfInClip, PassOp=kKeep), or else the

@@ -13,7 +13,7 @@
 namespace SkSL
 {
 // std::max isn't constexpr in some compilers
-  static size_t Max(size_t a, size_t b)
+  static constexpr size_t Max(size_t a, size_t b)
   {
     return a > b ? a : b;
   }

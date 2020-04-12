@@ -128,7 +128,7 @@ namespace skjson
         kArray                        = 0b11000000,  // ptr to external storage
         kObject                       = 0b11100000,  // ptr to external storage
     };
-    static uint8_t kTagMask = 0b11100000;
+    static constexpr uint8_t kTagMask = 0b11100000;
     void init_tagged(Tag);
     void init_tagged_pointer(Tag, void*);
     Tag getTag() const
@@ -177,11 +177,11 @@ namespace skjson
       return (sizeof(uintptr_t) < sizeof(Value)) ? *this->cast<const T*>() : reinterpret_cast<T*>(*this->cast<uintptr_t>() & kTagPointerMask);
     }
   private:
-    static size_t kValueSize = 8;
+    static constexpr size_t kValueSize = 8;
     uint8_t fData8[kValueSize];
 #  if  defined(SK_CPU_LENDIAN)
-    static size_t kTagOffset = kValueSize - 1;
-    static uintptr_t kTagPointerMask = ~(static_cast<uintptr_t>(kTagMask) << ((sizeof(uintptr_t) - 1) * 8));
+    static constexpr size_t kTagOffset = kValueSize - 1;
+    static constexpr uintptr_t kTagPointerMask = ~(static_cast<uintptr_t>(kTagMask) << ((sizeof(uintptr_t) - 1) * 8));
 #  else 
     // The current value layout assumes LE and will take some tweaking for BE.
     static_assert(false, "Big-endian builds are not supported at this time.");
@@ -190,13 +190,13 @@ namespace skjson
   class NullValue final : public Value
   {
   public:
-    static Type kType = Type::kNull;
+    static constexpr Type kType = Type::kNull;
     NullValue();
   };
   class BoolValue final : public Value
   {
   public:
-    static Type kType = Type::kBool;
+    static constexpr Type kType = Type::kBool;
     explicit BoolValue(bool);
     bool operator *() const
     {
@@ -207,7 +207,7 @@ namespace skjson
   class NumberValue final : public Value
   {
   public:
-    static Type kType = Type::kNumber;
+    static constexpr Type kType = Type::kNumber;
     explicit NumberValue(int32_t);
     explicit NumberValue(float);
     double operator *() const
@@ -221,7 +221,7 @@ namespace skjson
   {
   public:
     using ValueT = T;
-    static Type kType = vtype;
+    static constexpr Type kType = vtype;
     size_t size() const
     {
       SkASSERT(this->getType() == kType);
@@ -254,7 +254,7 @@ namespace skjson
   class StringValue final : public Value
   {
   public:
-    static Type kType = Type::kString;
+    static constexpr Type kType = Type::kString;
     StringValue();
     StringValue(const char* src, size_t size, SkArenaAlloc& alloc);
     size_t size() const

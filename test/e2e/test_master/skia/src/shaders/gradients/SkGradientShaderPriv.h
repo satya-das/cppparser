@@ -123,8 +123,8 @@ public:
   }
 private:
     // Reserve inline space for up to 4 stops.
-  static size_t kInlineStopCount = 4;
-  static size_t kInlineStorageSize = (sizeof(SkColor4f) + sizeof(SkScalar)) * kInlineStopCount;
+  static constexpr size_t kInlineStopCount = 4;
+  static constexpr size_t kInlineStorageSize = (sizeof(SkColor4f) + sizeof(SkScalar)) * kInlineStopCount;
   SkAutoSTMalloc<kInlineStorageSize, uint8_t> fStorage;
   bool fColorsAreOpaque;
   typedef SkShaderBase INHERITED;

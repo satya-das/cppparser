@@ -77,7 +77,7 @@ public:
      */
   void recordDraw(sk_sp<const GrGeometryProcessor> gp, const GrMesh meshes[], int meshCnt = 1)
   {
-    static int kZeroPrimProcTextures = 0;
+    static constexpr int kZeroPrimProcTextures = 0;
     auto fixedDynamicState = this->makeFixedDynamicState(kZeroPrimProcTextures);
     this->recordDraw(std::move(gp), meshes, meshCnt, fixedDynamicState, nullptr);
   }

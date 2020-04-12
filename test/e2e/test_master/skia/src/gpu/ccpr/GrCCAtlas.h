@@ -29,8 +29,8 @@ class GrCCAtlas
 {
 public:
     // As long as GrSurfaceOrigin exists, we just have to decide on one for the atlas texture.
-  static GrSurfaceOrigin kTextureOrigin = kTopLeft_GrSurfaceOrigin;
-  static int kPadding = 1;
+  static constexpr GrSurfaceOrigin kTextureOrigin = kTopLeft_GrSurfaceOrigin;
+  static constexpr int kPadding = 1;
     // This struct encapsulates the minimum and desired requirements for an atlas, as well as an
     // approximate number of pixels to help select a good initial size.
   struct Specs
@@ -48,7 +48,7 @@ public:
         kA8_Multisample,
         kA8_LiteralCoverage
     };
-  static GrColorType CoverageTypeToColorType(CoverageType coverageType)
+  static constexpr GrColorType CoverageTypeToColorType(CoverageType coverageType)
   {
     switch(coverageType)
     {

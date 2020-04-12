@@ -234,7 +234,7 @@ extern bool gLogCallsGL;
     } while (false)
 // call glGetError without doing a redundant error check or logging.
 #  define GR_GL_GET_ERROR(IFACE)	 (IFACE)->fFunctions.fGetError()
-static GrGLFormat GrGLFormatFromGLEnum(GrGLenum glFormat)
+static constexpr GrGLFormat GrGLFormatFromGLEnum(GrGLenum glFormat)
 {
   switch(glFormat)
   {
@@ -283,7 +283,7 @@ default:
 }
 }
 /** Returns either the sized internal format or compressed internal format of the GrGLFormat. */
-static GrGLenum GrGLFormatToEnum(GrGLFormat format)
+static constexpr GrGLenum GrGLFormatToEnum(GrGLFormat format)
 {
   switch(format)
   {
@@ -333,7 +333,7 @@ static GrGLenum GrGLFormatToEnum(GrGLFormat format)
   SkUNREACHABLE;
 }
 #  if  GR_TEST_UTILS
-static const char* GrGLFormatToStr(GrGLenum glFormat)
+static constexpr const char* GrGLFormatToStr(GrGLenum glFormat)
 {
   switch(glFormat)
   {

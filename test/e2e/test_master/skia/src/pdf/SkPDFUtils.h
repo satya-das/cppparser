@@ -57,7 +57,7 @@ namespace SkPDFUtils
 // Converts (value / 255.0) with three significant digits of accuracy.
 // Writes value as string into result.  Returns strlen() of result.
   size_t ColorToDecimal(uint8_t value, char result[5]);
-  static unsigned kFloatColorDecimalCount = 4;
+  static constexpr unsigned kFloatColorDecimalCount = 4;
   size_t ColorToDecimalF(float value, char result[kFloatColorDecimalCount + 2]);
   inline void AppendColorComponent(uint8_t value, SkWStream* wStream)
   {

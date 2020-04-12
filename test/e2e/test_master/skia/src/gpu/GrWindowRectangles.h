@@ -11,7 +11,7 @@
 class GrWindowRectangles
 {
 public:
-  static int kMaxWindows = 8;
+  static constexpr int kMaxWindows = 8;
   GrWindowRectangles()
     : fCount(0)
   {
@@ -48,7 +48,7 @@ public:
   }
   bool operator==(const GrWindowRectangles&) const;
 private:
-  static int kNumLocalWindows = 1;
+  static constexpr int kNumLocalWindows = 1;
   struct Rec;
   const Rec* rec() const
   {

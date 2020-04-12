@@ -19,7 +19,7 @@ class RegexParser
 public:
   RegexNode parse(std::string source);
 private:
-  static char END = '\0';
+  static constexpr char END = '\0';
   char peek();
   void expect(char c);
   RegexNode pop();

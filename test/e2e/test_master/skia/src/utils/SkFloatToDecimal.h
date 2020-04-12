@@ -6,7 +6,7 @@
  */
 #ifndef SkFloatToDecimal_DEFINED
 #  define SkFloatToDecimal_DEFINED
-unsigned kMaximumSkFloatToDecimalLength = 49;
+constexpr unsigned kMaximumSkFloatToDecimalLength = 49;
 /** \fn SkFloatToDecimal
     Convert a float into a decimal string.
 

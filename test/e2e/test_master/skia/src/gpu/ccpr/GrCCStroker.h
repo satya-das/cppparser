@@ -49,8 +49,8 @@ public:
     // Called after prepareToDraw(). Draws the given batch of path strokes.
   void drawStrokes(GrOpFlushState*, GrCCCoverageProcessor*, BatchID, const SkIRect& drawBounds) const;
 private:
-  static int kNumScissorModes = 2;
-  static BatchID kEmptyBatchID = -1;
+  static constexpr int kNumScissorModes = 2;
+  static constexpr BatchID kEmptyBatchID = -1;
   using Verb = GrCCStrokeGeometry::Verb;
   using InstanceTallies = GrCCStrokeGeometry::InstanceTallies;
     // Every kBeginPath verb has a corresponding PathInfo entry.

@@ -50,7 +50,7 @@ inline const GrDisableColorXPFactory* GrDisableColorXPFactory::Get()
 #  ifdef SK_BUILD_FOR_WIN
   static const GrDisableColorXPFactory gDisableColorXPFactory;
 #  else 
-  static const GrDisableColorXPFactory gDisableColorXPFactory;
+  static const constexpr GrDisableColorXPFactory gDisableColorXPFactory;
 #  endif
   return &gDisableColorXPFactory;
 }

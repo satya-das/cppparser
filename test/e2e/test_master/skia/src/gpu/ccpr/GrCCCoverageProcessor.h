@@ -201,7 +201,7 @@ public:
 protected:
     // Slightly undershoot a bloat radius of 0.5 so vertices that fall on integer boundaries don't
     // accidentally bleed into neighbor pixels.
-  static float kAABloatRadius = 0.491111f;
+  static constexpr float kAABloatRadius = 0.491111f;
   GrCCCoverageProcessor(ClassID classID)
     : INHERITED(classID)
   {

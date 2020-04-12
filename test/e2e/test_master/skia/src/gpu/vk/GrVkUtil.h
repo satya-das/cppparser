@@ -45,7 +45,7 @@ bool GrVkFormatIsCompressed(VkFormat);
  */
 bool GrVkFormatToCompressionType(VkFormat vkFormat, SkImage::CompressionType* compressionType);
 #  if  GR_TEST_UTILS
-static const char* GrVkFormatToStr(VkFormat vkFormat)
+static constexpr const char* GrVkFormatToStr(VkFormat vkFormat)
 {
   switch(vkFormat)
   {

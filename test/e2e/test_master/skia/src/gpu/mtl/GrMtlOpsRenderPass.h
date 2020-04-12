@@ -60,7 +60,7 @@ private:
   MTLRenderPassDescriptor* fRenderPassDesc;
   SkRect fBounds;
   size_t fCurrentVertexStride;
-  static size_t kNumBindings = GrMtlUniformHandler::kLastUniformBinding + 3;
+  static constexpr size_t kNumBindings = GrMtlUniformHandler::kLastUniformBinding + 3;
   struct 
 {
   id<MTLBuffer> fBuffer;

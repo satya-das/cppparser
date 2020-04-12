@@ -35,7 +35,7 @@ class GrShape
 public:
     // Keys for paths may be extracted from the path data for small paths. Clients aren't supposed
     // to have to worry about this. This value is exposed for unit tests.
-  static int kMaxKeyFromDataVerbCnt = 10;
+  static constexpr int kMaxKeyFromDataVerbCnt = 10;
   GrShape()
   {
     this->initType(Type::kEmpty);
@@ -587,10 +587,10 @@ private:
     /** Gets the path that gen id listeners should be added to. */
   const SkPath* originalPathForListeners() const;
     // Defaults to use when there is no distinction between even/odd and winding fills.
-  static SkPath::FillType kDefaultPathFillType = SkPath::kEvenOdd_FillType;
-  static SkPath::FillType kDefaultPathInverseFillType = SkPath::kInverseEvenOdd_FillType;
-  static SkPath::Direction kDefaultRRectDir = SkPath::kCW_Direction;
-  static unsigned kDefaultRRectStart = 0;
+  static constexpr SkPath::FillType kDefaultPathFillType = SkPath::kEvenOdd_FillType;
+  static constexpr SkPath::FillType kDefaultPathInverseFillType = SkPath::kInverseEvenOdd_FillType;
+  static constexpr SkPath::Direction kDefaultRRectDir = SkPath::kCW_Direction;
+  static constexpr unsigned kDefaultRRectStart = 0;
   static unsigned DefaultRectDirAndStartIndex(const SkRect& rect, bool hasPathEffect, SkPath::Direction* dir)
   {
     *dir = kDefaultRRectDir;
@@ -635,7 +635,7 @@ private:
   {
         // This comes from SkPath's interface. The default for adding a SkRRect to a path is
         // clockwise beginning at starting index 6.
-    static unsigned kPathRRectStartIdx = 6;
+    static constexpr unsigned kPathRRectStartIdx = 6;
     *dir = kDefaultRRectDir;
     if (!hasPathEffect)
     {

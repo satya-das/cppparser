@@ -86,7 +86,7 @@ namespace SkSL
     void writeTypedInstruction(const Type& type, ByteCodeInstruction s, ByteCodeInstruction u, ByteCodeInstruction f, int count, bool writeCount = true);
     static int SlotCount(const Type& type);
   private:
-    static int kUnusedStackCount = INT32_MAX;
+    static constexpr int kUnusedStackCount = INT32_MAX;
     static int StackUsage(ByteCodeInstruction, int count);
     // reserves 16 bits in the output code, to be filled in later with an address once we determine
     // it

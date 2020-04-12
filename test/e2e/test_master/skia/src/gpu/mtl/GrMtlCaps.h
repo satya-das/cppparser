@@ -111,9 +111,9 @@ private:
     int fColorTypeInfoCount = 0;
   };
 #  ifdef SK_BUILD_FOR_IOS
-  static size_t kNumMtlFormats = 17;
+  static constexpr size_t kNumMtlFormats = 17;
 #  else 
-  static size_t kNumMtlFormats = 14;
+  static constexpr size_t kNumMtlFormats = 14;
 #  endif
   static size_t GetFormatIndex(MTLPixelFormat);
   FormatInfo fFormatTable[kNumMtlFormats];

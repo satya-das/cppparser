@@ -21,7 +21,7 @@ struct SkPDFGraphicStackState
     int fGraphicStateIndex = -1;
   };
     // Must use stack for matrix, and for clip, plus one for no matrix or clip.
-  static int kMaxStackDepth = 2;
+  static constexpr int kMaxStackDepth = 2;
   Entry fEntries[kMaxStackDepth + 1];
   int fStackDepth = 0;
   SkDynamicMemoryWStream* fContentStream;

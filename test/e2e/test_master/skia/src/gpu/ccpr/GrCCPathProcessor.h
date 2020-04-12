@@ -72,9 +72,9 @@ private:
   SkISize fAtlasSize;
   GrSurfaceOrigin fAtlasOrigin;
   SkMatrix fLocalMatrix;
-  static Attribute kInstanceAttribs[] = {{"devbounds", kFloat4_GrVertexAttribType, kFloat4_GrSLType}, {"devbounds45", kFloat4_GrVertexAttribType, kFloat4_GrSLType}, {"dev_to_atlas_offset", kInt2_GrVertexAttribType, kInt2_GrSLType}, {"color", kHalf4_GrVertexAttribType, kHalf4_GrSLType}};
-  static int kColorAttribIdx = 3;
-  static Attribute kCornersAttrib = {"corners", kFloat4_GrVertexAttribType, kFloat4_GrSLType};
+  static constexpr Attribute kInstanceAttribs[] = {{"devbounds", kFloat4_GrVertexAttribType, kFloat4_GrSLType}, {"devbounds45", kFloat4_GrVertexAttribType, kFloat4_GrSLType}, {"dev_to_atlas_offset", kInt2_GrVertexAttribType, kInt2_GrSLType}, {"color", kHalf4_GrVertexAttribType, kHalf4_GrSLType}};
+  static constexpr int kColorAttribIdx = 3;
+  static constexpr Attribute kCornersAttrib = {"corners", kFloat4_GrVertexAttribType, kFloat4_GrSLType};
   class Impl;
   typedef GrGeometryProcessor INHERITED;
 };

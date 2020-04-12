@@ -75,7 +75,7 @@ public:
 private:
   friend class GrOpMemoryPool;
     // The minimum number of Geometry we will try to allocate.
-  static auto kMinGeometryAllocated = 12;
+  static constexpr auto kMinGeometryAllocated = 12;
   GrAtlasTextOp(GrPaint&& paint)
     : INHERITED(ClassID())
     , fGeoDataAllocSize(kMinGeometryAllocated)

@@ -77,7 +77,7 @@ private:
     size_t fTail;
     SkSpinlock fMutex;
   };
-  static size_t kBufferSuballocatorStartSize = 1024 * 1024;
+  static constexpr size_t kBufferSuballocatorStartSize = 1024 * 1024;
   GrMtlGpu* fGpu;
     // Cache of GrMtlPipelineStates
   std::unique_ptr<PipelineStateCache> fPipelineStateCache;

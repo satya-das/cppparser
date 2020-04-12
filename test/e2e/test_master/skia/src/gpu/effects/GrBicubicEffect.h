@@ -49,7 +49,7 @@ public:
      */
   static std::unique_ptr<GrFragmentProcessor> Make(sk_sp<GrTextureProxy> proxy, const SkMatrix& matrix, Direction direction, SkAlphaType alphaType)
   {
-    static GrSamplerState::WrapMode kClampClamp[] = {GrSamplerState::WrapMode::kClamp, GrSamplerState::WrapMode::kClamp};
+    static constexpr GrSamplerState::WrapMode kClampClamp[] = {GrSamplerState::WrapMode::kClamp, GrSamplerState::WrapMode::kClamp};
     return Make(std::move(proxy), matrix, kClampClamp, GrTextureDomain::kIgnore_Mode, GrTextureDomain::kIgnore_Mode, direction, alphaType);
   }
     /**

@@ -18,7 +18,7 @@ class SkStrokeRec;
 class GrCCStrokeGeometry
 {
 public:
-  static int kMaxNumLinearSegmentsLog2 = 15;
+  static constexpr int kMaxNumLinearSegmentsLog2 = 15;
   GrCCStrokeGeometry(int numSkPoints = 0, int numSkVerbs = 0)
     : fVerbs(numSkVerbs * 5 / 2)
     , fParams(numSkVerbs * 3)
@@ -105,8 +105,8 @@ public:
 private:
   void lineTo(Verb leftJoinVerb, SkPoint);
   void quadraticTo(Verb leftJoinVerb, const SkPoint[3], float maxCurvatureT);
-  static float kLeftMaxCurvatureNone = 1;
-  static float kRightMaxCurvatureNone = 0;
+  static constexpr float kLeftMaxCurvatureNone = 1;
+  static constexpr float kRightMaxCurvatureNone = 0;
   void cubicTo(Verb leftJoinVerb, const SkPoint[4], float maxCurvatureT, float leftMaxCurvatureT, float rightMaxCurvatureT);
     // Pushes a new normal to fNormals and records a join, without changing the current position.
   void rotateTo(Verb leftJoinVerb, SkVector normal);

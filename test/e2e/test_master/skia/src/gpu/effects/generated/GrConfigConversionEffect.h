@@ -24,8 +24,8 @@ class GrConfigConversionEffect : public GrFragmentProcessor
 public:
   static bool TestForPreservingPMConversions(GrContext* context)
   {
-    static int kSize = 256;
-    static GrColorType kColorType = GrColorType::kRGBA_8888;
+    static constexpr int kSize = 256;
+    static constexpr GrColorType kColorType = GrColorType::kRGBA_8888;
     SkAutoTMalloc < uint32_t > data(kSize * kSize * 3);
     uint32_t* srcData = data.get();
     uint32_t* firstRead = data.get() + kSize * kSize;

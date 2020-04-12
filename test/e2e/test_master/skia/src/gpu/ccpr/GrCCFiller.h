@@ -42,7 +42,7 @@ public:
     // Called after prepareToDraw(). Draws the given batch of path fills.
   void drawFills(GrOpFlushState*, GrCCCoverageProcessor*, const GrPipeline&, BatchID, const SkIRect& drawBounds) const;
 private:
-  static int kNumScissorModes = 2;
+  static constexpr int kNumScissorModes = 2;
   using PrimitiveTallies = GrCCFillGeometry::PrimitiveTallies;
     // Every kBeginPath verb has a corresponding PathInfo entry.
   class PathInfo
