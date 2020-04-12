@@ -65,10 +65,10 @@ public:
     const GrCoordTransform* nextCoordTransform();
         // 'args' are constructor params to GrShaderVar.
     template <typename... Args>
-    void specifyCoordsForCurrCoordTransform(Args&& args)
+    void specifyCoordsForCurrCoordTransform(Args&&... args)
     {
       SkASSERT(!fAddedCoord);
-      fTransformedCoordVars->emplace_back(std::forward<Args>(args));
+      fTransformedCoordVars->emplace_back(std::forward<Args>(args)...);
     }
   private:
     GrFragmentProcessor::CoordTransformIter fIter;

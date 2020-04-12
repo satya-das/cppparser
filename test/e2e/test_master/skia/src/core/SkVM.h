@@ -426,9 +426,9 @@ namespace skvm
     Program& operator=(const Program&);
     void eval(int n, void* args[]) const;
     template <typename... T>
-    void eval(int n, T* arg) const
+    void eval(int n, T*... arg) const
     {
-      SkASSERT(sizeof(arg) == fStrides.size());
+      SkASSERT(sizeof(arg)... == fStrides.size());
             // This nullptr isn't important except that it makes args[] non-empty if you pass none.
       void* args[] = {(void*) arg..., nullptr};
       this->eval(n, args);

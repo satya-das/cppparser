@@ -17,9 +17,9 @@ public:
   }
     // Up to caller to keep track of status.
   template <class... Args>
-  void init(Args&& args)
+  void init(Args&&... args)
   {
-    &this->get()  T(std::forward<Args>(args));
+    &this->get()  T(std::forward<Args>(args)...);
   }
   void destroy()
   {

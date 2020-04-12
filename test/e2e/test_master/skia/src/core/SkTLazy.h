@@ -66,10 +66,10 @@ public:
      *  instance is always returned.
      */
   template <typename... Args>
-  T* init(Args&& args)
+  T* init(Args&&... args)
   {
     this->reset();
-    fPtr = &fStorage  T(std::forward<Args>(args));
+    fPtr = &fStorage  T(std::forward<Args>(args)...);
     return fPtr;
   }
     /**

@@ -71,7 +71,7 @@ private:
   {
     template <typename... Args>
     Node(Args... args)
-      : fT(std::forward<Args>(args))
+      : fT(std::forward<Args>(args)...)
     {
     }
     T fT;
@@ -84,7 +84,7 @@ template <typename T>
 T& SkArenaAllocList<T>::append(SkArenaAlloc* arena, Args... args)
 {
   SkASSERT(!fHead == !fTail);
-  auto* n = arena->make<Node>(std::forward<Args>(args));
+  auto* n = arena->make<Node>(std::forward<Args>(args)...);
   if (!fTail)
   {
     fHead = fTail = n;

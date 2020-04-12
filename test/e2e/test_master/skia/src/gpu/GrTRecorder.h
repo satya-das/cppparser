@@ -84,9 +84,9 @@ public:
      * Multiple inheritance may make this not true. It is runtime asserted.
      */
   template <typename TItem, typename... Args>
-  TItem& emplace(Args&& args)
+  TItem& emplace(Args&&... args)
   {
-    return this->emplaceWithData<TItem, Args...>(0, std::forward<Args>(args));
+    return this->emplaceWithData<TItem, Args...>(0, std::forward<Args>(args)...);
   }
     /**
      * Emplace a new TItem (which derives from TBase) in the recorder with extra data space. The
@@ -135,7 +135,7 @@ inline SK_WHEN((std::is_base_of<TBase, TItem>::value), TItem&) GrTRecorder<TBase
   {
     fHead = header;
   }
-  auto* item = alloc + kTItemOffset  TItem(std::forward<Args>(args));
+  auto* item = alloc + kTItemOffset  TItem(std::forward<Args>(args)...);
     // We require that we can reinterpret_cast between TBase* and TItem*. Could not figure out how
     // to statically assert this. See proposal for std::is_initial_base_of here:
     // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0466r0.pdf

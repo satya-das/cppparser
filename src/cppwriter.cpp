@@ -232,6 +232,8 @@ void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) con
   const CppTypeModifier typeModifier {
     origTypeModifier.refType_, origTypeModifier.ptrLevel_, origTypeModifier.constBits_ & ~1};
   emitTypeModifier(typeModifier, stm);
+  if (varTypeObj->paramPack_)
+    stm << "...";
 }
 
 void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation) const
@@ -1002,6 +1004,9 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
     stm << "}";
   if (exprObj->flags_ & CppExpr::kSizeOf)
     stm << ')';
+
+  if (exprObj->flags_ & CppExpr::kVariadicPack)
+    stm << "...";
 }
 
 void CppWriter::emitIfBlock(const CppIfBlock* ifBlock, std::ostream& stm, CppIndent indentation) const

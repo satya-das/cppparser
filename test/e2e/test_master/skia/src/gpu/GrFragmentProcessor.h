@@ -346,7 +346,7 @@ protected:
      * return IthTexureSampler(i, fMyFirstSampler, fMySecondSampler, fMyThirdSampler);
      */
   template <typename... Args>
-  static const TextureSampler& IthTextureSampler(int i, const TextureSampler& samp0, const Args& samps)
+  static const TextureSampler& IthTextureSampler(int i, const TextureSampler& samp0, const Args&... samps)
   {
     return (0 == i) ? samp0 : IthTextureSampler(i - 1, samps...);
   }

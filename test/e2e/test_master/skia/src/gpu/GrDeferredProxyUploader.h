@@ -90,8 +90,8 @@ class GrTDeferredProxyUploader : public GrDeferredProxyUploader
 {
 public:
   template <typename... Args>
-  GrTDeferredProxyUploader(Args&& args)
-    : fData(skstd::make_unique<T>(std::forward<Args>(args)))
+  GrTDeferredProxyUploader(Args&&... args)
+    : fData(skstd::make_unique<T>(std::forward<Args>(args)...))
   {
   }
   virtual ~GrTDeferredProxyUploader()

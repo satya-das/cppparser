@@ -70,7 +70,7 @@ class SkZip
   };
 public:
   SkZip(size_t) = delete;
-  SkZip(size_t size, Ts* ts)
+  SkZip(size_t size, Ts*... ts)
     : fPointers(ts...)
     , fSize(size)
   {
@@ -124,7 +124,7 @@ private:
   template <std::size_t... Is>
   ReturnTuple indexDetail(size_t i, skstd::index_sequence<Is...>) const
   {
-    return ReturnTuple((std::get<Is>(fPointers))[i]);
+    return ReturnTuple((std::get<Is>(fPointers))[i]...);
   }
   std::tuple<Ts*...> fPointers;
   size_t fSize;

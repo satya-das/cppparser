@@ -798,7 +798,7 @@ namespace skvx
 #  if  !defined(SKNX_NO_SIMD) && defined(__clang__)
     return to_vec<sizeof...(Ix),T>(__builtin_shufflevector(to_vext(x), to_vext(x), Ix...));
 #  else 
-    return {x[Ix]};
+    return {x[Ix]...};
 #  endif
   }
 // div255(x) = (x + 127) / 255 is a bit-exact rounding divide-by-255, packing down to 8-bit.

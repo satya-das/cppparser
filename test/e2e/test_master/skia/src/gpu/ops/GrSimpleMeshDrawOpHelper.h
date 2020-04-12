@@ -134,7 +134,7 @@ public:
   template <typename Op, typename... OpArgs>
   static std::unique_ptr<GrDrawOp> FactoryHelper(GrRecordingContext* context, GrPaint&& paint, OpArgs... opArgs)
   {
-    return GrSimpleMeshDrawOpHelper::FactoryHelper<Op, OpArgs...>(context, std::move(paint), std::forward<OpArgs>(opArgs));
+    return GrSimpleMeshDrawOpHelper::FactoryHelper<Op, OpArgs...>(context, std::move(paint), std::forward<OpArgs>(opArgs)...);
   }
   GrSimpleMeshDrawOpHelperWithStencil(const MakeArgs&, GrAAType, const GrUserStencilSettings*, InputFlags = InputFlags::kNone);
   GrDrawOp::FixedFunctionFlags fixedFunctionFlags() const;
@@ -165,7 +165,7 @@ std::unique_ptr<GrDrawOp> GrSimpleMeshDrawOpHelper::FactoryHelper(GrRecordingCon
   if (paint.isTrivial())
   {
     makeArgs.fProcessorSet = nullptr;
-    return pool->allocate<Op>(makeArgs, paint.getColor4f(), std::forward<OpArgs>(opArgs));
+    return pool->allocate<Op>(makeArgs, paint.getColor4f(), std::forward<OpArgs>(opArgs)...);
   }
   else 
   {
@@ -173,7 +173,7 @@ std::unique_ptr<GrDrawOp> GrSimpleMeshDrawOpHelper::FactoryHelper(GrRecordingCon
     char* setMem = mem + sizeof(Op);
     auto color = paint.getColor4f();
     makeArgs.fProcessorSet = new (setMem) GrProcessorSet(std::move(paint));
-    return std::unique_ptr<GrDrawOp>(new (mem) Op(makeArgs, color, std::forward<OpArgs>(opArgs)));
+    return std::unique_ptr<GrDrawOp>(new (mem) Op(makeArgs, color, std::forward<OpArgs>(opArgs)...));
   }
 }
 GR_MAKE_BITFIELD_CLASS_OPS(GrSimpleMeshDrawOpHelper::InputFlags)

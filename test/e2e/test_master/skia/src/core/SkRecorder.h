@@ -114,7 +114,7 @@ private:
   template <typename T>
   T* copy(const T[], size_t count);
   template <typename T, typename... Args>
-  void append(Args&&);
+  void append(Args&&...);
   DrawPictureMode fDrawPictureMode;
   size_t fApproxBytesUsedBySubPictures;
   SkRecord* fRecord;

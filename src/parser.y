@@ -1856,9 +1856,9 @@ expr              : strlit                                                [ZZLOG
                   | tknThrow                                              [ZZLOG;] { $$ = new CppExpr(CppExprAtom(), CppExpr::kThrow);   }
                   | tknSizeOf '(' vartype ')'                             [ZZLOG;] { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
                   | tknSizeOf '(' expr ')'                                [ZZLOG;] { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
-                  | tknSizeOf tknEllipsis '(' vartype ')'                 [ZZLOG;] { $$ = new CppExpr($4, CppExpr::kSizeOf);             }
-                  | tknSizeOf tknEllipsis '(' expr ')'                    [ZZLOG;] { $$ = new CppExpr($4, CppExpr::kSizeOf);             }
-                  | expr tknEllipsis                                      [ZZLOG;] { $$ = $1; /* TODO */ }
+                  | tknSizeOf tknEllipsis '(' vartype ')'                 [ZZLOG;] { $$ = new CppExpr($4, CppExpr::kSizeOf | CppExpr::kVariadicPack);             }
+                  | tknSizeOf tknEllipsis '(' expr ')'                    [ZZLOG;] { $$ = new CppExpr($4, CppExpr::kSizeOf | CppExpr::kVariadicPack);             }
+                  | expr tknEllipsis                                      [ZZLOG;] { $$ = $1; $$->flags_ |= CppExpr::kVariadicPack; }
                   | lambda                                                [ZZLOG;] { $$ = new CppExpr($1); }
 
                   /* This is to parse implementation of string user literal, see https://en.cppreference.com/w/cpp/language/user_literal */

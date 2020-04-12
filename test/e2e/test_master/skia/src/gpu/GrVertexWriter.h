@@ -46,7 +46,7 @@ struct GrVertexWriter
   {
   };
   template <typename T, typename... Args>
-  void write(const T& val, const Args& remainder)
+  void write(const T& val, const Args&... remainder)
   {
     static_assert(std::is_pod<T>::value, "");
         // This assert is barely related to what we're trying to check - that our vertex data
@@ -58,7 +58,7 @@ struct GrVertexWriter
     this->write(remainder...);
   }
   template <typename T, size_t N, typename... Args>
-  void write(const T (&val)[N], const Args& remainder)
+  void write(const T (&val)[N], const Args&... remainder)
   {
     static_assert(std::is_pod<T>::value, "");
     static_assert(alignof(T) <= 4, "");
@@ -67,7 +67,7 @@ struct GrVertexWriter
     this->write(remainder...);
   }
   template <typename... Args>
-  void write(const GrVertexColor& color, const Args& remainder)
+  void write(const GrVertexColor& color, const Args&... remainder)
   {
     this->write(color.fColor[0]);
     if (color.fWideColor)
@@ -77,7 +77,7 @@ struct GrVertexWriter
     this->write(remainder...);
   }
   template <typename T, typename... Args>
-  void write(const Conditional<T>& val, const Args& remainder)
+  void write(const Conditional<T>& val, const Args&... remainder)
   {
     if (val.fCondition)
     {
@@ -86,13 +86,13 @@ struct GrVertexWriter
     this->write(remainder...);
   }
   template <typename T, typename... Args>
-  void write(const Skip<T>& val, const Args& remainder)
+  void write(const Skip<T>& val, const Args&... remainder)
   {
     fPtr = SkTAddOffset<void>(fPtr, sizeof(T));
     this->write(remainder...);
   }
   template <typename... Args>
-  void write(const Sk4f& vector, const Args& remainder)
+  void write(const Sk4f& vector, const Args&... remainder)
   {
     float buffer[4];
     vector.store(buffer);
@@ -132,7 +132,7 @@ struct GrVertexWriter
     return {r.fLeft, r.fTop, r.fRight, r.fBottom};
   }
   template <typename... Args>
-  void writeQuad(const Args& remainder)
+  void writeQuad(const Args&... remainder)
   {
     this->writeQuadVert<0>(remainder...);
     this->writeQuadVert<1>(remainder...);
@@ -141,7 +141,7 @@ struct GrVertexWriter
   }
 private:
   template <int corner, typename T, typename... Args>
-  void writeQuadVert(const T& val, const Args& remainder)
+  void writeQuadVert(const T& val, const Args&... remainder)
   {
     this->writeQuadValue<corner>(val);
     this->writeQuadVert<corner>(remainder...);

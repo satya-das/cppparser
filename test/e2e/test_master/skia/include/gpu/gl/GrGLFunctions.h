@@ -498,7 +498,7 @@ public:
   R operator()(Args... args) const
   {
     SkASSERT(fCall);
-    return fCall(fBuf, std::forward<Args>(args));
+    return fCall(fBuf, std::forward<Args>(args)...);
   }
   operator bool() const
   {

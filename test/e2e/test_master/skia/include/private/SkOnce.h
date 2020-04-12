@@ -17,7 +17,7 @@ class SkOnce
 public:
   SkOnce();
   template <typename Fn, typename... Args>
-  void operator()(Fn&& fn, Args&& args)
+  void operator()(Fn&& fn, Args&&... args)
   {
     auto state = fState.load(std::memory_order_acquire);
     if (state == Done)
@@ -28,7 +28,7 @@ public:
     if (state == NotStarted && fState.compare_exchange_strong(state, Claimed, std::memory_order_relaxed, std::memory_order_relaxed))
     {
             // Great!  We'll run fn() then notify the other threads by releasing Done into fState.
-      fn(std::forward<Args>(args));
+      fn(std::forward<Args>(args)...);
       return fState.store(Done, std::memory_order_release);
     }
         // Some other thread is calling fn().

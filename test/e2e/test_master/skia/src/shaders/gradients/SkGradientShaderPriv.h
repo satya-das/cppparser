@@ -77,9 +77,9 @@ protected:
   bool onAppendStages(const SkStageRec&) const override;
   virtual void appendGradientStages(SkArenaAlloc* alloc, SkRasterPipeline* tPipeline, SkRasterPipeline* postPipeline) const = 0;
   template <typename T, typename... Args>
-  static Context* CheckedMakeContext(SkArenaAlloc* alloc, Args&& args)
+  static Context* CheckedMakeContext(SkArenaAlloc* alloc, Args&&... args)
   {
-    auto* ctx = alloc->make<T>(std::forward<Args>(args));
+    auto* ctx = alloc->make<T>(std::forward<Args>(args)...);
     if (!ctx->isValid())
     {
       return nullptr;

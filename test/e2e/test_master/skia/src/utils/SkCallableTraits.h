@@ -12,7 +12,7 @@ template <typename R, typename... Args>
 struct sk_base_callable_traits
 {
   using return_type = R;
-  static std::size_t arity = sizeof(Args);
+  static std::size_t arity = sizeof(Args)...;
   template <std::size_t N>
   struct argument
   {

@@ -71,45 +71,45 @@ public:
   }
     /** Adds a new element to the list at the head. */
   template <typename... Args>
-  T* addToHead(Args&& args)
+  T* addToHead(Args&&... args)
   {
     this->validate();
     Node* node = this->createNode();
     fList.addToHead(node);
     this->validate();
-    return node->fObj.get()  T(std::forward<Args>(args));
+    return node->fObj.get()  T(std::forward<Args>(args)...);
   }
     /** Adds a new element to the list at the tail. */
   template <typename... Args>
-  T* addToTail(Args&& args)
+  T* addToTail(Args&&... args)
   {
     this->validate();
     Node* node = this->createNode();
     fList.addToTail(node);
     this->validate();
-    return node->fObj.get()  T(std::forward<Args>(args));
+    return node->fObj.get()  T(std::forward<Args>(args)...);
   }
     /** Adds a new element to the list before the location indicated by the iterator. If the
         iterator refers to a nullptr location then the new element is added at the tail */
   template <typename... Args>
-  T* addBefore(Iter location, Args&& args)
+  T* addBefore(Iter location, Args&&... args)
   {
     this->validate();
     Node* node = this->createNode();
     fList.addBefore(node, location.getNode());
     this->validate();
-    return node->fObj.get()  T(std::forward<Args>(args));
+    return node->fObj.get()  T(std::forward<Args>(args)...);
   }
     /** Adds a new element to the list after the location indicated by the iterator. If the
         iterator refers to a nullptr location then the new element is added at the head */
   template <typename... Args>
-  T* addAfter(Iter location, Args&& args)
+  T* addAfter(Iter location, Args&&... args)
   {
     this->validate();
     Node* node = this->createNode();
     fList.addAfter(node, location.getNode());
     this->validate();
-    return node->fObj.get()  T(std::forward<Args>(args));
+    return node->fObj.get()  T(std::forward<Args>(args)...);
   }
     /** Convenience methods for getting an iterator initialized to the head/tail of the list. */
   Iter headIter() const

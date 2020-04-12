@@ -127,7 +127,7 @@ template <typename... Args>
 static std::unique_ptr<SkPDFArray> SkPDFMakeArray(Args... args)
 {
   std::unique_ptr<SkPDFArray> ret(new SkPDFArray());
-  ret->reserve(sizeof(Args));
+  ret->reserve(sizeof(Args)...);
   SkPDFArray_Append(ret.get(), args...);
   return ret;
 }

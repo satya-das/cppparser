@@ -19,8 +19,8 @@ class GrCCSTLList :  SkNoncopyable
 {
 public:
   template <typename ... Args>
-  GrCCSTLList(Args&& args)
-    : fHead(std::forward<Args>(args))
+  GrCCSTLList(Args&&... args)
+    : fHead(std::forward<Args>(args)...)
   {
   }
   ~GrCCSTLList()

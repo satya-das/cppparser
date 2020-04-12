@@ -125,10 +125,10 @@ public:
   {
   }
   template <typename Op, typename... OpArgs>
-  std::unique_ptr<Op> allocate(OpArgs&& opArgs)
+  std::unique_ptr<Op> allocate(OpArgs&&... opArgs)
   {
     char* mem = (char*) fMemoryPool.allocate(sizeof(Op));
-    return std::unique_ptr<Op>(new (mem) Op(std::forward<OpArgs>(opArgs)));
+    return std::unique_ptr<Op>(new (mem) Op(std::forward<OpArgs>(opArgs)...));
   }
   void* allocate(size_t size)
   {

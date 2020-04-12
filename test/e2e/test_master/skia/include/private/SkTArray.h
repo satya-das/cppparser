@@ -225,10 +225,10 @@ public:
      *  Construct a new T at the back of this array.
      */
   template <class... Args>
-  T& emplace_back(Args&& args)
+  T& emplace_back(Args&&... args)
   {
     void* newT = this->push_back_raw(1);
-    return *new (newT) T(std::forward<Args>(args));
+    return *new (newT) T(std::forward<Args>(args)...);
   }
     /**
      * Allocates n more default-initialized T values, and returns the address of

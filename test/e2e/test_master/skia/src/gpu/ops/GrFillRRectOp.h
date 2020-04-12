@@ -50,7 +50,7 @@ private:
     return reinterpret_cast<T*>(fInstanceData.push_back_n(sizeof(T) * count));
   }
   template <typename T, typename... Args>
-  inline void writeInstanceData(const T& val, const Args& remainder)
+  inline void writeInstanceData(const T& val, const Args&... remainder)
   {
     memcpy(this->appendInstanceData<T>(1), &val, sizeof(T));
     this->writeInstanceData(remainder...);

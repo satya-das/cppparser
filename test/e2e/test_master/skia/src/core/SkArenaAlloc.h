@@ -67,7 +67,7 @@ public:
   }
   ~SkArenaAlloc();
   template <typename T, typename... Args>
-  T* make(Args&& args)
+  T* make(Args&&... args)
   {
     uint32_t size = ToU32(sizeof(T));
     uint32_t alignment = ToU32(alignof(T));
@@ -88,7 +88,7 @@ public:
       this->installFooter(releaser, padding);
     }
         // This must be last to make objects with nested use of this allocator work.
-    return new (objStart) T(std::forward<Args>(args));
+    return new (objStart) T(std::forward<Args>(args)...);
   }
   template <typename T>
   T* makeArrayDefault(size_t count)

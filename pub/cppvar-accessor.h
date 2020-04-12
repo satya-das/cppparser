@@ -88,11 +88,25 @@ inline const std::string& baseType(CppConstVarTypeEPtr varType)
   return varType->baseType();
 }
 
+inline bool usesTemplateType(const std::string& varTypeName)
+{
+  return varTypeName.find('<') != varTypeName.npos;
+}
+
+inline bool usesTemplateType(CppConstVarTypeEPtr varType)
+{
+  return usesTemplateType(baseType(varType));
+}
+
 inline bool isVoid(const CppVarType* varType)
 {
   if (varType->typeModifier().ptrLevel_ != 0 || varType->typeModifier().refType_ != CppRefType::kNoRef)
     return false;
-  return (varType->baseType().compare("void") == 0);
+  // return (varType->baseType().compare("void") == 0);
+  // Above simple check fails to detect cases like usage of GrGLvoid
+  if (varType->baseType().length() < 4)
+    return false;
+  return (strncasecmp(varType->baseType().c_str() + varType->baseType().length() - 4, "void", 4) == 0);
 }
 
 inline bool isVoid(const std::unique_ptr<CppVarType>& varType)

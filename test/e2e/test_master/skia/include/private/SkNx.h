@@ -700,7 +700,7 @@ namespace
   template <int... Ix, int N, typename T>
   AI static SkNx<sizeof...(Ix),T> SkNx_shuffle(const SkNx<N,T>& v)
   {
-    return {v[Ix]};
+    return {v[Ix]...};
   }
 // Cast from SkNx<N, Src> to SkNx<N, Dst>, as if you called static_cast<Dst>(Src).
   template <typename Dst, typename Src, int N>

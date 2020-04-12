@@ -52,9 +52,9 @@ template <typename T, T* P>
 struct SkFunctionWrapper
 {
   template <typename... Args>
-  auto operator()(Args&& args) const -> decltype(P(std::forward<Args>(args)...))
+  auto operator()(Args&&... args) const -> decltype(P(std::forward<Args>(args)...))
   {
-    return P(std::forward<Args>(args));
+    return P(std::forward<Args>(args)...);
   }
 };
 /** \class SkAutoTCallVProc
@@ -466,9 +466,9 @@ void SkInPlaceDeleteCheck(T* obj, void* storage)
  *      SkInPlaceDeleteCheck(obj, storage);
  */
 template <typename T, typename... Args>
-T* SkInPlaceNewCheck(void* storage, size_t size, Args&& args)
+T* SkInPlaceNewCheck(void* storage, size_t size, Args&&... args)
 {
-  return (sizeof(T) <= size) ? new (storage) T(std::forward<Args>(args)) : new T(std::forward<Args>(args));
+  return (sizeof(T) <= size) ? new (storage) T(std::forward<Args>(args)...) : new T(std::forward<Args>(args)...);
 }
 /**
  * Reserves memory that is aligned on double and pointer boundaries.
@@ -541,7 +541,7 @@ using SkAutoFree = std::unique_ptr<void, SkFunctionWrapper<void(void*), sk_free>
 template <typename C, std::size_t... Is>
 auto SkMakeArrayFromIndexSequence(C c, skstd::index_sequence<Is...>) -> std::array<skstd::result_of_t<C(std::size_t)>, sizeof...(Is)>
 {
-  return {{c(Is)}};
+  return {{c(Is)...}};
 }
 template <size_t N, typename C>
 auto SkMakeArray(C c) -> std::array<skstd::result_of_t<C(std::size_t)>, N>
