@@ -19,7 +19,7 @@ public:
   template <class... Args>
   void init(Args&&... args)
   {
-    &this->get()  T(std::forward<Args>(args)...);
+    new (&this->get()) T(std::forward<Args>(args)...);
   }
   void destroy()
   {

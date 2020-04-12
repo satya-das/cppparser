@@ -997,6 +997,13 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
     stm << " : ";
     emitExprAtom(exprObj->expr3_, stm);
   }
+  else if (exprObj->oper_ == kPlacementNew)
+  {
+    stm << "new (";
+    emitExprAtom(exprObj->expr1_, stm);
+    stm << ") ";
+    emitExprAtom(exprObj->expr2_, stm);
+  }
 
   if (exprObj->flags_ & CppExpr::kBracketed)
     stm << ')';

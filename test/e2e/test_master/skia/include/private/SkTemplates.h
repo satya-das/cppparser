@@ -196,7 +196,7 @@ public:
     T* stop = fArray + count;
     while (iter < stop)
     {
-      iter++  T;
+      new (iter++) T;
     }
   }
     /** Return the number of T elements in the array

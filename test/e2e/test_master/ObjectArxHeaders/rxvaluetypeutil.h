@@ -151,7 +151,7 @@ class AcRxNonBlittableType : public AcRxValueType
 {
   void construct(void* dest, const void* source) const override
   {
-    (AcRxValue*) dest  T(*(T*) source);
+    new ((AcRxValue*) dest) T(*(T*) source);
   }
   void assign(void* dest, const void* source) const override
   {

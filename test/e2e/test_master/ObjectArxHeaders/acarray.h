@@ -878,7 +878,7 @@ AcArray<T,R>& AcArray<T,R>::setPhysicalLength(int n)
       T* pNewBuf = mpArray;
       for (int i = 0; i < mPhysicalLen; i++)
       {
-        pNewBuf++  T;
+        new (pNewBuf++) T;
       }
             // Now move the old values from the old buf to the new buf
       R::moveItems(mpArray, mPhysicalLen, pOldArray, mLogicalLen, false);

@@ -99,7 +99,7 @@ public:
         // If T is primitive then no initialization takes place.
     for (size_t i = 0; i < safeCount; i++)
     {
-      &array[i]  T;
+      new (&array[i]) T;
     }
     return array;
   }
@@ -113,7 +113,7 @@ public:
         // be zeroed.
     for (size_t i = 0; i < safeCount; i++)
     {
-      &array[i]  T();
+      new (&array[i]) T();
     }
     return array;
   }

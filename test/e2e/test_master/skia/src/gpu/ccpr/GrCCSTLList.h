@@ -44,7 +44,7 @@ public:
   void append(GrCCSTLList&& right, SkArenaAlloc* alloc)
   {
     T* nextTail = (&right.fHead == right.fTail) ? nullptr : right.fTail;
-    T* newRightHead = alloc->makeBytesAlignedTo(sizeof(T), alignof(T))  T(std::move(right.fHead));
+    T* newRightHead = new (alloc->makeBytesAlignedTo(sizeof(T), alignof(T))) T(std::move(right.fHead));
         // Finish the move of right.fHead.
     right.fHead.fNext = nullptr;
     right.fTail = &right.fHead;

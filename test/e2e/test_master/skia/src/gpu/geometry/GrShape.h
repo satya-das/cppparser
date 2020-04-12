@@ -544,11 +544,11 @@ private:
       {
         if (path)
         {
-          &fPathData.fPath  SkPath(*path);
+          new (&fPathData.fPath) SkPath(*path);
         }
         else 
         {
-          &fPathData.fPath  SkPath();
+          new (&fPathData.fPath) SkPath();
         }
       }
       else 

@@ -352,7 +352,7 @@ private:
     static const GrUniqueKey& name = *reinterpret_cast<GrUniqueKey*>(name##_storage.get())
 static void gr_init_static_unique_key_once(SkAlignedSTStorage<1, GrUniqueKey>* keyStorage)
 {
-  GrUniqueKey* key = keyStorage->get()  GrUniqueKey;
+  GrUniqueKey* key = new (keyStorage->get()) GrUniqueKey;
   GrUniqueKey::Builder builder(key, GrUniqueKey::GenerateDomain(), 0);
 }
 // The cache listens for these messages to purge junk resources proactively.

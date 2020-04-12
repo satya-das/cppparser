@@ -150,7 +150,6 @@ enum /*class*/ CppOperator : std::uint8_t
   kGreaterEqual,
   k3WayCmp,
   kComma,
-  kPlacementNew,
 
   kDerefOperatorStart,
   kDot,   // .
@@ -166,6 +165,7 @@ enum /*class*/ CppOperator : std::uint8_t
   kStaticCast,
   kDynamicCast,
   kReinterpretCast,
+  kPlacementNew,
 
   kTertiaryOperator,
 };

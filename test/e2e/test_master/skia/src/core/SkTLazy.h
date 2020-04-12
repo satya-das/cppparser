@@ -20,15 +20,15 @@ class SkTLazy
 public:
   SkTLazy();
   explicit SkTLazy(const T* src)
-    : fPtr(src ? &fStorage  T(*src) : nullptr)
+    : fPtr(src ? new (&fStorage) T(*src) : nullptr)
   {
   }
   SkTLazy(const SkTLazy& that)
-    : fPtr(that.fPtr ? &fStorage  T(*that.fPtr) : nullptr)
+    : fPtr(that.fPtr ? new (&fStorage) T(*that.fPtr) : nullptr)
   {
   }
   SkTLazy(SkTLazy&& that)
-    : fPtr(that.fPtr ? &fStorage  T(std::move(*that.fPtr)) : nullptr)
+    : fPtr(that.fPtr ? new (&fStorage) T(std::move(*that.fPtr)) : nullptr)
   {
   }
   ~SkTLazy()
@@ -69,7 +69,7 @@ public:
   T* init(Args&&... args)
   {
     this->reset();
-    fPtr = &fStorage  T(std::forward<Args>(args)...);
+    fPtr = new (&fStorage) T(std::forward<Args>(args)...);
     return fPtr;
   }
     /**
@@ -86,7 +86,7 @@ public:
     }
     else 
     {
-      fPtr = &fStorage  T(src);
+      fPtr = new (&fStorage) T(src);
     }
     return fPtr;
   }
@@ -98,7 +98,7 @@ public:
     }
     else 
     {
-      fPtr = &fStorage  T(std::move(src));
+      fPtr = new (&fStorage) T(std::move(src));
     }
     return fPtr;
   }

@@ -133,7 +133,7 @@ public:
     fCount = n;
     for (int i = 0; i < fCount; ++i)
     {
-      fItemArray + i  T;
+      new (fItemArray + i) T;
     }
     fReserved = false;
   }
@@ -241,7 +241,7 @@ public:
     void* newTs = this->push_back_raw(n);
     for (int i = 0; i < n; ++i)
     {
-      static_cast<char*>(newTs) + i * sizeof(T)  T;
+      new (static_cast<char*>(newTs) + i * sizeof(T)) T;
     }
     return static_cast<T*>(newTs);
   }
@@ -255,7 +255,7 @@ public:
     void* newTs = this->push_back_raw(n);
     for (int i = 0; i < n; ++i)
     {
-      static_cast<char*>(newTs) + i * sizeof(T)  T(t);
+      new (static_cast<char*>(newTs) + i * sizeof(T)) T(t);
     }
     return static_cast<T*>(newTs);
   }
@@ -269,7 +269,7 @@ public:
     this->checkRealloc(n);
     for (int i = 0; i < n; ++i)
     {
-      fItemArray + fCount + i  T(t[i]);
+      new (fItemArray + fCount + i) T(t[i]);
     }
     fCount += n;
     return fItemArray + fCount - n;
@@ -283,7 +283,7 @@ public:
     this->checkRealloc(n);
     for (int i = 0; i < n; ++i)
     {
-      fItemArray + fCount + i  T(std::move(t[i]));
+      new (fItemArray + fCount + i) T(std::move(t[i]));
     }
     fCount += n;
     return fItemArray + fCount - n;
@@ -560,7 +560,7 @@ private:
         // must be conservative and use copy construction.
     for (int i = 0; i < fCount; ++i)
     {
-      fItemArray + i  T(src[i]);
+      new (fItemArray + i) T(src[i]);
     }
   }
 /*
