@@ -53,7 +53,7 @@ namespace skstd
   {
     using type = index_sequence;
     using value_type = std::size_t;
-    static std::size_t size()
+    static constexpr std::size_t size()
     {
       return sizeof(Ints)...;
     }

@@ -99,7 +99,7 @@ public:
     return fDescToRemoteStrike.size();
   }
 private:
-  static size_t kMaxEntriesInDescriptorMap = 2000u;
+  static constexpr size_t kMaxEntriesInDescriptorMap = 2000u;
   void checkForDeletedEntries();
   RemoteStrike* getOrCreateCache(const SkDescriptor& desc, const SkTypeface& typeface, SkScalerContextEffects effects);
   struct MapOps

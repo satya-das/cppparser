@@ -165,7 +165,7 @@ public:
     /** These are valid only for non-LCD coverage. */
   static const GrProcessorSet& EmptySet();
   static GrProcessorSet MakeEmptySet();
-  static const Analysis EmptySetAnalysis()
+  static constexpr const Analysis EmptySetAnalysis()
   {
     return Analysis(Empty::kEmpty);
   }
@@ -199,7 +199,7 @@ private:
     return fFragmentProcessors[idx + fFragmentProcessorOffset].get();
   }
     // This absurdly large limit allows Analysis and this to pack fields together.
-  static int kMaxColorProcessors = UINT8_MAX;
+  static constexpr int kMaxColorProcessors = UINT8_MAX;
   enum Flags : uint16_t { kFinalized_Flag = 0x1 };
   union XP
   {

@@ -273,24 +273,24 @@ public:
     /** SkMatrix organizes its values in row order. These members correspond to
         each value in SkMatrix.
     */
-  static int kMScaleX = 0;
-  static int kMSkewX = 1;
-  static int kMTransX = 2;
-  static int kMSkewY = 3;
-  static int kMScaleY = 4;
-  static int kMTransY = 5;
-  static int kMPersp0 = 6;
-  static int kMPersp1 = 7;
-  static int kMPersp2 = 8;
+  static constexpr int kMScaleX = 0;
+  static constexpr int kMSkewX = 1;
+  static constexpr int kMTransX = 2;
+  static constexpr int kMSkewY = 3;
+  static constexpr int kMScaleY = 4;
+  static constexpr int kMTransY = 5;
+  static constexpr int kMPersp0 = 6;
+  static constexpr int kMPersp1 = 7;
+  static constexpr int kMPersp2 = 8;
     /** Affine arrays are in column major order to match the matrix used by
         PDF and XPS.
     */
-  static int kAScaleX = 0;
-  static int kASkewY = 1;
-  static int kASkewX = 2;
-  static int kAScaleY = 3;
-  static int kATransX = 4;
-  static int kATransY = 5;
+  static constexpr int kAScaleX = 0;
+  static constexpr int kASkewY = 1;
+  static constexpr int kASkewX = 2;
+  static constexpr int kAScaleY = 3;
+  static constexpr int kATransX = 4;
+  static constexpr int kATransY = 5;
     /** Returns one matrix value. Asserts if index is out of range and SK_DEBUG is
         defined.
 
@@ -1688,14 +1688,14 @@ private:
 
         This bit will be set on identity matrices
     */
-  static int kRectStaysRect_Mask = 0x10;
+  static constexpr int kRectStaysRect_Mask = 0x10;
     /** Set if the perspective bit is valid even though the rest of
         the matrix is Unknown.
     */
-  static int kOnlyPerspectiveValid_Mask = 0x40;
-  static int kUnknown_Mask = 0x80;
-  static int kORableMasks = kTranslate_Mask | kScale_Mask | kAffine_Mask | kPerspective_Mask;
-  static int kAllMasks = kTranslate_Mask | kScale_Mask | kAffine_Mask | kPerspective_Mask | kRectStaysRect_Mask;
+  static constexpr int kOnlyPerspectiveValid_Mask = 0x40;
+  static constexpr int kUnknown_Mask = 0x80;
+  static constexpr int kORableMasks = kTranslate_Mask | kScale_Mask | kAffine_Mask | kPerspective_Mask;
+  static constexpr int kAllMasks = kTranslate_Mask | kScale_Mask | kAffine_Mask | kPerspective_Mask | kRectStaysRect_Mask;
   SkScalar fMat[9];
   mutable uint32_t fTypeMask;
   SkMatrix(SkScalar sx, SkScalar kx, SkScalar tx, SkScalar ky, SkScalar sy, SkScalar ty, SkScalar p0, SkScalar p1, SkScalar p2, uint32_t typeMask)

@@ -19,66 +19,66 @@ public:
   }
   explicit GrSwizzle(const char c[4]);
   GrSwizzle(const GrSwizzle&);
-  GrSwizzle& operator=(const GrSwizzle& that);
-  static GrSwizzle Concat(const GrSwizzle& a, const GrSwizzle& b);
+  constexpr GrSwizzle& operator=(const GrSwizzle& that);
+  static constexpr GrSwizzle Concat(const GrSwizzle& a, const GrSwizzle& b);
     /** Recreates a GrSwizzle from the output of asKey() */
-  void setFromKey(uint16_t key);
-  bool operator==(const GrSwizzle& that) const
+  constexpr void setFromKey(uint16_t key);
+  constexpr bool operator==(const GrSwizzle& that) const
   {
     return fKey == that.fKey;
   }
-  bool operator!=(const GrSwizzle& that) const
+  constexpr bool operator!=(const GrSwizzle& that) const
   {
     return !(*this == that);
   }
     /** Compact representation of the swizzle suitable for a key. */
-  uint16_t asKey() const
+  constexpr uint16_t asKey() const
   {
     return fKey;
   }
     /** 4 char null terminated string consisting only of chars 'r', 'g', 'b', 'a', '0', and '1'. */
-  const char* c_str() const
+  constexpr const char* c_str() const
   {
     return fSwiz;
   }
-  char operator[](int i) const
+  constexpr char operator[](int i) const
   {
     SkASSERT(i >= 0 && i < 4);
     return fSwiz[i];
   }
     /** Applies this swizzle to the input color and returns the swizzled color. */
   template <SkAlphaType AlphaType>
-  SkRGBA4f<AlphaType> applyTo(const SkRGBA4f<AlphaType>& color) const;
+  constexpr SkRGBA4f<AlphaType> applyTo(const SkRGBA4f<AlphaType>& color) const;
   void apply(SkRasterPipeline*) const;
-  static GrSwizzle RGBA()
+  static constexpr GrSwizzle RGBA()
   {
     return GrSwizzle("rgba");
   }
-  static GrSwizzle AAAA()
+  static constexpr GrSwizzle AAAA()
   {
     return GrSwizzle("aaaa");
   }
-  static GrSwizzle RRRR()
+  static constexpr GrSwizzle RRRR()
   {
     return GrSwizzle("rrrr");
   }
-  static GrSwizzle RRRA()
+  static constexpr GrSwizzle RRRA()
   {
     return GrSwizzle("rrra");
   }
-  static GrSwizzle BGRA()
+  static constexpr GrSwizzle BGRA()
   {
     return GrSwizzle("bgra");
   }
-  static GrSwizzle RGB1()
+  static constexpr GrSwizzle RGB1()
   {
     return GrSwizzle("rgb1");
   }
 private:
   template <SkAlphaType AlphaType>
-  static float ComponentIndexToFloat(const SkRGBA4f<AlphaType>& color, int idx);
-  static int CToI(char c);
-  static char IToC(int idx);
+  static constexpr float ComponentIndexToFloat(const SkRGBA4f<AlphaType>& color, int idx);
+  static constexpr int CToI(char c);
+  static constexpr char IToC(int idx);
   char fSwiz[5];
   uint16_t fKey;
 };
@@ -92,7 +92,7 @@ GrSwizzle::GrSwizzle(const GrSwizzle& that)
   , fKey(that.fKey)
 {
 }
-GrSwizzle& GrSwizzle::operator=(const GrSwizzle& that)
+constexpr GrSwizzle& GrSwizzle::operator=(const GrSwizzle& that)
 {
   fSwiz[0] = that.fSwiz[0];
   fSwiz[1] = that.fSwiz[1];
@@ -103,7 +103,7 @@ GrSwizzle& GrSwizzle::operator=(const GrSwizzle& that)
   return *this;
 }
 template <SkAlphaType AlphaType>
-SkRGBA4f<AlphaType> GrSwizzle::applyTo(const SkRGBA4f<AlphaType>& color) const
+constexpr SkRGBA4f<AlphaType> GrSwizzle::applyTo(const SkRGBA4f<AlphaType>& color) const
 {
   uint32_t key = fKey;
     // Index of the input color that should be mapped to output r.
@@ -121,7 +121,7 @@ SkRGBA4f<AlphaType> GrSwizzle::applyTo(const SkRGBA4f<AlphaType>& color) const
   return {outR, outG, outB, outA};
 }
 /** Recreates a GrSwizzle from the output of asKey() */
-void GrSwizzle::setFromKey(uint16_t key)
+constexpr void GrSwizzle::setFromKey(uint16_t key)
 {
   fKey = key;
   for (int i = 0; i < 4; ++i)
@@ -132,7 +132,7 @@ void GrSwizzle::setFromKey(uint16_t key)
   SkASSERT(fSwiz[4] == '\0');
 }
 template <SkAlphaType AlphaType>
-float GrSwizzle::ComponentIndexToFloat(const SkRGBA4f<AlphaType>& color, int idx)
+constexpr float GrSwizzle::ComponentIndexToFloat(const SkRGBA4f<AlphaType>& color, int idx)
 {
   if (idx <= 3)
   {
@@ -148,7 +148,7 @@ float GrSwizzle::ComponentIndexToFloat(const SkRGBA4f<AlphaType>& color, int idx
   }
   SkUNREACHABLE;
 }
-int GrSwizzle::CToI(char c)
+constexpr int GrSwizzle::CToI(char c)
 {
   switch(c)
   {
@@ -168,7 +168,7 @@ default:
     SkUNREACHABLE;
 }
 }
-char GrSwizzle::IToC(int idx)
+constexpr char GrSwizzle::IToC(int idx)
 {
   switch(idx)
   {
@@ -188,7 +188,7 @@ default:
     SkUNREACHABLE;
 }
 }
-GrSwizzle GrSwizzle::Concat(const GrSwizzle& a, const GrSwizzle& b)
+constexpr GrSwizzle GrSwizzle::Concat(const GrSwizzle& a, const GrSwizzle& b)
 {
   char swiz[4]{};
   for (int i = 0; i < 4; ++i)

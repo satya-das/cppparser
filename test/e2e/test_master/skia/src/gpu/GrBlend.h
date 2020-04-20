@@ -67,31 +67,31 @@ enum GrBlendCoeff {
     kLast_GrBlendCoeff = kIllegal_GrBlendCoeff,
 };
 static const int kGrBlendCoeffCnt = kLast_GrBlendCoeff + 1;
-static bool GrBlendCoeffRefsSrc(const GrBlendCoeff coeff)
+static constexpr bool GrBlendCoeffRefsSrc(const GrBlendCoeff coeff)
 {
   return kSC_GrBlendCoeff == coeff || kISC_GrBlendCoeff == coeff || kSA_GrBlendCoeff == coeff || kISA_GrBlendCoeff == coeff;
 }
-static bool GrBlendCoeffRefsDst(const GrBlendCoeff coeff)
+static constexpr bool GrBlendCoeffRefsDst(const GrBlendCoeff coeff)
 {
   return kDC_GrBlendCoeff == coeff || kIDC_GrBlendCoeff == coeff || kDA_GrBlendCoeff == coeff || kIDA_GrBlendCoeff == coeff;
 }
-static bool GrBlendCoeffRefsSrc2(const GrBlendCoeff coeff)
+static constexpr bool GrBlendCoeffRefsSrc2(const GrBlendCoeff coeff)
 {
   return kS2C_GrBlendCoeff == coeff || kIS2C_GrBlendCoeff == coeff || kS2A_GrBlendCoeff == coeff || kIS2A_GrBlendCoeff == coeff;
 }
-static bool GrBlendCoeffsUseSrcColor(GrBlendCoeff srcCoeff, GrBlendCoeff dstCoeff)
+static constexpr bool GrBlendCoeffsUseSrcColor(GrBlendCoeff srcCoeff, GrBlendCoeff dstCoeff)
 {
   return kZero_GrBlendCoeff != srcCoeff || GrBlendCoeffRefsSrc(dstCoeff);
 }
-static bool GrBlendCoeffsUseDstColor(GrBlendCoeff srcCoeff, GrBlendCoeff dstCoeff)
+static constexpr bool GrBlendCoeffsUseDstColor(GrBlendCoeff srcCoeff, GrBlendCoeff dstCoeff)
 {
   return GrBlendCoeffRefsDst(srcCoeff) || kZero_GrBlendCoeff != dstCoeff;
 }
-static bool GrBlendEquationIsAdvanced(GrBlendEquation equation)
+static constexpr bool GrBlendEquationIsAdvanced(GrBlendEquation equation)
 {
   return equation >= kFirstAdvancedGrBlendEquation && equation != kIllegal_GrBlendEquation;
 }
-static bool GrBlendModifiesDst(GrBlendEquation equation, GrBlendCoeff srcCoeff, GrBlendCoeff dstCoeff)
+static constexpr bool GrBlendModifiesDst(GrBlendEquation equation, GrBlendCoeff srcCoeff, GrBlendCoeff dstCoeff)
 {
   return (kAdd_GrBlendEquation != equation && kReverseSubtract_GrBlendEquation != equation) || kZero_GrBlendCoeff != srcCoeff || kOne_GrBlendCoeff != dstCoeff;
 }
@@ -122,7 +122,7 @@ static bool GrBlendModifiesDst(GrBlendEquation equation, GrBlendCoeff srcCoeff, 
  * Moreover, if the blend doesn't modify the dst at all then it is ok to arbitrarily modify the src
  * color so folding in coverage is allowed.
  */
-static bool GrBlendAllowsCoverageAsAlpha(GrBlendEquation equation, GrBlendCoeff srcCoeff, GrBlendCoeff dstCoeff)
+static constexpr bool GrBlendAllowsCoverageAsAlpha(GrBlendEquation equation, GrBlendCoeff srcCoeff, GrBlendCoeff dstCoeff)
 {
   return GrBlendEquationIsAdvanced(equation) || !GrBlendModifiesDst(equation, srcCoeff, dstCoeff) || ((kAdd_GrBlendEquation == equation || kReverseSubtract_GrBlendEquation == equation) && !GrBlendCoeffRefsSrc(srcCoeff) && (kOne_GrBlendCoeff == dstCoeff || kISC_GrBlendCoeff == dstCoeff || kISA_GrBlendCoeff == dstCoeff));
 }

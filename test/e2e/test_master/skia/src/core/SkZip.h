@@ -37,30 +37,30 @@ class SkZip
       : Iterator(that.fZip, that.fIndex)
     {
     }
-    Iterator& operator++()
+    constexpr Iterator& operator++()
     {
       ++fIndex;
       return *this;
     }
-    Iterator operator++(int)
+    constexpr Iterator operator++(int)
     {
       Iterator tmp(*this);
       operator++();
       return tmp;
     }
-    bool operator==(const Iterator& rhs) const
+    constexpr bool operator==(const Iterator& rhs) const
     {
       return fIndex == rhs.fIndex;
     }
-    bool operator!=(const Iterator& rhs) const
+    constexpr bool operator!=(const Iterator& rhs) const
     {
       return fIndex != rhs.fIndex;
     }
-    reference operator*()
+    constexpr reference operator*()
     {
       return (*fZip)[fIndex];
     }
-    friend difference_type operator-(Iterator lhs, Iterator rhs)
+    friend constexpr difference_type operator-(Iterator lhs, Iterator rhs)
     {
       return lhs.fIndex - rhs.fIndex;
     }
@@ -81,48 +81,48 @@ public:
     , fSize(that.fSize)
   {
   }
-  ReturnTuple operator[](size_t i) const
+  constexpr ReturnTuple operator[](size_t i) const
   {
     return this->index(i);
   }
-  size_t size() const
+  constexpr size_t size() const
   {
     return fSize;
   }
-  bool empty() const
+  constexpr bool empty() const
   {
     return this->size() == 0;
   }
-  ReturnTuple front() const
+  constexpr ReturnTuple front() const
   {
     return this->index(0);
   }
-  ReturnTuple back() const
+  constexpr ReturnTuple back() const
   {
     return this->index(this->size() - 1);
   }
-  Iterator begin() const
+  constexpr Iterator begin() const
   {
     return Iterator(this, 0);
   }
-  Iterator end() const
+  constexpr Iterator end() const
   {
     return Iterator(this, this->size());
   }
   template <size_t I>
-  auto get() const
+  constexpr auto get() const
   {
     return SkMakeSpan(std::get<I>(fPointers), fSize);
   }
 private:
-  ReturnTuple index(size_t i) const
+  constexpr ReturnTuple index(size_t i) const
   {
     SkASSERT(this->size() > 0);
     SkASSERT(i < this->size());
     return indexDetail(i, skstd::make_index_sequence<sizeof...(Ts)>());
   }
   template <std::size_t... Is>
-  ReturnTuple indexDetail(size_t i, skstd::index_sequence<Is...>) const
+  constexpr ReturnTuple indexDetail(size_t i, skstd::index_sequence<Is...>) const
   {
     return ReturnTuple((std::get<Is>(fPointers))[i]...);
   }

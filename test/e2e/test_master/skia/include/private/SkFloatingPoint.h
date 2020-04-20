@@ -23,9 +23,9 @@
 #  if  defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
 #    include <unistd.h>
 #  endif
-float SK_FloatSqrt2 = 1.41421356f;
-float SK_FloatPI = 3.14159265f;
-double SK_DoublePI = 3.14159265358979323846264338327950288;
+constexpr float SK_FloatSqrt2 = 1.41421356f;
+constexpr float SK_FloatPI = 3.14159265f;
+constexpr double SK_DoublePI = 3.14159265358979323846264338327950288;
 // C++98 cmath std::pow seems to be the earliest portable way to get float pow.
 // However, on Linux including cmath undefines isfinite.
 // http://gcc.gnu.org/bugzilla/show_bug.cgi?id=14608
@@ -53,11 +53,11 @@ static float sk_float_pow(float base, float exp)
 #  define sk_float_mod(x,y)	       fmodf(x,y)
 #  define sk_float_exp(x)	         expf(x)
 #  define sk_float_log(x)	         logf(x)
-float sk_float_degrees_to_radians(float degrees)
+constexpr float sk_float_degrees_to_radians(float degrees)
 {
   return degrees * (SK_FloatPI / 180);
 }
-float sk_float_radians_to_degrees(float radians)
+constexpr float sk_float_radians_to_degrees(float radians)
 {
   return radians * (180 / SK_FloatPI);
 }

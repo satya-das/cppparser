@@ -497,7 +497,7 @@ private:
         kEmbolden_PrivFlag              = 1 << 4,
         kBaselineSnap_PrivFlag          = 1 << 5,
     };
-  static unsigned kAllFlags = kForceAutoHinting_PrivFlag | kEmbeddedBitmaps_PrivFlag | kSubpixel_PrivFlag | kLinearMetrics_PrivFlag | kEmbolden_PrivFlag | kBaselineSnap_PrivFlag;
+  static constexpr unsigned kAllFlags = kForceAutoHinting_PrivFlag | kEmbeddedBitmaps_PrivFlag | kSubpixel_PrivFlag | kLinearMetrics_PrivFlag | kEmbolden_PrivFlag | kBaselineSnap_PrivFlag;
   sk_sp<SkTypeface> fTypeface;
   SkScalar fSize;
   SkScalar fScaleX;

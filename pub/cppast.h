@@ -375,6 +375,10 @@ private:
 
 using CppVarTypePtr = std::unique_ptr<CppVarType>;
 
+struct CppTemplateParam;
+using CppTemplateParamList    = std::vector<std::unique_ptr<CppTemplateParam>>;
+using CppTemplateParamListPtr = std::unique_ptr<CppTemplateParamList>;
+
 /**
  * Class to represent C++ variable definition.
  * A variable can be global, local or member of a struct, class, namespace, or union.
@@ -473,10 +477,20 @@ struct CppVar : public CppObj
     apidecor_ = std::move(_apidecor);
   }
 
+  const CppTemplateParamList* templateParamList() const
+  {
+    return templSpec_.get();
+  }
+  void templateParamList(CppTemplateParamList* templParamList)
+  {
+    templSpec_.reset(templParamList);
+  }
+
 private:
-  CppVarTypePtr varType_;
-  CppVarDecl    varDecl_;
-  std::string   apidecor_; // It holds things like WINAPI, __declspec(dllexport), etc.
+  CppVarTypePtr           varType_;
+  CppVarDecl              varDecl_;
+  std::string             apidecor_; // It holds things like WINAPI, __declspec(dllexport), etc.
+  CppTemplateParamListPtr templSpec_;
 };
 
 using CppVarPtr       = std::unique_ptr<CppVar>;
@@ -627,9 +641,6 @@ struct CppTemplateParam
 private:
   CppObjPtr defaultArg_; //< Can be CppVarType or CppExpr
 };
-
-using CppTemplateParamList    = std::vector<std::unique_ptr<CppTemplateParam>>;
-using CppTemplateParamListPtr = std::unique_ptr<CppTemplateParamList>;
 
 struct CppFwdClsDecl : public CppObj
 {

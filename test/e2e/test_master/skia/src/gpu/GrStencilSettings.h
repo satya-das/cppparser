@@ -19,7 +19,7 @@ enum class GrStencilTest : uint16_t {
     kEqual,
     kNotEqual
 };
-static int kGrStencilTestCount = 1 + (int) GrStencilTest::kNotEqual;
+static constexpr int kGrStencilTestCount = 1 + (int) GrStencilTest::kNotEqual;
 enum class GrStencilOp : uint8_t {
     kKeep,
     kZero,
@@ -32,7 +32,7 @@ enum class GrStencilOp : uint8_t {
     kIncClamp,
     kDecClamp
 };
-static int kGrStencilOpCount = 1 + (int) GrStencilOp::kDecClamp;
+static constexpr int kGrStencilOpCount = 1 + (int) GrStencilOp::kDecClamp;
 /**
  * This class defines concrete stencil settings that map directly to the underlying hardware. It
  * is deduced from user stencil settings, stencil clip status, and the number of bits in the

@@ -30,27 +30,27 @@ class SkEnumerate
     {
     }
     Iterator(const Iterator&);
-    Iterator operator++()
+    constexpr Iterator operator++()
     {
       ++fIndex;
       ++fIt;
       return *this;
     }
-    Iterator operator++(int)
+    constexpr Iterator operator++(int)
     {
       Iterator tmp(*this);
       operator++();
       return tmp;
     }
-    bool operator==(const Iterator& rhs) const
+    constexpr bool operator==(const Iterator& rhs) const
     {
       return fIt == rhs.fIt;
     }
-    bool operator!=(const Iterator& rhs) const
+    constexpr bool operator!=(const Iterator& rhs) const
     {
       return fIt != rhs.fIt;
     }
-    reference operator*()
+    constexpr reference operator*()
     {
       return std::forward_as_tuple(fIndex, *fIt);
     }
@@ -71,17 +71,17 @@ public:
   {
   }
   SkEnumerate(const SkEnumerate& that);
-  SkEnumerate& operator=(const SkEnumerate& that)
+  constexpr SkEnumerate& operator=(const SkEnumerate& that)
   {
     fBegin = that.fBegin;
     fEnd = that.fEnd;
     return *this;
   }
-  Iterator begin() const
+  constexpr Iterator begin() const
   {
     return Iterator(0, fBegin);
   }
-  Iterator end() const
+  constexpr Iterator end() const
   {
     return Iterator(fEnd - fBegin, fEnd);
   }
@@ -91,12 +91,12 @@ private:
   Iter fEnd;
 };
 template <typename C, typename Iter = decltype(std::begin(std::declval<C>()))>
-inline SkEnumerate<Iter> SkMakeEnumerate(C& c)
+inline constexpr SkEnumerate<Iter> SkMakeEnumerate(C& c)
 {
   return SkEnumerate<Iter>(std::begin(c), std::end(c));
 }
 template <typename C, typename Iter = decltype(std::begin(std::declval<C>()))>
-inline SkEnumerate<Iter, C> SkMakeEnumerate(C&& c)
+inline constexpr SkEnumerate<Iter, C> SkMakeEnumerate(C&& c)
 {
   return SkEnumerate<Iter, C>(std::forward<C>(c));
 }

@@ -19,6 +19,6 @@ static SkSurfaceProps SkSurfacePropsCopyOrDefault(const SkSurfaceProps* props)
     return SkSurfaceProps(SkSurfaceProps::kLegacyFontHost_InitType);
   }
 }
-size_t kIgnoreRowBytesValue = static_cast<size_t>(~0);
+constexpr size_t kIgnoreRowBytesValue = static_cast<size_t>(~0);
 bool SkSurfaceValidateRasterInfo(const SkImageInfo&, size_t rb = kIgnoreRowBytesValue);
 #endif

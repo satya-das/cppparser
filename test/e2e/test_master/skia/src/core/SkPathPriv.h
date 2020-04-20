@@ -254,8 +254,8 @@ default:
   {
         // This value is just a guess. smaller is safer, but we don't want to reject largish paths
         // that we don't have to.
-    SkScalar scale_down_to_allow_for_small_multiplies = 0.25f;
-    SkScalar max = SK_ScalarMax * scale_down_to_allow_for_small_multiplies;
+    constexpr SkScalar scale_down_to_allow_for_small_multiplies = 0.25f;
+    constexpr SkScalar max = SK_ScalarMax * scale_down_to_allow_for_small_multiplies;
         // use ! expression so we return true if bounds contains NaN
     return !(bounds.fLeft >= -max && bounds.fTop >= -max && bounds.fRight <= max && bounds.fBottom <= max);
   }

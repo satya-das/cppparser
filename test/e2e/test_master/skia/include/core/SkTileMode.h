@@ -32,5 +32,5 @@ enum class SkTileMode {
 
     kLastTileMode = kDecal,
 };
-static int kSkTileModeCount = static_cast<int>(SkTileMode::kLastTileMode) + 1;
+static constexpr int kSkTileModeCount = static_cast<int>(SkTileMode::kLastTileMode) + 1;
 #endif

@@ -74,7 +74,7 @@ private:
   const uint32_t fNumColors;
   const uint32_t fBytesPerColor;
   const uint32_t fOffset;
-  static size_t kBufferSize = 4096;
+  static constexpr size_t kBufferSize = 4096;
   uint8_t fStreamBuffer[kBufferSize];
   size_t fBytesBuffered;
   uint32_t fCurrRLEByte;

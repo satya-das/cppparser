@@ -55,24 +55,24 @@ public:
     }
     Attribute(const Attribute&);
     Attribute& operator=(const Attribute&);
-    bool isInitialized() const
+    constexpr bool isInitialized() const
     {
       return SkToBool(fName);
     }
-    const char* name() const
+    constexpr const char* name() const
     {
       return fName;
     }
-    GrVertexAttribType cpuType() const
+    constexpr GrVertexAttribType cpuType() const
     {
       return fCPUType;
     }
-    GrSLType gpuType() const
+    constexpr GrSLType gpuType() const
     {
       return fGPUType;
     }
-    inline size_t size() const;
-    size_t sizeAlign4() const
+    inline constexpr size_t size() const;
+    constexpr size_t sizeAlign4() const
     {
       return SkAlign4(this->size());
     }
@@ -348,7 +348,7 @@ const GrPrimitiveProcessor::TextureSampler& GrPrimitiveProcessor::IthTextureSamp
  * This was moved from include/private/GrTypesPriv.h in service of Skia dependents that build
  * with C++11.
  */
-static size_t GrVertexAttribTypeSize(GrVertexAttribType type)
+static constexpr size_t GrVertexAttribTypeSize(GrVertexAttribType type)
 {
   switch(type)
   {
@@ -417,7 +417,7 @@ static size_t GrVertexAttribTypeSize(GrVertexAttribType type)
 #  endif
   return 0;
 }
-size_t GrPrimitiveProcessor::Attribute::size() const
+constexpr size_t GrPrimitiveProcessor::Attribute::size() const
 {
   return GrVertexAttribTypeSize(fCPUType);
 }

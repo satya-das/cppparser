@@ -899,6 +899,7 @@ vardecl           : vartype varidentifier       [ZZLOG;]         {
                   }
                   | templatespecifier vardecl   [ZZLOG;] {
                     $$ = $2;
+                    $$->templateParamList($1);
                   }
                   | varattrib vardecl           [ZZLOG;] {
                     $$ = $2;

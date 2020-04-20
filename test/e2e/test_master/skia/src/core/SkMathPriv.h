@@ -231,8 +231,8 @@ static uint32_t GrNextPow2(uint32_t n)
  */
 static size_t GrNextSizePow2(size_t n)
 {
-  int kNumSizeTBits = 8 * sizeof(size_t);
-  size_t kHighBitSet = size_t(1) << (kNumSizeTBits - 1);
+  constexpr int kNumSizeTBits = 8 * sizeof(size_t);
+  constexpr size_t kHighBitSet = size_t(1) << (kNumSizeTBits - 1);
   if (!n)
   {
     return 1;

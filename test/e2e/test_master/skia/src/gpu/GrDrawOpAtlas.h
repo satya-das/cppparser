@@ -43,11 +43,11 @@ class GrRectanizer;
 class GrDrawOpAtlas
 {
 private:
-  static auto kMaxMultitexturePages = 4;
+  static constexpr auto kMaxMultitexturePages = 4;
 public:
     /** Is the atlas allowed to use more than one texture? */
   enum class AllowMultitexturing : bool { kNo, kYes };
-  static int kMaxPlots = 32;
+  static constexpr int kMaxPlots = 32;
                                          // in BulkUseTokenUpdater
 
     /**
@@ -199,7 +199,7 @@ public:
       fPlotAlreadyUpdated[pageIdx] |= (1 << index);
       fPlotsToUpdate.push_back(PlotData(pageIdx, index));
     }
-    static int kMinItems = 4;
+    static constexpr int kMinItems = 4;
     SkSTArray<kMinItems, PlotData, true> fPlotsToUpdate;
     uint32_t fPlotAlreadyUpdated[kMaxMultitexturePages];
                                                              //       to allow more plots per page
@@ -429,7 +429,7 @@ private:
     // which limits the largest atlas dimensions to 2048x2048.
     // For simplicity we'll use this constraint for all of our atlas textures.
     // This can be revisited later if we need larger atlases.
-  static int kMaxAtlasDim = 2048;
+  static constexpr int kMaxAtlasDim = 2048;
   SkISize fARGBDimensions;
   int fMaxTextureSize;
 };

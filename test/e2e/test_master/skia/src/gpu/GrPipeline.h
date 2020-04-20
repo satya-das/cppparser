@@ -202,7 +202,7 @@ public:
     return fOutputSwizzle;
   }
 private:
-  static uint8_t kLastInputFlag = (uint8_t) InputFlags::kSnapVerticesToPixelCenters;
+  static constexpr uint8_t kLastInputFlag = (uint8_t) InputFlags::kSnapVerticesToPixelCenters;
     /** This is a continuation of the public "InputFlags" enum. */
   enum class Flags : uint8_t {
         kHasStencilClip = (kLastInputFlag << 1),

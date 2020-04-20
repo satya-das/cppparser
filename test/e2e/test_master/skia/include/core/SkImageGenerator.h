@@ -149,7 +149,7 @@ public:
      */
   static std::unique_ptr<SkImageGenerator> MakeFromPicture(const SkISize&, sk_sp<SkPicture>, const SkMatrix*, const SkPaint*, SkImage::BitDepth, sk_sp<SkColorSpace>);
 protected:
-  static int kNeedNewImageUniqueID = 0;
+  static constexpr int kNeedNewImageUniqueID = 0;
   SkImageGenerator(const SkImageInfo& info, uint32_t uniqueId = kNeedNewImageUniqueID);
   virtual sk_sp<SkData> onRefEncodedData()
   {

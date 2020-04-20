@@ -24,7 +24,7 @@ public:
   static SkVector PixelRounding(bool isSubpixel, SkAxisAlignment axisAlignment);
     // An atlas consists of plots, and plots hold glyphs. The minimum a plot can be is 256x256.
     // This means that the maximum size a glyph can be is 256x256.
-  static uint16_t kSkSideTooBigForAtlas = 256;
+  static constexpr uint16_t kSkSideTooBigForAtlas = 256;
 };
 class SkGlyphRunListPainter
 {

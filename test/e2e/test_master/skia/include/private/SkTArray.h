@@ -582,7 +582,7 @@ private:
         }
     }
 */
-  static int kMinHeapAllocCount = 8;
+  static constexpr int kMinHeapAllocCount = 8;
     // Helper function that makes space for n objects, adjusts the count, but does not initialize
     // the new objects.
   void* push_back_raw(int n)
@@ -645,7 +645,8 @@ static void swap(SkTArray<T, M>& a, SkTArray<T, M>& b)
 {
   a.swap(b);
 }
-int SkTArray<T, MEM_MOVE>::kMinHeapAllocCount;
+template <typename T, bool MEM_MOVE>
+constexpr int SkTArray<T, MEM_MOVE>::kMinHeapAllocCount;
 /**
  * Subclass of SkTArray that contains a preallocated memory block for the array.
  */

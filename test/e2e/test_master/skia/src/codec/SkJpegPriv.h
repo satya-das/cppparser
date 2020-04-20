@@ -15,9 +15,9 @@ extern "C" {
 #  include "jpeglib.h"
 #  include "jerror.h"
   }
-static uint32_t kICCMarker = JPEG_APP0 + 2;
-static uint32_t kICCMarkerHeaderSize = 14;
-static uint8_t kICCSig[] = {'I', 'C', 'C', '_', 'P', 'R', 'O', 'F', 'I', 'L', 'E', '\0'};
+static constexpr uint32_t kICCMarker = JPEG_APP0 + 2;
+static constexpr uint32_t kICCMarkerHeaderSize = 14;
+static constexpr uint8_t kICCSig[] = {'I', 'C', 'C', '_', 'P', 'R', 'O', 'F', 'I', 'L', 'E', '\0'};
 /*
  * Error handling struct
  */

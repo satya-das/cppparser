@@ -11,7 +11,7 @@
 #  include "include/core/SkSize.h"
 struct SK_API SkYUVASizeInfo
 {
-  static auto kMaxCount = 4;
+  static constexpr auto kMaxCount = 4;
   SkISize fSizes[kMaxCount];
     /**
      * While the widths of the Y, U, V and A planes are not restricted, the

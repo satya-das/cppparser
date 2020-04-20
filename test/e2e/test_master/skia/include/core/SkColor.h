@@ -37,7 +37,7 @@ typedef uint32_t SkColor;
     @param b  amount of blue, from no blue (0) to full blue (255)
     @return   color and alpha, unpremultiplied
 */
-static SkColor SkColorSetARGB(U8CPU a, U8CPU r, U8CPU g, U8CPU b)
+static constexpr SkColor SkColorSetARGB(U8CPU a, U8CPU r, U8CPU g, U8CPU b)
 {
   return SkASSERT(a <= 255 && r <= 255 && g <= 255 && b <= 255), (a << 24) | (r << 16) | (g << 8) | (b << 0);
 }
@@ -64,59 +64,59 @@ static SkColor SkColorSetARGB(U8CPU a, U8CPU r, U8CPU g, U8CPU b)
     @param a  alpha: transparent at zero, fully opaque at 255
     @return   color with transparency
 */
-static SkColor SkColorSetA(SkColor c, U8CPU a)
+static constexpr SkColor SkColorSetA(SkColor c, U8CPU a)
 {
   return (c & 0x00FFFFFF) | (a << 24);
 }
 /** Represents fully transparent SkAlpha value. SkAlpha ranges from zero,
     fully transparent; to 255, fully opaque.
 */
-SkAlpha SK_AlphaTRANSPARENT = 0x00;
+constexpr SkAlpha SK_AlphaTRANSPARENT = 0x00;
 /** Represents fully opaque SkAlpha value. SkAlpha ranges from zero,
     fully transparent; to 255, fully opaque.
 */
-SkAlpha SK_AlphaOPAQUE = 0xFF;
+constexpr SkAlpha SK_AlphaOPAQUE = 0xFF;
 /** Represents fully transparent SkColor. May be used to initialize a destination
     containing a mask or a non-rectangular image.
 */
-SkColor SK_ColorTRANSPARENT = SkColorSetARGB(0x00, 0x00, 0x00, 0x00);
+constexpr SkColor SK_ColorTRANSPARENT = SkColorSetARGB(0x00, 0x00, 0x00, 0x00);
 /** Represents fully opaque black.
 */
-SkColor SK_ColorBLACK = SkColorSetARGB(0xFF, 0x00, 0x00, 0x00);
+constexpr SkColor SK_ColorBLACK = SkColorSetARGB(0xFF, 0x00, 0x00, 0x00);
 /** Represents fully opaque dark gray.
     Note that SVG dark gray is equivalent to 0xFFA9A9A9.
 */
-SkColor SK_ColorDKGRAY = SkColorSetARGB(0xFF, 0x44, 0x44, 0x44);
+constexpr SkColor SK_ColorDKGRAY = SkColorSetARGB(0xFF, 0x44, 0x44, 0x44);
 /** Represents fully opaque gray.
     Note that HTML gray is equivalent to 0xFF808080.
 */
-SkColor SK_ColorGRAY = SkColorSetARGB(0xFF, 0x88, 0x88, 0x88);
+constexpr SkColor SK_ColorGRAY = SkColorSetARGB(0xFF, 0x88, 0x88, 0x88);
 /** Represents fully opaque light gray. HTML silver is equivalent to 0xFFC0C0C0.
     Note that SVG light gray is equivalent to 0xFFD3D3D3.
 */
-SkColor SK_ColorLTGRAY = SkColorSetARGB(0xFF, 0xCC, 0xCC, 0xCC);
+constexpr SkColor SK_ColorLTGRAY = SkColorSetARGB(0xFF, 0xCC, 0xCC, 0xCC);
 /** Represents fully opaque white.
 */
-SkColor SK_ColorWHITE = SkColorSetARGB(0xFF, 0xFF, 0xFF, 0xFF);
+constexpr SkColor SK_ColorWHITE = SkColorSetARGB(0xFF, 0xFF, 0xFF, 0xFF);
 /** Represents fully opaque red.
 */
-SkColor SK_ColorRED = SkColorSetARGB(0xFF, 0xFF, 0x00, 0x00);
+constexpr SkColor SK_ColorRED = SkColorSetARGB(0xFF, 0xFF, 0x00, 0x00);
 /** Represents fully opaque green. HTML lime is equivalent.
     Note that HTML green is equivalent to 0xFF008000.
 */
-SkColor SK_ColorGREEN = SkColorSetARGB(0xFF, 0x00, 0xFF, 0x00);
+constexpr SkColor SK_ColorGREEN = SkColorSetARGB(0xFF, 0x00, 0xFF, 0x00);
 /** Represents fully opaque blue.
 */
-SkColor SK_ColorBLUE = SkColorSetARGB(0xFF, 0x00, 0x00, 0xFF);
+constexpr SkColor SK_ColorBLUE = SkColorSetARGB(0xFF, 0x00, 0x00, 0xFF);
 /** Represents fully opaque yellow.
 */
-SkColor SK_ColorYELLOW = SkColorSetARGB(0xFF, 0xFF, 0xFF, 0x00);
+constexpr SkColor SK_ColorYELLOW = SkColorSetARGB(0xFF, 0xFF, 0xFF, 0x00);
 /** Represents fully opaque cyan. HTML aqua is equivalent.
 */
-SkColor SK_ColorCYAN = SkColorSetARGB(0xFF, 0x00, 0xFF, 0xFF);
+constexpr SkColor SK_ColorCYAN = SkColorSetARGB(0xFF, 0x00, 0xFF, 0xFF);
 /** Represents fully opaque magenta. HTML fuchsia is equivalent.
 */
-SkColor SK_ColorMAGENTA = SkColorSetARGB(0xFF, 0xFF, 0x00, 0xFF);
+constexpr SkColor SK_ColorMAGENTA = SkColorSetARGB(0xFF, 0xFF, 0x00, 0xFF);
 /** Converts RGB to its HSV components.
     hsv[0] contains hsv hue, a value from zero to less than 360.
     hsv[1] contains hsv saturation, a value from zero to one.
@@ -368,17 +368,17 @@ template <>
 SK_API SkColor SkColor4f::toSkColor() const;
 namespace SkColors
 {
-  SkColor4f kTransparent = {0, 0, 0, 0};
-  SkColor4f kBlack = {0, 0, 0, 1};
-  SkColor4f kDkGray = {0.25f, 0.25f, 0.25f, 1};
-  SkColor4f kGray = {0.50f, 0.50f, 0.50f, 1};
-  SkColor4f kLtGray = {0.75f, 0.75f, 0.75f, 1};
-  SkColor4f kWhite = {1, 1, 1, 1};
-  SkColor4f kRed = {1, 0, 0, 1};
-  SkColor4f kGreen = {0, 1, 0, 1};
-  SkColor4f kBlue = {0, 0, 1, 1};
-  SkColor4f kYellow = {1, 1, 0, 1};
-  SkColor4f kCyan = {0, 1, 1, 1};
-  SkColor4f kMagenta = {1, 0, 1, 1};
+  constexpr SkColor4f kTransparent = {0, 0, 0, 0};
+  constexpr SkColor4f kBlack = {0, 0, 0, 1};
+  constexpr SkColor4f kDkGray = {0.25f, 0.25f, 0.25f, 1};
+  constexpr SkColor4f kGray = {0.50f, 0.50f, 0.50f, 1};
+  constexpr SkColor4f kLtGray = {0.75f, 0.75f, 0.75f, 1};
+  constexpr SkColor4f kWhite = {1, 1, 1, 1};
+  constexpr SkColor4f kRed = {1, 0, 0, 1};
+  constexpr SkColor4f kGreen = {0, 1, 0, 1};
+  constexpr SkColor4f kBlue = {0, 0, 1, 1};
+  constexpr SkColor4f kYellow = {1, 1, 0, 1};
+  constexpr SkColor4f kCyan = {0, 1, 1, 1};
+  constexpr SkColor4f kMagenta = {1, 0, 1, 1};
 }
 #endif

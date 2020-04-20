@@ -19,7 +19,7 @@
 class SK_API SkOverdrawColorFilter : public SkColorFilter
 {
 public:
-  static int kNumColors = 6;
+  static constexpr int kNumColors = 6;
   static sk_sp<SkOverdrawColorFilter> Make(const SkPMColor colors[kNumColors])
   {
     return sk_sp<SkOverdrawColorFilter>(new SkOverdrawColorFilter(colors));

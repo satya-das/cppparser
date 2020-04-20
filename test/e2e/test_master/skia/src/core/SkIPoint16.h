@@ -22,7 +22,7 @@ struct SkIPoint16
      @param y  integer y-axis value of constructed SkIPoint
      @return   SkIPoint16 (x, y)
      */
-  static SkIPoint16 Make(int x, int y)
+  static constexpr SkIPoint16 Make(int x, int y)
   {
     return {SkToS16(x), SkToS16(y)};
   }

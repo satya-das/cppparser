@@ -435,7 +435,7 @@ private:
     /* This is indexed by [col][row]. */
   SkMScalar fMat[4][4];
   TypeMask fTypeMask;
-  static int kAllPublic_Masks = 0xF;
+  static constexpr int kAllPublic_Masks = 0xF;
   void as3x4RowMajorf(float[]) const;
   void set3x4RowMajorf(const float[]);
   SkMScalar transX() const

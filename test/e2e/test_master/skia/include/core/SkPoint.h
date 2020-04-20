@@ -27,7 +27,7 @@ struct SkIPoint
         @param y  integer y-axis value of constructed SkIPoint
         @return   SkIPoint (x, y)
     */
-  static SkIPoint Make(int32_t x, int32_t y)
+  static constexpr SkIPoint Make(int32_t x, int32_t y)
   {
     return {x, y};
   }
@@ -35,7 +35,7 @@ struct SkIPoint
 
         @return  fX
     */
-  int32_t x() const
+  constexpr int32_t x() const
   {
     return fX;
   }
@@ -43,7 +43,7 @@ struct SkIPoint
 
         @return  fY
     */
-  int32_t y() const
+  constexpr int32_t y() const
   {
     return fY;
   }
@@ -166,7 +166,7 @@ struct SK_API SkPoint
         @param y  SkScalar y-axis value of constructed SkPoint or vector
         @return   SkPoint (x, y)
     */
-  static SkPoint Make(SkScalar x, SkScalar y)
+  static constexpr SkPoint Make(SkScalar x, SkScalar y)
   {
     return {x, y};
   }

@@ -14,7 +14,7 @@
 class SkRegionPriv
 {
 public:
-  static int kRunTypeSentinel = 0x7FFFFFFF;
+  static constexpr int kRunTypeSentinel = 0x7FFFFFFF;
   typedef SkRegion::RunType RunType;
   typedef SkRegion::RunHead RunHead;
     // Call the function with each span, in Y -> X ascending order.
@@ -25,7 +25,7 @@ public:
   static void Validate(const SkRegion& rgn);
 #  endif
 };
-static int SkRegion_kRunTypeSentinel = 0x7FFFFFFF;
+static constexpr int SkRegion_kRunTypeSentinel = 0x7FFFFFFF;
 inline bool SkRegionValueIsSentinel(int32_t value)
 {
   return value == (int32_t) SkRegion_kRunTypeSentinel;

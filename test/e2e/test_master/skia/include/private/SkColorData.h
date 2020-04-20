@@ -386,7 +386,7 @@ static uint32_t Sk4f_toL32(const Sk4f& px)
   return l32;
 }
 using SkPMColor4f = SkRGBA4f<kPremul_SkAlphaType>;
-SkPMColor4f SK_PMColor4fTRANSPARENT = {0, 0, 0, 0};
-SkPMColor4f SK_PMColor4fWHITE = {1, 1, 1, 1};
-SkPMColor4f SK_PMColor4fILLEGAL = {SK_FloatNegativeInfinity, SK_FloatNegativeInfinity, SK_FloatNegativeInfinity, SK_FloatNegativeInfinity};
+constexpr SkPMColor4f SK_PMColor4fTRANSPARENT = {0, 0, 0, 0};
+constexpr SkPMColor4f SK_PMColor4fWHITE = {1, 1, 1, 1};
+constexpr SkPMColor4f SK_PMColor4fILLEGAL = {SK_FloatNegativeInfinity, SK_FloatNegativeInfinity, SK_FloatNegativeInfinity, SK_FloatNegativeInfinity};
 #endif

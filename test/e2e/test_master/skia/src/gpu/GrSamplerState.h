@@ -15,11 +15,11 @@ class GrSamplerState
 public:
   enum class Filter : uint8_t { kNearest, kBilerp, kMipMap };
   enum class WrapMode : uint8_t { kClamp, kRepeat, kMirrorRepeat, kClampToBorder };
-  static GrSamplerState ClampNearest()
+  static constexpr GrSamplerState ClampNearest()
   {
     return GrSamplerState();
   }
-  static GrSamplerState ClampBilerp()
+  static constexpr GrSamplerState ClampBilerp()
   {
     return GrSamplerState(WrapMode::kClamp, Filter::kBilerp);
   }

@@ -2380,9 +2380,9 @@ private:
     // points to top of stack
   MCRec* fMCRec;
     // the first N recs that can fit here mean we won't call malloc
-  static int kMCRecSize = 128;
-  static int kMCRecCount = 32;
-  static int kDeviceCMSize = 224;
+  static constexpr int kMCRecSize = 128;
+  static constexpr int kMCRecCount = 32;
+  static constexpr int kDeviceCMSize = 224;
   intptr_t fMCRecStorage[kMCRecSize * kMCRecCount / sizeof(intptr_t)];
   intptr_t fDeviceCMStorage[kDeviceCMSize / sizeof(intptr_t)];
   const SkSurfaceProps fProps;

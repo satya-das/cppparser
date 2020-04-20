@@ -165,9 +165,9 @@ private:
     // unchanging pointer as long as the strike is alive.
   SkTHashTable<SkGlyph*, SkPackedGlyphID, GlyphMapHashTraits> fGlyphMap;
     // so we don't grow our arrays a lot
-  static size_t kMinGlyphCount = 8;
-  static size_t kMinGlyphImageSize = 16 * 8;
-  static size_t kMinAllocAmount = kMinGlyphImageSize * kMinGlyphCount;
+  static constexpr size_t kMinGlyphCount = 8;
+  static constexpr size_t kMinGlyphImageSize = 16 * 8;
+  static constexpr size_t kMinAllocAmount = kMinGlyphImageSize * kMinGlyphCount;
   SkArenaAlloc fAlloc{kMinAllocAmount};
     // Tracks (approx) how much ram is tied-up in this strike.
   size_t fMemoryUsed;

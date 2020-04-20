@@ -53,8 +53,8 @@ static float SkBits2Float(int32_t floatAsBits)
   data.fSignBitInt = floatAsBits;
   return data.fFloat;
 }
-int32_t gFloatBits_exponent_mask = 0x7F800000;
-int32_t gFloatBits_matissa_mask = 0x007FFFFF;
+constexpr int32_t gFloatBits_exponent_mask = 0x7F800000;
+constexpr int32_t gFloatBits_matissa_mask = 0x007FFFFF;
 static bool SkFloatBits_IsFinite(int32_t bits)
 {
   return (bits & gFloatBits_exponent_mask) != gFloatBits_exponent_mask;

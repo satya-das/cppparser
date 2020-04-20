@@ -63,19 +63,19 @@ public:
   {
     return (Slant) ((fValue >> 24) & 0xFF);
   }
-  static SkFontStyle Normal()
+  static constexpr SkFontStyle Normal()
   {
     return SkFontStyle(kNormal_Weight, kNormal_Width, kUpright_Slant);
   }
-  static SkFontStyle Bold()
+  static constexpr SkFontStyle Bold()
   {
     return SkFontStyle(kBold_Weight, kNormal_Width, kUpright_Slant);
   }
-  static SkFontStyle Italic()
+  static constexpr SkFontStyle Italic()
   {
     return SkFontStyle(kNormal_Weight, kNormal_Width, kItalic_Slant);
   }
-  static SkFontStyle BoldItalic()
+  static constexpr SkFontStyle BoldItalic()
   {
     return SkFontStyle(kBold_Weight, kNormal_Width, kItalic_Slant);
   }

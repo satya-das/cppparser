@@ -12,7 +12,7 @@ class SkCanvas;
 class SkWStream;
 struct SkRect;
 /** SK_ScalarDefaultDPI is 72 dots per inch. */
-static SkScalar SK_ScalarDefaultRasterDPI = 72.0f;
+static constexpr SkScalar SK_ScalarDefaultRasterDPI = 72.0f;
 /**
  *  High-level API for creating a document-based canvas. To use..
  *

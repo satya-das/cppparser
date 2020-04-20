@@ -17,7 +17,7 @@
 class GrSamplePatternDictionary
 {
 public:
-  static int kInvalidSamplePatternKey = -1;
+  static constexpr int kInvalidSamplePatternKey = -1;
   int findOrAssignSamplePatternKey(const SkTArray<SkPoint>& sampleLocations);
   const SkTArray<SkPoint>& retrieveSampleLocations(int samplePatternKey) const
   {

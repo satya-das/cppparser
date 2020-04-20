@@ -43,6 +43,8 @@ static void emitAttribute(std::uint32_t attr, std::ostream& stm)
 
   if (attr & kConst)
     stm << "const ";
+  if (attr & kConstExpr)
+    stm << "constexpr ";
   if (attr & kVolatile)
     stm << "volatile ";
   if (attr & kMutable)
@@ -238,6 +240,8 @@ void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) con
 
 void CppWriter::emitVar(const CppVar* varObj, std::ostream& stm, CppIndent indentation) const
 {
+  if (varObj->templateParamList())
+    emitTemplSpec(varObj->templateParamList(), stm, indentation);
   emitVar(varObj, stm, indentation, false);
 }
 
@@ -560,6 +564,8 @@ void CppWriter::emitFunction(const CppFunction* funcObj,
     stm << "explicit ";
   else if (funcObj->hasAttr(kFriend))
     stm << "friend ";
+  if (funcObj->hasAttr(kConstExpr))
+    stm << "constexpr ";
   if (funcObj->hasAttr(kTrailingRet))
     stm << "auto";
   else
@@ -725,6 +731,8 @@ void CppWriter::emitTypeConverter(const CppTypeConverter* typeConverterObj,
   stm << "()";
   if (typeConverterObj->attr() & kConst)
     stm << " const";
+  if (typeConverterObj->attr() & kConstExpr)
+    stm << " constexpr";
   if (typeConverterObj->defn())
   {
     stm << '\n';

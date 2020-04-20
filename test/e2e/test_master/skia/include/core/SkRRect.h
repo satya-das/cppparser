@@ -447,7 +447,7 @@ public:
         @return  true if bounds and radii match type()
     */
   bool isValid() const;
-  static size_t kSizeInMemory = 12 * sizeof(SkScalar);
+  static constexpr size_t kSizeInMemory = 12 * sizeof(SkScalar);
     /** Writes SkRRect to buffer. Writes kSizeInMemory bytes, and returns
         kSizeInMemory, the number of bytes written.
 

@@ -43,7 +43,7 @@ static int SkClampMax(int value, int max)
  *  value <= 0.
  */
 template <typename T>
-inline bool SkIsPow2(T value)
+inline constexpr bool SkIsPow2(T value)
 {
   return (value & (value - 1)) == 0;
 }

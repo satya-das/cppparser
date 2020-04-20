@@ -34,7 +34,7 @@ struct SkFontParameters
         flags = hidden ? (flags | HIDDEN) : (flags & ~HIDDEN);
       }
     private:
-      static uint16_t HIDDEN = 0x0001;
+      static constexpr uint16_t HIDDEN = 0x0001;
             // Attributes for a font axis.
       uint16_t flags;
     };

@@ -57,7 +57,7 @@ public:
      * rounding), as long as coverage stays within 0.5 * 1/256 of its intended value it shouldn't
      * have any effect on the final pixel values.
      */
-  static SkScalar kBoundsTolerance = 1e-3f;
+  static constexpr SkScalar kBoundsTolerance = 1e-3f;
     /**
      * Returns true if the given query bounds count as entirely inside the clip.
      *
@@ -65,7 +65,7 @@ public:
      * @param queryBounds       device-space bounds of the query region.
      */
   template <typename TRect>
-  static bool IsInsideClip(const TRect& innerClipBounds, const SkRect& queryBounds)
+  static constexpr bool IsInsideClip(const TRect& innerClipBounds, const SkRect& queryBounds)
   {
     return innerClipBounds.fRight > innerClipBounds.fLeft + kBoundsTolerance && innerClipBounds.fBottom > innerClipBounds.fTop + kBoundsTolerance && innerClipBounds.fLeft < queryBounds.fLeft + kBoundsTolerance && innerClipBounds.fTop < queryBounds.fTop + kBoundsTolerance && innerClipBounds.fRight > queryBounds.fRight - kBoundsTolerance && innerClipBounds.fBottom > queryBounds.fBottom - kBoundsTolerance;
   }
@@ -76,7 +76,7 @@ public:
      * @param queryBounds       device-space bounds of the query region.
      */
   template <typename TRect>
-  static bool IsOutsideClip(const TRect& outerClipBounds, const SkRect& queryBounds)
+  static constexpr bool IsOutsideClip(const TRect& outerClipBounds, const SkRect& queryBounds)
   {
     return outerClipBounds.fRight - outerClipBounds.fLeft <= kBoundsTolerance || outerClipBounds.fBottom - outerClipBounds.fTop <= kBoundsTolerance || outerClipBounds.fLeft >= queryBounds.fRight - kBoundsTolerance || outerClipBounds.fTop >= queryBounds.fBottom - kBoundsTolerance || outerClipBounds.fRight <= queryBounds.fLeft + kBoundsTolerance || outerClipBounds.fBottom <= queryBounds.fTop + kBoundsTolerance;
   }

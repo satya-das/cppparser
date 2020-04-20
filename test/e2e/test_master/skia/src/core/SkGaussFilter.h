@@ -12,7 +12,7 @@
 class SkGaussFilter
 {
 public:
-  static int kGaussArrayMax = 6;
+  static constexpr int kGaussArrayMax = 6;
   explicit SkGaussFilter(double sigma);
   size_t size() const
   {

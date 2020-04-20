@@ -82,7 +82,7 @@ public:
      */
   sk_sp<SkData> getDataAtPosition(size_t position, size_t length);
 private:
-  static size_t kMaxSize = 256 * 3;
+  static constexpr size_t kMaxSize = 256 * 3;
   std::unique_ptr<SkStream> fStream;
   size_t fPosition;
   char fBuffer[kMaxSize];

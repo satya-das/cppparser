@@ -32,7 +32,7 @@ struct SK_API SkIRect
 
         @return  bounds (0, 0, 0, 0)
     */
-  static SkIRect SK_WARN_UNUSED_RESULT MakeEmpty()
+  static constexpr SkIRect SK_WARN_UNUSED_RESULT MakeEmpty()
   {
     return SkIRect(0, 0, 0, 0);
   }
@@ -43,7 +43,7 @@ struct SK_API SkIRect
         @param h  height of constructed SkIRect
         @return   bounds (0, 0, w, h)
     */
-  static SkIRect SK_WARN_UNUSED_RESULT MakeWH(int32_t w, int32_t h)
+  static constexpr SkIRect SK_WARN_UNUSED_RESULT MakeWH(int32_t w, int32_t h)
   {
     return SkIRect(0, 0, w, h);
   }
@@ -53,7 +53,7 @@ struct SK_API SkIRect
         @param size  values for SkIRect width and height
         @return      bounds (0, 0, size.width(), size.height())
     */
-  static SkIRect SK_WARN_UNUSED_RESULT MakeSize(const SkISize& size)
+  static constexpr SkIRect SK_WARN_UNUSED_RESULT MakeSize(const SkISize& size)
   {
     return SkIRect(0, 0, size.fWidth, size.fHeight);
   }
@@ -66,7 +66,7 @@ struct SK_API SkIRect
         @param b  integer stored in fBottom
         @return   bounds (l, t, r, b)
     */
-  static SkIRect SK_WARN_UNUSED_RESULT MakeLTRB(int32_t l, int32_t t, int32_t r, int32_t b)
+  static constexpr SkIRect SK_WARN_UNUSED_RESULT MakeLTRB(int32_t l, int32_t t, int32_t r, int32_t b)
   {
     return SkIRect(l, t, r, b);
   }
@@ -79,7 +79,7 @@ struct SK_API SkIRect
         @param h  added to y and stored in fBottom
         @return   bounds at (x, y) with width w and height h
     */
-  static SkIRect SK_WARN_UNUSED_RESULT MakeXYWH(int32_t x, int32_t y, int32_t w, int32_t h)
+  static constexpr SkIRect SK_WARN_UNUSED_RESULT MakeXYWH(int32_t x, int32_t y, int32_t w, int32_t h)
   {
     return {x, y, Sk32_sat_add(x, w), Sk32_sat_add(y, h)};
   }
@@ -295,7 +295,7 @@ struct SK_API SkIRect
         @param dy  offset added to fTop and fBottom
         @return    SkIRect offset by dx and dy, with original width and height
     */
-  SkIRect makeOffset(int32_t dx, int32_t dy) const
+  constexpr SkIRect makeOffset(int32_t dx, int32_t dy) const
   {
     return {Sk32_sat_add(fLeft, dx), Sk32_sat_add(fTop, dy), Sk32_sat_add(fRight, dx), Sk32_sat_add(fBottom, dy)};
   }
@@ -309,7 +309,7 @@ struct SK_API SkIRect
         @param offset  translation vector
         @return    SkIRect translated by offset, with original width and height
     */
-  SkIRect makeOffset(SkIVector offset) const
+  constexpr SkIRect makeOffset(SkIVector offset) const
   {
     return this->makeOffset(offset.x(), offset.y());
   }
@@ -587,7 +587,7 @@ struct SK_API SkRect
 
         @return  bounds (0, 0, 0, 0)
     */
-  static SkRect SK_WARN_UNUSED_RESULT MakeEmpty()
+  static constexpr SkRect SK_WARN_UNUSED_RESULT MakeEmpty()
   {
     return SkRect(0, 0, 0, 0);
   }
@@ -601,7 +601,7 @@ struct SK_API SkRect
         @param h  SkScalar height of constructed SkRect
         @return   bounds (0, 0, w, h)
     */
-  static SkRect SK_WARN_UNUSED_RESULT MakeWH(SkScalar w, SkScalar h)
+  static constexpr SkRect SK_WARN_UNUSED_RESULT MakeWH(SkScalar w, SkScalar h)
   {
     return SkRect(0, 0, w, h);
   }
@@ -625,7 +625,7 @@ struct SK_API SkRect
         @param size  SkScalar values for SkRect width and height
         @return      bounds (0, 0, size.width(), size.height())
     */
-  static SkRect SK_WARN_UNUSED_RESULT MakeSize(const SkSize& size)
+  static constexpr SkRect SK_WARN_UNUSED_RESULT MakeSize(const SkSize& size)
   {
     return SkRect(0, 0, size.fWidth, size.fHeight);
   }
@@ -638,7 +638,7 @@ struct SK_API SkRect
         @param b  SkScalar stored in fBottom
         @return   bounds (l, t, r, b)
     */
-  static SkRect SK_WARN_UNUSED_RESULT MakeLTRB(SkScalar l, SkScalar t, SkScalar r, SkScalar b)
+  static constexpr SkRect SK_WARN_UNUSED_RESULT MakeLTRB(SkScalar l, SkScalar t, SkScalar r, SkScalar b)
   {
     return SkRect(l, t, r, b);
   }
@@ -651,7 +651,7 @@ struct SK_API SkRect
         @param h  added to y and stored in fBottom
         @return   bounds at (x, y) with width w and height h
     */
-  static SkRect SK_WARN_UNUSED_RESULT MakeXYWH(SkScalar x, SkScalar y, SkScalar w, SkScalar h)
+  static constexpr SkRect SK_WARN_UNUSED_RESULT MakeXYWH(SkScalar x, SkScalar y, SkScalar w, SkScalar h)
   {
     return SkRect(x, y, x + w, y + h);
   }

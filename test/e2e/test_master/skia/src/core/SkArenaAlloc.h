@@ -178,7 +178,7 @@ private:
     }
     else 
     {
-      uint32_t overhead = sizeof(Footer) + sizeof(uint32_t);
+      constexpr uint32_t overhead = sizeof(Footer) + sizeof(uint32_t);
       AssertRelease(arraySize <= std::numeric_limits<uint32_t>::max() - overhead);
       uint32_t totalSize = arraySize + overhead;
       objStart = this->allocObjectWithFooter(totalSize, alignment);

@@ -198,7 +198,7 @@ public:
     };
     /** May be used to verify that SkPaint::Style is a legal value.
     */
-  static int kStyleCount = kStrokeAndFill_Style + 1;
+  static constexpr int kStyleCount = kStrokeAndFill_Style + 1;
     /** Returns whether the geometry is filled, stroked, or filled and stroked.
 
         @return  one of:kFill_Style, kStroke_Style, kStrokeAndFill_Style
@@ -330,7 +330,7 @@ public:
     };
     /** May be used to verify that SkPaint::Cap is a legal value.
     */
-  static int kCapCount = kLast_Cap + 1;
+  static constexpr int kCapCount = kLast_Cap + 1;
     /** \enum SkPaint::Join
         Join specifies how corners are drawn when a shape is stroked. Join
         affects the four corners of a stroked rectangle, and the connected segments in a
@@ -353,7 +353,7 @@ public:
     };
     /** May be used to verify that SkPaint::Join is a legal value.
     */
-  static int kJoinCount = kLast_Join + 1;
+  static constexpr int kJoinCount = kLast_Join + 1;
     /** Returns the geometry drawn at the beginning and end of strokes.
 
         @return  one of: kButt_Cap, kRound_Cap, kSquare_Cap

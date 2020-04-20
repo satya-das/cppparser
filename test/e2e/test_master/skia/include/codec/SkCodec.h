@@ -47,7 +47,7 @@ public:
      *  this many bytes, or by implementing rewind() to be able to rewind()
      *  after reading this many bytes.
      */
-  static size_t MinBufferedBytesNeeded()
+  static constexpr size_t MinBufferedBytesNeeded()
   {
     return 32;
   }
@@ -608,10 +608,10 @@ public:
     //   is independent.
     // - Options::fPriorFrame set to this value means no (relevant) prior frame
     //   is residing in dst's memory.
-  static int kNoFrame = -1;
+  static constexpr int kNoFrame = -1;
     // This transitional definition was added in August 2018, and will eventually be removed.
 #  ifdef SK_LEGACY_SKCODEC_NONE_ENUM
-  static int kNone = kNoFrame;
+  static constexpr int kNone = kNoFrame;
 #  endif
     /**
      *  Information about individual frames in a multi-framed image.
@@ -675,7 +675,7 @@ public:
      *  For still (non-animated) image codecs, this will return an empty vector.
      */
   std::vector<FrameInfo> getFrameInfo();
-  static int kRepetitionCountInfinite = -1;
+  static constexpr int kRepetitionCountInfinite = -1;
     /**
      *  Return the number of times to repeat, if this image is animated. This number does not
      *  include the first play through of each frame. For example, a repetition count of 4 means

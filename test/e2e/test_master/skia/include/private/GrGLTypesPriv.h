@@ -8,7 +8,7 @@
 #include "include/gpu/gl/GrGLTypes.h"
 #ifndef GrGLTypesPriv_DEFINED
 #  define GrGLTypesPriv_DEFINED
-static int kGrGLFormatCount = static_cast<int>(GrGLFormat::kLast) + 1;
+static constexpr int kGrGLFormatCount = static_cast<int>(GrGLFormat::kLast) + 1;
 class GrGLTextureParameters : public SkNVRefCnt<GrGLTextureParameters>
 {
 public:
@@ -63,7 +63,7 @@ public:
     // objects.
   void set(const SamplerOverriddenState* samplerState, const NonsamplerState& nonsamplerState, ResetTimestamp currTimestamp);
 private:
-  static ResetTimestamp kExpiredTimestamp = 0;
+  static constexpr ResetTimestamp kExpiredTimestamp = 0;
   SamplerOverriddenState fSamplerOverriddenState;
   NonsamplerState fNonsamplerState;
   ResetTimestamp fResetTimestamp = kExpiredTimestamp;

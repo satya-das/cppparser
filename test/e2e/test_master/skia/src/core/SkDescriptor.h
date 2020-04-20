@@ -93,7 +93,7 @@ public:
   }
 private:
   void free();
-  static size_t kStorageSize = sizeof(SkDescriptor) + sizeof(SkDescriptor::Entry) + sizeof(SkScalerContextRec) + sizeof(SkDescriptor::Entry) + sizeof(void*) + 32;
+  static constexpr size_t kStorageSize = sizeof(SkDescriptor) + sizeof(SkDescriptor::Entry) + sizeof(SkScalerContextRec) + sizeof(SkDescriptor::Entry) + sizeof(void*) + 32;
   SkDescriptor* fDesc{nullptr};
   std::aligned_storage<kStorageSize, alignof(uint32_t)>::type fStorage;
 };

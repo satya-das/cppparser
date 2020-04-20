@@ -117,10 +117,10 @@ private:
 template <typename TBase>
 inline SK_WHEN((std::is_base_of<TBase, TItem>::value), TItem&) GrTRecorder<TBase>::emplaceWithData(size_t extraDataSize, Args... args)
 {
-  static size_t kTAlign = alignof(TItem);
-  static size_t kHeaderAlign = alignof(Header);
-  static size_t kAllocAlign = kTAlign > kHeaderAlign ? kTAlign : kHeaderAlign;
-  static size_t kTItemOffset = GrSizeAlignUp(sizeof(Header), kAllocAlign);
+  static constexpr size_t kTAlign = alignof(TItem);
+  static constexpr size_t kHeaderAlign = alignof(Header);
+  static constexpr size_t kAllocAlign = kTAlign > kHeaderAlign ? kTAlign : kHeaderAlign;
+  static constexpr size_t kTItemOffset = GrSizeAlignUp(sizeof(Header), kAllocAlign);
     // We're assuming if we back up from kItemOffset by sizeof(Header) we will still be aligned.
   GR_STATIC_ASSERT(sizeof(Header) % alignof(Header) == 0);
   const size_t totalSize = kTItemOffset + sizeof(TItem) + extraDataSize;

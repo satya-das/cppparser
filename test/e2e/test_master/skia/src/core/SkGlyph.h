@@ -21,7 +21,7 @@ class SkScalerContext;
 // A combination of SkGlyphID and sub-pixel position information.
 struct SkPackedGlyphID
 {
-  static uint32_t kImpossibleID = ~0u;
+  static constexpr uint32_t kImpossibleID = ~0u;
   enum {
         // Lengths
         kGlyphIDLen     = 16u,
@@ -98,15 +98,15 @@ struct SkPackedGlyphID
     return str;
   }
 private:
-  static uint32_t PackIDXY(SkGlyphID glyphID, SkFixed x, SkFixed y)
+  static constexpr uint32_t PackIDXY(SkGlyphID glyphID, SkFixed x, SkFixed y)
   {
     return (FixedToSub(x) << kSubPixelX) | (FixedToSub(y) << kSubPixelY) | glyphID;
   }
-  static uint32_t FixedToSub(SkFixed n)
+  static constexpr uint32_t FixedToSub(SkFixed n)
   {
     return ((uint32_t) n >> kFixedPointSubPixelPosBits) & kSubPixelPosMask;
   }
-  SkFixed subToFixed(uint32_t subPixelPosBit) const
+  constexpr SkFixed subToFixed(uint32_t subPixelPosBit) const
   {
     uint32_t subPixelPosition = (fID >> subPixelPosBit) & kSubPixelPosMask;
     return subPixelPosition << kFixedPointSubPixelPosBits;
@@ -117,7 +117,7 @@ struct SkGlyphPrototype;
 class SkGlyph
 {
 public:
-  static SkFixed kSubpixelRound = SK_FixedHalf >> SkPackedGlyphID::kSubPixelPosLen;
+  static constexpr SkFixed kSubpixelRound = SK_FixedHalf >> SkPackedGlyphID::kSubPixelPosLen;
   explicit SkGlyph(SkPackedGlyphID id)
     : fID(id)
   {
@@ -280,7 +280,7 @@ private:
   friend class SkTestSVGScalerContext;
   friend class TestSVGTypeface;
   friend class TestTypeface;
-  static uint16_t kMaxGlyphWidth = 1u << 13u;
+  static constexpr uint16_t kMaxGlyphWidth = 1u << 13u;
     // Support horizontal and vertical skipping strike-through / underlines.
     // The caller walks the linked list looking for a match. For a horizontal underline,
     // the fBounds contains the top and bottom of the underline. The fInterval pair contains the

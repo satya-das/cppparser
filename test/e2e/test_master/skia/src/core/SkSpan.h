@@ -29,57 +29,57 @@ public:
   {
   }
   SkSpan(const SkSpan& o);
-  SkSpan& operator=(const SkSpan& that)
+  constexpr SkSpan& operator=(const SkSpan& that)
   {
     fPtr = that.fPtr;
     fSize = that.fSize;
     return *this;
   }
-  T& operator [](size_t i) const
+  constexpr T& operator [](size_t i) const
   {
     return fPtr[i];
   }
-  T& front() const
+  constexpr T& front() const
   {
     return fPtr[0];
   }
-  T& back() const
+  constexpr T& back() const
   {
     return fPtr[fSize - 1];
   }
-  T* begin() const
+  constexpr T* begin() const
   {
     return fPtr;
   }
-  T* end() const
+  constexpr T* end() const
   {
     return fPtr + fSize;
   }
-  const T* cbegin() const
+  constexpr const T* cbegin() const
   {
     return fPtr;
   }
-  const T* cend() const
+  constexpr const T* cend() const
   {
     return fPtr + fSize;
   }
-  T* data() const
+  constexpr T* data() const
   {
     return fPtr;
   }
-  size_t size() const
+  constexpr size_t size() const
   {
     return fSize;
   }
-  bool empty() const
+  constexpr bool empty() const
   {
     return fSize == 0;
   }
-  size_t size_bytes() const
+  constexpr size_t size_bytes() const
   {
     return fSize * sizeof(T);
   }
-  SkSpan<T> first(size_t prefixLen)
+  constexpr SkSpan<T> first(size_t prefixLen)
   {
     return SkSpan<T>(fPtr, prefixLen);
   }
@@ -88,12 +88,12 @@ private:
   size_t fSize;
 };
 template <typename T, typename S>
-inline SkSpan<T> SkMakeSpan(T* p, S s)
+inline constexpr SkSpan<T> SkMakeSpan(T* p, S s)
 {
   return SkSpan<T>(p, SkTo<size_t>(s));
 }
 template <size_t N, typename T>
-inline SkSpan<T> SkMakeSpan(T (&a)[N])
+inline constexpr SkSpan<T> SkMakeSpan(T (&a)[N])
 {
   return SkSpan<T>(a, N);
 }

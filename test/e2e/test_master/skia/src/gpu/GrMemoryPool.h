@@ -67,7 +67,7 @@ public:
     /**
      * Minimum value of minAllocSize constructor argument.
      */
-  static size_t kSmallestMinAllocSize = 1 << 10;
+  static constexpr size_t kSmallestMinAllocSize = 1 << 10;
 private:
   struct BlockHeader;
   static BlockHeader* CreateBlock(size_t size);

@@ -539,12 +539,12 @@ private:
 };
 using SkAutoFree = std::unique_ptr<void, SkFunctionWrapper<void(void*), sk_free>>;
 template <typename C, std::size_t... Is>
-auto SkMakeArrayFromIndexSequence(C c, skstd::index_sequence<Is...>) -> std::array<skstd::result_of_t<C(std::size_t)>, sizeof...(Is)>
+constexpr auto SkMakeArrayFromIndexSequence(C c, skstd::index_sequence<Is...>) -> std::array<skstd::result_of_t<C(std::size_t)>, sizeof...(Is)>
 {
   return {{c(Is)...}};
 }
 template <size_t N, typename C>
-auto SkMakeArray(C c) -> std::array<skstd::result_of_t<C(std::size_t)>, N>
+constexpr auto SkMakeArray(C c) -> std::array<skstd::result_of_t<C(std::size_t)>, N>
 {
   return SkMakeArrayFromIndexSequence(c, skstd::make_index_sequence<N>());
 }

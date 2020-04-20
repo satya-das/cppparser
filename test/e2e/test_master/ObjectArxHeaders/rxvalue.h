@@ -283,7 +283,7 @@ public:
   template <typename ValueType>
   ValueType* rxvalue_cast(AcRxValue* value)
   {
-    bool inlined = sizeof(ValueType) <= 24;
+    constexpr bool inlined = sizeof(ValueType) <= 24;
     return value && AcRxValueType::Desc<ValueType>::value() == value->type() ? (ValueType*) (value->valuePtr__<inlined>()) : 0;
   }
     /// <summary>
@@ -304,7 +304,7 @@ public:
   friend ValueType* rxenum_cast(AcRxValue* value)
   {
     ACRXVALUE_ASSERT(value == NULL || value->isVaries() || value->type().isEnum());
-    bool inlined = sizeof(ValueType) <= 24;
+    constexpr bool inlined = sizeof(ValueType) <= 24;
     return value && value->type().isEnum() && AcRxValueType::Desc<ValueType>::value() == value->type().enumeration()->getAt(0).type() ? (ValueType*) (value->valuePtr__<inlined>()) : 0;
   }
     /////////////////////////////////////////////////////////////////
@@ -487,7 +487,7 @@ private:
   template <typename T>
   void initNonBlittable(const T& value)
   {
-    bool inlined = sizeof(value) <= sizeof(m_value);
+    constexpr bool inlined = sizeof(value) <= sizeof(m_value);
     InitNonBlittable<T, inlined >::init(*this, value);
   }
   void init(const AcRxValue& rhs, bool realloc)
