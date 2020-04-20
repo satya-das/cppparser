@@ -79,7 +79,7 @@ public:
 private:
   SkSharedMutex& fLock;
 };
-#  define SkAutoSharedMutexExclusive	(...) SK_REQUIRE_LOCAL_VAR(SkAutoSharedMutexExclusive)
+#  define SkAutoSharedMutexExclusive(...) SK_REQUIRE_LOCAL_VAR(SkAutoSharedMutexExclusive)
 class SK_SCOPED_CAPABILITY SkAutoSharedMutexShared
 {
 public:
@@ -98,5 +98,5 @@ public:
 private:
   SkSharedMutex& fLock;
 };
-#  define SkAutoSharedMutexShared	(...) SK_REQUIRE_LOCAL_VAR(SkAutoSharedMutexShared)
+#  define SkAutoSharedMutexShared(...) SK_REQUIRE_LOCAL_VAR(SkAutoSharedMutexShared)
 #endif

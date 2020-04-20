@@ -95,7 +95,7 @@
         INTERNAL_TRACE_EVENT_UID(category_group_enabled));
 // Implementation detail: internal macro to create static category and add
 // event if the category is enabled.
-#  define INTERNAL_TRACE_EVENT_ADD	(phase, category_group, name, flags, ...) \
+#  define INTERNAL_TRACE_EVENT_ADD(phase, category_group, name, flags, ...)	 \
     do { \
       INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO(category_group); \
       if (INTERNAL_TRACE_EVENT_CATEGORY_GROUP_ENABLED_FOR_RECORDING_MODE()) { \
@@ -123,7 +123,7 @@
 // Implementation detail: internal macro to create static category and add begin
 // event if the category is enabled. Also adds the end event when the scope
 // ends.
-#  define INTERNAL_TRACE_EVENT_ADD_SCOPED	(category_group, name, ...) \
+#  define INTERNAL_TRACE_EVENT_ADD_SCOPED(category_group, name, ...)	 \
     INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO(category_group); \
     skia::tracing_internals::ScopedTracer INTERNAL_TRACE_EVENT_UID(tracer); \
     do { \

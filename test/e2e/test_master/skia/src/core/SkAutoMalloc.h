@@ -86,7 +86,7 @@ private:
   std::unique_ptr<void, WrapFree> fPtr;
   size_t fSize;
 };
-#  define SkAutoMalloc	(...) SK_REQUIRE_LOCAL_VAR(SkAutoMalloc)
+#  define SkAutoMalloc(...) SK_REQUIRE_LOCAL_VAR(SkAutoMalloc)
 /**
  *  Manage an allocated block of memory. If the requested size is <= kSizeRequested (or slightly
  *  more), then the allocation will come from the stack rather than the heap. This object is the

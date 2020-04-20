@@ -164,7 +164,7 @@ public:
 
     @header{wx/memory.h}
 */
-#define WXTRACE	(format, ...)
+#define WXTRACE(format, ...)
 /**
     @deprecated Use one of the wxLogTrace() functions or one of the
                 wxVLogTrace() functions instead.
@@ -177,7 +177,7 @@ public:
 
     @header{wx/memory.h}
 */
-#define WXTRACELEVEL	(level, format, ...)
+#define WXTRACELEVEL(level, format, ...)
 /**
     @deprecated Use one of the wxLogTrace() functions or one of the
                 wxVLogTrace() functions instead.

@@ -23,11 +23,11 @@ static bool SkPixmapIsValid(const SkPixmap& src)
 #  if  defined(SK_BUILD_FOR_MAC) || defined(SK_BUILD_FOR_IOS)
 bool SkEncodeImageWithCG(SkWStream*, const SkPixmap&, SkEncodedImageFormat);
 #  else 
-#    define SkEncodeImageWithCG	(...) false
+#    define SkEncodeImageWithCG(...)	 false
 #  endif
 #  ifdef SK_BUILD_FOR_WIN
 bool SkEncodeImageWithWIC(SkWStream*, const SkPixmap&, SkEncodedImageFormat, int quality);
 #  else 
-#    define SkEncodeImageWithWIC	(...) false
+#    define SkEncodeImageWithWIC(...)	 false
 #  endif
 #endif

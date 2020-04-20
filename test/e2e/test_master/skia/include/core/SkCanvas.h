@@ -2570,5 +2570,5 @@ private:
   SkAutoCanvasRestore& operator=(const SkAutoCanvasRestore&);
 };
 // Private
-#  define SkAutoCanvasRestore	(...) SK_REQUIRE_LOCAL_VAR(SkAutoCanvasRestore)
+#  define SkAutoCanvasRestore(...) SK_REQUIRE_LOCAL_VAR(SkAutoCanvasRestore)
 #endif

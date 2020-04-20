@@ -43,22 +43,22 @@ SK_API void SkDebugf(const char format[], ...);
         static_cast<void>( (cond) ? (void)0 : []{ SK_ABORT("assert(" #cond ")"); }() )
 #  ifdef SK_DEBUG
 #    define SkASSERT(cond)	 SkASSERT_RELEASE(cond)
-#    define SkASSERTF	(cond, fmt, ...) static_cast<void>( (cond) ? (void)0 : [&]{ \
+#    define SkASSERTF(cond, fmt, ...) static_cast<void>( (cond) ? (void)	0 : [&]{ \
                                           SkDebugf(fmt"\n", __VA_ARGS__);        \
                                           SK_ABORT("assert(" #cond ")");         \
                                       }() )
 #    define SkDEBUGFAIL(message)	        SK_ABORT(message)
-#    define SkDEBUGFAILF	(fmt, ...)      SkASSERTF(false, fmt, ##__VA_ARGS__)
-#    define SkDEBUGCODE	(...)            __VA_ARGS__
-#    define SkDEBUGF	(...)               SkDebugf(__VA_ARGS__)
+#    define SkDEBUGFAILF(fmt, ...)      SkASSERTF(false, fmt, ##__VA_ARGS__)
+#    define SkDEBUGCODE(...)	            __VA_ARGS__
+#    define SkDEBUGF(...)               SkDebugf(__VA_ARGS__)
 #    define SkAssertResult(cond)	        SkASSERT(cond)
 #  else 
 #    define SkASSERT(cond)	            static_cast<void>(0)
-#    define SkASSERTF	(cond, fmt, ...) static_cast<void>(0)
+#    define SkASSERTF(cond, fmt, ...) static_cast<void>(0)
 #    define SkDEBUGFAIL(message)
-#    define SkDEBUGFAILF	(fmt, ...)
-#    define SkDEBUGCODE	(...)
-#    define SkDEBUGF	(...)
+#    define SkDEBUGFAILF(fmt, ...)
+#    define SkDEBUGCODE(...)
+#    define SkDEBUGF(...)
     // unlike SkASSERT, this macro executes its condition in the non-debug build.
     // The if is present so that this can be used with functions marked SK_WARN_UNUSED_RESULT.
 #    define SkAssertResult(cond)	         if (cond) {} do {} while(false)

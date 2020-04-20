@@ -702,9 +702,9 @@ static constexpr int kGrInternalRenderTargetFlagsMask = static_cast<int>(GrInter
 static constexpr int kGrInternalTextureRenderTargetFlagsMask = kGrInternalTextureFlagsMask | kGrInternalRenderTargetFlagsMask;
 #  ifdef SK_DEBUG
 // Takes a pointer to a GrCaps, and will suppress prints if required
-#    define GrCapsDebugf	(caps, ...)  if (!(caps)->suppressPrints()) SkDebugf(__VA_ARGS__)
+#    define GrCapsDebugf(caps, ...)  if (!(caps)->suppressPrints()) SkDebugf(__VA_ARGS__)
 #  else 
-#    define GrCapsDebugf	(caps, ...) do {} while (0)
+#    define GrCapsDebugf(caps, ...) do {} while (0)
 #  endif
 /**
  * Specifies if the holder owns the backend, OpenGL or Vulkan, object.

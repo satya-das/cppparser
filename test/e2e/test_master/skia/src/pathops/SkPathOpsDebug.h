@@ -124,24 +124,24 @@ DummyClasses(Cubic, Cubic);
 #  endif
 #  ifdef SK_RELEASE
 #    define SkDEBUGRELEASE(a, b)	 b
-#    define SkDEBUGPARAMS	(...)
+#    define SkDEBUGPARAMS(...)
 #  else 
 #    define SkDEBUGRELEASE(a, b)	 a
-#    define SkDEBUGPARAMS	(...) , __VA_ARGS__
+#    define SkDEBUGPARAMS(...)	 , __VA_ARGS__
 #  endif
 #  if  DEBUG_VALIDATE == 0
-#    define PATH_OPS_DEBUG_VALIDATE_PARAMS	(...)
+#    define PATH_OPS_DEBUG_VALIDATE_PARAMS(...)
 #  else 
-#    define PATH_OPS_DEBUG_VALIDATE_PARAMS	(...) , __VA_ARGS__
+#    define PATH_OPS_DEBUG_VALIDATE_PARAMS(...)	 , __VA_ARGS__
 #  endif
 #  if  DEBUG_T_SECT == 0
 #    define PATH_OPS_DEBUG_T_SECT_RELEASE(a, b)	 b
-#    define PATH_OPS_DEBUG_T_SECT_PARAMS	(...)
-#    define PATH_OPS_DEBUG_T_SECT_CODE	(...)
+#    define PATH_OPS_DEBUG_T_SECT_PARAMS(...)
+#    define PATH_OPS_DEBUG_T_SECT_CODE(...)
 #  else 
 #    define PATH_OPS_DEBUG_T_SECT_RELEASE(a, b)	 a
-#    define PATH_OPS_DEBUG_T_SECT_PARAMS	(...) , __VA_ARGS__
-#    define PATH_OPS_DEBUG_T_SECT_CODE	(...) __VA_ARGS__
+#    define PATH_OPS_DEBUG_T_SECT_PARAMS(...)	 , __VA_ARGS__
+#    define PATH_OPS_DEBUG_T_SECT_CODE(...)	 __VA_ARGS__
 #  endif
 #  if  DEBUG_T_SECT_DUMP > 1
 extern int gDumpTSectNum;

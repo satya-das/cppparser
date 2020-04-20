@@ -19,7 +19,7 @@
 #  ifdef SKSL_STANDALONE
 #    define SkASSERT(x)	 do { if (!(x)) abort(); } while (false)
 #    define SkAssertResult(x)	 do { if (!(x)) abort(); } while (false)
-#    define SkDEBUGCODE	(...) __VA_ARGS__
+#    define SkDEBUGCODE(...)	 __VA_ARGS__
 #    define SK_API
 #    if  !defined(SkUNREACHABLE)
 #      if  defined(_MSC_VER) && !defined(__clang__)
@@ -38,7 +38,7 @@
 #    define SKSL_PRINTF_LIKE(A, B)
 #    define SKSL_WARN_UNUSED_RESULT
 #  endif
-#  define ABORT	(...) (printf(__VA_ARGS__), sksl_abort())
+#  define ABORT(...) (printf(__VA_ARGS__), sksl_abort())
 #  if  _MSC_VER
 #    define NORETURN	__declspec(noreturn)
 #  else 

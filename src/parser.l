@@ -274,6 +274,9 @@ SL   \"([^"\\]|\\.)*\"
   /* Char literal */
 CL   \'([^'\\]|\\.)\'
 
+  /* Comma separated parameter list */
+CSP (({WS}*{ID}{WS}*,{WS}*)*{ID}{WS}*)*
+
 /*@}*/
 
 %x ctxGeneral
@@ -579,7 +582,16 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   */
 }
 
-<ctxDefine>{ID}\((({WS}*{ID}{WS}*,{WS}*)*{ID}{WS}*)*\) {
+<ctxDefine>{ID}\({CSP}\) {
+  set_token_and_yyposn();
+  ENDCONTEXT();
+  BEGINCONTEXT(ctxDefineDefn);
+  gDefLooksLike = kComplexDef;
+  oyytext = yytext + yyleng;
+  RETURN(tknName);
+}
+
+<ctxDefine>{ID}\(.*"...".*\) {
   set_token_and_yyposn();
   ENDCONTEXT();
   BEGINCONTEXT(ctxDefineDefn);

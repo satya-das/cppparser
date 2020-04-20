@@ -73,7 +73,7 @@ wxScopeGuard wxMakeGuard(F func, P1 p1, ..., PN pN);
 
     @header{wx/scopeguard.h}
 */
-#define wxON_BLOCK_EXIT	(function, ...)
+#define wxON_BLOCK_EXIT(function, ...)
 #define wxON_BLOCK_EXIT0(function)
 #define wxON_BLOCK_EXIT1(function, p1)
 #define wxON_BLOCK_EXIT2(function, p1, p2)
@@ -88,7 +88,7 @@ wxScopeGuard wxMakeGuard(F func, P1 p1, ..., PN pN);
 
     @header{wx/scopeguard.h}
 */
-#define wxON_BLOCK_EXIT_OBJ	(object, method, ...)
+#define wxON_BLOCK_EXIT_OBJ(object, method, ...)
 #define wxON_BLOCK_EXIT_OBJ0(object, method)
 #define wxON_BLOCK_EXIT_OBJ1(object, method, p1)
 #define wxON_BLOCK_EXIT_OBJ2(object, method, p1, p2)
@@ -103,7 +103,7 @@ wxScopeGuard wxMakeGuard(F func, P1 p1, ..., PN pN);
 
     @header{wx/scopeguard.h}
 */
-#define wxON_BLOCK_EXIT_THIS	(method, ...)
+#define wxON_BLOCK_EXIT_THIS(method, ...)
 #define wxON_BLOCK_EXIT_THIS0(method)
 #define wxON_BLOCK_EXIT_THIS1(method, p1)
 #define wxON_BLOCK_EXIT_THIS2(method, p1, p2)

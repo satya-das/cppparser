@@ -98,7 +98,7 @@ public:
 private:
   static bool gEnableAndroidTracing;
 };
-#    define ATRACE_ANDROID_FRAMEWORK	(fmt, ...) SkAndroidFrameworkTraceUtil __trace(true, fmt, ##__VA_ARGS__)
+#    define ATRACE_ANDROID_FRAMEWORK(fmt, ...) SkAndroidFrameworkTraceUtil __trace(true, fmt, ##__VA_ARGS__)
 // Records a pair of begin and end events called "name" for the current scope, with 0, 1 or 2
 // associated arguments. In the framework, the arguments are ignored.
 #    define TRACE_EVENT0(category_group, name)	 \
@@ -141,7 +141,7 @@ private:
 #    define TRACE_EVENT_CATEGORY_GROUP_ENABLED(category_group, ret)	             \
   do { *ret = false; } while (0)
 #  else 
-#    define ATRACE_ANDROID_FRAMEWORK	(fmt, ...) TRACE_EMPTY
+#    define ATRACE_ANDROID_FRAMEWORK(fmt, ...)	 TRACE_EMPTY
 // Records a pair of begin and end events called "name" for the current scope, with 0, 1 or 2
 // associated arguments. If the category is not enabled, then this does nothing.
 #    define TRACE_EVENT0(category_group, name)	 \

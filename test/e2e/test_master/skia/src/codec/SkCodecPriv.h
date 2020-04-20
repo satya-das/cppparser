@@ -15,7 +15,7 @@
 #  ifdef SK_PRINT_CODEC_MESSAGES
 #    define SkCodecPrintf	SkDebugf
 #  else 
-#    define SkCodecPrintf	(...)
+#    define SkCodecPrintf(...)
 #  endif
 // Defined in SkCodec.cpp
 bool sk_select_xform_format(SkColorType colorType, bool forColorTable, skcms_PixelFormat* outFormat);

@@ -165,7 +165,7 @@ private:
   int fClientID;
   bool fEnabled;
 };
-#  define GR_AUDIT_TRAIL_INVOKE_GUARD	(audit_trail, invoke, ...) \
+#  define GR_AUDIT_TRAIL_INVOKE_GUARD(audit_trail, invoke, ...)	 \
         if (audit_trail->isEnabled()) audit_trail->invoke(__VA_ARGS__)
 #  define GR_AUDIT_TRAIL_AUTO_FRAME(audit_trail, framename)	 \
     GR_AUDIT_TRAIL_INVOKE_GUARD((audit_trail), pushFrame, framename)

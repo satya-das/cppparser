@@ -42,10 +42,10 @@ class GrOpsRenderPass;
 #  define GR_OP_SPEW	0
 #  if  GR_OP_SPEW
 #    define GrOP_SPEW(code)	 code
-#    define GrOP_INFO	(...) SkDebugf(__VA_ARGS__)
+#    define GrOP_INFO(...) SkDebugf(__VA_ARGS__)
 #  else 
 #    define GrOP_SPEW(code)
-#    define GrOP_INFO	(...)
+#    define GrOP_INFO(...)
 #  endif
 // Print out op information at flush time
 #  define GR_FLUSH_TIME_OP_SPEW	0

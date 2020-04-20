@@ -9,7 +9,7 @@
 #  include <math.h>
 #  include "include/core/SkColorSpace.h"
 #  include "include/private/SkFixed.h"
-#  define SkColorSpacePrintf	(...)
+#  define SkColorSpacePrintf(...)
 // A gamut narrower than sRGB, useful for testing.
 static constexpr skcms_Matrix3x3 gNarrow_toXYZD50 = {{{0.190974f, 0.404865f, 0.368380f}, {0.114746f, 0.582937f, 0.302318f}, {0.032925f, 0.153615f, 0.638669f}}};
 static bool color_space_almost_equal(float a, float b)
