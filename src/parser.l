@@ -272,7 +272,7 @@ DECNUMLIT  (([0-9]+(\.[0-9]*)?)|([0-9]*(\.[0-9]+)))(f|F)?
 SL   \"([^"\\]|\\.)*\"
 
   /* Char literal */
-CL   \'([^'\\]|\\.)\'
+CL   \'([^'\\]|\\.)*\'
 
   /* Comma separated parameter list */
 CSP (({WS}*{ID}{WS}*,{WS}*)*{ID}{WS}*)*
