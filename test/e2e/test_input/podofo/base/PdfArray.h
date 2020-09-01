@@ -446,16 +446,10 @@ PdfArray::const_reverse_iterator PdfArray::rend() const
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
-#if defined(_MSC_VER)  &&  _MSC_VER <= 1200        // workaround template-error in Visualstudio 6
-void PdfArray::insert(PdfArray::iterator __position, 
-                      PdfArray::iterator __first,
-                      PdfArray::iterator __last)
-#else
 template<typename _InputIterator>
 void PdfArray::insert(const PdfArray::iterator& __position, 
                       const _InputIterator& __first,
                       const _InputIterator& __last)
-#endif
 {
     AssertMutable();
 

@@ -747,11 +747,14 @@ const PdfEncrypt* PdfMemDocument::GetEncrypt() const
 // -----------------------------------------------------
 bool PdfMemDocument::IsLoadedForUpdate( void ) const
 {
-    return m_pszUpdatingFilename ||
 #ifdef _WIN32
+    return m_pszUpdatingFilename ||
         m_wchar_pszUpdatingFilename ||
-#endif
         m_pUpdatingInputDevice;
+#else
+    return m_pszUpdatingFilename ||
+        m_pUpdatingInputDevice;
+#endif
 }
 
 };

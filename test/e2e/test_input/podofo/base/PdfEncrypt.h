@@ -557,12 +557,16 @@ protected:
     RC4CryptoEngine*   m_rc4;                ///< AES encryptor
 };
 #endif // PODOFO_HAVE_OPENSSL_NO_RC4
-    
+
+/*
 #ifdef PODOFO_HAVE_OPENSSL_NO_RC4
 class PdfEncryptMD5Base : public PdfEncrypt {
 #else
 class PdfEncryptMD5Base : public PdfEncrypt, public PdfEncryptRC4Base {
 #endif // PODOFO_HAVE_OPENSSL_NO_RC4
+/*/
+class PdfEncryptMD5Base : public PdfEncrypt {
+//*/
 public:
     
     PdfEncryptMD5Base() {};
