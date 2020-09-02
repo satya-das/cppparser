@@ -75,14 +75,12 @@ class PODOFO_API PdfEncoding {
      */
     virtual const PdfName & GetID() const = 0;
 
-
  public:
 #if defined(_MSC_VER)  &&  _MSC_VER <= 1200			// ab Visualstudio 6
     using const_iterator_base = std::iterator<std::forward_iterator_tag, int, ptrdiff_t>;
 #else
     using const_iterator_base = std::iterator<std::forward_iterator_tag, int, std::ptrdiff_t, const int *, const int &>;
 #endif
-
     class PODOFO_API const_iterator : public const_iterator_base {
     public:
 	const_iterator( const PdfEncoding* pEncoding, int nCur )
@@ -224,7 +222,7 @@ class PODOFO_API PdfEncoding {
  private:
     int     m_nFirstChar;   ///< The first defined character code
     int     m_nLastChar;    ///< The last defined character code
-    PdfObject* m_pToUnicode;    ///< Pointer to /ToUnicode object, if any
+    const PdfObject* m_pToUnicode;    ///< Pointer to /ToUnicode object, if any
  protected:
     std::map<pdf_utf16be, pdf_utf16be> m_toUnicode;
                
