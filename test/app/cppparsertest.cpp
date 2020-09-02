@@ -172,7 +172,10 @@ CppParser constructCppParserForTest()
                             "SK_API",
                             "SK_BEGIN_REQUIRE_DENSE",
                             "SK_WARN_UNUSED_RESULT",
-                            "SK_CAPABILITY"});
+                            "SK_CAPABILITY",
+
+                            "PODOFO_DEPRECATED",
+                            "PODOFO_API"});
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
                          "DECLARE_DYNAMIC",
@@ -214,7 +217,9 @@ CppParser constructCppParserForTest()
                          "SK_PRINTF_LIKE",
                          "DEFINE_OP_CLASS_ID",
                          "SHARD",
-                         "SK_WHEN"});
+                         "SK_WHEN",
+
+                         "PODOFO_RAISE_LOGIC_IF"});
 
   parser.addIgnorableMacros({"SkDEBUGCODE",
                              "SkDEBUGPARAMS",
@@ -234,7 +239,10 @@ CppParser constructCppParserForTest()
                              "SK_RELEASE_SHARED_CAPABILITY",
                              "SK_BLITBWMASK_ARGS",
                              "SK_ASSERT_SHARED_CAPABILITY",
-                             
+
+                             "PODOFO_LOCAL",
+                             "PDF_SIZE_FORMAT",
+
                              "WXUNUSED"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
