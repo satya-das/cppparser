@@ -8,4 +8,5 @@ int main()
   int* const y = &i;
   int* const * pcpi;
   std::vector<int>& x;
+  ::PoDoFo::PdfObject DummyVar;
 }

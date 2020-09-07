@@ -671,6 +671,7 @@ numbertype        : tknInteger                            [ZZLOG;] { $$ = $1; }
 
 typeidentifier    : identifier                            [ZZLOG;] { $$ = $1; }
                   | tknScopeResOp identifier %prec GLOBAL [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+                  | typeidentifier tknScopeResOp typeidentifier [ZZLOG;] { $$ = mergeCppToken($1, $3); }
                   | numbertype                            [ZZLOG;] { $$ = $1; }
                   | tknAuto                               [ZZLOG;] { $$ = $1; }
                   | tknVoid                               [ZZLOG;] { $$ = $1; }

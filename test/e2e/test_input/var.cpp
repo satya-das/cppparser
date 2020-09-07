@@ -11,4 +11,6 @@ int main()
   int* const* pcpi;
 
   std::vector<int>& x;
+  
+  ::PoDoFo::PdfObject DummyVar;
 }
