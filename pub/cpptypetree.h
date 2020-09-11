@@ -57,7 +57,7 @@ struct CppTypeTreeNode
   /**
    * This needs to be a set because same namespace can be defined multiple times.
    * But members of all those definition will belong to single namespace.
-   * Also, A class can be forward declared before full definition.
+   * Also, a class can be forward declared before full definition.
    */
   CppObjSet        cppObjSet;
   CppTypeTree      children;
@@ -66,5 +66,17 @@ struct CppTypeTreeNode
   CppTypeTreeNode()
     : parent(nullptr)
   {
+  }
+
+  bool has(const CppObj* cppObj) const
+  {
+    if (cppObjSet.count(cppObj))
+      return true;
+    for (const auto child : children)
+    {
+      if (child.second.has(cppObj))
+        return true;
+    }
+    return false;
   }
 };

@@ -139,7 +139,7 @@ void CppProgram::loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeN
   });
 }
 
-const CppTypeTreeNode* CppProgram::findTypeNode(const std::string& name, const CppTypeTreeNode* typeNode) const
+const CppTypeTreeNode* CppProgram::nameLookup(const std::string& name, const CppTypeTreeNode* typeNode) const
 {
   if (name.empty())
     return &cppTypeTreeRoot_;
@@ -158,7 +158,7 @@ const CppTypeTreeNode* CppProgram::findTypeNode(const std::string& name, const C
   else
   {
     auto nameToLookFor = name.substr(nameBegPos, nameEndPos - nameBegPos);
-    typeNode           = findTypeNode(nameToLookFor, typeNode);
+    typeNode           = nameLookup(nameToLookFor, typeNode);
     if (!typeNode)
       return nullptr;
     do
@@ -175,4 +175,27 @@ const CppTypeTreeNode* CppProgram::findTypeNode(const std::string& name, const C
     } while (nameEndPos < name.length());
   }
   return typeNode;
+}
+
+const CppTypeTreeNode* CppProgram::searchTypeNode(const std::string& name, const CppTypeTreeNode* parentNode) const
+{
+  std::vector<const CppTypeTreeNode*> nextLevelNodes(1, parentNode ? parentNode : &cppTypeTreeRoot_);
+
+  do
+  {
+    std::vector<const CppTypeTreeNode*> currentLevelNodes;
+    currentLevelNodes.swap(nextLevelNodes);
+    assert(nextLevelNodes.empty());
+    for (const auto* node : currentLevelNodes)
+    {
+      for (const auto& child : node->children)
+      {
+        if (child.first == name)
+          return &(child.second);
+        nextLevelNodes.push_back(&(child.second));
+      }
+    }
+  } while (!nextLevelNodes.empty());
+
+  return nullptr;
 }

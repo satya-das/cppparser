@@ -132,6 +132,7 @@ public:
   void emitFunctionPtr(const CppFunctionPointer* funcPtrObj, std::ostream& stm, bool skipName, bool emitNewLine) const;
   void emitFunction(const CppFunction* funcObj, std::ostream& stm, bool skipParamName, bool emitNewLine) const;
   void emitConstructor(const CppConstructor* ctorObj, std::ostream& stm, bool skipParamName) const;
+  void emitTemplSpec(const CppTemplateParamList* templSpec, std::ostream& stm, CppIndent indentation) const;
 
 private:
   void emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentation, bool noNewLine) const;
@@ -152,7 +153,6 @@ private:
                        CppIndent             indentation,
                        bool                  skipParamName) const;
 
-  void emitTemplSpec(const CppTemplateParamList* templSpec, std::ostream& stm, CppIndent indentation) const;
   void emitVarDecl(std::ostream& stm, const CppVarDecl& varDecl, bool skipName) const;
 
 private:

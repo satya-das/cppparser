@@ -244,7 +244,7 @@ struct CppVarType : public CppObj
 {
   static constexpr CppObjType kObjectType = CppObjType::kVarType;
 
-  bool paramPack_ {false};
+  bool paramPack_{false};
 
   CppVarType(std::string baseType, CppTypeModifier modifier = CppTypeModifier());
   CppVarType(CppAccessType accessType, std::string baseType, CppTypeModifier modifier);
@@ -304,7 +304,7 @@ private:
   std::string     baseType_; // This is the basic data type of var e.g. for 'const int*& pi' base-type is int.
   CppObjPtr       compound_;
   CppTypeModifier typeModifier_;
-  std::uint32_t   typeAttr_ {0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
+  std::uint32_t   typeAttr_{0}; // Attribute associated with type, e.g. static, extern, extern "C", const, volatile.
 };
 
 using CppVarTypeEPtr      = CppEasyPtr<CppVarType>;
@@ -368,7 +368,7 @@ struct CppVarDecl
 private:
   std::string   name_;
   CppExprPtr    assignValue_; // Value assigned at declaration.
-  AssignType    assignType_ {AssignType::kNone};
+  AssignType    assignType_{AssignType::kNone};
   CppExprPtr    bitField_;
   CppArraySizes arraySizes_;
 };
@@ -593,7 +593,7 @@ struct CppInheritInfo
 {
   const std::string   baseName;
   const CppAccessType inhType;
-  const bool          isVirtual {false};
+  const bool          isVirtual{false};
 
   CppInheritInfo(std::string _baseName, CppAccessType _inhType, bool virtualInheritance = false)
     : baseName(std::move(_baseName))
@@ -687,7 +687,7 @@ struct CppFwdClsDecl : public CppObj
 
 private:
   CppTemplateParamListPtr templSpec_;
-  std::uint32_t           attr_ {0};
+  std::uint32_t           attr_{0};
 };
 
 using CppFwdClsDeclEPtr = CppEasyPtr<CppFwdClsDecl>;
@@ -871,12 +871,12 @@ private:
   CppInheritanceListPtr   inheritanceList_;
   std::string             apidecor_;
   CppTemplateParamListPtr templSpec_;
-  std::uint32_t           attr_ {0};
+  std::uint32_t           attr_{0};
 
   std::vector<const CppConstructor*> ctors_;
-  const CppConstructor*              copyCtor_ {nullptr};
-  const CppConstructor*              moveCtor_ {nullptr};
-  const CppDestructor*               dtor_ {nullptr};
+  const CppConstructor*              copyCtor_{nullptr};
+  const CppConstructor*              moveCtor_{nullptr};
+  const CppDestructor*               dtor_{nullptr};
 
   mutable boost::optional<bool> hasVirtual_;
   mutable boost::optional<bool> hasPureVirtual_;
@@ -1358,9 +1358,9 @@ struct CppExpr : public CppObj
     kVariadicPack = 0x200,
   };
 
-  const CppExprAtom expr1_ {(CppExpr*) (nullptr)};
-  const CppExprAtom expr2_ {(CppExpr*) (nullptr)};
-  const CppExprAtom expr3_ {(CppExpr*) (nullptr)};
+  const CppExprAtom expr1_{(CppExpr*) (nullptr)};
+  const CppExprAtom expr2_{(CppExpr*) (nullptr)};
+  const CppExprAtom expr3_{(CppExpr*) (nullptr)};
   const CppOperator oper_;
   short             flags_; // ORed combination of Flag constants.
 
@@ -1486,7 +1486,7 @@ struct CppIfBlock : public CppCommonBlock<CppObjType::kIfBlock>
 {
   CppIfBlock(CppObj* cond, CppObj* body, CppObj* _else = nullptr)
     : CppCommonBlock(cond, body)
-    , else_ {_else}
+    , else_{_else}
   {
   }
   const CppObj* elsePart() const
