@@ -44,7 +44,11 @@ struct CppObjSetCmp
 {
   bool operator()(const CppObj* lhs, const CppObj* rhs) const
   {
-    return lhs->objType_ < rhs->objType_;
+    if (lhs->objType_ < rhs->objType_)
+      return true;
+    if (lhs->objType_ > rhs->objType_)
+      return false;
+    return lhs < rhs;
   }
 };
 
