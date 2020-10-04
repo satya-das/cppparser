@@ -68,6 +68,21 @@ inline CppRefType refType(CppConstVarTypeEPtr varType)
   return varType->typeModifier().refType_;
 }
 
+inline std::uint8_t effectivePtrLevel(const CppConstVarTypeEPtr& varType)
+{
+  return ptrLevel(varType) + [&varType]() {
+    switch (refType(varType))
+    {
+      case CppRefType::kByRef:
+      case CppRefType::kRValRef:
+        return 1;
+      case CppRefType::kNoRef:
+        break;
+    }
+    return 0;
+  }();
+}
+
 inline const std::string& baseType(const CppVarType* varType)
 {
   return varType->baseType();
