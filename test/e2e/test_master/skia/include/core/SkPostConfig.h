@@ -124,7 +124,7 @@ static_assert(SK_R32_SHIFT == 0 || SK_R32_SHIFT == 16, "");
 #  if  defined(SK_B32_SHIFT)
 static_assert(SK_B32_SHIFT == (16 - SK_R32_SHIFT), "");
 #  else 
-#    define SK_B32_SHIFT	(16-SK_R32_SHIFT)
+#    define SK_B32_SHIFT(16-SK_R32_SHIFT)
 #  endif
 #  define SK_G32_SHIFT	8
 #  define SK_A32_SHIFT	24
@@ -133,7 +133,7 @@ static_assert(SK_B32_SHIFT == (16 - SK_R32_SHIFT), "");
  * macro is a convenience that returns true if the shift values are equal while
  * ignoring the machine's endianness.
  */
-#  define SK_COLOR_MATCHES_PMCOLOR_BYTE_ORDER	(SK_A32_SHIFT == 24 && SK_R32_SHIFT == 16 && SK_G32_SHIFT == 8 && SK_B32_SHIFT == 0)
+#  define SK_COLOR_MATCHES_PMCOLOR_BYTE_ORDER(SK_A32_SHIFT == 24 && SK_R32_SHIFT == 16 && SK_G32_SHIFT == 8 && SK_B32_SHIFT == 0)
 /**
  * SK_PMCOLOR_BYTE_ORDER can be used to query the byte order of SkPMColor at compile time. The
  * relationship between the byte order and shift values depends on machine endianness. If the shift
@@ -228,7 +228,7 @@ static_assert(SK_B32_SHIFT == (16 - SK_R32_SHIFT), "");
 #  endif
 //////////////////////////////////////////////////////////////////////
 #  if  !defined(SK_GAMMA_EXPONENT)
-#    define SK_GAMMA_EXPONENT	(0.0f)  // SRGB
+#    define SK_GAMMA_EXPONENT(0.0f)  // SRGB
 #  endif
 //////////////////////////////////////////////////////////////////////
 #  ifndef GR_TEST_UTILS

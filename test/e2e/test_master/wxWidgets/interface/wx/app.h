@@ -1009,7 +1009,7 @@ public:
     wxDECLARE_APP(MyApp);
     @endcode
 */
-#define wxDECLARE_APP	( className )
+#define wxDECLARE_APP( className )
 /**
     This is used in the application class implementation file to make the
     application class known to wxWidgets for dynamic construction.
@@ -1025,7 +1025,7 @@ public:
 
     @see wxDECLARE_APP()
 */
-#define wxIMPLEMENT_APP	( className )
+#define wxIMPLEMENT_APP( className )
 //@}
 
 

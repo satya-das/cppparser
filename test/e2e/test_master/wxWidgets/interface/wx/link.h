@@ -19,7 +19,7 @@
 
     @header{wx/link.h}
 */
-#define wxFORCE_LINK_THIS_MODULE	( moduleName )
+#define wxFORCE_LINK_THIS_MODULE( moduleName )
 /**
     This macro can be used in conjunction with the wxFORCE_LINK_THIS_MODULE()
     macro to force the linker to include in its output a specific object file.
@@ -32,5 +32,5 @@
 
     @header{wx/link.h}
 */
-#define wxFORCE_LINK_MODULE	( moduleName )
+#define wxFORCE_LINK_MODULE( moduleName )
 //@}

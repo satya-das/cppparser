@@ -212,9 +212,9 @@ inline void podofo_unused(T& t)
 {
   (void) t;
 }
-#    define PODOFO_UNUSED	( x ) podofo_unused( x );
+#    define PODOFO_UNUSED( x ) podofo_unused( x );
 #  else 
-#    define PODOFO_UNUSED	( x ) (void)x;
+#    define PODOFO_UNUSED( x ) (void)x;
 #  endif
 // OC 17.08.2010: Activate showing the correct source for Memory Leak Detection in Visual Studio:
 // See: <afx.h>  looking for _AFX_NO_DEBUG_CRT

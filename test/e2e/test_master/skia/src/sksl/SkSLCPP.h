@@ -31,7 +31,7 @@ private:
   float fW;
 };
 // macros to make sk_Caps.<cap name> work from C++ code
-#  define sk_Caps	(*args.fShaderCaps)
+#  define sk_Caps(*args.fShaderCaps)
 #  define floatIs32Bits	floatIs32Bits()
 // functions to make GLSL constructors work from C++ code
 inline SkPoint float2(float xy)

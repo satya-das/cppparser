@@ -133,7 +133,7 @@ static const int wxTREE_ITEMSTATE_PREV = -3;
 #define wxTR_FULL_ROW_HIGHLIGHT	0x2000     // highlight full horz space
 // make the default control appearance look more native-like depending on the
 // platform
-#define wxTR_DEFAULT_STYLE	(wxTR_HAS_BUTTONS | wxTR_LINES_AT_ROOT)
+#define wxTR_DEFAULT_STYLE(wxTR_HAS_BUTTONS | wxTR_LINES_AT_ROOT)
 // values for the `flags' parameter of wxTreeCtrl::HitTest() which determine
 // where exactly the specified point is situated:
 static const int wxTREE_HITTEST_ABOVE = 0x0001;

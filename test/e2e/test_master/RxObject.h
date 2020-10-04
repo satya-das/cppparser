@@ -77,7 +77,7 @@ public:                                                                         
 /** Description: 
     Casts a null pointer to the specified class. 
 */
-#  define EMPTY_CONSTR(ClassName)	(ClassName*)0 
+#  define EMPTY_CONSTR(ClassName)(ClassName*)0 
 /** Description  
     Creates a new instance of the specified class, and returns a SmartPointer to the instance. 
      

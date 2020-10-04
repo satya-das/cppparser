@@ -993,7 +993,7 @@ public:
 #  undef VAR_DEF
 #  undef RO_VAR_DEF
 /** { Secret } */
-#  define RO_VAR_DEF(type, name, def_value, metric_def_value, reserve1, reserve2)	 
+#  define RO_VAR_DEF(type, name, def_value, metric_def_value, reserve1, reserve2)
 /** { Secret } */
 #  define VAR_DEF(type, name, def_value, metric_def_value, reserve1, reserve2)	\ 
   /** Description: Sets the ##NAME system variable for this *database* object. \ 

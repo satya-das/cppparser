@@ -16,7 +16,7 @@
 /**
     Default style of the choice dialog.
 */
-#define wxCHOICEDLG_STYLE	(wxDEFAULT_DIALOG_STYLE | wxOK | wxCANCEL | wxCENTRE | wxRESIZE_BORDER)
+#define wxCHOICEDLG_STYLE(wxDEFAULT_DIALOG_STYLE | wxOK | wxCANCEL | wxCENTRE | wxRESIZE_BORDER)
 /**
     @class wxMultiChoiceDialog
 

@@ -9,7 +9,7 @@
 /**
     In wxBitmap and wxBitmapHandler context this value means: "use the screen depth".
 */
-#define wxBITMAP_SCREEN_DEPTH	(-1)
+#define wxBITMAP_SCREEN_DEPTH(-1)
 /**
     @class wxBitmapHandler
 

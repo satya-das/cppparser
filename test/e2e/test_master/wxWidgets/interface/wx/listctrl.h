@@ -22,9 +22,9 @@
 #define wxLC_SINGLE_SEL	0x2000
 #define wxLC_SORT_ASCENDING	0x4000
 #define wxLC_SORT_DESCENDING	0x8000
-#define wxLC_MASK_TYPE	(wxLC_ICON | wxLC_SMALL_ICON | wxLC_LIST | wxLC_REPORT)
-#define wxLC_MASK_ALIGN	(wxLC_ALIGN_TOP | wxLC_ALIGN_LEFT)
-#define wxLC_MASK_SORT	(wxLC_SORT_ASCENDING | wxLC_SORT_DESCENDING)
+#define wxLC_MASK_TYPE(wxLC_ICON | wxLC_SMALL_ICON | wxLC_LIST | wxLC_REPORT)
+#define wxLC_MASK_ALIGN(wxLC_ALIGN_TOP | wxLC_ALIGN_LEFT)
+#define wxLC_MASK_SORT(wxLC_SORT_ASCENDING | wxLC_SORT_DESCENDING)
 /// Mask flags to tell app/GUI what fields of wxListItem are valid
 #define wxLIST_MASK_STATE	0x0001
 #define wxLIST_MASK_TEXT	0x0002
@@ -49,7 +49,7 @@
 #define wxLIST_HITTEST_ONITEMSTATEICON	0x0200  // On the state icon for a tree view item that is in a user-defined state.
 #define wxLIST_HITTEST_TOLEFT	0x0400  // To the left of the client area.
 #define wxLIST_HITTEST_TORIGHT	0x0800  // To the right of the client area.
-#define wxLIST_HITTEST_ONITEM	(wxLIST_HITTEST_ONITEMICON | wxLIST_HITTEST_ONITEMLABEL | wxLIST_HITTEST_ONITEMSTATEICON)
+#define wxLIST_HITTEST_ONITEM(wxLIST_HITTEST_ONITEMICON | wxLIST_HITTEST_ONITEMLABEL | wxLIST_HITTEST_ONITEMSTATEICON)
 /// GetSubItemRect constants
 #define wxLIST_GETSUBITEMRECT_WHOLEITEM	-1l
 /// Flags for GetNextItem (MSW only except wxLIST_NEXT_ALL)

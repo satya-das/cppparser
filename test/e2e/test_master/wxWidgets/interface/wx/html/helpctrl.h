@@ -4,7 +4,7 @@
 // Author:      wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
-#define wxID_HTML_HELPFRAME	(wxID_HIGHEST + 1)
+#define wxID_HTML_HELPFRAME(wxID_HIGHEST + 1)
 /// This style indicates that the window is
 /// embedded in the application and must not be
 /// destroyed by the help controller.

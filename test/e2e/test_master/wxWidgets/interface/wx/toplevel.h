@@ -28,7 +28,7 @@ enum
     */
   wxFULLSCREEN_ALL = wxFULLSCREEN_NOMENUBAR | wxFULLSCREEN_NOTOOLBAR | wxFULLSCREEN_NOSTATUSBAR | wxFULLSCREEN_NOBORDER | wxFULLSCREEN_NOCAPTION
 };
-#define wxDEFAULT_FRAME_STYLE	(wxSYSTEM_MENU |          \
+#define wxDEFAULT_FRAME_STYLE(wxSYSTEM_MENU |          \
                                wxRESIZE_BORDER |        \
                                wxMINIMIZE_BOX |         \
                                wxMAXIMIZE_BOX |         \

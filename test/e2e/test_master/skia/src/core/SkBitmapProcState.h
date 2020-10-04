@@ -113,13 +113,13 @@ private:
     2 at a time by unpacking a uint32_t
  */
 #  ifdef SK_CPU_BENDIAN
-#    define PACK_TWO_SHORTS(pri, sec)	 ((pri) << 16 | (sec))
-#    define UNPACK_PRIMARY_SHORT(packed)	    ((uint32_t)(packed) >> 16)
-#    define UNPACK_SECONDARY_SHORT(packed)	  ((packed) & 0xFFFF)
+#    define PACK_TWO_SHORTS(pri, sec) ((pri) << 16 | (sec))
+#    define UNPACK_PRIMARY_SHORT(packed)    ((uint32_t)(packed) >> 16)
+#    define UNPACK_SECONDARY_SHORT(packed)  ((packed) & 0xFFFF)
 #  else 
-#    define PACK_TWO_SHORTS(pri, sec)	 ((pri) | ((sec) << 16))
-#    define UNPACK_PRIMARY_SHORT(packed)	    ((packed) & 0xFFFF)
-#    define UNPACK_SECONDARY_SHORT(packed)	  ((uint32_t)(packed) >> 16)
+#    define PACK_TWO_SHORTS(pri, sec) ((pri) | ((sec) << 16))
+#    define UNPACK_PRIMARY_SHORT(packed)    ((packed) & 0xFFFF)
+#    define UNPACK_SECONDARY_SHORT(packed)  ((uint32_t)(packed) >> 16)
 #  endif
 #  ifdef SK_DEBUG
 static uint32_t pack_two_shorts(U16CPU pri, U16CPU sec)

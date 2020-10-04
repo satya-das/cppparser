@@ -145,7 +145,7 @@ namespace PoDoFo
  *  Throw an exception of type PdfError with the error code x, which should be
  *  one of the values of the enum EPdfError. File and line info are included.
  */
-#  define PODOFO_RAISE_ERROR	( x ) throw ::PoDoFo::PdfError( x, __FILE__, __LINE__ );
+#  define PODOFO_RAISE_ERROR( x ) throw ::PoDoFo::PdfError( x, __FILE__, __LINE__ );
 /** \def PODOFO_RAISE_ERROR_INFO( x, y )
  *  
  *  Throw an exception of type PdfError with the error code x, which should be

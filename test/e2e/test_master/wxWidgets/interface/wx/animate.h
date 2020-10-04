@@ -20,8 +20,8 @@ enum wxAnimationType {
     /** autodetect the filetype. */
     wxANIMATION_TYPE_ANY
 };
-#define wxAC_NO_AUTORESIZE	(0x0010)
-#define wxAC_DEFAULT_STYLE	(wxBORDER_NONE)
+#define wxAC_NO_AUTORESIZE(0x0010)
+#define wxAC_DEFAULT_STYLE(wxBORDER_NONE)
 /**
     @class wxAnimationCtrl
 

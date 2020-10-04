@@ -66,10 +66,10 @@ static constexpr typename std::enable_if<(std::is_integral<S>::value || std::is_
 {
 #  if  !defined(SK_DEBUG) && !defined(__MSVC_RUNTIME_CHECKS )
     // Correct (simple) version. This trips up MSVC's /RTCc run-time checking.
-#    define TEMP_MACRO	(S)(D)src == src;
+#    define TEMP_MACRO(S)(D)src == src;
 #  else 
     // More complex version that's safe with /RTCc. Used in all debug builds, for coverage.
-#    define TEMP_MACRO	(std::is_signed<S>::value) ? \
+#    define TEMP_MACRO(std::is_signed<S>::value) ? \
         (intmax_t)src >= (intmax_t)std::numeric_limits<typename sk_strip_enum<D>::type>::min() && \
         (intmax_t)src <= (intmax_t)std::numeric_limits<typename sk_strip_enum<D>::type>::max() :  \
         (uintmax_t)src <= (uintmax_t)std::numeric_limits<typename sk_strip_enum<D>::type>::max();

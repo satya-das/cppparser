@@ -16,7 +16,7 @@ class SkArenaAlloc;
 class SkStrike;
 class SkScalerContext;
 // needs to be != to any valid SkMask::Format
-#  define MASK_FORMAT_UNKNOWN	(0xFF)
+#  define MASK_FORMAT_UNKNOWN(0xFF)
 #  define MASK_FORMAT_JUST_ADVANCE	MASK_FORMAT_UNKNOWN
 // A combination of SkGlyphID and sub-pixel position information.
 struct SkPackedGlyphID

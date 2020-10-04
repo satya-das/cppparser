@@ -599,7 +599,7 @@ public:
 
     @header{wx/object.h}
 */
-#define wxCLASSINFO	( className )
+#define wxCLASSINFO( className )
 /**
     Used inside a class declaration to declare that the class should be
     made known to the class hierarchy, but objects of this class cannot be created
@@ -621,7 +621,7 @@ public:
     };
     @endcode
 */
-#define wxDECLARE_ABSTRACT_CLASS	( className )
+#define wxDECLARE_ABSTRACT_CLASS( className )
 /**
     Used inside a class declaration to make the class known to wxWidgets RTTI
     system and also declare that the objects of this class should be
@@ -645,7 +645,7 @@ public:
     };
     @endcode
 */
-#define wxDECLARE_DYNAMIC_CLASS	( className )
+#define wxDECLARE_DYNAMIC_CLASS( className )
 /**
     Used inside a class declaration to declare that the class should be made
     known to the class hierarchy, but objects of this class cannot be created
@@ -655,7 +655,7 @@ public:
 
     @header{wx/object.h}
 */
-#define wxDECLARE_CLASS	( className )
+#define wxDECLARE_CLASS( className )
 /**
     Used in a C++ implementation file to complete the declaration of a class
     that has run-time type information.
@@ -809,7 +809,7 @@ public:
 
     @see wxDynamicCast()
 */
-#define wxDynamicCastThis	( classname )
+#define wxDynamicCastThis( classname )
 /**
     This macro checks that the cast is valid in debug mode (an assert failure
     will result if wxDynamicCast(ptr, classname) == @NULL) and then returns the
@@ -845,5 +845,5 @@ wxObject* wxCreateDynamicObject(const wxString& className);
 
     @header{wx/object.h}
 */
-#define WXDEBUG_NEW	( arg )
+#define WXDEBUG_NEW( arg )
 //@}

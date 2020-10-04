@@ -113,7 +113,7 @@ private:
     do { SkAndroidFrameworkTraceUtil __trace(name); } while(0)
 #    define TRACE_EVENT_INSTANT1(category_group, name, scope, arg1_name, arg1_val)	 \
     do { SkAndroidFrameworkTraceUtil __trace(name); } while(0)
-#    define TRACE_EVENT_INSTANT2	(category_group, name, scope, arg1_name, arg1_val, \
+#    define TRACE_EVENT_INSTANT2(category_group, name, scope, arg1_name, arg1_val, \
                              arg2_name, arg2_val)                              \
     do { SkAndroidFrameworkTraceUtil __trace(name); } while(0)
 // Records the value of a counter called "name" immediately. Value
@@ -158,7 +158,7 @@ private:
 #    define TRACE_EVENT_INSTANT1(category_group, name, scope, arg1_name, arg1_val)	 \
   INTERNAL_TRACE_EVENT_ADD(TRACE_EVENT_PHASE_INSTANT, category_group, name,    \
                            TRACE_EVENT_FLAG_NONE | scope, arg1_name, arg1_val)
-#    define TRACE_EVENT_INSTANT2	(category_group, name, scope, arg1_name, arg1_val, \
+#    define TRACE_EVENT_INSTANT2(category_group, name, scope, arg1_name, arg1_val, \
                              arg2_name, arg2_val)                              \
   INTERNAL_TRACE_EVENT_ADD(TRACE_EVENT_PHASE_INSTANT, category_group, name,    \
                            TRACE_EVENT_FLAG_NONE | scope, arg1_name, arg1_val, \
@@ -172,7 +172,7 @@ private:
 // Records the values of a multi-parted counter called "name" immediately.
 // The UI will treat value1 and value2 as parts of a whole, displaying their
 // values as a stacked-bar chart.
-#    define TRACE_COUNTER2	(category_group, name, value1_name, value1_val,       \
+#    define TRACE_COUNTER2(category_group, name, value1_name, value1_val,       \
                        value2_name, value2_val)                             \
   INTERNAL_TRACE_EVENT_ADD(TRACE_EVENT_PHASE_COUNTER, category_group, name, \
                            TRACE_EVENT_FLAG_NONE, value1_name,              \
@@ -201,7 +201,7 @@ private:
   INTERNAL_TRACE_EVENT_ADD_WITH_ID(                                  \
       TRACE_EVENT_PHASE_CREATE_OBJECT, category_group, name, id,     \
       TRACE_EVENT_FLAG_NONE)
-#    define TRACE_EVENT_OBJECT_SNAPSHOT_WITH_ID	(category_group, name, id, \
+#    define TRACE_EVENT_OBJECT_SNAPSHOT_WITH_ID(category_group, name, id, \
                                             snapshot)                 \
   INTERNAL_TRACE_EVENT_ADD_WITH_ID(                                   \
       TRACE_EVENT_PHASE_SNAPSHOT_OBJECT, category_group, name,        \
@@ -222,34 +222,34 @@ private:
   } while (0)
 #  endif
 // Flags for changing the behavior of TRACE_EVENT_API_ADD_TRACE_EVENT.
-#  define TRACE_EVENT_FLAG_NONE	(static_cast<unsigned int>(0))
-#  define TRACE_EVENT_FLAG_COPY	(static_cast<unsigned int>(1 << 0))
-#  define TRACE_EVENT_FLAG_HAS_ID	(static_cast<unsigned int>(1 << 1))
-#  define TRACE_EVENT_FLAG_MANGLE_ID	(static_cast<unsigned int>(1 << 2))
-#  define TRACE_EVENT_FLAG_SCOPE_OFFSET	(static_cast<unsigned int>(1 << 3))
-#  define TRACE_EVENT_FLAG_SCOPE_EXTRA	(static_cast<unsigned int>(1 << 4))
-#  define TRACE_EVENT_FLAG_EXPLICIT_TIMESTAMP	(static_cast<unsigned int>(1 << 5))
-#  define TRACE_EVENT_FLAG_ASYNC_TTS	(static_cast<unsigned int>(1 << 6))
-#  define TRACE_EVENT_FLAG_BIND_TO_ENCLOSING	(static_cast<unsigned int>(1 << 7))
-#  define TRACE_EVENT_FLAG_FLOW_IN	(static_cast<unsigned int>(1 << 8))
-#  define TRACE_EVENT_FLAG_FLOW_OUT	(static_cast<unsigned int>(1 << 9))
-#  define TRACE_EVENT_FLAG_HAS_CONTEXT_ID	(static_cast<unsigned int>(1 << 10))
-#  define TRACE_EVENT_FLAG_SCOPE_MASK	(static_cast<unsigned int>(TRACE_EVENT_FLAG_SCOPE_OFFSET | \
+#  define TRACE_EVENT_FLAG_NONE(static_cast<unsigned int>(0))
+#  define TRACE_EVENT_FLAG_COPY(static_cast<unsigned int>(1 << 0))
+#  define TRACE_EVENT_FLAG_HAS_ID(static_cast<unsigned int>(1 << 1))
+#  define TRACE_EVENT_FLAG_MANGLE_ID(static_cast<unsigned int>(1 << 2))
+#  define TRACE_EVENT_FLAG_SCOPE_OFFSET(static_cast<unsigned int>(1 << 3))
+#  define TRACE_EVENT_FLAG_SCOPE_EXTRA(static_cast<unsigned int>(1 << 4))
+#  define TRACE_EVENT_FLAG_EXPLICIT_TIMESTAMP(static_cast<unsigned int>(1 << 5))
+#  define TRACE_EVENT_FLAG_ASYNC_TTS(static_cast<unsigned int>(1 << 6))
+#  define TRACE_EVENT_FLAG_BIND_TO_ENCLOSING(static_cast<unsigned int>(1 << 7))
+#  define TRACE_EVENT_FLAG_FLOW_IN(static_cast<unsigned int>(1 << 8))
+#  define TRACE_EVENT_FLAG_FLOW_OUT(static_cast<unsigned int>(1 << 9))
+#  define TRACE_EVENT_FLAG_HAS_CONTEXT_ID(static_cast<unsigned int>(1 << 10))
+#  define TRACE_EVENT_FLAG_SCOPE_MASK(static_cast<unsigned int>(TRACE_EVENT_FLAG_SCOPE_OFFSET | \
                              TRACE_EVENT_FLAG_SCOPE_EXTRA))
 // Type values for identifying types in the TraceValue union.
-#  define TRACE_VALUE_TYPE_BOOL	(static_cast<unsigned char>(1))
-#  define TRACE_VALUE_TYPE_UINT	(static_cast<unsigned char>(2))
-#  define TRACE_VALUE_TYPE_INT	(static_cast<unsigned char>(3))
-#  define TRACE_VALUE_TYPE_DOUBLE	(static_cast<unsigned char>(4))
-#  define TRACE_VALUE_TYPE_POINTER	(static_cast<unsigned char>(5))
-#  define TRACE_VALUE_TYPE_STRING	(static_cast<unsigned char>(6))
-#  define TRACE_VALUE_TYPE_COPY_STRING	(static_cast<unsigned char>(7))
-#  define TRACE_VALUE_TYPE_CONVERTABLE	(static_cast<unsigned char>(8))
+#  define TRACE_VALUE_TYPE_BOOL(static_cast<unsigned char>(1))
+#  define TRACE_VALUE_TYPE_UINT(static_cast<unsigned char>(2))
+#  define TRACE_VALUE_TYPE_INT(static_cast<unsigned char>(3))
+#  define TRACE_VALUE_TYPE_DOUBLE(static_cast<unsigned char>(4))
+#  define TRACE_VALUE_TYPE_POINTER(static_cast<unsigned char>(5))
+#  define TRACE_VALUE_TYPE_STRING(static_cast<unsigned char>(6))
+#  define TRACE_VALUE_TYPE_COPY_STRING(static_cast<unsigned char>(7))
+#  define TRACE_VALUE_TYPE_CONVERTABLE(static_cast<unsigned char>(8))
 // Enum reflecting the scope of an INSTANT event. Must fit within TRACE_EVENT_FLAG_SCOPE_MASK.
-#  define TRACE_EVENT_SCOPE_GLOBAL	(static_cast<unsigned char>(0 << 3))
-#  define TRACE_EVENT_SCOPE_PROCESS	(static_cast<unsigned char>(1 << 3))
-#  define TRACE_EVENT_SCOPE_THREAD	(static_cast<unsigned char>(2 << 3))
-#  define TRACE_EVENT_SCOPE_NAME_GLOBAL	('g')
-#  define TRACE_EVENT_SCOPE_NAME_PROCESS	('p')
-#  define TRACE_EVENT_SCOPE_NAME_THREAD	('t')
+#  define TRACE_EVENT_SCOPE_GLOBAL(static_cast<unsigned char>(0 << 3))
+#  define TRACE_EVENT_SCOPE_PROCESS(static_cast<unsigned char>(1 << 3))
+#  define TRACE_EVENT_SCOPE_THREAD(static_cast<unsigned char>(2 << 3))
+#  define TRACE_EVENT_SCOPE_NAME_GLOBAL('g')
+#  define TRACE_EVENT_SCOPE_NAME_PROCESS('p')
+#  define TRACE_EVENT_SCOPE_NAME_THREAD('t')
 #endif

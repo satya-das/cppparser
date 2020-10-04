@@ -481,7 +481,7 @@ public:
   bool IsValid() const;
 };
 //* Special indentation value for wxXmlDocument::Save.
-#define wxXML_NO_INDENTATION	(-1)
+#define wxXML_NO_INDENTATION(-1)
 //* Flags for wxXmlDocument::Load.
 enum wxXmlDocumentLoadFlag {
     wxXMLDOC_NONE,

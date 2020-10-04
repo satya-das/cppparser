@@ -10,7 +10,7 @@
 /**
     In wxIcon context this value means: "use the screen depth".
 */
-#define wxICON_SCREEN_DEPTH	(-1)
+#define wxICON_SCREEN_DEPTH(-1)
 /**
     @class wxIcon
 

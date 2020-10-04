@@ -39,9 +39,9 @@ static const int kGrGLStandardCnt = 4;
 #    define SK_DISABLE_GL_ES_INTERFACE	1
 #    define SK_DISABLE_GL_INTERFACE	1
 #  else 
-#    define GR_IS_GR_GL(standard)	 (kGL_GrGLStandard == standard)
-#    define GR_IS_GR_GL_ES(standard)	 (kGLES_GrGLStandard == standard)
-#    define GR_IS_GR_WEBGL(standard)	 (kWebGL_GrGLStandard == standard)
+#    define GR_IS_GR_GL(standard) (kGL_GrGLStandard == standard)
+#    define GR_IS_GR_GL_ES(standard) (kGLES_GrGLStandard == standard)
+#    define GR_IS_GR_WEBGL(standard) (kWebGL_GrGLStandard == standard)
 #  endif
 ///////////////////////////////////////////////////////////////////////////////
 

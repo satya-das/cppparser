@@ -88,16 +88,16 @@ private:
   void* m_pData;
   void* m_pDocSwitchData;
 };
-#  define ACSB_NOBORDERS	(1<<0) // Deprecated
-#  define ACSB_INACTIVE	(1<<1)
-#  define ACSB_STRETCH	(1<<2) // Deprecated
-#  define ACSB_ACTIVE	(1<<3)
-#  define ACSB_COMMAND	(1<<4) // Deprecated
-#  define ACSB_POPUP	(1<<5)
-#  define ACSB_DIVIDER	(1<<6)
-#  define ACSB_SUBDIVIDER	(1<<7)
-#  define ACSB_INDETERMINATE	(1<<8)  // Internal Use
-#  define ACSB_ONETIME	(1<<9)      // Internal Use
+#  define ACSB_NOBORDERS(1<<0) // Deprecated
+#  define ACSB_INACTIVE(1<<1)
+#  define ACSB_STRETCH(1<<2) // Deprecated
+#  define ACSB_ACTIVE(1<<3)
+#  define ACSB_COMMAND(1<<4) // Deprecated
+#  define ACSB_POPUP(1<<5)
+#  define ACSB_DIVIDER(1<<6)
+#  define ACSB_SUBDIVIDER(1<<7)
+#  define ACSB_INDETERMINATE(1<<8)  // Internal Use
+#  define ACSB_ONETIME(1<<9)      // Internal Use
 //Deprecated styles.
 #  define ACSB_POPOUT	ACSB_INACTIVE
 #  define ACSB_NORMAL	ACSB_ACTIVE

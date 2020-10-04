@@ -61,7 +61,7 @@ extern "C" {
      */
   typedef void (*CLIENTFUNC) (ads_callback_packet* cpkt);
 #  endif
-#  define NULLCB	((CLIENTFUNC)0)
+#  define NULLCB((CLIENTFUNC)0)
 #  define BAD_DIALOG	NULL
 /* Return by reference integers for ads_start_dialog
  */
@@ -74,18 +74,18 @@ extern "C" {
 /* Preventing redefined warnings.
    List argument type for ads_start_list();
  */
-#    define LIST_CHANGE	((short) 1) /* Change selected listbox contents */
-#    define LIST_APPEND	((short) 2) /* Append new listbox entry */
-#    define LIST_NEW	((short) 3) /* Delete old list and create new list */
+#    define LIST_CHANGE((short) 1) /* Change selected listbox contents */
+#    define LIST_APPEND((short) 2) /* Append new listbox entry */
+#    define LIST_NEW((short) 3) /* Delete old list and create new list */
 /*
   Mode argument type for ads_mode_tile();
  */
-#    define MODE_ENABLE	((short) 0) /* Enable tile */
-#    define MODE_DISABLE	((short) 1) /* Disable tile */
-#    define MODE_SETFOCUS	((short) 2) /* Set focus to tile */
-#    define MODE_SETSEL	((short) 3) /* Set editbox selection--allows 
+#    define MODE_ENABLE((short) 0) /* Enable tile */
+#    define MODE_DISABLE((short) 1) /* Disable tile */
+#    define MODE_SETFOCUS((short) 2) /* Set focus to tile */
+#    define MODE_SETSEL((short) 3) /* Set editbox selection--allows 
                                      auto-clearing of old string */
-#    define MODE_FLIP	((short) 4) /* Invert current state */
+#    define MODE_FLIP((short) 4) /* Invert current state */
 #  endif
 /* For buffers that receive values for tiles.  The number is
    arbitrary--it's just here to allow changing them all from

@@ -101,7 +101,7 @@ static bool sk_float_isnan(float x)
 #  define sk_double_isnan(a)	          sk_float_isnan(a)
 #  define SK_MaxS32FitsInFloat	2147483520
 #  define SK_MinS32FitsInFloat	-SK_MaxS32FitsInFloat
-#  define SK_MaxS64FitsInFloat	(SK_MaxS64 >> (63-24) << (63-24))   // 0x7fffff8000000000
+#  define SK_MaxS64FitsInFloat(SK_MaxS64 >> (63-24) << (63-24))   // 0x7fffff8000000000
 #  define SK_MinS64FitsInFloat	-SK_MaxS64FitsInFloat
 /**
  *  Return the closest int for the given float. Returns SK_MaxS32FitsInFloat for NaN.
@@ -133,15 +133,15 @@ static int64_t sk_float_saturate2int64(float x)
 #  define sk_float_floor2int(x)	   sk_float_saturate2int(sk_float_floor(x))
 #  define sk_float_round2int(x)	   sk_float_saturate2int(sk_float_floor((x) + 0.5f))
 #  define sk_float_ceil2int(x)	    sk_float_saturate2int(sk_float_ceil(x))
-#  define sk_float_floor2int_no_saturate(x)	   (int)sk_float_floor(x)
-#  define sk_float_round2int_no_saturate(x)	   (int)sk_float_floor((x) + 0.5f)
-#  define sk_float_ceil2int_no_saturate(x)	    (int)sk_float_ceil(x)
+#  define sk_float_floor2int_no_saturate(x)   (int)sk_float_floor(x)
+#  define sk_float_round2int_no_saturate(x)   (int)sk_float_floor((x) + 0.5f)
+#  define sk_float_ceil2int_no_saturate(x)    (int)sk_float_ceil(x)
 #  define sk_double_floor(x)	          floor(x)
 #  define sk_double_round(x)	          floor((x) + 0.5)
 #  define sk_double_ceil(x)	           ceil(x)
-#  define sk_double_floor2int(x)	      (int)floor(x)
-#  define sk_double_round2int(x)	      (int)floor((x) + 0.5)
-#  define sk_double_ceil2int(x)	       (int)ceil(x)
+#  define sk_double_floor2int(x)      (int)floor(x)
+#  define sk_double_round2int(x)      (int)floor((x) + 0.5)
+#  define sk_double_ceil2int(x)       (int)ceil(x)
 // Cast double to float, ignoring any warning about too-large finite values being cast to float.
 // Clang thinks this is undefined, but it's actually implementation defined to return either
 // the largest float or infinity (one of the two bracketing representable floats).  Good enough!
@@ -152,8 +152,8 @@ static float sk_double_to_float(double x)
   return static_cast<float>(x);
 }
 #  define SK_FloatNaN	std::numeric_limits<float>::quiet_NaN()
-#  define SK_FloatInfinity	(+std::numeric_limits<float>::infinity())
-#  define SK_FloatNegativeInfinity	(-std::numeric_limits<float>::infinity())
+#  define SK_FloatInfinity(+std::numeric_limits<float>::infinity())
+#  define SK_FloatNegativeInfinity(-std::numeric_limits<float>::infinity())
 #  define SK_DoubleNaN	std::numeric_limits<double>::quiet_NaN()
 // Returns false if any of the floats are outside of [0...1]
 // Returns true if count is 0

@@ -30,7 +30,7 @@ private:
   wxPGProperty* property;
 };
 // -----------------------------------------------------------------------
-#define wxPG_IT_CHILDREN(A)	         (A<<16)
+#define wxPG_IT_CHILDREN(A)         (A<<16)
 /** @section propgrid_iterator_flags wxPropertyGridIterator Flags
     @{
 

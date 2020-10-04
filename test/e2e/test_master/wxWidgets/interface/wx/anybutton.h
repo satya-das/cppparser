@@ -8,7 +8,7 @@
 #define wxBU_TOP	0x0080
 #define wxBU_RIGHT	0x0100
 #define wxBU_BOTTOM	0x0200
-#define wxBU_ALIGN_MASK	( wxBU_LEFT | wxBU_TOP | wxBU_RIGHT | wxBU_BOTTOM )
+#define wxBU_ALIGN_MASK( wxBU_LEFT | wxBU_TOP | wxBU_RIGHT | wxBU_BOTTOM )
 #define wxBU_EXACTFIT	0x0001
 #define wxBU_NOTEXT	0x0002
 #define wxBU_AUTODRAW	0x0004

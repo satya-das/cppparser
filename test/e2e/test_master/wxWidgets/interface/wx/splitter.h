@@ -13,7 +13,7 @@
 #define wxSP_3DBORDER	0x0200
 #define wxSP_NO_XP_THEME	0x0400
 #define wxSP_BORDER	wxSP_3DBORDER
-#define wxSP_3D	(wxSP_3DBORDER | wxSP_3DSASH)
+#define wxSP_3D(wxSP_3DBORDER | wxSP_3DSASH)
 enum wxSplitMode {
     wxSPLIT_HORIZONTAL = 1,
     wxSPLIT_VERTICAL

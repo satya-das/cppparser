@@ -4,7 +4,7 @@
 // Author:      wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
-#define wxNullProperty	((wxPGProperty*)NULL)
+#define wxNullProperty((wxPGProperty*)NULL)
 /**
     @section propgrid_property_attributes wxPropertyGrid Property Attribute Identifiers
 
@@ -289,7 +289,7 @@ wxPG_PROP_BEING_DELETED             = 0x00200000
     will not work correctly.
     Code should automatically take care of this, however.
 */
-#define wxPG_PROP_PARENTAL_FLAGS	((wxPGPropertyFlags)(wxPG_PROP_AGGREGATE | \
+#define wxPG_PROP_PARENTAL_FLAGS((wxPGPropertyFlags)(wxPG_PROP_AGGREGATE | \
                          wxPG_PROP_CATEGORY | \
                          wxPG_PROP_MISC_PARENT))
 /** @}

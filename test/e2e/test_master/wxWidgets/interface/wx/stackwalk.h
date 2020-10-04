@@ -8,7 +8,7 @@
 /**
     This is the default value of the wxStackWalker::Walk function.
 */
-#define wxSTACKWALKER_MAX_DEPTH	(200)
+#define wxSTACKWALKER_MAX_DEPTH(200)
 /**
     @class wxStackWalker
 

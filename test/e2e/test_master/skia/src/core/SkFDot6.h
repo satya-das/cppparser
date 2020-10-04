@@ -32,8 +32,8 @@ inline SkFDot6 SkScalarRoundToFDot6(SkScalar x, int shift = 0)
   return tmp.fBits[0];
 #  endif
 }
-#  define SK_FDot6One	(64)
-#  define SK_FDot6Half	(32)
+#  define SK_FDot6One(64)
+#  define SK_FDot6Half(32)
 #  ifdef SK_DEBUG
 inline SkFDot6 SkIntToFDot6(int x)
 {
@@ -41,19 +41,19 @@ inline SkFDot6 SkIntToFDot6(int x)
   return x << 6;
 }
 #  else 
-#    define SkIntToFDot6(x)	 ((x) << 6)
+#    define SkIntToFDot6(x) ((x) << 6)
 #  endif
-#  define SkFDot6Floor(x)	     ((x) >> 6)
-#  define SkFDot6Ceil(x)	      (((x) + 63) >> 6)
-#  define SkFDot6Round(x)	     (((x) + 32) >> 6)
-#  define SkFixedToFDot6(x)	   ((x) >> 10)
+#  define SkFDot6Floor(x)     ((x) >> 6)
+#  define SkFDot6Ceil(x)      (((x) + 63) >> 6)
+#  define SkFDot6Round(x)     (((x) + 32) >> 6)
+#  define SkFixedToFDot6(x)   ((x) >> 10)
 inline SkFixed SkFDot6ToFixed(SkFDot6 x)
 {
   SkASSERT((SkLeftShift(x, 10) >> 10) == x);
   return SkLeftShift(x, 10);
 }
-#  define SkScalarToFDot6(x)	  (SkFDot6)((x) * 64)
-#  define SkFDot6ToScalar(x)	  ((SkScalar)(x) * 0.015625f)
+#  define SkScalarToFDot6(x)  (SkFDot6)((x) * 64)
+#  define SkFDot6ToScalar(x)  ((SkScalar)(x) * 0.015625f)
 #  define SkFDot6ToFloat	SkFDot6ToScalar
 inline SkFixed SkFDot6Div(SkFDot6 a, SkFDot6 b)
 {

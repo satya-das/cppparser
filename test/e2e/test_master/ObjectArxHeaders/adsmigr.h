@@ -116,11 +116,11 @@
 /* NOTE that the result is the SECOND argument,
    consistent with ADS usage.  The standard C ones require <string.h> */
 #  ifdef __STDC__
-#    define ads_name_set(from, to)	  (memcpy(to, from, sizeof(ads_name)))
-#    define ads_point_set(from,to)	  (memcpy(to, from, sizeof(ads_point)))
+#    define ads_name_set(from, to)  (memcpy(to, from, sizeof(ads_name)))
+#    define ads_point_set(from,to)  (memcpy(to, from, sizeof(ads_point)))
 #  else 
-#    define ads_name_set(from, to)	  (*(to)= *(from), (to)[1]=(from)[1])
-#    define ads_point_set(from, to)	 (*(to)= *(from), (to)[1]=(from)[1], (to)[2]=(from)[2])
+#    define ads_name_set(from, to)  (*(to)= *(from), (to)[1]=(from)[1])
+#    define ads_point_set(from, to) (*(to)= *(from), (to)[1]=(from)[1], (to)[2]=(from)[2])
 #  endif
 /* Define null value for ads_names.  These values are NOT guaranteed valid;
    that is, there is no actual guarantee (such as C gives with NULL) that the
@@ -129,8 +129,8 @@
    project, if we go through with that one, and will then be inserted here.
    */
 #  define ads_name_clear(name)	    name[0] = name[1] = 0
-#  define ads_name_nil(name)	      (name[0] == 0 && name[1] == 0)
-#  define ads_name_equal(name1, name2)	  (name1[0]==name2[0] \
+#  define ads_name_nil(name)      (name[0] == 0 && name[1] == 0)
+#  define ads_name_equal(name1, name2)  (name1[0]==name2[0] \
                                        && name1[1]==name2[1])
 // AcDb related #defines that are not currently available
 // to ObjectDBX applications.  7/14/98

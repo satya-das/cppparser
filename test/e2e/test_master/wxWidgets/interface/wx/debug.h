@@ -68,7 +68,7 @@ typedef void (*wxAssertHandler_t) (const wxString& file, int line, const wxStrin
 
     @header{wx/debug.h}
 */
-#define wxASSERT	( condition )
+#define wxASSERT( condition )
 /**
     Assert macro for expensive run-time checks.
 
@@ -80,7 +80,7 @@ typedef void (*wxAssertHandler_t) (const wxString& file, int line, const wxStrin
 
     @header{wx/debug.h}
  */
-#define wxASSERT_LEVEL_2	( condition )
+#define wxASSERT_LEVEL_2( condition )
 /**
     Assert macro with a custom message for expensive run-time checks.
 
@@ -304,7 +304,7 @@ void wxDisableAsserts();
 
     @header{wx/debug.h}
 */
-#define wxFAIL_MSG	( message )
+#define wxFAIL_MSG( message )
 /**
     Assert failure macro pretending to assert at the specified location.
 

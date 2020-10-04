@@ -138,7 +138,7 @@ enum wxBorder {
 /*  Use internally-calculated height if -1 */
 #define wxSIZE_AUTO_HEIGHT	0x0002
 /*  Use internally-calculated width and height if each is -1 */
-#define wxSIZE_AUTO	(wxSIZE_AUTO_WIDTH|wxSIZE_AUTO_HEIGHT)
+#define wxSIZE_AUTO(wxSIZE_AUTO_WIDTH|wxSIZE_AUTO_HEIGHT)
 /*  Ignore missing (-1) dimensions (use existing). */
 /*  For readability only: test for wxSIZE_AUTO_WIDTH/HEIGHT in code. */
 #define wxSIZE_USE_EXISTING	0x0000
@@ -252,7 +252,7 @@ enum wxBorder {
 #define wxNO_FULL_REPAINT_ON_RESIZE	0
 /* A mask which can be used to filter (out) all wxWindow-specific styles.
  */
-#define wxWINDOW_STYLE_MASK	(wxVSCROLL|wxHSCROLL|wxBORDER_MASK|wxALWAYS_SHOW_SB|wxCLIP_CHILDREN| \
+#define wxWINDOW_STYLE_MASK(wxVSCROLL|wxHSCROLL|wxBORDER_MASK|wxALWAYS_SHOW_SB|wxCLIP_CHILDREN| \
      wxCLIP_SIBLINGS|wxTRANSPARENT_WINDOW|wxTAB_TRAVERSAL|wxWANTS_CHARS| \
      wxRETAINED|wxPOPUP_WINDOW|wxFULL_REPAINT_ON_RESIZE)
 /*
@@ -396,7 +396,7 @@ enum wxBorder {
 #define wxYES	0x00000002
 #define wxOK	0x00000004
 #define wxNO	0x00000008
-#define wxYES_NO	(wxYES | wxNO)
+#define wxYES_NO(wxYES | wxNO)
 #define wxCANCEL	0x00000010
 #define wxAPPLY	0x00000020
 #define wxCLOSE	0x00000040
@@ -420,10 +420,10 @@ enum wxBorder {
 #define wxSETUP	0x00020000
 #define wxICON_NONE	0x00040000
 #define wxICON_AUTH_NEEDED	0x00080000
-#define wxICON_MASK	(wxICON_EXCLAMATION|wxICON_HAND|wxICON_QUESTION|wxICON_INFORMATION|wxICON_NONE)
+#define wxICON_MASK(wxICON_EXCLAMATION|wxICON_HAND|wxICON_QUESTION|wxICON_INFORMATION|wxICON_NONE)
 /*  symbolic constant used by all Find()-like functions returning positive */
 /*  integer on success as failure indicator */
-#define wxNOT_FOUND	(-1)
+#define wxNOT_FOUND(-1)
 /**
     Background styles.
 
@@ -1300,10 +1300,10 @@ typedef double wxDouble;
 
     @header{wx/defs.h}
 */
-#define wxINT32_SWAP_ALWAYS	( wxInt32_value )
-#define wxUINT32_SWAP_ALWAYS	( wxUint32_value )
-#define wxINT16_SWAP_ALWAYS	( wxInt16_value )
-#define wxUINT16_SWAP_ALWAYS	( wxUint16_value )
+#define wxINT32_SWAP_ALWAYS( wxInt32_value )
+#define wxUINT32_SWAP_ALWAYS( wxUint32_value )
+#define wxINT16_SWAP_ALWAYS( wxInt16_value )
+#define wxUINT16_SWAP_ALWAYS( wxUint16_value )
 //@}
 
 /** @addtogroup group_funcmacro_byteorder */
@@ -1320,10 +1320,10 @@ typedef double wxDouble;
 
     @header{wx/defs.h}
 */
-#define wxINT32_SWAP_ON_BE	( wxInt32_value )
-#define wxUINT32_SWAP_ON_BE	( wxUint32_value )
-#define wxINT16_SWAP_ON_BE	( wxInt16_value )
-#define wxUINT16_SWAP_ON_BE	( wxUint16_value )
+#define wxINT32_SWAP_ON_BE( wxInt32_value )
+#define wxUINT32_SWAP_ON_BE( wxUint32_value )
+#define wxINT16_SWAP_ON_BE( wxInt16_value )
+#define wxUINT16_SWAP_ON_BE( wxUint16_value )
 //@}
 
 /** @addtogroup group_funcmacro_byteorder */
@@ -1340,10 +1340,10 @@ typedef double wxDouble;
 
     @header{wx/defs.h}
 */
-#define wxINT32_SWAP_ON_LE	( wxInt32_value )
-#define wxUINT32_SWAP_ON_LE	( wxUint32_value )
-#define wxINT16_SWAP_ON_LE	( wxInt16_value )
-#define wxUINT16_SWAP_ON_LE	( wxUint16_value )
+#define wxINT32_SWAP_ON_LE( wxInt32_value )
+#define wxUINT32_SWAP_ON_LE( wxUint32_value )
+#define wxINT16_SWAP_ON_LE( wxInt16_value )
+#define wxUINT16_SWAP_ON_LE( wxUint16_value )
 //@}
 
 

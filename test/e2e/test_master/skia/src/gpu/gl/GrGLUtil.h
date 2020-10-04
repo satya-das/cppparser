@@ -16,15 +16,15 @@ class SkMatrix;
 typedef uint32_t GrGLVersion;
 typedef uint32_t GrGLSLVersion;
 typedef uint64_t GrGLDriverVersion;
-#  define GR_GL_VER(major, minor)	 ((static_cast<uint32_t>(major) << 16) | \
+#  define GR_GL_VER(major, minor) ((static_cast<uint32_t>(major) << 16) | \
                                  static_cast<uint32_t>(minor))
-#  define GR_GLSL_VER(major, minor)	 ((static_cast<uint32_t>(major) << 16) | \
+#  define GR_GLSL_VER(major, minor) ((static_cast<uint32_t>(major) << 16) | \
                                     static_cast<uint32_t>(minor))
-#  define GR_GL_DRIVER_VER(major, minor, point)	 ((static_cast<uint64_t>(major) << 32) | \
+#  define GR_GL_DRIVER_VER(major, minor, point) ((static_cast<uint64_t>(major) << 32) | \
                                                (static_cast<uint64_t>(minor) << 16) | \
                                                 static_cast<uint64_t>(point))
-#  define GR_GL_MAJOR_VER(version)	 (static_cast<uint32_t>(version) >> 16)
-#  define GR_GL_MINOR_VER(version)	 (static_cast<uint32_t>(version) & 0xFFFF)
+#  define GR_GL_MAJOR_VER(version) (static_cast<uint32_t>(version) >> 16)
+#  define GR_GL_MINOR_VER(version) (static_cast<uint32_t>(version) & 0xFFFF)
 #  define GR_GL_INVALID_VER	GR_GL_VER(0, 0)
 #  define GR_GLSL_INVALID_VER	GR_GLSL_VER(0, 0)
 #  define GR_GL_DRIVER_UNKNOWN_VER	GR_GL_DRIVER_VER(0, 0, 0)
@@ -233,7 +233,7 @@ extern bool gLogCallsGL;
         GR_GL_LOG_CALLS_IMPL(X);                                \
     } while (false)
 // call glGetError without doing a redundant error check or logging.
-#  define GR_GL_GET_ERROR(IFACE)	 (IFACE)->fFunctions.fGetError()
+#  define GR_GL_GET_ERROR(IFACE) (IFACE)->fFunctions.fGetError()
 static constexpr GrGLFormat GrGLFormatFromGLEnum(GrGLenum glFormat)
 {
   switch(glFormat)

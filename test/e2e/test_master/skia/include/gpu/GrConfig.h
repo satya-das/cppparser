@@ -81,9 +81,9 @@
  *  To insert compiler warnings use "#pragma message GR_WARN(<string>)"
  */
 #  if  defined(_MSC_VER)
-#    define GR_WARN(MSG)	 (GR_FILE_AND_LINE_STR "WARNING: " MSG)
+#    define GR_WARN(MSG) (GR_FILE_AND_LINE_STR "WARNING: " MSG)
 #  else 
-#    define GR_WARN(MSG)	 ("WARNING: " MSG)
+#    define GR_WARN(MSG) ("WARNING: " MSG)
 #  endif
 /**
  *  GR_ALWAYSBREAK is an unconditional break in all builds.

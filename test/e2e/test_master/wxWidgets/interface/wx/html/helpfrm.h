@@ -18,7 +18,7 @@
 #define wxHF_ICONS_BOOK	0x0200
 #define wxHF_ICONS_BOOK_CHAPTER	0x0400
 #define wxHF_ICONS_FOLDER	0x0000 // this is 0 since it is default
-#define wxHF_DEFAULT_STYLE	(wxHF_TOOLBAR | wxHF_CONTENTS | \
+#define wxHF_DEFAULT_STYLE(wxHF_TOOLBAR | wxHF_CONTENTS | \
                                      wxHF_INDEX | wxHF_SEARCH | \
                                      wxHF_BOOKMARKS | wxHF_PRINT)
 /**

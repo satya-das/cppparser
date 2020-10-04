@@ -12,7 +12,7 @@
 #define wxSW_BORDER	0x0020
 #define wxSW_3DSASH	0x0040
 #define wxSW_3DBORDER	0x0080
-#define wxSW_3D	(wxSW_3DSASH | wxSW_3DBORDER)
+#define wxSW_3D(wxSW_3DSASH | wxSW_3DBORDER)
 /**
     See wxSashWindow.
 */

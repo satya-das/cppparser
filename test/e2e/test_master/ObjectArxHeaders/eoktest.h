@@ -31,9 +31,9 @@
 #include "acestext.h"
 #include "acutasrt.h"
 #ifdef NDEBUG
-#  define eOkTest(x)	 ((x) == Acad::eOk)
-#  define eOkCheck(x)	 (x)
-#  define eOkVerify(x)	 ((x) == Acad::eOk)
+#  define eOkTest(x) ((x) == Acad::eOk)
+#  define eOkCheck(x) (x)
+#  define eOkVerify(x) ((x) == Acad::eOk)
 #else 
 // For use by eoktest.h only!
 inline Acad::ErrorStatus eOkCheck_imp(const ACHAR* condition, const ACHAR* fname, int lineno, Acad::ErrorStatus es)
@@ -47,7 +47,7 @@ inline Acad::ErrorStatus eOkCheck_imp(const ACHAR* condition, const ACHAR* fname
 /// <summary>
 /// Evaluates to true if value is Acad::eOk, otherwise evaluates to false.
 /// </summary>
-#  define eOkTest(x)	 ((x) == Acad::eOk)
+#  define eOkTest(x) ((x) == Acad::eOk)
 /// <summary>
 /// Asserts if value is not Acad::eOk.  Evaluates to the value.
 /// </summary>
@@ -56,5 +56,5 @@ inline Acad::ErrorStatus eOkCheck_imp(const ACHAR* condition, const ACHAR* fname
 /// Asserts if value is not Acad::eOk.  Evaluates to true if value is Acad::eOk
 /// otherwise evalutes to false.
 /// </summary>
-#  define eOkVerify(x)	 (eOkCheck(x) == Acad::eOk)
+#  define eOkVerify(x) (eOkCheck(x) == Acad::eOk)
 #endif

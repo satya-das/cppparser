@@ -12,10 +12,10 @@ namespace SK_OPTS_NS
 #  if  defined(SK_ARM_HAS_NEON)
     // The Sk4px versions below will work fine with NEON, but we have had many indications
     // that it doesn't perform as well as this NEON-specific code.  TODO(mtklein): why?
-#    define NEON_A	(SK_A32_SHIFT / 8)
-#    define NEON_R	(SK_R32_SHIFT / 8)
-#    define NEON_G	(SK_G32_SHIFT / 8)
-#    define NEON_B	(SK_B32_SHIFT / 8)
+#    define NEON_A(SK_A32_SHIFT / 8)
+#    define NEON_R(SK_R32_SHIFT / 8)
+#    define NEON_G(SK_G32_SHIFT / 8)
+#    define NEON_B(SK_B32_SHIFT / 8)
   static uint16x8_t SkAlpha255To256_neon8(uint8x8_t alpha)
   {
     return vaddw_u8(vdupq_n_u16(1), alpha);

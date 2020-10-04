@@ -52,9 +52,9 @@
 #define wxRICHTEXT_DEFAULT_DELAYED_IMAGE_PROCESSING_INTERVAL	200
 /* Identifiers
  */
-#define wxID_RICHTEXT_PROPERTIES1	(wxID_HIGHEST + 1)
-#define wxID_RICHTEXT_PROPERTIES2	(wxID_HIGHEST + 2)
-#define wxID_RICHTEXT_PROPERTIES3	(wxID_HIGHEST + 3)
+#define wxID_RICHTEXT_PROPERTIES1(wxID_HIGHEST + 1)
+#define wxID_RICHTEXT_PROPERTIES2(wxID_HIGHEST + 2)
+#define wxID_RICHTEXT_PROPERTIES3(wxID_HIGHEST + 3)
 /*
     Normal selection occurs initially and as user drags within one container.
     Common ancestor selection occurs when the user starts dragging across containers

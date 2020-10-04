@@ -32,15 +32,15 @@ typedef float SkScalar;
 #  define SkScalarMod(x, y)	           sk_float_mod(x,y)
 #  define SkScalarSqrt(x)	             sk_float_sqrt(x)
 #  define SkScalarPow(b, e)	           sk_float_pow(b, e)
-#  define SkScalarSin(radians)	        (float)sk_float_sin(radians)
-#  define SkScalarCos(radians)	        (float)sk_float_cos(radians)
-#  define SkScalarTan(radians)	        (float)sk_float_tan(radians)
-#  define SkScalarASin(val)	           (float)sk_float_asin(val)
-#  define SkScalarACos(val)	           (float)sk_float_acos(val)
-#  define SkScalarATan2(y, x)	         (float)sk_float_atan2(y,x)
-#  define SkScalarExp(x)	              (float)sk_float_exp(x)
-#  define SkScalarLog(x)	              (float)sk_float_log(x)
-#  define SkScalarLog2(x)	             (float)sk_float_log2(x)
+#  define SkScalarSin(radians)        (float)sk_float_sin(radians)
+#  define SkScalarCos(radians)        (float)sk_float_cos(radians)
+#  define SkScalarTan(radians)        (float)sk_float_tan(radians)
+#  define SkScalarASin(val)           (float)sk_float_asin(val)
+#  define SkScalarACos(val)           (float)sk_float_acos(val)
+#  define SkScalarATan2(y, x)         (float)sk_float_atan2(y,x)
+#  define SkScalarExp(x)              (float)sk_float_exp(x)
+#  define SkScalarLog(x)              (float)sk_float_log(x)
+#  define SkScalarLog2(x)             (float)sk_float_log2(x)
 //////////////////////////////////////////////////////////////////////////////////////////////////
 #  define SkIntToScalar(x)	        static_cast<SkScalar>(x)
 #  define SkIntToFloat(x)	         static_cast<float>(x)
@@ -49,7 +49,7 @@ typedef float SkScalar;
 #  define SkFloatToScalar(x)	      static_cast<SkScalar>(x)
 #  define SkScalarToDouble(x)	     static_cast<double>(x)
 #  define SkDoubleToScalar(x)	     sk_double_to_float(x)
-#  define SK_ScalarMin	(-SK_ScalarMax)
+#  define SK_ScalarMin(-SK_ScalarMax)
 static bool SkScalarIsNaN(SkScalar x)
 {
   return x != x;
@@ -108,10 +108,10 @@ static SkScalar SkScalarSquare(SkScalar x)
   return x * x;
 }
 #  define SkScalarInvert(x)	           sk_ieee_float_divide_TODO_IS_DIVIDE_BY_ZERO_SAFE_HERE(SK_Scalar1, (x))
-#  define SkScalarAve(a, b)	           (((a) + (b)) * SK_ScalarHalf)
-#  define SkScalarHalf(a)	             ((a) * SK_ScalarHalf)
-#  define SkDegreesToRadians(degrees)	 ((degrees) * (SK_ScalarPI / 180))
-#  define SkRadiansToDegrees(radians)	 ((radians) * (180 / SK_ScalarPI))
+#  define SkScalarAve(a, b)           (((a) + (b)) * SK_ScalarHalf)
+#  define SkScalarHalf(a)             ((a) * SK_ScalarHalf)
+#  define SkDegreesToRadians(degrees) ((degrees) * (SK_ScalarPI / 180))
+#  define SkRadiansToDegrees(radians) ((radians) * (180 / SK_ScalarPI))
 static SkScalar SkMaxScalar(SkScalar a, SkScalar b)
 {
   return a > b ? a : b;
@@ -139,7 +139,7 @@ static SkScalar SkScalarSignAsScalar(SkScalar x)
 {
   return x < 0 ? -SK_Scalar1 : ((x > 0) ? SK_Scalar1 : 0);
 }
-#  define SK_ScalarNearlyZero	(SK_Scalar1 / (1 << 12))
+#  define SK_ScalarNearlyZero(SK_Scalar1 / (1 << 12))
 static bool SkScalarNearlyZero(SkScalar x, SkScalar tolerance = SK_ScalarNearlyZero)
 {
   SkASSERT(tolerance >= 0);

@@ -30,10 +30,10 @@ class AcTcSystemInternals;
 class AcTcImpCatalogItem;
 class AcTcCatalogItemReactor;
 // Context flags
-#define ACTC_IMAGE_NORMAL	(0x1 << 0)
-#define ACTC_IMAGE_SELECTED	(0x1 << 1)
-#define ACTC_IMAGE_HALO	(0x1 << 2)
-#define ACTC_IMAGE_SHADOW	(0x1 << 3)
+#define ACTC_IMAGE_NORMAL(0x1 << 0)
+#define ACTC_IMAGE_SELECTED(0x1 << 1)
+#define ACTC_IMAGE_HALO(0x1 << 2)
+#define ACTC_IMAGE_SHADOW(0x1 << 3)
 // Buffer sizes
 #define ACTC_MAX_CATALOG_ITEM_NAME	256
 #define ACTC_MAX_CATALOG_ITEM_DESCRIPTION	2048

@@ -205,7 +205,7 @@ struct Adesk
 #  ifdef _MSC_VER
 #    define ADESK_UNREFED_PARAM(x)	 x
 #  elif  defined(__clang__)
-#    define ADESK_UNREFED_PARAM(x)	 (void)(x);
+#    define ADESK_UNREFED_PARAM(x) (void)(x);
 #  else 
 #  endif
 #  ifdef _MSC_VER

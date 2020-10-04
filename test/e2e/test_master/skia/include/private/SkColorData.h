@@ -15,15 +15,15 @@
 #  define SK_R16_BITS	5
 #  define SK_G16_BITS	6
 #  define SK_B16_BITS	5
-#  define SK_R16_SHIFT	(SK_B16_BITS + SK_G16_BITS)
-#  define SK_G16_SHIFT	(SK_B16_BITS)
+#  define SK_R16_SHIFT(SK_B16_BITS + SK_G16_BITS)
+#  define SK_G16_SHIFT(SK_B16_BITS)
 #  define SK_B16_SHIFT	0
-#  define SK_R16_MASK	((1 << SK_R16_BITS) - 1)
-#  define SK_G16_MASK	((1 << SK_G16_BITS) - 1)
-#  define SK_B16_MASK	((1 << SK_B16_BITS) - 1)
-#  define SkGetPackedR16(color)	   (((unsigned)(color) >> SK_R16_SHIFT) & SK_R16_MASK)
-#  define SkGetPackedG16(color)	   (((unsigned)(color) >> SK_G16_SHIFT) & SK_G16_MASK)
-#  define SkGetPackedB16(color)	   (((unsigned)(color) >> SK_B16_SHIFT) & SK_B16_MASK)
+#  define SK_R16_MASK((1 << SK_R16_BITS) - 1)
+#  define SK_G16_MASK((1 << SK_G16_BITS) - 1)
+#  define SK_B16_MASK((1 << SK_B16_BITS) - 1)
+#  define SkGetPackedR16(color)   (((unsigned)(color) >> SK_R16_SHIFT) & SK_R16_MASK)
+#  define SkGetPackedG16(color)   (((unsigned)(color) >> SK_G16_SHIFT) & SK_G16_MASK)
+#  define SkGetPackedB16(color)   (((unsigned)(color) >> SK_B16_SHIFT) & SK_B16_MASK)
 static unsigned SkR16ToR32(unsigned r)
 {
   return (r << (8 - SK_R16_BITS)) | (r >> (2 * SK_R16_BITS - 8));
@@ -87,9 +87,9 @@ static SkPMColor SkSwizzle_BGRA_to_PMColor(uint32_t c)
 
 ///@{
 /** See ITU-R Recommendation BT.709 at http://www.itu.int/rec/R-REC-BT.709/ .*/
-#  define SK_ITU_BT709_LUM_COEFF_R	(0.2126f)
-#  define SK_ITU_BT709_LUM_COEFF_G	(0.7152f)
-#  define SK_ITU_BT709_LUM_COEFF_B	(0.0722f)
+#  define SK_ITU_BT709_LUM_COEFF_R(0.2126f)
+#  define SK_ITU_BT709_LUM_COEFF_G(0.7152f)
+#  define SK_ITU_BT709_LUM_COEFF_B(0.0722f)
 ///@}
 
 ///@{
@@ -132,9 +132,9 @@ static uint16_t SkPackRGB16(unsigned r, unsigned g, unsigned b)
   SkASSERT(b <= SK_B16_MASK);
   return SkToU16((r << SK_R16_SHIFT) | (g << SK_G16_SHIFT) | (b << SK_B16_SHIFT));
 }
-#  define SK_R16_MASK_IN_PLACE	(SK_R16_MASK << SK_R16_SHIFT)
-#  define SK_G16_MASK_IN_PLACE	(SK_G16_MASK << SK_G16_SHIFT)
-#  define SK_B16_MASK_IN_PLACE	(SK_B16_MASK << SK_B16_SHIFT)
+#  define SK_R16_MASK_IN_PLACE(SK_R16_MASK << SK_R16_SHIFT)
+#  define SK_G16_MASK_IN_PLACE(SK_G16_MASK << SK_G16_SHIFT)
+#  define SK_B16_MASK_IN_PLACE(SK_B16_MASK << SK_B16_SHIFT)
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -267,9 +267,9 @@ static SkPMColor SkBlendARGB32(SkPMColor src, SkPMColor dst, U8CPU aa)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Convert a 32bit pixel to a 16bit pixel (no dither)
-#  define SkR32ToR16_MACRO(r)	   ((unsigned)(r) >> (SK_R32_BITS - SK_R16_BITS))
-#  define SkG32ToG16_MACRO(g)	   ((unsigned)(g) >> (SK_G32_BITS - SK_G16_BITS))
-#  define SkB32ToB16_MACRO(b)	   ((unsigned)(b) >> (SK_B32_BITS - SK_B16_BITS))
+#  define SkR32ToR16_MACRO(r)   ((unsigned)(r) >> (SK_R32_BITS - SK_R16_BITS))
+#  define SkG32ToG16_MACRO(g)   ((unsigned)(g) >> (SK_G32_BITS - SK_G16_BITS))
+#  define SkB32ToB16_MACRO(b)   ((unsigned)(b) >> (SK_B32_BITS - SK_B16_BITS))
 #  ifdef SK_DEBUG
 static unsigned SkR32ToR16(unsigned r)
 {
@@ -344,10 +344,10 @@ static U8CPU SkReplicateNibble(unsigned nib)
   SkASSERT(nib <= 0xF);
   return (nib << 4) | nib;
 }
-#  define SkGetPackedA4444(c)	     (((unsigned)(c) >> SK_A4444_SHIFT) & 0xF)
-#  define SkGetPackedR4444(c)	     (((unsigned)(c) >> SK_R4444_SHIFT) & 0xF)
-#  define SkGetPackedG4444(c)	     (((unsigned)(c) >> SK_G4444_SHIFT) & 0xF)
-#  define SkGetPackedB4444(c)	     (((unsigned)(c) >> SK_B4444_SHIFT) & 0xF)
+#  define SkGetPackedA4444(c)     (((unsigned)(c) >> SK_A4444_SHIFT) & 0xF)
+#  define SkGetPackedR4444(c)     (((unsigned)(c) >> SK_R4444_SHIFT) & 0xF)
+#  define SkGetPackedG4444(c)     (((unsigned)(c) >> SK_G4444_SHIFT) & 0xF)
+#  define SkGetPackedB4444(c)     (((unsigned)(c) >> SK_B4444_SHIFT) & 0xF)
 #  define SkPacked4444ToA32(c)	    SkReplicateNibble(SkGetPackedA4444(c))
 static SkPMColor SkPixel4444ToPixel32(U16CPU c)
 {

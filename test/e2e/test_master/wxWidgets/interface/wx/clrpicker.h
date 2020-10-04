@@ -4,7 +4,7 @@
 // Author:      wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
-#define wxCLRP_USE_TEXTCTRL	(wxPB_USE_TEXTCTRL)
+#define wxCLRP_USE_TEXTCTRL(wxPB_USE_TEXTCTRL)
 #define wxCLRP_DEFAULT_STYLE	0
 #define wxCLRP_SHOW_LABEL	0x0008
 wxEventType wxEVT_COLOURPICKER_CHANGED;

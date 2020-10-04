@@ -47,9 +47,9 @@ extern "C" {
 ** LPCTSTR APIENTRY gluErrorStringWIN (GLenum errCode);
 */
 #    ifdef UNICODE
-#      define gluErrorStringWIN(errCode)	 ((LPCSTR)  gluErrorUnicodeStringEXT(errCode))
+#      define gluErrorStringWIN(errCode) ((LPCSTR)  gluErrorUnicodeStringEXT(errCode))
 #    else 
-#      define gluErrorStringWIN(errCode)	 ((LPCWSTR) gluErrorString(errCode))
+#      define gluErrorStringWIN(errCode) ((LPCWSTR) gluErrorString(errCode))
 #    endif
   const GLubyte* APIENTRY gluErrorString(GLenum errCode);
   const wchar_t* APIENTRY gluErrorUnicodeStringEXT(GLenum errCode);

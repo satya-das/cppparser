@@ -335,7 +335,7 @@ public:
 /// 3. Graphics systems may use this class to notify interested listeners
 /// (e.g. AcGiDrawStream) of regen begin/end events.
 /// </description>  
-#  define acgiDrawableEvent	(&AcGiDrawableEvent::instance())
+#  define acgiDrawableEvent(&AcGiDrawableEvent::instance())
 class AcGiDrawableEvent : public AcRxObject
 {
 public:

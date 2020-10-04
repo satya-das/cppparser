@@ -101,7 +101,7 @@ static constexpr int64_t SkLeftShift(int64_t value, int32_t shift)
 */
 #  define Define_SkArrayCountHelper	template <typename T, size_t N> char (&SkArrayCountHelper(T (&array)[N]))[N];
 Define_SkArrayCountHelper();
-#  define SK_ARRAY_COUNT(array)	 (sizeof(SkArrayCountHelper(array)))
+#  define SK_ARRAY_COUNT(array) (sizeof(SkArrayCountHelper(array)))
 ////////////////////////////////////////////////////////////////////////////////
 template <typename T>
 static constexpr T SkAlign2(T x)

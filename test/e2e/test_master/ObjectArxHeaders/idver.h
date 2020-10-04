@@ -50,7 +50,7 @@
 #  define ACADV_RCFILEVER3	ACADV_BLDMAJOR
 #  define ACADV_RCFILEVER4	ACADV_BLDMINOR
 #  define ACADV_RCFILEVER5	ACADV_BLDBRANCH
-#  define ACADV_RCFILEVER1_CORRECTION	(6 + ACADV_RCFILEVER1)
+#  define ACADV_RCFILEVER1_CORRECTION(6 + ACADV_RCFILEVER1)
 // The following utility macros build the stringized form of the
 // version numbers.
 //

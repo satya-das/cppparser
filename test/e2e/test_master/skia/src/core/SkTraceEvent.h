@@ -77,7 +77,7 @@
 // No barriers are needed, because this code is designed to operate safely
 // even when the unsigned char* points to garbage data (which may be the case
 // on processors without cache coherency).
-#  define INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO_CUSTOM_VARIABLES	( \
+#  define INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO_CUSTOM_VARIABLES( \
     category_group, atomic, category_group_enabled) \
     category_group_enabled = \
         reinterpret_cast<const uint8_t*>(atomic.load(std::memory_order_relaxed)); \
@@ -106,7 +106,7 @@
     } while (0)
 // Implementation detail: internal macro to create static category and add
 // event if the category is enabled.
-#  define INTERNAL_TRACE_EVENT_ADD_WITH_ID	(phase, category_group, name, id, \
+#  define INTERNAL_TRACE_EVENT_ADD_WITH_ID(phase, category_group, name, id, \
                                          flags, ...) \
     do { \
       INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO(category_group); \
@@ -236,7 +236,7 @@ namespace skia
 // Define SetTraceValue for each allowed type. It stores the type and
 // value in the return arguments. This allows this API to avoid declaring any
 // structures so that it is portable to third_party libraries.
-#  define INTERNAL_DECLARE_SET_TRACE_VALUE	(actual_type, \
+#  define INTERNAL_DECLARE_SET_TRACE_VALUE(actual_type, \
                                          union_member, \
                                          value_type_id) \
     static inline void SetTraceValue( \
@@ -249,7 +249,7 @@ namespace skia
       *value = type_value.as_uint; \
     }
 // Simpler form for int types that can be safely casted.
-#  define INTERNAL_DECLARE_SET_TRACE_VALUE_INT	(actual_type, \
+#  define INTERNAL_DECLARE_SET_TRACE_VALUE_INT(actual_type, \
                                              value_type_id) \
     static inline void SetTraceValue( \
         actual_type arg, \

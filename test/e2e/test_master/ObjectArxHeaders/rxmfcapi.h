@@ -30,7 +30,7 @@
 //   lParam & wParam not used
 //   Return 1 to maintain focus else 0 if focus can be shifted.
 #  ifndef WM_ACAD_KEEPFOCUS
-#    define WM_ACAD_KEEPFOCUS	(WM_USER+0x6D01)
+#    define WM_ACAD_KEEPFOCUS(WM_USER+0x6D01)
 #  endif
 class AcDbDatabase;
 class CDialogBar;

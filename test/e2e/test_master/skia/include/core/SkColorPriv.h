@@ -25,7 +25,7 @@ static unsigned SkAlpha255To256(U8CPU alpha)
 /** Multiplify value by 0..256, and shift the result down 8
     (i.e. return (value * alpha256) >> 8)
  */
-#  define SkAlphaMul(value, alpha256)	     (((value) * (alpha256)) >> 8)
+#  define SkAlphaMul(value, alpha256)     (((value) * (alpha256)) >> 8)
 static U8CPU SkUnitScalarClampToByte(SkScalar x)
 {
   return static_cast<U8CPU>(SkScalarPin(x, 0, 1) * 255 + 0.5);
@@ -34,10 +34,10 @@ static U8CPU SkUnitScalarClampToByte(SkScalar x)
 #  define SK_R32_BITS	8
 #  define SK_G32_BITS	8
 #  define SK_B32_BITS	8
-#  define SK_A32_MASK	((1 << SK_A32_BITS) - 1)
-#  define SK_R32_MASK	((1 << SK_R32_BITS) - 1)
-#  define SK_G32_MASK	((1 << SK_G32_BITS) - 1)
-#  define SK_B32_MASK	((1 << SK_B32_BITS) - 1)
+#  define SK_A32_MASK((1 << SK_A32_BITS) - 1)
+#  define SK_R32_MASK((1 << SK_R32_BITS) - 1)
+#  define SK_G32_MASK((1 << SK_G32_BITS) - 1)
+#  define SK_B32_MASK((1 << SK_B32_BITS) - 1)
 /*
  *  Skia's 32bit backend only supports 1 swizzle order at a time (compile-time).
  *  This is specified by SK_R32_SHIFT=0 or SK_R32_SHIFT=16.
@@ -72,10 +72,10 @@ static U8CPU SkUnitScalarClampToByte(SkScalar x)
 #    define SK_PMCOLOR_IS_BGRA
 #  else 
 #  endif
-#  define SkGetPackedA32(packed)	      ((uint32_t)((packed) << (24 - SK_A32_SHIFT)) >> 24)
-#  define SkGetPackedR32(packed)	      ((uint32_t)((packed) << (24 - SK_R32_SHIFT)) >> 24)
-#  define SkGetPackedG32(packed)	      ((uint32_t)((packed) << (24 - SK_G32_SHIFT)) >> 24)
-#  define SkGetPackedB32(packed)	      ((uint32_t)((packed) << (24 - SK_B32_SHIFT)) >> 24)
+#  define SkGetPackedA32(packed)      ((uint32_t)((packed) << (24 - SK_A32_SHIFT)) >> 24)
+#  define SkGetPackedR32(packed)      ((uint32_t)((packed) << (24 - SK_R32_SHIFT)) >> 24)
+#  define SkGetPackedG32(packed)      ((uint32_t)((packed) << (24 - SK_G32_SHIFT)) >> 24)
+#  define SkGetPackedB32(packed)      ((uint32_t)((packed) << (24 - SK_B32_SHIFT)) >> 24)
 #  define SkA32Assert(a)	  SkASSERT((unsigned)(a) <= SK_A32_MASK)
 #  define SkR32Assert(r)	  SkASSERT((unsigned)(r) <= SK_R32_MASK)
 #  define SkG32Assert(g)	  SkASSERT((unsigned)(g) <= SK_G32_MASK)

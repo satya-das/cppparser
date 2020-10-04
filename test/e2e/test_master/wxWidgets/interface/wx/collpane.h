@@ -4,8 +4,8 @@
 // Author:      wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
-#define wxCP_DEFAULT_STYLE	(wxTAB_TRAVERSAL | wxNO_BORDER)
-#define wxCP_NO_TLW_RESIZE	(0x0002)
+#define wxCP_DEFAULT_STYLE(wxTAB_TRAVERSAL | wxNO_BORDER)
+#define wxCP_NO_TLW_RESIZE(0x0002)
 /**
     @class wxCollapsiblePaneEvent
 

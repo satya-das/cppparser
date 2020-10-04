@@ -80,12 +80,12 @@
 #  define RTNORM	5100 /* Request succeeded */
 /* Various error codes returned to ADS application by library
  */
-#  define RTERROR	(-5001) // Some other error
-#  define RTCAN	(-5002) // User cancelled request -- Ctl-C
-#  define RTREJ	(-5003) // AutoCAD rejected request -- invalid
-#  define RTFAIL	(-5004) // Link failure -- Lisp probably died 
-#  define RTKWORD	(-5005) // Keyword returned from getxxx() routine
-#  define RTINPUTTRUNCATED	(-5008) // Input didn't all fit in the buffer
+#  define RTERROR(-5001) // Some other error
+#  define RTCAN(-5002) // User cancelled request -- Ctl-C
+#  define RTREJ(-5003) // AutoCAD rejected request -- invalid
+#  define RTFAIL(-5004) // Link failure -- Lisp probably died 
+#  define RTKWORD(-5005) // Keyword returned from getxxx() routine
+#  define RTINPUTTRUNCATED(-5008) // Input didn't all fit in the buffer
 /* Message codes for use with modeless Windows dialogs
  */
 
@@ -94,9 +94,9 @@
 */
 #  ifndef WM_ACAD_KEEPFOCUS
 #    ifndef WM_USER
-#      define WM_ACAD_KEEPFOCUS	(0x0400+0x6D01)
+#      define WM_ACAD_KEEPFOCUS(0x0400+0x6D01)
 #    else 
-#      define WM_ACAD_KEEPFOCUS	(WM_USER+0x6D01)
+#      define WM_ACAD_KEEPFOCUS(WM_USER+0x6D01)
 #    endif
 #  endif
 #endif

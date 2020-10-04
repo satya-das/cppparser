@@ -144,8 +144,8 @@ inline TFlags& operator&=(TFlags& a, GrTFlagsMask<TFlags> b)
 ////////////////////////////////////////////////////////////////////////////////
 
 // compile time versions of min/max
-#  define GR_CT_MAX(a, b)	 (((b) < (a)) ? (a) : (b))
-#  define GR_CT_MIN(a, b)	 (((b) < (a)) ? (b) : (a))
+#  define GR_CT_MAX(a, b) (((b) < (a)) ? (a) : (b))
+#  define GR_CT_MIN(a, b) (((b) < (a)) ? (b) : (a))
 /**
  *  divide, rounding up
  */

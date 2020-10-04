@@ -38,11 +38,11 @@
 SK_C_PLUS_PLUS_BEGIN_GUARD
 typedef uint32_t sk_color_t;
 /* This macro assumes all arguments are >=0 and <=255. */
-#  define sk_color_set_argb(a, r, g, b)	   (((a) << 24) | ((r) << 16) | ((g) << 8) | (b))
-#  define sk_color_get_a(c)	               (((c) >> 24) & 0xFF)
-#  define sk_color_get_r(c)	               (((c) >> 16) & 0xFF)
-#  define sk_color_get_g(c)	               (((c) >>  8) & 0xFF)
-#  define sk_color_get_b(c)	               (((c) >>  0) & 0xFF)
+#  define sk_color_set_argb(a, r, g, b)   (((a) << 24) | ((r) << 16) | ((g) << 8) | (b))
+#  define sk_color_get_a(c)               (((c) >> 24) & 0xFF)
+#  define sk_color_get_r(c)               (((c) >> 16) & 0xFF)
+#  define sk_color_get_g(c)               (((c) >>  8) & 0xFF)
+#  define sk_color_get_b(c)               (((c) >>  0) & 0xFF)
 typedef enum {
     INTERSECT_SK_CLIPTYPE,
     DIFFERENCE_SK_CLIPTYPE,

@@ -8,7 +8,7 @@
 /**
     Default text dialog style.
 */
-#define wxTextEntryDialogStyle	(wxOK | wxCANCEL | wxCENTRE)
+#define wxTextEntryDialogStyle(wxOK | wxCANCEL | wxCENTRE)
 /// Default text dialog caption.
 const char wxGetTextFromUserPromptStr[] = "Input Text";
 /// Default password dialog caption.

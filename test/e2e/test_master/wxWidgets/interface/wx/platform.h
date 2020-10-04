@@ -28,7 +28,7 @@
 
     @header{wx/platform.h}
 */
-#define wxCHECK_VISUALC_VERSION	( major )
+#define wxCHECK_VISUALC_VERSION( major )
 /**
     Returns @true if the version of w32api headers used is major.minor or
     greater. Otherwise, and also if we are not compiling with MinGW32/Cygwin

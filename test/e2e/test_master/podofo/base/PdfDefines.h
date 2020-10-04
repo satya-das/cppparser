@@ -49,7 +49,7 @@
  * integer literals in PODOFO_VERSION_MAJOR, PODOFO_VERSION_MINOR and
  * PODOFO_VERSION_PATCH .
  */
-#  define PODOFO_MAKE_VERSION_REAL(M,m,p)	 ( (M<<16)+(m<<8)+(p) )
+#  define PODOFO_MAKE_VERSION_REAL(M,m,p) ( (M<<16)+(m<<8)+(p) )
 #  define PODOFO_MAKE_VERSION(M,m,p)	 PODOFO_MAKE_VERSION_REAL(M,m,p)
 #  define PODOFO_VERSION	PODOFO_MAKE_VERSION(PODOFO_VERSION_MAJOR, PODOFO_VERSION_MINOR, PODOFO_VERSION_PATCH)
 /**
@@ -107,9 +107,9 @@
 #    include "podofoapi.h"
 #    ifdef DEBUG
 #      include <assert.h>
-#      define PODOFO_ASSERT	( x ) assert( x );
+#      define PODOFO_ASSERT( x ) assert( x );
 #    else 
-#      define PODOFO_ASSERT	( x ) do { if (!(x)) PODOFO_RAISE_ERROR_INFO(ePdfError_InternalLogic, #x); } while (false)
+#      define PODOFO_ASSERT( x ) do { if (!(x)) PODOFO_RAISE_ERROR_INFO(ePdfError_InternalLogic, #x); } while (false)
 #    endif
 // By default, PoDoFo will use C++ locale support to ensure that
 // it doesn't write bad PDF data - particularly floating point numbers.

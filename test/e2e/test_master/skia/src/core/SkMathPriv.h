@@ -48,7 +48,7 @@ inline void SkTDivMod(In numer, In denom, Out* div, Out* mod)
 }
 /** Returns -1 if n < 0, else returns 0
  */
-#  define SkExtractSign(n)	    ((int32_t)(n) >> 31)
+#  define SkExtractSign(n)    ((int32_t)(n) >> 31)
 /** If sign == -1, returns -n, else sign must be 0, and returns n.
  Typically used in conjunction with SkExtractSign().
  */

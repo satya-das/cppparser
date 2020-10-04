@@ -77,7 +77,7 @@ namespace GS
     };
 }
 // copied (with modification) from limits.h to avoid extra #includes
-#define SCALAR_MIN	(-2147483647 - 1) // minimum (signed) int value
+#define SCALAR_MIN(-2147483647 - 1) // minimum (signed) int value
 #define SCALAR_MAX	2147483647      // maximum (signed) int value
 #pragma  pack (push, 8)
 class AcGsDCPoint

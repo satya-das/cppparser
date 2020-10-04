@@ -4139,7 +4139,7 @@ wxEventType wxNewEventType();
 
     @see @ref overview_events_custom_ownclass
  */
-#  define wxEVENT_HANDLER_CAST(functype, func)	 (&func)
+#  define wxEVENT_HANDLER_CAST(functype, func) (&func)
 /**
     This macro is used to define event table macros for handling custom
     events.

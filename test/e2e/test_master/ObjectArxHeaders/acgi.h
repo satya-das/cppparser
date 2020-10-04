@@ -895,10 +895,10 @@ public:
    Callers of setSelectionMarker should not use this range except for the values below.
    The value of 0 has special meaning and indicates no selection marker.
 */
-#  define AcGiSelectionMarkerACADReserveStart	(-2147483647 - 1)   // INT_MIN without using limits.h
-#  define AcGiSelectionMarkerACADReserveEnd	(AcGiSelectionMarkerACADReserveStart + 65535)
-#  define AcGiSelectionMarkerACADSelectionPreviewOff	(AcGiSelectionMarkerACADReserveStart + 1)   // turn off selection preview display
-#  define AcGiSelectionMarkerACADSelectionPreviewOn	(AcGiSelectionMarkerACADReserveStart + 2)   // turn on selection preview display
+#  define AcGiSelectionMarkerACADReserveStart(-2147483647 - 1)   // INT_MIN without using limits.h
+#  define AcGiSelectionMarkerACADReserveEnd(AcGiSelectionMarkerACADReserveStart + 65535)
+#  define AcGiSelectionMarkerACADSelectionPreviewOff(AcGiSelectionMarkerACADReserveStart + 1)   // turn off selection preview display
+#  define AcGiSelectionMarkerACADSelectionPreviewOn(AcGiSelectionMarkerACADReserveStart + 2)   // turn on selection preview display
 class AcGiSubEntityTraits : public AcRxObject
 {
 public:

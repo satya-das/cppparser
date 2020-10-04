@@ -47,16 +47,16 @@ static constexpr SkColor SkColorSetARGB(U8CPU a, U8CPU r, U8CPU g, U8CPU b)
 #  define SkColorSetRGB(r, g, b)	  SkColorSetARGB(0xFF, r, g, b)
 /** Returns alpha byte from color value.
 */
-#  define SkColorGetA(color)	      (((color) >> 24) & 0xFF)
+#  define SkColorGetA(color)      (((color) >> 24) & 0xFF)
 /** Returns red component of color, from zero to 255.
 */
-#  define SkColorGetR(color)	      (((color) >> 16) & 0xFF)
+#  define SkColorGetR(color)      (((color) >> 16) & 0xFF)
 /** Returns green component of color, from zero to 255.
 */
-#  define SkColorGetG(color)	      (((color) >>  8) & 0xFF)
+#  define SkColorGetG(color)      (((color) >>  8) & 0xFF)
 /** Returns blue component of color, from zero to 255.
 */
-#  define SkColorGetB(color)	      (((color) >>  0) & 0xFF)
+#  define SkColorGetB(color)      (((color) >>  0) & 0xFF)
 /** Returns unpremultiplied color with red, blue, and green set from c; and alpha set
     from a. Alpha component of c is ignored and is replaced by a in result.
 

@@ -21,7 +21,7 @@
 #  pragma  pack (push, 8)
 // Applies to both front and back clip
 //
-#  define ACDB_INFINITE_XCLIP_DEPTH	(1.0e+300)
+#  define ACDB_INFINITE_XCLIP_DEPTH(1.0e+300)
 class AcDbExtents;
 class AcDbSpatialFilter : public AcDbFilter
 {

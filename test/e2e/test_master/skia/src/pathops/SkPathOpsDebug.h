@@ -325,7 +325,7 @@ public:
   static void* CreateNameStr();
   static void DeleteNameStr(void* v);
 #    define DEBUG_FILENAME_STRING_LENGTH	64
-#    define DEBUG_FILENAME_STRING	(reinterpret_cast<char* >(SkTLS::Get(SkPathOpsDebug::CreateNameStr, \
+#    define DEBUG_FILENAME_STRING(reinterpret_cast<char* >(SkTLS::Get(SkPathOpsDebug::CreateNameStr, \
         SkPathOpsDebug::DeleteNameStr)))
   static void BumpTestName(char*);
 #  endif

@@ -17,7 +17,7 @@
 #define wxSL_INVERSE	0x1000
 #define wxSL_MIN_MAX_LABELS	0x2000
 #define wxSL_VALUE_LABEL	0x4000
-#define wxSL_LABELS	(wxSL_MIN_MAX_LABELS|wxSL_VALUE_LABEL)
+#define wxSL_LABELS(wxSL_MIN_MAX_LABELS|wxSL_VALUE_LABEL)
 /**
     @class wxSlider
 

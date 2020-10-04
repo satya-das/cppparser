@@ -23,7 +23,7 @@
 #  define UNPACK_8_24(combined, small, large)	 \
     small = (combined >> 24) & 0xFF;        \
     large = combined & MASK_24
-#  define PACK_8_24(small, large)	 ((small << 24) | large)
+#  define PACK_8_24(small, large) ((small << 24) | large)
 class SkPictureRecord : public SkCanvasVirtualEnforcer<SkCanvas>
 {
 public:

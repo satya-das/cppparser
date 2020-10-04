@@ -37,9 +37,9 @@
 #define wxHTML_INDENT_RIGHT	0x0020
 #define wxHTML_INDENT_TOP	0x0040
 #define wxHTML_INDENT_BOTTOM	0x0080
-#define wxHTML_INDENT_HORIZONTAL	(wxHTML_INDENT_LEFT | wxHTML_INDENT_RIGHT)
-#define wxHTML_INDENT_VERTICAL	(wxHTML_INDENT_TOP | wxHTML_INDENT_BOTTOM)
-#define wxHTML_INDENT_ALL	(wxHTML_INDENT_VERTICAL | wxHTML_INDENT_HORIZONTAL)
+#define wxHTML_INDENT_HORIZONTAL(wxHTML_INDENT_LEFT | wxHTML_INDENT_RIGHT)
+#define wxHTML_INDENT_VERTICAL(wxHTML_INDENT_TOP | wxHTML_INDENT_BOTTOM)
+#define wxHTML_INDENT_ALL(wxHTML_INDENT_VERTICAL | wxHTML_INDENT_HORIZONTAL)
 //--------------------------------------------------------------------------------
 // FIND CONDITIONS
 //                  Identifiers of wxHtmlCell's Find() conditions

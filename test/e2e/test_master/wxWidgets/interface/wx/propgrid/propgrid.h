@@ -192,10 +192,10 @@ wxPG_EX_TOOLBAR_SEPARATOR               = 0x08000000
 };
 /** Combines various styles.
 */
-#define wxPG_DEFAULT_STYLE	(0)
+#define wxPG_DEFAULT_STYLE(0)
 /** Combines various styles.
 */
-#define wxPGMAN_DEFAULT_STYLE	(0)
+#define wxPGMAN_DEFAULT_STYLE(0)
 /** @}
 */
 

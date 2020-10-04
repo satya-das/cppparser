@@ -89,7 +89,7 @@ struct PER_PROP_DISP_ENTRY
     {                                                                                        \
         static PER_PROP_DISP_ENTRY pPerPropDisplayArray[] =                                 \
         {
-#  define PROP_DISP_ENTRY	(dispid, progid, lpLeftIconRes, lpLeftIconType,                        \
+#  define PROP_DISP_ENTRY(dispid, progid, lpLeftIconRes, lpLeftIconType,                        \
     lpEllipsisBmpRes, lpEllipsisBmpType, textcolor,                                          \
     bFullView, dwIntegralHeight, nWeight)                                                    \
         {dispid, progid, lpLeftIconRes, lpLeftIconType, lpEllipsisBmpRes,                    \
@@ -117,7 +117,7 @@ struct CATCMDBTN_ENTRY
     {                                                                                       \
         static CATCMDBTN_ENTRY pCatCmdBtnArray[] =                                          \
         {
-#  define CATCMDBTN_MAP_ENTRY	(nId, NameId,                                                    \
+#  define CATCMDBTN_MAP_ENTRY(nId, NameId,                                                    \
                             lpEnBtnBmpRes, lpEnBtnBmpType, lpDisBtnBmpRes, lpDisBtnBmpType, \
                             nStyle, pfnBtnProc)                                             \
             {nId, static_cast<UINT>(NameId), lpEnBtnBmpRes, static_cast<UINT>(lpEnBtnBmpType), lpDisBtnBmpRes, static_cast<UINT>(lpDisBtnBmpType), nStyle, pfnBtnProc},                        
@@ -141,7 +141,7 @@ struct CMDBTN_ENTRY
     {                                                                                   \
         static CMDBTN_ENTRY pCmdBtnArray[] =                                            \
         {
-#  define CMDBTN_MAP_ENTRY	(NameId, lpEnBtnBmpRes, lpEnBtnBmpType,                         \
+#  define CMDBTN_MAP_ENTRY(NameId, lpEnBtnBmpRes, lpEnBtnBmpType,                         \
                          lpDisBtnBmpRes, lpDisBtnBmpType, nStyle, pfnBtnProc)             \
             {NameId, lpEnBtnBmpRes, lpEnBtnBmpType, lpDisBtnBmpRes, lpDisBtnBmpType, nStyle, pfnBtnProc},                        
 #  define END_CMDBTN_MAP()	                                                                \
