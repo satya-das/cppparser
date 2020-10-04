@@ -154,7 +154,16 @@ void CppWriter::emitDefine(const CppDefine* defObj, std::ostream& stm) const
 {
   stm << '#' << preproIndent_ << "define " << defObj->name_;
   if (!defObj->defn_.empty())
-    stm << '\t' << defObj->defn_;
+  {
+    const auto firstNonSpaceCharPos =
+      std::find_if(defObj->defn_.begin(), defObj->defn_.end(), [](char c) { return !std::isspace(c); });
+    if (firstNonSpaceCharPos != defObj->defn_.end())
+    {
+      if (*firstNonSpaceCharPos != '(')
+        stm << '\t';
+      stm << defObj->defn_;
+    }
+  }
   stm << '\n';
 }
 
