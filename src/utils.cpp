@@ -128,12 +128,12 @@ std::vector<CppToken> explode(CppToken token, const char* delim)
     auto* q = strstr(p, delim);
     if (q != nullptr)
     {
-      elems.push_back(CppToken {p, q - p});
+      elems.push_back(CppToken {p, static_cast<size_t>(q - p)});
       p = q + delimLen;
     }
     else
     {
-      elems.push_back(CppToken {p, token.sz + token.len - p});
+      elems.push_back(CppToken {p, static_cast<size_t>(token.sz + token.len - p)});
       break;
     }
   }
