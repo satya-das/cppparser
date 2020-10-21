@@ -121,7 +121,7 @@ inline bool isVoid(const CppVarType* varType)
   // Above simple check fails to detect cases like usage of GrGLvoid
   if (varType->baseType().length() < 4)
     return false;
-  return (strncasecmp(varType->baseType().c_str() + varType->baseType().length() - 4, "void", 4) == 0);
+  return (strncmp(varType->baseType().c_str() + varType->baseType().length() - 4, "void", 4) == 0);
 }
 
 inline bool isVoid(const std::unique_ptr<CppVarType>& varType)
