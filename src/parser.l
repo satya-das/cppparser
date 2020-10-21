@@ -34,6 +34,9 @@ For this very reason this file does not use any class that are defined in cppast
 #include "cppast.h" // To shutup the compiler
 #include "cppconst.h" // To shutup the compiler
 
+// C++17 causes problem when register is used and flex uses register in generated code
+#define register
+
 #include "cpptoken.h"
 #include "cppvarinit.h"
 #include "parser.tab.h"
