@@ -6,7 +6,7 @@ enable_testing()
 
 include("../common/cmake/conf.cmake")
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd\"4996\"")
 	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /wd\"4996\"")
 endif()
@@ -21,6 +21,19 @@ include_directories(../common/third_party)
 
 #############################################
 ## CppParser
+
+find_program(
+	FLEX
+	"flex"
+	# Assuming for Linux and OSX flex is already available
+	# Only for Windows the flex will be used from the repository
+	PATHS ENV PATH "third_party/flex_tp"
+)
+if(${FLEX} MATCHES "FLEX-NOTFOUND")
+	message(FATAL_ERROR "'flex' not found")
+else()
+	message(STATUS "Found 'flex' as ${FLEX}")
+endif()
 
 set_source_files_properties(src/parser.tab.cpp GENERATED)
 set_source_files_properties(src/parser.lex.cpp GENERATED)
@@ -38,7 +51,7 @@ add_custom_command(
 
 add_custom_command(
 	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.lex.cpp
-	COMMAND flex -o${CMAKE_CURRENT_SOURCE_DIR}/src/parser.lex.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.l
+	COMMAND ${FLEX} -o${CMAKE_CURRENT_SOURCE_DIR}/src/parser.lex.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.l
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.l ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.tab.h
 )
 
