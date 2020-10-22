@@ -15,6 +15,12 @@ matrix:
             - ubuntu-toolchain-r-test
       env:
         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+        - BADGE=linux
+
+    - os: osx
+      env:
+        - MATRIX_EVAL="CC=gcc && CXX=g++"
+        - BADGE=osx
 
 before_install:
   - eval "${MATRIX_EVAL}"
@@ -22,9 +28,10 @@ before_install:
 script:
   - git clone https://github.com/satya-das/cppparser.git
   - git clone https://github.com/satya-das/common.git
-  - mkdir -p build_results/GNU
-  - cd build_results/GNU
-  - cmake -DCMAKE_C_COMPILER=`which gcc-5` -DCMAKE_CXX_COMPILER=`which g++-5` ../../cppparser/
-  - make
-  - make test
+  - mkdir -p build
+  - cd build
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cmake -DCMAKE_C_COMPILER=`which gcc-5` -DCMAKE_CXX_COMPILER=`which g++-5` -G Ninja ../cppparser/; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cmake -G Ninja ../cppparser/; fi
+  - ninja
+  - ninja test
 
