@@ -32,6 +32,6 @@ script:
   - cd build
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cmake -DCMAKE_C_COMPILER=`which gcc-5` -DCMAKE_CXX_COMPILER=`which g++-5` -G Ninja ../cppparser/; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cmake -G Ninja ../cppparser/; fi
-  - ninja
-  - ninja test
+  - make
+  - make test
 
