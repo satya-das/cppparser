@@ -143,6 +143,8 @@ const CppTypeTreeNode* CppProgram::nameLookup(const std::string& name, const Cpp
 {
   if (name.empty())
     return &cppTypeTreeRoot_;
+  if (typeNode == nullptr)
+    typeNode = &cppTypeTreeRoot_;
   size_t nameBegPos = 0;
   size_t nameEndPos = name.find("::", nameBegPos);
   if (nameEndPos == std::string::npos)

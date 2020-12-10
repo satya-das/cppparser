@@ -67,7 +67,8 @@ public:
   /**
    * Finds the CppTypeTreeNode object corresponding to a given name.
    * @param name Name of type for which CppTypeTreeNode needs to be found.
-   * @param beginFrom CppTypeTreeNode object from where the find should begin.
+   * @param beginFrom CppTypeTreeNode object from where the find should begin. It can be nullptr, in that case the
+   * global space is looked for the name.
    * @return CppTypeTreeNode corresponding to given name.
    * \note Name can contain scope resolution operator(::).
    * \remarks
@@ -75,7 +76,7 @@ public:
    * it is searched in parent node and keeps moving upward till a match is found or type-hierarchy ends without a match.
    *    2. It is supposed to work exactly like how compiler looks for name.
    */
-  const CppTypeTreeNode* nameLookup(const std::string& name, const CppTypeTreeNode* beginFrom) const;
+  const CppTypeTreeNode* nameLookup(const std::string& name, const CppTypeTreeNode* beginFrom = nullptr) const;
   /**
    * Searches down (in breadth first manner) the CppTypeTreeNode object corresponding to a given name.
    * @param name Name of type for which CppTypeTreeNode needs to be found.
