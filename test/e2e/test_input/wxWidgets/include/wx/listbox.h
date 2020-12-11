@@ -29,7 +29,7 @@ class WXDLLIMPEXP_FWD_BASE wxArrayString;
 // global data
 // ----------------------------------------------------------------------------
 
-extern WXDLLIMPEXP_DATA_CORE(const char) wxListBoxNameStr[];
+extern WXDLLIMPEXP_CORE const char wxListBoxNameStr[];
 
 // ----------------------------------------------------------------------------
 // wxListBox interface is defined by the class wxListBoxBase

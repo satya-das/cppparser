@@ -153,7 +153,7 @@ private:
     wxDECLARE_DYNAMIC_CLASS(wxGraphicsPen);
 };
 
-extern WXDLLIMPEXP_DATA_CORE(wxGraphicsPen) wxNullGraphicsPen;
+extern WXDLLIMPEXP_CORE wxGraphicsPen wxNullGraphicsPen;
 
 class WXDLLIMPEXP_CORE wxGraphicsBrush : public wxGraphicsObject
 {
@@ -164,7 +164,7 @@ private:
     wxDECLARE_DYNAMIC_CLASS(wxGraphicsBrush);
 };
 
-extern WXDLLIMPEXP_DATA_CORE(wxGraphicsBrush) wxNullGraphicsBrush;
+extern WXDLLIMPEXP_CORE wxGraphicsBrush wxNullGraphicsBrush;
 
 class WXDLLIMPEXP_CORE wxGraphicsFont : public wxGraphicsObject
 {
@@ -175,7 +175,7 @@ private:
     wxDECLARE_DYNAMIC_CLASS(wxGraphicsFont);
 };
 
-extern WXDLLIMPEXP_DATA_CORE(wxGraphicsFont) wxNullGraphicsFont;
+extern WXDLLIMPEXP_CORE wxGraphicsFont wxNullGraphicsFont;
 
 class WXDLLIMPEXP_CORE wxGraphicsBitmap : public wxGraphicsObject
 {
@@ -201,7 +201,7 @@ private:
     wxDECLARE_DYNAMIC_CLASS(wxGraphicsBitmap);
 };
 
-extern WXDLLIMPEXP_DATA_CORE(wxGraphicsBitmap) wxNullGraphicsBitmap;
+extern WXDLLIMPEXP_CORE wxGraphicsBitmap wxNullGraphicsBitmap;
 
 class WXDLLIMPEXP_CORE wxGraphicsMatrix : public wxGraphicsObject
 {
@@ -267,7 +267,7 @@ private:
     wxDECLARE_DYNAMIC_CLASS(wxGraphicsMatrix);
 };
 
-extern WXDLLIMPEXP_DATA_CORE(wxGraphicsMatrix) wxNullGraphicsMatrix;
+extern WXDLLIMPEXP_CORE wxGraphicsMatrix wxNullGraphicsMatrix;
 
 // ----------------------------------------------------------------------------
 // wxGradientStop and wxGradientStops: Specify what intermediate colors are used
@@ -558,7 +558,7 @@ private:
     wxDECLARE_DYNAMIC_CLASS(wxGraphicsPath);
 };
 
-extern WXDLLIMPEXP_DATA_CORE(wxGraphicsPath) wxNullGraphicsPath;
+extern WXDLLIMPEXP_CORE wxGraphicsPath wxNullGraphicsPath;
 
 
 class WXDLLIMPEXP_CORE wxGraphicsContext : public wxGraphicsObject

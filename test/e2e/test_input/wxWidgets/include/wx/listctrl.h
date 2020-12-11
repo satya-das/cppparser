@@ -21,7 +21,7 @@
 // constants
 // ----------------------------------------------------------------------------
 
-extern WXDLLIMPEXP_DATA_CORE(const char) wxListCtrlNameStr[];
+extern WXDLLIMPEXP_CORE const char wxListCtrlNameStr[];
 
 // ----------------------------------------------------------------------------
 // include the wxListCtrl class declaration

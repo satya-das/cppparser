@@ -24,7 +24,7 @@
 
 
 #ifndef SWIG
-extern WXDLLIMPEXP_DATA_PROPGRID(const char) wxPropertyGridNameStr[];
+extern WXDLLIMPEXP_PROPGRID const char wxPropertyGridNameStr[];
 #endif
 
 class wxPGComboBox;
@@ -129,7 +129,7 @@ public:
     int HasExtraStyle( int style ) const { return (m_extraStyle & style); }
 };
 
-extern WXDLLIMPEXP_DATA_PROPGRID(wxPGGlobalVarsClass*) wxPGGlobalVars;
+extern WXDLLIMPEXP_PROPGRID wxPGGlobalVarsClass* wxPGGlobalVars;
 
 #define wxPGVariant_EmptyString     (wxPGGlobalVars->m_vEmptyString)
 #define wxPGVariant_Zero            (wxPGGlobalVars->m_vZero)

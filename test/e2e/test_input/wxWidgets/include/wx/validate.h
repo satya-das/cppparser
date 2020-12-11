@@ -99,7 +99,7 @@ private:
 
 #define wxVALIDATOR_PARAM(val) val
 
-extern WXDLLIMPEXP_DATA_CORE(const wxValidator) wxDefaultValidator;
+extern WXDLLIMPEXP_CORE const wxValidator wxDefaultValidator;
 
 #else // !wxUSE_VALIDATORS
     // wxWidgets is compiled without support for wxValidator, but we still

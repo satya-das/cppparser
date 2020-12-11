@@ -46,7 +46,7 @@ typedef long wxTextCoord;
 // constants
 // ----------------------------------------------------------------------------
 
-extern WXDLLIMPEXP_DATA_CORE(const char) wxTextCtrlNameStr[];
+extern WXDLLIMPEXP_CORE const char wxTextCtrlNameStr[];
 
 // this is intentionally not enum to avoid warning fixes with
 // typecasting from enum type to wxTextCoord

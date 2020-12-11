@@ -33,7 +33,7 @@ public:
     wxAcceleratorEntry* GetEntries() const;
 };
 
-extern WXDLLIMPEXP_DATA_CORE(wxAcceleratorTable) wxNullAcceleratorTable;
+extern WXDLLIMPEXP_CORE wxAcceleratorTable wxNullAcceleratorTable;
 
 #endif
 // _WX_ACCEL_H_

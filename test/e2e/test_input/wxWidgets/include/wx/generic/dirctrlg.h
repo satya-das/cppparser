@@ -28,7 +28,7 @@
 class WXDLLIMPEXP_FWD_CORE wxTextCtrl;
 class WXDLLIMPEXP_FWD_BASE wxHashTable;
 
-extern WXDLLIMPEXP_DATA_CORE(const char) wxDirDialogDefaultFolderStr[];
+extern WXDLLIMPEXP_CORE const char wxDirDialogDefaultFolderStr[];
 
 //-----------------------------------------------------------------------------
 // Extra styles for wxGenericDirCtrl
@@ -316,7 +316,7 @@ protected:
 };
 
 // The global fileicons table
-extern WXDLLIMPEXP_DATA_CORE(wxFileIconsTable *) wxTheFileIconsTable;
+extern WXDLLIMPEXP_CORE wxFileIconsTable * wxTheFileIconsTable;
 
 #endif // wxUSE_DIRDLG || wxUSE_FILEDLG || wxUSE_FILECTRL
 

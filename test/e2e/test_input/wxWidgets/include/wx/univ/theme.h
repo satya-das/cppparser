@@ -136,7 +136,7 @@ struct WXDLLIMPEXP_CORE wxThemeInfo
     WX_USE_THEME_IMPL(themename)
 
 #define WX_USE_THEME_IMPL(themename)                                        \
-    extern WXDLLIMPEXP_DATA_CORE(bool) wxThemeUse##themename;                    \
+    extern WXDLLIMPEXP_CORE bool wxThemeUse##themename;                    \
     static struct wxThemeUserFor##themename                                 \
     {                                                                       \
         wxThemeUserFor##themename() { wxThemeUse##themename = true; }       \

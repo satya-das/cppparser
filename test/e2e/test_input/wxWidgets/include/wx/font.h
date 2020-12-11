@@ -667,7 +667,7 @@ public:
                                   fontInfo.GetEncoding()); }
 };
 
-extern WXDLLIMPEXP_DATA_CORE(wxFontList*)    wxTheFontList;
+extern WXDLLIMPEXP_CORE wxFontList*    wxTheFontList;
 
 
 // provide comparison operators to allow code such as

@@ -64,7 +64,7 @@ enum
 // use of this list is strongly deprecated, use wxApp ScheduleForDestruction()
 // and IsScheduledForDestruction()  methods instead of this list directly, it
 // is here for compatibility purposes only
-extern WXDLLIMPEXP_DATA_BASE(wxList) wxPendingDelete;
+extern WXDLLIMPEXP_BASE wxList wxPendingDelete;
 
 // ----------------------------------------------------------------------------
 // wxAppConsoleBase: wxApp for non-GUI applications

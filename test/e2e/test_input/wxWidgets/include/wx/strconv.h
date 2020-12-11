@@ -601,7 +601,7 @@ public:
 // used by user code and neither should XXXPtr, use the wxConvXXX macro
 // instead.
 #define WX_DECLARE_GLOBAL_CONV(klass, name)                             \
-    extern WXDLLIMPEXP_DATA_BASE(klass*) name##Ptr;                     \
+    extern WXDLLIMPEXP_BASE klass* name##Ptr;                     \
     extern WXDLLIMPEXP_BASE klass* wxGet_##name##Ptr();                 \
     inline klass& wxGet_##name()                                        \
     {                                                                   \
@@ -639,14 +639,14 @@ WX_DECLARE_GLOBAL_CONV(wxWhateverWorksConv, wxConvWhateverWorks)
 //
 // by default UTF-8 under Mac OS X and wxConvLibc elsewhere (but it's not used
 // under Windows normally)
-extern WXDLLIMPEXP_DATA_BASE(wxMBConv *) wxConvFileName;
+extern WXDLLIMPEXP_BASE wxMBConv * wxConvFileName;
 
 // backwards compatible define
 #define wxConvFile (*wxConvFileName)
 
 // the current conversion object, may be set to any conversion, is used by
 // default in a couple of places inside wx (initially same as wxConvLibc)
-extern WXDLLIMPEXP_DATA_BASE(wxMBConv *) wxConvCurrent;
+extern WXDLLIMPEXP_BASE wxMBConv * wxConvCurrent;
 
 // the conversion corresponding to the current locale
 WX_DECLARE_GLOBAL_CONV(wxCSConv, wxConvLocal)
@@ -656,7 +656,7 @@ WX_DECLARE_GLOBAL_CONV(wxCSConv, wxConvLocal)
 //
 // by default this is the same as wxConvLocal but may be changed if the program
 // needs to use a fixed encoding
-extern WXDLLIMPEXP_DATA_BASE(wxMBConv *) wxConvUI;
+extern WXDLLIMPEXP_BASE wxMBConv * wxConvUI;
 
 #undef WX_DECLARE_GLOBAL_CONV
 

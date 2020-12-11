@@ -677,7 +677,7 @@ public:
     optimization, mostly. Implementation of this value type is
     "hidden" in the source file.
 */
-extern WXDLLIMPEXP_DATA_BASE(wxAnyValueType*) wxAnyNullValueType;
+extern WXDLLIMPEXP_BASE wxAnyValueType* wxAnyNullValueType;
 
 
 //

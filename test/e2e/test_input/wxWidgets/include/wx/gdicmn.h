@@ -1055,22 +1055,22 @@ protected:
 #define wxSTANDARD_CURSOR   wxStockGDI::GetCursor(wxStockGDI::CURSOR_STANDARD)
 
 // 'Null' objects
-extern WXDLLIMPEXP_DATA_CORE(wxBitmap)     wxNullBitmap;
-extern WXDLLIMPEXP_DATA_CORE(wxIcon)       wxNullIcon;
-extern WXDLLIMPEXP_DATA_CORE(wxCursor)     wxNullCursor;
-extern WXDLLIMPEXP_DATA_CORE(wxPen)        wxNullPen;
-extern WXDLLIMPEXP_DATA_CORE(wxBrush)      wxNullBrush;
-extern WXDLLIMPEXP_DATA_CORE(wxPalette)    wxNullPalette;
-extern WXDLLIMPEXP_DATA_CORE(wxFont)       wxNullFont;
-extern WXDLLIMPEXP_DATA_CORE(wxColour)     wxNullColour;
-extern WXDLLIMPEXP_DATA_CORE(wxIconBundle) wxNullIconBundle;
+extern WXDLLIMPEXP_CORE wxBitmap     wxNullBitmap;
+extern WXDLLIMPEXP_CORE wxIcon       wxNullIcon;
+extern WXDLLIMPEXP_CORE wxCursor     wxNullCursor;
+extern WXDLLIMPEXP_CORE wxPen        wxNullPen;
+extern WXDLLIMPEXP_CORE wxBrush      wxNullBrush;
+extern WXDLLIMPEXP_CORE wxPalette    wxNullPalette;
+extern WXDLLIMPEXP_CORE wxFont       wxNullFont;
+extern WXDLLIMPEXP_CORE wxColour     wxNullColour;
+extern WXDLLIMPEXP_CORE wxIconBundle wxNullIconBundle;
 
-extern WXDLLIMPEXP_DATA_CORE(wxColourDatabase*)  wxTheColourDatabase;
+extern WXDLLIMPEXP_CORE wxColourDatabase*  wxTheColourDatabase;
 
-extern WXDLLIMPEXP_DATA_CORE(const char) wxPanelNameStr[];
+extern WXDLLIMPEXP_CORE const char wxPanelNameStr[];
 
-extern WXDLLIMPEXP_DATA_CORE(const wxSize) wxDefaultSize;
-extern WXDLLIMPEXP_DATA_CORE(const wxPoint) wxDefaultPosition;
+extern WXDLLIMPEXP_CORE const wxSize wxDefaultSize;
+extern WXDLLIMPEXP_CORE const wxPoint wxDefaultPosition;
 
 // ---------------------------------------------------------------------------
 // global functions

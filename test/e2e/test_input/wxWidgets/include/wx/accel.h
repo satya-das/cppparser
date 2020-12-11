@@ -154,7 +154,7 @@ private:
     #include "wx/qt/accel.h"
 #endif
 
-extern WXDLLIMPEXP_DATA_CORE(wxAcceleratorTable) wxNullAcceleratorTable;
+extern WXDLLIMPEXP_CORE wxAcceleratorTable wxNullAcceleratorTable;
 
 #endif // wxUSE_ACCEL
 

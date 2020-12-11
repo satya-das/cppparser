@@ -108,7 +108,7 @@ public:
         { return FindOrCreatePen(colour, width, (wxPenStyle)style); }
 };
 
-extern WXDLLIMPEXP_DATA_CORE(wxPenList*)   wxThePenList;
+extern WXDLLIMPEXP_CORE wxPenList*   wxThePenList;
 
 // provide comparison operators to allow code such as
 //

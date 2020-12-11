@@ -149,10 +149,10 @@ WX_DECLARE_LIST_3(wxWindow, wxWindowBase, wxWindowList, wxWindowListNode, class 
 // global variables
 // ----------------------------------------------------------------------------
 
-extern WXDLLIMPEXP_DATA_CORE(wxWindowList) wxTopLevelWindows;
+extern WXDLLIMPEXP_CORE wxWindowList wxTopLevelWindows;
 
 // declared here for compatibility only, main declaration is in wx/app.h
-extern WXDLLIMPEXP_DATA_BASE(wxList) wxPendingDelete;
+extern WXDLLIMPEXP_BASE wxList wxPendingDelete;
 
 // ----------------------------------------------------------------------------
 // wxWindowBase is the base class for all GUI controls/widgets, this is the public

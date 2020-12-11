@@ -2860,7 +2860,7 @@ class  WordList;
 struct SCNotification;
 
 #ifndef SWIG
-extern WXDLLIMPEXP_DATA_STC(const char) wxSTCNameStr[];
+extern WXDLLIMPEXP_STC const char wxSTCNameStr[];
 class  WXDLLIMPEXP_FWD_STC wxStyledTextCtrl;
 class  WXDLLIMPEXP_FWD_STC wxStyledTextEvent;
 #endif

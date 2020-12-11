@@ -91,7 +91,7 @@ class WXDLLIMPEXP_FWD_BASE wxObject;
 #ifndef wxLOG_COMPONENT
     // this is a variable and not a macro in order to allow the user code to
     // just #define wxLOG_COMPONENT without #undef'ining it first
-    extern WXDLLIMPEXP_DATA_BASE(const char *) wxLOG_COMPONENT;
+    extern WXDLLIMPEXP_BASE const char * wxLOG_COMPONENT;
 
     #ifdef WXBUILDING
         #define wxLOG_COMPONENT "wx"

@@ -50,7 +50,7 @@
 // constants
 // ----------------------------------------------------------------------------
 
-extern WXDLLIMPEXP_DATA_CORE(const char) wxSearchCtrlNameStr[];
+extern WXDLLIMPEXP_CORE const char wxSearchCtrlNameStr[];
 
 wxDECLARE_EXPORTED_EVENT(WXDLLIMPEXP_CORE, wxEVT_SEARCH_CANCEL, wxCommandEvent);
 wxDECLARE_EXPORTED_EVENT(WXDLLIMPEXP_CORE, wxEVT_SEARCH, wxCommandEvent);

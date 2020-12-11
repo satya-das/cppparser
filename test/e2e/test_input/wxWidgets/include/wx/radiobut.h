@@ -51,7 +51,7 @@ private:
     wxDECLARE_NO_COPY_CLASS(wxRadioButtonBase);
 };
 
-extern WXDLLIMPEXP_DATA_CORE(const char) wxRadioButtonNameStr[];
+extern WXDLLIMPEXP_CORE const char wxRadioButtonNameStr[];
 
 #if defined(__WXUNIVERSAL__)
     #include "wx/univ/radiobut.h"

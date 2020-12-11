@@ -96,7 +96,7 @@ public:
         { return FindOrCreateBrush(colour, (wxBrushStyle)style); }
 };
 
-extern WXDLLIMPEXP_DATA_CORE(wxBrushList*)   wxTheBrushList;
+extern WXDLLIMPEXP_CORE wxBrushList*   wxTheBrushList;
 
 // provide comparison operators to allow code such as
 //

@@ -492,7 +492,7 @@ private:
 // ----------------------------------------------------------------------------
 
 // the default mime manager for wxWidgets programs
-extern WXDLLIMPEXP_DATA_BASE(wxMimeTypesManager *) wxTheMimeTypesManager;
+extern WXDLLIMPEXP_BASE wxMimeTypesManager * wxTheMimeTypesManager;
 
 #endif // wxUSE_MIMETYPE
 

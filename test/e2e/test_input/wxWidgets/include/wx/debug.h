@@ -83,7 +83,7 @@ typedef void (*wxAssertHandler_t)(const wxString& file,
 
 // the global assert handler function, if it is NULL asserts don't check their
 // conditions
-extern WXDLLIMPEXP_DATA_BASE(wxAssertHandler_t) wxTheAssertHandler;
+extern WXDLLIMPEXP_BASE wxAssertHandler_t wxTheAssertHandler;
 
 /*
     Sets the function to be called in case of assertion failure.
@@ -270,7 +270,7 @@ extern WXDLLIMPEXP_BASE void wxOnAssert(const char *file,
     // Global flag used to indicate that assert macros should call wxTrap(): it
     // is set by the default assert handler if the user answers yes to the
     // question of whether to trap.
-    extern WXDLLIMPEXP_DATA_BASE(bool) wxTrapInAssert;
+    extern WXDLLIMPEXP_BASE bool wxTrapInAssert;
 
     // This macro checks if the condition is true and calls the assert handler
     // with the provided message if it isn't and finally traps if the special
@@ -491,7 +491,7 @@ extern bool WXDLLIMPEXP_BASE wxAssertIsEqual(int x, int y);
 
 // Use of wxFalse instead of false suppresses compiler warnings about testing
 // constant expression
-extern WXDLLIMPEXP_DATA_BASE(const bool) wxFalse;
+extern WXDLLIMPEXP_BASE const bool wxFalse;
 
 #define wxAssertFailure wxFalse
 

@@ -112,7 +112,7 @@ private:
 };
 
 
-extern WXDLLIMPEXP_DATA_CORE(const wxGBSpan) wxDefaultSpan;
+extern WXDLLIMPEXP_CORE const wxGBSpan wxDefaultSpan;
 
 
 //---------------------------------------------------------------------------

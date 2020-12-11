@@ -24,7 +24,7 @@
     WX_DECLARE_EXPORTED_OBJARRAY(wxVideoMode, wxArrayVideoModes);
 
     // default, uninitialized, video mode object
-    extern WXDLLIMPEXP_DATA_CORE(const wxVideoMode) wxDefaultVideoMode;
+    extern WXDLLIMPEXP_CORE const wxVideoMode wxDefaultVideoMode;
 #endif // wxUSE_DISPLAY
 
 class WXDLLIMPEXP_FWD_CORE wxWindow;

@@ -111,6 +111,6 @@ protected:
 };
 
 // list of all frames and modeless dialogs
-//extern WXDLLIMPEXP_DATA_CORE(wxWindowList) wxModelessWindows;
+//extern WXDLLIMPEXP_CORE wxWindowList wxModelessWindows;
 
 #endif // _WX_X11_TOPLEVEL_H_

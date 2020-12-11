@@ -25,7 +25,7 @@
 class WXDLLIMPEXP_FWD_CORE wxDataViewCtrl;
 class WXDLLIMPEXP_FWD_CORE wxDataViewEvent;
 
-extern WXDLLIMPEXP_DATA_CORE(const char) wxTreeListCtrlNameStr[];
+extern WXDLLIMPEXP_CORE const char wxTreeListCtrlNameStr[];
 
 class wxTreeListCtrl;
 class wxTreeListModel;
@@ -75,8 +75,8 @@ public:
 typedef wxVector<wxTreeListItem> wxTreeListItems;
 
 // Some special "items" that can be used with InsertItem():
-extern WXDLLIMPEXP_DATA_CORE(const wxTreeListItem) wxTLI_FIRST;
-extern WXDLLIMPEXP_DATA_CORE(const wxTreeListItem) wxTLI_LAST;
+extern WXDLLIMPEXP_CORE const wxTreeListItem wxTLI_FIRST;
+extern WXDLLIMPEXP_CORE const wxTreeListItem wxTLI_LAST;
 
 // ----------------------------------------------------------------------------
 // wxTreeListItemComparator: defines order of wxTreeListCtrl items.
