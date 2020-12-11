@@ -224,6 +224,7 @@ extern int yylex();
   CppImport*              hashImport;
   CppHashIf*              hashIf;
   CppHashError*           hashError;
+  CppHashWarning*         hashWarning;
   CppPragma*              hashPragma;
 
   CppBlob*                blob;
@@ -244,7 +245,7 @@ extern int yylex();
 %token  <str>   tknExternC
 %token  <str>   tknUnRecogPrePro
 %token  <str>   tknStdHdrInclude
-%token  <str>   tknPragma tknHashError
+%token  <str>   tknPragma tknHashError tknHashWarning
 %token  <str>   tknEllipsis
 %token  <str>   tknConstCast tknStaticCast tknDynamicCast tknReinterpretCast
 %token  <str>   tknTry tknCatch tknThrow tknSizeOf
@@ -335,6 +336,7 @@ extern int yylex();
 %type  <hashImport>         import
 %type  <hashIf>             hashif
 %type  <hashError>          hasherror
+%type  <hashWarning>        hashwarning
 %type  <hashPragma>         pragma
 %type  <cppObj>             preprocessor
 
@@ -481,6 +483,7 @@ preprocessor      : define              [ZZLOG;] { $$ = $1; }
                   | import              [ZZLOG;] { $$ = $1; }
                   | hashif              [ZZLOG;] { $$ = $1; }
                   | hasherror           [ZZLOG;] { $$ = $1; }
+                  | hashwarning         [ZZLOG;] { $$ = $1; }
                   | pragma              [ZZLOG;] { $$ = $1; }
                   ;
 
@@ -639,6 +642,9 @@ hashif            : tknPreProHash tknIf tknPreProDef            [ZZLOG;]  { $$ =
                   ;
 
 hasherror         : tknPreProHash tknHashError                  [ZZLOG;]  { $$ = new CppHashError($2); }
+                  ;
+
+hashwarning       : tknPreProHash tknHashWarning                [ZZLOG;]  { $$ = new CppHashWarning($2); }
                   ;
 
 pragma            : tknPreProHash tknPragma tknPreProDef        [ZZLOG;]  { $$ = new CppPragma($3); }

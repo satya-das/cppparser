@@ -38,6 +38,7 @@ enum class CppObjType : std::uint8_t
   kHashUndef,               // #undef
   kHashPragma,              // #pragma
   kHashError,
+  kHashWarning,
   kUnRecogPrePro, // Any unrecognized pre-processor.
   kCPreProcessorTypeEnds,
 

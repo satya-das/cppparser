@@ -827,6 +827,13 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknHashError);
 }
 
+<ctxPreprocessor>warning{WS}[^\n]*{NL} {
+  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  ENDCONTEXT();
+  ++gLineNo;
+  RETURN(tknHashWarning);
+}
+
 <ctxGeneral>"::" {
   set_token_and_yyposn();
   RETURN(tknScopeResOp);

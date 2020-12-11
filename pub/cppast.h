@@ -215,6 +215,21 @@ struct CppHashError : public CppObj
 
 using CppHashErrorEPtr = CppEasyPtr<CppHashError>;
 
+struct CppHashWarning : public CppObj
+{
+  static constexpr CppObjType kObjectType = CppObjType::kHashWarning;
+
+  const std::string err_;
+
+  CppHashWarning(std::string err)
+    : CppObj(kObjectType, CppAccessType::kUnknown)
+    , err_(std::move(err))
+  {
+  }
+};
+
+using CppHashWarningEPtr = CppEasyPtr<CppHashWarning>;
+
 /**
  * Any other C/C++ preprocessor for which there is no class defined.
  */
