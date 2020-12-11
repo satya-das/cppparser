@@ -125,7 +125,7 @@ public:
     virtual bool Eq(wxVariantData& data) const wxOVERRIDE;
 
 #if wxUSE_STD_IOSTREAM
-    virtual bool Write(wxSTD ostream& str) const wxOVERRIDE;
+    virtual bool Write(std::ostream& str) const wxOVERRIDE;
 #endif
     virtual bool Write(wxString& str) const wxOVERRIDE;
 
@@ -151,7 +151,7 @@ public:
     virtual bool Eq(wxVariantData& data) const wxOVERRIDE;
 
 #if wxUSE_STD_IOSTREAM
-    virtual bool Write(wxSTD ostream& str) const wxOVERRIDE;
+    virtual bool Write(std::ostream& str) const wxOVERRIDE;
 #endif
     virtual bool Write(wxString& str) const wxOVERRIDE;
 
@@ -179,7 +179,7 @@ public:
     virtual bool Eq(wxVariantData& data) const wxOVERRIDE;
 
 #if wxUSE_STD_IOSTREAM
-    virtual bool Write(wxSTD ostream& str) const wxOVERRIDE;
+    virtual bool Write(std::ostream& str) const wxOVERRIDE;
 #endif
     virtual bool Write(wxString& str) const wxOVERRIDE;
 
