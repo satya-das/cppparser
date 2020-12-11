@@ -1835,6 +1835,8 @@ expr              : strlit                                                [ZZLOG
                     ]                                                     [ZZLOG;] { $$ = new CppExpr($1, kAnd, $3);                     }
                   | expr tknOr expr                                       [ZZLOG;] { $$ = new CppExpr($1, kOr, $3);                      }
                   | expr '.' funcname                                     [ZZLOG;] { $$ = new CppExpr($1, kDot, CppExprAtom($3));                     }
+                  // Member function pointer dereferencing
+                  | expr '.' '*' funcname                                 [ZZLOG;] { $$ = new CppExpr($1, kDot, CppExprAtom(mergeCppToken($3, $4)));                     }
                   | expr tknArrow funcname                                [ZZLOG;] { $$ = new CppExpr($1, kArrow, CppExprAtom($3));      }
                   | expr tknArrowStar funcname                            [ZZLOG;] { $$ = new CppExpr($1, kArrowStar, CppExprAtom($3));  }
                   | expr '.' '~' funcname                                 [ZZLOG;] { $$ = new CppExpr($1, kDot, CppExprAtom(mergeCppToken($3, $4)));                     }
