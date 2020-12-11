@@ -175,7 +175,19 @@ CppParser constructCppParserForTest()
                             "SK_CAPABILITY",
 
                             "PODOFO_DEPRECATED",
-                            "PODOFO_API"});
+                            "PODOFO_API",
+
+                            "WXDLLIMPEXP_ADV",
+                            "WXDLLIMPEXP_BASE",
+                            "WXDLLIMPEXP_CORE",
+                            "WXDLLIMPEXP_HTML",
+                            "WXDLLIMPEXP_NET",
+                            "WXDLLIMPEXP_PROPGRID",
+                            "WXDLLIMPEXP_QA",
+                            "WXDLLIMPEXP_STC",
+                            "WXDLLIMPEXP_WEBVIEW",
+                            "wxDEPRECATED_MSG",
+                            "wxDEPRECATED_CLASS_MSG"});
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
                          "DECLARE_DYNAMIC",
@@ -219,7 +231,15 @@ CppParser constructCppParserForTest()
                          "SHARD",
                          "SK_WHEN",
 
-                         "PODOFO_RAISE_LOGIC_IF"});
+                         "PODOFO_RAISE_LOGIC_IF",
+
+                         "WX_DECLARE_USER_EXPORTED_BASEARRAY",
+                         "WX_DEFINE_USER_EXPORTED_ARRAY_SHORT",
+                         "WX_DEFINE_USER_EXPORTED_ARRAY_INT",
+                         "WX_DEFINE_USER_EXPORTED_ARRAY_DOUBLE",
+                         "WX_DEFINE_USER_EXPORTED_ARRAY_LONG",
+                         "WX_DEFINE_USER_EXPORTED_ARRAY_PTR",
+                         "WX_DEFINE_SORTED_EXPORTED_ARRAY_CMP_INT"});
 
   parser.addIgnorableMacros({"SkDEBUGCODE",
                              "SkDEBUGPARAMS",
@@ -243,11 +263,14 @@ CppParser constructCppParserForTest()
                              "PODOFO_LOCAL",
                              "PDF_SIZE_FORMAT",
 
-                             "WXUNUSED"});
+                             "WXUNUSED",
+                             "WXDLLIMPEXP_DATA_CORE",
+                             "wxDEPRECATED_BUT_USED_INTERNALLY_INLINE"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("final", "ADESK_SEALED");
   parser.addRenamedKeyword("override", "ADESK_OVERRIDE");
+  parser.addRenamedKeyword("override", "wxOVERRIDE");
 
   return std::move(parser);
 }
