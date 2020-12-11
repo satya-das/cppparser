@@ -187,7 +187,8 @@ CppParser constructCppParserForTest()
                             "WXDLLIMPEXP_STC",
                             "WXDLLIMPEXP_WEBVIEW",
                             "wxDEPRECATED_MSG",
-                            "wxDEPRECATED_CLASS_MSG"});
+                            "wxDEPRECATED_CLASS_MSG",
+                            "wxEXTERNC"});
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
                          "DECLARE_DYNAMIC",
@@ -239,7 +240,11 @@ CppParser constructCppParserForTest()
                          "WX_DEFINE_USER_EXPORTED_ARRAY_DOUBLE",
                          "WX_DEFINE_USER_EXPORTED_ARRAY_LONG",
                          "WX_DEFINE_USER_EXPORTED_ARRAY_PTR",
-                         "WX_DEFINE_SORTED_EXPORTED_ARRAY_CMP_INT"});
+                         "WX_DEFINE_SORTED_EXPORTED_ARRAY_CMP_INT",
+
+                         "WX_DECLARE_STRING_HASH_MAP",
+                         "wxDECL_FOR_STRICT_MINGW32",
+                         "wxDECL_FOR_MINGW32_ALWAYS"});
 
   parser.addIgnorableMacros({"SkDEBUGCODE",
                              "SkDEBUGPARAMS",

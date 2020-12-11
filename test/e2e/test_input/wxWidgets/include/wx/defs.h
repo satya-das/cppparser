@@ -240,6 +240,12 @@ typedef short int WXTYPE;
 /*  ---------------------------------------------------------------------------- */
 
 #ifdef __cplusplus
+    #define wxEXTERNC extern "C"
+#else
+    #define wxEXTERNC
+#endif
+
+#ifdef __cplusplus
 
 /*  Every ride down a slippery slope begins with a single step.. */
 /*  */

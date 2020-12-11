@@ -552,10 +552,7 @@ WXDLLIMPEXP_BASE wchar_t * wxCRT_GetenvW(const wchar_t *name);
         probably be simpler to just always use our own wxCRT_StrftimeW() below
         if it does ever become a problem).
      */
-#ifdef __cplusplus
-    extern "C"
-#endif
-    size_t
+    wxEXTERNC size_t
     _xpg5_wcsftime(wchar_t *, size_t, const wchar_t *, const struct tm * );
     #define wxCRT_StrftimeW _xpg5_wcsftime
 #else
