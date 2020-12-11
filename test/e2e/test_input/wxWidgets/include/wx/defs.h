@@ -610,6 +610,12 @@ typedef short int WXTYPE;
     #define wxDEPRECATED_MSG(msg) wxDEPRECATED_DECL
 #endif
 
+#ifndef WXBUILDING
+    #define wxDEPRECATED_CLASS_MSG(msg) wxDEPRECATED_MSG(msg)
+#else
+    #define wxDEPRECATED_CLASS_MSG(msg)
+#endif
+
 /*
     Macro taking the declaration that it deprecates. Prefer to use
     wxDEPRECATED_MSG() instead as it's simpler (wrapping the entire declaration
