@@ -645,9 +645,11 @@ hashif            : tknPreProHash tknIf tknPreProDef            [ZZLOG;]  { $$ =
                   ;
 
 hasherror         : tknPreProHash tknHashError                  [ZZLOG;]  { $$ = new CppHashError($2); }
+                  | tknPreProHash tknHashError strlit           [ZZLOG;]  { $$ = new CppHashError(mergeCppToken($2, $3)); }
                   ;
 
 hashwarning       : tknPreProHash tknHashWarning                [ZZLOG;]  { $$ = new CppHashWarning($2); }
+                  | tknPreProHash tknHashWarning strlit         [ZZLOG;]  { $$ = new CppHashWarning(mergeCppToken($2, $3)); }
                   ;
 
 pragma            : tknPreProHash tknPragma tknPreProDef        [ZZLOG;]  { $$ = new CppPragma($3); }
