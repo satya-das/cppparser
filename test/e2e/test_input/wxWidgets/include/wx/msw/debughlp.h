@@ -83,7 +83,9 @@ typedef struct _IMAGEHLP_LINEW64
     DWORD    LineNumber;
     PWSTR    FileName;
     DWORD64  Address;
-} IMAGEHLP_LINEW64, *PIMAGEHLP_LINEW64;
+} IMAGEHLP_LINEW64;
+
+typedef IMAGEHLP_LINEW64 *PIMAGEHLP_LINEW64;
 
 typedef struct _SYMBOL_INFOW
 {
@@ -102,7 +104,9 @@ typedef struct _SYMBOL_INFOW
     ULONG       NameLen;
     ULONG       MaxNameLen;
     WCHAR       Name[1];
-} SYMBOL_INFOW, *PSYMBOL_INFOW;
+} SYMBOL_INFOW;
+
+typedef SYMBOL_INFOW *PSYMBOL_INFOW;
 
 typedef BOOL
 (CALLBACK *PSYM_ENUMERATESYMBOLS_CALLBACKW)(PSYMBOL_INFOW pSymInfo,

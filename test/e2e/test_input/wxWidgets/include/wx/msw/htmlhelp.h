@@ -236,13 +236,17 @@ typedef struct tagHH_ENUM_IT {
     LPCSTR pszCatName;
     LPCSTR pszITName;
     LPCSTR pszITDescription;
-} HH_ENUM_IT, *PHH_ENUM_IT;
+} HH_ENUM_IT;
+
+typedef HH_ENUM_IT *PHH_ENUM_IT;
 
 typedef struct tagHH_ENUM_CAT {
     int    cbStruct;
     LPCSTR pszCatName;
     LPCSTR pszCatDescription;
-} HH_ENUM_CAT, *PHH_ENUM_CAT;
+} HH_ENUM_CAT;
+
+typedef HH_ENUM_CAT *PHH_ENUM_CAT;
 
 typedef struct tagHH_SET_INFOTYPE {
     int    cbStruct;
@@ -339,7 +343,9 @@ typedef struct tagHH_WINTYPEA {
     RECT         rcMinSize;
     int          cbInfoTypes;
     LPCSTR       pszCustomTabs;
-} HH_WINTYPEA, *PHH_WINTYPEA;
+} HH_WINTYPEA;
+
+typedef HH_WINTYPEA *PHH_WINTYPEA;
 
 typedef struct tagHH_WINTYPEW {
     int          cbStruct;
@@ -378,7 +384,9 @@ typedef struct tagHH_WINTYPEW {
     RECT         rcMinSize;
     int          cbInfoTypes;
     LPCWSTR      pszCustomTabs;
-} HH_WINTYPEW, *PHH_WINTYPEW;
+} HH_WINTYPEW;
+
+typedef HH_WINTYPEW *PHH_WINTYPEW;
 
 #ifdef _UNICODE
 typedef HH_WINTYPEW HH_WINTYPE;

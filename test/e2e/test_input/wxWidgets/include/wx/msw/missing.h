@@ -169,7 +169,9 @@
         HBRUSH  hbrBack;
         DWORD   dwContextHelpID;
         DWORD   dwMenuData;
-    }   MENUINFO, FAR *LPMENUINFO;
+    }   MENUINFO;
+
+    typedef MENUINFO FAR *LPMENUINFO;
 #endif // MIIM_BITMAP &c
 
 // ----------------------------------------------------------------------------
