@@ -27,10 +27,16 @@
 // wxMenuItem: an item in the menu, optionally implements owner-drawn behaviour
 // ----------------------------------------------------------------------------
 
-class WXDLLIMPEXP_CORE wxMenuItem : public wxMenuItemBase
+class wxOwnerDrawnNull {};
+
 #if wxUSE_OWNER_DRAWN
-                             , public wxOwnerDrawn
+typedef wxOwnerDrawn wxOwnerDrawnParent;
+#else
+typedef wxOwnerDrawnNull wxOwnerDrawnParent;
 #endif
+
+class WXDLLIMPEXP_CORE wxMenuItem : public wxMenuItemBase
+                             , public wxOwnerDrawnParent
 {
 public:
     // ctor & dtor

@@ -20,12 +20,13 @@ class wxEventLoopSource;
 class wxFDIODispatcher;
 class wxWakeUpPipeMT;
 
-class WXDLLIMPEXP_BASE wxConsoleEventLoop
 #ifdef __WXOSX__
-: public wxCFEventLoop
+typedef wxCFEventLoop wxEventLoopParent;
 #else
-: public wxEventLoopManual
+typedef wxEventLoopManual wxEventLoopParent;
 #endif
+
+class WXDLLIMPEXP_BASE wxConsoleEventLoop : public wxEventLoopParent
 {
 public:
     // initialize the event loop, use IsOk() to check if we were successful

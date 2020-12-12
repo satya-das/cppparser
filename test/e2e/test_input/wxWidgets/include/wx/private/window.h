@@ -39,15 +39,15 @@ namespace
 
 inline bool SupportsPerMonitorDPI()
 {
-    static bool s_checkDPI =
 #if defined(__WXMSW__) && wxUSE_DYNLIB_CLASS
+    static bool s_checkDPI =
         // Only check the DPI when GetDpiForWindow is available because the old
         // method (GetDeviceCaps) is a lot slower (about 1500 times).
         // And when GetDpiForWindow is not available (for example older Windows
         // versions), per-monitor DPI (V2) is also not available.
         wxLoadedDLL("user32.dll").HasSymbol("GetDpiForWindow");
 #else
-        false;
+    static bool s_checkDPI = false;
 #endif
     return s_checkDPI;
 }

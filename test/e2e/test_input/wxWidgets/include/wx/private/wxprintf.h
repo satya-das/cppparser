@@ -397,11 +397,13 @@ bool wxPrintfConvSpec<CharType>::Parse(const CharType *format)
                 else if (ilen == 1)
                     m_type = wxPAT_LONGINT;
                 else if (ilen == 2)
+                {
 #ifdef wxLongLong_t
                     m_type = wxPAT_LONGLONGINT;
 #else // !wxLongLong_t
                     m_type = wxPAT_LONGINT;
 #endif // wxLongLong_t/!wxLongLong_t
+                }
                 else if (ilen == 3)
                     m_type = wxPAT_SIZET;
                 done = true;

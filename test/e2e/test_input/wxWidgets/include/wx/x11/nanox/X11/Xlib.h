@@ -188,7 +188,7 @@ typedef struct {
 #if defined(__cplusplus) || defined(c_plusplus)
 	int c_class;		/* C++ class of screen (monochrome, etc.) */
 #else
-	int class;		/* class of screen (monochrome, etc.) */
+	int c_class;		/* class of screen (monochrome, etc.) */
 #endif
 	unsigned long red_mask, green_mask, blue_mask;	/* mask values */
 	int bits_per_rgb;	/* log base 2 of distinct color values */
