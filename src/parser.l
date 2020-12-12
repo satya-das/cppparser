@@ -307,6 +307,14 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 /* When we are inside enum body */
 %x ctxEnumBody
 
+/* Code within and including '#if 0 ... #endif'
+   Also includes (TO BE IMPLEMENTED) the following cases:
+    '#if undefined_macro ... #endif',
+    '#ifdef undefined_macro ... #endif',
+    '#ifndef defined_macro ... #endif'
+*/
+%x ctxDisabledCode
+
 %%
 
 <ctxGeneral>^{WS}*{NL} {
@@ -800,6 +808,24 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   RETURN(tknEndIf);
+}
+
+<ctxGeneral>^{WS}*#{WS}*if/{WS}*"0" {
+  oyytext = yytext;
+  BEGINCONTEXT(ctxDisabledCode);
+}
+
+<ctxDisabledCode>. {
+}
+
+<ctxDisabledCode>{NL} {
+  ++gLineNo;
+}
+
+<ctxDisabledCode>^{WS}*#{WS}*endif[^\n]* {
+  ENDCONTEXT();
+  set_token_and_yyposn(oyytext, yytext+yyleng-oyytext, TokenSetupFlag::None);
+  RETURN(tknBlob);
 }
 
 <ctxPreprocessor>pragma/{WS} {

@@ -478,6 +478,7 @@ stmt              : vardeclstmt         [ZZLOG;] { $$ = $1; }
                   | macrocall ';'       [ZZLOG;] { $$ = new CppMacroCall(mergeCppToken($1, $2), gCurAccessType); }
                   | ';'                 [ZZLOG;] { $$ = nullptr; }  /* blank statement */
                   | asmblock            [ZZLOG;] { $$ = $1; }
+                  | blob                [ZZLOG;] { $$ = $1; }
                   ;
 
 preprocessor      : define              [ZZLOG;] { $$ = $1; }
