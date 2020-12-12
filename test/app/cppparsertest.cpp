@@ -234,6 +234,8 @@ CppParser constructCppParserForTest()
 
                          "PODOFO_RAISE_LOGIC_IF",
 
+                         "va_arg",
+
                          "WX_DECLARE_USER_EXPORTED_BASEARRAY",
                          "WX_DEFINE_USER_EXPORTED_ARRAY_SHORT",
                          "WX_DEFINE_USER_EXPORTED_ARRAY_INT",
@@ -241,10 +243,23 @@ CppParser constructCppParserForTest()
                          "WX_DEFINE_USER_EXPORTED_ARRAY_LONG",
                          "WX_DEFINE_USER_EXPORTED_ARRAY_PTR",
                          "WX_DEFINE_SORTED_EXPORTED_ARRAY_CMP_INT",
+                         "WX_DEFINE_EXPORTED_ARRAY_PTR",
+                         "WX_DEFINE_ARRAY_PTR",
+                         "WX_DEFINE_VARARG_FUNC_CTOR",
+                         "WX_DEFINE_USER_EXPORTED_ARRAY_SIZE_T",
+                         "WX_DECLARE_LIST_WITH_DECL",
+                         "WX_DECLARE_STRING_HASH_MAP_WITH_DECL",
+                         "WX_DECLARE_EXPORTED_VOIDPTR_HASH_MAP",
+                         "WX_DECLARE_USER_EXPORTED_OBJARRAY",
+                         "wxDECLARE_EXPORTED_EVENT",
+                         "DECLARE_VARIANT_OBJECT_EXPORTED",
 
                          "WX_DECLARE_STRING_HASH_MAP",
+                         "WX_DECLARE_HASH_MAP",
                          "wxDECL_FOR_STRICT_MINGW32",
-                         "wxDECL_FOR_MINGW32_ALWAYS"});
+                         "wxDECL_FOR_MINGW32_ALWAYS",
+                         "DECLARE_WXANY_CONVERSION",
+                         "wx_truncate_cast"});
 
   parser.addIgnorableMacros({"SkDEBUGCODE",
                              "SkDEBUGPARAMS",
@@ -270,12 +285,23 @@ CppParser constructCppParserForTest()
 
                              "WXUNUSED",
                              "WXDLLIMPEXP_DATA_CORE",
-                             "wxDEPRECATED_BUT_USED_INTERNALLY_INLINE"});
+                             "wxDEPRECATED_BUT_USED_INTERNALLY_INLINE",
+                             "wxTRY",
+                             "wxCATCH_ALL",
+                             "CHECK_PREC",
+                             "WXUNUSED_UNLESS_DEBUG",
+                             "wxW64",
+                             "wxDEPRECATED_INLINE",
+                             "FAR",
+                             "EMIT",
+                             "wxDEPRECATED_CONSTRUCTOR",
+                             "wxDEPRECATED"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("final", "ADESK_SEALED");
   parser.addRenamedKeyword("override", "ADESK_OVERRIDE");
   parser.addRenamedKeyword("override", "wxOVERRIDE");
+  parser.addRenamedKeyword("const", "CONST");
 
   return std::move(parser);
 }
