@@ -51,9 +51,12 @@
 
 int GetKeywordId(const std::string& keyword) {
   static const std::map<std::string, int> keywordToIdMap =
-   {{"virtual",   tknVirtual},
-    {"final",     tknFinal},
-    {"override",  tknOverride}};
+  {
+      {"virtual",   tknVirtual},
+      {"final",     tknFinal},
+      {"override",  tknOverride},
+      {"const",     tknConst}
+  };
 
   auto itr = keywordToIdMap.find(keyword);
   return (itr != keywordToIdMap.end()) ? itr->second : -1;
@@ -490,7 +493,7 @@ preprocessor      : define              [ZZLOG;] { $$ = $1; }
 asmblock          : tknAsm              [ZZLOG;] { $$ = new CppAsmBlock($1); }
                   ;
 
-macrocall         : tknMacro [ZZVALID;]
+macrocall         : tknMacro [ZZLOG;]
                   {
                     $$ = $1;
                   }
@@ -670,6 +673,8 @@ identifier        : name                                          [ZZLOG;] { $$ 
                   ;
 
 numbertype        : tknInteger                            [ZZLOG;] { $$ = $1; }
+                  | tknFloat                              [ZZLOG;] { $$ = $1; }
+                  | tknDouble                             [ZZLOG;] { $$ = $1; }
                   | tknChar                               [ZZLOG;] { $$ = $1; }
                   | tknNumSignSpec                        [ZZLOG;] { $$ = $1; }
                   | tknNumSignSpec numbertype             [ZZLOG;] { $$ = mergeCppToken($1, $2); }

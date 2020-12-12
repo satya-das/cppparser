@@ -400,6 +400,16 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknChar);
 }
 
+<ctxGeneral>long{WS}+double|double/{TS}+ {
+  set_token_and_yyposn();
+  RETURN(tknDouble);
+}
+
+<ctxGeneral>long{WS}+float|float/{TS}+ {
+  set_token_and_yyposn();
+  RETURN(tknFloat);
+}
+
 <ctxGeneral>auto/{TS}+ {
   set_token_and_yyposn();
   RETURN(tknAuto);
