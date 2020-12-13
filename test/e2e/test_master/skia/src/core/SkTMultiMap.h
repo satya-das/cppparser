@@ -76,32 +76,45 @@ public:
     ValueList* list = fHash.find(key);
         // Temporarily making this safe for remove entries not in the map because of
         // crbug.com/877915.
-#  if  0
+#if 0
         // Since we expect the caller to be fully aware of what is stored, just
         // assert that the caller removes an existing value.
-    SkASSERT(list);
-    ValueList* prev = nullptr;
-    while (list->fValue != value)
-    {
-      prev = list;
-      list = list->fNext;
-    }
-    this->internalRemove(prev, list, key);
-#  else 
-    ValueList* prev = nullptr;
-    while (list && list->fValue != value)
-    {
-      prev = list;
-      list = list->fNext;
-    }
+        SkASSERT(list);
+        ValueList* prev = nullptr;
+        while (list->fValue != value) {
+            prev = list;
+            list = list->fNext;
+        }
+        this->internalRemove(prev, list, key);
+#else
+        ValueList* prev = nullptr;
+        while (list && list->fValue != value) {
+            prev = list;
+            list = list->fNext;
+        }
         // Crash in Debug since it'd be great to detect a repro of 877915.
-    SkASSERT(list);
-    if (list)
-    {
-      this->internalRemove(prev, list, key);
-    }
-#  endif
-  }
+#if 0
+        // Since we expect the caller to be fully aware of what is stored, just
+        // assert that the caller removes an existing value.
+        SkASSERT(list);
+        ValueList* prev = nullptr;
+        while (list->fValue != value) {
+            prev = list;
+            list = list->fNext;
+        }
+        this->internalRemove(prev, list, key);
+#else
+        ValueList* prev = nullptr;
+        while (list && list->fValue != value) {
+            prev = list;
+            list = list->fNext;
+        }
+        // Crash in Debug since it'd be great to detect a repro of 877915.
+        SkASSERT(list);
+        if (list) {
+            this->internalRemove(prev, list, key);
+        }
+#endif  }
   T* find(const Key& key) const
   {
     ValueList* list = fHash.find(key);

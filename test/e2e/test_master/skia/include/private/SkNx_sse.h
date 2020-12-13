@@ -1075,19 +1075,26 @@ namespace
   template <>
   AI Sk4h SkNx_cast<uint16_t, int32_t>(const Sk4i& src)
   {
-#  if  0 && SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE41
     // TODO: This seems to be causing code generation problems.   Investigate?
     return _mm_packus_epi32(src.fVec);
-#  elif  SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSSE3
+#elif SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSSE3
     // With SSSE3, we can just shuffle the low 2 bytes from each lane right into place.
     const int _ = ~0;
-    return _mm_shuffle_epi8(src.fVec, _mm_setr_epi8(0, 1, 4, 5, 8, 9, 12, 13, _, _, _, _, _, _, _, _));
-#  else 
+    return _mm_shuffle_epi8(src.fVec, _mm_setr_epi8(0,1, 4,5, 8,9, 12,13, _,_,_,_,_,_,_,_));
+#else
+    // With SSE2, we have to sign extend our input, making _mm_packs_epi32 do the pack we want.
+#if 0 && SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE41
+    // TODO: This seems to be causing code generation problems.   Investigate?
+    return _mm_packus_epi32(src.fVec);
+#elif SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSSE3
+    // With SSSE3, we can just shuffle the low 2 bytes from each lane right into place.
+    const int _ = ~0;
+    return _mm_shuffle_epi8(src.fVec, _mm_setr_epi8(0,1, 4,5, 8,9, 12,13, _,_,_,_,_,_,_,_));
+#else
     // With SSE2, we have to sign extend our input, making _mm_packs_epi32 do the pack we want.
     __m128i x = _mm_srai_epi32(_mm_slli_epi32(src.fVec, 16), 16);
-    return _mm_packs_epi32(x, x);
-#  endif
-  }
+    return _mm_packs_epi32(x,x);
+#endif  }
   template <>
   AI Sk4h SkNx_cast<uint16_t, float>(const Sk4f& src)
   {

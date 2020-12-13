@@ -998,12 +998,14 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
      *  \returns the selected item or -1 if no item was selected
      */
     int GetSelectedItem() const;
-#  if  0
     // TODO:
-    void SetSelectedItems(...);
-    PdfArray GetSelectedItems();
-#  endif
-    /** 
+#if 0
+    // TODO:
+#error "Only allow these if multiselect is true!"
+    void SetSelectedItems( ... );
+
+    PdfArray GetSelectedItems() ;
+#endif    /** 
      * \returns true if this PdfListField is a PdfComboBox and false
      *               if it is a PdfListBox
      */

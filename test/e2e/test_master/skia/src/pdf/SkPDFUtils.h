@@ -24,12 +24,11 @@ bool SkPackedArrayEqual(T* u, T* v, size_t n)
   SkASSERT(v);
   return 0 == memcmp(u, v, n * sizeof(T));
 }
-#  if  0
-#    define PRINT_NOT_IMPL(str)	 fprintf(stderr, str)
-#  else 
-#    define PRINT_NOT_IMPL(str)
-#  endif
-#  define NOT_IMPLEMENTED(condition, assert)	                         \
+#if 0
+#define PRINT_NOT_IMPL(str) fprintf(stderr, str)
+#else
+#define PRINT_NOT_IMPL(str)
+#endif#  define NOT_IMPLEMENTED(condition, assert)	                         \
     do {                                                           \
         if ((bool)(condition)) {                                   \
             PRINT_NOT_IMPL("NOT_IMPLEMENTED: " #condition "\n");   \
