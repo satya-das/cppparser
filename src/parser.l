@@ -119,6 +119,14 @@ static void Log(int codelinenum, int srclinenum)
 
 #define RETURN(ret)	return LogAndReturn(ret, __LINE__, gLineNo)
 #define LOG() Log(__LINE__, gLineNo)
+#define INCREMENT_INPUT_LINE_NUM() \
+{\
+  if (gLexLog)  \
+  { \
+    printf("parser.l line#%4d: Incrementing gLineNo, found @input-line#%d\n", __LINE__, gLineNo); \
+  } \
+  ++gLineNo;  \
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -237,7 +245,7 @@ static void tokenize_bracketed_content(YYLessProc yylessfn)
       }
       else if (c == '\n')
       {
-        ++gLineNo;
+        INCREMENT_INPUT_LINE_NUM();
       }
     }
   }
@@ -387,12 +395,12 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>^{WS}*{NL} {
   LOG();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 
 <ctxGeneral,ctxFreeStandingBlockComment,ctxSideBlockComment>{NL} {
   LOG();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 
 <ctxPreprocessor>{ID} {
@@ -684,14 +692,14 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 <ctxSideBlockComment,ctxFreeStandingBlockComment,ctxBlockCommentInsideMacroDefn>[^*\n]*\n {
   LOG();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 <ctxSideBlockComment,ctxFreeStandingBlockComment,ctxBlockCommentInsideMacroDefn>{WS}*"*"+[^*/\n]* {
   LOG();
 }
 <ctxSideBlockComment,ctxFreeStandingBlockComment,ctxBlockCommentInsideMacroDefn>{WS}*"*"+[^*/\n]*\n {
   LOG();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 <ctxSideBlockComment,ctxFreeStandingBlockComment,ctxBlockCommentInsideMacroDefn>. {
   LOG();
@@ -845,7 +853,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   LOG();
   set_token_and_yyposn(oyytext, yytext-oyytext, TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
   if(gDefLooksLike != kNoDef)
     RETURN(gDefLooksLike);
 }
@@ -873,7 +881,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   ENDCONTEXT(); // End ctxBlockCommentInsideMacroDefn
   ENDCONTEXT(); // End ctxDefineDefn
   BEGINCONTEXT(ctxSideBlockComment);
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
   if(gDefLooksLike != kNoDef)
     RETURN(gDefLooksLike);
 }
@@ -890,7 +898,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxBlockCommentInsideMacroDefn>.*"\\"{WS}*{NL} {
   LOG();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 
 <ctxPreprocessor>undef/{WS} {
@@ -931,7 +939,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   LOG();
   set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 
 <ctxPreprocessor>if/{WS} {
@@ -989,7 +997,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxDisabledCode>{NL} {
   LOG();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 
 <ctxDisabledCode>^{WS}*#{WS}*endif[^\n]* {
@@ -1010,7 +1018,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreProBody>.*\\{WS}*{NL} {
   LOG();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 
 <ctxPreProBody>.* {
@@ -1021,7 +1029,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   LOG();
   set_token_and_yyposn(oyytext, yytext-oyytext, TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
   RETURN(tknPreProDef);
 }
 
@@ -1029,14 +1037,14 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   LOG();
   set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 
 <ctxPreprocessor>error{WS}[^\n]*{NL} {
   LOG();
   set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
   RETURN(tknHashError);
 }
 
@@ -1044,7 +1052,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   LOG();
   set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
   RETURN(tknHashWarning);
 }
 
@@ -1493,12 +1501,12 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxEnumBody>{NL} {
   LOG();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 
 <ctxEnumBody>{NL}/"}" {
   LOG();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
   setBlobToken();
   RETURN(tknBlob);
 }
@@ -1530,7 +1538,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxFunctionBody>{NL}/"}" {
   LOG();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
   if (gNestedCurlyBracketDepth == 0)
   {
     setBlobToken();
@@ -1549,7 +1557,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxFunctionBody>{NL} {
   LOG();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 
 <ctxFunctionBody>. {
@@ -1587,14 +1595,14 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxMemInitList>({NL}) {
   LOG();
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 
 <ctxMemInitList>([^a-zA-Z_]*|{NL})/"{" {
   LOG();
 
   if (yytext[0] == '\n')
-    ++gLineNo;
+    INCREMENT_INPUT_LINE_NUM();
 
   if (yytext+yyleng >= gPossibleFuncImplStartBracePosition)
   {
@@ -1649,7 +1657,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <*>\\{WS}*{NL} {
   // We will always ignore line continuation character
-  ++gLineNo;
+  INCREMENT_INPUT_LINE_NUM();
 }
 
 <*>__attribute__{WS}*\(\(.*\)\) {
