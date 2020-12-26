@@ -1924,11 +1924,11 @@ void yyerror_detailed  (  char* text,
               YYPOSN& errt_posn
             )
 {
-  extern const char* get_start_of_buffer();
+  extern const char* gInputBufferSize;
   extern int get_context();
 
   const char* lineStart = errt_posn;
-  const char* buffStart = get_start_of_buffer();
+  const char* buffStart = gInputBufferSize;
   while(lineStart > buffStart)
   {
     if(lineStart[-1] == '\n' || lineStart[-1] == '\r')
