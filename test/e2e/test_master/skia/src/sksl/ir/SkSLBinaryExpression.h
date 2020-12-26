@@ -19,27 +19,32 @@ namespace SkSL
   struct BinaryExpression : public Expression
   {
     BinaryExpression(int offset, std::unique_ptr<Expression> left, Token::Kind op, std::unique_ptr<Expression> right, const Type& type)
-      : INHERITED(offset, kBinary_Kind, type)
-      , fLeft(std::move(left))
-      , fOperator(op)
-      , fRight(std::move(right))
-    {
-    }
+      :  INHERITED(offset, kBinary_Kind, type)
+    , fLeft(std::move(left))
+    , fOperator(op)
+    , fRight(std::move(right)) 
+      {
+      }
     std::unique_ptr<Expression> constantPropagate(const IRGenerator& irGenerator, const DefinitionMap& definitions) override
     {
-      return irGenerator.constantFold(*fLeft, fOperator, *fRight);
+        return irGenerator.constantFold(*fLeft,
+                                        fOperator,
+                                        *fRight);
     }
     bool hasSideEffects() const override
     {
-      return Compiler::IsAssignment(fOperator) || fLeft->hasSideEffects() || fRight->hasSideEffects();
+        return Compiler::IsAssignment(fOperator) || fLeft->hasSideEffects() ||
+               fRight->hasSideEffects();
     }
     std::unique_ptr<Expression> clone() const override
     {
-      return std::unique_ptr<Expression>(new BinaryExpression(fOffset, fLeft->clone(), fOperator, fRight->clone(), fType));
+        return std::unique_ptr<Expression>(new BinaryExpression(fOffset, fLeft->clone(), fOperator,
+                                                                fRight->clone(), fType));
     }
     String description() const override
     {
-      return "(" + fLeft->description() + " " + Compiler::OperatorName(fOperator) + " " + fRight->description() + ")";
+        return "(" + fLeft->description() + " " + Compiler::OperatorName(fOperator) + " " +
+               fRight->description() + ")";
     }
     std::unique_ptr<Expression> fLeft;
     const Token::Kind fOperator;

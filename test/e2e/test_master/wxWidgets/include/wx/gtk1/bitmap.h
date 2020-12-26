@@ -55,29 +55,22 @@ public:
   }
   wxBitmap(int width, int height, int depth = -1)
   {
-    Create(width, height, depth);
-  }
+ Create( width, height, depth );   }
   wxBitmap(const wxSize& sz, int depth = -1)
   {
-    Create(sz, depth);
-  }
+ Create( sz, depth );   }
   wxBitmap(const char bits[], int width, int height, int depth = 1);
   wxBitmap(const char* const * bits);
   wxBitmap(const wxString& filename, wxBitmapType type = wxBITMAP_DEFAULT_TYPE);
   wxBitmap(const wxImage& image, int depth = -1, double = 1.0)
   {
-    (void) CreateFromImage(image, depth);
-  }
+ (void)CreateFromImage(image, depth);   }
   virtual ~wxBitmap();
   bool Create(int width, int height, int depth = wxBITMAP_SCREEN_DEPTH);
   bool Create(const wxSize& sz, int depth = wxBITMAP_SCREEN_DEPTH)
-  {
-    return Create(sz.GetWidth(), sz.GetHeight(), depth);
-  }
+  { return Create(sz.GetWidth(), sz.GetHeight(), depth); }
   bool Create(int width, int height, const wxDC&)
-  {
-    return Create(width, height);
-  }
+  { return Create(width,height); }
   virtual int GetHeight() const;
   virtual int GetWidth() const;
   virtual int GetDepth() const;
@@ -93,9 +86,7 @@ public:
   wxPalette* GetPalette() const;
   void SetPalette(const wxPalette& palette);
   wxPalette* GetColourMap() const
-  {
-    return GetPalette();
-  }
+  { return GetPalette(); }
 #  endif
   static void InitStandardHandlers();
     // implementation

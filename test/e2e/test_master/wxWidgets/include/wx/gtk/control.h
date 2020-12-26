@@ -20,8 +20,9 @@ public:
   wxControl();
   wxControl(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr))
   {
-    Create(parent, id, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr));
   wxVisualAttributes GetDefaultAttributes() const override;
 #  ifdef __WXGTK3__
@@ -51,9 +52,7 @@ protected:
     // Widgets that use the style->base colour for the BG colour should
     // override this and return true.
   virtual bool UseGTKStyleBase() const
-  {
-    return false;
-  }
+  { return false; }
     // Fix sensitivity due to bug in GTK+ < 2.14
   void GTKFixSensitivity(bool onlyIfUnderMouse = true);
     // Ask GTK+ for preferred size. Use it after setting the font.

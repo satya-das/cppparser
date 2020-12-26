@@ -19,18 +19,23 @@ class WXDLLIMPEXP_CORE wxRadioBox : public wxStaticBox, public wxRadioBoxBase
 public:
   wxRadioBox()
   {
-    Init();
-  }
+ Init();   }
   wxRadioBox(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr))
   {
-    Init();
-    (void) Create(parent, id, title, pos, size, n, choices, majorDim, style, val, name);
-  }
+
+        Init();
+
+        (void)Create(parent, id, title, pos, size, n, choices, majorDim,
+                     style, val, name);
+      }
   wxRadioBox(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr))
   {
-    Init();
-    (void) Create(parent, id, title, pos, size, choices, majorDim, style, val, name);
-  }
+
+        Init();
+
+        (void)Create(parent, id, title, pos, size, choices, majorDim,
+                     style, val, name);
+      }
   virtual ~wxRadioBox();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr));
@@ -77,9 +82,7 @@ public:
   {
   }
   void SetButtonFont(const wxFont& font)
-  {
-    SetFont(font);
-  }
+  { SetFont(font); }
     // implementation only from now on
     // -------------------------------
 

@@ -13,10 +13,9 @@ class SkSemaphore
 {
 public:
   SkSemaphore(int count = 0)
-    : fCount(count)
-    , fOSSemaphore(nullptr)
-  {
-  }
+    :  fCount(count), fOSSemaphore(nullptr) 
+    {
+    }
     // Cleanup the underlying OS semaphore.
   ~SkSemaphore();
     // Increment the counter n times.
@@ -46,7 +45,8 @@ private:
 };
 inline void SkSemaphore::signal(int n)
 {
-  int prev = fCount.fetch_add(n, std::memory_order_release);
+    int prev = fCount.fetch_add(n, std::memory_order_release);
+
     // We only want to call the OS semaphore when our logical count crosses
     // from <0 to >=0 (when we need to wake sleeping threads).
     //
@@ -56,19 +56,17 @@ inline void SkSemaphore::signal(int n)
     //
     // If prev >= 0, no threads are waiting, SkTMin(-prev, n) is always <= 0,
     // so we don't call the OS semaphore, leaving the count at (prev + n).
-  int toSignal = SkTMin(-prev, n);
-  if (toSignal > 0)
-  {
-    this->osSignal(toSignal);
-  }
+    int toSignal = SkTMin(-prev, n);
+    if (toSignal > 0) {
+        this->osSignal(toSignal);
+    }
 }
 inline void SkSemaphore::wait()
 {
     // Since this fetches the value before the subtract, zero and below means that there are no
     // resources left, so the thread needs to wait.
-  if (fCount.fetch_sub(1, std::memory_order_acquire) <= 0)
-  {
-    this->osWait();
-  }
+    if (fCount.fetch_sub(1, std::memory_order_acquire) <= 0) {
+        this->osWait();
+    }
 }
 #endif

@@ -26,118 +26,122 @@ public:
     // default ctor
   wxWindowIDRef()
   {
-    m_id = wxID_NONE;
-  }
+
+        m_id = wxID_NONE;
+      }
     // ctor taking id values
   wxWindowIDRef(int id)
   {
-    Init(id);
-  }
+
+        Init(id);
+      }
   wxWindowIDRef(long id)
   {
-    Init(wxWindowID(id));
-  }
+
+        Init(wxWindowID(id));
+      }
   wxWindowIDRef(const wxWindowIDRef& id)
   {
-    Init(id.m_id);
-  }
+
+        Init(id.m_id);
+      }
     // dtor
   ~wxWindowIDRef()
   {
-    Assign(wxID_NONE);
-  }
+
+        Assign(wxID_NONE);
+      }
     // assignment
   wxWindowIDRef& operator=(int id)
   {
-    Assign(id);
-    return *this;
-  }
+        Assign(id);
+        return *this;
+    }
   wxWindowIDRef& operator=(long id)
   {
-    Assign(wxWindowID(id));
-    return *this;
-  }
+        Assign(wxWindowID(id));
+        return *this;
+    }
   wxWindowIDRef& operator=(const wxWindowIDRef& id)
   {
-    if (&id != this)
-    {
-      Assign(id.m_id);
+        if (&id != this)
+            Assign(id.m_id);
+        return *this;
     }
-    return *this;
-  }
     // access to the stored id value
   wxWindowID GetValue() const
   {
-    return m_id;
-  }
+        return m_id;
+    }
   operator wxWindowID() const
   {
-    return m_id;
-  }
+
+        return m_id;
+      }
 #  if  wxUSE_AUTOID_MANAGEMENT
 private:
     // common part of all ctors: call Assign() for our new id
   void Init(wxWindowID id)
   {
         // m_id must be initialized before calling Assign()
-    m_id = wxID_NONE;
-    Assign(id);
-  }
+        m_id = wxID_NONE;
+        Assign(id);
+    }
     // increase reference count of id, decrease the one of m_id
   void Assign(wxWindowID id);
 #  else 
     // trivial stubs for the functions above
   void Init(wxWindowID id)
   {
-    m_id = id;
-  }
+        m_id = id;
+    }
   void Assign(wxWindowID id)
   {
-    m_id = id;
-  }
+        m_id = id;
+    }
 #  endif
   wxWindowID m_id;
 };
 // comparison operators
 inline bool operator==(const wxWindowIDRef& lhs, const wxWindowIDRef& rhs)
 {
-  return lhs.GetValue() == rhs.GetValue();
+    return lhs.GetValue() == rhs.GetValue();
 }
 inline bool operator==(const wxWindowIDRef& lhs, int rhs)
 {
-  return lhs.GetValue() == rhs;
+    return lhs.GetValue() == rhs;
 }
 inline bool operator==(const wxWindowIDRef& lhs, long rhs)
 {
-  return lhs.GetValue() == rhs;
+    return lhs.GetValue() == rhs;
 }
 inline bool operator==(int lhs, const wxWindowIDRef& rhs)
 {
-  return rhs == lhs;
+    return rhs == lhs;
 }
 inline bool operator==(long lhs, const wxWindowIDRef& rhs)
 {
-  return rhs == lhs;
+    return rhs == lhs;
 }
 inline bool operator!=(const wxWindowIDRef& lhs, const wxWindowIDRef& rhs)
 {
-  return !(lhs == rhs);
+    return !(lhs == rhs);
 }
 inline bool operator!=(const wxWindowIDRef& lhs, int rhs)
 {
-  return !(lhs == rhs);
+    return !(lhs == rhs);
 }
 inline bool operator!=(const wxWindowIDRef& lhs, long rhs)
 {
-  return !(lhs == rhs);
+    return !(lhs == rhs);
 }
 inline bool operator!=(int lhs, const wxWindowIDRef& rhs)
 {
-  return !(lhs == rhs);
+    return !(lhs == rhs);
 }
 inline bool operator!=(long lhs, const wxWindowIDRef& rhs)
 {
-  return !(lhs == rhs);
+    return !(lhs == rhs);
 }
 // ----------------------------------------------------------------------------
 // wxIdManager

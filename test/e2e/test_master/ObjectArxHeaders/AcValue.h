@@ -184,31 +184,29 @@ private:
     // Helper method for the inlines below
   static bool ACharAllocHelper(const AcString& sValue, ACHAR*& pszValue, bool bRet)
   {
-    pszValue = nullptr;
-    if (bRet)
-    {
-      ::acutNewString(sValue.kwszPtr(), pszValue);
+        pszValue = nullptr;
+        if (bRet)
+            ::acutNewString(sValue.kwszPtr(), pszValue);
+        return bRet;
     }
-    return bRet;
-  }
 };
 Acad::ErrorStatus acutNewString(const ACHAR* pInput, ACHAR*& pOutput);
 // This overload is deprecated. Please use the overload taking AcString & arg instead
 inline bool AcValue::get(ACHAR*& pszValue) const
 {
-  AcString sValue;
-  return ACharAllocHelper(sValue, pszValue, this->get(sValue));
+    AcString sValue;
+    return ACharAllocHelper(sValue, pszValue, this->get(sValue));
 }
 // This overload is deprecated. Please use the overload taking AcString & arg instead
 inline bool AcValue::format(ACHAR*& pszValue) const
 {
-  AcString sValue;
-  return ACharAllocHelper(sValue, pszValue, this->format(sValue));
+    AcString sValue;
+    return ACharAllocHelper(sValue, pszValue, this->format(sValue));
 }
 // This overload is deprecated. Please use the overload taking AcString & arg instead
 inline bool AcValue::format(const ACHAR* pszFormat, ACHAR*& pszValue) const
 {
-  AcString sValue;
-  return ACharAllocHelper(sValue, pszValue, this->format(pszFormat, sValue));
+    AcString sValue;
+    return ACharAllocHelper(sValue, pszValue, this->format(pszFormat, sValue));
 }
 typedef AcArray<AcValue, AcArrayObjectCopyReallocator<AcValue> > AcValueArray;

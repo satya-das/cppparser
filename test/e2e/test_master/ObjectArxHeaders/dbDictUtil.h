@@ -102,20 +102,20 @@ namespace AcDbDictUtil
     name.setEmpty();
     AcDbDictionary* pDict;
     Acad::ErrorStatus es = ::acdbOpenObject(pDict, ownerDictId, AcDb::kForRead);
-    if (es == Acad::eOk)
-    {
-      es = pDict->nameAt(itemId, name);
-      pDict->close();
+    if (es == Acad::eOk) {
+        es = pDict->nameAt(itemId, name);
+        pDict->close();
     }
     return es;
-  }
+}
 // This overload which allocates a string buffer is deprecated and will be removed
 // in a future release. Please use the one that takes an AcString & arg
   inline Acad::ErrorStatus dictionaryNameAt(ACHAR*& pName, AcDbObjectId itemId, AcDbObjectId ownerDictId)
   {
     AcString sName;
-    return ::acutAcStringToAChar(sName, pName, AcDbDictUtil::dictionaryNameAt(sName, itemId, ownerDictId));
-  }
+    return ::acutAcStringToAChar(sName, pName,
+                                 AcDbDictUtil::dictionaryNameAt(sName, itemId, ownerDictId));
+}
 // Given an item id, get the item's name in its owning dictionary
 // Note: If you already know the owner of itemId, then call the overload above
 //       avoid the overhead of opening the item to get its owner id
@@ -125,33 +125,30 @@ namespace AcDbDictUtil
     AcDbObject* pObject;
     Acad::ErrorStatus es = ::acdbOpenObject(pObject, itemId, AcDb::kForRead);
     if (es != Acad::eOk)
-    {
-      return es;
-    }
-    const AcDbObjectId dictId = pObject->ownerId();
+        return es;
+    const AcDbObjectId dictId = pObject->ownerId(); //get the owner id
     es = pObject->close();
     return AcDbDictUtil::dictionaryNameAt(name, itemId, dictId);
-  }
+}
 // This overload which allocates a string buffer is deprecated and will be removed
 // in a future release. Please use the above overloads that take an AcString & arg
   inline Acad::ErrorStatus dictionaryNameAt(ACHAR*& pName, AcDbObjectId itemId)
   {
     AcString sName;
     return ::acutAcStringToAChar(sName, pName, AcDbDictUtil::dictionaryNameAt(sName, itemId));
-  }
+}
 // Given a dictionary and a key name, retrieve the id for that entry.
   inline Acad::ErrorStatus dictionaryGetAt(AcDbObjectId& id, const ACHAR* name, AcDbObjectId ownerDictId)
   {
     id.setNull();
     AcDbDictionary* pDict;
     Acad::ErrorStatus es = ::acdbOpenObject(pDict, ownerDictId, AcDb::kForRead);
-    if (es == Acad::eOk)
-    {
-      es = pDict->getAt(name, id);
-      pDict->close();
+    if (es == Acad::eOk) {
+        es = pDict->getAt(name, id);
+        pDict->close();
     }
     return es;
-  }
+}
 // Now define functions of this form:
 //   Acad::ErrorStatus AcDbDictUtil::getGroupId(AcDbObjectId &id, const ACHAR *name,
 //                                              AcDbDatabase *pDb);

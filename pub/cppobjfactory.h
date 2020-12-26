@@ -43,7 +43,7 @@ public:
   virtual CppConstructor*   CreateConstructor(CppAccessType   accessType,
                                               std::string     name,
                                               CppParamVector* params,
-                                              CppMemInitList* memInitList,
+                                              CppMemInits     memInits,
                                               unsigned int    attr) const;
   virtual CppDestructor*    CreateDestructor(CppAccessType accessType, std::string name, unsigned int attr) const;
   virtual CppFunction*      CreateFunction(CppAccessType   accessType,

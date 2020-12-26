@@ -15,18 +15,17 @@ class GrGLSLProgramBuilder;
 #  ifdef SK_DEBUG
 static bool is_matrix(GrSLType type)
 {
-  switch(type)
-  {
-    case kFloat2x2_GrSLType:
-    case kFloat3x3_GrSLType:
-    case kFloat4x4_GrSLType:
-    case kHalf2x2_GrSLType:
-    case kHalf3x3_GrSLType:
-    case kHalf4x4_GrSLType:
-      return true;
-default:
-    return false;
-}
+    switch (type) {
+        case kFloat2x2_GrSLType:
+        case kFloat3x3_GrSLType:
+        case kFloat4x4_GrSLType:
+        case kHalf2x2_GrSLType:
+        case kHalf3x3_GrSLType:
+        case kHalf4x4_GrSLType:
+            return true;
+        default:
+            return false;
+    }
 }
 #  endif
 class GrGLSLVarying
@@ -39,54 +38,37 @@ public:
     };
   GrGLSLVarying();
   GrGLSLVarying(GrSLType type, Scope scope = Scope::kVertToFrag)
-    : fType(type)
-    , fScope(scope)
-  {
+    :  fType(type)
+        , fScope(scope) 
+    {
+
         // Metal doesn't support varying matrices, so we disallow them everywhere for consistency
-    SkASSERT(!is_matrix(type));
-  }
+        SkASSERT(!is_matrix(type));
+        }
   void reset(GrSLType type, Scope scope = Scope::kVertToFrag)
   {
         // Metal doesn't support varying matrices, so we disallow them everywhere for consistency
-    SkASSERT(!is_matrix(type));
-    *this = GrGLSLVarying();
-    fType = type;
-    fScope = scope;
-  }
+        SkASSERT(!is_matrix(type));
+        *this = GrGLSLVarying();
+        fType = type;
+        fScope = scope;
+    }
   GrSLType type() const
-  {
-    return fType;
-  }
+  { return fType; }
   Scope scope() const
-  {
-    return fScope;
-  }
+  { return fScope; }
   bool isInVertexShader() const
-  {
-    return Scope::kGeoToFrag != fScope;
-  }
+  { return Scope::kGeoToFrag != fScope; }
   bool isInFragmentShader() const
-  {
-    return Scope::kVertToGeo != fScope;
-  }
+  { return Scope::kVertToGeo != fScope; }
   const char* vsOut() const
-  {
-    SkASSERT(this->isInVertexShader());
-    return fVsOut;
-  }
+  { SkASSERT(this->isInVertexShader()); return fVsOut; }
   const char* gsIn() const
-  {
-    return fGsIn;
-  }
+  { return fGsIn; }
   const char* gsOut() const
-  {
-    return fGsOut;
-  }
+  { return fGsOut; }
   const char* fsIn() const
-  {
-    SkASSERT(this->isInFragmentShader());
-    return fFsIn;
-  }
+  { SkASSERT(this->isInFragmentShader()); return fFsIn; }
 private:
   GrSLType fType = kVoid_GrSLType;
   Scope fScope = Scope::kVertToFrag;
@@ -101,17 +83,17 @@ class GrGLSLVaryingHandler
 {
 public:
   explicit GrGLSLVaryingHandler(GrGLSLProgramBuilder* program)
-    : fVaryings(kVaryingsPerBlock)
-    , fVertexInputs(kVaryingsPerBlock)
-    , fVertexOutputs(kVaryingsPerBlock)
-    , fGeomInputs(kVaryingsPerBlock)
-    , fGeomOutputs(kVaryingsPerBlock)
-    , fFragInputs(kVaryingsPerBlock)
-    , fFragOutputs(kVaryingsPerBlock)
-    , fProgramBuilder(program)
-    , fDefaultInterpolationModifier(nullptr)
-  {
-  }
+    :  fVaryings(kVaryingsPerBlock)
+        , fVertexInputs(kVaryingsPerBlock)
+        , fVertexOutputs(kVaryingsPerBlock)
+        , fGeomInputs(kVaryingsPerBlock)
+        , fGeomOutputs(kVaryingsPerBlock)
+        , fFragInputs(kVaryingsPerBlock)
+        , fFragOutputs(kVaryingsPerBlock)
+        , fProgramBuilder(program)
+        , fDefaultInterpolationModifier(nullptr) 
+    {
+    }
   virtual ~GrGLSLVaryingHandler()
   {
   }

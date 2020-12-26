@@ -23,56 +23,57 @@ public:
   };
   wxWithImages()
   {
-    m_imageList = NULL;
-    m_ownsImageList = false;
-  }
+
+        m_imageList = NULL;
+        m_ownsImageList = false;
+      }
   virtual ~wxWithImages()
   {
-    FreeIfNeeded();
-  }
+
+        FreeIfNeeded();
+      }
     // Sets the image list to use, it is *not* deleted by the control.
   virtual void SetImageList(wxImageList* imageList)
   {
-    FreeIfNeeded();
-    m_imageList = imageList;
-  }
+        FreeIfNeeded();
+        m_imageList = imageList;
+    }
     // As SetImageList() but we will delete the image list ourselves.
   void AssignImageList(wxImageList* imageList)
   {
-    SetImageList(imageList);
-    m_ownsImageList = true;
-  }
+        SetImageList(imageList);
+        m_ownsImageList = true;
+    }
     // Get pointer (may be NULL) to the associated image list.
   wxImageList* GetImageList() const
-  {
-    return m_imageList;
-  }
+  { return m_imageList; }
 protected:
     // Return true if we have a valid image list.
   bool HasImageList() const
-  {
-    return m_imageList != NULL;
-  }
+  { return m_imageList != NULL; }
     // Return the image with the given index from the image list.
     //
     // If there is no image list or if index == NO_IMAGE, silently returns
     // wxNullIcon.
   wxIcon GetImage(int iconIndex) const
   {
-    return m_imageList && iconIndex != NO_IMAGE ? m_imageList->GetIcon(iconIndex) : wxNullIcon;
-  }
+        return m_imageList && iconIndex != NO_IMAGE
+                    ? m_imageList->GetIcon(iconIndex)
+                    : wxNullIcon;
+    }
 private:
     // Free the image list if necessary, i.e. if we own it.
   void FreeIfNeeded()
   {
-    if (m_ownsImageList)
-    {
-      delete m_imageList;
-      m_imageList = NULL;
+        if ( m_ownsImageList )
+        {
+            delete m_imageList;
+            m_imageList = NULL;
+
             // We don't own it any more.
-      m_ownsImageList = false;
+            m_ownsImageList = false;
+        }
     }
-  }
     // The associated image list or NULL.
   wxImageList* m_imageList;
     // False by default, if true then we delete m_imageList.

@@ -122,19 +122,17 @@ class WXDLLIMPEXP_CORE wxComboCtrlBase : public wxControl, public wxTextEntry
 public:
     // ctors and such
   wxComboCtrlBase()
-    : wxControl()
-    , wxTextEntry()
-  {
-    Init();
-  }
+    :  wxControl(), wxTextEntry() 
+    {
+ Init();     }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name);
   virtual ~wxComboCtrlBase();
     // Show/hide popup window (wxComboBox-compatible methods)
   virtual void Popup();
   virtual void Dismiss()
   {
-    HidePopup(true);
-  }
+        HidePopup(true);
+    }
     // Show/hide popup window.
     // TODO: Maybe deprecate in favor of Popup()/Dismiss().
     //       However, these functions are still called internally
@@ -145,37 +143,29 @@ public:
   virtual void OnButtonClick();
     // return true if the popup is currently shown
   bool IsPopupShown() const
-  {
-    return m_popupWinState == Visible;
-  }
+  { return m_popupWinState == Visible; }
     // set interface class instance derived from wxComboPopup
     // NULL popup can be used to indicate default in a derived class
   void SetPopupControl(wxComboPopup* popup)
   {
-    DoSetPopupControl(popup);
-  }
+        DoSetPopupControl(popup);
+    }
     // get interface class instance derived from wxComboPopup
   wxComboPopup* GetPopupControl()
   {
-    EnsurePopupControl();
-    return m_popupInterface;
-  }
+        EnsurePopupControl();
+        return m_popupInterface;
+    }
     // get the popup window containing the popup control
   wxWindow* GetPopupWindow() const
-  {
-    return m_winPopup;
-  }
+  { return m_winPopup; }
     // Get the text control which is part of the combobox.
   wxTextCtrl* GetTextCtrl() const
-  {
-    return m_text;
-  }
+  { return m_text; }
     // get the dropdown button which is part of the combobox
     // note: its not necessarily a wxButton or wxBitmapButton
   wxWindow* GetButton() const
-  {
-    return m_btn;
-  }
+  { return m_btn; }
     // forward these methods to all subcontrols
   bool Enable(bool enable = true) override;
   bool Show(bool show = true) override;
@@ -247,16 +237,16 @@ public:
     // * Custom popup may choose to ignore this (wxOwnerDrawnComboBox does not).
   void SetPopupMinWidth(int width)
   {
-    m_widthMinPopup = width;
-  }
+        m_widthMinPopup = width;
+    }
     // Sets preferred maximum height of the popup.
     // Remarks:
     // * Value -1 indicates the default.
     // * Custom popup may choose to ignore this (wxOwnerDrawnComboBox does not).
   void SetPopupMaxHeight(int height)
   {
-    m_heightPopup = height;
-  }
+        m_heightPopup = height;
+    }
     // Extends popup size horizontally, relative to the edges of the combo control.
     // Remarks:
     // * Popup minimum width may override extLeft (ie. it has higher precedence).
@@ -264,25 +254,23 @@ public:
     // * Custom popup may not take this fully into account (wxOwnerDrawnComboBox takes).
   void SetPopupExtents(int extLeft, int extRight)
   {
-    m_extLeft = extLeft;
-    m_extRight = extRight;
-  }
+        m_extLeft = extLeft;
+        m_extRight = extRight;
+    }
     // Set width, in pixels, of custom paint area in writable combo.
     // In read-only, used to indicate area that is not covered by the
     // focus rectangle (which may or may not be drawn, depending on the
     // popup type).
   void SetCustomPaintWidth(int width);
   int GetCustomPaintWidth() const
-  {
-    return m_widthCustomPaint;
-  }
+  { return m_widthCustomPaint; }
     // Set side of the control to which the popup will align itself.
     // Valid values are wxLEFT, wxRIGHT and 0. The default value 0 wmeans
     // that the side of the button will be used.
   void SetPopupAnchor(int anchorSide)
   {
-    m_anchorSide = anchorSide;
-  }
+        m_anchorSide = anchorSide;
+    }
     // Set position of dropdown button.
     //   width: button width. <= 0 for default.
     //   height: button height. <= 0 for default.
@@ -317,36 +305,30 @@ public:
     // Returns area covered by the text field.
   const wxRect& GetTextRect() const
   {
-    return m_tcArea;
-  }
+        return m_tcArea;
+    }
     // Call with enable as true to use a type of popup window that guarantees ability
     // to focus the popup control, and normal function of common native controls.
     // This alternative popup window is usually a wxDialog, and as such it's parent
     // frame will appear as if the focus has been lost from it.
   void UseAltPopupWindow(bool enable = true)
   {
-    wxASSERT_MSG(!m_winPopup, wxT("call this only before SetPopupControl"));
-    if (enable)
-    {
-      m_iFlags |= wxCC_IFLAG_USE_ALT_POPUP;
+        wxASSERT_MSG( !m_winPopup,
+                      wxT("call this only before SetPopupControl") );
+
+        if ( enable )
+            m_iFlags |= wxCC_IFLAG_USE_ALT_POPUP;
+        else
+            m_iFlags &= ~wxCC_IFLAG_USE_ALT_POPUP;
     }
-    else 
-    {
-      m_iFlags &= ~wxCC_IFLAG_USE_ALT_POPUP;
-    }
-  }
     // Call with false to disable popup animation, if any.
   void EnablePopupAnimation(bool enable = true)
   {
-    if (enable)
-    {
-      m_iFlags &= ~wxCC_IFLAG_DISABLE_POPUP_ANIM;
+        if ( enable )
+            m_iFlags &= ~wxCC_IFLAG_DISABLE_POPUP_ANIM;
+        else
+            m_iFlags |= wxCC_IFLAG_DISABLE_POPUP_ANIM;
     }
-    else 
-    {
-      m_iFlags |= wxCC_IFLAG_DISABLE_POPUP_ANIM;
-    }
-  }
     //
     // Utilities needed by the popups or native implementations
     //
@@ -372,39 +354,29 @@ public:
     // Returns true if focus indicator should be drawn in the control.
   bool ShouldDrawFocus() const
   {
-    const wxWindow* curFocus = FindFocus();
-    return (IsPopupWindowState(Hidden) && (curFocus == m_mainCtrlWnd || (m_btn && curFocus == m_btn)) && (m_windowStyle & wxCB_READONLY));
-  }
+        const wxWindow* curFocus = FindFocus();
+        return ( IsPopupWindowState(Hidden) &&
+                 (curFocus == m_mainCtrlWnd || (m_btn && curFocus == m_btn)) &&
+                 (m_windowStyle & wxCB_READONLY) );
+    }
     // These methods return references to appropriate dropbutton bitmaps
   const wxBitmap& GetBitmapNormal() const
-  {
-    return m_bmpNormal;
-  }
+  { return m_bmpNormal; }
   const wxBitmap& GetBitmapPressed() const
-  {
-    return m_bmpPressed;
-  }
+  { return m_bmpPressed; }
   const wxBitmap& GetBitmapHover() const
-  {
-    return m_bmpHover;
-  }
+  { return m_bmpHover; }
   const wxBitmap& GetBitmapDisabled() const
-  {
-    return m_bmpDisabled;
-  }
+  { return m_bmpDisabled; }
     // Set custom style flags for embedded wxTextCtrl. Usually must be used
     // with two-step creation, before Create() call.
   void SetTextCtrlStyle(int style);
     // Return internal flags
   wxUint32 GetInternalFlags() const
-  {
-    return m_iFlags;
-  }
+  { return m_iFlags; }
     // Return true if Create has finished
   bool IsCreated() const
-  {
-    return m_iFlags & wxCC_IFLAG_CREATED ? true : false;
-  }
+  { return m_iFlags & wxCC_IFLAG_CREATED ? true : false; }
     // Need to override to return text area background colour
   wxColour GetBackgroundColour() const;
     // common code to be called on popup hide/dismiss
@@ -418,18 +390,12 @@ public:
     Visible = 3
   };
   bool IsPopupWindowState(int state) const
-  {
-    return (state == m_popupWinState) ? true : false;
-  }
+  { return (state == m_popupWinState) ? true : false; }
   wxByte GetPopupWindowState() const
-  {
-    return m_popupWinState;
-  }
+  { return m_popupWinState; }
     // Set value returned by GetMainWindowOfCompositeControl
   void SetCtrlMainWnd(wxWindow* wnd)
-  {
-    m_mainCtrlWnd = wnd;
-  }
+  { m_mainCtrlWnd = wnd; }
     // This is public so we can access it from wxComboCtrlTextCtrl
   wxWindow* GetMainWindowOfCompositeControl() override
   {
@@ -442,8 +408,12 @@ protected:
     // Returns true if hint text should be drawn in the control
   bool ShouldUseHintText(int flags = 0) const
   {
-    return (!m_text && !(flags & wxCONTROL_ISSUBMENU) && m_valueString.empty() && !m_hintText.empty() && !ShouldDrawFocus());
-  }
+        return ( !m_text &&
+                 !(flags & wxCONTROL_ISSUBMENU) &&
+                 m_valueString.empty() &&
+                 !m_hintText.empty() &&
+                 !ShouldDrawFocus() );
+    }
     //
     // Override these for customization purposes
     //
@@ -514,9 +484,7 @@ protected:
   void OnCharEvent(wxKeyEvent& event);
     // Set customization flags (directs how wxComboCtrlBase helpers behave)
   void Customize(wxUint32 flags)
-  {
-    m_iFlags |= flags;
-  }
+  { m_iFlags |= flags; }
     // Dispatches size event and refreshes
   void RecalcAndRefresh();
     // Flags for DoShowPopup and AnimateShow
@@ -649,16 +617,16 @@ class WXDLLIMPEXP_CORE wxComboPopup
 public:
   wxComboPopup()
   {
-    m_combo = NULL;
-    m_iFlags = 0;
-  }
+
+        m_combo = NULL;
+        m_iFlags = 0;
+      }
     // This is called immediately after construction finishes. m_combo member
     // variable has been initialized before the call.
     // NOTE: It is not in constructor so the derived class doesn't need to redefine
     //       a default constructor of its own.
   virtual void Init()
-  {
-  }
+  { }
   virtual ~wxComboPopup();
     // Create the popup child control.
     // Return true for success.
@@ -718,8 +686,8 @@ public:
     // Returns true if Create has been called.
   bool IsCreated() const
   {
-    return (m_iFlags & wxCP_IFLAG_CREATED) ? true : false;
-  }
+        return (m_iFlags & wxCP_IFLAG_CREATED) ? true : false;
+    }
     // Returns pointer to the associated parent wxComboCtrl.
   wxComboCtrl* GetComboCtrl() const;
     // Default PaintComboControl behaviour
@@ -731,8 +699,8 @@ private:
     // Called in wxComboCtrlBase::SetPopupControl
   void InitBase(wxComboCtrlBase* combo)
   {
-    m_combo = combo;
-  }
+        m_combo = combo;
+    }
 };
 // ----------------------------------------------------------------------------
 // include the platform-dependent header defining the real class

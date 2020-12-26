@@ -89,13 +89,11 @@ public:
 ///
   const wchar_t* name() const
   {
-    const wchar_t* pName;
-    if (this->getName(pName) != Acad::eOk)
-    {
-      pName = nullptr;
+        const wchar_t *pName;
+        if (this->getName(pName) != Acad::eOk)
+            pName = nullptr;
+        return pName;
     }
-    return pName;
-  }
   Acad::ErrorStatus setName(const ACHAR* newName);
   bool isNotAccessible() const;
   bool isAnonymous() const;

@@ -211,8 +211,8 @@ public:
   template <size_t nBufLen>
   inline bool GetFullPath(wchar_t (& buf)[nBufLen]) const
   {
-    return this->GetFullPath(buf, nBufLen);
-  }
+            return this->GetFullPath(buf, nBufLen);
+        }
         // Returns the UNC path if 'this' represents a remote drive. Otherwise,
         // returns NULL.
   void GetFullUNCPath(AcString&) const;
@@ -345,42 +345,50 @@ private:
 // inline definitions
 inline CAdUiPathname::CAdUiPathname(const CAdUiPathname& pathSrc)
 {
-  m_pathbuffer = nullptr;
-  m_relpath = nullptr;
-  AssignCopy(pathSrc);
+
+        m_pathbuffer = nullptr;
+        m_relpath = nullptr;
+
+        AssignCopy( pathSrc );
 }
 inline path_type CAdUiPathname::GetPathType(void) const
 {
-  return m_this_type;
+        return m_this_type;
 }
 inline bool CAdUiPathname::IsPath(void) const
 {
-  return ((m_this_type == FILE_PATH) || (m_this_type == DIR_PATH) || (m_this_type == NEW_PATH) || (m_this_type == WC_PATH));
+        return ((m_this_type == FILE_PATH)
+                || (m_this_type == DIR_PATH)
+                || (m_this_type == NEW_PATH) 
+                || (m_this_type == WC_PATH) );
+        
 }
 inline bool CAdUiPathname::IsEmpty(void) const
 {
-  return (m_this_type == NO_PATH);
+        return (m_this_type == NO_PATH);
 }
 inline const CAdUiVolumeDescriptor* CAdUiPathname::GetVolumeDescriptor(void) const
 {
-  return m_pvolume;
+        return m_pvolume;
 }
 inline bool CAdUiPathname::HadPrefix(void) const
 {
-  return m_had_prefix;
+        return m_had_prefix;
 }
 inline const CAdUiPathname& CAdUiPathname::operator=(const CAdUiPathname& pathSrc)
 {
-  AssignCopy(pathSrc);
-  return *this;
+        AssignCopy( pathSrc);
+
+        return *this;
 }
 inline const CAdUiPathname& CAdUiPathname::operator=(const CAdUiPathname* pathSrc)
 {
-  AssignCopy ( *pathSrc);
-  return *this;
+        AssignCopy( *pathSrc);
+
+        return *this;
 }
 inline bool CAdUiPathname::WasRoot(void) const
 {
-  return (m_path_cat == ROOT_TYPE);
+    return (m_path_cat == ROOT_TYPE);
 }
 #pragma  pack (pop)

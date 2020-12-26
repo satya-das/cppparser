@@ -16,11 +16,12 @@ class WXDLLIMPEXP_CORE wxControl : public wxControlBase
 public:
   wxControl()
   {
-  }
+   }
   wxControl(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr))
   {
-    Create(parent, id, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr));
     // Simulates an event
   void Command(wxCommandEvent& event) override
@@ -40,17 +41,11 @@ public:
   bool MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM* result) override;
     // For ownerdraw items
   virtual bool MSWOnDraw(WXDRAWITEMSTRUCT*)
-  {
-    return false;
-  }
+  { return false; }
   virtual bool MSWOnMeasure(WXMEASUREITEMSTRUCT*)
-  {
-    return false;
-  }
+  { return false; }
   const wxArrayLong& GetSubcontrols() const
-  {
-    return m_subControls;
-  }
+  { return m_subControls; }
     // default handling of WM_CTLCOLORxxx: this is public so that wxWindow
     // could call it
   virtual WXHBRUSH MSWControlColor(WXHDC pDC, WXHWND hWnd);
@@ -62,9 +57,7 @@ protected:
     // automatically in response to WM_SETTINGCHANGE if it's changed in the
     // display properties in the control panel, so avoid doing this for them.
   virtual bool MSWShouldSetDefaultFont() const
-  {
-    return true;
-  }
+  { return true; }
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override;
     // return default best size (doesn't really make any sense, override this)

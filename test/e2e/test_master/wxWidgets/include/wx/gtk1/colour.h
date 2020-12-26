@@ -32,9 +32,7 @@ public:
   virtual bool FromString(const wxString& str);
   bool operator==(const wxColour& col) const;
   bool operator!=(const wxColour& col) const
-  {
-    return !(*this == col);
-  }
+  { return !(*this == col); }
   unsigned char Red() const;
   unsigned char Green() const;
   unsigned char Blue() const;

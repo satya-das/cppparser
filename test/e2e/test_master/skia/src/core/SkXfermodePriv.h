@@ -28,15 +28,14 @@ public:
      */
   static SkXfermode* Peek(SkBlendMode mode)
   {
-    sk_sp<SkXfermode> xfer = Make(mode);
-    if (!xfer)
-    {
-      SkASSERT(SkBlendMode::kSrcOver == mode);
-      return nullptr;
+        sk_sp<SkXfermode> xfer = Make(mode);
+        if (!xfer) {
+            SkASSERT(SkBlendMode::kSrcOver == mode);
+            return nullptr;
+        }
+        SkASSERT(!xfer->unique());
+        return xfer.get();
     }
-    SkASSERT(!xfer->unique());
-    return xfer.get();
-  }
   enum SrcColorOpacity {
         // The src color is known to be opaque (alpha == 255)
         kOpaque_SrcColorOpacity = 0,

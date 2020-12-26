@@ -29,9 +29,7 @@ public:
     // Get/set the value
   void SetValue(bool state);
   bool GetValue() const
-  {
-    return m_value;
-  }
+  { return m_value; }
 protected:
   wxBorder GetDefaultBorder() const override
   {

@@ -24,9 +24,7 @@ public:
     // mark this to be deleted
   virtual void MarkForDeletion();
   virtual bool IsMarkedForDeletion() const
-  {
-    return m_markedForDeletion;
-  }
+  { return m_markedForDeletion; }
     // does the true work of stopping and cleaning up
   virtual void DoStop() = 0;
 protected:
@@ -45,9 +43,7 @@ public:
     // Create from data
   bool Create(size_t size, const void* data);
   bool IsOk() const
-  {
-    return m_data != NULL;
-  }
+  { return m_data != NULL; }
     // Stop playing any sound
   static void Stop();
     // Returns true if a sound is being played

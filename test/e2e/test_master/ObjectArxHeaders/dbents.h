@@ -87,9 +87,7 @@ public:
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
   Adesk::Boolean isPlanar() const override
-  {
-    return Adesk::kTrue;
-  }
+  { return Adesk::kTrue; }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
   double thickness() const;
   Acad::ErrorStatus setThickness(double);
@@ -148,7 +146,7 @@ protected:
 // responsible for freeing. Please use the other overload, taking an (AcString &) arg
 inline ACHAR* AcDbText::textString() const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbText::textString);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbText::textString);
 }
 class AcDbAttributeDefinition : public AcDbText
 {
@@ -193,13 +191,13 @@ protected:
 // responsible for freeing. Please use the other overload, taking an (AcString &) arg
 inline ACHAR* AcDbAttributeDefinition::prompt() const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbAttributeDefinition::prompt);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbAttributeDefinition::prompt);
 }
 // This overload is deprecated. It allocates a char buffer that the caller is
 // responsible for freeing. Please use the other overload, taking an (AcString &) arg
 inline ACHAR* AcDbAttributeDefinition::tag() const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbAttributeDefinition::tag);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbAttributeDefinition::tag);
 }
 class AcDbAttribute : public AcDbText
 {
@@ -239,7 +237,7 @@ protected:
 // responsible for freeing. Please use the other overload, taking an (AcString &) arg
 inline ACHAR* AcDbAttribute::tag() const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbAttribute::tag);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbAttribute::tag);
 }
 class AcDbBlockReference : public AcDbEntity
 {
@@ -260,9 +258,7 @@ public:
   AcGeVector3d normal() const;
   virtual Acad::ErrorStatus setNormal(const AcGeVector3d& newVal);
   Adesk::Boolean isPlanar() const override
-  {
-    return Adesk::kTrue;
-  }
+  { return Adesk::kTrue; }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
   AcGeMatrix3d blockTransform() const;
   AcGeMatrix3d nonAnnotationBlockTransform() const;
@@ -329,6 +325,7 @@ public:
 //
 inline AcDbVertex::~AcDbVertex()
 {
+
 }
 class AcDb2dVertex : public AcDbVertex
 {
@@ -462,21 +459,21 @@ protected:
 };
 inline Adesk::Boolean AcDb2dPolyline::isPeriodic() const
 {
-  return Adesk::kFalse;
+    return Adesk::kFalse;
 }
 inline Adesk::Boolean AcDb2dPolyline::isPlanar() const
 {
-  return Adesk::kTrue;
+    return Adesk::kTrue;
 }
 inline Acad::ErrorStatus AcDb2dPolyline::getStartParam(double& param) const
 {
-  param = 0.0;
-  return Acad::eOk;
+    param = 0.0;
+    return Acad::eOk;
 }
 inline Acad::ErrorStatus AcDb2dPolyline::extend(double param)
 {
-  param;
-  return Acad::eNotApplicable;
+    param;      // avoid unreferenced formal parameter warning
+    return Acad::eNotApplicable;
 }
 class AcDb3dPolyline : public AcDbCurve
 {
@@ -511,18 +508,18 @@ protected:
 };
 inline Adesk::Boolean AcDb3dPolyline::isPeriodic() const
 {
-  return Adesk::kFalse;
+    return Adesk::kFalse;
 }
 inline Acad::ErrorStatus AcDb3dPolyline::getStartParam(double& param) const
 {
-  param = 0.0;
-  return Acad::eOk;
+    param = 0.0;
+    return Acad::eOk;
 }
 inline Acad::ErrorStatus AcDb3dPolyline::extend(double newparam)
 {
-  newparam;
+    newparam;   // avoid unreferenced formal parameter warning
     // extending a pline based on a parameter is not supported.
-  return Acad::eNotApplicable;
+    return Acad::eNotApplicable;
 }
 class AcDbArc : public AcDbCurve
 {
@@ -552,15 +549,15 @@ protected:
 };
 inline Adesk::Boolean AcDbArc::isClosed() const
 {
-  return Adesk::kFalse;
+    return Adesk::kFalse;
 }
 inline Adesk::Boolean AcDbArc::isPeriodic() const
 {
-  return Adesk::kFalse;
+    return Adesk::kFalse;
 }
 inline Adesk::Boolean AcDbArc::isPlanar() const
 {
-  return Adesk::kTrue;
+    return Adesk::kTrue;
 }
 class AcDbCircle : public AcDbCurve
 {
@@ -587,28 +584,28 @@ protected:
 };
 inline Adesk::Boolean AcDbCircle::isClosed() const
 {
-  return Adesk::kTrue;
+    return Adesk::kTrue;
 }
 inline Adesk::Boolean AcDbCircle::isPeriodic() const
 {
-  return Adesk::kTrue;
+    return Adesk::kTrue;
 }
 inline Adesk::Boolean AcDbCircle::isPlanar() const
 {
-  return Adesk::kTrue;
+    return Adesk::kTrue;
 }
 inline Acad::ErrorStatus AcDbCircle::getStartParam(double& p) const
 {
-  p = 0.0;
-  return Acad::eOk;
+    p = 0.0;
+    return Acad::eOk;
 }
 inline Acad::ErrorStatus AcDbCircle::extend(double)
 {
-  return Acad::eNotApplicable;
+    return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbCircle::extend(Adesk::Boolean, const AcGePoint3d&)
 {
-  return Acad::eNotApplicable;
+    return Acad::eNotApplicable;
 }
 class AcDbLine : public AcDbCurve
 {
@@ -632,20 +629,20 @@ protected:
 };
 inline Adesk::Boolean AcDbLine::isClosed() const
 {
-  return Adesk::kFalse;
+    return Adesk::kFalse;
 }
 inline Adesk::Boolean AcDbLine::isPeriodic() const
 {
-  return Adesk::kFalse;
+    return Adesk::kFalse;
 }
 inline Adesk::Boolean AcDbLine::isPlanar() const
 {
-  return Adesk::kTrue;
+    return Adesk::kTrue;
 }
 inline Acad::ErrorStatus AcDbLine::getStartParam(double& v1) const
 {
-  v1 = 0.0;
-  return Acad::eOk;
+    v1 = 0.0;
+    return Acad::eOk;
 }
 class AcDbPoint : public AcDbEntity
 {
@@ -664,9 +661,7 @@ public:
   Acad::ErrorStatus setEcsRotation(double);
     // AcDbEntity overrides
   Adesk::Boolean isPlanar() const override
-  {
-    return Adesk::kTrue;
-  }
+  { return Adesk::kTrue; }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
@@ -780,9 +775,7 @@ public:
   double elevation() const;
   void setElevation(double);
   Adesk::Boolean isPlanar() const override
-  {
-    return Adesk::kTrue;
-  }
+  { return Adesk::kTrue; }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
@@ -812,9 +805,7 @@ public:
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
   Adesk::Boolean isPlanar() const override
-  {
-    return Adesk::kTrue;
-  }
+  { return Adesk::kTrue; }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
   Adesk::Int16 shapeNumber() const;
   Acad::ErrorStatus setShapeNumber(Adesk::Int16);
@@ -822,13 +813,9 @@ public:
   Acad::ErrorStatus setStyleId(AcDbObjectId id);
     // Obsolete names for the "shape style id" get/set methods:
   AcDbObjectId shapeIndex() const
-  {
-    return this->styleId();
-  }
+  { return this->styleId(); }
   Acad::ErrorStatus setShapeIndex(AcDbObjectId id)
-  {
-    return this->setStyleId(id);
-  }
+  { return this->setStyleId(id); }
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
@@ -837,7 +824,7 @@ protected:
 //
 inline ACHAR* AcDbShape::name() const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbShape::name);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbShape::name);
 }
 typedef struct tagBITMAPINFO BITMAPINFO;
 class AcDbViewport : public AcDbEntity
@@ -951,17 +938,11 @@ public:
   Acad::ErrorStatus setUcsIconAtCorner();
   ACDBCORE2D_PORT Acad::ErrorStatus setUcsIconAtOrigin(bool);
   bool isFastZoomOn() const
-  {
-    return true;
-  }
+  { return true; }
   Acad::ErrorStatus setFastZoomOn()
-  {
-    return Acad::eOk;
-  }
+  { return Acad::eOk; }
   Acad::ErrorStatus setFastZoomOff()
-  {
-    return Acad::eOk;
-  }
+  { return Acad::eOk; }
   ACDBCORE2D_PORT Acad::ErrorStatus setFastZoomOn(bool);
   Adesk::UInt16 circleSides() const;
   Acad::ErrorStatus setCircleSides(Adesk::UInt16);
@@ -1150,7 +1131,7 @@ protected:
 //
 inline Acad::ErrorStatus AcDbViewport::plotStyleSheet(ACHAR*& pName) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbViewport::plotStyleSheet, pName);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbViewport::plotStyleSheet, pName);
 }
 #  pragma  pack(pop)
 #endif

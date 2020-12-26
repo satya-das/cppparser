@@ -57,6 +57,6 @@ bool SkGenerateDistanceFieldFromBWImage(unsigned char* distanceField, const unsi
  */
 inline size_t SkComputeDistanceFieldSize(int w, int h)
 {
-  return (w + 2 * SK_DistanceFieldPad) * (h + 2 * SK_DistanceFieldPad) * sizeof(unsigned char);
+    return (w + 2*SK_DistanceFieldPad) * (h + 2*SK_DistanceFieldPad) * sizeof(unsigned char);
 }
 #endif

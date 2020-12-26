@@ -47,25 +47,15 @@ public:
     // implementation from now on
     // --------------------------
   WXGC GetGC() const
-  {
-    return m_gc;
-  }
+  { return m_gc; }
   WXGC GetBackingGC() const
-  {
-    return m_gcBacking;
-  }
+  { return m_gcBacking; }
   WXDisplay* GetDisplay() const
-  {
-    return m_display;
-  }
+  { return m_display; }
   bool GetAutoSetting() const
-  {
-    return (m_autoSetting != 0);
-  }
+  { return (m_autoSetting != 0); }
   void SetAutoSetting(bool flag)
-  {
-    m_autoSetting = flag;
-  }
+  { m_autoSetting = flag; }
 protected:
     // note that this function will call colour.SetPixel,
     // and will do one of curCol = colour, curCol = wxWHITE, curCol = wxBLACK
@@ -124,9 +114,9 @@ class WXDLLIMPEXP_CORE wxPaintDCImpl : public wxWindowDCImpl
 {
 public:
   wxPaintDCImpl(wxDC* owner)
-    : wxWindowDCImpl(owner)
-  {
-  }
+    :  wxWindowDCImpl(owner) 
+    {
+     }
   wxPaintDCImpl(wxDC* owner, wxWindow* win);
   virtual ~wxPaintDCImpl();
   wxDECLARE_DYNAMIC_CLASS(wxPaintDCImpl);
@@ -135,13 +125,13 @@ class WXDLLIMPEXP_CORE wxClientDCImpl : public wxWindowDCImpl
 {
 public:
   wxClientDCImpl(wxDC* owner)
-    : wxWindowDCImpl(owner)
-  {
-  }
+    :  wxWindowDCImpl(owner) 
+    {
+     }
   wxClientDCImpl(wxDC* owner, wxWindow* win)
-    : wxWindowDCImpl(owner, win)
-  {
-  }
+    :  wxWindowDCImpl(owner, win) 
+    {
+     }
   wxDECLARE_DYNAMIC_CLASS(wxClientDCImpl);
 };
 #endif

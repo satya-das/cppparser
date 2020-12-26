@@ -104,23 +104,18 @@ public:
   wxString GetName(bool bShortPrefix = true) const;
     // Retrieves the registry view used by this key.
   WOW64ViewMode GetView() const
-  {
-    return m_viewMode;
-  }
+  { return m_viewMode; }
     // return true if the key exists
   bool Exists() const;
     // get the info about key (any number of these pointers may be NULL)
   bool GetKeyInfo(size_t* pnSubKeys, size_t* pnMaxKeyLen, size_t* pnValues, size_t* pnMaxValueLen) const;
     // return true if the key is opened
   bool IsOpened() const
-  {
-    return m_hKey != NULL;
-  }
+  { return m_hKey != NULL; }
     // for "if ( !key ) wxLogError(...)" kind of expressions
   operator bool() const
   {
-    return m_dwLastError == 0;
-  }
+ return m_dwLastError == 0;   }
   // operations on the key itself
     // explicitly open the key (will be automatically done by all functions
     // which need the key to be opened if the key is not opened yet)
@@ -154,30 +149,22 @@ public:
   bool IsNumericValue(const wxString& szValue) const;
     // assignment operators set the default value of the key
   wxRegKey& operator=(const wxString& strValue)
-  {
-    SetValue(wxEmptyString, strValue);
-    return *this;
-  }
+  { SetValue(wxEmptyString, strValue); return *this; }
     // query the default value of the key: implicitly or explicitly
   wxString QueryDefaultValue() const;
   operator wxString() const
   {
-    return QueryDefaultValue();
-  }
+ return QueryDefaultValue();   }
     // named values
 
     // set the string value
   bool SetValue(const wxString& szValue, const wxString& strValue);
     // retrieve the string value
   bool QueryValue(const wxString& szValue, wxString& strValue) const
-  {
-    return QueryValue(szValue, strValue, false);
-  }
+  { return QueryValue(szValue, strValue, false); }
     // retrieve raw string value
   bool QueryRawValue(const wxString& szValue, wxString& strValue) const
-  {
-    return QueryValue(szValue, strValue, true);
-  }
+  { return QueryValue(szValue, strValue, true); }
     // retrieve either raw or expanded string value
   bool QueryValue(const wxString& szValue, wxString& strValue, bool raw) const;
     // set the numeric value
@@ -199,9 +186,7 @@ public:
   bool HasValues() const;
     // return true if the key is empty (nothing under this key)
   bool IsEmpty() const
-  {
-    return !HasSubkeys() && !HasValues();
-  }
+  { return !HasSubkeys() && !HasValues(); }
   // enumerate values and subkeys
   bool GetFirstValue(wxString& strValueName, long& lIndex);
   bool GetNextValue(wxString& strValueName, long& lIndex) const;
@@ -217,9 +202,7 @@ public:
   bool Export(wxOutputStream& ostr) const;
   // for wxRegConfig usage only: preallocate some memory for the name
   void ReserveMemoryForName(size_t bytes)
-  {
-    m_strKey.reserve(bytes);
-  }
+  { m_strKey.reserve(bytes); }
 private:
   // common part of all ctors
   void Init()

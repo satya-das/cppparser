@@ -18,44 +18,40 @@ class GrNonAtomicRef : public SkNoncopyable
 {
 public:
   GrNonAtomicRef()
-    : fRefCnt(1)
-  {
-  }
+    :  fRefCnt(1) 
+    {
+    }
 #  ifdef SK_DEBUG
   ~GrNonAtomicRef()
   {
+
         // fRefCnt can be one when a subclass is created statically
-    SkASSERT((0 == fRefCnt || 1 == fRefCnt));
+        SkASSERT((0 == fRefCnt || 1 == fRefCnt));
         // Set to invalid values.
-    fRefCnt = -10;
-  }
+        fRefCnt = -10;
+      }
 #  endif
   bool unique() const
-  {
-    return 1 == fRefCnt;
-  }
+  { return 1 == fRefCnt; }
     // We allow this getter because this type is not thread-safe, meaning only one thread should
     // have ownership and be manipulating the ref count or querying this.
   int refCnt() const
-  {
-    return fRefCnt;
-  }
+  { return fRefCnt; }
   void ref() const
   {
         // Once the ref cnt reaches zero it should never be ref'ed again.
-    SkASSERT(fRefCnt > 0);
-    ++fRefCnt;
-  }
+        SkASSERT(fRefCnt > 0);
+        ++fRefCnt;
+    }
   void unref() const
   {
-    SkASSERT(fRefCnt > 0);
-    --fRefCnt;
-    if (0 == fRefCnt)
-    {
-      GrTDeleteNonAtomicRef(static_cast<const TSubclass*>(this));
-      return ;
+        SkASSERT(fRefCnt > 0);
+        --fRefCnt;
+        if (0 == fRefCnt) {
+            GrTDeleteNonAtomicRef(static_cast<const TSubclass*>(this));
+            return;
+        }
     }
-  }
 private:
   mutable int32_t fRefCnt;
   typedef SkNoncopyable INHERITED;
@@ -63,6 +59,6 @@ private:
 template <typename T>
 inline void GrTDeleteNonAtomicRef(const T* ref)
 {
-  delete ref;
+    delete ref;
 }
 #endif

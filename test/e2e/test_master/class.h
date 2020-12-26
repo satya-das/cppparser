@@ -4,5 +4,6 @@ class __declspec(dllexport) Class
 public:
   Class()
   {
-  }
+
+      }
 };

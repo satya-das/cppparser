@@ -16,13 +16,15 @@ class WXDLLIMPEXP_CORE wxSlider : public wxSliderBase
 public:
   wxSlider()
   {
-    Init();
-  }
+ Init();   }
   wxSlider(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSL_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSliderNameStr))
   {
-    Init();
-    (void) Create(parent, id, value, minValue, maxValue, pos, size, style, validator, name);
-  }
+
+        Init();
+
+        (void)Create(parent, id, value, minValue, maxValue,
+                     pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSL_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSliderNameStr));
   virtual ~wxSlider();
     // slider methods
@@ -82,9 +84,7 @@ protected:
   void Init();
     // format an integer value as string
   static wxString Format(int n)
-  {
-    return wxString::Format(wxT("%d"), n);
-  }
+  { return wxString::Format(wxT("%d"), n); }
     // get the boundig box for the slider and possible labels
   wxRect GetBoundingBox() const;
     // Get the height and, if the pointers are non NULL, widths of both labels.

@@ -121,17 +121,15 @@ class ClassFactory : public IClassFactory
 {
 public:
   ClassFactory(wxSharedPtr<wxWebViewHandler> handler)
-    : m_handler(handler)
-  {
-    AddRef();
-  }
+    :  m_handler(handler)
+        
+    {
+ AddRef();     }
   virtual ~ClassFactory()
   {
   }
   wxString GetName()
-  {
-    return m_handler->GetName();
-  }
+  { return m_handler->GetName(); }
     //IClassFactory
   HRESULT STDMETHODCALLTYPE CreateInstance(IUnknown* pUnkOuter, REFIID riid, void** ppvObject) override;
   HRESULT STDMETHODCALLTYPE LockServer(BOOL fLock) override;
@@ -154,8 +152,7 @@ class DocHostUIHandler : public wxIDocHostUIHandler
 public:
   DocHostUIHandler(wxWebView* browser)
   {
-    m_browser = browser;
-  }
+ m_browser = browser;   }
   virtual ~DocHostUIHandler()
   {
   }
@@ -184,9 +181,10 @@ class wxFindPointers
 public:
   wxFindPointers(wxIMarkupPointer* ptrBegin, wxIMarkupPointer* ptrEnd)
   {
-    begin = ptrBegin;
-    end = ptrEnd;
-  }
+
+        begin = ptrBegin;
+        end = ptrEnd;
+      }
     //The two markup pointers.
   wxIMarkupPointer* begin, *end;
 };

@@ -20,12 +20,10 @@ public:
   typedef W BaseWindowClass;
   wxCustomBackgroundWindow()
   {
-    m_backgroundBrush = NULL;
-  }
+ m_backgroundBrush = NULL;   }
   virtual ~wxCustomBackgroundWindow()
   {
-    delete m_backgroundBrush;
-  }
+ delete m_backgroundBrush;   }
 protected:
   void DoSetBackgroundBitmap(const wxBitmap& bmp) override
   {

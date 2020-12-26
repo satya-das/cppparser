@@ -53,8 +53,8 @@ public:
   int findList(const Node*, const char name[], const char list[]) const;
   bool findScalar(const Node* node, const char name[], SkScalar value[]) const
   {
-    return this->findScalars(node, name, value, 1);
-  }
+        return this->findScalars(node, name, value, 1);
+    }
   bool hasAttr(const Node*, const char name[], const char value[]) const;
   bool hasS32(const Node*, const char name[], int32_t value) const;
   bool hasScalar(const Node*, const char name[], SkScalar value) const;

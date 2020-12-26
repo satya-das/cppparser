@@ -17,9 +17,7 @@ public:
   bool RemoveIcon() override;
   bool PopupMenu(wxMenu* menu) override;
   bool IsOk() const
-  {
-    return true;
-  }
+  { return true; }
   bool IsIconInstalled() const;
   class Private;
 private:

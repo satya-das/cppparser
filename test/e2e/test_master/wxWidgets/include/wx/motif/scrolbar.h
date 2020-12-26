@@ -16,29 +16,21 @@ class WXDLLIMPEXP_CORE wxScrollBar : public wxScrollBarBase
 public:
   inline wxScrollBar()
   {
-    m_pageSize = 0;
-    m_viewSize = 0;
-    m_objectSize = 0;
-  }
+ m_pageSize = 0; m_viewSize = 0; m_objectSize = 0;   }
   virtual ~wxScrollBar();
   inline wxScrollBar(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSB_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxScrollBarNameStr))
   {
-    Create(parent, id, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSB_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxScrollBarNameStr));
   int GetThumbPosition() const;
   inline int GetThumbSize() const
-  {
-    return m_pageSize;
-  }
+  { return m_pageSize; }
   inline int GetPageSize() const
-  {
-    return m_viewSize;
-  }
+  { return m_viewSize; }
   inline int GetRange() const
-  {
-    return m_objectSize;
-  }
+  { return m_objectSize; }
   virtual void SetThumbPosition(int viewStart);
   virtual void SetScrollbar(int position, int thumbSize, int range, int pageSize, bool refresh = true);
   void Command(wxCommandEvent& event);

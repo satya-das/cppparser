@@ -15,7 +15,7 @@ namespace SkSL
   public:
     virtual bool isValid() const
     {
-      return true;
+        return true;
     }
     virtual void write8(uint8_t b) = 0;
     virtual void writeText(const char* s) = 0;

@@ -16,11 +16,12 @@ class WXDLLIMPEXP_CORE wxSpinButton : public wxSpinButtonBase
 public:
   wxSpinButton()
   {
-  }
+   }
   wxSpinButton(wxWindow* parent, wxWindowID id = -1, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_VERTICAL, const wxString& name = wxSPIN_BUTTON_NAME)
   {
-    Create(parent, id, pos, size, style, name);
-  }
+
+        Create(parent, id, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id = -1, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_VERTICAL, const wxString& name = wxSPIN_BUTTON_NAME);
   virtual int GetValue() const;
   virtual void SetValue(int value);

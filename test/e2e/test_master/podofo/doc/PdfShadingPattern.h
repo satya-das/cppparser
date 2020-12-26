@@ -94,7 +94,7 @@ namespace PoDoFo
   const PdfName& PdfShadingPattern::GetIdentifier() const
   {
     return m_Identifier;
-  }
+}
 /** A shading pattern that is a simple axial
  *  shading between two colors.
  */

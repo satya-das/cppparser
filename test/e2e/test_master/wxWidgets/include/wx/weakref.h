@@ -24,72 +24,66 @@ public:
   typedef T element_type;
     // Default ctor
   wxWeakRef()
-    : m_pobj(NULL)
-    , m_ptbase(NULL)
-  {
-  }
+    :  m_pobj(NULL), m_ptbase(NULL) 
+    {
+     }
     // Ctor from the object of this type: this is needed as the template ctor
     // below is not used by at least g++4 when a literal NULL is used
   wxWeakRef(T* pobj)
-    : m_pobj(NULL)
-    , m_ptbase(NULL)
-  {
-    this->Assign(pobj);
-  }
+    :  m_pobj(NULL), m_ptbase(NULL)
+    
+    {
+
+        this->Assign(pobj);
+        }
     // When we have the full type here, static_cast<> will always work
     // (or give a straight compiler error).
   template <typename TDerived>
   wxWeakRef(TDerived* pobj)
-    : m_pobj(NULL)
-    , m_ptbase(NULL)
-  {
-    this->Assign(pobj);
-  }
+    :  m_pobj(NULL), m_ptbase(NULL)
+    
+    {
+
+        this->Assign(pobj);
+        }
     // We need this copy ctor, since otherwise a default compiler (binary) copy
     // happens (if embedded as an object member).
   wxWeakRef(const wxWeakRef<T>& wr)
-    : m_pobj(NULL)
-    , m_ptbase(NULL)
-  {
-    this->Assign(wr.get());
-  }
+    :  m_pobj(NULL), m_ptbase(NULL)
+    
+    {
+
+        this->Assign(wr.get());
+        }
   wxWeakRef<T>& operator=(const wxWeakRef<T>& wr)
   {
-    this->AssignCopy(wr);
-    return *this;
-  }
+        this->AssignCopy(wr);
+        return *this;
+    }
   virtual ~wxWeakRef()
   {
-    this->Release();
-  }
+ this->Release();   }
     // Smart pointer functions
   T& operator*() const
-  {
-    return *this->m_pobj;
-  }
+  { return *this->m_pobj; }
   T* operator->() const
-  {
-    return this->m_pobj;
-  }
+  { return this->m_pobj; }
   T* get() const
-  {
-    return this->m_pobj;
-  }
+  { return this->m_pobj; }
   operator T*() const
   {
-    return this->m_pobj;
-  }
+ return this->m_pobj;   }
   void Release()
   {
         // Release old object if any
-    if (m_pobj)
-    {
+        if ( m_pobj )
+        {
             // Remove ourselves from object tracker list
-      m_ptbase->RemoveNode(this);
-      m_pobj = NULL;
-      m_ptbase = NULL;
+            m_ptbase->RemoveNode(this);
+            m_pobj = NULL;
+            m_ptbase = NULL;
+        }
     }
-  }
   void OnObjectDestroy() override
   {
         // Tracked object itself removes us from list of trackers
@@ -102,30 +96,31 @@ protected:
   template <typename TDerived>
   void Assign(TDerived* pobj)
   {
-    wxCOMPILE_TIME_ASSERT(wxIsStaticTrackable<TDerived>::value, Tracked_class_should_inherit_from_wxTrackable);
-    wxTrackable* ptbase = static_cast<wxTrackable*>(pobj);
-    DoAssign(pobj, ptbase);
-  }
+        wxCOMPILE_TIME_ASSERT( wxIsStaticTrackable<TDerived>::value,
+                                Tracked_class_should_inherit_from_wxTrackable );
+        wxTrackable *ptbase = static_cast<wxTrackable*>(pobj);
+        DoAssign(pobj, ptbase);
+    }
   void AssignCopy(const wxWeakRef& wr)
   {
-    DoAssign(wr.m_pobj, wr.m_ptbase);
-  }
+        DoAssign(wr.m_pobj, wr.m_ptbase);
+    }
   void DoAssign(T* pobj, wxTrackable* ptbase)
   {
-    if (m_pobj == pobj)
-    {
-      return ;
-    }
-    Release();
+        if ( m_pobj == pobj )
+            return;
+
+        Release();
+
         // Now set new trackable object
-    if (pobj)
-    {
+        if ( pobj )
+        {
             // Add ourselves to object tracker list
-      ptbase->AddNode(this);
-      m_pobj = pobj;
-      m_ptbase = ptbase;
+            ptbase->AddNode( this );
+            m_pobj = pobj;
+            m_ptbase = ptbase;
+        }
     }
-  }
   T* m_pobj;
   wxTrackable* m_ptbase;
 };
@@ -137,61 +132,50 @@ class wxWeakRefDynamic : public wxTrackerNode
 {
 public:
   wxWeakRefDynamic()
-    : m_pobj(NULL)
-  {
-  }
+    :  m_pobj(NULL) 
+    {
+     }
   wxWeakRefDynamic(T* pobj)
-    : m_pobj(pobj)
-  {
-    Assign(pobj);
-  }
+    :  m_pobj(pobj)
+    
+    {
+
+        Assign(pobj);
+        }
   wxWeakRefDynamic(const wxWeakRef<T>& wr)
   {
-    Assign(wr.get());
-  }
+
+        Assign(wr.get());
+      }
   virtual ~wxWeakRefDynamic()
   {
-    Release();
-  }
+ Release();   }
     // Smart pointer functions
   T& operator*() const
-  {
-    return *m_pobj;
-  }
+  { return *m_pobj; }
   T* operator->() const
-  {
-    return m_pobj;
-  }
+  { return m_pobj; }
   T* get() const
-  {
-    return m_pobj;
-  }
+  { return m_pobj; }
   operator T*() const
   {
-    return m_pobj;
-  }
+ return m_pobj;   }
   T* operator =(T* pobj)
-  {
-    Assign(pobj);
-    return m_pobj;
-  }
+  { Assign(pobj); return m_pobj; }
     // Assign from another weak ref, point to same object
   T* operator =(const wxWeakRef<T>& wr)
-  {
-    Assign(wr.get());
-    return m_pobj;
-  }
+  { Assign( wr.get() ); return m_pobj; }
   void Release()
   {
         // Release old object if any
-    if (m_pobj)
-    {
+        if( m_pobj )
+        {
             // Remove ourselves from object tracker list
-      wxTrackable* pt = dynamic_cast<wxTrackable*>(m_pobj);
-      pt->RemoveNode(this);
-      m_pobj = NULL;
+            wxTrackable *pt = dynamic_cast<wxTrackable*>(m_pobj);
+            pt->RemoveNode(this);
+            m_pobj = NULL;
+        }
     }
-  }
   void OnObjectDestroy() override
   {
     wxASSERT_MSG(m_pobj, "tracked object should have removed us itself");
@@ -200,29 +184,29 @@ public:
 protected:
   void Assign(T* pobj)
   {
-    if (m_pobj == pobj)
-    {
-      return ;
-    }
-    Release();
+        if ( m_pobj == pobj )
+            return;
+
+        Release();
+
         // Now set new trackable object
-    if (pobj)
-    {
+        if ( pobj )
+        {
             // Add ourselves to object tracker list
-      wxTrackable* pt = dynamic_cast<wxTrackable*>(pobj);
-      if (pt)
-      {
-        pt->AddNode(this);
-        m_pobj = pobj;
-      }
-      else 
-      {
+            wxTrackable *pt = dynamic_cast<wxTrackable*>(pobj);
+            if ( pt )
+            {
+                pt->AddNode(this);
+                m_pobj = pobj;
+            }
+            else
+            {
                 // If the object we want to track does not support wxTackable, then
                 // log a message and keep the NULL object pointer.
-        wxFAIL_MSG("Tracked class should inherit from wxTrackable");
-      }
+                wxFAIL_MSG( "Tracked class should inherit from wxTrackable" );
+            }
+        }
     }
-  }
   T* m_pobj;
 };
 #  endif

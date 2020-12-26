@@ -16,14 +16,12 @@ class GrSurfacePriv
 {
 public:
   GrInternalSurfaceFlags flags() const
-  {
-    return fSurface->fSurfaceFlags;
-  }
+  { return fSurface->fSurfaceFlags; }
 private:
   explicit GrSurfacePriv(GrSurface* surface)
-    : fSurface(surface)
-  {
-  }
+    :  fSurface(surface) 
+    {
+    }
   GrSurfacePriv(const GrSurfacePriv&);
   GrSurfacePriv& operator=(const GrSurfacePriv&);
     // No taking addresses of this type.
@@ -33,11 +31,9 @@ private:
   friend class GrSurface;
 };
 inline GrSurfacePriv GrSurface::surfacePriv()
-{
-  return GrSurfacePriv(this);
-}
+{ return GrSurfacePriv(this); }
 inline const GrSurfacePriv GrSurface::surfacePriv() const
 {
-  return GrSurfacePriv(const_cast<GrSurface*>(this));
+    return GrSurfacePriv(const_cast<GrSurface*>(this));
 }
 #endif

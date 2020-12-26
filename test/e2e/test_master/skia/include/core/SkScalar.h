@@ -51,22 +51,18 @@ typedef float SkScalar;
 #  define SkDoubleToScalar(x)	     sk_double_to_float(x)
 #  define SK_ScalarMin(-SK_ScalarMax)
 static bool SkScalarIsNaN(SkScalar x)
-{
-  return x != x;
-}
+{ return x != x; }
 /** Returns true if x is not NaN and not infinite
  */
 static bool SkScalarIsFinite(SkScalar x)
-{
-  return sk_float_isfinite(x);
-}
+{ return sk_float_isfinite(x); }
 static bool SkScalarsAreFinite(SkScalar a, SkScalar b)
 {
-  return sk_floats_are_finite(a, b);
+    return sk_floats_are_finite(a, b);
 }
 static bool SkScalarsAreFinite(const SkScalar array[], int count)
 {
-  return sk_floats_are_finite(array, count);
+    return sk_floats_are_finite(array, count);
 }
 /**
  *  Variant of SkScalarRoundToInt, that performs the rounding step (adding 0.5) explicitly using
@@ -84,45 +80,39 @@ static bool SkScalarsAreFinite(const SkScalar array[], int count)
  */
 static int SkDScalarRoundToInt(SkScalar x)
 {
-  double xx = x;
-  xx += 0.5;
-  return (int) floor(xx);
+    double xx = x;
+    xx += 0.5;
+    return (int)floor(xx);
 }
 /** Returns the fractional part of the scalar. */
 static SkScalar SkScalarFraction(SkScalar x)
 {
-  return x - SkScalarTruncToScalar(x);
+    return x - SkScalarTruncToScalar(x);
 }
 static SkScalar SkScalarClampMax(SkScalar x, SkScalar max)
 {
-  x = SkTMin(x, max);
-  x = SkTMax<SkScalar>(x, 0);
-  return x;
+    x = SkTMin(x, max);
+    x = SkTMax<SkScalar>(x, 0);
+    return x;
 }
 static SkScalar SkScalarPin(SkScalar x, SkScalar min, SkScalar max)
 {
-  return SkTPin(x, min, max);
+    return SkTPin(x, min, max);
 }
 static SkScalar SkScalarSquare(SkScalar x)
-{
-  return x * x;
-}
+{ return x * x; }
 #  define SkScalarInvert(x)	           sk_ieee_float_divide_TODO_IS_DIVIDE_BY_ZERO_SAFE_HERE(SK_Scalar1, (x))
 #  define SkScalarAve(a, b)           (((a) + (b)) * SK_ScalarHalf)
 #  define SkScalarHalf(a)             ((a) * SK_ScalarHalf)
 #  define SkDegreesToRadians(degrees) ((degrees) * (SK_ScalarPI / 180))
 #  define SkRadiansToDegrees(radians) ((radians) * (180 / SK_ScalarPI))
 static SkScalar SkMaxScalar(SkScalar a, SkScalar b)
-{
-  return a > b ? a : b;
-}
+{ return a > b ? a : b; }
 static SkScalar SkMinScalar(SkScalar a, SkScalar b)
-{
-  return a < b ? a : b;
-}
+{ return a < b ? a : b; }
 static bool SkScalarIsInt(SkScalar x)
 {
-  return x == SkScalarFloorToScalar(x);
+    return x == SkScalarFloorToScalar(x);
 }
 /**
  *  Returns -1 || 0 || 1 depending on the sign of value:
@@ -132,33 +122,33 @@ static bool SkScalarIsInt(SkScalar x)
  */
 static int SkScalarSignAsInt(SkScalar x)
 {
-  return x < 0 ? -1 : (x > 0);
+    return x < 0 ? -1 : (x > 0);
 }
 // Scalar result version of above
 static SkScalar SkScalarSignAsScalar(SkScalar x)
 {
-  return x < 0 ? -SK_Scalar1 : ((x > 0) ? SK_Scalar1 : 0);
+    return x < 0 ? -SK_Scalar1 : ((x > 0) ? SK_Scalar1 : 0);
 }
 #  define SK_ScalarNearlyZero(SK_Scalar1 / (1 << 12))
 static bool SkScalarNearlyZero(SkScalar x, SkScalar tolerance = SK_ScalarNearlyZero)
 {
-  SkASSERT(tolerance >= 0);
-  return SkScalarAbs(x) <= tolerance;
+    SkASSERT(tolerance >= 0);
+    return SkScalarAbs(x) <= tolerance;
 }
 static bool SkScalarNearlyEqual(SkScalar x, SkScalar y, SkScalar tolerance = SK_ScalarNearlyZero)
 {
-  SkASSERT(tolerance >= 0);
-  return SkScalarAbs(x - y) <= tolerance;
+    SkASSERT(tolerance >= 0);
+    return SkScalarAbs(x-y) <= tolerance;
 }
 static float SkScalarSinSnapToZero(SkScalar radians)
 {
-  float v = SkScalarSin(radians);
-  return SkScalarNearlyZero(v) ? 0.0f : v;
+    float v = SkScalarSin(radians);
+    return SkScalarNearlyZero(v) ? 0.0f : v;
 }
 static float SkScalarCosSnapToZero(SkScalar radians)
 {
-  float v = SkScalarCos(radians);
-  return SkScalarNearlyZero(v) ? 0.0f : v;
+    float v = SkScalarCos(radians);
+    return SkScalarNearlyZero(v) ? 0.0f : v;
 }
 /** Linearly interpolate between A and B, based on t.
     If t is 0, return A
@@ -168,8 +158,8 @@ static float SkScalarCosSnapToZero(SkScalar radians)
 */
 static SkScalar SkScalarInterp(SkScalar A, SkScalar B, SkScalar t)
 {
-  SkASSERT(t >= 0 && t <= SK_Scalar1);
-  return A + (B - A) * t;
+    SkASSERT(t >= 0 && t <= SK_Scalar1);
+    return A + (B - A) * t;
 }
 /** Interpolate along the function described by (keys[length], values[length])
     for the passed searchKey.  SearchKeys outside the range keys[0]-keys[Length]
@@ -187,14 +177,12 @@ SkScalar SkScalarInterpFunc(SkScalar searchKey, const SkScalar keys[], const SkS
  */
 static bool SkScalarsEqual(const SkScalar a[], const SkScalar b[], int n)
 {
-  SkASSERT(n >= 0);
-  for (int i = 0; i < n; ++i)
-  {
-    if (a[i] != b[i])
-    {
-      return false;
+    SkASSERT(n >= 0);
+    for (int i = 0; i < n; ++i) {
+        if (a[i] != b[i]) {
+            return false;
+        }
     }
-  }
-  return true;
+    return true;
 }
 #endif

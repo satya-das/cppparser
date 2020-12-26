@@ -227,14 +227,14 @@ namespace PoDoFo
   EPdfWriteMode PdfStreamedDocument::GetWriteMode() const
   {
     return m_pWriter->GetWriteMode();
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfVersion PdfStreamedDocument::GetPdfVersion() const
   {
     return m_pWriter->GetPdfVersion();
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -242,62 +242,62 @@ namespace PoDoFo
   {
     // Linearization is currently not supported by PdfStreamedDocument
     return false;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfStreamedDocument::IsPrintAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsPrintAllowed() : true;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfStreamedDocument::IsEditAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsEditAllowed() : true;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfStreamedDocument::IsCopyAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsCopyAllowed() : true;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfStreamedDocument::IsEditNotesAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsEditNotesAllowed() : true;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfStreamedDocument::IsFillAndSignAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsFillAndSignAllowed() : true;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfStreamedDocument::IsAccessibilityAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsAccessibilityAllowed() : true;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfStreamedDocument::IsDocAssemblyAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsDocAssemblyAllowed() : true;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfStreamedDocument::IsHighPrintAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsHighPrintAllowed() : true;
-  }
+}
 }
 #endif

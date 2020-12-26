@@ -25,22 +25,18 @@ public:
     /** Returns the number of colors in the table.
      */
   int count() const
-  {
-    return fCount;
-  }
+  { return fCount; }
     /** Returns the specified color from the table. In the debug build, this asserts that
      *  the index is in range (0 <= index < count).
      */
   SkPMColor operator[](int index) const
   {
-    SkASSERT(fColors != nullptr && (unsigned) index < (unsigned) fCount);
-    return fColors[index];
-  }
+        SkASSERT(fColors != nullptr && (unsigned)index < (unsigned)fCount);
+        return fColors[index];
+    }
     /** Return the array of colors for reading. */
   const SkPMColor* readColors() const
-  {
-    return fColors;
-  }
+  { return fColors; }
 private:
   SkPMColor* fColors;
   int fCount;

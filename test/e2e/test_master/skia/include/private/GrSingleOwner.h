@@ -15,42 +15,38 @@ class GrSingleOwner
 {
 public:
   GrSingleOwner()
-    : fOwner(kIllegalThreadID)
-    , fReentranceCount(0)
-  {
-  }
+    :  fOwner(kIllegalThreadID), fReentranceCount(0) 
+    {
+    }
   struct AutoEnforce
   {
     AutoEnforce(GrSingleOwner* so)
-      : fSO(so)
-    {
-      fSO->enter();
-    }
+      :  fSO(so) 
+      {
+ fSO->enter();       }
     ~AutoEnforce()
     {
-      fSO->exit();
-    }
+ fSO->exit();     }
     GrSingleOwner* fSO;
   };
 private:
   void enter()
   {
-    SkAutoMutexExclusive lock(fMutex);
-    SkThreadID self = SkGetThreadID();
-    SkASSERT(fOwner == self || fOwner == kIllegalThreadID);
-    fReentranceCount++;
-    fOwner = self;
-  }
+         SkAutoMutexExclusive lock(fMutex);
+         SkThreadID self = SkGetThreadID();
+         SkASSERT(fOwner == self || fOwner == kIllegalThreadID);
+         fReentranceCount++;
+         fOwner = self;
+     }
   void exit()
   {
-    SkAutoMutexExclusive lock(fMutex);
-    SkASSERT(fOwner == SkGetThreadID());
-    fReentranceCount--;
-    if (fReentranceCount == 0)
-    {
-      fOwner = kIllegalThreadID;
-    }
-  }
+         SkAutoMutexExclusive lock(fMutex);
+         SkASSERT(fOwner == SkGetThreadID());
+         fReentranceCount--;
+         if (fReentranceCount == 0) {
+             fOwner = kIllegalThreadID;
+         }
+     }
   SkMutex fMutex;
   SkThreadID fOwner;
   int fReentranceCount;

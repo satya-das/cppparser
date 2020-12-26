@@ -27,19 +27,20 @@ struct skjpeg_error_mgr :  jpeg_error_mgr
   {
   public:
     AutoPushJmpBuf(skjpeg_error_mgr* mgr)
-      : fMgr(mgr)
-    {
-      fMgr->fJmpBufStack.push_back(&fJmpBuf);
-    }
+      :  fMgr(mgr) 
+      {
+
+            fMgr->fJmpBufStack.push_back(&fJmpBuf);
+              }
     ~AutoPushJmpBuf()
     {
-      SkASSERT(fMgr->fJmpBufStack.back() == &fJmpBuf);
-      fMgr->fJmpBufStack.pop_back();
-    }
+
+            SkASSERT(fMgr->fJmpBufStack.back() == &fJmpBuf);
+            fMgr->fJmpBufStack.pop_back();
+            }
     operator jmp_buf&()
     {
-      return fJmpBuf;
-    }
+ return fJmpBuf;     }
   private:
     skjpeg_error_mgr* const fMgr;
     jmp_buf fJmpBuf;

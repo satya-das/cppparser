@@ -114,9 +114,7 @@ public:
          *  This layer will with the original paint and no offset.
          */
     void addLayer()
-    {
-      this->addLayer(0, 0);
-    }
+    { this->addLayer(0, 0); }
         /// Similar to addLayer, but adds a layer to the top.
     SkPaint* addLayerOnTop(const LayerInfo&);
         /**

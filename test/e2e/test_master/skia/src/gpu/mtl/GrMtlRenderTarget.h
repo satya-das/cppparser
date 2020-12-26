@@ -16,16 +16,12 @@ public:
   virtual ~GrMtlRenderTarget();
   bool canAttemptStencilAttachment() const override
   {
-    return true;
-  }
+        return true;
+    }
   id<MTLTexture> mtlColorTexture() const
-  {
-    return fColorTexture;
-  }
+  { return fColorTexture; }
   id<MTLTexture> mtlResolveTexture() const
-  {
-    return fResolveTexture;
-  }
+  { return fResolveTexture; }
   GrBackendRenderTarget getBackendRenderTarget() const override;
   GrBackendFormat backendFormat() const override;
 protected:
@@ -37,16 +33,16 @@ protected:
     // This accounts for the texture's memory and any MSAA renderbuffer's memory.
   size_t onGpuMemorySize() const override
   {
-    int numColorSamples = this->numSamples();
+        int numColorSamples = this->numSamples();
         // TODO: When used as render targets certain formats may actually have a larger size than
         // the base format size. Check to make sure we are reporting the correct value here.
         // The plus 1 is to account for the resolve texture or if not using msaa the RT itself
-    if (numColorSamples > 1)
-    {
-      ++numColorSamples;
+        if (numColorSamples > 1) {
+            ++numColorSamples;
+        }
+        return GrSurface::ComputeSize(this->config(), this->width(), this->height(),
+                                      numColorSamples, GrMipMapped::kNo);
     }
-    return GrSurface::ComputeSize(this->config(), this->width(), this->height(), numColorSamples, GrMipMapped::kNo);
-  }
   id<MTLTexture> fColorTexture;
   id<MTLTexture> fResolveTexture;
 private:

@@ -21,46 +21,49 @@ class wxSimplebook : public wxBookCtrlBase
 public:
   wxSimplebook()
   {
-    Init();
-  }
+
+        Init();
+      }
   wxSimplebook(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString)
-    : wxBookCtrlBase(parent, winid, pos, size, style | wxBK_TOP, name)
-  {
-    Init();
-  }
+    :  wxBookCtrlBase(parent, winid, pos, size, style | wxBK_TOP, name)
+    
+    {
+
+        Init();
+        }
   bool Create(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString)
   {
-    return wxBookCtrlBase::Create(parent, winid, pos, size, style | wxBK_TOP, name);
-  }
+        return wxBookCtrlBase::Create(parent, winid, pos, size, style | wxBK_TOP, name);
+    }
     // Methods specific to this class.
 
     // A method allowing to add a new page without any label (which is unused
     // by this control) and show it immediately.
   bool ShowNewPage(wxWindow* page)
   {
-    return AddPage(page, wxString(), true);
-  }
+        return AddPage(page, wxString(), true /* select it */);
+    }
     // Set effect to use for showing/hiding pages.
   void SetEffects(wxShowEffect showEffect, wxShowEffect hideEffect)
   {
-    m_showEffect = showEffect;
-    m_hideEffect = hideEffect;
-  }
+        m_showEffect = showEffect;
+        m_hideEffect = hideEffect;
+    }
     // Or the same effect for both of them.
   void SetEffect(wxShowEffect effect)
   {
-    SetEffects(effect, effect);
-  }
+        SetEffects(effect, effect);
+    }
     // And the same for time outs.
   void SetEffectsTimeouts(unsigned showTimeout, unsigned hideTimeout)
   {
-    m_showTimeout = showTimeout;
-    m_hideTimeout = hideTimeout;
-  }
+        m_showTimeout = showTimeout;
+        m_hideTimeout = hideTimeout;
+    }
   void SetEffectTimeout(unsigned timeout)
   {
-    SetEffectsTimeouts(timeout, timeout);
-  }
+        SetEffectsTimeouts(timeout, timeout);
+    }
     // Implement base class pure virtual methods.
 
     // Page management
@@ -134,9 +137,11 @@ protected:
     wxWindow* const win = wxBookCtrlBase::DoRemovePage(page);
     if (win)
     {
-      m_pageTexts.erase(m_pageTexts.begin() + page);
-      DoSetSelectionAfterRemoval(page);
-    }
+
+            m_pageTexts.erase(m_pageTexts.begin() + page);
+
+            DoSetSelectionAfterRemoval(page);
+            }
     return win;
   }
   void DoSize() override
@@ -163,11 +168,15 @@ private:
   {
         // We don't need any border as we don't have anything to separate the
         // page contents from.
-    SetInternalBorder(0);
+        SetInternalBorder(0);
+
         // No effects by default.
-    m_showEffect = m_hideEffect = wxSHOW_EFFECT_NONE;
-    m_showTimeout = m_hideTimeout = 0;
-  }
+        m_showEffect =
+        m_hideEffect = wxSHOW_EFFECT_NONE;
+
+        m_showTimeout =
+        m_hideTimeout = 0;
+    }
   wxVector<wxString> m_pageTexts;
   wxShowEffect m_showEffect, m_hideEffect;
   unsigned m_showTimeout, m_hideTimeout;

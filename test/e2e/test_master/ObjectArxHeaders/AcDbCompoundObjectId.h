@@ -74,9 +74,7 @@ public:
   AcDbCompoundObjectId& operator =(const AcDbCompoundObjectId&);
   bool operator ==(const AcDbCompoundObjectId&) const;
   bool operator !=(const AcDbCompoundObjectId& other) const
-  {
-    return !(*this == other);
-  }
+  { return !(*this == other); }
     /// <summary> Returns the first AcDbObjectId (of an AcDbBlockReference) 
     /// in the path, or the leaf-node AcDbObjectId, if there is no path.
     /// </summary>

@@ -37,17 +37,17 @@ class WXDLLIMPEXP_RICHTEXT wxRichTextStyleDefinition : public wxObject
 public:
     /// Copy constructors
   wxRichTextStyleDefinition(const wxRichTextStyleDefinition& def)
-    : wxObject()
-  {
-    Init();
-    Copy(def);
-  }
+    :  wxObject()
+    
+    {
+
+        Init();
+        Copy(def);
+        }
     /// Default constructor
   wxRichTextStyleDefinition(const wxString& name = wxEmptyString)
   {
-    Init();
-    m_name = name;
-  }
+ Init(); m_name = name;   }
     /// Destructor
   virtual ~wxRichTextStyleDefinition()
   {
@@ -62,79 +62,51 @@ public:
   bool Eq(const wxRichTextStyleDefinition& def) const;
     /// Assignment operator
   void operator =(const wxRichTextStyleDefinition& def)
-  {
-    Copy(def);
-  }
+  { Copy(def); }
     /// Equality operator
   bool operator ==(const wxRichTextStyleDefinition& def) const
-  {
-    return Eq(def);
-  }
+  { return Eq(def); }
     /// Override to clone the object
   virtual wxRichTextStyleDefinition* Clone() const = 0;
     /// Sets and gets the name of the style
   void SetName(const wxString& name)
-  {
-    m_name = name;
-  }
+  { m_name = name; }
   const wxString& GetName() const
-  {
-    return m_name;
-  }
+  { return m_name; }
     /// Sets and gets the style description
   void SetDescription(const wxString& descr)
-  {
-    m_description = descr;
-  }
+  { m_description = descr; }
   const wxString& GetDescription() const
-  {
-    return m_description;
-  }
+  { return m_description; }
     /// Sets and gets the name of the style that this style is based on
   void SetBaseStyle(const wxString& name)
-  {
-    m_baseStyle = name;
-  }
+  { m_baseStyle = name; }
   const wxString& GetBaseStyle() const
-  {
-    return m_baseStyle;
-  }
+  { return m_baseStyle; }
     /// Sets and gets the style
   void SetStyle(const wxRichTextAttr& style)
-  {
-    m_style = style;
-  }
+  { m_style = style; }
   const wxRichTextAttr& GetStyle() const
-  {
-    return m_style;
-  }
+  { return m_style; }
   wxRichTextAttr& GetStyle()
-  {
-    return m_style;
-  }
+  { return m_style; }
     /// Gets the style combined with the base style
   virtual wxRichTextAttr GetStyleMergedWithBase(const wxRichTextStyleSheet* sheet) const;
     /**
         Returns the definition's properties.
     */
   wxRichTextProperties& GetProperties()
-  {
-    return m_properties;
-  }
+  { return m_properties; }
     /**
         Returns the definition's properties.
     */
   const wxRichTextProperties& GetProperties() const
-  {
-    return m_properties;
-  }
+  { return m_properties; }
     /**
         Sets the definition's properties.
     */
   void SetProperties(const wxRichTextProperties& props)
-  {
-    m_properties = props;
-  }
+  { m_properties = props; }
 protected:
   wxString m_name;
   wxString m_baseStyle;
@@ -151,9 +123,10 @@ class WXDLLIMPEXP_RICHTEXT wxRichTextCharacterStyleDefinition : public wxRichTex
 public:
     /// Default constructor
   wxRichTextCharacterStyleDefinition(const wxString& name = wxEmptyString)
-    : wxRichTextStyleDefinition(name)
-  {
-  }
+    : 
+        wxRichTextStyleDefinition(name) 
+    {
+    }
     /// Destructor
   virtual ~wxRichTextCharacterStyleDefinition()
   {
@@ -173,35 +146,29 @@ class WXDLLIMPEXP_RICHTEXT wxRichTextParagraphStyleDefinition : public wxRichTex
 public:
     /// Copy constructor
   wxRichTextParagraphStyleDefinition(const wxRichTextParagraphStyleDefinition& def)
-    : wxRichTextStyleDefinition(def)
-  {
-    m_nextStyle = def.m_nextStyle;
-  }
+    :  wxRichTextStyleDefinition(def) 
+    {
+ m_nextStyle = def.m_nextStyle;     }
     /// Default constructor
   wxRichTextParagraphStyleDefinition(const wxString& name = wxEmptyString)
-    : wxRichTextStyleDefinition(name)
-  {
-  }
+    : 
+        wxRichTextStyleDefinition(name) 
+    {
+    }
     // Destructor
   virtual ~wxRichTextParagraphStyleDefinition()
   {
   }
     /// Sets and gets the next style
   void SetNextStyle(const wxString& name)
-  {
-    m_nextStyle = name;
-  }
+  { m_nextStyle = name; }
   const wxString& GetNextStyle() const
-  {
-    return m_nextStyle;
-  }
+  { return m_nextStyle; }
     /// Copies from def
   void Copy(const wxRichTextParagraphStyleDefinition& def);
     /// Assignment operator
   void operator =(const wxRichTextParagraphStyleDefinition& def)
-  {
-    Copy(def);
-  }
+  { Copy(def); }
     /// Equality operator
   bool operator ==(const wxRichTextParagraphStyleDefinition& def) const;
     /// Clones the object
@@ -222,17 +189,15 @@ class WXDLLIMPEXP_RICHTEXT wxRichTextListStyleDefinition : public wxRichTextPara
 public:
     /// Copy constructor
   wxRichTextListStyleDefinition(const wxRichTextListStyleDefinition& def)
-    : wxRichTextParagraphStyleDefinition(def)
-  {
-    Init();
-    Copy(def);
-  }
+    :  wxRichTextParagraphStyleDefinition(def) 
+    {
+ Init(); Copy(def);     }
     /// Default constructor
   wxRichTextListStyleDefinition(const wxString& name = wxEmptyString)
-    : wxRichTextParagraphStyleDefinition(name)
-  {
-    Init();
-  }
+    : 
+        wxRichTextParagraphStyleDefinition(name) 
+    {
+ Init();     }
     /// Destructor
   virtual ~wxRichTextListStyleDefinition()
   {
@@ -241,9 +206,7 @@ public:
   void Copy(const wxRichTextListStyleDefinition& def);
     /// Assignment operator
   void operator =(const wxRichTextListStyleDefinition& def)
-  {
-    Copy(def);
-  }
+  { Copy(def); }
     /// Equality operator
   bool operator ==(const wxRichTextListStyleDefinition& def) const;
     /// Clones the object
@@ -270,9 +233,7 @@ public:
   wxRichTextAttr GetCombinedStyleForLevel(int level, wxRichTextStyleSheet* styleSheet = NULL);
     /// Gets the number of available levels
   int GetLevelCount() const
-  {
-    return 10;
-  }
+  { return 10; }
     /// Is this a numbered list?
   bool IsNumbered(int i) const;
 protected:
@@ -288,15 +249,15 @@ class WXDLLIMPEXP_RICHTEXT wxRichTextBoxStyleDefinition : public wxRichTextStyle
 public:
     /// Copy constructor
   wxRichTextBoxStyleDefinition(const wxRichTextBoxStyleDefinition& def)
-    : wxRichTextStyleDefinition(def)
-  {
-    Copy(def);
-  }
+    :  wxRichTextStyleDefinition(def) 
+    {
+ Copy(def);     }
     /// Default constructor
   wxRichTextBoxStyleDefinition(const wxString& name = wxEmptyString)
-    : wxRichTextStyleDefinition(name)
-  {
-  }
+    : 
+        wxRichTextStyleDefinition(name) 
+    {
+    }
     // Destructor
   virtual ~wxRichTextBoxStyleDefinition()
   {
@@ -305,9 +266,7 @@ public:
   void Copy(const wxRichTextBoxStyleDefinition& def);
     /// Assignment operator
   void operator =(const wxRichTextBoxStyleDefinition& def)
-  {
-    Copy(def);
-  }
+  { Copy(def); }
     /// Equality operator
   bool operator ==(const wxRichTextBoxStyleDefinition& def) const;
     /// Clones the object
@@ -325,15 +284,16 @@ class WXDLLIMPEXP_RICHTEXT wxRichTextStyleSheet : public wxObject
 public:
     /// Constructors
   wxRichTextStyleSheet(const wxRichTextStyleSheet& sheet)
-    : wxObject()
-  {
-    Init();
-    Copy(sheet);
-  }
+    :  wxObject()
+    
+    {
+
+        Init();
+        Copy(sheet);
+        }
   wxRichTextStyleSheet()
   {
-    Init();
-  }
+ Init();   }
   virtual ~wxRichTextStyleSheet();
     /// Initialisation
   void Init();
@@ -341,9 +301,7 @@ public:
   void Copy(const wxRichTextStyleSheet& sheet);
     /// Assignment
   void operator=(const wxRichTextStyleSheet& sheet)
-  {
-    Copy(sheet);
-  }
+  { Copy(sheet); }
     /// Equality
   bool operator==(const wxRichTextStyleSheet& sheet) const;
     /// Add a definition to the character style list
@@ -358,88 +316,56 @@ public:
   bool AddStyle(wxRichTextStyleDefinition* def);
     /// Remove a character style
   bool RemoveCharacterStyle(wxRichTextStyleDefinition* def, bool deleteStyle = false)
-  {
-    return RemoveStyle(m_characterStyleDefinitions, def, deleteStyle);
-  }
+  { return RemoveStyle(m_characterStyleDefinitions, def, deleteStyle); }
     /// Remove a paragraph style
   bool RemoveParagraphStyle(wxRichTextStyleDefinition* def, bool deleteStyle = false)
-  {
-    return RemoveStyle(m_paragraphStyleDefinitions, def, deleteStyle);
-  }
+  { return RemoveStyle(m_paragraphStyleDefinitions, def, deleteStyle); }
     /// Remove a list style
   bool RemoveListStyle(wxRichTextStyleDefinition* def, bool deleteStyle = false)
-  {
-    return RemoveStyle(m_listStyleDefinitions, def, deleteStyle);
-  }
+  { return RemoveStyle(m_listStyleDefinitions, def, deleteStyle); }
     /// Remove a box style
   bool RemoveBoxStyle(wxRichTextStyleDefinition* def, bool deleteStyle = false)
-  {
-    return RemoveStyle(m_boxStyleDefinitions, def, deleteStyle);
-  }
+  { return RemoveStyle(m_boxStyleDefinitions, def, deleteStyle); }
     /// Remove a style
   bool RemoveStyle(wxRichTextStyleDefinition* def, bool deleteStyle = false);
     /// Find a character definition by name
   wxRichTextCharacterStyleDefinition* FindCharacterStyle(const wxString& name, bool recurse = true) const
-  {
-    return (wxRichTextCharacterStyleDefinition*) FindStyle(m_characterStyleDefinitions, name, recurse);
-  }
+  { return (wxRichTextCharacterStyleDefinition*) FindStyle(m_characterStyleDefinitions, name, recurse); }
     /// Find a paragraph definition by name
   wxRichTextParagraphStyleDefinition* FindParagraphStyle(const wxString& name, bool recurse = true) const
-  {
-    return (wxRichTextParagraphStyleDefinition*) FindStyle(m_paragraphStyleDefinitions, name, recurse);
-  }
+  { return (wxRichTextParagraphStyleDefinition*) FindStyle(m_paragraphStyleDefinitions, name, recurse); }
     /// Find a list definition by name
   wxRichTextListStyleDefinition* FindListStyle(const wxString& name, bool recurse = true) const
-  {
-    return (wxRichTextListStyleDefinition*) FindStyle(m_listStyleDefinitions, name, recurse);
-  }
+  { return (wxRichTextListStyleDefinition*) FindStyle(m_listStyleDefinitions, name, recurse); }
     /// Find a box definition by name
   wxRichTextBoxStyleDefinition* FindBoxStyle(const wxString& name, bool recurse = true) const
-  {
-    return (wxRichTextBoxStyleDefinition*) FindStyle(m_boxStyleDefinitions, name, recurse);
-  }
+  { return (wxRichTextBoxStyleDefinition*) FindStyle(m_boxStyleDefinitions, name, recurse); }
     /// Find any definition by name
   wxRichTextStyleDefinition* FindStyle(const wxString& name, bool recurse = true) const;
     /// Return the number of character styles
   size_t GetCharacterStyleCount() const
-  {
-    return m_characterStyleDefinitions.GetCount();
-  }
+  { return m_characterStyleDefinitions.GetCount(); }
     /// Return the number of paragraph styles
   size_t GetParagraphStyleCount() const
-  {
-    return m_paragraphStyleDefinitions.GetCount();
-  }
+  { return m_paragraphStyleDefinitions.GetCount(); }
     /// Return the number of list styles
   size_t GetListStyleCount() const
-  {
-    return m_listStyleDefinitions.GetCount();
-  }
+  { return m_listStyleDefinitions.GetCount(); }
     /// Return the number of box styles
   size_t GetBoxStyleCount() const
-  {
-    return m_boxStyleDefinitions.GetCount();
-  }
+  { return m_boxStyleDefinitions.GetCount(); }
     /// Return the nth character style
   wxRichTextCharacterStyleDefinition* GetCharacterStyle(size_t n) const
-  {
-    return (wxRichTextCharacterStyleDefinition*) m_characterStyleDefinitions.Item(n)->GetData();
-  }
+  { return (wxRichTextCharacterStyleDefinition*) m_characterStyleDefinitions.Item(n)->GetData(); }
     /// Return the nth paragraph style
   wxRichTextParagraphStyleDefinition* GetParagraphStyle(size_t n) const
-  {
-    return (wxRichTextParagraphStyleDefinition*) m_paragraphStyleDefinitions.Item(n)->GetData();
-  }
+  { return (wxRichTextParagraphStyleDefinition*) m_paragraphStyleDefinitions.Item(n)->GetData(); }
     /// Return the nth list style
   wxRichTextListStyleDefinition* GetListStyle(size_t n) const
-  {
-    return (wxRichTextListStyleDefinition*) m_listStyleDefinitions.Item(n)->GetData();
-  }
+  { return (wxRichTextListStyleDefinition*) m_listStyleDefinitions.Item(n)->GetData(); }
     /// Return the nth box style
   wxRichTextBoxStyleDefinition* GetBoxStyle(size_t n) const
-  {
-    return (wxRichTextBoxStyleDefinition*) m_boxStyleDefinitions.Item(n)->GetData();
-  }
+  { return (wxRichTextBoxStyleDefinition*) m_boxStyleDefinitions.Item(n)->GetData(); }
     /// Delete all styles
   void DeleteStyles();
     /// Insert into list of style sheets
@@ -450,61 +376,39 @@ public:
   void Unlink();
     /// Get/set next sheet
   wxRichTextStyleSheet* GetNextSheet() const
-  {
-    return m_nextSheet;
-  }
+  { return m_nextSheet; }
   void SetNextSheet(wxRichTextStyleSheet* sheet)
-  {
-    m_nextSheet = sheet;
-  }
+  { m_nextSheet = sheet; }
     /// Get/set previous sheet
   wxRichTextStyleSheet* GetPreviousSheet() const
-  {
-    return m_previousSheet;
-  }
+  { return m_previousSheet; }
   void SetPreviousSheet(wxRichTextStyleSheet* sheet)
-  {
-    m_previousSheet = sheet;
-  }
+  { m_previousSheet = sheet; }
     /// Sets and gets the name of the style sheet
   void SetName(const wxString& name)
-  {
-    m_name = name;
-  }
+  { m_name = name; }
   const wxString& GetName() const
-  {
-    return m_name;
-  }
+  { return m_name; }
     /// Sets and gets the style description
   void SetDescription(const wxString& descr)
-  {
-    m_description = descr;
-  }
+  { m_description = descr; }
   const wxString& GetDescription() const
-  {
-    return m_description;
-  }
+  { return m_description; }
     /**
         Returns the sheet's properties.
     */
   wxRichTextProperties& GetProperties()
-  {
-    return m_properties;
-  }
+  { return m_properties; }
     /**
         Returns the sheet's properties.
     */
   const wxRichTextProperties& GetProperties() const
-  {
-    return m_properties;
-  }
+  { return m_properties; }
     /**
         Sets the sheet's properties.
     */
   void SetProperties(const wxRichTextProperties& props)
-  {
-    m_properties = props;
-  }
+  { m_properties = props; }
 /// Implementation
 
     /// Add a definition to one of the style lists
@@ -544,39 +448,32 @@ public:
     };
   wxRichTextStyleListBox()
   {
-    Init();
-  }
+
+        Init();
+      }
   wxRichTextStyleListBox(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0);
   virtual ~wxRichTextStyleListBox();
   void Init()
   {
-    m_styleSheet = NULL;
-    m_richTextCtrl = NULL;
-    m_applyOnSelection = false;
-    m_styleType = wxRICHTEXT_STYLE_PARAGRAPH;
-    m_autoSetSelection = true;
-  }
+        m_styleSheet = NULL;
+        m_richTextCtrl = NULL;
+        m_applyOnSelection = false;
+        m_styleType = wxRICHTEXT_STYLE_PARAGRAPH;
+        m_autoSetSelection = true;
+    }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0);
     /// Creates a suitable HTML fragment for a definition
   wxString CreateHTML(wxRichTextStyleDefinition* def) const;
     /// Associates the control with a style sheet
   void SetStyleSheet(wxRichTextStyleSheet* styleSheet)
-  {
-    m_styleSheet = styleSheet;
-  }
+  { m_styleSheet = styleSheet; }
   wxRichTextStyleSheet* GetStyleSheet() const
-  {
-    return m_styleSheet;
-  }
+  { return m_styleSheet; }
     /// Associates the control with a wxRichTextCtrl
   void SetRichTextCtrl(wxRichTextCtrl* ctrl)
-  {
-    m_richTextCtrl = ctrl;
-  }
+  { m_richTextCtrl = ctrl; }
   wxRichTextCtrl* GetRichTextCtrl() const
-  {
-    return m_richTextCtrl;
-  }
+  { return m_richTextCtrl; }
     /// Get style for index
   wxRichTextStyleDefinition* GetStyle(size_t i) const;
     /// Get index for style name
@@ -598,32 +495,19 @@ public:
     /// Can we set the selection based on the editor caret position?
     /// Need to override this if being used in a combobox popup
   virtual bool CanAutoSetSelection()
-  {
-    return m_autoSetSelection;
-  }
+  { return m_autoSetSelection; }
   virtual void SetAutoSetSelection(bool autoSet)
-  {
-    m_autoSetSelection = autoSet;
-  }
+  { m_autoSetSelection = autoSet; }
     /// Set whether the style should be applied as soon as the item is selected (the default)
   void SetApplyOnSelection(bool applyOnSel)
-  {
-    m_applyOnSelection = applyOnSel;
-  }
+  { m_applyOnSelection = applyOnSel; }
   bool GetApplyOnSelection() const
-  {
-    return m_applyOnSelection;
-  }
+  { return m_applyOnSelection; }
     /// Set the style type to display
   void SetStyleType(wxRichTextStyleType styleType)
-  {
-    m_styleType = styleType;
-    UpdateStyles();
-  }
+  { m_styleType = styleType; UpdateStyles(); }
   wxRichTextStyleType GetStyleType() const
-  {
-    return m_styleType;
-  }
+  { return m_styleType; }
     /// Helper for listbox and combo control
   static wxString GetStyleToShowInIdleTime(wxRichTextCtrl* ctrl, wxRichTextStyleType styleType);
 protected:
@@ -651,18 +535,19 @@ public:
     /// Constructors
   wxRichTextStyleListCtrl()
   {
-    Init();
-  }
+
+        Init();
+      }
   wxRichTextStyleListCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0);
     /// Constructors
   virtual ~wxRichTextStyleListCtrl();
     /// Member initialisation
   void Init()
   {
-    m_styleListBox = NULL;
-    m_styleChoice = NULL;
-    m_dontUpdate = false;
-  }
+        m_styleListBox = NULL;
+        m_styleChoice = NULL;
+        m_dontUpdate = false;
+    }
     /// Creates the windows
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0);
     /// Updates the style list box
@@ -682,14 +567,10 @@ public:
   wxRichTextStyleListBox::wxRichTextStyleType StyleIndexToType(int i);
     /// Get the listbox
   wxRichTextStyleListBox* GetStyleListBox() const
-  {
-    return m_styleListBox;
-  }
+  { return m_styleListBox; }
     /// Get the choice
   wxChoice* GetStyleChoice() const
-  {
-    return m_styleChoice;
-  }
+  { return m_styleChoice; }
     /// React to style type choice
   void OnChooseType(wxCommandEvent& event);
     /// Lay out the controls
@@ -748,49 +629,39 @@ class WXDLLIMPEXP_RICHTEXT wxRichTextStyleComboCtrl : public wxComboCtrl
 public:
   wxRichTextStyleComboCtrl()
   {
-    Init();
-  }
+
+        Init();
+      }
   wxRichTextStyleComboCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCB_READONLY)
   {
-    Init();
-    Create(parent, id, pos, size, style);
-  }
+
+        Init();
+        Create(parent, id, pos, size, style);
+      }
   virtual ~wxRichTextStyleComboCtrl()
   {
   }
   void Init()
   {
-    m_stylePopup = NULL;
-  }
+        m_stylePopup = NULL;
+    }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0);
     /// Updates the list
   void UpdateStyles()
-  {
-    m_stylePopup->UpdateStyles();
-  }
+  { m_stylePopup->UpdateStyles(); }
     /// Associates the control with a style sheet
   void SetStyleSheet(wxRichTextStyleSheet* styleSheet)
-  {
-    m_stylePopup->SetStyleSheet(styleSheet);
-  }
+  { m_stylePopup->SetStyleSheet(styleSheet); }
   wxRichTextStyleSheet* GetStyleSheet() const
-  {
-    return m_stylePopup->GetStyleSheet();
-  }
+  { return m_stylePopup->GetStyleSheet(); }
     /// Associates the control with a wxRichTextCtrl
   void SetRichTextCtrl(wxRichTextCtrl* ctrl)
-  {
-    m_stylePopup->SetRichTextCtrl(ctrl);
-  }
+  { m_stylePopup->SetRichTextCtrl(ctrl); }
   wxRichTextCtrl* GetRichTextCtrl() const
-  {
-    return m_stylePopup->GetRichTextCtrl();
-  }
+  { return m_stylePopup->GetRichTextCtrl(); }
     /// Gets the style popup
   wxRichTextStyleComboPopup* GetStylePopup() const
-  {
-    return m_stylePopup;
-  }
+  { return m_stylePopup; }
     /// Auto-select from style under caret in idle time
   void OnIdle(wxIdleEvent& event);
 protected:

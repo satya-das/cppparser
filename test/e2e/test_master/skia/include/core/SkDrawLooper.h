@@ -104,16 +104,18 @@ public:
   virtual bool asABlurShadow(BlurShadowRec*) const;
   static SkFlattenable::Type GetFlattenableType()
   {
-    return kSkDrawLooper_Type;
-  }
+        return kSkDrawLooper_Type;
+    }
   SkFlattenable::Type getFlattenableType() const override
   {
-    return kSkDrawLooper_Type;
-  }
+        return kSkDrawLooper_Type;
+    }
   static sk_sp<SkDrawLooper> Deserialize(const void* data, size_t size, const SkDeserialProcs* procs = nullptr)
   {
-    return sk_sp<SkDrawLooper>(static_cast<SkDrawLooper*>(SkFlattenable::Deserialize(kSkDrawLooper_Type, data, size, procs).release()));
-  }
+        return sk_sp<SkDrawLooper>(static_cast<SkDrawLooper*>(
+                                  SkFlattenable::Deserialize(
+                                  kSkDrawLooper_Type, data, size, procs).release()));
+    }
   void apply(SkCanvas* canvas, const SkPaint& paint, std::function<void(SkCanvas*, const SkPaint&)>);
 protected:
   SkDrawLooper()

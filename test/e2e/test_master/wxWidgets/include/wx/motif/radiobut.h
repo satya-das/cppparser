@@ -16,12 +16,12 @@ public:
   wxRadioButton();
   virtual ~wxRadioButton()
   {
-    RemoveFromCycle();
-  }
+ RemoveFromCycle();   }
   inline wxRadioButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioButtonNameStr))
   {
-    Create(parent, id, label, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, label, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioButtonNameStr));
   virtual void SetValue(bool val);
   virtual bool GetValue() const;
@@ -34,16 +34,12 @@ public:
   wxRadioButton* ClearSelections();
 protected:
   virtual wxBorder GetDefaultBorder() const
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
 private:
   wxRadioButton* AddInCycle(wxRadioButton* cycle);
   void RemoveFromCycle();
   wxRadioButton* NextInCycle()
-  {
-    return m_cycle;
-  }
+  { return m_cycle; }
   wxRadioButton* m_cycle;
 };
 #endif

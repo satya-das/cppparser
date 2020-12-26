@@ -28,18 +28,16 @@ public:
     // default retainOnFreeGpuResources implementation).
   void preFlush(GrOnFlushResourceProvider* onFlushRP, const uint32_t*, int) override
   {
-    if (fAtlas)
-    {
-      fAtlas->instantiate(onFlushRP);
+        if (fAtlas) {
+            fAtlas->instantiate(onFlushRP);
+        }
     }
-  }
   void postFlush(GrDeferredUploadToken startTokenForNextFlush, const uint32_t*, int) override
   {
-    if (fAtlas)
-    {
-      fAtlas->compact(startTokenForNextFlush);
+        if (fAtlas) {
+            fAtlas->compact(startTokenForNextFlush);
+        }
     }
-  }
   using ShapeCache = SkTDynamicHash<ShapeData, ShapeDataKey>;
   typedef SkTInternalLList<ShapeData> ShapeDataList;
   static std::unique_ptr<GrDrawOp> createOp_TestingOnly(GrRecordingContext*, GrPaint&&, const GrShape&, const SkMatrix& viewMatrix, GrDrawOpAtlas* atlas, ShapeCache*, ShapeDataList*, bool gammaCorrect, const GrUserStencilSettings*);
@@ -48,8 +46,8 @@ private:
   class SmallPathOp;
   StencilSupport onGetStencilSupport(const GrShape&) const override
   {
-    return GrPathRenderer::kNoSupport_StencilSupport;
-  }
+        return GrPathRenderer::kNoSupport_StencilSupport;
+    }
   CanDrawPath onCanDrawPath(const CanDrawPathArgs&) const override;
   bool onDrawPath(const DrawPathArgs&) override;
   static void HandleEviction(GrDrawOpAtlas::AtlasID, void*);

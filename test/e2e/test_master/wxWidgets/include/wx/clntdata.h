@@ -28,64 +28,48 @@ class WXDLLIMPEXP_BASE wxShadowObject
 public:
   wxShadowObject()
   {
-  }
+   }
   void AddMethod(const wxString& name, wxShadowObjectMethod method)
   {
-    wxShadowObjectMethods::iterator it = m_methods.find(name);
-    if (it == m_methods.end())
-    {
-      m_methods[name] = method;
+        wxShadowObjectMethods::iterator it = m_methods.find( name );
+        if (it == m_methods.end())
+            m_methods[ name ] = method;
+        else
+            it->second = method;
     }
-    else 
-    {
-      it->second = method;
-    }
-  }
   bool InvokeMethod(const wxString& name, void* window, void* param, int* returnValue)
   {
-    wxShadowObjectMethods::iterator it = m_methods.find(name);
-    if (it == m_methods.end())
-    {
-      return false;
+        wxShadowObjectMethods::iterator it = m_methods.find( name );
+        if (it == m_methods.end())
+            return false;
+        wxShadowObjectMethod method = it->second;
+        const int ret = (*method)(window, param);
+        if (returnValue)
+            *returnValue = ret;
+        return true;
     }
-    wxShadowObjectMethod method = it->second;
-    const int ret = (*method)(window, param);
-    if (returnValue)
-    {
-      *returnValue = ret;
-    }
-    return true;
-  }
   void AddField(const wxString& name, void* initialValue = NULL)
   {
-    wxShadowObjectFields::iterator it = m_fields.find(name);
-    if (it == m_fields.end())
-    {
-      m_fields[name] = initialValue;
+        wxShadowObjectFields::iterator it = m_fields.find( name );
+        if (it == m_fields.end())
+            m_fields[ name ] = initialValue;
+        else
+            it->second = initialValue;
     }
-    else 
-    {
-      it->second = initialValue;
-    }
-  }
   void SetField(const wxString& name, void* value)
   {
-    wxShadowObjectFields::iterator it = m_fields.find(name);
-    if (it == m_fields.end())
-    {
-      return ;
+        wxShadowObjectFields::iterator it = m_fields.find( name );
+        if (it == m_fields.end())
+            return;
+        it->second = value;
     }
-    it->second = value;
-  }
   void* GetField(const wxString& name, void* defaultValue = NULL)
   {
-    wxShadowObjectFields::iterator it = m_fields.find(name);
-    if (it == m_fields.end())
-    {
-      return defaultValue;
+        wxShadowObjectFields::iterator it = m_fields.find( name );
+        if (it == m_fields.end())
+            return defaultValue;
+        return it->second;
     }
-    return it->second;
-  }
 private:
   wxShadowObjectMethods m_methods;
   wxShadowObjectFields m_fields;
@@ -103,30 +87,26 @@ class WXDLLIMPEXP_BASE wxClientData
 public:
   wxClientData()
   {
-  }
+   }
   virtual ~wxClientData()
   {
-  }
+   }
 };
 class WXDLLIMPEXP_BASE wxStringClientData : public wxClientData
 {
 public:
   wxStringClientData()
-    : m_data()
-  {
-  }
+    :  m_data() 
+    {
+     }
   wxStringClientData(const wxString& data)
-    : m_data(data)
-  {
-  }
+    :  m_data(data) 
+    {
+     }
   void SetData(const wxString& data)
-  {
-    m_data = data;
-  }
+  { m_data = data; }
   const wxString& GetData() const
-  {
-    return m_data;
-  }
+  { return m_data; }
 private:
   wxString m_data;
 };
@@ -144,21 +124,13 @@ public:
   wxClientDataContainer();
   virtual ~wxClientDataContainer();
   void SetClientObject(wxClientData* data)
-  {
-    DoSetClientObject(data);
-  }
+  { DoSetClientObject(data); }
   wxClientData* GetClientObject() const
-  {
-    return DoGetClientObject();
-  }
+  { return DoGetClientObject(); }
   void SetClientData(void* data)
-  {
-    DoSetClientData(data);
-  }
+  { DoSetClientData(data); }
   void* GetClientData() const
-  {
-    return DoGetClientData();
-  }
+  { return DoGetClientData(); }
 protected:
     // The user data: either an object which will be deleted by the container
     // when it's deleted or some raw pointer which we do nothing with. Only

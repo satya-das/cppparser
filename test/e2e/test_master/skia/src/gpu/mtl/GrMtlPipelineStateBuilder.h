@@ -33,9 +33,7 @@ public:
   public:
     static bool Build(Desc*, GrRenderTarget*, const GrPrimitiveProcessor&, const GrPipeline&, GrPrimitiveType, GrMtlGpu* gpu);
     size_t shaderKeyLength() const
-    {
-      return fShaderKeyLength;
-    }
+    { return fShaderKeyLength; }
   private:
     size_t fShaderKeyLength;
     typedef GrProgramDesc INHERITED;
@@ -57,17 +55,11 @@ private:
   void finalizeFragmentSecondaryColor(GrShaderVar& outputColor) override;
   id<MTLLibrary> createMtlShaderLibrary(const GrGLSLShaderBuilder& builder, SkSL::Program::Kind kind, const SkSL::Program::Settings& settings, GrProgramDesc* desc);
   GrGLSLUniformHandler* uniformHandler() override
-  {
-    return &fUniformHandler;
-  }
+  { return &fUniformHandler; }
   const GrGLSLUniformHandler* uniformHandler() const override
-  {
-    return &fUniformHandler;
-  }
+  { return &fUniformHandler; }
   GrGLSLVaryingHandler* varyingHandler() override
-  {
-    return &fVaryingHandler;
-  }
+  { return &fVaryingHandler; }
   GrMtlGpu* fGpu;
   GrMtlUniformHandler fUniformHandler;
   GrMtlVaryingHandler fVaryingHandler;

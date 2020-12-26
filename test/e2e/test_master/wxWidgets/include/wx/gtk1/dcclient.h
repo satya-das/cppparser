@@ -25,13 +25,9 @@ public:
   wxWindowDCImpl(wxDC* owner, wxWindow* win);
   virtual ~wxWindowDCImpl();
   virtual bool CanDrawBitmap() const
-  {
-    return true;
-  }
+  { return true; }
   virtual bool CanGetTextExtent() const
-  {
-    return true;
-  }
+  { return true; }
 protected:
   virtual void DoGetSize(int* width, int* height) const;
   virtual bool DoFloodFill(wxCoord x, wxCoord y, const wxColour& col, wxFloodFillStyle style = wxFLOOD_SURFACE);
@@ -72,9 +68,7 @@ public:
   virtual wxSize GetPPI() const;
   virtual int GetDepth() const;
   virtual GdkWindow* GetGDKWindow() const
-  {
-    return m_window;
-  }
+  { return m_window; }
     // implementation
     // --------------
   GdkWindow* m_window;
@@ -92,9 +86,7 @@ public:
   void Destroy();
   virtual void ComputeScaleAndOrigin();
   GdkWindow* GetWindow()
-  {
-    return m_window;
-  }
+  { return m_window; }
   wxDECLARE_DYNAMIC_CLASS(wxWindowDCImpl);
 };
 //-----------------------------------------------------------------------------
@@ -104,9 +96,9 @@ class WXDLLIMPEXP_CORE wxClientDCImpl : public wxWindowDCImpl
 {
 public:
   wxClientDCImpl(wxDC* owner)
-    : wxWindowDCImpl(owner)
-  {
-  }
+    :  wxWindowDCImpl(owner) 
+    {
+     }
   wxClientDCImpl(wxDC* owner, wxWindow* win);
 protected:
   virtual void DoGetSize(int* width, int* height) const;
@@ -119,9 +111,9 @@ class WXDLLIMPEXP_CORE wxPaintDCImpl : public wxClientDCImpl
 {
 public:
   wxPaintDCImpl(wxDC* owner)
-    : wxClientDCImpl(owner)
-  {
-  }
+    :  wxClientDCImpl(owner) 
+    {
+     }
   wxPaintDCImpl(wxDC* owner, wxWindow* win);
   wxDECLARE_DYNAMIC_CLASS(wxPaintDCImpl);
 };

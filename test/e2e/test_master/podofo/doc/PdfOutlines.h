@@ -238,35 +238,35 @@ namespace PoDoFo
   inline PdfOutlineItem* PdfOutlineItem::GetParentOutline() const
   {
     return m_pParentOutline;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfOutlineItem* PdfOutlineItem::First() const
   {
     return m_pFirst;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfOutlineItem* PdfOutlineItem::Last() const
   {
     return m_pLast;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfOutlineItem* PdfOutlineItem::Prev() const
   {
     return m_pPrev;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfOutlineItem* PdfOutlineItem::Next() const
   {
     return m_pNext;
-  }
+}
 /** The main PDF outlines dictionary.
  *  
  *  Do not create it by yourself but 
@@ -287,7 +287,7 @@ namespace PoDoFo
     PdfOutlines(PdfObject* pObject);
     virtual ~PdfOutlines()
     {
-    }
+     }
     /** Create the root node of the 
      *  outline item tree.
      *

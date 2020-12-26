@@ -132,8 +132,8 @@ namespace SkSL
     // The pointer to the node may be invalidated by modifying the fNodes vector
     ASTNode& getNode(ASTNode::ID id)
     {
-      SkASSERT(id.fValue >= 0 && id.fValue < (int) fFile->fNodes.size());
-      return fFile->fNodes[id.fValue];
+        SkASSERT(id.fValue >= 0 && id.fValue < (int) fFile->fNodes.size());
+        return fFile->fNodes[id.fValue];
     }
     // these functions parse individual grammar rules from the current parse position; you probably
     // don't need to call any of these outside of the parser. The function declarations in the .cpp

@@ -28,19 +28,19 @@ class WXDLLIMPEXP_CORE wxTextEntryDialog : public wxDialog
 public:
   wxTextEntryDialog()
   {
-    m_textctrl = NULL;
-    m_dialogStyle = 0;
-  }
+
+        m_textctrl = NULL;
+        m_dialogStyle = 0;
+      }
   wxTextEntryDialog(wxWindow* parent, const wxString& message, const wxString& caption = wxASCII_STR(wxGetTextFromUserPromptStr), const wxString& value = wxEmptyString, long style = wxTextEntryDialogStyle, const wxPoint& pos = wxDefaultPosition)
   {
-    Create(parent, message, caption, value, style, pos);
-  }
+
+        Create(parent, message, caption, value, style, pos);
+      }
   bool Create(wxWindow* parent, const wxString& message, const wxString& caption = wxASCII_STR(wxGetTextFromUserPromptStr), const wxString& value = wxEmptyString, long style = wxTextEntryDialogStyle, const wxPoint& pos = wxDefaultPosition);
   void SetValue(const wxString& val);
   wxString GetValue() const
-  {
-    return m_value;
-  }
+  { return m_value; }
   void SetMaxLength(unsigned long len);
   void ForceUpper();
 #    if  wxUSE_VALIDATORS
@@ -49,9 +49,7 @@ public:
 #      endif
   void SetTextValidator(wxTextValidatorStyle style = wxFILTER_NONE);
   wxTextValidator* GetTextValidator()
-  {
-    return (wxTextValidator*) m_textctrl->GetValidator();
-  }
+  { return (wxTextValidator*)m_textctrl->GetValidator(); }
 #    endif
   bool TransferDataToWindow() override;
   bool TransferDataFromWindow() override;
@@ -73,11 +71,12 @@ class WXDLLIMPEXP_CORE wxPasswordEntryDialog : public wxTextEntryDialog
 public:
   wxPasswordEntryDialog()
   {
-  }
+   }
   wxPasswordEntryDialog(wxWindow* parent, const wxString& message, const wxString& caption = wxASCII_STR(wxGetPasswordFromUserPromptStr), const wxString& value = wxEmptyString, long style = wxTextEntryDialogStyle, const wxPoint& pos = wxDefaultPosition)
   {
-    Create(parent, message, caption, value, style, pos);
-  }
+
+        Create(parent, message, caption, value, style, pos);
+      }
   bool Create(wxWindow* parent, const wxString& message, const wxString& caption = wxASCII_STR(wxGetPasswordFromUserPromptStr), const wxString& value = wxEmptyString, long style = wxTextEntryDialogStyle, const wxPoint& pos = wxDefaultPosition);
   wxDECLARE_DYNAMIC_CLASS(wxPasswordEntryDialog);
   wxDECLARE_NO_COPY_CLASS(wxPasswordEntryDialog);

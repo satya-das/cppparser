@@ -22,25 +22,25 @@ extern wxCharBuffer wx2stc(const wxString& str);
 // just to compute the length.
 inline size_t wx2stclen(const wxString&, const wxCharBuffer& buf)
 {
-  return buf.length();
+    return buf.length();
 }
 #  else 
 inline wxString stc2wx(const char* str)
 {
-  return wxString(str);
+    return wxString(str);
 }
 inline wxString stc2wx(const char* str, size_t len)
 {
-  return wxString(str, len);
+    return wxString(str, len);
 }
 inline const char* wx2stc(const wxString& str)
 {
-  return str.mbc_str();
+    return str.mbc_str();
 }
 // As explained above, the buffer argument is only used in Unicode build.
 inline size_t wx2stclen(const wxString& str, const char*)
 {
-  return str.length();
+    return str.length();
 }
 #  endif
 #endif

@@ -29,16 +29,14 @@ private:
 struct GrDawnStagingBuffer
 {
   GrDawnStagingBuffer(GrDawnStagingManager* manager, dawn::Buffer buffer, size_t size, void* data)
-    : fManager(manager)
-    , fBuffer(buffer)
-    , fSize(size)
-    , fData(data)
-  {
-  }
+    :  fManager(manager), fBuffer(buffer), fSize(size), fData(data) 
+    {
+    }
   ~GrDawnStagingBuffer()
   {
-    fManager = nullptr;
-  }
+
+        fManager = nullptr;
+      }
   GrDawnStagingManager* fManager;
   dawn::Buffer fBuffer;
   size_t fSize;

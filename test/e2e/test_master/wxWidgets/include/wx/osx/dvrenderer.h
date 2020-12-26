@@ -48,12 +48,12 @@ public:
     // --------------
   const wxVariant& GetValue() const
   {
-    return m_value;
-  }
+        return m_value;
+    }
   wxDataViewRendererNativeData* GetNativeData() const
   {
-    return m_NativeDataPtr;
-  }
+        return m_NativeDataPtr;
+    }
     // a call to the native data browser function to render the data;
     // returns true if the data value could be rendered, false otherwise
   virtual bool MacRender() = 0;

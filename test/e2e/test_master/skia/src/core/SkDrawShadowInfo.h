@@ -35,26 +35,26 @@ namespace SkDrawShadowMetrics
     // ensure that SkTPin handled non-finites correctly
     SkASSERT(result >= min && result <= max);
     return result;
-  }
+}
   inline SkScalar AmbientBlurRadius(SkScalar height)
   {
-    return SkTMin(height * kAmbientHeightFactor * kAmbientGeomFactor, kMaxAmbientRadius);
-  }
+    return SkTMin(height*kAmbientHeightFactor*kAmbientGeomFactor, kMaxAmbientRadius);
+}
   inline SkScalar AmbientRecipAlpha(SkScalar height)
   {
-    return 1.0f + SkTMax(height * kAmbientHeightFactor, 0.0f);
-  }
+    return 1.0f + SkTMax(height*kAmbientHeightFactor, 0.0f);
+}
   inline SkScalar SpotBlurRadius(SkScalar occluderZ, SkScalar lightZ, SkScalar lightRadius)
   {
-    return lightRadius * divide_and_pin(occluderZ, lightZ - occluderZ, 0.0f, 0.95f);
-  }
+    return lightRadius*divide_and_pin(occluderZ, lightZ - occluderZ, 0.0f, 0.95f);
+}
   inline void GetSpotParams(SkScalar occluderZ, SkScalar lightX, SkScalar lightY, SkScalar lightZ, SkScalar lightRadius, SkScalar* blurRadius, SkScalar* scale, SkVector* translate)
   {
     SkScalar zRatio = divide_and_pin(occluderZ, lightZ - occluderZ, 0.0f, 0.95f);
-    *blurRadius = lightRadius * zRatio;
+    *blurRadius = lightRadius*zRatio;
     *scale = divide_and_pin(lightZ, lightZ - occluderZ, 1.0f, 1.95f);
     *translate = SkVector::Make(-zRatio * lightX, -zRatio * lightY);
-  }
+}
 // Create the transformation to apply to a path to get its base shadow outline, given the light
 // parameters and the path's 3D transformation (given by ctm and zPlaneParams).
 // Also computes the blur radius to apply the transformed outline.

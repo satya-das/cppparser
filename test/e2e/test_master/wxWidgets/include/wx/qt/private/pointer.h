@@ -15,21 +15,25 @@ class wxQtPointer : public QPointer< T >
 {
 public:
   inline wxQtPointer()
-    : QPointer< T >()
-  {
-  }
-  inline wxQtPointer(T* p)
-    : QPointer< T >(p)
-  {
-  }
+    :  QPointer< T >()
+    {
+    }
+
+    inline wxQtPointer( T *p )
+        : QPointer< T >( p )
+    
+    {
+
+        }
   inline wxQtPointer< T >& operator =(T* p)
   {
-    QPointer< T >::operator =(p);
-    return *this;
-  }
+        QPointer< T >::operator = ( p );
+        return *this;
+    }
   inline ~wxQtPointer()
   {
-    delete QPointer< T >::data();
-  }
+
+        delete QPointer< T >::data();
+      }
 };
 #endif

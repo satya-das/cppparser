@@ -16,25 +16,24 @@ class WXDLLIMPEXP_CORE wxToggleButton : public wxCheckBox
 public:
   wxToggleButton()
   {
-    Init();
-  }
+ Init();   }
   wxToggleButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr))
   {
-    Init();
-    Create(parent, id, label, pos, size, style, val, name);
-  }
+
+        Init();
+
+        Create( parent, id, label, pos, size, style, val, name );
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr));
 protected:
   virtual wxBorder GetDefaultBorder() const
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
   wxDECLARE_DYNAMIC_CLASS(wxToggleButton);
 private:
     // common part of all constructors
   void Init()
   {
-    m_evtType = wxEVT_TOGGLEBUTTON;
-  }
+        m_evtType = wxEVT_TOGGLEBUTTON;
+    }
 };
 #endif

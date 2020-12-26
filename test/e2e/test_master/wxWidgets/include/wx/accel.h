@@ -39,58 +39,50 @@ class WXDLLIMPEXP_CORE wxAcceleratorEntry
 {
 public:
   wxAcceleratorEntry(int flags = 0, int keyCode = 0, int cmd = 0, wxMenuItem* item = NULL)
-    : m_flags(flags)
-    , m_keyCode(keyCode)
-    , m_command(cmd)
-    , m_item(item)
-  {
-  }
+    :  m_flags(flags)
+        , m_keyCode(keyCode)
+        , m_command(cmd)
+        , m_item(item)
+        
+    {
+     }
     // create accelerator corresponding to the specified string, return NULL if
     // string couldn't be parsed or a pointer to be deleted by the caller
   static wxAcceleratorEntry* Create(const wxString& str);
   void Set(int flags, int keyCode, int cmd, wxMenuItem* item = NULL)
   {
-    m_flags = flags;
-    m_keyCode = keyCode;
-    m_command = cmd;
-    m_item = item;
-  }
+        m_flags = flags;
+        m_keyCode = keyCode;
+        m_command = cmd;
+        m_item = item;
+    }
   void SetMenuItem(wxMenuItem* item)
-  {
-    m_item = item;
-  }
+  { m_item = item; }
   int GetFlags() const
-  {
-    return m_flags;
-  }
+  { return m_flags; }
   int GetKeyCode() const
-  {
-    return m_keyCode;
-  }
+  { return m_keyCode; }
   int GetCommand() const
-  {
-    return m_command;
-  }
+  { return m_command; }
   wxMenuItem* GetMenuItem() const
-  {
-    return m_item;
-  }
+  { return m_item; }
   bool operator==(const wxAcceleratorEntry& entry) const
   {
-    return m_flags == entry.m_flags && m_keyCode == entry.m_keyCode && m_command == entry.m_command && m_item == entry.m_item;
-  }
+        return m_flags == entry.m_flags &&
+               m_keyCode == entry.m_keyCode &&
+               m_command == entry.m_command &&
+               m_item == entry.m_item;
+    }
   bool operator!=(const wxAcceleratorEntry& entry) const
-  {
-    return !(*this == entry);
-  }
+  { return !(*this == entry); }
 #    if  defined(__WXMOTIF__)
     // Implementation use only
   bool MatchesEvent(const wxKeyEvent& event) const;
 #    endif
   bool IsOk() const
   {
-    return m_keyCode != 0;
-  }
+        return  m_keyCode != 0;
+    }
     // string <-> wxAcceleratorEntry conversion
     // ----------------------------------------
 
@@ -98,16 +90,12 @@ public:
     // this function formats it using the <flags>-<keycode> format
     // where <flags> maybe a hyphen-separated list of "shift|alt|ctrl"
   wxString ToString() const
-  {
-    return AsPossiblyLocalizedString(true);
-  }
+  { return AsPossiblyLocalizedString(true); }
     // same as above but without translating, useful if the string is meant to
     // be stored in a file or otherwise stored, instead of being shown to the
     // user
   wxString ToRawString() const
-  {
-    return AsPossiblyLocalizedString(false);
-  }
+  { return AsPossiblyLocalizedString(false); }
     // returns true if the given string correctly initialized this object
     // (i.e. if IsOk() returns true after this call)
   bool FromString(const wxString& str);

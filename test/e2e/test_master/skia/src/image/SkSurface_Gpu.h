@@ -36,9 +36,7 @@ public:
   void onDraw(SkCanvas* canvas, SkScalar x, SkScalar y, const SkPaint* paint) override;
   bool onDraw(const SkDeferredDisplayList*) override;
   SkGpuDevice* getDevice()
-  {
-    return fDevice.get();
-  }
+  { return fDevice.get(); }
 private:
   sk_sp<SkGpuDevice> fDevice;
   typedef SkSurface_Base INHERITED;

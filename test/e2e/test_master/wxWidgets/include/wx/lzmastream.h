@@ -36,15 +36,19 @@ class WXDLLIMPEXP_BASE wxLZMAInputStream : public wxFilterInputStream, private w
 {
 public:
   explicit wxLZMAInputStream(wxInputStream& stream)
-    : wxFilterInputStream(stream)
-  {
-    Init();
-  }
+    :  wxFilterInputStream(stream)
+    
+    {
+
+        Init();
+        }
   explicit wxLZMAInputStream(wxInputStream* stream)
-    : wxFilterInputStream(stream)
-  {
-    Init();
-  }
+    :  wxFilterInputStream(stream)
+    
+    {
+
+        Init();
+        }
   char Peek() override
   {
     return wxInputStream::Peek();
@@ -69,19 +73,22 @@ class WXDLLIMPEXP_BASE wxLZMAOutputStream : public wxFilterOutputStream, private
 {
 public:
   explicit wxLZMAOutputStream(wxOutputStream& stream, int level = -1)
-    : wxFilterOutputStream(stream)
-  {
-    Init(level);
-  }
+    :  wxFilterOutputStream(stream)
+    
+    {
+
+        Init(level);
+        }
   explicit wxLZMAOutputStream(wxOutputStream* stream, int level = -1)
-    : wxFilterOutputStream(stream)
-  {
-    Init(level);
-  }
+    :  wxFilterOutputStream(stream)
+    
+    {
+
+        Init(level);
+        }
   virtual ~wxLZMAOutputStream()
   {
-    Close();
-  }
+ Close();   }
   void Sync() override
   {
     DoFlush(false);

@@ -82,9 +82,7 @@ public:
     // are still in use by the GPU.
   void releaseResources();
   const SkSurfaceProps& props() const
-  {
-    return fProps;
-  }
+  { return fProps; }
     // TODO: Fill out these calls to support DDL
   bool characterize(SkSurfaceCharacterization* characterization) const;
   bool draw(SkDeferredDisplayList* deferredDisplayList);

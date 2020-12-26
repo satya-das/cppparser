@@ -32,137 +32,100 @@ class WXDLLIMPEXP_CORE wxMouseState : public wxKeyboardState
 {
 public:
   wxMouseState()
-    : m_leftDown(false)
-    , m_middleDown(false)
-    , m_rightDown(false)
-    , m_aux1Down(false)
-    , m_aux2Down(false)
-    , m_x(0)
-    , m_y(0)
-  {
-  }
+    :  m_leftDown(false), m_middleDown(false), m_rightDown(false),
+          m_aux1Down(false), m_aux2Down(false),
+          m_x(0), m_y(0)
+    
+    {
+
+        }
     // default copy ctor, assignment operator and dtor are ok
 
 
     // accessors for the mouse position
   wxCoord GetX() const
-  {
-    return m_x;
-  }
+  { return m_x; }
   wxCoord GetY() const
-  {
-    return m_y;
-  }
+  { return m_y; }
   wxPoint GetPosition() const
-  {
-    return wxPoint(m_x, m_y);
-  }
+  { return wxPoint(m_x, m_y); }
   void GetPosition(wxCoord* x, wxCoord* y) const
   {
-    if (x)
-    {
-      *x = m_x;
+        if ( x )
+            *x = m_x;
+        if ( y )
+            *y = m_y;
     }
-    if (y)
-    {
-      *y = m_y;
-    }
-  }
     // this overload is for compatibility only
   void GetPosition(long* x, long* y) const
   {
-    if (x)
-    {
-      *x = m_x;
+        if ( x )
+            *x = m_x;
+        if ( y )
+            *y = m_y;
     }
-    if (y)
-    {
-      *y = m_y;
-    }
-  }
     // accessors for the pressed buttons
   bool LeftIsDown() const
-  {
-    return m_leftDown;
-  }
+  { return m_leftDown; }
   bool MiddleIsDown() const
-  {
-    return m_middleDown;
-  }
+  { return m_middleDown; }
   bool RightIsDown() const
-  {
-    return m_rightDown;
-  }
+  { return m_rightDown; }
   bool Aux1IsDown() const
-  {
-    return m_aux1Down;
-  }
+  { return m_aux1Down; }
   bool Aux2IsDown() const
-  {
-    return m_aux2Down;
-  }
+  { return m_aux2Down; }
   bool ButtonIsDown(wxMouseButton but) const
   {
-    switch(but)
-    {
-      case wxMOUSE_BTN_ANY:
-        return LeftIsDown() || MiddleIsDown() || RightIsDown() || Aux1IsDown() || Aux2IsDown();
-      case wxMOUSE_BTN_LEFT:
-        return LeftIsDown();
-      case wxMOUSE_BTN_MIDDLE:
-        return MiddleIsDown();
-      case wxMOUSE_BTN_RIGHT:
-        return RightIsDown();
-      case wxMOUSE_BTN_AUX1:
-        return Aux1IsDown();
-      case wxMOUSE_BTN_AUX2:
-        return Aux2IsDown();
-      case wxMOUSE_BTN_NONE:
-      case wxMOUSE_BTN_MAX:
-        break;
+        switch ( but )
+        {
+            case wxMOUSE_BTN_ANY:
+                return LeftIsDown() || MiddleIsDown() || RightIsDown() ||
+                            Aux1IsDown() || Aux2IsDown();
+
+            case wxMOUSE_BTN_LEFT:
+                return LeftIsDown();
+
+            case wxMOUSE_BTN_MIDDLE:
+                return MiddleIsDown();
+
+            case wxMOUSE_BTN_RIGHT:
+                return RightIsDown();
+
+            case wxMOUSE_BTN_AUX1:
+                return Aux1IsDown();
+
+            case wxMOUSE_BTN_AUX2:
+                return Aux2IsDown();
+
+            case wxMOUSE_BTN_NONE:
+            case wxMOUSE_BTN_MAX:
+                break;
+        }
+
+        wxFAIL_MSG(wxS("invalid parameter"));
+        return false;
     }
-    wxFAIL_MSG(wxS("invalid parameter"));
-    return false;
-  }
     // these functions are mostly used by wxWidgets itself
   void SetX(wxCoord x)
-  {
-    m_x = x;
-  }
+  { m_x = x; }
   void SetY(wxCoord y)
-  {
-    m_y = y;
-  }
+  { m_y = y; }
   void SetPosition(const wxPoint& pos)
-  {
-    m_x = pos.x;
-    m_y = pos.y;
-  }
+  { m_x = pos.x; m_y = pos.y; }
   void SetLeftDown(bool down)
-  {
-    m_leftDown = down;
-  }
+  { m_leftDown = down; }
   void SetMiddleDown(bool down)
-  {
-    m_middleDown = down;
-  }
+  { m_middleDown = down; }
   void SetRightDown(bool down)
-  {
-    m_rightDown = down;
-  }
+  { m_rightDown = down; }
   void SetAux1Down(bool down)
-  {
-    m_aux1Down = down;
-  }
+  { m_aux1Down = down; }
   void SetAux2Down(bool down)
-  {
-    m_aux2Down = down;
-  }
+  { m_aux2Down = down; }
     // this mostly makes sense in the derived classes such as wxMouseEvent
   void SetState(const wxMouseState& state)
-  {
-    *this = state;
-  }
+  { *this = state; }
     // these functions are for compatibility only, they were used in 2.8
     // version of wxMouseState but their names are confusing as wxMouseEvent
     // has methods with the same names which do something quite different so

@@ -258,13 +258,9 @@ namespace PoDoFo
     /** Private method to access the Root of the tree using a logical name
      */
     PdfObject* GetRoot()
-    {
-      return this->GetObject();
-    }
+    { return this->GetObject(); }
     const PdfObject* GetRoot() const
-    {
-      return this->GetObject();
-    }
+    { return this->GetObject(); }
     PdfPagesTreeCache m_cache;
   };
 // -----------------------------------------------------
@@ -273,6 +269,6 @@ namespace PoDoFo
   inline void PdfPagesTree::ClearCache()
   {
     m_cache.ClearCache();
-  }
+}
 }
 #endif

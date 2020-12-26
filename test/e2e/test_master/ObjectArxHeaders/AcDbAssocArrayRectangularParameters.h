@@ -159,14 +159,14 @@ public:
   int columnCount(AcString& expression, AcString& evaluatorId) const;
   inline int columnCount() const
   {
-    AcString expression, evaluatorId;
-    return columnCount(expression, evaluatorId);
-  }
+        AcString expression, evaluatorId;
+        return columnCount(expression, evaluatorId);
+    }
   inline int columnCount(AcString& expression) const
   {
-    AcString evaluatorId;
-    return columnCount(expression, evaluatorId);
-  }
+        AcString evaluatorId;
+        return columnCount(expression, evaluatorId);
+    }
     /// <summary> 
     /// Gets the column spacing of the rectangular array.
     /// If there is no expression for a particular param,
@@ -179,14 +179,14 @@ public:
   double columnSpacing(AcString& expression, AcString& evaluatorId) const;
   inline double columnSpacing() const
   {
-    AcString expression, evaluatorId;
-    return columnSpacing(expression, evaluatorId);
-  }
+        AcString expression, evaluatorId;
+        return columnSpacing(expression, evaluatorId);
+    }
   inline double columnSpacing(AcString& expression) const
   {
-    AcString evaluatorId;
-    return columnSpacing(expression, evaluatorId);
-  }
+        AcString evaluatorId;
+        return columnSpacing(expression, evaluatorId);
+    }
     /// <summary> 
     /// Gets the axes angle of the rectangular array. the values should be between 
     /// 0-360 degrees.
@@ -200,14 +200,14 @@ public:
   double axesAngle(AcString& expression, AcString& evaluatorId) const;
   inline double axesAngle() const
   {
-    AcString expression, evaluatorId;
-    return axesAngle(expression, evaluatorId);
-  }
+        AcString expression, evaluatorId;
+        return axesAngle(expression, evaluatorId);
+    }
   inline double axesAngle(AcString& expression) const
   {
-    AcString evaluatorId;
-    return axesAngle(expression, evaluatorId);
-  }
+        AcString evaluatorId;
+        return axesAngle(expression, evaluatorId);
+    }
     /// <summary> 
     /// Gets the direction vector for X axis of the rectangular array. It also
     /// provides Y axis direction optionally. Y axis is at axes angle from

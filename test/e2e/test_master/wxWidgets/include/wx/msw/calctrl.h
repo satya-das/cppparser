@@ -12,13 +12,14 @@ class WXDLLIMPEXP_ADV wxCalendarCtrl : public wxCalendarCtrlBase
 public:
   wxCalendarCtrl()
   {
-    Init();
-  }
+ Init();   }
   wxCalendarCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAL_SHOW_HOLIDAYS, const wxString& name = wxASCII_STR(wxCalendarNameStr))
   {
-    Init();
-    Create(parent, id, date, pos, size, style, name);
-  }
+
+        Init();
+
+        Create(parent, id, date, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAL_SHOW_HOLIDAYS, const wxString& name = wxASCII_STR(wxCalendarNameStr));
   bool SetDate(const wxDateTime& date) override;
   wxDateTime GetDate() const override;

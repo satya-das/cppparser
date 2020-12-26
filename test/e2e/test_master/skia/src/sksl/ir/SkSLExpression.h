@@ -42,18 +42,18 @@ namespace SkSL
         kDefined_Kind
     };
     Expression(int offset, Kind kind, const Type& type)
-      : INHERITED(offset)
-      , fKind(kind)
-      , fType(std::move(type))
-    {
-    }
+      :  INHERITED(offset)
+    , fKind(kind)
+    , fType(std::move(type)) 
+      {
+      }
     /**
      * Returns true if this expression is constant. compareConstant must be implemented for all
      * constants!
      */
     virtual bool isConstant() const
     {
-      return false;
+        return false;
     }
     /**
      * Compares this constant expression against another constant expression of the same type. It is
@@ -62,7 +62,7 @@ namespace SkSL
      */
     virtual bool compareConstant(const Context& context, const Expression& other) const
     {
-      ABORT("cannot call compareConstant on this type");
+        ABORT("cannot call compareConstant on this type");
     }
     /**
      * For an expression which evaluates to a constant int, returns the value. Otherwise calls
@@ -70,7 +70,7 @@ namespace SkSL
      */
     virtual int64_t getConstantInt() const
     {
-      ABORT("not a constant int");
+        ABORT("not a constant int");
     }
     /**
      * For an expression which evaluates to a constant float, returns the value. Otherwise calls
@@ -78,7 +78,7 @@ namespace SkSL
      */
     virtual double getConstantFloat() const
     {
-      ABORT("not a constant float");
+        ABORT("not a constant float");
     }
     /**
      * Returns true if evaluating the expression potentially has side effects. Expressions may never
@@ -95,11 +95,11 @@ namespace SkSL
      */
     virtual std::unique_ptr<Expression> constantPropagate(const IRGenerator& irGenerator, const DefinitionMap& definitions)
     {
-      return nullptr;
+        return nullptr;
     }
     virtual int coercionCost(const Type& target) const
     {
-      return fType.coercionCost(target);
+        return fType.coercionCost(target);
     }
     /**
      * For a literal vector expression, return the floating point value of the n'th vector
@@ -107,8 +107,8 @@ namespace SkSL
      */
     virtual SKSL_FLOAT getFVecComponent(int n) const
     {
-      SkASSERT(false);
-      return 0;
+        SkASSERT(false);
+        return 0;
     }
     /**
      * For a literal vector expression, return the integer value of the n'th vector component. It is
@@ -116,8 +116,8 @@ namespace SkSL
      */
     virtual SKSL_INT getIVecComponent(int n) const
     {
-      SkASSERT(false);
-      return 0;
+        SkASSERT(false);
+        return 0;
     }
     /**
      * For a literal matrix expression, return the floating point value of the component at
@@ -126,8 +126,8 @@ namespace SkSL
      */
     virtual SKSL_FLOAT getMatComponent(int col, int row) const
     {
-      SkASSERT(false);
-      return 0;
+        SkASSERT(false);
+        return 0;
     }
     virtual std::unique_ptr<Expression> clone() const = 0;
     const Kind fKind;

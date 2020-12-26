@@ -22,22 +22,22 @@ enum SkPixelGeometry {
 // Returns true iff geo is a known geometry and is RGB.
 static bool SkPixelGeometryIsRGB(SkPixelGeometry geo)
 {
-  return kRGB_H_SkPixelGeometry == geo || kRGB_V_SkPixelGeometry == geo;
+    return kRGB_H_SkPixelGeometry == geo || kRGB_V_SkPixelGeometry == geo;
 }
 // Returns true iff geo is a known geometry and is BGR.
 static bool SkPixelGeometryIsBGR(SkPixelGeometry geo)
 {
-  return kBGR_H_SkPixelGeometry == geo || kBGR_V_SkPixelGeometry == geo;
+    return kBGR_H_SkPixelGeometry == geo || kBGR_V_SkPixelGeometry == geo;
 }
 // Returns true iff geo is a known geometry and is horizontal.
 static bool SkPixelGeometryIsH(SkPixelGeometry geo)
 {
-  return kRGB_H_SkPixelGeometry == geo || kBGR_H_SkPixelGeometry == geo;
+    return kRGB_H_SkPixelGeometry == geo || kBGR_H_SkPixelGeometry == geo;
 }
 // Returns true iff geo is a known geometry and is vertical.
 static bool SkPixelGeometryIsV(SkPixelGeometry geo)
 {
-  return kRGB_V_SkPixelGeometry == geo || kBGR_V_SkPixelGeometry == geo;
+    return kRGB_V_SkPixelGeometry == geo || kBGR_V_SkPixelGeometry == geo;
 }
 /**
  *  Describes properties and constraints of a given SkSurface. The rendering engine can parse these
@@ -60,25 +60,21 @@ public:
   SkSurfaceProps(uint32_t flags, InitType);
   SkSurfaceProps(const SkSurfaceProps& other);
   uint32_t flags() const
-  {
-    return fFlags;
-  }
+  { return fFlags; }
   SkPixelGeometry pixelGeometry() const
-  {
-    return fPixelGeometry;
-  }
+  { return fPixelGeometry; }
   bool isUseDeviceIndependentFonts() const
   {
-    return SkToBool(fFlags & kUseDeviceIndependentFonts_Flag);
-  }
+        return SkToBool(fFlags & kUseDeviceIndependentFonts_Flag);
+    }
   bool operator==(const SkSurfaceProps& that) const
   {
-    return fFlags == that.fFlags && fPixelGeometry == that.fPixelGeometry;
-  }
+        return fFlags == that.fFlags && fPixelGeometry == that.fPixelGeometry;
+    }
   bool operator!=(const SkSurfaceProps& that) const
   {
-    return !(*this == that);
-  }
+        return !(*this == that);
+    }
 private:
   SkSurfaceProps();
   uint32_t fFlags;

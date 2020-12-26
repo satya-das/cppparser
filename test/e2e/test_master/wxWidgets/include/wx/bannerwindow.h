@@ -26,8 +26,7 @@ public:
     // Default constructor, use Create() later.
   wxBannerWindow()
   {
-    Init();
-  }
+ Init();   }
     // Convenient constructor that should be used in the majority of cases.
     //
     // The banner orientation changes how the text in it is displayed and also
@@ -36,15 +35,19 @@ public:
     // of in the usual way, e.g. using sizers.
   wxBannerWindow(wxWindow* parent, wxDirection dir = wxLEFT)
   {
-    Init();
-    Create(parent, wxID_ANY, dir);
-  }
+
+        Init();
+
+        Create(parent, wxID_ANY, dir);
+      }
     // Full constructor provided for consistency with the other classes only.
   wxBannerWindow(wxWindow* parent, wxWindowID winid, wxDirection dir = wxLEFT, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxBannerWindowNameStr))
   {
-    Init();
-    Create(parent, winid, dir, pos, size, style, name);
-  }
+
+        Init();
+
+        Create(parent, winid, dir, pos, size, style, name);
+      }
     // Can be only called on objects created with the default constructor.
   bool Create(wxWindow* parent, wxWindowID winid, wxDirection dir = wxLEFT, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxBannerWindowNameStr));
     // Provide an existing bitmap to show. For wxLEFT orientation the bitmap is

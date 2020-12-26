@@ -171,33 +171,19 @@ namespace PoDoFo
     PdfErrorInfo(const PdfErrorInfo& rhs);
     const PdfErrorInfo& operator=(const PdfErrorInfo& rhs);
     inline int GetLine() const
-    {
-      return m_nLine;
-    }
+    { return m_nLine; }
     inline const std::string& GetFilename() const
-    {
-      return m_sFile;
-    }
+    { return m_sFile; }
     inline const std::string& GetInformation() const
-    {
-      return m_sInfo;
-    }
+    { return m_sInfo; }
     inline const std::wstring& GetInformationW() const
-    {
-      return m_swInfo;
-    }
+    { return m_swInfo; }
     inline void SetInformation(const char* pszInfo)
-    {
-      m_sInfo = pszInfo ? pszInfo : "";
-    }
+    { m_sInfo = pszInfo ? pszInfo : ""; }
     inline void SetInformation(std::string pszInfo)
-    {
-      m_sInfo = pszInfo;
-    }
+    { m_sInfo = pszInfo; }
     inline void SetInformation(const wchar_t* pszInfo)
-    {
-      m_swInfo = pszInfo ? pszInfo : L"";
-    }
+    { m_swInfo = pszInfo ? pszInfo : L""; }
   private:
     int m_nLine;
     std::string m_sFile;
@@ -455,70 +441,66 @@ namespace PoDoFo
   EPdfError PdfError::GetError() const
   {
     return m_error;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const TDequeErrorInfo& PdfError::GetCallstack() const
   {
     return m_callStack;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfError::SetError(const EPdfError& eCode, const char* pszFile, int line, const char* pszInformation)
   {
     m_error = eCode;
-    this->AddToCallstack(pszFile, line, pszInformation);
-  }
+    this->AddToCallstack( pszFile, line, pszInformation );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfError::AddToCallstack(const char* pszFile, int line, const char* pszInformation)
   {
-    m_callStack.push_front(PdfErrorInfo(line, pszFile, pszInformation));
-  }
+    m_callStack.push_front( PdfErrorInfo( line, pszFile, pszInformation ) );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfError::SetError(const EPdfError& eCode, const char* pszFile, int line, std::string sInformation)
   {
     m_error = eCode;
-    this->AddToCallstack(pszFile, line, sInformation);
-  }
+    this->AddToCallstack( pszFile, line, sInformation );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfError::AddToCallstack(const char* pszFile, int line, std::string sInformation)
   {
-    m_callStack.push_front(PdfErrorInfo(line, pszFile, sInformation));
-  }
+    m_callStack.push_front( PdfErrorInfo( line, pszFile, sInformation ) );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfError::SetErrorInformation(const char* pszInformation)
   {
-    if (m_callStack.size())
-    {
-      m_callStack.front().SetInformation(pszInformation ? pszInformation : "");
-    }
-  }
+    if( m_callStack.size() )
+        m_callStack.front().SetInformation( pszInformation ? pszInformation : "" );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfError::SetErrorInformation(const wchar_t* pszInformation)
   {
-    if (m_callStack.size())
-    {
-      m_callStack.front().SetInformation(pszInformation ? pszInformation : L"");
-    }
-  }
+    if( m_callStack.size() )
+        m_callStack.front().SetInformation( pszInformation ? pszInformation : L"" );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfError::IsError() const
   {
     return (m_error != ePdfError_ErrOk);
-  }
+}
 }
 #endif

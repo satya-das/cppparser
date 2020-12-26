@@ -17,13 +17,14 @@ public:
     // construction
   wxTopLevelWindowDFB()
   {
-    Init();
-  }
+ Init();   }
   wxTopLevelWindowDFB(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-    Init();
-    Create(parent, id, title, pos, size, style, name);
-  }
+
+        Init();
+
+        Create(parent, id, title, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
     // implement base class pure virtuals
   virtual void Maximize(bool maximize = true);
@@ -33,22 +34,14 @@ public:
   virtual void Restore();
   virtual bool ShowFullScreen(bool show, long style = wxFULLSCREEN_ALL);
   virtual bool IsFullScreen() const
-  {
-    return m_fsIsShowing;
-  }
+  { return m_fsIsShowing; }
   virtual bool CanSetTransparent()
-  {
-    return true;
-  }
+  { return true; }
   virtual bool SetTransparent(wxByte alpha);
   virtual void SetTitle(const wxString& title)
-  {
-    m_title = title;
-  }
+  { m_title = title; }
   virtual wxString GetTitle() const
-  {
-    return m_title;
-  }
+  { return m_title; }
 protected:
     // common part of all ctors
   void Init();

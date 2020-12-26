@@ -17,11 +17,12 @@ public:
     // Constructors.
   wxDatePickerCtrl()
   {
-  }
+   }
   wxDatePickerCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& dt = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDP_DEFAULT | wxDP_SHOWCENTURY, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxDatePickerCtrlNameStr)
   {
-    Create(parent, id, dt, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, dt, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxDateTime& dt = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDP_DEFAULT | wxDP_SHOWCENTURY, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxDatePickerCtrlNameStr);
     // Implement the base class pure virtuals.
   void SetRange(const wxDateTime& dt1, const wxDateTime& dt2) override;

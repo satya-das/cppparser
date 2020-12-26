@@ -40,10 +40,7 @@ public:
 };
 ACBASE_PORT AcRxDictionary* acrxSysRegistry();
 inline AcRxObject* AcRxDictionary::atPut(const ACHAR* key, AcRxObject* pObj)
-{
-  Adesk::UInt32 temp;
-  return atPut(key, pObj, temp);
-}
+{ Adesk::UInt32 temp; return atPut(key, pObj, temp); }
 #  define acrxClassDictionary	AcRxDictionary::cast(acrxSysRegistry()->at(ACRX_CLASS_DICTIONARY))
 #  define acrxServiceDictionary	AcRxDictionary::cast(acrxSysRegistry()->at(ACRX_SERVICE_DICTIONARY))
 #  pragma  pack (pop)

@@ -36,54 +36,54 @@ class wxScopedPtr
 public:
   typedef T element_type;
   explicit wxScopedPtr(T* ptr = NULL)
-    : m_ptr(ptr)
-  {
-  }
+    :  m_ptr(ptr) 
+    {
+     }
   ~wxScopedPtr()
   {
-    wxCHECKED_DELETE(m_ptr);
-  }
+ wxCHECKED_DELETE(m_ptr);   }
     // test for pointer validity: defining conversion to unspecified_bool_type
     // and not more obvious bool to avoid implicit conversions to integer types
   typedef T* (*unspecified_bool_type) () const;
   operator unspecified_bool_type() const
   {
-    return m_ptr ? &wxScopedPtr<T>::get : NULL;
-  }
+
+        return m_ptr ? &wxScopedPtr<T>::get : NULL;
+      }
   void reset(T* ptr = NULL)
   {
-    if (ptr != m_ptr)
-    {
-      wxCHECKED_DELETE(m_ptr);
-      m_ptr = ptr;
+        if ( ptr != m_ptr )
+        {
+            wxCHECKED_DELETE(m_ptr);
+            m_ptr = ptr;
+        }
     }
-  }
   T* release()
   {
-    T* ptr = m_ptr;
-    m_ptr = NULL;
-    return ptr;
-  }
+        T *ptr = m_ptr;
+        m_ptr = NULL;
+        return ptr;
+    }
   T& operator*() const
   {
-    wxASSERT(m_ptr != NULL);
-    return *m_ptr;
-  }
+        wxASSERT(m_ptr != NULL);
+        return *m_ptr;
+    }
   T* operator->() const
   {
-    wxASSERT(m_ptr != NULL);
-    return m_ptr;
-  }
+        wxASSERT(m_ptr != NULL);
+        return m_ptr;
+    }
   T* get() const
   {
-    return m_ptr;
-  }
+        return m_ptr;
+    }
   void swap(wxScopedPtr& other)
   {
-    T* const tmp = other.m_ptr;
-    other.m_ptr = m_ptr;
-    m_ptr = tmp;
-  }
+        T * const tmp = other.m_ptr;
+        other.m_ptr = m_ptr;
+        m_ptr = tmp;
+    }
 private:
   T* m_ptr;
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxScopedPtr, T);

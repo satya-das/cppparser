@@ -18,26 +18,20 @@ class WXDLLIMPEXP_BASE wxIconLocationBase
 public:
     // ctor takes the name of the file where the icon is
   explicit wxIconLocationBase(const wxString& filename = wxEmptyString)
-    : m_filename(filename)
-  {
-  }
+    :  m_filename(filename) 
+    {
+     }
     // default copy ctor, assignment operator and dtor are ok
 
 
     // returns true if this object is valid/initialized
   bool IsOk() const
-  {
-    return !m_filename.empty();
-  }
+  { return !m_filename.empty(); }
     // set/get the icon file name
   void SetFileName(const wxString& filename)
-  {
-    m_filename = filename;
-  }
+  { m_filename = filename; }
   const wxString& GetFileName() const
-  {
-    return m_filename;
-  }
+  { return m_filename; }
 private:
   wxString m_filename;
 };
@@ -52,30 +46,28 @@ public:
   explicit wxIconLocation(const wxString& file = wxEmptyString, int num = 0);
     // set/get the icon index
   void SetIndex(int num)
-  {
-    m_index = num;
-  }
+  { m_index = num; }
   int GetIndex() const
-  {
-    return m_index;
-  }
+  { return m_index; }
 private:
   int m_index;
 };
 inline wxIconLocation::wxIconLocation(const wxString& file, int num)
-  : wxIconLocationBase(file)
-{
-  SetIndex(num);
-}
+  :  wxIconLocationBase(file)
+
+  {
+
+    SetIndex(num);
+  }
 #  else 
 // must be a class because we forward declare it as class
 class WXDLLIMPEXP_BASE wxIconLocation : public wxIconLocationBase
 {
 public:
   explicit wxIconLocation(const wxString& filename = wxEmptyString)
-    : wxIconLocationBase(filename)
-  {
-  }
+    :  wxIconLocationBase(filename) 
+    {
+     }
 };
 #  endif
 #endif

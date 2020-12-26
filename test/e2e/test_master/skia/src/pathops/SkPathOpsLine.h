@@ -11,21 +11,15 @@ struct SkDLine
 {
   SkDPoint fPts[2];
   const SkDPoint& operator[](int n) const
-  {
-    SkASSERT(n >= 0 && n < 2);
-    return fPts[n];
-  }
+  { SkASSERT(n >= 0 && n < 2); return fPts[n]; }
   SkDPoint& operator[](int n)
-  {
-    SkASSERT(n >= 0 && n < 2);
-    return fPts[n];
-  }
+  { SkASSERT(n >= 0 && n < 2); return fPts[n]; }
   const SkDLine& set(const SkPoint pts[2])
   {
-    fPts[0] = pts[0];
-    fPts[1] = pts[1];
-    return *this;
-  }
+        fPts[0] = pts[0];
+        fPts[1] = pts[1];
+        return *this;
+    }
   double exactPoint(const SkDPoint& xy) const;
   static double ExactPointH(const SkDPoint& xy, double left, double right, double y);
   static double ExactPointV(const SkDPoint& xy, double top, double bottom, double x);

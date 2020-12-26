@@ -17,13 +17,14 @@ class WXDLLIMPEXP_CORE wxGauge : public wxGaugeBase
 public:
   wxGauge()
   {
-    Init();
-  }
+ Init();   }
   wxGauge(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxGA_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxGaugeNameStr))
   {
-    Init();
-    (void) Create(parent, id, range, pos, size, style, validator, name);
-  }
+
+        Init();
+
+        (void)Create(parent, id, range, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxGA_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxGaugeNameStr));
     // implement base class virtuals
   void SetRange(int range) override;
@@ -32,14 +33,10 @@ public:
 
     // is it a smooth progress bar or a discrete one?
   bool IsSmooth() const
-  {
-    return (GetWindowStyle() & wxGA_SMOOTH) != 0;
-  }
+  { return (GetWindowStyle() & wxGA_SMOOTH) != 0; }
     // is it a vertica; progress bar or a horizontal one?
   bool IsVertical() const
-  {
-    return (GetWindowStyle() & wxGA_VERTICAL) != 0;
-  }
+  { return (GetWindowStyle() & wxGA_VERTICAL) != 0; }
 protected:
     // common part of all ctors
   void Init();

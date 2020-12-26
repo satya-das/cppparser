@@ -17,15 +17,18 @@ public:
     // ctors
   wxTimePickerCtrl()
   {
-  }
+   }
   wxTimePickerCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& dt = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTP_DEFAULT, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxTimePickerCtrlNameStr)
   {
-    Create(parent, id, dt, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, dt, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxDateTime& dt = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTP_DEFAULT, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxTimePickerCtrlNameStr)
   {
-    return MSWCreateDateTimePicker(parent, id, dt, pos, size, style, validator, name);
-  }
+        return MSWCreateDateTimePicker(parent, id, dt,
+                                       pos, size, style,
+                                       validator, name);
+    }
     // Override MSW-specific functions used during control creation.
   WXDWORD MSWGetStyle(long style, WXDWORD* exstyle) const override;
 #  if  wxUSE_INTL

@@ -16,23 +16,23 @@ namespace SkSL
   public:
     void write8(uint8_t b) override
     {
-      fBuffer += (char) b;
+        fBuffer += (char) b;
     }
     void writeText(const char* s) override
     {
-      fBuffer += s;
+        fBuffer += s;
     }
     void write(const void* s, size_t size) override
     {
-      fBuffer.append((const char*) s, size);
+        fBuffer.append((const char*) s, size);
     }
     const String& str() const
     {
-      return fBuffer;
+        return fBuffer;
     }
     void reset()
     {
-      fBuffer = "";
+        fBuffer = "";
     }
   private:
     String fBuffer;
@@ -48,29 +48,28 @@ namespace SkSL
   public:
     void write8(uint8_t b) override
     {
-      fStream.write8(b);
+        fStream.write8(b);
     }
     void writeText(const char* s) override
     {
-      fStream.writeText(s);
+        fStream.writeText(s);
     }
     void write(const void* s, size_t size) override
     {
-      fStream.write(s, size);
+        fStream.write(s, size);
     }
     const String& str() const
     {
-      if (!fString.size())
-      {
-        sk_sp<SkData> data = fStream.detachAsData();
-        fString = String((const char*) data->data(), data->size());
-      }
-      return fString;
+        if (!fString.size()) {
+            sk_sp<SkData> data = fStream.detachAsData();
+            fString = String((const char*) data->data(), data->size());
+        }
+        return fString;
     }
     void reset()
     {
-      fStream.reset();
-      fString = "";
+        fStream.reset();
+        fString = "";
     }
   private:
     mutable SkDynamicMemoryWStream fStream;

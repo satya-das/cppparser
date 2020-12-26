@@ -14,7 +14,7 @@
 // e.g. (int64_t)a * b;
 static int64_t sk_64_mul(int64_t a, int64_t b)
 {
-  return a * b;
+    return a * b;
 }
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -27,16 +27,14 @@ static int64_t sk_64_mul(int64_t a, int64_t b)
 static int SkClampMax(int value, int max)
 {
     // ensure that max is positive
-  SkASSERT(max >= 0);
-  if (value < 0)
-  {
-    value = 0;
-  }
-  if (value > max)
-  {
-    value = max;
-  }
-  return value;
+    SkASSERT(max >= 0);
+    if (value < 0) {
+        value = 0;
+    }
+    if (value > max) {
+        value = max;
+    }
+    return value;
 }
 /**
  *  Returns true if value is a power of 2. Does not explicitly check for
@@ -45,7 +43,7 @@ static int SkClampMax(int value, int max)
 template <typename T>
 inline constexpr bool SkIsPow2(T value)
 {
-  return (value & (value - 1)) == 0;
+    return (value & (value - 1)) == 0;
 }
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -55,11 +53,11 @@ inline constexpr bool SkIsPow2(T value)
  */
 static unsigned SkMul16ShiftRound(U16CPU a, U16CPU b, int shift)
 {
-  SkASSERT(a <= 32767);
-  SkASSERT(b <= 32767);
-  SkASSERT(shift > 0 && shift <= 8);
-  unsigned prod = a * b + (1 << (shift - 1));
-  return (prod + (prod >> shift)) >> shift;
+    SkASSERT(a <= 32767);
+    SkASSERT(b <= 32767);
+    SkASSERT(shift > 0 && shift <= 8);
+    unsigned prod = a*b + (1 << (shift - 1));
+    return (prod + (prod >> shift)) >> shift;
 }
 /**
  *  Return a*b/255, rounding any fractional bits.
@@ -67,9 +65,9 @@ static unsigned SkMul16ShiftRound(U16CPU a, U16CPU b, int shift)
  */
 static U8CPU SkMulDiv255Round(U16CPU a, U16CPU b)
 {
-  SkASSERT(a <= 32767);
-  SkASSERT(b <= 32767);
-  unsigned prod = a * b + 128;
-  return (prod + (prod >> 8)) >> 8;
+    SkASSERT(a <= 32767);
+    SkASSERT(b <= 32767);
+    unsigned prod = a*b + 128;
+    return (prod + (prod >> 8)) >> 8;
 }
 #endif

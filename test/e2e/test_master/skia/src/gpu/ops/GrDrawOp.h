@@ -18,9 +18,9 @@ class GrDrawOp : public GrOp
 {
 public:
   GrDrawOp(uint32_t classID)
-    : INHERITED(classID)
-  {
-  }
+    :  INHERITED(classID) 
+    {
+    }
     /**
      * This information is required to determine how to compute a GrAppliedClip from a GrClip for
      * this op.
@@ -46,8 +46,8 @@ public:
   bool fAddDrawOpCalled = false;
   void validate() const override
   {
-    SkASSERT(fAddDrawOpCalled);
-  }
+        SkASSERT(fAddDrawOpCalled);
+    }
 #  endif
 private:
   typedef GrOp INHERITED;

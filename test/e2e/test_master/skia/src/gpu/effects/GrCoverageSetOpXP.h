@@ -32,8 +32,8 @@ private:
   sk_sp<const GrXferProcessor> makeXferProcessor(const GrProcessorAnalysisColor&, GrProcessorAnalysisCoverage, bool hasMixedSamples, const GrCaps&, GrClampType) const override;
   AnalysisProperties analysisProperties(const GrProcessorAnalysisColor&, const GrProcessorAnalysisCoverage&, const GrCaps&, GrClampType) const override
   {
-    return AnalysisProperties::kIgnoresInputColor;
-  }
+        return AnalysisProperties::kIgnoresInputColor;
+    }
   GR_DECLARE_XP_FACTORY_TEST
   SkRegion::Op fRegionOp;
   bool fInvertCoverage;

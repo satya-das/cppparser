@@ -240,9 +240,7 @@ public:
     /// <returns> The owning AcDbAssocAction. </returns>
     ///
   AcDbObjectId owningAction() const
-  {
-    return ownerId();
-  }
+  { return ownerId(); }
     /// <summary> <para>
     /// Every dependency is owned (in the logical as well as in the AutoCAD 
     /// database sense) by an AcDbAssocAction. 
@@ -316,9 +314,7 @@ public:
     /// <returns> true iff the dependency it attached to an object. </returns>
     ///
   bool isAttachedToObject() const
-  {
-    return !dependentOnObject().isNull();
-  }
+  { return !dependentOnObject().isNull(); }
     /// <summary> <para>
     /// Attaches this dependency to a given AcDbCompoundObjectId as a persistent 
     /// reactor and also orders it to be at the correct position in the list

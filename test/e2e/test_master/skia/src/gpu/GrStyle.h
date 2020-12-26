@@ -26,18 +26,18 @@ public:
      */
   static const GrStyle& SimpleFill()
   {
-    static const GrStyle kFill(SkStrokeRec::kFill_InitStyle);
-    return kFill;
-  }
+        static const GrStyle kFill(SkStrokeRec::kFill_InitStyle);
+        return kFill;
+        }
     /**
      * A style object that represents a hairline stroke with no path effect.
      * TODO: constexpr with C++14
      */
   static const GrStyle& SimpleHairline()
   {
-    static const GrStyle kHairline(SkStrokeRec::kHairline_InitStyle);
-    return kHairline;
-  }
+        static const GrStyle kHairline(SkStrokeRec::kHairline_InitStyle);
+        return kHairline;
+    }
   enum class Apply {
         kPathEffectOnly,
         kPathEffectAndStrokeRec
@@ -68,110 +68,94 @@ public:
      */
   static void WriteKey(uint32_t*, const GrStyle&, Apply, SkScalar scale, uint32_t flags = 0);
   GrStyle()
-    : GrStyle(SkStrokeRec::kFill_InitStyle)
-  {
-  }
+    :  GrStyle(SkStrokeRec::kFill_InitStyle) 
+    {
+    }
   explicit GrStyle(SkStrokeRec::InitStyle initStyle)
-    : fStrokeRec(initStyle)
-  {
-  }
+    :  fStrokeRec(initStyle) 
+    {
+    }
   GrStyle(const SkStrokeRec& strokeRec, sk_sp<SkPathEffect> pe)
-    : fStrokeRec(strokeRec)
-  {
-    this->initPathEffect(std::move(pe));
-  }
+    :  fStrokeRec(strokeRec) 
+    {
+
+        this->initPathEffect(std::move(pe));
+        }
   GrStyle(const GrStyle& that);
   explicit GrStyle(const SkPaint& paint)
-    : fStrokeRec(paint)
-  {
-    this->initPathEffect(paint.refPathEffect());
-  }
+    :  fStrokeRec(paint) 
+    {
+
+        this->initPathEffect(paint.refPathEffect());
+        }
   explicit GrStyle(const SkPaint& paint, SkPaint::Style overrideStyle)
-    : fStrokeRec(paint, overrideStyle)
-  {
-    this->initPathEffect(paint.refPathEffect());
-  }
+    :  fStrokeRec(paint, overrideStyle) 
+    {
+
+        this->initPathEffect(paint.refPathEffect());
+        }
   GrStyle& operator=(const GrStyle& that)
   {
-    fPathEffect = that.fPathEffect;
-    fDashInfo = that.fDashInfo;
-    fStrokeRec = that.fStrokeRec;
-    return *this;
-  }
+        fPathEffect = that.fPathEffect;
+        fDashInfo = that.fDashInfo;
+        fStrokeRec = that.fStrokeRec;
+        return *this;
+    }
   void resetToInitStyle(SkStrokeRec::InitStyle fillOrHairline)
   {
-    fDashInfo.reset();
-    fPathEffect.reset(nullptr);
-    if (SkStrokeRec::kFill_InitStyle == fillOrHairline)
-    {
-      fStrokeRec.setFillStyle();
+        fDashInfo.reset();
+        fPathEffect.reset(nullptr);
+        if (SkStrokeRec::kFill_InitStyle == fillOrHairline) {
+            fStrokeRec.setFillStyle();
+        } else {
+            fStrokeRec.setHairlineStyle();
+        }
     }
-    else 
-    {
-      fStrokeRec.setHairlineStyle();
-    }
-  }
     /** Is this style a fill with no path effect? */
   bool isSimpleFill() const
-  {
-    return fStrokeRec.isFillStyle() && !fPathEffect;
-  }
+  { return fStrokeRec.isFillStyle() && !fPathEffect; }
     /** Is this style a hairline with no path effect? */
   bool isSimpleHairline() const
-  {
-    return fStrokeRec.isHairlineStyle() && !fPathEffect;
-  }
+  { return fStrokeRec.isHairlineStyle() && !fPathEffect; }
   SkPathEffect* pathEffect() const
-  {
-    return fPathEffect.get();
-  }
+  { return fPathEffect.get(); }
   sk_sp<SkPathEffect> refPathEffect() const
-  {
-    return fPathEffect;
-  }
+  { return fPathEffect; }
   bool hasPathEffect() const
-  {
-    return SkToBool(fPathEffect.get());
-  }
+  { return SkToBool(fPathEffect.get()); }
   bool hasNonDashPathEffect() const
-  {
-    return fPathEffect.get() && !this->isDashed();
-  }
+  { return fPathEffect.get() && !this->isDashed(); }
   bool isDashed() const
-  {
-    return SkPathEffect::kDash_DashType == fDashInfo.fType;
-  }
+  { return SkPathEffect::kDash_DashType == fDashInfo.fType; }
   SkScalar dashPhase() const
   {
-    SkASSERT(this->isDashed());
-    return fDashInfo.fPhase;
-  }
+        SkASSERT(this->isDashed());
+        return fDashInfo.fPhase;
+    }
   int dashIntervalCnt() const
   {
-    SkASSERT(this->isDashed());
-    return fDashInfo.fIntervals.count();
-  }
+        SkASSERT(this->isDashed());
+        return fDashInfo.fIntervals.count();
+    }
   const SkScalar* dashIntervals() const
   {
-    SkASSERT(this->isDashed());
-    return fDashInfo.fIntervals.get();
-  }
+        SkASSERT(this->isDashed());
+        return fDashInfo.fIntervals.get();
+    }
   const SkStrokeRec& strokeRec() const
-  {
-    return fStrokeRec;
-  }
+  { return fStrokeRec; }
     /** Hairline or fill styles without path effects make no alterations to a geometry. */
   bool applies() const
   {
-    return this->pathEffect() || (!fStrokeRec.isFillStyle() && !fStrokeRec.isHairlineStyle());
-  }
+        return this->pathEffect() || (!fStrokeRec.isFillStyle() && !fStrokeRec.isHairlineStyle());
+    }
   static SkScalar MatrixToScaleFactor(const SkMatrix& matrix)
   {
         // getMaxScale will return -1 if the matrix has perspective. In that case we can use a scale
         // factor of 1. This isn't necessarily a good choice and in the future we might consider
         // taking a bounds here for the perspective case.
-    return SkScalarAbs(matrix.getMaxScale());
-  }
+        return SkScalarAbs(matrix.getMaxScale());
+    }
     /**
      * Applies just the path effect and returns remaining stroke information. This will fail if
      * there is no path effect. dst may or may not have been overwritten on failure. Scale controls
@@ -190,45 +174,42 @@ public:
     /** Given bounds of a path compute the bounds of path with the style applied. */
   void adjustBounds(SkRect* dst, const SkRect& src) const
   {
-    if (this->pathEffect())
-    {
-      this->pathEffect()->computeFastBounds(dst, src);
+        if (this->pathEffect()) {
+            this->pathEffect()->computeFastBounds(dst, src);
             // This may not be the correct SkStrokeRec to use. skbug.com/5299
             // It happens to work for dashing.
-      SkScalar radius = fStrokeRec.getInflationRadius();
-      dst->outset(radius, radius);
+            SkScalar radius = fStrokeRec.getInflationRadius();
+            dst->outset(radius, radius);
+        } else {
+            SkScalar radius = fStrokeRec.getInflationRadius();
+            *dst = src.makeOutset(radius, radius);
+        }
     }
-    else 
-    {
-      SkScalar radius = fStrokeRec.getInflationRadius();
-      *dst = src.makeOutset(radius, radius);
-    }
-  }
 private:
   void initPathEffect(sk_sp<SkPathEffect> pe);
   struct DashInfo
   {
     DashInfo()
-      : fType(SkPathEffect::kNone_DashType)
-    {
-    }
+      :  fType(SkPathEffect::kNone_DashType) 
+      {
+      }
     DashInfo(const DashInfo& that)
     {
-      *this = that;
-    }
+ *this = that;     }
     DashInfo& operator=(const DashInfo& that)
     {
-      fType = that.fType;
-      fPhase = that.fPhase;
-      fIntervals.reset(that.fIntervals.count());
-      sk_careful_memcpy(fIntervals.get(), that.fIntervals.get(), sizeof(SkScalar) * that.fIntervals.count());
-      return *this;
-    }
+            fType = that.fType;
+            fPhase = that.fPhase;
+            fIntervals.reset(that.fIntervals.count());
+            sk_careful_memcpy(fIntervals.get(), that.fIntervals.get(),
+                              sizeof(SkScalar) * that.fIntervals.count());
+            return *this;
+        }
     void reset()
     {
-      fType = SkPathEffect::kNone_DashType;
-      fIntervals.reset(0);
-    }
+            fType = SkPathEffect::kNone_DashType;
+            fIntervals.reset(0);
+        }
     SkPathEffect::DashType fType;
     SkScalar fPhase{0};
     SkAutoSTArray<4, SkScalar> fIntervals;

@@ -118,9 +118,7 @@ public:
         Return the current logger, may be @NULL.
      */
   wxProtocolLog* GetLog() const
-  {
-    return m_log;
-  }
+  { return m_log; }
     /**
         Detach the existing logger without deleting it.
         

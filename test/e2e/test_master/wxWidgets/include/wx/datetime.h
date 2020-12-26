@@ -262,18 +262,15 @@ public:
         // create time zone object with the given offset
     TimeZone(long offset = 0)
     {
-      m_offset = offset;
-    }
+ m_offset = offset;     }
     static TimeZone Make(long offset)
     {
-      TimeZone tz;
-      tz.m_offset = offset;
-      return tz;
-    }
+            TimeZone tz;
+            tz.m_offset = offset;
+            return tz;
+        }
     bool IsLocal() const
-    {
-      return m_offset == -1;
-    }
+    { return m_offset == -1; }
     long GetOffset() const;
   private:
         // offset for this timezone from GMT in seconds
@@ -388,9 +385,9 @@ public:
 
         // default ctor does not initialize the object, use Set()!
   wxDateTime()
-    : m_time(wxINT64_MIN)
-  {
-  }
+    :  m_time(wxINT64_MIN) 
+    {
+     }
         // from time_t: seconds since the Epoch 00:00:00 UTC, Jan 1, 1970)
   inline wxDateTime(time_t timet);
         // from broken down time/date (only for standard Unix range)
@@ -406,8 +403,9 @@ public:
 #    ifdef __WINDOWS__
   wxDateTime(const struct _SYSTEMTIME& st)
   {
-    SetFromMSWSysTime(st);
-  }
+
+        SetFromMSWSysTime(st);
+      }
 #    endif
         // default copy ctor ok
 
@@ -457,19 +455,13 @@ public:
   wxDateTime& SetMillisecond(wxDateTime_t millisecond);
         // assignment operator from time_t
   wxDateTime& operator=(time_t timet)
-  {
-    return Set(timet);
-  }
+  { return Set(timet); }
         // assignment operator from broken down time/date
   wxDateTime& operator=(const struct tm& tm)
-  {
-    return Set(tm);
-  }
+  { return Set(tm); }
         // assignment operator from broken down time/date
   wxDateTime& operator=(const Tm& tm)
-  {
-    return Set(tm);
-  }
+  { return Set(tm); }
         // default assignment operator is ok
 
     // calendar calculations (functions which set the date only leave the time
@@ -531,20 +523,14 @@ public:
         // the day, related to noon - beware of rounding errors!)
   double GetJulianDayNumber() const;
   double GetJDN() const
-  {
-    return GetJulianDayNumber();
-  }
+  { return GetJulianDayNumber(); }
         // get the Modified Julian Day number: it is equal to JDN - 2400000.5
         // and so integral MJDs correspond to the midnights (and not noons).
         // MJD 0 is Nov 17, 1858
   double GetModifiedJulianDayNumber() const
-  {
-    return GetJDN() - 2400000.5;
-  }
+  { return GetJDN() - 2400000.5; }
   double GetMJD() const
-  {
-    return GetModifiedJulianDayNumber();
-  }
+  { return GetModifiedJulianDayNumber(); }
         // get the Rata Die number
   double GetRataDie() const;
         // TODO algorithms for calculating some important dates, such as
@@ -572,29 +558,17 @@ public:
   wxDateTime& MakeFromTimezone(const TimeZone& tz, bool noDST = false);
         // transform to/from GMT/UTC
   wxDateTime ToUTC(bool noDST = false) const
-  {
-    return ToTimezone(UTC, noDST);
-  }
+  { return ToTimezone(UTC, noDST); }
   wxDateTime& MakeUTC(bool noDST = false)
-  {
-    return MakeTimezone(UTC, noDST);
-  }
+  { return MakeTimezone(UTC, noDST); }
   wxDateTime ToGMT(bool noDST = false) const
-  {
-    return ToUTC(noDST);
-  }
+  { return ToUTC(noDST); }
   wxDateTime& MakeGMT(bool noDST = false)
-  {
-    return MakeUTC(noDST);
-  }
+  { return MakeUTC(noDST); }
   wxDateTime FromUTC(bool noDST = false) const
-  {
-    return FromTimezone(UTC, noDST);
-  }
+  { return FromTimezone(UTC, noDST); }
   wxDateTime& MakeFromUTC(bool noDST = false)
-  {
-    return MakeFromTimezone(UTC, noDST);
-  }
+  { return MakeFromTimezone(UTC, noDST); }
         // is daylight savings time in effect at this moment according to the
         // rules of the specified country?
         //
@@ -610,9 +584,7 @@ public:
 
         // is the date valid?
   inline bool IsValid() const
-  {
-    return m_time != wxLongLong(wxINT64_MIN);
-  }
+  { return m_time != wxLongLong(wxINT64_MIN); }
         // get the broken down date/time representation in the given timezone
         //
         // If you wish to get several time components (day, month and year),
@@ -624,49 +596,31 @@ public:
   inline time_t GetTicks() const;
         // get the century, same as GetCentury(GetYear())
   int GetCentury(const TimeZone& tz = Local) const
-  {
-    return GetCentury(GetYear(tz));
-  }
+  { return GetCentury(GetYear(tz)); }
         // get the year (returns Inv_Year if date is invalid)
   int GetYear(const TimeZone& tz = Local) const
-  {
-    return GetTm(tz).year;
-  }
+  { return GetTm(tz).year; }
         // get the month (Inv_Month if date is invalid)
   Month GetMonth(const TimeZone& tz = Local) const
-  {
-    return (Month) GetTm(tz).mon;
-  }
+  { return (Month)GetTm(tz).mon; }
         // get the month day (in 1..31 range, 0 if date is invalid)
   wxDateTime_t GetDay(const TimeZone& tz = Local) const
-  {
-    return GetTm(tz).mday;
-  }
+  { return GetTm(tz).mday; }
         // get the day of the week (Inv_WeekDay if date is invalid)
   WeekDay GetWeekDay(const TimeZone& tz = Local) const
-  {
-    return GetTm(tz).GetWeekDay();
-  }
+  { return GetTm(tz).GetWeekDay(); }
         // get the hour of the day
   wxDateTime_t GetHour(const TimeZone& tz = Local) const
-  {
-    return GetTm(tz).hour;
-  }
+  { return GetTm(tz).hour; }
         // get the minute
   wxDateTime_t GetMinute(const TimeZone& tz = Local) const
-  {
-    return GetTm(tz).min;
-  }
+  { return GetTm(tz).min; }
         // get the second
   wxDateTime_t GetSecond(const TimeZone& tz = Local) const
-  {
-    return GetTm(tz).sec;
-  }
+  { return GetTm(tz).sec; }
         // get milliseconds
   wxDateTime_t GetMillisecond(const TimeZone& tz = Local) const
-  {
-    return GetTm(tz).msec;
-  }
+  { return GetTm(tz).msec; }
         // get the day since the year start (1..366, 0 if date is invalid)
   wxDateTime_t GetDayOfYear(const TimeZone& tz = Local) const;
         // get the week number since the year start (1..52 or 53, 0 if date is
@@ -720,31 +674,31 @@ public:
   inline bool IsEqualUpTo(const wxDateTime& dt, const wxTimeSpan& ts) const;
   inline bool operator<(const wxDateTime& dt) const
   {
-    return GetValue() < dt.GetValue();
-  }
+        return GetValue() < dt.GetValue();
+    }
   inline bool operator<=(const wxDateTime& dt) const
   {
-    return GetValue() <= dt.GetValue();
-  }
+        return GetValue() <= dt.GetValue();
+    }
   inline bool operator>(const wxDateTime& dt) const
   {
-    return GetValue() > dt.GetValue();
-  }
+        return GetValue() > dt.GetValue();
+    }
   inline bool operator>=(const wxDateTime& dt) const
   {
-    return GetValue() >= dt.GetValue();
-  }
+        return GetValue() >= dt.GetValue();
+    }
   inline bool operator==(const wxDateTime& dt) const
   {
         // Intentionally do not call GetValue() here, in order that
         // invalid wxDateTimes may be compared for equality
-    return m_time == dt.m_time;
-  }
+        return m_time == dt.m_time;
+    }
   inline bool operator!=(const wxDateTime& dt) const
   {
         // As above, don't use GetValue() here.
-    return m_time != dt.m_time;
-  }
+        return m_time != dt.m_time;
+    }
     // arithmetic with dates (see also below for more operators)
     // ------------------------------------------------------------------------
 
@@ -756,10 +710,10 @@ public:
   inline wxDateTime& operator+=(const wxTimeSpan& diff);
   inline wxDateTime operator+(const wxTimeSpan& ts) const
   {
-    wxDateTime dt(*this);
-    dt.Add(ts);
-    return dt;
-  }
+        wxDateTime dt(*this);
+        dt.Add(ts);
+        return dt;
+    }
         // return the difference of the date with a time span
   inline wxDateTime Subtract(const wxTimeSpan& diff) const;
         // subtract a time span (positive or negative)
@@ -768,10 +722,10 @@ public:
   inline wxDateTime& operator-=(const wxTimeSpan& diff);
   inline wxDateTime operator-(const wxTimeSpan& ts) const
   {
-    wxDateTime dt(*this);
-    dt.Subtract(ts);
-    return dt;
-  }
+        wxDateTime dt(*this);
+        dt.Subtract(ts);
+        return dt;
+    }
         // return the sum of the date with a date span
   inline wxDateTime Add(const wxDateSpan& diff) const;
         // add a date span (positive or negative)
@@ -780,10 +734,10 @@ public:
   inline wxDateTime& operator+=(const wxDateSpan& diff);
   inline wxDateTime operator+(const wxDateSpan& ds) const
   {
-    wxDateTime dt(*this);
-    dt.Add(ds);
-    return dt;
-  }
+        wxDateTime dt(*this);
+        dt.Add(ds);
+        return dt;
+    }
         // return the difference of the date with a date span
   inline wxDateTime Subtract(const wxDateSpan& diff) const;
         // subtract a date span (positive or negative)
@@ -792,10 +746,10 @@ public:
   inline wxDateTime& operator-=(const wxDateSpan& diff);
   inline wxDateTime operator-(const wxDateSpan& ds) const
   {
-    wxDateTime dt(*this);
-    dt.Subtract(ds);
-    return dt;
-  }
+        wxDateTime dt(*this);
+        dt.Subtract(ds);
+        return dt;
+    }
         // return the difference between two dates
   inline wxTimeSpan Subtract(const wxDateTime& dt) const;
   inline wxTimeSpan operator-(const wxDateTime& dt2) const;
@@ -819,32 +773,32 @@ public:
   bool ParseFormat(const wxString& date, const wxString& format, const wxDateTime& dateDef, wxString::const_iterator* end);
   bool ParseFormat(const wxString& date, const wxString& format, wxString::const_iterator* end)
   {
-    return ParseFormat(date, format, wxDefaultDateTime, end);
-  }
+        return ParseFormat(date, format, wxDefaultDateTime, end);
+    }
   bool ParseFormat(const wxString& date, wxString::const_iterator* end)
   {
-    return ParseFormat(date, wxASCII_STR(wxDefaultDateTimeFormat), wxDefaultDateTime, end);
-  }
+        return ParseFormat(date, wxASCII_STR(wxDefaultDateTimeFormat), wxDefaultDateTime, end);
+    }
         // parse a string containing date, time or both in ISO 8601 format
         //
         // notice that these functions are new in wx 3.0 and so we don't
         // provide compatibility overloads for them
   bool ParseISODate(const wxString& date)
   {
-    wxString::const_iterator end;
-    return ParseFormat(date, wxS("%Y-%m-%d"), &end) && end == date.end();
-  }
+        wxString::const_iterator end;
+        return ParseFormat(date, wxS("%Y-%m-%d"), &end) && end == date.end();
+    }
   bool ParseISOTime(const wxString& time)
   {
-    wxString::const_iterator end;
-    return ParseFormat(time, wxS("%H:%M:%S"), &end) && end == time.end();
-  }
+        wxString::const_iterator end;
+        return ParseFormat(time, wxS("%H:%M:%S"), &end) && end == time.end();
+    }
   bool ParseISOCombined(const wxString& datetime, char sep = 'T')
   {
-    wxString::const_iterator end;
-    const wxString fmt = wxS("%Y-%m-%d") + wxString(sep) + wxS("%H:%M:%S");
-    return ParseFormat(datetime, fmt, &end) && end == datetime.end();
-  }
+        wxString::const_iterator end;
+        const wxString fmt = wxS("%Y-%m-%d") + wxString(sep) + wxS("%H:%M:%S");
+        return ParseFormat(datetime, fmt, &end) && end == datetime.end();
+    }
         // parse a string containing the date/time in "free" format, this
         // function will try to make an educated guess at the string contents
   bool ParseDateTime(const wxString& datetime, wxString::const_iterator* end);
@@ -860,33 +814,23 @@ public:
   wxString Format(const wxString& format = wxASCII_STR(wxDefaultDateTimeFormat), const TimeZone& tz = Local) const;
         // preferred date representation for the current locale
   wxString FormatDate() const
-  {
-    return Format(wxS("%x"));
-  }
+  { return Format(wxS("%x")); }
         // preferred time representation for the current locale
   wxString FormatTime() const
-  {
-    return Format(wxS("%X"));
-  }
+  { return Format(wxS("%X")); }
         // returns the string representing the date in ISO 8601 format
         // (YYYY-MM-DD)
   wxString FormatISODate() const
-  {
-    return Format(wxS("%Y-%m-%d"));
-  }
+  { return Format(wxS("%Y-%m-%d")); }
         // returns the string representing the time in ISO 8601 format
         // (HH:MM:SS)
   wxString FormatISOTime() const
-  {
-    return Format(wxS("%H:%M:%S"));
-  }
+  { return Format(wxS("%H:%M:%S")); }
         // return the combined date time representation in ISO 8601 format; the
         // separator character should be 'T' according to the standard but it
         // can also be useful to set it to ' '
   wxString FormatISOCombined(char sep = 'T') const
-  {
-    return FormatISODate() + sep + FormatISOTime();
-  }
+  { return FormatISODate() + sep + FormatISOTime(); }
     // backwards compatible versions of the parsing functions: they return an
     // object representing the next character following the date specification
     // (i.e. the one where the scan had to stop) or a special NULL-like object
@@ -897,29 +841,34 @@ public:
     // the versions above in the new code
   wxAnyStrPtr ParseRfc822Date(const wxString& date)
   {
-    wxString::const_iterator end;
-    return ParseRfc822Date(date, &end) ? wxAnyStrPtr(date, end) : wxAnyStrPtr();
-  }
+        wxString::const_iterator end;
+        return ParseRfc822Date(date, &end) ? wxAnyStrPtr(date, end)
+                                           : wxAnyStrPtr();
+    }
   wxAnyStrPtr ParseFormat(const wxString& date, const wxString& format = wxASCII_STR(wxDefaultDateTimeFormat), const wxDateTime& dateDef = wxDefaultDateTime)
   {
-    wxString::const_iterator end;
-    return ParseFormat(date, format, dateDef, &end) ? wxAnyStrPtr(date, end) : wxAnyStrPtr();
-  }
+        wxString::const_iterator end;
+        return ParseFormat(date, format, dateDef, &end) ? wxAnyStrPtr(date, end)
+                                                        : wxAnyStrPtr();
+    }
   wxAnyStrPtr ParseDateTime(const wxString& datetime)
   {
-    wxString::const_iterator end;
-    return ParseDateTime(datetime, &end) ? wxAnyStrPtr(datetime, end) : wxAnyStrPtr();
-  }
+        wxString::const_iterator end;
+        return ParseDateTime(datetime, &end) ? wxAnyStrPtr(datetime, end)
+                                             : wxAnyStrPtr();
+    }
   wxAnyStrPtr ParseDate(const wxString& date)
   {
-    wxString::const_iterator end;
-    return ParseDate(date, &end) ? wxAnyStrPtr(date, end) : wxAnyStrPtr();
-  }
+        wxString::const_iterator end;
+        return ParseDate(date, &end) ? wxAnyStrPtr(date, end)
+                                     : wxAnyStrPtr();
+    }
   wxAnyStrPtr ParseTime(const wxString& time)
   {
-    wxString::const_iterator end;
-    return ParseTime(time, &end) ? wxAnyStrPtr(time, end) : wxAnyStrPtr();
-  }
+        wxString::const_iterator end;
+        return ParseTime(time, &end) ? wxAnyStrPtr(time, end)
+                                     : wxAnyStrPtr();
+    }
     // In addition to wxAnyStrPtr versions above we also must provide the
     // overloads for C strings as we must return a pointer into the original
     // string and not inside a temporary wxString which would have been created
@@ -935,33 +884,23 @@ public:
     // need to be converted to use one of the new bool-returning overloads
     // above.
   void ParseRfc822Date(const wxCStrData& date)
-  {
-    ParseRfc822Date(wxString(date));
-  }
+  { ParseRfc822Date(wxString(date)); }
   const char* ParseRfc822Date(const char* date);
   const wchar_t* ParseRfc822Date(const wchar_t* date);
   void ParseFormat(const wxCStrData& date, const wxString& format = wxASCII_STR(wxDefaultDateTimeFormat), const wxDateTime& dateDef = wxDefaultDateTime)
-  {
-    ParseFormat(wxString(date), format, dateDef);
-  }
+  { ParseFormat(wxString(date), format, dateDef); }
   const char* ParseFormat(const char* date, const wxString& format = wxASCII_STR(wxDefaultDateTimeFormat), const wxDateTime& dateDef = wxDefaultDateTime);
   const wchar_t* ParseFormat(const wchar_t* date, const wxString& format = wxASCII_STR(wxDefaultDateTimeFormat), const wxDateTime& dateDef = wxDefaultDateTime);
   void ParseDateTime(const wxCStrData& datetime)
-  {
-    ParseDateTime(wxString(datetime));
-  }
+  { ParseDateTime(wxString(datetime)); }
   const char* ParseDateTime(const char* datetime);
   const wchar_t* ParseDateTime(const wchar_t* datetime);
   void ParseDate(const wxCStrData& date)
-  {
-    ParseDate(wxString(date));
-  }
+  { ParseDate(wxString(date)); }
   const char* ParseDate(const char* date);
   const wchar_t* ParseDate(const wchar_t* date);
   void ParseTime(const wxCStrData& time)
-  {
-    ParseTime(wxString(time));
-  }
+  { ParseTime(wxString(time)); }
   const char* ParseTime(const char* time);
   const wchar_t* ParseTime(const wchar_t* time);
     // implementation
@@ -969,22 +908,20 @@ public:
 
         // construct from internal representation
   wxDateTime(const wxLongLong& time)
-    : m_time(time)
-  {
-  }
+    :  m_time(time) 
+    {
+     }
         // get the internal representation
   inline wxLongLong GetValue() const;
     // a helper function to get the current time_t
   static time_t GetTimeNow()
-  {
-    return time(NULL);
-  }
+  { return time(NULL); }
     // another one to get the current time broken down
   static struct tm* GetTmNow()
   {
-    static struct tm l_CurrentTime;
-    return GetTmNow(&l_CurrentTime);
-  }
+        static struct tm l_CurrentTime;
+        return GetTmNow(&l_CurrentTime);
+    }
     // get current time using thread-safe function
   static struct tm* GetTmNow(struct tm* tmstruct);
 private:
@@ -1019,62 +956,38 @@ public:
 
         // return the timespan for the given number of milliseconds
   static wxTimeSpan Milliseconds(wxLongLong ms)
-  {
-    return wxTimeSpan(0, 0, 0, ms);
-  }
+  { return wxTimeSpan(0, 0, 0, ms); }
   static wxTimeSpan Millisecond()
-  {
-    return Milliseconds(1);
-  }
+  { return Milliseconds(1); }
         // return the timespan for the given number of seconds
   static wxTimeSpan Seconds(wxLongLong sec)
-  {
-    return wxTimeSpan(0, 0, sec);
-  }
+  { return wxTimeSpan(0, 0, sec); }
   static wxTimeSpan Second()
-  {
-    return Seconds(1);
-  }
+  { return Seconds(1); }
         // return the timespan for the given number of minutes
   static wxTimeSpan Minutes(long min)
-  {
-    return wxTimeSpan(0, min, 0);
-  }
+  { return wxTimeSpan(0, min, 0 ); }
   static wxTimeSpan Minute()
-  {
-    return Minutes(1);
-  }
+  { return Minutes(1); }
         // return the timespan for the given number of hours
   static wxTimeSpan Hours(long hours)
-  {
-    return wxTimeSpan(hours, 0, 0);
-  }
+  { return wxTimeSpan(hours, 0, 0); }
   static wxTimeSpan Hour()
-  {
-    return Hours(1);
-  }
+  { return Hours(1); }
         // return the timespan for the given number of days
   static wxTimeSpan Days(long days)
-  {
-    return Hours(24 * days);
-  }
+  { return Hours(24 * days); }
   static wxTimeSpan Day()
-  {
-    return Days(1);
-  }
+  { return Days(1); }
         // return the timespan for the given number of weeks
   static wxTimeSpan Weeks(long days)
-  {
-    return Days(7 * days);
-  }
+  { return Days(7 * days); }
   static wxTimeSpan Week()
-  {
-    return Weeks(1);
-  }
+  { return Weeks(1); }
         // default ctor constructs the 0 time span
   wxTimeSpan()
   {
-  }
+   }
         // from separate values for each component, date set to 0 (hours are
         // not restricted to 0..24 range, neither are minutes, seconds or
         // milliseconds)
@@ -1092,55 +1005,42 @@ public:
   inline wxTimeSpan& Add(const wxTimeSpan& diff);
         // add two timespans together
   wxTimeSpan& operator+=(const wxTimeSpan& diff)
-  {
-    return Add(diff);
-  }
+  { return Add(diff); }
   inline wxTimeSpan operator+(const wxTimeSpan& ts) const
   {
-    return wxTimeSpan(GetValue() + ts.GetValue());
-  }
+        return wxTimeSpan(GetValue() + ts.GetValue());
+    }
         // return the difference of two timespans
   inline wxTimeSpan Subtract(const wxTimeSpan& diff) const;
         // subtract another timespan
   inline wxTimeSpan& Subtract(const wxTimeSpan& diff);
         // subtract another timespan
   wxTimeSpan& operator-=(const wxTimeSpan& diff)
-  {
-    return Subtract(diff);
-  }
+  { return Subtract(diff); }
   inline wxTimeSpan operator-(const wxTimeSpan& ts) const
   {
-    return wxTimeSpan(GetValue() - ts.GetValue());
-  }
+        return wxTimeSpan(GetValue() - ts.GetValue());
+    }
         // multiply timespan by a scalar
   inline wxTimeSpan Multiply(int n) const;
         // multiply timespan by a scalar
   inline wxTimeSpan& Multiply(int n);
         // multiply timespan by a scalar
   wxTimeSpan& operator*=(int n)
-  {
-    return Multiply(n);
-  }
+  { return Multiply(n); }
   inline wxTimeSpan operator*(int n) const
   {
-    return wxTimeSpan(*this).Multiply(n);
-  }
+        return wxTimeSpan(*this).Multiply(n);
+    }
         // return this timespan with opposite sign
   wxTimeSpan Negate() const
-  {
-    return wxTimeSpan(-GetValue());
-  }
+  { return wxTimeSpan(-GetValue()); }
         // negate the value of the timespan
   wxTimeSpan& Neg()
-  {
-    m_diff = -GetValue();
-    return *this;
-  }
+  { m_diff = -GetValue(); return *this; }
         // negate the value of the timespan
   wxTimeSpan& operator-()
-  {
-    return Neg();
-  }
+  { return Neg(); }
         // return the absolute value of the timespan: does _not_ modify the
         // object
   inline wxTimeSpan Abs() const;
@@ -1152,24 +1052,16 @@ public:
 
         // is the timespan null?
   bool IsNull() const
-  {
-    return m_diff == 0l;
-  }
+  { return m_diff == 0l; }
         // returns true if the timespan is null
   bool operator!() const
-  {
-    return !IsNull();
-  }
+  { return !IsNull(); }
         // is the timespan positive?
   bool IsPositive() const
-  {
-    return m_diff > 0l;
-  }
+  { return m_diff > 0l; }
         // is the timespan negative?
   bool IsNegative() const
-  {
-    return m_diff < 0l;
-  }
+  { return m_diff < 0l; }
         // are two timespans equal?
   inline bool IsEqualTo(const wxTimeSpan& ts) const;
         // compare two timestamps: works with the absolute values, i.e. -2
@@ -1182,28 +1074,28 @@ public:
   bool IsShorterThan(const wxTimeSpan& t) const;
   inline bool operator<(const wxTimeSpan& ts) const
   {
-    return GetValue() < ts.GetValue();
-  }
+        return GetValue() < ts.GetValue();
+    }
   inline bool operator<=(const wxTimeSpan& ts) const
   {
-    return GetValue() <= ts.GetValue();
-  }
+        return GetValue() <= ts.GetValue();
+    }
   inline bool operator>(const wxTimeSpan& ts) const
   {
-    return GetValue() > ts.GetValue();
-  }
+        return GetValue() > ts.GetValue();
+    }
   inline bool operator>=(const wxTimeSpan& ts) const
   {
-    return GetValue() >= ts.GetValue();
-  }
+        return GetValue() >= ts.GetValue();
+    }
   inline bool operator==(const wxTimeSpan& ts) const
   {
-    return GetValue() == ts.GetValue();
-  }
+        return GetValue() == ts.GetValue();
+    }
   inline bool operator!=(const wxTimeSpan& ts) const
   {
-    return GetValue() != ts.GetValue();
-  }
+        return GetValue() != ts.GetValue();
+    }
     // breaking into days, hours, minutes and seconds
     // ------------------------------------------------------------------------
 
@@ -1219,9 +1111,7 @@ public:
   inline wxLongLong GetSeconds() const;
         // get the number of milliseconds in this timespan
   wxLongLong GetMilliseconds() const
-  {
-    return m_diff;
-  }
+  { return m_diff; }
     // conversion to text
     // ------------------------------------------------------------------------
 
@@ -1237,14 +1127,12 @@ public:
 
         // construct from internal representation
   wxTimeSpan(const wxLongLong& diff)
-    : m_diff(diff)
-  {
-  }
+    :  m_diff(diff) 
+    {
+     }
         // get the internal representation
   wxLongLong GetValue() const
-  {
-    return m_diff;
-  }
+  { return m_diff; }
 private:
     // the (signed) time span in milliseconds
   wxLongLong m_diff;
@@ -1292,47 +1180,32 @@ public:
         // this many years/months/weeks/days
   wxDateSpan(int years = 0, int months = 0, int weeks = 0, int days = 0)
   {
-    m_years = years;
-    m_months = months;
-    m_weeks = weeks;
-    m_days = days;
-  }
+
+        m_years = years;
+        m_months = months;
+        m_weeks = weeks;
+        m_days = days;
+      }
         // get an object for the given number of days
   static wxDateSpan Days(int days)
-  {
-    return wxDateSpan(0, 0, 0, days);
-  }
+  { return wxDateSpan(0, 0, 0, days); }
   static wxDateSpan Day()
-  {
-    return Days(1);
-  }
+  { return Days(1); }
         // get an object for the given number of weeks
   static wxDateSpan Weeks(int weeks)
-  {
-    return wxDateSpan(0, 0, weeks, 0);
-  }
+  { return wxDateSpan(0, 0, weeks, 0); }
   static wxDateSpan Week()
-  {
-    return Weeks(1);
-  }
+  { return Weeks(1); }
         // get an object for the given number of months
   static wxDateSpan Months(int mon)
-  {
-    return wxDateSpan(0, mon, 0, 0);
-  }
+  { return wxDateSpan(0, mon, 0, 0); }
   static wxDateSpan Month()
-  {
-    return Months(1);
-  }
+  { return Months(1); }
         // get an object for the given number of years
   static wxDateSpan Years(int years)
-  {
-    return wxDateSpan(years, 0, 0, 0);
-  }
+  { return wxDateSpan(years, 0, 0, 0); }
   static wxDateSpan Year()
-  {
-    return Years(1);
-  }
+  { return Years(1); }
         // default copy ctor is ok
 
         // no dtor
@@ -1342,58 +1215,34 @@ public:
 
         // set number of years
   wxDateSpan& SetYears(int n)
-  {
-    m_years = n;
-    return *this;
-  }
+  { m_years = n; return *this; }
         // set number of months
   wxDateSpan& SetMonths(int n)
-  {
-    m_months = n;
-    return *this;
-  }
+  { m_months = n; return *this; }
         // set number of weeks
   wxDateSpan& SetWeeks(int n)
-  {
-    m_weeks = n;
-    return *this;
-  }
+  { m_weeks = n; return *this; }
         // set number of days
   wxDateSpan& SetDays(int n)
-  {
-    m_days = n;
-    return *this;
-  }
+  { m_days = n; return *this; }
         // get number of years
   int GetYears() const
-  {
-    return m_years;
-  }
+  { return m_years; }
         // get number of months
   int GetMonths() const
-  {
-    return m_months;
-  }
+  { return m_months; }
         // returns 12*GetYears() + GetMonths()
   int GetTotalMonths() const
-  {
-    return 12 * m_years + m_months;
-  }
+  { return 12*m_years + m_months; }
         // get number of weeks
   int GetWeeks() const
-  {
-    return m_weeks;
-  }
+  { return m_weeks; }
         // get number of days
   int GetDays() const
-  {
-    return m_days;
-  }
+  { return m_days; }
         // returns 7*GetWeeks() + GetDays()
   int GetTotalDays() const
-  {
-    return 7 * m_weeks + m_days;
-  }
+  { return 7*m_weeks + m_days; }
     // arithmetic with date spans (see also below for more operators)
     // ------------------------------------------------------------------------
 
@@ -1405,8 +1254,11 @@ public:
   inline wxDateSpan& operator+=(const wxDateSpan& other);
   inline wxDateSpan operator+(const wxDateSpan& ds) const
   {
-    return wxDateSpan(GetYears() + ds.GetYears(), GetMonths() + ds.GetMonths(), GetWeeks() + ds.GetWeeks(), GetDays() + ds.GetDays());
-  }
+        return wxDateSpan(GetYears() + ds.GetYears(),
+                          GetMonths() + ds.GetMonths(),
+                          GetWeeks() + ds.GetWeeks(),
+                          GetDays() + ds.GetDays());
+    }
         // return difference of two date spans
   inline wxDateSpan Subtract(const wxDateSpan& other) const;
         // subtract another wxDateSpan from us
@@ -1415,39 +1267,40 @@ public:
   inline wxDateSpan& operator-=(const wxDateSpan& other);
   inline wxDateSpan operator-(const wxDateSpan& ds) const
   {
-    return wxDateSpan(GetYears() - ds.GetYears(), GetMonths() - ds.GetMonths(), GetWeeks() - ds.GetWeeks(), GetDays() - ds.GetDays());
-  }
+        return wxDateSpan(GetYears() - ds.GetYears(),
+                          GetMonths() - ds.GetMonths(),
+                          GetWeeks() - ds.GetWeeks(),
+                          GetDays() - ds.GetDays());
+    }
         // return a copy of this time span with changed sign
   inline wxDateSpan Negate() const;
         // inverse the sign of this timespan
   inline wxDateSpan& Neg();
         // inverse the sign of this timespan
   wxDateSpan& operator-()
-  {
-    return Neg();
-  }
+  { return Neg(); }
         // return the date span proportional to this one with given factor
   inline wxDateSpan Multiply(int factor) const;
         // multiply all components by a (signed) number
   inline wxDateSpan& Multiply(int factor);
         // multiply all components by a (signed) number
   inline wxDateSpan& operator*=(int factor)
-  {
-    return Multiply(factor);
-  }
+  { return Multiply(factor); }
   inline wxDateSpan operator*(int n) const
   {
-    return wxDateSpan(*this).Multiply(n);
-  }
+        return wxDateSpan(*this).Multiply(n);
+    }
     // ds1 == d2 if and only if for every wxDateTime t t + ds1 == t + ds2
   inline bool operator==(const wxDateSpan& ds) const
   {
-    return GetYears() == ds.GetYears() && GetMonths() == ds.GetMonths() && GetTotalDays() == ds.GetTotalDays();
-  }
+        return GetYears() == ds.GetYears() &&
+               GetMonths() == ds.GetMonths() &&
+               GetTotalDays() == ds.GetTotalDays();
+    }
   inline bool operator!=(const wxDateSpan& ds) const
   {
-    return !(*this == ds);
-  }
+        return !(*this == ds);
+    }
 private:
   int m_years, m_months, m_weeks, m_days;
 };
@@ -1530,149 +1383,167 @@ inline bool wxDateTime::IsInStdRange() const
 {
     // currently we don't know what is the real type of time_t so prefer to err
     // on the safe side and limit it to 32 bit values which is safe everywhere
-  return m_time >= 0l && (m_time / TIME_T_FACTOR) < wxINT32_MAX;
+    return m_time >= 0l && (m_time / TIME_T_FACTOR) < wxINT32_MAX;
 }
 /* static */
 inline wxDateTime wxDateTime::Now()
 {
-  struct tm tmstruct;
-  return wxDateTime(*GetTmNow(&tmstruct));
+    struct tm tmstruct;
+    return wxDateTime(*GetTmNow(&tmstruct));
 }
 /* static */
 inline wxDateTime wxDateTime::Today()
 {
-  wxDateTime dt(Now());
-  dt.ResetTime();
-  return dt;
+    wxDateTime dt(Now());
+    dt.ResetTime();
+
+    return dt;
 }
 inline wxDateTime& wxDateTime::Set(time_t timet)
 {
-  if (timet == (time_t) -1)
-  {
-    m_time = wxInvalidDateTime.m_time;
-  }
-  else 
-  {
+    if ( timet == (time_t)-1 )
+    {
+        m_time = wxInvalidDateTime.m_time;
+    }
+    else
+    {
         // assign first to avoid long multiplication overflow!
-    m_time = timet - WX_TIME_BASE_OFFSET;
-    m_time *= TIME_T_FACTOR;
-  }
-  return *this;
+        m_time = timet - WX_TIME_BASE_OFFSET;
+        m_time *= TIME_T_FACTOR;
+    }
+
+    return *this;
 }
 inline wxDateTime& wxDateTime::SetToCurrent()
 {
-  *this = Now();
-  return *this;
+    *this = Now();
+    return *this;
 }
 inline wxDateTime::wxDateTime(time_t timet)
 {
-  Set(timet);
+
+    Set(timet);
 }
 inline wxDateTime::wxDateTime(const struct tm& tm)
 {
-  Set(tm);
+
+    Set(tm);
 }
 inline wxDateTime::wxDateTime(const Tm& tm)
 {
-  Set(tm);
+
+    Set(tm);
 }
 inline wxDateTime::wxDateTime(double jdn)
 {
-  Set(jdn);
+
+    Set(jdn);
 }
 inline wxDateTime& wxDateTime::Set(const Tm& tm)
 {
-  wxASSERT_MSG(tm.IsValid(), wxT("invalid broken down date/time"));
-  return Set(tm.mday, (Month) tm.mon, tm.year, tm.hour, tm.min, tm.sec, tm.msec);
+    wxASSERT_MSG( tm.IsValid(), wxT("invalid broken down date/time") );
+
+    return Set(tm.mday, (Month)tm.mon, tm.year,
+               tm.hour, tm.min, tm.sec, tm.msec);
 }
 inline wxDateTime::wxDateTime(wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec)
 {
-  Set(hour, minute, second, millisec);
+
+    Set(hour, minute, second, millisec);
 }
 inline wxDateTime::wxDateTime(wxDateTime_t day, Month month, int year, wxDateTime_t hour, wxDateTime_t minute, wxDateTime_t second, wxDateTime_t millisec)
 {
-  Set(day, month, year, hour, minute, second, millisec);
+
+    Set(day, month, year, hour, minute, second, millisec);
 }
 // ----------------------------------------------------------------------------
 // wxDateTime accessors
 // ----------------------------------------------------------------------------
 inline wxLongLong wxDateTime::GetValue() const
 {
-  wxASSERT_MSG(IsValid(), wxT("invalid wxDateTime"));
-  return m_time;
+    wxASSERT_MSG( IsValid(), wxT("invalid wxDateTime"));
+
+    return m_time;
 }
 inline time_t wxDateTime::GetTicks() const
 {
-  wxASSERT_MSG(IsValid(), wxT("invalid wxDateTime"));
-  if (!IsInStdRange())
-  {
-    return (time_t) -1;
-  }
-  return (time_t) ((m_time / (long) TIME_T_FACTOR).ToLong()) + WX_TIME_BASE_OFFSET;
+    wxASSERT_MSG( IsValid(), wxT("invalid wxDateTime"));
+    if ( !IsInStdRange() )
+    {
+        return (time_t)-1;
+    }
+
+    return (time_t)((m_time / (long)TIME_T_FACTOR).ToLong()) + WX_TIME_BASE_OFFSET;
 }
 inline bool wxDateTime::SetToLastWeekDay(WeekDay weekday, Month month, int year)
 {
-  return SetToWeekDay(weekday, -1, month, year);
+    return SetToWeekDay(weekday, -1, month, year);
 }
 inline wxDateTime wxDateTime::GetWeekDayInSameWeek(WeekDay weekday, WeekFlags) const
 {
-  MODIFY_AND_RETURN(SetToWeekDayInSameWeek(weekday));
+    MODIFY_AND_RETURN( SetToWeekDayInSameWeek(weekday) );
 }
 inline wxDateTime wxDateTime::GetNextWeekDay(WeekDay weekday) const
 {
-  MODIFY_AND_RETURN(SetToNextWeekDay(weekday));
+    MODIFY_AND_RETURN( SetToNextWeekDay(weekday) );
 }
 inline wxDateTime wxDateTime::GetPrevWeekDay(WeekDay weekday) const
 {
-  MODIFY_AND_RETURN(SetToPrevWeekDay(weekday));
+    MODIFY_AND_RETURN( SetToPrevWeekDay(weekday) );
 }
 inline wxDateTime wxDateTime::GetWeekDay(WeekDay weekday, int n, Month month, int year) const
 {
-  wxDateTime dt(*this);
-  return dt.SetToWeekDay(weekday, n, month, year) ? dt : wxInvalidDateTime;
+    wxDateTime dt(*this);
+
+    return dt.SetToWeekDay(weekday, n, month, year) ? dt : wxInvalidDateTime;
 }
 inline wxDateTime wxDateTime::GetLastWeekDay(WeekDay weekday, Month month, int year)
 {
-  wxDateTime dt(*this);
-  return dt.SetToLastWeekDay(weekday, month, year) ? dt : wxInvalidDateTime;
+    wxDateTime dt(*this);
+
+    return dt.SetToLastWeekDay(weekday, month, year) ? dt : wxInvalidDateTime;
 }
 inline wxDateTime wxDateTime::GetLastMonthDay(Month month, int year) const
 {
-  MODIFY_AND_RETURN(SetToLastMonthDay(month, year));
+    MODIFY_AND_RETURN( SetToLastMonthDay(month, year) );
 }
 inline wxDateTime wxDateTime::GetYearDay(wxDateTime_t yday) const
 {
-  MODIFY_AND_RETURN(SetToYearDay(yday));
+    MODIFY_AND_RETURN( SetToYearDay(yday) );
 }
 // ----------------------------------------------------------------------------
 // wxDateTime comparison
 // ----------------------------------------------------------------------------
 inline bool wxDateTime::IsEqualTo(const wxDateTime& datetime) const
 {
-  return *this == datetime;
+    return *this == datetime;
 }
 inline bool wxDateTime::IsEarlierThan(const wxDateTime& datetime) const
 {
-  return *this < datetime;
+    return *this < datetime;
 }
 inline bool wxDateTime::IsLaterThan(const wxDateTime& datetime) const
 {
-  return *this > datetime;
+    return *this > datetime;
 }
 inline bool wxDateTime::IsStrictlyBetween(const wxDateTime& t1, const wxDateTime& t2) const
 {
     // no need for assert, will be checked by the functions we call
-  return IsLaterThan(t1) && IsEarlierThan(t2);
+    return IsLaterThan(t1) && IsEarlierThan(t2);
 }
 inline bool wxDateTime::IsBetween(const wxDateTime& t1, const wxDateTime& t2) const
 {
     // no need for assert, will be checked by the functions we call
-  return IsEqualTo(t1) || IsEqualTo(t2) || IsStrictlyBetween(t1, t2);
+    return IsEqualTo(t1) || IsEqualTo(t2) || IsStrictlyBetween(t1, t2);
 }
 inline bool wxDateTime::IsSameDate(const wxDateTime& dt) const
 {
-  Tm tm1 = GetTm(), tm2;
-  return tm1.year == tm2.year && tm1.mon == tm2.mon && tm1.mday == tm2.mday;
+    Tm tm1 = GetTm(),
+       tm2 = dt.GetTm();
+
+    return tm1.year == tm2.year &&
+           tm1.mon == tm2.mon &&
+           tm1.mday == tm2.mday;
 }
 inline bool wxDateTime::IsSameTime(const wxDateTime& dt) const
 {
@@ -1681,231 +1552,250 @@ inline bool wxDateTime::IsSameTime(const wxDateTime& dt) const
     //    m_time % MILLISECONDS_PER_DAY == dt.m_time % MILLISECONDS_PER_DAY
     //
     // because we have also to deal with (possibly) different DST settings!
-  Tm tm1 = GetTm(), tm2;
-  return tm1.hour == tm2.hour && tm1.min == tm2.min && tm1.sec == tm2.sec && tm1.msec == tm2.msec;
+    Tm tm1 = GetTm(),
+       tm2 = dt.GetTm();
+
+    return tm1.hour == tm2.hour &&
+           tm1.min == tm2.min &&
+           tm1.sec == tm2.sec &&
+           tm1.msec == tm2.msec;
 }
 inline bool wxDateTime::IsEqualUpTo(const wxDateTime& dt, const wxTimeSpan& ts) const
 {
-  return IsBetween(dt.Subtract(ts), dt.Add(ts));
+    return IsBetween(dt.Subtract(ts), dt.Add(ts));
 }
 // ----------------------------------------------------------------------------
 // wxDateTime arithmetic
 // ----------------------------------------------------------------------------
 inline wxDateTime wxDateTime::Add(const wxTimeSpan& diff) const
 {
-  wxASSERT_MSG(IsValid(), wxT("invalid wxDateTime"));
-  return wxDateTime(m_time + diff.GetValue());
+    wxASSERT_MSG( IsValid(), wxT("invalid wxDateTime"));
+
+    return wxDateTime(m_time + diff.GetValue());
 }
 inline wxDateTime& wxDateTime::Add(const wxTimeSpan& diff)
 {
-  wxASSERT_MSG(IsValid(), wxT("invalid wxDateTime"));
-  m_time += diff.GetValue();
-  return *this;
+    wxASSERT_MSG( IsValid(), wxT("invalid wxDateTime"));
+
+    m_time += diff.GetValue();
+
+    return *this;
 }
 inline wxDateTime& wxDateTime::operator+=(const wxTimeSpan& diff)
 {
-  return Add(diff);
+    return Add(diff);
 }
 inline wxDateTime wxDateTime::Subtract(const wxTimeSpan& diff) const
 {
-  wxASSERT_MSG(IsValid(), wxT("invalid wxDateTime"));
-  return wxDateTime(m_time - diff.GetValue());
+    wxASSERT_MSG( IsValid(), wxT("invalid wxDateTime"));
+
+    return wxDateTime(m_time - diff.GetValue());
 }
 inline wxDateTime& wxDateTime::Subtract(const wxTimeSpan& diff)
 {
-  wxASSERT_MSG(IsValid(), wxT("invalid wxDateTime"));
-  m_time -= diff.GetValue();
-  return *this;
+    wxASSERT_MSG( IsValid(), wxT("invalid wxDateTime"));
+
+    m_time -= diff.GetValue();
+
+    return *this;
 }
 inline wxDateTime& wxDateTime::operator-=(const wxTimeSpan& diff)
 {
-  return Subtract(diff);
+    return Subtract(diff);
 }
 inline wxTimeSpan wxDateTime::Subtract(const wxDateTime& datetime) const
 {
-  wxASSERT_MSG(IsValid() && datetime.IsValid(), wxT("invalid wxDateTime"));
-  return wxTimeSpan(GetValue() - datetime.GetValue());
+    wxASSERT_MSG( IsValid() && datetime.IsValid(), wxT("invalid wxDateTime"));
+
+    return wxTimeSpan(GetValue() - datetime.GetValue());
 }
 inline wxTimeSpan wxDateTime::operator-(const wxDateTime& dt2) const
 {
-  return this->Subtract(dt2);
+    return this->Subtract(dt2);
 }
 inline wxDateTime wxDateTime::Add(const wxDateSpan& diff) const
 {
-  return wxDateTime(*this).Add(diff);
+    return wxDateTime(*this).Add(diff);
 }
 inline wxDateTime& wxDateTime::Subtract(const wxDateSpan& diff)
 {
-  return Add(diff.Negate());
+    return Add(diff.Negate());
 }
 inline wxDateTime wxDateTime::Subtract(const wxDateSpan& diff) const
 {
-  return wxDateTime(*this).Subtract(diff);
+    return wxDateTime(*this).Subtract(diff);
 }
 inline wxDateTime& wxDateTime::operator-=(const wxDateSpan& diff)
 {
-  return Subtract(diff);
+    return Subtract(diff);
 }
 inline wxDateTime& wxDateTime::operator+=(const wxDateSpan& diff)
 {
-  return Add(diff);
+    return Add(diff);
 }
 // ----------------------------------------------------------------------------
 // wxDateTime and timezones
 // ----------------------------------------------------------------------------
 inline wxDateTime wxDateTime::ToTimezone(const wxDateTime::TimeZone& tz, bool noDST) const
 {
-  MODIFY_AND_RETURN(MakeTimezone(tz, noDST));
+    MODIFY_AND_RETURN( MakeTimezone(tz, noDST) );
 }
 inline wxDateTime wxDateTime::FromTimezone(const wxDateTime::TimeZone& tz, bool noDST) const
 {
-  MODIFY_AND_RETURN(MakeFromTimezone(tz, noDST));
+    MODIFY_AND_RETURN( MakeFromTimezone(tz, noDST) );
 }
 // ----------------------------------------------------------------------------
 // wxTimeSpan construction
 // ----------------------------------------------------------------------------
 inline wxTimeSpan::wxTimeSpan(long hours, long minutes, wxLongLong seconds, wxLongLong milliseconds)
 {
+
     // assign first to avoid precision loss
-  m_diff = hours;
-  m_diff *= 60l;
-  m_diff += minutes;
-  m_diff *= 60l;
-  m_diff += seconds;
-  m_diff *= 1000l;
-  m_diff += milliseconds;
+    m_diff = hours;
+    m_diff *= 60l;
+    m_diff += minutes;
+    m_diff *= 60l;
+    m_diff += seconds;
+    m_diff *= 1000l;
+    m_diff += milliseconds;
 }
 // ----------------------------------------------------------------------------
 // wxTimeSpan accessors
 // ----------------------------------------------------------------------------
 inline wxLongLong wxTimeSpan::GetSeconds() const
 {
-  return m_diff / 1000l;
+    return m_diff / 1000l;
 }
 inline int wxTimeSpan::GetMinutes() const
 {
     // For compatibility, this method (and the other accessors) return int,
     // even though GetLo() actually returns unsigned long with greater range.
-  return static_cast<int>((GetSeconds() / 60l).GetLo());
+    return static_cast<int>((GetSeconds() / 60l).GetLo());
 }
 inline int wxTimeSpan::GetHours() const
 {
-  return GetMinutes() / 60;
+    return GetMinutes() / 60;
 }
 inline int wxTimeSpan::GetDays() const
 {
-  return GetHours() / 24;
+    return GetHours() / 24;
 }
 inline int wxTimeSpan::GetWeeks() const
 {
-  return GetDays() / 7;
+    return GetDays() / 7;
 }
 // ----------------------------------------------------------------------------
 // wxTimeSpan arithmetic
 // ----------------------------------------------------------------------------
 inline wxTimeSpan wxTimeSpan::Add(const wxTimeSpan& diff) const
 {
-  return wxTimeSpan(m_diff + diff.GetValue());
+    return wxTimeSpan(m_diff + diff.GetValue());
 }
 inline wxTimeSpan& wxTimeSpan::Add(const wxTimeSpan& diff)
 {
-  m_diff += diff.GetValue();
-  return *this;
+    m_diff += diff.GetValue();
+
+    return *this;
 }
 inline wxTimeSpan wxTimeSpan::Subtract(const wxTimeSpan& diff) const
 {
-  return wxTimeSpan(m_diff - diff.GetValue());
+    return wxTimeSpan(m_diff - diff.GetValue());
 }
 inline wxTimeSpan& wxTimeSpan::Subtract(const wxTimeSpan& diff)
 {
-  m_diff -= diff.GetValue();
-  return *this;
+    m_diff -= diff.GetValue();
+
+    return *this;
 }
 inline wxTimeSpan& wxTimeSpan::Multiply(int n)
 {
-  m_diff *= (long) n;
-  return *this;
+    m_diff *= (long)n;
+
+    return *this;
 }
 inline wxTimeSpan wxTimeSpan::Multiply(int n) const
 {
-  return wxTimeSpan(m_diff * (long) n);
+    return wxTimeSpan(m_diff * (long)n);
 }
 inline wxTimeSpan wxTimeSpan::Abs() const
 {
-  return wxTimeSpan(GetValue().Abs());
+    return wxTimeSpan(GetValue().Abs());
 }
 inline bool wxTimeSpan::IsEqualTo(const wxTimeSpan& ts) const
 {
-  return GetValue() == ts.GetValue();
+    return GetValue() == ts.GetValue();
 }
 inline bool wxTimeSpan::IsLongerThan(const wxTimeSpan& ts) const
 {
-  return GetValue().Abs() > ts.GetValue().Abs();
+    return GetValue().Abs() > ts.GetValue().Abs();
 }
 inline bool wxTimeSpan::IsShorterThan(const wxTimeSpan& ts) const
 {
-  return GetValue().Abs() < ts.GetValue().Abs();
+    return GetValue().Abs() < ts.GetValue().Abs();
 }
 // ----------------------------------------------------------------------------
 // wxDateSpan
 // ----------------------------------------------------------------------------
 inline wxDateSpan& wxDateSpan::operator+=(const wxDateSpan& other)
 {
-  m_years += other.m_years;
-  m_months += other.m_months;
-  m_weeks += other.m_weeks;
-  m_days += other.m_days;
-  return *this;
+    m_years += other.m_years;
+    m_months += other.m_months;
+    m_weeks += other.m_weeks;
+    m_days += other.m_days;
+
+    return *this;
 }
 inline wxDateSpan& wxDateSpan::Add(const wxDateSpan& other)
 {
-  return *this += other;
+    return *this += other;
 }
 inline wxDateSpan wxDateSpan::Add(const wxDateSpan& other) const
 {
-  wxDateSpan ds(*this);
-  ds.Add(other);
-  return ds;
+    wxDateSpan ds(*this);
+    ds.Add(other);
+    return ds;
 }
 inline wxDateSpan& wxDateSpan::Multiply(int factor)
 {
-  m_years *= factor;
-  m_months *= factor;
-  m_weeks *= factor;
-  m_days *= factor;
-  return *this;
+    m_years *= factor;
+    m_months *= factor;
+    m_weeks *= factor;
+    m_days *= factor;
+
+    return *this;
 }
 inline wxDateSpan wxDateSpan::Multiply(int factor) const
 {
-  wxDateSpan ds(*this);
-  ds.Multiply(factor);
-  return ds;
+    wxDateSpan ds(*this);
+    ds.Multiply(factor);
+    return ds;
 }
 inline wxDateSpan wxDateSpan::Negate() const
 {
-  return wxDateSpan(-m_years, -m_months, -m_weeks, -m_days);
+    return wxDateSpan(-m_years, -m_months, -m_weeks, -m_days);
 }
 inline wxDateSpan& wxDateSpan::Neg()
 {
-  m_years = -m_years;
-  m_months = -m_months;
-  m_weeks = -m_weeks;
-  m_days = -m_days;
-  return *this;
+    m_years = -m_years;
+    m_months = -m_months;
+    m_weeks = -m_weeks;
+    m_days = -m_days;
+
+    return *this;
 }
 inline wxDateSpan& wxDateSpan::operator-=(const wxDateSpan& other)
 {
-  return *this += other.Negate();
+    return *this += other.Negate();
 }
 inline wxDateSpan& wxDateSpan::Subtract(const wxDateSpan& other)
 {
-  return *this -= other;
+    return *this -= other;
 }
 inline wxDateSpan wxDateSpan::Subtract(const wxDateSpan& other) const
 {
-  wxDateSpan ds(*this);
-  ds.Subtract(other);
-  return ds;
+    wxDateSpan ds(*this);
+    ds.Subtract(other);
+    return ds;
 }
 #    undef MILLISECONDS_PER_DAY
 #    undef MODIFY_AND_RETURN

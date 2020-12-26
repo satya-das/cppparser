@@ -27,7 +27,7 @@ class WXDLLIMPEXP_CORE wxStaticTextBase : public wxControl
 public:
   wxStaticTextBase()
   {
-  }
+   }
     // wrap the text of the control so that no line is longer than the given
     // width (if possible: this function won't break words)
     // This function will modify the value returned by GetLabel()!
@@ -43,8 +43,8 @@ public:
   }
   bool IsEllipsized() const
   {
-    return (GetWindowStyle() & wxST_ELLIPSIZE_MASK) != 0;
-  }
+        return (GetWindowStyle() & wxST_ELLIPSIZE_MASK) != 0;
+    }
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override

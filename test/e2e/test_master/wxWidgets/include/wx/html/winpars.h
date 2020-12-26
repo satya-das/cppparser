@@ -39,26 +39,16 @@ public:
     // Set's the DC used for parsing. If SetDC() is not called,
     // parsing won't proceed
   virtual void SetDC(wxDC* dc, double pixel_scale = 1.0)
-  {
-    SetDC(dc, pixel_scale, pixel_scale);
-  }
+  { SetDC(dc, pixel_scale, pixel_scale); }
   void SetDC(wxDC* dc, double pixel_scale, double font_scale);
   wxDC* GetDC()
-  {
-    return m_DC;
-  }
+  {return m_DC;}
   double GetPixelScale()
-  {
-    return m_PixelScale;
-  }
+  {return m_PixelScale;}
   int GetCharHeight() const
-  {
-    return m_CharHeight;
-  }
+  {return m_CharHeight;}
   int GetCharWidth() const
-  {
-    return m_CharWidth;
-  }
+  {return m_CharWidth;}
     // NOTE : these functions do _not_ return _actual_
     // height/width. They return h/w of default font
     // for this DC. If you want actual values, call
@@ -66,9 +56,7 @@ public:
 
     // returns interface to the rendering window
   wxHtmlWindowInterface* GetWindowInterface()
-  {
-    return m_windowInterface;
-  }
+  {return m_windowInterface;}
     // Sets fonts to be used when displaying HTML page. (if size null then default sizes used).
   void SetFonts(const wxString& normal_face, const wxString& fixed_face, const int* sizes = NULL);
     // Sets font sizes to be relative to the given size or the system
@@ -82,9 +70,7 @@ public:
     // Returns pointer to actual container. Common use in tag handler is :
     // m_WParser->GetContainer()->InsertCell(new ...);
   wxHtmlContainerCell* GetContainer() const
-  {
-    return m_Container;
-  }
+  {return m_Container;}
     // opens new container. This container is sub-container of opened
     // container. Sets GetContainer to newly created container
     // and returns it.
@@ -96,109 +82,59 @@ public:
     // container
   wxHtmlContainerCell* CloseContainer();
   int GetFontSize() const
-  {
-    return m_FontSize;
-  }
+  {return m_FontSize;}
   void SetFontSize(int s);
     // Try to map a font size in points to the HTML 1-7 font size range.
   void SetFontPointSize(int pt);
   int GetFontBold() const
-  {
-    return m_FontBold;
-  }
+  {return m_FontBold;}
   void SetFontBold(int x)
-  {
-    m_FontBold = x;
-  }
+  {m_FontBold = x;}
   int GetFontItalic() const
-  {
-    return m_FontItalic;
-  }
+  {return m_FontItalic;}
   void SetFontItalic(int x)
-  {
-    m_FontItalic = x;
-  }
+  {m_FontItalic = x;}
   int GetFontUnderlined() const
-  {
-    return m_FontUnderlined;
-  }
+  {return m_FontUnderlined;}
   void SetFontUnderlined(int x)
-  {
-    m_FontUnderlined = x;
-  }
+  {m_FontUnderlined = x;}
   int GetFontFixed() const
-  {
-    return m_FontFixed;
-  }
+  {return m_FontFixed;}
   void SetFontFixed(int x)
-  {
-    m_FontFixed = x;
-  }
+  {m_FontFixed = x;}
   wxString GetFontFace() const
-  {
-    return GetFontFixed() ? m_FontFaceFixed : m_FontFaceNormal;
-  }
+  {return GetFontFixed() ? m_FontFaceFixed : m_FontFaceNormal;}
   void SetFontFace(const wxString& face);
   int GetAlign() const
-  {
-    return m_Align;
-  }
+  {return m_Align;}
   void SetAlign(int a)
-  {
-    m_Align = a;
-  }
+  {m_Align = a;}
   wxHtmlScriptMode GetScriptMode() const
-  {
-    return m_ScriptMode;
-  }
+  { return m_ScriptMode; }
   void SetScriptMode(wxHtmlScriptMode mode)
-  {
-    m_ScriptMode = mode;
-  }
+  { m_ScriptMode = mode; }
   long GetScriptBaseline() const
-  {
-    return m_ScriptBaseline;
-  }
+  { return m_ScriptBaseline; }
   void SetScriptBaseline(long base)
-  {
-    m_ScriptBaseline = base;
-  }
+  { m_ScriptBaseline = base; }
   const wxColour& GetLinkColor() const
-  {
-    return m_LinkColor;
-  }
+  { return m_LinkColor; }
   void SetLinkColor(const wxColour& clr)
-  {
-    m_LinkColor = clr;
-  }
+  { m_LinkColor = clr; }
   const wxColour& GetActualColor() const
-  {
-    return m_ActualColor;
-  }
+  { return m_ActualColor; }
   void SetActualColor(const wxColour& clr)
-  {
-    m_ActualColor = clr;
-  }
+  { m_ActualColor = clr ;}
   const wxColour& GetActualBackgroundColor() const
-  {
-    return m_ActualBackgroundColor;
-  }
+  { return m_ActualBackgroundColor; }
   void SetActualBackgroundColor(const wxColour& clr)
-  {
-    m_ActualBackgroundColor = clr;
-  }
+  { m_ActualBackgroundColor = clr;}
   int GetActualBackgroundMode() const
-  {
-    return m_ActualBackgroundMode;
-  }
+  { return m_ActualBackgroundMode; }
   void SetActualBackgroundMode(int mode)
-  {
-    m_ActualBackgroundMode = mode;
-  }
+  { m_ActualBackgroundMode = mode;}
   const wxHtmlLinkInfo& GetLink() const
-  {
-    return m_Link;
-  }
+  { return m_Link; }
   void SetLink(const wxHtmlLinkInfo& link);
     // applies current parser state (link, sub/supscript, ...) to given cell
   void ApplyStateToCell(wxHtmlCell* cell);
@@ -206,23 +142,15 @@ public:
     // the text like e.g. <img> and tells us to not consider any of the
     // following space as being part of the same space run as before.
   void StopCollapsingSpaces()
-  {
-    m_tmpLastWasSpace = false;
-  }
+  { m_tmpLastWasSpace = false; }
 #    if  !wxUSE_UNICODE
   void SetInputEncoding(wxFontEncoding enc);
   wxFontEncoding GetInputEncoding() const
-  {
-    return m_InputEnc;
-  }
+  { return m_InputEnc; }
   wxFontEncoding GetOutputEncoding() const
-  {
-    return m_OutputEnc;
-  }
+  { return m_OutputEnc; }
   wxEncodingConverter* GetEncodingConverter() const
-  {
-    return m_EncConv;
-  }
+  { return m_EncConv; }
 #    endif
     // creates font depending on m_Font* members.
   virtual wxFont* CreateCurrentFont();
@@ -232,22 +160,16 @@ public:
     };
     // change the current whitespace handling mode
   void SetWhitespaceMode(WhitespaceMode mode)
-  {
-    m_whitespaceMode = mode;
-  }
+  { m_whitespaceMode = mode; }
   WhitespaceMode GetWhitespaceMode() const
-  {
-    return m_whitespaceMode;
-  }
+  { return m_whitespaceMode; }
 protected:
   void AddText(const wxString& txt) override;
 private:
   void FlushWordBuf(wxChar* temp, int& len);
   void AddWord(wxHtmlWordCell* word);
   void AddWord(const wxString& word)
-  {
-    AddWord(new wxHtmlWordCell(word, *(GetDC())));
-  }
+  { AddWord(new wxHtmlWordCell(word, *(GetDC()))); }
   void AddPreBlock(const wxString& text);
   bool m_tmpLastWasSpace;
   wxChar* m_tmpStrBuf;
@@ -322,9 +244,9 @@ class WXDLLIMPEXP_HTML wxHtmlWinTagHandler : public wxHtmlTagHandler
   wxDECLARE_ABSTRACT_CLASS(wxHtmlWinTagHandler);
 public:
   wxHtmlWinTagHandler()
-    : wxHtmlTagHandler()
-  {
-  }
+    :  wxHtmlTagHandler() 
+    {
+    }
   void SetParser(wxHtmlParser* parser) override
   {
     wxHtmlTagHandler::SetParser(parser);
@@ -347,17 +269,16 @@ class WXDLLIMPEXP_HTML wxHtmlTagsModule : public wxModule
   wxDECLARE_DYNAMIC_CLASS(wxHtmlTagsModule);
 public:
   wxHtmlTagsModule()
-    : wxModule()
-  {
-  }
+    :  wxModule() 
+    {
+    }
   bool OnInit() override;
   void OnExit() override;
     // This is called by wxHtmlWinParser.
     // The method must simply call parser->AddTagHandler(new
     // <handler_class_name>); for each handler
   virtual void FillHandlersTable(wxHtmlWinParser*)
-  {
-  }
+  { }
 };
 #  endif
 #endif

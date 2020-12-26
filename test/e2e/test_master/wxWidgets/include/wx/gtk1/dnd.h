@@ -52,21 +52,13 @@ public:
   unsigned m_dragTime;
   bool m_firstMotion;
   void SetDragContext(GdkDragContext* dc)
-  {
-    m_dragContext = dc;
-  }
+  { m_dragContext = dc; }
   void SetDragWidget(GtkWidget* w)
-  {
-    m_dragWidget = w;
-  }
+  { m_dragWidget = w; }
   void SetDragData(GtkSelectionData* sd)
-  {
-    m_dragData = sd;
-  }
+  { m_dragData = sd; }
   void SetDragTime(unsigned time)
-  {
-    m_dragTime = time;
-  }
+  { m_dragTime = time; }
 };
 //-------------------------------------------------------------------------
 // wxDropSource

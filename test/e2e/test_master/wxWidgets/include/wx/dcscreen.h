@@ -16,17 +16,11 @@ class WXDLLIMPEXP_CORE wxScreenDC : public wxDC
 public:
   wxScreenDC();
   static bool StartDrawingOnTop(wxWindow*)
-  {
-    return true;
-  }
+  { return true; }
   static bool StartDrawingOnTop(wxRect* = NULL)
-  {
-    return true;
-  }
+  { return true; }
   static bool EndDrawingOnTop()
-  {
-    return true;
-  }
+  { return true; }
   wxDECLARE_DYNAMIC_CLASS(wxScreenDC);
 };
 #endif

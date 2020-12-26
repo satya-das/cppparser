@@ -16,30 +16,29 @@ namespace SkSL
   struct IfStatement : public Statement
   {
     IfStatement(int offset, bool isStatic, std::unique_ptr<Expression> test, std::unique_ptr<Statement> ifTrue, std::unique_ptr<Statement> ifFalse)
-      : INHERITED(offset, kIf_Kind)
-      , fIsStatic(isStatic)
-      , fTest(std::move(test))
-      , fIfTrue(std::move(ifTrue))
-      , fIfFalse(std::move(ifFalse))
-    {
-    }
+      :  INHERITED(offset, kIf_Kind)
+    , fIsStatic(isStatic)
+    , fTest(std::move(test))
+    , fIfTrue(std::move(ifTrue))
+    , fIfFalse(std::move(ifFalse)) 
+      {
+      }
     std::unique_ptr<Statement> clone() const override
     {
-      return std::unique_ptr<Statement>(new IfStatement(fOffset, fIsStatic, fTest->clone(), fIfTrue->clone(), fIfFalse ? fIfFalse->clone() : nullptr));
+        return std::unique_ptr<Statement>(new IfStatement(fOffset, fIsStatic, fTest->clone(),
+                fIfTrue->clone(), fIfFalse ? fIfFalse->clone() : nullptr));
     }
     String description() const override
     {
-      String result;
-      if (fIsStatic)
-      {
-        result += "@";
-      }
-      result += "if (" + fTest->description() + ") " + fIfTrue->description();
-      if (fIfFalse)
-      {
-        result += " else " + fIfFalse->description();
-      }
-      return result;
+        String result;
+        if (fIsStatic) {
+            result += "@";
+        }
+        result += "if (" + fTest->description() + ") " + fIfTrue->description();
+        if (fIfFalse) {
+            result += " else " + fIfFalse->description();
+        }
+        return result;
     }
     bool fIsStatic;
     std::unique_ptr<Expression> fTest;

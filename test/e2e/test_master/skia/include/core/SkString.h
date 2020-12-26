@@ -18,55 +18,49 @@
 /*  Some helper functions for C strings */
 static bool SkStrStartsWith(const char string[], const char prefixStr[])
 {
-  SkASSERT(string);
-  SkASSERT(prefixStr);
-  return !strncmp(string, prefixStr, strlen(prefixStr));
+    SkASSERT(string);
+    SkASSERT(prefixStr);
+    return !strncmp(string, prefixStr, strlen(prefixStr));
 }
 static bool SkStrStartsWith(const char string[], const char prefixChar)
 {
-  SkASSERT(string);
-  return (prefixChar == *string);
+    SkASSERT(string);
+    return (prefixChar == *string);
 }
 bool SkStrEndsWith(const char string[], const char suffixStr[]);
 bool SkStrEndsWith(const char string[], const char suffixChar);
 int SkStrStartsWithOneOf(const char string[], const char prefixes[]);
 static int SkStrFind(const char string[], const char substring[])
 {
-  const char* first = strstr(string, substring);
-  if (nullptr == first)
-  {
-    return -1;
-  }
-  return SkToInt(first - &string[0]);
+    const char *first = strstr(string, substring);
+    if (nullptr == first) return -1;
+    return SkToInt(first - &string[0]);
 }
 static int SkStrFindLastOf(const char string[], const char subchar)
 {
-  const char* last = strrchr(string, subchar);
-  if (nullptr == last)
-  {
-    return -1;
-  }
-  return SkToInt(last - &string[0]);
+    const char* last = strrchr(string, subchar);
+    if (nullptr == last) return -1;
+    return SkToInt(last - &string[0]);
 }
 static bool SkStrContains(const char string[], const char substring[])
 {
-  SkASSERT(string);
-  SkASSERT(substring);
-  return (-1 != SkStrFind(string, substring));
+    SkASSERT(string);
+    SkASSERT(substring);
+    return (-1 != SkStrFind(string, substring));
 }
 static bool SkStrContains(const char string[], const char subchar)
 {
-  SkASSERT(string);
-  char tmp[2];
-  tmp[0] = subchar;
-  tmp[1] = '\0';
-  return (-1 != SkStrFind(string, tmp));
+    SkASSERT(string);
+    char tmp[2];
+    tmp[0] = subchar;
+    tmp[1] = '\0';
+    return (-1 != SkStrFind(string, tmp));
 }
 static char* SkStrDup(const char string[])
 {
-  char* ret = (char*) sk_malloc_throw(strlen(string) + 1);
-  memcpy(ret, string, strlen(string) + 1);
-  return ret;
+    char *ret = (char *) sk_malloc_throw(strlen(string)+1);
+    memcpy(ret,string,strlen(string)+1);
+    return ret;
 }
 /*
  *  The SkStrAppend... methods will write into the provided buffer, assuming it is large enough.
@@ -127,89 +121,73 @@ public:
   SkString(SkString&&);
   ~SkString();
   bool isEmpty() const
-  {
-    return 0 == fRec->fLength;
-  }
+  { return 0 == fRec->fLength; }
   size_t size() const
-  {
-    return (size_t) fRec->fLength;
-  }
+  { return (size_t) fRec->fLength; }
   const char* c_str() const
-  {
-    return fRec->data();
-  }
+  { return fRec->data(); }
   char operator[](size_t n) const
-  {
-    return this->c_str()[n];
-  }
+  { return this->c_str()[n]; }
   bool equals(const SkString&) const;
   bool equals(const char text[]) const;
   bool equals(const char text[], size_t len) const;
   bool startsWith(const char prefixStr[]) const
   {
-    return SkStrStartsWith(fRec->data(), prefixStr);
-  }
+        return SkStrStartsWith(fRec->data(), prefixStr);
+    }
   bool startsWith(const char prefixChar) const
   {
-    return SkStrStartsWith(fRec->data(), prefixChar);
-  }
+        return SkStrStartsWith(fRec->data(), prefixChar);
+    }
   bool endsWith(const char suffixStr[]) const
   {
-    return SkStrEndsWith(fRec->data(), suffixStr);
-  }
+        return SkStrEndsWith(fRec->data(), suffixStr);
+    }
   bool endsWith(const char suffixChar) const
   {
-    return SkStrEndsWith(fRec->data(), suffixChar);
-  }
+        return SkStrEndsWith(fRec->data(), suffixChar);
+    }
   bool contains(const char substring[]) const
   {
-    return SkStrContains(fRec->data(), substring);
-  }
+        return SkStrContains(fRec->data(), substring);
+    }
   bool contains(const char subchar) const
   {
-    return SkStrContains(fRec->data(), subchar);
-  }
+        return SkStrContains(fRec->data(), subchar);
+    }
   int find(const char substring[]) const
   {
-    return SkStrFind(fRec->data(), substring);
-  }
+        return SkStrFind(fRec->data(), substring);
+    }
   int findLastOf(const char subchar) const
   {
-    return SkStrFindLastOf(fRec->data(), subchar);
-  }
+        return SkStrFindLastOf(fRec->data(), subchar);
+    }
   friend bool operator==(const SkString& a, const SkString& b)
   {
-    return a.equals(b);
-  }
+        return a.equals(b);
+    }
   friend bool operator!=(const SkString& a, const SkString& b)
   {
-    return !a.equals(b);
-  }
+        return !a.equals(b);
+    }
     // these methods edit the string
   SkString& operator=(const SkString&);
   SkString& operator=(SkString&&);
   SkString& operator=(const char text[]);
   char* writable_str();
   char& operator[](size_t n)
-  {
-    return this->writable_str()[n];
-  }
+  { return this->writable_str()[n]; }
   void reset();
     /** Destructive resize, does not preserve contents. */
   void resize(size_t len)
-  {
-    this->set(nullptr, len);
-  }
+  { this->set(nullptr, len); }
   void set(const SkString& src)
-  {
-    *this = src;
-  }
+  { *this = src; }
   void set(const char text[]);
   void set(const char text[], size_t len);
   void insert(size_t offset, const SkString& src)
-  {
-    this->insert(offset, src.c_str(), src.size());
-  }
+  { this->insert(offset, src.c_str(), src.size()); }
   void insert(size_t offset, const char text[]);
   void insert(size_t offset, const char text[], size_t len);
   void insertUnichar(size_t offset, SkUnichar);
@@ -220,77 +198,41 @@ public:
   void insertHex(size_t offset, uint32_t value, int minDigits = 0);
   void insertScalar(size_t offset, SkScalar);
   void append(const SkString& str)
-  {
-    this->insert((size_t) -1, str);
-  }
+  { this->insert((size_t)-1, str); }
   void append(const char text[])
-  {
-    this->insert((size_t) -1, text);
-  }
+  { this->insert((size_t)-1, text); }
   void append(const char text[], size_t len)
-  {
-    this->insert((size_t) -1, text, len);
-  }
+  { this->insert((size_t)-1, text, len); }
   void appendUnichar(SkUnichar uni)
-  {
-    this->insertUnichar((size_t) -1, uni);
-  }
+  { this->insertUnichar((size_t)-1, uni); }
   void appendS32(int32_t value)
-  {
-    this->insertS32((size_t) -1, value);
-  }
+  { this->insertS32((size_t)-1, value); }
   void appendS64(int64_t value, int minDigits = 0)
-  {
-    this->insertS64((size_t) -1, value, minDigits);
-  }
+  { this->insertS64((size_t)-1, value, minDigits); }
   void appendU32(uint32_t value)
-  {
-    this->insertU32((size_t) -1, value);
-  }
+  { this->insertU32((size_t)-1, value); }
   void appendU64(uint64_t value, int minDigits = 0)
-  {
-    this->insertU64((size_t) -1, value, minDigits);
-  }
+  { this->insertU64((size_t)-1, value, minDigits); }
   void appendHex(uint32_t value, int minDigits = 0)
-  {
-    this->insertHex((size_t) -1, value, minDigits);
-  }
+  { this->insertHex((size_t)-1, value, minDigits); }
   void appendScalar(SkScalar value)
-  {
-    this->insertScalar((size_t) -1, value);
-  }
+  { this->insertScalar((size_t)-1, value); }
   void prepend(const SkString& str)
-  {
-    this->insert(0, str);
-  }
+  { this->insert(0, str); }
   void prepend(const char text[])
-  {
-    this->insert(0, text);
-  }
+  { this->insert(0, text); }
   void prepend(const char text[], size_t len)
-  {
-    this->insert(0, text, len);
-  }
+  { this->insert(0, text, len); }
   void prependUnichar(SkUnichar uni)
-  {
-    this->insertUnichar(0, uni);
-  }
+  { this->insertUnichar(0, uni); }
   void prependS32(int32_t value)
-  {
-    this->insertS32(0, value);
-  }
+  { this->insertS32(0, value); }
   void prependS64(int32_t value, int minDigits = 0)
-  {
-    this->insertS64(0, value, minDigits);
-  }
+  { this->insertS64(0, value, minDigits); }
   void prependHex(uint32_t value, int minDigits = 0)
-  {
-    this->insertHex(0, value, minDigits);
-  }
+  { this->insertHex(0, value, minDigits); }
   void prependScalar(SkScalar value)
-  {
-    this->insertScalar((size_t) -1, value);
-  }
+  { this->insertScalar((size_t)-1, value); }
   void printf(const char format[], ...);
   void appendf(const char format[], ...);
   void appendVAList(const char format[], va_list);
@@ -298,20 +240,11 @@ public:
   void prependVAList(const char format[], va_list);
   void remove(size_t offset, size_t length);
   SkString& operator+=(const SkString& s)
-  {
-    this->append(s);
-    return *this;
-  }
+  { this->append(s); return *this; }
   SkString& operator+=(const char text[])
-  {
-    this->append(text);
-    return *this;
-  }
+  { this->append(text); return *this; }
   SkString& operator+=(const char c)
-  {
-    this->append(&c, 1);
-    return *this;
-  }
+  { this->append(&c, 1); return *this; }
     /**
      *  Swap contents between this and other. This function is guaranteed
      *  to never fail or throw.
@@ -322,41 +255,32 @@ private:
   {
   public:
     Rec(uint32_t len, int32_t refCnt)
-      : fLength(len)
-      , fRefCnt(refCnt)
-      , fBeginningOfData(0)
-    {
-    }
+      :  fLength(len), fRefCnt(refCnt), fBeginningOfData(0)
+        
+      {
+       }
     static sk_sp<Rec> Make(const char text[], size_t len);
     uint32_t fLength;
     mutable std::atomic<int32_t> fRefCnt;
     char fBeginningOfData;
     char* data()
-    {
-      return &fBeginningOfData;
-    }
+    { return &fBeginningOfData; }
     const char* data() const
-    {
-      return &fBeginningOfData;
-    }
+    { return &fBeginningOfData; }
     void ref() const;
     void unref() const;
     bool unique() const;
   private:
         // Ensure the unsized delete is called.
     void operator delete(void* p)
-    {
-      ::operator delete(p);
-    }
+    { ::operator delete(p); }
   };
   sk_sp<Rec> fRec;
 #  ifdef SK_DEBUG
   const SkString& validate() const;
 #  else 
   const SkString& validate() const
-  {
-    return *this;
-  }
+  { return *this; }
 #  endif
   static const Rec gEmptyRec;
 };
@@ -365,12 +289,10 @@ SkString SkStringPrintf(const char* format, ...);
 /// This makes it easier to write a caller as a VAR_ARGS function where the format string is
 /// optional.
 static SkString SkStringPrintf()
-{
-  return SkString();
-}
+{ return SkString(); }
 static void swap(SkString& a, SkString& b)
 {
-  a.swap(b);
+    a.swap(b);
 }
 enum SkStrSplitMode {
     // Strictly return all results. If the input is ",," and the separator is ',' this will return
@@ -386,6 +308,6 @@ enum SkStrSplitMode {
 void SkStrSplit(const char* str, const char* delimiters, SkStrSplitMode splitMode, SkTArray<SkString>* out);
 inline void SkStrSplit(const char* str, const char* delimiters, SkTArray<SkString>* out)
 {
-  SkStrSplit(str, delimiters, kCoalesce_SkStrSplitMode, out);
+    SkStrSplit(str, delimiters, kCoalesce_SkStrSplitMode, out);
 }
 #endif

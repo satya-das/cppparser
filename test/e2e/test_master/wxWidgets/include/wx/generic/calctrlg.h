@@ -24,8 +24,7 @@ public:
     // construction
   wxGenericCalendarCtrl()
   {
-    Init();
-  }
+ Init();   }
   wxGenericCalendarCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAL_SHOW_HOLIDAYS, const wxString& name = wxASCII_STR(wxCalendarNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAL_SHOW_HOLIDAYS, const wxString& name = wxASCII_STR(wxCalendarNameStr));
   virtual ~wxGenericCalendarCtrl();
@@ -45,14 +44,10 @@ public:
     // Set/GetDateRange() above instead
   bool SetLowerDateLimit(const wxDateTime& date = wxDefaultDateTime);
   const wxDateTime& GetLowerDateLimit() const
-  {
-    return m_lowdate;
-  }
+  { return m_lowdate; }
   bool SetUpperDateLimit(const wxDateTime& date = wxDefaultDateTime);
   const wxDateTime& GetUpperDateLimit() const
-  {
-    return m_highdate;
-  }
+  { return m_highdate; }
     // calendar mode
     // -------------
 
@@ -172,12 +167,14 @@ private:
     // get the first/last days of the week corresponding to the current style
   wxDateTime::WeekDay GetWeekStart() const
   {
-    return WeekStartsOnMonday() ? wxDateTime::Mon : wxDateTime::Sun;
-  }
+        return WeekStartsOnMonday() ? wxDateTime::Mon
+                                           : wxDateTime::Sun;
+    }
   wxDateTime::WeekDay GetWeekEnd() const
   {
-    return WeekStartsOnMonday() ? wxDateTime::Sun : wxDateTime::Sat;
-  }
+        return WeekStartsOnMonday() ? wxDateTime::Sun
+                                           : wxDateTime::Sat;
+    }
     // is this date shown?
   bool IsDateShown(const wxDateTime& date) const;
     // is this date in the currently allowed range?
@@ -192,8 +189,8 @@ private:
     // deprecated
   bool AllowYearChange() const
   {
-    return !(GetWindowStyle() & wxCAL_NO_YEAR_CHANGE);
-  }
+        return !(GetWindowStyle() & wxCAL_NO_YEAR_CHANGE);
+    }
     // show the correct controls
   void ShowCurrentControls();
     // create the month combo and year spin controls
@@ -220,9 +217,7 @@ private:
     // Set the flag for SetDate(): otherwise it would overwrite the year
     // typed in by the user
   void SetUserChangedYear()
-  {
-    m_userChangedYear = true;
-  }
+  { m_userChangedYear = true; }
     // the subcontrols
   wxStaticText* m_staticMonth;
   wxComboBox* m_comboMonth;

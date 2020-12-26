@@ -21,47 +21,46 @@ class GrGLOpsRenderPass : public GrOpsRenderPass
  */
 public:
   GrGLOpsRenderPass(GrGLGpu* gpu)
-    : fGpu(gpu)
-  {
-  }
+    :  fGpu(gpu) 
+    {
+    }
   void begin() override
   {
-    fGpu->beginCommandBuffer(fRenderTarget, fColorLoadAndStoreInfo, fStencilLoadAndStoreInfo);
-  }
+        fGpu->beginCommandBuffer(fRenderTarget, fColorLoadAndStoreInfo, fStencilLoadAndStoreInfo);
+    }
   void end() override
   {
-    fGpu->endCommandBuffer(fRenderTarget, fColorLoadAndStoreInfo, fStencilLoadAndStoreInfo);
-  }
+        fGpu->endCommandBuffer(fRenderTarget, fColorLoadAndStoreInfo, fStencilLoadAndStoreInfo);
+    }
   void insertEventMarker(const char* msg) override
   {
-    fGpu->insertEventMarker(msg);
-  }
+        fGpu->insertEventMarker(msg);
+    }
   void inlineUpload(GrOpFlushState* state, GrDeferredTextureUploadFn& upload) override
   {
-    state->doUpload(upload);
-  }
+        state->doUpload(upload);
+    }
   void set(GrRenderTarget*, GrSurfaceOrigin, const LoadAndStoreInfo&, const StencilLoadAndStoreInfo&);
   void reset()
   {
-    fRenderTarget = nullptr;
-  }
+        fRenderTarget = nullptr;
+    }
 private:
   GrGpu* gpu() override
-  {
-    return fGpu;
-  }
+  { return fGpu; }
   void onDraw(const GrPrimitiveProcessor& primProc, const GrPipeline& pipeline, const GrPipeline::FixedDynamicState* fixedDynamicState, const GrPipeline::DynamicStateArrays* dynamicStateArrays, const GrMesh mesh[], int meshCount, const SkRect& bounds) override
   {
-    fGpu->draw(fRenderTarget, fRenderTarget->numSamples(), fOrigin, primProc, pipeline, fixedDynamicState, dynamicStateArrays, mesh, meshCount);
-  }
+        fGpu->draw(fRenderTarget, fRenderTarget->numSamples(), fOrigin, primProc, pipeline,
+                   fixedDynamicState, dynamicStateArrays, mesh, meshCount);
+    }
   void onClear(const GrFixedClip& clip, const SkPMColor4f& color) override
   {
-    fGpu->clear(clip, color, fRenderTarget, fOrigin);
-  }
+        fGpu->clear(clip, color, fRenderTarget, fOrigin);
+    }
   void onClearStencilClip(const GrFixedClip& clip, bool insideStencilMask) override
   {
-    fGpu->clearStencilClip(clip, insideStencilMask, fRenderTarget, fOrigin);
-  }
+        fGpu->clearStencilClip(clip, insideStencilMask, fRenderTarget, fOrigin);
+    }
   GrGLGpu* fGpu;
   GrOpsRenderPass::LoadAndStoreInfo fColorLoadAndStoreInfo;
   GrOpsRenderPass::StencilLoadAndStoreInfo fStencilLoadAndStoreInfo;

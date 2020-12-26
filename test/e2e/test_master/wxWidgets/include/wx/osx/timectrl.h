@@ -17,11 +17,12 @@ public:
     // Constructors.
   wxTimePickerCtrl()
   {
-  }
+   }
   wxTimePickerCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& dt = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTP_DEFAULT, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxTimePickerCtrlNameStr)
   {
-    Create(parent, id, dt, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, dt, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxDateTime& dt = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTP_DEFAULT, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxTimePickerCtrlNameStr);
   void OSXGenerateEvent(const wxDateTime& dt) override;
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxTimePickerCtrl);

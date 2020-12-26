@@ -17,10 +17,9 @@ class WXDLLIMPEXP_CORE wxGenericTimerImpl : public wxTimerImpl
 {
 public:
   wxGenericTimerImpl(wxTimer* timer)
-    : wxTimerImpl(timer)
-  {
-    Init();
-  }
+    :  wxTimerImpl(timer) 
+    {
+ Init();     }
   virtual ~wxGenericTimerImpl();
   virtual bool Start(int millisecs = -1, bool oneShot = false);
   virtual void Stop();

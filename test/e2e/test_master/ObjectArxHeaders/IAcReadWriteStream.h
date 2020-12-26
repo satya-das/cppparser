@@ -80,19 +80,17 @@ public:
     /// <param name="nMode">Input seek mode</param>
     /// <returns>Returns a status (such as eOk) indicating the outcome of the seek operation.</returns>
   virtual int seek(Adesk::Int64 nDistance, int nMode)
-  {
-    ADESK_UNREFED_PARAM(nDistance);
-    ADESK_UNREFED_PARAM(nMode);
-    return eNotSupported;
-  }
+  { 
+        ADESK_UNREFED_PARAM(nDistance);
+        ADESK_UNREFED_PARAM(nMode);
+        return eNotSupported; 
+    }
     /// <summary>
     /// This function sets nOffset to the current stream position relative to the start of the stream.
     /// </summary>
     /// <returns>Returns the distance from the start of the stream to the current read/write position.  Returns -1 by default.</returns>
   virtual Adesk::Int64 tell()
-  {
-    return -1;
-  }
+  { return -1; }
     /// <summary>
     /// This function reads nNumBytes bytes of data from the stream and copies it into the location
     /// pointed to by pDestBuf.  The value pointed to by pNumRead is set to the number of bytes
@@ -112,9 +110,7 @@ public:
     /// </summary>
     /// <returns>Returns a status (such as eOk) indicating the outcome of the close operation.</returns>
   virtual int close()
-  {
-    return eNotSupported;
-  }
+  { return eNotSupported; }
     /// <summary>
     /// Auxiliary method for implementation-specific functionality.
     /// </summary>
@@ -122,9 +118,9 @@ public:
     /// <returns>An implementation dependent value.</returns>
   virtual Adesk::Int64 control(Adesk::Int64 nArg)
   {
-    ADESK_UNREFED_PARAM(nArg);
-    return 0;
-  }
+        ADESK_UNREFED_PARAM(nArg);
+        return 0; 
+    }
 protected:
     /// <summary>
     /// Destructor
@@ -156,17 +152,13 @@ public:
     /// </summary>
     /// <returns>Returns a status (such as eOk) indicating the outcome of the operation.</returns>
   virtual int flushBuffers()
-  {
-    return eNotSupported;
-  }
+  { return eNotSupported; }
     /// <summary>
     /// This function sets the current stream position as the end of file.
     /// </summary>
     /// <returns>Returns a status (such as eOk) indicating the outcome of the operation.</returns>
   virtual int setEndOfFile()
-  {
-    return eNotSupported;
-  }
+  { return eNotSupported; }
 protected:
     /// <summary>
     /// Destructor

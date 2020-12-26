@@ -21,14 +21,17 @@ public:
     // Disable the events for the specified (non-NULL, having lifetime greater
     // than ours) window for the lifetime of this object.
   explicit wxGtkEventsDisabler(T* win)
-    : m_win(win)
-  {
-    m_win->GTKDisableEvents();
-  }
+    :  m_win(win)
+    
+    {
+
+        m_win->GTKDisableEvents();
+        }
   ~wxGtkEventsDisabler()
   {
-    m_win->GTKEnableEvents();
-  }
+
+        m_win->GTKEnableEvents();
+      }
 private:
   T* const m_win;
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxGtkEventsDisabler, T);

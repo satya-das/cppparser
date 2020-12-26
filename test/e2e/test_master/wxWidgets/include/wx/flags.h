@@ -22,42 +22,36 @@ public:
     // creates a wxBitset<> object with all flags initialized to 0
   wxBitset()
   {
-    m_data = 0;
-  }
+ m_data = 0;   }
     // created a wxBitset<> object initialized according to the bits of the
     // integral value val
   wxBitset(unsigned long val)
   {
-    m_data = val;
-  }
+ m_data = val ;   }
     // copies the content in the new wxBitset<> object from another one
   wxBitset(const wxBitset& src)
   {
-    m_data = src.m_data;
-  }
+ m_data = src.m_data;   }
     // creates a wxBitset<> object that has the specific flag set
   wxBitset(const T el)
   {
-    m_data |= 1 << el;
-  }
+ m_data |= 1 << el;   }
     // returns the integral value that the bits of this object represent
   unsigned long to_ulong() const
-  {
-    return m_data;
-  }
+  { return m_data ; }
     // assignment
   wxBitset& operator =(const wxBitset& rhs)
   {
-    m_data = rhs.m_data;
-    return *this;
-  }
+        m_data = rhs.m_data;
+        return *this;
+    }
     // bitwise or operator, sets all bits that are in rhs and leaves
     // the rest unchanged
   wxBitset& operator |=(const wxBitset& rhs)
   {
-    m_data |= rhs.m_data;
-    return *this;
-  }
+        m_data |= rhs.m_data;
+        return *this;
+    }
     // bitwsie exclusive-or operator, toggles the value of all bits
     // that are set in bits and leaves all others unchanged
   wxBitset& operator ^=(const wxBitset& rhs)
@@ -111,38 +105,36 @@ public:
     // clear all flags
   wxBitset& reset()
   {
-    m_data = 0;
-    return *this;
-  }
+        m_data = 0;
+        return *this;
+    }
     // true if this flag is set
   bool test(const T el) const
   {
-    return (m_data & (1 << el)) ? true : false;
-  }
+        return (m_data & (1 << el)) ? true : false;
+    }
     // true if no flag is set
   bool none() const
   {
-    return m_data == 0;
-  }
+        return m_data == 0;
+    }
     // true if any flag is set
   bool any() const
   {
-    return m_data != 0;
-  }
+        return m_data != 0;
+    }
     // true if both have the same flags
   bool operator ==(const wxBitset& rhs) const
   {
-    return m_data == rhs.m_data;
-  }
+        return m_data == rhs.m_data;
+    }
     // true if both differ in their flags set
   bool operator !=(const wxBitset& rhs) const
   {
-    return !operator==(rhs);
-  }
+        return !operator==(rhs);
+    }
   bool operator[](const T el) const
-  {
-    return test(el);
-  }
+  { return test(el) ; }
 private:
   unsigned long m_data;
 };

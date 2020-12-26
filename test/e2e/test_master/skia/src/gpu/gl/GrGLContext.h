@@ -29,63 +29,37 @@ public:
   {
   }
   GrGLStandard standard() const
-  {
-    return fInterface->fStandard;
-  }
+  { return fInterface->fStandard; }
   GrGLVersion version() const
-  {
-    return fGLVersion;
-  }
+  { return fGLVersion; }
   GrGLSLGeneration glslGeneration() const
-  {
-    return fGLSLGeneration;
-  }
+  { return fGLSLGeneration; }
   GrGLVendor vendor() const
-  {
-    return fVendor;
-  }
+  { return fVendor; }
   GrGLRenderer renderer() const
-  {
-    return fRenderer;
-  }
+  { return fRenderer; }
   GrGLANGLEBackend angleBackend() const
-  {
-    return fANGLEBackend;
-  }
+  { return fANGLEBackend; }
   GrGLANGLEVendor angleVendor() const
-  {
-    return fANGLEVendor;
-  }
+  { return fANGLEVendor; }
   GrGLANGLERenderer angleRenderer() const
-  {
-    return fANGLERenderer;
-  }
+  { return fANGLERenderer; }
     /** What driver is running our GL implementation? This is not necessarily related to the vendor.
         (e.g. Intel GPU being driven by Mesa) */
   GrGLDriver driver() const
-  {
-    return fDriver;
-  }
+  { return fDriver; }
   GrGLDriverVersion driverVersion() const
-  {
-    return fDriverVersion;
-  }
+  { return fDriverVersion; }
   const GrGLCaps* caps() const
-  {
-    return fGLCaps.get();
-  }
+  { return fGLCaps.get(); }
   GrGLCaps* caps()
-  {
-    return fGLCaps.get();
-  }
+  { return fGLCaps.get(); }
   bool hasExtension(const char* ext) const
   {
-    return fInterface->hasExtension(ext);
-  }
+        return fInterface->hasExtension(ext);
+    }
   const GrGLExtensions& extensions() const
-  {
-    return fInterface->fExtensions;
-  }
+  { return fInterface->fExtensions; }
 protected:
   struct ConstructorArgs
   {
@@ -126,17 +100,14 @@ public:
      */
   static std::unique_ptr<GrGLContext> Make(sk_sp<const GrGLInterface>, const GrContextOptions&);
   const GrGLInterface* interface() const
-  {
-    return fInterface.get();
-  }
+  { return fInterface.get(); }
   SkSL::Compiler* compiler() const;
   virtual ~GrGLContext();
 private:
   GrGLContext(ConstructorArgs&& args)
-    : INHERITED(std::move(args))
-    , fCompiler(nullptr)
-  {
-  }
+    :  INHERITED(std::move(args)), fCompiler(nullptr) 
+    {
+    }
   mutable SkSL::Compiler* fCompiler;
   typedef GrGLContextInfo INHERITED;
 };

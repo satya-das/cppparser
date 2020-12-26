@@ -22,9 +22,9 @@ class WXDLLIMPEXP_HTML wxHtmlFilter : public wxObject
   wxDECLARE_ABSTRACT_CLASS(wxHtmlFilter);
 public:
   wxHtmlFilter()
-    : wxObject()
-  {
-  }
+    :  wxObject() 
+    {
+    }
   virtual ~wxHtmlFilter()
   {
   }

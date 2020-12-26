@@ -18,8 +18,9 @@ public:
   }
   wxStaticBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr))
   {
-    Create(parent, id, label, pos, size, style, name);
-  }
+
+        Create(parent, id, label, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr));
   void Command(wxCommandEvent&) override
   {

@@ -37,13 +37,9 @@ public:
   virtual bool Play(wxDC* dc);
   wxSize GetSize() const;
   int GetWidth() const
-  {
-    return GetSize().x;
-  }
+  { return GetSize().x; }
   int GetHeight() const
-  {
-    return GetSize().y;
-  }
+  { return GetSize().y; }
     // Implementation
   WXHMETAFILE GetHMETAFILE() const;
   void SetHMETAFILE(WXHMETAFILE mf);
@@ -61,13 +57,9 @@ public:
   virtual wxMetafile* Close();
     // Implementation
   wxMetafile* GetMetaFile() const
-  {
-    return m_metaFile;
-  }
+  { return m_metaFile; }
   void SetMetaFile(wxMetafile* mf)
-  {
-    m_metaFile = mf;
-  }
+  { m_metaFile = mf; }
 protected:
   void DoGetSize(int* width, int* height) const override;
   wxMetafile* m_metaFile;
@@ -80,17 +72,15 @@ public:
     // the ctor parameters specify the filename (empty for memory metafiles),
     // the metafile picture size and the optional description/comment
   wxMetafileDC(const wxString& filename = wxEmptyString, int width = 0, int height = 0, const wxString& description = wxEmptyString)
-    : wxDC(new wxMetafileDCImpl(this, filename, width, height, description))
-  {
-  }
+    : 
+      wxDC( new wxMetafileDCImpl( this, filename, width, height, description) )
+    
+    {
+     }
   wxMetafile* GetMetafile() const
-  {
-    return ((wxMetafileDCImpl*) m_pimpl)->GetMetaFile();
-  }
+  { return ((wxMetafileDCImpl*)m_pimpl)->GetMetaFile(); }
   wxMetafile* Close()
-  {
-    return ((wxMetafileDCImpl*) m_pimpl)->Close();
-  }
+  { return ((wxMetafileDCImpl*)m_pimpl)->Close(); }
   wxDECLARE_CLASS(wxMetafileDC);
   wxDECLARE_NO_COPY_CLASS(wxMetafileDC);
 };
@@ -115,24 +105,19 @@ class WXDLLIMPEXP_CORE wxMetafileDataObject : public wxDataObjectSimple
 public:
   // ctors
   wxMetafileDataObject()
-    : wxDataObjectSimple(wxDF_METAFILE)
-  {
-  }
+    :  wxDataObjectSimple(wxDF_METAFILE) 
+    {
+      }
   wxMetafileDataObject(const wxMetafile& metafile)
-    : wxDataObjectSimple(wxDF_METAFILE)
-    , m_metafile(metafile)
-  {
-  }
+    :  wxDataObjectSimple(wxDF_METAFILE), m_metafile(metafile) 
+    {
+     }
     // virtual functions which you may override if you want to provide data on
     // demand only - otherwise, the trivial default versions will be used
   virtual void SetMetafile(const wxMetafile& metafile)
-  {
-    m_metafile = metafile;
-  }
+  { m_metafile = metafile; }
   virtual wxMetafile GetMetafile() const
-  {
-    return m_metafile;
-  }
+  { return m_metafile; }
     // implement base class pure virtuals
   size_t GetDataSize() const override;
   bool GetDataHere(void* buf) const override;

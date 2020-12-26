@@ -27,7 +27,7 @@ class WXDLLIMPEXP_CORE wxChoiceBase : public wxControlWithItems
 public:
   wxChoiceBase()
   {
-  }
+   }
   virtual ~wxChoiceBase();
     // all generic methods are in wxControlWithItems
 
@@ -37,18 +37,13 @@ public:
     // currently always on platforms other than MSW) this is the same as
     // GetSelection()
   virtual int GetCurrentSelection() const
-  {
-    return GetSelection();
-  }
+  { return GetSelection(); }
     // set/get the number of columns in the control (as they're not supported on
     // most platforms, they do nothing by default)
   virtual void SetColumns(int = 1)
-  {
-  }
+  { }
   virtual int GetColumns() const
-  {
-    return 1;
-  }
+  { return 1 ; }
     // emulate selecting the item event.GetInt()
   void Command(wxCommandEvent& event) override;
     // override wxItemContainer::IsSorted

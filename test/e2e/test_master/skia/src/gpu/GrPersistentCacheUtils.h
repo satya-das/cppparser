@@ -29,65 +29,65 @@ namespace GrPersistentCacheUtils
     // For consistency (so tools can blindly pack and unpack cached shaders), we always write
     // kGrShaderTypeCount inputs. If the backend gives us fewer, we just replicate the last one.
     SkASSERT(numInputs >= 1 && numInputs <= kGrShaderTypeCount);
+
     SkWriter32 writer;
     writer.write32(shaderType);
-    for (int i = 0; i < kGrShaderTypeCount; ++i)
-    {
-      writer.writeString(shaders[i].c_str(), shaders[i].size());
-      writer.writePad(&inputs[SkTMin(i, numInputs - 1)], sizeof(SkSL::Program::Inputs));
+    for (int i = 0; i < kGrShaderTypeCount; ++i) {
+        writer.writeString(shaders[i].c_str(), shaders[i].size());
+        writer.writePad(&inputs[SkTMin(i, numInputs - 1)], sizeof(SkSL::Program::Inputs));
     }
     writer.writeBool(SkToBool(meta));
-    if (meta)
-    {
-      writer.writeBool(SkToBool(meta->fSettings));
-      if (meta->fSettings)
-      {
-        writer.writeBool(meta->fSettings->fFlipY);
-        writer.writeBool(meta->fSettings->fFragColorIsInOut);
-        writer.writeBool(meta->fSettings->fForceHighPrecision);
-      }
-      writer.writeInt(meta->fAttributeNames.count());
-      writer.writeBool(meta->fHasCustomColorOutput);
-      writer.writeBool(meta->fHasSecondaryColorOutput);
+    if (meta) {
+        writer.writeBool(SkToBool(meta->fSettings));
+        if (meta->fSettings) {
+            writer.writeBool(meta->fSettings->fFlipY);
+            writer.writeBool(meta->fSettings->fFragColorIsInOut);
+            writer.writeBool(meta->fSettings->fForceHighPrecision);
+        }
+
+        writer.writeInt(meta->fAttributeNames.count());
+        for (const auto& attr : meta->fAttributeNames) {
+            writer.writeString(attr.c_str(), attr.size());
+        }
+
+        writer.writeBool(meta->fHasCustomColorOutput);
+        writer.writeBool(meta->fHasSecondaryColorOutput);
     }
     return writer.snapshotAsData();
-  }
+}
   static void UnpackCachedShaders(SkReader32* reader, SkSL::String shaders[], SkSL::Program::Inputs inputs[], int numInputs, ShaderMetadata* meta = nullptr)
   {
-    for (int i = 0; i < kGrShaderTypeCount; ++i)
-    {
-      size_t stringLen = 0;
-      const char* string = reader->readString(&stringLen);
-      shaders[i] = SkSL::String(string, stringLen);
-        // GL, for example, only wants one set of Inputs
-      if (i < numInputs)
-      {
-        reader->read(&inputs[i], sizeof(inputs[i]));
-      }
-      else 
-      {
-        reader->skip(sizeof(SkSL::Program::Inputs));
-      }
-    }
-    if (reader->readBool() && meta)
-    {
-      SkASSERT(meta->fSettings != nullptr);
-      if (reader->readBool())
-      {
-        meta->fSettings->fFlipY = reader->readBool();
-        meta->fSettings->fFragColorIsInOut = reader->readBool();
-        meta->fSettings->fForceHighPrecision = reader->readBool();
-      }
-      meta->fAttributeNames.resize(reader->readInt());
-      for (int i = 0; i < meta->fAttributeNames.count(); ++i)
-      {
+    for (int i = 0; i < kGrShaderTypeCount; ++i) {
         size_t stringLen = 0;
         const char* string = reader->readString(&stringLen);
-        meta->fAttributeNames[i] = SkSL::String(string, stringLen);
-      }
-      meta->fHasCustomColorOutput = reader->readBool();
-      meta->fHasSecondaryColorOutput = reader->readBool();
+        shaders[i] = SkSL::String(string, stringLen);
+
+        // GL, for example, only wants one set of Inputs
+        if (i < numInputs) {
+            reader->read(&inputs[i], sizeof(inputs[i]));
+        } else {
+            reader->skip(sizeof(SkSL::Program::Inputs));
+        }
     }
-  }
+    if (reader->readBool() && meta) {
+        SkASSERT(meta->fSettings != nullptr);
+
+        if (reader->readBool()) {
+            meta->fSettings->fFlipY              = reader->readBool();
+            meta->fSettings->fFragColorIsInOut   = reader->readBool();
+            meta->fSettings->fForceHighPrecision = reader->readBool();
+        }
+
+        meta->fAttributeNames.resize(reader->readInt());
+        for (int i = 0; i < meta->fAttributeNames.count(); ++i) {
+            size_t stringLen = 0;
+            const char* string = reader->readString(&stringLen);
+            meta->fAttributeNames[i] = SkSL::String(string, stringLen);
+        }
+
+        meta->fHasCustomColorOutput    = reader->readBool();
+        meta->fHasSecondaryColorOutput = reader->readBool();
+    }
+}
 }
 #endif

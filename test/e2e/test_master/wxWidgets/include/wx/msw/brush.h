@@ -28,17 +28,13 @@ public:
   void SetStipple(const wxBitmap& stipple) override;
   bool operator==(const wxBrush& brush) const;
   bool operator!=(const wxBrush& brush) const
-  {
-    return !(*this == brush);
-  }
+  { return !(*this == brush); }
   wxColour GetColour() const override;
   wxBrushStyle GetStyle() const override;
   wxBitmap* GetStipple() const override;
   wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants") wxBrush(const wxColour& col, int style);
   wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants") void SetStyle(int style)
-  {
-    SetStyle((wxBrushStyle) style);
-  }
+  { SetStyle((wxBrushStyle)style); }
     // return the HBRUSH for this brush
   WXHANDLE GetResourceHandle() const override;
 protected:

@@ -32,11 +32,12 @@ class WXDLLIMPEXP_CORE wxChoicebook : public wxNavigationEnabled<wxBookCtrlBase>
 public:
   wxChoicebook()
   {
-  }
+   }
   wxChoicebook(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString)
   {
-    (void) Create(parent, id, pos, size, style, name);
-  }
+
+        (void)Create(parent, id, pos, size, style, name);
+      }
     // quasi ctor
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString);
   bool SetPageText(size_t n, const wxString& strText) override;
@@ -56,9 +57,7 @@ public:
   bool DeleteAllPages() override;
     // returns the choice control
   wxChoice* GetChoiceCtrl() const
-  {
-    return (wxChoice*) m_bookctrl;
-  }
+  { return (wxChoice*)m_bookctrl; }
 protected:
   void DoSetWindowVariant(wxWindowVariant variant) override;
   wxWindow* DoRemovePage(size_t page) override;

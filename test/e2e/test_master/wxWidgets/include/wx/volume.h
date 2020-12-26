@@ -68,19 +68,13 @@ public:
   int GetFlags() const;
     // can we write to this volume?
   bool IsWritable() const
-  {
-    return !(GetFlags() & wxFS_VOL_READONLY);
-  }
+  { return !(GetFlags() & wxFS_VOL_READONLY); }
     // get the name of the volume and the name which should be displayed to the
     // user
   wxString GetName() const
-  {
-    return m_volName;
-  }
+  { return m_volName; }
   wxString GetDisplayName() const
-  {
-    return m_dispName;
-  }
+  { return m_dispName; }
     // TODO: operatios (Mount(), Unmount(), Eject(), ...)?
 protected:
     // the internal volume name
@@ -105,15 +99,13 @@ class WXDLLIMPEXP_CORE wxFSVolume : public wxFSVolumeBase
 {
 public:
   wxFSVolume()
-    : wxFSVolumeBase()
-  {
-    InitIcons();
-  }
+    :  wxFSVolumeBase() 
+    {
+ InitIcons();     }
   wxFSVolume(const wxString& name)
-    : wxFSVolumeBase(name)
-  {
-    InitIcons();
-  }
+    :  wxFSVolumeBase(name) 
+    {
+ InitIcons();     }
   wxIcon GetIcon(wxFSIconType type) const;
 private:
   void InitIcons();

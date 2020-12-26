@@ -41,53 +41,52 @@ class AcEdSSGetFilter : public AcEdInputContextReactor
 {
 public:
   virtual void ssgetAddFilter(int ssgetFlags, AcEdSelectionSetService& service, const AcDbObjectIdArray& selectionSet, const AcDbObjectIdArray& subSelectionSet)
-  {
-    ADESK_UNREFED_PARAM(ssgetFlags);
-    ADESK_UNREFED_PARAM(service);
-    ADESK_UNREFED_PARAM(selectionSet);
-    ADESK_UNREFED_PARAM(subSelectionSet);
-  }
+  { 
+        ADESK_UNREFED_PARAM(ssgetFlags);
+        ADESK_UNREFED_PARAM(service);
+        ADESK_UNREFED_PARAM(selectionSet);
+        ADESK_UNREFED_PARAM(subSelectionSet);
+    }
   virtual void ssgetRemoveFilter(int ssgetFlags, AcEdSelectionSetService& service, const AcDbObjectIdArray& selectionSet, const AcDbObjectIdArray& subSelectionSet, AcDbIntArray& removeIndexes, AcDbArrayIntArray& removeSubentIndexes)
-  {
-    ADESK_UNREFED_PARAM(ssgetFlags);
-    ADESK_UNREFED_PARAM(service);
-    ADESK_UNREFED_PARAM(selectionSet);
-    ADESK_UNREFED_PARAM(subSelectionSet);
-    ADESK_UNREFED_PARAM(removeIndexes);
-    ADESK_UNREFED_PARAM(removeSubentIndexes);
-  }
+  { 
+        ADESK_UNREFED_PARAM(ssgetFlags);
+        ADESK_UNREFED_PARAM(service);
+        ADESK_UNREFED_PARAM(selectionSet);
+        ADESK_UNREFED_PARAM(subSelectionSet);
+        ADESK_UNREFED_PARAM(removeIndexes);
+        ADESK_UNREFED_PARAM(removeSubentIndexes);}
   virtual void ssgetAddFailed(int ssgetFlags, int ssgetMode, AcEdSelectionSetService& service, const AcDbObjectIdArray& selectionSet, resbuf* rbPoints)
   {
-    ADESK_UNREFED_PARAM(ssgetFlags);
-    ADESK_UNREFED_PARAM(ssgetMode);
-    ADESK_UNREFED_PARAM(service);
-    ADESK_UNREFED_PARAM(selectionSet);
-    ADESK_UNREFED_PARAM(rbPoints);
-  }
+        ADESK_UNREFED_PARAM(ssgetFlags);
+        ADESK_UNREFED_PARAM(ssgetMode);
+        ADESK_UNREFED_PARAM(service);
+        ADESK_UNREFED_PARAM(selectionSet);
+        ADESK_UNREFED_PARAM(rbPoints);
+    }
   virtual void ssgetRemoveFailed(int ssgetFlags, int ssgetMode, AcEdSelectionSetService& service, const AcDbObjectIdArray& selectionSet, resbuf* rbPoints, AcDbIntArray& removeIndexes, AcDbArrayIntArray& removeSubentIndexes)
   {
-    ADESK_UNREFED_PARAM(ssgetFlags);
-    ADESK_UNREFED_PARAM(ssgetMode);
-    ADESK_UNREFED_PARAM(service);
-    ADESK_UNREFED_PARAM(selectionSet);
-    ADESK_UNREFED_PARAM(rbPoints);
-    ADESK_UNREFED_PARAM(removeIndexes);
-    ADESK_UNREFED_PARAM(removeSubentIndexes);
-  }
+        ADESK_UNREFED_PARAM(ssgetFlags);
+        ADESK_UNREFED_PARAM(ssgetMode);
+        ADESK_UNREFED_PARAM(service);
+        ADESK_UNREFED_PARAM(selectionSet);
+        ADESK_UNREFED_PARAM(rbPoints);
+        ADESK_UNREFED_PARAM(removeIndexes);
+        ADESK_UNREFED_PARAM(removeSubentIndexes);
+    }
   virtual void endSSGet(Acad::PromptStatus returnStatus, int ssgetFlags, AcEdSelectionSetService& service, const AcDbObjectIdArray& selectionSet)
   {
-    ADESK_UNREFED_PARAM(returnStatus);
-    ADESK_UNREFED_PARAM(ssgetFlags);
-    ADESK_UNREFED_PARAM(service);
-    ADESK_UNREFED_PARAM(selectionSet);
-  }
+        ADESK_UNREFED_PARAM(returnStatus);
+        ADESK_UNREFED_PARAM(ssgetFlags);
+        ADESK_UNREFED_PARAM(service);
+        ADESK_UNREFED_PARAM(selectionSet);
+    }
   virtual void endEntsel(Acad::PromptStatus returnStatus, const AcDbObjectId& pickedEntity, const AcGePoint3d& pickedPoint, AcEdSelectionSetService& service)
   {
-    ADESK_UNREFED_PARAM(returnStatus);
-    ADESK_UNREFED_PARAM(pickedEntity);
-    ADESK_UNREFED_PARAM(pickedPoint);
-    ADESK_UNREFED_PARAM(service);
-  }
+        ADESK_UNREFED_PARAM(returnStatus);
+        ADESK_UNREFED_PARAM(pickedEntity);
+        ADESK_UNREFED_PARAM(pickedPoint);
+        ADESK_UNREFED_PARAM(service);
+    }
 };
 Acad::ErrorStatus addSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter* pFilter);
 Acad::ErrorStatus removeSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter* pFilter);
@@ -139,9 +138,9 @@ class AcEdSSGetFilter2 : public AcEdSSGetFilter
 public:
   virtual void ssgetRolloverFilter(const AcDbFullSubentPath& subEntityPath, AcDbFullSubentPath& highlightPath)
   {
-    ADESK_UNREFED_PARAM(subEntityPath);
-    ADESK_UNREFED_PARAM(highlightPath);
-  }
+        ADESK_UNREFED_PARAM(subEntityPath);
+        ADESK_UNREFED_PARAM(highlightPath);
+    }
 };
 Acad::ErrorStatus addSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter2* pFilter);
 Acad::ErrorStatus removeSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter2* pFilter);
@@ -150,9 +149,9 @@ class AcEdSSGetFilter3 : public AcEdSSGetFilter
 public:
   virtual void ssgetRolloverFilter(const AcDbFullSubentPath& subEntityPath, AcDbFullSubentPathArray& highlightPaths)
   {
-    ADESK_UNREFED_PARAM(subEntityPath);
-    ADESK_UNREFED_PARAM(highlightPaths);
-  }
+        ADESK_UNREFED_PARAM(subEntityPath);
+        ADESK_UNREFED_PARAM(highlightPaths);
+    }
 };
 Acad::ErrorStatus addSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter3* pFilter);
 Acad::ErrorStatus removeSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter3* pFilter);
@@ -161,13 +160,13 @@ class AcEdSSGetFilter4 : public AcEdSSGetFilter
 public:
   virtual void endNEntsel(Acad::PromptStatus returnStatus, const AcDbObjectId& pickedEntity, const AcGePoint3d& pickedPoint, ads_point xformres[4], struct resbuf** refstkres, AcEdSelectionSetService& service)
   {
-    ADESK_UNREFED_PARAM(returnStatus);
-    ADESK_UNREFED_PARAM(pickedEntity);
-    ADESK_UNREFED_PARAM(pickedPoint);
-    ADESK_UNREFED_PARAM(xformres);
-    ADESK_UNREFED_PARAM(refstkres);
-    ADESK_UNREFED_PARAM(service);
-  }
+        ADESK_UNREFED_PARAM(returnStatus);
+        ADESK_UNREFED_PARAM(pickedEntity);
+        ADESK_UNREFED_PARAM(pickedPoint);
+        ADESK_UNREFED_PARAM(xformres);
+        ADESK_UNREFED_PARAM(refstkres);
+        ADESK_UNREFED_PARAM(service);
+        }
   virtual void beginSSGetCustomKeywordCallback(const ACHAR*)
   {
   }

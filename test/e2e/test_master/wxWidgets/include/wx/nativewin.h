@@ -60,8 +60,9 @@ public:
     // Default ctor, Create() must be called later to really create the window.
   wxNativeWindow()
   {
-    Init();
-  }
+
+        Init();
+      }
     // Create a window from an existing native window handle.
     //
     // Notice that this ctor doesn't take the usual pos and size parameters,
@@ -71,9 +72,11 @@ public:
     // 0 if the handle was invalid.
   wxNativeWindow(wxWindow* parent, wxWindowID winid, wxNativeWindowHandle handle)
   {
-    Init();
-    Create(parent, winid, handle);
-  }
+
+        Init();
+
+        Create(parent, winid, handle);
+      }
     // Same as non-default ctor, but with a return code.
   bool Create(wxWindow* parent, wxWindowID winid, wxNativeWindowHandle handle);
     // By default the native window with which this wxWindow is associated is
@@ -83,10 +86,12 @@ public:
     // it from the user code.
   void Disown()
   {
-    wxCHECK_RET(m_ownedByUser, wxS("Can't disown more than once"));
-    m_ownedByUser = false;
-    DoDisown();
-  }
+        wxCHECK_RET( m_ownedByUser, wxS("Can't disown more than once") );
+
+        m_ownedByUser = false;
+
+        DoDisown();
+    }
 #    ifdef __WXMSW__
     // Prevent the native window, not owned by us, from being destroyed by the
     // base class dtor, unless Disown() had been called.
@@ -95,8 +100,8 @@ public:
 private:
   void Init()
   {
-    m_ownedByUser = true;
-  }
+        m_ownedByUser = true;
+    }
     // This is implemented in platform-specific code.
   void DoDisown();
     // If the native widget owned by the user code.
@@ -114,15 +119,16 @@ public:
     // default ctor, call Create() later
   wxNativeContainerWindow()
   {
-  }
+   }
     // create a window from an existing native window handle
     //
     // use GetHandle() to check if the creation was successful, it will return
     // 0 if the handle was invalid
   wxNativeContainerWindow(wxNativeContainerWindowHandle handle)
   {
-    Create(handle);
-  }
+
+        Create(handle);
+      }
     // same as ctor above but with a return code
   bool Create(wxNativeContainerWindowHandle handle);
 #    if  defined(__WXGTK__)
@@ -134,8 +140,7 @@ public:
     // (when GDK_WINDOWING_X11 is defined) or HWND under Win32
   wxNativeContainerWindow(wxNativeContainerWindowId winid)
   {
-    Create(winid);
-  }
+ Create(winid);   }
   bool Create(wxNativeContainerWindowId winid);
 #    endif
     // unlike for the normal windows, dtor will not destroy the native window

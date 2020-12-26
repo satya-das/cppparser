@@ -196,24 +196,18 @@ public:
         Currently the only option is Option_AllowPixelFontSize.
     */
   void SetOptions(int options)
-  {
-    m_options = options;
-  }
+  { m_options = options; }
     /**
         Gets the dialog options, determining what the interface presents to the user.
         Currently the only option is Option_AllowPixelFontSize.
     */
   int GetOptions() const
-  {
-    return m_options;
-  }
+  { return m_options; }
     /**
         Returns @true if the given option is present.
     */
   bool HasOption(int option) const
-  {
-    return (m_options & option) != 0;
-  }
+  { return (m_options & option) != 0; }
     /**
         Sets the formatting factory object to be used for customization and page
         creation.

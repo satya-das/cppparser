@@ -26,49 +26,32 @@ class WXDLLIMPEXP_RICHTEXT wxRichTextXMLHelper : public wxObject
 public:
   wxRichTextXMLHelper()
   {
-    Init();
-  }
+ Init();   }
   wxRichTextXMLHelper(const wxString& enc)
   {
-    Init();
-    SetupForSaving(enc);
-  }
+ Init(); SetupForSaving(enc);   }
   ~wxRichTextXMLHelper();
   void Init();
   void SetupForSaving(const wxString& enc);
   void Clear();
   void SetFileEncoding(const wxString& encoding)
-  {
-    m_fileEncoding = encoding;
-  }
+  { m_fileEncoding = encoding; }
   const wxString& GetFileEncoding() const
-  {
-    return m_fileEncoding;
-  }
+  { return m_fileEncoding; }
     // Convert a colour to a 6-digit hex string
   static wxString ColourToHexString(const wxColour& col);
     // Convert 6-digit hex string to a colour
   static wxColour HexStringToColour(const wxString& hex);
   static wxString MakeString(const int& v)
-  {
-    return wxString::Format(wxT("%d"), v);
-  }
+  { return wxString::Format(wxT("%d"), v); }
   static wxString MakeString(const long& v)
-  {
-    return wxString::Format(wxT("%ld"), v);
-  }
+  { return wxString::Format(wxT("%ld"), v); }
   static wxString MakeString(const double& v)
-  {
-    return wxString::Format(wxS("%.2f"), v);
-  }
+  { return wxString::Format(wxS("%.2f"), v); }
   static wxString MakeString(const wxString& s)
-  {
-    return s;
-  }
+  { return s; }
   static wxString MakeString(const wxColour& col)
-  {
-    return wxT("#") + ColourToHexString(col);
-  }
+  { return wxT("#") + ColourToHexString(col); }
   static bool HasParam(wxXmlNode* node, const wxString& param);
   static wxXmlNode* GetParamNode(wxXmlNode* node, const wxString& param);
   static wxString GetNodeContent(wxXmlNode* node);
@@ -89,13 +72,9 @@ public:
   virtual bool ImportStyleDefinition(wxRichTextStyleSheet* sheet, wxXmlNode* node);
     // Get flags, as per handler flags
   int GetFlags() const
-  {
-    return m_flags;
-  }
+  { return m_flags; }
   void SetFlags(int flags)
-  {
-    m_flags = flags;
-  }
+  { m_flags = flags; }
 #    if  wxRICHTEXT_HAVE_DIRECT_OUTPUT
     // write string to output
   static void OutputString(wxOutputStream& stream, const wxString& str, wxMBConv* convMem, wxMBConv* convFile);
@@ -106,29 +85,17 @@ public:
   void OutputString(wxOutputStream& stream, const wxString& str);
   void OutputStringEnt(wxOutputStream& stream, const wxString& str);
   static void AddString(wxString& str, const int& v)
-  {
-    str << wxString::Format(wxT("%d"), v);
-  }
+  { str << wxString::Format(wxT("%d"), v); }
   static void AddString(wxString& str, const long& v)
-  {
-    str << wxString::Format(wxT("%ld"), v);
-  }
+  { str << wxString::Format(wxT("%ld"), v); }
   static void AddString(wxString& str, const double& v)
-  {
-    str << wxString::Format(wxS("%.2f"), v);
-  }
+  { str << wxString::Format(wxS("%.2f"), v); }
   static void AddString(wxString& str, const wxChar* s)
-  {
-    str << s;
-  }
+  { str << s; }
   static void AddString(wxString& str, const wxString& s)
-  {
-    str << s;
-  }
+  { str << s; }
   static void AddString(wxString& str, const wxColour& col)
-  {
-    str << wxT("#") << ColourToHexString(col);
-  }
+  { str << wxT("#") << ColourToHexString(col); }
   static void AddAttribute(wxString& str, const wxString& name, const int& v);
   static void AddAttribute(wxString& str, const wxString& name, const long& v);
   static void AddAttribute(wxString& str, const wxString& name, const double& v);
@@ -186,10 +153,10 @@ class WXDLLIMPEXP_RICHTEXT wxRichTextXMLHandler : public wxRichTextFileHandler
   wxDECLARE_DYNAMIC_CLASS(wxRichTextXMLHandler);
 public:
   wxRichTextXMLHandler(const wxString& name = wxT("XML"), const wxString& ext = wxT("xml"), int type = wxRICHTEXT_TYPE_XML)
-    : wxRichTextFileHandler(name, ext, type)
-  {
-    Init();
-  }
+    :  wxRichTextFileHandler(name, ext, type)
+        
+    {
+ Init();     }
   void Init();
 #    if  wxUSE_STREAMS
 #      if  wxRICHTEXT_HAVE_DIRECT_OUTPUT
@@ -217,9 +184,7 @@ public:
     /// Returns the XML helper object, implementing functionality
     /// that can be reused elsewhere.
   wxRichTextXMLHelper& GetHelper()
-  {
-    return m_helper;
-  }
+  { return m_helper; }
 // Implementation
 
     /**
@@ -227,16 +192,12 @@ public:
         If you add a custom object, call this.
     */
   static void RegisterNodeName(const wxString& nodeName, const wxString& className)
-  {
-    sm_nodeNameToClassMap[nodeName] = className;
-  }
+  { sm_nodeNameToClassMap[nodeName] = className; }
     /**
         Cleans up the mapping between node name and C++ class.
     */
   static void ClearNodeToClassMap()
-  {
-    sm_nodeNameToClassMap.clear();
-  }
+  { sm_nodeNameToClassMap.clear(); }
 #    if  wxUSE_STREAMS
 protected:
   bool DoLoadFile(wxRichTextBuffer* buffer, wxInputStream& stream) override;

@@ -78,144 +78,125 @@ class WXDLLIMPEXP_BASE wxClassInfo
   friend wxObject* wxCreateDynamicObject(const wxString& name);
 public:
   wxClassInfo(const wxClassInfo** _Parents, const wxChar* _UnitName, const wxChar* _ClassName, int size, wxObjectConstructorFn ctor, wxPropertyInfoFn _Props, wxHandlerInfoFn _Handlers, wxObjectAllocatorAndCreator* _Constructor, const wxChar** _ConstructorProperties, const int _ConstructorPropertiesCount, wxVariantToObjectPtrConverter _PtrConverter1, wxVariantToObjectConverter _Converter2, wxObjectToVariantConverter _Converter3, wxObjectStreamingCallback _streamingCallback = NULL)
-    : m_className(_ClassName)
-    , m_objectSize(size)
-    , m_objectConstructor(ctor)
-    , m_next(sm_first)
-    , m_firstPropertyFn(_Props)
-    , m_firstHandlerFn(_Handlers)
-    , m_firstProperty(NULL)
-    , m_firstHandler(NULL)
-    , m_firstInited(false)
-    , m_parents(_Parents)
-    , m_unitName(_UnitName)
-    , m_constructor(_Constructor)
-    , m_constructorProperties(_ConstructorProperties)
-    , m_constructorPropertiesCount(_ConstructorPropertiesCount)
-    , m_variantOfPtrToObjectConverter(_PtrConverter1)
-    , m_variantToObjectConverter(_Converter2)
-    , m_objectToVariantConverter(_Converter3)
-    , m_streamingCallback(_streamingCallback)
-  {
-    sm_first = this;
-    Register();
-  }
+    : 
+            m_className(_ClassName),
+            m_objectSize(size),
+            m_objectConstructor(ctor),
+            m_next(sm_first),
+            m_firstPropertyFn(_Props),
+            m_firstHandlerFn(_Handlers),
+            m_firstProperty(NULL),
+            m_firstHandler(NULL),
+            m_firstInited(false),
+            m_parents(_Parents),
+            m_unitName(_UnitName),
+            m_constructor(_Constructor),
+            m_constructorProperties(_ConstructorProperties),
+            m_constructorPropertiesCount(_ConstructorPropertiesCount),
+            m_variantOfPtrToObjectConverter(_PtrConverter1),
+            m_variantToObjectConverter(_Converter2),
+            m_objectToVariantConverter(_Converter3),
+            m_streamingCallback(_streamingCallback)
+    
+    {
+
+        sm_first = this;
+        Register();
+        }
   wxClassInfo(const wxChar* _UnitName, const wxChar* _ClassName, const wxClassInfo** _Parents)
-    : m_className(_ClassName)
-    , m_objectSize(0)
-    , m_objectConstructor(NULL)
-    , m_next(sm_first)
-    , m_firstPropertyFn(NULL)
-    , m_firstHandlerFn(NULL)
-    , m_firstProperty(NULL)
-    , m_firstHandler(NULL)
-    , m_firstInited(true)
-    , m_parents(_Parents)
-    , m_unitName(_UnitName)
-    , m_constructor(NULL)
-    , m_constructorProperties(NULL)
-    , m_constructorPropertiesCount(0)
-    , m_variantOfPtrToObjectConverter(NULL)
-    , m_variantToObjectConverter(NULL)
-    , m_objectToVariantConverter(NULL)
-    , m_streamingCallback(NULL)
-  {
-    sm_first = this;
-    Register();
-  }
+    : 
+            m_className(_ClassName),
+            m_objectSize(0),
+            m_objectConstructor(NULL),
+            m_next(sm_first),
+            m_firstPropertyFn(NULL),
+            m_firstHandlerFn(NULL),
+            m_firstProperty(NULL),
+            m_firstHandler(NULL),
+            m_firstInited(true),
+            m_parents(_Parents),
+            m_unitName(_UnitName),
+            m_constructor(NULL),
+            m_constructorProperties(NULL),
+            m_constructorPropertiesCount(0),
+            m_variantOfPtrToObjectConverter(NULL),
+            m_variantToObjectConverter(NULL),
+            m_objectToVariantConverter(NULL),
+            m_streamingCallback(NULL)
+    
+    {
+
+        sm_first = this;
+        Register();
+        }
     // ctor compatible with old RTTI system
   wxClassInfo(const wxChar* _ClassName, const wxClassInfo* _Parent1, const wxClassInfo* _Parent2, int size, wxObjectConstructorFn ctor)
-    : m_className(_ClassName)
-    , m_objectSize(size)
-    , m_objectConstructor(ctor)
-    , m_next(sm_first)
-    , m_firstPropertyFn(NULL)
-    , m_firstHandlerFn(NULL)
-    , m_firstProperty(NULL)
-    , m_firstHandler(NULL)
-    , m_firstInited(true)
-    , m_parents(NULL)
-    , m_unitName(NULL)
-    , m_constructor(NULL)
-    , m_constructorProperties(NULL)
-    , m_constructorPropertiesCount(0)
-    , m_variantOfPtrToObjectConverter(NULL)
-    , m_variantToObjectConverter(NULL)
-    , m_objectToVariantConverter(NULL)
-    , m_streamingCallback(NULL)
-  {
-    sm_first = this;
-    m_parents[0] = _Parent1;
-    m_parents[1] = _Parent2;
-    m_parents[2] = NULL;
-    Register();
-  }
+    : 
+            m_className(_ClassName),
+            m_objectSize(size),
+            m_objectConstructor(ctor),
+            m_next(sm_first),
+            m_firstPropertyFn(NULL),
+            m_firstHandlerFn(NULL),
+            m_firstProperty(NULL),
+            m_firstHandler(NULL),
+            m_firstInited(true),
+            m_parents(NULL),
+            m_unitName(NULL),
+            m_constructor(NULL),
+            m_constructorProperties(NULL),
+            m_constructorPropertiesCount(0),
+            m_variantOfPtrToObjectConverter(NULL),
+            m_variantToObjectConverter(NULL),
+            m_objectToVariantConverter(NULL),
+            m_streamingCallback(NULL)
+    
+    {
+
+        sm_first = this;
+        m_parents[0] = _Parent1;
+        m_parents[1] = _Parent2;
+        m_parents[2] = NULL;
+        Register();
+        }
   virtual ~wxClassInfo();
     // allocates an instance of this class, this object does not have to be
     // initialized or fully constructed as this call will be followed by a call to Create
   virtual wxObject* AllocateObject() const
-  {
-    return m_objectConstructor ? (*m_objectConstructor)() : 0;
-  }
+  { return m_objectConstructor ? (*m_objectConstructor)() : 0; }
     // 'old naming' for AllocateObject staying here for backward compatibility
   wxObject* CreateObject() const
-  {
-    return AllocateObject();
-  }
+  { return AllocateObject(); }
     // direct construction call for classes that cannot construct instances via alloc/create
   wxObject* ConstructObject(int ParamCount, wxAny* Params) const;
   bool NeedsDirectConstruction() const;
   const wxChar* GetClassName() const
-  {
-    return m_className;
-  }
+  { return m_className; }
   const wxChar* GetBaseClassName1() const
-  {
-    return m_parents[0] ? m_parents[0]->GetClassName() : NULL;
-  }
+  { return m_parents[0] ? m_parents[0]->GetClassName() : NULL; }
   const wxChar* GetBaseClassName2() const
-  {
-    return (m_parents[0] && m_parents[1]) ? m_parents[1]->GetClassName() : NULL;
-  }
+  { return (m_parents[0] && m_parents[1]) ? m_parents[1]->GetClassName() : NULL; }
   const wxClassInfo* GetBaseClass1() const
-  {
-    return m_parents[0];
-  }
+  { return m_parents[0]; }
   const wxClassInfo* GetBaseClass2() const
-  {
-    return m_parents[0] ? m_parents[1] : NULL;
-  }
+  { return m_parents[0] ? m_parents[1] : NULL; }
   const wxChar* GetIncludeName() const
-  {
-    return m_unitName;
-  }
+  { return m_unitName; }
   const wxClassInfo** GetParents() const
-  {
-    return m_parents;
-  }
+  { return m_parents; }
   int GetSize() const
-  {
-    return m_objectSize;
-  }
+  { return m_objectSize; }
   bool IsDynamic() const
-  {
-    return (NULL != m_objectConstructor);
-  }
+  { return (NULL != m_objectConstructor); }
   wxObjectConstructorFn GetConstructor() const
-  {
-    return m_objectConstructor;
-  }
+  { return m_objectConstructor; }
   const wxClassInfo* GetNext() const
-  {
-    return m_next;
-  }
+  { return m_next; }
     // statics:
   static void CleanUp();
   static wxClassInfo* FindClass(const wxString& className);
   static const wxClassInfo* GetFirst()
-  {
-    return sm_first;
-  }
+  { return sm_first; }
     // Climb upwards through inheritance hierarchy.
     // Dual inheritance is catered for.
   bool IsKindOf(const wxClassInfo* info) const;
@@ -230,29 +211,19 @@ public:
   wxObjectStreamingCallback GetStreamingCallback() const;
     // returns the first property
   wxPropertyInfo* GetFirstProperty() const
-  {
-    EnsureInfosInited();
-    return m_firstProperty;
-  }
+  { EnsureInfosInited(); return m_firstProperty; }
     // returns the first handler
   wxHandlerInfo* GetFirstHandler() const
-  {
-    EnsureInfosInited();
-    return m_firstHandler;
-  }
+  { EnsureInfosInited(); return m_firstHandler; }
     // Call the Create upon an instance of the class, in the end the object is fully
     // initialized
   virtual bool Create(wxObject* object, int ParamCount, wxAny* Params) const;
     // get number of parameters for constructor
   virtual int GetCreateParamCount() const
-  {
-    return m_constructorPropertiesCount;
-  }
+  { return m_constructorPropertiesCount; }
     // get n-th constructor parameter
   virtual const wxChar* GetCreateParamName(int n) const
-  {
-    return m_constructorProperties[n];
-  }
+  { return m_constructorProperties[n]; }
     // Runtime access to objects for simple properties (get/set) by property
     // name and variant data
   virtual void SetProperty(wxObject* object, const wxChar* propertyName, const wxAny& value) const;
@@ -290,19 +261,15 @@ private:
 protected:
   void EnsureInfosInited() const
   {
-    if (!m_firstInited)
-    {
-      if (m_firstPropertyFn != NULL)
-      {
-        m_firstProperty = (*m_firstPropertyFn)();
-      }
-      if (m_firstHandlerFn != NULL)
-      {
-        m_firstHandler = (*m_firstHandlerFn)();
-      }
-      m_firstInited = true;
+        if ( !m_firstInited)
+        {
+            if ( m_firstPropertyFn != NULL)
+                m_firstProperty = (*m_firstPropertyFn)();
+            if ( m_firstHandlerFn != NULL)
+                m_firstHandler = (*m_firstHandlerFn)();
+            m_firstInited = true;
+        }
     }
-  }
   mutable wxPropertyInfo* m_firstProperty;
   mutable wxHandlerInfo* m_firstHandler;
 private:

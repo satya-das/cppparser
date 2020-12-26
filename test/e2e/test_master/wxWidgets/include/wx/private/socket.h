@@ -106,12 +106,11 @@ public:
     // this initializes the manager at first use
   static wxSocketManager* Get()
   {
-    if (!ms_manager)
-    {
-      Init();
+        if ( !ms_manager )
+            Init();
+
+        return ms_manager;
     }
-    return ms_manager;
-  }
     // called before the first wxSocket is created and should do the
     // initializations needed in order to use the network
     //
@@ -136,7 +135,7 @@ public:
   virtual void Uninstall_Callback(wxSocketImpl* socket, wxSocketNotify event = wxSOCKET_LOST) = 0;
   virtual ~wxSocketManager()
   {
-  }
+   }
 private:
     // get the manager to use if we don't have it yet
   static void Init();
@@ -157,43 +156,29 @@ public:
     // creating the socket
   void SetTimeout(unsigned long millisec);
   void SetReusable()
-  {
-    m_reusable = true;
-  }
+  { m_reusable = true; }
   void SetBroadcast()
-  {
-    m_broadcast = true;
-  }
+  { m_broadcast = true; }
   void DontDoBind()
-  {
-    m_dobind = false;
-  }
+  { m_dobind = false; }
   void SetInitialSocketBuffers(int recv, int send)
   {
-    m_initialRecvBufferSize = recv;
-    m_initialSendBufferSize = send;
-  }
+        m_initialRecvBufferSize = recv;
+        m_initialSendBufferSize = send;
+    }
   wxSocketError SetLocal(const wxSockAddressImpl& address);
   wxSocketError SetPeer(const wxSockAddressImpl& address);
     // accessors
     // ---------
   bool IsServer() const
-  {
-    return m_server;
-  }
+  { return m_server; }
   const wxSockAddressImpl& GetLocal();
   const wxSockAddressImpl& GetPeer() const
-  {
-    return m_peer;
-  }
+  { return m_peer; }
   wxSocketError GetError() const
-  {
-    return m_error;
-  }
+  { return m_error; }
   bool IsOk() const
-  {
-    return m_error == wxSOCKET_NOERROR;
-  }
+  { return m_error == wxSOCKET_NOERROR; }
     // get the error code corresponding to the last operation
   virtual wxSocketError GetLastError() const = 0;
     // creating/closing the socket
@@ -247,8 +232,8 @@ public:
     // convenient wrapper calling Select() with our default timeout
   wxSocketEventFlags SelectWithTimeout(wxSocketEventFlags flags)
   {
-    return Select(flags, &m_timeout);
-  }
+        return Select(flags, &m_timeout);
+    }
     // just a wrapper for accept(): it is called to create a new wxSocketImpl
     // corresponding to a new server connection represented by the given
     // wxSocketBase, returns NULL on error (including immediately if there are
@@ -287,9 +272,7 @@ protected:
   wxSocketImpl(wxSocketBase& wxsocket);
     // get the associated socket flags
   wxSocketFlags GetSocketFlags() const
-  {
-    return m_wxsocket->GetFlags();
-  }
+  { return m_wxsocket->GetFlags(); }
     // true if we're a listening stream socket
   bool m_server;
 private:
@@ -304,14 +287,16 @@ private:
   {
         // although modern Unix systems use "const void *" for the 4th
         // parameter here, old systems and Winsock still use "const char *"
-    return setsockopt(m_fd, SOL_SOCKET, optname, reinterpret_cast<const char*>(&optval), sizeof(optval));
-  }
+        return setsockopt(m_fd, SOL_SOCKET, optname,
+                          reinterpret_cast<const char *>(&optval),
+                          sizeof(optval));
+    }
     // set the given socket option to true value: this is an even simpler
     // wrapper for setsockopt(SOL_SOCKET) for boolean options
   int EnableSocketOption(int optname)
   {
-    return SetSocketOption(optname, 1);
-  }
+        return SetSocketOption(optname, 1);
+    }
     // apply the options to the (just created) socket and register it with the
     // event loop by calling UpdateBlockingState()
   void PostCreation();

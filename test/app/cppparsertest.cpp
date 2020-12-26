@@ -259,7 +259,11 @@ CppParser constructCppParserForTest()
                          "wxDECL_FOR_STRICT_MINGW32",
                          "wxDECL_FOR_MINGW32_ALWAYS",
                          "DECLARE_WXANY_CONVERSION",
-                         "wx_truncate_cast"});
+                         "WX_FORWARD_TO_VAR_SCROLL_HELPER",
+                         "wx_truncate_cast",
+                         "wxFORMAT_STRING_SPECIFIER",
+                         "wxDISABLED_FORMAT_STRING_SPECIFIER",
+                         "WX_ARG_NORMALIZER_FORWARD"});
 
   parser.addIgnorableMacros({"SkDEBUGCODE",
                              "SkDEBUGPARAMS",
@@ -286,6 +290,7 @@ CppParser constructCppParserForTest()
                              "WXUNUSED",
                              "WXDLLIMPEXP_DATA_CORE",
                              "wxDEPRECATED_BUT_USED_INTERNALLY_INLINE",
+                             "wxDEPRECATED_BUT_USED_INTERNALLY",
                              "wxTRY",
                              "wxCATCH_ALL",
                              "CHECK_PREC",
@@ -295,9 +300,15 @@ CppParser constructCppParserForTest()
                              "FAR",
                              "EMIT",
                              "wxDEPRECATED_CONSTRUCTOR",
-                             "wxDEPRECATED"});
+                             "wxDEPRECATED",
+                             "wxGCC_WARNING_SUPPRESS",
+                             "wxCLANG_WARNING_SUPPRESS",
+                             "wxCLANG_WARNING_RESTORE",
+                             "wxGCC_WARNING_RESTORE",
+                             "wxSTRING_DEFAULT_CONV_ARG"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
+  parser.addRenamedKeyword("virtual", "_VIRTUAL");
   parser.addRenamedKeyword("final", "ADESK_SEALED");
   parser.addRenamedKeyword("override", "ADESK_OVERRIDE");
   parser.addRenamedKeyword("override", "wxOVERRIDE");

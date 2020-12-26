@@ -27,22 +27,17 @@ class wxFontInstanceBase
 {
 protected:
   wxFontInstanceBase(float ptSize, bool aa)
-    : m_ptSize(ptSize)
-    , m_aa(aa)
-  {
-  }
+    :  m_ptSize(ptSize), m_aa(aa) 
+    {
+    }
   virtual ~wxFontInstanceBase()
   {
   }
 public:
   float GetPointSize() const
-  {
-    return m_ptSize;
-  }
+  { return m_ptSize; }
   bool IsAntiAliased() const
-  {
-    return m_aa;
-  }
+  { return m_aa; }
 protected:
   float m_ptSize;
   bool m_aa;
@@ -107,9 +102,7 @@ public:
     };
     /// Returns true if the given face is available
   bool HasFace(FaceType type) const
-  {
-    return m_faces[type] != NULL;
-  }
+  { return m_faces[type] != NULL; }
     /**
         Returns font face object that can be used to render font of given type.
 
@@ -145,9 +138,7 @@ public:
   static void CleanUp();
     /// Returns list of all available font bundles
   const wxFontBundleList& GetBundles() const
-  {
-    return *m_list;
-  }
+  { return *m_list; }
     /**
         Returns object representing font bundle with the given name.
 
@@ -184,41 +175,23 @@ public:
   wxFontBundle* GetFontBundle() const;
   wxFontInstance* GetFontInstance(float scale, bool antialiased) const;
   bool IsFixedWidth() const
-  {
-    return GetFontBundle()->IsFixed();
-  }
+  { return GetFontBundle()->IsFixed(); }
   const wxNativeFontInfo* GetNativeFontInfo() const
-  {
-    return &m_info;
-  }
+  { return &m_info; }
   double GetFractionalPointSize() const
-  {
-    return m_info.pointSize;
-  }
+  { return m_info.pointSize; }
   wxString GetFaceName() const
-  {
-    return m_info.faceName;
-  }
+  { return m_info.faceName; }
   wxFontFamily GetFamily() const
-  {
-    return m_info.family;
-  }
+  { return m_info.family; }
   wxFontStyle GetStyle() const
-  {
-    return m_info.style;
-  }
+  { return m_info.style; }
   int GetNumericWeight() const
-  {
-    return m_info.weight;
-  }
+  { return m_info.weight; }
   bool GetUnderlined() const
-  {
-    return m_info.underlined;
-  }
+  { return m_info.underlined; }
   wxFontEncoding GetEncoding() const
-  {
-    return m_info.encoding;
-  }
+  { return m_info.encoding; }
   void SetFractionalPointSize(double pointSize);
   void SetFamily(wxFontFamily family);
   void SetStyle(wxFontStyle style);

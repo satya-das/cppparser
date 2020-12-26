@@ -31,24 +31,24 @@ namespace SkSL
     virtual ~VariableReference();
     RefKind refKind() const
     {
-      return fRefKind;
+        return fRefKind;
     }
     void setRefKind(RefKind refKind);
     bool hasSideEffects() const override
     {
-      return false;
+        return false;
     }
     bool isConstant() const override
     {
-      return 0 != (fVariable.fModifiers.fFlags & Modifiers::kConst_Flag);
+        return 0 != (fVariable.fModifiers.fFlags & Modifiers::kConst_Flag);
     }
     std::unique_ptr<Expression> clone() const override
     {
-      return std::unique_ptr<Expression>(new VariableReference(fOffset, fVariable, fRefKind));
+        return std::unique_ptr<Expression>(new VariableReference(fOffset, fVariable, fRefKind));
     }
     String description() const override
     {
-      return fVariable.fName;
+        return fVariable.fName;
     }
     static std::unique_ptr<Expression> copy_constant(const IRGenerator& irGenerator, const Expression* expr);
     std::unique_ptr<Expression> constantPropagate(const IRGenerator& irGenerator, const DefinitionMap& definitions) override;

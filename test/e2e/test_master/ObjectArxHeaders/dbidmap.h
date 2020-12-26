@@ -83,44 +83,24 @@ private:
   AcDbIdMappingIter& operator=(const AcDbIdMappingIter&);
 };
 inline AcDbObjectId AcDbIdPair::key() const
-{
-  return mKey;
-}
+{ return mKey; }
 inline AcDbObjectId AcDbIdPair::value() const
-{
-  return mValue;
-}
+{ return mValue; }
 inline bool AcDbIdPair::isCloned() const
-{
-  return mIsCloned;
-}
+{ return mIsCloned; }
 inline bool AcDbIdPair::isPrimary() const
-{
-  return mIsPrimary;
-}
+{ return mIsPrimary; }
 inline bool AcDbIdPair::isOwnerXlated() const
-{
-  return mIsOwnerXlated;
-}
+{ return mIsOwnerXlated; }
 inline void AcDbIdPair::setKey(AcDbObjectId key)
-{
-  mKey = key;
-}
+{ mKey = key; }
 inline void AcDbIdPair::setValue(AcDbObjectId value)
-{
-  mValue = value;
-}
+{ mValue = value; }
 inline void AcDbIdPair::setIsCloned(bool isCloned)
-{
-  mIsCloned = isCloned;
-}
+{ mIsCloned = isCloned; }
 inline void AcDbIdPair::setIsPrimary(bool isPrimary)
-{
-  mIsPrimary = isPrimary;
-}
+{ mIsPrimary = isPrimary; }
 inline void AcDbIdPair::setIsOwnerXlated(bool isOwnerXlated)
-{
-  mIsOwnerXlated = isOwnerXlated;
-}
+{ mIsOwnerXlated = isOwnerXlated; }
 #  pragma  pack (pop)
 #endif

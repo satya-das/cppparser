@@ -24,7 +24,7 @@ public:
     // user code would result in flicker)
   wxInfoBarBase()
   {
-  }
+   }
     // show the info bar with the given message and optionally an icon
   virtual void ShowMessage(const wxString& msg, int flags = wxICON_INFORMATION) = 0;
     // hide the info bar

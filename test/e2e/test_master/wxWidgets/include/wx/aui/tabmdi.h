@@ -40,9 +40,7 @@ public:
   wxAuiNotebook* GetNotebook() const;
 #    if  wxUSE_MENUS
   wxMenu* GetWindowMenu() const
-  {
-    return m_pWindowMenu;
-  }
+  { return m_pWindowMenu; }
   void SetWindowMenu(wxMenu* pMenu);
   void SetMenuBar(wxMenuBar* pMenuBar) override;
 #    endif
@@ -52,12 +50,10 @@ public:
   wxAuiMDIClientWindow* GetClientWindow() const;
   virtual wxAuiMDIClientWindow* OnCreateClient();
   virtual void Cascade()
-  {
-  }
+  { /* Has no effect */ }
   virtual void Tile(wxOrientation orient = wxHORIZONTAL);
   virtual void ArrangeIcons()
-  {
-  }
+  { /* Has no effect */ }
   virtual void ActivateNext();
   virtual void ActivatePrevious();
 protected:
@@ -135,8 +131,8 @@ public:
   virtual wxAuiMDIChildFrame* GetActiveChild();
   virtual void SetActiveChild(wxAuiMDIChildFrame* pChildFrame)
   {
-    SetSelection(GetPageIndex(pChildFrame));
-  }
+        SetSelection(GetPageIndex(pChildFrame));
+    }
 protected:
   void PageChanged(int oldSelection, int newSelection);
   void OnPageClose(wxAuiNotebookEvent& evt);

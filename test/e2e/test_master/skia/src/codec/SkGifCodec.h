@@ -36,8 +36,8 @@ protected:
   Result onGetPixels(const SkImageInfo&, void*, size_t, const Options&, int*) override;
   SkEncodedImageFormat onGetEncodedFormat() const override
   {
-    return SkEncodedImageFormat::kGIF;
-  }
+        return SkEncodedImageFormat::kGIF;
+    }
   bool onRewind() override;
   int onGetFrameCount() override;
   bool onGetFrameInfo(int, FrameInfo*) const override;
@@ -46,8 +46,8 @@ protected:
   Result onIncrementalDecode(int*) override;
   const SkFrameHolder* getFrameHolder() const override
   {
-    return fReader.get();
-  }
+        return fReader.get();
+    }
 private:
     /*
      * Initializes the color table that we will use for decoding.
@@ -72,9 +72,9 @@ private:
   void initializeSwizzler(const SkImageInfo& dstInfo, int frameIndex);
   SkSampler* getSampler(bool createIfNecessary) override
   {
-    SkASSERT(fSwizzler);
-    return fSwizzler.get();
-  }
+        SkASSERT(fSwizzler);
+        return fSwizzler.get();
+    }
     /*
      * Recursive function to decode a frame.
      *

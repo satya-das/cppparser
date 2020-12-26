@@ -37,9 +37,7 @@ public:
   bool EventLoop();
   bool DispatchEvent(wxWindow* win, const wxPoint& pt);
   void SetStatus(bool status)
-  {
-    m_status = status;
-  }
+  { m_status = status; }
 protected:
   bool m_inHelp;
   bool m_status;
@@ -59,8 +57,9 @@ public:
   }
   wxContextHelpButton(wxWindow* parent, wxWindowID id = wxID_CONTEXT_HELP, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0)
   {
-    Create(parent, id, pos, size, style);
-  }
+
+        Create(parent, id, pos, size, style);
+      }
   bool Create(wxWindow* parent, wxWindowID id = wxID_CONTEXT_HELP, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0);
   void OnContextHelp(wxCommandEvent& event);
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxContextHelpButton);
@@ -97,16 +96,14 @@ public:
     // the previous one)
   static wxHelpProvider* Set(wxHelpProvider* helpProvider)
   {
-    wxHelpProvider* helpProviderOld = ms_helpProvider;
-    ms_helpProvider = helpProvider;
-    return helpProviderOld;
-  }
+        wxHelpProvider *helpProviderOld = ms_helpProvider;
+        ms_helpProvider = helpProvider;
+        return helpProviderOld;
+    }
     // unlike some other class, the help provider is not created on demand,
     // this must be explicitly done by the application
   static wxHelpProvider* Get()
-  {
-    return ms_helpProvider;
-  }
+  { return ms_helpProvider; }
     // get the help string (whose interpretation is help provider dependent
     // except that empty string always means that no help is associated with
     // the window) for this window
@@ -116,16 +113,16 @@ public:
     // if no help available for this window
   virtual bool ShowHelpAtPoint(wxWindowBase* window, const wxPoint& pt, wxHelpEvent::Origin origin)
   {
-    wxCHECK_MSG(window, false, wxT("window must not be NULL"));
-    m_helptextAtPoint = pt;
-    m_helptextOrigin = origin;
-    return ShowHelp(window);
-  }
+        wxCHECK_MSG( window, false, wxT("window must not be NULL") );
+
+        m_helptextAtPoint = pt;
+        m_helptextOrigin = origin;
+
+        return ShowHelp(window);
+    }
     // show help for the given window, see ShowHelpAtPoint() above
   virtual bool ShowHelp(wxWindowBase*)
-  {
-    return false;
-  }
+  { return false; }
     // associate the text with the given window or id: although all help
     // providers have these functions to allow making wxWindow::SetHelpText()
     // work, not all of them implement them
@@ -140,10 +137,12 @@ public:
   virtual ~wxHelpProvider();
 protected:
   wxHelpProvider()
-    : m_helptextAtPoint(wxDefaultPosition)
-    , m_helptextOrigin(wxHelpEvent::Origin_Unknown)
-  {
-  }
+    :  m_helptextAtPoint(wxDefaultPosition),
+          m_helptextOrigin(wxHelpEvent::Origin_Unknown)
+    
+    {
+
+        }
     // helper method used by ShowHelp(): returns the help string to use by
     // using m_helptextAtPoint/m_helptextOrigin if they're set or just GetHelp
     // otherwise
@@ -190,13 +189,9 @@ public:
   bool ShowHelp(wxWindowBase* window) override;
     // Other accessors
   void SetHelpController(wxHelpControllerBase* hc)
-  {
-    m_helpController = hc;
-  }
+  { m_helpController = hc; }
   wxHelpControllerBase* GetHelpController() const
-  {
-    return m_helpController;
-  }
+  { return m_helpController; }
 protected:
   wxHelpControllerBase* m_helpController;
   wxDECLARE_NO_COPY_CLASS(wxHelpControllerHelpProvider);

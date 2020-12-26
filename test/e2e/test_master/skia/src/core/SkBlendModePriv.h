@@ -13,7 +13,7 @@ class SkRasterPipeline;
 bool SkBlendMode_SupportsCoverageAsAlpha(SkBlendMode);
 static bool SkBlendMode_CaresAboutRBOrder(SkBlendMode mode)
 {
-  return (mode > SkBlendMode::kLastSeparableMode);
+    return (mode > SkBlendMode::kLastSeparableMode);
 }
 bool SkBlendMode_ShouldPreScaleCoverage(SkBlendMode, bool rgb_coverage);
 void SkBlendMode_AppendStages(SkBlendMode, SkRasterPipeline*);

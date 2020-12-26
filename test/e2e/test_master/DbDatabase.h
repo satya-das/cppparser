@@ -620,10 +620,10 @@ public:
     filename (I) Name of the file to which the data are to be written. 
   */
   void writeFile(const OdString& filename, OdDb::SaveType fileType, OdDb::DwgVersion fileVersion, bool saveThumbnailImage = false, int dxfPrecision = 16)
-  {
-    closeInput();
-    OdStreamBufPtr pFile = odSystemServices()->createFile(filename, Oda::kFileWrite, Oda::kShareDenyReadWrite, Oda::kCreateAlways);
-    writeFile(pFile, fileType, fileVersion, saveThumbnailImage, dxfPrecision);
+  { 
+    closeInput(); 
+    OdStreamBufPtr pFile = odSystemServices()->createFile(filename, Oda::kFileWrite, Oda::kShareDenyReadWrite, Oda::kCreateAlways); 
+    writeFile(pFile, fileType, fileVersion, saveThumbnailImage, dxfPrecision); 
   }
   /** Description: 
     Reads the contents of the specified StreamBuf object or file into this *database* object. 
@@ -661,8 +661,8 @@ public:
  
   */
   void readFile(const OdString& filename, bool partialLoad = false, Oda::FileShareMode shareMode = Oda::kShareDenyWrite, const OdPassword& password = OdPassword(), bool allowCPConversion = false)
-  {
-    readFile(odSystemServices()->createFile(filename, Oda::kFileRead, shareMode), partialLoad, 0, password, allowCPConversion);
+  { 
+    readFile(odSystemServices()->createFile(filename, Oda::kFileRead, shareMode), partialLoad, 0, password, allowCPConversion); 
   }
   /** Description: 
     Forces all data to be loaded from the input file associated with this *database* object, and closes the file. 

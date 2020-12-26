@@ -21,36 +21,36 @@
 // them easier to use then to write wxQtConvertQtRectToWxRect() or wxQtConvertWxRectToQtRect()
 inline wxPoint wxQtConvertPoint(const QPoint& point)
 {
-  return wxPoint(point.x(), point.y());
+    return wxPoint( point.x(), point.y() );
 }
 inline QPoint wxQtConvertPoint(const wxPoint& point)
 {
-  return QPoint(point.x, point.y);
+    return QPoint( point.x, point.y );
 }
 inline wxRect wxQtConvertRect(const QRect& rect)
 {
-  return wxRect(rect.x(), rect.y(), rect.width(), rect.height());
+    return wxRect( rect.x(), rect.y(), rect.width(), rect.height() );
 }
 inline QRect wxQtConvertRect(const wxRect& rect)
 {
-  return QRect(rect.GetX(), rect.GetY(), rect.GetWidth(), rect.GetHeight());
+    return QRect( rect.GetX(), rect.GetY(), rect.GetWidth(), rect.GetHeight() );
 }
 // TODO: Check whether QString::toStdString/QString::toStdWString might be faster
 inline wxString wxQtConvertString(const QString& str)
 {
-  return wxString(str.toUtf8().data(), wxConvUTF8);
+    return wxString( str.toUtf8().data(), wxConvUTF8 );
 }
 inline QString wxQtConvertString(const wxString& str)
 {
-  return QString(str.utf8_str());
+    return QString( str.utf8_str() );
 }
 inline wxColour wxQtConvertColour(const QColor& colour)
 {
-  return wxColour(colour.red(), colour.green(), colour.blue(), colour.alpha());
+    return wxColour(colour.red(), colour.green(), colour.blue(), colour.alpha());
 }
 inline QColor wxQtConvertColour(const wxColour& colour)
 {
-  return QColor(colour.Red(), colour.Green(), colour.Blue(), colour.Alpha());
+    return QColor(colour.Red(), colour.Green(), colour.Blue(), colour.Alpha());
 }
 #  if  wxUSE_DATETIME
 class WXDLLIMPEXP_FWD_BASE wxDateTime;
@@ -60,11 +60,11 @@ QDate wxQtConvertDate(const wxDateTime& date);
 #  endif
 inline wxSize wxQtConvertSize(const QSize& size)
 {
-  return wxSize(size.width(), size.height());
+    return wxSize(size.width(), size.height());
 }
 inline QSize wxQtConvertSize(const wxSize& size)
 {
-  return QSize(size.GetWidth(), size.GetHeight());
+    return QSize(size.GetWidth(), size.GetHeight());
 }
 Qt::Orientation wxQtConvertOrientation(long style, wxOrientation defaultOrientation);
 wxOrientation wxQtConvertOrientation(Qt::Orientation);

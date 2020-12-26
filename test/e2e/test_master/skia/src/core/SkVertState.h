@@ -21,18 +21,16 @@ struct VertState
      *  If the vertices are unindexed pass nullptr for indices.
      */
   VertState(int vCount, const uint16_t indices[], int indexCount)
-    : fIndices(indices)
-  {
-    fCurrIndex = 0;
-    if (indices)
+    :  fIndices(indices) 
     {
-      fCount = indexCount;
-    }
-    else 
-    {
-      fCount = vCount;
-    }
-  }
+
+        fCurrIndex = 0;
+        if (indices) {
+            fCount = indexCount;
+        } else {
+            fCount = vCount;
+        }
+        }
   typedef bool (*Proc) (VertState*);
     /**
      *  Choose an appropriate function to traverse the vertices.

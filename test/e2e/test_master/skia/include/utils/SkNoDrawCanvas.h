@@ -26,13 +26,9 @@ public:
   explicit SkNoDrawCanvas(sk_sp<SkBaseDevice> device);
     // Optimization to reset state to be the same as after construction.
   void resetCanvas(int w, int h)
-  {
-    this->resetForNextPicture(SkIRect::MakeWH(w, h));
-  }
+  { this->resetForNextPicture(SkIRect::MakeWH(w, h)); }
   void resetCanvas(const SkIRect& rect)
-  {
-    this->resetForNextPicture(rect);
-  }
+  { this->resetForNextPicture(rect); }
 protected:
   SaveLayerStrategy getSaveLayerStrategy(const SaveLayerRec& rec) override;
   bool onDoSaveBehind(const SkRect*) override;

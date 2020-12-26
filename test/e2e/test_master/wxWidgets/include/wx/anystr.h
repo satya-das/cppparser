@@ -32,16 +32,20 @@ public:
 
     // ctor for invalid pointer
   wxAnyStrPtr()
-    : m_str(NULL)
-  {
-  }
+    :  m_str(NULL)
+    
+    {
+
+        }
     // ctor for valid pointer into the given string (whose lifetime must be
     // greater than ours and which should remain constant while we're used)
   wxAnyStrPtr(const wxString& str, const wxString::const_iterator& iter)
-    : m_str(&str)
-    , m_iter(iter)
-  {
-  }
+    :  m_str(&str),
+          m_iter(iter)
+    
+    {
+
+        }
     // default copy ctor is ok and so is default dtor, in particular we do not
     // free the string
 
@@ -55,32 +59,29 @@ public:
     // different conversions to pointers)
   operator bool() const
   {
-    return m_str != NULL;
-  }
+ return m_str != NULL;   }
     // at least VC7 also needs this one or it complains about ambiguity
     // for !anystr expressions
   bool operator!() const
-  {
-    return !((bool) *this);
-  }
+  { return !((bool)*this); }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
     // and these are the conversions operator which allow to assign the result
     // of FuncReturningAnyStrPtr() to either char* or wxChar* (i.e. wchar_t*)
   operator const char*() const
   {
-    if (!m_str)
-    {
-      return NULL;
-    }
+
+        if ( !m_str )
+            return NULL;
+
         // check if the string is convertible to char at all
         //
         // notice that this pointer points into wxString internal buffer
         // containing its char* representation and so it can be kept for as
         // long as wxString is not modified -- which is long enough for our
         // needs
-    const char* p = m_str->c_str().AsChar();
-    if (*p)
-    {
+        const char *p = m_str->c_str().AsChar();
+        if ( *p )
+        {
             // find the offset of the character corresponding to this iterator
             // position in bytes: we don't have any direct way to do it so we
             // need to redo the conversion again for the part of the string
@@ -88,26 +89,27 @@ public:
             // locale
             //
             // NB: conversion won't fail as it succeeded for the entire string
-      p += strlen(wxString(m_str->begin(), m_iter).mb_str());
-    }
+            p += strlen(wxString(m_str->begin(), m_iter).mb_str());
+        }
         //else: conversion failed, return "" as we can't do anything else
-    return p;
-  }
+
+        return p;
+      }
 #  endif
   operator const wchar_t*() const
   {
-    if (!m_str)
-    {
-      return NULL;
-    }
+
+        if ( !m_str )
+            return NULL;
+
         // no complications with wide strings (as long as we discount
         // surrogates as we do for now)
         //
         // just remember that this works as long as wxString keeps an internal
         // buffer with its wide wide char representation, just as with AsChar()
         // above
-    return m_str->c_str().AsWChar() + (m_iter - m_str->begin());
-  }
+        return m_str->c_str().AsWChar() + (m_iter - m_str->begin());
+      }
     // Because the objects of this class are only used as return type for
     // functions which can return NULL we can skip providing dereferencing
     // operators: the code using this class must test it for NULL first and if

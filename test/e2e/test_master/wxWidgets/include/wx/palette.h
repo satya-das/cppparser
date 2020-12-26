@@ -19,12 +19,9 @@ class WXDLLIMPEXP_CORE wxPaletteBase : public wxGDIObject
 public:
   virtual ~wxPaletteBase()
   {
-  }
+   }
   virtual int GetColoursCount() const
-  {
-    wxFAIL_MSG(wxT("not implemented"));
-    return 0;
-  }
+  { wxFAIL_MSG( wxT("not implemented") ); return 0; }
 };
 #    if  defined(__WXMSW__)
 #      include "wx/msw/palette.h"

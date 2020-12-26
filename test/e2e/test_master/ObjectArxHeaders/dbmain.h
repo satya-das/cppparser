@@ -133,7 +133,7 @@ void acdbFreeResBufContents(resbuf* pField);
 ACDBCORE2D_PORT AcDbObjectId acdbPersistentReactorObjectId(const void* pSomething);
 inline bool acdbIsPersistentReactor(const void* pSomething)
 {
-  return !::acdbPersistentReactorObjectId(pSomething).isNull();
+    return ! ::acdbPersistentReactorObjectId(pSomething).isNull();
 }
 ACDB_PORT bool acdbDisplayPreviewFromDwg(const ACHAR* pszDwgfilename, void* pPreviewWnd, const Adesk::UInt32* pBgColor = nullptr);
 bool acdbIsCustomObject(const AcDbObjectId& id);
@@ -175,7 +175,7 @@ ACDBCORE2D_PORT Acad::ErrorStatus acdbOpenObject(AcDbObject*& pObj, AcDbObjectId
 // To be deprecated. Please use acdbOpenObject() instead
 inline Acad::ErrorStatus acdbOpenAcDbObject(AcDbObject*& pObj, AcDbObjectId id, AcDb::OpenMode mode, bool openErasedObject = false)
 {
-  return ::acdbOpenObject(pObj, id, mode, openErasedObject, nullptr);
+    return ::acdbOpenObject(pObj, id, mode, openErasedObject, /*pClass*/nullptr);
 }
 /// <summary>
 /// This template function opens an AcDbObject for read, write or notify access
@@ -189,13 +189,14 @@ inline Acad::ErrorStatus acdbOpenAcDbObject(AcDbObject*& pObj, AcDbObjectId id, 
 template <typename T_OBJECT>
 inline Acad::ErrorStatus acdbOpenObject(T_OBJECT*& pObj, AcDbObjectId id, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false)
 {
-  return ::acdbOpenObject((AcDbObject*&) pObj, id, &T_OBJECT::desc, mode, openErased);
+    return ::acdbOpenObject((AcDbObject * &)pObj, id, &T_OBJECT::desc,
+                            mode, openErased);
 }
 // Special overload for the base AcDbObject * type
 // Works with smart pointers
 inline Acad::ErrorStatus acdbOpenObject(AcDbObject*& pObj, AcDbObjectId id, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false)
 {
-  return ::acdbOpenObject(pObj, id, mode, openErased, nullptr);
+    return ::acdbOpenObject(pObj, id, mode, openErased, /*pClass*/nullptr);
 }
 //
 // Special case overload for AcDbEntity type.
@@ -205,7 +206,7 @@ ACDBCORE2D_PORT Acad::ErrorStatus acdbOpenObject(AcDbEntity*& pEnt, AcDbObjectId
 // To be deprecated. Please use acdbOpenObject() instead
 inline Acad::ErrorStatus acdbOpenAcDbEntity(AcDbEntity*& pEnt, AcDbObjectId id, AcDb::OpenMode mode, bool openErasedEntity = false)
 {
-  return ::acdbOpenObject(pEnt, id, mode, openErasedEntity);
+    return ::acdbOpenObject(pEnt, id, mode, openErasedEntity);
 }
 Acad::ErrorStatus acdbResurrectMeNow(const AcDbObjectId& id);
 // Translate between AcDbObjectName and ads_name, for use
@@ -417,8 +418,8 @@ public:
   ACDBCORE2D_PORT void setFullSaveRequired();
   inline Acad::ErrorStatus saveAs(const ACHAR* fileName, const SecurityParams* pSecParams = 0)
   {
-    return saveAs(fileName, true, AcDb::kDHL_CURRENT, pSecParams);
-  }
+        return saveAs(fileName, true, AcDb::kDHL_CURRENT, pSecParams);
+    }
   ACDBCORE2D_PORT Acad::ErrorStatus saveAs(const ACHAR* fileName, const bool bBakAndRename, const AcDb::AcDbDwgVersion dwgVer = AcDb::kDHL_CURRENT, const SecurityParams* pSecParams = 0);
   ACDBCORE2D_PORT Acad::ErrorStatus saveAs(AcDwgFileHandle* pOutputFiler, const SecurityParams* pSecParams = 0, bool crashing = false);
   Acad::ErrorStatus save();
@@ -499,8 +500,8 @@ public:
   AcDbTransactionManager* transactionManager() const;
   AcDb::MaintenanceReleaseVersion maintenanceReleaseVersion() const
   {
-    return AcDb::kMReleaseCurrent;
-  }
+        return AcDb::kMReleaseCurrent;
+    }
   Acad::ErrorStatus restoreOriginalXrefSymbols();
   Acad::ErrorStatus restoreForwardingXrefSymbols();
   AcDbObjectId xrefBlockId() const;
@@ -1042,116 +1043,109 @@ private:
 template <typename ObjType>
 inline Acad::ErrorStatus acutGetAcStringConvertToAChar(const ObjType* pObj, Acad::ErrorStatus (*pFunc) (AcString&) const, ACHAR*& pOutput)
 {
-  AcString sOutput;
-  const Acad::ErrorStatus es = (pObj->*pFunc)(sOutput);
-  if (es != Acad::eOk)
-  {
-    pOutput = nullptr;
-    return es;
-  }
-  return ::acutNewString(sOutput.kwszPtr(), pOutput);
+    AcString sOutput;
+    const Acad::ErrorStatus es = (pObj->*pFunc)(sOutput);
+    if (es != Acad::eOk) {
+        pOutput = nullptr;
+        return es;
+    }
+    return ::acutNewString(sOutput.kwszPtr(), pOutput);
 }
 template <typename ObjType>
 inline ACHAR* acutGetAcStringConvertToAChar(const ObjType* pObj, Acad::ErrorStatus (*pFunc) (AcString&) const)
 {
-  AcString sOutput;
-  const Acad::ErrorStatus es = (pObj->*pFunc)(sOutput);
-  ACHAR* pRet = nullptr;
-  if (es == Acad::eOk)
-  {
-    ::acutNewString(sOutput.kwszPtr(), pRet);
-  }
-  return pRet;
+    AcString sOutput;
+    const Acad::ErrorStatus es = (pObj->*pFunc)(sOutput);
+    ACHAR *pRet = nullptr;
+    if (es == Acad::eOk)
+        ::acutNewString(sOutput.kwszPtr(), pRet);
+    return pRet;
 }
 // Helper functions to take result of a query returning AcString and convert it to ACHAR
 inline ACHAR* acutAcStringToAChar(const AcString& s, Acad::ErrorStatus es)
 {
-  ACHAR* pBuf = nullptr;
-  if (es == Acad::eOk)
-  {
-    ::acutNewString(s.kwszPtr(), pBuf);
-  }
-  return pBuf;
+    ACHAR *pBuf = nullptr;
+    if (es == Acad::eOk)
+        ::acutNewString(s.kwszPtr(), pBuf);
+    return pBuf;
 }
 inline Acad::ErrorStatus acutAcStringToAChar(const AcString& s, ACHAR*& pBuf, Acad::ErrorStatus es)
 {
-  pBuf = nullptr;
-  if (es != Acad::eOk)
-  {
-    return es;
-  }
-  return ::acutNewString(s.kwszPtr(), pBuf);
+    pBuf = nullptr;
+    if (es != Acad::eOk)
+        return es;
+    return ::acutNewString(s.kwszPtr(), pBuf);
 }
 // These getXXX() overloads which allocate an ACHAR buffer are deprecated and will be removed.
 // Please use the methods taking AcString reference arg instead.
 inline Acad::ErrorStatus AcDbDatabase::getDimpost(ACHAR*& pOutput) const
 {
-  return ::acutNewString(this->dimpost(), pOutput);
+    return ::acutNewString(this->dimpost(), pOutput);
 }
 inline Acad::ErrorStatus AcDbDatabase::getDimapost(ACHAR*& pOutput) const
 {
-  return ::acutNewString(this->dimapost(), pOutput);
+    return ::acutNewString(this->dimapost(), pOutput);
 }
 inline Acad::ErrorStatus AcDbDatabase::getDimblk(ACHAR*& pOutput) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getDimblk, pOutput);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getDimblk, pOutput); 
 }
 inline Acad::ErrorStatus AcDbDatabase::getDimblk1(ACHAR*& pOutput) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getDimblk1, pOutput);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getDimblk1, pOutput); 
 }
 inline Acad::ErrorStatus AcDbDatabase::getDimblk2(ACHAR*& pOutput) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getDimblk2, pOutput);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getDimblk2, pOutput); 
 }
 inline Acad::ErrorStatus AcDbDatabase::getMenu(ACHAR*& pOutput) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getMenu, pOutput);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getMenu, pOutput); 
 }
 inline Acad::ErrorStatus AcDbDatabase::getProjectName(ACHAR*& pOutput) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getProjectName, pOutput);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getProjectName, pOutput); 
 }
 inline Acad::ErrorStatus AcDbDatabase::getHyperlinkBase(ACHAR*& pOutput) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getHyperlinkBase, pOutput);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getHyperlinkBase, pOutput); 
 }
 inline Acad::ErrorStatus AcDbDatabase::getStyleSheet(ACHAR*& pOutput) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getStyleSheet, pOutput);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getStyleSheet, pOutput); 
 }
 inline Acad::ErrorStatus AcDbDatabase::getFingerprintGuid(ACHAR*& pOutput) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getFingerprintGuid, pOutput);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getFingerprintGuid, pOutput); 
 }
 inline Acad::ErrorStatus AcDbDatabase::getVersionGuid(ACHAR*& pOutput) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getVersionGuid, pOutput);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getVersionGuid, pOutput); 
 }
 //  Backward compatibility.
 inline Acad::ErrorStatus acdbSaveAs2004(AcDbDatabase* pDb, const ACHAR* fileName)
 {
-  return pDb->saveAs(fileName, false, AcDb::kDHL_1800);
+    return pDb->saveAs(fileName, false, AcDb::kDHL_1800);
 }
 inline Acad::ErrorStatus acdbSaveAs2000(AcDbDatabase* pDb, const ACHAR* fileName)
 {
-  return pDb->saveAs(fileName, false, AcDb::kDHL_1015);
+    return pDb->saveAs(fileName, false, AcDb::kDHL_1015);
 }
 inline Acad::ErrorStatus acdbSaveAsR14(AcDbDatabase* pDb, const ACHAR* fileName)
 {
-  return pDb->saveAs(fileName, false, AcDb::kDHL_1014);
+    return pDb->saveAs(fileName, false, AcDb::kDHL_1014);
 }
 inline Acad::ErrorStatus acdbDxfOutAs2004(AcDbDatabase* pDb, const ACHAR* fileName, const int precision = 16)
 {
-  return pDb->dxfOut(fileName, precision, AcDb::kDHL_1800);
+    return pDb->dxfOut(fileName, precision, AcDb::kDHL_1800);
 }
 inline Acad::ErrorStatus acdbDxfOutAs2000(AcDbDatabase* pDb, const ACHAR* fileName, const int precision = 16)
 {
-  return pDb->dxfOut(fileName, precision, AcDb::kDHL_1015);
+    return pDb->dxfOut(fileName, precision, AcDb::kDHL_1015);
 }
 inline Acad::ErrorStatus acdbDxfOutAsR12(AcDbDatabase* pDb, const ACHAR* fileName, const int precision = 16)
 {
-  return pDb->dxfOut(fileName, precision, AcDb::kDHL_1009);
+    return pDb->dxfOut(fileName, precision, AcDb::kDHL_1009);
 }
 class AcDbObjectIterator : public AcRxObject, public AcHeapOperators
 {
@@ -1462,11 +1456,11 @@ private:
 // These overloads are deprecated.  Please use the AcString-based overloads instead.
 inline Acad::ErrorStatus AcCmComplexColor::getDescription(ACHAR*& desc) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcCmComplexColor::getDescription, desc);
+    return ::acutGetAcStringConvertToAChar(this, &AcCmComplexColor::getDescription, desc); 
 }
 inline Acad::ErrorStatus AcCmComplexColor::getExplanation(ACHAR*& expl) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcCmComplexColor::getExplanation, expl);
+    return ::acutGetAcStringConvertToAChar(this, &AcCmComplexColor::getExplanation, expl); 
 }
 class AcCmColor : public AcCmColorBase
 {
@@ -1544,11 +1538,11 @@ private:
 // These overloads are deprecated.  Please use the AcString-based overloads instead.
 inline Acad::ErrorStatus AcCmColor::getDescription(ACHAR*& desc) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcCmColor::getDescription, desc);
+    return ::acutGetAcStringConvertToAChar(this, &AcCmColor::getDescription, desc); 
 }
 inline Acad::ErrorStatus AcCmColor::getExplanation(ACHAR*& expl) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcCmColor::getExplanation, expl);
+    return ::acutGetAcStringConvertToAChar(this, &AcCmColor::getExplanation, expl); 
 }
 class ACDBCORE2D_PORT AcCmHSB
 {
@@ -1722,13 +1716,9 @@ public:
   virtual void setReceiveShadows(bool newVal);
   Acad::ErrorStatus setPropertiesFrom(const AcDbEntity* pEntity, Adesk::Boolean doSubents = true);
   virtual Adesk::Boolean isPlanar() const
-  {
-    return false;
-  }
+  { return false; }
   virtual Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const
-  {
-    return Acad::eNotApplicable;
-  }
+  { return Acad::eNotApplicable; }
   virtual void getEcs(AcGeMatrix3d& retVal) const;
   ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getGeomExtents(AcDbExtents& extents) const;
     // Subentity acquisition and manipulation
@@ -1862,6 +1852,7 @@ protected:
 //
 inline AcDbEntity::~AcDbEntity()
 {
+
     // Do Nothing, AcDbObject destructor takes care of imp object.
 }
 // These next 4 inlined methods are deprecated and will be removed in a future release.
@@ -1869,23 +1860,23 @@ inline AcDbEntity::~AcDbEntity()
 //
 inline ACHAR* AcDbEntity::plotStyleName() const
 {
-  AcString sName;
-  return ::acutAcStringToAChar(sName, this->plotStyleName(sName));
+    AcString sName;
+    return ::acutAcStringToAChar(sName, this->plotStyleName(sName));
 }
 inline ACHAR* AcDbEntity::layer() const
 {
-  AcString sName;
-  return ::acutAcStringToAChar(sName, this->layer(sName));
+    AcString sName;
+    return ::acutAcStringToAChar(sName, this->layer(sName));
 }
 inline ACHAR* AcDbEntity::linetype() const
 {
-  AcString sName;
-  return ::acutAcStringToAChar(sName, this->linetype(sName));
+    AcString sName;
+    return ::acutAcStringToAChar(sName, this->linetype(sName));
 }
 inline ACHAR* AcDbEntity::material() const
 {
-  AcString sName;
-  return ::acutAcStringToAChar(sName, this->material(sName));
+    AcString sName;
+    return ::acutAcStringToAChar(sName, this->material(sName));
 }
 class ADESK_NO_VTABLE AcDbObjectReactor : public AcRxObject
 {
@@ -1937,13 +1928,9 @@ public:
   AcDbExtents2d(const AcDbExtents2d& src);
   AcDbExtents2d(const AcGePoint2d& min, const AcGePoint2d& max);
   AcGePoint2d minPoint() const
-  {
-    return mMinPoint;
-  }
+  { return mMinPoint; }
   AcGePoint2d maxPoint() const
-  {
-    return mMaxPoint;
-  }
+  { return mMaxPoint; }
   Acad::ErrorStatus set(const AcGePoint2d& min, const AcGePoint2d& max);
   void addPoint(const AcGePoint2d& pt);
   void addExt(const AcDbExtents2d& src);
@@ -1961,13 +1948,9 @@ public:
   AcDbExtents(const AcDbExtents& src);
   AcDbExtents(const AcGePoint3d& min, const AcGePoint3d& max);
   AcGePoint3d minPoint() const
-  {
-    return mMinPoint;
-  }
+  { return mMinPoint; }
   AcGePoint3d maxPoint() const
-  {
-    return mMaxPoint;
-  }
+  { return mMaxPoint; }
   Acad::ErrorStatus set(const AcGePoint3d& min, const AcGePoint3d& max);
   void addPoint(const AcGePoint3d& pt);
   void addExt(const AcDbExtents& src);
@@ -1982,83 +1965,83 @@ private:
 template <>
 inline AcDbObjectId AcDbDatabase::getSymbolTableId<AcDbBlockTable>() const
 {
-  return this->blockTableId();
+    return this->blockTableId();
 }
 template <>
 inline AcDbObjectId AcDbDatabase::getSymbolTableId<AcDbLayerTable>() const
 {
-  return this->layerTableId();
+    return this->layerTableId();
 }
 template <>
 inline AcDbObjectId AcDbDatabase::getSymbolTableId<AcDbTextStyleTable>() const
 {
-  return this->textStyleTableId();
+    return this->textStyleTableId();
 }
 template <>
 inline AcDbObjectId AcDbDatabase::getSymbolTableId<AcDbLinetypeTable>() const
 {
-  return this->linetypeTableId();
+    return this->linetypeTableId();
 }
 template <>
 inline AcDbObjectId AcDbDatabase::getSymbolTableId<AcDbViewTable>() const
 {
-  return this->viewTableId();
+    return this->viewTableId();
 }
 template <>
 inline AcDbObjectId AcDbDatabase::getSymbolTableId<AcDbUCSTable>() const
 {
-  return this->UCSTableId();
+    return this->UCSTableId();
 }
 template <>
 inline AcDbObjectId AcDbDatabase::getSymbolTableId<AcDbViewportTable>() const
 {
-  return this->viewportTableId();
+    return this->viewportTableId();
 }
 template <>
 inline AcDbObjectId AcDbDatabase::getSymbolTableId<AcDbRegAppTable>() const
 {
-  return this->regAppTableId();
+    return this->regAppTableId();
 }
 template <>
 inline AcDbObjectId AcDbDatabase::getSymbolTableId<AcDbDimStyleTable>() const
 {
-  return this->dimStyleTableId();
+    return this->dimStyleTableId();
 }
 inline Acad::ErrorStatus AcDbDatabase::getBlockTable(AcDbBlockTable*& pTable, AcDb::OpenMode mode)
 {
-  return getSymbolTable(pTable, mode);
+    return getSymbolTable(pTable, mode);
 }
 inline Acad::ErrorStatus AcDbDatabase::getLayerTable(AcDbLayerTable*& pTable, AcDb::OpenMode mode)
 {
-  return getSymbolTable(pTable, mode);
+    return getSymbolTable(pTable, mode);
 }
 inline Acad::ErrorStatus AcDbDatabase::getTextStyleTable(AcDbTextStyleTable*& pTable, AcDb::OpenMode mode)
 {
-  return getSymbolTable(pTable, mode);
+    return getSymbolTable(pTable, mode);
 }
 inline Acad::ErrorStatus AcDbDatabase::getLinetypeTable(AcDbLinetypeTable*& pTable, AcDb::OpenMode mode)
 {
-  return getSymbolTable(pTable, mode);
+    return getSymbolTable(pTable, mode);
 }
 inline Acad::ErrorStatus AcDbDatabase::getViewTable(AcDbViewTable*& pTable, AcDb::OpenMode mode)
 {
-  return getSymbolTable(pTable, mode);
+    return getSymbolTable(pTable, mode);
 }
 inline Acad::ErrorStatus AcDbDatabase::getUCSTable(AcDbUCSTable*& pTable, AcDb::OpenMode mode)
 {
-  return getSymbolTable(pTable, mode);
+    return getSymbolTable(pTable, mode);
 }
 inline Acad::ErrorStatus AcDbDatabase::getViewportTable(AcDbViewportTable*& pTable, AcDb::OpenMode mode)
 {
-  return getSymbolTable(pTable, mode);
+    return getSymbolTable(pTable, mode);
 }
 inline Acad::ErrorStatus AcDbDatabase::getRegAppTable(AcDbRegAppTable*& pTable, AcDb::OpenMode mode)
 {
-  return getSymbolTable(pTable, mode);
+    return getSymbolTable(pTable, mode);
 }
 inline Acad::ErrorStatus AcDbDatabase::getDimStyleTable(AcDbDimStyleTable*& pTable, AcDb::OpenMode mode)
 {
-  return getSymbolTable(pTable, mode);
+    return getSymbolTable(pTable, mode);
 }
 /////////////////////////////////////////////////////////////////////////
 // Text Finder API.

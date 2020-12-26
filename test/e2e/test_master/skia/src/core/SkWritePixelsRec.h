@@ -14,21 +14,23 @@
 struct SkWritePixelsRec
 {
   SkWritePixelsRec(const SkImageInfo& info, const void* pixels, size_t rowBytes, int x, int y)
-    : fPixels(pixels)
-    , fRowBytes(rowBytes)
-    , fInfo(info)
-    , fX(x)
-    , fY(y)
-  {
-  }
+    :  fPixels(pixels)
+        , fRowBytes(rowBytes)
+        , fInfo(info)
+        , fX(x)
+        , fY(y)
+    
+    {
+    }
   SkWritePixelsRec(const SkPixmap& pm, int x, int y)
-    : fPixels(pm.addr())
-    , fRowBytes(pm.rowBytes())
-    , fInfo(pm.info())
-    , fX(x)
-    , fY(y)
-  {
-  }
+    :  fPixels(pm.addr())
+        , fRowBytes(pm.rowBytes())
+        , fInfo(pm.info())
+        , fX(x)
+        , fY(y)
+    
+    {
+    }
   const void* fPixels;
   size_t fRowBytes;
   SkImageInfo fInfo;

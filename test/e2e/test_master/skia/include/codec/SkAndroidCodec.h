@@ -65,16 +65,12 @@ public:
   static std::unique_ptr<SkAndroidCodec> MakeFromData(sk_sp<SkData>, SkPngChunkReader* = nullptr);
   virtual ~SkAndroidCodec();
   const SkImageInfo& getInfo() const
-  {
-    return fInfo;
-  }
+  { return fInfo; }
     /**
      *  Format of the encoded data.
      */
   SkEncodedImageFormat getEncodedFormat() const
-  {
-    return fCodec->getEncodedFormat();
-  }
+  { return fCodec->getEncodedFormat(); }
     /**
      *  @param requestedColorType Color type requested by the client
      *
@@ -179,11 +175,12 @@ public:
   struct AndroidOptions
   {
     AndroidOptions()
-      : fZeroInitialized(SkCodec::kNo_ZeroInitialized)
-      , fSubset(nullptr)
-      , fSampleSize(1)
-    {
-    }
+      :  fZeroInitialized(SkCodec::kNo_ZeroInitialized)
+            , fSubset(nullptr)
+            , fSampleSize(1)
+        
+      {
+      }
         /**
          *  Indicates is destination pixel memory is zero initialized.
          *
@@ -248,12 +245,10 @@ public:
   SkCodec::Result getAndroidPixels(const SkImageInfo& info, void* pixels, size_t rowBytes);
   SkCodec::Result getPixels(const SkImageInfo& info, void* pixels, size_t rowBytes)
   {
-    return this->getAndroidPixels(info, pixels, rowBytes);
-  }
+        return this->getAndroidPixels(info, pixels, rowBytes);
+    }
   SkCodec* codec() const
-  {
-    return fCodec.get();
-  }
+  { return fCodec.get(); }
 protected:
   SkAndroidCodec(SkCodec*, ExifOrientationBehavior = ExifOrientationBehavior::kIgnore);
   virtual SkISize onGetSampledDimensions(int sampleSize) const = 0;

@@ -125,36 +125,30 @@ public:
   ACDBCORE2D_PORT AcGiDrawable();
   ACDBCORE2D_PORT ~AcGiDrawable();
     // For default attributes
-  ACDBCORE2D_PORT Adesk::UInt32 _VIRTUAL setAttributes(AcGiDrawableTraits* traits);
+  ACDBCORE2D_PORT virtual Adesk::UInt32 setAttributes(AcGiDrawableTraits* traits);
     // For geometry shared between multiple viewports
-  ACDBCORE2D_PORT Adesk::Boolean _VIRTUAL worldDraw(AcGiWorldDraw* wd);
+  ACDBCORE2D_PORT virtual Adesk::Boolean worldDraw(AcGiWorldDraw* wd);
     // For viewport-specific geometry
-  ACDBCORE2D_PORT void _VIRTUAL viewportDraw(AcGiViewportDraw* vd);
+  ACDBCORE2D_PORT virtual void viewportDraw(AcGiViewportDraw* vd);
     // For ViewIndependentViewportDraw caching
     // return bitwise combination of SetAttributesFlags
     // for now, 3D GS only investigates kDrawableRegenTypeDependentGeometry
-  ACDBCORE2D_PORT Adesk::UInt32 _VIRTUAL viewportDrawLogicalFlags(AcGiViewportDraw* vd);
+  ACDBCORE2D_PORT virtual Adesk::UInt32 viewportDrawLogicalFlags(AcGiViewportDraw* vd);
     // Persistent/transient
   virtual Adesk::Boolean isPersistent(void) const = 0;
   virtual AcDbObjectId id(void) const = 0;
     // Drawable type. 
   virtual DrawableType drawableType(void) const
-  {
-    return kGeometry;
-  }
+  { return kGeometry; }
     // nMouseFlags are identical to the WM_MOUSEMOVE wParam windows message. See MSDN for those flags, they are provided as is.
     // reset is true if rollover is resetting or leaving your object.
     // return true if you want rollover to track your object, false to ignore it.
   virtual Adesk::Boolean RolloverHit(Adesk::ULongPtr, Adesk::ULongPtr, Adesk::Boolean)
-  {
-    return Adesk::kFalse;
-  }
+  { return Adesk::kFalse; }
     // Set the bounds of the drawable.  Return false if the drawable has no
     // bounds, the bounds cannot be set, or the method is unimplemented.
   virtual bool bounds(AcDbExtents&) const
-  {
-    return false;
-  }
+  { return false; }
     // Draw stream
   ACDBCORE2D_PORT virtual void setDrawStream(AcGiDrawStream* pStream);
   ACDBCORE2D_PORT virtual AcGiDrawStream* drawStream(void) const;
@@ -165,9 +159,7 @@ protected:
   virtual Adesk::Boolean subWorldDraw(AcGiWorldDraw* wd) = 0;
   virtual void subViewportDraw(AcGiViewportDraw* vd) = 0;
   virtual Adesk::UInt32 subViewportDrawLogicalFlags(AcGiViewportDraw*)
-  {
-    return 0;
-  }
+  { return 0; }
 private:
   friend class AcGiDrawableAccessory;
   class AcGiDrawableAccessory* m_pAccessory;

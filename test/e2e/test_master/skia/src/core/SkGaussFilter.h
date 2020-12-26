@@ -15,26 +15,16 @@ public:
   static constexpr int kGaussArrayMax = 6;
   explicit SkGaussFilter(double sigma);
   size_t size() const
-  {
-    return fN;
-  }
+  { return fN; }
   int radius() const
-  {
-    return fN - 1;
-  }
+  { return fN - 1; }
   int width() const
-  {
-    return 2 * this->radius() + 1;
-  }
+  { return 2 * this->radius() + 1; }
     // Allow a filter to be used in a C++ ranged-for loop.
   const double* begin() const
-  {
-    return &fBasis[0];
-  }
+  { return &fBasis[0];  }
   const double* end() const
-  {
-    return &fBasis[fN];
-  }
+  { return &fBasis[fN]; }
 private:
   double fBasis[kGaussArrayMax];
   int fN;

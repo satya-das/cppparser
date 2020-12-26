@@ -78,71 +78,41 @@ public:
     // Dimension is unconstrained
     //
   void Unconstrained()
-  {
-    relationship = wxUnconstrained;
-  }
+  { relationship = wxUnconstrained; }
     //
     // Dimension is 'as is' (use current size settings)
     //
   void AsIs()
-  {
-    relationship = wxAsIs;
-  }
+  { relationship = wxAsIs; }
     //
     // Accessors
     //
   wxWindowBase* GetOtherWindow()
-  {
-    return otherWin;
-  }
+  { return otherWin; }
   wxEdge GetMyEdge() const
-  {
-    return myEdge;
-  }
+  { return myEdge; }
   void SetEdge(wxEdge which)
-  {
-    myEdge = which;
-  }
+  { myEdge = which; }
   void SetValue(int v)
-  {
-    value = v;
-  }
+  { value = v; }
   int GetMargin()
-  {
-    return margin;
-  }
+  { return margin; }
   void SetMargin(int m)
-  {
-    margin = m;
-  }
+  { margin = m; }
   int GetValue() const
-  {
-    return value;
-  }
+  { return value; }
   int GetPercent() const
-  {
-    return percent;
-  }
+  { return percent; }
   int GetOtherEdge() const
-  {
-    return otherEdge;
-  }
+  { return otherEdge; }
   bool GetDone() const
-  {
-    return done;
-  }
+  { return done; }
   void SetDone(bool d)
-  {
-    done = d;
-  }
+  { done = d; }
   wxRelationship GetRelationship()
-  {
-    return relationship;
-  }
+  { return relationship; }
   void SetRelationship(wxRelationship r)
-  {
-    relationship = r;
-  }
+  { relationship = r; }
     // Reset constraint if it mentions otherWin
   bool ResetIfWin(wxWindowBase* otherW);
     // Try to satisfy constraint
@@ -189,8 +159,9 @@ public:
   bool SatisfyConstraints(wxWindowBase* win, int* noChanges);
   bool AreSatisfied() const
   {
-    return left.GetDone() && top.GetDone() && width.GetDone() && height.GetDone();
-  }
+        return left.GetDone() && top.GetDone() &&
+               width.GetDone() && height.GetDone();
+    }
   wxDECLARE_DYNAMIC_CLASS(wxLayoutConstraints);
 };
 #  endif

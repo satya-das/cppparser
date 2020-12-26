@@ -16,13 +16,9 @@ class SkClusterator
 public:
   SkClusterator(const SkGlyphRun& run);
   uint32_t glyphCount() const
-  {
-    return fGlyphCount;
-  }
+  { return fGlyphCount; }
   bool reversedChars() const
-  {
-    return fReversedChars;
-  }
+  { return fReversedChars; }
   struct Cluster
   {
     const char* fUtf8Text;
@@ -31,12 +27,14 @@ public:
     uint32_t fGlyphCount;
     operator bool() const
     {
-      return fGlyphCount != 0;
-    }
+ return fGlyphCount != 0;     }
     bool operator==(const SkClusterator::Cluster& o)
     {
-      return fUtf8Text == o.fUtf8Text && fTextByteLength == o.fTextByteLength && fGlyphIndex == o.fGlyphIndex && fGlyphCount == o.fGlyphCount;
-    }
+            return fUtf8Text       == o.fUtf8Text
+                && fTextByteLength == o.fTextByteLength
+                && fGlyphIndex     == o.fGlyphIndex
+                && fGlyphCount     == o.fGlyphCount;
+        }
   };
   Cluster next();
 private:

@@ -14,9 +14,9 @@ class GrVSCoverageProcessor : public GrCCCoverageProcessor
 {
 public:
   GrVSCoverageProcessor()
-    : GrCCCoverageProcessor(kGrVSCoverageProcessor_ClassID)
-  {
-  }
+    :  GrCCCoverageProcessor(kGrVSCoverageProcessor_ClassID) 
+    {
+    }
 private:
   void reset(PrimitiveType, GrResourceProvider*) override;
   void appendMesh(sk_sp<const GrGpuBuffer> instanceBuffer, int instanceCount, int baseInstance, SkTArray<GrMesh>* out) const override;

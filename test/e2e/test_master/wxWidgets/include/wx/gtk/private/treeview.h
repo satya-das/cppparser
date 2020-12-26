@@ -22,38 +22,37 @@ class wxGtkTreePath
 public:
     // Ctor takes ownership of the given path and will free it if non-NULL.
   wxGtkTreePath(GtkTreePath* path = NULL)
-    : m_path(path)
-  {
-  }
+    :  m_path(path) 
+    {
+     }
     // Creates a tree path for the given string path.
   wxGtkTreePath(const gchar* strpath)
-    : m_path(gtk_tree_path_new_from_string(strpath))
-  {
-  }
+    :  m_path(gtk_tree_path_new_from_string(strpath))
+    
+    {
+
+        }
     // Set the stored pointer if not done by ctor.
   void Assign(GtkTreePath* path)
   {
-    wxASSERT_MSG(!m_path, "shouldn't be already initialized");
-    m_path = path;
-  }
+        wxASSERT_MSG( !m_path, "shouldn't be already initialized" );
+
+        m_path = path;
+    }
     // Return the pointer to the internally stored pointer. This should only be
     // used to initialize the object by passing it to some GTK function.
   GtkTreePath** ByRef()
   {
-    wxASSERT_MSG(!m_path, "shouldn't be already initialized");
-    return &m_path;
-  }
+        wxASSERT_MSG( !m_path, "shouldn't be already initialized" );
+
+        return &m_path;
+    }
   operator GtkTreePath*() const
   {
-    return m_path;
-  }
+ return m_path;   }
   ~wxGtkTreePath()
   {
-    if (m_path)
-    {
-      gtk_tree_path_free(m_path);
-    }
-  }
+ if ( m_path ) gtk_tree_path_free(m_path);   }
 private:
   GtkTreePath* m_path;
   wxDECLARE_NO_COPY_CLASS(wxGtkTreePath);

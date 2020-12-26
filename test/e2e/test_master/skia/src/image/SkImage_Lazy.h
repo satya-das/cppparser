@@ -20,8 +20,7 @@ public:
     Validator(sk_sp<SharedGenerator>, const SkIRect* subset, const SkColorType* colorType, sk_sp<SkColorSpace> colorSpace);
     operator bool() const
     {
-      return fSharedGenerator.get();
-    }
+ return fSharedGenerator.get();     }
     sk_sp<SharedGenerator> fSharedGenerator;
     SkImageInfo fInfo;
     SkIPoint fOrigin;
@@ -32,8 +31,8 @@ public:
   virtual ~SkImage_Lazy();
   SkIRect onGetSubset() const override
   {
-    return SkIRect::MakeXYWH(fOrigin.fX, fOrigin.fY, this->width(), this->height());
-  }
+        return SkIRect::MakeXYWH(fOrigin.fX, fOrigin.fY, this->width(), this->height());
+    }
   bool onReadPixels(const SkImageInfo&, void*, size_t, int srcX, int srcY, CachingHint) const override;
 #  if  SK_SUPPORT_GPU
   sk_sp<GrTextureProxy> asTextureProxyRef(GrRecordingContext*, const GrSamplerState&, SkScalar scaleAdjust[2]) const override;
@@ -43,9 +42,7 @@ public:
   sk_sp<SkImage> onMakeSubset(GrRecordingContext*, const SkIRect&) const override;
   bool getROPixels(SkBitmap*, CachingHint) const override;
   bool onIsLazyGenerated() const override
-  {
-    return true;
-  }
+  { return true; }
   sk_sp<SkImage> onMakeColorTypeAndColorSpace(GrRecordingContext*, SkColorType, sk_sp<SkColorSpace>) const override;
   sk_sp<SkImage> onReinterpretColorSpace(sk_sp<SkColorSpace>) const final;
   bool onIsValid(GrContext*) const override;

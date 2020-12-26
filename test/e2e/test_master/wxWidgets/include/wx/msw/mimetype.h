@@ -22,7 +22,7 @@ public:
     // ctor
   wxFileTypeImpl()
   {
-  }
+   }
     // one of these Init() function must be called (ctor can't take any
     // arguments because it's common)
 
@@ -37,14 +37,14 @@ public:
   bool GetDescription(wxString* desc) const;
   bool GetOpenCommand(wxString* openCmd, const wxFileType::MessageParameters& params) const
   {
-    *openCmd = GetExpandedCommand(wxS("open"), params);
-    return !openCmd->empty();
-  }
+        *openCmd = GetExpandedCommand(wxS("open"), params);
+        return !openCmd->empty();
+    }
   bool GetPrintCommand(wxString* printCmd, const wxFileType::MessageParameters& params) const
   {
-    *printCmd = GetExpandedCommand(wxS("print"), params);
-    return !printCmd->empty();
-  }
+        *printCmd = GetExpandedCommand(wxS("print"), params);
+        return !printCmd->empty();
+    }
   size_t GetAllCommands(wxArrayString* verbs, wxArrayString* commands, const wxFileType::MessageParameters& params) const;
   bool Unassociate();
     // set an arbitrary command, ask confirmation if it already exists and
@@ -92,7 +92,7 @@ public:
     // the registry when asked for
   wxMimeTypesManagerImpl()
   {
-  }
+   }
     // implement containing class functions
   wxFileType* GetFileTypeFromExtension(const wxString& ext);
   wxFileType* GetOrAllocateFileTypeFromExtension(const wxString& ext);

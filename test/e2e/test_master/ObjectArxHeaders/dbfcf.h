@@ -85,13 +85,11 @@ protected:
 // Note: returns null if line number is out of range
 inline ACHAR* AcDbFcf::text(int lineNo) const
 {
-  AcString sText;
-  if (this->text(sText, lineNo) == Acad::eOutOfRange)
-  {
-    return nullptr;
-  }
-  ACHAR* pRet = nullptr;
-  ::acutNewString(sText.kwszPtr(), pRet);
-  return pRet;
+    AcString sText;
+    if (this->text(sText, lineNo) == Acad::eOutOfRange)
+        return nullptr;         // the line number requested was too high
+    ACHAR *pRet = nullptr;
+    ::acutNewString(sText.kwszPtr(), pRet);
+    return pRet;
 }
 #endif

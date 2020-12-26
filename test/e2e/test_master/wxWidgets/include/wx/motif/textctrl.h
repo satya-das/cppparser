@@ -18,8 +18,9 @@ public:
   wxTextCtrl();
   wxTextCtrl(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTextCtrlNameStr))
   {
-    Create(parent, id, value, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, value, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTextCtrlNameStr));
     // accessors
     // ---------
@@ -57,9 +58,7 @@ public:
   virtual void ChangeBackgroundColour();
   virtual void ChangeForegroundColour();
   void SetModified(bool mod)
-  {
-    m_modified = mod;
-  }
+  { m_modified = mod; }
   virtual WXWidget GetTopWidget() const;
     // send the CHAR and TEXT_UPDATED events
   void DoSendEvents(void* cbs, long keycode);
@@ -67,9 +66,7 @@ protected:
   virtual wxSize DoGetBestSize() const;
   virtual void DoSetValue(const wxString& value, int flags = 0);
   virtual WXWidget GetTextWidget() const
-  {
-    return m_mainWidget;
-  }
+  { return m_mainWidget; }
 public:
     // Motif-specific
   void* m_tempCallbackStruct;

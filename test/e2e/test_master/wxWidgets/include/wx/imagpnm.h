@@ -17,14 +17,15 @@ class WXDLLIMPEXP_CORE wxPNMHandler : public wxImageHandler
 public:
   inline wxPNMHandler()
   {
-    m_name = wxT("PNM file");
-    m_extension = wxT("pnm");
-    m_altExtensions.Add(wxT("ppm"));
-    m_altExtensions.Add(wxT("pgm"));
-    m_altExtensions.Add(wxT("pbm"));
-    m_type = wxBITMAP_TYPE_PNM;
-    m_mime = wxT("image/pnm");
-  }
+
+        m_name = wxT("PNM file");
+        m_extension = wxT("pnm");
+        m_altExtensions.Add(wxT("ppm"));
+        m_altExtensions.Add(wxT("pgm"));
+        m_altExtensions.Add(wxT("pbm"));
+        m_type = wxBITMAP_TYPE_PNM;
+        m_mime = wxT("image/pnm");
+      }
 #    if  wxUSE_STREAMS
   bool LoadFile(wxImage* image, wxInputStream& stream, bool verbose = true, int index = -1) override;
   bool SaveFile(wxImage* image, wxOutputStream& stream, bool verbose = true) override;

@@ -20,25 +20,19 @@ public:
   wxCursor(const wxString& name, wxBitmapType type = wxCURSOR_DEFAULT_TYPE, int hotSpotX = 0, int hotSpotY = 0);
   wxCursor(wxStockCursor id)
   {
-    InitFromStock(id);
-  }
+ InitFromStock(id);   }
 #  if  WXWIN_COMPATIBILITY_2_8
   wxCursor(int id)
   {
-    InitFromStock((wxStockCursor) id);
-  }
+ InitFromStock((wxStockCursor)id);   }
 #  endif
   wxPoint GetHotSpot() const override;
   virtual ~wxCursor();
     // implementation only
   void SetHCURSOR(WXHCURSOR cursor)
-  {
-    SetHandle((WXHANDLE) cursor);
-  }
+  { SetHandle((WXHANDLE)cursor); }
   WXHCURSOR GetHCURSOR() const
-  {
-    return (WXHCURSOR) GetHandle();
-  }
+  { return (WXHCURSOR)GetHandle(); }
 protected:
   void InitFromStock(wxStockCursor);
   wxGDIImageRefData* CreateData() const override;

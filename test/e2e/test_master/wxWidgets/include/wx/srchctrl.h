@@ -47,10 +47,10 @@ class WXDLLIMPEXP_CORE wxSearchCtrlBase : public wxSearchCtrlBaseBaseClass
 public:
   wxSearchCtrlBase()
   {
-  }
+   }
   virtual ~wxSearchCtrlBase()
   {
-  }
+   }
     // search control
 #    if  wxUSE_MENUS
   virtual void SetMenu(wxMenu* menu) = 0;

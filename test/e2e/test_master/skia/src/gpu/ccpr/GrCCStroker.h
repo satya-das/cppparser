@@ -27,10 +27,9 @@ class GrCCStroker
 {
 public:
   GrCCStroker(int numPaths, int numSkPoints, int numSkVerbs)
-    : fGeometry(numSkPoints, numSkVerbs)
-    , fPathInfos(numPaths)
-  {
-  }
+    :  fGeometry(numSkPoints, numSkVerbs), fPathInfos(numPaths) 
+    {
+    }
     // Parses a device-space SkPath into the current batch, using the SkPath's original verbs with
     // 'deviceSpacePts', and the SkStrokeRec's original settings with 'strokeDevWidth'. Accepts an
     // optional post-device-space translate for placement in an atlas.
@@ -65,10 +64,9 @@ private:
   struct ScissorSubBatch
   {
     ScissorSubBatch(GrTAllocator<InstanceTallies>* alloc, const InstanceTallies& startIndices, const SkIRect& scissor)
-      : fEndInstances(&alloc->emplace_back(startIndices))
-      , fScissor(scissor)
-    {
-    }
+      :  fEndInstances(&alloc->emplace_back(startIndices)), fScissor(scissor) 
+      {
+      }
     InstanceTallies* fEndInstances;
     SkIRect fScissor;
   };
@@ -77,10 +75,10 @@ private:
   struct Batch
   {
     Batch(GrTAllocator<InstanceTallies>* alloc, const InstanceTallies& startNonScissorIndices, int startScissorSubBatch)
-      : fNonScissorEndInstances(&alloc->emplace_back(startNonScissorIndices))
-      , fEndScissorSubBatch(startScissorSubBatch)
-    {
-    }
+      :  fNonScissorEndInstances(&alloc->emplace_back(startNonScissorIndices))
+                , fEndScissorSubBatch(startScissorSubBatch) 
+      {
+      }
     InstanceTallies* fNonScissorEndInstances;
     int fEndScissorSubBatch;
   };

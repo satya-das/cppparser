@@ -20,18 +20,16 @@ public:
   bool isFormatRenderable(const GrBackendFormat& format, int sampleCount = 1) const override;
   bool isFormatAsColorTypeRenderable(GrColorType ct, const GrBackendFormat& format, int sampleCount = 1) const override;
   bool isFormatCopyable(const GrBackendFormat& format) const override
-  {
-    return true;
-  }
+  { return true; }
   bool isFormatTexturable(const GrBackendFormat& format) const override;
   SupportedWrite supportedWritePixelsColorType(GrColorType surfaceColorType, const GrBackendFormat& surfaceFormat, GrColorType srcColorType) const override
   {
-    return {surfaceColorType, GrColorTypeBytesPerPixel(surfaceColorType)};
-  }
+        return {surfaceColorType, GrColorTypeBytesPerPixel(surfaceColorType)};
+    }
   SurfaceReadPixelsSupport surfaceSupportsReadPixels(const GrSurface*) const override
   {
-    return SurfaceReadPixelsSupport::kSupported;
-  }
+        return SurfaceReadPixelsSupport::kSupported;
+    }
   int getRenderTargetSampleCount(int requestedCount, const GrBackendFormat&) const override;
   int maxRenderTargetSampleCount(const GrBackendFormat& format) const override;
   GrBackendFormat getBackendFormatFromCompressionType(SkImage::CompressionType) const override;
@@ -44,19 +42,19 @@ public:
 private:
   bool onSurfaceSupportsWritePixels(const GrSurface* surface) const override
   {
-    return true;
-  }
+        return true;
+    }
   bool onCanCopySurface(const GrSurfaceProxy* dst, const GrSurfaceProxy* src, const SkIRect& srcRect, const SkIPoint& dstPoint) const override
   {
-    return true;
-  }
+        return true;
+    }
   GrBackendFormat onGetDefaultBackendFormat(GrColorType, GrRenderable) const override;
   GrPixelConfig onGetConfigFromBackendFormat(const GrBackendFormat&, GrColorType) const override;
   bool onAreColorTypeAndFormatCompatible(GrColorType, const GrBackendFormat&) const override;
   SupportedRead onSupportedReadPixelsColorType(GrColorType srcColorType, const GrBackendFormat& backendFormat, GrColorType dstColorType) const override
   {
-    return {srcColorType, GrColorTypeBytesPerPixel(srcColorType)};
-  }
+        return { srcColorType, GrColorTypeBytesPerPixel(srcColorType) };
+    }
   typedef GrCaps INHERITED;
 };
 #endif

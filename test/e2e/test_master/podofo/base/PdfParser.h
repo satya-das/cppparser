@@ -58,12 +58,9 @@ namespace PoDoFo
     struct TXRefEntry
     {
       inline TXRefEntry()
-        : lOffset(0)
-        , lGeneration(0)
-        , cUsed('\x00')
-        , bParsed(false)
-      {
-      }
+        :  lOffset(0), lGeneration(0), cUsed('\x00'), bParsed(false) 
+        {
+         }
       pdf_long lOffset;
       long lGeneration;
       char cUsed;
@@ -279,29 +276,21 @@ namespace PoDoFo
     /** \returns whether the parsed document contains linearization tables
      */
     bool IsLinearized() const
-    {
-      return m_pLinearization != NULL;
-    }
+    { return m_pLinearization != NULL; }
     /** \returns the length of the file
      */
     size_t GetFileSize() const
-    {
-      return m_nFileSize;
-    }
+    { return m_nFileSize; }
     /** 
      * \returns true if this PdfWriter creates an encrypted PDF file
      */
     bool GetEncrypted() const
-    {
-      return (m_pEncrypt != NULL);
-    }
+    { return (m_pEncrypt != NULL); }
     /** 
      * \returns the parsers encryption object or NULL if the read PDF file was not encrypted
      */
     const PdfEncrypt* GetEncrypt() const
-    {
-      return m_pEncrypt;
-    }
+    { return m_pEncrypt; }
     /** 
      * Gives the encryption object from the parser. The internal handle will be set
      * to NULL and the ownership of the object is given to the caller.
@@ -558,92 +547,92 @@ namespace PoDoFo
   bool PdfParser::GetLoadOnDemand() const
   {
     return m_bLoadOnDemand;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfVersion PdfParser::GetPdfVersion() const
   {
     return m_ePdfVersion;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   int PdfParser::GetNumberOfIncrementalUpdates() const
   {
     return m_nIncrementalUpdates;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfVecObjects* PdfParser::GetObjects() const
   {
     return m_vecObjects;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfObject* PdfParser::GetTrailer() const
   {
     return m_pTrailer;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfEncrypt* PdfParser::TakeEncrypt()
-  {
+  { 
     PdfEncrypt* pEncrypt = m_pEncrypt;
-    m_pEncrypt = NULL;
-    return pEncrypt;
-  }
+    m_pEncrypt = NULL; 
+    return pEncrypt; 
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfParser::IsStrictParsing() const
   {
     return m_bStrictParsing;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfParser::SetStrictParsing(bool bStrict)
   {
     m_bStrictParsing = bStrict;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfParser::GetIgnoreBrokenObjects()
   {
     return s_bIgnoreBrokenObjects;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfParser::SetIgnoreBrokenObjects(bool bBroken)
   {
     s_bIgnoreBrokenObjects = bBroken;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   long PdfParser::GetMaxObjectCount()
   {
     return PdfParser::s_nMaxObjects;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   void PdfParser::SetMaxObjectCount(long nMaxObjects)
   {
     PdfParser::s_nMaxObjects = nMaxObjects;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   pdf_long PdfParser::GetXRefOffset()
   {
     return m_nXRefOffset;
-  }
+}
 }
 #endif

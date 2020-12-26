@@ -31,7 +31,7 @@ constexpr double SK_DoublePI = 3.14159265358979323846264338327950288;
 // http://gcc.gnu.org/bugzilla/show_bug.cgi?id=14608
 static float sk_float_pow(float base, float exp)
 {
-  return powf(base, exp);
+    return powf(base, exp);
 }
 #  define sk_float_sqrt(x)	        sqrtf(x)
 #  define sk_float_sin(x)	         sinf(x)
@@ -55,48 +55,47 @@ static float sk_float_pow(float base, float exp)
 #  define sk_float_log(x)	         logf(x)
 constexpr float sk_float_degrees_to_radians(float degrees)
 {
-  return degrees * (SK_FloatPI / 180);
+    return degrees * (SK_FloatPI / 180);
 }
 constexpr float sk_float_radians_to_degrees(float radians)
 {
-  return radians * (180 / SK_FloatPI);
+    return radians * (180 / SK_FloatPI);
 }
 #  define sk_float_round(x)	 sk_float_floor((x) + 0.5f)
 // can't find log2f on android, but maybe that just a tool bug?
 #  ifdef SK_BUILD_FOR_ANDROID
 static float sk_float_log2(float x)
 {
-  const double inv_ln_2 = 1.44269504088896;
-  return (float) (log(x) * inv_ln_2);
-}
+        const double inv_ln_2 = 1.44269504088896;
+        return (float)(log(x) * inv_ln_2);
+    }
 #  else 
 #    define sk_float_log2(x)	        log2f(x)
 #  endif
 static bool sk_float_isfinite(float x)
 {
-  return SkFloatBits_IsFinite(SkFloat2Bits(x));
+    return SkFloatBits_IsFinite(SkFloat2Bits(x));
 }
 static bool sk_floats_are_finite(float a, float b)
 {
-  return sk_float_isfinite(a) && sk_float_isfinite(b);
+    return sk_float_isfinite(a) && sk_float_isfinite(b);
 }
 static bool sk_floats_are_finite(const float array[], int count)
 {
-  float prod = 0;
-  for (int i = 0; i < count; ++i)
-  {
-    prod *= array[i];
-  }
+    float prod = 0;
+    for (int i = 0; i < count; ++i) {
+        prod *= array[i];
+    }
     // At this point, prod will either be NaN or 0
-  return prod == 0;
+    return prod == 0;   // if prod is NaN, this check will return false
 }
 static bool sk_float_isinf(float x)
 {
-  return SkFloatBits_IsInf(SkFloat2Bits(x));
+    return SkFloatBits_IsInf(SkFloat2Bits(x));
 }
 static bool sk_float_isnan(float x)
 {
-  return !(x == x);
+    return !(x == x);
 }
 #  define sk_double_isnan(a)	          sk_float_isnan(a)
 #  define SK_MaxS32FitsInFloat	2147483520
@@ -108,27 +107,27 @@ static bool sk_float_isnan(float x)
  */
 static int sk_float_saturate2int(float x)
 {
-  x = SkTMin<float>(x, SK_MaxS32FitsInFloat);
-  x = SkTMax<float>(x, SK_MinS32FitsInFloat);
-  return (int) x;
+    x = SkTMin<float>(x, SK_MaxS32FitsInFloat);
+    x = SkTMax<float>(x, SK_MinS32FitsInFloat);
+    return (int)x;
 }
 /**
  *  Return the closest int for the given double. Returns SK_MaxS32 for NaN.
  */
 static int sk_double_saturate2int(double x)
 {
-  x = SkTMin<double>(x, SK_MaxS32);
-  x = SkTMax<double>(x, SK_MinS32);
-  return (int) x;
+    x = SkTMin<double>(x, SK_MaxS32);
+    x = SkTMax<double>(x, SK_MinS32);
+    return (int)x;
 }
 /**
  *  Return the closest int64_t for the given float. Returns SK_MaxS64FitsInFloat for NaN.
  */
 static int64_t sk_float_saturate2int64(float x)
 {
-  x = SkTMin<float>(x, SK_MaxS64FitsInFloat);
-  x = SkTMax<float>(x, SK_MinS64FitsInFloat);
-  return (int64_t) x;
+    x = SkTMin<float>(x, SK_MaxS64FitsInFloat);
+    x = SkTMax<float>(x, SK_MinS64FitsInFloat);
+    return (int64_t)x;
 }
 #  define sk_float_floor2int(x)	   sk_float_saturate2int(sk_float_floor(x))
 #  define sk_float_round2int(x)	   sk_float_saturate2int(sk_float_floor((x) + 0.5f))
@@ -149,7 +148,7 @@ static int64_t sk_float_saturate2int64(float x)
 #  endif
 static float sk_double_to_float(double x)
 {
-  return static_cast<float>(x);
+    return static_cast<float>(x);
 }
 #  define SK_FloatNaN	std::numeric_limits<float>::quiet_NaN()
 #  define SK_FloatInfinity(+std::numeric_limits<float>::infinity())
@@ -161,15 +160,16 @@ bool sk_floats_are_unit(const float array[], size_t count);
 static float sk_float_rsqrt_portable(float x)
 {
     // Get initial estimate.
-  int i;
-  memcpy(&i, &x, 4);
-  i = 0x5F1FFFF9 - (i >> 1);
-  float estimate;
-  memcpy(&estimate, &i, 4);
+    int i;
+    memcpy(&i, &x, 4);
+    i = 0x5F1FFFF9 - (i>>1);
+    float estimate;
+    memcpy(&estimate, &i, 4);
+
     // One step of Newton's method to refine.
-  const float estimate_sq = estimate * estimate;
-  estimate *= 0.703952253f * (2.38924456f - x * estimate_sq);
-  return estimate;
+    const float estimate_sq = estimate*estimate;
+    estimate *= 0.703952253f*(2.38924456f-x*estimate_sq);
+    return estimate;
 }
 // Fast, approximate inverse square root.
 // Compare to name-brand "1.0f / sk_float_sqrt(x)".  Should be around 10x faster on SSE, 2x on NEON.
@@ -182,19 +182,20 @@ static float sk_float_rsqrt(float x)
 // refinement is faster, but very innacurate.  Two steps is more accurate, but slower than 1/sqrt.
 //
 // Optimized constants in the portable path courtesy of http://rrrola.wz.cz/inv_sqrt.html
-#  if  SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE1
-  return _mm_cvtss_f32(_mm_rsqrt_ss(_mm_set_ss(x)));
-#  elif  defined(SK_ARM_HAS_NEON)
+#if SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE1
+    return _mm_cvtss_f32(_mm_rsqrt_ss(_mm_set_ss(x)));
+#elif defined(SK_ARM_HAS_NEON)
     // Get initial estimate.
-  const float32x2_t xx = vdup_n_f32(x);
-  float32x2_t estimate = vrsqrte_f32(xx);
+    const float32x2_t xx = vdup_n_f32(x);  // Clever readers will note we're doing everything 2x.
+    float32x2_t estimate = vrsqrte_f32(xx);
+
     // One step of Newton's method to refine.
-  const float32x2_t estimate_sq = vmul_f32(estimate, estimate);
-  estimate = vmul_f32(estimate, vrsqrts_f32(xx, estimate_sq));
-  return vget_lane_f32(estimate, 0);
-#  else 
-  return sk_float_rsqrt_portable(x);
-#  endif
+    const float32x2_t estimate_sq = vmul_f32(estimate, estimate);
+    estimate = vmul_f32(estimate, vrsqrts_f32(xx, estimate_sq));
+    return vget_lane_f32(estimate, 0);  // 1 will work fine too; the answer's in both places.
+#else
+    return sk_float_rsqrt_portable(x);
+#endif
 }
 // This is the number of significant digits we can print in a string such that when we read that
 // string back we get the floating point number we expect.  The minimum value C requires is 6, but
@@ -210,29 +211,29 @@ static float sk_float_rsqrt(float x)
 #  endif
 static float sk_ieee_float_divide(float numer, float denom)
 {
-  return numer / denom;
+    return numer / denom;
 }
 #  ifdef __clang__
 #  endif
 static double sk_ieee_double_divide(double numer, double denom)
 {
-  return numer / denom;
+    return numer / denom;
 }
 // While we clean up divide by zero, we'll replace places that do divide by zero with this TODO.
 static float sk_ieee_float_divide_TODO_IS_DIVIDE_BY_ZERO_SAFE_HERE(float n, float d)
 {
-  return sk_ieee_float_divide(n, d);
+    return sk_ieee_float_divide(n,d);
 }
 static float sk_ieee_double_divide_TODO_IS_DIVIDE_BY_ZERO_SAFE_HERE(double n, double d)
 {
-  return sk_ieee_double_divide(n, d);
+    return sk_ieee_double_divide(n,d);
 }
 static float sk_fmaf(float f, float m, float a)
 {
-#  if  defined(FP_FAST_FMA)
-  return std::fmaf(f, m, a);
-#  else 
-  return f * m + a;
-#  endif
+#if defined(FP_FAST_FMA)
+    return std::fmaf(f,m,a);
+#else
+    return f*m+a;
+#endif
 }
 #endif

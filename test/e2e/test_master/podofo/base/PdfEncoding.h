@@ -79,37 +79,41 @@ namespace PoDoFo
     {
     public:
       const_iterator(const PdfEncoding* pEncoding, int nCur)
-        : m_pEncoding(pEncoding)
-        , m_nCur(nCur)
-      {
-      }
+        :  m_pEncoding( pEncoding ), m_nCur( nCur )
+	
+        {
+
+	        }
       const_iterator(const const_iterator& rhs)
       {
-        this->operator=(rhs);
-      }
+
+	    this->operator=(rhs);
+	      }
       const const_iterator& operator=(const const_iterator& rhs)
       {
-        m_nCur = rhs.m_nCur;
-        m_pEncoding = rhs.m_pEncoding;
-        return *this;
-      }
+	    m_nCur      = rhs.m_nCur;
+	    m_pEncoding = rhs.m_pEncoding;
+
+	    return *this;
+	}
       inline bool operator==(const const_iterator& rhs) const
       {
-        return (m_nCur == rhs.m_nCur);
-      }
+	    return (m_nCur == rhs.m_nCur);
+	}
       inline bool operator!=(const const_iterator& rhs) const
       {
-        return (m_nCur != rhs.m_nCur);
-      }
+	    return (m_nCur != rhs.m_nCur);
+	}
       inline pdf_utf16be operator*() const
       {
-        return m_pEncoding->GetCharCode(m_nCur);
-      }
+	    return m_pEncoding->GetCharCode( m_nCur );
+	}
       inline const_iterator& operator++()
       {
-        m_nCur++;
-        return *this;
-      }
+	    m_nCur++;
+
+	    return *this;
+	}
     private:
       const PdfEncoding* m_pEncoding;
       int m_nCur;
@@ -210,42 +214,42 @@ namespace PoDoFo
   inline bool PdfEncoding::operator<(const PdfEncoding& rhs) const
   {
     return (this->GetID() < rhs.GetID());
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfEncoding::operator==(const PdfEncoding& rhs) const
   {
     return (this->GetID() == rhs.GetID());
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline int PdfEncoding::GetFirstChar() const
   {
     return m_nFirstChar;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline int PdfEncoding::GetLastChar() const
   {
     return m_nLastChar;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfEncoding::const_iterator PdfEncoding::begin() const
   {
-    return PdfEncoding::const_iterator(this, this->GetFirstChar());
-  }
+    return PdfEncoding::const_iterator( this, this->GetFirstChar() );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfEncoding::const_iterator PdfEncoding::end() const
   {
-    return PdfEncoding::const_iterator(this, this->GetLastChar() + 1);
-  }
+    return PdfEncoding::const_iterator( this, this->GetLastChar() + 1 );
+}
 /**
  * A common base class for standard PdfEncoding which are
  * known by name.
@@ -391,28 +395,28 @@ namespace PoDoFo
   inline const PdfName& PdfSimpleEncoding::GetID() const
   {
     return m_name;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfSimpleEncoding::IsAutoDelete() const
   {
     return false;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfSimpleEncoding::IsSingleByteEncoding() const
   {
     return true;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline const PdfName& PdfSimpleEncoding::GetName() const
   {
     return m_name;
-  }
+}
 /** 
  * The PdfDocEncoding is the default encoding for
  * all strings in PoDoFo which are data in the PDF
@@ -429,9 +433,12 @@ namespace PoDoFo
     /** Create a new PdfDocEncoding
      */
     PdfDocEncoding()
-      : PdfSimpleEncoding(PdfName("PdfDocEncoding"))
-    {
-    }
+      :  PdfSimpleEncoding( PdfName("PdfDocEncoding") )
+    
+      {
+
+
+          }
   protected:
     /** Gets a table of 256 short values which are the 
      *  big endian unicode code points that are assigned
@@ -466,9 +473,12 @@ namespace PoDoFo
     /** Create a new PdfWinAnsiEncoding
      */
     PdfWinAnsiEncoding()
-      : PdfSimpleEncoding(PdfName("WinAnsiEncoding"))
-    {
-    }
+      :  PdfSimpleEncoding( PdfName("WinAnsiEncoding") )
+    
+      {
+
+
+          }
   protected:
     /** Gets a table of 256 short values which are the 
      *  big endian unicode code points that are assigned
@@ -505,9 +515,12 @@ namespace PoDoFo
     /** Create a new PdfMacRomanEncoding
      */
     PdfMacRomanEncoding()
-      : PdfSimpleEncoding(PdfName("MacRomanEncoding"))
-    {
-    }
+      :  PdfSimpleEncoding( PdfName("MacRomanEncoding") )
+    
+      {
+
+
+          }
   protected:
     /** Gets a table of 256 short values which are the 
      *  big endian unicode code points that are assigned
@@ -530,9 +543,12 @@ namespace PoDoFo
     /** Create a new PdfMacExpertEncoding
      */
     inline PdfMacExpertEncoding()
-      : PdfSimpleEncoding(PdfName("MacExpertEncoding"))
-    {
-    }
+      :  PdfSimpleEncoding( PdfName("MacExpertEncoding") )
+    
+      {
+
+
+          }
   protected:
     /** Gets a table of 256 short values which are the 
      *  big endian unicode code points that are assigned
@@ -560,9 +576,12 @@ namespace PoDoFo
     /** Create a new PdfStandardEncoding
      */
     PdfStandardEncoding()
-      : PdfSimpleEncoding(PdfName("StandardEncoding"))
-    {
-    }
+      :  PdfSimpleEncoding( PdfName("StandardEncoding") )
+    
+      {
+
+
+          }
   protected:
     /** Gets a table of 256 short values which are the 
      *  big endian unicode code points that are assigned
@@ -590,9 +609,12 @@ namespace PoDoFo
     /** Create a new PdfSymbolEncoding
      */
     PdfSymbolEncoding()
-      : PdfSimpleEncoding(PdfName("SymbolEncoding"))
-    {
-    }
+      :  PdfSimpleEncoding( PdfName("SymbolEncoding") )
+    
+      {
+
+
+          }
   protected:
     /** Gets a table of 256 short values which are the 
      *  big endian unicode code points that are assigned
@@ -620,9 +642,12 @@ namespace PoDoFo
     /** Create a new PdfZapfDingbatsEncoding
      */
     PdfZapfDingbatsEncoding()
-      : PdfSimpleEncoding(PdfName("ZapfDingbatsEncoding"))
-    {
-    }
+      :  PdfSimpleEncoding( PdfName("ZapfDingbatsEncoding") )
+    
+      {
+
+
+          }
   protected:
     /** Gets a table of 256 short values which are the 
      *  big endian unicode code points that are assigned
@@ -647,12 +672,13 @@ namespace PoDoFo
      */
     PdfWin1250Encoding()
     {
-      m_id = "Win1250Encoding";
-    }
+
+        m_id = "Win1250Encoding";
+        }
   protected:
     virtual const PdfName& GetID() const
     {
-      return m_id;
+        return m_id;
     }
     /** Gets a table of 256 short values which are the 
      *  big endian unicode code points that are assigned
@@ -678,12 +704,13 @@ namespace PoDoFo
      */
     PdfIso88592Encoding()
     {
-      m_id = "Iso88592Encoding";
-    }
+
+        m_id = "Iso88592Encoding";
+        }
   protected:
     virtual const PdfName& GetID() const
     {
-      return m_id;
+        return m_id;
     }
     /** Gets a table of 256 short values which are the 
      *  big endian unicode code points that are assigned

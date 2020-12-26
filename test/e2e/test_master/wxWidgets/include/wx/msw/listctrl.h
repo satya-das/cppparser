@@ -74,13 +74,14 @@ public:
      */
   wxListCtrl()
   {
-    Init();
-  }
+ Init();   }
   wxListCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxLC_ICON, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListCtrlNameStr))
   {
-    Init();
-    Create(parent, id, pos, size, style, validator, name);
-  }
+
+        Init();
+
+        Create(parent, id, pos, size, style, validator, name);
+      }
   virtual ~wxListCtrl();
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxLC_ICON, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListCtrlNameStr));
     // Attributes
@@ -139,9 +140,7 @@ public:
     // Sets the item data
   bool SetItemPtrData(long item, wxUIntPtr data);
   bool SetItemData(long item, long data)
-  {
-    return SetItemPtrData(item, data);
-  }
+  { return SetItemPtrData(item, data); }
     // Gets the item rectangle
   bool GetItemRect(long item, wxRect& rect, int code = wxLIST_RECT_BOUNDS) const;
     // Gets the subitem rectangle in report mode

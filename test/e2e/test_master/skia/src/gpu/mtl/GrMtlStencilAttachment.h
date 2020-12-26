@@ -22,13 +22,9 @@ public:
   static GrMtlStencilAttachment* Create(GrMtlGpu* gpu, int width, int height, int sampleCnt, const Format& format);
   virtual ~GrMtlStencilAttachment();
   MTLPixelFormat mtlFormat() const
-  {
-    return fFormat.fInternalFormat;
-  }
+  { return fFormat.fInternalFormat; }
   id<MTLTexture> stencilView() const
-  {
-    return fStencilView;
-  }
+  { return fStencilView; }
 protected:
   void onRelease() override;
   void onAbandon() override;

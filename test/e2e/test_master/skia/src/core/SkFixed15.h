@@ -15,102 +15,67 @@ class SkFixed15
 public:
   SkFixed15();
   SkFixed15(float val)
-    : fVal(val * 32768)
-  {
-    SkASSERT(0.0f <= val && val <= 1.0f);
-  }
+    :  fVal(val * 32768) 
+    {
+ SkASSERT(0.0f <= val && val <= 1.0f);     }
   operator float() const
   {
-    return fVal * (1 / 32768.0f);
-  }
+ return fVal * (1/32768.0f);   }
   static SkFixed15 Load(uint16_t val)
   {
-    SkASSERT(val <= 32768);
-    return val;
-  }
+        SkASSERT(val <= 32768);
+        return val;
+    }
   uint16_t store() const
-  {
-    return fVal;
-  }
+  { return fVal; }
   static SkFixed15 FromU8(uint8_t val)
   {
-    return val * 128 + (val >> 1) + ((val + 1) >> 8);
-  }
+        return val*128 + (val>>1)  // 32768/255 == 128.50196..., which is very close to 128 + 0.5.
+             + ((val+1)>>8);       // All val but 255 are correct.  +1 if val == 255 to get 32768.
+    }
   uint8_t to_u8() const
   {
         // FromU8() and to_u8() roundtrip all bytes.
         // There is still much room to tweak this towards the ideal, a rounding scale by 255/32768.
-    return (fVal - (fVal >> 8)) >> 7;
-  }
+        return (fVal - (fVal>>8))>>7;
+    }
   SkFixed15 operator +(SkFixed15 o) const
-  {
-    return fVal + o.fVal;
-  }
+  { return fVal + o.fVal; }
   SkFixed15 operator -(SkFixed15 o) const
-  {
-    return fVal - o.fVal;
-  }
+  { return fVal - o.fVal; }
   SkFixed15 operator *(SkFixed15 o) const
-  {
-    return (fVal * o.fVal + (1 << 14)) >> 15;
-  }
+  { return (fVal * o.fVal + (1<<14)) >> 15; }
   SkFixed15 operator<<(int bits) const
-  {
-    return fVal << bits;
-  }
+  { return fVal << bits; }
   SkFixed15 operator>>(int bits) const
-  {
-    return fVal >> bits;
-  }
+  { return fVal >> bits; }
   SkFixed15& operator +=(SkFixed15 o)
-  {
-    return (*this = *this + o);
-  }
+  { return (*this = *this + o); }
   SkFixed15& operator -=(SkFixed15 o)
-  {
-    return (*this = *this - o);
-  }
+  { return (*this = *this - o); }
   SkFixed15& operator *=(SkFixed15 o)
-  {
-    return (*this = *this * o);
-  }
+  { return (*this = *this * o); }
   SkFixed15& operator<<=(int bits)
-  {
-    return (*this = *this << bits);
-  }
+  { return (*this = *this << bits); }
   SkFixed15& operator>>=(int bits)
-  {
-    return (*this = *this >> bits);
-  }
+  { return (*this = *this >> bits); }
   bool operator==(SkFixed15 o) const
-  {
-    return fVal == o.fVal;
-  }
+  { return fVal == o.fVal; }
   bool operator!=(SkFixed15 o) const
-  {
-    return fVal != o.fVal;
-  }
+  { return fVal != o.fVal; }
   bool operator<=(SkFixed15 o) const
-  {
-    return fVal <= o.fVal;
-  }
+  { return fVal <= o.fVal; }
   bool operator>=(SkFixed15 o) const
-  {
-    return fVal >= o.fVal;
-  }
+  { return fVal >= o.fVal; }
   bool operator<(SkFixed15 o) const
-  {
-    return fVal < o.fVal;
-  }
+  { return fVal <  o.fVal; }
   bool operator>(SkFixed15 o) const
-  {
-    return fVal > o.fVal;
-  }
+  { return fVal >  o.fVal; }
 private:
   SkFixed15(int val)
-    : fVal(val)
-  {
-  }
+    :  fVal(val) 
+    {
+    }
   uint16_t fVal;
 };
 // Notes

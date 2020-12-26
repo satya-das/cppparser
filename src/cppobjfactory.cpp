@@ -46,10 +46,10 @@ CppCompound* CppObjFactory::CreateCompound(CppCompoundType type) const
 CppConstructor* CppObjFactory::CreateConstructor(CppAccessType   accessType,
                                                  std::string     name,
                                                  CppParamVector* params,
-                                                 CppMemInitList* memInitList,
+                                                 CppMemInits     memInits,
                                                  unsigned int    attr) const
 {
-  return new CppConstructor(accessType, std::move(name), params, memInitList, attr);
+  return new CppConstructor(accessType, std::move(name), params, memInits, attr);
 }
 
 CppDestructor* CppObjFactory::CreateDestructor(CppAccessType accessType, std::string name, unsigned int attr) const

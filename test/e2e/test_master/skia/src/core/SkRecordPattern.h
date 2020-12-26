@@ -19,24 +19,22 @@ namespace SkRecords
   {
   public:
     Is()
-      : fPtr(nullptr)
-    {
-    }
+      :  fPtr(nullptr) 
+      {
+      }
     typedef T type;
     type* get()
-    {
-      return fPtr;
-    }
+    { return fPtr; }
     bool operator()(T* ptr)
     {
-      fPtr = ptr;
-      return true;
+        fPtr = ptr;
+        return true;
     }
     template <typename U>
     bool operator()(U*)
     {
-      fPtr = nullptr;
-      return false;
+        fPtr = nullptr;
+        return false;
     }
   private:
     type* fPtr;
@@ -46,44 +44,38 @@ namespace SkRecords
   {
   public:
     IsDraw()
-      : fPaint(nullptr)
-    {
-    }
+      :  fPaint(nullptr) 
+      {
+      }
     typedef SkPaint type;
     type* get()
-    {
-      return fPaint;
-    }
+    { return fPaint; }
     template <typename T>
     SK_WHEN((T::kTags & kDrawWithPaint_Tag) == kDrawWithPaint_Tag, bool) operator()(T* draw)
     {
-      fPaint = AsPtr(draw->paint);
-      return true;
+        fPaint = AsPtr(draw->paint);
+        return true;
     }
     template <typename T>
     SK_WHEN((T::kTags & kDrawWithPaint_Tag) == kDraw_Tag, bool) operator()(T* draw)
     {
-      fPaint = nullptr;
-      return true;
+        fPaint = nullptr;
+        return true;
     }
     template <typename T>
     SK_WHEN(!(T::kTags & kDraw_Tag), bool) operator()(T* draw)
     {
-      fPaint = nullptr;
-      return false;
+        fPaint = nullptr;
+        return false;
     }
   private:
     // Abstracts away whether the paint is always part of the command or optional.
     template <typename T>
     static T* AsPtr(SkRecords::Optional<T>& x)
-    {
-      return x;
-    }
+    { return x; }
     template <typename T>
     static T* AsPtr(T& x)
-    {
-      return &x;
-    }
+    { return &x; }
     type* fPaint;
   };
 // Matches if Matcher doesn't.  Stores nothing.
@@ -92,9 +84,7 @@ namespace SkRecords
   {
     template <typename T>
     bool operator()(T* ptr)
-    {
-      return !Matcher()(ptr);
-    }
+    { return !Matcher()(ptr); }
   };
 // Matches if any of First or Rest... does.  Stores nothing.
   template <typename First, typename... Rest>
@@ -102,18 +92,14 @@ namespace SkRecords
   {
     template <typename T>
     bool operator()(T* ptr)
-    {
-      return First()(ptr) || Or<Rest...>()(ptr);
-    }
+    { return First()(ptr) || Or<Rest...>()(ptr); }
   };
   template <typename First>
   struct Or<First>
   {
     template <typename T>
     bool operator()(T* ptr)
-    {
-      return First()(ptr);
-    }
+    { return First()(ptr); }
   };
 // Greedy is a special matcher that greedily matches Matcher 0 or more times.  Stores nothing.
   template <typename Matcher>
@@ -121,9 +107,7 @@ namespace SkRecords
   {
     template <typename T>
     bool operator()(T* ptr)
-    {
-      return Matcher()(ptr);
-    }
+    { return Matcher()(ptr); }
   };
 // Pattern matches each of its matchers in order.
 //
@@ -138,9 +122,7 @@ namespace SkRecords
   public:
     // Bottoms out recursion.  Just return whatever i the front decided on.
     int match(SkRecord*, int i)
-    {
-      return i;
-    }
+    { return i; }
   };
   template <typename First, typename... Rest>
   class Pattern<First, Rest...>
@@ -150,71 +132,57 @@ namespace SkRecords
     // return the index just past the end of the pattern, otherwise return 0.
     SK_ALWAYS_INLINE int match(SkRecord* record, int i)
     {
-      i = this->matchFirst(&fFirst, record, i);
-      return i > 0 ? fRest.match(record, i) : 0;
+        i = this->matchFirst(&fFirst, record, i);
+        return i > 0 ? fRest.match(record, i) : 0;
     }
     // Starting from *end, walk through the SkRecord to find the first span matching this pattern.
     // If there is no such span, return false.  If there is, return true and set [*begin, *end).
     SK_ALWAYS_INLINE bool search(SkRecord* record, int* begin, int* end)
     {
-      for (*begin = *end; *begin < record->count(); ++(*begin))
-      {
-        *end = this->match(record, *begin);
-        if (*end != 0)
-        {
-          return true;
+        for (*begin = *end; *begin < record->count(); ++(*begin)) {
+            *end = this->match(record, *begin);
+            if (*end != 0) {
+                return true;
+            }
         }
-      }
-      return false;
+        return false;
     }
     // TODO: some sort of smart get<i>()
     template <typename T>
     T* first()
-    {
-      return fFirst.get();
-    }
+    { return fFirst.get();   }
     template <typename T>
     T* second()
-    {
-      return fRest.template first<T>();
-    }
+    { return fRest.template first<T>();  }
     template <typename T>
     T* third()
-    {
-      return fRest.template second<T>();
-    }
+    { return fRest.template second<T>(); }
     template <typename T>
     T* fourth()
-    {
-      return fRest.template third<T>();
-    }
+    { return fRest.template third<T>();  }
   private:
     // If first isn't a Greedy, try to match at i once.
     template <typename T>
     int matchFirst(T* first, SkRecord* record, int i)
     {
-      if (i < record->count())
-      {
-        if (record->mutate(i, *first))
-        {
-          return i + 1;
+        if (i < record->count()) {
+            if (record->mutate(i, *first)) {
+                return i+1;
+            }
         }
-      }
-      return 0;
+        return 0;
     }
     // If first is a Greedy, walk i until it doesn't match.
     template <typename T>
     int matchFirst(Greedy<T>* first, SkRecord* record, int i)
     {
-      while (i < record->count())
-      {
-        if (!record->mutate(i, *first))
-        {
-          return i;
+        while (i < record->count()) {
+            if (!record->mutate(i, *first)) {
+                return i;
+            }
+            i++;
         }
-        i++;
-      }
-      return 0;
+        return 0;
     }
     First fFirst;
     Pattern<Rest...> fRest;

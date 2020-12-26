@@ -30,12 +30,11 @@ public:
     // default for dynamic class
   wxNotebook()
   {
-  }
+   }
     // the same arguments as for wxControl (@@@ any special styles?)
   wxNotebook(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxNotebookNameStr))
   {
-    Create(parent, id, pos, size, style, name);
-  }
+ Create( parent, id, pos, size, style, name );   }
     // Create() function
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxNotebookNameStr));
     // dtor

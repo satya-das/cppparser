@@ -19,14 +19,12 @@ public:
   {
   }
   VkDescriptorSet descriptorSet() const
-  {
-    return fDescSet;
-  }
+  { return fDescSet; }
 #  ifdef SK_TRACE_VK_RESOURCES
   void dumpInfo() const override
   {
-    SkDebugf("GrVkDescriptorSet: %d (%d refs)\n", fDescSet, this->getRefCnt());
-  }
+        SkDebugf("GrVkDescriptorSet: %d (%d refs)\n", fDescSet, this->getRefCnt());
+    }
 #  endif
 private:
   void freeGPUData(GrVkGpu* gpu) const override;

@@ -99,19 +99,15 @@ public:
      *  DEPRECATED - Remove once cropping is handled by a separate filter
      */
   bool cropRectIsSet() const
-  {
-    return fCropRect.flags() != 0x0;
-  }
+  { return fCropRect.flags() != 0x0; }
     // DEPRECATED - Remove once cropping is handled by a separate filter
   CropRect getCropRect() const
-  {
-    return fCropRect;
-  }
+  { return fCropRect; }
     // Expose isolated node bounds behavior for SampleImageFilterDAG and debugging
   SkIRect filterNodeBounds(const SkIRect& srcRect, const SkMatrix& ctm, MapDirection dir, const SkIRect* inputRect) const
   {
-    return this->onFilterNodeBounds(srcRect, ctm, dir, inputRect);
-  }
+        return this->onFilterNodeBounds(srcRect, ctm, dir, inputRect);
+    }
     /**
      *  ImageFilters can natively handle scaling and translate components in the CTM. Only some of
      *  them can handle affine (or more complex) matrices. This call returns true iff the filter
@@ -136,9 +132,7 @@ public:
      */
   sk_sp<SkImageFilter> applyCTM(const SkMatrix& ctm, SkMatrix* remainder) const;
   uint32_t uniqueID() const
-  {
-    return fUniqueID;
-  }
+  { return fUniqueID; }
 protected:
   class Common
   {
@@ -153,21 +147,13 @@ protected:
          */
     bool unflatten(SkReadBuffer&, int expectedInputs);
     const CropRect& cropRect() const
-    {
-      return fCropRect;
-    }
+    { return fCropRect; }
     int inputCount() const
-    {
-      return fInputs.count();
-    }
+    { return fInputs.count(); }
     sk_sp<SkImageFilter>* inputs()
-    {
-      return fInputs.begin();
-    }
+    { return fInputs.begin(); }
     sk_sp<SkImageFilter> getInput(int index)
-    {
-      return fInputs[index];
-    }
+    { return fInputs[index]; }
   private:
     CropRect fCropRect;
         // most filters accept at most 2 input-filters
@@ -191,8 +177,8 @@ protected:
     // DEPRECRATED - Call the Context-only getInputFilteredImage()
   sk_sp<SkSpecialImage> filterInput(int index, const Context& ctx, SkIPoint* offset) const
   {
-    return this->getInputFilteredImage(index, ctx).imageAndOffset(offset);
-  }
+        return this->getInputFilteredImage(index, ctx).imageAndOffset(offset);
+    }
     // Helper function to visit each of this filter's child filters and call their
     // onGetInputLayerBounds with the provided 'desiredOutput' and 'contentBounds'. Automatically
     // handles null input filters. Returns the union of all of the children's input bounds.
@@ -210,23 +196,23 @@ protected:
     // produce a better result than nothing and is necessary for the clipped out case.
   skif::FilterResult<For::kInput> getInputFilteredImage(int index, const skif::Context& context) const
   {
-    return this->filterInput<For::kInput>(index, context);
-  }
+        return this->filterInput<For::kInput>(index, context);
+    }
     // Convenience that calls filterInput with index = 0 and the most specific usage.
   skif::FilterResult<For::kInput0> getInputFilteredImage0(const skif::Context& context) const
   {
-    return this->filterInput<For::kInput0>(0, context);
-  }
+        return this->filterInput<For::kInput0>(0, context);
+    }
     // Convenience that calls filterInput with index = 1 and the most specific usage.
   skif::FilterResult<For::kInput1> getInputFilteredImage1(const skif::Context& context) const
   {
-    return this->filterInput<For::kInput1>(1, context);
-  }
+        return this->filterInput<For::kInput1>(1, context);
+    }
     // DEPRECATED - Remove once cropping is handled by a separate filter
   const CropRect* getCropRectIfSet() const
   {
-    return this->cropRectIsSet() ? &fCropRect : nullptr;
-  }
+        return this->cropRectIsSet() ? &fCropRect : nullptr;
+    }
     /** Given a "srcBounds" rect, computes destination bounds for this filter.
      *  "dstBounds" are computed by transforming the crop rect by the context's
      *  CTM, applying it to the initial bounds, and intersecting the result with
@@ -293,27 +279,21 @@ private:
      *  w/o CropRect constraints.
      */
   virtual bool onIsColorFilterNode(SkColorFilter**) const
-  {
-    return false;
-  }
+  { return false; }
     /**
      *  Return true if this filter can map from its parameter space to a layer space described by an
      *  arbitrary transformation matrix. If this returns false, the filter only needs to worry about
      *  mapping from parameter to layer using a scale+translate matrix.
      */
   virtual bool onCanHandleComplexCTM() const
-  {
-    return false;
-  }
+  { return false; }
     /**
      *  Return true if this filter would transform transparent black pixels to a color other than
      *  transparent black. When false, optimizations can be taken to discard regions known to be
      *  transparent black and thus process fewer pixels.
      */
   virtual bool affectsTransparentBlack() const
-  {
-    return false;
-  }
+  { return false; }
     /**
      *  This is the virtual which should be overridden by the derived class to perform image
      *  filtering. Subclasses are responsible for recursing to their input filters, although the
@@ -380,15 +360,15 @@ private:
 };
 static SkImageFilter_Base* as_IFB(SkImageFilter* filter)
 {
-  return static_cast<SkImageFilter_Base*>(filter);
+    return static_cast<SkImageFilter_Base*>(filter);
 }
 static SkImageFilter_Base* as_IFB(const sk_sp<SkImageFilter>& filter)
 {
-  return static_cast<SkImageFilter_Base*>(filter.get());
+    return static_cast<SkImageFilter_Base*>(filter.get());
 }
 static const SkImageFilter_Base* as_IFB(const SkImageFilter* filter)
 {
-  return static_cast<const SkImageFilter_Base*>(filter);
+    return static_cast<const SkImageFilter_Base*>(filter);
 }
 /**
  *  Helper to unflatten the common data, and return nullptr if we fail.

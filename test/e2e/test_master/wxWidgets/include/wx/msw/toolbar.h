@@ -18,13 +18,14 @@ public:
     // ctors and dtor
   wxToolBar()
   {
-    Init();
-  }
+ Init();   }
   wxToolBar(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTB_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxToolBarNameStr))
   {
-    Init();
-    Create(parent, id, pos, size, style, name);
-  }
+
+        Init();
+
+        Create(parent, id, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTB_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxToolBarNameStr));
   virtual ~wxToolBar();
     // override/implement base class virtuals
@@ -126,8 +127,8 @@ private:
     // text is shown for the other buttons is too inconsistent to be useful.
   bool AreControlLabelsShown() const
   {
-    return HasFlag(wxTB_TEXT) && !HasFlag(wxTB_NOICONS);
-  }
+        return HasFlag(wxTB_TEXT) && !HasFlag(wxTB_NOICONS);
+    }
     // Return the size required to accommodate the given tool which must be of
     // "control" type.
   wxSize MSWGetFittingtSizeForControl(class wxToolBarTool* tool) const;

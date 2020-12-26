@@ -100,24 +100,24 @@ public:
 };
 inline bool AcGeMatrix2d::operator ==(const AcGeMatrix2d& otherMatrix) const
 {
-  return this->isEqualTo(otherMatrix);
+    return this->isEqualTo(otherMatrix);
 }
 // This operator is the logical negation of the `==' operator.
 //
 inline bool AcGeMatrix2d::operator !=(const AcGeMatrix2d& otherMatrix) const
 {
-  return !this->isEqualTo(otherMatrix);
+    return !this->isEqualTo(otherMatrix);
 }
 // Return a reference to the element in position [row][column]
 // of the `entry' array.
 //
 inline double AcGeMatrix2d::operator ()(unsigned int row, unsigned int column) const
 {
-  return entry[row][column];
+    return entry[row][column];
 }
 inline double& AcGeMatrix2d::operator ()(unsigned int row, unsigned int column)
 {
-  return entry[row][column];
+    return entry[row][column];
 }
 #  pragma  pack (pop)
 #endif

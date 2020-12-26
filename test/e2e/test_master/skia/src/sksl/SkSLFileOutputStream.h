@@ -16,58 +16,53 @@ namespace SkSL
   public:
     FileOutputStream(const char* name)
     {
-      fFile = fopen(name, "wb");
-    }
+
+        fFile = fopen(name, "wb");
+        }
     virtual ~FileOutputStream()
     {
-      SkASSERT(!fOpen);
-    }
+
+        SkASSERT(!fOpen);
+        }
     bool isValid() const override
     {
-      return nullptr != fFile;
+        return nullptr != fFile;
     }
     void write8(uint8_t b) override
     {
-      SkASSERT(fOpen);
-      if (isValid())
-      {
-        if (EOF == fputc(b, fFile))
-        {
-          fFile = nullptr;
+        SkASSERT(fOpen);
+        if (isValid()) {
+            if (EOF == fputc(b, fFile)) {
+                fFile = nullptr;
+            }
         }
-      }
     }
     void writeText(const char* s) override
     {
-      SkASSERT(fOpen);
-      if (isValid())
-      {
-        if (EOF == fputs(s, fFile))
-        {
-          fFile = nullptr;
+        SkASSERT(fOpen);
+        if (isValid()) {
+            if (EOF == fputs(s, fFile)) {
+                fFile = nullptr;
+            }
         }
-      }
     }
     void write(const void* s, size_t size) override
     {
-      if (isValid())
-      {
-        size_t written = fwrite(s, 1, size, fFile);
-        if (written != size)
-        {
-          fFile = nullptr;
+        if (isValid()) {
+            size_t written = fwrite(s, 1, size, fFile);
+            if (written != size) {
+                fFile = nullptr;
+            }
         }
-      }
     }
     bool close()
     {
-      fOpen = false;
-      if (isValid() && fclose(fFile))
-      {
-        fFile = nullptr;
-        return false;
-      }
-      return true;
+        fOpen = false;
+        if (isValid() && fclose(fFile)) {
+            fFile = nullptr;
+            return false;
+        }
+        return true;
     }
   private:
     bool fOpen = true;

@@ -41,16 +41,16 @@ public:
     // comparison
   bool operator==(const wxColour& colour) const
   {
-    return m_isInit == colour.m_isInit && m_red == colour.m_red && m_green == colour.m_green && m_blue == colour.m_blue && m_alpha == colour.m_alpha;
-  }
+        return m_isInit == colour.m_isInit
+            && m_red == colour.m_red
+            && m_green == colour.m_green
+            && m_blue == colour.m_blue
+            && m_alpha == colour.m_alpha;
+    }
   bool operator!=(const wxColour& colour) const
-  {
-    return !(*this == colour);
-  }
+  { return !(*this == colour); }
   WXCOLORREF GetPixel() const
-  {
-    return m_pixel;
-  }
+  { return m_pixel; }
   WXCOLORREF m_pixel;
 protected:
     // Helper function

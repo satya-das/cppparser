@@ -44,7 +44,7 @@ namespace PoDoFo
   public:
     virtual ~PdfInputStream()
     {
-    }
+     }
     /** Read data from the input stream
      *  
      *  \param pBuffer    the data will be stored into this buffer

@@ -23,21 +23,16 @@ class WXDLLIMPEXP_CORE wxFontPickerWidgetBase
 {
 public:
   wxFontPickerWidgetBase()
-    : m_selectedFont(*wxNORMAL_FONT)
-  {
-  }
+    :  m_selectedFont(*wxNORMAL_FONT) 
+    {
+     }
   virtual ~wxFontPickerWidgetBase()
   {
   }
   wxFont GetSelectedFont() const
-  {
-    return m_selectedFont;
-  }
+  { return m_selectedFont; }
   virtual void SetSelectedFont(const wxFont& f)
-  {
-    m_selectedFont = f;
-    UpdateFont();
-  }
+  { m_selectedFont = f; UpdateFont(); }
   virtual wxColour GetSelectedColour() const = 0;
   virtual void SetSelectedColour(const wxColour& colour) = 0;
 protected:
@@ -85,49 +80,41 @@ class WXDLLIMPEXP_CORE wxFontPickerCtrl : public wxPickerBase
 {
 public:
   wxFontPickerCtrl()
-    : m_nMinPointSize(wxFNTP_MINPOINT_SIZE)
-    , m_nMaxPointSize(wxFNTP_MAXPOINT_SIZE)
-  {
-  }
+    :  m_nMinPointSize(wxFNTP_MINPOINT_SIZE), m_nMaxPointSize(wxFNTP_MAXPOINT_SIZE)
+    
+    {
+
+        }
   virtual ~wxFontPickerCtrl()
   {
   }
   wxFontPickerCtrl(wxWindow* parent, wxWindowID id, const wxFont& initial = wxNullFont, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxFNTP_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxFontPickerCtrlNameStr))
-    : m_nMinPointSize(wxFNTP_MINPOINT_SIZE)
-    , m_nMaxPointSize(wxFNTP_MAXPOINT_SIZE)
-  {
-    Create(parent, id, initial, pos, size, style, validator, name);
-  }
+    :  m_nMinPointSize(wxFNTP_MINPOINT_SIZE), m_nMaxPointSize(wxFNTP_MAXPOINT_SIZE)
+    
+    {
+
+        Create(parent, id, initial, pos, size, style, validator, name);
+        }
   bool Create(wxWindow* parent, wxWindowID id, const wxFont& initial = wxNullFont, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxFNTP_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxFontPickerCtrlNameStr));
     // get the font chosen
   wxFont GetSelectedFont() const
-  {
-    return GetPickerWidget()->GetSelectedFont();
-  }
+  { return GetPickerWidget()->GetSelectedFont(); }
     // sets currently displayed font
   void SetSelectedFont(const wxFont& f);
     // returns the selected color
   wxColour GetSelectedColour() const
-  {
-    return GetPickerWidget()->GetSelectedColour();
-  }
+  { return GetPickerWidget()->GetSelectedColour(); }
     // sets the currently selected color
   void SetSelectedColour(const wxColour& colour)
-  {
-    GetPickerWidget()->SetSelectedColour(colour);
-  }
+  { GetPickerWidget()->SetSelectedColour(colour); }
     // set/get the min point size
   void SetMinPointSize(unsigned int min);
   unsigned int GetMinPointSize() const
-  {
-    return m_nMinPointSize;
-  }
+  { return m_nMinPointSize; }
     // set/get the max point size
   void SetMaxPointSize(unsigned int max);
   unsigned int GetMaxPointSize() const
-  {
-    return m_nMaxPointSize;
-  }
+  { return m_nMaxPointSize; }
   void UpdatePickerFromTextCtrl() override;
   void UpdateTextCtrlFromPicker() override;
     // event handler for our picker
@@ -147,9 +134,7 @@ protected:
   unsigned int m_nMaxPointSize;
 private:
   wxFontPickerWidget* GetPickerWidget() const
-  {
-    return static_cast<wxFontPickerWidget*>(m_picker);
-  }
+  { return static_cast<wxFontPickerWidget*>(m_picker); }
   wxDECLARE_DYNAMIC_CLASS(wxFontPickerCtrl);
 };
 // ----------------------------------------------------------------------------
@@ -163,19 +148,17 @@ public:
   {
   }
   wxFontPickerEvent(wxObject* generator, int id, const wxFont& f)
-    : wxCommandEvent(wxEVT_FONTPICKER_CHANGED, id)
-    , m_font(f)
-  {
-    SetEventObject(generator);
-  }
+    :  wxCommandEvent(wxEVT_FONTPICKER_CHANGED, id),
+          m_font(f)
+    
+    {
+
+        SetEventObject(generator);
+        }
   wxFont GetFont() const
-  {
-    return m_font;
-  }
+  { return m_font; }
   void SetFont(const wxFont& c)
-  {
-    m_font = c;
-  }
+  { m_font = c; }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
   {

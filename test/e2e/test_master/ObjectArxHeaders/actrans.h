@@ -26,8 +26,8 @@ public:
 };
 inline AcTransactionManager* acTransactionManagerPtr()
 {
-  AcApDocument* pDoc = acDocManager->curDocument();
-  return pDoc ? pDoc->transactionManager() : NULL;
+    AcApDocument* pDoc = acDocManager->curDocument();
+    return pDoc ? pDoc->transactionManager() : NULL;
 }
 #  define actrTransactionManager	acTransactionManagerPtr()
 #  pragma  pack (pop)

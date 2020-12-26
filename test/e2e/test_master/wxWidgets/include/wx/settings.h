@@ -169,7 +169,7 @@ private:
     // are only supposed to be created by wxSystemSettingsNative.
   wxSystemAppearance()
   {
-  }
+   }
     // Currently this class doesn't have any internal state because the only
     // available implementation doesn't need it. If we do need it later, we
     // could add some "wxSystemAppearanceImpl* const m_impl" here, which we'd

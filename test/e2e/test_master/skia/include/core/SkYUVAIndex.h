@@ -18,12 +18,12 @@ struct SK_API SkYUVAIndex
 {
   bool operator==(const SkYUVAIndex& that) const
   {
-    return this->fIndex == that.fIndex && this->fChannel == that.fChannel;
-  }
+        return this->fIndex == that.fIndex && this->fChannel == that.fChannel;
+    }
   bool operator!=(const SkYUVAIndex& that) const
   {
-    return !(*this == that);
-  }
+        return !(*this == that);
+    }
     // Index in the array of SkYUVAIndex
     // TODO: rename as Component
   enum Index {
@@ -47,41 +47,31 @@ struct SK_API SkYUVAIndex
         // Note that 'numPlanes' is always filled in even if the indices are not valid.
         // This means it can always be used to process the backing resources (but be careful
         // of empty intervening slots).
-    int maxSlotUsed = -1;
-    bool used[4] = {false, false, false, false};
-    bool valid = true;
-    for (int i = 0; i < 4; ++i)
-    {
-      if (yuvaIndices[i].fIndex < 0)
-      {
-        if (SkYUVAIndex::kA_Index != i)
-        {
-          valid = false;
+        int maxSlotUsed = -1;
+        bool used[4] = { false, false, false, false };
+        bool valid = true;
+        for (int i = 0; i < 4; ++i) {
+            if (yuvaIndices[i].fIndex < 0) {
+                if (SkYUVAIndex::kA_Index != i) {
+                    valid = false; // only the 'A' plane can be omitted
+                }
+            } else if (yuvaIndices[i].fIndex > 3) {
+                valid = false; // A maximum of four input textures is allowed
+            } else {
+                maxSlotUsed = SkTMax(yuvaIndices[i].fIndex, maxSlotUsed);
+                used[i] = true;
+            }
         }
-      }
-      else 
-      {
-        if (yuvaIndices[i].fIndex > 3)
-        {
-          valid = false;
-        }
-        else 
-        {
-          maxSlotUsed = SkTMax(yuvaIndices[i].fIndex, maxSlotUsed);
-          used[i] = true;
-        }
-      }
-    }
+
         // All the used slots should be packed starting at 0 with no gaps
-    for (int i = 0; i <= maxSlotUsed; ++i)
-    {
-      if (!used[i])
-      {
-        valid = false;
-      }
+        for (int i = 0; i <= maxSlotUsed; ++i) {
+            if (!used[i]) {
+                valid = false;
+            }
+        }
+
+        *numPlanes = maxSlotUsed + 1;
+        return valid;
     }
-    *numPlanes = maxSlotUsed + 1;
-    return valid;
-  }
 };
 #endif

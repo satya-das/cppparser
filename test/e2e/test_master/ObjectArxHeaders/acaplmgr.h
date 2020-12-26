@@ -59,14 +59,14 @@ public:
 // This method is deprecated and will be removed. Please use getActiveTab() instead
 inline const ACHAR* AcApLayoutManager::findActiveTab()
 {
-  static AcString sCachedName;
-  this->getActiveTab(sCachedName);
-  return sCachedName.constPtr();
+    static AcString sCachedName;
+    this->getActiveTab(sCachedName);
+    return sCachedName.constPtr();
 }
 // This method is deprecated and will be removed. Please use generateNextNewLayoutName() instead
 inline ACHAR* AcApLayoutManager::getNextNewLayoutName(AcDbDatabase* useDb)
 {
-  AcString sName;
-  return ::acutAcStringToAChar(sName, this->generateNextNewLayoutName(sName, useDb));
+    AcString sName;
+    return ::acutAcStringToAChar(sName, this->generateNextNewLayoutName(sName, useDb));
 }
 #endif

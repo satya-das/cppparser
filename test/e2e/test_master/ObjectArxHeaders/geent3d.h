@@ -62,19 +62,19 @@ protected:
 };
 inline AcGeEntity2d* AcGeEntity3d::newEntity2d(AcGeImpEntity3d* impEnt) const
 {
-  return GENEWLOC(AcGeEntity2d, this)(impEnt);
+    return GENEWLOC( AcGeEntity2d, this) ( impEnt );
 }
 inline AcGeEntity3d* AcGeEntity3d::newEntity3d(AcGeImpEntity3d* impEnt) const
 {
-  return GENEWLOC(AcGeEntity3d, this)(impEnt);
+    return GENEWLOC( AcGeEntity3d, this) ( impEnt );
 }
 inline AcGeEntity3d* AcGeEntity3d::newEntity3d(AcGeImpEntity3d& impEnt, int dummy) const
 {
-  return GENEWLOC(AcGeEntity3d, this)(impEnt, dummy);
+    return GENEWLOC( AcGeEntity3d, this)(impEnt, dummy);
 }
 inline AcGeEntity2d* AcGeEntity3d::newEntity2d(AcGeImpEntity3d& impEnt, int dummy) const
 {
-  return GENEWLOC(AcGeEntity2d, this)(impEnt, dummy);
+    return GENEWLOC( AcGeEntity2d, this)(impEnt, dummy);
 }
 #  pragma  pack (pop)
 #endif

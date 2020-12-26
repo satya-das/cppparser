@@ -51,17 +51,15 @@ public:
      */
   void flush()
   {
-    if (fHasLengthAndPosition)
-    {
-      if (fTrulyBuffered < fBytesBuffered)
-      {
-        fStream->move(fBytesBuffered - fTrulyBuffered);
-      }
-      fTrulyBuffered = 0;
+        if (fHasLengthAndPosition) {
+            if (fTrulyBuffered < fBytesBuffered) {
+                fStream->move(fBytesBuffered - fTrulyBuffered);
+            }
+            fTrulyBuffered = 0;
+        }
+        fPosition += fBytesBuffered;
+        fBytesBuffered = 0;
     }
-    fPosition += fBytesBuffered;
-    fBytesBuffered = 0;
-  }
     /**
      *  Mark the current position in the stream to return to it later.
      *

@@ -76,70 +76,73 @@ public:
 // Creates a point at the origin.
 //
 inline AcGePoint2d::AcGePoint2d()
-  : x(0.0)
-  , y(0.0)
-{
-}
+  :  x(0.0), y(0.0)
+
+  {
+
+  }
 inline AcGePoint2d::AcGePoint2d(const AcGePoint2d& src)
-  : x(src.x)
-  , y(src.y)
-{
-}
+  :  x(src.x), y(src.y)
+
+  {
+
+  }
 // Creates a point intialized to ( xx, yy ).
 //
 inline AcGePoint2d::AcGePoint2d(double xx, double yy)
-  : x(xx)
-  , y(yy)
-{
-}
+  :  x(xx), y(yy)
+
+  {
+
+  }
 inline bool AcGePoint2d::operator ==(const AcGePoint2d& p) const
 {
-  return this->isEqualTo(p);
+    return this->isEqualTo(p);
 }
 // This operator is the logical negation of the `==' operator.
 //
 inline bool AcGePoint2d::operator !=(const AcGePoint2d& p) const
 {
-  return !this->isEqualTo(p);
+    return !this->isEqualTo(p);
 }
 // Returns a point such that each of the coordinates of this point
 // have been multiplied by val.
 //
 inline AcGePoint2d AcGePoint2d::operator *(double val) const
 {
-  return AcGePoint2d(x * val, y * val);
+    return AcGePoint2d(x*val, y*val);
 }
 // Returns a point such that each of the coordinates of this point
 // have been multiplied by val.
 //
 inline AcGePoint2d operator *(double val, const AcGePoint2d& p)
 {
-  return AcGePoint2d(p.x * val, p.y * val);
+    return AcGePoint2d(p.x*val, p.y*val);
 }
 // This is equivalent to the statement `p = p * val;'
 // Each coordinate of this point is multiplied by val.
 //
 inline AcGePoint2d& AcGePoint2d::operator *=(double val)
 {
-  x *= val;
-  y *= val;
-  return *this;
+    x *= val;
+    y *= val;
+    return *this;
 }
 // Returns a point such that each of the coordinates of this point
 // have been divided by val.
 //
 inline AcGePoint2d AcGePoint2d::operator /(double val) const
 {
-  return AcGePoint2d(x / val, y / val);
+    return AcGePoint2d (x/val, y/val);
 }
 // This is equivalent to the statement `p = p / val;'
 // Each coordinate of this point is divided by val.
 //
 inline AcGePoint2d& AcGePoint2d::operator /=(double val)
 {
-  x /= val;
-  y /= val;
-  return *this;
+    x /= val;
+    y /= val;
+    return *this;
 }
 // Returns a point that is equivalent to the result of translating
 // this point by the vector `v'.  (It yields the same result as if
@@ -148,29 +151,29 @@ inline AcGePoint2d& AcGePoint2d::operator /=(double val)
 //
 inline AcGePoint2d AcGePoint2d::operator +(const AcGeVector2d& v) const
 {
-  return AcGePoint2d(x + v.x, y + v.y);
+    return AcGePoint2d(x + v.x, y + v.y);
 }
 // This is equivalent to the statement `p = p + v;'
 //
 inline AcGePoint2d& AcGePoint2d::operator +=(const AcGeVector2d& v)
 {
-  x += v.x;
-  y += v.y;
-  return *this;
+    x += v.x;
+    y += v.y;
+    return *this;
 }
 // This is equivalent to the statement `p + (-v);'
 //
 inline AcGePoint2d AcGePoint2d::operator -(const AcGeVector2d& v) const
 {
-  return AcGePoint2d(x - v.x, y - v.y);
+    return AcGePoint2d(x - v.x, y - v.y);
 }
 // This is equivalent to the statement `p = p - v;'
 //
 inline AcGePoint2d& AcGePoint2d::operator -=(const AcGeVector2d& v)
 {
-  x -= v.x;
-  y -= v.y;
-  return *this;
+    x -= v.x;
+    y -= v.y;
+    return *this;
 }
 // This operator returns a vector such that if `v = p1 - p0',
 // then, `v' is equivalent to the translation that takes
@@ -178,7 +181,7 @@ inline AcGePoint2d& AcGePoint2d::operator -=(const AcGeVector2d& v)
 //
 inline AcGeVector2d AcGePoint2d::operator -(const AcGePoint2d& p) const
 {
-  return AcGeVector2d(x - p.x, y - p.y);
+    return AcGeVector2d(x - p.x, y - p.y);
 }
 // This operator returns the vector that would have resulted
 // from the operation `p1 - AcGePoint2d::kOrigin', which is
@@ -186,26 +189,26 @@ inline AcGeVector2d AcGePoint2d::operator -(const AcGePoint2d& p) const
 //
 inline AcGeVector2d AcGePoint2d::asVector() const
 {
-  return AcGeVector2d(x, y);
+    return AcGeVector2d(x, y);
 }
 // Sets the point to ( xx, yy ).
 //
 inline AcGePoint2d& AcGePoint2d::set(double xx, double yy)
 {
-  x = xx;
-  y = yy;
-  return *this;
+    x = xx;
+    y = yy;
+    return *this;
 }
 //     Indexes the point as if it were an array.  `x' is index `0',
 //     `y' is index `1'.
 //
 inline double AcGePoint2d::operator [](unsigned int i) const
 {
-  return *(&x + i);
+    return *(&x+i);
 }
 inline double& AcGePoint2d::operator [](unsigned int i)
 {
-  return *(&x + i);
+    return *(&x+i);
 }
 #  define ADSK_ACGEPOINT2D_DEFINED
 #  include "acarrayhelper.h"

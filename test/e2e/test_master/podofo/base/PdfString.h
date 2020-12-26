@@ -305,9 +305,7 @@ namespace PoDoFo
      *  \returns true if strings have different contents
      */
     bool operator!=(const PdfString& rhs) const
-    {
-      return !operator==(rhs);
-    }
+    { return !operator==(rhs); }
 #  ifdef PODOFO_PUBLIC_STRING_HEX_CODEC
     /** Converts this string to a hex-encoded string.
      *  
@@ -410,78 +408,81 @@ namespace PoDoFo
   bool PdfString::IsValid() const
   {
     return (m_buffer.GetBuffer() != NULL);
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfString::IsHex() const
   {
     return m_bHex;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfString::IsUnicode() const
   {
     return m_bUnicode;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const char* PdfString::GetString() const
   {
     return m_buffer.GetBuffer();
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const pdf_utf16be* PdfString::GetUnicode() const
   {
     return reinterpret_cast<pdf_utf16be*>(m_buffer.GetBuffer());
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const std::string& PdfString::GetStringUtf8() const
   {
-    if (this->IsValid() && !m_sUtf8.length() && m_buffer.GetSize() - 2)
-    {
-      const_cast<PdfString*>(this)->InitUtf8();
-    }
+    if( this->IsValid() && !m_sUtf8.length() && m_buffer.GetSize() - 2) 
+        const_cast<PdfString*>(this)->InitUtf8();
+
     return m_sUtf8;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   pdf_long PdfString::GetLength() const
   {
-    if (!IsValid())
+    if ( !IsValid() )
     {
-      PdfError::LogMessage(eLogSeverity_Error, "PdfString::GetLength invalid PdfString");
-      return 0;
+        PdfError::LogMessage( eLogSeverity_Error, "PdfString::GetLength invalid PdfString" );
+        return 0;
     }
-    PODOFO_ASSERT(m_buffer.GetSize() >= 2);
+    
+    PODOFO_ASSERT( m_buffer.GetSize() >= 2 );
+    
     return m_buffer.GetSize() - 2;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   pdf_long PdfString::GetCharacterLength() const
   {
     return this->IsUnicode() ? this->GetUnicodeLength() : this->GetLength();
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   pdf_long PdfString::GetUnicodeLength() const
   {
-    if (!IsValid())
+    if ( !IsValid() )
     {
-      PdfError::LogMessage(eLogSeverity_Error, "PdfString::GetUnicodeLength invalid PdfString");
-      return 0;
+        PdfError::LogMessage( eLogSeverity_Error, "PdfString::GetUnicodeLength invalid PdfString" );
+        return 0;
     }
-    PODOFO_ASSERT((m_buffer.GetSize() / sizeof(pdf_utf16be)) >= 1);
+    
+    PODOFO_ASSERT( (m_buffer.GetSize() / sizeof(pdf_utf16be)) >= 1 );
+    
     return (m_buffer.GetSize() / sizeof(pdf_utf16be)) - 1;
-  }
+}
 }
 #endif

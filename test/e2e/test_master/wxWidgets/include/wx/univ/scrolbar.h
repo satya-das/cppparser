@@ -91,9 +91,7 @@ public:
   wxScrollArrows::Arrow HitTestArrow(const wxPoint& pt) const override;
     // for wxControlRenderer::DrawScrollbar() only
   const wxScrollArrows& GetArrows() const
-  {
-    return m_arrows;
-  }
+  { return m_arrows; }
     // returns one of wxHT_SCROLLBAR_XXX constants
   wxHitTest HitTestBar(const wxPoint& pt) const;
     // idle processing
@@ -170,22 +168,16 @@ protected:
     // return true if the mouse button can be used to activate scrollbar, false
     // if not (any button under GTK+ unlike left button only which is default)
   virtual bool IsAllowedButton(int button) const
-  {
-    return button == wxMOUSE_BTN_LEFT;
-  }
+  { return button == wxMOUSE_BTN_LEFT; }
     // set or clear the specified flag on the scrollbar element corresponding
     // to m_htLast
   void SetElementState(wxScrollBar* scrollbar, int flag, bool doIt);
     // [un]highlight the scrollbar element corresponding to m_htLast
   virtual void Highlight(wxScrollBar* scrollbar, bool doIt)
-  {
-    SetElementState(scrollbar, wxCONTROL_CURRENT, doIt);
-  }
+  { SetElementState(scrollbar, wxCONTROL_CURRENT, doIt); }
     // [un]press the scrollbar element corresponding to m_htLast
   virtual void Press(wxScrollBar* scrollbar, bool doIt)
-  {
-    SetElementState(scrollbar, wxCONTROL_PRESSED, doIt);
-  }
+  { SetElementState(scrollbar, wxCONTROL_PRESSED, doIt); }
     // stop scrolling because we reached the end point
   void StopScrolling(wxScrollBar* scrollbar);
     // get the mouse coordinates in the scrollbar direction from the event

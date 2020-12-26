@@ -17,14 +17,12 @@ class GrColorSpaceXform : public SkRefCnt
 {
 public:
   GrColorSpaceXform(const SkColorSpaceXformSteps& steps)
-    : fSteps(steps)
-  {
-  }
+    :  fSteps(steps) 
+    {
+    }
   static sk_sp<GrColorSpaceXform> Make(SkColorSpace* src, SkAlphaType srcAT, SkColorSpace* dst, SkAlphaType dstAT);
   const SkColorSpaceXformSteps& steps() const
-  {
-    return fSteps;
-  }
+  { return fSteps; }
     /**
      * GrGLSLFragmentProcessor::GenKey() must call this and include the returned value in its
      * computed key.
@@ -32,8 +30,8 @@ public:
   static uint32_t XformKey(const GrColorSpaceXform* xform)
   {
         // Code generation depends on which steps we apply
-    return xform ? xform->fSteps.flags.mask() : 0;
-  }
+        return xform ? xform->fSteps.flags.mask() : 0;
+    }
   static bool Equals(const GrColorSpaceXform* a, const GrColorSpaceXform* b);
   SkColor4f apply(const SkColor4f& srcColor);
 private:
@@ -58,14 +56,10 @@ public:
      */
   static std::unique_ptr<GrFragmentProcessor> Make(std::unique_ptr < GrFragmentProcessor > child, sk_sp < GrColorSpaceXform > colorXform);
   const char* name() const override
-  {
-    return "ColorSpaceXform";
-  }
+  { return "ColorSpaceXform"; }
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const GrColorSpaceXform* colorXform() const
-  {
-    return fColorXform.get();
-  }
+  { return fColorXform.get(); }
 private:
   GrColorSpaceXformEffect(std::unique_ptr<GrFragmentProcessor> child, sk_sp<GrColorSpaceXform> colorXform);
   static OptimizationFlags OptFlags(const GrFragmentProcessor* child);

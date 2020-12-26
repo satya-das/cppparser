@@ -18,13 +18,14 @@ public:
     // constructors
   wxRadioButton()
   {
-    Init();
-  }
+ Init();   }
   wxRadioButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioButtonNameStr))
   {
-    Init();
-    Create(parent, id, label, pos, size, style, validator, name);
-  }
+
+        Init();
+
+        Create(parent, id, label, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioButtonNameStr));
     // (re)implement pure virtuals from wxRadioButtonBase
   void SetValue(bool value) override

@@ -17,18 +17,18 @@ namespace SkSL
   struct Position
   {
     Position()
-      : fLine(-1)
-      , fColumn(-1)
-    {
-    }
+      :  fLine(-1)
+    , fColumn(-1) 
+      {
+      }
     Position(int line, int column)
-      : fLine(line)
-      , fColumn(column)
-    {
-    }
+      :  fLine(line)
+    , fColumn(column) 
+      {
+      }
     String description() const
     {
-      return to_string(fLine);
+        return to_string(fLine);
     }
     int fLine;
     int fColumn;

@@ -23,26 +23,20 @@ class WXDLLIMPEXP_CORE wxEnhMetaFile : public wxGDIObject
 {
 public:
   wxEnhMetaFile(const wxString& file = wxEmptyString)
-    : m_filename(file)
-  {
-    Init();
-  }
+    :  m_filename(file)
+        
+    {
+ Init();     }
   wxEnhMetaFile(const wxEnhMetaFile& metafile)
-    : wxGDIObject()
-  {
-    Init();
-    Assign(metafile);
-  }
+    :  wxGDIObject()
+        
+    {
+ Init(); Assign(metafile);     }
   wxEnhMetaFile& operator=(const wxEnhMetaFile& metafile)
-  {
-    Free();
-    Assign(metafile);
-    return *this;
-  }
+  { Free(); Assign(metafile); return *this; }
   virtual ~wxEnhMetaFile()
   {
-    Free();
-  }
+ Free();   }
     // display the picture stored in the metafile on the given DC
   bool Play(wxDC* dc, wxRect* rectBound = NULL);
     // accessors
@@ -52,17 +46,11 @@ public:
   }
   wxSize GetSize() const;
   int GetWidth() const
-  {
-    return GetSize().x;
-  }
+  { return GetSize().x; }
   int GetHeight() const
-  {
-    return GetSize().y;
-  }
+  { return GetSize().y; }
   const wxString& GetFileName() const
-  {
-    return m_filename;
-  }
+  { return m_filename; }
     // copy the metafile to the clipboard: the width and height parameters are
     // for backwards compatibility (with wxMetaFile) only, they are ignored by
     // this method
@@ -71,29 +59,18 @@ public:
     // in the dtor -- the caller is now responsible for doing this, e.g. using
     // Free() method below.
   WXHANDLE Detach()
-  {
-    WXHANDLE h = m_hMF;
-    m_hMF = NULL;
-    return h;
-  }
+  { WXHANDLE h = m_hMF; m_hMF = NULL; return h; }
     // Destroy the given HENHMETAFILE object.
   static void Free(WXHANDLE handle);
     // implementation
   WXHANDLE GetHENHMETAFILE() const
-  {
-    return m_hMF;
-  }
+  { return m_hMF; }
   void SetHENHMETAFILE(WXHANDLE hMF)
-  {
-    Free();
-    m_hMF = hMF;
-  }
+  { Free(); m_hMF = hMF; }
 protected:
   void Init();
   void Free()
-  {
-    Free(m_hMF);
-  }
+  { Free(m_hMF); }
   void Assign(const wxEnhMetaFile& mf);
     // we don't use these functions (but probably should) but have to implement
     // them as they're pure virtual in the base class
@@ -133,21 +110,17 @@ public:
     // ctors
   wxEnhMetaFileDataObject()
   {
-  }
+   }
   wxEnhMetaFileDataObject(const wxEnhMetaFile& metafile)
-    : m_metafile(metafile)
-  {
-  }
+    :  m_metafile(metafile) 
+    {
+     }
     // virtual functions which you may override if you want to provide data on
     // demand only - otherwise, the trivial default versions will be used
   virtual void SetMetafile(const wxEnhMetaFile& metafile)
-  {
-    m_metafile = metafile;
-  }
+  { m_metafile = metafile; }
   virtual wxEnhMetaFile GetMetafile() const
-  {
-    return m_metafile;
-  }
+  { return m_metafile; }
     // implement base class pure virtuals
   wxDataFormat GetPreferredFormat(Direction dir) const override;
   size_t GetFormatCount(Direction dir) const override;
@@ -170,24 +143,19 @@ class WXDLLIMPEXP_CORE wxEnhMetaFileSimpleDataObject : public wxDataObjectSimple
 public:
     // ctors
   wxEnhMetaFileSimpleDataObject()
-    : wxDataObjectSimple(wxDF_ENHMETAFILE)
-  {
-  }
+    :  wxDataObjectSimple(wxDF_ENHMETAFILE) 
+    {
+     }
   wxEnhMetaFileSimpleDataObject(const wxEnhMetaFile& metafile)
-    : wxDataObjectSimple(wxDF_ENHMETAFILE)
-    , m_metafile(metafile)
-  {
-  }
+    :  wxDataObjectSimple(wxDF_ENHMETAFILE), m_metafile(metafile) 
+    {
+     }
     // virtual functions which you may override if you want to provide data on
     // demand only - otherwise, the trivial default versions will be used
   virtual void SetEnhMetafile(const wxEnhMetaFile& metafile)
-  {
-    m_metafile = metafile;
-  }
+  { m_metafile = metafile; }
   virtual wxEnhMetaFile GetEnhMetafile() const
-  {
-    return m_metafile;
-  }
+  { return m_metafile; }
     // implement base class pure virtuals
   size_t GetDataSize() const override;
   bool GetDataHere(void* buf) const override;

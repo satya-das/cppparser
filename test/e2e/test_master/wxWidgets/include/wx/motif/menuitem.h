@@ -29,36 +29,22 @@ public:
     // menu sample.
     //     JJ
   virtual void SetBitmap(const wxBitmap& bitmap)
-  {
-    m_bitmap = bitmap;
-  }
+  { m_bitmap = bitmap; }
   virtual const wxBitmap& GetBitmap() const
-  {
-    return m_bitmap;
-  }
+  { return m_bitmap; }
     // implementation from now on
   void CreateItem(WXWidget menu, wxMenuBar* menuBar, wxMenu* topMenu, size_t index);
   void DestroyItem(bool full);
   WXWidget GetButtonWidget() const
-  {
-    return m_buttonWidget;
-  }
+  { return m_buttonWidget; }
   wxMenuBar* GetMenuBar() const
-  {
-    return m_menuBar;
-  }
+  { return m_menuBar; }
   void SetMenuBar(wxMenuBar* menuBar)
-  {
-    m_menuBar = menuBar;
-  }
+  { m_menuBar = menuBar; }
   wxMenu* GetTopMenu() const
-  {
-    return m_topMenu;
-  }
+  { return m_topMenu; }
   void SetTopMenu(wxMenu* menu)
-  {
-    m_topMenu = menu;
-  }
+  { m_topMenu = menu; }
 private:
   WXWidget m_buttonWidget;
   wxMenuBar* m_menuBar;

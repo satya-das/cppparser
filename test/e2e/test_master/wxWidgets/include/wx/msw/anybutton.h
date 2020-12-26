@@ -16,11 +16,12 @@ class WXDLLIMPEXP_CORE wxAnyButton : public wxAnyButtonBase
 public:
   wxAnyButton()
   {
-    m_imageData = NULL;
-#  if  wxUSE_MARKUP
-    m_markupText = NULL;
-#  endif
-  }
+
+        m_imageData = NULL;
+#if wxUSE_MARKUP
+        m_markupText = NULL;
+#endif // wxUSE_MARKUP
+      }
   virtual ~wxAnyButton();
     // overridden base class methods
   void SetLabel(const wxString& label) override;

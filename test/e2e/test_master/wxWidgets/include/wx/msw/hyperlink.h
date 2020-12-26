@@ -18,12 +18,13 @@ public:
     // Default constructor (for two-step construction).
   wxHyperlinkCtrl()
   {
-  }
+   }
     // Constructor.
   wxHyperlinkCtrl(wxWindow* parent, wxWindowID id, const wxString& label, const wxString& url, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHL_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxHyperlinkCtrlNameStr))
   {
-    (void) Create(parent, id, label, url, pos, size, style, name);
-  }
+
+        (void)Create(parent, id, label, url, pos, size, style, name);
+      }
     // Creation function (for two-step construction).
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxString& url, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHL_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxHyperlinkCtrlNameStr));
     // overridden base class methods

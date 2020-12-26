@@ -218,26 +218,26 @@ Acad::ErrorStatus acutNewString(const ACHAR* pInput, ACHAR*& pOutput);
 // Deprecated. Please use acedGetInput(AcString &sOut) instead
 inline int acedGetFullInput(ACHAR*& pStr)
 {
-  AcString sOut;
-  const int nRet = ::acedGetInput(sOut);
-  ::acutNewString(sOut.constPtr(), pStr);
-  return nRet;
+    AcString sOut;
+    const int nRet = ::acedGetInput(sOut);
+    ::acutNewString(sOut.constPtr(), pStr);
+    return nRet;
 }
 // Deprecated. Please use acedGetKword (const ACHAR *prompt, AcString & sResult) instead
 inline int acedGetFullKword(const ACHAR* pString, ACHAR*& pStr)
 {
-  AcString sOut;
-  const int nRet = ::acedGetKword(pString, sOut);
-  ::acutNewString(sOut.constPtr(), pStr);
-  return nRet;
+    AcString sOut;
+    const int nRet = ::acedGetKword(pString, sOut);
+    ::acutNewString(sOut.constPtr(), pStr);
+    return nRet;
 }
 // Deprecated. Please use acedGetString (int cronly, const ACHAR *prompt, AcString &sResult)
 inline int acedGetFullString(int cronly, const ACHAR* pString, ACHAR*& pResult)
 {
-  AcString sResult;
-  const int nRet = ::acedGetString(cronly, pString, sResult);
-  ::acutNewString(sResult.constPtr(), pResult);
-  return nRet;
+    AcString sResult;
+    const int nRet = ::acedGetString(cronly, pString, sResult);
+    ::acutNewString(sResult.constPtr(), pResult);
+    return nRet;
 }
 // C++ templates that allow callers to omit the buffer length argument if they're
 // passing in a fixed size character array
@@ -245,37 +245,38 @@ inline int acedGetFullString(int cronly, const ACHAR* pString, ACHAR*& pResult)
 template <size_t nBufLen>
 inline int acedGetEnv(const wchar_t* pszName, wchar_t (& buf)[nBufLen])
 {
-  return ::acedGetEnv(pszName, buf, nBufLen);
+    return ::acedGetEnv(pszName, buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acedGetInput(wchar_t (& buf)[nBufLen])
 {
-  return ::acedGetInput(buf, nBufLen);
+    return ::acedGetInput(buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acedGetString(int cronly, const wchar_t* prompt, wchar_t (& buf)[nBufLen])
 {
-  return ::acedGetString(cronly, prompt, buf, nBufLen);
+    return ::acedGetString(cronly, prompt, buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acedFindFile(const wchar_t* pszName, wchar_t (& buf)[nBufLen])
 {
-  return ::acedFindFile(pszName, buf, nBufLen);
+    return ::acedFindFile(pszName, buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acedFindTrustedFile(const wchar_t* pszName, wchar_t (& buf)[nBufLen])
 {
-  return ::acedFindTrustedFile(pszName, buf, nBufLen);
+    return ::acedFindTrustedFile(pszName, buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acedGetKword(const wchar_t* pszPrompt, wchar_t (& buf)[nBufLen])
 {
-  return ::acedGetKword(pszPrompt, buf, nBufLen);
+    return ::acedGetKword(pszPrompt, buf, nBufLen);
 }
 template <size_t nPreBufLen, size_t nNameBufLen, size_t nExtBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, wchar_t (& prebuf)[nPreBufLen], wchar_t (& namebuf)[nNameBufLen], wchar_t (& extbuf)[nExtBufLen])
 {
-  return ::acedFNSplit(pathToSplit, prebuf, nPreBufLen, namebuf, nNameBufLen, extbuf, nExtBufLen);
+    return ::acedFNSplit(pathToSplit, prebuf, nPreBufLen, namebuf, nNameBufLen,
+                         extbuf, nExtBufLen);
 }
 // Template overloads to handle legacy callers who pass only ptr args and no sizes.
 // NULL is usually defined as 0, so it will bind to the size_t args.
@@ -287,40 +288,40 @@ inline int acedFNSplit(const wchar_t* pathToSplit, wchar_t (& prebuf)[nPreBufLen
 template <size_t nNameBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, size_t nPre, wchar_t (& namebuf)[nNameBufLen], size_t nExt)
 {
-  return ::acedFNSplit(pathToSplit, nullptr, nPre, namebuf, nNameBufLen, nullptr, nExt);
+    return ::acedFNSplit(pathToSplit, nullptr, nPre, namebuf, nNameBufLen, nullptr, nExt);
 }
 // Invoked by acedFNSplit(path, NULL, NULL, extbuf);
 template <size_t nExtBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, size_t nPre, size_t nName, wchar_t (& extbuf)[nExtBufLen])
 {
-  return ::acedFNSplit(pathToSplit, nullptr, nPre, nullptr, nName, extbuf, nExtBufLen);
+    return ::acedFNSplit(pathToSplit, nullptr, nPre, nullptr, nName, extbuf, nExtBufLen);
 }
 // Invoked by acedFNSplit(path, NULL, namebuf, extbuf);
 template <size_t nNameBufLen, size_t nExtBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, size_t nPre, wchar_t (& namebuf)[nNameBufLen], wchar_t (& extbuf)[nExtBufLen])
 {
-  return ::acedFNSplit(pathToSplit, nullptr, nPre, namebuf, nNameBufLen, extbuf, nExtBufLen);
+    return ::acedFNSplit(pathToSplit, nullptr, nPre, namebuf, nNameBufLen, extbuf, nExtBufLen);
 }
 // Invoked by acedFNSplit(path, prebuf, NULL, NULL);
 template <size_t nPreBufLen>
 inline int acedFNSplit(const wchar_t* pathToSplit, wchar_t (& prebuf)[nPreBufLen], size_t nName, size_t nExt)
 {
-  return ::acedFNSplit(pathToSplit, prebuf, nPreBufLen, nullptr, nName, nullptr, nExt);
+    return ::acedFNSplit(pathToSplit, prebuf, nPreBufLen, nullptr, nName, nullptr, nExt);
 }
 template <size_t nBufLen>
 inline int acdbAngToS(ads_real v, int unit, int prec, wchar_t (& buf)[nBufLen])
 {
-  return ::acdbAngToS(v, unit, prec, buf, nBufLen);
+    return ::acdbAngToS(v, unit, prec, buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acdbRawAngToS(ads_real v, int unit, int prec, wchar_t (& buf)[nBufLen])
 {
-  return ::acdbRawAngToS(v, unit, prec, buf, nBufLen);
+    return ::acdbRawAngToS(v, unit, prec, buf, nBufLen);
 }
 template <size_t nBufLen>
 inline int acdbRToS(ads_real v, int unit, int prec, wchar_t (& buf)[nBufLen])
 {
-  return ::acdbRToS(v, unit, prec, buf, nBufLen);
+    return ::acdbRToS(v, unit, prec, buf, nBufLen);
 }
 #  endif
 #  pragma  pack (pop)

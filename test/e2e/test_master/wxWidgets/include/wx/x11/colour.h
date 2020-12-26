@@ -33,9 +33,7 @@ public:
   DEFINE_STD_WXCOLOUR_CONSTRUCTORS virtual ~wxColour();
   bool operator==(const wxColour& col) const;
   bool operator!=(const wxColour& col) const
-  {
-    return !(*this == col);
-  }
+  { return !(*this == col); }
   unsigned char Red() const;
   unsigned char Green() const;
   unsigned char Blue() const;

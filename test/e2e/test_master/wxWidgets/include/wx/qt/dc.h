@@ -62,9 +62,7 @@ public:
   }
 protected:
   virtual QPixmap* GetQPixmap()
-  {
-    return m_qtPixmap;
-  }
+  { return m_qtPixmap; }
   QPainter* m_qtPainter;
   QPixmap* m_qtPixmap;
   wxRegion m_clippingRegion;

@@ -105,9 +105,7 @@ public:
     /// whether this object is themed.
     /// </returns>
   bool IsThemed()
-  {
-    return m_bIsThemed;
-  }
+  { return m_bIsThemed; }
     /// <summary> 
     /// Set this object IsThemed flag.
     /// </summary>
@@ -115,9 +113,7 @@ public:
     /// If true, dark/light theme support for image resource.
     /// </param>
   void SetIsThemed(bool bIsThemed)
-  {
-    m_bIsThemed = bIsThemed;
-  }
+  { m_bIsThemed = bIsThemed; }
     /// <summary> 
     /// Set CAdUiTheme that is used as current theme. 
     /// </summary>
@@ -146,9 +142,7 @@ public:
     /// Gdiplus::Bitmap pointer.
     /// </returns>
   Gdiplus::Bitmap* GetBitmap() const
-  {
-    return m_pBitmap;
-  }
+  { return m_pBitmap; }
     /// <summary> 
     /// Set Gdiplus::Bitmap pointer.
     /// </summary>

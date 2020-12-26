@@ -180,8 +180,8 @@ public:
   static sk_sp<SkImage> DecodeToRaster(const void* encoded, size_t length, const SkIRect* subset = nullptr);
   static sk_sp<SkImage> DecodeToRaster(const sk_sp<SkData>& data, const SkIRect* subset = nullptr)
   {
-    return DecodeToRaster(data->data(), data->size(), subset);
-  }
+        return DecodeToRaster(data->data(), data->size(), subset);
+    }
     /**
      *  Decode the data in encoded/length into a texture-backed image.
      *
@@ -202,8 +202,8 @@ public:
   static sk_sp<SkImage> DecodeToTexture(GrContext* ctx, const void* encoded, size_t length, const SkIRect* subset = nullptr);
   static sk_sp<SkImage> DecodeToTexture(GrContext* ctx, const sk_sp<SkData>& data, const SkIRect* subset = nullptr)
   {
-    return DecodeToTexture(ctx, data->data(), data->size(), subset);
-  }
+        return DecodeToTexture(ctx, data->data(), data->size(), subset);
+    }
     // Experimental
   enum CompressionType {
         kETC1_CompressionType,
@@ -248,8 +248,9 @@ public:
     */
   static sk_sp<SkImage> MakeFromTexture(GrContext* context, const GrBackendTexture& backendTexture, GrSurfaceOrigin origin, SkColorType colorType, SkAlphaType alphaType, sk_sp<SkColorSpace> colorSpace)
   {
-    return MakeFromTexture(context, backendTexture, origin, colorType, alphaType, colorSpace, nullptr, nullptr);
-  }
+        return MakeFromTexture(context, backendTexture, origin, colorType, alphaType, colorSpace,
+                               nullptr, nullptr);
+    }
     /** Creates SkImage from GPU texture associated with context. GPU texture must stay
         valid and unchanged until textureReleaseProc is called. textureReleaseProc is
         passed releaseContext when SkImage is deleted or no longer refers to texture.
@@ -504,41 +505,31 @@ public:
         @return  image info of SkImage.
     */
   const SkImageInfo& imageInfo() const
-  {
-    return fInfo;
-  }
+  { return fInfo; }
     /** Returns pixel count in each row.
 
         @return  pixel width in SkImage
     */
   int width() const
-  {
-    return fInfo.width();
-  }
+  { return fInfo.width(); }
     /** Returns pixel row count.
 
         @return  pixel height in SkImage
     */
   int height() const
-  {
-    return fInfo.height();
-  }
+  { return fInfo.height(); }
     /** Returns SkISize { width(), height() }.
 
         @return  integral size of width() and height()
     */
   SkISize dimensions() const
-  {
-    return SkISize::Make(fInfo.width(), fInfo.height());
-  }
+  { return SkISize::Make(fInfo.width(), fInfo.height()); }
     /** Returns SkIRect { 0, 0, width(), height() }.
 
         @return  integral rectangle from origin to width() and height()
     */
   SkIRect bounds() const
-  {
-    return SkIRect::MakeWH(fInfo.width(), fInfo.height());
-  }
+  { return SkIRect::MakeWH(fInfo.width(), fInfo.height()); }
     /** Returns value unique to image. SkImage contents cannot change after SkImage is
         created. Any operation to create a new SkImage will receive generate a new
         unique number.
@@ -546,9 +537,7 @@ public:
         @return  unique identifier
     */
   uint32_t uniqueID() const
-  {
-    return fUniqueID;
-  }
+  { return fUniqueID; }
     /** Returns SkAlphaType, one of:
         kUnknown_SkAlphaType, kOpaque_SkAlphaType, kPremul_SkAlphaType,
         kUnpremul_SkAlphaType.
@@ -599,9 +588,7 @@ public:
         @return  true if SkAlphaType is kOpaque_SkAlphaType
     */
   bool isOpaque() const
-  {
-    return SkAlphaTypeIsOpaque(this->alphaType());
-  }
+  { return SkAlphaTypeIsOpaque(this->alphaType()); }
     /** Creates SkShader from SkImage. SkShader dimensions are taken from SkImage. SkShader uses
         SkTileMode rules to fill drawn area outside SkImage. localMatrix permits
         transforming SkImage before SkCanvas matrix is applied.
@@ -621,8 +608,8 @@ public:
     */
   sk_sp<SkShader> makeShader(const SkMatrix* localMatrix = nullptr) const
   {
-    return this->makeShader(SkTileMode::kClamp, SkTileMode::kClamp, localMatrix);
-  }
+        return this->makeShader(SkTileMode::kClamp, SkTileMode::kClamp, localMatrix);
+    }
     /** Copies SkImage pixel address, row bytes, and SkImageInfo to pixmap, if address
         is available, and returns true. If pixel address is not available, return
         false and leave pixmap unchanged.

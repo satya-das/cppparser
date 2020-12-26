@@ -15,7 +15,7 @@
 // ----------------------------------------------------------------------------
 inline int CMPFUNC_CONV wxUIntCmp(unsigned n1, unsigned n2)
 {
-  return (int) (n1 - n2);
+    return (int)(n1 - n2);
 }
 WX_DEFINE_SORTED_EXPORTED_ARRAY_CMP_INT(unsigned, wxUIntCmp, wxSelectedIndices);
 // ----------------------------------------------------------------------------
@@ -33,19 +33,14 @@ class WXDLLIMPEXP_CORE wxSelectionStore
 {
 public:
   wxSelectionStore()
-    : m_itemsSel(wxUIntCmp)
-  {
-    Init();
-  }
+    :  m_itemsSel(wxUIntCmp) 
+    {
+ Init();     }
     // set the total number of items we handle
   void SetItemCount(unsigned count);
     // special case of SetItemCount(0)
   void Clear()
-  {
-    m_itemsSel.Clear();
-    m_count = 0;
-    m_defaultState = false;
-  }
+  { m_itemsSel.Clear(); m_count = 0; m_defaultState = false; }
     // must be called when new items are inserted/added
   void OnItemsInserted(unsigned item, unsigned numItems);
     // must be called when an items is deleted
@@ -69,13 +64,15 @@ public:
     // return true if no items are currently selected
   bool IsEmpty() const
   {
-    return m_defaultState ? m_itemsSel.size() == m_count : m_itemsSel.empty();
-  }
+        return m_defaultState ? m_itemsSel.size() == m_count
+                              : m_itemsSel.empty();
+    }
     // return the total number of selected items
   unsigned GetSelectedCount() const
   {
-    return m_defaultState ? m_count - m_itemsSel.GetCount() : m_itemsSel.GetCount();
-  }
+        return m_defaultState ? m_count - m_itemsSel.GetCount()
+                              : m_itemsSel.GetCount();
+    }
     // type of a "cookie" used to preserve the iteration state, this is an
     // opaque type, don't rely on its current representation
   typedef size_t IterationState;
@@ -88,10 +85,7 @@ public:
 private:
     // (re)init
   void Init()
-  {
-    m_count = 0;
-    m_defaultState = false;
-  }
+  { m_count = 0; m_defaultState = false; }
     // the total number of items we handle
   unsigned m_count;
     // the default state: normally, false (i.e. off) but maybe set to true if

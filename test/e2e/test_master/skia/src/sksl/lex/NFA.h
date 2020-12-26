@@ -20,21 +20,21 @@ struct NFA
      */
   int addRegex(const RegexNode& regex)
   {
-    std::vector<int> accept;
+        std::vector<int> accept;
         // we reserve token 0 for END_OF_FILE, so this starts at 1
-    accept.push_back(this->addState(NFAState(++fRegexCount)));
-    std::vector<int> startStates = regex.createStates(this, accept);
-    fStartStates.insert(fStartStates.end(), startStates.begin(), startStates.end());
-    return fStartStates.size() - 1;
-  }
+        accept.push_back(this->addState(NFAState(++fRegexCount)));
+        std::vector<int> startStates = regex.createStates(this, accept);
+        fStartStates.insert(fStartStates.end(), startStates.begin(), startStates.end());
+        return fStartStates.size() - 1;
+    }
     /**
      * Adds a new state to the NFA, returning its index.
      */
   int addState(NFAState s)
   {
-    fStates.push_back(std::move(s));
-    return fStates.size() - 1;
-  }
+        fStates.push_back(std::move(s));
+        return fStates.size() - 1;
+    }
     /**
      * Matches a string against all of the regexes added to this NFA. Returns the index of the first
      * (in addRegex order) matching expression, or -1 if no match. This is relatively slow and used

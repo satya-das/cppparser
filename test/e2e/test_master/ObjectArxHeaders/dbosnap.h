@@ -38,13 +38,9 @@ public:
     // These don't apply to a glyph, and are implemented here as no-ops.
     //
   Adesk::Boolean isPersistent() const override
-  {
-    return Adesk::kFalse;
-  }
+  { return Adesk::kFalse; }
   AcDbObjectId id() const override
-  {
-    return 0;
-  }
+  { return 0; }
 protected:
     // Glyphs typically draw viewport-specific graphics only.  Exceptions
     // are OK, if you have good cause.  If you do want worldDraw to be
@@ -53,16 +49,12 @@ protected:
     // member, after invoking setLocation() as described above.
     //
   Adesk::UInt32 subSetAttributes(AcGiDrawableTraits*) override
-  {
-    return 0;
-  }
+  { return 0; }
     // Glyphs typically draw viewport-specific graphics only.  Don't
     // override this unless you have good cause.
     //
   Adesk::Boolean subWorldDraw(AcGiWorldDraw*) override
-  {
-    return Adesk::kFalse;
-  }
+  {return Adesk::kFalse;}
     // Here is what you really have to implement, accounting for location,
     // pixel/display coordinate size ratio and the osnapglyphsize setting.
     //
@@ -120,7 +112,7 @@ class AcDbCustomOsnapManager
 public:
   virtual ~AcDbCustomOsnapManager()
   {
-  }
+   }
     // addCustomOsnapMode
     //
     // used to add Custom OSNAP modes to the system. 

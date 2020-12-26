@@ -21,18 +21,16 @@ namespace GrTessellator
   {
   public:
     VertexAllocator(size_t stride)
-      : fStride(stride)
-    {
-    }
+      :  fStride(stride) 
+      {
+      }
     virtual ~VertexAllocator()
     {
     }
     virtual void* lock(int vertexCount) = 0;
     virtual void unlock(int actualCount) = 0;
     size_t stride() const
-    {
-      return fStride;
-    }
+    { return fStride; }
   private:
     size_t fStride;
   };

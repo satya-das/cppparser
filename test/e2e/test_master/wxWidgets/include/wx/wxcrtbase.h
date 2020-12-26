@@ -49,9 +49,7 @@ char* strtok_r(char*, const char*, char**);
 #  endif
 #  ifdef wxNEED_ISASCII
 inline int isascii(int c)
-{
-  return (unsigned) c < 0x80;
-}
+{ return (unsigned)c < 0x80; }
     // Avoid further (re)definitions of it.
 #    define isascii	isascii
 #  endif
@@ -527,13 +525,9 @@ WXDLLIMPEXP_BASE size_t android_wcstombs(char*, const wchar_t*, size_t);
 
 /* safe version of strlen() (returns 0 if passed NULL pointer) */
 inline size_t wxStrlen(const char* s)
-{
-  return s ? wxCRT_StrlenA(s) : 0;
-}
+{ return s ? wxCRT_StrlenA(s) : 0; }
 inline size_t wxStrlen(const wchar_t* s)
-{
-  return s ? wxCRT_StrlenW(s) : 0;
-}
+{ return s ? wxCRT_StrlenW(s) : 0; }
 #    ifndef wxWCHAR_T_IS_WXCHAR16
 WXDLLIMPEXP_BASE size_t wxStrlen(const wxChar16* s);
 #    endif
@@ -544,13 +538,9 @@ WXDLLIMPEXP_BASE size_t wxStrlen(const wxChar32* s);
 #    define wxStrdupA	wxCRT_StrdupA
 #    define wxStrdupW	wxCRT_StrdupW
 inline char* wxStrdup(const char* s)
-{
-  return wxCRT_StrdupA(s);
-}
+{ return wxCRT_StrdupA(s); }
 inline wchar_t* wxStrdup(const wchar_t* s)
-{
-  return wxCRT_StrdupW(s);
-}
+{ return wxCRT_StrdupW(s); }
 #    ifndef wxWCHAR_T_IS_WXCHAR16
 WXDLLIMPEXP_BASE wxChar16* wxStrdup(const wxChar16* s);
 #    endif

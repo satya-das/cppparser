@@ -21,11 +21,13 @@ class wxExecuteIOHandlerBase : public T
 {
 public:
   wxExecuteIOHandlerBase(int fd, wxStreamTempInputBuffer& buf)
-    : m_fd(fd)
-    , m_buf(buf)
-  {
-    m_callbackDisabled = false;
-  }
+    :  m_fd(fd),
+          m_buf(buf)
+    
+    {
+
+        m_callbackDisabled = false;
+        }
     // Called when the associated descriptor is available for reading.
   void OnReadWaiting() override
   {
@@ -50,12 +52,13 @@ public:
     // we're sure that no more input is forthcoming.
   void DisableCallback()
   {
-    if (!m_callbackDisabled)
-    {
-      m_callbackDisabled = true;
-      DoDisable();
+        if ( !m_callbackDisabled )
+        {
+            m_callbackDisabled = true;
+
+            DoDisable();
+        }
     }
-  }
 protected:
   const int m_fd;
 private:
@@ -71,15 +74,18 @@ class wxExecuteFDIOHandler : public wxExecuteIOHandlerBase<wxFDIOHandler>
 {
 public:
   wxExecuteFDIOHandler(wxFDIODispatcher& dispatcher, int fd, wxStreamTempInputBuffer& buf)
-    : wxExecuteIOHandlerBase<wxFDIOHandler>(fd, buf)
-    , m_dispatcher(dispatcher)
-  {
-    dispatcher.RegisterFD(fd, this, wxFDIO_INPUT);
-  }
+    :  wxExecuteIOHandlerBase<wxFDIOHandler>(fd, buf),
+          m_dispatcher(dispatcher)
+    
+    {
+
+        dispatcher.RegisterFD(fd, this, wxFDIO_INPUT);
+        }
   virtual ~wxExecuteFDIOHandler()
   {
-    DisableCallback();
-  }
+
+        DisableCallback();
+      }
 private:
   void DoDisable() override
   {
@@ -95,14 +101,17 @@ class wxExecuteEventLoopSourceHandler : public wxExecuteIOHandlerBase<wxEventLoo
 {
 public:
   wxExecuteEventLoopSourceHandler(int fd, wxStreamTempInputBuffer& buf)
-    : wxExecuteIOHandlerBase<wxEventLoopSourceHandler>(fd, buf)
-  {
-    m_source = wxEventLoop::AddSourceForFD(fd, this, wxEVENT_SOURCE_INPUT);
-  }
+    :  wxExecuteIOHandlerBase<wxEventLoopSourceHandler>(fd, buf)
+    
+    {
+
+        m_source = wxEventLoop::AddSourceForFD(fd, this, wxEVENT_SOURCE_INPUT);
+        }
   virtual ~wxExecuteEventLoopSourceHandler()
   {
-    DisableCallback();
-  }
+
+        DisableCallback();
+      }
 private:
   void DoDisable() override
   {

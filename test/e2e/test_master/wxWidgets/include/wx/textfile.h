@@ -24,7 +24,7 @@ public:
     // constructors
   wxTextFile()
   {
-  }
+   }
   wxTextFile(const wxString& strFileName);
 protected:
     // implement the base class pure virtuals

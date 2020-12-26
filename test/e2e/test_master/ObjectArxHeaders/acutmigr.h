@@ -22,27 +22,27 @@
 //
 inline Acad::ErrorStatus newBuffer(char*& pOutput, size_t size)
 {
-  return ::acutNewBuffer(pOutput, size);
+    return ::acutNewBuffer(pOutput, size);
 }
 inline Acad::ErrorStatus newString(const ACHAR* pInput, ACHAR*& pOutput)
 {
-  return ::acutNewString(pInput, pOutput);
+    return ::acutNewString(pInput, pOutput);
 }
 inline Acad::ErrorStatus newString(ACHAR*& pOutput, int nNumChars)
 {
-  return ::acutNewString(pOutput, nNumChars);
+    return ::acutNewString(pOutput, nNumChars);
 }
 inline Acad::ErrorStatus updString(const ACHAR* pInput, ACHAR*& pOutput)
 {
-  return ::acutUpdString(pInput, pOutput);
+    return ::acutUpdString(pInput, pOutput);
 }
 inline void delString(ACHAR*& pString)
 {
-  ::acutDelString(pString);
+    ::acutDelString(pString);
 }
 inline void delBuffer(char*& pString)
 {
-  ::acutDelString(pString);
+    ::acutDelString(pString);
 }
 #  pragma  pack (pop)
 #endif

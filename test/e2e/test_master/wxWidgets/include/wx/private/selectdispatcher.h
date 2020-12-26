@@ -35,8 +35,8 @@ public:
     // fd
   bool ClearFD(int fd)
   {
-    return SetFD(fd, 0);
-  }
+        return SetFD(fd, 0);
+    }
     // call select() with our sets: the other parameters are the same as for
     // select() itself
   int Select(int nfds, struct timeval* tv);
@@ -67,8 +67,7 @@ public:
     // default ctor
   wxSelectDispatcher()
   {
-    m_maxFD = -1;
-  }
+ m_maxFD = -1;   }
     // implement pure virtual methods of the base class
   bool RegisterFD(int fd, wxFDIOHandler* handler, int flags = wxFDIO_ALL) override;
   bool ModifyFD(int fd, wxFDIOHandler* handler, int flags = wxFDIO_ALL) override;

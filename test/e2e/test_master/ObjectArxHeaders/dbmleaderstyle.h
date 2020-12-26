@@ -1458,6 +1458,6 @@ protected:
 // Deprecated method. Please use the overload taking AcString & arg
 inline Acad::ErrorStatus AcDbMLeaderStyle::getName(ACHAR*& pName) const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbMLeaderStyle::getName, pName);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbMLeaderStyle::getName, pName);
 }
 #endif

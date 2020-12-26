@@ -18,12 +18,14 @@ public:
   wxRegion(size_t n, const wxPoint* points, wxPolygonFillMode fillStyle = wxODDEVEN_RULE);
   wxRegion(const wxBitmap& bmp)
   {
-    Union(bmp);
-  }
+
+        Union(bmp);
+      }
   wxRegion(const wxBitmap& bmp, const wxColour& transColour, int tolerance = 0)
   {
-    Union(bmp, transColour, tolerance);
-  }
+
+        Union(bmp, transColour, tolerance);
+      }
   virtual ~wxRegion();
     // wxRegionBase methods
   virtual void Clear();
@@ -32,9 +34,7 @@ public:
     //     (i.e. not rect-only version is implemented) so that all code that
     //     assumes region==rect breaks
   wxRect AsRect() const
-  {
-    return GetBox();
-  }
+  { return GetBox(); }
 protected:
   virtual wxGDIRefData* CreateGDIRefData() const;
   virtual wxGDIRefData* CloneGDIRefData(const wxGDIRefData* data) const;
@@ -60,51 +60,31 @@ public:
   }
   wxRegionIterator(const wxRegion& region)
   {
-    Reset(region);
-  }
+ Reset(region);   }
   void Reset()
-  {
-    m_rect = wxRect();
-  }
+  { m_rect = wxRect(); }
   void Reset(const wxRegion& region);
   bool HaveRects() const
-  {
-    return !m_rect.IsEmpty();
-  }
+  { return !m_rect.IsEmpty(); }
   operator bool() const
   {
-    return HaveRects();
-  }
+ return HaveRects();   }
   wxRegionIterator& operator++();
   wxRegionIterator operator++(int);
   wxCoord GetX() const
-  {
-    return m_rect.GetX();
-  }
+  { return m_rect.GetX(); }
   wxCoord GetY() const
-  {
-    return m_rect.GetY();
-  }
+  { return m_rect.GetY(); }
   wxCoord GetW() const
-  {
-    return m_rect.GetWidth();
-  }
+  { return m_rect.GetWidth(); }
   wxCoord GetWidth() const
-  {
-    return GetW();
-  }
+  { return GetW(); }
   wxCoord GetH() const
-  {
-    return m_rect.GetHeight();
-  }
+  { return m_rect.GetHeight(); }
   wxCoord GetHeight() const
-  {
-    return GetH();
-  }
+  { return GetH(); }
   wxRect GetRect() const
-  {
-    return m_rect;
-  }
+  { return m_rect; }
 private:
   wxRect m_rect;
   wxDECLARE_DYNAMIC_CLASS(wxRegionIterator);

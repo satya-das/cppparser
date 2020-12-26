@@ -21,13 +21,14 @@ class WXDLLIMPEXP_CORE wxStatusBarGeneric : public wxStatusBarBase
 public:
   wxStatusBarGeneric()
   {
-    Init();
-  }
+ Init();   }
   wxStatusBarGeneric(wxWindow* parent, wxWindowID winid = wxID_ANY, long style = wxSTB_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxStatusBarNameStr))
   {
-    Init();
-    Create(parent, winid, style, name);
-  }
+
+        Init();
+
+        Create(parent, winid, style, name);
+      }
   virtual ~wxStatusBarGeneric();
   bool Create(wxWindow* parent, wxWindowID winid = wxID_ANY, long style = wxSTB_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxStatusBarNameStr));
     // implement base class methods

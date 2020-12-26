@@ -58,10 +58,9 @@ class WXDLLIMPEXP_ADV wxVListBoxComboPopup : public wxVListBox, public wxComboPo
 public:
     // init and dtor
   wxVListBoxComboPopup()
-    : wxVListBox()
-    , wxComboPopup()
-  {
-  }
+    :  wxVListBox(), wxComboPopup() 
+    {
+     }
   virtual ~wxVListBoxComboPopup();
     // required virtuals
   void Init() override;
@@ -100,17 +99,11 @@ public:
   void ClearClientDatas();
     // helpers
   int GetItemAtPosition(const wxPoint& pos)
-  {
-    return HitTest(pos);
-  }
+  { return HitTest(pos); }
   wxCoord GetTotalHeight() const
-  {
-    return EstimateTotalHeight();
-  }
+  { return EstimateTotalHeight(); }
   wxCoord GetLineHeight(int line) const
-  {
-    return OnGetRowHeight(line);
-  }
+  { return OnGetRowHeight(line); }
 protected:
     // Called by OnComboDoubleClick and OnCombo{Key,Char}Event
   bool HandleKey(int keycode, bool saturate, wxChar keychar = 0);
@@ -121,9 +114,9 @@ protected:
     // OnMeasureItemWidth will be called on next GetAdjustedSize.
   void ItemWidthChanged(unsigned int item)
   {
-    m_widths[item] = -1;
-    m_widthsDirty = true;
-  }
+        m_widths[item] = -1;
+        m_widthsDirty = true;
+    }
     // Callbacks for drawing and measuring items. Override in a derived class for
     // owner-drawnness. Font, background and text colour have been prepared according
     // to selection, focus and such.
@@ -153,16 +146,10 @@ protected:
   void OnLeftClick(wxMouseEvent& event);
     // Return the widest item width (recalculating it if necessary)
   int GetWidestItemWidth()
-  {
-    CalcWidths();
-    return m_widestWidth;
-  }
+  { CalcWidths(); return m_widestWidth; }
     // Return the index of the widest item (recalculating it if necessary)
   int GetWidestItem()
-  {
-    CalcWidths();
-    return m_widestItem;
-  }
+  { CalcWidths(); return m_widestItem; }
     // Stop partial completion (when some other event occurs)
   void StopPartialCompletion();
   wxArrayString m_strings;
@@ -211,13 +198,15 @@ public:
     // ctors and such
   wxOwnerDrawnComboBox()
   {
-    Init();
-  }
+ Init();   }
   wxOwnerDrawnComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
   {
-    Init();
-    (void) Create(parent, id, value, pos, size, n, choices, style, validator, name);
-  }
+
+        Init();
+
+        (void)Create(parent, id, value, pos, size, n,
+                     choices, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
   wxOwnerDrawnComboBox(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, const wxArrayString& choices = wxArrayString(), long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, int n, const wxString choices[], long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
@@ -226,8 +215,8 @@ public:
     // Prevent app from using wxComboPopup
   void SetPopupControl(wxVListBoxComboPopup* popup)
   {
-    DoSetPopupControl(popup);
-  }
+        DoSetPopupControl(popup);
+    }
     // wxControlWithItems methods
   unsigned int GetCount() const override;
   wxString GetString(unsigned int n) const override;
@@ -237,13 +226,9 @@ public:
   int GetSelection() const override;
     // See wxComboBoxBase discussion of IsEmpty().
   bool IsListEmpty() const
-  {
-    return wxItemContainer::IsEmpty();
-  }
+  { return wxItemContainer::IsEmpty(); }
   bool IsTextEmpty() const
-  {
-    return wxTextEntry::IsEmpty();
-  }
+  { return wxTextEntry::IsEmpty(); }
     // Override these just to maintain consistency with virtual methods
     // between classes.
   void Clear() override;
@@ -259,16 +244,10 @@ public:
   }
     // Return the widest item width (recalculating it if necessary)
   virtual int GetWidestItemWidth()
-  {
-    EnsurePopupControl();
-    return GetVListBoxComboPopup()->GetWidestItemWidth();
-  }
+  { EnsurePopupControl(); return GetVListBoxComboPopup()->GetWidestItemWidth(); }
     // Return the index of the widest item (recalculating it if necessary)
   virtual int GetWidestItem()
-  {
-    EnsurePopupControl();
-    return GetVListBoxComboPopup()->GetWidestItem();
-  }
+  { EnsurePopupControl(); return GetVListBoxComboPopup()->GetWidestItem(); }
   bool IsSorted() const override
   {
     return HasFlag(wxCB_SORT);
@@ -298,8 +277,8 @@ protected:
   void ClearClientDatas();
   wxVListBoxComboPopup* GetVListBoxComboPopup() const
   {
-    return (wxVListBoxComboPopup*) m_popupInterface;
-  }
+        return (wxVListBoxComboPopup*) m_popupInterface;
+    }
   int DoInsertItems(const wxArrayStringsAdapter& items, unsigned int pos, void** clientData, wxClientDataType type) override;
   void DoSetItemClientData(unsigned int n, void* clientData) override;
   void* DoGetItemClientData(unsigned int n) const override;

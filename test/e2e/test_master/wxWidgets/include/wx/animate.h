@@ -42,9 +42,7 @@ public:
   bool Load(wxInputStream& stream, wxAnimationType type = wxANIMATION_TYPE_ANY);
     // Methods for managing the list of decoders
   static wxAnimationDecoderList& GetHandlers()
-  {
-    return sm_handlers;
-  }
+  { return sm_handlers; }
   static void AddHandler(wxAnimationDecoder* handler);
   static void InsertHandler(wxAnimationDecoder* handler);
   static const wxAnimationDecoder* FindHandler(wxAnimationType animType);
@@ -75,40 +73,30 @@ class WXDLLIMPEXP_CORE wxAnimationCtrlBase : public wxControl
 public:
   wxAnimationCtrlBase()
   {
-  }
+   }
     // public API
   virtual bool LoadFile(const wxString& filename, wxAnimationType type = wxANIMATION_TYPE_ANY) = 0;
   virtual bool Load(wxInputStream& stream, wxAnimationType type = wxANIMATION_TYPE_ANY) = 0;
   virtual void SetAnimation(const wxAnimation& anim) = 0;
   wxAnimation GetAnimation() const
-  {
-    return m_animation;
-  }
+  { return m_animation; }
   virtual bool Play() = 0;
   virtual void Stop() = 0;
   virtual bool IsPlaying() const = 0;
   virtual void SetInactiveBitmap(const wxBitmap& bmp);
     // always return the original bitmap set in this control
   wxBitmap GetInactiveBitmap() const
-  {
-    return m_bmpStatic;
-  }
+  { return m_bmpStatic; }
   wxAnimation CreateAnimation() const
-  {
-    return MakeAnimFromImpl(DoCreateAnimationImpl());
-  }
+  { return MakeAnimFromImpl(DoCreateAnimationImpl()); }
 protected:
   virtual wxAnimationImpl* DoCreateAnimationImpl() const = 0;
     // These methods allow derived classes access to private wxAnimation ctor
     // and wxAnimation::GetImpl(), respectively.
   static wxAnimation MakeAnimFromImpl(wxAnimationImpl* impl)
-  {
-    return wxAnimation(impl);
-  }
+  { return wxAnimation(impl); }
   wxAnimationImpl* GetAnimImpl() const
-  {
-    return m_animation.GetImpl();
-  }
+  { return m_animation.GetImpl(); }
     // The associated animation, possibly invalid/empty.
   wxAnimation m_animation;
     // the inactive bitmap as it was set by the user
@@ -133,13 +121,15 @@ class WXDLLIMPEXP_ADV wxAnimationCtrl : public wxGenericAnimationCtrl
 {
 public:
   wxAnimationCtrl()
-    : wxGenericAnimationCtrl()
-  {
-  }
+    :  wxGenericAnimationCtrl()
+            
+    {
+    }
   wxAnimationCtrl(wxWindow* parent, wxWindowID id, const wxAnimation& anim = wxNullAnimation, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxAC_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxAnimationCtrlNameStr))
-    : wxGenericAnimationCtrl(parent, id, anim, pos, size, style, name)
-  {
-  }
+    :  wxGenericAnimationCtrl(parent, id, anim, pos, size, style, name)
+            
+    {
+    }
   wxDECLARE_DYNAMIC_CLASS(wxAnimationCtrl);
 };
 #    endif

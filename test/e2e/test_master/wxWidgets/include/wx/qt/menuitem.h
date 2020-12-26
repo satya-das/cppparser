@@ -23,9 +23,7 @@ public:
   bool IsChecked() const override;
   virtual void SetBitmap(const wxBitmap& bitmap);
   virtual const wxBitmap& GetBitmap() const
-  {
-    return m_bitmap;
-  }
+  { return m_bitmap; }
   virtual QAction* GetHandle() const;
 private:
     // Qt is using an action instead of a menu item.

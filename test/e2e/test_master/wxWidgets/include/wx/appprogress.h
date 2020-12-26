@@ -35,7 +35,8 @@ class wxAppProgressIndicator : public wxAppProgressIndicatorBase
 public:
   wxAppProgressIndicator(wxWindow* = NULL, int = 100)
   {
-  }
+
+          }
   bool IsAvailable() const override
   {
     return false;

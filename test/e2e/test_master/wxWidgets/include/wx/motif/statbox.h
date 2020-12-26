@@ -17,18 +17,17 @@ public:
   wxStaticBox();
   wxStaticBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr))
   {
-    Create(parent, id, label, pos, size, style, name);
-  }
+
+        Create(parent, id, label, pos, size, style, name);
+      }
   virtual ~wxStaticBox();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr));
   virtual bool ProcessCommand(wxCommandEvent&)
   {
-    return false;
-  }
+        return false;
+    }
   virtual WXWidget GetLabelWidget() const
-  {
-    return m_labelWidget;
-  }
+  { return m_labelWidget; }
   virtual void SetLabel(const wxString& label);
   virtual void GetBordersForSizer(int* borderTop, int* borderOther) const;
 private:

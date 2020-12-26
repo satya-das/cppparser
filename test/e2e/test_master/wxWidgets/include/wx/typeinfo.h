@@ -53,16 +53,17 @@ class wxTypeIdentifier
 public:
   wxTypeIdentifier(const char* className)
   {
-    m_className = className;
-  }
+
+        m_className = className;
+      }
   bool operator==(const wxTypeIdentifier& other) const
   {
-    return strcmp(m_className, other.m_className) == 0;
-  }
+        return strcmp(m_className, other.m_className) == 0;
+    }
   bool operator!=(const wxTypeIdentifier& other) const
   {
-    return !(*this == other);
-  }
+        return !(*this == other);
+    }
 private:
   const char* m_className;
 };

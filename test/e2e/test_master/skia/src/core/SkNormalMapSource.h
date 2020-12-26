@@ -11,10 +11,10 @@ class SkNormalMapSourceImpl : public SkNormalSource
 {
 public:
   SkNormalMapSourceImpl(sk_sp<SkShader> mapShader, const SkMatrix& invCTM)
-    : fMapShader(std::move(mapShader))
-    , fInvCTM(invCTM)
-  {
-  }
+    :  fMapShader(std::move(mapShader))
+            , fInvCTM(invCTM) 
+    {
+    }
 #  if  SK_SUPPORT_GPU
   std::unique_ptr<GrFragmentProcessor> asFragmentProcessor(const GrFPArgs& args) const override;
 #  endif

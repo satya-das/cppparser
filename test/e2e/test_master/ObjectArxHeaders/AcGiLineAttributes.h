@@ -80,7 +80,7 @@ public:
     // ctor/dtor/init
   virtual ~AcGiLineAttributes()
   {
-  }
+   }
         // access methods
   virtual AcDb::LineWeight getLineweight() const = 0;
   virtual void setLineweight(AcDb::LineWeight lweight) = 0;

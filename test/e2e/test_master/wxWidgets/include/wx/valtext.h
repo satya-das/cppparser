@@ -64,9 +64,7 @@ public:
   void OnChar(wxKeyEvent& event);
     // ACCESSORS
   inline long GetStyle() const
-  {
-    return m_validatorStyle;
-  }
+  { return m_validatorStyle; }
   void SetStyle(long style);
   wxTextEntry* GetTextEntry();
     // strings & chars inclusions:
@@ -76,13 +74,9 @@ public:
   void SetIncludes(const wxArrayString& includes);
   void AddInclude(const wxString& include);
   const wxArrayString& GetIncludes() const
-  {
-    return m_includes;
-  }
+  { return m_includes; }
   wxString GetCharIncludes() const
-  {
-    return m_charIncludes;
-  }
+  { return m_charIncludes; }
     // strings & chars exclusions:
     // ---------------------------
   void SetCharExcludes(const wxString& chars);
@@ -90,17 +84,11 @@ public:
   void SetExcludes(const wxArrayString& excludes);
   void AddExclude(const wxString& exclude);
   const wxArrayString& GetExcludes() const
-  {
-    return m_excludes;
-  }
+  { return m_excludes; }
   wxString GetCharExcludes() const
-  {
-    return m_charExcludes;
-  }
+  { return m_charExcludes; }
   bool HasFlag(wxTextValidatorStyle style) const
-  {
-    return (m_validatorStyle & style) != 0;
-  }
+  { return (m_validatorStyle & style) != 0; }
     // implementation only
     // --------------------
 
@@ -109,26 +97,25 @@ public:
 protected:
   bool IsCharIncluded(const wxUniChar& c) const
   {
-    return m_charIncludes.find(c) != wxString::npos;
-  }
+        return m_charIncludes.find(c) != wxString::npos;
+    }
   bool IsCharExcluded(const wxUniChar& c) const
   {
-    return m_charExcludes.find(c) != wxString::npos;
-  }
+        return m_charExcludes.find(c) != wxString::npos;
+    }
   bool IsIncluded(const wxString& str) const
   {
-    if (HasFlag(wxFILTER_INCLUDE_LIST))
-    {
-      return m_includes.Index(str) != wxNOT_FOUND;
-    }
+        if ( HasFlag(wxFILTER_INCLUDE_LIST) )
+            return m_includes.Index(str) != wxNOT_FOUND;
+
         // m_includes should be ignored (i.e. return true)
         // if the style is not set.
-    return true;
-  }
+        return true;
+    }
   bool IsExcluded(const wxString& str) const
   {
-    return m_excludes.Index(str) != wxNOT_FOUND;
-  }
+        return m_excludes.Index(str) != wxNOT_FOUND;
+    }
     // returns false if the character is invalid
   bool IsValidChar(const wxUniChar& c) const;
     // These two functions (undocumented now) are kept for compatibility reasons.

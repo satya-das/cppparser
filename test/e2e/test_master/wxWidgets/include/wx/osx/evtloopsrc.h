@@ -18,10 +18,12 @@ public:
     // Create a new source in uninitialized state, call InitSocketRef() later
     // to associate it with the socket it is going to use.
   wxCFEventLoopSource(wxEventLoopSourceHandler* handler, int flags)
-    : wxEventLoopSource(handler, flags)
-  {
-    m_cfSocket = NULL;
-  }
+    :  wxEventLoopSource(handler, flags)
+    
+    {
+
+        m_cfSocket = NULL;
+        }
     // Finish initialization of the event loop source by providing the
     // associated socket. This object takes ownership of it and will release it.
   void InitSourceSocket(CFSocketRef cfSocket);

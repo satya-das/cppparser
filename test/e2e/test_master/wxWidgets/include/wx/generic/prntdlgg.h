@@ -80,88 +80,46 @@ public:
     return true;
   }
   const wxString& GetPrinterCommand() const
-  {
-    return m_printerCommand;
-  }
+  { return m_printerCommand; }
   const wxString& GetPrinterOptions() const
-  {
-    return m_printerOptions;
-  }
+  { return m_printerOptions; }
   const wxString& GetPreviewCommand() const
-  {
-    return m_previewCommand;
-  }
+  { return m_previewCommand; }
   const wxString& GetFontMetricPath() const
-  {
-    return m_afmPath;
-  }
+  { return m_afmPath; }
   double GetPrinterScaleX() const
-  {
-    return m_printerScaleX;
-  }
+  { return m_printerScaleX; }
   double GetPrinterScaleY() const
-  {
-    return m_printerScaleY;
-  }
+  { return m_printerScaleY; }
   long GetPrinterTranslateX() const
-  {
-    return m_printerTranslateX;
-  }
+  { return m_printerTranslateX; }
   long GetPrinterTranslateY() const
-  {
-    return m_printerTranslateY;
-  }
+  { return m_printerTranslateY; }
   void SetPrinterCommand(const wxString& command)
-  {
-    m_printerCommand = command;
-  }
+  { m_printerCommand = command; }
   void SetPrinterOptions(const wxString& options)
-  {
-    m_printerOptions = options;
-  }
+  { m_printerOptions = options; }
   void SetPreviewCommand(const wxString& command)
-  {
-    m_previewCommand = command;
-  }
+  { m_previewCommand = command; }
   void SetFontMetricPath(const wxString& path)
-  {
-    m_afmPath = path;
-  }
+  { m_afmPath = path; }
   void SetPrinterScaleX(double x)
-  {
-    m_printerScaleX = x;
-  }
+  { m_printerScaleX = x; }
   void SetPrinterScaleY(double y)
-  {
-    m_printerScaleY = y;
-  }
+  { m_printerScaleY = y; }
   void SetPrinterScaling(double x, double y)
-  {
-    m_printerScaleX = x;
-    m_printerScaleY = y;
-  }
+  { m_printerScaleX = x; m_printerScaleY = y; }
   void SetPrinterTranslateX(long x)
-  {
-    m_printerTranslateX = x;
-  }
+  { m_printerTranslateX = x; }
   void SetPrinterTranslateY(long y)
-  {
-    m_printerTranslateY = y;
-  }
+  { m_printerTranslateY = y; }
   void SetPrinterTranslation(long x, long y)
-  {
-    m_printerTranslateX = x;
-    m_printerTranslateY = y;
-  }
+  { m_printerTranslateX = x; m_printerTranslateY = y; }
 #      if  wxUSE_STREAMS
   wxOutputStream* GetOutputStream()
-  {
-    return m_outputStream;
-  }
+  { return m_outputStream; }
   void SetOutputStream(wxOutputStream* output)
-  {
-    m_outputStream = output;
-  }
+  { m_outputStream = output; }
 #      endif
 private:
   wxString m_printerCommand;
@@ -237,9 +195,7 @@ public:
   wxComboBox* m_paperTypeChoice;
   wxPrintData m_printData;
   wxPrintData& GetPrintData()
-  {
-    return m_printData;
-  }
+  { return m_printData; }
     // After pressing OK, write data here.
   wxPrintData* m_targetData;
   wxDECLARE_EVENT_TABLE();

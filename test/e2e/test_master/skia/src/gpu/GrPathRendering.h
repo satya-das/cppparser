@@ -32,7 +32,7 @@ class GrPathRendering
 public:
   virtual ~GrPathRendering()
   {
-  }
+   }
   enum PathTransformType {
         kNone_PathTransformType,        //!< []
         kTranslateX_PathTransformType,  //!< [kMTransX]
@@ -44,21 +44,21 @@ public:
     };
   static int PathTransformSize(PathTransformType type)
   {
-    switch(type)
-    {
-      case kNone_PathTransformType:
-        return 0;
-      case kTranslateX_PathTransformType:
-      case kTranslateY_PathTransformType:
-        return 1;
-      case kTranslate_PathTransformType:
-        return 2;
-      case kAffine_PathTransformType:
-        return 6;
-default:
-      SK_ABORT("Unknown path transform type");
-  }
-  }
+        switch (type) {
+            case kNone_PathTransformType:
+                return 0;
+            case kTranslateX_PathTransformType:
+            case kTranslateY_PathTransformType:
+                return 1;
+            case kTranslate_PathTransformType:
+                return 2;
+            case kAffine_PathTransformType:
+                return 6;
+
+            default:
+                SK_ABORT("Unknown path transform type");
+        }
+    }
     // No native support for inverse at this time
   enum FillType {
         /** Specifies that "inside" is computed by a non-zero sum of signed
@@ -84,13 +84,14 @@ default:
   struct StencilPathArgs
   {
     StencilPathArgs(bool useHWAA, GrRenderTargetProxy* proxy, const SkMatrix* viewMatrix, const GrScissorState* scissor, const GrStencilSettings* stencil)
-      : fUseHWAA(useHWAA)
-      , fProxy(proxy)
-      , fViewMatrix(viewMatrix)
-      , fScissor(scissor)
-      , fStencil(stencil)
-    {
-    }
+      :  fUseHWAA(useHWAA)
+            , fProxy(proxy)
+            , fViewMatrix(viewMatrix)
+            , fScissor(scissor)
+            , fStencil(stencil) 
+      {
+
+              }
     bool fUseHWAA;
     GrRenderTargetProxy* fProxy;
     const SkMatrix* fViewMatrix;
@@ -101,9 +102,9 @@ default:
   void drawPath(GrRenderTarget*, int numSamples, GrSurfaceOrigin, const GrPrimitiveProcessor& primProc, const GrPipeline& pipeline, const GrPipeline::FixedDynamicState&, const GrStencilSettings& stencilPassSettings, const GrPath* path);
 protected:
   GrPathRendering(GrGpu* gpu)
-    : fGpu(gpu)
-  {
-  }
+    :  fGpu(gpu) 
+    {
+     }
   virtual void onStencilPath(const StencilPathArgs&, const GrPath*) = 0;
   virtual void onDrawPath(GrRenderTarget*, int numSamples, GrSurfaceOrigin, const GrPrimitiveProcessor&, const GrPipeline&, const GrPipeline::FixedDynamicState&, const GrStencilSettings&, const GrPath*) = 0;
   GrGpu* fGpu;

@@ -18,7 +18,7 @@ class WXDLLIMPEXP_BASE wxArchiveNotifier
 public:
   virtual ~wxArchiveNotifier()
   {
-  }
+   }
   virtual void OnEntryUpdated(class wxArchiveEntry& entry) = 0;
 };
 /////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ class WXDLLIMPEXP_BASE wxArchiveEntry : public wxObject
 public:
   virtual ~wxArchiveEntry()
   {
-  }
+   }
   virtual wxDateTime GetDateTime() const = 0;
   virtual wxFileOffset GetSize() const = 0;
   virtual wxFileOffset GetOffset() const = 0;
@@ -45,30 +45,23 @@ public:
   virtual void SetIsReadOnly(bool isReadOnly = true) = 0;
   virtual void SetName(const wxString& name, wxPathFormat format = wxPATH_NATIVE) = 0;
   wxArchiveEntry* Clone() const
-  {
-    return DoClone();
-  }
+  { return DoClone(); }
   void SetNotifier(wxArchiveNotifier& notifier);
   virtual void UnsetNotifier()
-  {
-    m_notifier = NULL;
-  }
+  { m_notifier = NULL; }
 protected:
   wxArchiveEntry()
-    : m_notifier(NULL)
-  {
-  }
+    :  m_notifier(NULL) 
+    {
+     }
   wxArchiveEntry(const wxArchiveEntry& e)
-    : wxObject(e)
-    , m_notifier(NULL)
-  {
-  }
+    :  wxObject(e), m_notifier(NULL) 
+    {
+     }
   virtual void SetOffset(wxFileOffset offset) = 0;
   virtual wxArchiveEntry* DoClone() const = 0;
   wxArchiveNotifier* GetNotifier() const
-  {
-    return m_notifier;
-  }
+  { return m_notifier; }
   wxArchiveEntry& operator=(const wxArchiveEntry& entry);
 private:
   wxArchiveNotifier* m_notifier;
@@ -89,13 +82,11 @@ public:
   typedef wxArchiveEntry entry_type;
   virtual ~wxArchiveInputStream()
   {
-  }
+   }
   virtual bool OpenEntry(wxArchiveEntry& entry) = 0;
   virtual bool CloseEntry() = 0;
   wxArchiveEntry* GetNextEntry()
-  {
-    return DoGetNextEntry();
-  }
+  { return DoGetNextEntry(); }
   char Peek() override
   {
     return wxInputStream::Peek();
@@ -105,9 +96,7 @@ protected:
   wxArchiveInputStream(wxInputStream* stream, wxMBConv& conv);
   virtual wxArchiveEntry* DoGetNextEntry() = 0;
   wxMBConv& GetConv() const
-  {
-    return m_conv;
-  }
+  { return m_conv; }
 private:
   wxMBConv& m_conv;
 };
@@ -127,7 +116,7 @@ class WXDLLIMPEXP_BASE wxArchiveOutputStream : public wxFilterOutputStream
 public:
   virtual ~wxArchiveOutputStream()
   {
-  }
+   }
   virtual bool PutNextEntry(wxArchiveEntry* entry) = 0;
   virtual bool PutNextEntry(const wxString& name, const wxDateTime& dt = wxDateTime::Now(), wxFileOffset size = wxInvalidOffset) = 0;
   virtual bool PutNextDirEntry(const wxString& name, const wxDateTime& dt = wxDateTime::Now()) = 0;
@@ -138,9 +127,7 @@ protected:
   wxArchiveOutputStream(wxOutputStream& stream, wxMBConv& conv);
   wxArchiveOutputStream(wxOutputStream* stream, wxMBConv& conv);
   wxMBConv& GetConv() const
-  {
-    return m_conv;
-  }
+  { return m_conv; }
 private:
   wxMBConv& m_conv;
 };
@@ -155,12 +142,12 @@ private:
 template <typename X, typename Y>
 inline void _wxSetArchiveIteratorValue(X& val, Y entry, void*)
 {
-  val = X(entry);
+    val = X(entry);
 }
 template <typename X, typename Y, typename Z>
 inline void _wxSetArchiveIteratorValue(std::pair<X, Y>& val, Z entry, Z)
 {
-  val = std::make_pair(X(entry->GetInternalName()), Y(entry));
+    val = std::make_pair(X(entry->GetInternalName()), Y(entry));
 }
 template <typename Arc, typename T = typename Arc::entry_type*>
 class wxArchiveIterator
@@ -172,69 +159,64 @@ public:
   typedef T* pointer;
   typedef T& reference;
   wxArchiveIterator()
-    : m_rep(NULL)
-  {
-  }
+    :  m_rep(NULL) 
+    {
+     }
   wxArchiveIterator(Arc& arc)
   {
-    typename Arc::entry_type* entry = arc.GetNextEntry();
-    m_rep = entry ? new Rep(arc, entry) : NULL;
-  }
+
+        typename Arc::entry_type* entry = arc.GetNextEntry();
+        m_rep = entry ? new Rep(arc, entry) : NULL;
+      }
   wxArchiveIterator(const wxArchiveIterator& it)
-    : m_rep(it.m_rep)
-  {
-    if (m_rep)
+    :  m_rep(it.m_rep) 
     {
-      m_rep->AddRef();
-    }
-  }
+
+        if (m_rep)
+            m_rep->AddRef();
+        }
   ~wxArchiveIterator()
   {
-    if (m_rep)
-    {
-      m_rep->UnRef();
-    }
-  }
+
+        if (m_rep)
+            m_rep->UnRef();
+      }
   const T& operator *() const
   {
-    return m_rep->GetValue();
-  }
+        return m_rep->GetValue();
+    }
   const T* operator ->() const
   {
-    return &**this;
-  }
+        return &**this;
+    }
   wxArchiveIterator& operator =(const wxArchiveIterator& it)
   {
-    if (it.m_rep)
-    {
-      it.m_rep.AddRef();
+        if (it.m_rep)
+            it.m_rep.AddRef();
+        if (m_rep)
+            this->m_rep.UnRef();
+        m_rep = it.m_rep;
+        return *this;
     }
-    if (m_rep)
-    {
-      this->m_rep.UnRef();
-    }
-    m_rep = it.m_rep;
-    return *this;
-  }
   wxArchiveIterator& operator ++()
   {
-    m_rep = m_rep->Next();
-    return *this;
-  }
+        m_rep = m_rep->Next();
+        return *this;
+    }
   wxArchiveIterator operator ++(int)
   {
-    wxArchiveIterator it(*this);
-    ++(*this);
-    return it;
-  }
+        wxArchiveIterator it(*this);
+        ++(*this);
+        return it;
+    }
   bool operator ==(const wxArchiveIterator& j) const
   {
-    return m_rep == j.m_rep;
-  }
+        return m_rep == j.m_rep;
+    }
   bool operator !=(const wxArchiveIterator& j) const
   {
-    return !(*this == j);
-  }
+        return !(*this == j);
+    }
 private:
   class Rep
 {
@@ -244,54 +226,45 @@ private:
   int m_ref;
 public:
   Rep(Arc& arc, typename Arc::entry_type* entry)
-    : m_arc(arc)
-    , m_entry(entry)
-    , m_value()
-    , m_ref(1)
-  {
-  }
+    :  m_arc(arc), m_entry(entry), m_value(), m_ref(1) 
+    {
+     }
   ~Rep()
   {
-    delete m_entry;
-  }
+ delete m_entry;   }
   void AddRef()
   {
-    m_ref++;
-  }
+            m_ref++;
+        }
   void UnRef()
   {
-    if (--m_ref == 0)
-    {
-      delete this;
-    }
-  }
+            if (--m_ref == 0)
+                delete this;
+        }
   Rep* Next()
   {
-    typename Arc::entry_type* entry = m_arc.GetNextEntry();
-    if (!entry)
-    {
-      UnRef();
-      return NULL;
-    }
-    if (m_ref > 1)
-    {
-      m_ref--;
-      return new Rep(m_arc, entry);
-    }
-    delete m_entry;
-    m_entry = entry;
-    m_value = T();
-    return this;
-  }
+            typename Arc::entry_type* entry = m_arc.GetNextEntry();
+            if (!entry) {
+                UnRef();
+                return NULL;
+            }
+            if (m_ref > 1) {
+                m_ref--;
+                return new Rep(m_arc, entry);
+            }
+            delete m_entry;
+            m_entry = entry;
+            m_value = T();
+            return this;
+        }
   const T& GetValue()
   {
-    if (m_entry)
-    {
-      _wxSetArchiveIteratorValue(m_value, m_entry, m_entry);
-      m_entry = NULL;
-    }
-    return m_value;
-  }
+            if (m_entry) {
+                _wxSetArchiveIteratorValue(m_value, m_entry, m_entry);
+                m_entry = NULL;
+            }
+            return m_value;
+        }
 }* m_rep;
 };
 typedef wxArchiveIterator<wxArchiveInputStream> wxArchiveIter;
@@ -316,57 +289,30 @@ public:
 #    endif
   virtual ~wxArchiveClassFactory()
   {
-  }
+   }
   wxArchiveEntry* NewEntry() const
-  {
-    return DoNewEntry();
-  }
+  { return DoNewEntry(); }
   wxArchiveInputStream* NewStream(wxInputStream& stream) const
-  {
-    return DoNewStream(stream);
-  }
+  { return DoNewStream(stream); }
   wxArchiveOutputStream* NewStream(wxOutputStream& stream) const
-  {
-    return DoNewStream(stream);
-  }
+  { return DoNewStream(stream); }
   wxArchiveInputStream* NewStream(wxInputStream* stream) const
-  {
-    return DoNewStream(stream);
-  }
+  { return DoNewStream(stream); }
   wxArchiveOutputStream* NewStream(wxOutputStream* stream) const
-  {
-    return DoNewStream(stream);
-  }
+  { return DoNewStream(stream); }
   virtual wxString GetInternalName(const wxString& name, wxPathFormat format = wxPATH_NATIVE) const = 0;
     // FIXME-UTF8: remove these from this file, they are used for ANSI
     //             build only
   void SetConv(wxMBConv& conv)
-  {
-    m_pConv = &conv;
-  }
+  { m_pConv = &conv; }
   wxMBConv& GetConv() const
-  {
-    if (m_pConv)
-    {
-      return *m_pConv;
-    }
-    else 
-    {
-      return wxConvLocal;
-    }
-  }
+  { if (m_pConv) return *m_pConv; else return wxConvLocal; }
   static const wxArchiveClassFactory* Find(const wxString& protocol, wxStreamProtocolType type = wxSTREAM_PROTOCOL);
   static const wxArchiveClassFactory* GetFirst();
   const wxArchiveClassFactory* GetNext() const
-  {
-    return m_next;
-  }
+  { return m_next; }
   void PushFront()
-  {
-    Remove();
-    m_next = sm_first;
-    sm_first = this;
-  }
+  { Remove(); m_next = sm_first; sm_first = this; }
   void Remove();
 protected:
     // old compilers don't support covarient returns, so 'Do' methods are
@@ -377,14 +323,11 @@ protected:
   virtual wxArchiveInputStream* DoNewStream(wxInputStream* stream) const = 0;
   virtual wxArchiveOutputStream* DoNewStream(wxOutputStream* stream) const = 0;
   wxArchiveClassFactory()
-    : m_pConv(NULL)
-    , m_next(this)
-  {
-  }
+    :  m_pConv(NULL), m_next(this) 
+    {
+     }
   wxArchiveClassFactory& operator=(const wxArchiveClassFactory&)
-  {
-    return *this;
-  }
+  { return *this; }
 private:
   wxMBConv* m_pConv;
   static wxArchiveClassFactory* sm_first;

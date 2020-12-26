@@ -28,66 +28,38 @@ class GrContextPriv
 public:
     // from GrContext_Base
   uint32_t contextID() const
-  {
-    return fContext->contextID();
-  }
+  { return fContext->contextID(); }
   bool matches(GrContext_Base* candidate) const
-  {
-    return fContext->matches(candidate);
-  }
+  { return fContext->matches(candidate); }
   const GrContextOptions& options() const
-  {
-    return fContext->options();
-  }
+  { return fContext->options(); }
   const GrCaps* caps() const
-  {
-    return fContext->caps();
-  }
+  { return fContext->caps(); }
   sk_sp<const GrCaps> refCaps() const;
   sk_sp<GrSkSLFPFactoryCache> fpFactoryCache();
   GrImageContext* asImageContext()
-  {
-    return fContext->asImageContext();
-  }
+  { return fContext->asImageContext(); }
   GrRecordingContext* asRecordingContext()
-  {
-    return fContext->asRecordingContext();
-  }
+  { return fContext->asRecordingContext(); }
   GrContext* asDirectContext()
-  {
-    return fContext->asDirectContext();
-  }
+  { return fContext->asDirectContext(); }
     // from GrImageContext
   GrProxyProvider* proxyProvider()
-  {
-    return fContext->proxyProvider();
-  }
+  { return fContext->proxyProvider(); }
   const GrProxyProvider* proxyProvider() const
-  {
-    return fContext->proxyProvider();
-  }
+  { return fContext->proxyProvider(); }
   bool abandoned() const
-  {
-    return fContext->abandoned();
-  }
+  { return fContext->abandoned(); }
     /** This is only useful for debug purposes */
   GrDrawingManager* drawingManager()
-  {
-    return fContext->drawingManager();
-  }
+  { return fContext->drawingManager(); }
   sk_sp<GrOpMemoryPool> refOpMemoryPool();
   GrOpMemoryPool* opMemoryPool()
-  {
-    return fContext->opMemoryPool();
-  }
+  { return fContext->opMemoryPool(); }
   GrStrikeCache* getGrStrikeCache()
-  {
-    return fContext->getGrStrikeCache();
-  }
+  { return fContext->getGrStrikeCache(); }
   GrTextBlobCache* getTextBlobCache()
-  {
-    return fContext->getTextBlobCache();
-  }
+  { return fContext->getTextBlobCache(); }
     /**
      * Registers an object for flush-related callbacks. (See GrOnFlushCallbackObject.)
      *
@@ -112,9 +84,7 @@ public:
      */
   std::unique_ptr<GrRenderTargetContext> makeDeferredRenderTargetContextWithFallback(SkBackingFit fit, int width, int height, GrColorType, sk_sp<SkColorSpace> colorSpace, int sampleCnt = 1, GrMipMapped = GrMipMapped::kNo, GrSurfaceOrigin origin = kBottomLeft_GrSurfaceOrigin, const SkSurfaceProps* surfaceProps = nullptr, SkBudgeted budgeted = SkBudgeted::kYes, GrProtected isProtected = GrProtected::kNo);
   GrAuditTrail* auditTrail()
-  {
-    return fContext->auditTrail();
-  }
+  { return fContext->auditTrail(); }
     /**
      * Create a GrContext without a resource cache
      */
@@ -153,48 +123,34 @@ public:
   std::unique_ptr<GrFragmentProcessor> createPMToUPMEffect(std::unique_ptr<GrFragmentProcessor>);
   std::unique_ptr<GrFragmentProcessor> createUPMToPMEffect(std::unique_ptr<GrFragmentProcessor>);
   SkTaskGroup* getTaskGroup()
-  {
-    return fContext->fTaskGroup.get();
-  }
+  { return fContext->fTaskGroup.get(); }
   GrResourceProvider* resourceProvider()
-  {
-    return fContext->fResourceProvider;
-  }
+  { return fContext->fResourceProvider; }
   const GrResourceProvider* resourceProvider() const
-  {
-    return fContext->fResourceProvider;
-  }
+  { return fContext->fResourceProvider; }
   GrResourceCache* getResourceCache()
-  {
-    return fContext->fResourceCache;
-  }
+  { return fContext->fResourceCache; }
   GrGpu* getGpu()
-  {
-    return fContext->fGpu.get();
-  }
+  { return fContext->fGpu.get(); }
   const GrGpu* getGpu() const
-  {
-    return fContext->fGpu.get();
-  }
+  { return fContext->fGpu.get(); }
     // This accessor should only ever be called by the GrOpFlushState.
   GrAtlasManager* getAtlasManager()
   {
-    return fContext->onGetAtlasManager();
-  }
+        return fContext->onGetAtlasManager();
+    }
   void moveRenderTasksToDDL(SkDeferredDisplayList*);
   void copyRenderTasksFromDDL(const SkDeferredDisplayList*, GrRenderTargetProxy* newDest);
   GrContextOptions::PersistentCache* getPersistentCache()
-  {
-    return fContext->fPersistentCache;
-  }
+  { return fContext->fPersistentCache; }
   GrContextOptions::ShaderErrorHandler* getShaderErrorHandler() const
   {
-    return fContext->fShaderErrorHandler;
-  }
+        return fContext->fShaderErrorHandler;
+    }
   GrClientMappedBufferManager* clientMappedBufferManager()
   {
-    return fContext->fMappedBufferManager.get();
-  }
+        return fContext->fMappedBufferManager.get();
+    }
 #  if  GR_TEST_UTILS
     /** Reset GPU stats */
   void resetGpuStats() const;
@@ -223,9 +179,9 @@ public:
 #  endif
 private:
   explicit GrContextPriv(GrContext* context)
-    : fContext(context)
-  {
-  }
+    :  fContext(context) 
+    {
+    }
   GrContextPriv(const GrContextPriv&);
   GrContextPriv& operator=(const GrContextPriv&);
     // No taking addresses of this type.
@@ -235,11 +191,9 @@ private:
   friend class GrContext;
 };
 inline GrContextPriv GrContext::priv()
-{
-  return GrContextPriv(this);
-}
+{ return GrContextPriv(this); }
 inline const GrContextPriv GrContext::priv() const
 {
-  return GrContextPriv(const_cast<GrContext*>(this));
+    return GrContextPriv(const_cast<GrContext*>(this));
 }
 #endif

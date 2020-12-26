@@ -44,34 +44,35 @@ public:
      *  Construct a JSON writer that will serialize all the generated JSON to 'stream'.
      */
   SkJSONWriter(SkWStream* stream, Mode mode = Mode::kFast)
-    : fBlock(new char[kBlockSize])
-    , fWrite(fBlock)
-    , fBlockEnd(fBlock + kBlockSize)
-    , fStream(stream)
-    , fMode(mode)
-    , fState(State::kStart)
-  {
-    fScopeStack.push_back(Scope::kNone);
-    fNewlineStack.push_back(true);
-  }
+    :  fBlock(new char[kBlockSize])
+            , fWrite(fBlock)
+            , fBlockEnd(fBlock + kBlockSize)
+            , fStream(stream)
+            , fMode(mode)
+            , fState(State::kStart) 
+    {
+
+        fScopeStack.push_back(Scope::kNone);
+        fNewlineStack.push_back(true);
+        }
   ~SkJSONWriter()
   {
-    this->flush();
-    delete[] fBlock;
-    SkASSERT(fScopeStack.count() == 1);
-    SkASSERT(fNewlineStack.count() == 1);
-  }
+
+        this->flush();
+        delete[] fBlock;
+        SkASSERT(fScopeStack.count() == 1);
+        SkASSERT(fNewlineStack.count() == 1);
+      }
     /**
      *  Force all buffered output to be flushed to the underlying stream.
      */
   void flush()
   {
-    if (fWrite != fBlock)
-    {
-      fStream->write(fBlock, fWrite - fBlock);
-      fWrite = fBlock;
+        if (fWrite != fBlock) {
+            fStream->write(fBlock, fWrite - fBlock);
+            fWrite = fBlock;
+        }
     }
-  }
     /**
      *  Append the name (key) portion of an object member. Must be called between beginObject() and
      *  endObject(). If you have both the name and value of an object member, you can simply call
@@ -79,22 +80,20 @@ public:
      */
   void appendName(const char* name)
   {
-    if (!name)
-    {
-      return ;
+        if (!name) {
+            return;
+        }
+        SkASSERT(Scope::kObject == this->scope());
+        SkASSERT(State::kObjectBegin == fState || State::kObjectValue == fState);
+        if (State::kObjectValue == fState) {
+            this->write(",", 1);
+        }
+        this->separator(this->multiline());
+        this->write("\"", 1);
+        this->write(name, strlen(name));
+        this->write("\":", 2);
+        fState = State::kObjectName;
     }
-    SkASSERT(Scope::kObject == this->scope());
-    SkASSERT(State::kObjectBegin == fState || State::kObjectValue == fState);
-    if (State::kObjectValue == fState)
-    {
-      this->write(",", 1);
-    }
-    this->separator(this->multiline());
-    this->write("\"", 1);
-    this->write(name, strlen(name));
-    this->write("\":", 2);
-    fState = State::kObjectName;
-  }
     /**
      *  Adds a new object. A name must be supplied when called between beginObject() and
      *  endObject(). Calls to beginObject() must be balanced by corresponding calls to endObject().
@@ -105,29 +104,28 @@ public:
      */
   void beginObject(const char* name = nullptr, bool multiline = true)
   {
-    this->appendName(name);
-    this->beginValue(true);
-    this->write("{", 1);
-    fScopeStack.push_back(Scope::kObject);
-    fNewlineStack.push_back(multiline);
-    fState = State::kObjectBegin;
-  }
+        this->appendName(name);
+        this->beginValue(true);
+        this->write("{", 1);
+        fScopeStack.push_back(Scope::kObject);
+        fNewlineStack.push_back(multiline);
+        fState = State::kObjectBegin;
+    }
+
     /**
      *  Ends an object that was previously started with beginObject().
      */
-  void endObject()
-  {
-    SkASSERT(Scope::kObject == this->scope());
-    SkASSERT(State::kObjectBegin == fState || State::kObjectValue == fState);
-    bool emptyObject = State::kObjectBegin == fState;
-    bool wasMultiline = this->multiline();
-    this->popScope();
-    if (!emptyObject)
-    {
-      this->separator(wasMultiline);
+    void endObject() {
+        SkASSERT(Scope::kObject == this->scope());
+        SkASSERT(State::kObjectBegin == fState || State::kObjectValue == fState);
+        bool emptyObject = State::kObjectBegin == fState;
+        bool wasMultiline = this->multiline();
+        this->popScope();
+        if (!emptyObject) {
+            this->separator(wasMultiline);
+        }
+        this->write("}", 1);
     }
-    this->write("}", 1);
-  }
     /**
      *  Adds a new array. A name must be supplied when called between beginObject() and
      *  endObject(). Calls to beginArray() must be balanced by corresponding calls to endArray().
@@ -138,29 +136,28 @@ public:
      */
   void beginArray(const char* name = nullptr, bool multiline = true)
   {
-    this->appendName(name);
-    this->beginValue(true);
-    this->write("[", 1);
-    fScopeStack.push_back(Scope::kArray);
-    fNewlineStack.push_back(multiline);
-    fState = State::kArrayBegin;
-  }
+        this->appendName(name);
+        this->beginValue(true);
+        this->write("[", 1);
+        fScopeStack.push_back(Scope::kArray);
+        fNewlineStack.push_back(multiline);
+        fState = State::kArrayBegin;
+    }
     /**
      *  Ends an array that was previous started with beginArray().
      */
   void endArray()
   {
-    SkASSERT(Scope::kArray == this->scope());
-    SkASSERT(State::kArrayBegin == fState || State::kArrayValue == fState);
-    bool emptyArray = State::kArrayBegin == fState;
-    bool wasMultiline = this->multiline();
-    this->popScope();
-    if (!emptyArray)
-    {
-      this->separator(wasMultiline);
+        SkASSERT(Scope::kArray == this->scope());
+        SkASSERT(State::kArrayBegin == fState || State::kArrayValue == fState);
+        bool emptyArray = State::kArrayBegin == fState;
+        bool wasMultiline = this->multiline();
+        this->popScope();
+        if (!emptyArray) {
+            this->separator(wasMultiline);
+        }
+        this->write("]", 1);
     }
-    this->write("]", 1);
-  }
     /**
      *  Functions for adding values of various types. The single argument versions add un-named
      *  values, so must be called either
@@ -169,98 +166,58 @@ public:
      */
   void appendString(const char* value)
   {
-    this->beginValue();
-    this->write("\"", 1);
-    if (value)
-    {
-      while (*value)
-      {
-        switch(*value)
-        {
-          case '"':
-            this->write("\\\"", 2);
-            break;
-          case '\\':
-            this->write("\\\\", 2);
-            break;
-          case '\b':
-            this->write("\\b", 2);
-            break;
-          case '\f':
-            this->write("\\f", 2);
-            break;
-          case '\n':
-            this->write("\\n", 2);
-            break;
-          case '\r':
-            this->write("\\r", 2);
-            break;
-          case '\t':
-            this->write("\\t", 2);
-            break;
-default:
-          this->write(value, 1);
-          break;
-      }
-        value++;
-      }
+        this->beginValue();
+        this->write("\"", 1);
+        if (value) {
+            while (*value) {
+                switch (*value) {
+                    case '"': this->write("\\\"", 2); break;
+                    case '\\': this->write("\\\\", 2); break;
+                    case '\b': this->write("\\b", 2); break;
+                    case '\f': this->write("\\f", 2); break;
+                    case '\n': this->write("\\n", 2); break;
+                    case '\r': this->write("\\r", 2); break;
+                    case '\t': this->write("\\t", 2); break;
+                    default: this->write(value, 1); break;
+                }
+                value++;
+            }
+        }
+        this->write("\"", 1);
     }
-    this->write("\"", 1);
-  }
   void appendPointer(const void* value)
-  {
-    this->beginValue();
-    this->appendf("\"%p\"", value);
-  }
+  { this->beginValue(); this->appendf("\"%p\"", value); }
   void appendBool(bool value)
   {
-    this->beginValue();
-    if (value)
-    {
-      this->write("true", 4);
+        this->beginValue();
+        if (value) {
+            this->write("true", 4);
+        } else {
+            this->write("false", 5);
+        }
     }
-    else 
-    {
-      this->write("false", 5);
-    }
-  }
   void appendS32(int32_t value)
-  {
-    this->beginValue();
-    this->appendf("%d", value);
-  }
+  { this->beginValue(); this->appendf("%d", value); }
   void appendS64(int64_t value);
   void appendU32(uint32_t value)
-  {
-    this->beginValue();
-    this->appendf("%u", value);
-  }
+  { this->beginValue(); this->appendf("%u", value); }
   void appendU64(uint64_t value);
   void appendFloat(float value)
-  {
-    this->beginValue();
-    this->appendf("%g", value);
-  }
+  { this->beginValue(); this->appendf("%g", value); }
   void appendDouble(double value)
-  {
-    this->beginValue();
-    this->appendf("%g", value);
-  }
+  { this->beginValue(); this->appendf("%g", value); }
   void appendFloatDigits(float value, int digits)
   {
-    this->beginValue();
-    this->appendf("%.*g", digits, value);
-  }
+        this->beginValue();
+        this->appendf("%.*g", digits, value);
+    }
   void appendDoubleDigits(double value, int digits)
   {
-    this->beginValue();
-    this->appendf("%.*g", digits, value);
-  }
+        this->beginValue();
+        this->appendf("%.*g", digits, value);
+    }
   void appendHexU32(uint32_t value)
-  {
-    this->beginValue();
-    this->appendf("\"0x%x\"", value);
-  }
+  { this->beginValue(); this->appendf("\"0x%x\"", value); }
   void appendHexU64(uint64_t value);
 #  define DEFINE_NAMED_APPEND(function, type)	 \
     void function(const char* name, type value) { this->appendName(name); this->function(value); }
@@ -282,14 +239,14 @@ default:
 #  undef DEFINE_NAMED_APPEND
   void appendFloatDigits(const char* name, float value, int digits)
   {
-    this->appendName(name);
-    this->appendFloatDigits(value, digits);
-  }
+        this->appendName(name);
+        this->appendFloatDigits(value, digits);
+    }
   void appendDoubleDigits(const char* name, double value, int digits)
   {
-    this->appendName(name);
-    this->appendDoubleDigits(value, digits);
-  }
+        this->appendName(name);
+        this->appendDoubleDigits(value, digits);
+    }
 private:
   enum {
         // Using a 32k scratch block gives big performance wins, but we diminishing returns going
@@ -314,95 +271,80 @@ private:
   void appendf(const char* fmt, ...);
   void beginValue(bool structure = false)
   {
-    SkASSERT(State::kObjectName == fState || State::kArrayBegin == fState || State::kArrayValue == fState || (structure && State::kStart == fState));
-    if (State::kArrayValue == fState)
-    {
-      this->write(",", 1);
-    }
-    if (Scope::kArray == this->scope())
-    {
-      this->separator(this->multiline());
-    }
-    else 
-    {
-      if (Scope::kObject == this->scope() && Mode::kPretty == fMode)
-      {
-        this->write(" ", 1);
-      }
-    }
+        SkASSERT(State::kObjectName == fState ||
+                 State::kArrayBegin == fState ||
+                 State::kArrayValue == fState ||
+                 (structure && State::kStart == fState));
+        if (State::kArrayValue == fState) {
+            this->write(",", 1);
+        }
+        if (Scope::kArray == this->scope()) {
+            this->separator(this->multiline());
+        } else if (Scope::kObject == this->scope() && Mode::kPretty == fMode) {
+            this->write(" ", 1);
+        }
         // We haven't added the value yet, but all (non-structure) callers emit something
         // immediately, so transition state, to simplify the calling code.
-    if (!structure)
-    {
-      fState = Scope::kArray == this->scope() ? State::kArrayValue : State::kObjectValue;
+        if (!structure) {
+            fState = Scope::kArray == this->scope() ? State::kArrayValue : State::kObjectValue;
+        }
     }
-  }
   void separator(bool multiline)
   {
-    if (Mode::kPretty == fMode)
-    {
-      if (multiline)
-      {
-        this->write("\n", 1);
-        for (int i = 0; i < fScopeStack.count() - 1; ++i)
-        {
-          this->write("   ", 3);
+        if (Mode::kPretty == fMode) {
+            if (multiline) {
+                this->write("\n", 1);
+                for (int i = 0; i < fScopeStack.count() - 1; ++i) {
+                    this->write("   ", 3);
+                }
+            } else {
+                this->write(" ", 1);
+            }
         }
-      }
-      else 
-      {
-        this->write(" ", 1);
-      }
     }
-  }
   void write(const char* buf, size_t length)
   {
-    if (static_cast<size_t>(fBlockEnd - fWrite) < length)
-    {
+        if (static_cast<size_t>(fBlockEnd - fWrite) < length) {
             // Don't worry about splitting writes that overflow our block.
-      this->flush();
-    }
-    if (length > kBlockSize)
-    {
+            this->flush();
+        }
+        if (length > kBlockSize) {
             // Send particularly large writes straight through to the stream (unbuffered).
-      fStream->write(buf, length);
+            fStream->write(buf, length);
+        } else {
+            memcpy(fWrite, buf, length);
+            fWrite += length;
+        }
     }
-    else 
-    {
-      memcpy(fWrite, buf, length);
-      fWrite += length;
-    }
-  }
   Scope scope() const
   {
-    SkASSERT(!fScopeStack.empty());
-    return fScopeStack.back();
-  }
+        SkASSERT(!fScopeStack.empty());
+        return fScopeStack.back();
+    }
   bool multiline() const
   {
-    SkASSERT(!fNewlineStack.empty());
-    return fNewlineStack.back();
-  }
+        SkASSERT(!fNewlineStack.empty());
+        return fNewlineStack.back();
+    }
   void popScope()
   {
-    fScopeStack.pop_back();
-    fNewlineStack.pop_back();
-    switch(this->scope())
-    {
-      case Scope::kNone:
-        fState = State::kEnd;
-        break;
-      case Scope::kObject:
-        fState = State::kObjectValue;
-        break;
-      case Scope::kArray:
-        fState = State::kArrayValue;
-        break;
-default:
-      SkDEBUGFAIL("Invalid scope");
-      break;
-  }
-  }
+        fScopeStack.pop_back();
+        fNewlineStack.pop_back();
+        switch (this->scope()) {
+            case Scope::kNone:
+                fState = State::kEnd;
+                break;
+            case Scope::kObject:
+                fState = State::kObjectValue;
+                break;
+            case Scope::kArray:
+                fState = State::kArrayValue;
+                break;
+            default:
+                SkDEBUGFAIL("Invalid scope");
+                break;
+        }
+    }
   char* fBlock;
   char* fWrite;
   char* fBlockEnd;

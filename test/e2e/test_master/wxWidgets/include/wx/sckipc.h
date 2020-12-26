@@ -50,13 +50,14 @@ class WXDLLIMPEXP_NET wxTCPConnection : public wxConnectionBase
 public:
   wxTCPConnection()
   {
-    Init();
-  }
+ Init();   }
   wxTCPConnection(void* buffer, size_t size)
-    : wxConnectionBase(buffer, size)
-  {
-    Init();
-  }
+    :  wxConnectionBase(buffer, size)
+    
+    {
+
+        Init();
+        }
   virtual ~wxTCPConnection();
     // implement base class pure virtual methods
   const void* Request(const wxString& item, size_t* size = NULL, wxIPCFormat format = wxIPC_TEXT) override;

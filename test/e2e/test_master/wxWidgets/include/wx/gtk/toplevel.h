@@ -18,13 +18,14 @@ public:
     // construction
   wxTopLevelWindowGTK()
   {
-    Init();
-  }
+ Init();   }
   wxTopLevelWindowGTK(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-    Init();
-    Create(parent, id, title, pos, size, style, name);
-  }
+
+        Init();
+
+        Create(parent, id, title, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
   virtual ~wxTopLevelWindowGTK();
     // implement base class pure virtuals
@@ -87,8 +88,12 @@ public:
   {
     DecorSize()
     {
-      left = right = top = bottom = 0;
-    }
+
+            left =
+            right =
+            top =
+            bottom = 0;
+            }
     int left, right, top, bottom;
   };
   DecorSize m_decorSize;

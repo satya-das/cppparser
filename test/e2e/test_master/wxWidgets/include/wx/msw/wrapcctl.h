@@ -16,7 +16,7 @@
 // Set Unicode format for a common control
 inline void wxSetCCUnicodeFormat(HWND hwnd)
 {
-  ::SendMessage(hwnd, CCM_SETUNICODEFORMAT, wxUSE_UNICODE, 0);
+    ::SendMessage(hwnd, CCM_SETUNICODEFORMAT, wxUSE_UNICODE, 0);
 }
 #  if  wxUSE_GUI
 // Return the default font for the common controls
@@ -30,8 +30,9 @@ struct wxHDITEM : public HDITEM
 {
   wxHDITEM()
   {
-    ::ZeroMemory(this, sizeof(*this));
-  }
+
+        ::ZeroMemory(this, sizeof(*this));
+      }
 };
 #  endif
 #endif

@@ -14,9 +14,12 @@ public:
   static sk_sp<SkImageFilter> Make(sk_sp<SkImageFilter>* const filters, int count, const SkImageFilter::CropRect* cropRect = nullptr);
   static sk_sp<SkImageFilter> Make(sk_sp<SkImageFilter> first, sk_sp<SkImageFilter> second, const SkImageFilter::CropRect* cropRect = nullptr)
   {
-    sk_sp<SkImageFilter> array[] = {std::move(first), std::move(second)};
-    return Make(array, 2, cropRect);
-  }
+        sk_sp<SkImageFilter> array[] = {
+            std::move(first),
+            std::move(second),
+        };
+        return Make(array, 2, cropRect);
+    }
   static void RegisterFlattenables();
 private:
   SkMergeImageFilter() = delete;

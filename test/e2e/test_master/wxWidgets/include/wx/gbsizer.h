@@ -26,40 +26,26 @@ class WXDLLIMPEXP_CORE wxGBPosition
 {
 public:
   wxGBPosition()
-    : m_row(0)
-    , m_col(0)
-  {
-  }
+    :  m_row(0), m_col(0) 
+    {
+    }
   wxGBPosition(int row, int col)
-    : m_row(row)
-    , m_col(col)
-  {
-  }
+    :  m_row(row), m_col(col) 
+    {
+    }
     // default copy ctor and assignment operator are okay.
   int GetRow() const
-  {
-    return m_row;
-  }
+  { return m_row; }
   int GetCol() const
-  {
-    return m_col;
-  }
+  { return m_col; }
   void SetRow(int row)
-  {
-    m_row = row;
-  }
+  { m_row = row; }
   void SetCol(int col)
-  {
-    m_col = col;
-  }
+  { m_col = col; }
   bool operator==(const wxGBPosition& p) const
-  {
-    return m_row == p.m_row && m_col == p.m_col;
-  }
+  { return m_row == p.m_row && m_col == p.m_col; }
   bool operator!=(const wxGBPosition& p) const
-  {
-    return !(*this == p);
-  }
+  { return !(*this == p); }
 private:
   int m_row;
   int m_col;
@@ -69,17 +55,18 @@ class WXDLLIMPEXP_CORE wxGBSpan
 public:
   wxGBSpan()
   {
-    Init();
-  }
+ Init();   }
   wxGBSpan(int rowspan, int colspan)
   {
+
         // Initialize the members to valid values as not doing it may result in
         // infinite loop in wxGBSizer code if the user passed 0 for any of
         // them, see #12934.
-    Init();
-    SetRowspan(rowspan);
-    SetColspan(colspan);
-  }
+        Init();
+
+        SetRowspan(rowspan);
+        SetColspan(colspan);
+      }
     // default copy ctor and assignment operator are okay.
 
     // Factor constructor creating an invalid wxGBSpan: this is mostly supposed
@@ -87,44 +74,41 @@ public:
     // errors.
   static wxGBSpan Invalid()
   {
-    return wxGBSpan(NULL);
-  }
+        return wxGBSpan(NULL);
+    }
   int GetRowspan() const
-  {
-    return m_rowspan;
-  }
+  { return m_rowspan; }
   int GetColspan() const
-  {
-    return m_colspan;
-  }
+  { return m_colspan; }
   void SetRowspan(int rowspan)
   {
-    wxCHECK_RET(rowspan > 0, "Row span should be strictly positive");
-    m_rowspan = rowspan;
-  }
+        wxCHECK_RET( rowspan > 0, "Row span should be strictly positive" );
+
+        m_rowspan = rowspan;
+    }
   void SetColspan(int colspan)
   {
-    wxCHECK_RET(colspan > 0, "Column span should be strictly positive");
-    m_colspan = colspan;
-  }
+        wxCHECK_RET( colspan > 0, "Column span should be strictly positive" );
+
+        m_colspan = colspan;
+    }
   bool operator==(const wxGBSpan& o) const
-  {
-    return m_rowspan == o.m_rowspan && m_colspan == o.m_colspan;
-  }
+  { return m_rowspan == o.m_rowspan && m_colspan == o.m_colspan; }
   bool operator!=(const wxGBSpan& o) const
-  {
-    return !(*this == o);
-  }
+  { return !(*this == o); }
 private:
     // This private ctor is used by Invalid() only.
   wxGBSpan(struct InvalidCtorTag*)
   {
-    m_rowspan = m_colspan = -1;
-  }
+
+        m_rowspan =
+        m_colspan = -1;
+      }
   void Init()
   {
-    m_rowspan = m_colspan = 1;
-  }
+        m_rowspan =
+        m_colspan = 1;
+    }
   int m_rowspan;
   int m_colspan;
 };
@@ -146,15 +130,11 @@ public:
   wxGBSizerItem();
     // Get the grid position of the item
   wxGBPosition GetPos() const
-  {
-    return m_pos;
-  }
+  { return m_pos; }
   void GetPos(int& row, int& col) const;
     // Get the row and column spanning of the item
   wxGBSpan GetSpan() const
-  {
-    return m_span;
-  }
+  { return m_span; }
   void GetSpan(int& rowspan, int& colspan) const;
     // If the item is already a member of a sizer then first ensure that there
     // is no other item that would intersect with this one at the new
@@ -173,13 +153,9 @@ public:
     // Get the row and column of the endpoint of this item
   void GetEndPos(int& row, int& col);
   wxGridBagSizer* GetGBSizer() const
-  {
-    return m_gbsizer;
-  }
+  { return m_gbsizer; }
   void SetGBSizer(wxGridBagSizer* sizer)
-  {
-    m_gbsizer = sizer;
-  }
+  { m_gbsizer = sizer; }
 protected:
   wxGBPosition m_pos;
   wxGBSpan m_span;
@@ -202,13 +178,9 @@ public:
   wxSizerItem* Add(wxGBSizerItem* item);
     // Get/Set the size used for cells in the grid with no item.
   wxSize GetEmptyCellSize() const
-  {
-    return m_emptyCellSize;
-  }
+  { return m_emptyCellSize; }
   void SetEmptyCellSize(const wxSize& sz)
-  {
-    m_emptyCellSize = sz;
-  }
+  { m_emptyCellSize = sz; }
     // Get the size of the specified cell, including hgap and vgap.  Only
     // valid after a Layout.
   wxSize GetCellSize(int row, int col) const;

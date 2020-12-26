@@ -19,12 +19,14 @@ public:
     // dispatcher and fdioHandler are only used here to allow us to unregister
     // from the event loop when we're destroyed
   wxUnixEventLoopSource(wxFDIODispatcher* dispatcher, wxFDIOHandler* fdioHandler, int fd, wxEventLoopSourceHandler* handler, int flags)
-    : wxEventLoopSource(handler, flags)
-    , m_dispatcher(dispatcher)
-    , m_fdioHandler(fdioHandler)
-    , m_fd(fd)
-  {
-  }
+    :  wxEventLoopSource(handler, flags),
+          m_dispatcher(dispatcher),
+          m_fdioHandler(fdioHandler),
+          m_fd(fd)
+    
+    {
+
+        }
   virtual ~wxUnixEventLoopSource();
 private:
   wxFDIODispatcher* const m_dispatcher;

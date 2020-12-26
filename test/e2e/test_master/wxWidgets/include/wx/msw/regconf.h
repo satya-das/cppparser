@@ -69,9 +69,10 @@ protected:
     wxRegConfig* self = wxConstCast(this, wxRegConfig);
     if (!m_keyLocal.IsOpened())
     {
+
           // create on demand
-      self->m_keyLocal.Create();
-    }
+          self->m_keyLocal.Create();
+          }
     return self->m_keyLocal;
   }
   // implement read/write methods

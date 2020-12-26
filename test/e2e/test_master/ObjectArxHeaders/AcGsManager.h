@@ -31,13 +31,13 @@ public:
     /// </description>
   AcGsManager(void)
   {
-  }
+   }
     /// <description>
     /// Destructor.
     /// </description>
   virtual ~AcGsManager()
   {
-  }
+   }
     /// <description>
     /// Create an AcGsModel using the specified kernel.
     /// </description>

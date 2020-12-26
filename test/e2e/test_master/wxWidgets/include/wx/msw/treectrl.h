@@ -39,12 +39,12 @@ public:
     // --------
   wxTreeCtrl()
   {
-    Init();
-  }
+ Init();   }
   wxTreeCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTR_HAS_BUTTONS | wxTR_LINES_AT_ROOT, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTreeCtrlNameStr))
   {
-    Create(parent, id, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, pos, size, style, validator, name);
+      }
   virtual ~wxTreeCtrl();
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTR_HAS_BUTTONS | wxTR_LINES_AT_ROOT, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTreeCtrlNameStr));
     // implement base class pure virtuals
@@ -168,8 +168,8 @@ protected:
     // either unprocessed or not vetoed
   bool IsTreeEventAllowed(wxTreeEvent& event) const
   {
-    return !HandleTreeEvent(event) || event.IsAllowed();
-  }
+        return !HandleTreeEvent(event) || event.IsAllowed();
+    }
     // generate a wxEVT_KEY_DOWN event from the specified WPARAM/LPARAM values
     // having the same meaning as for WM_KEYDOWN, return true if it was
     // processed

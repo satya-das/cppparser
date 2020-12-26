@@ -80,12 +80,12 @@ public:
 #  ifdef SK_DEBUG
     void validate() const
     {
-      SkASSERT(fCaps);
-      SkASSERT(fProxy);
-      SkASSERT(fClipConservativeBounds);
-      SkASSERT(fViewMatrix);
-      SkASSERT(fShape);
-    }
+            SkASSERT(fCaps);
+            SkASSERT(fProxy);
+            SkASSERT(fClipConservativeBounds);
+            SkASSERT(fViewMatrix);
+            SkASSERT(fShape);
+        }
 #  endif
   };
     /**
@@ -95,8 +95,9 @@ public:
      */
   CanDrawPath canDrawPath(const CanDrawPathArgs& args) const
   {
-    return this->onCanDrawPath(args);
-  }
+        SkDEBUGCODE(args.validate();)
+        return this->onCanDrawPath(args);
+    }
   struct DrawPathArgs
   {
     GrRecordingContext* fContext;
@@ -112,14 +113,14 @@ public:
 #  ifdef SK_DEBUG
     void validate() const
     {
-      SkASSERT(fContext);
-      SkASSERT(fUserStencilSettings);
-      SkASSERT(fRenderTargetContext);
-      SkASSERT(fClip);
-      SkASSERT(fClipConservativeBounds);
-      SkASSERT(fViewMatrix);
-      SkASSERT(fShape);
-    }
+            SkASSERT(fContext);
+            SkASSERT(fUserStencilSettings);
+            SkASSERT(fRenderTargetContext);
+            SkASSERT(fClip);
+            SkASSERT(fClipConservativeBounds);
+            SkASSERT(fViewMatrix);
+            SkASSERT(fShape);
+        }
 #  endif
   };
     /**
@@ -146,9 +147,10 @@ public:
      */
   void stencilPath(const StencilPathArgs& args)
   {
-    SkASSERT(kNoSupport_StencilSupport != this->getStencilSupport(*args.fShape));
-    this->onStencilPath(args);
-  }
+        SkDEBUGCODE(args.validate();)
+        SkASSERT(kNoSupport_StencilSupport != this->getStencilSupport(*args.fShape));
+        this->onStencilPath(args);
+    }
     // Helper for determining if we can treat a thin stroke as a hairline w/ coverage.
     // If we can, we draw lots faster (raster device does this same test).
   static bool IsStrokeHairlineOrEquivalent(const GrStyle&, const SkMatrix&, SkScalar* outCoverage);
@@ -162,8 +164,8 @@ private:
      */
   virtual StencilSupport onGetStencilSupport(const GrShape&) const
   {
-    return kNoRestriction_StencilSupport;
-  }
+        return kNoRestriction_StencilSupport;
+    }
     /**
      * Subclass implementation of drawPath()
      */

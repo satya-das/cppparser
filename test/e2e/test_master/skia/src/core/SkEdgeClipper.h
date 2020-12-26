@@ -14,17 +14,15 @@ class SkEdgeClipper
 {
 public:
   SkEdgeClipper(bool canCullToTheRight)
-    : fCanCullToTheRight(canCullToTheRight)
-  {
-  }
+    :  fCanCullToTheRight(canCullToTheRight) 
+    {
+    }
   bool clipLine(SkPoint p0, SkPoint p1, const SkRect& clip);
   bool clipQuad(const SkPoint pts[3], const SkRect& clip);
   bool clipCubic(const SkPoint pts[4], const SkRect& clip);
   SkPath::Verb next(SkPoint pts[]);
   bool canCullToTheRight() const
-  {
-    return fCanCullToTheRight;
-  }
+  { return fCanCullToTheRight; }
 private:
   SkPoint* fCurrPoint;
   SkPath::Verb* fCurrVerb;

@@ -61,13 +61,13 @@ private:
     // the data object for the specific selection
   wxDataObject*& Data(Kind kind)
   {
-    return kind == Primary ? m_dataPrimary : m_dataClipboard;
-  }
+        return kind == Primary ? m_dataPrimary : m_dataClipboard;
+    }
     // the data object we're currently using
   wxDataObject*& Data()
   {
-    return Data(m_usePrimary ? Primary : Clipboard);
-  }
+        return Data(m_usePrimary ? Primary : Clipboard);
+    }
     // set or unset selection ownership
   bool SetSelectionOwner(bool set = true);
     // add atom to the list of supported targets

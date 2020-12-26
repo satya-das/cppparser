@@ -116,31 +116,23 @@ namespace PoDoFo
      *  \param eWriteMode write mode
      */
     void SetWriteMode(EPdfWriteMode eWriteMode)
-    {
-      m_eWriteMode = eWriteMode;
-    }
+    { m_eWriteMode = eWriteMode; }
     /** Get the write mode used for wirting the PDF
      *  \returns the write mode
      */
     EPdfWriteMode GetWriteMode() const
-    {
-      return m_eWriteMode;
-    }
+    { return m_eWriteMode; }
     /** Set the PDF Version of the document. Has to be called before Write() to
      *  have an effect.
      *  \param eVersion  version of the pdf document
      */
     void SetPdfVersion(EPdfVersion eVersion)
-    {
-      m_eVersion = eVersion;
-    }
+    { m_eVersion = eVersion; }
     /** Get the PDF version of the document
      *  \returns EPdfVersion version of the pdf document
      */
     EPdfVersion GetPdfVersion() const
-    {
-      return m_eVersion;
-    }
+    { return m_eVersion; }
     /** Enabled linearization for this document.
      *  I.e. optimize it for web usage. Default is false.
      *  \param bLinearize if true create a web optimized PDF file
@@ -186,9 +178,7 @@ namespace PoDoFo
      *  \returns the file format version as string
      */
     const char* GetPdfVersionString() const
-    {
-      return s_szPdfVersionNums[static_cast<int>(m_eVersion)];
-    }
+    { return s_szPdfVersionNums[static_cast<int>(m_eVersion)]; }
     /** Set the written document to be encrypted using a PdfEncrypt object
      *
      *  \param rEncrypt an encryption object which is used to encrypt the written PDF file
@@ -198,9 +188,7 @@ namespace PoDoFo
      * \returns true if this PdfWriter creates an encrypted PDF file
      */
     bool GetEncrypted() const
-    {
-      return (m_pEncrypt != NULL);
-    }
+    { return (m_pEncrypt != NULL); }
     /** Calculate the byte offset of the object pObject in the PDF file
      *  if the file was written to disk at the moment of calling this function.
      *
@@ -331,59 +319,57 @@ namespace PoDoFo
   void PdfWriter::SetLinearized(bool bLinearize)
   {
     m_bLinearized = bLinearize;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfWriter::GetLinearized() const
   {
     return m_bLinearized;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfWriter::SetUseXRefStream(bool bStream)
   {
-    if (bStream && this->GetPdfVersion() < ePdfVersion_1_5)
-    {
-      this->SetPdfVersion(ePdfVersion_1_5);
-    }
+    if( bStream && this->GetPdfVersion() < ePdfVersion_1_5 )
+        this->SetPdfVersion( ePdfVersion_1_5 );
     m_bXRefStream = bStream;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfWriter::GetUseXRefStream() const
   {
     return m_bXRefStream;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfWriter::SetPrevXRefOffset(pdf_int64 lPrevXRefOffset)
   {
     m_lPrevXRefOffset = lPrevXRefOffset;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   pdf_int64 PdfWriter::GetPrevXRefOffset() const
   {
     return m_lPrevXRefOffset;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfWriter::SetIncrementalUpdate(bool bIncrementalUpdate)
   {
     m_bIncrementalUpdate = bIncrementalUpdate;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfWriter::GetIncrementalUpdate(void) const
   {
     return m_bIncrementalUpdate;
-  }
+}
 }
 #endif

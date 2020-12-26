@@ -19,24 +19,22 @@ class wxMaxWidthCalculatorBase
 public:
     // column of which calculate the width
   explicit wxMaxWidthCalculatorBase(size_t column)
-    : m_column(column)
-    , m_width(0)
-  {
-  }
+    :  m_column(column),
+          m_width(0)
+    
+    {
+
+        }
   void UpdateWithWidth(int width)
   {
-    m_width = wxMax(m_width, width);
-  }
+        m_width = wxMax(m_width, width);
+    }
     // Update the max with for the expected row
   virtual void UpdateWithRow(int row) = 0;
   int GetMaxWidth() const
-  {
-    return m_width;
-  }
+  { return m_width; }
   size_t GetColumn() const
-  {
-    return m_column;
-  }
+  { return m_column; }
   void ComputeBestColumnWidth(size_t count, size_t first_visible, size_t last_visible)
   {
         // The code below deserves some explanation. For very large controls, we
@@ -49,48 +47,60 @@ public:
         // visible miscalculations, we also include all currently visible items
         // no matter what.  Finally, the value of N is determined dynamically by
         // measuring how much time we spent on the determining item widths so far.
-#    if  wxUSE_STOPWATCH
-    size_t top_part_end = count;
-    static const long CALC_TIMEOUT = 20;
+
+#if wxUSE_STOPWATCH
+        size_t top_part_end = count;
+        static const long CALC_TIMEOUT = 20/*ms*/;
         // don't call wxStopWatch::Time() too often
-    static const unsigned CALC_CHECK_FREQ = 100;
-    wxStopWatch timer;
-#    else 
+        static const unsigned CALC_CHECK_FREQ = 100;
+        wxStopWatch timer;
+#else
         // use some hard-coded limit, that's the best we can do without timer
-    size_t top_part_end = wxMin(500, count);
-#    endif
-    size_t row = 0;
-    for (row = 0; row < top_part_end; row++)
-    {
-#    if  wxUSE_STOPWATCH
-      if (row % CALC_CHECK_FREQ == CALC_CHECK_FREQ - 1 && timer.Time() > CALC_TIMEOUT)
-      {
-        break;
-      }
-#    endif
-      UpdateWithRow(row);
-    }
+        size_t top_part_end = wxMin(500, count);
+#endif // wxUSE_STOPWATCH/!wxUSE_STOPWATCH
+
+        size_t row = 0;
+
+        for ( row = 0; row < top_part_end; row++ )
+        {
+#if wxUSE_STOPWATCH
+            if ( row % CALC_CHECK_FREQ == CALC_CHECK_FREQ-1 &&
+                 timer.Time() > CALC_TIMEOUT )
+                break;
+#endif // wxUSE_STOPWATCH
+            UpdateWithRow(row);
+        }
+
         // row is the first unmeasured item now; that's our value of N/2
-    if (row < count)
-    {
-      top_part_end = row;
+        if ( row < count )
+        {
+            top_part_end = row;
+
             // add bottom N/2 items now:
-      const size_t bottom_part_start = wxMax(row, count - row);
-      for (row = bottom_part_start; row < count; row++)
-      {
-        UpdateWithRow(row);
-      }
+            const size_t bottom_part_start = wxMax(row, count - row);
+            for ( row = bottom_part_start; row < count; row++ )
+            {
+                UpdateWithRow(row);
+            }
+
             // finally, include currently visible items in the calculation:
-      first_visible = wxMax(first_visible, top_part_end);
-      last_visible = wxMin(bottom_part_start, last_visible);
-      for (row = first_visible; row < last_visible; row++)
-      {
-        UpdateWithRow(row);
-      }
-      wxLogTrace("items container", "determined best size from %zu top, %zu bottom "
-                       "plus %zu more visible items out of %zu total", top_part_end, count - bottom_part_start, last_visible - first_visible, count);
+            first_visible = wxMax(first_visible, top_part_end);
+            last_visible = wxMin(bottom_part_start, last_visible);
+
+            for ( row = first_visible; row < last_visible; row++ )
+            {
+                UpdateWithRow(row);
+            }
+
+            wxLogTrace("items container",
+                       "determined best size from %zu top, %zu bottom "
+                       "plus %zu more visible items out of %zu total",
+                       top_part_end,
+                       count - bottom_part_start,
+                       last_visible - first_visible,
+                       count);
+        }
     }
-  }
 private:
   const size_t m_column;
   int m_width;

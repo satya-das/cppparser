@@ -143,7 +143,7 @@ void CppWriter::emit(const CppObj* cppObj, std::ostream& stm, CppIndent indentat
       return emitMacroCall(static_cast<const CppMacroCall*>(cppObj), stm, indentation);
 
     case CppObjType::kBlob:
-      return emitBlob((CppBlob*) cppObj, stm);
+      return emitBlob((CppBlob*) cppObj, stm, true, indentation);
 
     default:
       break;
@@ -226,9 +226,29 @@ void CppWriter::emitPragma(const CppPragma* pragmaObj, std::ostream& stm) const
   stm << '#' << preproIndent_ << "pragma " << pragmaObj->defn_ << '\n';
 }
 
-void CppWriter::emitBlob(const CppBlob* blobObj, std::ostream& stm) const
+void CppWriter::emitBlob(const CppBlob* blobObj, std::ostream& stm, bool formatLineStarts, CppIndent indentation) const
 {
-  stm << blobObj->blob_;
+  // if (formatLineStarts)
+  // {
+  //   bool startOfLine = false;
+  //   for (const auto ch : blobObj->blob_)
+  //   {
+  //     if (startOfLine)
+  //     {
+  //       if ((ch == ' ') || (ch == '\t'))
+  //         continue;
+  //       else if (ch != '\n')
+  //         stm << indentation;
+  //     }
+
+  //     stm << ch;
+  //     startOfLine = (ch == '\n');
+  //   }
+  // }
+  // else
+  {
+    stm << blobObj->blob_;
+  }
 }
 
 void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) const
@@ -240,7 +260,7 @@ void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) con
   else
     stm << varTypeObj->baseType();
   const auto&           origTypeModifier = varTypeObj->typeModifier();
-  const CppTypeModifier typeModifier {
+  const CppTypeModifier typeModifier{
     origTypeModifier.refType_, origTypeModifier.ptrLevel_, origTypeModifier.constBits_ & ~1};
   emitTypeModifier(typeModifier, stm);
   if (varTypeObj->paramPack_)
@@ -332,7 +352,7 @@ void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, bool emitNewL
     if (isEnumBodyBlob)
     {
       stm << " {";
-      emit(enmObj->itemList_->front()->val_.get(), stm, indentation);
+      emitBlob((CppBlob*) enmObj->itemList_->front()->val_.get(), stm, false, indentation);
       stm << '}';
     }
     else
@@ -616,9 +636,19 @@ void CppWriter::emitFunction(const CppFunction* funcObj,
   }
   if (!skipParamName && funcObj->defn() && (getEmittingType() != kHeader))
   {
-    stm << '\n' << indentation++ << "{\n";
-    emitCompound(funcObj->defn(), stm, indentation);
-    stm << --indentation << "}\n";
+    const auto defn = funcObj->defn();
+    if (defn->hasASingleBlobMember())
+    {
+      stm << '\n' << indentation++ << "{";
+      emitBlob((CppBlob*) defn->members().front().get(), stm, false, indentation);
+      stm << "}\n";
+    }
+    else
+    {
+      stm << '\n' << indentation++ << "{\n";
+      emitCompound(funcObj->defn(), stm, indentation);
+      stm << --indentation << "}\n";
+    }
   }
   else if (emitNewLine && ((funcObj->attr() & kFuncParam) == 0))
   {
@@ -665,21 +695,28 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj,
   if (ctorObj->params())
     emitParamList(ctorObj->params(), stm, skipParamName);
   stm << ')';
-  if (!skipParamName && ctorObj->memInitList_)
+  if (!skipParamName && ctorObj->memInits_.memInitList)
   {
     char sep = ':';
     ++indentation;
-    for (CppMemInitList::const_iterator memInitItr = ctorObj->memInitList_->begin();
-         memInitItr != ctorObj->memInitList_->end();
-         ++memInitItr)
+    if (ctorObj->memInits_.memInitListIsABlob_)
     {
       stm << '\n';
-      stm << indentation << sep << ' ' << memInitItr->first << '(';
-      emitExpr(memInitItr->second, stm);
-      stm << ')';
-      sep = ',';
+      stm << indentation << sep << ' ';
+      emitBlob(ctorObj->memInits_.blob, stm, true, indentation);
     }
-    --indentation;
+    else
+    {
+      for (const auto& memInit : *(ctorObj->memInits_.memInitList))
+      {
+        stm << '\n';
+        stm << indentation << sep << ' ' << memInit.first << '(';
+        emitExpr(memInit.second, stm);
+        stm << ')';
+        sep = ',';
+      }
+      --indentation;
+    }
   }
   if (!skipParamName && ctorObj->defn())
   {

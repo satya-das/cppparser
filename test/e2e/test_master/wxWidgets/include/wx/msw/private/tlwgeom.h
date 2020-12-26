@@ -18,9 +18,10 @@ class wxTLWGeometry : public wxTLWGeometryBase
 public:
   wxTLWGeometry()
   {
-    wxZeroMemory(m_placement);
-    m_placement.length = sizeof(m_placement);
-  }
+
+        wxZeroMemory(m_placement);
+        m_placement.length = sizeof(m_placement);
+      }
   bool Save(const Serializer& ser) const override
   {
         // For compatibility with the existing saved positions/sizes, use the
@@ -97,18 +98,20 @@ public:
         // Maximized window position.
     if (ser.RestoreField(wxPERSIST_TLW_MAX_X, &r.x) && ser.RestoreField(wxPERSIST_TLW_MAX_Y, &r.y))
     {
-      m_placement.ptMaxPosition.x = r.x;
-      m_placement.ptMaxPosition.y = r.y;
-    }
+
+            m_placement.ptMaxPosition.x = r.x;
+            m_placement.ptMaxPosition.y = r.y;
+            }
     return true;
   }
   bool GetFrom(const wxTopLevelWindow* tlw) override
   {
     if (!::GetWindowPlacement(GetHwndOf(tlw), &m_placement))
     {
-      wxLogLastError(wxS("GetWindowPlacement"));
-      return false;
-    }
+
+            wxLogLastError(wxS("GetWindowPlacement"));
+            return false;
+            }
     return true;
   }
   bool ApplyTo(wxTopLevelWindow* tlw) override
@@ -122,13 +125,15 @@ public:
     tlw->MSWSetShowCommand(m_placement.showCmd);
     if (!tlw->IsShown())
     {
-      m_placement.showCmd = SW_HIDE;
-    }
+
+            m_placement.showCmd = SW_HIDE;
+            }
     if (!::SetWindowPlacement(GetHwndOf(tlw), &m_placement))
     {
-      wxLogLastError(wxS("SetWindowPlacement"));
-      return false;
-    }
+
+            wxLogLastError(wxS("SetWindowPlacement"));
+            return false;
+            }
     return true;
   }
 private:

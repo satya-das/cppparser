@@ -17,8 +17,7 @@ class WXDLLIMPEXP_CORE wxNonOwnedWindow : public wxNonOwnedWindowBase
 public:
   wxNonOwnedWindow()
   {
-    m_shapeImpl = NULL;
-  }
+ m_shapeImpl = NULL;   }
   virtual ~wxNonOwnedWindow();
     // Overridden to actually set the shape when the window becomes realized.
   void GTKHandleRealized() override;

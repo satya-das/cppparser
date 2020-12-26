@@ -72,51 +72,39 @@ class WXDLLIMPEXP_CORE wxSpinCtrl : public wxSpinCtrlGTKBase
 public:
   wxSpinCtrl()
   {
-    Init();
-  }
+ Init();   }
   wxSpinCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_ARROW_KEYS, int min = 0, int max = 100, int initial = 0, const wxString& name = wxS("wxSpinCtrl"))
   {
-    Init();
-    Create(parent, id, value, pos, size, style, min, max, initial, name);
-  }
+
+        Init();
+
+        Create(parent, id, value, pos, size, style, min, max, initial, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_ARROW_KEYS, int min = 0, int max = 100, int initial = 0, const wxString& name = wxS("wxSpinCtrl"))
   {
-    return wxSpinCtrlGTKBase::Create(parent, id, value, pos, size, style, min, max, initial, 1, name);
-  }
+        return wxSpinCtrlGTKBase::Create(parent, id, value, pos, size,
+                                         style, min, max, initial, 1, name);
+    }
     // accessors
   int GetValue() const
-  {
-    return int(DoGetValue());
-  }
+  { return int(DoGetValue()); }
   int GetMin() const
-  {
-    return int(DoGetMin());
-  }
+  { return int(DoGetMin()); }
   int GetMax() const
-  {
-    return int(DoGetMax());
-  }
+  { return int(DoGetMax()); }
   int GetIncrement() const
-  {
-    return int(DoGetIncrement());
-  }
+  { return int(DoGetIncrement()); }
     // operations
   void SetValue(const wxString& value) override
   {
     wxSpinCtrlGTKBase::SetValue(value);
   }
   void SetValue(int value)
-  {
-    DoSetValue(value);
-  }
+  { DoSetValue(value); }
   void SetRange(int minVal, int maxVal)
-  {
-    DoSetRange(minVal, maxVal);
-  }
+  { DoSetRange(minVal, maxVal); }
   void SetIncrement(int inc)
-  {
-    DoSetIncrement(inc);
-  }
+  { DoSetIncrement(inc); }
   int GetBase() const override
   {
     return m_base;
@@ -128,8 +116,8 @@ private:
     // Common part of all ctors.
   void Init()
   {
-    m_base = 10;
-  }
+        m_base = 10;
+    }
   int m_base;
   wxDECLARE_DYNAMIC_CLASS(wxSpinCtrl);
 };
@@ -144,29 +132,24 @@ public:
   }
   wxSpinCtrlDouble(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_ARROW_KEYS, double min = 0, double max = 100, double initial = 0, double inc = 1, const wxString& name = wxS("wxSpinCtrlDouble"))
   {
-    Create(parent, id, value, pos, size, style, min, max, initial, inc, name);
-  }
+
+        Create(parent, id, value, pos, size, style,
+               min, max, initial, inc, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_ARROW_KEYS, double min = 0, double max = 100, double initial = 0, double inc = 1, const wxString& name = wxS("wxSpinCtrlDouble"))
   {
-    return wxSpinCtrlGTKBase::Create(parent, id, value, pos, size, style, min, max, initial, inc, name);
-  }
+        return wxSpinCtrlGTKBase::Create(parent, id, value, pos, size,
+                                         style, min, max, initial, inc, name);
+    }
     // accessors
   double GetValue() const
-  {
-    return DoGetValue();
-  }
+  { return DoGetValue(); }
   double GetMin() const
-  {
-    return DoGetMin();
-  }
+  { return DoGetMin(); }
   double GetMax() const
-  {
-    return DoGetMax();
-  }
+  { return DoGetMax(); }
   double GetIncrement() const
-  {
-    return DoGetIncrement();
-  }
+  { return DoGetIncrement(); }
   unsigned GetDigits() const;
     // operations
   void SetValue(const wxString& value) override
@@ -174,17 +157,11 @@ public:
     wxSpinCtrlGTKBase::SetValue(value);
   }
   void SetValue(double value)
-  {
-    DoSetValue(value);
-  }
+  { DoSetValue(value); }
   void SetRange(double minVal, double maxVal)
-  {
-    DoSetRange(minVal, maxVal);
-  }
+  { DoSetRange(minVal, maxVal); }
   void SetIncrement(double inc)
-  {
-    DoSetIncrement(inc);
-  }
+  { DoSetIncrement(inc); }
   void SetDigits(unsigned digits);
   int GetBase() const override
   {

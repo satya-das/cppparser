@@ -31,7 +31,7 @@ public:
   static SkEventTracer* GetInstance();
   virtual ~SkEventTracer()
   {
-  }
+   }
     // The pointer returned from GetCategoryGroupEnabled() points to a
     // value with zero or more of the following bits. Used in this class only.
     // The TRACE_EVENT macros should only use the value as a bool.

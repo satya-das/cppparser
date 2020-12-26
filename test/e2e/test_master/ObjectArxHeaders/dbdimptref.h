@@ -53,23 +53,24 @@ public:
     //
   virtual Acad::ErrorStatus subErase(Adesk::Boolean erasing)
   {
-    ADESK_UNREFED_PARAM(erasing);
-    return Acad::eOk;
-  }
+        ADESK_UNREFED_PARAM(erasing);
+        return Acad::eOk;
+    }
   virtual Acad::ErrorStatus wblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping&, Adesk::Boolean isPrimary = Adesk::kTrue) const
   {
-    ADESK_UNREFED_PARAM(pOwnerObject);
-    ADESK_UNREFED_PARAM(pClonedObject);
-    ADESK_UNREFED_PARAM(isPrimary);
-    return Acad::eOk;
-  }
+        ADESK_UNREFED_PARAM(pOwnerObject);
+        ADESK_UNREFED_PARAM(pClonedObject);
+        ADESK_UNREFED_PARAM(isPrimary);
+        
+        return Acad::eOk;
+    }
   virtual Acad::ErrorStatus deepClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping&, Adesk::Boolean isPrimary = Adesk::kTrue) const
   {
-    ADESK_UNREFED_PARAM(pOwnerObject);
-    ADESK_UNREFED_PARAM(pClonedObject);
-    ADESK_UNREFED_PARAM(isPrimary);
-    return Acad::eOk;
-  }
+        ADESK_UNREFED_PARAM(pOwnerObject);
+        ADESK_UNREFED_PARAM(pClonedObject);
+        ADESK_UNREFED_PARAM(isPrimary);
+        
+        return Acad::eOk;}
   virtual void updateDueToMirror(bool inMirror = false) = 0;
     // utility functions...
     // filing AcDbPointRef class

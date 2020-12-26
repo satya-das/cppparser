@@ -54,10 +54,11 @@ namespace PoDoFo
   struct TLineElement
   {
     TLineElement()
-      : pszStart(NULL)
-      , lLen(0L)
-    {
-    }
+      :  pszStart( NULL ), lLen( 0L )
+	
+      {
+
+	      }
     const char* pszStart;
     pdf_long lLen;
   };
@@ -779,83 +780,86 @@ namespace PoDoFo
   PdfCanvas* PdfPainter::GetPage() const
   {
     return m_pPage;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfStream* PdfPainter::GetCanvas() const
   {
     return m_pCanvas;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfTextRenderingMode PdfPainter::GetTextRenderingMode(void) const
   {
     return currentTextRenderingMode;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfFont* PdfPainter::GetFont() const
   {
     return m_pFont;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfPainter::SetTabWidth(unsigned short nTabWidth)
   {
     m_nTabWidth = nTabWidth;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   unsigned short PdfPainter::GetTabWidth() const
   {
     return m_nTabWidth;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfPainter::SetPrecision(unsigned short inPrec)
   {
-    m_oss.precision(inPrec);
-  }
+    m_oss.precision( inPrec );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   unsigned short PdfPainter::GetPrecision() const
   {
     return static_cast<unsigned short>(m_oss.precision());
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline std::ostringstream& PdfPainter::GetCurrentPath(void)
   {
-    return m_curPath;
-  }
+	return m_curPath;
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfPainter::SetClipRect(const PdfRect& rRect)
   {
-    this->SetClipRect(rRect.GetLeft(), rRect.GetBottom(), rRect.GetWidth(), rRect.GetHeight());
-  }
+    this->SetClipRect( rRect.GetLeft(), rRect.GetBottom(), rRect.GetWidth(), rRect.GetHeight() );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfPainter::Rectangle(const PdfRect& rRect, double dRoundX, double dRoundY)
   {
-    this->Rectangle(rRect.GetLeft(), rRect.GetBottom(), rRect.GetWidth(), rRect.GetHeight(), dRoundX, dRoundY);
-  }
+    this->Rectangle( rRect.GetLeft(), rRect.GetBottom(), 
+                    rRect.GetWidth(), rRect.GetHeight(), 
+                    dRoundX, dRoundY );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfPainter::DrawMultiLineText(const PdfRect& rRect, const PdfString& rsText, EPdfAlignment eAlignment, EPdfVerticalAlignment eVertical, bool bClip, bool bSkipSpaces)
   {
-    this->DrawMultiLineText(rRect.GetLeft(), rRect.GetBottom(), rRect.GetWidth(), rRect.GetHeight(), rsText, eAlignment, eVertical, bClip, bSkipSpaces);
-  }
+    this->DrawMultiLineText( rRect.GetLeft(), rRect.GetBottom(), rRect.GetWidth(), rRect.GetHeight(), 
+                             rsText, eAlignment, eVertical, bClip, bSkipSpaces );
+}
 }
 #endif

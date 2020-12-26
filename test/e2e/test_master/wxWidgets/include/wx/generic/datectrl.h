@@ -21,14 +21,15 @@ public:
     // creating the control
   wxDatePickerCtrlGeneric()
   {
-    Init();
-  }
+ Init();   }
   virtual ~wxDatePickerCtrlGeneric();
   wxDatePickerCtrlGeneric(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDP_DEFAULT | wxDP_SHOWCENTURY, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxDatePickerCtrlNameStr)
   {
-    Init();
-    (void) Create(parent, id, date, pos, size, style, validator, name);
-  }
+
+        Init();
+
+        (void)Create(parent, id, date, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDP_DEFAULT | wxDP_SHOWCENTURY, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxDatePickerCtrlNameStr);
     // wxDatePickerCtrl methods
   void SetValue(const wxDateTime& date) override;

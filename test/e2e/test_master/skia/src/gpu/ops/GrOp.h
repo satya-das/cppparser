@@ -63,7 +63,7 @@ public:
   virtual void visitProxies(const VisitProxyFunc&) const
   {
         // This default implementation assumes the op has no proxies
-  }
+    }
   enum class CombineResult {
         /**
          * The op that combineIfPossible was called on now represents its own work plus that of
@@ -86,37 +86,37 @@ public:
   CombineResult combineIfPossible(GrOp* that, const GrCaps& caps);
   const SkRect& bounds() const
   {
-    SkASSERT(kUninitialized_BoundsFlag != fBoundsFlags);
-    return fBounds;
-  }
+        SkASSERT(kUninitialized_BoundsFlag != fBoundsFlags);
+        return fBounds;
+    }
   void setClippedBounds(const SkRect& clippedBounds)
   {
-    fBounds = clippedBounds;
+        fBounds = clippedBounds;
         // The clipped bounds already incorporate any effect of the bounds flags.
-    fBoundsFlags = 0;
-  }
+        fBoundsFlags = 0;
+    }
   bool hasAABloat() const
   {
-    SkASSERT(fBoundsFlags != kUninitialized_BoundsFlag);
-    return SkToBool(fBoundsFlags & kAABloat_BoundsFlag);
-  }
+        SkASSERT(fBoundsFlags != kUninitialized_BoundsFlag);
+        return SkToBool(fBoundsFlags & kAABloat_BoundsFlag);
+    }
   bool hasZeroArea() const
   {
-    SkASSERT(fBoundsFlags != kUninitialized_BoundsFlag);
-    return SkToBool(fBoundsFlags & kZeroArea_BoundsFlag);
-  }
+        SkASSERT(fBoundsFlags != kUninitialized_BoundsFlag);
+        return SkToBool(fBoundsFlags & kZeroArea_BoundsFlag);
+    }
 #  ifdef SK_DEBUG
     // All GrOp-derived classes should be allocated in and deleted from a GrMemoryPool
   void* operator new(size_t size);
   void operator delete(void* target);
   void* operator new(size_t size, void* placement)
   {
-    return ::operator new(size, placement);
-  }
+        return ::operator new(size, placement);
+    }
   void operator delete(void* target, void* placement)
   {
-    ::operator delete(target, placement);
-  }
+        ::operator delete(target, placement);
+    }
 #  endif
     /**
      * Helper for safely down-casting to a GrOp subclass
@@ -124,56 +124,49 @@ public:
   template <typename T>
   const T& cast() const
   {
-    SkASSERT(T::ClassID() == this->classID());
-    return *static_cast<const T*>(this);
-  }
+        SkASSERT(T::ClassID() == this->classID());
+        return *static_cast<const T*>(this);
+    }
   template <typename T>
   T* cast()
   {
-    SkASSERT(T::ClassID() == this->classID());
-    return static_cast<T*>(this);
-  }
+        SkASSERT(T::ClassID() == this->classID());
+        return static_cast<T*>(this);
+    }
   uint32_t classID() const
-  {
-    SkASSERT(kIllegalOpID != fClassID);
-    return fClassID;
-  }
+  { SkASSERT(kIllegalOpID != fClassID); return fClassID; }
     // We lazily initialize the uniqueID because currently the only user is GrAuditTrail
   uint32_t uniqueID() const
   {
-    if (kIllegalOpID == fUniqueID)
-    {
-      fUniqueID = GenOpID();
+        if (kIllegalOpID == fUniqueID) {
+            fUniqueID = GenOpID();
+        }
+        return fUniqueID;
     }
-    return fUniqueID;
-  }
     /**
      * Called prior to executing. The op should perform any resource creation or data transfers
      * necessary before execute() is called.
      */
   void prepare(GrOpFlushState* state)
-  {
-    this->onPrepare(state);
-  }
+  { this->onPrepare(state); }
     /** Issues the op's commands to GrGpu. */
   void execute(GrOpFlushState* state, const SkRect& chainBounds)
   {
-    TRACE_EVENT0("skia.gpu", name());
-    this->onExecute(state, chainBounds);
-  }
+        TRACE_EVENT0("skia.gpu", name());
+        this->onExecute(state, chainBounds);
+    }
     /** Used for spewing information about ops when debugging. */
 #  ifdef SK_DEBUG
   virtual SkString dumpInfo() const
   {
-    SkString string;
-    string.appendf("OpBounds: [L: %.2f, T: %.2f, R: %.2f, B: %.2f]\n", fBounds.fLeft, fBounds.fTop, fBounds.fRight, fBounds.fBottom);
-    return string;
-  }
+        SkString string;
+        string.appendf("OpBounds: [L: %.2f, T: %.2f, R: %.2f, B: %.2f]\n",
+                       fBounds.fLeft, fBounds.fTop, fBounds.fRight, fBounds.fBottom);
+        return string;
+    }
 #  else 
   SkString dumpInfo() const
-  {
-    return SkString("<Op information unavailable>");
-  }
+  { return SkString("<Op information unavailable>"); }
 #  endif
     /**
      * A helper for iterating over an op chain in a range for loop that also downcasts to a GrOp
@@ -190,38 +183,30 @@ public:
     {
     public:
       explicit Iter(const OpSubclass* head)
-        : fCurr(head)
-      {
-      }
+        :  fCurr(head) 
+        {
+        }
       inline Iter& operator++()
       {
-        return *this = Iter(static_cast<const OpSubclass*>(fCurr->nextInChain()));
-      }
+                return *this = Iter(static_cast<const OpSubclass*>(fCurr->nextInChain()));
+            }
       const OpSubclass& operator*() const
-      {
-        return *fCurr;
-      }
+      { return *fCurr; }
       bool operator!=(const Iter& that) const
-      {
-        return fCurr != that.fCurr;
-      }
+      { return fCurr != that.fCurr; }
     private:
       const OpSubclass* fCurr;
     };
     const OpSubclass* fHead;
   public:
     explicit ChainRange(const OpSubclass* head)
-      : fHead(head)
-    {
-    }
+      :  fHead(head) 
+      {
+      }
     Iter begin()
-    {
-      return Iter(fHead);
-    }
+    { return Iter(fHead); }
     Iter end()
-    {
-      return Iter(nullptr);
-    }
+    { return Iter(nullptr); }
   };
     /**
      * Concatenates two op chains. This op must be a tail and the passed op must be a head. The ops
@@ -230,24 +215,16 @@ public:
   void chainConcat(std::unique_ptr<GrOp>);
     /** Returns true if this is the head of a chain (including a length 1 chain). */
   bool isChainHead() const
-  {
-    return !fPrevInChain;
-  }
+  { return !fPrevInChain; }
     /** Returns true if this is the tail of a chain (including a length 1 chain). */
   bool isChainTail() const
-  {
-    return !fNextInChain;
-  }
+  { return !fNextInChain; }
     /** The next op in the chain. */
   GrOp* nextInChain() const
-  {
-    return fNextInChain.get();
-  }
+  { return fNextInChain.get(); }
     /** The previous op in the chain. */
   GrOp* prevInChain() const
-  {
-    return fPrevInChain;
-  }
+  { return fPrevInChain; }
     /**
      * Cuts the chain after this op. The returned op is the op that was previously next in the
      * chain or null if this was already a tail.
@@ -279,59 +256,55 @@ protected:
     };
   void setBounds(const SkRect& newBounds, HasAABloat aabloat, IsHairline zeroArea)
   {
-    fBounds = newBounds;
-    this->setBoundsFlags(aabloat, zeroArea);
-  }
+        fBounds = newBounds;
+        this->setBoundsFlags(aabloat, zeroArea);
+    }
   void setTransformedBounds(const SkRect& srcBounds, const SkMatrix& m, HasAABloat aabloat, IsHairline zeroArea)
   {
-    m.mapRect(&fBounds, srcBounds);
-    this->setBoundsFlags(aabloat, zeroArea);
-  }
+        m.mapRect(&fBounds, srcBounds);
+        this->setBoundsFlags(aabloat, zeroArea);
+    }
   void makeFullScreen(GrSurfaceProxy* proxy)
   {
-    this->setBounds(SkRect::MakeIWH(proxy->width(), proxy->height()), HasAABloat::kNo, IsHairline::kNo);
-  }
+        this->setBounds(SkRect::MakeIWH(proxy->width(), proxy->height()),
+                        HasAABloat::kNo, IsHairline::kNo);
+    }
   static uint32_t GenOpClassID()
-  {
-    return GenID(&gCurrOpClassID);
-  }
+  { return GenID(&gCurrOpClassID); }
 private:
   void joinBounds(const GrOp& that)
   {
-    if (that.hasAABloat())
-    {
-      fBoundsFlags |= kAABloat_BoundsFlag;
+        if (that.hasAABloat()) {
+            fBoundsFlags |= kAABloat_BoundsFlag;
+        }
+        if (that.hasZeroArea()) {
+            fBoundsFlags |= kZeroArea_BoundsFlag;
+        }
+        return fBounds.joinPossiblyEmptyRect(that.fBounds);
     }
-    if (that.hasZeroArea())
-    {
-      fBoundsFlags |= kZeroArea_BoundsFlag;
-    }
-    return fBounds.joinPossiblyEmptyRect(that.fBounds);
-  }
   virtual CombineResult onCombineIfPossible(GrOp*, const GrCaps&)
   {
-    return CombineResult::kCannotCombine;
-  }
+        return CombineResult::kCannotCombine;
+    }
   virtual void onPrepare(GrOpFlushState*) = 0;
     // If this op is chained then chainBounds is the union of the bounds of all ops in the chain.
     // Otherwise, this op's bounds.
   virtual void onExecute(GrOpFlushState*, const SkRect& chainBounds) = 0;
   static uint32_t GenID(std::atomic<uint32_t>* idCounter)
   {
-    uint32_t id = (*idCounter)++;
-    if (id == 0)
-    {
-      SK_ABORT("This should never wrap as it should only be called once for each GrOp "
+        uint32_t id = (*idCounter)++;
+        if (id == 0) {
+            SK_ABORT("This should never wrap as it should only be called once for each GrOp "
                    "subclass.");
+        }
+        return id;
     }
-    return id;
-  }
   void setBoundsFlags(HasAABloat aabloat, IsHairline zeroArea)
   {
-    fBoundsFlags = 0;
-    fBoundsFlags |= (HasAABloat::kYes == aabloat) ? kAABloat_BoundsFlag : 0;
-    fBoundsFlags |= (IsHairline ::kYes == zeroArea) ? kZeroArea_BoundsFlag : 0;
-  }
+        fBoundsFlags = 0;
+        fBoundsFlags |= (HasAABloat::kYes == aabloat) ? kAABloat_BoundsFlag : 0;
+        fBoundsFlags |= (IsHairline ::kYes == zeroArea) ? kZeroArea_BoundsFlag : 0;
+    }
   enum {
         kIllegalOpID = 0,
     };
@@ -345,9 +318,7 @@ private:
   const uint16_t fClassID;
   uint16_t fBoundsFlags;
   static uint32_t GenOpID()
-  {
-    return GenID(&gCurrOpUniqueID);
-  }
+  { return GenID(&gCurrOpUniqueID); }
   mutable uint32_t fUniqueID = SK_InvalidUniqueID;
   SkRect fBounds;
   static std::atomic<uint32_t> gCurrOpUniqueID;

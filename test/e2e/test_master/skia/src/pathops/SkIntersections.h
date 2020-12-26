@@ -15,227 +15,221 @@ class SkIntersections
 {
 public:
   SkIntersections()
-    : fSwap(0)
-  {
-    sk_bzero(fPt, sizeof(fPt));
-    sk_bzero(fPt2, sizeof(fPt2));
-    sk_bzero(fT, sizeof(fT));
-    sk_bzero(fNearlySame, sizeof(fNearlySame));
-#  if  DEBUG_T_SECT_LOOP_COUNT
-    sk_bzero(fDebugLoopCount, sizeof(fDebugLoopCount));
-#  endif
-    reset();
-    fMax = 0;
-  }
+    :  fSwap(0)
+    
+    {
+
+        sk_bzero(fPt, sizeof(fPt));
+        sk_bzero(fPt2, sizeof(fPt2));
+        sk_bzero(fT, sizeof(fT));
+        sk_bzero(fNearlySame, sizeof(fNearlySame));
+#if DEBUG_T_SECT_LOOP_COUNT
+        sk_bzero(fDebugLoopCount, sizeof(fDebugLoopCount));
+#endif
+        reset();
+        fMax = 0;  // require that the caller set the max
+        }
   class TArray
   {
   public:
     explicit TArray(const double ts[10])
-      : fTArray(ts)
-    {
-    }
+      :  fTArray(ts) 
+      {
+      }
     double operator[](int n) const
     {
-      return fTArray[n];
-    }
+            return fTArray[n];
+        }
     const double* fTArray;
   };
   TArray operator[](int n) const
-  {
-    return TArray(fT[n]);
-  }
+  { return TArray(fT[n]); }
   void allowNear(bool nearAllowed)
   {
-    fAllowNear = nearAllowed;
-  }
+        fAllowNear = nearAllowed;
+    }
   void clearCoincidence(int index)
   {
-    SkASSERT(index >= 0);
-    int bit = 1 << index;
-    fIsCoincident[0] &= ~bit;
-    fIsCoincident[1] &= ~bit;
-  }
+        SkASSERT(index >= 0);
+        int bit = 1 << index;
+        fIsCoincident[0] &= ~bit;
+        fIsCoincident[1] &= ~bit;
+    }
   int conicHorizontal(const SkPoint a[3], SkScalar weight, SkScalar left, SkScalar right, SkScalar y, bool flipped)
   {
-    SkDConic conic;
-    conic.set(a, weight);
-    fMax = 2;
-    return horizontal(conic, left, right, y, flipped);
-  }
+        SkDConic conic;
+        conic.set(a, weight);
+        fMax = 2;
+        return horizontal(conic, left, right, y, flipped);
+    }
   int conicVertical(const SkPoint a[3], SkScalar weight, SkScalar top, SkScalar bottom, SkScalar x, bool flipped)
   {
-    SkDConic conic;
-    conic.set(a, weight);
-    fMax = 2;
-    return vertical(conic, top, bottom, x, flipped);
-  }
+        SkDConic conic;
+        conic.set(a, weight);
+        fMax = 2;
+        return vertical(conic, top, bottom, x, flipped);
+    }
   int conicLine(const SkPoint a[3], SkScalar weight, const SkPoint b[2])
   {
-    SkDConic conic;
-    conic.set(a, weight);
-    SkDLine line;
-    line.set(b);
-    fMax = 3;
-    return intersect(conic, line);
-  }
+        SkDConic conic;
+        conic.set(a, weight);
+        SkDLine line;
+        line.set(b);
+        fMax = 3; // 2;  permit small coincident segment + non-coincident intersection
+        return intersect(conic, line);
+    }
   int cubicHorizontal(const SkPoint a[4], SkScalar left, SkScalar right, SkScalar y, bool flipped)
   {
-    SkDCubic cubic;
-    cubic.set(a);
-    fMax = 3;
-    return horizontal(cubic, left, right, y, flipped);
-  }
+        SkDCubic cubic;
+        cubic.set(a);
+        fMax = 3;
+        return horizontal(cubic, left, right, y, flipped);
+    }
   int cubicVertical(const SkPoint a[4], SkScalar top, SkScalar bottom, SkScalar x, bool flipped)
   {
-    SkDCubic cubic;
-    cubic.set(a);
-    fMax = 3;
-    return vertical(cubic, top, bottom, x, flipped);
-  }
+        SkDCubic cubic;
+        cubic.set(a);
+        fMax = 3;
+        return vertical(cubic, top, bottom, x, flipped);
+    }
   int cubicLine(const SkPoint a[4], const SkPoint b[2])
   {
-    SkDCubic cubic;
-    cubic.set(a);
-    SkDLine line;
-    line.set(b);
-    fMax = 3;
-    return intersect(cubic, line);
-  }
+        SkDCubic cubic;
+        cubic.set(a);
+        SkDLine line;
+        line.set(b);
+        fMax = 3;
+        return intersect(cubic, line);
+    }
 #  ifdef SK_DEBUG
   SkOpGlobalState* globalState() const
-  {
-    return fDebugGlobalState;
-  }
+  { return fDebugGlobalState; }
 #  endif
   bool hasT(double t) const
   {
-    SkASSERT(t == 0 || t == 1);
-    return fUsed > 0 && (t == 0 ? fT[0][0] == 0 : fT[0][fUsed - 1] == 1);
-  }
+        SkASSERT(t == 0 || t == 1);
+        return fUsed > 0 && (t == 0 ? fT[0][0] == 0 : fT[0][fUsed - 1] == 1);
+    }
   bool hasOppT(double t) const
   {
-    SkASSERT(t == 0 || t == 1);
-    return fUsed > 0 && (fT[1][0] == t || fT[1][fUsed - 1] == t);
-  }
+        SkASSERT(t == 0 || t == 1);
+        return fUsed > 0 && (fT[1][0] == t || fT[1][fUsed - 1] == t);
+    }
   int insertSwap(double one, double two, const SkDPoint& pt)
   {
-    if (fSwap)
-    {
-      return insert(two, one, pt);
+        if (fSwap) {
+            return insert(two, one, pt);
+        } else {
+            return insert(one, two, pt);
+        }
     }
-    else 
-    {
-      return insert(one, two, pt);
-    }
-  }
   bool isCoincident(int index)
   {
-    return (fIsCoincident[0] & 1 << index) != 0;
-  }
+        return (fIsCoincident[0] & 1 << index) != 0;
+    }
   int lineHorizontal(const SkPoint a[2], SkScalar left, SkScalar right, SkScalar y, bool flipped)
   {
-    SkDLine line;
-    line.set(a);
-    fMax = 2;
-    return horizontal(line, left, right, y, flipped);
-  }
+        SkDLine line;
+        line.set(a);
+        fMax = 2;
+        return horizontal(line, left, right, y, flipped);
+    }
   int lineVertical(const SkPoint a[2], SkScalar top, SkScalar bottom, SkScalar x, bool flipped)
   {
-    SkDLine line;
-    line.set(a);
-    fMax = 2;
-    return vertical(line, top, bottom, x, flipped);
-  }
+        SkDLine line;
+        line.set(a);
+        fMax = 2;
+        return vertical(line, top, bottom, x, flipped);
+    }
   int lineLine(const SkPoint a[2], const SkPoint b[2])
   {
-    SkDLine aLine, bLine;
-    aLine.set(a);
-    bLine.set(b);
-    fMax = 2;
-    return intersect(aLine, bLine);
-  }
+        SkDLine aLine, bLine;
+        aLine.set(a);
+        bLine.set(b);
+        fMax = 2;
+        return intersect(aLine, bLine);
+    }
   bool nearlySame(int index) const
   {
-    SkASSERT(index == 0 || index == 1);
-    return fNearlySame[index];
-  }
+        SkASSERT(index == 0 || index == 1);
+        return fNearlySame[index];
+    }
   const SkDPoint& pt(int index) const
   {
-    return fPt[index];
-  }
+        return fPt[index];
+    }
   const SkDPoint& pt2(int index) const
   {
-    return fPt2[index];
-  }
+        return fPt2[index];
+    }
   int quadHorizontal(const SkPoint a[3], SkScalar left, SkScalar right, SkScalar y, bool flipped)
   {
-    SkDQuad quad;
-    quad.set(a);
-    fMax = 2;
-    return horizontal(quad, left, right, y, flipped);
-  }
+        SkDQuad quad;
+        quad.set(a);
+        fMax = 2;
+        return horizontal(quad, left, right, y, flipped);
+    }
   int quadVertical(const SkPoint a[3], SkScalar top, SkScalar bottom, SkScalar x, bool flipped)
   {
-    SkDQuad quad;
-    quad.set(a);
-    fMax = 2;
-    return vertical(quad, top, bottom, x, flipped);
-  }
+        SkDQuad quad;
+        quad.set(a);
+        fMax = 2;
+        return vertical(quad, top, bottom, x, flipped);
+    }
   int quadLine(const SkPoint a[3], const SkPoint b[2])
   {
-    SkDQuad quad;
-    quad.set(a);
-    SkDLine line;
-    line.set(b);
-    return intersect(quad, line);
-  }
+        SkDQuad quad;
+        quad.set(a);
+        SkDLine line;
+        line.set(b);
+        return intersect(quad, line);
+    }
     // leaves swap, max alone
   void reset()
   {
-    fAllowNear = true;
-    fUsed = 0;
-    sk_bzero(fIsCoincident, sizeof(fIsCoincident));
-  }
+        fAllowNear = true;
+        fUsed = 0;
+        sk_bzero(fIsCoincident, sizeof(fIsCoincident));
+    }
   void set(bool swap, int tIndex, double t)
   {
-    fT[(int) swap][tIndex] = t;
-  }
+        fT[(int) swap][tIndex] = t;
+    }
   void setMax(int max)
   {
-    SkASSERT(max <= (int) SK_ARRAY_COUNT(fPt));
-    fMax = max;
-  }
+        SkASSERT(max <= (int) SK_ARRAY_COUNT(fPt));
+        fMax = max;
+    }
   void swap()
   {
-    fSwap ^= true;
-  }
+        fSwap ^= true;
+    }
   bool swapped() const
   {
-    return fSwap;
-  }
+        return fSwap;
+    }
   int used() const
   {
-    return fUsed;
-  }
+        return fUsed;
+    }
   void downDepth()
   {
-    SkASSERT(--fDepth >= 0);
-  }
+        SkASSERT(--fDepth >= 0);
+    }
   bool unBumpT(int index)
   {
-    SkASSERT(fUsed == 1);
-    fT[0][index] = fT[0][index] * (1 + BUMP_EPSILON * 2) - BUMP_EPSILON;
-    if (!between(0, fT[0][index], 1))
-    {
-      fUsed = 0;
-      return false;
+        SkASSERT(fUsed == 1);
+        fT[0][index] = fT[0][index] * (1 + BUMP_EPSILON * 2) - BUMP_EPSILON;
+        if (!between(0, fT[0][index], 1)) {
+            fUsed = 0;
+            return false;
+        }
+        return true;
     }
-    return true;
-  }
   void upDepth()
   {
-    SkASSERT(++fDepth < 16);
-  }
+        SkASSERT(++fDepth < 16);
+    }
   void alignQuadPts(const SkPoint a[3], const SkPoint b[3]);
   int cleanUpCoincidence();
   int closestTo(double rangeStart, double rangeEnd, const SkDPoint& testPt, double* dist) const;
@@ -272,8 +266,8 @@ public:
   int intersectRay(const SkDCubic&, const SkDLine&);
   int intersectRay(const SkTCurve& tCurve, const SkDLine& line)
   {
-    return tCurve.intersectRay(this, line);
-  }
+        return tCurve.intersectRay(this, line);
+    }
   void merge(const SkIntersections&, int, const SkIntersections&, int);
   int mostOutside(double rangeStart, double rangeEnd, const SkDPoint& origin) const;
   void removeOne(int index);
@@ -287,12 +281,12 @@ public:
   static int VerticalIntercept(const SkDConic& conic, SkScalar x, double* roots);
   int depth() const
   {
-#  ifdef SK_DEBUG
-    return fDepth;
-#  else 
-    return 0;
-#  endif
-  }
+#ifdef SK_DEBUG
+        return fDepth;
+#else
+        return 0;
+#endif
+    }
   enum DebugLoop {
         kIterations_DebugLoop,
         kCoinCheck_DebugLoop,

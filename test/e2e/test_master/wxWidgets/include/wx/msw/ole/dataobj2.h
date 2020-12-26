@@ -22,11 +22,14 @@ class WXDLLIMPEXP_CORE wxBitmapDataObject : public wxBitmapDataObjectBase
 public:
     // ctors
   wxBitmapDataObject(const wxBitmap& bitmap = wxNullBitmap)
-    : wxBitmapDataObjectBase(bitmap)
-  {
-    SetFormat(wxDF_DIB);
-    m_data = NULL;
-  }
+    :  wxBitmapDataObjectBase(bitmap)
+        
+    {
+
+            SetFormat(wxDF_DIB);
+
+            m_data = NULL;
+            }
     // implement base class pure virtuals
   size_t GetDataSize() const override;
   bool GetDataHere(void* buf) const override;
@@ -58,9 +61,11 @@ class WXDLLIMPEXP_CORE wxBitmapDataObject2 : public wxBitmapDataObjectBase
 public:
     // ctors
   wxBitmapDataObject2(const wxBitmap& bitmap = wxNullBitmap)
-    : wxBitmapDataObjectBase(bitmap)
-  {
-  }
+    :  wxBitmapDataObjectBase(bitmap)
+        
+    {
+
+            }
     // implement base class pure virtuals
   size_t GetDataSize() const override;
   bool GetDataHere(void* buf) const override;
@@ -87,7 +92,7 @@ class WXDLLIMPEXP_CORE wxFileDataObject : public wxFileDataObjectBase
 public:
   wxFileDataObject()
   {
-  }
+   }
     // implement base class pure virtuals
   bool SetData(size_t len, const void* buf) override;
   size_t GetDataSize() const override;

@@ -24,9 +24,7 @@ public:
   }
   bool Create(wxWindow* parent, wxColourData* data = NULL);
   wxColourData& GetColourData()
-  {
-    return m_data;
-  }
+  { return m_data; }
   virtual int ShowModal();
 protected:
     // implement some base class methods to do nothing to avoid asserts and

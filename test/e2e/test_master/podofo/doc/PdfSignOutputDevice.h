@@ -70,13 +70,9 @@ namespace PoDoFo
      * 
      */
     virtual const PdfData* GetSignatureBeacon() const
-    {
-      return m_pSignatureBeacon;
-    }
+    { return m_pSignatureBeacon; }
     virtual bool HasSignaturePosition() const
-    {
-      return m_bBeaconFound;
-    }
+    { return m_bBeaconFound; }
     /** Modify ByteRange entry according to signature position
      *
      */
@@ -89,35 +85,37 @@ namespace PoDoFo
     virtual void SetSignature(const PdfData& sigData);
     virtual size_t GetLength() const
     {
-      return m_pRealDevice->GetLength();
+        return m_pRealDevice->GetLength();
     }
     virtual void Print(const char* pszFormat, ...)
     {
-      va_list args;
-      long lBytes;
-      va_start(args, pszFormat);
-      lBytes = m_pRealDevice->PrintVLen(pszFormat, args);
-      va_end(args);
-      va_start(args, pszFormat);
-      m_pRealDevice->PrintV(pszFormat, lBytes, args);
-      va_end(args);
+        va_list args;
+        long lBytes;
+        
+        va_start( args, pszFormat );
+        lBytes = m_pRealDevice->PrintVLen(pszFormat, args);
+        va_end( args );
+        
+        va_start( args, pszFormat );
+        m_pRealDevice->PrintV(pszFormat, lBytes, args);
+        va_end( args );
     }
     virtual void Write(const char* pBuffer, size_t lLen);
     virtual size_t Read(char* pBuffer, size_t lLen)
     {
-      return m_pRealDevice->Read(pBuffer, lLen);
+        return m_pRealDevice->Read(pBuffer, lLen);
     }
     virtual void Seek(size_t offset)
     {
-      m_pRealDevice->Seek(offset);
+        m_pRealDevice->Seek(offset);
     }
     virtual size_t Tell() const
     {
-      return m_pRealDevice->Tell();
+        return m_pRealDevice->Tell();
     }
     virtual void Flush()
     {
-      m_pRealDevice->Flush();
+        m_pRealDevice->Flush();
     }
   private:
     void Init();

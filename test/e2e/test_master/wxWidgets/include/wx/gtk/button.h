@@ -18,8 +18,9 @@ public:
   }
   wxButton(wxWindow* parent, wxWindowID id, const wxString& label = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr))
   {
-    Create(parent, id, label, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, label, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr));
   wxWindow* SetDefault() override;
   void SetLabel(const wxString& label) override;
@@ -28,9 +29,7 @@ public:
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
     // helper to allow access to protected member from GTK callback
   void MoveWindow(int x, int y, int width, int height)
-  {
-    DoMoveWindow(x, y, width, height);
-  }
+  { DoMoveWindow(x, y, width, height); }
     // called from GTK callbacks: they update the button state and call
     // GTKUpdateBitmap()
   void GTKMouseEnters();

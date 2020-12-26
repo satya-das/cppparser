@@ -24,60 +24,41 @@ class WXDLLIMPEXP_HTML wxHtmlBookRecord
 {
 public:
   wxHtmlBookRecord(const wxString& bookfile, const wxString& basepath, const wxString& title, const wxString& start)
-    : m_BookFile(bookfile)
-    , m_BasePath(basepath)
-    , m_Title(title)
-    , m_Start(start)
-  {
+    :  m_BookFile(bookfile)
+        , m_BasePath(basepath)
+        , m_Title(title)
+        , m_Start(start)
+    
+    {
+
         // for debugging, give the contents index obvious default values
-    m_ContentsStart = m_ContentsEnd = -1;
-  }
+        m_ContentsStart = m_ContentsEnd = -1;
+        }
   wxString GetBookFile() const
-  {
-    return m_BookFile;
-  }
+  { return m_BookFile; }
   wxString GetTitle() const
-  {
-    return m_Title;
-  }
+  { return m_Title; }
   wxString GetStart() const
-  {
-    return m_Start;
-  }
+  { return m_Start; }
   wxString GetBasePath() const
-  {
-    return m_BasePath;
-  }
+  { return m_BasePath; }
     /* SetContentsRange: store in the bookrecord where in the index/contents lists the
      * book's records are stored. This to facilitate searching in a specific book.
      * This code will have to be revised when loading/removing books becomes dynamic.
      * (as opposed to appending only)
      * Note that storing index range is pointless, because the index is alphab. sorted. */
   void SetContentsRange(int start, int end)
-  {
-    m_ContentsStart = start;
-    m_ContentsEnd = end;
-  }
+  { m_ContentsStart = start; m_ContentsEnd = end; }
   int GetContentsStart() const
-  {
-    return m_ContentsStart;
-  }
+  { return m_ContentsStart; }
   int GetContentsEnd() const
-  {
-    return m_ContentsEnd;
-  }
+  { return m_ContentsEnd; }
   void SetTitle(const wxString& title)
-  {
-    m_Title = title;
-  }
+  { m_Title = title; }
   void SetBasePath(const wxString& path)
-  {
-    m_BasePath = path;
-  }
+  { m_BasePath = path; }
   void SetStart(const wxString& start)
-  {
-    m_Start = start;
-  }
+  { m_Start = start; }
     // returns full filename of page (which is part of the book),
     // i.e. with book's basePath prepended. If page is already absolute
     // path, basePath is _not_ prepended.
@@ -95,12 +76,9 @@ WX_DECLARE_USER_EXPORTED_OBJARRAY(wxHtmlBookRecord, wxHtmlBookRecArray,
 struct WXDLLIMPEXP_HTML wxHtmlHelpDataItem
 {
   wxHtmlHelpDataItem()
-    : level(0)
-    , parent(NULL)
-    , id(wxID_ANY)
-    , book(NULL)
-  {
-  }
+    :  level(0), parent(NULL), id(wxID_ANY), book(NULL) 
+    {
+    }
   int level;
   wxHtmlHelpDataItem* parent;
   int id;
@@ -109,9 +87,7 @@ struct WXDLLIMPEXP_HTML wxHtmlHelpDataItem
   wxHtmlBookRecord* book;
     // returns full filename of m_Page, i.e. with book's basePath prepended
   wxString GetFullPath() const
-  {
-    return book->GetFullPath(page);
-  }
+  { return book->GetFullPath(page); }
     // returns item indented with spaces if it has level>1:
   wxString GetIndentedName() const;
 };
@@ -126,9 +102,9 @@ class WXDLLIMPEXP_HTML wxHtmlSearchEngine : public wxObject
 {
 public:
   wxHtmlSearchEngine()
-    : wxObject()
-  {
-  }
+    :  wxObject() 
+    {
+    }
   virtual ~wxHtmlSearchEngine()
   {
   }
@@ -155,25 +131,15 @@ public:
   wxHtmlSearchStatus(wxHtmlHelpData* base, const wxString& keyword, bool case_sensitive, bool whole_words_only, const wxString& book = wxEmptyString);
   bool Search();
   bool IsActive()
-  {
-    return m_Active;
-  }
+  { return m_Active; }
   int GetCurIndex()
-  {
-    return m_CurIndex;
-  }
+  { return m_CurIndex; }
   int GetMaxIndex()
-  {
-    return m_MaxIndex;
-  }
+  { return m_MaxIndex; }
   const wxString& GetName()
-  {
-    return m_Name;
-  }
+  { return m_Name; }
   const wxHtmlHelpDataItem* GetCurItem() const
-  {
-    return m_CurItem;
-  }
+  { return m_CurItem; }
 private:
   wxHtmlHelpData* m_Data;
   wxHtmlSearchEngine m_Engine;
@@ -209,17 +175,11 @@ public:
     // returns URL of page on basis of MS id
   wxString FindPageById(int id);
   const wxHtmlBookRecArray& GetBookRecArray() const
-  {
-    return m_bookRecords;
-  }
+  { return m_bookRecords; }
   const wxHtmlHelpDataItems& GetContentsArray() const
-  {
-    return m_contents;
-  }
+  { return m_contents; }
   const wxHtmlHelpDataItems& GetIndexArray() const
-  {
-    return m_index;
-  }
+  { return m_index; }
 protected:
   wxString m_tempPath;
     // each book has one record in this array:

@@ -57,9 +57,7 @@ public:
   static int GetFromWindow(const wxWindow* window);
     // return true if the object was initialized successfully
   bool IsOk() const
-  {
-    return m_impl != NULL;
-  }
+  { return m_impl != NULL; }
     // get the full display size
   wxRect GetGeometry() const;
     // get the client area of the display, i.e. without taskbars and such
@@ -71,16 +69,16 @@ public:
     // get the default resolution for displays on this platform
   static int GetStdPPIValue()
   {
-#  ifdef __WXOSX__
-    return 72;
-#  else 
-    return 96;
-#  endif
-  }
+#ifdef __WXOSX__
+        return 72;
+#else
+        return 96;
+#endif
+    }
   static wxSize GetStdPPI()
   {
-    return wxSize(GetStdPPIValue(), GetStdPPIValue());
-  }
+        return wxSize(GetStdPPIValue(), GetStdPPIValue());
+    }
     // get the scaling used by this display
   double GetScaleFactor() const;
     // name may be empty
@@ -104,9 +102,7 @@ public:
   bool ChangeMode(const wxVideoMode& mode = wxDefaultVideoMode);
     // restore the default video mode (just a more readable synonym)
   void ResetMode()
-  {
-    (void) ChangeMode();
-  }
+  { (void)ChangeMode(); }
 #  endif
     // If the implementation caches any information about the displays, calling
     // this function clears it -- this should be done e.g. after a display

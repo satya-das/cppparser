@@ -111,63 +111,42 @@ public:
         // the usual stuff
   wxFileName()
   {
-    Clear();
-  }
+ Clear();   }
   wxFileName(const wxFileName& filepath)
   {
-    Assign(filepath);
-  }
+ Assign(filepath);   }
         // from a full filename: if it terminates with a '/', a directory path
         // is constructed (the name will be empty), otherwise a file name and
         // extension are extracted from it
   wxFileName(const wxString& fullpath, wxPathFormat format = wxPATH_NATIVE)
   {
-    Assign(fullpath, format);
-    m_dontFollowLinks = false;
-  }
+ Assign( fullpath, format ); m_dontFollowLinks = false;   }
         // from a directory name and a file name
   wxFileName(const wxString& path, const wxString& name, wxPathFormat format = wxPATH_NATIVE)
   {
-    Assign(path, name, format);
-    m_dontFollowLinks = false;
-  }
+ Assign(path, name, format); m_dontFollowLinks = false;   }
         // from a volume, directory name, file base name and extension
   wxFileName(const wxString& volume, const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format = wxPATH_NATIVE)
   {
-    Assign(volume, path, name, ext, format);
-    m_dontFollowLinks = false;
-  }
+ Assign(volume, path, name, ext, format); m_dontFollowLinks = false;   }
         // from a directory name, file base name and extension
   wxFileName(const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format = wxPATH_NATIVE)
   {
-    Assign(path, name, ext, format);
-    m_dontFollowLinks = false;
-  }
+ Assign(path, name, ext, format); m_dontFollowLinks = false;   }
         // the same for delayed initialization
   void Assign(const wxFileName& filepath);
   void Assign(const wxString& fullpath, wxPathFormat format = wxPATH_NATIVE);
   void Assign(const wxString& volume, const wxString& path, const wxString& name, const wxString& ext, bool hasExt, wxPathFormat format = wxPATH_NATIVE);
   void Assign(const wxString& volume, const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format = wxPATH_NATIVE)
-  {
-    Assign(volume, path, name, ext, !ext.empty(), format);
-  }
+  { Assign(volume, path, name, ext, !ext.empty(), format); }
   void Assign(const wxString& path, const wxString& name, wxPathFormat format = wxPATH_NATIVE);
   void Assign(const wxString& path, const wxString& name, const wxString& ext, wxPathFormat format = wxPATH_NATIVE);
   void AssignDir(const wxString& dir, wxPathFormat format = wxPATH_NATIVE);
         // assorted assignment operators
   wxFileName& operator=(const wxFileName& filename)
-  {
-    if (this != &filename)
-    {
-      Assign(filename);
-    }
-    return *this;
-  }
+  { if (this != &filename) Assign(filename); return *this; }
   wxFileName& operator=(const wxString& filename)
-  {
-    Assign(filename);
-    return *this;
-  }
+  { Assign(filename); return *this; }
         // reset all components to default, uninitialized state
   void Clear();
         // static pseudo constructors
@@ -179,8 +158,9 @@ public:
   bool IsOk() const
   {
         // we're fine if we have the path or the name or if we're a root dir
-    return m_dirs.size() != 0 || !m_name.empty() || !m_relative || !m_ext.empty() || m_hasExt;
-  }
+        return m_dirs.size() != 0 || !m_name.empty() || !m_relative ||
+                !m_ext.empty() || m_hasExt;
+    }
         // does the file with this name exist?
   bool FileExists() const;
   static bool FileExists(const wxString& file);
@@ -195,47 +175,27 @@ public:
         // more platform-specific features (like e.g. Unix permissions) are not
         // available in wxFileName
   bool IsDirWritable() const
-  {
-    return wxIsWritable(GetPath());
-  }
+  { return wxIsWritable(GetPath()); }
   static bool IsDirWritable(const wxString& path)
-  {
-    return wxDirExists(path) && wxIsWritable(path);
-  }
+  { return wxDirExists(path) && wxIsWritable(path); }
   bool IsDirReadable() const
-  {
-    return wxIsReadable(GetPath());
-  }
+  { return wxIsReadable(GetPath()); }
   static bool IsDirReadable(const wxString& path)
-  {
-    return wxDirExists(path) && wxIsReadable(path);
-  }
+  { return wxDirExists(path) && wxIsReadable(path); }
     // NOTE: IsDirExecutable() is not present because the meaning of "executable"
     //       directory is very platform-dependent and also not so useful
   bool IsFileWritable() const
-  {
-    return wxIsWritable(GetFullPath());
-  }
+  { return wxIsWritable(GetFullPath()); }
   static bool IsFileWritable(const wxString& path)
-  {
-    return wxFileExists(path) && wxIsWritable(path);
-  }
+  { return wxFileExists(path) && wxIsWritable(path); }
   bool IsFileReadable() const
-  {
-    return wxIsReadable(GetFullPath());
-  }
+  { return wxIsReadable(GetFullPath()); }
   static bool IsFileReadable(const wxString& path)
-  {
-    return wxFileExists(path) && wxIsReadable(path);
-  }
+  { return wxFileExists(path) && wxIsReadable(path); }
   bool IsFileExecutable() const
-  {
-    return wxIsExecutable(GetFullPath());
-  }
+  { return wxIsExecutable(GetFullPath()); }
   static bool IsFileExecutable(const wxString& path)
-  {
-    return wxFileExists(path) && wxIsExecutable(path);
-  }
+  { return wxFileExists(path) && wxIsExecutable(path); }
         // set the file permissions to a combination of wxPosixPermissions enum
         // values
   bool SetPermissions(int permissions);
@@ -256,10 +216,10 @@ public:
         // convenience wrapper: get just the last mod time of the file
   wxDateTime GetModificationTime() const
   {
-    wxDateTime dtMod;
-    (void) GetTimes(NULL, &dtMod, NULL);
-    return dtMod;
-  }
+        wxDateTime dtMod;
+        (void)GetTimes(NULL, &dtMod, NULL);
+        return dtMod;
+    }
 #  endif
     // various file/dir operations
 
@@ -319,9 +279,8 @@ public:
         //
         // this may be done using another (than current) value of cwd
   bool MakeAbsolute(const wxString& cwd = wxEmptyString, wxPathFormat format = wxPATH_NATIVE)
-  {
-    return Normalize(wxPATH_NORM_DOTS | wxPATH_NORM_ABSOLUTE | wxPATH_NORM_TILDE, cwd, format);
-  }
+  { return Normalize(wxPATH_NORM_DOTS | wxPATH_NORM_ABSOLUTE |
+                           wxPATH_NORM_TILDE, cwd, format); }
     // If the path is a symbolic link (Unix-only), indicate that all
     // filesystem operations on this path should be performed on the link
     // itself and not on the file it points to, as is the case by default.
@@ -329,16 +288,16 @@ public:
     // No effect if this is not a symbolic link.
   void DontFollowLink()
   {
-    m_dontFollowLinks = true;
-  }
+        m_dontFollowLinks = true;
+    }
     // If the path is a symbolic link (Unix-only), returns whether various
     // file operations should act on the link itself, or on its target.
     //
     // This does not test if the path is really a symlink or not.
   bool ShouldFollowLink() const
   {
-    return !m_dontFollowLinks;
-  }
+        return !m_dontFollowLinks;
+    }
 #  if  defined(__WIN32__) && wxUSE_OLE
         // if the path is a shortcut, return the target and optionally,
         // the arguments
@@ -362,31 +321,21 @@ public:
   bool SameAs(const wxFileName& filepath, wxPathFormat format = wxPATH_NATIVE) const;
         // compare with another filename object
   bool operator==(const wxFileName& filename) const
-  {
-    return SameAs(filename);
-  }
+  { return SameAs(filename); }
   bool operator!=(const wxFileName& filename) const
-  {
-    return !SameAs(filename);
-  }
+  { return !SameAs(filename); }
         // compare with a filename string interpreted as a native file name
   bool operator==(const wxString& filename) const
-  {
-    return SameAs(wxFileName(filename));
-  }
+  { return SameAs(wxFileName(filename)); }
   bool operator!=(const wxString& filename) const
-  {
-    return !SameAs(wxFileName(filename));
-  }
+  { return !SameAs(wxFileName(filename)); }
         // are the file names of this type cases sensitive?
   static bool IsCaseSensitive(wxPathFormat format = wxPATH_NATIVE);
         // is this filename absolute?
   bool IsAbsolute(wxPathFormat format = wxPATH_NATIVE) const;
         // is this filename relative?
   bool IsRelative(wxPathFormat format = wxPATH_NATIVE) const
-  {
-    return !IsAbsolute(format);
-  }
+  { return !IsAbsolute(format); }
     // Returns the characters that aren't allowed in filenames
     // on the specified platform.
   static wxString GetForbiddenChars(wxPathFormat format = wxPATH_NATIVE);
@@ -403,9 +352,7 @@ public:
   static wxString GetPathTerminators(wxPathFormat format = wxPATH_NATIVE);
     // get the canonical path separator for this format
   static wxUniChar GetPathSeparator(wxPathFormat format = wxPATH_NATIVE)
-  {
-    return GetPathSeparators(format)[0u];
-  }
+  { return GetPathSeparators(format)[0u]; }
     // is the char a path separator for this format?
   static bool IsPathSeparator(wxChar ch, wxPathFormat format = wxPATH_NATIVE);
     // is this is a DOS path which beings with a windows unique volume name
@@ -413,72 +360,41 @@ public:
   static bool IsMSWUniqueVolumeNamePath(const wxString& path, wxPathFormat format = wxPATH_NATIVE);
     // Dir accessors
   size_t GetDirCount() const
-  {
-    return m_dirs.size();
-  }
+  { return m_dirs.size(); }
   bool AppendDir(const wxString& dir);
   void PrependDir(const wxString& dir);
   bool InsertDir(size_t before, const wxString& dir);
   void RemoveDir(size_t pos);
   void RemoveLastDir()
-  {
-    RemoveDir(GetDirCount() - 1);
-  }
+  { RemoveDir(GetDirCount() - 1); }
     // Other accessors
   void SetExt(const wxString& ext)
-  {
-    m_ext = ext;
-    m_hasExt = !m_ext.empty();
-  }
+  { m_ext = ext; m_hasExt = !m_ext.empty(); }
   void ClearExt()
-  {
-    m_ext.clear();
-    m_hasExt = false;
-  }
+  { m_ext.clear(); m_hasExt = false; }
   void SetEmptyExt()
-  {
-    m_ext.clear();
-    m_hasExt = true;
-  }
+  { m_ext.clear(); m_hasExt = true; }
   wxString GetExt() const
-  {
-    return m_ext;
-  }
+  { return m_ext; }
   bool HasExt() const
-  {
-    return m_hasExt;
-  }
+  { return m_hasExt; }
   void SetName(const wxString& name)
-  {
-    m_name = name;
-  }
+  { m_name = name; }
   wxString GetName() const
-  {
-    return m_name;
-  }
+  { return m_name; }
   bool HasName() const
-  {
-    return !m_name.empty();
-  }
+  { return !m_name.empty(); }
   void SetVolume(const wxString& volume)
-  {
-    m_volume = volume;
-  }
+  { m_volume = volume; }
   wxString GetVolume() const
-  {
-    return m_volume;
-  }
+  { return m_volume; }
   bool HasVolume() const
-  {
-    return !m_volume.empty();
-  }
+  { return !m_volume.empty(); }
     // full name is the file name + extension (but without the path)
   void SetFullName(const wxString& fullname);
   wxString GetFullName() const;
   const wxArrayString& GetDirs() const
-  {
-    return m_dirs;
-  }
+  { return m_dirs; }
     // flags are combination of wxPATH_GET_XXX flags
   wxString GetPath(int flags = wxPATH_GET_VOLUME, wxPathFormat format = wxPATH_NATIVE) const;
     // Replace current path with this one
@@ -491,9 +407,7 @@ public:
   wxString GetLongPath() const;
     // Is this a file or directory (not necessarily an existing one)
   bool IsDir() const
-  {
-    return m_name.empty() && m_ext.empty();
-  }
+  { return m_name.empty() && m_ext.empty(); }
     // various helpers
 
         // get the canonical path format for this platform
@@ -503,8 +417,8 @@ public:
   static void SplitPath(const wxString& fullpath, wxString* volume, wxString* path, wxString* name, wxString* ext, bool* hasExt = NULL, wxPathFormat format = wxPATH_NATIVE);
   static void SplitPath(const wxString& fullpath, wxString* volume, wxString* path, wxString* name, wxString* ext, wxPathFormat format)
   {
-    SplitPath(fullpath, volume, path, name, ext, NULL, format);
-  }
+        SplitPath(fullpath, volume, path, name, ext, NULL, format);
+    }
         // compatibility version: volume is part of path
   static void SplitPath(const wxString& fullpath, wxString* path, wxString* name, wxString* ext, wxPathFormat format = wxPATH_NATIVE);
         // split a path into volume and pure path part
@@ -527,13 +441,9 @@ public:
     // deprecated methods, don't use any more
     // --------------------------------------
   wxString GetPath(bool withSep, wxPathFormat format = wxPATH_NATIVE) const
-  {
-    return GetPath(withSep ? wxPATH_GET_SEPARATOR : 0, format);
-  }
+  { return GetPath(withSep ? wxPATH_GET_SEPARATOR : 0, format); }
   wxString GetPathWithSep(wxPathFormat format = wxPATH_NATIVE) const
-  {
-    return GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR, format);
-  }
+  { return GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR, format); }
 private:
     // check whether this dir is valid for Append/Prepend/InsertDir()
   static bool IsValidDirComponent(const wxString& dir);

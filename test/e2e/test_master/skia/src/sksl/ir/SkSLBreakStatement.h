@@ -16,16 +16,16 @@ namespace SkSL
   struct BreakStatement : public Statement
   {
     BreakStatement(int offset)
-      : INHERITED(offset, kBreak_Kind)
-    {
-    }
+      :  INHERITED(offset, kBreak_Kind) 
+      {
+      }
     std::unique_ptr<Statement> clone() const override
     {
-      return std::unique_ptr<Statement>(new BreakStatement(fOffset));
+        return std::unique_ptr<Statement>(new BreakStatement(fOffset));
     }
     String description() const override
     {
-      return String("break;");
+        return String("break;");
     }
     typedef Statement INHERITED;
   };

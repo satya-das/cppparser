@@ -160,20 +160,20 @@ namespace PoDoFo
   inline PdfObject* PdfElement::GetObject()
   {
     return m_pObject;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline const PdfObject* PdfElement::GetObject() const
   {
     return m_pObject;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfObject* PdfElement::GetNonConstObject() const
   {
     return const_cast<PdfElement*>(this)->m_pObject;
-  }
+}
 }
 #endif

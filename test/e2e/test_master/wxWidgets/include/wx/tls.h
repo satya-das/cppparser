@@ -72,9 +72,9 @@ public:
   typedef T ValueType;
         // ctor doesn't do anything, the object is created on first access
   wxTlsValue()
-    : m_key(free)
-  {
-  }
+    :  m_key(free) 
+    {
+    }
         // dtor is only called in the main thread context and so is not enough
         // to free memory allocated by us for the other threads, we use
         // destructor function when using Pthreads for this (which is not
@@ -82,43 +82,41 @@ public:
         // just to be safe we also reset the key anyhow)
   ~wxTlsValue()
   {
-    if (m_key.Get())
-    {
-      m_key.Set(NULL);
-    }
-  }
+
+            if ( m_key.Get() )
+                m_key.Set(NULL); // this deletes the value
+          }
         // access the object creating it on demand
   ValueType* Get()
   {
-    void* value = m_key.Get();
-    if (!value)
-    {
+            void *value = m_key.Get();
+            if ( !value )
+            {
                 // ValueType must be POD to be used in wxHAS_COMPILER_TLS case
                 // anyhow (at least gcc doesn't accept non-POD values being
                 // declared with __thread) so initialize it as a POD too
-      value = calloc(1, sizeof(ValueType));
-      if (!m_key.Set(value))
-      {
-        free(value);
+                value = calloc(1, sizeof(ValueType));
+
+                if ( !m_key.Set(value) )
+                {
+                    free(value);
+
                     // this will probably result in a crash in the caller but
                     // it's arguably better to crash immediately instead of
                     // slowly dying from out-of-memory errors which would
                     // happen as the next access to this object would allocate
                     // another ValueType instance and so on forever
-        value = NULL;
-      }
-    }
-    return static_cast<ValueType*>(value);
-  }
+                    value = NULL;
+                }
+            }
+
+            return static_cast<ValueType *>(value);
+        }
         // pointer-like accessors
   ValueType* operator->()
-  {
-    return Get();
-  }
+  { return Get(); }
   ValueType& operator*()
-  {
-    return *Get();
-  }
+  { return *Get(); }
 private:
   wxTlsKey m_key;
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxTlsValue, T);

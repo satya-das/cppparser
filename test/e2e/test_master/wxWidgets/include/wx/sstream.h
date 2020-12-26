@@ -54,9 +54,7 @@ public:
   explicit wxStringOutputStream(wxString* pString = NULL, wxMBConv& conv = wxConvUTF8);
     // get the string containing current output
   const wxString& GetString() const
-  {
-    return *m_str;
-  }
+  { return *m_str; }
   bool IsSeekable() const override
   {
     return true;

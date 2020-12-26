@@ -22,14 +22,20 @@ class wxExecuteData
 public:
   wxExecuteData()
   {
-    m_flags = m_pid = 0;
-    m_exitcode = -1;
-    m_process = NULL;
-    m_syncEventLoop = NULL;
-#  if  wxUSE_STREAMS
-    m_fdOut = m_fdErr = wxPipe::INVALID_FD;
-#  endif
-  }
+
+        m_flags =
+        m_pid = 0;
+        m_exitcode = -1;
+
+        m_process = NULL;
+
+        m_syncEventLoop = NULL;
+
+#if wxUSE_STREAMS
+        m_fdOut =
+        m_fdErr = wxPipe::INVALID_FD;
+#endif // wxUSE_STREAMS
+      }
     // This must be called in the parent process as soon as fork() returns to
     // update us with the effective child PID. It also ensures that we handle
     // SIGCHLD to be able to detect when this PID exits, so wxTheApp must be
@@ -39,9 +45,7 @@ public:
   void OnExit(int exitcode);
     // Return true if we should (or already did) redirect the child IO.
   bool IsRedirected() const
-  {
-    return m_process && m_process->IsRedirected();
-  }
+  { return m_process && m_process->IsRedirected(); }
     // wxExecute() flags
   int m_flags;
     // the pid of the child process

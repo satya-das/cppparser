@@ -73,8 +73,7 @@ class WXDLLIMPEXP_XML wxObjectXmlReader : public wxObjectReader
 public:
   wxObjectXmlReader(wxXmlNode* parent)
   {
-    m_parent = parent;
-  }
+ m_parent = parent;   }
   virtual ~wxObjectXmlReader()
   {
   }

@@ -55,13 +55,9 @@ public:
     // retrieve the file system used by the wxHtmlWinParser: if you use
     // relative paths in your HTML, you should use its ChangePathTo() method
   wxFileSystem& GetFileSystem()
-  {
-    return m_filesystem;
-  }
+  { return m_filesystem; }
   const wxFileSystem& GetFileSystem() const
-  {
-    return m_filesystem;
-  }
+  { return m_filesystem; }
 #    endif
   void OnInternalIdle() override;
 protected:
@@ -154,15 +150,17 @@ public:
     // ---------------------------------
   wxSimpleHtmlListBox()
   {
-  }
+   }
   wxSimpleHtmlListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = wxHLB_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSimpleHtmlListBoxNameStr))
   {
-    Create(parent, id, pos, size, n, choices, style, validator, name);
-  }
+
+        Create(parent, id, pos, size, n, choices, style, validator, name);
+      }
   wxSimpleHtmlListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = wxHLB_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSimpleHtmlListBoxNameStr))
   {
-    Create(parent, id, pos, size, choices, style, validator, name);
-  }
+
+        Create(parent, id, pos, size, choices, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = wxHLB_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSimpleHtmlListBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = wxHLB_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSimpleHtmlListBoxNameStr));
   virtual ~wxSimpleHtmlListBox();
@@ -185,9 +183,7 @@ public:
   wxString GetString(unsigned int n) const override;
     // override default unoptimized wxItemContainer::GetStrings() function
   wxArrayString GetStrings() const
-  {
-    return m_items;
-  }
+  { return m_items; }
   void SetString(unsigned int n, const wxString& s) override;
     // resolve ambiguity between wxItemContainer and wxVListBox versions
   void Clear() override;
@@ -213,9 +209,7 @@ protected:
     wxHtmlListBox::SetItemCount(count);
   }
   virtual void SetRowCount(size_t count)
-  {
-    wxHtmlListBox::SetRowCount(count);
-  }
+  { wxHtmlListBox::SetRowCount(count); }
   wxString OnGetItem(size_t n) const override
   {
     return m_items[n];

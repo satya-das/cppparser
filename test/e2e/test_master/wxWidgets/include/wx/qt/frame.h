@@ -17,13 +17,14 @@ class WXDLLIMPEXP_CORE wxFrame : public wxFrameBase
 public:
   wxFrame()
   {
-    Init();
-  }
+ Init();   }
   wxFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-    Init();
-    Create(parent, id, title, pos, size, style, name);
-  }
+
+        Init();
+
+        Create( parent, id, title, pos, size, style, name );
+      }
   virtual ~wxFrame();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
   void SetMenuBar(wxMenuBar* menubar) override;
@@ -42,8 +43,8 @@ private:
     // Common part of all ctors.
   void Init()
   {
-    m_qtToolBar = NULL;
-  }
+        m_qtToolBar = NULL;
+    }
     // Currently active native toolbar.
   class QToolBar* m_qtToolBar;
   wxDECLARE_DYNAMIC_CLASS(wxFrame);

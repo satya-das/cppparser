@@ -19,13 +19,14 @@ public:
     // constructors and such
   wxTopLevelWindowMSW()
   {
-    Init();
-  }
+ Init();   }
   wxTopLevelWindowMSW(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-    Init();
-    (void) Create(parent, id, title, pos, size, style, name);
-  }
+
+        Init();
+
+        (void)Create(parent, id, title, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
   virtual ~wxTopLevelWindowMSW();
     // implement base class pure virtuals
@@ -93,9 +94,7 @@ public:
   }
     // This function is only for internal use.
   void MSWSetShowCommand(WXUINT showCmd)
-  {
-    m_showCmd = showCmd;
-  }
+  { m_showCmd = showCmd; }
 protected:
     // common part of all ctors
   void Init();

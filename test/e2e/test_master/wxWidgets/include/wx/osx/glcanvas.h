@@ -33,9 +33,7 @@ public:
   bool SetCurrent(const wxGLCanvas& win) const override;
     // Mac-specific
   WXGLContext GetWXGLContext() const
-  {
-    return m_glContext;
-  }
+  { return m_glContext; }
 private:
   WXGLContext m_glContext;
   wxDECLARE_NO_COPY_CLASS(wxGLContext);
@@ -57,14 +55,10 @@ public:
   static bool IsAGLMultiSampleAvailable();
     // return the pixel format used by this window
   WXGLPixelFormat GetWXGLPixelFormat() const
-  {
-    return m_glFormat;
-  }
+  { return m_glFormat; }
     // Return the copy of attributes passed at ctor
   wxGLAttributes& GetGLDispAttrs()
-  {
-    return m_GLAttrs;
-  }
+  { return m_GLAttrs; }
     // update the view port of the current context to match this window
   void SetViewport();
     // deprecated methods

@@ -68,9 +68,7 @@ namespace skjson
      */
     template <typename T>
     bool is() const
-    {
-      return this->getType() == T::kType;
-    }
+    { return this->getType() == T::kType; }
     /**
      * Unguarded conversion to facade types.
      *
@@ -79,8 +77,8 @@ namespace skjson
     template <typename T>
     const T& as() const
     {
-      SkASSERT(this->is<T>());
-      return *reinterpret_cast<const T*>(this);
+        SkASSERT(this->is<T>());
+        return *reinterpret_cast<const T*>(this);
     }
     /**
      * Guarded conversion to facade types.
@@ -90,8 +88,9 @@ namespace skjson
     template <typename T>
     operator const T*() const
     {
-      return this->is<T>() ? &this->as<T>() : nullptr;
-    }
+
+        return this->is<T>() ? &this->as<T>() : nullptr;
+        }
     /**
      * @return    The string representation of this value.
      */
@@ -133,7 +132,7 @@ namespace skjson
     void init_tagged_pointer(Tag, void*);
     Tag getTag() const
     {
-      return static_cast<Tag>(fData8[kTagOffset] & kTagMask);
+        return static_cast<Tag>(fData8[kTagOffset] & kTagMask);
     }
     // Access the record data as T.
     //
@@ -160,21 +159,25 @@ namespace skjson
     template <typename T>
     const T* cast() const
     {
-      static_assert(sizeof(T) <= sizeof(Value), "");
-      static_assert(alignof(T) <= alignof(Value), "");
-      return reinterpret_cast<const T*>(this);
+        static_assert(sizeof (T) <=  sizeof(Value), "");
+        static_assert(alignof(T) <= alignof(Value), "");
+        return reinterpret_cast<const T*>(this);
     }
     template <typename T>
     T* cast()
-    {
-      return const_cast<T*>(const_cast<const Value*>(this)->cast<T>());
-    }
+    { return const_cast<T*>(const_cast<const Value*>(this)->cast<T>()); }
     // Access the pointer payload.
     template <typename T>
     const T* ptr() const
     {
-      static_assert(sizeof(uintptr_t) == sizeof(Value) || sizeof(uintptr_t) * 2 == sizeof(Value), "");
-      return (sizeof(uintptr_t) < sizeof(Value)) ? *this->cast<const T*>() : reinterpret_cast<T*>(*this->cast<uintptr_t>() & kTagPointerMask);
+        static_assert(sizeof(uintptr_t)     == sizeof(Value) ||
+                      sizeof(uintptr_t) * 2 == sizeof(Value), "");
+
+        return (sizeof(uintptr_t) < sizeof(Value))
+            // For 32-bit, pointers are stored unmodified.
+            ? *this->cast<const T*>()
+            // For 64-bit, we use the high bits of the pointer as tag storage.
+            : reinterpret_cast<T*>(*this->cast<uintptr_t>() & kTagPointerMask);
     }
   private:
     static constexpr size_t kValueSize = 8;
@@ -200,8 +203,8 @@ namespace skjson
     explicit BoolValue(bool);
     bool operator *() const
     {
-      SkASSERT(this->getTag() == Tag::kBool);
-      return *this->cast<bool>();
+        SkASSERT(this->getTag() == Tag::kBool);
+        return *this->cast<bool>();
     }
   };
   class NumberValue final : public Value
@@ -212,8 +215,12 @@ namespace skjson
     explicit NumberValue(float);
     double operator *() const
     {
-      SkASSERT(this->getTag() == Tag::kInt || this->getTag() == Tag::kFloat);
-      return this->getTag() == Tag::kInt ? static_cast<double>(*this->cast<int32_t>()) : static_cast<double>(*this->cast<float>());
+        SkASSERT(this->getTag() == Tag::kInt ||
+                 this->getTag() == Tag::kFloat);
+
+        return this->getTag() == Tag::kInt
+            ? static_cast<double>(*this->cast<int32_t>())
+            : static_cast<double>(*this->cast<float>());
     }
   };
   template <typename T, Value::Type vtype>
@@ -224,26 +231,27 @@ namespace skjson
     static constexpr Type kType = vtype;
     size_t size() const
     {
-      SkASSERT(this->getType() == kType);
-      return *this->ptr<size_t>();
+        SkASSERT(this->getType() == kType);
+        return *this->ptr<size_t>();
     }
     const T* begin() const
     {
-      SkASSERT(this->getType() == kType);
-      const auto* size_ptr = this->ptr<size_t>();
-      return reinterpret_cast<const T*>(size_ptr + 1);
+        SkASSERT(this->getType() == kType);
+        const auto* size_ptr = this->ptr<size_t>();
+        return reinterpret_cast<const T*>(size_ptr + 1);
     }
     const T* end() const
     {
-      SkASSERT(this->getType() == kType);
-      const auto* size_ptr = this->ptr<size_t>();
-      return reinterpret_cast<const T*>(size_ptr + 1) + *size_ptr;
+        SkASSERT(this->getType() == kType);
+        const auto* size_ptr = this->ptr<size_t>();
+        return reinterpret_cast<const T*>(size_ptr + 1) + *size_ptr;
     }
     const T& operator[](size_t i) const
     {
-      SkASSERT(this->getType() == kType);
-      SkASSERT(i < this->size());
-      return *(this->begin() + i);
+        SkASSERT(this->getType() == kType);
+        SkASSERT(i < this->size());
+
+        return *(this->begin() + i);
     }
   };
   class ArrayValue final : public VectorValue<Value, Value::Type::kArray>
@@ -259,23 +267,30 @@ namespace skjson
     StringValue(const char* src, size_t size, SkArenaAlloc& alloc);
     size_t size() const
     {
-      switch(this->getTag())
-      {
+        switch (this->getTag()) {
         case Tag::kShortString:
-          return strlen(this->cast<char>());
+            // We don't bother storing a length for short strings on the assumption
+            // that strlen is fast in this case.  If this becomes problematic, we
+            // can either go back to storing (7-len) in the tag byte or write a fast
+            // short_strlen.
+            return strlen(this->cast<char>());
         case Tag::kString:
-          return this->cast<VectorValue<char, Value::Type::kString>>()->size();
-default:
-        return 0;
-    }
+            return this->cast<VectorValue<char, Value::Type::kString>>()->size();
+        default:
+            return 0;
+        }
     }
     const char* begin() const
     {
-      return this->getTag() == Tag::kShortString ? this->cast<char>() : this->cast<VectorValue<char, Value::Type::kString>>()->begin();
+        return this->getTag() == Tag::kShortString
+            ? this->cast<char>()
+            : this->cast<VectorValue<char, Value::Type::kString>>()->begin();
     }
     const char* end() const
     {
-      return this->getTag() == Tag::kShortString ? strchr(this->cast<char>(), '\0') : this->cast<VectorValue<char, Value::Type::kString>>()->end();
+        return this->getTag() == Tag::kShortString
+            ? strchr(this->cast<char>(), '\0')
+            : this->cast<VectorValue<char, Value::Type::kString>>()->end();
     }
   };
   struct Member
@@ -297,9 +312,7 @@ default:
   public:
     DOM(const char*, size_t);
     const Value& root() const
-    {
-      return fRoot;
-    }
+    { return fRoot; }
     void write(SkWStream*) const;
   private:
     SkArenaAlloc fAlloc;
@@ -307,27 +320,19 @@ default:
   };
   inline Value::Type Value::getType() const
   {
-    switch(this->getTag())
-    {
-      case Tag::kNull:
-        return Type::kNull;
-      case Tag::kBool:
-        return Type::kBool;
-      case Tag::kInt:
-        return Type::kNumber;
-      case Tag::kFloat:
-        return Type::kNumber;
-      case Tag::kShortString:
-        return Type::kString;
-      case Tag::kString:
-        return Type::kString;
-      case Tag::kArray:
-        return Type::kArray;
-      case Tag::kObject:
-        return Type::kObject;
+    switch (this->getTag()) {
+    case Tag::kNull:        return Type::kNull;
+    case Tag::kBool:        return Type::kBool;
+    case Tag::kInt:         return Type::kNumber;
+    case Tag::kFloat:       return Type::kNumber;
+    case Tag::kShortString: return Type::kString;
+    case Tag::kString:      return Type::kString;
+    case Tag::kArray:       return Type::kArray;
+    case Tag::kObject:      return Type::kObject;
     }
-    SkASSERT(false);
+
+    SkASSERT(false); // unreachable
     return Type::kNull;
-  }
+}
 }
 #endif

@@ -19,22 +19,20 @@ public:
      * Initialize to a path with a fixed stroke. Stroke must not be hairline.
      */
   GrPath(GrGpu* gpu, const SkPath& skPath, const GrStyle& style)
-    : INHERITED(gpu)
-    , fBounds(SkRect::MakeEmpty())
-    , fFillType(GrPathRendering::kWinding_FillType)
-    , fSkPath(skPath)
-    , fStyle(style)
-  {
-  }
+    :  INHERITED(gpu)
+        , fBounds(SkRect::MakeEmpty())
+        , fFillType(GrPathRendering::kWinding_FillType)
+        , fSkPath(skPath)
+        , fStyle(style)
+    
+    {
+
+        }
   static void ComputeKey(const GrShape&, GrUniqueKey* key, bool* outIsVolatile);
   const SkRect& getBounds() const
-  {
-    return fBounds;
-  }
+  { return fBounds; }
   GrPathRendering::FillType getFillType() const
-  {
-    return fFillType;
-  }
+  { return fFillType; }
 #  ifdef SK_DEBUG
   bool isEqualTo(const SkPath& path, const GrStyle& style) const;
 #  endif
@@ -48,9 +46,7 @@ protected:
 #  endif
 private:
   const char* getResourceType() const override
-  {
-    return "Path Data";
-  }
+  { return "Path Data"; }
   typedef GrGpuResource INHERITED;
 };
 #endif

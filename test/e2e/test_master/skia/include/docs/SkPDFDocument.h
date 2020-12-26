@@ -178,6 +178,6 @@ namespace SkPDF
   static sk_sp<SkDocument> MakeDocument(SkWStream* stream)
   {
     return MakeDocument(stream, Metadata());
-  }
+}
 }
 #endif

@@ -16,18 +16,22 @@ class wxNSTextBase : public wxWidgetCocoaImpl, public wxTextWidgetImpl
 {
 public:
   wxNSTextBase(wxTextCtrl* text, WXWidget w)
-    : wxWidgetCocoaImpl(text, w)
-    , wxTextWidgetImpl(text)
-  {
-  }
+    :  wxWidgetCocoaImpl(text, w),
+          wxTextWidgetImpl(text)
+    
+    {
+
+        }
   wxNSTextBase(wxWindow* wxPeer, wxTextEntry* entry, WXWidget w)
-    : wxWidgetCocoaImpl(wxPeer, w)
-    , wxTextWidgetImpl(entry)
-  {
-  }
+    :  wxWidgetCocoaImpl(wxPeer, w),
+          wxTextWidgetImpl(entry)
+    
+    {
+
+        }
   virtual ~wxNSTextBase()
   {
-  }
+   }
   bool ShouldHandleKeyNavigation(const wxKeyEvent& event) const override;
   void SetInitialLabel(const wxString&, wxFontEncoding) override
   {

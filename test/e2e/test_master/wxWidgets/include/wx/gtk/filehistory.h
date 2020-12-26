@@ -12,9 +12,9 @@ class WXDLLIMPEXP_CORE wxFileHistory : public wxFileHistoryBase
 {
 public:
   wxFileHistory(size_t maxFiles = 9, wxWindowID idBase = wxID_FILE1)
-    : wxFileHistoryBase(maxFiles, idBase)
-  {
-  }
+    :  wxFileHistoryBase(maxFiles, idBase) 
+    {
+    }
   void AddFileToHistory(const wxString& file) override;
   wxDECLARE_DYNAMIC_CLASS(wxFileHistory);
 };

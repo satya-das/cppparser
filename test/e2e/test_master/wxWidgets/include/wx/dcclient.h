@@ -17,9 +17,9 @@ public:
   wxWindowDC(wxWindow* win);
 protected:
   wxWindowDC(wxDCImpl* impl)
-    : wxDC(impl)
-  {
-  }
+    :  wxDC(impl) 
+    {
+     }
   wxDECLARE_ABSTRACT_CLASS(wxWindowDC);
 };
 //-----------------------------------------------------------------------------
@@ -31,9 +31,9 @@ public:
   wxClientDC(wxWindow* win);
 protected:
   wxClientDC(wxDCImpl* impl)
-    : wxWindowDC(impl)
-  {
-  }
+    :  wxWindowDC(impl) 
+    {
+     }
   wxDECLARE_ABSTRACT_CLASS(wxClientDC);
 };
 //-----------------------------------------------------------------------------
@@ -45,9 +45,9 @@ public:
   wxPaintDC(wxWindow* win);
 protected:
   wxPaintDC(wxDCImpl* impl)
-    : wxClientDC(impl)
-  {
-  }
+    :  wxClientDC(impl) 
+    {
+     }
   wxDECLARE_ABSTRACT_CLASS(wxPaintDC);
 };
 #endif

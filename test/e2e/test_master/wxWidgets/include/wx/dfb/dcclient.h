@@ -17,10 +17,9 @@ class WXDLLIMPEXP_CORE wxWindowDCImpl : public wxDFBDCImpl
 {
 public:
   wxWindowDCImpl(wxDC* owner)
-    : wxDFBDCImpl(owner)
-    , m_shouldFlip(false)
-  {
-  }
+    :  wxDFBDCImpl(owner), m_shouldFlip(false) 
+    {
+     }
   wxWindowDCImpl(wxDC* owner, wxWindow* win);
   virtual ~wxWindowDCImpl();
 protected:
@@ -41,9 +40,9 @@ class WXDLLIMPEXP_CORE wxClientDCImpl : public wxWindowDCImpl
 {
 public:
   wxClientDCImpl(wxDC* owner)
-    : wxWindowDCImpl(owner)
-  {
-  }
+    :  wxWindowDCImpl(owner) 
+    {
+     }
   wxClientDCImpl(wxDC* owner, wxWindow* win);
   wxDECLARE_DYNAMIC_CLASS(wxClientDCImpl);
   wxDECLARE_NO_COPY_CLASS(wxClientDCImpl);
@@ -55,13 +54,13 @@ class WXDLLIMPEXP_CORE wxPaintDCImpl : public wxClientDCImpl
 {
 public:
   wxPaintDCImpl(wxDC* owner)
-    : wxClientDCImpl(owner)
-  {
-  }
+    :  wxClientDCImpl(owner) 
+    {
+     }
   wxPaintDCImpl(wxDC* owner, wxWindow* win)
-    : wxClientDCImpl(owner, win)
-  {
-  }
+    :  wxClientDCImpl(owner, win) 
+    {
+     }
   wxDECLARE_DYNAMIC_CLASS(wxPaintDCImpl);
   wxDECLARE_NO_COPY_CLASS(wxPaintDCImpl);
 };

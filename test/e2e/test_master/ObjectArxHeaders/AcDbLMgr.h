@@ -146,22 +146,21 @@ public:
 // Deprecated and scheduled for removal. Please use the other overload taking AcString & arg
 inline const ACHAR* AcDbLayoutManager::findActiveLayout(bool allowModel, const AcDbDatabase* pDb)
 {
-  static AcString sCachedName;
-  this->getActiveLayoutName(sCachedName, allowModel, pDb);
-  return sCachedName.constPtr();
+    static AcString sCachedName;
+    this->getActiveLayoutName(sCachedName, allowModel, pDb);
+    return sCachedName.constPtr();
 }
 inline Acad::ErrorStatus AcDbLayoutManager::getLayoutNamed(const ACHAR* name, AcDbLayout*& pLayout, AcDb::OpenMode mode, const AcDbDatabase* pDb)
 {
-  AcDbObjectId id = findLayoutNamed(name, pDb);
-  if (id.isNull())
-  {
-    return Acad::eKeyNotFound;
-  }
-  return acdbOpenObject(pLayout, id, mode);
+    AcDbObjectId id = findLayoutNamed(name, pDb);
+    if (id.isNull())
+        return Acad::eKeyNotFound;
+
+    return acdbOpenObject(pLayout, id, mode);
 }
 inline bool AcDbLayoutManager::layoutExists(const ACHAR* name, const AcDbDatabase* pDb)
 {
-  return !(findLayoutNamed(name, pDb)).isNull();
+    return !(findLayoutNamed(name, pDb)).isNull();
 }
 /// <sumary>
 /// This function sets the layout manager to work on the database pointed to by pDatabase, even if this database is not loaded in the AutoCAD editor. 

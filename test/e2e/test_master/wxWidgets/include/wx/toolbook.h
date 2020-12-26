@@ -33,13 +33,16 @@ class WXDLLIMPEXP_CORE wxToolbook : public wxNavigationEnabled<wxBookCtrlBase>
 public:
   wxToolbook()
   {
-    Init();
-  }
+
+        Init();
+      }
   wxToolbook(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString)
   {
-    Init();
-    (void) Create(parent, id, pos, size, style, name);
-  }
+
+        Init();
+
+        (void)Create(parent, id, pos, size, style, name);
+      }
     // quasi ctor
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString);
     // implement base class virtuals
@@ -63,9 +66,7 @@ public:
 
     // get the underlying toolbar
   wxToolBarBase* GetToolBar() const
-  {
-    return (wxToolBarBase*) m_bookctrl;
-  }
+  { return (wxToolBarBase*)m_bookctrl; }
     // enable/disable a page
   bool EnablePage(wxWindow* page, bool enable);
   bool EnablePage(size_t page, bool enable);

@@ -96,9 +96,7 @@ namespace PoDoFo
      *  \returns the info dictionary
      */
     PdfInfo* GetInfo() const
-    {
-      return m_pInfo;
-    }
+    { return m_pInfo; }
     /** Get access to the Outlines (Bookmarks) dictionary
      *  The returned outlines object is owned by the PdfDocument.
      * 
@@ -600,58 +598,58 @@ namespace PoDoFo
   inline PdfPagesTree* PdfDocument::GetPagesTree() const
   {
     return m_pPagesTree;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfObject* PdfDocument::GetCatalog()
   {
     return m_pCatalog;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline const PdfObject* PdfDocument::GetCatalog() const
   {
     return m_pCatalog;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfDocument::SetCatalog(PdfObject* pObject)
   {
-    m_pCatalog = pObject;
+    m_pCatalog = pObject; // m_pCatalog does not need to 
                           // be reowned as it should
                           // alread by part of m_vecObjects
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfObject* PdfDocument::GetTrailer()
   {
     return m_pTrailer;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline const PdfObject* PdfDocument::GetTrailer() const
   {
     return m_pTrailer;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfVecObjects* PdfDocument::GetObjects()
   {
     return &m_vecObjects;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline const PdfVecObjects* PdfDocument::GetObjects() const
   {
     return &m_vecObjects;
-  }
+}
 // Peter Petrov 26 April 2008
 // -----------------------------------------------------
 // 
@@ -659,13 +657,13 @@ namespace PoDoFo
   inline FT_Library PdfDocument::GetFontLibrary() const
   {
     return this->m_fontCache.GetFontLibrary();
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfDocument::SetFontConfigWrapper(const PdfFontConfigWrapper& rFontConfig)
   {
     m_fontCache.SetFontConfigWrapper(rFontConfig);
-  }
+}
 }
 #endif

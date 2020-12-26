@@ -27,9 +27,7 @@ public:
     // the window we're associated with
   void SetWindow(wxWindow* win);
   wxWindow* GetWindow() const
-  {
-    return m_window;
-  }
+  { return m_window; }
 private:
   wxString m_text;
   wxWindow* m_window;

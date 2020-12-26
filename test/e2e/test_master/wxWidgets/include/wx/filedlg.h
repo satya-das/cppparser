@@ -56,92 +56,62 @@ class WXDLLIMPEXP_CORE wxFileDialogBase : public wxDialog
 public:
   wxFileDialogBase()
   {
-    Init();
-  }
+ Init();   }
   wxFileDialogBase(wxWindow* parent, const wxString& message = wxASCII_STR(wxFileSelectorPromptStr), const wxString& defaultDir = wxEmptyString, const wxString& defaultFile = wxEmptyString, const wxString& wildCard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), long style = wxFD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, const wxString& name = wxASCII_STR(wxFileDialogNameStr))
   {
-    Init();
-    Create(parent, message, defaultDir, defaultFile, wildCard, style, pos, sz, name);
-  }
+
+        Init();
+        Create(parent, message, defaultDir, defaultFile, wildCard, style, pos, sz, name);
+      }
   virtual ~wxFileDialogBase()
   {
   }
   bool Create(wxWindow* parent, const wxString& message = wxASCII_STR(wxFileSelectorPromptStr), const wxString& defaultDir = wxEmptyString, const wxString& defaultFile = wxEmptyString, const wxString& wildCard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), long style = wxFD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, const wxString& name = wxASCII_STR(wxFileDialogNameStr));
   bool HasFdFlag(int flag) const
-  {
-    return HasFlag(flag);
-  }
+  { return HasFlag(flag); }
   virtual void SetMessage(const wxString& message)
-  {
-    m_message = message;
-  }
+  { m_message = message; }
   virtual void SetPath(const wxString& path);
   virtual void SetDirectory(const wxString& dir);
   virtual void SetFilename(const wxString& name);
   virtual void SetWildcard(const wxString& wildCard)
-  {
-    m_wildCard = wildCard;
-  }
+  { m_wildCard = wildCard; }
   virtual void SetFilterIndex(int filterIndex)
-  {
-    m_filterIndex = filterIndex;
-  }
+  { m_filterIndex = filterIndex; }
   virtual wxString GetMessage() const
-  {
-    return m_message;
-  }
+  { return m_message; }
   virtual wxString GetPath() const
   {
-    wxCHECK_MSG(!HasFlag(wxFD_MULTIPLE), wxString(), "When using wxFD_MULTIPLE, must call GetPaths() instead");
-    return m_path;
-  }
+        wxCHECK_MSG( !HasFlag(wxFD_MULTIPLE), wxString(), "When using wxFD_MULTIPLE, must call GetPaths() instead" );
+        return m_path;
+    }
   virtual void GetPaths(wxArrayString& paths) const
-  {
-    paths.Empty();
-    paths.Add(m_path);
-  }
+  { paths.Empty(); paths.Add(m_path); }
   virtual wxString GetDirectory() const
-  {
-    return m_dir;
-  }
+  { return m_dir; }
   virtual wxString GetFilename() const
   {
-    wxCHECK_MSG(!HasFlag(wxFD_MULTIPLE), wxString(), "When using wxFD_MULTIPLE, must call GetFilenames() instead");
-    return m_fileName;
-  }
+        wxCHECK_MSG( !HasFlag(wxFD_MULTIPLE), wxString(), "When using wxFD_MULTIPLE, must call GetFilenames() instead" );
+        return m_fileName;
+    }
   virtual void GetFilenames(wxArrayString& files) const
-  {
-    files.Empty();
-    files.Add(m_fileName);
-  }
+  { files.Empty(); files.Add(m_fileName); }
   virtual wxString GetWildcard() const
-  {
-    return m_wildCard;
-  }
+  { return m_wildCard; }
   virtual int GetFilterIndex() const
-  {
-    return m_filterIndex;
-  }
+  { return m_filterIndex; }
   virtual wxString GetCurrentlySelectedFilename() const
-  {
-    return m_currentlySelectedFilename;
-  }
+  { return m_currentlySelectedFilename; }
   virtual int GetCurrentlySelectedFilterIndex() const
-  {
-    return m_currentlySelectedFilterIndex;
-  }
+  { return m_currentlySelectedFilterIndex; }
     // this function is called with wxFileDialog as parameter and should
     // create the window containing the extra controls we want to show in it
   typedef wxWindow* (*ExtraControlCreatorFunction) (wxWindow*);
   virtual bool SupportsExtraControl() const
-  {
-    return false;
-  }
+  { return false; }
   bool SetExtraControlCreator(ExtraControlCreatorFunction creator);
   wxWindow* GetExtraControl() const
-  {
-    return m_extraControl;
-  }
+  { return m_extraControl; }
     // Utility functions
 
     // Append first extension to filePath from a ';' separated extensionList
@@ -177,9 +147,7 @@ protected:
   bool CreateExtraControl();
     // return true if SetExtraControlCreator() was called
   bool HasExtraControlCreator() const
-  {
-    return m_extraControlCreator != NULL;
-  }
+  { return m_extraControlCreator != NULL; }
     // get the size of the extra control by creating and deleting it
   wxSize GetExtraControlSize();
 private:

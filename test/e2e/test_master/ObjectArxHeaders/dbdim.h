@@ -122,9 +122,7 @@ public:
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
   Adesk::Boolean isPlanar() const override
-  {
-    return true;
-  }
+  { return true; }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
   double elevation() const;
   Acad::ErrorStatus setElevation(double);

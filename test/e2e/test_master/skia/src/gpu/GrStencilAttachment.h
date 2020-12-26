@@ -15,49 +15,37 @@ class GrStencilAttachment : public GrGpuResource
 public:
   virtual ~GrStencilAttachment()
   {
+
         // TODO: allow SB to be purged and detach itself from rts
-  }
+      }
   int width() const
-  {
-    return fWidth;
-  }
+  { return fWidth; }
   int height() const
-  {
-    return fHeight;
-  }
+  { return fHeight; }
   int bits() const
-  {
-    return fBits;
-  }
+  { return fBits; }
   int numSamples() const
-  {
-    return fSampleCnt;
-  }
+  { return fSampleCnt; }
   bool hasPerformedInitialClear() const
-  {
-    return fHasPerformedInitialClear;
-  }
+  { return fHasPerformedInitialClear; }
   void markHasPerformedInitialClear()
-  {
-    fHasPerformedInitialClear = true;
-  }
+  { fHasPerformedInitialClear = true; }
     // We create a unique stencil buffer at each width, height and sampleCnt and share it for
     // all render targets that require a stencil with those params.
   static void ComputeSharedStencilAttachmentKey(int width, int height, int sampleCnt, GrUniqueKey* key);
 protected:
   GrStencilAttachment(GrGpu* gpu, int width, int height, int bits, int sampleCnt)
-    : INHERITED(gpu)
-    , fWidth(width)
-    , fHeight(height)
-    , fBits(bits)
-    , fSampleCnt(sampleCnt)
-  {
-  }
+    :  INHERITED(gpu)
+            , fWidth(width)
+            , fHeight(height)
+            , fBits(bits)
+            , fSampleCnt(sampleCnt) 
+    {
+
+        }
 private:
   const char* getResourceType() const override
-  {
-    return "Stencil";
-  }
+  { return "Stencil"; }
   int fWidth;
   int fHeight;
   int fBits;

@@ -28,9 +28,7 @@ public:
   virtual void SetSelection(long from, long to);
   virtual void WriteText(const wxString& str);
   virtual bool HasOwnContextMenu() const
-  {
-    return true;
-  }
+  { return true; }
   virtual wxSize GetBestSize() const;
   virtual bool SetHint(const wxString& hint);
   virtual void controlAction(WXWidget slf, void* _cmd, void* sender);
@@ -60,9 +58,7 @@ public:
   virtual void SetStyle(long start, long end, const wxTextAttr& style);
   virtual bool CanFocus() const;
   virtual bool HasOwnContextMenu() const
-  {
-    return true;
-  }
+  { return true; }
   virtual void CheckSpelling(bool check);
   virtual wxSize GetBestSize() const;
 protected:

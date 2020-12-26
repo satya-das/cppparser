@@ -18,16 +18,13 @@ public:
     // ctors and such
   wxFindReplaceDialog()
   {
-    Init();
-  }
+ Init();   }
   wxFindReplaceDialog(wxWindow* parent, wxFindReplaceData* data, const wxString& title, int style = 0);
   bool Create(wxWindow* parent, wxFindReplaceData* data, const wxString& title, int style = 0);
   virtual ~wxFindReplaceDialog();
     // implementation only from now on
   wxFindReplaceDialogImpl* GetImpl() const
-  {
-    return m_impl;
-  }
+  { return m_impl; }
     // override some base class virtuals
   bool Show(bool show = true) override;
   void SetTitle(const wxString& title) override;

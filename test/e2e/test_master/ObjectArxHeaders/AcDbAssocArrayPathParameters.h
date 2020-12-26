@@ -141,14 +141,14 @@ public:
   int itemCount(AcString& expression, AcString& evaluatorId) const;
   inline int itemCount() const
   {
-    AcString expression, evaluatorId;
-    return itemCount(expression, evaluatorId);
-  }
+        AcString expression, evaluatorId;
+        return itemCount(expression, evaluatorId);
+    }
   inline int itemCount(AcString& expression) const
   {
-    AcString evaluatorId;
-    return itemCount(expression, evaluatorId);
-  }
+        AcString evaluatorId;
+        return itemCount(expression, evaluatorId);
+    }
     /// <summary> 
     /// Gets the item spacing of the path array.
     /// If there is no expression for a particular param,
@@ -161,14 +161,14 @@ public:
   double itemSpacing(AcString& expression, AcString& evaluatorId) const;
   inline double itemSpacing() const
   {
-    AcString expression, evaluatorId;
-    return itemSpacing(expression, evaluatorId);
-  }
+        AcString expression, evaluatorId;
+        return itemSpacing(expression, evaluatorId);
+    }
   inline double itemSpacing(AcString& expression) const
   {
-    AcString evaluatorId;
-    return itemSpacing(expression, evaluatorId);
-  }
+        AcString evaluatorId;
+        return itemSpacing(expression, evaluatorId);
+    }
     /// <summary> 
     /// Gets the AcDbEdgeRef that identifies the path of the path array.
     /// </summary>
@@ -199,9 +199,9 @@ public:
   double startOffset(AcString& expression, AcString& evaluatorId) const;
   inline double startOffset() const
   {
-    AcString expression, evaluatorId;
-    return startOffset(expression, evaluatorId);
-  }
+        AcString expression, evaluatorId;
+        return startOffset(expression, evaluatorId);
+    }
     /// <summary> 
     /// Gets the end offset of the path array.
     /// End offset is only avaliable for Divide method.
@@ -215,9 +215,9 @@ public:
   double endOffset(AcString& expression, AcString& evaluatorId) const;
   inline double endOffset() const
   {
-    AcString expression, evaluatorId;
-    return endOffset(expression, evaluatorId);
-  }
+        AcString expression, evaluatorId;
+        return endOffset(expression, evaluatorId);
+    }
     /// <summary> 
     /// Sets the item count of the path array.
     /// If there is no expression for the parameter, the expression string and 
@@ -326,9 +326,9 @@ public:
   virtual Acad::ErrorStatus getItemPosition(const AcDbItemLocator& locator, AcGePoint3d& position, AcGeMatrix3d& xform) const;
   inline Acad::ErrorStatus getItemPosition(const AcDbItemLocator& locator, AcGePoint3d& position) const
   {
-    AcGeMatrix3d xform;
-    return getItemPosition(locator, position, xform);
-  }
+        AcGeMatrix3d xform;
+        return getItemPosition(locator, position,xform);
+    }
 protected:
   friend class AcDbImpAssocArrayPathParameters;
   explicit AcDbAssocArrayPathParameters(AcDbImpAssocArrayPathParameters* pSelf);

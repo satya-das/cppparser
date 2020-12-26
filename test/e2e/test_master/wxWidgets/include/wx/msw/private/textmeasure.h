@@ -16,15 +16,19 @@ class wxTextMeasure : public wxTextMeasureBase
 {
 public:
   explicit wxTextMeasure(const wxDC* dc, const wxFont* font = NULL)
-    : wxTextMeasureBase(dc, font)
-  {
-    Init();
-  }
+    :  wxTextMeasureBase(dc, font)
+    
+    {
+
+        Init();
+        }
   explicit wxTextMeasure(const wxWindow* win, const wxFont* font = NULL)
-    : wxTextMeasureBase(win, font)
-  {
-    Init();
-  }
+    :  wxTextMeasureBase(win, font)
+    
+    {
+
+        Init();
+        }
 protected:
   void Init();
   void BeginMeasuring() override;

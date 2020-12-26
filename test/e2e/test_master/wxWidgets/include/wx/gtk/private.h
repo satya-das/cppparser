@@ -41,21 +41,23 @@ WXDLLIMPEXP_CORE extern wxCharBuffer wxConvertFromGTK(const wxString& s, wxFontE
     // helper: use the encoding of the given font if it's valid
 inline wxCharBuffer wxConvertToGTK(const wxString& s, const wxFont& font)
 {
-  return wxConvertToGTK(s, font.IsOk() ? font.GetEncoding() : wxFONTENCODING_SYSTEM);
-}
+        return wxConvertToGTK(s, font.IsOk() ? font.GetEncoding()
+                                           : wxFONTENCODING_SYSTEM);
+    }
 inline wxCharBuffer wxConvertFromGTK(const wxString& s, const wxFont& font)
 {
-  return wxConvertFromGTK(s, font.IsOk() ? font.GetEncoding() : wxFONTENCODING_SYSTEM);
-}
+        return wxConvertFromGTK(s, font.IsOk() ? font.GetEncoding()
+                                             : wxFONTENCODING_SYSTEM);
+    }
     // more helpers: allow passing GTK+ strings directly
 inline wxCharBuffer wxConvertFromGTK(const wxGtkString& gs, wxFontEncoding enc = wxFONTENCODING_SYSTEM)
 {
-  return wxConvertFromGTK(gs.c_str(), enc);
-}
+        return wxConvertFromGTK(gs.c_str(), enc);
+    }
 inline wxCharBuffer wxConvertFromGTK(const wxGtkString& gs, const wxFont& font)
 {
-  return wxConvertFromGTK(gs.c_str(), font);
-}
+        return wxConvertFromGTK(gs.c_str(), font);
+    }
 #    define wxGTK_CONV(s)	 wxGTK_CONV_FONT((s), m_font)
 #    define wxGTK_CONV_ENC(s, enc)	 wxConvertToGTK((s), (enc))
 #    define wxGTK_CONV_FONT(s, font)	 wxConvertToGTK((s), (font))

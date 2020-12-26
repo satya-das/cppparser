@@ -44,13 +44,17 @@ class WXDLLIMPEXP_CORE wxSVGBitmapFileHandler : public wxSVGBitmapHandler
 {
 public:
   wxSVGBitmapFileHandler()
-    : m_path()
-  {
-  }
+    :  m_path()
+    
+    {
+
+        }
   explicit wxSVGBitmapFileHandler(const wxFileName& path)
-    : m_path(path)
-  {
-  }
+    :  m_path(path)
+    
+    {
+
+        }
   bool ProcessBitmap(const wxBitmap& bitmap, wxCoord x, wxCoord y, wxOutputStream& stream) const override;
 private:
   wxFileName m_path;
@@ -211,9 +215,11 @@ class WXDLLIMPEXP_CORE wxSVGFileDC : public wxDC
 {
 public:
   wxSVGFileDC(const wxString& filename, int width = 320, int height = 240, double dpi = 72.0, const wxString& title = wxString())
-    : wxDC(new wxSVGFileDCImpl(this, filename, width, height, dpi, title))
-  {
-  }
+    :  wxDC(new wxSVGFileDCImpl(this, filename, width, height, dpi, title))
+    
+    {
+
+        }
     // wxSVGFileDC-specific methods:
 
     // Use a custom bitmap handler: takes ownership of the handler.

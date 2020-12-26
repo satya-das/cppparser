@@ -54,8 +54,8 @@ private:
     // Common part of all ctors.
   void Init()
   {
-    m_base = 10;
-  }
+        m_base = 10;
+    }
   int m_base;
   wxDECLARE_DYNAMIC_CLASS(wxSpinCtrl);
 };

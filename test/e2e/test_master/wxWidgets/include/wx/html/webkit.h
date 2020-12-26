@@ -26,8 +26,9 @@ public:
   }
   wxWebKitCtrl(wxWindow* parent, wxWindowID winID, const wxString& strURL, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxWebKitCtrlNameStr))
   {
-    Create(parent, winID, strURL, pos, size, style, validator, name);
-  }
+
+        Create(parent, winID, strURL, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID winID, const wxString& strURL, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxWebKitCtrlNameStr));
   virtual ~wxWebKitCtrl();
   void LoadURL(const wxString& url);
@@ -41,26 +42,16 @@ public:
   wxString GetPageSource();
   void SetPageSource(const wxString& source, const wxString& baseUrl = wxEmptyString);
   wxString GetPageURL()
-  {
-    return m_currentURL;
-  }
+  { return m_currentURL; }
   void SetPageTitle(const wxString& title)
-  {
-    m_pageTitle = title;
-  }
+  { m_pageTitle = title; }
   wxString GetPageTitle()
-  {
-    return m_pageTitle;
-  }
+  { return m_pageTitle; }
     // since these worked in 2.6, add wrappers
   void SetTitle(const wxString& title)
-  {
-    SetPageTitle(title);
-  }
+  { SetPageTitle(title); }
   wxString GetTitle()
-  {
-    return GetPageTitle();
-  }
+  { return GetPageTitle(); }
   wxString GetSelection();
   bool CanIncreaseTextSize();
   void IncreaseTextSize();
@@ -126,34 +117,20 @@ class WXDLLIMPEXP_CORE wxWebKitBeforeLoadEvent : public wxCommandEvent
   wxDECLARE_DYNAMIC_CLASS(wxWebKitBeforeLoadEvent);
 public:
   bool IsCancelled()
-  {
-    return m_cancelled;
-  }
+  { return m_cancelled; }
   void Cancel(bool cancel = true)
-  {
-    m_cancelled = cancel;
-  }
+  { m_cancelled = cancel; }
   wxString GetURL()
-  {
-    return m_url;
-  }
+  { return m_url; }
   void SetURL(const wxString& url)
-  {
-    m_url = url;
-  }
+  { m_url = url; }
   void SetNavigationType(int navType)
-  {
-    m_navType = navType;
-  }
+  { m_navType = navType; }
   int GetNavigationType()
-  {
-    return m_navType;
-  }
+  { return m_navType; }
   wxWebKitBeforeLoadEvent(wxWindow* win = NULL);
   wxEvent* Clone(void) const
-  {
-    return new wxWebKitBeforeLoadEvent(*this);
-  }
+  { return new wxWebKitBeforeLoadEvent(*this); }
 protected:
   bool m_cancelled;
   wxString m_url;
@@ -164,26 +141,16 @@ class WXDLLIMPEXP_CORE wxWebKitStateChangedEvent : public wxCommandEvent
   wxDECLARE_DYNAMIC_CLASS(wxWebKitStateChangedEvent);
 public:
   int GetState()
-  {
-    return m_state;
-  }
+  { return m_state; }
   void SetState(int state)
-  {
-    m_state = state;
-  }
+  { m_state = state; }
   wxString GetURL()
-  {
-    return m_url;
-  }
+  { return m_url; }
   void SetURL(const wxString& url)
-  {
-    m_url = url;
-  }
+  { m_url = url; }
   wxWebKitStateChangedEvent(wxWindow* win = NULL);
   wxEvent* Clone(void) const
-  {
-    return new wxWebKitStateChangedEvent(*this);
-  }
+  { return new wxWebKitStateChangedEvent(*this); }
 protected:
   int m_state;
   wxString m_url;
@@ -193,26 +160,16 @@ class WXDLLIMPEXP_CORE wxWebKitNewWindowEvent : public wxCommandEvent
   wxDECLARE_DYNAMIC_CLASS(wxWebKitNewWindowEvent);
 public:
   wxString GetURL() const
-  {
-    return m_url;
-  }
+  { return m_url; }
   void SetURL(const wxString& url)
-  {
-    m_url = url;
-  }
+  { m_url = url; }
   wxString GetTargetName() const
-  {
-    return m_targetName;
-  }
+  { return m_targetName; }
   void SetTargetName(const wxString& name)
-  {
-    m_targetName = name;
-  }
+  { m_targetName = name; }
   wxWebKitNewWindowEvent(wxWindow* win = (wxWindow*) (NULL));
   wxEvent* Clone(void) const
-  {
-    return new wxWebKitNewWindowEvent(*this);
-  }
+  { return new wxWebKitNewWindowEvent(*this); }
 private:
   wxString m_url;
   wxString m_targetName;

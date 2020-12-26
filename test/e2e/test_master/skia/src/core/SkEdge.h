@@ -37,22 +37,23 @@ struct SkEdge
   void chopLineWithClip(const SkIRect& clip);
   inline bool intersectsClip(const SkIRect& clip) const
   {
-    SkASSERT(fFirstY < clip.fBottom);
-    return fLastY >= clip.fTop;
-  }
+        SkASSERT(fFirstY < clip.fBottom);
+        return fLastY >= clip.fTop;
+    }
 #  ifdef SK_DEBUG
   void dump() const
   {
-    SkDebugf("edge: firstY:%d lastY:%d x:%g dx:%g w:%d\n", fFirstY, fLastY, SkFixedToFloat(fX), SkFixedToFloat(fDX), fWinding);
-  }
+        SkDebugf("edge: firstY:%d lastY:%d x:%g dx:%g w:%d\n", fFirstY, fLastY, SkFixedToFloat(fX), SkFixedToFloat(fDX), fWinding);
+    }
   void validate() const
   {
-    SkASSERT(fPrev && fNext);
-    SkASSERT(fPrev->fNext == this);
-    SkASSERT(fNext->fPrev == this);
-    SkASSERT(fFirstY <= fLastY);
-    SkASSERT(SkAbs32(fWinding) == 1);
-  }
+        SkASSERT(fPrev && fNext);
+        SkASSERT(fPrev->fNext == this);
+        SkASSERT(fNext->fPrev == this);
+
+        SkASSERT(fFirstY <= fLastY);
+        SkASSERT(SkAbs32(fWinding) == 1);
+    }
 #  endif
 };
 struct SkQuadraticEdge : public SkEdge
@@ -78,43 +79,50 @@ struct SkCubicEdge : public SkEdge
 };
 int SkEdge::setLine(const SkPoint& p0, const SkPoint& p1, int shift)
 {
-  SkFDot6 x0, y0, x1, y1;
-#  ifdef SK_RASTERIZE_EVEN_ROUNDING
-  x0 = SkScalarRoundToFDot6(p0.fX, shift);
-  y0 = SkScalarRoundToFDot6(p0.fY, shift);
-  x1 = SkScalarRoundToFDot6(p1.fX, shift);
-  y1 = SkScalarRoundToFDot6(p1.fY, shift);
-#  else 
-  float scale = float(1 << (shift + 6));
-  x0 = int(p0.fX * scale);
-  y0 = int(p0.fY * scale);
-  x1 = int(p1.fX * scale);
-  y1 = int(p1.fY * scale);
-#  endif
-  int winding = 1;
-  if (y0 > y1)
-  {
-    using std::swap;
-    swap(x0, x1);
-    swap(y0, y1);
-    winding = -1;
-  }
-  int top = SkFDot6Round(y0);
-  int bot = SkFDot6Round(y1);
+    SkFDot6 x0, y0, x1, y1;
+
+    {
+#ifdef SK_RASTERIZE_EVEN_ROUNDING
+        x0 = SkScalarRoundToFDot6(p0.fX, shift);
+        y0 = SkScalarRoundToFDot6(p0.fY, shift);
+        x1 = SkScalarRoundToFDot6(p1.fX, shift);
+        y1 = SkScalarRoundToFDot6(p1.fY, shift);
+#else
+        float scale = float(1 << (shift + 6));
+        x0 = int(p0.fX * scale);
+        y0 = int(p0.fY * scale);
+        x1 = int(p1.fX * scale);
+        y1 = int(p1.fY * scale);
+#endif
+    }
+
+    int winding = 1;
+
+    if (y0 > y1) {
+        using std::swap;
+        swap(x0, x1);
+        swap(y0, y1);
+        winding = -1;
+    }
+
+    int top = SkFDot6Round(y0);
+    int bot = SkFDot6Round(y1);
+
     // are we a zero-height line?
-  if (top == bot)
-  {
-    return 0;
-  }
-  SkFixed slope = SkFDot6Div(x1 - x0, y1 - y0);
-  const SkFDot6 dy = SkEdge_Compute_DY(top, y0);
-  fX = SkFDot6ToFixed(x0 + SkFixedMul(slope, dy));
-  fDX = slope;
-  fFirstY = top;
-  fLastY = bot - 1;
-  fCurveCount = 0;
-  fWinding = SkToS8(winding);
-  fCurveShift = 0;
-  return 1;
+    if (top == bot) {
+        return 0;
+    }
+
+    SkFixed slope = SkFDot6Div(x1 - x0, y1 - y0);
+    const SkFDot6 dy  = SkEdge_Compute_DY(top, y0);
+
+    fX          = SkFDot6ToFixed(x0 + SkFixedMul(slope, dy));   // + SK_Fixed1/2
+    fDX         = slope;
+    fFirstY     = top;
+    fLastY      = bot - 1;
+    fCurveCount = 0;
+    fWinding    = SkToS8(winding);
+    fCurveShift = 0;
+    return 1;
 }
 #endif

@@ -27,11 +27,11 @@ public:
   {
     TransformVar();
     TransformVar(SkString matrixCode, UniformHandle uniformMatrix, GrShaderVar varyingPoint)
-      : fMatrixCode(std::move(matrixCode))
-      , fUniformMatrix(uniformMatrix)
-      , fVaryingPoint(varyingPoint)
-    {
-    }
+      :  fMatrixCode(std::move(matrixCode))
+            , fUniformMatrix(uniformMatrix)
+            , fVaryingPoint(varyingPoint) 
+      {
+      }
         // a string of SkSL code which resolves to the transformation matrix
     SkString fMatrixCode;
         // the variable containing the matrix, if any, otherwise an invalid handle
@@ -54,22 +54,22 @@ public:
   {
   public:
     FPCoordTransformHandler(const GrPipeline& pipeline, SkTArray<TransformVar>* transformedCoordVars)
-      : fIter(pipeline)
-      , fTransformedCoordVars(transformedCoordVars)
-    {
-    }
+      :  fIter(pipeline)
+                , fTransformedCoordVars(transformedCoordVars) 
+      {
+      }
     ~FPCoordTransformHandler()
     {
-      SkASSERT(!this->nextCoordTransform());
-    }
+ SkASSERT(!this->nextCoordTransform());    }
     const GrCoordTransform* nextCoordTransform();
         // 'args' are constructor params to GrShaderVar.
     template <typename... Args>
     void specifyCoordsForCurrCoordTransform(Args&&... args)
     {
-      SkASSERT(!fAddedCoord);
-      fTransformedCoordVars->emplace_back(std::forward<Args>(args)...);
-    }
+            SkASSERT(!fAddedCoord);
+            fTransformedCoordVars->emplace_back(std::forward<Args>(args)...);
+            SkDEBUGCODE(fAddedCoord = true;)
+        }
   private:
     GrFragmentProcessor::CoordTransformIter fIter;
     SkTArray<TransformVar>* fTransformedCoordVars;
@@ -77,20 +77,20 @@ public:
   struct EmitArgs
   {
     EmitArgs(GrGLSLVertexBuilder* vertBuilder, GrGLSLGeometryBuilder* geomBuilder, GrGLSLFPFragmentBuilder* fragBuilder, GrGLSLVaryingHandler* varyingHandler, GrGLSLUniformHandler* uniformHandler, const GrShaderCaps* caps, const GrPrimitiveProcessor& gp, const char* outputColor, const char* outputCoverage, const char* rtAdjustName, const SamplerHandle* texSamplers, FPCoordTransformHandler* transformHandler)
-      : fVertBuilder(vertBuilder)
-      , fGeomBuilder(geomBuilder)
-      , fFragBuilder(fragBuilder)
-      , fVaryingHandler(varyingHandler)
-      , fUniformHandler(uniformHandler)
-      , fShaderCaps(caps)
-      , fGP(gp)
-      , fOutputColor(outputColor)
-      , fOutputCoverage(outputCoverage)
-      , fRTAdjustName(rtAdjustName)
-      , fTexSamplers(texSamplers)
-      , fFPCoordTransformHandler(transformHandler)
-    {
-    }
+      :  fVertBuilder(vertBuilder)
+            , fGeomBuilder(geomBuilder)
+            , fFragBuilder(fragBuilder)
+            , fVaryingHandler(varyingHandler)
+            , fUniformHandler(uniformHandler)
+            , fShaderCaps(caps)
+            , fGP(gp)
+            , fOutputColor(outputColor)
+            , fOutputCoverage(outputCoverage)
+            , fRTAdjustName(rtAdjustName)
+            , fTexSamplers(texSamplers)
+            , fFPCoordTransformHandler(transformHandler) 
+      {
+      }
     GrGLSLVertexBuilder* fVertBuilder;
     GrGLSLGeometryBuilder* fGeomBuilder;
     GrGLSLFPFragmentBuilder* fFragBuilder;

@@ -70,42 +70,52 @@ class WXDLLIMPEXP_BASE wxFileSystemWatcherEvent : public wxEvent
 public:
     // Constructor for any kind of events, also used as default ctor.
   wxFileSystemWatcherEvent(int changeType = 0, int watchid = wxID_ANY)
-    : wxEvent(watchid, wxEVT_FSWATCHER)
-    , m_changeType(changeType)
-    , m_warningType(wxFSW_WARNING_NONE)
-  {
-  }
+    : 
+        wxEvent(watchid, wxEVT_FSWATCHER),
+        m_changeType(changeType),
+        m_warningType(wxFSW_WARNING_NONE)
+    
+    {
+
+        }
     // Constructor for the error or warning events.
   wxFileSystemWatcherEvent(int changeType, wxFSWWarningType warningType, const wxString& errorMsg = wxString(), int watchid = wxID_ANY)
-    : wxEvent(watchid, wxEVT_FSWATCHER)
-    , m_changeType(changeType)
-    , m_warningType(warningType)
-    , m_errorMsg(errorMsg)
-  {
-  }
+    : 
+        wxEvent(watchid, wxEVT_FSWATCHER),
+        m_changeType(changeType),
+        m_warningType(warningType),
+        m_errorMsg(errorMsg)
+    
+    {
+
+        }
     // Constructor for the normal events carrying information about the changes.
   wxFileSystemWatcherEvent(int changeType, const wxFileName& path, const wxFileName& newPath, int watchid = wxID_ANY)
-    : wxEvent(watchid, wxEVT_FSWATCHER)
-    , m_changeType(changeType)
-    , m_warningType(wxFSW_WARNING_NONE)
-    , m_path(path)
-    , m_newPath(newPath)
-  {
-  }
+    : 
+         wxEvent(watchid, wxEVT_FSWATCHER),
+         m_changeType(changeType),
+         m_warningType(wxFSW_WARNING_NONE),
+         m_path(path),
+         m_newPath(newPath)
+
+    
+    {
+
+        }
     /**
      * Returns the path at which the event occurred.
      */
   const wxFileName& GetPath() const
   {
-    return m_path;
-  }
+        return m_path;
+    }
     /**
      * Sets the path at which the event occurred
      */
   void SetPath(const wxFileName& path)
   {
-    m_path = path;
-  }
+        m_path = path;
+    }
     /**
      * In case of rename(move?) events, returns the new path related to the
      * event. The "new" means newer in the sense of time. In case of other
@@ -113,22 +123,22 @@ public:
      */
   const wxFileName& GetNewPath() const
   {
-    return m_newPath;
-  }
+        return m_newPath;
+    }
     /**
      * Sets the new path related to the event. See above.
      */
   void SetNewPath(const wxFileName& path)
   {
-    m_newPath = path;
-  }
+        m_newPath = path;
+    }
     /**
      * Returns the type of file system event that occurred.
      */
   int GetChangeType() const
   {
-    return m_changeType;
-  }
+        return m_changeType;
+    }
   wxEvent* Clone() const override
   {
     wxFileSystemWatcherEvent* evt = new wxFileSystemWatcherEvent(*this);
@@ -148,16 +158,16 @@ public:
      */
   bool IsError() const
   {
-    return (m_changeType & (wxFSW_EVENT_ERROR | wxFSW_EVENT_WARNING)) != 0;
-  }
+        return (m_changeType & (wxFSW_EVENT_ERROR | wxFSW_EVENT_WARNING)) != 0;
+    }
   wxString GetErrorDescription() const
   {
-    return m_errorMsg;
-  }
+        return m_errorMsg;
+    }
   wxFSWWarningType GetWarningType() const
   {
-    return m_warningType;
-  }
+        return m_warningType;
+    }
     /**
      * Returns a wxString describing an event useful for debugging or testing
      */
@@ -184,48 +194,47 @@ class wxFSWatchInfo
 {
 public:
   wxFSWatchInfo()
-    : m_events(-1)
-    , m_type(wxFSWPath_None)
-    , m_refcount(-1)
-  {
-  }
+    : 
+        m_events(-1), m_type(wxFSWPath_None), m_refcount(-1)
+    
+    {
+
+        }
   wxFSWatchInfo(const wxString& path, int events, wxFSWPathType type, const wxString& filespec = wxString())
-    : m_path(path)
-    , m_filespec(filespec)
-    , m_events(events)
-    , m_type(type)
-    , m_refcount(1)
-  {
-  }
+    : 
+        m_path(path), m_filespec(filespec), m_events(events), m_type(type),
+        m_refcount(1)
+    
+    {
+
+        }
   const wxString& GetPath() const
   {
-    return m_path;
-  }
+        return m_path;
+    }
   const wxString& GetFilespec() const
-  {
-    return m_filespec;
-  }
+  { return m_filespec; }
   int GetFlags() const
   {
-    return m_events;
-  }
+        return m_events;
+    }
   wxFSWPathType GetType() const
   {
-    return m_type;
-  }
+        return m_type;
+    }
     // Reference counting of watch entries is used to avoid watching the same
     // file system path multiple times (this can happen even accidentally, e.g.
     // when you have a recursive watch and then decide to watch some file or
     // directory under it separately).
   int IncRef()
   {
-    return ++m_refcount;
-  }
+        return ++m_refcount;
+    }
   int DecRef()
   {
-    wxASSERT_MSG(m_refcount > 0, wxS("Trying to decrement a zero count"));
-    return --m_refcount;
-  }
+        wxASSERT_MSG( m_refcount > 0, wxS("Trying to decrement a zero count") );
+        return --m_refcount;
+    }
 protected:
   wxString m_path;
   wxString m_filespec;
@@ -289,19 +298,15 @@ public:
   int GetWatchedPaths(wxArrayString* paths) const;
   wxEvtHandler* GetOwner() const
   {
-    return m_owner;
-  }
+        return m_owner;
+    }
   void SetOwner(wxEvtHandler* handler)
   {
-    if (!handler)
-    {
-      m_owner = this;
+        if (!handler)
+            m_owner = this;
+        else
+            m_owner = handler;
     }
-    else 
-    {
-      m_owner = handler;
-    }
-  }
     // This is a semi-private function used by wxWidgets itself only.
     //
     // Delegates the real work of adding the path to wxFSWatcherImpl::Add() and
@@ -310,14 +315,16 @@ public:
 protected:
   static wxString GetCanonicalPath(const wxFileName& path)
   {
-    wxFileName path_copy = wxFileName(path);
-    if (!path_copy.Normalize())
-    {
-      wxFAIL_MSG(wxString::Format(wxASCII_STR("Unable to normalize path '%s'"), path.GetFullPath()));
-      return wxEmptyString;
+        wxFileName path_copy = wxFileName(path);
+        if ( !path_copy.Normalize() )
+        {
+            wxFAIL_MSG(wxString::Format(wxASCII_STR("Unable to normalize path '%s'"),
+                                         path.GetFullPath()));
+            return wxEmptyString;
+        }
+
+        return path_copy.GetFullPath();
     }
-    return path_copy.GetFullPath();
-  }
   wxFSWatchInfoMap m_watches;
   wxFSWatcherImpl* m_service;
   wxEvtHandler* m_owner;

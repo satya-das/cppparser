@@ -22,13 +22,12 @@ class WXDLLIMPEXP_ADV wxAnimationGTKImpl : public wxAnimationImpl
 {
 public:
   wxAnimationGTKImpl()
-    : m_pixbuf(NULL)
-  {
-  }
+    :  m_pixbuf(NULL) 
+    {
+    }
   ~wxAnimationGTKImpl()
   {
-    UnRef();
-  }
+ UnRef();   }
   bool IsOk() const override
   {
     return m_pixbuf != NULL;
@@ -51,9 +50,7 @@ public:
   bool Load(wxInputStream& stream, wxAnimationType type = wxANIMATION_TYPE_ANY) override;
     // Implementation
   GdkPixbufAnimation* GetPixbuf() const
-  {
-    return m_pixbuf;
-  }
+  { return m_pixbuf; }
   void SetPixbuf(GdkPixbufAnimation* p);
 protected:
   GdkPixbufAnimation* m_pixbuf;

@@ -108,128 +108,126 @@ protected:
 #ifdef __ATLCOM_H__
 public:
   AcRxArxApp()
-    : AcRxDbxApp()
-    , m_pDynPropManager(NULL)
-  {
-  }
+    :  AcRxDbxApp (), m_pDynPropManager(NULL) 
+    {
+    }
 #else 
   AcRxArxApp()
-    : AcRxDbxApp()
-  {
-  }
+    :  AcRxDbxApp () 
+    {
+    }
 #endif
   virtual AcRx::AppRetCode On_kInitAppMsg(void* pkt)
   {
-    AcRx::AppRetCode retCode = AcRxDbxApp::On_kInitAppMsg(pkt);
+        AcRx::AppRetCode retCode =AcRxDbxApp::On_kInitAppMsg (pkt) ;
 #ifdef __ATLCOM_H__
         //----- Register Dynamic Properties
-    m_pDynPropManager = new AcRxDynPropManager;
+        m_pDynPropManager =new AcRxDynPropManager ;
 #endif
         //----- Register ARX comamnds
-    _ARXCOMMAND_ENTRY** ppArxCmdMapEntryFirst = &__pArxCmdMapEntryFirst + 1;
-    _ARXCOMMAND_ENTRY** ppArxCmdMapEntryLast = &__pArxCmdMapEntryLast;
-    ACHAR buffer[133];
-    for (_ARXCOMMAND_ENTRY** ppEntry = ppArxCmdMapEntryFirst; ppEntry < ppArxCmdMapEntryLast; ppEntry++)
-    {
-      if (*ppEntry != NULL)
-      {
-        if ((*ppEntry)->pszCmdLocalName == NULL)
-        {
-          ::LoadString(m_hdllInstance, (*ppEntry)->localNameID, buffer, 132);
+        _ARXCOMMAND_ENTRY **ppArxCmdMapEntryFirst =&__pArxCmdMapEntryFirst + 1 ;
+        _ARXCOMMAND_ENTRY **ppArxCmdMapEntryLast =&__pArxCmdMapEntryLast ;
+        ACHAR buffer [133] ;
+        for ( _ARXCOMMAND_ENTRY **ppEntry =ppArxCmdMapEntryFirst ; ppEntry < ppArxCmdMapEntryLast ; ppEntry++ ) {
+            if ( *ppEntry != NULL ) {
+                if ( (*ppEntry)->pszCmdLocalName == NULL )
+                    ::LoadString (m_hdllInstance, (*ppEntry)->localNameID, buffer, 132) ;
+                acedRegCmds->addCommand (
+                    (*ppEntry)->pszCmdGroupName,
+                    (*ppEntry)->pszCmdGlobalName,
+                    (*ppEntry)->pszCmdLocalName == NULL ? buffer : (*ppEntry)->pszCmdLocalName,
+                    (*ppEntry)->commandFlags,
+                    (*ppEntry)->pCmdFct,
+                    (*ppEntry)->pUIContext,
+                    -1,
+                    ((*ppEntry)->commandFlags & ACRX_CMD_SESSION) ? NULL : m_hdllInstance,
+                    NULL
+                ) ;
+            }
         }
-        acedRegCmds->addCommand((*ppEntry)->pszCmdGroupName, (*ppEntry)->pszCmdGlobalName, (*ppEntry)->pszCmdLocalName == NULL ? buffer : (*ppEntry)->pszCmdLocalName, (*ppEntry)->commandFlags, (*ppEntry)->pCmdFct, (*ppEntry)->pUIContext, -1, ((*ppEntry)->commandFlags & ACRX_CMD_SESSION) ? NULL : m_hdllInstance, NULL);
-      }
+        return (retCode) ;
     }
-    return (retCode);
-  }
   virtual AcRx::AppRetCode On_kUnloadAppMsg(void* pkt)
   {
-    AcRx::AppRetCode retCode = AcRxDbxApp::On_kUnloadAppMsg(pkt);
+        AcRx::AppRetCode retCode =AcRxDbxApp::On_kUnloadAppMsg (pkt) ;
 #ifdef __ATLCOM_H__
         //----- Unregister Dynamic Properties
-    if (m_pDynPropManager != NULL)
-    {
-      delete m_pDynPropManager;
-      m_pDynPropManager = NULL;
-    }
+        if ( m_pDynPropManager != NULL ) {
+            delete m_pDynPropManager ;
+            m_pDynPropManager =NULL ;
+        }
 #endif
-    _ARXCOMMAND_ENTRY** ppArxCmdMapEntryFirst = &__pArxCmdMapEntryFirst + 1;
-    _ARXCOMMAND_ENTRY** ppArxCmdMapEntryLast = &__pArxCmdMapEntryLast;
-    for (_ARXCOMMAND_ENTRY** ppEntry = ppArxCmdMapEntryFirst; ppEntry < ppArxCmdMapEntryLast; ppEntry++)
-    {
-      if (*ppEntry != NULL)
-      {
-        acedRegCmds->removeCmd((*ppEntry)->pszCmdGroupName, (*ppEntry)->pszCmdGlobalName);
-      }
+        _ARXCOMMAND_ENTRY **ppArxCmdMapEntryFirst =&__pArxCmdMapEntryFirst + 1 ;
+        _ARXCOMMAND_ENTRY **ppArxCmdMapEntryLast =&__pArxCmdMapEntryLast ;
+        for ( _ARXCOMMAND_ENTRY **ppEntry =ppArxCmdMapEntryFirst ; ppEntry < ppArxCmdMapEntryLast ; ppEntry++ ) {
+            if ( *ppEntry != NULL ) {
+                acedRegCmds->removeCmd (
+                    (*ppEntry)->pszCmdGroupName,
+                    (*ppEntry)->pszCmdGlobalName
+                ) ;
+            }
+        }
+        return (retCode) ;
     }
-    return (retCode);
-  }
   virtual AcRx::AppRetCode On_kLoadDwgMsg(void* pkt)
   {
-    AcRx::AppRetCode retCode = AcRxDbxApp::On_kLoadDwgMsg(pkt);
+        AcRx::AppRetCode retCode =AcRxDbxApp::On_kLoadDwgMsg (pkt) ;
         //----- Register ADS Symbols
-    _ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryFirst = &__pAdsSymbolMapEntryFirst + 1;
-    _ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryLast = &__pAdsSymbolMapEntryLast;
-    ACHAR buffer[133];
-    int param = 0;
-    for (_ADSSYMBOL_ENTRY** ppEntry = ppAdsSymbolMapEntryFirst; ppEntry < ppAdsSymbolMapEntryLast; ppEntry++)
-    {
-      if (*ppEntry != NULL)
-      {
-        if ((*ppEntry)->pszName == NULL)
-        {
-          ::LoadString(m_hdllInstance, (*ppEntry)->nameID, buffer, 132);
+        _ADSSYMBOL_ENTRY **ppAdsSymbolMapEntryFirst =&__pAdsSymbolMapEntryFirst + 1 ;
+        _ADSSYMBOL_ENTRY **ppAdsSymbolMapEntryLast =&__pAdsSymbolMapEntryLast ;
+        ACHAR buffer [133] ;
+        int param =0 ;
+        for ( _ADSSYMBOL_ENTRY **ppEntry =ppAdsSymbolMapEntryFirst ; ppEntry < ppAdsSymbolMapEntryLast ; ppEntry++ ) {
+            if ( *ppEntry != NULL ) {
+                if ( (*ppEntry)->pszName == NULL )
+                    ::LoadString (m_hdllInstance, (*ppEntry)->nameID, buffer, 132) ;
+                acedDefun (
+                    (*ppEntry)->pszName == NULL ? buffer : (*ppEntry)->pszName,
+                    param
+                ) ;
+                if ( (*ppEntry)->bRegFunc == true )
+                    acedRegFunc ((*ppEntry)->fptr, param) ;
+                param++ ;
+            }
         }
-        acedDefun((*ppEntry)->pszName == NULL ? buffer : (*ppEntry)->pszName, param);
-        if ((*ppEntry)->bRegFunc == true)
-        {
-          acedRegFunc((*ppEntry)->fptr, param);
-        }
-        param++;
-      }
+        return (retCode) ;
     }
-    return (retCode);
-  }
   virtual AcRx::AppRetCode On_kUnloadDwgMsg(void* pkt)
   {
-    AcRx::AppRetCode retCode = AcRxDbxApp::On_kUnloadDwgMsg(pkt);
+        AcRx::AppRetCode retCode =AcRxDbxApp::On_kUnloadDwgMsg (pkt) ;
         //----- Unregister ADS Symbols
-    _ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryFirst = &__pAdsSymbolMapEntryFirst + 1;
-    _ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryLast = &__pAdsSymbolMapEntryLast;
-    ACHAR buffer[133];
-    int param = 0;
-    for (_ADSSYMBOL_ENTRY** ppEntry = ppAdsSymbolMapEntryFirst; ppEntry < ppAdsSymbolMapEntryLast; ppEntry++)
-    {
-      if (*ppEntry != NULL)
-      {
-        if ((*ppEntry)->pszName == NULL)
-        {
-          ::LoadString(m_hdllInstance, (*ppEntry)->nameID, buffer, 132);
+        _ADSSYMBOL_ENTRY **ppAdsSymbolMapEntryFirst =&__pAdsSymbolMapEntryFirst + 1 ;
+        _ADSSYMBOL_ENTRY **ppAdsSymbolMapEntryLast =&__pAdsSymbolMapEntryLast ;
+        ACHAR buffer [133] ;
+        int param =0 ;
+        for ( _ADSSYMBOL_ENTRY **ppEntry =ppAdsSymbolMapEntryFirst ; ppEntry < ppAdsSymbolMapEntryLast ; ppEntry++ ) {
+            if ( *ppEntry != NULL ) {
+                if ( (*ppEntry)->pszName == NULL )
+                    ::LoadString (m_hdllInstance, (*ppEntry)->nameID, buffer, 132) ;
+                acedUndef (
+                       (*ppEntry)->pszName == NULL ? buffer : (*ppEntry)->pszName,
+                    param++
+                ) ;
+            }
         }
-        acedUndef((*ppEntry)->pszName == NULL ? buffer : (*ppEntry)->pszName, param++);
-      }
+        return (retCode) ;
     }
-    return (retCode);
-  }
   virtual AcRx::AppRetCode On_kInvkSubrMsg(void* pkt)
   {
-    AcRx::AppRetCode retCode = AcRxDbxApp::On_kInvkSubrMsg(pkt);
+        AcRx::AppRetCode retCode =AcRxDbxApp::On_kInvkSubrMsg (pkt) ;
         //----- Dispatch ADS symbol calls
-    int param = acedGetFunCode();
-    _ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryFirst = &__pAdsSymbolMapEntryFirst + 1;
-    _ADSSYMBOL_ENTRY** ppAdsSymbolMapEntryLast = &__pAdsSymbolMapEntryLast;
-    int paramIter = 0;
-    for (_ADSSYMBOL_ENTRY** ppEntry = ppAdsSymbolMapEntryFirst; ppEntry < ppAdsSymbolMapEntryLast; ppEntry++)
-    {
-      if (*ppEntry != NULL)
-      {
-        if (paramIter++ == param)
-        {
-          (*((*ppEntry)->fptr))();
-          break;
+        int param =acedGetFunCode () ;
+        _ADSSYMBOL_ENTRY **ppAdsSymbolMapEntryFirst =&__pAdsSymbolMapEntryFirst + 1 ;
+        _ADSSYMBOL_ENTRY **ppAdsSymbolMapEntryLast =&__pAdsSymbolMapEntryLast ;
+        int paramIter =0 ;
+        for ( _ADSSYMBOL_ENTRY **ppEntry =ppAdsSymbolMapEntryFirst ; ppEntry < ppAdsSymbolMapEntryLast ; ppEntry++ ) {
+            if ( *ppEntry != NULL ) {
+                if ( paramIter++ == param ) {
+                    (*((*ppEntry)->fptr)) () ;
+                    break ;
+                }
+            }
         }
-      }
+        return (retCode) ;
     }
-    return (retCode);
-  }
 };

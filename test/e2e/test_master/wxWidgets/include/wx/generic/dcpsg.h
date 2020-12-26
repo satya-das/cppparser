@@ -37,9 +37,7 @@ public:
   void Init();
   virtual ~wxPostScriptDCImpl();
   virtual bool Ok() const
-  {
-    return IsOk();
-  }
+  { return IsOk(); }
   bool IsOk() const override;
   bool CanDrawBitmap() const override
   {
@@ -75,9 +73,7 @@ public:
 #    endif
   void SetPrintData(const wxPrintData& data);
   wxPrintData& GetPrintData()
-  {
-    return m_printData;
-  }
+  { return m_printData; }
   int GetDepth() const override
   {
     return 24;

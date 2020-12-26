@@ -41,8 +41,8 @@ public:
   void disconnect(GrGpu::DisconnectType);
   bool shouldBindFragmentInputs() const
   {
-    return fCaps.bindFragmentInputSupport;
-  }
+        return fCaps.bindFragmentInputSupport;
+    }
     // Functions for "separable shader" texturing support.
   void setProgramPathFragmentInputTransform(GrGLuint program, GrGLint location, GrGLenum genMode, GrGLint components, const SkMatrix&);
     /* Sets the projection matrix for path rendering */
@@ -68,33 +68,33 @@ private:
     GrSurfaceOrigin fRenderTargetOrigin;
     MatrixState()
     {
-      this->invalidate();
-    }
+ this->invalidate();     }
     void invalidate()
     {
-      fViewMatrix = SkMatrix::InvalidMatrix();
-      fRenderTargetSize.fWidth = -1;
-      fRenderTargetSize.fHeight = -1;
-      fRenderTargetOrigin = (GrSurfaceOrigin) -1;
-    }
+            fViewMatrix = SkMatrix::InvalidMatrix();
+            fRenderTargetSize.fWidth = -1;
+            fRenderTargetSize.fHeight = -1;
+            fRenderTargetOrigin = (GrSurfaceOrigin) -1;
+        }
         /**
          * Gets a matrix that goes from local coordinates to GL normalized device coords.
          */
     template <int Size>
     void getRTAdjustedGLMatrix(float* destMatrix)
     {
-      SkMatrix combined;
-      if (kBottomLeft_GrSurfaceOrigin == fRenderTargetOrigin)
-      {
-        combined.setAll(SkIntToScalar(2) / fRenderTargetSize.fWidth, 0, -SK_Scalar1, 0, -SkIntToScalar(2) / fRenderTargetSize.fHeight, SK_Scalar1, 0, 0, 1);
-      }
-      else 
-      {
-        combined.setAll(SkIntToScalar(2) / fRenderTargetSize.fWidth, 0, -SK_Scalar1, 0, SkIntToScalar(2) / fRenderTargetSize.fHeight, -SK_Scalar1, 0, 0, 1);
-      }
-      combined.preConcat(fViewMatrix);
-      GrGLSLGetMatrix<Size>(destMatrix, combined);
-    }
+            SkMatrix combined;
+            if (kBottomLeft_GrSurfaceOrigin == fRenderTargetOrigin) {
+                combined.setAll(SkIntToScalar(2) / fRenderTargetSize.fWidth, 0, -SK_Scalar1,
+                                0, -SkIntToScalar(2) / fRenderTargetSize.fHeight, SK_Scalar1,
+                                0, 0, 1);
+            } else {
+                combined.setAll(SkIntToScalar(2) / fRenderTargetSize.fWidth, 0, -SK_Scalar1,
+                                0, SkIntToScalar(2) / fRenderTargetSize.fHeight, -SK_Scalar1,
+                                0, 0, 1);
+            }
+            combined.preConcat(fViewMatrix);
+            GrGLSLGetMatrix<Size>(destMatrix, combined);
+        }
   };
   GrGLGpu* gpu();
   GrGLuint fFirstPreallocatedPathID;

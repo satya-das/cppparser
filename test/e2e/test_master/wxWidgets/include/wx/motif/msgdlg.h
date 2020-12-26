@@ -17,16 +17,16 @@ class WXDLLIMPEXP_CORE wxMessageDialog : public wxMessageDialogBase
 {
 public:
   wxMessageDialog(wxWindow* parent, const wxString& message, const wxString& caption = wxASCII_STR(wxMessageBoxCaptionStr), long style = wxOK | wxCENTRE, const wxPoint& = wxDefaultPosition)
-    : wxMessageDialogBase(parent, message, caption, style)
-  {
-  }
+    :  wxMessageDialogBase(parent, message, caption, style)
+    
+    {
+
+        }
   virtual int ShowModal();
     // implementation only from now on
     // called by the Motif callback
   void SetResult(long result)
-  {
-    m_result = result;
-  }
+  { m_result = result; }
 protected:
   long m_result;
   wxDECLARE_DYNAMIC_CLASS(wxMessageDialog);

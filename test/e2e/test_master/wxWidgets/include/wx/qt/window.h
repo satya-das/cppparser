@@ -161,9 +161,7 @@ protected:
     // overridden in wxFrame to use its central widget rather than the frame
     // itself.
   virtual QWidget* QtGetParentWidget() const
-  {
-    return GetHandle();
-  }
+  { return GetHandle(); }
   QWidget* m_qtWindow;
 private:
   void Init();

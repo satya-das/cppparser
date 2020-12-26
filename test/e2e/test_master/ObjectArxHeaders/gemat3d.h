@@ -123,23 +123,23 @@ private:
 };
 inline bool AcGeMatrix3d::operator ==(const AcGeMatrix3d& otherMatrix) const
 {
-  return this->isEqualTo(otherMatrix);
+    return this->isEqualTo(otherMatrix);
 }
 // This operator is the logical negation of the `==' operator.
 //
 inline bool AcGeMatrix3d::operator !=(const AcGeMatrix3d& otherMatrix) const
 {
-  return !this->isEqualTo(otherMatrix);
+    return !this->isEqualTo(otherMatrix);
 }
 // Return the element in position [row][column] of the `entry' array.
 //
 inline double AcGeMatrix3d::operator ()(unsigned int row, unsigned int column) const
 {
-  return entry[row][column];
+    return entry[row][column];
 }
 inline double& AcGeMatrix3d::operator ()(unsigned int row, unsigned int column)
 {
-  return entry[row][column];
+    return entry[row][column];
 }
 #  pragma  pack (pop)
 #endif

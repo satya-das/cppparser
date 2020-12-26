@@ -100,32 +100,42 @@ public:
   wxDragImage();
   wxDragImage(const wxBitmap& image, const wxCursor& cursor = wxNullCursor)
   {
-    Init();
-    Create(image, cursor);
-  }
+
+        Init();
+
+        Create(image, cursor);
+      }
   wxDragImage(const wxIcon& image, const wxCursor& cursor = wxNullCursor)
   {
-    Init();
-    Create(image, cursor);
-  }
+
+        Init();
+
+        Create(image, cursor);
+      }
   wxDragImage(const wxString& str, const wxCursor& cursor = wxNullCursor)
   {
-    Init();
-    Create(str, cursor);
-  }
+
+        Init();
+
+        Create(str, cursor);
+      }
 #    if  wxUSE_TREECTRL
   wxDragImage(const wxTreeCtrl& treeCtrl, wxTreeItemId& id)
   {
-    Init();
-    Create(treeCtrl, id);
-  }
+
+        Init();
+
+        Create(treeCtrl, id);
+      }
 #    endif
 #    if  wxUSE_LISTCTRL
   wxDragImage(const wxListCtrl& listCtrl, long id)
   {
-    Init();
-    Create(listCtrl, id);
-  }
+
+        Init();
+
+        Create(listCtrl, id);
+      }
 #    endif
   virtual ~wxDragImage();
     // Attributes
@@ -171,15 +181,11 @@ public:
   void Init();
     // Returns the native image list handle
   WXHIMAGELIST GetHIMAGELIST() const
-  {
-    return m_hImageList;
-  }
+  { return m_hImageList; }
 #    if  !wxUSE_SIMPLER_DRAGIMAGE
     // Returns the native image list handle for the cursor
   WXHIMAGELIST GetCursorHIMAGELIST() const
-  {
-    return m_hCursorImageList;
-  }
+  { return m_hCursorImageList; }
 #    endif
     // don't use in new code, use versions without hot spot parameter
 #    if  WXWIN_COMPATIBILITY_2_8

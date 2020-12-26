@@ -29,10 +29,9 @@ class WXDLLIMPEXP_CORE wxGenericFileDialog : public wxFileDialogBase
 {
 public:
   wxGenericFileDialog()
-    : wxFileDialogBase()
-  {
-    Init();
-  }
+    :  wxFileDialogBase() 
+    {
+ Init();     }
   wxGenericFileDialog(wxWindow* parent, const wxString& message = wxASCII_STR(wxFileSelectorPromptStr), const wxString& defaultDir = wxEmptyString, const wxString& defaultFile = wxEmptyString, const wxString& wildCard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), long style = wxFD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, const wxString& name = wxASCII_STR(wxFileDialogNameStr), bool bypassGenericImpl = false);
   bool Create(wxWindow* parent, const wxString& message = wxASCII_STR(wxFileSelectorPromptStr), const wxString& defaultDir = wxEmptyString, const wxString& defaultFile = wxEmptyString, const wxString& wildCard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), long style = wxFD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, const wxString& name = wxASCII_STR(wxFileDialogNameStr), bool bypassGenericImpl = false);
   virtual ~wxGenericFileDialog();
@@ -133,9 +132,14 @@ public:
   {
   }
   wxFileDialog(wxWindow* parent, const wxString& message = wxASCII_STR(wxFileSelectorPromptStr), const wxString& defaultDir = wxEmptyString, const wxString& defaultFile = wxEmptyString, const wxString& wildCard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), long style = 0, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize)
-    : wxGenericFileDialog(parent, message, defaultDir, defaultFile, wildCard, style, pos, size)
-  {
-  }
+    : wxGenericFileDialog(parent, message,
+                               defaultDir, defaultFile, wildCard,
+                               style,
+                               pos, size)
+    
+    {
+
+        }
   wxDECLARE_DYNAMIC_CLASS(wxFileDialog);
 };
 #  endif

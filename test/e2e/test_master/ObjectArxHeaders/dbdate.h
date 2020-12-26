@@ -119,27 +119,27 @@ private:
 };
 inline const AcDbDate AcDbDate::operator +(const AcDbDate& d) const
 {
-  return AcDbDate(*this) += d;
+    return AcDbDate(*this) += d;
 }
 inline const AcDbDate AcDbDate::operator -(const AcDbDate& d) const
 {
-  return AcDbDate(*this) -= d;
+    return AcDbDate(*this) -= d;
 }
 inline bool AcDbDate::operator <(const AcDbDate& d) const
 {
-  return !operator >=(d);
+    return ! operator >= (d);
 }
 inline bool AcDbDate::operator <=(const AcDbDate& d) const
 {
-  return !operator >(d);
+    return ! operator > (d);
 }
 inline const AcDbDate& AcDbDate::add(const AcDbDate& date)
 {
-  return operator +=(date);
+    return operator += (date);
 }
 inline const AcDbDate& AcDbDate::subtract(const AcDbDate& date)
 {
-  return operator -=(date);
+    return operator -= (date);
 }
 #  pragma  pack(pop)
 #endif

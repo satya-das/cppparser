@@ -55,9 +55,9 @@ namespace SkSL
     {
     public:
       LValue(ByteCodeGenerator& generator)
-        : fGenerator(generator)
-      {
-      }
+        :  fGenerator(generator) 
+        {
+        }
       virtual ~LValue()
       {
       }
@@ -94,27 +94,29 @@ namespace SkSL
     {
     public:
       DeferredLocation(ByteCodeGenerator* generator)
-        : fGenerator(*generator)
-        , fOffset(generator->fCode->size())
-      {
-        generator->write16(0);
-      }
+        :  fGenerator(*generator)
+            , fOffset(generator->fCode->size()) 
+        {
+
+            generator->write16(0);
+                }
 #  ifdef SK_DEBUG
       ~DeferredLocation()
       {
-        SkASSERT(fSet);
-      }
+
+            SkASSERT(fSet);
+              }
 #  endif
       void set()
       {
-        int target = fGenerator.fCode->size();
-        SkASSERT(target <= 65535);
-        (*fGenerator.fCode)[fOffset] = target;
-        (*fGenerator.fCode)[fOffset + 1] = target >> 8;
-#  ifdef SK_DEBUG
-        fSet = true;
-#  endif
-      }
+            int target = fGenerator.fCode->size();
+            SkASSERT(target <= 65535);
+            (*fGenerator.fCode)[fOffset] = target;
+            (*fGenerator.fCode)[fOffset + 1] = target >> 8;
+#ifdef SK_DEBUG
+            fSet = true;
+#endif
+        }
     private:
       ByteCodeGenerator& fGenerator;
       size_t fOffset;
@@ -129,26 +131,26 @@ namespace SkSL
     struct Intrinsic
     {
       Intrinsic(ByteCodeInstruction instruction)
-        : fIsSpecial(false)
-        , fValue(instruction)
-      {
-      }
+        :  fIsSpecial(false)
+            , fValue(instruction) 
+        {
+        }
       Intrinsic(SpecialIntrinsic special)
-        : fIsSpecial(true)
-        , fValue(special)
-      {
-      }
+        :  fIsSpecial(true)
+            , fValue(special) 
+        {
+        }
       bool fIsSpecial;
       union Value
 {
   Value(ByteCodeInstruction instruction)
-    : fInstruction(instruction)
-  {
-  }
+    :  fInstruction(instruction) 
+    {
+    }
   Value(SpecialIntrinsic special)
-    : fSpecial(special)
-  {
-  }
+    :  fSpecial(special) 
+    {
+    }
   ByteCodeInstruction fInstruction;
   SpecialIntrinsic fSpecial;
 } fValue;
@@ -166,49 +168,34 @@ namespace SkSL
       Storage fStorage;
         // Not really invalid, but a "safe" placeholder to be more explicit at call-sites
       static Location MakeInvalid()
-      {
-        return {0, Storage::kLocal};
-      }
+      { return { 0, Storage::kLocal }; }
       Location makeOnStack()
-      {
-        return {-1, fStorage};
-      }
+      { return { -1, fStorage }; }
       bool isOnStack() const
-      {
-        return fSlot < 0;
-      }
+      { return fSlot < 0; }
       Location operator+(int offset)
       {
-        SkASSERT(fSlot >= 0);
-        return {fSlot + offset, fStorage};
-      }
+            SkASSERT(fSlot >= 0);
+            return { fSlot + offset, fStorage };
+        }
       ByteCodeInstruction selectLoad(ByteCodeInstruction local, ByteCodeInstruction global, ByteCodeInstruction uniform) const
       {
-        switch(fStorage)
-        {
-          case Storage::kLocal:
-            return local;
-          case Storage::kGlobal:
-            return global;
-          case Storage::kUniform:
-            return uniform;
+            switch (fStorage) {
+                case Storage::kLocal:   return local;
+                case Storage::kGlobal:  return global;
+                case Storage::kUniform: return uniform;
+            }
+            SkUNREACHABLE;
         }
-        SkUNREACHABLE;
-      }
       ByteCodeInstruction selectStore(ByteCodeInstruction local, ByteCodeInstruction global) const
       {
-        switch(fStorage)
-        {
-          case Storage::kLocal:
+            switch (fStorage) {
+                case Storage::kLocal:   return local;
+                case Storage::kGlobal:  return global;
+                case Storage::kUniform: ABORT("Trying to store to a uniform"); break;
+            }
             return local;
-          case Storage::kGlobal:
-            return global;
-          case Storage::kUniform:
-            ABORT("Trying to store to a uniform");
-            break;
         }
-        return local;
-      }
     };
     /**
      * Returns the local slot into which var should be stored, allocating a new slot if it has not
@@ -261,23 +248,23 @@ namespace SkSL
     void setContinueTargets();
     void enterLoop()
     {
-      fLoopCount++;
-      fMaxLoopCount = std::max(fMaxLoopCount, fLoopCount);
+        fLoopCount++;
+        fMaxLoopCount = std::max(fMaxLoopCount, fLoopCount);
     }
     void exitLoop()
     {
-      SkASSERT(fLoopCount > 0);
-      fLoopCount--;
+        SkASSERT(fLoopCount > 0);
+        fLoopCount--;
     }
     void enterCondition()
     {
-      fConditionCount++;
-      fMaxConditionCount = std::max(fMaxConditionCount, fConditionCount);
+        fConditionCount++;
+        fMaxConditionCount = std::max(fMaxConditionCount, fConditionCount);
     }
     void exitCondition()
     {
-      SkASSERT(fConditionCount > 0);
-      fConditionCount--;
+        SkASSERT(fConditionCount > 0);
+        fConditionCount--;
     }
     const Context& fContext;
     ByteCode* fOutput;

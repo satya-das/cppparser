@@ -10,17 +10,17 @@
 #  include "include/private/SkNx.h"
 static Sk2s from_point(const SkPoint& point)
 {
-  return Sk2s::Load(&point);
+    return Sk2s::Load(&point);
 }
 static SkPoint to_point(const Sk2s& x)
 {
-  SkPoint point;
-  x.store(&point);
-  return point;
+    SkPoint point;
+    x.store(&point);
+    return point;
 }
 static Sk2s times_2(const Sk2s& value)
 {
-  return value + value;
+    return value + value;
 }
 /** Given a quadratic equation Ax^2 + Bx + C = 0, return 0, 1, 2 roots for the
     equation.
@@ -143,37 +143,29 @@ enum class SkCubicType {
 };
 static bool SkCubicIsDegenerate(SkCubicType type)
 {
-  switch(type)
-  {
-    case SkCubicType::kSerpentine:
-    case SkCubicType::kLoop:
-    case SkCubicType::kLocalCusp:
-    case SkCubicType::kCuspAtInfinity:
-      return false;
-    case SkCubicType::kQuadratic:
-    case SkCubicType::kLineOrPoint:
-      return true;
-  }
-  SK_ABORT("Invalid SkCubicType");
+    switch (type) {
+        case SkCubicType::kSerpentine:
+        case SkCubicType::kLoop:
+        case SkCubicType::kLocalCusp:
+        case SkCubicType::kCuspAtInfinity:
+            return false;
+        case SkCubicType::kQuadratic:
+        case SkCubicType::kLineOrPoint:
+            return true;
+    }
+    SK_ABORT("Invalid SkCubicType");
 }
 static const char* SkCubicTypeName(SkCubicType type)
 {
-  switch(type)
-  {
-    case SkCubicType::kSerpentine:
-      return "kSerpentine";
-    case SkCubicType::kLoop:
-      return "kLoop";
-    case SkCubicType::kLocalCusp:
-      return "kLocalCusp";
-    case SkCubicType::kCuspAtInfinity:
-      return "kCuspAtInfinity";
-    case SkCubicType::kQuadratic:
-      return "kQuadratic";
-    case SkCubicType::kLineOrPoint:
-      return "kLineOrPoint";
-  }
-  SK_ABORT("Invalid SkCubicType");
+    switch (type) {
+        case SkCubicType::kSerpentine: return "kSerpentine";
+        case SkCubicType::kLoop: return "kLoop";
+        case SkCubicType::kLocalCusp: return "kLocalCusp";
+        case SkCubicType::kCuspAtInfinity: return "kCuspAtInfinity";
+        case SkCubicType::kQuadratic: return "kQuadratic";
+        case SkCubicType::kLineOrPoint: return "kLineOrPoint";
+    }
+    SK_ABORT("Invalid SkCubicType");
 }
 /** Returns the cubic classification.
 
@@ -205,30 +197,32 @@ struct SkConic
   }
   SkConic(const SkPoint& p0, const SkPoint& p1, const SkPoint& p2, SkScalar w)
   {
-    fPts[0] = p0;
-    fPts[1] = p1;
-    fPts[2] = p2;
-    fW = w;
-  }
+
+        fPts[0] = p0;
+        fPts[1] = p1;
+        fPts[2] = p2;
+        fW = w;
+      }
   SkConic(const SkPoint pts[3], SkScalar w)
   {
-    memcpy(fPts, pts, sizeof(fPts));
-    fW = w;
-  }
+
+        memcpy(fPts, pts, sizeof(fPts));
+        fW = w;
+      }
   SkPoint fPts[3];
   SkScalar fW;
   void set(const SkPoint pts[3], SkScalar w)
   {
-    memcpy(fPts, pts, 3 * sizeof(SkPoint));
-    fW = w;
-  }
+        memcpy(fPts, pts, 3 * sizeof(SkPoint));
+        fW = w;
+    }
   void set(const SkPoint& p0, const SkPoint& p1, const SkPoint& p2, SkScalar w)
   {
-    fPts[0] = p0;
-    fPts[1] = p1;
-    fPts[2] = p2;
-    fW = w;
-  }
+        fPts[0] = p0;
+        fPts[1] = p1;
+        fPts[2] = p2;
+        fW = w;
+    }
     /**
      *  Given a t-value [0...1] return its position and/or tangent.
      *  If pos is not null, return its position at the t-value.
@@ -286,27 +280,30 @@ namespace
     {
     }
     SkQuadCoeff(const Sk2s& A, const Sk2s& B, const Sk2s& C)
-      : fA(A)
-      , fB(B)
-      , fC(C)
-    {
-    }
+      :  fA(A)
+        , fB(B)
+        , fC(C)
+    
+      {
+
+          }
     SkQuadCoeff(const SkPoint src[3])
     {
-      fC = from_point(src[0]);
-      Sk2s P1 = from_point(src[1]);
-      Sk2s P2 = from_point(src[2]);
-      fB = times_2(P1 - fC);
-      fA = P2 - times_2(P1) + fC;
-    }
+
+        fC = from_point(src[0]);
+        Sk2s P1 = from_point(src[1]);
+        Sk2s P2 = from_point(src[2]);
+        fB = times_2(P1 - fC);
+        fA = P2 - times_2(P1) + fC;
+        }
     Sk2s eval(SkScalar t)
     {
-      Sk2s tt(t);
-      return eval(tt);
+        Sk2s tt(t);
+        return eval(tt);
     }
     Sk2s eval(const Sk2s& tt)
     {
-      return (fA * tt + fB) * tt + fC;
+        return (fA * tt + fB) * tt + fC;
     }
     Sk2s fA;
     Sk2s fB;
@@ -316,24 +313,27 @@ namespace
   {
     SkConicCoeff(const SkConic& conic)
     {
-      Sk2s p0 = from_point(conic.fPts[0]);
-      Sk2s p1 = from_point(conic.fPts[1]);
-      Sk2s p2 = from_point(conic.fPts[2]);
-      Sk2s ww(conic.fW);
-      Sk2s p1w = p1 * ww;
-      fNumer.fC = p0;
-      fNumer.fA = p2 - times_2(p1w) + p0;
-      fNumer.fB = times_2(p1w - p0);
-      fDenom.fC = Sk2s(1);
-      fDenom.fB = times_2(ww - fDenom.fC);
-      fDenom.fA = Sk2s(0) - fDenom.fB;
-    }
+
+        Sk2s p0 = from_point(conic.fPts[0]);
+        Sk2s p1 = from_point(conic.fPts[1]);
+        Sk2s p2 = from_point(conic.fPts[2]);
+        Sk2s ww(conic.fW);
+
+        Sk2s p1w = p1 * ww;
+        fNumer.fC = p0;
+        fNumer.fA = p2 - times_2(p1w) + p0;
+        fNumer.fB = times_2(p1w - p0);
+
+        fDenom.fC = Sk2s(1);
+        fDenom.fB = times_2(ww - fDenom.fC);
+        fDenom.fA = Sk2s(0) - fDenom.fB;
+        }
     Sk2s eval(SkScalar t)
     {
-      Sk2s tt(t);
-      Sk2s numer = fNumer.eval(tt);
-      Sk2s denom = fDenom.eval(tt);
-      return numer / denom;
+        Sk2s tt(t);
+        Sk2s numer = fNumer.eval(tt);
+        Sk2s denom = fDenom.eval(tt);
+        return numer / denom;
     }
     SkQuadCoeff fNumer;
     SkQuadCoeff fDenom;
@@ -342,24 +342,25 @@ namespace
   {
     SkCubicCoeff(const SkPoint src[4])
     {
-      Sk2s P0 = from_point(src[0]);
-      Sk2s P1 = from_point(src[1]);
-      Sk2s P2 = from_point(src[2]);
-      Sk2s P3 = from_point(src[3]);
-      Sk2s three(3);
-      fA = P3 + three * (P1 - P2) - P0;
-      fB = three * (P2 - times_2(P1) + P0);
-      fC = three * (P1 - P0);
-      fD = P0;
-    }
+
+        Sk2s P0 = from_point(src[0]);
+        Sk2s P1 = from_point(src[1]);
+        Sk2s P2 = from_point(src[2]);
+        Sk2s P3 = from_point(src[3]);
+        Sk2s three(3);
+        fA = P3 + three * (P1 - P2) - P0;
+        fB = three * (P2 - times_2(P1) + P0);
+        fC = three * (P1 - P0);
+        fD = P0;
+        }
     Sk2s eval(SkScalar t)
     {
-      Sk2s tt(t);
-      return eval(tt);
+        Sk2s tt(t);
+        return eval(tt);
     }
     Sk2s eval(const Sk2s& t)
     {
-      return ((fA * t + fB) * t + fC) * t + fD;
+        return ((fA * t + fB) * t + fC) * t + fD;
     }
     Sk2s fA;
     Sk2s fB;
@@ -375,9 +376,9 @@ class SkAutoConicToQuads
 {
 public:
   SkAutoConicToQuads()
-    : fQuadCount(0)
-  {
-  }
+    :  fQuadCount(0) 
+    {
+    }
     /**
      *  Given a conic and a tolerance, return the array of points for the
      *  approximating quad(s). Call countQuads() to know the number of quads
@@ -392,22 +393,20 @@ public:
      */
   const SkPoint* computeQuads(const SkConic& conic, SkScalar tol)
   {
-    int pow2 = conic.computeQuadPOW2(tol);
-    fQuadCount = 1 << pow2;
-    SkPoint* pts = fStorage.reset(1 + 2 * fQuadCount);
-    fQuadCount = conic.chopIntoQuadsPOW2(pts, pow2);
-    return pts;
-  }
+        int pow2 = conic.computeQuadPOW2(tol);
+        fQuadCount = 1 << pow2;
+        SkPoint* pts = fStorage.reset(1 + 2 * fQuadCount);
+        fQuadCount = conic.chopIntoQuadsPOW2(pts, pow2);
+        return pts;
+    }
   const SkPoint* computeQuads(const SkPoint pts[3], SkScalar weight, SkScalar tol)
   {
-    SkConic conic;
-    conic.set(pts, weight);
-    return computeQuads(conic, tol);
-  }
+        SkConic conic;
+        conic.set(pts, weight);
+        return computeQuads(conic, tol);
+    }
   int countQuads() const
-  {
-    return fQuadCount;
-  }
+  { return fQuadCount; }
 private:
   enum {
         kQuadCount = 8, // should handle most conics

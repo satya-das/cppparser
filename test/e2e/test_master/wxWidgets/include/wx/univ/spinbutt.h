@@ -46,9 +46,7 @@ public:
   wxScrollArrows::Arrow HitTestArrow(const wxPoint& pt) const override;
     // for wxStdSpinButtonInputHandler
   const wxScrollArrows& GetArrows()
-  {
-    return m_arrows;
-  }
+  { return m_arrows; }
   bool PerformAction(const wxControlAction& action, long numArg = 0, const wxString& strArg = wxEmptyString) override;
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override

@@ -20,7 +20,7 @@ namespace SkSL
     }
     void error(int offset, const char* msg)
     {
-      this->error(offset, String(msg));
+        this->error(offset, String(msg));
     }
     virtual void error(int offset, String msg) = 0;
     virtual int errorCount() = 0;

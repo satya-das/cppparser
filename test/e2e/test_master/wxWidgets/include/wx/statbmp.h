@@ -27,7 +27,7 @@ public:
     };
   wxStaticBitmapBase()
   {
-  }
+   }
   virtual ~wxStaticBitmapBase();
     // our interface
   virtual void SetIcon(const wxIcon& icon) = 0;
@@ -40,12 +40,9 @@ public:
     return wxIcon();
   }
   virtual void SetScaleMode(ScaleMode)
-  {
-  }
+  { }
   virtual ScaleMode GetScaleMode() const
-  {
-    return Scale_None;
-  }
+  { return Scale_None; }
     // overridden base class virtuals
   bool AcceptsFocus() const override
   {

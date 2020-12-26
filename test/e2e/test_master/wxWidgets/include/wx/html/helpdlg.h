@@ -34,31 +34,22 @@ class WXDLLIMPEXP_HTML wxHtmlHelpDialog : public wxDialog
 public:
   wxHtmlHelpDialog(wxHtmlHelpData* data = NULL)
   {
-    Init(data);
-  }
+ Init(data);   }
   wxHtmlHelpDialog(wxWindow* parent, wxWindowID wxWindowID, const wxString& title = wxEmptyString, int style = wxHF_DEFAULT_STYLE, wxHtmlHelpData* data = NULL);
   virtual ~wxHtmlHelpDialog();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title = wxEmptyString, int style = wxHF_DEFAULT_STYLE);
     /// Returns the data associated with this dialog.
   wxHtmlHelpData* GetData()
-  {
-    return m_Data;
-  }
+  { return m_Data; }
     /// Returns the controller that created this dialog.
   wxHtmlHelpController* GetController() const
-  {
-    return m_helpController;
-  }
+  { return m_helpController; }
     /// Sets the controller associated with this dialog.
   void SetController(wxHtmlHelpController* controller)
-  {
-    m_helpController = controller;
-  }
+  { m_helpController = controller; }
     /// Returns the help window.
   wxHtmlHelpWindow* GetHelpWindow() const
-  {
-    return m_HtmlHelpWin;
-  }
+  { return m_HtmlHelpWin; }
     // Sets format of title of the frame. Must contain exactly one "%s"
     // (for title of displayed HTML page)
   void SetTitleFormat(const wxString& format);

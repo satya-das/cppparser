@@ -66,8 +66,7 @@ public:
   wxZlibOutputStream(wxOutputStream* stream, int level = -1, int flags = wxZLIB_ZLIB);
   virtual ~wxZlibOutputStream()
   {
-    Close();
-  }
+ Close();   }
   void Sync() override
   {
     DoFlush(false);

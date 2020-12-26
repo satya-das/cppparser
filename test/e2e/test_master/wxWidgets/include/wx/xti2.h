@@ -28,17 +28,17 @@ public:
     // get the runtime identity of this object
   wxClassInfo* GetClassInfo() const
   {
-#    ifdef _MSC_VER
-    return (wxClassInfo*) m_classInfo;
-#    else 
-    wxDynamicClassInfo* nonconst = const_cast<wxDynamicClassInfo*>(m_classInfo);
-    return static_cast<wxClassInfo*>(nonconst);
-#    endif
-  }
+#ifdef _MSC_VER
+        return (wxClassInfo*) m_classInfo;
+#else
+        wxDynamicClassInfo *nonconst = const_cast<wxDynamicClassInfo *>(m_classInfo);
+        return static_cast<wxClassInfo *>(nonconst);
+#endif
+    }
   wxObject* GetSuperClassInstance() const
   {
-    return m_superClassInstance;
-  }
+        return m_superClassInstance ;
+    }
 private:
     // removes an existing runtime-property
   void RemoveProperty(const wxChar* propertyName);
@@ -213,34 +213,29 @@ template <typename T>
 void wxStringWriteValue(wxString& s, const T& data);
 template <typename T>
 void wxToStringConverter(const wxAny& v, wxString& s)
-{
-  wxStringWriteValue(s, v.As<T>());
-}
+{ wxStringWriteValue(s, v.As<T>()); }
 template <typename T>
 void wxFromStringConverter(const wxString& s, wxAny& v)
-{
-  T d;
-  wxStringReadValue(s, d);
-  v = wxAny(d);
-}
+{ T d; wxStringReadValue(s, d); v = wxAny(d); }
 // --------------------------------------------------------------------------
 // Collection Support
 // --------------------------------------------------------------------------
 template <typename iter, typename collection_t>
 void wxListCollectionToAnyList(const collection_t& coll, wxAnyList& value)
 {
-  for (iter current = coll.GetFirst(); current; current = current->GetNext())
-  {
-    value.Append(new wxAny(current->GetData()));
-  }
+    for ( iter current = coll.GetFirst(); current;
+         current = current->GetNext() )
+    {
+        value.Append( new wxAny(current->GetData()) );
+    }
 }
 template <typename collection_t>
 void wxArrayCollectionToVariantArray(const collection_t& coll, wxAnyList& value)
 {
-  for (size_t i = 0; i < coll.GetCount(); i++)
-  {
-    value.Append(new wxAny(coll[i]));
-  }
+    for( size_t i = 0; i < coll.GetCount(); i++ )
+    {
+        value.Append( new wxAny(coll[i]) );
+    }
 }
 #  endif
 #endif

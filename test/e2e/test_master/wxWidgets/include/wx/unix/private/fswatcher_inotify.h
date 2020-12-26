@@ -18,17 +18,20 @@ class wxFSWatchEntry : public wxFSWatchInfo
 {
 public:
   wxFSWatchEntry(const wxFSWatchInfo& winfo)
-    : wxFSWatchInfo(winfo)
-  {
-  }
+    : 
+        wxFSWatchInfo(winfo)
+    
+    {
+
+        }
   int GetWatchDescriptor() const
   {
-    return m_wd;
-  }
+        return m_wd;
+    }
   void SetWatchDescriptor(int wd)
   {
-    m_wd = wd;
-  }
+        m_wd = wd;
+    }
 private:
   int m_wd;
   wxDECLARE_NO_COPY_CLASS(wxFSWatchEntry);
@@ -44,9 +47,11 @@ class wxFSWSourceHandler : public wxEventLoopSourceHandler
 {
 public:
   wxFSWSourceHandler(wxFSWatcherImplUnix* service)
-    : m_service(service)
-  {
-  }
+    : 
+        m_service(service)
+    
+    {
+      }
   void OnReadWaiting() override;
   void OnWriteWaiting() override;
   void OnExceptionWaiting() override;

@@ -45,26 +45,18 @@ private:
   void UuidToCForm();
   // function used to set initial state by all ctors
   void Init()
-  {
-    m_pszUuid = NULL;
-    m_pszCForm = NULL;
-  }
+  { m_pszUuid = NULL; m_pszCForm = NULL; }
 public:
   // ctors & dtor
   Uuid()
   {
-    Init();
-  }
+ Init();              }
   Uuid(const wxChar* pc)
   {
-    Init();
-    Set(pc);
-  }
+ Init(); Set(pc);     }
   Uuid(const UUID& uuid)
   {
-    Init();
-    Set(uuid);
-  }
+ Init(); Set(uuid);   }
   ~Uuid();
   // copy ctor and assignment operator needed for this class
   Uuid(const Uuid& uuid);
@@ -77,23 +69,17 @@ public:
   // comparison operators
   bool operator==(const Uuid& uuid) const;
   bool operator!=(const Uuid& uuid) const
-  {
-    return !(*this == uuid);
-  }
+  { return !(*this == uuid); }
   // accessors
   operator const UUID*() const
   {
-    return &m_uuid;
-  }
+ return &m_uuid;                 }
   operator const wxChar*() const
   {
-    return (wxChar*) (m_pszUuid);
-  }
+ return (wxChar *)(m_pszUuid);   }
   // return string representation of the UUID in the C form
   // (as in DEFINE_GUID macro)
   const wxChar* CForm() const
-  {
-    return m_pszCForm;
-  }
+  { return m_pszCForm;            }
 };
 #endif

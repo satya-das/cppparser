@@ -85,26 +85,26 @@ public:
   virtual void SelectOldObjects(WXHDC dc);
   void SetWindow(wxWindow* win)
   {
-    m_window = win;
-#  if  wxUSE_PALETTE
+        m_window = win;
+
+#if wxUSE_PALETTE
         // if we have palettes use the correct one for this window
-    InitializePalette();
-#  endif
-  }
+        InitializePalette();
+#endif // wxUSE_PALETTE
+    }
   WXHDC GetHDC() const
-  {
-    return m_hDC;
-  }
+  { return m_hDC; }
   void SetHDC(WXHDC dc, bool bOwnsDC = false)
   {
-    m_hDC = dc;
-    m_bOwnsDC = bOwnsDC;
+        m_hDC = dc;
+        m_bOwnsDC = bOwnsDC;
+
         // we might have a pre existing clipping region, make sure that we
         // return it if asked -- but avoid calling ::GetClipBox() right now as
         // it could be unnecessary wasteful
-    m_clipping = true;
-    m_isClipBoxValid = false;
-  }
+        m_clipping = true;
+        m_isClipBoxValid = false;
+    }
   void* GetHandle() const override
   {
     return (void*) GetHDC();
@@ -136,24 +136,25 @@ public:
 protected:
   void Init()
   {
-    m_bOwnsDC = false;
-    m_hDC = NULL;
-    m_oldBitmap = NULL;
-    m_oldPen = NULL;
-    m_oldBrush = NULL;
-    m_oldFont = NULL;
-#  if  wxUSE_PALETTE
-    m_oldPalette = NULL;
-#  endif
-    m_isClipBoxValid = false;
-  }
+        m_bOwnsDC = false;
+        m_hDC = NULL;
+
+        m_oldBitmap = NULL;
+        m_oldPen = NULL;
+        m_oldBrush = NULL;
+        m_oldFont = NULL;
+
+#if wxUSE_PALETTE
+        m_oldPalette = NULL;
+#endif // wxUSE_PALETTE
+        m_isClipBoxValid = false;
+    }
     // create an uninitialized DC: this should be only used by the derived
     // classes
   wxMSWDCImpl(wxDC* owner)
-    : wxDCImpl(owner)
-  {
-    Init();
-  }
+    :  wxDCImpl( owner ) 
+    {
+ Init();     }
   void RealizeScaleAndOrigin();
 public:
   void DoGetFontMetrics(int* height, int* ascent, int* descent, int* internalLeading, int* externalLeading, int* averageWidth) const override;
@@ -248,15 +249,18 @@ public:
     // construct a temporary DC with the specified HDC and size (it should be
     // specified whenever we know it for this HDC)
   wxDCTempImpl(wxDC* owner, WXHDC hdc, const wxSize& size)
-    : wxMSWDCImpl(owner, hdc)
-    , m_size(size)
-  {
-  }
+    :  wxMSWDCImpl( owner, hdc ),
+          m_size(size)
+    
+    {
+
+        }
   virtual ~wxDCTempImpl()
   {
+
         // prevent base class dtor from freeing it
-    SetHDC((WXHDC) NULL);
-  }
+        SetHDC((WXHDC)NULL);
+      }
   void DoGetSize(int* w, int* h) const override
   {
     wxASSERT_MSG(m_size.IsFullySpecified(), wxT("size of this DC hadn't been set and is unknown"));
@@ -279,8 +283,10 @@ class WXDLLIMPEXP_CORE wxDCTemp : public wxDC
 {
 public:
   wxDCTemp(WXHDC hdc, const wxSize& size = wxDefaultSize)
-    : wxDC(new wxDCTempImpl(this, hdc, size))
-  {
-  }
+    :  wxDC(new wxDCTempImpl(this, hdc, size))
+    
+    {
+
+        }
 };
 #endif

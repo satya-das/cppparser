@@ -23,10 +23,10 @@ struct SkBitmapCacheDesc
   SkIRect fSubset;
   void validate() const
   {
-    SkASSERT(fImageID);
-    SkASSERT(fSubset.fLeft >= 0 && fSubset.fTop >= 0);
-    SkASSERT(fSubset.width() > 0 && fSubset.height() > 0);
-  }
+        SkASSERT(fImageID);
+        SkASSERT(fSubset.fLeft >= 0 && fSubset.fTop >= 0);
+        SkASSERT(fSubset.width() > 0 && fSubset.height() > 0);
+    }
   static SkBitmapCacheDesc Make(const SkImage*);
   static SkBitmapCacheDesc Make(uint32_t genID, const SkIRect& subset);
 };
@@ -42,9 +42,7 @@ public:
   struct RecDeleter
   {
     void operator()(Rec* r)
-    {
-      PrivateDeleteRec(r);
-    }
+    { PrivateDeleteRec(r); }
   };
   typedef std::unique_ptr<Rec, RecDeleter> RecPtr;
   static RecPtr Alloc(const SkBitmapCacheDesc&, const SkImageInfo&, SkPixmap*);

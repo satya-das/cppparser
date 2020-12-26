@@ -27,8 +27,7 @@ public:
   SkMultiPictureDraw(int reserve = 0);
   ~SkMultiPictureDraw()
   {
-    this->reset();
-  }
+ this->reset();   }
     /**
      *  Add a canvas/picture pair for later rendering.
      *  @param canvas   the canvas in which to draw picture

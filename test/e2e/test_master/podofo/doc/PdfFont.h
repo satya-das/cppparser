@@ -260,139 +260,140 @@ namespace PoDoFo
   const PdfName& PdfFont::GetBaseFont() const
   {
     return m_BaseFont;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   const PdfName& PdfFont::GetIdentifier() const
   {
     return m_Identifier;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   void PdfFont::SetFontSize(float fSize)
   {
-    m_pMetrics->SetFontSize(fSize);
-  }
+    m_pMetrics->SetFontSize( fSize );
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   float PdfFont::GetFontSize() const
   {
     return m_pMetrics->GetFontSize();
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   void PdfFont::SetFontScale(float fScale)
   {
-    m_pMetrics->SetFontScale(fScale);
-  }
+    m_pMetrics->SetFontScale( fScale );
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   float PdfFont::GetFontScale() const
   {
-    return m_pMetrics->GetFontScale();
-  }
+    return  m_pMetrics->GetFontScale();
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   void PdfFont::SetFontCharSpace(float fCharSpace)
   {
-    m_pMetrics->SetFontCharSpace(fCharSpace);
-  }
+    m_pMetrics->SetFontCharSpace( fCharSpace );
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   float PdfFont::GetFontCharSpace() const
   {
     return m_pMetrics->GetFontCharSpace();
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   inline void PdfFont::SetWordSpace(float fWordSpace)
   {
-    m_pMetrics->SetWordSpace(fWordSpace);
-  }
+    m_pMetrics->SetWordSpace( fWordSpace );
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   inline float PdfFont::GetWordSpace() const
   {
     return m_pMetrics->GetWordSpace();
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   const PdfEncoding* PdfFont::GetEncoding() const
   {
     return m_pEncoding;
-  }
+
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   PdfFontMetrics* PdfFont::GetFontMetrics2()
   {
     return m_pMetrics;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   const PdfFontMetrics* PdfFont::GetFontMetrics() const
   {
     return m_pMetrics;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   void PdfFont::SetUnderlined(bool bUnder)
   {
     m_bUnderlined = bUnder;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   bool PdfFont::IsUnderlined() const
   {
     return m_bUnderlined;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   void PdfFont::SetStrikeOut(bool bStrikeOut)
   {
     m_bStrikedOut = bStrikeOut;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   bool PdfFont::IsStrikeOut() const
   {
     return m_bStrikedOut;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   bool PdfFont::IsBold() const
   {
     return m_bBold;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   bool PdfFont::IsItalic() const
   {
     return m_bItalic;
-  }
+}
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   bool PdfFont::IsSubsetting() const
   {
     return m_bIsSubsetting;
-  }
+}
 }
 #endif

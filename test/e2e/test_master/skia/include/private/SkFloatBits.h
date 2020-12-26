@@ -15,24 +15,23 @@
 */
 static int32_t SkSignBitTo2sCompliment(int32_t x)
 {
-  if (x < 0)
-  {
-    x &= 0x7FFFFFFF;
-    x = -x;
-  }
-  return x;
+    if (x < 0) {
+        x &= 0x7FFFFFFF;
+        x = -x;
+    }
+    return x;
 }
 /** Convert a 2s compliment int to a sign-bit (i.e. int interpreted as float).
     This undoes the result of SkSignBitTo2sCompliment().
  */
 static int32_t Sk2sComplimentToSignBit(int32_t x)
 {
-  int sign = x >> 31;
+    int sign = x >> 31;
     // make x positive
-  x = (x ^ sign) - sign;
+    x = (x ^ sign) - sign;
     // set the sign bit as needed
-  x |= SkLeftShift(sign, 31);
-  return x;
+    x |= SkLeftShift(sign, 31);
+    return x;
 }
 union SkFloatIntUnion
 {
@@ -42,26 +41,27 @@ union SkFloatIntUnion
 // Helper to see a float as its bit pattern (w/o aliasing warnings)
 static int32_t SkFloat2Bits(float x)
 {
-  SkFloatIntUnion data;
-  data.fFloat = x;
-  return data.fSignBitInt;
+    SkFloatIntUnion data;
+    data.fFloat = x;
+    return data.fSignBitInt;
 }
 // Helper to see a bit pattern as a float (w/o aliasing warnings)
 static float SkBits2Float(int32_t floatAsBits)
 {
-  SkFloatIntUnion data;
-  data.fSignBitInt = floatAsBits;
-  return data.fFloat;
+    SkFloatIntUnion data;
+    data.fSignBitInt = floatAsBits;
+    return data.fFloat;
 }
 constexpr int32_t gFloatBits_exponent_mask = 0x7F800000;
 constexpr int32_t gFloatBits_matissa_mask = 0x007FFFFF;
 static bool SkFloatBits_IsFinite(int32_t bits)
 {
-  return (bits & gFloatBits_exponent_mask) != gFloatBits_exponent_mask;
+    return (bits & gFloatBits_exponent_mask) != gFloatBits_exponent_mask;
 }
 static bool SkFloatBits_IsInf(int32_t bits)
 {
-  return ((bits & gFloatBits_exponent_mask) == gFloatBits_exponent_mask) && (bits & gFloatBits_matissa_mask) == 0;
+    return ((bits & gFloatBits_exponent_mask) == gFloatBits_exponent_mask) &&
+            (bits & gFloatBits_matissa_mask) == 0;
 }
 /** Return the float as a 2s compliment int. Just to be used to compare floats
     to each other or against positive float-bit-constants (like 0). This does
@@ -70,14 +70,14 @@ static bool SkFloatBits_IsInf(int32_t bits)
  */
 static int32_t SkFloatAs2sCompliment(float x)
 {
-  return SkSignBitTo2sCompliment(SkFloat2Bits(x));
+    return SkSignBitTo2sCompliment(SkFloat2Bits(x));
 }
 /** Return the 2s compliment int as a float. This undos the result of
     SkFloatAs2sCompliment
  */
 static float Sk2sComplimentAsFloat(int32_t x)
 {
-  return SkBits2Float(Sk2sComplimentToSignBit(x));
+    return SkBits2Float(Sk2sComplimentToSignBit(x));
 }
 //  Scalar wrappers for float-bit routines
 #  define SkScalarAs2sCompliment(x)	    SkFloatAs2sCompliment(x)

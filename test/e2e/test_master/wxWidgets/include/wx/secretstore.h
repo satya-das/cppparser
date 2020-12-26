@@ -30,34 +30,35 @@ class WXDLLIMPEXP_BASE wxSecretValue
 public:
     // Creates an empty secret value (not the same as an empty password).
   wxSecretValue()
-    : m_impl(NULL)
-  {
-  }
+    :  m_impl(NULL) 
+    {
+     }
     // Creates a secret value from the given data.
   wxSecretValue(size_t size, const void* data)
-    : m_impl(NewImpl(size, data))
-  {
-  }
+    :  m_impl(NewImpl(size, data))
+    
+    {
+
+        }
     // Creates a secret value from string.
   explicit wxSecretValue(const wxString& secret)
   {
-    const wxScopedCharBuffer buf(secret.utf8_str());
-    m_impl = NewImpl(buf.length(), buf.data());
-  }
+
+        const wxScopedCharBuffer buf(secret.utf8_str());
+        m_impl = NewImpl(buf.length(), buf.data());
+      }
   wxSecretValue(const wxSecretValue& other);
   wxSecretValue& operator=(const wxSecretValue& other);
   ~wxSecretValue();
     // Check if a secret is not empty.
   bool IsOk() const
-  {
-    return m_impl != NULL;
-  }
+  { return m_impl != NULL; }
     // Compare with another secret.
   bool operator==(const wxSecretValue& other) const;
   bool operator!=(const wxSecretValue& other) const
   {
-    return !(*this == other);
-  }
+        return !(*this == other);
+    }
     // Get the size, in bytes, of the secret data.
   size_t GetSize() const;
     // Get read-only access to the secret data.
@@ -81,9 +82,9 @@ private:
     // This ctor is only used by wxSecretStore and takes ownership of the
     // provided existing impl pointer.
   explicit wxSecretValue(wxSecretValueImpl* impl)
-    : m_impl(impl)
-  {
-  }
+    :  m_impl(impl) 
+    {
+     }
   wxSecretValueImpl* m_impl;
   friend class wxSecretStore;
 };
@@ -136,9 +137,9 @@ public:
 private:
     // Ctor takes ownership of the passed pointer.
   explicit wxSecretStore(wxSecretStoreImpl* impl)
-    : m_impl(impl)
-  {
-  }
+    :  m_impl(impl) 
+    {
+     }
   wxSecretStoreImpl* const m_impl;
 };
 #  endif

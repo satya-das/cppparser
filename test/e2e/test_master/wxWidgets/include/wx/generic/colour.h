@@ -18,39 +18,31 @@ public:
     // ------------
   DEFINE_STD_WXCOLOUR_CONSTRUCTORS wxColour(const wxColour& col)
   {
-    *this = col;
-  }
+        *this = col;
+    }
   wxColour& operator=(const wxColour& col);
     // accessors
   virtual bool IsOk() const
-  {
-    return m_isInit;
-  }
+  { return m_isInit; }
   unsigned char Red() const
-  {
-    return m_red;
-  }
+  { return m_red; }
   unsigned char Green() const
-  {
-    return m_green;
-  }
+  { return m_green; }
   unsigned char Blue() const
-  {
-    return m_blue;
-  }
+  { return m_blue; }
   unsigned char Alpha() const
-  {
-    return m_alpha;
-  }
+  { return m_alpha; }
     // comparison
   bool operator==(const wxColour& colour) const
   {
-    return (m_red == colour.m_red && m_green == colour.m_green && m_blue == colour.m_blue && m_alpha == colour.m_alpha && m_isInit == colour.m_isInit);
-  }
+        return (m_red == colour.m_red &&
+                m_green == colour.m_green &&
+                m_blue == colour.m_blue &&
+                m_alpha == colour.m_alpha &&
+                m_isInit == colour.m_isInit);
+    }
   bool operator!=(const wxColour& colour) const
-  {
-    return !(*this == colour);
-  }
+  { return !(*this == colour); }
 protected:
     // Helper function
   void Init();

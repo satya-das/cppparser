@@ -32,9 +32,7 @@ public:
     // If windowPtr is not NULL the given address will be NULLed when the
     // window has closed
   void SetTipWindowPtr(wxTipWindow** windowPtr)
-  {
-    m_windowPtr = windowPtr;
-  }
+  { m_windowPtr = windowPtr; }
     // If rectBound is not NULL, the window will disappear automatically when
     // the mouse leave the specified rect: note that rectBound should be in the
     // screen coordinates!

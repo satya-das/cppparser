@@ -27,14 +27,14 @@ class AcRxVariableCache : public AcRxVariableReactor
     /// </summary>
   void changed(const AcRxVariable* sender, const AcRxVariableChangedEventArgs& args) override
   {
-    const auto& rb = args.newValue();
-    memcpy(&m_cache, &rb, sizeof(rb));
-    if (rb.restype == RTSTR)
-    {
-      Acad::ErrorStatus es = acutUpdString(rb.resval.rstring, m_cache.resval.rstring);
-      ASSERT(Acad::eOk == es);
+        const auto& rb = args.newValue();
+        memcpy(&m_cache, &rb, sizeof(rb));
+        if (rb.restype == RTSTR)
+        {
+            Acad::ErrorStatus es = acutUpdString(rb.resval.rstring, m_cache.resval.rstring);
+            ASSERT(Acad::eOk == es);
+        }
     }
-  }
   resbuf m_cache;
   AcString m_name;
 public:
@@ -45,31 +45,30 @@ public:
     /// <param name="name"/>Name of the AcRxVariable which the cache is to be constructed for.</param>
   AcRxVariableCache(const ACHAR* name)
     : m_name(name)
-    , m_cache({0})
-  {
-    m_cache.restype = RTNONE;
-    auto var = AcRxVariablesDictionary::get()->getVariable(name);
-        //we will tolerate sysvars that are missing
-    if (var == nullptr)
+        , m_cache({ 0 })
+    
     {
-      return ;
-    }
-    var->addReactor(this);
-    Acad::ErrorStatus es = var->getValue(m_cache);
-    ASSERT(Acad::eOk == es);
-  }
+
+        m_cache.restype = RTNONE;
+        auto var = AcRxVariablesDictionary::get()->getVariable(name);
+        //we will tolerate sysvars that are missing
+        if (var == nullptr)
+            return;
+        var->addReactor(this);
+        Acad::ErrorStatus es = var->getValue(m_cache);
+        ASSERT(Acad::eOk == es);
+        }
     /// <summary>
     /// Destructs the cache.
     /// </summary>
   ~AcRxVariableCache()
   {
-    auto var = AcRxVariablesDictionary::get()->getVariable(m_name.kwszPtr());
-    if (var == nullptr)
-    {
-      return ;
-    }
-    var->removeReactor(this);
-  }
+
+        auto var = AcRxVariablesDictionary::get()->getVariable(m_name.kwszPtr());
+        if (var == nullptr)
+            return;
+        var->removeReactor(this);
+      }
     /// <summary>
     /// High performance accessor (boolean overload)
     /// </summary>
@@ -78,8 +77,8 @@ public:
     /// </param>
   bool getBool(bool def)
   {
-    return !!getInt16(def ? 1 : 0);
-  }
+        return !!getInt16(def ? 1 : 0);
+    }
     /// <summary>
     /// High performance accessor (int16 overload)
     /// </summary>
@@ -88,13 +87,11 @@ public:
     /// </param>
   short getInt16(short def)
   {
-    ASSERT(m_cache.restype == RTSHORT || m_cache.restype == RTNONE);
-    if (m_cache.restype != RTSHORT)
-    {
-      return def;
+        ASSERT(m_cache.restype == RTSHORT || m_cache.restype == RTNONE);
+        if (m_cache.restype != RTSHORT)
+            return def;
+        return m_cache.resval.rint;
     }
-    return m_cache.resval.rint;
-  }
     /// <summary>
     /// High performance accessor (double overload)
     /// </summary>
@@ -103,24 +100,20 @@ public:
     /// </param>
   double getDouble(double def)
   {
-    ASSERT(m_cache.restype == RTREAL || m_cache.restype == RTNONE);
-    if (m_cache.restype != RTREAL)
-    {
-      return def;
+        ASSERT(m_cache.restype == RTREAL || m_cache.restype == RTNONE);
+        if (m_cache.restype != RTREAL)
+            return def;
+        return m_cache.resval.rreal;
     }
-    return m_cache.resval.rreal;
-  }
     /// <summary>
     /// High performance accessor (string overload)
     /// </summary>
   AcString getString()
   {
-    AcString ret;
-    ASSERT(m_cache.restype == RTSTR || m_cache.restype == RTNONE);
-    if (m_cache.restype != RTSTR)
-    {
-      return ret;
+        AcString ret;
+        ASSERT(m_cache.restype == RTSTR || m_cache.restype == RTNONE);
+        if (m_cache.restype != RTSTR)
+            return ret;
+        return m_cache.resval.rstring;
     }
-    return m_cache.resval.rstring;
-  }
 };

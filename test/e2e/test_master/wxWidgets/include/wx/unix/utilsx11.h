@@ -42,32 +42,25 @@ class wxX11Display
 public:
   wxX11Display()
   {
-    m_dpy = XOpenDisplay(NULL);
-  }
+ m_dpy = XOpenDisplay(NULL);   }
   ~wxX11Display()
   {
-    if (m_dpy)
-    {
-      XCloseDisplay(m_dpy);
-    }
-  }
+ if ( m_dpy ) XCloseDisplay(m_dpy);   }
     // Pseudo move ctor: steals the open display from the other object.
   explicit wxX11Display(wxX11Display& display)
   {
-    m_dpy = display.m_dpy;
-    display.m_dpy = NULL;
-  }
+
+        m_dpy = display.m_dpy;
+        display.m_dpy = NULL;
+      }
   operator Display*() const
   {
-    return m_dpy;
-  }
+ return m_dpy;   }
     // Using DefaultRootWindow() with an object of wxX11Display class doesn't
     // compile because it is a macro which tries to cast wxX11Display so
     // provide a convenient helper.
   Window DefaultRoot() const
-  {
-    return DefaultRootWindow(m_dpy);
-  }
+  { return DefaultRootWindow(m_dpy); }
 private:
   Display* m_dpy;
   wxDECLARE_NO_COPY_CLASS(wxX11Display);

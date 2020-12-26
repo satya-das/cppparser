@@ -30,13 +30,9 @@ public:
   };
   static void GetDateTime(DateTime*);
   static double GetSecs()
-  {
-    return GetNSecs() * 1e-9;
-  }
+  { return GetNSecs() * 1e-9; }
   static double GetMSecs()
-  {
-    return GetNSecs() * 1e-6;
-  }
+  { return GetNSecs() * 1e-6; }
   static double GetNSecs();
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -46,15 +42,16 @@ public:
     // The label is not deep-copied, so its address must remain valid for the
     // lifetime of this object
   SkAutoTime(const char* label = nullptr)
-    : fLabel(label)
-    , fNow(SkTime::GetMSecs())
-  {
-  }
+    :  fLabel(label)
+        , fNow(SkTime::GetMSecs()) 
+    {
+    }
   ~SkAutoTime()
   {
-    uint64_t dur = static_cast<uint64_t>(SkTime::GetMSecs() - fNow);
-    SkDebugf("%s %ld\n", fLabel ? fLabel : "", dur);
-  }
+
+        uint64_t dur = static_cast<uint64_t>(SkTime::GetMSecs() - fNow);
+        SkDebugf("%s %ld\n", fLabel ? fLabel : "", dur);
+      }
 private:
   const char* fLabel;
   double fNow;

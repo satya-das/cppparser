@@ -37,11 +37,11 @@ typedef int32_t SkFixed;
 #  ifdef SK_DEBUG
 static SkFixed SkFloatToFixed_Check(float x)
 {
-  int64_t n64 = (int64_t) (x * SK_Fixed1);
-  SkFixed n32 = (SkFixed) n64;
-  SkASSERT(n64 == n32);
-  return n32;
-}
+        int64_t n64 = (int64_t)(x * SK_Fixed1);
+        SkFixed n32 = (SkFixed)n64;
+        SkASSERT(n64 == n32);
+        return n32;
+    }
 #  else 
 #    define SkFloatToFixed_Check(x)	 SkFloatToFixed(x)
 #  endif
@@ -53,11 +53,11 @@ static SkFixed SkFloatToFixed_Check(float x)
 #  ifdef SK_DEBUG
 inline SkFixed SkIntToFixed(int n)
 {
-  SkASSERT(n >= -32768 && n <= 32767);
+        SkASSERT(n >= -32768 && n <= 32767);
         // Left shifting a negative value has undefined behavior in C, so we cast to unsigned before
         // shifting.
-  return (unsigned) n << 16;
-}
+        return (unsigned)n << 16;
+    }
 #  else 
     // Left shifting a negative value has undefined behavior in C, so we cast to unsigned before
     // shifting. Then we force the cast to SkFixed to ensure that the answer is signed (like the
@@ -69,15 +69,15 @@ inline SkFixed SkIntToFixed(int n)
 #  define SkFixedFloorToInt(x)    ((x) >> 16)
 static SkFixed SkFixedRoundToFixed(SkFixed x)
 {
-  return (x + SK_FixedHalf) & 0xFFFF0000;
+    return (x + SK_FixedHalf) & 0xFFFF0000;
 }
 static SkFixed SkFixedCeilToFixed(SkFixed x)
 {
-  return (x + SK_Fixed1 - 1) & 0xFFFF0000;
+    return (x + SK_Fixed1 - 1) & 0xFFFF0000;
 }
 static SkFixed SkFixedFloorToFixed(SkFixed x)
 {
-  return x & 0xFFFF0000;
+    return x & 0xFFFF0000;
 }
 #  define SkFixedAbs(x)	       SkAbs32(x)
 #  define SkFixedAve(a, b)    (((a) + (b)) >> 1)
@@ -86,7 +86,7 @@ static SkFixed SkFixedFloorToFixed(SkFixed x)
     SkToS32(SkTPin<int64_t>((SkLeftShift((int64_t)(numer), 16) / (denom)), SK_MinS32, SK_MaxS32))
 static SkFixed SkFixedMul(SkFixed a, SkFixed b)
 {
-  return (SkFixed) ((int64_t) a * b >> 16);
+    return (SkFixed)((int64_t)a * b >> 16);
 }
 ///////////////////////////////////////////////////////////////////////////////
 // Platform-specific alternatives to our portable versions.
@@ -99,10 +99,11 @@ static SkFixed SkFixedMul(SkFixed a, SkFixed b)
     */
 SK_ALWAYS_INLINE SkFixed SkFloatToFixed_arm(float x)
 {
-  int32_t y;
-  memcpy(&y, &x, sizeof(y));
-  return y;
-}
+        int32_t y;
+        asm("vcvt.s32.f32 %0, %0, #16": "+w"(x));
+        memcpy(&y, &x, sizeof(y));
+        return y;
+    }
 #    undef SkFloatToFixed
 #    define SkFloatToFixed(x)	  SkFloatToFixed_arm(x)
 #  endif

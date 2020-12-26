@@ -30,12 +30,14 @@ public:
     // Default ctor doesn't create the control, use Create() afterwards
   wxTreebook()
   {
-  }
+
+      }
     // This ctor creates the tree book control
   wxTreebook(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxBK_DEFAULT, const wxString& name = wxEmptyString)
   {
-    (void) Create(parent, id, pos, size, style, name);
-  }
+
+        (void)Create(parent, id, pos, size, style, name);
+      }
     // Really creates the control
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxBK_DEFAULT, const wxString& name = wxEmptyString);
     // Page insertion operations
@@ -70,16 +72,12 @@ public:
   virtual bool ExpandNode(size_t pos, bool expand = true);
     // shortcut for ExpandNode(pos, false)
   bool CollapseNode(size_t pos)
-  {
-    return ExpandNode(pos, false);
-  }
+  { return ExpandNode(pos, false); }
     // get the parent page or wxNOT_FOUND if this is a top level page
   int GetPageParent(size_t pos) const;
     // the tree control we use for showing the pages index tree
   wxTreeCtrl* GetTreeCtrl() const
-  {
-    return (wxTreeCtrl*) m_bookctrl;
-  }
+  { return (wxTreeCtrl*)m_bookctrl; }
     // Standard operations inherited from wxBookCtrlBase
     // -------------------------------------------------
   bool SetPageText(size_t n, const wxString& strText) override;
@@ -143,18 +141,14 @@ private:
   void DoInternalAddPage(size_t newPos, wxWindow* page, wxTreeItemId pageId);
     // Removes the page from internal structure.
   void DoInternalRemovePage(size_t pos)
-  {
-    DoInternalRemovePageRange(pos, 0);
-  }
+  { DoInternalRemovePageRange(pos, 0); }
     // Removes the page and all its children designated by subCount
     // from internal structures of the control.
   void DoInternalRemovePageRange(size_t pos, size_t subCount);
     // Returns internal number of pages which can be different from
     // GetPageCount() while performing a page insertion or removal.
   size_t DoInternalGetPageCount() const
-  {
-    return m_treeIds.size();
-  }
+  { return m_treeIds.size(); }
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxTreebook);
 };

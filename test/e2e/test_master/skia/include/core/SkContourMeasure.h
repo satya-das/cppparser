@@ -16,9 +16,7 @@ public:
     /** Return the length of the contour.
      */
   SkScalar length() const
-  {
-    return fLength;
-  }
+  { return fLength; }
     /** Pins distance to 0 <= distance <= length(), and then computes the corresponding
      *  position and tangent.
      */
@@ -44,9 +42,7 @@ public:
     /** Return true if the contour is closed()
      */
   bool isClosed() const
-  {
-    return fIsClosed;
-  }
+  { return fIsClosed; }
 private:
   struct Segment
   {
@@ -58,13 +54,12 @@ private:
     SkScalar getScalarT() const;
     static const Segment* Next(const Segment* seg)
     {
-      unsigned ptIndex = seg->fPtIndex;
-      do
-      {
-        ++seg;
-      } while (seg->fPtIndex == ptIndex);
-      return seg;
-    }
+            unsigned ptIndex = seg->fPtIndex;
+            do {
+                ++seg;
+            } while (seg->fPtIndex == ptIndex);
+            return seg;
+        }
   };
   const SkTDArray<Segment> fSegments;
   const SkTDArray<SkPoint> fPts;

@@ -43,13 +43,9 @@ public:
     // be overridable for the custom renderers while the generic implementation
     // uses this one for all of them, including the standard ones.
   virtual bool WXActivateCell(const wxRect&, wxDataViewModel*, const wxDataViewItem&, unsigned int, const wxMouseEvent*)
-  {
-    return false;
-  }
+  { return false; }
   void SetState(int state)
-  {
-    m_state = state;
-  }
+  { m_state = state; }
 protected:
   bool IsHighlighted() const override
   {

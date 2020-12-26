@@ -63,13 +63,15 @@ class WXDLLIMPEXP_CORE wxMacCGContextStateSaver
 public:
   wxMacCGContextStateSaver(CGContextRef cg)
   {
-    m_cg = cg;
-    CGContextSaveGState(cg);
-  }
+
+        m_cg = cg;
+        CGContextSaveGState( cg );
+      }
   ~wxMacCGContextStateSaver()
   {
-    CGContextRestoreGState(m_cg);
-  }
+
+        CGContextRestoreGState( m_cg );
+      }
 private:
   CGContextRef m_cg;
 };
@@ -77,13 +79,16 @@ class WXDLLIMPEXP_CORE wxDeferredObjectDeleter : public wxObject
 {
 public:
   wxDeferredObjectDeleter(wxObject* obj)
-    : m_obj(obj)
-  {
-  }
+    :  m_obj(obj)
+    
+    {
+
+        }
   virtual ~wxDeferredObjectDeleter()
   {
-    delete m_obj;
-  }
+
+        delete m_obj;
+      }
 protected:
   wxObject* m_obj;
 };
@@ -120,9 +125,11 @@ class wxMenuItemImpl : public wxObject
 {
 public:
   wxMenuItemImpl(wxMenuItem* peer)
-    : m_peer(peer)
-  {
-  }
+    :  m_peer(peer)
+    
+    {
+
+        }
   virtual ~wxMenuItemImpl();
   virtual void SetBitmap(const wxBitmap& bitmap) = 0;
   virtual void Enable(bool enable) = 0;
@@ -131,15 +138,11 @@ public:
   virtual void Hide(bool hide = true) = 0;
   virtual void* GetHMenuItem() = 0;
   wxMenuItem* GetWXPeer()
-  {
-    return m_peer;
-  }
+  { return m_peer ; }
   static wxMenuItemImpl* Create(wxMenuItem* peer, wxMenu* pParentMenu, int id, const wxString& text, wxAcceleratorEntry* entry, const wxString& strHelp, wxItemKind kind, wxMenu* pSubMenu);
     // handle OS specific menu items if they weren't handled during normal processing
   virtual bool DoDefault()
-  {
-    return false;
-  }
+  { return false; }
 protected:
   wxMenuItem* m_peer;
   wxDECLARE_ABSTRACT_CLASS(wxMenuItemImpl);
@@ -148,9 +151,11 @@ class wxMenuImpl : public wxObject
 {
 public:
   wxMenuImpl(wxMenu* peer)
-    : m_peer(peer)
-  {
-  }
+    :  m_peer(peer)
+    
+    {
+
+        }
   virtual ~wxMenuImpl();
   virtual void InsertOrAppend(wxMenuItem* pItem, size_t pos) = 0;
   virtual void Remove(wxMenuItem* pItem) = 0;
@@ -158,14 +163,12 @@ public:
   virtual void SetTitle(const wxString& text) = 0;
   virtual WXHMENU GetHMenu() = 0;
   wxMenu* GetWXPeer()
-  {
-    return m_peer;
-  }
+  { return m_peer ; }
   virtual void PopUp(wxWindow* win, int x, int y) = 0;
   virtual void GetMenuBarDimensions(int& x, int& y, int& width, int& height) const
   {
-    x = y = width = height = -1;
-  }
+        x = y = width = height = -1;
+    }
   static wxMenuImpl* Create(wxMenu* peer, const wxString& title);
   static wxMenuImpl* CreateRootMenu(wxMenu* peer);
 protected:
@@ -188,32 +191,20 @@ public:
   virtual ~wxWidgetImpl();
   void Init();
   bool IsRootControl() const
-  {
-    return m_isRootControl;
-  }
+  { return m_isRootControl; }
     // is a custom control that has all events handled in wx code, no built-ins
   bool IsUserPane() const
-  {
-    return m_isUserPane;
-  }
+  { return m_isUserPane; }
     // we are doing keyboard handling in wx code, other events might be handled natively
   virtual bool HasUserKeyHandling() const
-  {
-    return m_wantsUserKey;
-  }
+  { return m_wantsUserKey; }
     // we are doing mouse handling in wx code, other events might be handled natively
   virtual bool HasUserMouseHandling() const
-  {
-    return m_wantsUserMouse;
-  }
+  { return m_wantsUserMouse; }
   wxWindowMac* GetWXPeer() const
-  {
-    return m_wxPeer;
-  }
+  { return m_wxPeer; }
   bool IsOk() const
-  {
-    return GetWXWidget() != NULL;
-  }
+  { return GetWXWidget() != NULL; }
     // not only the control itself, but also all its parents must be visible
     // in order for this function to return true
   virtual bool IsVisible() const = 0;
@@ -221,8 +212,8 @@ public:
   virtual void SetVisibility(bool visible) = 0;
   virtual bool ShowWithEffect(bool, wxShowEffect, unsigned)
   {
-    return false;
-  }
+        return false;
+    }
   virtual void Raise() = 0;
   virtual void Lower() = 0;
   virtual void ScrollRect(const wxRect* rect, int dx, int dy) = 0;
@@ -237,19 +228,17 @@ public:
   virtual void SetControlSize(wxWindowVariant variant) = 0;
   virtual double GetContentScaleFactor() const
   {
-    return 1.0;
-  }
+        return 1.0;
+    }
     // the native coordinates may have an 'aura' for shadows etc, if this is the case the layout
     // inset indicates on which insets the real control is drawn
   virtual void GetLayoutInset(int& left, int& top, int& right, int& bottom) const
   {
-    left = top = right = bottom = 0;
-  }
+        left = top = right = bottom = 0;
+    }
     // native view coordinates are topleft to bottom right (flipped regarding CoreGraphics origin)
   virtual bool IsFlipped() const
-  {
-    return true;
-  }
+  { return true; }
   virtual void SetNeedsDisplay(const wxRect* where = NULL) = 0;
   virtual bool GetNeedsDisplay() const = 0;
   virtual void EnableFocusRing(bool)
@@ -269,13 +258,10 @@ public:
   virtual void SetLabel(const wxString& title, wxFontEncoding encoding) = 0;
 #    if  wxUSE_MARKUP && wxOSX_USE_COCOA
   virtual void SetLabelMarkup(const wxString&)
-  {
-  }
+  { }
 #    endif
   virtual void SetInitialLabel(const wxString& title, wxFontEncoding encoding)
-  {
-    SetLabel(title, encoding);
-  }
+  { SetLabel(title, encoding); }
   virtual void SetCursor(const wxCursor& cursor) = 0;
   virtual void CaptureMouse() = 0;
   virtual void ReleaseMouse() = 0;
@@ -291,10 +277,7 @@ public:
   {
   }
   virtual int TabHitTest(const wxPoint&, long* flags)
-  {
-    *flags = 1;
-    return -1;
-  }
+  {*flags=1; return -1;}
   virtual void GetBestRect(wxRect* r) const = 0;
   virtual bool IsEnabled() const = 0;
   virtual void Enable(bool enable) = 0;
@@ -306,8 +289,7 @@ public:
   virtual void SetScrollThumb(wxInt32 value, wxInt32 thumbSize) = 0;
   virtual void SetFont(const wxFont& font) = 0;
   virtual void SetToolTip(wxToolTip*)
-  {
-  }
+  { }
     // is the clicked event sent AFTER the state already changed, so no additional
     // state changing logic is required from the outside
   virtual bool ButtonClickDidStateChange() = 0;
@@ -317,13 +299,9 @@ public:
     // Do SendEvents(false) when starting actions that would trigger programmatic events
     // and SendEvents(true) at the end of the block.
   virtual void SendEvents(bool shouldSendEvents)
-  {
-    m_shouldSendEvents = shouldSendEvents;
-  }
+  { m_shouldSendEvents = shouldSendEvents; }
   virtual bool ShouldSendEvents()
-  {
-    return m_shouldSendEvents;
-  }
+  { return m_shouldSendEvents; }
     // static methods for associating native controls and their implementations
 
     // finds the impl associated with this native control
@@ -409,7 +387,7 @@ public:
   }
   virtual ~wxListWidgetImpl()
   {
-  }
+   }
   virtual wxListWidgetColumn* InsertTextColumn(unsigned pos, const wxString& title, bool editable = false, wxAlignment just = wxALIGN_LEFT, int defaultWidth = -1) = 0;
   virtual wxListWidgetColumn* InsertCheckColumn(unsigned pos, const wxString& title, bool editable = false, wxAlignment just = wxALIGN_LEFT, int defaultWidth = -1) = 0;
     // add and remove
@@ -448,36 +426,28 @@ public:
     // another (pure) virtual function, just take the pointer to this entry in
     // our ctor and implement GetTextEntry() ourselves.
   wxTextWidgetImpl(wxTextEntry* entry)
-    : m_entry(entry)
-  {
-  }
+    :  m_entry(entry) 
+    {
+    }
   virtual ~wxTextWidgetImpl()
   {
   }
   wxTextEntry* GetTextEntry() const
-  {
-    return m_entry;
-  }
+  { return m_entry; }
   virtual bool CanFocus() const
-  {
-    return true;
-  }
+  { return true; }
   virtual wxString GetStringValue() const = 0;
   virtual void SetStringValue(const wxString& val) = 0;
   virtual void SetSelection(long from, long to) = 0;
   virtual void GetSelection(long* from, long* to) const = 0;
   virtual void WriteText(const wxString& str) = 0;
   virtual bool CanClipMaxLength() const
-  {
-    return false;
-  }
+  { return false; }
   virtual void SetMaxLength(unsigned long)
   {
   }
   virtual bool CanForceUpper()
-  {
-    return false;
-  }
+  { return false; }
   virtual void ForceUpper()
   {
   }
@@ -492,13 +462,9 @@ public:
   virtual void Replace(long from, long to, const wxString& str);
   virtual void Remove(long from, long to);
   virtual bool HasOwnContextMenu() const
-  {
-    return false;
-  }
+  { return false ; }
   virtual bool SetupCursor(const wxPoint&)
-  {
-    return false;
-  }
+  { return false ; }
   virtual void Clear();
   virtual bool CanUndo() const;
   virtual void Undo();
@@ -511,8 +477,7 @@ public:
   virtual int GetLineLength(long lineNo) const;
   virtual wxString GetLineText(long lineNo) const;
   virtual void CheckSpelling(bool)
-  {
-  }
+  { }
   virtual void EnableAutomaticQuoteSubstitution(bool)
   {
   }
@@ -520,13 +485,9 @@ public:
   {
   }
   virtual wxSize GetBestSize() const
-  {
-    return wxDefaultSize;
-  }
+  { return wxDefaultSize; }
   virtual bool SetHint(const wxString&)
-  {
-    return false;
-  }
+  { return false; }
   virtual void SetJustification();
 private:
   wxTextEntry* const m_entry;
@@ -543,16 +504,12 @@ public:
   {
   }
   virtual int GetSelectedItem() const
-  {
-    return -1;
-  }
+  { return -1; }
   virtual void SetSelectedItem(int)
   {
   }
   virtual int GetNumberOfItems() const
-  {
-    return -1;
-  }
+  { return -1; }
   virtual void InsertItem(int, const wxString&)
   {
   }
@@ -569,13 +526,9 @@ public:
   {
   }
   virtual wxString GetStringAtIndex(int) const
-  {
-    return wxEmptyString;
-  }
+  { return wxEmptyString; }
   virtual int FindString(const wxString&) const
-  {
-    return -1;
-  }
+  { return -1; }
 };
 //
 // common interface for choice
@@ -590,9 +543,7 @@ public:
   {
   }
   virtual int GetSelectedItem() const
-  {
-    return -1;
-  }
+  { return -1; }
   virtual void SetSelectedItem(int)
   {
   }
@@ -601,12 +552,12 @@ public:
   virtual void RemoveItem(size_t pos) = 0;
   virtual void Clear()
   {
-    size_t count = GetNumberOfItems();
-    for (size_t i = 0; i < count; i++)
-    {
-      RemoveItem(0);
+        size_t count = GetNumberOfItems();
+        for ( size_t i = 0 ; i < count ; i++ )
+        {
+            RemoveItem( 0 );
+        }
     }
-  }
   virtual void SetItem(int pos, const wxString& item) = 0;
 };
 //
@@ -650,67 +601,71 @@ class wxNonOwnedWindowImpl : public wxObject
 {
 public:
   wxNonOwnedWindowImpl(wxNonOwnedWindow* nonownedwnd)
-    : m_wxPeer(nonownedwnd)
-  {
-  }
+    :  m_wxPeer(nonownedwnd)
+    
+    {
+
+        }
   wxNonOwnedWindowImpl()
   {
-  }
+
+      }
   virtual ~wxNonOwnedWindowImpl()
   {
-  }
+
+      }
   virtual void WillBeDestroyed()
   {
-  }
+    }
   virtual void Create(wxWindow* parent, const wxPoint& pos, const wxSize& size, long style, long extraStyle, const wxString& name) = 0;
   virtual WXWindow GetWXWindow() const = 0;
   virtual void Raise()
   {
-  }
+    }
   virtual void Lower()
   {
-  }
+    }
   virtual bool Show(bool)
   {
-    return false;
-  }
+        return false;
+    }
   virtual bool ShowWithEffect(bool show, wxShowEffect, unsigned)
   {
-    return Show(show);
-  }
+        return Show(show);
+    }
   virtual void Update()
   {
-  }
+    }
   virtual bool SetTransparent(wxByte)
   {
-    return false;
-  }
+        return false;
+    }
   virtual bool SetBackgroundColour(const wxColour&)
   {
-    return false;
-  }
+        return false;
+    }
   virtual void SetExtraStyle(long)
   {
-  }
+    }
   virtual void SetWindowStyleFlag(long)
   {
-  }
+    }
   virtual bool SetBackgroundStyle(wxBackgroundStyle)
   {
-    return false;
-  }
+        return false ;
+    }
   virtual bool CanSetTransparent()
   {
-    return false;
-  }
+        return false;
+    }
   virtual void GetContentArea(int& left, int& top, int& width, int& height) const = 0;
   virtual void MoveWindow(int x, int y, int width, int height) = 0;
   virtual void GetPosition(int& x, int& y) const = 0;
   virtual void GetSize(int& width, int& height) const = 0;
   virtual bool SetShape(const wxRegion&)
   {
-    return false;
-  }
+        return false;
+    }
   virtual void SetTitle(const wxString& title, wxFontEncoding encoding) = 0;
   virtual bool EnableCloseButton(bool enable) = 0;
   virtual bool EnableMaximizeButton(bool enable) = 0;
@@ -721,9 +676,7 @@ public:
   virtual void Maximize(bool maximize) = 0;
   virtual bool IsFullScreen() const = 0;
   virtual void ShowWithoutActivating()
-  {
-    Show(true);
-  }
+  { Show(true); }
   virtual bool EnableFullScreenView(bool enable) = 0;
   virtual bool ShowFullScreen(bool show, long style) = 0;
   virtual void RequestUserAttention(int flags) = 0;
@@ -731,9 +684,7 @@ public:
   virtual void WindowToScreen(int* x, int* y) = 0;
   virtual bool IsActive() = 0;
   wxNonOwnedWindow* GetWXPeer()
-  {
-    return m_wxPeer;
-  }
+  { return m_wxPeer; }
   static wxNonOwnedWindowImpl* FindFromWXWindow(WXWindow window);
   static void RemoveAssociations(wxNonOwnedWindowImpl* impl);
   static void Associate(WXWindow window, wxNonOwnedWindowImpl* impl);
@@ -741,25 +692,17 @@ public:
   static wxNonOwnedWindowImpl* CreateNonOwnedWindow(wxNonOwnedWindow* wxpeer, wxWindow* parent, WXWindow native);
   static wxNonOwnedWindowImpl* CreateNonOwnedWindow(wxNonOwnedWindow* wxpeer, wxWindow* parent, const wxPoint& pos, const wxSize& size, long style, long extraStyle, const wxString& name);
   virtual void SetModified(bool)
-  {
-  }
+  { }
   virtual bool IsModified() const
-  {
-    return false;
-  }
+  { return false; }
   virtual void SetRepresentedFilename(const wxString&)
-  {
-  }
+  { }
 #    if  wxOSX_USE_IPHONE
   virtual CGFloat GetWindowLevel() const
-  {
-    return 0.0;
-  }
+  { return 0.0; }
 #    else 
   virtual CGWindowLevel GetWindowLevel() const
-  {
-    return kCGNormalWindowLevel;
-  }
+  { return kCGNormalWindowLevel; }
 #    endif
   virtual void RestoreWindowLevel()
   {
@@ -792,61 +735,68 @@ class wxNSObjRef
 public:
   typedef T element_type;
   wxNSObjRef()
-    : m_ptr(NULL)
-  {
-  }
+    :  m_ptr(NULL)
+    
+    {
+
+        }
   wxNSObjRef(T p)
-    : m_ptr(p)
-  {
-  }
+    :  m_ptr(p)
+    
+    {
+
+        }
   wxNSObjRef(const wxNSObjRef& otherRef)
-    : m_ptr(wxMacCocoaRetain(otherRef.m_ptr))
-  {
-  }
+    :  m_ptr(wxMacCocoaRetain(otherRef.m_ptr))
+    
+    {
+
+        }
   wxNSObjRef& operator=(const wxNSObjRef& otherRef)
   {
-    if (this != &otherRef)
-    {
-      wxMacCocoaRetain(otherRef.m_ptr);
-      wxMacCocoaRelease(m_ptr);
-      m_ptr = otherRef.m_ptr;
+        if (this != &otherRef)
+        {
+            wxMacCocoaRetain(otherRef.m_ptr);
+            wxMacCocoaRelease(m_ptr);
+            m_ptr = otherRef.m_ptr;
+        }
+        return *this;
     }
-    return *this;
-  }
   wxNSObjRef& operator=(T ptr)
   {
-    if (get() != ptr)
-    {
-      wxMacCocoaRetain(ptr);
-      wxMacCocoaRelease(m_ptr);
-      m_ptr = ptr;
+        if (get() != ptr)
+        {
+            wxMacCocoaRetain(ptr);
+            wxMacCocoaRelease(m_ptr);
+            m_ptr = ptr;
+        }
+        return *this;
     }
-    return *this;
-  }
   T get() const
   {
-    return m_ptr;
-  }
+        return m_ptr;
+    }
   operator T() const
   {
-    return m_ptr;
-  }
+
+        return m_ptr;
+      }
   T operator->() const
   {
-    return m_ptr;
-  }
+        return m_ptr;
+    }
   void reset(T p = NULL)
   {
-    wxMacCocoaRelease(m_ptr);
-    m_ptr = p;
-  }
+        wxMacCocoaRelease(m_ptr);
+        m_ptr = p; // Automatic conversion should occur
+    }
     // Release the pointer, i.e. give up its ownership.
   T release()
   {
-    T p = m_ptr;
-    m_ptr = NULL;
-    return p;
-  }
+        T p = m_ptr;
+        m_ptr = NULL;
+        return p;
+    }
 protected:
   T m_ptr;
 };

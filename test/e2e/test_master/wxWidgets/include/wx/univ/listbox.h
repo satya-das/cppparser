@@ -45,16 +45,18 @@ class WXDLLIMPEXP_CORE wxListBox : public wxListBoxBase, public wxScrollHelper
 public:
     // ctors and such
   wxListBox()
-    : wxScrollHelper(this)
-  {
-    Init();
-  }
+    :  wxScrollHelper(this) 
+    {
+ Init();     }
   wxListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = (const wxString*) NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr))
-    : wxScrollHelper(this)
-  {
-    Init();
-    Create(parent, id, pos, size, n, choices, style, validator, name);
-  }
+    :  wxScrollHelper(this)
+    
+    {
+
+        Init();
+
+        Create(parent, id, pos, size, n, choices, style, validator, name);
+        }
   wxListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr));
   virtual ~wxListBox();
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = (const wxString*) NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr));
@@ -91,9 +93,7 @@ public:
     // listboxes but for the other ones it is just the focused item which may
     // be selected or not
   int GetCurrentItem() const
-  {
-    return m_current;
-  }
+  { return m_current; }
   void SetCurrentItem(int n);
     // select the item which is diff items below the current one
   void ChangeCurrent(int diff);
@@ -104,9 +104,7 @@ public:
   void DoSelect(int item = -1, bool sel = true);
     // more readable wrapper
   void DoUnselect(int item)
-  {
-    DoSelect(item, false);
-  }
+  { DoSelect(item, false); }
     // select an item and send a notification about it
   void SelectAndNotify(int item);
     // ensure that the given item is visible by scrolling it into view
@@ -116,18 +114,14 @@ public:
     // item changed
   bool FindItem(const wxString& prefix, bool strictlyAfter = false);
   bool FindNextItem(const wxString& prefix)
-  {
-    return FindItem(prefix, true);
-  }
+  { return FindItem(prefix, true); }
     // extend the selection to span the range from the anchor (see below) to
     // the specified or current item
   void ExtendSelection(int itemTo = -1);
     // make this item the new selection anchor: extending selection with
     // ExtendSelection() will work with it
   void AnchorSelection(int itemFrom)
-  {
-    m_selAnchor = itemFrom;
-  }
+  { m_selAnchor = itemFrom; }
     // get, calculating it if necessary, the number of items per page, the
     // height of each line and the max width of an item
   int GetItemsPerPage() const;
@@ -151,8 +145,7 @@ protected:
     // special hook for wxCheckListBox which allows it to update its internal
     // data when a new item is inserted into the listbox
   virtual void OnItemInserted(unsigned int)
-  {
-  }
+  { }
     // common part of all ctors
   void Init();
     // event handlers
@@ -168,9 +161,7 @@ protected:
   void CalcItemsPerPage();
     // can/should we have a horz scrollbar?
   bool HasHorzScrollbar() const
-  {
-    return (m_windowStyle & wxLB_HSCROLL) != 0;
-  }
+  { return (m_windowStyle & wxLB_HSCROLL) != 0; }
     // redraw the items in the given range only: called from DoDraw()
   virtual void DoDrawRange(wxControlRenderer* renderer, int itemFirst, int itemLast);
     // update the scrollbars and then ensure that the item is visible

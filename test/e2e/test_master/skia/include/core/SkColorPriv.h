@@ -17,10 +17,10 @@
 */
 static unsigned SkAlpha255To256(U8CPU alpha)
 {
-  SkASSERT(SkToU8(alpha) == alpha);
+    SkASSERT(SkToU8(alpha) == alpha);
     // this one assues that blending on top of an opaque dst keeps it that way
     // even though it is less accurate than a+(a>>7) for non-opaque dsts
-  return alpha + 1;
+    return alpha + 1;
 }
 /** Multiplify value by 0..256, and shift the result down 8
     (i.e. return (value * alpha256) >> 8)
@@ -28,7 +28,7 @@ static unsigned SkAlpha255To256(U8CPU alpha)
 #  define SkAlphaMul(value, alpha256)     (((value) * (alpha256)) >> 8)
 static U8CPU SkUnitScalarClampToByte(SkScalar x)
 {
-  return static_cast<U8CPU>(SkScalarPin(x, 0, 1) * 255 + 0.5);
+    return static_cast<U8CPU>(SkScalarPin(x, 0, 1) * 255 + 0.5);
 }
 #  define SK_A32_BITS	8
 #  define SK_R32_BITS	8
@@ -86,11 +86,13 @@ static U8CPU SkUnitScalarClampToByte(SkScalar x)
  */
 static SkPMColor SkPackARGB32(U8CPU a, U8CPU r, U8CPU g, U8CPU b)
 {
-  SkA32Assert(a);
-  SkASSERT(r <= a);
-  SkASSERT(g <= a);
-  SkASSERT(b <= a);
-  return (a << SK_A32_SHIFT) | (r << SK_R32_SHIFT) | (g << SK_G32_SHIFT) | (b << SK_B32_SHIFT);
+    SkA32Assert(a);
+    SkASSERT(r <= a);
+    SkASSERT(g <= a);
+    SkASSERT(b <= a);
+
+    return (a << SK_A32_SHIFT) | (r << SK_R32_SHIFT) |
+           (g << SK_G32_SHIFT) | (b << SK_B32_SHIFT);
 }
 /**
  *  Same as SkPackARGB32, but this version guarantees to not check that the
@@ -98,33 +100,35 @@ static SkPMColor SkPackARGB32(U8CPU a, U8CPU r, U8CPU g, U8CPU b)
  */
 static SkPMColor SkPackARGB32NoCheck(U8CPU a, U8CPU r, U8CPU g, U8CPU b)
 {
-  return (a << SK_A32_SHIFT) | (r << SK_R32_SHIFT) | (g << SK_G32_SHIFT) | (b << SK_B32_SHIFT);
+    return (a << SK_A32_SHIFT) | (r << SK_R32_SHIFT) |
+           (g << SK_G32_SHIFT) | (b << SK_B32_SHIFT);
 }
 static SkPMColor SkPremultiplyARGBInline(U8CPU a, U8CPU r, U8CPU g, U8CPU b)
 {
-  SkA32Assert(a);
-  SkR32Assert(r);
-  SkG32Assert(g);
-  SkB32Assert(b);
-  if (a != 255)
-  {
-    r = SkMulDiv255Round(r, a);
-    g = SkMulDiv255Round(g, a);
-    b = SkMulDiv255Round(b, a);
-  }
-  return SkPackARGB32(a, r, g, b);
+    SkA32Assert(a);
+    SkR32Assert(r);
+    SkG32Assert(g);
+    SkB32Assert(b);
+
+    if (a != 255) {
+        r = SkMulDiv255Round(r, a);
+        g = SkMulDiv255Round(g, a);
+        b = SkMulDiv255Round(b, a);
+    }
+    return SkPackARGB32(a, r, g, b);
 }
 // When Android is compiled optimizing for size, SkAlphaMulQ doesn't get
 // inlined; forcing inlining significantly improves performance.
 SK_ALWAYS_INLINE static uint32_t SkAlphaMulQ(uint32_t c, unsigned scale)
 {
-  uint32_t mask = 0xFF00FF;
-  uint32_t rb = ((c & mask) * scale) >> 8;
-  uint32_t ag = ((c >> 8) & mask) * scale;
-  return (rb & mask) | (ag & ~mask);
+    uint32_t mask = 0xFF00FF;
+
+    uint32_t rb = ((c & mask) * scale) >> 8;
+    uint32_t ag = ((c >> 8) & mask) * scale;
+    return (rb & mask) | (ag & ~mask);
 }
 static SkPMColor SkPMSrcOver(SkPMColor src, SkPMColor dst)
 {
-  return src + SkAlphaMulQ(dst, SkAlpha255To256(255 - SkGetPackedA32(src)));
+    return src + SkAlphaMulQ(dst, SkAlpha255To256(255 - SkGetPackedA32(src)));
 }
 #endif

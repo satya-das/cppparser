@@ -38,7 +38,8 @@ std::set<std::string>      gMacroNames;
 std::set<std::string>      gKnownApiDecorNames;
 std::set<std::string>      gIgnorableMacroNames;
 std::map<std::string, int> gRenamedKeywords;
-bool                       gParseEnumBodyAsBlob = false;
+bool                       gParseEnumBodyAsBlob     = false;
+bool                       gParseFunctionBodyAsBlob = true;
 
 extern CppCompoundPtr parseStream(char* stm, size_t stmSize);
 CppObjFactory*        gObjFactory = nullptr;

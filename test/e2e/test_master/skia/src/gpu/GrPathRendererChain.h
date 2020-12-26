@@ -44,8 +44,8 @@ public:
         chain. */
   GrCoverageCountingPathRenderer* getCoverageCountingPathRenderer()
   {
-    return fCoverageCountingPathRenderer;
-  }
+        return fCoverageCountingPathRenderer;
+    }
 private:
   enum {
         kPreAllocCount = 8,

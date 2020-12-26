@@ -16,9 +16,7 @@ struct wxPropertyGridHitTestResult
 {
 public:
   wxPGProperty* GetProperty() const
-  {
-    return property;
-  }
+  { return property; }
     /** Column. -1 for margin. */
   int column;
     /** Index of splitter hit, -1 for none. */
@@ -107,16 +105,12 @@ class wxPropertyGridIterator : public wxPropertyGridIteratorBase
 public:
   void Assign(const wxPropertyGridIteratorBase& it);
   bool AtEnd() const
-  {
-    return m_property == NULL;
-  }
+  { return m_property == NULL; }
     /**
         Get current property.
     */
   wxPGProperty* GetProperty() const
-  {
-    return m_property;
-  }
+  { return m_property; }
     /**
         Iterate to the next property.
     */
@@ -141,47 +135,34 @@ class wxPGVIterator
 public:
   wxPGVIterator()
   {
-    m_pIt = NULL;
-  }
+ m_pIt = NULL;   }
   wxPGVIterator(wxPGVIteratorBase* obj)
   {
-    m_pIt = obj;
-  }
+ m_pIt = obj;   }
   ~wxPGVIterator()
   {
-    UnRef();
-  }
+ UnRef();   }
   void UnRef()
-  {
-    if (m_pIt)
-    {
-      m_pIt->DecRef();
-    }
-  }
+  { if (m_pIt) m_pIt->DecRef(); }
   wxPGVIterator(const wxPGVIterator& it)
   {
-    m_pIt = it.m_pIt;
-    m_pIt->IncRef();
-  }
+
+        m_pIt = it.m_pIt;
+        m_pIt->IncRef();
+      }
   const wxPGVIterator& operator=(const wxPGVIterator& it)
   {
-    UnRef();
-    m_pIt = it.m_pIt;
-    m_pIt->IncRef();
-    return *this;
-  }
+        UnRef();
+        m_pIt = it.m_pIt;
+        m_pIt->IncRef();
+        return *this;
+    }
   void Next()
-  {
-    m_pIt->Next();
-  }
+  { m_pIt->Next(); }
   bool AtEnd() const
-  {
-    return m_pIt->m_it.AtEnd();
-  }
+  { return m_pIt->m_it.AtEnd(); }
   wxPGProperty* GetProperty() const
-  {
-    return m_pIt->m_it.GetProperty();
-  }
+  { return m_pIt->m_it.GetProperty(); }
 protected:
   wxPGVIteratorBase* m_pIt;
 };

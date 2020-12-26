@@ -155,70 +155,89 @@ namespace PoDoFo
 // -----------------------------------------------------
   inline void PdfPainterMM::SetStrokeWidthMM(long lWidth)
   {
-    this->SetStrokeWidth(static_cast<double>(lWidth) * CONVERSION_CONSTANT);
-  }
+    this->SetStrokeWidth( static_cast<double>(lWidth) * CONVERSION_CONSTANT );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfPainterMM::DrawLineMM(long lStartX, long lStartY, long lEndX, long lEndY)
   {
-    this->DrawLine(static_cast<double>(lStartX) * CONVERSION_CONSTANT, static_cast<double>(lStartY) * CONVERSION_CONSTANT, static_cast<double>(lEndX) * CONVERSION_CONSTANT, static_cast<double>(lEndY) * CONVERSION_CONSTANT);
-  }
+    this->DrawLine( static_cast<double>(lStartX) * CONVERSION_CONSTANT,
+                    static_cast<double>(lStartY) * CONVERSION_CONSTANT,
+                    static_cast<double>(lEndX)   * CONVERSION_CONSTANT,
+                    static_cast<double>(lEndY)   * CONVERSION_CONSTANT );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfPainterMM::RectangleMM(long lX, long lY, long lWidth, long lHeight)
   {
-    this->Rectangle(static_cast<double>(lX) * CONVERSION_CONSTANT, static_cast<double>(lY) * CONVERSION_CONSTANT, static_cast<double>(lWidth) * CONVERSION_CONSTANT, static_cast<double>(lHeight) * CONVERSION_CONSTANT);
-  }
+    this->Rectangle( static_cast<double>(lX)      * CONVERSION_CONSTANT,
+                       static_cast<double>(lY)      * CONVERSION_CONSTANT,
+                       static_cast<double>(lWidth)  * CONVERSION_CONSTANT,
+                       static_cast<double>(lHeight) * CONVERSION_CONSTANT );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfPainterMM::EllipseMM(long lX, long lY, long lWidth, long lHeight)
   {
-    this->Ellipse(static_cast<double>(lX) * CONVERSION_CONSTANT, static_cast<double>(lY) * CONVERSION_CONSTANT, static_cast<double>(lWidth) * CONVERSION_CONSTANT, static_cast<double>(lHeight) * CONVERSION_CONSTANT);
-  }
+    this->Ellipse( static_cast<double>(lX)      * CONVERSION_CONSTANT,
+                       static_cast<double>(lY)      * CONVERSION_CONSTANT,
+                       static_cast<double>(lWidth)  * CONVERSION_CONSTANT,
+                       static_cast<double>(lHeight) * CONVERSION_CONSTANT );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfPainterMM::DrawTextMM(long lX, long lY, const PdfString& sText)
   {
-    this->DrawText(static_cast<double>(lX) * CONVERSION_CONSTANT, static_cast<double>(lY) * CONVERSION_CONSTANT, sText);
-  }
+    this->DrawText( static_cast<double>(lX) * CONVERSION_CONSTANT,
+                    static_cast<double>(lY) * CONVERSION_CONSTANT,
+                    sText );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfPainterMM::DrawTextMM(long lX, long lY, const PdfString& sText, long lLen)
   {
-    this->DrawText(static_cast<double>(lX) * CONVERSION_CONSTANT, static_cast<double>(lY) * CONVERSION_CONSTANT, sText, lLen);
-  }
+   this->DrawText( static_cast<double>(lX) * CONVERSION_CONSTANT,
+                   static_cast<double>(lY) * CONVERSION_CONSTANT,
+                   sText, lLen );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfPainterMM::DrawImageMM(long lX, long lY, PdfImage* pObject, double dScaleX, double dScaleY)
   {
-    this->DrawImage(static_cast<double>(lX) * CONVERSION_CONSTANT, static_cast<double>(lY) * CONVERSION_CONSTANT, pObject, dScaleX, dScaleY);
-  }
+   this->DrawImage( static_cast<double>(lX) * CONVERSION_CONSTANT,
+                    static_cast<double>(lY) * CONVERSION_CONSTANT,
+                    pObject, dScaleX, dScaleY );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfPainterMM::DrawXObjectMM(long lX, long lY, PdfXObject* pObject, double dScaleX, double dScaleY)
   {
-    this->DrawXObject(static_cast<double>(lX) * CONVERSION_CONSTANT, static_cast<double>(lY) * CONVERSION_CONSTANT, pObject, dScaleX, dScaleY);
-  }
+   this->DrawXObject( static_cast<double>(lX) * CONVERSION_CONSTANT,
+                      static_cast<double>(lY) * CONVERSION_CONSTANT,
+                      pObject, dScaleX, dScaleY );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfPainterMM::LineToMM(long lX, long lY)
   {
-    this->LineTo(static_cast<double>(lX) * CONVERSION_CONSTANT, static_cast<double>(lY) * CONVERSION_CONSTANT);
-  }
+    this->LineTo( static_cast<double>(lX) * CONVERSION_CONSTANT,
+                  static_cast<double>(lY) * CONVERSION_CONSTANT );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfPainterMM::MoveToMM(long lX, long lY)
   {
-    this->MoveTo(static_cast<double>(lX) * CONVERSION_CONSTANT, static_cast<double>(lY) * CONVERSION_CONSTANT);
-  }
+    this->MoveTo( static_cast<double>(lX) * CONVERSION_CONSTANT,
+                  static_cast<double>(lY) * CONVERSION_CONSTANT );
+}
 }
 #endif

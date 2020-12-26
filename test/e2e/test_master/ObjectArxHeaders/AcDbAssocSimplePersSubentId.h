@@ -36,9 +36,9 @@ public:
     /// Constructor. Just keeps the given AcDbSubentId.
     /// </summary>
   explicit AcDbAssocSimplePersSubentId(AcDbSubentId subentId = kNullSubentId)
-    : mSubentId(subentId)
-  {
-  }
+    :  mSubentId(subentId) 
+    {
+    }
     /// <summary>
     /// Returns number 1 if not null or 0 if null.
     /// </summary>
@@ -48,10 +48,10 @@ public:
     ///
   int transientSubentCount(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
   {
-    UNREFERENCED_PARAMETER(pEntity);
-    UNREFERENCED_PARAMETER(pDatabase);
-    return !isNull() ? 1 : 0;
-  }
+        UNREFERENCED_PARAMETER(pEntity);
+        UNREFERENCED_PARAMETER(pDatabase);
+        return !isNull() ? 1 : 0; 
+    }
     /// <summary> Returns the type of the stored AcDbSubentId. </summary>
     /// <param  name="pEntity">   Not used. </param>
     /// <param  name="pDatabase"> Not used. </param>
@@ -59,17 +59,15 @@ public:
     ///
   AcDb::SubentType subentType(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
   {
-    UNREFERENCED_PARAMETER(pEntity);
-    UNREFERENCED_PARAMETER(pDatabase);
-    return mSubentId.type();
-  }
+        UNREFERENCED_PARAMETER(pEntity);
+        UNREFERENCED_PARAMETER(pDatabase);
+        return mSubentId.type(); 
+    }
     /// <summary> Returns the stored AcDbSubentId. </summary>
     /// <returns> The stored AcDbSubentId. </returns>
     ///
   virtual AcDbSubentId subentId(const AcDbEntity*) const
-  {
-    return mSubentId;
-  }
+  { return mSubentId; }
     /// <summary> 
     /// Returns true iff the AcDbSubentId stored in this AcDbAssocSimplePersSubentId is null.
     /// </summary>
@@ -77,8 +75,8 @@ public:
     ///
   bool isNull() const override
   {
-    return mSubentId.type() == AcDb::kNullSubentType;
-  }
+        return mSubentId.type() == AcDb::kNullSubentType;
+    }
     /// <summary>
     /// Returns true iff this and the other AcDbAssocSimplePersSubentId reference
     /// exactly the same subentity of the same entity. It simply compares the 
@@ -94,9 +92,7 @@ public:
     /// <param  name="newSubentId"> The input AcDbSubentId to set. </param>
     ///
   void setSubentId(const AcDbSubentId& newSubentId)
-  {
-    mSubentId = newSubentId;
-  }
+  { mSubentId = newSubentId; }
     /// <summary> The standard filing protocol. </summary>
     /// <param  name="pFiler"> The filer to write the object data to. </param>
     /// <returns> Acad::ErrorStatus. </returns>

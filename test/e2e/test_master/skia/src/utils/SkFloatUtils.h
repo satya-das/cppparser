@@ -77,26 +77,21 @@ public:
      */
   explicit SkFloatingPoint(const RawType& x)
   {
-    fU.value = x;
-  }
+ fU.value = x;   }
     /** Returns the exponent bits of this number. */
   Bits exponent_bits() const
-  {
-    return kExponentBitMask & fU.bits;
-  }
+  { return kExponentBitMask & fU.bits; }
     /** Returns the fraction bits of this number. */
   Bits fraction_bits() const
-  {
-    return kFractionBitMask & fU.bits;
-  }
+  { return kFractionBitMask & fU.bits; }
     /** Returns true iff this is NAN (not a number). */
   bool is_nan() const
   {
         // It's a NAN if both of the folloowing are true:
         // * the exponent bits are all ones
         // * the fraction bits are not all zero.
-    return (exponent_bits() == kExponentBitMask) && (fraction_bits() != 0);
-  }
+        return (exponent_bits() == kExponentBitMask) && (fraction_bits() != 0);
+    }
     /**
      *  Returns true iff this number is at most kMaxUlps ULP's away from ths.
      *  In particular, this function:
@@ -107,14 +102,13 @@ public:
   bool AlmostEquals(const SkFloatingPoint& rhs) const
   {
         // Any comparison operation involving a NAN must return false.
-    if (is_nan() || rhs.is_nan())
-    {
-      return false;
-    }
-    const Bits dist = DistanceBetweenSignAndMagnitudeNumbers(fU.bits, rhs.fU.bits);
+        if (is_nan() || rhs.is_nan()) return false;
+
+        const Bits dist = DistanceBetweenSignAndMagnitudeNumbers(fU.bits,
+                                                                 rhs.fU.bits);
         //SkDEBUGF("(%f, %f, %d) ", u_.value_, rhs.u_.value_, dist);
-    return dist <= kMaxUlps;
-  }
+        return dist <= kMaxUlps;
+    }
 private:
     /** The data type used to store the actual floating-point number. */
   union FloatingPointUnion
@@ -143,27 +137,24 @@ private:
      */
   static Bits SignAndMagnitudeToBiased(const Bits& sam)
   {
-    if (kSignBitMask & sam)
-    {
+        if (kSignBitMask & sam) {
             // sam represents a negative number.
-      return ~sam + 1;
-    }
-    else 
-    {
+            return ~sam + 1;
+        } else {
             // sam represents a positive number.
-      return kSignBitMask | sam;
+            return kSignBitMask | sam;
+        }
     }
-  }
     /**
      *  Given two numbers in the sign-and-magnitude representation,
      *  returns the distance between them as an unsigned number.
      */
   static Bits DistanceBetweenSignAndMagnitudeNumbers(const Bits& sam1, const Bits& sam2)
   {
-    const Bits biased1 = SignAndMagnitudeToBiased(sam1);
-    const Bits biased2 = SignAndMagnitudeToBiased(sam2);
-    return (biased1 >= biased2) ? (biased1 - biased2) : (biased2 - biased1);
-  }
+        const Bits biased1 = SignAndMagnitudeToBiased(sam1);
+        const Bits biased2 = SignAndMagnitudeToBiased(sam2);
+        return (biased1 >= biased2) ? (biased1 - biased2) : (biased2 - biased1);
+    }
   FloatingPointUnion fU;
 };
 #endif

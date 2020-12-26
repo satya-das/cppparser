@@ -62,15 +62,13 @@ public:
     LazyCallbackResult(const LazyCallbackResult&);
     LazyCallbackResult(LazyCallbackResult&& that);
     LazyCallbackResult(sk_sp<GrSurface> surf, bool releaseCallback = true, LazyInstantiationKeyMode mode = LazyInstantiationKeyMode::kSynced)
-      : fSurface(std::move(surf))
-      , fKeyMode(mode)
-      , fReleaseCallback(releaseCallback)
-    {
-    }
+      :  fSurface(std::move(surf)), fKeyMode(mode), fReleaseCallback(releaseCallback) 
+      {
+      }
     LazyCallbackResult(sk_sp<GrTexture> tex)
-      : LazyCallbackResult(sk_sp<GrSurface>(std::move(tex)))
-    {
-    }
+      :  LazyCallbackResult(sk_sp<GrSurface>(std::move(tex))) 
+      {
+      }
     LazyCallbackResult& operator=(const LazyCallbackResult&);
     LazyCallbackResult& operator=(LazyCallbackResult&&);
     sk_sp<GrSurface> fSurface;
@@ -94,34 +92,28 @@ public:
         kYes = true,
     };
   bool isLazy() const
-  {
-    return !this->isInstantiated() && SkToBool(fLazyInstantiateCallback);
-  }
+  { return !this->isInstantiated() && SkToBool(fLazyInstantiateCallback); }
   bool isFullyLazy() const
   {
-    bool result = fHeight < 0;
-    SkASSERT(result == (fWidth < 0));
-    SkASSERT(!result || this->isLazy());
-    return result;
-  }
+        bool result = fHeight < 0;
+        SkASSERT(result == (fWidth < 0));
+        SkASSERT(!result || this->isLazy());
+        return result;
+    }
   GrPixelConfig config() const
-  {
-    return fConfig;
-  }
+  { return fConfig; }
   int width() const
   {
-    SkASSERT(!this->isFullyLazy());
-    return fWidth;
-  }
+        SkASSERT(!this->isFullyLazy());
+        return fWidth;
+    }
   int height() const
   {
-    SkASSERT(!this->isFullyLazy());
-    return fHeight;
-  }
+        SkASSERT(!this->isFullyLazy());
+        return fHeight;
+    }
   SkISize isize() const
-  {
-    return {fWidth, fHeight};
-  }
+  { return {fWidth, fHeight}; }
   int worstCaseWidth() const;
   int worstCaseHeight() const;
     /**
@@ -129,72 +121,62 @@ public:
      */
   SkRect getBoundsRect() const
   {
-    SkASSERT(!this->isFullyLazy());
-    return SkRect::MakeIWH(this->width(), this->height());
-  }
+        SkASSERT(!this->isFullyLazy());
+        return SkRect::MakeIWH(this->width(), this->height());
+    }
     /**
      * Helper that gets the worst case width and height of the surface as a bounding rectangle.
      */
   SkRect getWorstCaseBoundsRect() const
   {
-    SkASSERT(!this->isFullyLazy());
-    return SkRect::MakeIWH(this->worstCaseWidth(), this->worstCaseHeight());
-  }
+        SkASSERT(!this->isFullyLazy());
+        return SkRect::MakeIWH(this->worstCaseWidth(), this->worstCaseHeight());
+    }
   GrSurfaceOrigin origin() const
   {
-    SkASSERT(kTopLeft_GrSurfaceOrigin == fOrigin || kBottomLeft_GrSurfaceOrigin == fOrigin);
-    return fOrigin;
-  }
+        SkASSERT(kTopLeft_GrSurfaceOrigin == fOrigin || kBottomLeft_GrSurfaceOrigin == fOrigin);
+        return fOrigin;
+    }
   const GrSwizzle& textureSwizzle() const
-  {
-    return fTextureSwizzle;
-  }
+  { return fTextureSwizzle; }
   const GrBackendFormat& backendFormat() const
-  {
-    return fFormat;
-  }
+  { return fFormat; }
   class UniqueID
   {
   public:
     static UniqueID InvalidID()
     {
-      return UniqueID(uint32_t(SK_InvalidUniqueID));
-    }
+            return UniqueID(uint32_t(SK_InvalidUniqueID));
+        }
         // wrapped
     explicit UniqueID(const GrGpuResource::UniqueID& id)
-      : fID(id.asUInt())
-    {
-    }
+      :  fID(id.asUInt()) 
+      {
+       }
         // deferred and lazy-callback
     UniqueID()
-      : fID(GrGpuResource::CreateUniqueID())
-    {
-    }
+      :  fID(GrGpuResource::CreateUniqueID()) 
+      {
+       }
     uint32_t asUInt() const
-    {
-      return fID;
-    }
+    { return fID; }
     bool operator==(const UniqueID& other) const
     {
-      return fID == other.fID;
-    }
+            return fID == other.fID;
+        }
     bool operator!=(const UniqueID& other) const
     {
-      return !(*this == other);
-    }
+            return !(*this == other);
+        }
     void makeInvalid()
-    {
-      fID = SK_InvalidUniqueID;
-    }
+    { fID = SK_InvalidUniqueID; }
     bool isInvalid() const
-    {
-      return SK_InvalidUniqueID == fID;
-    }
+    { return SK_InvalidUniqueID == fID; }
   private:
     explicit UniqueID(uint32_t id)
-      : fID(id)
-    {
-    }
+      :  fID(id) 
+      {
+      }
     uint32_t fID;
   };
     /*
@@ -213,17 +195,15 @@ public:
      * resources and proxies - beware!
      */
   UniqueID uniqueID() const
-  {
-    return fUniqueID;
-  }
+  { return fUniqueID; }
   UniqueID underlyingUniqueID() const
   {
-    if (fTarget)
-    {
-      return UniqueID(fTarget->uniqueID());
+        if (fTarget) {
+            return UniqueID(fTarget->uniqueID());
+        }
+
+        return fUniqueID;
     }
-    return fUniqueID;
-  }
   virtual bool instantiate(GrResourceProvider*) = 0;
   void deinstantiate();
     /**
@@ -235,61 +215,43 @@ public:
      * @return the texture proxy associated with the surface proxy, may be NULL.
      */
   virtual GrTextureProxy* asTextureProxy()
-  {
-    return nullptr;
-  }
+  { return nullptr; }
   virtual const GrTextureProxy* asTextureProxy() const
-  {
-    return nullptr;
-  }
+  { return nullptr; }
     /**
      * @return the render target proxy associated with the surface proxy, may be NULL.
      */
   virtual GrRenderTargetProxy* asRenderTargetProxy()
-  {
-    return nullptr;
-  }
+  { return nullptr; }
   virtual const GrRenderTargetProxy* asRenderTargetProxy() const
-  {
-    return nullptr;
-  }
+  { return nullptr; }
   bool isInstantiated() const
-  {
-    return SkToBool(fTarget);
-  }
+  { return SkToBool(fTarget); }
     // If the proxy is already instantiated, return its backing GrTexture; if not, return null.
   GrSurface* peekSurface() const
-  {
-    return fTarget.get();
-  }
+  { return fTarget.get(); }
     // If this is a texture proxy and the proxy is already instantiated, return its backing
     // GrTexture; if not, return null.
   GrTexture* peekTexture() const
-  {
-    return fTarget ? fTarget->asTexture() : nullptr;
-  }
+  { return fTarget ? fTarget->asTexture() : nullptr; }
     // If this is a render target proxy and the proxy is already instantiated, return its backing
     // GrRenderTarget; if not, return null.
   GrRenderTarget* peekRenderTarget() const
   {
-    return fTarget ? fTarget->asRenderTarget() : nullptr;
-  }
+        return fTarget ? fTarget->asRenderTarget() : nullptr;
+    }
     /**
      * Does the resource count against the resource budget?
      */
   SkBudgeted isBudgeted() const
-  {
-    return fBudgeted;
-  }
+  { return fBudgeted; }
     /**
      * The pixel values of this proxy's surface cannot be modified (e.g. doesn't support write
      * pixels or MIP map level regen). Read-only proxies also bypass interval tracking and
      * assignment in GrResourceAllocator.
      */
   bool readOnly() const
-  {
-    return fSurfaceFlags & GrInternalSurfaceFlags::kReadOnly;
-  }
+  { return fSurfaceFlags & GrInternalSurfaceFlags::kReadOnly; }
     /**
      * This means surface is a multisampled render target, and internally holds a non-msaa texture
      * for resolving into. The render target resolves itself by blitting into this internal texture.
@@ -298,13 +260,11 @@ public:
      */
   bool requiresManualMSAAResolve() const
   {
-    return fSurfaceFlags & GrInternalSurfaceFlags::kRequiresManualMSAAResolve;
-  }
+        return fSurfaceFlags & GrInternalSurfaceFlags::kRequiresManualMSAAResolve;
+    }
   void setLastRenderTask(GrRenderTask*);
   GrRenderTask* getLastRenderTask()
-  {
-    return fLastRenderTask;
-  }
+  { return fLastRenderTask; }
   GrOpsTask* getLastOpsTask();
     /**
      * Retrieves the amount of GPU memory that will be or currently is used by this resource
@@ -315,18 +275,16 @@ public:
      */
   size_t gpuMemorySize() const
   {
-    SkASSERT(!this->isFullyLazy());
-    if (fTarget)
-    {
-      return fTarget->gpuMemorySize();
+        SkASSERT(!this->isFullyLazy());
+        if (fTarget) {
+            return fTarget->gpuMemorySize();
+        }
+        if (kInvalidGpuMemorySize == fGpuMemorySize) {
+            fGpuMemorySize = this->onUninstantiatedGpuMemorySize();
+            SkASSERT(kInvalidGpuMemorySize != fGpuMemorySize);
+        }
+        return fGpuMemorySize;
     }
-    if (kInvalidGpuMemorySize == fGpuMemorySize)
-    {
-      fGpuMemorySize = this->onUninstantiatedGpuMemorySize();
-      SkASSERT(kInvalidGpuMemorySize != fGpuMemorySize);
-    }
-    return fGpuMemorySize;
-  }
   enum class RectsMustMatch : bool {
         kNo = false,
         kYes = true
@@ -344,9 +302,7 @@ public:
   inline const GrSurfaceProxyPriv priv() const;
     // Returns true if we are working with protected content.
   bool isProtected() const
-  {
-    return fIsProtected == GrProtected::kYes;
-  }
+  { return fIsProtected == GrProtected::kYes; }
 protected:
     // Deferred version - takes a new UniqueID from the shared resource/proxy pool.
   GrSurfaceProxy(const GrBackendFormat&, const GrSurfaceDesc&, GrRenderable, GrSurfaceOrigin, const GrSwizzle& textureSwizzle, SkBackingFit, SkBudgeted, GrProtected, GrInternalSurfaceFlags, UseAllocator);
@@ -360,13 +316,9 @@ protected:
   friend class GrSurfaceProxyPriv;
     // Methods made available via GrSurfaceProxyPriv
   bool ignoredByResourceAllocator() const
-  {
-    return fIgnoredByResourceAllocator;
-  }
+  { return fIgnoredByResourceAllocator; }
   void setIgnoredByResourceAllocator()
-  {
-    fIgnoredByResourceAllocator = true;
-  }
+  { fIgnoredByResourceAllocator = true; }
   void computeScratchKey(GrScratchKey*) const;
   virtual sk_sp<GrSurface> createSurface(GrResourceProvider*) const = 0;
   void assign(sk_sp<GrSurface> surface);
@@ -377,11 +329,11 @@ protected:
     // be set to match the underlying GPU surface upon instantiation.
   void setLazySize(int width, int height)
   {
-    SkASSERT(this->isFullyLazy());
-    SkASSERT(width > 0 && height > 0);
-    fWidth = width;
-    fHeight = height;
-  }
+        SkASSERT(this->isFullyLazy());
+        SkASSERT(width > 0 && height > 0);
+        fWidth = width;
+        fHeight = height;
+    }
   bool instantiateImpl(GrResourceProvider* resourceProvider, int sampleCnt, int minStencilSampleCount, GrRenderable, GrMipMapped, const GrUniqueKey*);
     // For deferred proxies this will be null until the proxy is instantiated.
     // For wrapped proxies it will point to the wrapped resource.

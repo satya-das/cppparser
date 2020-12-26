@@ -259,9 +259,9 @@ class WXDLLIMPEXP_CORE wxDelegateRenderer : public wxRenderer
 {
 public:
   wxDelegateRenderer(wxRenderer* renderer)
-    : m_renderer(renderer)
-  {
-  }
+    :  m_renderer(renderer) 
+    {
+     }
   void DrawBackground(wxDC& dc, const wxColour& col, const wxRect& rect, int flags, wxWindow* window = NULL) override
   {
     m_renderer->DrawBackground(dc, col, rect, flags, window);
@@ -599,25 +599,15 @@ public:
 #  endif
     // accessors
   wxWindow* GetWindow() const
-  {
-    return m_window;
-  }
+  { return m_window; }
   wxRenderer* GetRenderer() const
-  {
-    return m_renderer;
-  }
+  { return m_renderer; }
   wxDC& GetDC()
-  {
-    return m_dc;
-  }
+  { return m_dc; }
   const wxRect& GetRect() const
-  {
-    return m_rect;
-  }
+  { return m_rect; }
   wxRect& GetRect()
-  {
-    return m_rect;
-  }
+  { return m_rect; }
     // static helpers
   static void DrawBitmap(wxDC& dc, const wxBitmap& bitmap, const wxRect& rect, int alignment = wxALIGN_CENTRE | wxALIGN_CENTRE_VERTICAL, wxStretch stretch = wxSTRETCH_NOT);
 #  if  wxUSE_LISTBOX

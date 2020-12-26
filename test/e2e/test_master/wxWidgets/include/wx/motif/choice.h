@@ -24,14 +24,16 @@ public:
   virtual ~wxChoice();
   wxChoice(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxChoiceNameStr))
   {
-    Init();
-    Create(parent, id, pos, size, n, choices, style, validator, name);
-  }
+
+        Init();
+        Create(parent, id, pos, size, n, choices, style, validator, name);
+      }
   wxChoice(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxChoiceNameStr))
   {
-    Init();
-    Create(parent, id, pos, size, choices, style, validator, name);
-  }
+
+        Init();
+        Create(parent, id, pos, size, choices, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxChoiceNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxChoiceNameStr));
     // implementation of wxControlWithItems
@@ -53,23 +55,15 @@ public:
   virtual void ChangeBackgroundColour();
   virtual void ChangeForegroundColour();
   WXWidget GetTopWidget() const
-  {
-    return m_formWidget;
-  }
+  { return m_formWidget; }
   WXWidget GetMainWidget() const
-  {
-    return m_buttonWidget;
-  }
+  { return m_buttonWidget; }
   virtual wxSize DoGetBestSize() const;
     // implementation, for wxChoiceCallback
   const wxWidgetArray& GetWidgets() const
-  {
-    return m_widgetArray;
-  }
+  { return m_widgetArray; }
   const wxArrayString& GetStrings() const
-  {
-    return m_stringArray;
-  }
+  { return m_stringArray; }
 protected:
     // minimum size for the text ctrl
   wxSize GetItemsSize() const;

@@ -33,20 +33,18 @@ class wxFontMapperPathChanger
 public:
   wxFontMapperPathChanger(wxFontMapperBase* fontMapper, const wxString& path)
   {
-    m_fontMapper = fontMapper;
-    m_ok = m_fontMapper->ChangePath(path, &m_pathOld);
-  }
+
+        m_fontMapper = fontMapper;
+        m_ok = m_fontMapper->ChangePath(path, &m_pathOld);
+      }
   bool IsOk() const
-  {
-    return m_ok;
-  }
+  { return m_ok; }
   ~wxFontMapperPathChanger()
   {
-    if (IsOk())
-    {
-      m_fontMapper->RestorePath(m_pathOld);
-    }
-  }
+
+        if ( IsOk() )
+            m_fontMapper->RestorePath(m_pathOld);
+      }
 private:
     // the fontmapper object we're working with
   wxFontMapperBase* m_fontMapper;

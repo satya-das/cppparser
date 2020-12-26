@@ -23,26 +23,25 @@ public:
   struct IDDesc
   {
     IDDesc()
-      : fRenderbufferID(0)
-    {
-    }
+      :  fRenderbufferID(0) 
+      {
+      }
     GrGLuint fRenderbufferID;
   };
   GrGLStencilAttachment(GrGpu* gpu, const IDDesc& idDesc, int width, int height, int sampleCnt, const Format& format)
-    : GrStencilAttachment(gpu, width, height, format.fStencilBits, sampleCnt)
-    , fFormat(format)
-    , fRenderbufferID(idDesc.fRenderbufferID)
-  {
-    this->registerWithCache(SkBudgeted::kYes);
-  }
+    :  GrStencilAttachment(gpu, width, height, format.fStencilBits, sampleCnt)
+        , fFormat(format)
+        , fRenderbufferID(idDesc.fRenderbufferID) 
+    {
+
+        this->registerWithCache(SkBudgeted::kYes);
+        }
   GrGLuint renderbufferID() const
   {
-    return fRenderbufferID;
-  }
+        return fRenderbufferID;
+    }
   const Format& format() const
-  {
-    return fFormat;
-  }
+  { return fFormat; }
 protected:
     // overrides of GrResource
   void onRelease() override;

@@ -42,14 +42,12 @@ private:
   {
   public:
     AutoValidate(const GrGradientBitmapCache* bc)
-      : fBC(bc)
-    {
-      bc->validate();
-    }
+      :  fBC(bc) 
+      {
+ bc->validate();       }
     ~AutoValidate()
     {
-      fBC->validate();
-    }
+ fBC->validate();     }
   private:
     const GrGradientBitmapCache* fBC;
   };

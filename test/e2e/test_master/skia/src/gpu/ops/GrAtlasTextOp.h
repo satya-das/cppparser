@@ -17,11 +17,11 @@ public:
   DEFINE_OP_CLASS_ID
   virtual ~GrAtlasTextOp()
   {
-    for (int i = 0; i < fGeoCount; i++)
-    {
-      fGeoData[i].fBlob->unref();
-    }
-  }
+
+        for (int i = 0; i < fGeoCount; i++) {
+            fGeoData[i].fBlob->unref();
+        }
+      }
   static const int kVerticesPerGlyph = GrTextBlob::kVerticesPerGlyph;
   static const int kIndicesPerGlyph = 6;
   typedef GrTextBlob Blob;
@@ -42,15 +42,11 @@ public:
     // is used to seed the op with its initial geometry.  After seeding, the client should call
     // init() so the op can initialize itself
   Geometry& geometry()
-  {
-    return fGeoData[0];
-  }
+  { return fGeoData[0]; }
     /** Called after this->geometry() has been configured. */
   void init();
   const char* name() const override
-  {
-    return "AtlasTextOp";
-  }
+  { return "AtlasTextOp"; }
   void visitProxies(const VisitProxyFunc& func) const override;
 #  ifdef SK_DEBUG
   SkString dumpInfo() const override;
@@ -67,9 +63,7 @@ public:
         kLCDBGRDistanceField_MaskType,
     };
   MaskType maskType() const
-  {
-    return fMaskType;
-  }
+  { return fMaskType; }
   void finalizeForTextTarget(uint32_t color, const GrCaps&);
   void executeForTextTarget(SkAtlasTextTarget*);
 private:
@@ -77,11 +71,11 @@ private:
     // The minimum number of Geometry we will try to allocate.
   static constexpr auto kMinGeometryAllocated = 12;
   GrAtlasTextOp(GrPaint&& paint)
-    : INHERITED(ClassID())
-    , fGeoDataAllocSize(kMinGeometryAllocated)
-    , fProcessors(std::move(paint))
-  {
-  }
+    :  INHERITED(ClassID())
+            , fGeoDataAllocSize(kMinGeometryAllocated)
+            , fProcessors(std::move(paint)) 
+    {
+    }
   struct FlushInfo
   {
     sk_sp<const GrBuffer> fVertexBuffer;
@@ -95,43 +89,40 @@ private:
   void onExecute(GrOpFlushState*, const SkRect& chainBounds) override;
   GrMaskFormat maskFormat() const
   {
-    switch(fMaskType)
-    {
-      case kLCDCoverageMask_MaskType:
-        return kA565_GrMaskFormat;
-      case kColorBitmapMask_MaskType:
-        return kARGB_GrMaskFormat;
-      case kGrayscaleCoverageMask_MaskType:
-      case kAliasedDistanceField_MaskType:
-      case kGrayscaleDistanceField_MaskType:
-      case kLCDDistanceField_MaskType:
-      case kLCDBGRDistanceField_MaskType:
-        return kA8_GrMaskFormat;
+        switch (fMaskType) {
+            case kLCDCoverageMask_MaskType:
+                return kA565_GrMaskFormat;
+            case kColorBitmapMask_MaskType:
+                return kARGB_GrMaskFormat;
+            case kGrayscaleCoverageMask_MaskType:
+            case kAliasedDistanceField_MaskType:
+            case kGrayscaleDistanceField_MaskType:
+            case kLCDDistanceField_MaskType:
+            case kLCDBGRDistanceField_MaskType:
+                return kA8_GrMaskFormat;
+        }
+        return kA8_GrMaskFormat;  // suppress warning
     }
-    return kA8_GrMaskFormat;
-  }
   bool usesDistanceFields() const
   {
-    return kAliasedDistanceField_MaskType == fMaskType || kGrayscaleDistanceField_MaskType == fMaskType || kLCDDistanceField_MaskType == fMaskType || kLCDBGRDistanceField_MaskType == fMaskType;
-  }
+        return kAliasedDistanceField_MaskType == fMaskType ||
+               kGrayscaleDistanceField_MaskType == fMaskType ||
+               kLCDDistanceField_MaskType == fMaskType ||
+               kLCDBGRDistanceField_MaskType == fMaskType;
+    }
   bool isLCD() const
   {
-    return kLCDCoverageMask_MaskType == fMaskType || kLCDDistanceField_MaskType == fMaskType || kLCDBGRDistanceField_MaskType == fMaskType;
-  }
+        return kLCDCoverageMask_MaskType == fMaskType ||
+               kLCDDistanceField_MaskType == fMaskType ||
+               kLCDBGRDistanceField_MaskType == fMaskType;
+    }
   inline void flush(GrMeshDrawOp::Target* target, FlushInfo* flushInfo) const;
   const SkPMColor4f& color() const
-  {
-    SkASSERT(fGeoCount > 0);
-    return fGeoData[0].fColor;
-  }
+  { SkASSERT(fGeoCount > 0); return fGeoData[0].fColor; }
   bool usesLocalCoords() const
-  {
-    return fUsesLocalCoords;
-  }
+  { return fUsesLocalCoords; }
   int numGlyphs() const
-  {
-    return fNumGlyphs;
-  }
+  { return fNumGlyphs; }
   CombineResult onCombineIfPossible(GrOp* t, const GrCaps& caps) override;
   sk_sp<GrGeometryProcessor> setupDfProcessor(const GrShaderCaps& caps, const sk_sp<GrTextureProxy>* proxies, unsigned int numActiveProxies) const;
   SkAutoSTMalloc<kMinGeometryAllocated, Geometry> fGeoData;

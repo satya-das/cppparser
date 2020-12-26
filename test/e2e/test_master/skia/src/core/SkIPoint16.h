@@ -24,24 +24,20 @@ struct SkIPoint16
      */
   static constexpr SkIPoint16 Make(int x, int y)
   {
-    return {SkToS16(x), SkToS16(y)};
-  }
+        return {SkToS16(x), SkToS16(y)};
+    }
     /** Returns x-axis value of SkIPoint16.
 
      @return  fX
      */
   int16_t x() const
-  {
-    return fX;
-  }
+  { return fX; }
     /** Returns y-axis value of SkIPoint.
 
      @return  fY
      */
   int16_t y() const
-  {
-    return fY;
-  }
+  { return fY; }
     /** Sets fX to x and fY to y.
 
      @param x  new value for fX
@@ -49,8 +45,8 @@ struct SkIPoint16
      */
   void set(int x, int y)
   {
-    fX = SkToS16(x);
-    fY = SkToS16(y);
-  }
+        fX = SkToS16(x);
+        fY = SkToS16(y);
+    }
 };
 #endif

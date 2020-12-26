@@ -33,52 +33,38 @@ public:
   virtual ~GrGLGpu();
   void disconnect(DisconnectType) override;
   const GrGLContext& glContext() const
-  {
-    return *fGLContext;
-  }
+  { return *fGLContext; }
   const GrGLInterface* glInterface() const
-  {
-    return fGLContext->interface();
-  }
+  { return fGLContext->interface(); }
   const GrGLContextInfo& ctxInfo() const
-  {
-    return *fGLContext;
-  }
+  { return *fGLContext; }
   GrGLStandard glStandard() const
-  {
-    return fGLContext->standard();
-  }
+  { return fGLContext->standard(); }
   GrGLVersion glVersion() const
-  {
-    return fGLContext->version();
-  }
+  { return fGLContext->version(); }
   GrGLSLGeneration glslGeneration() const
-  {
-    return fGLContext->glslGeneration();
-  }
+  { return fGLContext->glslGeneration(); }
   const GrGLCaps& glCaps() const
-  {
-    return *fGLContext->caps();
-  }
+  { return *fGLContext->caps(); }
   GrGLPathRendering* glPathRendering()
   {
-    SkASSERT(glCaps().shaderCaps()->pathRenderingSupport());
-    return static_cast<GrGLPathRendering*>(pathRendering());
-  }
+        SkASSERT(glCaps().shaderCaps()->pathRenderingSupport());
+        return static_cast<GrGLPathRendering*>(pathRendering());
+    }
     // Used by GrGLProgram to configure OpenGL state.
   void bindTexture(int unitIdx, GrSamplerState samplerState, const GrSwizzle&, GrGLTexture*);
     // These functions should be used to bind GL objects. They track the GL state and skip redundant
     // bindings. Making the equivalent glBind calls directly will confuse the state tracking.
   void bindVertexArray(GrGLuint id)
   {
-    fHWVertexArrayState.setVertexArrayID(this, id);
-  }
+        fHWVertexArrayState.setVertexArrayID(this, id);
+    }
     // These callbacks update state tracking when GL objects are deleted. They are called from
     // GrGLResource onRelease functions.
   void notifyVertexArrayDelete(GrGLuint id)
   {
-    fHWVertexArrayState.notifyVertexArrayDelete(id);
-  }
+        fHWVertexArrayState.notifyVertexArrayDelete(id);
+    }
     // Binds a buffer to the GL target corresponding to 'type', updates internal state tracking, and
     // returns the GL target the buffer was bound to.
     // When 'type' is kIndex_GrBufferType, this function will also implicitly bind the default VAO.
@@ -110,26 +96,22 @@ public:
   GrOpsRenderPass* getOpsRenderPass(GrRenderTarget*, GrSurfaceOrigin, const SkIRect&, const GrOpsRenderPass::LoadAndStoreInfo&, const GrOpsRenderPass::StencilLoadAndStoreInfo&, const SkTArray<GrTextureProxy*, true>& sampledProxies) override;
   void invalidateBoundRenderTarget()
   {
-    fHWBoundRenderTargetUniqueID.makeInvalid();
-  }
+        fHWBoundRenderTargetUniqueID.makeInvalid();
+    }
   GrStencilAttachment* createStencilAttachmentForRenderTarget(const GrRenderTarget* rt, int width, int height, int numStencilSamples) override;
   void deleteBackendTexture(const GrBackendTexture&) override;
   bool precompileShader(const SkData& key, const SkData& data) override
   {
-    return fProgramCache->precompileShader(key, data);
-  }
+        return fProgramCache->precompileShader(key, data);
+    }
 #  if  GR_TEST_UTILS
   bool isTestingOnlyBackendTexture(const GrBackendTexture&) const override;
   GrBackendRenderTarget createTestingOnlyBackendRenderTarget(int w, int h, GrColorType) override;
   void deleteTestingOnlyBackendRenderTarget(const GrBackendRenderTarget&) override;
   const GrGLContext* glContextForTesting() const override
-  {
-    return &this->glContext();
-  }
+  { return &this->glContext(); }
   void resetShaderCacheForTesting() const override
-  {
-    fProgramCache->reset();
-  }
+  { fProgramCache->reset(); }
   void testingOnly_flushGpuAndSync() override;
 #  endif
   void submit(GrOpsRenderPass* renderPass) override;
@@ -216,8 +198,8 @@ private:
     {
       uint32_t operator()(const GrProgramDesc& desc) const
       {
-        return SkOpts::hash_fn(desc.asKey(), desc.keyLength(), 0);
-      }
+                return SkOpts::hash_fn(desc.asKey(), desc.keyLength(), 0);
+            }
     };
     SkLRUCache<GrProgramDesc, std::unique_ptr<Entry>, DescHash> fMap;
     GrGLGpu* fGpu;
@@ -232,9 +214,7 @@ private:
   void flushWindowRectangles(const GrWindowRectsState&, const GrGLRenderTarget*, GrSurfaceOrigin);
   void disableWindowRectangles();
   int numTextureUnits() const
-  {
-    return this->caps()->shaderCaps()->maxFragmentSamplers();
-  }
+  { return this->caps()->shaderCaps()->maxFragmentSamplers(); }
     // Binds a texture to a target on the "scratch" texture unit to use for texture operations
     // other than usual draw flow (i.e. a GrGLProgram derived from a GrPipeline used to draw
     // GrMesh). It ensures that such operations don't negatively interact with draws.
@@ -298,49 +278,42 @@ private:
   GrNativeRect fRect;
   void invalidate()
   {
-    fEnabled = kUnknown_TriState;
-    fRect.invalidate();
-  }
+            fEnabled = kUnknown_TriState;
+            fRect.invalidate();
+        }
 } fHWScissorSettings;
   class 
 {
 public:
   bool valid() const
-  {
-    return kInvalidSurfaceOrigin != fRTOrigin;
-  }
+  { return kInvalidSurfaceOrigin != fRTOrigin; }
   void invalidate()
-  {
-    fRTOrigin = kInvalidSurfaceOrigin;
-  }
+  { fRTOrigin = kInvalidSurfaceOrigin; }
   bool knownDisabled() const
-  {
-    return this->valid() && !fWindowState.enabled();
-  }
+  { return this->valid() && !fWindowState.enabled(); }
   void setDisabled()
   {
-    fRTOrigin = kTopLeft_GrSurfaceOrigin;
-    fWindowState.setDisabled();
-  }
+            fRTOrigin = kTopLeft_GrSurfaceOrigin;
+            fWindowState.setDisabled();
+        }
   void set(GrSurfaceOrigin rtOrigin, int width, int height, const GrWindowRectsState& windowState)
   {
-    fRTOrigin = rtOrigin;
-    fWidth = width;
-    fHeight = height;
-    fWindowState = windowState;
-  }
+            fRTOrigin = rtOrigin;
+            fWidth = width;
+            fHeight = height;
+            fWindowState = windowState;
+        }
   bool knownEqualTo(GrSurfaceOrigin rtOrigin, int width, int height, const GrWindowRectsState& windowState) const
   {
-    if (!this->valid())
-    {
-      return false;
-    }
-    if (fWindowState.numWindows() && (fRTOrigin != rtOrigin || fWidth != width || fHeight != height))
-    {
-      return false;
-    }
-    return fWindowState == windowState;
-  }
+            if (!this->valid()) {
+                return false;
+            }
+            if (fWindowState.numWindows() &&
+                (fRTOrigin != rtOrigin || fWidth != width || fHeight != height)) {
+                return false;
+            }
+            return fWindowState == windowState;
+        }
 private:
   enum { kInvalidSurfaceOrigin = -1 };
   int fRTOrigin;
@@ -356,45 +329,39 @@ private:
 {
 public:
   HWVertexArrayState()
-    : fCoreProfileVertexArray(nullptr)
-  {
-    this->invalidate();
-  }
+    :  fCoreProfileVertexArray(nullptr) 
+    {
+ this->invalidate();     }
   ~HWVertexArrayState()
   {
-    delete fCoreProfileVertexArray;
-  }
+ delete fCoreProfileVertexArray;   }
   void invalidate()
   {
-    fBoundVertexArrayIDIsValid = false;
-    fDefaultVertexArrayAttribState.invalidate();
-    if (fCoreProfileVertexArray)
-    {
-      fCoreProfileVertexArray->invalidateCachedState();
-    }
-  }
+            fBoundVertexArrayIDIsValid = false;
+            fDefaultVertexArrayAttribState.invalidate();
+            if (fCoreProfileVertexArray) {
+                fCoreProfileVertexArray->invalidateCachedState();
+            }
+        }
   void notifyVertexArrayDelete(GrGLuint id)
   {
-    if (fBoundVertexArrayIDIsValid && fBoundVertexArrayID == id)
-    {
+            if (fBoundVertexArrayIDIsValid && fBoundVertexArrayID == id) {
                 // Does implicit bind to 0
-      fBoundVertexArrayID = 0;
-    }
-  }
+                fBoundVertexArrayID = 0;
+            }
+        }
   void setVertexArrayID(GrGLGpu* gpu, GrGLuint arrayID)
   {
-    if (!gpu->glCaps().vertexArrayObjectSupport())
-    {
-      SkASSERT(0 == arrayID);
-      return ;
-    }
-    if (!fBoundVertexArrayIDIsValid || arrayID != fBoundVertexArrayID)
-    {
-      GR_GL_CALL(gpu->glInterface(), BindVertexArray(arrayID));
-      fBoundVertexArrayIDIsValid = true;
-      fBoundVertexArrayID = arrayID;
-    }
-  }
+            if (!gpu->glCaps().vertexArrayObjectSupport()) {
+                SkASSERT(0 == arrayID);
+                return;
+            }
+            if (!fBoundVertexArrayIDIsValid || arrayID != fBoundVertexArrayID) {
+                GR_GL_CALL(gpu->glInterface(), BindVertexArray(arrayID));
+                fBoundVertexArrayIDIsValid = true;
+                fBoundVertexArrayID = arrayID;
+            }
+        }
         /**
          * Binds the vertex array that should be used for internal draws, and returns its attrib
          * state. This binds the default VAO (ID=zero) unless we are on a core profile, in which
@@ -423,16 +390,16 @@ private:
   bool fBufferZeroKnownBound;
   void invalidate()
   {
-    fBoundBufferUniqueID.makeInvalid();
-    fBufferZeroKnownBound = false;
-  }
+            fBoundBufferUniqueID.makeInvalid();
+            fBufferZeroKnownBound = false;
+        }
 } fHWBufferState[kGrGpuBufferTypeCount];
   auto* hwBufferState(GrGpuBufferType type)
   {
-    unsigned typeAsUInt = static_cast<unsigned>(type);
-    SkASSERT(typeAsUInt < SK_ARRAY_COUNT(fHWBufferState));
-    return &fHWBufferState[typeAsUInt];
-  }
+        unsigned typeAsUInt = static_cast<unsigned>(type);
+        SkASSERT(typeAsUInt < SK_ARRAY_COUNT(fHWBufferState));
+        return &fHWBufferState[typeAsUInt];
+    }
   struct 
 {
   GrBlendEquation fEquation;
@@ -443,12 +410,12 @@ private:
   TriState fEnabled;
   void invalidate()
   {
-    fEquation = kIllegal_GrBlendEquation;
-    fSrcCoeff = kIllegal_GrBlendCoeff;
-    fDstCoeff = kIllegal_GrBlendCoeff;
-    fConstColorValid = false;
-    fEnabled = kUnknown_TriState;
-  }
+            fEquation = kIllegal_GrBlendEquation;
+            fSrcCoeff = kIllegal_GrBlendCoeff;
+            fDstCoeff = kIllegal_GrBlendCoeff;
+            fConstColorValid = false;
+            fEnabled = kUnknown_TriState;
+        }
 } fHWBlendState;
   TriState fMSAAEnabled;
   GrStencilSettings fHWStencilSettings;
@@ -499,10 +466,10 @@ private:
   static int TextureToCopyProgramIdx(GrTexture* texture);
   static int TextureSizeToMipmapProgramIdx(int width, int height)
   {
-    const bool wide = (width > 1) && SkToBool(width & 0x1);
-    const bool tall = (height > 1) && SkToBool(height & 0x1);
-    return (wide ? 0x2 : 0x0) | (tall ? 0x1 : 0x0);
-  }
+        const bool wide = (width > 1) && SkToBool(width & 0x1);
+        const bool tall = (height > 1) && SkToBool(height & 0x1);
+        return (wide ? 0x2 : 0x0) | (tall ? 0x1 : 0x0);
+    }
   GrPrimitiveType fLastPrimitiveType;
   GrGLTextureParameters::ResetTimestamp fResetTimestampForTextureParameters = 0;
   class SamplerObjectCache;

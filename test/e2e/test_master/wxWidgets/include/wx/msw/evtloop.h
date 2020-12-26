@@ -22,7 +22,7 @@ class WXDLLIMPEXP_CORE wxGUIEventLoop : public wxMSWEventLoopBase
 public:
   wxGUIEventLoop()
   {
-  }
+   }
     // process a single message: calls PreProcessMessage() before dispatching
     // it
   virtual void ProcessMessage(WXMSG* msg);
@@ -36,15 +36,13 @@ public:
     // calling this function with NULL argument restores the normal event
     // handling
   static void SetCriticalWindow(wxWindowMSW* win)
-  {
-    ms_winCritical = win;
-  }
+  { ms_winCritical = win; }
     // return true if there is no critical window or if this window is [a child
     // of] the critical one
   static bool AllowProcessing(wxWindowMSW* win)
   {
-    return !ms_winCritical || IsChildOfCriticalWindow(win);
-  }
+        return !ms_winCritical || IsChildOfCriticalWindow(win);
+    }
     // override/implement base class virtuals
   bool Dispatch() override;
   int DispatchTimeout(unsigned long timeout) override;

@@ -19,8 +19,7 @@ public:
   GrDawnOpsRenderPass(GrDawnGpu*, GrRenderTarget*, GrSurfaceOrigin, const LoadAndStoreInfo&, const StencilLoadAndStoreInfo&);
   virtual ~GrDawnOpsRenderPass();
   void begin() override
-  {
-  }
+  { }
   void end() override;
   dawn::RenderPassEncoder beginRenderPass(dawn::LoadOp colorOp, dawn::LoadOp stencilOp);
   void insertEventMarker(const char*) override;
@@ -33,12 +32,14 @@ private:
   void onDraw(const GrPrimitiveProcessor& primProc, const GrPipeline& pipeline, const GrPipeline::FixedDynamicState* fixedDynamicState, const GrPipeline::DynamicStateArrays* dynamicStateArrays, const GrMesh mesh[], int meshCount, const SkRect& bounds) override;
   void sendMeshToGpu(GrPrimitiveType primType, const GrBuffer* vertexBuffer, int vertexCount, int baseVertex) final
   {
-    this->sendInstancedMeshToGpu(primType, vertexBuffer, vertexCount, baseVertex, nullptr, 1, 0);
-  }
+        this->sendInstancedMeshToGpu(primType, vertexBuffer, vertexCount, baseVertex,
+                                     nullptr, 1, 0);
+    }
   void sendIndexedMeshToGpu(GrPrimitiveType primType, const GrBuffer* indexBuffer, int indexCount, int baseIndex, uint16_t, uint16_t, const GrBuffer* vertexBuffer, int baseVertex, GrPrimitiveRestart restart) final
   {
-    this->sendIndexedInstancedMeshToGpu(primType, indexBuffer, indexCount, baseIndex, vertexBuffer, baseVertex, nullptr, 1, 0, restart);
-  }
+        this->sendIndexedInstancedMeshToGpu(primType, indexBuffer, indexCount, baseIndex,
+                                            vertexBuffer, baseVertex, nullptr, 1, 0, restart);
+    }
   void sendInstancedMeshToGpu(GrPrimitiveType, const GrBuffer* vertexBuffer, int vertexCount, int baseVertex, const GrBuffer* instanceBuffer, int instanceCount, int baseInstance) final;
   void sendIndexedInstancedMeshToGpu(GrPrimitiveType, const GrBuffer* indexBuffer, int indexCount, int baseIndex, const GrBuffer* vertexBuffer, int baseVertex, const GrBuffer* instanceBuffer, int instanceCount, int baseInstance, GrPrimitiveRestart) final;
   void onClear(const GrFixedClip&, const SkPMColor4f& color) override;
@@ -46,10 +47,9 @@ private:
   struct InlineUploadInfo
   {
     InlineUploadInfo(GrOpFlushState* state, const GrDeferredTextureUploadFn& upload)
-      : fFlushState(state)
-      , fUpload(upload)
-    {
-    }
+      :  fFlushState(state), fUpload(upload) 
+      {
+      }
     GrOpFlushState* fFlushState;
     GrDeferredTextureUploadFn fUpload;
   };

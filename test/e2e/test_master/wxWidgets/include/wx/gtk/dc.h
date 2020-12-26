@@ -100,9 +100,7 @@ public:
   virtual ~wxGTKDCImpl();
 #    if  wxUSE_PALETTE
   void SetColourMap(const wxPalette& palette)
-  {
-    SetPalette(palette);
-  }
+  { SetPalette(palette); }
 #    endif
     // Resolution in pixels per logical inch
   wxSize GetPPI() const override;
@@ -120,9 +118,7 @@ public:
   {
   }
   virtual GdkWindow* GetGDKWindow() const
-  {
-    return NULL;
-  }
+  { return NULL; }
   void* GetHandle() const override
   {
     return GetGDKWindow();

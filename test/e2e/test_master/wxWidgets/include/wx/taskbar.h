@@ -33,14 +33,12 @@ class WXDLLIMPEXP_CORE wxTaskBarIconBase : public wxEvtHandler
 public:
   wxTaskBarIconBase()
   {
-  }
+   }
 #    if  defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXQT__)
   static bool IsAvailable();
 #    else 
   static bool IsAvailable()
-  {
-    return true;
-  }
+  { return true; }
 #    endif
     // Operations:
   virtual bool SetIcon(const wxIcon& icon, const wxString& tooltip = wxEmptyString) = 0;
@@ -55,14 +53,10 @@ protected:
 
     // creates menu to be displayed when user clicks on the icon
   virtual wxMenu* CreatePopupMenu()
-  {
-    return NULL;
-  }
+  { return NULL; }
     // same as CreatePopupMenu but the returned menu won't be destroyed
   virtual wxMenu* GetPopupMenu()
-  {
-    return NULL;
-  }
+  { return NULL; }
 private:
     // default events handling, calls CreatePopupMenu:
   void OnRightButtonDown(wxTaskBarIconEvent& event);
@@ -90,10 +84,12 @@ class WXDLLIMPEXP_CORE wxTaskBarIconEvent : public wxEvent
 {
 public:
   wxTaskBarIconEvent(wxEventType evtType, wxTaskBarIcon* tbIcon)
-    : wxEvent(wxID_ANY, evtType)
-  {
-    SetEventObject(tbIcon);
-  }
+    :  wxEvent(wxID_ANY, evtType)
+    
+    {
+
+        SetEventObject(tbIcon);
+        }
   wxEvent* Clone() const override
   {
     return new wxTaskBarIconEvent(*this);

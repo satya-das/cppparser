@@ -18,28 +18,18 @@ class GrRRectShadowGeoProc : public GrGeometryProcessor
 public:
   static sk_sp<GrGeometryProcessor> Make()
   {
-    return sk_sp<GrGeometryProcessor>(new GrRRectShadowGeoProc());
-  }
+        return sk_sp<GrGeometryProcessor>(new GrRRectShadowGeoProc());
+    }
   const char* name() const override
-  {
-    return "RRectShadow";
-  }
+  { return "RRectShadow"; }
   const Attribute& inPosition() const
-  {
-    return fInPosition;
-  }
+  { return fInPosition; }
   const Attribute& inColor() const
-  {
-    return fInColor;
-  }
+  { return fInColor; }
   const Attribute& inShadowParams() const
-  {
-    return fInShadowParams;
-  }
+  { return fInShadowParams; }
   GrColor color() const
-  {
-    return fColor;
-  }
+  { return fColor; }
   void getGLSLProcessorKey(const GrShaderCaps& caps, GrProcessorKeyBuilder* b) const override
   {
   }

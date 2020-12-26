@@ -34,60 +34,41 @@ namespace GrQuadPerEdgeAA
   {
   public:
     VertexSpec(GrQuad::Type deviceQuadType, ColorType colorType, GrQuad::Type localQuadType, bool hasLocalCoords, Domain domain, GrAAType aa, bool coverageAsAlpha)
-      : fDeviceQuadType(static_cast<unsigned>(deviceQuadType))
-      , fLocalQuadType(static_cast<unsigned>(localQuadType))
-      , fHasLocalCoords(hasLocalCoords)
-      , fColorType(static_cast<unsigned>(colorType))
-      , fHasDomain(static_cast<unsigned>(domain))
-      , fUsesCoverageAA(aa == GrAAType::kCoverage)
-      , fCompatibleWithCoverageAsAlpha(coverageAsAlpha)
-      , fRequiresGeometryDomain(aa == GrAAType::kCoverage && deviceQuadType > GrQuad::Type::kRectilinear)
-    {
-    }
+      :  fDeviceQuadType(static_cast<unsigned>(deviceQuadType))
+                , fLocalQuadType(static_cast<unsigned>(localQuadType))
+                , fHasLocalCoords(hasLocalCoords)
+                , fColorType(static_cast<unsigned>(colorType))
+                , fHasDomain(static_cast<unsigned>(domain))
+                , fUsesCoverageAA(aa == GrAAType::kCoverage)
+                , fCompatibleWithCoverageAsAlpha(coverageAsAlpha)
+                , fRequiresGeometryDomain(aa == GrAAType::kCoverage &&
+                                          deviceQuadType > GrQuad::Type::kRectilinear) 
+      {
+       }
     GrQuad::Type deviceQuadType() const
-    {
-      return static_cast<GrQuad::Type>(fDeviceQuadType);
-    }
+    { return static_cast<GrQuad::Type>(fDeviceQuadType); }
     GrQuad::Type localQuadType() const
-    {
-      return static_cast<GrQuad::Type>(fLocalQuadType);
-    }
+    { return static_cast<GrQuad::Type>(fLocalQuadType); }
     bool hasLocalCoords() const
-    {
-      return fHasLocalCoords;
-    }
+    { return fHasLocalCoords; }
     ColorType colorType() const
-    {
-      return static_cast<ColorType>(fColorType);
-    }
+    { return static_cast<ColorType>(fColorType); }
     bool hasVertexColors() const
-    {
-      return ColorType::kNone != this->colorType();
-    }
+    { return ColorType::kNone != this->colorType(); }
     bool hasDomain() const
-    {
-      return fHasDomain;
-    }
+    { return fHasDomain; }
     bool usesCoverageAA() const
-    {
-      return fUsesCoverageAA;
-    }
+    { return fUsesCoverageAA; }
     bool compatibleWithCoverageAsAlpha() const
-    {
-      return fCompatibleWithCoverageAsAlpha;
-    }
+    { return fCompatibleWithCoverageAsAlpha; }
     bool requiresGeometryDomain() const
-    {
-      return fRequiresGeometryDomain;
-    }
+    { return fRequiresGeometryDomain; }
         // Will always be 2 or 3
     int deviceDimensionality() const;
         // Will always be 0 if hasLocalCoords is false, otherwise will be 2 or 3
     int localDimensionality() const;
     int verticesPerQuad() const
-    {
-      return fUsesCoverageAA ? 8 : 4;
-    }
+    { return fUsesCoverageAA ? 8 : 4; }
     static_assert(GrQuad::kTypeCount <= 4, "GrQuad::Type doesn't fit in 2 bits");
     static_assert(kColorTypeCount <= 4, "Color doesn't fit in 2 bits");
   private:

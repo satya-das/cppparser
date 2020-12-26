@@ -28,18 +28,19 @@ class WXDLLIMPEXP_CORE wxWindowMSW : public wxWindowBase
 public:
   wxWindowMSW()
   {
-    Init();
-  }
+ Init();   }
   wxWindowMSW(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
   {
-    Init();
-    Create(parent, id, pos, size, style, name);
-  }
+
+        Init();
+        Create(parent, id, pos, size, style, name);
+      }
   virtual ~wxWindowMSW();
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
   {
-    return CreateUsingMSWClass(GetMSWClassName(style), parent, id, pos, size, style, name);
-  }
+        return CreateUsingMSWClass(GetMSWClassName(style),
+                                   parent, id, pos, size, style, name);
+    }
     // Non-portable, MSW-specific Create() variant allowing to create the
     // window with a custom Windows class name. This can be useful to assign a
     // custom Windows class, that can be recognized from the outside of the
@@ -111,13 +112,9 @@ public:
     // window handle stuff
     // -------------------
   WXHWND GetHWND() const
-  {
-    return m_hWnd;
-  }
+  { return m_hWnd; }
   void SetHWND(WXHWND hWnd)
-  {
-    m_hWnd = hWnd;
-  }
+  { m_hWnd = hWnd; }
   WXWidget GetHandle() const override
   {
     return GetHWND();
@@ -129,9 +126,7 @@ public:
     // this window itself, but it can be overridden to return something
     // different for composite controls
   virtual WXHWND MSWGetFocusHWND() const
-  {
-    return GetHWND();
-  }
+  { return GetHWND(); }
     // does this window have deferred position and/or size?
   bool IsSizeDeferred() const;
     // these functions allow to register a global handler for the given Windows
@@ -161,33 +156,23 @@ public:
   void SubclassWin(WXHWND hWnd);
   void UnsubclassWin();
   WXWNDPROC MSWGetOldWndProc() const
-  {
-    return m_oldWndProc;
-  }
+  { return m_oldWndProc; }
   void MSWSetOldWndProc(WXWNDPROC proc)
-  {
-    m_oldWndProc = proc;
-  }
+  { m_oldWndProc = proc; }
     // return true if the window is of a standard (i.e. not wxWidgets') class
     //
     // to understand why does it work, look at SubclassWin() code and comments
   bool IsOfStandardClass() const
-  {
-    return m_oldWndProc != NULL;
-  }
+  { return m_oldWndProc != NULL; }
   wxWindow* FindItem(long id, WXHWND hWnd = NULL) const;
   wxWindow* FindItemByHWND(WXHWND hWnd, bool controlOnly = false) const;
     // MSW only: true if this control is part of the main control
   virtual bool ContainsHWND(WXHWND) const
-  {
-    return false;
-  }
+  { return false; }
 #  if  wxUSE_TOOLTIPS
     // MSW only: true if this window or any of its children have a tooltip
   virtual bool HasToolTips() const
-  {
-    return GetToolTip() != NULL;
-  }
+  { return GetToolTip() != NULL; }
 #  endif
     // translate wxWidgets style flags for this control into the Windows style
     // and optional extended style for the corresponding native control
@@ -200,9 +185,7 @@ public:
     // the functions returns the flags (WS_XXX) directly and puts the ext
     // (WS_EX_XXX) flags into the provided pointer if not NULL
   WXDWORD MSWGetCreateWindowFlags(WXDWORD* exflags = NULL) const
-  {
-    return MSWGetStyle(GetWindowStyle(), exflags);
-  }
+  { return MSWGetStyle(GetWindowStyle(), exflags); }
     // update the real underlying window style flags to correspond to the
     // current wxWindow object style (safe to call even if window isn't fully
     // created yet)
@@ -349,14 +332,12 @@ public:
     // Both parameters must be non-NULL.
   virtual void MSWAdjustBrushOrg(int*, int*) const
   {
-  }
+    }
     // The brush returned from here must remain valid at least until the next
     // event loop iteration. Returning 0, as is done by default, indicates
     // there is no custom background brush.
   virtual WXHBRUSH MSWGetCustomBgBrush()
-  {
-    return NULL;
-  }
+  { return NULL; }
     // this function should return the brush to paint the children controls
     // background or 0 if this window doesn't impose any particular background
     // on its children
@@ -387,15 +368,15 @@ public:
     // return true if background was drawn, false otherwise
   virtual bool MSWPrintChild(WXHDC, wxWindow*)
   {
-    return false;
-  }
+        return false;
+    }
     // some controls (e.g. wxListBox) need to set the return value themselves
     //
     // return true to let parent handle it if we don't, false otherwise
   virtual bool MSWShouldPropagatePrintChild()
   {
-    return true;
-  }
+        return true;
+    }
     // This should be overridden to return true for the controls which have
     // themed background that should through their children. Currently only
     // wxNotebook uses this.
@@ -404,8 +385,8 @@ public:
     // background colour that should be propagated to our children.
   virtual bool MSWHasInheritableBackground() const
   {
-    return InheritsBackgroundColour();
-  }
+        return InheritsBackgroundColour();
+    }
 #  if  !defined(__WXUNIVERSAL__)
 #    define wxHAS_MSW_BACKGROUND_ERASE_HOOK
 #  endif
@@ -422,9 +403,7 @@ public:
     // called when the window on which MSWSetEraseBgHook() had been called
     // receives WM_ERASEBKGND
   virtual bool MSWEraseBgHook(WXHDC)
-  {
-    return false;
-  }
+  { return false; }
 #  endif
     // common part of Show/HideWithEffect()
   bool MSWShowWithEffect(bool show, wxShowEffect effect, unsigned timeout);
@@ -568,8 +547,8 @@ protected:
     // This is used by FindItem() and is overridden in wxControl, see there.
   virtual wxWindow* MSWFindItem(long, WXHWND) const
   {
-    return NULL;
-  }
+        return NULL;
+    }
 private:
     // common part of all ctors
   void Init();
@@ -592,8 +571,8 @@ private:
         // CreateXXX will _sometimes_ manage to create the window at higher coordinates
         // like 32580, 32684, 32710, but that was not consistent and the lowest common
         // limit was 32554 (so far at least).
-    return (x >= SHRT_MIN && x <= 32554 && y >= SHRT_MIN && y <= 32554);
-  }
+        return (x >= SHRT_MIN && x <= 32554 && y >= SHRT_MIN && y <= 32554);
+    }
 protected:
   WXHWND MSWCreateWindowAtAnyPosition(WXDWORD exStyle, const wxChar* clName, const wxChar* title, WXDWORD style, int x, int y, int width, int height, WXHWND parent, wxWindowID id);
   void MSWMoveWindowToAnyPosition(WXHWND hwnd, int x, int y, int width, int height, bool bRepaint);
@@ -601,9 +580,9 @@ protected:
     // this function is called after the window was resized to its new size
   virtual void MSWEndDeferWindowPos()
   {
-    m_pendingPosition = wxDefaultPosition;
-    m_pendingSize = wxDefaultSize;
-  }
+        m_pendingPosition = wxDefaultPosition;
+        m_pendingSize = wxDefaultSize;
+    }
     // current defer window position operation handle (may be NULL)
   WXHANDLE m_hDWP;
     // When deferred positioning is done these hold the pending changes, and

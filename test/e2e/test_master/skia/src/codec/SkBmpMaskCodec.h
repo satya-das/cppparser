@@ -35,9 +35,9 @@ protected:
 private:
   SkSampler* getSampler(bool createIfNecessary) override
   {
-    SkASSERT(fMaskSwizzler);
-    return fMaskSwizzler.get();
-  }
+        SkASSERT(fMaskSwizzler);
+        return fMaskSwizzler.get();
+    }
   int decodeRows(const SkImageInfo& dstInfo, void* dst, size_t dstRowBytes, const Options& opts) override;
   std::unique_ptr<SkMasks> fMasks;
   std::unique_ptr<SkMaskSwizzler> fMaskSwizzler;

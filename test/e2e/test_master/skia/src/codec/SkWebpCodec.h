@@ -27,17 +27,15 @@ public:
 protected:
   Result onGetPixels(const SkImageInfo&, void*, size_t, const Options&, int*) override;
   SkEncodedImageFormat onGetEncodedFormat() const override
-  {
-    return SkEncodedImageFormat::kWEBP;
-  }
+  { return SkEncodedImageFormat::kWEBP; }
   bool onGetValidSubset(SkIRect*) const override;
   int onGetFrameCount() override;
   bool onGetFrameInfo(int, FrameInfo*) const override;
   int onGetRepetitionCount() override;
   const SkFrameHolder* getFrameHolder() const override
   {
-    return &fFrameHolder;
-  }
+        return &fFrameHolder;
+    }
 private:
   SkWebpCodec(SkEncodedInfo&&, std::unique_ptr<SkStream>, WebPDemuxer*, sk_sp<SkData>, SkEncodedOrigin);
   SkAutoTCallVProc<WebPDemuxer, WebPDemuxDelete> fDemux;
@@ -48,15 +46,16 @@ private:
   {
   public:
     Frame(int i, SkEncodedInfo::Alpha alpha)
-      : INHERITED(i)
-      , fReportedAlpha(alpha)
-    {
-    }
+      :  INHERITED(i)
+            , fReportedAlpha(alpha)
+        
+      {
+      }
   protected:
     SkEncodedInfo::Alpha onReportedAlpha() const override
     {
-      return fReportedAlpha;
-    }
+            return fReportedAlpha;
+        }
   private:
     const SkEncodedInfo::Alpha fReportedAlpha;
     typedef SkFrame INHERITED;
@@ -69,19 +68,19 @@ private:
     }
     void setScreenSize(int w, int h)
     {
-      fScreenWidth = w;
-      fScreenHeight = h;
-    }
+            fScreenWidth = w;
+            fScreenHeight = h;
+        }
     Frame* appendNewFrame(bool hasAlpha);
     const Frame* frame(int i) const;
     int size() const
     {
-      return static_cast<int>(fFrames.size());
-    }
+            return static_cast<int>(fFrames.size());
+        }
     void reserve(int size)
     {
-      fFrames.reserve(size);
-    }
+            fFrames.reserve(size);
+        }
   protected:
     const SkFrame* onGetFrame(int i) const override;
   private:

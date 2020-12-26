@@ -16,19 +16,19 @@ class wxGridCellEditorEvtHandler : public wxEvtHandler
 {
 public:
   wxGridCellEditorEvtHandler(wxGrid* grid, wxGridCellEditor* editor)
-    : m_grid(grid)
-    , m_editor(editor)
-    , m_inSetFocus(false)
-  {
-  }
+    :  m_grid(grid),
+          m_editor(editor),
+          m_inSetFocus(false)
+    
+    {
+
+        }
   void DismissEditor();
   void OnKillFocus(wxFocusEvent& event);
   void OnKeyDown(wxKeyEvent& event);
   void OnChar(wxKeyEvent& event);
   void SetInSetFocus(bool inSetFocus)
-  {
-    m_inSetFocus = inSetFocus;
-  }
+  { m_inSetFocus = inSetFocus; }
 private:
   wxGrid* m_grid;
   wxGridCellEditor* m_editor;
@@ -64,9 +64,7 @@ public:
   wxString GetValue() const override;
 protected:
   wxTextCtrl* Text() const
-  {
-    return (wxTextCtrl*) m_control;
-  }
+  { return (wxTextCtrl *)m_control; }
     // parts of our virtual functions reused by the derived classes
   void DoCreate(wxWindow* parent, wxWindowID id, wxEvtHandler* evtHandler, long style = 0);
   void DoBeginEdit(const wxString& startValue);
@@ -105,24 +103,20 @@ public:
 #      if  wxUSE_SPINCTRL
 protected:
   wxSpinCtrl* Spin() const
-  {
-    return (wxSpinCtrl*) m_control;
-  }
+  { return (wxSpinCtrl *)m_control; }
 #      endif
     // if HasRange(), we use wxSpinCtrl - otherwise wxTextCtrl
   bool HasRange() const
   {
-#      if  wxUSE_SPINCTRL
-    return m_min != m_max;
-#      else 
-    return false;
-#      endif
-  }
+#if wxUSE_SPINCTRL
+        return m_min != m_max;
+#else
+        return false;
+#endif
+    }
     // string representation of our value
   wxString GetString() const
-  {
-    return wxString::Format(wxT("%ld"), m_value);
-  }
+  { return wxString::Format(wxT("%ld"), m_value); }
 private:
   int m_min, m_max;
   long m_value;
@@ -187,7 +181,7 @@ class WXDLLIMPEXP_ADV wxGridCellBoolEditor : public wxGridCellEditor
 public:
   wxGridCellBoolEditor()
   {
-  }
+   }
   wxGridActivationResult TryActivate(int row, int col, wxGrid* grid, const wxGridActivationSource& actSource) override;
   void DoActivate(int row, int col, wxGrid* grid) override;
   void Create(wxWindow* parent, wxWindowID id, wxEvtHandler* evtHandler) override;
@@ -215,21 +209,15 @@ public:
   static bool IsTrueValue(const wxString& value);
 protected:
   wxCheckBox* CBox() const
-  {
-    return (wxCheckBox*) m_control;
-  }
+  { return (wxCheckBox *)m_control; }
 private:
     // These functions modify or use m_value.
   void SetValueFromGrid(int row, int col, wxGrid* grid);
   void SetGridFromValue(int row, int col, wxGrid* grid) const;
   wxString GetStringValue() const
-  {
-    return GetStringValue(m_value);
-  }
+  { return GetStringValue(m_value); }
   static wxString GetStringValue(bool value)
-  {
-    return ms_stringValues[value];
-  }
+  { return ms_stringValues[value]; }
   bool m_value;
   static wxString ms_stringValues[2];
   wxDECLARE_NO_COPY_CLASS(wxGridCellBoolEditor);
@@ -256,9 +244,7 @@ public:
   wxString GetValue() const override;
 protected:
   wxComboBox* Combo() const
-  {
-    return (wxComboBox*) m_control;
-  }
+  { return (wxComboBox *)m_control; }
   void OnComboCloseUp(wxCommandEvent& evt);
   wxString m_value;
   wxArrayString m_choices;
@@ -287,9 +273,9 @@ class WXDLLIMPEXP_ADV wxGridCellAutoWrapStringEditor : public wxGridCellTextEdit
 {
 public:
   wxGridCellAutoWrapStringEditor()
-    : wxGridCellTextEditor()
-  {
-  }
+    :  wxGridCellTextEditor() 
+    {
+     }
   void Create(wxWindow* parent, wxWindowID id, wxEvtHandler* evtHandler) override;
   wxGridCellEditor* Clone() const override
   {

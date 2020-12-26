@@ -45,17 +45,13 @@ public:
     // for nvpr only
   void setPathFragmentInputTransform(VaryingHandle u, int components, const SkMatrix& matrix) const override
   {
-    SK_ABORT("Only supported in NVPR, which is not in Dawn");
-  }
+        SK_ABORT("Only supported in NVPR, which is not in Dawn");
+    }
   void uploadUniformBuffers(GrDawnGpu* gpu, GrDawnRingBuffer::Slice geometryBuffer, GrDawnRingBuffer::Slice fragmentBuffer) const;
   uint32_t geometryUniformSize() const
-  {
-    return fGeometryUniformSize;
-  }
+  { return fGeometryUniformSize; }
   uint32_t fragmentUniformSize() const
-  {
-    return fFragmentUniformSize;
-  }
+  { return fFragmentUniformSize; }
 private:
   struct Uniform
   {

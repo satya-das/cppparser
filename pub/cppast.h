@@ -83,6 +83,21 @@ private:
   CppCompound* owner_;
 };
 
+/**
+ * \brief A stream of text that represents some content in a C++ program.
+ */
+struct CppBlob : public CppObj
+{
+  static constexpr CppObjType kObjectType = CppObjType::kBlob;
+  std::string                 blob_;
+
+  CppBlob(std::string blob)
+    : CppObj(CppObjType::kBlob, CppAccessType::kUnknown)
+    , blob_(std::move(blob))
+  {
+  }
+};
+
 struct CppDefine : public CppObj
 {
   static constexpr CppObjType kObjectType = CppObjType::kHashDefine;
@@ -876,6 +891,11 @@ struct CppCompound : public CppObj
     return (attr_ & _attr) == _attr;
   }
 
+  bool hasASingleBlobMember() const
+  {
+    return (members_.size() == 1) && (members_.front()->objType_ == CppBlob::kObjectType);
+  }
+
 private:
   void assignSpecialMember(const CppObj* mem);
 
@@ -1112,30 +1132,64 @@ using CppFunctionPointerEPtr = CppEasyPtr<CppFunctionPointer>;
  * Class data member initialization as part of class constructor.
  */
 using CppMemInit = std::pair<std::string, CppExpr*>;
+
 /**
  * Entire member initialization list.
  */
-using CppMemInitList = std::list<CppMemInit>;
+struct CppMemInits
+{
+  bool memInitListIsABlob_;
+  union
+  {
+    std::list<CppMemInit>* memInitList;
+    CppBlob*               blob;
+  };
+};
+
+inline CppMemInits makeCppMemInitList()
+{
+  return CppMemInits{false, {nullptr}};
+}
+
+inline CppMemInits makeCppMemInitList(std::list<CppMemInit>* memInitList)
+{
+  CppMemInits memInits = makeCppMemInitList();
+  memInits.memInitList = memInitList;
+
+  return memInits;
+}
+
+inline CppMemInits makeCppMemInitList(CppBlob* blob)
+{
+  CppMemInits memInits         = makeCppMemInitList();
+  memInits.memInitListIsABlob_ = true;
+  memInits.blob                = blob;
+
+  return memInits;
+}
 
 struct CppConstructor : public CppFuncCtorBase
 {
   static constexpr CppObjType kObjectType = CppObjType::kConstructor;
 
-  CppMemInitList* memInitList_;
+  CppMemInits memInits_;
 
   CppConstructor(CppAccessType   accessType,
                  std::string     name,
                  CppParamVector* params,
-                 CppMemInitList* memInitList,
+                 CppMemInits     memInitList,
                  std::uint32_t   attr)
     : CppFuncCtorBase(kObjectType, accessType, name, params, attr)
-    , memInitList_(memInitList)
+    , memInits_(memInitList)
   {
   }
 
   ~CppConstructor() override
   {
-    delete memInitList_;
+    if (memInits_.memInitListIsABlob_)
+      delete memInits_.blob;
+    else
+      delete memInits_.memInitList;
   }
 
   bool isCopyConstructor() const;
@@ -1625,21 +1679,6 @@ struct CppTryBlock : public CppObj
 
 private:
   CppCatchBlocks catchBlocks_;
-};
-
-/**
- * \brief A stream of text that represents some content in a C++ program.
- */
-struct CppBlob : public CppObj
-{
-  static constexpr CppObjType kObjectType = CppObjType::kBlob;
-  std::string                 blob_;
-
-  CppBlob(std::string blob)
-    : CppObj(CppObjType::kBlob, CppAccessType::kUnknown)
-    , blob_(std::move(blob))
-  {
-  }
 };
 
 // Templare argument needs more robust support.

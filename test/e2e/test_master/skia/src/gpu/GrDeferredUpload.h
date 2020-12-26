@@ -35,61 +35,55 @@ class GrDeferredUploadToken
 {
 public:
   static GrDeferredUploadToken AlreadyFlushedToken()
-  {
-    return GrDeferredUploadToken(0);
-  }
+  { return GrDeferredUploadToken(0); }
   GrDeferredUploadToken(const GrDeferredUploadToken&);
   GrDeferredUploadToken& operator=(const GrDeferredUploadToken&);
   bool operator==(const GrDeferredUploadToken& that) const
   {
-    return fSequenceNumber == that.fSequenceNumber;
-  }
+        return fSequenceNumber == that.fSequenceNumber;
+    }
   bool operator!=(const GrDeferredUploadToken& that) const
-  {
-    return !(*this == that);
-  }
+  { return !(*this == that); }
   bool operator<(const GrDeferredUploadToken that) const
   {
-    return fSequenceNumber < that.fSequenceNumber;
-  }
+        return fSequenceNumber < that.fSequenceNumber;
+    }
   bool operator<=(const GrDeferredUploadToken that) const
   {
-    return fSequenceNumber <= that.fSequenceNumber;
-  }
+        return fSequenceNumber <= that.fSequenceNumber;
+    }
   bool operator>(const GrDeferredUploadToken that) const
   {
-    return fSequenceNumber > that.fSequenceNumber;
-  }
+        return fSequenceNumber > that.fSequenceNumber;
+    }
   bool operator>=(const GrDeferredUploadToken that) const
   {
-    return fSequenceNumber >= that.fSequenceNumber;
-  }
+        return fSequenceNumber >= that.fSequenceNumber;
+    }
   GrDeferredUploadToken& operator++()
   {
-    ++fSequenceNumber;
-    return *this;
-  }
+        ++fSequenceNumber;
+        return *this;
+    }
   GrDeferredUploadToken operator++(int)
   {
-    auto old = fSequenceNumber;
-    ++fSequenceNumber;
-    return GrDeferredUploadToken(old);
-  }
+        auto old = fSequenceNumber;
+        ++fSequenceNumber;
+        return GrDeferredUploadToken(old);
+    }
   GrDeferredUploadToken next() const
-  {
-    return GrDeferredUploadToken(fSequenceNumber + 1);
-  }
+  { return GrDeferredUploadToken(fSequenceNumber + 1); }
     /** Is this token in the [start, end] inclusive interval? */
   bool inInterval(const GrDeferredUploadToken& start, const GrDeferredUploadToken& end)
   {
-    return *this >= start && *this <= end;
-  }
+        return *this >= start && *this <= end;
+    }
 private:
   GrDeferredUploadToken() = delete;
   explicit GrDeferredUploadToken(uint64_t sequenceNumber)
-    : fSequenceNumber(sequenceNumber)
-  {
-  }
+    :  fSequenceNumber(sequenceNumber) 
+    {
+    }
   uint64_t fSequenceNumber;
 };
 /*
@@ -100,16 +94,12 @@ class GrTokenTracker
 public:
     /** Gets the token one beyond the last token that has been flushed. */
   GrDeferredUploadToken nextTokenToFlush() const
-  {
-    return fLastFlushedToken.next();
-  }
+  { return fLastFlushedToken.next(); }
     /** Gets the next draw token that will be issued by this target. This can be used by an op
         to record that the next draw it issues will use a resource (e.g. texture) while preparing
         that draw. */
   GrDeferredUploadToken nextDrawToken() const
-  {
-    return fLastIssuedToken.next();
-  }
+  { return fLastIssuedToken.next(); }
 private:
     // Only these three classes get to increment the token counters
   friend class SkInternalAtlasTextContext;
@@ -117,14 +107,10 @@ private:
   friend class TestingUploadTarget;
     /** Issues the next token for a draw. */
   GrDeferredUploadToken issueDrawToken()
-  {
-    return ++fLastIssuedToken;
-  }
+  { return ++fLastIssuedToken; }
     /** Advances the last flushed token by one. */
   GrDeferredUploadToken flushToken()
-  {
-    return ++fLastFlushedToken;
-  }
+  { return ++fLastFlushedToken; }
   GrDeferredUploadToken fLastIssuedToken = GrDeferredUploadToken::AlreadyFlushedToken();
   GrDeferredUploadToken fLastFlushedToken = GrDeferredUploadToken::AlreadyFlushedToken();
 };

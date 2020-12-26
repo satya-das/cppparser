@@ -27,11 +27,11 @@ public:
     // Ctor/dtor/copy
   AcGiStyleAttributes()
   {
-  }
+   }
   AcGiStyleAttributes(const AcGiStyleAttributes& source);
   virtual ~AcGiStyleAttributes()
   {
-  }
+   }
     // Member data access
     // Color
   AcCmEntityColor& getColorAttribute();
@@ -62,36 +62,37 @@ protected:
 };
 inline AcGiStyleAttributes::AcGiStyleAttributes(const AcGiStyleAttributes& source)
 {
-  m_colorAttribute = source.getColorAttribute();
-  m_idLinetype = source.linetypeObjectId();
-  m_idPlotstyle = source.plotStyleNameId();
+
+    m_colorAttribute = source.getColorAttribute();
+    m_idLinetype = source.linetypeObjectId();
+    m_idPlotstyle = source.plotStyleNameId();
 }
 inline AcCmEntityColor& AcGiStyleAttributes::getColorAttribute()
-{
-  return m_colorAttribute;
+{ 
+    return m_colorAttribute; 
 }
 inline const AcCmEntityColor& AcGiStyleAttributes::getColorAttribute() const
-{
-  return m_colorAttribute;
+{ 
+    return m_colorAttribute; 
 }
 inline void AcGiStyleAttributes::setColorAttribute(const AcCmEntityColor& color)
 {
-  m_colorAttribute = color;
+    m_colorAttribute = color; 
 }
 inline AcDbObjectId AcGiStyleAttributes::linetypeObjectId() const
 {
-  return m_idLinetype;
+    return m_idLinetype;
 }
 inline void AcGiStyleAttributes::setLinetypeObjectId(const AcDbObjectId& newId)
 {
-  m_idLinetype = newId;
+    m_idLinetype = newId;
 }
 inline AcDbObjectId AcGiStyleAttributes::plotStyleNameId() const
 {
-  return m_idPlotstyle;
+    return m_idPlotstyle;
 }
 inline void AcGiStyleAttributes::setPlotStyleName(const AcDbObjectId& newId)
 {
-  m_idPlotstyle = newId;
+    m_idPlotstyle = newId;
 }
 #endif

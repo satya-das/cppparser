@@ -63,8 +63,8 @@ public:
     // As above, but defaults to the decal tile mode.
   static sk_sp<SkImageFilter> Blur(SkScalar sigmaX, SkScalar sigmaY, sk_sp<SkImageFilter> input, const SkIRect* cropRect = nullptr)
   {
-    return Blur(sigmaX, sigmaY, SkTileMode::kDecal, std::move(input), cropRect);
-  }
+        return Blur(sigmaX, sigmaY, SkTileMode::kDecal, std::move(input), cropRect);
+    }
     /**
      *  Create a filter that applies the color filter to the input filter results.
      *  @param cf       The color filter that transforms the input image.
@@ -135,9 +135,9 @@ public:
         // Defaults to kHigh_SkFilterQuality because the dstRect of the image filter will be mapped
         // by the layer matrix set during filtering. If that has a scale factor, then the image
         // will not be drawn at a 1-to-1 pixel scale, even that is what this appears to create here.
-    SkRect r = image ? SkRect::MakeWH(image->width(), image->height()) : SkRect::MakeEmpty();
-    return Image(std::move(image), r, r, kHigh_SkFilterQuality);
-  }
+        SkRect r = image ? SkRect::MakeWH(image->width(), image->height()) : SkRect::MakeEmpty();
+        return Image(std::move(image), r, r, kHigh_SkFilterQuality);
+    }
     /**
      *  Create a filter that mimics a zoom/magnifying lens effect.
      *  @param srcRect
@@ -191,9 +191,9 @@ public:
      */
   static sk_sp<SkImageFilter> Merge(sk_sp<SkImageFilter> first, sk_sp<SkImageFilter> second, const SkIRect* cropRect = nullptr)
   {
-    sk_sp<SkImageFilter> array[] = {std::move(first), std::move(second)};
-    return Merge(array, 2, cropRect);
-  }
+        sk_sp<SkImageFilter> array[] = { std::move(first), std::move(second) };
+        return Merge(array, 2, cropRect);
+    }
     /**
      *  Create a filter that offsets the input filter by the given vector.
      *  @param dx       The x offset in local space that the image is shifted.
@@ -220,9 +220,9 @@ public:
     // As above, but uses SkPicture::cullRect for the drawing region.
   static sk_sp<SkImageFilter> Picture(sk_sp<SkPicture> pic)
   {
-    SkRect target = pic ? pic->cullRect() : SkRect::MakeEmpty();
-    return Picture(std::move(pic), target);
-  }
+        SkRect target = pic ? pic->cullRect() : SkRect::MakeEmpty();
+        return Picture(std::move(pic), target);
+    }
     /**
      *  Create a tile image filter.
      *  @param src   Defines the pixels to tile

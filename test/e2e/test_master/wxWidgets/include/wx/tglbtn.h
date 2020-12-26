@@ -24,7 +24,7 @@ class WXDLLIMPEXP_CORE wxToggleButtonBase : public wxAnyButton
 public:
   wxToggleButtonBase()
   {
-  }
+   }
     // Get/set the value
   virtual void SetValue(bool state) = 0;
   virtual bool GetValue() const = 0;
@@ -49,11 +49,10 @@ public:
     event.SetEventObject(this);
     if (GetEventHandler()->ProcessEvent(event))
     {
-      if (event.GetSetChecked())
-      {
-        SetValue(event.GetChecked());
-      }
-    }
+
+            if ( event.GetSetChecked() )
+                SetValue( event.GetChecked() );
+            }
   }
   wxDECLARE_NO_COPY_CLASS(wxToggleButtonBase);
 };

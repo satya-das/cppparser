@@ -16,20 +16,20 @@ namespace SkSL
   struct Nop : public Statement
   {
     Nop()
-      : INHERITED(-1, kNop_Kind)
-    {
-    }
+      :  INHERITED(-1, kNop_Kind) 
+      {
+      }
     bool isEmpty() const override
     {
-      return true;
+        return true;
     }
     String description() const override
     {
-      return String(";");
+        return String(";");
     }
     std::unique_ptr<Statement> clone() const override
     {
-      return std::unique_ptr<Statement>(new Nop());
+        return std::unique_ptr<Statement>(new Nop());
     }
     typedef Statement INHERITED;
   };

@@ -20,13 +20,9 @@ public:
   virtual ~wxTaskBarIcon();
     // Accessors
   bool IsOk() const
-  {
-    return true;
-  }
+  { return true; }
   bool IsIconInstalled() const
-  {
-    return m_iconAdded;
-  }
+  { return m_iconAdded; }
     // Operations
   bool SetIcon(const wxIcon& icon, const wxString& tooltip = wxEmptyString) override;
   bool RemoveIcon() override;

@@ -244,8 +244,8 @@ public:
   template <size_t N>
   bool isRemoteFile(const ACHAR* pszLocalFile, ACHAR (&pszURL)[N]) const
   {
-    return isRemoteFile(pszLocalFile, pszURL, N);
-  }
+        return isRemoteFile(pszLocalFile, pszURL, N);
+    }
     // This overload calls the virtual overload.
     //
   ACDBCORE2D_PORT bool isRemoteFile(const ACHAR* pszLocalFile, AcString& strUrl);
@@ -271,15 +271,15 @@ public:
     // Helper overload, to be removed..
   ACDBCORE2D_PORT Acad::ErrorStatus getRemoteFile(const ACHAR* pszURL, AcString& strLocalFile)
   {
-    return this->getRemoteFile(pszURL, strLocalFile, false);
-  }
+        return this->getRemoteFile(pszURL, strLocalFile, false);
+    }
     // Helper template for callers passing fixed size arrays.
     // The above overload taking AcString & arg is recommended
   template <size_t N>
   Acad::ErrorStatus getRemoteFile(const ACHAR* pszURL, ACHAR (&pszLocalFile)[N]) const
   {
-    return this->getRemoteFile(pszURL, pszLocalFile, N, false);
-  }
+        return this->getRemoteFile(pszURL, pszLocalFile, N, /*bIgnoreCache*/false);
+    }
     // Upload a local resource (file) identified by the pathname 'pszLocalFile'
     // to the remote location specified by the URL 'pszURL.'
     //
@@ -301,8 +301,10 @@ public:
   template <size_t N>
   Adesk::Boolean launchBrowserDialog(ACHAR (&pszSelectedURL)[N], const ACHAR* pszDialogTitle, const ACHAR* pszOpenButtonCaption, const ACHAR* pszStartURL, const ACHAR* pszRegistryRootKey = 0, Adesk::Boolean bOpenButtonAlwaysEnabled = Adesk::kFalse) const
   {
-    return launchBrowserDialog(pszSelectedURL, N, pszDialogTitle, pszOpenButtonCaption, pszStartURL, pszRegistryRootKey, bOpenButtonAlwaysEnabled);
-  }
+        return launchBrowserDialog(pszSelectedURL,N,pszDialogTitle,
+                                   pszOpenButtonCaption,pszStartURL,
+                                   pszRegistryRootKey,bOpenButtonAlwaysEnabled);
+    }
     // OLE Embedded Objects 
     // Draw OLE object using given HDC, objectID and rectangle in screen 
     // coordinate.
@@ -324,9 +326,9 @@ public:
     // This method will go away in the future..
   Adesk::Boolean getSubstituteFont(ACHAR** pFileName, ACHAR* prompt, int type, int fontAlt) final
   {
-    const ACHAR* pConstPrompt = prompt;
-    return this->getSubstituteFont(pFileName, pConstPrompt, type, fontAlt);
-  }
+        const ACHAR *pConstPrompt = prompt;
+        return this->getSubstituteFont(pFileName, pConstPrompt, type, fontAlt);
+    }
   ACDBCORE2D_PORT virtual void alert(const ACHAR* string) const;
   ACDBCORE2D_PORT virtual void auditPrintReport(AcDbAuditInfo* pAuditInfo, const ACHAR* line, int both) const;
   ACDBCORE2D_PORT virtual const ACHAR* getAlternateFontName() const;
@@ -341,8 +343,8 @@ public:
   template <size_t nDevLen, size_t nStyleLen>
   bool getDefaultPlotCfgInfo(ACHAR (&devName)[nDevLen], ACHAR (&styleName)[nStyleLen])
   {
-    return getDefaultPlotCfgInfo(devName, nDevLen, styleName, nStyleLen);
-  }
+        return getDefaultPlotCfgInfo(devName, nDevLen, styleName, nStyleLen);
+    }
     // Clients should call this overload
   ACDBCORE2D_PORT void getDefaultPlotCfgInfo(AcString& devName, AcString& styleName);
     // BEGIN: DWG Security-related services
@@ -422,31 +424,31 @@ ACDBCORE2D_PORT Acad::ErrorStatus acdbSendInitialDwgFileOpenComplete(AcDbDatabas
 extern AcDbGlobals* getDefaultGlobals();
 inline AcDbGlobals* AcDbHostApplicationServices::workingGlobals() const
 {
-  return mpWorkingGlobals ? mpWorkingGlobals : getDefaultGlobals();
+    return mpWorkingGlobals ? mpWorkingGlobals : getDefaultGlobals();
 }
 inline code_page_id AcDbHostApplicationServices::getSystemCodePage() const
 {
-  return this->m_eSystemCodePage;
+    return this->m_eSystemCodePage;
 }
 inline AcDbTransactionManager* AcDbHostApplicationServices::workingTransactionManager()
 {
-  return mpWorkingTransactionManager;
+    return mpWorkingTransactionManager;
 }
 inline AcDbDatabase* AcDbHostApplicationServices::workingDatabase() const
 {
-  return mpWorkingDatabase;
+    return mpWorkingDatabase;
 }
 inline AcDbAppSystemVariables* AcDbHostApplicationServices::workingAppSysvars() const
 {
-  return mpWorkingAppSysvars;
+    return mpWorkingAppSysvars;
 }
 inline void AcDbHostApplicationServices::setWorkingAppSysvars(AcDbAppSystemVariables* pSysvars)
 {
-  mpWorkingAppSysvars = pSysvars;
+    mpWorkingAppSysvars = pSysvars;
 }
 inline AcPwdCache* AcDbHostApplicationServices::getPasswordCache() const
 {
-  return mpPasswordCache;
+    return mpPasswordCache;
 }
 // acdbTriggerAcadOctTreeReclassification
 //

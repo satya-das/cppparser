@@ -31,41 +31,41 @@ public:
   SkPictureRecord(const SkIRect& dimensions, uint32_t recordFlags);
   const SkTArray<sk_sp<const SkPicture>>& getPictures() const
   {
-    return fPictures;
-  }
+        return fPictures;
+    }
   const SkTArray<sk_sp<SkDrawable>>& getDrawables() const
   {
-    return fDrawables;
-  }
+        return fDrawables;
+    }
   const SkTArray<sk_sp<const SkTextBlob>>& getTextBlobs() const
   {
-    return fTextBlobs;
-  }
+        return fTextBlobs;
+    }
   const SkTArray<sk_sp<const SkVertices>>& getVertices() const
   {
-    return fVertices;
-  }
+        return fVertices;
+    }
   const SkTArray<sk_sp<const SkImage>>& getImages() const
   {
-    return fImages;
-  }
+        return fImages;
+    }
   sk_sp<SkData> opData() const
   {
-    this->validate(fWriter.bytesWritten(), 0);
-    if (fWriter.bytesWritten() == 0)
-    {
-      return SkData::MakeEmpty();
+        this->validate(fWriter.bytesWritten(), 0);
+
+        if (fWriter.bytesWritten() == 0) {
+            return SkData::MakeEmpty();
+        }
+        return fWriter.snapshotAsData();
     }
-    return fWriter.snapshotAsData();
-  }
   void setFlags(uint32_t recordFlags)
   {
-    fRecordFlags = recordFlags;
-  }
+        fRecordFlags = recordFlags;
+    }
   const SkWriter32& writeStream() const
   {
-    return fWriter;
-  }
+        return fWriter;
+    }
   void beginRecording();
   void endRecording();
 protected:
@@ -90,36 +90,35 @@ private:
      */
   size_t addDraw(DrawType drawType, size_t* size)
   {
-    size_t offset = fWriter.bytesWritten();
-    this->predrawNotify();
-    SkASSERT(0 != *size);
-    SkASSERT(((uint8_t) drawType) == drawType);
-    if (0 != (*size & ~MASK_24) || *size == MASK_24)
-    {
-      fWriter.writeInt(PACK_8_24(drawType, MASK_24));
-      *size += 1;
-      fWriter.writeInt(SkToU32(*size));
+        size_t offset = fWriter.bytesWritten();
+
+        this->predrawNotify();
+
+        SkASSERT(0 != *size);
+        SkASSERT(((uint8_t) drawType) == drawType);
+
+        if (0 != (*size & ~MASK_24) || *size == MASK_24) {
+            fWriter.writeInt(PACK_8_24(drawType, MASK_24));
+            *size += 1;
+            fWriter.writeInt(SkToU32(*size));
+        } else {
+            fWriter.writeInt(PACK_8_24(drawType, SkToU32(*size)));
+        }
+
+        return offset;
     }
-    else 
-    {
-      fWriter.writeInt(PACK_8_24(drawType, SkToU32(*size)));
-    }
-    return offset;
-  }
   void addInt(int value)
   {
-    fWriter.writeInt(value);
-  }
+        fWriter.writeInt(value);
+    }
   void addScalar(SkScalar scalar)
   {
-    fWriter.writeScalar(scalar);
-  }
+        fWriter.writeScalar(scalar);
+    }
   void addImage(const SkImage*);
   void addMatrix(const SkMatrix& matrix);
   void addPaint(const SkPaint& paint)
-  {
-    this->addPaintPtr(&paint);
-  }
+  { this->addPaintPtr(&paint); }
   void addPaintPtr(const SkPaint* paint);
   void addPatch(const SkPoint cubics[12]);
   void addPath(const SkPath& path);
@@ -140,13 +139,11 @@ private:
 protected:
   void validate(size_t initialOffset, size_t size) const
   {
-    SkASSERT(fWriter.bytesWritten() == initialOffset + size);
-  }
+        SkASSERT(fWriter.bytesWritten() == initialOffset + size);
+    }
   sk_sp<SkSurface> onNewSurface(const SkImageInfo&, const SkSurfaceProps&) override;
   bool onPeekPixels(SkPixmap*) override
-  {
-    return false;
-  }
+  { return false; }
   void onFlush() override;
   void willSave() override;
   SaveLayerStrategy getSaveLayerStrategy(const SaveLayerRec&) override;
@@ -199,28 +196,26 @@ protected:
     // SHOULD NEVER BE CALLED
   void onDrawBitmap(const SkBitmap&, SkScalar left, SkScalar top, const SkPaint*) override
   {
-    SK_ABORT("not reached");
-  }
+        SK_ABORT("not reached");
+    }
   void onDrawBitmapRect(const SkBitmap&, const SkRect* src, const SkRect& dst, const SkPaint*, SrcRectConstraint) override
   {
-    SK_ABORT("not reached");
-  }
+        SK_ABORT("not reached");
+    }
   void onDrawBitmapNine(const SkBitmap&, const SkIRect& center, const SkRect& dst, const SkPaint*) override
   {
-    SK_ABORT("not reached");
-  }
+        SK_ABORT("not reached");
+    }
   void onDrawBitmapLattice(const SkBitmap&, const SkCanvas::Lattice& lattice, const SkRect& dst, const SkPaint*) override
   {
-    SK_ABORT("not reached");
-  }
+        SK_ABORT("not reached");
+    }
 private:
   SkTArray<SkPaint> fPaints;
   struct PathHash
   {
     uint32_t operator()(const SkPath& p)
-    {
-      return p.getGenerationID();
-    }
+    { return p.getGenerationID(); }
   };
   SkTHashMap<SkPath, int, PathHash> fPaths;
   SkWriter32 fWriter;

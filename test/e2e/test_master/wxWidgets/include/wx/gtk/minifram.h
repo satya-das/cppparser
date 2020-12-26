@@ -21,8 +21,9 @@ public:
   }
   wxMiniFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAPTION | wxRESIZE_BORDER, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-    Create(parent, id, title, pos, size, style, name);
-  }
+
+        Create(parent, id, title, pos, size, style, name);
+      }
   ~wxMiniFrame();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAPTION | wxRESIZE_BORDER, const wxString& name = wxASCII_STR(wxFrameNameStr));
   void SetTitle(const wxString& title) override;

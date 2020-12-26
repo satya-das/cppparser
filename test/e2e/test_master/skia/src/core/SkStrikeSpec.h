@@ -42,13 +42,9 @@ public:
   SkScopedStrikeForGPU findOrCreateScopedStrike(SkStrikeForGPUCacheInterface* cache) const;
   SkExclusiveStrikePtr findOrCreateExclusiveStrike(SkStrikeCache* cache = SkStrikeCache::GlobalStrikeCache()) const;
   SkScalar strikeToSourceRatio() const
-  {
-    return fStrikeToSourceRatio;
-  }
+  { return fStrikeToSourceRatio; }
   const SkDescriptor& descriptor() const
-  {
-    return *fAutoDescriptor.getDesc();
-  }
+  { return *fAutoDescriptor.getDesc(); }
   static bool ShouldDrawAsPath(const SkPaint& paint, const SkFont& font, const SkMatrix& matrix);
 private:
   void commonSetup(const SkFont& font, const SkPaint& paint, const SkSurfaceProps& surfaceProps, SkScalerContextFlags scalerContextFlags, const SkMatrix& deviceMatrix);

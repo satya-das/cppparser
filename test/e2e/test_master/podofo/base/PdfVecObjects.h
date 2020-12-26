@@ -92,7 +92,8 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
     public:
       virtual ~Observer()
       {
-      }
+
+                  }
       virtual void WriteObject(const PdfObject* pObject) = 0;
         /**
          * This method is called when the observed PdfVecObjects is delted. 
@@ -118,7 +119,8 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
     public:
       virtual ~StreamFactory()
       {
-      }
+
+                  }
         /** Creates a stream object
          *
          *  \param pParent parent object
@@ -187,9 +189,7 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
      *  \returns the highest object number in the vector 
      */
     size_t GetObjectCount() const
-    {
-      return m_nObjectCount;
-    }
+    { return m_nObjectCount; }
     /** Finds the object with the given reference in m_vecOffsets 
      *  and returns a pointer to it if it is found.
      *  \param ref the object to be found
@@ -439,134 +439,135 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
   inline size_t PdfVecObjects::GetSize() const
   {
     return m_vector.size();
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfVecObjects::SetMaxReserveSize(size_t size)
   {
     m_nMaxReserveSize = size;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline size_t PdfVecObjects::GetMaxReserveSize() const
   {
     return m_nMaxReserveSize;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfVecObjects::Reserve(size_t size)
   {
-    if (size <= m_nMaxReserveSize)
+    if( size <= m_nMaxReserveSize ) // Fix CVE-2018-5783
     {
-      m_vector.reserve(size);
-    }
-    else 
+        m_vector.reserve( size );
+    } 
+    else
     {
-      PdfError::DebugMessage("Call to PdfVecObjects::Reserve with %"
+        PdfError::DebugMessage( "Call to PdfVecObjects::Reserve with %"
                            PDF_SIZE_FORMAT" is over allowed limit of %"
-                           PDF_SIZE_FORMAT".\n", size, m_nMaxReserveSize);
+                           PDF_SIZE_FORMAT".\n", size, m_nMaxReserveSize );
     }
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfDocument* PdfVecObjects::GetParentDocument() const
   {
     return m_pDocument;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfVecObjects::SetParentDocument(PdfDocument* pDocument)
   {
     m_pDocument = pDocument;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfVecObjects::SetAutoDelete(bool bAutoDelete)
   {
     m_bAutoDelete = bAutoDelete;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfVecObjects::AutoDelete() const
   {
     return m_bAutoDelete;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfVecObjects::GetCanReuseObjectNumbers() const
   {
     return m_bCanReuseObjectNumbers;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline const TPdfReferenceList& PdfVecObjects::GetFreeObjects() const
   {
     return m_lstFreeObjects;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfVecObjects::Attach(Observer* pObserver)
   {
-    m_vecObservers.push_back(pObserver);
-  }
+    m_vecObservers.push_back( pObserver );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfVecObjects::SetStreamFactory(StreamFactory* pFactory)
   {
     m_pStreamFactory = pFactory;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline TIVecObjects PdfVecObjects::begin()
   {
     return m_vector.begin();
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline TCIVecObjects PdfVecObjects::begin() const
   {
     return m_vector.begin();
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline TIVecObjects PdfVecObjects::end()
   {
     return m_vector.end();
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline TCIVecObjects PdfVecObjects::end() const
   {
     return m_vector.end();
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfObject* PdfVecObjects::GetBack()
-  {
-    return m_vector.back();
-  }
+  { 
+    return m_vector.back(); 
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfVecObjects::SetObjectCount(const PdfReference& rRef)
   {
-    if (rRef.ObjectNumber() >= m_nObjectCount)
+    if( rRef.ObjectNumber() >= m_nObjectCount )
+    // Peter Petrov 18 September 2008
     {
         // This was a bug.
         //++m_nObjectCount;
@@ -574,16 +575,14 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
         // In fact "m_bObjectCount" is used for the next free object number.
         // We need to use the greatest object number + 1 for the next free object number.
         // Otherwise, object number overlap would have occurred.
-      m_nObjectCount = rRef.ObjectNumber() + 1;
+        m_nObjectCount = rRef.ObjectNumber() + 1;
     }
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfObject*& PdfVecObjects::operator[](size_t index)
-  {
-    return m_vector[index];
-  }
+  { return m_vector[index]; }
 //inline PdfObject const * & PdfVecObjects::operator[](int index) const { return m_vector[index]; }
 }
 #endif

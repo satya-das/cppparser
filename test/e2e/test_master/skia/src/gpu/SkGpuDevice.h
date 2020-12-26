@@ -51,9 +51,7 @@ public:
   {
   }
   GrContext* context() const override
-  {
-    return fContext.get();
-  }
+  { return fContext.get(); }
     // set all pixels to 0
   void clearAll();
   void replaceRenderTargetContext(bool shouldRetainContent);
@@ -109,13 +107,9 @@ private:
   sk_sp<SkSurface> makeSurface(const SkImageInfo&, const SkSurfaceProps&) override;
   SkImageFilterCache* getImageFilterCache() override;
   bool forceConservativeRasterClip() const override
-  {
-    return true;
-  }
+  { return true; }
   GrClipStackClip clip() const
-  {
-    return GrClipStackClip(&this->cs());
-  }
+  { return GrClipStackClip(&this->cs()); }
   const GrCaps* caps() const;
     /**
      * Helper functions called by drawBitmapCommon. By the time these are called the SkDraw's

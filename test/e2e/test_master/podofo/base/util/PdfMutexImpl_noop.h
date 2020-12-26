@@ -51,16 +51,15 @@ namespace PoDoFo
      */
       inline PdfMutexImpl()
       {
-      }
+       }
       inline ~PdfMutexImpl()
       {
-      }
+       }
     /**
      * Lock the mutex
      */
       inline void Lock()
-      {
-      }
+      { }
     /**
      * Try locking the mutex. 
      *
@@ -69,15 +68,12 @@ namespace PoDoFo
      *                by some other thread
      */
       inline bool TryLock()
-      {
-        return true;
-      }
+      { return true; }
     /**
      * Unlock the mutex
      */
       inline void UnLock()
-      {
-      }
+      { }
     };
   }
 }

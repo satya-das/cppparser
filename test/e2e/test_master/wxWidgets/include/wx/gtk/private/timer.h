@@ -16,10 +16,9 @@ class WXDLLIMPEXP_CORE wxGTKTimerImpl : public wxTimerImpl
 {
 public:
   wxGTKTimerImpl(wxTimer* timer)
-    : wxTimerImpl(timer)
-  {
-    m_sourceId = 0;
-  }
+    :  wxTimerImpl(timer) 
+    {
+ m_sourceId = 0;     }
   bool Start(int millisecs = -1, bool oneShot = false) override;
   void Stop() override;
   bool IsRunning() const override

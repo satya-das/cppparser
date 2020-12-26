@@ -37,9 +37,7 @@ public:
      *  on copy-on-write.
      */
   virtual sk_sp<SkImage> onNewImageSnapshot(const SkIRect* subset = nullptr)
-  {
-    return nullptr;
-  }
+  { return nullptr; }
   virtual void onWritePixels(const SkPixmap&, int x, int y) = 0;
     /**
      * Default implementation does a rescale/read and then calls the callback.
@@ -86,8 +84,8 @@ public:
      */
   virtual GrSemaphoresSubmitted onFlush(BackendSurfaceAccess access, const GrFlushInfo&)
   {
-    return GrSemaphoresSubmitted::kNo;
-  }
+        return GrSemaphoresSubmitted::kNo;
+    }
     /**
      * Caused the current backend 3D API to wait on the passed in semaphores before executing new
      * commands on the gpu. Any previously submitting commands will not be blocked by these
@@ -95,26 +93,18 @@ public:
      */
   virtual bool onWait(int numSemaphores, const GrBackendSemaphore* waitSemaphores)
   {
-    return false;
-  }
+        return false;
+    }
   virtual bool onCharacterize(SkSurfaceCharacterization*) const
-  {
-    return false;
-  }
+  { return false; }
   virtual bool onIsCompatible(const SkSurfaceCharacterization&) const
-  {
-    return false;
-  }
+  { return false; }
   virtual bool onDraw(const SkDeferredDisplayList*)
-  {
-    return false;
-  }
+  { return false; }
   inline SkCanvas* getCachedCanvas();
   inline sk_sp<SkImage> refCachedImage();
   bool hasCachedImage() const
-  {
-    return fCachedImage != nullptr;
-  }
+  { return fCachedImage != nullptr; }
     // called by SkSurface to compute a new genID
   uint32_t newGenerationID();
 private:
@@ -130,24 +120,23 @@ private:
 };
 SkCanvas* SkSurface_Base::getCachedCanvas()
 {
-  if (nullptr == fCachedCanvas)
-  {
-    fCachedCanvas = std::unique_ptr<SkCanvas>(this->onNewCanvas());
-    if (fCachedCanvas)
-    {
-      fCachedCanvas->setSurfaceBase(this);
+    if (nullptr == fCachedCanvas) {
+        fCachedCanvas = std::unique_ptr<SkCanvas>(this->onNewCanvas());
+        if (fCachedCanvas) {
+            fCachedCanvas->setSurfaceBase(this);
+        }
     }
-  }
-  return fCachedCanvas.get();
+    return fCachedCanvas.get();
 }
 sk_sp<SkImage> SkSurface_Base::refCachedImage()
 {
-  if (fCachedImage)
-  {
+    if (fCachedImage) {
+        return fCachedImage;
+    }
+
+    fCachedImage = this->onNewImageSnapshot();
+
+    SkASSERT(!fCachedCanvas || fCachedCanvas->getSurfaceBase() == this);
     return fCachedImage;
-  }
-  fCachedImage = this->onNewImageSnapshot();
-  SkASSERT(!fCachedCanvas || fCachedCanvas->getSurfaceBase() == this);
-  return fCachedImage;
 }
 #endif

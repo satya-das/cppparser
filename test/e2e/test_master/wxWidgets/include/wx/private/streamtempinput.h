@@ -39,80 +39,78 @@ class wxStreamTempInputBuffer
 public:
   wxStreamTempInputBuffer()
   {
-    m_stream = NULL;
-    m_buffer = NULL;
-    m_size = 0;
-  }
+
+        m_stream = NULL;
+        m_buffer = NULL;
+        m_size = 0;
+      }
     // call to associate a stream with this buffer, otherwise nothing happens
     // at all
   void Init(wxPipeInputStream* stream)
   {
-    wxASSERT_MSG(!m_stream, wxS("Can only initialize once"));
-    m_stream = stream;
-  }
+        wxASSERT_MSG( !m_stream, wxS("Can only initialize once") );
+
+        m_stream = stream;
+    }
     // check for input on our stream and cache it in our buffer if any
     //
     // return true if anything was done
   bool Update()
   {
-    if (!m_stream || !m_stream->CanRead())
-    {
-      return false;
-    }
+        if ( !m_stream || !m_stream->CanRead() )
+            return false;
+
         // realloc in blocks of 4Kb: this is the default (and minimal) buffer
         // size of the Unix pipes so it should be the optimal step
         //
         // NB: don't use "static int" in this inline function, some compilers
         //     (e.g. IBM xlC) don't like it
-    enum { incSize = 4096 };
-    void* buf = realloc(m_buffer, m_size + incSize);
-    if (!buf)
-    {
-      return false;
+        enum { incSize = 4096 };
+
+        void *buf = realloc(m_buffer, m_size + incSize);
+        if ( !buf )
+            return false;
+
+        m_buffer = buf;
+        m_stream->Read((char *)m_buffer + m_size, incSize);
+        m_size += m_stream->LastRead();
+
+        return true;
     }
-    m_buffer = buf;
-    m_stream->Read((char*) m_buffer + m_size, incSize);
-    m_size += m_stream->LastRead();
-    return true;
-  }
     // check if can continue reading from the stream, this is used to disable
     // the callback once we can't read anything more
   bool Eof() const
   {
         // If we have no stream, always return true as we can't read any more.
-    return !m_stream || m_stream->Eof();
-  }
+        return !m_stream || m_stream->Eof();
+    }
     // read everything remaining until the EOF, this should only be called once
     // the child process terminates and we know that no more data is coming
   bool ReadAll()
   {
-    while (!Eof())
-    {
-      if (!Update())
-      {
-        return false;
-      }
+        while ( !Eof() )
+        {
+            if ( !Update() )
+                return false;
+        }
+
+        return true;
     }
-    return true;
-  }
     // dtor puts the data buffered during this object lifetime into the
     // associated stream
   ~wxStreamTempInputBuffer()
   {
-    if (m_buffer)
-    {
-      m_stream->Ungetch(m_buffer, m_size);
-      free(m_buffer);
-    }
-  }
+
+        if ( m_buffer )
+        {
+            m_stream->Ungetch(m_buffer, m_size);
+            free(m_buffer);
+        }
+      }
   const void* GetBuffer() const
-  {
-    return m_buffer;
-  }
+  { return m_buffer; }
   size_t GetSize() const
-  {
-    return m_size;
-  }
+  { return m_size; }
 private:
     // the stream we're buffering, if NULL we don't do anything at all
   wxPipeInputStream* m_stream;

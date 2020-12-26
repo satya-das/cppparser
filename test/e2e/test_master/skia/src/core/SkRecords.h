@@ -85,25 +85,22 @@ namespace SkRecords
   {
   public:
     Optional()
-      : fPtr(nullptr)
-    {
-    }
+      :  fPtr(nullptr) 
+      {
+      }
     Optional(T* ptr)
-      : fPtr(ptr)
-    {
-    }
+      :  fPtr(ptr) 
+      {
+      }
     Optional(Optional&& o)
-      : fPtr(o.fPtr)
-    {
-      o.fPtr = nullptr;
-    }
+      :  fPtr(o.fPtr) 
+      {
+
+        o.fPtr = nullptr;
+          }
     ~Optional()
     {
-      if (fPtr)
-      {
-        fPtr->~T();
-      }
-    }
+ if (fPtr) fPtr->~T();     }
     ACT_AS_PTR(fPtr)
   private:
     T* fPtr;
@@ -116,23 +113,19 @@ namespace SkRecords
   {
   public:
     Adopted(T* ptr)
-      : fPtr(ptr)
-    {
-      SkASSERT(fPtr);
-    }
+      :  fPtr(ptr) 
+      {
+ SkASSERT(fPtr);       }
     Adopted(Adopted* source)
     {
+
         // Transfer ownership from source to this.
-      fPtr = source->fPtr;
-      source->fPtr = NULL;
-    }
+        fPtr = source->fPtr;
+        source->fPtr = NULL;
+        }
     ~Adopted()
     {
-      if (fPtr)
-      {
-        fPtr->~T();
-      }
-    }
+ if (fPtr) fPtr->~T();     }
     ACT_AS_PTR(fPtr)
   private:
     T* fPtr;
@@ -148,9 +141,9 @@ namespace SkRecords
     {
     }
     PODArray(T* ptr)
-      : fPtr(ptr)
-    {
-    }
+      :  fPtr(ptr) 
+      {
+      }
     // Default copy and assign.
     ACT_AS_PTR(fPtr)
   private:
@@ -218,18 +211,13 @@ struct T {                              \
     {
     }
     ClipOpAndAA(SkClipOp op, bool aa)
-      : fOp(static_cast<unsigned>(op))
-      , fAA(aa)
-    {
-    }
+      :  fOp(static_cast<unsigned>(op)), fAA(aa) 
+      {
+      }
     SkClipOp op() const
-    {
-      return static_cast<SkClipOp>(fOp);
-    }
+    { return static_cast<SkClipOp>(fOp); }
     bool aa() const
-    {
-      return fAA != 0;
-    }
+    { return fAA != 0; }
   private:
     unsigned fOp;
     unsigned fAA;

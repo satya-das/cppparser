@@ -368,13 +368,13 @@ namespace PoDoFo
   inline EPdfAnnotation PdfAnnotation::GetType() const
   {
     return m_eAnnotation;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfPage* PdfAnnotation::GetPage() const
   {
     return m_pPage;
-  }
+}
 }
 #endif

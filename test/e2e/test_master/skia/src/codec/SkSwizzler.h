@@ -55,8 +55,8 @@ public:
   void swizzle(void* dst, const uint8_t* src);
   int fillWidth() const override
   {
-    return fAllocatedWidth;
-  }
+        return fAllocatedWidth;
+    }
     /**
      *  If fSampleX > 1, the swizzler is sampling every fSampleX'th pixel and
      *  discarding the rest.
@@ -66,25 +66,19 @@ public:
      *  this allows us to apply a transparency mask to pixels after swizzling.
      */
   int sampleX() const
-  {
-    return fSampleX;
-  }
+  { return fSampleX; }
     /**
      *  Returns the actual number of pixels written to destination memory, taking
      *  scaling, subsetting, and partial frames into account.
      */
   int swizzleWidth() const
-  {
-    return fSwizzleWidth;
-  }
+  { return fSwizzleWidth; }
     /**
      *  Returns the byte offset at which we write to destination memory, taking
      *  scaling, subsetting, and partial frames into account.
      */
   size_t swizzleOffsetBytes() const
-  {
-    return fDstOffsetBytes;
-  }
+  { return fDstOffsetBytes; }
 private:
     /**
      *  Method for converting raw data to Skia pixels.

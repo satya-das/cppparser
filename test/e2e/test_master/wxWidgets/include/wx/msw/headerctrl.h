@@ -18,13 +18,16 @@ class WXDLLIMPEXP_CORE wxHeaderCtrl : public wxCompositeWindow<wxHeaderCtrlBase>
 public:
   wxHeaderCtrl()
   {
-    Init();
-  }
+
+        Init();
+      }
   wxHeaderCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHD_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxHeaderCtrlNameStr))
   {
-    Init();
-    Create(parent, id, pos, size, style, name);
-  }
+
+        Init();
+
+        Create(parent, id, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHD_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxHeaderCtrlNameStr));
     // Window style handling.
   void SetWindowStyleFlag(long style) override;

@@ -47,71 +47,41 @@ public:
   bool Create(const wxString& uri);
   wxURI& operator=(const wxString& string)
   {
-    Create(string);
-    return *this;
-  }
+        Create(string);
+        return *this;
+    }
   bool operator==(const wxURI& uri) const;
     // various accessors
   bool HasScheme() const
-  {
-    return (m_fields & wxURI_SCHEME) != 0;
-  }
+  { return (m_fields & wxURI_SCHEME) != 0;   }
   bool HasUserInfo() const
-  {
-    return (m_fields & wxURI_USERINFO) != 0;
-  }
+  { return (m_fields & wxURI_USERINFO) != 0; }
   bool HasServer() const
-  {
-    return (m_fields & wxURI_SERVER) != 0;
-  }
+  { return (m_fields & wxURI_SERVER) != 0;   }
   bool HasPort() const
-  {
-    return (m_fields & wxURI_PORT) != 0;
-  }
+  { return (m_fields & wxURI_PORT) != 0;     }
   bool HasPath() const
-  {
-    return (m_fields & wxURI_PATH) != 0;
-  }
+  { return (m_fields & wxURI_PATH) != 0;     }
   bool HasQuery() const
-  {
-    return (m_fields & wxURI_QUERY) != 0;
-  }
+  { return (m_fields & wxURI_QUERY) != 0;    }
   bool HasFragment() const
-  {
-    return (m_fields & wxURI_FRAGMENT) != 0;
-  }
+  { return (m_fields & wxURI_FRAGMENT) != 0; }
   const wxString& GetScheme() const
-  {
-    return m_scheme;
-  }
+  { return m_scheme;   }
   const wxString& GetPath() const
-  {
-    return m_path;
-  }
+  { return m_path;     }
   const wxString& GetQuery() const
-  {
-    return m_query;
-  }
+  { return m_query;    }
   const wxString& GetFragment() const
-  {
-    return m_fragment;
-  }
+  { return m_fragment; }
   const wxString& GetPort() const
-  {
-    return m_port;
-  }
+  { return m_port;     }
   const wxString& GetUserInfo() const
-  {
-    return m_userinfo;
-  }
+  { return m_userinfo; }
   const wxString& GetServer() const
-  {
-    return m_server;
-  }
+  { return m_server;   }
   wxURIHostType GetHostType() const
-  {
-    return m_hostType;
-  }
+  { return m_hostType; }
     // these functions only work if the user information part of the URI is in
     // the usual (but insecure and hence explicitly recommended against by the
     // RFC) "user:password" form
@@ -123,13 +93,9 @@ public:
     // for example, while BuildUnescapedURI() returns a string suitable to be
     // shown to the user.
   wxString BuildURI() const
-  {
-    return DoBuildURI(&wxURI::Nothing);
-  }
+  { return DoBuildURI(&wxURI::Nothing); }
   wxString BuildUnescapedURI() const
-  {
-    return DoBuildURI(&wxURI::Unescape);
-  }
+  { return DoBuildURI(&wxURI::Unescape); }
     // the escaped URI should contain only ASCII characters, including possible
     // escape sequences
   static wxString Unescape(const wxString& escapedURI);
@@ -144,9 +110,7 @@ protected:
     // BuildURI() to tell DoBuildURI() that nothing needs to be done with the
     // URI components
   static wxString Nothing(const wxString& value)
-  {
-    return value;
-  }
+  { return value; }
   bool Parse(const char* uri);
   const char* ParseAuthority(const char* uri);
   const char* ParseScheme(const char* uri);

@@ -17,22 +17,22 @@ namespace SkSL
   struct PostfixExpression : public Expression
   {
     PostfixExpression(std::unique_ptr<Expression> operand, Token::Kind op)
-      : INHERITED(operand->fOffset, kPostfix_Kind, operand->fType)
-      , fOperand(std::move(operand))
-      , fOperator(op)
-    {
-    }
+      :  INHERITED(operand->fOffset, kPostfix_Kind, operand->fType)
+    , fOperand(std::move(operand))
+    , fOperator(op) 
+      {
+      }
     bool hasSideEffects() const override
     {
-      return true;
+        return true;
     }
     std::unique_ptr<Expression> clone() const override
     {
-      return std::unique_ptr<Expression>(new PostfixExpression(fOperand->clone(), fOperator));
+        return std::unique_ptr<Expression>(new PostfixExpression(fOperand->clone(), fOperator));
     }
     String description() const override
     {
-      return fOperand->description() + Compiler::OperatorName(fOperator);
+        return fOperand->description() + Compiler::OperatorName(fOperator);
     }
     std::unique_ptr<Expression> fOperand;
     const Token::Kind fOperator;

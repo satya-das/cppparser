@@ -53,9 +53,7 @@ public:
   long GetDelay(unsigned int frame) const override;
     // GIFs can contain both static images and animations
   bool IsAnimation() const
-  {
-    return m_nFrames > 1;
-  }
+  { return m_nFrames > 1; }
     // load function which returns more info than just Load():
   wxGIFErrorCode LoadGIF(wxInputStream& stream);
     // free all internal frames

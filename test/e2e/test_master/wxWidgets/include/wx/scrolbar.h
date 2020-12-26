@@ -21,7 +21,7 @@ class WXDLLIMPEXP_CORE wxScrollBarBase : public wxControl
 public:
   wxScrollBarBase()
   {
-  }
+   }
     /*
         Derived classes should provide the following method and ctor with the
         same parameters:
@@ -41,17 +41,13 @@ public:
   virtual int GetPageSize() const = 0;
   virtual int GetRange() const = 0;
   bool IsVertical() const
-  {
-    return (m_windowStyle & wxVERTICAL) != 0;
-  }
+  { return (m_windowStyle & wxVERTICAL) != 0; }
     // operations
   virtual void SetThumbPosition(int viewStart) = 0;
   void SetScrollbar(int position, int thumbSize, int range, int pageSize, bool refresh = true) = 0;
     // implementation-only
   bool IsNeeded() const
-  {
-    return GetRange() > GetThumbSize();
-  }
+  { return GetRange() > GetThumbSize(); }
   wxDECLARE_NO_COPY_CLASS(wxScrollBarBase);
 };
 #    if  defined(__WXUNIVERSAL__)

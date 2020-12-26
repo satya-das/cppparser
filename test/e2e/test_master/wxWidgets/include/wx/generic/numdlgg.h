@@ -25,17 +25,17 @@ class WXDLLIMPEXP_CORE wxNumberEntryDialog : public wxDialog
 public:
   wxNumberEntryDialog()
   {
-    m_value = m_min = m_max = 0;
-  }
+
+        m_value = m_min = m_max = 0;
+      }
   wxNumberEntryDialog(wxWindow* parent, const wxString& message, const wxString& prompt, const wxString& caption, long value, long min, long max, const wxPoint& pos = wxDefaultPosition)
   {
-    Create(parent, message, prompt, caption, value, min, max, pos);
-  }
+
+        Create(parent, message, prompt, caption, value, min, max, pos);
+      }
   bool Create(wxWindow* parent, const wxString& message, const wxString& prompt, const wxString& caption, long value, long min, long max, const wxPoint& pos = wxDefaultPosition);
   long GetValue() const
-  {
-    return m_value;
-  }
+  { return m_value; }
     // implementation only
   void OnOK(wxCommandEvent& event);
   void OnCancel(wxCommandEvent& event);

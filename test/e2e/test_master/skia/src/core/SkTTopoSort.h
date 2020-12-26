@@ -12,20 +12,18 @@
 template <typename T, typename Traits = T>
 void SkTTopoSort_CheckAllUnmarked(const SkTArray<sk_sp<T>>& graph)
 {
-  for (int i = 0; i < graph.count(); ++i)
-  {
-    SkASSERT(!Traits::IsTempMarked(graph[i].get()));
-    SkASSERT(!Traits::WasOutput(graph[i].get()));
-  }
+    for (int i = 0; i < graph.count(); ++i) {
+        SkASSERT(!Traits::IsTempMarked(graph[i].get()));
+        SkASSERT(!Traits::WasOutput(graph[i].get()));
+    }
 }
 template <typename T, typename Traits = T>
 void SkTTopoSort_CleanExit(const SkTArray<sk_sp<T>>& graph)
 {
-  for (int i = 0; i < graph.count(); ++i)
-  {
-    SkASSERT(!Traits::IsTempMarked(graph[i].get()));
-    SkASSERT(Traits::WasOutput(graph[i].get()));
-  }
+    for (int i = 0; i < graph.count(); ++i) {
+        SkASSERT(!Traits::IsTempMarked(graph[i].get()));
+        SkASSERT(Traits::WasOutput(graph[i].get()));
+    }
 }
 #  endif
 // Recursively visit a node and all the other nodes it depends on.
@@ -33,30 +31,29 @@ void SkTTopoSort_CleanExit(const SkTArray<sk_sp<T>>& graph)
 template <typename T, typename Traits = T>
 bool SkTTopoSort_Visit(T* node, SkTArray<sk_sp<T>>* result)
 {
-  if (Traits::IsTempMarked(node))
-  {
+    if (Traits::IsTempMarked(node)) {
         // There is a loop.
-    return false;
-  }
+        return false;
+    }
+
     // If the node under consideration has been already been output it means it
     // (and all the nodes it depends on) are already in 'result'.
-  if (!Traits::WasOutput(node))
-  {
+    if (!Traits::WasOutput(node)) {
         // This node hasn't been output yet. Recursively assess all the
         // nodes it depends on outputing them first.
-    Traits::SetTempMark(node);
-    for (int i = 0; i < Traits::NumDependencies(node); ++i)
-    {
-      if (!SkTTopoSort_Visit<T, Traits>(Traits::Dependency(node, i), result))
-      {
-        return false;
-      }
+        Traits::SetTempMark(node);
+        for (int i = 0; i < Traits::NumDependencies(node); ++i) {
+            if (!SkTTopoSort_Visit<T, Traits>(Traits::Dependency(node, i), result)) {
+                return false;
+            }
+        }
+        Traits::Output(node, result->count()); // mark this node as output
+        Traits::ResetTempMark(node);
+
+        result->push_back(sk_ref_sp(node));
     }
-    Traits::Output(node, result->count());
-    Traits::ResetTempMark(node);
-    result->push_back(sk_ref_sp(node));
-  }
-  return true;
+
+    return true;
 }
 // Topologically sort the nodes in 'graph'. For this sort, when node 'i' depends
 // on node 'j' it means node 'j' must appear in the result before node 'i'.
@@ -81,30 +78,33 @@ bool SkTTopoSort_Visit(T* node, SkTArray<sk_sp<T>>* result)
 template <typename T, typename Traits = T>
 bool SkTTopoSort(SkTArray<sk_sp<T>>* graph)
 {
-  SkTArray<sk_sp<T>> result;
-#  ifdef SK_DEBUG
-  SkTTopoSort_CheckAllUnmarked<T, Traits> (*graph);
-#  endif
-  result.reserve(graph->count());
-  for (int i = 0; i < graph->count(); ++i)
-  {
-    if (Traits::WasOutput((*graph)[i].get()))
-    {
+    SkTArray<sk_sp<T>> result;
+
+#ifdef SK_DEBUG
+    SkTTopoSort_CheckAllUnmarked<T, Traits>(*graph);
+#endif
+
+    result.reserve(graph->count());
+
+    for (int i = 0; i < graph->count(); ++i) {
+        if (Traits::WasOutput((*graph)[i].get())) {
             // This node was depended on by some earlier node and has already
             // been output
-      continue;
-    }
+            continue;
+        }
+
         // Output this node after all the nodes it depends on have been output.
-    if (!SkTTopoSort_Visit<T, Traits>((*graph)[i].get(), &result))
-    {
-      return false;
+        if (!SkTTopoSort_Visit<T, Traits>((*graph)[i].get(), &result)) {
+            return false;
+        }
     }
-  }
-  SkASSERT(graph->count() == result.count());
-  graph->swap(result);
-#  ifdef SK_DEBUG
-  SkTTopoSort_CleanExit<T, Traits> (*graph);
-#  endif
-  return true;
+
+    SkASSERT(graph->count() == result.count());
+    graph->swap(result);
+
+#ifdef SK_DEBUG
+    SkTTopoSort_CleanExit<T, Traits>(*graph);
+#endif
+    return true;
 }
 #endif

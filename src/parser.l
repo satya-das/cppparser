@@ -71,34 +71,38 @@ using BracketDepthStack = std::vector<int>;
  */
 BracketDepthStack gBracketDepthStack = {0};
 
+/**
+ * It is currently used for parsing function body as a blob.
+ */
+int gNestedCurlyBracketDepth = 0;
 
 extern std::set<std::string>        gMacroNames;
 extern std::set<std::string>        gKnownApiDecorNames;
 extern std::set<std::string>        gIgnorableMacroNames;
 extern std::map<std::string, int>   gRenamedKeywords;
 
-static const char* contextNameFromState(int ctx);
+const char* contextNameFromState(int ctx);
 
   // Easy MACRO to quickly push current context and switch to another one.
 #define BEGINCONTEXT(ctx) { \
   int prevState = YYSTATE;  \
   yy_push_state(ctx);       \
   if (gLexLog)                 \
-    printf("@line#%d, pushed %s(%d) and started %s(%d) from source code line#%d\n", gLineNo, contextNameFromState(prevState), prevState, contextNameFromState(YYSTATE), YYSTATE, __LINE__); \
+    printf("parser.l line#%4d: pushed %s(%d) and started %s(%d) from input-line#%d\n", __LINE__, contextNameFromState(prevState), prevState, contextNameFromState(YYSTATE), YYSTATE, gLineNo); \
 }
 
 #define ENDCONTEXT() {      \
   int prevState = YYSTATE;  \
   yy_pop_state();           \
   if (gLexLog)                 \
-    printf("@line#%d, ended %s(%d) and starting %s(%d) from source code line#%d\n", gLineNo, contextNameFromState(prevState), prevState, contextNameFromState(YYSTATE), YYSTATE, __LINE__); \
+    printf("parser.l line#%4d: ended %s(%d) and starting %s(%d) from input-line#%d\n", __LINE__, contextNameFromState(prevState), prevState, contextNameFromState(YYSTATE), YYSTATE, gLineNo); \
 }
 
 static int LogAndReturn(int ret, int codelinenum, int srclinenum)
 {
   if (gLexLog)
   {
-    printf("Lex Info: code-line#%d: returning token %d with value '%s' found @line#%d\n",
+    printf("parser.l line#%4d: returning token %d with value '%s' found @input-line#%d\n",
       codelinenum, ret, yytext, srclinenum);
   }
   return ret;
@@ -108,7 +112,7 @@ static void Log(int codelinenum, int srclinenum)
 {
   if (gLexLog)
   {
-    printf("XXXXXXXXXXX Lex Info: Currently @ code-line#%d and input line#%d\n",
+    printf("parser.l line#%4d and input line#%d\n",
       codelinenum, srclinenum);
   }
 }
@@ -129,10 +133,19 @@ const char* gInputBuffer = nullptr;
 size_t gInputBufferSize = 0;
 
 //@{ Flags to parse enum body as a blob
-bool gEnumBodyWillBeEncountered = false;
 extern bool gParseEnumBodyAsBlob;
+bool gEnumBodyWillBeEncountered = false;
 //@}
 
+//@{ Flags to parse function body as a blob
+extern bool gParseFunctionBodyAsBlob;
+const char* gNotAMemInitColon = nullptr;
+bool gFunctionBodyWillBeEncountered = false;
+bool gMemInitListWillBeEncountered = false;
+const char* gExpectedBracePosition = nullptr;
+const char* gExpectedColonPosition = nullptr;
+const char* gPossibleFuncImplStartBracePosition = nullptr;
+//@}
 
 int get_context()
 {
@@ -171,7 +184,7 @@ void setCommentTokenizationState(TokenSetupFlag flag)
   }
 }
 
-static void set_token_and_yyposn(const char* text, size_t len, TokenSetupFlag flag)
+static void set_token_and_yyposn(const char* text, size_t len, TokenSetupFlag flag = TokenSetupFlag::DisableCommentTokenization)
 {
   extern char* yyposn;
   yyposn = const_cast<char*>(text);
@@ -183,6 +196,11 @@ static void set_token_and_yyposn(const char* text, size_t len, TokenSetupFlag fl
 static void set_token_and_yyposn(TokenSetupFlag flag = TokenSetupFlag::DisableCommentTokenization)
 {
   set_token_and_yyposn(yytext, yyleng, flag);
+}
+
+void setBlobToken(TokenSetupFlag flag = TokenSetupFlag::None)
+{
+  set_token_and_yyposn(oyytext, yytext+yyleng-oyytext, flag);
 }
 
 using YYLessProc = std::function<void(int)>;
@@ -230,6 +248,32 @@ static void tokenize_bracketed_content(YYLessProc yylessfn)
   set_token_and_yyposn();
 }
 
+static const char* findMatchedClosingBracket(const char* start, char openingBracketType = '(')
+{
+  const char openingBracket = (openingBracketType != '{') ? '(' : '{';
+  const char closingBracket = (openingBracket == '{') ? '}' : ')';
+
+  // Since '(' / '{' should be used in trailing context, it's location will contain '\0'
+  assert(*start == '\0');
+  auto end = gInputBuffer + gInputBufferSize;
+  int openBracket = 1;
+  for (auto p = start+1; p != end; ++p)
+  {
+    if (*p == openingBracket)
+    {
+      ++openBracket;
+    }
+    else if (*p == closingBracket)
+    {
+      --openBracket;
+      if (!openBracket)
+        return p;
+    }
+  }
+
+  return end;
+}
+
 /*
 Parsing of #define is complex. So we will try to parse simple #defines to know what it trys to define.
 For any thing complex we will treat the entire definition as one BLOB.
@@ -257,6 +301,7 @@ extern "C"
 
 %option never-interactive
 %option stack
+%option noyy_top_state
 
 /************************************************************************/
 
@@ -279,6 +324,7 @@ TS	 [^_a-zA-Z0-9]
 /* C/C++ identifier */
 ID	 [_a-zA-Z]+[_0-9a-zA-Z]*
 
+ID2  ({ID}"::"{WS}*)*{ID}
 
 /* Number */
 NUM  ([0-9]+((l|L|u|U)*|(\.[0-9]*)?))|\.[0-9]+|(0(b|B)[01']*)|(0(x|X)[0-9a-fA-F]*)|0(x|X)[0-9a-zA-Z]+
@@ -294,6 +340,8 @@ CL   \'([^'\\]|\\.)*\'
 /* Comma separated parameter list */
 CSP (({WS}*{ID}{WS}*,{WS}*)*{ID}{WS}*)*
 
+/* Function Trailing Attributes. Should be only used in trailing context.*/
+FTA ("const"|"final"|"override")
 
 /*@}*/
 
@@ -322,6 +370,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 /* When we are inside enum body */
 %x ctxEnumBody
 
+/* When we are inside function implementation body */
+%x ctxFunctionBody
 
 /* Code within and including '#if 0 ... #endif'
    Also includes (TO BE IMPLEMENTED) the following cases:
@@ -331,6 +381,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 */
 %x ctxDisabledCode
 
+%x ctxMemInitList
 
 %%
 
@@ -409,6 +460,31 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
+<ctxGeneral>"?"[^?]*":" {
+  LOG();
+  if (gParseFunctionBodyAsBlob)
+    gNotAMemInitColon = yytext+yyleng-1;
+  REJECT;
+}
+
+<ctxGeneral>")"{WSNL}*({FTA}{WSNL}*)*{WSNL}*("{"|":") {
+  LOG();
+  if (gParseFunctionBodyAsBlob)
+  {
+    if (yytext[yyleng-1] == '{')
+    {
+      gFunctionBodyWillBeEncountered = true;
+      gExpectedBracePosition = yytext + yyleng-1;
+    }
+    else if ((yytext[yyleng-1] == ':') && (gNotAMemInitColon != (yytext+yyleng-1)))
+    {
+      gMemInitListWillBeEncountered = true;
+      gExpectedColonPosition = yytext + yyleng-1;
+    }
+  }
+
+  REJECT;
+}
 
 <ctxGeneral>asm/{TS} {
   LOG();
@@ -919,7 +995,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxDisabledCode>^{WS}*#{WS}*endif[^\n]* {
   LOG();
   ENDCONTEXT();
-  set_token_and_yyposn(oyytext, yytext+yyleng-oyytext, TokenSetupFlag::None);
+  setBlobToken();
   RETURN(tknBlob);
 }
 
@@ -1379,12 +1455,27 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
     set_token_and_yyposn(TokenSetupFlag::None);
     set_oyytext(yytext+1);
   }
+  else if (gFunctionBodyWillBeEncountered && (yytext == gExpectedBracePosition))
+  {
+
+    gFunctionBodyWillBeEncountered = false;
+    BEGINCONTEXT(ctxFunctionBody);
+    set_token_and_yyposn(TokenSetupFlag::DisableCommentTokenization);
+    set_oyytext(yytext+1);
+  }
   else
   {
 
     gBracketDepthStack.push_back(0);
     set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
   }
+  RETURN(yytext[0]);
+}
+
+<ctxGeneral>"}" {
+  LOG();
+  gBracketDepthStack.resize(gBracketDepthStack.size() - 1);
+  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
   RETURN(yytext[0]);
 }
 
@@ -1408,30 +1499,117 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxEnumBody>{NL}/"}" {
   LOG();
   ++gLineNo;
-  set_token_and_yyposn(oyytext, yytext+yyleng-oyytext, TokenSetupFlag::None);
+  setBlobToken();
   RETURN(tknBlob);
 }
 
 <ctxEnumBody>([^\}\n]*|^{WS}*)/"}" {
-  set_token_and_yyposn(oyytext, yytext+yyleng-oyytext, TokenSetupFlag::None);
+  LOG();
+  setBlobToken();
   RETURN(tknBlob);
 }
 
-<ctxGeneral>"}" {
+<ctxFunctionBody>"{" {
   LOG();
-  gBracketDepthStack.resize(gBracketDepthStack.size() - 1);
-  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  ++gNestedCurlyBracketDepth;
+}
+
+<ctxFunctionBody>"}" {
+  LOG();
+  if (gNestedCurlyBracketDepth == 0)
+  {
+    ENDCONTEXT();
+    set_token_and_yyposn(TokenSetupFlag::EnableCommentTokenization);
+    RETURN(yytext[0]);
+  }
+  else
+  {
+    --gNestedCurlyBracketDepth;
+  }
+}
+
+<ctxFunctionBody>{NL}/"}" {
+  LOG();
+  ++gLineNo;
+  if (gNestedCurlyBracketDepth == 0)
+  {
+    setBlobToken();
+    RETURN(tknBlob);
+  }
+}
+
+<ctxFunctionBody>([^{}\n]|{WS}*)/"}" {
+  LOG();
+  if (gNestedCurlyBracketDepth == 0)
+  {
+    setBlobToken();
+    RETURN(tknBlob);
+  }
+}
+
+<ctxFunctionBody>{NL} {
+  LOG();
+  ++gLineNo;
+}
+
+<ctxFunctionBody>. {
+  LOG();
+  // printf("%s", yytext);
+}
+
+<ctxGeneral>":" {
+  LOG();
+  if (gMemInitListWillBeEncountered && (gExpectedColonPosition == yytext))
+  {
+
+    gMemInitListWillBeEncountered = false;
+    set_oyytext(yytext+1);
+    BEGINCONTEXT(ctxMemInitList);
+  }
+  set_token_and_yyposn(TokenSetupFlag::None);
   RETURN(yytext[0]);
 }
 
-<ctxGeneral>; {
-  set_token_and_yyposn();
-  gTokenizeComment = true;
-    RETURN(yytext[0]);
+<ctxMemInitList>({ID2}{WSNL}*)/"(" {
+  LOG();
+  gPossibleFuncImplStartBracePosition = findMatchedClosingBracket(yytext+yyleng, '(') + 1;
 }
 
-<ctxGeneral>: {
-  set_token_and_yyposn(TokenSetupFlag::None);
+<ctxMemInitList>({ID2}{WSNL}*)/"{" {
+  LOG();
+  gPossibleFuncImplStartBracePosition = findMatchedClosingBracket(yytext+yyleng, '{') + 1;
+}
+
+<ctxMemInitList>(.) {
+  LOG();
+  // Just ignore
+}
+
+<ctxMemInitList>({NL}) {
+  LOG();
+  ++gLineNo;
+}
+
+<ctxMemInitList>([^a-zA-Z_]*|{NL})/"{" {
+  LOG();
+
+  if (yytext[0] == '\n')
+    ++gLineNo;
+
+  if (yytext+yyleng >= gPossibleFuncImplStartBracePosition)
+  {
+    ENDCONTEXT();
+    gExpectedBracePosition = yytext+yyleng;
+    gFunctionBodyWillBeEncountered = true;
+    setBlobToken();
+    RETURN(tknBlob);
+  }
+}
+
+<ctxGeneral>; {
+  LOG();
+  set_token_and_yyposn();
+  gTokenizeComment = true;
   RETURN(yytext[0]);
 }
 
@@ -1480,7 +1658,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 %%
 
-static const char* contextNameFromState(int ctx)
+const char* contextNameFromState(int ctx)
 {
   switch (ctx) {
     case INITIAL :
@@ -1505,8 +1683,12 @@ static const char* contextNameFromState(int ctx)
       return "ctxPreProBody";
     case ctxEnumBody :
       return "ctxEnumBody";
+    case ctxFunctionBody :
+      return "ctxFunctionBody";
     case ctxDisabledCode :
       return "ctxDisabledCode";
+    case ctxMemInitList :
+      return "ctxMemInitList";
   }
 
   return "UNKNOWNCONTEXT";
@@ -1521,6 +1703,8 @@ void setupScanBuffer(char* buf, size_t bufsize)
   gBracketDepthStack = {0};
   gTokenizeComment = true;
   gEnumBodyWillBeEncountered = false;
+  gFunctionBodyWillBeEncountered = false;
+  gMemInitListWillBeEncountered = false;
   gInputBuffer = buf;
   gInputBufferSize = bufsize;
   BEGIN(ctxGeneral);

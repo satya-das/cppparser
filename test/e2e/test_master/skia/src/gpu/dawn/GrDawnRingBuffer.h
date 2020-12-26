@@ -18,26 +18,23 @@ public:
   struct Slice
   {
     Slice(dawn::Buffer buffer, int offset)
-      : fBuffer(buffer)
-      , fOffset(offset)
-    {
-    }
+      :  fBuffer(buffer), fOffset(offset) 
+      {
+      }
     Slice()
-      : fBuffer(nullptr)
-      , fOffset(0)
-    {
-    }
+      :  fBuffer(nullptr), fOffset(0) 
+      {
+      }
     Slice(const Slice& other)
-      : fBuffer(other.fBuffer)
-      , fOffset(other.fOffset)
-    {
-    }
+      :  fBuffer(other.fBuffer), fOffset(other.fOffset) 
+      {
+      }
     Slice& operator=(const Slice& other)
     {
-      fBuffer = other.fBuffer;
-      fOffset = other.fOffset;
-      return *this;
-    }
+            fBuffer = other.fBuffer;
+            fOffset = other.fOffset;
+            return *this;
+        }
     dawn::Buffer fBuffer;
     int fOffset;
   };

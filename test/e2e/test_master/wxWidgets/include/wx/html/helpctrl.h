@@ -38,9 +38,7 @@ public:
   void SetShouldPreventAppExit(bool enable);
   void SetTitleFormat(const wxString& format);
   void SetTempDir(const wxString& path)
-  {
-    m_helpData.SetTempDir(path);
-  }
+  { m_helpData.SetTempDir(path); }
   bool AddBook(const wxString& book_url, bool show_wait_msg = false);
   bool AddBook(const wxFileName& book_file, bool show_wait_msg = false);
   bool Display(const wxString& x);
@@ -49,18 +47,12 @@ public:
   bool DisplayIndex();
   bool KeywordSearch(const wxString& keyword, wxHelpSearchMode mode = wxHELP_SEARCH_ALL) override;
   wxHtmlHelpWindow* GetHelpWindow()
-  {
-    return m_helpWindow;
-  }
+  { return m_helpWindow; }
   void SetHelpWindow(wxHtmlHelpWindow* helpWindow);
   wxHtmlHelpFrame* GetFrame()
-  {
-    return m_helpFrame;
-  }
+  { return m_helpFrame; }
   wxHtmlHelpDialog* GetDialog()
-  {
-    return m_helpDialog;
-  }
+  { return m_helpDialog; }
 #    if  wxUSE_CONFIG
   void UseConfig(wxConfigBase* config, const wxString& rootpath = wxEmptyString);
     // Assigns config object to the Ctrl. This config is then
@@ -95,9 +87,7 @@ public:
   wxFrame* GetFrameParameters(wxSize* size = NULL, wxPoint* pos = NULL, bool* newFrameEachTime = NULL) override;
     // Get direct access to help data:
   wxHtmlHelpData* GetHelpData()
-  {
-    return &m_helpData;
-  }
+  { return &m_helpData; }
   bool Quit() override;
   void OnQuit() override
   {

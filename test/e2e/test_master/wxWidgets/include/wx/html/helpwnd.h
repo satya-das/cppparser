@@ -69,19 +69,14 @@ class WXDLLIMPEXP_HTML wxHtmlHelpWindow : public wxWindow
 public:
   wxHtmlHelpWindow(wxHtmlHelpData* data = NULL)
   {
-    Init(data);
-  }
+ Init(data);   }
   wxHtmlHelpWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int style = wxTAB_TRAVERSAL | wxNO_BORDER, int helpStyle = wxHF_DEFAULT_STYLE, wxHtmlHelpData* data = NULL);
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int style = wxTAB_TRAVERSAL | wxNO_BORDER, int helpStyle = wxHF_DEFAULT_STYLE);
   virtual ~wxHtmlHelpWindow();
   wxHtmlHelpData* GetData()
-  {
-    return m_Data;
-  }
+  { return m_Data; }
   wxHtmlHelpController* GetController() const
-  {
-    return m_helpController;
-  }
+  { return m_helpController; }
   void SetController(wxHtmlHelpController* controller);
     // Displays page x. If not found it will offect the user a choice of
     // searching books.
@@ -110,10 +105,10 @@ public:
 #    if  wxUSE_CONFIG
   void UseConfig(wxConfigBase* config, const wxString& rootpath = wxEmptyString)
   {
-    m_Config = config;
-    m_ConfigRoot = rootpath;
-    ReadCustomization(config, rootpath);
-  }
+            m_Config = config;
+            m_ConfigRoot = rootpath;
+            ReadCustomization(config, rootpath);
+        }
     // Saves custom settings into cfg config. it will use the path 'path'
     // if given, otherwise it will save info into currently selected path.
     // saved values : things set by SetFonts, SetBorders.
@@ -126,29 +121,19 @@ public:
   void RefreshLists();
     // Gets the HTML window
   wxHtmlWindow* GetHtmlWindow() const
-  {
-    return m_HtmlWin;
-  }
+  { return m_HtmlWin; }
     // Gets the splitter window
   wxSplitterWindow* GetSplitterWindow() const
-  {
-    return m_Splitter;
-  }
+  { return m_Splitter; }
     // Gets the toolbar
   wxToolBar* GetToolBar() const
-  {
-    return m_toolBar;
-  }
+  { return m_toolBar; }
     // Gets the configuration data
   wxHtmlHelpFrameCfg& GetCfgData()
-  {
-    return m_Cfg;
-  }
+  { return m_Cfg; }
     // Gets the tree control
   wxTreeCtrl* GetTreeCtrl() const
-  {
-    return m_ContentsBox;
-  }
+  { return m_ContentsBox; }
 protected:
   void Init(wxHtmlHelpData* data = NULL);
     // Adds items to m_Contents tree control

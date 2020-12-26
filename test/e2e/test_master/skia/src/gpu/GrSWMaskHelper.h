@@ -34,9 +34,9 @@ class GrSWMaskHelper :  SkNoncopyable
 {
 public:
   GrSWMaskHelper(SkAutoPixmapStorage* pixels = nullptr)
-    : fPixels(pixels ? pixels : &fPixelsStorage)
-  {
-  }
+    :  fPixels(pixels ? pixels : &fPixelsStorage) 
+    {
+     }
     // set up the internal state in preparation for draws. Since many masks
     // may be accumulated in the helper during creation, "resultBounds"
     // allows the caller to specify the region of interest - to limit the
@@ -50,8 +50,8 @@ public:
     // Reset the internal bitmap
   void clear(uint8_t alpha)
   {
-    fPixels->erase(SkColorSetARGB(alpha, 0xFF, 0xFF, 0xFF));
-  }
+        fPixels->erase(SkColorSetARGB(alpha, 0xFF, 0xFF, 0xFF));
+    }
 private:
   SkVector fTranslate;
   SkAutoPixmapStorage* fPixels;

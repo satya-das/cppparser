@@ -13,33 +13,28 @@ class SK_API GrBackendDrawableInfo
 public:
     // Creates an invalid backend drawable info.
   GrBackendDrawableInfo()
-    : fIsValid(false)
-  {
-  }
+    :  fIsValid(false) 
+    {
+    }
   GrBackendDrawableInfo(const GrVkDrawableInfo& info)
-    : fIsValid(true)
-    , fBackend(GrBackendApi::kVulkan)
-    , fVkInfo(info)
-  {
-  }
+    :  fIsValid(true)
+            , fBackend(GrBackendApi::kVulkan)
+            , fVkInfo(info) 
+    {
+    }
     // Returns true if the backend texture has been initialized.
   bool isValid() const
-  {
-    return fIsValid;
-  }
+  { return fIsValid; }
   GrBackendApi backend() const
-  {
-    return fBackend;
-  }
+  { return fBackend; }
   bool getVkDrawableInfo(GrVkDrawableInfo* outInfo) const
   {
-    if (this->isValid() && GrBackendApi::kVulkan == fBackend)
-    {
-      *outInfo = fVkInfo;
-      return true;
+        if (this->isValid() && GrBackendApi::kVulkan == fBackend) {
+            *outInfo = fVkInfo;
+            return true;
+        }
+        return false;
     }
-    return false;
-  }
 private:
   bool fIsValid;
   GrBackendApi fBackend;

@@ -20,13 +20,13 @@ class WXDLLIMPEXP_CORE wxWindow : public wxWindowBase
 public:
   wxWindow()
   {
-    Init();
-  }
+ Init();   }
   wxWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
   {
-    Init();
-    Create(parent, id, pos, size, style, name);
-  }
+
+        Init();
+        Create(parent, id, pos, size, style, name);
+      }
   virtual ~wxWindow();
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr));
     // implement base class pure virtuals
@@ -58,9 +58,7 @@ public:
   virtual void DragAcceptFiles(bool accept);
     // Get the unique identifier of a window
   virtual WXWidget GetHandle() const
-  {
-    return GetMainWidget();
-  }
+  { return GetMainWidget(); }
     // implementation from now on
     // --------------------------
 
@@ -84,18 +82,11 @@ public:
   WXWindow GetXWindow() const;
   WXDisplay* GetXDisplay() const;
   void SetLastClick(int button, long timestamp)
-  {
-    m_lastButton = button;
-    m_lastTS = timestamp;
-  }
+  { m_lastButton = button; m_lastTS = timestamp; }
   int GetLastClickedButton() const
-  {
-    return m_lastButton;
-  }
+  { return m_lastButton; }
   long GetLastClickTime() const
-  {
-    return m_lastTS;
-  }
+  { return m_lastTS; }
     // Gives window a chance to do something in response to a size message,
     // e.g. arrange status bar, toolbar etc.
   virtual bool PreResize();
@@ -108,13 +99,9 @@ public:
     // Adds a recangle to the updates list
   void AddUpdateRect(int x, int y, int w, int h);
   void ClearUpdateRegion()
-  {
-    m_updateRegion.Clear();
-  }
+  { m_updateRegion.Clear(); }
   void SetUpdateRegion(const wxRegion& region)
-  {
-    m_updateRegion = region;
-  }
+  { m_updateRegion = region; }
     // post-creation activities
   void PostCreation();
     // pre-creation activities
@@ -124,9 +111,7 @@ protected:
   void OnSysColourChanged(wxSysColourChangedEvent& event);
     // Motif-specific
   void SetMainWidget(WXWidget w)
-  {
-    m_mainWidget = w;
-  }
+  { m_mainWidget = w; }
     // See src/motif/window.cpp, near the top, for an explanation
     // why this is necessary
   void CanvasSetSizeIntr(int x, int y, int width, int height, int sizeFlags, bool fromCtor);
@@ -144,29 +129,17 @@ protected:
   WXWidget DoCreateScrollBar(WXWidget parent, wxOrientation orientation, void (*callback) ());
 public:
   WXPixmap GetBackingPixmap() const
-  {
-    return m_backingPixmap;
-  }
+  { return m_backingPixmap; }
   void SetBackingPixmap(WXPixmap pixmap)
-  {
-    m_backingPixmap = pixmap;
-  }
+  { m_backingPixmap = pixmap; }
   int GetPixmapWidth() const
-  {
-    return m_pixmapWidth;
-  }
+  { return m_pixmapWidth; }
   int GetPixmapHeight() const
-  {
-    return m_pixmapHeight;
-  }
+  { return m_pixmapHeight; }
   void SetPixmapWidth(int w)
-  {
-    m_pixmapWidth = w;
-  }
+  { m_pixmapWidth = w; }
   void SetPixmapHeight(int h)
-  {
-    m_pixmapHeight = h;
-  }
+  { m_pixmapHeight = h; }
     // Change properties
     // Change to the current font (often overridden)
   virtual void ChangeFont(bool keepOriginalSize = true);
@@ -207,21 +180,15 @@ protected:
   void DestroyScrollbar(wxOrientation orientation);
     // get either hor or vert scrollbar widget
   WXWidget GetScrollbar(wxOrientation orient) const
-  {
-    return orient == wxHORIZONTAL ? m_hScrollBar : m_vScrollBar;
-  }
+  { return orient == wxHORIZONTAL ? m_hScrollBar : m_vScrollBar; }
     // set the scroll pos
   void SetInternalScrollPos(wxOrientation orient, int pos)
   {
-    if (orient == wxHORIZONTAL)
-    {
-      m_scrollPosX = pos;
+        if ( orient == wxHORIZONTAL )
+            m_scrollPosX = pos;
+        else
+            m_scrollPosY = pos;
     }
-    else 
-    {
-      m_scrollPosY = pos;
-    }
-  }
     // Motif-specific flags
     // --------------------
   bool m_needsRefresh;
@@ -283,16 +250,12 @@ class WXDLLIMPEXP_CORE wxNoOptimize
 public:
   wxNoOptimize()
   {
-    ms_count++;
-  }
+ ms_count++;   }
   ~wxNoOptimize()
   {
-    ms_count--;
-  }
+ ms_count--;   }
   static bool CanOptimize()
-  {
-    return ms_count == 0;
-  }
+  { return ms_count == 0; }
 protected:
   static int ms_count;
 };

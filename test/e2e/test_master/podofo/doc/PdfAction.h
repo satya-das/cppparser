@@ -90,7 +90,7 @@ namespace PoDoFo
     PdfAction(EPdfAction eAction, PdfDocument* pParent);
     virtual ~PdfAction()
     {
-    }
+     }
     /** Create a PdfAction object from an existing 
      *  PdfObject
      */
@@ -134,6 +134,6 @@ namespace PoDoFo
   inline EPdfAction PdfAction::GetType() const
   {
     return m_eType;
-  }
+}
 }
 #endif

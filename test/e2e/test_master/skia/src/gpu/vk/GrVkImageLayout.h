@@ -12,19 +12,19 @@ class GrVkImageLayout : public SkRefCnt
 {
 public:
   GrVkImageLayout(VkImageLayout layout)
-    : fLayout(layout)
-  {
-  }
+    :  fLayout(layout) 
+    {
+    }
   void setImageLayout(VkImageLayout layout)
   {
         // Defaulting to use std::memory_order_seq_cst
-    fLayout.store(layout);
-  }
+        fLayout.store(layout);
+    }
   VkImageLayout getImageLayout() const
   {
         // Defaulting to use std::memory_order_seq_cst
-    return fLayout.load();
-  }
+        return fLayout.load();
+    }
 private:
   std::atomic<VkImageLayout> fLayout;
 };

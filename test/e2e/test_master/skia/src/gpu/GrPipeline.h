@@ -68,9 +68,9 @@ public:
   struct FixedDynamicState
   {
     explicit FixedDynamicState(const SkIRect& scissorRect)
-      : fScissorRect(scissorRect)
-    {
-    }
+      :  fScissorRect(scissorRect) 
+      {
+      }
     FixedDynamicState();
     SkIRect fScissorRect = SkIRect::EmptyIRect();
         // Must have GrPrimitiveProcessor::numTextureSamplers() entries. Can be null if no samplers
@@ -95,9 +95,11 @@ public:
      * specify a scissor rectangle through the DynamicState struct.
      **/
   GrPipeline(GrScissorTest scissor, SkBlendMode blend, const GrSwizzle& outputSwizzle, InputFlags flags = InputFlags::kNone, const GrUserStencilSettings* stencil = &GrUserStencilSettings::kUnused)
-    : GrPipeline(scissor, GrPorterDuffXPFactory::MakeNoCoverageXP(blend), outputSwizzle, flags, stencil)
-  {
-  }
+    :  GrPipeline(scissor, GrPorterDuffXPFactory::MakeNoCoverageXP(blend), outputSwizzle,
+                         flags, stencil) 
+    {
+
+        }
   GrPipeline(GrScissorTest, sk_sp<const GrXferProcessor>, const GrSwizzle& outputSwizzle, InputFlags = InputFlags::kNone, const GrUserStencilSettings* = &GrUserStencilSettings::kUnused);
   GrPipeline(const InitArgs&, GrProcessorSet&&, GrAppliedClip&&);
   GrPipeline(const GrPipeline&) = delete;
@@ -107,100 +109,85 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     /// @name GrFragmentProcessors
   int numColorFragmentProcessors() const
-  {
-    return fNumColorProcessors;
-  }
+  { return fNumColorProcessors; }
   int numCoverageFragmentProcessors() const
   {
-    return fFragmentProcessors.count() - fNumColorProcessors;
-  }
+        return fFragmentProcessors.count() - fNumColorProcessors;
+    }
   int numFragmentProcessors() const
-  {
-    return fFragmentProcessors.count();
-  }
+  { return fFragmentProcessors.count(); }
   const GrXferProcessor& getXferProcessor() const
   {
-    if (fXferProcessor)
-    {
-      return *fXferProcessor.get();
-    }
-    else 
-    {
+        if (fXferProcessor) {
+            return *fXferProcessor.get();
+        } else {
             // A null xp member means the common src-over case. GrXferProcessor's ref'ing
             // mechanism is not thread safe so we do not hold a ref on this global.
-      return GrPorterDuffXPFactory::SimpleSrcOverXP();
+            return GrPorterDuffXPFactory::SimpleSrcOverXP();
+        }
     }
-  }
     /**
      * If the GrXferProcessor uses a texture to access the dst color, then this returns that
      * texture and the offset to the dst contents within that texture.
      */
   GrTextureProxy* dstTextureProxy(SkIPoint* offset = nullptr) const
   {
-    if (offset)
-    {
-      *offset = fDstTextureOffset;
+        if (offset) {
+            *offset = fDstTextureOffset;
+        }
+
+        return fDstTextureProxy.get();
     }
-    return fDstTextureProxy.get();
-  }
   GrTexture* peekDstTexture(SkIPoint* offset = nullptr) const
   {
-    if (GrTextureProxy* dstProxy = this->dstTextureProxy(offset))
-    {
-      return dstProxy->peekTexture();
+        if (GrTextureProxy* dstProxy = this->dstTextureProxy(offset)) {
+            return dstProxy->peekTexture();
+        }
+
+        return nullptr;
     }
-    return nullptr;
-  }
   const GrFragmentProcessor& getColorFragmentProcessor(int idx) const
   {
-    SkASSERT(idx < this->numColorFragmentProcessors());
-    return *fFragmentProcessors[idx].get();
-  }
+        SkASSERT(idx < this->numColorFragmentProcessors());
+        return *fFragmentProcessors[idx].get();
+    }
   const GrFragmentProcessor& getCoverageFragmentProcessor(int idx) const
   {
-    SkASSERT(idx < this->numCoverageFragmentProcessors());
-    return *fFragmentProcessors[fNumColorProcessors + idx].get();
-  }
+        SkASSERT(idx < this->numCoverageFragmentProcessors());
+        return *fFragmentProcessors[fNumColorProcessors + idx].get();
+    }
   const GrFragmentProcessor& getFragmentProcessor(int idx) const
   {
-    return *fFragmentProcessors[idx].get();
-  }
+        return *fFragmentProcessors[idx].get();
+    }
     /// @}
   const GrUserStencilSettings* getUserStencil() const
-  {
-    return fUserStencilSettings;
-  }
+  { return fUserStencilSettings; }
   bool isScissorEnabled() const
   {
-    return SkToBool(fFlags & Flags::kScissorEnabled);
-  }
+        return SkToBool(fFlags & Flags::kScissorEnabled);
+    }
   const GrWindowRectsState& getWindowRectsState() const
-  {
-    return fWindowRectsState;
-  }
+  { return fWindowRectsState; }
   bool isHWAntialiasState() const
-  {
-    return SkToBool(fFlags & InputFlags::kHWAntialias);
-  }
+  { return SkToBool(fFlags & InputFlags::kHWAntialias); }
   bool snapVerticesToPixelCenters() const
   {
-    return SkToBool(fFlags & InputFlags::kSnapVerticesToPixelCenters);
-  }
+        return SkToBool(fFlags & InputFlags::kSnapVerticesToPixelCenters);
+    }
   bool hasStencilClip() const
   {
-    return SkToBool(fFlags & Flags::kHasStencilClip);
-  }
+        return SkToBool(fFlags & Flags::kHasStencilClip);
+    }
   bool isStencilEnabled() const
   {
-    return SkToBool(fFlags & Flags::kStencilEnabled);
-  }
+        return SkToBool(fFlags & Flags::kStencilEnabled);
+    }
   GrXferBarrierType xferBarrierType(GrTexture*, const GrCaps&) const;
     // Used by Vulkan and Metal to cache their respective pipeline objects
   uint32_t getBlendInfoKey() const;
   const GrSwizzle& outputSwizzle() const
-  {
-    return fOutputSwizzle;
-  }
+  { return fOutputSwizzle; }
 private:
   static constexpr uint8_t kLastInputFlag = (uint8_t) InputFlags::kSnapVerticesToPixelCenters;
     /** This is a continuation of the public "InputFlags" enum. */
@@ -230,6 +217,6 @@ GR_MAKE_BITFIELD_CLASS_OPS(GrPipeline::InputFlags);
 GR_MAKE_BITFIELD_CLASS_OPS(GrPipeline::Flags);
 inline bool operator&(GrPipeline::Flags flags, GrPipeline::InputFlags inputFlag)
 {
-  return (flags & (GrPipeline::Flags) inputFlag);
+    return (flags & (GrPipeline::Flags)inputFlag);
 }
 #endif

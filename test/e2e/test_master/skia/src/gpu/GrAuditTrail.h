@@ -28,24 +28,26 @@ class GrAuditTrail
 {
 public:
   GrAuditTrail()
-    : fClientID(kGrAuditTrailInvalidID)
-    , fEnabled(false)
-  {
-  }
+    :  fClientID(kGrAuditTrailInvalidID)
+    , fEnabled(false) 
+    {
+    }
   class AutoEnable
   {
   public:
     AutoEnable(GrAuditTrail* auditTrail)
-      : fAuditTrail(auditTrail)
-    {
-      SkASSERT(!fAuditTrail->isEnabled());
-      fAuditTrail->setEnabled(true);
-    }
+      :  fAuditTrail(auditTrail) 
+      {
+
+            SkASSERT(!fAuditTrail->isEnabled());
+            fAuditTrail->setEnabled(true);
+              }
     ~AutoEnable()
     {
-      SkASSERT(fAuditTrail->isEnabled());
-      fAuditTrail->setEnabled(false);
-    }
+
+            SkASSERT(fAuditTrail->isEnabled());
+            fAuditTrail->setEnabled(false);
+            }
   private:
     GrAuditTrail* fAuditTrail;
   };
@@ -53,14 +55,12 @@ public:
   {
   public:
     AutoManageOpsTask(GrAuditTrail* auditTrail)
-      : fAutoEnable(auditTrail)
-      , fAuditTrail(auditTrail)
-    {
-    }
+      :  fAutoEnable(auditTrail), fAuditTrail(auditTrail) 
+      {
+      }
     ~AutoManageOpsTask()
     {
-      fAuditTrail->fullReset();
-    }
+ fAuditTrail->fullReset();     }
   private:
     AutoEnable fAutoEnable;
     GrAuditTrail* fAuditTrail;
@@ -69,24 +69,23 @@ public:
   {
   public:
     AutoCollectOps(GrAuditTrail* auditTrail, int clientID)
-      : fAutoEnable(auditTrail)
-      , fAuditTrail(auditTrail)
-    {
-      fAuditTrail->setClientID(clientID);
-    }
+      :  fAutoEnable(auditTrail), fAuditTrail(auditTrail) 
+      {
+
+            fAuditTrail->setClientID(clientID);
+              }
     ~AutoCollectOps()
     {
-      fAuditTrail->setClientID(kGrAuditTrailInvalidID);
-    }
+ fAuditTrail->setClientID(kGrAuditTrailInvalidID);     }
   private:
     AutoEnable fAutoEnable;
     GrAuditTrail* fAuditTrail;
   };
   void pushFrame(const char* framename)
   {
-    SkASSERT(fEnabled);
-    fCurrentStackTrace.push_back(SkString(framename));
-  }
+        SkASSERT(fEnabled);
+        fCurrentStackTrace.push_back(SkString(framename));
+    }
   void addOp(const GrOp*, GrRenderTargetProxy::UniqueID proxyID);
   void opsCombined(const GrOp* consumer, const GrOp* consumed);
     // Because op combining is heavily dependent on sequence of draw calls, these calls will only
@@ -99,17 +98,11 @@ public:
     // returns a json string of all of the ops associated with a given client id
   void toJson(SkJSONWriter& writer, int clientID) const;
   bool isEnabled()
-  {
-    return fEnabled;
-  }
+  { return fEnabled; }
   void setEnabled(bool enabled)
-  {
-    fEnabled = enabled;
-  }
+  { fEnabled = enabled; }
   void setClientID(int clientID)
-  {
-    fClientID = clientID;
-  }
+  { fClientID = clientID; }
     // We could just return our internal bookkeeping struct if copying the data out becomes
     // a performance issue, but until then its nice to decouple
   struct OpInfo
@@ -144,9 +137,9 @@ private:
   struct OpNode
   {
     OpNode(const GrSurfaceProxy::UniqueID& proxyID)
-      : fProxyUniqueID(proxyID)
-    {
-    }
+      :  fProxyUniqueID(proxyID) 
+      {
+       }
     void toJson(SkJSONWriter& writer) const;
     SkRect fBounds;
     Ops fChildren;

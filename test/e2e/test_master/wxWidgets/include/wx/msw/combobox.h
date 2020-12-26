@@ -20,29 +20,28 @@ class WXDLLIMPEXP_CORE wxComboBox : public wxChoice, public wxTextEntry
 public:
   wxComboBox()
   {
-    Init();
-  }
+ Init();   }
   wxComboBox(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
   {
-    Init();
-    Create(parent, id, value, pos, size, n, choices, style, validator, name);
-  }
+
+        Init();
+        Create(parent, id, value, pos, size, n, choices, style, validator, name);
+
+      }
   wxComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
   {
-    Init();
-    Create(parent, id, value, pos, size, choices, style, validator, name);
-  }
+
+        Init();
+
+        Create(parent, id, value, pos, size, choices, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
     // See wxComboBoxBase discussion of IsEmpty().
   bool IsListEmpty() const
-  {
-    return wxItemContainer::IsEmpty();
-  }
+  { return wxItemContainer::IsEmpty(); }
   bool IsTextEmpty() const
-  {
-    return wxTextEntry::IsEmpty();
-  }
+  { return wxTextEntry::IsEmpty(); }
     // resolve ambiguities among virtual functions inherited from both base
     // classes
   void Clear() override;
@@ -53,13 +52,9 @@ public:
     return wxChoice::GetStringSelection();
   }
   virtual void Popup()
-  {
-    MSWDoPopupOrDismiss(true);
-  }
+  { MSWDoPopupOrDismiss(true); }
   virtual void Dismiss()
-  {
-    MSWDoPopupOrDismiss(false);
-  }
+  { MSWDoPopupOrDismiss(false); }
   void SetSelection(int n) override
   {
     wxChoice::SetSelection(n);
@@ -138,8 +133,8 @@ private:
     // common part of all ctors
   void Init()
   {
-    m_allowTextEvents = true;
-  }
+        m_allowTextEvents = true;
+    }
     // normally true, false if text events are currently disabled
   bool m_allowTextEvents;
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxComboBox);

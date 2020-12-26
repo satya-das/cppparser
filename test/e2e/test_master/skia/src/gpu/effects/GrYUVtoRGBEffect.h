@@ -23,51 +23,51 @@ public:
   SkString dumpInfo() const override;
 #  endif
   SkYUVColorSpace yuvColorSpace() const
-  {
-    return fYUVColorSpace;
-  }
+  { return fYUVColorSpace; }
   const SkYUVAIndex& yuvaIndex(int i) const
-  {
-    return fYUVAIndices[i];
-  }
+  { return fYUVAIndices[i]; }
   GrYUVtoRGBEffect(const GrYUVtoRGBEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  {
-    return "YUVtoRGBEffect";
-  }
+  { return "YUVtoRGBEffect"; }
 private:
   GrYUVtoRGBEffect(const sk_sp<GrTextureProxy> proxies[], const SkSize scales[], const GrSamplerState::Filter filterModes[], int numPlanes, const SkYUVAIndex yuvaIndices[4], SkYUVColorSpace yuvColorSpace, const SkMatrix& localMatrix, const SkRect* domain)
-    : INHERITED(kGrYUVtoRGBEffect_ClassID, kNone_OptimizationFlags)
-    , fDomains(GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain())
-    , fYUVColorSpace(yuvColorSpace)
-  {
-    for (int i = 0; i < numPlanes; ++i)
+    :  INHERITED(kGrYUVtoRGBEffect_ClassID, kNone_OptimizationFlags)
+            , fDomains{GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain(),
+                       GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain()}
+            , fYUVColorSpace(yuvColorSpace) 
     {
-      SkMatrix planeMatrix = SkMatrix::MakeScale(scales[i].width(), scales[i].height());
-      if (domain)
-      {
-        SkASSERT(filterModes[i] != GrSamplerState::Filter::kMipMap);
-        SkRect scaledDomain = planeMatrix.mapRect(*domain);
-        if (filterModes[i] != GrSamplerState::Filter::kNearest)
-        {
+
+        for (int i = 0; i < numPlanes; ++i) {
+            SkMatrix planeMatrix = SkMatrix::MakeScale(scales[i].width(), scales[i].height());
+            if (domain) {
+                SkASSERT(filterModes[i] != GrSamplerState::Filter::kMipMap);
+
+                SkRect scaledDomain = planeMatrix.mapRect(*domain);
+                if (filterModes[i] != GrSamplerState::Filter::kNearest) {
                     // Inset by half a pixel for bilerp, after scaling to the size of the plane
-          scaledDomain.inset(0.5f, 0.5f);
+                    scaledDomain.inset(0.5f, 0.5f);
+                }
+
+                fDomains[i] = GrTextureDomain(proxies[i].get(), scaledDomain,
+                        GrTextureDomain::kClamp_Mode, GrTextureDomain::kClamp_Mode, i);
+            }
+
+            planeMatrix.preConcat(localMatrix);
+            fSamplers[i].reset(std::move(proxies[i]),
+                               GrSamplerState(GrSamplerState::WrapMode::kClamp, filterModes[i]));
+            fSamplerTransforms[i] = planeMatrix;
+            fSamplerCoordTransforms[i] =
+                    GrCoordTransform(fSamplerTransforms[i], fSamplers[i].proxy());
         }
-        fDomains[i] = GrTextureDomain(proxies[i].get(), scaledDomain, GrTextureDomain::kClamp_Mode, GrTextureDomain::kClamp_Mode, i);
-      }
-      planeMatrix.preConcat(localMatrix);
-      fSamplers[i].reset(std::move(proxies[i]), GrSamplerState(GrSamplerState::WrapMode::kClamp, filterModes[i]));
-      fSamplerTransforms[i] = planeMatrix;
-      fSamplerCoordTransforms[i] = GrCoordTransform(fSamplerTransforms[i], fSamplers[i].proxy());
-    }
-    this->setTextureSamplerCnt(numPlanes);
-    for (int i = 0; i < numPlanes; ++i)
-    {
-      this->addCoordTransform(&fSamplerCoordTransforms[i]);
-    }
-    memcpy(fYUVAIndices, yuvaIndices, sizeof(fYUVAIndices));
-  }
+
+        this->setTextureSamplerCnt(numPlanes);
+        for (int i = 0; i < numPlanes; ++i) {
+            this->addCoordTransform(&fSamplerCoordTransforms[i]);
+        }
+
+        memcpy(fYUVAIndices, yuvaIndices, sizeof(fYUVAIndices));
+        }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

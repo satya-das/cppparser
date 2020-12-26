@@ -59,7 +59,9 @@ class AcEdImpSysVarIterator;
 ACAD_PORT bool acedCmdLookup2(const ACHAR* cmdStr, bool globalLookup, AcEdCommandStruc* retStruc, int sf = ACRX_CMD_DEFUN);
 inline bool acedCmdLookup(const ACHAR* cmdStr, bool globalLookup, AcEdCommandStruc* retStruc, bool skipUndef = false)
 {
-  return ::acedCmdLookup2(cmdStr, globalLookup, retStruc, skipUndef ? (ACRX_CMD_DEFUN | ACRX_CMD_UNDEFINED) : ACRX_CMD_DEFUN);
+        return ::acedCmdLookup2(cmdStr, globalLookup, retStruc,
+                                skipUndef ? (ACRX_CMD_DEFUN | ACRX_CMD_UNDEFINED) 
+                                          : ACRX_CMD_DEFUN);
 }
 /* Given a string representing a command name, looks throught stack of
  * registered command dictionaries and if found, changes the undefine
@@ -356,8 +358,7 @@ public:
   virtual void sysVarChanged(const ACHAR* varName, Adesk::Boolean success);
     // The final overloads is only to catch mis-declared overrides and are not actually used
   void sysVarChanged(const ACHAR*, int) final
-  {
-  }
+  { }
   virtual void sysVarWillChange(const ACHAR* varName);
     // XREF-related Events
     //
@@ -383,8 +384,7 @@ public:
     //
   virtual void undoSubcommandAuto(int activity, Adesk::Boolean state);
   void undoSubcommandAuto(int, int) final
-  {
-  }
+  { }
   virtual void undoSubcommandControl(int activity, int option);
   virtual void undoSubcommandBegin(int activity);
   virtual void undoSubcommandEnd(int activity);
@@ -415,11 +415,9 @@ public:
   virtual void toolbarBitmapSizeWillChange(Adesk::Boolean bLarge);
   virtual void toolbarBitmapSizeChanged(Adesk::Boolean bLarge);
   void toolbarBitmapSizeWillChange(int) final
-  {
-  }
+  { }
   void toolbarBitmapSizeChanged(int) final
-  {
-  }
+  { }
     // WblockObjects - begin new pFrom database
   void beginWblockObjects(AcDbDatabase* pFrom, AcDbIdMapping&) override;
     // Partial Open Events
@@ -713,9 +711,9 @@ ACAD_PORT Acad::ErrorStatus acedGetUnitsValueString(AcDb::UnitsValue units, AcSt
 // Deprecated. Please use the above overload instead
 inline const AcString* acedGetUnitsValueString(AcDb::UnitsValue units)
 {
-  static AcString sRetVal;
-  ::acedGetUnitsValueString(units, sRetVal);
-  return &sRetVal;
+    static AcString sRetVal;
+    ::acedGetUnitsValueString(units, sRetVal);
+    return &sRetVal;
 }
 /// <summary>
 /// This function computes the conversion factor that blocks and xrefs 

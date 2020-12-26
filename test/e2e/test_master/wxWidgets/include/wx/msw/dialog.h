@@ -18,14 +18,15 @@ class WXDLLIMPEXP_CORE wxDialog : public wxDialogBase
 public:
   wxDialog()
   {
-    Init();
-  }
+ Init();   }
     // full ctor
   wxDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE, const wxString& name = wxASCII_STR(wxDialogNameStr))
   {
-    Init();
-    (void) Create(parent, id, title, pos, size, style, name);
-  }
+
+        Init();
+
+        (void)Create(parent, id, title, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE, const wxString& name = wxASCII_STR(wxDialogNameStr));
   virtual ~wxDialog();
     // return true if we're showing the dialog modally

@@ -24,18 +24,19 @@ namespace GrDefaultGeoProcFactory
             kUnpremulSkColorAttribute_Type,
         };
     explicit Color(const SkPMColor4f& color)
-      : fType(kPremulGrColorUniform_Type)
-      , fColor(color)
-      , fColorSpaceXform(nullptr)
-    {
-    }
+      :  fType(kPremulGrColorUniform_Type)
+                , fColor(color)
+                , fColorSpaceXform(nullptr) 
+      {
+      }
     Color(Type type)
-      : fType(type)
-      , fColor(SK_PMColor4fILLEGAL)
-      , fColorSpaceXform(nullptr)
-    {
-      SkASSERT(type != kPremulGrColorUniform_Type);
-    }
+      :  fType(type)
+                , fColor(SK_PMColor4fILLEGAL)
+                , fColorSpaceXform(nullptr) 
+      {
+
+            SkASSERT(type != kPremulGrColorUniform_Type);
+              }
     Type fType;
     SkPMColor4f fColor;
         // This only applies to SkColor. Any GrColors are assumed to have been color converted
@@ -51,16 +52,15 @@ namespace GrDefaultGeoProcFactory
             kAttributeTweakAlpha_Type,
         };
     explicit Coverage(uint8_t coverage)
-      : fType(kUniform_Type)
-      , fCoverage(coverage)
-    {
-    }
+      :  fType(kUniform_Type), fCoverage(coverage) 
+      {
+      }
     Coverage(Type type)
-      : fType(type)
-      , fCoverage(0xff)
-    {
-      SkASSERT(type != kUniform_Type);
-    }
+      :  fType(type), fCoverage(0xff) 
+      {
+
+            SkASSERT(type != kUniform_Type);
+              }
     Type fType;
     uint8_t fCoverage;
   };
@@ -73,20 +73,17 @@ namespace GrDefaultGeoProcFactory
             kHasTransformed_Type,
         };
     LocalCoords(Type type)
-      : fType(type)
-      , fMatrix(nullptr)
-    {
-    }
+      :  fType(type), fMatrix(nullptr) 
+      {
+      }
     LocalCoords(Type type, const SkMatrix* matrix)
-      : fType(type)
-      , fMatrix(matrix)
-    {
-      SkASSERT(kUnused_Type != type);
-    }
+      :  fType(type), fMatrix(matrix) 
+      {
+
+            SkASSERT(kUnused_Type != type);
+              }
     bool hasLocalMatrix() const
-    {
-      return nullptr != fMatrix;
-    }
+    { return nullptr != fMatrix; }
     Type fType;
     const SkMatrix* fMatrix;
   };

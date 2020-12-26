@@ -77,27 +77,31 @@ class WXDLLIMPEXP_CORE wxAnimationDecoder : public wxObjectRefData
 public:
   wxAnimationDecoder()
   {
-    m_nFrames = 0;
-  }
+
+        m_nFrames = 0;
+      }
   virtual bool Load(wxInputStream& stream) = 0;
   bool CanRead(wxInputStream& stream) const
   {
         // NOTE: this code is the same of wxImageHandler::CallDoCanRead
-    if (!stream.IsSeekable())
-    {
-      return false;
-    }
-    wxFileOffset posOld = stream.TellI();
-    bool ok = DoCanRead(stream);
+
+        if ( !stream.IsSeekable() )
+            return false;        // can't test unseekable stream
+
+        wxFileOffset posOld = stream.TellI();
+        bool ok = DoCanRead(stream);
+
         // restore the old position to be able to test other formats and so on
-    if (stream.SeekI(posOld) == wxInvalidOffset)
-    {
-      wxLogDebug(wxT("Failed to rewind the stream in wxAnimationDecoder!"));
+        if ( stream.SeekI(posOld) == wxInvalidOffset )
+        {
+            wxLogDebug(wxT("Failed to rewind the stream in wxAnimationDecoder!"));
+
             // reading would fail anyhow as we're not at the right position
-      return false;
+            return false;
+        }
+
+        return ok;
     }
-    return ok;
-  }
   virtual wxAnimationDecoder* Clone() const = 0;
   virtual wxAnimationType GetType() const = 0;
     // convert given frame to wxImage
@@ -120,17 +124,11 @@ public:
   virtual wxColour GetTransparentColour(unsigned int frame) const = 0;
     // get global data
   wxSize GetAnimationSize() const
-  {
-    return m_szAnimation;
-  }
+  { return m_szAnimation; }
   wxColour GetBackgroundColour() const
-  {
-    return m_background;
-  }
+  { return m_background; }
   unsigned int GetFrameCount() const
-  {
-    return m_nFrames;
-  }
+  { return m_nFrames; }
 protected:
     // checks the signature of the data in the given stream and returns true if it
     // appears to be a valid animation format recognized by the animation decoder;

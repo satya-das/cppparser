@@ -67,21 +67,22 @@ public:
   }
 protected:
   GrOpsRenderPass()
-    : fOrigin(kTopLeft_GrSurfaceOrigin)
-    , fRenderTarget(nullptr)
-  {
-  }
+    :  fOrigin(kTopLeft_GrSurfaceOrigin), fRenderTarget(nullptr) 
+    {
+    }
   GrOpsRenderPass(GrRenderTarget* rt, GrSurfaceOrigin origin)
-    : fOrigin(origin)
-    , fRenderTarget(rt)
-  {
-  }
+    :  fOrigin(origin)
+            , fRenderTarget(rt) 
+    {
+
+        }
   void set(GrRenderTarget* rt, GrSurfaceOrigin origin)
   {
-    SkASSERT(!fRenderTarget);
-    fRenderTarget = rt;
-    fOrigin = origin;
-  }
+        SkASSERT(!fRenderTarget);
+
+        fRenderTarget = rt;
+        fOrigin = origin;
+    }
   GrSurfaceOrigin fOrigin;
   GrRenderTarget* fRenderTarget;
 private:

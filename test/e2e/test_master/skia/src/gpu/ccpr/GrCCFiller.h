@@ -49,33 +49,26 @@ private:
   {
   public:
     PathInfo(GrScissorTest scissorTest, const SkIVector& devToAtlasOffset)
-      : fScissorTest(scissorTest)
-      , fDevToAtlasOffset(devToAtlasOffset)
-    {
-    }
+      :  fScissorTest(scissorTest), fDevToAtlasOffset(devToAtlasOffset) 
+      {
+      }
     GrScissorTest scissorTest() const
-    {
-      return fScissorTest;
-    }
+    { return fScissorTest; }
     const SkIVector& devToAtlasOffset() const
-    {
-      return fDevToAtlasOffset;
-    }
+    { return fDevToAtlasOffset; }
         // An empty tessellation fan is also valid; we use negative count to denote not tessellated.
     bool hasFanTessellation() const
-    {
-      return fFanTessellationCount >= 0;
-    }
+    { return fFanTessellationCount >= 0; }
     int fanTessellationCount() const
     {
-      SkASSERT(this->hasFanTessellation());
-      return fFanTessellationCount;
-    }
+            SkASSERT(this->hasFanTessellation());
+            return fFanTessellationCount;
+        }
     const GrTessellator::WindingVertex* fanTessellation() const
     {
-      SkASSERT(this->hasFanTessellation());
-      return fFanTessellation.get();
-    }
+            SkASSERT(this->hasFanTessellation());
+            return fFanTessellation.get();
+        }
     void tessellateFan(Algorithm, const SkPath& originalPath, const GrCCFillGeometry&, int verbsIdx, int ptsIdx, const SkIRect& clippedDevIBounds, PrimitiveTallies* newTriangleCounts);
   private:
     GrScissorTest fScissorTest;

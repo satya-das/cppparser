@@ -174,45 +174,49 @@ public:
 // Default color method is kByColor.
 inline AcCmEntityColor::AcCmEntityColor()
 {
-  mRGBM.whole = 0;
-  mRGBM.mdata.colorMethod = kByColor;
+
+    mRGBM.whole = 0;
+    mRGBM.mdata.colorMethod = kByColor;
 }
 inline AcCmEntityColor::AcCmEntityColor(const AcCmEntityColor& color)
 {
-  mRGBM.whole = color.mRGBM.whole;
+
+    mRGBM.whole = color.mRGBM.whole;
 }
 // parameter:   eColorMethod    Color method information (byBlock, byLayer, byColor).
 inline AcCmEntityColor::AcCmEntityColor(ColorMethod eColorMethod)
 {
-  mRGBM.whole = 0;
-  mRGBM.mdata.colorMethod = static_cast<Adesk::UInt8>(eColorMethod);
+
+    mRGBM.whole = 0;
+    mRGBM.mdata.colorMethod = static_cast<Adesk::UInt8>(eColorMethod);
 }
 // Default color method is kByColor.
 // parameter:   red, green, blue
 inline AcCmEntityColor::AcCmEntityColor(Adesk::UInt8 red, Adesk::UInt8 green, Adesk::UInt8 blue)
 {
-  mRGBM.mdata.red = red;
-  mRGBM.mdata.green = green;
-  mRGBM.mdata.blue = blue;
-  mRGBM.mdata.colorMethod = kByColor;
+
+    mRGBM.mdata.red   = red;
+    mRGBM.mdata.green = green;
+    mRGBM.mdata.blue  = blue;
+    mRGBM.mdata.colorMethod = kByColor;
 }
 inline AcCmEntityColor& AcCmEntityColor::operator=(const AcCmEntityColor& color)
 {
-  mRGBM.whole = color.mRGBM.whole;
-  return *this;
+    mRGBM.whole = color.mRGBM.whole;
+    return *this;
 }
 inline bool AcCmEntityColor::operator==(const AcCmEntityColor& color) const
 {
-  return mRGBM.whole == color.mRGBM.whole;
+    return mRGBM.whole == color.mRGBM.whole;
 }
 inline bool AcCmEntityColor::operator!=(const AcCmEntityColor& color) const
 {
-  return mRGBM.whole != color.mRGBM.whole;
+    return mRGBM.whole != color.mRGBM.whole;
 }
 // get Color Method
 inline AcCmEntityColor::ColorMethod AcCmEntityColor::colorMethod() const
 {
-  return (ColorMethod) mRGBM.mdata.colorMethod;
+    return (ColorMethod) mRGBM.mdata.colorMethod;
 }
 // get RGB
 //
@@ -228,162 +232,164 @@ inline AcCmEntityColor::ColorMethod AcCmEntityColor::colorMethod() const
 //                  kForeground: Only color method (fourth byte) is valid.    
 inline Adesk::UInt32 AcCmEntityColor::color() const
 {
-  return mRGBM.whole;
+    return mRGBM.whole;
 }
 inline Adesk::Int16 AcCmEntityColor::colorIndex() const
 {
-  return colorIndex(&mRGBM);
+    return colorIndex(&mRGBM);  // delegate to static method
 }
 inline Acad::ErrorStatus AcCmEntityColor::setColorMethod(ColorMethod eColorMethod)
 {
-  return setColorMethod(&mRGBM, eColorMethod);
+    return setColorMethod(&mRGBM, eColorMethod);    // delegate to static method
 }
 inline Acad::ErrorStatus AcCmEntityColor::setColor(Adesk::UInt32 color)
 {
-  return setColor(&mRGBM, color);
+    return setColor(&mRGBM, color);     // delegate to static method
 }
 inline Acad::ErrorStatus AcCmEntityColor::setColorIndex(Adesk::Int16 colorIndex)
 {
-  return setColorIndex(&mRGBM, colorIndex);
+    return setColorIndex(&mRGBM, colorIndex);     // delegate to static method
 }
 // Return signed 32-bit int obtained from low 3 bytes (24 bits) of the rgb struct
 //
 inline Adesk::Int32 AcCmEntityColor::RGBM::indirect24() const
 {
     // We can only store a 24-bit index, because of the colorMethod field using bits 24..31
-  Adesk::Int32 nRet = this->mnIndirect32;
+    Adesk::Int32 nRet = this->mnIndirect32;
     // Do sign extension if bit 23 is set
-  if ((nRet & 0x800000) != 0)
-  {
-    nRet |= 0xff000000;
-  }
-  else 
-  {
-    nRet &= ~0xff000000;
-  }
-  return nRet;
+    if ((nRet & 0x800000) != 0)
+        nRet |= 0xff000000;     // negative: set bits 24 through 31
+    else
+        nRet &= ~0xff000000;    // positive: clear bits 24 through 31
+    return nRet;
 }
 inline Acad::ErrorStatus AcCmEntityColor::setLayerIndex(Adesk::Int32 layerIndex)
 {
-  return setLayerIndex(&mRGBM, layerIndex);
+    return setLayerIndex(&mRGBM, layerIndex);   // delegate to static method
 }
 // return value:    Layer index.
 inline Adesk::Int32 AcCmEntityColor::layerIndex(const RGBM* rgbm)
 {
-  if (rgbm == nullptr)
-  {
-    return -1;
-  }
-  if (rgbm->mdata.colorMethod != kByLayer && rgbm->mdata.colorMethod != kLayerOff)
-  {
-    return -1;
-  }
-  return rgbm->indirect24();
+    if (rgbm == nullptr)
+        return -1;      // error
+    if (rgbm->mdata.colorMethod != kByLayer && rgbm->mdata.colorMethod != kLayerOff)
+        return -1;      // error
+
+    return rgbm->indirect24();
 }
 inline Adesk::Int32 AcCmEntityColor::layerIndex() const
 {
-  return layerIndex(&mRGBM);
+    return layerIndex(&mRGBM);  // delegate to static inline method
 }
 inline Acad::ErrorStatus AcCmEntityColor::setPenIndex(Adesk::UInt16 penIndex)
 {
-  return setPenIndex(&mRGBM, penIndex);
+    return setPenIndex(&mRGBM, penIndex);   // delegate to static method
 }
 inline Adesk::UInt16 AcCmEntityColor::penIndex(const RGBM* rgbm)
 {
-  if (rgbm == nullptr)
-  {
-    return 0xffff;
-  }
-  if (rgbm->mdata.colorMethod != kByPen)
-  {
-    return 0xffff;
-  }
-  return (Adesk::UInt16) rgbm->indirect;
+    if (rgbm == nullptr)
+        return 0xffff;  // error
+    if (rgbm->mdata.colorMethod != kByPen)
+        return 0xffff;  // error
+    return (Adesk::UInt16)rgbm->indirect;
 }
 inline Adesk::UInt16 AcCmEntityColor::penIndex() const
 {
-  return penIndex(&mRGBM);
+    return penIndex(&mRGBM);    // delegate to static inline method
 }
 // get red
 inline Adesk::UInt8 AcCmEntityColor::red() const
 {
-  return mRGBM.mdata.red;
+    return mRGBM.mdata.red;
 }
 // get green
 inline Adesk::UInt8 AcCmEntityColor::green() const
 {
-  return mRGBM.mdata.green;
+    return mRGBM.mdata.green;
 }
 // get blue
 inline Adesk::UInt8 AcCmEntityColor::blue() const
 {
-  return mRGBM.mdata.blue;
+    return mRGBM.mdata.blue;
 }
 inline bool AcCmEntityColor::isByColor() const
 {
-  return mRGBM.mdata.colorMethod == kByColor;
+    return mRGBM.mdata.colorMethod == kByColor; 
 }
 inline bool AcCmEntityColor::isByLayer() const
 {
-  return (mRGBM.mdata.colorMethod == kByLayer || (mRGBM.mdata.colorMethod == kByACI && mRGBM.indirect == kACIbyLayer)) ? true : false;
+    return (mRGBM.mdata.colorMethod  == kByLayer ||
+            (mRGBM.mdata.colorMethod == kByACI   && 
+            mRGBM.indirect == kACIbyLayer)) ? true : false;
 }
 inline bool AcCmEntityColor::isByBlock() const
 {
-  return (mRGBM.mdata.colorMethod == kByBlock || (mRGBM.mdata.colorMethod == kByACI && mRGBM.indirect == kACIbyBlock)) ? true : false;
+    return (mRGBM.mdata.colorMethod  == kByBlock ||
+            (mRGBM.mdata.colorMethod == kByACI   && 
+            mRGBM.indirect == kACIbyBlock)) ? true : false;
 }
 inline bool AcCmEntityColor::isByACI() const
 {
-  return mRGBM.mdata.colorMethod == kByACI;
+    return mRGBM.mdata.colorMethod == kByACI;
 }
 inline bool AcCmEntityColor::isByPen() const
 {
-  return mRGBM.mdata.colorMethod == kByPen;
+    return mRGBM.mdata.colorMethod == kByPen;
 }
 inline bool AcCmEntityColor::isForeground() const
 {
-  return (mRGBM.mdata.colorMethod == kForeground || (mRGBM.mdata.colorMethod == kByACI && mRGBM.indirect == kACIforeground)) ? true : false;
+    return (mRGBM.mdata.colorMethod  == kForeground ||
+            (mRGBM.mdata.colorMethod == kByACI      && 
+            mRGBM.indirect == kACIforeground)) ? true : false;
 }
 inline bool AcCmEntityColor::isLayerOff() const
-{
-  return (mRGBM.mdata.colorMethod == kLayerOff || (mRGBM.mdata.colorMethod == kByACI && mRGBM.indirect < 0 && mRGBM.indirect != kACIfrozenLayer)) ? true : false;
+{   
+    return (mRGBM.mdata.colorMethod  == kLayerOff ||
+            (mRGBM.mdata.colorMethod == kByACI && 
+            mRGBM.indirect    <  0 && // layer off for ACI is negative
+            mRGBM.indirect != kACIfrozenLayer)) ? true : false;
 }
 inline bool AcCmEntityColor::isLayerFrozen() const
-{
-  return (mRGBM.mdata.colorMethod == kLayerFrozen || (mRGBM.mdata.colorMethod == kByACI && mRGBM.indirect == kACIfrozenLayer)) ? true : false;
+{   
+    return (mRGBM.mdata.colorMethod  == kLayerFrozen ||
+            (mRGBM.mdata.colorMethod == kByACI       && 
+            mRGBM.indirect == kACIfrozenLayer)) ? true : false;
 }
 inline bool AcCmEntityColor::isLayerFrozenOrOff() const
 {
-  return isLayerFrozen() || isLayerOff();
+    return isLayerFrozen() || isLayerOff();
 }
 inline bool AcCmEntityColor::isNone() const
 {
-  return (mRGBM.mdata.colorMethod == kNone || (mRGBM.mdata.colorMethod == kByACI && mRGBM.indirect == kACInone)) ? true : false;
+    return (mRGBM.mdata.colorMethod  == kNone ||
+            (mRGBM.mdata.colorMethod == kByACI       && 
+            mRGBM.indirect == kACInone)) ? true : false;
 }
 // parameter:   red, green, blue.
 inline Acad::ErrorStatus AcCmEntityColor::setRGB(Adesk::UInt8 red, Adesk::UInt8 green, Adesk::UInt8 blue)
 {
-  return setRGB(&mRGBM, red, green, blue);
+    return setRGB (&mRGBM, red, green, blue);
 }
 // set red
 inline Acad::ErrorStatus AcCmEntityColor::setRed(Adesk::UInt8 red)
 {
-  return setRed(&mRGBM, red);
+    return setRed (&mRGBM, red);
 }
 // set green
 inline Acad::ErrorStatus AcCmEntityColor::setGreen(Adesk::UInt8 green)
 {
-  return setGreen(&mRGBM, green);
+    return setGreen (&mRGBM, green);
 }
 // set blue
 inline Acad::ErrorStatus AcCmEntityColor::setBlue(Adesk::UInt8 blue)
 {
-  return setBlue(&mRGBM, blue);
+    return setBlue (&mRGBM, blue);
 }
 // converts to true color
 // returns result
 inline Adesk::UInt32 AcCmEntityColor::trueColor() const
 {
-  return trueColor(&mRGBM);
+    return trueColor (&mRGBM);
 }
 // Base interface class for AcCmColor
 class ADESK_NO_VTABLE AcCmColorBase
@@ -439,14 +445,12 @@ public:
     };
   AcCmTransparency()
   {
-    mAM.whole = kTransparencyByLayer;
-  }
+ mAM.whole = kTransparencyByLayer;   }
   AcCmTransparency(Adesk::UInt8 alpha);
   AcCmTransparency(double alphaPercent);
   AcCmTransparency(const AcCmTransparency& other)
   {
-    mAM.whole = other.mAM.whole;
-  }
+ mAM.whole = other.mAM.whole;   }
   ~AcCmTransparency()
   {
   }
@@ -459,27 +463,17 @@ public:
   Adesk::UInt8 alpha(void) const;
   double alphaPercent(void) const;
   bool isByAlpha(void) const
-  {
-    return (mAM.mdata.method == kByAlpha);
-  }
+  { return (mAM.mdata.method == kByAlpha); }
   bool isByBlock(void) const
-  {
-    return (mAM.mdata.method == kByBlock);
-  }
+  { return (mAM.mdata.method == kByBlock); }
   bool isByLayer(void) const
-  {
-    return (mAM.mdata.method == kByLayer);
-  }
+  { return (mAM.mdata.method == kByLayer); }
   bool isInvalid(void) const
-  {
-    return (mAM.mdata.method == kErrorValue);
-  }
+  { return (mAM.mdata.method == kErrorValue); }
   bool isClear(void) const;
   bool isSolid(void) const;
   Adesk::UInt32 serializeOut(void) const
-  {
-    return mAM.whole;
-  }
+  { return mAM.whole; }
   void serializeIn(Adesk::UInt32);
 private:
   union AM

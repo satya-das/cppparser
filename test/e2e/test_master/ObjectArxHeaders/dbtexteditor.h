@@ -66,7 +66,7 @@ class AcDbTextEditorSelectable
 public:
   virtual ~AcDbTextEditorSelectable()
   {
-  }
+   }
     ///<summary> 
     /// Gets the start location of a selectable object.
     ///</summary>
@@ -2275,9 +2275,9 @@ public:
   ACDBCORE2D_PORT AcDbTextEditorLocation* endOfText() override;
 protected:
   ACDBCORE2D_PORT AcDbTextEditor()
-    : m_pImp(NULL)
-  {
-  }
+    : m_pImp(NULL) 
+    {
+    }
   ACDBCORE2D_PORT virtual ~AcDbTextEditor();
   friend class AcDbTextEditorLocation;
   friend class AcDbTextEditorParagraphIterator;

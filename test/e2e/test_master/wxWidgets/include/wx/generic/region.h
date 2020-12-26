@@ -48,14 +48,11 @@ public:
   virtual ~wxRegionIteratorGeneric();
   wxRegionIteratorGeneric& operator=(const wxRegionIteratorGeneric& iterator);
   void Reset()
-  {
-    m_current = 0;
-  }
+  { m_current = 0; }
   void Reset(const wxRegionGeneric& region);
   operator bool() const
   {
-    return HaveRects();
-  }
+ return HaveRects();   }
   bool HaveRects() const;
   wxRegionIteratorGeneric& operator++();
   wxRegionIteratorGeneric operator++(int);
@@ -63,14 +60,10 @@ public:
   long GetY() const;
   long GetW() const;
   long GetWidth() const
-  {
-    return GetW();
-  }
+  { return GetW(); }
   long GetH() const;
   long GetHeight() const
-  {
-    return GetH();
-  }
+  { return GetH(); }
   wxRect GetRect() const;
 private:
   long m_current;

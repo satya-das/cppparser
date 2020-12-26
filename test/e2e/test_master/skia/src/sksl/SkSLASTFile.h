@@ -12,12 +12,12 @@ namespace SkSL
   struct ASTFile
   {
     ASTFile()
-      : fRoot(ASTNode::ID::Invalid())
-    {
-    }
+      :  fRoot(ASTNode::ID::Invalid()) 
+      {
+      }
     ASTNode& root()
     {
-      return fNodes[fRoot.fValue];
+        return fNodes[fRoot.fValue];
     }
   private:
     std::vector<ASTNode> fNodes;

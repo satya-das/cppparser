@@ -96,7 +96,7 @@ namespace PoDoFo
     PdfXObject(PdfObject* pObject);
     virtual ~PdfXObject()
     {
-    }
+     }
     /** Get access to the contents object of this page.
      *  If you want to draw onto the page, you have to add 
      *  drawing commands to the stream of the Contents object.
@@ -115,9 +115,7 @@ namespace PoDoFo
      *  \returns a contents object
      */
     virtual PdfObject* GetContentsForAppending() const
-    {
-      return GetContents();
-    }
+    { return GetContents(); }
     /** Get access to the resources object of this page.
      *  This is most likely an internal object.
      *  \returns a resources object
@@ -158,34 +156,34 @@ namespace PoDoFo
   inline PdfObject* PdfXObject::GetContents() const
   {
     return this->GetNonConstObject();
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfObject* PdfXObject::GetResources() const
   {
     return m_pResources;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline const PdfRect PdfXObject::GetPageSize() const
   {
     return m_rRect;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline const PdfName& PdfXObject::GetIdentifier() const
   {
     return m_Identifier;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline const PdfReference& PdfXObject::GetObjectReference() const
   {
     return m_Reference;
-  }
+}
 }
 #endif

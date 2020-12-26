@@ -23,9 +23,7 @@ public:
   void addScalarAttribute(const char name[], SkScalar value);
   void addText(const char text[], size_t length);
   void endElement()
-  {
-    this->onEndElement();
-  }
+  { this->onEndElement(); }
   void startElement(const char elem[]);
   void startElementLen(const char elem[], size_t length);
   void writeDOM(const SkDOM&, const SkDOM::Node*, bool skipRoot);
@@ -39,11 +37,11 @@ protected:
   struct Elem
   {
     Elem(const char name[], size_t len)
-      : fName(name, len)
-      , fHasChildren(false)
-      , fHasText(false)
-    {
-    }
+      :  fName(name, len)
+            , fHasChildren(false)
+            , fHasText(false) 
+      {
+      }
     SkString fName;
     bool fHasChildren;
     bool fHasText;

@@ -71,26 +71,18 @@ public:
 
     // get the EGLConfig we use
   EGLConfig* GetEGLConfig() const
-  {
-    return m_config;
-  }
+  { return m_config; }
   EGLDisplay GetEGLDisplay() const
-  {
-    return m_display;
-  }
+  { return m_display; }
   EGLSurface GetEGLSurface() const
-  {
-    return m_surface;
-  }
+  { return m_surface; }
   static EGLDisplay GetDisplay();
     // initialize the global default GL config, return false if matching config
     // not found
   static bool InitDefaultConfig(const int* attribList);
     // get the default EGL Config (may be NULL, shouldn't be freed by caller)
   static EGLConfig* GetDefaultConfig()
-  {
-    return ms_glEGLConfig;
-  }
+  { return ms_glEGLConfig; }
     // free the global GL visual, called by wxGLApp
   static void FreeDefaultConfig();
     // initializes EGLConfig
@@ -124,9 +116,9 @@ class WXDLLIMPEXP_GL wxGLApp : public wxGLAppBase
 {
 public:
   wxGLApp()
-    : wxGLAppBase()
-  {
-  }
+    :  wxGLAppBase() 
+    {
+     }
     // implement wxGLAppBase method
   bool InitGLVisual(const int* attribList) override
   {

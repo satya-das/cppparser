@@ -25,9 +25,7 @@ public:
   bool Create(wxRibbonBar* parent, wxWindowID id = wxID_ANY, const wxString& label = wxEmptyString, const wxBitmap& icon = wxNullBitmap, long style = 0);
   void SetArtProvider(wxRibbonArtProvider* art) override;
   wxBitmap& GetIcon()
-  {
-    return m_icon;
-  }
+  {return m_icon;}
   wxSize GetMinSize() const override;
   void SetSizeWithScrollButtonAdjustment(int x, int y, int width, int height);
   void AdjustRectToIncludeScrollButtons(wxRect* rect) const;

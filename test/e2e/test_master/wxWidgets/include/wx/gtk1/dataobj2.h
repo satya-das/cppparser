@@ -24,43 +24,27 @@ public:
     // implement base class pure virtuals
     // ----------------------------------
   virtual size_t GetDataSize() const
-  {
-    return m_pngSize;
-  }
+  { return m_pngSize; }
   virtual bool GetDataHere(void* buf) const;
   virtual bool SetData(size_t len, const void* buf);
 protected:
   void Init()
-  {
-    m_pngData = NULL;
-    m_pngSize = 0;
-  }
+  { m_pngData = NULL; m_pngSize = 0; }
   void Clear()
-  {
-    free(m_pngData);
-  }
+  { free(m_pngData); }
   void ClearAll()
-  {
-    Clear();
-    Init();
-  }
+  { Clear(); Init(); }
   size_t m_pngSize;
   void* m_pngData;
   void DoConvertToPng();
 private:
     // virtual function hiding suppression
   size_t GetDataSize(const wxDataFormat& format) const
-  {
-    return (wxDataObjectSimple::GetDataSize(format));
-  }
+  { return(wxDataObjectSimple::GetDataSize(format)); }
   bool GetDataHere(const wxDataFormat& format, void* pBuf) const
-  {
-    return (wxDataObjectSimple::GetDataHere(format, pBuf));
-  }
+  { return(wxDataObjectSimple::GetDataHere(format, pBuf)); }
   bool SetData(const wxDataFormat& format, size_t nLen, const void* pBuf)
-  {
-    return (wxDataObjectSimple::SetData(format, nLen, pBuf));
-  }
+  { return(wxDataObjectSimple::SetData(format, nLen, pBuf)); }
 };
 // ----------------------------------------------------------------------------
 // wxFileDataObject is a specialization of wxDataObject for file names
@@ -77,16 +61,10 @@ public:
 private:
     // virtual function hiding suppression
   size_t GetDataSize(const wxDataFormat& format) const
-  {
-    return (wxDataObjectSimple::GetDataSize(format));
-  }
+  { return(wxDataObjectSimple::GetDataSize(format)); }
   bool GetDataHere(const wxDataFormat& format, void* pBuf) const
-  {
-    return (wxDataObjectSimple::GetDataHere(format, pBuf));
-  }
+  { return(wxDataObjectSimple::GetDataHere(format, pBuf)); }
   bool SetData(const wxDataFormat& format, size_t nLen, const void* pBuf)
-  {
-    return (wxDataObjectSimple::SetData(format, nLen, pBuf));
-  }
+  { return(wxDataObjectSimple::SetData(format, nLen, pBuf)); }
 };
 #endif

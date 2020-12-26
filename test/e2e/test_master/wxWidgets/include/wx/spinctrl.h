@@ -57,23 +57,21 @@ class WXDLLIMPEXP_CORE wxSpinDoubleEvent : public wxNotifyEvent
 {
 public:
   wxSpinDoubleEvent(wxEventType commandType = wxEVT_NULL, int winid = 0, double value = 0)
-    : wxNotifyEvent(commandType, winid)
-    , m_value(value)
-  {
-  }
+    :  wxNotifyEvent(commandType, winid), m_value(value)
+    
+    {
+
+        }
   wxSpinDoubleEvent(const wxSpinDoubleEvent& event)
-    : wxNotifyEvent(event)
-    , m_value(event.GetValue())
-  {
-  }
+    :  wxNotifyEvent(event), m_value(event.GetValue())
+    
+    {
+
+        }
   double GetValue() const
-  {
-    return m_value;
-  }
+  { return m_value; }
   void SetValue(double value)
-  {
-    m_value = value;
-  }
+  { m_value = value; }
   wxEvent* Clone() const override
   {
     return new wxSpinDoubleEvent(*this);

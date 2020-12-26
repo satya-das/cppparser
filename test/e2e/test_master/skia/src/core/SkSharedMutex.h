@@ -70,8 +70,9 @@ public:
   explicit SkAutoSharedMutexExclusive(SkSharedMutex& lock)
     : fLock(lock)
   {
-    lock.acquire();
-  }
+
+        lock.acquire();
+      }
   ~SkAutoSharedMutexExclusive()
   {
     fLock.release();
@@ -86,8 +87,9 @@ public:
   explicit SkAutoSharedMutexShared(SkSharedMutex& lock)
     : fLock(lock)
   {
-    lock.acquireShared();
-  }
+
+        lock.acquireShared();
+      }
     // You would think this should be SK_RELEASE_SHARED_CAPABILITY, but SK_SCOPED_CAPABILITY
     // doesn't fully understand the difference between shared and exclusive.
     // Please review https://reviews.llvm.org/D52578 for more information.

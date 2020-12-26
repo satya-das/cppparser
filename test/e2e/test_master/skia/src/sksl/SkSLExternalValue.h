@@ -15,32 +15,32 @@ namespace SkSL
   {
   public:
     ExternalValue(const char* name, const Type& type)
-      : INHERITED(-1, kExternal_Kind, name)
-      , fType(type)
-    {
-    }
+      :  INHERITED(-1, kExternal_Kind, name)
+        , fType(type) 
+      {
+      }
     virtual bool canRead() const
     {
-      return false;
+        return false;
     }
     virtual bool canWrite() const
     {
-      return false;
+        return false;
     }
     virtual bool canCall() const
     {
-      return false;
+        return false;
     }
     /**
      * Returns the type for purposes of read and write operations.
      */
     virtual const Type& type() const
     {
-      return fType;
+        return fType;
     }
     virtual int callParameterCount() const
     {
-      return -1;
+        return -1;
     }
     /**
      * Fills in the outTypes array with pointers to the parameter types. outTypes must be able to
@@ -48,14 +48,14 @@ namespace SkSL
      */
     virtual void getCallParameterTypes(const Type** outTypes) const
     {
-      SkASSERT(false);
+        SkASSERT(false);
     }
     /**
      * Returns the return type resulting from a call operation.
      */
     virtual const Type& callReturnType() const
     {
-      return fType;
+        return fType;
     }
     /**
      * Reads the external value and stores the resulting data in target. The caller must ensure
@@ -65,7 +65,7 @@ namespace SkSL
      */
     virtual void read(int index, float* target)
     {
-      SkASSERT(false);
+        SkASSERT(false);
     }
     /**
      * Copies the value in src into this external value. The caller must ensure that src is a
@@ -74,7 +74,7 @@ namespace SkSL
      */
     virtual void write(int index, float* src)
     {
-      SkASSERT(false);
+        SkASSERT(false);
     }
     /**
      * Calls the value as a function with the specified parameters. arguments must be a pointer to
@@ -85,7 +85,7 @@ namespace SkSL
      */
     virtual void call(int index, float* arguments, float* outResult)
     {
-      SkASSERT(false);
+        SkASSERT(false);
     }
     /**
      * Resolves 'name' within this context and returns an ExternalValue which represents it, or
@@ -97,11 +97,11 @@ namespace SkSL
      */
     virtual ExternalValue* getChild(const char* name) const
     {
-      return nullptr;
+        return nullptr;
     }
     String description() const override
     {
-      return String("external<") + fName + ">";
+        return String("external<") + fName + ">";
     }
   private:
     typedef Symbol INHERITED;

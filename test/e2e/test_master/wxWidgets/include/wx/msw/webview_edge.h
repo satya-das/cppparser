@@ -21,8 +21,9 @@ public:
   }
   wxWebViewEdge(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxWebViewNameStr)
   {
-    Create(parent, id, url, pos, size, style, name);
-  }
+
+        Create(parent, id, url, pos, size, style, name);
+      }
   ~wxWebViewEdge();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxWebViewNameStr) override;
   void LoadURL(const wxString& url) override;

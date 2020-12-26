@@ -44,19 +44,19 @@ Acad::ErrorStatus acutUpdString(const ACHAR* pInput, ACHAR*& pOutput);
 void acutDelBuffer(void*& pBuffer);
 inline Acad::ErrorStatus acutNewBuffer(char*& pOutput, size_t size)
 {
-  return ::acutNewBuffer((void*&) pOutput, size);
+    return ::acutNewBuffer((void * &)pOutput, size);
 }
 inline void acutDelBuffer(char*& pString)
 {
-  ::acutDelBuffer((void*&) pString);
+    ::acutDelBuffer((void * &)pString);
 }
 inline void acutDelString(char*& pString)
 {
-  ::acutDelBuffer((void*&) pString);
+    ::acutDelBuffer((void * &)pString);
 }
 inline void acutDelString(wchar_t*& pString)
 {
-  ::acutDelBuffer((void*&) pString);
+    ::acutDelBuffer((void * &)pString);
 }
 #  pragma  pack (pop)
 /// <summary>

@@ -35,9 +35,7 @@ public:
   {
   }
   bool isValid() const
-  {
-    return false;
-  }
+  { return false; }
 };
 class SK_API GrBackendRenderTarget
 {
@@ -46,9 +44,7 @@ public:
   {
   }
   bool isValid() const
-  {
-    return false;
-  }
+  { return false; }
 };
 #  else 
 enum class GrGLFormat;
@@ -62,42 +58,36 @@ public:
   GrBackendFormat(const GrBackendFormat& src);
   static GrBackendFormat MakeGL(GrGLenum format, GrGLenum target)
   {
-    return GrBackendFormat(format, target);
-  }
+        return GrBackendFormat(format, target);
+    }
   static GrBackendFormat MakeVk(VkFormat format)
   {
-    return GrBackendFormat(format, GrVkYcbcrConversionInfo());
-  }
+        return GrBackendFormat(format, GrVkYcbcrConversionInfo());
+    }
   static GrBackendFormat MakeVk(const GrVkYcbcrConversionInfo& ycbcrInfo);
 #    ifdef SK_DAWN
   static GrBackendFormat MakeDawn(dawn::TextureFormat format)
   {
-    return GrBackendFormat(format);
-  }
+        return GrBackendFormat(format);
+    }
 #    endif
 #    ifdef SK_METAL
   static GrBackendFormat MakeMtl(GrMTLPixelFormat format)
   {
-    return GrBackendFormat(format);
-  }
+        return GrBackendFormat(format);
+    }
 #    endif
   static GrBackendFormat MakeMock(GrColorType colorType)
   {
-    return GrBackendFormat(colorType);
-  }
+        return GrBackendFormat(colorType);
+    }
   bool operator==(const GrBackendFormat& that) const;
   bool operator!=(const GrBackendFormat& that) const
-  {
-    return !(*this == that);
-  }
+  { return !(*this == that); }
   GrBackendApi backend() const
-  {
-    return fBackend;
-  }
+  { return fBackend; }
   GrTextureType textureType() const
-  {
-    return fTextureType;
-  }
+  { return fTextureType; }
     /**
      * If the backend API is GL this gets the format as a GrGLFormat. Otherwise, returns
      * GrGLFormat::kUnknown.
@@ -134,9 +124,7 @@ public:
   GrBackendFormat makeTexture2D() const;
     // Returns true if the backend format has been initialized.
   bool isValid() const
-  {
-    return fValid;
-  }
+  { return fValid; }
 #    if  GR_TEST_UTILS
   SkString toStr() const;
 #    endif
@@ -175,9 +163,9 @@ class SK_API GrBackendTexture
 public:
     // Creates an invalid backend texture.
   GrBackendTexture()
-    : fIsValid(false)
-  {
-  }
+    :  fIsValid(false) 
+    {
+    }
     // The GrGLTextureInfo must have a valid fFormat.
   GrBackendTexture(int width, int height, GrMipMapped, const GrGLTextureInfo& glInfo);
   GrBackendTexture(int width, int height, const GrVkImageInfo& vkInfo);
@@ -192,21 +180,13 @@ public:
   ~GrBackendTexture();
   GrBackendTexture& operator=(const GrBackendTexture& that);
   int width() const
-  {
-    return fWidth;
-  }
+  { return fWidth; }
   int height() const
-  {
-    return fHeight;
-  }
+  { return fHeight; }
   bool hasMipMaps() const
-  {
-    return GrMipMapped::kYes == fMipMapped;
-  }
+  { return GrMipMapped::kYes == fMipMapped; }
   GrBackendApi backend() const
-  {
-    return fBackend;
-  }
+  {return fBackend; }
     // If the backend API is GL, copies a snapshot of the GrGLTextureInfo struct into the passed in
     // pointer and returns true. Otherwise returns false if the backend API is not GL.
   bool getGLTextureInfo(GrGLTextureInfo*) const;
@@ -239,9 +219,7 @@ public:
   bool isProtected() const;
     // Returns true if the backend texture has been initialized.
   bool isValid() const
-  {
-    return fIsValid;
-  }
+  { return fIsValid; }
     // Returns true if both textures are valid and refer to the same API texture.
   bool isSameTexture(const GrBackendTexture&);
 #    if  GR_TEST_UTILS
@@ -287,9 +265,9 @@ class SK_API GrBackendRenderTarget
 public:
     // Creates an invalid backend texture.
   GrBackendRenderTarget()
-    : fIsValid(false)
-  {
-  }
+    :  fIsValid(false) 
+    {
+    }
     // The GrGLTextureInfo must have a valid fFormat.
   GrBackendRenderTarget(int width, int height, int sampleCnt, int stencilBits, const GrGLFramebufferInfo& glInfo);
 #    ifdef SK_DAWN
@@ -306,25 +284,15 @@ public:
   GrBackendRenderTarget(const GrBackendRenderTarget& that);
   GrBackendRenderTarget& operator=(const GrBackendRenderTarget&);
   int width() const
-  {
-    return fWidth;
-  }
+  { return fWidth; }
   int height() const
-  {
-    return fHeight;
-  }
+  { return fHeight; }
   int sampleCnt() const
-  {
-    return fSampleCnt;
-  }
+  { return fSampleCnt; }
   int stencilBits() const
-  {
-    return fStencilBits;
-  }
+  { return fStencilBits; }
   GrBackendApi backend() const
-  {
-    return fBackend;
-  }
+  {return fBackend; }
     // If the backend API is GL, copies a snapshot of the GrGLFramebufferInfo struct into the passed
     // in pointer and returns true. Otherwise returns false if the backend API is not GL.
   bool getGLFramebufferInfo(GrGLFramebufferInfo*) const;
@@ -354,9 +322,7 @@ public:
   bool isProtected() const;
     // Returns true if the backend texture has been initialized.
   bool isValid() const
-  {
-    return fIsValid;
-  }
+  { return fIsValid; }
 #    if  GR_TEST_UTILS
   static bool TestingOnly_Equals(const GrBackendRenderTarget&, const GrBackendRenderTarget&);
 #    endif

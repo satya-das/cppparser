@@ -27,7 +27,7 @@ namespace wxMSWButton
   inline int GetMultilineStyle(const wxString& label)
   {
     return label.find(wxT('\n')) == wxString::npos ? 0 : BS_MULTILINE;
-  }
+}
 // update the style of the specified HWND to include or exclude BS_MULTILINE
 // depending on whether the label contains the new lines
   void UpdateMultilineStyle(HWND hwnd, const wxString& label);
@@ -54,6 +54,6 @@ namespace wxMSWButton
   inline wxSize ComputeBestSize(wxControl* btn, int flags = 0)
   {
     return IncreaseToStdSizeAndCache(btn, ComputeBestFittingSize(btn, flags));
-  }
+}
 }
 #endif

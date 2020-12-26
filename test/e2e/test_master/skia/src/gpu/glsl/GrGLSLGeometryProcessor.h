@@ -28,8 +28,9 @@ protected:
     // Version of above that assumes identity for the local matrix.
   void emitTransforms(GrGLSLVertexBuilder* vb, GrGLSLVaryingHandler* varyingHandler, GrGLSLUniformHandler* uniformHandler, const GrShaderVar& localCoordsVar, FPCoordTransformHandler* handler)
   {
-    this->emitTransforms(vb, varyingHandler, uniformHandler, localCoordsVar, SkMatrix::I(), handler);
-  }
+        this->emitTransforms(vb, varyingHandler, uniformHandler, localCoordsVar, SkMatrix::I(),
+                             handler);
+    }
   struct GrGPArgs
   {
         // Used to specify the output variable used by the GP to store its device position. It can
@@ -47,22 +48,14 @@ protected:
   void writeOutputPosition(GrGLSLVertexBuilder*, GrGLSLUniformHandler* uniformHandler, GrGPArgs*, const char* posName, const SkMatrix& mat, UniformHandle* viewMatrixUniform);
   static uint32_t ComputePosKey(const SkMatrix& mat)
   {
-    if (mat.isIdentity())
-    {
-      return 0x0;
+        if (mat.isIdentity()) {
+            return 0x0;
+        } else if (!mat.hasPerspective()) {
+            return 0x01;
+        } else {
+            return 0x02;
+        }
     }
-    else 
-    {
-      if (!mat.hasPerspective())
-      {
-        return 0x01;
-      }
-      else 
-      {
-        return 0x02;
-      }
-    }
-  }
 private:
   virtual void onEmitCode(EmitArgs&, GrGPArgs*) = 0;
   struct TransformUniform

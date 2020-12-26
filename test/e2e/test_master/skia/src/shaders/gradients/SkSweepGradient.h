@@ -16,13 +16,9 @@ public:
   std::unique_ptr<GrFragmentProcessor> asFragmentProcessor(const GrFPArgs&) const override;
 #  endif
   SkScalar getTBias() const
-  {
-    return fTBias;
-  }
+  { return fTBias; }
   SkScalar getTScale() const
-  {
-    return fTScale;
-  }
+  { return fTScale; }
 protected:
   void flatten(SkWriteBuffer& buffer) const override;
   void appendGradientStages(SkArenaAlloc* alloc, SkRasterPipeline* tPipeline, SkRasterPipeline* postPipeline) const override;

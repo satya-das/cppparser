@@ -44,31 +44,23 @@ public:
     // ctors
   wxProcess(wxEvtHandler* parent = NULL, int nId = wxID_ANY)
   {
-    Init(parent, nId, wxPROCESS_DEFAULT);
-  }
+ Init(parent, nId, wxPROCESS_DEFAULT);   }
   wxProcess(int flags)
   {
-    Init(NULL, wxID_ANY, flags);
-  }
+ Init(NULL, wxID_ANY, flags);   }
   virtual ~wxProcess();
     // get the process ID of the process executed by Open()
   long GetPid() const
-  {
-    return m_pid;
-  }
+  { return m_pid; }
     // may be overridden to be notified about process termination
   virtual void OnTerminate(int pid, int status);
     // call this before passing the object to wxExecute() to redirect the
     // launched process stdin/stdout, then use GetInputStream() and
     // GetOutputStream() to get access to them
   void Redirect()
-  {
-    m_redirect = true;
-  }
+  { m_redirect = true; }
   bool IsRedirected() const
-  {
-    return m_redirect;
-  }
+  { return m_redirect; }
     // detach from the parent - should be called by the parent if it's deleted
     // before the process it started terminates
   void Detach();
@@ -80,23 +72,14 @@ public:
 #  if  wxUSE_STREAMS
     // Pipe handling
   wxInputStream* GetInputStream() const
-  {
-    return m_inputStream;
-  }
+  { return m_inputStream; }
   wxInputStream* GetErrorStream() const
-  {
-    return m_errorStream;
-  }
+  { return m_errorStream; }
   wxOutputStream* GetOutputStream() const
-  {
-    return m_outputStream;
-  }
+  { return m_outputStream; }
     // close the output stream indicating that nothing more will be written
   void CloseOutput()
-  {
-    delete m_outputStream;
-    m_outputStream = NULL;
-  }
+  { delete m_outputStream; m_outputStream = NULL; }
     // return true if the child process stdout is not closed
   bool IsInputOpened() const;
     // return true if any input is available on the child process stdout/err
@@ -116,17 +99,13 @@ public:
   void SetPriority(unsigned priority);
         // Get the current priority.
   unsigned GetPriority() const
-  {
-    return m_priority;
-  }
+  { return m_priority; }
     // implementation only - don't use!
     // --------------------------------
 
     // needs to be public since it needs to be used from wxExecute() global func
   void SetPid(long pid)
-  {
-    m_pid = pid;
-  }
+  { m_pid = pid; }
 protected:
   void Init(wxEvtHandler* parent, int id, int flags);
   int m_id;
@@ -152,23 +131,21 @@ class WXDLLIMPEXP_BASE wxProcessEvent : public wxEvent
 {
 public:
   wxProcessEvent(int nId = 0, int pid = 0, int exitcode = 0)
-    : wxEvent(nId)
-  {
-    m_eventType = wxEVT_END_PROCESS;
-    m_pid = pid;
-    m_exitcode = exitcode;
-  }
+    :  wxEvent(nId)
+    
+    {
+
+        m_eventType = wxEVT_END_PROCESS;
+        m_pid = pid;
+        m_exitcode = exitcode;
+        }
     // accessors
         // PID of process which terminated
   int GetPid()
-  {
-    return m_pid;
-  }
+  { return m_pid; }
         // the exit code
   int GetExitCode()
-  {
-    return m_exitcode;
-  }
+  { return m_exitcode; }
     // implement the base class pure virtual
   wxEvent* Clone() const override
   {

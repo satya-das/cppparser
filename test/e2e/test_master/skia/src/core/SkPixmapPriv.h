@@ -31,35 +31,30 @@ public:
   template <typename Fn>
   static bool Orient(const SkPixmap& dst, SkEncodedOrigin origin, Fn&& decode)
   {
-    SkAutoPixmapStorage storage;
-    const SkPixmap* tmp = &dst;
-    if (origin != kTopLeft_SkEncodedOrigin)
-    {
-      auto info = dst.info();
-      if (ShouldSwapWidthHeight(origin))
-      {
-        info = SwapWidthHeight(info);
-      }
-      if (!storage.tryAlloc(info))
-      {
-        return false;
-      }
-      tmp = &storage;
+        SkAutoPixmapStorage storage;
+        const SkPixmap* tmp = &dst;
+        if (origin != kTopLeft_SkEncodedOrigin) {
+            auto info = dst.info();
+            if (ShouldSwapWidthHeight(origin)) {
+                info = SwapWidthHeight(info);
+            }
+            if (!storage.tryAlloc(info)) {
+                return false;
+            }
+            tmp = &storage;
+        }
+        if (!decode(*tmp)) {
+            return false;
+        }
+        if (tmp != &dst) {
+            return Orient(dst, *tmp, origin);
+        }
+        return true;
     }
-    if (!decode(*tmp))
-    {
-      return false;
-    }
-    if (tmp != &dst)
-    {
-      return Orient(dst, *tmp, origin);
-    }
-    return true;
-  }
   static void ResetPixmapKeepInfo(SkPixmap* pm, const void* address, size_t rowBytes)
   {
-    pm->fRowBytes = rowBytes;
-    pm->fPixels = address;
-  }
+        pm->fRowBytes = rowBytes;
+        pm->fPixels = address;
+    }
 };
 #endif

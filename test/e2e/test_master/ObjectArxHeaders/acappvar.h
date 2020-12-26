@@ -84,85 +84,87 @@ private:
   bool m_hpassoc;
 };
 inline AcDbAppSystemVariables::AcDbAppSystemVariables()
-  : m_attdia(true)
-  , m_attreq(true)
-  , m_blipmode(false)
-  , m_delobj(3)
-  , m_coords(0)
-  , m_statusbar(1)
-  , m_menubar(false)
-  , m_appstatusbaruseicons(true)
-  , m_dragmode(2)
-  , m_osmode(0)
-  , m_pkstyle(kGroupsOn)
-  , m_lwdefault(AcDb::kLnWt025)
-  , m_hpassoc(1)
-{
-}
+  :  m_attdia(true),
+  m_attreq(true),
+  m_blipmode(false),
+  m_delobj(3),
+  m_coords(0),
+  m_statusbar(1),
+  m_menubar(false),
+  m_appstatusbaruseicons(true),
+  m_dragmode(2),
+  m_osmode(0),
+  m_pkstyle(kGroupsOn),
+  m_lwdefault(AcDb::kLnWt025),
+  m_hpassoc(1)
+
+  {
+
+  }
 // ATTDIA
 inline bool AcDbAppSystemVariables::attdia() const
 {
-  return m_attdia;
+    return m_attdia;
 }
 // ATTREQ
 inline bool AcDbAppSystemVariables::attreq() const
 {
-  return m_attreq;
+    return m_attreq;
 }
 // BLIPMODE
 inline bool AcDbAppSystemVariables::blipmode() const
 {
-  return m_blipmode;
+    return m_blipmode;
 }
 // COORDS
 inline Adesk::Int16 AcDbAppSystemVariables::coords() const
 {
-  return m_coords;
+    return m_coords;
 }
 // STATUSBAR
 inline Adesk::Int16 AcDbAppSystemVariables::statusbar() const
 {
-  return m_statusbar;
+    return m_statusbar;
 }
 // MENUBAR
 inline bool AcDbAppSystemVariables::menubar() const
 {
-  return m_menubar;
+    return m_menubar;
 }
 // APPSTATUSBARUSEICONS
 inline bool AcDbAppSystemVariables::appstatusbaruseicons() const
 {
-  return m_appstatusbaruseicons;
+    return m_appstatusbaruseicons;
 }
 // DELOBJS
 inline Adesk::Int16 AcDbAppSystemVariables::delUsedObj() const
 {
-  return m_delobj;
+    return m_delobj;
 }
 // DRAGMODE
 inline Adesk::Int16 AcDbAppSystemVariables::dragmode() const
 {
-  return m_dragmode;
+    return m_dragmode;
 }
 // OSMODE
 inline Adesk::Int16 AcDbAppSystemVariables::osmode() const
 {
-  return m_osmode;
+    return m_osmode;
 }
 // PICKSTYLE
 inline Adesk::Int16 AcDbAppSystemVariables::pickstyle() const
 {
-  return m_pkstyle;
+    return m_pkstyle;
 }
 // LWDEFAULT
 inline AcDb::LineWeight AcDbAppSystemVariables::lwdefault() const
 {
-  return m_lwdefault;
+    return m_lwdefault;
 }
 // HPASSOC
 inline bool AcDbAppSystemVariables::hpassoc() const
 {
-  return m_hpassoc;
+    return m_hpassoc;
 }
 #  pragma  pack (pop)
 #endif

@@ -10,15 +10,15 @@
 #  include "include/private/SkImageInfoPriv.h"
 static bool SkPixmapIsValid(const SkPixmap& src)
 {
-  if (!SkImageInfoIsValid(src.info()))
-  {
-    return false;
-  }
-  if (!src.addr() || src.rowBytes() < src.info().minRowBytes())
-  {
-    return false;
-  }
-  return true;
+    if (!SkImageInfoIsValid(src.info())) {
+        return false;
+    }
+
+    if (!src.addr() || src.rowBytes() < src.info().minRowBytes()) {
+        return false;
+    }
+
+    return true;
 }
 #  if  defined(SK_BUILD_FOR_MAC) || defined(SK_BUILD_FOR_IOS)
 bool SkEncodeImageWithCG(SkWStream*, const SkPixmap&, SkEncodedImageFormat);

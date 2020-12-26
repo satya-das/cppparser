@@ -27,8 +27,9 @@ public:
   }
   wxWebViewWebKit(wxWindow* parent, wxWindowID winID = wxID_ANY, const wxString& strURL = wxASCII_STR(wxWebViewDefaultURLStr), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr))
   {
-    Create(parent, winID, strURL, pos, size, style, name);
-  }
+
+        Create(parent, winID, strURL, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID winID = wxID_ANY, const wxString& strURL = wxASCII_STR(wxWebViewDefaultURLStr), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr)) override;
   virtual ~wxWebViewWebKit();
   bool CanGoBack() const override;
@@ -150,13 +151,9 @@ class WXDLLIMPEXP_WEBVIEW wxWebViewFactoryWebKit : public wxWebViewFactory
 {
 public:
   virtual wxWebView* Create()
-  {
-    return new wxWebViewWebKit;
-  }
+  { return new wxWebViewWebKit; }
   virtual wxWebView* Create(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr))
-  {
-    return new wxWebViewWebKit(parent, id, url, pos, size, style, name);
-  }
+  { return new wxWebViewWebKit(parent, id, url, pos, size, style, name); }
 };
 #  endif
 #endif

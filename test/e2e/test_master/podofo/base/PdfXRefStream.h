@@ -116,6 +116,6 @@ namespace PoDoFo
   inline pdf_uint64 PdfXRefStream::GetOffset() const
   {
     return m_offset;
-  }
+}
 }
 #endif

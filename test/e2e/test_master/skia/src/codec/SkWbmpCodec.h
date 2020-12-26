@@ -26,15 +26,13 @@ protected:
   bool conversionSupported(const SkImageInfo& dst, bool srcIsOpaque, bool needsXform) override;
     // No need to Xform; all pixels are either black or white.
   bool usesColorXform() const override
-  {
-    return false;
-  }
+  { return false; }
 private:
   SkSampler* getSampler(bool createIfNecessary) override
   {
-    SkASSERT(fSwizzler || !createIfNecessary);
-    return fSwizzler.get();
-  }
+        SkASSERT(fSwizzler || !createIfNecessary);
+        return fSwizzler.get();
+    }
     /*
      * Read a src row from the encoded stream
      */

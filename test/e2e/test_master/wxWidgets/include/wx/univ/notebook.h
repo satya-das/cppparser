@@ -29,13 +29,14 @@ public:
     // --------------
   wxNotebook()
   {
-    Init();
-  }
+ Init();   }
   wxNotebook(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxNotebookNameStr))
   {
-    Init();
-    (void) Create(parent, id, pos, size, style, name);
-  }
+
+        Init();
+
+        (void)Create(parent, id, pos, size, style, name);
+      }
     // quasi ctor
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxNotebookNameStr));
     // dtor
@@ -66,9 +67,7 @@ public:
 
     // return true if all tabs have the same width
   bool FixedSizeTabs() const
-  {
-    return HasFlag(wxNB_FIXEDWIDTH);
-  }
+  { return HasFlag(wxNB_FIXEDWIDTH); }
     // return wxTOP/wxBOTTOM/wxRIGHT/wxLEFT
   wxDirection GetTabOrientation() const;
     // return true if the notebook has tabs at the sidesand not at the top (or
@@ -128,14 +127,10 @@ protected:
   void GetTabSize(int page, wxCoord* w, wxCoord* h) const;
     // get the (cached) width of the tab
   wxCoord GetTabWidth(int page) const
-  {
-    return FixedSizeTabs() ? m_widthMax : m_widths[page];
-  }
+  { return FixedSizeTabs() ? m_widthMax : m_widths[page]; }
     // return true if the tab has an associated image
   bool HasImage(int page) const
-  {
-    return HasImageList() && m_images[page] != -1;
-  }
+  { return HasImageList() && m_images[page] != -1; }
     // get the part of the notebook reserved for the pages (slightly larger
     // than GetPageRect() as we draw a border and leave marginin between)
   wxRect GetPagePart() const;

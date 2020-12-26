@@ -209,9 +209,9 @@ class WXDLLIMPEXP_CORE wxAccessibleBase : public wxObject
   wxDECLARE_NO_COPY_CLASS(wxAccessibleBase);
 public:
   wxAccessibleBase(wxWindow* win)
-    : m_window(win)
-  {
-  }
+    :  m_window(win) 
+    {
+    }
   virtual ~wxAccessibleBase()
   {
   }
@@ -221,51 +221,35 @@ public:
         // representing the child element, starting from 1.
         // pt is in screen coordinates.
   virtual wxAccStatus HitTest(const wxPoint&, int*, wxAccessible**)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Returns the rectangle for this object (id = 0) or a child element (id > 0).
         // rect is in screen coordinates.
   virtual wxAccStatus GetLocation(wxRect&, int)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Navigates from fromId to toId/toObject.
   virtual wxAccStatus Navigate(wxNavDir, int, int*, wxAccessible**)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Gets the name of the specified object.
   virtual wxAccStatus GetName(int, wxString*)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Gets the number of children.
   virtual wxAccStatus GetChildCount(int*)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Gets the specified child (starting from 1).
         // If *child is NULL and return value is wxACC_OK,
         // this means that the child is a simple element and
         // not an accessible object.
   virtual wxAccStatus GetChild(int, wxAccessible**)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Gets the parent, or NULL.
   virtual wxAccStatus GetParent(wxAccessible**)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Performs the default action. childId is 0 (the action for this object)
         // or > 0 (the action for a child).
         // Return wxACC_NOT_SUPPORTED if there is no default action for this
         // window (e.g. an edit control).
   virtual wxAccStatus DoDefaultAction(int)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Gets the default action for this object (0) or > 0 (the action for a child).
         // Return wxACC_OK even if there is no action. actionName is the action, or the empty
         // string if there is no action.
@@ -273,54 +257,36 @@ public:
         // not what the object does as a result. For example, a toolbar button that prints
         // a document has a default action of "Press" rather than "Prints the current document."
   virtual wxAccStatus GetDefaultAction(int, wxString*)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Returns the description for this object or a child.
   virtual wxAccStatus GetDescription(int, wxString*)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Returns help text for this object or a child, similar to tooltip text.
   virtual wxAccStatus GetHelpText(int, wxString*)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Returns the keyboard shortcut for this object or child.
         // Return e.g. ALT+K
   virtual wxAccStatus GetKeyboardShortcut(int, wxString*)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Returns a role constant.
   virtual wxAccStatus GetRole(int, wxAccRole*)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Returns a state constant.
   virtual wxAccStatus GetState(int, long*)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Returns a localized string representing the value for the object
         // or child.
   virtual wxAccStatus GetValue(int, wxString*)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Selects the object or child.
   virtual wxAccStatus Select(int, wxAccSelectionFlags)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
         // Gets the window with the keyboard focus.
         // If childId is 0 and child is NULL, no object in
         // this subhierarchy has the focus.
         // If this object has the focus, child should be 'this'.
   virtual wxAccStatus GetFocus(int*, wxAccessible**)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
 #    if  wxUSE_VARIANT
         // Gets a variant representing the selected children
         // of this object.
@@ -331,22 +297,16 @@ public:
         //   or 0 if this object is selected (GetType() == wxT("long"))
         // - a "void*" pointer to a wxAccessible child object
   virtual wxAccStatus GetSelections(wxVariant*)
-  {
-    return wxACC_NOT_IMPLEMENTED;
-  }
+  { return wxACC_NOT_IMPLEMENTED; }
 #    endif
 // Accessors
 
         // Returns the window associated with this object.
   wxWindow* GetWindow()
-  {
-    return m_window;
-  }
+  { return m_window; }
         // Sets the window associated with this object.
   void SetWindow(wxWindow* window)
-  {
-    m_window = window;
-  }
+  { m_window = window; }
 // Operations
 
         // Each platform's implementation must define this

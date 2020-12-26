@@ -27,35 +27,38 @@ namespace SkSL
         kParameter_Storage
     };
     Variable(int offset, Modifiers modifiers, StringFragment name, const Type& type, Storage storage, Expression* initialValue = nullptr)
-      : INHERITED(offset, kVariable_Kind, name)
-      , fModifiers(modifiers)
-      , fType(type)
-      , fStorage(storage)
-      , fInitialValue(initialValue)
-      , fReadCount(0)
-      , fWriteCount(initialValue ? 1 : 0)
-    {
-    }
+      :  INHERITED(offset, kVariable_Kind, name)
+    , fModifiers(modifiers)
+    , fType(type)
+    , fStorage(storage)
+    , fInitialValue(initialValue)
+    , fReadCount(0)
+    , fWriteCount(initialValue ? 1 : 0) 
+      {
+      }
     virtual ~Variable()
     {
+
         // can't destroy a variable while there are remaining references to it
-      if (fInitialValue)
-      {
-        --fWriteCount;
-      }
-      SkASSERT(!fReadCount && !fWriteCount);
-    }
+        if (fInitialValue) {
+            --fWriteCount;
+        }
+        SkASSERT(!fReadCount && !fWriteCount);
+        }
     String description() const override
     {
-      return fModifiers.description() + fType.fName + " " + fName;
+        return fModifiers.description() + fType.fName + " " + fName;
     }
     bool dead() const
     {
-      if ((fStorage != kLocal_Storage && fReadCount) || (fModifiers.fFlags & (Modifiers::kIn_Flag | Modifiers::kOut_Flag | Modifiers::kUniform_Flag)))
-      {
-        return false;
-      }
-      return !fWriteCount || (!fReadCount && !(fModifiers.fFlags & (Modifiers::kPLS_Flag | Modifiers::kPLSOut_Flag)));
+        if ((fStorage != kLocal_Storage && fReadCount) ||
+            (fModifiers.fFlags & (Modifiers::kIn_Flag | Modifiers::kOut_Flag |
+                                 Modifiers::kUniform_Flag))) {
+            return false;
+        }
+        return !fWriteCount ||
+               (!fReadCount && !(fModifiers.fFlags & (Modifiers::kPLS_Flag |
+                                                      Modifiers::kPLSOut_Flag)));
     }
     mutable Modifiers fModifiers;
     const Type& fType;

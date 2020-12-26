@@ -132,8 +132,8 @@ name##PluginSentinel  m_pluginsentinel
 template <typename T>
 inline T* wxCheckCast(const void* ptr)
 {
-  wxASSERT_MSG(wxDynamicCast(ptr, T), "wxStaticCast() used incorrectly");
-  return const_cast<T*>(static_cast<const T*>(ptr));
+    wxASSERT_MSG( wxDynamicCast(ptr, T), "wxStaticCast() used incorrectly" );
+    return const_cast<T *>(static_cast<const T *>(ptr));
 }
 #  define wxStaticCast(obj, className)	 wxCheckCast<className>(obj)
 // ----------------------------------------------------------------------------
@@ -193,23 +193,18 @@ class WXDLLIMPEXP_BASE wxRefCounter
 public:
   wxRefCounter()
   {
-    m_count = 1;
-  }
+ m_count = 1;   }
   int GetRefCount() const
-  {
-    return m_count;
-  }
+  { return m_count; }
   void IncRef()
-  {
-    m_count++;
-  }
+  { m_count++; }
   void DecRef();
 protected:
     // this object should never be destroyed directly but only as a
     // result of a DecRef() call:
   virtual ~wxRefCounter()
   {
-  }
+   }
 private:
     // our refcount:
   int m_count;
@@ -233,82 +228,72 @@ class wxObjectDataPtr
 public:
   typedef T element_type;
   explicit wxObjectDataPtr(T* ptr = NULL)
-    : m_ptr(ptr)
-  {
-  }
+    :  m_ptr(ptr) 
+    {
+    }
     // copy ctor
   wxObjectDataPtr(const wxObjectDataPtr<T>& tocopy)
-    : m_ptr(tocopy.m_ptr)
-  {
-    if (m_ptr)
+    :  m_ptr(tocopy.m_ptr)
+    
     {
-      m_ptr->IncRef();
-    }
-  }
+
+        if (m_ptr)
+            m_ptr->IncRef();
+        }
   ~wxObjectDataPtr()
   {
-    if (m_ptr)
-    {
-      m_ptr->DecRef();
-    }
-  }
+
+        if (m_ptr)
+            m_ptr->DecRef();
+      }
   T* get() const
-  {
-    return m_ptr;
-  }
+  { return m_ptr; }
     // test for pointer validity: defining conversion to unspecified_bool_type
     // and not more obvious bool to avoid implicit conversions to integer types
   typedef T* (*unspecified_bool_type) () const;
   operator unspecified_bool_type() const
   {
-    return m_ptr ? &wxObjectDataPtr<T>::get : NULL;
-  }
+
+        return m_ptr ? &wxObjectDataPtr<T>::get : NULL;
+      }
   T& operator*() const
   {
-    wxASSERT(m_ptr != NULL);
-    return *(m_ptr);
-  }
+        wxASSERT(m_ptr != NULL);
+        return *(m_ptr);
+    }
   T* operator->() const
   {
-    wxASSERT(m_ptr != NULL);
-    return get();
-  }
+        wxASSERT(m_ptr != NULL);
+        return get();
+    }
   void reset(T* ptr)
   {
-    if (m_ptr)
-    {
-      m_ptr->DecRef();
+        if (m_ptr)
+            m_ptr->DecRef();
+        m_ptr = ptr;
     }
-    m_ptr = ptr;
-  }
   T* release()
   {
-    T* const ptr = m_ptr;
-    m_ptr = NULL;
-    return ptr;
-  }
+        T* const ptr = m_ptr;
+        m_ptr = NULL;
+        return ptr;
+    }
   wxObjectDataPtr& operator=(const wxObjectDataPtr& tocopy)
   {
-    if (m_ptr)
-    {
-      m_ptr->DecRef();
+        if (m_ptr)
+            m_ptr->DecRef();
+        m_ptr = tocopy.m_ptr;
+        if (m_ptr)
+            m_ptr->IncRef();
+        return *this;
     }
-    m_ptr = tocopy.m_ptr;
-    if (m_ptr)
-    {
-      m_ptr->IncRef();
-    }
-    return *this;
-  }
   wxObjectDataPtr& operator=(T* ptr)
   {
-    if (m_ptr)
-    {
-      m_ptr->DecRef();
+        if (m_ptr)
+            m_ptr->DecRef();
+        m_ptr = ptr;
+        return *this;
     }
-    m_ptr = ptr;
-    return *this;
-  }
 private:
   T* m_ptr;
 };
@@ -321,28 +306,25 @@ class WXDLLIMPEXP_BASE wxObject
 public:
   wxObject()
   {
-    m_refData = NULL;
-  }
+ m_refData = NULL;   }
   virtual ~wxObject()
   {
-    UnRef();
-  }
+ UnRef();   }
   wxObject(const wxObject& other)
   {
-    m_refData = other.m_refData;
-    if (m_refData)
-    {
-      m_refData->IncRef();
-    }
-  }
+
+         m_refData = other.m_refData;
+         if (m_refData)
+             m_refData->IncRef();
+      }
   wxObject& operator=(const wxObject& other)
   {
-    if (this != &other)
-    {
-      Ref(other);
+        if ( this != &other )
+        {
+            Ref(other);
+        }
+        return *this;
     }
-    return *this;
-  }
   bool IsKindOf(const wxClassInfo* info) const;
     // Turn on the correct set of new and delete operators
 #  ifdef _WX_WANT_NEW_SIZET_WXCHAR_INT
@@ -367,27 +349,19 @@ public:
 
     // get/set
   wxObjectRefData* GetRefData() const
-  {
-    return m_refData;
-  }
+  { return m_refData; }
   void SetRefData(wxObjectRefData* data)
-  {
-    m_refData = data;
-  }
+  { m_refData = data; }
     // make a 'clone' of the object
   void Ref(const wxObject& clone);
     // destroy a reference
   void UnRef();
     // Make sure this object has only one reference
   void UnShare()
-  {
-    AllocExclusive();
-  }
+  { AllocExclusive(); }
     // check if this object references the same data as the other one
   bool IsSameAs(const wxObject& o) const
-  {
-    return m_refData == o.m_refData;
-  }
+  { return m_refData == o.m_refData; }
 protected:
     // ensure that our data is not shared with anybody else: if we have no
     // data, it is created using CreateRefData() below, if we have shared data
@@ -404,7 +378,7 @@ protected:
 };
 inline wxObject* wxCheckDynamicCast(wxObject* obj, wxClassInfo* classInfo)
 {
-  return obj && obj->GetClassInfo()->IsKindOf(classInfo) ? obj : NULL;
+    return obj && obj->GetClassInfo()->IsKindOf(classInfo) ? obj : NULL;
 }
 #  include "wx/xti2.h"
 // ----------------------------------------------------------------------------

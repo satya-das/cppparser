@@ -49,14 +49,14 @@ bool GrPixelConfigToMTLFormat(GrPixelConfig config, MTLPixelFormat* format);
  */
 SK_ALWAYS_INLINE id<MTLTexture> GrGetMTLTexture(const void* mtlTexture)
 {
-  return (id<MTLTexture>) mtlTexture;
+    return (__bridge id<MTLTexture>)mtlTexture;
 }
 /**
  * Returns a const void* to whatever the id object is pointing to.
  */
 SK_ALWAYS_INLINE const void* GrGetPtrFromId(id idObject)
 {
-  return (const void*) idObject;
+    return (__bridge const void*)idObject;
 }
 /**
  * Returns a const void* to whatever the id object is pointing to.
@@ -64,7 +64,7 @@ SK_ALWAYS_INLINE const void* GrGetPtrFromId(id idObject)
  */
 SK_ALWAYS_INLINE const void* GrRetainPtrFromId(id idObject)
 {
-  return (const void*) idObject;
+    return (__bridge_retained const void*)idObject;
 }
 /**
  * Returns a MTLTextureDescriptor which describes the MTLTexture. Useful when creating a duplicate
@@ -90,7 +90,7 @@ id<MTLTexture> GrGetMTLTextureFromSurface(GrSurface* surface);
 size_t GrMtlBytesPerFormat(MTLPixelFormat);
 static MTLPixelFormat GrBackendFormatAsMTLPixelFormat(const GrBackendFormat& format)
 {
-  return static_cast<MTLPixelFormat>(format.asMtlFormat());
+    return static_cast<MTLPixelFormat>(format.asMtlFormat());
 }
 /**
  * Returns true if the format is compressed.

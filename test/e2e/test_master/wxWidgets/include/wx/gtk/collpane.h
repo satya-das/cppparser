@@ -17,13 +17,14 @@ class WXDLLIMPEXP_CORE wxCollapsiblePane : public wxCollapsiblePaneBase
 public:
   wxCollapsiblePane()
   {
-    Init();
-  }
+ Init();   }
   wxCollapsiblePane(wxWindow* parent, wxWindowID winid, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCP_DEFAULT_STYLE, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCollapsiblePaneNameStr))
   {
-    Init();
-    Create(parent, winid, label, pos, size, style, val, name);
-  }
+
+        Init();
+
+        Create(parent, winid, label, pos, size, style, val, name);
+      }
   bool Create(wxWindow* parent, wxWindowID winid, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCP_DEFAULT_STYLE, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCollapsiblePaneNameStr));
   void Collapse(bool collapse = true) override;
   bool IsCollapsed() const override;
@@ -47,8 +48,8 @@ public:
 private:
   void Init()
   {
-    m_bIgnoreNextChange = false;
-  }
+        m_bIgnoreNextChange = false;
+    }
   void OnSize(wxSizeEvent&);
   void AddChildGTK(wxWindowGTK* child) override;
   GdkWindow* GTKGetWindow(wxArrayGdkWindows& windows) const override;

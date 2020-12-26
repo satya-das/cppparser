@@ -57,22 +57,19 @@ public:
   virtual SkColorType computeOutputColorType(SkColorType requestedColorType) = 0;
   virtual sk_sp<SkColorSpace> computeOutputColorSpace(SkColorType outputColorType, sk_sp<SkColorSpace> prefColorSpace = nullptr) = 0;
   int width() const
-  {
-    return fWidth;
-  }
+  { return fWidth; }
   int height() const
-  {
-    return fHeight;
-  }
+  { return fHeight; }
   virtual ~SkBitmapRegionDecoder()
   {
   }
 protected:
   SkBitmapRegionDecoder(int width, int height)
-    : fWidth(width)
-    , fHeight(height)
-  {
-  }
+    :  fWidth(width)
+        , fHeight(height)
+    
+    {
+    }
 private:
   const int fWidth;
   const int fHeight;

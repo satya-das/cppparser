@@ -36,12 +36,11 @@ public:
      */
   static std::unique_ptr<GrFragmentProcessor> Make(GrClipEdgeType edgeType, int n, const SkScalar edges[])
   {
-    if (n <= 0 || n > kMaxEdges || GrClipEdgeType::kHairlineAA == edgeType)
-    {
-      return nullptr;
+        if (n <= 0 || n > kMaxEdges || GrClipEdgeType::kHairlineAA == edgeType) {
+            return nullptr;
+        }
+        return std::unique_ptr<GrFragmentProcessor>(new GrConvexPolyEffect(edgeType, n, edges));
     }
-    return std::unique_ptr<GrFragmentProcessor>(new GrConvexPolyEffect(edgeType, n, edges));
-  }
     /**
      * Creates an effect that clips against the path. If the path is not a convex polygon, is
      * inverse filled, or has too many edges, this will return nullptr.
@@ -53,22 +52,14 @@ public:
   static std::unique_ptr<GrFragmentProcessor> Make(GrClipEdgeType, const SkRect&);
   virtual ~GrConvexPolyEffect();
   const char* name() const override
-  {
-    return "ConvexPoly";
-  }
+  { return "ConvexPoly"; }
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   GrClipEdgeType getEdgeType() const
-  {
-    return fEdgeType;
-  }
+  { return fEdgeType; }
   int getEdgeCount() const
-  {
-    return fEdgeCount;
-  }
+  { return fEdgeCount; }
   const SkScalar* getEdges() const
-  {
-    return fEdges;
-  }
+  { return fEdges; }
 private:
   GrConvexPolyEffect(GrClipEdgeType edgeType, int n, const SkScalar edges[]);
   GrConvexPolyEffect(const GrConvexPolyEffect&);

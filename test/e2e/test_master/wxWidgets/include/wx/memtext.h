@@ -20,11 +20,11 @@ public:
     // Constructors.
   wxMemoryText()
   {
-  }
+   }
   wxMemoryText(const wxString& name)
-    : wxTextBuffer(name)
-  {
-  }
+    :  wxTextBuffer(name) 
+    {
+     }
 protected:
   bool OnExists() const override
   {

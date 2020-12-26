@@ -161,16 +161,14 @@ public:
     // DoApplyWidgetStyle() when it's really needed.
   static void GTKDoApplyWidgetStyle(wxWindowGTK* win, GtkRcStyle* style)
   {
-    win->DoApplyWidgetStyle(style);
-  }
+        win->DoApplyWidgetStyle(style);
+    }
 protected:
     // for controls composed of multiple GTK widgets, return true to eliminate
     // spurious focus events if the focus changes between GTK+ children within
     // the same wxWindow
   virtual bool GTKNeedsToFilterSameWindowFocus() const
-  {
-    return false;
-  }
+  { return false; }
     // Override GTKWidgetNeedsMnemonic and return true if your
     // needs to set its mnemonic widget, such as for a
     // GtkLabel for wxStaticText, then do the actual
@@ -197,16 +195,12 @@ public:
     // Called when a window should delay showing itself
     // until idle time used in Reparent().
   void GTKShowOnIdle()
-  {
-    m_showOnIdle = true;
-  }
+  { m_showOnIdle = true; }
     // This is called from the various OnInternalIdle methods
   bool GTKShowFromOnIdle();
     // is this window transparent for the mouse events (as wxStaticBox is)?
   virtual bool GTKIsTransparentForMouse() const
-  {
-    return false;
-  }
+  { return false; }
     // Common scroll event handling code for wxWindow and wxScrollBar
   wxEventType GTKGetScrollEventType(GtkRange* range);
     // position and size of the window
@@ -226,9 +220,7 @@ public:
   wxString m_gtkLabel;
     // return true if the window is of a standard (i.e. not wxWidgets') class
   bool IsOfStandardClass() const
-  {
-    return m_wxwindow == NULL;
-  }
+  { return m_wxwindow == NULL; }
     // this widget will be queried for GTK's focus events
   GtkWidget* m_focusWidget;
   void GTKDisableFocusOutEvent();
@@ -271,13 +263,13 @@ public:
     // (which is wxVERTICAL or wxHORIZONTAL)
   static ScrollDir ScrollDirFromOrient(int orient)
   {
-    return orient == wxVERTICAL ? ScrollDir_Vert : ScrollDir_Horz;
-  }
+        return orient == wxVERTICAL ? ScrollDir_Vert : ScrollDir_Horz;
+    }
     // return the orientation for the given scrolling direction
   static int OrientFromScrollDir(ScrollDir dir)
   {
-    return dir == ScrollDir_Horz ? wxHORIZONTAL : wxVERTICAL;
-  }
+        return dir == ScrollDir_Horz ? wxHORIZONTAL : wxVERTICAL;
+    }
     // find the direction of the given scrollbar (must be one of ours)
   ScrollDir ScrollDirFromRange(GtkRange* range) const;
   void GTKUpdateCursor(bool isBusyOrGlobalCursor = false, bool isRealize = false, const wxCursor* overrideCursor = NULL);
@@ -368,9 +360,7 @@ private:
     // be created without parent (normally only top level windows but in wxGTK
     // there is also the exception of wxMenuBar)
   virtual bool GTKNeedsParent() const
-  {
-    return !IsTopLevel();
-  }
+  { return !IsTopLevel(); }
   enum ScrollUnit { ScrollUnit_Line, ScrollUnit_Page, ScrollUnit_Max };
     // common part of ScrollLines() and ScrollPages() and could be used, in the
     // future, for horizontal scrolling as well
@@ -387,8 +377,8 @@ private:
 public:
   cairo_t* GTKPaintContext() const
   {
-    return m_paintContext;
-  }
+        return m_paintContext;
+    }
   void GTKSizeRevalidate();
 #  endif
   wxDECLARE_DYNAMIC_CLASS(wxWindowGTK);

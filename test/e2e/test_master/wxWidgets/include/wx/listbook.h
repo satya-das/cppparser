@@ -32,11 +32,12 @@ class WXDLLIMPEXP_CORE wxListbook : public wxNavigationEnabled<wxBookCtrlBase>
 public:
   wxListbook()
   {
-  }
+   }
   wxListbook(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString)
   {
-    (void) Create(parent, id, pos, size, style, name);
-  }
+
+        (void)Create(parent, id, pos, size, style, name);
+      }
     // quasi ctor
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString);
     // overridden base class methods
@@ -57,9 +58,7 @@ public:
   void SetImageList(wxImageList* imageList) override;
   bool DeleteAllPages() override;
   wxListView* GetListView() const
-  {
-    return (wxListView*) m_bookctrl;
-  }
+  { return (wxListView*)m_bookctrl; }
 protected:
   wxWindow* DoRemovePage(size_t page) override;
   void UpdateSelectedPage(size_t newsel) override;

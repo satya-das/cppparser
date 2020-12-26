@@ -88,19 +88,16 @@ public:
     // If depth is omitted, will create a bitmap compatible with the display
   wxBitmap(int width, int height, int depth = -1)
   {
-    (void) Create(width, height, depth);
-  }
+ (void)Create(width, height, depth);   }
   wxBitmap(const wxSize& sz, int depth = -1)
   {
-    (void) Create(sz, depth);
-  }
+ (void)Create(sz, depth);   }
     // Convert from wxImage:
   wxBitmap(const wxImage& image, int depth = -1, double scale = 1.0);
     // Convert from wxIcon
   wxBitmap(const wxIcon& icon)
   {
-    CopyFromIcon(icon);
-  }
+ CopyFromIcon(icon);   }
   virtual ~wxBitmap()
   {
   }
@@ -124,13 +121,9 @@ public:
   bool LoadFile(const wxString& name, wxBitmapType type = wxBITMAP_DEFAULT_TYPE) override;
   bool SaveFile(const wxString& name, wxBitmapType type, const wxPalette* cmap = NULL) const override;
   const wxBitmapRefData* GetBitmapData() const
-  {
-    return (const wxBitmapRefData*) m_refData;
-  }
+  { return (const wxBitmapRefData *)m_refData; }
   wxBitmapRefData* GetBitmapData()
-  {
-    return (wxBitmapRefData*) m_refData;
-  }
+  { return (wxBitmapRefData *)m_refData; }
     // copies the contents and mask of the given (colour) icon to the bitmap
   bool CopyFromIcon(const wxIcon& icon) override;
   int GetWidth() const override;
@@ -163,16 +156,12 @@ public:
 #  if  wxOSX_USE_COCOA
     // returns an autoreleased version of the image
   WX_NSImage GetNSImage() const
-  {
-    return GetImage();
-  }
+  { return GetImage(); }
 #  endif
 #  if  wxOSX_USE_IPHONE
     // returns an autoreleased version of the image
   WX_UIImage GetUIImage() const
-  {
-    return GetImage();
-  }
+  { return GetImage(); }
 #  endif
 #  if  WXWIN_COMPATIBILITY_3_0
 #    if  wxOSX_USE_ICONREF

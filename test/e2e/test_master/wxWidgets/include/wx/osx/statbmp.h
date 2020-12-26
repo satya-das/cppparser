@@ -9,8 +9,9 @@ public:
   }
   wxStaticBitmap(wxWindow* parent, wxWindowID id, const wxBitmap& bitmap, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBitmapNameStr))
   {
-    Create(parent, id, bitmap, pos, size, style, name);
-  }
+
+        Create(parent, id, bitmap, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxBitmap& bitmap, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBitmapNameStr));
   void SetBitmap(const wxBitmap& bitmap) override;
   wxBitmap GetBitmap() const override
@@ -38,8 +39,9 @@ public:
 private:
   wxSize GetBitmapSize()
   {
-    return m_bitmap.IsOk() ? m_bitmap.GetScaledSize() : wxSize(16, 16);
-  }
+        return m_bitmap.IsOk() ? m_bitmap.GetScaledSize()
+        : wxSize(16, 16); // this is completely arbitrary
+    }
   void OnPaint(wxPaintEvent& event);
   wxBitmap m_bitmap;
   ScaleMode m_scaleMode;

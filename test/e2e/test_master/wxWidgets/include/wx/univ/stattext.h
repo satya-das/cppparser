@@ -15,17 +15,19 @@ class WXDLLIMPEXP_CORE wxStaticText : public wxGenericStaticText
 public:
   wxStaticText()
   {
-  }
+   }
     // usual ctor
   wxStaticText(wxWindow* parent, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize)
   {
-    Create(parent, wxID_ANY, label, pos, size, 0, wxASCII_STR(wxStaticTextNameStr));
-  }
+
+        Create(parent, wxID_ANY, label, pos, size, 0, wxASCII_STR(wxStaticTextNameStr));
+      }
     // full form
   wxStaticText(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticTextNameStr))
   {
-    Create(parent, id, label, pos, size, style, name);
-  }
+
+        Create(parent, id, label, pos, size, style, name);
+      }
     // function ctor
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticTextNameStr));
     // implementation only from now on

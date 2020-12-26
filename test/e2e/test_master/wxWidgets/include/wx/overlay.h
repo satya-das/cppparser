@@ -34,9 +34,7 @@ public:
   void Reset();
     // returns (port-specific) implementation of the overlay
   wxOverlayImpl* GetImpl()
-  {
-    return m_impl;
-  }
+  { return m_impl; }
 private:
   friend class WXDLLIMPEXP_FWD_CORE wxDCOverlay;
     // returns true if it has been setup

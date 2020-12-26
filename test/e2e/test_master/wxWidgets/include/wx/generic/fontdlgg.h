@@ -33,18 +33,15 @@ class WXDLLIMPEXP_CORE wxGenericFontDialog : public wxFontDialogBase
 public:
   wxGenericFontDialog()
   {
-    Init();
-  }
+ Init();   }
   wxGenericFontDialog(wxWindow* parent)
-    : wxFontDialogBase(parent)
-  {
-    Init();
-  }
+    :  wxFontDialogBase(parent) 
+    {
+ Init();     }
   wxGenericFontDialog(wxWindow* parent, const wxFontData& data)
-    : wxFontDialogBase(parent, data)
-  {
-    Init();
-  }
+    :  wxFontDialogBase(parent, data) 
+    {
+ Init();     }
   virtual ~wxGenericFontDialog();
   int ShowModal() override;
     // Internal functions

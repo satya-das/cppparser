@@ -18,55 +18,51 @@ class GrTexturePriv
 public:
   void markMipMapsDirty()
   {
-    fTexture->markMipMapsDirty();
-  }
+        fTexture->markMipMapsDirty();
+    }
   void markMipMapsClean()
   {
-    fTexture->markMipMapsClean();
-  }
+        fTexture->markMipMapsClean();
+    }
   GrMipMapsStatus mipMapsStatus() const
-  {
-    return fTexture->fMipMapsStatus;
-  }
+  { return fTexture->fMipMapsStatus; }
   bool mipMapsAreDirty() const
   {
-    return GrMipMapsStatus::kValid != this->mipMapsStatus();
-  }
+        return GrMipMapsStatus::kValid != this->mipMapsStatus();
+    }
   GrMipMapped mipMapped() const
   {
-    if (GrMipMapsStatus::kNotAllocated != this->mipMapsStatus())
-    {
-      return GrMipMapped::kYes;
+        if (GrMipMapsStatus::kNotAllocated != this->mipMapsStatus()) {
+            return GrMipMapped::kYes;
+        }
+        return GrMipMapped::kNo;
     }
-    return GrMipMapped::kNo;
-  }
   int maxMipMapLevel() const
   {
-    return fTexture->fMaxMipMapLevel;
-  }
+        return fTexture->fMaxMipMapLevel;
+    }
   GrTextureType textureType() const
-  {
-    return fTexture->fTextureType;
-  }
+  { return fTexture->fTextureType; }
   bool hasRestrictedSampling() const
   {
-    return GrTextureTypeHasRestrictedSampling(this->textureType());
-  }
+        return GrTextureTypeHasRestrictedSampling(this->textureType());
+    }
     /** Filtering is clamped to this value. */
   GrSamplerState::Filter highestFilterMode() const
   {
-    return this->hasRestrictedSampling() ? GrSamplerState::Filter::kBilerp : GrSamplerState::Filter::kMipMap;
-  }
+        return this->hasRestrictedSampling() ? GrSamplerState::Filter::kBilerp
+                                             : GrSamplerState::Filter::kMipMap;
+    }
   static void ComputeScratchKey(GrPixelConfig config, int width, int height, GrRenderable, int sampleCnt, GrMipMapped, GrProtected, GrScratchKey* key);
 private:
   GrTexturePriv(GrTexture* texture)
-    : fTexture(texture)
-  {
-  }
+    :  fTexture(texture) 
+    {
+     }
   GrTexturePriv(const GrTexturePriv& that)
-    : fTexture(that.fTexture)
-  {
-  }
+    :  fTexture(that.fTexture) 
+    {
+     }
   GrTexturePriv& operator=(const GrTexturePriv&);
     // No taking addresses of this type.
   const GrTexturePriv* operator&() const;
@@ -75,11 +71,9 @@ private:
   friend class GrTexture;
 };
 inline GrTexturePriv GrTexture::texturePriv()
-{
-  return GrTexturePriv(this);
-}
+{ return GrTexturePriv(this); }
 inline const GrTexturePriv GrTexture::texturePriv() const
 {
-  return GrTexturePriv(const_cast<GrTexture*>(this));
+    return GrTexturePriv(const_cast<GrTexture*>(this));
 }
 #endif

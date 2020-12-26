@@ -20,45 +20,38 @@ class SkTLazy
 public:
   SkTLazy();
   explicit SkTLazy(const T* src)
-    : fPtr(src ? new (&fStorage) T(*src) : nullptr)
-  {
-  }
+    :  fPtr(src ? new (&fStorage) T(*src) : nullptr) 
+    {
+    }
   SkTLazy(const SkTLazy& that)
-    : fPtr(that.fPtr ? new (&fStorage) T(*that.fPtr) : nullptr)
-  {
-  }
+    :  fPtr(that.fPtr ? new (&fStorage) T(*that.fPtr) : nullptr) 
+    {
+    }
   SkTLazy(SkTLazy&& that)
-    : fPtr(that.fPtr ? new (&fStorage) T(std::move(*that.fPtr)) : nullptr)
-  {
-  }
+    :  fPtr(that.fPtr ? new (&fStorage) T(std::move(*that.fPtr)) : nullptr)
+    {
+    }
   ~SkTLazy()
   {
-    this->reset();
-  }
+ this->reset();   }
   SkTLazy& operator=(const SkTLazy& that)
   {
-    if (that.isValid())
-    {
-      this->set(*that);
+        if (that.isValid()) {
+            this->set(*that);
+        } else {
+            this->reset();
+        }
+        return *this;
     }
-    else 
-    {
-      this->reset();
-    }
-    return *this;
-  }
   SkTLazy& operator=(SkTLazy&& that)
   {
-    if (that.isValid())
-    {
-      this->set(std::move(*that));
+        if (that.isValid()) {
+            this->set(std::move(*that));
+        } else {
+            this->reset();
+        }
+        return *this;
     }
-    else 
-    {
-      this->reset();
-    }
-    return *this;
-  }
     /**
      *  Return a pointer to an instance of the class initialized with 'args'.
      *  If a previous instance had been initialized (either from init() or
@@ -68,10 +61,10 @@ public:
   template <typename... Args>
   T* init(Args&&... args)
   {
-    this->reset();
-    fPtr = new (&fStorage) T(std::forward<Args>(args)...);
-    return fPtr;
-  }
+        this->reset();
+        fPtr = new (&fStorage) T(std::forward<Args>(args)...);
+        return fPtr;
+    }
     /**
      *  Copy src into this, and return a pointer to a copy of it. Note this
      *  will always return the same pointer, so if it is called on a lazy that
@@ -80,72 +73,54 @@ public:
      */
   T* set(const T& src)
   {
-    if (this->isValid())
-    {
-      *fPtr = src;
+        if (this->isValid()) {
+            *fPtr = src;
+        } else {
+            fPtr = new (&fStorage) T(src);
+        }
+        return fPtr;
     }
-    else 
-    {
-      fPtr = new (&fStorage) T(src);
-    }
-    return fPtr;
-  }
   T* set(T&& src)
   {
-    if (this->isValid())
-    {
-      *fPtr = std::move(src);
+        if (this->isValid()) {
+            *fPtr = std::move(src);
+        } else {
+            fPtr = new (&fStorage) T(std::move(src));
+        }
+        return fPtr;
     }
-    else 
-    {
-      fPtr = new (&fStorage) T(std::move(src));
-    }
-    return fPtr;
-  }
     /**
      * Destroy the lazy object (if it was created via init() or set())
      */
   void reset()
   {
-    if (this->isValid())
-    {
-      fPtr->~T();
-      fPtr = nullptr;
+        if (this->isValid()) {
+            fPtr->~T();
+            fPtr = nullptr;
+        }
     }
-  }
     /**
      *  Returns true if a valid object has been initialized in the SkTLazy,
      *  false otherwise.
      */
   bool isValid() const
-  {
-    return SkToBool(fPtr);
-  }
+  { return SkToBool(fPtr); }
     /**
      * Returns the object. This version should only be called when the caller
      * knows that the object has been initialized.
      */
   T* get() const
-  {
-    SkASSERT(this->isValid());
-    return fPtr;
-  }
+  { SkASSERT(this->isValid()); return fPtr; }
   T* operator->() const
-  {
-    return this->get();
-  }
+  { return this->get(); }
   T& operator*() const
-  {
-    return *this->get();
-  }
+  { return *this->get(); }
     /**
      * Like above but doesn't assert if object isn't initialized (in which case
      * nullptr is returned).
      */
   T* getMaybeNull() const
-  {
-    return fPtr;
-  }
+  { return fPtr; }
 private:
   typename std::aligned_storage<sizeof(T), alignof(T)>::type fStorage;
   T* fPtr{nullptr};
@@ -178,77 +153,67 @@ class SkTCopyOnFirstWrite
 {
 public:
   explicit SkTCopyOnFirstWrite(const T& initial)
-    : fObj(&initial)
-  {
-  }
+    :  fObj(&initial) 
+    {
+    }
   explicit SkTCopyOnFirstWrite(const T* initial)
-    : fObj(initial)
-  {
-  }
+    :  fObj(initial) 
+    {
+    }
     // Constructor for delayed initialization.
   SkTCopyOnFirstWrite()
-    : fObj(nullptr)
-  {
-  }
+    :  fObj(nullptr) 
+    {
+    }
   SkTCopyOnFirstWrite(const SkTCopyOnFirstWrite& that)
   {
-    *this = that;
-  }
+ *this = that;              }
   SkTCopyOnFirstWrite(SkTCopyOnFirstWrite&& that)
   {
-    *this = std::move(that);
-  }
+ *this = std::move(that);   }
   SkTCopyOnFirstWrite& operator=(const SkTCopyOnFirstWrite& that)
   {
-    fLazy = that.fLazy;
-    fObj = fLazy.isValid() ? fLazy.get() : that.fObj;
-    return *this;
-  }
+        fLazy = that.fLazy;
+        fObj  = fLazy.isValid() ? fLazy.get() : that.fObj;
+        return *this;
+    }
   SkTCopyOnFirstWrite& operator=(SkTCopyOnFirstWrite&& that)
   {
-    fLazy = std::move(that.fLazy);
-    fObj = fLazy.isValid() ? fLazy.get() : that.fObj;
-    return *this;
-  }
+        fLazy = std::move(that.fLazy);
+        fObj  = fLazy.isValid() ? fLazy.get() : that.fObj;
+        return *this;
+    }
     // Should only be called once, and only if the default constructor was used.
   void init(const T& initial)
   {
-    SkASSERT(nullptr == fObj);
-    SkASSERT(!fLazy.isValid());
-    fObj = &initial;
-  }
+        SkASSERT(nullptr == fObj);
+        SkASSERT(!fLazy.isValid());
+        fObj = &initial;
+    }
     /**
      * Returns a writable T*. The first time this is called the initial object is cloned.
      */
   T* writable()
   {
-    SkASSERT(fObj);
-    if (!fLazy.isValid())
-    {
-      fLazy.set(*fObj);
-      fObj = fLazy.get();
+        SkASSERT(fObj);
+        if (!fLazy.isValid()) {
+            fLazy.set(*fObj);
+            fObj = fLazy.get();
+        }
+        return const_cast<T*>(fObj);
     }
-    return const_cast<T*>(fObj);
-  }
   const T* get() const
-  {
-    return fObj;
-  }
+  { return fObj; }
     /**
      * Operators for treating this as though it were a const pointer.
      */
   const T* operator->() const
-  {
-    return fObj;
-  }
+  { return fObj; }
   operator const T*() const
   {
-    return fObj;
-  }
+ return fObj;   }
   const T& operator *() const
-  {
-    return *fObj;
-  }
+  { return *fObj; }
 private:
   const T* fObj;
   SkTLazy<T> fLazy;

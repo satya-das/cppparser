@@ -12,48 +12,45 @@ class SkOpEdgeBuilder
 {
 public:
   SkOpEdgeBuilder(const SkPathWriter& path, SkOpContourHead* contours2, SkOpGlobalState* globalState)
-    : fGlobalState(globalState)
-    , fPath(path.nativePath())
-    , fContourBuilder(contours2)
-    , fContoursHead(contours2)
-    , fAllowOpenContours(true)
-  {
-    init();
-  }
+    :  fGlobalState(globalState)
+        , fPath(path.nativePath())
+        , fContourBuilder(contours2)
+        , fContoursHead(contours2)
+        , fAllowOpenContours(true) 
+    {
+
+        init();
+        }
   SkOpEdgeBuilder(const SkPath& path, SkOpContourHead* contours2, SkOpGlobalState* globalState)
-    : fGlobalState(globalState)
-    , fPath(&path)
-    , fContourBuilder(contours2)
-    , fContoursHead(contours2)
-    , fAllowOpenContours(false)
-  {
-    init();
-  }
+    :  fGlobalState(globalState)
+        , fPath(&path)
+        , fContourBuilder(contours2)
+        , fContoursHead(contours2)
+        , fAllowOpenContours(false) 
+    {
+
+        init();
+        }
   void addOperand(const SkPath& path);
   void complete()
   {
-    fContourBuilder.flush();
-    SkOpContour* contour = fContourBuilder.contour();
-    if (contour && contour->count())
-    {
-      contour->complete();
-      fContourBuilder.setContour(nullptr);
+        fContourBuilder.flush();
+        SkOpContour* contour = fContourBuilder.contour();
+        if (contour && contour->count()) {
+            contour->complete();
+            fContourBuilder.setContour(nullptr);
+        }
     }
-  }
   bool finish();
   const SkOpContour* head() const
   {
-    return fContoursHead;
-  }
+        return fContoursHead;
+    }
   void init();
   bool unparseable() const
-  {
-    return fUnparseable;
-  }
+  { return fUnparseable; }
   SkPathOpsMask xorMask() const
-  {
-    return fXorMask[fOperand];
-  }
+  { return fXorMask[fOperand]; }
 private:
   void closeContour(const SkPoint& curveEnd, const SkPoint& curveStart);
   bool close();

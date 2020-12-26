@@ -20,14 +20,14 @@ class GrTextureResolveManager
 {
 public:
   explicit GrTextureResolveManager(GrDrawingManager* drawingManager)
-    : fDrawingManager(drawingManager)
-  {
-  }
+    :  fDrawingManager(drawingManager) 
+    {
+    }
   GrTextureResolveRenderTask* newTextureResolveRenderTask(const GrCaps& caps) const
   {
-    SkASSERT(fDrawingManager);
-    return fDrawingManager->newTextureResolveRenderTask(caps);
-  }
+        SkASSERT(fDrawingManager);
+        return fDrawingManager->newTextureResolveRenderTask(caps);
+    }
 private:
   GrDrawingManager* fDrawingManager;
 };

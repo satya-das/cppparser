@@ -21,8 +21,8 @@ public:
   int findOrAssignSamplePatternKey(const SkTArray<SkPoint>& sampleLocations);
   const SkTArray<SkPoint>& retrieveSampleLocations(int samplePatternKey) const
   {
-    return *fSampleLocationsArray[samplePatternKey];
-  }
+        return *fSampleLocationsArray[samplePatternKey];
+    }
 private:
   struct LessThan
   {

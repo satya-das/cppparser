@@ -15,21 +15,19 @@ class SkDescriptor :  SkNoncopyable
 public:
   static size_t ComputeOverhead(int entryCount)
   {
-    SkASSERT(entryCount >= 0);
-    return sizeof(SkDescriptor) + entryCount * sizeof(Entry);
-  }
+        SkASSERT(entryCount >= 0);
+        return sizeof(SkDescriptor) + entryCount * sizeof(Entry);
+    }
   static std::unique_ptr<SkDescriptor> Alloc(size_t length);
     // Ensure the unsized delete is called.
   void operator delete(void* p);
   void init()
   {
-    fLength = sizeof(SkDescriptor);
-    fCount = 0;
-  }
+        fLength = sizeof(SkDescriptor);
+        fCount  = 0;
+    }
   uint32_t getLength() const
-  {
-    return fLength;
-  }
+  { return fLength; }
   void* addEntry(uint32_t tag, size_t length, const void* data = nullptr);
   void computeChecksum();
     // Assumes that getLength <= capacity of this SkDescriptor.
@@ -37,8 +35,8 @@ public:
 #  ifdef SK_DEBUG
   void assertChecksum() const
   {
-    SkASSERT(SkDescriptor::ComputeChecksum(this) == fChecksum);
-  }
+        SkASSERT(SkDescriptor::ComputeChecksum(this) == fChecksum);
+    }
 #  endif
   const void* findEntry(uint32_t tag, uint32_t* length) const;
   std::unique_ptr<SkDescriptor> copy() const;
@@ -46,13 +44,9 @@ public:
     // by the assert in addEntry.
   bool operator==(const SkDescriptor& other) const;
   bool operator!=(const SkDescriptor& other) const
-  {
-    return !(*this == other);
-  }
+  { return !(*this == other); }
   uint32_t getChecksum() const
-  {
-    return fChecksum;
-  }
+  { return fChecksum; }
   struct Entry
   {
     uint32_t fTag;
@@ -60,9 +54,7 @@ public:
   };
 #  ifdef SK_DEBUG
   uint32_t getCount() const
-  {
-    return fCount;
-  }
+  { return fCount; }
 #  endif
 private:
     // private so no one can create one except our factories
@@ -87,10 +79,7 @@ public:
   void reset(size_t size);
   void reset(const SkDescriptor& desc);
   SkDescriptor* getDesc() const
-  {
-    SkASSERT(fDesc);
-    return fDesc;
-  }
+  { SkASSERT(fDesc); return fDesc; }
 private:
   void free();
   static constexpr size_t kStorageSize = sizeof(SkDescriptor) + sizeof(SkDescriptor::Entry) + sizeof(SkScalerContextRec) + sizeof(SkDescriptor::Entry) + sizeof(void*) + 32;

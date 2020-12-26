@@ -42,9 +42,7 @@ public:
   virtual wxSockAddress* Clone() const = 0;
     // implementation only, don't use
   const wxSockAddressImpl& GetAddress() const
-  {
-    return *m_impl;
-  }
+  { return *m_impl; }
   void SetAddress(const wxSockAddressImpl& address);
 protected:
   wxSockAddressImpl* m_impl;
@@ -67,16 +65,14 @@ public:
   wxString Hostname() const;
   unsigned short Service() const;
   wxString OrigHostname() const
-  {
-    return m_origHostname;
-  }
+  { return m_origHostname; }
 protected:
     // get m_impl initialized to the right family if it hadn't been done yet
   wxSockAddressImpl& GetImpl();
   const wxSockAddressImpl& GetImpl() const
   {
-    return const_cast<wxIPaddress*>(this)->GetImpl();
-  }
+        return const_cast<wxIPaddress *>(this)->GetImpl();
+    }
     // host name originally passed to Hostname()
   wxString m_origHostname;
 private:
@@ -158,8 +154,8 @@ private:
   wxSockAddressImpl& GetUNIX();
   const wxSockAddressImpl& GetUNIX() const
   {
-    return const_cast<wxUNIXaddress*>(this)->GetUNIX();
-  }
+        return const_cast<wxUNIXaddress *>(this)->GetUNIX();
+    }
   wxDECLARE_DYNAMIC_CLASS(wxUNIXaddress);
 };
 #    endif

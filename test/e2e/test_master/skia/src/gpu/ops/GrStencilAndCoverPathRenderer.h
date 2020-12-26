@@ -20,8 +20,8 @@ public:
 private:
   StencilSupport onGetStencilSupport(const GrShape&) const override
   {
-    return GrPathRenderer::kStencilOnly_StencilSupport;
-  }
+        return GrPathRenderer::kStencilOnly_StencilSupport;
+    }
   CanDrawPath onCanDrawPath(const CanDrawPathArgs&) const override;
   bool onDrawPath(const DrawPathArgs&) override;
   void onStencilPath(const StencilPathArgs&) override;

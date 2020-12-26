@@ -175,7 +175,7 @@ public:
 // This overload is deprecated. Please use the one taking AcString & arg
 inline Acad::ErrorStatus AcDbDataTable::getColumnNameAt(Adesk::UInt32 index, ACHAR*& pName) const
 {
-  AcString sName;
-  return ::acutAcStringToAChar(sName, pName, this->getColumnNameAt(index, sName));
+    AcString sName;
+    return ::acutAcStringToAChar(sName, pName, this->getColumnNameAt(index, sName));
 }
 #pragma  pack (pop)

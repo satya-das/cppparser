@@ -32,59 +32,42 @@ public:
   }
   virtual const GrCaps* caps() const = 0;
   const GrShaderCaps* shaderCaps() const
-  {
-    return this->caps()->shaderCaps();
-  }
+  { return this->caps()->shaderCaps(); }
   const GrPrimitiveProcessor& primitiveProcessor() const
-  {
-    return fPrimProc;
-  }
+  { return fPrimProc; }
   const GrTextureProxy* const * primProcProxies() const
-  {
-    return fPrimProcProxies;
-  }
+  { return fPrimProcProxies; }
   int effectiveSampleCnt() const
   {
-    SkASSERT(GrProcessor::CustomFeatures::kSampleLocations & header().processorFeatures());
-    return fRenderTarget->renderTargetPriv().getSampleLocations().count();
-  }
+        SkASSERT(GrProcessor::CustomFeatures::kSampleLocations & header().processorFeatures());
+        return fRenderTarget->renderTargetPriv().getSampleLocations().count();
+    }
   const SkTArray<SkPoint>& getSampleLocations() const
   {
-    return fRenderTarget->renderTargetPriv().getSampleLocations();
-  }
+        return fRenderTarget->renderTargetPriv().getSampleLocations();
+    }
   int numSamples() const
-  {
-    return fNumSamples;
-  }
+  { return fNumSamples; }
   GrSurfaceOrigin origin() const
-  {
-    return fOrigin;
-  }
+  { return fOrigin; }
   const GrPipeline& pipeline() const
-  {
-    return fPipeline;
-  }
+  { return fPipeline; }
   GrProgramDesc* desc()
-  {
-    return fDesc;
-  }
+  { return fDesc; }
   const GrProgramDesc::KeyHeader& header() const
-  {
-    return fDesc->header();
-  }
+  { return fDesc->header(); }
   void appendUniformDecls(GrShaderFlags visibility, SkString*) const;
   const char* samplerVariable(SamplerHandle handle) const
   {
-    return this->uniformHandler()->samplerVariable(handle);
-  }
+        return this->uniformHandler()->samplerVariable(handle);
+    }
   GrSwizzle samplerSwizzle(SamplerHandle handle) const
   {
-    if (this->caps()->shaderCaps()->textureSwizzleAppliedInShader())
-    {
-      return this->uniformHandler()->samplerSwizzle(handle);
+        if (this->caps()->shaderCaps()->textureSwizzleAppliedInShader()) {
+            return this->uniformHandler()->samplerSwizzle(handle);
+        }
+        return GrSwizzle::RGBA();
     }
-    return GrSwizzle::RGBA();
-  }
     // Used to add a uniform for the RenderTarget width (used for sk_Width) without mangling
     // the name of the uniform inside of a stage.
   void addRTWidthUniform(const char* name);
@@ -130,31 +113,29 @@ protected:
   bool emitAndInstallProcs();
   void finalizeShaders();
   bool fragColorIsInOut() const
-  {
-    return fFS.primaryColorOutputIsInOut();
-  }
+  { return fFS.primaryColorOutputIsInOut(); }
 private:
     // reset is called by program creator between each processor's emit code.  It increments the
     // stage offset for variable name mangling, and also ensures verfication variables in the
     // fragment shader are cleared.
   void reset()
   {
-    this->addStage();
-  }
+        this->addStage();
+        SkDEBUGCODE(fFS.debugOnly_resetPerStageVerification();)
+    }
   void addStage()
-  {
-    fStageIndex++;
-  }
+  { fStageIndex++; }
   class AutoStageAdvance
   {
   public:
     AutoStageAdvance(GrGLSLProgramBuilder* pb)
-      : fPB(pb)
-    {
-      fPB->reset();
+      :  fPB(pb) 
+      {
+
+            fPB->reset();
             // Each output to the fragment processor gets its own code section
-      fPB->fFS.nextStage();
-    }
+            fPB->fFS.nextStage();
+              }
     ~AutoStageAdvance()
     {
     }

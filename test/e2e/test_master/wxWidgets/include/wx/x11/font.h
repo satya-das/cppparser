@@ -17,30 +17,39 @@ public:
     // ctors and such
   wxFont()
   {
-  }
+   }
   wxFont(const wxFontInfo& info)
   {
-    Create(info.GetPointSize(), info.GetFamily(), info.GetStyle(), info.GetWeight(), info.IsUnderlined(), info.GetFaceName(), info.GetEncoding());
-    if (info.IsUsingSizeInPixels())
-    {
-      SetPixelSize(info.GetPixelSize());
-    }
-  }
+
+        Create(info.GetPointSize(),
+               info.GetFamily(),
+               info.GetStyle(),
+               info.GetWeight(),
+               info.IsUnderlined(),
+               info.GetFaceName(),
+               info.GetEncoding());
+
+        if ( info.IsUsingSizeInPixels() )
+            SetPixelSize(info.GetPixelSize());
+      }
   wxFont(int size, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-    Create(size, family, style, weight, underlined, face, encoding);
-  }
+
+        Create(size, family, style, weight, underlined, face, encoding);
+      }
   wxFont(const wxSize& pixelSize, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-    Create(10, family, style, weight, underlined, face, encoding);
-    SetPixelSize(pixelSize);
-  }
+
+        Create(10, family, style, weight, underlined, face, encoding);
+        SetPixelSize(pixelSize);
+      }
   bool Create(int size, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
   wxFont(const wxNativeFontInfo& info);
   wxFont(const wxString& nativeInfoString)
   {
-    Create(nativeInfoString);
-  }
+
+        Create(nativeInfoString);
+      }
   bool Create(const wxString& fontname, wxFontEncoding fontenc = wxFONTENCODING_DEFAULT);
     // DELETEME: no longer seems to be implemented.
     // bool Create(const wxNativeFontInfo& fontinfo);
@@ -66,8 +75,9 @@ public:
   wxDECLARE_COMMON_FONT_METHODS();
   wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants") wxFont(int size, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-    (void) Create(size, (wxFontFamily) family, (wxFontStyle) style, (wxFontWeight) weight, underlined, face, encoding);
-  }
+
+        (void)Create(size, (wxFontFamily)family, (wxFontStyle)style, (wxFontWeight)weight, underlined, face, encoding);
+      }
     // Implementation
 #  if  wxUSE_PANGO
     // Set Pango attributes in the specified layout. Currently only

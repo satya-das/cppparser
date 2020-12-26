@@ -35,9 +35,7 @@ public:
      */
   wxPersistentWindow(WindowType* win);
   WindowType* Get() const
-  {
-    return static_cast<WindowType*>(GetWindow());
-  }
+  { return static_cast<WindowType *>(GetWindow()); }
     /**
         Implements the base class pure virtual method using wxWindow::GetName().
 

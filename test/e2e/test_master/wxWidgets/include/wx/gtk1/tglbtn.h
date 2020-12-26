@@ -28,8 +28,9 @@ public:
   }
   wxToggleBitmapButton(wxWindow* parent, wxWindowID id, const wxBitmap& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr))
   {
-    Create(parent, id, label, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, label, pos, size, style, validator, name);
+      }
     // Create the control
   bool Create(wxWindow* parent, wxWindowID id, const wxBitmap& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr));
     // Get/set the value
@@ -37,9 +38,7 @@ public:
   bool GetValue() const;
     // Set the label
   virtual void SetLabel(const wxString& label)
-  {
-    wxControl::SetLabel(label);
-  }
+  { wxControl::SetLabel(label); }
   virtual void SetLabel(const wxBitmap& label);
   bool Enable(bool enable = TRUE);
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
@@ -65,8 +64,9 @@ public:
   }
   wxToggleButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr))
   {
-    Create(parent, id, label, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, label, pos, size, style, validator, name);
+      }
     // Create the control
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr));
     // Get/set the value

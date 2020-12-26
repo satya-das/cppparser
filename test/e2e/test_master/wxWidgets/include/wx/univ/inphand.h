@@ -66,9 +66,9 @@ class WXDLLIMPEXP_CORE wxStdInputHandler : public wxInputHandler
 {
 public:
   wxStdInputHandler(wxInputHandler* handler)
-    : m_handler(handler)
-  {
-  }
+    :  m_handler(handler) 
+    {
+     }
   bool HandleKey(wxInputConsumer* consumer, const wxKeyEvent& event, bool pressed) override
   {
     return m_handler ? m_handler->HandleKey(consumer, event, pressed) : false;

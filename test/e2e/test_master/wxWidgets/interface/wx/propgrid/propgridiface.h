@@ -30,7 +30,7 @@ public:
     /** Destructor */
   virtual ~wxPropertyGridInterface()
   {
-  }
+   }
     /**
         Appends property to the list. wxPropertyGrid assumes ownership of the
         object. Becomes child of most recently added category.

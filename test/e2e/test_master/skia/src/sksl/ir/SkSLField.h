@@ -21,14 +21,14 @@ namespace SkSL
   struct Field : public Symbol
   {
     Field(int offset, const Variable& owner, int fieldIndex)
-      : INHERITED(offset, kField_Kind, owner.fType.fields()[fieldIndex].fName)
-      , fOwner(owner)
-      , fFieldIndex(fieldIndex)
-    {
-    }
+      :  INHERITED(offset, kField_Kind, owner.fType.fields()[fieldIndex].fName)
+    , fOwner(owner)
+    , fFieldIndex(fieldIndex) 
+      {
+      }
     String description() const override
     {
-      return fOwner.description() + "." + fOwner.fType.fields()[fFieldIndex].fName;
+        return fOwner.description() + "." + fOwner.fType.fields()[fFieldIndex].fName;
     }
     const Variable& fOwner;
     const int fFieldIndex;

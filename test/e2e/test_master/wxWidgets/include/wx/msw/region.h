@@ -21,12 +21,14 @@ public:
 #  if  wxUSE_IMAGE
   wxRegion(const wxBitmap& bmp)
   {
-    Union(bmp);
-  }
+
+        Union(bmp);
+      }
   wxRegion(const wxBitmap& bmp, const wxColour& transColour, int tolerance = 0)
   {
-    Union(bmp, transColour, tolerance);
-  }
+
+        Union(bmp, transColour, tolerance);
+      }
 #  endif
   virtual ~wxRegion();
     // wxRegionBase methods
@@ -51,48 +53,34 @@ class WXDLLIMPEXP_CORE wxRegionIterator : public wxObject
 public:
   wxRegionIterator()
   {
-    Init();
-  }
+ Init();   }
   wxRegionIterator(const wxRegion& region);
   wxRegionIterator(const wxRegionIterator& ri)
-    : wxObject(ri)
-  {
-    Init();
-    *this = ri;
-  }
+    :  wxObject(ri) 
+    {
+ Init(); *this = ri;     }
   wxRegionIterator& operator=(const wxRegionIterator& ri);
   virtual ~wxRegionIterator();
   void Reset()
-  {
-    m_current = 0;
-  }
+  { m_current = 0; }
   void Reset(const wxRegion& region);
   bool HaveRects() const
-  {
-    return (m_current < m_numRects);
-  }
+  { return (m_current < m_numRects); }
   operator bool() const
   {
-    return HaveRects();
-  }
+ return HaveRects();   }
   wxRegionIterator& operator++();
   wxRegionIterator operator++(int);
   wxCoord GetX() const;
   wxCoord GetY() const;
   wxCoord GetW() const;
   wxCoord GetWidth() const
-  {
-    return GetW();
-  }
+  { return GetW(); }
   wxCoord GetH() const;
   wxCoord GetHeight() const
-  {
-    return GetH();
-  }
+  { return GetH(); }
   wxRect GetRect() const
-  {
-    return wxRect(GetX(), GetY(), GetW(), GetH());
-  }
+  { return wxRect(GetX(), GetY(), GetW(), GetH()); }
 private:
     // common part of all ctors
   void Init();

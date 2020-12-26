@@ -91,9 +91,9 @@ namespace PoDoFo
     /** Hide default constructor
      */
     PdfFontTTFSubset()
-      : m_bOwnDevice(false)
-    {
-    }
+      :  m_bOwnDevice( false ) 
+      {
+      }
     /** copy constructor, not implemented
      */
     PdfFontTTFSubset(const PdfFontTTFSubset& rhs);
@@ -120,12 +120,11 @@ namespace PoDoFo
     {
     public:
       TTrueTypeTable()
-        : tag(0L)
-        , checksum(0L)
-        , length(0L)
-        , offset(0L)
-      {
-      }
+        :  tag( 0L ), checksum( 0L ), length( 0L ), offset( 0L )
+        
+        {
+
+                }
       unsigned long tag;
       unsigned long checksum;
       unsigned long length;
@@ -138,10 +137,11 @@ namespace PoDoFo
     {
     public:
       TGlyphData()
-        : glyphLength(0L)
-        , glyphAddress(0L)
-      {
-      }
+        :  glyphLength( 0L ), glyphAddress( 0L )
+        
+        {
+
+                }
       unsigned long glyphLength;
       unsigned long glyphAddress;
     };
@@ -153,12 +153,11 @@ namespace PoDoFo
     {
     public:
       CMapv4Range()
-        : endCode(0)
-        , startCode(0)
-        , delta(0)
-        , offset(0)
-      {
-      }
+        :  endCode( 0 ), startCode( 0 ), delta( 0 ), offset( 0 )
+        
+        {
+
+                }
       unsigned short endCode;
       unsigned short startCode;
       short delta;
@@ -169,9 +168,11 @@ namespace PoDoFo
     {
     public:
       CMap()
-        : segCount(0)
-      {
-      }
+        :  segCount( 0 )
+        
+        {
+
+                }
       unsigned short segCount;
       CMapRanges ranges;
       std::vector<unsigned short> glyphArray;
@@ -180,12 +181,11 @@ namespace PoDoFo
     {
     public:
       GlyphContext()
-        : ulGlyfTableOffset(0)
-        , ulLocaTableOffset(0)
-        , contourCount(0)
-        , shortOffset(0)
-      {
-      }
+        :  ulGlyfTableOffset( 0 ), ulLocaTableOffset( 0 ), contourCount( 0 ) , shortOffset( 0 )
+        
+        {
+
+                }
       unsigned long ulGlyfTableOffset;
       unsigned long ulLocaTableOffset;
         /* Used internaly during recursive load */

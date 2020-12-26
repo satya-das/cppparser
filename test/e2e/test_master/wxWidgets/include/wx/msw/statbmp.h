@@ -19,18 +19,18 @@ class WXDLLIMPEXP_CORE wxStaticBitmap : public wxStaticBitmapBase
 public:
   wxStaticBitmap()
   {
-    Init();
-  }
+ Init();   }
   wxStaticBitmap(wxWindow* parent, wxWindowID id, const wxGDIImage& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBitmapNameStr))
   {
-    Init();
-    Create(parent, id, label, pos, size, style, name);
-  }
+
+        Init();
+
+        Create(parent, id, label, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxGDIImage& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBitmapNameStr));
   virtual ~wxStaticBitmap()
   {
-    Free();
-  }
+ Free();   }
   void SetIcon(const wxIcon& icon) override
   {
     SetImage (&icon);

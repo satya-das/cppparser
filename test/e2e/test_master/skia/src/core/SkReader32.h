@@ -18,149 +18,120 @@ class SkReader32 :  SkNoncopyable
 {
 public:
   SkReader32()
-    : fCurr(nullptr)
-    , fStop(nullptr)
-    , fBase(nullptr)
-  {
-  }
+    :  fCurr(nullptr), fStop(nullptr), fBase(nullptr) 
+    {
+    }
   SkReader32(const void* data, size_t size)
   {
-    this->setMemory(data, size);
-  }
+
+        this->setMemory(data, size);
+      }
   void setMemory(const void* data, size_t size)
   {
-    SkASSERT(ptr_align_4(data));
-    SkASSERT(SkAlign4(size) == size);
-    fBase = fCurr = (const char*) data;
-    fStop = (const char*) data + size;
-  }
+        SkASSERT(ptr_align_4(data));
+        SkASSERT(SkAlign4(size) == size);
+
+        fBase = fCurr = (const char*)data;
+        fStop = (const char*)data + size;
+    }
   size_t size() const
-  {
-    return fStop - fBase;
-  }
+  { return fStop - fBase; }
   size_t offset() const
-  {
-    return fCurr - fBase;
-  }
+  { return fCurr - fBase; }
   bool eof() const
-  {
-    return fCurr >= fStop;
-  }
+  { return fCurr >= fStop; }
   const void* base() const
-  {
-    return fBase;
-  }
+  { return fBase; }
   const void* peek() const
-  {
-    return fCurr;
-  }
+  { return fCurr; }
   size_t available() const
-  {
-    return fStop - fCurr;
-  }
+  { return fStop - fCurr; }
   bool isAvailable(size_t size) const
-  {
-    return size <= this->available();
-  }
+  { return size <= this->available(); }
   void rewind()
-  {
-    fCurr = fBase;
-  }
+  { fCurr = fBase; }
   void setOffset(size_t offset)
   {
-    SkASSERT(SkAlign4(offset) == offset);
-    SkASSERT(offset <= this->size());
-    fCurr = fBase + offset;
-  }
+        SkASSERT(SkAlign4(offset) == offset);
+        SkASSERT(offset <= this->size());
+        fCurr = fBase + offset;
+    }
   bool readBool()
-  {
-    return this->readInt() != 0;
-  }
+  { return this->readInt() != 0; }
   int32_t readInt()
   {
-    SkASSERT(ptr_align_4(fCurr));
-    int32_t value = *(const int32_t*) fCurr;
-    fCurr += sizeof(value);
-    SkASSERT(fCurr <= fStop);
-    return value;
-  }
+        SkASSERT(ptr_align_4(fCurr));
+        int32_t value = *(const int32_t*)fCurr;
+        fCurr += sizeof(value);
+        SkASSERT(fCurr <= fStop);
+        return value;
+    }
   void* readPtr()
   {
-    void* ptr;
+        void* ptr;
         // we presume this "if" is resolved at compile-time
-    if (4 == sizeof(void*))
-    {
-      ptr = *(void**) fCurr;
+        if (4 == sizeof(void*)) {
+            ptr = *(void**)fCurr;
+        } else {
+            memcpy(&ptr, fCurr, sizeof(void*));
+        }
+        fCurr += sizeof(void*);
+        return ptr;
     }
-    else 
-    {
-      memcpy(&ptr, fCurr, sizeof(void*));
-    }
-    fCurr += sizeof(void*);
-    return ptr;
-  }
   SkScalar readScalar()
   {
-    SkASSERT(ptr_align_4(fCurr));
-    SkScalar value = *(const SkScalar*) fCurr;
-    fCurr += sizeof(value);
-    SkASSERT(fCurr <= fStop);
-    return value;
-  }
+        SkASSERT(ptr_align_4(fCurr));
+        SkScalar value = *(const SkScalar*)fCurr;
+        fCurr += sizeof(value);
+        SkASSERT(fCurr <= fStop);
+        return value;
+    }
   const void* skip(size_t size)
   {
-    SkASSERT(ptr_align_4(fCurr));
-    const void* addr = fCurr;
-    fCurr += SkAlign4(size);
-    SkASSERT(fCurr <= fStop);
-    return addr;
-  }
+        SkASSERT(ptr_align_4(fCurr));
+        const void* addr = fCurr;
+        fCurr += SkAlign4(size);
+        SkASSERT(fCurr <= fStop);
+        return addr;
+    }
   template <typename T>
   const T& skipT()
   {
-    SkASSERT(SkAlign4(sizeof(T)) == sizeof(T));
-    return *(const T*) this->skip(sizeof(T));
-  }
+        SkASSERT(SkAlign4(sizeof(T)) == sizeof(T));
+        return *(const T*)this->skip(sizeof(T));
+    }
   void read(void* dst, size_t size)
   {
-    SkASSERT(0 == size || dst != nullptr);
-    SkASSERT(ptr_align_4(fCurr));
-    sk_careful_memcpy(dst, fCurr, size);
-    fCurr += SkAlign4(size);
-    SkASSERT(fCurr <= fStop);
-  }
+        SkASSERT(0 == size || dst != nullptr);
+        SkASSERT(ptr_align_4(fCurr));
+        sk_careful_memcpy(dst, fCurr, size);
+        fCurr += SkAlign4(size);
+        SkASSERT(fCurr <= fStop);
+    }
   uint8_t readU8()
-  {
-    return (uint8_t) this->readInt();
-  }
+  { return (uint8_t)this->readInt(); }
   uint16_t readU16()
-  {
-    return (uint16_t) this->readInt();
-  }
+  { return (uint16_t)this->readInt(); }
   int32_t readS32()
-  {
-    return this->readInt();
-  }
+  { return this->readInt(); }
   uint32_t readU32()
-  {
-    return this->readInt();
-  }
+  { return this->readInt(); }
   bool readPath(SkPath* path)
   {
-    return this->readObjectFromMemory(path);
-  }
+        return this->readObjectFromMemory(path);
+    }
   bool readMatrix(SkMatrix* matrix)
   {
-    return this->readObjectFromMemory(matrix);
-  }
+        return this->readObjectFromMemory(matrix);
+    }
   bool readRRect(SkRRect* rrect)
   {
-    return this->readObjectFromMemory(rrect);
-  }
+        return this->readObjectFromMemory(rrect);
+    }
   bool readRegion(SkRegion* rgn)
   {
-    return this->readObjectFromMemory(rgn);
-  }
+        return this->readObjectFromMemory(rgn);
+    }
     /**
      *  Read the length of a string (written by SkWriter32::writeString) into
      *  len (if len is not nullptr) and return the null-ternimated address of the
@@ -174,24 +145,23 @@ public:
   size_t readIntoString(SkString* copy);
   sk_sp<SkData> readData()
   {
-    uint32_t byteLength = this->readU32();
-    if (0 == byteLength)
-    {
-      return SkData::MakeEmpty();
+        uint32_t byteLength = this->readU32();
+        if (0 == byteLength) {
+            return SkData::MakeEmpty();
+        }
+        return SkData::MakeWithCopy(this->skip(byteLength), byteLength);
     }
-    return SkData::MakeWithCopy(this->skip(byteLength), byteLength);
-  }
 private:
   template <typename T>
   bool readObjectFromMemory(T* obj)
   {
-    size_t size = obj->readFromMemory(this->peek(), this->available());
+        size_t size = obj->readFromMemory(this->peek(), this->available());
         // If readFromMemory() fails (which means that available() was too small), it returns 0
-    bool success = (size > 0) && (size <= this->available()) && (SkAlign4(size) == size);
+        bool success = (size > 0) && (size <= this->available()) && (SkAlign4(size) == size);
         // In case of failure, we want to skip to the end
-    (void) this->skip(success ? size : this->available());
-    return success;
-  }
+        (void)this->skip(success ? size : this->available());
+        return success;
+    }
     // these are always 4-byte aligned
   const char* fCurr;
   const char* fStop;
@@ -199,8 +169,8 @@ private:
 #  ifdef SK_DEBUG
   static bool ptr_align_4(const void* ptr)
   {
-    return (((const char*) ptr - (const char*) nullptr) & 3) == 0;
-  }
+        return (((const char*)ptr - (const char*)nullptr) & 3) == 0;
+    }
 #  endif
 };
 #endif

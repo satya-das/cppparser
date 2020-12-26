@@ -27,26 +27,18 @@ class WXDLLIMPEXP_CORE wxColourPickerWidgetBase
 {
 public:
   wxColourPickerWidgetBase()
-    : m_colour(*wxBLACK)
-  {
-  }
+    :  m_colour(*wxBLACK) 
+    {
+     }
   virtual ~wxColourPickerWidgetBase()
   {
   }
   wxColour GetColour() const
-  {
-    return m_colour;
-  }
+  { return m_colour; }
   virtual void SetColour(const wxColour& col)
-  {
-    m_colour = col;
-    UpdateColour();
-  }
+  { m_colour = col; UpdateColour(); }
   virtual void SetColour(const wxString& col)
-  {
-    m_colour.Set(col);
-    UpdateColour();
-  }
+  { m_colour.Set(col); UpdateColour(); }
 protected:
   virtual void UpdateColour() = 0;
     // the current colour (may be invalid if none)
@@ -96,14 +88,11 @@ public:
   }
   wxColourPickerCtrl(wxWindow* parent, wxWindowID id, const wxColour& col = *wxBLACK, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCLRP_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxColourPickerCtrlNameStr))
   {
-    Create(parent, id, col, pos, size, style, validator, name);
-  }
+ Create(parent, id, col, pos, size, style, validator, name);   }
   bool Create(wxWindow* parent, wxWindowID id, const wxColour& col = *wxBLACK, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCLRP_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxColourPickerCtrlNameStr));
     // get the colour chosen
   wxColour GetColour() const
-  {
-    return ((wxColourPickerWidget*) m_picker)->GetColour();
-  }
+  { return ((wxColourPickerWidget *)m_picker)->GetColour(); }
     // set currently displayed color
   void SetColour(const wxColour& col);
     // set colour using RGB(r,g,b) syntax or considering given text as a colour name;
@@ -135,19 +124,17 @@ public:
   {
   }
   wxColourPickerEvent(wxObject* generator, int id, const wxColour& col, wxEventType commandType = wxEVT_COLOURPICKER_CHANGED)
-    : wxCommandEvent(commandType, id)
-    , m_colour(col)
-  {
-    SetEventObject(generator);
-  }
+    :  wxCommandEvent(commandType, id),
+          m_colour(col)
+    
+    {
+
+        SetEventObject(generator);
+        }
   wxColour GetColour() const
-  {
-    return m_colour;
-  }
+  { return m_colour; }
   void SetColour(const wxColour& c)
-  {
-    m_colour = c;
-  }
+  { m_colour = c; }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
   {

@@ -294,39 +294,25 @@ namespace PoDoFo
     inline bool IsHighPrintAllowed() const;
     /// Get the U object value (user)
     const unsigned char* GetUValue() const
-    {
-      return m_uValue;
-    }
+    { return m_uValue; }
     /// Get the O object value (owner)
     const unsigned char* GetOValue() const
-    {
-      return m_oValue;
-    }
+    { return m_oValue; }
     /// Get the encryption key value (owner)
     const unsigned char* GetEncryptionKey() const
-    {
-      return m_encryptionKey;
-    }
+    { return m_encryptionKey; }
     /// Get the P object value (protection)
     pdf_int32 GetPValue() const
-    {
-      return m_pValue;
-    }
+    { return m_pValue; }
     /// Get the revision number of the encryption method
     int GetRevision() const
-    {
-      return m_rValue;
-    }
+    { return m_rValue; }
     /// Get the key length of the encryption key in bits
     int GetKeyLength() const
-    {
-      return m_keyLength * 8;
-    }
+    { return m_keyLength*8; }
     /// Is metadata encrypted
     bool IsMetadataEncrypted() const
-    {
-      return m_bEncryptMetadata;
-    }
+    { return m_bEncryptMetadata; }
     /// Encrypt a wxString
     //void Encrypt( std::string & str, pdf_long inputLen ) const;
     
@@ -356,17 +342,15 @@ namespace PoDoFo
     inline void SetCurrentReference(const PdfReference& rRef);
   protected:
     PdfEncrypt()
-      : m_eAlgorithm(ePdfEncryptAlgorithm_AESV2)
-      , m_keyLength(0)
-      , m_rValue(0)
-      , m_pValue(0)
-      , m_eKeyLength(ePdfKeyLength_128)
-      , m_bEncryptMetadata(true)
-    {
-      memset(m_uValue, 0, 48);
-      memset(m_oValue, 0, 48);
-      memset(m_encryptionKey, 0, 32);
-    }
+      :  m_eAlgorithm( ePdfEncryptAlgorithm_AESV2 ), m_keyLength( 0 ), m_rValue( 0 ), m_pValue( 0 ),
+        m_eKeyLength( ePdfKeyLength_128 ), m_bEncryptMetadata(true)
+    
+      {
+
+        memset( m_uValue, 0, 48 );
+        memset( m_oValue, 0, 48 );
+        memset( m_encryptionKey, 0, 32 );
+          }
     PdfEncrypt(const PdfEncrypt& rhs);
     /// Check two keys for equality
     bool CheckKey(unsigned char key1[32], unsigned char key2[32]);
@@ -417,19 +401,13 @@ namespace PoDoFo
     virtual void GenerateEncryptionKey(const PdfString& documentId) = 0;
     /// Get the UE object value (user)
     const unsigned char* GetUEValue() const
-    {
-      return m_ueValue;
-    }
+    { return m_ueValue; }
     /// Get the OE object value (owner)
     const unsigned char* GetOEValue() const
-    {
-      return m_oeValue;
-    }
+    { return m_oeValue; }
     /// Get the Perms object value (encrypted protection)
     const unsigned char* GetPermsValue() const
-    {
-      return m_permsValue;
-    }
+    { return m_permsValue; }
     virtual pdf_long CalculateStreamOffset() const = 0;
     virtual pdf_long CalculateStreamLength(pdf_long length) const = 0;
     bool Authenticate(const std::string& documentID, const std::string& password, const std::string& uValue, const std::string& ueValue, const std::string& oValue, const std::string& oeValue, int pValue, const std::string& permsValue, int lengthValue, int rValue);
@@ -566,9 +544,9 @@ class PdfEncryptMD5Base : public PdfEncrypt, public PdfEncryptRC4Base {
 	*/
     PdfEncryptAESV2(PdfString oValue, PdfString uValue, int pValue, bool bEncryptMetadata);
     PdfEncryptAESV2(const PdfEncrypt& rhs)
-      : PdfEncryptMD5Base(rhs)
-    {
-    }
+      :  PdfEncryptMD5Base(rhs) 
+      {
+      }
     PdfEncryptAESV2(const std::string& userPassword, const std::string& ownerPassword, int protection = ePdfPermissions_Print | ePdfPermissions_Edit | ePdfPermissions_Copy | ePdfPermissions_EditNotes | ePdfPermissions_FillAndSign | ePdfPermissions_Accessible | ePdfPermissions_DocAssembly | ePdfPermissions_HighPrint);
 	/*
 	*	Destruct PdfEncryptAESV2 object
@@ -601,9 +579,9 @@ class PdfEncryptMD5Base : public PdfEncrypt, public PdfEncryptRC4Base {
      */
     PdfEncryptAESV3(PdfString oValue, PdfString oeValue, PdfString uValue, PdfString ueValue, int pValue, PdfString permsValue);
     PdfEncryptAESV3(const PdfEncrypt& rhs)
-      : PdfEncryptSHABase(rhs)
-    {
-    }
+      :  PdfEncryptSHABase(rhs) 
+      {
+      }
     PdfEncryptAESV3(const std::string& userPassword, const std::string& ownerPassword, int protection = ePdfPermissions_Print | ePdfPermissions_Edit | ePdfPermissions_Copy | ePdfPermissions_EditNotes | ePdfPermissions_FillAndSign | ePdfPermissions_Accessible | ePdfPermissions_DocAssembly | ePdfPermissions_HighPrint);
     /*
      *	Destruct PdfEncryptAESV3 object
@@ -637,9 +615,9 @@ class PdfEncryptMD5Base : public PdfEncrypt, public PdfEncryptRC4Base {
 	*/
     PdfEncryptRC4(PdfString oValue, PdfString uValue, int pValue, int rValue, EPdfEncryptAlgorithm eAlgorithm, long length, bool bEncryptMetadata);
     PdfEncryptRC4(const PdfEncrypt& rhs)
-      : PdfEncryptMD5Base(rhs)
-    {
-    }
+      :  PdfEncryptMD5Base(rhs) 
+      {
+      }
     PdfEncryptRC4(const std::string& userPassword, const std::string& ownerPassword, int protection = ePdfPermissions_Print | ePdfPermissions_Edit | ePdfPermissions_Copy | ePdfPermissions_EditNotes | ePdfPermissions_FillAndSign | ePdfPermissions_Accessible | ePdfPermissions_DocAssembly | ePdfPermissions_HighPrint, EPdfEncryptAlgorithm eAlgorithm = ePdfEncryptAlgorithm_RC4V1, EPdfKeyLength eKeyLength = ePdfKeyLength_40);
     /*
      *	Destruct PdfEncryptRC4 object
@@ -664,69 +642,69 @@ class PdfEncryptMD5Base : public PdfEncrypt, public PdfEncryptRC4Base {
   PdfEncrypt::EPdfEncryptAlgorithm PdfEncrypt::GetEncryptAlgorithm() const
   {
     return m_eAlgorithm;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfEncrypt::SetCurrentReference(const PdfReference& rRef)
   {
     m_curReference = rRef;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfEncrypt::IsPrintAllowed() const
   {
     return (m_pValue & ePdfPermissions_Print) == ePdfPermissions_Print;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfEncrypt::IsEditAllowed() const
   {
     return (m_pValue & ePdfPermissions_Edit) == ePdfPermissions_Edit;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfEncrypt::IsCopyAllowed() const
   {
     return (m_pValue & ePdfPermissions_Copy) == ePdfPermissions_Copy;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfEncrypt::IsEditNotesAllowed() const
   {
     return (m_pValue & ePdfPermissions_EditNotes) == ePdfPermissions_EditNotes;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfEncrypt::IsFillAndSignAllowed() const
   {
     return (m_pValue & ePdfPermissions_FillAndSign) == ePdfPermissions_FillAndSign;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfEncrypt::IsAccessibilityAllowed() const
   {
     return (m_pValue & ePdfPermissions_Accessible) == ePdfPermissions_Accessible;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfEncrypt::IsDocAssemblyAllowed() const
   {
     return (m_pValue & ePdfPermissions_DocAssembly) == ePdfPermissions_DocAssembly;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfEncrypt::IsHighPrintAllowed() const
   {
     return (m_pValue & ePdfPermissions_HighPrint) == ePdfPermissions_HighPrint;
-  }
+}
 }
 #endif

@@ -19,14 +19,16 @@ class WXDLLIMPEXP_ADV wxCommandLinkButton : public wxGenericCommandLinkButton
 {
 public:
   wxCommandLinkButton()
-    : wxGenericCommandLinkButton()
-  {
-  }
+    :  wxGenericCommandLinkButton() 
+    {
+     }
   wxCommandLinkButton(wxWindow* parent, wxWindowID id, const wxString& mainLabel = wxEmptyString, const wxString& note = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr))
-    : wxGenericCommandLinkButton()
-  {
-    Create(parent, id, mainLabel, note, pos, size, style, validator, name);
-  }
+    :  wxGenericCommandLinkButton()
+    
+    {
+
+        Create(parent, id, mainLabel, note, pos, size, style, validator, name);
+        }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& mainLabel = wxEmptyString, const wxString& note = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr));
     // overridden base class methods
     // -----------------------------

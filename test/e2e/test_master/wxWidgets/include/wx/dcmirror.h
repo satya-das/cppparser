@@ -22,11 +22,13 @@ public:
     // exchanged, otherwise this class behaves in exactly the same way as a
     // plain DC
   wxMirrorDCImpl(wxDC* owner, wxDCImpl& dc, bool mirror)
-    : wxDCImpl(owner)
-    , m_dc(dc)
-  {
-    m_mirror = mirror;
-  }
+    :  wxDCImpl(owner),
+          m_dc(dc)
+    
+    {
+
+        m_mirror = mirror;
+        }
     // wxDCBase operations
   void Clear() override
   {
@@ -121,54 +123,38 @@ public:
 protected:
     // returns x and y if not mirroring or y and x if mirroring
   wxCoord GetX(wxCoord x, wxCoord y) const
-  {
-    return m_mirror ? y : x;
-  }
+  { return m_mirror ? y : x; }
   wxCoord GetY(wxCoord x, wxCoord y) const
-  {
-    return m_mirror ? x : y;
-  }
+  { return m_mirror ? x : y; }
   double GetX(double x, double y) const
-  {
-    return m_mirror ? y : x;
-  }
+  { return m_mirror ? y : x; }
   double GetY(double x, double y) const
-  {
-    return m_mirror ? x : y;
-  }
+  { return m_mirror ? x : y; }
   bool GetX(bool x, bool y) const
-  {
-    return m_mirror ? y : x;
-  }
+  { return m_mirror ? y : x; }
   bool GetY(bool x, bool y) const
-  {
-    return m_mirror ? x : y;
-  }
+  { return m_mirror ? x : y; }
     // same thing but for pointers
   wxCoord* GetX(wxCoord* x, wxCoord* y) const
-  {
-    return m_mirror ? y : x;
-  }
+  { return m_mirror ? y : x; }
   wxCoord* GetY(wxCoord* x, wxCoord* y) const
-  {
-    return m_mirror ? x : y;
-  }
+  { return m_mirror ? x : y; }
     // exchange x and y components of all points in the array if necessary
   wxPoint* Mirror(int n, const wxPoint*& points) const
   {
-    wxPoint* points_alloc = NULL;
-    if (m_mirror)
-    {
-      points_alloc = new wxPoint[n];
-      for (int i = 0; i < n; i++)
-      {
-        points_alloc[i].x = points[i].y;
-        points_alloc[i].y = points[i].x;
-      }
-      points = points_alloc;
+        wxPoint* points_alloc = NULL;
+        if ( m_mirror )
+        {
+            points_alloc = new wxPoint[n];
+            for ( int i = 0; i < n; i++ )
+            {
+                points_alloc[i].x = points[i].y;
+                points_alloc[i].y = points[i].x;
+            }
+            points = points_alloc;
+        }
+        return points_alloc;
     }
-    return points_alloc;
-  }
     // wxDCBase functions
   bool DoFloodFill(wxCoord x, wxCoord y, const wxColour& col, wxFloodFillStyle style = wxFLOOD_SURFACE) override
   {
@@ -280,15 +266,17 @@ class WXDLLIMPEXP_CORE wxMirrorDC : public wxDC
 {
 public:
   wxMirrorDC(wxDC& dc, bool mirror)
-    : wxDC(new wxMirrorDCImpl(this, *dc.GetImpl(), mirror))
-  {
-    m_mirror = mirror;
-  }
+    :  wxDC(new wxMirrorDCImpl(this, *dc.GetImpl(), mirror))
+    
+    {
+
+        m_mirror = mirror;
+        }
     // helper functions which may be useful for the users of this class
   wxSize Reflect(const wxSize& sizeOrig)
   {
-    return m_mirror ? wxSize(sizeOrig.y, sizeOrig.x) : sizeOrig;
-  }
+        return m_mirror ? wxSize(sizeOrig.y, sizeOrig.x) : sizeOrig;
+    }
 private:
   bool m_mirror;
   wxDECLARE_NO_COPY_CLASS(wxMirrorDC);

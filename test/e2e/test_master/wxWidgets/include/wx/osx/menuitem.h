@@ -30,9 +30,7 @@ public:
   void Check(bool bDoCheck = true) override;
   virtual void SetBitmap(const wxBitmap& bitmap);
   virtual const wxBitmap& GetBitmap() const
-  {
-    return m_bitmap;
-  }
+  { return m_bitmap; }
     // Implementation only from now on.
 
     // update the os specific representation
@@ -40,9 +38,7 @@ public:
   void UpdateItemText();
   void UpdateItemStatus();
   wxMenuItemImpl* GetPeer()
-  {
-    return m_peer;
-  }
+  { return m_peer; }
 private:
   void UncheckRadio();
   wxBitmap m_bitmap;

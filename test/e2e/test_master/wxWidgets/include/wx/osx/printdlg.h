@@ -75,9 +75,7 @@ public:
   bool TransferToWindow();
   bool TransferDataFromWindow() override;
   virtual wxPageSetupDialogData& GetPageSetupDialogData()
-  {
-    return *m_pageSetupDialogData;
-  }
+  { return *m_pageSetupDialogData; }
 private:
   wxPageSetupDialogData* m_pageSetupDialogData;
   wxPoint m_MinMarginTopLeft;

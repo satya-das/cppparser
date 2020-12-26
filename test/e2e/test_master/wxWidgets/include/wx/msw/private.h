@@ -75,7 +75,7 @@ inline int wxGetEditHeightFromCharHeight(int cy, const wxWindow*)
     // The value 8 here is empiric, i.e. it's not necessarily correct, but
     // seems to work relatively well.
     // Don't use FromDIP(8), this seems not needed.
-  return cy + 8;
+    return cy + 8;
 }
 // Compatibility macro used in the existing code. It assumes that it's called
 // from a method of wxWindow-derived object.
@@ -111,45 +111,38 @@ class AutoHANDLE
 {
 public:
   explicit AutoHANDLE(HANDLE handle = InvalidHandle())
-    : m_handle(handle)
-  {
-  }
+    :  m_handle(handle) 
+    {
+     }
   bool IsOk() const
-  {
-    return m_handle != InvalidHandle();
-  }
+  { return m_handle != InvalidHandle(); }
   operator HANDLE() const
   {
-    return m_handle;
-  }
+ return m_handle;   }
   ~AutoHANDLE()
   {
-    if (IsOk())
-    {
-      DoClose();
-    }
-  }
+ if ( IsOk() ) DoClose();   }
   void Close()
   {
-    wxCHECK_RET(IsOk(), wxT("Handle must be valid"));
-    DoClose();
-    m_handle = InvalidHandle();
-  }
+        wxCHECK_RET(IsOk(), wxT("Handle must be valid"));
+
+        DoClose();
+
+        m_handle = InvalidHandle();
+    }
 protected:
     // We need this helper function because integer INVALID_VALUE is not
     // implicitly convertible to HANDLE, which is a pointer.
   static HANDLE InvalidHandle()
   {
-    wxUIntPtr h = INVALID_VALUE;
-    return reinterpret_cast<HANDLE>(h);
-  }
+        wxUIntPtr h = INVALID_VALUE;
+        return reinterpret_cast<HANDLE>(h);
+    }
   void DoClose()
   {
-    if (!::CloseHandle(m_handle))
-    {
-      wxLogLastError(wxT("CloseHandle"));
+        if ( !::CloseHandle(m_handle) )
+            wxLogLastError(wxT("CloseHandle"));
     }
-  }
   WXHANDLE m_handle;
 };
 // a template to make initializing Windows structs less painful: it zeros all
@@ -160,10 +153,12 @@ struct WinStruct : public T
 {
   WinStruct()
   {
-    ::ZeroMemory(this, sizeof(T));
+
+        ::ZeroMemory(this, sizeof(T));
+
         // explicit qualification is required here for this to be valid C++
-    this->cbSize = sizeof(T);
-  }
+        this->cbSize = sizeof(T);
+      }
 };
 // Macros for converting wxString to the type expected by API functions.
 //
@@ -189,19 +184,19 @@ struct WinStruct : public T
 // make conversion from wxColour and COLORREF a bit less painful
 inline COLORREF wxColourToRGB(const wxColour& c)
 {
-  return RGB(c.Red(), c.Green(), c.Blue());
+    return RGB(c.Red(), c.Green(), c.Blue());
 }
 inline COLORREF wxColourToPalRGB(const wxColour& c)
 {
-  return PALETTERGB(c.Red(), c.Green(), c.Blue());
+    return PALETTERGB(c.Red(), c.Green(), c.Blue());
 }
 inline wxColour wxRGBToColour(COLORREF rgb)
 {
-  return wxColour(GetRValue(rgb), GetGValue(rgb), GetBValue(rgb));
+    return wxColour(GetRValue(rgb), GetGValue(rgb), GetBValue(rgb));
 }
 inline void wxRGBToColour(wxColour& c, COLORREF rgb)
 {
-  c.Set(GetRValue(rgb), GetGValue(rgb), GetBValue(rgb));
+    c.Set(GetRValue(rgb), GetGValue(rgb), GetBValue(rgb));
 }
 // get the standard colour map for some standard colours - see comment in this
 // function to understand why is it needed and when should it be used
@@ -227,22 +222,22 @@ extern wxCOLORMAP* wxGetStdColourMap();
 // create a wxRect from Windows RECT
 inline wxRect wxRectFromRECT(const RECT& rc)
 {
-  return wxRect(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
+    return wxRect(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
 }
 // copy Windows RECT to our wxRect
 inline void wxCopyRECTToRect(const RECT& rc, wxRect& rect)
 {
-  rect = wxRectFromRECT(rc);
+    rect = wxRectFromRECT(rc);
 }
 // and vice versa
 inline void wxCopyRectToRECT(const wxRect& rect, RECT& rc)
 {
     // note that we don't use wxRect::GetRight() as it is one of compared to
     // wxRectFromRECT() above
-  rc.top = rect.y;
-  rc.left = rect.x;
-  rc.right = rect.x + rect.width;
-  rc.bottom = rect.y + rect.height;
+    rc.top = rect.y;
+    rc.left = rect.x;
+    rc.right = rect.x + rect.width;
+    rc.bottom = rect.y + rect.height;
 }
 // translations between HIMETRIC units (which OLE likes) and pixels (which are
 // liked by all the others) - implemented in msw/utilsexc.cpp
@@ -277,43 +272,47 @@ inline bool wxIsModifierDown(int vk)
 {
     // GetKeyState() returns different negative values on WinME and WinNT,
     // so simply test for negative value.
-  return ::GetKeyState(vk) < 0;
+    return ::GetKeyState(vk) < 0;
 }
 inline bool wxIsShiftDown()
 {
-  return wxIsModifierDown(VK_SHIFT);
+    return wxIsModifierDown(VK_SHIFT);
 }
 inline bool wxIsCtrlDown()
 {
-  return wxIsModifierDown(VK_CONTROL);
+    return wxIsModifierDown(VK_CONTROL);
 }
 inline bool wxIsAltDown()
 {
-  return wxIsModifierDown(VK_MENU);
+    return wxIsModifierDown(VK_MENU);
 }
 inline bool wxIsAnyModifierDown()
 {
-  return wxIsShiftDown() || wxIsCtrlDown() || wxIsAltDown();
+    return wxIsShiftDown() || wxIsCtrlDown() || wxIsAltDown();
 }
 // wrapper around GetWindowRect() and GetClientRect() APIs doing error checking
 // for Win32
 inline RECT wxGetWindowRect(HWND hwnd)
 {
-  RECT rect;
-  if (!::GetWindowRect(hwnd, &rect))
-  {
-    wxLogLastError(wxT("GetWindowRect"));
-  }
-  return rect;
+    RECT rect;
+
+    if ( !::GetWindowRect(hwnd, &rect) )
+    {
+        wxLogLastError(wxT("GetWindowRect"));
+    }
+
+    return rect;
 }
 inline RECT wxGetClientRect(HWND hwnd)
 {
-  RECT rect;
-  if (!::GetClientRect(hwnd, &rect))
-  {
-    wxLogLastError(wxT("GetClientRect"));
-  }
-  return rect;
+    RECT rect;
+
+    if ( !::GetClientRect(hwnd, &rect) )
+    {
+        wxLogLastError(wxT("GetClientRect"));
+    }
+
+    return rect;
 }
 // ---------------------------------------------------------------------------
 // small helper classes
@@ -330,15 +329,17 @@ class TempHWNDSetter
 {
 public:
   TempHWNDSetter(wxWindow* win, WXHWND hWnd)
-    : m_win(win)
-    , m_hWndOrig(m_win->GetHWND())
-  {
-    m_win->SetHWND(hWnd);
-  }
+    :  m_win(win), m_hWndOrig(m_win->GetHWND())
+    
+    {
+
+        m_win->SetHWND(hWnd);
+        }
   ~TempHWNDSetter()
   {
-    m_win->SetHWND(m_hWndOrig);
-  }
+
+        m_win->SetHWND(m_hWndOrig);
+      }
 private:
   wxWindow* const m_win;
   const WXHWND m_hWndOrig;
@@ -352,16 +353,13 @@ class ScreenHDC
 public:
   ScreenHDC()
   {
-    m_hdc = ::GetDC(NULL);
-  }
+ m_hdc = ::GetDC(NULL);      }
   ~ScreenHDC()
   {
-    ::ReleaseDC(NULL, m_hdc);
-  }
+ ::ReleaseDC(NULL, m_hdc);   }
   operator HDC() const
   {
-    return m_hdc;
-  }
+ return m_hdc;   }
 private:
   HDC m_hdc;
   wxDECLARE_NO_COPY_CLASS(ScreenHDC);
@@ -371,25 +369,18 @@ class WindowHDC
 {
 public:
   WindowHDC()
-    : m_hwnd(NULL)
-    , m_hdc(NULL)
-  {
-  }
+    :  m_hwnd(NULL), m_hdc(NULL) 
+    {
+     }
   WindowHDC(HWND hwnd)
   {
-    m_hdc = ::GetDC(m_hwnd = hwnd);
-  }
+ m_hdc = ::GetDC(m_hwnd = hwnd);   }
   ~WindowHDC()
   {
-    if (m_hwnd && m_hdc)
-    {
-      ::ReleaseDC(m_hwnd, m_hdc);
-    }
-  }
+ if ( m_hwnd && m_hdc ) { ::ReleaseDC(m_hwnd, m_hdc); }   }
   operator HDC() const
   {
-    return m_hdc;
-  }
+ return m_hdc;   }
 private:
   HWND m_hwnd;
   HDC m_hdc;
@@ -402,16 +393,13 @@ class MemoryHDC
 public:
   MemoryHDC(HDC hdc = NULL)
   {
-    m_hdc = ::CreateCompatibleDC(hdc);
-  }
+ m_hdc = ::CreateCompatibleDC(hdc);   }
   ~MemoryHDC()
   {
-    ::DeleteDC(m_hdc);
-  }
+ ::DeleteDC(m_hdc);   }
   operator HDC() const
   {
-    return m_hdc;
-  }
+ return m_hdc;   }
 private:
   HDC m_hdc;
   wxDECLARE_NO_COPY_CLASS(MemoryHDC);
@@ -422,38 +410,31 @@ class SelectInHDC
 {
 private:
   void DoInit(HGDIOBJ hgdiobj)
-  {
-    m_hgdiobj = ::SelectObject(m_hdc, hgdiobj);
-  }
+  { m_hgdiobj = ::SelectObject(m_hdc, hgdiobj); }
 public:
   SelectInHDC()
-    : m_hdc(NULL)
-    , m_hgdiobj(NULL)
-  {
-  }
+    :  m_hdc(NULL), m_hgdiobj(NULL) 
+    {
+     }
   SelectInHDC(HDC hdc, HGDIOBJ hgdiobj)
-    : m_hdc(hdc)
-  {
-    DoInit(hgdiobj);
-  }
+    :  m_hdc(hdc) 
+    {
+ DoInit(hgdiobj);     }
   void Init(HDC hdc, HGDIOBJ hgdiobj)
   {
-    wxASSERT_MSG(!m_hdc, wxT("initializing twice?"));
-    m_hdc = hdc;
-    DoInit(hgdiobj);
-  }
+        wxASSERT_MSG( !m_hdc, wxT("initializing twice?") );
+
+        m_hdc = hdc;
+
+        DoInit(hgdiobj);
+    }
   ~SelectInHDC()
   {
-    if (m_hdc)
-    {
-      ::SelectObject(m_hdc, m_hgdiobj);
-    }
-  }
+ if ( m_hdc ) ::SelectObject(m_hdc, m_hgdiobj);   }
     // return true if the object was successfully selected
   operator bool() const
   {
-    return m_hgdiobj != NULL;
-  }
+ return m_hgdiobj != NULL;   }
 private:
   HDC m_hdc;
   HGDIOBJ m_hgdiobj;
@@ -465,28 +446,22 @@ class AutoGDIObject
 protected:
   AutoGDIObject()
   {
-    m_gdiobj = NULL;
-  }
+ m_gdiobj = NULL;   }
   AutoGDIObject(HGDIOBJ gdiobj)
-    : m_gdiobj(gdiobj)
-  {
-  }
+    :  m_gdiobj(gdiobj) 
+    {
+     }
   ~AutoGDIObject()
   {
-    if (m_gdiobj)
-    {
-      ::DeleteObject(m_gdiobj);
-    }
-  }
+ if ( m_gdiobj ) ::DeleteObject(m_gdiobj);   }
   void InitGdiobj(HGDIOBJ gdiobj)
   {
-    wxASSERT_MSG(!m_gdiobj, wxT("initializing twice?"));
-    m_gdiobj = gdiobj;
-  }
+        wxASSERT_MSG( !m_gdiobj, wxT("initializing twice?") );
+
+        m_gdiobj = gdiobj;
+    }
   HGDIOBJ GetObject() const
-  {
-    return m_gdiobj;
-  }
+  { return m_gdiobj; }
 private:
   HGDIOBJ m_gdiobj;
 };
@@ -497,97 +472,92 @@ class AutoHBRUSH : private AutoGDIObject
 {
 public:
   AutoHBRUSH(COLORREF col)
-    : AutoGDIObject(::CreateSolidBrush(col))
-  {
-  }
+    :  AutoGDIObject(::CreateSolidBrush(col)) 
+    {
+     }
   operator HBRUSH() const
   {
-    return (HBRUSH) GetObject();
-  }
+ return (HBRUSH)GetObject();   }
 };
 // a class for temporary fonts
 class AutoHFONT : private AutoGDIObject
 {
 public:
   AutoHFONT()
-    : AutoGDIObject()
-  {
-  }
+    :  AutoGDIObject() 
+    {
+     }
   AutoHFONT(const LOGFONT& lf)
-    : AutoGDIObject(::CreateFontIndirect(&lf))
-  {
-  }
+    :  AutoGDIObject(::CreateFontIndirect(&lf)) 
+    {
+     }
   void Init(const LOGFONT& lf)
-  {
-    InitGdiobj(::CreateFontIndirect(&lf));
-  }
+  { InitGdiobj(::CreateFontIndirect(&lf)); }
   operator HFONT() const
   {
-    return (HFONT) GetObject();
-  }
+ return (HFONT)GetObject();   }
 };
 // a class for temporary pens
 class AutoHPEN : private AutoGDIObject
 {
 public:
   AutoHPEN(COLORREF col)
-    : AutoGDIObject(::CreatePen(PS_SOLID, 0, col))
-  {
-  }
+    :  AutoGDIObject(::CreatePen(PS_SOLID, 0, col)) 
+    {
+     }
   operator HPEN() const
   {
-    return (HPEN) GetObject();
-  }
+ return (HPEN)GetObject();   }
 };
 // classes for temporary bitmaps
 class AutoHBITMAP : private AutoGDIObject
 {
 public:
   AutoHBITMAP()
-    : AutoGDIObject()
-  {
-  }
+    :  AutoGDIObject() 
+    {
+     }
   AutoHBITMAP(HBITMAP hbmp)
-    : AutoGDIObject(hbmp)
-  {
-  }
+    :  AutoGDIObject(hbmp) 
+    {
+     }
   void Init(HBITMAP hbmp)
-  {
-    InitGdiobj(hbmp);
-  }
+  { InitGdiobj(hbmp); }
   operator HBITMAP() const
   {
-    return (HBITMAP) GetObject();
-  }
+ return (HBITMAP)GetObject();   }
 };
 class CompatibleBitmap : public AutoHBITMAP
 {
 public:
   CompatibleBitmap(HDC hdc, int w, int h)
-    : AutoHBITMAP(::CreateCompatibleBitmap(hdc, w, h))
-  {
-  }
+    :  AutoHBITMAP(::CreateCompatibleBitmap(hdc, w, h))
+    
+    {
+
+        }
 };
 class MonoBitmap : public AutoHBITMAP
 {
 public:
   MonoBitmap(int w, int h)
-    : AutoHBITMAP(::CreateBitmap(w, h, 1, 1, NULL))
-  {
-  }
+    :  AutoHBITMAP(::CreateBitmap(w, h, 1, 1, NULL))
+    
+    {
+
+        }
 };
 // class automatically destroys the region object
 class AutoHRGN : private AutoGDIObject
 {
 public:
   AutoHRGN(HRGN hrgn)
-    : AutoGDIObject(hrgn)
-  {
-  }
+    :  AutoGDIObject(hrgn) 
+    {
+     }
   operator HRGN() const
   {
-    return (HRGN) GetObject();
-  }
+ return (HRGN)GetObject();   }
 };
 // Class automatically freeing ICONINFO struct fields after retrieving it using
 // GetIconInfo().
@@ -596,45 +566,45 @@ class AutoIconInfo : public ICONINFO
 public:
   AutoIconInfo()
   {
-    wxZeroMemory (*this);
-  }
+ wxZeroMemory(*this);   }
   bool GetFrom(HICON hIcon)
   {
-    if (!::GetIconInfo(hIcon, this))
-    {
-      wxLogLastError(wxT("GetIconInfo"));
-      return false;
+        if ( !::GetIconInfo(hIcon, this) )
+        {
+            wxLogLastError(wxT("GetIconInfo"));
+            return false;
+        }
+
+        return true;
     }
-    return true;
-  }
   ~AutoIconInfo()
   {
-    if (hbmColor)
-    {
-      ::DeleteObject(hbmColor);
-    }
-    if (hbmMask)
-    {
-      ::DeleteObject(hbmMask);
-    }
-  }
+
+        if ( hbmColor )
+            ::DeleteObject(hbmColor);
+        if ( hbmMask )
+            ::DeleteObject(hbmMask);
+      }
 };
 // class sets the specified clipping region during its life time
 class HDCClipper
 {
 public:
   HDCClipper(HDC hdc, HRGN hrgn)
-    : m_hdc(hdc)
-  {
-    if (!::SelectClipRgn(hdc, hrgn))
+    :  m_hdc(hdc)
+    
     {
-      wxLogLastError(wxT("SelectClipRgn"));
-    }
-  }
+
+        if ( !::SelectClipRgn(hdc, hrgn) )
+        {
+            wxLogLastError(wxT("SelectClipRgn"));
+        }
+        }
   ~HDCClipper()
   {
-    ::SelectClipRgn(m_hdc, NULL);
-  }
+
+        ::SelectClipRgn(m_hdc, NULL);
+      }
 private:
   HDC m_hdc;
   wxDECLARE_NO_COPY_CLASS(HDCClipper);
@@ -644,21 +614,22 @@ class HDCMapModeChanger
 {
 public:
   HDCMapModeChanger(HDC hdc, int mm)
-    : m_hdc(hdc)
-  {
-    m_modeOld = ::SetMapMode(hdc, mm);
-    if (!m_modeOld)
+    :  m_hdc(hdc)
+        
     {
-      wxLogLastError(wxT("SelectClipRgn"));
-    }
-  }
+
+            m_modeOld = ::SetMapMode(hdc, mm);
+            if ( !m_modeOld )
+            {
+                wxLogLastError(wxT("SelectClipRgn"));
+            }
+            }
   ~HDCMapModeChanger()
   {
-    if (m_modeOld)
-    {
-      ::SetMapMode(m_hdc, m_modeOld);
-    }
-  }
+
+            if ( m_modeOld )
+                ::SetMapMode(m_hdc, m_modeOld);
+          }
 private:
   HDC m_hdc;
   int m_modeOld;
@@ -673,33 +644,35 @@ public:
     // default ctor, call Init() later
   GlobalPtr()
   {
-    m_hGlobal = NULL;
-  }
+
+        m_hGlobal = NULL;
+      }
     // allocates a block of given size
   void Init(size_t size, unsigned flags = GMEM_MOVEABLE)
   {
-    m_hGlobal = ::GlobalAlloc(flags, size);
-    if (!m_hGlobal)
-    {
-      wxLogLastError(wxT("GlobalAlloc"));
+        m_hGlobal = ::GlobalAlloc(flags, size);
+        if ( !m_hGlobal )
+        {
+            wxLogLastError(wxT("GlobalAlloc"));
+        }
     }
-  }
   GlobalPtr(size_t size, unsigned flags = GMEM_MOVEABLE)
   {
-    Init(size, flags);
-  }
+
+        Init(size, flags);
+      }
   ~GlobalPtr()
   {
-    if (m_hGlobal && ::GlobalFree(m_hGlobal))
-    {
-      wxLogLastError(wxT("GlobalFree"));
-    }
-  }
+
+        if ( m_hGlobal && ::GlobalFree(m_hGlobal) )
+        {
+            wxLogLastError(wxT("GlobalFree"));
+        }
+      }
     // implicit conversion
   operator HGLOBAL() const
   {
-    return m_hGlobal;
-  }
+ return m_hGlobal;   }
 private:
   HGLOBAL m_hGlobal;
   wxDECLARE_NO_COPY_CLASS(GlobalPtr);
@@ -714,56 +687,56 @@ public:
     // be NULL (in which case Init() shouldn't be called)
   GlobalPtrLock()
   {
-    m_hGlobal = NULL;
-    m_ptr = NULL;
-  }
+
+        m_hGlobal = NULL;
+        m_ptr = NULL;
+      }
     // initialize the object, may be only called if we were created using the
     // default ctor; HGLOBAL must not be NULL
   void Init(HGLOBAL hGlobal)
   {
-    m_hGlobal = hGlobal;
+        m_hGlobal = hGlobal;
+
         // NB: GlobalLock() is a macro, not a function, hence don't use the
         //     global scope operator with it (and neither with GlobalUnlock())
-    m_ptr = GlobalLock(hGlobal);
-    if (!m_ptr)
-    {
-      wxLogLastError(wxT("GlobalLock"));
+        m_ptr = GlobalLock(hGlobal);
+        if ( !m_ptr )
+        {
+            wxLogLastError(wxT("GlobalLock"));
+        }
     }
-  }
     // initialize the object, HGLOBAL must not be NULL
   GlobalPtrLock(HGLOBAL hGlobal)
   {
-    Init(hGlobal);
-  }
+
+        Init(hGlobal);
+      }
   ~GlobalPtrLock()
   {
-    if (m_hGlobal && !GlobalUnlock(m_hGlobal))
-    {
+
+        if ( m_hGlobal && !GlobalUnlock(m_hGlobal) )
+        {
             // this might happen simply because the block became unlocked
-      DWORD dwLastError = ::GetLastError();
-      if (dwLastError != NO_ERROR)
-      {
-        wxLogApiError(wxT("GlobalUnlock"), dwLastError);
+            DWORD dwLastError = ::GetLastError();
+            if ( dwLastError != NO_ERROR )
+            {
+                wxLogApiError(wxT("GlobalUnlock"), dwLastError);
+            }
+        }
       }
-    }
-  }
   void* Get() const
-  {
-    return m_ptr;
-  }
+  { return m_ptr; }
   operator void*() const
   {
-    return m_ptr;
-  }
+ return m_ptr;   }
   size_t GetSize() const
   {
-    const size_t size = ::GlobalSize(m_hGlobal);
-    if (!size)
-    {
-      wxLogLastError(wxT("GlobalSize"));
+        const size_t size = ::GlobalSize(m_hGlobal);
+        if ( !size )
+            wxLogLastError(wxT("GlobalSize"));
+
+        return size;
     }
-    return size;
-  }
 private:
   HGLOBAL m_hGlobal;
   void* m_ptr;
@@ -776,51 +749,48 @@ public:
     // ctor doesn't register the class, call Initialize() for this
   ClassRegistrar()
   {
-    m_registered = -1;
-  }
+ m_registered = -1;   }
     // return true if the class is already registered
   bool IsInitialized() const
-  {
-    return m_registered != -1;
-  }
+  { return m_registered != -1; }
     // return true if the class had been already registered
   bool IsRegistered() const
-  {
-    return m_registered == 1;
-  }
+  { return m_registered == 1; }
     // try to register the class if not done yet, return true on success
   bool Register(const WNDCLASS& wc)
   {
         // we should only be called if we hadn't been initialized yet
-    wxASSERT_MSG(m_registered == -1, wxT("calling ClassRegistrar::Register() twice?"));
-    m_registered = ::RegisterClass(&wc) ? 1 : 0;
-    if (!IsRegistered())
-    {
-      wxLogLastError(wxT("RegisterClassEx()"));
+        wxASSERT_MSG( m_registered == -1,
+                        wxT("calling ClassRegistrar::Register() twice?") );
+
+        m_registered = ::RegisterClass(&wc) ? 1 : 0;
+        if ( !IsRegistered() )
+        {
+            wxLogLastError(wxT("RegisterClassEx()"));
+        }
+        else
+        {
+            m_clsname = wc.lpszClassName;
+        }
+
+        return m_registered == 1;
     }
-    else 
-    {
-      m_clsname = wc.lpszClassName;
-    }
-    return m_registered == 1;
-  }
     // get the name of the registered class (returns empty string if not
     // registered)
   const wxString& GetName() const
-  {
-    return m_clsname;
-  }
+  { return m_clsname; }
     // unregister the class if it had been registered
   ~ClassRegistrar()
   {
-    if (IsRegistered())
-    {
-      if (!::UnregisterClass(m_clsname.t_str(), wxGetInstance()))
-      {
-        wxLogLastError(wxT("UnregisterClass"));
+
+        if ( IsRegistered() )
+        {
+            if ( !::UnregisterClass(m_clsname.t_str(), wxGetInstance()) )
+            {
+                wxLogLastError(wxT("UnregisterClass"));
+            }
+        }
       }
-    }
-  }
 private:
     // initial value is -1 which means that we hadn't tried registering the
     // class yet, it becomes true or false (1 or 0) when Initialize() is called
@@ -870,17 +840,23 @@ private:
 // return the full path of the given module
 inline wxString wxGetFullModuleName(HMODULE hmod)
 {
-  wxString fullname;
-  if (!::GetModuleFileName(hmod, wxStringBuffer(fullname, MAX_PATH), MAX_PATH))
-  {
-    wxLogLastError(wxT("GetModuleFileName"));
-  }
-  return fullname;
+    wxString fullname;
+    if ( !::GetModuleFileName
+            (
+                hmod,
+                wxStringBuffer(fullname, MAX_PATH),
+                MAX_PATH
+            ) )
+    {
+        wxLogLastError(wxT("GetModuleFileName"));
+    }
+
+    return fullname;
 }
 // return the full path of the program file
 inline wxString wxGetFullModuleName()
 {
-  return wxGetFullModuleName((HMODULE) wxGetInstance());
+    return wxGetFullModuleName((HMODULE)wxGetInstance());
 }
 // return the run-time version of the OS in a format similar to
 // WINVER/_WIN32_WINNT compile-time macros:
@@ -944,7 +920,8 @@ WXDLLIMPEXP_CORE void wxGetCharSize(WXHWND wnd, int* x, int* y, const wxFont& th
 WXDLLIMPEXP_CORE wxFontEncoding wxGetFontEncFromCharSet(int charset);
 inline void wxSetWindowFont(HWND hwnd, const wxFont& font)
 {
-  ::SendMessage(hwnd, WM_SETFONT, (WPARAM) GetHfontOf(font), MAKELPARAM(TRUE, 0));
+    ::SendMessage(hwnd, WM_SETFONT,
+                  (WPARAM)GetHfontOf(font), MAKELPARAM(TRUE, 0));
 }
 WXDLLIMPEXP_CORE void wxSliderEvent(WXHWND control, WXWORD wParam, WXWORD pos);
 WXDLLIMPEXP_CORE void wxScrollBarEvent(WXHWND hbar, WXWORD wParam, WXWORD pos);
@@ -965,37 +942,44 @@ WXDLLIMPEXP_CORE extern bool wxCheckWindowWndProc(WXHWND hWnd, WXWNDPROC wndProc
 // Does this window style specify any border?
 inline bool wxStyleHasBorder(long style)
 {
-  return (style & (wxSIMPLE_BORDER | wxRAISED_BORDER | wxSUNKEN_BORDER | wxDOUBLE_BORDER)) != 0;
+    return (style & (wxSIMPLE_BORDER | wxRAISED_BORDER |
+                     wxSUNKEN_BORDER | wxDOUBLE_BORDER)) != 0;
 }
 inline bool wxHasWindowExStyle(const wxWindowMSW* win, long style)
 {
-  return (::GetWindowLong(GetHwndOf(win), GWL_EXSTYLE) & style) != 0;
+    return (::GetWindowLong(GetHwndOf(win), GWL_EXSTYLE) & style) != 0;
 }
 // Common helper of wxUpdate{,Edit}LayoutDirection() below: sets or clears the
 // given flag(s) depending on wxLayoutDirection and returns true if the flags
 // really changed.
 inline bool wxUpdateExStyleForLayoutDirection(WXHWND hWnd, wxLayoutDirection dir, LONG_PTR flagsForRTL)
 {
-  wxCHECK_MSG(hWnd, false, wxS("Can't set layout direction for invalid window"));
-  const LONG_PTR styleOld = ::GetWindowLongPtr(hWnd, GWL_EXSTYLE);
-  LONG_PTR styleNew = styleOld;
-  switch(dir)
-  {
-    case wxLayout_LeftToRight:
-      styleNew &= ~flagsForRTL;
-      break;
-    case wxLayout_RightToLeft:
-      styleNew |= flagsForRTL;
-      break;
-    case wxLayout_Default:
-      wxFAIL_MSG(wxS("Invalid layout direction"));
-  }
-  if (styleNew == styleOld)
-  {
-    return false;
-  }
-  ::SetWindowLongPtr(hWnd, GWL_EXSTYLE, styleNew);
-  return true;
+    wxCHECK_MSG( hWnd, false,
+                 wxS("Can't set layout direction for invalid window") );
+
+    const LONG_PTR styleOld = ::GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+
+    LONG_PTR styleNew = styleOld;
+    switch ( dir )
+    {
+        case wxLayout_LeftToRight:
+            styleNew &= ~flagsForRTL;
+            break;
+
+        case wxLayout_RightToLeft:
+            styleNew |= flagsForRTL;
+            break;
+
+        case wxLayout_Default:
+            wxFAIL_MSG(wxS("Invalid layout direction"));
+    }
+
+    if ( styleNew == styleOld )
+        return false;
+
+    ::SetWindowLongPtr(hWnd, GWL_EXSTYLE, styleNew);
+
+    return true;
 }
 // Update layout direction flag for a generic window.
 //
@@ -1004,7 +988,7 @@ inline bool wxUpdateExStyleForLayoutDirection(WXHWND hWnd, wxLayoutDirection dir
 // Returns true if the layout direction did change.
 inline bool wxUpdateLayoutDirection(WXHWND hWnd, wxLayoutDirection dir)
 {
-  return wxUpdateExStyleForLayoutDirection(hWnd, dir, WS_EX_LAYOUTRTL);
+    return wxUpdateExStyleForLayoutDirection(hWnd, dir, WS_EX_LAYOUTRTL);
 }
 // Update layout direction flag for an EDIT control.
 //
@@ -1012,18 +996,24 @@ inline bool wxUpdateLayoutDirection(WXHWND hWnd, wxLayoutDirection dir)
 // set to the desired direction (which can't be wxLayout_Default).
 inline bool wxUpdateEditLayoutDirection(WXHWND hWnd, wxLayoutDirection dir)
 {
-  return wxUpdateExStyleForLayoutDirection(hWnd, dir, WS_EX_RIGHT | WS_EX_RTLREADING | WS_EX_LEFTSCROLLBAR);
+    return wxUpdateExStyleForLayoutDirection(hWnd, dir,
+                                             WS_EX_RIGHT |
+                                             WS_EX_RTLREADING |
+                                             WS_EX_LEFTSCROLLBAR);
 }
 // Companion of the above function checking if an EDIT control uses RTL.
 inline wxLayoutDirection wxGetEditLayoutDirection(WXHWND hWnd)
 {
-  wxCHECK_MSG(hWnd, wxLayout_Default, wxS("invalid window"));
+    wxCHECK_MSG( hWnd, wxLayout_Default, wxS("invalid window") );
+
     // While we set 3 style bits above, we're only really interested in one of
     // them here. In particularly, don't check for WS_EX_RIGHT as it can be set
     // for a right-aligned control even if it doesn't use RTL. And while we
     // could test WS_EX_LEFTSCROLLBAR, this doesn't really seem useful.
-  const LONG_PTR style = ::GetWindowLongPtr(hWnd, GWL_EXSTYLE);
-  return style & WS_EX_RTLREADING ? wxLayout_RightToLeft : wxLayout_LeftToRight;
+    const LONG_PTR style = ::GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+
+    return style & WS_EX_RTLREADING ? wxLayout_RightToLeft
+                                    : wxLayout_LeftToRight;
 }
 // ----------------------------------------------------------------------------
 // functions mapping HWND to wxWindow
@@ -1045,9 +1035,9 @@ WXDLLIMPEXP_CORE void wxDrawHVLine(HDC hdc, int x1, int y1, int x2, int y2, COLO
 // fill the client rect of the given window on the provided dc using this brush
 inline void wxFillRect(HWND hwnd, HDC hdc, HBRUSH hbr)
 {
-  RECT rc;
-  ::GetClientRect(hwnd, &rc);
-  ::FillRect(hdc, &rc, hbr);
+    RECT rc;
+    ::GetClientRect(hwnd, &rc);
+    ::FillRect(hdc, &rc, hbr);
 }
 // ----------------------------------------------------------------------------
 // 32/64 bit helpers
@@ -1057,19 +1047,19 @@ inline void wxFillRect(HWND hwnd, HDC hdc, HBRUSH hbr)
 // for the 64-bit warning mode of later versions of MSVC (C4311/4312)
 inline WNDPROC wxGetWindowProc(HWND hwnd)
 {
-  return (WNDPROC) (LONG_PTR) ::GetWindowLongPtr(hwnd, GWLP_WNDPROC);
+    return (WNDPROC)(LONG_PTR)::GetWindowLongPtr(hwnd, GWLP_WNDPROC);
 }
 inline void* wxGetWindowUserData(HWND hwnd)
 {
-  return (void*) (LONG_PTR) ::GetWindowLongPtr(hwnd, GWLP_USERDATA);
+    return (void *)(LONG_PTR)::GetWindowLongPtr(hwnd, GWLP_USERDATA);
 }
 inline WNDPROC wxSetWindowProc(HWND hwnd, WNDPROC func)
 {
-  return (WNDPROC) (LONG_PTR) ::SetWindowLongPtr(hwnd, GWLP_WNDPROC, (LONG_PTR) func);
+    return (WNDPROC)(LONG_PTR)::SetWindowLongPtr(hwnd, GWLP_WNDPROC, (LONG_PTR)func);
 }
 inline void* wxSetWindowUserData(HWND hwnd, void* data)
 {
-  return (void*) (LONG_PTR) ::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR) data);
+    return (void *)(LONG_PTR)::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)data);
 }
 #  endif
 #endif

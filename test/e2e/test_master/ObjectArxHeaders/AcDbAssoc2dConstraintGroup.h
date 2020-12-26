@@ -612,9 +612,9 @@ public:
     ///
   virtual bool canBeRelaxed(const class AcExplicitConstraint* pConstraint)
   {
-    UNREFERENCED_PARAMETER(pConstraint);
-    return false;
-  }
+        UNREFERENCED_PARAMETER(pConstraint);
+        return false;
+    }
     /// <summary>
     /// This function will be called when a constraint is
     /// deactivated/reactivated. This notification takes place when
@@ -628,9 +628,9 @@ public:
     ///
   virtual void constraintDeactivated(const AcExplicitConstraint* pConstraint, bool bDeactivated = true)
   {
-    UNREFERENCED_PARAMETER(pConstraint);
-    UNREFERENCED_PARAMETER(bDeactivated);
-  }
+        UNREFERENCED_PARAMETER(pConstraint);
+        UNREFERENCED_PARAMETER(bDeactivated);
+    }
 };
 /// <summary>
 /// Client needs to implement this callback to provide constraint priorities
@@ -644,7 +644,7 @@ class ACDB_PORT AcAutoConstrainEvaluationCallback
 public:
   virtual ~AcAutoConstrainEvaluationCallback()
   {
-  }
+   }
   /// <summary> 
   /// This function will be called when system finds a possible constraint between given set of
   /// constrained geometries. This function expects to get an override to increase, decrease or
@@ -665,10 +665,10 @@ public:
   ///
   virtual void getConstraintPriorityOverride(AcGeomConstraint::GeomConstraintType type, const AcArray<const AcConstrainedGeometry*>& geometries, int& priority) const
   {
-    UNREFERENCED_PARAMETER(type);
-    UNREFERENCED_PARAMETER(geometries);
-    UNREFERENCED_PARAMETER(priority);
-    return ;
+      UNREFERENCED_PARAMETER(type);
+      UNREFERENCED_PARAMETER(geometries);
+      UNREFERENCED_PARAMETER(priority);
+      return; //No override.
   }
   /// <summary>
   /// define order of the constraints type in which it can be used for autoConstrain.
@@ -681,11 +681,12 @@ public:
   /// 
   virtual void getAutoConstrainPriority(AcArray<AcGeomConstraint::GeomConstraintType>& constraintList) const
   {
-    constraintList.setLogicalLength(0);
-    for (int type = (int) AcGeomConstraint::kHorizontal; type < (int) AcGeomConstraint::kEqualRadius; ++type)
-    {
-      constraintList.append((AcGeomConstraint::GeomConstraintType) type);
-    }
+      constraintList.setLogicalLength(0);
+      for(int type = (int)AcGeomConstraint::kHorizontal;
+          type < (int)AcGeomConstraint::kEqualRadius; ++type)
+      {
+          constraintList.append((AcGeomConstraint::GeomConstraintType)type);
+      }
   }
   /// <summary>
   /// Checks if evaluation is canecelled by caller. If this function returns
@@ -696,9 +697,7 @@ public:
   /// </returns>
   /// 
   virtual bool isEvaluationCancelled()
-  {
-    return false;
-  }
+  { return false; }
   /// <summary>
   /// Returns list of constraints found by autoconstraint evaluation.
   /// </summary>

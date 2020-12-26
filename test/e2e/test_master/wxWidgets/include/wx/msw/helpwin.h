@@ -17,9 +17,9 @@ class WXDLLIMPEXP_CORE wxWinHelpController : public wxHelpControllerBase
   wxDECLARE_DYNAMIC_CLASS(wxWinHelpController);
 public:
   wxWinHelpController(wxWindow* parentWindow = NULL)
-    : wxHelpControllerBase(parentWindow)
-  {
-  }
+    :  wxHelpControllerBase(parentWindow) 
+    {
+    }
   virtual ~wxWinHelpController()
   {
   }
@@ -42,9 +42,7 @@ public:
   bool KeywordSearch(const wxString& k, wxHelpSearchMode mode = wxHELP_SEARCH_ALL) override;
   bool Quit() override;
   inline wxString GetHelpFile() const
-  {
-    return m_helpFile;
-  }
+  { return m_helpFile; }
 protected:
     // Append extension if necessary.
   wxString GetValidFilename(const wxString& file) const;

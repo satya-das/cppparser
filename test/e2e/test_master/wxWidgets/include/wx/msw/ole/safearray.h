@@ -24,17 +24,14 @@ public:
     // If owns a SAFEARRAY, it's unlocked and destroyed.
   virtual ~wxSafeArrayBase()
   {
-    Destroy();
-  }
+ Destroy();   }
     // Unlocks and destroys the owned SAFEARRAY.
   void Destroy();
     // Unlocks the owned SAFEARRAY, returns it and gives up its ownership.
   SAFEARRAY* Detach();
     // Returns true if has a valid SAFEARRAY.
   bool HasArray() const
-  {
-    return m_array != NULL;
-  }
+  { return m_array != NULL; }
     // Returns the number of dimensions.
   size_t GetDim() const;
     // Returns lower bound for dimension dim in bound. Dimensions start at 1.
@@ -48,8 +45,9 @@ protected:
     // it's only used as a base class of wxSafeArray<>.
   wxSafeArrayBase()
   {
-    m_array = NULL;
-  }
+
+        m_array = NULL;
+      }
   bool Lock();
   bool Unlock();
   SAFEARRAY* m_array;
@@ -98,21 +96,22 @@ struct wxSafeArrayConvertor<VT_BSTR>
   typedef BSTR internT;
   static bool ToArray(const wxString& from, BSTR& to)
   {
-    BSTR bstr = wxConvertStringToOle(from);
-    if (!bstr && !from.empty())
-    {
+        BSTR bstr = wxConvertStringToOle(from);
+
+        if ( !bstr && !from.empty() )
+        {
             // BSTR can be NULL for empty strings but if the string was
             // not empty, it means we failed to allocate memory for it.
-      return false;
+            return false;
+        }
+        to = bstr;
+        return true;
     }
-    to = bstr;
-    return true;
-  }
   static bool FromArray(const BSTR from, wxString& to)
   {
-    to = wxConvertStringFromOle(from);
-    return true;
-  }
+        to = wxConvertStringFromOle(from);
+        return true;
+    }
 };
 // Specialization for VT_VARIANT using wxVariant.
 template <>
@@ -122,12 +121,12 @@ struct wxSafeArrayConvertor<VT_VARIANT>
   typedef VARIANT internT;
   static bool ToArray(const wxVariant& from, VARIANT& to)
   {
-    return wxConvertVariantToOle(from, to);
-  }
+        return wxConvertVariantToOle(from, to);
+    }
   static bool FromArray(const VARIANT& from, wxVariant& to)
   {
-    return wxConvertOleToVariant(from, to);
-  }
+        return wxConvertOleToVariant(from, to);
+    }
 };
 template <VARTYPE varType>
 class wxSafeArray : public wxSafeArrayBase
@@ -139,29 +138,31 @@ public:
     // Default constructor.
   wxSafeArray()
   {
-    m_array = NULL;
-  }
+
+        m_array = NULL;
+      }
     // Creates and locks a zero-based one-dimensional SAFEARRAY with the given
     // number of elements.
   bool Create(size_t count)
   {
-    SAFEARRAYBOUND bound;
-    bound.lLbound = 0;
-    bound.cElements = count;
-    return Create(&bound, 1);
-  }
+        SAFEARRAYBOUND bound;
+
+        bound.lLbound = 0;
+        bound.cElements = count;
+        return Create(&bound, 1);
+    }
     // Creates and locks a SAFEARRAY. See SafeArrayCreate() in MSDN
     // documentation for more information.
   bool Create(SAFEARRAYBOUND* bound, size_t dimensions)
   {
-    wxCHECK_MSG(!m_array, false, wxS("Can't be created twice"));
-    m_array = SafeArrayCreate(varType, dimensions, bound);
-    if (!m_array)
-    {
-      return false;
+        wxCHECK_MSG( !m_array, false, wxS("Can't be created twice") );
+
+        m_array = SafeArrayCreate(varType, dimensions, bound);
+        if ( !m_array )
+            return false;
+
+        return Lock();
     }
-    return Lock();
-  }
     /**
         Creates a 0-based one-dimensional SAFEARRAY from wxVariant with the
         list type.
@@ -170,22 +171,21 @@ public:
     */
   bool CreateFromListVariant(const wxVariant& variant)
   {
-    wxCHECK(varType == VT_VARIANT, false);
-    wxCHECK(variant.GetType() == wxS("list"), false);
-    if (!Create(variant.GetCount()))
-    {
-      return false;
+        wxCHECK(varType == VT_VARIANT, false);
+        wxCHECK(variant.GetType() == wxS("list"), false);
+
+        if ( !Create(variant.GetCount()) )
+            return false;
+
+        VARIANT* data = static_cast<VARIANT*>(m_array->pvData);
+
+        for ( size_t i = 0; i < variant.GetCount(); i++)
+        {
+            if ( !Convertor::ToArray(variant[i], data[i]) )
+                return false;
+        }
+        return true;
     }
-    VARIANT* data = static_cast<VARIANT*>(m_array->pvData);
-    for (size_t i = 0; i < variant.GetCount(); i++)
-    {
-      if (!Convertor::ToArray(variant[i], data[i]))
-      {
-        return false;
-      }
-    }
-    return true;
-  }
     /**
         Creates a 0-based one-dimensional SAFEARRAY from wxArrayString.
 
@@ -193,21 +193,20 @@ public:
     */
   bool CreateFromArrayString(const wxArrayString& strings)
   {
-    wxCHECK(varType == VT_BSTR, false);
-    if (!Create(strings.size()))
-    {
-      return false;
+        wxCHECK(varType == VT_BSTR, false);
+
+        if ( !Create(strings.size()) )
+            return false;
+
+        BSTR* data = static_cast<BSTR*>(m_array->pvData);
+
+        for ( size_t i = 0; i < strings.size(); i++ )
+        {
+            if ( !Convertor::ToArray(strings[i], data[i]) )
+                return false;
+        }
+        return true;
     }
-    BSTR* data = static_cast<BSTR*>(m_array->pvData);
-    for (size_t i = 0; i < strings.size(); i++)
-    {
-      if (!Convertor::ToArray(strings[i], data[i]))
-      {
-        return false;
-      }
-    }
-    return true;
-  }
     /**
         Attaches and locks an existing SAFEARRAY.
         The array must have the same VARTYPE as this wxSafeArray was
@@ -215,48 +214,55 @@ public:
     */
   bool Attach(SAFEARRAY* array)
   {
-    wxCHECK_MSG(!m_array && array, false, wxS("Can only attach a valid array to an uninitialized one"));
-    VARTYPE vt;
-    HRESULT hr = SafeArrayGetVartype(array, &vt);
-    if (FAILED(hr))
-    {
-      wxLogApiError(wxS("SafeArrayGetVarType()"), hr);
-      return false;
+        wxCHECK_MSG(!m_array && array, false,
+                    wxS("Can only attach a valid array to an uninitialized one") );
+
+        VARTYPE vt;
+        HRESULT hr = SafeArrayGetVartype(array, &vt);
+        if ( FAILED(hr) )
+        {
+            wxLogApiError(wxS("SafeArrayGetVarType()"), hr);
+            return false;
+        }
+
+        wxCHECK_MSG(vt == varType, false,
+                    wxS("Attaching array of invalid type"));
+
+        m_array = array;
+        return Lock();
     }
-    wxCHECK_MSG(vt == varType, false, wxS("Attaching array of invalid type"));
-    m_array = array;
-    return Lock();
-  }
     /**
         Indices have the same row-column order as rgIndices in
         SafeArrayPutElement(), i.e. they follow BASIC rules, NOT C ones.
     */
   bool SetElement(long* indices, const externT& element)
   {
-    wxCHECK_MSG(m_array, false, wxS("Uninitialized array"));
-    wxCHECK_MSG(indices, false, wxS("Invalid index"));
-    internT* data;
-    if (FAILED(SafeArrayPtrOfIndex(m_array, (LONG*) indices, (void**) &data)))
-    {
-      return false;
+        wxCHECK_MSG( m_array, false, wxS("Uninitialized array") );
+        wxCHECK_MSG( indices, false, wxS("Invalid index") );
+
+        internT* data;
+
+        if ( FAILED( SafeArrayPtrOfIndex(m_array, (LONG *)indices, (void**)&data) ) )
+            return false;
+
+        return Convertor::ToArray(element, *data);
     }
-    return Convertor::ToArray(element, *data);
-  }
     /**
         Indices have the same row-column order as rgIndices in
         SafeArrayPutElement(), i.e. they follow BASIC rules, NOT C ones.
     */
   bool GetElement(long* indices, externT& element) const
   {
-    wxCHECK_MSG(m_array, false, wxS("Uninitialized array"));
-    wxCHECK_MSG(indices, false, wxS("Invalid index"));
-    internT* data;
-    if (FAILED(SafeArrayPtrOfIndex(m_array, (LONG*) indices, (void**) &data)))
-    {
-      return false;
+        wxCHECK_MSG( m_array, false, wxS("Uninitialized array") );
+        wxCHECK_MSG( indices, false, wxS("Invalid index") );
+
+        internT* data;
+
+        if ( FAILED( SafeArrayPtrOfIndex(m_array, (LONG *)indices, (void**)&data) ) )
+            return false;
+
+        return Convertor::FromArray(*data, element);
     }
-    return Convertor::FromArray(*data, element);
-  }
     /**
         Converts the array to a wxVariant with the list type, regardless of the
         underlying SAFEARRAY type.
@@ -266,27 +272,29 @@ public:
     */
   bool ConvertToVariant(wxVariant& variant) const
   {
-    wxCHECK_MSG(m_array, false, wxS("Uninitialized array"));
-    size_t dims = m_array->cDims;
-    size_t count = 1;
-    for (size_t i = 0; i < dims; i++)
-    {
-      count *= m_array->rgsabound[i].cElements;
-    }
-    const internT* data = static_cast<const internT*>(m_array->pvData);
-    externT element;
-    variant.ClearList();
-    for (size_t i1 = 0; i1 < count; i1++)
-    {
-      if (!Convertor::FromArray(data[i1], element))
-      {
+        wxCHECK_MSG( m_array, false, wxS("Uninitialized array") );
+
+        size_t dims = m_array->cDims;
+        size_t count = 1;
+
+        for ( size_t i = 0; i < dims; i++ )
+            count *= m_array->rgsabound[i].cElements;
+
+        const internT* data = static_cast<const internT*>(m_array->pvData);
+        externT element;
+
         variant.ClearList();
-        return false;
-      }
-      variant.Append(element);
+        for ( size_t i1 = 0; i1 < count; i1++ )
+        {
+            if ( !Convertor::FromArray(data[i1], element) )
+            {
+                variant.ClearList();
+                return false;
+            }
+            variant.Append(element);
+        }
+        return true;
     }
-    return true;
-  }
     /**
         Converts an array to an ArrayString.
 
@@ -296,57 +304,57 @@ public:
     */
   bool ConvertToArrayString(wxArrayString& strings) const
   {
-    wxCHECK_MSG(m_array, false, wxS("Uninitialized array"));
-    wxCHECK(varType == VT_BSTR, false);
-    size_t dims = m_array->cDims;
-    size_t count = 1;
-    for (size_t i = 0; i < dims; i++)
-    {
-      count *= m_array->rgsabound[i].cElements;
-    }
-    const BSTR* data = static_cast<const BSTR*>(m_array->pvData);
-    wxString element;
-    strings.clear();
-    strings.reserve(count);
-    for (size_t i1 = 0; i1 < count; i1++)
-    {
-      if (!Convertor::FromArray(data[i1], element))
-      {
+        wxCHECK_MSG( m_array, false, wxS("Uninitialized array") );
+        wxCHECK(varType == VT_BSTR, false);
+
+        size_t dims = m_array->cDims;
+        size_t count = 1;
+
+        for ( size_t i = 0; i < dims; i++ )
+            count *= m_array->rgsabound[i].cElements;
+
+        const BSTR* data = static_cast<const BSTR*>(m_array->pvData);
+        wxString element;
+
         strings.clear();
-        return false;
-      }
-      strings.push_back(element);
+        strings.reserve(count);
+        for ( size_t i1 = 0; i1 < count; i1++ )
+        {
+            if ( !Convertor::FromArray(data[i1], element) )
+            {
+                strings.clear();
+                return false;
+            }
+            strings.push_back(element);
+        }
+        return true;
     }
-    return true;
-  }
   static bool ConvertToVariant(SAFEARRAY* psa, wxVariant& variant)
   {
-    wxSafeArray<varType> sa;
-    bool result = false;
-    if (sa.Attach(psa))
-    {
-      result = sa.ConvertToVariant(variant);
+        wxSafeArray<varType> sa;
+        bool result = false;
+
+        if ( sa.Attach(psa) )
+            result = sa.ConvertToVariant(variant);
+
+        if ( sa.HasArray() )
+            sa.Detach();
+
+        return result;
     }
-    if (sa.HasArray())
-    {
-      sa.Detach();
-    }
-    return result;
-  }
   static bool ConvertToArrayString(SAFEARRAY* psa, wxArrayString& strings)
   {
-    wxSafeArray<varType> sa;
-    bool result = false;
-    if (sa.Attach(psa))
-    {
-      result = sa.ConvertToArrayString(strings);
+        wxSafeArray<varType> sa;
+        bool result = false;
+
+        if ( sa.Attach(psa) )
+            result = sa.ConvertToArrayString(strings);
+
+        if ( sa.HasArray() )
+            sa.Detach();
+
+        return result;
     }
-    if (sa.HasArray())
-    {
-      sa.Detach();
-    }
-    return result;
-  }
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxSafeArray, varType);
 };
 #  endif

@@ -308,9 +308,7 @@ namespace PoDoFo
 #  if  defined(PODOFO_EXTRA_CHECKS)
   protected:
     PODOFO_NOTHROW bool DelayedStreamLoadInProgress() const
-    {
-      return m_bDelayedStreamLoadInProgress;
-    }
+    { return m_bDelayedStreamLoadInProgress; }
   private:
     mutable bool m_bDelayedStreamLoadInProgress;
 #  endif
@@ -330,50 +328,51 @@ namespace PoDoFo
   bool PdfObject::DelayedStreamLoadDone() const
   {
     return m_bDelayedStreamLoadDone;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfObject::EnableDelayedStreamLoading()
   {
     m_bDelayedStreamLoadDone = false;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfReference& PdfObject::Reference() const
   {
     return m_reference;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfVecObjects* PdfObject::GetOwner() const
   {
     return m_pOwner;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfObject::operator<(const PdfObject& rhs) const
   {
     return m_reference < rhs.m_reference;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfObject::operator==(const PdfObject& rhs) const
   {
     return (m_reference == rhs.m_reference);
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfObject::HasStream() const
   {
     DelayedStreamLoad();
-    return (m_pStream != NULL);
-  }
+
+    return ( m_pStream != NULL );
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -381,11 +380,9 @@ namespace PoDoFo
   {
     PdfObject* obj = GetIndirectKey(key);
     if (!obj)
-    {
-      PODOFO_RAISE_ERROR(ePdfError_NoObject);
-    }
+        PODOFO_RAISE_ERROR( ePdfError_NoObject );
     return obj;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -394,30 +391,30 @@ namespace PoDoFo
 // except by types that support it.
   inline void PdfObject::DelayedStreamLoadImpl()
   {
-    PODOFO_RAISE_ERROR(ePdfError_InternalLogic);
-  }
+   PODOFO_RAISE_ERROR( ePdfError_InternalLogic );
+}
   inline void PdfObject::DelayedStreamLoad() const
   {
     DelayedLoad();
-#  if  defined(PODOFO_EXTRA_CHECKS)
-    if (m_bDelayedStreamLoadInProgress)
+
+#if defined(PODOFO_EXTRA_CHECKS)
+    if( m_bDelayedStreamLoadInProgress )
+        PODOFO_RAISE_ERROR_INFO( ePdfError_InternalLogic, "Recursive DelayedStreamLoad() detected" );
+#endif
+
+    if( !m_bDelayedStreamLoadDone )
     {
-      PODOFO_RAISE_ERROR_INFO(ePdfError_InternalLogic, "Recursive DelayedStreamLoad() detected");
-    }
-#  endif
-    if (!m_bDelayedStreamLoadDone)
-    {
-#  if  defined(PODOFO_EXTRA_CHECKS)
-      m_bDelayedStreamLoadInProgress = true;
-#  endif
-      const_cast<PdfObject*>(this)->DelayedStreamLoadImpl();
+#if defined(PODOFO_EXTRA_CHECKS)
+        m_bDelayedStreamLoadInProgress = true;
+#endif
+        const_cast<PdfObject*>(this)->DelayedStreamLoadImpl();
         // Nothing was thrown, so if the implementer of DelayedstreamLoadImpl() is
         // following the rules we're done.
-      m_bDelayedStreamLoadDone = true;
-#  if  defined(PODOFO_EXTRA_CHECKS)
-      m_bDelayedStreamLoadInProgress = false;
-#  endif
+        m_bDelayedStreamLoadDone = true;
+#if defined(PODOFO_EXTRA_CHECKS)
+        m_bDelayedStreamLoadInProgress = false;
+#endif
     }
-  }
+}
 }
 #endif

@@ -28,16 +28,26 @@ public:
         // use this port any more, we could get rid of this requirement, but
         // for now you must specify wxFRAME_SHAPED for SetShape() to work on
         // all platforms.
-    wxCHECK_MSG(HasFlag(wxFRAME_SHAPED), false, wxS("Shaped windows must be created with the wxFRAME_SHAPED style."));
-    return region.IsEmpty() ? DoClearShape() : DoSetRegionShape(region);
-  }
+        wxCHECK_MSG
+        (
+            HasFlag(wxFRAME_SHAPED), false,
+            wxS("Shaped windows must be created with the wxFRAME_SHAPED style.")
+        );
+
+        return region.IsEmpty() ? DoClearShape() : DoSetRegionShape(region);
+    }
 #  if  wxUSE_GRAPHICS_CONTEXT
     // Set the shape using the specified path.
   bool SetShape(const wxGraphicsPath& path)
   {
-    wxCHECK_MSG(HasFlag(wxFRAME_SHAPED), false, wxS("Shaped windows must be created with the wxFRAME_SHAPED style."));
-    return DoSetPathShape(path);
-  }
+        wxCHECK_MSG
+        (
+            HasFlag(wxFRAME_SHAPED), false,
+            wxS("Shaped windows must be created with the wxFRAME_SHAPED style.")
+        );
+
+        return DoSetPathShape(path);
+    }
 #  endif
     // Overridden base class methods.
     // ------------------------------
@@ -55,17 +65,17 @@ public:
 protected:
   virtual bool DoClearShape()
   {
-    return false;
-  }
+        return false;
+    }
   virtual bool DoSetRegionShape(const wxRegion&)
   {
-    return false;
-  }
+        return false;
+    }
 #  if  wxUSE_GRAPHICS_CONTEXT
   virtual bool DoSetPathShape(const wxGraphicsPath&)
   {
-    return false;
-  }
+        return false;
+    }
 #  endif
 };
 #  if  defined(__WXDFB__)

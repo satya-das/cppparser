@@ -171,9 +171,10 @@ public:
 };
 inline AcDbMpolygonLoops::AcDbMpolygonLoops(int lindex, int gindex, int gcnt)
 {
-  mLoopIndex = lindex;
-  mGripIndex = gindex;
-  mGripCount = gcnt;
+
+    mLoopIndex = lindex;
+    mGripIndex = gindex;
+    mGripCount = gcnt;
 }
 // This class is used to store one mpolygon loop crossing point.
 class AcDbMPolygonCrossing
@@ -199,17 +200,15 @@ public:
 };
 inline AcDbMPolygonCrossingArray::~AcDbMPolygonCrossingArray()
 {
-  AcDbMPolygonCrossing* pCrossing;
-  int numCross = mCrossingArray.length();
-  for (int i = numCross - 1; i >= 0; i--)
-  {
-    pCrossing = mCrossingArray[i];
-    mCrossingArray.removeAt(i);
-    if (pCrossing != NULL)
-    {
-      delete pCrossing;
+
+    AcDbMPolygonCrossing* pCrossing;
+    int numCross = mCrossingArray.length();
+    for (int i = numCross - 1; i >= 0; i--) {
+        pCrossing = mCrossingArray[i];
+        mCrossingArray.removeAt(i);
+        if (pCrossing != NULL)
+            delete pCrossing;
     }
-  }
 }
 // The following class is used by the getMPolygonTree API to
 //  return the internal tree ordered loops.
@@ -223,7 +222,8 @@ public:
   int mLoopIndex;
 };
 inline AcDbMPolygonNode::AcDbMPolygonNode()
-  : mLoopIndex(-1)
-  , mParent(NULL)
-{
-}
+  :  mLoopIndex(-1), mParent(NULL)
+
+  {
+
+  }

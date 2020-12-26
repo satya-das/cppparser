@@ -11,9 +11,9 @@ class GrVkVaryingHandler : public GrGLSLVaryingHandler
 {
 public:
   GrVkVaryingHandler(GrGLSLProgramBuilder* program)
-    : INHERITED(program)
-  {
-  }
+    :  INHERITED(program) 
+    {
+    }
   typedef GrGLSLVaryingHandler::VarArray VarArray;
 private:
   void onFinalize() override;

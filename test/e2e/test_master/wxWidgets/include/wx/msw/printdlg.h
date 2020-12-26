@@ -33,21 +33,13 @@ public:
   bool IsOk() const override;
   void InitializeDevMode(const wxString& printerName = wxEmptyString, WinPrinter* printer = NULL);
   void* GetDevMode() const
-  {
-    return m_devMode;
-  }
+  { return m_devMode; }
   void SetDevMode(void* data)
-  {
-    m_devMode = data;
-  }
+  { m_devMode = data; }
   void* GetDevNames() const
-  {
-    return m_devNames;
-  }
+  { return m_devNames; }
   void SetDevNames(void* data)
-  {
-    m_devNames = data;
-  }
+  { m_devNames = data; }
 private:
   void* m_devMode;
   void* m_devNames;

@@ -37,25 +37,19 @@ public:
   GrPaint();
   ~GrPaint();
   static GrPaint Clone(const GrPaint& src)
-  {
-    return GrPaint(src);
-  }
+  { return GrPaint(src); }
     /**
      * The initial color of the drawn primitive. Defaults to solid white.
      */
   void setColor4f(const SkPMColor4f& color)
-  {
-    fColor = color;
-  }
+  { fColor = color; }
   const SkPMColor4f& getColor4f() const
-  {
-    return fColor;
-  }
+  { return fColor; }
   void setXPFactory(const GrXPFactory* xpFactory)
   {
-    fXPFactory = xpFactory;
-    fTrivial &= !SkToBool(xpFactory);
-  }
+        fXPFactory = xpFactory;
+        fTrivial &= !SkToBool(xpFactory);
+    }
   void setPorterDuffXPFactory(SkBlendMode mode);
   void setCoverageSetOpXPFactory(SkRegion::Op, bool invertCoverage = false);
     /**
@@ -63,19 +57,19 @@ public:
      */
   void addColorFragmentProcessor(std::unique_ptr<GrFragmentProcessor> fp)
   {
-    SkASSERT(fp);
-    fColorFragmentProcessors.push_back(std::move(fp));
-    fTrivial = false;
-  }
+        SkASSERT(fp);
+        fColorFragmentProcessors.push_back(std::move(fp));
+        fTrivial = false;
+    }
     /**
      * Appends an additional coverage processor to the coverage computation.
      */
   void addCoverageFragmentProcessor(std::unique_ptr<GrFragmentProcessor> fp)
   {
-    SkASSERT(fp);
-    fCoverageFragmentProcessors.push_back(std::move(fp));
-    fTrivial = false;
-  }
+        SkASSERT(fp);
+        fCoverageFragmentProcessors.push_back(std::move(fp));
+        fTrivial = false;
+    }
     /**
      * Helpers for adding color or coverage effects that sample a texture. The matrix is applied
      * to the src space position to compute texture coordinates.
@@ -85,29 +79,22 @@ public:
   void addCoverageTextureProcessor(sk_sp<GrTextureProxy>, const SkMatrix&);
   void addCoverageTextureProcessor(sk_sp<GrTextureProxy>, const SkMatrix&, const GrSamplerState&);
   int numColorFragmentProcessors() const
-  {
-    return fColorFragmentProcessors.count();
-  }
+  { return fColorFragmentProcessors.count(); }
   int numCoverageFragmentProcessors() const
-  {
-    return fCoverageFragmentProcessors.count();
-  }
+  { return fCoverageFragmentProcessors.count(); }
   int numTotalFragmentProcessors() const
-  {
-    return this->numColorFragmentProcessors() + this->numCoverageFragmentProcessors();
-  }
+  { return this->numColorFragmentProcessors() +
+                                              this->numCoverageFragmentProcessors(); }
   const GrXPFactory* getXPFactory() const
-  {
-    return fXPFactory;
-  }
+  { return fXPFactory; }
   GrFragmentProcessor* getColorFragmentProcessor(int i) const
   {
-    return fColorFragmentProcessors[i].get();
-  }
+        return fColorFragmentProcessors[i].get();
+    }
   GrFragmentProcessor* getCoverageFragmentProcessor(int i) const
   {
-    return fCoverageFragmentProcessors[i].get();
-  }
+        return fCoverageFragmentProcessors[i].get();
+    }
     /**
      * Returns true if the paint's output color will be constant after blending. If the result is
      * true, constantColor will be updated to contain the constant color. Note that we can conflate
@@ -120,13 +107,11 @@ public:
      * It may have variable sRGB settings.
      **/
   bool isTrivial() const
-  {
-    return fTrivial;
-  }
+  { return fTrivial; }
   friend void assert_alive(GrPaint& p)
   {
-    SkASSERT(p.fAlive);
-  }
+        SkASSERT(p.fAlive);
+    }
 private:
     // Since paint copying is expensive if there are fragment processors, we require going through
     // the Clone() method.

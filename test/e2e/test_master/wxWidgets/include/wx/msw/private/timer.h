@@ -15,10 +15,9 @@ class WXDLLIMPEXP_BASE wxMSWTimerImpl : public wxTimerImpl
 {
 public:
   wxMSWTimerImpl(wxTimer* timer)
-    : wxTimerImpl(timer)
-  {
-    m_id = 0;
-  }
+    :  wxTimerImpl(timer) 
+    {
+ m_id = 0;     }
   bool Start(int milliseconds = -1, bool oneShot = false) override;
   void Stop() override;
   bool IsRunning() const override

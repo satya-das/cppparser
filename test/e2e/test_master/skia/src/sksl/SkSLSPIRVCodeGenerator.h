@@ -42,17 +42,17 @@
 union ConstantValue
 {
   ConstantValue(int64_t i)
-    : fInt(i)
-  {
-  }
+    :  fInt(i) 
+    {
+    }
   ConstantValue(double d)
-    : fDouble(d)
-  {
-  }
+    :  fDouble(d) 
+    {
+    }
   bool operator==(const ConstantValue& other) const
   {
-    return fInt == other.fInt;
-  }
+        return fInt == other.fInt;
+    }
   int64_t fInt;
   double fDouble;
 };
@@ -72,7 +72,7 @@ namespace std
   {
     size_t operator()(const std::pair<ConstantValue, ConstantType>& key) const
     {
-      return key.first.fInt ^ (int) key.second;
+        return key.first.fInt ^ (int) key.second;
     }
   };
 }
@@ -98,19 +98,20 @@ namespace SkSL
       virtual void store(SpvId value, OutputStream& out) = 0;
     };
     SPIRVCodeGenerator(const Context* context, const Program* program, ErrorReporter* errors, OutputStream* out)
-      : INHERITED(program, errors, out)
-      , fContext(*context)
-      , fDefaultLayout(MemoryLayout::k140_Standard)
-      , fCapabilities(0)
-      , fIdCount(1)
-      , fBoolTrue(0)
-      , fBoolFalse(0)
-      , fSetupFragPosition(false)
-      , fCurrentBlock(0)
-      , fSynthetics(nullptr, errors)
-    {
-      this->setupIntrinsics();
-    }
+      :  INHERITED(program, errors, out)
+    , fContext(*context)
+    , fDefaultLayout(MemoryLayout::k140_Standard)
+    , fCapabilities(0)
+    , fIdCount(1)
+    , fBoolTrue(0)
+    , fBoolFalse(0)
+    , fSetupFragPosition(false)
+    , fCurrentBlock(0)
+    , fSynthetics(nullptr, errors) 
+      {
+
+        this->setupIntrinsics();
+          }
     bool generateCode() override;
   private:
     enum IntrinsicKind {

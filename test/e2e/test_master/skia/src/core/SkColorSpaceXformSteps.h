@@ -23,23 +23,26 @@ struct SkColorSpaceXformSteps
     bool premul = false;
     uint32_t mask() const
     {
-      return (unpremul ? 1 : 0) | (linearize ? 2 : 0) | (gamut_transform ? 4 : 0) | (encode ? 8 : 0) | (premul ? 16 : 0);
-    }
+            return (unpremul        ?  1 : 0)
+                 | (linearize       ?  2 : 0)
+                 | (gamut_transform ?  4 : 0)
+                 | (encode          ?  8 : 0)
+                 | (premul          ? 16 : 0);
+        }
   };
   SkColorSpaceXformSteps(SkColorSpace* src, SkAlphaType srcAT, SkColorSpace* dst, SkAlphaType dstAT);
   void apply(float rgba[4]) const;
   void apply(SkRasterPipeline*, bool src_is_normalized) const;
   void apply(SkRasterPipeline* p, SkColorType srcCT) const
   {
-        // F16Norm is normalized, but to make diffing with F16 easier we
-        // intentionally take the slower, non-normalized path here.
     #if 0
         this->apply(p, srcCT < kRGBA_F16_SkColorType);
     #else
         // F16Norm is normalized, but to make diffing with F16 easier we
         // intentionally take the slower, non-normalized path here.
         this->apply(p, srcCT < kRGBA_F16Norm_SkColorType);
-    #endif  }
+    #endif
+    }
   Flags flags;
   bool srcTF_is_sRGB, dstTF_is_sRGB;
   skcms_TransferFunction srcTF, dstTFInv;

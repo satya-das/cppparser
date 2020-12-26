@@ -28,19 +28,18 @@ public:
   static std::unique_ptr<GrCCDrawPathsOp> Make(GrRecordingContext*, const SkIRect& clipIBounds, const SkMatrix&, const GrShape&, GrPaint&&);
   virtual ~GrCCDrawPathsOp();
   const char* name() const override
-  {
-    return "GrCCDrawPathsOp";
-  }
+  { return "GrCCDrawPathsOp"; }
   FixedFunctionFlags fixedFunctionFlags() const override
-  {
-    return FixedFunctionFlags::kNone;
-  }
+  { return FixedFunctionFlags::kNone; }
   GrProcessorSet::Analysis finalize(const GrCaps&, const GrAppliedClip*, bool hasMixedSampledCoverage, GrClampType) override;
   CombineResult onCombineIfPossible(GrOp*, const GrCaps&) override;
   void visitProxies(const VisitProxyFunc& fn) const override
   {
-    fProcessors.visitProxies(fn);
-  }
+        for (const auto& range : fInstanceRanges) {
+            fn(range.fAtlasProxy, GrMipMapped::kNo);
+        }
+        fProcessors.visitProxies(fn);
+    }
   void onPrepare(GrOpFlushState*) override;
   void addToOwningPerOpsTaskPaths(sk_sp<GrCCPerOpsTaskPaths> owningPerOpsTaskPaths);
     // Makes decisions about how to draw each path (cached, copied, rendered, etc.), and

@@ -15,11 +15,11 @@ enum SkScalarAsStringType {
 void SkAppendScalar(SkString*, SkScalar, SkScalarAsStringType);
 static void SkAppendScalarDec(SkString* str, SkScalar value)
 {
-  SkAppendScalar(str, value, kDec_SkScalarAsStringType);
+    SkAppendScalar(str, value, kDec_SkScalarAsStringType);
 }
 static void SkAppendScalarHex(SkString* str, SkScalar value)
 {
-  SkAppendScalar(str, value, kHex_SkScalarAsStringType);
+    SkAppendScalar(str, value, kHex_SkScalarAsStringType);
 }
 /** Indents every non-empty line of the string by tabCnt tabs */
 SkString SkTabString(const SkString& string, int tabCnt);

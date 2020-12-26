@@ -69,60 +69,46 @@ public:
         @return      true if SkFont pair are not equivalent
     */
   bool operator!=(const SkFont& font) const
-  {
-    return !(*this == font);
-  }
+  { return !(*this == font); }
     /** If true, instructs the font manager to always hint glyphs.
         Returned value is only meaningful if platform uses FreeType as the font manager.
 
         @return  true if all glyphs are hinted
     */
   bool isForceAutoHinting() const
-  {
-    return SkToBool(fFlags & kForceAutoHinting_PrivFlag);
-  }
+  { return SkToBool(fFlags & kForceAutoHinting_PrivFlag); }
     /** Returns true if font engine may return glyphs from font bitmaps instead of from outlines.
 
         @return  true if glyphs may be font bitmaps
     */
   bool isEmbeddedBitmaps() const
-  {
-    return SkToBool(fFlags & kEmbeddedBitmaps_PrivFlag);
-  }
+  { return SkToBool(fFlags & kEmbeddedBitmaps_PrivFlag); }
     /** Returns true if glyphs may be drawn at sub-pixel offsets.
 
         @return  true if glyphs may be drawn at sub-pixel offsets.
     */
   bool isSubpixel() const
-  {
-    return SkToBool(fFlags & kSubpixel_PrivFlag);
-  }
+  { return SkToBool(fFlags & kSubpixel_PrivFlag); }
     /** Returns true if font and glyph metrics are requested to be linearly scalable.
 
         @return  true if font and glyph metrics are requested to be linearly scalable.
     */
   bool isLinearMetrics() const
-  {
-    return SkToBool(fFlags & kLinearMetrics_PrivFlag);
-  }
+  { return SkToBool(fFlags & kLinearMetrics_PrivFlag); }
     /** Returns true if bold is approximated by increasing the stroke width when creating glyph
         bitmaps from outlines.
 
         @return  bold is approximated through stroke width
     */
   bool isEmbolden() const
-  {
-    return SkToBool(fFlags & kEmbolden_PrivFlag);
-  }
+  { return SkToBool(fFlags & kEmbolden_PrivFlag); }
     /** Returns true if baselines will be snapped to pixel positions when the current transformation
         matrix is axis aligned.
 
         @return  baselines may be snapped to pixels
      */
   bool isBaselineSnap() const
-  {
-    return SkToBool(fFlags & kBaselineSnap_PrivFlag);
-  }
+  { return SkToBool(fFlags & kBaselineSnap_PrivFlag); }
     /** Sets whether to always hint glyphs.
         If forceAutoHinting is set, instructs the font manager to always hint glyphs.
 
@@ -165,9 +151,7 @@ public:
         @return  one of: Edging::kAlias, Edging::kAntiAlias, Edging::kSubpixelAntiAlias
     */
   Edging getEdging() const
-  {
-    return (Edging) fEdging;
-  }
+  { return (Edging)fEdging; }
     /** Requests, but does not require, that edge pixels draw opaque or with
         partial transparency.
 
@@ -187,9 +171,7 @@ public:
                          SkFontHinting::kFull
      */
   SkFontHinting getHinting() const
-  {
-    return (SkFontHinting) fHinting;
-  }
+  { return (SkFontHinting)fHinting; }
     /** Returns a font with the same attributes of this font, but with the specified size.
         Returns nullptr if size is less than zero, infinite, or NaN.
 
@@ -203,9 +185,7 @@ public:
         @return  SkTypeface if previously set, nullptr otherwise
     */
   SkTypeface* getTypeface() const
-  {
-    return fTypeface.get();
-  }
+  {return fTypeface.get(); }
     /** Returns SkTypeface if set, or the default typeface.
         Does not alter SkTypeface SkRefCnt.
 
@@ -218,35 +198,27 @@ public:
         @return  typographic height of text
     */
   SkScalar getSize() const
-  {
-    return fSize;
-  }
+  { return fSize; }
     /** Returns text scale on x-axis.
         Default value is 1.
 
         @return  text horizontal scale
     */
   SkScalar getScaleX() const
-  {
-    return fScaleX;
-  }
+  { return fScaleX; }
     /** Returns text skew on x-axis.
         Default value is zero.
 
         @return  additional shear on x-axis relative to y-axis
     */
   SkScalar getSkewX() const
-  {
-    return fSkewX;
-  }
+  { return fSkewX; }
     /** Increases SkTypeface SkRefCnt by one.
 
         @return  SkTypeface if previously set, nullptr otherwise
     */
   sk_sp<SkTypeface> refTypeface() const
-  {
-    return fTypeface;
-  }
+  { return fTypeface; }
     /** Increases SkTypeface SkRefCnt by one.
 
         @return  SkTypeface if previously set or, a pointer to the default typeface if not
@@ -260,9 +232,7 @@ public:
         @param tf  font and style used to draw text
     */
   void setTypeface(sk_sp<SkTypeface> tf)
-  {
-    fTypeface = tf;
-  }
+  { fTypeface = tf; }
     /** Sets text size in points.
         Has no effect if textSize is not greater than or equal to zero.
 
@@ -335,8 +305,8 @@ public:
     */
   int countText(const void* text, size_t byteLength, SkTextEncoding encoding) const
   {
-    return this->textToGlyphs(text, byteLength, encoding, nullptr, 0);
-  }
+        return this->textToGlyphs(text, byteLength, encoding, nullptr, 0);
+    }
     /** Returns the advance width of text.
         The advance is the normal distance to move before drawing additional text.
         Returns the bounding box of text if bounds is not nullptr.
@@ -350,8 +320,8 @@ public:
     */
   SkScalar measureText(const void* text, size_t byteLength, SkTextEncoding encoding, SkRect* bounds = nullptr) const
   {
-    return this->measureText(text, byteLength, encoding, bounds, nullptr);
-  }
+        return this->measureText(text, byteLength, encoding, bounds, nullptr);
+    }
     /** Returns the advance width of text.
         The advance is the normal distance to move before drawing additional text.
         Returns the bounding box of text if bounds is not nullptr. paint
@@ -379,13 +349,13 @@ public:
     */
   void getWidths(const SkGlyphID glyphs[], int count, SkScalar widths[], SkRect bounds[]) const
   {
-    this->getWidthsBounds(glyphs, count, widths, bounds, nullptr);
-  }
+        this->getWidthsBounds(glyphs, count, widths, bounds, nullptr);
+    }
     // DEPRECATED
   void getWidths(const SkGlyphID glyphs[], int count, SkScalar widths[], std::nullptr_t) const
   {
-    this->getWidths(glyphs, count, widths);
-  }
+        this->getWidths(glyphs, count, widths);
+    }
     /** Retrieves the advance and bounds for each glyph in glyphs.
         Both widths and bounds may be nullptr.
         If widths is not nullptr, widths must be an array of count entries.
@@ -397,8 +367,8 @@ public:
      */
   void getWidths(const SkGlyphID glyphs[], int count, SkScalar widths[]) const
   {
-    this->getWidthsBounds(glyphs, count, widths, nullptr, nullptr);
-  }
+        this->getWidthsBounds(glyphs, count, widths, nullptr, nullptr);
+    }
     /** Retrieves the advance and bounds for each glyph in glyphs.
         Both widths and bounds may be nullptr.
         If widths is not nullptr, widths must be an array of count entries.
@@ -422,8 +392,8 @@ public:
      */
   void getBounds(const SkGlyphID glyphs[], int count, SkRect bounds[], const SkPaint* paint) const
   {
-    this->getWidthsBounds(glyphs, count, nullptr, bounds, paint);
-  }
+        this->getWidthsBounds(glyphs, count, nullptr, bounds, paint);
+    }
     /** Retrieves the positions for each glyph, beginning at the specified origin. The caller
         must allocated at least count number of elements in the pos[] array.
 
@@ -481,9 +451,7 @@ public:
         @return  recommended spacing between lines
     */
   SkScalar getSpacing() const
-  {
-    return this->getMetrics(nullptr);
-  }
+  { return this->getMetrics(nullptr); }
     /** Dumps fields of the font to SkDebugf. May change its output over time, so clients should
      *  not rely on this for anything specific. Used to aid in debugging.
      */

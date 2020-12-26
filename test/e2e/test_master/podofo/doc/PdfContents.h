@@ -70,9 +70,7 @@ namespace PoDoFo
      *  \returns a contents object
      */
     virtual PdfObject* GetContents() const
-    {
-      return mContObj;
-    }
+    { return mContObj; }
     /** Get access to an object into which you can add contents
      *   at the end of the "stream".
      */

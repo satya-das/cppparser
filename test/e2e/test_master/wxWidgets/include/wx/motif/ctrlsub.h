@@ -18,14 +18,14 @@ class WXDLLIMPEXP_CORE wxControlWithItems : public wxControlWithItemsGeneric
 public:
   wxControlWithItems()
   {
-  }
+   }
 protected:
     // Motif functions inserting items in the control interpret positions
     // differently from wx: they're 1-based and 0 means to append
   unsigned int GetMotifPosition(unsigned int pos) const
   {
-    return pos == GetCount() ? 0 : pos + 1;
-  }
+        return pos == GetCount() ? 0 : pos + 1;
+    }
   wxDECLARE_ABSTRACT_CLASS(wxControlWithItems);
   wxDECLARE_NO_COPY_CLASS(wxControlWithItems);
 };

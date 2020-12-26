@@ -59,7 +59,7 @@ protected:
 };
 inline AcGeEntity2d* AcGeEntity2d::newEntity2d(AcGeImpEntity3d* impEnt) const
 {
-  return GENEWLOC(AcGeEntity2d, this)(impEnt);
+    return GENEWLOC( AcGeEntity2d, this) ( impEnt );
 }
 #  pragma  pack (pop)
 #endif

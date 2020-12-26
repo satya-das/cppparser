@@ -34,9 +34,7 @@ public:
 
     // Returns the wxIAccessible pointer
   wxIAccessible* GetIAccessible()
-  {
-    return m_pIAccessible;
-  }
+  { return m_pIAccessible; }
     // Returns the IAccessible standard interface pointer
   IAccessible* GetIAccessibleStd();
 // Operations

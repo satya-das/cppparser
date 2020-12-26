@@ -21,32 +21,29 @@ public:
   }
   SkAutoBlitterChoose(const SkDraw& draw, const SkMatrix* matrix, const SkPaint& paint, bool drawCoverage = false)
   {
-    this->choose(draw, matrix, paint, drawCoverage);
-  }
+
+        this->choose(draw, matrix, paint, drawCoverage);
+      }
   SkBlitter* operator->()
-  {
-    return fBlitter;
-  }
+  { return fBlitter; }
   SkBlitter* get() const
-  {
-    return fBlitter;
-  }
+  { return fBlitter; }
   SkBlitter* choose(const SkDraw& draw, const SkMatrix* matrix, const SkPaint& paint, bool drawCoverage = false)
   {
-    SkASSERT(!fBlitter);
-    if (!matrix)
-    {
-      matrix = draw.fMatrix;
-    }
-    fBlitter = SkBlitter::Choose(draw.fDst, *matrix, paint, &fAlloc, drawCoverage);
-    if (draw.fCoverage)
-    {
+        SkASSERT(!fBlitter);
+        if (!matrix) {
+            matrix = draw.fMatrix;
+        }
+        fBlitter = SkBlitter::Choose(draw.fDst, *matrix, paint, &fAlloc, drawCoverage);
+
+        if (draw.fCoverage) {
             // hmm, why can't choose ignore the paint if drawCoverage is true?
-      SkBlitter* coverageBlitter = SkBlitter::Choose(*draw.fCoverage, *matrix, SkPaint(), &fAlloc, true);
-      fBlitter = fAlloc.make<SkPairBlitter>(fBlitter, coverageBlitter);
+            SkBlitter* coverageBlitter = SkBlitter::Choose(*draw.fCoverage, *matrix, SkPaint(),
+                                                           &fAlloc, true);
+            fBlitter = fAlloc.make<SkPairBlitter>(fBlitter, coverageBlitter);
+        }
+        return fBlitter;
     }
-    return fBlitter;
-  }
 private:
     // Owned by fAlloc, which will handle the delete.
   SkBlitter* fBlitter = nullptr;

@@ -72,16 +72,12 @@ public:
   wxIcon GetIcon(const wxSize& size, int flags = FALLBACK_SYSTEM) const;
     // equivalent to GetIcon(wxSize(size, size))
   wxIcon GetIcon(wxCoord size = wxDefaultCoord, int flags = FALLBACK_SYSTEM) const
-  {
-    return GetIcon(wxSize(size, size), flags);
-  }
+  { return GetIcon(wxSize(size, size), flags); }
     // returns the icon exactly of the specified size or wxNullIcon if no icon
     // of exactly given size are available
   wxIcon GetIconOfExactSize(const wxSize& size) const;
   wxIcon GetIconOfExactSize(wxCoord size) const
-  {
-    return GetIconOfExactSize(wxSize(size, size));
-  }
+  { return GetIconOfExactSize(wxSize(size, size)); }
     // enumerate all icons in the bundle: don't use these functions if ti can
     // be avoided, using GetIcon() directly is better
 
@@ -91,9 +87,7 @@ public:
   wxIcon GetIconByIndex(size_t n) const;
     // check if we have any icons at all
   bool IsEmpty() const
-  {
-    return GetIconCount() == 0;
-  }
+  { return GetIconCount() == 0; }
 #  if  WXWIN_COMPATIBILITY_2_8
 #    if  wxUSE_STREAMS && wxUSE_IMAGE && (wxUSE_FFILE || wxUSE_FILE)
 #    endif

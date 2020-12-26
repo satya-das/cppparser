@@ -34,9 +34,7 @@ public:
 #    endif
   ~wxTextInputStream();
   const wxInputStream& GetInputStream() const
-  {
-    return m_input;
-  }
+  { return m_input; }
     // base may be between 2 and 36, inclusive, or the special 0 (= C format)
   wxUint64 Read64(int base = 10);
   wxUint32 Read32(int base = 10);
@@ -51,13 +49,9 @@ public:
   wxString ReadWord();
   wxChar GetChar();
   wxString GetStringSeparators() const
-  {
-    return m_separators;
-  }
+  { return m_separators; }
   void SetStringSeparators(const wxString& c)
-  {
-    m_separators = c;
-  }
+  { m_separators = c; }
     // Operators
   wxTextInputStream& operator>>(wxString& word);
   wxTextInputStream& operator>>(char& c);
@@ -73,9 +67,7 @@ public:
   wxTextInputStream& operator>>(double& i);
   wxTextInputStream& operator>>(float& f);
   wxTextInputStream& operator>>(__wxTextInputManip func)
-  {
-    return func(*this);
-  }
+  { return func(*this); }
 protected:
   wxInputStream& m_input;
   wxString m_separators;
@@ -124,21 +116,18 @@ public:
 #    endif
   virtual ~wxTextOutputStream();
   const wxOutputStream& GetOutputStream() const
-  {
-    return m_output;
-  }
+  { return m_output; }
   void SetMode(wxEOL mode = wxEOL_NATIVE);
   wxEOL GetMode()
-  {
-    return m_mode;
-  }
+  { return m_mode; }
   template <typename T>
   void Write(const T& i)
   {
-    wxString str;
-    str << i;
-    WriteString(str);
-  }
+        wxString str;
+        str << i;
+
+        WriteString(str);
+    }
   void Write64(wxUint64 i);
   void Write32(wxUint32 i);
   void Write16(wxUint16 i);
@@ -161,9 +150,7 @@ public:
   wxTextOutputStream& operator<<(double f);
   wxTextOutputStream& operator<<(float f);
   wxTextOutputStream& operator<<(__wxTextOutputManip func)
-  {
-    return func(*this);
-  }
+  { return func(*this); }
 protected:
   wxOutputStream& m_output;
   wxEOL m_mode;

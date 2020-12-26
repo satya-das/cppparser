@@ -60,8 +60,10 @@ public:
      */
   GrProcessorSet::Analysis finalizeProcessors(const GrCaps& caps, const GrAppliedClip* clip, bool hasMixedSampledCoverage, GrClampType clampType, GrProcessorAnalysisCoverage geometryCoverage, GrProcessorAnalysisColor* geometryColor)
   {
-    return this->finalizeProcessors(caps, clip, &GrUserStencilSettings::kUnused, hasMixedSampledCoverage, clampType, geometryCoverage, geometryColor);
-  }
+        return this->finalizeProcessors(
+                caps, clip, &GrUserStencilSettings::kUnused, hasMixedSampledCoverage, clampType,
+                geometryCoverage, geometryColor);
+    }
     /**
      * Version of above that can be used by ops that have a constant color geometry processor
      * output. The op passes this color as 'geometryColor' and after return if 'geometryColor' has
@@ -70,17 +72,15 @@ public:
   GrProcessorSet::Analysis finalizeProcessors(const GrCaps&, const GrAppliedClip*, bool hasMixedSampledCoverage, GrClampType, GrProcessorAnalysisCoverage geometryCoverage, SkPMColor4f* geometryColor, bool* wideColor);
   bool isTrivial() const
   {
-    return fProcessors == nullptr;
-  }
+      return fProcessors == nullptr;
+    }
   bool usesLocalCoords() const
   {
-    SkASSERT(fDidAnalysis);
-    return fUsesLocalCoords;
-  }
+        SkASSERT(fDidAnalysis);
+        return fUsesLocalCoords;
+    }
   bool compatibleWithCoverageAsAlpha() const
-  {
-    return fCompatibleWithCoverageAsAlpha;
-  }
+  { return fCompatibleWithCoverageAsAlpha; }
   struct MakeArgs
   {
   private:
@@ -90,28 +90,23 @@ public:
   };
   void visitProxies(const GrOp::VisitProxyFunc& func) const
   {
-    if (fProcessors)
-    {
-      fProcessors->visitProxies(func);
+        if (fProcessors) {
+            fProcessors->visitProxies(func);
+        }
     }
-  }
 #  ifdef SK_DEBUG
   SkString dumpInfo() const;
 #  endif
   GrAAType aaType() const
-  {
-    return static_cast<GrAAType>(fAAType);
-  }
+  { return static_cast<GrAAType>(fAAType); }
   void setAAType(GrAAType aaType)
   {
-    fAAType = static_cast<unsigned>(aaType);
-  }
+      fAAType = static_cast<unsigned>(aaType);
+    }
   void executeDrawsAndUploads(const GrOp*, GrOpFlushState*, const SkRect& chainBounds);
 protected:
   GrPipeline::InputFlags pipelineFlags() const
-  {
-    return fPipelineFlags;
-  }
+  { return fPipelineFlags; }
   GrProcessorSet::Analysis finalizeProcessors(const GrCaps& caps, const GrAppliedClip*, const GrUserStencilSettings*, bool hasMixedSampledCoverage, GrClampType, GrProcessorAnalysisCoverage geometryCoverage, GrProcessorAnalysisColor* geometryColor);
   GrProcessorSet* fProcessors;
   GrPipeline::InputFlags fPipelineFlags;
@@ -134,14 +129,17 @@ public:
   template <typename Op, typename... OpArgs>
   static std::unique_ptr<GrDrawOp> FactoryHelper(GrRecordingContext* context, GrPaint&& paint, OpArgs... opArgs)
   {
-    return GrSimpleMeshDrawOpHelper::FactoryHelper<Op, OpArgs...>(context, std::move(paint), std::forward<OpArgs>(opArgs)...);
-  }
+        return GrSimpleMeshDrawOpHelper::FactoryHelper<Op, OpArgs...>(
+                context, std::move(paint), std::forward<OpArgs>(opArgs)...);
+    }
   GrSimpleMeshDrawOpHelperWithStencil(const MakeArgs&, GrAAType, const GrUserStencilSettings*, InputFlags = InputFlags::kNone);
   GrDrawOp::FixedFunctionFlags fixedFunctionFlags() const;
   GrProcessorSet::Analysis finalizeProcessors(const GrCaps& caps, const GrAppliedClip* clip, bool hasMixedSampledCoverage, GrClampType clampType, GrProcessorAnalysisCoverage geometryCoverage, GrProcessorAnalysisColor* geometryColor)
   {
-    return this->INHERITED::finalizeProcessors(caps, clip, fStencilSettings, hasMixedSampledCoverage, clampType, geometryCoverage, geometryColor);
-  }
+        return this->INHERITED::finalizeProcessors(
+                caps, clip, fStencilSettings, hasMixedSampledCoverage, clampType, geometryCoverage,
+                geometryColor);
+    }
   GrProcessorSet::Analysis finalizeProcessors(const GrCaps&, const GrAppliedClip*, bool hasMixedSampledCoverage, GrClampType, GrProcessorAnalysisCoverage geometryCoverage, SkPMColor4f* geometryColor, bool* wideColor);
   using GrSimpleMeshDrawOpHelper::aaType;
   using GrSimpleMeshDrawOpHelper::setAAType;
@@ -160,21 +158,21 @@ private:
 template <typename Op, typename... OpArgs>
 std::unique_ptr<GrDrawOp> GrSimpleMeshDrawOpHelper::FactoryHelper(GrRecordingContext* context, GrPaint&& paint, OpArgs... opArgs)
 {
-  GrOpMemoryPool* pool = context->priv().opMemoryPool();
-  MakeArgs makeArgs;
-  if (paint.isTrivial())
-  {
-    makeArgs.fProcessorSet = nullptr;
-    return pool->allocate<Op>(makeArgs, paint.getColor4f(), std::forward<OpArgs>(opArgs)...);
-  }
-  else 
-  {
-    char* mem = (char*) pool->allocate(sizeof(Op) + sizeof(GrProcessorSet));
-    char* setMem = mem + sizeof(Op);
-    auto color = paint.getColor4f();
-    makeArgs.fProcessorSet = new (setMem) GrProcessorSet(std::move(paint));
-    return std::unique_ptr<GrDrawOp>(new (mem) Op(makeArgs, color, std::forward<OpArgs>(opArgs)...));
-  }
+    GrOpMemoryPool* pool = context->priv().opMemoryPool();
+
+    MakeArgs makeArgs;
+
+    if (paint.isTrivial()) {
+        makeArgs.fProcessorSet = nullptr;
+        return pool->allocate<Op>(makeArgs, paint.getColor4f(), std::forward<OpArgs>(opArgs)...);
+    } else {
+        char* mem = (char*) pool->allocate(sizeof(Op) + sizeof(GrProcessorSet));
+        char* setMem = mem + sizeof(Op);
+        auto color = paint.getColor4f();
+        makeArgs.fProcessorSet = new (setMem) GrProcessorSet(std::move(paint));
+        return std::unique_ptr<GrDrawOp>(new (mem) Op(makeArgs, color,
+                                                      std::forward<OpArgs>(opArgs)...));
+    }
 }
 GR_MAKE_BITFIELD_CLASS_OPS(GrSimpleMeshDrawOpHelper::InputFlags)
 #endif

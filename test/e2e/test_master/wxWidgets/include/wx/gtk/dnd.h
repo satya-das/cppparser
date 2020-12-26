@@ -41,21 +41,13 @@ public:
   unsigned m_dragTime;
   bool m_firstMotion;
   void GTKSetDragContext(GdkDragContext* dc)
-  {
-    m_dragContext = dc;
-  }
+  { m_dragContext = dc; }
   void GTKSetDragWidget(GtkWidget* w)
-  {
-    m_dragWidget = w;
-  }
+  { m_dragWidget = w; }
   void GTKSetDragData(GtkSelectionData* sd)
-  {
-    m_dragData = sd;
-  }
+  { m_dragData = sd; }
   void GTKSetDragTime(unsigned time)
-  {
-    m_dragTime = time;
-  }
+  { m_dragTime = time; }
 };
 //-------------------------------------------------------------------------
 // wxDropSource
@@ -71,22 +63,13 @@ public:
     // set the icon corresponding to given drag result
   void SetIcon(wxDragResult res, const wxIcon& icon)
   {
-    if (res == wxDragCopy)
-    {
-      m_iconCopy = icon;
+        if ( res == wxDragCopy )
+            m_iconCopy = icon;
+        else if ( res == wxDragMove )
+            m_iconMove = icon;
+        else
+            m_iconNone = icon;
     }
-    else 
-    {
-      if (res == wxDragMove)
-      {
-        m_iconMove = icon;
-      }
-      else 
-      {
-        m_iconNone = icon;
-      }
-    }
-  }
     // start drag action
   wxDragResult DoDragDrop(int flags = wxDrag_CopyOnly) override;
   void PrepareIcon(int action, GdkDragContext* context);

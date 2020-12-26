@@ -42,9 +42,9 @@ public:
   };
 
 private:
-  std::uint16_t indentLevel_;
-  std::uint16_t initialLevel_;
-  Type          type_;
+  std::uint16_t       indentLevel_;
+  const std::uint16_t initialLevel_;
+  Type                type_;
 
 public:
   CppIndent(std::uint16_t initialLevel = 0, Type type = kDoubleSpace)
@@ -52,6 +52,10 @@ public:
     , initialLevel_(initialLevel)
     , type_(type)
   {
+  }
+  std::uint16_t depth() const
+  {
+    return indentLevel_ + initialLevel_;
   }
   CppIndent& operator++()
   {
@@ -90,7 +94,7 @@ public:
     {
       ret += indentStr();
     }
-    
+
     return ret;
   }
   void emit(std::ostream& stm) const

@@ -17,9 +17,11 @@ class wxFDIOEventLoopSourceHandler : public wxFDIOHandler
 {
 public:
   explicit wxFDIOEventLoopSourceHandler(wxEventLoopSourceHandler* handler)
-    : m_handler(handler)
-  {
-  }
+    :  m_handler(handler)
+    
+    {
+
+        }
     // Just forward to the real handler.
   void OnReadWaiting() override
   {

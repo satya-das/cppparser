@@ -56,14 +56,14 @@ public:
   template <typename ObjType>
   Acad::ErrorStatus getObject(ObjType*& pObject, AcDb::OpenMode mode = AcDb::kForRead)
   {
-    const AcDbObjectId id = this->objectId();
-    return ::acdbOpenObject(pObject, id, mode, false);
-  }
+        const AcDbObjectId id = this->objectId();
+        return ::acdbOpenObject(pObject, id, mode, /*openErased*/false);
+    }
     // Needed for cases where a smart ptr is passed in
   Acad::ErrorStatus getObject(AcDbObject*& pObject, AcDb::OpenMode mode = AcDb::kForRead)
   {
-    return this->getObject<AcDbObject>(pObject, mode);
-  }
+        return this->getObject<AcDbObject>(pObject, mode);
+    }
   virtual AcDbObjectId objectId() const = 0;
   virtual bool done() const = 0;
   virtual bool next() = 0;
@@ -86,20 +86,18 @@ public:
   template <typename ObjType>
   Acad::ErrorStatus getAt(const ACHAR* entryName, ObjType*& entryObj, AcDb::OpenMode mode = AcDb::kForRead) const
   {
-    entryObj = nullptr;
-    AcDbObjectId id;
-    Acad::ErrorStatus es = this->getAt(entryName, id);
-    if (es == Acad::eOk)
-    {
-      es = ::acdbOpenObject(entryObj, id, mode, false);
+        entryObj = nullptr;
+        AcDbObjectId id;
+        Acad::ErrorStatus es = this->getAt(entryName, id);
+        if (es == Acad::eOk)
+            es = ::acdbOpenObject(entryObj, id, mode, /*openErased*/false);
+        return es;
     }
-    return es;
-  }
     // Needed for cases where a smart ptr is passed in
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObject*& entryObj, AcDb::OpenMode mode = AcDb::kForRead)
   {
-    return this->getAt<AcDbObject>(entryName, entryObj, mode);
-  }
+        return this->getAt<AcDbObject>(entryName, entryObj, mode);
+    }
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& entryId) const;
     // Find name corresponding to object id.
     //
@@ -149,18 +147,18 @@ protected:
 // taking an AcString & arg instead
 inline Acad::ErrorStatus AcDbDictionary::nameAt(AcDbObjectId objId, ACHAR*& pName) const
 {
-  AcString sName;
-  return ::acutAcStringToAChar(sName, pName, this->nameAt(objId, sName));
+    AcString sName;
+    return ::acutAcStringToAChar(sName, pName, this->nameAt(objId, sName));
 }
 inline bool AcDbDictionary::has(const ACHAR* entryName) const
 {
-  AcDbObjectId id;
-  return this->getAt(entryName, id) == Acad::eOk;
+    AcDbObjectId id;
+    return this->getAt(entryName, id) == Acad::eOk;
 }
 inline Acad::ErrorStatus AcDbDictionary::remove(const ACHAR* entryName)
 {
-  AcDbObjectId id;
-  return this->remove(entryName, id);
+    AcDbObjectId id;
+    return this->remove(entryName, id);
 }
 #  pragma  pack(pop)
 #endif

@@ -62,92 +62,53 @@ public:
     // Setters for the various attributes. All of them return the object itself
     // so that the calls to them could be chained.
   T& Colour(const wxColour& colour)
-  {
-    m_colour = colour;
-    return This();
-  }
+  { m_colour = colour; return This(); }
   T& Style(wxPenStyle style)
-  {
-    m_style = style;
-    return This();
-  }
+  { m_style = style; return This(); }
   T& Stipple(const wxBitmap& stipple)
-  {
-    m_stipple = stipple;
-    m_style = wxPENSTYLE_STIPPLE;
-    return This();
-  }
+  { m_stipple = stipple; m_style = wxPENSTYLE_STIPPLE; return This(); }
   T& Dashes(int nb_dashes, const wxDash* dash)
-  {
-    m_nb_dashes = nb_dashes;
-    m_dash = const_cast<wxDash*>(dash);
-    return This();
-  }
+  { m_nb_dashes = nb_dashes; m_dash = const_cast<wxDash*>(dash); return This(); }
   T& Join(wxPenJoin join)
-  {
-    m_join = join;
-    return This();
-  }
+  { m_join = join; return This(); }
   T& Cap(wxPenCap cap)
-  {
-    m_cap = cap;
-    return This();
-  }
+  { m_cap = cap; return This(); }
     // Accessors are mostly meant to be used by wxWidgets itself.
   wxColour GetColour() const
-  {
-    return m_colour;
-  }
+  { return m_colour; }
   wxBitmap GetStipple() const
-  {
-    return m_stipple;
-  }
+  { return m_stipple; }
   wxPenStyle GetStyle() const
-  {
-    return m_style;
-  }
+  { return m_style; }
   wxPenJoin GetJoin() const
-  {
-    return m_join;
-  }
+  { return m_join; }
   wxPenCap GetCap() const
-  {
-    return m_cap;
-  }
+  { return m_cap; }
   int GetDashes(wxDash** ptr) const
-  {
-    *ptr = m_dash;
-    return m_nb_dashes;
-  }
+  { *ptr = m_dash; return m_nb_dashes; }
   int GetDashCount() const
-  {
-    return m_nb_dashes;
-  }
+  { return m_nb_dashes; }
   wxDash* GetDash() const
-  {
-    return m_dash;
-  }
+  { return m_dash; }
     // Convenience
   bool IsTransparent() const
-  {
-    return m_style == wxPENSTYLE_TRANSPARENT;
-  }
+  { return m_style == wxPENSTYLE_TRANSPARENT; }
 protected:
   wxPenInfoBase(const wxColour& colour, wxPenStyle style)
-    : m_colour(colour)
-  {
-    m_nb_dashes = 0;
-    m_dash = NULL;
-    m_join = wxJOIN_ROUND;
-    m_cap = wxCAP_ROUND;
-    m_style = style;
-  }
+    :  m_colour(colour)
+    
+    {
+
+        m_nb_dashes = 0;
+        m_dash = NULL;
+        m_join = wxJOIN_ROUND;
+        m_cap = wxCAP_ROUND;
+        m_style = style;
+        }
 private:
     // Helper to return this object itself cast to its real type T.
   T& This()
-  {
-    return static_cast<T&>(*this);
-  }
+  { return static_cast<T&>(*this); }
   wxColour m_colour;
   wxBitmap m_stipple;
   wxPenStyle m_style;

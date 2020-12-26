@@ -64,79 +64,70 @@ namespace PoDoFo
   struct TFontCacheElement
   {
     TFontCacheElement()
-      : m_pFont(NULL)
-      , m_pEncoding(NULL)
-      , m_bBold(false)
-      , m_bItalic(false)
-      , m_bIsSymbolCharset(false)
-    {
-    }
+      :  m_pFont( NULL ),
+	  m_pEncoding( NULL ),
+	  m_bBold( false ),
+	  m_bItalic( false ),
+          m_bIsSymbolCharset (false)
+    
+      {
+
+          }
     TFontCacheElement(const char* pszFontName, bool bBold, bool bItalic, bool bIsSymbolCharset, const PdfEncoding* const pEncoding)
-      : m_pFont(NULL)
-      , m_pEncoding(pEncoding)
-      , m_bBold(bBold)
-      , m_bItalic(bItalic)
-      , m_sFontName(reinterpret_cast<const pdf_utf8*>(pszFontName))
-      , m_bIsSymbolCharset(bIsSymbolCharset)
-    {
-    }
+      :  m_pFont(NULL), m_pEncoding( pEncoding ), m_bBold( bBold ), m_bItalic( bItalic ),
+          m_sFontName( reinterpret_cast<const pdf_utf8*>(pszFontName) ), m_bIsSymbolCharset (bIsSymbolCharset)
+    
+      {
+
+          }
 #  if  defined(_WIN32) && !defined(PODOFO_NO_FONTMANAGER)
     TFontCacheElement(const wchar_t* pszFontName, bool bBold, bool bItalic, bool bIsSymbolCharset, const PdfEncoding* const pEncoding)
-      : m_pFont(NULL)
-      , m_pEncoding(pEncoding)
-      , m_bBold(bBold)
-      , m_bItalic(bItalic)
-      , m_sFontName(pszFontName)
-      , m_bIsSymbolCharset(bIsSymbolCharset)
-    {
-    }
+      :  m_pFont(NULL), m_pEncoding( pEncoding ), m_bBold( bBold ), 
+          m_bItalic( bItalic ), m_sFontName( pszFontName ), m_bIsSymbolCharset (bIsSymbolCharset)
+    
+      {
+
+          }
 #  endif
     TFontCacheElement(const TFontCacheElement& rhs)
     {
-      this->operator=(rhs);
-    }
+
+        this->operator=(rhs);
+        }
     const TFontCacheElement& operator=(const TFontCacheElement& rhs)
     {
-      m_pFont = rhs.m_pFont;
-      m_pEncoding = rhs.m_pEncoding;
-      m_bBold = rhs.m_bBold;
-      m_bItalic = rhs.m_bItalic;
-      m_sFontName = rhs.m_sFontName;
-      m_bIsSymbolCharset = rhs.m_bIsSymbolCharset;
-      return *this;
+        m_pFont     = rhs.m_pFont;
+        m_pEncoding = rhs.m_pEncoding;
+        m_bBold     = rhs.m_bBold;
+        m_bItalic   = rhs.m_bItalic;
+        m_sFontName = rhs.m_sFontName;
+        m_bIsSymbolCharset = rhs.m_bIsSymbolCharset;
+        
+        return *this;
     }
     bool operator<(const TFontCacheElement& rhs) const
     {
-      if (m_bIsSymbolCharset != rhs.m_bIsSymbolCharset)
-      {
-        return m_bIsSymbolCharset < rhs.m_bIsSymbolCharset;
-      }
-      if (m_sFontName == rhs.m_sFontName)
-      {
-        if (m_pEncoding == NULL || rhs.m_pEncoding == NULL || *m_pEncoding == *rhs.m_pEncoding)
+		  if (m_bIsSymbolCharset != rhs.m_bIsSymbolCharset) {
+			   return m_bIsSymbolCharset < rhs.m_bIsSymbolCharset;
+		  }
+        if( m_sFontName == rhs.m_sFontName ) 
         {
-          if (m_bBold == rhs.m_bBold)
-          {
-            return m_bItalic < rhs.m_bItalic;
-          }
-          else 
-          {
-            return m_bBold < rhs.m_bBold;
-          }
+            if( m_pEncoding == NULL  ||  rhs.m_pEncoding == NULL  ||  *m_pEncoding == *rhs.m_pEncoding ) 
+            {
+                if( m_bBold == rhs.m_bBold) 
+                    return m_bItalic < rhs.m_bItalic;
+                else
+                    return m_bBold < rhs.m_bBold;
+            }
+            else
+                return *m_pEncoding < *rhs.m_pEncoding;
         }
-        else 
-        {
-          return *m_pEncoding < *rhs.m_pEncoding;
-        }
-      }
-      else 
-      {
-        return (m_sFontName < rhs.m_sFontName);
-      }
+        else
+            return (m_sFontName < rhs.m_sFontName);
     }
     inline bool operator()(const TFontCacheElement& r1, const TFontCacheElement& r2) const
-    {
-      return r1 < r2;
+    { 
+        return r1 < r2;
     }
     PdfFont* m_pFont;
     const PdfEncoding* m_pEncoding;
@@ -401,13 +392,13 @@ namespace PoDoFo
   FT_Library PdfFontCache::GetFontLibrary() const
   {
     return this->m_ftLibrary;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfFontCache::SetFontConfigWrapper(const PdfFontConfigWrapper& rFontConfig)
   {
     m_fontConfig = rFontConfig;
-  }
+}
 }
 #endif

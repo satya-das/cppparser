@@ -87,45 +87,27 @@ public:
   enum MinFlag { Minimum };
   AcGsDCPoint(void)
   {
-  }
+   }
   AcGsDCPoint(long xin, long yin)
-    : x(xin)
-    , y(yin)
-  {
-  }
+    :  x (xin), y (yin) 
+    {
+     }
   AcGsDCPoint(MaxFlag)
   {
-    x = SCALAR_MAX;
-    y = SCALAR_MAX;
-  }
+ x = SCALAR_MAX; y = SCALAR_MAX;   }
   AcGsDCPoint(MinFlag)
   {
-    x = SCALAR_MIN;
-    y = SCALAR_MIN;
-  }
+ x = SCALAR_MIN; y = SCALAR_MIN;   }
   void operator=(MaxFlag)
-  {
-    x = SCALAR_MAX;
-    y = SCALAR_MAX;
-  }
+  { x = SCALAR_MAX; y = SCALAR_MAX; }
   void operator=(MinFlag)
-  {
-    x = SCALAR_MIN;
-    y = SCALAR_MIN;
-  }
+  { x = SCALAR_MIN; y = SCALAR_MIN; }
   void operator=(const AcGsDCPoint& r)
-  {
-    x = r.x;
-    y = r.y;
-  }
+  { x =  r.x;   y =  r.y; }
   bool operator==(const AcGsDCPoint& r) const
-  {
-    return x == r.x && y == r.y;
-  }
+  { return x == r.x && y == r.y; }
   bool operator!=(const AcGsDCPoint& r) const
-  {
-    return x != r.x || y != r.y;
-  }
+  { return x != r.x || y != r.y; }
   long x;
   long y;
 };
@@ -135,96 +117,85 @@ public:
   enum NullFlag { Null    };
   AcGsDCRect(void)
   {
-  }
+   }
   AcGsDCRect(const AcGsDCPoint& min, const AcGsDCPoint& max)
-    : m_min(min)
-    , m_max(max)
-  {
-  }
+    :  m_min (min)
+                        , m_max (max) 
+    {
+     }
   AcGsDCRect(long l, long r, long b, long t)
-    : m_min(l, b)
-    , m_max(r, t)
-  {
-  }
+    :  m_min (l,b)
+                        , m_max (r,t) 
+    {
+     }
   AcGsDCRect(NullFlag)
   {
-    set_null();
-  }
+ set_null();   }
   AcGsDCRect& operator=(const AcGsDCRect& other)
   {
-    m_min = other.m_min;
-    m_max = other.m_max;
-    return *this;
-  }
+                        m_min = other.m_min;
+                        m_max = other.m_max;
+                        return *this;
+                    }
   void operator|=(const AcGsDCRect& rightside)
   {
-    if (m_min.x > rightside.m_min.x)
-    {
-      m_min.x = rightside.m_min.x;
-    }
-    if (m_max.x < rightside.m_max.x)
-    {
-      m_max.x = rightside.m_max.x;
-    }
-    if (m_min.y > rightside.m_min.y)
-    {
-      m_min.y = rightside.m_min.y;
-    }
-    if (m_max.y < rightside.m_max.y)
-    {
-      m_max.y = rightside.m_max.y;
-    }
-  }
+                        if (m_min.x > rightside.m_min.x)
+                            m_min.x = rightside.m_min.x;
+                        if (m_max.x < rightside.m_max.x)
+                            m_max.x = rightside.m_max.x;
+
+                        if (m_min.y > rightside.m_min.y)
+                            m_min.y = rightside.m_min.y;
+                        if (m_max.y < rightside.m_max.y)
+                            m_max.y = rightside.m_max.y;
+                    }
   void operator&=(const AcGsDCRect& rightside)
   {
-    if (m_min.x < rightside.m_min.x)
-    {
-      m_min.x = rightside.m_min.x;
-    }
-    if (m_max.x > rightside.m_max.x)
-    {
-      m_max.x = rightside.m_max.x;
-    }
-    if (m_min.y < rightside.m_min.y)
-    {
-      m_min.y = rightside.m_min.y;
-    }
-    if (m_max.y > rightside.m_max.y)
-    {
-      m_max.y = rightside.m_max.y;
-    }
-    if (m_min.x > m_max.x || m_min.y > m_max.y)
-    {
-      *this = Null;
-    }
-  }
+                        if (m_min.x < rightside.m_min.x)
+                            m_min.x = rightside.m_min.x;
+                        if (m_max.x > rightside.m_max.x)
+                            m_max.x = rightside.m_max.x;
+
+                        if (m_min.y < rightside.m_min.y)
+                            m_min.y = rightside.m_min.y;
+                        if (m_max.y > rightside.m_max.y)
+                            m_max.y = rightside.m_max.y;
+
+                        if (m_min.x > m_max.x || m_min.y > m_max.y)
+                            *this = Null;
+                    }
   bool operator==(const AcGsDCRect& rightside) const
   {
-    return m_min == rightside.m_min && m_max == rightside.m_max;
-  }
+                        return m_min == rightside.m_min &&
+                               m_max == rightside.m_max;
+                    }
   bool operator!=(const AcGsDCRect& rightside) const
   {
-    return !(*this == rightside);
-  }
+                        return !(*this == rightside);
+                    }
   void set_null(void)
   {
-    m_min = AcGsDCPoint::Maximum;
-    m_max = AcGsDCPoint::Minimum;
-  }
+                        m_min = AcGsDCPoint::Maximum;
+                        m_max = AcGsDCPoint::Minimum;
+                    }
   bool is_null(void) const
-  {
+  {// should be either valid or properly null
 #ifdef ASSERT
-    ASSERT((m_min.x <= m_max.x && m_min.y <= m_max.y) || (m_min == AcGsDCPoint::Maximum && m_max == AcGsDCPoint::Minimum));
+                        ASSERT ((m_min.x <= m_max.x && m_min.y <= m_max.y) ||
+                                (m_min == AcGsDCPoint::Maximum && m_max == AcGsDCPoint::Minimum));
 #endif
-    return m_min.x > m_max.x;
-  }
+                        return m_min.x > m_max.x;
+                    }
   bool within(const AcGsDCRect& rightside) const
   {
 #ifdef ASSERT
-    ASSERT(!is_null());
+                        ASSERT (!is_null());                        // (if *this is Null and rightside is not, does not work.
 #endif
-    return m_min.x >= rightside.m_min.x && m_min.y >= rightside.m_min.y && m_max.x <= rightside.m_max.x && m_max.y <= rightside.m_max.y;
-  }
+                        return m_min.x >= rightside.m_min.x &&      //  if *this is non-Null and right is Null, works.
+                               m_min.y >= rightside.m_min.y &&      //  if both are Null, does not work.)
+                               m_max.x <= rightside.m_max.x &&
+                               m_max.y <= rightside.m_max.y;
+                    }
   AcGsDCPoint m_min;
   AcGsDCPoint m_max;
 };
@@ -245,7 +216,7 @@ class AcGsNode
 public:
   virtual ~AcGsNode()
   {
-  }
+   }
   virtual AcGiDrawable* drawable(void) const = 0;
 };
 // ****************************************************************************
@@ -277,7 +248,7 @@ public:
     };
   virtual ~AcGsView()
   {
-  }
+   }
     // Who created this AcGsView?
   virtual AcGsGraphicsKernel& graphicsKernel(void) = 0;
     // Viewport size & position in normalized device coords and screen coords
@@ -473,7 +444,7 @@ public:
     };
   virtual ~AcGsModel()
   {
-  }
+   }
     // Who created this AcGsModel?
   virtual AcGsGraphicsKernel& graphicsKernel(void) = 0;
     // Scene graph roots
@@ -592,7 +563,7 @@ public:
     };
   virtual ~AcGsDevice()
   {
-  }
+   }
     // Who created this AcGsDevice?
   virtual AcGsGraphicsKernel& graphicsKernel(void) = 0;
     // Validation
@@ -674,22 +645,18 @@ class AcGsConfigReactor
 public:
   AcGsConfigReactor(void)
   {
-  }
+   }
   virtual ~AcGsConfigReactor()
   {
-  }
+   }
   virtual void hardwareAccelerationWasModified(bool)
-  {
-  }
+  { }
   virtual void configWasModified(void)
-  {
-  }
+  { }
   virtual void deviceSwitchToBegin(void)
-  {
-  }
+  { }
   virtual void deviceSwitchHasEnded(void)
-  {
-  }
+  { }
 };
 class AcGsConfig
 {
@@ -860,35 +827,28 @@ class AcGsReactor
 public:
   AcGsReactor(void)
   {
-  }
+   }
   virtual ~AcGsReactor()
   {
-  }
+   }
   enum ViewUpdateFlags { kCameraChanged = 1 };
   virtual void viewWasCreated(AcGsView*)
-  {
-  }
+  { }
   virtual void viewToBeDestroyed(AcGsView*)
-  {
-  }
+  { }
   virtual void viewToBeUpdated(AcGsView*, int)
-  {
-  }
+  { }
   virtual void viewWasUpdated(AcGsView*, int)
-  {
-  }
+  { }
   virtual void gsToBeUnloaded(AcGsGraphicsKernel*)
-  {
-  }
+  { }
     // ************************************************************************
     // GSN additions
     // ************************************************************************
   virtual void viewInteractivityToBeChanged(const AcGsView*, bool)
-  {
-  }
+  { }
   virtual void viewInteractivityWasChanged(const AcGsView*, bool)
-  {
-  }
+  { }
 };
 // ****************************************************************************
 // AcGsModelReactor
@@ -898,42 +858,26 @@ class AcGsModelReactor
 public:
   AcGsModelReactor(void)
   {
-  }
+   }
   virtual ~AcGsModelReactor()
   {
-  }
+   }
   virtual bool onSceneGraphRootAdded(AcGsModel*, AcGiDrawable*)
-  {
-    return true;
-  }
+  { return true; }
   virtual bool onSceneGraphRootErased(AcGsModel*, AcGiDrawable*)
-  {
-    return true;
-  }
+  { return true; }
   virtual bool onAdded(AcGsModel*, AcGiDrawable*, AcGiDrawable*)
-  {
-    return true;
-  }
+  { return true; }
   virtual bool onAdded(AcGsModel*, AcGiDrawable*, Adesk::IntDbId)
-  {
-    return true;
-  }
+  { return true; }
   virtual bool onErased(AcGsModel*, AcGiDrawable*, AcGiDrawable*)
-  {
-    return true;
-  }
+  { return true; }
   virtual bool onErased(AcGsModel*, AcGiDrawable*, Adesk::IntDbId)
-  {
-    return true;
-  }
+  { return true; }
   virtual bool onModified(AcGsModel*, AcGiDrawable*, AcGiDrawable*)
-  {
-    return true;
-  }
+  { return true; }
   virtual bool onModified(AcGsModel*, AcGiDrawable*, Adesk::IntDbId)
-  {
-    return true;
-  }
+  { return true; }
 };
 // ****************************************************************************
 // AcGsDrawablePath
@@ -951,13 +895,13 @@ typedef AcArray<AcGsDrawableLink> AcGsDrawablePath;
 struct AcGsClientViewInfo
 {
   AcGsClientViewInfo()
-    : viewportId(0)
-    , acadWindowId(0)
-    , viewportObjectId(0)
-    , contextColors(nullptr)
-    , contextualAttributes(nullptr)
-  {
-  }
+    :  viewportId(0)
+        , acadWindowId(0)
+        , viewportObjectId(0)
+        , contextColors(nullptr)
+        , contextualAttributes(nullptr) 
+    {
+     }
   Adesk::LongPtr viewportId;
   Adesk::LongPtr acadWindowId;
   Adesk::IntDbId viewportObjectId;
@@ -987,16 +931,14 @@ public:
     // Used by a graphics kernel to define support for a given capability.
   void addSupport(const AcUniqueString* capability)
   {
-    if (capability)
-    {
-      append(capability);
+        if (capability)
+            append(capability); 
     }
-  }
     // Used by a graphics kernel to make sure it supports what a client requires.
   bool requires(const AcUniqueString* capability) const
-  {
-    return capability ? contains(capability) : false;
-  }
+  { 
+        return capability ? contains(capability) : false; 
+    }
     // Predefined capabilities.
   DRAWBRIDGE_API static const AcUniqueString* k2DDrawing;
   DRAWBRIDGE_API static const AcUniqueString* k3DDrawing;
@@ -1017,12 +959,12 @@ class DRAWBRIDGE_MAC_API AcGsGraphicsKernel : public AcGiGraphicsKernel
 {
 public:
   AcGsGraphicsKernel(void)
-    : m_refCount(0)
-  {
-  }
+    :  m_refCount(0) 
+    {
+     }
   virtual ~AcGsGraphicsKernel()
   {
-  }
+   }
     /// <description>
     /// Add a reference to this kernel.
     /// </description>
@@ -1187,7 +1129,7 @@ class AcGsRenderProgressMonitor
 public:
   virtual ~AcGsRenderProgressMonitor()
   {
-  }
+   }
     /// <description>
     /// The phases of the rendering process.  They are listed in sequential
     /// order from the first phase of rendering to the last phase.
@@ -1408,9 +1350,7 @@ public:
     /// reused for the next image.
     /// </remarks>
   virtual bool ShouldReuseDatabase()
-  {
-    return false;
-  }
+  { return false; }
     /// <description>
     /// Called to determine whether the monitor is still eligible to receive notifications
     /// </description>
@@ -1418,9 +1358,7 @@ public:
     /// Can be used to terminate asynchronous rendering
     /// </remarks>
   virtual bool IsValid()
-  {
-    return true;
-  }
+  { return true; }
     /// <description>
     /// Called to determine whether the rendering process is synchronous or asynchronous
     /// </description>
@@ -1428,16 +1366,12 @@ public:
     /// If async, renderToImage returns immediately.
     /// </remarks>
   virtual bool IsAsync()
-  {
-    return false;
-  }
+  { return false; }
     /// <description>
     /// Output image is top-down by default.
     /// Called to determine whether the image should be bottom-up instead.
     /// </description>
   virtual bool IsOutputImageFlipped()
-  {
-    return false;
-  }
+  { return false; }
 };
 #pragma  pack(pop)

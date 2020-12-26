@@ -22,11 +22,12 @@ public:
         // for them.
     if (m_decorSize.left || m_decorSize.right || m_decorSize.top || m_decorSize.bottom)
     {
-      ser.SaveField("decor_l", m_decorSize.left);
-      ser.SaveField("decor_r", m_decorSize.right);
-      ser.SaveField("decor_t", m_decorSize.top);
-      ser.SaveField("decor_b", m_decorSize.bottom);
-    }
+
+            ser.SaveField("decor_l", m_decorSize.left);
+            ser.SaveField("decor_r", m_decorSize.right);
+            ser.SaveField("decor_t", m_decorSize.top);
+            ser.SaveField("decor_b", m_decorSize.bottom);
+            }
     return true;
   }
   bool Restore(Serializer& ser) override
@@ -55,8 +56,9 @@ public:
         // Don't overwrite the current decoration size if we already have it.
     if (!tlw->m_decorSize.left && !tlw->m_decorSize.right && !tlw->m_decorSize.top && !tlw->m_decorSize.bottom)
     {
-      tlw->m_decorSize = m_decorSize;
-    }
+
+            tlw->m_decorSize = m_decorSize;
+            }
     return BaseType::ApplyTo(tlw);
   }
 private:

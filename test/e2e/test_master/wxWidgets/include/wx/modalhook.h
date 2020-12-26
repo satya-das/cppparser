@@ -24,12 +24,11 @@ public:
     // Default ctor doesn't do anything, call Register() to activate the hook.
   wxModalDialogHook()
   {
-  }
+   }
     // Dtor unregisters the hook if it had been registered.
   virtual ~wxModalDialogHook()
   {
-    DoUnregister();
-  }
+ DoUnregister();   }
     // Register this hook as being active, i.e. its Enter() and Exit() methods
     // will be called.
     //
@@ -53,8 +52,7 @@ protected:
     // Called by wxWidgets after dismissing the modal dialog. Notice that it
     // won't be called if Enter() hadn't been.
   virtual void Exit(wxDialog*)
-  {
-  }
+  { }
 private:
     // Unregister the given hook, return true if it was done or false if the
     // hook wasn't found.
@@ -70,13 +68,16 @@ class wxModalDialogHookExitGuard
 {
 public:
   explicit wxModalDialogHookExitGuard(wxDialog* dialog)
-    : m_dialog(dialog)
-  {
-  }
+    :  m_dialog(dialog)
+    
+    {
+
+        }
   ~wxModalDialogHookExitGuard()
   {
-    wxModalDialogHook::CallExit(m_dialog);
-  }
+
+        wxModalDialogHook::CallExit(m_dialog);
+      }
 private:
   wxDialog* const m_dialog;
   wxDECLARE_NO_COPY_CLASS(wxModalDialogHookExitGuard);

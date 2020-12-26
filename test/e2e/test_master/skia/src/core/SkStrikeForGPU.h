@@ -60,8 +60,8 @@ public:
   {
     void operator()(SkStrikeForGPU* ptr) const
     {
-      ptr->onAboutToExitScope();
-    }
+            ptr->onAboutToExitScope();
+        }
   };
 };
 using SkScopedStrikeForGPU = std::unique_ptr<SkStrikeForGPU, SkStrikeForGPU::Deleter>;

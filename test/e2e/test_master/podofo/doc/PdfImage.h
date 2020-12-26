@@ -275,13 +275,13 @@ namespace PoDoFo
   inline double PdfImage::GetWidth() const
   {
     return this->GetPageSize().GetWidth();
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline double PdfImage::GetHeight() const
   {
     return this->GetPageSize().GetHeight();
-  }
+}
 }
 #endif

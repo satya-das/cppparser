@@ -18,14 +18,14 @@ public:
     // Default constructor (for two-step construction).
   wxGenericHyperlinkCtrl()
   {
-    Init();
-  }
+ Init();   }
     // Constructor.
   wxGenericHyperlinkCtrl(wxWindow* parent, wxWindowID id, const wxString& label, const wxString& url, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHL_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxHyperlinkCtrlNameStr))
   {
-    Init();
-    (void) Create(parent, id, label, url, pos, size, style, name);
-  }
+
+        Init();
+        (void) Create(parent, id, label, url, pos, size, style, name);
+      }
     // Creation function (for two-step construction).
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxString& url, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHL_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxHyperlinkCtrlNameStr));
     // get/set

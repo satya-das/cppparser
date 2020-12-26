@@ -17,41 +17,25 @@ public:
   SkCachedData(size_t size, SkDiscardableMemory*);
   virtual ~SkCachedData();
   size_t size() const
-  {
-    return fSize;
-  }
+  { return fSize; }
   const void* data() const
-  {
-    return fData;
-  }
+  { return fData; }
   void* writable_data()
-  {
-    return fData;
-  }
+  { return fData; }
   void ref() const
-  {
-    this->internalRef(false);
-  }
+  { this->internalRef(false); }
   void unref() const
-  {
-    this->internalUnref(false);
-  }
+  { this->internalUnref(false); }
   int testing_only_getRefCnt() const
-  {
-    return fRefCnt;
-  }
+  { return fRefCnt; }
   bool testing_only_isLocked() const
-  {
-    return fIsLocked;
-  }
+  { return fIsLocked; }
   bool testing_only_isInCache() const
-  {
-    return fInCache;
-  }
+  { return fInCache; }
   SkDiscardableMemory* diagnostic_only_getDiscardable() const
   {
-    return kDiscardableMemory_StorageType == fStorageType ? fStorage.fDM : nullptr;
-  }
+        return kDiscardableMemory_StorageType == fStorageType ? fStorage.fDM : nullptr;
+    }
 protected:
     // called when fData changes. could be nullptr.
   virtual void onDataChange(void* oldData, void* newData)
@@ -83,13 +67,12 @@ private:
     // called whenever our fData might change (lock or unlock)
   void setData(void* newData)
   {
-    if (newData != fData)
-    {
+        if (newData != fData) {
             // notify our subclasses of the change
-      this->onDataChange(fData, newData);
-      fData = newData;
+            this->onDataChange(fData, newData);
+            fData = newData;
+        }
     }
-  }
   class AutoMutexWritable;
 #  ifdef SK_DEBUG
 public:
@@ -116,16 +99,12 @@ public:
      *  (typically in the Rec's constructor).
      */
   void attachToCacheAndRef() const
-  {
-    this->internalRef(true);
-  }
+  { this->internalRef(true); }
     /*
      *  Call when removing this instance from a SkResourceCache::Rec subclass
      *  (typically in the Rec's destructor).
      */
   void detachFromCacheAndUnref() const
-  {
-    this->internalUnref(true);
-  }
+  { this->internalUnref(true); }
 };
 #endif

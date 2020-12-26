@@ -34,30 +34,27 @@ namespace SkRecords
   {
   public:
     explicit Draw(SkCanvas* canvas, const SkPicture* const drawablePicts[], SkDrawable* const drawables[], int drawableCount, const SkMatrix* initialCTM = nullptr)
-      : fInitialCTM(initialCTM ? *initialCTM : canvas->getTotalMatrix())
-      , fCanvas(canvas)
-      , fDrawablePicts(drawablePicts)
-      , fDrawables(drawables)
-      , fDrawableCount(drawableCount)
-    {
-    }
+      :  fInitialCTM(initialCTM ? *initialCTM : canvas->getTotalMatrix())
+        , fCanvas(canvas)
+        , fDrawablePicts(drawablePicts)
+        , fDrawables(drawables)
+        , fDrawableCount(drawableCount)
+    
+      {
+      }
     // This operator calls methods on the |canvas|. The various draw() wrapper
     // methods around SkCanvas are defined by the DRAW() macro in
     // SkRecordDraw.cpp.
     template <typename T>
     void operator()(const T& r)
     {
-      this->draw(r);
+        this->draw(r);
     }
   protected:
     const SkPicture* const * drawablePicts() const
-    {
-      return fDrawablePicts;
-    }
+    { return fDrawablePicts; }
     int drawableCount() const
-    {
-      return fDrawableCount;
-    }
+    { return fDrawableCount; }
   private:
     // No base case, so we'll be compile-time checked that we implement all possibilities.
     template <typename T>

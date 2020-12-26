@@ -76,25 +76,19 @@ private:
     // private in order to prevent usage of them.
     //
   void* operator new[](size_t)
-  {
-    return 0;
-  }
+  { return 0;}
   void operator delete[](void*)
   {
   }
   void* operator new[](size_t, const char*, int)
-  {
-    return 0;
-  }
+  { return 0;}
     // Data members
     //
   AcDbImpRasterVariables* mpImp;
   static ClassVersion mVersion;
 };
 inline ClassVersion AcDbRasterVariables::classVersion()
-{
-  return mVersion;
-}
+{   return mVersion; }
 #  pragma  warning( default : 4275 ) 
 #  pragma  pack (pop)
 #endif

@@ -37,14 +37,13 @@ public:
   static wxMenu* New(const wxString& title = wxEmptyString, long style = 0);
     // ctors
   wxMenuBase(const wxString& title, long style = 0)
-    : m_title(title)
-  {
-    Init(style);
-  }
+    :  m_title(title)
+        
+    {
+ Init(style);     }
   wxMenuBase(long style = 0)
   {
-    Init(style);
-  }
+ Init(style);   }
     // dtor deletes all the menu items we own
   virtual ~wxMenuBase();
     // menu construction
@@ -53,132 +52,117 @@ public:
     // append any kind of item (normal/check/radio/separator)
   wxMenuItem* Append(int itemid, const wxString& text = wxEmptyString, const wxString& help = wxEmptyString, wxItemKind kind = wxITEM_NORMAL)
   {
-    return DoAppend(wxMenuItem::New((wxMenu*) this, itemid, text, help, kind));
-  }
+        return DoAppend(wxMenuItem::New((wxMenu *)this, itemid, text, help, kind));
+    }
     // append a separator to the menu
   wxMenuItem* AppendSeparator()
-  {
-    return Append(wxID_SEPARATOR);
-  }
+  { return Append(wxID_SEPARATOR); }
     // append a check item
   wxMenuItem* AppendCheckItem(int itemid, const wxString& text, const wxString& help = wxEmptyString)
   {
-    return Append(itemid, text, help, wxITEM_CHECK);
-  }
+        return Append(itemid, text, help, wxITEM_CHECK);
+    }
     // append a radio item
   wxMenuItem* AppendRadioItem(int itemid, const wxString& text, const wxString& help = wxEmptyString)
   {
-    return Append(itemid, text, help, wxITEM_RADIO);
-  }
+        return Append(itemid, text, help, wxITEM_RADIO);
+    }
     // append a submenu
   wxMenuItem* AppendSubMenu(wxMenu* submenu, const wxString& text, const wxString& help = wxEmptyString)
   {
-    return DoAppend(wxMenuItem::New((wxMenu*) this, wxID_ANY, text, help, wxITEM_NORMAL, submenu));
-  }
+        return DoAppend(wxMenuItem::New((wxMenu *)this, wxID_ANY, text, help,
+                                        wxITEM_NORMAL, submenu));
+    }
     // the most generic form of Append() - append anything
   wxMenuItem* Append(wxMenuItem* item)
-  {
-    return DoAppend(item);
-  }
+  { return DoAppend(item); }
     // insert a break in the menu (only works when appending the items, not
     // inserting them)
   virtual void Break()
-  {
-  }
+  { }
     // insert an item before given position
   wxMenuItem* Insert(size_t pos, wxMenuItem* item);
     // insert an item before given position
   wxMenuItem* Insert(size_t pos, int itemid, const wxString& text = wxEmptyString, const wxString& help = wxEmptyString, wxItemKind kind = wxITEM_NORMAL)
   {
-    return Insert(pos, wxMenuItem::New((wxMenu*) this, itemid, text, help, kind));
-  }
+        return Insert(pos, wxMenuItem::New((wxMenu *)this, itemid, text, help, kind));
+    }
     // insert a separator
   wxMenuItem* InsertSeparator(size_t pos)
   {
-    return Insert(pos, wxMenuItem::New((wxMenu*) this, wxID_SEPARATOR));
-  }
+        return Insert(pos, wxMenuItem::New((wxMenu *)this, wxID_SEPARATOR));
+    }
     // insert a check item
   wxMenuItem* InsertCheckItem(size_t pos, int itemid, const wxString& text, const wxString& help = wxEmptyString)
   {
-    return Insert(pos, itemid, text, help, wxITEM_CHECK);
-  }
+        return Insert(pos, itemid, text, help, wxITEM_CHECK);
+    }
     // insert a radio item
   wxMenuItem* InsertRadioItem(size_t pos, int itemid, const wxString& text, const wxString& help = wxEmptyString)
   {
-    return Insert(pos, itemid, text, help, wxITEM_RADIO);
-  }
+        return Insert(pos, itemid, text, help, wxITEM_RADIO);
+    }
     // insert a submenu
   wxMenuItem* Insert(size_t pos, int itemid, const wxString& text, wxMenu* submenu, const wxString& help = wxEmptyString)
   {
-    return Insert(pos, wxMenuItem::New((wxMenu*) this, itemid, text, help, wxITEM_NORMAL, submenu));
-  }
+        return Insert(pos, wxMenuItem::New((wxMenu *)this, itemid, text, help,
+                                           wxITEM_NORMAL, submenu));
+    }
     // prepend an item to the menu
   wxMenuItem* Prepend(wxMenuItem* item)
   {
-    return Insert(0u, item);
-  }
+        return Insert(0u, item);
+    }
     // prepend any item to the menu
   wxMenuItem* Prepend(int itemid, const wxString& text = wxEmptyString, const wxString& help = wxEmptyString, wxItemKind kind = wxITEM_NORMAL)
   {
-    return Insert(0u, itemid, text, help, kind);
-  }
+        return Insert(0u, itemid, text, help, kind);
+    }
     // prepend a separator
   wxMenuItem* PrependSeparator()
   {
-    return InsertSeparator(0u);
-  }
+        return InsertSeparator(0u);
+    }
     // prepend a check item
   wxMenuItem* PrependCheckItem(int itemid, const wxString& text, const wxString& help = wxEmptyString)
   {
-    return InsertCheckItem(0u, itemid, text, help);
-  }
+        return InsertCheckItem(0u, itemid, text, help);
+    }
     // prepend a radio item
   wxMenuItem* PrependRadioItem(int itemid, const wxString& text, const wxString& help = wxEmptyString)
   {
-    return InsertRadioItem(0u, itemid, text, help);
-  }
+        return InsertRadioItem(0u, itemid, text, help);
+    }
     // prepend a submenu
   wxMenuItem* Prepend(int itemid, const wxString& text, wxMenu* submenu, const wxString& help = wxEmptyString)
   {
-    return Insert(0u, itemid, text, submenu, help);
-  }
+        return Insert(0u, itemid, text, submenu, help);
+    }
     // detach an item from the menu, but don't delete it so that it can be
     // added back later (but if it's not, the caller is responsible for
     // deleting it!)
   wxMenuItem* Remove(int itemid)
-  {
-    return Remove(FindChildItem(itemid));
-  }
+  { return Remove(FindChildItem(itemid)); }
   wxMenuItem* Remove(wxMenuItem* item);
     // delete an item from the menu (submenus are not destroyed by this
     // function, see Destroy)
   bool Delete(int itemid)
-  {
-    return Delete(FindChildItem(itemid));
-  }
+  { return Delete(FindChildItem(itemid)); }
   bool Delete(wxMenuItem* item);
     // delete the item from menu and destroy it (if it's a submenu)
   bool Destroy(int itemid)
-  {
-    return Destroy(FindChildItem(itemid));
-  }
+  { return Destroy(FindChildItem(itemid)); }
   bool Destroy(wxMenuItem* item);
     // menu items access
     // -----------------
 
     // get the items
   size_t GetMenuItemCount() const
-  {
-    return m_items.GetCount();
-  }
+  { return m_items.GetCount(); }
   const wxMenuItemList& GetMenuItems() const
-  {
-    return m_items;
-  }
+  { return m_items; }
   wxMenuItemList& GetMenuItems()
-  {
-    return m_items;
-  }
+  { return m_items; }
     // search
   virtual int FindItem(const wxString& item) const;
   wxMenuItem* FindItem(int itemid, wxMenu** menu = NULL) const;
@@ -193,9 +177,7 @@ public:
   wxString GetLabel(int itemid) const;
     //  Returns the stripped label
   wxString GetLabelText(int itemid) const
-  {
-    return wxMenuItem::GetLabelText(GetLabel(itemid));
-  }
+  { return wxMenuItem::GetLabelText(GetLabel(itemid)); }
   virtual void SetHelpString(int itemid, const wxString& helpString);
   virtual wxString GetHelpString(int itemid) const;
     // misc accessors
@@ -203,22 +185,14 @@ public:
 
     // the title
   virtual void SetTitle(const wxString& title)
-  {
-    m_title = title;
-  }
+  { m_title = title; }
   const wxString& GetTitle() const
-  {
-    return m_title;
-  }
+  { return m_title; }
     // event handler
   void SetEventHandler(wxEvtHandler* handler)
-  {
-    m_eventHandler = handler;
-  }
+  { m_eventHandler = handler; }
   wxEvtHandler* GetEventHandler() const
-  {
-    return m_eventHandler;
-  }
+  { return m_eventHandler; }
     // Invoking window: this is set by wxWindow::PopupMenu() before showing a
     // popup menu and reset after it's hidden. Notice that you probably want to
     // use GetWindow() below instead of GetInvokingWindow() as the latter only
@@ -228,18 +202,14 @@ public:
     //     wxMenuInvokingWindowSetter class below instead
   void SetInvokingWindow(wxWindow* win);
   wxWindow* GetInvokingWindow() const
-  {
-    return m_invokingWindow;
-  }
+  { return m_invokingWindow; }
     // the window associated with this menu: this is the invoking window for
     // popup menus or the top level window to which the menu bar is attached
     // for menus which are part of a menu bar
   wxWindow* GetWindow() const;
     // style
   long GetStyle() const
-  {
-    return m_style;
-  }
+  { return m_style; }
     // implementation helpers
     // ----------------------
 
@@ -258,19 +228,13 @@ public:
   virtual void Detach();
     // is the menu attached to a menu bar (or is it a popup one)?
   bool IsAttached() const
-  {
-    return GetMenuBar() != NULL;
-  }
+  { return GetMenuBar() != NULL; }
 #    endif
     // set/get the parent of this menu
   void SetParent(wxMenu* parent)
-  {
-    m_menuParent = parent;
-  }
+  { m_menuParent = parent; }
   wxMenu* GetParent() const
-  {
-    return m_menuParent;
-  }
+  { return m_menuParent; }
     // implementation only from now on
     // -------------------------------
 
@@ -294,25 +258,26 @@ public:
     // and allow adding the radio items as well
   void Append(int itemid, const wxString& text, const wxString& help, bool isCheckable)
   {
-    Append(itemid, text, help, isCheckable ? wxITEM_CHECK : wxITEM_NORMAL);
-  }
+        Append(itemid, text, help, isCheckable ? wxITEM_CHECK : wxITEM_NORMAL);
+    }
     // use more readable and not requiring unused itemid AppendSubMenu() instead
   wxMenuItem* Append(int itemid, const wxString& text, wxMenu* submenu, const wxString& help = wxEmptyString)
   {
-    return DoAppend(wxMenuItem::New((wxMenu*) this, itemid, text, help, wxITEM_NORMAL, submenu));
-  }
+        return DoAppend(wxMenuItem::New((wxMenu *)this, itemid, text, help,
+                                        wxITEM_NORMAL, submenu));
+    }
   void Insert(size_t pos, int itemid, const wxString& text, const wxString& help, bool isCheckable)
   {
-    Insert(pos, itemid, text, help, isCheckable ? wxITEM_CHECK : wxITEM_NORMAL);
-  }
+        Insert(pos, itemid, text, help, isCheckable ? wxITEM_CHECK : wxITEM_NORMAL);
+    }
   void Prepend(int itemid, const wxString& text, const wxString& help, bool isCheckable)
   {
-    Insert(0u, itemid, text, help, isCheckable);
-  }
+        Insert(0u, itemid, text, help, isCheckable);
+    }
   static void LockAccels(bool locked)
   {
-    ms_locked = locked;
-  }
+        ms_locked = locked;
+    }
 protected:
     // virtuals to override in derived classes
     // ---------------------------------------
@@ -350,25 +315,20 @@ class WXDLLEXPORT wxMenuInfoHelper : public wxObject
 public:
   wxMenuInfoHelper()
   {
-    m_menu = NULL;
-  }
+ m_menu = NULL;   }
   virtual ~wxMenuInfoHelper()
   {
-  }
+   }
   bool Create(wxMenu* menu, const wxString& title)
   {
-    m_menu = menu;
-    m_title = title;
-    return true;
-  }
+        m_menu = menu;
+        m_title = title;
+        return true;
+    }
   wxMenu* GetMenu() const
-  {
-    return m_menu;
-  }
+  { return m_menu; }
   wxString GetTitle() const
-  {
-    return m_title;
-  }
+  { return m_title; }
 private:
   wxMenu* m_menu;
   wxString m_title;
@@ -400,9 +360,7 @@ public:
 
     // get the number of menus in the menu bar
   size_t GetMenuCount() const
-  {
-    return m_menus.GetCount();
-  }
+  { return m_menus.GetCount(); }
     // get the menu at given position
   wxMenu* GetMenu(size_t pos) const;
     // replace the menu at given position with another one, returns the
@@ -415,17 +373,13 @@ public:
   virtual void EnableTop(size_t pos, bool enable) = 0;
     // is the menu enabled?
   virtual bool IsEnabledTop(size_t) const
-  {
-    return true;
-  }
+  { return true; }
     // get or change the label of the menu at given position
   virtual void SetMenuLabel(size_t pos, const wxString& label) = 0;
   virtual wxString GetMenuLabel(size_t pos) const = 0;
     // get the stripped label of the menu at given position
   virtual wxString GetMenuLabelText(size_t pos) const
-  {
-    return wxMenuItem::GetLabelText(GetMenuLabel(pos));
-  }
+  { return wxMenuItem::GetLabelText(GetMenuLabel(pos)); }
     // item search
     // -----------
 
@@ -451,9 +405,7 @@ public:
   bool IsChecked(int itemid) const;
   bool IsEnabled(int itemid) const;
   virtual bool IsEnabled() const
-  {
-    return wxWindow::IsEnabled();
-  }
+  { return wxWindow::IsEnabled(); }
   void SetLabel(int itemid, const wxString& label);
   wxString GetLabel(int itemid) const;
   void SetHelpString(int itemid, const wxString& helpString);
@@ -462,14 +414,10 @@ public:
 
     // get the frame we are attached to (may return NULL)
   wxFrame* GetFrame() const
-  {
-    return m_menuBarFrame;
-  }
+  { return m_menuBarFrame; }
     // returns true if we're attached to a frame
   bool IsAttached() const
-  {
-    return GetFrame() != NULL;
-  }
+  { return GetFrame() != NULL; }
     // associate the menubar with the frame
   virtual void Attach(wxFrame* frame);
     // called before deleting the menubar normally
@@ -501,9 +449,7 @@ public:
 #      if  wxUSE_EXTENDED_RTTI
     // XTI helpers:
   bool AppendMenuInfo(const wxMenuInfoHelper* info)
-  {
-    return Append(info->GetMenu(), info->GetTitle());
-  }
+  { return Append( info->GetMenu(), info->GetTitle() ); }
   const wxMenuInfoHelperList& GetMenuInfos() const;
 #      endif
 #      if  WXWIN_COMPATIBILITY_2_8
@@ -556,15 +502,18 @@ public:
     //
     // The menu lifetime must be greater than that of this class.
   wxMenuInvokingWindowSetter(wxMenu& menu, wxWindow* win)
-    : m_menu(menu)
-  {
-    menu.SetInvokingWindow(win);
-  }
+    :  m_menu(menu)
+    
+    {
+
+        menu.SetInvokingWindow(win);
+        }
     // Dtor resets the invoking window.
   ~wxMenuInvokingWindowSetter()
   {
-    m_menu.SetInvokingWindow(NULL);
-  }
+
+        m_menu.SetInvokingWindow(NULL);
+      }
 private:
   wxMenu& m_menu;
   wxDECLARE_NO_COPY_CLASS(wxMenuInvokingWindowSetter);

@@ -20,88 +20,73 @@ class GrGpuResource::CacheAccess
 private:
     /** The cache is allowed to go from no refs to 1 ref. */
   void ref()
-  {
-    fResource->addInitialRef();
-  }
+  { fResource->addInitialRef(); }
     /**
      * Is the resource currently cached as scratch? This means it is cached, has a valid scratch
      * key, and does not have a unique key.
      */
   bool isScratch() const
   {
-    return !fResource->getUniqueKey().isValid() && fResource->fScratchKey.isValid() && GrBudgetedType::kBudgeted == fResource->resourcePriv().budgetedType();
-  }
+        return !fResource->getUniqueKey().isValid() && fResource->fScratchKey.isValid() &&
+               GrBudgetedType::kBudgeted == fResource->resourcePriv().budgetedType();
+    }
     /**
      * Called by the cache to delete the resource under normal circumstances.
      */
   void release()
   {
-    fResource->release();
-    if (!fResource->hasRef())
-    {
-      delete fResource;
+        fResource->release();
+        if (!fResource->hasRef()) {
+            delete fResource;
+        }
     }
-  }
     /**
      * Called by the cache to delete the resource when the backend 3D context is no longer valid.
      */
   void abandon()
   {
-    fResource->abandon();
-    if (!fResource->hasRef())
-    {
-      delete fResource;
+        fResource->abandon();
+        if (!fResource->hasRef()) {
+            delete fResource;
+        }
     }
-  }
     /** Called by the cache to assign a new unique key. */
   void setUniqueKey(const GrUniqueKey& key)
-  {
-    fResource->fUniqueKey = key;
-  }
+  { fResource->fUniqueKey = key; }
     /** Is the resource ref'ed */
   bool hasRef() const
-  {
-    return fResource->hasRef();
-  }
+  { return fResource->hasRef(); }
     /** Called by the cache to make the unique key invalid. */
   void removeUniqueKey()
-  {
-    fResource->fUniqueKey.reset();
-  }
+  { fResource->fUniqueKey.reset(); }
   uint32_t timestamp() const
-  {
-    return fResource->fTimestamp;
-  }
+  { return fResource->fTimestamp; }
   void setTimestamp(uint32_t ts)
-  {
-    fResource->fTimestamp = ts;
-  }
+  { fResource->fTimestamp = ts; }
   void setTimeWhenResourceBecomePurgeable()
   {
-    SkASSERT(fResource->isPurgeable());
-    fResource->fTimeWhenBecamePurgeable = GrStdSteadyClock::now();
-  }
+        SkASSERT(fResource->isPurgeable());
+        fResource->fTimeWhenBecamePurgeable = GrStdSteadyClock::now();
+    }
     /**
      * Called by the cache to determine whether this resource should be purged based on the length
      * of time it has been available for purging.
      */
   GrStdSteadyClock::time_point timeWhenResourceBecamePurgeable()
   {
-    SkASSERT(fResource->isPurgeable());
-    return fResource->fTimeWhenBecamePurgeable;
-  }
+        SkASSERT(fResource->isPurgeable());
+        return fResource->fTimeWhenBecamePurgeable;
+    }
   int* accessCacheIndex() const
-  {
-    return &fResource->fCacheArrayIndex;
-  }
+  { return &fResource->fCacheArrayIndex; }
   CacheAccess(GrGpuResource* resource)
-    : fResource(resource)
-  {
-  }
+    :  fResource(resource) 
+    {
+    }
   CacheAccess(const CacheAccess& that)
-    : fResource(that.fResource)
-  {
-  }
+    :  fResource(that.fResource) 
+    {
+    }
   CacheAccess& operator=(const CacheAccess&);
     // No taking addresses of this type.
   const CacheAccess* operator&() const;
@@ -112,11 +97,9 @@ private:
   friend void test_unbudgeted_to_scratch(skiatest::Reporter* reporter);
 };
 inline GrGpuResource::CacheAccess GrGpuResource::cacheAccess()
-{
-  return CacheAccess(this);
-}
+{ return CacheAccess(this); }
 inline const GrGpuResource::CacheAccess GrGpuResource::cacheAccess() const
 {
-  return CacheAccess(const_cast<GrGpuResource*>(this));
+    return CacheAccess(const_cast<GrGpuResource*>(this));
 }
 #endif

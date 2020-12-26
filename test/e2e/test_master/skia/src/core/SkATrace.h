@@ -24,9 +24,9 @@ public:
   const uint8_t* getCategoryGroupEnabled(const char* name) override;
   const char* getCategoryGroupName(const uint8_t* categoryEnabledFlag) override
   {
-    static const char* category = "skiaATrace";
-    return category;
-  }
+        static const char* category = "skiaATrace";
+        return category;
+    }
 private:
   void (*fBeginSection) (const char*);
   void (*fEndSection) (void);

@@ -35,7 +35,7 @@ public:
     // needed since this class declares virtual members
   virtual ~wxAppTraitsBase()
   {
-  }
+   }
     // hooks for working with the global objects, may be overridden by the user
     // ------------------------------------------------------------------------
 #  if  wxUSE_CONFIG
@@ -85,14 +85,12 @@ public:
     // greater than that of any socket (e.g. be a pointer to a static object)
   static void SetDefaultSocketManager(wxSocketManager* manager)
   {
-    ms_manager = manager;
-  }
+        ms_manager = manager;
+    }
     // return socket manager: this is usually different for console and GUI
     // applications (although some ports use the same implementation for both)
   virtual wxSocketManager* GetSocketManager()
-  {
-    return ms_manager;
-  }
+  { return ms_manager; }
 #  endif
     // create a new, port specific, instance of the event loop used by wxApp
   virtual wxEventLoopBase* CreateEventLoop() = 0;
@@ -123,10 +121,11 @@ public:
     // passed arrays with the names and the descriptions of those options.
   virtual wxString GetStandardCmdLineOptions(wxArrayString& names, wxArrayString& desc) const
   {
-    wxUnusedVar(names);
-    wxUnusedVar(desc);
-    return wxEmptyString;
-  }
+        wxUnusedVar(names);
+        wxUnusedVar(desc);
+
+        return wxEmptyString;
+    }
 #  if  wxUSE_STACKWALKER
 protected:
     // utility function: returns the stack frame as a plain wxString

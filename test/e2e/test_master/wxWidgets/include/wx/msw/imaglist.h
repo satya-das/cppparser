@@ -27,8 +27,9 @@ public:
   // from icons), and the initial size of the list.
   wxImageList(int width, int height, bool mask = true, int initialCount = 1)
   {
+
     Create(width, height, mask, initialCount);
-  }
+    }
   virtual ~wxImageList();
   // Attributes
   ////////////////////////////////////////////////////////////////////////////
@@ -39,9 +40,7 @@ public:
   bool GetSize(int index, int& width, int& height) const;
   // Returns the overall size
   wxSize GetSize() const
-  {
-    return m_size;
-  }
+  { return m_size; }
   // Operations
   ////////////////////////////////////////////////////////////////////////////
 
@@ -214,9 +213,7 @@ public:
 
   // Returns the native image list handle
   WXHIMAGELIST GetHIMAGELIST() const
-  {
-    return m_hImageList;
-  }
+  { return m_hImageList; }
 protected:
   WXHIMAGELIST m_hImageList;
   wxSize m_size;

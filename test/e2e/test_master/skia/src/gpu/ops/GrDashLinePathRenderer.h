@@ -14,8 +14,8 @@ private:
   CanDrawPath onCanDrawPath(const CanDrawPathArgs&) const override;
   StencilSupport onGetStencilSupport(const GrShape&) const override
   {
-    return kNoSupport_StencilSupport;
-  }
+        return kNoSupport_StencilSupport;
+    }
   bool onDrawPath(const DrawPathArgs&) override;
   sk_sp<GrGpu> fGpu;
   typedef GrPathRenderer INHERITED;

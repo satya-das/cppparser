@@ -27,34 +27,33 @@ public:
     {
     }
     Info(const char* name)
-      : fName(name)
-      , fSpecVersion(0)
-    {
-    }
+      :  fName(name), fSpecVersion(0) 
+      {
+      }
     SkString fName;
     uint32_t fSpecVersion;
     struct Less
     {
       bool operator()(const Info& a, const SkString& b)
       {
-        return strcmp(a.fName.c_str(), b.c_str()) < 0;
-      }
+                return strcmp(a.fName.c_str(), b.c_str()) < 0;
+            }
       bool operator()(const SkString& a, const GrVkExtensions::Info& b)
       {
-        return strcmp(a.c_str(), b.fName.c_str()) < 0;
-      }
+                return strcmp(a.c_str(), b.fName.c_str()) < 0;
+            }
     };
   };
 #  ifdef SK_DEBUG
   void dump() const
   {
-    SkDebugf("**Vulkan Extensions**\n");
-    for (int i = 0; i < fExtensions.count(); ++i)
-    {
-      SkDebugf("%s. Version: %d\n", fExtensions[i].fName.c_str(), fExtensions[i].fSpecVersion);
+        SkDebugf("**Vulkan Extensions**\n");
+        for (int i = 0; i < fExtensions.count(); ++i) {
+            SkDebugf("%s. Version: %d\n",
+                     fExtensions[i].fName.c_str(), fExtensions[i].fSpecVersion);
+        }
+        SkDebugf("**End Vulkan Extensions**\n");
     }
-    SkDebugf("**End Vulkan Extensions**\n");
-  }
 #  endif
 private:
   void getSpecVersions(GrVkGetProc getProc, VkInstance, VkPhysicalDevice);

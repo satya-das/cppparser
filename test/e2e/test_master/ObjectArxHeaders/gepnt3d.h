@@ -84,77 +84,77 @@ public:
 // Creates a point at the origin.
 //
 inline AcGePoint3d::AcGePoint3d()
-  : x(0.0)
-  , y(0.0)
-  , z(0.0)
-{
-}
+  :  x(0.0), y(0.0), z(0.0)
+
+  {
+
+  }
 // Creates a point with the same values as `src'.
 //
 inline AcGePoint3d::AcGePoint3d(const AcGePoint3d& src)
-  : x(src.x)
-  , y(src.y)
-  , z(src.z)
-{
-}
+  :  x(src.x), y(src.y), z(src.z)
+
+  {
+
+  }
 // Creates a point intialized to ( xx, yy, zz ).
 //
 inline AcGePoint3d::AcGePoint3d(double xx, double yy, double zz)
-  : x(xx)
-  , y(yy)
-  , z(zz)
-{
-}
+  :  x(xx), y(yy), z(zz)
+
+  {
+
+  }
 inline bool AcGePoint3d::operator ==(const AcGePoint3d& p) const
 {
-  return this->isEqualTo(p);
+    return this->isEqualTo(p);
 }
 // This operator is the logical negation of the `==' operator.
 //
 inline bool AcGePoint3d::operator !=(const AcGePoint3d& p) const
 {
-  return !this->isEqualTo(p);
+    return !this->isEqualTo(p);
 }
 // Returns a point such that each of the coordinates of this point
 // have been multiplied by val.
 //
 inline AcGePoint3d AcGePoint3d::operator *(double val) const
 {
-  return AcGePoint3d(x * val, y * val, z * val);
+    return AcGePoint3d(x*val, y*val, z*val);
 }
 // Returns a point such that each of the coordinates of this point
 // have been multiplied by val.
 //
 inline AcGePoint3d operator *(double val, const AcGePoint3d& p)
 {
-  return AcGePoint3d(p.x * val, p.y * val, p.z * val);
+    return AcGePoint3d(p.x*val, p.y*val, p.z*val);
 }
 // This is equivalent to the statement `p = p * val;'
 // Each coordinate of this point is multiplied by val.
 //
 inline AcGePoint3d& AcGePoint3d::operator *=(double val)
 {
-  x *= val;
-  y *= val;
-  z *= val;
-  return *this;
+    x *= val;
+    y *= val;
+    z *= val;
+    return *this;
 }
 // Returns a point such that each of the coordinates of this point
 // have been divided by val.
 //
 inline AcGePoint3d AcGePoint3d::operator /(double val) const
 {
-  return AcGePoint3d(x / val, y / val, z / val);
+    return AcGePoint3d (x/val, y/val, z/val);
 }
 // This is equivalent to the statement `p = p / val;'
 // Each coordinate of this point is divided by val.
 //
 inline AcGePoint3d& AcGePoint3d::operator /=(double val)
 {
-  x /= val;
-  y /= val;
-  z /= val;
-  return *this;
+    x /= val;
+    y /= val;
+    z /= val;
+    return *this;
 }
 // Returns a point that is equivalent to the result of translating
 // this point by the vector `v'.  (It yields the same result as if
@@ -163,31 +163,31 @@ inline AcGePoint3d& AcGePoint3d::operator /=(double val)
 //
 inline AcGePoint3d AcGePoint3d::operator +(const AcGeVector3d& v) const
 {
-  return AcGePoint3d(x + v.x, y + v.y, z + v.z);
+    return AcGePoint3d (x + v.x, y + v.y, z + v.z);
 }
 // This is equivalent to the statement `p = p + v;'
 //
 inline AcGePoint3d& AcGePoint3d::operator +=(const AcGeVector3d& v)
 {
-  x += v.x;
-  y += v.y;
-  z += v.z;
-  return *this;
+    x += v.x;
+    y += v.y;
+    z += v.z;
+    return *this;
 }
 // This is equivalent to the statement `p + (-v);'
 //
 inline AcGePoint3d AcGePoint3d::operator -(const AcGeVector3d& v) const
 {
-  return AcGePoint3d(x - v.x, y - v.y, z - v.z);
+    return AcGePoint3d (x - v.x, y - v.y, z - v.z);
 }
 // This is equivalent to the statement `p = p - v;'
 //
 inline AcGePoint3d& AcGePoint3d::operator -=(const AcGeVector3d& v)
 {
-  x -= v.x;
-  y -= v.y;
-  z -= v.z;
-  return *this;
+    x -= v.x;
+    y -= v.y;
+    z -= v.z;
+    return *this;
 }
 // This operator returns a vector such that if `v = p1 - p0',
 // then, `v' is equivalent to the translation that takes
@@ -195,7 +195,7 @@ inline AcGePoint3d& AcGePoint3d::operator -=(const AcGeVector3d& v)
 //
 inline AcGeVector3d AcGePoint3d::operator -(const AcGePoint3d& p) const
 {
-  return AcGeVector3d(x - p.x, y - p.y, z - p.z);
+    return AcGeVector3d (x - p.x, y - p.y, z - p.z);
 }
 // This operator returns the vector that would have resulted
 // from the operation `p1 - AcGePoint3d::kOrigin', which is
@@ -203,27 +203,27 @@ inline AcGeVector3d AcGePoint3d::operator -(const AcGePoint3d& p) const
 //
 inline AcGeVector3d AcGePoint3d::asVector() const
 {
-  return AcGeVector3d(x, y, z);
+    return AcGeVector3d(x, y, z);
 }
 // Sets the point to ( xx, yy, zz ).
 //
 inline AcGePoint3d& AcGePoint3d::set(double xx, double yy, double zz)
 {
-  x = xx;
-  y = yy;
-  z = zz;
-  return *this;
+    x = xx;
+    y = yy;
+    z = zz;
+    return *this;
 }
 // Indexes the point as if it were an array.  `x' is index `0',
 // `y' is index `1', `z' is index `2'.
 //
 inline double AcGePoint3d::operator [](unsigned int i) const
 {
-  return *(&x + i);
+    return *(&x+i);
 }
 inline double& AcGePoint3d::operator [](unsigned int i)
 {
-  return *(&x + i);
+    return *(&x+i);
 }
 #  define ADSK_ACGEPOINT3D_DEFINED
 #  include "acarrayhelper.h"

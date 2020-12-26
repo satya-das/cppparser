@@ -14,27 +14,21 @@ class GrResourceHandle
 {
 public:
   GrResourceHandle(int value)
-    : fValue(value)
-  {
-    SkASSERT(this->isValid());
-  }
+    :  fValue(value) 
+    {
+
+        SkASSERT(this->isValid());
+        }
   GrResourceHandle()
-    : fValue(kInvalid_ResourceHandle)
-  {
-  }
+    :  fValue(kInvalid_ResourceHandle) 
+    {
+    }
   bool operator==(const GrResourceHandle& other) const
-  {
-    return other.fValue == fValue;
-  }
+  { return other.fValue == fValue; }
   bool isValid() const
-  {
-    return kInvalid_ResourceHandle != fValue;
-  }
+  { return kInvalid_ResourceHandle != fValue; }
   int toIndex() const
-  {
-    SkASSERT(this->isValid());
-    return fValue;
-  }
+  { SkASSERT(this->isValid()); return fValue; }
 private:
   static const int kInvalid_ResourceHandle = -1;
   int fValue;

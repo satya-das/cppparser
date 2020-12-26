@@ -21,15 +21,11 @@ public:
      * If false, this Codec must not be used.
      */
   bool didCreateSrcBuffer() const
-  {
-    return fSrcBuffer != nullptr;
-  }
+  { return fSrcBuffer != nullptr; }
 protected:
   SkBmpBaseCodec(SkEncodedInfo&& info, std::unique_ptr<SkStream>, uint16_t bitsPerPixel, SkCodec::SkScanlineOrder rowOrder);
   uint8_t* srcBuffer()
-  {
-    return reinterpret_cast<uint8_t*>(fSrcBuffer.get());
-  }
+  { return reinterpret_cast<uint8_t*>(fSrcBuffer.get()); }
 private:
   SkAutoFree fSrcBuffer;
   typedef SkBmpCodec INHERITED;

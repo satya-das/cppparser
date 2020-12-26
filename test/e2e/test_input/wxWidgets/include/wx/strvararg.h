@@ -689,34 +689,34 @@ struct wxArgNormalizerWchar<const wchar_t*>
 template<>
 struct wxArgNormalizer<const char*> {
 private:
-    wxArgNormalizer<const char*>(const char*, const wxFormatString *,
+    wxArgNormalizer(const char*, const wxFormatString *,
                                  unsigned);
     const char *get() const;
 };
 template<>
 struct wxArgNormalizer<char*> {
 private:
-    wxArgNormalizer<char*>(const char*, const wxFormatString *, unsigned);
+    wxArgNormalizer(const char*, const wxFormatString *, unsigned);
     char *get() const;
 };
 template<>
 struct wxArgNormalizer<const std::string> {
 private:
-    wxArgNormalizer<const std::string>(const std::string&,
+    wxArgNormalizer(const std::string&,
                                         const wxFormatString *, unsigned);
     std::string get() const;
 };
 template<>
 struct wxArgNormalizer<std::string> {
 private:
-    wxArgNormalizer<std::string>(std::string&,
+    wxArgNormalizer(std::string&,
                                  const wxFormatString *, unsigned);
     std::string get() const;
 };
 template<>
 struct wxArgNormalizer<wxCharBuffer> {
 private:
-    wxArgNormalizer<wxCharBuffer>(wxCharBuffer&,
+    wxArgNormalizer(wxCharBuffer&,
                                   const wxFormatString *, unsigned);
     std::string get() const;
 };

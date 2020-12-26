@@ -36,37 +36,37 @@ protected:
 };
 inline Adesk::Boolean AcDbRay::isClosed() const
 {
-  return Adesk::kFalse;
+    return Adesk::kFalse;
 }
 inline Adesk::Boolean AcDbRay::isPeriodic() const
 {
-  return Adesk::kFalse;
+    return Adesk::kFalse;
 }
 inline Adesk::Boolean AcDbRay::isPlanar() const
 {
-  return Adesk::kTrue;
+    return Adesk::kTrue;
 }
 inline Acad::ErrorStatus AcDbRay::getStartParam(double& startParam) const
 {
-  startParam = 0.0;
-  return Acad::eOk;
+    startParam = 0.0;
+    return Acad::eOk;
 }
 inline Acad::ErrorStatus AcDbRay::getEndParam(double&) const
 {
     // endParam for a Ray is positive infinity
-  return Acad::eNotApplicable;
+    return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbRay::getEndPoint(AcGePoint3d&) const
 {
-  return Acad::eNotApplicable;
+    return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbRay::getSpline(AcDbSpline*&) const
 {
-  return Acad::eNotApplicable;
+    return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbRay::getArea(double&) const
 {
-  return Acad::eNotApplicable;
+    return Acad::eNotApplicable;
 }
 #  pragma  pack(pop)
 #endif

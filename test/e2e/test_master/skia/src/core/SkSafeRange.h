@@ -16,35 +16,30 @@ class SkSafeRange
 public:
   operator bool() const
   {
-    return fOK;
-  }
+ return fOK;   }
   bool ok() const
-  {
-    return fOK;
-  }
+  { return fOK; }
     // checks 0 <= value <= max.
     // On success, returns value
     // On failure, returns 0 and sets ok() to false
   template <typename T>
   T checkLE(uint64_t value, T max)
   {
-    SkASSERT(static_cast<int64_t>(max) >= 0);
-    if (value > static_cast<uint64_t>(max))
-    {
-      fOK = false;
-      value = 0;
+        SkASSERT(static_cast<int64_t>(max) >= 0);
+        if (value > static_cast<uint64_t>(max)) {
+            fOK = false;
+            value = 0;
+        }
+        return static_cast<T>(value);
     }
-    return static_cast<T>(value);
-  }
   int checkGE(int value, int min)
   {
-    if (value < min)
-    {
-      fOK = false;
-      value = min;
+        if (value < min) {
+            fOK = false;
+            value = min;
+        }
+        return value;
     }
-    return value;
-  }
 private:
   bool fOK = true;
 };

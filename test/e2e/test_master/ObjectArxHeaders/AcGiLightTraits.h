@@ -549,9 +549,7 @@ public:
     /// If true, skylight illumination will be computed.
     /// </param>
   void setIllumination(bool enable)
-  {
-    return setIlluminationImp(enable);
-  }
+  { return setIlluminationImp(enable); }
     /// <summary>
     /// Should skylight illumination be calculated?
     /// </summary>
@@ -560,9 +558,7 @@ public:
     /// True if skylight illumination will be computed.
     /// </returns>
   bool illumination() const
-  {
-    return illuminationImp();
-  }
+  { return illuminationImp(); }
     /// <summary>
     /// Sets the intensity factor which determines the level of 
     /// non-physical modulation of skylight.
@@ -576,9 +572,7 @@ public:
     /// Returns true if a valid intensity factor is passed in.
     /// </returns>
   bool setIntensityFactor(double intensity)
-  {
-    return setIntensityFactorImp(intensity);
-  }
+  { return setIntensityFactorImp(intensity); }
     /// <summary>
     /// The intensity factor which determines the level of 
     /// non-physical modulation of skylight.
@@ -588,9 +582,7 @@ public:
     /// The instensity factor for skylight.
     /// </returns>
   double intensityFactor() const
-  {
-    return intensityFactorImp();
-  }
+  { return intensityFactorImp(); }
     /// <summary>
     /// Specifies turbidity or atmosphere.
     /// </summary>
@@ -603,9 +595,7 @@ public:
     /// Returns true if a valid atmosphere value is passed in.
     /// </returns>
   bool setHaze(double haze)
-  {
-    return setHazeImp(haze);
-  }
+  { return setHazeImp(haze); }
     /// <summary>
     /// The turbidity or atmosphere value.
     /// </summary>
@@ -614,9 +604,7 @@ public:
     /// The turbidity or atmosphere value.
     /// </returns>
   double haze() const
-  {
-    return hazeImp();
-  }
+  { return hazeImp(); }
     /// <summary>
     /// Sets the world-space height of the horizon plane.
     /// </summary>
@@ -629,9 +617,7 @@ public:
     /// Returns true if a valid height is passed in.
     /// </returns>
   bool setHorizonHeight(double height)
-  {
-    return setHorizonHeightImp(height);
-  }
+  { return setHorizonHeightImp(height); }
     /// <summary>
     /// The world-space height of the horizon plane.
     /// </summary>
@@ -640,9 +626,7 @@ public:
     /// The world-space height of the horizon plane.
     /// </returns>
   double horizonHeight() const
-  {
-    return horizonHeightImp();
-  }
+  { return horizonHeightImp(); }
     /// <summary>
     /// Sets the amount of blurring between ground plane and sky.
     /// </summary>
@@ -655,9 +639,7 @@ public:
     /// Returns true if a valid blur amount is passed in.
     /// </returns>
   bool setHorizonBlur(double blur)
-  {
-    return setHorizonBlurImp(blur);
-  }
+  { return setHorizonBlurImp(blur); }
     /// <summary>
     /// The amount of blurring between ground plane and sky.
     /// </summary>
@@ -666,9 +648,7 @@ public:
     /// The amount of blurring between ground plane and sky.
     /// </returns>
   double horizonBlur() const
-  {
-    return horizonBlurImp();
-  }
+  { return horizonBlurImp(); }
     /// <summary>
     /// Sets the color of the ground plane.
     /// </summary>
@@ -678,9 +658,7 @@ public:
     /// within AutoCAD, including color book colors.
     /// </param>
   void setGroundColor(const AcCmColor& color)
-  {
-    return setGroundColorImp(color);
-  }
+  { return setGroundColorImp(color); }
     /// <summary>
     /// The color of the ground plane.
     /// </summary>
@@ -689,9 +667,7 @@ public:
     /// The color of the ground plane.
     /// </returns>
   AcCmColor groundColor() const
-  {
-    return groundColorImp();
-  }
+  { return groundColorImp(); }
     /// <summary>
     /// Sets the color of the night sky.
     /// </summary>
@@ -701,9 +677,7 @@ public:
     /// within AutoCAD, including color book colors.
     /// </param>
   void setNightColor(const AcCmColor& color)
-  {
-    setNightColorImp(color);
-  }
+  { setNightColorImp(color); }
     /// <summary>
     /// The color of the night sky.
     /// </summary>
@@ -712,9 +686,7 @@ public:
     /// The color of the night sky.
     /// </returns>
   AcCmColor nightColor() const
-  {
-    return nightColorImp();
-  }
+  { return nightColorImp(); }
     /// <summary>
     /// Specifies whether aerial perspective is applied.
     /// </summary>
@@ -723,9 +695,7 @@ public:
     /// If true, aerial perspective is applied.
     /// </param>
   void setAerialPerspective(bool apply)
-  {
-    setAerialPerspectiveImp(apply);
-  }
+  { setAerialPerspectiveImp(apply); }
     /// <summary>
     /// Should aerial perspective be applied?
     /// </summary>
@@ -734,9 +704,7 @@ public:
     /// True if aerial perspective is applied.
     /// </returns>
   bool aerialPerspective() const
-  {
-    return aerialPerspectiveImp();
-  }
+  { return aerialPerspectiveImp(); }
     /// <summary>
     /// Sets the distance at which 10% haze occlusion results.
     /// </summary>
@@ -749,9 +717,7 @@ public:
     /// Returns true if a valid distance is passed in.
     /// </returns>
   bool setVisibilityDistance(double distance)
-  {
-    return setVisibilityDistanceImp(distance);
-  }
+  { return setVisibilityDistanceImp(distance); }
     /// <summary>
     /// The distance at which 10% haze occlusion results.
     /// </summary>
@@ -760,9 +726,7 @@ public:
     /// The distance at which 10% haze occlusion results.
     /// </returns>
   double visibilityDistance() const
-  {
-    return visibilityDistanceImp();
-  }
+  { return visibilityDistanceImp(); }
     /// <summary>
     /// Sets the scale of the sun disk (1.0 = correct size).
     /// </summary>
@@ -775,9 +739,7 @@ public:
     /// Returns true if a valid scale is passed in.
     /// </returns>
   bool setDiskScale(double scale)
-  {
-    return setDiskScaleImp(scale);
-  }
+  { return setDiskScaleImp(scale); }
     /// <summary>
     /// The scale of the sun disk (1.0 = correct size).
     /// </summary>
@@ -786,9 +748,7 @@ public:
     /// The scale of the sun disk (1.0 = correct size).
     /// </returns>
   double diskScale() const
-  {
-    return diskScaleImp();
-  }
+  { return diskScaleImp(); }
     /// <summary>
     /// Sets the intensity of the sun glow.
     /// </summary>
@@ -801,9 +761,7 @@ public:
     /// Returns true if a valid intensity value is passed in.
     /// </returns>
   bool setGlowIntensity(double intensity)
-  {
-    return setGlowIntensityImp(intensity);
-  }
+  { return setGlowIntensityImp(intensity); }
     /// <summary>
     /// The intensity of the sun glow.
     /// </summary>
@@ -812,9 +770,7 @@ public:
     /// The intensity of the sun glow.
     /// </returns>
   double glowIntensity() const
-  {
-    return glowIntensityImp();
-  }
+  { return glowIntensityImp(); }
     /// <summary>
     /// Sets the intensity of the sun disk.
     /// </summary>
@@ -827,9 +783,7 @@ public:
     /// Returns true if a valid intensity value is passed in.
     /// </returns>
   bool setDiskIntensity(double intensity)
-  {
-    return setDiskIntensityImp(intensity);
-  }
+  { return setDiskIntensityImp(intensity); }
     /// <summary>
     /// The intensity of the sun disk.
     /// </summary>
@@ -838,9 +792,7 @@ public:
     /// The intensity of the sun disk.
     /// </returns>
   double diskIntensity() const
-  {
-    return diskIntensityImp();
-  }
+  { return diskIntensityImp(); }
     /// <summary>
     /// Sets the number of samples to take on the solar disk.
     /// </summary>
@@ -857,9 +809,7 @@ public:
     /// This value only applies if shadow type is kAreaSampled.
     /// </remarks>
   bool setSolarDiskSamples(Adesk::UInt16 samples)
-  {
-    return setSolarDiskSamplesImp(samples);
-  }
+  { return setSolarDiskSamplesImp(samples); }
     /// <summary>
     /// The number of samples to take on the solar disk.
     /// </summary>
@@ -872,16 +822,12 @@ public:
     /// Only applies if shadow type is kAreaSampled.
     /// </remarks>
   Adesk::UInt16 solarDiskSamples() const
-  {
-    return solarDiskSamplesImp();
-  }
+  { return solarDiskSamplesImp(); }
     /// <summary>
     /// For internal use only.
     /// </summary>
   bool setSunDirection(const AcGeVector3d& sundir)
-  {
-    return setSunDirectionImp(sundir);
-  }
+  { return setSunDirectionImp(sundir); }
     /// <summary>
     /// Gets the direction (vector) of the sun's light rays.
     /// </summary>
@@ -890,9 +836,7 @@ public:
     /// The direction vector of sunlight, from the Sun to the model.
     /// </returns>
   const AcGeVector3d& sunDirection() const
-  {
-    return sunDirectionImp();
-  }
+  { return sunDirectionImp(); }
     /// <summary>
     /// Sets the red-blue shift on the sky.  This provides control on the "redness" of the
     /// sky.  The default of 0.0 is physically accurate.  A minimum value of -1.0 will produce
@@ -904,9 +848,7 @@ public:
     /// false otherwise.
     /// </returns>
   bool setRedBlueShift(double redBlueShift)
-  {
-    return setRedBlueShiftImp(redBlueShift);
-  }
+  { return setRedBlueShiftImp(redBlueShift); }
     /// <summary>
     /// Returns the red-blue shift on the sky.  This provides control on the "redness" of the
     /// sky.  The default of 0.0 is physically accurate.  A minimum value of -1.0 will produce
@@ -917,9 +859,7 @@ public:
     /// Returns the currently set value.
     /// </returns>
   double redBlueShift(void) const
-  {
-    return redBlueShiftImp();
-  }
+  { return redBlueShiftImp(); }
     /// <summary>
     /// Artificially modifies the sky's saturation level.  The minimum value of 0.0 will produce
     /// a extreme of black and white whereas the maximum value of 2.0 will produce highly boosted
@@ -930,9 +870,7 @@ public:
     /// false otherwise.
     /// </returns>
   bool setSaturation(double saturation)
-  {
-    return setSaturationImp(saturation);
-  }
+  { return setSaturationImp(saturation); }
     /// <summary>
     /// Returns the the sky's saturation level.  The minimum value of 0.0 will produce
     /// a extreme of black and white whereas the maximum value of 2.0 will produce highly boosted
@@ -942,9 +880,7 @@ public:
     /// Returns the currently set value.
     /// </returns>
   double saturation(void) const
-  {
-    return saturationImp();
-  }
+  { return saturationImp(); }
 protected:
   virtual void setIlluminationImp(bool enable);
   virtual bool illuminationImp(void) const;

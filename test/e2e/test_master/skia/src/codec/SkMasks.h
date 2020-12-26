@@ -61,8 +61,8 @@ public:
      */
   uint32_t getAlphaMask() const
   {
-    return fAlpha.mask;
-  }
+        return fAlpha.mask;
+     }
 private:
     /*
      *

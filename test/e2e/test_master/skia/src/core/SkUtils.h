@@ -16,15 +16,15 @@
 */
 static void sk_memset16(uint16_t buffer[], uint16_t value, int count)
 {
-  SkOpts::memset16(buffer, value, count);
+    SkOpts::memset16(buffer, value, count);
 }
 static void sk_memset32(uint32_t buffer[], uint32_t value, int count)
 {
-  SkOpts::memset32(buffer, value, count);
+    SkOpts::memset32(buffer, value, count);
 }
 static void sk_memset64(uint64_t buffer[], uint64_t value, int count)
 {
-  SkOpts::memset64(buffer, value, count);
+    SkOpts::memset64(buffer, value, count);
 }
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -34,43 +34,30 @@ SkUnichar SkUTF8_NextUnichar(const char**);
 SkUnichar SkUTF16_NextUnichar(const uint16_t**);
 ///////////////////////////////////////////////////////////////////////////////
 static bool SkUTF16_IsLeadingSurrogate(uint16_t c)
-{
-  return ((c) &0xFC00) == 0xD800;
-}
+{ return ((c) & 0xFC00) == 0xD800; }
 static bool SkUTF16_IsTrailingSurrogate(uint16_t c)
-{
-  return ((c) &0xFC00) == 0xDC00;
-}
+{ return ((c) & 0xFC00) == 0xDC00; }
 ///////////////////////////////////////////////////////////////////////////////
 static int SkUTFN_CountUnichars(SkTextEncoding enc, const void* utfN, size_t bytes)
 {
-  switch(enc)
-  {
-    case SkTextEncoding::kUTF8:
-      return SkUTF::CountUTF8((const char*) utfN, bytes);
-    case SkTextEncoding::kUTF16:
-      return SkUTF::CountUTF16((const uint16_t*) utfN, bytes);
-    case SkTextEncoding::kUTF32:
-      return SkUTF::CountUTF32((const int32_t*) utfN, bytes);
-default:
-    SkDEBUGFAIL("unknown text encoding");
-    return -1;
-}
+    switch (enc) {
+        case SkTextEncoding::kUTF8:  return SkUTF::CountUTF8((const char*)utfN, bytes);
+        case SkTextEncoding::kUTF16: return SkUTF::CountUTF16((const uint16_t*)utfN, bytes);
+        case SkTextEncoding::kUTF32: return SkUTF::CountUTF32((const int32_t*)utfN, bytes);
+        default: SkDEBUGFAIL("unknown text encoding"); return -1;
+    }
 }
 static SkUnichar SkUTFN_Next(SkTextEncoding enc, const void** ptr, const void* stop)
 {
-  switch(enc)
-  {
-    case SkTextEncoding::kUTF8:
-      return SkUTF::NextUTF8((const char**) ptr, (const char*) stop);
-    case SkTextEncoding::kUTF16:
-      return SkUTF::NextUTF16((const uint16_t**) ptr, (const uint16_t*) stop);
-    case SkTextEncoding::kUTF32:
-      return SkUTF::NextUTF32((const int32_t**) ptr, (const int32_t*) stop);
-default:
-    SkDEBUGFAIL("unknown text encoding");
-    return -1;
-}
+    switch (enc) {
+        case SkTextEncoding::kUTF8:
+            return SkUTF::NextUTF8((const char**)ptr, (const char*)stop);
+        case SkTextEncoding::kUTF16:
+            return SkUTF::NextUTF16((const uint16_t**)ptr, (const uint16_t*)stop);
+        case SkTextEncoding::kUTF32:
+            return SkUTF::NextUTF32((const int32_t**)ptr, (const int32_t*)stop);
+        default: SkDEBUGFAIL("unknown text encoding"); return -1;
+    }
 }
 ///////////////////////////////////////////////////////////////////////////////
 namespace SkHexadecimalDigits
@@ -92,14 +79,14 @@ template <typename T, typename P>
 SK_ALWAYS_INLINE static T sk_unaligned_load(const P* ptr)
 {
     // TODO: static_assert desirable things about T here so as not to be totally abused.
-  T val;
-  memcpy(&val, ptr, sizeof(val));
-  return val;
+    T val;
+    memcpy(&val, ptr, sizeof(val));
+    return val;
 }
 template <typename T, typename P>
 SK_ALWAYS_INLINE static void sk_unaligned_store(P* ptr, T val)
 {
     // TODO: ditto
-  memcpy(ptr, &val, sizeof(val));
+    memcpy(ptr, &val, sizeof(val));
 }
 #endif

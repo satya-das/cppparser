@@ -19,50 +19,58 @@ class wxCoTaskMemPtr
 public:
   typedef T element_type;
   wxCoTaskMemPtr()
-    : m_ptr(NULL)
-  {
-  }
+    :  m_ptr(NULL)
+    
+    {
+    }
   explicit wxCoTaskMemPtr(T* ptr)
-    : m_ptr(ptr)
-  {
-  }
+    :  m_ptr(ptr)
+    
+    {
+    }
     // Uses ::CoTaskMemAlloc() to allocate size bytes.
   explicit wxCoTaskMemPtr(size_t size)
-    : m_ptr(static_cast<T*>(::CoTaskMemAlloc(size)))
-  {
-  }
+    :  m_ptr(static_cast<T*>(::CoTaskMemAlloc(size)))
+    
+    {
+    }
   ~wxCoTaskMemPtr()
   {
-    ::CoTaskMemFree(m_ptr);
-  }
+
+        ::CoTaskMemFree(m_ptr);
+      }
   void reset(T* ptr = NULL)
   {
-    if (m_ptr != ptr)
-    {
-      ::CoTaskMemFree(m_ptr);
-      m_ptr = ptr;
+        if ( m_ptr != ptr )
+        {
+            ::CoTaskMemFree(m_ptr);
+            m_ptr = ptr;
+        }
     }
-  }
   operator T*() const
   {
-    return m_ptr;
-  }
+
+        return m_ptr;
+      }
     // It would be better to forbid direct access completely but we do need it,
     // so provide it but it can only be used to initialize the pointer,
     // not to modify an existing one.
   T** operator&()
   {
-    wxASSERT_MSG(!m_ptr, wxS("Can't get direct access to initialized pointer"));
-    return &m_ptr;
-  }
+        wxASSERT_MSG(!m_ptr,
+                     wxS("Can't get direct access to initialized pointer"));
+
+        return &m_ptr;
+    }
     // Gives up the ownership of the pointer,
     // making the caller responsible for freeing it.
   T* release()
   {
-    T* ptr(m_ptr);
-    m_ptr = NULL;
-    return ptr;
-  }
+        T* ptr(m_ptr);
+
+        m_ptr = NULL;
+        return ptr;
+    }
 private:
   T* m_ptr;
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxCoTaskMemPtr, T);

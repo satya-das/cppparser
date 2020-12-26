@@ -15,12 +15,12 @@ public:
   void setScale(float rScale, float gScale, float bScale, float aScale = 1.0f);
   void setRowMajor(const float src[20])
   {
-    memcpy(fMat, src, sizeof(fMat));
-  }
+        memcpy(fMat, src, sizeof(fMat));
+    }
   void getRowMajor(float dst[20]) const
   {
-    memcpy(dst, fMat, sizeof(fMat));
-  }
+        memcpy(dst, fMat, sizeof(fMat));
+    }
   enum Axis {
         kR_Axis = 0,
         kG_Axis = 1,
@@ -33,33 +33,27 @@ public:
   void postTranslate(float dr, float dg, float db, float da);
   void setConcat(const SkColorMatrix& a, const SkColorMatrix& b);
   void preConcat(const SkColorMatrix& mat)
-  {
-    this->setConcat(*this, mat);
-  }
+  { this->setConcat(*this, mat); }
   void postConcat(const SkColorMatrix& mat)
-  {
-    this->setConcat(mat, *this);
-  }
+  { this->setConcat(mat, *this); }
   void setSaturation(float sat);
   void setRGB2YUV();
   void setYUV2RGB();
   bool operator==(const SkColorMatrix& other) const
   {
-    return 0 == memcmp(fMat, other.fMat, sizeof(fMat));
-  }
+        return 0 == memcmp(fMat, other.fMat, sizeof(fMat));
+    }
   bool operator!=(const SkColorMatrix& other) const
-  {
-    return !((*this) == other);
-  }
+  { return !((*this) == other); }
   float* get20(float m[20]) const
   {
-    memcpy(m, fMat, sizeof(fMat));
-    return m;
-  }
+        memcpy(m, fMat, sizeof(fMat));
+        return m;
+    }
   void set20(const float m[20])
   {
-    memcpy(fMat, m, sizeof(fMat));
-  }
+        memcpy(fMat, m, sizeof(fMat));
+    }
 private:
   float fMat[20];
   friend class SkColorFilters;

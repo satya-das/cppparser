@@ -39,23 +39,21 @@ public:
     */
   void setMirror(bool mirror)
   {
-    fFlags = SkToU8((fFlags & ~kMirror) | (int) mirror);
-  }
+        fFlags = SkToU8((fFlags & ~kMirror) | (int)mirror);
+    }
     /** Set the repeat count. The repeat count may be fractional.
         @param repeatCount Multiplies the total time by this scalar.
     */
   void setRepeatCount(SkScalar repeatCount)
-  {
-    fRepeat = repeatCount;
-  }
+  { fRepeat = repeatCount; }
     /** Set the whether the repeat is mirrored.
         @param reset If true, the odd repeats interpolate from the last key
                      frame and the first.
     */
   void setReset(bool reset)
   {
-    fFlags = SkToU8((fFlags & ~kReset) | (int) reset);
-  }
+        fFlags = SkToU8((fFlags & ~kReset) | (int)reset);
+    }
   Result timeToT(SkMSec time, SkScalar* T, int* index, bool* exact) const;
 protected:
   enum Flags {

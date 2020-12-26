@@ -17,9 +17,7 @@ public:
   void EndModalSession();
   void WakeUp() override;
   void OSXUseLowLevelWakeup(bool useIt)
-  {
-    m_osxLowLevelWakeUp = useIt;
-  }
+  { m_osxLowLevelWakeUp = useIt ; }
 protected:
   int DoDispatchTimeout(unsigned long timeout) override;
   void OSXDoRun() override;

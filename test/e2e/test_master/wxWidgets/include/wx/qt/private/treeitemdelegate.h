@@ -17,10 +17,12 @@ class wxQTTreeItemDelegate : public QStyledItemDelegate
 {
 public:
   explicit wxQTTreeItemDelegate(wxWindow* parent)
-    : m_parent(parent)
-    , m_textCtrl(NULL)
-  {
-  }
+    :  m_parent(parent),
+        m_textCtrl(NULL)
+    
+    {
+
+        }
   QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem&, const QModelIndex& index) const override
   {
     if (m_textCtrl != NULL)
@@ -36,10 +38,11 @@ public:
   {
     if (m_textCtrl != NULL)
     {
-      m_currentModelIndex = QModelIndex();
-      wxTheApp->ScheduleForDestruction(m_textCtrl);
-      m_textCtrl = NULL;
-    }
+
+            m_currentModelIndex = QModelIndex(); // invalidate the index
+            wxTheApp->ScheduleForDestruction(m_textCtrl);
+            m_textCtrl = NULL;
+            }
   }
   void setModelData(QWidget*, QAbstractItemModel*, const QModelIndex&) const override
   {
@@ -47,35 +50,37 @@ public:
   }
   wxTextCtrl* GetEditControl() const
   {
-    return m_textCtrl;
-  }
+        return m_textCtrl;
+    }
   QModelIndex GetCurrentModelIndex() const
   {
-    return m_currentModelIndex;
-  }
+        return m_currentModelIndex;
+    }
   void AcceptModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
   {
-    QStyledItemDelegate::setModelData(editor, model, index);
-  }
+        QStyledItemDelegate::setModelData(editor, model, index);
+    }
   bool helpEvent(QHelpEvent* event, QAbstractItemView* view, const QStyleOptionViewItem& option, const QModelIndex& index)
   {
-    if (event->type() == QEvent::ToolTip)
-    {
-      const QRect& itemRect = view->visualRect(index);
-      const QSize& bestSize = sizeHint(option, index);
-      if (itemRect.width() < bestSize.width())
-      {
-        const QString& value = index.data(Qt::DisplayRole).toString();
-        QToolTip::showText(event->globalPos(), value, view);
-      }
-      else 
-      {
-        QToolTip::hideText();
-      }
-      return true;
+        if ( event->type() == QEvent::ToolTip )
+        {
+            const QRect &itemRect = view->visualRect(index);
+            const QSize &bestSize = sizeHint(option, index);
+            if ( itemRect.width() < bestSize.width() )
+            {
+                const QString &value = index.data(Qt::DisplayRole).toString();
+                QToolTip::showText(event->globalPos(), value, view);
+            }
+            else
+            {
+                QToolTip::hideText();
+            }
+
+            return true;
+        }
+
+        return QStyledItemDelegate::helpEvent(event, view, option, index);
     }
-    return QStyledItemDelegate::helpEvent(event, view, option, index);
-  }
 private:
   wxWindow* m_parent;
   mutable wxTextCtrl* m_textCtrl;

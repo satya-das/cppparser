@@ -32,17 +32,11 @@ public:
     // get/set the tooltip text
   void SetTip(const wxString& tip);
   wxString GetTip() const
-  {
-    return m_text;
-  }
+  { return m_text; }
   wxWindow* GetWindow() const
-  {
-    return m_window;
-  }
+  { return m_window; }
   bool IsOk() const
-  {
-    return m_window != NULL;
-  }
+  { return m_window != NULL; }
     // implementation
   void Apply(wxWindow* win);
 private:

@@ -14,27 +14,28 @@ class GrRectanizerSkyline : public GrRectanizer
 {
 public:
   GrRectanizerSkyline(int w, int h)
-    : INHERITED(w, h)
-  {
-    this->reset();
-  }
+    :  INHERITED(w, h) 
+    {
+
+        this->reset();
+        }
   virtual ~GrRectanizerSkyline()
   {
-  }
+   }
   void reset() override
   {
-    fAreaSoFar = 0;
-    fSkyline.reset();
-    SkylineSegment* seg = fSkyline.append(1);
-    seg->fX = 0;
-    seg->fY = 0;
-    seg->fWidth = this->width();
-  }
+        fAreaSoFar = 0;
+        fSkyline.reset();
+        SkylineSegment* seg = fSkyline.append(1);
+        seg->fX = 0;
+        seg->fY = 0;
+        seg->fWidth = this->width();
+    }
   bool addRect(int w, int h, SkIPoint16* loc) override;
   float percentFull() const override
   {
-    return fAreaSoFar / ((float) this->width() * this->height());
-  }
+        return fAreaSoFar / ((float)this->width() * this->height());
+    }
 private:
   struct SkylineSegment
   {

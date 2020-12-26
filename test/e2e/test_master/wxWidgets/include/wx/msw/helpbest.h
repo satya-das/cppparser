@@ -17,16 +17,17 @@ class WXDLLIMPEXP_HTML wxBestHelpController : public wxHelpControllerBase
 {
 public:
   wxBestHelpController(wxWindow* parentWindow = NULL, int style = wxHF_DEFAULT_STYLE)
-    : wxHelpControllerBase(parentWindow)
-    , m_helpControllerType(wxUseNone)
-    , m_helpController(NULL)
-    , m_style(style)
-  {
-  }
+    :  wxHelpControllerBase(parentWindow),
+          m_helpControllerType(wxUseNone),
+          m_helpController(NULL),
+          m_style(style)
+    
+    {
+
+        }
   virtual ~wxBestHelpController()
   {
-    delete m_helpController;
-  }
+ delete m_helpController;   }
     // Must call this to set the filename
   bool Initialize(const wxString& file) override;
   bool Initialize(const wxString& file, int) override

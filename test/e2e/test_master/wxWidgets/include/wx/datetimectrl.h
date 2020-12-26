@@ -31,8 +31,7 @@ public:
     // value which is still displayed by the control in this case, and ignored
     // elsewhere.
   virtual void SetNullText(const wxString&)
-  {
-  }
+  { }
 };
 #    if  defined(__WXMSW__) && !defined(__WXUNIVERSAL__)
 #      include "wx/msw/datetimectrl.h"

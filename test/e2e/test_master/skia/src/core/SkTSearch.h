@@ -33,41 +33,34 @@
 template <typename T, typename K, typename LESS>
 int SkTSearch(const T base[], int count, const K& key, size_t elemSize, LESS& less)
 {
-  SkASSERT(count >= 0);
-  if (count <= 0)
-  {
-    return ~0;
-  }
-  SkASSERT(base != nullptr);
-  int lo = 0;
-  int hi = count - 1;
-  while (lo < hi)
-  {
-    int mid = lo + ((hi - lo) >> 1);
-    const T* elem = (const T*) ((const char*) base + mid * elemSize);
-    if (less(*elem, key))
-    {
-      lo = mid + 1;
+    SkASSERT(count >= 0);
+    if (count <= 0) {
+        return ~0;
     }
-    else 
-    {
-      hi = mid;
+
+    SkASSERT(base != nullptr); // base may be nullptr if count is zero
+
+    int lo = 0;
+    int hi = count - 1;
+
+    while (lo < hi) {
+        int mid = lo + ((hi - lo) >> 1);
+        const T* elem = (const T*)((const char*)base + mid * elemSize);
+
+        if (less(*elem, key))
+            lo = mid + 1;
+        else
+            hi = mid;
     }
-  }
-  const T* elem = (const T*) ((const char*) base + hi * elemSize);
-  if (less(*elem, key))
-  {
-    hi += 1;
-    hi = ~hi;
-  }
-  else 
-  {
-    if (less(key, *elem))
-    {
-      hi = ~hi;
+
+    const T* elem = (const T*)((const char*)base + hi * elemSize);
+    if (less(*elem, key)) {
+        hi += 1;
+        hi = ~hi;
+    } else if (less(key, *elem)) {
+        hi = ~hi;
     }
-  }
-  return hi;
+    return hi;
 }
 /*
 // Adapts a less-than function to a functor.
@@ -87,16 +80,14 @@ template <typename T>
 struct SkTLessFunctor
 {
   bool operator()(const T& a, const T& b)
-  {
-    return a < b;
-  }
+  { return a < b; }
 };
 // Specialization for T==K, compare using op <.
 template <typename T>
 int SkTSearch(const T base[], int count, const T& target, size_t elemSize)
 {
-  static SkTLessFunctor<T> functor;
-  return SkTSearch(base, count, target, elemSize, functor);
+    static SkTLessFunctor<T> functor;
+    return SkTSearch(base, count, target, elemSize, functor);
 }
 // Similar to SkLessFunctionToFunctorAdaptor but makes the functor interface take T* rather than T.
 template <typename T, bool (LESS)(const T&, const T&)> struct SkTLessFunctionToPtrFunctorAdaptor {
@@ -129,13 +120,9 @@ public:
   SkAutoAsciiToLC(const char str[], size_t len = (size_t) -1);
   ~SkAutoAsciiToLC();
   const char* lc() const
-  {
-    return fLC;
-  }
+  { return fLC; }
   size_t length() const
-  {
-    return fLength;
-  }
+  { return fLength; }
 private:
   char* fLC;
   size_t fLength;

@@ -55,9 +55,7 @@ public:
         This is only used for testing and debugging.
      */
   unsigned int GetSize() const
-  {
-    return m_ranges.size();
-  }
+  { return m_ranges.size(); }
 private:
   wxVector<RowRange> m_ranges;
     /**

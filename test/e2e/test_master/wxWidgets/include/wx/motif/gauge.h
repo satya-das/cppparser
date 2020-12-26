@@ -16,13 +16,12 @@ class WXDLLIMPEXP_CORE wxGauge : public wxGaugeBase
 public:
   inline wxGauge()
   {
-    m_rangeMax = 0;
-    m_gaugePos = 0;
-  }
+ m_rangeMax = 0; m_gaugePos = 0;   }
   inline wxGauge(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxGA_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxGaugeNameStr))
   {
-    Create(parent, id, range, pos, size, style, validator, name);
-  }
+
+        Create(parent, id, range, pos, size, style, validator, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxGA_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxGaugeNameStr));
   void SetRange(int r);
   void SetValue(int pos);

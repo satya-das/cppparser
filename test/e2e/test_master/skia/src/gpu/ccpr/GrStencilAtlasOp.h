@@ -27,23 +27,21 @@ public:
   };
     // GrDrawOp interface.
   const char* name() const override
-  {
-    return "StencilAtlasOp (CCPR)";
-  }
+  { return "StencilAtlasOp (CCPR)"; }
   FixedFunctionFlags fixedFunctionFlags() const override
   {
-    return FixedFunctionFlags::kUsesHWAA | FixedFunctionFlags::kUsesStencil;
-  }
+        return FixedFunctionFlags::kUsesHWAA | FixedFunctionFlags::kUsesStencil;
+    }
   GrProcessorSet::Analysis finalize(const GrCaps&, const GrAppliedClip*, bool hasMixedSampledCoverage, GrClampType) override
   {
-    return GrProcessorSet::EmptySetAnalysis();
-  }
+        return GrProcessorSet::EmptySetAnalysis();
+    }
   CombineResult onCombineIfPossible(GrOp* other, const GrCaps&) override
   {
         // We will only make multiple copy ops if they have different source proxies.
         // TODO: make use of texture chaining.
-    return CombineResult::kCannotCombine;
-  }
+        return CombineResult::kCannotCombine;
+    }
   void onPrepare(GrOpFlushState*) override
   {
   }
@@ -52,16 +50,18 @@ public:
 private:
   friend class ::GrOpMemoryPool;
   GrStencilAtlasOp(sk_sp<const GrCCPerFlushResources> resources, FillBatchID fillBatchID, StrokeBatchID strokeBatchID, int baseStencilResolveInstance, int endStencilResolveInstance, const SkISize& drawBounds)
-    : GrDrawOp(ClassID())
-    , fResources(std::move(resources))
-    , fFillBatchID(fillBatchID)
-    , fStrokeBatchID(strokeBatchID)
-    , fBaseStencilResolveInstance(baseStencilResolveInstance)
-    , fEndStencilResolveInstance(endStencilResolveInstance)
-    , fDrawBounds(drawBounds)
-  {
-    this->setBounds(SkRect::MakeIWH(fDrawBounds.width(), fDrawBounds.height()), GrOp::HasAABloat::kNo, GrOp::IsHairline::kNo);
-  }
+    :  GrDrawOp(ClassID())
+            , fResources(std::move(resources))
+            , fFillBatchID(fillBatchID)
+            , fStrokeBatchID(strokeBatchID)
+            , fBaseStencilResolveInstance(baseStencilResolveInstance)
+            , fEndStencilResolveInstance(endStencilResolveInstance)
+            , fDrawBounds(drawBounds) 
+    {
+
+        this->setBounds(SkRect::MakeIWH(fDrawBounds.width(), fDrawBounds.height()),
+                        GrOp::HasAABloat::kNo, GrOp::IsHairline::kNo);
+        }
   const sk_sp<const GrCCPerFlushResources> fResources;
   const FillBatchID fFillBatchID;
   const StrokeBatchID fStrokeBatchID;

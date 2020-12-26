@@ -56,71 +56,53 @@ class GrConicEffect : public GrGeometryProcessor
 public:
   static sk_sp<GrGeometryProcessor> Make(const SkPMColor4f& color, const SkMatrix& viewMatrix, const GrClipEdgeType edgeType, const GrCaps& caps, const SkMatrix& localMatrix, bool usesLocalCoords, uint8_t coverage = 0xff)
   {
-    switch(edgeType)
-    {
-      case GrClipEdgeType::kFillAA:
-        if (!caps.shaderCaps()->shaderDerivativeSupport())
-        {
-          return nullptr;
+        switch (edgeType) {
+            case GrClipEdgeType::kFillAA:
+                if (!caps.shaderCaps()->shaderDerivativeSupport()) {
+                    return nullptr;
+                }
+                return sk_sp<GrGeometryProcessor>(
+                    new GrConicEffect(color, viewMatrix, coverage, GrClipEdgeType::kFillAA,
+                                      localMatrix, usesLocalCoords));
+            case GrClipEdgeType::kHairlineAA:
+                if (!caps.shaderCaps()->shaderDerivativeSupport()) {
+                    return nullptr;
+                }
+                return sk_sp<GrGeometryProcessor>(
+                    new GrConicEffect(color, viewMatrix, coverage,
+                                      GrClipEdgeType::kHairlineAA, localMatrix,
+                                      usesLocalCoords));
+            case GrClipEdgeType::kFillBW:
+                return sk_sp<GrGeometryProcessor>(
+                    new GrConicEffect(color, viewMatrix, coverage, GrClipEdgeType::kFillBW,
+                                      localMatrix, usesLocalCoords));
+            default:
+                return nullptr;
         }
-        return sk_sp<GrGeometryProcessor>(new GrConicEffect(color, viewMatrix, coverage, GrClipEdgeType::kFillAA, localMatrix, usesLocalCoords));
-      case GrClipEdgeType::kHairlineAA:
-        if (!caps.shaderCaps()->shaderDerivativeSupport())
-        {
-          return nullptr;
-        }
-        return sk_sp<GrGeometryProcessor>(new GrConicEffect(color, viewMatrix, coverage, GrClipEdgeType::kHairlineAA, localMatrix, usesLocalCoords));
-      case GrClipEdgeType::kFillBW:
-        return sk_sp<GrGeometryProcessor>(new GrConicEffect(color, viewMatrix, coverage, GrClipEdgeType::kFillBW, localMatrix, usesLocalCoords));
-default:
-      return nullptr;
-  }
-  }
+    }
   virtual ~GrConicEffect();
   const char* name() const override
-  {
-    return "Conic";
-  }
+  { return "Conic"; }
   inline const Attribute& inPosition() const
-  {
-    return kAttributes[0];
-  }
+  { return kAttributes[0]; }
   inline const Attribute& inConicCoeffs() const
-  {
-    return kAttributes[1];
-  }
+  { return kAttributes[1]; }
   inline bool isAntiAliased() const
-  {
-    return GrProcessorEdgeTypeIsAA(fEdgeType);
-  }
+  { return GrProcessorEdgeTypeIsAA(fEdgeType); }
   inline bool isFilled() const
-  {
-    return GrProcessorEdgeTypeIsFill(fEdgeType);
-  }
+  { return GrProcessorEdgeTypeIsFill(fEdgeType); }
   inline GrClipEdgeType getEdgeType() const
-  {
-    return fEdgeType;
-  }
+  { return fEdgeType; }
   const SkPMColor4f& color() const
-  {
-    return fColor;
-  }
+  { return fColor; }
   const SkMatrix& viewMatrix() const
-  {
-    return fViewMatrix;
-  }
+  { return fViewMatrix; }
   const SkMatrix& localMatrix() const
-  {
-    return fLocalMatrix;
-  }
+  { return fLocalMatrix; }
   bool usesLocalCoords() const
-  {
-    return fUsesLocalCoords;
-  }
+  { return fUsesLocalCoords; }
   uint8_t coverageScale() const
-  {
-    return fCoverageScale;
-  }
+  { return fCoverageScale; }
   void getGLSLProcessorKey(const GrShaderCaps& caps, GrProcessorKeyBuilder* b) const override;
   GrGLSLPrimitiveProcessor* createGLSLInstance(const GrShaderCaps&) const override;
 private:
@@ -150,71 +132,53 @@ class GrQuadEffect : public GrGeometryProcessor
 public:
   static sk_sp<GrGeometryProcessor> Make(const SkPMColor4f& color, const SkMatrix& viewMatrix, const GrClipEdgeType edgeType, const GrCaps& caps, const SkMatrix& localMatrix, bool usesLocalCoords, uint8_t coverage = 0xff)
   {
-    switch(edgeType)
-    {
-      case GrClipEdgeType::kFillAA:
-        if (!caps.shaderCaps()->shaderDerivativeSupport())
-        {
-          return nullptr;
+        switch (edgeType) {
+            case GrClipEdgeType::kFillAA:
+                if (!caps.shaderCaps()->shaderDerivativeSupport()) {
+                    return nullptr;
+                }
+                return sk_sp<GrGeometryProcessor>(
+                    new GrQuadEffect(color, viewMatrix, coverage, GrClipEdgeType::kFillAA,
+                                     localMatrix, usesLocalCoords));
+            case GrClipEdgeType::kHairlineAA:
+                if (!caps.shaderCaps()->shaderDerivativeSupport()) {
+                    return nullptr;
+                }
+                return sk_sp<GrGeometryProcessor>(
+                    new GrQuadEffect(color, viewMatrix, coverage,
+                                     GrClipEdgeType::kHairlineAA, localMatrix,
+                                     usesLocalCoords));
+            case GrClipEdgeType::kFillBW:
+                return sk_sp<GrGeometryProcessor>(
+                    new GrQuadEffect(color, viewMatrix, coverage, GrClipEdgeType::kFillBW,
+                                     localMatrix, usesLocalCoords));
+            default:
+                return nullptr;
         }
-        return sk_sp<GrGeometryProcessor>(new GrQuadEffect(color, viewMatrix, coverage, GrClipEdgeType::kFillAA, localMatrix, usesLocalCoords));
-      case GrClipEdgeType::kHairlineAA:
-        if (!caps.shaderCaps()->shaderDerivativeSupport())
-        {
-          return nullptr;
-        }
-        return sk_sp<GrGeometryProcessor>(new GrQuadEffect(color, viewMatrix, coverage, GrClipEdgeType::kHairlineAA, localMatrix, usesLocalCoords));
-      case GrClipEdgeType::kFillBW:
-        return sk_sp<GrGeometryProcessor>(new GrQuadEffect(color, viewMatrix, coverage, GrClipEdgeType::kFillBW, localMatrix, usesLocalCoords));
-default:
-      return nullptr;
-  }
-  }
+    }
   virtual ~GrQuadEffect();
   const char* name() const override
-  {
-    return "Quad";
-  }
+  { return "Quad"; }
   inline const Attribute& inPosition() const
-  {
-    return kAttributes[0];
-  }
+  { return kAttributes[0]; }
   inline const Attribute& inHairQuadEdge() const
-  {
-    return kAttributes[1];
-  }
+  { return kAttributes[1]; }
   inline bool isAntiAliased() const
-  {
-    return GrProcessorEdgeTypeIsAA(fEdgeType);
-  }
+  { return GrProcessorEdgeTypeIsAA(fEdgeType); }
   inline bool isFilled() const
-  {
-    return GrProcessorEdgeTypeIsFill(fEdgeType);
-  }
+  { return GrProcessorEdgeTypeIsFill(fEdgeType); }
   inline GrClipEdgeType getEdgeType() const
-  {
-    return fEdgeType;
-  }
+  { return fEdgeType; }
   const SkPMColor4f& color() const
-  {
-    return fColor;
-  }
+  { return fColor; }
   const SkMatrix& viewMatrix() const
-  {
-    return fViewMatrix;
-  }
+  { return fViewMatrix; }
   const SkMatrix& localMatrix() const
-  {
-    return fLocalMatrix;
-  }
+  { return fLocalMatrix; }
   bool usesLocalCoords() const
-  {
-    return fUsesLocalCoords;
-  }
+  { return fUsesLocalCoords; }
   uint8_t coverageScale() const
-  {
-    return fCoverageScale;
-  }
+  { return fCoverageScale; }
   void getGLSLProcessorKey(const GrShaderCaps& caps, GrProcessorKeyBuilder* b) const override;
   GrGLSLPrimitiveProcessor* createGLSLInstance(const GrShaderCaps&) const override;
 private:

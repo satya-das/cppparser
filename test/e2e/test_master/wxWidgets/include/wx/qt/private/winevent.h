@@ -22,18 +22,19 @@ class wxQtSignalHandler
 protected:
   wxQtSignalHandler(Handler* handler)
   {
-    m_handler = handler;
-  }
+
+        m_handler = handler;
+      }
   void EmitEvent(wxEvent& event) const
   {
-    wxWindow* handler = GetHandler();
-    event.SetEventObject(handler);
-    handler->HandleWindowEvent(event);
-  }
+        wxWindow *handler = GetHandler();
+        event.SetEventObject( handler );
+        handler->HandleWindowEvent( event );
+    }
   virtual Handler* GetHandler() const
   {
-    return m_handler;
-  }
+        return m_handler;
+    }
 private:
   Handler* m_handler;
 };
@@ -42,25 +43,31 @@ class wxQtEventSignalHandler : public Widget, public wxQtSignalHandler< Handler 
 {
 public:
   wxQtEventSignalHandler(wxWindow* parent, Handler* handler)
-    : Widget(parent != NULL ? parent->GetHandle() : NULL)
-    , wxQtSignalHandler< Handler >(handler)
-  {
+    :  Widget( parent != NULL ? parent->GetHandle() : NULL )
+        , wxQtSignalHandler< Handler >( handler )
+    
+    {
+
         // Set immediately as it is used to check if wxWindow is alive
-    wxWindow::QtStoreWindowPointer(this, handler);
+        wxWindow::QtStoreWindowPointer( this, handler );
+
         // Handle QWidget destruction signal AFTER it gets deleted
-    QObject::connect(this, &QObject::destroyed, this, &wxQtEventSignalHandler::HandleDestroyedSignal);
-    Widget::setMouseTracking(true);
-  }
+        QObject::connect( this, &QObject::destroyed, this,
+                          &wxQtEventSignalHandler::HandleDestroyedSignal );
+
+        Widget::setMouseTracking(true);
+        }
   void HandleDestroyedSignal()
   {
-  }
+    }
   Handler* GetHandler() const override
   {
         // Only process the signal / event if the wxWindow is not destroyed
     if (!wxWindow::QtRetrieveWindowPointer(this))
     {
-      return NULL;
-    }
+
+            return NULL;
+            }
     else 
     {
       return wxQtSignalHandler< Handler >::GetHandler();

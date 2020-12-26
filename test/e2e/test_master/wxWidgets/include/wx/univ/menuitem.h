@@ -28,21 +28,13 @@ public:
     // hopefully
   void SetBitmaps(const wxBitmap& bmpChecked, const wxBitmap& bmpUnchecked = wxNullBitmap);
   void SetBitmap(const wxBitmap& bmp)
-  {
-    SetBitmaps(bmp);
-  }
+  { SetBitmaps(bmp); }
   const wxBitmap& GetBitmap(bool checked = true) const
-  {
-    return checked ? m_bmpChecked : m_bmpUnchecked;
-  }
+  { return checked ? m_bmpChecked : m_bmpUnchecked; }
   void SetDisabledBitmap(const wxBitmap& bmpDisabled)
-  {
-    m_bmpDisabled = bmpDisabled;
-  }
+  { m_bmpDisabled = bmpDisabled; }
   const wxBitmap& GetDisabledBitmap() const
-  {
-    return m_bmpDisabled;
-  }
+  { return m_bmpDisabled; }
     // mark item as belonging to the given radio group
   void SetAsRadioGroupStart();
   void SetRadioGroupStart(int start);
@@ -53,31 +45,29 @@ public:
 
     // get the accel index of our label or -1 if none
   int GetAccelIndex() const
-  {
-    return m_indexAccel;
-  }
+  { return m_indexAccel; }
     // get the accel string (displayed to the right of the label)
   const wxString& GetAccelString() const
-  {
-    return m_strAccel;
-  }
+  { return m_strAccel; }
     // set/get the y coord and the height of this item: note that it must be
     // set first and retrieved later, the item doesn't calculate it itself
   void SetGeometry(wxCoord y, wxCoord height)
   {
-    m_posY = y;
-    m_height = height;
-  }
+        m_posY = y;
+        m_height = height;
+    }
   wxCoord GetPosition() const
   {
-    wxASSERT_MSG(m_posY != wxDefaultCoord, wxT("must call SetHeight first!"));
-    return m_posY;
-  }
+        wxASSERT_MSG( m_posY != wxDefaultCoord, wxT("must call SetHeight first!") );
+
+        return m_posY;
+    }
   wxCoord GetHeight() const
   {
-    wxASSERT_MSG(m_height != wxDefaultCoord, wxT("must call SetHeight first!"));
-    return m_height;
-  }
+        wxASSERT_MSG( m_height != wxDefaultCoord, wxT("must call SetHeight first!") );
+
+        return m_height;
+    }
 protected:
     // notify the menu about the change in this item
   inline void NotifyMenu();

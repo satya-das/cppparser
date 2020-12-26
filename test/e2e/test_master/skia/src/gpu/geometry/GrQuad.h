@@ -36,35 +36,38 @@ public:
   static const int kTypeCount = static_cast<int>(Type::kLast) + 1;
   GrQuad();
   explicit GrQuad(const SkRect& rect)
-    : fX(rect.fLeft, rect.fLeft, rect.fRight, rect.fRight)
-    , fY(rect.fTop, rect.fBottom, rect.fTop, rect.fBottom)
-    , fW(1.f, 1.f, 1.f, 1.f)
-    , fType(Type::kAxisAligned)
-  {
-  }
+    :  fX{rect.fLeft, rect.fLeft, rect.fRight, rect.fRight}
+            , fY{rect.fTop, rect.fBottom, rect.fTop, rect.fBottom}
+            , fW{1.f, 1.f, 1.f, 1.f}
+            , fType(Type::kAxisAligned) 
+    {
+    }
   GrQuad(const skvx::Vec<4, float>& xs, const skvx::Vec<4, float>& ys, Type type)
-    : fType(type)
-  {
-    SkASSERT(type != Type::kPerspective);
-    xs.store(fX);
-    ys.store(fY);
-    fW[0] = fW[1] = fW[2] = fW[3] = 1.f;
-  }
+    :  fType(type) 
+    {
+
+        SkASSERT(type != Type::kPerspective);
+        xs.store(fX);
+        ys.store(fY);
+        fW[0] = fW[1] = fW[2] = fW[3] = 1.f;
+        }
   GrQuad(const skvx::Vec<4, float>& xs, const skvx::Vec<4, float>& ys, const skvx::Vec<4, float>& ws, Type type)
-    : fType(type)
-  {
-    xs.store(fX);
-    ys.store(fY);
-    ws.store(fW);
-  }
+    :  fType(type) 
+    {
+
+        xs.store(fX);
+        ys.store(fY);
+        ws.store(fW);
+        }
     // Copy 4 values from each of the arrays into the quad's components
   GrQuad(const float xs[4], const float ys[4], const float ws[4], Type type)
-    : fType(type)
-  {
-    memcpy(fX, xs, 4 * sizeof(float));
-    memcpy(fY, ys, 4 * sizeof(float));
-    memcpy(fW, ws, 4 * sizeof(float));
-  }
+    :  fType(type) 
+    {
+
+        memcpy(fX, xs, 4 * sizeof(float));
+        memcpy(fY, ys, 4 * sizeof(float));
+        memcpy(fW, ws, 4 * sizeof(float));
+        }
   static GrQuad MakeFromRect(const SkRect&, const SkMatrix&);
     // Creates a GrQuad from the quadrilateral 'pts', transformed by the matrix. The input
     // points array is arranged as per SkRect::toQuad (top-left, top-right, bottom-right,
@@ -72,85 +75,59 @@ public:
   static GrQuad MakeFromSkQuad(const SkPoint pts[4], const SkMatrix&);
   GrQuad& operator=(const GrQuad&);
   SkPoint3 point3(int i) const
-  {
-    return {fX[i], fY[i], fW[i]};
-  }
+  { return {fX[i], fY[i], fW[i]}; }
   SkPoint point(int i) const
   {
-    if (fType == Type::kPerspective)
-    {
-      return {fX[i] / fW[i], fY[i] / fW[i]};
+        if (fType == Type::kPerspective) {
+            return {fX[i] / fW[i], fY[i] / fW[i]};
+        } else {
+            return {fX[i], fY[i]};
+        }
     }
-    else 
-    {
-      return {fX[i], fY[i]};
-    }
-  }
   SkRect bounds() const
   {
-    auto x = this->x4f();
-    auto y = this->y4f();
-    if (fType == Type::kPerspective)
-    {
-      auto iw = this->iw4f();
-      x *= iw;
-      y *= iw;
+        auto x = this->x4f();
+        auto y = this->y4f();
+        if (fType == Type::kPerspective) {
+            auto iw = this->iw4f();
+            x *= iw;
+            y *= iw;
+        }
+
+        return {min(x), min(y), max(x), max(y)};
     }
-    return {min(x), min(y), max(x), max(y)};
-  }
   bool isFinite() const
   {
         // If any coordinate is infinity or NaN, then multiplying it with 0 will make accum NaN
-    float accum = 0;
-    for (int i = 0; i < 4; ++i)
-    {
-      accum *= fX[i];
-      accum *= fY[i];
-      accum *= fW[i];
+        float accum = 0;
+        for (int i = 0; i < 4; ++i) {
+            accum *= fX[i];
+            accum *= fY[i];
+            accum *= fW[i];
+        }
+        SkASSERT(0 == accum || SkScalarIsNaN(accum));
+        return !SkScalarIsNaN(accum);
     }
-    SkASSERT(0 == accum || SkScalarIsNaN(accum));
-    return !SkScalarIsNaN(accum);
-  }
   float x(int i) const
-  {
-    return fX[i];
-  }
+  { return fX[i]; }
   float y(int i) const
-  {
-    return fY[i];
-  }
+  { return fY[i]; }
   float w(int i) const
-  {
-    return fW[i];
-  }
+  { return fW[i]; }
   float iw(int i) const
-  {
-    return sk_ieee_float_divide(1.f, fW[i]);
-  }
+  { return sk_ieee_float_divide(1.f, fW[i]); }
   skvx::Vec<4, float> x4f() const
-  {
-    return skvx::Vec<4, float>::Load(fX);
-  }
+  { return skvx::Vec<4, float>::Load(fX); }
   skvx::Vec<4, float> y4f() const
-  {
-    return skvx::Vec<4, float>::Load(fY);
-  }
+  { return skvx::Vec<4, float>::Load(fY); }
   skvx::Vec<4, float> w4f() const
-  {
-    return skvx::Vec<4, float>::Load(fW);
-  }
+  { return skvx::Vec<4, float>::Load(fW); }
   skvx::Vec<4, float> iw4f() const
-  {
-    return 1.f / this->w4f();
-  }
+  { return 1.f / this->w4f(); }
   Type quadType() const
-  {
-    return fType;
-  }
+  { return fType; }
   bool hasPerspective() const
-  {
-    return fType == Type::kPerspective;
-  }
+  { return fType == Type::kPerspective; }
     // True if anti-aliasing affects this quad. Only valid when quadType == kAxisAligned
   bool aaHasEffectOnRect() const;
     // True if this quad is axis-aligned and still has its top-left corner at v0. Equivalently,
@@ -161,33 +138,19 @@ public:
     // taken to keep its quad type aligned with the geometric nature of the new coordinates. This is
     // no different than using the constructors that accept a quad type.
   const float* xs() const
-  {
-    return fX;
-  }
+  { return fX; }
   float* xs()
-  {
-    return fX;
-  }
+  { return fX; }
   const float* ys() const
-  {
-    return fY;
-  }
+  { return fY; }
   float* ys()
-  {
-    return fY;
-  }
+  { return fY; }
   const float* ws() const
-  {
-    return fW;
-  }
+  { return fW; }
   float* ws()
-  {
-    return fW;
-  }
+  { return fW; }
   void setQuadType(Type newType)
-  {
-    fType = newType;
-  }
+  { fType = newType; }
 private:
   template <typename T>
   friend class GrQuadListBase;

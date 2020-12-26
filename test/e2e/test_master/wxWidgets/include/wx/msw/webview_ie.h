@@ -43,8 +43,9 @@ public:
   }
   wxWebViewIE(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr))
   {
-    Create(parent, id, url, pos, size, style, name);
-  }
+
+       Create(parent, id, url, pos, size, style, name);
+     }
   ~wxWebViewIE();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr)) override;
   void LoadURL(const wxString& url) override;
@@ -123,8 +124,9 @@ public:
     // MSWSetEmulationLevel() in the new code instead.
   static bool MSWSetModernEmulationLevel(bool modernLevel = true)
   {
-    return MSWSetEmulationLevel(modernLevel ? wxWEBVIEWIE_EMU_IE8 : wxWEBVIEWIE_EMU_DEFAULT);
-  }
+        return MSWSetEmulationLevel(modernLevel ? wxWEBVIEWIE_EMU_IE8
+                                                : wxWEBVIEWIE_EMU_DEFAULT);
+    }
   wxDECLARE_EVENT_TABLE();
 protected:
   void DoSetPage(const wxString& html, const wxString& baseUrl) override;

@@ -40,9 +40,7 @@ public:
         // get the string containing space separated extensions for the given
         // file type
   wxString GetExtension(size_t index)
-  {
-    return m_aExtensions[index];
-  }
+  { return m_aExtensions[index]; }
 protected:
   void InitIfNeeded();
   wxArrayString m_aTypes, m_aDescriptions, m_aExtensions, m_aIcons;
@@ -74,42 +72,33 @@ public:
     // if built with GetFileTypeFromExtension, index 0 has the mimetype for
     // the first extension found, index 1 for the second and so on
   void Init(wxMimeTypesManagerImpl* manager, size_t index)
-  {
-    m_manager = manager;
-    m_index.Add(index);
-  }
+  { m_manager = manager; m_index.Add(index); }
     // accessors
   bool GetExtensions(wxArrayString& extensions);
   bool GetMimeType(wxString* mimeType) const
-  {
-    *mimeType = m_manager->m_aTypes[m_index[0]];
-    return true;
-  }
+  { *mimeType = m_manager->m_aTypes[m_index[0]]; return true; }
   bool GetMimeTypes(wxArrayString& mimeTypes) const;
   bool GetIcon(wxIconLocation* iconLoc) const;
   bool GetDescription(wxString* desc) const
-  {
-    *desc = m_manager->m_aDescriptions[m_index[0]];
-    return true;
-  }
+  { *desc = m_manager->m_aDescriptions[m_index[0]]; return true; }
   bool GetOpenCommand(wxString* openCmd, const wxFileType::MessageParameters& params) const
   {
-    *openCmd = GetExpandedCommand(wxT("open"), params);
-    return (!openCmd->IsEmpty());
-  }
+        *openCmd = GetExpandedCommand(wxT("open"), params);
+        return (! openCmd -> IsEmpty() );
+    }
   bool GetPrintCommand(wxString* printCmd, const wxFileType::MessageParameters& params) const
   {
-    *printCmd = GetExpandedCommand(wxT("print"), params);
-    return (!printCmd->IsEmpty());
-  }
+        *printCmd = GetExpandedCommand(wxT("print"), params);
+        return (! printCmd -> IsEmpty() );
+    }
         // return the number of commands defined for this file type, 0 if none
   size_t GetAllCommands(wxArrayString* verbs, wxArrayString* commands, const wxFileType::MessageParameters& params) const;
     // remove the record for this file type
     // probably a mistake to come here, use wxMimeTypesManager.Unassociate (ft) instead
   bool Unassociate(wxFileType* ft)
   {
-    return m_manager->Unassociate(ft);
-  }
+        return m_manager->Unassociate(ft);
+    }
     // set an arbitrary command, ask confirmation if it already exists and
     // overwriteprompt is TRUE
   bool SetCommand(const wxString& cmd, const wxString& verb, bool overwriteprompt = true);

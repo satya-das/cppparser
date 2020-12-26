@@ -26,19 +26,19 @@ public:
   GrBackendFormat backendFormat() const override
   {
         // It doesn't matter if we take the texture or render target path, so just pick texture.
-    return GrGLTexture::backendFormat();
-  }
+        return GrGLTexture::backendFormat();
+    }
 protected:
   void onAbandon() override
   {
-    GrGLRenderTarget::onAbandon();
-    GrGLTexture::onAbandon();
-  }
+        GrGLRenderTarget::onAbandon();
+        GrGLTexture::onAbandon();
+    }
   void onRelease() override
   {
-    GrGLRenderTarget::onRelease();
-    GrGLTexture::onRelease();
-  }
+        GrGLRenderTarget::onRelease();
+        GrGLTexture::onRelease();
+    }
 private:
     // Constructor for instances wrapping backend objects.
   GrGLTextureRenderTarget(GrGLGpu* gpu, int sampleCount, const GrGLTexture::Desc& texDesc, sk_sp<GrGLTextureParameters> parameters, const GrGLRenderTarget::IDs& ids, GrWrapCacheable, GrMipMapsStatus);

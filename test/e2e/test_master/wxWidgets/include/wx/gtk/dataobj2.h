@@ -44,23 +44,15 @@ public:
   }
 protected:
   void Clear()
-  {
-    free(m_pngData);
-  }
+  { free(m_pngData); }
   void ClearAll()
-  {
-    Clear();
-    Init();
-  }
+  { Clear(); Init(); }
   size_t m_pngSize;
   void* m_pngData;
   void DoConvertToPng();
 private:
   void Init()
-  {
-    m_pngData = NULL;
-    m_pngSize = 0;
-  }
+  { m_pngData = NULL; m_pngSize = 0; }
 };
 // ----------------------------------------------------------------------------
 // wxFileDataObject is a specialization of wxDataObject for file names

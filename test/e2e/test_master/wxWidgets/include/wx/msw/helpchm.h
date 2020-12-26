@@ -15,9 +15,9 @@ class WXDLLIMPEXP_CORE wxCHMHelpController : public wxHelpControllerBase
 {
 public:
   wxCHMHelpController(wxWindow* parentWindow = NULL)
-    : wxHelpControllerBase(parentWindow)
-  {
-  }
+    :  wxHelpControllerBase(parentWindow) 
+    {
+     }
     // Must call this to set the filename
   bool Initialize(const wxString& file) override;
   bool Initialize(const wxString& file, int) override
@@ -35,9 +35,7 @@ public:
   bool KeywordSearch(const wxString& k, wxHelpSearchMode mode = wxHELP_SEARCH_ALL) override;
   bool Quit() override;
   wxString GetHelpFile() const
-  {
-    return m_helpFile;
-  }
+  { return m_helpFile; }
     // helper of DisplayTextPopup(), also used in wxSimpleHelpProvider::ShowHelp
   static bool ShowContextHelpPopup(const wxString& text, const wxPoint& pos, wxWindow* window);
 protected:
@@ -49,18 +47,19 @@ protected:
   static bool CallHtmlHelp(wxWindow* win, const wxChar* str, unsigned cmd, WXWPARAM param);
   static bool CallHtmlHelp(wxWindow* win, const wxChar* str, unsigned cmd, const void* param = NULL)
   {
-    return CallHtmlHelp(win, str, cmd, reinterpret_cast<WXWPARAM>(param));
-  }
+        return CallHtmlHelp(win, str, cmd, reinterpret_cast<WXWPARAM>(param));
+    }
     // even simpler wrappers using GetParentWindow() and GetValidFilename() as
     // the first 2 HtmlHelp() parameters
   bool CallHtmlHelp(unsigned cmd, WXWPARAM param)
   {
-    return CallHtmlHelp(GetParentWindow(), GetValidFilename().t_str(), cmd, param);
-  }
+        return CallHtmlHelp(GetParentWindow(), GetValidFilename().t_str(),
+                            cmd, param);
+    }
   bool CallHtmlHelp(unsigned cmd, const void* param = NULL)
   {
-    return CallHtmlHelp(cmd, reinterpret_cast<WXWPARAM>(param));
-  }
+        return CallHtmlHelp(cmd, reinterpret_cast<WXWPARAM>(param));
+    }
     // wrapper around CallHtmlHelp(HH_DISPLAY_TEXT_POPUP): only one of text and
     // contextId parameters can be non-NULL/non-zero
   static bool DoDisplayTextPopup(const wxChar* text, const wxPoint& pos, int contextId, wxWindow* window);

@@ -35,9 +35,7 @@ protected:
     void recordDraw(Target*, sk_sp<const GrGeometryProcessor>) const;
     void recordDraw(Target*, sk_sp<const GrGeometryProcessor>, const GrPipeline::FixedDynamicState*) const;
     void* vertices() const
-    {
-      return fVertices;
-    }
+    { return fVertices; }
   protected:
     PatternHelper();
     void init(Target*, GrPrimitiveType, size_t vertexStride, sk_sp<const GrBuffer> indexBuffer, int verticesPerRepetition, int indicesPerRepetition, int repeatCount);
@@ -77,10 +75,10 @@ public:
      */
   void recordDraw(sk_sp<const GrGeometryProcessor> gp, const GrMesh meshes[], int meshCnt = 1)
   {
-    static constexpr int kZeroPrimProcTextures = 0;
-    auto fixedDynamicState = this->makeFixedDynamicState(kZeroPrimProcTextures);
-    this->recordDraw(std::move(gp), meshes, meshCnt, fixedDynamicState, nullptr);
-  }
+        static constexpr int kZeroPrimProcTextures = 0;
+        auto fixedDynamicState = this->makeFixedDynamicState(kZeroPrimProcTextures);
+        this->recordDraw(std::move(gp), meshes, meshCnt, fixedDynamicState, nullptr);
+    }
     /**
      * Makes space for vertex data. The returned pointer is the location where vertex data
      * should be written. On return the buffer that will hold the data as well as an offset into
@@ -112,12 +110,10 @@ public:
   virtual void putBackVertices(int vertices, size_t vertexStride) = 0;
   GrMesh* allocMesh(GrPrimitiveType primitiveType)
   {
-    return this->allocator()->make<GrMesh>(primitiveType);
-  }
+        return this->allocator()->make<GrMesh>(primitiveType);
+    }
   GrMesh* allocMeshes(int n)
-  {
-    return this->allocator()->makeArray<GrMesh>(n);
-  }
+  { return this->allocator()->makeArray<GrMesh>(n); }
   GrPipeline::DynamicStateArrays* allocDynamicStateArrays(int numMeshes, int numPrimitiveProcessorTextures, bool allocScissors);
   GrPipeline::FixedDynamicState* makeFixedDynamicState(int numPrimitiveProcessorTextures);
   virtual GrRenderTargetProxy* proxy() const = 0;
@@ -126,9 +122,7 @@ public:
   virtual const GrXferProcessor::DstProxy& dstProxy() const = 0;
   virtual GrResourceProvider* resourceProvider() const = 0;
   uint32_t contextUniqueID() const
-  {
-    return this->resourceProvider()->contextUniqueID();
-  }
+  { return this->resourceProvider()->contextUniqueID(); }
   virtual GrStrikeCache* glyphCache() const = 0;
   virtual GrAtlasManager* atlasManager() const = 0;
     // This should be called during onPrepare of a GrOp. The caller should add any proxies to the

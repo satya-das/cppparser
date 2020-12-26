@@ -265,9 +265,9 @@ public:
     /// <returns> Acad::ErrorStatus. </returns>
     ///
   virtual Acad::ErrorStatus audit(AcDbAuditInfo*)
-  {
-    return Acad::eOk;
-  }
+  { 
+        return Acad::eOk; 
+    }
     /// <summary>Standard protocol for copying of data from source as defined
     /// in AcRxObject. Don't use this for cross database copying</summary>
     /// <param  name="pSource"> Source object to copy data from. </param>

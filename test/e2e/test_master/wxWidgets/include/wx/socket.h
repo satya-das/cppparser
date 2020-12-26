@@ -106,45 +106,25 @@ public:
   bool Destroy();
     // state
   bool Ok() const
-  {
-    return IsOk();
-  }
+  { return IsOk(); }
   bool IsOk() const
-  {
-    return m_impl != NULL;
-  }
+  { return m_impl != NULL; }
   bool Error() const
-  {
-    return LastError() != wxSOCKET_NOERROR;
-  }
+  { return LastError() != wxSOCKET_NOERROR; }
   bool IsClosed() const
-  {
-    return m_closed;
-  }
+  { return m_closed; }
   bool IsConnected() const
-  {
-    return m_connected;
-  }
+  { return m_connected; }
   bool IsData()
-  {
-    return WaitForRead(0, 0);
-  }
+  { return WaitForRead(0, 0); }
   bool IsDisconnected() const
-  {
-    return !IsConnected();
-  }
+  { return !IsConnected(); }
   wxUint32 LastCount() const
-  {
-    return m_lcount;
-  }
+  { return m_lcount; }
   wxUint32 LastReadCount() const
-  {
-    return m_lcount_read;
-  }
+  { return m_lcount_read; }
   wxUint32 LastWriteCount() const
-  {
-    return m_lcount_write;
-  }
+  { return m_lcount_write; }
   wxSocketError LastError() const;
   void SaveState();
   void RestoreState();
@@ -177,42 +157,26 @@ public:
     // wait until the connection is terminated
   bool WaitForLost(long seconds = -1, long milliseconds = 0);
   void InterruptWait()
-  {
-    m_interrupt = true;
-  }
+  { m_interrupt = true; }
   wxSocketFlags GetFlags() const
-  {
-    return m_flags;
-  }
+  { return m_flags; }
   void SetFlags(wxSocketFlags flags);
   virtual void SetTimeout(long seconds);
   long GetTimeout() const
-  {
-    return m_timeout;
-  }
+  { return m_timeout; }
   bool GetOption(int level, int optname, void* optval, int* optlen);
   bool SetOption(int level, int optname, const void* optval, int optlen);
   wxUint32 GetLastIOSize() const
-  {
-    return m_lcount;
-  }
+  { return m_lcount; }
   wxUint32 GetLastIOReadSize() const
-  {
-    return m_lcount_read;
-  }
+  { return m_lcount_read; }
   wxUint32 GetLastIOWriteSize() const
-  {
-    return m_lcount_write;
-  }
+  { return m_lcount_write; }
     // event handling
   void* GetClientData() const
-  {
-    return m_clientData;
-  }
+  { return m_clientData; }
   void SetClientData(void* data)
-  {
-    m_clientData = data;
-  }
+  { m_clientData = data; }
   void SetEventHandler(wxEvtHandler& handler, int id = wxID_ANY);
   void SetNotify(wxSocketEventFlags flags);
   void Notify(bool notify);
@@ -239,13 +203,9 @@ public:
   void OnRequest(wxSocketNotify notify);
     // do not use, not documented nor supported
   bool IsNoWait() const
-  {
-    return ((m_flags & wxSOCKET_NOWAIT) != 0);
-  }
+  { return ((m_flags & wxSOCKET_NOWAIT) != 0); }
   wxSocketType GetType() const
-  {
-    return m_type;
-  }
+  { return m_type; }
     // Helper returning wxSOCKET_NONE if non-blocking sockets can be used, i.e.
     // the socket is being created in the main thread and the event loop is
     // running, or wxSOCKET_BLOCK otherwise.
@@ -277,8 +237,8 @@ private:
     // another helper calling DoWait() using our m_timeout
   int DoWaitWithTimeout(wxSocketEventFlags flags)
   {
-    return DoWait(m_timeout * 1000, flags);
-  }
+        return DoWait(m_timeout*1000, flags);
+    }
     // pushback buffer
   void Pushback(const void* buffer, wxUint32 size);
   wxUint32 GetPushback(void* buffer, wxUint32 size, bool peek);
@@ -347,9 +307,9 @@ public:
     // unchanged)
   void SetInitialSocketBuffers(int recv, int send)
   {
-    m_initialRecvBufferSize = recv;
-    m_initialSendBufferSize = send;
-  }
+        m_initialRecvBufferSize = recv;
+        m_initialSendBufferSize = send;
+    }
 private:
   virtual bool DoConnect(const wxSockAddress& addr, const wxSockAddress* local, bool wait = true);
     // buffer sizes, -1 if unset and defaults should be used
@@ -382,21 +342,17 @@ class WXDLLIMPEXP_NET wxSocketEvent : public wxEvent
 {
 public:
   wxSocketEvent(int id = 0)
-    : wxEvent(id, wxEVT_SOCKET)
-  {
-  }
+    :  wxEvent(id, wxEVT_SOCKET)
+    
+    {
+
+        }
   wxSocketNotify GetSocketEvent() const
-  {
-    return m_event;
-  }
+  { return m_event; }
   wxSocketBase* GetSocket() const
-  {
-    return (wxSocketBase*) GetEventObject();
-  }
+  { return (wxSocketBase *) GetEventObject(); }
   void* GetClientData() const
-  {
-    return m_clientData;
-  }
+  { return m_clientData; }
   wxEvent* Clone() const override
   {
     return new wxSocketEvent(*this);

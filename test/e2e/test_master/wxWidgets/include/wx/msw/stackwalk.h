@@ -28,20 +28,20 @@ class WXDLLIMPEXP_BASE wxStackFrame : public wxStackFrameBase
 {
 private:
   wxStackFrame* ConstCast() const
-  {
-    return const_cast<wxStackFrame*>(this);
-  }
+  { return const_cast<wxStackFrame *>(this); }
   size_t DoGetParamCount() const
-  {
-    return m_paramTypes.GetCount();
-  }
+  { return m_paramTypes.GetCount(); }
 public:
   wxStackFrame(size_t level, void* address, size_t addrFrame)
-    : wxStackFrameBase(level, address)
-  {
-    m_hasName = m_hasLocation = false;
-    m_addrFrame = addrFrame;
-  }
+    :  wxStackFrameBase(level, address)
+    
+    {
+
+        m_hasName =
+        m_hasLocation = false;
+
+        m_addrFrame = addrFrame;
+        }
   size_t GetParamCount() const override
   {
     ConstCast()->OnGetParam();
@@ -57,8 +57,8 @@ protected:
     // helper for debug API: it wants to have addresses as DWORDs
   size_t GetSymAddr() const
   {
-    return reinterpret_cast<size_t>(m_address);
-  }
+        return reinterpret_cast<size_t>(m_address);
+    }
 private:
   bool m_hasName, m_hasLocation;
   size_t m_addrFrame;
@@ -74,7 +74,7 @@ public:
     // only
   wxStackWalker(const char* = NULL)
   {
-  }
+   }
   void Walk(size_t skip = 1, size_t maxDepth = wxSTACKWALKER_MAX_DEPTH) override;
 #  if  wxUSE_ON_FATAL_EXCEPTION
   void WalkFromException(size_t maxDepth = wxSTACKWALKER_MAX_DEPTH) override;

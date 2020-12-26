@@ -26,8 +26,9 @@ public:
   wxWebViewWebKit();
   wxWebViewWebKit(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr))
   {
-    Create(parent, id, url, pos, size, style, name);
-  }
+
+        Create(parent, id, url, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr)) override;
   virtual ~wxWebViewWebKit();
   bool Enable(bool enable = true) override;
@@ -88,9 +89,7 @@ public:
     //Virtual Filesystem Support
   void RegisterHandler(wxSharedPtr<wxWebViewHandler> handler) override;
   virtual wxVector<wxSharedPtr<wxWebViewHandler> > GetHandlers()
-  {
-    return m_handlerList;
-  }
+  { return m_handlerList; }
   void* GetNativeBackend() const override
   {
     return m_web_view;

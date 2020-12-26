@@ -96,13 +96,9 @@ public:
 
   // wxNotebook on Motif uses a generic wxTabView to implement itself.
   wxTabView* GetTabView() const
-  {
-    return m_tabView;
-  }
+  { return m_tabView; }
   void SetTabView(wxTabView* v)
-  {
-    m_tabView = v;
-  }
+  { m_tabView = v; }
   void OnMouseEvent(wxMouseEvent& event);
   void OnPaint(wxPaintEvent& event);
   virtual wxRect GetAvailableClientSize();

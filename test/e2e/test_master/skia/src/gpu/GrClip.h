@@ -21,8 +21,8 @@ public:
   virtual bool quickContains(const SkRect&) const = 0;
   virtual bool quickContains(const SkRRect& rrect) const
   {
-    return this->quickContains(rrect.getBounds());
-  }
+        return this->quickContains(rrect.getBounds());
+    }
   virtual void getConservativeBounds(int width, int height, SkIRect* devResult, bool* isIntersectionOfRects = nullptr) const = 0;
     /**
      * This computes a GrAppliedClip from the clip which in turn can be used to build a GrPipeline.
@@ -67,8 +67,13 @@ public:
   template <typename TRect>
   static constexpr bool IsInsideClip(const TRect& innerClipBounds, const SkRect& queryBounds)
   {
-    return innerClipBounds.fRight > innerClipBounds.fLeft + kBoundsTolerance && innerClipBounds.fBottom > innerClipBounds.fTop + kBoundsTolerance && innerClipBounds.fLeft < queryBounds.fLeft + kBoundsTolerance && innerClipBounds.fTop < queryBounds.fTop + kBoundsTolerance && innerClipBounds.fRight > queryBounds.fRight - kBoundsTolerance && innerClipBounds.fBottom > queryBounds.fBottom - kBoundsTolerance;
-  }
+        return innerClipBounds.fRight > innerClipBounds.fLeft + kBoundsTolerance &&
+               innerClipBounds.fBottom > innerClipBounds.fTop + kBoundsTolerance &&
+               innerClipBounds.fLeft < queryBounds.fLeft + kBoundsTolerance &&
+               innerClipBounds.fTop < queryBounds.fTop + kBoundsTolerance &&
+               innerClipBounds.fRight > queryBounds.fRight - kBoundsTolerance &&
+               innerClipBounds.fBottom > queryBounds.fBottom - kBoundsTolerance;
+    }
     /**
      * Returns true if the given query bounds count as entirely outside the clip.
      *
@@ -78,29 +83,47 @@ public:
   template <typename TRect>
   static constexpr bool IsOutsideClip(const TRect& outerClipBounds, const SkRect& queryBounds)
   {
-    return outerClipBounds.fRight - outerClipBounds.fLeft <= kBoundsTolerance || outerClipBounds.fBottom - outerClipBounds.fTop <= kBoundsTolerance || outerClipBounds.fLeft >= queryBounds.fRight - kBoundsTolerance || outerClipBounds.fTop >= queryBounds.fBottom - kBoundsTolerance || outerClipBounds.fRight <= queryBounds.fLeft + kBoundsTolerance || outerClipBounds.fBottom <= queryBounds.fTop + kBoundsTolerance;
-  }
+        return
+            // Is the clip so small that it is effectively empty?
+            outerClipBounds.fRight - outerClipBounds.fLeft <= kBoundsTolerance ||
+            outerClipBounds.fBottom - outerClipBounds.fTop <= kBoundsTolerance ||
+
+            // Are the query bounds effectively outside the clip?
+            outerClipBounds.fLeft >= queryBounds.fRight - kBoundsTolerance ||
+            outerClipBounds.fTop >= queryBounds.fBottom - kBoundsTolerance ||
+            outerClipBounds.fRight <= queryBounds.fLeft + kBoundsTolerance ||
+            outerClipBounds.fBottom <= queryBounds.fTop + kBoundsTolerance;
+    }
     /**
      * Returns the minimal integer rect that counts as containing a given set of bounds.
      */
   static SkIRect GetPixelIBounds(const SkRect& bounds)
   {
-    return SkIRect::MakeLTRB(SkScalarFloorToInt(bounds.fLeft + kBoundsTolerance), SkScalarFloorToInt(bounds.fTop + kBoundsTolerance), SkScalarCeilToInt(bounds.fRight - kBoundsTolerance), SkScalarCeilToInt(bounds.fBottom - kBoundsTolerance));
-  }
+        return SkIRect::MakeLTRB(SkScalarFloorToInt(bounds.fLeft + kBoundsTolerance),
+                                 SkScalarFloorToInt(bounds.fTop + kBoundsTolerance),
+                                 SkScalarCeilToInt(bounds.fRight - kBoundsTolerance),
+                                 SkScalarCeilToInt(bounds.fBottom - kBoundsTolerance));
+    }
     /**
      * Returns the minimal pixel-aligned rect that counts as containing a given set of bounds.
      */
   static SkRect GetPixelBounds(const SkRect& bounds)
   {
-    return SkRect::MakeLTRB(SkScalarFloorToScalar(bounds.fLeft + kBoundsTolerance), SkScalarFloorToScalar(bounds.fTop + kBoundsTolerance), SkScalarCeilToScalar(bounds.fRight - kBoundsTolerance), SkScalarCeilToScalar(bounds.fBottom - kBoundsTolerance));
-  }
+        return SkRect::MakeLTRB(SkScalarFloorToScalar(bounds.fLeft + kBoundsTolerance),
+                                SkScalarFloorToScalar(bounds.fTop + kBoundsTolerance),
+                                SkScalarCeilToScalar(bounds.fRight - kBoundsTolerance),
+                                SkScalarCeilToScalar(bounds.fBottom - kBoundsTolerance));
+    }
     /**
      * Returns true if the given rect counts as aligned with pixel boundaries.
      */
   static bool IsPixelAligned(const SkRect& rect)
   {
-    return SkScalarAbs(SkScalarRoundToScalar(rect.fLeft) - rect.fLeft) <= kBoundsTolerance && SkScalarAbs(SkScalarRoundToScalar(rect.fTop) - rect.fTop) <= kBoundsTolerance && SkScalarAbs(SkScalarRoundToScalar(rect.fRight) - rect.fRight) <= kBoundsTolerance && SkScalarAbs(SkScalarRoundToScalar(rect.fBottom) - rect.fBottom) <= kBoundsTolerance;
-  }
+        return SkScalarAbs(SkScalarRoundToScalar(rect.fLeft) - rect.fLeft) <= kBoundsTolerance &&
+               SkScalarAbs(SkScalarRoundToScalar(rect.fTop) - rect.fTop) <= kBoundsTolerance &&
+               SkScalarAbs(SkScalarRoundToScalar(rect.fRight) - rect.fRight) <= kBoundsTolerance &&
+               SkScalarAbs(SkScalarRoundToScalar(rect.fBottom) - rect.fBottom) <= kBoundsTolerance;
+    }
 };
 /**
  * GrHardClip never uses coverage FPs. It can only enforce the clip using the already-existing
@@ -119,8 +142,8 @@ public:
 private:
   bool apply(GrRecordingContext*, GrRenderTargetContext* rtc, bool useHWAA, bool hasUserStencilSettings, GrAppliedClip* out, SkRect* bounds) const final
   {
-    return this->apply(rtc->width(), rtc->height(), &out->hardClip(), bounds);
-  }
+        return this->apply(rtc->width(), rtc->height(), &out->hardClip(), bounds);
+    }
 };
 /**
  * Specialized implementation for no clip.
@@ -129,28 +152,19 @@ class GrNoClip final : public GrHardClip
 {
 private:
   bool quickContains(const SkRect&) const final
-  {
-    return true;
-  }
+  { return true; }
   bool quickContains(const SkRRect&) const final
-  {
-    return true;
-  }
+  { return true; }
   void getConservativeBounds(int width, int height, SkIRect* devResult, bool* isIntersectionOfRects) const final
   {
-    devResult->setXYWH(0, 0, width, height);
-    if (isIntersectionOfRects)
-    {
-      *isIntersectionOfRects = true;
+        devResult->setXYWH(0, 0, width, height);
+        if (isIntersectionOfRects) {
+            *isIntersectionOfRects = true;
+        }
     }
-  }
   bool apply(int rtWidth, int rtHeight, GrAppliedHardClip*, SkRect*) const final
-  {
-    return true;
-  }
+  { return true; }
   bool isRRect(const SkRect&, SkRRect*, GrAA*) const override
-  {
-    return false;
-  }
+  { return false; }
 };
 #endif

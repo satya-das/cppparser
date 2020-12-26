@@ -21,17 +21,11 @@ class GrTextTarget
 public:
   virtual ~GrTextTarget();
   int width() const
-  {
-    return fWidth;
-  }
+  { return fWidth; }
   int height() const
-  {
-    return fHeight;
-  }
+  { return fHeight; }
   const GrColorInfo& colorInfo() const
-  {
-    return fColorInfo;
-  }
+  { return fColorInfo; }
   virtual void addDrawOp(const GrClip&, std::unique_ptr<GrAtlasTextOp> op) = 0;
   virtual void drawShape(const GrClip&, const SkPaint&, const SkMatrix& viewMatrix, const GrShape&) = 0;
   virtual void makeGrPaint(GrMaskFormat, const SkPaint&, const SkMatrix& viewMatrix, GrPaint*) = 0;
@@ -39,12 +33,11 @@ public:
   virtual SkGlyphRunListPainter* glyphPainter() = 0;
 protected:
   GrTextTarget(int width, int height, const GrColorInfo& colorInfo)
-    : fWidth(width)
-    , fHeight(height)
-    , fColorInfo(colorInfo)
-  {
-    SkASSERT(kPremul_SkAlphaType == colorInfo.alphaType());
-  }
+    :  fWidth(width), fHeight(height), fColorInfo(colorInfo) 
+    {
+
+        SkASSERT(kPremul_SkAlphaType == colorInfo.alphaType());
+        }
 private:
   int fWidth;
   int fHeight;

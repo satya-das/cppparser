@@ -34,27 +34,19 @@ class WXDLLIMPEXP_RICHTEXT wxRichTextHeaderFooterData : public wxObject
 public:
   wxRichTextHeaderFooterData()
   {
-    Init();
-  }
+ Init();   }
   wxRichTextHeaderFooterData(const wxRichTextHeaderFooterData& data)
-    : wxObject()
-  {
-    Copy(data);
-  }
+    :  wxObject() 
+    {
+ Copy(data);     }
     /// Initialise
   void Init()
-  {
-    m_headerMargin = 20;
-    m_footerMargin = 20;
-    m_showOnFirstPage = true;
-  }
+  { m_headerMargin = 20; m_footerMargin = 20; m_showOnFirstPage = true; }
     /// Copy
   void Copy(const wxRichTextHeaderFooterData& data);
     /// Assignment
   void operator=(const wxRichTextHeaderFooterData& data)
-  {
-    Copy(data);
-  }
+  { Copy(data); }
     /// Set/get header text, e.g. wxRICHTEXT_PAGE_ODD, wxRICHTEXT_PAGE_LEFT
   void SetHeaderText(const wxString& text, wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_ALL, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE);
   wxString GetHeaderText(wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_EVEN, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE) const;
@@ -66,47 +58,28 @@ public:
   wxString GetText(int headerFooter, wxRichTextOddEvenPage page, wxRichTextPageLocation location) const;
     /// Set/get margins between text and header or footer, in tenths of a millimeter
   void SetMargins(int headerMargin, int footerMargin)
-  {
-    m_headerMargin = headerMargin;
-    m_footerMargin = footerMargin;
-  }
+  { m_headerMargin = headerMargin; m_footerMargin = footerMargin; }
   int GetHeaderMargin() const
-  {
-    return m_headerMargin;
-  }
+  { return m_headerMargin; }
   int GetFooterMargin() const
-  {
-    return m_footerMargin;
-  }
+  { return m_footerMargin; }
     /// Set/get whether to show header or footer on first page
   void SetShowOnFirstPage(bool showOnFirstPage)
-  {
-    m_showOnFirstPage = showOnFirstPage;
-  }
+  { m_showOnFirstPage = showOnFirstPage; }
   bool GetShowOnFirstPage() const
-  {
-    return m_showOnFirstPage;
-  }
+  { return m_showOnFirstPage; }
     /// Clear all text
   void Clear();
     /// Set/get font
   void SetFont(const wxFont& font)
-  {
-    m_font = font;
-  }
+  { m_font = font; }
   const wxFont& GetFont() const
-  {
-    return m_font;
-  }
+  { return m_font; }
     /// Set/get colour
   void SetTextColour(const wxColour& col)
-  {
-    m_colour = col;
-  }
+  { m_colour = col; }
   const wxColour& GetTextColour() const
-  {
-    return m_colour;
-  }
+  { return m_colour; }
   wxDECLARE_CLASS(wxRichTextHeaderFooterData);
 private:
     // Strings for left, centre, right, top, bottom, odd, even
@@ -127,22 +100,14 @@ public:
   virtual ~wxRichTextPrintout();
     /// The buffer to print
   void SetRichTextBuffer(wxRichTextBuffer* buffer)
-  {
-    m_richTextBuffer = buffer;
-  }
+  { m_richTextBuffer = buffer; }
   wxRichTextBuffer* GetRichTextBuffer() const
-  {
-    return m_richTextBuffer;
-  }
+  { return m_richTextBuffer; }
     /// Set/get header/footer data
   void SetHeaderFooterData(const wxRichTextHeaderFooterData& data)
-  {
-    m_headerFooterData = data;
-  }
+  { m_headerFooterData = data; }
   const wxRichTextHeaderFooterData& GetHeaderFooterData() const
-  {
-    return m_headerFooterData;
-  }
+  { return m_headerFooterData; }
     /// Sets margins in 10ths of millimetre. Defaults to 1 inch for margins.
   void SetMargins(int top = 254, int bottom = 254, int left = 254, int right = 254);
     /// Calculate scaling and rectangles, setting the device context scaling
@@ -190,13 +155,9 @@ public:
   void PageSetup();
     /// Set/get header/footer data
   void SetHeaderFooterData(const wxRichTextHeaderFooterData& data)
-  {
-    m_headerFooterData = data;
-  }
+  { m_headerFooterData = data; }
   const wxRichTextHeaderFooterData& GetHeaderFooterData() const
-  {
-    return m_headerFooterData;
-  }
+  { return m_headerFooterData; }
     /// Set/get header text, e.g. wxRICHTEXT_PAGE_ODD, wxRICHTEXT_PAGE_LEFT
   void SetHeaderText(const wxString& text, wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_ALL, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE);
   wxString GetHeaderText(wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_EVEN, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE) const;
@@ -205,66 +166,42 @@ public:
   wxString GetFooterText(wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_EVEN, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE) const;
     /// Show header/footer on first page, or not
   void SetShowOnFirstPage(bool show)
-  {
-    m_headerFooterData.SetShowOnFirstPage(show);
-  }
+  { m_headerFooterData.SetShowOnFirstPage(show); }
     /// Set the font
   void SetHeaderFooterFont(const wxFont& font)
-  {
-    m_headerFooterData.SetFont(font);
-  }
+  { m_headerFooterData.SetFont(font); }
     /// Set the colour
   void SetHeaderFooterTextColour(const wxColour& font)
-  {
-    m_headerFooterData.SetTextColour(font);
-  }
+  { m_headerFooterData.SetTextColour(font); }
     /// Get print and page setup data
   wxPrintData* GetPrintData();
   wxPageSetupDialogData* GetPageSetupData()
-  {
-    return m_pageSetupData;
-  }
+  { return m_pageSetupData; }
     /// Set print and page setup data
   void SetPrintData(const wxPrintData& printData);
   void SetPageSetupData(const wxPageSetupDialogData& pageSetupData);
     /// Set the rich text buffer pointer, deleting the existing object if present
   void SetRichTextBufferPreview(wxRichTextBuffer* buf);
   wxRichTextBuffer* GetRichTextBufferPreview() const
-  {
-    return m_richTextBufferPreview;
-  }
+  { return m_richTextBufferPreview; }
   void SetRichTextBufferPrinting(wxRichTextBuffer* buf);
   wxRichTextBuffer* GetRichTextBufferPrinting() const
-  {
-    return m_richTextBufferPrinting;
-  }
+  { return m_richTextBufferPrinting; }
     /// Set/get the parent window
   void SetParentWindow(wxWindow* parent)
-  {
-    m_parentWindow = parent;
-  }
+  { m_parentWindow = parent; }
   wxWindow* GetParentWindow() const
-  {
-    return m_parentWindow;
-  }
+  { return m_parentWindow; }
     /// Set/get the title
   void SetTitle(const wxString& title)
-  {
-    m_title = title;
-  }
+  { m_title = title; }
   const wxString& GetTitle() const
-  {
-    return m_title;
-  }
+  { return m_title; }
     /// Set/get the preview rect
   void SetPreviewRect(const wxRect& rect)
-  {
-    m_previewRect = rect;
-  }
+  { m_previewRect = rect; }
   const wxRect& GetPreviewRect() const
-  {
-    return m_previewRect;
-  }
+  { return m_previewRect; }
 protected:
   virtual wxRichTextPrintout* CreatePrintout();
   virtual bool DoPreview(wxRichTextPrintout* printout1, wxRichTextPrintout* printout2);

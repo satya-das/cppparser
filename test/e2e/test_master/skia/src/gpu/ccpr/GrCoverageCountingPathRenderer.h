@@ -32,25 +32,25 @@ public:
     };
   static sk_sp<GrCoverageCountingPathRenderer> CreateIfSupported(const GrCaps&, AllowCaching, uint32_t contextUniqueID);
   CoverageType coverageType() const
-  {
-    return fCoverageType;
-  }
+  { return fCoverageType; }
   using PendingPathsMap = std::map<uint32_t, sk_sp<GrCCPerOpsTaskPaths>>;
     // In DDL mode, Ganesh needs to be able to move the pending GrCCPerOpsTaskPaths to the DDL
     // object (detachPendingPaths) and then return them upon replay (mergePendingPaths).
   PendingPathsMap detachPendingPaths()
-  {
-    return std::move(fPendingPaths);
-  }
+  { return std::move(fPendingPaths); }
   void mergePendingPaths(const PendingPathsMap& paths)
   {
-#  ifdef SK_DEBUG
+#ifdef SK_DEBUG
         // Ensure there are no duplicate opsTask IDs between the incoming path map and ours.
         // This should always be true since opsTask IDs are globally unique and these are coming
         // from different DDL recordings.
-#  endif
-    fPendingPaths.insert(paths.begin(), paths.end());
-  }
+        for (const auto& it : paths) {
+            SkASSERT(!fPendingPaths.count(it.first));
+        }
+#endif
+
+        fPendingPaths.insert(paths.begin(), paths.end());
+    }
   std::unique_ptr<GrFragmentProcessor> makeClipProcessor(uint32_t oplistID, const SkPath& deviceSpacePath, const SkIRect& accessRect, const GrCaps&);
     // GrOnFlushCallbackObject overrides.
   void preFlush(GrOnFlushResourceProvider*, const uint32_t* opsTaskIDs, int numOpsTaskIDs) override;
@@ -69,8 +69,8 @@ private:
     // GrPathRenderer overrides.
   StencilSupport onGetStencilSupport(const GrShape&) const override
   {
-    return GrPathRenderer::kNoSupport_StencilSupport;
-  }
+        return GrPathRenderer::kNoSupport_StencilSupport;
+    }
   CanDrawPath onCanDrawPath(const CanDrawPathArgs&) const override;
   bool onDrawPath(const DrawPathArgs&) override;
   GrCCPerOpsTaskPaths* lookupPendingPaths(uint32_t opsTaskID);

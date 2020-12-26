@@ -20,10 +20,9 @@ class SkAutoMalloc :  SkNoncopyable
 {
 public:
   explicit SkAutoMalloc(size_t size = 0)
-    : fPtr(size ? sk_malloc_throw(size) : nullptr)
-    , fSize(size)
-  {
-  }
+    :  fPtr(size ? sk_malloc_throw(size) : nullptr), fSize(size) 
+    {
+    }
     /**
      *  Passed to reset to specify what happens if the requested size is smaller
      *  than the current size (and the current block was dynamically allocated).
@@ -48,40 +47,33 @@ public:
      */
   void* reset(size_t size = 0, OnShrink shrink = kAlloc_OnShrink)
   {
-    if (size != fSize && (size > fSize || kReuse_OnShrink != shrink))
-    {
-      fPtr.reset(size ? sk_malloc_throw(size) : nullptr);
-      fSize = size;
+        if (size != fSize && (size > fSize || kReuse_OnShrink != shrink)) {
+            fPtr.reset(size ? sk_malloc_throw(size) : nullptr);
+            fSize = size;
+        }
+        return fPtr.get();
     }
-    return fPtr.get();
-  }
     /**
      *  Return the allocated block.
      */
   void* get()
-  {
-    return fPtr.get();
-  }
+  { return fPtr.get(); }
   const void* get() const
-  {
-    return fPtr.get();
-  }
+  { return fPtr.get(); }
    /** Transfer ownership of the current ptr to the caller, setting the
        internal reference to null. Note the caller is reponsible for calling
        sk_free on the returned address.
     */
   void* release()
   {
-    fSize = 0;
-    return fPtr.release();
-  }
+        fSize = 0;
+        return fPtr.release();
+    }
 private:
   struct WrapFree
   {
     void operator()(void* p)
-    {
-      sk_free(p);
-    }
+    { sk_free(p); }
   };
   std::unique_ptr<void, WrapFree> fPtr;
   size_t fSize;
@@ -103,39 +95,39 @@ public:
      */
   SkAutoSMalloc()
   {
-    fPtr = fStorage;
-    fSize = kSize;
-  }
+
+        fPtr = fStorage;
+        fSize = kSize;
+      }
     /**
      *  Allocate a block of the specified size. If size <= kSizeRequested (or slightly more), then
      *  the allocation will come from the stack, otherwise it will be dynamically allocated.
      */
   explicit SkAutoSMalloc(size_t size)
   {
-    fPtr = fStorage;
-    fSize = kSize;
-    this->reset(size);
-  }
+
+        fPtr = fStorage;
+        fSize = kSize;
+        this->reset(size);
+      }
     /**
      *  Free the allocated block (if any). If the block was small enough to have been allocated on
      *  the stack, then this does nothing.
      */
   ~SkAutoSMalloc()
   {
-    if (fPtr != (void*) fStorage)
-    {
-      sk_free(fPtr);
-    }
-  }
+
+        if (fPtr != (void*)fStorage) {
+            sk_free(fPtr);
+        }
+      }
     /**
      *  Return the allocated block. May return non-null even if the block is of zero size. Since
      *  this may be on the stack or dynamically allocated, the caller must not call sk_free() on it,
      *  but must rely on SkAutoSMalloc to manage it.
      */
   void* get() const
-  {
-    return fPtr;
-  }
+  { return fPtr; }
     /**
      *  Return a new block of the requested size, freeing (as necessary) any previously allocated
      *  block. As with the constructor, if size <= kSizeRequested (or slightly more) then the return
@@ -143,33 +135,29 @@ public:
      */
   void* reset(size_t size, SkAutoMalloc::OnShrink shrink = SkAutoMalloc::kAlloc_OnShrink, bool* didChangeAlloc = nullptr)
   {
-    size = (size < kSize) ? kSize : size;
-    bool alloc = size != fSize && (SkAutoMalloc::kAlloc_OnShrink == shrink || size > fSize);
-    if (didChangeAlloc)
-    {
-      *didChangeAlloc = alloc;
+        size = (size < kSize) ? kSize : size;
+        bool alloc = size != fSize && (SkAutoMalloc::kAlloc_OnShrink == shrink || size > fSize);
+        if (didChangeAlloc) {
+            *didChangeAlloc = alloc;
+        }
+        if (alloc) {
+            if (fPtr != (void*)fStorage) {
+                sk_free(fPtr);
+            }
+
+            if (size == kSize) {
+                SkASSERT(fPtr != fStorage); // otherwise we lied when setting didChangeAlloc.
+                fPtr = fStorage;
+            } else {
+                fPtr = sk_malloc_throw(size);
+            }
+
+            fSize = size;
+        }
+        SkASSERT(fSize >= size && fSize >= kSize);
+        SkASSERT((fPtr == fStorage) || fSize > kSize);
+        return fPtr;
     }
-    if (alloc)
-    {
-      if (fPtr != (void*) fStorage)
-      {
-        sk_free(fPtr);
-      }
-      if (size == kSize)
-      {
-        SkASSERT(fPtr != fStorage);
-        fPtr = fStorage;
-      }
-      else 
-      {
-        fPtr = sk_malloc_throw(size);
-      }
-      fSize = size;
-    }
-    SkASSERT(fSize >= size && fSize >= kSize);
-    SkASSERT((fPtr == fStorage) || fSize > kSize);
-    return fPtr;
-  }
 private:
     // Align up to 32 bits.
   static const size_t kSizeAlign4 = SkAlign4(kSizeRequested);

@@ -21,10 +21,12 @@ class wxPersistentWindowBase : public wxPersistentObject
 {
 public:
   wxPersistentWindowBase(wxWindow* win)
-    : wxPersistentObject(win)
-  {
-    win->Bind(wxEVT_DESTROY, &wxPersistentWindowBase::HandleDestroy, this);
-  }
+    :  wxPersistentObject(win)
+    
+    {
+
+        win->Bind(wxEVT_DESTROY, &wxPersistentWindowBase::HandleDestroy, this);
+        }
   wxString GetName() const override
   {
     const wxString name = GetWindow()->GetName();
@@ -33,21 +35,20 @@ public:
   }
 protected:
   wxWindow* GetWindow() const
-  {
-    return static_cast<wxWindow*>(GetObject());
-  }
+  { return static_cast<wxWindow *>(GetObject()); }
 private:
   void HandleDestroy(wxWindowDestroyEvent& event)
   {
-    event.Skip();
+        event.Skip();
+
         // only react to the destruction of this object itself, not of any of
         // its children
-    if (event.GetEventObject() == GetObject())
-    {
+        if ( event.GetEventObject() == GetObject() )
+        {
             // this will delete this object itself
-      wxPersistenceManager::Get().SaveAndUnregister(GetWindow());
+            wxPersistenceManager::Get().SaveAndUnregister(GetWindow());
+        }
     }
-  }
   wxDECLARE_NO_COPY_CLASS(wxPersistentWindowBase);
 };
 template <typename T>
@@ -56,12 +57,12 @@ class wxPersistentWindow : public wxPersistentWindowBase
 public:
   typedef T WindowType;
   wxPersistentWindow(WindowType* win)
-    : wxPersistentWindowBase(win)
-  {
-  }
+    :  wxPersistentWindowBase(win)
+    
+    {
+
+        }
   WindowType* Get() const
-  {
-    return static_cast<WindowType*>(GetWindow());
-  }
+  { return static_cast<WindowType *>(GetWindow()); }
 };
 #endif

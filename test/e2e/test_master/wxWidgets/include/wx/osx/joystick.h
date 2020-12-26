@@ -19,8 +19,7 @@ public:
    */
   wxJoystick(int joystick = wxJOYSTICK1)
   {
-    m_joystick = joystick;
-  }
+ m_joystick = joystick;   }
   // Attributes
   ////////////////////////////////////////////////////////////////////////////
   wxPoint GetPosition() const;

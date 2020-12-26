@@ -16,9 +16,7 @@ class wxFontInstance : public wxFontInstanceBase
 public:
   wxFontInstance(float ptSize, bool aa, const wxString& filename);
   wxIDirectFBFontPtr GetDirectFBFont() const
-  {
-    return m_font;
-  }
+  { return m_font; }
 private:
   wxIDirectFBFontPtr m_font;
 };
@@ -26,9 +24,9 @@ class wxFontFace : public wxFontFaceBase
 {
 public:
   wxFontFace(const wxString& filename)
-    : m_fileName(filename)
-  {
-  }
+    :  m_fileName(filename) 
+    {
+    }
 protected:
   wxFontInstance* CreateFontInstance(float ptSize, bool aa);
 private:
@@ -40,13 +38,9 @@ public:
   wxFontBundle(const wxString& name, const wxString& fileRegular, const wxString& fileBold, const wxString& fileItalic, const wxString& fileBoldItalic, bool isFixed);
     /// Returns name of the family
   virtual wxString GetName() const
-  {
-    return m_name;
-  }
+  { return m_name; }
   virtual bool IsFixed() const
-  {
-    return m_isFixed;
-  }
+  { return m_isFixed; }
 private:
   wxString m_name;
   bool m_isFixed;
@@ -56,12 +50,11 @@ class wxFontsManager : public wxFontsManagerBase
 public:
   wxFontsManager()
   {
-    AddAllFonts();
-  }
+ AddAllFonts();   }
   virtual wxString GetDefaultFacename(wxFontFamily family) const
   {
-    return m_defaultFacenames[family];
-  }
+        return m_defaultFacenames[family];
+    }
 private:
     // adds all fonts using AddBundle()
   void AddAllFonts();

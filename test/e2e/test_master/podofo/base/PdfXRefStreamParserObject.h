@@ -98,13 +98,13 @@ namespace PoDoFo
   inline bool PdfXRefStreamParserObject::HasPrevious()
   {
     return (m_lNextOffset != -1);
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline pdf_long PdfXRefStreamParserObject::GetPreviousOffset()
   {
     return m_lNextOffset;
-  }
+}
 }
 #endif

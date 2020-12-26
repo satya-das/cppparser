@@ -187,9 +187,9 @@ public:
   }
 protected:
   AcApDocManagerReactor()
-    : mVeto(0)
-  {
-  }
+    :  mVeto(0) 
+    {
+    }
   Acad::ErrorStatus veto();
 private:
   Adesk::Int8 mVeto;
@@ -377,8 +377,6 @@ public:
 ACCORE_PORT AcApDocManager* acDocManagerPtr();
 #  define acDocManager	acDocManagerPtr()
 inline AcApDocument* curDoc()
-{
-  return acDocManager->curDocument();
-}
+{ return acDocManager->curDocument(); }
 #  pragma  pack (pop)
 #endif

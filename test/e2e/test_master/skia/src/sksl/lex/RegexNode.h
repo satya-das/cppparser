@@ -26,35 +26,38 @@ struct RegexNode
         kStar_Kind
     };
   RegexNode(Kind kind)
-    : fKind(kind)
-  {
-  }
-  RegexNode(Kind kind, char payload)
-    : fKind(kind)
-  {
-    fPayload.fChar = payload;
-  }
-  RegexNode(Kind kind, const char* children)
-    : fKind(kind)
-  {
-    fPayload.fBool = false;
-    while (*children != '\0')
+    :  fKind(kind) 
     {
-      fChildren.emplace_back(kChar_Kind, *children);
-      ++children;
     }
-  }
+  RegexNode(Kind kind, char payload)
+    :  fKind(kind) 
+    {
+
+        fPayload.fChar = payload;
+        }
+  RegexNode(Kind kind, const char* children)
+    :  fKind(kind) 
+    {
+
+        fPayload.fBool = false;
+        while (*children != '\0') {
+            fChildren.emplace_back(kChar_Kind, *children);
+            ++children;
+        }
+        }
   RegexNode(Kind kind, RegexNode child)
-    : fKind(kind)
-  {
-    fChildren.push_back(std::move(child));
-  }
+    :  fKind(kind) 
+    {
+
+        fChildren.push_back(std::move(child));
+        }
   RegexNode(Kind kind, RegexNode child1, RegexNode child2)
-    : fKind(kind)
-  {
-    fChildren.push_back(std::move(child1));
-    fChildren.push_back(std::move(child2));
-  }
+    :  fKind(kind) 
+    {
+
+        fChildren.push_back(std::move(child1));
+        fChildren.push_back(std::move(child2));
+        }
     /**
      * Creates NFA states for this node, with a successful match against this node resulting in a
      * transition to all of the states in the accept vector.

@@ -28,8 +28,8 @@ public:
   sk_cf_obj<const void*> fTexture;
   bool operator==(const GrMtlTextureInfo& that) const
   {
-    return fTexture == that.fTexture;
-  }
+        return fTexture == that.fTexture;
+    }
 };
 #  endif
 #endif

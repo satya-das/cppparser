@@ -56,24 +56,18 @@ public:
 
     // is this a vertical slider?
   bool IsVert() const
-  {
-    return (GetWindowStyle() & wxSL_VERTICAL) != 0;
-  }
+  { return (GetWindowStyle() & wxSL_VERTICAL) != 0; }
     // get the slider orientation
   wxOrientation GetOrientation() const
-  {
-    return IsVert() ? wxVERTICAL : wxHORIZONTAL;
-  }
+  { return IsVert() ? wxVERTICAL : wxHORIZONTAL; }
     // do we have labels?
   bool HasLabels() const
-  {
-    return ((GetWindowStyle() & wxSL_LABELS) != 0) && ((GetWindowStyle() & (wxSL_TOP | wxSL_BOTTOM | wxSL_LEFT | wxSL_RIGHT)) != 0);
-  }
+  { return ((GetWindowStyle() & wxSL_LABELS) != 0) &&
+                 ((GetWindowStyle() & (wxSL_TOP|wxSL_BOTTOM|wxSL_LEFT|wxSL_RIGHT)) != 0); }
     // do we have ticks?
   bool HasTicks() const
-  {
-    return ((GetWindowStyle() & wxSL_TICKS) != 0) && ((GetWindowStyle() & (wxSL_TOP | wxSL_BOTTOM | wxSL_LEFT | wxSL_RIGHT | wxSL_BOTH)) != 0);
-  }
+  { return ((GetWindowStyle() & wxSL_TICKS) != 0) &&
+                 ((GetWindowStyle() & (wxSL_TOP|wxSL_BOTTOM|wxSL_LEFT|wxSL_RIGHT|wxSL_BOTH)) != 0); }
     // implement wxControlWithThumb interface
   wxWindow* GetWindow() override
   {
@@ -94,9 +88,7 @@ public:
   bool OnPageScroll(int pageInc) override;
     // for wxStdSliderInputHandler
   wxScrollThumb& GetThumb()
-  {
-    return m_thumb;
-  }
+  { return m_thumb; }
   bool PerformAction(const wxControlAction& action, long numArg = 0, const wxString& strArg = wxEmptyString) override;
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
@@ -129,9 +121,7 @@ protected:
   bool ChangeValueTo(int value);
     // is the value inside the range?
   bool IsInRange(int value)
-  {
-    return (value >= m_min) && (value <= m_max);
-  }
+  { return (value >= m_min) && (value <= m_max); }
     // format the value for printing as label
   virtual wxString FormatValue(int value) const;
     // calculate max label size

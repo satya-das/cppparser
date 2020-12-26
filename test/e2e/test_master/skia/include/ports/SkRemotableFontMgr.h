@@ -32,20 +32,15 @@ class SK_API SkRemotableFontIdentitySet : public SkRefCnt
 public:
   SkRemotableFontIdentitySet(int count, SkFontIdentity** data);
   int count() const
-  {
-    return fCount;
-  }
+  { return fCount; }
   const SkFontIdentity& at(int index) const
-  {
-    return fData[index];
-  }
+  { return fData[index]; }
   static SkRemotableFontIdentitySet* NewEmpty();
 private:
   SkRemotableFontIdentitySet()
-    : fCount(0)
-    , fData()
-  {
-  }
+    :  fCount(0), fData() 
+    {
+     }
   friend SkRemotableFontIdentitySet* sk_remotable_font_identity_set_new();
   int fCount;
   SkAutoTMalloc<SkFontIdentity> fData;

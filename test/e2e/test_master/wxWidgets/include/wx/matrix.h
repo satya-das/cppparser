@@ -85,9 +85,7 @@ public:
     // Only returns a flag, which is set whenever an operation
     // is done.
   inline bool IsIdentity() const
-  {
-    return m_isIdentity;
-  }
+  { return m_isIdentity; }
     // This does an actual check.
   inline bool IsIdentity1() const;
     //Scale by scale (isotropic scaling i.e. the same in x and y):
@@ -169,7 +167,7 @@ inline double wxTransformMatrix::TransformX(double x) const
     //normally like this, but since no rotation is involved (only mirror and scale)
     //we can do without Y -> m_matrix[1]{0] is -sin(rotation angle) and therefore zero
     //(x * m_matrix[0][0] + y * m_matrix[1][0] + m_matrix[2][0]))
-  return (m_isIdentity ? x : (x * m_matrix[0][0] + m_matrix[2][0]));
+    return (m_isIdentity ? x : (x * m_matrix[0][0] +  m_matrix[2][0]));
 }
 // Transform Y value from logical to device
 // warning: this function can only be used for this purpose
@@ -182,13 +180,22 @@ inline double wxTransformMatrix::TransformY(double y) const
     //normally like this, but since no rotation is involved (only mirror and scale)
     //we can do without X -> m_matrix[0]{1] is sin(rotation angle) and therefore zero
     //(x * m_matrix[0][1] + y * m_matrix[1][1] + m_matrix[2][1]))
-  return (m_isIdentity ? y : (y * m_matrix[1][1] + m_matrix[2][1]));
+    return (m_isIdentity ? y : (y * m_matrix[1][1] + m_matrix[2][1]));
 }
 // Is the matrix the identity matrix?
 // Each operation checks whether the result is still the identity matrix and sets a flag.
 inline bool wxTransformMatrix::IsIdentity1() const
 {
-  return (wxIsSameDouble(m_matrix[0][0], 1.0) && wxIsSameDouble(m_matrix[1][1], 1.0) && wxIsSameDouble(m_matrix[2][2], 1.0) && wxIsSameDouble(m_matrix[1][0], 0.0) && wxIsSameDouble(m_matrix[2][0], 0.0) && wxIsSameDouble(m_matrix[0][1], 0.0) && wxIsSameDouble(m_matrix[2][1], 0.0) && wxIsSameDouble(m_matrix[0][2], 0.0) && wxIsSameDouble(m_matrix[1][2], 0.0));
+    return
+    ( wxIsSameDouble(m_matrix[0][0], 1.0) &&
+      wxIsSameDouble(m_matrix[1][1], 1.0) &&
+      wxIsSameDouble(m_matrix[2][2], 1.0) &&
+      wxIsSameDouble(m_matrix[1][0], 0.0) &&
+      wxIsSameDouble(m_matrix[2][0], 0.0) &&
+      wxIsSameDouble(m_matrix[0][1], 0.0) &&
+      wxIsSameDouble(m_matrix[2][1], 0.0) &&
+      wxIsSameDouble(m_matrix[0][2], 0.0) &&
+      wxIsSameDouble(m_matrix[1][2], 0.0) );
 }
 // Calculates the determinant of a 2 x 2 matrix
 #  endif

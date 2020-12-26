@@ -45,26 +45,18 @@ public:
   virtual bool Initialize(int& argc, wxChar** argv);
   virtual void CleanUp();
   WXWindow GetTopLevelWidget() const
-  {
-    return m_topLevelWidget;
-  }
+  { return m_topLevelWidget; }
   WXColormap GetMainColormap(WXDisplay* display);
   long GetMaxRequestSize() const
-  {
-    return m_maxRequestSize;
-  }
+  { return m_maxRequestSize; }
     // This handler is called when a property change event occurs
   virtual bool HandlePropertyChange(WXEvent* event);
     // Values that can be passed on the command line.
     // Returns -1, -1 if none specified.
   const wxSize& GetInitialSize() const
-  {
-    return m_initialSize;
-  }
+  { return m_initialSize; }
   bool GetShowIconic() const
-  {
-    return m_showIconic;
-  }
+  { return m_showIconic; }
 #  if  wxUSE_UNICODE
     // Global context for Pango layout. Either use X11
     // or use Xft rendering according to GDK_USE_XFT
@@ -75,12 +67,10 @@ public:
   {
         // this should be implemented correctly for wxBitmap to work
         // with multiple display
-    return m_visualInfo;
-  }
+        return m_visualInfo;
+    }
   virtual void* GetXVisualInfo()
-  {
-    return NULL;
-  }
+  { return NULL; }
   static long sm_lastMessageTime;
   bool m_showIconic;
   wxSize m_initialSize;

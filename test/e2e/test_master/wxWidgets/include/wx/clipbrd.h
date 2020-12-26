@@ -28,8 +28,7 @@ class WXDLLIMPEXP_CORE wxClipboardBase : public wxObject
 public:
   wxClipboardBase()
   {
-    m_usePrimary = false;
-  }
+ m_usePrimary = false;   }
     // open the clipboard before Add/SetData() and GetData()
   virtual bool Open() = 0;
     // close the clipboard after Add/SetData() and GetData()
@@ -56,9 +55,7 @@ public:
     // clipboard will stay available even after the application exits (possibly
     // eating memory), otherwise the clipboard will be emptied on exit
   virtual bool Flush()
-  {
-    return false;
-  }
+  { return false; }
     // this allows to choose whether we work with CLIPBOARD (default) or
     // PRIMARY selection on X11-based systems
     //
@@ -68,13 +65,11 @@ public:
     // clipboard which would be wrong on the platforms without X11 PRIMARY)
   virtual void UsePrimarySelection(bool usePrimary = false)
   {
-    m_usePrimary = usePrimary;
-  }
+        m_usePrimary = usePrimary;
+    }
     // return true if we're using primary selection
   bool IsUsingPrimarySelection() const
-  {
-    return m_usePrimary;
-  }
+  { return m_usePrimary; }
     // Returns global instance (wxTheClipboard) of the object:
   static wxClipboard* Get();
     // don't use this directly, it is public for compatibility with some ports
@@ -88,14 +83,18 @@ class WXDLLIMPEXP_CORE wxClipboardEvent : public wxEvent
 {
 public:
   wxClipboardEvent(wxEventType evtType = wxEVT_NULL)
-    : wxEvent(0, evtType)
-  {
-  }
+    :  wxEvent(0, evtType)
+    
+    {
+
+        }
   wxClipboardEvent(const wxClipboardEvent& event)
-    : wxEvent(event)
-    , m_formats(event.m_formats)
-  {
-  }
+    :  wxEvent(event),
+          m_formats(event.m_formats)
+    
+    {
+
+        }
   bool SupportsFormat(const wxDataFormat& format) const;
   void AddFormat(const wxDataFormat& format);
   wxEvent* Clone() const override
@@ -143,23 +142,23 @@ class WXDLLIMPEXP_CORE wxClipboardLocker
 public:
   wxClipboardLocker(wxClipboard* clipboard = NULL)
   {
-    m_clipboard = clipboard ? clipboard : wxTheClipboard;
-    if (m_clipboard)
-    {
-      m_clipboard->Open();
-    }
-  }
+
+        m_clipboard = clipboard ? clipboard : wxTheClipboard;
+        if ( m_clipboard )
+        {
+            m_clipboard->Open();
+        }
+      }
   bool operator!() const
-  {
-    return !m_clipboard->IsOpened();
-  }
+  { return !m_clipboard->IsOpened(); }
   ~wxClipboardLocker()
   {
-    if (m_clipboard)
-    {
-      m_clipboard->Close();
-    }
-  }
+
+        if ( m_clipboard )
+        {
+            m_clipboard->Close();
+        }
+      }
 private:
   wxClipboard* m_clipboard;
   wxDECLARE_NO_COPY_CLASS(wxClipboardLocker);

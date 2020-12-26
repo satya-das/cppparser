@@ -28,7 +28,7 @@ class AcLyRelExpr
 public:
   virtual ~AcLyRelExpr()
   {
-  }
+   }
   virtual const ACHAR* getVariable() const = 0;
   virtual const ACHAR* getConstant() const = 0;
 };
@@ -39,7 +39,7 @@ class AcLyAndExpr
 public:
   virtual ~AcLyAndExpr()
   {
-  }
+   }
   virtual const AcArray<AcLyRelExpr*>& getRelExprs() const = 0;
 };
 //represents an expression of the form:
@@ -49,7 +49,7 @@ class AcLyBoolExpr
 public:
   virtual ~AcLyBoolExpr()
   {
-  }
+   }
   virtual const AcArray<AcLyAndExpr*>& getAndExprs() const = 0;
 };
 #  ifndef HIMAGELIST
@@ -145,7 +145,7 @@ class AcLyLayerFilterManager
 public:
   virtual ~AcLyLayerFilterManager()
   {
-  }
+   }
     //reads the filters from the database this manager belongs to, and returns
     //the root filter in pRoot.
     //The caller is responsible for deleting  the filters

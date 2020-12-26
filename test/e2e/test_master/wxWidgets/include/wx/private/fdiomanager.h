@@ -30,6 +30,6 @@ public:
     // empty but virtual dtor for the base class
   virtual ~wxFDIOManager()
   {
-  }
+   }
 };
 #endif

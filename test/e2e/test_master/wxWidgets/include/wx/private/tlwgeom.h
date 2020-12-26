@@ -57,8 +57,12 @@ class wxTLWGeometryGeneric : public wxTLWGeometryBase
 public:
   wxTLWGeometryGeneric()
   {
-    m_hasPos = m_hasSize = m_iconized = m_maximized = false;
-  }
+
+        m_hasPos =
+        m_hasSize =
+        m_iconized =
+        m_maximized = false;
+      }
   bool Save(const Serializer& ser) const override
   {
     if (!ser.SaveField(wxPERSIST_TLW_X, m_rectScreen.x) || !ser.SaveField(wxPERSIST_TLW_Y, m_rectScreen.y))
@@ -107,6 +111,7 @@ public:
   {
     if (m_hasPos)
     {
+
             // to avoid making the window completely invisible if it had been
             // shown on a monitor which was disconnected since the last run
             // (this is pretty common for notebook with external displays)
@@ -114,22 +119,25 @@ public:
             // NB: we should allow window position to be (slightly) off screen,
             //     it's not uncommon to position the window so that its upper
             //     left corner has slightly negative coordinate
-      if (wxDisplay::GetFromPoint(m_rectScreen.GetTopLeft()) != wxNOT_FOUND || (m_hasSize && wxDisplay::GetFromPoint(m_rectScreen.GetBottomRight()) != wxNOT_FOUND))
-      {
-        tlw->Move(m_rectScreen.GetTopLeft(), wxSIZE_ALLOW_MINUS_ONE);
-      }
+            if ( wxDisplay::GetFromPoint(m_rectScreen.GetTopLeft()) != wxNOT_FOUND ||
+                 (m_hasSize &&
+                  wxDisplay::GetFromPoint(m_rectScreen.GetBottomRight()) != wxNOT_FOUND) )
+            {
+                tlw->Move(m_rectScreen.GetTopLeft(), wxSIZE_ALLOW_MINUS_ONE);
+            }
             //else: should we try to adjust position/size somehow?
-    }
+            }
     if (m_hasSize)
     {
+
             // a previous version of the program could have saved the window
             // size which used to be big enough, but which is not big enough
             // any more for the new version, so check that the size we restore
             // doesn't cut off parts of the window
-      wxSize size = m_rectScreen.GetSize();
-      size.IncTo(tlw->GetBestSize());
-      tlw->SetSize(size);
-    }
+            wxSize size = m_rectScreen.GetSize();
+            size.IncTo(tlw->GetBestSize());
+            tlw->SetSize(size);
+            }
         // note that the window can be both maximized and iconized
     if (m_maximized)
     {

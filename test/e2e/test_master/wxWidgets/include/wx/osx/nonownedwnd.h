@@ -30,13 +30,14 @@ public:
     // constructors and such
   wxNonOwnedWindow()
   {
-    Init();
-  }
+ Init();   }
   wxNonOwnedWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
   {
-    Init();
-    (void) Create(parent, id, pos, size, style, name);
-  }
+
+        Init();
+
+        (void)Create(parent, id, pos, size, style, name);
+      }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr));
   bool Create(wxWindow* parent, WXWindow nativeWindow);
   virtual ~wxNonOwnedWindow();
@@ -55,14 +56,10 @@ public:
 
     // These accessors are Mac-specific and don't exist in other ports.
   const wxRegion& GetShape() const
-  {
-    return m_shape;
-  }
+  { return m_shape; }
 #  if  wxUSE_GRAPHICS_CONTEXT
   const wxGraphicsPath& GetShapePath()
-  {
-    return m_shapePath;
-  }
+  { return m_shapePath; }
 #  endif
     // activation hooks only necessary for MDI Implementation
   static void MacDelayedDeactivation(long timestamp);
@@ -74,9 +71,7 @@ public:
   void SetExtraStyle(long exStyle) override;
   bool SetBackgroundColour(const wxColour& colour) override;
   wxNonOwnedWindowImpl* GetNonOwnedPeer() const
-  {
-    return m_nowpeer;
-  }
+  { return m_nowpeer; }
 #  if  wxOSX_USE_COCOA_OR_IPHONE
     // override the base class method to return an NSWindow instead of NSView
   void* OSXGetViewOrWindow() const override;
@@ -88,9 +83,7 @@ public:
   virtual void HandleResizing(double timestampsec, wxRect* rect);
   void OSXHandleMiniaturize(double, bool miniaturized);
   void OSXSetIgnoreResizing(bool value)
-  {
-    m_ignoreResizing = value;
-  }
+  { m_ignoreResizing = value; }
   void WindowWasPainted();
   bool Destroy() override;
 protected:

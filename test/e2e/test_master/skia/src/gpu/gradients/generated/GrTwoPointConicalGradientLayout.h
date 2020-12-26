@@ -23,9 +23,7 @@ public:
   GrTwoPointConicalGradientLayout(const GrTwoPointConicalGradientLayout& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  {
-    return "TwoPointConicalGradientLayout";
-  }
+  { return "TwoPointConicalGradientLayout"; }
   GrCoordTransform fCoordTransform0;
   SkMatrix44 gradientMatrix;
   Type type;
@@ -37,19 +35,21 @@ public:
   SkPoint focalParams;
 private:
   GrTwoPointConicalGradientLayout(SkMatrix44 gradientMatrix, Type type, bool isRadiusIncreasing, bool isFocalOnCircle, bool isWellBehaved, bool isSwapped, bool isNativelyFocal, SkPoint focalParams)
-    : INHERITED(kGrTwoPointConicalGradientLayout_ClassID, (OptimizationFlags) kNone_OptimizationFlags)
-    , fCoordTransform0(gradientMatrix)
-    , gradientMatrix(gradientMatrix)
-    , type(type)
-    , isRadiusIncreasing(isRadiusIncreasing)
-    , isFocalOnCircle(isFocalOnCircle)
-    , isWellBehaved(isWellBehaved)
-    , isSwapped(isSwapped)
-    , isNativelyFocal(isNativelyFocal)
-    , focalParams(focalParams)
-  {
-    this->addCoordTransform(&fCoordTransform0);
-  }
+    :  INHERITED(kGrTwoPointConicalGradientLayout_ClassID,
+                        (OptimizationFlags)kNone_OptimizationFlags)
+            , fCoordTransform0(gradientMatrix)
+            , gradientMatrix(gradientMatrix)
+            , type(type)
+            , isRadiusIncreasing(isRadiusIncreasing)
+            , isFocalOnCircle(isFocalOnCircle)
+            , isWellBehaved(isWellBehaved)
+            , isSwapped(isSwapped)
+            , isNativelyFocal(isNativelyFocal)
+            , focalParams(focalParams) 
+    {
+
+        this->addCoordTransform(&fCoordTransform0);
+        }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

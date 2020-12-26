@@ -108,7 +108,7 @@ public:
   virtual void emitHashIf(CppHashIf::CondType condType, const std::string& cond, std::ostream& stm) const;
   virtual void emitEndIf(std::ostream& stm) const;
   virtual void emitPragma(const CppPragma* pragmaObj, std::ostream& stm) const;
-  virtual void emitBlob(const CppBlob* blobObj, std::ostream& stm) const;
+  virtual void emitBlob(const CppBlob* blobObj, std::ostream& stm, bool formatLineStarts, CppIndent indentation) const;
 
   virtual void emitVarType(const CppVarType* varTypeObj, std::ostream& stm) const;
   virtual void emitParamList(const CppParamVector* paramListObj, std::ostream& stm) const;

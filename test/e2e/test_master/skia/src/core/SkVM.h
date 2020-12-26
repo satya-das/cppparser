@@ -121,22 +121,14 @@ namespace skvm
         // There's another encoding for unconditional branches that can jump further,
         // but this one encoded as b.al is simple to implement and should be fine.
     void b(Label* l)
-    {
-      this->b(Condition::al, l);
-    }
+    { this->b(Condition::al, l); }
     void bne(Label* l)
-    {
-      this->b(Condition::ne, l);
-    }
+    { this->b(Condition::ne, l); }
     void blt(Label* l)
-    {
-      this->b(Condition::lt, l);
-    }
+    { this->b(Condition::lt, l); }
         // "cmp ..." is just an assembler mnemonic for "subs xzr, ..."!
     void cmp(X n, int imm12)
-    {
-      this->subs(xzr, n, imm12);
-    }
+    { this->subs(xzr, n, imm12); }
         // Compare and branch if zero/non-zero, as if
         //      cmp(t,0)
         //      beq/bne(l)
@@ -158,8 +150,8 @@ namespace skvm
     void op(int prefix, int map, int opcode, Ymm dst, Ymm x, bool W = false)
     {
             // Two arguments ops seem to pass them in dst and y, forcing x to 0 so VEX.vvvv == 1111.
-      this->op(prefix, map, opcode, dst, (Ymm) 0, x, W);
-    }
+            this->op(prefix, map, opcode, dst,(Ymm)0,x, W);
+        }
         // dst = op(x,imm)
     void op(int prefix, int map, int opcode, int opcode_ext, Ymm dst, Ymm x, int imm);
         // dst = op(x,label) or op(label)
@@ -172,13 +164,9 @@ namespace skvm
         // 2-argument ops, with or without an immediate.
     void op(uint32_t op22, int imm, V n, V d);
     void op(uint32_t op22, V n, V d)
-    {
-      this->op(op22, 0, n, d);
-    }
+    { this->op(op22,0,n,d); }
     void op(uint32_t op22, X x, V v)
-    {
-      this->op(op22, 0, (V) x, v);
-    }
+    { this->op(op22,0,(V)x,v); }
         // Order matters... value is 4-bit encoding for condition code.
     enum class Condition { eq,ne,cs,cc,mi,pl,vs,vc,hi,ls,ge,lt,gt,le,al };
     void b(Condition, Label*);
@@ -257,22 +245,16 @@ namespace skvm
     Program done(const char* debug_name = nullptr);
         // Mostly for debugging, tests, etc.
     std::vector<Instruction> program() const
-    {
-      return fProgram;
-    }
+    { return fProgram; }
         // Declare an argument with given stride (use stride=0 for uniforms).
         // TODO: different types for varying and uniforms?
     Arg arg(int stride);
         // Convenience arg() wrappers for most common strides, sizeof(T) and 0.
     template <typename T>
     Arg varying()
-    {
-      return this->arg(sizeof(T));
-    }
+    { return this->arg(sizeof(T)); }
     Arg uniform()
-    {
-      return this->arg(0);
-    }
+    { return this->arg(0); }
         // TODO: allow uniform (i.e. Arg) offsets to store* and load*?
         // TODO: sign extension (signed types) for <32-bit loads?
         // TODO: unsigned integer operations where relevant (just comparisons?)?
@@ -296,9 +278,7 @@ namespace skvm
         // Load an immediate constant.
     I32 splat(int n);
     I32 splat(unsigned u)
-    {
-      return this->splat((int) u);
-    }
+    { return this->splat((int)u); }
     F32 splat(float f);
         // float math, comparisons, etc.
     F32 add(F32 x, F32 y);
@@ -314,9 +294,7 @@ namespace skvm
     I32 gte(F32 x, F32 y);
     I32 to_i32(F32 x);
     I32 bit_cast(F32 x)
-    {
-      return {x.id};
-    }
+    { return {x.id}; }
         // int math, comparisons, etc.
     I32 add(I32 x, I32 y);
     I32 sub(I32 x, I32 y);
@@ -332,9 +310,7 @@ namespace skvm
     I32 gte(I32 x, I32 y);
     F32 to_f32(I32 x);
     F32 bit_cast(I32 x)
-    {
-      return {x.id};
-    }
+    { return {x.id}; }
         // Treat each 32-bit lane as a pair of 16-bit ints.
     I32 add_16x2(I32 x, I32 y);
     I32 sub_16x2(I32 x, I32 y);
@@ -356,8 +332,9 @@ namespace skvm
     I32 select(I32 cond, I32 t, I32 f);
     F32 select(I32 cond, F32 t, F32 f)
     {
-      return this->bit_cast(this->select(cond, this->bit_cast(t), this->bit_cast(f)));
-    }
+            return this->bit_cast(this->select(cond, this->bit_cast(t)
+                                                   , this->bit_cast(f)));
+        }
         // More complex operations...
 
         // Shuffle the bytes in x according to each nibble of control, as if
@@ -389,13 +366,19 @@ namespace skvm
       template <typename T>
       static size_t Hash(T val)
       {
-        return std::hash<T>()(val);
-      }
+                return std::hash<T>{}(val);
+            }
             // TODO: replace with SkOpts::hash()?
       size_t operator()(const Instruction& inst) const
       {
-        return Hash((uint8_t) inst.op) ^ Hash(inst.x) ^ Hash(inst.y) ^ Hash(inst.z) ^ Hash(inst.imm) ^ Hash(inst.death) ^ Hash(inst.hoist);
-      }
+                return Hash((uint8_t)inst.op)
+                     ^ Hash(inst.x)
+                     ^ Hash(inst.y)
+                     ^ Hash(inst.z)
+                     ^ Hash(inst.imm)
+                     ^ Hash(inst.death)
+                     ^ Hash(inst.hoist);
+            }
     };
     Val push(Op, Val x, Val y = NA, Val z = NA, int imm = 0);
     bool isZero(Val) const;
@@ -428,27 +411,19 @@ namespace skvm
     template <typename... T>
     void eval(int n, T*... arg) const
     {
-      SkASSERT(sizeof(arg)... == fStrides.size());
+            SkASSERT(sizeof...(arg) == fStrides.size());
             // This nullptr isn't important except that it makes args[] non-empty if you pass none.
-      void* args[] = {(void*) arg..., nullptr};
-      this->eval(n, args);
-    }
+            void* args[] = { (void*)arg..., nullptr };
+            this->eval(n, args);
+        }
     std::vector<Instruction> instructions() const
-    {
-      return fInstructions;
-    }
+    { return fInstructions; }
     int nregs() const
-    {
-      return fRegs;
-    }
+    { return fRegs; }
     int loop() const
-    {
-      return fLoop;
-    }
+    { return fLoop; }
     bool empty() const
-    {
-      return fInstructions.empty();
-    }
+    { return fInstructions.empty(); }
     bool hasJIT() const;
     void dropJIT();
     void dump(SkWStream* = nullptr) const;

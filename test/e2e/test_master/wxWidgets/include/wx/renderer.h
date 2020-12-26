@@ -87,11 +87,11 @@ struct WXDLLIMPEXP_CORE wxSplitterRenderParams
 {
     // the only way to initialize this struct is by using this ctor
   wxSplitterRenderParams(wxCoord widthSash_, wxCoord border_, bool isSens_)
-    : widthSash(widthSash_)
-    , border(border_)
-    , isHotSensitive(isSens_)
-  {
-  }
+    :  widthSash(widthSash_), border(border_), isHotSensitive(isSens_)
+        
+    {
+
+            }
     // the width of the splitter sash
   const wxCoord widthSash;
     // the width of the border of the splitter window
@@ -103,9 +103,10 @@ struct WXDLLIMPEXP_CORE wxSplitterRenderParams
 struct WXDLLIMPEXP_CORE wxHeaderButtonParams
 {
   wxHeaderButtonParams()
-    : m_labelAlignment(wxALIGN_LEFT)
-  {
-  }
+    :  m_labelAlignment(wxALIGN_LEFT)
+    
+    {
+     }
   wxColour m_arrowColour;
   wxColour m_selectionColour;
   wxString m_labelText;
@@ -123,10 +124,9 @@ enum wxHeaderSortIconType {
 struct WXDLLIMPEXP_CORE wxRendererVersion
 {
   wxRendererVersion(int version_, int age_)
-    : version(version_)
-    , age(age_)
-  {
-  }
+    :  version(version_), age(age_) 
+    {
+     }
     // default copy ctor, assignment operator and dtor are ok
 
     // the current version and age of wxRendererNative interface: different
@@ -144,8 +144,8 @@ struct WXDLLIMPEXP_CORE wxRendererVersion
     // check if the given version is compatible with the current one
   static bool IsCompatible(const wxRendererVersion& ver)
   {
-    return ver.version == Current_Version && ver.age >= Current_Age;
-  }
+        return ver.version == Current_Version && ver.age >= Current_Age;
+    }
   const int version;
   const int age;
 };
@@ -290,13 +290,13 @@ class WXDLLIMPEXP_CORE wxDelegateRendererNative : public wxRendererNative
 {
 public:
   wxDelegateRendererNative()
-    : m_rendererNative(GetGeneric())
-  {
-  }
+    :  m_rendererNative(GetGeneric()) 
+    {
+     }
   wxDelegateRendererNative(wxRendererNative& rendererNative)
-    : m_rendererNative(rendererNative)
-  {
-  }
+    :  m_rendererNative(rendererNative) 
+    {
+     }
   int DrawHeaderButton(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0, wxHeaderSortIconType sortArrow = wxHDR_SORT_ICON_NONE, wxHeaderButtonParams* params = NULL) override
   {
     return m_rendererNative.DrawHeaderButton(win, dc, rect, flags, sortArrow, params);
@@ -422,7 +422,7 @@ protected:
 // default native renderer is the generic one then
 inline wxRendererNative& wxRendererNative::GetDefault()
 {
-  return GetGeneric();
+    return GetGeneric();
 }
 #  endif
 #endif

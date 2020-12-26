@@ -30,13 +30,9 @@ public:
   void Clear() override;
     // See wxComboBoxBase discussion of IsEmpty().
   bool IsListEmpty() const
-  {
-    return wxItemContainer::IsEmpty();
-  }
+  { return wxItemContainer::IsEmpty(); }
   bool IsTextEmpty() const
-  {
-    return wxTextEntry::IsEmpty();
-  }
+  { return wxTextEntry::IsEmpty(); }
   void SetValue(const wxString& value) override;
   void ChangeValue(const wxString& value) override;
   void AppendText(const wxString& value) override;

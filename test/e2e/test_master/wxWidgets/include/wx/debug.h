@@ -95,9 +95,9 @@ WXDLLIMPEXP_BASE extern wxAssertHandler_t wxTheAssertHandler;
  */
 inline wxAssertHandler_t wxSetAssertHandler(wxAssertHandler_t handler)
 {
-  const wxAssertHandler_t old = wxTheAssertHandler;
-  wxTheAssertHandler = handler;
-  return old;
+    const wxAssertHandler_t old = wxTheAssertHandler;
+    wxTheAssertHandler = handler;
+    return old;
 }
 /*
     Reset the default assert handler.
@@ -113,17 +113,14 @@ extern void WXDLLIMPEXP_BASE wxSetDefaultAssertHandler();
 //     defined
 inline wxAssertHandler_t wxSetAssertHandler(wxAssertHandler_t)
 {
-  return NULL;
+    return NULL;
 }
 inline void wxSetDefaultAssertHandler()
-{
-}
+{ }
 #  endif
 // simply a synonym for wxSetAssertHandler(NULL)
 inline void wxDisableAsserts()
-{
-  wxSetAssertHandler(NULL);
-}
+{ wxSetAssertHandler(NULL); }
 /*
     A macro which disables asserts for applications compiled in release build.
 
@@ -394,9 +391,7 @@ namespace wxdebug
 extern bool WXDLLIMPEXP_BASE wxIsDebuggerRunning();
 #  else 
 inline bool wxIsDebuggerRunning()
-{
-  return false;
-}
+{ return false; }
 #  endif
 // An assert helper used to avoid warning when testing constant expressions,
 // i.e. wxASSERT( sizeof(int) == 4 ) can generate a compiler warning about

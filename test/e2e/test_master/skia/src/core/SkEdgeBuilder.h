@@ -43,13 +43,11 @@ class SkBasicEdgeBuilder final : public SkEdgeBuilder
 {
 public:
   explicit SkBasicEdgeBuilder(int clipShift)
-    : fClipShift(clipShift)
-  {
-  }
+    :  fClipShift(clipShift) 
+    {
+    }
   SkEdge** edgeList()
-  {
-    return (SkEdge**) fEdgeList;
-  }
+  { return (SkEdge**)fEdgeList; }
 private:
   Combine combineVertical(const SkEdge* edge, SkEdge* last);
   char* allocEdges(size_t, size_t*) override;
@@ -67,9 +65,7 @@ public:
   {
   }
   SkAnalyticEdge** analyticEdgeList()
-  {
-    return (SkAnalyticEdge**) fEdgeList;
-  }
+  { return (SkAnalyticEdge**)fEdgeList; }
 private:
   Combine combineVertical(const SkAnalyticEdge* edge, SkAnalyticEdge* last);
   char* allocEdges(size_t, size_t*) override;

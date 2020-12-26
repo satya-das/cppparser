@@ -35,9 +35,7 @@ public:
 #endif
 */
   virtual wxPoint GetHotSpot() const
-  {
-    return wxDefaultPosition;
-  }
+  { return wxDefaultPosition; }
 };
 #  if  defined(__WXMSW__)
 #    define wxCURSOR_DEFAULT_TYPE	wxBITMAP_TYPE_CUR_RESOURCE
@@ -91,18 +89,20 @@ class wxBusyCursorSuspender
 public:
   wxBusyCursorSuspender()
   {
-    if (wxIsBusy())
-    {
-      wxSetCursor(wxBusyCursor::GetStoredCursor());
-    }
-  }
+
+        if( wxIsBusy() )
+        {
+            wxSetCursor( wxBusyCursor::GetStoredCursor() );
+        }
+      }
   ~wxBusyCursorSuspender()
   {
-    if (wxIsBusy())
-    {
-      wxSetCursor(wxBusyCursor::GetBusyCursor());
-    }
-  }
+
+        if( wxIsBusy() )
+        {
+            wxSetCursor( wxBusyCursor::GetBusyCursor() );
+        }
+      }
 };
 #endif
     // _WX_CURSOR_H_BASE_

@@ -39,36 +39,35 @@ public:
     // by EraseForObject().
   static void StoreForObject(ObjectType* obj, FieldType* field)
   {
-    const typename MapType::iterator it = ms_map.find(obj);
-    if (it != ms_map.end())
-    {
-      delete it->second;
-      it->second = field;
+        const typename MapType::iterator it = ms_map.find(obj);
+        if ( it != ms_map.end() )
+        {
+            delete it->second;
+            it->second = field;
+        }
+        else
+        {
+            ms_map.insert(typename MapType::value_type(obj, field));
+        }
     }
-    else 
-    {
-      ms_map.insert(typename MapType::value_type(obj, field));
-    }
-  }
     // Find the object for the corresponding window.
   static FieldType* FromObject(ObjectType* obj)
   {
-    const typename MapType::const_iterator it = ms_map.find(obj);
-    return it == ms_map.end() ? NULL : it->second;
-  }
+        const typename MapType::const_iterator it = ms_map.find(obj);
+        return it == ms_map.end() ? NULL : it->second;
+    }
     // Erase the object used for the corresponding window, return true if there
     // was one or false otherwise.
   static bool EraseForObject(ObjectType* obj)
   {
-    const typename MapType::iterator it = ms_map.find(obj);
-    if (it == ms_map.end())
-    {
-      return false;
+        const typename MapType::iterator it = ms_map.find(obj);
+        if ( it == ms_map.end() )
+            return false;
+
+        delete it->second;
+        ms_map.erase(it);
+        return true;
     }
-    delete it->second;
-    ms_map.erase(it);
-    return true;
-  }
 private:
   static FieldMap ms_map;
 };

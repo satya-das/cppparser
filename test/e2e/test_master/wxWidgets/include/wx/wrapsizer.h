@@ -40,8 +40,8 @@ protected:
     // be also considered empty for some reason.
   virtual bool IsSpaceItem(wxSizerItem* item) const
   {
-    return item->IsSpacer();
-  }
+        return item->IsSpacer();
+    }
     // helpers of CalcMin()
   void CalcMinFromMinor(int totMinor);
   void CalcMinFromMajor(int totMajor);

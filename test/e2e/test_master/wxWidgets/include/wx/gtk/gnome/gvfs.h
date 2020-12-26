@@ -20,7 +20,7 @@ class wxGnomeVFSMimeTypesManagerImpl : public wxMimeTypesManagerImpl
 public:
   wxGnomeVFSMimeTypesManagerImpl()
   {
-  }
+   }
 protected:
   virtual bool DoAssociation(const wxString& strType, const wxString& strIcon, wxMimeTypeCommands* entry, const wxArrayString& strExtensions, const wxString& strDesc);
 };

@@ -20,13 +20,16 @@ public:
   wxMemoryInputStream(const wxMemoryOutputStream& stream);
   wxMemoryInputStream(wxInputStream& stream, wxFileOffset lenFile = wxInvalidOffset)
   {
-    InitFromStream(stream, lenFile);
-  }
+
+        InitFromStream(stream, lenFile);
+      }
   wxMemoryInputStream(wxMemoryInputStream& stream)
-    : wxInputStream()
-  {
-    InitFromStream(stream, wxInvalidOffset);
-  }
+    :  wxInputStream()
+    
+    {
+
+        InitFromStream(stream, wxInvalidOffset);
+        }
   virtual ~wxMemoryInputStream();
   wxFileOffset GetLength() const override
   {
@@ -39,9 +42,7 @@ public:
   char Peek() override;
   bool CanRead() const override;
   wxStreamBuffer* GetInputStreamBuffer() const
-  {
-    return m_i_streambuf;
-  }
+  { return m_i_streambuf; }
 protected:
   wxStreamBuffer* m_i_streambuf;
   size_t OnSysRead(void* buffer, size_t nbytes) override;
@@ -71,9 +72,7 @@ public:
   }
   size_t CopyTo(void* buffer, size_t len) const;
   wxStreamBuffer* GetOutputStreamBuffer() const
-  {
-    return m_o_streambuf;
-  }
+  { return m_o_streambuf; }
 protected:
   wxStreamBuffer* m_o_streambuf;
   size_t OnSysWrite(const void* buffer, size_t nbytes) override;

@@ -86,21 +86,19 @@ public:
   {
   }
   wxHyperlinkEvent(wxObject* generator, wxWindowID id, const wxString& url)
-    : wxCommandEvent(wxEVT_HYPERLINK, id)
-    , m_url(url)
-  {
-    SetEventObject(generator);
-  }
+    :  wxCommandEvent(wxEVT_HYPERLINK, id),
+          m_url(url)
+    
+    {
+
+        SetEventObject(generator);
+        }
     // Returns the URL associated with the hyperlink control
     // that the user clicked on.
   wxString GetURL() const
-  {
-    return m_url;
-  }
+  { return m_url; }
   void SetURL(const wxString& url)
-  {
-    m_url = url;
-  }
+  { m_url=url; }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
   {
@@ -131,11 +129,14 @@ class WXDLLIMPEXP_CORE wxHyperlinkCtrl : public wxGenericHyperlinkCtrl
 public:
   wxHyperlinkCtrl()
   {
-  }
+   }
   wxHyperlinkCtrl(wxWindow* parent, wxWindowID id, const wxString& label, const wxString& url, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHL_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxHyperlinkCtrlNameStr))
-    : wxGenericHyperlinkCtrl(parent, id, label, url, pos, size, style, name)
-  {
-  }
+    :  wxGenericHyperlinkCtrl(parent, id, label, url, pos, size,
+                                     style, name)
+        
+    {
+
+            }
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxHyperlinkCtrl);
 };
 #    endif

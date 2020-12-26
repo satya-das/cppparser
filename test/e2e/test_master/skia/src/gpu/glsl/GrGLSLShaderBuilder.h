@@ -49,25 +49,25 @@ public:
     */
   void defineConstant(const char* type, const char* name, const char* value)
   {
-    this->definitions().appendf("const %s %s = %s;\n", type, name, value);
-  }
+        this->definitions().appendf("const %s %s = %s;\n", type, name, value);
+    }
   void defineConstant(const char* name, int value)
   {
-    this->definitions().appendf("const int %s = %i;\n", name, value);
-  }
+        this->definitions().appendf("const int %s = %i;\n", name, value);
+    }
   void defineConstant(const char* name, float value)
   {
-    this->definitions().appendf("const float %s = %f;\n", name, value);
-  }
+        this->definitions().appendf("const float %s = %f;\n", name, value);
+    }
   void defineConstantf(const char* type, const char* name, const char* fmt, ...)
   {
-    this->definitions().appendf("const %s %s = ", type, name);
-    va_list args;
-    va_start(args, fmt);
-    this->definitions().appendVAList(fmt, args);
-    va_end(args);
-    this->definitions().append(";\n");
-  }
+       this->definitions().appendf("const %s %s = ", type, name);
+       va_list args;
+       va_start(args, fmt);
+       this->definitions().appendVAList(fmt, args);
+       va_end(args);
+       this->definitions().append(";\n");
+    }
   void declareGlobal(const GrShaderVar&);
     /**
     * Called by GrGLSLProcessors to add code to one of the shaders.
@@ -80,13 +80,9 @@ public:
     va_end(args);
   }
   void codeAppend(const char* str)
-  {
-    this->code().append(str);
-  }
+  { this->code().append(str); }
   void codeAppend(const char* str, size_t length)
-  {
-    this->code().append(str, length);
-  }
+  { this->code().append(str, length); }
   void codePrependf(const char format[], ...)
   {
     va_list args;
@@ -108,9 +104,7 @@ public:
      * Get parent builder for adding uniforms
      */
   GrGLSLProgramBuilder* getProgramBuilder()
-  {
-    return fProgramBuilder;
-  }
+  { return fProgramBuilder; }
     /**
      * Helper for begining and ending a block in the shader code.
      */
@@ -118,15 +112,16 @@ public:
   {
   public:
     ShaderBlock(GrGLSLShaderBuilder* builder)
-      : fBuilder(builder)
-    {
-      SkASSERT(builder);
-      fBuilder->codeAppend("{");
-    }
-    ~ShaderBlock()
-    {
-      fBuilder->codeAppend("}");
-    }
+      :  fBuilder(builder) 
+      {
+
+            SkASSERT(builder);
+            fBuilder->codeAppend("{");
+        }
+
+        ~ShaderBlock() {
+            fBuilder->codeAppend("}");
+              }
   private:
     GrGLSLShaderBuilder* fBuilder;
   };
@@ -167,54 +162,34 @@ protected:
   void compileAndAppendLayoutQualifiers();
   void nextStage()
   {
-    fShaderStrings.push_back();
-    fCodeIndex++;
-  }
+        fShaderStrings.push_back();
+        fCodeIndex++;
+    }
   void deleteStage()
   {
-    fShaderStrings.pop_back();
-    fCodeIndex--;
-  }
+        fShaderStrings.pop_back();
+        fCodeIndex--;
+    }
   SkString& extensions()
-  {
-    return fShaderStrings[kExtensions];
-  }
+  { return fShaderStrings[kExtensions]; }
   SkString& definitions()
-  {
-    return fShaderStrings[kDefinitions];
-  }
+  { return fShaderStrings[kDefinitions]; }
   SkString& precisionQualifier()
-  {
-    return fShaderStrings[kPrecisionQualifier];
-  }
+  { return fShaderStrings[kPrecisionQualifier]; }
   SkString& layoutQualifiers()
-  {
-    return fShaderStrings[kLayoutQualifiers];
-  }
+  { return fShaderStrings[kLayoutQualifiers]; }
   SkString& uniforms()
-  {
-    return fShaderStrings[kUniforms];
-  }
+  { return fShaderStrings[kUniforms]; }
   SkString& inputs()
-  {
-    return fShaderStrings[kInputs];
-  }
+  { return fShaderStrings[kInputs]; }
   SkString& outputs()
-  {
-    return fShaderStrings[kOutputs];
-  }
+  { return fShaderStrings[kOutputs]; }
   SkString& functions()
-  {
-    return fShaderStrings[kFunctions];
-  }
+  { return fShaderStrings[kFunctions]; }
   SkString& main()
-  {
-    return fShaderStrings[kMain];
-  }
+  { return fShaderStrings[kMain]; }
   SkString& code()
-  {
-    return fShaderStrings[fCodeIndex];
-  }
+  { return fShaderStrings[fCodeIndex]; }
   virtual void onFinalize() = 0;
   enum {
         kExtensions,

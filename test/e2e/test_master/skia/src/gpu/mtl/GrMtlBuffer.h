@@ -16,13 +16,9 @@ public:
   static sk_sp<GrMtlBuffer> Make(GrMtlGpu*, size_t size, GrGpuBufferType intendedType, GrAccessPattern, const void* data = nullptr);
   virtual ~GrMtlBuffer();
   id<MTLBuffer> mtlBuffer() const
-  {
-    return fMtlBuffer;
-  }
+  { return fMtlBuffer; }
   size_t offset() const
-  {
-    return fOffset;
-  }
+  { return fOffset; }
   void bind();
 protected:
   GrMtlBuffer(GrMtlGpu*, size_t size, GrGpuBufferType intendedType, GrAccessPattern);

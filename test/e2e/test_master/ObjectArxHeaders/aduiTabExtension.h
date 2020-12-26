@@ -43,9 +43,7 @@ public:
         // Initialize the manager.
   void Initialize(CAdUiTab* pTabCtrl, CAdUiTabMainDialog* pDlg);
   CAdUiTab* GetTabControl() const
-  {
-    return m_pTabCtrl;
-  }
+  {return m_pTabCtrl;}
 };
 /////////////////////////////////////////////////////////////////////////////
 #  pragma  pack (pop)

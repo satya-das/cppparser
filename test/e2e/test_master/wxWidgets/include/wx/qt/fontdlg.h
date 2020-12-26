@@ -12,15 +12,13 @@ class WXDLLIMPEXP_CORE wxFontDialog : public wxFontDialogBase
 public:
   wxFontDialog()
   {
-  }
+   }
   wxFontDialog(wxWindow* parent)
   {
-    Create(parent);
-  }
+ Create(parent);   }
   wxFontDialog(wxWindow* parent, const wxFontData& data)
   {
-    Create(parent, data);
-  }
+ Create(parent, data);   }
 protected:
   bool DoCreate(wxWindow* parent) override;
 private:

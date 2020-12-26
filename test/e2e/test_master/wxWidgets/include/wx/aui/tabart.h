@@ -30,10 +30,10 @@ class WXDLLIMPEXP_AUI wxAuiTabArt
 public:
   wxAuiTabArt()
   {
-  }
+   }
   virtual ~wxAuiTabArt()
   {
-  }
+   }
   virtual wxAuiTabArt* Clone() = 0;
   virtual void SetFlags(unsigned int flags) = 0;
   virtual void SetSizingInfo(const wxSize& tabCtrlSize, size_t tabCount) = 0;

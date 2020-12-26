@@ -47,7 +47,7 @@ namespace PoDoFo
   public:
     virtual ~PdfOutputStream()
     {
-    }
+     }
     /** Write data to the output stream
      *  
      *  \param pBuffer the data is read from this buffer
@@ -71,8 +71,8 @@ namespace PoDoFo
   };
   inline pdf_long PdfOutputStream::Write(const std::string& s)
   {
-    return this->Write(s.data(), s.size());
-  }
+    return this->Write( s.data(), s.size() );
+}
 /** An output stream that writes data to a file
  */
   class PODOFO_API PdfFileOutputStream : public PdfOutputStream
@@ -139,8 +139,7 @@ namespace PoDoFo
      *  after calling close.
      */
     virtual void Close()
-    {
-    }
+    { }
     /** \returns the length of the written data
      */
     inline pdf_long GetLength() const;
@@ -166,7 +165,7 @@ namespace PoDoFo
   inline pdf_long PdfMemoryOutputStream::GetLength() const
   {
     return m_lLen;
-  }
+}
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -175,7 +174,7 @@ namespace PoDoFo
     char* pBuffer = m_pBuffer;
     m_pBuffer = NULL;
     return pBuffer;
-  }
+}
 /** An output stream that writes to a PdfOutputDevice
  */
   class PODOFO_API PdfDeviceOutputStream : public PdfOutputStream
@@ -221,10 +220,11 @@ namespace PoDoFo
      *  \param pBuffer data is written to this buffer
      */
     PdfBufferOutputStream(PdfRefCountedBuffer* pBuffer)
-      : m_pBuffer(pBuffer)
-      , m_lLength(pBuffer->GetSize())
-    {
-    }
+      :  m_pBuffer( pBuffer ), m_lLength( pBuffer->GetSize() )
+    
+      {
+
+          }
     /** Write data to the output stream
      *  
      *  \param pBuffer the data is read from this buffer
@@ -241,7 +241,7 @@ namespace PoDoFo
      */
     inline pdf_long GetLength() const
     {
-      return m_lLength;
+        return m_lLength;
     }
   private:
     PdfRefCountedBuffer* m_pBuffer;

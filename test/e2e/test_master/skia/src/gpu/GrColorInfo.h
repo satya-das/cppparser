@@ -20,34 +20,24 @@ public:
   GrColorInfo(GrColorType, SkAlphaType, sk_sp<SkColorSpace>);
   GrColorInfo(const SkColorInfo&);
   bool isLinearlyBlended() const
-  {
-    return fColorSpace && fColorSpace->gammaIsLinear();
-  }
+  { return fColorSpace && fColorSpace->gammaIsLinear(); }
   SkColorSpace* colorSpace() const
-  {
-    return fColorSpace.get();
-  }
+  { return fColorSpace.get(); }
   sk_sp<SkColorSpace> refColorSpace() const
-  {
-    return fColorSpace;
-  }
+  { return fColorSpace; }
   GrColorSpaceXform* colorSpaceXformFromSRGB() const;
   sk_sp<GrColorSpaceXform> refColorSpaceXformFromSRGB() const
   {
-    return sk_ref_sp(this->colorSpaceXformFromSRGB());
-  }
+        return sk_ref_sp(this->colorSpaceXformFromSRGB());
+    }
   GrColorType colorType() const
-  {
-    return fColorType;
-  }
+  { return fColorType; }
   SkAlphaType alphaType() const
-  {
-    return fAlphaType;
-  }
+  { return fAlphaType; }
   bool isValid() const
   {
-    return fColorType != GrColorType::kUnknown && fAlphaType != kUnknown_SkAlphaType;
-  }
+        return fColorType != GrColorType::kUnknown && fAlphaType != kUnknown_SkAlphaType;
+    }
 private:
   sk_sp<SkColorSpace> fColorSpace;
   mutable sk_sp<GrColorSpaceXform> fColorXformFromSRGB;

@@ -98,9 +98,7 @@ public:
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
     // AcDbEntity override
   Adesk::Boolean isPlanar() const override
-  {
-    return Adesk::kTrue;
-  }
+  { return Adesk::kTrue; }
   ACDBCORE2D_PORT Acad::ErrorStatus getPlane(AcGePlane& plane, AcDb::Planarity& type) const override;
     //  Direction vector
     //
@@ -304,15 +302,15 @@ protected:
 //
 inline ACHAR* AcDbMText::contents() const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbMText::contents);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbMText::contents);
 }
 inline ACHAR* AcDbMText::contentsRTF() const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbMText::contentsRTF);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbMText::contentsRTF);
 }
 inline ACHAR* AcDbMText::text() const
 {
-  return ::acutGetAcStringConvertToAChar(this, &AcDbMText::text);
+    return ::acutGetAcStringConvertToAChar(this, &AcDbMText::text);
 }
 #  pragma  pack(pop)
 #endif

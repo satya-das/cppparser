@@ -198,7 +198,7 @@ extern int yylex();
   CppConstructor*         cppCtorObj;
   CppDestructor*          cppDtorObj;
   CppTypeConverter*       cppTypeConverter;
-  CppMemInitList*         memInitList;
+  CppMemInits          memInitList;
   CppInheritanceList*     inheritList;
   bool                    inheritType;
   CppIdentifierList*      identifierList;
@@ -1363,7 +1363,7 @@ ctordeclstmt      : ctordecl';'                 [ZZVALID;] { $$ = $1; }
 ctordefn          : ctordecl meminitlist block  [ZZVALID;]
                   {
                     $$ = $1;
-                    $$->memInitList_  = $2;
+                    $$->memInits_  = $2;
                     $$->defn($3);
                   }
                   | name tknScopeResOp name [if($1 != $3) ZZERROR; else ZZVALID;]
@@ -1407,7 +1407,7 @@ ctordecl          : name '(' paramlist ')' %prec CTORDECL
                       ZZVALID;
                   ]
                   {
-                    $$ = newConstructor(gCurAccessType, $1, $3, nullptr, 0);
+                    $$ = newConstructor(gCurAccessType, $1, $3, makeCppMemInitList(), 0);
                   }
                   | functype ctordecl          [ZZLOG;] {
                     $$ = $2;
@@ -1439,9 +1439,17 @@ ctordecl          : name '(' paramlist ')' %prec CTORDECL
                   }
                   ;
 
-meminitlist       :                          [ZZLOG;] { $$ = nullptr; }
-                  | ':' meminit              [ZZLOG;] { $$ = new CppMemInitList; $$->push_back(CppMemInit($2.mem, $2.init)); }
-                  | meminitlist ',' meminit  [ZZLOG;] { $$ = $1; $$->push_back(CppMemInit($3.mem, $3.init)); }
+meminitlist       :                          [ZZLOG;] { $$ = makeCppMemInitList(); }
+                  | ':' meminit              [ZZLOG;] {
+                    $$ = makeCppMemInitList(new std::list<CppMemInit>);
+                    $$.memInitList->push_back(CppMemInit($2.mem, $2.init));
+                  }
+                  | ':' blob                 [ZZLOG;] { $$ = makeCppMemInitList($2); }
+                  | meminitlist ',' meminit  [ZZLOG;] {
+                    $$ = $1;
+                    assert($$.memInitListIsABlob_ == false);
+                    $$.memInitList->push_back(CppMemInit($3.mem, $3.init));
+                  }
                   ;
 
 meminit           : identifier '(' exprorlist ')'    [ZZLOG;] { $$ = CppNtMemInit{$1, $3}; }
@@ -1915,6 +1923,8 @@ exprstmt          : expr ';'           [ZZLOG;] { $$ = $1; }
 
 //////////////////////////////////////////////////////////////////////////
 
+extern const char* contextNameFromState(int ctx);
+
 /**
  * yyparser() invokes this function when it encounters unexpected token.
  */
@@ -1953,10 +1963,13 @@ void yyerror_detailed  (  char* text,
   for(const char* p = lineStart; p < errt_posn; ++p)
     spacechars[p-lineStart] = *p == '\t' ? '\t' : ' ';
   char errmsg[1024];
-  sprintf(errmsg, "%s%s%s%d%s%d%c%s%c%s%c%c",
-    "Error: Unexpected token '", errt_posn, "', while in context=", get_context(), ", found at line#", gLineNo, '\n', // The error message
-    lineStart, '\n',    // Line that contains the error.
-    spacechars, '^', '\n');  // A ^ below the beginning of unexpected token.
+  sprintf(errmsg, "Error: Unexpected token '%s', while in context=%s(%d), found at line#%d\n"
+    "%s\n"   // Line that contains the error.
+    "%s^\n",  // A ^ below the beginning of unexpected token.
+    errt_posn, contextNameFromState(get_context()), get_context(), gLineNo, // The error message
+    lineStart,
+    spacechars);
+
   printf("%s", errmsg);
   // Replace back the end char
   if(endReplaceChar)

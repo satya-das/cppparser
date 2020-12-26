@@ -23,21 +23,24 @@ public:
     // If default ctor is used, Attach() must be called later.
   wxMFCWnd()
   {
-  }
+
+      }
     // Combines default ctor and Attach().
   explicit wxMFCWnd(wxWindow* w)
   {
-    Attach(w);
-  }
+
+        Attach(w);
+      }
   void Attach(wxWindow* w)
   {
-    CWnd::Attach(w->GetHWND());
-  }
+        CWnd::Attach(w->GetHWND());
+    }
   ~wxMFCWnd()
   {
+
         // Prevent MFC from destroying the wxWindow.
-    Detach();
-  }
+        Detach();
+      }
 };
 // ----------------------------------------------------------------------------
 // MFC application class forwarding everything to wxApp
@@ -105,12 +108,12 @@ public:
     BOOL moreIdle = BaseApp::OnIdle(lCount);
     if (wxTheApp)
     {
-      wxTheApp->ProcessPendingEvents();
-      if (wxTheApp->ProcessIdle())
-      {
-        moreIdle = TRUE;
-      }
-    }
+
+            wxTheApp->ProcessPendingEvents();
+
+            if ( wxTheApp->ProcessIdle() )
+                moreIdle = TRUE;
+            }
     return moreIdle;
   }
 protected:
@@ -120,31 +123,34 @@ protected:
     // the main window.
   virtual BOOL InitMainWnd()
   {
-    wxWindow* const w = wxTheApp->GetTopWindow();
-    if (!w)
-    {
-      return FALSE;
-    }
+        wxWindow* const w = wxTheApp->GetTopWindow();
+        if ( !w )
+            return FALSE;
+
         // We need to initialize the main window to let the program continue
         // running.
-    BaseApp::m_pMainWnd = new wxMFCWnd(w);
+        BaseApp::m_pMainWnd = new wxMFCWnd(w);
+
         // We also need to reset m_pMainWnd when this window will be destroyed
         // to prevent MFC from using an invalid HWND, which is probably not
         // fatal but can result in at least asserts failures.
-    w->Bind(wxEVT_DESTROY, &wxMFCApp::OnMainWindowDestroyed, this);
+        w->Bind(wxEVT_DESTROY, &wxMFCApp::OnMainWindowDestroyed, this);
+
         // And we need to let wxWidgets know that it should exit the
         // application when this window is closed, as OnRun(), which does this
         // by default, won't be called when using MFC main message loop.
-    wxTheApp->SetExitOnFrameDelete(true);
-    return TRUE;
-  }
+        wxTheApp->SetExitOnFrameDelete(true);
+
+        return TRUE;
+    }
 private:
   void OnMainWindowDestroyed(wxWindowDestroyEvent& event)
   {
-    event.Skip();
-    delete BaseApp::m_pMainWnd;
-    BaseApp::m_pMainWnd = NULL;
-  }
+        event.Skip();
+
+        delete BaseApp::m_pMainWnd;
+        BaseApp::m_pMainWnd = NULL;
+    }
 };
 typedef wxMFCApp<CWinApp> wxMFCWinApp;
 // ----------------------------------------------------------------------------
@@ -166,8 +172,9 @@ public:
     CWinApp* const mfcApp = AfxGetApp();
     if (mfcApp && mfcApp->m_pMainWnd)
     {
-      ::PostMessage(mfcApp->m_pMainWnd->m_hWnd, WM_NULL, 0, 0);
-    }
+
+            ::PostMessage(mfcApp->m_pMainWnd->m_hWnd, WM_NULL, 0, 0);
+            }
   }
 };
 #endif
