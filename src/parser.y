@@ -970,6 +970,7 @@ varidentifier     : identifier          [ZZLOG;]  { $$ = $1; }
 
 opttypemodifier   : [ZZLOG;] { $$ = CppTypeModifier(); }
                   | typemodifier { $$ = $1; }
+                  | doccomment opttypemodifier { $$ = $2; }
                   ;
 
 typemodifier      : tknConst                              [ZZLOG;] {
