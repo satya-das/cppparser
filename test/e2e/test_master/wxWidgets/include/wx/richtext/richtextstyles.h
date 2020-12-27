@@ -604,6 +604,7 @@ public:
 protected:
   int m_itemHere;
   int m_value;
+private:
   wxDECLARE_EVENT_TABLE();
 };
 /*!

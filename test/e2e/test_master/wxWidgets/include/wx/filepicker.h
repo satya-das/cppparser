@@ -218,6 +218,7 @@ protected:
                         wxFLP_USE_TEXTCTRL |
                         wxFLP_SMALL);
     }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxFilePickerCtrl);
 };
 #  endif
@@ -277,6 +278,7 @@ protected:
                         wxDIRP_USE_TEXTCTRL |
                         wxDIRP_SMALL);
     }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxDirPickerCtrl);
 };
 #  endif

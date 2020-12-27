@@ -107,6 +107,7 @@ public:
 protected:
   long GetPickerStyle(long style) const override
   { return (style & (wxCLRP_SHOW_LABEL | wxCLRP_SHOW_ALPHA)); }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxColourPickerCtrl);
 };
 // ----------------------------------------------------------------------------

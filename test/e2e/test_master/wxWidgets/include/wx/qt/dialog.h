@@ -20,6 +20,7 @@ public:
   bool IsModal() const override;
   bool Show(bool show = true) override;
   QDialog* GetDialogHandle() const;
-  wxDECLARE_DYNAMIC_CLASS(wxDialog);
+private:
+  wxDECLARE_DYNAMIC_CLASS( wxDialog );
 };
 #endif

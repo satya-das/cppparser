@@ -25,6 +25,7 @@ public:
   wxPostScriptDC();
     // Recommended constructor
   wxPostScriptDC(const wxPrintData& printData);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPostScriptDC);
 };
 class WXDLLIMPEXP_CORE wxPostScriptDCImpl : public wxDCImpl
@@ -124,6 +125,7 @@ protected:
   double m_pageHeight;
   wxArrayString m_definedPSFonts;
   bool m_isFontChanged;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPostScriptDCImpl);
 };
 #  endif

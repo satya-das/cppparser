@@ -16,6 +16,7 @@ public:
   wxFileCtrlXmlHandler();
   wxObject* DoCreateResource() override;
   bool CanHandle(wxXmlNode* node) override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxFileCtrlXmlHandler);
 };
 #  endif

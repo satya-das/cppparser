@@ -42,6 +42,7 @@ public:
     // there shouldn't be any implicit bitmap -> icon conversion (i.e. no
     // ctors, assignment operators...), but it's ok to have such function
   void CopyFromBitmap(const wxBitmap& bmp);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxIcon);
 };
 #endif

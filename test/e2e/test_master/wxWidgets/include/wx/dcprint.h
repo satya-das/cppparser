@@ -27,6 +27,7 @@ protected:
     :  wxDC(impl) 
     {
      }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPrinterDC);
 };
 #  endif

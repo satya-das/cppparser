@@ -29,6 +29,6 @@ private:
     // Qt is using an action instead of a menu item.
   wxQtAction* m_qtAction;
   wxBitmap m_bitmap;
-  wxDECLARE_DYNAMIC_CLASS(wxMenuItem);
+  wxDECLARE_DYNAMIC_CLASS( wxMenuItem );
 };
 #endif

@@ -57,6 +57,7 @@ protected:
   void InitRGBA(ChannelType r, ChannelType g, ChannelType b, ChannelType a) override;
   wxGDIRefData* CreateGDIRefData() const override;
   wxGDIRefData* CloneGDIRefData(const wxGDIRefData* data) const override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxColour);
 };
 class wxColourRefData : public wxGDIRefData

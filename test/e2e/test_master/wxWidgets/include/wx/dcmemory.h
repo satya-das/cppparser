@@ -27,6 +27,7 @@ public:
     // get selected bitmap
   const wxBitmap& GetSelectedBitmap() const;
   wxBitmap& GetSelectedBitmap();
+private:
   wxDECLARE_DYNAMIC_CLASS(wxMemoryDC);
 };
 #endif

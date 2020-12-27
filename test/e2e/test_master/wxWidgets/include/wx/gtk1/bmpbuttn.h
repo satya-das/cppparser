@@ -42,6 +42,7 @@ protected:
   virtual void OnSetBitmap();
   virtual wxSize DoGetBestSize() const;
   void Init();
+private:
   wxDECLARE_DYNAMIC_CLASS(wxBitmapButton);
 };
 #endif

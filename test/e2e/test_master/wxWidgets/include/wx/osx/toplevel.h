@@ -71,6 +71,7 @@ protected:
     // should the frame be maximized when it will be shown? set by Maximize()
     // when it is called while the frame is hidden
   bool m_maximizeOnShow;
+private:
   wxDECLARE_EVENT_TABLE();
 };
 #endif

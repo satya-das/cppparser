@@ -23,6 +23,7 @@ public:
   { return TRUE; }
 protected:
   void DoApplyWidgetStyle(GtkRcStyle* style);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxStaticBox);
 };
 #endif

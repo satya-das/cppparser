@@ -29,8 +29,11 @@ class wxTreeItemId : public wxItemId<void*>
 {
 public:
   wxTreeItemId()
-    :  wxItemId<void*>() { }
-    wxTreeItemId(void* pItem) : wxItemId<void*>(pItem) 
+    :  wxItemId<void*>() 
+    {
+     }
+  wxTreeItemId(void* pItem)
+    :  wxItemId<void*>(pItem) 
     {
      }
 };

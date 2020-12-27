@@ -67,6 +67,7 @@ public:
 protected:
     // common part of all ctors
   void Init();
+private:
   wxDECLARE_DYNAMIC_CLASS(wxRadioBox);
 };
 #endif

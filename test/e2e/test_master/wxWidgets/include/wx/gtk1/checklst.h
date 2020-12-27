@@ -31,6 +31,7 @@ public:
   bool IsChecked(unsigned int index) const;
   void Check(unsigned int index, bool check = true);
   int GetItemHeight() const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxCheckListBox);
 };
 #endif

@@ -43,6 +43,7 @@ public:
 protected:
   void SendThumbTrackEvent();
   wxSize DoGetBestSize() const override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxSpinButton);
 };
 #endif

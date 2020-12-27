@@ -59,6 +59,7 @@ protected:
   wxSize GTKGetPreferredSize(GtkWidget* widget) const;
     // Inner margins in a GtkEntry
   wxSize GTKGetEntryMargins(GtkEntry* entry) const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxControl);
 };
 #endif

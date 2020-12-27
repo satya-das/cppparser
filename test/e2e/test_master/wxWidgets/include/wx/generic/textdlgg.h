@@ -59,6 +59,7 @@ protected:
   wxTextCtrl* m_textctrl;
   wxString m_value;
   long m_dialogStyle;
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxTextEntryDialog);
   wxDECLARE_NO_COPY_CLASS(wxTextEntryDialog);
@@ -78,6 +79,7 @@ public:
         Create(parent, message, caption, value, style, pos);
       }
   bool Create(wxWindow* parent, const wxString& message, const wxString& caption = wxASCII_STR(wxGetPasswordFromUserPromptStr), const wxString& value = wxEmptyString, long style = wxTextEntryDialogStyle, const wxPoint& pos = wxDefaultPosition);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPasswordEntryDialog);
   wxDECLARE_NO_COPY_CLASS(wxPasswordEntryDialog);
 };

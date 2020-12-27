@@ -263,7 +263,18 @@ CppParser constructCppParserForTest()
                          "wx_truncate_cast",
                          "wxFORMAT_STRING_SPECIFIER",
                          "wxDISABLED_FORMAT_STRING_SPECIFIER",
-                         "WX_ARG_NORMALIZER_FORWARD"});
+                         "WX_ARG_NORMALIZER_FORWARD",
+                         "wxTLS_TYPE",
+                         "WX_STR_ITERATOR_IMPL",
+                         "WX_DEFINE_ITERATOR_CATEGORY",
+                         "WX_DEFINE_VARARG_FUNC",
+                         "wxDEFINE_ALL_COMPARISONS",
+                         "DECLARE_HELP_PROVISION",
+                         "wxDECLARE_EVENT_TABLE",
+                         "wxDECLARE_DYNAMIC_CLASS",
+                         "DECLARE_BASE_CLASS_HELP_PROVISION",
+                         "WX_FORWARD_TO_SCROLL_HELPER",
+                         "WX_DECLARE_GLOBAL_CONV"});
 
   parser.addIgnorableMacros({"SkDEBUGCODE",
                              "SkDEBUGPARAMS",

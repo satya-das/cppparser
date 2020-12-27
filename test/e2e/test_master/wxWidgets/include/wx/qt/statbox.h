@@ -19,6 +19,6 @@ public:
   wxString GetLabel() const override;
 private:
   QGroupBox* m_qtGroupBox;
-  wxDECLARE_DYNAMIC_CLASS(wxStaticBox);
+  wxDECLARE_DYNAMIC_CLASS( wxStaticBox );
 };
 #endif

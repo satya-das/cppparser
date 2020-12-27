@@ -61,6 +61,7 @@ public:
     // this circumvents a GTK+ 2.0 bug so that the selection is
     // invalidated properly
   int m_selection_hack;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxChoice);
 };
 #endif

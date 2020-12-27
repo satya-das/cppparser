@@ -18,6 +18,7 @@ public:
   { return false; }
   void ActivateNext() override;
   void ActivatePrevious() override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxMDIParentFrame);
 };
 class WXDLLIMPEXP_CORE wxMDIChildFrame : public wxMDIChildFrameBase

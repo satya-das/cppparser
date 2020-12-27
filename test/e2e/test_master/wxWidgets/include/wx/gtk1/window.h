@@ -196,6 +196,7 @@ protected:
     // helper function to ease native widgets wrapping, called by
     // ApplyWidgetStyle -- override this, not ApplyWidgetStyle
   virtual void DoApplyWidgetStyle(GtkRcStyle* style);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxWindowGTK);
   wxDECLARE_NO_COPY_CLASS(wxWindowGTK);
 };

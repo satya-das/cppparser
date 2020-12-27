@@ -164,6 +164,7 @@ public:
   wxPrintDialogData m_printDialogData;
 protected:
   void Init(wxWindow* parent);
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxGenericPrintDialog);
 };
@@ -190,6 +191,7 @@ public:
   { return m_printData; }
     // After pressing OK, write data here.
   wxPrintData* m_targetData;
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_CLASS(wxGenericPrintSetupDialog);
 };
@@ -213,6 +215,7 @@ public:
   wxTextCtrl* m_marginBottomText;
   wxComboBox* m_paperTypeChoice;
   wxPageSetupDialogData m_pageData;
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxGenericPageSetupDialog);
 };

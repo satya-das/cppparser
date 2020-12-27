@@ -43,6 +43,7 @@ protected:
   wxMenu* m_menu;
 #    endif
   wxString m_descriptiveText;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxSearchCtrl);
   wxDECLARE_EVENT_TABLE();
 };

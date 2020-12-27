@@ -40,6 +40,7 @@ protected:
     // set bitmap to the given one if it's ok or to the normal bitmap and
     // return true if the bitmap really changed
   bool ChangeBitmap(const wxBitmap& bmp);
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxBitmapButton);
 };

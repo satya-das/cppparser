@@ -35,12 +35,13 @@ public:
 #  ifdef __OBJC__
   wxCFStringRef(WX_NSString ref)
     :  wxCFRef< CFStringRef >((WX_OSX_BRIDGE_RETAINED CFStringRef) ref)
+    
     {
-    }
-#endif
 
-    wxCFStringRef(CFStringRef ref)
-        : wxCFRef< CFStringRef >(ref)
+        }
+#  endif
+  wxCFStringRef(CFStringRef ref)
+    :  wxCFRef< CFStringRef >(ref)
     
     {
 
@@ -58,14 +59,14 @@ public:
   wxString AsString(wxFontEncoding encoding = wxFONTENCODING_DEFAULT) const;
   static wxString AsString(CFStringRef ref, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
   static wxString AsStringWithNormalizationFormC(CFStringRef ref, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
-#    ifdef __WXMAC__
+#  ifdef __WXMAC__
   static wxString AsString(WX_NSString ref, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
   static wxString AsStringWithNormalizationFormC(WX_NSString ref, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
-#    endif
-#    ifdef __OBJC__
+#  endif
+#  ifdef __OBJC__
   WX_NSString AsNSString() const
   { return (WX_OSX_BRIDGE WX_NSString)(CFStringRef) *this; }
-#    endif
+#  endif
 };
 /*! @function   wxCFStringRefFromGet
     @abstract   Factory function to create wxCFStringRefRef from a CFStringRef obtained from a Get-rule function
@@ -77,7 +78,7 @@ inline wxCFStringRef wxCFStringRefFromGet(CFStringRef p)
 {
     return wxCFStringRef(wxCFRetain(p));
 }
-#    ifdef __WXMAC__
+#  ifdef __WXMAC__
 /*! @function   wxCFStringRefFromGet
     @abstract   Factory function to create wxCFStringRefRef from a NSString* obtained from a Get-rule function
     @param  p           The NSString pointer to retain and create a wxCFStringRefRef from.  May be NULL.
@@ -88,5 +89,5 @@ inline wxCFStringRef wxCFStringRefFromGet(NSString* p)
 {
     return wxCFStringRefFromGet((WX_OSX_BRIDGE CFStringRef)p);
 }
-#    endif
 #  endif
+#endif

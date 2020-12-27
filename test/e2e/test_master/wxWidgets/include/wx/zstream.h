@@ -96,6 +96,7 @@ public:
   wxFilterOutputStream* NewStream(wxOutputStream* stream) const override
   { return new wxZlibOutputStream(stream, -1); }
   const wxChar* const * GetProtocols(wxStreamProtocolType type = wxSTREAM_PROTOCOL) const override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxZlibClassFactory);
 };
 class WXDLLIMPEXP_BASE wxGzipClassFactory : public wxFilterClassFactory
@@ -111,6 +112,7 @@ public:
   wxFilterOutputStream* NewStream(wxOutputStream* stream) const override
   { return new wxZlibOutputStream(stream, -1); }
   const wxChar* const * GetProtocols(wxStreamProtocolType type = wxSTREAM_PROTOCOL) const override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGzipClassFactory);
 };
 WXDLLIMPEXP_BASE wxVersionInfo wxGetZlibVersionInfo();

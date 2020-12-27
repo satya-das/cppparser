@@ -91,6 +91,7 @@ public:
   {
    }
   virtual bool CreateClient(wxMDIParentFrame* parent, long style = wxVSCROLL | wxHSCROLL);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxMDIClientWindow);
 };
 #endif

@@ -60,6 +60,7 @@ protected:
   { return false; }
     // this field contains the label in wx format, i.e. with "&" mnemonics
   wxString m_label;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxControl);
 };
 #endif

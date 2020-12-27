@@ -3282,11 +3282,13 @@ public:
 
     // as strpbrk() but starts at nStart, returns npos if not found
   size_t find_first_of(const wxString& str, size_t nStart = 0) const
+    {
 #if wxUSE_UNICODE // FIXME-UTF8: temporary
-    { return find_first_of(str.wc_str(), nStart); }
+        return find_first_of(str.wc_str(), nStart);
 #else
-    { return find_first_of(str.mb_str(), nStart); }
+        return find_first_of(str.mb_str(), nStart);
 #endif
+    }
     // same as above
 #ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_first_of(const char* sz, size_t nStart = 0) const;
@@ -3301,11 +3303,13 @@ public:
     { return find(c, nStart); }
     // find the last (starting from nStart) char from str in this string
   size_t find_last_of (const wxString& str, size_t nStart = npos) const
+    {
 #if wxUSE_UNICODE // FIXME-UTF8: temporary
-    { return find_last_of(str.wc_str(), nStart); }
+        return find_last_of(str.wc_str(), nStart);
 #else
-    { return find_last_of(str.mb_str(), nStart); }
+        return find_last_of(str.mb_str(), nStart);
 #endif
+    }
     // same as above
 #ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_last_of (const char* sz, size_t nStart = npos) const;
@@ -3323,11 +3327,13 @@ public:
 
     // as strspn() (starting from nStart), returns npos on failure
   size_t find_first_not_of(const wxString& str, size_t nStart = 0) const
+    {
 #if wxUSE_UNICODE // FIXME-UTF8: temporary
-    { return find_first_not_of(str.wc_str(), nStart); }
+        return find_first_not_of(str.wc_str(), nStart);
 #else
-    { return find_first_not_of(str.mb_str(), nStart); }
+        return find_first_not_of(str.mb_str(), nStart);
 #endif
+    }
     // same as above
 #ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_first_not_of(const char* sz, size_t nStart = 0) const;
@@ -3341,11 +3347,13 @@ public:
   size_t find_first_not_of(wxUniChar ch, size_t nStart = 0) const;
     //  as strcspn()
   size_t find_last_not_of(const wxString& str, size_t nStart = npos) const
+    {
 #if wxUSE_UNICODE // FIXME-UTF8: temporary
-    { return find_last_not_of(str.wc_str(), nStart); }
+        return find_last_not_of(str.wc_str(), nStart);
 #else
-    { return find_last_not_of(str.mb_str(), nStart); }
+        return find_last_not_of(str.mb_str(), nStart);
 #endif
+    }
     // same as above
 #ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_last_not_of(const char* sz, size_t nStart = npos) const;
@@ -4456,7 +4464,7 @@ void wxStringIteratorNode::clear()
 // Checks on wxString characters
 // ----------------------------------------------------------------------------
 
-template<bool (T)(const wxUniChar& c)>
+template<bool (*T)(const wxUniChar& c)>
     inline bool wxStringCheck(const wxString& val)
     {
         for ( wxString::const_iterator i = val.begin();

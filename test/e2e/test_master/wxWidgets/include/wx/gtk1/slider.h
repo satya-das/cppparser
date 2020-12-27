@@ -42,6 +42,7 @@ public:
   void GtkEnableEvents();
   GtkAdjustment* m_adjust;
   float m_oldPos;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxSlider);
 };
 #endif

@@ -50,6 +50,7 @@ protected:
   void OnCheck() override;
     // send event about radio button selection
   void SendEvent() override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxRadioButton);
 };
 #endif

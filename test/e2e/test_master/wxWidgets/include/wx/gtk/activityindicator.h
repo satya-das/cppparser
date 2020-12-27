@@ -39,6 +39,7 @@ public:
   bool IsRunning() const override;
 protected:
   wxSize DoGetBestClientSize() const override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxActivityIndicator);
   wxDECLARE_NO_COPY_CLASS(wxActivityIndicator);
 };

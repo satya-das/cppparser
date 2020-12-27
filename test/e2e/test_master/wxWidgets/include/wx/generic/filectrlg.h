@@ -158,6 +158,7 @@ protected:
   wxString m_wild;
   bool m_sort_forward;
   wxFileData::fileListFieldType m_sort_field;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxFileListCtrl);
   wxDECLARE_EVENT_TABLE();
 };

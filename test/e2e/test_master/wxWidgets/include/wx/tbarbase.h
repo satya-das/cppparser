@@ -499,6 +499,7 @@ protected:
   int m_toolPacking, m_toolSeparation;
     // the size of the toolbar bitmaps
   wxCoord m_defaultWidth, m_defaultHeight;
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_NO_COPY_CLASS(wxToolBarBase);
 };

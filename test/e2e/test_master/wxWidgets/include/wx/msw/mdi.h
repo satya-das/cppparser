@@ -191,6 +191,7 @@ protected:
   void Init()
   { m_scrollX = m_scrollY = 0; }
   int m_scrollX, m_scrollY;
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxMDIClientWindow);
 };

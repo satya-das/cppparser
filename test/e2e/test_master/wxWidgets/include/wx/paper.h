@@ -54,6 +54,7 @@ public:
   int m_width;
   int m_height;
   wxString m_paperName;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPrintPaperType);
 };
 WX_DECLARE_STRING_HASH_MAP(wxPrintPaperType*, wxStringToPrintPaperTypeHashMap);

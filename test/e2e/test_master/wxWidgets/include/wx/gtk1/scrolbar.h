@@ -52,6 +52,7 @@ public:
   float m_oldPos;
 protected:
   virtual wxSize DoGetBestSize() const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxScrollBar);
 };
 #endif

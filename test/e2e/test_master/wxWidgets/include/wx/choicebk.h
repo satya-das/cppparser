@@ -65,6 +65,7 @@ protected:
   void MakeChangedEvent(wxBookCtrlEvent& event) override;
     // event handlers
   void OnChoiceSelected(wxCommandEvent& event);
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxChoicebook);
 };

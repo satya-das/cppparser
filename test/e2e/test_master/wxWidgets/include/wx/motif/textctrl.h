@@ -74,6 +74,7 @@ public:
   wxString m_value;
     // Did we call wxTextCtrl::OnChar? If so, generate a command event.
   bool m_processedDefault;
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxTextCtrl);
 };

@@ -49,6 +49,7 @@ public:
   bool m_formatSupported;
   Atom m_targetRequested;
   wxDataObject* m_receivedData;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxClipboard);
 };
 #  endif

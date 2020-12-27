@@ -126,6 +126,7 @@ protected:
   wxArrayString m_includes;
   wxArrayString m_excludes;
   wxDECLARE_NO_ASSIGN_CLASS(wxTextValidator);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxTextValidator);
   wxDECLARE_EVENT_TABLE();
 };

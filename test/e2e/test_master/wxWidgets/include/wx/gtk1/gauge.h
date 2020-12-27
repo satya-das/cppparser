@@ -44,6 +44,7 @@ protected:
   void DoSetGauge();
   virtual wxSize DoGetBestSize() const;
   virtual wxVisualAttributes GetDefaultAttributes() const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGauge);
 };
 #endif

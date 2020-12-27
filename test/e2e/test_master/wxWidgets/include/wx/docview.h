@@ -778,6 +778,7 @@ public:
   { return m_printoutView; }
 protected:
   wxView* m_printoutView;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxDocPrintout);
   wxDECLARE_NO_COPY_CLASS(wxDocPrintout);
 };

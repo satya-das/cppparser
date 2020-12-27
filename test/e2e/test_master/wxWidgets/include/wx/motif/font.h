@@ -99,6 +99,7 @@ protected:
   virtual void DoSetNativeFontInfo(const wxNativeFontInfo& info);
   virtual wxFontFamily DoGetFamily() const;
   void Unshare();
+private:
   wxDECLARE_DYNAMIC_CLASS(wxFont);
 };
 #endif

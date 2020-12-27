@@ -295,6 +295,7 @@ protected:
         m_width = 0;
     }
   wxItemAttr* m_attr;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxListItem);
 };
 // ----------------------------------------------------------------------------

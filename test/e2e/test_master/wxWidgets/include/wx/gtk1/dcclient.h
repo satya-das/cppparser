@@ -87,6 +87,7 @@ public:
   virtual void ComputeScaleAndOrigin();
   GdkWindow* GetWindow()
   { return m_window; }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxWindowDCImpl);
 };
 //-----------------------------------------------------------------------------
@@ -102,6 +103,7 @@ public:
   wxClientDCImpl(wxDC* owner, wxWindow* win);
 protected:
   virtual void DoGetSize(int* width, int* height) const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxClientDCImpl);
 };
 //-----------------------------------------------------------------------------
@@ -115,6 +117,7 @@ public:
     {
      }
   wxPaintDCImpl(wxDC* owner, wxWindow* win);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPaintDCImpl);
 };
 #endif

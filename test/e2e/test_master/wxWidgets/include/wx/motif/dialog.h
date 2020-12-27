@@ -46,6 +46,7 @@ private:
 protected:
   virtual void DoSetSize(int x, int y, int width, int height, int sizeFlags = wxSIZE_AUTO);
   virtual void DoSetClientSize(int width, int height);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxDialog);
 };
 #endif

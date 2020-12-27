@@ -31,6 +31,7 @@ public:
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxLI_HORIZONTAL, const wxString& name = wxASCII_STR(wxStaticLineNameStr));
 protected:
   void DoDraw(wxControlRenderer* renderer) override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxStaticLine);
 };
 #endif

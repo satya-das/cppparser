@@ -91,6 +91,7 @@ public:
   void* GetXVisualInfo() override;
     // and override this wxApp method to clean up
   int OnExit() override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGLApp);
 };
 #endif

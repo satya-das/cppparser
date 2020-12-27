@@ -29,6 +29,7 @@ public:
   bool SupportsExtraControl() const override
   { return true; }
   virtual QFileDialog* GetQFileDialog() const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxFileDialog);
 };
 #endif

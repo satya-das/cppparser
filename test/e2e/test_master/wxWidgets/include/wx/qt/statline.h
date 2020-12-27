@@ -16,6 +16,6 @@ public:
   QWidget* GetHandle() const override;
 private:
   QFrame* m_qtFrame;
-  wxDECLARE_DYNAMIC_CLASS(wxStaticLine);
+  wxDECLARE_DYNAMIC_CLASS( wxStaticLine );
 };
 #endif

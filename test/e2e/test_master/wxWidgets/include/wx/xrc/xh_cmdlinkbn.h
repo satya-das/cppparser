@@ -16,6 +16,7 @@ public:
   wxCommandLinkButtonXmlHandler();
   wxObject* DoCreateResource() override;
   bool CanHandle(wxXmlNode* node) override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxCommandLinkButtonXmlHandler);
 };
 #  endif

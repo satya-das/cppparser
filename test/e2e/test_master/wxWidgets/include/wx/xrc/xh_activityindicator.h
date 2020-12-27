@@ -16,6 +16,7 @@ public:
   wxActivityIndicatorXmlHandler();
   wxObject* DoCreateResource() override;
   bool CanHandle(wxXmlNode* node) override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxActivityIndicatorXmlHandler);
 };
 #  endif

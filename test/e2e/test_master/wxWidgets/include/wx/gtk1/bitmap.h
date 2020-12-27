@@ -42,6 +42,7 @@ public:
   int m_width;
   int m_height;
   wxBitmap GetBitmap() const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxMask);
 };
 //-----------------------------------------------------------------------------

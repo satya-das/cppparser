@@ -117,6 +117,7 @@ public:
   wxConnectionBase* MakeConnection(const wxString& host, const wxString& server, const wxString& topic) override;
     // Callbacks to CLIENT - override at will
   wxConnectionBase* OnMakeConnection() override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxTCPClient);
 };
 #  endif

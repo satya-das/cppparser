@@ -116,6 +116,7 @@ public:
     {
 
         }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxFileDialog);
 };
 #  endif

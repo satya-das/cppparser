@@ -47,6 +47,6 @@ private:
     }
     // Currently active native toolbar.
   class QToolBar* m_qtToolBar;
-  wxDECLARE_DYNAMIC_CLASS(wxFrame);
+  wxDECLARE_DYNAMIC_CLASS( wxFrame );
 };
 #endif

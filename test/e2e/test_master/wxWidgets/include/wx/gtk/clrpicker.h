@@ -35,6 +35,7 @@ public:
   void GTKSetColour(const wxColour& colour)
   { m_colour = colour; }
   wxWindow* m_topParent;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxColourButton);
 };
 #endif

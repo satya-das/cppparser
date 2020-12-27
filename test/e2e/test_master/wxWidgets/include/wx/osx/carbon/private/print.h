@@ -44,6 +44,7 @@ protected:
   PMPageFormat m_macPageFormat;
   PMPrintSettings m_macPrintSettings;
   PMPaper m_macPaper;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxOSXPrintData);
 };
 WXDLLIMPEXP_CORE wxPrintNativeDataBase* wxOSXCreatePrintData();
@@ -59,6 +60,7 @@ protected:
   void UpdateFromPMState() override;
   void UpdateToPMState() override;
   WX_NSPrintInfo m_macPrintInfo;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxOSXCocoaPrintData);
 };
 #  endif

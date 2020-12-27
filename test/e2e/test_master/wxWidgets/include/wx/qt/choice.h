@@ -31,6 +31,7 @@ protected:
   void DoDeleteOneItem(unsigned int pos) override;
   void QtInitSort(QComboBox* combo);
   QComboBox* m_qtComboBox;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxChoice);
 };
 #endif

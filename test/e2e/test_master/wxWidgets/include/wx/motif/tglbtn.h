@@ -28,8 +28,8 @@ public:
 protected:
   virtual wxBorder GetDefaultBorder() const
   { return wxBORDER_NONE; }
-  wxDECLARE_DYNAMIC_CLASS(wxToggleButton);
 private:
+  wxDECLARE_DYNAMIC_CLASS(wxToggleButton);
     // common part of all constructors
   void Init()
   {

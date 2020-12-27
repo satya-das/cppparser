@@ -49,6 +49,7 @@ protected:
   wxArrayInt m_checks;
   wxListWidgetColumn* m_checkColumn;
   void Init();
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxCheckListBox);
 };

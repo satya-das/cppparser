@@ -78,8 +78,11 @@ class wxDataViewItem : public wxItemId<void*>
 {
 public:
   wxDataViewItem()
-    :  wxItemId<void*>() { }
-    explicit wxDataViewItem(void* pItem) : wxItemId<void*>(pItem) 
+    :  wxItemId<void*>() 
+    {
+     }
+  explicit wxDataViewItem(void* pItem)
+    :  wxItemId<void*>(pItem) 
     {
      }
 };
@@ -930,6 +933,7 @@ public:
   int GetItemCount() const
   { return GetStore()->GetItemCount(); }
   void OnSize(wxSizeEvent& event);
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxDataViewListCtrl);
 };
@@ -1084,6 +1088,7 @@ public:
   void OnExpanded(wxDataViewEvent& event);
   void OnCollapsed(wxDataViewEvent& event);
   void OnSize(wxSizeEvent& event);
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxDataViewTreeCtrl);
 };

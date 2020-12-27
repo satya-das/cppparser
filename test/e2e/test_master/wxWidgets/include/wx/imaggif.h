@@ -56,6 +56,7 @@ protected:
   bool SetupCompress(wxOutputStream*, int bpp);
   bool CompressLine(wxOutputStream*, const wxUint8* line, int lineLen);
 #    endif
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGIFHandler);
 };
 #  endif

@@ -268,6 +268,7 @@ public:
   void OnPaint(wxPaintEvent& event);
 protected:
   wxTabView* m_tabView;
+private:
   wxDECLARE_EVENT_TABLE();
 };
 /*
@@ -287,6 +288,7 @@ public:
   void OnPaint(wxPaintEvent& event);
 protected:
   wxTabView* m_tabView;
+private:
   wxDECLARE_EVENT_TABLE();
 };
 WX_DECLARE_HASH_MAP(int, wxWindow*, wxIntegerHash, wxIntegerEqual,

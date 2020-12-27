@@ -18,6 +18,6 @@ public:
   QWidget* GetHandle() const override;
 private:
   QRadioButton* m_qtRadioButton;
-  wxDECLARE_DYNAMIC_CLASS(wxRadioButton);
+  wxDECLARE_DYNAMIC_CLASS( wxRadioButton );
 };
 #endif

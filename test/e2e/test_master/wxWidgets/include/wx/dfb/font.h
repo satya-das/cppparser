@@ -78,6 +78,7 @@ protected:
   virtual wxGDIRefData* CreateGDIRefData() const;
   virtual wxGDIRefData* CloneGDIRefData(const wxGDIRefData* data) const;
   virtual wxFontFamily DoGetFamily() const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxFont);
 };
 #endif

@@ -42,6 +42,7 @@ public:
 protected:
   void UpdateFont() override;
   wxFontData m_data;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGenericFontButton);
 };
 #endif

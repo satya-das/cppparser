@@ -29,6 +29,7 @@ public:
 protected:
   virtual void DoMoveWindow(int x, int y, int width, int height);
   virtual void DoSetSize(int x, int y, int width, int height, int sizeFlags = wxSIZE_AUTO);
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxPopupWindow);
 };

@@ -114,9 +114,9 @@ protected:
 #    if  wxUSE_MENUS
   wxMenuBar* m_pMenuBar;
 #    endif
+private:
   wxDECLARE_DYNAMIC_CLASS(wxAuiMDIChildFrame);
   wxDECLARE_EVENT_TABLE();
-private:
   friend class wxAuiMDIClientWindow;
 };
 //-----------------------------------------------------------------------------
@@ -137,6 +137,7 @@ protected:
   void PageChanged(int oldSelection, int newSelection);
   void OnPageClose(wxAuiNotebookEvent& evt);
   void OnPageChanged(wxAuiNotebookEvent& evt);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxAuiMDIClientWindow);
   wxDECLARE_EVENT_TABLE();
 };

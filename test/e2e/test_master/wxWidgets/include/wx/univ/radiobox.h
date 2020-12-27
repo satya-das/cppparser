@@ -85,6 +85,7 @@ protected:
     // the event handler which is used to translate radiobutton events into
     // radiobox one
   wxEvtHandler* m_evtRadioHook;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxRadioBox);
 };
 #endif

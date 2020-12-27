@@ -51,6 +51,7 @@ protected:
   bool DoLoadDib(wxImage* image, int width, int height, int bpp, int ncolors, int comp, wxFileOffset bmpOffset, wxInputStream& stream, bool verbose, bool IsBmp, bool hasPalette, int colEntrySize = 4);
   bool LoadDib(wxImage* image, wxInputStream& stream, bool verbose, bool IsBmp);
 #  endif
+private:
   wxDECLARE_DYNAMIC_CLASS(wxBMPHandler);
 };
 #  if  wxUSE_ICO_CUR
@@ -76,6 +77,7 @@ protected:
   int DoGetImageCount(wxInputStream& stream) override;
   bool DoCanRead(wxInputStream& stream) override;
 #    endif
+private:
   wxDECLARE_DYNAMIC_CLASS(wxICOHandler);
 };
 // ----------------------------------------------------------------------------
@@ -99,6 +101,7 @@ public:
 protected:
   bool DoCanRead(wxInputStream& stream) override;
 #    endif
+private:
   wxDECLARE_DYNAMIC_CLASS(wxCURHandler);
 };
 // ----------------------------------------------------------------------------
@@ -123,6 +126,7 @@ protected:
   int DoGetImageCount(wxInputStream& stream) override;
   bool DoCanRead(wxInputStream& stream) override;
 #    endif
+private:
   wxDECLARE_DYNAMIC_CLASS(wxANIHandler);
 };
 #  endif

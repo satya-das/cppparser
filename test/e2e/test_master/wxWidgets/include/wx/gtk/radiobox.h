@@ -81,6 +81,7 @@ protected:
   { return true; }
   bool GTKWidgetNeedsMnemonic() const override;
   void GTKWidgetDoSetMnemonic(GtkWidget* w) override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxRadioBox);
 };
 #endif

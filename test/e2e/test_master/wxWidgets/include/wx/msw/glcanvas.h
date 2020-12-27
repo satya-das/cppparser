@@ -74,6 +74,7 @@ protected:
   int DoSetup(PIXELFORMATDESCRIPTOR& pfd, const int* attribList);
     // HDC for this window, we keep it all the time
   HDC m_hDC;
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_CLASS(wxGLCanvas);
 };

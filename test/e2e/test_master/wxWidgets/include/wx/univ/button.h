@@ -63,6 +63,7 @@ protected:
   void DoSetBitmapMargins(wxCoord x, wxCoord y) override;
     // common part of all ctors
   void Init();
+private:
   wxDECLARE_DYNAMIC_CLASS(wxButton);
 };
 #endif

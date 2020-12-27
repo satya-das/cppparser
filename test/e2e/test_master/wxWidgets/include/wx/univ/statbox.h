@@ -38,6 +38,7 @@ protected:
   void DoDraw(wxControlRenderer* renderer) override;
     // get the size of the border
   wxRect GetBorderGeometry() const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxStaticBox);
 };
 #endif

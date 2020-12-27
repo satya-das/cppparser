@@ -38,6 +38,7 @@ public:
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
 protected:
   virtual wxSize DoGetBestSize() const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxButton);
 };
 #endif

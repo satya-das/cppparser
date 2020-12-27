@@ -29,6 +29,7 @@ protected:
     // override this from wxTLW since the native
     // form doesn't have any m_wxwindow
   void DoSetSize(int x, int y, int width, int height, int sizeFlags = wxSIZE_AUTO) override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxDirDialog);
 };
 #endif

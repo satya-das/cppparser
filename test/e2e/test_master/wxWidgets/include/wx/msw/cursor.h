@@ -36,6 +36,7 @@ public:
 protected:
   void InitFromStock(wxStockCursor);
   wxGDIImageRefData* CreateData() const override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxCursor);
 };
 #endif

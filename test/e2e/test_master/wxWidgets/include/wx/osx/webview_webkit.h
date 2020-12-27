@@ -20,8 +20,8 @@
 // ----------------------------------------------------------------------------
 class WXDLLIMPEXP_WEBVIEW wxWebViewWebKit : public wxWebView
 {
-  wxDECLARE_DYNAMIC_CLASS(wxWebViewWebKit);
 public:
+  wxDECLARE_DYNAMIC_CLASS(wxWebViewWebKit);
   wxWebViewWebKit()
   {
   }

@@ -36,6 +36,7 @@ public:
   bool m_blockEvent;
 protected:
   virtual wxSize DoGetBestSize() const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxRadioButton);
 };
 #endif

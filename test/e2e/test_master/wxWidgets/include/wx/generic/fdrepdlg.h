@@ -41,6 +41,7 @@ protected:
   wxCheckBox* m_chkCase, *m_chkWord;
   wxRadioBox* m_radioDir;
   wxTextCtrl* m_textFind, *m_textRepl;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGenericFindReplaceDialog);
   wxDECLARE_EVENT_TABLE();
 };

@@ -105,6 +105,7 @@ public:
     // the SW_XXX value to be used for the frames opened by the application
     // (currently seems unused which is a bug -- TODO)
   static int m_nCmdShow;
+protected:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_NO_COPY_CLASS(wxApp);
   wxDECLARE_DYNAMIC_CLASS(wxApp);

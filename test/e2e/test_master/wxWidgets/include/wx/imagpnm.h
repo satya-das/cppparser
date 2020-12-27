@@ -32,6 +32,7 @@ public:
 protected:
   bool DoCanRead(wxInputStream& stream) override;
 #    endif
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPNMHandler);
 };
 #  endif

@@ -70,6 +70,7 @@ public:
   void SetValue(const wxString& val) override;
   void SetValue(double val) override
   { wxSpinCtrlQt<double,QDoubleSpinBox>::SetValue(val); }
-  wxDECLARE_DYNAMIC_CLASS(wxSpinCtrlDouble);
+private:
+  wxDECLARE_DYNAMIC_CLASS( wxSpinCtrlDouble );
 };
 #endif

@@ -125,6 +125,7 @@ protected:
   virtual bool UseGTKStyleBase() const
   { return true; }
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxComboBox);
+private:
   wxDECLARE_EVENT_TABLE();
 };
 #  endif

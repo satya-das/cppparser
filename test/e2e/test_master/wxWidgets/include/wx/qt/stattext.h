@@ -20,6 +20,6 @@ protected:
   void WXSetVisibleLabel(const wxString& str) override;
 private:
   QLabel* m_qtLabel;
-  wxDECLARE_DYNAMIC_CLASS(wxStaticText);
+  wxDECLARE_DYNAMIC_CLASS( wxStaticText );
 };
 #endif

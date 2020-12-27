@@ -11,6 +11,7 @@ class WXDLLIMPEXP_CORE wxPopupWindow : public wxPopupWindowBase
 public:
   wxPopupWindow();
   wxPopupWindow(wxWindow* parent, int flags = wxBORDER_NONE);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPopupWindow);
 };
 #endif

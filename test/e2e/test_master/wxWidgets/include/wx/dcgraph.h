@@ -34,6 +34,7 @@ public:
   WXHDC AcquireHDC() override;
   void ReleaseHDC(WXHDC hdc) override;
 #    endif
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGCDC);
   wxDECLARE_NO_COPY_CLASS(wxGCDC);
 };

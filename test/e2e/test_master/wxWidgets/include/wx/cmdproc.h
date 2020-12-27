@@ -111,6 +111,7 @@ protected:
 #  endif
   wxString m_undoAccelerator;
   wxString m_redoAccelerator;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxCommandProcessor);
   wxDECLARE_NO_COPY_CLASS(wxCommandProcessor);
 };

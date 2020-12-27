@@ -97,6 +97,7 @@ public:
   virtual ~wxComboCtrl()
   {
   }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxComboCtrl);
 };
 #      endif

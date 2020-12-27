@@ -257,6 +257,7 @@ public:
   virtual bool Create(wxBitmap* bitmap, const void* data, wxBitmapType type, int width, int height, int depth = 1);
   virtual bool LoadFile(wxBitmap* bitmap, const wxString& name, wxBitmapType type, int desiredWidth, int desiredHeight);
   virtual bool SaveFile(const wxBitmap* bitmap, const wxString& name, wxBitmapType type, const wxPalette* palette = NULL) const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxBitmapHandler);
 };
 #endif

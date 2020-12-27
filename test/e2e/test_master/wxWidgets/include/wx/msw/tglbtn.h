@@ -61,6 +61,7 @@ public:
     // deprecated synonym for SetBitmapLabel()
   void SetLabel(const wxString& label) override
   { wxToggleButton::SetLabel(label); }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxBitmapToggleButton);
 };
 #endif

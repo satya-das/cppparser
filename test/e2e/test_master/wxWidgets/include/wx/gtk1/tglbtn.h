@@ -50,6 +50,7 @@ public:
   bool IsOwnGtkWindow(GdkWindow* window);
   virtual void OnInternalIdle();
   virtual wxSize DoGetBestSize() const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxToggleBitmapButton);
 };
 //-----------------------------------------------------------------------------
@@ -82,6 +83,7 @@ public:
   bool IsOwnGtkWindow(GdkWindow* window);
   virtual void OnInternalIdle();
   virtual wxSize DoGetBestSize() const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxToggleButton);
 };
 #endif

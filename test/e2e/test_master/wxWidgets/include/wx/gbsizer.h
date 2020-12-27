@@ -160,6 +160,7 @@ protected:
   wxGBPosition m_pos;
   wxGBSpan m_span;
   wxGridBagSizer* m_gbsizer;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGBSizerItem);
   wxDECLARE_NO_COPY_CLASS(wxGBSizerItem);
 };

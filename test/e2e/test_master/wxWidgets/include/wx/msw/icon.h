@@ -73,6 +73,7 @@ protected:
   wxObjectRefData* CloneRefData(const wxObjectRefData* data) const override;
     // create from XPM data
   void CreateIconFromXpm(const char* const * data);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxIcon);
 };
 #endif

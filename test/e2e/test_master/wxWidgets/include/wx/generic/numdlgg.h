@@ -46,6 +46,7 @@ protected:
   wxTextCtrl* m_spinctrl;
 #    endif
   long m_value, m_min, m_max;
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxNumberEntryDialog);
   wxDECLARE_NO_COPY_CLASS(wxNumberEntryDialog);

@@ -18,6 +18,7 @@ public:
     // implementation only
   int QtGetEventType() const override
   { return wxEVT_TOGGLEBUTTON; }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxToggleButton);
 };
 class WXDLLIMPEXP_CORE wxBitmapToggleButton : public wxToggleButton
@@ -26,6 +27,7 @@ public:
   wxBitmapToggleButton();
   wxBitmapToggleButton(wxWindow* parent, wxWindowID id, const wxBitmap& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxBitmap& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr));
+private:
   wxDECLARE_DYNAMIC_CLASS(wxBitmapToggleButton);
 };
 #endif

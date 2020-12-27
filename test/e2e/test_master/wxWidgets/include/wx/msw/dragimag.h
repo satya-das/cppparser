@@ -203,6 +203,7 @@ protected:
   wxWindow* m_window;
   wxRect m_boundingRect;
   bool m_fullScreen;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxDragImage);
   wxDECLARE_NO_COPY_CLASS(wxDragImage);
 };

@@ -41,6 +41,7 @@ public:
 protected:
   bool m_inHelp;
   bool m_status;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxContextHelp);
 };
 #    if  wxUSE_BMPBUTTON
@@ -63,6 +64,7 @@ public:
   bool Create(wxWindow* parent, wxWindowID id = wxID_CONTEXT_HELP, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0);
   void OnContextHelp(wxCommandEvent& event);
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxContextHelpButton);
+private:
   wxDECLARE_EVENT_TABLE();
 };
 #    endif

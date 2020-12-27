@@ -130,6 +130,7 @@ public:
             
     {
     }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxAnimationCtrl);
 };
 #    endif

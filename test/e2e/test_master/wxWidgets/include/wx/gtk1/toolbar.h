@@ -55,6 +55,7 @@ protected:
   virtual void DoSetToggle(wxToolBarToolBase* tool, bool toggle);
   virtual wxToolBarToolBase* CreateTool(int id, const wxString& label, const wxBitmap& bitmap1, const wxBitmap& bitmap2, wxItemKind kind, wxObject* clientData, const wxString& shortHelpString, const wxString& longHelpString);
   virtual wxToolBarToolBase* CreateTool(wxControl* control, const wxString& label);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxToolBar);
 };
 #  endif

@@ -44,6 +44,7 @@ protected:
   int m_pageSize;
   int m_lineSize;
   virtual void DoSetSize(int x, int y, int width, int height, int sizeFlags = wxSIZE_AUTO);
+private:
   wxDECLARE_EVENT_TABLE();
 };
 #endif

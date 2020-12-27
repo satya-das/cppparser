@@ -45,6 +45,7 @@ protected:
   virtual wxGDIRefData* CreateGDIRefData() const;
   virtual wxGDIRefData* CloneGDIRefData(const wxGDIRefData* data) const;
   virtual void InitRGBA(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxColour);
 };
 #endif

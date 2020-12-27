@@ -20,6 +20,6 @@ public:
   QWidget* GetHandle() const override;
 private:
   QSpinBox* m_qtSpinBox;
-  wxDECLARE_DYNAMIC_CLASS(wxSpinButton);
+  wxDECLARE_DYNAMIC_CLASS( wxSpinButton );
 };
 #endif

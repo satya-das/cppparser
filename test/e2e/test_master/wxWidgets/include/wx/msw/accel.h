@@ -31,6 +31,7 @@ public:
   WXHACCEL GetHACCEL() const;
     // translate the accelerator, return true if done
   bool Translate(wxWindow* window, WXMSG* msg) const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxAcceleratorTable);
 };
 #endif

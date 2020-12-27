@@ -201,6 +201,6 @@ private:
   friend class wxQtVirtualListModel;
   wxQtListTreeWidget* m_qtTreeWidget;
   wxQtListModel* m_model;
-  wxDECLARE_DYNAMIC_CLASS(wxListCtrl);
+  wxDECLARE_DYNAMIC_CLASS( wxListCtrl );
 };
 #endif

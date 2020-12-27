@@ -228,6 +228,7 @@ protected:
   bool m_capturing;
   int m_bracketX;
   int m_bracketY;
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxTextCtrl);
 };

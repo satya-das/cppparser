@@ -38,9 +38,9 @@ public:
     // override this from wxTLW since the native
     // form doesn't have any m_wxwindow
   virtual void DoSetSize(int x, int y, int width, int height, int sizeFlags = wxSIZE_AUTO);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxFileDialog);
   wxDECLARE_EVENT_TABLE();
-private:
   void OnFakeOk(wxCommandEvent& event);
 };
 #endif

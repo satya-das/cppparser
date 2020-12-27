@@ -37,6 +37,7 @@ public:
 protected:
   wxGDIRefData* CreateGDIRefData() const override;
   wxGDIRefData* CloneGDIRefData(const wxGDIRefData* data) const override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxBrush);
 };
 #endif

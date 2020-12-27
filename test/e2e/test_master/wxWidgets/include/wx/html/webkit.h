@@ -19,8 +19,8 @@
 WXDLLIMPEXP_CORE extern const char wxWebKitCtrlNameStr[];
 class WXDLLIMPEXP_CORE wxWebKitCtrl : public wxControl
 {
-  wxDECLARE_DYNAMIC_CLASS(wxWebKitCtrl);
 public:
+  wxDECLARE_DYNAMIC_CLASS(wxWebKitCtrl);
   wxWebKitCtrl()
   {
   }
@@ -72,8 +72,8 @@ public:
   void OnSize(wxSizeEvent& event);
   void OnMove(wxMoveEvent& event);
   void OnMouseEvents(wxMouseEvent& event);
-  wxDECLARE_EVENT_TABLE();
 protected:
+  wxDECLARE_EVENT_TABLE();
   void MacVisibilityChanged() override;
 private:
   wxWindow* m_parent;

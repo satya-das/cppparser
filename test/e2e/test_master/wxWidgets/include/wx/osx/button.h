@@ -32,6 +32,7 @@ public:
 #  if  wxOSX_USE_COCOA
   void OSXUpdateAfterLabelChange(const wxString& label);
 #  endif
+protected:
   wxDECLARE_DYNAMIC_CLASS(wxButton);
 };
 #endif

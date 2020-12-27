@@ -90,6 +90,7 @@ protected:
   virtual wxGDIRefData* CloneGDIRefData(const wxGDIRefData* data) const;
   virtual void DoSetNativeFontInfo(const wxNativeFontInfo& info);
   virtual wxFontFamily DoGetFamily() const;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxFont);
 };
 #endif

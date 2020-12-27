@@ -21,6 +21,7 @@ public:
   void Check(unsigned int index, bool check = true) override;
   int GetItemHeight() const;
   void DoCreateCheckList();
+private:
   wxDECLARE_DYNAMIC_CLASS(wxCheckListBox);
 };
 #endif

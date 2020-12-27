@@ -28,8 +28,8 @@ class WXDLLIMPEXP_FWD_CORE wxPalette;
 #  define wxQUANTIZE_FILL_DESTINATION_IMAGE	0x04
 class WXDLLIMPEXP_CORE wxQuantize : public wxObject
 {
-  wxDECLARE_DYNAMIC_CLASS(wxQuantize);
 public:
+  wxDECLARE_DYNAMIC_CLASS(wxQuantize);
 //// Constructor
   wxQuantize()
   {

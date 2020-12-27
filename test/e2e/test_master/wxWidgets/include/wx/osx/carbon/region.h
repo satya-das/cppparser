@@ -49,8 +49,8 @@ protected:
   bool DoOffset(wxCoord x, wxCoord y) override;
   bool DoCombine(const wxRegion& region, wxRegionOp op) override;
   bool DoUnionWithRect(const wxRect& rect) override;
-  wxDECLARE_DYNAMIC_CLASS(wxRegion);
 private:
+  wxDECLARE_DYNAMIC_CLASS(wxRegion);
   friend class WXDLLIMPEXP_FWD_CORE wxRegionIterator;
 };
 class WXDLLIMPEXP_CORE wxRegionIterator : public wxObject

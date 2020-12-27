@@ -589,6 +589,7 @@ protected:
   wxPoint m_pendingPosition;
   wxSize m_pendingSize;
 #  endif
+private:
   wxDECLARE_DYNAMIC_CLASS(wxWindowMSW);
   wxDECLARE_NO_COPY_CLASS(wxWindowMSW);
   wxDECLARE_EVENT_TABLE();

@@ -25,6 +25,7 @@ public:
       }
   bool Create(wxWindow* parent, wxWindowID id, const wxBitmap& bitmap, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr));
   bool CreateCloseButton(wxWindow* parent, wxWindowID winid, const wxString& name = wxString());
+protected:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxBitmapButton);
 };

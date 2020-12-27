@@ -36,6 +36,7 @@ public:
   float m_oldPos;
 protected:
   virtual wxSize DoGetBestSize() const;
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxSpinButton);
 };

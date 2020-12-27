@@ -36,6 +36,6 @@ protected:
   wxSize DoGetBestClientSize() const override;
 private:
   bool MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM* result) override;
-  wxDECLARE_DYNAMIC_CLASS(wxHyperlinkCtrl);
+  wxDECLARE_DYNAMIC_CLASS( wxHyperlinkCtrl );
 };
 #endif

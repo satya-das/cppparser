@@ -29,6 +29,6 @@ public:
   QWidget* GetHandle() const override;
 private:
   QSlider* m_qtSlider;
-  wxDECLARE_DYNAMIC_CLASS(wxSlider);
+  wxDECLARE_DYNAMIC_CLASS( wxSlider );
 };
 #endif

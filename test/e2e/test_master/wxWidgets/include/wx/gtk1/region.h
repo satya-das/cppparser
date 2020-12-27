@@ -68,6 +68,7 @@ protected:
   virtual bool DoXor(const wxRegion& region);
     // common part of ctors for a rectangle region
   void InitRect(wxCoord x, wxCoord y, wxCoord w, wxCoord h);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxRegion);
 };
 // ----------------------------------------------------------------------------

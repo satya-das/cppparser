@@ -233,6 +233,7 @@ protected:
   bool m_needUpdating;
   bool m_permitUnsplitAlways;
   bool m_isHot;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxSplitterWindow);
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_NO_COPY_CLASS(wxSplitterWindow);

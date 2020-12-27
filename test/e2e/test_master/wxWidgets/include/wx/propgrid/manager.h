@@ -481,6 +481,7 @@ protected:
   wxVariant GetEditableStateItem(const wxString& name) const override;
     // Reconnect propgrid event handlers.
   void ReconnectEventHandlers(wxWindowID oldId, wxWindowID newId);
+private:
   wxDECLARE_EVENT_TABLE();
 };
 // -----------------------------------------------------------------------

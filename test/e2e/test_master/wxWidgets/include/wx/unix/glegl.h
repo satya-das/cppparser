@@ -138,6 +138,7 @@ public:
 
         return wxGLAppBase::OnExit();
     }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGLApp);
 };
 #endif

@@ -92,6 +92,7 @@ protected:
   wxString m_strAccel;
     // the position and height of the displayed item
   wxCoord m_posY, m_height;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxMenuItem);
 };
 #endif

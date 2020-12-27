@@ -39,6 +39,7 @@ protected:
   bool DoSubtract(const wxRegion& region) override;
   bool DoXor(const wxRegion& region) override;
   virtual bool DoCombine(const wxRegion& rgn, wxRegionOp op);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxRegion);
 };
 class WXDLLIMPEXP_CORE wxRegionIterator : public wxObject

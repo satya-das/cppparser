@@ -42,6 +42,6 @@ protected:
   QScrollArea* QtGetScrollBarsContainer() const override;
 private:
   wxQtEdit* m_qtEdit;
-  wxDECLARE_DYNAMIC_CLASS(wxTextCtrl);
+  wxDECLARE_DYNAMIC_CLASS( wxTextCtrl );
 };
 #endif

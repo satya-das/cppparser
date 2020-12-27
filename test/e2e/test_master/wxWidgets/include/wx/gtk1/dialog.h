@@ -41,6 +41,7 @@ public:
 protected:
     // common part of all ctors
   void Init();
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxDialog);
 };

@@ -88,6 +88,7 @@ protected:
   bool FetchProtocol();
   friend class wxProtoInfo;
   friend class wxURLModule;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxURL);
 };
 #  endif

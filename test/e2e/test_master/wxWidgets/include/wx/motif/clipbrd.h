@@ -54,6 +54,7 @@ public:
   bool m_open;
   wxDataObjectList m_data;
   wxDataIdToDataObjectList m_idToObject;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxClipboard);
 };
 #  endif

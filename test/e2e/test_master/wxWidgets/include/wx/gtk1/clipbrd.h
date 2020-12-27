@@ -48,6 +48,7 @@ public:
   bool m_formatSupported;
   GdkAtom m_targetRequested;
   wxDataObject* m_receivedData;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxClipboard);
 };
 #  endif

@@ -117,6 +117,7 @@ protected:
   wxWindowIDRef m_dummyId;
     // currently selected button or wxNOT_FOUND if none
   int m_selectedButton;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxRadioBox);
   wxDECLARE_NO_COPY_CLASS(wxRadioBox);
 };

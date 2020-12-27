@@ -129,6 +129,7 @@ public:
   virtual ~wxGraphicsPen()
   {
   }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGraphicsPen);
 };
 WXDLLIMPEXP_CORE extern wxGraphicsPen wxNullGraphicsPen;
@@ -141,6 +142,7 @@ public:
   virtual ~wxGraphicsBrush()
   {
   }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGraphicsBrush);
 };
 WXDLLIMPEXP_CORE extern wxGraphicsBrush wxNullGraphicsBrush;
@@ -153,6 +155,7 @@ public:
   virtual ~wxGraphicsFont()
   {
   }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGraphicsFont);
 };
 WXDLLIMPEXP_CORE extern wxGraphicsFont wxNullGraphicsFont;
@@ -176,6 +179,7 @@ public:
   { return (const wxGraphicsBitmapData*) GetRefData(); }
   wxGraphicsBitmapData* GetBitmapData()
   { return (wxGraphicsBitmapData*) GetRefData(); }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGraphicsBitmap);
 };
 WXDLLIMPEXP_CORE extern wxGraphicsBitmap wxNullGraphicsBitmap;
@@ -228,6 +232,7 @@ public:
   { return (const wxGraphicsMatrixData*) GetRefData(); }
   wxGraphicsMatrixData* GetMatrixData()
   { return (wxGraphicsMatrixData*) GetRefData(); }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGraphicsMatrix);
 };
 WXDLLIMPEXP_CORE extern wxGraphicsMatrix wxNullGraphicsMatrix;
@@ -477,6 +482,7 @@ public:
   { return (const wxGraphicsPathData*) GetRefData(); }
   wxGraphicsPathData* GetPathData()
   { return (wxGraphicsPathData*) GetRefData(); }
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGraphicsPath);
 };
 WXDLLIMPEXP_CORE extern wxGraphicsPath wxNullGraphicsPath;

@@ -301,6 +301,7 @@ public:
     {
      }
   bool InitGLVisual(const int* attribList) override;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxGLApp);
 };
 #    endif
