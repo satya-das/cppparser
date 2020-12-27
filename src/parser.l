@@ -1719,6 +1719,10 @@ void setupScanBuffer(char* buf, size_t bufsize)
   gEnumBodyWillBeEncountered = false;
   gFunctionBodyWillBeEncountered = false;
   gMemInitListWillBeEncountered = false;
+  gNotAMemInitColon = nullptr;
+  gExpectedBracePosition = nullptr;
+  gExpectedColonPosition = nullptr;
+  gPossibleFuncImplStartBracePosition = nullptr;
   gInputBuffer = buf;
   gInputBufferSize = bufsize;
   BEGIN(ctxGeneral);
