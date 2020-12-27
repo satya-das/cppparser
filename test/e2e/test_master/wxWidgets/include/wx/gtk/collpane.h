@@ -30,13 +30,9 @@ public:
   bool IsCollapsed() const override;
   void SetLabel(const wxString& str) override;
   wxWindow* GetPane() const override
-  {
-    return m_pPane;
-  }
+  { return m_pPane; }
   wxString GetLabel() const override
-  {
-    return m_strLabel;
-  }
+  { return m_strLabel; }
 protected:
   wxSize DoGetBestSize() const override;
 public:

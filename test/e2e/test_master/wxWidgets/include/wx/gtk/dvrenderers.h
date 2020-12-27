@@ -29,18 +29,18 @@ public:
 #  endif
   bool SetValue(const wxVariant& value) override
   {
-    return SetTextValue(value);
-  }
+        return SetTextValue(value);
+    }
   bool GetValue(wxVariant& value) const override
   {
-    wxString str;
-    if (!GetTextValue(str))
-    {
-      return false;
+        wxString str;
+        if ( !GetTextValue(str) )
+            return false;
+
+        value = str;
+
+        return true;
     }
-    value = str;
-    return true;
-  }
   void GtkUpdateAlignment() override;
   GtkCellRendererText* GtkGetTextRenderer() const override;
 protected:

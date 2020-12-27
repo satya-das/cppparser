@@ -26,17 +26,13 @@ public:
     // Must call this to set the filename
   bool Initialize(const wxString& file) override;
   bool Initialize(const wxString& file, int) override
-  {
-    return Initialize(file);
-  }
+  { return Initialize( file ); }
     // If file is "", reloads file given in Initialize
   bool LoadFile(const wxString& file = wxEmptyString) override;
   bool DisplayContents() override;
   bool DisplaySection(int sectionNo) override;
   bool DisplaySection(const wxString& section) override
-  {
-    return KeywordSearch(section);
-  }
+  { return KeywordSearch(section); }
   bool DisplayBlock(long blockNo) override;
   bool DisplayContextPopup(int contextId) override;
   bool KeywordSearch(const wxString& k, wxHelpSearchMode mode = wxHELP_SEARCH_ALL) override;

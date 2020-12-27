@@ -57,9 +57,7 @@ public:
   void ComputeScaleAndOrigin() override;
   void QtPreparePainter();
   void* GetHandle() const override
-  {
-    return (void*) m_qtPainter;
-  }
+  { return (void*) m_qtPainter; }
 protected:
   virtual QPixmap* GetQPixmap()
   { return m_qtPixmap; }

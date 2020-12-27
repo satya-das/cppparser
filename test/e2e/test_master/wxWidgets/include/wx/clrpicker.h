@@ -106,9 +106,7 @@ public:
   void OnColourChange(wxColourPickerEvent&);
 protected:
   long GetPickerStyle(long style) const override
-  {
-    return (style & (wxCLRP_SHOW_LABEL | wxCLRP_SHOW_ALPHA));
-  }
+  { return (style & (wxCLRP_SHOW_LABEL | wxCLRP_SHOW_ALPHA)); }
   wxDECLARE_DYNAMIC_CLASS(wxColourPickerCtrl);
 };
 // ----------------------------------------------------------------------------
@@ -137,9 +135,7 @@ public:
   { m_colour = c; }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
-  {
-    return new wxColourPickerEvent(*this);
-  }
+  { return new wxColourPickerEvent(*this); }
 private:
   wxColour m_colour;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxColourPickerEvent);

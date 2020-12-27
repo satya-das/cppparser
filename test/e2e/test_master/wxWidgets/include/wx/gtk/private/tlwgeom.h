@@ -14,53 +14,54 @@ class wxTLWGeometry : public wxTLWGeometryGeneric
 public:
   bool Save(const Serializer& ser) const override
   {
-    if (!wxTLWGeometryGeneric::Save(ser))
-    {
-      return false;
-    }
+        if ( !wxTLWGeometryGeneric::Save(ser) )
+            return false;
+
         // Don't save the decoration sizes if we don't really have any values
         // for them.
-    if (m_decorSize.left || m_decorSize.right || m_decorSize.top || m_decorSize.bottom)
-    {
-
+        if ( m_decorSize.left || m_decorSize.right ||
+                m_decorSize.top || m_decorSize.bottom )
+        {
             ser.SaveField("decor_l", m_decorSize.left);
             ser.SaveField("decor_r", m_decorSize.right);
             ser.SaveField("decor_t", m_decorSize.top);
             ser.SaveField("decor_b", m_decorSize.bottom);
-            }
-    return true;
-  }
+        }
+
+        return true;
+    }
   bool Restore(Serializer& ser) override
   {
-    if (!wxTLWGeometryGeneric::Restore(ser))
-    {
-      return false;
+        if ( !wxTLWGeometryGeneric::Restore(ser) )
+            return false;
+
+        ser.RestoreField("decor_l", &m_decorSize.left);
+        ser.RestoreField("decor_r", &m_decorSize.right);
+        ser.RestoreField("decor_t", &m_decorSize.top);
+        ser.RestoreField("decor_b", &m_decorSize.bottom);
+
+        return true;
     }
-    ser.RestoreField("decor_l", &m_decorSize.left);
-    ser.RestoreField("decor_r", &m_decorSize.right);
-    ser.RestoreField("decor_t", &m_decorSize.top);
-    ser.RestoreField("decor_b", &m_decorSize.bottom);
-    return true;
-  }
   bool GetFrom(const wxTopLevelWindow* tlw) override
   {
-    if (!wxTLWGeometryGeneric::GetFrom(tlw))
-    {
-      return false;
+        if ( !wxTLWGeometryGeneric::GetFrom(tlw) )
+            return false;
+
+        m_decorSize = tlw->m_decorSize;
+
+        return true;
     }
-    m_decorSize = tlw->m_decorSize;
-    return true;
-  }
   bool ApplyTo(wxTopLevelWindow* tlw) override
   {
         // Don't overwrite the current decoration size if we already have it.
-    if (!tlw->m_decorSize.left && !tlw->m_decorSize.right && !tlw->m_decorSize.top && !tlw->m_decorSize.bottom)
-    {
-
+        if ( !tlw->m_decorSize.left && !tlw->m_decorSize.right &&
+                !tlw->m_decorSize.top && !tlw->m_decorSize.bottom )
+        {
             tlw->m_decorSize = m_decorSize;
-            }
-    return BaseType::ApplyTo(tlw);
-  }
+        }
+
+        return BaseType::ApplyTo(tlw);
+    }
 private:
   wxTopLevelWindow::DecorSize m_decorSize;
 };

@@ -17,9 +17,7 @@ public:
   bool GetValue() const override;
     // implementation only
   int QtGetEventType() const override
-  {
-    return wxEVT_TOGGLEBUTTON;
-  }
+  { return wxEVT_TOGGLEBUTTON; }
   wxDECLARE_DYNAMIC_CLASS(wxToggleButton);
 };
 class WXDLLIMPEXP_CORE wxBitmapToggleButton : public wxToggleButton

@@ -25,14 +25,10 @@ public:
   wxRichTextHTMLHandler(const wxString& name = wxT("HTML"), const wxString& ext = wxT("html"), int type = wxRICHTEXT_TYPE_HTML);
     /// Can we save using this handler?
   bool CanSave() const override
-  {
-    return true;
-  }
+  { return true; }
     /// Can we load using this handler?
   bool CanLoad() const override
-  {
-    return false;
-  }
+  { return false; }
     /// Can we handle this filename (if using files)? By default, checks the extension.
   bool CanHandle(const wxString& filename) const override;
 // Accessors and operations unique to this handler

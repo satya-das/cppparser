@@ -41,8 +41,8 @@ public:
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-    return GetStdInputHandler(handlerDef);
-  }
+        return GetStdInputHandler(handlerDef);
+    }
 protected:
     // override all methods which add/delete items to update m_checks array as
     // well

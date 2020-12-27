@@ -34,14 +34,10 @@ public:
   void SetBitmap(const wxBitmap& bitmap) override;
   void SetIcon(const wxIcon& icon) override;
   wxBitmap GetBitmap() const override
-  {
-    return m_bitmap;
-  }
+  { return m_bitmap; }
   wxIcon GetIcon() const override;
   bool HasTransparentBackground() override
-  {
-    return true;
-  }
+  { return true; }
 protected:
   void DoDraw(wxControlRenderer* renderer) override;
 private:

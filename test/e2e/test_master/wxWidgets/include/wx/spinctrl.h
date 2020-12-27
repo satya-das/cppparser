@@ -73,9 +73,7 @@ public:
   void SetValue(double value)
   { m_value = value; }
   wxEvent* Clone() const override
-  {
-    return new wxSpinDoubleEvent(*this);
-  }
+  { return new wxSpinDoubleEvent(*this); }
 protected:
   double m_value;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxSpinDoubleEvent);

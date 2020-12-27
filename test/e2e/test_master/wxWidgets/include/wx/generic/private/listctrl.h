@@ -289,9 +289,7 @@ public:
   virtual ~wxListHeaderWindow();
     // We never need focus as we don't have any keyboard interface.
   bool AcceptsFocus() const override
-  {
-    return false;
-  }
+  { return false; }
   void DrawCurrent();
   void AdjustDC(wxDC& dc);
   void OnPaint(wxPaintEvent& event);
@@ -303,9 +301,7 @@ public:
   int m_colToSend;
   int m_widthToSend;
   wxWindow* GetMainWindowOfCompositeControl() override
-  {
-    return GetParent();
-  }
+  { return GetParent(); }
   void OnInternalIdle() override;
 private:
     // common part of all ctors
@@ -577,13 +573,13 @@ public:
     // override base class virtual to reset m_lineHeight when the font changes
   bool SetFont(const wxFont& font) override
   {
-    if (!wxWindow::SetFont(font))
-    {
-      return false;
+        if ( !wxWindow::SetFont(font) )
+            return false;
+
+        m_lineHeight = 0;
+
+        return true;
     }
-    m_lineHeight = 0;
-    return true;
-  }
   void ExtendRulesAndAlternateColour(bool extend)
   {
         m_extendRulesAndAlternateColour = extend;
@@ -606,8 +602,8 @@ public:
     }
   bool HasFocus() const override
   {
-    return m_hasFocus;
-  }
+        return m_hasFocus;
+    }
   void UpdateSelectionCount(bool selected)
   {
         wxASSERT_MSG( !IsVirtual(), "Can be called for non virtual lists only" );
@@ -660,9 +656,7 @@ protected:
   size_t m_anchor;
   bool m_hasCheckBoxes;
   wxWindow* GetMainWindowOfCompositeControl() override
-  {
-    return GetParent();
-  }
+  { return GetParent(); }
     // the total count of items selected in a non virtual list control with
     // multiple selections (always 0 otherwise)
   size_t m_selCount;

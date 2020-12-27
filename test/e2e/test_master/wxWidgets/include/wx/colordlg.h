@@ -51,8 +51,8 @@ public:
   { m_colour = colour; }
   wxEvent* Clone() const override
   {
-    return new wxColourDialogEvent(*this);
-  }
+        return new wxColourDialogEvent(*this);
+    }
 private:
   wxColour m_colour;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxColourDialogEvent);

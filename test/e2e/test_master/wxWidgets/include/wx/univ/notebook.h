@@ -44,14 +44,10 @@ public:
     // implement wxNotebookBase pure virtuals
     // --------------------------------------
   int SetSelection(size_t nPage) override
-  {
-    return DoSetSelection(nPage, SetSelection_SendEvent);
-  }
+  { return DoSetSelection(nPage, SetSelection_SendEvent); }
     // changes selected page without sending events
   int ChangeSelection(size_t nPage) override
-  {
-    return DoSetSelection(nPage);
-  }
+  { return DoSetSelection(nPage); }
   bool SetPageText(size_t nPage, const wxString& strText) override;
   wxString GetPageText(size_t nPage) const override;
   int GetPageImage(size_t nPage) const override;
@@ -82,8 +78,8 @@ public:
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-    return GetStdInputHandler(handlerDef);
-  }
+        return GetStdInputHandler(handlerDef);
+    }
     // refresh the currently selected tab
   void RefreshCurrent();
 protected:

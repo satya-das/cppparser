@@ -58,12 +58,12 @@ public:
   bool Show(bool show = true) override;
   bool ShowWithEffect(wxShowEffect effect, unsigned timeout = 0) override
   {
-    return MSWShowWithEffect(true, effect, timeout);
-  }
+        return MSWShowWithEffect(true, effect, timeout);
+    }
   bool HideWithEffect(wxShowEffect effect, unsigned timeout = 0) override
   {
-    return MSWShowWithEffect(false, effect, timeout);
-  }
+        return MSWShowWithEffect(false, effect, timeout);
+    }
   void SetFocus() override;
   void SetFocusFromKbd() override;
   bool Reparent(wxWindowBase* newParent) override;
@@ -116,9 +116,7 @@ public:
   void SetHWND(WXHWND hWnd)
   { m_hWnd = hWnd; }
   WXWidget GetHandle() const override
-  {
-    return GetHWND();
-  }
+  { return GetHWND(); }
   void AssociateHandle(WXWidget handle) override;
   void DissociateHandle() override;
     // returns the handle of the native window to focus when this wxWindow gets

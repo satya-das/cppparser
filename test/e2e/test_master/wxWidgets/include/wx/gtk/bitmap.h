@@ -75,9 +75,7 @@ public:
   virtual ~wxBitmap();
   bool Create(int width, int height, int depth = wxBITMAP_SCREEN_DEPTH) override;
   bool Create(const wxSize& sz, int depth = wxBITMAP_SCREEN_DEPTH) override
-  {
-    return Create(sz.GetWidth(), sz.GetHeight(), depth);
-  }
+  { return Create(sz.GetWidth(), sz.GetHeight(), depth); }
   bool Create(int width, int height, const wxDC&)
   { return Create(width,height); }
 #  ifdef __WXGTK3__

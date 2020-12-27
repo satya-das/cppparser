@@ -322,10 +322,11 @@ public:
 protected:
   void OnExit() override
   {
-    delete m_windowDisabler;
-    m_windowDisabler = NULL;
-    wxGUIEventLoop::OnExit();
-  }
+        delete m_windowDisabler;
+        m_windowDisabler = NULL;
+
+        wxGUIEventLoop::OnExit();
+    }
 private:
   wxWindowDisabler* m_windowDisabler;
 };

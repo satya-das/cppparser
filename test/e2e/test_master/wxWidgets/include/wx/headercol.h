@@ -197,70 +197,40 @@ public:
         }
     // implement base class pure virtuals
   void SetTitle(const wxString& title) override
-  {
-    m_title = title;
-  }
+  { m_title = title; }
   wxString GetTitle() const override
-  {
-    return m_title;
-  }
+  { return m_title; }
   void SetBitmap(const wxBitmap& bitmap) override
-  {
-    m_bitmap = bitmap;
-  }
+  { m_bitmap = bitmap; }
   wxBitmap GetBitmap() const override
-  {
-    return m_bitmap;
-  }
+  { return m_bitmap; }
   void SetWidth(int width) override
-  {
-    m_width = width;
-  }
+  { m_width = width; }
   int GetWidth() const override
-  {
-    return m_width;
-  }
+  { return m_width; }
   void SetMinWidth(int minWidth) override
-  {
-    m_minWidth = minWidth;
-  }
+  { m_minWidth = minWidth; }
   int GetMinWidth() const override
-  {
-    return m_minWidth;
-  }
+  { return m_minWidth; }
   void SetAlignment(wxAlignment align) override
-  {
-    m_align = align;
-  }
+  { m_align = align; }
   wxAlignment GetAlignment() const override
-  {
-    return m_align;
-  }
+  { return m_align; }
   void SetFlags(int flags) override
-  {
-    m_flags = flags;
-  }
+  { m_flags = flags; }
   int GetFlags() const override
-  {
-    return m_flags;
-  }
+  { return m_flags; }
   bool IsSortKey() const override
-  {
-    return m_sort;
-  }
+  { return m_sort; }
   void UnsetAsSortKey() override
-  {
-    m_sort = false;
-  }
+  { m_sort = false; }
   void SetSortOrder(bool ascending) override
   {
-    m_sort = true;
-    m_sortAscending = ascending;
-  }
+        m_sort = true;
+        m_sortAscending = ascending;
+    }
   bool IsSortOrderAscending() const override
-  {
-    return m_sortAscending;
-  }
+  { return m_sortAscending; }
 private:
     // common part of all ctors
   void Init()

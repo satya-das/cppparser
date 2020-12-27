@@ -63,13 +63,9 @@ protected:
   void OnSize(wxSizeEvent& event);
   wxSize DoGetBestSize() const override;
   wxItemContainer* GetItemContainer() override
-  {
-    return this;
-  }
+  { return this; }
   wxWindow* GetControl() override
-  {
-    return this;
-  }
+  { return this; }
     // wxItemContainer implementation
   int DoInsertItems(const wxArrayStringsAdapter& items, unsigned int pos, void** clientData, wxClientDataType type) override;
   void DoClear() override;

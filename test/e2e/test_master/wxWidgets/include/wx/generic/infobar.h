@@ -73,9 +73,7 @@ protected:
     // info bar shouldn't have any border by default, the colour difference
     // between it and the main window separates it well enough
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
     // update the parent to take our new or changed size into account (notably
     // should be called when we're shown or hidden)
   void UpdateParent();

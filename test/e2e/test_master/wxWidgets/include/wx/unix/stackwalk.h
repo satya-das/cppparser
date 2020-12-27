@@ -67,9 +67,7 @@ public:
   void Walk(size_t skip = 1, size_t maxDepth = wxSTACKWALKER_MAX_DEPTH) override;
 #  if  wxUSE_ON_FATAL_EXCEPTION
   void WalkFromException(size_t maxDepth = wxSTACKWALKER_MAX_DEPTH) override
-  {
-    Walk(2, maxDepth);
-  }
+  { Walk(2, maxDepth); }
 #  endif
   static const wxString& GetExePath()
   { return ms_exepath; }

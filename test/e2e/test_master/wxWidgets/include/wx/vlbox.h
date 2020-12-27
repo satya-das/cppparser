@@ -167,14 +167,12 @@ public:
   void RefreshSelected();
   wxVisualAttributes GetDefaultAttributes() const override
   {
-    return GetClassDefaultAttributes(GetWindowVariant());
-  }
+        return GetClassDefaultAttributes(GetWindowVariant());
+    }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
 protected:
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_THEME;
-  }
+  { return wxBORDER_THEME; }
     // the derived class must implement this function to actually draw the item
     // with the given index on the provided DC
   virtual void OnDrawItem(wxDC& dc, const wxRect& rect, size_t n) const = 0;

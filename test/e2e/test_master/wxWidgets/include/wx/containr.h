@@ -174,45 +174,45 @@ public:
       }
   WXDLLIMPEXP_INLINE_CORE bool AcceptsFocus() const override
   {
-    return m_container.AcceptsFocus();
-  }
+        return m_container.AcceptsFocus();
+    }
   WXDLLIMPEXP_INLINE_CORE bool AcceptsFocusRecursively() const override
   {
-    return m_container.AcceptsFocusRecursively();
-  }
+        return m_container.AcceptsFocusRecursively();
+    }
   WXDLLIMPEXP_INLINE_CORE bool AcceptsFocusFromKeyboard() const override
   {
-    return m_container.AcceptsFocusFromKeyboard();
-  }
+        return m_container.AcceptsFocusFromKeyboard();
+    }
   WXDLLIMPEXP_INLINE_CORE void AddChild(wxWindowBase* child) override
   {
-    BaseWindowClass::AddChild(child);
-    if (m_container.UpdateCanFocusChildren())
-    {
+        BaseWindowClass::AddChild(child);
 
+        if ( m_container.UpdateCanFocusChildren() )
+        {
             // Under MSW we must have wxTAB_TRAVERSAL style for TAB navigation
             // to work.
             if ( !BaseWindowClass::HasFlag(wxTAB_TRAVERSAL) )
                 BaseWindowClass::ToggleWindowStyle(wxTAB_TRAVERSAL);
-            }
-  }
+        }
+    }
   WXDLLIMPEXP_INLINE_CORE void RemoveChild(wxWindowBase* child) override
   {
-#  ifndef wxHAS_NATIVE_TAB_TRAVERSAL
-    m_container.HandleOnWindowDestroy(child);
-#  endif
-    BaseWindowClass::RemoveChild(child);
+#ifndef wxHAS_NATIVE_TAB_TRAVERSAL
+        m_container.HandleOnWindowDestroy(child);
+#endif // !wxHAS_NATIVE_TAB_TRAVERSAL
+
+        BaseWindowClass::RemoveChild(child);
+
         // We could reset wxTAB_TRAVERSAL here but it doesn't seem to do any
         // harm to keep it.
-    m_container.UpdateCanFocusChildren();
-  }
+        m_container.UpdateCanFocusChildren();
+    }
   WXDLLIMPEXP_INLINE_CORE void SetFocus() override
   {
-    if (!m_container.DoSetFocus())
-    {
-      BaseWindowClass::SetFocus();
+        if ( !m_container.DoSetFocus() )
+            BaseWindowClass::SetFocus();
     }
-  }
   void SetFocusIgnoringChildren()
   {
         BaseWindowClass::SetFocus();
@@ -220,12 +220,12 @@ public:
 #  ifdef __WXMSW__
   WXDLLIMPEXP_INLINE_CORE bool HasTransparentBackground() override
   {
-    return m_container.HasTransparentBackground();
-  }
+        return m_container.HasTransparentBackground();
+    }
   WXDLLIMPEXP_INLINE_CORE void WXSetPendingFocus(wxWindow* win) override
   {
-    return m_container.SetLastFocus(win);
-  }
+        return m_container.SetLastFocus(win);
+    }
 #  endif
 #  ifndef wxHAS_NATIVE_TAB_TRAVERSAL
 protected:

@@ -30,39 +30,23 @@ public:
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxString& url, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHL_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxHyperlinkCtrlNameStr));
     // get/set
   wxColour GetHoverColour() const override
-  {
-    return m_hoverColour;
-  }
+  { return m_hoverColour; }
   void SetHoverColour(const wxColour& colour) override
-  {
-    m_hoverColour = colour;
-  }
+  { m_hoverColour = colour; }
   wxColour GetNormalColour() const override
-  {
-    return m_normalColour;
-  }
+  { return m_normalColour; }
   void SetNormalColour(const wxColour& colour) override;
   wxColour GetVisitedColour() const override
-  {
-    return m_visitedColour;
-  }
+  { return m_visitedColour; }
   void SetVisitedColour(const wxColour& colour) override;
   wxString GetURL() const override
-  {
-    return m_url;
-  }
+  { return m_url; }
   void SetURL(const wxString& url) override
-  {
-    m_url = url;
-  }
+  { m_url=url; }
   void SetVisited(bool visited = true) override
-  {
-    m_visited = visited;
-  }
+  { m_visited=visited; }
   bool GetVisited() const override
-  {
-    return m_visited;
-  }
+  { return m_visited; }
     // NOTE: also wxWindow::Set/GetLabel, wxWindow::Set/GetBackgroundColour,
     //       wxWindow::Get/SetFont, wxWindow::Get/SetCursor are important !
 protected:

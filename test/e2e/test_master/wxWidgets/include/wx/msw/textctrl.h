@@ -67,8 +67,8 @@ public:
   wxTextCtrlHitTestResult HitTest(const wxPoint& pt, long* pos) const override;
   wxTextCtrlHitTestResult HitTest(const wxPoint& pt, wxTextCoord* col, wxTextCoord* row) const override
   {
-    return wxTextCtrlBase::HitTest(pt, col, row);
-  }
+        return wxTextCtrlBase::HitTest(pt, col, row);
+    }
   void SetLayoutDirection(wxLayoutDirection dir) override;
   wxLayoutDirection GetLayoutDirection() const override;
     // Caret handling (Windows only)
@@ -208,14 +208,12 @@ protected:
 private:
   void EnableTextChangedEvents(bool enable) override
   {
-    m_updatesCount = enable ? -1 : -2;
-  }
+        m_updatesCount = enable ? -1 : -2;
+    }
     // implement wxTextEntry pure virtual: it implements all the operations for
     // the simple EDIT controls
   WXHWND GetEditHWND() const override
-  {
-    return m_hWnd;
-  }
+  { return m_hWnd; }
 #  if  wxUSE_OLE
   void MSWProcessSpecialKey(wxKeyEvent& event) override;
 #  endif

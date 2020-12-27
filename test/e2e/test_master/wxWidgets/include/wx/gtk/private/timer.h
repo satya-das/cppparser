@@ -22,9 +22,7 @@ public:
   bool Start(int millisecs = -1, bool oneShot = false) override;
   void Stop() override;
   bool IsRunning() const override
-  {
-    return m_sourceId != 0;
-  }
+  { return m_sourceId != 0; }
 protected:
   int m_sourceId;
 };

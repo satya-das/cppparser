@@ -75,9 +75,7 @@ public:
     }
     // override wxItemContainer::IsSorted
   bool IsSorted() const override
-  {
-    return HasFlag(wxLB_SORT);
-  }
+  { return HasFlag( wxLB_SORT ); }
     // emulate selecting or deselecting the item event.GetInt() (depending on
     // event.GetExtraLong())
   void Command(wxCommandEvent& event) override;

@@ -95,9 +95,7 @@ public:
     // parameters string format is "min,max"
   void SetParameters(const wxString& params) override;
   wxGridCellEditor* Clone() const override
-  {
-    return new wxGridCellNumberEditor(m_min, m_max);
-  }
+  { return new wxGridCellNumberEditor(m_min, m_max); }
     // added GetValue so we can get the value which is in the control
   wxString GetValue() const override;
 #      if  wxUSE_SPINCTRL
@@ -157,9 +155,7 @@ public:
   void Reset() override;
   void StartingKey(wxKeyEvent& event) override;
   wxGridCellEditor* Clone() const override
-  {
-    return new wxGridCellFloatEditor(m_width, m_precision);
-  }
+  { return new wxGridCellFloatEditor(m_width, m_precision); }
     // parameters string format is "width[,precision[,format]]"
     // format to choose between f|e|g|E|G (f is used by default)
   void SetParameters(const wxString& params) override;
@@ -195,9 +191,7 @@ public:
   void StartingClick() override;
   void StartingKey(wxKeyEvent& event) override;
   wxGridCellEditor* Clone() const override
-  {
-    return new wxGridCellBoolEditor;
-  }
+  { return new wxGridCellBoolEditor; }
     // added GetValue so we can get the value which is in the control, see
     // also UseStringValues()
   wxString GetValue() const override;
@@ -278,9 +272,7 @@ public:
      }
   void Create(wxWindow* parent, wxWindowID id, wxEvtHandler* evtHandler) override;
   wxGridCellEditor* Clone() const override
-  {
-    return new wxGridCellAutoWrapStringEditor;
-  }
+  { return new wxGridCellAutoWrapStringEditor; }
   wxDECLARE_NO_COPY_CLASS(wxGridCellAutoWrapStringEditor);
 };
 #    if  wxUSE_DATEPICKCTRL

@@ -50,8 +50,8 @@ public:
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-    return GetStdInputHandler(handlerDef);
-  }
+        return GetStdInputHandler(handlerDef);
+    }
 protected:
     // common part of all ctors
   void Init();

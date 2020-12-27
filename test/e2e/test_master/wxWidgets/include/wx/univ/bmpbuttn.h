@@ -24,9 +24,10 @@ public:
   bool CreateCloseButton(wxWindow* parent, wxWindowID winid, const wxString& name = wxString());
   void SetMargins(int x, int y) override
   {
-    SetBitmapMargins(x, y);
-    wxBitmapButtonBase::SetMargins(x, y);
-  }
+        SetBitmapMargins(x, y);
+
+        wxBitmapButtonBase::SetMargins(x, y);
+    }
   bool Enable(bool enable = true) override;
   bool SetCurrent(bool doit = true) override;
   void Press() override;

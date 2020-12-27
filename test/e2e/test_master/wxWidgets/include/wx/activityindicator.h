@@ -25,19 +25,13 @@ public:
   virtual bool IsRunning() const = 0;
     // Override some base class virtual methods.
   bool AcceptsFocus() const override
-  {
-    return false;
-  }
+  { return false; }
   bool HasTransparentBackground() override
-  {
-    return true;
-  }
+  { return true; }
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
 };
 #    ifndef __WXUNIVERSAL__
 #      if  defined(__WXGTK220__)

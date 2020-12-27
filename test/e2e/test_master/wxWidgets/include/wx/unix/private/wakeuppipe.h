@@ -39,11 +39,9 @@ public:
     // Implement wxEventLoopSourceHandler pure virtual methods
   void OnReadWaiting() override;
   void OnWriteWaiting() override
-  {
-  }
+  { }
   void OnExceptionWaiting() override
-  {
-  }
+  { }
 private:
   wxPipe m_pipe;
     // This flag is set to true after writing to the pipe and reset to false
@@ -75,9 +73,10 @@ public:
     }
   void OnReadWaiting() override
   {
-    wxCriticalSectionLocker lock(m_pipeLock);
-    wxWakeUpPipe::OnReadWaiting();
-  }
+        wxCriticalSectionLocker lock(m_pipeLock);
+
+        wxWakeUpPipe::OnReadWaiting();
+    }
 private:
     // Protects access to m_pipeIsEmpty.
   wxCriticalSection m_pipeLock;

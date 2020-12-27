@@ -42,9 +42,7 @@ public:
 protected:
   wxSize DoGetBestSize() const override;
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
   void DoSetSize(int x, int y, int width, int height, int sizeFlags = wxSIZE_AUTO) override;
   bool DoActualLayout();
   void OnEraseBackground(wxEraseEvent& evt);

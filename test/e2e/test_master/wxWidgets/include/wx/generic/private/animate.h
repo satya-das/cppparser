@@ -24,9 +24,7 @@ public:
   {
  UnRef();   }
   bool IsOk() const override
-  {
-    return m_decoder != NULL;
-  }
+  { return m_decoder != NULL; }
   bool IsCompatibleWith(wxClassInfo* ci) const override;
   unsigned int GetFrameCount() const override;
   int GetDelay(unsigned int i) const override;

@@ -98,9 +98,9 @@ public:
         }
   void SetButtonsToolTips(const wxString& addtip, const wxString& removetip) override
   {
-    m_btnAdd->SetToolTip(addtip);
-    m_btnRemove->SetToolTip(removetip);
-  }
+        m_btnAdd->SetToolTip(addtip);
+        m_btnRemove->SetToolTip(removetip);
+    }
 protected:
     // Must be called by the derived class ctor after creating the buttons to
     // set up the event handlers.

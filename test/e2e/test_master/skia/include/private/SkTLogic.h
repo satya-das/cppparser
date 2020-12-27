@@ -54,9 +54,7 @@ namespace skstd
     using type = index_sequence;
     using value_type = std::size_t;
     static constexpr std::size_t size()
-    {
-      return sizeof(Ints)...;
-    }
+    { return sizeof...(Ints); }
   };
   template <typename S1, typename S2>
   struct make_index_sequence_combine;

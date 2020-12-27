@@ -68,12 +68,15 @@ public:
     // As we don't use sizers, we also need to compute our best size ourselves.
   wxSize GetBestClientSize() const override
   {
-    wxSize size = m_ctrlItems->GetBestSize();
-    const wxSize sizeBtn = m_btnAdd->GetSize();
-    size.y += sizeBtn.y;
-    size.IncTo(wxSize(3 * sizeBtn.x, -1));
-    return size;
-  }
+        wxSize size = m_ctrlItems->GetBestSize();
+
+        const wxSize sizeBtn = m_btnAdd->GetSize();
+
+        size.y += sizeBtn.y;
+        size.IncTo(wxSize(3*sizeBtn.x, -1));
+
+        return size;
+    }
 private:
   void OnSize(wxSizeEvent& event)
   {

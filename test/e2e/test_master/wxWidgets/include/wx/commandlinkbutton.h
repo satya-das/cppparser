@@ -84,8 +84,8 @@ public:
   bool Create(wxWindow* parent, wxWindowID id, const wxString& mainLabel = wxEmptyString, const wxString& note = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr));
   void SetMainLabelAndNote(const wxString& mainLabel, const wxString& note) override
   {
-    wxButton::SetLabel(mainLabel + '\n' + note);
-  }
+        wxButton::SetLabel(mainLabel + '\n' + note);
+    }
 private:
   void SetDefaultBitmap();
   wxDECLARE_NO_COPY_CLASS(wxGenericCommandLinkButton);

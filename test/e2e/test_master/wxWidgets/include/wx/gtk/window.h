@@ -86,19 +86,13 @@ public:
   bool IsDoubleBuffered() const override;
     // SetLabel(), which does nothing in wxWindow
   void SetLabel(const wxString& label) override
-  {
-    m_gtkLabel = label;
-  }
+  { m_gtkLabel = label; }
   wxString GetLabel() const override
-  {
-    return m_gtkLabel;
-  }
+  { return m_gtkLabel; }
     // implementation
     // --------------
   WXWidget GetHandle() const override
-  {
-    return m_widget;
-  }
+  { return m_widget; }
     // many important things are done here, this function must be called
     // regularly
   void OnInternalIdle() override;

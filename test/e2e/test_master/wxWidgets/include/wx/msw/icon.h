@@ -68,8 +68,8 @@ public:
 protected:
   wxGDIImageRefData* CreateData() const override
   {
-    return new wxIconRefData;
-  }
+        return new wxIconRefData;
+    }
   wxObjectRefData* CloneRefData(const wxObjectRefData* data) const override;
     // create from XPM data
   void CreateIconFromXpm(const char* const * data);

@@ -497,9 +497,7 @@ public:
   bool ProcessIdle() override;
         // override base class version: GUI apps always use an event loop
   bool UsesEventLoop() const override
-  {
-    return true;
-  }
+  { return true; }
     // top level window functions
     // --------------------------
 

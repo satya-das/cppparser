@@ -24,9 +24,7 @@ public:
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxBORDER_NONE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCollapsibleHeaderCtrlNameStr));
   void SetCollapsed(bool collapsed = true) override;
   bool IsCollapsed() const override
-  {
-    return m_collapsed;
-  }
+  { return m_collapsed; }
 protected:
   wxSize DoGetBestClientSize() const override;
 private:

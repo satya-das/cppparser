@@ -63,9 +63,7 @@ public:
   { return HasFlag(wxGA_VERTICAL); }
     // overridden base class virtuals
   bool AcceptsFocus() const override
-  {
-    return false;
-  }
+  { return false; }
     // Deprecated methods not doing anything since a long time.
   wxDEPRECATED_MSG("Remove calls to this method, it doesn't do anything") void SetShadowWidth(int)
   { }
@@ -77,9 +75,7 @@ public:
   { return 0; }
 protected:
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
     // Initialize m_appProgressIndicator if necessary, i.e. if this object has
     // wxGA_PROGRESS style. This method is supposed to be called from the
     // derived class Create() if it doesn't call the base class Create(), which

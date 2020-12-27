@@ -54,14 +54,12 @@ public:
   bool Reparent(wxWindowBase* newParent) override;
     // wxSpinButton doesn't accept focus, but we do
   bool AcceptsFocus() const override
-  {
-    return wxWindow::AcceptsFocus();
-  }
+  { return wxWindow::AcceptsFocus(); }
     // we're like wxTextCtrl and not (default) wxButton
   wxVisualAttributes GetDefaultAttributes() const override
   {
-    return GetClassDefaultAttributes(GetWindowVariant());
-  }
+        return GetClassDefaultAttributes(GetWindowVariant());
+    }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL)
   {
         return GetCompositeControlsDefaultAttributes(variant);
@@ -77,9 +75,7 @@ public:
   bool ProcessTextCommand(WXWORD cmd, WXWORD id);
     // recognize buddy window as part of this control at wx level
   bool ContainsHWND(WXHWND hWnd) const override
-  {
-    return hWnd == m_hwndBuddy;
-  }
+  { return hWnd == m_hwndBuddy; }
   void SetLayoutDirection(wxLayoutDirection dir) override;
   WXHWND MSWGetFocusHWND() const override;
 protected:

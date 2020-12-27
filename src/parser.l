@@ -349,7 +349,7 @@ CL   \'([^'\\]|\\.)*\'
 CSP (({WS}*{ID}{WS}*,{WS}*)*{ID}{WS}*)*
 
 /* Function Trailing Attributes. Should be only used in trailing context.*/
-FTA ("const"|"final"|"override")
+FTA ("const"|"final"|"override"|{ID})
 
 /*@}*/
 
@@ -409,7 +409,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknName);
 }
 
-<ctxGeneral>__declspec {
+<ctxGeneral>"__declspec"{WS}*"("{WS}*{ID}{WS}*")" {
   LOG();
   set_token_and_yyposn();
   RETURN(tknApiDecor);
@@ -433,7 +433,13 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknApiDecor);
 }
 
-<ctxGeneral>alignas {
+<ctxGeneral>"alignas"{WS}*"("{WS}*{ID}{WS}*")" {
+  LOG();
+  set_token_and_yyposn();
+  RETURN(tknApiDecor);
+}
+
+<ctxGeneral>"alignas"{WS}*"("{WS}*{NUM}{WS}*")" {
   LOG();
   set_token_and_yyposn();
   RETURN(tknApiDecor);

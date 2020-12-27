@@ -32,9 +32,7 @@ public:
     // returning true from here ensures that we act as a container window for
     // our children
   bool IsStaticBox() const override
-  {
-    return true;
-  }
+  { return true; }
 protected:
     // draw the control
   void DoDraw(wxControlRenderer* renderer) override;

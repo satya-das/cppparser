@@ -389,9 +389,7 @@ public:
   wxCursor GetMouseCursor(wxHtmlWindowInterface* window) const override;
   wxString ConvertToText(wxHtmlSelection* sel) const override;
   bool IsLinebreakAllowed() const override
-  {
-    return m_allowLinebreak;
-  }
+  { return m_allowLinebreak; }
   void SetPreviousWord(wxHtmlWordCell* cell);
 protected:
   wxString GetDescription() const override;
@@ -480,17 +478,13 @@ public:
   const wxHtmlCell* Find(int condition, const void* param) const override;
   bool ProcessMouseClick(wxHtmlWindowInterface* window, const wxPoint& pos, const wxMouseEvent& event) override;
   wxHtmlCell* GetFirstChild() const override
-  {
-    return m_Cells;
-  }
+  { return m_Cells; }
     // returns last child cell:
   wxHtmlCell* GetLastChild() const
   { return m_LastCell; }
     // see comment in wxHtmlCell about this method
   bool IsTerminalCell() const override
-  {
-    return false;
-  }
+  { return false; }
   wxHtmlCell* FindCellByPos(wxCoord x, wxCoord y, unsigned flags = wxHTML_FIND_EXACT) const override;
   wxHtmlCell* GetFirstTerminal() const override;
   wxHtmlCell* GetLastTerminal() const override;
@@ -500,9 +494,7 @@ public:
     // Returns the maximum possible length of the container.
     // Call Layout at least once before using GetMaxTotalWidth()
   int GetMaxTotalWidth() const override
-  {
-    return m_MaxTotalWidth;
-  }
+  { return m_MaxTotalWidth; }
   wxString Dump(int indent = 0) const override;
 protected:
   void UpdateRenderingStatePre(wxHtmlRenderingInfo& info, wxHtmlCell* cell) const;

@@ -27,9 +27,7 @@ public:
   void SetWildcard(const wxString& wildCard) override;
   void SetFilterIndex(int filterIndex) override;
   bool SupportsExtraControl() const override
-  {
-    return true;
-  }
+  { return true; }
   virtual QFileDialog* GetQFileDialog() const;
   wxDECLARE_DYNAMIC_CLASS(wxFileDialog);
 };

@@ -33,9 +33,7 @@ public:
   void SetFilterIndex(int filterIndex) override;
   int ShowModal() override;
   bool SupportsExtraControl() const override
-  {
-    return true;
-  }
+  { return true; }
     // Implementation only.
   void GTKSelectionChanged(const wxString& filename);
 protected:

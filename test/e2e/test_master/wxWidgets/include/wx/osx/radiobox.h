@@ -45,9 +45,7 @@ public:
   void SetSelection(int item) override;
   int GetSelection() const override;
   unsigned int GetCount() const override
-  {
-    return m_noItems;
-  }
+  { return m_noItems; }
   wxString GetString(unsigned int item) const override;
   void SetString(unsigned int item, const wxString& label) override;
     // protect native font of box
@@ -64,9 +62,7 @@ public:
 protected:
     // resolve ambiguity in base classes
   wxBorder GetDefaultBorder() const override
-  {
-    return wxRadioBoxBase::GetDefaultBorder();
-  }
+  { return wxRadioBoxBase::GetDefaultBorder(); }
   wxRadioButton* m_radioButtonCycle;
   unsigned int m_noItems;
   int m_noRowsOrCols;

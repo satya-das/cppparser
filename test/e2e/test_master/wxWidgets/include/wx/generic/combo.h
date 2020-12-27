@@ -58,13 +58,9 @@ protected:
 #      elif  defined(__WXGTK__)
 #        if  defined(__WXGTK20__)
   GtkEditable* GetEditable() const override
-  {
-    return NULL;
-  }
+  { return NULL; }
   GtkEntry* GetEntry() const override
-  {
-    return NULL;
-  }
+  { return NULL; }
 #        endif
 #      elif  defined(__WXOSX__)
   wxTextWidgetImpl* GetTextPeer() const override;

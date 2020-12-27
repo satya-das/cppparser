@@ -163,9 +163,7 @@ class WXDLLIMPEXP_BASE wxConsoleAppTraitsBase : public wxAppTraits
 #  if  !wxUSE_CONSOLE_EVENTLOOP
 public:
   wxEventLoopBase* CreateEventLoop() override
-  {
-    return NULL;
-  }
+  { return NULL; }
 #  endif
 #  if  wxUSE_LOG
   wxLog* CreateLogTarget() override;
@@ -183,28 +181,15 @@ public:
         // no toolkits (wxBase is for console applications without GUI support)
         // NB: zero means "no toolkit", -1 means "not initialized yet"
         //     so we must use zero here!
-    if (verMaj)
-    {
-      *verMaj = 0;
+        if (verMaj) *verMaj = 0;
+        if (verMin) *verMin = 0;
+        if (verMicro) *verMicro = 0;
+        return wxPORT_BASE;
     }
-    if (verMin)
-    {
-      *verMin = 0;
-    }
-    if (verMicro)
-    {
-      *verMicro = 0;
-    }
-    return wxPORT_BASE;
-  }
   bool IsUsingUniversalWidgets() const override
-  {
-    return false;
-  }
+  { return false; }
   wxString GetDesktopEnvironment() const override
-  {
-    return wxEmptyString;
-  }
+  { return wxEmptyString; }
 };
 // ----------------------------------------------------------------------------
 // wxGUIAppTraitsBase: wxAppTraits implementation for the GUI apps
@@ -225,16 +210,14 @@ public:
   bool HasStderr() override;
   bool IsUsingUniversalWidgets() const override
   {
-#    ifdef __WXUNIVERSAL__
-    return true;
-#    else 
-    return false;
-#    endif
-  }
+    #ifdef __WXUNIVERSAL__
+        return true;
+    #else
+        return false;
+    #endif
+    }
   wxString GetDesktopEnvironment() const override
-  {
-    return wxEmptyString;
-  }
+  { return wxEmptyString; }
 };
 #  endif
 // ----------------------------------------------------------------------------

@@ -46,9 +46,7 @@ public:
     // T GetMax() const
     // T GetIncrement() const
   bool GetSnapToTicks() const override
-  {
-    return m_snap_to_ticks;
-  }
+  { return m_snap_to_ticks; }
     // unsigned GetDigits() const                   - wxSpinCtrlDouble only
 
     // operations
@@ -80,9 +78,7 @@ public:
     // shouldn't accept the focus at all and any attempts to explicitly set
     // focus to it should give focus to its text constol part
   bool AcceptsFocus() const override
-  {
-    return false;
-  }
+  { return false; }
   void SetFocus() override;
   friend class wxSpinCtrlTextGeneric;
 protected:
@@ -262,9 +258,7 @@ public:
   { return int(m_increment); }
     // operations
   void SetValue(const wxString& value) override
-  {
-    wxSpinCtrlGenericBase::SetValue(value);
-  }
+  { wxSpinCtrlGenericBase::SetValue(value); }
   void SetValue(int value)
   { DoSetValue(value, SendEvent_None); }
   void SetRange(int minVal, int maxVal)
@@ -272,9 +266,7 @@ public:
   void SetIncrement(int inc)
   { DoSetIncrement(inc); }
   int GetBase() const override
-  {
-    return m_base;
-  }
+  { return m_base; }
   bool SetBase(int base) override;
 protected:
   void DoSendEvent() override;
@@ -328,9 +320,7 @@ public:
   { return m_digits; }
     // operations
   void SetValue(const wxString& value) override
-  {
-    wxSpinCtrlGenericBase::SetValue(value);
-  }
+  { wxSpinCtrlGenericBase::SetValue(value); }
   void SetValue(double value)
   { DoSetValue(value, SendEvent_None); }
   void SetRange(double minVal, double maxVal)
@@ -341,13 +331,9 @@ public:
     // We don't implement bases support for floating point numbers, this is not
     // very useful in practice.
   int GetBase() const override
-  {
-    return 10;
-  }
+  { return 10; }
   bool SetBase(int) override
-  {
-    return false;
-  }
+  { return false; }
 protected:
   void DoSendEvent() override;
   bool DoTextToValue(const wxString& text, double* val) override;

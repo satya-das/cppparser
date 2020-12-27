@@ -33,13 +33,9 @@ public:
   bool Load(wxInputStream& stream, wxAnimationType type = wxANIMATION_TYPE_ANY) override;
   void Stop() override;
   bool Play() override
-  {
-    return Play(true);
-  }
+  { return Play(true /* looped */); }
   bool IsPlaying() const override
-  {
-    return m_isPlaying;
-  }
+  { return m_isPlaying; }
   void SetAnimation(const wxAnimation& animation) override;
   void SetInactiveBitmap(const wxBitmap& bmp) override;
     // override base class method

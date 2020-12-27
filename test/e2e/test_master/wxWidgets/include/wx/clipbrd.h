@@ -99,8 +99,8 @@ public:
   void AddFormat(const wxDataFormat& format);
   wxEvent* Clone() const override
   {
-    return new wxClipboardEvent(*this);
-  }
+        return new wxClipboardEvent(*this);
+    }
 protected:
   wxVector<wxDataFormat> m_formats;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxClipboardEvent);

@@ -44,9 +44,7 @@ public:
     // the point must be given in screen coordinates!
   virtual void Position(const wxPoint& ptOrigin, const wxSize& size);
   bool IsTopLevel() const override
-  {
-    return true;
-  }
+  { return true; }
   wxDECLARE_NO_COPY_CLASS(wxPopupWindowBase);
 };
 // include the real class declaration

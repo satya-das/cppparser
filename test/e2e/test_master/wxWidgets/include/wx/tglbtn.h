@@ -31,29 +31,28 @@ public:
     // The current "normal" state for the toggle button depends upon its value.
   State GetNormalState() const override
   {
-    return GetValue() ? State_Pressed : State_Normal;
-  }
+        return GetValue() ? State_Pressed : State_Normal;
+    }
   void UpdateWindowUI(long flags) override
   {
-    wxControl::UpdateWindowUI(flags);
-    if (!IsShown())
-    {
-      return ;
-    }
-    wxWindow* tlw = wxGetTopLevelParent(this);
-    if (tlw && wxPendingDelete.Member(tlw))
-    {
-      return ;
-    }
-    wxUpdateUIEvent event(GetId());
-    event.SetEventObject(this);
-    if (GetEventHandler()->ProcessEvent(event))
-    {
+        wxControl::UpdateWindowUI(flags);
 
+        if ( !IsShown() )
+            return;
+
+        wxWindow *tlw = wxGetTopLevelParent( this );
+        if (tlw && wxPendingDelete.Member( tlw ))
+           return;
+
+        wxUpdateUIEvent event( GetId() );
+        event.SetEventObject(this);
+
+        if (GetEventHandler()->ProcessEvent(event) )
+        {
             if ( event.GetSetChecked() )
                 SetValue( event.GetChecked() );
-            }
-  }
+        }
+    }
   wxDECLARE_NO_COPY_CLASS(wxToggleButtonBase);
 };
 #    define EVT_TOGGLEBUTTON(id, fn)	 \

@@ -45,14 +45,10 @@ private:
   void UpdateFirstDayOfWeek();
     // reset holiday information
   void ResetHolidayAttrs() override
-  {
-    m_holidays = 0;
-  }
+  { m_holidays = 0; }
     // redisplay holidays
   void RefreshHolidays() override
-  {
-    UpdateMarks();
-  }
+  { UpdateMarks(); }
     // current date, we need to store it instead of simply retrieving it from
     // the control as needed in order to be able to generate the correct events
     // from MSWOnNotify()

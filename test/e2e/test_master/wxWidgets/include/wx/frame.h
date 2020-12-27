@@ -143,8 +143,8 @@ public:
 #  endif
   bool IsClientAreaChild(const wxWindow* child) const override
   {
-    return !IsOneOfBars(child) && wxTopLevelWindow::IsClientAreaChild(child);
-  }
+        return !IsOneOfBars(child) && wxTopLevelWindow::IsClientAreaChild(child);
+    }
 protected:
     // the frame main menu/status/tool bars
     // ------------------------------------

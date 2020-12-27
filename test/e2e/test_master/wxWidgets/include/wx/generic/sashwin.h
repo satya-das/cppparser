@@ -200,9 +200,7 @@ public:
   wxSashDragStatus GetDragStatus() const
   { return m_dragStatus; }
   wxEvent* Clone() const override
-  {
-    return new wxSashEvent(*this);
-  }
+  { return new wxSashEvent(*this); }
 private:
   wxSashEdgePosition m_edge;
   wxRect m_dragRect;

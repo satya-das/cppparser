@@ -55,13 +55,9 @@ public:
   bool EnableMaximizeButton(bool enable = true) override;
   bool EnableMinimizeButton(bool enable = true) override;
   void SetLabel(const wxString& label) override
-  {
-    SetTitle(label);
-  }
+  { SetTitle( label ); }
   wxString GetLabel() const override
-  {
-    return GetTitle();
-  }
+  { return GetTitle(); }
   void OSXSetModified(bool modified) override;
   bool OSXIsModified() const override;
   void SetRepresentedFilename(const wxString& filename) override;

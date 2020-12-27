@@ -88,9 +88,7 @@ public:
   wxArchiveEntry* GetNextEntry()
   { return DoGetNextEntry(); }
   char Peek() override
-  {
-    return wxInputStream::Peek();
-  }
+  { return wxInputStream::Peek(); }
 protected:
   wxArchiveInputStream(wxInputStream& stream, wxMBConv& conv);
   wxArchiveInputStream(wxInputStream* stream, wxMBConv& conv);

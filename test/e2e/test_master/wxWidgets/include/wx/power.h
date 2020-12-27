@@ -56,9 +56,7 @@ public:
   { return m_veto; }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
-  {
-    return new wxPowerEvent(*this);
-  }
+  { return new wxPowerEvent(*this); }
 private:
   bool m_veto;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxPowerEvent);

@@ -856,13 +856,9 @@ public:
   bool AreAnyItemsShown() const override;
   bool Detach(wxWindow* window) override;
   bool Detach(wxSizer* sizer) override
-  {
-    return wxBoxSizer::Detach(sizer);
-  }
+  { return wxBoxSizer::Detach(sizer); }
   bool Detach(int index) override
-  {
-    return wxBoxSizer::Detach(index);
-  }
+  { return wxBoxSizer::Detach(index); }
 protected:
   wxStaticBox* m_staticBox;
   wxDECLARE_CLASS(wxStaticBoxSizer);

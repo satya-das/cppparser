@@ -35,17 +35,11 @@ public:
   bool GetDataHere(void* buf) const override;
   bool SetData(size_t len, const void* buf) override;
   size_t GetDataSize(const wxDataFormat&) const override
-  {
-    return GetDataSize();
-  }
+  { return GetDataSize(); }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
-  {
-    return GetDataHere(buf);
-  }
+  { return GetDataHere(buf); }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
-  {
-    return SetData(len, buf);
-  }
+  { return SetData(len, buf); }
 private:
     // the DIB data
   void* m_data;
@@ -71,17 +65,11 @@ public:
   bool GetDataHere(void* buf) const override;
   bool SetData(size_t len, const void* buf) override;
   size_t GetDataSize(const wxDataFormat&) const override
-  {
-    return GetDataSize();
-  }
+  { return GetDataSize(); }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
-  {
-    return GetDataHere(buf);
-  }
+  { return GetDataHere(buf); }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
-  {
-    return SetData(len, buf);
-  }
+  { return SetData(len, buf); }
   wxDECLARE_NO_COPY_CLASS(wxBitmapDataObject2);
 };
 // ----------------------------------------------------------------------------
@@ -99,17 +87,11 @@ public:
   bool GetDataHere(void* pData) const override;
   virtual void AddFile(const wxString& file);
   size_t GetDataSize(const wxDataFormat&) const override
-  {
-    return GetDataSize();
-  }
+  { return GetDataSize(); }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
-  {
-    return GetDataHere(buf);
-  }
+  { return GetDataHere(buf); }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
-  {
-    return SetData(len, buf);
-  }
+  { return SetData(len, buf); }
   wxDECLARE_NO_COPY_CLASS(wxFileDataObject);
 };
 // ----------------------------------------------------------------------------

@@ -41,15 +41,11 @@ public:
   { return 2; }
     // overridden base class virtuals
   bool AcceptsFocus() const override
-  {
-    return false;
-  }
+  { return false; }
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
     // set the right size for the right dimension
   wxSize AdjustSize(const wxSize& size) const
   {
@@ -69,8 +65,8 @@ protected:
     }
   wxSize DoGetBestSize() const override
   {
-    return AdjustSize(wxDefaultSize);
-  }
+        return AdjustSize(wxDefaultSize);
+    }
   wxDECLARE_NO_COPY_CLASS(wxStaticLineBase);
 };
 // ----------------------------------------------------------------------------

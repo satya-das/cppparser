@@ -24,9 +24,7 @@ public:
   wxMetafileRefData();
   virtual ~wxMetafileRefData();
   bool IsOk() const override
-  {
-    return m_metafile != 0;
-  }
+  { return m_metafile != 0; }
   WXHANDLE m_metafile;
   int m_windowsMappingMode;
   int m_width, m_height;

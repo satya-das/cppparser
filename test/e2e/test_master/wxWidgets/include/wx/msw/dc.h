@@ -106,17 +106,11 @@ public:
         m_isClipBoxValid = false;
     }
   void* GetHandle() const override
-  {
-    return (void*) GetHDC();
-  }
+  { return (void*)GetHDC(); }
   const wxBitmap& GetSelectedBitmap() const override
-  {
-    return m_selectedBitmap;
-  }
+  { return m_selectedBitmap; }
   wxBitmap& GetSelectedBitmap() override
-  {
-    return m_selectedBitmap;
-  }
+  { return m_selectedBitmap; }
     // update the internal clip box variables
   void UpdateClipBox();
 #  if  wxUSE_DC_CACHEING
@@ -189,8 +183,9 @@ public:
   void DoDrawPolyPolygon(int n, const int count[], const wxPoint points[], wxCoord xoffset, wxCoord yoffset, wxPolygonFillMode fillStyle = wxODDEVEN_RULE) override;
   wxBitmap DoGetAsBitmap(const wxRect* subrect) const override
   {
-    return subrect == NULL ? GetSelectedBitmap() : GetSelectedBitmap().GetSubBitmap(*subrect);
-  }
+        return subrect == NULL ? GetSelectedBitmap()
+                               : GetSelectedBitmap().GetSubBitmap(*subrect);
+    }
 #  if  wxUSE_PALETTE
     // MSW specific, select a logical palette into the HDC
     // (tell windows to translate pixel from other palettes to our custom one
@@ -263,16 +258,14 @@ public:
       }
   void DoGetSize(int* w, int* h) const override
   {
-    wxASSERT_MSG(m_size.IsFullySpecified(), wxT("size of this DC hadn't been set and is unknown"));
-    if (w)
-    {
-      *w = m_size.x;
+        wxASSERT_MSG( m_size.IsFullySpecified(),
+                      wxT("size of this DC hadn't been set and is unknown") );
+
+        if ( w )
+            *w = m_size.x;
+        if ( h )
+            *h = m_size.y;
     }
-    if (h)
-    {
-      *h = m_size.y;
-    }
-  }
 private:
     // size of this DC must be explicitly set by SetSize() as we have no way to
     // find it ourselves

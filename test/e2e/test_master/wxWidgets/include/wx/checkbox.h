@@ -84,9 +84,7 @@ public:
         return HasFlag(wxCHK_ALLOW_3RD_STATE_FOR_USER);
     }
   bool HasTransparentBackground() override
-  {
-    return true;
-  }
+  { return true; }
     // This semi-private function is currently used to allow wxMSW checkbox to
     // blend in with its parent background colour without changing the
     // background colour of the checkbox itself under the other platforms.
@@ -95,18 +93,15 @@ public:
     // wxCheckBox-specific processing after processing the update event
   void DoUpdateWindowUI(wxUpdateUIEvent& event) override
   {
-    wxControl::DoUpdateWindowUI(event);
-    if (event.GetSetChecked())
-    {
-      SetValue(event.GetChecked());
+        wxControl::DoUpdateWindowUI(event);
+
+        if ( event.GetSetChecked() )
+            SetValue(event.GetChecked());
     }
-  }
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
   virtual void DoSet3StateValue(wxCheckBoxState)
   { wxFAIL; }
   virtual wxCheckBoxState DoGet3StateValue() const

@@ -173,14 +173,10 @@ public:
   virtual wxRichTextObject* CreateObjectForXMLName(wxRichTextObject* parent, const wxString& name) const;
     /// Can we save using this handler?
   bool CanSave() const override
-  {
-    return true;
-  }
+  { return true; }
     /// Can we load using this handler?
   bool CanLoad() const override
-  {
-    return true;
-  }
+  { return true; }
     /// Returns the XML helper object, implementing functionality
     /// that can be reused elsewhere.
   wxRichTextXMLHelper& GetHelper()

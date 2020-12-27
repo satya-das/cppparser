@@ -69,9 +69,7 @@ public:
   void SetString(unsigned int n, const wxString& s) override;
   int FindString(const wxString& s, bool bCase = false) const override;
   bool IsSelected(int n) const override
-  {
-    return m_selections.Index(n) != wxNOT_FOUND;
-  }
+  { return m_selections.Index(n) != wxNOT_FOUND; }
   int GetSelection() const override;
   int GetSelections(wxArrayInt& aSelections) const override;
 protected:
@@ -132,8 +130,8 @@ public:
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-    return GetStdInputHandler(handlerDef);
-  }
+        return GetStdInputHandler(handlerDef);
+    }
     // idle processing
   void OnInternalIdle() override;
 protected:

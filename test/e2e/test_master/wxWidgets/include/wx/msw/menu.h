@@ -166,9 +166,7 @@ public:
   void Refresh();
     // To avoid compile warning
   void Refresh(bool eraseBackground, const wxRect* rect = (const wxRect*) NULL) override
-  {
-    wxWindow::Refresh(eraseBackground, rect);
-  }
+  { wxWindow::Refresh(eraseBackground, rect); }
     // Get a top level menu position or wxNOT_FOUND from its handle.
   int MSWGetTopMenuPos(WXHMENU hMenu) const;
     // Get a top level or sub menu with given handle (recursively).

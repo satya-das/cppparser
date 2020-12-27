@@ -195,24 +195,16 @@ public:
   wxString GetFilename() const override;
   wxString GetDirectory() const override;
   wxString GetWildcard() const override
-  {
-    return this->m_wildCard;
-  }
+  { return this->m_wildCard; }
   wxString GetPath() const override;
   void GetPaths(wxArrayString& paths) const override;
   void GetFilenames(wxArrayString& files) const override;
   int GetFilterIndex() const override
-  {
-    return m_filterIndex;
-  }
+  { return m_filterIndex; }
   bool HasMultipleFileSelection() const override
-  {
-    return HasFlag(wxFC_MULTIPLE);
-  }
+  { return HasFlag(wxFC_MULTIPLE); }
   void ShowHidden(bool show) override
-  {
-    m_list->ShowHidden(show);
-  }
+  { m_list->ShowHidden( show ); }
   void GoToParentDir();
   void GoToHomeDir();
     // get the directory currently shown in the control: this can be different

@@ -140,19 +140,16 @@ public:
   bool Enable(bool enable = true) override;
     // should we use the standard control colours or not?
   bool ShouldInheritColours() const override
-  {
-    return false;
-  }
+  { return false; }
   bool IsClientAreaChild(const wxWindow* child) const override
   {
-#  if  wxUSE_SCROLLBAR
-    if (child == (wxWindow*) m_scrollbarHorz || child == (wxWindow*) m_scrollbarVert)
-    {
-      return false;
+#if wxUSE_SCROLLBAR
+        if ( child == (wxWindow*)m_scrollbarHorz ||
+             child == (wxWindow*)m_scrollbarVert )
+            return false;
+#endif
+        return wxWindowNative::IsClientAreaChild(child);
     }
-#  endif
-    return wxWindowNative::IsClientAreaChild(child);
-  }
 protected:
     // common part of all ctors
   void Init();

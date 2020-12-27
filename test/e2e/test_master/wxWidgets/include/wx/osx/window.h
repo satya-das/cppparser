@@ -38,12 +38,12 @@ public:
   bool Show(bool show = true) override;
   bool ShowWithEffect(wxShowEffect effect, unsigned timeout = 0) override
   {
-    return OSXShowWithEffect(true, effect, timeout);
-  }
+        return OSXShowWithEffect(true, effect, timeout);
+    }
   bool HideWithEffect(wxShowEffect effect, unsigned timeout = 0) override
   {
-    return OSXShowWithEffect(false, effect, timeout);
-  }
+        return OSXShowWithEffect(false, effect, timeout);
+    }
   void SetFocus() override;
   void WarpPointer(int x, int y) override;
   bool EnableTouchEvents(int eventsMask) override;
@@ -67,8 +67,9 @@ public:
   void AlwaysShowScrollbars(bool horz = true, bool vert = true) override;
   bool IsScrollbarAlwaysShown(int orient) const override
   {
-    return orient == wxHORIZONTAL ? m_hScrollBarAlwaysShown : m_vScrollBarAlwaysShown;
-  }
+        return orient == wxHORIZONTAL ? m_hScrollBarAlwaysShown
+                                      : m_vScrollBarAlwaysShown;
+    }
   bool Reparent(wxWindowBase* newParent) override;
 #  if  wxUSE_HOTKEY && wxOSX_USE_COCOA_OR_CARBON
     // hot keys (system wide accelerators)
@@ -101,9 +102,7 @@ public:
   bool AcceptsFocus() const override;
   void EnableVisibleFocus(bool enabled) override;
   bool IsDoubleBuffered() const override
-  {
-    return true;
-  }
+  { return true; }
   static long MacRemoveBordersFromStyle(long style);
     // For implementation purposes:
     // sometimes decorations make the client area smaller
@@ -165,8 +164,9 @@ public:
   { return ((wxWindow*)m_hScrollBar == sb || (wxWindow*)m_vScrollBar == sb) ; }
   bool IsClientAreaChild(const wxWindow* child) const override
   {
-    return !MacIsWindowScrollbar(child) && !((wxWindow*) m_growBox == child) && wxWindowBase::IsClientAreaChild(child);
-  }
+        return !MacIsWindowScrollbar(child) && !((wxWindow*)m_growBox==child) &&
+               wxWindowBase::IsClientAreaChild(child);
+    }
   void MacPostControlCreate(const wxPoint& pos, const wxSize& size);
   wxList& GetSubcontrols()
   { return m_subControls; }

@@ -23,36 +23,30 @@ public:
   bool Create(wxWindow* parent, wxWindowID id, const wxBitmap& bitmap, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBitmapNameStr));
   void SetBitmap(const wxBitmap& bitmap) override
   {
-    m_bitmap = bitmap;
-    SetInitialSize(GetBitmapSize());
-    Refresh();
-  }
+        m_bitmap = bitmap;
+        SetInitialSize(GetBitmapSize());
+        Refresh();
+    }
   wxBitmap GetBitmap() const override
-  {
-    return m_bitmap;
-  }
+  { return m_bitmap; }
   void SetIcon(const wxIcon& icon) override
   {
-    m_bitmap.CopyFromIcon(icon);
-    SetInitialSize(GetBitmapSize());
-    Refresh();
-  }
+        m_bitmap.CopyFromIcon(icon);
+        SetInitialSize(GetBitmapSize());
+        Refresh();
+    }
 #  if  defined(__WXGTK20__) || defined(__WXMAC__)
     // icons and bitmaps are really the same thing in wxGTK and wxMac
   wxIcon GetIcon() const override
-  {
-    return (const wxIcon&) m_bitmap;
-  }
+  { return (const wxIcon &)m_bitmap; }
 #  endif
   void SetScaleMode(ScaleMode scaleMode) override
   {
-    m_scaleMode = scaleMode;
-    Refresh();
-  }
+        m_scaleMode = scaleMode;
+        Refresh();
+    }
   ScaleMode GetScaleMode() const override
-  {
-    return m_scaleMode;
-  }
+  { return m_scaleMode; }
 private:
   wxSize GetBitmapSize()
   {

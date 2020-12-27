@@ -39,13 +39,9 @@ public:
   ~wxFileDialog();
 #  endif
   void GetPaths(wxArrayString& paths) const override
-  {
-    paths = m_paths;
-  }
+  { paths = m_paths; }
   void GetFilenames(wxArrayString& files) const override
-  {
-    files = m_fileNames;
-  }
+  { files = m_fileNames ; }
   int ShowModal() override;
 #  if  wxOSX_USE_COCOA
   void ShowWindowModal() override;

@@ -494,9 +494,7 @@ public:
   void SetEditCanceled(bool editCancelled)
   { m_editCancelled = editCancelled; }
   wxEvent* Clone() const override
-  {
-    return new wxListEvent(*this);
-  }
+  { return new wxListEvent(*this); }
 //protected: -- not for backwards compatibility
   int m_code;
   long m_oldItemIndex;

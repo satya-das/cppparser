@@ -56,9 +56,7 @@ protected:
 #    endif
     // Dummy method - we override all functions that call this
   WXHWND GetEditHWND() const override
-  {
-    return NULL;
-  }
+  { return NULL; }
     // customization
   void OnResize() override;
   wxCoord GetNativeTextIndent() const override;
@@ -66,9 +64,7 @@ protected:
   void OnPaintEvent(wxPaintEvent& event);
   void OnMouseEvent(wxMouseEvent& event);
   bool HasTransparentBackground() override
-  {
-    return IsDoubleBuffered();
-  }
+  { return IsDoubleBuffered(); }
 private:
   void Init();
 #    if  wxUSE_COMBOCTRL_POPUP_ANIMATION

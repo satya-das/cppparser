@@ -45,44 +45,46 @@ public:
     //     manually in each function.
   bool SetForegroundColour(const wxColour& colour) override
   {
-    if (!BaseWindowClass::SetForegroundColour(colour))
-    {
-      return false;
+        if ( !BaseWindowClass::SetForegroundColour(colour) )
+            return false;
+
+        SetForAllParts(&wxWindowBase::SetForegroundColour, colour);
+
+        return true;
     }
-    SetForAllParts(&wxWindowBase::SetForegroundColour, colour);
-    return true;
-  }
   bool SetBackgroundColour(const wxColour& colour) override
   {
-    if (!BaseWindowClass::SetBackgroundColour(colour))
-    {
-      return false;
+        if ( !BaseWindowClass::SetBackgroundColour(colour) )
+            return false;
+
+        SetForAllParts(&wxWindowBase::SetBackgroundColour, colour);
+
+        return true;
     }
-    SetForAllParts(&wxWindowBase::SetBackgroundColour, colour);
-    return true;
-  }
   bool SetFont(const wxFont& font) override
   {
-    if (!BaseWindowClass::SetFont(font))
-    {
-      return false;
+        if ( !BaseWindowClass::SetFont(font) )
+            return false;
+
+        SetForAllParts(&wxWindowBase::SetFont, font);
+
+        return true;
     }
-    SetForAllParts(&wxWindowBase::SetFont, font);
-    return true;
-  }
   bool SetCursor(const wxCursor& cursor) override
   {
-    if (!BaseWindowClass::SetCursor(cursor))
-    {
-      return false;
+        if ( !BaseWindowClass::SetCursor(cursor) )
+            return false;
+
+        SetForAllParts(&wxWindowBase::SetCursor, cursor);
+
+        return true;
     }
-    SetForAllParts(&wxWindowBase::SetCursor, cursor);
-    return true;
-  }
   void SetLayoutDirection(wxLayoutDirection dir) override
   {
-    BaseWindowClass::SetLayoutDirection(dir);
-    SetForAllParts(&wxWindowBase::SetLayoutDirection, dir);
+        BaseWindowClass::SetLayoutDirection(dir);
+
+        SetForAllParts(&wxWindowBase::SetLayoutDirection, dir);
+
         // The child layout almost invariably depends on the layout direction,
         // so redo it when it changes.
         //
@@ -91,24 +93,25 @@ public:
         // SetSize() may be unexpected. This does mean that any future calls to
         // SetLayoutDirection(wxLayout_Default) wouldn't result in a re-layout
         // neither, but then we're not supposed to be called with it at all.
-    if (dir != wxLayout_Default)
-    {
-      this->SetSize(-1, -1, -1, -1, wxSIZE_FORCE);
+        if ( dir != wxLayout_Default )
+            this->SetSize(-1, -1, -1, -1, wxSIZE_FORCE);
     }
-  }
 #  if  wxUSE_TOOLTIPS
   void DoSetToolTipText(const wxString& tip) override
   {
-    BaseWindowClass::DoSetToolTipText(tip);
+        BaseWindowClass::DoSetToolTipText(tip);
+
         // Use a variable to disambiguate between SetToolTip() overloads.
-    void (*func) (const wxString&) = &wxWindowBase::SetToolTip;
-    SetForAllParts(func, tip);
-  }
+        void (wxWindowBase::*func)(const wxString&) = &wxWindowBase::SetToolTip;
+
+        SetForAllParts(func, tip);
+    }
   void DoSetToolTip(wxToolTip* tip) override
   {
-    BaseWindowClass::DoSetToolTip(tip);
-    SetForAllParts(&wxWindowBase::CopyToolTip, tip);
-  }
+        BaseWindowClass::DoSetToolTip(tip);
+
+        SetForAllParts(&wxWindowBase::CopyToolTip, tip);
+    }
 #  endif
 protected:
     // Trivial but necessary default ctor.
@@ -147,8 +150,8 @@ class wxCompositeWindow : public wxCompositeWindowSettersOnly<W>
 public:
   void SetFocus() override
   {
-    wxSetFocusToChild(this, NULL);
-  }
+        wxSetFocusToChild(this, NULL);
+    }
 protected:
     // Default ctor sets things up for handling children events correctly.
   wxCompositeWindow()

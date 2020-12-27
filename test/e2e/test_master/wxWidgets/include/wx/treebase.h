@@ -171,9 +171,7 @@ public:
   wxTreeEvent(wxEventType commandType, wxTreeCtrlBase* tree, const wxTreeItemId& item = wxTreeItemId());
   wxTreeEvent(const wxTreeEvent& event);
   wxEvent* Clone() const override
-  {
-    return new wxTreeEvent(*this);
-  }
+  { return new wxTreeEvent(*this); }
     // accessors
         // get the item on which the operation was performed or the newly
         // selected item for wxEVT_TREE_SEL_CHANGED/ING events

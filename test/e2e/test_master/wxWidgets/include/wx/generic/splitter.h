@@ -171,9 +171,7 @@ public:
   virtual void SizeWindows();
 #  ifdef __WXMAC__
   bool MacClipGrandChildren() const override
-  {
-    return true;
-  }
+  { return true ; }
 #  endif
     // Sets the sash size: this doesn't do anything and shouldn't be used at
     // all any more.
@@ -301,9 +299,7 @@ public:
         return m_data.pt.y;
     }
   wxEvent* Clone() const override
-  {
-    return new wxSplitterEvent(*this);
-  }
+  { return new wxSplitterEvent(*this); }
 private:
   friend class WXDLLIMPEXP_FWD_CORE wxSplitterWindow;
     // data for the different types of event

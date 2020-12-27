@@ -43,12 +43,11 @@ public:
         // need for this as WSAAsyncSelect() only sends notification once when
         // the new data becomes available anyhow, so there is no need to do
         // anything here
-  }
+    }
   void UpdateBlockingState() override
   {
-    if (GetSocketFlags() & wxSOCKET_BLOCK)
-    {
-
+        if ( GetSocketFlags() & wxSOCKET_BLOCK )
+        {
             // Counter-intuitively, we make the socket non-blocking even in
             // this case as it is necessary e.g. for Read() to return
             // immediately if there is no data available. However we must not
@@ -62,14 +61,14 @@ public:
 
             // Uninstall it in case it was installed before.
             wxSocketManager::Get()->Uninstall_Callback(this);
-            }
-    else 
-    {
+        }
+        else
+        {
             // No need to make the socket non-blocking, Install_Callback() will
             // do it as a side effect of calling WSAAsyncSelect().
-      wxSocketManager::Get()->Install_Callback(this);
+            wxSocketManager::Get()->Install_Callback(this);
+        }
     }
-  }
 private:
   void DoClose() override;
   int m_msgnumber;

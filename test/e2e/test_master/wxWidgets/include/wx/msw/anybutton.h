@@ -32,9 +32,7 @@ public:
   bool MSWOnDraw(WXDRAWITEMSTRUCT* item) override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  {
-    return false;
-  }
+  { return false; }
 protected:
     // usually overridden base class virtuals
   wxSize DoGetBestSize() const override;

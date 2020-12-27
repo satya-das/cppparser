@@ -234,9 +234,7 @@ public:
     // override some base class virtuals
   bool Destroy() override;
   bool IsTopLevel() const override
-  {
-    return true;
-  }
+  { return true; }
   bool IsTopNavigationDomain(NavigationKind kind) const override;
   virtual bool IsVisible() const
   { return IsShown(); }
@@ -275,8 +273,8 @@ protected:
     // coordinates: this is already the case
   void DoGetScreenPosition(int* x, int* y) const override
   {
-    DoGetPosition(x, y);
-  }
+        DoGetPosition(x, y);
+    }
     // test whether this window makes part of the frame
     // (menubar, toolbar and statusbar are excluded from automatic layout)
   virtual bool IsOneOfBars(const wxWindow*) const

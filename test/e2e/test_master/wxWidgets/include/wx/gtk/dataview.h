@@ -32,9 +32,7 @@ public:
   void SetWidth(int width) override;
   void SetReorderable(bool reorderable) override;
   void SetFlags(int flags) override
-  {
-    SetIndividualFlags(flags);
-  }
+  { SetIndividualFlags(flags); }
     // getters:
   wxString GetTitle() const override;
   wxAlignment GetAlignment() const override;
@@ -47,9 +45,7 @@ public:
   int GetMinWidth() const override;
   bool IsReorderable() const override;
   int GetFlags() const override
-  {
-    return GetFromIndividualFlags();
-  }
+  { return GetFromIndividualFlags(); }
     // implementation
   GtkWidget* GetGtkHandle() const
   { return m_column; }

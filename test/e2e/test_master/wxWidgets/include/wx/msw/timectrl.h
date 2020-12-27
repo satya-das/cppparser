@@ -36,9 +36,7 @@ protected:
   wxLocaleInfo MSWGetFormat() const override;
 #  endif
   bool MSWAllowsNone() const override
-  {
-    return false;
-  }
+  { return false; }
   bool MSWOnDateTimeChange(const tagNMDATETIMECHANGE& dtch) override;
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxTimePickerCtrl);
 };

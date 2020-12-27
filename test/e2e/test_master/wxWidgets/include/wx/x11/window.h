@@ -33,13 +33,9 @@ public:
   virtual void Lower();
     // SetLabel(), which does nothing in wxWindow
   void SetLabel(const wxString& label) override
-  {
-    m_Label = label;
-  }
+  { m_Label = label; }
   wxString GetLabel() const override
-  {
-    return m_Label;
-  }
+  { return m_Label; }
   virtual bool Show(bool show = true);
   virtual bool Enable(bool enable = true);
   virtual void SetFocus();

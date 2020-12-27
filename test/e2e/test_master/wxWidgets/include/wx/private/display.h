@@ -151,16 +151,16 @@ public:
     // no video modes support for us, provide just the stubs
   wxArrayVideoModes GetModes(const wxVideoMode&) const override
   {
-    return wxArrayVideoModes();
-  }
+        return wxArrayVideoModes();
+    }
   wxVideoMode GetCurrentMode() const override
   {
-    return wxVideoMode();
-  }
+        return wxVideoMode();
+    }
   bool ChangeMode(const wxVideoMode&) override
   {
-    return false;
-  }
+        return false;
+    }
 #  endif
   wxDECLARE_NO_COPY_CLASS(wxDisplayImplSingle);
 };
@@ -178,9 +178,7 @@ class wxDisplayFactorySingle : public wxDisplayFactory
 {
 public:
   unsigned GetCount() override
-  {
-    return 1;
-  }
+  { return 1; }
   int GetFromPoint(const wxPoint& pt) override;
 protected:
   wxDisplayImpl* CreateDisplay(unsigned n) override;

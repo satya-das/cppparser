@@ -63,16 +63,13 @@ public:
   Handler* GetHandler() const override
   {
         // Only process the signal / event if the wxWindow is not destroyed
-    if (!wxWindow::QtRetrieveWindowPointer(this))
-    {
-
+        if ( !wxWindow::QtRetrieveWindowPointer( this ) )
+        {
             return NULL;
-            }
-    else 
-    {
-      return wxQtSignalHandler< Handler >::GetHandler();
+        }
+        else
+            return wxQtSignalHandler< Handler >::GetHandler();
     }
-  }
 protected:
     /* Not implemented here: wxHelpEvent, wxIdleEvent wxJoystickEvent,
      * wxMouseCaptureLostEvent, wxMouseCaptureChangedEvent,
@@ -81,310 +78,215 @@ protected:
     //wxActivateEvent
   void changeEvent(QEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleChangeEvent(this, event) )
+            Widget::changeEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleChangeEvent(this, event))
-    {
-      Widget::changeEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxCloseEvent
   void closeEvent(QCloseEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleCloseEvent(this, event) )
+            Widget::closeEvent(event);
+        else
+            event->ignore();
     }
-    if (!this->GetHandler()->QtHandleCloseEvent(this, event))
-    {
-      Widget::closeEvent(event);
-    }
-    else 
-    {
-      event->ignore();
-    }
-  }
     //wxContextMenuEvent
   void contextMenuEvent(QContextMenuEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleContextMenuEvent(this, event) )
+            Widget::contextMenuEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleContextMenuEvent(this, event))
-    {
-      Widget::contextMenuEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxDropFilesEvent
     //virtual void dropEvent ( QDropEvent * event ) { }
 
     //wxMouseEvent
   void enterEvent(QEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleEnterEvent(this, event) )
+            Widget::enterEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleEnterEvent(this, event))
-    {
-      Widget::enterEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxFocusEvent.
   void focusInEvent(QFocusEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleFocusEvent(this, event) )
+            Widget::focusInEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleFocusEvent(this, event))
-    {
-      Widget::focusInEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxFocusEvent.
   void focusOutEvent(QFocusEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleFocusEvent(this, event) )
+            Widget::focusOutEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleFocusEvent(this, event))
-    {
-      Widget::focusOutEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxShowEvent
   void hideEvent(QHideEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleShowEvent(this, event) )
+            Widget::hideEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleShowEvent(this, event))
-    {
-      Widget::hideEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxKeyEvent
   void keyPressEvent(QKeyEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleKeyEvent(this, event) )
+            Widget::keyPressEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleKeyEvent(this, event))
-    {
-      Widget::keyPressEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxKeyEvent
   void keyReleaseEvent(QKeyEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleKeyEvent(this, event) )
+            Widget::keyReleaseEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleKeyEvent(this, event))
-    {
-      Widget::keyReleaseEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxMouseEvent
   void leaveEvent(QEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleEnterEvent(this, event) )
+            Widget::leaveEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleEnterEvent(this, event))
-    {
-      Widget::leaveEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxMouseEvent
   void mouseDoubleClickEvent(QMouseEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleMouseEvent(this, event) )
+            Widget::mouseDoubleClickEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleMouseEvent(this, event))
-    {
-      Widget::mouseDoubleClickEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxMouseEvent
   void mouseMoveEvent(QMouseEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleMouseEvent(this, event) )
+            Widget::mouseMoveEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleMouseEvent(this, event))
-    {
-      Widget::mouseMoveEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxMouseEvent
   void mousePressEvent(QMouseEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleMouseEvent(this, event) )
+            Widget::mousePressEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleMouseEvent(this, event))
-    {
-      Widget::mousePressEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxMouseEvent
   void mouseReleaseEvent(QMouseEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleMouseEvent(this, event) )
+            Widget::mouseReleaseEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleMouseEvent(this, event))
-    {
-      Widget::mouseReleaseEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxMoveEvent
   void moveEvent(QMoveEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleMoveEvent(this, event) )
+            Widget::moveEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleMoveEvent(this, event))
-    {
-      Widget::moveEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxEraseEvent then wxPaintEvent
   void paintEvent(QPaintEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandlePaintEvent(this, event) )
+            Widget::paintEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandlePaintEvent(this, event))
-    {
-      Widget::paintEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxSizeEvent
   void resizeEvent(QResizeEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleResizeEvent(this, event) )
+            Widget::resizeEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleResizeEvent(this, event))
-    {
-      Widget::resizeEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxShowEvent
   void showEvent(QShowEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleShowEvent(this, event) )
+            Widget::showEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleShowEvent(this, event))
-    {
-      Widget::showEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     //wxMouseEvent
   void wheelEvent(QWheelEvent* event) override
   {
-    if (!this->GetHandler())
-    {
-      return ;
+        if ( !this->GetHandler() )
+            return;
+
+        if ( !this->GetHandler()->QtHandleWheelEvent(this, event) )
+            Widget::wheelEvent(event);
+        else
+            event->accept();
     }
-    if (!this->GetHandler()->QtHandleWheelEvent(this, event))
-    {
-      Widget::wheelEvent(event);
-    }
-    else 
-    {
-      event->accept();
-    }
-  }
     /* Unused Qt events
     virtual void actionEvent ( QActionEvent * event ) { }
     virtual void dragEnterEvent ( QDragEnterEvent * event ) { }

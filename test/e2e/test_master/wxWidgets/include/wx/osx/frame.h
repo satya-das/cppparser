@@ -50,9 +50,7 @@ public:
   void PositionBars();
     // internal response to size events
   void MacOnInternalSize() override
-  {
-    PositionBars();
-  }
+  { PositionBars(); }
 #  if  wxUSE_TOOLBAR
 protected:
   void PositionToolBar() override;

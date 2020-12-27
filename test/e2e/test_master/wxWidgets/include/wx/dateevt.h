@@ -35,9 +35,7 @@ public:
   { m_date = date; }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
-  {
-    return new wxDateEvent(*this);
-  }
+  { return new wxDateEvent(*this); }
 private:
   wxDateTime m_date;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxDateEvent);

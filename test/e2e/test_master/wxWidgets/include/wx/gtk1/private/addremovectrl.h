@@ -51,9 +51,9 @@ public:
         }
   void SetButtonsToolTips(const wxString& addtip, const wxString& removetip) override
   {
-    m_tbar->SetToolShortHelp(wxID_ADD, addtip);
-    m_tbar->SetToolShortHelp(wxID_REMOVE, removetip);
-  }
+        m_tbar->SetToolShortHelp(wxID_ADD, addtip);
+        m_tbar->SetToolShortHelp(wxID_REMOVE, removetip);
+    }
 private:
   static wxBitmap GetNamedBitmap(const wxString& name)
   {

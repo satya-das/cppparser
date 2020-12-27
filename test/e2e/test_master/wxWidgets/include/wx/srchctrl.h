@@ -65,16 +65,12 @@ public:
   virtual wxString GetDescriptiveText() const = 0;
 #    if  wxUSE_NATIVE_SEARCH_CONTROL
   const wxTextEntry* WXGetTextEntry() const override
-  {
-    return this;
-  }
+  { return this; }
 #    endif
 private:
     // implement wxTextEntry pure virtual method
   wxWindow* GetEditableWindow() override
-  {
-    return this;
-  }
+  { return this; }
 };
 // include the platform-dependent class implementation
 #    if  wxUSE_NATIVE_SEARCH_CONTROL

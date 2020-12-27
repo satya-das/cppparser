@@ -35,9 +35,7 @@ public:
   WXDWORD MSWGetStyle(long style, WXDWORD* exstyle) const override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  {
-    return false;
-  }
+  { return false; }
 protected:
   wxSize DoGetBestSize() const override;
 private:

@@ -29,17 +29,11 @@ public:
   void SetRange(int minVal, int maxVal) override;
     // implement wxControlWithArrows methods
   wxRenderer* GetRenderer() const override
-  {
-    return m_renderer;
-  }
+  { return m_renderer; }
   wxWindow* GetWindow() override
-  {
-    return this;
-  }
+  { return this; }
   bool IsVertical() const override
-  {
-    return wxSpinButtonBase::IsVertical();
-  }
+  { return wxSpinButtonBase::IsVertical(); }
   int GetArrowState(wxScrollArrows::Arrow arrow) const override;
   void SetArrowFlag(wxScrollArrows::Arrow arrow, int flag, bool set) override;
   bool OnArrow(wxScrollArrows::Arrow arrow) override;
@@ -51,15 +45,13 @@ public:
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-    return GetStdInputHandler(handlerDef);
-  }
+        return GetStdInputHandler(handlerDef);
+    }
 protected:
   wxSize DoGetBestClientSize() const override;
   void DoDraw(wxControlRenderer* renderer) override;
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
     // the common part of all ctors
   void Init();
     // normalize the value to fit into min..max range

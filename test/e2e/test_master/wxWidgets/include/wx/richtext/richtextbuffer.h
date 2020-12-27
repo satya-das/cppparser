@@ -2951,24 +2951,18 @@ public:
         Returns @true if this object is composite.
     */
   bool IsComposite() const override
-  {
-    return true;
-  }
+  { return true; }
     /**
         Returns @true if no user editing can be done inside the object. This returns @true for simple objects,
         @false for most composite objects, but @true for fields, which if composite, should not be user-edited.
     */
   bool IsAtomic() const override
-  {
-    return false;
-  }
+  { return false; }
     /**
         Returns true if the buffer is empty.
     */
   bool IsEmpty() const override
-  {
-    return GetChildCount() == 0;
-  }
+  { return GetChildCount() == 0; }
     /**
         Returns the child object at the given character position.
     */
@@ -3042,13 +3036,9 @@ public:
   bool ExportXML(wxXmlNode* parent, wxRichTextXMLHandler* handler) override;
 #    endif
   wxString GetXMLNodeName() const override
-  {
-    return wxT("paragraphlayout");
-  }
+  { return wxT("paragraphlayout"); }
   bool AcceptsFocus() const override
-  {
-    return true;
-  }
+  { return true; }
 // Accessors
 
     /**
@@ -3076,9 +3066,7 @@ public:
     */
   virtual wxRichTextStyleSheet* GetStyleSheet() const;
   bool IsTopLevel() const override
-  {
-    return true;
-  }
+  { return true; }
 // Operations
 
     /**
@@ -3420,9 +3408,7 @@ public:
     */
   virtual bool HasParagraphAttributes(const wxRichTextRange& range, const wxRichTextAttr& style) const;
   wxRichTextObject* Clone() const override
-  {
-    return new wxRichTextParagraphLayoutBox(*this);
-  }
+  { return new wxRichTextParagraphLayoutBox(*this); }
     /**
         Prepares the content just before insertion (or after buffer reset).
         Currently is only called if undo mode is on.
@@ -3569,25 +3555,17 @@ public:
 // Overridables
   bool Draw(wxDC& dc, wxRichTextDrawingContext& context, const wxRichTextRange& range, const wxRichTextSelection& selection, const wxRect& rect, int descent, int style) override;
   wxString GetXMLNodeName() const override
-  {
-    return wxT("textbox");
-  }
+  { return wxT("textbox"); }
   bool CanEditProperties() const override
-  {
-    return true;
-  }
+  { return true; }
   bool EditProperties(wxWindow* parent, wxRichTextBuffer* buffer) override;
   wxString GetPropertiesMenuLabel() const override
-  {
-    return wxGetTranslation("&Box");
-  }
+  { return wxGetTranslation("&Box"); }
 // Accessors
 
 // Operations
   wxRichTextObject* Clone() const override
-  {
-    return new wxRichTextBox(*this);
-  }
+  { return new wxRichTextBox(*this); }
   void Copy(const wxRichTextBox& obj);
 };
 /**
@@ -3652,28 +3630,20 @@ public:
   bool Layout(wxDC& dc, wxRichTextDrawingContext& context, const wxRect& rect, const wxRect& parentRect, int style) override;
   bool GetRangeSize(const wxRichTextRange& range, wxSize& size, int& descent, wxDC& dc, wxRichTextDrawingContext& context, int flags, const wxPoint& position = wxPoint(0, 0), const wxSize& parentSize = wxDefaultSize, wxArrayInt* partialExtents = NULL) const override;
   wxString GetXMLNodeName() const override
-  {
-    return wxT("field");
-  }
+  { return wxT("field"); }
   bool CanEditProperties() const override;
   bool EditProperties(wxWindow* parent, wxRichTextBuffer* buffer) override;
   wxString GetPropertiesMenuLabel() const override;
   bool AcceptsFocus() const override
-  {
-    return false;
-  }
+  { return false; }
   void CalculateRange(long start, long& end) override;
     /**
         If a field has children, we don't want the user to be able to edit it.
     */
   bool IsAtomic() const override
-  {
-    return true;
-  }
+  { return true; }
   bool IsEmpty() const override
-  {
-    return false;
-  }
+  { return false; }
   bool IsTopLevel() const override;
 // Accessors
   void SetFieldType(const wxString& fieldType)
@@ -3688,9 +3658,7 @@ public:
      */
   virtual bool UpdateField(wxRichTextBuffer* buffer);
   wxRichTextObject* Clone() const override
-  {
-    return new wxRichTextField(*this);
-  }
+  { return new wxRichTextField(*this); }
   void Copy(const wxRichTextField& obj);
 };
 /**
@@ -3913,9 +3881,7 @@ public:
         Returns @true if the display type is wxRICHTEXT_FIELD_STYLE_COMPOSITE, @false otherwise.
     */
   bool IsTopLevel(wxRichTextField*) const override
-  {
-    return (GetDisplayStyle() & wxRICHTEXT_FIELD_STYLE_COMPOSITE) != 0;
-  }
+  { return (GetDisplayStyle() & wxRICHTEXT_FIELD_STYLE_COMPOSITE) != 0; }
     /**
         Sets the text label for fields of this type.
     */
@@ -4206,9 +4172,7 @@ public:
   int HitTest(wxDC& dc, wxRichTextDrawingContext& context, const wxPoint& pt, long& textPosition, wxRichTextObject** obj, wxRichTextObject** contextObj, int flags = 0) override;
   void CalculateRange(long start, long& end) override;
   wxString GetXMLNodeName() const override
-  {
-    return wxT("paragraph");
-  }
+  { return wxT("paragraph"); }
 // Accessors
 
     /**
@@ -4223,9 +4187,7 @@ public:
     */
   void Copy(const wxRichTextParagraph& obj);
   wxRichTextObject* Clone() const override
-  {
-    return new wxRichTextParagraph(*this);
-  }
+  { return new wxRichTextParagraph(*this); }
     /**
         Clears the cached lines.
     */
@@ -4365,9 +4327,7 @@ public:
   void CalculateRange(long start, long& end) override;
   bool DeleteRange(const wxRichTextRange& range) override;
   bool IsEmpty() const override
-  {
-    return m_text.empty();
-  }
+  { return m_text.empty(); }
   bool CanMerge(wxRichTextObject* object, wxRichTextDrawingContext& context) const override;
   bool Merge(wxRichTextObject* object, wxRichTextDrawingContext& context) override;
   void Dump(wxTextOutputStream& stream) override;
@@ -4379,9 +4339,7 @@ public:
   long GetFirstLineBreakPosition(long pos);
     /// Does this object take note of paragraph attributes? Text and image objects don't.
   bool UsesParagraphAttributes() const override
-  {
-    return false;
-  }
+  { return false; }
 #    if  wxUSE_XML
   bool ImportFromXML(wxRichTextBuffer* buffer, wxXmlNode* node, wxRichTextXMLHandler* handler, bool* recurse) override;
 #    endif
@@ -4392,9 +4350,7 @@ public:
   bool ExportXML(wxXmlNode* parent, wxRichTextXMLHandler* handler) override;
 #    endif
   wxString GetXMLNodeName() const override
-  {
-    return wxT("text");
-  }
+  { return wxT("text"); }
 // Accessors
 
     /**
@@ -4413,9 +4369,7 @@ public:
   void Copy(const wxRichTextPlainText& obj);
     // Clones the text object.
   wxRichTextObject* Clone() const override
-  {
-    return new wxRichTextPlainText(*this);
-  }
+  { return new wxRichTextPlainText(*this); }
 private:
   bool DrawTabbedString(wxDC& dc, const wxRichTextAttr& attr, const wxRect& rect, wxString& str, wxCoord& x, wxCoord& y, bool selected);
 protected:
@@ -4621,22 +4575,14 @@ public:
     */
   wxTextAttrSize GetNaturalSize() const override;
   bool IsEmpty() const override
-  {
-    return false;
-  }
+  { return false; /* !m_imageBlock.IsOk(); */ }
   bool CanEditProperties() const override
-  {
-    return true;
-  }
+  { return true; }
   bool EditProperties(wxWindow* parent, wxRichTextBuffer* buffer) override;
   wxString GetPropertiesMenuLabel() const override
-  {
-    return wxGetTranslation("&Picture");
-  }
+  { return wxGetTranslation("&Picture"); }
   bool UsesParagraphAttributes() const override
-  {
-    return false;
-  }
+  { return false; }
 #    if  wxUSE_XML
   bool ImportFromXML(wxRichTextBuffer* buffer, wxXmlNode* node, wxRichTextXMLHandler* handler, bool* recurse) override;
 #    endif
@@ -4648,13 +4594,9 @@ public:
 #    endif
     // Images can be floatable (optionally).
   bool IsFloatable() const override
-  {
-    return true;
-  }
+  { return true; }
   wxString GetXMLNodeName() const override
-  {
-    return wxT("image");
-  }
+  { return wxT("image"); }
 // Accessors
 
     /**
@@ -4687,9 +4629,7 @@ public:
         Clones the image object.
     */
   wxRichTextObject* Clone() const override
-  {
-    return new wxRichTextImage(*this);
-  }
+  { return new wxRichTextImage(*this); }
     /**
         Creates a cached image at the required size.
     */
@@ -4776,9 +4716,7 @@ public:
         Returns the style sheet.
     */
   wxRichTextStyleSheet* GetStyleSheet() const override
-  {
-    return m_styleSheet;
-  }
+  { return m_styleSheet; }
     /**
         Sets the style sheet and sends a notification of the change.
     */
@@ -4887,10 +4825,7 @@ public:
         Convenience function to add a paragraph of text.
     */
   wxRichTextRange AddParagraph(const wxString& text, wxRichTextAttr* paraStyle = NULL) override
-  {
-    Modify();
-    return wxRichTextParagraphLayoutBox::AddParagraph(text, paraStyle);
-  }
+  { Modify(); return wxRichTextParagraphLayoutBox::AddParagraph(text, paraStyle); }
     /**
         Begin collapsing undo/redo commands. Note that this may not work properly
         if combining commands that delete or insert content, changing ranges for
@@ -5208,9 +5143,7 @@ public:
         Clones the buffer.
     */
   wxRichTextObject* Clone() const override
-  {
-    return new wxRichTextBuffer(*this);
-  }
+  { return new wxRichTextBuffer(*this); }
     /**
         Submits a command to insert paragraphs.
     */
@@ -5251,9 +5184,7 @@ public:
     */
   virtual void Dump();
   void Dump(wxTextOutputStream& stream) override
-  {
-    wxRichTextParagraphLayoutBox::Dump(stream);
-  }
+  { wxRichTextParagraphLayoutBox::Dump(stream); }
     //@}
 
     /**
@@ -5485,23 +5416,15 @@ public:
   int HitTest(wxDC& dc, wxRichTextDrawingContext& context, const wxPoint& pt, long& textPosition, wxRichTextObject** obj, wxRichTextObject** contextObj, int flags = 0) override;
   bool AdjustAttributes(wxRichTextAttr& attr, wxRichTextDrawingContext& context) override;
   wxString GetXMLNodeName() const override
-  {
-    return wxT("cell");
-  }
+  { return wxT("cell"); }
   bool CanEditProperties() const override
-  {
-    return true;
-  }
+  { return true; }
   bool EditProperties(wxWindow* parent, wxRichTextBuffer* buffer) override;
   wxString GetPropertiesMenuLabel() const override
-  {
-    return wxGetTranslation("&Cell");
-  }
+  { return wxGetTranslation("&Cell"); }
     /// Don't allow a cell to be deleted in Defragment
   bool IsEmpty() const override
-  {
-    return false;
-  }
+  { return false; }
 // Accessors
 
     /**
@@ -5522,9 +5445,7 @@ public:
   void SetRowSpan(int span);
 // Operations
   wxRichTextObject* Clone() const override
-  {
-    return new wxRichTextCell(*this);
-  }
+  { return new wxRichTextCell(*this); }
   void Copy(const wxRichTextCell& obj);
 };
 /**
@@ -5556,9 +5477,7 @@ public:
   int HitTest(wxDC& dc, wxRichTextDrawingContext& context, const wxPoint& pt, long& textPosition, wxRichTextObject** obj, wxRichTextObject** contextObj, int flags = 0) override;
   bool AdjustAttributes(wxRichTextAttr& attr, wxRichTextDrawingContext& context) override;
   wxString GetXMLNodeName() const override
-  {
-    return wxT("table");
-  }
+  { return wxT("table"); }
   bool Layout(wxDC& dc, wxRichTextDrawingContext& context, const wxRect& rect, const wxRect& parentRect, int style) override;
   bool GetRangeSize(const wxRichTextRange& range, wxSize& size, int& descent, wxDC& dc, wxRichTextDrawingContext& context, int flags, const wxPoint& position = wxPoint(0, 0), const wxSize& parentSize = wxDefaultSize, wxArrayInt* partialExtents = NULL) const override;
   bool DeleteRange(const wxRichTextRange& range) override;
@@ -5576,28 +5495,20 @@ public:
   void CalculateRange(long start, long& end) override;
     // Can this object handle the selections of its children? FOr example, a table.
   bool HandlesChildSelections() const override
-  {
-    return true;
-  }
+  { return true; }
     /// Returns a selection object specifying the selections between start and end character positions.
     /// For example, a table would deduce what cells (of range length 1) are selected when dragging across the table.
   wxRichTextSelection GetSelection(long start, long end) const override;
   bool CanEditProperties() const override
-  {
-    return true;
-  }
+  { return true; }
   bool EditProperties(wxWindow* parent, wxRichTextBuffer* buffer) override;
   wxString GetPropertiesMenuLabel() const override
-  {
-    return wxGetTranslation("&Table");
-  }
+  { return wxGetTranslation("&Table"); }
     // Returns true if objects of this class can accept the focus, i.e. a call to SetFocusObject
     // is possible. For example, containers supporting text, such as a text box object, can accept the focus,
     // but a table can't (set the focus to individual cells instead).
   bool AcceptsFocus() const override
-  {
-    return false;
-  }
+  { return false; }
 // Accessors
 
     /**
@@ -5678,9 +5589,7 @@ public:
   virtual bool AddColumns(int startCol, int noCols = 1, const wxRichTextAttr& attr = wxRichTextAttr());
     // Makes a clone of this object.
   wxRichTextObject* Clone() const override
-  {
-    return new wxRichTextTable(*this);
-  }
+  { return new wxRichTextTable(*this); }
     // Copies this object.
   void Copy(const wxRichTextTable& obj);
 protected:
@@ -6253,14 +6162,10 @@ public:
      }
     // Can we save using this handler?
   bool CanSave() const override
-  {
-    return true;
-  }
+  { return true; }
     // Can we load using this handler?
   bool CanLoad() const override
-  {
-    return true;
-  }
+  { return true; }
 #    if  wxUSE_STREAMS
 protected:
   bool DoLoadFile(wxRichTextBuffer* buffer, wxInputStream& stream) override;
@@ -6369,17 +6274,11 @@ public:
   bool SetData(size_t len, const void* buf) override;
     // prevent warnings
   size_t GetDataSize(const wxDataFormat&) const override
-  {
-    return GetDataSize();
-  }
+  { return GetDataSize(); }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
-  {
-    return GetDataHere(buf);
-  }
+  { return GetDataHere(buf); }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
-  {
-    return SetData(len, buf);
-  }
+  { return SetData(len, buf); }
 protected:
   wxDataFormat m_formatRichTextBuffer;
   wxRichTextBuffer* m_richTextBuffer;

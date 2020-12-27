@@ -354,13 +354,9 @@ public:
   void* GetClientData() const
   { return m_clientData; }
   wxEvent* Clone() const override
-  {
-    return new wxSocketEvent(*this);
-  }
+  { return new wxSocketEvent(*this); }
   wxEventCategory GetEventCategory() const override
-  {
-    return wxEVT_CATEGORY_SOCKET;
-  }
+  { return wxEVT_CATEGORY_SOCKET; }
   wxSocketNotify m_event;
   void* m_clientData;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxSocketEvent);

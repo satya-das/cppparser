@@ -30,13 +30,9 @@ public:
   bool Create(wxWindow* parent, wxPrintDialogData* data = NULL);
   int ShowModal() override;
   wxPrintDialogData& GetPrintDialogData() override
-  {
-    return m_printDialogData;
-  }
+  { return m_printDialogData; }
   wxPrintData& GetPrintData() override
-  {
-    return m_printDialogData.GetPrintData();
-  }
+  { return m_printDialogData.GetPrintData(); }
   wxDC* GetPrintDC() override;
 private:
   wxPrintDialogData m_printDialogData;

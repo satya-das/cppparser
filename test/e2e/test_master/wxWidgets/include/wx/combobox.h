@@ -26,9 +26,9 @@ public:
     // override these methods to disambiguate between two base classes versions
   void Clear() override
   {
-    wxItemContainer::Clear();
-    wxTextEntry::Clear();
-  }
+        wxItemContainer::Clear();
+        wxTextEntry::Clear();
+    }
     // IsEmpty() is ambiguous because we inherit it from both wxItemContainer
     // and wxTextEntry, and even if defined it here to help the compiler with
     // choosing one of them, it would still be confusing for the human users of

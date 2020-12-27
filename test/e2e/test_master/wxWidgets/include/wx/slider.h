@@ -100,9 +100,7 @@ protected:
   { /* unsupported by default */ }
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
     // adjust value according to wxSL_INVERSE style
   virtual int ValueInvertOrNot(int value) const
   {

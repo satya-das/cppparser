@@ -102,17 +102,17 @@ public:
         }
   bool SetForegroundColour(const wxColour& colour) override
   {
-    if (!Base::SetForegroundColour(colour))
-    {
-      return false;
+        if ( !Base::SetForegroundColour(colour) )
+            return false;
+
+        MSWMakeOwnerDrawnIfNecessary(colour);
+
+        return true;
     }
-    MSWMakeOwnerDrawnIfNecessary(colour);
-    return true;
-  }
   bool MSWOnDraw(WXDRAWITEMSTRUCT* item) override
   {
-    return MSWDrawButton(item) || Base::MSWOnDraw(item);
-  }
+        return MSWDrawButton(item) || Base::MSWOnDraw(item);
+    }
 protected:
   bool IsOwnerDrawn() const
   { return MSWIsOwnerDrawn(); }

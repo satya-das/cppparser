@@ -28,9 +28,7 @@ public:
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
 protected:
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
   void DoApplyWidgetStyle(GtkRcStyle* style) override;
   GdkWindow* GTKGetWindow(wxArrayGdkWindows& windows) const override;
   void DoEnable(bool enable) override;

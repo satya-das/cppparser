@@ -44,9 +44,9 @@ public:
         }
   size_t GetParamCount() const override
   {
-    ConstCast()->OnGetParam();
-    return DoGetParamCount();
-  }
+        ConstCast()->OnGetParam();
+        return DoGetParamCount();
+    }
   bool GetParam(size_t n, wxString* type, wxString* name, wxString* value) const override;
     // callback used by OnGetParam(), don't call directly
   void OnParam(wxSYMBOL_INFO* pSymInfo);

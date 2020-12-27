@@ -25,29 +25,27 @@ public:
         }
   QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem&, const QModelIndex& index) const override
   {
-    if (m_textCtrl != NULL)
-    {
-      destroyEditor(m_textCtrl->GetHandle(), m_currentModelIndex);
+        if ( m_textCtrl != NULL )
+            destroyEditor(m_textCtrl->GetHandle(), m_currentModelIndex);
+
+        m_currentModelIndex = index;
+        m_textCtrl = new wxQtListTextCtrl(m_parent, parent);
+        m_textCtrl->SetFocus();
+        return m_textCtrl->GetHandle();
     }
-    m_currentModelIndex = index;
-    m_textCtrl = new wxQtListTextCtrl(m_parent, parent);
-    m_textCtrl->SetFocus();
-    return m_textCtrl->GetHandle();
-  }
   void destroyEditor(QWidget*, const QModelIndex&) const override
   {
-    if (m_textCtrl != NULL)
-    {
-
+        if ( m_textCtrl != NULL )
+        {
             m_currentModelIndex = QModelIndex(); // invalidate the index
             wxTheApp->ScheduleForDestruction(m_textCtrl);
             m_textCtrl = NULL;
-            }
-  }
+        }
+    }
   void setModelData(QWidget*, QAbstractItemModel*, const QModelIndex&) const override
   {
         // Don't set model data until wx has had a chance to send out events
-  }
+    }
   wxTextCtrl* GetEditControl() const
   {
         return m_textCtrl;

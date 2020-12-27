@@ -54,9 +54,7 @@ public:
   WXDWORD MSWGetStyle(long style, WXDWORD* exstyle) const override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  {
-    return false;
-  }
+  { return false; }
 #    ifdef wxHAS_MSW_BACKGROUND_ERASE_HOOK
   bool MSWEraseBgHook(WXHDC hDC) override;
   WXHBRUSH MSWGetBgBrushForChild(WXHDC hDC, wxWindowMSW* child) override;

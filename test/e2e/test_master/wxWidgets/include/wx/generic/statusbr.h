@@ -36,13 +36,9 @@ public:
   bool GetFieldRect(int i, wxRect& rect) const override;
   void SetMinHeight(int height) override;
   int GetBorderX() const override
-  {
-    return m_borderX;
-  }
+  { return m_borderX; }
   int GetBorderY() const override
-  {
-    return m_borderY;
-  }
+  { return m_borderY; }
     // implementation only (not part of wxStatusBar public API):
   int GetFieldFromPoint(const wxPoint& point) const;
 protected:

@@ -22,9 +22,7 @@ public:
   wxStringInputStream(const wxString& s);
   wxFileOffset GetLength() const override;
   bool IsSeekable() const override
-  {
-    return true;
-  }
+  { return true; }
 protected:
   wxFileOffset OnSysSeek(wxFileOffset ofs, wxSeekMode mode) override;
   wxFileOffset OnSysTell() const override;
@@ -56,9 +54,7 @@ public:
   const wxString& GetString() const
   { return *m_str; }
   bool IsSeekable() const override
-  {
-    return true;
-  }
+  { return true; }
 protected:
   wxFileOffset OnSysTell() const override;
   size_t OnSysWrite(const void* buffer, size_t size) override;

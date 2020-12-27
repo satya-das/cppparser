@@ -31,11 +31,9 @@ public:
   void AddChild(wxWindowBase* child) override;
   void RemoveChild(wxWindowBase* child) override;
   void ActivateNext() override
-  {
-  }
+  { /* TODO */ }
   void ActivatePrevious() override
-  {
-  }
+  { /* TODO */ }
   bool Show(bool show = true) override;
     // Mac-specific implementation from now on
     // ---------------------------------------
@@ -81,9 +79,7 @@ public:
   virtual ~wxMDIChildFrame();
     // un-override the base class override
   bool IsTopLevel() const override
-  {
-    return true;
-  }
+  { return true; }
     // implement MDI operations
   void Activate() override;
     // Mac OS activate event

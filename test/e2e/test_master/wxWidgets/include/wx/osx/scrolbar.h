@@ -25,17 +25,11 @@ public:
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSB_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxScrollBarNameStr));
   int GetThumbPosition() const override;
   int GetThumbSize() const override
-  {
-    return m_viewSize;
-  }
+  { return m_viewSize; }
   int GetPageSize() const override
-  {
-    return m_pageSize;
-  }
+  { return m_pageSize; }
   int GetRange() const override
-  {
-    return m_objectSize;
-  }
+  { return m_objectSize; }
   void SetThumbPosition(int viewStart) override;
   void SetScrollbar(int position, int thumbSize, int range, int pageSize, bool refresh = true) override;
     // needed for RTTI

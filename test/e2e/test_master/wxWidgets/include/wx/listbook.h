@@ -47,13 +47,9 @@ public:
   bool SetPageImage(size_t n, int imageId) override;
   bool InsertPage(size_t n, wxWindow* page, const wxString& text, bool bSelect = false, int imageId = NO_IMAGE) override;
   int SetSelection(size_t n) override
-  {
-    return DoSetSelection(n, SetSelection_SendEvent);
-  }
+  { return DoSetSelection(n, SetSelection_SendEvent); }
   int ChangeSelection(size_t n) override
-  {
-    return DoSetSelection(n);
-  }
+  { return DoSetSelection(n); }
   int HitTest(const wxPoint& pt, long* flags = NULL) const override;
   void SetImageList(wxImageList* imageList) override;
   bool DeleteAllPages() override;

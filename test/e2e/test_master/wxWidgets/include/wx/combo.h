@@ -177,26 +177,16 @@ public:
     //     no guarantee how platform-specific wxTextEntry is implemented.
     //
   void SetValue(const wxString& value) override
-  {
-    wxTextEntryBase::SetValue(value);
-  }
+  { wxTextEntryBase::SetValue(value); }
   void ChangeValue(const wxString& value) override
-  {
-    wxTextEntryBase::ChangeValue(value);
-  }
+  { wxTextEntryBase::ChangeValue(value); }
   void WriteText(const wxString& text) override;
   void AppendText(const wxString& text) override
-  {
-    wxTextEntryBase::AppendText(text);
-  }
+  { wxTextEntryBase::AppendText(text); }
   wxString GetValue() const override
-  {
-    return wxTextEntryBase::GetValue();
-  }
+  { return wxTextEntryBase::GetValue(); }
   wxString GetRange(long from, long to) const override
-  {
-    return wxTextEntryBase::GetRange(from, to);
-  }
+  { return wxTextEntryBase::GetRange(from, to); }
     // Replace() and DoSetValue() need to be fully re-implemented since
     // EventSuppressor utility class does not work with the way
     // wxComboCtrl is implemented.
@@ -398,9 +388,7 @@ public:
   { m_mainCtrlWnd = wnd; }
     // This is public so we can access it from wxComboCtrlTextCtrl
   wxWindow* GetMainWindowOfCompositeControl() override
-  {
-    return m_mainCtrlWnd;
-  }
+  { return m_mainCtrlWnd; }
     // also set the embedded wxTextCtrl colours
   bool SetForegroundColour(const wxColour& colour) override;
   bool SetBackgroundColour(const wxColour& colour) override;
@@ -508,9 +496,7 @@ protected:
   void DoSetValue(const wxString& value, int flags) override;
   wxString DoGetValue() const override;
   wxWindow* GetEditableWindow() override
-  {
-    return this;
-  }
+  { return this; }
     // margins functions
   bool DoSetMargins(const wxPoint& pt) override;
   wxPoint DoGetMargins() const override;

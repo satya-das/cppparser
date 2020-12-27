@@ -209,9 +209,7 @@ private:
   DISPID m_dispid;
 public:
   wxEvent* Clone() const override
-  {
-    return new wxActiveXEvent(*this);
-  }
+  { return new wxActiveXEvent(*this); }
   size_t ParamCount() const;
   wxString ParamType(size_t idx) const
   {

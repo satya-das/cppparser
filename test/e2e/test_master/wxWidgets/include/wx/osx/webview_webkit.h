@@ -52,9 +52,7 @@ public:
   wxWebViewZoomType GetZoomType() const override;
   bool CanSetZoomType(wxWebViewZoomType type) const override;
   bool IsBusy() const override
-  {
-    return m_busy;
-  }
+  { return m_busy; }
     //History functions
   void ClearHistory() override;
   void EnableHistory(bool enable = true) override;
@@ -69,23 +67,17 @@ public:
     //Find function
   long Find(const wxString& text, int flags = wxWEBVIEW_FIND_DEFAULT) override
   {
-    wxUnusedVar(text);
-    wxUnusedVar(flags);
-    return wxNOT_FOUND;
-  }
+        wxUnusedVar(text);
+        wxUnusedVar(flags);
+        return wxNOT_FOUND;
+    }
     //Clipboard functions
   bool CanCut() const override
-  {
-    return true;
-  }
+  { return true; }
   bool CanCopy() const override
-  {
-    return true;
-  }
+  { return true; }
   bool CanPaste() const override
-  {
-    return true;
-  }
+  { return true; }
   void Cut() override;
   void Copy() override;
   void Paste() override;
@@ -103,9 +95,7 @@ public:
     //Virtual Filesystem Support
   void RegisterHandler(wxSharedPtr<wxWebViewHandler> handler) override;
   void* GetNativeBackend() const override
-  {
-    return m_webView;
-  }
+  { return m_webView; }
     // ---- methods not from the parent (common) interface
   bool CanGetPageSource() const;
   void SetScrollPos(int pos);
@@ -118,13 +108,9 @@ public:
   void SetWebkitZoom(float zoom);
     // don't hide base class virtuals
   void SetScrollPos(int orient, int pos, bool refresh = true) override
-  {
-    return wxControl::SetScrollPos(orient, pos, refresh);
-  }
+  { return wxControl::SetScrollPos(orient, pos, refresh); }
   int GetScrollPos(int orient) const override
-  {
-    return wxControl::GetScrollPos(orient);
-  }
+  { return wxControl::GetScrollPos(orient); }
     //we need to resize the webview when the control size changes
   void OnSize(wxSizeEvent& event);
   void OnMove(wxMoveEvent& event);

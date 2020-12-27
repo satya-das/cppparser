@@ -38,9 +38,7 @@ protected:
   wxLocaleInfo MSWGetFormat() const override;
 #  endif
   bool MSWAllowsNone() const override
-  {
-    return HasFlag(wxDP_ALLOWNONE);
-  }
+  { return HasFlag(wxDP_ALLOWNONE); }
   bool MSWOnDateTimeChange(const tagNMDATETIMECHANGE& dtch) override;
 private:
   wxDateTime MSWGetControlValue() const;

@@ -148,9 +148,7 @@ public:
   { return m_exitcode; }
     // implement the base class pure virtual
   wxEvent* Clone() const override
-  {
-    return new wxProcessEvent(*this);
-  }
+  { return new wxProcessEvent(*this); }
   int m_pid, m_exitcode;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxProcessEvent);
 };

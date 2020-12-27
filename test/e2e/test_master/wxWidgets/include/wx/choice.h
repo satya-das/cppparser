@@ -48,9 +48,7 @@ public:
   void Command(wxCommandEvent& event) override;
     // override wxItemContainer::IsSorted
   bool IsSorted() const override
-  {
-    return HasFlag(wxCB_SORT);
-  }
+  { return HasFlag(wxCB_SORT); }
 protected:
     // The generic implementation doesn't determine the height correctly and
     // doesn't account for the width of the arrow but does take into account

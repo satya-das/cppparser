@@ -39,9 +39,7 @@ public:
   void ShowWithoutActivating() override;
   bool ShowFullScreen(bool show, long style = wxFULLSCREEN_ALL) override;
   bool IsFullScreen() const override
-  {
-    return m_fsIsShowing;
-  }
+  { return m_fsIsShowing; }
   void RequestUserAttention(int flags = wxUSER_ATTENTION_INFO) override;
   void SetWindowStyleFlag(long style) override;
   bool Show(bool show = true) override;
@@ -49,17 +47,11 @@ public:
   bool IsActive() override;
   void SetTitle(const wxString& title) override;
   wxString GetTitle() const override
-  {
-    return m_title;
-  }
+  { return m_title; }
   void SetLabel(const wxString& label) override
-  {
-    SetTitle(label);
-  }
+  { SetTitle( label ); }
   wxString GetLabel() const override
-  {
-    return GetTitle();
-  }
+  { return GetTitle(); }
   wxVisualAttributes GetDefaultAttributes() const override;
   bool SetTransparent(wxByte alpha) override;
   bool CanSetTransparent() override;

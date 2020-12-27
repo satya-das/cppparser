@@ -107,7 +107,7 @@ protected:
   {
         // nothing to do here as the events are never generated when we change
         // the controls value programmatically anyhow
-  }
+    }
 private:
   wxMenu* m_privateContextMenu;
   wxDECLARE_EVENT_TABLE();

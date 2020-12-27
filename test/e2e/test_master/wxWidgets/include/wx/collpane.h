@@ -36,18 +36,17 @@ public:
   void SetLabel(const wxString& label) = 0;
   bool InformFirstDirection(int direction, int size, int availableOtherDir) override
   {
-    wxWindow* const p = GetPane();
-    if (!p)
-    {
-      return false;
+        wxWindow* const p = GetPane();
+        if ( !p )
+            return false;
+
+        if ( !p->InformFirstDirection(direction, size, availableOtherDir) )
+            return false;
+
+        InvalidateBestSize();
+
+        return true;
     }
-    if (!p->InformFirstDirection(direction, size, availableOtherDir))
-    {
-      return false;
-    }
-    InvalidateBestSize();
-    return true;
-  }
 };
 // ----------------------------------------------------------------------------
 // event types and macros
@@ -74,9 +73,7 @@ public:
   { m_bCollapsed = c; }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
-  {
-    return new wxCollapsiblePaneEvent(*this);
-  }
+  { return new wxCollapsiblePaneEvent(*this); }
 private:
   bool m_bCollapsed;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxCollapsiblePaneEvent);

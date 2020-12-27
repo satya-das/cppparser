@@ -29,10 +29,11 @@ public:
         }
   wxString GetName() const override
   {
-    const wxString name = GetWindow()->GetName();
-    wxASSERT_MSG(!name.empty(), "persistent windows should be named!");
-    return name;
-  }
+        const wxString name = GetWindow()->GetName();
+        wxASSERT_MSG( !name.empty(), "persistent windows should be named!" );
+
+        return name;
+    }
 protected:
   wxWindow* GetWindow() const
   { return static_cast<wxWindow *>(GetObject()); }

@@ -32,21 +32,15 @@ public:
   {
  Free();   }
   void SetIcon(const wxIcon& icon) override
-  {
-    SetImage (&icon);
-  }
+  { SetImage(&icon); }
   void SetBitmap(const wxBitmap& bitmap) override
-  {
-    SetImage (&bitmap);
-  }
+  { SetImage(&bitmap); }
   wxBitmap GetBitmap() const override;
   wxIcon GetIcon() const override;
   WXDWORD MSWGetStyle(long style, WXDWORD* exstyle) const override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  {
-    return false;
-  }
+  { return false; }
 protected:
   wxSize DoGetBestClientSize() const override;
     // ctor/dtor helpers

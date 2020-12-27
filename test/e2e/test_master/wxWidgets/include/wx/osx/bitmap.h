@@ -106,9 +106,7 @@ public:
   wxBitmap GetSubBitmap(const wxRect& rect) const override;
   bool Create(int width, int height, int depth = wxBITMAP_SCREEN_DEPTH) override;
   bool Create(const wxSize& sz, int depth = wxBITMAP_SCREEN_DEPTH) override
-  {
-    return Create(sz.GetWidth(), sz.GetHeight(), depth);
-  }
+  { return Create(sz.GetWidth(), sz.GetHeight(), depth); }
   virtual bool Create(const void* data, wxBitmapType type, int width, int height, int depth = 1);
   bool Create(CGImageRef image, double scale = 1.0);
   bool Create(WXImage image);

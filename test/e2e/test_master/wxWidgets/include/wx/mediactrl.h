@@ -95,9 +95,7 @@ public:
     // Required for wxEvtHandler::AddPendingEvent
     // ------------------------------------------------------------------------
   wxEvent* Clone() const override
-  {
-    return new wxMediaEvent(*this);
-  }
+  {   return new wxMediaEvent(*this);     }
     // Put this class on wxWidget's RTTI table
   wxDECLARE_DYNAMIC_CLASS(wxMediaEvent);
 };

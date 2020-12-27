@@ -28,9 +28,7 @@ public:
     // Set viewer: new name for SetBrowser
   void SetViewer(const wxString& viewer = wxEmptyString, long flags = wxHELP_NETSCAPE) override;
   bool Initialize(const wxString& dir, int) override
-  {
-    return Initialize(dir);
-  }
+  { return Initialize(dir); }
   bool Initialize(const wxString& dir) override;
   bool LoadFile(const wxString& file = wxEmptyString) override;
   bool DisplayContents() override;
@@ -44,11 +42,11 @@ public:
   void SetFrameParameters(const wxString&, const wxSize&, const wxPoint& = wxDefaultPosition, bool = false) override
   {
             // does nothing by default
-  }
+        }
   wxFrame* GetFrameParameters(wxSize* = NULL, wxPoint* = NULL, bool* = NULL) override
   {
-    return NULL;
-  }
+            return NULL; // does nothing by default
+        }
 protected:
     // Filename of currently active map file.
   wxString m_helpDir;

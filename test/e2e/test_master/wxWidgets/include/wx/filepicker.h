@@ -46,9 +46,7 @@ public:
   { m_path = p; }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
-  {
-    return new wxFileDirPickerEvent(*this);
-  }
+  { return new wxFileDirPickerEvent(*this); }
 private:
   wxString m_path;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxFileDirPickerEvent);
@@ -192,27 +190,34 @@ public:
     // return the text control value in canonical form
   wxString GetTextCtrlValue() const override;
   bool IsCwdToUpdate() const override
-  {
-    return HasFlag(wxFLP_CHANGE_DIR);
-  }
+  { return HasFlag(wxFLP_CHANGE_DIR); }
   wxEventType GetEventType() const override
-  {
-    return wxEVT_FILEPICKER_CHANGED;
-  }
+  { return wxEVT_FILEPICKER_CHANGED; }
   void DoConnect(wxControl* sender, wxFileDirPickerCtrlBase* eventSink) override
   {
-    sender->Bind(wxEVT_FILEPICKER_CHANGED, &wxFileDirPickerCtrlBase::OnFileDirChange, eventSink);
-  }
+        sender->Bind(wxEVT_FILEPICKER_CHANGED,
+            &wxFileDirPickerCtrlBase::OnFileDirChange, eventSink );
+    }
 protected:
   wxFileDirPickerWidgetBase* CreatePicker(wxWindow* parent, const wxString& path, const wxString& message, const wxString& wildcard) override
   {
-    return new wxFilePickerWidget(parent, wxID_ANY, wxGetTranslation(wxFilePickerWidgetLabel), path, message, wildcard, wxDefaultPosition, wxDefaultSize, GetPickerStyle(GetWindowStyle()));
-  }
+        return new wxFilePickerWidget(parent, wxID_ANY,
+                                      wxGetTranslation(wxFilePickerWidgetLabel),
+                                      path, message, wildcard,
+                                      wxDefaultPosition, wxDefaultSize,
+                                      GetPickerStyle(GetWindowStyle()));
+    }
     // extracts the style for our picker from wxFileDirPickerCtrlBase's style
   long GetPickerStyle(long style) const override
   {
-    return style & (wxFLP_OPEN | wxFLP_SAVE | wxFLP_OVERWRITE_PROMPT | wxFLP_FILE_MUST_EXIST | wxFLP_CHANGE_DIR | wxFLP_USE_TEXTCTRL | wxFLP_SMALL);
-  }
+        return style & (wxFLP_OPEN |
+                        wxFLP_SAVE |
+                        wxFLP_OVERWRITE_PROMPT |
+                        wxFLP_FILE_MUST_EXIST |
+                        wxFLP_CHANGE_DIR |
+                        wxFLP_USE_TEXTCTRL |
+                        wxFLP_SMALL);
+    }
   wxDECLARE_DYNAMIC_CLASS(wxFilePickerCtrl);
 };
 #  endif
@@ -247,27 +252,31 @@ public:
   { return wxFileName::DirName(GetPath()); }
   wxString GetTextCtrlValue() const override;
   bool IsCwdToUpdate() const override
-  {
-    return HasFlag(wxDIRP_CHANGE_DIR);
-  }
+  { return HasFlag(wxDIRP_CHANGE_DIR); }
   wxEventType GetEventType() const override
-  {
-    return wxEVT_DIRPICKER_CHANGED;
-  }
+  { return wxEVT_DIRPICKER_CHANGED; }
   void DoConnect(wxControl* sender, wxFileDirPickerCtrlBase* eventSink) override
   {
-    sender->Bind(wxEVT_DIRPICKER_CHANGED, &wxFileDirPickerCtrlBase::OnFileDirChange, eventSink);
-  }
+        sender->Bind( wxEVT_DIRPICKER_CHANGED,
+            &wxFileDirPickerCtrlBase::OnFileDirChange, eventSink );
+    }
 protected:
   wxFileDirPickerWidgetBase* CreatePicker(wxWindow* parent, const wxString& path, const wxString& message, const wxString&) override
   {
-    return new wxDirPickerWidget(parent, wxID_ANY, wxGetTranslation(wxDirPickerWidgetLabel), path, message, wxDefaultPosition, wxDefaultSize, GetPickerStyle(GetWindowStyle()));
-  }
+        return new wxDirPickerWidget(parent, wxID_ANY,
+                                     wxGetTranslation(wxDirPickerWidgetLabel),
+                                     path, message,
+                                     wxDefaultPosition, wxDefaultSize,
+                                     GetPickerStyle(GetWindowStyle()));
+    }
     // extracts the style for our picker from wxFileDirPickerCtrlBase's style
   long GetPickerStyle(long style) const override
   {
-    return style & (wxDIRP_DIR_MUST_EXIST | wxDIRP_CHANGE_DIR | wxDIRP_USE_TEXTCTRL | wxDIRP_SMALL);
-  }
+        return style & (wxDIRP_DIR_MUST_EXIST |
+                        wxDIRP_CHANGE_DIR |
+                        wxDIRP_USE_TEXTCTRL |
+                        wxDIRP_SMALL);
+    }
   wxDECLARE_DYNAMIC_CLASS(wxDirPickerCtrl);
 };
 #  endif

@@ -52,13 +52,9 @@ public:
         }
       }
   size_t GetSize() const override
-  {
-    return m_size;
-  }
+  { return m_size; }
   const void* GetData() const override
-  {
-    return m_data;
-  }
+  { return m_data; }
 private:
   const size_t m_size;
   char* const m_data;

@@ -263,309 +263,179 @@ public:
     {
      }
   void DrawBackground(wxDC& dc, const wxColour& col, const wxRect& rect, int flags, wxWindow* window = NULL) override
-  {
-    m_renderer->DrawBackground(dc, col, rect, flags, window);
-  }
+  { m_renderer->DrawBackground(dc, col, rect, flags, window ); }
   void DrawButtonSurface(wxDC& dc, const wxColour& col, const wxRect& rect, int flags) override
-  {
-    m_renderer->DrawButtonSurface(dc, col, rect, flags);
-  }
+  { m_renderer->DrawButtonSurface(dc, col, rect, flags); }
   void DrawFocusRect(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_renderer->DrawFocusRect(win, dc, rect, flags);
-  }
+  { m_renderer->DrawFocusRect(win, dc, rect, flags); }
   void DrawLabel(wxDC& dc, const wxString& label, const wxRect& rect, int flags = 0, int align = wxALIGN_LEFT | wxALIGN_TOP, int indexAccel = -1, wxRect* rectBounds = NULL) override
-  {
-    m_renderer->DrawLabel(dc, label, rect, flags, align, indexAccel, rectBounds);
-  }
+  { m_renderer->DrawLabel(dc, label, rect,
+                                flags, align, indexAccel, rectBounds); }
   void DrawButtonLabel(wxDC& dc, const wxString& label, const wxBitmap& image, const wxRect& rect, int flags = 0, int align = wxALIGN_LEFT | wxALIGN_TOP, int indexAccel = -1, wxRect* rectBounds = NULL) override
-  {
-    m_renderer->DrawButtonLabel(dc, label, image, rect, flags, align, indexAccel, rectBounds);
-  }
+  { m_renderer->DrawButtonLabel(dc, label, image, rect,
+                                      flags, align, indexAccel, rectBounds); }
   void DrawBorder(wxDC& dc, wxBorder border, const wxRect& rect, int flags = 0, wxRect* rectIn = NULL) override
-  {
-    m_renderer->DrawBorder(dc, border, rect, flags, rectIn);
-  }
+  { m_renderer->DrawBorder(dc, border, rect, flags, rectIn); }
   void DrawTextBorder(wxDC& dc, wxBorder border, const wxRect& rect, int flags = 0, wxRect* rectIn = NULL) override
-  {
-    m_renderer->DrawTextBorder(dc, border, rect, flags, rectIn);
-  }
+  { m_renderer->DrawTextBorder(dc, border, rect, flags, rectIn); }
   void DrawButtonBorder(wxDC& dc, const wxRect& rect, int flags = 0, wxRect* rectIn = NULL) override
-  {
-    m_renderer->DrawButtonBorder(dc, rect, flags, rectIn);
-  }
+  { m_renderer->DrawButtonBorder(dc, rect, flags, rectIn); }
   void DrawFrame(wxDC& dc, const wxString& label, const wxRect& rect, int flags = 0, int align = wxALIGN_LEFT, int indexAccel = -1) override
-  {
-    m_renderer->DrawFrame(dc, label, rect, flags, align, indexAccel);
-  }
+  { m_renderer->DrawFrame(dc, label, rect, flags, align, indexAccel); }
   void DrawHorizontalLine(wxDC& dc, wxCoord y, wxCoord x1, wxCoord x2) override
-  {
-    m_renderer->DrawHorizontalLine(dc, y, x1, x2);
-  }
+  { m_renderer->DrawHorizontalLine(dc, y, x1, x2); }
   void DrawVerticalLine(wxDC& dc, wxCoord x, wxCoord y1, wxCoord y2) override
-  {
-    m_renderer->DrawVerticalLine(dc, x, y1, y2);
-  }
+  { m_renderer->DrawVerticalLine(dc, x, y1, y2); }
   void DrawArrow(wxDC& dc, wxDirection dir, const wxRect& rect, int flags = 0) override
-  {
-    m_renderer->DrawArrow(dc, dir, rect, flags);
-  }
+  { m_renderer->DrawArrow(dc, dir, rect, flags); }
   void DrawScrollbarArrow(wxDC& dc, wxDirection dir, const wxRect& rect, int flags = 0) override
-  {
-    m_renderer->DrawScrollbarArrow(dc, dir, rect, flags);
-  }
+  { m_renderer->DrawScrollbarArrow(dc, dir, rect, flags); }
   void DrawScrollbarThumb(wxDC& dc, wxOrientation orient, const wxRect& rect, int flags = 0) override
-  {
-    m_renderer->DrawScrollbarThumb(dc, orient, rect, flags);
-  }
+  { m_renderer->DrawScrollbarThumb(dc, orient, rect, flags); }
   void DrawScrollbarShaft(wxDC& dc, wxOrientation orient, const wxRect& rect, int flags = 0) override
-  {
-    m_renderer->DrawScrollbarShaft(dc, orient, rect, flags);
-  }
+  { m_renderer->DrawScrollbarShaft(dc, orient, rect, flags); }
   void DrawScrollCorner(wxDC& dc, const wxRect& rect) override
-  {
-    m_renderer->DrawScrollCorner(dc, rect);
-  }
+  { m_renderer->DrawScrollCorner(dc, rect); }
   void DrawItem(wxDC& dc, const wxString& label, const wxRect& rect, int flags = 0) override
-  {
-    m_renderer->DrawItem(dc, label, rect, flags);
-  }
+  { m_renderer->DrawItem(dc, label, rect, flags); }
   void DrawCheckItem(wxDC& dc, const wxString& label, const wxBitmap& bitmap, const wxRect& rect, int flags = 0) override
-  {
-    m_renderer->DrawCheckItem(dc, label, bitmap, rect, flags);
-  }
+  { m_renderer->DrawCheckItem(dc, label, bitmap, rect, flags); }
   void DrawCheckButton(wxDC& dc, const wxString& label, const wxBitmap& bitmap, const wxRect& rect, int flags = 0, wxAlignment align = wxALIGN_LEFT, int indexAccel = -1) override
-  {
-    m_renderer->DrawCheckButton(dc, label, bitmap, rect, flags, align, indexAccel);
-  }
+  { m_renderer->DrawCheckButton(dc, label, bitmap, rect,
+                                      flags, align, indexAccel); }
   void DrawRadioButton(wxDC& dc, const wxString& label, const wxBitmap& bitmap, const wxRect& rect, int flags = 0, wxAlignment align = wxALIGN_LEFT, int indexAccel = -1) override
-  {
-    m_renderer->DrawRadioButton(dc, label, bitmap, rect, flags, align, indexAccel);
-  }
+  { m_renderer->DrawRadioButton(dc, label, bitmap, rect,
+                                      flags, align, indexAccel); }
 #  if  wxUSE_TOOLBAR
   void DrawToolBarButton(wxDC& dc, const wxString& label, const wxBitmap& bitmap, const wxRect& rect, int flags = 0, long style = 0, int tbarStyle = 0) override
-  {
-    m_renderer->DrawToolBarButton(dc, label, bitmap, rect, flags, style, tbarStyle);
-  }
+  { m_renderer->DrawToolBarButton(dc, label, bitmap, rect, flags, style, tbarStyle); }
 #  endif
 #  if  wxUSE_TEXTCTRL
   void DrawTextLine(wxDC& dc, const wxString& text, const wxRect& rect, int selStart = -1, int selEnd = -1, int flags = 0) override
-  {
-    m_renderer->DrawTextLine(dc, text, rect, selStart, selEnd, flags);
-  }
+  { m_renderer->DrawTextLine(dc, text, rect, selStart, selEnd, flags); }
   void DrawLineWrapMark(wxDC& dc, const wxRect& rect) override
-  {
-    m_renderer->DrawLineWrapMark(dc, rect);
-  }
+  { m_renderer->DrawLineWrapMark(dc, rect); }
 #  endif
 #  if  wxUSE_NOTEBOOK
   void DrawTab(wxDC& dc, const wxRect& rect, wxDirection dir, const wxString& label, const wxBitmap& bitmap = wxNullBitmap, int flags = 0, int accel = -1) override
-  {
-    m_renderer->DrawTab(dc, rect, dir, label, bitmap, flags, accel);
-  }
+  { m_renderer->DrawTab(dc, rect, dir, label, bitmap, flags, accel); }
 #  endif
 #  if  wxUSE_SLIDER
   void DrawSliderShaft(wxDC& dc, const wxRect& rect, int lenThumb, wxOrientation orient, int flags = 0, long style = 0, wxRect* rectShaft = NULL) override
-  {
-    m_renderer->DrawSliderShaft(dc, rect, lenThumb, orient, flags, style, rectShaft);
-  }
+  { m_renderer->DrawSliderShaft(dc, rect, lenThumb, orient, flags, style, rectShaft); }
   void DrawSliderThumb(wxDC& dc, const wxRect& rect, wxOrientation orient, int flags = 0, long style = 0) override
-  {
-    m_renderer->DrawSliderThumb(dc, rect, orient, flags, style);
-  }
+  { m_renderer->DrawSliderThumb(dc, rect, orient, flags, style); }
   void DrawSliderTicks(wxDC& dc, const wxRect& rect, int lenThumb, wxOrientation orient, int start, int end, int = 1, int flags = 0, long style = 0) override
-  {
-    m_renderer->DrawSliderTicks(dc, rect, lenThumb, orient, start, end, start, flags, style);
-  }
+  { m_renderer->DrawSliderTicks(dc, rect, lenThumb, orient,
+                                      start, end, start, flags, style); }
 #  endif
 #  if  wxUSE_MENUS
   void DrawMenuBarItem(wxDC& dc, const wxRect& rect, const wxString& label, int flags = 0, int indexAccel = -1) override
-  {
-    m_renderer->DrawMenuBarItem(dc, rect, label, flags, indexAccel);
-  }
+  { m_renderer->DrawMenuBarItem(dc, rect, label, flags, indexAccel); }
   void DrawMenuItem(wxDC& dc, wxCoord y, const wxMenuGeometryInfo& gi, const wxString& label, const wxString& accel, const wxBitmap& bitmap = wxNullBitmap, int flags = 0, int indexAccel = -1) override
-  {
-    m_renderer->DrawMenuItem(dc, y, gi, label, accel, bitmap, flags, indexAccel);
-  }
+  { m_renderer->DrawMenuItem(dc, y, gi, label, accel,
+                                   bitmap, flags, indexAccel); }
   void DrawMenuSeparator(wxDC& dc, wxCoord y, const wxMenuGeometryInfo& geomInfo) override
-  {
-    m_renderer->DrawMenuSeparator(dc, y, geomInfo);
-  }
+  { m_renderer->DrawMenuSeparator(dc, y, geomInfo); }
 #  endif
 #  if  wxUSE_STATUSBAR
   void DrawStatusField(wxDC& dc, const wxRect& rect, const wxString& label, int flags = 0, int style = 0) override
-  {
-    m_renderer->DrawStatusField(dc, rect, label, flags, style);
-  }
+  { m_renderer->DrawStatusField(dc, rect, label, flags, style); }
 #  endif
   void DrawFrameTitleBar(wxDC& dc, const wxRect& rect, const wxString& title, const wxIcon& icon, int flags, int specialButton = 0, int specialButtonFlag = 0) override
-  {
-    m_renderer->DrawFrameTitleBar(dc, rect, title, icon, flags, specialButton, specialButtonFlag);
-  }
+  { m_renderer->DrawFrameTitleBar(dc, rect, title, icon, flags,
+                                        specialButton, specialButtonFlag); }
   void DrawFrameBorder(wxDC& dc, const wxRect& rect, int flags) override
-  {
-    m_renderer->DrawFrameBorder(dc, rect, flags);
-  }
+  { m_renderer->DrawFrameBorder(dc, rect, flags); }
   void DrawFrameBackground(wxDC& dc, const wxRect& rect, int flags) override
-  {
-    m_renderer->DrawFrameBackground(dc, rect, flags);
-  }
+  { m_renderer->DrawFrameBackground(dc, rect, flags); }
   void DrawFrameTitle(wxDC& dc, const wxRect& rect, const wxString& title, int flags) override
-  {
-    m_renderer->DrawFrameTitle(dc, rect, title, flags);
-  }
+  { m_renderer->DrawFrameTitle(dc, rect, title, flags); }
   void DrawFrameIcon(wxDC& dc, const wxRect& rect, const wxIcon& icon, int flags) override
-  {
-    m_renderer->DrawFrameIcon(dc, rect, icon, flags);
-  }
+  { m_renderer->DrawFrameIcon(dc, rect, icon, flags); }
   void DrawFrameButton(wxDC& dc, wxCoord x, wxCoord y, int button, int flags = 0) override
-  {
-    m_renderer->DrawFrameButton(dc, x, y, button, flags);
-  }
+  { m_renderer->DrawFrameButton(dc, x, y, button, flags); }
 #  if  wxUSE_COMBOBOX
   void GetComboBitmaps(wxBitmap* bmpNormal, wxBitmap* bmpFocus, wxBitmap* bmpPressed, wxBitmap* bmpDisabled) override
-  {
-    m_renderer->GetComboBitmaps(bmpNormal, bmpFocus, bmpPressed, bmpDisabled);
-  }
+  { m_renderer->GetComboBitmaps(bmpNormal, bmpFocus,
+                                      bmpPressed, bmpDisabled); }
 #  endif
   void AdjustSize(wxSize* size, const wxWindow* window) override
-  {
-    m_renderer->AdjustSize(size, window);
-  }
+  { m_renderer->AdjustSize(size, window); }
   wxRect GetBorderDimensions(wxBorder border) const override
-  {
-    return m_renderer->GetBorderDimensions(border);
-  }
+  { return m_renderer->GetBorderDimensions(border); }
   bool AreScrollbarsInsideBorder() const override
-  {
-    return m_renderer->AreScrollbarsInsideBorder();
-  }
+  { return m_renderer->AreScrollbarsInsideBorder(); }
 #  if  wxUSE_SCROLLBAR
   wxSize GetScrollbarArrowSize() const override
-  {
-    return m_renderer->GetScrollbarArrowSize();
-  }
+  { return m_renderer->GetScrollbarArrowSize(); }
 #  endif
   wxCoord GetListboxItemHeight(wxCoord fontHeight) override
-  {
-    return m_renderer->GetListboxItemHeight(fontHeight);
-  }
+  { return m_renderer->GetListboxItemHeight(fontHeight); }
   wxSize GetCheckBitmapSize() const override
-  {
-    return m_renderer->GetCheckBitmapSize();
-  }
+  { return m_renderer->GetCheckBitmapSize(); }
   wxSize GetRadioBitmapSize() const override
-  {
-    return m_renderer->GetRadioBitmapSize();
-  }
+  { return m_renderer->GetRadioBitmapSize(); }
   wxCoord GetCheckItemMargin() const override
-  {
-    return m_renderer->GetCheckItemMargin();
-  }
+  { return m_renderer->GetCheckItemMargin(); }
 #  if  wxUSE_TOOLBAR
   wxSize GetToolBarButtonSize(wxCoord* separator) const override
-  {
-    return m_renderer->GetToolBarButtonSize(separator);
-  }
+  { return m_renderer->GetToolBarButtonSize(separator); }
   wxSize GetToolBarMargin() const override
-  {
-    return m_renderer->GetToolBarMargin();
-  }
+  { return m_renderer->GetToolBarMargin(); }
 #  endif
 #  if  wxUSE_TEXTCTRL
   wxRect GetTextTotalArea(const wxTextCtrl* text, const wxRect& rect) const override
-  {
-    return m_renderer->GetTextTotalArea(text, rect);
-  }
+  { return m_renderer->GetTextTotalArea(text, rect); }
   wxRect GetTextClientArea(const wxTextCtrl* text, const wxRect& rect, wxCoord* extraSpaceBeyond) const override
-  {
-    return m_renderer->GetTextClientArea(text, rect, extraSpaceBeyond);
-  }
+  { return m_renderer->GetTextClientArea(text, rect, extraSpaceBeyond); }
 #  endif
 #  if  wxUSE_NOTEBOOK
   wxSize GetTabIndent() const override
-  {
-    return m_renderer->GetTabIndent();
-  }
+  { return m_renderer->GetTabIndent(); }
   wxSize GetTabPadding() const override
-  {
-    return m_renderer->GetTabPadding();
-  }
+  { return m_renderer->GetTabPadding(); }
 #  endif
 #  if  wxUSE_SLIDER
   wxCoord GetSliderDim() const override
-  {
-    return m_renderer->GetSliderDim();
-  }
+  { return m_renderer->GetSliderDim(); }
   wxCoord GetSliderTickLen() const override
-  {
-    return m_renderer->GetSliderTickLen();
-  }
+  { return m_renderer->GetSliderTickLen(); }
   wxRect GetSliderShaftRect(const wxRect& rect, int lenThumb, wxOrientation orient, long style = 0) const override
-  {
-    return m_renderer->GetSliderShaftRect(rect, lenThumb, orient, style);
-  }
+  { return m_renderer->GetSliderShaftRect(rect, lenThumb, orient, style); }
   wxSize GetSliderThumbSize(const wxRect& rect, int lenThumb, wxOrientation orient) const override
-  {
-    return m_renderer->GetSliderThumbSize(rect, lenThumb, orient);
-  }
+  { return m_renderer->GetSliderThumbSize(rect, lenThumb, orient); }
 #  endif
   wxSize GetProgressBarStep() const override
-  {
-    return m_renderer->GetProgressBarStep();
-  }
+  { return m_renderer->GetProgressBarStep(); }
 #  if  wxUSE_MENUS
   wxSize GetMenuBarItemSize(const wxSize& sizeText) const override
-  {
-    return m_renderer->GetMenuBarItemSize(sizeText);
-  }
+  { return m_renderer->GetMenuBarItemSize(sizeText); }
   wxMenuGeometryInfo* GetMenuGeometry(wxWindow* win, const wxMenu& menu) const override
-  {
-    return m_renderer->GetMenuGeometry(win, menu);
-  }
+  { return m_renderer->GetMenuGeometry(win, menu); }
 #  endif
 #  if  wxUSE_STATUSBAR
   wxSize GetStatusBarBorders() const override
-  {
-    return m_renderer->GetStatusBarBorders();
-  }
+  { return m_renderer->GetStatusBarBorders(); }
   wxCoord GetStatusBarBorderBetweenFields() const override
-  {
-    return m_renderer->GetStatusBarBorderBetweenFields();
-  }
+  { return m_renderer->GetStatusBarBorderBetweenFields(); }
   wxSize GetStatusBarFieldMargins() const override
-  {
-    return m_renderer->GetStatusBarFieldMargins();
-  }
+  { return m_renderer->GetStatusBarFieldMargins(); }
 #  endif
   wxRect GetFrameClientArea(const wxRect& rect, int flags) const override
-  {
-    return m_renderer->GetFrameClientArea(rect, flags);
-  }
+  { return m_renderer->GetFrameClientArea(rect, flags); }
   wxSize GetFrameTotalSize(const wxSize& clientSize, int flags) const override
-  {
-    return m_renderer->GetFrameTotalSize(clientSize, flags);
-  }
+  { return m_renderer->GetFrameTotalSize(clientSize, flags); }
   wxSize GetFrameMinSize(int flags) const override
-  {
-    return m_renderer->GetFrameMinSize(flags);
-  }
+  { return m_renderer->GetFrameMinSize(flags); }
   wxSize GetFrameIconSize() const override
-  {
-    return m_renderer->GetFrameIconSize();
-  }
+  { return m_renderer->GetFrameIconSize(); }
   int HitTestFrame(const wxRect& rect, const wxPoint& pt, int flags) const override
-  {
-    return m_renderer->HitTestFrame(rect, pt, flags);
-  }
+  { return m_renderer->HitTestFrame(rect, pt, flags); }
   int DrawHeaderButton(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0, wxHeaderSortIconType sortIcon = wxHDR_SORT_ICON_NONE, wxHeaderButtonParams* params = NULL) override
-  {
-    return m_renderer->DrawHeaderButton(win, dc, rect, flags, sortIcon, params);
-  }
+  { return m_renderer->DrawHeaderButton(win, dc, rect, flags, sortIcon, params); }
   void DrawTreeItemButton(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_renderer->DrawTreeItemButton(win, dc, rect, flags);
-  }
+  { m_renderer->DrawTreeItemButton(win, dc, rect, flags); }
 protected:
   wxRenderer* m_renderer;
 };

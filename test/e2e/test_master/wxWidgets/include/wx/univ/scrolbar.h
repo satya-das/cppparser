@@ -65,8 +65,8 @@ public:
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-    return GetStdInputHandler(handlerDef);
-  }
+        return GetStdInputHandler(handlerDef);
+    }
     // scrollbars around a normal window should not receive the focus
   bool AcceptsFocus() const override;
     // wxScrollBar sub elements state (combination of wxCONTROL_XXX)
@@ -74,17 +74,11 @@ public:
   int GetState(Element which) const;
     // implement wxControlWithArrows methods
   wxRenderer* GetRenderer() const override
-  {
-    return m_renderer;
-  }
+  { return m_renderer; }
   wxWindow* GetWindow() override
-  {
-    return this;
-  }
+  { return this; }
   bool IsVertical() const override
-  {
-    return wxScrollBarBase::IsVertical();
-  }
+  { return wxScrollBarBase::IsVertical(); }
   int GetArrowState(wxScrollArrows::Arrow arrow) const override;
   void SetArrowFlag(wxScrollArrows::Arrow arrow, int flag, bool set) override;
   bool OnArrow(wxScrollArrows::Arrow arrow) override;
@@ -100,9 +94,7 @@ protected:
   wxSize DoGetBestClientSize() const override;
   void DoDraw(wxControlRenderer* renderer) override;
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
     // forces update of thumb's visual appearance (does nothing if m_dirty=false)
   void UpdateThumb();
     // SetThumbPosition() helper

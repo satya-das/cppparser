@@ -138,13 +138,9 @@ class WXDLLIMPEXP_WEBVIEW wxWebViewFactoryIE : public wxWebViewFactory
 {
 public:
   wxWebView* Create() override
-  {
-    return new wxWebViewIE;
-  }
+  { return new wxWebViewIE; }
   wxWebView* Create(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr)) override
-  {
-    return new wxWebViewIE(parent, id, url, pos, size, style, name);
-  }
+  { return new wxWebViewIE(parent, id, url, pos, size, style, name); }
 };
 #  endif
 #endif

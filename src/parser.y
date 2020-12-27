@@ -494,17 +494,13 @@ preprocessor      : define              [ZZLOG;] { $$ = $1; }
 asmblock          : tknAsm              [ZZLOG;] { $$ = new CppAsmBlock($1); }
                   ;
 
-macrocall         : tknMacro [ZZLOG;]
-                  {
-                    $$ = $1;
-                  }
-                  | macrocall '(' ')' [ZZLOG;] {
-                    $$ = mergeCppToken($1, $3);
-                  }
-                  | macrocall '(' expr ')' [ZZLOG;] {
+macrocall         : tknMacro [ZZLOG; $$ = $1;] {}
+                  | macrocall '(' ')' [ZZLOG; $$ = mergeCppToken($1, $3); ] {}
+                  | macrocall '(' expr ')' [
+                    ZZLOG;
                     $$ = mergeCppToken($1, $4);
                     delete $3;
-                  }
+                  ] {}
                   ;
 
 switchstmt        : tknSwitch '(' expr ')' '{' caselist '}' [ZZLOG;] {
@@ -665,14 +661,14 @@ doccommentstr     : tknFreeStandingBlockComment                          [ZZLOG;
                   | doccommentstr tknFreeStandingLineComment             [ZZLOG;]  { $$ = mergeCppToken($1, $2); }
                   ;
 
-identifier        : name                                          [ZZLOG;] { $$ = $1; }
-                  | identifier tknScopeResOp identifier           [ZZLOG;] { $$ = mergeCppToken($1, $3); }
-                  | id                                            [ZZLOG;] { $$ = $1; }
-                  | templidentifier                               [ZZLOG;] { $$ = $1; }
-                  | tknOverride                                   [ZZLOG;] { $$ = $1; /* override is not a reserved keyword */ }
-                  | identifier tknEllipsis                        [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | macrocall                                     [ZZLOG;] { $$ = $1; }
-                  | templqualifiedid                              [ZZLOG;] { $$ = $1; }
+identifier        : name                                          [ZZLOG; $$ = $1; ] {}
+                  | identifier tknScopeResOp identifier           [ZZLOG; $$ = mergeCppToken($1, $3); ] {}
+                  | id                                            [ZZLOG; $$ = $1; ] {}
+                  | templidentifier                               [ZZLOG; $$ = $1; ] {}
+                  | tknOverride                                   [ZZLOG; $$ = $1; /* override is not a reserved keyword */ ] {}
+                  | identifier tknEllipsis                        [ZZLOG; $$ = mergeCppToken($1, $2); ] {}
+                  | macrocall                                     [ZZLOG; $$ = $1; ] {}
+                  | templqualifiedid                              [ZZLOG; $$ = $1; ] {}
                   ;
 
 numbertype        : tknInteger                            [ZZLOG;] { $$ = $1; }
@@ -703,20 +699,16 @@ typeidentifier    : identifier                            [ZZLOG;] { $$ = $1; }
                   | tknDecltype '(' expr ')'              [ZZLOG;] { $$ = mergeCppToken($1, $4); delete $3; }
                   ;
 
-templidentifier   : identifier tknLT templatearglist tknGT  [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+templidentifier   : identifier tknLT templatearglist tknGT  [ZZLOG; $$ = mergeCppToken($1, $4); ] {}
                   ;
 
-templqualifiedid  : tknTemplate templidentifier             [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+templqualifiedid  : tknTemplate templidentifier             [ZZLOG; $$ = mergeCppToken($1, $2); ] {}
                   ;
 
-name              : tknName  [ZZLOG;]        {
-                    $$ = $1;
-                  }
+name              : tknName  [ZZLOG; $$ = $1;] {}
                   ;
 
-id                : tknID  [ZZLOG;]        {
-                    $$ = $1;
-                  }
+id                : tknID  [ZZLOG; $$ = $1; ] {}
                   ;
 
 optname           :         [ZZLOG;] { $$ = makeCppToken(nullptr, nullptr); }
@@ -1298,16 +1290,14 @@ param             : varinit                        [ZZLOG;] { $$ = $1; $1->addAt
                   }
                   ;
 
-templatearg       :                 [ZZLOG;] { $$ = nullptr; /*$$ = makeCppToken(nullptr, nullptr);*/ }
-                  | vartype         [ZZLOG;] { $$ = nullptr; /*$$ = mergeCppToken($1, $2);*/ }
-                  | funcobjstr      [ZZLOG;] { $$ = nullptr; /*$$ = $1;*/ }
-                  | expr            [ZZLOG;] {
-                    $$ = nullptr;
-                  }
+templatearg       :                 [ZZLOG; $$ = nullptr; /*$$ = makeCppToken(nullptr, nullptr);*/ ] {}
+                  | vartype         [ZZLOG; $$ = nullptr; /*$$ = mergeCppToken($1, $2);*/ ] {}
+                  | funcobjstr      [ZZLOG; $$ = nullptr; /*$$ = $1;*/ ] {}
+                  | expr            [ZZLOG; $$ = nullptr; ] {}
                   ;
 
-templatearglist   : templatearg                       [ZZLOG;] { $$ = $1; }
-                  | templatearglist ',' templatearg   [ZZLOG;] { $$ = $1; /*$$ = mergeCppToken($1, $3);*/ }
+templatearglist   : templatearg                       [ZZLOG; $$ = $1; ] {}
+                  | templatearglist ',' templatearg   [ZZLOG; $$ = $1; /*$$ = mergeCppToken($1, $3);*/ ] {}
                   ;
 
 functype          : exptype        [ZZLOG;] { $$ = $1; }
@@ -1397,11 +1387,11 @@ ctordefn          : ctordecl meminitlist block  [ZZVALID;]
                   }
                   ;
 
-ctordecl          : name '(' paramlist ')' %prec CTORDECL
+ctordecl          : identifier '(' paramlist ')' %prec CTORDECL
                   [
                     if(gCompoundStack.empty())
                       ZZERROR;
-                    if(classNameFromIdentifier(gCompoundStack.top()) != $1)
+                    if((gCompoundStack.top() != $1) && (classNameFromIdentifier(gCompoundStack.top()) != $1))
                       ZZERROR;
                     else
                       ZZVALID;
@@ -1556,7 +1546,7 @@ classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
 classdefn         : classspecifier optapidecor identifier optfinal optinheritlist optcomment '{'
                   [
                     ZZVALID;
-                    gCompoundStack.push(classNameFromIdentifier($3));
+                    gCompoundStack.push($3);
                     gAccessTypeStack.push(gCurAccessType); gCurAccessType = CppAccessType::kUnknown;
                   ]
                   optstmtlist '}'

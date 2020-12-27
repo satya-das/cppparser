@@ -75,20 +75,14 @@ public:
   wxString GetFilename() const override;
   wxString GetDirectory() const override;
   wxString GetWildcard() const override
-  {
-    return this->m_wildCard;
-  }
+  { return this->m_wildCard; }
   wxString GetPath() const override;
   void GetPaths(wxArrayString& paths) const override;
   void GetFilenames(wxArrayString& files) const override;
   int GetFilterIndex() const override
-  {
-    return m_fc.GetFilterIndex();
-  }
+  { return m_fc.GetFilterIndex(); }
   bool HasMultipleFileSelection() const override
-  {
-    return HasFlag(wxFC_MULTIPLE);
-  }
+  { return HasFlag( wxFC_MULTIPLE ); }
   void ShowHidden(bool show) override;
   virtual bool HasFilterChoice() const
   { return m_fc.HasFilterChoice(); }

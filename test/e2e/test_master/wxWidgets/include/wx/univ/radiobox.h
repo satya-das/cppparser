@@ -39,9 +39,7 @@ public:
   void SetSelection(int n) override;
   int GetSelection() const override;
   unsigned int GetCount() const override
-  {
-    return (unsigned int) m_buttons.GetCount();
-  }
+  { return (unsigned int)m_buttons.GetCount(); }
   wxString GetString(unsigned int n) const override;
   void SetString(unsigned int n, const wxString& label) override;
   bool Enable(unsigned int n, bool enable = true) override;
@@ -56,9 +54,7 @@ public:
     // we inherit a version always returning false from wxStaticBox, override
     // it to behave normally
   bool AcceptsFocus() const override
-  {
-    return wxControl::AcceptsFocus();
-  }
+  { return wxControl::AcceptsFocus(); }
 #  if  wxUSE_TOOLTIPS
   virtual void DoSetToolTip(wxToolTip* tip);
 #  endif
@@ -71,9 +67,7 @@ public:
   bool OnKeyDown(wxKeyEvent& event);
 protected:
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
     // override the base class methods dealing with window positioning/sizing
     // as we must move/size the buttons as well
   void DoMoveWindow(int x, int y, int width, int height) override;

@@ -22,9 +22,7 @@ public:
     // return the string extent
   wxSize GetBestSize(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, int row, int col) override;
   wxGridCellRenderer* Clone() const override
-  {
-    return new wxGridCellStringRenderer;
-  }
+  { return new wxGridCellStringRenderer; }
 protected:
     // set the text colours before drawing
   void SetTextColoursAndFont(const wxGrid& grid, const wxGridCellAttr& attr, wxDC& dc, bool isSelected);
@@ -49,9 +47,7 @@ public:
     // Optional parameters for this renderer are "<min>,<max>".
   void SetParameters(const wxString& params) override;
   wxGridCellRenderer* Clone() const override
-  {
-    return new wxGridCellNumberRenderer(m_minValue, m_maxValue);
-  }
+  { return new wxGridCellNumberRenderer(m_minValue, m_maxValue); }
 protected:
   wxString GetString(const wxGrid& grid, int row, int col);
   long m_minValue, m_maxValue;
@@ -98,9 +94,7 @@ public:
   wxSize GetBestSize(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, int row, int col) override;
   wxSize GetMaxBestSize(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc) override;
   wxGridCellRenderer* Clone() const override
-  {
-    return new wxGridCellBoolRenderer;
-  }
+  { return new wxGridCellBoolRenderer; }
 };
 #    if  wxUSE_DATETIME
 #      include "wx/datetime.h"
@@ -166,8 +160,8 @@ public:
   void SetParameters(const wxString& params) override;
   wxGridCellRenderer* Clone() const override
   {
-    return new wxGridCellChoiceRenderer(*this);
-  }
+        return new wxGridCellChoiceRenderer(*this);
+    }
 protected:
   wxGridCellChoiceRenderer(const wxGridCellChoiceRenderer& other)
     :  m_choices(other.m_choices)
@@ -201,9 +195,7 @@ public:
   int GetBestHeight(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, int row, int col, int width) override;
   int GetBestWidth(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, int row, int col, int height) override;
   wxGridCellRenderer* Clone() const override
-  {
-    return new wxGridCellAutoWrapStringRenderer;
-  }
+  { return new wxGridCellAutoWrapStringRenderer; }
 private:
   wxArrayString GetTextLines(wxGrid& grid, wxDC& dc, const wxGridCellAttr& attr, const wxRect& rect, int row, int col);
     // Helper methods of GetTextLines()

@@ -32,9 +32,7 @@ class WXDLLIMPEXP_CORE wxApp : public wxAppBase
   virtual ~wxApp();
   void WakeUpIdle() override;
   void SetPrintMode(int mode) override
-  {
-    m_printMode = mode;
-  }
+  { m_printMode = mode; }
   virtual int GetPrintMode() const
   { return m_printMode; }
     // calling OnInit with an auto-release pool ready ...

@@ -33,9 +33,7 @@ public:
 #  endif
   bool ShowFullScreen(bool show, long style = wxFULLSCREEN_ALL) override;
   wxPoint GetClientAreaOrigin() const override
-  {
-    return wxPoint(0, 0);
-  }
+  { return wxPoint(0, 0); }
     // implementation from now on
     // --------------------------
   bool SendIdleEvents(wxIdleEvent& event) override;

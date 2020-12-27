@@ -34,30 +34,20 @@ public:
   void SetHoliday(size_t day) override;
   void SetHolidayColours(const wxColour& colFg, const wxColour& colBg) override;
   const wxColour& GetHolidayColourFg() const override
-  {
-    return m_colHolidayFg;
-  }
+  { return m_colHolidayFg; }
   const wxColour& GetHolidayColourBg() const override
-  {
-    return m_colHolidayBg;
-  }
+  { return m_colHolidayBg; }
     // header colours
   void SetHeaderColours(const wxColour& colFg, const wxColour& colBg) override;
   const wxColour& GetHeaderColourFg() const override
-  {
-    return m_colHeaderFg;
-  }
+  { return m_colHeaderFg; }
   const wxColour& GetHeaderColourBg() const override
-  {
-    return m_colHeaderBg;
-  }
+  { return m_colHeaderBg; }
     // day attributes
   wxCalendarDateAttr* GetAttr(size_t day) const override;
   void SetAttr(size_t day, wxCalendarDateAttr* attr) override;
   void ResetAttr(size_t day) override
-  {
-    SetAttr(day, NULL);
-  }
+  { SetAttr(day, NULL); }
   void SetWindowStyleFlag(long style) override;
   using wxCalendarCtrlBase::GenerateAllChangeEvents;
   QWidget* GetHandle() const override;

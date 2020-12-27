@@ -298,119 +298,64 @@ public:
     {
      }
   int DrawHeaderButton(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0, wxHeaderSortIconType sortArrow = wxHDR_SORT_ICON_NONE, wxHeaderButtonParams* params = NULL) override
-  {
-    return m_rendererNative.DrawHeaderButton(win, dc, rect, flags, sortArrow, params);
-  }
+  { return m_rendererNative.DrawHeaderButton(win, dc, rect, flags, sortArrow, params); }
   int DrawHeaderButtonContents(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0, wxHeaderSortIconType sortArrow = wxHDR_SORT_ICON_NONE, wxHeaderButtonParams* params = NULL) override
-  {
-    return m_rendererNative.DrawHeaderButtonContents(win, dc, rect, flags, sortArrow, params);
-  }
+  { return m_rendererNative.DrawHeaderButtonContents(win, dc, rect, flags, sortArrow, params); }
   int GetHeaderButtonHeight(wxWindow* win) override
-  {
-    return m_rendererNative.GetHeaderButtonHeight(win);
-  }
+  { return m_rendererNative.GetHeaderButtonHeight(win); }
   int GetHeaderButtonMargin(wxWindow* win) override
-  {
-    return m_rendererNative.GetHeaderButtonMargin(win);
-  }
+  { return m_rendererNative.GetHeaderButtonMargin(win); }
   void DrawTreeItemButton(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawTreeItemButton(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawTreeItemButton(win, dc, rect, flags); }
   void DrawSplitterBorder(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawSplitterBorder(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawSplitterBorder(win, dc, rect, flags); }
   void DrawSplitterSash(wxWindow* win, wxDC& dc, const wxSize& size, wxCoord position, wxOrientation orient, int flags = 0) override
-  {
-    m_rendererNative.DrawSplitterSash(win, dc, size, position, orient, flags);
-  }
+  { m_rendererNative.DrawSplitterSash(win, dc, size,
+                                            position, orient, flags); }
   void DrawComboBoxDropButton(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawComboBoxDropButton(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawComboBoxDropButton(win, dc, rect, flags); }
   void DrawDropArrow(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawDropArrow(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawDropArrow(win, dc, rect, flags); }
   void DrawCheckBox(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawCheckBox(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawCheckBox( win, dc, rect, flags ); }
   void DrawCheckMark(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawCheckMark(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawCheckMark( win, dc, rect, flags ); }
   wxSize GetCheckBoxSize(wxWindow* win, int flags = 0) override
-  {
-    return m_rendererNative.GetCheckBoxSize(win, flags);
-  }
+  { return m_rendererNative.GetCheckBoxSize(win, flags); }
   wxSize GetCheckMarkSize(wxWindow* win) override
-  {
-    return m_rendererNative.GetCheckMarkSize(win);
-  }
+  { return m_rendererNative.GetCheckMarkSize(win); }
   wxSize GetExpanderSize(wxWindow* win) override
-  {
-    return m_rendererNative.GetExpanderSize(win);
-  }
+  { return m_rendererNative.GetExpanderSize(win); }
   void DrawPushButton(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawPushButton(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawPushButton( win, dc, rect, flags ); }
   void DrawCollapseButton(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawCollapseButton(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawCollapseButton(win, dc, rect, flags); }
   wxSize GetCollapseButtonSize(wxWindow* win, wxDC& dc) override
-  {
-    return m_rendererNative.GetCollapseButtonSize(win, dc);
-  }
+  { return m_rendererNative.GetCollapseButtonSize(win, dc); }
   void DrawItemSelectionRect(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawItemSelectionRect(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawItemSelectionRect( win, dc, rect, flags ); }
   void DrawFocusRect(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawFocusRect(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawFocusRect( win, dc, rect, flags ); }
   void DrawChoice(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawChoice(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawChoice( win, dc, rect, flags); }
   void DrawComboBox(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawComboBox(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawComboBox( win, dc, rect, flags); }
   void DrawTextCtrl(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawTextCtrl(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawTextCtrl( win, dc, rect, flags); }
   void DrawRadioBitmap(wxWindow* win, wxDC& dc, const wxRect& rect, int flags = 0) override
-  {
-    m_rendererNative.DrawRadioBitmap(win, dc, rect, flags);
-  }
+  { m_rendererNative.DrawRadioBitmap(win, dc, rect, flags); }
 #  ifdef wxHAS_DRAW_TITLE_BAR_BITMAP
   void DrawTitleBarBitmap(wxWindow* win, wxDC& dc, const wxRect& rect, wxTitleBarButton button, int flags = 0) override
-  {
-    m_rendererNative.DrawTitleBarBitmap(win, dc, rect, button, flags);
-  }
+  { m_rendererNative.DrawTitleBarBitmap(win, dc, rect, button, flags); }
 #  endif
   void DrawGauge(wxWindow* win, wxDC& dc, const wxRect& rect, int value, int max, int flags = 0) override
-  {
-    m_rendererNative.DrawGauge(win, dc, rect, value, max, flags);
-  }
+  { m_rendererNative.DrawGauge(win, dc, rect, value, max, flags); }
   void DrawItemText(wxWindow* win, wxDC& dc, const wxString& text, const wxRect& rect, int align = wxALIGN_LEFT | wxALIGN_TOP, int flags = 0, wxEllipsizeMode ellipsizeMode = wxELLIPSIZE_END) override
-  {
-    m_rendererNative.DrawItemText(win, dc, text, rect, align, flags, ellipsizeMode);
-  }
+  { m_rendererNative.DrawItemText(win, dc, text, rect, align, flags, ellipsizeMode); }
   wxSplitterRenderParams GetSplitterParams(const wxWindow* win) override
-  {
-    return m_rendererNative.GetSplitterParams(win);
-  }
+  { return m_rendererNative.GetSplitterParams(win); }
   wxRendererVersion GetVersion() const override
-  {
-    return m_rendererNative.GetVersion();
-  }
+  { return m_rendererNative.GetVersion(); }
 protected:
   wxRendererNative& m_rendererNative;
   wxDECLARE_NO_COPY_CLASS(wxDelegateRendererNative);

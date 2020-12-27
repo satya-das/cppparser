@@ -175,14 +175,10 @@ public:
     }
     // we do have multiple pages
   bool HasMultiplePages() const override
-  {
-    return true;
-  }
+  { return true; }
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  {
-    return false;
-  }
+  { return false; }
 protected:
     // flags for DoSetSelection()
   enum
@@ -191,9 +187,7 @@ protected:
   };
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
     // After the insertion of the page in the method InsertPage, calling this
     // method sets the selection to the given page or the first one if there is
     // still no selection. The "selection changed" event is sent only if
@@ -260,9 +254,7 @@ protected:
     // its pages are on the same colour background as the rest of the window. If the user
     // prefers a coloured background they can set the background colour on the page panel
   bool HasTransparentBackground() override
-  {
-    return true;
-  }
+  { return true; }
     // This method also invalidates the size of the controller and should be
     // called instead of just InvalidateBestSize() whenever pages are added or
     // removed as this also affects the controller
@@ -321,9 +313,7 @@ public:
         m_nOldSel = event.m_nOldSel;
         }
   wxEvent* Clone() const override
-  {
-    return new wxBookCtrlEvent(*this);
-  }
+  { return new wxBookCtrlEvent(*this); }
     // accessors
         // the currently selected page (wxNOT_FOUND if none)
   int GetSelection() const

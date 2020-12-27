@@ -85,13 +85,9 @@ public:
   int GetPageImage(size_t n) const override;
   bool SetPageImage(size_t n, int imageId) override;
   int SetSelection(size_t n) override
-  {
-    return DoSetSelection(n, SetSelection_SendEvent);
-  }
+  { return DoSetSelection(n, SetSelection_SendEvent); }
   int ChangeSelection(size_t n) override
-  {
-    return DoSetSelection(n);
-  }
+  { return DoSetSelection(n); }
   int HitTest(const wxPoint& pt, long* flags = NULL) const override;
   void SetImageList(wxImageList* imageList) override;
   virtual void AssignImageList(wxImageList* imageList);
@@ -101,9 +97,7 @@ protected:
   wxTreebookPage* DoRemovePage(size_t pos) override;
     // This subclass of wxBookCtrlBase accepts NULL page pointers (empty pages)
   bool AllowNullPage() const override
-  {
-    return true;
-  }
+  { return true; }
   wxWindow* TryGetNonNullPage(size_t page) override;
     // event handlers
   void OnTreeSelectionChange(wxTreeEvent& event);

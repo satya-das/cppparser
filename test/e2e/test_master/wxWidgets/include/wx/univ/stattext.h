@@ -33,9 +33,7 @@ public:
     // implementation only from now on
   void SetLabel(const wxString& label) override;
   bool IsFocused() const override
-  {
-    return false;
-  }
+  { return false; }
 protected:
     // draw the control
   void DoDraw(wxControlRenderer* renderer) override;

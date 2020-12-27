@@ -35,16 +35,16 @@ public:
     // set label with mnemonics
   void SetLabel(const wxString& label) override
   {
-    m_labelOrig = label;
-    InvalidateBestSize();
-    wxWindow::SetLabel(label);
-  }
+        m_labelOrig = label;
+
+        InvalidateBestSize();
+
+        wxWindow::SetLabel(label);
+    }
     // return the original string, as it was passed to SetLabel()
     // (i.e. with wx-style mnemonics)
   wxString GetLabel() const override
-  {
-    return m_labelOrig;
-  }
+  { return m_labelOrig; }
     // set label text (mnemonics will be escaped)
   virtual void SetLabelText(const wxString& text)
   {
@@ -77,9 +77,7 @@ public:
     // particular control class doesn't want to do it, it can override
     // ShouldInheritColours() to return false
   bool ShouldInheritColours() const override
-  {
-    return true;
-  }
+  { return true; }
     // WARNING: this doesn't work for all controls nor all platforms!
     //
     // simulates the event of given type (i.e. wxButton::Command() is just as

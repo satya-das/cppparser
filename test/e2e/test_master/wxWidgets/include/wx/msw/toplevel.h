@@ -46,9 +46,7 @@ public:
   void ShowWithoutActivating() override;
   bool ShowFullScreen(bool show, long style = wxFULLSCREEN_ALL) override;
   bool IsFullScreen() const override
-  {
-    return m_fsIsShowing;
-  }
+  { return m_fsIsShowing; }
     // wxMSW only: EnableCloseButton(false) may be used to remove the "Close"
     // button from the title bar
   bool EnableCloseButton(bool enable = true) override;
@@ -79,8 +77,8 @@ public:
     // element which should get focus when this TLW is activated again, changes
   void WXSetPendingFocus(wxWindow* win) override
   {
-    m_winLastFocused = win;
-  }
+        m_winLastFocused = win;
+    }
     // translate wxWidgets flags to Windows ones
   WXDWORD MSWGetStyle(long flags, WXDWORD* exstyle) const override;
     // choose the right parent to use with CreateWindow()
@@ -89,9 +87,7 @@ public:
   WXLRESULT MSWWindowProc(WXUINT message, WXWPARAM wParam, WXLPARAM lParam) override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  {
-    return false;
-  }
+  { return false; }
     // This function is only for internal use.
   void MSWSetShowCommand(WXUINT showCmd)
   { m_showCmd = showCmd; }

@@ -372,9 +372,7 @@ public:
     // usually the controls like list/combo boxes have their own background
     // colour
   bool ShouldInheritColours() const override
-  {
-    return false;
-  }
+  { return false; }
     // Implementation only from now on.
 
     // Generate an event of the given type for the selection change.

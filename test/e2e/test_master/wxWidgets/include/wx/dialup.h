@@ -148,9 +148,7 @@ public:
   { return m_id != 0; }
     // implement the base class pure virtual
   wxEvent* Clone() const override
-  {
-    return new wxDialUpEvent(*this);
-  }
+  { return new wxDialUpEvent(*this); }
   wxDECLARE_NO_ASSIGN_CLASS(wxDialUpEvent);
 };
 // the type of dialup event handler function

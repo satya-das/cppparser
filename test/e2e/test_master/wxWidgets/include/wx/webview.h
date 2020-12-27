@@ -228,9 +228,7 @@ public:
   wxWebViewNavigationActionFlags GetNavigationAction() const
   { return m_actionFlags; }
   wxEvent* Clone() const override
-  {
-    return new wxWebViewEvent(*this);
-  }
+  { return new wxWebViewEvent(*this); }
 private:
   wxString m_url;
   wxString m_target;

@@ -48,25 +48,17 @@ public:
   wxString GetValue() const override;
   void SetValue(const wxString& value) override;
   wxString GetStringSelection() const override
-  {
-    return wxChoice::GetStringSelection();
-  }
+  { return wxChoice::GetStringSelection(); }
   virtual void Popup()
   { MSWDoPopupOrDismiss(true); }
   virtual void Dismiss()
   { MSWDoPopupOrDismiss(false); }
   void SetSelection(int n) override
-  {
-    wxChoice::SetSelection(n);
-  }
+  { wxChoice::SetSelection(n); }
   void SetSelection(long from, long to) override
-  {
-    wxTextEntry::SetSelection(from, to);
-  }
+  { wxTextEntry::SetSelection(from, to); }
   int GetSelection() const override
-  {
-    return wxChoice::GetSelection();
-  }
+  { return wxChoice::GetSelection(); }
   bool ContainsHWND(WXHWND hWnd) const override;
   void GetSelection(long* from, long* to) const override;
   bool IsEditable() const override;
@@ -97,9 +89,7 @@ public:
 #    endif
   void SetLayoutDirection(wxLayoutDirection dir) override;
   const wxTextEntry* WXGetTextEntry() const override
-  {
-    return this;
-  }
+  { return this; }
 #    if  wxUSE_TOOLTIPS
 protected:
   void DoSetToolTip(wxToolTip* tip) override;
@@ -117,8 +107,8 @@ protected:
   WXHWND GetEditHWNDIfAvailable() const;
   void EnableTextChangedEvents(bool enable) override
   {
-    m_allowTextEvents = enable;
-  }
+        m_allowTextEvents = enable;
+    }
 private:
     // there are the overridden wxTextEntry methods which should only be called
     // when we do have an edit control so they assert if this is not the case

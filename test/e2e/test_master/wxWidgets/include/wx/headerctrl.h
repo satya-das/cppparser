@@ -139,9 +139,7 @@ public:
 
     // the user doesn't need to TAB to this control
   bool AcceptsFocusFromKeyboard() const override
-  {
-    return false;
-  }
+  { return false; }
     // this method is only overridden in order to synchronize the control with
     // the main window when it is scrolled, the derived class must implement
     // DoScrollHorz()
@@ -182,9 +180,7 @@ protected:
   void DoResizeColumnIndices(wxArrayInt& colIndices, unsigned int count);
     // this window doesn't look nice with the border so don't use it by default
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
 private:
     // methods implementing our public API and defined in platform-specific
     // implementations
@@ -352,9 +348,7 @@ public:
   void SetNewOrder(unsigned int order)
   { m_order = order; }
   wxEvent* Clone() const override
-  {
-    return new wxHeaderCtrlEvent(*this);
-  }
+  { return new wxHeaderCtrlEvent(*this); }
 protected:
     // the column affected by the event
   int m_col;

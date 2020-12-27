@@ -46,8 +46,8 @@ public:
     // Returns size of the image used in list
   wxSize GetBitmapSize() const override
   {
-    return m_bitmapSize;
-  }
+        return m_bitmapSize;
+    }
     // Adds item with image to the end of the combo box.
   int Append(const wxString& item, const wxBitmap& bitmap = wxNullBitmap);
   int Append(const wxString& item, const wxBitmap& bitmap, void* clientData);
@@ -67,13 +67,9 @@ public:
   void SetSelection(long from, long to) override;
   void GetSelection(long* from, long* to) const override;
   void SetSelection(int n) override
-  {
-    wxComboBox::SetSelection(n);
-  }
+  { wxComboBox::SetSelection(n); }
   int GetSelection() const override
-  {
-    return wxComboBox::GetSelection();
-  }
+  { return wxComboBox::GetSelection(); }
   bool IsEditable() const override;
   void SetEditable(bool editable) override;
   GtkWidget* GetConnectWidget() override;

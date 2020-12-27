@@ -33,21 +33,18 @@ public:
   {
         // Sync process, process all data coming at us from the pipe so that
         // the pipe does not get full and cause a deadlock situation.
-    m_buf.Update();
-    if (m_buf.Eof())
-    {
-      DisableCallback();
+        m_buf.Update();
+
+        if ( m_buf.Eof() )
+            DisableCallback();
     }
-  }
     // These methods are never called as we only monitor the associated FD for
     // reading, but we still must implement them as they're pure virtual in the
     // base class.
   void OnWriteWaiting() override
-  {
-  }
+  { }
   void OnExceptionWaiting() override
-  {
-  }
+  { }
     // Disable any future calls to our OnReadWaiting(), can be called when
     // we're sure that no more input is forthcoming.
   void DisableCallback()
@@ -89,8 +86,8 @@ public:
 private:
   void DoDisable() override
   {
-    m_dispatcher.UnregisterFD(m_fd);
-  }
+        m_dispatcher.UnregisterFD(m_fd);
+    }
   wxFDIODispatcher& m_dispatcher;
   wxDECLARE_NO_COPY_CLASS(wxExecuteFDIOHandler);
 };
@@ -115,9 +112,9 @@ public:
 private:
   void DoDisable() override
   {
-    delete m_source;
-    m_source = NULL;
-  }
+        delete m_source;
+        m_source = NULL;
+    }
   wxEventLoopSource* m_source;
   wxDECLARE_NO_COPY_CLASS(wxExecuteEventLoopSourceHandler);
 };

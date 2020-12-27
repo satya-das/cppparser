@@ -54,21 +54,25 @@ public:
 protected:
   void DoSetBackgroundBitmap(const wxBitmap& bmp) override
   {
-    m_bitmapBg = bmp;
-    if (m_bitmapBg.IsOk())
-    {
+        m_bitmapBg = bmp;
 
+        if ( m_bitmapBg.IsOk() )
+        {
             BaseWindowClass::Bind
             (
                 wxEVT_ERASE_BACKGROUND,
                 &wxCustomBackgroundWindow::OnEraseBackground, this
             );
-            }
-    else 
-    {
-      BaseWindowClass::Unbind(wxEVT_ERASE_BACKGROUND, &wxCustomBackgroundWindow::OnEraseBackground, this);
+        }
+        else
+        {
+            BaseWindowClass::Unbind
+            (
+                wxEVT_ERASE_BACKGROUND,
+                &wxCustomBackgroundWindow::OnEraseBackground, this
+            );
+        }
     }
-  }
 private:
     // Event handler for erasing the background which is only used when we have
     // a valid background bitmap.

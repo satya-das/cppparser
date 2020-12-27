@@ -266,9 +266,7 @@ public:
     // Override the base class virtual method to simply store the attribute so
     // that it can be accessed using GetAttr() from Render() if needed.
   void SetAttr(const wxDataViewItemAttr& attr) override
-  {
-    m_attr = attr;
-  }
+  { m_attr = attr; }
   const wxDataViewItemAttr& GetAttr() const
   { return m_attr; }
     // Store the enabled state of the item so that it can be accessed from
@@ -286,9 +284,7 @@ public:
     // Prepare DC to use attributes and call Render().
   void WXCallRender(wxRect rect, wxDC* dc, int state);
   bool IsCustomRenderer() const override
-  {
-    return true;
-  }
+  { return true; }
 protected:
     // helper for GetSize() implementations, respects attributes
   wxSize GetTextExtent(const wxString& str) const;
@@ -323,9 +319,7 @@ class WXDLLIMPEXP_CORE wxDataViewSpinRenderer : public wxDataViewCustomRenderer
 public:
   wxDataViewSpinRenderer(int min, int max, wxDataViewCellMode mode = wxDATAVIEW_CELL_EDITABLE, int alignment = wxDVR_DEFAULT_ALIGNMENT);
   bool HasEditorCtrl() const override
-  {
-    return true;
-  }
+  { return true; }
   wxWindow* CreateEditorCtrl(wxWindow* parent, wxRect labelRect, const wxVariant& value) override;
   bool GetValueFromEditorCtrl(wxWindow* editor, wxVariant& value) override;
   bool Render(wxRect rect, wxDC* dc, int state) override;
@@ -349,9 +343,7 @@ class WXDLLIMPEXP_CORE wxDataViewChoiceRenderer : public wxDataViewCustomRendere
 public:
   wxDataViewChoiceRenderer(const wxArrayString& choices, wxDataViewCellMode mode = wxDATAVIEW_CELL_EDITABLE, int alignment = wxDVR_DEFAULT_ALIGNMENT);
   bool HasEditorCtrl() const override
-  {
-    return true;
-  }
+  { return true; }
   wxWindow* CreateEditorCtrl(wxWindow* parent, wxRect labelRect, const wxVariant& value) override;
   bool GetValueFromEditorCtrl(wxWindow* editor, wxVariant& value) override;
   bool Render(wxRect rect, wxDC* dc, int state) override;
@@ -397,9 +389,7 @@ public:
   { return wxS("datetime"); }
   wxDataViewDateRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_EDITABLE, int align = wxDVR_DEFAULT_ALIGNMENT);
   bool HasEditorCtrl() const override
-  {
-    return true;
-  }
+  { return true; }
   wxWindow* CreateEditorCtrl(wxWindow* parent, wxRect labelRect, const wxVariant& value) override;
   bool GetValueFromEditorCtrl(wxWindow* editor, wxVariant& value) override;
   bool SetValue(const wxVariant& value) override;

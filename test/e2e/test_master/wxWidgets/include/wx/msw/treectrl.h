@@ -114,16 +114,16 @@ public:
   wxTextCtrl* GetEditControl() const override;
   void EndEditLabel(const wxTreeItemId&, bool discardChanges = false) override
   {
-    DoEndEditLabel(discardChanges);
-  }
+        DoEndEditLabel(discardChanges);
+    }
   void SortChildren(const wxTreeItemId& item) override;
   bool GetBoundingRect(const wxTreeItemId& item, wxRect& rect, bool textOnly = false) const override;
     // implementation
     // --------------
   wxVisualAttributes GetDefaultAttributes() const override
   {
-    return GetClassDefaultAttributes(GetWindowVariant());
-  }
+        return GetClassDefaultAttributes(GetWindowVariant());
+    }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
   WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override;
   WXLRESULT MSWDefWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override;
@@ -135,9 +135,7 @@ public:
   bool SetForegroundColour(const wxColour& colour) override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  {
-    return false;
-  }
+  { return false; }
   bool IsDoubleBuffered() const override;
   void SetDoubleBuffered(bool on) override;
 protected:
@@ -145,9 +143,7 @@ protected:
   void DoFreeze() override;
   void DoThaw() override;
   bool MSWShouldSetDefaultFont() const override
-  {
-    return false;
-  }
+  { return false; }
     // SetImageList helper
   void SetAnyImageList(wxImageList* imageList, int which);
     // refresh a single item

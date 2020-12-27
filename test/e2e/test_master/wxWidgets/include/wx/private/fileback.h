@@ -51,9 +51,7 @@ public:
     // Returns the length, reading the parent stream to the end if necessary.
   wxFileOffset FindLength() const;
   bool IsSeekable() const override
-  {
-    return true;
-  }
+  { return true; }
 protected:
   size_t OnSysRead(void* buffer, size_t size) override;
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override;

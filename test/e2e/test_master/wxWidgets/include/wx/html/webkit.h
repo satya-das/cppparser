@@ -65,13 +65,9 @@ public:
   int GetScrollPos();
     // don't hide base class virtuals
   void SetScrollPos(int orient, int pos, bool refresh = true) override
-  {
-    return wxControl::SetScrollPos(orient, pos, refresh);
-  }
+  { return wxControl::SetScrollPos(orient, pos, refresh); }
   int GetScrollPos(int orient) const override
-  {
-    return wxControl::GetScrollPos(orient);
-  }
+  { return wxControl::GetScrollPos(orient); }
     //we need to resize the webview when the control size changes
   void OnSize(wxSizeEvent& event);
   void OnMove(wxMoveEvent& event);

@@ -318,9 +318,7 @@ public:
   int GetReturnCode() const
   { return GetDialog()->GetReturnCode(); }
   wxEvent* Clone() const override
-  {
-    return new wxWindowModalDialogEvent(*this);
-  }
+  { return new wxWindowModalDialogEvent (*this); }
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxWindowModalDialogEvent);
 };
 wxDECLARE_EXPORTED_EVENT(WXDLLIMPEXP_CORE, wxEVT_WINDOW_MODAL_DIALOG_CLOSED , wxWindowModalDialogEvent );

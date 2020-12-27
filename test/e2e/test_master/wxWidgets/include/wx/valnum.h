@@ -38,9 +38,7 @@ public:
     // Override base class method to not do anything but always return success:
     // we don't need this as we do our validation on the fly here.
   bool Validate(wxWindow*) override
-  {
-    return true;
-  }
+  { return true; }
     // Override base class method to check that the window is a text control or
     // combobox.
   void SetWindow(wxWindow* win) override;
@@ -148,22 +146,21 @@ namespace wxPrivate
     }
     bool TransferToWindow() override
     {
-      if (m_value)
-      {
-
+        if ( m_value )
+        {
             wxTextEntry * const control = BaseValidator::GetTextEntry();
             if ( !control )
                 return false;
 
             control->SetValue(NormalizeValue(static_cast<LongestValueType>(*m_value)));
-              }
-      return true;
+        }
+
+        return true;
     }
     bool TransferFromWindow() override
     {
-      if (m_value)
-      {
-
+        if ( m_value )
+        {
             wxTextEntry * const control = BaseValidator::GetTextEntry();
             if ( !control )
                 return false;
@@ -179,8 +176,9 @@ namespace wxPrivate
                 return false;
 
             *m_value = static_cast<ValueType>(value);
-              }
-      return true;
+        }
+
+        return true;
     }
   protected:
     wxNumValidator(ValueType* value, int style)
@@ -194,8 +192,9 @@ namespace wxPrivate
     // both integer and floating point numbers.
     wxString NormalizeString(const wxString& s) const override
     {
-      LongestValueType value;
-      return BaseValidator::FromString(s, &value) ? NormalizeValue(value) : wxString();
+        LongestValueType value;
+        return BaseValidator::FromString(s, &value) ? NormalizeValue(value)
+                                                    : wxString();
     }
   private:
     // Just a helper which is a common part of TransferToWindow() and
@@ -298,9 +297,7 @@ public:
         this->DoSetMax(std::numeric_limits<ValueType>::max());
         }
   wxObject* Clone() const override
-  {
-    return new wxIntegerValidator(*this);
-  }
+  { return new wxIntegerValidator(*this); }
   wxDECLARE_NO_ASSIGN_CLASS(wxIntegerValidator);
 };
 // Helper function for creating integer validators which allows to avoid
@@ -408,8 +405,8 @@ public:
         }
   wxObject* Clone() const override
   {
-    return new wxFloatingPointValidator(*this);
-  }
+        return new wxFloatingPointValidator(*this);
+    }
 private:
   typedef typename Base::LongestValueType LongestValueType;
   void DoSetMinMax()

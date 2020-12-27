@@ -50,19 +50,13 @@ public:
   virtual ~wxButton();
   wxWindow* SetDefault() override;
   bool IsPressed() const override
-  {
-    return m_isPressed;
-  }
+  { return m_isPressed; }
   bool IsDefault() const override
-  {
-    return m_isDefault;
-  }
+  { return m_isDefault; }
     // wxButton actions
   void Click() override;
   bool CanBeHighlighted() const override
-  {
-    return true;
-  }
+  { return true; }
 protected:
   void DoSetBitmap(const wxBitmap& bitmap, State which) override;
   wxBitmap DoGetBitmap(State which) const override;

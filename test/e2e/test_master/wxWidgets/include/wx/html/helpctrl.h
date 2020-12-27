@@ -63,9 +63,7 @@ public:
 #    endif
     //// Backward compatibility with wxHelpController API
   bool Initialize(const wxString& file, int) override
-  {
-    return Initialize(file);
-  }
+  { return Initialize(file); }
   bool Initialize(const wxString& file) override;
   void SetViewer(const wxString&, long = 0) override
   {
@@ -73,13 +71,9 @@ public:
   bool LoadFile(const wxString& file = wxT("")) override;
   bool DisplaySection(int sectionNo) override;
   bool DisplaySection(const wxString& section) override
-  {
-    return Display(section);
-  }
+  { return Display(section); }
   bool DisplayBlock(long blockNo) override
-  {
-    return DisplaySection(blockNo);
-  }
+  { return DisplaySection(blockNo); }
   bool DisplayTextPopup(const wxString& text, const wxPoint& pos) override;
   void SetFrameParameters(const wxString& titleFormat, const wxSize& size, const wxPoint& pos = wxDefaultPosition, bool newFrameEachTime = false) override;
     /// Obtains the latest settings used by the help frame and the help

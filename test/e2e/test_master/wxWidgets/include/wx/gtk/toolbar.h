@@ -43,9 +43,7 @@ public:
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_DEFAULT;
-  }
+  { return wxBORDER_DEFAULT; }
   wxSize DoGetBestSize() const override;
   GdkWindow* GTKGetWindow(wxArrayGdkWindows& windows) const override;
     // implement base class pure virtuals

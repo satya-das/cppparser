@@ -125,9 +125,7 @@ public:
 protected:
     // extracts the style for our picker from wxFontPickerCtrl's style
   long GetPickerStyle(long style) const override
-  {
-    return (style & (wxFNTP_FONTDESC_AS_LABEL | wxFNTP_USEFONT_FOR_LABEL));
-  }
+  { return (style & (wxFNTP_FONTDESC_AS_LABEL|wxFNTP_USEFONT_FOR_LABEL)); }
     // the minimum pointsize allowed to the user
   unsigned int m_nMinPointSize;
     // the maximum pointsize allowed to the user
@@ -161,9 +159,7 @@ public:
   { m_font = c; }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
-  {
-    return new wxFontPickerEvent(*this);
-  }
+  { return new wxFontPickerEvent(*this); }
 private:
   wxFont m_font;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxFontPickerEvent);

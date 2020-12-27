@@ -109,9 +109,7 @@ public:
   void SetPosition(int pos)
   { m_commandInt = pos; }
   wxEvent* Clone() const override
-  {
-    return new wxSpinEvent(*this);
-  }
+  { return new wxSpinEvent(*this); }
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxSpinEvent);
 };
 typedef void (*wxSpinEventFunction) (wxSpinEvent&);

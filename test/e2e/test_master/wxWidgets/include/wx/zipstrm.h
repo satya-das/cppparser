@@ -128,21 +128,13 @@ public:
   wxZipEntry& operator=(const wxZipEntry& entry);
     // Get accessors
   wxDateTime GetDateTime() const override
-  {
-    return m_DateTime;
-  }
+  { return m_DateTime; }
   wxFileOffset GetSize() const override
-  {
-    return m_Size;
-  }
+  { return m_Size; }
   wxFileOffset GetOffset() const override
-  {
-    return m_Offset;
-  }
+  { return m_Offset; }
   wxString GetInternalName() const override
-  {
-    return m_Name;
-  }
+  { return m_Name; }
   int GetMethod() const
   { return m_Method; }
   int GetFlags() const
@@ -158,9 +150,7 @@ public:
   wxUint32 GetExternalAttributes() const
   { return m_ExternalAttributes; }
   wxPathFormat GetInternalFormat() const override
-  {
-    return wxPATH_UNIX;
-  }
+  { return wxPATH_UNIX; }
   int GetMode() const;
   const char* GetLocalExtra() const;
   size_t GetLocalExtraLen() const;
@@ -174,13 +164,9 @@ public:
   inline bool IsMadeByUnix() const;
     // set accessors
   void SetDateTime(const wxDateTime& dt) override
-  {
-    m_DateTime = dt;
-  }
+  { m_DateTime = dt; }
   void SetSize(wxFileOffset size) override
-  {
-    m_Size = size;
-  }
+  { m_Size = size; }
   void SetMethod(int method)
   { m_Method = (wxUint16)method; }
   void SetComment(const wxString& comment)
@@ -218,9 +204,7 @@ protected:
   void SetVersionNeeded(int version)
   { m_VersionNeeded = (wxUint16)version; }
   void SetOffset(wxFileOffset offset) override
-  {
-    m_Offset = offset;
-  }
+  { m_Offset = offset; }
   void SetFlags(int flags)
   { m_Flags = (wxUint16)flags; }
   void SetVersionMadeBy(int version)
@@ -240,9 +224,7 @@ protected:
   void Notify();
 private:
   wxArchiveEntry* DoClone() const override
-  {
-    return ZipClone();
-  }
+  { return ZipClone(); }
   size_t ReadLocal(wxInputStream& stream, wxMBConv& conv);
   size_t WriteLocal(wxOutputStream& stream, wxMBConv& conv, wxZipArchiveFormat zipFormat);
   size_t ReadCentral(wxInputStream& stream, wxMBConv& conv);
@@ -308,9 +290,7 @@ public:
 protected:
   size_t WXZIPFIX OnSysWrite(const void* buffer, size_t size) override;
   wxFileOffset OnSysTell() const override
-  {
-    return m_entrySize;
-  }
+  { return m_entrySize; }
     // this protected interface isn't yet finalised
   struct Buffer
   {
@@ -367,15 +347,11 @@ public:
   wxString WXZIPFIX GetComment();
   int WXZIPFIX GetTotalEntries();
   wxFileOffset GetLength() const override
-  {
-    return m_entry.GetSize();
-  }
+  { return m_entry.GetSize(); }
 protected:
   size_t WXZIPFIX OnSysRead(void* buffer, size_t size) override;
   wxFileOffset OnSysTell() const override
-  {
-    return m_decomp ? m_decomp->TellI() : 0;
-  }
+  { return m_decomp ? m_decomp->TellI() : 0; }
     // this protected interface isn't yet finalised
   virtual wxInputStream* WXZIPFIX OpenDecompressor(wxInputStream& stream);
   virtual bool WXZIPFIX CloseDecompressor(wxInputStream* decomp);
@@ -383,9 +359,7 @@ private:
   void Init();
   void Init(const wxString& file);
   wxArchiveEntry* DoGetNextEntry() override
-  {
-    return GetNextEntry();
-  }
+  { return GetNextEntry(); }
   bool WXZIPFIX OpenEntry(wxArchiveEntry& entry) override;
   wxStreamError ReadLocal(bool readEndRec = false);
   wxStreamError ReadCentral();
@@ -452,31 +426,19 @@ public:
   wxZipOutputStream* NewStream(wxOutputStream* stream) const
   { return new wxZipOutputStream(stream, -1, GetConv()); }
   wxString GetInternalName(const wxString& name, wxPathFormat format = wxPATH_NATIVE) const override
-  {
-    return wxZipEntry::GetInternalName(name, format);
-  }
+  { return wxZipEntry::GetInternalName(name, format); }
   const wxChar* const * GetProtocols(wxStreamProtocolType type = wxSTREAM_PROTOCOL) const override;
 protected:
   wxArchiveEntry* DoNewEntry() const override
-  {
-    return NewEntry();
-  }
+  { return NewEntry(); }
   wxArchiveInputStream* DoNewStream(wxInputStream& stream) const override
-  {
-    return NewStream(stream);
-  }
+  { return NewStream(stream); }
   wxArchiveOutputStream* DoNewStream(wxOutputStream& stream) const override
-  {
-    return NewStream(stream);
-  }
+  { return NewStream(stream); }
   wxArchiveInputStream* DoNewStream(wxInputStream* stream) const override
-  {
-    return NewStream(stream);
-  }
+  { return NewStream(stream); }
   wxArchiveOutputStream* DoNewStream(wxOutputStream* stream) const override
-  {
-    return NewStream(stream);
-  }
+  { return NewStream(stream); }
   wxDECLARE_DYNAMIC_CLASS(wxZipClassFactory);
 };
 /////////////////////////////////////////////////////////////////////////////

@@ -25,15 +25,13 @@ public:
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr));
     // Simulates an event
   void Command(wxCommandEvent& event) override
-  {
-    ProcessCommand(event);
-  }
+  { ProcessCommand(event); }
     // implementation from now on
     // --------------------------
   wxVisualAttributes GetDefaultAttributes() const override
   {
-    return GetClassDefaultAttributes(GetWindowVariant());
-  }
+        return GetClassDefaultAttributes(GetWindowVariant());
+    }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
     // Calls the callback and appropriate event handlers
   bool ProcessCommand(wxCommandEvent& event);

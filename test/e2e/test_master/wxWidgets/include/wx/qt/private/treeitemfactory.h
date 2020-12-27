@@ -85,14 +85,13 @@ public:
     }
   QWidget* createEditor(int, QWidget* parent) const override
   {
-    if (m_textCtrl != NULL)
-    {
-      ClearEditor();
+        if (m_textCtrl != NULL)
+            ClearEditor();
+
+        m_textCtrl = new wxQtListTextCtrl(m_parent, parent);
+        m_textCtrl->SetFocus();
+        return m_textCtrl->GetHandle();
     }
-    m_textCtrl = new wxQtListTextCtrl(m_parent, parent);
-    m_textCtrl->SetFocus();
-    return m_textCtrl->GetHandle();
-  }
   wxTextCtrl* GetEditControl() const
   {
         return m_textCtrl;

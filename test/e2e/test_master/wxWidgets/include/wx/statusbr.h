@@ -148,14 +148,10 @@ public:
 
     // don't want status bars to accept the focus at all
   bool AcceptsFocus() const override
-  {
-    return false;
-  }
+  { return false; }
     // the client size of a toplevel window doesn't include the status bar
   bool CanBeOutsideClientArea() const override
-  {
-    return true;
-  }
+  { return true; }
 protected:
     // called after the status bar pane text changed and should update its
     // display
@@ -164,14 +160,13 @@ protected:
 #    if  wxUSE_TOOLTIPS
   void DoSetToolTip(wxToolTip* tip) override
   {
-    wxASSERT_MSG(!HasFlag(wxSTB_SHOW_TIPS), "Do not set tooltip(s) manually when using wxSTB_SHOW_TIPS!");
-    wxWindow::DoSetToolTip(tip);
-  }
+            wxASSERT_MSG(!HasFlag(wxSTB_SHOW_TIPS),
+                         "Do not set tooltip(s) manually when using wxSTB_SHOW_TIPS!");
+            wxWindow::DoSetToolTip(tip);
+        }
 #    endif
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
     // internal helpers & data:
 
     // calculate the real field widths for the given total available size

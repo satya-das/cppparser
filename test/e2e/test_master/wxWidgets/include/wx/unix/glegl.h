@@ -122,21 +122,22 @@ public:
     // implement wxGLAppBase method
   bool InitGLVisual(const int* attribList) override
   {
-    return wxGLCanvasEGL::InitDefaultConfig(attribList);
-  }
+        return wxGLCanvasEGL::InitDefaultConfig(attribList);
+    }
     // This method is not currently used by the library itself, but remains for
     // backwards compatibility and also because wxGTK has it we could start
     // using it for the same purpose in wxX11 too some day.
   void* GetXVisualInfo() override
   {
-    return wxGLCanvasEGL::GetDefaultConfig();
-  }
+        return wxGLCanvasEGL::GetDefaultConfig();
+    }
     // and override this wxApp method to clean up
   int OnExit() override
   {
-    wxGLCanvasEGL::FreeDefaultConfig();
-    return wxGLAppBase::OnExit();
-  }
+        wxGLCanvasEGL::FreeDefaultConfig();
+
+        return wxGLAppBase::OnExit();
+    }
   wxDECLARE_DYNAMIC_CLASS(wxGLApp);
 };
 #endif

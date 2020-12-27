@@ -57,8 +57,8 @@ public:
     // base class-interface wxRadioBoxBase.
   wxString GetHelpTextAtPoint(const wxPoint& pt, wxHelpEvent::Origin origin) const override
   {
-    return wxRadioBoxBase::DoGetHelpTextAtPoint(this, pt, origin);
-  }
+        return wxRadioBoxBase::DoGetHelpTextAtPoint( this, pt, origin );
+    }
 #  endif
     // implementation
     // --------------
@@ -70,9 +70,7 @@ public:
   wxRadioBoxButtonsInfoList m_buttonsInfo;
 protected:
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
 #  if  wxUSE_TOOLTIPS
   void DoSetItemToolTip(unsigned int n, wxToolTip* tooltip) override;
 #  endif
@@ -80,9 +78,7 @@ protected:
   GdkWindow* GTKGetWindow(wxArrayGdkWindows& windows) const override;
   void DoEnable(bool enable) override;
   bool GTKNeedsToFilterSameWindowFocus() const override
-  {
-    return true;
-  }
+  { return true; }
   bool GTKWidgetNeedsMnemonic() const override;
   void GTKWidgetDoSetMnemonic(GtkWidget* w) override;
   wxDECLARE_DYNAMIC_CLASS(wxRadioBox);

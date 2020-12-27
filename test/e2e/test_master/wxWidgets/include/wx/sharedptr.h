@@ -127,9 +127,7 @@ private:
       {
       }
     void delete_ptr() override
-    {
-      m_deleter(this->m_ptr);
-    }
+    { m_deleter(this->m_ptr); }
     Deleter m_deleter;
   };
   reftype* m_ref;

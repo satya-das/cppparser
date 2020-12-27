@@ -68,16 +68,19 @@ public:
     // Override the base functions to allow a validator to be assigned to this page.
   bool TransferDataToWindow() override
   {
-    return GetValidator() ? GetValidator()->TransferToWindow() : wxPanel::TransferDataToWindow();
-  }
+        return GetValidator() ? GetValidator()->TransferToWindow()
+                              : wxPanel::TransferDataToWindow();
+    }
   bool TransferDataFromWindow() override
   {
-    return GetValidator() ? GetValidator()->TransferFromWindow() : wxPanel::TransferDataFromWindow();
-  }
+        return GetValidator() ? GetValidator()->TransferFromWindow()
+                              : wxPanel::TransferDataFromWindow();
+    }
   bool Validate() override
   {
-    return GetValidator() ? GetValidator()->Validate(this) : wxPanel::Validate();
-  }
+        return GetValidator() ? GetValidator()->Validate(this)
+                              : wxPanel::Validate();
+    }
 #    endif
 protected:
     // common part of ctors:
@@ -200,17 +203,11 @@ public:
     /// for _all_ pages when the wizard starts. Instead 'ShowPage' will call
     /// TransferDataToWindow for the first page only.
   bool TransferDataToWindow() override
-  {
-    return true;
-  }
+  { return true; }
   bool TransferDataFromWindow() override
-  {
-    return true;
-  }
+  { return true; }
   bool Validate() override
-  {
-    return true;
-  }
+  { return true; }
   wxDECLARE_NO_COPY_CLASS(wxWizardBase);
 };
 // include the real class declaration
@@ -233,9 +230,7 @@ public:
   wxWizardPage* GetPage() const
   { return m_page; }
   wxEvent* Clone() const override
-  {
-    return new wxWizardEvent(*this);
-  }
+  { return new wxWizardEvent(*this); }
 private:
   bool m_direction;
   wxWizardPage* m_page;

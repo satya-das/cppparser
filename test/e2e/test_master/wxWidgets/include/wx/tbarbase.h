@@ -436,9 +436,7 @@ public:
   void UpdateWindowUI(long flags = wxUPDATE_UI_NONE) override;
     // don't want toolbars to accept the focus
   bool AcceptsFocus() const override
-  {
-    return false;
-  }
+  { return false; }
 #    if  wxUSE_MENUS
     // Set dropdown menu
   bool SetDropdownMenu(int toolid, wxMenu* menu);
@@ -446,9 +444,7 @@ public:
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
     // to implement in derived classes
     // -------------------------------
 

@@ -46,8 +46,8 @@ public:
   wxTextCtrlHitTestResult HitTest(const wxPoint& pt, long* pos) const override;
   wxTextCtrlHitTestResult HitTest(const wxPoint& pt, wxTextCoord* col, wxTextCoord* row) const override
   {
-    return wxTextCtrlBase::HitTest(pt, col, row);
-  }
+        return wxTextCtrlBase::HitTest(pt, col, row);
+    }
     // Clipboard operations
   void Copy() override;
   void Cut() override;
@@ -109,9 +109,7 @@ protected:
     // Widgets that use the style->base colour for the BG colour should
     // override this and return true.
   bool UseGTKStyleBase() const override
-  {
-    return true;
-  }
+  { return true; }
   wxString DoGetValue() const override;
     // Override this to use either GtkEntry or GtkTextView IME depending on the
     // kind of control we are.
@@ -142,8 +140,9 @@ private:
     // both
   void* GetTextObject() const override
   {
-    return IsMultiLine() ? static_cast<void*>(m_buffer) : static_cast<void*>(m_text);
-  }
+        return IsMultiLine() ? static_cast<void *>(m_buffer)
+                             : static_cast<void *>(m_text);
+    }
     // the widget used for single line controls
   GtkWidget* m_text;
   bool m_modified;

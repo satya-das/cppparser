@@ -63,8 +63,8 @@ public:
     }
   void GetCompletions(const wxString&, wxArrayString& res) override
   {
-    res = m_strings;
-  }
+        res = m_strings;
+    }
 private:
   wxArrayString m_strings;
 };

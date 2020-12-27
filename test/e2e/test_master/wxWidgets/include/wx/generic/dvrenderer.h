@@ -21,21 +21,13 @@ public:
   void SetAlignment(int align) override;
   int GetAlignment() const override;
   void EnableEllipsize(wxEllipsizeMode mode = wxELLIPSIZE_MIDDLE) override
-  {
-    m_ellipsizeMode = mode;
-  }
+  { m_ellipsizeMode = mode; }
   wxEllipsizeMode GetEllipsizeMode() const override
-  {
-    return m_ellipsizeMode;
-  }
+  { return m_ellipsizeMode; }
   void SetMode(wxDataViewCellMode mode) override
-  {
-    m_mode = mode;
-  }
+  { m_mode = mode; }
   wxDataViewCellMode GetMode() const override
-  {
-    return m_mode;
-  }
+  { return m_mode; }
     // implementation
 
     // This callback is used by generic implementation of wxDVC itself.  It's
@@ -48,9 +40,7 @@ public:
   { m_state = state; }
 protected:
   bool IsHighlighted() const override
-  {
-    return m_state & wxDATAVIEW_CELL_SELECTED;
-  }
+  { return m_state & wxDATAVIEW_CELL_SELECTED; }
 private:
   int m_align;
   wxDataViewCellMode m_mode;

@@ -32,13 +32,9 @@ public:
         }
   virtual ~wxMemoryInputStream();
   wxFileOffset GetLength() const override
-  {
-    return m_length;
-  }
+  { return m_length; }
   bool IsSeekable() const override
-  {
-    return true;
-  }
+  { return true; }
   char Peek() override;
   bool CanRead() const override;
   wxStreamBuffer* GetInputStreamBuffer() const
@@ -63,13 +59,9 @@ public:
   wxMemoryOutputStream(void* data = NULL, size_t length = 0);
   virtual ~wxMemoryOutputStream();
   wxFileOffset GetLength() const override
-  {
-    return m_o_streambuf->GetLastAccess();
-  }
+  { return m_o_streambuf->GetLastAccess(); }
   bool IsSeekable() const override
-  {
-    return true;
-  }
+  { return true; }
   size_t CopyTo(void* buffer, size_t len) const;
   wxStreamBuffer* GetOutputStreamBuffer() const
   { return m_o_streambuf; }

@@ -52,9 +52,7 @@ public:
 
     // wxTextCtrl methods
   wxString GetValue() const override
-  {
-    return DoGetValue();
-  }
+  { return DoGetValue(); }
   void SetValue(const wxString& value) override;
   void WriteText(const wxString& value) override;
   void Copy() override;
@@ -81,8 +79,8 @@ public:
     // override these methods to disambiguate between two base classes versions
   void Clear() override
   {
-    wxItemContainer::Clear();
-  }
+        wxItemContainer::Clear();
+    }
     // See wxComboBoxBase discussion of IsEmpty().
   bool IsListEmpty() const
   { return wxItemContainer::IsEmpty(); }
@@ -108,16 +106,14 @@ public:
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-    return GetStdInputHandler(handlerDef);
-  }
+        return GetStdInputHandler(handlerDef);
+    }
     // we delegate our client data handling to wxListBox which we use for the
     // items, so override this and other methods dealing with the client data
   wxClientDataType GetClientDataType() const override;
   void SetClientDataType(wxClientDataType clientDataItemsType) override;
   const wxTextEntry* WXGetTextEntry() const override
-  {
-    return this;
-  }
+  { return this; }
 protected:
   int DoInsertItems(const wxArrayStringsAdapter& items, unsigned int pos, void** clientData, wxClientDataType type) override;
   void DoSetItemClientData(unsigned int n, void* clientData) override;
@@ -130,9 +126,7 @@ protected:
 private:
     // implement wxTextEntry pure virtual method
   wxWindow* GetEditableWindow() override
-  {
-    return this;
-  }
+  { return this; }
     // the popup listbox
   wxListBox* m_lbox;
     //wxDECLARE_EVENT_TABLE();

@@ -30,9 +30,7 @@ public:
   }
   void GetBordersForSizer(int* borderTop, int* borderOther) const override;
   bool AcceptsFocus() const override
-  {
-    return false;
-  }
+  { return false; }
     // protect native font of box
   bool SetFont(const wxFont& font) override;
 };

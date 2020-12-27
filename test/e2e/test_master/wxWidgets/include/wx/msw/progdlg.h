@@ -35,9 +35,7 @@ public:
   bool Show(bool show = true) override;
     // Must provide overload to avoid hiding it (and warnings about it)
   void Update() override
-  {
-    wxGenericProgressDialog::Update();
-  }
+  { wxGenericProgressDialog::Update(); }
   WXWidget GetHandle() const override;
 private:
     // Common part of Update() and Pulse().

@@ -153,12 +153,11 @@ namespace CatchCppUnit
       { return m_tests.size(); }
       void runTest() override
       {
-        for (size_t n = 0; n < m_tests.size(); ++n)
+        for ( size_t n = 0; n < m_tests.size(); ++n )
         {
-
             m_tests[n]->runTest();
-                }
-      }
+        }
+    }
     private:
       std::vector<Test*> m_tests;
       wxDECLARE_NO_COPY_CLASS(TestSuite);

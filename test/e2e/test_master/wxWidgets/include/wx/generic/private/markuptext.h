@@ -119,8 +119,6 @@ public:
   void Render(wxWindow* win, wxDC& dc, const wxRect& rect, int rendererFlags, wxEllipsizeMode ellipsizeMode);
 protected:
   wxString GetMarkupForMeasuring() const override
-  {
-    return m_markup;
-  }
+  { return m_markup; }
 };
 #endif

@@ -23,15 +23,11 @@ public:
   void SetNullText(const wxString& text) override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  {
-    return false;
-  }
+  { return false; }
   bool MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM* result) override;
 protected:
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
   wxSize DoGetBestSize() const override;
     // Helper for the derived classes Create(): creates a native control with
     // the specified attributes.

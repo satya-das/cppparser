@@ -44,8 +44,9 @@ protected:
         }
   void SetEnabled(bool enabled) override
   {
-    wxDataViewRenderer::SetEnabled(enabled && GetMode() != wxDATAVIEW_CELL_INERT);
-  }
+        wxDataViewRenderer::SetEnabled(enabled &&
+                                        GetMode() != wxDATAVIEW_CELL_INERT);
+    }
 };
 // ---------------------------------------------------------
 // wxDataViewTextRenderer

@@ -22,13 +22,9 @@ protected:
   size_t OnSysWrite(const void* buffer, size_t bufsize) override;
     // socket streams are both un-seekable and size-less streams:
   wxFileOffset OnSysTell() const override
-  {
-    return wxInvalidOffset;
-  }
+  { return wxInvalidOffset; }
   wxFileOffset OnSysSeek(wxFileOffset, wxSeekMode) override
-  {
-    return wxInvalidOffset;
-  }
+  { return wxInvalidOffset; }
   wxDECLARE_NO_COPY_CLASS(wxSocketOutputStream);
 };
 class WXDLLIMPEXP_NET wxSocketInputStream : public wxInputStream
@@ -41,13 +37,9 @@ protected:
   size_t OnSysRead(void* buffer, size_t bufsize) override;
     // socket streams are both un-seekable and size-less streams:
   wxFileOffset OnSysTell() const override
-  {
-    return wxInvalidOffset;
-  }
+  { return wxInvalidOffset; }
   wxFileOffset OnSysSeek(wxFileOffset, wxSeekMode) override
-  {
-    return wxInvalidOffset;
-  }
+  { return wxInvalidOffset; }
   wxDECLARE_NO_COPY_CLASS(wxSocketInputStream);
 };
 class WXDLLIMPEXP_NET wxSocketStream : public wxSocketInputStream, public wxSocketOutputStream

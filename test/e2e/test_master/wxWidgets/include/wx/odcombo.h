@@ -67,9 +67,7 @@ public:
   bool Create(wxWindow* parent) override;
   void SetFocus() override;
   wxWindow* GetControl() override
-  {
-    return this;
-  }
+  { return this; }
   void SetStringValue(const wxString& value) override;
   wxString GetStringValue() const override;
     // more customization
@@ -234,14 +232,12 @@ public:
   void Clear() override;
   void GetSelection(long* from, long* to) const override;
   void SetSelection(int n) override
-  {
-    Select(n);
-  }
+  { Select(n); }
     // Prevent a method from being hidden
   void SetSelection(long from, long to) override
   {
-    wxComboCtrl::SetSelection(from, to);
-  }
+        wxComboCtrl::SetSelection(from,to);
+    }
     // Return the widest item width (recalculating it if necessary)
   virtual int GetWidestItemWidth()
   { EnsurePopupControl(); return GetVListBoxComboPopup()->GetWidestItemWidth(); }
@@ -249,9 +245,7 @@ public:
   virtual int GetWidestItem()
   { EnsurePopupControl(); return GetVListBoxComboPopup()->GetWidestItem(); }
   bool IsSorted() const override
-  {
-    return HasFlag(wxCB_SORT);
-  }
+  { return HasFlag(wxCB_SORT); }
 protected:
   void DoClear() override;
   void DoDeleteOneItem(unsigned int n) override;

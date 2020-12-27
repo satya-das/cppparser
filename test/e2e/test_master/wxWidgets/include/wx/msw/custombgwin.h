@@ -27,21 +27,22 @@ public:
 protected:
   void DoSetBackgroundBitmap(const wxBitmap& bmp) override
   {
-    delete m_backgroundBrush;
-    m_backgroundBrush = bmp.IsOk() ? new wxBrush(bmp) : NULL;
+        delete m_backgroundBrush;
+        m_backgroundBrush = bmp.IsOk() ? new wxBrush(bmp) : NULL;
+
         // Our transparent children should use our background if we have it,
         // otherwise try to restore m_inheritBgCol to some reasonable value: true
         // if we also have non-default background colour or false otherwise.
-    BaseWindowClass::m_inheritBgCol = bmp.IsOk() || BaseWindowClass::UseBgCol();
-  }
+        BaseWindowClass::m_inheritBgCol = bmp.IsOk()
+                                            || BaseWindowClass::UseBgCol();
+    }
   WXHBRUSH MSWGetCustomBgBrush() override
   {
-    if (m_backgroundBrush)
-    {
-      return (WXHBRUSH) m_backgroundBrush->GetResourceHandle();
+        if ( m_backgroundBrush )
+            return (WXHBRUSH)m_backgroundBrush->GetResourceHandle();
+
+        return BaseWindowClass::MSWGetCustomBgBrush();
     }
-    return BaseWindowClass::MSWGetCustomBgBrush();
-  }
   wxBrush* m_backgroundBrush;
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxCustomBackgroundWindow, W);
 };

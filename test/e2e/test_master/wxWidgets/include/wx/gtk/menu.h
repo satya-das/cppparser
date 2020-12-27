@@ -40,9 +40,7 @@ private:
     // wxMenuBar is not a top level window but it still doesn't need a parent
     // window
   bool GTKNeedsParent() const override
-  {
-    return false;
-  }
+  { return false; }
   GtkWidget* m_menubar;
   wxDECLARE_DYNAMIC_CLASS(wxMenuBar);
 };

@@ -28,9 +28,7 @@ public:
   void CleanUp() override;
   void WakeUpIdle() override;
   void SetPrintMode(int mode) override
-  {
-    m_printMode = mode;
-  }
+  { m_printMode = mode; }
   virtual int GetPrintMode() const
   { return m_printMode; }
     // implementation only

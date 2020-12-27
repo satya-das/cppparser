@@ -19,25 +19,15 @@ public:
     // constructors
     // ------------
   DEFINE_STD_WXCOLOUR_CONSTRUCTORS bool IsOk() const override
-  {
-    return m_isInit;
-  }
+  { return m_isInit; }
   unsigned char Red() const override
-  {
-    return m_red;
-  }
+  { return m_red; }
   unsigned char Green() const override
-  {
-    return m_green;
-  }
+  { return m_green; }
   unsigned char Blue() const override
-  {
-    return m_blue;
-  }
+  { return m_blue; }
   unsigned char Alpha() const override
-  {
-    return m_alpha;
-  }
+  { return m_alpha ; }
     // comparison
   bool operator==(const wxColour& colour) const
   {

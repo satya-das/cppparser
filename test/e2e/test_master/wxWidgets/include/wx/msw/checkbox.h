@@ -30,15 +30,13 @@ public:
   void SetLabel(const wxString& label) override;
   void SetTransparentPartColour(const wxColour& col) override
   {
-    SetBackgroundColour(col);
-  }
+        SetBackgroundColour(col);
+    }
   bool MSWCommand(WXUINT param, WXWORD id) override;
   void Command(wxCommandEvent& event) override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  {
-    return false;
-  }
+  { return false; }
     // implementation only from now on
   WXDWORD MSWGetStyle(long flags, WXDWORD* exstyle = NULL) const override;
 protected:

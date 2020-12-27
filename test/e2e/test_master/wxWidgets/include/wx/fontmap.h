@@ -186,9 +186,7 @@ public:
   static wxFontMapper* Get();
     // pseudo-RTTI since we aren't a wxObject.
   bool IsDummy() override
-  {
-    return false;
-  }
+  { return false; }
 protected:
     // GetAltForEncoding() helper: tests for the existence of the given
     // encoding and saves the result in config if ok - this results in the

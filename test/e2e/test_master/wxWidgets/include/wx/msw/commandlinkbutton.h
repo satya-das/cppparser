@@ -36,8 +36,8 @@ public:
     // do the same thing as in the generic case here
   void SetLabel(const wxString& label) override
   {
-    SetMainLabelAndNote(label.BeforeFirst('\n'), label.AfterFirst('\n'));
-  }
+        SetMainLabelAndNote(label.BeforeFirst('\n'), label.AfterFirst('\n'));
+    }
   void SetMainLabelAndNote(const wxString& mainLabel, const wxString& note) override;
   WXDWORD MSWGetStyle(long style, WXDWORD* exstyle) const override;
 protected:

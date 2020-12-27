@@ -26,10 +26,10 @@ protected:
   void DoSetBitmapPosition(wxDirection dir) override;
   void DoSetBitmapMargins(int x, int y) override
   {
-    m_marginX = x;
-    m_marginY = y;
-    InvalidateBestSize();
-  }
+        m_marginX = x;
+        m_marginY = y;
+        InvalidateBestSize();
+    }
 #  if  wxUSE_MARKUP && wxOSX_USE_COCOA
   bool DoSetLabelMarkup(const wxString& markup) override;
 #  endif

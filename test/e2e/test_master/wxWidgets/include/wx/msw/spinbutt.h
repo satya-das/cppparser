@@ -36,14 +36,10 @@ public:
   bool MSWOnScroll(int orientation, WXWORD wParam, WXWORD pos, WXHWND control) override;
     // a wxSpinButton can't do anything useful with focus, only wxSpinCtrl can
   bool AcceptsFocus() const override
-  {
-    return false;
-  }
+  { return false; }
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  {
-    return false;
-  }
+  { return false; }
 protected:
   wxSize DoGetBestSize() const override;
    // ensure that the control displays a value in the current range

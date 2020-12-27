@@ -58,9 +58,7 @@ protected:
     // Widgets that use the style->base colour for the BG colour should
     // override this and return true.
   bool UseGTKStyleBase() const override
-  {
-    return true;
-  }
+  { return true; }
   friend class wxSpinCtrlEventDisabler;
   wxDECLARE_EVENT_TABLE();
 };
@@ -96,9 +94,7 @@ public:
   { return int(DoGetIncrement()); }
     // operations
   void SetValue(const wxString& value) override
-  {
-    wxSpinCtrlGTKBase::SetValue(value);
-  }
+  { wxSpinCtrlGTKBase::SetValue(value); }
   void SetValue(int value)
   { DoSetValue(value); }
   void SetRange(int minVal, int maxVal)
@@ -106,9 +102,7 @@ public:
   void SetIncrement(int inc)
   { DoSetIncrement(inc); }
   int GetBase() const override
-  {
-    return m_base;
-  }
+  { return m_base; }
   bool SetBase(int base) override;
 protected:
   void GtkSetEntryWidth() override;
@@ -153,9 +147,7 @@ public:
   unsigned GetDigits() const;
     // operations
   void SetValue(const wxString& value) override
-  {
-    wxSpinCtrlGTKBase::SetValue(value);
-  }
+  { wxSpinCtrlGTKBase::SetValue(value); }
   void SetValue(double value)
   { DoSetValue(value); }
   void SetRange(double minVal, double maxVal)
@@ -164,13 +156,9 @@ public:
   { DoSetIncrement(inc); }
   void SetDigits(unsigned digits);
   int GetBase() const override
-  {
-    return 10;
-  }
+  { return 10; }
   bool SetBase(int) override
-  {
-    return false;
-  }
+  { return false; }
 protected:
   void GtkSetEntryWidth() override;
   wxDECLARE_DYNAMIC_CLASS(wxSpinCtrlDouble);

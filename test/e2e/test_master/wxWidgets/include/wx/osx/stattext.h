@@ -25,9 +25,7 @@ public:
   void SetLabel(const wxString& str) override;
   bool SetFont(const wxFont& font) override;
   bool AcceptsFocus() const override
-  {
-    return false;
-  }
+  { return false; }
 protected:
   wxString WXGetVisibleLabel() const override;
   void WXSetVisibleLabel(const wxString& str) override;

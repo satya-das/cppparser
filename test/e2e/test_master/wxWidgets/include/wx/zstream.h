@@ -34,22 +34,16 @@ public:
   wxZlibInputStream(wxInputStream* stream, int flags = wxZLIB_AUTO);
   virtual ~wxZlibInputStream();
   char Peek() override
-  {
-    return wxInputStream::Peek();
-  }
+  { return wxInputStream::Peek(); }
   wxFileOffset GetLength() const override
-  {
-    return wxInputStream::GetLength();
-  }
+  { return wxInputStream::GetLength(); }
   static bool CanHandleGZip();
   bool SetDictionary(const char* data, size_t datalen);
   bool SetDictionary(const wxMemoryBuffer& buf);
 protected:
   size_t OnSysRead(void* buffer, size_t size) override;
   wxFileOffset OnSysTell() const override
-  {
-    return m_pos;
-  }
+  { return m_pos; }
 private:
   void Init(int flags);
 protected:
@@ -68,23 +62,17 @@ public:
   {
  Close();   }
   void Sync() override
-  {
-    DoFlush(false);
-  }
+  { DoFlush(false); }
   bool Close() override;
   wxFileOffset GetLength() const override
-  {
-    return m_pos;
-  }
+  { return m_pos; }
   static bool CanHandleGZip();
   bool SetDictionary(const char* data, size_t datalen);
   bool SetDictionary(const wxMemoryBuffer& buf);
 protected:
   size_t OnSysWrite(const void* buffer, size_t size) override;
   wxFileOffset OnSysTell() const override
-  {
-    return m_pos;
-  }
+  { return m_pos; }
   virtual void DoFlush(bool final);
 private:
   void Init(int level, int flags);
@@ -100,21 +88,13 @@ class WXDLLIMPEXP_BASE wxZlibClassFactory : public wxFilterClassFactory
 public:
   wxZlibClassFactory();
   wxFilterInputStream* NewStream(wxInputStream& stream) const override
-  {
-    return new wxZlibInputStream(stream);
-  }
+  { return new wxZlibInputStream(stream); }
   wxFilterOutputStream* NewStream(wxOutputStream& stream) const override
-  {
-    return new wxZlibOutputStream(stream, -1);
-  }
+  { return new wxZlibOutputStream(stream, -1); }
   wxFilterInputStream* NewStream(wxInputStream* stream) const override
-  {
-    return new wxZlibInputStream(stream);
-  }
+  { return new wxZlibInputStream(stream); }
   wxFilterOutputStream* NewStream(wxOutputStream* stream) const override
-  {
-    return new wxZlibOutputStream(stream, -1);
-  }
+  { return new wxZlibOutputStream(stream, -1); }
   const wxChar* const * GetProtocols(wxStreamProtocolType type = wxSTREAM_PROTOCOL) const override;
   wxDECLARE_DYNAMIC_CLASS(wxZlibClassFactory);
 };
@@ -123,21 +103,13 @@ class WXDLLIMPEXP_BASE wxGzipClassFactory : public wxFilterClassFactory
 public:
   wxGzipClassFactory();
   wxFilterInputStream* NewStream(wxInputStream& stream) const override
-  {
-    return new wxZlibInputStream(stream);
-  }
+  { return new wxZlibInputStream(stream); }
   wxFilterOutputStream* NewStream(wxOutputStream& stream) const override
-  {
-    return new wxZlibOutputStream(stream, -1);
-  }
+  { return new wxZlibOutputStream(stream, -1); }
   wxFilterInputStream* NewStream(wxInputStream* stream) const override
-  {
-    return new wxZlibInputStream(stream);
-  }
+  { return new wxZlibInputStream(stream); }
   wxFilterOutputStream* NewStream(wxOutputStream* stream) const override
-  {
-    return new wxZlibOutputStream(stream, -1);
-  }
+  { return new wxZlibOutputStream(stream, -1); }
   const wxChar* const * GetProtocols(wxStreamProtocolType type = wxSTREAM_PROTOCOL) const override;
   wxDECLARE_DYNAMIC_CLASS(wxGzipClassFactory);
 };

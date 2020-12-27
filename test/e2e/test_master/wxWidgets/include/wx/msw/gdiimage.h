@@ -47,9 +47,7 @@ public:
         }
     // accessors
   bool IsOk() const override
-  {
-    return m_handle != NULL;
-  }
+  { return m_handle != NULL; }
   void SetSize(int w, int h)
   { m_width = w; m_height = h; }
     // free the resources we allocated
@@ -117,15 +115,14 @@ protected:
   virtual wxGDIImageRefData* CreateData() const = 0;
     // implement the wxGDIObject method in terms of our, more specific, one
   wxGDIRefData* CreateGDIRefData() const override
-  {
-    return CreateData();
-  }
+  { return CreateData(); }
     // we can't [efficiently] clone objects of this class
   wxGDIRefData* CloneGDIRefData(const wxGDIRefData*) const override
   {
-    wxFAIL_MSG(wxT("must be implemented if used"));
-    return NULL;
-  }
+        wxFAIL_MSG( wxT("must be implemented if used") );
+
+        return NULL;
+    }
   static wxGDIImageHandlerList ms_handlers;
 };
 // ----------------------------------------------------------------------------

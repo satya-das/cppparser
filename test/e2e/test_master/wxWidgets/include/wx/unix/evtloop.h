@@ -32,9 +32,7 @@ public:
   int DispatchTimeout(unsigned long timeout) override;
   void WakeUp() override;
   bool IsOk() const override
-  {
-    return m_dispatcher != NULL;
-  }
+  { return m_dispatcher != NULL; }
 protected:
   void OnNextIteration() override;
   void DoYieldFor(long eventsToProcess) override;

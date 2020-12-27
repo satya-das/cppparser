@@ -97,21 +97,19 @@ public:
     // return true for WM_PRINTCLIENT here then it causes noticeable slowdown
   bool MSWShouldPropagatePrintChild() override
   {
-    return false;
-  }
+        return false;
+    }
   wxVisualAttributes GetDefaultAttributes() const override
   {
-    return GetClassDefaultAttributes(GetWindowVariant());
-  }
+        return GetClassDefaultAttributes(GetWindowVariant());
+    }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL)
   {
         return GetCompositeControlsDefaultAttributes(variant);
     }
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  {
-    return false;
-  }
+  { return false; }
   void OnInternalIdle() override;
 protected:
   wxSize DoGetBestClientSize() const override;

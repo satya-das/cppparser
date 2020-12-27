@@ -248,10 +248,7 @@ public:
     {
     }
   void SetParser(wxHtmlParser* parser) override
-  {
-    wxHtmlTagHandler::SetParser(parser);
-    m_WParser = (wxHtmlWinParser*) parser;
-  }
+  {wxHtmlTagHandler::SetParser(parser); m_WParser = (wxHtmlWinParser*) parser;}
 protected:
   wxHtmlWinParser* m_WParser;
   void ApplyStyle(const wxHtmlStyleParams& styleParams);

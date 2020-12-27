@@ -36,9 +36,7 @@ public:
 protected:
   wxSize DoGetBestClientSize() const override;
   wxString WXGetVisibleLabel() const override
-  {
-    return m_label;
-  }
+  { return m_label; }
   void WXSetVisibleLabel(const wxString& label) override;
   void DoSetSize(int x, int y, int width, int height, int sizeFlags) override;
 #  if  wxUSE_MARKUP

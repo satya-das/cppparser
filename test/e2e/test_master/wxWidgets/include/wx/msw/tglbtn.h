@@ -30,14 +30,10 @@ public:
   void Command(wxCommandEvent& event) override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  {
-    return false;
-  }
+  { return false; }
 protected:
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
   WXDWORD MSWGetStyle(long flags, WXDWORD* exstyle = NULL) const override;
   bool MSWIsPushed() const override;
   void Init();
@@ -64,9 +60,7 @@ public:
   bool Create(wxWindow* parent, wxWindowID id, const wxBitmap& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr));
     // deprecated synonym for SetBitmapLabel()
   void SetLabel(const wxString& label) override
-  {
-    wxToggleButton::SetLabel(label);
-  }
+  { wxToggleButton::SetLabel(label); }
   wxDECLARE_DYNAMIC_CLASS(wxBitmapToggleButton);
 };
 #endif

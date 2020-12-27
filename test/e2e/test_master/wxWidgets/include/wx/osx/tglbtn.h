@@ -28,9 +28,7 @@ public:
   void Command(wxCommandEvent& event) override;
 protected:
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxToggleButton);
 };
 class WXDLLIMPEXP_CORE wxBitmapToggleButton : public wxToggleButton

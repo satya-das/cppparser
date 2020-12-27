@@ -94,9 +94,7 @@ public:
     // then they become owner-drawn and not theme-drawn.  Disable it here
     // in wxAnyButtonBase to make it consistent.
   bool ShouldInheritColours() const override
-  {
-    return false;
-  }
+  { return false; }
     // wxUniv-compatible and deprecated equivalents to SetBitmapXXX()
 #    if  WXWIN_COMPATIBILITY_2_8
   void SetImageLabel(const wxBitmap& bitmap)
@@ -148,9 +146,7 @@ public:
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
   virtual wxBitmap DoGetBitmap(State) const
   { return wxBitmap(); }
   virtual void DoSetBitmap(const wxBitmap&, State)

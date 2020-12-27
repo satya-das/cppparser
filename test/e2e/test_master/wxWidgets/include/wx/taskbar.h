@@ -91,9 +91,7 @@ public:
         SetEventObject(tbIcon);
         }
   wxEvent* Clone() const override
-  {
-    return new wxTaskBarIconEvent(*this);
-  }
+  { return new wxTaskBarIconEvent(*this); }
   wxDECLARE_NO_ASSIGN_CLASS(wxTaskBarIconEvent);
 };
 typedef void (*wxTaskBarIconEventFunction) (wxTaskBarIconEvent&);

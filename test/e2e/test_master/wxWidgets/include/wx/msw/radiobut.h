@@ -32,15 +32,11 @@ public:
   bool MSWCommand(WXUINT param, WXWORD id) override;
   void Command(wxCommandEvent& event) override;
   bool HasTransparentBackground() override
-  {
-    return true;
-  }
+  { return true; }
   WXDWORD MSWGetStyle(long style, WXDWORD* exstyle) const override;
 protected:
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
   wxSize DoGetBestSize() const override;
     // Implement wxMSWOwnerDrawnButtonBase methods.
   int MSWGetButtonStyle() const override;

@@ -91,20 +91,18 @@ protected:
     }
   void OnOutputLine(const wxString& line) override
   {
-    if (!line.empty())
-    {
-
+        if ( !line.empty() )
+        {
             m_sizer->Add(OnCreateLine(line));
-            }
-    else 
-    {
-      if (!m_hLine)
-      {
-        m_hLine = m_win->GetCharHeight();
-      }
-      m_sizer->Add(5, m_hLine);
+        }
+        else // empty line, no need to create a control for it
+        {
+            if ( !m_hLine )
+                m_hLine = m_win->GetCharHeight();
+
+            m_sizer->Add(5, m_hLine);
+        }
     }
-  }
 private:
   wxWindow* m_win;
   wxSizer* m_sizer;

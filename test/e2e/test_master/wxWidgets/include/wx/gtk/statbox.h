@@ -39,9 +39,7 @@ public:
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
     // implementation
   bool GTKIsTransparentForMouse() const override
-  {
-    return true;
-  }
+  { return true; }
   void GetBordersForSizer(int* borderTop, int* borderOther) const override;
   void AddChild(wxWindowBase* child) override;
 protected:

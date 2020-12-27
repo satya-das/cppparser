@@ -163,9 +163,7 @@ protected:
   void DoSetClientSize(int width, int height) override;
   void InternalSetMenuBar() override;
   bool IsMDIChild() const override
-  {
-    return true;
-  }
+  { return true; }
   void DetachMenuBar() override;
   WXHICON GetDefaultIcon() const override;
     // common part of all ctors

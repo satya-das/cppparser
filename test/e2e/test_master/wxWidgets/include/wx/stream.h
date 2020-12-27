@@ -232,9 +232,7 @@ public:
   bool Ok() const
   { return IsOk(); }
   bool IsOk() const override
-  {
-    return true;
-  }
+  { return true; }
 protected:
   size_t OnSysWrite(const void* buffer, size_t size) override;
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override;
@@ -254,13 +252,9 @@ public:
   wxFilterInputStream(wxInputStream* stream);
   virtual ~wxFilterInputStream();
   char Peek() override
-  {
-    return m_parent_i_stream->Peek();
-  }
+  { return m_parent_i_stream->Peek(); }
   wxFileOffset GetLength() const override
-  {
-    return m_parent_i_stream->GetLength();
-  }
+  { return m_parent_i_stream->GetLength(); }
   wxInputStream* GetFilterInputStream() const
   { return m_parent_i_stream; }
 protected:
@@ -277,9 +271,7 @@ public:
   wxFilterOutputStream(wxOutputStream* stream);
   virtual ~wxFilterOutputStream();
   wxFileOffset GetLength() const override
-  {
-    return m_parent_o_stream->GetLength();
-  }
+  { return m_parent_o_stream->GetLength(); }
   wxOutputStream* GetFilterOutputStream() const
   { return m_parent_o_stream; }
   bool Close() override;
@@ -478,9 +470,7 @@ public:
   wxFileOffset SeekI(wxFileOffset pos, wxSeekMode mode = wxFromStart) override;
   wxFileOffset TellI() const override;
   bool IsSeekable() const override
-  {
-    return m_parent_i_stream->IsSeekable();
-  }
+  { return m_parent_i_stream->IsSeekable(); }
     // the buffer given to the stream will be deleted by it
   void SetInputStreamBuffer(wxStreamBuffer* buffer);
   wxStreamBuffer* GetInputStreamBuffer() const
@@ -513,9 +503,7 @@ public:
   wxFileOffset SeekO(wxFileOffset pos, wxSeekMode mode = wxFromStart) override;
   wxFileOffset TellO() const override;
   bool IsSeekable() const override
-  {
-    return m_parent_o_stream->IsSeekable();
-  }
+  { return m_parent_o_stream->IsSeekable(); }
   void Sync() override;
   bool Close() override;
   wxFileOffset GetLength() const override;

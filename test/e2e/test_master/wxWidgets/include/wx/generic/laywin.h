@@ -79,9 +79,7 @@ public:
   wxLayoutAlignment GetAlignment() const
   { return m_alignment; }
   wxEvent* Clone() const override
-  {
-    return new wxQueryLayoutInfoEvent(*this);
-  }
+  { return new wxQueryLayoutInfoEvent(*this); }
 protected:
   int m_flags;
   int m_requestedLength;
@@ -119,9 +117,7 @@ public:
   wxRect GetRect() const
   { return m_rect; }
   wxEvent* Clone() const override
-  {
-    return new wxCalculateLayoutEvent(*this);
-  }
+  { return new wxCalculateLayoutEvent(*this); }
 protected:
   int m_flags;
   wxRect m_rect;

@@ -15,9 +15,7 @@ public:
   wxMessageDialog(wxWindow* parent, const wxString& message, const wxString& caption = wxASCII_STR(wxMessageBoxCaptionStr), long style = wxOK | wxCENTRE, const wxPoint& pos = wxDefaultPosition);
   int ShowModal() override;
   bool Show(bool = true) override
-  {
-    return false;
-  }
+  { return false; }
 protected:
     // implement some base class methods to do nothing to avoid asserts and
     // GTK warnings, since this is not a real wxDialog.

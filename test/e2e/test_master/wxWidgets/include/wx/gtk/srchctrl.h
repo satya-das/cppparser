@@ -69,9 +69,7 @@ private:
 #endif // wxUSE_MENUS/!wxUSE_MENUS
     }
   GtkEntry* GetEntry() const override
-  {
-    return m_entry;
-  }
+  { return m_entry; }
   GtkEntry* m_entry;
 #    if  wxUSE_MENUS
   wxMenu* m_menu;

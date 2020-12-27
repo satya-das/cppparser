@@ -48,9 +48,7 @@ public:
   void SetThumbLength(int lenPixels) override;
   int GetThumbLength() const override;
   int GetTickFreq() const override
-  {
-    return m_tickFreq;
-  }
+  { return m_tickFreq; }
     // wxUniv-specific methods
     // -----------------------
 
@@ -70,13 +68,9 @@ public:
                  ((GetWindowStyle() & (wxSL_TOP|wxSL_BOTTOM|wxSL_LEFT|wxSL_RIGHT|wxSL_BOTH)) != 0); }
     // implement wxControlWithThumb interface
   wxWindow* GetWindow() override
-  {
-    return this;
-  }
+  { return this; }
   bool IsVertical() const override
-  {
-    return IsVert();
-  }
+  { return IsVert(); }
   wxScrollThumb::Shaft HitTest(const wxPoint& pt) const override;
   wxCoord ThumbPosToPixel() const override;
   int PixelToThumbPos(wxCoord x) const override;
@@ -93,8 +87,8 @@ public:
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-    return GetStdInputHandler(handlerDef);
-  }
+        return GetStdInputHandler(handlerDef);
+    }
 protected:
   enum
   {
@@ -106,9 +100,7 @@ protected:
   wxSize DoGetBestClientSize() const override;
   void DoDraw(wxControlRenderer* renderer) override;
   wxBorder GetDefaultBorder() const override
-  {
-    return wxBORDER_NONE;
-  }
+  { return wxBORDER_NONE; }
     // event handlers
   void OnSize(wxSizeEvent& event);
     // common part of all ctors

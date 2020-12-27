@@ -21,9 +21,7 @@ public:
     // Must call this to set the filename
   bool Initialize(const wxString& file) override;
   bool Initialize(const wxString& file, int) override
-  {
-    return Initialize(file);
-  }
+  { return Initialize( file ); }
     // If file is "", reloads file given in Initialize
   bool LoadFile(const wxString& file = wxEmptyString) override;
   bool DisplayContents() override;

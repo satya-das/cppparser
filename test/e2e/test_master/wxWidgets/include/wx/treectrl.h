@@ -311,9 +311,7 @@ public:
     // implementation
     // --------------
   bool ShouldInheritColours() const override
-  {
-    return false;
-  }
+  { return false; }
     // hint whether to calculate best size quickly or accurately
   void SetQuickBestSize(bool q)
   { m_quickBestSize = q; }

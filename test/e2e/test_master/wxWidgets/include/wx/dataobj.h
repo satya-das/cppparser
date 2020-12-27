@@ -197,29 +197,17 @@ public:
     // implement base class pure virtuals
     // ----------------------------------
   wxDataFormat GetPreferredFormat(wxDataObjectBase::Direction = Get) const override
-  {
-    return m_format;
-  }
+  { return m_format; }
   size_t GetFormatCount(wxDataObjectBase::Direction = Get) const override
-  {
-    return 1;
-  }
+  { return 1; }
   void GetAllFormats(wxDataFormat* formats, wxDataObjectBase::Direction = Get) const override
-  {
-    *formats = m_format;
-  }
+  { *formats = m_format; }
   size_t GetDataSize(const wxDataFormat&) const override
-  {
-    return GetDataSize();
-  }
+  { return GetDataSize(); }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
-  {
-    return GetDataHere(buf);
-  }
+  { return GetDataHere(buf); }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
-  {
-    return SetData(len, buf);
-  }
+  { return SetData(len, buf); }
 private:
     // the one and only format we support
   wxDataFormat m_format;
@@ -320,16 +308,16 @@ public:
     // Must provide overloads to avoid hiding them (and warnings about it)
   size_t GetDataSize(const wxDataFormat&) const override
   {
-    return GetDataSize();
-  }
+        return GetDataSize();
+    }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
-    return GetDataHere(buf);
-  }
+        return GetDataHere(buf);
+    }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
-    return SetData(len, buf);
-  }
+        return SetData(len, buf);
+    }
 private:
   wxString m_html;
 };
@@ -365,22 +353,14 @@ public:
     // some platforms have 2 and not 1 format for text data
 #    if  defined(wxNEEDS_UTF8_FOR_TEXT_DATAOBJ) || defined(wxNEEDS_UTF16_FOR_TEXT_DATAOBJ)
   size_t GetFormatCount(Direction = Get) const override
-  {
-    return 2;
-  }
+  { return 2; }
   void GetAllFormats(wxDataFormat* formats, wxDataObjectBase::Direction = Get) const override;
   size_t GetDataSize() const override
-  {
-    return GetDataSize(GetPreferredFormat());
-  }
+  { return GetDataSize(GetPreferredFormat()); }
   bool GetDataHere(void* buf) const override
-  {
-    return GetDataHere(GetPreferredFormat(), buf);
-  }
+  { return GetDataHere(GetPreferredFormat(), buf); }
   bool SetData(size_t len, const void* buf) override
-  {
-    return SetData(GetPreferredFormat(), len, buf);
-  }
+  { return SetData(GetPreferredFormat(), len, buf); }
   size_t GetDataSize(const wxDataFormat& format) const override;
   bool GetDataHere(const wxDataFormat& format, void* pBuf) const override;
   bool SetData(const wxDataFormat& format, size_t nLen, const void* pBuf) override;
@@ -391,16 +371,16 @@ public:
     // Must provide overloads to avoid hiding them (and warnings about it)
   size_t GetDataSize(const wxDataFormat&) const override
   {
-    return GetDataSize();
-  }
+        return GetDataSize();
+    }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
-    return GetDataHere(buf);
-  }
+        return GetDataHere(buf);
+    }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
-    return SetData(len, buf);
-  }
+        return SetData(len, buf);
+    }
 #    endif
 #    if  defined(__WXQT__)
 private:
@@ -493,16 +473,16 @@ public:
     // Must provide overloads to avoid hiding them (and warnings about it)
   size_t GetDataSize(const wxDataFormat&) const override
   {
-    return GetDataSize();
-  }
+        return GetDataSize();
+    }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
-    return GetDataHere(buf);
-  }
+        return GetDataHere(buf);
+    }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
-    return SetData(len, buf);
-  }
+        return SetData(len, buf);
+    }
 private:
   size_t m_size;
   void* m_data;

@@ -55,35 +55,32 @@ public:
   typedef T BaseApp;
   BOOL InitInstance() override
   {
-    if (!BaseApp::InitInstance())
-    {
-      return FALSE;
+        if ( !BaseApp::InitInstance() )
+            return FALSE;
+
+        if ( !wxEntryStart(BaseApp::m_hInstance) )
+            return FALSE;
+
+        if ( !wxTheApp || !wxTheApp->CallOnInit() )
+            return FALSE;
+
+        if ( !InitMainWnd() )
+            return FALSE;
+
+        return TRUE;
     }
-    if (!wxEntryStart(BaseApp::m_hInstance))
-    {
-      return FALSE;
-    }
-    if (!wxTheApp || !wxTheApp->CallOnInit())
-    {
-      return FALSE;
-    }
-    if (!InitMainWnd())
-    {
-      return FALSE;
-    }
-    return TRUE;
-  }
   int ExitInstance() override
   {
-    delete BaseApp::m_pMainWnd;
-    BaseApp::m_pMainWnd = NULL;
-    if (wxTheApp)
-    {
-      wxTheApp->OnExit();
+        delete BaseApp::m_pMainWnd;
+        BaseApp::m_pMainWnd = NULL;
+
+        if ( wxTheApp )
+            wxTheApp->OnExit();
+
+        wxEntryCleanup();
+
+        return BaseApp::ExitInstance();
     }
-    wxEntryCleanup();
-    return BaseApp::ExitInstance();
-  }
     // Override this to provide messages pre-processing for wxWidgets windows.
   BOOL PreTranslateMessage(MSG* msg) override
   {
@@ -91,31 +88,30 @@ public:
         // standard one otherwise, but make sure we pre-process messages in any
         // case as otherwise many things would break (e.g. keyboard
         // accelerators).
-    wxGUIEventLoop* evtLoop = static_cast<wxGUIEventLoop*>(wxEventLoop::GetActive());
-    wxGUIEventLoop evtLoopStd;
-    if (!evtLoop)
-    {
-      evtLoop = &evtLoopStd;
+        wxGUIEventLoop*
+            evtLoop = static_cast<wxGUIEventLoop *>(wxEventLoop::GetActive());
+        wxGUIEventLoop evtLoopStd;
+        if ( !evtLoop )
+            evtLoop = &evtLoopStd;
+        if ( evtLoop->PreProcessMessage(msg) )
+            return TRUE;
+
+        return BaseApp::PreTranslateMessage(msg);
     }
-    if (evtLoop->PreProcessMessage(msg))
-    {
-      return TRUE;
-    }
-    return BaseApp::PreTranslateMessage(msg);
-  }
   BOOL OnIdle(LONG lCount) override
   {
-    BOOL moreIdle = BaseApp::OnIdle(lCount);
-    if (wxTheApp)
-    {
+        BOOL moreIdle = BaseApp::OnIdle(lCount);
 
+        if ( wxTheApp )
+        {
             wxTheApp->ProcessPendingEvents();
 
             if ( wxTheApp->ProcessIdle() )
                 moreIdle = TRUE;
-            }
-    return moreIdle;
-  }
+        }
+
+        return moreIdle;
+    }
 protected:
     // This virtual method can be overridden to create the main window using
     // MFC code. The default implementation relies on wxApp::OnInit() creating
@@ -163,18 +159,17 @@ public:
   {
         // There is no wxEventLoop to exit, tell MFC to stop pumping messages
         // instead.
-    ::PostQuitMessage(0);
-  }
+        ::PostQuitMessage(0);
+    }
   void WakeUpIdle() override
   {
         // As above, we can't wake up any wx event loop, so try to wake up the
         // MFC one instead.
-    CWinApp* const mfcApp = AfxGetApp();
-    if (mfcApp && mfcApp->m_pMainWnd)
-    {
-
+        CWinApp* const mfcApp = AfxGetApp();
+        if ( mfcApp && mfcApp->m_pMainWnd )
+        {
             ::PostMessage(mfcApp->m_pMainWnd->m_hWnd, WM_NULL, 0, 0);
-            }
-  }
+        }
+    }
 };
 #endif

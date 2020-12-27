@@ -22,9 +22,7 @@ public:
 #  ifdef __WXOSX_COCOA__
     // skip wxGUIEventLoop to avoid missing Enter/Exit notifications
   int Run() override
-  {
-    return wxCFEventLoop::Run();
-  }
+  { return wxCFEventLoop::Run(); }
 #  endif
 protected:
   void OSXDoRun() override;

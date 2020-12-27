@@ -499,9 +499,7 @@ public:
   { return m_bLinkWasClicked; }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
-  {
-    return new wxHtmlCellEvent(*this);
-  }
+  { return new wxHtmlCellEvent(*this); }
 private:
   wxHtmlCell* m_cell;
   wxMouseEvent m_mouseEvent;
@@ -529,9 +527,7 @@ public:
   { return m_linkInfo; }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
-  {
-    return new wxHtmlLinkEvent(*this);
-  }
+  { return new wxHtmlLinkEvent(*this); }
 private:
   wxHtmlLinkInfo m_linkInfo;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxHtmlLinkEvent);

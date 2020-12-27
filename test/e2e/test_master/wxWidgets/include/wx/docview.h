@@ -597,8 +597,8 @@ protected:
     // hook the child view into event handlers chain here
   bool TryBefore(wxEvent& event) override
   {
-    return TryProcessEvent(event) || BaseClass::TryBefore(event);
-  }
+        return TryProcessEvent(event) || BaseClass::TryBefore(event);
+    }
 private:
   void OnActivate(wxActivateEvent& event)
   {
@@ -715,8 +715,8 @@ protected:
         // wxMDIParentFrame overrides its TryBefore() to send the menu events
         // to the currently active child frame and the child must get them
         // before our own TryProcessEvent() is executed, not afterwards.
-    return BaseFrame::TryBefore(event) || TryProcessEvent(event);
-  }
+        return BaseFrame::TryBefore(event) || TryProcessEvent(event);
+    }
 private:
   void OnExit(wxCommandEvent&)
   {

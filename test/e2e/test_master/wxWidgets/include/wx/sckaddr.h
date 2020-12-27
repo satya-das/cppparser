@@ -87,13 +87,9 @@ class WXDLLIMPEXP_NET wxIPV4address : public wxIPaddress
 public:
     // implement wxSockAddress pure virtuals:
   Family Type() override
-  {
-    return IPV4;
-  }
+  { return IPV4; }
   wxSockAddress* Clone() const override
-  {
-    return new wxIPV4address(*this);
-  }
+  { return new wxIPV4address(*this); }
     // implement wxIPaddress pure virtuals:
   bool IsLocalHost() const override;
   wxString IPAddress() const override;
@@ -113,13 +109,9 @@ class WXDLLIMPEXP_NET wxIPV6address : public wxIPaddress
 public:
     // implement wxSockAddress pure virtuals:
   Family Type() override
-  {
-    return IPV6;
-  }
+  { return IPV6; }
   wxSockAddress* Clone() const override
-  {
-    return new wxIPV6address(*this);
-  }
+  { return new wxIPV6address(*this); }
     // implement wxIPaddress pure virtuals:
   bool IsLocalHost() const override;
   wxString IPAddress() const override;
@@ -143,13 +135,9 @@ public:
   void Filename(const wxString& name);
   wxString Filename() const;
   Family Type() override
-  {
-    return UNIX;
-  }
+  { return UNIX; }
   wxSockAddress* Clone() const override
-  {
-    return new wxUNIXaddress(*this);
-  }
+  { return new wxUNIXaddress(*this); }
 private:
   wxSockAddressImpl& GetUNIX();
   const wxSockAddressImpl& GetUNIX() const

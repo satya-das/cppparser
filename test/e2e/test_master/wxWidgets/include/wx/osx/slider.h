@@ -28,22 +28,16 @@ public:
   void SetValue(int) override;
   void SetRange(int minValue, int maxValue) override;
   int GetMin() const override
-  {
-    return m_rangeMin;
-  }
+  { return m_rangeMin; }
   int GetMax() const override
-  {
-    return m_rangeMax;
-  }
+  { return m_rangeMax; }
   void SetMin(int minValue)
   { SetRange(minValue, m_rangeMax); }
   void SetMax(int maxValue)
   { SetRange(m_rangeMin, maxValue); }
     // For trackbars only
   int GetTickFreq() const override
-  {
-    return m_tickFreq;
-  }
+  { return m_tickFreq; }
   void SetPageSize(int pageSize) override;
   int GetPageSize() const override;
   void ClearSel() override;
@@ -80,12 +74,12 @@ protected:
 private:
   wxWindowList GetCompositeWindowParts() const override
   {
-    wxWindowList parts;
-    parts.push_back(m_macMinimumStatic);
-    parts.push_back(m_macMaximumStatic);
-    parts.push_back(m_macValueStatic);
-    return parts;
-  }
+        wxWindowList parts;
+        parts.push_back(m_macMinimumStatic);
+        parts.push_back(m_macMaximumStatic);
+        parts.push_back(m_macValueStatic);
+        return parts;
+    }
   wxDECLARE_EVENT_TABLE();
 };
 #endif

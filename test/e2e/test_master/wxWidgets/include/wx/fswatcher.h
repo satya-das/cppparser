@@ -141,18 +141,18 @@ public:
     }
   wxEvent* Clone() const override
   {
-    wxFileSystemWatcherEvent* evt = new wxFileSystemWatcherEvent(*this);
-    evt->m_errorMsg = m_errorMsg.Clone();
-    evt->m_path = wxFileName(m_path.GetFullPath().Clone());
-    evt->m_newPath = wxFileName(m_newPath.GetFullPath().Clone());
-    evt->m_warningType = m_warningType;
-    return evt;
-  }
+        wxFileSystemWatcherEvent* evt = new wxFileSystemWatcherEvent(*this);
+        evt->m_errorMsg = m_errorMsg.Clone();
+        evt->m_path = wxFileName(m_path.GetFullPath().Clone());
+        evt->m_newPath = wxFileName(m_newPath.GetFullPath().Clone());
+        evt->m_warningType = m_warningType;
+        return evt;
+    }
   wxEventCategory GetEventCategory() const override
   {
         // TODO this has to be merged with "similar" categories and changed
-    return wxEVT_CATEGORY_UNKNOWN;
-  }
+        return wxEVT_CATEGORY_UNKNOWN;
+    }
     /**
      * Returns if this error is an error event
      */

@@ -574,9 +574,7 @@ public:
   int GetMaxPage() const override;
   int GetMinPage() const override;
   bool Ok() const override
-  {
-    return IsOk();
-  }
+  { return IsOk(); }
   bool IsOk() const override;
   void SetOk(bool ok) override;
 private:

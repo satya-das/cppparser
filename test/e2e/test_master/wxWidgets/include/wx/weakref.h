@@ -87,10 +87,10 @@ public:
   void OnObjectDestroy() override
   {
         // Tracked object itself removes us from list of trackers
-    wxASSERT(m_pobj != NULL);
-    m_pobj = NULL;
-    m_ptbase = NULL;
-  }
+        wxASSERT(m_pobj != NULL);
+        m_pobj = NULL;
+        m_ptbase = NULL;
+    }
 protected:
     // Assign receives most derived class here and can use that
   template <typename TDerived>
@@ -178,9 +178,10 @@ public:
     }
   void OnObjectDestroy() override
   {
-    wxASSERT_MSG(m_pobj, "tracked object should have removed us itself");
-    m_pobj = NULL;
-  }
+        wxASSERT_MSG(m_pobj, "tracked object should have removed us itself");
+
+        m_pobj = NULL;
+    }
 protected:
   void Assign(T* pobj)
   {

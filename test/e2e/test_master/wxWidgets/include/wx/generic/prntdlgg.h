@@ -72,13 +72,9 @@ public:
   bool TransferTo(wxPrintData& data) override;
   bool TransferFrom(const wxPrintData& data) override;
   bool Ok() const override
-  {
-    return IsOk();
-  }
+  { return IsOk(); }
   bool IsOk() const override
-  {
-    return true;
-  }
+  { return true; }
   const wxString& GetPrinterCommand() const
   { return m_printerCommand; }
   const wxString& GetPrinterOptions() const
@@ -152,13 +148,9 @@ public:
   bool TransferDataToWindow() override;
   int ShowModal() override;
   wxPrintData& GetPrintData() override
-  {
-    return m_printDialogData.GetPrintData();
-  }
+  { return m_printDialogData.GetPrintData(); }
   wxPrintDialogData& GetPrintDialogData() override
-  {
-    return m_printDialogData;
-  }
+  { return m_printDialogData; }
   wxDC* GetPrintDC() override;
 //    wxStaticText*       m_printerMessage;
   wxButton* m_setupButton;

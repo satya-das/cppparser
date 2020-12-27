@@ -326,9 +326,7 @@ public:
   size_t ToWChar(wchar_t* dst, size_t dstSize, const char* src, size_t srcSize = wxNO_LEN) const override;
   size_t FromWChar(char* dst, size_t dstSize, const wchar_t* src, size_t srcSize = wxNO_LEN) const override;
   wxMBConv* Clone() const override
-  {
-    return new wxMBConv_cf(*this);
-  }
+  { return new wxMBConv_cf(*this); }
   bool IsOk() const
   {
         return m_encoding != kCFStringEncodingInvalidId &&

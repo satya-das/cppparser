@@ -53,9 +53,7 @@ public:
   wxSize GetStatusBarFieldMargins() const override;
 #  endif
   wxCoord GetCheckItemMargin() const override
-  {
-    return 0;
-  }
+  { return 0; }
   void DrawFrameTitleBar(wxDC& dc, const wxRect& rect, const wxString& title, const wxIcon& icon, int flags, int specialButton = 0, int specialButtonFlag = 0) override;
   void DrawFrameBorder(wxDC& dc, const wxRect& rect, int flags) override;
   void DrawFrameBackground(wxDC& dc, const wxRect& rect, int flags) override;

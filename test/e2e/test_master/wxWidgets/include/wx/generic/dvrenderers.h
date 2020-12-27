@@ -21,8 +21,8 @@ public:
     // see the explanation of the following WXOnXXX() methods in wx/generic/dvrenderer.h
   bool WXActivateCell(const wxRect& cell, wxDataViewModel* model, const wxDataViewItem& item, unsigned int col, const wxMouseEvent* mouseEvent) override
   {
-    return ActivateCell(cell, model, item, col, mouseEvent);
-  }
+        return ActivateCell(cell, model, item, col, mouseEvent);
+    }
 #  if  wxUSE_ACCESSIBILITY
   wxString GetAccessibleDescription() const override;
 #  endif
@@ -144,9 +144,7 @@ public:
   bool Render(wxRect cell, wxDC* dc, int state) override;
   wxSize GetSize() const override;
   bool HasEditorCtrl() const override
-  {
-    return true;
-  }
+  { return true; }
   wxWindow* CreateEditorCtrl(wxWindow* parent, wxRect labelRect, const wxVariant& value) override;
   bool GetValueFromEditorCtrl(wxWindow* editor, wxVariant& value) override;
 private:

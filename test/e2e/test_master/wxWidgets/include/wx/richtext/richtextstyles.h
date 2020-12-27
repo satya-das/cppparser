@@ -133,9 +133,7 @@ public:
   }
     /// Clones the object
   wxRichTextStyleDefinition* Clone() const override
-  {
-    return new wxRichTextCharacterStyleDefinition(*this);
-  }
+  { return new wxRichTextCharacterStyleDefinition(*this); }
 };
 /*!
  * wxRichTextParagraphStyleDefinition class declaration
@@ -173,9 +171,7 @@ public:
   bool operator ==(const wxRichTextParagraphStyleDefinition& def) const;
     /// Clones the object
   wxRichTextStyleDefinition* Clone() const override
-  {
-    return new wxRichTextParagraphStyleDefinition(*this);
-  }
+  { return new wxRichTextParagraphStyleDefinition(*this); }
 protected:
     /// The next style to use when adding a paragraph after this style.
   wxString m_nextStyle;
@@ -211,9 +207,7 @@ public:
   bool operator ==(const wxRichTextListStyleDefinition& def) const;
     /// Clones the object
   wxRichTextStyleDefinition* Clone() const override
-  {
-    return new wxRichTextListStyleDefinition(*this);
-  }
+  { return new wxRichTextListStyleDefinition(*this); }
     /// Sets/gets the attributes for the given level
   void SetLevelAttributes(int i, const wxRichTextAttr& attr);
   wxRichTextAttr* GetLevelAttributes(int i);
@@ -271,9 +265,7 @@ public:
   bool operator ==(const wxRichTextBoxStyleDefinition& def) const;
     /// Clones the object
   wxRichTextStyleDefinition* Clone() const override
-  {
-    return new wxRichTextBoxStyleDefinition(*this);
-  }
+  { return new wxRichTextBoxStyleDefinition(*this); }
 };
 /*!
  * The style sheet
@@ -589,22 +581,18 @@ class wxRichTextStyleComboPopup : public wxRichTextStyleListBox, public wxComboP
 public:
   void Init() override
   {
-    m_itemHere = -1;
-    m_value = -1;
-  }
+        m_itemHere = -1; // hot item in list
+        m_value = -1;
+    }
   bool Create(wxWindow* parent) override;
   wxWindow* GetControl() override
-  {
-    return this;
-  }
+  { return this; }
   void SetStringValue(const wxString& s) override;
   wxString GetStringValue() const override;
     /// Can we set the selection based on the editor caret position?
     // virtual bool CanAutoSetSelection() { return ((m_combo == NULL) || !m_combo->IsPopupShown()); }
   bool CanAutoSetSelection() override
-  {
-    return false;
-  }
+  { return false; }
     //
     // Popup event handlers
     //

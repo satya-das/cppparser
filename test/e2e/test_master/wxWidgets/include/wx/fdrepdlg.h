@@ -144,9 +144,7 @@ public:
   void SetReplaceString(const wxString& str)
   { m_strReplace = str; }
   wxEvent* Clone() const override
-  {
-    return new wxFindDialogEvent(*this);
-  }
+  { return new wxFindDialogEvent(*this); }
 private:
   wxString m_strReplace;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxFindDialogEvent);

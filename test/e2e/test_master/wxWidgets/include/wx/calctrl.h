@@ -161,9 +161,7 @@ public:
   wxDateTime::WeekDay GetWeekDay() const
   { return m_wday; }
   wxEvent* Clone() const override
-  {
-    return new wxCalendarEvent(*this);
-  }
+  { return new wxCalendarEvent(*this); }
 private:
   wxDateTime::WeekDay m_wday;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxCalendarEvent);

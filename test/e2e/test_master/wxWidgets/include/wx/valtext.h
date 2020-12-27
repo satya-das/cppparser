@@ -49,9 +49,7 @@ public:
     // Another possibility is to always pass a pointer to a new validator
     // (so the calling code can use a copy constructor of the relevant class).
   wxObject* Clone() const override
-  {
-    return new wxTextValidator(*this);
-  }
+  { return new wxTextValidator(*this); }
   bool Copy(const wxTextValidator& val);
     // Called when the value in the window must be validated.
     // This function can pop up an error message.

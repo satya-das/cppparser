@@ -63,19 +63,15 @@ public:
   virtual void ChangeValue(bool value);
     // overridden base class virtuals
   bool IsPressed() const override
-  {
-    return m_isPressed;
-  }
+  { return m_isPressed; }
   bool PerformAction(const wxControlAction& action, long numArg = -1, const wxString& strArg = wxEmptyString) override;
   bool CanBeHighlighted() const override
-  {
-    return true;
-  }
+  { return true; }
   virtual wxInputHandler* CreateStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-    return CreateStdInputHandler(handlerDef);
-  }
+        return CreateStdInputHandler(handlerDef);
+    }
 protected:
   void DoSet3StateValue(wxCheckBoxState) override;
   wxCheckBoxState DoGet3StateValue() const override;

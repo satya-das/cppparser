@@ -60,18 +60,12 @@ public:
   void Destroy();
     // implementation of wxAnimationDecoder's pure virtuals
   bool Load(wxInputStream& stream) override
-  {
-    return LoadGIF(stream) == wxGIF_OK;
-  }
+  { return LoadGIF(stream) == wxGIF_OK; }
   bool ConvertToImage(unsigned int frame, wxImage* image) const override;
   wxAnimationDecoder* Clone() const override
-  {
-    return new wxGIFDecoder;
-  }
+  { return new wxGIFDecoder; }
   wxAnimationType GetType() const override
-  {
-    return wxANIMATION_TYPE_GIF;
-  }
+  { return wxANIMATION_TYPE_GIF; }
 protected:
     // wxAnimationDecoder pure virtual
   bool DoCanRead(wxInputStream& stream) const override;

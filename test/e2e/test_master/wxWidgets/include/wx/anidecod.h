@@ -34,13 +34,9 @@ public:
   bool Load(wxInputStream& stream) override;
   bool ConvertToImage(unsigned int frame, wxImage* image) const override;
   wxAnimationDecoder* Clone() const override
-  {
-    return new wxANIDecoder;
-  }
+  { return new wxANIDecoder; }
   wxAnimationType GetType() const override
-  {
-    return wxANIMATION_TYPE_ANI;
-  }
+  { return wxANIMATION_TYPE_ANI; }
 protected:
     // wxAnimationDecoder pure virtual:
   bool DoCanRead(wxInputStream& stream) const override;

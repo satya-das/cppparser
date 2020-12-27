@@ -117,9 +117,7 @@ public:
       }
 #    if  wxUSE_STREAMS
   bool SaveFile(wxImage*, wxOutputStream&, bool) override
-  {
-    return false;
-  }
+  {return false ;}
   bool LoadFile(wxImage* image, wxInputStream& stream, bool verbose = true, int index = -1) override;
 protected:
   int DoGetImageCount(wxInputStream& stream) override;

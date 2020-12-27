@@ -34,13 +34,9 @@ public:
   void Collapse(bool collapse = true) override;
   void SetLabel(const wxString& label) override;
   bool IsCollapsed() const override
-  {
-    return m_pPane == NULL || !m_pPane->IsShown();
-  }
+  { return m_pPane==NULL || !m_pPane->IsShown(); }
   wxWindow* GetPane() const override
-  {
-    return m_pPane;
-  }
+  { return m_pPane; }
   wxString GetLabel() const override;
   bool Layout() override;
     // for the generic collapsible pane only:

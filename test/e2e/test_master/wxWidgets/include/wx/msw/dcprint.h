@@ -33,8 +33,8 @@ protected:
   bool DoBlit(wxCoord xdest, wxCoord ydest, wxCoord width, wxCoord height, wxDC* source, wxCoord xsrc, wxCoord ysrc, wxRasterOperationMode rop = wxCOPY, bool useMask = false, wxCoord xsrcMask = wxDefaultCoord, wxCoord ysrcMask = wxDefaultCoord) override;
   void DoGetSize(int* w, int* h) const override
   {
-    GetDeviceSize(w, h);
-  }
+        GetDeviceSize(w, h);
+    }
     // init the dc
   void Init();
   wxPrintData m_printData;

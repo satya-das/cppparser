@@ -26,9 +26,7 @@ public:
   WXDWORD WaitForThread(WXHANDLE hThread, int flags) override;
 #  endif
   bool CanUseStderr() override
-  {
-    return true;
-  }
+  { return true; }
   bool WriteToStderr(const wxString& text) override;
 };
 #  if  wxUSE_GUI

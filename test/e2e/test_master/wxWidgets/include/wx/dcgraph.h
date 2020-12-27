@@ -81,9 +81,7 @@ public:
   void SetTextBackground(const wxColour& colour) override;
   void ComputeScaleAndOrigin() override;
   wxGraphicsContext* GetGraphicsContext() const override
-  {
-    return m_graphicContext;
-  }
+  { return m_graphicContext; }
   void SetGraphicsContext(wxGraphicsContext* ctx) override;
   void* GetHandle() const override;
 #    if  wxUSE_DC_TRANSFORM_MATRIX

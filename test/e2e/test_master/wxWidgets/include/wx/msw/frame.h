@@ -68,8 +68,8 @@ public:
     // override base class version to add menu bar accel processing
   bool MSWTranslateMessage(WXMSG* msg) override
   {
-    return MSWDoTranslateMessage(this, msg);
-  }
+        return MSWDoTranslateMessage(this, msg);
+    }
     // window proc for the frames
   WXLRESULT MSWWindowProc(WXUINT message, WXWPARAM wParam, WXLPARAM lParam) override;
 #  if  wxUSE_MENUS
