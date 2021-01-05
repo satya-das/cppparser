@@ -1928,7 +1928,7 @@ void yyerror_detailed  (  char* text,
               YYPOSN& errt_posn
             )
 {
-  extern int get_context();
+  extern int getLexerContext();
 
   const char* lineStart = errt_posn;
   const char* buffStart = g.mInputBuffer;
@@ -1959,7 +1959,7 @@ void yyerror_detailed  (  char* text,
   sprintf(errmsg, "Error: Unexpected token '%s', while in context=%s(%d), found at line#%d\n"
     "%s\n"   // Line that contains the error.
     "%s^\n",  // A ^ below the beginning of unexpected token.
-    errt_posn, contextNameFromState(get_context()), get_context(), gLineNo, // The error message
+    errt_posn, contextNameFromState(getLexerContext()), getLexerContext(), gLineNo, // The error message
     lineStart,
     spacechars);
 

@@ -110,14 +110,14 @@ static void Log(int codelinenum, int srclinenum)
 #  define fileno _fileno /* Avoid compiler warning for VS. */
 #endif //#ifdef WIN32
 
-int get_context()
+int getLexerContext()
 {
   return YYSTATE;
 }
 
-void set_oyytext(const char* p)
+void setOldYytext(const char* p)
 {
-  g.oyytext = p;
+  g.mOldYytext = p;
 }
 
 void setCommentTokenizationState(TokenSetupFlag flag)
@@ -139,7 +139,7 @@ void setCommentTokenizationState(TokenSetupFlag flag)
   }
 }
 
-static void set_token_and_yyposn(const char* text, size_t len, TokenSetupFlag flag = TokenSetupFlag::DisableCommentTokenization)
+static void setupToken(const char* text, size_t len, TokenSetupFlag flag = TokenSetupFlag::DisableCommentTokenization)
 {
   extern char* yyposn;
   yyposn = const_cast<char*>(text);
@@ -148,14 +148,14 @@ static void set_token_and_yyposn(const char* text, size_t len, TokenSetupFlag fl
   setCommentTokenizationState(flag);
 }
 
-static void set_token_and_yyposn(TokenSetupFlag flag = TokenSetupFlag::DisableCommentTokenization)
+static void setupToken(TokenSetupFlag flag = TokenSetupFlag::DisableCommentTokenization)
 {
-  set_token_and_yyposn(yytext, yyleng, flag);
+  setupToken(yytext, yyleng, flag);
 }
 
 void setBlobToken(TokenSetupFlag flag = TokenSetupFlag::None)
 {
-  set_token_and_yyposn(g.oyytext, yytext+yyleng-g.oyytext, flag);
+  setupToken(g.mOldYytext, yytext+yyleng-g.mOldYytext, flag);
 }
 
 using YYLessProc = std::function<void(int)>;
@@ -163,7 +163,7 @@ using YYLessProc = std::function<void(int)>;
 // yyless is not available outside of lexing context.
 // So, yylessfn is the callback that caller needs to pass
 // that just calls yyless();
-static void tokenize_bracketed_content(YYLessProc yylessfn)
+static void tokenizeBracketedContent(YYLessProc yylessfn)
 {
   // yyinput() has bug (see https://github.com/westes/flex/pull/396)
   // So, I am exploiting yyless() by passing value bigger than yyleng.
@@ -200,7 +200,7 @@ static void tokenize_bracketed_content(YYLessProc yylessfn)
   {
     yylessfn(savedlen);
   }
-  set_token_and_yyposn();
+  setupToken();
 }
 
 static const char* findMatchedClosingBracket(const char* start, char openingBracketType = '(')
@@ -229,20 +229,12 @@ static const char* findMatchedClosingBracket(const char* start, char openingBrac
   return end;
 }
 
-extern "C"
-{
-
-  int yywrap()
-  {
-    return 1;
-  }
-
-}
 %}
 
 %option never-interactive
 %option stack
 %option noyy_top_state
+%option noyywrap
 
 /************************************************************************/
 
@@ -338,43 +330,43 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreprocessor>{ID} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknName);
 }
 
 <ctxGeneral>"__declspec"{WS}*"("{WS}*{ID}{WS}*")" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknApiDecor);
 }
 
 <ctxGeneral>__cdecl {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknApiDecor);
 }
 
 <ctxGeneral>__stdcall {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknApiDecor);
 }
 
 <ctxGeneral>afx_msg {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknApiDecor);
 }
 
 <ctxGeneral>"alignas"{WS}*"("{WS}*{ID}{WS}*")" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknApiDecor);
 }
 
 <ctxGeneral>"alignas"{WS}*"("{WS}*{NUM}{WS}*")" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknApiDecor);
 }
 
@@ -382,24 +374,24 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   LOG();
   if (gIgnorableMacroNames.count(yytext))
   {
-    tokenize_bracketed_content([&](int l) { yyless(l); } );
+    tokenizeBracketedContent([&](int l) { yyless(l); } );
     // Nothing to return. Just ignore
   }
   else
   {
     if (gMacroNames.count(yytext))
     {
-      tokenize_bracketed_content([&](int l) { yyless(l); } );
+      tokenizeBracketedContent([&](int l) { yyless(l); } );
       RETURN(tknMacro);
     }
 
     if (gKnownApiDecorNames.count(yytext))
     {
-      tokenize_bracketed_content([&](int l) { yyless(l); } );
+      tokenizeBracketedContent([&](int l) { yyless(l); } );
       RETURN(tknApiDecor);
     }
 
-    set_token_and_yyposn();
+    setupToken();
     auto itr = gRenamedKeywords.find(yylval.str);
     if (itr != gRenamedKeywords.end())
       return itr->second;
@@ -435,91 +427,91 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>asm/{TS} {
   LOG();
-  tokenize_bracketed_content([&](int l) { yyless(l); } );
+  tokenizeBracketedContent([&](int l) { yyless(l); } );
   RETURN(tknAsm);
 }
 
 <ctxGeneral>signed|unsigned/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknNumSignSpec);
 }
 
 <ctxGeneral>long{WS}+long{WS}+int|long{WS}+long|long{WS}+int|long|int|short{WS}+int|short/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknInteger);
 }
 
 <ctxGeneral>__int8|__int16|__int32|__int64|__int128/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknInteger);
 }
 
 <ctxGeneral>char/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknChar);
 }
 
 <ctxGeneral>long{WS}+double|double/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknDouble);
 }
 
 <ctxGeneral>long{WS}+float|float/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknFloat);
 }
 
 <ctxGeneral>auto/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknAuto);
 }
 
 <ctxGeneral>typedef{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknTypedef);
 }
 
 <ctxGeneral>using{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknUsing);
 }
 
 <ctxGeneral>class/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknClass);
 }
 
 <ctxGeneral>namespace/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknNamespace);
 }
 
 <ctxGeneral>struct/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknStruct);
 }
 
 <ctxGeneral>union/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknUnion);
 }
 
 <ctxGeneral>enum/{WS}+(class{WS}+)?{ID}?({WS}*":"{WS}*{ID})?{WSNL}*"{" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   if (gParseEnumBodyAsBlob)
     g.mEnumBodyWillBeEncountered = true;
   RETURN(tknEnum);
@@ -527,74 +519,74 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>enum/{TS} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknEnum);
 }
 
 <ctxGeneral>public/{WS}*":" {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::EnableCommentTokenization);
+  setupToken(TokenSetupFlag::EnableCommentTokenization);
   RETURN(tknPublic);
 }
 
 <ctxGeneral>public/{TS} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknPublic);
 }
 
 <ctxGeneral>protected/{WS}*":" {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::EnableCommentTokenization);
+  setupToken(TokenSetupFlag::EnableCommentTokenization);
   RETURN(tknProtected);
 }
 
 <ctxGeneral>protected/{TS} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknProtected);
 }
 
 <ctxGeneral>private/{WS}*":" {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::EnableCommentTokenization);
+  setupToken(TokenSetupFlag::EnableCommentTokenization);
   RETURN(tknPrivate);
 }
 
 <ctxGeneral>private/{TS} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknPrivate);
 }
 
 <ctxGeneral>template/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknTemplate);
 }
 
 <ctxGeneral>typename/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknTypename);
 }
 
 <ctxGeneral>decltype/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknDecltype);
 }
 
 <ctxGeneral>^{WS}*"/*" {
   LOG();
-  set_oyytext(yytext);
+  setOldYytext(yytext);
   BEGINCONTEXT(ctxFreeStandingBlockComment);
 }
 
 <*>"/*" {
   /*
   Ignore side comments for time being
-  set_oyytext(yytext);
+  setOldYytext(yytext);
   */
   BEGINCONTEXT(ctxSideBlockComment);
 }
@@ -604,7 +596,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   ENDCONTEXT();
   if (g.mTokenizeComment)
   {
-    set_token_and_yyposn(g.oyytext, yytext+yyleng-g.oyytext, TokenSetupFlag::None);
+    setupToken(g.mOldYytext, yytext+yyleng-g.mOldYytext, TokenSetupFlag::None);
     RETURN(tknFreeStandingBlockComment);
   }
 }
@@ -620,7 +612,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   /*
   Ignore side comments for time being
   if (g.mTokenizeComment)
-    set_token_and_yyposn(g.oyytext, yytext+yyleng-g.oyytext, TokenSetupFlag::None);
+    setupToken(g.mOldYytext, yytext+yyleng-g.mOldYytext, TokenSetupFlag::None);
     RETURN(tknSideBlockComment);
   }
   */
@@ -647,7 +639,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <*>^{WS}*"//"[^\n]* {
   if (g.mTokenizeComment)
   {
-    set_token_and_yyposn(TokenSetupFlag::None);
+    setupToken(TokenSetupFlag::None);
     RETURN(tknFreeStandingLineComment);
   }
 }
@@ -655,7 +647,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <*>"//"[^\n]* {
   if (g.mTokenizeComment)
   {
-    set_token_and_yyposn(TokenSetupFlag::None);
+    setupToken(TokenSetupFlag::None);
     // Ignore side comments for time being
     // RETURN(tknSideLineComment);
   }
@@ -663,14 +655,14 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>^{WS}*# {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   BEGINCONTEXT(ctxPreprocessor);
   RETURN(tknPreProHash);
 }
 
 <ctxPreprocessor>define/{WS} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   ENDCONTEXT();
   BEGINCONTEXT(ctxDefine);
   RETURN(tknDefine);
@@ -691,31 +683,31 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxDefine>{ID}\({CSP}\) {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   ENDCONTEXT();
   BEGINCONTEXT(ctxDefineDefn);
   g.mDefLooksLike = kComplexDef;
-  set_oyytext(yytext + yyleng);
+  setOldYytext(yytext + yyleng);
   RETURN(tknName);
 }
 
 <ctxDefine>{ID}\(.*"...".*\) {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   ENDCONTEXT();
   BEGINCONTEXT(ctxDefineDefn);
   g.mDefLooksLike = kComplexDef;
-  set_oyytext(yytext + yyleng);
+  setOldYytext(yytext + yyleng);
   RETURN(tknName);
 }
 
 <ctxDefine>{ID} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   ENDCONTEXT();
   BEGINCONTEXT(ctxDefineDefn);
   g.mDefLooksLike = kNoDef;
-  set_oyytext(0);
+  setOldYytext(0);
   RETURN(tknName);
 }
 
@@ -724,7 +716,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   if(g.mDefLooksLike == kNoDef)
   {
     g.mDefLooksLike = kReDef;
-    set_oyytext(yytext);
+    setOldYytext(yytext);
   }
   else if(g.mDefLooksLike == kStrLitDef || g.mDefLooksLike == kReDef)
   {
@@ -735,8 +727,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
   else
   { // It does not look like simple #define.
-    if (g.oyytext == 0)
-      set_oyytext(yytext);
+    if (g.mOldYytext == 0)
+      setOldYytext(yytext);
     g.mDefLooksLike = kComplexDef;
   }
 }
@@ -746,8 +738,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   if(g.mDefLooksLike == kNoDef || g.mDefLooksLike == kStrLitDef || g.mDefLooksLike == kReDef)
   {
     g.mDefLooksLike = kStrLitDef;
-    if(g.oyytext == 0)
-      set_oyytext(yytext);
+    if(g.mOldYytext == 0)
+      setOldYytext(yytext);
   }
   else
   { // It does not look like simple #define.
@@ -760,7 +752,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   if(g.mDefLooksLike == kNoDef)
   {
     g.mDefLooksLike = kCharLitDef;
-    set_oyytext(yytext);
+    setOldYytext(yytext);
   }
   else
   { // It does not look like simple #define.
@@ -773,7 +765,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   if(g.mDefLooksLike == kNoDef)
   {
     g.mDefLooksLike = kNumDef;
-    set_oyytext(yytext);
+    setOldYytext(yytext);
   }
   else
   { // It does not look like simple #define.
@@ -784,13 +776,13 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxDefineDefn>[^\t\r\n ] { // Any unrecognized character other than whitespace indicates a complex #define
   LOG();
   g.mDefLooksLike = kComplexDef;
-  if(g.oyytext == 0)
-    set_oyytext(yytext);
+  if(g.mOldYytext == 0)
+    setOldYytext(yytext);
 }
 
 <ctxDefineDefn>{NL} {
   LOG();
-  set_token_and_yyposn(g.oyytext, yytext-g.oyytext, TokenSetupFlag::ResetCommentTokenization);
+  setupToken(g.mOldYytext, yytext-g.mOldYytext, TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   INCREMENT_INPUT_LINE_NUM();
   if(g.mDefLooksLike != kNoDef)
@@ -816,7 +808,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxBlockCommentInsideMacroDefn>{NL} {
   LOG();
-  set_token_and_yyposn(g.oyytext, yytext-g.oyytext, TokenSetupFlag::DisableCommentTokenization);
+  setupToken(g.mOldYytext, yytext-g.mOldYytext, TokenSetupFlag::DisableCommentTokenization);
   ENDCONTEXT(); // End ctxBlockCommentInsideMacroDefn
   ENDCONTEXT(); // End ctxDefineDefn
   BEGINCONTEXT(ctxSideBlockComment);
@@ -842,14 +834,14 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreprocessor>undef/{WS} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknUndef);
 }
 
 <ctxPreprocessor>include/{WS} {
   LOG();
   ENDCONTEXT();
-  set_token_and_yyposn();
+  setupToken();
   BEGINCONTEXT(ctxInclude);
   RETURN(tknInclude);
 }
@@ -857,34 +849,34 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxPreprocessor>import/{WS} {
   LOG();
   ENDCONTEXT();
-  set_token_and_yyposn();
+  setupToken();
   BEGINCONTEXT(ctxInclude);
   RETURN(tknImport);
 }
 
 <ctxInclude><.*> {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknStdHdrInclude);
 }
 
 <ctxInclude>{ID} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknStdHdrInclude);
 }
 
 <ctxInclude>{NL} {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  setupToken(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   INCREMENT_INPUT_LINE_NUM();
 }
 
 <ctxPreprocessor>if/{WS} {
   LOG();
-  set_token_and_yyposn();
-  set_oyytext(yytext+yyleng);
+  setupToken();
+  setOldYytext(yytext+yyleng);
   ENDCONTEXT();
   BEGINCONTEXT(ctxPreProBody);
   RETURN(tknIf);
@@ -892,26 +884,26 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreprocessor>ifdef/{WS} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknIfDef);
 }
 
 <ctxPreprocessor>ifndef/{WS} {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  setupToken(TokenSetupFlag::ResetCommentTokenization);
   RETURN(tknIfNDef);
 }
 
 <ctxGeneral,ctxPreprocessor>else/{TS} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknElse);
 }
 
 <ctxPreprocessor>elif/{WS} {
   LOG();
-  set_token_and_yyposn();
-  set_oyytext(yytext+yyleng);
+  setupToken();
+  setOldYytext(yytext+yyleng);
   ENDCONTEXT();
   BEGINCONTEXT(ctxPreProBody);
   RETURN(tknElIf);
@@ -919,14 +911,14 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreprocessor>endif/{TS} {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  setupToken(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   RETURN(tknEndIf);
 }
 
 <ctxGeneral>^{WS}*#{WS}*if/{WS}*"0" {
   LOG();
-  set_oyytext(yytext);
+  setOldYytext(yytext);
   BEGINCONTEXT(ctxDisabledCode);
 }
 
@@ -948,8 +940,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreprocessor>pragma/{WS} {
   LOG();
-  set_token_and_yyposn();
-  set_oyytext(yytext+yyleng);
+  setupToken();
+  setOldYytext(yytext+yyleng);
   ENDCONTEXT();
   BEGINCONTEXT(ctxPreProBody);
   RETURN(tknPragma);
@@ -966,7 +958,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreProBody>{NL} {
   LOG();
-  set_token_and_yyposn(g.oyytext, yytext-g.oyytext, TokenSetupFlag::ResetCommentTokenization);
+  setupToken(g.mOldYytext, yytext-g.mOldYytext, TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   INCREMENT_INPUT_LINE_NUM();
   RETURN(tknPreProDef);
@@ -974,14 +966,14 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreprocessor>{NL} {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  setupToken(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   INCREMENT_INPUT_LINE_NUM();
 }
 
 <ctxPreprocessor>error{WS}[^\n]*{NL} {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  setupToken(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   INCREMENT_INPUT_LINE_NUM();
   RETURN(tknHashError);
@@ -989,7 +981,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreprocessor>warning{WS}[^\n]*{NL} {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  setupToken(TokenSetupFlag::ResetCommentTokenization);
   ENDCONTEXT();
   INCREMENT_INPUT_LINE_NUM();
   RETURN(tknHashWarning);
@@ -997,398 +989,398 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>"::" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknScopeResOp);
 }
 
 <ctxGeneral>const/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknConst);
 }
 
 <ctxGeneral>constexpr/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknConstExpr);
 }
 
 <ctxGeneral>static/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknStatic);
 }
 
 <ctxGeneral>inline/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknInline);
 }
 
 <ctxGeneral>virtual/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknVirtual);
 }
 
 <ctxGeneral>override/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknOverride);
 }
 
 <ctxGeneral>final/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknFinal);
 }
 
 <ctxGeneral>noexcept/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknNoExcept);
 }
 
 <ctxGeneral>extern/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknExtern);
 }
 
 <ctxGeneral>explicit/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknExplicit);
 }
 
 <ctxGeneral>friend/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknFriend);
 }
 
 <ctxGeneral>"extern"{WS}+"\"C\"" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknExternC);
 }
 
 <ctxGeneral>volatile/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknVolatile);
 }
 
 <ctxGeneral>mutable/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknMutable);
 }
 
 <ctxGeneral>new/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknNew);
 }
 
 <ctxGeneral>delete/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknDelete);
 }
 
 <ctxGeneral>default/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknDefault);
 }
 
 <ctxGeneral>return/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknReturn);
 }
 
 <ctxGeneral>if/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknIf);
 }
 
 <ctxGeneral>else/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknElse);
 }
 
 <ctxGeneral>for/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknFor);
 }
 
 <ctxGeneral>do/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknDo);
 }
 
 <ctxGeneral>while/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknWhile);
 }
 
 <ctxGeneral>switch/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknSwitch);
 }
 
 <ctxGeneral>case/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknCase);
 }
 
 <ctxGeneral>const_cast/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknConstCast);
 }
 
 <ctxGeneral>static_cast/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknStaticCast);
 }
 
 <ctxGeneral>dynamic_cast/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknDynamicCast);
 }
 
 <ctxGeneral>reinterpret_cast/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknReinterpretCast);
 }
 
 <ctxGeneral>try/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknTry);
 }
 
 <ctxGeneral>catch/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknCatch);
 }
 
 <ctxGeneral>throw/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknThrow);
 }
 
 <ctxGeneral>sizeof/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknSizeOf);
 }
 
 <ctxGeneral>operator/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknOperator);
 }
 
 <ctxGeneral>void/{TS}+ {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknVoid);
 }
 
 <ctxGeneral>"+=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknPlusEq);
 }
 
 <ctxGeneral>"-=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknMinusEq);
 }
 
 <ctxGeneral>"*=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknMulEq);
 }
 
 <ctxGeneral>"*=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknMulEq);
 }
 
 <ctxGeneral>"/=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknDivEq);
 }
 
 <ctxGeneral>"%=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknPerEq);
 }
 
 <ctxGeneral>"^=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknXorEq);
 }
 
 <ctxGeneral>"&=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknAndEq);
 }
 
 <ctxGeneral>"|=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknOrEq);
 }
 
 <ctxGeneral>"<<" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknLShift);
 }
 
 <ctxGeneral>"<<=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknLShiftEq);
 }
 
 <ctxGeneral>">>=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknRShiftEq);
 }
 
 <ctxGeneral>"==" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknCmpEq);
 }
 
 <ctxGeneral>"!=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknNotEq);
 }
 
 <ctxGeneral>"<=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknLessEq);
 }
 
 <ctxGeneral>">=" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknGreaterEq);
 }
 
 <ctxGeneral>"<=>" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tkn3WayCmp);
 }
 
 <ctxGeneral>"&&" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknAnd);
 }
 
 <ctxGeneral>"||" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknOr);
 }
 
 <ctxGeneral>"++" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknInc);
 }
 
 <ctxGeneral>"--" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknDec);
 }
 
 <ctxGeneral>"->" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknArrow);
 }
 
 <ctxGeneral>"->*" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknArrowStar);
 }
 
 <ctxGeneral,ctxDefine>{NUM} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknNumber);
 }
 
 <ctxGeneral>{DECNUMLIT}((e|E)[+-]?{DECNUMLIT})? {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknNumber);
 }
 
 <ctxGeneral,ctxInclude>{SL} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknStrLit);
 }
 
 <ctxGeneral>(L)?{SL} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknStrLit);
 }
 
 <ctxGeneral>(L)?{CL} {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknCharLit);
 }
 
 <ctxGeneral>"("|"[" {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::DisableCommentTokenization);
+  setupToken(TokenSetupFlag::DisableCommentTokenization);
   g.mBracketDepthStack.back() = g.mBracketDepthStack.back() + 1;
   RETURN(yytext[0]);
 }
 
 <ctxGeneral>")"|"]" {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::None);
+  setupToken(TokenSetupFlag::None);
   g.mBracketDepthStack.back() = g.mBracketDepthStack.back() - 1;
   RETURN(yytext[0]);
 }
@@ -1399,22 +1391,22 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   {
     g.mEnumBodyWillBeEncountered = false;
     BEGINCONTEXT(ctxEnumBody);
-    set_token_and_yyposn(TokenSetupFlag::None);
-    set_oyytext(yytext+1);
+    setupToken(TokenSetupFlag::None);
+    setOldYytext(yytext+1);
   }
   else if (g.mFunctionBodyWillBeEncountered && (yytext == g.mExpectedBracePosition))
   {
 
     g.mFunctionBodyWillBeEncountered = false;
     BEGINCONTEXT(ctxFunctionBody);
-    set_token_and_yyposn(TokenSetupFlag::DisableCommentTokenization);
-    set_oyytext(yytext+1);
+    setupToken(TokenSetupFlag::DisableCommentTokenization);
+    setOldYytext(yytext+1);
   }
   else
   {
 
     g.mBracketDepthStack.push_back(0);
-    set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+    setupToken(TokenSetupFlag::ResetCommentTokenization);
   }
   RETURN(yytext[0]);
 }
@@ -1422,13 +1414,13 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxGeneral>"}" {
   LOG();
   g.mBracketDepthStack.resize(g.mBracketDepthStack.size() - 1);
-  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  setupToken(TokenSetupFlag::ResetCommentTokenization);
   RETURN(yytext[0]);
 }
 
 <ctxEnumBody>"}" {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::None);
+  setupToken(TokenSetupFlag::None);
   ENDCONTEXT();
   RETURN(yytext[0]);
 }
@@ -1466,7 +1458,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   if (g.mNestedCurlyBracketDepth == 0)
   {
     ENDCONTEXT();
-    set_token_and_yyposn(TokenSetupFlag::EnableCommentTokenization);
+    setupToken(TokenSetupFlag::EnableCommentTokenization);
     RETURN(yytext[0]);
   }
   else
@@ -1510,10 +1502,10 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   {
 
     g.mMemInitListWillBeEncountered = false;
-    set_oyytext(yytext+1);
+    setOldYytext(yytext+1);
     BEGINCONTEXT(ctxMemInitList);
   }
-  set_token_and_yyposn(TokenSetupFlag::None);
+  setupToken(TokenSetupFlag::None);
   RETURN(yytext[0]);
 }
 
@@ -1555,38 +1547,38 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>; {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   g.mTokenizeComment = true;
   RETURN(yytext[0]);
 }
 
 <ctxGeneral>, {
   LOG();
-  set_token_and_yyposn(TokenSetupFlag::ResetCommentTokenization);
+  setupToken(TokenSetupFlag::ResetCommentTokenization);
   RETURN(yytext[0]);
 }
 
 <ctxGeneral>\)|\]|#|=|\*|\+|-|\.|\/|\~|%|\^|&|\||\?|\! {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(yytext[0]);
 }
 
 <ctxGeneral>">" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknGT);
 }
 
 <ctxGeneral>"<" {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknLT);
 }
 
 <ctxGeneral>\.\.\. {
   LOG();
-  set_token_and_yyposn();
+  setupToken();
   RETURN(tknEllipsis);
 }
 

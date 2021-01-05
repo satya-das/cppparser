@@ -64,7 +64,7 @@ struct LexerData
   const char* mInputBuffer     = nullptr;
   size_t      mInputBufferSize = 0;
 
-  const char* oyytext = nullptr;
+  const char* mOldYytext = nullptr;
 
   //@{ Flags to parse enum body as a blob
   bool mEnumBodyWillBeEncountered = false;
