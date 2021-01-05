@@ -39,6 +39,7 @@
 #include "cppast.h"
 #include "cppvarinit.h"
 #include "parser.tab.h"
+#include "parser.l.h"
 #include "cppobjfactory.h"
 #include "obj-factory-helper.h"
 #include "utils.h"
@@ -1914,6 +1915,8 @@ exprstmt          : expr ';'           [ZZLOG;] { $$ = $1; }
 
 //////////////////////////////////////////////////////////////////////////
 
+extern LexerData g;
+
 extern const char* contextNameFromState(int ctx);
 
 /**
@@ -1925,11 +1928,10 @@ void yyerror_detailed  (  char* text,
               YYPOSN& errt_posn
             )
 {
-  extern const char* gInputBufferSize;
   extern int get_context();
 
   const char* lineStart = errt_posn;
-  const char* buffStart = gInputBufferSize;
+  const char* buffStart = g.mInputBuffer;
   while(lineStart > buffStart)
   {
     if(lineStart[-1] == '\n' || lineStart[-1] == '\r')
@@ -1980,10 +1982,9 @@ static void setupEnv()
   const char* yys = getenv("ZZDEBUG");
   if (yys) {
     const int yyn = *yys - '0';
-    extern int gLexLog;
 
     gParseLog = ((yyn & kParseLog) ? 1 : 0);
-    gLexLog   = ((yyn & kLexLog)   ? 1 : 0);
+    g.mLexLog   = ((yyn & kLexLog)   ? 1 : 0);
     yydebug   = ((yyn & kYaccLog)  ? 1 : 0);
   }
 #endif
