@@ -83,7 +83,7 @@ static int gParseLog = 0;
 #define ZZLOG               \
   {                         \
   if (gParseLog)                 \
-    printf("ZZLOG @line#%d, parsing stream line#%d\n", __LINE__, gLineNo); \
+    printf("ZZLOG @line#%d, parsing stream line#%d\n", __LINE__, g.mLineNo); \
 }
 
 static int gDisableYyValid = 0;
@@ -150,10 +150,6 @@ static std::stack<CppAccessType>    gAccessTypeStack;
 /** {End of Globals} */
 
 #define YYPOSN char*
-/**
- * To track the line being parsed so that we can emit precise location of parsing error.
- */
-int gLineNo = 1;
 
 extern int yylex();
 
@@ -1959,7 +1955,7 @@ void yyerror_detailed  (  char* text,
   sprintf(errmsg, "Error: Unexpected token '%s', while in context=%s(%d), found at line#%d\n"
     "%s\n"   // Line that contains the error.
     "%s^\n",  // A ^ below the beginning of unexpected token.
-    errt_posn, contextNameFromState(getLexerContext()), getLexerContext(), gLineNo, // The error message
+    errt_posn, contextNameFromState(getLexerContext()), getLexerContext(), g.mLineNo, // The error message
     lineStart,
     spacechars);
 
@@ -2000,7 +1996,6 @@ CppCompoundPtr parseStream(char* stm, size_t stmSize)
   void setupScanBuffer(char* buf, size_t bufsize);
   void cleanupScanBuffer();
   setupScanBuffer(stm, stmSize);
-  gLineNo = 1; // Reset so that we do not start counting beyond previous parsing.
   gTemplateParamStart = nullptr;
   gParamModPos = nullptr;
   gInTemplateSpec = false;
