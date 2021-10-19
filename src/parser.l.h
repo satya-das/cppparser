@@ -113,5 +113,7 @@ struct LexerData
    * Counting of # to keep track of when we need to consider the code outside of disabled segment
    * For example, when the parsing is outside of "#if 0 ... #endif" segment.
    */
-  int numHashIfInDisabledCode = 0;
+  int  numHashIfInMacroDependentCode             = 0;
+  bool parseDisabledCodeAsBlob             = false;
+  bool codeSegmentDependsOnMacroDefinition = false;
 };

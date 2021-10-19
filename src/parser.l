@@ -40,7 +40,7 @@ For this very reason this file does not use any class that are defined in cppast
 #include "cpptoken.h"
 #include "cppvarinit.h"
 #include "parser.l.h"
-
+#include "lexer-helper.h"
 #include <iostream>
 
 /// @{ Global data
@@ -53,6 +53,8 @@ extern bool gParseFunctionBodyAsBlob;
 
 extern std::set<std::string>        gMacroNames;
 extern std::set<std::string>        gKnownApiDecorNames;
+extern std::map<std::string, int>   gDefinedNames;
+extern std::set<std::string>        gUndefinedNames;
 extern std::set<std::string>        gIgnorableMacroNames;
 extern std::map<std::string, int>   gRenamedKeywords;
 /// @}
@@ -167,8 +169,8 @@ static void tokenizeBracketedContent(YYLessProc yylessfn)
 {
   // yyinput() has bug (see https://github.com/westes/flex/pull/396)
   // So, I am exploiting yyless() by passing value bigger than yyleng.
-  auto savedlen = yyleng;
-  auto input = [&]() {
+  const auto savedlen = yyleng;
+  const auto input = [&]() {
     yylessfn(yyleng+1);
     return yytext[yyleng-1];
   };
@@ -875,6 +877,10 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreprocessor>if/{WS} {
   LOG();
+
+  if (g.codeSegmentDependsOnMacroDefinition)
+    g.numHashIfInMacroDependentCode += 1;
+
   setupToken();
   setOldYytext(yytext+yyleng);
   ENDCONTEXT();
@@ -884,12 +890,20 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreprocessor>ifdef/{WS} {
   LOG();
+
+  if (g.codeSegmentDependsOnMacroDefinition)
+    g.numHashIfInMacroDependentCode += 1;
+
   setupToken();
   RETURN(tknIfDef);
 }
 
 <ctxPreprocessor>ifndef/{WS} {
   LOG();
+
+  if (g.codeSegmentDependsOnMacroDefinition)
+    g.numHashIfInMacroDependentCode += 1;
+
   setupToken(TokenSetupFlag::ResetCommentTokenization);
   RETURN(tknIfNDef);
 }
@@ -911,15 +925,58 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxPreprocessor>endif/{TS} {
   LOG();
-  setupToken(TokenSetupFlag::ResetCommentTokenization);
-  ENDCONTEXT();
-  RETURN(tknEndIf);
+
+  if (!g.codeSegmentDependsOnMacroDefinition || (g.numHashIfInMacroDependentCode != 0)) {
+    if (g.numHashIfInMacroDependentCode)
+      g.numHashIfInMacroDependentCode -= 1;
+
+    setupToken(TokenSetupFlag::ResetCommentTokenization);
+    ENDCONTEXT();
+    RETURN(tknEndIf);
+  }
 }
 
 <ctxGeneral>^{WS}*#{WS}*if/{WS}*"0" {
   LOG();
   setOldYytext(yytext);
   BEGINCONTEXT(ctxDisabledCode);
+  g.codeSegmentDependsOnMacroDefinition = true;
+}
+
+<ctxGeneral>^{WS}*#{WS}*if{WS}*{ID}{WS}* {
+  LOG();
+  const auto* afterIf = strstr(yytext, "if") + 3;
+  const auto* idStart = [afterIf] {
+    const auto* p = afterIf;
+    while(isspace(*p)) ++p;
+    return p;
+  } ();
+  const auto* idEnd = [idStart] {
+    const auto* p = idStart;
+    while(isalnum(*p) || (*p == '_')) ++p;
+    return p;
+  } ();
+
+  const auto id = std::string(idStart, idEnd);
+  const auto codeEnableInfo = getCodeEnableInfo(id);
+  if (codeEnableInfo == EnabledCodeDecision::kNoInfo) {
+    // Parse normally. There is no info available about MACRO definition
+    LOG();
+    REJECT;
+  }
+
+  g.codeSegmentDependsOnMacroDefinition = true;
+
+  LOG();
+  if (codeEnableInfo == EnabledCodeDecision::kDisabled) {
+    LOG();
+    if (g.parseDisabledCodeAsBlob)
+      setOldYytext(yytext);
+    BEGINCONTEXT(ctxDisabledCode);
+  } else if(codeEnableInfo == EnabledCodeDecision::kEnabled) {
+    LOG();
+    // Do nothing else and just ignore the current preprocessing directive
+  }
 }
 
 <ctxDisabledCode>. {
@@ -932,18 +989,32 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxDisabledCode>^{WS}*#{WS}*if {
-  g.numHashIfInDisabledCode += 1;
+  g.numHashIfInMacroDependentCode += 1;
 }
 
-<ctxDisabledCode>^{WS}*#{WS}*endif[^\n]* {
+<*>^{WS}*#{WS}*endif[^\n]* {
   LOG();
-  if (g.numHashIfInDisabledCode == 0) {
-    ENDCONTEXT();
-    setBlobToken();
-    RETURN(tknBlob);
+
+  if (!g.codeSegmentDependsOnMacroDefinition) {
+    REJECT;
   }
 
-  g.numHashIfInDisabledCode -= 1;
+  if ((g.numHashIfInMacroDependentCode != 0) && (YYSTATE != ctxDisabledCode)) {
+    REJECT;
+  }
+
+  if (g.numHashIfInMacroDependentCode == 0) {
+    g.codeSegmentDependsOnMacroDefinition = false;
+    if (YYSTATE == ctxDisabledCode) {
+      ENDCONTEXT();
+      if (g.parseDisabledCodeAsBlob) {
+        setBlobToken();
+        RETURN(tknBlob);
+      }
+    }
+  } else {
+    g.numHashIfInMacroDependentCode -= 1;
+  }
 }
 
 <ctxPreprocessor>pragma/{WS} {

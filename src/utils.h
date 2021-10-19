@@ -26,7 +26,7 @@
 #include "cpptoken.h"
 
 #include <iterator>
-#include <vector>
+#include <string>
 
 template <class Iter>
 inline std::reverse_iterator<Iter> rev(Iter i)
@@ -38,6 +38,6 @@ CppToken classNameFromIdentifier(const CppToken& identifier);
 
 std::string pruneClassName(const CppToken& identifier);
 
-std::vector<char> readFile(const std::string& filename);
+std::string readFile(const std::string& filename);
 
 std::vector<CppToken> explode(CppToken token, const char* delim);

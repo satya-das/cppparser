@@ -316,7 +316,10 @@ CppParser constructCppParserForTest()
                              "wxCLANG_WARNING_SUPPRESS",
                              "wxCLANG_WARNING_RESTORE",
                              "wxGCC_WARNING_RESTORE",
-                             "wxSTRING_DEFAULT_CONV_ARG"});
+                             "wxSTRING_DEFAULT_CONV_ARG",
+                             "WX_DECLARE_VOIDPTR_HASH_MAP_WITH_DECL"});
+
+  parser.addUndefinedNames({"wxUSE_DATETIME"});
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("virtual", "_VIRTUAL");

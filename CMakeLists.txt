@@ -61,6 +61,7 @@ set(CPPPARSER_SOURCES
 	src/cppprog.cpp
 	src/cppwriter.cpp
 	src/cppobjfactory.cpp
+	src/lexer-helper.cpp
 	src/parser.l
 	src/parser.y
 	src/parser.lex.cpp
@@ -120,6 +121,11 @@ add_test(
 add_executable(cppparserunittest
 	${CMAKE_CURRENT_LIST_DIR}/test/unit/main.cpp
 	${CMAKE_CURRENT_LIST_DIR}/test/unit/test-hello-world.cpp
+	${CMAKE_CURRENT_LIST_DIR}/test/unit/disabled-code-test.cpp
+)
+target_include_directories(cppparserunittest
+	PRIVATE
+		${CMAKE_CURRENT_LIST_DIR}/src
 )
 
 target_link_libraries(cppparserunittest

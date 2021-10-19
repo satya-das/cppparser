@@ -40,6 +40,11 @@ public:
   void addKnownMacro(std::string knownMacro);
   void addKnownMacros(const std::vector<std::string>& knownMacros);
 
+  void addDefinedName(std::string definedName, int value = 0);
+
+  void addUndefinedName(std::string undefinedName);
+  void addUndefinedNames(const std::vector<std::string>& undefinedNames);
+
   void addIgnorableMacro(std::string ignorableMacro);
   void addIgnorableMacros(const std::vector<std::string>& ignorableMacros);
 
@@ -49,6 +54,7 @@ public:
   bool addRenamedKeyword(const std::string& keyword, std::string renamedKeyword);
 
   void parseEnumBodyAsBlob();
+  void parseFunctionBodyAsBlob(bool asBlob);
 
 public:
   CppCompoundPtr parseFile(const std::string& filename);

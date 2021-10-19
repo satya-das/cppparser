@@ -1,0 +1,34 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run parser test for",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/cppparserunittest",
+      // "args": [
+      //   "-p",
+      //   "../test/e2e/test_input/wxWidgets/include/wx/msw/statbox.h"
+      // ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/build/",
+      "environment": [
+        {
+          "name": "ZZDEBUG",
+          "value": "2"
+        }
+      ],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]

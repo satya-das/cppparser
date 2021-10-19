@@ -1980,7 +1980,7 @@ static void setupEnv()
     const int yyn = *yys - '0';
 
     gParseLog = ((yyn & kParseLog) ? 1 : 0);
-    g.mLexLog   = ((yyn & kLexLog)   ? 1 : 0);
+    g.mLexLog = ((yyn & kLexLog)   ? 1 : 0);
     yydebug   = ((yyn & kYaccLog)  ? 1 : 0);
   }
 #endif
@@ -1988,14 +1988,13 @@ static void setupEnv()
 
 CppCompoundPtr parseStream(char* stm, size_t stmSize)
 {
-  setupEnv();
-
   gProgUnit = nullptr;
   gCurAccessType = CppAccessType::kUnknown;
   
   void setupScanBuffer(char* buf, size_t bufsize);
   void cleanupScanBuffer();
   setupScanBuffer(stm, stmSize);
+  setupEnv();
   gTemplateParamStart = nullptr;
   gParamModPos = nullptr;
   gInTemplateSpec = false;

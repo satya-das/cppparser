@@ -30,16 +30,22 @@
 #include <algorithm>
 #include <map>
 #include <set>
+#include <string>
 #include <vector>
 
 // Unfortunately parser is not reentrant and has no way as of now to inject parameters.
 // So, we need globals.
+
+// Globals to help parse when preprocessors are used
 std::set<std::string>      gMacroNames;
 std::set<std::string>      gKnownApiDecorNames;
+std::map<std::string, int> gDefinedNames;
+std::set<std::string>      gUndefinedNames;
 std::set<std::string>      gIgnorableMacroNames;
 std::map<std::string, int> gRenamedKeywords;
-bool                       gParseEnumBodyAsBlob     = false;
-bool                       gParseFunctionBodyAsBlob = true;
+
+bool gParseEnumBodyAsBlob     = false;
+bool gParseFunctionBodyAsBlob = true;
 
 extern CppCompoundPtr parseStream(char* stm, size_t stmSize);
 CppObjFactory*        gObjFactory = nullptr;
@@ -60,6 +66,22 @@ void CppParser::addKnownMacros(const std::vector<std::string>& knownMacros)
 {
   for (auto& macro : knownMacros)
     gMacroNames.insert(macro);
+}
+
+void CppParser::addDefinedName(std::string definedName, int value)
+{
+  gDefinedNames[std::move(definedName)] = value;
+}
+
+void CppParser::addUndefinedName(std::string undefinedName)
+{
+  gUndefinedNames.insert(std::move(undefinedName));
+}
+
+void CppParser::addUndefinedNames(const std::vector<std::string>& undefinedNames)
+{
+  for (auto& macro : undefinedNames)
+    gUndefinedNames.insert(macro);
 }
 
 void CppParser::addIgnorableMacro(std::string ignorableMacro)
@@ -98,6 +120,11 @@ bool CppParser::addRenamedKeyword(const std::string& keyword, std::string rename
 void CppParser::parseEnumBodyAsBlob()
 {
   gParseEnumBodyAsBlob = true;
+}
+
+void CppParser::parseFunctionBodyAsBlob(bool asBlob)
+{
+  gParseFunctionBodyAsBlob = asBlob;
 }
 
 CppCompoundPtr CppParser::parseFile(const std::string& filename)

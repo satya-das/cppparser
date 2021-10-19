@@ -43,7 +43,7 @@ static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
       --numTempl;
       if (numTempl == 0)
       {
-        CppToken clsName{identifier.sz, static_cast<size_t>(std::distance(rbeg, rend)) - 1};
+        CppToken clsName {identifier.sz, static_cast<size_t>(std::distance(rbeg, rend)) - 1};
         return clsName;
       }
     }
@@ -53,7 +53,7 @@ static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
     }
   }
 
-  return CppToken{nullptr, 0U};
+  return CppToken {nullptr, 0U};
 }
 
 CppToken classNameFromIdentifier(const CppToken& identifier)
@@ -73,13 +73,13 @@ CppToken classNameFromIdentifier(const CppToken& identifier)
   for (itr = itr + 2; (itr != end) && !isprint(*itr); ++itr)
     ;
   const auto clsNameLen = static_cast<size_t>(end - itr);
-  return CppToken{itr, clsNameLen};
+  return CppToken {itr, clsNameLen};
 }
 
-std::vector<char> readFile(const std::string& filename)
+std::string readFile(const std::string& filename)
 {
-  std::vector<char> contents;
-  std::ifstream     in(filename, std::ios::in | std::ios::binary);
+  std::string   contents;
+  std::ifstream in(filename, std::ios::in | std::ios::binary);
   if (in)
   {
     in.seekg(0, std::ios::end);
@@ -128,12 +128,12 @@ std::vector<CppToken> explode(CppToken token, const char* delim)
     auto* q = strstr(p, delim);
     if (q != nullptr)
     {
-      elems.push_back(CppToken{p, static_cast<size_t>(q - p)});
+      elems.push_back(CppToken {p, static_cast<size_t>(q - p)});
       p = q + delimLen;
     }
     else
     {
-      elems.push_back(CppToken{p, static_cast<size_t>(token.sz + token.len - p)});
+      elems.push_back(CppToken {p, static_cast<size_t>(token.sz + token.len - p)});
       break;
     }
   }
