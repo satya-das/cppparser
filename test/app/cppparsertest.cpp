@@ -347,8 +347,8 @@ int main(int argc, char** argv)
   }
   else
   {
-    auto params = argParser.extractParamsForFullTest();
-    auto result = performTest(parser, params);
+    const auto params = argParser.extractParamsForFullTest();
+    const auto result = performTest(parser, params);
     if (result.second)
     {
       std::cerr << "CppParserTest: " << result.second << " tests failed out of " << result.first << ".\n";
