@@ -931,11 +931,19 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   INCREMENT_INPUT_LINE_NUM();
 }
 
+<ctxDisabledCode>^{WS}*#{WS}*if {
+  g.numHashIfInDisabledCode += 1;
+}
+
 <ctxDisabledCode>^{WS}*#{WS}*endif[^\n]* {
   LOG();
-  ENDCONTEXT();
-  setBlobToken();
-  RETURN(tknBlob);
+  if (g.numHashIfInDisabledCode == 0) {
+    ENDCONTEXT();
+    setBlobToken();
+    RETURN(tknBlob);
+  }
+
+  g.numHashIfInDisabledCode -= 1;
 }
 
 <ctxPreprocessor>pragma/{WS} {

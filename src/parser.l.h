@@ -97,8 +97,8 @@ struct LexerData
    * except when we are inside lambda which is being passed to a function as parameter:
    *    func([]() {
           // This comment should be preserved even when we are eventually inside a round bracket
-        } // And this comment should be ignored
-        ) // This one too;
+          } // And this comment should be ignored
+        ); // This one too
    */
   BracketDepthStack mBracketDepthStack = {0};
 
@@ -108,4 +108,10 @@ struct LexerData
   int mNestedCurlyBracketDepth = 0;
 
   DefineLooksLike mDefLooksLike = DefineLooksLike::kNoDef;
+
+  /**
+   * Counting of # to keep track of when we need to consider the code outside of disabled segment
+   * For example, when the parsing is outside of "#if 0 ... #endif" segment.
+   */
+  int numHashIfInDisabledCode = 0;
 };

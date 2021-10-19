@@ -250,28 +250,28 @@ typedef int (*XErrorHandler) (Display*, XErrorEvent*);
 #if 0
 #ifndef ResizeRequest
 #define ResizeRequest ??
-#endif#endif
-#ifndef MotionNotify
-#  define MotionNotify	GR_EVENT_TYPE_MOUSE_POSITION
-#  define PointerMotionMask	GR_EVENT_MASK_MOUSE_POSITION
 #endif
-#define ButtonMotionMask	GR_EVENT_MASK_MOUSE_POSITION
-#define KeymapStateMask	0
-#define StructureNotifyMask	GR_EVENT_MASK_UPDATE
-#ifdef ConfigureNotify
+#endif#  ifndef MotionNotify
+#    define MotionNotify	GR_EVENT_TYPE_MOUSE_POSITION
+#    define PointerMotionMask	GR_EVENT_MASK_MOUSE_POSITION
+#  endif
+#  define ButtonMotionMask	GR_EVENT_MASK_MOUSE_POSITION
+#  define KeymapStateMask	0
+#  define StructureNotifyMask	GR_EVENT_MASK_UPDATE
+#  ifdef ConfigureNotify
 /* XtoNX.h gets it wrong */
-#  undef ConfigureNotify
-#endif
-#define ConfigureNotify	GR_EVENT_TYPE_UPDATE
-#ifndef FocusIn
-#  define FocusIn	GR_EVENT_TYPE_FOCUS_IN
-#  define FocusOut	GR_EVENT_TYPE_FOCUS_OUT
-#  define FocusChangeMask	GR_EVENT_MASK_FOCUS_IN|GR_EVENT_MASK_FOCUS_OUT
-#endif
+#    undef ConfigureNotify
+#  endif
+#  define ConfigureNotify	GR_EVENT_TYPE_UPDATE
+#  ifndef FocusIn
+#    define FocusIn	GR_EVENT_TYPE_FOCUS_IN
+#    define FocusOut	GR_EVENT_TYPE_FOCUS_OUT
+#    define FocusChangeMask	GR_EVENT_MASK_FOCUS_IN|GR_EVENT_MASK_FOCUS_OUT
+#  endif
 /* Fuunctions */
-#ifdef __cplusplus
+#  ifdef __cplusplus
 extern "C" {
-#endif
+#  endif
   Display* XOpenDisplay(char* name);
   Colormap DefaultColormapOfScreen(Screen*);
   int XSetGraphicsExposures(Display*, GC, Bool);
@@ -299,9 +299,9 @@ extern "C" {
   int XConfigureWindow(Display* display, Window w, int mask, XWindowChanges* changes);
   int XTranslateCoordinates(Display* display, Window srcWindow, Window destWindow, int srcX, int srcY, int* destX, int* destY, Window* childReturn);
   void wxNoop();
-#ifdef __cplusplus
+#  ifdef __cplusplus
   }
-#endif
-#define XMaxRequestSize(display)	 16384
+#  endif
+#  define XMaxRequestSize(display)	 16384
 #endif
   /* _DUMMY_XLIBH_ */
