@@ -32,9 +32,9 @@ public:
   static constexpr char START_CHAR = 9;
   static constexpr char END_CHAR = 126;
   NFAtoDFA(NFA* nfa)
-    :  fNFA(*nfa) 
-    {
-    }
+    :  fNFA(*nfa)
+  {
+  }
     /**
      * Returns a DFA created from the NFA.
      */
@@ -56,7 +56,7 @@ public:
             stateCount = std::max(stateCount, (int) row.size());
         }
         return DFA(fCharMappings, fTransitions, fAccepts);
-    }
+  }
 private:
     /**
      * Returns an existing state with the given label, or creates a new one and returns it.
@@ -70,7 +70,7 @@ private:
             return fStates[label].get();
         }
         return found->second.get();
-    }
+  }
   void add(int nfaState, std::vector<int>* states)
   {
         NFAState state = fNFA.fStates[nfaState];
@@ -86,7 +86,7 @@ private:
             }
             states->push_back(nfaState);
         }
-    }
+  }
   void addTransition(char c, int start, int next)
   {
         while (fTransitions.size() <= (size_t) c) {
@@ -97,7 +97,7 @@ private:
             row.push_back(INVALID);
         }
         row[start] = next;
-    }
+  }
   void scanState(DFAState* state)
   {
         state->fIsScanned = true;
@@ -128,7 +128,7 @@ private:
                 this->scanState(nextState);
             }
         }
-    }
+  }
     // collapse rows with the same transitions to a single row. This is common, as each row
     // represents a character and often there are many characters for which all transitions are
     // identical (e.g. [0-9] are treated the same way by all lexer rules)
@@ -156,7 +156,7 @@ private:
             newTransitions.push_back(*row);
         }
         fTransitions = newTransitions;
-    }
+  }
   const NFA& fNFA;
   std::unordered_map<DFAState::Label, std::unique_ptr<DFAState>> fStates;
   std::vector<std::vector<int>> fTransitions;

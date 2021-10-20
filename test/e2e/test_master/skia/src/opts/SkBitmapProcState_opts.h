@@ -31,7 +31,7 @@ namespace SK_OPTS_NS
     *v0 = (packed >> 18);       // Integer coordinate x0 or y0.
     *v1 = (packed & 0x3fff);    // Integer coordinate x1 or y1.
     *w  = (packed >> 14) & 0xf; // Lerp weight for v1; weight for v0 is 16-w.
-}
+  }
 #  if  1 && SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_AVX2
   inline void S32_alpha_D32_filter_DX(const SkBitmapProcState& s, const uint32_t* xy, int count, uint32_t* colors)
   {
@@ -158,7 +158,7 @@ namespace SK_OPTS_NS
             sk_msan_mark_initialized(colors, colors+count,
                                      "MSAN still doesn't understand AVX2 mask loads and stores.");
         }
-    }
+  }
 #  elif  1 && SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSSE3
   inline void S32_alpha_D32_filter_DX(const SkBitmapProcState& s, const uint32_t* xy, int count, uint32_t* colors)
   {
@@ -293,7 +293,7 @@ namespace SK_OPTS_NS
 
             *colors++ = _mm_cvtsi128_si32(_mm_packus_epi16(A, _mm_setzero_si128()));
         }
-    }
+  }
 #  elif  1 && SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE2
   inline void S32_alpha_D32_filter_DX(const SkBitmapProcState& s, const uint32_t* xy, int count, uint32_t* colors)
   {
@@ -370,7 +370,7 @@ namespace SK_OPTS_NS
             // Pack back into 8-bit values and store.
             *colors++ = _mm_cvtsi128_si32(_mm_packus_epi16(sum, _mm_setzero_si128()));
         }
-    }
+  }
 #  else 
     // The NEON code only actually differs from the portable code in the
     // filtering step after we've loaded all four pixels we want to bilerp.
@@ -411,7 +411,7 @@ namespace SK_OPTS_NS
 
             vres = vshrn_n_u16(vcombine_u16(tmp, vcreate_u16(0)), 8); // shift down result by 8
             vst1_lane_u32(dst, vreinterpret_u32_u8(vres), 0);         // store result
-        }
+  }
 #    else 
   static void filter_and_scale_by_alpha(unsigned x, unsigned y, SkPMColor a00, SkPMColor a01, SkPMColor a10, SkPMColor a11, SkPMColor* dstColor, unsigned alphaScale)
   {
@@ -443,7 +443,7 @@ namespace SK_OPTS_NS
             }
 
             *dstColor = ((lo >> 8) & mask) | (hi & ~mask);
-        }
+  }
 #    endif
   inline void S32_alpha_D32_filter_DX(const SkBitmapProcState& s, const uint32_t* xy, int count, SkPMColor* colors)
   {
@@ -468,7 +468,7 @@ namespace SK_OPTS_NS
                                       colors++,
                                       s.fAlphaScale);
         }
-    }
+  }
 #  endif
 }
 #endif

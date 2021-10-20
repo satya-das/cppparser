@@ -49,32 +49,36 @@ class SK_API SkSurfaceProps
 public:
   enum Flags {
         kUseDeviceIndependentFonts_Flag = 1 << 0,
-    };
+  };
     /** Deprecated alias used by Chromium. Will be removed. */
   static const Flags kUseDistanceFieldFonts_Flag = kUseDeviceIndependentFonts_Flag;
   SkSurfaceProps(uint32_t flags, SkPixelGeometry);
   enum InitType {
         kLegacyFontHost_InitType
-    };
+  };
   SkSurfaceProps(InitType);
   SkSurfaceProps(uint32_t flags, InitType);
   SkSurfaceProps(const SkSurfaceProps& other);
   uint32_t flags() const
-  { return fFlags; }
+  {
+ return fFlags;
+  }
   SkPixelGeometry pixelGeometry() const
-  { return fPixelGeometry; }
+  {
+ return fPixelGeometry;
+  }
   bool isUseDeviceIndependentFonts() const
   {
         return SkToBool(fFlags & kUseDeviceIndependentFonts_Flag);
-    }
+  }
   bool operator==(const SkSurfaceProps& that) const
   {
         return fFlags == that.fFlags && fPixelGeometry == that.fPixelGeometry;
-    }
+  }
   bool operator!=(const SkSurfaceProps& that) const
   {
         return !(*this == that);
-    }
+  }
 private:
   SkSurfaceProps();
   uint32_t fFlags;

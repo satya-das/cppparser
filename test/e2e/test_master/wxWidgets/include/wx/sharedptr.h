@@ -20,27 +20,25 @@ public:
   typedef T element_type;
   explicit wxSharedPtr(T* ptr = NULL)
     :  m_ref(NULL)
-    
-    {
-
+  {
         if (ptr)
             m_ref = new reftype(ptr);
-        }
+  }
   template <typename Deleter>
   explicit wxSharedPtr(T* ptr, Deleter d)
     :  m_ref(NULL)
-    
-    {
-
+  {
         if (ptr)
             m_ref = new reftype_with_deleter<Deleter>(ptr, d);
-        }
+  }
   ~wxSharedPtr()
   {
- Release();   }
+ Release();
+  }
   wxSharedPtr(const wxSharedPtr& tocopy)
   {
- Acquire(tocopy.m_ref);   }
+ Acquire(tocopy.m_ref);
+  }
   wxSharedPtr& operator=(const wxSharedPtr& tocopy)
   {
         if (this != &tocopy)
@@ -49,7 +47,7 @@ public:
             Acquire(tocopy.m_ref);
         }
         return *this;
-    }
+  }
   wxSharedPtr& operator=(T* ptr)
   {
         if (get() != ptr)
@@ -59,63 +57,68 @@ public:
                 m_ref = new reftype(ptr);
         }
         return *this;
-    }
+  }
     // test for pointer validity: defining conversion to unspecified_bool_type
     // and not more obvious bool to avoid implicit conversions to integer types
   typedef T* (*unspecified_bool_type) () const;
   operator unspecified_bool_type() const
   {
-
         if (m_ref && m_ref->m_ptr)
            return  &wxSharedPtr<T>::get;
         else
            return NULL;
-      }
+  }
   T& operator*() const
   {
         wxASSERT(m_ref != NULL);
         wxASSERT(m_ref->m_ptr != NULL);
         return *(m_ref->m_ptr);
-    }
+  }
   T* operator->() const
   {
         wxASSERT(m_ref != NULL);
         wxASSERT(m_ref->m_ptr != NULL);
         return m_ref->m_ptr;
-    }
+  }
   T* get() const
   {
         return m_ref ? m_ref->m_ptr : NULL;
-    }
+  }
   void reset(T* ptr = NULL)
   {
         Release();
         if (ptr)
             m_ref = new reftype(ptr);
-    }
+  }
   template <typename Deleter>
   void reset(T* ptr, Deleter d)
   {
         Release();
         if (ptr)
             m_ref = new reftype_with_deleter<Deleter>(ptr, d);
-    }
+  }
   bool unique() const
-  { return (m_ref ? m_ref->m_count == 1 : true); }
+  {
+ return (m_ref ? m_ref->m_count == 1 : true);
+  }
   long use_count() const
-  { return (m_ref ? (long)m_ref->m_count : 0); }
+  {
+ return (m_ref ? (long)m_ref->m_count : 0);
+  }
 private:
   struct reftype
   {
     reftype(T* ptr)
-      :  m_ptr(ptr), m_count(1) 
-      {
-      }
+      :  m_ptr(ptr), m_count(1)
+    {
+    }
     virtual ~reftype()
     {
     }
     virtual void delete_ptr()
-    { delete m_ptr; }
+    {
+ delete m_ptr;
+    }
     T* m_ptr;
     wxAtomicInt m_count;
   };
@@ -123,11 +126,13 @@ private:
   struct reftype_with_deleter : public reftype
   {
     reftype_with_deleter(T* ptr, Deleter d)
-      :  reftype(ptr), m_deleter(d) 
-      {
-      }
+      :  reftype(ptr), m_deleter(d)
+    {
+    }
     void delete_ptr() override
-    { m_deleter(this->m_ptr); }
+    {
+ m_deleter(this->m_ptr);
+    }
     Deleter m_deleter;
   };
   reftype* m_ref;
@@ -136,7 +141,7 @@ private:
         m_ref = ref;
         if (ref)
             wxAtomicInc( ref->m_count );
-    }
+  }
   void Release()
   {
         if (m_ref)
@@ -148,7 +153,7 @@ private:
             }
             m_ref = NULL;
         }
-    }
+  }
 };
 template <typename T, typename U>
 bool operator ==(const wxSharedPtr<T>& a, const wxSharedPtr<U>& b)

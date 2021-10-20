@@ -18,10 +18,9 @@ class wxTLWGeometry : public wxTLWGeometryBase
 public:
   wxTLWGeometry()
   {
-
         wxZeroMemory(m_placement);
         m_placement.length = sizeof(m_placement);
-      }
+  }
   bool Save(const Serializer& ser) const override
   {
         // For compatibility with the existing saved positions/sizes, use the
@@ -58,7 +57,7 @@ public:
         // of being located in the taskbar.
 
         return true;
-    }
+  }
   bool Restore(Serializer& ser) override
   {
         // Normal position and size.
@@ -97,7 +96,7 @@ public:
         }
 
         return true;
-    }
+  }
   bool GetFrom(const wxTopLevelWindow* tlw) override
   {
         if ( !::GetWindowPlacement(GetHwndOf(tlw), &m_placement) )
@@ -107,7 +106,7 @@ public:
         }
 
         return true;
-    }
+  }
   bool ApplyTo(wxTopLevelWindow* tlw) override
   {
         // There is a subtlety here: if the window is currently hidden,
@@ -129,7 +128,7 @@ public:
         }
 
         return true;
-    }
+  }
 private:
   WINDOWPLACEMENT m_placement;
 };

@@ -24,9 +24,9 @@ public:
                                         // own separate verb in our representation.)
             , fParams(numSkVerbs * 3)  // Somewhere around 1-2 params per verb.
             , fPoints(numSkPoints * 5/4)  // Reserve for a 1.25x expansion in points and normals.
-            , fNormals(numSkPoints * 5/4) 
-    {
-    }
+            , fNormals(numSkPoints * 5/4)
+  {
+  }
     // A string of verbs and their corresponding, params, points, and normals are a compact
     // representation of what will eventually be independent instances in GPU buffers. When added
     // up, the combined coverage of all these instances will make complete stroked paths.
@@ -56,7 +56,7 @@ public:
         kRoundCap,
 
         kEndContour  // Instructs the iterator to advance its internal point and normal ptrs.
-    };
+  };
   static bool IsInternalJoinVerb(Verb verb);
     // Some verbs require additional parameters(s).
   union Parameter
@@ -69,13 +69,21 @@ public:
     float fConicWeight;
   };
   const SkTArray<Verb, true>& verbs() const
-  { SkASSERT(!fInsideContour); return fVerbs; }
+  {
+ SkASSERT(!fInsideContour); return fVerbs;
+  }
   const SkTArray<Parameter, true>& params() const
-  { SkASSERT(!fInsideContour); return fParams; }
+  {
+ SkASSERT(!fInsideContour); return fParams;
+  }
   const SkTArray<SkPoint, true>& points() const
-  { SkASSERT(!fInsideContour); return fPoints; }
+  {
+ SkASSERT(!fInsideContour); return fPoints;
+  }
   const SkTArray<SkVector, true>& normals() const
-  { SkASSERT(!fInsideContour); return fNormals; }
+  {
+ SkASSERT(!fInsideContour); return fNormals;
+  }
     // These track the numbers of instances required to draw all the recorded strokes.
   struct InstanceTallies
   {

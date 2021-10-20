@@ -84,7 +84,7 @@ public:
         UNREFERENCED_PARAMETER(maxY);
         UNREFERENCED_PARAMETER(maxZ);
         UNREFERENCED_PARAMETER(numTests);
-    }
+  }
     /// <summmary>
     /// This function creates a clone of the filter and returns a pointer to the clone
     /// The filter will always be cloned before it's used.
@@ -110,7 +110,7 @@ public:
   virtual bool isInverted() const
   {
         return false;
-    }
+  }
     /// <summmary>
     /// Set the filter as inverted or not, then we can get opposite result of original filter
     /// </summmary>
@@ -118,7 +118,7 @@ public:
   virtual void setIsInverted(bool bInverted)
   {
         UNREFERENCED_PARAMETER(bInverted);
-    }
+  }
 };
 /// <summary>
 /// Extend the interface IPointCloudFilter 

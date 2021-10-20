@@ -137,13 +137,18 @@ public:
     // wxDynamicLibrary::ListLoaded()
   wxDynamicLibraryDetails()
   {
- m_address = NULL; m_length = 0;   }
+ m_address = NULL; m_length = 0;
+  }
     // get the (base) name
   wxString GetName() const
-  { return m_name; }
+  {
+ return m_name;
+  }
     // get the full path of this object
   wxString GetPath() const
-  { return m_path; }
+  {
+ return m_path;
+  }
     // get the load address and the extent, return true if this information is
     // available
   bool GetAddress(void** addr, size_t* len) const
@@ -157,12 +162,12 @@ public:
             *len = m_length;
 
         return true;
-    }
+  }
     // return the version of the DLL (may be empty if no version info)
   wxString GetVersion() const
   {
         return m_version;
-    }
+  }
 private:
   wxString m_name, m_path, m_version;
   void* m_address;
@@ -184,24 +189,26 @@ public:
     // return the platform standard DLL extension (with leading dot)
   static wxString GetDllExt(wxDynamicLibraryCategory cat = wxDL_LIBRARY);
   wxDynamicLibrary()
-    :  m_handle(NULL) 
-    {
-     }
+    :  m_handle(NULL)
+  {
+
+  }
   wxDynamicLibrary(const wxString& libname, int flags = wxDL_DEFAULT)
     :  m_handle(NULL)
-    
-    {
-
+  {
         Load(libname, flags);
-        }
+  }
     // NOTE: this class is (deliberately) not virtual, do not attempt
     //       to use it polymorphically.
   ~wxDynamicLibrary()
   {
- Unload();   }
+ Unload();
+  }
     // return true if the library was loaded successfully
   bool IsLoaded() const
-  { return m_handle != NULL; }
+  {
+ return m_handle != NULL;
+  }
     // load the library with the given name (full or not), return true if ok
   bool Load(const wxString& libname, int flags = wxDL_DEFAULT);
     // raw function for loading dynamic libs: always behaves as if
@@ -212,15 +219,21 @@ public:
     // unloading the library in its dtor -- the caller is now responsible for
     // doing this
   wxDllType Detach()
-  { wxDllType h = m_handle; m_handle = NULL; return h; }
+  {
+ wxDllType h = m_handle; m_handle = NULL; return h;
+  }
     // unload the given library handle (presumably returned by Detach() before)
   static void Unload(wxDllType handle);
     // unload the library, also done automatically in dtor
   void Unload()
-  { if ( IsLoaded() ) { Unload(m_handle); m_handle = NULL; } }
+  {
+ if ( IsLoaded() ) { Unload(m_handle); m_handle = NULL; }
+  }
     // Return the raw handle from dlopen and friends.
   wxDllType GetLibHandle() const
-  { return m_handle; }
+  {
+ return m_handle;
+  }
     // check if the given symbol is present in the library, useful to verify if
     // a loadable module is our plugin, for example, without provoking error
     // messages from GetSymbol()
@@ -229,7 +242,7 @@ public:
         bool ok;
         DoGetSymbol(name, &ok);
         return ok;
-    }
+  }
     // resolve a symbol in a loaded DLL, such as a variable or function name.
     // 'name' is the (possibly mangled) name of the symbol. (use extern "C" to
     // export unmangled names)
@@ -247,7 +260,7 @@ public:
   void* RawGetSymbol(const wxString& name) const
   {
         return RawGetSymbol(m_handle, name);
-    }
+  }
 #    ifdef __WINDOWS__
     // this function is useful for loading functions from the standard Windows
     // DLLs: such functions have an 'A' (in ANSI build) or 'W' (in Unicode, or
@@ -264,11 +277,11 @@ public:
                 'A'
 #endif
                );
-    }
+  }
   void* GetSymbolAorW(const wxString& name) const
   {
         return RawGetSymbolAorW(m_handle, name);
-    }
+  }
 #    endif
     // return all modules/shared libraries in the address space of this process
     //
@@ -322,15 +335,13 @@ class wxLoadedDLL : public wxDynamicLibrary
 public:
   wxLoadedDLL(const wxString& dllname)
     :  wxDynamicLibrary(dllname, wxDL_GET_LOADED | wxDL_VERBATIM | wxDL_QUIET)
-    
-    {
-
-        }
-  ~wxLoadedDLL()
   {
 
+  }
+  ~wxLoadedDLL()
+  {
         Detach();
-      }
+  }
 };
 #    endif
 // ----------------------------------------------------------------------------

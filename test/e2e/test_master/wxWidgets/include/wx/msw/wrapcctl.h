@@ -30,9 +30,8 @@ struct wxHDITEM : public HDITEM
 {
   wxHDITEM()
   {
-
         ::ZeroMemory(this, sizeof(*this));
-      }
+  }
 };
 #  endif
 #endif

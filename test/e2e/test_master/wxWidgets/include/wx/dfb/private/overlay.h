@@ -26,11 +26,17 @@ public:
   void Clear(wxDC* dc);
     // wxDFB specific methods:
   bool IsEmpty() const
-  { return m_isEmpty; }
+  {
+ return m_isEmpty;
+  }
   wxRect GetRect() const
-  { return m_rect; }
+  {
+ return m_rect;
+  }
   wxIDirectFBSurfacePtr GetDirectFBSurface() const
-  { return m_surface; }
+  {
+ return m_surface;
+  }
     // window the overlay is associated with
   wxWindow* m_window;
     // rectangle covered by the overlay, in m_window's window coordinates

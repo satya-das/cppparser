@@ -33,13 +33,13 @@ namespace AcFdEval
         kObjFieldUnresolvedBlockRef     = (0x1 << 0),
         kObjFieldApplyBlockTransform    = (0x1 << 1),
         kObjFieldUnresolvedObjectRef    = (0x1 << 2),
-    };
+  };
     // Option bit flags for sheet set field
   enum SheetSetFieldOption {
         kSheetSetNone                   = 0,
         kSheetSetHyperlink              = (0x1 << 0),
         kSheetSetUnresolvedComponent    = (0x1 << 1),
-    };
+  };
     // Option bit flags for expression field
   enum ExpressionFieldOption {
         // Function types
@@ -49,7 +49,7 @@ namespace AcFdEval
         kExprFieldCount                 = (0x1 << 2),
         kExprFieldCell                  = (0x1 << 3),
         kExprFieldEquation              = (0x1 << 4),
-    };
+  };
 }
 struct IAcSmDatabase;
 struct IAcSmSheetSet;

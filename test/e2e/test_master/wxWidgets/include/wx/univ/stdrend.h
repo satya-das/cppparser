@@ -53,7 +53,9 @@ public:
   wxSize GetStatusBarFieldMargins() const override;
 #  endif
   wxCoord GetCheckItemMargin() const override
-  { return 0; }
+  {
+ return 0;
+  }
   void DrawFrameTitleBar(wxDC& dc, const wxRect& rect, const wxString& title, const wxIcon& icon, int flags, int specialButton = 0, int specialButtonFlag = 0) override;
   void DrawFrameBorder(wxDC& dc, const wxRect& rect, int flags) override;
   void DrawFrameBackground(wxDC& dc, const wxRect& rect, int flags) override;
@@ -73,7 +75,7 @@ protected:
         Arrow_Up,
         Arrow_Down,
         Arrow_Max
-    };
+  };
   enum ArrowStyle {
         Arrow_Normal,
         Arrow_Disabled,
@@ -81,7 +83,7 @@ protected:
         Arrow_Inverted,
         Arrow_InvertedDisabled,
         Arrow_StateMax
-    };
+  };
   enum FrameButtonType {
         FrameButton_Close,
         FrameButton_Minimize,
@@ -89,14 +91,14 @@ protected:
         FrameButton_Restore,
         FrameButton_Help,
         FrameButton_Max
-    };
+  };
   enum IndicatorType {
         IndicatorType_Check,
         IndicatorType_Radio,
         IndicatorType_MaxCtrl,
         IndicatorType_Menu = IndicatorType_MaxCtrl,
         IndicatorType_Max
-    };
+  };
   enum IndicatorState {
         IndicatorState_Normal,
         IndicatorState_Pressed, // this one is for check/radioboxes
@@ -107,13 +109,13 @@ protected:
         IndicatorState_Selected = IndicatorState_Pressed,
         IndicatorState_SelectedDisabled = IndicatorState_MaxCtrl,
         IndicatorState_MaxMenu
-    };
+  };
   enum IndicatorStatus {
         IndicatorStatus_Checked,
         IndicatorStatus_Unchecked,
         IndicatorStatus_Undetermined,
         IndicatorStatus_Max
-    };
+  };
     // translate the appropriate bits in flags to the above enum elements
   static void GetIndicatorsFromFlags(int flags, IndicatorState& state, IndicatorStatus& status);
     // translate wxDirection to ArrowDirection

@@ -49,7 +49,7 @@ public:
          * Modifies the vertex shader so that vertices will be positioned at pixel centers.
          */
         kSnapVerticesToPixelCenters = (1 << 1),  // This value must be last. (See kLastInputFlag.)
-    };
+  };
   struct InitArgs
   {
     InputFlags fInputFlags = InputFlags::kNone;
@@ -68,9 +68,9 @@ public:
   struct FixedDynamicState
   {
     explicit FixedDynamicState(const SkIRect& scissorRect)
-      :  fScissorRect(scissorRect) 
-      {
-      }
+      :  fScissorRect(scissorRect)
+    {
+    }
     FixedDynamicState();
     SkIRect fScissorRect = SkIRect::EmptyIRect();
         // Must have GrPrimitiveProcessor::numTextureSamplers() entries. Can be null if no samplers
@@ -96,10 +96,10 @@ public:
      **/
   GrPipeline(GrScissorTest scissor, SkBlendMode blend, const GrSwizzle& outputSwizzle, InputFlags flags = InputFlags::kNone, const GrUserStencilSettings* stencil = &GrUserStencilSettings::kUnused)
     :  GrPipeline(scissor, GrPorterDuffXPFactory::MakeNoCoverageXP(blend), outputSwizzle,
-                         flags, stencil) 
-    {
+                         flags, stencil)
+  {
 
-        }
+  }
   GrPipeline(GrScissorTest, sk_sp<const GrXferProcessor>, const GrSwizzle& outputSwizzle, InputFlags = InputFlags::kNone, const GrUserStencilSettings* = &GrUserStencilSettings::kUnused);
   GrPipeline(const InitArgs&, GrProcessorSet&&, GrAppliedClip&&);
   GrPipeline(const GrPipeline&) = delete;
@@ -109,13 +109,17 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     /// @name GrFragmentProcessors
   int numColorFragmentProcessors() const
-  { return fNumColorProcessors; }
+  {
+ return fNumColorProcessors;
+  }
   int numCoverageFragmentProcessors() const
   {
         return fFragmentProcessors.count() - fNumColorProcessors;
-    }
+  }
   int numFragmentProcessors() const
-  { return fFragmentProcessors.count(); }
+  {
+ return fFragmentProcessors.count();
+  }
   const GrXferProcessor& getXferProcessor() const
   {
         if (fXferProcessor) {
@@ -125,7 +129,7 @@ public:
             // mechanism is not thread safe so we do not hold a ref on this global.
             return GrPorterDuffXPFactory::SimpleSrcOverXP();
         }
-    }
+  }
     /**
      * If the GrXferProcessor uses a texture to access the dst color, then this returns that
      * texture and the offset to the dst contents within that texture.
@@ -137,7 +141,7 @@ public:
         }
 
         return fDstTextureProxy.get();
-    }
+  }
   GrTexture* peekDstTexture(SkIPoint* offset = nullptr) const
   {
         if (GrTextureProxy* dstProxy = this->dstTextureProxy(offset)) {
@@ -145,49 +149,57 @@ public:
         }
 
         return nullptr;
-    }
+  }
   const GrFragmentProcessor& getColorFragmentProcessor(int idx) const
   {
         SkASSERT(idx < this->numColorFragmentProcessors());
         return *fFragmentProcessors[idx].get();
-    }
+  }
   const GrFragmentProcessor& getCoverageFragmentProcessor(int idx) const
   {
         SkASSERT(idx < this->numCoverageFragmentProcessors());
         return *fFragmentProcessors[fNumColorProcessors + idx].get();
-    }
+  }
   const GrFragmentProcessor& getFragmentProcessor(int idx) const
   {
         return *fFragmentProcessors[idx].get();
-    }
+  }
     /// @}
   const GrUserStencilSettings* getUserStencil() const
-  { return fUserStencilSettings; }
+  {
+ return fUserStencilSettings;
+  }
   bool isScissorEnabled() const
   {
         return SkToBool(fFlags & Flags::kScissorEnabled);
-    }
+  }
   const GrWindowRectsState& getWindowRectsState() const
-  { return fWindowRectsState; }
+  {
+ return fWindowRectsState;
+  }
   bool isHWAntialiasState() const
-  { return SkToBool(fFlags & InputFlags::kHWAntialias); }
+  {
+ return SkToBool(fFlags & InputFlags::kHWAntialias);
+  }
   bool snapVerticesToPixelCenters() const
   {
         return SkToBool(fFlags & InputFlags::kSnapVerticesToPixelCenters);
-    }
+  }
   bool hasStencilClip() const
   {
         return SkToBool(fFlags & Flags::kHasStencilClip);
-    }
+  }
   bool isStencilEnabled() const
   {
         return SkToBool(fFlags & Flags::kStencilEnabled);
-    }
+  }
   GrXferBarrierType xferBarrierType(GrTexture*, const GrCaps&) const;
     // Used by Vulkan and Metal to cache their respective pipeline objects
   uint32_t getBlendInfoKey() const;
   const GrSwizzle& outputSwizzle() const
-  { return fOutputSwizzle; }
+  {
+ return fOutputSwizzle;
+  }
 private:
   static constexpr uint8_t kLastInputFlag = (uint8_t) InputFlags::kSnapVerticesToPixelCenters;
     /** This is a continuation of the public "InputFlags" enum. */
@@ -198,7 +210,7 @@ private:
 #ifdef SK_DEBUG
         kIsBad = (kLastInputFlag << 4),
 #endif
-    };
+  };
   GR_DECL_BITFIELD_CLASS_OPS_FRIENDS(Flags);
   friend bool operator&(Flags, InputFlags);
   using FragmentProcessorArray = SkAutoSTArray<8, std::unique_ptr<const GrFragmentProcessor>>;

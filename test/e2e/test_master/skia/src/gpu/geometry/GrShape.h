@@ -38,41 +38,39 @@ public:
   static constexpr int kMaxKeyFromDataVerbCnt = 10;
   GrShape()
   {
- this->initType(Type::kEmpty);   }
+ this->initType(Type::kEmpty);
+  }
   explicit GrShape(const SkPath& path)
-    :  GrShape(path, GrStyle::SimpleFill()) 
-    {
-    }
+    :  GrShape(path, GrStyle::SimpleFill())
+  {
+  }
   explicit GrShape(const SkRRect& rrect)
-    :  GrShape(rrect, GrStyle::SimpleFill()) 
-    {
-    }
+    :  GrShape(rrect, GrStyle::SimpleFill())
+  {
+  }
   explicit GrShape(const SkRect& rect)
-    :  GrShape(rect, GrStyle::SimpleFill()) 
-    {
-    }
+    :  GrShape(rect, GrStyle::SimpleFill())
+  {
+  }
   GrShape(const SkPath& path, const GrStyle& style)
-    :  fStyle(style) 
-    {
-
+    :  fStyle(style)
+  {
         this->initType(Type::kPath, &path);
         this->attemptToSimplifyPath();
-        }
+  }
   GrShape(const SkRRect& rrect, const GrStyle& style)
-    :  fStyle(style) 
-    {
-
+    :  fStyle(style)
+  {
         this->initType(Type::kRRect);
         fRRectData.fRRect = rrect;
         fRRectData.fInverted = false;
         fRRectData.fStart = DefaultRRectDirAndStartIndex(rrect, style.hasPathEffect(),
                                                          &fRRectData.fDir);
         this->attemptToSimplifyRRect();
-        }
+  }
   GrShape(const SkRRect& rrect, SkPath::Direction dir, unsigned start, bool inverted, const GrStyle& style)
-    :  fStyle(style) 
-    {
-
+    :  fStyle(style)
+  {
         this->initType(Type::kRRect);
         fRRectData.fRRect = rrect;
         fRRectData.fInverted = inverted;
@@ -88,53 +86,50 @@ public:
             fRRectData.fStart = DefaultRRectDirAndStartIndex(rrect, false, &fRRectData.fDir);
         }
         this->attemptToSimplifyRRect();
-        }
+  }
   GrShape(const SkRect& rect, const GrStyle& style)
-    :  fStyle(style) 
-    {
-
+    :  fStyle(style)
+  {
         this->initType(Type::kRRect);
         fRRectData.fRRect = SkRRect::MakeRect(rect);
         fRRectData.fInverted = false;
         fRRectData.fStart = DefaultRectDirAndStartIndex(rect, style.hasPathEffect(),
                                                         &fRRectData.fDir);
         this->attemptToSimplifyRRect();
-        }
+  }
   GrShape(const SkPath& path, const SkPaint& paint)
-    :  fStyle(paint) 
-    {
-
+    :  fStyle(paint)
+  {
         this->initType(Type::kPath, &path);
         this->attemptToSimplifyPath();
-        }
+  }
   GrShape(const SkRRect& rrect, const SkPaint& paint)
-    :  fStyle(paint) 
-    {
-
+    :  fStyle(paint)
+  {
         this->initType(Type::kRRect);
         fRRectData.fRRect = rrect;
         fRRectData.fInverted = false;
         fRRectData.fStart = DefaultRRectDirAndStartIndex(rrect, fStyle.hasPathEffect(),
                                                          &fRRectData.fDir);
         this->attemptToSimplifyRRect();
-        }
+  }
   GrShape(const SkRect& rect, const SkPaint& paint)
-    :  fStyle(paint) 
-    {
-
+    :  fStyle(paint)
+  {
         this->initType(Type::kRRect);
         fRRectData.fRRect = SkRRect::MakeRect(rect);
         fRRectData.fInverted = false;
         fRRectData.fStart = DefaultRectDirAndStartIndex(rect, fStyle.hasPathEffect(),
                                                         &fRRectData.fDir);
         this->attemptToSimplifyRRect();
-        }
+  }
   static GrShape MakeArc(const SkRect& oval, SkScalar startAngleDegrees, SkScalar sweepAngleDegrees, bool useCenter, const GrStyle& style);
   GrShape(const GrShape&);
   GrShape& operator=(const GrShape& that);
   ~GrShape()
   {
- this->changeType(Type::kEmpty);   }
+ this->changeType(Type::kEmpty);
+  }
     /**
      * Informs MakeFilled on how to modify that shape's fill rule when making a simple filled
      * version of the shape.
@@ -144,7 +139,7 @@ public:
         kFlip,
         kForceNoninverted,
         kForceInverted
-    };
+  };
     /**
      * Makes a filled shape from the pre-styled original shape and optionally modifies whether
      * the fill is inverted or not. It's important to note that the original shape's geometry
@@ -154,7 +149,9 @@ public:
      */
   static GrShape MakeFilled(const GrShape& original, FillInversion = FillInversion::kPreserve);
   const GrStyle& style() const
-  { return fStyle; }
+  {
+ return fStyle;
+  }
     /**
      * Returns a shape that has either applied the path effect or path effect and stroking
      * information from this shape's style to its geometry. Scale is used when approximating the
@@ -163,7 +160,7 @@ public:
   GrShape applyStyle(GrStyle::Apply apply, SkScalar scale) const
   {
         return GrShape(*this, apply, scale);
-    }
+  }
   bool isRect() const
   {
         if (Type::kRRect != fType) {
@@ -171,7 +168,7 @@ public:
         }
 
         return fRRectData.fRRect.isRect();
-    }
+  }
     /** Returns the unstyled geometry as a rrect if possible. */
   bool asRRect(SkRRect* rrect, SkPath::Direction* dir, unsigned* start, bool* inverted) const
   {
@@ -191,7 +188,7 @@ public:
             *inverted = fRRectData.fInverted;
         }
         return true;
-    }
+  }
     /**
      * If the unstyled shape is a straight line segment, returns true and sets pts to the endpoints.
      * An inverse filled line path is still considered a line.
@@ -209,7 +206,7 @@ public:
             *inverted = fLineData.fInverted;
         }
         return true;
-    }
+  }
     /** Returns the unstyled geometry as a path. */
   void asPath(SkPath* out) const
   {
@@ -255,7 +252,7 @@ public:
                 *out = this->path();
                 break;
         }
-    }
+  }
     // Can this shape be drawn as a pair of filled nested rectangles?
   bool asNestedRects(SkRect rects[2]) const
   {
@@ -300,13 +297,15 @@ public:
         }
 
         return allEq || allGoE1;
-    }
+  }
     /**
      * Returns whether the geometry is empty. Note that applying the style could produce a
      * non-empty shape. It also may have an inverse fill.
      */
   bool isEmpty() const
-  { return Type::kEmpty == fType || Type::kInvertedEmpty == fType; }
+  {
+ return Type::kEmpty == fType || Type::kInvertedEmpty == fType;
+  }
     /**
      * Gets the bounds of the geometry without reflecting the shape's styling. This ignores
      * the inverse fill nature of the geometry.
@@ -346,7 +345,7 @@ public:
                         this->path().isConvex();
         }
         return false;
-    }
+  }
     /**
      * Does the shape have a known winding direction. Some degenerate convex shapes may not have
      * a computable direction, but this is not always a requirement for path renderers so it is
@@ -372,7 +371,7 @@ public:
                                                           SkPathPriv::kUnknown_FirstDirection);
         }
         return false;
-    }
+  }
     /** Is the pre-styled geometry inverse filled? */
   bool inverseFilled() const
   {
@@ -400,7 +399,7 @@ public:
         // Dashing ignores inverseness. We should have caught this earlier. skbug.com/5421
         SkASSERT(!(ret && this->style().isDashed()));
         return ret;
-    }
+  }
     /**
      * Might applying the styling to the geometry produce an inverse fill. The "may" part comes in
      * because an arbitrary path effect could produce an inverse filled path. In other cases this
@@ -414,7 +413,7 @@ public:
             return true;
         }
         return this->inverseFilled();
-    }
+  }
     /**
      * Is it known that the unstyled geometry has no unclosed contours. This means that it will
      * not have any caps if stroked (modulo the effect of any path effect).
@@ -437,7 +436,7 @@ public:
                 return SkPathPriv::IsClosedSingleContour(this->path());
         }
         return false;
-    }
+  }
   uint32_t segmentMask() const
   {
         switch (fType) {
@@ -464,14 +463,16 @@ public:
                 return this->path().getSegmentMasks();
         }
         return 0;
-    }
+  }
     /**
      * Gets the size of the key for the shape represented by this GrShape (ignoring its styling).
      * A negative value is returned if the shape has no key (shouldn't be cached).
      */
   int unstyledKeySize() const;
   bool hasUnstyledKey() const
-  { return this->unstyledKeySize() >= 0; }
+  {
+ return this->unstyledKeySize() >= 0;
+  }
     /**
      * Writes unstyledKeySize() bytes into the provided pointer. Assumes that there is enough
      * space allocated for the key and that unstyledKeySize() does not return a negative value
@@ -500,12 +501,12 @@ private:
         kArc,
         kLine,
         kPath,
-    };
+  };
   void initType(Type type, const SkPath* path = nullptr)
   {
         fType = Type::kEmpty;
         this->changeType(type, path);
-    }
+  }
   void changeType(Type type, const SkPath* path = nullptr)
   {
         bool wasPath = Type::kPath == fType;
@@ -525,17 +526,17 @@ private:
         }
         // Whether or not we use the path's gen ID is decided in attemptToSimplifyPath.
         fPathData.fGenID = 0;
-    }
+  }
   SkPath& path()
   {
         SkASSERT(Type::kPath == fType);
         return fPathData.fPath;
-    }
+  }
   const SkPath& path() const
   {
         SkASSERT(Type::kPath == fType);
         return fPathData.fPath;
-    }
+  }
     /** Constructor used by the applyStyle() function */
   GrShape(const GrShape& parentShape, GrStyle::Apply, SkScalar scale);
     /**
@@ -582,7 +583,7 @@ private:
             return 2 * 3;
         }
         return 0;
-    }
+  }
   static unsigned DefaultRRectDirAndStartIndex(const SkRRect& rrect, bool hasPathEffect, SkPath::Direction* dir)
   {
         // This comes from SkPath's interface. The default for adding a SkRRect to a path is
@@ -594,7 +595,7 @@ private:
             return kDefaultRRectStart;
         }
         return kPathRRectStartIdx;
-    }
+  }
   union 
   {
     struct 

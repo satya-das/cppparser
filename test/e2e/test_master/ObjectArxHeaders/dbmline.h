@@ -22,12 +22,12 @@ struct Mline
         kTop        = 0,
         kZero       = 1,
         kBottom     = 2
-    };
+  };
   enum {
         kOpen         = 0,
         kClosed       = 1,
         kMerged       = 2
-    };
+  };
 };
 class AcGePlane;
 class AcDbMline : public AcDbEntity

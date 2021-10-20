@@ -49,16 +49,14 @@ public:
     // ------------
   wxBookCtrlBase()
   {
-
         Init();
-      }
+  }
   wxBookCtrlBase(wxWindow* parent, wxWindowID winid, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString)
   {
-
         Init();
 
         (void)Create(parent, winid, pos, size, style, name);
-      }
+  }
     // quasi ctor
   bool Create(wxWindow* parent, wxWindowID winid, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString);
     // accessors
@@ -66,19 +64,25 @@ public:
 
     // get number of pages in the dialog
   virtual size_t GetPageCount() const
-  { return m_pages.size(); }
+  {
+ return m_pages.size();
+  }
     // get the panel which represents the given page
   virtual wxWindow* GetPage(size_t n) const
-  { return m_pages.at(n); }
+  {
+ return m_pages.at(n);
+  }
     // get the current page or NULL if none
   wxWindow* GetCurrentPage() const
   {
         const int n = GetSelection();
         return n == wxNOT_FOUND ? NULL : GetPage(n);
-    }
+  }
     // get the currently selected page or wxNOT_FOUND if none
   virtual int GetSelection() const
-  { return m_selection; }
+  {
+ return m_selection;
+  }
     // set/get the title of a page
   virtual bool SetPageText(size_t n, const wxString& strText) = 0;
   virtual wxString GetPageText(size_t n) const = 0;
@@ -103,25 +107,41 @@ public:
   virtual wxSize CalcSizeFromPage(const wxSize& sizePage) const;
     // get/set size of area between book control area and page area
   unsigned int GetInternalBorder() const
-  { return m_internalBorder; }
+  {
+ return m_internalBorder;
+  }
   void SetInternalBorder(unsigned int border)
-  { m_internalBorder = border; }
+  {
+ m_internalBorder = border;
+  }
     // Sets/gets the margin around the controller
   void SetControlMargin(int margin)
-  { m_controlMargin = margin; }
+  {
+ m_controlMargin = margin;
+  }
   int GetControlMargin() const
-  { return m_controlMargin; }
+  {
+ return m_controlMargin;
+  }
     // returns true if we have wxBK_TOP or wxBK_BOTTOM style
   bool IsVertical() const
-  { return HasFlag(wxBK_BOTTOM | wxBK_TOP); }
+  {
+ return HasFlag(wxBK_BOTTOM | wxBK_TOP);
+  }
     // set/get option to shrink to fit current page
   void SetFitToCurrentPage(bool fit)
-  { m_fitToCurrentPage = fit; }
+  {
+ m_fitToCurrentPage = fit;
+  }
   bool GetFitToCurrentPage() const
-  { return m_fitToCurrentPage; }
+  {
+ return m_fitToCurrentPage;
+  }
     // returns the sizer containing the control, if any
   wxSizer* GetControlSizer() const
-  { return m_controlSizer; }
+  {
+ return m_controlSizer;
+  }
     // operations
     // ----------
 
@@ -132,7 +152,7 @@ public:
   {
         DoInvalidateBestSize();
         return DoRemovePage(n) != NULL;
-    }
+  }
     // remove all pages and delete them
   virtual bool DeleteAllPages()
   {
@@ -140,13 +160,13 @@ public:
         DoInvalidateBestSize();
         WX_CLEAR_ARRAY(m_pages);
         return true;
-    }
+  }
     // adds a new page to the control
   virtual bool AddPage(wxWindow* page, const wxString& text, bool bSelect = false, int imageId = NO_IMAGE)
   {
         DoInvalidateBestSize();
         return InsertPage(GetPageCount(), page, text, bSelect, imageId);
-    }
+  }
     // the same as AddPage(), but adds the page at the specified position
   virtual bool InsertPage(size_t n, wxWindow* page, const wxString& text, bool bSelect = false, int imageId = NO_IMAGE) = 0;
     // set the currently selected page, return the index of the previously
@@ -165,20 +185,24 @@ public:
             // cast is safe because of the check above
             SetSelection((size_t)nPage);
         }
-    }
+  }
     // return the index of the given page or wxNOT_FOUND
   int FindPage(const wxWindow* page) const;
     // hit test: returns which page is hit and, optionally, where (icon, label)
   virtual int HitTest(const wxPoint&, long* = NULL) const
   {
         return wxNOT_FOUND;
-    }
+  }
     // we do have multiple pages
   bool HasMultiplePages() const override
-  { return true; }
+  {
+ return true;
+  }
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  { return false; }
+  {
+ return false;
+  }
 protected:
     // flags for DoSetSelection()
   enum
@@ -187,7 +211,9 @@ protected:
   };
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
     // After the insertion of the page in the method InsertPage, calling this
     // method sets the selection to the given page or the first one if there is
     // still no selection. The "selection changed" event is sent only if
@@ -212,32 +238,44 @@ protected:
 
     // called to notify the control about a new current page
   virtual void UpdateSelectedPage(size_t)
-  { wxFAIL_MSG(wxT("Override this function!")); }
+  {
+ wxFAIL_MSG(wxT("Override this function!"));
+  }
     // create a new "page changing" event
   virtual wxBookCtrlEvent* CreatePageChangingEvent() const
-  { wxFAIL_MSG(wxT("Override this function!")); return NULL; }
+  {
+ wxFAIL_MSG(wxT("Override this function!")); return NULL;
+  }
     // modify the event created by CreatePageChangingEvent() to "page changed"
     // event, usually by just calling SetEventType() on it
   virtual void MakeChangedEvent(wxBookCtrlEvent&)
-  { wxFAIL_MSG(wxT("Override this function!")); }
+  {
+ wxFAIL_MSG(wxT("Override this function!"));
+  }
     // The derived class also may override the following method, also called
     // from DoSetSelection(), to show/hide pages differently.
   virtual void DoShowPage(wxWindow* page, bool show)
-  { page->Show(show); }
+  {
+ page->Show(show);
+  }
     // Should we accept NULL page pointers in Add/InsertPage()?
     //
     // Default is no but derived classes may override it if they can treat NULL
     // pages in some sensible way (e.g. wxTreebook overrides this to allow
     // having nodes without any associated page)
   virtual bool AllowNullPage() const
-  { return false; }
+  {
+ return false;
+  }
     // For classes that allow null pages, we also need a way to find the
     // closest non-NULL page corresponding to the given index, e.g. the first
     // leaf item in wxTreebook tree and this method must be overridden to
     // return it if AllowNullPage() is overridden. Note that it can still
     // return null if there are no valid pages after this one.
   virtual wxWindow* TryGetNonNullPage(size_t page)
-  { return m_pages[page]; }
+  {
+ return m_pages[page];
+  }
     // Remove the page and return a pointer to it.
     //
     // It also needs to update the current selection if necessary, i.e. if the
@@ -254,7 +292,9 @@ protected:
     // its pages are on the same colour background as the rest of the window. If the user
     // prefers a coloured background they can set the background colour on the page panel
   bool HasTransparentBackground() override
-  { return true; }
+  {
+ return true;
+  }
     // This method also invalidates the size of the controller and should be
     // called instead of just InvalidateBestSize() whenever pages are added or
     // removed as this also affects the controller
@@ -298,33 +338,39 @@ class WXDLLIMPEXP_CORE wxBookCtrlEvent : public wxNotifyEvent
 public:
   wxBookCtrlEvent(wxEventType commandType = wxEVT_NULL, int winid = 0, int nSel = wxNOT_FOUND, int nOldSel = wxNOT_FOUND)
     :  wxNotifyEvent(commandType, winid)
-    
-    {
-
+  {
         m_nSel = nSel;
         m_nOldSel = nOldSel;
-        }
+  }
   wxBookCtrlEvent(const wxBookCtrlEvent& event)
     :  wxNotifyEvent(event)
-    
-    {
-
+  {
         m_nSel = event.m_nSel;
         m_nOldSel = event.m_nOldSel;
-        }
+  }
   wxEvent* Clone() const override
-  { return new wxBookCtrlEvent(*this); }
+  {
+ return new wxBookCtrlEvent(*this);
+  }
     // accessors
         // the currently selected page (wxNOT_FOUND if none)
   int GetSelection() const
-  { return m_nSel; }
+  {
+ return m_nSel;
+  }
   void SetSelection(int nSel)
-  { m_nSel = nSel; }
+  {
+ m_nSel = nSel;
+  }
         // the page that was selected before the change (wxNOT_FOUND if none)
   int GetOldSelection() const
-  { return m_nOldSel; }
+  {
+ return m_nOldSel;
+  }
   void SetOldSelection(int nOldSel)
-  { m_nOldSel = nOldSel; }
+  {
+ m_nOldSel = nOldSel;
+  }
 private:
   int m_nSel, m_nOldSel;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxBookCtrlEvent);

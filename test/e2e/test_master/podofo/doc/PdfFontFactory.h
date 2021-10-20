@@ -45,7 +45,7 @@ namespace PoDoFo
     ePdfFont_Italic     = 0x04,
     ePdfFont_BoldItalic = ePdfFont_Bold | ePdfFont_Italic,
     ePdfFont_Subsetting = 0x08
-};
+  };
 /** This is a factory class which knows
  *  which implementation of PdfFont is required
  *  for a certain font type with certain features (like encoding).

@@ -574,7 +574,7 @@ public:
         kCurrency           = (0x1 << 4),
         kPercentage         = (0x1 << 5),
         kAngleNotTransformed = (0x1 << 16),
-    };
+  };
   ACRX_DECLARE_MEMBERS_EXPIMP(AcRxUnitTypeAttribute, ACBASE_PORT);
     /// <summary>
     /// Constructor

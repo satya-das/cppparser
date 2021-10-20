@@ -23,7 +23,7 @@ struct SkOTTableMaximumProfile_TT
   enum Value : SK_OT_USHORT {
             DoesNotUseTwilightZone = SkTEndian_SwapBE16(1),
             UsesTwilightZone = SkTEndian_SwapBE16(2),
-        } value;
+} value;
 } maxZones;
   SK_OT_USHORT maxTwilightPoints;
   SK_OT_USHORT maxStorage;

@@ -165,12 +165,14 @@ namespace PoDoFo
     void ReallyResize(size_t lSize);
     struct TRefCountedBuffer
     {
-      enum { INTERNAL_BUFSIZE = 32 };
+      enum {
+ INTERNAL_BUFSIZE = 32
+      };
         // Convenience inline for buffer switching
       PODOFO_NOTHROW inline char* GetRealBuffer()
-      { 
+      {
             return m_bOnHeap? m_pHeapBuffer : &(m_sInternalBuffer[0]);
-        }
+      }
         // size in bytes of the buffer. If and only if this is strictly >INTERNAL_BUFSIZE,
         // this buffer is on the heap in memory pointed to by m_pHeapBuffer . If it is <=INTERNAL_BUFSIZE,
         // the buffer is in the in-object buffer m_sInternalBuffer.
@@ -193,20 +195,17 @@ namespace PoDoFo
 // -----------------------------------------------------
   PdfRefCountedBuffer::PdfRefCountedBuffer()
     :  m_pBuffer( NULL )
+  {
 
-    {
-
-    }
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfRefCountedBuffer::PdfRefCountedBuffer(size_t lSize)
     :  m_pBuffer( NULL )
-
-    {
-
+  {
     this->Resize( lSize );
-    }
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -214,18 +213,15 @@ namespace PoDoFo
 // operator since it's a *LOT* faster this way.
   PdfRefCountedBuffer::PdfRefCountedBuffer(const PdfRefCountedBuffer& rhs)
     :  m_pBuffer( rhs.m_pBuffer )
-
-    {
-
+  {
     if (m_pBuffer)
         ++(m_pBuffer->m_lRefCount);
-    }
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfRefCountedBuffer::~PdfRefCountedBuffer()
   {
-
     DerefBuffer();
   }
 // -----------------------------------------------------
@@ -235,14 +231,14 @@ namespace PoDoFo
   {
     if (!m_pBuffer) return NULL;
     return m_pBuffer->GetRealBuffer();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline size_t PdfRefCountedBuffer::GetSize() const
   {
     return m_pBuffer ? m_pBuffer->m_lVisibleSize : 0;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -250,14 +246,14 @@ namespace PoDoFo
   {
     if( m_pBuffer )
         m_pBuffer->m_bPossesion = bTakePossession;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfRefCountedBuffer::TakePossesion() const
   {
     return m_pBuffer ? m_pBuffer->m_bPossesion : false;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -265,7 +261,7 @@ namespace PoDoFo
   {
     if (m_pBuffer && m_pBuffer->m_lRefCount > 1L)
         ReallyDetach(lExtraLen);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -282,7 +278,7 @@ namespace PoDoFo
     {
         ReallyResize( lSize );
     }
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -293,6 +289,6 @@ namespace PoDoFo
     // Whether or not it still exists, we no longer have anything to do with
     // the buffer we just released our claim on.
     m_pBuffer = NULL;
-}
+  }
 }
 #endif

@@ -18,7 +18,9 @@ public:
   wxAcceleratorTable(int n, const wxAcceleratorEntry entries[]);
   virtual ~wxAcceleratorTable();
   bool Ok() const
-  { return IsOk(); }
+  {
+ return IsOk();
+  }
   bool IsOk() const;
   void Add(const wxAcceleratorEntry& entry);
   void Remove(const wxAcceleratorEntry& entry);

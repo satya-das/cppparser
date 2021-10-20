@@ -24,7 +24,6 @@ public:
   {
     wxDirState(const wxFSWatchInfo& winfo)
     {
-
             if (!wxDir::Exists(winfo.GetPath()))
                 return;
 
@@ -39,26 +38,22 @@ public:
                 files.push_back(filename);
                 ret = dir.GetNext(&filename);
             }
-            }
+    }
     wxSortedArrayString files;
   };
   wxFSWatchEntryKq(const wxFSWatchInfo& winfo)
-    : 
-        wxFSWatchInfo(winfo), m_lastState(winfo)
-    
-    {
-
+    :         wxFSWatchInfo(winfo), m_lastState(winfo)
+  {
         m_fd = wxOpen(m_path, O_RDONLY, 0);
         if (m_fd == -1)
         {
             wxLogSysError(_("Unable to open path '%s'"), m_path);
         }
-        }
+  }
   virtual ~wxFSWatchEntryKq()
   {
-
         (void) Close();
-      }
+  }
   bool Close()
   {
         if (!IsOk())
@@ -72,23 +67,23 @@ public:
         m_fd = -1;
 
         return ret != -1;
-    }
+  }
   bool IsOk() const
   {
         return m_fd != -1;
-    }
+  }
   int GetFileDescriptor() const
   {
         return m_fd;
-    }
+  }
   void RefreshState()
   {
         m_lastState = wxDirState(*this);
-    }
+  }
   const wxDirState& GetLastState() const
   {
         return m_lastState;
-    }
+  }
 private:
   int m_fd;
   wxDirState m_lastState;

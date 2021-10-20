@@ -366,7 +366,7 @@ namespace AcGiVisualStyleProperties
         // kUseDrawOrder is the first new property added for the 2013 format. It is
         // also the same value as the pre-2013 property count.
         kPropertyCountPre2013 = kUseDrawOrder,
-    };
+  };
     ////////////////////////////////////////////////////////////////////////////
     // Face properties
     //
@@ -400,7 +400,7 @@ namespace AcGiVisualStyleProperties
         /// Faces are drawn in zebra stripes for surface analysis.
         /// </summary>
         kZebra
-    };
+  };
     /// <summary>
     /// Describes the calculation method used for application of
     /// lighting effects to faces.
@@ -425,7 +425,7 @@ namespace AcGiVisualStyleProperties
         /// orientation to the light source(s) of the scene. 
         /// </summary>
         kPerPixelLighting
-    };
+  };
     /// <summary>
     /// Describes modifications that affect the color of a face before 
     /// any lighting and shading calculations have been performed.
@@ -458,7 +458,7 @@ namespace AcGiVisualStyleProperties
         /// Apply a desaturation percentage to the diffuse color of a material.
         /// </summary>
         kDesaturate
-    };
+  };
     /// <summary>
     /// Bitfield that describes modifications to faces made before any
     /// lighting and shading calculations have been performed.
@@ -479,7 +479,7 @@ namespace AcGiVisualStyleProperties
         /// to a material that is applied to the faces.  
         /// </summary>
         kSpecularFlag       = 2
-    };
+  };
     ////////////////////////////////////////////////////////////////////////////
     // Edge properties
     //
@@ -501,7 +501,7 @@ namespace AcGiVisualStyleProperties
         /// Display facet edges, the edges between adjoining facets.
         /// </summary>
         kFacetEdges,
-    };
+  };
     /// <summary>
     /// Bitfield which describes the combination of edge styles to display.
     /// </summary>
@@ -529,7 +529,7 @@ namespace AcGiVisualStyleProperties
         /// which is inferred from intersecting facets.
         /// </summary>
         kIntersectionFlag   = 8
-    };
+  };
     /// <summary>
     /// Bitfield which describes the combination of modifiers to apply to displayed edges.
     /// </summary>
@@ -584,7 +584,7 @@ namespace AcGiVisualStyleProperties
         /// texure on the original line.
         /// </summary>
         kEdgeTextureFlag         = 512,
-    };
+  };
     /// <summary>
     /// Describes the amount of jitter effect to apply to edges.
     /// </summary>
@@ -601,7 +601,7 @@ namespace AcGiVisualStyleProperties
         /// A large amount of perturbation will be applied to edges.
         /// </summary>
         kJitterHigh,
-    };
+  };
     /// <summary>
     /// Describes the amount of jitter effect to apply to edges.
     /// </summary>
@@ -618,7 +618,7 @@ namespace AcGiVisualStyleProperties
         /// A large amount of perturbation will be applied to edges.
         /// </summary>
         kWiggleHigh,
-    };
+  };
     /// <summary>
     /// Describes the raster-based line patterns to apply to edges.
     /// </summary>
@@ -667,7 +667,7 @@ namespace AcGiVisualStyleProperties
         /// Display edges with a sparse dotted line pattern.
         /// </summary>
         kSparseDot
-    };
+  };
     ////////////////////////////////////////////////////////////////////////////
     // Display properties
     //
@@ -696,7 +696,7 @@ namespace AcGiVisualStyleProperties
         /// Textures are displayed.
         /// </summary>
         kTexturesFlag        =  8,
-    };
+  };
     /// <summary>
     /// Describes the type of shadow to enable.
     /// </summary>
@@ -717,7 +717,7 @@ namespace AcGiVisualStyleProperties
         /// Full and ground plane shadows are displayed.
         /// </summary>
         kShadowsFullAndGround,
-    };
+  };
 }
 /// <summary>
 /// Container for visual style Operation enumeration.
@@ -750,7 +750,7 @@ namespace AcGiVisualStyleOperations
         /// Enable the specified bits in the property bitmask.
         /// </summary>
         kEnable
-    };
+  };
 }
 ////////////////////////////////////////////////////////////////////////
 // class AcGiVisualStyle
@@ -924,8 +924,7 @@ public:
         /// creates an empty style upon which a custom visual style can be built.
         /// </summary>
         kEmptyStyle,
-
-    };
+  };
     /// <summary>
     /// Default constructor.  Initializes members to default values.
     /// </summary>

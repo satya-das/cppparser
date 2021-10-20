@@ -15,14 +15,14 @@ public:
     // ctors and dtor
   wxToolBar()
   {
- Init();   }
+ Init();
+  }
   wxToolBar(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTB_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxToolBarNameStr))
   {
-
         Init();
 
         Create(parent, id, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTB_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxToolBarNameStr));
   virtual ~wxToolBar();
     // override/implement base class virtuals

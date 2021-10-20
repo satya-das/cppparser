@@ -76,7 +76,6 @@ namespace PoDoFo
     };
     PdfMutexImpl::PdfMutexImpl()
     {
-
     pthread_mutexattr_t attr;
     pthread_mutexattr_init(&attr);
     pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
@@ -84,7 +83,6 @@ namespace PoDoFo
     }
     PdfMutexImpl::~PdfMutexImpl()
     {
-
     pthread_mutex_destroy( &m_mutex );
     }
     void PdfMutexImpl::Lock()
@@ -93,7 +91,7 @@ namespace PoDoFo
     {
 	    PODOFO_RAISE_ERROR( ePdfError_MutexError );
     }
-}
+    }
     bool PdfMutexImpl::TryLock()
     {
     int nRet = pthread_mutex_trylock( &m_mutex );
@@ -105,13 +103,13 @@ namespace PoDoFo
     {
 	    PODOFO_RAISE_ERROR( ePdfError_MutexError );
     }
-}
+    }
     void PdfMutexImpl::UnLock()
     {
     if( pthread_mutex_unlock( &m_mutex ) != 0 )
     {
 	    PODOFO_RAISE_ERROR( ePdfError_MutexError );
     }
-}
+    }
   }
 }

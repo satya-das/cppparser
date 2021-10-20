@@ -19,13 +19,13 @@ public:
     // ctors and such
   wxFont()
   {
-   }
+
+  }
   wxFont(const wxFontInfo& info);
   wxFont(int size, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-
         Create(size, family, style, weight, underlined, face, encoding);
-      }
+  }
   bool Create(int size, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
         return DoCreate(InfoFromLegacyParams(size,
@@ -35,18 +35,16 @@ public:
                                              underlined,
                                              face,
                                              encoding));
-    }
+  }
   wxFont(const wxSize& pixelSize, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-
         (void)Create(pixelSize, family, style, weight,
                      underlined, face, encoding);
-      }
+  }
   wxFont(const wxNativeFontInfo& info, WXHFONT hFont = NULL)
   {
-
         Create(info, hFont);
-      }
+  }
   wxFont(const wxString& fontDesc);
   bool Create(const wxSize& pixelSize, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
@@ -57,7 +55,7 @@ public:
                                              underlined,
                                              face,
                                              encoding));
-    }
+  }
   bool Create(const wxNativeFontInfo& info, WXHFONT hFont = NULL);
   virtual ~wxFont();
     // implement base class pure virtuals
@@ -89,15 +87,13 @@ public:
   void WXAdjustToPPI(const wxSize& ppi);
   wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants ie: wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD") wxFont(int size, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-
         (void)Create(size, (wxFontFamily)family, (wxFontStyle)style, (wxFontWeight)weight, underlined, face, encoding);
-      }
+  }
   wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants ie: wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD") wxFont(const wxSize& pixelSize, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-
         (void)Create(pixelSize, (wxFontFamily)family, (wxFontStyle)style, (wxFontWeight)weight,
                      underlined, face, encoding);
-      }
+  }
     // implementation only from now on
     // -------------------------------
   bool IsFree() const override;

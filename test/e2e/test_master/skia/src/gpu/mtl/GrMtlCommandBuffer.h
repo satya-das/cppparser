@@ -22,7 +22,7 @@ public:
   void addCompletedHandler(MTLCommandBufferHandler block)
   {
 //        [fCmdBuffer addCompletedHandler:block];
-    }
+  }
 #  ifdef GR_METAL_SDK_SUPPORTS_EVENTS
   void encodeSignalEvent(id<MTLEvent>, uint64_t value);
   void encodeWaitForEvent(id<MTLEvent>, uint64_t value);
@@ -30,9 +30,9 @@ public:
 private:
   GrMtlCommandBuffer(id<MTLCommandBuffer> cmdBuffer)
     :  fCmdBuffer(cmdBuffer)
-        , fPreviousRenderPassDescriptor(nil) 
-    {
-    }
+        , fPreviousRenderPassDescriptor(nil)
+  {
+  }
   void endAllEncoding();
   id<MTLCommandBuffer> fCmdBuffer;
   id<MTLBlitCommandEncoder> fActiveBlitCommandEncoder;

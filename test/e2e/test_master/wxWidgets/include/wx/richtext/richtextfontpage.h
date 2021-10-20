@@ -73,10 +73,14 @@ public:
     /// be removed from the page. By default, these effects are not shown as they
     /// have no effect in the editor.
   static int GetAllowedTextEffects()
-  { return sm_allowedTextEffects; }
+  {
+ return sm_allowedTextEffects;
+  }
     /// Sets the allowed text effects in the page.
   static void SetAllowedTextEffects(int allowed)
-  { sm_allowedTextEffects = allowed; }
+  {
+ sm_allowedTextEffects = allowed;
+  }
 ////@begin wxRichTextFontPage event handler declarations
 
     /// wxEVT_IDLE event handler for ID_RICHTEXTFONTPAGE
@@ -168,7 +172,7 @@ public:
         ID_RICHTEXTFONTPAGE_RIGHT_TO_LEFT = 10020,
         ID_RICHTEXTFONTPAGE_SUBSCRIPT_SUPPRESS_HYPHENATION = 10021,
         ID_RICHTEXTFONTPAGE_PREVIEWCTRL = 10019
-    };
+  };
 ////@end wxRichTextFontPage member variables
   bool m_dontUpdate;
   bool m_colourPresent;

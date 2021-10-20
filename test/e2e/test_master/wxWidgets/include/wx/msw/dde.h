@@ -71,13 +71,21 @@ public:
   wxDDEConnection* FindConnection(WXHCONV conv);
   bool DeleteConnection(WXHCONV conv);
   wxString& GetServiceName()
-  { return m_serviceName; }
+  {
+ return m_serviceName;
+  }
   const wxString& GetServiceName() const
-  { return m_serviceName; }
+  {
+ return m_serviceName;
+  }
   wxDDEConnectionList& GetConnections()
-  { return m_connections; }
+  {
+ return m_connections;
+  }
   const wxDDEConnectionList& GetConnections() const
-  { return m_connections; }
+  {
+ return m_connections;
+  }
 protected:
   int m_lastError;
   wxString m_serviceName;
@@ -98,9 +106,13 @@ public:
   wxDDEConnection* FindConnection(WXHCONV conv);
   bool DeleteConnection(WXHCONV conv);
   wxDDEConnectionList& GetConnections()
-  { return m_connections; }
+  {
+ return m_connections;
+  }
   const wxDDEConnectionList& GetConnections() const
-  { return m_connections; }
+  {
+ return m_connections;
+  }
 protected:
   int m_lastError;
   wxDDEConnectionList m_connections;

@@ -75,7 +75,9 @@ protected:
         call it, only to override it.
     */
   virtual void DoAddCustomControls()
-  { }
+  {
+
+  }
     /**
         Add arbitrary control to the sizer content with the specified flags.
 

@@ -30,40 +30,48 @@ private:
   T* fPtr;
 public:
   SkTScopedComPtr()
-    :  fPtr(nullptr) 
-    {
-    }
+    :  fPtr(nullptr)
+  {
+  }
   SkTScopedComPtr(std::nullptr_t)
-    :  fPtr(nullptr) 
-    {
-    }
+    :  fPtr(nullptr)
+  {
+  }
   explicit SkTScopedComPtr(T* ptr)
-    :  fPtr(ptr) 
-    {
-    }
+    :  fPtr(ptr)
+  {
+  }
   SkTScopedComPtr(SkTScopedComPtr&& that)
-    :  fPtr(that.release()) 
-    {
-    }
+    :  fPtr(that.release())
+  {
+  }
   SkTScopedComPtr(const SkTScopedComPtr&) = delete;
   ~SkTScopedComPtr()
   {
- this->reset();  }
+ this->reset();
+  }
   SkTScopedComPtr& operator=(SkTScopedComPtr&& that)
   {
         this->reset(that.release());
         return *this;
-    }
+  }
   SkTScopedComPtr& operator=(const SkTScopedComPtr&);
   SkTScopedComPtr& operator=(std::nullptr_t)
-  { this->reset(); return *this; }
+  {
+ this->reset(); return *this;
+  }
   T& operator*() const
-  { SkASSERT(fPtr != nullptr); return *fPtr; }
+  {
+ SkASSERT(fPtr != nullptr); return *fPtr;
+  }
   operator bool() const
   {
- return fPtr != nullptr;   }
+ return fPtr != nullptr;
+  }
   T* operator->() const
-  { return fPtr; }
+  {
+ return fPtr;
+  }
     /**
      * Returns the address of the underlying pointer.
      * This is dangerous -- it breaks encapsulation and the reference escapes.
@@ -71,28 +79,32 @@ public:
      * and only to initialize the instance.
      */
   T** operator&()
-  { SkASSERT(fPtr == nullptr); return &fPtr; }
+  {
+ SkASSERT(fPtr == nullptr); return &fPtr;
+  }
   T* get() const
-  { return fPtr; }
+  {
+ return fPtr;
+  }
   void reset(T* ptr = nullptr)
   {
         if (fPtr) {
             fPtr->Release();
         }
         fPtr = ptr;
-    }
+  }
   void swap(SkTScopedComPtr<T>& that)
   {
         T* temp = this->fPtr;
         this->fPtr = that.fPtr;
         that.fPtr = temp;
-    }
+  }
   T* release()
   {
         T* temp = this->fPtr;
         this->fPtr = nullptr;
         return temp;
-    }
+  }
 };
 #  endif
 #endif

@@ -19,9 +19,9 @@ namespace SkSL
     ExternalFunctionCall(int offset, const Type& type, ExternalValue* function, std::vector<std::unique_ptr<Expression>> arguments)
       :  INHERITED(offset, kExternalFunctionCall_Kind, type)
     , fFunction(function)
-    , fArguments(std::move(arguments)) 
-      {
-      }
+    , fArguments(std::move(arguments))
+    {
+    }
     bool hasSideEffects() const override
     {
         return true;

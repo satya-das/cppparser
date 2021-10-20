@@ -18,15 +18,15 @@ public:
     // Creating the control.
   wxTimePickerCtrlGeneric()
   {
- Init();   }
+ Init();
+  }
   virtual ~wxTimePickerCtrlGeneric();
   wxTimePickerCtrlGeneric(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTP_DEFAULT, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxTimePickerCtrlNameStr)
   {
-
         Init();
 
         (void)Create(parent, id, date, pos, size, style, validator, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTP_DEFAULT, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxTimePickerCtrlNameStr);
     // Implement pure virtual wxTimePickerCtrlBase methods.
   void SetValue(const wxDateTime& date) override;

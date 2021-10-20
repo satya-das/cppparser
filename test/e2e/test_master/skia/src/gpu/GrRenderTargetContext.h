@@ -64,7 +64,7 @@ public:
   enum class CanClearFullscreen : bool {
         kNo = false,
         kYes = true
-    };
+  };
     /**
      * Clear the entire or rect of the render target, ignoring any clips.
      * @param rect  the rect to clear or the whole thing if rect is NULL.
@@ -76,7 +76,7 @@ public:
   void clear(const SkPMColor4f& color)
   {
         return this->clear(nullptr, color, CanClearFullscreen::kYes);
-    }
+  }
     /**
      *  Draw everywhere (respecting the clip) with the paint.
      */
@@ -105,7 +105,7 @@ public:
         this->drawFilledQuad(clip, std::move(paint), aa,
                              aa == GrAA::kYes ? GrQuadAAFlags::kAll : GrQuadAAFlags::kNone,
                              GrQuad::MakeFromRect(rectToDraw, viewMatrix), GrQuad(localRect));
-    }
+  }
     /**
      * Fills a rect with a paint and a localMatrix.
      */
@@ -115,7 +115,7 @@ public:
                              aa == GrAA::kYes ? GrQuadAAFlags::kAll : GrQuadAAFlags::kNone,
                              GrQuad::MakeFromRect(rect, viewMatrix),
                              GrQuad::MakeFromRect(rect, localMatrix));
-    }
+  }
     /**
      * Creates an op that draws a fill rect with per-edge control over anti-aliasing.
      *
@@ -127,7 +127,7 @@ public:
         const SkRect& localRect = optionalLocalRect ? *optionalLocalRect : rect;
         this->drawFilledQuad(clip, std::move(paint), aa, edgeAA,
                              GrQuad::MakeFromRect(rect, viewMatrix), GrQuad(localRect));
-    }
+  }
     /**
      * Similar to fillRectWithEdgeAA but draws an arbitrary 2D convex quadrilateral transformed
      * by 'viewMatrix', with per-edge control over anti-aliasing. The quad should follow the
@@ -146,7 +146,7 @@ public:
         this->drawFilledQuad(clip, std::move(paint), aa, edgeAA,
                              GrQuad::MakeFromSkQuad(quad, viewMatrix),
                              GrQuad::MakeFromSkQuad(localQuad, SkMatrix::I()));
-    }
+  }
     /** Used with drawQuadSet */
   struct QuadSetEntry
   {
@@ -170,7 +170,7 @@ public:
         this->drawTexturedQuad(clip, std::move(proxy), std::move(texXform), filter,
                                color, mode, aa, edgeAA, GrQuad::MakeFromRect(dstRect, viewMatrix),
                                GrQuad(srcRect), domain);
-    }
+  }
     /**
      * Variant of drawTexture that instead draws the texture applied to 'dstQuad' transformed by
      * 'viewMatrix', using the 'srcQuad' texture coordinates clamped to the optional 'domain'. If
@@ -182,7 +182,7 @@ public:
         this->drawTexturedQuad(clip, std::move(proxy), std::move(texXform), filter, color, mode,
                                aa, edgeAA, GrQuad::MakeFromSkQuad(dstQuad, viewMatrix),
                                GrQuad::MakeFromSkQuad(srcQuad, SkMatrix::I()), domain);
-    }
+  }
     /** Used with drawTextureSet */
   struct TextureSetEntry
   {
@@ -345,51 +345,87 @@ public:
   bool waitOnSemaphores(int numSemaphores, const GrBackendSemaphore waitSemaphores[]);
   void insertEventMarker(const SkString&);
   const GrRenderTargetProxy* proxy() const
-  { return fRenderTargetProxy.get(); }
+  {
+ return fRenderTargetProxy.get();
+  }
   int width() const
-  { return fRenderTargetProxy->width(); }
+  {
+ return fRenderTargetProxy->width();
+  }
   int height() const
-  { return fRenderTargetProxy->height(); }
+  {
+ return fRenderTargetProxy->height();
+  }
   int numSamples() const
-  { return fRenderTargetProxy->numSamples(); }
+  {
+ return fRenderTargetProxy->numSamples();
+  }
   const SkSurfaceProps& surfaceProps() const
-  { return fSurfaceProps; }
+  {
+ return fSurfaceProps;
+  }
   GrSurfaceOrigin origin() const
-  { return fRenderTargetProxy->origin(); }
+  {
+ return fRenderTargetProxy->origin();
+  }
   bool wrapsVkSecondaryCB() const
-  { return fRenderTargetProxy->wrapsVkSecondaryCB(); }
+  {
+ return fRenderTargetProxy->wrapsVkSecondaryCB();
+  }
   GrMipMapped mipMapped() const;
     // This entry point should only be called if the backing GPU object is known to be
     // instantiated.
   GrRenderTarget* accessRenderTarget()
-  { return fRenderTargetProxy->peekRenderTarget(); }
+  {
+ return fRenderTargetProxy->peekRenderTarget();
+  }
   GrSurfaceProxy* asSurfaceProxy() override
-  { return fRenderTargetProxy.get(); }
+  {
+ return fRenderTargetProxy.get();
+  }
   const GrSurfaceProxy* asSurfaceProxy() const override
-  { return fRenderTargetProxy.get(); }
+  {
+ return fRenderTargetProxy.get();
+  }
   sk_sp<GrSurfaceProxy> asSurfaceProxyRef() override
-  { return fRenderTargetProxy; }
+  {
+ return fRenderTargetProxy;
+  }
   GrTextureProxy* asTextureProxy() override;
   const GrTextureProxy* asTextureProxy() const override;
   sk_sp<GrTextureProxy> asTextureProxyRef() override;
   GrRenderTargetProxy* asRenderTargetProxy() override
-  { return fRenderTargetProxy.get(); }
+  {
+ return fRenderTargetProxy.get();
+  }
   sk_sp<GrRenderTargetProxy> asRenderTargetProxyRef() override
-  { return fRenderTargetProxy; }
+  {
+ return fRenderTargetProxy;
+  }
   GrRenderTargetContext* asRenderTargetContext() override
-  { return this; }
+  {
+ return this;
+  }
     // Provides access to functions that aren't part of the public API.
   GrRenderTargetContextPriv priv();
   const GrRenderTargetContextPriv priv() const;
   GrTextTarget* textTarget()
-  { return fTextTarget.get(); }
+  {
+ return fTextTarget.get();
+  }
 #  if  GR_TEST_UTILS
   bool testingOnly_IsInstantiated() const
-  { return fRenderTargetProxy->isInstantiated(); }
+  {
+ return fRenderTargetProxy->isInstantiated();
+  }
   void testingOnly_SetPreserveOpsOnFullClear()
-  { fPreserveOpsOnFullClear_TestingOnly = true; }
+  {
+ fPreserveOpsOnFullClear_TestingOnly = true;
+  }
   GrOpsTask* testingOnly_PeekLastOpsTask()
-  { return fOpsTask.get(); }
+  {
+ return fOpsTask.get();
+  }
 #  endif
 protected:
   GrRenderTargetContext(GrRecordingContext*, sk_sp<GrRenderTargetProxy>, GrColorType, sk_sp<SkColorSpace>, const SkSurfaceProps*, bool managedOpsTask = true);

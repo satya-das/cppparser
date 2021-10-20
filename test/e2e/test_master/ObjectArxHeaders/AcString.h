@@ -34,7 +34,9 @@ class AcString : public AcHeapOperators
 {
 public:
     // Encoding type
-  enum Encoding { Utf8 };
+  enum Encoding {
+ Utf8
+  };
     //
     // Constructors and destructor
     //
@@ -64,7 +66,7 @@ public:
         kSigned = 0x0002,   // format the arg as signed int
         kUnSigned = 0x0003, // format the arg as unsigned int
         kHex = 0x0004  // format the arg as hex
-    };
+  };
     // Multi-purpose constructor, takes an unsigned argument and
     // uses it either to load a resource string or to create a
     // numerical string (base 10 or hex).
@@ -129,7 +131,7 @@ public:
   unsigned tcharLength() const
   {
         return this->length();
-    }
+  }
     // Returns the number of characters (not including the null terminator)
     // that this string can contain without growing its buffer
     // Note that capacity() is always >= length()
@@ -153,7 +155,7 @@ public:
         kParseExcept = 0x04,  // throw an int exception
         kParseNoEmpty = 0x08, // treat empty string as error
         kParseDefault = (kParseAssert | kParseZero)
-    };
+  };
     // Parse the current string as decimal, return a signed int
     // nFlags : input bits specifying how to do the parsing
   ACBASE_PORT int asDeci(int nFlags = kParseDefault) const;
@@ -617,7 +619,7 @@ public:
   int remove()
   {
         return this->remove(0);
-    }
+  }
     /// <summary> Extract substring up to the first instance of a designated character.</summary>
     /// <returns> AcString that contains the substring</returns>
     ///
@@ -843,7 +845,6 @@ AcString operator +(const wchar_t* pwsz, const AcString& acs);
 //
 operator const wchar_t*() const
 {
-
     return this->kwszPtr();
 }
 inline const wchar_t* AcString::constPtr() const
@@ -1181,12 +1182,10 @@ public:
 #  if  defined(_AFX) || defined(__OSX_WINAPI_UNIX_STRING_H__) || defined(__ATLSTR_H__)
 inline AcString::AcString(const CStringW& csw)
   :  AcString()
-
-  {
-
+{
     const wchar_t *pwsz = (const wchar_t *)csw;
     *this = pwsz;
-  }
+}
 inline AcString& AcString::operator=(const CStringW& csw)
 {
     const wchar_t *pwsz = (const wchar_t *)csw;

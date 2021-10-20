@@ -38,7 +38,7 @@ public:
         kCurDocSwitch   = 1     // Locking + switch the doc context;
                                 //  document activation is disabled in
                                 //  this mode.
-    };
+  };
     // Constructors are responsible for performing all necessary
     // operations and keeping track of what must be undone in
     // the destructor.

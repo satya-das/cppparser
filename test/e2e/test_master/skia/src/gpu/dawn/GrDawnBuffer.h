@@ -20,7 +20,9 @@ public:
   bool onUpdateData(const void* src, size_t srcSizeInBytes) override;
   GrDawnGpu* getDawnGpu() const;
   dawn::Buffer get() const
-  { return fBuffer; }
+  {
+ return fBuffer;
+  }
 private:
   dawn::Buffer fBuffer;
   GrDawnStagingBuffer* fStagingBuffer;

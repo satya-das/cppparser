@@ -34,7 +34,9 @@ extern XColor g_itemColors[];
 extern int wxComputeColours(Display* display, const wxColour* back, const wxColour* fore);
 // For convenience
 inline Display* wxGlobalDisplay()
-{ return (Display*) wxGetDisplay(); }
+{
+ return (Display*) wxGetDisplay();
+}
 #  define wxMAX_RGB	0xff
 #  define wxMAX_SV	1000
 #  define wxSIGN(x)           ((x < 0) ? -x : x)

@@ -19,13 +19,16 @@ public:
     // default ctor
   wxAcceleratorTable()
   {
-   }
+
+  }
     // load from .rc resource (Windows specific)
   wxAcceleratorTable(const wxString& resource);
     // initialize from array
   wxAcceleratorTable(int n, const wxAcceleratorEntry entries[]);
   bool Ok() const
-  { return IsOk(); }
+  {
+ return IsOk();
+  }
   bool IsOk() const;
   void SetHACCEL(WXHACCEL hAccel);
   WXHACCEL GetHACCEL() const;

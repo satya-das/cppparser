@@ -16,7 +16,8 @@ class wxMenuRadioItemsData
 public:
   wxMenuRadioItemsData()
   {
-   }
+
+  }
     // Default copy ctor, assignment operator and dtor are all ok.
 
     // Find the start and end of the group containing the given position or
@@ -45,7 +46,7 @@ public:
         }
 
         return false;
-    }
+  }
     // Take into account the new radio item about to be added at the given
     // position. The are two cases to handle:
     // - If item precedes the range, the range indices have to be updated.
@@ -93,7 +94,7 @@ public:
         m_ranges.push_back(r);
 
         return true;
-    }
+  }
     // Take into account the new non-radio item about to be added at the given
     // position. The are two cases to handle:
     // - If item precedes the range, the range indices have to be updated.
@@ -144,7 +145,7 @@ public:
         m_ranges.push_back(newRange);
 
         return true;
-    }
+  }
     // Update the ranges of the existing radio groups after removing the menu
     // item at the given position.
     //
@@ -194,7 +195,7 @@ public:
             m_ranges.erase(itEmptyGroup);
 
         return inExistingGroup;
-    }
+  }
 private:
     // Contains the inclusive positions of the range start and end.
   struct Range

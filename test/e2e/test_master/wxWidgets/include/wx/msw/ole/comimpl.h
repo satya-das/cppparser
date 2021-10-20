@@ -55,22 +55,34 @@ class wxAutoULong
 {
 public:
   wxAutoULong(ULONG value = 0)
-    :  m_Value(value) 
-    {
-     }
+    :  m_Value(value)
+  {
+
+  }
   operator ULONG&()
   {
- return m_Value;   }
+ return m_Value;
+  }
   ULONG& operator=(ULONG value)
-  { m_Value = value; return m_Value;  }
+  {
+ m_Value = value; return m_Value;
+  }
   wxAutoULong& operator++()
-  { ++m_Value; return *this; }
+  {
+ ++m_Value; return *this;
+  }
   const wxAutoULong operator++(int)
-  { wxAutoULong temp = *this; ++m_Value; return temp; }
+  {
+ wxAutoULong temp = *this; ++m_Value; return temp;
+  }
   wxAutoULong& operator--()
-  { --m_Value; return *this; }
+  {
+ --m_Value; return *this;
+  }
   const wxAutoULong operator--(int)
-  { wxAutoULong temp = *this; --m_Value; return temp; }
+  {
+ wxAutoULong temp = *this; --m_Value; return temp;
+  }
 private:
   ULONG m_Value;
 };

@@ -209,7 +209,7 @@ public:
         ID_RICHTEXTLISTSTYLEPAGE_SPACINGAFTER = 10638,
         ID_RICHTEXTLISTSTYLEPAGE_LINESPACING = 10639,
         ID_RICHTEXTLISTSTYLEPAGE_RICHTEXTCTRL = 10640
-    };
+  };
 ////@end wxRichTextListStylePage member variables
   bool m_dontUpdate;
   int m_currentLevel;

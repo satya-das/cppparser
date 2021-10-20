@@ -34,7 +34,7 @@ public:
         kColor,            // draw to the color buffer, no AA
         kStencil,          // draw just to the stencil buffer
         kStencilAndColor,  // draw the stencil and color buffer, no AA
-    };
+  };
     /** Returns a GrPathRenderer compatible with the request if one is available. If the caller
         is drawing the path to the stencil buffer then stencilSupport can be used to determine
         whether the path can be rendered with arbitrary stencil rules or not. See comments on
@@ -45,11 +45,11 @@ public:
   GrCoverageCountingPathRenderer* getCoverageCountingPathRenderer()
   {
         return fCoverageCountingPathRenderer;
-    }
+  }
 private:
   enum {
         kPreAllocCount = 8,
-    };
+  };
   SkSTArray<kPreAllocCount, sk_sp<GrPathRenderer>> fChain;
   GrCoverageCountingPathRenderer* fCoverageCountingPathRenderer = nullptr;
 };

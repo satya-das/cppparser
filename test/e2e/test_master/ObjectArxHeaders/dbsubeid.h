@@ -95,22 +95,19 @@ inline void AcDbSubentId::setTypeClass(AcRxClass* pTypeClass)
 }
 inline AcDbSubentId::AcDbSubentId()
   :  mType(AcDb::kNullSubentType), mIndex(kNullSubentIndex), mpTypeClass(nullptr)
+{
 
-  {
-
-  }
+}
 inline AcDbSubentId::AcDbSubentId(AcDb::SubentType t, Adesk::GsMarker i)
   :  mType(t), mIndex(i), mpTypeClass(nullptr)
+{
 
-  {
-
-  }
+}
 inline AcDbSubentId::AcDbSubentId(AcRxClass* pTypeClass, Adesk::GsMarker i)
   :  mType(AcDb::kClassSubentType), mIndex(i), mpTypeClass(pTypeClass)
+{
 
-  {
-
-  }
+}
 inline bool AcDbSubentId::operator ==(const AcDbSubentId& id) const
 {
     return ((mIndex == id.mIndex) 
@@ -125,16 +122,14 @@ inline bool AcDbSubentId::operator !=(const AcDbSubentId& id) const
 }
 inline AcDbFullSubentPath::AcDbFullSubentPath()
   :  mpUserAppData(NULL)
+{
 
-  {
-
-  }
+}
 inline AcDbFullSubentPath::AcDbFullSubentPath(AcDb::SubentType type, Adesk::GsMarker index)
   :  mSubentId(type, index), mpUserAppData(NULL)
+{
 
-  {
-
-  }
+}
 inline void AcDbFullSubentPath::objectIds(AcDbObjectIdArray& objectIds) const
 {
     objectIds = mObjectIds;

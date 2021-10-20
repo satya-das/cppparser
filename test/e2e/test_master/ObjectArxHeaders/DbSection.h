@@ -47,7 +47,7 @@ public:
         kPlane              = (0x1 << 0),
         kBoundary           = (0x1 << 1),
         kVolume             = (0x1 << 2),
-    };
+  };
     /// <summary>
     /// Hit flags for section plane. This enum value is returned by the method hitTest. 
     /// </summary>
@@ -61,7 +61,7 @@ public:
         kBackLineBottom     = (0x1 << 5),
         kVerticalLineTop    = (0x1 << 6),
         kVerticalLineBottom = (0x1 << 7),
-    };
+  };
     /// <summary>
     /// Height flags for section plane. 
     /// </summary>
@@ -70,7 +70,7 @@ public:
   enum Height {
         kHeightAboveSectionLine = 0x1,
         kHeightBelowSectionLine = 0x2,
-    };
+  };
   ACDB_DECLARE_MEMBERS(AcDbSection);
     /// <summary>
     /// Default constructor. Constructs a section plane with the type initialized to AcDbSection::kPlane. Since a section plane should have at least two vertices, the section plane constructed by this constructor is invalid until vertices are added. Invalid section planes should not be posted to the database. If they are posted they will remain invisible in the database. 
@@ -509,7 +509,7 @@ public:
         kLiveSection                = (0x1 << 0),       // Live section
         k2dSection                  = (0x1 << 1),       // 2d section
         k3dSection                  = (0x1 << 2),       // 3d section
-    };
+  };
     /// <summary>
     /// Generation flags to control section creation. There are three groups of flags: type of section to generate, source, and destination. One value from each group should be OR'd to set the generation options. The options kGenerate2dSection and kGenerate3dSection form the first group to specify the type of section. kSourceAllObjects and kSourceSelectedObjects form the second group to specify the source. kDestinationNewBlock, kDestinationReplaceBlock, and kDestinationFile form the third group to specify destination for the generated geometry.
     /// </summary>
@@ -526,7 +526,7 @@ public:
         kBackgroundGeometry         = (0x1 << 2),       // Background geometry
         kForegroundGeometry         = (0x1 << 3),       // Foreground geometry
         kCurveTangencyLines         = (0x1 << 4),       // Curve tangency lines
-    };
+  };
     /// <summary>
     /// Generation flags to control section creation. There are three groups of flags: type of section to generate, source, and destination. One value from each group should be OR'd to set the generation options. The options kGenerate2dSection and kGenerate3dSection form the first group to specify the type of section. kSourceAllObjects and kSourceSelectedObjects form the second group to specify the source. kDestinationNewBlock, kDestinationReplaceBlock, and kDestinationFile form the third group to specify destination for the generated geometry.
     /// </summary>
@@ -545,7 +545,7 @@ public:
         kDestinationNewBlock        = (0x1 << 4),       // Insert as new block
         kDestinationReplaceBlock    = (0x1 << 5),       // Replace existing block
         kDestinationFile            = (0x1 << 6),       // Export to a file
-    };
+  };
   ACDB_DECLARE_MEMBERS(AcDbSectionSettings);
     /// <summary>
     /// Default constructor. 

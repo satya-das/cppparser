@@ -14,14 +14,14 @@ class WXDLLIMPEXP_CORE wxTopLevelWindowMotif : public wxTopLevelWindowBase
 public:
   wxTopLevelWindowMotif()
   {
- Init();   }
+ Init();
+  }
   wxTopLevelWindowMotif(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-
         Init();
 
         Create( parent, id, title, pos, size, style, name );
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
   virtual ~wxTopLevelWindowMotif();
   virtual bool ShowFullScreen(bool show, long style = wxFULLSCREEN_ALL);
@@ -34,9 +34,13 @@ public:
   virtual void Raise();
   virtual void Lower();
   virtual wxString GetTitle() const
-  { return m_title; }
+  {
+ return m_title;
+  }
   virtual void SetTitle(const wxString& title)
-  { m_title = title; }
+  {
+ m_title = title;
+  }
   virtual bool SetShape(const wxRegion& region);
   WXWidget GetShellWidget() const;
 protected:

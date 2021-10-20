@@ -39,9 +39,8 @@ namespace SkRecords
         , fDrawablePicts(drawablePicts)
         , fDrawables(drawables)
         , fDrawableCount(drawableCount)
-    
-      {
-      }
+    {
+    }
     // This operator calls methods on the |canvas|. The various draw() wrapper
     // methods around SkCanvas are defined by the DRAW() macro in
     // SkRecordDraw.cpp.
@@ -52,9 +51,13 @@ namespace SkRecords
     }
   protected:
     const SkPicture* const * drawablePicts() const
-    { return fDrawablePicts; }
+    {
+ return fDrawablePicts;
+    }
     int drawableCount() const
-    { return fDrawableCount; }
+    {
+ return fDrawableCount;
+    }
   private:
     // No base case, so we'll be compile-time checked that we implement all possibilities.
     template <typename T>

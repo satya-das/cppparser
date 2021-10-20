@@ -16,9 +16,9 @@ namespace SkSL
   public:
     ExternalValue(const char* name, const Type& type)
       :  INHERITED(-1, kExternal_Kind, name)
-        , fType(type) 
-      {
-      }
+        , fType(type)
+    {
+    }
     virtual bool canRead() const
     {
         return false;

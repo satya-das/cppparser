@@ -46,6 +46,6 @@ namespace wxMSWImpl
     }
 
     return nm;
-}
+  }
 }
 #endif

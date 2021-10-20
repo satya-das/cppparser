@@ -20,20 +20,23 @@ public:
   wxControl();
   wxControl(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr))
   {
-
         Create(parent, id, pos, size, style, validator, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr));
     // simulates the event, returns true if the event was processed
   virtual void Command(wxCommandEvent&)
-  { }
+  {
+
+  }
     // calls the callback and appropriate event handlers, returns true if
     // event was processed
   virtual bool ProcessCommand(wxCommandEvent& event);
   virtual void SetLabel(const wxString& label);
   virtual wxString GetLabel() const;
   bool InSetValue() const
-  { return m_inSetValue; }
+  {
+ return m_inSetValue;
+  }
 protected:
     // calls wxControlBase::CreateControl, also sets foreground, background and
     // font to parent's values

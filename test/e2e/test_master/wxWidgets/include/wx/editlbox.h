@@ -26,28 +26,40 @@ class WXDLLIMPEXP_CORE wxEditableListBox : public wxPanel
 public:
   wxEditableListBox()
   {
- Init();   }
+ Init();
+  }
   wxEditableListBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxEL_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxEditableListBoxNameStr))
   {
-
         Init();
         Create(parent, id, label, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxEL_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxEditableListBoxNameStr));
   void SetStrings(const wxArrayString& strings);
   void GetStrings(wxArrayString& strings) const;
   wxListCtrl* GetListCtrl()
-  { return m_listCtrl; }
+  {
+ return m_listCtrl;
+  }
   wxBitmapButton* GetDelButton()
-  { return m_bDel; }
+  {
+ return m_bDel;
+  }
   wxBitmapButton* GetNewButton()
-  { return m_bNew; }
+  {
+ return m_bNew;
+  }
   wxBitmapButton* GetUpButton()
-  { return m_bUp; }
+  {
+ return m_bUp;
+  }
   wxBitmapButton* GetDownButton()
-  { return m_bDown; }
+  {
+ return m_bDown;
+  }
   wxBitmapButton* GetEditButton()
-  { return m_bEdit; }
+  {
+ return m_bEdit;
+  }
 protected:
   wxBitmapButton* m_bDel, *m_bNew, *m_bUp, *m_bDown, *m_bEdit;
   wxListCtrl* m_listCtrl;
@@ -59,7 +71,7 @@ protected:
         m_selection = 0;
         m_bEdit = m_bNew = m_bDel = m_bUp = m_bDown = NULL;
         m_listCtrl = NULL;
-    }
+  }
   void OnItemSelected(wxListEvent& event);
   void OnEndLabelEdit(wxListEvent& event);
   void OnNewItem(wxCommandEvent& event);

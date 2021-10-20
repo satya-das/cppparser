@@ -131,7 +131,9 @@ public:
         @return  identifier for SkPicture
     */
   uint32_t uniqueID() const
-  { return fUniqueID; }
+  {
+ return fUniqueID;
+  }
     /** Returns storage containing SkData describing SkPicture, using optional custom
         encoders.
 
@@ -218,7 +220,9 @@ private:
   friend bool SkPicture_StreamIsSKP(SkStream*, struct SkPictInfo*);
     // Returns NULL if this is not an SkBigPicture.
   virtual const class SkBigPicture* asSkBigPicture() const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   friend struct SkPathCounter;
   static bool IsValidPictInfo(const struct SkPictInfo& info);
   static sk_sp<SkPicture> Forwardport(const struct SkPictInfo&, const class SkPictureData*, class SkReadBuffer* buffer);

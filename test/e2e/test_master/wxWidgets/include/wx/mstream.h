@@ -20,25 +20,28 @@ public:
   wxMemoryInputStream(const wxMemoryOutputStream& stream);
   wxMemoryInputStream(wxInputStream& stream, wxFileOffset lenFile = wxInvalidOffset)
   {
-
         InitFromStream(stream, lenFile);
-      }
+  }
   wxMemoryInputStream(wxMemoryInputStream& stream)
     :  wxInputStream()
-    
-    {
-
+  {
         InitFromStream(stream, wxInvalidOffset);
-        }
+  }
   virtual ~wxMemoryInputStream();
   wxFileOffset GetLength() const override
-  { return m_length; }
+  {
+ return m_length;
+  }
   bool IsSeekable() const override
-  { return true; }
+  {
+ return true;
+  }
   char Peek() override;
   bool CanRead() const override;
   wxStreamBuffer* GetInputStreamBuffer() const
-  { return m_i_streambuf; }
+  {
+ return m_i_streambuf;
+  }
 protected:
   wxStreamBuffer* m_i_streambuf;
   size_t OnSysRead(void* buffer, size_t nbytes) override;
@@ -59,12 +62,18 @@ public:
   wxMemoryOutputStream(void* data = NULL, size_t length = 0);
   virtual ~wxMemoryOutputStream();
   wxFileOffset GetLength() const override
-  { return m_o_streambuf->GetLastAccess(); }
+  {
+ return m_o_streambuf->GetLastAccess();
+  }
   bool IsSeekable() const override
-  { return true; }
+  {
+ return true;
+  }
   size_t CopyTo(void* buffer, size_t len) const;
   wxStreamBuffer* GetOutputStreamBuffer() const
-  { return m_o_streambuf; }
+  {
+ return m_o_streambuf;
+  }
 protected:
   wxStreamBuffer* m_o_streambuf;
   size_t OnSysWrite(const void* buffer, size_t nbytes) override;

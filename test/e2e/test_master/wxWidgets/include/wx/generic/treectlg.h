@@ -31,25 +31,26 @@ public:
     // creation
     // --------
   wxGenericTreeCtrl()
-    :  wxTreeCtrlBase(), wxScrollHelper(this) 
-    {
- Init();     }
+    :  wxTreeCtrlBase(), wxScrollHelper(this)
+  {
+ Init();
+  }
   wxGenericTreeCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTR_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTreeCtrlNameStr))
     :  wxTreeCtrlBase(),
           wxScrollHelper(this)
-    
-    {
-
+  {
         Init();
         Create(parent, id, pos, size, style, validator, name);
-        }
+  }
   virtual ~wxGenericTreeCtrl();
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTR_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTreeCtrlNameStr));
     // implement base class pure virtuals
     // ----------------------------------
   unsigned int GetCount() const override;
   unsigned int GetIndent() const override
-  { return m_indent; }
+  {
+ return m_indent;
+  }
   void SetIndent(unsigned int indent) override;
   void SetImageList(wxImageList* imageList) override;
   void SetStateImageList(wxImageList* imageList) override;
@@ -77,17 +78,21 @@ public:
     // navigation
     // ----------
   wxTreeItemId GetRootItem() const override
-  { return m_anchor; }
+  {
+ return m_anchor;
+  }
   wxTreeItemId GetSelection() const override
   {
         wxASSERT_MSG( !HasFlag(wxTR_MULTIPLE),
                        wxT("must use GetSelections() with this control") );
 
         return m_current;
-    }
+  }
   size_t GetSelections(wxArrayTreeItemIds&) const override;
   wxTreeItemId GetFocusedItem() const override
-  { return m_current; }
+  {
+ return m_current;
+  }
   void ClearFocusedItem() override;
   void SetFocusedItem(const wxTreeItemId& item) override;
   wxTreeItemId GetItemParent(const wxTreeItemId& item) const override;
@@ -126,13 +131,19 @@ public:
     // this version specific methods
     // -----------------------------
   wxImageList* GetButtonsImageList() const
-  { return m_imageListButtons; }
+  {
+ return m_imageListButtons;
+  }
   void SetButtonsImageList(wxImageList* imageList);
   void AssignButtonsImageList(wxImageList* imageList);
   void SetDropEffectAboveItem(bool above = false)
-  { m_dropEffectAboveItem = above; }
+  {
+ m_dropEffectAboveItem = above;
+  }
   bool GetDropEffectAboveItem() const
-  { return m_dropEffectAboveItem; }
+  {
+ return m_dropEffectAboveItem;
+  }
   wxTreeItemId GetNext(const wxTreeItemId& item) const;
     // implementation only from now on
 
@@ -155,7 +166,7 @@ public:
   wxVisualAttributes GetDefaultAttributes() const override
   {
         return GetClassDefaultAttributes(GetWindowVariant());
-    }
+  }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
     // implementation helpers
   void AdjustMyScrollbars();
@@ -185,7 +196,9 @@ protected:
   wxCursor m_oldCursor;
   wxGenericTreeItem* m_oldSelection;
   wxGenericTreeItem* m_underMouse;
-  enum { NoEffect, BorderEffect, AboveEffect, BelowEffect } m_dndEffect;
+  enum {
+ NoEffect, BorderEffect, AboveEffect, BelowEffect
+} m_dndEffect;
   wxGenericTreeItem* m_dndEffectItem;
   wxTreeTextCtrl* m_textCtrl;
   wxTimer* m_renameTimer;
@@ -217,7 +230,9 @@ protected:
     // find the first item starting with the given prefix after the given item
   wxTreeItemId FindItem(const wxTreeItemId& id, const wxString& prefix) const;
   bool HasButtons() const
-  { return HasFlag(wxTR_HAS_BUTTONS); }
+  {
+ return HasFlag(wxTR_HAS_BUTTONS);
+  }
   void CalculateLineHeight();
   int GetLineHeight(wxGenericTreeItem* item) const;
   void PaintLevel(wxGenericTreeItem* item, wxDC& dc, int level, int& y);
@@ -245,7 +260,7 @@ private:
   void OnSysColourChanged(wxSysColourChangedEvent&)
   {
         InitVisualAttributes();
-    }
+  }
     // (Re)initialize colours, fonts, pens, brushes used by the control using
     // the current system colours and font.
   void InitVisualAttributes();
@@ -272,10 +287,9 @@ public:
   }
   wxTreeCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTR_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTreeCtrlNameStr))
     :  wxGenericTreeCtrl(parent, id, pos, size, style, validator, name)
-    
-    {
+  {
 
-        }
+  }
 };
 #    endif
 #  endif

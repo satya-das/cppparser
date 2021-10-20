@@ -73,7 +73,7 @@ public:
   {
         AcDbObjectId id;
         return this->appendAcDbEntity(id, pEntity);
-    }
+  }
     // Note: does not close the entity. Caller must close it
     // after entity is successfully appended.
   Acad::ErrorStatus appendAcDbEntity(AcDbObjectId& pOutputId, AcDbEntity* pEntity);
@@ -136,7 +136,7 @@ public:
   enum BlockScaling {
         kAny,
         kUniform
-    };
+  };
   AcDbBlockTableRecord::BlockScaling blockScaling() const;
   Acad::ErrorStatus setBlockScaling(AcDbBlockTableRecord::BlockScaling blockScaling);
   Acad::ErrorStatus setExplodable(bool bExplodable);
@@ -173,7 +173,9 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus setLinetypeObjectId(AcDbObjectId id);
   AcDbObjectId materialId() const;
   Acad::ErrorStatus setMaterialId(AcDbObjectId id);
-  enum { kDxfLayerPlotBit = AcDb::kDxfBool };
+  enum {
+ kDxfLayerPlotBit = AcDb::kDxfBool
+  };
   bool isPlottable() const;
   Acad::ErrorStatus setIsPlottable(bool plot);
   AcDb::LineWeight lineWeight() const;
@@ -310,11 +312,17 @@ public:
   Acad::ErrorStatus setComments(const ACHAR* pString);
     // These methods are deprecated. Please use the comments() methods
   Acad::ErrorStatus asciiDescription(ACHAR*& pString) const
-  { return comments(pString); }
+  {
+ return comments(pString);
+  }
   Acad::ErrorStatus asciiDescription(const ACHAR*& pString) const
-  { return comments(pString); }
+  {
+ return comments(pString);
+  }
   Acad::ErrorStatus setAsciiDescription(const ACHAR* pString)
-  { return setComments(pString); }
+  {
+ return setComments(pString);
+  }
   double patternLength() const;
   ACDBCORE2D_PORT Acad::ErrorStatus setPatternLength(double patternLength);
   int numDashes() const;
@@ -536,11 +544,13 @@ public:
   Adesk::UInt16 circleSides() const;
   void setCircleSides(Adesk::UInt16 circleSides);
   bool fastZoomsEnabled() const
-  { return true; }
+  {
+ return true;
+  }
   void setFastZoomsEnabled(bool enabled)
   {
         enabled;        // avoid unreferenced parameter warning
-    }
+  }
   bool iconEnabled() const;
   void setIconEnabled(bool enabled);
   bool iconAtOrigin() const;
@@ -643,18 +653,18 @@ public:
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbSymbolTableRecord*& pRec, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openAt(entryName, pRec, openMode, openErasedRec);
-    }
+  }
   ACDBCORE2D_PORT Acad::ErrorStatus getIdAt(const ACHAR* entryName, AcDbObjectId& recordId, bool getErasedRecord = false) const;
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& recordId, bool getErasedRecord = false) const
   {
         return this->getIdAt(entryName, recordId, getErasedRecord);
-    }
+  }
   bool has(const ACHAR* name) const
   {
         AcDbObjectId id;
         this->assertReadEnabled();
         return this->getIdAt(name, id) == Acad::eOk;
-    }
+  }
   ACDBCORE2D_PORT bool has(AcDbObjectId id) const;
   Acad::ErrorStatus newIterator(AcDbSymbolTableIterator*& pIterator, bool atBeginning = true, bool skipDeleted = true) const;
   Acad::ErrorStatus add(AcDbSymbolTableRecord* pRecord);
@@ -669,7 +679,7 @@ protected:
         if (es == Acad::eOk)
             es = ::acdbOpenObject(pRec, id, nMode, bOpenErased);
         return es;
-    }
+  }
 };
 class AcDbBlockTable : public AcDbSymbolTable
 {
@@ -681,20 +691,20 @@ public:
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbBlockTableRecord*& pRec, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openAt(entryName, pRec, openMode, openErasedRec);
-    }
+  }
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& recordId, bool getErasedRec = false) const
   {
         return this->getIdAt(entryName, recordId, getErasedRec);
-    }
+  }
   Acad::ErrorStatus newIterator(AcDbBlockTableIterator*& pIterator, bool atBeginning = true, bool skipDeleted = true) const;
   Acad::ErrorStatus add(AcDbBlockTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(pRecord);
-    }
+  }
   Acad::ErrorStatus add(AcDbObjectId& recordId, AcDbBlockTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(recordId, pRecord);
-    }
+  }
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
@@ -710,20 +720,20 @@ public:
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbLayerTableRecord*& pRec, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openAt(entryName, pRec, openMode, openErasedRec);
-    }
+  }
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& recordId, bool getErasedRecord = false) const
   {
         return this->getIdAt(entryName, recordId, getErasedRecord);
-    }
+  }
   Acad::ErrorStatus newIterator(AcDbLayerTableIterator*& pIterator, bool atBeginning = true, bool skipDeleted = true) const;
   Acad::ErrorStatus add(AcDbLayerTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(pRecord);
-    }
+  }
   Acad::ErrorStatus add(AcDbObjectId& recordId, AcDbLayerTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(recordId, pRecord);
-    }
+  }
   void generateUsageData();
   bool hasUnreconciledLayers() const;
   Acad::ErrorStatus getUnreconciledLayers(AcDbObjectIdArray& idArray) const;
@@ -742,20 +752,20 @@ public:
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbTextStyleTableRecord*& pRec, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openAt(entryName, pRec, openMode, openErasedRec);
-    }
+  }
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& recordId, bool getErasedRecord = false) const
   {
         return this->getIdAt(entryName, recordId, getErasedRecord);
-    }
+  }
   Acad::ErrorStatus newIterator(AcDbTextStyleTableIterator*& pIterator, bool atBeginning = true, bool skipDeleted = true) const;
   Acad::ErrorStatus add(AcDbTextStyleTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(pRecord);
-    }
+  }
   Acad::ErrorStatus add(AcDbObjectId& recordId, AcDbTextStyleTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(recordId, pRecord);
-    }
+  }
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
@@ -771,20 +781,20 @@ public:
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbLinetypeTableRecord*& pRec, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openAt(entryName, pRec, openMode, openErasedRec);
-    }
+  }
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& recordId, bool getErasedRec = false) const
   {
         return this->getIdAt(entryName, recordId, getErasedRec);
-    }
+  }
   Acad::ErrorStatus newIterator(AcDbLinetypeTableIterator*& pIterator, bool atBeginning = true, bool skipDeleted = true) const;
   Acad::ErrorStatus add(AcDbLinetypeTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(pRecord);
-    }
+  }
   Acad::ErrorStatus add(AcDbObjectId& recordId, AcDbLinetypeTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(recordId, pRecord);
-    }
+  }
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
@@ -799,20 +809,20 @@ public:
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbAbstractViewTableRecord*& pRec, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openAt(entryName, pRec, openMode, openErasedRec);
-    }
+  }
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& recordId, bool getErasedRecord = false) const
   {
         return this->getIdAt(entryName, recordId, getErasedRecord);
-    }
+  }
   Acad::ErrorStatus newIterator(AcDbAbstractViewTableIterator*& pIterator, bool atBeginning = true, bool skipDeleted = true) const;
   Acad::ErrorStatus add(AcDbAbstractViewTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(pRecord);
-    }
+  }
   Acad::ErrorStatus add(AcDbObjectId& recordId, AcDbAbstractViewTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(recordId, pRecord);
-    }
+  }
 };
 class AcDbViewTableRecord;
 class AcDbViewTableIterator;
@@ -826,20 +836,20 @@ public:
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbViewTableRecord*& pRec, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openAt(entryName, pRec, openMode, openErasedRec);
-    }
+  }
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& recordId, bool getErasedRec = false) const
   {
         return this->getIdAt(entryName, recordId, getErasedRec);
-    }
+  }
   Acad::ErrorStatus newIterator(AcDbViewTableIterator*& pIterator, bool atBeginning = true, bool skipDeleted = true) const;
   Acad::ErrorStatus add(AcDbViewTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(pRecord);
-    }
+  }
   Acad::ErrorStatus add(AcDbObjectId& recordId, AcDbViewTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(recordId, pRecord);
-    }
+  }
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
@@ -855,20 +865,20 @@ public:
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbUCSTableRecord*& pRec, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openAt(entryName, pRec, openMode, openErasedRec);
-    }
+  }
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& recordId, bool getErasedRecord = false) const
   {
         return this->getIdAt(entryName, recordId, getErasedRecord);
-    }
+  }
   Acad::ErrorStatus newIterator(AcDbUCSTableIterator*& pIterator, bool atBeginning = true, bool skipDeleted = true) const;
   Acad::ErrorStatus add(AcDbUCSTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(pRecord);
-    }
+  }
   Acad::ErrorStatus add(AcDbObjectId& recordId, AcDbUCSTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(recordId, pRecord);
-    }
+  }
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
@@ -884,20 +894,20 @@ public:
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbViewportTableRecord*& pRec, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openAt(entryName, pRec, openMode, openErasedRec);
-    }
+  }
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& recordId, bool getErasedRecord = false) const
   {
         return this->getIdAt(entryName, recordId, getErasedRecord);
-    }
+  }
   Acad::ErrorStatus newIterator(AcDbViewportTableIterator*& pIterator, bool atBeginning = true, bool skipDeleted = true) const;
   Acad::ErrorStatus add(AcDbViewportTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(pRecord);
-    }
+  }
   Acad::ErrorStatus add(AcDbObjectId& recordId, AcDbViewportTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(recordId, pRecord);
-    }
+  }
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
@@ -913,20 +923,20 @@ public:
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbRegAppTableRecord*& pRec, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openAt(entryName, pRec, openMode, openErasedRec);
-    }
+  }
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& recordId, bool getErasedRec = false) const
   {
         return this->getIdAt(entryName, recordId, getErasedRec);
-    }
+  }
   Acad::ErrorStatus newIterator(AcDbRegAppTableIterator*& pIterator, bool atBeginning = true, bool skipDeleted = true) const;
   Acad::ErrorStatus add(AcDbRegAppTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(pRecord);
-    }
+  }
   Acad::ErrorStatus add(AcDbObjectId& recordId, AcDbRegAppTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(recordId, pRecord);
-    }
+  }
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
@@ -942,20 +952,20 @@ public:
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbDimStyleTableRecord*& pRec, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openAt(entryName, pRec, openMode, openErasedRec);
-    }
+  }
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& recordId, bool getErasedRec = false) const
   {
         return this->getIdAt(entryName, recordId, getErasedRec);
-    }
+  }
   Acad::ErrorStatus newIterator(AcDbDimStyleTableIterator*& pIterator, bool atBeginning = true, bool skipDeleted = true) const;
   Acad::ErrorStatus add(AcDbDimStyleTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(pRecord);
-    }
+  }
   Acad::ErrorStatus add(AcDbObjectId& recordId, AcDbDimStyleTableRecord* pRecord)
   {
         return this->AcDbSymbolTable::add(recordId, pRecord);
-    }
+  }
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
@@ -982,7 +992,7 @@ public:
   Acad::ErrorStatus getRecord(AcDbSymbolTableRecord*& pRecord, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openRecord(pRecord, openMode, openErasedRec);
-    }
+  }
   void step(bool forward = true, bool skipDeleted = true);
   ACDBCORE2D_PORT Acad::ErrorStatus seek(AcDbObjectId id);
   ACDBCORE2D_PORT Acad::ErrorStatus seek(const AcDbSymbolTableRecord* pRecord);
@@ -996,7 +1006,7 @@ protected:
         if (es == Acad::eOk)
             es = ::acdbOpenObject(pRec, id, nMode, bOpenErased);
         return es;
-    }
+  }
   class AcDbImpSymbolTableIterator* mpImp;
   AcDbSymbolTableIterator();
   friend class AcDbSymbolTable;
@@ -1007,7 +1017,7 @@ public:
   Acad::ErrorStatus getRecord(AcDbBlockTableRecord*& pRecord, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openRecord(pRecord, openMode, openErasedRec);
-    }
+  }
 protected:
   AcDbBlockTableIterator();
   friend class AcDbBlockTable;
@@ -1018,7 +1028,7 @@ public:
   Acad::ErrorStatus getRecord(AcDbLayerTableRecord*& pRecord, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openRecord(pRecord, openMode, openErasedRec);
-    }
+  }
   bool getSkipHidden() const;
   void setSkipHidden(bool value);
   bool getSkipReconciled() const;
@@ -1033,7 +1043,7 @@ public:
   Acad::ErrorStatus getRecord(AcDbTextStyleTableRecord*& pRecord, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openRecord(pRecord, openMode, openErasedRec);
-    }
+  }
 protected:
   AcDbTextStyleTableIterator();
   friend class AcDbTextStyleTable;
@@ -1044,7 +1054,7 @@ public:
   Acad::ErrorStatus getRecord(AcDbLinetypeTableRecord*& pRecord, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openRecord(pRecord, openMode, openErasedRec);
-    }
+  }
 protected:
   AcDbLinetypeTableIterator();
   friend class AcDbLinetypeTable;
@@ -1055,7 +1065,7 @@ public:
   Acad::ErrorStatus getRecord(AcDbAbstractViewTableRecord*& pRecord, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openRecord(pRecord, openMode, openErasedRec);
-    }
+  }
 protected:
   AcDbAbstractViewTableIterator();
   friend class AcDbAbstractViewTable;
@@ -1066,7 +1076,7 @@ public:
   Acad::ErrorStatus getRecord(AcDbViewTableRecord*& pRecord, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openRecord(pRecord, openMode, openErasedRec);
-    }
+  }
 protected:
   AcDbViewTableIterator();
   friend class AcDbViewTable;
@@ -1077,7 +1087,7 @@ public:
   Acad::ErrorStatus getRecord(AcDbUCSTableRecord*& pRecord, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openRecord(pRecord, openMode, openErasedRec);
-    }
+  }
 protected:
   AcDbUCSTableIterator();
   friend class AcDbUCSTable;
@@ -1088,7 +1098,7 @@ public:
   Acad::ErrorStatus getRecord(AcDbViewportTableRecord*& pRecord, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openRecord(pRecord, openMode, openErasedRec);
-    }
+  }
 protected:
   AcDbViewportTableIterator();
   friend class AcDbViewportTable;
@@ -1099,7 +1109,7 @@ public:
   Acad::ErrorStatus getRecord(AcDbRegAppTableRecord*& pRecord, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openRecord(pRecord, openMode, openErasedRec);
-    }
+  }
 protected:
   AcDbRegAppTableIterator();
   friend class AcDbRegAppTable;
@@ -1110,7 +1120,7 @@ public:
   Acad::ErrorStatus getRecord(AcDbDimStyleTableRecord*& pRecord, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
   {
         return this->openRecord(pRecord, openMode, openErasedRec);
-    }
+  }
 protected:
   AcDbDimStyleTableIterator();
   friend class AcDbDimStyleTable;
@@ -1141,14 +1151,20 @@ class AcDbBlockReferenceIdIterator
 public:
   ~AcDbBlockReferenceIdIterator();
   void start()
-  { mPos = 0; }
+  {
+ mPos = 0;
+  }
   bool done() const
-  { return mPos >= mAry.length(); }
+  {
+ return mPos >= mAry.length();
+  }
   Acad::ErrorStatus getBlockReferenceId(AcDbObjectId& id) const;
   Acad::ErrorStatus getDatabase(AcDbDatabase*& pDb) const;
   Acad::ErrorStatus getBlockReference(AcDbBlockReference*& pBlkRef, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedEntity = false) const;
   void step()
-  { mPos++; }
+  {
+ mPos++;
+  }
   ACDBCORE2D_PORT Acad::ErrorStatus seek(AcDbObjectId id);
 private:
   AcDbBlockReferenceIdIterator();

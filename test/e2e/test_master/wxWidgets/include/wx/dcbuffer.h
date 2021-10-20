@@ -40,35 +40,29 @@ public:
     :  m_dc(NULL),
           m_buffer(NULL),
           m_style(0)
-    
-    {
+  {
 
-        }
+  }
     // Construct a wxBufferedDC using a user supplied buffer.
   wxBufferedDC(wxDC* dc, wxBitmap& buffer = wxNullBitmap, int style = wxBUFFER_CLIENT_AREA)
     :  m_dc(NULL), m_buffer(NULL)
-    
-    {
-
+  {
         Init(dc, buffer, style);
-        }
+  }
     // Construct a wxBufferedDC with an internal buffer of 'area'
     // (where area is usually something like the size of the window
     // being buffered)
   wxBufferedDC(wxDC* dc, const wxSize& area, int style = wxBUFFER_CLIENT_AREA)
     :  m_dc(NULL), m_buffer(NULL)
-    
-    {
-
+  {
         Init(dc, area, style);
-        }
+  }
     // The usually desired  action in the dtor is to blit the buffer.
   virtual ~wxBufferedDC()
   {
-
         if ( m_dc )
             UnMask();
-      }
+  }
     // These reimplement the actions of the ctors for two stage creation
   void Init(wxDC* dc, wxBitmap& buffer = wxNullBitmap, int style = wxBUFFER_CLIENT_AREA)
   {
@@ -77,13 +71,13 @@ public:
         m_buffer = &buffer;
 
         UseBuffer();
-    }
+  }
   void Init(wxDC* dc, const wxSize& area, int style = wxBUFFER_CLIENT_AREA)
   {
         InitCommon(dc, style);
 
         UseBuffer(area.x, area.y);
-    }
+  }
     // Blits the buffer to the dc, and detaches the dc from the buffer (so it
     // can be effectively used once only).
     //
@@ -93,9 +87,13 @@ public:
   void UnMask();
     // Set and get the style
   void SetStyle(int style)
-  { m_style = style; }
+  {
+ m_style = style;
+  }
   int GetStyle() const
-  { return m_style & ~wxBUFFER_USES_SHARED_BUFFER; }
+  {
+ return m_style & ~wxBUFFER_USES_SHARED_BUFFER;
+  }
 private:
     // common part of Init()s
   void InitCommon(wxDC* dc, int style)
@@ -104,7 +102,7 @@ private:
 
         m_dc = dc;
         m_style = style;
-    }
+  }
     // check that the bitmap is valid and use it
   void UseBuffer(wxCoord w = -1, wxCoord h = -1);
     // the underlying DC to which we copy everything drawn on this one in
@@ -133,9 +131,7 @@ public:
     // If no bitmap is supplied by the user, a temporary one will be created.
   wxBufferedPaintDC(wxWindow* window, wxBitmap& buffer, int style = wxBUFFER_CLIENT_AREA)
     :  m_paintdc(window)
-    
-    {
-
+  {
         SetWindow(window);
 
         // If we're buffering the virtual window, scale the paint DC as well
@@ -146,13 +142,11 @@ public:
             Init(&m_paintdc, buffer, style);
         else
             Init(&m_paintdc, GetBufferedSize(window, style), style);
-        }
+  }
     // If no bitmap is supplied by the user, a temporary one will be created.
   wxBufferedPaintDC(wxWindow* window, int style = wxBUFFER_CLIENT_AREA)
     :  m_paintdc(window)
-    
-    {
-
+  {
         SetWindow(window);
 
         // If we're using the virtual window, scale the paint DC as well
@@ -160,15 +154,14 @@ public:
             window->PrepareDC( m_paintdc );
 
         Init(&m_paintdc, GetBufferedSize(window, style), style);
-        }
+  }
     // default copy ctor ok.
   virtual ~wxBufferedPaintDC()
   {
-
         // We must UnMask here, else by the time the base class
         // does it, the PaintDC will have already been destroyed.
         UnMask();
-      }
+  }
 protected:
     // return the size needed by the buffer: this depends on whether we're
     // buffering just the currently shown part or the total (scrolled) window
@@ -176,7 +169,7 @@ protected:
   {
         return style & wxBUFFER_VIRTUAL_AREA ? window->GetVirtualSize()
                                              : window->GetClientSize();
-    }
+  }
 private:
   wxPaintDC m_paintdc;
   wxDECLARE_ABSTRACT_CLASS(wxBufferedPaintDC);
@@ -198,17 +191,16 @@ class WXDLLIMPEXP_CORE wxAutoBufferedPaintDC : public wxAutoBufferedPaintDCBase
 public:
   wxAutoBufferedPaintDC(wxWindow* win)
     :  wxAutoBufferedPaintDCBase(win)
-    
-    {
-
+  {
         wxASSERT_MSG( win->GetBackgroundStyle() == wxBG_STYLE_PAINT,
             "You need to call SetBackgroundStyle(wxBG_STYLE_PAINT) in ctor, "
             "and also, if needed, paint the background in wxEVT_PAINT handler."
         );
-        }
+  }
   virtual ~wxAutoBufferedPaintDC()
   {
-   }
+
+  }
   wxDECLARE_NO_COPY_CLASS(wxAutoBufferedPaintDC);
 };
 // Check if the window is natively double buffered and will return a wxPaintDC

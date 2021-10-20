@@ -51,61 +51,89 @@ public:
   wxConnectionBase(const wxConnectionBase& copy);
   virtual ~wxConnectionBase();
   void SetConnected(bool c)
-  { m_connected = c; }
+  {
+ m_connected = c;
+  }
   bool GetConnected()
-  { return m_connected; }
+  {
+ return m_connected;
+  }
   // Calls that CLIENT can make
   bool Execute(const void* data, size_t size, wxIPCFormat fmt = wxIPC_PRIVATE)
-  { return DoExecute(data, size, fmt); }
+  {
+ return DoExecute(data, size, fmt);
+  }
   bool Execute(const char* s, size_t size = wxNO_LEN)
-  { return DoExecute(s, size == wxNO_LEN ? strlen(s) + 1
-                                             : size, wxIPC_TEXT); }
+  {
+ return DoExecute(s, size == wxNO_LEN ? strlen(s) + 1
+                                             : size, wxIPC_TEXT);
+  }
   bool Execute(const wchar_t* ws, size_t size = wxNO_LEN)
-  { return DoExecute(ws, size == wxNO_LEN ? (wcslen(ws) + 1)*sizeof(wchar_t)
-                                              : size, wxIPC_UNICODETEXT); }
+  {
+ return DoExecute(ws, size == wxNO_LEN ? (wcslen(ws) + 1)*sizeof(wchar_t)
+                                              : size, wxIPC_UNICODETEXT);
+  }
   bool Execute(const wxString& s)
   {
       const wxScopedCharBuffer buf = s.utf8_str();
       return DoExecute(buf, strlen(buf) + 1, wxIPC_UTF8TEXT);
   }
   bool Execute(const wxCStrData& cs)
-  { return Execute(cs.AsString()); }
+  {
+ return Execute(cs.AsString());
+  }
   virtual const void* Request(const wxString& item, size_t* size = NULL, wxIPCFormat format = wxIPC_TEXT) = 0;
   bool Poke(const wxString& item, const void* data, size_t size, wxIPCFormat fmt = wxIPC_PRIVATE)
-  { return DoPoke(item, data, size, fmt); }
+  {
+ return DoPoke(item, data, size, fmt);
+  }
   bool Poke(const wxString& item, const char* s, size_t size = wxNO_LEN)
-  { return DoPoke(item, s, size == wxNO_LEN ? strlen(s) + 1
-                                                : size, wxIPC_TEXT); }
+  {
+ return DoPoke(item, s, size == wxNO_LEN ? strlen(s) + 1
+                                                : size, wxIPC_TEXT);
+  }
   bool Poke(const wxString& item, const wchar_t* ws, size_t size = wxNO_LEN)
-  { return DoPoke(item, ws,
+  {
+ return DoPoke(item, ws,
                       size == wxNO_LEN ? (wcslen(ws) + 1)*sizeof(wchar_t)
-                                       : size, wxIPC_UNICODETEXT); }
+                                       : size, wxIPC_UNICODETEXT);
+  }
   bool Poke(const wxString& item, const wxString& s)
   {
       const wxScopedCharBuffer buf = s.utf8_str();
       return DoPoke(item, buf,  strlen(buf) + 1, wxIPC_UTF8TEXT);
   }
   bool Poke(const wxString& item, const wxCStrData& cs)
-  { return Poke(item, cs.AsString()); }
+  {
+ return Poke(item, cs.AsString());
+  }
   virtual bool StartAdvise(const wxString& item) = 0;
   virtual bool StopAdvise(const wxString& item) = 0;
   // Calls that SERVER can make
   bool Advise(const wxString& item, const void* data, size_t size, wxIPCFormat fmt = wxIPC_PRIVATE)
-  { return DoAdvise(item, data, size, fmt); }
+  {
+ return DoAdvise(item, data, size, fmt);
+  }
   bool Advise(const wxString& item, const char* s, size_t size = wxNO_LEN)
-  { return DoAdvise(item, s, size == wxNO_LEN ? strlen(s) + 1
-                                                  : size, wxIPC_TEXT); }
+  {
+ return DoAdvise(item, s, size == wxNO_LEN ? strlen(s) + 1
+                                                  : size, wxIPC_TEXT);
+  }
   bool Advise(const wxString& item, const wchar_t* ws, size_t size = wxNO_LEN)
-  { return DoAdvise(item, ws,
+  {
+ return DoAdvise(item, ws,
                         size == wxNO_LEN ? (wcslen(ws) + 1)*sizeof(wchar_t)
-                                         : size, wxIPC_UNICODETEXT); }
+                                         : size, wxIPC_UNICODETEXT);
+  }
   bool Advise(const wxString& item, const wxString& s)
   {
       const wxScopedCharBuffer buf = s.utf8_str();
       return DoAdvise(item, buf,  strlen(buf) + 1, wxIPC_UTF8TEXT);
   }
   bool Advise(const wxString& item, const wxCStrData& cs)
-  { return Advise(item, cs.AsString()); }
+  {
+ return Advise(item, cs.AsString());
+  }
   // Calls that both can make
   virtual bool Disconnect() = 0;
   // Callbacks to SERVER - override at will
@@ -122,21 +150,35 @@ public:
   // want to override OnExec() above instead which receives its data in a more
   // convenient format
   virtual bool OnExecute(const wxString& topic, const void* data, size_t size, wxIPCFormat format)
-  { return OnExec(topic, GetTextFromData(data, size, format)); }
+  {
+ return OnExec(topic, GetTextFromData(data, size, format));
+  }
   virtual const void* OnRequest(const wxString&, const wxString&, size_t* size, wxIPCFormat)
-  { *size = 0; return NULL; }
+  {
+ *size = 0; return NULL;
+  }
   virtual bool OnPoke(const wxString&, const wxString&, const void*, size_t, wxIPCFormat)
-  { return false; }
+  {
+ return false;
+  }
   virtual bool OnStartAdvise(const wxString&, const wxString&)
-  { return false; }
+  {
+ return false;
+  }
   virtual bool OnStopAdvise(const wxString&, const wxString&)
-  { return false; }
+  {
+ return false;
+  }
   // Callbacks to CLIENT - override at will
   virtual bool OnAdvise(const wxString&, const wxString&, const void*, size_t, wxIPCFormat)
-  { return false; }
+  {
+ return false;
+  }
   // Callbacks to BOTH
   virtual bool OnDisconnect()
-  { delete this; return true; }
+  {
+ delete this; return true;
+  }
   // return true if this is one of the formats used for textual data
   // transmission
   static bool IsTextFormat(wxIPCFormat format)
@@ -176,10 +218,12 @@ class WXDLLIMPEXP_BASE wxServerBase : public wxObject
 public:
   wxServerBase()
   {
-   }
+
+  }
   virtual ~wxServerBase()
   {
-   }
+
+  }
   // Returns false on error (e.g. port number is already in use)
   virtual bool Create(const wxString& serverName) = 0;
   // Callbacks to SERVER - override at will
@@ -191,10 +235,12 @@ class WXDLLIMPEXP_BASE wxClientBase : public wxObject
 public:
   wxClientBase()
   {
-   }
+
+  }
   virtual ~wxClientBase()
   {
-   }
+
+  }
   virtual bool ValidHost(const wxString& host) = 0;
   // Call this to make a connection. Returns NULL if cannot.
   virtual wxConnectionBase* MakeConnection(const wxString& host, const wxString& server, const wxString& topic) = 0;

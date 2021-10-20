@@ -30,11 +30,13 @@ public:
     // default for dynamic class
   wxNotebook()
   {
-   }
+
+  }
     // the same arguments as for wxControl (@@@ any special styles?)
   wxNotebook(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxNotebookNameStr))
   {
- Create( parent, id, pos, size, style, name );   }
+ Create( parent, id, pos, size, style, name );
+  }
     // Create() function
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxNotebookNameStr));
     // dtor
@@ -45,10 +47,14 @@ public:
     // selected one (or wxNOT_FOUND on error)
     // NB: this function will _not_ generate wxEVT_NOTEBOOK_PAGE_xxx events
   int SetSelection(size_t nPage) override
-  { return DoSetSelection(nPage, SetSelection_SendEvent); }
+  {
+ return DoSetSelection(nPage, SetSelection_SendEvent);
+  }
     // changes selected page without sending events
   int ChangeSelection(size_t nPage) override
-  { return DoSetSelection(nPage); }
+  {
+ return DoSetSelection(nPage);
+  }
     // set/get the title of a page
   bool SetPageText(size_t nPage, const wxString& strText) override;
   wxString GetPageText(size_t nPage) const override;

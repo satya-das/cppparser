@@ -71,7 +71,9 @@ public:
     // AcGiDrawable methods
   AcGiDrawable* drawable() override;
   DrawableType drawableType() const override
-  { return AcGiDrawable::kDistantLight; }
+  {
+ return AcGiDrawable::kDistantLight;
+  }
     // AcDbObject methods
   Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
   Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;

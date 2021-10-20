@@ -16,7 +16,7 @@ public:
   enum InitStyle {
         kHairline_InitStyle,
         kFill_InitStyle
-    };
+  };
   SkStrokeRec(InitStyle style);
   SkStrokeRec(const SkPaint&, SkPaint::Style, SkScalar resScale = 1);
   explicit SkStrokeRec(const SkPaint&, SkScalar resScale = 1);
@@ -25,25 +25,33 @@ public:
         kFill_Style,
         kStroke_Style,
         kStrokeAndFill_Style
-    };
+  };
   static constexpr int kStyleCount = kStrokeAndFill_Style + 1;
   Style getStyle() const;
   SkScalar getWidth() const
-  { return fWidth; }
+  {
+ return fWidth;
+  }
   SkScalar getMiter() const
-  { return fMiterLimit; }
+  {
+ return fMiterLimit;
+  }
   SkPaint::Cap getCap() const
-  { return (SkPaint::Cap)fCap; }
+  {
+ return (SkPaint::Cap)fCap;
+  }
   SkPaint::Join getJoin() const
-  { return (SkPaint::Join)fJoin; }
+  {
+ return (SkPaint::Join)fJoin;
+  }
   bool isHairlineStyle() const
   {
         return kHairline_Style == this->getStyle();
-    }
+  }
   bool isFillStyle() const
   {
         return kFill_Style == this->getStyle();
-    }
+  }
   void setFillStyle();
   void setHairlineStyle();
     /**
@@ -58,16 +66,16 @@ public:
         fCap = cap;
         fJoin = join;
         fMiterLimit = miterLimit;
-    }
+  }
   SkScalar getResScale() const
   {
         return fResScale;
-    }
+  }
   void setResScale(SkScalar rs)
   {
         SkASSERT(rs > 0 && SkScalarIsFinite(rs));
         fResScale = rs;
-    }
+  }
     /**
      *  Returns true if this specifes any thick stroking, i.e. applyToPath()
      *  will return true.
@@ -76,7 +84,7 @@ public:
   {
         Style style = this->getStyle();
         return (kStroke_Style == style) || (kStrokeAndFill_Style == style);
-    }
+  }
     /**
      *  Apply these stroke parameters to the src path, returning the result
      *  in dst.
@@ -122,7 +130,7 @@ public:
                fCap == other.fCap &&
                fJoin == other.fJoin &&
                fStrokeAndFill == other.fStrokeAndFill;
-    }
+  }
 private:
   void init(const SkPaint&, SkPaint::Style, SkScalar resScale);
   SkScalar fResScale;

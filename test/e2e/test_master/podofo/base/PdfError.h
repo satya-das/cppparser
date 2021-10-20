@@ -124,7 +124,7 @@ namespace PoDoFo
     ePdfError_CannotEncryptedForUpdate, /**< Cannot load encrypted documents for update. */
 
     ePdfError_Unknown = 0xffff          /**< Unknown error */
-};
+  };
 /**
  * Used in PdfError::LogMessage to specify the log level.
  *
@@ -139,7 +139,7 @@ namespace PoDoFo
     eLogSeverity_None,                /**< No specified level */
 
     eLogSeverity_Unknown = 0xffff     /**< Unknown log level */
-};
+  };
 /** \def PODOFO_RAISE_ERROR( x )
  *  
  *  Throw an exception of type PdfError with the error code x, which should be
@@ -171,19 +171,33 @@ namespace PoDoFo
     PdfErrorInfo(const PdfErrorInfo& rhs);
     const PdfErrorInfo& operator=(const PdfErrorInfo& rhs);
     inline int GetLine() const
-    { return m_nLine; }
+    {
+ return m_nLine;
+    }
     inline const std::string& GetFilename() const
-    { return m_sFile; }
+    {
+ return m_sFile;
+    }
     inline const std::string& GetInformation() const
-    { return m_sInfo; }
+    {
+ return m_sInfo;
+    }
     inline const std::wstring& GetInformationW() const
-    { return m_swInfo; }
+    {
+ return m_swInfo;
+    }
     inline void SetInformation(const char* pszInfo)
-    { m_sInfo = pszInfo ? pszInfo : ""; }
+    {
+ m_sInfo = pszInfo ? pszInfo : "";
+    }
     inline void SetInformation(std::string pszInfo)
-    { m_sInfo = pszInfo; }
+    {
+ m_sInfo = pszInfo;
+    }
     inline void SetInformation(const wchar_t* pszInfo)
-    { m_swInfo = pszInfo ? pszInfo : L""; }
+    {
+ m_swInfo = pszInfo ? pszInfo : L"";
+    }
   private:
     int m_nLine;
     std::string m_sFile;
@@ -441,14 +455,14 @@ namespace PoDoFo
   EPdfError PdfError::GetError() const
   {
     return m_error;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const TDequeErrorInfo& PdfError::GetCallstack() const
   {
     return m_callStack;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -456,14 +470,14 @@ namespace PoDoFo
   {
     m_error = eCode;
     this->AddToCallstack( pszFile, line, pszInformation );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfError::AddToCallstack(const char* pszFile, int line, const char* pszInformation)
   {
     m_callStack.push_front( PdfErrorInfo( line, pszFile, pszInformation ) );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -471,14 +485,14 @@ namespace PoDoFo
   {
     m_error = eCode;
     this->AddToCallstack( pszFile, line, sInformation );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfError::AddToCallstack(const char* pszFile, int line, std::string sInformation)
   {
     m_callStack.push_front( PdfErrorInfo( line, pszFile, sInformation ) );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -486,7 +500,7 @@ namespace PoDoFo
   {
     if( m_callStack.size() )
         m_callStack.front().SetInformation( pszInformation ? pszInformation : "" );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -494,13 +508,13 @@ namespace PoDoFo
   {
     if( m_callStack.size() )
         m_callStack.front().SetInformation( pszInformation ? pszInformation : L"" );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfError::IsError() const
   {
     return (m_error != ePdfError_ErrOk);
-}
+  }
 }
 #endif

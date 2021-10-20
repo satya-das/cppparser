@@ -73,7 +73,9 @@ public:
         // invalid to use a handle id again with this manager once this returns true.
         // TODO(khushalsagar): Make pure virtual once chrome implementation lands.
     SK_API virtual bool isHandleDeleted(SkDiscardableHandleId)
-    { return false; }
+    {
+ return false;
+    }
   };
   SK_API explicit SkStrikeServer(DiscardableHandleManager* discardableHandleManager);
   SK_API virtual ~SkStrikeServer();
@@ -91,9 +93,11 @@ public:
   void setMaxEntriesInDescriptorMapForTesting(size_t count)
   {
         fMaxEntriesInDescriptorMap = count;
-    }
+  }
   size_t remoteStrikeMapSizeForTesting() const
-  { return fDescToRemoteStrike.size(); }
+  {
+ return fDescToRemoteStrike.size();
+  }
 private:
   static constexpr size_t kMaxEntriesInDescriptorMap = 2000u;
   void checkForDeletedEntries();
@@ -131,7 +135,7 @@ public:
         kGlyphPathFallback = 5,
 
         kLast = kGlyphPathFallback
-    };
+  };
     // An interface to delete handles that may be pinned by the remote server.
   class DiscardableHandleManager : public SkRefCnt
   {

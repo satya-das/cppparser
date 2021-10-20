@@ -60,7 +60,7 @@ public:
   enum AuditPass {
             PASS1 = 1,
             PASS2 = 2
-    };
+  };
   AcDbAuditInfo();
   ~AcDbAuditInfo();
   bool fixErrors(void) const;

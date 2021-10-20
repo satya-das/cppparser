@@ -27,9 +27,13 @@ protected:
   void makeCopyKey(const CopyParams& params, GrUniqueKey* copyKey) override;
   void didCacheCopy(const GrUniqueKey& copyKey, uint32_t contextUniqueID) override;
   GrTextureProxy* originalProxy() const
-  { return fOriginal.get(); }
+  {
+ return fOriginal.get();
+  }
   sk_sp<GrTextureProxy> originalProxyRef() const
-  { return fOriginal; }
+  {
+ return fOriginal;
+  }
 private:
   sk_sp<GrTextureProxy> onRefTextureProxyForParams(const GrSamplerState&, bool willBeMipped, SkScalar scaleAdjust[2]) override;
   sk_sp<GrTextureProxy> refTextureProxyCopy(const CopyParams& copyParams, bool willBeMipped);

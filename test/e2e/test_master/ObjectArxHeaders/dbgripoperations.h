@@ -16,13 +16,13 @@ namespace AcDbGripOperations
         eNoRedrawGrip,
         eGripHotToWarm,
         eGetNewGripPoints
-    };
+  };
   enum DrawType {
         kWarmGrip  = 0,
         kHoverGrip,
         kHotGrip,
         kDragImageGrip
-    };
+  };
   enum GripStatus {
         kGripStart = 0,
         kGripEnd,
@@ -34,7 +34,7 @@ namespace AcDbGripOperations
         kMirror,
         kDimFocusChanged,
         kPopUpMenu
-    };
+  };
   enum GripFlags {
         kSkipWhenShared           = 0x1,
         kDisableRubberBandLine    = 0x2,
@@ -49,17 +49,17 @@ namespace AcDbGripOperations
         kGripIsDisabled           = 0x400,
         kGripRightClickIsNewStyle = 0x800,
         kGripSynergyPrompt        = 0x1000 // INTERNAL USE ONLY
-    };
+  };
   enum GripContextFlags {
         kSharedGrip    = 0x1,
         kMultiHotGrip  = 0x2
-    };
+  };
   enum GetGripPointsFlags {
         kGripPointsOnly = 0x1,
         kCyclableGripsOnly = 0x02,
         kDynamicDimMode = 0x04,
         kNoMultiModesGrip = 0x08,
-    };
+  };
     // The following are used by the moveGripPointsAt() bitflags parameter,
     // and refer to how the offset parameter was determined.
   enum MoveGripPointsFlags {
@@ -69,5 +69,5 @@ namespace AcDbGripOperations
         kZdir                    = 0x8,  // offset polar or otrack value is in Z direction
         kKeyboard                = 0x10,  // offset is result of keyboard entry
         kDragging                = 0x20   // dragging in progress
-    };
+  };
 }

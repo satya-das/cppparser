@@ -37,7 +37,7 @@ public:
   enum class InputFlags : uint8_t {
         kNone = 0,
         kSnapVerticesToPixelCenters = (uint8_t)GrPipeline::InputFlags::kSnapVerticesToPixelCenters,
-    };
+  };
   GR_DECL_BITFIELD_CLASS_OPS_FRIENDS(InputFlags);
   GrSimpleMeshDrawOpHelper(const MakeArgs&, GrAAType, InputFlags = InputFlags::kNone);
   ~GrSimpleMeshDrawOpHelper();
@@ -63,7 +63,7 @@ public:
         return this->finalizeProcessors(
                 caps, clip, &GrUserStencilSettings::kUnused, hasMixedSampledCoverage, clampType,
                 geometryCoverage, geometryColor);
-    }
+  }
     /**
      * Version of above that can be used by ops that have a constant color geometry processor
      * output. The op passes this color as 'geometryColor' and after return if 'geometryColor' has
@@ -73,14 +73,16 @@ public:
   bool isTrivial() const
   {
       return fProcessors == nullptr;
-    }
+  }
   bool usesLocalCoords() const
   {
         SkASSERT(fDidAnalysis);
         return fUsesLocalCoords;
-    }
+  }
   bool compatibleWithCoverageAsAlpha() const
-  { return fCompatibleWithCoverageAsAlpha; }
+  {
+ return fCompatibleWithCoverageAsAlpha;
+  }
   struct MakeArgs
   {
   private:
@@ -93,20 +95,24 @@ public:
         if (fProcessors) {
             fProcessors->visitProxies(func);
         }
-    }
+  }
 #  ifdef SK_DEBUG
   SkString dumpInfo() const;
 #  endif
   GrAAType aaType() const
-  { return static_cast<GrAAType>(fAAType); }
+  {
+ return static_cast<GrAAType>(fAAType);
+  }
   void setAAType(GrAAType aaType)
   {
       fAAType = static_cast<unsigned>(aaType);
-    }
+  }
   void executeDrawsAndUploads(const GrOp*, GrOpFlushState*, const SkRect& chainBounds);
 protected:
   GrPipeline::InputFlags pipelineFlags() const
-  { return fPipelineFlags; }
+  {
+ return fPipelineFlags;
+  }
   GrProcessorSet::Analysis finalizeProcessors(const GrCaps& caps, const GrAppliedClip*, const GrUserStencilSettings*, bool hasMixedSampledCoverage, GrClampType, GrProcessorAnalysisCoverage geometryCoverage, GrProcessorAnalysisColor* geometryColor);
   GrProcessorSet* fProcessors;
   GrPipeline::InputFlags fPipelineFlags;
@@ -131,7 +137,7 @@ public:
   {
         return GrSimpleMeshDrawOpHelper::FactoryHelper<Op, OpArgs...>(
                 context, std::move(paint), std::forward<OpArgs>(opArgs)...);
-    }
+  }
   GrSimpleMeshDrawOpHelperWithStencil(const MakeArgs&, GrAAType, const GrUserStencilSettings*, InputFlags = InputFlags::kNone);
   GrDrawOp::FixedFunctionFlags fixedFunctionFlags() const;
   GrProcessorSet::Analysis finalizeProcessors(const GrCaps& caps, const GrAppliedClip* clip, bool hasMixedSampledCoverage, GrClampType clampType, GrProcessorAnalysisCoverage geometryCoverage, GrProcessorAnalysisColor* geometryColor)
@@ -139,7 +145,7 @@ public:
         return this->INHERITED::finalizeProcessors(
                 caps, clip, fStencilSettings, hasMixedSampledCoverage, clampType, geometryCoverage,
                 geometryColor);
-    }
+  }
   GrProcessorSet::Analysis finalizeProcessors(const GrCaps&, const GrAppliedClip*, bool hasMixedSampledCoverage, GrClampType, GrProcessorAnalysisCoverage geometryCoverage, SkPMColor4f* geometryColor, bool* wideColor);
   using GrSimpleMeshDrawOpHelper::aaType;
   using GrSimpleMeshDrawOpHelper::setAAType;

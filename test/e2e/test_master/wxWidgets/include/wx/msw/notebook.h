@@ -102,7 +102,9 @@ public:
   // draw child background
   bool MSWPrintChild(WXHDC hDC, wxWindow* win) override;
   bool MSWHasInheritableBackground() const override
-  { return true; }
+  {
+ return true;
+  }
 #    endif
   // translate wxWin styles to the Windows ones
   WXDWORD MSWGetStyle(long flags, WXDWORD* exstyle = NULL) const override;
@@ -128,7 +130,9 @@ protected:
   }
   // return the themed brush for painting our children
   WXHBRUSH MSWGetCustomBgBrush() override
-  { return m_hbrBackground; }
+  {
+ return m_hbrBackground;
+  }
   // gets the bitmap of notebook background and returns a brush from it and
   // sets m_bgBrushAdj
   WXHBRUSH QueryBgBitmap();

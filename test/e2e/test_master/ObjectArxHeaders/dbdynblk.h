@@ -46,7 +46,6 @@ public:
     /// information to format the property in their user interface. 
     /// </summary>
   enum UnitsType {
-
         /// <summary>
         /// No units defined.
         /// </summary>
@@ -66,7 +65,7 @@ public:
         /// Property represents a two-dimensional area.
         /// </summary>
         kArea
-    };
+  };
     /// <summary>
     /// Default constructor.
     /// </summary>

@@ -53,14 +53,16 @@ public:
   static SkBitmapDevice* Create(const SkImageInfo& info, const SkSurfaceProps& props)
   {
         return Create(info, props, false, nullptr);
-    }
+  }
   const SkPixmap* accessCoverage() const
   {
         return fCoverage ? &fCoverage->pixmap() : nullptr;
-    }
+  }
 protected:
   void* getRasterHandle() const override
-  { return fRasterHandle; }
+  {
+ return fRasterHandle;
+  }
     /** These are called inside the per-device-layer loop for each draw call.
      When these are called, we have already applied any saveLayer operations,
      and are handling any looping from the paint.
@@ -93,7 +95,9 @@ protected:
   sk_sp<SkSpecialImage> makeSpecial(const SkImage*) override;
   sk_sp<SkSpecialImage> snapSpecial(const SkIRect&, bool = false) override;
   void setImmutable() override
-  { fBitmap.setImmutable(); }
+  {
+ fBitmap.setImmutable();
+  }
     ///////////////////////////////////////////////////////////////////////////
   bool onReadPixels(const SkPixmap&, int x, int y) override;
   bool onWritePixels(const SkPixmap&, int, int) override;
@@ -140,15 +144,17 @@ public:
     :  fSurfaceProps((kN32_SkColorType != bitmap.colorType() || !paint.isSrcOver())
                         ? fLazy.init(surfaceProps.flags(), kUnknown_SkPixelGeometry)
                         : &surfaceProps)
-    
-    {
-     }
+  {
+
+  }
   SkBitmapDeviceFilteredSurfaceProps(const SkBitmapDeviceFilteredSurfaceProps&) = delete;
   SkBitmapDeviceFilteredSurfaceProps& operator=(const SkBitmapDeviceFilteredSurfaceProps&);
   SkBitmapDeviceFilteredSurfaceProps(SkBitmapDeviceFilteredSurfaceProps&&) = delete;
   SkBitmapDeviceFilteredSurfaceProps& operator=(SkBitmapDeviceFilteredSurfaceProps&&);
   const SkSurfaceProps& operator()() const
-  { return *fSurfaceProps; }
+  {
+ return *fSurfaceProps;
+  }
 private:
   SkTLazy<SkSurfaceProps> fLazy;
   const SkSurfaceProps* const fSurfaceProps;

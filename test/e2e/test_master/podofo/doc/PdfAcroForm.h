@@ -40,7 +40,7 @@ namespace PoDoFo
   enum EPdfAcroFormDefaulAppearance {
   ePdfAcroFormDefaultAppearance_None, ///< Do not add a default appearrance
   ePdfAcroFormDefaultAppearance_BlackText12pt ///< Add a default appearance with Arial embedded and black text 12pt if no other DA key is present
-};
+  };
   class PODOFO_DOC_API PdfAcroForm : public PdfElement
   {
   public:
@@ -57,7 +57,8 @@ namespace PoDoFo
     PdfAcroForm(PdfDocument* pDoc, PdfObject* pObject, EPdfAcroFormDefaulAppearance eDefaultAppearance = ePdfAcroFormDefaultAppearance_BlackText12pt);
     virtual ~PdfAcroForm()
     {
-     }
+
+    }
     /** Get the document that is associated with this 
      *  acro forms dictionary.
      *
@@ -94,6 +95,6 @@ namespace PoDoFo
   PdfDocument* PdfAcroForm::GetDocument()
   {
     return m_pDocument;
-}
+  }
 }
 #endif

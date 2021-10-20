@@ -26,7 +26,8 @@ public:
     // Convert from wxIcon / wxCursor
   wxBitmap(const wxIcon& icon)
   {
- CopyFromIcon(icon);   }
+ CopyFromIcon(icon);
+  }
   explicit wxBitmap(const wxCursor& cursor);
   static void InitStandardHandlers();
   bool Create(int width, int height, int depth = wxBITMAP_SCREEN_DEPTH) override;

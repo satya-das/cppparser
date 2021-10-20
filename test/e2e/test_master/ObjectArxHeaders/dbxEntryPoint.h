@@ -60,9 +60,9 @@ protected:
   bool m_bMDIAware;
 public:
   AcRxDbxApp()
-    :  m_hdllInstance(NULL), m_bUnlocked(true), m_bMDIAware(true) 
-    {
-    }
+    :  m_hdllInstance(NULL), m_bUnlocked(true), m_bMDIAware(true)
+  {
+  }
   virtual AcRx::AppRetCode On_kInitAppMsg(void* pkt)
   {
 		//- Save the module instance
@@ -90,7 +90,7 @@ public:
         if ( nDbxCustObjCount > 0 )
             acrxBuildClassHierarchy () ;
         return (AcRx::kRetOK) ;
-    }
+  }
   virtual AcRx::AppRetCode On_kUnloadAppMsg(void* pkt)
   {
         _DBX_REGISTER_OBJECT_ENTRY **ppDbxCustObjMapEntryFirst =&__pDbxCustObjMapEntryFirst + 1 ;
@@ -100,35 +100,63 @@ public:
                 DeleteClassAndDescendant (ppEntry) ;
         }
         return (AcRx::kRetOK) ;
-    }
+  }
   virtual AcRx::AppRetCode On_kLoadDwgMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kUnloadDwgMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kInvkSubrMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kCfgMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kEndMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kQuitMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kSaveMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kDependencyMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kNoDependencyMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kOleUnloadAppMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kPreQuitMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kInitDialogMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kEndDialogMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   virtual AcRx::AppRetCode On_kNullMsg(void* pkt)
-  { return (AcRx::kRetOK) ; }
+  {
+ return (AcRx::kRetOK) ;
+  }
   AcRx::AppRetCode acrxEntryPoint(AcRx::AppMsgCode msg, void* pkt)
   {
     /*
@@ -152,10 +180,12 @@ public:
         }
     */
         return (AcRx::kRetOK) ;
-    }
+  }
   virtual void RegisterServerComponents() = 0;
   HINSTANCE& GetModuleInstance()
-  { return (m_hdllInstance) ; }
+  {
+ return (m_hdllInstance) ;
+  }
 private:
   void DeleteClassAndDescendant(_DBX_REGISTER_OBJECT_ENTRY** ppEntry)
   {
@@ -169,7 +199,7 @@ private:
         }
         deleteAcRxClass ((*ppEntry)->desc ()) ;
         (*ppEntry)->bRegistered =false ;
-    }
+  }
 };
 //-----------------------------------------------------------------------------
 AcRxDbxApp* acrxGetApp();

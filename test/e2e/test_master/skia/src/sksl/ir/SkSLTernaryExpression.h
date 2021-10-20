@@ -19,11 +19,10 @@ namespace SkSL
       :  INHERITED(offset, kTernary_Kind, ifTrue->fType)
     , fTest(std::move(test))
     , fIfTrue(std::move(ifTrue))
-    , fIfFalse(std::move(ifFalse)) 
-      {
-
+    , fIfFalse(std::move(ifFalse))
+    {
         SkASSERT(fIfTrue->fType == fIfFalse->fType);
-          }
+    }
     bool hasSideEffects() const override
     {
         return fTest->hasSideEffects() || fIfTrue->hasSideEffects() || fIfFalse->hasSideEffects();

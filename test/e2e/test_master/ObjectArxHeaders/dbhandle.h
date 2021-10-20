@@ -31,13 +31,15 @@ public:
   AcDbHandle& operator=(const ACHAR*);
     // This gets the hex digits into a string buffer.
   bool getIntoAsciiBuffer(ACHAR* pBuf, size_t nBufLen) const;
-  enum {kStrSiz = 17};
+  enum {
+kStrSiz = 17
+  };
     // Helper template for fixed size arrays
   template <size_t nBufLen>
   inline bool getIntoAsciiBuffer(wchar_t (& buf)[nBufLen]) const
   {
         return this->getIntoAsciiBuffer(buf, nBufLen);
-    }
+  }
   bool operator ==(const AcDbHandle&) const;
   bool operator !=(const AcDbHandle&) const;
   bool isNull() const;
@@ -71,14 +73,20 @@ public:
   operator Adesk::UInt64() const;
   AcDbHandle operator +(Adesk::ULongPtr) const;
   void print() const;
-  enum { kMaxValueBytes = 8 };
+  enum {
+ kMaxValueBytes = 8
+  };
   int byte(Adesk::UInt32 i) const;
   bool restZeros(int i) const;
 private:
   Adesk::UInt64 get64BitVal() const
-  { return mHandle.mWord64; }
+  {
+ return mHandle.mWord64;
+  }
   void set64BitVal(Adesk::UInt64 val)
-  { mHandle.mWord64 = val; }
+  {
+ mHandle.mWord64 = val;
+  }
     // Union enforces alignment
   union 
 {
@@ -98,13 +106,11 @@ inline AcDbHandle::AcDbHandle()
 }
 inline AcDbHandle::AcDbHandle(int lo, int hi)
 {
-
     mHandle.mLow = lo;
     mHandle.mHigh = hi;
 }
 inline AcDbHandle::AcDbHandle(Adesk::UInt64 val)
 {
-
     this->set64BitVal(val);
 }
 inline AcDbHandle& AcDbHandle::operator=(const AcDbHandle& handle)
@@ -184,7 +190,6 @@ inline AcDbHandle AcDbHandle::operator++(int)
 }
 operator Adesk::UInt64() const
 {
-
     return get64BitVal();
 }
 inline bool AcDbHandle::operator <(const AcDbHandle& handle) const

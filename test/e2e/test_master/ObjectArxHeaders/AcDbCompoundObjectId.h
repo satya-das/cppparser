@@ -74,7 +74,9 @@ public:
   AcDbCompoundObjectId& operator =(const AcDbCompoundObjectId&);
   bool operator ==(const AcDbCompoundObjectId&) const;
   bool operator !=(const AcDbCompoundObjectId& other) const
-  { return !(*this == other); }
+  {
+ return !(*this == other);
+  }
     /// <summary> Returns the first AcDbObjectId (of an AcDbBlockReference) 
     /// in the path, or the leaf-node AcDbObjectId, if there is no path.
     /// </summary>
@@ -168,7 +170,7 @@ public:
         kCouldNotResolveTerminal    = 3,  // Couldn't be resolved, bad sceario - xref dwg replaced, not referenced, etc.
         kCouldNotResolveTooEarly    = 4,  // Couldn't be resolved yet - too early - xref not finished resolving
         kIncompatibleIdType         = 1000,
-    };
+  };
   Status status() const;
     /// <summary> 
     /// Returns the compound transform from the leaf object to the world,

@@ -25,43 +25,48 @@ public:
   GrCCClipPath(const GrCCClipPath&) = delete;
   ~GrCCClipPath()
   {
-
         // Ensure no clip FP exists with a dangling pointer back into this class. This works because
         // a clip FP will have a ref on the proxy if it exists.
         //
         // This assert also guarantees there won't be a lazy proxy callback with a dangling pointer
         // back into this class, since no proxy will exist after we destruct, if the assert passes.
         SkASSERT(!fAtlasLazyProxy || fAtlasLazyProxy->unique());
-      }
+  }
   bool isInitialized() const
-  { return fAtlasLazyProxy != nullptr; }
+  {
+ return fAtlasLazyProxy != nullptr;
+  }
   void init(const SkPath& deviceSpacePath, const SkIRect& accessRect, GrCCAtlas::CoverageType atlasCoverageType, const GrCaps&);
   void addAccess(const SkIRect& accessRect)
   {
         SkASSERT(this->isInitialized());
         fAccessRect.join(accessRect);
-    }
+  }
   GrTextureProxy* atlasLazyProxy() const
   {
         SkASSERT(this->isInitialized());
         return fAtlasLazyProxy.get();
-    }
+  }
   const SkPath& deviceSpacePath() const
   {
         SkASSERT(this->isInitialized());
         return fDeviceSpacePath;
-    }
+  }
   const SkIRect& pathDevIBounds() const
   {
         SkASSERT(this->isInitialized());
         return fPathDevIBounds;
-    }
+  }
   void accountForOwnPath(GrCCPerFlushResourceSpecs*) const;
   void renderPathInAtlas(GrCCPerFlushResources*, GrOnFlushResourceProvider*);
   const SkVector& atlasScale() const
-  { SkASSERT(fHasAtlasTransform); return fAtlasScale; }
+  {
+ SkASSERT(fHasAtlasTransform); return fAtlasScale;
+  }
   const SkVector& atlasTranslate() const
-  { SkASSERT(fHasAtlasTransform); return fAtlasTranslate; }
+  {
+ SkASSERT(fHasAtlasTransform); return fAtlasTranslate;
+  }
 private:
   sk_sp<GrTextureProxy> fAtlasLazyProxy;
   SkPath fDeviceSpacePath;

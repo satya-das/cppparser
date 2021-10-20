@@ -22,13 +22,16 @@ public:
   }
   wxGenericFontButton(wxWindow* parent, wxWindowID id, const wxFont& initial = wxNullFont, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxFONTBTN_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxFontPickerWidgetNameStr))
   {
-
         Create(parent, id, initial, pos, size, style, validator, name);
-      }
+  }
   wxColour GetSelectedColour() const override
-  { return m_data.GetColour(); }
+  {
+ return m_data.GetColour();
+  }
   void SetSelectedColour(const wxColour& colour) override
-  { m_data.SetColour(colour); UpdateFont(); }
+  {
+ m_data.SetColour(colour); UpdateFont();
+  }
   virtual ~wxGenericFontButton()
   {
   }
@@ -36,7 +39,9 @@ public:
   virtual void InitFontData();
     // returns the font data shown in wxFontDialog
   wxFontData* GetFontData()
-  { return &m_data; }
+  {
+ return &m_data;
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxFont& initial = *wxNORMAL_FONT, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxFONTBTN_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxFontPickerWidgetNameStr));
   void OnButtonClick(wxCommandEvent&);
 protected:

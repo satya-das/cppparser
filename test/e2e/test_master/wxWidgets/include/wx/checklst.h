@@ -20,7 +20,8 @@ class WXDLLIMPEXP_CORE wxCheckListBoxBase : public wxListBox
 public:
   wxCheckListBoxBase()
   {
-   }
+
+  }
     // check list box specific methods
   virtual bool IsChecked(unsigned int item) const = 0;
   virtual void Check(unsigned int item, bool check = true) = 0;

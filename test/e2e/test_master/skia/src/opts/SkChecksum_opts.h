@@ -71,7 +71,7 @@ namespace SK_OPTS_NS
             hash32 = _mm_crc32_u8(hash32, sk_unaligned_load<uint8_t>(data));
         }
         return hash32;
-    }
+  }
 #  elif  SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE42
     // 32-bit version of above, using _mm_crc32_u32() but not _mm_crc32_u64().
   inline uint32_t hash_fn(const void* vdata, size_t bytes, uint32_t hash)
@@ -116,7 +116,7 @@ namespace SK_OPTS_NS
             hash = _mm_crc32_u8(hash, sk_unaligned_load<uint8_t>(data));
         }
         return hash;
-    }
+  }
 #  elif  defined(SK_ARM_HAS_CRC32)
   inline uint32_t hash_fn(const void* vdata, size_t bytes, uint32_t hash)
   {
@@ -160,7 +160,7 @@ namespace SK_OPTS_NS
             hash = __crc32b(hash, sk_unaligned_load<uint8_t>(data));
         }
         return hash;
-    }
+  }
 #  else 
     // This is Murmur3.
   inline uint32_t hash_fn(const void* vdata, size_t bytes, uint32_t hash)
@@ -199,7 +199,7 @@ namespace SK_OPTS_NS
 
         hash ^= original_bytes;
         return SkChecksum::Mix(hash);
-    }
+  }
 #  endif
 }
 #endif

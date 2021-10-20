@@ -161,15 +161,19 @@ namespace SkSL
     kLoopEnd,
     kLoopBreak,
     kLoopContinue,
-};
+  };
 #  undef VECTOR
   class ByteCodeFunction
   {
   public:
     int getParameterCount() const
-    { return fParameterCount; }
+    {
+ return fParameterCount;
+    }
     int getReturnCount() const
-    { return fReturnCount; }
+    {
+ return fReturnCount;
+    }
     /**
      * Print bytecode disassembly to stdout.
      */

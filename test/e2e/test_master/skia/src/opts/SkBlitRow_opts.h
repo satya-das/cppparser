@@ -55,7 +55,7 @@ static __m256i SkPMSrcOver_AVX2(const __m256i& src, const __m256i& dst)
         ga = _mm256_andnot_si256(_mm256_set1_epi32(0x00ff00ff), ga);
 
         return _mm256_add_epi32(src, _mm256_or_si256(rb, ga));
-    }
+}
 #  elif  SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE2
 #    include <immintrin.h>
 static __m128i SkPMSrcOver_SSE2(const __m128i& src, const __m128i& dst)
@@ -80,7 +80,7 @@ static __m128i SkPMSrcOver_SSE2(const __m128i& src, const __m128i& dst)
         return _mm_add_epi32(src,
                              SkAlphaMulQ_SSE2(dst, _mm_sub_epi32(_mm_set1_epi32(256),
                                                                  _mm_srli_epi32(src, 24))));
-    }
+}
 #  endif
 namespace SK_OPTS_NS
 {
@@ -115,7 +115,7 @@ namespace SK_OPTS_NS
     while (count --> 0) {
         *dst++ = kernel(U32{*src++})[0];
     }
-}
+  }
 #  if  defined(SK_ARM_HAS_NEON)
 // Return a uint8x8_t value, r, computed as r[i] = SkMulDiv255Round(x[i], y[i]), where r[i], x[i],
 // y[i] are the i-th lanes of the corresponding NEON vectors.
@@ -123,7 +123,7 @@ namespace SK_OPTS_NS
   {
     uint16x8_t prod = vmull_u8(x, y);
     return vraddhn_u16(prod, vrshrq_n_u16(prod, 8));
-}
+  }
 // The implementations of SkPMSrcOver below perform alpha blending consistently with
 // SkMulDiv255Round. They compute the color components (numbers in the interval [0, 255]) as:
 //
@@ -143,7 +143,7 @@ namespace SK_OPTS_NS
     result.val[2] = vadd_u8(src.val[2], SkMulDiv255Round_neon8(nalphas,  dst.val[2]));
     result.val[3] = vadd_u8(src.val[3], SkMulDiv255Round_neon8(nalphas,  dst.val[3]));
     return result;
-}
+  }
 // In this variant of SkPMSrcOver dst and src contain the color components of two consecutive
 // pixels. The return value follows the same convention.
   static uint8x8_t SkPMSrcOver_neon2(uint8x8_t dst, uint8x8_t src)
@@ -151,7 +151,7 @@ namespace SK_OPTS_NS
     const uint8x8_t alpha_indices = vcreate_u8(0x0707070703030303);
     uint8x8_t nalphas = vmvn_u8(vtbl1_u8(src, alpha_indices));
     return vadd_u8(src, SkMulDiv255Round_neon8(nalphas, dst));
-}
+  }
 #  endif
   inline void blit_row_s32a_opaque(SkPMColor* dst, const SkPMColor* src, int len, U8CPU alpha)
   {
@@ -365,6 +365,6 @@ namespace SK_OPTS_NS
         src++;
         dst++;
     }
-}
+  }
 }
 #endif

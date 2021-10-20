@@ -33,18 +33,17 @@ namespace SkSL
     , fStorage(storage)
     , fInitialValue(initialValue)
     , fReadCount(0)
-    , fWriteCount(initialValue ? 1 : 0) 
-      {
-      }
+    , fWriteCount(initialValue ? 1 : 0)
+    {
+    }
     virtual ~Variable()
     {
-
         // can't destroy a variable while there are remaining references to it
         if (fInitialValue) {
             --fWriteCount;
         }
         SkASSERT(!fReadCount && !fWriteCount);
-        }
+    }
     String description() const override
     {
         return fModifiers.description() + fType.fName + " " + fName;

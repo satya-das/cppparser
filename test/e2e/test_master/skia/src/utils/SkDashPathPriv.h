@@ -24,7 +24,7 @@ namespace SkDashPath
   enum class StrokeRecApplication {
         kDisallow,
         kAllow,
-    };
+  };
     /**
      * Caller should have already used ValidDashPath to exclude invalid data. Typically, this leaves
      * the strokeRec unmodified. However, for some simple shapes (e.g. a line) it may directly

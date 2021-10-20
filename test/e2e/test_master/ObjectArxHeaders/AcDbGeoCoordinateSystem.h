@@ -128,7 +128,7 @@ public:
         kTypeGeographic = 2,
         /// <summary> brief Specifies that the coordinate system is projected. </summary>
         kTypeProjected = 3
-    };
+  };
     /// <summary>
     /// brief Values that represent the coordinate reference system projection method types.
     /// </summary>
@@ -363,7 +363,7 @@ public:
 
         /// <summary> Popular Visualization Pseudo Mercator (aka Google Earth). </summary>
         kProjectionCodePvMercator  = 69,
-    };
+  };
     /// <summary>
     /// brief Values that represent the linear or angular unit.
     /// </summary>
@@ -432,7 +432,7 @@ public:
         kUnitDecisec = 1009,
         kUnitCentisec = 1010,
         kUnitMillisec = 1011,
-    };
+  };
     /// <summary> 
     /// virtual destructor
     /// </summary>

@@ -48,20 +48,26 @@ struct AddressFamily;
 template <>
 struct AddressFamily<sockaddr_in>
 {
-  enum { value = AF_INET };
+  enum {
+ value = AF_INET
+  };
 };
 #  if  wxUSE_IPV6
 template <>
 struct AddressFamily<sockaddr_in6>
 {
-  enum { value = AF_INET6 };
+  enum {
+ value = AF_INET6
+  };
 };
 #  endif
 #  ifdef wxHAS_UNIX_DOMAIN_SOCKETS
 template <>
 struct AddressFamily<sockaddr_un>
 {
-  enum { value = AF_UNIX };
+  enum {
+ value = AF_UNIX
+  };
 };
 #  endif
 // ----------------------------------------------------------------------------
@@ -93,17 +99,15 @@ public:
         FAMILY_UNIX = PF_UNIX,
 #endif
         FAMILY_UNSPEC = PF_UNSPEC
-    };
+  };
     // default ctor creates uninitialized object, use one of CreateXXX() below
   wxSockAddressImpl()
   {
-
         InitUnspec();
-      }
+  }
     // ctor from an existing sockaddr
   wxSockAddressImpl(const sockaddr& addr, int len)
   {
-
         switch ( addr.sa_family )
         {
             case PF_INET:
@@ -123,13 +127,12 @@ public:
         }
 
         InitFromSockaddr(addr, len);
-      }
+  }
     // copy ctor and assignment operators
   wxSockAddressImpl(const wxSockAddressImpl& other)
   {
-
         InitFromOther(other);
-      }
+  }
   wxSockAddressImpl& operator=(const wxSockAddressImpl& other)
   {
         if (this != &other)
@@ -138,20 +141,19 @@ public:
             InitFromOther(other);
         }
         return *this;
-    }
+  }
     // dtor frees the memory used by m_addr
   ~wxSockAddressImpl()
   {
-
         free(m_addr);
-      }
+  }
     // reset the address to the initial uninitialized state
   void Clear()
   {
         free(m_addr);
 
         InitUnspec();
-    }
+  }
     // initialize the address to be of specific address family, it must be
     // currently uninitialized (you may call Clear() to achieve this)
   void CreateINET();
@@ -182,20 +184,32 @@ public:
             default:
                 wxFAIL_MSG( "unsupported socket address family" );
         }
-    }
+  }
     // simple accessors
   Family GetFamily() const
-  { return m_family; }
+  {
+ return m_family;
+  }
   bool Is(Family family) const
-  { return m_family == family; }
+  {
+ return m_family == family;
+  }
   bool IsOk() const
-  { return m_family != FAMILY_UNSPEC; }
+  {
+ return m_family != FAMILY_UNSPEC;
+  }
   const sockaddr* GetAddr() const
-  { return m_addr; }
+  {
+ return m_addr;
+  }
   sockaddr* GetWritableAddr()
-  { return m_addr; }
+  {
+ return m_addr;
+  }
   int GetLen() const
-  { return m_len; }
+  {
+ return m_len;
+  }
     // accessors for INET or INET6 address families
 #  if  wxUSE_IPV6
 #    define CALL_IPV4_OR_6(func, args)	 \
@@ -210,20 +224,28 @@ public:
   bool SetHostName(const wxString& name)
   {
         return CALL_IPV4_OR_6(SetHostName, (name));
-    }
+  }
   wxUint16 GetPort() const
-  { return CALL_IPV4_OR_6_VOID(GetPort); }
+  {
+ return CALL_IPV4_OR_6_VOID(GetPort);
+  }
   bool SetPort(wxUint16 port)
-  { return CALL_IPV4_OR_6(SetPort, (port)); }
+  {
+ return CALL_IPV4_OR_6(SetPort, (port));
+  }
   bool SetPortName(const wxString& name, const char* protocol);
   bool SetToAnyAddress()
-  { return CALL_IPV4_OR_6_VOID(SetToAnyAddress); }
+  {
+ return CALL_IPV4_OR_6_VOID(SetToAnyAddress);
+  }
 #  undef CALL_IPV4_OR_6
     // accessors for INET addresses only
   bool GetHostAddress(wxUint32* address) const;
   bool SetHostAddress(wxUint32 address);
   bool SetToBroadcastAddress()
-  { return SetHostAddress(INADDR_BROADCAST); }
+  {
+ return SetHostAddress(INADDR_BROADCAST);
+  }
     // accessors for INET6 addresses only
 #  if  wxUSE_IPV6
   bool GetHostAddress(in6_addr* address) const;
@@ -239,14 +261,14 @@ private:
   {
         m_addr = static_cast<sockaddr *>(calloc(1, len));
         m_len = len;
-    }
+  }
   template <typename T>
   T* Alloc()
   {
         DoAlloc(sizeof(T));
 
         return reinterpret_cast<T *>(m_addr);
-    }
+  }
   template <typename T>
   T* Get() const
   {
@@ -255,18 +277,18 @@ private:
                      "socket address family mismatch" );
 
         return reinterpret_cast<T *>(m_addr);
-    }
+  }
   void InitUnspec()
   {
         m_family = FAMILY_UNSPEC;
         m_addr = NULL;
         m_len = 0;
-    }
+  }
   void InitFromSockaddr(const sockaddr& addr, int len)
   {
         DoAlloc(len);
         memcpy(m_addr, &addr, len);
-    }
+  }
   void InitFromOther(const wxSockAddressImpl& other)
   {
         m_family = other.m_family;
@@ -280,13 +302,15 @@ private:
             m_addr = NULL;
             m_len = 0;
         }
-    }
+  }
     // IPv4/6 implementations of public functions
   bool SetHostName4(const wxString& name);
   bool SetPort4(wxUint16 port);
   wxUint16 GetPort4() const;
   bool SetToAnyAddress4()
-  { return SetHostAddress(INADDR_ANY); }
+  {
+ return SetHostAddress(INADDR_ANY);
+  }
 #  if  wxUSE_IPV6
   bool SetHostName6(const wxString& name);
   bool SetPort6(wxUint16 port);

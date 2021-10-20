@@ -64,7 +64,7 @@ public:
   static sk_sp<SkImageFilter> Blur(SkScalar sigmaX, SkScalar sigmaY, sk_sp<SkImageFilter> input, const SkIRect* cropRect = nullptr)
   {
         return Blur(sigmaX, sigmaY, SkTileMode::kDecal, std::move(input), cropRect);
-    }
+  }
     /**
      *  Create a filter that applies the color filter to the input filter results.
      *  @param cf       The color filter that transforms the input image.
@@ -137,7 +137,7 @@ public:
         // will not be drawn at a 1-to-1 pixel scale, even that is what this appears to create here.
         SkRect r = image ? SkRect::MakeWH(image->width(), image->height()) : SkRect::MakeEmpty();
         return Image(std::move(image), r, r, kHigh_SkFilterQuality);
-    }
+  }
     /**
      *  Create a filter that mimics a zoom/magnifying lens effect.
      *  @param srcRect
@@ -193,7 +193,7 @@ public:
   {
         sk_sp<SkImageFilter> array[] = { std::move(first), std::move(second) };
         return Merge(array, 2, cropRect);
-    }
+  }
     /**
      *  Create a filter that offsets the input filter by the given vector.
      *  @param dx       The x offset in local space that the image is shifted.
@@ -222,7 +222,7 @@ public:
   {
         SkRect target = pic ? pic->cullRect() : SkRect::MakeEmpty();
         return Picture(std::move(pic), target);
-    }
+  }
     /**
      *  Create a tile image filter.
      *  @param src   Defines the pixels to tile

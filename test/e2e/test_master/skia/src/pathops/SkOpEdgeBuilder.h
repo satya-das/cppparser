@@ -16,21 +16,19 @@ public:
         , fPath(path.nativePath())
         , fContourBuilder(contours2)
         , fContoursHead(contours2)
-        , fAllowOpenContours(true) 
-    {
-
+        , fAllowOpenContours(true)
+  {
         init();
-        }
+  }
   SkOpEdgeBuilder(const SkPath& path, SkOpContourHead* contours2, SkOpGlobalState* globalState)
     :  fGlobalState(globalState)
         , fPath(&path)
         , fContourBuilder(contours2)
         , fContoursHead(contours2)
-        , fAllowOpenContours(false) 
-    {
-
+        , fAllowOpenContours(false)
+  {
         init();
-        }
+  }
   void addOperand(const SkPath& path);
   void complete()
   {
@@ -40,17 +38,21 @@ public:
             contour->complete();
             fContourBuilder.setContour(nullptr);
         }
-    }
+  }
   bool finish();
   const SkOpContour* head() const
   {
         return fContoursHead;
-    }
+  }
   void init();
   bool unparseable() const
-  { return fUnparseable; }
+  {
+ return fUnparseable;
+  }
   SkPathOpsMask xorMask() const
-  { return fXorMask[fOperand]; }
+  {
+ return fXorMask[fOperand];
+  }
 private:
   void closeContour(const SkPoint& curveEnd, const SkPoint& curveStart);
   bool close();

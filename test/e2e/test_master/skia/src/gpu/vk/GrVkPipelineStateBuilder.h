@@ -38,7 +38,9 @@ public:
   public:
     static bool Build(Desc*, GrRenderTarget*, const GrPrimitiveProcessor&, const GrPipeline&, const GrStencilSettings&, GrPrimitiveType primitiveType, GrVkGpu* gpu);
     size_t shaderKeyLength() const
-    { return fShaderKeyLength; }
+    {
+ return fShaderKeyLength;
+    }
   private:
     size_t fShaderKeyLength;
     typedef GrProgramDesc INHERITED;
@@ -54,7 +56,9 @@ public:
   static GrVkPipelineState* CreatePipelineState(GrVkGpu*, GrRenderTarget*, int numSamples, GrSurfaceOrigin, const GrPrimitiveProcessor&, const GrTextureProxy* const primProcProxies[], const GrPipeline&, const GrStencilSettings&, GrPrimitiveType, Desc*, VkRenderPass compatibleRenderPass);
   const GrCaps* caps() const override;
   GrVkGpu* gpu() const
-  { return fGpu; }
+  {
+ return fGpu;
+  }
   void finalizeFragmentOutputColor(GrShaderVar& outputColor) override;
   void finalizeFragmentSecondaryColor(GrShaderVar& outputColor) override;
 private:
@@ -66,11 +70,17 @@ private:
   bool createVkShaderModule(VkShaderStageFlagBits stage, const SkSL::String& sksl, VkShaderModule* shaderModule, VkPipelineShaderStageCreateInfo* stageInfo, const SkSL::Program::Settings& settings, Desc* desc, SkSL::String* outSPIRV, SkSL::Program::Inputs* outInputs);
   bool installVkShaderModule(VkShaderStageFlagBits stage, const GrGLSLShaderBuilder& builder, VkShaderModule* shaderModule, VkPipelineShaderStageCreateInfo* stageInfo, SkSL::String spirv, SkSL::Program::Inputs inputs);
   GrGLSLUniformHandler* uniformHandler() override
-  { return &fUniformHandler; }
+  {
+ return &fUniformHandler;
+  }
   const GrGLSLUniformHandler* uniformHandler() const override
-  { return &fUniformHandler; }
+  {
+ return &fUniformHandler;
+  }
   GrGLSLVaryingHandler* varyingHandler() override
-  { return &fVaryingHandler; }
+  {
+ return &fVaryingHandler;
+  }
   GrVkGpu* fGpu;
   GrVkVaryingHandler fVaryingHandler;
   GrVkUniformHandler fUniformHandler;

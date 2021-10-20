@@ -71,32 +71,33 @@ public:
     // initialize the library
   wxInitializer()
   {
-
         m_ok = wxInitialize();
-      }
+  }
   wxInitializer(int& argc, wxChar** argv)
   {
-
         m_ok = wxInitialize(argc, argv);
-      }
+  }
 #  if  wxUSE_UNICODE
   wxInitializer(int& argc, char** argv)
   {
-
         m_ok = wxInitialize(argc, argv);
-      }
+  }
 #  endif
     // has the initialization been successful? (explicit test)
   bool IsOk() const
-  { return m_ok; }
+  {
+ return m_ok;
+  }
     // has the initialization been successful? (implicit test)
   operator bool() const
   {
- return m_ok;   }
+ return m_ok;
+  }
     // dtor only does clean up if we initialized the library properly
   ~wxInitializer()
   {
- if ( m_ok ) wxUninitialize();   }
+ if ( m_ok ) wxUninitialize();
+  }
 private:
   bool m_ok;
 };

@@ -35,7 +35,9 @@ public:
 protected:
   SkBmpCodec(SkEncodedInfo&& info, std::unique_ptr<SkStream>, uint16_t bitsPerPixel, SkCodec::SkScanlineOrder rowOrder);
   SkEncodedImageFormat onGetEncodedFormat() const override
-  { return SkEncodedImageFormat::kBMP; }
+  {
+ return SkEncodedImageFormat::kBMP;
+  }
     /*
      * Read enough of the stream to initialize the SkBmpCodec.
      * On kSuccess, if codecOut is not nullptr, it will be set to a new SkBmpCodec.
@@ -48,11 +50,11 @@ protected:
   bool inIco() const
   {
         return this->onInIco();
-    }
+  }
   virtual bool onInIco() const
   {
         return false;
-    }
+  }
     /*
      * Get the destination row number corresponding to the encoded row number.
      * For kTopDown, we simply return y, but for kBottomUp, the rows will be
@@ -69,11 +71,17 @@ protected:
      * Accessors used by subclasses
      */
   uint16_t bitsPerPixel() const
-  { return fBitsPerPixel; }
+  {
+ return fBitsPerPixel;
+  }
   SkScanlineOrder onGetScanlineOrder() const override
-  { return fRowOrder; }
+  {
+ return fRowOrder;
+  }
   size_t srcRowBytes() const
-  { return fSrcRowBytes; }
+  {
+ return fSrcRowBytes;
+  }
     /*
      * To be overriden by bmp subclasses, which provide unique implementations.
      * Performs subclass specific setup.
@@ -85,9 +93,13 @@ protected:
   virtual SkCodec::Result onPrepareToDecode(const SkImageInfo& dstInfo, const SkCodec::Options& options) = 0;
   SkCodec::Result prepareToDecode(const SkImageInfo& dstInfo, const SkCodec::Options& options);
   uint32_t* xformBuffer() const
-  { return fXformBuffer.get(); }
+  {
+ return fXformBuffer.get();
+  }
   void resetXformBuffer(int count)
-  { fXformBuffer.reset(new uint32_t[count]); }
+  {
+ fXformBuffer.reset(new uint32_t[count]);
+  }
     /*
      * BMPs are typically encoded as BGRA/BGR so this is a more efficient choice
      * than RGBA.

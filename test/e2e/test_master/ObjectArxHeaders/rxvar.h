@@ -51,7 +51,7 @@ public:
         kStoragePerDatabase = 3,
         ///<summary>viewport (AcDbViewport and AcDbViewportTableRecord) wide, persists in drawing.</summary>
         kStoragePerViewport = 4
-    };
+  };
     ///<summary>Possible secondary type values.</summary>
   enum SecondaryType {
         ///<summary>No secondary data type is specified.</summary>
@@ -70,7 +70,7 @@ public:
         kSecondaryTypeUnitlessReal = 6,
         ///<summary>Marks the last item in the enumeration</summary>
         kSecondaryTypeLast = 6,
-    };
+  };
     ///<summary>Possible type flag values. These can be 'OR'-ed together.</summary>
   enum TypeFlags {
         ///<summary>No type flags are specified.</summary>
@@ -90,19 +90,19 @@ public:
         // If users really need to use it, they can still use it by prefixing with "." or re-define it.
         // For example: .TRAYICONS  or redefine TRAYICONS.</summary>
         kTypeDeprecated = 16,
-    };
+  };
     ///<summary>Represents a bounded range.</summary>
   struct Range
   {
     Range()
-      : lowerBound(0), upperBound(0) 
-      {
-      }
+      : lowerBound(0), upperBound(0)
+    {
+    }
         ///<summary>Initializes a range to the specified lower and upper bounds.</summary>
     Range(int lb, int ub)
-      : lowerBound(lb), upperBound(ub) 
-      {
-      }
+      : lowerBound(lb), upperBound(ub)
+    {
+    }
         ///<summary>Lower bound of the range</summary>
     int lowerBound;
         ///<summary>Upeer bound of the range</summary>
@@ -361,7 +361,7 @@ public:
   virtual void changing(const AcRxVariable* sender, AcRxVariableChangingEventArgs& args)
   {
         (sender); (args);   //Unreferenced parameter
-    }
+  }
     ///<summary>Called when a variable has changed.</summary>
     ///<param name='sender'>Pointer to the variable that has changed.</param>
     ///<param name='args'>More information about the change.</param>
@@ -372,5 +372,5 @@ public:
   virtual void changed(const AcRxVariable* sender, const AcRxVariableChangedEventArgs& args)
   {
         (sender); (args);   //Unreferenced parameter
-    }
+  }
 };

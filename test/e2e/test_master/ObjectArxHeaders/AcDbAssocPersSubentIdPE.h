@@ -84,7 +84,7 @@ public:
         ADESK_UNREFED_PARAM(pDatabase);
 
         return new AcDbAssocSimplePersSubentId(subentId);
-    }
+  }
     /// <summary>
     /// Needs to be called when an AcDbAssocPersSubentId is no more needed, to inform
     /// to release and resources possibly associated with this AcDbAssocPersSubentId.
@@ -114,7 +114,7 @@ public:
         ADESK_UNREFED_PARAM(pDatabase);
         ADESK_UNREFED_PARAM(pPerSubentId);
         return Acad::eOk;
-    }
+  }
     /// <summary>
     /// Redirects the given AcDbAssocPersSubentId that currently refers to a subentity
     /// in the current entity to refer to the same subentity in the new entity.
@@ -161,7 +161,7 @@ public:
         ADESK_UNREFED_PARAM(pFromDatabase);
         ADESK_UNREFED_PARAM(pPersSubentId);
         return Acad::eOk;
-    }
+  }
     /// <summary><para>
     /// Allows to automatically call releasePersSubent() on the AcDbAssocPersSubentId if
     /// it is no more used. What "no more used" means, who checks for it, and which code 
@@ -203,13 +203,13 @@ public:
     /// <returns> Acad::ErrorStatus. </returns>
     ///
   virtual Acad::ErrorStatus makePersSubentPurgeable(AcDbEntity* pEntity, AcDbDatabase* pDatabase, const AcDbAssocPersSubentId* pPerSubentId, bool yesNo)
-  { 
+  {
         ADESK_UNREFED_PARAM(pEntity);
         ADESK_UNREFED_PARAM(pDatabase);
         ADESK_UNREFED_PARAM(yesNo);
         ADESK_UNREFED_PARAM(pPerSubentId);
-        return Acad::eOk; 
-    }
+        return Acad::eOk;
+  }
     /// <summary> <para>
     /// Mapping: AcDbAssocPersSubentId --> AcDbSubentId(s)
     /// </para> <para>
@@ -249,7 +249,7 @@ public:
         ADESK_UNREFED_PARAM(subentType);
         ADESK_UNREFED_PARAM(allSubentIds);
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary>
     /// Gets all subentities of the given class for kClassSubentType subentity type.
     /// The default implementation just returns Acad::eNotImplemented.
@@ -265,7 +265,7 @@ public:
         ADESK_UNREFED_PARAM(pSubentClass);
         ADESK_UNREFED_PARAM(allSubentIds);
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary>
     /// Gets the vertex AcDbSubentIds corresponding to the given edge AcDbSubentId.
     /// This protocol is needed to query the relations between the edge and vertex
@@ -297,7 +297,7 @@ public:
         ADESK_UNREFED_PARAM(endVertexSubentId);
         ADESK_UNREFED_PARAM(otherVertexSubentIds);
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary>
     /// Gets the vertex AcDbSubentIds corresponding to the given edge AcDbSubentId
     /// whose geometry is defined by a spline. 
@@ -335,7 +335,7 @@ public:
         ADESK_UNREFED_PARAM(controlPointSubentIds);
         ADESK_UNREFED_PARAM(fitPointSubentIds);
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary>
     /// Gets the coordinates of a vertex subentity. The default implementation
     /// just returns Acad::eNotImplemented.
@@ -351,7 +351,7 @@ public:
         ADESK_UNREFED_PARAM(vertexSubentId);
         ADESK_UNREFED_PARAM(vertexPosition);
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary>
     /// Gets the curve of an edge subentity. The default implementation
     /// just returns Acad::eNotImplemented.
@@ -367,7 +367,7 @@ public:
         ADESK_UNREFED_PARAM(edgeSubentId);
         ADESK_UNREFED_PARAM(pEdgeCurve);
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary>
     /// Gets the surface of a face subentity. The default implementation
     /// just returns Acad::eNotImplemented.
@@ -383,7 +383,7 @@ public:
         ADESK_UNREFED_PARAM(faceSubentId);
         ADESK_UNREFED_PARAM(pFaceSurface);
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary>
     /// Change the geometry of a vertex subentity. The subentity can also be
     /// transformed, but for doing so there already is AcDbEntity protocol so
@@ -401,7 +401,7 @@ public:
         ADESK_UNREFED_PARAM(vertexSubentId);
         ADESK_UNREFED_PARAM(newVertexPosition);
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary>
     /// Change the curve of an edge subentity. The subentity can also be
     /// transformed, but for doing so there already is AcDbEntity protocol so
@@ -419,7 +419,7 @@ public:
         ADESK_UNREFED_PARAM(edgeSubentId);
         ADESK_UNREFED_PARAM(pNewEdgeCurve);
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary>
     /// Change the surface of a face subentity. The subentity can also be
     /// transformed, but for doing so there already is AcDbEntity protocol so
@@ -437,7 +437,7 @@ public:
         ADESK_UNREFED_PARAM(faceSubentId);
         ADESK_UNREFED_PARAM(pNewFaceSurface);
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary><para>
     /// Gets the geometry of a subentity. 
     /// </para><para>
@@ -513,7 +513,7 @@ public:
 
         silhCurves.removeAll();
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary><para>
     /// Returns a persistent silhouette id for the given transient silhouette id of a face. 
     /// Notice that a transient silhouette id is just an integer number but a persistent
@@ -551,8 +551,8 @@ public:
         ADESK_UNREFED_PARAM(pEntityTransform);
         ADESK_UNREFED_PARAM(pGeometryProjector);
         ADESK_UNREFED_PARAM(transientSilhId);
-        return NULL; 
-    }
+        return NULL;
+  }
     /// <summary><para>
     /// Returns all transient silhouette ids for the given persistent silhouette id of a face. 
     /// Notice that a transient silhouette id is just an integer number but a persistent
@@ -595,7 +595,7 @@ public:
 
         transientSilhIds.removeAll();
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary>
     /// Call this method to obtain block transformation matrix for a given 
     /// sub-entity within the block reference.
@@ -616,7 +616,7 @@ public:
 
         trans.setToIdentity();
         return Acad::eOk;
-    }
+  }
     /// <summary> <para>
     /// Mirrors the given AcDbAssocPersSubentId, i.e. it changes it so that it
     /// identitifies the same subentity in the mirrored entity as it identified
@@ -648,7 +648,7 @@ public:
         ADESK_UNREFED_PARAM(pDatabase);
         ADESK_UNREFED_PARAM(pPersSubentIdToMirror);
         return Acad::eOk;
-    }
+  }
     /// <summary>
     /// Returns kScalableRigidSet or kNonScalableRigidSet if the entity is a rigid 
     /// set, i.e. it can be rotated and translated as a whole, but its subentities 
@@ -661,8 +661,8 @@ public:
   virtual int getRigidSetState(const AcDbEntity* pEntity)
   {
         ADESK_UNREFED_PARAM(pEntity);
-        return kNotRigidSet; 
-    }
+        return kNotRigidSet;
+  }
     /// <summary>
     /// Get the transformation of the rigid set entity.
     /// The default implementation returns Acad::eNotApplicable.
@@ -676,7 +676,7 @@ public:
         ADESK_UNREFED_PARAM(pEntity);
         ADESK_UNREFED_PARAM(trans);
         return Acad::eNotApplicable;
-    }
+  }
     /// <summary>
     /// Set the transformation of the rigid set entity.
     /// The default implementation returns Acad::eNotApplicable.
@@ -690,6 +690,6 @@ public:
         ADESK_UNREFED_PARAM(pEntity);
         ADESK_UNREFED_PARAM(trans);
         return Acad::eNotApplicable;
-    }
+  }
 };
 #pragma  pack (pop)

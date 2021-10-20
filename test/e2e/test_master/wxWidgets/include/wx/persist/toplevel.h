@@ -27,33 +27,34 @@ class wxPersistentTLW : public wxPersistentWindow<wxTopLevelWindow>, private wxT
 public:
   wxPersistentTLW(wxTopLevelWindow* tlw)
     :  wxPersistentWindow<wxTopLevelWindow>(tlw)
-    
-    {
+  {
 
-        }
+  }
   void Save() const override
   {
         const wxTopLevelWindow * const tlw = Get();
 
         tlw->SaveGeometry(*this);
-    }
+  }
   bool Restore() override
   {
         wxTopLevelWindow * const tlw = Get();
 
         return tlw->RestoreToGeometry(*this);
-    }
+  }
   wxString GetKind() const override
-  { return wxASCII_STR(wxPERSIST_TLW_KIND); }
+  {
+ return wxASCII_STR(wxPERSIST_TLW_KIND);
+  }
 private:
   bool SaveField(const wxString& name, int value) const override
   {
         return SaveValue(name, value);
-    }
+  }
   bool RestoreField(const wxString& name, int* value) override
   {
         return RestoreValue(name, value);
-    }
+  }
 };
 inline wxPersistentObject* wxCreatePersistentObject(wxTopLevelWindow* tlw)
 {

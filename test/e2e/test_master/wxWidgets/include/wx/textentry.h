@@ -25,14 +25,17 @@ class WXDLLIMPEXP_CORE wxTextEntryBase
 public:
   wxTextEntryBase()
   {
- m_eventsBlock = 0; m_hintData = NULL;   }
+ m_eventsBlock = 0; m_hintData = NULL;
+  }
   virtual ~wxTextEntryBase();
     // accessing the value
     // -------------------
 
     // SetValue() generates a text change event, ChangeValue() doesn't
   virtual void SetValue(const wxString& value)
-  { DoSetValue(value, SetValue_SendEvent); }
+  {
+ DoSetValue(value, SetValue_SendEvent);
+  }
   virtual void ChangeValue(const wxString& value);
     // writing text inserts it at the current position replacing any current
     // selection, appending always inserts it at the end and doesn't remove any
@@ -42,13 +45,17 @@ public:
   virtual wxString GetValue() const;
   virtual wxString GetRange(long from, long to) const;
   bool IsEmpty() const
-  { return GetLastPosition() <= 0; }
+  {
+ return GetLastPosition() <= 0;
+  }
     // editing operations
     // ------------------
   virtual void Replace(long from, long to, const wxString& value);
   virtual void Remove(long from, long to) = 0;
   virtual void Clear()
-  { Remove(0, -1); }
+  {
+ Remove(0, -1);
+  }
   void RemoveSelection();
     // clipboard operations
     // --------------------
@@ -70,16 +77,22 @@ public:
     // note that moving insertion point removes any current selection
   virtual void SetInsertionPoint(long pos) = 0;
   virtual void SetInsertionPointEnd()
-  { SetInsertionPoint(-1); }
+  {
+ SetInsertionPoint(-1);
+  }
   virtual long GetInsertionPoint() const = 0;
   virtual long GetLastPosition() const = 0;
     // selection
     // ---------
   virtual void SetSelection(long from, long to) = 0;
   virtual void SelectAll()
-  { SetSelection(-1, -1); }
+  {
+ SetSelection(-1, -1);
+  }
   virtual void SelectNone()
-  { const long pos = GetInsertionPoint(); SetSelection(pos, pos); }
+  {
+ const long pos = GetInsertionPoint(); SetSelection(pos, pos);
+  }
   virtual void GetSelection(long* from, long* to) const = 0;
   bool HasSelection() const;
   virtual wxString GetStringSelection() const;
@@ -94,16 +107,24 @@ public:
     // commonly meaning that this functionality is not available under the
     // current platform)
   bool AutoComplete(const wxArrayString& choices)
-  { return DoAutoCompleteStrings(choices); }
+  {
+ return DoAutoCompleteStrings(choices);
+  }
   bool AutoCompleteFileNames()
-  { return DoAutoCompleteFileNames(wxFILE); }
+  {
+ return DoAutoCompleteFileNames(wxFILE);
+  }
   bool AutoCompleteDirectories()
-  { return DoAutoCompleteFileNames(wxDIR); }
+  {
+ return DoAutoCompleteFileNames(wxDIR);
+  }
     // notice that we take ownership of the pointer and will delete it
     //
     // if the pointer is NULL auto-completion is disabled
   bool AutoComplete(wxTextCompleter* completer)
-  { return DoAutoCompleteCustom(completer); }
+  {
+ return DoAutoCompleteCustom(completer);
+  }
     // status
     // ------
   virtual bool IsEditable() const = 0;
@@ -114,7 +135,9 @@ public:
     // set the max number of characters which may be entered in a single line
     // text control
   virtual void SetMaxLength(unsigned long)
-  { }
+  {
+
+  }
     // convert any lower-case characters to upper-case on the fly in this entry
   virtual void ForceUpper();
     // hints
@@ -132,11 +155,17 @@ public:
     // itself. When setting margin, use value -1 to indicate that specific
     // margin should not be changed.
   bool SetMargins(const wxPoint& pt)
-  { return DoSetMargins(pt); }
+  {
+ return DoSetMargins(pt);
+  }
   bool SetMargins(wxCoord left, wxCoord top = -1)
-  { return DoSetMargins(wxPoint(left, top)); }
+  {
+ return DoSetMargins(wxPoint(left, top));
+  }
   wxPoint GetMargins() const
-  { return DoGetMargins(); }
+  {
+ return DoGetMargins();
+  }
     // implementation only
     // -------------------
 
@@ -149,14 +178,14 @@ public:
   bool SendTextUpdatedEvent()
   {
         return SendTextUpdatedEvent(GetEditableWindow());
-    }
+  }
     // generate the wxEVT_TEXT event for this window if the
     // events are not currently disabled
   void SendTextUpdatedEventIfAllowed()
   {
         if ( EventsAllowed() )
             SendTextUpdatedEvent();
-    }
+  }
     // this function is provided solely for the purpose of forwarding text
     // change notifications state from one control to another, e.g. it can be
     // used by a wxComboBox which derives from wxTextEntry if it delegates all
@@ -170,7 +199,7 @@ public:
             ResumeTextChangedEvents();
         else
             SuppressTextChangedEvents();
-    }
+  }
     // change the entry value to be in upper case only, if needed (i.e. if it's
     // not already the case)
   void ConvertToUpperCase();
@@ -196,7 +225,9 @@ protected:
     // have different names to allow overriding just one of them without hiding
     // the other one(s)
   virtual bool DoAutoCompleteStrings(const wxArrayString&)
-  { return false; }
+  {
+ return false;
+  }
   virtual bool DoAutoCompleteFileNames(int)
   {
     return false;
@@ -211,18 +242,15 @@ protected:
     EventsSuppressor(wxTextEntryBase* text, bool suppress = true)
       :  m_text(text),
               m_suppress(suppress)
-        
-      {
-
+    {
             if ( m_suppress )
                 m_text->SuppressTextChangedEvents();
-              }
+    }
     ~EventsSuppressor()
     {
-
             if ( m_suppress )
                 m_text->ResumeTextChangedEvents();
-            }
+    }
   private:
     wxTextEntryBase* m_text;
     bool m_suppress;
@@ -235,22 +263,26 @@ private:
   {
         if ( !m_eventsBlock++ )
             EnableTextChangedEvents(false);
-    }
+  }
   void ResumeTextChangedEvents()
   {
         if ( !--m_eventsBlock )
             EnableTextChangedEvents(true);
-    }
+  }
     // this must be overridden in the derived classes if our implementation of
     // SetValue() or Replace() is used to disable (and enable back) generation
     // of the text changed events
     //
     // initially the generation of the events is enabled
   virtual void EnableTextChangedEvents(bool)
-  { }
+  {
+
+  }
     // return true if the events are currently not suppressed
   bool EventsAllowed() const
-  { return m_eventsBlock == 0; }
+  {
+ return m_eventsBlock == 0;
+  }
     // if this counter is non-null, events are blocked
   unsigned m_eventsBlock;
     // hint-related stuff, only allocated if/when SetHint() is used

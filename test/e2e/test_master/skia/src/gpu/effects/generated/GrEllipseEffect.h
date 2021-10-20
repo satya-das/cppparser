@@ -32,11 +32,13 @@ public:
             return nullptr;
         }
         return std::unique_ptr<GrFragmentProcessor>(new GrEllipseEffect(edgeType, center, radii));
-    }
+  }
   GrEllipseEffect(const GrEllipseEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "EllipseEffect"; }
+  {
+ return "EllipseEffect";
+  }
   GrClipEdgeType edgeType;
   SkPoint center;
   SkPoint radii;
@@ -46,9 +48,9 @@ private:
                         (OptimizationFlags)kCompatibleWithCoverageAsAlpha_OptimizationFlag)
             , edgeType(edgeType)
             , center(center)
-            , radii(radii) 
-    {
-    }
+            , radii(radii)
+  {
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

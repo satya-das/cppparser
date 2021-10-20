@@ -50,7 +50,7 @@ namespace PoDoFo
     ePdfDestinationFit_FitBV,
 
     ePdfDestinationFit_Unknown = 0xFF
-};
+  };
 /** Destination type, as per 12.3.2.2 of the Pdf spec.
  *
  *  (see table 151 in the pdf spec)
@@ -66,7 +66,7 @@ namespace PoDoFo
   ePdfDestinationType_FitBV,
   
   ePdfDestinationType_Unknown = 0xFF
-};
+  };
 /** A destination in a PDF file.
  *  A destination can either be a page or an action.
  *
@@ -229,28 +229,28 @@ namespace PoDoFo
   inline PdfObject* PdfDestination::GetObject()
   {
     return m_pObject;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline const PdfObject* PdfDestination::GetObject() const
   {
     return m_pObject;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfArray& PdfDestination::GetArray()
   {
     return m_array;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline const PdfArray& PdfDestination::GetArray() const
   {
     return m_array;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -270,8 +270,8 @@ namespace PoDoFo
     if ( tp == PdfName("FitBH") ) return ePdfDestinationType_FitBH; 
     if ( tp == PdfName("FitBV") ) return ePdfDestinationType_FitBV; 
     
-    return ePdfDestinationType_Unknown; 
-}
+    return ePdfDestinationType_Unknown;
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -287,7 +287,7 @@ namespace PoDoFo
     }
     
     return m_array[2].GetReal();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -303,7 +303,7 @@ namespace PoDoFo
     }
     
     return m_array[2].GetReal();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -316,7 +316,7 @@ namespace PoDoFo
     
     return PdfRect(m_array[2].GetReal(), m_array[3].GetReal(),
                    m_array[4].GetReal(), m_array[5].GetReal());
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -343,7 +343,7 @@ namespace PoDoFo
             PODOFO_RAISE_ERROR( ePdfError_WrongDestinationType );
         }
     };
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -355,6 +355,6 @@ namespace PoDoFo
     }
   
     return m_array[4].GetReal();
-}
+  }
 }
 #endif

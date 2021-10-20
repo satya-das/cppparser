@@ -16,9 +16,7 @@ class wxAddRemoveImpl : public wxAddRemoveImplWithButtons
 public:
   wxAddRemoveImpl(wxAddRemoveAdaptor* adaptor, wxAddRemoveCtrl* parent, wxWindow* ctrlItems)
     :  wxAddRemoveImplWithButtons(adaptor, parent, ctrlItems)
-    
-    {
-
+  {
         m_btnAdd = new wxButton(parent, wxID_ADD, GetAddButtonLabel(),
                                 wxDefaultPosition, wxDefaultSize,
                                 wxBU_EXACTFIT | wxBORDER_NONE);
@@ -36,7 +34,7 @@ public:
         parent->SetSizer(sizerTop);
 
         SetUpEvents();
-        }
+  }
 private:
   static wxString GetAddButtonLabel()
   {
@@ -45,7 +43,7 @@ private:
 #else
         return "+";
 #endif
-    }
+  }
   static wxString GetRemoveButtonLabel()
   {
 #if wxUSE_UNICODE
@@ -53,6 +51,6 @@ private:
 #else
         return "-";
 #endif
-    }
+  }
 };
 #endif

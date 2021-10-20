@@ -26,10 +26,12 @@ class WXDLLIMPEXP_AUI wxAuiDockArt
 public:
   wxAuiDockArt()
   {
-   }
+
+  }
   virtual ~wxAuiDockArt()
   {
-   }
+
+  }
   virtual wxAuiDockArt* Clone() = 0;
   virtual int GetMetric(int id) = 0;
   virtual void SetMetric(int id, int newVal) = 0;
@@ -38,9 +40,13 @@ public:
   virtual wxColour GetColour(int id) = 0;
   virtual void SetColour(int id, const wxColor& colour) = 0;
   wxColour GetColor(int id)
-  { return GetColour(id); }
+  {
+ return GetColour(id);
+  }
   void SetColor(int id, const wxColour& color)
-  { SetColour(id, color); }
+  {
+ SetColour(id, color);
+  }
   virtual void DrawSash(wxDC& dc, wxWindow* window, int orientation, const wxRect& rect) = 0;
   virtual void DrawBackground(wxDC& dc, wxWindow* window, int orientation, const wxRect& rect) = 0;
   virtual void DrawCaption(wxDC& dc, wxWindow* window, const wxString& text, const wxRect& rect, wxAuiPaneInfo& pane) = 0;

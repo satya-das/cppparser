@@ -90,8 +90,8 @@ public:
         ADESK_UNREFED_PARAM(pNewObj); ADESK_UNREFED_PARAM(originalObjId);
         ADESK_UNREFED_PARAM(pObjClass); ADESK_UNREFED_PARAM(pDb);
         ADESK_UNREFED_PARAM(pAuditInfo);
-        return false; 
-    }
+        return false;
+  }
     /// <summary>
     /// redirect is invoked as the second attempt to establish a
     /// replacement object for a missing or corrupted object.
@@ -139,6 +139,6 @@ public:
         ADESK_UNREFED_PARAM(pObjClass); ADESK_UNREFED_PARAM(pDb);
         ADESK_UNREFED_PARAM(pAuditInfo);
         return false;
-    }
+  }
 };
 #endif

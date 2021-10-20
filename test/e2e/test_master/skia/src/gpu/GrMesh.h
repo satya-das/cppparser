@@ -19,27 +19,38 @@ class GrMesh
 {
 public:
   GrMesh(GrPrimitiveType primitiveType = GrPrimitiveType::kTriangles)
-    :  fPrimitiveType(primitiveType), fBaseVertex(0) 
-    {
-
+    :  fPrimitiveType(primitiveType), fBaseVertex(0)
+  {
         SkDEBUGCODE(fNonIndexNonInstanceData.fVertexCount = -1;)
-        }
+  }
   void setPrimitiveType(GrPrimitiveType type)
-  { fPrimitiveType = type; }
+  {
+ fPrimitiveType = type;
+  }
   GrPrimitiveType primitiveType() const
-  { return fPrimitiveType; }
+  {
+ return fPrimitiveType;
+  }
   bool isIndexed() const
-  { return SkToBool(fIndexBuffer.get()); }
+  {
+ return SkToBool(fIndexBuffer.get());
+  }
   GrPrimitiveRestart primitiveRestart() const
   {
         return GrPrimitiveRestart(fFlags & Flags::kUsePrimitiveRestart);
-    }
+  }
   bool isInstanced() const
-  { return fFlags & Flags::kIsInstanced; }
+  {
+ return fFlags & Flags::kIsInstanced;
+  }
   bool hasInstanceData() const
-  { return SkToBool(fInstanceBuffer.get()); }
+  {
+ return SkToBool(fInstanceBuffer.get());
+  }
   bool hasVertexData() const
-  { return SkToBool(fVertexBuffer.get()); }
+  {
+ return SkToBool(fVertexBuffer.get());
+  }
   void setNonIndexedNonInstanced(int vertexCount);
   void setIndexed(sk_sp<const GrBuffer> indexBuffer, int indexCount, int baseIndex, uint16_t minIndexValue, uint16_t maxIndexValue, GrPrimitiveRestart);
   void setIndexedPatterned(sk_sp<const GrBuffer> indexBuffer, int indexCount, int vertexCount, int patternRepeatCount, int maxPatternRepetitionsInIndexBuffer);
@@ -63,7 +74,7 @@ private:
         kNone = 0,
         kUsePrimitiveRestart = 1 << 0,
         kIsInstanced = 1 << 1,
-    };
+  };
   GR_DECL_BITFIELD_CLASS_OPS_FRIENDS(Flags);
   GR_STATIC_ASSERT(Flags(GrPrimitiveRestart::kNo) == Flags::kNone);
   GR_STATIC_ASSERT(Flags(GrPrimitiveRestart::kYes) == Flags::kUsePrimitiveRestart);

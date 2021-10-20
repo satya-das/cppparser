@@ -55,7 +55,7 @@ public:
         /// Circle type
         /// </summary>
         kCircular
-    };
+  };
     /// <summary>
     /// Default constructor
     /// </summary>

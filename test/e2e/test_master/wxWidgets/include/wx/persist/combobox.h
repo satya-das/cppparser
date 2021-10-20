@@ -27,13 +27,14 @@ public:
     // Notice that we must have some limit, as otherwise the length of the
     // items string in the config would be unbounded, which certainly wouldn't
     // be a good idea.
-  enum { MaxSavedItemsCount = 10 };
+  enum {
+ MaxSavedItemsCount = 10
+  };
   explicit wxPersistentComboBox(wxComboBox* combobox)
     :  wxPersistentWindow<wxComboBox>(combobox)
-    
-    {
+  {
 
-        }
+  }
   void Save() const override
   {
         const wxComboBox* const combobox = Get();
@@ -68,7 +69,7 @@ public:
 
         SaveValue(wxPERSIST_COMBOBOX_ITEMS,
                   wxJoin(items, wxPERSIST_COMBOBOX_ITEMS_SEP));
-    }
+  }
   bool Restore() override
   {
         wxString items;
@@ -78,9 +79,11 @@ public:
         Get()->Set(wxSplit(items, wxPERSIST_COMBOBOX_ITEMS_SEP));
 
         return true;
-    }
+  }
   wxString GetKind() const override
-  { return wxPERSIST_COMBOBOX_KIND; }
+  {
+ return wxPERSIST_COMBOBOX_KIND;
+  }
 };
 inline wxPersistentObject* wxCreatePersistentObject(wxComboBox* combobox)
 {

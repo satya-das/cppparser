@@ -23,9 +23,9 @@ struct GrGLPrecompiledProgram
 {
   GrGLPrecompiledProgram(GrGLuint programID = 0, SkSL::Program::Inputs inputs = SkSL::Program::Inputs())
     :  fProgramID(programID)
-        , fInputs(inputs) 
-    {
-    }
+        , fInputs(inputs)
+  {
+  }
   GrGLuint fProgramID;
   SkSL::Program::Inputs fInputs;
 };
@@ -48,7 +48,9 @@ public:
   static bool PrecompileProgram(GrGLPrecompiledProgram*, GrGLGpu*, const SkData&);
   const GrCaps* caps() const override;
   GrGLGpu* gpu() const
-  { return fGpu; }
+  {
+ return fGpu;
+  }
 private:
   GrGLProgramBuilder(GrGLGpu*, GrRenderTarget*, int numSamples, GrSurfaceOrigin, const GrPipeline&, const GrPrimitiveProcessor&, const GrTextureProxy* const primProcProxies[], GrProgramDesc*);
   void addInputVars(const SkSL::Program::Inputs& inputs);
@@ -62,11 +64,17 @@ private:
     // Subclasses create different programs
   GrGLProgram* createProgram(GrGLuint programID);
   GrGLSLUniformHandler* uniformHandler() override
-  { return &fUniformHandler; }
+  {
+ return &fUniformHandler;
+  }
   const GrGLSLUniformHandler* uniformHandler() const override
-  { return &fUniformHandler; }
+  {
+ return &fUniformHandler;
+  }
   GrGLSLVaryingHandler* varyingHandler() override
-  { return &fVaryingHandler; }
+  {
+ return &fVaryingHandler;
+  }
   GrGLGpu* fGpu;
   GrGLVaryingHandler fVaryingHandler;
   GrGLUniformHandler fUniformHandler;

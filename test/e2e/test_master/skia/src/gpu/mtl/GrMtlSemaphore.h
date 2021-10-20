@@ -23,7 +23,9 @@ public:
     return fEvent;
   }
   uint64_t value() const
-  { return fValue; }
+  {
+ return fValue;
+  }
   GrBackendSemaphore backendSemaphore() const override;
 private:
   GrMtlSemaphore(GrMtlGpu* gpu, id<MTLEvent> event, uint64_t value, bool isOwned);

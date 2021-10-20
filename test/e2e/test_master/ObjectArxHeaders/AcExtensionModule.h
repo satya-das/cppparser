@@ -62,13 +62,10 @@ public:
   void DetachInstance();
 };
 inline CAcExtensionModule::CAcExtensionModule()
-  : 
-    m_bAttached(FALSE),
+  :     m_bAttached(FALSE),
     m_hDefaultResource(NULL),
     m_hModuleResource(NULL)
-
-  {
-
+{
 #ifndef _ADESK_MAC_
     m_module.bInitialized = FALSE;
     m_module.hModule = NULL;
@@ -76,7 +73,7 @@ inline CAcExtensionModule::CAcExtensionModule()
     m_module.pFirstSharedClass = NULL;
     m_module.pFirstSharedFactory = NULL;
 #endif
-  }
+}
 inline CAcExtensionModule::~CAcExtensionModule()
 {
 
@@ -158,20 +155,20 @@ public:
   CAcModuleResourceOverride(HINSTANCE hInst);
   ~CAcModuleResourceOverride();
   static HINSTANCE ResourceInstance()
-  { return m_extensionModule.ModuleResourceInstance(); }
+  {
+ return m_extensionModule.ModuleResourceInstance();
+  }
 private:
   static CAcExtensionModule& m_extensionModule;
   HINSTANCE m_previousResourceInstance;
 };
 inline CAcModuleResourceOverride::CAcModuleResourceOverride()
   :  CAcModuleResourceOverride(NULL)
-
-  {
-
-  }
-inline CAcModuleResourceOverride::CAcModuleResourceOverride(HINSTANCE hInst)
 {
 
+}
+inline CAcModuleResourceOverride::CAcModuleResourceOverride(HINSTANCE hInst)
+{
     m_previousResourceInstance = AfxGetResourceHandle();
     HINSTANCE hInstanceToSet = m_extensionModule.ModuleResourceInstance();
     if (hInst)
@@ -180,7 +177,6 @@ inline CAcModuleResourceOverride::CAcModuleResourceOverride(HINSTANCE hInst)
 }
 inline CAcModuleResourceOverride::~CAcModuleResourceOverride()
 {
-
     ASSERT(m_previousResourceInstance);
     AfxSetResourceHandle(m_previousResourceInstance);
     m_previousResourceInstance = NULL;

@@ -20,11 +20,13 @@ public:
     // Trivial default ctor.
   wxCustomBackgroundWindowBase()
   {
-   }
+
+  }
     // Also a trivial but virtual -- to suppress g++ warnings -- dtor.
   virtual ~wxCustomBackgroundWindowBase()
   {
-   }
+
+  }
     // Use the given bitmap to tile the background of this window. This bitmap
     // will show through any transparent children.
     //
@@ -34,7 +36,7 @@ public:
   void SetBackgroundBitmap(const wxBitmap& bmp)
   {
         DoSetBackgroundBitmap(bmp);
-    }
+  }
 protected:
   virtual void DoSetBackgroundBitmap(const wxBitmap& bmp) = 0;
   wxDECLARE_NO_COPY_CLASS(wxCustomBackgroundWindowBase);

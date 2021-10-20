@@ -75,7 +75,9 @@ public:
   virtual bool Initialize(int& argc, wxChar** argv);
     // This gives wxCocoa a chance to call OnInit() with a memory pool in place
   virtual bool CallOnInit()
-  { return OnInit(); }
+  {
+ return OnInit();
+  }
     // Called before OnRun(), this is a good place to do initialization -- if
     // anything fails, return false from here to prevent the program from
     // continuing. The command line is normally parsed here, call the base
@@ -113,7 +115,9 @@ public:
     // however extreme care should be taken if you don't want this function to
     // crash.
   virtual void OnFatalException()
-  { }
+  {
+
+  }
     // Called from wxExit() function, should terminate the application a.s.a.p.
   virtual void Exit();
     // application info: name, description, vendor
@@ -126,7 +130,9 @@ public:
         // set/get the application name
   wxString GetAppName() const;
   void SetAppName(const wxString& name)
-  { m_appName = name; }
+  {
+ m_appName = name;
+  }
         // set/get the application display name: the display name is the name
         // shown to the user in titles, reports, etc while the app name is
         // used for paths, config, and other places the user doesn't see
@@ -136,17 +142,27 @@ public:
         // usually better to set it explicitly to something nicer
   wxString GetAppDisplayName() const;
   void SetAppDisplayName(const wxString& name)
-  { m_appDisplayName = name; }
+  {
+ m_appDisplayName = name;
+  }
         // set/get the app class name
   wxString GetClassName() const
-  { return m_className; }
+  {
+ return m_className;
+  }
   void SetClassName(const wxString& name)
-  { m_className = name; }
+  {
+ m_className = name;
+  }
         // set/get the vendor name
   const wxString& GetVendorName() const
-  { return m_vendorName; }
+  {
+ return m_vendorName;
+  }
   void SetVendorName(const wxString& name)
-  { m_vendorName = name; }
+  {
+ m_vendorName = name;
+  }
         // set/get the vendor display name:  the display name is shown
         // in titles/reports/dialogs to the user, while the vendor name
         // is used in some areas such as wxConfig, wxStandardPaths, etc
@@ -154,11 +170,11 @@ public:
   {
         return m_vendorDisplayName.empty() ? GetVendorName()
                                            : m_vendorDisplayName;
-    }
+  }
   void SetVendorDisplayName(const wxString& name)
   {
         m_vendorDisplayName = name;
-    }
+  }
     // cmd line parsing stuff
     // ----------------------
 
@@ -213,7 +229,9 @@ public:
     // The returned value maybe NULL. Put initialization code which needs a
     // non-NULL main event loop into OnEventLoopEnter().
   wxEventLoopBase* GetMainLoop() const
-  { return m_mainLoop; }
+  {
+ return m_mainLoop;
+  }
     // This function sets the C locale to the default locale for the current
     // environment. It is advised to call this to ensure that the underlying
     // toolkit uses the locale in which the numbers and monetary amounts are
@@ -374,17 +392,25 @@ public:
 
     // helpers for dynamic wxApp construction
   static void SetInitializerFunction(wxAppInitializerFunction fn)
-  { ms_appInitFn = fn; }
+  {
+ ms_appInitFn = fn;
+  }
   static wxAppInitializerFunction GetInitializerFunction()
-  { return ms_appInitFn; }
+  {
+ return ms_appInitFn;
+  }
     // accessors for ms_appInstance field (external code might wish to modify
     // it, this is why we provide a setter here as well, but you should really
     // know what you're doing if you call it), wxTheApp is usually used instead
     // of GetInstance()
   static wxAppConsole* GetInstance()
-  { return ms_appInstance; }
+  {
+ return ms_appInstance;
+  }
   static void SetInstance(wxAppConsole* app)
-  { ms_appInstance = app; }
+  {
+ ms_appInstance = app;
+  }
     // command line arguments (public for backwards compatibility)
   int argc;
     // this object is implicitly convertible to either "char**" (traditional
@@ -497,16 +523,22 @@ public:
   bool ProcessIdle() override;
         // override base class version: GUI apps always use an event loop
   bool UsesEventLoop() const override
-  { return true; }
+  {
+ return true;
+  }
     // top level window functions
     // --------------------------
 
         // return true if our app has focus
   virtual bool IsActive() const
-  { return m_isActive; }
+  {
+ return m_isActive;
+  }
         // set the "main" top level window
   void SetTopWindow(wxWindow* win)
-  { m_topWindow = win; }
+  {
+ m_topWindow = win;
+  }
         // return the "main" top level window (if it hadn't been set previously
         // with SetTopWindow(), will return just some top level window and, if
         // there are none, will return NULL)
@@ -517,9 +549,13 @@ public:
         // (with SetExitOnFrameDelete(false)), you'll have to call
         // ExitMainLoop() explicitly from somewhere.
   void SetExitOnFrameDelete(bool flag)
-  { m_exitOnFrameDelete = flag ? Yes : No; }
+  {
+ m_exitOnFrameDelete = flag ? Yes : No;
+  }
   bool GetExitOnFrameDelete() const
-  { return m_exitOnFrameDelete == Yes; }
+  {
+ return m_exitOnFrameDelete == Yes;
+  }
     // display mode, visual, printing mode, ...
     // ------------------------------------------------------------------------
 
@@ -530,26 +566,38 @@ public:
         // ports such as wxDFB. This method should be called from
         // wxApp::OnInitGui
   virtual bool SetDisplayMode(const wxVideoMode&)
-  { return true; }
+  {
+ return true;
+  }
         // set use of best visual flag (see below)
   void SetUseBestVisual(bool flag, bool forceTrueColour = false)
-  { m_useBestVisual = flag; m_forceTrueColour = forceTrueColour; }
+  {
+ m_useBestVisual = flag; m_forceTrueColour = forceTrueColour;
+  }
   bool GetUseBestVisual() const
-  { return m_useBestVisual; }
+  {
+ return m_useBestVisual;
+  }
         // set/get printing mode: see wxPRINT_XXX constants.
         //
         // default behaviour is the normal one for Unix: always use PostScript
         // printing.
   virtual void SetPrintMode(int)
-  { }
+  {
+
+  }
   int GetPrintMode() const
-  { return wxPRINT_POSTSCRIPT; }
+  {
+ return wxPRINT_POSTSCRIPT;
+  }
     // Return the layout direction for the current locale or wxLayout_Default
     // if it's unknown
   virtual wxLayoutDirection GetLayoutDirection() const;
     // Change the theme used by the application, return true on success.
   virtual bool SetNativeTheme(const wxString&)
-  { return false; }
+  {
+ return false;
+  }
     // command line parsing (GUI-specific)
     // ------------------------------------------------------------------------
 #    if  wxUSE_CMDLINE_PARSER
@@ -659,7 +707,8 @@ class WXDLLIMPEXP_BASE wxAppInitializer
 public:
   wxAppInitializer(wxAppInitializerFunction fn)
   {
- wxApp::SetInitializerFunction(fn);   }
+ wxApp::SetInitializerFunction(fn);
+  }
 };
 // the code below defines a wxIMPLEMENT_WXWIN_MAIN macro which you can use if
 // your compiler really, really wants main() to be in your main program (e.g.

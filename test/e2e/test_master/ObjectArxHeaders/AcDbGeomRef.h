@@ -86,7 +86,9 @@ public:
   Acad::ErrorStatus copyFrom(const AcRxObject*) override;
   void reset() override;
   bool isEmpty() const override
-  { return mEntityId.isEmpty(); }
+  {
+ return mEntityId.isEmpty();
+  }
     /// <summary> 
     /// Returns the AcDbCompoundObjectId of the entity that the AcDbSubentRef references.
     /// May be empty if a derived class holds constant geometry and does not 
@@ -110,16 +112,22 @@ public:
     /// </summary>
     ///
   Acad::ErrorStatus evaluateAndCacheGeometry() override
-  { return Acad::eOk; }
+  {
+ return Acad::eOk;
+  }
 protected:
     /// <summary> Sets mEntity data member. </summary>
     ///
   void setEntity(const AcDbCompoundObjectId& entityId)
-  { mEntityId = entityId; }
+  {
+ mEntityId = entityId;
+  }
     /// <summary> Sets mSubentId data member. </summary>
     ///
   void setSubent(const AcDbSubentId& subentId)
-  { mSubentId = subentId; }
+  {
+ mSubentId = subentId;
+  }
     /// <summary> Sets mEntity and mSubentId data members. </summary>
     ///
   void setFromSubentPath(const AcDbFullSubentPath&);
@@ -159,7 +167,9 @@ public:
   void reset() override;
   bool isValid() const override;
   bool isEmpty() const override
-  { return __super::isEmpty() && mpAsmBody == NULL; }
+  {
+ return __super::isEmpty() && mpAsmBody == NULL;
+  }
     /// <summary> 
     /// Returns the ASM BODY that the AcDbFaceRef may hold. It does not return a 
     /// copy of the ASM BODY, therefore the client code needs to make a copy if 
@@ -167,7 +177,9 @@ public:
     /// </summary>
     ///
   class BODY* asmBody() const
-  { return mpAsmBody; }
+  {
+ return mpAsmBody;
+  }
     /// <summary> 
     /// Creates a new non-database resident AcDbEntity from the data the AcDbFaceRef
     /// holds, and returns it to the caller. The caller is responsible for deleting 
@@ -180,7 +192,9 @@ public:
     /// </summary>
     ///
   Acad::ErrorStatus evaluateAndCacheGeometry() override
-  { return Acad::eOk; }
+  {
+ return Acad::eOk;
+  }
 private:
   class BODY* mpAsmBody;
 };
@@ -235,7 +249,9 @@ public:
   void reset() override;
   bool isValid() const override;
   bool isEmpty() const override
-  { return __super::isEmpty() && mpCurve == NULL; }
+  {
+ return __super::isEmpty() && mpCurve == NULL;
+  }
     /// <summary> 
     /// The AcDbEdgeRef can also hold AcDbSubentId of a face subentity. The face
     /// needs to bounded by the referenced edge subentity. The additional face 
@@ -251,13 +267,17 @@ public:
     /// </summary>
     ///
   AcDbSubentId faceSubentId() const
-  { return mFaceSubentId; }
+  {
+ return mFaceSubentId;
+  }
     /// <summary> 
     /// Returns the constant AcGeCurve3d* that the AcDbEdgeRef may hold.
     /// </summary>
     ///
   const AcGeCurve3d* curve() const
-  { return mpCurve; }
+  {
+ return mpCurve;
+  }
     /// <summary> 
     /// Evaluates the curve from the referenced entity geometry. If no entity 
     /// is referenced, returns the cached curve. The caller is responsible for
@@ -326,7 +346,7 @@ public:
         kEdgeCenter,
         kEdgeSplineControlPoint,
         kEdgeSplineFitPoint,
-    };
+  };
     /// <summary> Default constructor. </summary>
     ///
   AcDbVertexRef();
@@ -388,11 +408,17 @@ public:
     /// </summary>
     ///
   ImpliedType impliedType() const
-  { return mImpliedType;    }
+  {
+ return mImpliedType;
+  }
   const AcDbGeomRef* referencedRef() const
-  { return mpReferencedRef; }
+  {
+ return mpReferencedRef;
+  }
   int index() const
-  { return mIndex;          }
+  {
+ return mIndex;
+  }
     /// <summary> 
     /// Returns the AcGePoint3d directly held in the AcDbVertexRef. 
     /// </summary>
@@ -478,7 +504,9 @@ public:
     /// <summary> Returns the array of AcDbEdgeRefs kept in the AcDbPathRef. </summary>
     ///
   const AcArray<AcDbEdgeRef>& edgeRefs() const
-  { return mEdgeRefs; }
+  {
+ return mEdgeRefs;
+  }
     /// <summary> Returns true if the geometry of the path is equal to the geometry of the given curve. </summary>
     ///
   bool isEqualTo(const AcGeCurve3d*);
@@ -520,7 +548,9 @@ public:
   bool isValid() const override;
   bool isEmpty() const override;
   const AcGeVector3d vector() const
-  { return mVector; }
+  {
+ return mVector;
+  }
   void set(const AcGeVector3d&);
     /// <summary> 
     /// TBD
@@ -560,11 +590,17 @@ public:
   bool isValid() const override;
   bool isEmpty() const override;
   const AcGeMatrix3d& coordSystem() const
-  { return mCoordSystem; }
+  {
+ return mCoordSystem;
+  }
   const AcDbCompoundObjectId& entityId() const
-  { return mEntityId;    }
+  {
+ return mEntityId;
+  }
   const AcArray<AcDbSubentRef*>& subentRefs() const
-  { return mSubentRefs;  }
+  {
+ return mSubentRefs;
+  }
   void set(const AcGeMatrix3d&);
   void set(const AcDbCompoundObjectId&);
   void set(const AcArray<AcDbSubentRef*>&);
@@ -573,7 +609,9 @@ public:
     /// </summary>
     ///
   AcDbEntity* createEntity() const override
-  { return NULL; }
+  {
+ return NULL;
+  }
     /// <summary> 
     /// Calls evaluateAndCacheGeometry on all owned AcDbSubentRefs and then updates
     /// the cached coordinate system.

@@ -22,9 +22,13 @@ public:
   }
   ~SkDrawableList();
   int count() const
-  { return fArray.count(); }
+  {
+ return fArray.count();
+  }
   SkDrawable* const * begin() const
-  { return fArray.begin(); }
+  {
+ return fArray.begin();
+  }
   void append(SkDrawable* drawable);
     // Return a new or ref'd array of pictures that were snapped from our drawables.
   SkBigPicture::SnapshotArray* newDrawableSnapshot();
@@ -43,14 +47,20 @@ public:
         Playback_DrawPictureMode,
         // Plays back top level drawPicture calls only, but records pictures within those.
         PlaybackTop_DrawPictureMode,
-    };
+  };
   void reset(SkRecord*, const SkRect& bounds, DrawPictureMode, SkMiniRecorder* = nullptr);
   size_t approxBytesUsedBySubPictures() const
-  { return fApproxBytesUsedBySubPictures; }
+  {
+ return fApproxBytesUsedBySubPictures;
+  }
   SkDrawableList* getDrawableList() const
-  { return fDrawableList.get(); }
+  {
+ return fDrawableList.get();
+  }
   std::unique_ptr<SkDrawableList> detachDrawableList()
-  { return std::move(fDrawableList); }
+  {
+ return std::move(fDrawableList);
+  }
     // Make SkRecorder forget entirely about its SkRecord*; all calls to SkRecorder will fail.
   void forgetRecord();
   void onFlush() override;

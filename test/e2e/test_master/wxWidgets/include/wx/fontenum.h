@@ -43,10 +43,14 @@ public:
 
     // called by EnumerateFacenames
   virtual bool OnFacename(const wxString&)
-  { return true; }
+  {
+ return true;
+  }
     // called by EnumerateEncodings
   virtual bool OnFontEncoding(const wxString&, const wxString&)
-  { return true; }
+  {
+ return true;
+  }
     // convenience function that returns array of facenames.
   static wxArrayString GetFacenames(wxFontEncoding encoding = wxFONTENCODING_SYSTEM, bool fixedWidthOnly = false);
     // convenience function that returns array of all available encodings.

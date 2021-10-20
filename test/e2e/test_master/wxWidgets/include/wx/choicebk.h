@@ -32,12 +32,12 @@ class WXDLLIMPEXP_CORE wxChoicebook : public wxNavigationEnabled<wxBookCtrlBase>
 public:
   wxChoicebook()
   {
-   }
+
+  }
   wxChoicebook(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString)
   {
-
         (void)Create(parent, id, pos, size, style, name);
-      }
+  }
     // quasi ctor
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString);
   bool SetPageText(size_t n, const wxString& strText) override;
@@ -46,21 +46,27 @@ public:
   bool SetPageImage(size_t n, int imageId) override;
   bool InsertPage(size_t n, wxWindow* page, const wxString& text, bool bSelect = false, int imageId = NO_IMAGE) override;
   int SetSelection(size_t n) override
-  { return DoSetSelection(n, SetSelection_SendEvent); }
+  {
+ return DoSetSelection(n, SetSelection_SendEvent);
+  }
   int ChangeSelection(size_t n) override
-  { return DoSetSelection(n); }
+  {
+ return DoSetSelection(n);
+  }
   void SetImageList(wxImageList* imageList) override;
   bool DeleteAllPages() override;
     // returns the choice control
   wxChoice* GetChoiceCtrl() const
-  { return (wxChoice*)m_bookctrl; }
+  {
+ return (wxChoice*)m_bookctrl;
+  }
 protected:
   void DoSetWindowVariant(wxWindowVariant variant) override;
   wxWindow* DoRemovePage(size_t page) override;
   void UpdateSelectedPage(size_t newsel) override
   {
         GetChoiceCtrl()->Select(newsel);
-    }
+  }
   wxBookCtrlEvent* CreatePageChangingEvent() const override;
   void MakeChangedEvent(wxBookCtrlEvent& event) override;
     // event handlers

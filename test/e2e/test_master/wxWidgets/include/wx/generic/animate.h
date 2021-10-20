@@ -18,14 +18,14 @@ class WXDLLIMPEXP_ADV wxGenericAnimationCtrl : public wxAnimationCtrlBase
 public:
   wxGenericAnimationCtrl()
   {
- Init();   }
+ Init();
+  }
   wxGenericAnimationCtrl(wxWindow* parent, wxWindowID id, const wxAnimation& anim = wxNullAnimation, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxAC_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxAnimationCtrlNameStr))
   {
-
         Init();
 
         Create(parent, id, anim, pos, size, style, name);
-      }
+  }
   void Init();
   bool Create(wxWindow* parent, wxWindowID id, const wxAnimation& anim = wxNullAnimation, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxAC_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxAnimationCtrlNameStr));
   ~wxGenericAnimationCtrl();
@@ -33,9 +33,13 @@ public:
   bool Load(wxInputStream& stream, wxAnimationType type = wxANIMATION_TYPE_ANY) override;
   void Stop() override;
   bool Play() override
-  { return Play(true /* looped */); }
+  {
+ return Play(true /* looped */);
+  }
   bool IsPlaying() const override
-  { return m_isPlaying; }
+  {
+ return m_isPlaying;
+  }
   void SetAnimation(const wxAnimation& animation) override;
   void SetInactiveBitmap(const wxBitmap& bmp) override;
     // override base class method
@@ -47,9 +51,13 @@ public:
     // Specify whether the animation's background colour is to be shown (the default),
     // or whether the window background should show through
   void SetUseWindowBackgroundColour(bool useWinBackground = true)
-  { m_useWinBackgroundColour = useWinBackground; }
+  {
+ m_useWinBackgroundColour = useWinBackground;
+  }
   bool IsUsingWindowBackgroundColour() const
-  { return m_useWinBackgroundColour; }
+  {
+ return m_useWinBackgroundColour;
+  }
     // This overload of Play() lets you specify if the animation must loop or not
   bool Play(bool looped);
     // Draw the current frame of the animation into given DC.
@@ -57,7 +65,9 @@ public:
   void DrawCurrentFrame(wxDC& dc);
     // Returns a wxBitmap with the current frame drawn in it
   wxBitmap& GetBackingStore()
-  { return m_backingStore; }
+  {
+ return m_backingStore;
+  }
 protected:
   wxAnimationImpl* DoCreateAnimationImpl() const override;
     // resize this control to fit m_animation

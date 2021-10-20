@@ -156,16 +156,19 @@ public:
     // lock the mutex in the ctor
   wxMutexLocker(wxMutex& mutex)
     :  m_isOk(false), m_mutex(mutex)
-        
-    {
- m_isOk = ( m_mutex.Lock() == wxMUTEX_NO_ERROR );     }
+  {
+ m_isOk = ( m_mutex.Lock() == wxMUTEX_NO_ERROR );
+  }
     // returns true if mutex was successfully locked in ctor
   bool IsOk() const
-  { return m_isOk; }
+  {
+ return m_isOk;
+  }
     // unlock the mutex in dtor
   ~wxMutexLocker()
   {
- if ( IsOk() ) m_mutex.Unlock();   }
+ if ( IsOk() ) m_mutex.Unlock();
+  }
 private:
     // no assignment operator nor copy ctor
   wxMutexLocker(const wxMutexLocker&);
@@ -241,18 +244,26 @@ private:
 #    if  wxCRITSECT_IS_MUTEX
     // implement wxCriticalSection using mutexes
 inline wxCriticalSection::wxCriticalSection(wxCriticalSectionType critSecType)
-  :  m_mutex( critSecType == wxCRITSEC_DEFAULT ? wxMUTEX_RECURSIVE : wxMUTEX_DEFAULT )  
-  {
-   }
+  :  m_mutex( critSecType == wxCRITSEC_DEFAULT ? wxMUTEX_RECURSIVE : wxMUTEX_DEFAULT )
+{
+
+}
 inline wxCriticalSection::~wxCriticalSection()
 {
- }
+
+}
 inline void wxCriticalSection::Enter()
-{ (void)m_mutex.Lock(); }
+{
+ (void)m_mutex.Lock();
+}
 inline bool wxCriticalSection::TryEnter()
-{ return m_mutex.TryLock() == wxMUTEX_NO_ERROR; }
+{
+ return m_mutex.TryLock() == wxMUTEX_NO_ERROR;
+}
 inline void wxCriticalSection::Leave()
-{ (void)m_mutex.Unlock(); }
+{
+ (void)m_mutex.Unlock();
+}
 #    endif
 #    undef wxCRITSECT_INLINE
 #    undef wxCRITSECT_IS_MUTEX
@@ -263,16 +274,13 @@ class WXDLLIMPEXP_BASE wxCriticalSectionLocker
 public:
   wxCriticalSectionLocker(wxCriticalSection& cs)
     :  m_critsect(cs)
-    
-    {
-
+  {
         m_critsect.Enter();
-        }
+  }
   ~wxCriticalSectionLocker()
   {
-
         m_critsect.Leave();
-      }
+  }
 private:
   wxCriticalSection& m_critsect;
   wxDECLARE_NO_COPY_CLASS(wxCriticalSectionLocker);
@@ -309,7 +317,7 @@ public:
                 return e;
         }
         return wxCOND_NO_ERROR;
-    }
+  }
     // exactly as Wait() except that it may also return if the specified
     // timeout elapses even if the condition hasn't been signalled: in this
     // case, the return value is wxCOND_TIMEOUT, otherwise (i.e. in case of a
@@ -405,10 +413,12 @@ public:
   static bool IsMain()
   {
         return !ms_idMainThread || GetCurrentId() == ms_idMainThread;
-    }
+  }
         // Return the main thread id
   static wxThreadIdType GetMainId()
-  { return ms_idMainThread; }
+  {
+ return ms_idMainThread;
+  }
         // Release the rest of our time slice letting the other threads run
   static void Yield();
         // Sleep during the specified period of time in milliseconds
@@ -491,7 +501,9 @@ public:
   bool IsPaused() const;
         // is the thread of detached kind?
   bool IsDetached() const
-  { return m_isDetached; }
+  {
+ return m_isDetached;
+  }
     // Get the thread ID - a platform dependent number which uniquely
     // identifies a thread inside a process
   wxThreadIdType GetId() const;
@@ -500,7 +512,9 @@ public:
   WXHANDLE MSWGetHandle() const;
 #    endif
   wxThreadKind GetKind() const
-  { return m_isDetached ? wxTHREAD_DETACHED : wxTHREAD_JOINABLE; }
+  {
+ return m_isDetached ? wxTHREAD_DETACHED : wxTHREAD_JOINABLE;
+  }
     // Returns true if the thread was asked to terminate: this function should
     // be called by the thread from time to time, otherwise the main thread
     // will be left forever in Delete()!
@@ -560,9 +574,9 @@ public:
     // start) the real thread
   wxThreadHelperThread(wxThreadHelper& owner, wxThreadKind kind)
     :  wxThread(kind), m_owner(owner)
-        
-    {
-     }
+  {
+
+  }
 protected:
     // entry point for the thread -- calls Entry() in owner.
   void* Entry() override;
@@ -598,17 +612,19 @@ private:
 
             m_thread = NULL;
         }
-    }
+  }
 public:
     // constructor only initializes m_thread to NULL
   wxThreadHelper(wxThreadKind kind = wxTHREAD_JOINABLE)
-    :  m_thread(NULL), m_kind(kind) 
-    {
-     }
+    :  m_thread(NULL), m_kind(kind)
+  {
+
+  }
     // destructor deletes m_thread
   virtual ~wxThreadHelper()
   {
- KillThread();   }
+ KillThread();
+  }
 #    if  WXWIN_COMPATIBILITY_2_8
 #    endif
     // create a new thread (and optionally set the stack size on platforms that
@@ -621,7 +637,7 @@ public:
         m_thread = new wxThreadHelperThread(*this, m_kind);
 
         return m_thread->Create(stackSize);
-    }
+  }
     // entry point for the thread - called by Run() and executes in the context
     // of this thread.
   virtual void* Entry() = 0;
@@ -633,7 +649,7 @@ public:
         wxThread* thread = m_thread;
 
         return thread;
-    }
+  }
 protected:
   wxThread* m_thread;
   wxThreadKind m_kind;
@@ -642,7 +658,9 @@ protected:
 };
 #    if  WXWIN_COMPATIBILITY_2_8
 inline wxThreadError wxThreadHelper::Create(unsigned int stackSize)
-{ return CreateThread(m_kind, stackSize); }
+{
+ return CreateThread(m_kind, stackSize);
+}
 #    endif
 // call Entry() in owner, put it down here to avoid circular declarations
 inline void* wxThreadHelperThread::Entry()
@@ -677,13 +695,19 @@ void WXDLLIMPEXP_BASE wxMutexGuiLeave();
 // function for checking if we're in the main thread which may be used whether
 // wxUSE_THREADS is 0 or 1
 inline bool wxIsMainThread()
-{ return wxThread::IsMain(); }
+{
+ return wxThread::IsMain();
+}
 #  else 
 // no thread support
 inline void wxMutexGuiEnter()
-{ }
+{
+
+}
 inline void wxMutexGuiLeave()
-{ }
+{
+
+}
 // macros for entering/leaving critical sections which may be used without
 // having to take them inside "#if wxUSE_THREADS"
 // (the implementation uses dummy structs to force semicolon after the macro)
@@ -694,7 +718,9 @@ inline void wxMutexGuiLeave()
 #    define wxCRIT_SECT_LOCKER(name, cs)	     struct wxDummyCSLocker##name
 // if there is only one thread, it is always the main one
 inline bool wxIsMainThread()
-{ return true; }
+{
+ return true;
+}
 #  endif
 // mark part of code as being a critical section: this macro declares a
 // critical section with the given name and enters it immediately and leaves
@@ -722,10 +748,12 @@ class WXDLLIMPEXP_BASE wxMutexGuiLocker
 public:
   wxMutexGuiLocker()
   {
- wxMutexGuiEnter();   }
+ wxMutexGuiEnter();
+  }
   ~wxMutexGuiLocker()
   {
- wxMutexGuiLeave();   }
+ wxMutexGuiLeave();
+  }
 };
 // -----------------------------------------------------------------------------
 // implementation only until the end of file

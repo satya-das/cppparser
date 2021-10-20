@@ -27,9 +27,11 @@ public:
     // -----------------
     //
     // Flag values passed to start() method.  Specify type of iteration.
-  enum { kAllClasses = 0x01,        // returns all classes in the db
+  enum {
+ kAllClasses = 0x01,        // returns all classes in the db
            kCustomClasses   = 0x02,   // returns only custom classes
-           kProxyClasses    = 0x04 };
+           kProxyClasses    = 0x04
+  };
     // Attach this iterator to a database and begin iteration.
     // pDb : input pointer to a drawing database
     // nFlags : input flags specifying how to iterate

@@ -26,6 +26,6 @@ struct AcUt
         kSuppressTrailingZero = 0x800,
         kIgnoreUnitMode       = 0x1000,
         kUseAltUnits          = 0x2000
-    };
+  };
 };
 #pragma  pack (pop)

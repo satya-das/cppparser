@@ -33,7 +33,6 @@ public:
     // default ctor, SetContainerWindow() must be called later
   wxControlContainerBase()
   {
-
         m_winParent = NULL;
 
         // By default, we accept focus ourselves.
@@ -41,7 +40,7 @@ public:
 
         m_inSetFocus = false;
         m_winLastFocused = NULL;
-      }
+  }
   virtual ~wxControlContainerBase()
   {
   }
@@ -50,16 +49,20 @@ public:
         wxASSERT_MSG( !m_winParent, wxT("shouldn't be called twice") );
 
         m_winParent = winParent;
-    }
+  }
     // This can be called by the window to indicate that it never wants to have
     // the focus for itself.
   void DisableSelfFocus()
-  { m_acceptsFocusSelf = false; UpdateParentCanFocus(); }
+  {
+ m_acceptsFocusSelf = false; UpdateParentCanFocus();
+  }
     // This can be called to undo the effect of a previous DisableSelfFocus()
     // (otherwise calling it is not necessary as the window does accept focus
     // by default).
   void EnableSelfFocus()
-  { m_acceptsFocusSelf = true; UpdateParentCanFocus(); }
+  {
+ m_acceptsFocusSelf = true; UpdateParentCanFocus();
+  }
     // should be called from SetFocus(), returns false if we did nothing with
     // the focus and the default processing should take place
   bool DoSetFocus();
@@ -67,10 +70,14 @@ public:
   bool AcceptsFocus() const;
     // Returns whether we or one of our children accepts focus.
   bool AcceptsFocusRecursively() const
-  { return AcceptsFocus() || HasAnyChildrenAcceptingFocus(); }
+  {
+ return AcceptsFocus() || HasAnyChildrenAcceptingFocus();
+  }
     // We accept focus from keyboard if we accept it at all.
   bool AcceptsFocusFromKeyboard() const
-  { return AcceptsFocusRecursively(); }
+  {
+ return AcceptsFocusRecursively();
+  }
     // Call this when the number of children of the window changes.
     //
     // Returns true if we have any focusable children, false otherwise.
@@ -101,7 +108,7 @@ private:
   void UpdateParentCanFocus()
   {
         UpdateParentCanFocus(HasAnyFocusableChildren());
-    }
+  }
     // Indicates whether the associated window can ever have focus itself.
     //
     // Usually this is the case, e.g. a wxPanel can be used either as a
@@ -159,7 +166,6 @@ public:
   typedef W BaseWindowClass;
   wxNavigationEnabled()
   {
-
         m_container.SetContainerWindow(this);
 
 #ifndef wxHAS_NATIVE_TAB_TRAVERSAL
@@ -171,19 +177,19 @@ public:
         BaseWindowClass::Bind(wxEVT_CHILD_FOCUS,
                               &wxNavigationEnabled::OnChildFocus, this);
 #endif // !wxHAS_NATIVE_TAB_TRAVERSAL
-      }
+  }
   WXDLLIMPEXP_INLINE_CORE bool AcceptsFocus() const override
   {
         return m_container.AcceptsFocus();
-    }
+  }
   WXDLLIMPEXP_INLINE_CORE bool AcceptsFocusRecursively() const override
   {
         return m_container.AcceptsFocusRecursively();
-    }
+  }
   WXDLLIMPEXP_INLINE_CORE bool AcceptsFocusFromKeyboard() const override
   {
         return m_container.AcceptsFocusFromKeyboard();
-    }
+  }
   WXDLLIMPEXP_INLINE_CORE void AddChild(wxWindowBase* child) override
   {
         BaseWindowClass::AddChild(child);
@@ -195,7 +201,7 @@ public:
             if ( !BaseWindowClass::HasFlag(wxTAB_TRAVERSAL) )
                 BaseWindowClass::ToggleWindowStyle(wxTAB_TRAVERSAL);
         }
-    }
+  }
   WXDLLIMPEXP_INLINE_CORE void RemoveChild(wxWindowBase* child) override
   {
 #ifndef wxHAS_NATIVE_TAB_TRAVERSAL
@@ -207,41 +213,41 @@ public:
         // We could reset wxTAB_TRAVERSAL here but it doesn't seem to do any
         // harm to keep it.
         m_container.UpdateCanFocusChildren();
-    }
+  }
   WXDLLIMPEXP_INLINE_CORE void SetFocus() override
   {
         if ( !m_container.DoSetFocus() )
             BaseWindowClass::SetFocus();
-    }
+  }
   void SetFocusIgnoringChildren()
   {
         BaseWindowClass::SetFocus();
-    }
+  }
 #  ifdef __WXMSW__
   WXDLLIMPEXP_INLINE_CORE bool HasTransparentBackground() override
   {
         return m_container.HasTransparentBackground();
-    }
+  }
   WXDLLIMPEXP_INLINE_CORE void WXSetPendingFocus(wxWindow* win) override
   {
         return m_container.SetLastFocus(win);
-    }
+  }
 #  endif
 #  ifndef wxHAS_NATIVE_TAB_TRAVERSAL
 protected:
   void OnNavigationKey(wxNavigationKeyEvent& event)
   {
         m_container.HandleOnNavigationKey(event);
-    }
+  }
   void OnFocus(wxFocusEvent& event)
   {
         m_container.HandleOnFocus(event);
-    }
+  }
   void OnChildFocus(wxChildFocusEvent& event)
   {
         m_container.SetLastFocus(event.GetWindow());
         event.Skip();
-    }
+  }
 #  endif
   wxControlContainer m_container;
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxNavigationEnabled, W);

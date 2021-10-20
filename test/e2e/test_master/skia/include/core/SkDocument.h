@@ -61,14 +61,18 @@ protected:
   virtual void onAbort() = 0;
     // Allows subclasses to write to the stream as pages are written.
   SkWStream* getStream()
-  { return fStream; }
+  {
+ return fStream;
+  }
   enum State {
         kBetweenPages_State,
         kInPage_State,
         kClosed_State
-    };
+  };
   State getState() const
-  { return fState; }
+  {
+ return fState;
+  }
 private:
   SkWStream* fStream;
   State fState;

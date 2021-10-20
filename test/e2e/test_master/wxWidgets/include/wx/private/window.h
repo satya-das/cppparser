@@ -28,7 +28,7 @@ namespace wxPrivate
     wxSize s = of_what.GetTextExtent(TEXT_TO_MEASURE);
     s.x = (s.x / 26 + 1) / 2;
     return s;
-}
+  }
   namespace 
   {
     inline bool SupportsPerMonitorDPI()
@@ -44,7 +44,7 @@ namespace wxPrivate
     static bool s_checkDPI = false;
 #endif
     return s_checkDPI;
-}
+    }
   }
   template <typename T>
   class DpiDependentValue
@@ -53,9 +53,9 @@ namespace wxPrivate
     // Explicit initialization is needed if T is a primitive type.
     DpiDependentValue()
       :  m_value(), m_dpi()
-    
-      {
-       }
+    {
+
+    }
     bool HasChanged(const wxWindowBase* win)
     {
         if ( win && SupportsPerMonitorDPI() )

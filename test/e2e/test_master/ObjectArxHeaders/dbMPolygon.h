@@ -38,7 +38,7 @@ public:
         kExterior     = 0,            // counter clockwise
         kInterior,                    // clockwise
         kAnnotation                   // text
-    };
+  };
     // Constructors and Destructors
     //
   ACMPOLYGON_PORT AcDbMPolygon();
@@ -171,7 +171,6 @@ public:
 };
 inline AcDbMpolygonLoops::AcDbMpolygonLoops(int lindex, int gindex, int gcnt)
 {
-
     mLoopIndex = lindex;
     mGripIndex = gindex;
     mGripCount = gcnt;
@@ -200,7 +199,6 @@ public:
 };
 inline AcDbMPolygonCrossingArray::~AcDbMPolygonCrossingArray()
 {
-
     AcDbMPolygonCrossing* pCrossing;
     int numCross = mCrossingArray.length();
     for (int i = numCross - 1; i >= 0; i--) {
@@ -223,7 +221,6 @@ public:
 };
 inline AcDbMPolygonNode::AcDbMPolygonNode()
   :  mLoopIndex(-1), mParent(NULL)
+{
 
-  {
-
-  }
+}

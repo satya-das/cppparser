@@ -397,8 +397,8 @@ public:
                                         // Closes dwg file after open. (_SH_DENYNO)
                                         // Internally calls closeInput(true)
         kTryForReadShare =        4     // 2-step: first try kForReadAndReadShare, and
-                                        // if that fails, then try kForReadAndAllShare 
-    };
+                                        // if that fails, then try kForReadAndAllShare
+  };
     // Note that the old overload of this method which took an int _SH_DENYxxx
     // arg is removed. You have to call this method using the OpenMode arg
     // to specify the access and sharing. See above OpenMode comments for
@@ -419,7 +419,7 @@ public:
   inline Acad::ErrorStatus saveAs(const ACHAR* fileName, const SecurityParams* pSecParams = 0)
   {
         return saveAs(fileName, true, AcDb::kDHL_CURRENT, pSecParams);
-    }
+  }
   ACDBCORE2D_PORT Acad::ErrorStatus saveAs(const ACHAR* fileName, const bool bBakAndRename, const AcDb::AcDbDwgVersion dwgVer = AcDb::kDHL_CURRENT, const SecurityParams* pSecParams = 0);
   ACDBCORE2D_PORT Acad::ErrorStatus saveAs(AcDwgFileHandle* pOutputFiler, const SecurityParams* pSecParams = 0, bool crashing = false);
   Acad::ErrorStatus save();
@@ -501,7 +501,7 @@ public:
   AcDb::MaintenanceReleaseVersion maintenanceReleaseVersion() const
   {
         return AcDb::kMReleaseCurrent;
-    }
+  }
   Acad::ErrorStatus restoreOriginalXrefSymbols();
   Acad::ErrorStatus restoreForwardingXrefSymbols();
   AcDbObjectId xrefBlockId() const;
@@ -1027,7 +1027,7 @@ public:
         kZeroLengthCurve = 0x01,  //zero length curves (AcDbCurve derived objects)
         kEmptyText       = 0x02,  //empty TEXT/MTEXT objects (which contain only spaces, tabs, enters and/or new lines)
         kAllEmptyObj     = 0xFFFFFFFF
-    };
+  };
   Adesk::UInt32 eraseEmptyObjects(const Adesk::UInt32 flags);
   Adesk::UInt32 countEmptyObjects(const Adesk::UInt32 flags);
 private:
@@ -1088,39 +1088,39 @@ inline Acad::ErrorStatus AcDbDatabase::getDimapost(ACHAR*& pOutput) const
 }
 inline Acad::ErrorStatus AcDbDatabase::getDimblk(ACHAR*& pOutput) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getDimblk, pOutput); 
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getDimblk, pOutput);
 }
 inline Acad::ErrorStatus AcDbDatabase::getDimblk1(ACHAR*& pOutput) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getDimblk1, pOutput); 
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getDimblk1, pOutput);
 }
 inline Acad::ErrorStatus AcDbDatabase::getDimblk2(ACHAR*& pOutput) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getDimblk2, pOutput); 
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getDimblk2, pOutput);
 }
 inline Acad::ErrorStatus AcDbDatabase::getMenu(ACHAR*& pOutput) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getMenu, pOutput); 
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getMenu, pOutput);
 }
 inline Acad::ErrorStatus AcDbDatabase::getProjectName(ACHAR*& pOutput) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getProjectName, pOutput); 
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getProjectName, pOutput);
 }
 inline Acad::ErrorStatus AcDbDatabase::getHyperlinkBase(ACHAR*& pOutput) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getHyperlinkBase, pOutput); 
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getHyperlinkBase, pOutput);
 }
 inline Acad::ErrorStatus AcDbDatabase::getStyleSheet(ACHAR*& pOutput) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getStyleSheet, pOutput); 
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getStyleSheet, pOutput);
 }
 inline Acad::ErrorStatus AcDbDatabase::getFingerprintGuid(ACHAR*& pOutput) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getFingerprintGuid, pOutput); 
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getFingerprintGuid, pOutput);
 }
 inline Acad::ErrorStatus AcDbDatabase::getVersionGuid(ACHAR*& pOutput) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getVersionGuid, pOutput); 
+    return ::acutGetAcStringConvertToAChar(this, &AcDbDatabase::getVersionGuid, pOutput);
 }
 //  Backward compatibility.
 inline Acad::ErrorStatus acdbSaveAs2004(AcDbDatabase* pDb, const ACHAR* fileName)
@@ -1456,11 +1456,11 @@ private:
 // These overloads are deprecated.  Please use the AcString-based overloads instead.
 inline Acad::ErrorStatus AcCmComplexColor::getDescription(ACHAR*& desc) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcCmComplexColor::getDescription, desc); 
+    return ::acutGetAcStringConvertToAChar(this, &AcCmComplexColor::getDescription, desc);
 }
 inline Acad::ErrorStatus AcCmComplexColor::getExplanation(ACHAR*& expl) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcCmComplexColor::getExplanation, expl); 
+    return ::acutGetAcStringConvertToAChar(this, &AcCmComplexColor::getExplanation, expl);
 }
 class AcCmColor : public AcCmColorBase
 {
@@ -1525,10 +1525,11 @@ public:
   Acad::ErrorStatus dwgInAsTrueColor(AcDbDwgFiler* pInputFiler);
   Acad::ErrorStatus dwgOutAsTrueColor(AcDbDwgFiler* pOutputFiler) const;
 private:
-  enum NameFlags {    kNoNames            = 0x00,
+  enum NameFlags {
+    kNoNames            = 0x00,
                         kHasColorName       = 0x01,
                         kHasBookName        = 0x02
-                    };
+  };
   static const Adesk::UInt16 ComplexColorFlag;
   AcCmEntityColor::RGBM mRGBM;
   AcString msColorName;
@@ -1538,11 +1539,11 @@ private:
 // These overloads are deprecated.  Please use the AcString-based overloads instead.
 inline Acad::ErrorStatus AcCmColor::getDescription(ACHAR*& desc) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcCmColor::getDescription, desc); 
+    return ::acutGetAcStringConvertToAChar(this, &AcCmColor::getDescription, desc);
 }
 inline Acad::ErrorStatus AcCmColor::getExplanation(ACHAR*& expl) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcCmColor::getExplanation, expl); 
+    return ::acutGetAcStringConvertToAChar(this, &AcCmColor::getExplanation, expl);
 }
 class ACDBCORE2D_PORT AcCmHSB
 {
@@ -1660,7 +1661,6 @@ public:
     /// Enumerates the visual style types that can be set into an entity.
     /// </summary>
   enum VisualStyleType {
-
         /// <summary>
         /// Full visual style, defines the overall visual style of the entity.
         /// </summary>
@@ -1677,7 +1677,7 @@ public:
         /// the full visual style.
         /// </summary>
         kEdgeVisualStyle
-    };
+  };
     /// <summary>
     /// Sets visual styles for the entity.  
     /// </summary>
@@ -1716,9 +1716,13 @@ public:
   virtual void setReceiveShadows(bool newVal);
   Acad::ErrorStatus setPropertiesFrom(const AcDbEntity* pEntity, Adesk::Boolean doSubents = true);
   virtual Adesk::Boolean isPlanar() const
-  { return false; }
+  {
+ return false;
+  }
   virtual Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const
-  { return Acad::eNotApplicable; }
+  {
+ return Acad::eNotApplicable;
+  }
   virtual void getEcs(AcGeMatrix3d& retVal) const;
   ACDBCORE2D_PORT_VIRTUAL Acad::ErrorStatus getGeomExtents(AcDbExtents& extents) const;
     // Subentity acquisition and manipulation
@@ -1852,7 +1856,6 @@ protected:
 //
 inline AcDbEntity::~AcDbEntity()
 {
-
     // Do Nothing, AcDbObject destructor takes care of imp object.
 }
 // These next 4 inlined methods are deprecated and will be removed in a future release.
@@ -1928,9 +1931,13 @@ public:
   AcDbExtents2d(const AcDbExtents2d& src);
   AcDbExtents2d(const AcGePoint2d& min, const AcGePoint2d& max);
   AcGePoint2d minPoint() const
-  { return mMinPoint; }
+  {
+ return mMinPoint;
+  }
   AcGePoint2d maxPoint() const
-  { return mMaxPoint; }
+  {
+ return mMaxPoint;
+  }
   Acad::ErrorStatus set(const AcGePoint2d& min, const AcGePoint2d& max);
   void addPoint(const AcGePoint2d& pt);
   void addExt(const AcDbExtents2d& src);
@@ -1948,9 +1955,13 @@ public:
   AcDbExtents(const AcDbExtents& src);
   AcDbExtents(const AcGePoint3d& min, const AcGePoint3d& max);
   AcGePoint3d minPoint() const
-  { return mMinPoint; }
+  {
+ return mMinPoint;
+  }
   AcGePoint3d maxPoint() const
-  { return mMaxPoint; }
+  {
+ return mMaxPoint;
+  }
   Acad::ErrorStatus set(const AcGePoint3d& min, const AcGePoint3d& max);
   void addPoint(const AcGePoint3d& pt);
   void addExt(const AcDbExtents& src);

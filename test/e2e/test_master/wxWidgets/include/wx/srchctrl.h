@@ -47,10 +47,12 @@ class WXDLLIMPEXP_CORE wxSearchCtrlBase : public wxSearchCtrlBaseBaseClass
 public:
   wxSearchCtrlBase()
   {
-   }
+
+  }
   virtual ~wxSearchCtrlBase()
   {
-   }
+
+  }
     // search control
 #    if  wxUSE_MENUS
   virtual void SetMenu(wxMenu* menu) = 0;
@@ -65,12 +67,16 @@ public:
   virtual wxString GetDescriptiveText() const = 0;
 #    if  wxUSE_NATIVE_SEARCH_CONTROL
   const wxTextEntry* WXGetTextEntry() const override
-  { return this; }
+  {
+ return this;
+  }
 #    endif
 private:
     // implement wxTextEntry pure virtual method
   wxWindow* GetEditableWindow() override
-  { return this; }
+  {
+ return this;
+  }
 };
 // include the platform-dependent class implementation
 #    if  wxUSE_NATIVE_SEARCH_CONTROL

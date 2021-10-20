@@ -36,9 +36,9 @@ public:
             | 0 0 1 |
     */
   SkMatrix()
-    :  SkMatrix(1,0,0, 0,1,0, 0,0,1, kIdentity_Mask | kRectStaysRect_Mask) 
-    {
-    }
+    :  SkMatrix(1,0,0, 0,1,0, 0,0,1, kIdentity_Mask | kRectStaysRect_Mask)
+  {
+  }
     /** Sets SkMatrix to scale by (sx, sy). Returned matrix is:
 
             | sx  0  0 |
@@ -54,7 +54,7 @@ public:
         SkMatrix m;
         m.setScale(sx, sy);
         return m;
-    }
+  }
     /** Sets SkMatrix to scale by (scale, scale). Returned matrix is:
 
             | scale   0   0 |
@@ -69,7 +69,7 @@ public:
         SkMatrix m;
         m.setScale(scale, scale);
         return m;
-    }
+  }
     /** Sets SkMatrix to translate by (dx, dy). Returned matrix is:
 
             | 1 0 dx |
@@ -85,7 +85,7 @@ public:
         SkMatrix m;
         m.setTranslate(dx, dy);
         return m;
-    }
+  }
     /** Sets SkMatrix to:
 
             | scaleX  skewX transX |
@@ -108,7 +108,7 @@ public:
         SkMatrix m;
         m.setAll(scaleX, skewX, transX, skewY, scaleY, transY, pers0, pers1, pers2);
         return m;
-    }
+  }
     /** \enum SkMatrix::TypeMask
         Enum of bit fields for mask returned by getType().
         Used to identify the complexity of SkMatrix, to optimize performance.
@@ -119,7 +119,7 @@ public:
         kScale_Mask       = 0x02, //!< scale SkMatrix
         kAffine_Mask      = 0x04, //!< skew or rotate SkMatrix
         kPerspective_Mask = 0x08, //!< perspective SkMatrix
-    };
+  };
     /** Returns a bit field describing the transformations the matrix may
         perform. The bit field is computed conservatively, so it may include
         false positives. For example, when kPerspective_Mask is set, all
@@ -135,7 +135,7 @@ public:
         }
         // only return the public masks
         return (TypeMask)(fTypeMask & 0xF);
-    }
+  }
     /** Returns true if SkMatrix is identity.  Identity matrix is:
 
             | 1 0 0 |
@@ -147,7 +147,7 @@ public:
   bool isIdentity() const
   {
         return this->getType() == 0;
-    }
+  }
     /** Returns true if SkMatrix at most scales and translates. SkMatrix may be identity,
         contain only scale elements, only translate elements, or both. SkMatrix form is:
 
@@ -160,7 +160,7 @@ public:
   bool isScaleTranslate() const
   {
         return !(this->getType() & ~(kScale_Mask | kTranslate_Mask));
-    }
+  }
     /** Returns true if SkMatrix is identity, or translates. SkMatrix form is:
 
             | 1 0 translate-x |
@@ -170,7 +170,9 @@ public:
         @return  true if SkMatrix is identity, or translates
     */
   bool isTranslate() const
-  { return !(this->getType() & ~(kTranslate_Mask)); }
+  {
+ return !(this->getType() & ~(kTranslate_Mask));
+  }
     /** Returns true SkMatrix maps SkRect to another SkRect. If true, SkMatrix is identity,
         or scales, or rotates a multiple of 90 degrees, or mirrors on axes. In all
         cases, SkMatrix may also have translation. SkMatrix form is either:
@@ -198,7 +200,7 @@ public:
             fTypeMask = this->computeTypeMask();
         }
         return (fTypeMask & kRectStaysRect_Mask) != 0;
-    }
+  }
     /** Returns true SkMatrix maps SkRect to another SkRect. If true, SkMatrix is identity,
         or scales, or rotates a multiple of 90 degrees, or mirrors on axes. In all
         cases, SkMatrix may also have translation. SkMatrix form is either:
@@ -221,7 +223,9 @@ public:
         @return  true if SkMatrix maps one SkRect into another
     */
   bool preservesAxisAlignment() const
-  { return this->rectStaysRect(); }
+  {
+ return this->rectStaysRect();
+  }
     /** Returns true if the matrix contains perspective elements. SkMatrix form is:
 
             |       --            --              --          |
@@ -237,7 +241,7 @@ public:
   {
         return SkToBool(this->getPerspectiveTypeMaskOnly() &
                         kPerspective_Mask);
-    }
+  }
     /** Returns true if SkMatrix contains only translation, rotation, reflection, and
         uniform scale.
         Returns false if SkMatrix contains different scales, skewing, perspective, or
@@ -297,7 +301,7 @@ public:
   {
         SkASSERT((unsigned)index < 9);
         return fMat[index];
-    }
+  }
     /** Returns one matrix value. Asserts if index is out of range and SK_DEBUG is
         defined.
 
@@ -309,21 +313,25 @@ public:
   {
         SkASSERT((unsigned)index < 9);
         return fMat[index];
-    }
+  }
     /** Returns scale factor multiplied by x-axis input, contributing to x-axis output.
         With mapPoints(), scales SkPoint along the x-axis.
 
         @return  horizontal scale factor
     */
   SkScalar getScaleX() const
-  { return fMat[kMScaleX]; }
+  {
+ return fMat[kMScaleX];
+  }
     /** Returns scale factor multiplied by y-axis input, contributing to y-axis output.
         With mapPoints(), scales SkPoint along the y-axis.
 
         @return  vertical scale factor
     */
   SkScalar getScaleY() const
-  { return fMat[kMScaleY]; }
+  {
+ return fMat[kMScaleY];
+  }
     /** Returns scale factor multiplied by x-axis input, contributing to y-axis output.
         With mapPoints(), skews SkPoint along the y-axis.
         Skewing both axes can rotate SkPoint.
@@ -331,7 +339,9 @@ public:
         @return  vertical skew factor
     */
   SkScalar getSkewY() const
-  { return fMat[kMSkewY]; }
+  {
+ return fMat[kMSkewY];
+  }
     /** Returns scale factor multiplied by y-axis input, contributing to x-axis output.
         With mapPoints(), skews SkPoint along the x-axis.
         Skewing both axes can rotate SkPoint.
@@ -339,33 +349,43 @@ public:
         @return  horizontal scale factor
     */
   SkScalar getSkewX() const
-  { return fMat[kMSkewX]; }
+  {
+ return fMat[kMSkewX];
+  }
     /** Returns translation contributing to x-axis output.
         With mapPoints(), moves SkPoint along the x-axis.
 
         @return  horizontal translation factor
     */
   SkScalar getTranslateX() const
-  { return fMat[kMTransX]; }
+  {
+ return fMat[kMTransX];
+  }
     /** Returns translation contributing to y-axis output.
         With mapPoints(), moves SkPoint along the y-axis.
 
         @return  vertical translation factor
     */
   SkScalar getTranslateY() const
-  { return fMat[kMTransY]; }
+  {
+ return fMat[kMTransY];
+  }
     /** Returns factor scaling input x-axis relative to input y-axis.
 
         @return  input x-axis perspective factor
     */
   SkScalar getPerspX() const
-  { return fMat[kMPersp0]; }
+  {
+ return fMat[kMPersp0];
+  }
     /** Returns factor scaling input y-axis relative to input x-axis.
 
         @return  input y-axis perspective factor
     */
   SkScalar getPerspY() const
-  { return fMat[kMPersp1]; }
+  {
+ return fMat[kMPersp1];
+  }
     /** Returns writable SkMatrix value. Asserts if index is out of range and SK_DEBUG is
         defined. Clears internal cache anticipating that caller will change SkMatrix value.
 
@@ -381,7 +401,7 @@ public:
         SkASSERT((unsigned)index < 9);
         this->setTypeMask(kUnknown_Mask);
         return fMat[index];
-    }
+  }
     /** Sets SkMatrix value. Asserts if index is out of range and SK_DEBUG is
         defined. Safer than operator[]; internal cache is always maintained.
 
@@ -395,57 +415,73 @@ public:
         fMat[index] = value;
         this->setTypeMask(kUnknown_Mask);
         return *this;
-    }
+  }
     /** Sets horizontal scale factor.
 
         @param v  horizontal scale factor to store
     */
   SkMatrix& setScaleX(SkScalar v)
-  { return this->set(kMScaleX, v); }
+  {
+ return this->set(kMScaleX, v);
+  }
     /** Sets vertical scale factor.
 
         @param v  vertical scale factor to store
     */
   SkMatrix& setScaleY(SkScalar v)
-  { return this->set(kMScaleY, v); }
+  {
+ return this->set(kMScaleY, v);
+  }
     /** Sets vertical skew factor.
 
         @param v  vertical skew factor to store
     */
   SkMatrix& setSkewY(SkScalar v)
-  { return this->set(kMSkewY, v); }
+  {
+ return this->set(kMSkewY, v);
+  }
     /** Sets horizontal skew factor.
 
         @param v  horizontal skew factor to store
     */
   SkMatrix& setSkewX(SkScalar v)
-  { return this->set(kMSkewX, v); }
+  {
+ return this->set(kMSkewX, v);
+  }
     /** Sets horizontal translation.
 
         @param v  horizontal translation to store
     */
   SkMatrix& setTranslateX(SkScalar v)
-  { return this->set(kMTransX, v); }
+  {
+ return this->set(kMTransX, v);
+  }
     /** Sets vertical translation.
 
         @param v  vertical translation to store
     */
   SkMatrix& setTranslateY(SkScalar v)
-  { return this->set(kMTransY, v); }
+  {
+ return this->set(kMTransY, v);
+  }
     /** Sets input x-axis perspective factor, which causes mapXY() to vary input x-axis values
         inversely proportional to input y-axis values.
 
         @param v  perspective factor
     */
   SkMatrix& setPerspX(SkScalar v)
-  { return this->set(kMPersp0, v); }
+  {
+ return this->set(kMPersp0, v);
+  }
     /** Sets input y-axis perspective factor, which causes mapXY() to vary input y-axis values
         inversely proportional to input x-axis values.
 
         @param v  perspective factor
     */
   SkMatrix& setPerspY(SkScalar v)
-  { return this->set(kMPersp1, v); }
+  {
+ return this->set(kMPersp1, v);
+  }
     /** Sets all values from parameters. Sets matrix to:
 
             | scaleX  skewX transX |
@@ -475,7 +511,7 @@ public:
         fMat[kMPersp2] = persp2;
         this->setTypeMask(kUnknown_Mask);
         return *this;
-    }
+  }
     /** Copies nine scalar values contained by SkMatrix into buffer, in member value
         ascending order: kMScaleX, kMSkewX, kMTransX, kMSkewY, kMScaleY, kMTransY,
         kMPersp0, kMPersp1, kMPersp2.
@@ -485,7 +521,7 @@ public:
   void get9(SkScalar buffer[9]) const
   {
         memcpy(buffer, fMat, 9 * sizeof(SkScalar));
-    }
+  }
     /** Sets SkMatrix to nine scalar values in buffer, in member value ascending order:
         kMScaleX, kMSkewX, kMTransX, kMSkewY, kMScaleY, kMTransY, kMPersp0, kMPersp1,
         kMPersp2.
@@ -523,7 +559,9 @@ public:
         documentation.
     */
   SkMatrix& setIdentity()
-  { return this->reset(); }
+  {
+ return this->reset();
+  }
     /** Sets SkMatrix to translate by (dx, dy).
 
         @param dx  horizontal translation
@@ -535,7 +573,9 @@ public:
         @param v  vector containing horizontal and vertical translation
     */
   SkMatrix& setTranslate(const SkVector& v)
-  { return this->setTranslate(v.fX, v.fY); }
+  {
+ return this->setTranslate(v.fX, v.fY);
+  }
     /** Sets SkMatrix to scale by sx and sy, about a pivot point at (px, py).
         The pivot point is unchanged when mapped with SkMatrix.
 
@@ -1043,7 +1083,7 @@ public:
         kStart_ScaleToFit,  //!< scales and aligns to left and top
         kCenter_ScaleToFit, //!< scales and aligns to center
         kEnd_ScaleToFit,    //!< scales and aligns to right and bottom
-    };
+  };
     /** Sets SkMatrix to scale and translate src SkRect to dst SkRect. stf selects whether
         mapping completely fills dst or preserves the aspect ratio, and how to align
         src within dst. Returns false if src is empty, and sets SkMatrix to identity.
@@ -1080,7 +1120,7 @@ public:
         SkMatrix m;
         m.setRectToRect(src, dst, stf);
         return m;
-    }
+  }
     /** Sets SkMatrix to map src to dst. count must be zero or greater, and four or less.
 
         If count is zero, sets SkMatrix to identity and returns true.
@@ -1113,7 +1153,7 @@ public:
             return true;
         }
         return this->invertNonIdentity(inverse);
-    }
+  }
     /** Fills affine with identity values in column major order.
         Sets affine to:
 
@@ -1204,7 +1244,7 @@ public:
   void mapPoints(SkPoint pts[], int count) const
   {
         this->mapPoints(pts, pts, count);
-    }
+  }
     /** Maps src SkPoint3 array of length count to dst SkPoint3 array, which must of length count or
         greater. SkPoint3 array is mapped by multiplying each SkPoint3 by SkMatrix. Given:
 
@@ -1261,7 +1301,7 @@ public:
         SkPoint result;
         this->mapXY(x,y, &result);
         return result;
-    }
+  }
     /** Maps src vector array of length count to vector SkPoint array of equal or greater
         length. Vectors are mapped by multiplying each vector by SkMatrix, treating
         SkMatrix translation as zero. Given:
@@ -1316,7 +1356,7 @@ public:
   void mapVectors(SkVector vecs[], int count) const
   {
         this->mapVectors(vecs, vecs, count);
-    }
+  }
     /** Maps vector (dx, dy) to result. Vector is mapped by multiplying by SkMatrix,
         treating SkMatrix translation as zero. Given:
 
@@ -1338,7 +1378,7 @@ public:
   {
         SkVector vec = { dx, dy };
         this->mapVectors(result, &vec, 1);
-    }
+  }
     /** Returns vector (dx, dy) multiplied by SkMatrix, treating SkMatrix translation as zero.
         Given:
 
@@ -1361,7 +1401,7 @@ public:
         SkVector vec = { dx, dy };
         this->mapVectors(&vec, &vec, 1);
         return vec;
-    }
+  }
     /** Sets dst to bounds of src corners mapped by SkMatrix.
         Returns true if mapped corners are dst corners.
 
@@ -1383,7 +1423,7 @@ public:
   bool mapRect(SkRect* rect) const
   {
         return this->mapRect(rect, *rect);
-    }
+  }
     /** Returns bounds of src corners mapped by SkMatrix.
 
         @param src  rectangle to map
@@ -1394,7 +1434,7 @@ public:
         SkRect dst;
         (void)this->mapRect(&dst, src);
         return dst;
-    }
+  }
     /** Maps four corners of rect to dst. SkPoint are mapped by multiplying each
         rect corner by SkMatrix. rect corner is processed in this order:
         (rect.fLeft, rect.fTop), (rect.fRight, rect.fTop), (rect.fRight, rect.fBottom),
@@ -1425,7 +1465,7 @@ public:
         // This could potentially be faster if we only transformed each x and y of the rect once.
         rect.toQuad(dst);
         this->mapPoints(dst, 4);
-    }
+  }
     /** Sets dst to bounds of src corners mapped by SkMatrix. If matrix contains
         elements other than scale or translate: asserts if SK_DEBUG is defined;
         otherwise, results are undefined.
@@ -1476,7 +1516,7 @@ public:
   bool cheapEqualTo(const SkMatrix& m) const
   {
         return 0 == memcmp(fMat, m.fMat, sizeof(fMat));
-    }
+  }
     /** Compares a and b; returns true if a and b are numerically equal. Returns true
         even if sign of zero values are different. Returns false if either SkMatrix
         contains NaN, even if the other SkMatrix also contains NaN.
@@ -1497,7 +1537,7 @@ public:
   SK_API friend bool operator!=(const SkMatrix& a, const SkMatrix& b)
   {
         return !(a == b);
-    }
+  }
     /** Writes text representation of SkMatrix to standard output. Floating point values
         are written with limited precision; it may not be possible to reconstruct
         original SkMatrix from output.
@@ -1588,14 +1628,14 @@ public:
         SkMatrix result;
         result.setConcat(a, b);
         return result;
-    }
+  }
     /** Sets internal cache to unknown state. Use to force update after repeated
         modifications to SkMatrix element reference returned by operator[](int index).
     */
   void dirtyMatrixTypeCache()
   {
         this->setTypeMask(kUnknown_Mask);
-    }
+  }
     /** Initializes SkMatrix with scale and translate elements.
 
             | sx  0 tx |
@@ -1629,14 +1669,16 @@ public:
             mask |= kTranslate_Mask;
         }
         this->setTypeMask(mask | kRectStaysRect_Mask);
-    }
+  }
     /** Returns true if all elements of the matrix are finite. Returns false if any
         element is infinity, or NaN.
 
         @return  true if matrix has only finite elements
     */
   bool isFinite() const
-  { return SkScalarsAreFinite(fMat, 9); }
+  {
+ return SkScalarsAreFinite(fMat, 9);
+  }
 private:
     /** Set if the matrix will map a rectangle to another rectangle. This
         can be true if the matrix is scale-only, or rotates a multiple of
@@ -1658,9 +1700,9 @@ private:
     :  fMat{sx, kx, tx,
                ky, sy, ty,
                p0, p1, p2}
-        , fTypeMask(typeMask) 
-    {
-    }
+        , fTypeMask(typeMask)
+  {
+  }
   static void ComputeInv(SkScalar dst[9], const SkScalar src[9], double invDet, bool isPersp);
   uint8_t computeTypeMask() const;
   uint8_t computePerspectiveTypeMask() const;
@@ -1671,18 +1713,18 @@ private:
                  ((kUnknown_Mask | kOnlyPerspectiveValid_Mask) & mask)
                  == (kUnknown_Mask | kOnlyPerspectiveValid_Mask));
         fTypeMask = SkToU8(mask);
-    }
+  }
   void orTypeMask(int mask)
   {
         SkASSERT((mask & kORableMasks) == mask);
         fTypeMask = SkToU8(fTypeMask | mask);
-    }
+  }
   void clearTypeMask(int mask)
   {
         // only allow a valid mask
         SkASSERT((mask & kAllMasks) == mask);
         fTypeMask = fTypeMask & ~mask;
-    }
+  }
   TypeMask getPerspectiveTypeMaskOnly() const
   {
         if ((fTypeMask & kUnknown_Mask) &&
@@ -1690,7 +1732,7 @@ private:
             fTypeMask = this->computePerspectiveTypeMask();
         }
         return (TypeMask)(fTypeMask & 0xF);
-    }
+  }
     /** Returns true if we already know that the matrix is identity;
         false otherwise.
     */
@@ -1700,7 +1742,7 @@ private:
             return false;
         }
         return ((fTypeMask & 0xF) == 0);
-    }
+  }
   inline void updateTranslateMask()
   {
         if ((fMat[kMTransX] != 0) | (fMat[kMTransY] != 0)) {
@@ -1708,27 +1750,27 @@ private:
         } else {
             fTypeMask &= ~kTranslate_Mask;
         }
-    }
+  }
   typedef void (*MapXYProc) (const SkMatrix& mat, SkScalar x, SkScalar y, SkPoint* result);
   static MapXYProc GetMapXYProc(TypeMask mask)
   {
         SkASSERT((mask & ~kAllMasks) == 0);
         return gMapXYProcs[mask & kAllMasks];
-    }
+  }
   MapXYProc getMapXYProc() const
   {
         return GetMapXYProc(this->getType());
-    }
+  }
   typedef void (*MapPtsProc) (const SkMatrix& mat, SkPoint dst[], const SkPoint src[], int count);
   static MapPtsProc GetMapPtsProc(TypeMask mask)
   {
         SkASSERT((mask & ~kAllMasks) == 0);
         return gMapPtsProcs[mask & kAllMasks];
-    }
+  }
   MapPtsProc getMapPtsProc() const
   {
         return GetMapPtsProc(this->getType());
-    }
+  }
   bool SK_WARN_UNUSED_RESULT invertNonIdentity(SkMatrix* inverse) const;
   static bool Poly2Proc(const SkPoint[], SkMatrix*);
   static bool Poly3Proc(const SkPoint[], SkMatrix*);

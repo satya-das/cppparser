@@ -98,7 +98,9 @@ public:
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
     // AcDbEntity override
   Adesk::Boolean isPlanar() const override
-  { return Adesk::kTrue; }
+  {
+ return Adesk::kTrue;
+  }
   ACDBCORE2D_PORT Acad::ErrorStatus getPlane(AcGePlane& plane, AcDb::Planarity& type) const override;
     //  Direction vector
     //
@@ -149,7 +151,7 @@ public:
     kBottomMid      = 22,   // Reserved for future use
     kMiddleMid      = 23,   // Reserved for future use
     kTopMid         = 24,   // Reserved for future use
-    };
+  };
   AttachmentPoint attachment() const;
   Acad::ErrorStatus setAttachment(AttachmentPoint);
   Acad::ErrorStatus setAttachmentMovingLocation(AttachmentPoint);
@@ -165,7 +167,7 @@ public:
     kTtoB       = 3,
     kBtoT       = 4,    //  not currently supported
     kByStyle    = 5
-    };
+  };
   FlowDirection flowDirection() const;
   Acad::ErrorStatus setFlowDirection(FlowDirection);
     //  Text contents
@@ -266,7 +268,7 @@ public:
         kNoColumns,
         kStaticColumns,
         kDynamicColumns,
-    };
+  };
   Acad::ErrorStatus setDynamicColumns(double width, double gutter, bool auto_height);
   Acad::ErrorStatus setStaticColumns(double width, double gutter, int count);
   Acad::ErrorStatus getColumnType(ColumnType&) const;

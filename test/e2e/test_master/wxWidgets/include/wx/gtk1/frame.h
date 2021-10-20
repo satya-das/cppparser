@@ -25,14 +25,14 @@ public:
     // construction
   wxFrame()
   {
- Init();   }
+ Init();
+  }
   wxFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-
         Init();
 
         Create(parent, id, title, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
 #  if  wxUSE_STATUSBAR
   virtual void PositionStatusBar();
@@ -44,7 +44,9 @@ public:
   void SetToolBar(wxToolBar* toolbar);
 #  endif
   wxPoint GetClientAreaOrigin() const
-  { return wxPoint(0, 0); }
+  {
+ return wxPoint(0, 0);
+  }
     // implementation from now on
     // --------------------------
 

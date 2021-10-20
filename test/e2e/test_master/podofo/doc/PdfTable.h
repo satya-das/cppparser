@@ -343,63 +343,63 @@ namespace PoDoFo
   void PdfSimpleTableModel::SetFont(PdfFont* pFont)
   {
     m_pFont = pFont;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfSimpleTableModel::SetAlignment(EPdfAlignment eAlignment)
   {
     m_eAlignment = eAlignment;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfSimpleTableModel::SetAlignment(EPdfVerticalAlignment eAlignment)
   {
     m_eVerticalAlignment = eAlignment;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfSimpleTableModel::SetBackgroundEnabled(bool bEnable)
   {
     m_bBackground = bEnable;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfSimpleTableModel::SetWordWrapEnabled(bool bEnable)
   {
     m_bWordWrap = bEnable;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfSimpleTableModel::SetBorderEnabled(bool bEnable)
   {
 	m_bBorder = bEnable;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfSimpleTableModel::SetBorderWidth(double dWidth)
   {
 	m_dBorder = dWidth;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfSimpleTableModel::SetBackgroundColor(const PdfColor& rColor)
   {
     m_clBackground = rColor;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfSimpleTableModel::SetForegroundColor(const PdfColor& rColor)
   {
     m_clForeground = rColor;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -411,7 +411,7 @@ namespace PoDoFo
     }
 
     m_ppData[row][col] = rsString;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -421,70 +421,70 @@ namespace PoDoFo
         return PdfString();
     else
         return m_ppData[row][col].IsValid() ? m_ppData[row][col] : PdfString("");
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfAlignment PdfSimpleTableModel::GetAlignment(int, int) const
   {
     return m_eAlignment;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfVerticalAlignment PdfSimpleTableModel::GetVerticalAlignment(int, int) const
   {
     return m_eVerticalAlignment;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfFont* PdfSimpleTableModel::GetFont(int, int) const
   {
     return m_pFont;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfSimpleTableModel::HasBackgroundColor(int, int) const
   {
     return m_bBackground;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfColor PdfSimpleTableModel::GetBackgroundColor(int, int) const
   {
     return m_clBackground;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfColor PdfSimpleTableModel::GetForegroundColor(int, int) const
   {
     return m_clForeground;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfSimpleTableModel::HasWordWrap(int, int) const
   {
     return m_bWordWrap;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfSimpleTableModel::HasBorders() const
   {
 	return m_bBorder;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   double PdfSimpleTableModel::GetBorderWidth() const
   {
 	return m_dBorder;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -492,21 +492,21 @@ namespace PoDoFo
   {
     // always return black
     return PdfColor( 0.0, 0.0, 0.0 );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfSimpleTableModel::HasImage(int, int) const
   {
     return false;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfImage* PdfSimpleTableModel::GetImage(int, int) const
   {
     return NULL;
-}
+  }
 /**
  * This is a high level class of a table which can be drawn to a PdfPainter.
  *
@@ -729,42 +729,42 @@ namespace PoDoFo
   void PdfTable::SetModel(PdfTableModel* pModel)
   {
     m_pModel = pModel;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfTableModel* PdfTable::GetModel() const
   {
     return m_pModel;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfTable::SetColumnWidth(double dWidth)
   {
     m_dColWidth = dWidth;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfTable::SetRowHeight(double dHeight)
   {
     m_dRowHeight = dHeight;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfTable::SetTableWidth(double dWidth)
   {
     m_dTableWidth = dWidth;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfTable::SetTableHeight(double dHeight)
   {
     m_dTableHeight = dHeight;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -773,27 +773,27 @@ namespace PoDoFo
     m_bAutoPageBreak = bPageBreak;
     m_fpCallback     = callback;
     m_pCustomData    = pCustomData;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfTable::GetAutoPageBreak() const
   {
     return m_bAutoPageBreak;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   int PdfTable::GetCols() const
   {
     return m_nCols;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   int PdfTable::GetRows() const
   {
     return m_nRows;
-}
+  }
 }
 #endif

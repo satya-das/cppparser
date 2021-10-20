@@ -20,28 +20,27 @@ private:
   {
     Entry(const K& key, V&& value)
       :  fKey(key)
-        , fValue(std::move(value)) 
-      {
-      }
+        , fValue(std::move(value))
+    {
+    }
     K fKey;
     V fValue;
     SK_DECLARE_INTERNAL_LLIST_INTERFACE(Entry);
   };
 public:
   explicit SkLRUCache(int maxCount)
-    :  fMaxCount(maxCount) 
-    {
-    }
+    :  fMaxCount(maxCount)
+  {
+  }
   ~SkLRUCache()
   {
-
         Entry* node = fLRU.head();
         while (node) {
             fLRU.remove(node);
             delete node;
             node = fLRU.head();
         }
-      }
+  }
   V* find(const K& key)
   {
         Entry** value = fMap.find(key);
@@ -54,7 +53,7 @@ public:
             fLRU.addToHead(entry);
         } // else it's already at head position, don't need to do anything
         return &entry->fValue;
-    }
+  }
   V* insert(const K& key, V value)
   {
         Entry* entry = new Entry(key, std::move(value));
@@ -64,11 +63,11 @@ public:
             this->remove(fLRU.tail()->fKey);
         }
         return &entry->fValue;
-    }
+  }
   int count()
   {
         return fMap.count();
-    }
+  }
   template <typename Fn>
   void foreach(Fn&& fn)
   {
@@ -77,7 +76,7 @@ public:
              e = iter.next()) {
             fn(&e->fValue);
         }
-    }
+  }
   void reset()
   {
         fMap.reset();
@@ -85,18 +84,18 @@ public:
             fLRU.remove(e);
             delete e;
         }
-    }
+  }
 private:
   struct Traits
   {
     static const K& GetKey(Entry* e)
     {
             return e->fKey;
-        }
+    }
     static uint32_t Hash(const K& k)
     {
             return HashK()(k);
-        }
+    }
   };
   void remove(const K& key)
   {
@@ -107,7 +106,7 @@ private:
         fMap.remove(key);
         fLRU.remove(entry);
         delete entry;
-    }
+  }
   int fMaxCount;
   SkTHashTable<Entry*, K, Traits> fMap;
   SkTInternalLList<Entry> fLRU;

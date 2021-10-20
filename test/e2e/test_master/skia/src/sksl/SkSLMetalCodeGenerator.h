@@ -75,11 +75,10 @@ namespace SkSL
       :  INHERITED(program, errors, out)
     , fReservedWords({"atan2", "rsqrt", "dfdx", "dfdy", "vertex", "fragment"})
     , fLineEnding("\n")
-    , fContext(*context) 
-      {
-
+    , fContext(*context)
+    {
         this->setupIntrinsics();
-          }
+    }
     bool generateCode() override;
   protected:
     typedef int Requirements;

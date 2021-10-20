@@ -14,19 +14,21 @@ public:
   DEFINE_OP_CLASS_ID
   static std::unique_ptr<GrFillRRectOp> Make(GrRecordingContext*, GrAAType, const SkMatrix& viewMatrix, const SkRRect&, const GrCaps&, GrPaint&&);
   const char* name() const override
-  { return "GrFillRRectOp"; }
+  {
+ return "GrFillRRectOp";
+  }
   FixedFunctionFlags fixedFunctionFlags() const override
   {
         return (GrAAType::kMSAA == fAAType)
                 ? FixedFunctionFlags::kUsesHWAA
                 : FixedFunctionFlags::kNone;
-    }
+  }
   GrProcessorSet::Analysis finalize(const GrCaps&, const GrAppliedClip*, bool hasMixedSampledCoverage, GrClampType) override;
   CombineResult onCombineIfPossible(GrOp*, const GrCaps&) override;
   void visitProxies(const VisitProxyFunc& fn) const override
   {
         fProcessors.visitProxies(fn);
-    }
+  }
   void onPrepare(GrOpFlushState*) override;
   void onExecute(GrOpFlushState*, const SkRect& chainBounds) override;
 private:
@@ -36,7 +38,7 @@ private:
         kHasPerspective = 1 << 1,
         kHasLocalCoords = 1 << 2,
         kWideColor = 1 << 3
-    };
+  };
   GR_DECL_BITFIELD_CLASS_OPS_FRIENDS(Flags);
   class Processor;
   GrFillRRectOp(GrAAType, const SkRRect&, Flags, const SkMatrix& totalShapeMatrix, GrPaint&&, const SkRect& devBounds);
@@ -48,13 +50,13 @@ private:
         static_assert(std::is_pod<T>::value, "");
         static_assert(4 == alignof(T), "");
         return reinterpret_cast<T*>(fInstanceData.push_back_n(sizeof(T) * count));
-    }
+  }
   template <typename T, typename... Args>
   inline void writeInstanceData(const T& val, const Args&... remainder)
   {
         memcpy(this->appendInstanceData<T>(1), &val, sizeof(T));
         this->writeInstanceData(remainder...);
-    }
+  }
   void writeInstanceData()
   {
   }

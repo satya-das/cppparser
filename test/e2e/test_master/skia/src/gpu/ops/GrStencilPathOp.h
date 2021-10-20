@@ -18,7 +18,9 @@ public:
   DEFINE_OP_CLASS_ID
   static std::unique_ptr<GrOp> Make(GrRecordingContext* context, const SkMatrix& viewMatrix, bool useHWAA, bool hasStencilClip, const GrScissorState& scissor, sk_sp<const GrPath> path);
   const char* name() const override
-  { return "StencilPathOp"; }
+  {
+ return "StencilPathOp";
+  }
 #  ifdef SK_DEBUG
   SkString dumpInfo() const override
   {
@@ -26,7 +28,7 @@ public:
         string.printf("Path: 0x%p, AA: %d", fPath.get(), fUseHWAA);
         string.append(INHERITED::dumpInfo());
         return string;
-    }
+  }
 #  endif
 private:
   friend class GrOpMemoryPool;
@@ -36,11 +38,10 @@ private:
             , fUseHWAA(useHWAA)
             , fHasStencilClip(hasStencilClip)
             , fScissor(scissor)
-            , fPath(std::move(path)) 
-    {
-
+            , fPath(std::move(path))
+  {
         this->setBounds(fPath->getBounds(), HasAABloat::kNo, IsHairline::kNo);
-        }
+  }
   void onPrepare(GrOpFlushState*) override
   {
   }

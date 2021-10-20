@@ -25,7 +25,7 @@ namespace wxWinAPI
     Event()
     {
 
-        }
+    }
     // Wrappers around {Create,Set,Reset}Event() Windows API functions, with
     // the same semantics.
     bool Create(Kind kind = AutomaticReset, InitialState initialState = Nonsignaled, const wxChar* name = NULL);

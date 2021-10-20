@@ -18,7 +18,8 @@ class WXDLLIMPEXP_CORE wxTextCompleter
 public:
   wxTextCompleter()
   {
-   }
+
+  }
     // The virtual functions to be implemented by the derived classes: the
     // first one is called to start preparing for completions for the given
     // prefix and, if it returns true, GetNext() is called until it returns an
@@ -36,7 +37,8 @@ class WXDLLIMPEXP_CORE wxTextCompleterSimple : public wxTextCompleter
 public:
   wxTextCompleterSimple()
   {
-   }
+
+  }
     // Must be implemented to return all the completions for the given prefix.
   virtual void GetCompletions(const wxString& prefix, wxArrayString& res) = 0;
   bool Start(const wxString& prefix) override;
@@ -60,11 +62,11 @@ public:
   void SetCompletions(const wxArrayString& strings)
   {
         m_strings = strings;
-    }
+  }
   void GetCompletions(const wxString&, wxArrayString& res) override
   {
         res = m_strings;
-    }
+  }
 private:
   wxArrayString m_strings;
 };

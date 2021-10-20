@@ -16,25 +16,25 @@ public:
   enum {
         // writeTo/readFromMemory will never return a value larger than this
         kMaxFlattenSize = 9 * sizeof(SkScalar) + sizeof(uint32_t),
-    };
+  };
   static size_t WriteToMemory(const SkMatrix& matrix, void* buffer)
   {
         return matrix.writeToMemory(buffer);
-    }
+  }
   static size_t ReadFromMemory(SkMatrix* matrix, const void* buffer, size_t length)
   {
         return matrix->readFromMemory(buffer, length);
-    }
+  }
   typedef SkMatrix::MapXYProc MapXYProc;
   typedef SkMatrix::MapPtsProc MapPtsProc;
   static MapPtsProc GetMapPtsProc(const SkMatrix& matrix)
   {
         return SkMatrix::GetMapPtsProc(matrix.getType());
-    }
+  }
   static MapXYProc GetMapXYProc(const SkMatrix& matrix)
   {
         return SkMatrix::GetMapXYProc(matrix.getType());
-    }
+  }
     /**
      *  Attempt to map the rect through the inverse of the matrix. If it is not invertible,
      *  then this returns false and dst is unchanged.
@@ -57,7 +57,7 @@ public:
             return true;
         }
         return false;
-    }
+  }
     /** Maps count pts, skipping stride bytes to advance from one SkPoint to the next.
         Points are mapped by multiplying each SkPoint by SkMatrix. Given:
 
@@ -104,7 +104,7 @@ public:
             proc(mx, pts->fX, pts->fY, pts);
             pts = (SkPoint*)((intptr_t)pts + stride);
         }
-    }
+  }
     /** Maps src SkPoint array of length count to dst SkPoint array, skipping stride bytes
         to advance from one SkPoint to the next.
         Points are mapped by multiplying each SkPoint by SkMatrix. Given:
@@ -136,7 +136,7 @@ public:
             src = (SkPoint*)((intptr_t)src + srcStride);
             dst = (SkPoint*)((intptr_t)dst + dstStride);
         }
-    }
+  }
   static void MapHomogeneousPointsWithStride(const SkMatrix& mx, SkPoint3 dst[], size_t dstStride, const SkPoint3 src[], size_t srcStride, int count);
     // Returns the recommended filterquality, assuming the caller originally wanted kHigh (bicubic)
   static SkFilterQuality AdjustHighQualityFilterLevel(const SkMatrix&, bool matrixIsInverse = false);

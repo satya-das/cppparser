@@ -21,11 +21,10 @@ public:
     :  fProxy(nullptr)
             , fNormalize(false)
             , fReverseY(false)
-            , fComputeInVertexShader(true) 
-    {
-
+            , fComputeInVertexShader(true)
+  {
         SkDEBUGCODE(fInProcessor = false);
-        }
+  }
   GrCoordTransform(const GrCoordTransform&);
     /**
      * Create a transformation that maps [0, 1] to a proxy's boundaries. The proxy origin also
@@ -33,31 +32,28 @@ public:
      */
   GrCoordTransform(GrTextureProxy* proxy)
   {
-
         SkASSERT(proxy);
         SkDEBUGCODE(fInProcessor = false);
         this->reset(SkMatrix::I(), proxy);
-      }
+  }
     /**
      * Create a transformation from a matrix. The proxy origin also implies whether a y-reversal
      * should be performed.
      */
   GrCoordTransform(const SkMatrix& m, GrTextureProxy* proxy)
   {
-
         SkASSERT(proxy);
         SkDEBUGCODE(fInProcessor = false);
         this->reset(m, proxy);
-      }
+  }
     /**
      * Create a transformation that applies the matrix to a coord set.
      */
   GrCoordTransform(const SkMatrix& m)
   {
-
         SkDEBUGCODE(fInProcessor = false);
         this->reset(m);
-      }
+  }
   GrCoordTransform& operator=(const GrCoordTransform& that)
   {
         SkASSERT(!fInProcessor);
@@ -66,7 +62,7 @@ public:
         fNormalize = that.fNormalize;
         fReverseY = that.fReverseY;
         return *this;
-    }
+  }
     /**
      * Access the matrix for editing. Note, this must be done before adding the transform to an
      * effect, since effects are immutable.
@@ -75,7 +71,7 @@ public:
   {
         SkASSERT(!fInProcessor);
         return &fMatrix;
-    }
+  }
   bool hasSameEffectAs(const GrCoordTransform& that) const
   {
         if (fNormalize != that.fNormalize ||
@@ -91,25 +87,37 @@ public:
         }
 
         return true;
-    }
+  }
   const SkMatrix& getMatrix() const
-  { return fMatrix; }
+  {
+ return fMatrix;
+  }
   const GrTextureProxy* proxy() const
-  { return fProxy; }
+  {
+ return fProxy;
+  }
   bool normalize() const
-  { return fNormalize; }
+  {
+ return fNormalize;
+  }
   bool reverseY() const
-  { return fReverseY; }
+  {
+ return fReverseY;
+  }
     // This should only ever be called at flush time after the backing texture has been
     // successfully instantiated
   GrTexture* peekTexture() const
-  { return fProxy->peekTexture(); }
+  {
+ return fProxy->peekTexture();
+  }
   bool computeInVertexShader() const
-  { return fComputeInVertexShader; }
+  {
+ return fComputeInVertexShader;
+  }
   void setComputeInVertexShader(bool computeInVertexShader)
   {
         fComputeInVertexShader = computeInVertexShader;
-    }
+  }
 private:
   void reset(const SkMatrix& m, GrTextureProxy* proxy = nullptr)
   {
@@ -120,7 +128,7 @@ private:
         fNormalize = proxy && proxy->textureType() != GrTextureType::kRectangle;
         fReverseY = proxy && kBottomLeft_GrSurfaceOrigin == proxy->origin();
         fComputeInVertexShader = true;
-    }
+  }
     // The textures' effect is to optionally normalize the final matrix, so a blind
     // equality check could be misleading
   bool operator==(const GrCoordTransform& that) const;
@@ -133,7 +141,9 @@ private:
 #  ifdef SK_DEBUG
 public:
   void setInProcessor() const
-  { fInProcessor = true; }
+  {
+ fInProcessor = true;
+  }
 private:
   mutable bool fInProcessor;
 #  endif

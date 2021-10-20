@@ -45,25 +45,35 @@ public:
   GrGpu(GrContext* context);
   virtual ~GrGpu();
   GrContext* getContext()
-  { return fContext; }
+  {
+ return fContext;
+  }
   const GrContext* getContext() const
-  { return fContext; }
+  {
+ return fContext;
+  }
     /**
      * Gets the capabilities of the draw target.
      */
   const GrCaps* caps() const
-  { return fCaps.get(); }
+  {
+ return fCaps.get();
+  }
   sk_sp<const GrCaps> refCaps() const
-  { return fCaps; }
+  {
+ return fCaps;
+  }
   GrPathRendering* pathRendering()
-  { return fPathRendering.get();  }
+  {
+ return fPathRendering.get();
+  }
   enum class DisconnectType {
         // No cleanup should be attempted, immediately cease making backend API calls
         kAbandon,
         // Free allocated resources (not known by GrResourceCache) before returning and
         // ensure no backend backend 3D API calls will be made after disconnect() returns.
         kCleanup,
-    };
+  };
     // Called by GrContext when the underlying backend context is already or will be destroyed
     // before GrContext.
   virtual void disconnect(DisconnectType);
@@ -74,7 +84,9 @@ public:
      * about the state.
      */
   void markContextDirty(uint32_t state = kAll_GrBackendState)
-  { fResetBits |= state; }
+  {
+ fResetBits |= state;
+  }
     /**
      * Creates a texture object. If renderable is kYes then the returned texture can
      * be used as a render target by calling GrTexture::asRenderTarget(). Not all
@@ -147,7 +159,7 @@ public:
   enum class ForExternalIO : bool {
         kYes = true,
         kNo = false
-    };
+  };
     /**
      * Resolves MSAA.
      */
@@ -217,7 +229,7 @@ public:
         GrMipLevel mipLevel = {buffer, rowBytes};
         return this->writePixels(surface, left, top, width, height, surfaceColorType, srcColorType,
                                  &mipLevel, 1, prepForTexSampling);
-    }
+  }
     /**
      * Updates the pixels in a rectangle of a texture using a buffer. If the texture is MIP mapped,
      * the base level is written to.
@@ -276,7 +288,7 @@ public:
   const SkTArray<SkPoint>& retrieveSampleLocations(int samplePatternKey) const
   {
         return fSamplePatternDictionary.retrieveSampleLocations(samplePatternKey);
-    }
+  }
     // Returns a GrOpsRenderPass which GrOpsTasks send draw commands to instead of directly
     // to the Gpu object. The 'bounds' rect is the content rect of the renderTarget.
   virtual GrOpsRenderPass* getOpsRenderPass(GrRenderTarget* renderTarget, GrSurfaceOrigin, const SkIRect& bounds, const GrOpsRenderPass::LoadAndStoreInfo&, const GrOpsRenderPass::StencilLoadAndStoreInfo&, const SkTArray<GrTextureProxy*, true>& sampledProxies) = 0;
@@ -308,51 +320,97 @@ public:
   public:
     Stats();
     void reset()
-    { *this = {}; }
+    {
+ *this = {};
+    }
     int renderTargetBinds() const
-    { return fRenderTargetBinds; }
+    {
+ return fRenderTargetBinds;
+    }
     void incRenderTargetBinds()
-    { fRenderTargetBinds++; }
+    {
+ fRenderTargetBinds++;
+    }
     int shaderCompilations() const
-    { return fShaderCompilations; }
+    {
+ return fShaderCompilations;
+    }
     void incShaderCompilations()
-    { fShaderCompilations++; }
+    {
+ fShaderCompilations++;
+    }
     int textureCreates() const
-    { return fTextureCreates; }
+    {
+ return fTextureCreates;
+    }
     void incTextureCreates()
-    { fTextureCreates++; }
+    {
+ fTextureCreates++;
+    }
     int textureUploads() const
-    { return fTextureUploads; }
+    {
+ return fTextureUploads;
+    }
     void incTextureUploads()
-    { fTextureUploads++; }
+    {
+ fTextureUploads++;
+    }
     int transfersToTexture() const
-    { return fTransfersToTexture; }
+    {
+ return fTransfersToTexture;
+    }
     void incTransfersToTexture()
-    { fTransfersToTexture++; }
+    {
+ fTransfersToTexture++;
+    }
     int transfersFromSurface() const
-    { return fTransfersFromSurface; }
+    {
+ return fTransfersFromSurface;
+    }
     void incTransfersFromSurface()
-    { fTransfersFromSurface++; }
+    {
+ fTransfersFromSurface++;
+    }
     int stencilAttachmentCreates() const
-    { return fStencilAttachmentCreates; }
+    {
+ return fStencilAttachmentCreates;
+    }
     void incStencilAttachmentCreates()
-    { fStencilAttachmentCreates++; }
+    {
+ fStencilAttachmentCreates++;
+    }
     int numDraws() const
-    { return fNumDraws; }
+    {
+ return fNumDraws;
+    }
     void incNumDraws()
-    { fNumDraws++; }
+    {
+ fNumDraws++;
+    }
     int numFailedDraws() const
-    { return fNumFailedDraws; }
+    {
+ return fNumFailedDraws;
+    }
     void incNumFailedDraws()
-    { ++fNumFailedDraws; }
+    {
+ ++fNumFailedDraws;
+    }
     int numFinishFlushes() const
-    { return fNumFinishFlushes; }
+    {
+ return fNumFinishFlushes;
+    }
     void incNumFinishFlushes()
-    { ++fNumFinishFlushes; }
+    {
+ ++fNumFinishFlushes;
+    }
     int numScratchTexturesReused() const
-    { return fNumScratchTexturesReused; }
+    {
+ return fNumScratchTexturesReused;
+    }
     void incNumScratchTexturesReused()
-    { ++fNumScratchTexturesReused; }
+    {
+ ++fNumScratchTexturesReused;
+    }
 #    if  GR_TEST_UTILS
     void dump(SkString*);
     void dumpKeyValuePairs(SkTArray<SkString>* keys, SkTArray<double>* values);
@@ -408,7 +466,9 @@ public:
 #  endif
   };
   Stats* stats()
-  { return &fStats; }
+  {
+ return &fStats;
+  }
   void dumpJSON(SkJSONWriter*) const;
     /**
      * Creates a texture directly in the backend API without wrapping it in a GrTexture.
@@ -434,7 +494,9 @@ public:
      */
   virtual void deleteBackendTexture(const GrBackendTexture&) = 0;
   virtual bool precompileShader(const SkData& key, const SkData& data)
-  { return false; }
+  {
+ return false;
+  }
 #  if  GR_TEST_UTILS
     /** Check a handle represents an actual texture in the backend API that has not been freed. */
   virtual bool isTestingOnlyBackendTexture(const GrBackendTexture&) const = 0;
@@ -442,7 +504,9 @@ public:
   virtual void deleteTestingOnlyBackendRenderTarget(const GrBackendRenderTarget&) = 0;
     // This is only to be used in GL-specific tests.
   virtual const GrGLContext* glContextForTesting() const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
     // This is only to be used by testing code
   virtual void resetShaderCacheForTesting() const
   {
@@ -480,7 +544,7 @@ public:
         if (fResetBits) {
             this->resetContext();
         }
-    }
+  }
     /**
      * Returns a key that represents the sampler that will be created for the passed in parameters.
      * Currently this key is only used when we are building a vulkan pipeline with immutable
@@ -492,7 +556,7 @@ public:
   virtual uint32_t getExtraSamplerKeyForProgram(const GrSamplerState&, const GrBackendFormat&)
   {
         return 0;
-    }
+  }
   virtual void storeVkPipelineCacheData()
   {
   }
@@ -555,7 +619,7 @@ private:
   {
         this->onResetContext(fResetBits);
         fResetBits = 0;
-    }
+  }
   uint32_t fResetBits;
     // The context owns us, not vice-versa, so this ptr is not ref'ed by Gpu.
   GrContext* fContext;

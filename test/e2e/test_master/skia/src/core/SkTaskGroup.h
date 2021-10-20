@@ -18,7 +18,8 @@ public:
   explicit SkTaskGroup(SkExecutor& executor = SkExecutor::GetDefault());
   ~SkTaskGroup()
   {
- this->wait();   }
+ this->wait();
+  }
     // Add a task to this SkTaskGroup.
   void add(std::function<void(void)> fn);
     // Add a batch of N tasks, all calling fn with different arguments.

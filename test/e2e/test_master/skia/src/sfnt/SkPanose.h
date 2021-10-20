@@ -18,7 +18,7 @@ struct SkPanose
         Script = 3,
         Decorative = 4,
         Pictoral = 5,
-    } bFamilyType;
+} bFamilyType;
   union Data
 {
   struct TextAndDisplay
@@ -40,7 +40,7 @@ struct SkPanose
                 PerpSans = 13,
                 Flared = 14,
                 Rounded = 15,
-            } bSerifStyle;
+} bSerifStyle;
   enum class Weight : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -54,7 +54,7 @@ struct SkPanose
                 Heavy = 9,
                 Black = 10,
                 ExtraBlack = 11,
-            } bWeight;
+} bWeight;
   enum class Proportion : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -66,7 +66,7 @@ struct SkPanose
                 VeryExpanded = 7,
                 VeryCondensed = 8,
                 Monospaced = 9,
-            } bProportion;
+} bProportion;
   enum class Contrast : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -78,7 +78,7 @@ struct SkPanose
                 MediumHigh = 7,
                 High = 8,
                 VeryHigh = 9,
-            } bContrast;
+} bContrast;
 #  ifdef SK_WIN_PANOSE
             //This is what Windows (and FontForge and Apple TT spec) define.
             //The Impact font uses 9.
@@ -92,7 +92,7 @@ struct SkPanose
                 RapidVertical = 6,
                 RapidHorizontal = 7,
                 InstantVertical = 8,
-            } bStrokeVariation;
+} bStrokeVariation;
 #  else 
             //Stroke variation description in OT OS/2 ver0,ver1 is incorrect.
             //This is what HP Panose says.
@@ -108,7 +108,7 @@ struct SkPanose
                 Rapid_Horizontal = 8,
                 Instant_Vertical = 9,
                 Instant_Horizontal = 10,
-            } bStrokeVariation;
+} bStrokeVariation;
 #  endif
   enum class ArmStyle : SK_OT_BYTE {
                 Any = 0,
@@ -123,7 +123,7 @@ struct SkPanose
                 NonStraightArms_Vertical = 9,
                 NonStraightArms_SingleSerif = 10,
                 NonStraightArms_DoubleSerif = 11,
-            } bArmStyle;
+} bArmStyle;
   enum class Letterform : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -141,7 +141,7 @@ struct SkPanose
                 Oblique_Rounded = 13,
                 Oblique_OffCenter = 14,
                 Oblique_Square = 15,
-            } bLetterform;
+} bLetterform;
   enum class Midline : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -157,7 +157,7 @@ struct SkPanose
                 Low_Trimmed = 11,
                 Low_Pointed = 12,
                 Low_Serifed = 13,
-            } bMidline;
+} bMidline;
   enum class XHeight : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -167,7 +167,7 @@ struct SkPanose
                 Ducking_Small = 5,
                 Ducking_Standard = 6,
                 Ducking_Large = 7,
-            } bXHeight;
+} bXHeight;
 } textAndDisplay;
   struct Script
 {
@@ -182,7 +182,7 @@ struct SkPanose
                 Rough = 7,
                 FeltPen = 8,
                 WildBrush = 9,
-            } bToolKind;
+} bToolKind;
   enum class Weight : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -196,13 +196,13 @@ struct SkPanose
                 Heavy = 9,
                 Black = 10,
                 ExtraBlack = 11,
-            } bWeight;
+} bWeight;
   enum class Spacing : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
                 ProportionalSpaced = 2,
                 Monospaced = 3,
-            } bSpacing;
+} bSpacing;
   enum class AspectRatio : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -211,7 +211,7 @@ struct SkPanose
                 Normal = 4,
                 Expanded = 5,
                 VeryExpanded = 6,
-            } bAspectRatio;
+} bAspectRatio;
   enum class Contrast : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -223,7 +223,7 @@ struct SkPanose
                 MediumHigh = 7,
                 High = 8,
                 VeryHigh = 9,
-            } bContrast;
+} bContrast;
   enum class Topology : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -236,7 +236,7 @@ struct SkPanose
                 Blackletter_Disconnected = 8,
                 Blackletter_Trailing = 9,
                 Blackletter_Connected = 10,
-            } bTopology;
+} bTopology;
   enum class Form : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -252,7 +252,7 @@ struct SkPanose
                 Exaggerated_SomeWrapping = 11,
                 Exaggerated_MoreWrapping = 12,
                 Exaggerated_ExtremeWrapping = 13,
-            } bForm;
+} bForm;
   enum class Finials : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -268,7 +268,7 @@ struct SkPanose
                 Round_NoLoops = 11,
                 Round_ClosedLoops = 12,
                 Round_OpenLoops = 13,
-            } bFinials;
+} bFinials;
   enum class XAscent : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -277,7 +277,7 @@ struct SkPanose
                 Medium = 4,
                 High = 5,
                 VeryHigh = 6,
-            } bXAscent;
+} bXAscent;
 } script;
   struct Decorative
 {
@@ -295,7 +295,7 @@ struct SkPanose
                 TextAndBackground = 10,
                 Collage = 11,
                 Montage = 12,
-            } bClass;
+} bClass;
   enum class Weight : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -309,7 +309,7 @@ struct SkPanose
                 Heavy = 9,
                 Black = 10,
                 ExtraBlack = 11,
-            } bWeight;
+} bWeight;
   enum class Aspect : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -321,7 +321,7 @@ struct SkPanose
                 VeryExtended = 7,
                 SuperExtended = 8,
                 Monospaced = 9,
-            } bAspect;
+} bAspect;
   enum class Contrast : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -337,7 +337,7 @@ struct SkPanose
                 HorizontalMedium = 11,
                 HorizontalHigh = 12,
                 Broken = 13,
-            } bContrast;
+} bContrast;
   enum class SerifVariant : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -356,7 +356,7 @@ struct SkPanose
                 Flared = 14,
                 Rounded = 15,
                 Script = 16,
-            } bSerifVariant;
+} bSerifVariant;
   enum class Treatment : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -366,7 +366,7 @@ struct SkPanose
                 ComplexFill = 5,
                 ShapedFill = 6,
                 DrawnDistressed = 7,
-            } bTreatment;
+} bTreatment;
   enum class Lining : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -377,7 +377,7 @@ struct SkPanose
                 Shadow = 6,
                 Relief = 7,
                 Backdrop = 8,
-            } bLining;
+} bLining;
   enum class Topology : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -395,7 +395,7 @@ struct SkPanose
                 Cursive = 13,
                 Blackletter = 14,
                 SwashVariance = 15,
-            } bTopology;
+} bTopology;
   enum class RangeOfCharacters : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -403,7 +403,7 @@ struct SkPanose
                 Litterals = 3,
                 NoLowerCase = 4,
                 SmallCaps = 5,
-            } bRangeOfCharacters;
+} bRangeOfCharacters;
 } decorative;
   struct Pictoral
 {
@@ -421,19 +421,19 @@ struct SkPanose
                 Icons = 10,
                 Logos = 11,
                 IndustrySpecific = 12,
-            } bKind;
+} bKind;
   enum class Weight : SK_OT_BYTE {
                 NoFit = 1,
-            } bWeight;
+} bWeight;
   enum class Spacing : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
                 ProportionalSpaced = 2,
                 Monospaced = 3,
-            } bSpacing;
+} bSpacing;
   enum class AspectRatioAndContrast : SK_OT_BYTE {
                 NoFit = 1,
-            } bAspectRatioAndContrast;
+} bAspectRatioAndContrast;
   enum class AspectRatio94 : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -445,7 +445,7 @@ struct SkPanose
                 Normal = 7,
                 Narrow = 8,
                 VeryNarrow = 9,
-            } bAspectRatio94;
+} bAspectRatio94;
   enum class AspectRatio119 : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -457,7 +457,7 @@ struct SkPanose
                 Normal = 7,
                 Narrow = 8,
                 VeryNarrow = 9,
-            } bAspectRatio119;
+} bAspectRatio119;
   enum class AspectRatio157 : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -469,7 +469,7 @@ struct SkPanose
                 Normal = 7,
                 Narrow = 8,
                 VeryNarrow = 9,
-            } bAspectRatio157;
+} bAspectRatio157;
   enum class AspectRatio163 : SK_OT_BYTE {
                 Any = 0,
                 NoFit = 1,
@@ -481,7 +481,7 @@ struct SkPanose
                 Normal = 7,
                 Narrow = 8,
                 VeryNarrow = 9,
-            } bAspectRatio163;
+} bAspectRatio163;
 } pictoral;
 } data;
 };

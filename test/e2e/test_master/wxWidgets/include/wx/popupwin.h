@@ -28,7 +28,8 @@ class WXDLLIMPEXP_CORE wxPopupWindowBase : public wxNonOwnedWindow
 public:
   wxPopupWindowBase()
   {
-   }
+
+  }
   virtual ~wxPopupWindowBase();
     // create the popup window
     //
@@ -44,7 +45,9 @@ public:
     // the point must be given in screen coordinates!
   virtual void Position(const wxPoint& ptOrigin, const wxSize& size);
   bool IsTopLevel() const override
-  { return true; }
+  {
+ return true;
+  }
   wxDECLARE_NO_COPY_CLASS(wxPopupWindowBase);
 };
 // include the real class declaration
@@ -84,25 +87,31 @@ public:
     //
     // VZ: where is this used??
   virtual bool CanDismiss()
-  { return true; }
+  {
+ return true;
+  }
     // called when a mouse is pressed while the popup is shown: return true
     // from here to prevent its normal processing by the popup (which consists
     // in dismissing it if the mouse is clicked outside it)
   virtual bool ProcessLeftDown(wxMouseEvent&)
-  { return false; }
+  {
+ return false;
+  }
     // Override to implement delayed destruction of this window.
   bool Destroy() override;
 protected:
     // this is called when the popup is disappeared because of anything
     // else but direct call to Dismiss()
   virtual void OnDismiss()
-  { }
+  {
+
+  }
     // dismiss and notify the derived class
   void DismissAndNotify()
   {
         Dismiss();
         OnDismiss();
-    }
+  }
 };
 #    ifdef __WXMSW__
 class WXDLLIMPEXP_CORE wxPopupTransientWindow : public wxPopupTransientWindowBase
@@ -111,10 +120,12 @@ public:
     // ctors
   wxPopupTransientWindow()
   {
-   }
+
+  }
   wxPopupTransientWindow(wxWindow* parent, int style = wxBORDER_NONE)
   {
- Create(parent, style);   }
+ Create(parent, style);
+  }
     // Implement base class pure virtuals.
   void Popup(wxWindow* focus = NULL) override;
   void Dismiss() override;
@@ -136,7 +147,8 @@ public:
     // ctors
   wxPopupTransientWindow()
   {
- Init();   }
+ Init();
+  }
   wxPopupTransientWindow(wxWindow* parent, int style = wxBORDER_NONE);
   virtual ~wxPopupTransientWindow();
     // Implement base class pure virtuals.
@@ -182,7 +194,8 @@ class WXDLLIMPEXP_CORE wxPopupComboWindow : public wxPopupTransientWindow
 public:
   wxPopupComboWindow()
   {
- m_combo = NULL;   }
+ m_combo = NULL;
+  }
   wxPopupComboWindow(wxComboCtrl* parent);
   bool Create(wxComboCtrl* parent);
     // position the window correctly relatively to the combo

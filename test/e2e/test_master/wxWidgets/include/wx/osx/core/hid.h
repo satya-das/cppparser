@@ -49,9 +49,9 @@ class WXDLLIMPEXP_CORE wxHIDDevice
 {
 public:
   wxHIDDevice()
-    :  m_ppDevice(NULL), m_ppQueue(NULL), m_pCookies(NULL) 
-    {
-    }
+    :  m_ppDevice(NULL), m_ppQueue(NULL), m_pCookies(NULL)
+  {
+  }
   bool Create(int nClass = -1, int nType = -1, int nDev = 1);
   static size_t GetCount(int nClass = -1, int nType = -1);
   void AddCookie(CFTypeRef Data, int i);

@@ -41,17 +41,21 @@ public:
   wxSpinCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_ARROW_KEYS, int min = 0, int max = 100, int initial = 0, const wxString& name = wxT("wxSpinCtrl"));
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_ARROW_KEYS, int min = 0, int max = 100, int initial = 0, const wxString& name = wxT("wxSpinCtrl"));
   int GetBase() const override
-  { return m_base; }
+  {
+ return m_base;
+  }
   bool SetBase(int base) override;
   void SetValue(const wxString& val) override;
   void SetValue(int val) override
-  { wxSpinCtrlQt<int,QSpinBox>::SetValue(val); }
+  {
+ wxSpinCtrlQt<int,QSpinBox>::SetValue(val);
+  }
 private:
     // Common part of all ctors.
   void Init()
   {
         m_base = 10;
-    }
+  }
   int m_base;
   wxDECLARE_DYNAMIC_CLASS(wxSpinCtrl);
 };
@@ -64,12 +68,18 @@ public:
   void SetDigits(unsigned digits);
   unsigned GetDigits() const;
   int GetBase() const override
-  { return 10; }
+  {
+ return 10;
+  }
   bool SetBase(int) override
-  { return false; }
+  {
+ return false;
+  }
   void SetValue(const wxString& val) override;
   void SetValue(double val) override
-  { wxSpinCtrlQt<double,QDoubleSpinBox>::SetValue(val); }
+  {
+ wxSpinCtrlQt<double,QDoubleSpinBox>::SetValue(val);
+  }
 private:
   wxDECLARE_DYNAMIC_CLASS( wxSpinCtrlDouble );
 };

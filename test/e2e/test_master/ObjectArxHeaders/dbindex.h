@@ -122,7 +122,8 @@ class AcDbHandleTableIterator;
 class AcDbIndexUpdateData
 {
 public:
-  enum UpdateFlags {                      // kModified and kDeleted are READ ONLY.
+  enum UpdateFlags {
+                      // kModified and kDeleted are READ ONLY.
             kModified   = 1,   //
             kDeleted    = 2,   // kDeleted is somewhat redundant with  AcDbObject::isErased()
                                // except that it also accounts for uncreated
@@ -136,7 +137,7 @@ public:
                 
                                // The remaining bits can be used by applications as
                                // they wish.  (Bits 3- 7).
-        };
+  };
   Acad::ErrorStatus addId(AcDbObjectId id);
         // Bits kModified and kDeleted are never changed by this method, since
         // they refer to the db state of the object. The kProcessed bit and

@@ -42,22 +42,20 @@ public:
     /// </remarks>
   AcNameValuePair()
   {
-
         m_pName = NULL;
         m_pValue = NULL;
-      }
+  }
     /// <summary>
     /// destructor
     /// </summary>
     ///
   ~AcNameValuePair()
   {
-
         if (NULL != m_pName)
             delete [] m_pName;
         if (NULL != m_pValue)
             delete [] m_pValue;
-      }
+  }
     /// <summary>
     /// constructs a name value pair from a name and a value
     /// </summary>
@@ -72,7 +70,6 @@ public:
     ///
   AcNameValuePair(const ACHAR* name, const ACHAR* value)
   {
-
         if (NULL != name) {
             size_t nSize = ::wcslen(name) + 1;
             m_pName = new ACHAR[nSize];
@@ -88,7 +85,7 @@ public:
             assert(err == 0);
         } else
             m_pValue = NULL;
-      }
+  }
     /// <summary>
     /// Copy constructor
     /// </summary>
@@ -100,11 +97,9 @@ public:
   AcNameValuePair(const AcNameValuePair& src)
     :  m_pName(NULL),
       m_pValue(NULL)
-    
-    {
-
+  {
         *this = src;
-        }
+  }
     /// <summary>
     /// accessor for the item name
     /// </summary>
@@ -113,7 +108,9 @@ public:
     /// a const pointer to the null terminated mbcs name string
     /// </returns>
   const ACHAR* name() const
-  {return m_pName;}
+  {
+return m_pName;
+  }
     /// <summary>
     /// accessor for the item value
     /// </summary>
@@ -122,7 +119,9 @@ public:
     /// a const pointer to the null terminated mbcs value string
     /// </returns>
   const ACHAR* value() const
-  {return m_pValue;}
+  {
+return m_pValue;
+  }
     /// <summary>
     /// mutator for the item name
     /// </summary>
@@ -141,7 +140,7 @@ public:
             assert(err == 0);
         } else
             m_pName = NULL;
-    }
+  }
     /// <summary>
     /// mutator for the item value
     /// </summary>
@@ -160,7 +159,7 @@ public:
             assert(err == 0);
         } else
             m_pValue = NULL;
-    }
+  }
     /// <summary>
     /// operator= also used by copy constructor
     /// </summary>
@@ -180,7 +179,7 @@ public:
         setName(src.m_pName);
         setValue(src.m_pValue);
         return *this;
-    }
+  }
 private:
     // TODO: Should we upgrade to use XML instead of INI?
     //

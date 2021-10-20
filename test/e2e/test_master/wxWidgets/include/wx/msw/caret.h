@@ -14,24 +14,23 @@ class WXDLLIMPEXP_CORE wxCaret : public wxCaretBase
 public:
   wxCaret()
   {
- Init();   }
+ Init();
+  }
         // create the caret of given (in pixels) width and height and associate
         // with the given window
   wxCaret(wxWindow* window, int width, int height)
   {
-
         Init();
 
         (void)Create(window, width, height);
-      }
+  }
         // same as above
   wxCaret(wxWindowBase* window, const wxSize& size)
   {
-
         Init();
 
         (void)Create(window, size);
-      }
+  }
     // process wxWindow notifications
   void OnSetFocus() override;
   void OnKillFocus() override;
@@ -41,7 +40,7 @@ protected:
         wxCaretBase::Init();
 
         m_hasCaret = false;
-    }
+  }
     // override base class virtuals
   void DoMove() override;
   void DoShow() override;

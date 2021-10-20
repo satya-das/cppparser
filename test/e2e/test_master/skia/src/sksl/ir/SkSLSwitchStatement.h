@@ -21,9 +21,9 @@ namespace SkSL
     , fIsStatic(isStatic)
     , fValue(std::move(value))
     , fSymbols(std::move(symbols))
-    , fCases(std::move(cases)) 
-      {
-      }
+    , fCases(std::move(cases))
+    {
+    }
     std::unique_ptr<Statement> clone() const override
     {
         std::vector<std::unique_ptr<SwitchCase>> cloned;

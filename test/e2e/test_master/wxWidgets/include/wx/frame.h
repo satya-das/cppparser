@@ -64,7 +64,9 @@ public:
 #    if  wxUSE_MENUBAR
   virtual void SetMenuBar(wxMenuBar* menubar);
   virtual wxMenuBar* GetMenuBar() const
-  { return m_frameMenuBar; }
+  {
+ return m_frameMenuBar;
+  }
     // find the item by id in the frame menu bar: this is an internal function
     // and exists mainly in order to be overridden in the MDI parent frame
     // which also looks at its active child menu bar
@@ -80,7 +82,9 @@ public:
   bool ProcessCommand(int winid);
 #  else 
   bool ProcessCommand(int)
-  { return false; }
+  {
+ return false;
+  }
 #  endif
     // status bar functions
     // --------------------
@@ -91,7 +95,9 @@ public:
   virtual wxStatusBar* OnCreateStatusBar(int number, long style, wxWindowID winid, const wxString& name);
     // get the main status bar
   virtual wxStatusBar* GetStatusBar() const
-  { return m_frameStatusBar; }
+  {
+ return m_frameStatusBar;
+  }
     // sets the main status bar
   virtual void SetStatusBar(wxStatusBar* statBar);
     // forward these to status bar
@@ -101,9 +107,13 @@ public:
   void PopStatusText(int number = 0);
     // set the status bar pane the help will be shown in
   void SetStatusBarPane(int n)
-  { m_statusBarPane = n; }
+  {
+ m_statusBarPane = n;
+  }
   int GetStatusBarPane() const
-  { return m_statusBarPane; }
+  {
+ return m_statusBarPane;
+  }
 #  endif
     // toolbar functions
     // -----------------
@@ -114,7 +124,9 @@ public:
   virtual wxToolBar* OnCreateToolBar(long style, wxWindowID winid, const wxString& name);
     // get/set the main toolbar
   virtual wxToolBar* GetToolBar() const
-  { return m_frameToolBar; }
+  {
+ return m_frameToolBar;
+  }
   virtual void SetToolBar(wxToolBar* toolbar);
 #  endif
     // implementation only from now on
@@ -144,7 +156,7 @@ public:
   bool IsClientAreaChild(const wxWindow* child) const override
   {
         return !IsOneOfBars(child) && wxTopLevelWindow::IsClientAreaChild(child);
-    }
+  }
 protected:
     // the frame main menu/status/tool bars
     // ------------------------------------
@@ -157,7 +169,9 @@ protected:
 #  if  wxUSE_MENUBAR
     // override to update menu bar position when the frame size changes
   virtual void PositionMenuBar()
-  { }
+  {
+
+  }
     // override to do something special when the menu bar is being removed
     // from the frame
   virtual void DetachMenuBar();
@@ -181,7 +195,9 @@ protected:
     // override to update status bar position (or anything else) when
     // something changes
   virtual void PositionStatusBar()
-  { }
+  {
+
+  }
     // show the help string for the given menu item using DoGiveHelp() if the
     // given item does have a help string (as determined by FindInMenuBar()),
     // return false if there is no help for such item
@@ -193,7 +209,9 @@ protected:
     // override to update status bar position (or anything else) when
     // something changes
   virtual void PositionToolBar()
-  { }
+  {
+
+  }
   wxToolBar* m_frameToolBar;
 #  endif
 #  if  wxUSE_MENUS

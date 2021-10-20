@@ -29,46 +29,71 @@ class WXDLLIMPEXP_CORE wxGenericFileDialog : public wxFileDialogBase
 {
 public:
   wxGenericFileDialog()
-    :  wxFileDialogBase() 
-    {
- Init();     }
+    :  wxFileDialogBase()
+  {
+ Init();
+  }
   wxGenericFileDialog(wxWindow* parent, const wxString& message = wxASCII_STR(wxFileSelectorPromptStr), const wxString& defaultDir = wxEmptyString, const wxString& defaultFile = wxEmptyString, const wxString& wildCard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), long style = wxFD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, const wxString& name = wxASCII_STR(wxFileDialogNameStr), bool bypassGenericImpl = false);
   bool Create(wxWindow* parent, const wxString& message = wxASCII_STR(wxFileSelectorPromptStr), const wxString& defaultDir = wxEmptyString, const wxString& defaultFile = wxEmptyString, const wxString& wildCard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), long style = wxFD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, const wxString& name = wxASCII_STR(wxFileDialogNameStr), bool bypassGenericImpl = false);
   virtual ~wxGenericFileDialog();
   void SetDirectory(const wxString& dir) override
-  { m_filectrl->SetDirectory(dir); }
+  {
+ m_filectrl->SetDirectory(dir);
+  }
   void SetFilename(const wxString& name) override
-  { m_filectrl->SetFilename(name); }
+  {
+ m_filectrl->SetFilename(name);
+  }
   void SetMessage(const wxString& message) override
-  { SetTitle(message); }
+  {
+ SetTitle(message);
+  }
   void SetPath(const wxString& path) override
-  { m_filectrl->SetPath(path); }
+  {
+ m_filectrl->SetPath(path);
+  }
   void SetFilterIndex(int filterIndex) override
-  { m_filectrl->SetFilterIndex(filterIndex); }
+  {
+ m_filectrl->SetFilterIndex(filterIndex);
+  }
   void SetWildcard(const wxString& wildCard) override
-  { m_filectrl->SetWildcard(wildCard); }
+  {
+ m_filectrl->SetWildcard(wildCard);
+  }
   wxString GetPath() const override
   {
             wxCHECK_MSG( !HasFlag(wxFD_MULTIPLE), wxString(), "When using wxFD_MULTIPLE, must call GetPaths() instead" );
             return m_filectrl->GetPath();
-        }
+  }
   void GetPaths(wxArrayString& paths) const override
-  { m_filectrl->GetPaths(paths); }
+  {
+ m_filectrl->GetPaths(paths);
+  }
   wxString GetDirectory() const override
-  { return m_filectrl->GetDirectory(); }
+  {
+ return m_filectrl->GetDirectory();
+  }
   wxString GetFilename() const override
   {
             wxCHECK_MSG( !HasFlag(wxFD_MULTIPLE), wxString(), "When using wxFD_MULTIPLE, must call GetFilenames() instead" );
             return m_filectrl->GetFilename();
-        }
+  }
   void GetFilenames(wxArrayString& files) const override
-  { m_filectrl->GetFilenames(files); }
+  {
+ m_filectrl->GetFilenames(files);
+  }
   wxString GetWildcard() const override
-  { return m_filectrl->GetWildcard(); }
+  {
+ return m_filectrl->GetWildcard();
+  }
   int GetFilterIndex() const override
-  { return m_filectrl->GetFilterIndex(); }
+  {
+ return m_filectrl->GetFilterIndex();
+  }
   bool SupportsExtraControl() const override
-  { return true; }
+  {
+ return true;
+  }
     // implementation only from now on
     // -------------------------------
   int ShowModal() override;
@@ -112,10 +137,9 @@ public:
                                defaultDir, defaultFile, wildCard,
                                style,
                                pos, size)
-    
-    {
+  {
 
-        }
+  }
 private:
   wxDECLARE_DYNAMIC_CLASS(wxFileDialog);
 };

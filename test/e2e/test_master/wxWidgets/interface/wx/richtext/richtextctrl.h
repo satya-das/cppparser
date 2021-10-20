@@ -1418,7 +1418,9 @@ public:
         editing.
     */
   double GetFontScale() const
-  { return GetBuffer().GetFontScale(); }
+  {
+ return GetBuffer().GetFontScale();
+  }
     /**
         Sets the scale factor for displaying certain dimensions such as indentation and
         inter-paragraph spacing. This can be useful when editing in a small control
@@ -1430,7 +1432,9 @@ public:
         and inter-paragraph spacing.
     */
   double GetDimensionScale() const
-  { return GetBuffer().GetDimensionScale(); }
+  {
+ return GetBuffer().GetDimensionScale();
+  }
     /**
         Sets an overall scale factor for displaying and editing the content.
     */
@@ -1741,32 +1745,44 @@ public:
         Enable or disable delayed image loading
     */
   void EnableDelayedImageLoading(bool b)
-  { m_enableDelayedImageLoading = b; }
+  {
+ m_enableDelayedImageLoading = b;
+  }
     /**
         Returns @true if delayed image loading is enabled.
     */
   bool GetDelayedImageLoading() const
-  { return m_enableDelayedImageLoading; }
+  {
+ return m_enableDelayedImageLoading;
+  }
     /**
         Gets the flag indicating that delayed image processing is required.
     */
   bool GetDelayedImageProcessingRequired() const
-  { return m_delayedImageProcessingRequired; }
+  {
+ return m_delayedImageProcessingRequired;
+  }
     /**
         Sets the flag indicating that delayed image processing is required.
     */
   void SetDelayedImageProcessingRequired(bool b)
-  { m_delayedImageProcessingRequired = b; }
+  {
+ m_delayedImageProcessingRequired = b;
+  }
     /**
         Returns the last time delayed image processing was performed.
     */
   wxLongLong GetDelayedImageProcessingTime() const
-  { return m_delayedImageProcessingTime; }
+  {
+ return m_delayedImageProcessingTime;
+  }
     /**
         Sets the last time delayed image processing was performed.
     */
   void SetDelayedImageProcessingTime(wxLongLong t)
-  { m_delayedImageProcessingTime = t; }
+  {
+ m_delayedImageProcessingTime = t;
+  }
     /**
         Returns the caret position since the default formatting was changed. As
         soon as this position changes, we no longer reflect the default style

@@ -15,7 +15,7 @@ public:
   enum class AlphaOption {
         kIgnore,
         kBlendOnBlack,
-    };
+  };
   enum class Downsample {
         /**
          *  Reduction by a factor of two in both the horizontal and vertical directions.
@@ -31,7 +31,7 @@ public:
          *  No downsampling.
          */
         k444,
-    };
+  };
   struct Options
   {
         /**

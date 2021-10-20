@@ -36,7 +36,9 @@ public:
   static bool InitialzeVisual();
   virtual void OnAssertFailure(const wxChar* file, int line, const wxChar* func, const wxChar* cond, const wxChar* msg);
   bool IsInAssert() const
-  { return m_isInAssert; }
+  {
+ return m_isInAssert;
+  }
   int m_idleTag;
   void RemoveIdleTag();
   unsigned char* m_colorCube;

@@ -15,12 +15,14 @@ public:
   GrMockOpsRenderPass(GrMockGpu* gpu, GrRenderTarget* rt, GrSurfaceOrigin origin, LoadAndStoreInfo colorInfo)
     :  INHERITED(rt, origin)
             , fGpu(gpu)
-            , fColorLoadOp(colorInfo.fLoadOp) 
-    {
+            , fColorLoadOp(colorInfo.fLoadOp)
+  {
 
-        }
+  }
   GrGpu* gpu() override
-  { return fGpu; }
+  {
+ return fGpu;
+  }
   void inlineUpload(GrOpFlushState*, GrDeferredTextureUploadFn&) override
   {
   }
@@ -32,22 +34,24 @@ public:
         if (GrLoadOp::kClear == fColorLoadOp) {
             this->markRenderTargetDirty();
         }
-    }
+  }
   void end() override
   {
   }
   int numDraws() const
-  { return fNumDraws; }
+  {
+ return fNumDraws;
+  }
 private:
   void onDraw(const GrPrimitiveProcessor&, const GrPipeline&, const GrPipeline::FixedDynamicState*, const GrPipeline::DynamicStateArrays*, const GrMesh[], int meshCount, const SkRect& bounds) override
   {
         this->markRenderTargetDirty();
         ++fNumDraws;
-    }
+  }
   void onClear(const GrFixedClip&, const SkPMColor4f&) override
   {
         this->markRenderTargetDirty();
-    }
+  }
   void onClearStencilClip(const GrFixedClip&, bool insideStencilMask) override
   {
   }
@@ -56,7 +60,7 @@ private:
         if (auto* tex = fRenderTarget->asTexture()) {
             tex->texturePriv().markMipMapsDirty();
         }
-    }
+  }
   GrMockGpu* fGpu;
   GrLoadOp fColorLoadOp;
   int fNumDraws = 0;

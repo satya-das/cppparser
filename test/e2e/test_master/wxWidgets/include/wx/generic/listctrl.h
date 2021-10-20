@@ -28,18 +28,14 @@ class WXDLLIMPEXP_CORE wxGenericListCtrl : public wxNavigationEnabled<wxListCtrl
 public:
   wxGenericListCtrl()
     :  wxScrollHelper(this)
-    
-    {
-
+  {
         Init();
-        }
+  }
   wxGenericListCtrl(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxLC_ICON, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListCtrlNameStr))
     :  wxScrollHelper(this)
-    
-    {
-
+  {
         Create(parent, winid, pos, size, style, validator, name);
-        }
+  }
   virtual ~wxGenericListCtrl();
   void Init();
   bool Create(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxLC_ICON, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListCtrlNameStr));
@@ -61,7 +57,9 @@ public:
   wxUIntPtr GetItemData(long item) const;
   bool SetItemPtrData(long item, wxUIntPtr data);
   bool SetItemData(long item, long data)
-  { return SetItemPtrData(item, data); }
+  {
+ return SetItemPtrData(item, data);
+  }
   bool GetItemRect(long item, wxRect& rect, int code = wxLIST_RECT_BOUNDS) const;
   bool GetSubItemRect(long item, long subItem, wxRect& rect, int code = wxLIST_RECT_BOUNDS) const;
   bool GetItemPosition(long item, wxPoint& pos) const;
@@ -106,7 +104,9 @@ public:
   wxTextCtrl* GetEditControl() const;
   bool IsVisible(long item) const override;
   void Edit(long item)
-  { EditLabel(item); }
+  {
+ EditLabel(item);
+  }
   bool EnsureVisible(long item);
   long FindItem(long start, const wxString& str, bool partial = false);
   long FindItem(long start, wxUIntPtr data);
@@ -120,7 +120,9 @@ public:
   bool SortItems(wxListCtrlCompare fn, wxIntPtr data);
     // do we have a header window?
   bool HasHeader() const
-  { return InReportView() && !HasFlag(wxLC_NO_HEADER); }
+  {
+ return InReportView() && !HasFlag(wxLC_NO_HEADER);
+  }
     // refresh items selectively (only useful for virtual list controls)
   void RefreshItem(long item);
   void RefreshItems(long itemFrom, long itemTo);
@@ -130,7 +132,7 @@ public:
   wxVisualAttributes GetDefaultAttributes() const override
   {
         return GetClassDefaultAttributes(GetWindowVariant());
-    }
+  }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
   void Update() override;
     // implementation only from now on
@@ -153,7 +155,9 @@ public:
   wxDropTarget* GetDropTarget() const override;
 #  endif
   bool ShouldInheritColours() const override
-  { return false; }
+  {
+ return false;
+  }
     // implementation
     // --------------
   wxImageList* m_imageListNormal;
@@ -197,10 +201,9 @@ public:
   }
   wxListCtrl(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxLC_ICON, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListCtrlNameStr))
     :  wxGenericListCtrl(parent, winid, pos, size, style, validator, name)
-    
-    {
+  {
 
-        }
+  }
 };
 #  endif
 #endif

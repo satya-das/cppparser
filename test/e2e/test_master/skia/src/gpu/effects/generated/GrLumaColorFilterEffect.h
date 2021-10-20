@@ -22,21 +22,23 @@ public:
         float luma = SK_ITU_BT709_LUM_COEFF_R * input.fR + SK_ITU_BT709_LUM_COEFF_G * input.fG +
                      SK_ITU_BT709_LUM_COEFF_B * input.fB;
         return {0, 0, 0, SkTPin(luma, 0.0f, 1.0f)};
-    }
+  }
   static std::unique_ptr<GrFragmentProcessor> Make()
   {
         return std::unique_ptr<GrFragmentProcessor>(new GrLumaColorFilterEffect());
-    }
+  }
   GrLumaColorFilterEffect(const GrLumaColorFilterEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "LumaColorFilterEffect"; }
+  {
+ return "LumaColorFilterEffect";
+  }
 private:
   GrLumaColorFilterEffect()
     :  INHERITED(kGrLumaColorFilterEffect_ClassID,
-                        (OptimizationFlags)kConstantOutputForConstantInput_OptimizationFlag) 
-    {
-    }
+                        (OptimizationFlags)kConstantOutputForConstantInput_OptimizationFlag)
+  {
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

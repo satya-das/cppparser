@@ -55,25 +55,24 @@ public:
         reference is released.
     */
   SkWeakRefCnt()
-    :  SkRefCnt(), fWeakCnt(1) 
-    {
-    }
+    :  SkRefCnt(), fWeakCnt(1)
+  {
+  }
     /** Destruct, asserting that the weak reference count is 1.
     */
   virtual ~SkWeakRefCnt()
   {
-
 #ifdef SK_DEBUG
         SkASSERT(getWeakCnt() == 1);
         fWeakCnt.store(0, std::memory_order_relaxed);
 #endif
-      }
+  }
 #  ifdef SK_DEBUG
     /** Return the weak reference count. */
   int32_t getWeakCnt() const
   {
         return fWeakCnt.load(std::memory_order_relaxed);
-    }
+  }
 #  endif
 private:
     /** If fRefCnt is 0, returns 0.
@@ -89,7 +88,7 @@ private:
         } while(!fRefCnt.compare_exchange_weak(prev, prev+1, std::memory_order_acquire,
                                                              std::memory_order_relaxed));
         return prev;
-    }
+  }
 public:
     /** Creates a strong reference from a weak reference, if possible. The
         caller must already be an owner. If try_ref() returns true the owner
@@ -106,7 +105,7 @@ public:
             return true;
         }
         return false;
-    }
+  }
     /** Increment the weak reference count. Must be balanced by a call to
         weak_unref().
     */
@@ -116,7 +115,7 @@ public:
         SkASSERT(getWeakCnt() > 0);
         // No barrier required.
         (void)fWeakCnt.fetch_add(+1, std::memory_order_relaxed);
-    }
+  }
     /** Decrement the weak reference count. If the weak reference count is 1
         before the decrement, then call delete on the object. Note that if this
         is the case, then the object needs to have been allocated via new, and
@@ -135,14 +134,14 @@ public:
 #endif
             this->INHERITED::internal_dispose();
         }
-    }
+  }
     /** Returns true if there are no strong references to the object. When this
         is the case all future calls to try_ref() will return false.
     */
   bool weak_expired() const
   {
         return fRefCnt.load(std::memory_order_relaxed) == 0;
-    }
+  }
 protected:
     /** Called when the strong reference count goes to zero. This allows the
         object to free any resources it may be holding. Weak references may
@@ -151,7 +150,8 @@ protected:
     */
   virtual void weak_dispose() const
   {
-    }
+
+  }
 private:
     /** Called when the strong reference count goes to zero. Calls weak_dispose
         on the object and releases the implicit weak reference held
@@ -161,7 +161,7 @@ private:
   {
         weak_dispose();
         weak_unref();
-    }
+  }
     /* Invariant: fWeakCnt = #weak + (fRefCnt > 0 ? 1 : 0) */
   mutable std::atomic<int32_t> fWeakCnt;
   typedef SkRefCnt INHERITED;

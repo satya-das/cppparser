@@ -22,14 +22,14 @@ public:
   {
         SkASSERT(alpha >= 0 && alpha <= 256);
         return alpha - (alpha >> 8);
-    }
+  }
     /// Returns true if the scanline contains only a single run,
     /// of alpha value 0.
   bool empty() const
   {
         SkASSERT(fRuns[0] > 0);
         return fAlpha[0] == 0 && fRuns[fRuns[0]] == 0;
-    }
+  }
     /// Reinitialize for a new scanline.
   void reset(int width);
     /**
@@ -100,7 +100,7 @@ public:
         }
 
         return SkToS32(lastAlpha - fAlpha);  // new offsetX
-    }
+  }
   static void Break(int16_t runs[], uint8_t alpha[], int x, int count)
   {
         SkASSERT(count > 0 && x >= 0);
@@ -147,7 +147,7 @@ public:
             runs += n;
             alpha += n;
         }
-    }
+  }
     /**
      * Cut (at offset x in the buffer) a run into two shorter runs with
      * matching alpha values.
@@ -170,6 +170,6 @@ public:
             alpha += n;
             x -= n;
         }
-    }
+  }
 };
 #endif

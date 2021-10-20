@@ -38,9 +38,9 @@ struct WXDLLIMPEXP_CORE wxNativeEncodingInfo
     :  facename()
         , encoding(wxFONTENCODING_SYSTEM)
         , charset(0) /* ANSI_CHARSET */
-    
-    {
-     }
+  {
+
+  }
   int charset;
 #  elif  defined(_WX_X_FONTLIKE)
   wxString xregistry, xencoding;

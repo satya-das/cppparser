@@ -43,9 +43,8 @@ public:
   }
   wxWebViewIE(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr))
   {
-
        Create(parent, id, url, pos, size, style, name);
-     }
+  }
   ~wxWebViewIE();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr)) override;
   void LoadURL(const wxString& url) override;
@@ -126,7 +125,7 @@ public:
   {
         return MSWSetEmulationLevel(modernLevel ? wxWEBVIEWIE_EMU_IE8
                                                 : wxWEBVIEWIE_EMU_DEFAULT);
-    }
+  }
   wxDECLARE_EVENT_TABLE();
 protected:
   void DoSetPage(const wxString& html, const wxString& baseUrl) override;
@@ -138,9 +137,13 @@ class WXDLLIMPEXP_WEBVIEW wxWebViewFactoryIE : public wxWebViewFactory
 {
 public:
   wxWebView* Create() override
-  { return new wxWebViewIE; }
+  {
+ return new wxWebViewIE;
+  }
   wxWebView* Create(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr)) override
-  { return new wxWebViewIE(parent, id, url, pos, size, style, name); }
+  {
+ return new wxWebViewIE(parent, id, url, pos, size, style, name);
+  }
 };
 #  endif
 #endif

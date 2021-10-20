@@ -40,7 +40,9 @@ private:
     // wxMenuBar is not a top level window but it still doesn't need a parent
     // window
   bool GTKNeedsParent() const override
-  { return false; }
+  {
+ return false;
+  }
   GtkWidget* m_menubar;
   wxDECLARE_DYNAMIC_CLASS(wxMenuBar);
 };
@@ -52,13 +54,15 @@ class WXDLLIMPEXP_CORE wxMenu : public wxMenuBase
 public:
     // ctors & dtor
   wxMenu(const wxString& title, long style = 0)
-    :  wxMenuBase(title, style) 
-    {
- Init();     }
+    :  wxMenuBase(title, style)
+  {
+ Init();
+  }
   wxMenu(long style = 0)
-    :  wxMenuBase(style) 
-    {
- Init();     }
+    :  wxMenuBase(style)
+  {
+ Init();
+  }
   virtual ~wxMenu();
   void Attach(wxMenuBarBase* menubar) override;
   void SetLayoutDirection(wxLayoutDirection dir);

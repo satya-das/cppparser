@@ -17,16 +17,15 @@ class WXDLLIMPEXP_CORE wxStaticLine : public wxStaticLineBase
 public:
     // constructors and pseudo-constructors
   wxStaticLine()
-    :  m_statbox(NULL) 
-    {
-     }
+    :  m_statbox(NULL)
+  {
+
+  }
   wxStaticLine(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxLI_HORIZONTAL, const wxString& name = wxASCII_STR(wxStaticLineNameStr))
     :  m_statbox(NULL)
-    
-    {
-
+  {
         Create(parent, id, pos, size, style, name);
-        }
+  }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxLI_HORIZONTAL, const wxString& name = wxASCII_STR(wxStaticLineNameStr));
     // it's necessary to override this wxWindow function because we
     // will want to return the main widget for m_statbox

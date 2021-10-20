@@ -23,10 +23,9 @@ public:
   {
     Descriptor()
     {
-
             sk_bzero(this, sizeof(*this));
             fTileMode = SkTileMode::kClamp;
-            }
+    }
     const SkMatrix* fLocalMatrix;
     const SkColor4f* fColors;
     sk_sp<SkColorSpace> fColorSpace;
@@ -46,9 +45,13 @@ public:
         // fColors and fPos always point into local memory, so they can be safely mutated
         //
     SkColor4f* mutableColors()
-    { return const_cast<SkColor4f*>(fColors); }
+    {
+ return const_cast<SkColor4f*>(fColors);
+    }
     SkScalar* mutablePos()
-    { return const_cast<SkScalar*>(fPos); }
+    {
+ return const_cast<SkScalar*>(fPos);
+    }
   private:
     SkSTArray<16, SkColor4f, true> fColorStorage;
     SkSTArray<16, SkScalar , true> fPosStorage;
@@ -58,9 +61,13 @@ public:
   virtual ~SkGradientShaderBase();
   bool isOpaque() const override;
   uint32_t getGradFlags() const
-  { return fGradFlags; }
+  {
+ return fGradFlags;
+  }
   const SkMatrix& getGradientMatrix() const
-  { return fPtsToUnit; }
+  {
+ return fPtsToUnit;
+  }
 protected:
   class GradientShaderBase4fContext;
   SkGradientShaderBase(SkReadBuffer&);
@@ -77,7 +84,7 @@ protected:
             return nullptr;
         }
         return ctx;
-    }
+  }
   const SkMatrix fPtsToUnit;
   SkTileMode fTileMode;
   uint8_t fGradFlags;
@@ -86,12 +93,12 @@ public:
   {
         SkASSERT(i < fColorCount);
         return fOrigPos ? fOrigPos[i] : SkIntToScalar(i) / (fColorCount - 1);
-    }
+  }
   SkColor getLegacyColor(int i) const
   {
         SkASSERT(i < fColorCount);
         return fOrigColors4f[i].toSkColor();
-    }
+  }
   bool colorsCanConvertToSkColor() const
   {
         bool canConvert = true;
@@ -99,15 +106,19 @@ public:
             canConvert &= fOrigColors4f[i].fitsInBytes();
         }
         return canConvert;
-    }
+  }
   SkColor4f* fOrigColors4f;
   SkScalar* fOrigPos;
   int fColorCount;
   sk_sp<SkColorSpace> fColorSpace;
   bool colorsAreOpaque() const
-  { return fColorsAreOpaque; }
+  {
+ return fColorsAreOpaque;
+  }
   SkTileMode getTileMode() const
-  { return fTileMode; }
+  {
+ return fTileMode;
+  }
 private:
     // Reserve inline space for up to 4 stops.
   static constexpr size_t kInlineStopCount = 4;

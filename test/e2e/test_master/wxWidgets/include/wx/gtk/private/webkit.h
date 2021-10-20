@@ -19,19 +19,18 @@ class wxWebKitJavascriptResult
 public:
   explicit wxWebKitJavascriptResult(WebKitJavascriptResult* r)
     :  m_jsresult(r)
-    
-    {
+  {
 
-        }
+  }
   ~wxWebKitJavascriptResult()
   {
-
         if ( m_jsresult != NULL )
             webkit_javascript_result_unref(m_jsresult);
-      }
+  }
   operator WebKitJavascriptResult*() const
   {
- return m_jsresult;   }
+ return m_jsresult;
+  }
 private:
   WebKitJavascriptResult* m_jsresult;
   wxDECLARE_NO_COPY_CLASS(wxWebKitJavascriptResult);
@@ -43,12 +42,14 @@ class wxJSStringRef
 {
 public:
   explicit wxJSStringRef(JSStringRef r)
-    :  m_jssref(r) 
-    {
-     }
+    :  m_jssref(r)
+  {
+
+  }
   ~wxJSStringRef()
   {
- JSStringRelease(m_jssref);   }
+ JSStringRelease(m_jssref);
+  }
   wxString ToWxString() const
   {
         const size_t length = JSStringGetMaximumUTF8CStringSize(m_jssref);
@@ -58,7 +59,7 @@ public:
         JSStringGetUTF8CString(m_jssref, str.data(), length);
 
         return wxString::FromUTF8(str);
-    }
+  }
 private:
   JSStringRef m_jssref;
   wxDECLARE_NO_COPY_CLASS(wxJSStringRef);

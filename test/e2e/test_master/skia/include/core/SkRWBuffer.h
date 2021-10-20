@@ -23,7 +23,9 @@ public:
      *  multiple contiguous blocks, accessible via the iterator.
      */
   size_t size() const
-  { return fAvailable; }
+  {
+ return fAvailable;
+  }
   class SK_API Iter
   {
   public:
@@ -69,7 +71,9 @@ public:
   SkRWBuffer(size_t initialCapacity = 0);
   ~SkRWBuffer();
   size_t size() const
-  { return fTotalUsed; }
+  {
+ return fTotalUsed;
+  }
     /**
      *  Append |length| bytes from |buffer|.
      *
@@ -81,7 +85,7 @@ public:
   sk_sp<SkROBuffer> makeROBufferSnapshot() const
   {
         return sk_sp<SkROBuffer>(new SkROBuffer(fHead, fTotalUsed, fTail));
-    }
+  }
   std::unique_ptr<SkStreamAsset> makeStreamSnapshot() const;
 #  ifdef SK_DEBUG
   void validate() const;

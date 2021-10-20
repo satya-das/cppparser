@@ -47,17 +47,23 @@ public:
      * Returns true if there are no unreleased allocations.
      */
   bool isEmpty() const
-  { return fTail == fHead && !fHead->fLiveCount; }
+  {
+ return fTail == fHead && !fHead->fLiveCount;
+  }
     /**
      * Returns the total allocated size of the GrMemoryPool minus any preallocated amount
      */
   size_t size() const
-  { return fSize; }
+  {
+ return fSize;
+  }
     /**
      * Returns the preallocated size of the GrMemoryPool
      */
   size_t preallocSize() const
-  { return fHead->fSize; }
+  {
+ return fHead->fSize;
+  }
     /**
      * Minimum value of minAllocSize constructor argument.
      */
@@ -106,7 +112,7 @@ protected:
         kAlignment    = 8,
         kHeaderSize   = GrSizeAlignUp(sizeof(BlockHeader), kAlignment),
         kPerAllocPad  = GrSizeAlignUp(sizeof(AllocHeader), kAlignment),
-    };
+  };
 };
 class GrOp;
 // DDL TODO: for the DLL use case this could probably be the non-intrinsic-based style of
@@ -115,23 +121,25 @@ class GrOpMemoryPool : public SkRefCnt
 {
 public:
   GrOpMemoryPool(size_t preallocSize, size_t minAllocSize)
-    :  fMemoryPool(preallocSize, minAllocSize) 
-    {
+    :  fMemoryPool(preallocSize, minAllocSize)
+  {
 
-        }
+  }
   template <typename Op, typename... OpArgs>
   std::unique_ptr<Op> allocate(OpArgs&&... opArgs)
   {
         char* mem = (char*) fMemoryPool.allocate(sizeof(Op));
         return std::unique_ptr<Op>(new (mem) Op(std::forward<OpArgs>(opArgs)...));
-    }
+  }
   void* allocate(size_t size)
   {
         return fMemoryPool.allocate(size);
-    }
+  }
   void release(std::unique_ptr<GrOp> op);
   bool isEmpty() const
-  { return fMemoryPool.isEmpty(); }
+  {
+ return fMemoryPool.isEmpty();
+  }
 private:
   GrMemoryPool fMemoryPool;
 };

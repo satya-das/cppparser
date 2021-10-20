@@ -32,16 +32,19 @@ public:
      */
   SkWriter32(void* external = nullptr, size_t externalBytes = 0)
   {
-
         this->reset(external, externalBytes);
-      }
+  }
     // return the current offset (will always be a multiple of 4)
   size_t bytesWritten() const
-  { return fUsed; }
+  {
+ return fUsed;
+  }
     // Returns true iff all of the bytes written so far are stored in the initial storage
     // buffer provided in the constructor or the most recent call to reset.
   bool usingInitialStorage() const
-  { return fData == fExternal; }
+  {
+ return fData == fExternal;
+  }
   void reset(void* external = nullptr, size_t externalBytes = 0)
   {
         // we cast this pointer to int* and float* at times, so assert that it is aligned.
@@ -53,7 +56,7 @@ public:
         fCapacity = externalBytes;
         fUsed = 0;
         fExternal = external;
-    }
+  }
     // size MUST be multiple of 4
   uint32_t* reserve(size_t size)
   {
@@ -65,7 +68,7 @@ public:
         }
         fUsed = totalRequired;
         return (uint32_t*)(fData + offset);
-    }
+  }
     /**
      *  Read a T record at offset, which must be a multiple of 4. Only legal if the record
      *  was written atomically using the write methods below.
@@ -76,7 +79,7 @@ public:
         SkASSERT(SkAlign4(offset) == offset);
         SkASSERT(offset < fUsed);
         return *(T*)(fData + offset);
-    }
+  }
     /**
      *  Overwrite a T record at offset, which must be a multiple of 4. Only legal if the record
      *  was written atomically using the write methods below.
@@ -87,76 +90,76 @@ public:
         SkASSERT(SkAlign4(offset) == offset);
         SkASSERT(offset < fUsed);
         *(T*)(fData + offset) = value;
-    }
+  }
   bool writeBool(bool value)
   {
         this->write32(value);
         return value;
-    }
+  }
   void writeInt(int32_t value)
   {
         this->write32(value);
-    }
+  }
   void write8(int32_t value)
   {
         *(int32_t*)this->reserve(sizeof(value)) = value & 0xFF;
-    }
+  }
   void write16(int32_t value)
   {
         *(int32_t*)this->reserve(sizeof(value)) = value & 0xFFFF;
-    }
+  }
   void write32(int32_t value)
   {
         *(int32_t*)this->reserve(sizeof(value)) = value;
-    }
+  }
   void writePtr(void* value)
   {
         // this->reserve() only returns 4-byte aligned pointers,
         // so this may be an under-aligned write if we were to do this like the others.
         memcpy(this->reserve(sizeof(value)), &value, sizeof(value));
-    }
+  }
   void writeScalar(SkScalar value)
   {
         *(SkScalar*)this->reserve(sizeof(value)) = value;
-    }
+  }
   void writePoint(const SkPoint& pt)
   {
         *(SkPoint*)this->reserve(sizeof(pt)) = pt;
-    }
+  }
   void writePoint3(const SkPoint3& pt)
   {
         *(SkPoint3*)this->reserve(sizeof(pt)) = pt;
-    }
+  }
   void writeRect(const SkRect& rect)
   {
         *(SkRect*)this->reserve(sizeof(rect)) = rect;
-    }
+  }
   void writeIRect(const SkIRect& rect)
   {
         *(SkIRect*)this->reserve(sizeof(rect)) = rect;
-    }
+  }
   void writeRRect(const SkRRect& rrect)
   {
         rrect.writeToMemory(this->reserve(SkRRect::kSizeInMemory));
-    }
+  }
   void writePath(const SkPath& path)
   {
         size_t size = path.writeToMemory(nullptr);
         SkASSERT(SkAlign4(size) == size);
         path.writeToMemory(this->reserve(size));
-    }
+  }
   void writeMatrix(const SkMatrix& matrix);
   void writeRegion(const SkRegion& rgn)
   {
         size_t size = rgn.writeToMemory(nullptr);
         SkASSERT(SkAlign4(size) == size);
         rgn.writeToMemory(this->reserve(size));
-    }
+  }
     // write count bytes (must be a multiple of 4)
   void writeMul4(const void* values, size_t size)
   {
         this->write(values, size);
-    }
+  }
     /**
      *  Write size bytes from values. size must be a multiple of 4, though
      *  values need not be 4-byte aligned.
@@ -165,7 +168,7 @@ public:
   {
         SkASSERT(SkAlign4(size) == size);
         sk_careful_memcpy(this->reserve(size), values, size);
-    }
+  }
     /**
      *  Reserve size bytes. Does not need to be 4 byte aligned. The remaining space (if any) will be
      *  filled in with zeroes.
@@ -179,14 +182,14 @@ public:
             p[alignedSize / 4 - 1] = 0;
         }
         return p;
-    }
+  }
     /**
      *  Write size bytes from src, and pad to 4 byte alignment with zeroes.
      */
   void writePad(const void* src, size_t size)
   {
         sk_careful_memcpy(this->reservePad(size), src, size);
-    }
+  }
     /**
      *  Writes a string to the writer, which can be retrieved with
      *  SkReader32::readString().
@@ -209,11 +212,11 @@ public:
         if (data) {
             this->writePad(data->data(), len);
         }
-    }
+  }
   static size_t WriteDataSize(const SkData* data)
   {
         return 4 + SkAlign4(data ? data->size() : 0);
-    }
+  }
     /**
      *  Move the cursor back to offset bytes from the beginning.
      *  offset must be a multiple of 4 no greater than size().
@@ -223,22 +226,22 @@ public:
         SkASSERT(SkAlign4(offset) == offset);
         SkASSERT(offset <= bytesWritten());
         fUsed = offset;
-    }
+  }
     // copy into a single buffer (allocated by caller). Must be at least size()
   void flatten(void* dst) const
   {
         memcpy(dst, fData, fUsed);
-    }
+  }
   bool writeToStream(SkWStream* stream) const
   {
         return stream->write(fData, fUsed);
-    }
+  }
     // read from the stream, and write up to length bytes. Return the actual
     // number of bytes written.
   size_t readFromStream(SkStream* stream, size_t length)
   {
         return stream->read(this->reservePad(length), length);
-    }
+  }
     /**
      *  Captures a snapshot of the data as it is right now, and return it.
      */
@@ -263,9 +266,12 @@ class SkSWriter32 : public SkWriter32
 public:
   SkSWriter32()
   {
- this->reset();   }
+ this->reset();
+  }
   void reset()
-  {this->INHERITED::reset(fData.fStorage, SIZE); }
+  {
+this->INHERITED::reset(fData.fStorage, SIZE);
+  }
 private:
   union 
 {

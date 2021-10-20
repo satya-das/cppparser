@@ -143,42 +143,33 @@ inline AcDbGripData::AcDbGripData()
     , m_pInputPointFunc(NULL)
     , m_pCLIPromptFunc(NULL)
     , m_pCLIDisplayStringFunc(NULL)
-
-  {
-
+{
     setRtClk(NULL);
-  }
+}
 inline AcDbGripData::AcDbGripData(const AcGePoint3d& pt, void* AppData, GripOperationPtr hotGrip, GripOperationPtr hoverGrip, GripRtClkHandler RtClk, GripWorldDrawPtr wd, GripViewportDrawPtr vd, GripOpStatusPtr stat, GripToolTipPtr tt, GripDimensionPtr hoverDim, GripDimensionPtr hotGripDim, unsigned int bitFlags, AcGePoint3d* altBasePt, GripInputPointPtr inputPointFunc)
-  : 
-    m_gripPt(pt), m_pAppData(AppData), m_pAppDataClass(NULL), m_pHotGripFunc(hotGrip),
+  :     m_gripPt(pt), m_pAppData(AppData), m_pAppDataClass(NULL), m_pHotGripFunc(hotGrip),
     m_pHoverFunc(hoverGrip), m_pWorldDraw(wd),
     m_pViewportDraw(vd), m_pGripOpStatFunc(stat),
     m_pToolTipFunc(tt), m_pHoverDimensionFunc(hoverDim),
     m_pHotGripDimensionFunc(hotGripDim),
     m_bitFlags(bitFlags), m_pAltBasePt(altBasePt),
     m_pInputPointFunc(inputPointFunc), m_pCLIPromptFunc(NULL), m_pCLIDisplayStringFunc(NULL)
-
-  {
-
+{
     setRtClk(RtClk);
-  }
+}
 inline AcDbGripData::AcDbGripData(const AcGePoint3d& pt, void* AppData, AcRxClass* pAppDataClass, GripOperationPtr hotGrip, GripOperationPtr hoverGrip, GripRtClkHandler RtClk, GripWorldDrawPtr wd, GripViewportDrawPtr vd, GripOpStatusPtr stat, GripToolTipPtr tt, GripDimensionPtr hoverDim, GripDimensionPtr hotGripDim, unsigned int bitFlags, AcGePoint3d* altBasePt, GripInputPointPtr inputPointFunc)
-  : 
-    m_gripPt(pt), m_pAppData(AppData), m_pAppDataClass(pAppDataClass),
+  :     m_gripPt(pt), m_pAppData(AppData), m_pAppDataClass(pAppDataClass),
     m_pHotGripFunc(hotGrip), m_pHoverFunc(hoverGrip),
     m_pWorldDraw(wd), m_pViewportDraw(vd), m_pGripOpStatFunc(stat),
     m_pToolTipFunc(tt), m_pHoverDimensionFunc(hoverDim),
     m_pHotGripDimensionFunc(hotGripDim),
     m_bitFlags(bitFlags), m_pAltBasePt(altBasePt),
     m_pInputPointFunc(inputPointFunc), m_pCLIPromptFunc(NULL), m_pCLIDisplayStringFunc(NULL)
-
-  {
-
+{
     setRtClk(RtClk);
-  }
+}
 inline AcDbGripData::AcDbGripData(const AcDbGripData& src)
 {
-
     m_gripPt = src.gripPoint();
     m_pAppData = src.appData();
     m_pAppDataClass = src.appDataAcRxClass();

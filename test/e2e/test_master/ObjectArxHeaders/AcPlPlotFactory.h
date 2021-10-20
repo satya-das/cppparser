@@ -21,7 +21,7 @@ public:
         kShowPlot            = 0x0001,  // Allow plot from preview state
         kShowNextSheet       = 0x0002,  // Allow "Next Sheet" from preview state
         kShowPreviousSheet   = 0x0004   // Allow "Previous Sheet" from preview state
-    };
+  };
   ACPL_PORT static Acad::ErrorStatus createPublishEngine(AcPlPlotEngine*& pEngine);
   ACPL_PORT static Acad::ErrorStatus createPreviewEngine(AcPlPlotEngine*& pPreview, long nPreviewFlags = kShowPlot);
 };

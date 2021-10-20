@@ -54,7 +54,7 @@ struct SkOTTableEmbeddedBitmapLocation
                 Gray4 = 2,
                 Gray16 = 4,
                 Gray256 = 8,
-            };
+  };
   SK_OT_BYTE value;
 } bitDepth;
     union Flags

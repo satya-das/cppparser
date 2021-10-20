@@ -29,7 +29,7 @@ protected:
         m_marginX = x;
         m_marginY = y;
         InvalidateBestSize();
-    }
+  }
 #  if  wxUSE_MARKUP && wxOSX_USE_COCOA
   bool DoSetLabelMarkup(const wxString& markup) override;
 #  endif

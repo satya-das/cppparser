@@ -128,10 +128,14 @@ public:
   // under other systems
 #    ifdef __UNIX__
   void SetUmask(int mode)
-  { m_umask = mode; }
+  {
+ m_umask = mode;
+  }
 #    else 
   void SetUmask(int)
-  { }
+  {
+
+  }
 #    endif
   // implement inherited pure virtual functions
   void SetPath(const wxString& strPath) override;
@@ -158,9 +162,13 @@ public:
   virtual bool Save(wxOutputStream& os, const wxMBConv& conv = wxConvAuto());
 #    endif
   void EnableAutoSave()
-  { m_autosave = true; }
+  {
+ m_autosave = true;
+  }
   void DisableAutoSave()
-  { m_autosave = false; }
+  {
+ m_autosave = false;
+  }
   // functions to work with this list
   wxFileConfigLineList* LineListAppend(const wxString& str);
   wxFileConfigLineList* LineListInsert(const wxString& str, wxFileConfigLineList* pLine);
@@ -195,11 +203,17 @@ private:
   bool DoSetPath(const wxString& strPath, bool createMissingComponents);
   // set/test the dirty flag
   void SetDirty()
-  { m_isDirty = true; }
+  {
+ m_isDirty = true;
+  }
   void ResetDirty()
-  { m_isDirty = false; }
+  {
+ m_isDirty = false;
+  }
   bool IsDirty() const
-  { return m_isDirty; }
+  {
+ return m_isDirty;
+  }
   // member variables
   // ----------------
   wxFileConfigLineList* m_linesHead, *m_linesTail;

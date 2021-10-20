@@ -21,20 +21,23 @@ public:
   explicit wxMaxWidthCalculatorBase(size_t column)
     :  m_column(column),
           m_width(0)
-    
-    {
+  {
 
-        }
+  }
   void UpdateWithWidth(int width)
   {
         m_width = wxMax(m_width, width);
-    }
+  }
     // Update the max with for the expected row
   virtual void UpdateWithRow(int row) = 0;
   int GetMaxWidth() const
-  { return m_width; }
+  {
+ return m_width;
+  }
   size_t GetColumn() const
-  { return m_column; }
+  {
+ return m_column;
+  }
   void ComputeBestColumnWidth(size_t count, size_t first_visible, size_t last_visible)
   {
         // The code below deserves some explanation. For very large controls, we
@@ -100,7 +103,7 @@ public:
                        last_visible - first_visible,
                        count);
         }
-    }
+  }
 private:
   const size_t m_column;
   int m_width;

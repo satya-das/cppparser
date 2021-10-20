@@ -30,25 +30,31 @@ struct SkIPoint
   static constexpr SkIPoint Make(int32_t x, int32_t y)
   {
         return {x, y};
-    }
+  }
     /** Returns x-axis value of SkIPoint.
 
         @return  fX
     */
   constexpr int32_t x() const
-  { return fX; }
+  {
+ return fX;
+  }
     /** Returns y-axis value of SkIPoint.
 
         @return  fY
     */
   constexpr int32_t y() const
-  { return fY; }
+  {
+ return fY;
+  }
     /** Returns true if fX and fY are both zero.
 
         @return  true if fX is zero and fY is zero
     */
   bool isZero() const
-  { return (fX | fY) == 0; }
+  {
+ return (fX | fY) == 0;
+  }
     /** Sets fX to x and fY to y.
 
         @param x  new value for fX
@@ -58,7 +64,7 @@ struct SkIPoint
   {
         fX = x;
         fY = y;
-    }
+  }
     /** Returns SkIPoint changing the signs of fX and fY.
 
         @return  SkIPoint as (-fX, -fY)
@@ -66,7 +72,7 @@ struct SkIPoint
   SkIPoint operator-() const
   {
         return {-fX, -fY};
-    }
+  }
     /** Offsets SkIPoint by ivector v. Sets SkIPoint to (fX + v.fX, fY + v.fY).
 
         @param v  ivector to add
@@ -75,7 +81,7 @@ struct SkIPoint
   {
         fX = Sk32_sat_add(fX, v.fX);
         fY = Sk32_sat_add(fY, v.fY);
-    }
+  }
     /** Subtracts ivector v from SkIPoint. Sets SkIPoint to: (fX - v.fX, fY - v.fY).
 
         @param v  ivector to subtract
@@ -84,7 +90,7 @@ struct SkIPoint
   {
         fX = Sk32_sat_sub(fX, v.fX);
         fY = Sk32_sat_sub(fY, v.fY);
-    }
+  }
     /** Returns true if SkIPoint is equivalent to SkIPoint constructed from (x, y).
 
         @param x  value compared with fX
@@ -94,7 +100,7 @@ struct SkIPoint
   bool equals(int32_t x, int32_t y) const
   {
         return fX == x && fY == y;
-    }
+  }
     /** Returns true if a is equivalent to b.
 
         @param a  SkIPoint to compare
@@ -104,7 +110,7 @@ struct SkIPoint
   friend bool operator==(const SkIPoint& a, const SkIPoint& b)
   {
         return a.fX == b.fX && a.fY == b.fY;
-    }
+  }
     /** Returns true if a is not equivalent to b.
 
         @param a  SkIPoint to compare
@@ -114,7 +120,7 @@ struct SkIPoint
   friend bool operator!=(const SkIPoint& a, const SkIPoint& b)
   {
         return a.fX != b.fX || a.fY != b.fY;
-    }
+  }
     /** Returns ivector from b to a; computed as (a.fX - b.fX, a.fY - b.fY).
 
         Can also be used to subtract ivector from ivector, returning ivector.
@@ -126,7 +132,7 @@ struct SkIPoint
   friend SkIVector operator-(const SkIPoint& a, const SkIPoint& b)
   {
         return { Sk32_sat_sub(a.fX, b.fX), Sk32_sat_sub(a.fY, b.fY) };
-    }
+  }
     /** Returns SkIPoint resulting from SkIPoint a offset by ivector b, computed as:
         (a.fX + b.fX, a.fY + b.fY).
 
@@ -140,7 +146,7 @@ struct SkIPoint
   friend SkIPoint operator+(const SkIPoint& a, const SkIVector& b)
   {
         return { Sk32_sat_add(a.fX, b.fX), Sk32_sat_add(a.fY, b.fY) };
-    }
+  }
 };
 struct SkPoint;
 /** SkVector provides an alternative name for SkPoint. SkVector and SkPoint can
@@ -163,25 +169,31 @@ struct SK_API SkPoint
   static constexpr SkPoint Make(SkScalar x, SkScalar y)
   {
         return {x, y};
-    }
+  }
     /** Returns x-axis value of SkPoint or vector.
 
         @return  fX
     */
   SkScalar x() const
-  { return fX; }
+  {
+ return fX;
+  }
     /** Returns y-axis value of SkPoint or vector.
 
         @return  fY
     */
   SkScalar y() const
-  { return fY; }
+  {
+ return fY;
+  }
     /** Returns true if fX and fY are both zero.
 
         @return  true if fX is zero and fY is zero
     */
   bool isZero() const
-  { return (0 == fX) & (0 == fY); }
+  {
+ return (0 == fX) & (0 == fY);
+  }
     /** Sets fX to x and fY to y.
 
         @param x  new value for fX
@@ -191,7 +203,7 @@ struct SK_API SkPoint
   {
         fX = x;
         fY = y;
-    }
+  }
     /** Sets fX to x and fY to y, promoting integers to SkScalar values.
 
         Assigning a large integer value directly to fX or fY may cause a compiler
@@ -205,7 +217,7 @@ struct SK_API SkPoint
   {
         fX = SkIntToScalar(x);
         fY = SkIntToScalar(y);
-    }
+  }
     /** Sets fX to p.fX and fY to p.fY, promoting integers to SkScalar values.
 
         Assigning an SkIPoint containing a large integer value directly to fX or fY may
@@ -218,7 +230,7 @@ struct SK_API SkPoint
   {
         fX = SkIntToScalar(p.fX);
         fY = SkIntToScalar(p.fY);
-    }
+  }
     /** Sets fX to absolute value of pt.fX; and fY to absolute value of pt.fY.
 
         @param pt  members providing magnitude for fX and fY
@@ -227,7 +239,7 @@ struct SK_API SkPoint
   {
         fX = SkScalarAbs(pt.fX);
         fY = SkScalarAbs(pt.fY);
-    }
+  }
     /** Adds offset to each SkPoint in points array with count entries.
 
         @param points  SkPoint array
@@ -237,7 +249,7 @@ struct SK_API SkPoint
   static void Offset(SkPoint points[], int count, const SkVector& offset)
   {
         Offset(points, count, offset.fX, offset.fY);
-    }
+  }
     /** Adds offset (dx, dy) to each SkPoint in points array of length count.
 
         @param points  SkPoint array
@@ -250,7 +262,7 @@ struct SK_API SkPoint
         for (int i = 0; i < count; ++i) {
             points[i].offset(dx, dy);
         }
-    }
+  }
     /** Adds offset (dx, dy) to SkPoint.
 
         @param dx  added to fX
@@ -260,7 +272,7 @@ struct SK_API SkPoint
   {
         fX += dx;
         fY += dy;
-    }
+  }
     /** Returns the Euclidean distance from origin, computed as:
 
             sqrt(fX * fX + fY * fY)
@@ -270,7 +282,9 @@ struct SK_API SkPoint
         @return  straight-line distance to origin
     */
   SkScalar length() const
-  { return SkPoint::Length(fX, fY); }
+  {
+ return SkPoint::Length(fX, fY);
+  }
     /** Returns the Euclidean distance from origin, computed as:
 
             sqrt(fX * fX + fY * fY)
@@ -280,7 +294,9 @@ struct SK_API SkPoint
         @return  straight-line distance to origin
     */
   SkScalar distanceToOrigin() const
-  { return this->length(); }
+  {
+ return this->length();
+  }
     /** Scales (fX, fY) so that length() returns one, while preserving ratio of fX to fY,
         if possible. If prior length is nearly zero, sets vector to (0, 0) and returns
         false; otherwise returns true.
@@ -326,14 +342,16 @@ struct SK_API SkPoint
         @param value  factor to multiply SkPoint by
     */
   void scale(SkScalar value)
-  { this->scale(value, this); }
+  {
+ this->scale(value, this);
+  }
     /** Changes the sign of fX and fY.
     */
   void negate()
   {
         fX = -fX;
         fY = -fY;
-    }
+  }
     /** Returns SkPoint changing the signs of fX and fY.
 
         @return  SkPoint as (-fX, -fY)
@@ -341,7 +359,7 @@ struct SK_API SkPoint
   SkPoint operator-() const
   {
         return {-fX, -fY};
-    }
+  }
     /** Adds vector v to SkPoint. Sets SkPoint to: (fX + v.fX, fY + v.fY).
 
         @param v  vector to add
@@ -350,7 +368,7 @@ struct SK_API SkPoint
   {
         fX += v.fX;
         fY += v.fY;
-    }
+  }
     /** Subtracts vector v from SkPoint. Sets SkPoint to: (fX - v.fX, fY - v.fY).
 
         @param v  vector to subtract
@@ -359,7 +377,7 @@ struct SK_API SkPoint
   {
         fX -= v.fX;
         fY -= v.fY;
-    }
+  }
     /** Returns SkPoint multiplied by scale.
 
         @param scale  scalar to multiply by
@@ -368,7 +386,7 @@ struct SK_API SkPoint
   SkPoint operator*(SkScalar scale) const
   {
         return {fX * scale, fY * scale};
-    }
+  }
     /** Multiplies SkPoint by scale. Sets SkPoint to: (fX * scale, fY * scale).
 
         @param scale  scalar to multiply by
@@ -379,7 +397,7 @@ struct SK_API SkPoint
         fX *= scale;
         fY *= scale;
         return *this;
-    }
+  }
     /** Returns true if both fX and fY are measurable values.
 
         @return  true for values other than infinities and NaN
@@ -396,7 +414,7 @@ struct SK_API SkPoint
         // value==value will be true iff value is not NaN
         // TODO: is it faster to say !accum or accum==accum?
         return !SkScalarIsNaN(accum);
-    }
+  }
     /** Returns true if SkPoint is equivalent to SkPoint constructed from (x, y).
 
         @param x  value compared with fX
@@ -406,7 +424,7 @@ struct SK_API SkPoint
   bool equals(SkScalar x, SkScalar y) const
   {
         return fX == x && fY == y;
-    }
+  }
     /** Returns true if a is equivalent to b.
 
         @param a  SkPoint to compare
@@ -416,7 +434,7 @@ struct SK_API SkPoint
   friend bool operator==(const SkPoint& a, const SkPoint& b)
   {
         return a.fX == b.fX && a.fY == b.fY;
-    }
+  }
     /** Returns true if a is not equivalent to b.
 
         @param a  SkPoint to compare
@@ -426,7 +444,7 @@ struct SK_API SkPoint
   friend bool operator!=(const SkPoint& a, const SkPoint& b)
   {
         return a.fX != b.fX || a.fY != b.fY;
-    }
+  }
     /** Returns vector from b to a, computed as (a.fX - b.fX, a.fY - b.fY).
 
         Can also be used to subtract vector from SkPoint, returning SkPoint.
@@ -439,7 +457,7 @@ struct SK_API SkPoint
   friend SkVector operator-(const SkPoint& a, const SkPoint& b)
   {
         return {a.fX - b.fX, a.fY - b.fY};
-    }
+  }
     /** Returns SkPoint resulting from SkPoint a offset by vector b, computed as:
         (a.fX + b.fX, a.fY + b.fY).
 
@@ -453,7 +471,7 @@ struct SK_API SkPoint
   friend SkPoint operator+(const SkPoint& a, const SkVector& b)
   {
         return {a.fX + b.fX, a.fY + b.fY};
-    }
+  }
     /** Returns the Euclidean distance from origin, computed as:
 
             sqrt(x * x + y * y)
@@ -486,7 +504,7 @@ struct SK_API SkPoint
   static SkScalar Distance(const SkPoint& a, const SkPoint& b)
   {
         return Length(a.fX - b.fX, a.fY - b.fY);
-    }
+  }
     /** Returns the dot product of vector a and vector b.
 
         @param a  left side of dot product
@@ -496,7 +514,7 @@ struct SK_API SkPoint
   static SkScalar DotProduct(const SkVector& a, const SkVector& b)
   {
         return a.fX * b.fX + a.fY * b.fY;
-    }
+  }
     /** Returns the cross product of vector a and vector b.
 
         a and b form three-dimensional vectors with z-axis value equal to zero. The
@@ -510,7 +528,7 @@ struct SK_API SkPoint
   static SkScalar CrossProduct(const SkVector& a, const SkVector& b)
   {
         return a.fX * b.fY - a.fY * b.fX;
-    }
+  }
     /** Returns the cross product of vector and vec.
 
         Vector and vec form three-dimensional vectors with z-axis value equal to zero.
@@ -523,7 +541,7 @@ struct SK_API SkPoint
   SkScalar cross(const SkVector& vec) const
   {
         return CrossProduct(*this, vec);
-    }
+  }
     /** Returns the dot product of vector and vector vec.
 
         @param vec  right side of dot product
@@ -532,6 +550,6 @@ struct SK_API SkPoint
   SkScalar dot(const SkVector& vec) const
   {
         return DotProduct(*this, vec);
-    }
+  }
 };
 #endif

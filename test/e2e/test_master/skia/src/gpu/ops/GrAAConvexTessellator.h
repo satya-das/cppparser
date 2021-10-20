@@ -32,26 +32,40 @@ public:
         , fStrokeWidth(strokeWidth)
         , fStyle(style)
         , fJoin(join)
-        , fMiterLimit(miterLimit) 
-    {
+        , fMiterLimit(miterLimit)
+  {
 
-        }
+  }
   SkPointPriv::Side side() const
-  { return fSide; }
+  {
+ return fSide;
+  }
   bool tessellate(const SkMatrix& m, const SkPath& path);
     // The next five should only be called after tessellate to extract the result
   int numPts() const
-  { return fPts.count(); }
+  {
+ return fPts.count();
+  }
   int numIndices() const
-  { return fIndices.count(); }
+  {
+ return fIndices.count();
+  }
   const SkPoint& lastPoint() const
-  { return fPts.top(); }
+  {
+ return fPts.top();
+  }
   const SkPoint& point(int index) const
-  { return fPts[index]; }
+  {
+ return fPts[index];
+  }
   int index(int index) const
-  { return fIndices[index]; }
+  {
+ return fIndices[index];
+  }
   SkScalar coverage(int index) const
-  { return fCoverages[index]; }
+  {
+ return fCoverages[index];
+  }
 #  if  GR_AA_CONVEX_TESSELLATOR_VIZ
   void draw(SkCanvas* canvas) const;
 #  endif
@@ -64,23 +78,41 @@ private:
   {
   public:
     void setReserve(int numPts)
-    { fPts.setReserve(numPts); }
+    {
+ fPts.setReserve(numPts);
+    }
     void rewind()
-    { fPts.rewind(); }
+    {
+ fPts.rewind();
+    }
     int numPts() const
-    { return fPts.count(); }
+    {
+ return fPts.count();
+    }
     const SkPoint& lastPoint() const
-    { return fPts.top().fPt; }
+    {
+ return fPts.top().fPt;
+    }
     const SkPoint& firstPoint() const
-    { return fPts[0].fPt; }
+    {
+ return fPts[0].fPt;
+    }
     const SkPoint& point(int index) const
-    { return fPts[index].fPt; }
+    {
+ return fPts[index].fPt;
+    }
     int originatingIdx(int index) const
-    { return fPts[index].fOriginatingIdx; }
+    {
+ return fPts[index].fOriginatingIdx;
+    }
     int origEdge(int index) const
-    { return fPts[index].fOrigEdgeId; }
+    {
+ return fPts[index].fOrigEdgeId;
+    }
     bool needsToBeNew(int index) const
-    { return fPts[index].fNeedsToBeNew; }
+    {
+ return fPts[index].fNeedsToBeNew;
+    }
     int addNewPt(const SkPoint& newPt, int originatingIdx, int origEdge, bool needsToBeNew)
     {
             struct PointData* pt = fPts.push();
@@ -89,20 +121,20 @@ private:
             pt->fOriginatingIdx = originatingIdx;
             pt->fNeedsToBeNew = needsToBeNew;
             return fPts.count() - 1;
-        }
+    }
     int fuseWithPrior(int origEdgeId)
     {
             fPts.top().fOrigEdgeId = origEdgeId;
             fPts.top().fOriginatingIdx = -1;
             fPts.top().fNeedsToBeNew = true;
             return fPts.count() - 1;
-        }
+    }
     int fuseWithNext()
     {
             fPts[0].fOriginatingIdx = -1;
             fPts[0].fNeedsToBeNew = true;
             return 0;
-        }
+    }
     int fuseWithBoth()
     {
             if (fPts.count() > 1) {
@@ -112,7 +144,7 @@ private:
             fPts[0].fOriginatingIdx = -1;
             fPts[0].fNeedsToBeNew = true;
             return 0;
-        }
+    }
   private:
     struct PointData
     {
@@ -129,37 +161,53 @@ private:
   {
   public:
     void setReserve(int numPts)
-    { fPts.setReserve(numPts); }
+    {
+ fPts.setReserve(numPts);
+    }
     void rewind()
-    { fPts.rewind(); }
+    {
+ fPts.rewind();
+    }
     int numPts() const
-    { return fPts.count(); }
+    {
+ return fPts.count();
+    }
     void addIdx(int index, int origEdgeId)
     {
             struct PointData* pt = fPts.push();
             pt->fIndex = index;
             pt->fOrigEdgeId = origEdgeId;
-        }
+    }
         // Upgrade this ring so that it can behave like an originating ring
     void makeOriginalRing()
     {
             for (int i = 0; i < fPts.count(); ++i) {
                 fPts[i].fOrigEdgeId = fPts[i].fIndex;
             }
-        }
+    }
         // init should be called after all the indices have been added (via addIdx)
     void init(const GrAAConvexTessellator& tess);
     void init(const SkTDArray<SkVector>& norms, const SkTDArray<SkVector>& bisectors);
     const SkPoint& norm(int index) const
-    { return fPts[index].fNorm; }
+    {
+ return fPts[index].fNorm;
+    }
     const SkPoint& bisector(int index) const
-    { return fPts[index].fBisector; }
+    {
+ return fPts[index].fBisector;
+    }
     int index(int index) const
-    { return fPts[index].fIndex; }
+    {
+ return fPts[index].fIndex;
+    }
     int origEdgeID(int index) const
-    { return fPts[index].fOrigEdgeId; }
+    {
+ return fPts[index].fOrigEdgeId;
+    }
     void setOrigEdgeId(int index, int id)
-    { fPts[index].fOrigEdgeId = id; }
+    {
+ fPts[index].fOrigEdgeId = id;
+    }
 #  if  GR_AA_CONVEX_TESSELLATOR_VIZ
     void draw(SkCanvas* canvas, const GrAAConvexTessellator& tess) const;
 #  endif
@@ -185,9 +233,11 @@ private:
         kIndeterminate_CurveState,
         // point is in the interior of a curve
         kCurve_CurveState
-    };
+  };
   bool movable(int index) const
-  { return fMovable[index]; }
+  {
+ return fMovable[index];
+  }
     // Movable points are those that can be slid along their bisector.
     // Basically, a point is immovable if it is part of the original
     // polygon or it results from the fusing of two bisectors.
@@ -201,7 +251,7 @@ private:
         fPts.setReserve(count);
         fCoverages.setReserve(count);
         fMovable.setReserve(count);
-    }
+  }
   SkScalar computeDepthFromEdge(int edgeIdx, const SkPoint& p) const;
   bool computePtAlongBisector(int startIdx, const SkPoint& bisector, int edgeIdx, SkScalar desiredDepth, SkPoint* result) const;
   void lineTo(const SkPoint& p, CurveState curve);

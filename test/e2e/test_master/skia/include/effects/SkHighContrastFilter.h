@@ -21,20 +21,19 @@ struct SkHighContrastConfig
         kInvertLightness,
 
         kLast = kInvertLightness
-    };
+  };
   SkHighContrastConfig()
   {
-
         fGrayscale = false;
         fInvertStyle = InvertStyle::kNoInvert;
         fContrast = 0.0f;
-      }
+  }
   SkHighContrastConfig(bool grayscale, InvertStyle invertStyle, SkScalar contrast)
     :  fGrayscale(grayscale),
           fInvertStyle(invertStyle),
-          fContrast(contrast) 
-    {
-    }
+          fContrast(contrast)
+  {
+  }
     // Returns true if all of the fields are set within the valid range.
   bool isValid() const
   {
@@ -42,7 +41,7 @@ struct SkHighContrastConfig
             fInvertStyle <= InvertStyle::kInvertLightness &&
             fContrast >= -1.0 &&
             fContrast <= 1.0;
-    }
+  }
     // If true, the color will be converted to grayscale.
   bool fGrayscale;
     // Whether to invert brightness, lightness, or neither.

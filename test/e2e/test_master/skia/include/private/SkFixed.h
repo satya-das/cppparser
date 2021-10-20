@@ -41,7 +41,7 @@ static SkFixed SkFloatToFixed_Check(float x)
         SkFixed n32 = (SkFixed)n64;
         SkASSERT(n64 == n32);
         return n32;
-    }
+}
 #  else 
 #    define SkFloatToFixed_Check(x)	 SkFloatToFixed(x)
 #  endif
@@ -57,7 +57,7 @@ inline SkFixed SkIntToFixed(int n)
         // Left shifting a negative value has undefined behavior in C, so we cast to unsigned before
         // shifting.
         return (unsigned)n << 16;
-    }
+}
 #  else 
     // Left shifting a negative value has undefined behavior in C, so we cast to unsigned before
     // shifting. Then we force the cast to SkFixed to ensure that the answer is signed (like the
@@ -103,7 +103,7 @@ SK_ALWAYS_INLINE SkFixed SkFloatToFixed_arm(float x)
         asm("vcvt.s32.f32 %0, %0, #16": "+w"(x));
         memcpy(&y, &x, sizeof(y));
         return y;
-    }
+}
 #    undef SkFloatToFixed
 #    define SkFloatToFixed(x)	  SkFloatToFixed_arm(x)
 #  endif

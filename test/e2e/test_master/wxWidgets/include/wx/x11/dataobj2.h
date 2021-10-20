@@ -24,29 +24,37 @@ public:
     // implement base class pure virtuals
     // ----------------------------------
   virtual size_t GetDataSize() const
-  { return m_pngSize; }
+  {
+ return m_pngSize;
+  }
   virtual bool GetDataHere(void* buf) const;
   virtual bool SetData(size_t len, const void* buf);
     // Must provide overloads to avoid hiding them (and warnings about it)
   virtual size_t GetDataSize(const wxDataFormat&) const
   {
         return GetDataSize();
-    }
+  }
   virtual bool GetDataHere(const wxDataFormat&, void* buf) const
   {
         return GetDataHere(buf);
-    }
+  }
   virtual bool SetData(const wxDataFormat&, size_t len, const void* buf)
   {
         return SetData(len, buf);
-    }
+  }
 protected:
   void Init()
-  { m_pngData = NULL; m_pngSize = 0; }
+  {
+ m_pngData = NULL; m_pngSize = 0;
+  }
   void Clear()
-  { free(m_pngData); }
+  {
+ free(m_pngData);
+  }
   void ClearAll()
-  { Clear(); Init(); }
+  {
+ Clear(); Init();
+  }
   size_t m_pngSize;
   void* m_pngData;
   void DoConvertToPng();
@@ -67,14 +75,14 @@ public:
   virtual size_t GetDataSize(const wxDataFormat&) const
   {
         return GetDataSize();
-    }
+  }
   virtual bool GetDataHere(const wxDataFormat&, void* buf) const
   {
         return GetDataHere(buf);
-    }
+  }
   virtual bool SetData(const wxDataFormat&, size_t len, const void* buf)
   {
         return SetData(len, buf);
-    }
+  }
 };
 #endif

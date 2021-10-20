@@ -35,7 +35,9 @@ public:
   static wxTheme* Set(wxTheme* theme);
     // get the current theme (never NULL)
   static wxTheme* Get()
-  { return ms_theme; }
+  {
+ return ms_theme;
+  }
     // the theme methods
     // -----------------
 

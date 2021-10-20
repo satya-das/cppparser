@@ -103,7 +103,7 @@ public:
 
         kNative = k2018_dwg,  // Current dwg version is 2018
         kNative_Template = k2018_Template  //Current dwt version is 2018
-     };
+  };
   virtual SaveFormat formatForSave() const = 0;
   ACCORE_PORT static Acad::ErrorStatus getDwgVersionFromSaveFormat(SaveFormat docFormat, AcDb::AcDbDwgVersion& dwgVer, AcDb::MaintenanceReleaseVersion& dwgMaintVer);
   virtual AcAp::DocLockMode lockMode(bool bIncludeMyLocks = false) const = 0;
@@ -187,9 +187,9 @@ public:
   }
 protected:
   AcApDocManagerReactor()
-    :  mVeto(0) 
-    {
-    }
+    :  mVeto(0)
+  {
+  }
   Acad::ErrorStatus veto();
 private:
   Adesk::Int8 mVeto;
@@ -285,13 +285,15 @@ public:
       kViewWorldCoords = 6
     };
     InitialViewType mnInitialViewType;
-    enum {  kDisallowReadOnly       = 0x01,
+    enum {
+  kDisallowReadOnly       = 0x01,
                 kRequireReadOnly        = 0x02,
                 kFileNameArgIsUnicode   = 0x04,
                 kViewNameArgIsUnicode   = 0x08,
                 kUseUIOnErrors          = 0x10,
                 kOwnerControlled        = 0x20,
-                kUseUI                  = 0x40 };
+                kUseUI                  = 0x40
+    };
     int mnFlags;
     const wchar_t* mpwszPassword;
     void* mpOwnerData;
@@ -377,6 +379,8 @@ public:
 ACCORE_PORT AcApDocManager* acDocManagerPtr();
 #  define acDocManager	acDocManagerPtr()
 inline AcApDocument* curDoc()
-{ return acDocManager->curDocument(); }
+{
+ return acDocManager->curDocument();
+}
 #  pragma  pack (pop)
 #endif

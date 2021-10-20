@@ -39,32 +39,43 @@ public:
                                   and after calls to reset().
      */
   explicit GrTRecorder(size_t initialSizeInBytes)
-    :  fArena(initialSizeInBytes) 
-    {
-    }
+    :  fArena(initialSizeInBytes)
+  {
+  }
   GrTRecorder(const GrTRecorder&) = delete;
   GrTRecorder& operator=(const GrTRecorder&);
   ~GrTRecorder()
   {
- this->reset();   }
+ this->reset();
+  }
   bool empty()
-  { return !SkToBool(fTail); }
+  {
+ return !SkToBool(fTail);
+  }
     /** The last item. Must not be empty. */
   TBase& back()
   {
         SkASSERT(!this->empty());
         return *fTail->get();
-    }
+  }
     /** Forward mutable iteration */
   iterator begin()
-  { return iterator(fHead); }
+  {
+ return iterator(fHead);
+  }
   iterator end()
-  { return iterator(nullptr); }
+  {
+ return iterator(nullptr);
+  }
     /** Forward const iteration */
   const_iterator begin() const
-  { return const_iterator(fHead); }
+  {
+ return const_iterator(fHead);
+  }
   const_iterator end() const
-  { return const_iterator(nullptr); }
+  {
+ return const_iterator(nullptr);
+  }
     /** Destruct all items in the list and reset to empty. Frees memory allocated from arena. */
   void reset();
     /**
@@ -76,7 +87,7 @@ public:
   TItem& emplace(Args&&... args)
   {
         return this->emplaceWithData<TItem, Args...>(0, std::forward<Args>(args)...);
-    }
+  }
     /**
      * Emplace a new TItem (which derives from TBase) in the recorder with extra data space. The
      * extra data immediately follows the stored item with no extra alignment. E.g.,
@@ -94,7 +105,9 @@ private:
         // We always store the T immediately after the header (and ensure proper alignment). See
         // emplaceWithData() implementation.
     TBase* get() const
-    { return reinterpret_cast<TBase*>(const_cast<Header*>(this) + 1); }
+    {
+ return reinterpret_cast<TBase*>(const_cast<Header*>(this) + 1);
+    }
   };
   SkArenaAlloc fArena;
   Header* fHead = nullptr;
@@ -152,26 +165,34 @@ public:
   {
         fCurr = fCurr->fNext;
         return *this;
-    }
+  }
   IterImpl operator++(int)
   {
         auto old = fCurr;
         fCurr = fCurr->fNext;
         return {old};
-    }
+  }
   T& operator*() const
-  { return *fCurr->get(); }
+  {
+ return *fCurr->get();
+  }
   T* operator->() const
-  { return fCurr->get(); }
+  {
+ return fCurr->get();
+  }
   bool operator==(const IterImpl& that) const
-  { return fCurr == that.fCurr; }
+  {
+ return fCurr == that.fCurr;
+  }
   bool operator!=(const IterImpl& that) const
-  { return !(*this == that); }
+  {
+ return !(*this == that);
+  }
 private:
   IterImpl(Header* curr)
-    :  fCurr(curr) 
-    {
-    }
+    :  fCurr(curr)
+  {
+  }
   Header* fCurr = nullptr;
   friend class GrTRecorder<TBase>;
 };

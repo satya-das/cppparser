@@ -51,7 +51,7 @@ public:
          *  between them.
          */
         kInterpolateColorsInPremul_Flag = 1 << 0,
-    };
+  };
     /** Returns a shader that generates a linear gradient between the two specified points.
         <p />
         @param  pts     The start and end points for the gradient.
@@ -68,7 +68,7 @@ public:
   static sk_sp<SkShader> MakeLinear(const SkPoint pts[2], const SkColor colors[], const SkScalar pos[], int count, SkTileMode mode)
   {
         return MakeLinear(pts, colors, pos, count, mode, 0, nullptr);
-    }
+  }
     /** Returns a shader that generates a linear gradient between the two specified points.
         <p />
         @param  pts     The start and end points for the gradient.
@@ -85,7 +85,7 @@ public:
   static sk_sp<SkShader> MakeLinear(const SkPoint pts[2], const SkColor4f colors[], sk_sp<SkColorSpace> colorSpace, const SkScalar pos[], int count, SkTileMode mode)
   {
         return MakeLinear(pts, colors, std::move(colorSpace), pos, count, mode, 0, nullptr);
-    }
+  }
     /** Returns a shader that generates a radial gradient given the center and radius.
         <p />
         @param  center  The center of the circle for this gradient
@@ -103,7 +103,7 @@ public:
   static sk_sp<SkShader> MakeRadial(const SkPoint& center, SkScalar radius, const SkColor colors[], const SkScalar pos[], int count, SkTileMode mode)
   {
         return MakeRadial(center, radius, colors, pos, count, mode, 0, nullptr);
-    }
+  }
     /** Returns a shader that generates a radial gradient given the center and radius.
         <p />
         @param  center  The center of the circle for this gradient
@@ -122,7 +122,7 @@ public:
   {
         return MakeRadial(center, radius, colors, std::move(colorSpace), pos, count, mode,
                           0, nullptr);
-    }
+  }
     /**
      *  Returns a shader that generates a conical gradient given two circles, or
      *  returns NULL if the inputs are invalid. The gradient interprets the
@@ -134,7 +134,7 @@ public:
   {
         return MakeTwoPointConical(start, startRadius, end, endRadius, colors, pos, count, mode,
                                    0, nullptr);
-    }
+  }
     /**
      *  Returns a shader that generates a conical gradient given two circles, or
      *  returns NULL if the inputs are invalid. The gradient interprets the
@@ -146,7 +146,7 @@ public:
   {
         return MakeTwoPointConical(start, startRadius, end, endRadius, colors,
                                    std::move(colorSpace), pos, count, mode, 0, nullptr);
-    }
+  }
     /** Returns a shader that generates a sweep gradient given a center.
         <p />
         @param  cx         The X coordinate of the center of the sweep
@@ -168,11 +168,11 @@ public:
   {
         return MakeSweep(cx, cy, colors, pos, count, SkTileMode::kClamp, 0, 360, flags,
                          localMatrix);
-    }
+  }
   static sk_sp<SkShader> MakeSweep(SkScalar cx, SkScalar cy, const SkColor colors[], const SkScalar pos[], int count)
   {
         return MakeSweep(cx, cy, colors, pos, count, 0, nullptr);
-    }
+  }
     /** Returns a shader that generates a sweep gradient given a center.
         <p />
         @param  cx         The X coordinate of the center of the sweep
@@ -194,11 +194,11 @@ public:
   {
         return MakeSweep(cx, cy, colors, std::move(colorSpace), pos, count,
                          SkTileMode::kClamp, 0, 360, flags, localMatrix);
-    }
+  }
   static sk_sp<SkShader> MakeSweep(SkScalar cx, SkScalar cy, const SkColor4f colors[], sk_sp<SkColorSpace> colorSpace, const SkScalar pos[], int count)
   {
         return MakeSweep(cx, cy, colors, std::move(colorSpace), pos, count, 0, nullptr);
-    }
+  }
   static void RegisterFlattenables();
 };
 #endif

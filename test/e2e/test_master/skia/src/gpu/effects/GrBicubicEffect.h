@@ -15,7 +15,7 @@ public:
   enum {
         kFilterTexelPad = 2, // Given a src rect in texels to be filtered, this number of
                              // surrounding texels are needed by the kernel in x and y.
-    };
+  };
   enum class Direction {
         /** Apply bicubic kernel in local coord x, nearest neighbor in y. */
         kX,
@@ -23,19 +23,27 @@ public:
         kY,
         /** Apply bicubic in both x and y. */
         kXY
-    };
+  };
   const char* name() const override
-  { return "Bicubic"; }
+  {
+ return "Bicubic";
+  }
   std::unique_ptr<GrFragmentProcessor> clone() const override
   {
         return std::unique_ptr<GrFragmentProcessor>(new GrBicubicEffect(*this));
-    }
+  }
   const GrTextureDomain& domain() const
-  { return fDomain; }
+  {
+ return fDomain;
+  }
   Direction direction() const
-  { return fDirection; }
+  {
+ return fDirection;
+  }
   SkAlphaType alphaType() const
-  { return fAlphaType; }
+  {
+ return fAlphaType;
+  }
     /**
      * Create a Mitchell filter effect with specified texture matrix with clamp wrap mode.
      */
@@ -45,7 +53,7 @@ public:
                 GrSamplerState::WrapMode::kClamp, GrSamplerState::WrapMode::kClamp};
         return Make(std::move(proxy), matrix, kClampClamp, GrTextureDomain::kIgnore_Mode,
                     GrTextureDomain::kIgnore_Mode, direction, alphaType);
-    }
+  }
     /**
      * Create a Mitchell filter effect with specified texture matrix and x/y tile modes.
      */
@@ -55,7 +63,7 @@ public:
         // sampler to constrain texture coordinates
         return Make(std::move(proxy), matrix, wrapModes, GrTextureDomain::kIgnore_Mode,
                     GrTextureDomain::kIgnore_Mode, direction, alphaType);
-    }
+  }
     /**
      * Create a Mitchell filter effect with specified texture matrix and x/y tile modes. This
      * supports providing modes for the texture domain explicitly, in the event that it should
@@ -68,7 +76,7 @@ public:
         return std::unique_ptr<GrFragmentProcessor>(
                 new GrBicubicEffect(std::move(proxy), matrix, resolvedDomain, wrapModes, modeX,
                                     modeY, direction, alphaType));
-    }
+  }
     /**
      * Create a Mitchell filter effect with a texture matrix and a domain.
      */
@@ -78,7 +86,7 @@ public:
                 GrSamplerState::WrapMode::kClamp, GrSamplerState::WrapMode::kClamp};
         return Make(std::move(proxy), matrix, kClampClamp, GrTextureDomain::kClamp_Mode,
                     GrTextureDomain::kClamp_Mode, direction, alphaType, &domain);
-    }
+  }
     /**
      * Determines whether the bicubic effect should be used based on the transformation from the
      * local coords to the device. Returns true if the bicubic effect should be used. filterMode
@@ -94,7 +102,9 @@ private:
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;
   const TextureSampler& onTextureSampler(int) const override
-  { return fTextureSampler; }
+  {
+ return fTextureSampler;
+  }
   GrCoordTransform fCoordTransform;
   GrTextureDomain fDomain;
   TextureSampler fTextureSampler;

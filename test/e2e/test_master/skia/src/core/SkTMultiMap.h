@@ -17,24 +17,27 @@ class SkTMultiMap
   struct ValueList
   {
     explicit ValueList(T* value)
-      :  fValue(value), fNext(nullptr) 
-      {
-      }
+      :  fValue(value), fNext(nullptr)
+    {
+    }
     static const Key& GetKey(const ValueList& e)
-    { return HashTraits::GetKey(*e.fValue); }
+    {
+ return HashTraits::GetKey(*e.fValue);
+    }
     static uint32_t Hash(const Key& key)
-    { return HashTraits::Hash(key); }
+    {
+ return HashTraits::Hash(key);
+    }
     T* fValue;
     ValueList* fNext;
   };
 public:
   SkTMultiMap()
-    :  fCount(0) 
-    {
-    }
+    :  fCount(0)
+  {
+  }
   ~SkTMultiMap()
   {
-
         typename SkTDynamicHash<ValueList, Key>::Iter iter(&fHash);
         for ( ; !iter.done(); ++iter) {
             ValueList* next;
@@ -44,7 +47,7 @@ public:
                 delete cur;
             }
         }
-      }
+  }
   void insert(const Key& key, T* value)
   {
         ValueList* list = fHash.find(key);
@@ -62,7 +65,7 @@ public:
         }
 
         ++fCount;
-    }
+  }
   void remove(const Key& key, const T* value)
   {
         ValueList* list = fHash.find(key);
@@ -90,7 +93,7 @@ public:
             this->internalRemove(prev, list, key);
         }
 #endif
-    }
+  }
   T* find(const Key& key) const
   {
         ValueList* list = fHash.find(key);
@@ -98,7 +101,7 @@ public:
             return list->fValue;
         }
         return nullptr;
-    }
+  }
   template <typename FindPredicate>
   T* find(const Key& key, const FindPredicate f)
   {
@@ -110,7 +113,7 @@ public:
             list = list->fNext;
         }
         return nullptr;
-    }
+  }
   template <typename FindPredicate>
   T* findAndRemove(const Key& key, const FindPredicate f)
   {
@@ -127,31 +130,32 @@ public:
             list = list->fNext;
         }
         return nullptr;
-    }
+  }
   int count() const
-  { return fCount; }
+  {
+ return fCount;
+  }
 #  ifdef SK_DEBUG
   class ConstIter
   {
   public:
     explicit ConstIter(const SkTMultiMap* mmap)
       :  fIter(&(mmap->fHash))
-            , fList(nullptr) 
-      {
-
+            , fList(nullptr)
+    {
             if (!fIter.done()) {
                 fList = &(*fIter);
             }
-              }
+    }
     bool done() const
     {
             return fIter.done();
-        }
+    }
     const T* operator*()
     {
             SkASSERT(fList);
             return fList->fValue;
-        }
+    }
     void operator++()
     {
             if (fList) {
@@ -163,7 +167,7 @@ public:
                     fList = &(*fIter);
                 }
             }
-        }
+    }
   private:
     typename SkTDynamicHash<ValueList, Key>::ConstIter fIter;
     const ValueList* fList;
@@ -176,7 +180,7 @@ public:
             }
         }
         return false;
-    }
+  }
     // This is not particularly fast and only used for validation, so debug only.
   int countForKey(const Key& key) const
   {
@@ -187,7 +191,7 @@ public:
             ++count;
         }
         return count;
-    }
+  }
 #  endif
 private:
   SkTDynamicHash<ValueList, Key> fHash;
@@ -208,6 +212,6 @@ private:
         }
 
         --fCount;
-    }
+  }
 };
 #endif

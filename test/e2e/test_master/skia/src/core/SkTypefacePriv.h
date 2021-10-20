@@ -25,13 +25,13 @@ class SkAutoResolveDefaultTypeface : public sk_sp<SkTypeface>
 {
 public:
   SkAutoResolveDefaultTypeface()
-    :  INHERITED(SkTypeface::MakeDefault()) 
-    {
-    }
+    :  INHERITED(SkTypeface::MakeDefault())
+  {
+  }
   SkAutoResolveDefaultTypeface(SkTypeface* face)
-    :  INHERITED(ref_or_default(face)) 
-    {
-    }
+    :  INHERITED(ref_or_default(face))
+  {
+  }
 private:
   typedef sk_sp<SkTypeface> INHERITED;
 };

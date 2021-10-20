@@ -21,13 +21,13 @@ public:
     // hidden
   wxInfoBarGeneric()
   {
- Init();   }
+ Init();
+  }
   wxInfoBarGeneric(wxWindow* parent, wxWindowID winid = wxID_ANY)
   {
-
         Init();
         Create(parent, winid);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID winid = wxID_ANY);
     // implement base class methods
     // ----------------------------
@@ -51,16 +51,20 @@ public:
   {
         m_showEffect = showEffect;
         m_hideEffect = hideEffect;
-    }
+  }
     // get effect used when showing/hiding the window
   wxShowEffect GetShowEffect() const;
   wxShowEffect GetHideEffect() const;
     // set the duration of animation used when showing/hiding the bar, in ms
   void SetEffectDuration(int duration)
-  { m_effectDuration = duration; }
+  {
+ m_effectDuration = duration;
+  }
     // get the currently used effect animation duration
   int GetEffectDuration() const
-  { return m_effectDuration; }
+  {
+ return m_effectDuration;
+  }
     // overridden base class methods
     // -----------------------------
 
@@ -73,7 +77,9 @@ protected:
     // info bar shouldn't have any border by default, the colour difference
     // between it and the main window separates it well enough
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
     // update the parent to take our new or changed size into account (notably
     // should be called when we're shown or hidden)
   void UpdateParent();
@@ -91,7 +97,7 @@ private:
         BarPlacement_Top,
         BarPlacement_Bottom,
         BarPlacement_Unknown
-    };
+  };
   BarPlacement GetBarPlacement() const;
     // different controls making up the bar
   wxStaticBitmap* m_icon;

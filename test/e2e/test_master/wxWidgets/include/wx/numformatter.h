@@ -19,7 +19,7 @@ public:
         Style_None              = 0x00,
         Style_WithThousandsSep  = 0x01,
         Style_NoTrailingZeroes  = 0x02      // Only for floating point numbers
-    };
+  };
     // Format a number as a string. By default, the thousands separator is
     // used, specify Style_None to prevent this. For floating point numbers,
     // precision can also be specified.

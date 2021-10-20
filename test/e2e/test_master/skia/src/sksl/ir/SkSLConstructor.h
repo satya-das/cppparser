@@ -26,9 +26,9 @@ namespace SkSL
   {
     Constructor(int offset, const Type& type, std::vector<std::unique_ptr<Expression>> arguments)
       :  INHERITED(offset, kConstructor_Kind, type)
-    , fArguments(std::move(arguments)) 
-      {
-      }
+    , fArguments(std::move(arguments))
+    {
+    }
     std::unique_ptr<Expression> constantPropagate(const IRGenerator& irGenerator, const DefinitionMap& definitions) override
     {
         if (fArguments.size() == 1 && fArguments[0]->fKind == Expression::kIntLiteral_Kind) {

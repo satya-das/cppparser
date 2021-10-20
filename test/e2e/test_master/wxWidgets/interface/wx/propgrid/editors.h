@@ -256,7 +256,8 @@ public:
     */
   virtual ~wxPGMultiButton()
   {
-   }
+
+  }
     /**
         Adds new button, with given label.
     */

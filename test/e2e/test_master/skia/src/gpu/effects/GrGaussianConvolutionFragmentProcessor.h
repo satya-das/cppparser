@@ -17,29 +17,47 @@
 class GrGaussianConvolutionFragmentProcessor : public GrFragmentProcessor
 {
 public:
-  enum class Direction { kX, kY };
+  enum class Direction {
+ kX, kY
+  };
     /// Convolve with a Gaussian kernel
   static std::unique_ptr<GrFragmentProcessor> Make(sk_sp<GrTextureProxy> proxy, Direction dir, int halfWidth, float gaussianSigma, GrTextureDomain::Mode mode, int* bounds)
   {
         return std::unique_ptr<GrFragmentProcessor>(new GrGaussianConvolutionFragmentProcessor(
                 std::move(proxy), dir, halfWidth, gaussianSigma, mode, bounds));
-    }
+  }
   const float* kernel() const
-  { return fKernel; }
+  {
+ return fKernel;
+  }
   const int* bounds() const
-  { return fBounds; }
+  {
+ return fBounds;
+  }
   bool useBounds() const
-  { return fMode != GrTextureDomain::kIgnore_Mode; }
+  {
+ return fMode != GrTextureDomain::kIgnore_Mode;
+  }
   int radius() const
-  { return fRadius; }
+  {
+ return fRadius;
+  }
   int width() const
-  { return 2 * fRadius + 1; }
+  {
+ return 2 * fRadius + 1;
+  }
   Direction direction() const
-  { return fDirection; }
+  {
+ return fDirection;
+  }
   GrTextureDomain::Mode mode() const
-  { return fMode; }
+  {
+ return fMode;
+  }
   const char* name() const override
-  { return "GaussianConvolution"; }
+  {
+ return "GaussianConvolution";
+  }
 #  ifdef SK_DEBUG
   SkString dumpInfo() const override
   {
@@ -49,13 +67,13 @@ public:
                     fRadius,
                     fBounds[0], fBounds[1]);
         return str;
-    }
+  }
 #  endif
   std::unique_ptr<GrFragmentProcessor> clone() const override
   {
         return std::unique_ptr<GrFragmentProcessor>(
                 new GrGaussianConvolutionFragmentProcessor(*this));
-    }
+  }
     // This was decided based on the min allowed value for the max texture
     // samples per fragment program run in DX9SM2 (32). A sigma param of 4.0
     // on a blur filter gives a kernel width of 25 while a sigma of 5.0
@@ -72,7 +90,9 @@ private:
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;
   const TextureSampler& onTextureSampler(int) const override
-  { return fTextureSampler; }
+  {
+ return fTextureSampler;
+  }
   GR_DECLARE_FRAGMENT_PROCESSOR_TEST
   GrCoordTransform fCoordTransform;
   TextureSampler fTextureSampler;

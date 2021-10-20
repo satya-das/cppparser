@@ -19,7 +19,7 @@ struct SkOpCurve
   {
         SkASSERT(n >= 0 && n <= SkPathOpsVerbToPoints(fVerb));
         return fPts[n];
-    }
+  }
   void dump() const;
   void set(const SkDQuad& quad)
   {
@@ -28,7 +28,7 @@ struct SkOpCurve
         }
         SkDEBUGCODE(fWeight = 1);
         SkDEBUGCODE(fVerb = SkPath::kQuad_Verb);
-    }
+  }
   void set(const SkDCubic& cubic)
   {
         for (int index = 0; index < SkDCubic::kPointCount; ++index) {
@@ -36,7 +36,7 @@ struct SkOpCurve
         }
         SkDEBUGCODE(fWeight = 1);
         SkDEBUGCODE(fVerb = SkPath::kCubic_Verb);
-    }
+  }
 };
 struct SkDCurve
 {
@@ -51,12 +51,12 @@ struct SkDCurve
   {
         SkASSERT(n >= 0 && n <= SkPathOpsVerbToPoints(fVerb));
         return fCubic[n];
-    }
+  }
   SkDPoint& operator[](int n)
   {
         SkASSERT(n >= 0 && n <= SkPathOpsVerbToPoints(fVerb));
         return fCubic[n];
-    }
+  }
   SkDPoint conicTop(const SkPoint curve[3], SkScalar curveWeight, double s, double e, double* topT);
   SkDPoint cubicTop(const SkPoint curve[4], SkScalar, double s, double e, double* topT);
   void dump() const;
@@ -73,9 +73,13 @@ class SkDCurveSweep
 {
 public:
   bool isCurve() const
-  { return fIsCurve; }
+  {
+ return fIsCurve;
+  }
   bool isOrdered() const
-  { return fOrdered; }
+  {
+ return fOrdered;
+  }
   void setCurveHullSweep(SkPath::Verb verb);
   SkDCurve fCurve;
   SkDVector fSweep[2];

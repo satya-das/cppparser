@@ -26,11 +26,19 @@ class SkColorSpace;
 class SK_API SkSurfaceCharacterization
 {
 public:
-  enum class Textureable : bool { kNo = false, kYes = true };
-  enum class MipMapped : bool { kNo = false, kYes = true };
-  enum class UsesGLFBO0 : bool { kNo = false, kYes = true };
+  enum class Textureable : bool {
+ kNo = false, kYes = true
+  };
+  enum class MipMapped : bool {
+ kNo = false, kYes = true
+  };
+  enum class UsesGLFBO0 : bool {
+ kNo = false, kYes = true
+  };
     // This flag indicates if the surface is wrapping a raw Vulkan secondary command buffer.
-  enum class VulkanSecondaryCBCompatible : bool { kNo = false, kYes = true };
+  enum class VulkanSecondaryCBCompatible : bool {
+ kNo = false, kYes = true
+  };
   SkSurfaceCharacterization()
     :  fCacheMaxResourceBytes(0)
             , fOrigin(kBottomLeft_GrSurfaceOrigin)
@@ -40,10 +48,10 @@ public:
             , fUsesGLFBO0(UsesGLFBO0::kNo)
             , fVulkanSecondaryCBCompatible(VulkanSecondaryCBCompatible::kNo)
             , fIsProtected(GrProtected::kNo)
-            , fSurfaceProps(0, kUnknown_SkPixelGeometry) 
-    {
+            , fSurfaceProps(0, kUnknown_SkPixelGeometry)
+  {
 
-        }
+  }
   SkSurfaceCharacterization(SkSurfaceCharacterization&&);
   SkSurfaceCharacterization& operator=(SkSurfaceCharacterization&&);
   SkSurfaceCharacterization(const SkSurfaceCharacterization&);
@@ -52,7 +60,7 @@ public:
   bool operator!=(const SkSurfaceCharacterization& other) const
   {
         return !(*this == other);
-    }
+  }
     /*
      * Return a new surface characterization with the only difference being a different width
      * and height
@@ -63,45 +71,81 @@ public:
      */
   SkSurfaceCharacterization createColorSpace(sk_sp<SkColorSpace>) const;
   GrContextThreadSafeProxy* contextInfo() const
-  { return fContextInfo.get(); }
+  {
+ return fContextInfo.get();
+  }
   sk_sp<GrContextThreadSafeProxy> refContextInfo() const
-  { return fContextInfo; }
+  {
+ return fContextInfo;
+  }
   size_t cacheMaxResourceBytes() const
-  { return fCacheMaxResourceBytes; }
+  {
+ return fCacheMaxResourceBytes;
+  }
   bool isValid() const
-  { return kUnknown_SkColorType != fImageInfo.colorType(); }
+  {
+ return kUnknown_SkColorType != fImageInfo.colorType();
+  }
   const SkImageInfo& imageInfo() const
-  { return fImageInfo; }
+  {
+ return fImageInfo;
+  }
   const GrBackendFormat& backendFormat() const
-  { return fBackendFormat; }
+  {
+ return fBackendFormat;
+  }
   GrSurfaceOrigin origin() const
-  { return fOrigin; }
+  {
+ return fOrigin;
+  }
   int width() const
-  { return fImageInfo.width(); }
+  {
+ return fImageInfo.width();
+  }
   int height() const
-  { return fImageInfo.height(); }
+  {
+ return fImageInfo.height();
+  }
   SkColorType colorType() const
-  { return fImageInfo.colorType(); }
+  {
+ return fImageInfo.colorType();
+  }
   int sampleCount() const
-  { return fSampleCnt; }
+  {
+ return fSampleCnt;
+  }
   bool isTextureable() const
-  { return Textureable::kYes == fIsTextureable; }
+  {
+ return Textureable::kYes == fIsTextureable;
+  }
   bool isMipMapped() const
-  { return MipMapped::kYes == fIsMipMapped; }
+  {
+ return MipMapped::kYes == fIsMipMapped;
+  }
   bool usesGLFBO0() const
-  { return UsesGLFBO0::kYes == fUsesGLFBO0; }
+  {
+ return UsesGLFBO0::kYes == fUsesGLFBO0;
+  }
   bool vulkanSecondaryCBCompatible() const
   {
         return VulkanSecondaryCBCompatible::kYes == fVulkanSecondaryCBCompatible;
-    }
+  }
   GrProtected isProtected() const
-  { return fIsProtected; }
+  {
+ return fIsProtected;
+  }
   SkColorSpace* colorSpace() const
-  { return fImageInfo.colorSpace(); }
+  {
+ return fImageInfo.colorSpace();
+  }
   sk_sp<SkColorSpace> refColorSpace() const
-  { return fImageInfo.refColorSpace(); }
+  {
+ return fImageInfo.refColorSpace();
+  }
   const SkSurfaceProps& surfaceProps() const
-  { return fSurfaceProps; }
+  {
+ return fSurfaceProps;
+  }
     // Is the provided backend texture compatible with this surface characterization?
   bool isCompatible(const GrBackendTexture&) const;
 private:
@@ -122,11 +166,10 @@ private:
             , fUsesGLFBO0(usesGLFBO0)
             , fVulkanSecondaryCBCompatible(vulkanSecondaryCBCompatible)
             , fIsProtected(isProtected)
-            , fSurfaceProps(surfaceProps) 
-    {
-
+            , fSurfaceProps(surfaceProps)
+  {
         SkDEBUGCODE(this->validate());
-        }
+  }
   void set(sk_sp<GrContextThreadSafeProxy> contextInfo, size_t cacheMaxResourceBytes, const SkImageInfo& ii, const GrBackendFormat& backendFormat, GrSurfaceOrigin origin, int sampleCnt, Textureable isTextureable, MipMapped isMipMapped, UsesGLFBO0 usesGLFBO0, VulkanSecondaryCBCompatible vulkanSecondaryCBCompatible, GrProtected isProtected, const SkSurfaceProps& surfaceProps)
   {
         SkASSERT(MipMapped::kNo == isMipMapped || Textureable::kYes == isTextureable);
@@ -152,7 +195,7 @@ private:
         fSurfaceProps = surfaceProps;
 
         SkDEBUGCODE(this->validate());
-    }
+  }
   sk_sp<GrContextThreadSafeProxy> fContextInfo;
   size_t fCacheMaxResourceBytes;
   SkImageInfo fImageInfo;
@@ -171,47 +214,74 @@ class SK_API SkSurfaceCharacterization
 {
 public:
   SkSurfaceCharacterization()
-    :  fSurfaceProps(0, kUnknown_SkPixelGeometry) 
-    {
-     }
+    :  fSurfaceProps(0, kUnknown_SkPixelGeometry)
+  {
+
+  }
   SkSurfaceCharacterization createResized(int width, int height) const
   {
         return *this;
-    }
+  }
   SkSurfaceCharacterization createColorSpace(sk_sp<SkColorSpace>) const
   {
         return *this;
-    }
+  }
   bool operator==(const SkSurfaceCharacterization& other) const
-  { return false; }
+  {
+ return false;
+  }
   bool operator!=(const SkSurfaceCharacterization& other) const
   {
         return !(*this == other);
-    }
+  }
   size_t cacheMaxResourceBytes() const
-  { return 0; }
+  {
+ return 0;
+  }
   bool isValid() const
-  { return false; }
+  {
+ return false;
+  }
   int width() const
-  { return 0; }
+  {
+ return 0;
+  }
   int height() const
-  { return 0; }
+  {
+ return 0;
+  }
   int stencilCount() const
-  { return 0; }
+  {
+ return 0;
+  }
   bool isTextureable() const
-  { return false; }
+  {
+ return false;
+  }
   bool isMipMapped() const
-  { return false; }
+  {
+ return false;
+  }
   bool usesGLFBO0() const
-  { return false; }
+  {
+ return false;
+  }
   bool vulkanSecondaryCBCompatible() const
-  { return false; }
+  {
+ return false;
+  }
   SkColorSpace* colorSpace() const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   sk_sp<SkColorSpace> refColorSpace() const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   const SkSurfaceProps& surfaceProps() const
-  { return fSurfaceProps; }
+  {
+ return fSurfaceProps;
+  }
 private:
   SkSurfaceProps fSurfaceProps;
 };

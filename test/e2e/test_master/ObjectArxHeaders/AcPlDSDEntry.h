@@ -31,14 +31,14 @@ public:
         kMultiPDF = 6,
         kSingleSVF = 7,
         kMultiSVF = 8,
-    };
+  };
   enum SetupType {
         kOriginalPS = 0,
         kNPSSameDWG = 1,
         kNPSOtherDWG = 2,
         k3dDwf = 3,
         kOverridePS = 4,
-    };
+  };
   ACPL_PORT AcPlDSDEntry();
   ACPL_PORT virtual ~AcPlDSDEntry();
   ACPL_PORT AcPlDSDEntry(const AcPlDSDEntry& src);

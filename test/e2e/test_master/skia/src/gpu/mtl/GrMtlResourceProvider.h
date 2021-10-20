@@ -45,7 +45,7 @@ private:
       uint32_t operator()(const GrProgramDesc& desc) const
       {
                 return SkOpts::hash_fn(desc.asKey(), desc.keyLength(), 0);
-            }
+      }
     };
     SkLRUCache<const GrMtlPipelineStateBuilder::Desc, std::unique_ptr<Entry>, DescHash> fMap;
     GrMtlGpu* fGpu;
@@ -61,14 +61,15 @@ private:
     BufferSuballocator(id<MTLDevice> device, size_t size);
     ~BufferSuballocator()
     {
-
             fBuffer = nil;
             fTotalSize = 0;
-            }
+    }
     id<MTLBuffer> getAllocation(size_t size, size_t* offset);
     void addCompletionHandler(GrMtlCommandBuffer* cmdBuffer);
     size_t size()
-    { return fTotalSize; }
+    {
+ return fTotalSize;
+    }
   private:
     id<MTLBuffer> fBuffer;
     size_t fTotalSize;

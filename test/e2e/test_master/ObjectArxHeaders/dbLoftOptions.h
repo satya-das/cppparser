@@ -38,7 +38,7 @@ public:
             kEndsNormal,
             kAllNormal,
             kUseDraftAngles
-    };
+  };
     // Get/set start draft angle.
   double draftStart() const;
   void setDraftStart(double ang);

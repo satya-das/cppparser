@@ -22,29 +22,38 @@ class WXDLLIMPEXP_ADV wxAnimationGTKImpl : public wxAnimationImpl
 {
 public:
   wxAnimationGTKImpl()
-    :  m_pixbuf(NULL) 
-    {
-    }
+    :  m_pixbuf(NULL)
+  {
+  }
   ~wxAnimationGTKImpl()
   {
- UnRef();   }
+ UnRef();
+  }
   bool IsOk() const override
-  { return m_pixbuf != NULL; }
+  {
+ return m_pixbuf != NULL;
+  }
   bool IsCompatibleWith(wxClassInfo* ci) const override;
     // unfortunately GdkPixbufAnimation does not expose these info:
   unsigned int GetFrameCount() const override
-  { return 0; }
+  {
+ return 0;
+  }
   wxImage GetFrame(unsigned int frame) const override;
     // we can retrieve the delay for a frame only after building
     // a GdkPixbufAnimationIter...
   int GetDelay(unsigned int) const override
-  { return 0; }
+  {
+ return 0;
+  }
   wxSize GetSize() const override;
   bool LoadFile(const wxString& name, wxAnimationType type = wxANIMATION_TYPE_ANY) override;
   bool Load(wxInputStream& stream, wxAnimationType type = wxANIMATION_TYPE_ANY) override;
     // Implementation
   GdkPixbufAnimation* GetPixbuf() const
-  { return m_pixbuf; }
+  {
+ return m_pixbuf;
+  }
   void SetPixbuf(GdkPixbufAnimation* p);
 protected:
   GdkPixbufAnimation* m_pixbuf;

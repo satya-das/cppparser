@@ -14,7 +14,9 @@ int32_t SkSqrtBits(int32_t value, int bitBias);
 /** Return the integer square root of n, treated as a SkFixed (16.16)
  */
 static int32_t SkSqrt32(int32_t n)
-{ return SkSqrtBits(n, 15); }
+{
+ return SkSqrtBits(n, 15);
+}
 /**
  *  Returns (value < 0 ? 0 : value) efficiently (i.e. no compares or branches)
  */
@@ -126,10 +128,14 @@ static float SkPinToUnitFloat(float x)
 #  if  defined(_MSC_VER)
 #    include <stdlib.h>
 static uint32_t SkBSwap32(uint32_t v)
-{ return _byteswap_ulong(v); }
+{
+ return _byteswap_ulong(v);
+}
 #  else 
 static uint32_t SkBSwap32(uint32_t v)
-{ return __builtin_bswap32(v); }
+{
+ return __builtin_bswap32(v);
+}
 #  endif
 //! Returns the number of leading zero bits (0...32)
 int SkCLZ_portable(uint32_t);
@@ -148,13 +154,13 @@ static int SkCLZ(uint32_t mask)
             } else {
                 return 32;
             }
-        }
+}
 #    elif  defined(SK_CPU_ARM32) || defined(__GNUC__) || defined(__clang__)
 static int SkCLZ(uint32_t mask)
 {
             // __builtin_clz(0) is undefined, so we have to detect that case.
             return mask ? __builtin_clz(mask) : 32;
-        }
+}
 #    else 
 #      define SkCLZ(x)	    SkCLZ_portable(x)
 #    endif

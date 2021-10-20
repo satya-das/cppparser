@@ -36,7 +36,7 @@ struct SkOTTableHorizontalHeader
 {
   enum Value : SK_OT_SHORT {
             CurrentFormat = SkTEndian_SwapBE16(0),
-        } value;
+} value;
 } metricDataFormat;
   SK_OT_USHORT numberOfHMetrics;
 };

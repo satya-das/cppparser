@@ -29,13 +29,15 @@ class wxTreeItemId : public wxItemId<void*>
 {
 public:
   wxTreeItemId()
-    :  wxItemId<void*>() 
-    {
-     }
+    :  wxItemId<void*>()
+  {
+
+  }
   wxTreeItemId(void* pItem)
-    :  wxItemId<void*>(pItem) 
-    {
-     }
+    :  wxItemId<void*>(pItem)
+  {
+
+  }
 };
 // ----------------------------------------------------------------------------
 // wxTreeItemData is some (arbitrary) user class associated with some item. The
@@ -60,14 +62,19 @@ public:
         // default ctor
   wxTreeItemData()
   {
-   }
+
+  }
         // default copy ctor/assignment operator are ok
 
     // accessor: get the item associated with us
   const wxTreeItemId& GetId() const
-  { return m_pItem; }
+  {
+ return m_pItem;
+  }
   void SetId(const wxTreeItemId& id)
-  { m_pItem = id; }
+  {
+ m_pItem = id;
+  }
 protected:
   wxTreeItemId m_pItem;
 };
@@ -80,13 +87,21 @@ class wxArrayTreeItemIds : public wxArrayTreeItemIdsBase
 {
 public:
   void Add(const wxTreeItemId& id)
-  { wxArrayTreeItemIdsBase::Add(id.m_pItem); }
+  {
+ wxArrayTreeItemIdsBase::Add(id.m_pItem);
+  }
   void Insert(const wxTreeItemId& id, size_t pos)
-  { wxArrayTreeItemIdsBase::Insert(id.m_pItem, pos); }
+  {
+ wxArrayTreeItemIdsBase::Insert(id.m_pItem, pos);
+  }
   wxTreeItemId Item(size_t i) const
-  { return wxTreeItemId(wxArrayTreeItemIdsBase::Item(i)); }
+  {
+ return wxTreeItemId(wxArrayTreeItemIdsBase::Item(i));
+  }
   wxTreeItemId operator[](size_t i) const
-  { return Item(i); }
+  {
+ return Item(i);
+  }
 };
 // ----------------------------------------------------------------------------
 // constants
@@ -174,48 +189,80 @@ public:
   wxTreeEvent(wxEventType commandType, wxTreeCtrlBase* tree, const wxTreeItemId& item = wxTreeItemId());
   wxTreeEvent(const wxTreeEvent& event);
   wxEvent* Clone() const override
-  { return new wxTreeEvent(*this); }
+  {
+ return new wxTreeEvent(*this);
+  }
     // accessors
         // get the item on which the operation was performed or the newly
         // selected item for wxEVT_TREE_SEL_CHANGED/ING events
   wxTreeItemId GetItem() const
-  { return m_item; }
+  {
+ return m_item;
+  }
   void SetItem(const wxTreeItemId& item)
-  { m_item = item; }
+  {
+ m_item = item;
+  }
         // for wxEVT_TREE_SEL_CHANGED/ING events, get the previously
         // selected item
   wxTreeItemId GetOldItem() const
-  { return m_itemOld; }
+  {
+ return m_itemOld;
+  }
   void SetOldItem(const wxTreeItemId& item)
-  { m_itemOld = item; }
+  {
+ m_itemOld = item;
+  }
         // the point where the mouse was when the drag operation started (for
         // wxEVT_TREE_BEGIN_(R)DRAG events only) or click position
   wxPoint GetPoint() const
-  { return m_pointDrag; }
+  {
+ return m_pointDrag;
+  }
   void SetPoint(const wxPoint& pt)
-  { m_pointDrag = pt; }
+  {
+ m_pointDrag = pt;
+  }
         // keyboard data (for wxEVT_TREE_KEY_DOWN only)
   const wxKeyEvent& GetKeyEvent() const
-  { return m_evtKey; }
+  {
+ return m_evtKey;
+  }
   int GetKeyCode() const
-  { return m_evtKey.GetKeyCode(); }
+  {
+ return m_evtKey.GetKeyCode();
+  }
   void SetKeyEvent(const wxKeyEvent& evt)
-  { m_evtKey = evt; }
+  {
+ m_evtKey = evt;
+  }
         // label (for EVT_TREE_{BEGIN|END}_LABEL_EDIT only)
   const wxString& GetLabel() const
-  { return m_label; }
+  {
+ return m_label;
+  }
   void SetLabel(const wxString& label)
-  { m_label = label; }
+  {
+ m_label = label;
+  }
         // edit cancel flag (for EVT_TREE_{BEGIN|END}_LABEL_EDIT only)
   bool IsEditCancelled() const
-  { return m_editCancelled; }
+  {
+ return m_editCancelled;
+  }
   void SetEditCanceled(bool editCancelled)
-  { m_editCancelled = editCancelled; }
+  {
+ m_editCancelled = editCancelled;
+  }
         // Set the tooltip for the item (for EVT_TREE_ITEM_GETTOOLTIP events)
   void SetToolTip(const wxString& toolTip)
-  { m_label = toolTip; }
+  {
+ m_label = toolTip;
+  }
   wxString GetToolTip() const
-  { return m_label; }
+  {
+ return m_label;
+  }
 private:
     // not all of the members are used (or initialized) for all events
   wxKeyEvent m_evtKey;

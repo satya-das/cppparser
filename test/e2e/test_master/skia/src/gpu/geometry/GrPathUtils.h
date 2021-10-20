@@ -36,7 +36,8 @@ namespace GrPathUtils
         // Initialize the matrix from the control pts
     QuadUVMatrix(const SkPoint controlPts[3])
     {
- this->set(controlPts);     }
+ this->set(controlPts);
+    }
     void set(const SkPoint controlPts[3]);
         /**
          * Applies the matrix to vertex positions to compute UV coords.
@@ -64,7 +65,7 @@ namespace GrPathUtils
                 xyPtr += stride;
                 uvPtr += stride;
             }
-        }
+    }
   private:
     float fM[6];
   };
@@ -96,7 +97,7 @@ namespace GrPathUtils
         kNonInvertible,
         kQuadraticTerm,
         kLinearTerm
-    };
+  };
     // Computes the inverse-transpose of the cubic's power basis matrix, after removing a specific
     // row of coefficients.
     //

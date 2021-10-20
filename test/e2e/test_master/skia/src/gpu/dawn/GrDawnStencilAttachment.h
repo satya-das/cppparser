@@ -15,7 +15,9 @@ public:
   static GrDawnStencilAttachment* Create(GrDawnGpu* gpu, int width, int height, int sampleCnt);
   virtual ~GrDawnStencilAttachment();
   dawn::TextureView view() const
-  { return fView; }
+  {
+ return fView;
+  }
 protected:
   void onRelease() override;
   void onAbandon() override;

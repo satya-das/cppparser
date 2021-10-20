@@ -22,7 +22,9 @@ public:
   static std::unique_ptr<SkCodec> MakeFromStream(std::unique_ptr<SkStream>, Result*, SkPngChunkReader* = nullptr);
     // FIXME (scroggo): Temporarily needed by AutoCleanPng.
   void setIdatLength(size_t len)
-  { fIdatLength = len; }
+  {
+ fIdatLength = len;
+  }
   virtual ~SkPngCodec();
 protected:
     // We hold the png_ptr and info_ptr as voidp to avoid having to include png.h
@@ -30,31 +32,41 @@ protected:
   struct voidp
   {
     voidp(void* ptr)
-      :  fPtr(ptr) 
-      {
-      }
+      :  fPtr(ptr)
+    {
+    }
     template <typename T>
     operator T*() const
     {
- return (T*)fPtr;     }
+ return (T*)fPtr;
+    }
     operator bool() const
     {
- return fPtr != nullptr;     }
+ return fPtr != nullptr;
+    }
     void* fPtr;
   };
   SkPngCodec(SkEncodedInfo&&, std::unique_ptr<SkStream>, SkPngChunkReader*, void* png_ptr, void* info_ptr, int bitDepth);
   Result onGetPixels(const SkImageInfo&, void*, size_t, const Options&, int*) override;
   SkEncodedImageFormat onGetEncodedFormat() const override
-  { return SkEncodedImageFormat::kPNG; }
+  {
+ return SkEncodedImageFormat::kPNG;
+  }
   bool onRewind() override;
   SkSampler* getSampler(bool createIfNecessary) override;
   void applyXformRow(void* dst, const void* src);
   voidp png_ptr()
-  { return fPng_ptr; }
+  {
+ return fPng_ptr;
+  }
   voidp info_ptr()
-  { return fInfo_ptr; }
+  {
+ return fInfo_ptr;
+  }
   SkSwizzler* swizzler()
-  { return fSwizzler.get(); }
+  {
+ return fSwizzler.get();
+  }
     // Initialize variables used by applyXformRow.
   void initializeXformParams();
     /**
@@ -85,7 +97,7 @@ private:
 
         // Requires a swizzle and a color xform.
         kSwizzleColor_XformMode,
-    };
+  };
   bool createColorTable(const SkImageInfo& dstInfo);
     // Helper to set up swizzler, color xforms, and color table. Also calls png_read_update_info.
   SkCodec::Result initializeXforms(const SkImageInfo& dstInfo, const Options&);

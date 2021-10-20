@@ -84,7 +84,7 @@ namespace PoDoFo
     ePdfAnnotation_WebMedia,       // PDF 1.7 IPDF ExtensionLevel 3
 
     ePdfAnnotation_Unknown = 0xff
-};
+  };
 /** Flags that control the appearance of a PdfAnnotation.
  *  You can OR them together and pass it to 
  *  PdfAnnotation::SetFlags.
@@ -102,7 +102,7 @@ namespace PoDoFo
     ePdfAnnotationFlags_LockedContents = 0x0200,
 
     ePdfAnnotationFlags_Unknow       = 0xffff
-};
+  };
 /**
  * Type of the annotation appearance.
  */
@@ -110,7 +110,7 @@ namespace PoDoFo
     ePdfAnnotationAppearance_Normal = 0, /**< Normal appearance */
     ePdfAnnotationAppearance_Rollover,   /**< Rollover appearance; the default is ePdfAnnotationAppearance_Normal */
     ePdfAnnotationAppearance_Down        /**< Down appearance; the default is ePdfAnnotationAppearance_Normal */
-};
+  };
 /** An annotation to a PdfPage 
  *  To create an annotation use PdfPage::CreateAnnotation
  * 
@@ -368,13 +368,13 @@ namespace PoDoFo
   inline EPdfAnnotation PdfAnnotation::GetType() const
   {
     return m_eAnnotation;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfPage* PdfAnnotation::GetPage() const
   {
     return m_pPage;
-}
+  }
 }
 #endif

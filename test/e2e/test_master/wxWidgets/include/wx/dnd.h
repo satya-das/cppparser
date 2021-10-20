@@ -50,17 +50,22 @@ public:
     :  m_cursorCopy(cursorCopy),
           m_cursorMove(cursorMove),
           m_cursorStop(cursorStop)
-        
-    {
- m_data = NULL;     }
+  {
+ m_data = NULL;
+  }
   virtual ~wxDropSourceBase()
   {
-   }
+
+  }
     // set the data which is transferred by drag and drop
   void SetData(wxDataObject& data)
-  { m_data = &data; }
+  {
+ m_data = &data;
+  }
   wxDataObject* GetDataObject()
-  { return m_data; }
+  {
+ return m_data;
+  }
     // set the icon corresponding to given drag result
   void SetCursor(wxDragResult res, const wxCursor& cursor)
   {
@@ -70,7 +75,7 @@ public:
             m_cursorMove = cursor;
         else
             m_cursorStop = cursor;
-    }
+  }
     // start drag action, see enum wxDragResult for return value description
     //
     // if flags contains wxDrag_AllowMove, moving (and only copying) data is
@@ -81,7 +86,9 @@ public:
     // "effect" and return true if you did something, false to let the library
     // give the default feedback
   virtual bool GiveFeedback(wxDragResult)
-  { return false; }
+  {
+ return false;
+  }
 protected:
   const wxCursor& GetCursor(wxDragResult res) const
   {
@@ -91,7 +98,7 @@ protected:
             return m_cursorMove;
         else
             return m_cursorStop;
-    }
+  }
     // the data we're dragging
   wxDataObject* m_data;
     // the cursors to use for feedback
@@ -116,17 +123,23 @@ public:
     // here, you can use SetDataObject() later.
   wxDropTargetBase(wxDataObject* dataObject = NULL)
   {
- m_dataObject = dataObject; m_defaultAction = wxDragNone;   }
+ m_dataObject = dataObject; m_defaultAction = wxDragNone;
+  }
     // dtor deletes our data object
   virtual ~wxDropTargetBase()
   {
- delete m_dataObject;   }
+ delete m_dataObject;
+  }
     // get/set the associated wxDataObject
   wxDataObject* GetDataObject() const
-  { return m_dataObject; }
+  {
+ return m_dataObject;
+  }
   void SetDataObject(wxDataObject* dataObject)
-  { delete m_dataObject;
-    m_dataObject = dataObject; }
+  {
+ delete m_dataObject;
+    m_dataObject = dataObject;
+  }
     // these functions are called when data is moved over position (x, y) and
     // may return either wxDragCopy, wxDragMove or wxDragNone depending on
     // what would happen if the data were dropped here.
@@ -138,15 +151,21 @@ public:
 
     // called when the mouse enters the window (only once until OnLeave())
   virtual wxDragResult OnEnter(wxCoord x, wxCoord y, wxDragResult def)
-  { return OnDragOver(x, y, def); }
+  {
+ return OnDragOver(x, y, def);
+  }
     // called when the mouse moves in the window - shouldn't take long to
     // execute or otherwise mouse movement would be too slow
   virtual wxDragResult OnDragOver(wxCoord, wxCoord, wxDragResult def)
-  { return def; }
+  {
+ return def;
+  }
     // called when mouse leaves the window: might be used to remove the
     // feedback which was given in OnEnter()
   virtual void OnLeave()
-  { }
+  {
+
+  }
     // this function is called when data is dropped at position (x, y) - if it
     // returns true, OnData() will be called immediately afterwards which will
     // allow to retrieve the data dropped.
@@ -165,11 +184,15 @@ public:
     // and use wxDragNone (default) to set default action specified by
     // initialization of dragging (see wxDropSourceBase::DoDragDrop())
   void SetDefaultAction(wxDragResult action)
-  { m_defaultAction = action; }
+  {
+ m_defaultAction = action;
+  }
     // returns default action for drag and drop or
     // wxDragNone if this not specified
   wxDragResult GetDefaultAction()
-  { return m_defaultAction; }
+  {
+ return m_defaultAction;
+  }
 protected:
   wxDataObject* m_dataObject;
   wxDragResult m_defaultAction;

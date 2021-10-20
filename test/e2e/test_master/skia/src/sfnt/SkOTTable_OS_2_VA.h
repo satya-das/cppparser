@@ -32,7 +32,7 @@ struct SkOTTableOS2_VA
             ExtraBold = SkTEndian_SwapBE16(8),
             UltraBold = SkTEndian_SwapBE16(9),
             SK_SEQ_END,
-        } value;
+} value;
 } usWeightClass;
   struct WidthClass
 {
@@ -47,7 +47,7 @@ struct SkOTTableOS2_VA
             ExtraExpanded = SkTEndian_SwapBE16(8),
             UltraExpanded = SkTEndian_SwapBE16(9),
             SK_SEQ_END,
-        } value;
+} value;
 } usWidthClass;
   union Type
 {

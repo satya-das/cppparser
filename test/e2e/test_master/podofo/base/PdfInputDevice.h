@@ -156,17 +156,17 @@ namespace PoDoFo
   bool PdfInputDevice::IsSeekable() const
   {
     return m_bIsSeekable;
-}
+  }
   void PdfInputDevice::SetSeekable(bool bIsSeekable)
   {
     m_bIsSeekable = bIsSeekable;
-}
+  }
   bool PdfInputDevice::Bad() const
   {
     if (m_pStream)
         return m_pStream->bad();
     return m_pFile != NULL;
-}
+  }
   bool PdfInputDevice::Eof() const
   {
     if (m_pStream)
@@ -174,11 +174,11 @@ namespace PoDoFo
     if (m_pFile)
         return feof(m_pFile) != 0;
     return true;
-}
+  }
   void PdfInputDevice::Clear(std::ios_base::iostate state) const
   {
     if (m_pStream)
         m_pStream->clear(state);
-}
+  }
 }
 #endif

@@ -19,26 +19,32 @@ public:
     :  m_name(name)
         , m_description(description)
         , m_copyright(copyright)
-    
-    {
-
+  {
         m_major = major;
         m_minor = minor;
         m_micro = micro;
-        }
+  }
     // Default copy ctor, assignment operator and dtor are ok.
   const wxString& GetName() const
-  { return m_name; }
+  {
+ return m_name;
+  }
   int GetMajor() const
-  { return m_major; }
+  {
+ return m_major;
+  }
   int GetMinor() const
-  { return m_minor; }
+  {
+ return m_minor;
+  }
   int GetMicro() const
-  { return m_micro; }
+  {
+ return m_micro;
+  }
   wxString ToString() const
   {
         return HasDescription() ? GetDescription() : GetVersionString();
-    }
+  }
   wxString GetVersionString() const
   {
         wxString str;
@@ -47,15 +53,23 @@ public:
             str << '.' << GetMicro();
 
         return str;
-    }
+  }
   bool HasDescription() const
-  { return !m_description.empty(); }
+  {
+ return !m_description.empty();
+  }
   const wxString& GetDescription() const
-  { return m_description; }
+  {
+ return m_description;
+  }
   bool HasCopyright() const
-  { return !m_copyright.empty(); }
+  {
+ return !m_copyright.empty();
+  }
   const wxString& GetCopyright() const
-  { return m_copyright; }
+  {
+ return m_copyright;
+  }
 private:
   wxString m_name, m_description, m_copyright;
   int m_major, m_minor, m_micro;

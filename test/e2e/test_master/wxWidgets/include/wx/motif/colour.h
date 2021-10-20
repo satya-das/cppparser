@@ -24,21 +24,37 @@ public:
   virtual ~wxColour();
     // accessors
   virtual bool IsOk() const
-  {return m_isInit; }
+  {
+return m_isInit;
+  }
   unsigned char Red() const
-  { return m_red; }
+  {
+ return m_red;
+  }
   unsigned char Green() const
-  { return m_green; }
+  {
+ return m_green;
+  }
   unsigned char Blue() const
-  { return m_blue; }
+  {
+ return m_blue;
+  }
   WXPixel GetPixel() const
-  { return m_pixel; }
+  {
+ return m_pixel;
+  }
   void SetPixel(WXPixel pixel)
-  { m_pixel = pixel; m_isInit = true; }
+  {
+ m_pixel = pixel; m_isInit = true;
+  }
   inline bool operator ==(const wxColour& colour) const
-  { return (m_red == colour.m_red && m_green == colour.m_green && m_blue == colour.m_blue); }
+  {
+ return (m_red == colour.m_red && m_green == colour.m_green && m_blue == colour.m_blue);
+  }
   inline bool operator !=(const wxColour& colour) const
-  { return (!(m_red == colour.m_red && m_green == colour.m_green && m_blue == colour.m_blue)); }
+  {
+ return (!(m_red == colour.m_red && m_green == colour.m_green && m_blue == colour.m_blue));
+  }
     // Allocate a colour, or nearest colour, using the given display.
     // If realloc is true, ignore the existing pixel, otherwise just return
     // the existing one.

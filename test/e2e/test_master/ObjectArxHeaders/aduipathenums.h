@@ -32,7 +32,7 @@ enum path_category {
     DRIVE_TYPE,         // ie. "c:\\" drive letter, colon, single backslash.
     UNC_TYPE,           // ie. \\jackl\public. A double backslash machine name backslash share name
     ROOT_TYPE,          // ie. a single backslash.
-    RELATIVE_TYPE       
+    RELATIVE_TYPE
 };
 // File system types.
 enum FS_TYPE {

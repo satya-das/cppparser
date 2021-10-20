@@ -28,14 +28,16 @@ class GrIORef : public SkNoncopyable
 {
 public:
   bool unique() const
-  { return fRefCnt == 1; }
+  {
+ return fRefCnt == 1;
+  }
   void ref() const
   {
         // Only the cache should be able to add the first ref to a resource.
         SkASSERT(this->getRefCnt() > 0);
         // No barrier required.
         (void)fRefCnt.fetch_add(+1, std::memory_order_relaxed);
-    }
+  }
   void unref() const
   {
         SkASSERT(this->getRefCnt() > 0);
@@ -53,29 +55,35 @@ public:
                 static_cast<const DERIVED*>(this)->notifyRefCntIsZero();
             }
         }
-    }
+  }
 #  if  GR_TEST_UTILS
   int32_t testingOnly_getRefCnt() const
-  { return this->getRefCnt(); }
+  {
+ return this->getRefCnt();
+  }
 #  endif
 protected:
   friend class GrResourceCache;
   GrIORef()
-    :  fRefCnt(1) 
-    {
-    }
+    :  fRefCnt(1)
+  {
+  }
   bool internalHasRef() const
-  { return SkToBool(this->getRefCnt()); }
+  {
+ return SkToBool(this->getRefCnt());
+  }
     // Privileged method that allows going from ref count = 0 to ref count = 1.
   void addInitialRef() const
   {
         SkASSERT(fRefCnt >= 0);
         // No barrier required.
         (void)fRefCnt.fetch_add(+1, std::memory_order_relaxed);
-    }
+  }
 private:
   int32_t getRefCnt() const
-  { return fRefCnt.load(std::memory_order_relaxed); }
+  {
+ return fRefCnt.load(std::memory_order_relaxed);
+  }
   mutable std::atomic<int32_t> fRefCnt;
   typedef SkNoncopyable INHERITED;
 };
@@ -96,7 +104,9 @@ public:
      *         false otherwise.
      */
   bool wasDestroyed() const
-  { return nullptr == fGpu; }
+  {
+ return nullptr == fGpu;
+  }
     /**
      * Retrieves the context that owns the object. Note that it is possible for
      * this to return NULL. When objects have been release()ed or abandon()ed
@@ -119,25 +129,35 @@ public:
             SkASSERT(kInvalidGpuMemorySize != fGpuMemorySize);
         }
         return fGpuMemorySize;
-    }
+  }
   class UniqueID
   {
   public:
     UniqueID();
     explicit UniqueID(uint32_t id)
-      :  fID(id) 
-      {
-      }
+      :  fID(id)
+    {
+    }
     uint32_t asUInt() const
-    { return fID; }
+    {
+ return fID;
+    }
     bool operator==(const UniqueID& other) const
-    { return fID == other.fID; }
+    {
+ return fID == other.fID;
+    }
     bool operator!=(const UniqueID& other) const
-    { return !(*this == other); }
+    {
+ return !(*this == other);
+    }
     void makeInvalid()
-    { fID = SK_InvalidUniqueID; }
+    {
+ fID = SK_InvalidUniqueID;
+    }
     bool isInvalid() const
-    { return  fID == SK_InvalidUniqueID; }
+    {
+ return  fID == SK_InvalidUniqueID;
+    }
   protected:
     uint32_t fID = SK_InvalidUniqueID;
   };
@@ -147,11 +167,15 @@ public:
      * 0.
      */
   UniqueID uniqueID() const
-  { return fUniqueID; }
+  {
+ return fUniqueID;
+  }
     /** Returns the current unique key for the resource. It will be invalid if the resource has no
         associated unique key. */
   const GrUniqueKey& getUniqueKey() const
-  { return fUniqueKey; }
+  {
+ return fUniqueKey;
+  }
     /**
      * Internal-only helper class used for manipulations of the resource by the cache.
      */
@@ -195,15 +219,21 @@ protected:
   GrGpuResource(GrGpu*);
   virtual ~GrGpuResource();
   GrGpu* getGpu() const
-  { return fGpu; }
+  {
+ return fGpu;
+  }
     /** Overridden to free GPU resources in the backend API. */
   virtual void onRelease()
-  { }
+  {
+
+  }
     /** Overridden to abandon any internal handles, ptrs, etc to backend API resources.
         This may be called when the underlying 3D context is no longer valid and so no
         backend API calls should be made. */
   virtual void onAbandon()
-  { }
+  {
+
+  }
     /**
      * Allows subclasses to add additional backing information to the SkTraceMemoryDump.
      **/
@@ -283,9 +313,9 @@ class GrGpuResource::ProxyAccess
 {
 private:
   ProxyAccess(GrGpuResource* resource)
-    :  fResource(resource) 
-    {
-    }
+    :  fResource(resource)
+  {
+  }
     /** Proxies are allowed to take a resource from no refs to one ref. */
   void ref(GrResourceCache* cache);
     // No taking addresses of this type.
@@ -296,5 +326,7 @@ private:
   friend class GrSurfaceProxy;
 };
 inline GrGpuResource::ProxyAccess GrGpuResource::proxyAccess()
-{ return ProxyAccess(this); }
+{
+ return ProxyAccess(this);
+}
 #endif

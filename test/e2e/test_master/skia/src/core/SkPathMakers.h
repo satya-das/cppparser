@@ -15,19 +15,20 @@ class SkPath_PointIterator
 public:
   SkPath_PointIterator(SkPath::Direction dir, unsigned startIndex)
     :  fCurrent(startIndex % N)
-    , fAdvance(dir == SkPath::kCW_Direction ? 1 : N - 1) 
-    {
-     }
+    , fAdvance(dir == SkPath::kCW_Direction ? 1 : N - 1)
+  {
+
+  }
   const SkPoint& current() const
   {
         SkASSERT(fCurrent < N);
         return fPts[fCurrent];
-    }
+  }
   const SkPoint& next()
   {
         fCurrent = (fCurrent + fAdvance) % N;
         return this->current();
-    }
+  }
 protected:
   SkPoint fPts[N];
 private:
@@ -38,24 +39,20 @@ class SkPath_RectPointIterator : public SkPath_PointIterator<4>
 {
 public:
   SkPath_RectPointIterator(const SkRect& rect, SkPath::Direction dir, unsigned startIndex)
-    :  SkPath_PointIterator(dir, startIndex) 
-    {
-
-
+    :  SkPath_PointIterator(dir, startIndex)
+  {
         fPts[0] = SkPoint::Make(rect.fLeft, rect.fTop);
         fPts[1] = SkPoint::Make(rect.fRight, rect.fTop);
         fPts[2] = SkPoint::Make(rect.fRight, rect.fBottom);
         fPts[3] = SkPoint::Make(rect.fLeft, rect.fBottom);
-        }
+  }
 };
 class SkPath_OvalPointIterator : public SkPath_PointIterator<4>
 {
 public:
   SkPath_OvalPointIterator(const SkRect& oval, SkPath::Direction dir, unsigned startIndex)
-    :  SkPath_PointIterator(dir, startIndex) 
-    {
-
-
+    :  SkPath_PointIterator(dir, startIndex)
+  {
         const SkScalar cx = oval.centerX();
         const SkScalar cy = oval.centerY();
 
@@ -63,16 +60,14 @@ public:
         fPts[1] = SkPoint::Make(oval.fRight, cy);
         fPts[2] = SkPoint::Make(cx, oval.fBottom);
         fPts[3] = SkPoint::Make(oval.fLeft, cy);
-        }
+  }
 };
 class SkPath_RRectPointIterator : public SkPath_PointIterator<8>
 {
 public:
   SkPath_RRectPointIterator(const SkRRect& rrect, SkPath::Direction dir, unsigned startIndex)
-    :  SkPath_PointIterator(dir, startIndex) 
-    {
-
-
+    :  SkPath_PointIterator(dir, startIndex)
+  {
         const SkRect& bounds = rrect.getBounds();
         const SkScalar L = bounds.fLeft;
         const SkScalar T = bounds.fTop;
@@ -87,6 +82,6 @@ public:
         fPts[5] = SkPoint::Make(L + rrect.radii(SkRRect::kLowerLeft_Corner).fX, B);
         fPts[6] = SkPoint::Make(L, B - rrect.radii(SkRRect::kLowerLeft_Corner).fY);
         fPts[7] = SkPoint::Make(L, T + rrect.radii(SkRRect::kUpperLeft_Corner).fY);
-        }
+  }
 };
 #endif

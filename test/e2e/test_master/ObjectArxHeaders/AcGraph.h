@@ -51,7 +51,7 @@ public:
         /// </summary>
         ///
         kModifyNextNewNodeIdPartialUndoCode,
-    };
+  };
   typedef NodeIdToPtrMap::iterator iterator;
   typedef NodeIdToPtrMap::const_iterator const_iterator;
     /// <summary> Default constructor. </summary>

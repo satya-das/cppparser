@@ -20,20 +20,22 @@ class WXDLLIMPEXP_CORE wxMDIParentFrame : public wxMDIParentFrameBase
 public:
   wxMDIParentFrame()
   {
- Init();   }
+ Init();
+  }
   wxMDIParentFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE | wxVSCROLL | wxHSCROLL, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-
         Init();
 
         Create(parent, id, title, pos, size, style, name);
-      }
+  }
   virtual ~wxMDIParentFrame();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE | wxVSCROLL | wxHSCROLL, const wxString& name = wxASCII_STR(wxFrameNameStr));
     // override/implement base class [pure] virtual methods
     // ----------------------------------------------------
   static bool IsTDI()
-  { return false; }
+  {
+ return false;
+  }
     // we don't store the active child in m_currentChild so override this
     // function to find it dynamically
   wxMDIChildFrame* GetActiveChild() const override;
@@ -63,7 +65,9 @@ public:
     // from wxGetTranslation("Window") if the locale has changed since the
     // "Window" menu was added.
   const wxString& MSWGetCurrentWindowMenuLabel() const
-  { return m_currentWindowMenuLabel; }
+  {
+ return m_currentWindowMenuLabel;
+  }
     // handlers
     // --------
 
@@ -127,14 +131,14 @@ class WXDLLIMPEXP_CORE wxMDIChildFrame : public wxMDIChildFrameBase
 public:
   wxMDIChildFrame()
   {
- Init();   }
+ Init();
+  }
   wxMDIChildFrame(wxMDIParentFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-
         Init();
 
         Create(parent, id, title, pos, size, style, name);
-      }
+  }
   bool Create(wxMDIParentFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
   virtual ~wxMDIChildFrame();
     // implement MDI operations
@@ -163,7 +167,9 @@ protected:
   void DoSetClientSize(int width, int height) override;
   void InternalSetMenuBar() override;
   bool IsMDIChild() const override
-  { return true; }
+  {
+ return true;
+  }
   void DetachMenuBar() override;
   WXHICON GetDefaultIcon() const override;
     // common part of all ctors
@@ -181,7 +187,8 @@ class WXDLLIMPEXP_CORE wxMDIClientWindow : public wxMDIClientWindowBase
 public:
   wxMDIClientWindow()
   {
- Init();   }
+ Init();
+  }
     // Note: this is virtual, to allow overridden behaviour.
   bool CreateClient(wxMDIParentFrame* parent, long style = wxVSCROLL | wxHSCROLL) override;
     // Explicitly call default scroll behaviour
@@ -189,7 +196,9 @@ public:
 protected:
   void DoSetSize(int x, int y, int width, int height, int sizeFlags = wxSIZE_AUTO) override;
   void Init()
-  { m_scrollX = m_scrollY = 0; }
+  {
+ m_scrollX = m_scrollY = 0;
+  }
   int m_scrollX, m_scrollY;
 private:
   wxDECLARE_EVENT_TABLE();

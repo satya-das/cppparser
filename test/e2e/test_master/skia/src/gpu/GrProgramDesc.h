@@ -46,25 +46,25 @@ public:
         desc->fKey.reset(SkToInt(keyLength));
         memcpy(desc->fKey.begin(), keyData, keyLength);
         return true;
-    }
+  }
     // Returns this as a uint32_t array to be used as a key in the program cache.
   const uint32_t* asKey() const
   {
         return reinterpret_cast<const uint32_t*>(fKey.begin());
-    }
+  }
     // Gets the number of bytes in asKey(). It will be a 4-byte aligned value.
   uint32_t keyLength() const
   {
         SkASSERT(0 == (fKey.count() % 4));
         return fKey.count();
-    }
+  }
   GrProgramDesc& operator=(const GrProgramDesc& other)
   {
         uint32_t keyLength = other.keyLength();
         fKey.reset(SkToInt(keyLength));
         memcpy(fKey.begin(), other.fKey.begin(), keyLength);
         return *this;
-    }
+  }
   bool operator==(const GrProgramDesc& that) const
   {
         if (this->keyLength() != that.keyLength()) {
@@ -81,26 +81,26 @@ public:
             }
         }
         return true;
-    }
+  }
   bool operator!=(const GrProgramDesc& other) const
   {
         return !(*this == other);
-    }
+  }
   void setSurfaceOriginKey(int key)
   {
         KeyHeader* header = this->atOffset<KeyHeader, kHeaderOffset>();
         header->fSurfaceOriginKey = key;
-    }
+  }
   struct KeyHeader
   {
     bool hasSurfaceOriginKey() const
     {
             return SkToBool(fSurfaceOriginKey);
-        }
+    }
     GrProcessor::CustomFeatures processorFeatures() const
     {
             return (GrProcessor::CustomFeatures)fProcessorFeatures;
-        }
+    }
         // Set to uniquely idenitify any swizzling of the shader's output color(s).
     uint16_t fOutputSwizzle;
     uint8_t fColorFragmentProcessorCnt;
@@ -115,18 +115,20 @@ public:
   GR_STATIC_ASSERT(sizeof(KeyHeader) == 6);
     // This should really only be used internally, base classes should return their own headers
   const KeyHeader& header() const
-  { return *this->atOffset<KeyHeader, kHeaderOffset>(); }
+  {
+ return *this->atOffset<KeyHeader, kHeaderOffset>();
+  }
 protected:
   template <typename T, size_t OFFSET>
   T* atOffset()
   {
         return reinterpret_cast<T*>(reinterpret_cast<intptr_t>(fKey.begin()) + OFFSET);
-    }
+  }
   template <typename T, size_t OFFSET>
   const T* atOffset() const
   {
         return reinterpret_cast<const T*>(reinterpret_cast<intptr_t>(fKey.begin()) + OFFSET);
-    }
+  }
     // The key, stored in fKey, is composed of two parts:
     // 1. Header struct defined above.
     // 2. A Backend specific payload which includes the per-processor keys.
@@ -137,17 +139,21 @@ protected:
         // This is the offset into the backenend specific part of the key, which includes
         // per-processor keys.
         kProcessorKeysOffset = kHeaderOffset + kHeaderSize,
-    };
+  };
   enum {
         kMaxPreallocProcessors = 8,
         kIntsPerProcessor      = 4,    // This is an overestimate of the average effect key size.
         kPreAllocSize = kHeaderOffset + kHeaderSize +
                         kMaxPreallocProcessors * sizeof(uint32_t) * kIntsPerProcessor,
-    };
+  };
   SkSTArray<kPreAllocSize, uint8_t, true>& key()
-  { return fKey; }
+  {
+ return fKey;
+  }
   const SkSTArray<kPreAllocSize, uint8_t, true>& key() const
-  { return fKey; }
+  {
+ return fKey;
+  }
 private:
   SkSTArray<kPreAllocSize, uint8_t, true> fKey;
 };

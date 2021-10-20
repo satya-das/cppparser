@@ -54,7 +54,7 @@ namespace GrPersistentCacheUtils
         writer.writeBool(meta->fHasSecondaryColorOutput);
     }
     return writer.snapshotAsData();
-}
+  }
   static void UnpackCachedShaders(SkReader32* reader, SkSL::String shaders[], SkSL::Program::Inputs inputs[], int numInputs, ShaderMetadata* meta = nullptr)
   {
     for (int i = 0; i < kGrShaderTypeCount; ++i) {
@@ -88,6 +88,6 @@ namespace GrPersistentCacheUtils
         meta->fHasCustomColorOutput    = reader->readBool();
         meta->fHasSecondaryColorOutput = reader->readBool();
     }
-}
+  }
 }
 #endif

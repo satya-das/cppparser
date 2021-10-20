@@ -52,7 +52,7 @@ public:
         kNoSupport_StencilSupport,
         kStencilOnly_StencilSupport,
         kNoRestriction_StencilSupport,
-    };
+  };
     /**
      * This function is to get the stencil support for a particular path. The path's fill must
      * not be an inverse type. The path will always be filled and not stroked.
@@ -65,7 +65,7 @@ public:
         kNo,
         kAsBackup, // i.e. This renderer is better than SW fallback if no others can draw the path.
         kYes
-    };
+  };
   struct CanDrawPathArgs
   {
     const GrCaps* fCaps;
@@ -85,7 +85,7 @@ public:
             SkASSERT(fClipConservativeBounds);
             SkASSERT(fViewMatrix);
             SkASSERT(fShape);
-        }
+    }
 #  endif
   };
     /**
@@ -97,7 +97,7 @@ public:
   {
         SkDEBUGCODE(args.validate();)
         return this->onCanDrawPath(args);
-    }
+  }
   struct DrawPathArgs
   {
     GrRecordingContext* fContext;
@@ -120,7 +120,7 @@ public:
             SkASSERT(fClipConservativeBounds);
             SkASSERT(fViewMatrix);
             SkASSERT(fShape);
-        }
+    }
 #  endif
   };
     /**
@@ -150,7 +150,7 @@ public:
         SkDEBUGCODE(args.validate();)
         SkASSERT(kNoSupport_StencilSupport != this->getStencilSupport(*args.fShape));
         this->onStencilPath(args);
-    }
+  }
     // Helper for determining if we can treat a thin stroke as a hairline w/ coverage.
     // If we can, we draw lots faster (raster device does this same test).
   static bool IsStrokeHairlineOrEquivalent(const GrStyle&, const SkMatrix&, SkScalar* outCoverage);
@@ -165,7 +165,7 @@ private:
   virtual StencilSupport onGetStencilSupport(const GrShape&) const
   {
         return kNoRestriction_StencilSupport;
-    }
+  }
     /**
      * Subclass implementation of drawPath()
      */

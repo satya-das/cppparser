@@ -66,6 +66,6 @@ namespace wxGTKImpl
     event.SetEventObject( win );
     event.SetId( win->GetId() );
     event.SetTimestamp( gdk_event->time );
-}
+  }
 }
 #endif

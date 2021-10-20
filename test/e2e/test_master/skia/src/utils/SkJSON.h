@@ -68,7 +68,9 @@ namespace skjson
      */
     template <typename T>
     bool is() const
-    { return this->getType() == T::kType; }
+    {
+ return this->getType() == T::kType;
+    }
     /**
      * Unguarded conversion to facade types.
      *
@@ -88,9 +90,8 @@ namespace skjson
     template <typename T>
     operator const T*() const
     {
-
         return this->is<T>() ? &this->as<T>() : nullptr;
-        }
+    }
     /**
      * @return    The string representation of this value.
      */
@@ -165,7 +166,9 @@ namespace skjson
     }
     template <typename T>
     T* cast()
-    { return const_cast<T*>(const_cast<const Value*>(this)->cast<T>()); }
+    {
+ return const_cast<T*>(const_cast<const Value*>(this)->cast<T>());
+    }
     // Access the pointer payload.
     template <typename T>
     const T* ptr() const
@@ -312,7 +315,9 @@ namespace skjson
   public:
     DOM(const char*, size_t);
     const Value& root() const
-    { return fRoot; }
+    {
+ return fRoot;
+    }
     void write(SkWStream*) const;
   private:
     SkArenaAlloc fAlloc;
@@ -333,6 +338,6 @@ namespace skjson
 
     SkASSERT(false); // unreachable
     return Type::kNull;
-}
+  }
 }
 #endif

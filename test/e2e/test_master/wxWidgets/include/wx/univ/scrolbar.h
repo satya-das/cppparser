@@ -44,7 +44,7 @@ public:
         Element_Bar_1,
         Element_Bar_2,
         Element_Max
-    };
+  };
   wxScrollBar();
   wxScrollBar(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSB_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxScrollBarNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSB_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxScrollBarNameStr));
@@ -66,7 +66,7 @@ public:
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
         return GetStdInputHandler(handlerDef);
-    }
+  }
     // scrollbars around a normal window should not receive the focus
   bool AcceptsFocus() const override;
     // wxScrollBar sub elements state (combination of wxCONTROL_XXX)
@@ -74,18 +74,26 @@ public:
   int GetState(Element which) const;
     // implement wxControlWithArrows methods
   wxRenderer* GetRenderer() const override
-  { return m_renderer; }
+  {
+ return m_renderer;
+  }
   wxWindow* GetWindow() override
-  { return this; }
+  {
+ return this;
+  }
   bool IsVertical() const override
-  { return wxScrollBarBase::IsVertical(); }
+  {
+ return wxScrollBarBase::IsVertical();
+  }
   int GetArrowState(wxScrollArrows::Arrow arrow) const override;
   void SetArrowFlag(wxScrollArrows::Arrow arrow, int flag, bool set) override;
   bool OnArrow(wxScrollArrows::Arrow arrow) override;
   wxScrollArrows::Arrow HitTestArrow(const wxPoint& pt) const override;
     // for wxControlRenderer::DrawScrollbar() only
   const wxScrollArrows& GetArrows() const
-  { return m_arrows; }
+  {
+ return m_arrows;
+  }
     // returns one of wxHT_SCROLLBAR_XXX constants
   wxHitTest HitTestBar(const wxPoint& pt) const;
     // idle processing
@@ -94,7 +102,9 @@ protected:
   wxSize DoGetBestClientSize() const override;
   void DoDraw(wxControlRenderer* renderer) override;
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
     // forces update of thumb's visual appearance (does nothing if m_dirty=false)
   void UpdateThumb();
     // SetThumbPosition() helper
@@ -160,16 +170,22 @@ protected:
     // return true if the mouse button can be used to activate scrollbar, false
     // if not (any button under GTK+ unlike left button only which is default)
   virtual bool IsAllowedButton(int button) const
-  { return button == wxMOUSE_BTN_LEFT; }
+  {
+ return button == wxMOUSE_BTN_LEFT;
+  }
     // set or clear the specified flag on the scrollbar element corresponding
     // to m_htLast
   void SetElementState(wxScrollBar* scrollbar, int flag, bool doIt);
     // [un]highlight the scrollbar element corresponding to m_htLast
   virtual void Highlight(wxScrollBar* scrollbar, bool doIt)
-  { SetElementState(scrollbar, wxCONTROL_CURRENT, doIt); }
+  {
+ SetElementState(scrollbar, wxCONTROL_CURRENT, doIt);
+  }
     // [un]press the scrollbar element corresponding to m_htLast
   virtual void Press(wxScrollBar* scrollbar, bool doIt)
-  { SetElementState(scrollbar, wxCONTROL_PRESSED, doIt); }
+  {
+ SetElementState(scrollbar, wxCONTROL_PRESSED, doIt);
+  }
     // stop scrolling because we reached the end point
   void StopScrolling(wxScrollBar* scrollbar);
     // get the mouse coordinates in the scrollbar direction from the event

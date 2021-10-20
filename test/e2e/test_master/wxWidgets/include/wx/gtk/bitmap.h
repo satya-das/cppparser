@@ -57,13 +57,16 @@ class WXDLLIMPEXP_CORE wxBitmap : public wxBitmapBase
 public:
   wxBitmap()
   {
-   }
+
+  }
   wxBitmap(int width, int height, int depth = wxBITMAP_SCREEN_DEPTH)
   {
- Create(width, height, depth);   }
+ Create(width, height, depth);
+  }
   wxBitmap(const wxSize& sz, int depth = wxBITMAP_SCREEN_DEPTH)
   {
- Create(sz, depth);   }
+ Create(sz, depth);
+  }
   wxBitmap(const char bits[], int width, int height, int depth = 1);
   wxBitmap(const char* const * bits);
   wxBitmap(const wxString& filename, wxBitmapType type = wxBITMAP_DEFAULT_TYPE);
@@ -75,9 +78,13 @@ public:
   virtual ~wxBitmap();
   bool Create(int width, int height, int depth = wxBITMAP_SCREEN_DEPTH) override;
   bool Create(const wxSize& sz, int depth = wxBITMAP_SCREEN_DEPTH) override
-  { return Create(sz.GetWidth(), sz.GetHeight(), depth); }
+  {
+ return Create(sz.GetWidth(), sz.GetHeight(), depth);
+  }
   bool Create(int width, int height, const wxDC&)
-  { return Create(width,height); }
+  {
+ return Create(width,height);
+  }
 #  ifdef __WXGTK3__
   bool CreateScaled(int w, int h, int depth, double scale) override;
   double GetScaleFactor() const override;
@@ -99,7 +106,9 @@ public:
   wxPalette* GetPalette() const override;
   void SetPalette(const wxPalette& palette) override;
   wxPalette* GetColourMap() const
-  { return GetPalette(); }
+  {
+ return GetPalette();
+  }
 #  endif
   static void InitStandardHandlers();
     // implementation
@@ -144,7 +153,7 @@ public:
   enum Representation {
         Pixmap,
         Pixbuf
-    };
+  };
     // removes other representations from memory, keeping only 'keep'
     // (wxBitmap may keep same bitmap e.g. as both pixmap and pixbuf):
   void PurgeOtherRepresentations(Representation keep);

@@ -49,8 +49,8 @@ struct AcGiSentScanLines
         eInvalidPixelRequest,          // IefAffine (matrix scaling) failed for some reason
         eInvalidDeliveryMethod,        // Frame buffer delivery + compression - not valid
         eNoValidCompressors,           // no compressors for image data
-        eInsufficientMemory            // low memory conditions.. very bad 
-    };
+        eInsufficientMemory            // low memory conditions.. very bad
+  };
   Adesk::Int8* mpPixelBuffer;
   Adesk::UInt32 mRowBytes;
   void* mpImageId;
@@ -65,17 +65,17 @@ struct AcGiRequestScanLines
         kIEAnyPalette,
         kCustomDithering,
         kCustomDitheringMethod
-    };
+  };
   enum IEColorSystem {
         kBitonal,
         kCMY,
         kCMYK,
         kRGB
-    };
+  };
   enum ImagePaletteType {
         kFromDevice,
         kFromIeWholeImage
-    };
+  };
   AcGiRequestScanLines()
     :  mImageOrg           (kAcGiBitonal)
         , mImageOrient        (kAcGiXLeftToRightTopFirst)
@@ -83,10 +83,9 @@ struct AcGiRequestScanLines
         , mScalingType        (kDefaultScale)
         , mScaleFilterType    (kDefaultScaleFilter)
         , mRotationFilterType (kDefaultRotationFilter)
-    
-    {
+  {
 
-        }
+  }
   Adesk::UInt32 mPixelMinX = 0;
   Adesk::UInt32 mPixelMinY = 0;
   Adesk::UInt32 mPixelMaxX = 0;
@@ -160,7 +159,7 @@ enum AcGiColorIntensity {
     kAcGiColorIntensity4   = 0x4,
     kAcGiColorIntensity5   = 0x5,
     kAcGiColorIntensity6   = 0x6,
-    kAcGiMaxColorIntensity = 0x7 
+    kAcGiMaxColorIntensity = 0x7
 };
 class AcGiColorRGB
 {
@@ -169,16 +168,16 @@ public:
     :  red   (0.0)
         , green (0.0)
         , blue  (0.0)
-    
-    {
-     }
+  {
+
+  }
   AcGiColorRGB(double r, double g, double b)
     :  red   (r)
         , green (g)
         , blue  (b)
-    
-    {
-     }
+  {
+
+  }
   double red;
   double green;
   double blue;
@@ -213,17 +212,17 @@ public:
         , green (0.0)
         , blue  (0.0)
         , alpha (1.0)
-    
-    {
-     }
+  {
+
+  }
   AcGiColorRGBA(double r, double g, double b, double a)
     :  red   (r)
         , green (g)
         , blue  (b)
         , alpha (a)
-    
-    {
-     }
+  {
+
+  }
   double red;
   double green;
   double blue;
@@ -259,25 +258,23 @@ class AcGiPixelBGRA32
 public:
   AcGiPixelBGRA32()
   {
-
         m_bgra.b = 0;
         m_bgra.g = 0;
         m_bgra.r = 0;
         m_bgra.a = 255;
-      }
+  }
   AcGiPixelBGRA32(Adesk::UInt32 bgra)
     :  m_whole (bgra)
-    
-    {
-     }
-  AcGiPixelBGRA32(Adesk::UInt8 blue, Adesk::UInt8 green, Adesk::UInt8 red, Adesk::UInt8 alpha)
   {
 
+  }
+  AcGiPixelBGRA32(Adesk::UInt8 blue, Adesk::UInt8 green, Adesk::UInt8 red, Adesk::UInt8 alpha)
+  {
         m_bgra.b = blue;
         m_bgra.g = green;
         m_bgra.r = red;
         m_bgra.a = alpha;
-      }
+  }
   Adesk::UInt32 getBGRA() const;
   Adesk::UInt32 getRGBA() const;
   Adesk::UInt8 blue() const;
@@ -382,16 +379,16 @@ public:
     :  m_nImageWidth  (0)
         , m_nImageHeight (0)
         , m_pImageData   (NULL)
-    
-    {
-     }
+  {
+
+  }
   AcGiImageBGRA32(Adesk::UInt32 imageWidth, Adesk::UInt32 imageHeight, AcGiPixelBGRA32* imageData)
     :  m_nImageWidth  (imageWidth)
         , m_nImageHeight (imageHeight)
         , m_pImageData   (imageData)
-    
-    {
-     }
+  {
+
+  }
   AcGiPixelBGRA32* image() const;
   Adesk::UInt32 width() const;
   Adesk::UInt32 height() const;
@@ -481,24 +478,30 @@ public:
         kColor,
         kString,
         kTable,
-    };
+  };
   class EnumType
   {
   public:
     explicit EnumType(int value)
-      :  m_value(value) 
-      {
-       }
+      :  m_value(value)
+    {
+
+    }
     template <typename T>
     operator T()
     {
- return static_cast<T>(m_value);     }
+ return static_cast<T>(m_value);
+    }
     template <typename T>
     bool operator==(T right) const
-    { return static_cast<int>(right) == m_value; }
+    {
+ return static_cast<int>(right) == m_value;
+    }
     template <typename T>
     bool operator!=(T right) const
-    { return !(*this == right); }
+    {
+ return !(*this == right);
+    }
   protected:
     int m_value;
   };
@@ -589,15 +592,15 @@ class AcGiKernelDescriptor : public AcArray<const AcUniqueString *>
 public:
     // Require support for a given capability.
   void addRequirement(const AcUniqueString* capability)
-  { 
+  {
         if (capability != nullptr)
-            append(capability); 
-    }
+            append(capability);
+  }
     // Query support for a given capability.
   bool supports(const AcUniqueString* capability) const
   {
         return capability ? contains(capability) : false;
-    }
+  }
   bool supports(const AcGiKernelDescriptor& desc) const
   {
         int len = desc.length();
@@ -607,16 +610,19 @@ public:
                 return false;
         }
         return true;
-    }
+  }
 };
 class AcGiGraphicsKernel
 {
 public:
   virtual ~AcGiGraphicsKernel()
   {
-   }
+
+  }
   virtual const AcGiKernelDescriptor& getDescriptor(void) const
-  { return m_descriptor; }
+  {
+ return m_descriptor;
+  }
 private:
   AcGiKernelDescriptor m_descriptor;
 };
@@ -633,7 +639,9 @@ public:
     // Which kernel is implementing this AcGi interface? The descriptor is very useful.
     // The default implementation is a kernel that supports nothing.
   virtual class AcGiGraphicsKernel& graphicsKernel()
-  { static AcGiGraphicsKernel kernel; return kernel; }
+  {
+ static AcGiGraphicsKernel kernel; return kernel;
+  }
     // If your object requires to be redrawn for translation
     // transforms (MOVE) you can force the system to rerequest 
     // graphics for all objects in the current drag, including
@@ -642,27 +650,45 @@ public:
     // MOVE drag
     // 
   virtual void disableFastMoveDrag() const
-  { }
+  {
+
+  }
     // Returns false if this is root level entity, e.g. a line in modelspace
     // and true if the object is contained within another object like a
     // block for example.
     //
   virtual bool isNesting() const
-  { return false; }
+  {
+ return false;
+  }
   virtual AcCmEntityColor effectiveColor() const
-  { return AcCmEntityColor(); }
+  {
+ return AcCmEntityColor();
+  }
   virtual AcDb::LineWeight byBlockLineWeight() const
-  { return AcDb::kLnWt000; }
+  {
+ return AcDb::kLnWt000;
+  }
   virtual AcDbObjectId byBlockPlotStyleNameId() const
-  { return AcDbObjectId::kNull; }
+  {
+ return AcDbObjectId::kNull;
+  }
   virtual AcDbObjectId byBlockMaterialId() const
-  { return AcDbObjectId::kNull; }
+  {
+ return AcDbObjectId::kNull;
+  }
   virtual bool supportsTrueTypeText()
-  { return false; }
+  {
+ return false;
+  }
   virtual bool supportsOwnerDraw()
-  { return false; }
+  {
+ return false;
+  }
   virtual bool supportsFillTrait() const
-  { return false; }
+  {
+ return false;
+  }
     /// <description>
     /// Indicate whether or not the backend driver supports fast AcGiRenderBuffer.
     /// </description>
@@ -673,22 +699,30 @@ public:
     /// </remarks>
     /// <returns>True if fast render buffers supported, false otherwise.</returns>
   virtual Adesk::Boolean supportsFastRenderBuffer() const
-  { return Adesk::kFalse; }
+  {
+ return Adesk::kFalse;
+  }
     /// <description>
     /// Indicate whether or not the backend driver supports native AcGiPointCloud.
     /// </description>
     /// <returns>True if native point clouds supported, false otherwise.</returns>
   virtual Adesk::Boolean supportsNativePointCloudRender() const
-  { return Adesk::kFalse; }
+  {
+ return Adesk::kFalse;
+  }
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     // These APIs is provided for internal use only, do not use them
     // in external applications
     //
   virtual AcGiContextImp* getImpPtr()
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   virtual const AcGiContextImp* getConstImpPtr() const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
     //
     // End of Internal use only API
     ///////////////////////////////////////////////////////////////////////////
@@ -703,22 +737,38 @@ protected:
     // in external applications
     //
   virtual AcGiWorldSegmentCallback wSegTaker() const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   virtual int getTrueTypeBoundingBox(const AcGePoint3d&, const wchar_t*, int, const TextParams*, AcGePoint3d*, float*)
-  { return 0; }
+  {
+ return 0;
+  }
   virtual int getTrueTypeTextExtents(const ACHAR*, Charset, double, int, int, int, short, short, double, double, AcGePoint2d&, AcGePoint2d&)
-  { return -1; }
+  {
+ return -1;
+  }
   virtual int setTrueTypeTransform(const AcGePoint3d&, const AcGeVector3d&, double, double, double, bool, bool)
-  { return 0; }
+  {
+ return 0;
+  }
   virtual int drawTrueTypeText(const ACHAR*, double, int, bool, const TextParams&, Charset)
-  { return 0; }
+  {
+ return 0;
+  }
   virtual int restoreTrueTypeTransform()
-  { return 0; }
+  {
+ return 0;
+  }
   virtual void bypassHiddenLineRemoval()
-  { }
+  {
+
+  }
   virtual int setTextStyle(int);
   virtual AcFontHandle* loadTrueTypeFont(const ACHAR*, bool, bool, Charset, int, FontInfo&)
-  { return nullptr; }
+  {
+ return nullptr;
+  }
     //
     // End of Internal use only API
     ///////////////////////////////////////////////////////////////////////////
@@ -739,7 +789,9 @@ public:
   virtual Adesk::UInt32 numberOfIsolines() const = 0;
   virtual AcGiContext* context() = 0;
   virtual bool secondaryCall() const
-  { return false; }
+  {
+ return false;
+  }
 };
 class AcGiWorldDraw : public AcGiCommonDraw
 {
@@ -805,13 +857,19 @@ public:
     // frozen. Indicating that geometry on this layer should be regenerated.
     //
   virtual Adesk::Boolean layerVisible(const AcDbObjectId&) const
-  { return Adesk::kTrue; }
+  {
+ return Adesk::kTrue;
+  }
   virtual AcGeVector3d viewDir() const
-  { return AcGeVector3d::kZAxis; }
+  {
+ return AcGeVector3d::kZAxis;
+  }
     // Provides access to color information that is context-sensitive.
     //
   virtual const AcGiContextualColors* contextualColors() const
-  { return NULL; }
+  {
+ return NULL;
+  }
 };
 class AcGiContextualColors : public AcRxObject
 {
@@ -939,17 +997,17 @@ public:
         /// If the flag is not set, newly set traits will be force set to "ByLayer".
         /// </summary>
         kDrawNoForceByLayer              = 2048
-    };
+  };
   enum ShadowFlags {
         kShadowsCastAndReceive  = 0x00,
         kShadowsDoesNotCast     = 0x01,
         kShadowsDoesNotReceive  = 0x02,
         kShadowsIgnore          = kShadowsDoesNotCast | kShadowsDoesNotReceive,
-    };
+  };
   enum SelectionFlags {
         kNoSelectionFlags   =   0x00,
         kSelectionIgnore    =   0x01
-    };
+  };
     // Set properties of drawn objects.
     //
   virtual void setColor(const Adesk::UInt16 color) = 0;
@@ -963,7 +1021,9 @@ public:
   virtual void setThickness(double dThickness) = 0;
   virtual void setVisualStyle(const AcDbObjectId visualStyleId);
   virtual void setPlotStyleName(AcDb::PlotStyleNameType, const AcDbObjectId& = AcDbObjectId::kNull)
-  { }
+  {
+
+  }
   virtual void setMaterial(const AcDbObjectId materialId);
   virtual void setMapper(const AcGiMapper* mapper);
   virtual void setSectionable(bool bSectionable);
@@ -984,7 +1044,9 @@ public:
   virtual double thickness(void) const = 0;
   virtual AcDbObjectId visualStyle(void) const;
   virtual AcDb::PlotStyleNameType getPlotStyleNameId(AcDbObjectId&) const
-  { return AcDb::kPlotStyleNameByLayer; }
+  {
+ return AcDb::kPlotStyleNameByLayer;
+  }
   virtual AcDbObjectId materialId(void) const;
   virtual const AcGiMapper* mapper(void) const;
   virtual bool sectionable(void) const;
@@ -994,14 +1056,21 @@ public:
   virtual AcCmTransparency transparency(void) const;
   virtual const AcGiFill* fill(void) const;
   virtual void pushMarkerOverride(bool, const Adesk::LongPtr)
-  { }
+  {
+
+  }
   virtual void popMarkerOverride(void)
-  { }
+  {
+
+  }
   virtual void clearMarkerOverride(void)
-  { }
+  {
+
+  }
 };
 inline void AcGiSubEntityTraits::setMaterial(const AcDbObjectId)
 {
+
 }
 inline AcDbObjectId AcGiSubEntityTraits::materialId(void) const
 {
@@ -1009,6 +1078,7 @@ inline AcDbObjectId AcGiSubEntityTraits::materialId(void) const
 }
 inline void AcGiSubEntityTraits::setMapper(const AcGiMapper*)
 {
+
 }
 inline const AcGiMapper* AcGiSubEntityTraits::mapper(void) const
 {
@@ -1016,6 +1086,7 @@ inline const AcGiMapper* AcGiSubEntityTraits::mapper(void) const
 }
 inline void AcGiSubEntityTraits::setVisualStyle(AcDbObjectId)
 {
+
 }
 inline AcDbObjectId AcGiSubEntityTraits::visualStyle(void) const
 {
@@ -1023,6 +1094,7 @@ inline AcDbObjectId AcGiSubEntityTraits::visualStyle(void) const
 }
 inline void AcGiSubEntityTraits::setSectionable(bool)
 {
+
 }
 inline bool AcGiSubEntityTraits::sectionable(void) const
 {
@@ -1046,6 +1118,7 @@ inline AcGiSubEntityTraits::ShadowFlags AcGiSubEntityTraits::shadowFlags(void) c
 }
 inline void AcGiSubEntityTraits::setSelectionGeom(bool)
 {
+
 }
 inline bool AcGiSubEntityTraits::selectionGeom(void) const
 {
@@ -1053,6 +1126,7 @@ inline bool AcGiSubEntityTraits::selectionGeom(void) const
 }
 inline void AcGiSubEntityTraits::setTransparency(const AcCmTransparency&)
 {
+
 }
 inline AcCmTransparency AcGiSubEntityTraits::transparency(void) const
 {
@@ -1060,6 +1134,7 @@ inline AcCmTransparency AcGiSubEntityTraits::transparency(void) const
 }
 inline void AcGiSubEntityTraits::setFill(const AcGiFill*)
 {
+
 }
 inline const AcGiFill* AcGiSubEntityTraits::fill(void) const
 {
@@ -1071,7 +1146,7 @@ public:
   ACRX_DECLARE_MEMBERS(AcGiDrawableTraits);
   enum HighlightProperty {
         kVertexRolloverHighlightSize,
-    };
+  };
     // Rather than using individual calls to the settings it is more efficient
     // to make this single call for an entity.
     //
@@ -1090,7 +1165,9 @@ public:
   virtual Acad::ErrorStatus setHighlightProperty(HighlightProperty property, AcGiVariant& value);
   virtual AcGiVariant highlightProperty(HighlightProperty property) const;
   virtual AcGiContext* context(void) const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
 protected:
   friend class AcDbImpLayerTableRecord;
   enum LayerFlags {
@@ -1099,17 +1176,21 @@ protected:
         kFrozen     = 0x02,
         kZero       = 0x04,
         kLocked     = 0x08
-    };
+  };
   virtual void setLayerFlags(Adesk::UInt8)
-  { }
+  {
+
+  }
 };
 // Default implementation does nothing with the illumination data.
 //
 inline void AcGiDrawableTraits::addLight(const AcDbObjectId&)
 {
+
 }
 inline void AcGiDrawableTraits::setLinePattern(const AcGiLineType)
 {
+
 }
 inline AcGiLineType AcGiDrawableTraits::linePattern(void) const
 {
@@ -1176,85 +1257,85 @@ inline void AcGiNonEntityTraits::setColor(const Adesk::UInt16)
     assert(false);
 }
 inline Adesk::UInt16 AcGiNonEntityTraits::color(void) const
-{ 
+{
     assert(false);
-    return 0; 
+    return 0;
 }
 inline void AcGiNonEntityTraits::setTrueColor(const AcCmEntityColor&)
-{ 
+{
     assert(false);
 }
 inline AcCmEntityColor AcGiNonEntityTraits::trueColor(void) const
-{ 
+{
     assert(false);
-    return AcCmEntityColor(); 
+    return AcCmEntityColor();
 }
 inline void AcGiNonEntityTraits::setLayer(const AcDbObjectId)
-{ 
+{
     assert(false);
 }
 inline AcDbObjectId AcGiNonEntityTraits::layerId(void) const
-{ 
+{
     assert(false);
-    return AcDbObjectId::kNull; 
+    return AcDbObjectId::kNull;
 }
 inline void AcGiNonEntityTraits::setLineType(const AcDbObjectId)
-{  
+{
     assert(false);
 }
 inline AcDbObjectId AcGiNonEntityTraits::lineTypeId(void) const
-{ 
+{
     assert(false);
-    return  AcDbObjectId::kNull; 
+    return  AcDbObjectId::kNull;
 }
 inline void AcGiNonEntityTraits::setMaterial(const AcDbObjectId)
-{  
+{
     assert(false);
 }
 inline AcDbObjectId AcGiNonEntityTraits::materialId(void) const
-{ 
+{
     assert(false);
-    return  AcDbObjectId::kNull; 
+    return  AcDbObjectId::kNull;
 }
 inline void AcGiNonEntityTraits::setSelectionMarker(const Adesk::LongPtr)
-{ 
+{
     assert(false);
 }
 inline void AcGiNonEntityTraits::setFillType(const AcGiFillType)
-{ 
+{
     assert(false);
 }
 inline AcGiFillType AcGiNonEntityTraits::fillType(void) const
-{ 
+{
     assert(false);
     return kAcGiFillAlways;
 }
 inline void AcGiNonEntityTraits::setLineWeight(const AcDb::LineWeight)
-{ 
+{
     assert(false);
 }
 inline AcDb::LineWeight AcGiNonEntityTraits::lineWeight(void) const
-{ 
+{
     assert(false);
-    return AcDb::kLnWt000; 
+    return AcDb::kLnWt000;
 }
 inline void AcGiNonEntityTraits::setThickness(double)
-{ 
+{
     assert(false);
 }
 inline double AcGiNonEntityTraits::thickness(void) const
-{ 
+{
     assert(false);
-    return 0.0; 
+    return 0.0;
 }
 inline void AcGiNonEntityTraits::setLineTypeScale(double)
-{  
+{
     assert(false);
 }
 inline double AcGiNonEntityTraits::lineTypeScale(void) const
-{ 
+{
     assert(false);
-    return 0.0; 
+    return 0.0;
 }
 inline void AcGiNonEntityTraits::setSelectionGeom(bool)
 {
@@ -1266,13 +1347,13 @@ inline bool AcGiNonEntityTraits::selectionGeom(void) const
     return false;
 }
 inline void AcGiNonEntityTraits::setTransparency(const AcCmTransparency&)
-{ 
+{
     assert(false);
 }
 inline AcCmTransparency AcGiNonEntityTraits::transparency(void) const
-{ 
+{
     assert(false);
-    return AcCmTransparency(); 
+    return AcCmTransparency();
 }
 #  ifndef _WINDEF_
 struct HDC__;
@@ -1295,7 +1376,9 @@ public:
   AcGiPolyline();
   AcGiPolyline(Adesk::UInt32 nbPoints, AcGePoint3d* pVertexList, AcGeVector3d* pNormal = NULL, Adesk::LongPtr lBaseSubEntMarker = -1);
   ~AcGiPolyline();
-  enum LinetypeGeneration { kPerSegment, kEndToEnd };
+  enum LinetypeGeneration {
+ kPerSegment, kEndToEnd
+  };
   virtual Adesk::UInt32 points() const;
   virtual const AcGePoint3d* vertexList() const;
   virtual const AcGeVector3d* normal() const;
@@ -1310,21 +1393,21 @@ public:
   virtual void setSubEntMarkerList(const Adesk::LongPtr* pSubEntMarkerList);
   virtual void setArcSegmentFlags(const bool* pArcSegmentFlags);
 };
-typedef enum { 
+typedef enum {
      kAcGiWorldPosition,
      kAcGiViewportPosition,
      kAcGiScreenPosition,
      kAcGiScreenLocalOriginPosition,
      kAcGiWorldWithScreenOffsetPosition
 } AcGiPositionTransformBehavior;
-typedef enum { 
+typedef enum {
      kAcGiWorldScale,
      kAcGiViewportScale,
      kAcGiScreenScale,
      kAcGiViewportLocalOriginScale,
      kAcGiScreenLocalOriginScale
 } AcGiScaleTransformBehavior;
-typedef enum { 
+typedef enum {
      kAcGiWorldOrientation,
      kAcGiScreenOrientation,
      kAcGiZAxisOrientation
@@ -1339,7 +1422,7 @@ public:
             // with 0 to 254 completely transparent and 255 completely opaque
         kTransparency8Bit, // pixel alpha determines transparency level,
         // from 0 (completely transparent) to 255 (completely opaque)
-    };
+  };
     // Coordinate transformations.
     //
   virtual void getModelToWorldTransform(AcGeMatrix3d&) const = 0;
@@ -1386,7 +1469,7 @@ public:
                                         polyPnts[0] = mat * pnts[0];
                                         polyPnts[1] = mat * pnts[1];
                                         return polyline(2, polyPnts);
-                                    }
+  }
     // array of points
   virtual Adesk::Boolean polypoint(const Adesk::UInt32 nbPoints, const AcGePoint3d* pVertexList, const AcGeVector3d* pNormal = NULL, const Adesk::LongPtr* pSubEntMarkers = NULL) const
   {
@@ -1399,9 +1482,11 @@ public:
                                                    return retval;
                                            }
                                            return retval;
-                                    }
+  }
   virtual Adesk::Boolean ownerDraw(AcGiGdiDrawObject*, const AcGePoint3d&, const AcGeVector3d&, const AcGeVector3d&) const
-  { return Adesk::kTrue; }
+  {
+ return Adesk::kTrue;
+  }
   virtual Adesk::Boolean edge(const AcArray<AcGeCurve2d*>& edges) const = 0;
 };
 class AcGiWorldGeometry : public AcGiGeometry
@@ -1431,11 +1516,13 @@ public:
         kFromDwg,
         kFromOleObject,
         kFromRender
-    };
+  };
   virtual Adesk::Boolean rasterImageDc(const AcGePoint3d& origin, const AcGeVector3d& u, const AcGeVector3d& v, const AcGeMatrix2d& pixelToDc, AcDbObjectId entityId, AcGiImageOrg imageOrg, Adesk::UInt32 imageWidth, Adesk::UInt32 imageHeight, Adesk::Int16 imageColorDepth, Adesk::Boolean transparency, ImageSource source, const AcGeVector3d& unrotatedU, const AcGiImageOrg origionalImageOrg, const AcGeMatrix2d& unrotatedPixelToDc, const Adesk::UInt32 unrotatedImageWidth, const Adesk::UInt32 unrotatedImageHeight) const = 0;
   virtual Adesk::Boolean ownerDrawDc(Adesk::Int32 vpnumber, Adesk::Int32 left, Adesk::Int32 top, Adesk::Int32 right, Adesk::Int32 bottom, const OwnerDraw* pOwnerDraw) const = 0;
   virtual Adesk::Boolean ownerDraw3d(AcGePoint3d&, AcGePoint3d&, OwnerDraw3d*) const
-  { return Adesk::kFalse; }
+  {
+ return Adesk::kFalse;
+  }
 };
 #  pragma  warning (pop)   // disabled 4100 - unreferenced formal parameter
 class ACDBCORE2D_PORT AcGiEdgeData : public AcGiParameter
@@ -1488,7 +1575,7 @@ public:
   enum MapChannel {
         kAllChannels,
         kMapChannels
-    };
+  };
   ACRX_DECLARE_MEMBERS_READWRITE(AcGiVertexData, AcGiImpVertexData);
   ~AcGiVertexData();
   AcGiVertexData();
@@ -1554,7 +1641,7 @@ inline Acad::ErrorStatus AcGiTextStyle::font(ACHAR*& pTypeface, bool& bold, bool
     AcString sTypeface;
     const Acad::ErrorStatus es = this->font(sTypeface, bold, italic, charset, pitch, family);
     ::acutNewString(sTypeface.constPtr(), pTypeface);
-    return es; 
+    return es;
 }
 class ACDBCORE2D_PORT AcGiFill : public AcRxObject
 {
@@ -1609,7 +1696,7 @@ public:
         kInvSpherical,
         kInvHemispherical,
         kInvCurved
-    };
+  };
   ACRX_DECLARE_MEMBERS(AcGiGradientFill);
   AcGiGradientFill(double gradientAngle, double gradientShift, bool bAdjustAspect, AcArray<AcCmColor>& gradientColors, AcGiGradientFill::GradientType type);
   AcGiGradientFill(const AcGiGradientFill&);

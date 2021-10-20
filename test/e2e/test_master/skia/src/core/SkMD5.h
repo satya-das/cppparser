@@ -17,16 +17,20 @@ public:
         Calling this after finish is undefined.  */
   bool write(const void* buffer, size_t size) final;
   size_t bytesWritten() const final
-  { return SkToSizeT(this->byteCount); }
+  {
+ return SkToSizeT(this->byteCount);
+  }
   struct Digest
   {
     uint8_t data[16];
     bool operator ==(const Digest& other) const
     {
             return 0 == memcmp(data, other.data, sizeof(data));
-        }
+    }
     bool operator !=(const Digest& other) const
-    { return !(*this == other); }
+    {
+ return !(*this == other);
+    }
   };
     /** Computes and returns the digest. */
   Digest finish();

@@ -34,9 +34,9 @@ namespace SkSL
     };
     Statement(int offset, Kind kind)
       :  INHERITED(offset)
-    , fKind(kind) 
-      {
-      }
+    , fKind(kind)
+    {
+    }
     virtual bool isEmpty() const
     {
         return false;

@@ -33,44 +33,42 @@ class sk_cf_obj
 public:
   using element_type = T;
   sk_cf_obj()
-    :  fObject(nullptr) 
-    {
-    }
+    :  fObject(nullptr)
+  {
+  }
     /**
      *  Shares the underlying object by calling CFRetain(), so that both the argument and the newly
      *  created sk_cf_obj both have a reference to it.
      */
   sk_cf_obj(const sk_cf_obj<T>& that)
-    :  fObject(SkCFSafeRetain(that.get())) 
-    {
-    }
+    :  fObject(SkCFSafeRetain(that.get()))
+  {
+  }
     /**
      *  Move the underlying object from the argument to the newly created sk_cf_obj. Afterwards only
      *  the new sk_cf_obj will have a reference to the object, and the argument will point to null.
      *  No call to CFRetain() or CFRelease() will be made.
      */
   sk_cf_obj(sk_cf_obj<T>&& that)
-    :  fObject(that.release()) 
-    {
-    }
+    :  fObject(that.release())
+  {
+  }
     /**
      *  Adopt the bare object into the newly created sk_cf_obj.
      *  No call to CFRetain() or CFRelease() will be made.
      */
   explicit sk_cf_obj(T obj)
   {
-
         fObject = obj;
-      }
+  }
     /**
      *  Calls CFRelease() on the underlying object pointer.
      */
   ~sk_cf_obj()
   {
-
         SkCFSafeRelease(fObject);
         SkDEBUGCODE(fObject = nullptr);
-      }
+  }
     /**
      *  Shares the underlying object referenced by the argument by calling CFRetain() on it. If this
      *  sk_cf_obj previously had a reference to an object (i.e. not null) it will call CFRelease()
@@ -82,7 +80,7 @@ public:
             this->reset(SkCFSafeRetain(that.get()));
         }
         return *this;
-    }
+  }
     /**
      *  Move the underlying object from the argument to the sk_cf_obj. If the sk_cf_obj
      * previously held a reference to another object, CFRelease() will be called on that object.
@@ -92,9 +90,11 @@ public:
   {
         this->reset(that.release());
         return *this;
-    }
+  }
   T get() const
-  { return fObject; }
+  {
+ return fObject;
+  }
     /**
      *  Adopt the new object, and call CFRelease() on any previously held object (if not null).
      *  No call to CFRetain() will be made.
@@ -104,7 +104,7 @@ public:
         T oldObject = fObject;
         fObject = object;
         SkCFSafeRelease(oldObject);
-    }
+  }
     /**
      *  Shares the new object by calling CFRetain() on it. If this sk_cf_obj previously had a
      *  reference to an object (i.e. not null) it will call CFRelease() on that object.
@@ -114,7 +114,7 @@ public:
         if (this->fObject != object) {
             this->reset(SkCFSafeRetain(object));
         }
-    }
+  }
     /**
      *  Return the original object, and set the internal object to nullptr.
      *  The caller must assume ownership of the object, and manage its reference count directly.
@@ -125,7 +125,7 @@ public:
         T obj = fObject;
         fObject = nullptr;
         return obj;
-    }
+  }
 private:
   T fObject;
 };

@@ -72,9 +72,9 @@ public:
   typedef T ValueType;
         // ctor doesn't do anything, the object is created on first access
   wxTlsValue()
-    :  m_key(free) 
-    {
-    }
+    :  m_key(free)
+  {
+  }
         // dtor is only called in the main thread context and so is not enough
         // to free memory allocated by us for the other threads, we use
         // destructor function when using Pthreads for this (which is not
@@ -82,10 +82,9 @@ public:
         // just to be safe we also reset the key anyhow)
   ~wxTlsValue()
   {
-
             if ( m_key.Get() )
                 m_key.Set(NULL); // this deletes the value
-          }
+  }
         // access the object creating it on demand
   ValueType* Get()
   {
@@ -111,12 +110,16 @@ public:
             }
 
             return static_cast<ValueType *>(value);
-        }
+  }
         // pointer-like accessors
   ValueType* operator->()
-  { return Get(); }
+  {
+ return Get();
+  }
   ValueType& operator*()
-  { return *Get(); }
+  {
+ return *Get();
+  }
 private:
   wxTlsKey m_key;
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxTlsValue, T);

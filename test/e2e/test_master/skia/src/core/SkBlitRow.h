@@ -14,7 +14,7 @@ public:
   enum Flags32 {
         kGlobalAlpha_Flag32     = 1 << 0,
         kSrcPixelAlpha_Flag32   = 1 << 1
-    };
+  };
     /** Function pointer that blends 32bit colors onto a 32bit destination.
         @param dst  array of dst 32bit colors
         @param src  array of src 32bit colors (w/ or w/o alpha)

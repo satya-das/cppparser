@@ -36,13 +36,13 @@ public:
         kInches,
         kMillimeters,
         kPixels
-    };
+  };
   enum PlotRotation {
         k0degrees,
         k90degrees,
         k180degrees,
         k270degrees
-    };
+  };
   enum PlotType {
         kDisplay,
         kExtents,
@@ -50,7 +50,7 @@ public:
         kView,
         kWindow,
         kLayout
-    };
+  };
   enum StdScaleType {
         kScaleToFit,                  // Scaled to Fit
         k1_128in_1ft,                 // 1/128"= 1'
@@ -87,7 +87,7 @@ public:
         k100_1,                       // 100:1
         k1000_1,                      // 1000:1
         k1and1_2in_1ft                // 1 1/2" = 1'
-    };
+  };
   enum ShadePlotType {
         kAsDisplayed    = 0,
         kWireframe      = 1,
@@ -95,7 +95,7 @@ public:
         kRendered       = 3,
         kVisualStyle    = 4,
         kRenderPreset   = 5
-    };
+  };
   enum ShadePlotResLevel {
         kDraft,
         kPreview,
@@ -103,7 +103,7 @@ public:
         kPresentation,
         kMaximum,
         kCustom
-    };
+  };
   Acad::ErrorStatus addToPlotSettingsDict(AcDbDatabase* towhichDb);
   Acad::ErrorStatus getPlotSettingsName(const ACHAR*& plotSettingsName) const;
   Acad::ErrorStatus getPlotSettingsName(ACHAR*& plotSettingsName) const;

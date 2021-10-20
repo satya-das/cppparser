@@ -26,7 +26,8 @@ public:
     // ctor starts the stop watch
   wxStopWatch()
   {
- m_pauseCount = 0; Start();   }
+ m_pauseCount = 0; Start();
+  }
     // Start the stop watch at the moment t0 expressed in milliseconds (i.e.
     // calling Time() immediately afterwards returns t0). This can be used to
     // restart an existing stopwatch.
@@ -36,7 +37,7 @@ public:
   {
         if ( m_pauseCount++ == 0 )
             m_elapsedBeforePause = GetCurrentClockValue() - m_t0;
-    }
+  }
     // resume it
   void Resume()
   {
@@ -48,12 +49,14 @@ public:
             DoStart();
             m_t0 -= m_elapsedBeforePause;
         }
-    }
+  }
     // Get elapsed time since the last Start() in microseconds.
   wxLongLong TimeInMicro() const;
     // get elapsed time since the last Start() in milliseconds
   long Time() const
-  { return (TimeInMicro()/1000).ToLong(); }
+  {
+ return (TimeInMicro()/1000).ToLong();
+  }
 private:
     // Really starts the stop watch. The initial time is set to current clock
     // value.

@@ -20,18 +20,20 @@ public:
   GrDawnTextureRenderTarget(GrDawnGpu* gpu, const SkISize& size, GrPixelConfig config, const dawn::TextureView textureView, int sampleCnt, const GrDawnImageInfo& info, GrMipMapsStatus mipMapsStatus);
   bool canAttemptStencilAttachment() const override;
   GrBackendFormat backendFormat() const override
-  { return GrDawnTexture::backendFormat(); }
+  {
+ return GrDawnTexture::backendFormat();
+  }
 protected:
   void onAbandon() override
   {
         GrDawnRenderTarget::onAbandon();
         GrDawnTexture::onAbandon();
-    }
+  }
   void onRelease() override
   {
         GrDawnRenderTarget::onRelease();
         GrDawnTexture::onRelease();
-    }
+  }
 private:
   size_t onGpuMemorySize() const override;
 };

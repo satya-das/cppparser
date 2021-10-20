@@ -121,73 +121,89 @@ public:
   SkString(SkString&&);
   ~SkString();
   bool isEmpty() const
-  { return 0 == fRec->fLength; }
+  {
+ return 0 == fRec->fLength;
+  }
   size_t size() const
-  { return (size_t) fRec->fLength; }
+  {
+ return (size_t) fRec->fLength;
+  }
   const char* c_str() const
-  { return fRec->data(); }
+  {
+ return fRec->data();
+  }
   char operator[](size_t n) const
-  { return this->c_str()[n]; }
+  {
+ return this->c_str()[n];
+  }
   bool equals(const SkString&) const;
   bool equals(const char text[]) const;
   bool equals(const char text[], size_t len) const;
   bool startsWith(const char prefixStr[]) const
   {
         return SkStrStartsWith(fRec->data(), prefixStr);
-    }
+  }
   bool startsWith(const char prefixChar) const
   {
         return SkStrStartsWith(fRec->data(), prefixChar);
-    }
+  }
   bool endsWith(const char suffixStr[]) const
   {
         return SkStrEndsWith(fRec->data(), suffixStr);
-    }
+  }
   bool endsWith(const char suffixChar) const
   {
         return SkStrEndsWith(fRec->data(), suffixChar);
-    }
+  }
   bool contains(const char substring[]) const
   {
         return SkStrContains(fRec->data(), substring);
-    }
+  }
   bool contains(const char subchar) const
   {
         return SkStrContains(fRec->data(), subchar);
-    }
+  }
   int find(const char substring[]) const
   {
         return SkStrFind(fRec->data(), substring);
-    }
+  }
   int findLastOf(const char subchar) const
   {
         return SkStrFindLastOf(fRec->data(), subchar);
-    }
+  }
   friend bool operator==(const SkString& a, const SkString& b)
   {
         return a.equals(b);
-    }
+  }
   friend bool operator!=(const SkString& a, const SkString& b)
   {
         return !a.equals(b);
-    }
+  }
     // these methods edit the string
   SkString& operator=(const SkString&);
   SkString& operator=(SkString&&);
   SkString& operator=(const char text[]);
   char* writable_str();
   char& operator[](size_t n)
-  { return this->writable_str()[n]; }
+  {
+ return this->writable_str()[n];
+  }
   void reset();
     /** Destructive resize, does not preserve contents. */
   void resize(size_t len)
-  { this->set(nullptr, len); }
+  {
+ this->set(nullptr, len);
+  }
   void set(const SkString& src)
-  { *this = src; }
+  {
+ *this = src;
+  }
   void set(const char text[]);
   void set(const char text[], size_t len);
   void insert(size_t offset, const SkString& src)
-  { this->insert(offset, src.c_str(), src.size()); }
+  {
+ this->insert(offset, src.c_str(), src.size());
+  }
   void insert(size_t offset, const char text[]);
   void insert(size_t offset, const char text[], size_t len);
   void insertUnichar(size_t offset, SkUnichar);
@@ -198,41 +214,77 @@ public:
   void insertHex(size_t offset, uint32_t value, int minDigits = 0);
   void insertScalar(size_t offset, SkScalar);
   void append(const SkString& str)
-  { this->insert((size_t)-1, str); }
+  {
+ this->insert((size_t)-1, str);
+  }
   void append(const char text[])
-  { this->insert((size_t)-1, text); }
+  {
+ this->insert((size_t)-1, text);
+  }
   void append(const char text[], size_t len)
-  { this->insert((size_t)-1, text, len); }
+  {
+ this->insert((size_t)-1, text, len);
+  }
   void appendUnichar(SkUnichar uni)
-  { this->insertUnichar((size_t)-1, uni); }
+  {
+ this->insertUnichar((size_t)-1, uni);
+  }
   void appendS32(int32_t value)
-  { this->insertS32((size_t)-1, value); }
+  {
+ this->insertS32((size_t)-1, value);
+  }
   void appendS64(int64_t value, int minDigits = 0)
-  { this->insertS64((size_t)-1, value, minDigits); }
+  {
+ this->insertS64((size_t)-1, value, minDigits);
+  }
   void appendU32(uint32_t value)
-  { this->insertU32((size_t)-1, value); }
+  {
+ this->insertU32((size_t)-1, value);
+  }
   void appendU64(uint64_t value, int minDigits = 0)
-  { this->insertU64((size_t)-1, value, minDigits); }
+  {
+ this->insertU64((size_t)-1, value, minDigits);
+  }
   void appendHex(uint32_t value, int minDigits = 0)
-  { this->insertHex((size_t)-1, value, minDigits); }
+  {
+ this->insertHex((size_t)-1, value, minDigits);
+  }
   void appendScalar(SkScalar value)
-  { this->insertScalar((size_t)-1, value); }
+  {
+ this->insertScalar((size_t)-1, value);
+  }
   void prepend(const SkString& str)
-  { this->insert(0, str); }
+  {
+ this->insert(0, str);
+  }
   void prepend(const char text[])
-  { this->insert(0, text); }
+  {
+ this->insert(0, text);
+  }
   void prepend(const char text[], size_t len)
-  { this->insert(0, text, len); }
+  {
+ this->insert(0, text, len);
+  }
   void prependUnichar(SkUnichar uni)
-  { this->insertUnichar(0, uni); }
+  {
+ this->insertUnichar(0, uni);
+  }
   void prependS32(int32_t value)
-  { this->insertS32(0, value); }
+  {
+ this->insertS32(0, value);
+  }
   void prependS64(int32_t value, int minDigits = 0)
-  { this->insertS64(0, value, minDigits); }
+  {
+ this->insertS64(0, value, minDigits);
+  }
   void prependHex(uint32_t value, int minDigits = 0)
-  { this->insertHex(0, value, minDigits); }
+  {
+ this->insertHex(0, value, minDigits);
+  }
   void prependScalar(SkScalar value)
-  { this->insertScalar((size_t)-1, value); }
+  {
+ this->insertScalar((size_t)-1, value);
+  }
   void printf(const char format[], ...);
   void appendf(const char format[], ...);
   void appendVAList(const char format[], va_list);
@@ -240,11 +292,17 @@ public:
   void prependVAList(const char format[], va_list);
   void remove(size_t offset, size_t length);
   SkString& operator+=(const SkString& s)
-  { this->append(s); return *this; }
+  {
+ this->append(s); return *this;
+  }
   SkString& operator+=(const char text[])
-  { this->append(text); return *this; }
+  {
+ this->append(text); return *this;
+  }
   SkString& operator+=(const char c)
-  { this->append(&c, 1); return *this; }
+  {
+ this->append(&c, 1); return *this;
+  }
     /**
      *  Swap contents between this and other. This function is guaranteed
      *  to never fail or throw.
@@ -256,31 +314,39 @@ private:
   public:
     Rec(uint32_t len, int32_t refCnt)
       :  fLength(len), fRefCnt(refCnt), fBeginningOfData(0)
-        
-      {
-       }
+    {
+
+    }
     static sk_sp<Rec> Make(const char text[], size_t len);
     uint32_t fLength;
     mutable std::atomic<int32_t> fRefCnt;
     char fBeginningOfData;
     char* data()
-    { return &fBeginningOfData; }
+    {
+ return &fBeginningOfData;
+    }
     const char* data() const
-    { return &fBeginningOfData; }
+    {
+ return &fBeginningOfData;
+    }
     void ref() const;
     void unref() const;
     bool unique() const;
   private:
         // Ensure the unsized delete is called.
     void operator delete(void* p)
-    { ::operator delete(p); }
+    {
+ ::operator delete(p);
+    }
   };
   sk_sp<Rec> fRec;
 #  ifdef SK_DEBUG
   const SkString& validate() const;
 #  else 
   const SkString& validate() const
-  { return *this; }
+  {
+ return *this;
+  }
 #  endif
   static const Rec gEmptyRec;
 };
@@ -289,7 +355,9 @@ SkString SkStringPrintf(const char* format, ...);
 /// This makes it easier to write a caller as a VAR_ARGS function where the format string is
 /// optional.
 static SkString SkStringPrintf()
-{ return SkString(); }
+{
+ return SkString();
+}
 static void swap(SkString& a, SkString& b)
 {
     a.swap(b);

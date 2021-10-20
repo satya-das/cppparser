@@ -72,9 +72,9 @@ namespace SkSL
       :  INHERITED(program, errors, out)
     , fLineEnding("\n")
     , fContext(*context)
-    , fProgramKind(program->fKind) 
-      {
-      }
+    , fProgramKind(program->fKind)
+    {
+    }
     bool generateCode() override;
   protected:
     enum class SwizzleOrder {

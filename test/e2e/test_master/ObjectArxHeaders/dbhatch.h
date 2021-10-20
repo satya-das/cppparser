@@ -46,7 +46,7 @@ public:
   enum HatchObjectType {
         kHatchObject      = 0,
         kGradientObject   = 1
-    };
+  };
   enum HatchLoopType {
         kDefault             = 0,
         kExternal            = 1,
@@ -63,27 +63,27 @@ public:
         kForceAnnoAllVisible = 0x800,
         kOrientToPaper       = 0x1000,
         kIsAnnotativeBlock   = 0x2000
-    };
+  };
   enum HatchEdgeType {
         kLine             = 1,
         kCirArc           = 2,
         kEllArc           = 3,
-        kSpline           = 4 
-    };
+        kSpline           = 4
+  };
   enum HatchPatternType {
         kUserDefined      = 0,
         kPreDefined       = 1,
-        kCustomDefined    = 2 
-    };
+        kCustomDefined    = 2
+  };
   enum HatchStyle {
         kNormal           = 0,
         kOuter            = 1,
-        kIgnore           = 2 
-    };
+        kIgnore           = 2
+  };
   enum GradientPatternType {
         kPreDefinedGradient     = 0,
         kUserDefinedGradient    = 1
-    };
+  };
     // Constructors and Destructors
     //
   AcDbHatch();
@@ -96,7 +96,9 @@ public:
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d& normal);
   Adesk::Boolean isPlanar() const override
-  { return true; }
+  {
+ return true;
+  }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
     // Hatch Background Color
     //

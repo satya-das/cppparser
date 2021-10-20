@@ -119,7 +119,9 @@ public:
   void reset(GrVkCommandPool* pool);
 #  if  GR_TEST_UTILS
   void resetShaderCacheForTesting() const
-  { fPipelineStateCache->release(); }
+  {
+ fPipelineStateCache->release();
+  }
 #  endif
 #  ifdef SK_DEBUG
 #    define GR_PIPELINE_STATE_CACHE_STATS
@@ -140,7 +142,7 @@ private:
       uint32_t operator()(const GrProgramDesc& desc) const
       {
                 return SkOpts::hash_fn(desc.asKey(), desc.keyLength(), 0);
-            }
+      }
     };
     SkLRUCache<const GrVkPipelineStateBuilder::Desc, std::unique_ptr<Entry>, DescHash> fMap;
     GrVkGpu* fGpu;
@@ -163,7 +165,7 @@ private:
             // render pass on create
             SkASSERT(fRenderPasses[0]);
             return fRenderPasses[0];
-        }
+    }
     GrVkRenderPass* getRenderPass(const GrVkGpu* gpu, const GrVkRenderPass::LoadStoreOps& colorOps, const GrVkRenderPass::LoadStoreOps& stencilOps);
     void releaseResources(GrVkGpu* gpu);
     void abandonResources();

@@ -34,7 +34,9 @@ public:
      *  Return the number of (non-null) ptrs in the set.
      */
   int count() const
-  { return fList.count(); }
+  {
+ return fList.count();
+  }
     /**
      *  Copy the ptrs in the set into the specified array (allocated by the
      *  caller). The ptrs are assgined to the array based on their corresponding
@@ -56,16 +58,16 @@ public:
   public:
     Iter(const SkPtrSet& set)
       :  fSet(set)
-            , fIndex(0) 
-      {
-      }
+            , fIndex(0)
+    {
+    }
         /**
          * Return the next ptr in the set or null if the end was reached.
          */
     void* next()
     {
             return fIndex < fSet.fList.count() ? fSet.fList[fIndex++].fPtr : nullptr;
-        }
+    }
   private:
     const SkPtrSet& fSet;
     int fIndex;
@@ -102,15 +104,15 @@ public:
   uint32_t find(T ptr)
   {
         return this->INHERITED::find((void*)ptr);
-    }
+  }
   uint32_t add(T ptr)
   {
         return this->INHERITED::add((void*)ptr);
-    }
+  }
   void copyToArray(T* array) const
   {
         this->INHERITED::copyToArray((void**)array);
-    }
+  }
 private:
   typedef SkPtrSet INHERITED;
 };

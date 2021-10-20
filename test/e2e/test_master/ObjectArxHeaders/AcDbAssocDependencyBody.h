@@ -87,7 +87,9 @@ public:
     /// </summary>
     ///
   AcDbObjectId parentDependency() const
-  { return ownerId(); }
+  {
+ return ownerId();
+  }
     // The following non-virtual methods are just shortcuts that just forward 
     // to the parent AcDbAssocDependency class, to save some typing for the
     // implementers of the derived custom dependency body classes
@@ -122,7 +124,9 @@ public:
     /// </summary>
     ///
   bool isAttachedToObject() const
-  { return !dependentOnObject().isNull(); }
+  {
+ return !dependentOnObject().isNull();
+  }
     /// <summary>
     /// Just a shortcut, calls the method on the parent AcDbAssocDependency that
     /// owns this dependency body object.
@@ -150,7 +154,9 @@ public:
     /// </summary>
     ///
   virtual Acad::ErrorStatus updateDependentOnObjectOverride()
-  { return Acad::eNotImplemented; }
+  {
+ return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocDependency 
     /// class that owns this dependency body object. It does not need to be 
@@ -158,10 +164,10 @@ public:
     /// </summary>
     ///
   virtual Acad::ErrorStatus hasCachedValueOverride(bool& hasCachedVal) const
-  { 
+  {
         ADESK_UNREFED_PARAM(hasCachedVal);
-        return Acad::eNotImplemented; 
-    }
+        return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocDependency 
     /// class that owns this dependency body object. It does not need to be 
@@ -171,8 +177,8 @@ public:
   virtual Acad::ErrorStatus isRelevantChangeOverride(bool& isRelevChange) const
   {
         ADESK_UNREFED_PARAM(isRelevChange);
-        return Acad::eNotImplemented; 
-    }
+        return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocDependency 
     /// class that owns this dependency body object. It does not need to be 
@@ -180,12 +186,12 @@ public:
     /// </summary>
     ///
   virtual Acad::ErrorStatus isDependentOnTheSameThingAsOverride(const AcDbAssocDependency* pOtherDependency, bool& isDependentOnSameThing) const
-  { 
+  {
         ADESK_UNREFED_PARAM(pOtherDependency);
         ADESK_UNREFED_PARAM(isDependentOnSameThing);
 
-        return Acad::eNotImplemented; 
-    }
+        return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocDependency 
     /// class that owns this dependency body object. It does not need to be 
@@ -193,11 +199,11 @@ public:
     /// </summary>
     ///
   virtual Acad::ErrorStatus isEqualToOverride(const AcDbAssocDependency* pOtherDependency, bool& isEqual) const
-  { 
+  {
         ADESK_UNREFED_PARAM(pOtherDependency);
         ADESK_UNREFED_PARAM(isEqual);
         return Acad::eNotImplemented;
-    }
+  }
     /// <summary>
     /// Called from the corresponding persistent reactor callback method of the 
     /// parent AcDbAssocDependency class that owns this dependency body object. 
@@ -208,7 +214,7 @@ public:
   {
         ADESK_UNREFED_PARAM(pDbObj);
         ADESK_UNREFED_PARAM(isErasing);
-    }
+  }
     /// <summary>
     /// Called from the modified() persistent reactor callback method of the 
     /// parent AcDbAssocDependency class that owns this dependency body object. 
@@ -218,7 +224,7 @@ public:
   virtual void modifiedOverride(const AcDbObject* pDbObj)
   {
         ADESK_UNREFED_PARAM(pDbObj);
-    }
+  }
     /// <summary>
     /// Called from the copied() persistent reactor callback method of the 
     /// parent AcDbAssocDependency class that owns this dependency body object. 
@@ -229,7 +235,7 @@ public:
   {
         ADESK_UNREFED_PARAM(pDbObj);
         ADESK_UNREFED_PARAM(pNewObj);
-    }
+  }
     /// <summary><para>
     /// Called from AcDbAssocManager::auditAssociativeData() after file open and possibly
     /// after some other scenarios when the associative data may need to be audited and fixed-up.

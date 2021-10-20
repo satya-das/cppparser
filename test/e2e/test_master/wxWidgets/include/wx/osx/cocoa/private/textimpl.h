@@ -18,26 +18,25 @@ public:
   wxNSTextBase(wxTextCtrl* text, WXWidget w)
     :  wxWidgetCocoaImpl(text, w),
           wxTextWidgetImpl(text)
-    
-    {
+  {
 
-        }
+  }
   wxNSTextBase(wxWindow* wxPeer, wxTextEntry* entry, WXWidget w)
     :  wxWidgetCocoaImpl(wxPeer, w),
           wxTextWidgetImpl(entry)
-    
-    {
+  {
 
-        }
+  }
   virtual ~wxNSTextBase()
   {
-   }
+
+  }
   bool ShouldHandleKeyNavigation(const wxKeyEvent& event) const override;
   void SetInitialLabel(const wxString&, wxFontEncoding) override
   {
         // Don't do anything here, text controls don't have any label and
         // setting it would overwrite the string value set when creating it.
-    }
+  }
 };
 // implementation exposed, so that search control can pull it
 class wxNSTextFieldControl : public wxNSTextBase
@@ -51,10 +50,14 @@ public:
   wxNSTextFieldControl(wxWindow* wxPeer, wxTextEntry* entry, WXWidget w);
   virtual ~wxNSTextFieldControl();
   bool CanClipMaxLength() const override
-  { return true; }
+  {
+ return true;
+  }
   void SetMaxLength(unsigned long len) override;
   bool CanForceUpper() override
-  { return true; }
+  {
+ return true;
+  }
   void ForceUpper() override;
   wxString GetStringValue() const override;
   void SetStringValue(const wxString& str) override;
@@ -71,7 +74,9 @@ public:
   void ShowPosition(long pos) override;
   void WriteText(const wxString& str) override;
   bool HasOwnContextMenu() const override
-  { return true; }
+  {
+ return true;
+  }
   bool SetHint(const wxString& hint) override;
   void SetJustification() override;
   void controlAction(WXWidget slf, void* _cmd, void* sender) override;
@@ -114,7 +119,9 @@ public:
   void SetStyle(long start, long end, const wxTextAttr& style) override;
   bool CanFocus() const override;
   bool HasOwnContextMenu() const override
-  { return true; }
+  {
+ return true;
+  }
   void CheckSpelling(bool check) override;
   void EnableAutomaticQuoteSubstitution(bool enable) override;
   void EnableAutomaticDashSubstitution(bool enable) override;

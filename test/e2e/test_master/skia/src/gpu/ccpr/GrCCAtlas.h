@@ -47,7 +47,7 @@ public:
         kFP16_CoverageCount,
         kA8_Multisample,
         kA8_LiteralCoverage
-    };
+  };
   static constexpr GrColorType CoverageTypeToColorType(CoverageType coverageType)
   {
         switch (coverageType) {
@@ -58,33 +58,47 @@ public:
                 return GrColorType::kAlpha_8;
         }
         SkUNREACHABLE;
-    }
+  }
   using LazyInstantiateAtlasCallback = std::function<sk_sp<GrTexture>( GrResourceProvider*, GrPixelConfig, const GrBackendFormat&, int sampleCount)>;
   static sk_sp<GrTextureProxy> MakeLazyAtlasProxy(const LazyInstantiateAtlasCallback&, CoverageType, const GrCaps&, GrSurfaceProxy::UseAllocator);
   GrCCAtlas(CoverageType, const Specs&, const GrCaps&);
   ~GrCCAtlas();
   GrTextureProxy* textureProxy() const
-  { return fTextureProxy.get(); }
+  {
+ return fTextureProxy.get();
+  }
   int currentWidth() const
-  { return fWidth; }
+  {
+ return fWidth;
+  }
   int currentHeight() const
-  { return fHeight; }
+  {
+ return fHeight;
+  }
     // Attempts to add a rect to the atlas. If successful, returns the integer offset from
     // device-space pixels where the path will be drawn, to atlas pixels where its mask resides.
   bool addRect(const SkIRect& devIBounds, SkIVector* atlasOffset);
   const SkISize& drawBounds()
-  { return fDrawBounds; }
+  {
+ return fDrawBounds;
+  }
     // This is an optional space for the caller to jot down user-defined instance data to use when
     // rendering atlas content.
   void setFillBatchID(int id);
   int getFillBatchID() const
-  { return fFillBatchID; }
+  {
+ return fFillBatchID;
+  }
   void setStrokeBatchID(int id);
   int getStrokeBatchID() const
-  { return fStrokeBatchID; }
+  {
+ return fStrokeBatchID;
+  }
   void setEndStencilResolveInstance(int idx);
   int getEndStencilResolveInstance() const
-  { return fEndStencilResolveInstance; }
+  {
+ return fEndStencilResolveInstance;
+  }
   sk_sp<GrCCCachedAtlas> refOrMakeCachedAtlas(GrOnFlushResourceProvider*);
     // Instantiates our texture proxy for the atlas and returns a pre-cleared GrRenderTargetContext
     // that the caller may use to render the content. After this call, it is no longer valid to call
@@ -118,30 +132,44 @@ class GrCCAtlasStack
 public:
   using CoverageType = GrCCAtlas::CoverageType;
   GrCCAtlasStack(CoverageType coverageType, const GrCCAtlas::Specs& specs, const GrCaps* caps)
-    :  fCoverageType(coverageType), fSpecs(specs), fCaps(caps) 
-    {
-    }
+    :  fCoverageType(coverageType), fSpecs(specs), fCaps(caps)
+  {
+  }
   CoverageType coverageType() const
-  { return fCoverageType; }
+  {
+ return fCoverageType;
+  }
   bool empty() const
-  { return fAtlases.empty(); }
+  {
+ return fAtlases.empty();
+  }
   const GrCCAtlas& front() const
-  { SkASSERT(!this->empty()); return fAtlases.front(); }
+  {
+ SkASSERT(!this->empty()); return fAtlases.front();
+  }
   GrCCAtlas& front()
-  { SkASSERT(!this->empty()); return fAtlases.front(); }
+  {
+ SkASSERT(!this->empty()); return fAtlases.front();
+  }
   GrCCAtlas& current()
-  { SkASSERT(!this->empty()); return fAtlases.back(); }
+  {
+ SkASSERT(!this->empty()); return fAtlases.back();
+  }
   class Iter
   {
   public:
     Iter(GrCCAtlasStack& stack)
-      :  fImpl(&stack.fAtlases) 
-      {
-      }
+      :  fImpl(&stack.fAtlases)
+    {
+    }
     bool next()
-    { return fImpl.next(); }
+    {
+ return fImpl.next();
+    }
     GrCCAtlas* operator->() const
-    { return fImpl.get(); }
+    {
+ return fImpl.get();
+    }
   private:
     typename GrTAllocator<GrCCAtlas>::Iter fImpl;
   };

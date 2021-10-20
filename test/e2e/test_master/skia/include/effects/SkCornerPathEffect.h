@@ -22,7 +22,7 @@ public:
   static sk_sp<SkPathEffect> Make(SkScalar radius)
   {
         return radius > 0 ? sk_sp<SkPathEffect>(new SkCornerPathEffect(radius)) : nullptr;
-    }
+  }
 protected:
   virtual ~SkCornerPathEffect();
   explicit SkCornerPathEffect(SkScalar radius);

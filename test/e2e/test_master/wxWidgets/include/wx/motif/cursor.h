@@ -23,11 +23,13 @@ public:
 #  endif
   wxCursor(wxStockCursor id)
   {
- InitFromStock(id);   }
+ InitFromStock(id);
+  }
 #  if  WXWIN_COMPATIBILITY_2_8
   wxCursor(int id)
   {
- InitFromStock((wxStockCursor)id);   }
+ InitFromStock((wxStockCursor)id);
+  }
 #  endif
   virtual ~wxCursor();
     // Motif-specific.

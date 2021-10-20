@@ -19,11 +19,10 @@ class GrRectanizerPow2 : public GrRectanizer
 {
 public:
   GrRectanizerPow2(int w, int h)
-    :  INHERITED(w, h) 
-    {
-
+    :  INHERITED(w, h)
+  {
         this->reset();
-        }
+  }
   virtual ~GrRectanizerPow2()
   {
   }
@@ -32,12 +31,12 @@ public:
         fNextStripY = 0;
         fAreaSoFar = 0;
         sk_bzero(fRows, sizeof(fRows));
-    }
+  }
   bool addRect(int w, int h, SkIPoint16* loc) override;
   float percentFull() const override
   {
         return fAreaSoFar / ((float)this->width() * this->height());
-    }
+  }
 private:
   static const int kMIN_HEIGHT_POW2 = 2;
   static const int kMaxExponent = 16;
@@ -50,7 +49,7 @@ private:
     bool canAddWidth(int width, int containerWidth) const
     {
             return fLoc.fX + width <= containerWidth;
-        }
+    }
   };
   Row fRows[kMaxExponent];
   int fNextStripY;
@@ -61,17 +60,17 @@ private:
         int index = 32 - SkCLZ(height - 1);
         SkASSERT(index < kMaxExponent);
         return index;
-    }
+  }
   bool canAddStrip(int height) const
   {
         return fNextStripY + height <= this->height();
-    }
+  }
   void initRow(Row* row, int rowHeight)
   {
         row->fLoc.set(0, fNextStripY);
         row->fRowHeight = rowHeight;
         fNextStripY += rowHeight;
-    }
+  }
   typedef GrRectanizer INHERITED;
 };
 #endif

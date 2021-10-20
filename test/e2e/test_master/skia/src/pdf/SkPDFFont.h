@@ -37,29 +37,35 @@ public:
      *  default typeface.
      */
   SkTypeface* typeface() const
-  { return fTypeface.get(); }
+  {
+ return fTypeface.get();
+  }
     /** Returns the font type represented in this font.  For Type0 fonts,
      *  returns the type of the descendant font.
      */
   SkAdvancedTypefaceMetrics::FontType getType() const
-  { return fFontType; }
+  {
+ return fFontType;
+  }
   static SkAdvancedTypefaceMetrics::FontType FontType(const SkAdvancedTypefaceMetrics&);
   static void GetType1GlyphNames(const SkTypeface&, SkString*);
   static bool IsMultiByte(SkAdvancedTypefaceMetrics::FontType type)
   {
         return type == SkAdvancedTypefaceMetrics::kType1CID_Font ||
                type == SkAdvancedTypefaceMetrics::kTrueType_Font;
-    }
+  }
     /** Returns true if this font encoding supports glyph IDs above 255.
      */
   bool multiByteGlyphs() const
-  { return SkPDFFont::IsMultiByte(this->getType()); }
+  {
+ return SkPDFFont::IsMultiByte(this->getType());
+  }
     /** Return true if this font has an encoding for the passed glyph id.
      */
   bool hasGlyph(SkGlyphID gid)
   {
         return (gid >= this->firstGlyphID() && gid <= this->lastGlyphID()) || gid == 0;
-    }
+  }
     /** Convert the input glyph ID into the font encoding.  */
   SkGlyphID glyphToPDFFontEncoding(SkGlyphID gid) const
   {
@@ -69,14 +75,16 @@ public:
         SkASSERT(gid >= this->firstGlyphID() && gid <= this->lastGlyphID());
         SkASSERT(this->firstGlyphID() > 0);
         return gid - this->firstGlyphID() + 1;
-    }
+  }
   void noteGlyphUsage(SkGlyphID glyph)
   {
         SkASSERT(this->hasGlyph(glyph));
         fGlyphUsage.set(glyph);
-    }
+  }
   SkPDFIndirectReference indirectReference() const
-  { return fIndirectReference; }
+  {
+ return fIndirectReference;
+  }
     /** Get the font resource for the passed typeface and glyphID. The
      *  reference count of the object is incremented and it is the caller's
      *  responsibility to unreference it when done.  This is needed to
@@ -100,13 +108,21 @@ public:
      */
   static bool CanEmbedTypeface(SkTypeface*, SkPDFDocument*);
   SkGlyphID firstGlyphID() const
-  { return fGlyphUsage.firstNonZero(); }
+  {
+ return fGlyphUsage.firstNonZero();
+  }
   SkGlyphID lastGlyphID() const
-  { return fGlyphUsage.lastGlyph(); }
+  {
+ return fGlyphUsage.lastGlyph();
+  }
   const SkPDFGlyphUse& glyphUsage() const
-  { return fGlyphUsage; }
+  {
+ return fGlyphUsage;
+  }
   sk_sp<SkTypeface> refTypeface() const
-  { return fTypeface; }
+  {
+ return fTypeface;
+  }
 private:
   sk_sp<SkTypeface> fTypeface;
   SkPDFGlyphUse fGlyphUsage;

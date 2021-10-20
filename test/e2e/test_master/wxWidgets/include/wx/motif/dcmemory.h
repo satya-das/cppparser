@@ -14,17 +14,16 @@ class WXDLLIMPEXP_CORE wxMemoryDCImpl : public wxWindowDCImpl
 {
 public:
   wxMemoryDCImpl(wxMemoryDC* owner)
-    :  wxWindowDCImpl(owner) 
-    {
- Init();     }
+    :  wxWindowDCImpl(owner)
+  {
+ Init();
+  }
   wxMemoryDCImpl(wxMemoryDC* owner, wxBitmap& bitmap)
     :  wxWindowDCImpl(owner)
-    
-    {
-
+  {
         Init();
         DoSelect(bitmap);
-        }
+  }
   wxMemoryDCImpl(wxMemoryDC* owner, wxDC* dc);
   virtual ~wxMemoryDCImpl();
   virtual void DoGetSize(int* width, int* height) const;

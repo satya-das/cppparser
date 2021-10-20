@@ -77,7 +77,7 @@ public:
         HTMLCursor_Link,
         /// Cursor shown over selectable text
         HTMLCursor_Text
-    };
+  };
     /**
         Returns mouse cursor of given @a type.
      */

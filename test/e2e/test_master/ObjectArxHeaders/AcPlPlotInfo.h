@@ -45,7 +45,7 @@ public:
         kPrintLineWeights       = 0x00200000,
         kDrawViewportsFirst     = 0x00400000,
         kPlotTransparency       = 0x00800000
-    };
+  };
   ACPL_PORT Acad::ErrorStatus copyFrom(const AcRxObject* pOther);
     // Layout to be plotted. Required. 
   ACPL_PORT void setLayout(AcDbObjectId& layoutId);
@@ -87,7 +87,9 @@ public:
     // original file path of the current drawing accosicated with the current plot task
     // this path is now used only for finding plot style. see P038B013LAD1.txt.
   ACPL_PORT AcString& OrgFilePath()
-  { return m_OrgFilePath; }
+  {
+ return m_OrgFilePath;
+  }
 private:
   AcString m_OrgFilePath;
 };

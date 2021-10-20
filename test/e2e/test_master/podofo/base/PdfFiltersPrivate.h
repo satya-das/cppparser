@@ -84,7 +84,8 @@ namespace PoDoFo
     PdfHexFilter();
     virtual ~PdfHexFilter()
     {
-     }
+
+    }
     /** Check wether the encoding is implemented for this filter.
      * 
      *  \returns true if the filter is able to encode data
@@ -160,21 +161,21 @@ namespace PoDoFo
   bool PdfHexFilter::CanEncode() const
   {
     return true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfHexFilter::CanDecode() const
   {
     return true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfFilter PdfHexFilter::GetType() const
   {
     return ePdfFilter_ASCIIHexDecode;
-}
+  }
 /** The Ascii85 filter.
  */
   class PdfAscii85Filter : public PdfFilter
@@ -183,7 +184,8 @@ namespace PoDoFo
     PdfAscii85Filter();
     virtual ~PdfAscii85Filter()
     {
-     }
+
+    }
     /** Check wether the encoding is implemented for this filter.
      * 
      *  \returns true if the filter is able to encode data
@@ -275,21 +277,21 @@ namespace PoDoFo
   bool PdfAscii85Filter::CanEncode() const
   {
     return true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfAscii85Filter::CanDecode() const
   {
     return true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfFilter PdfAscii85Filter::GetType() const
   {
     return ePdfFilter_ASCII85Decode;
-}
+  }
 /** The flate filter.
  */
   class PdfFlateFilter : public PdfFilter
@@ -391,21 +393,21 @@ namespace PoDoFo
   bool PdfFlateFilter::CanEncode() const
   {
     return true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfFlateFilter::CanDecode() const
   {
     return true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfFilter PdfFlateFilter::GetType() const
   {
     return ePdfFilter_FlateDecode;
-}
+  }
 /** The RLE filter.
  */
   class PdfRLEFilter : public PdfFilter
@@ -487,21 +489,21 @@ namespace PoDoFo
   bool PdfRLEFilter::CanEncode() const
   {
     return false;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfRLEFilter::CanDecode() const
   {
     return true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfFilter PdfRLEFilter::GetType() const
   {
     return ePdfFilter_RunLengthDecode;
-}
+  }
 /** The LZW filter.
  */
   class PdfLZWFilter : public PdfFilter
@@ -615,21 +617,21 @@ namespace PoDoFo
   bool PdfLZWFilter::CanEncode() const
   {
     return false;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfLZWFilter::CanDecode() const
   {
     return true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfFilter PdfLZWFilter::GetType() const
   {
     return ePdfFilter_LZWDecode;
-}
+  }
 #  ifdef PODOFO_HAVE_JPEG_LIB
   void PODOFO_API jpeg_memory_src(j_decompress_ptr cinfo, const JOCTET* buffer, size_t bufsize);
   extern "C" {
@@ -736,21 +738,21 @@ namespace PoDoFo
   bool PdfDCTFilter::CanEncode() const
   {
     return false;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfDCTFilter::CanDecode() const
   {
     return true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfFilter PdfDCTFilter::GetType() const
   {
     return ePdfFilter_DCTDecode;
-}
+  }
 #  endif
 #  ifdef PODOFO_HAVE_TIFF_LIB
 /** The CCITT filter can decoded CCITTFaxDecode compressed data.
@@ -850,21 +852,21 @@ namespace PoDoFo
   bool PdfCCITTFilter::CanEncode() const
   {
     return false;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfCCITTFilter::CanDecode() const
   {
     return true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfFilter PdfCCITTFilter::GetType() const
   {
     return ePdfFilter_CCITTFaxDecode;
-}
+  }
 #  endif
 }
 #endif

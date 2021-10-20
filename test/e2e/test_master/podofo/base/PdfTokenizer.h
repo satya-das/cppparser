@@ -46,7 +46,7 @@ namespace PoDoFo
     ePdfTokenType_Token,
 
     ePdfTokenType_Unknown = 0xFF
-};
+  };
   typedef std::pair<std::string,EPdfTokenType> TTokenizerPair;
   typedef std::deque<TTokenizerPair> TTokenizerQueque;
   typedef TTokenizerQueque::iterator TITokenizerQueque;
@@ -252,34 +252,34 @@ namespace PoDoFo
   inline bool PdfTokenizer::IsWhitespace(const unsigned char ch)
   {
     return ( PdfTokenizer::s_whitespaceMap[static_cast<size_t>(ch)] != 0 );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfTokenizer::IsDelimiter(const unsigned char ch)
   {
     return ( PdfTokenizer::s_delimiterMap[ch] != 0 );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfTokenizer::IsRegular(const unsigned char ch)
   {
     return !IsWhitespace(ch) && !IsDelimiter(static_cast<size_t>(ch));
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfTokenizer::IsPrintable(const unsigned char ch)
   {
     return ((ch > 32U) && (ch < 125U));
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline int PdfTokenizer::GetHexValue(const unsigned char ch)
   {
     return PdfTokenizer::s_hexMap[static_cast<size_t>(ch)];
-}
+  }
 }
 #endif

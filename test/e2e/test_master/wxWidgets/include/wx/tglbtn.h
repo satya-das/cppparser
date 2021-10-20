@@ -24,7 +24,8 @@ class WXDLLIMPEXP_CORE wxToggleButtonBase : public wxAnyButton
 public:
   wxToggleButtonBase()
   {
-   }
+
+  }
     // Get/set the value
   virtual void SetValue(bool state) = 0;
   virtual bool GetValue() const = 0;
@@ -32,7 +33,7 @@ public:
   State GetNormalState() const override
   {
         return GetValue() ? State_Pressed : State_Normal;
-    }
+  }
   void UpdateWindowUI(long flags) override
   {
         wxControl::UpdateWindowUI(flags);
@@ -52,7 +53,7 @@ public:
             if ( event.GetSetChecked() )
                 SetValue( event.GetChecked() );
         }
-    }
+  }
   wxDECLARE_NO_COPY_CLASS(wxToggleButtonBase);
 };
 #    define EVT_TOGGLEBUTTON(id, fn)	 \

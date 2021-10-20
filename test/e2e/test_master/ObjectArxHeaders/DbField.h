@@ -29,14 +29,14 @@ typedef struct AcFd
     // Enum for acdbEvaluateFields
   enum EvalFields {
         kEvalRecursive      = (0x1 << 0),       // Recursively evaluate complex objects
-    };
+  };
     // Options for function acdbConvertFieldsToText()
   enum ConvertFieldToText {
         kConvertFieldToTextNone         = 0,
         kEvaluateBeforeConversion       = (0x1 << 0),
         kExcludeEvaluatorsInList        = (0x1 << 1),
         kIgnoreEvaluatorVersion         = (0x1 << 2),
-    };
+  };
 } AcFd;
 //*************************************************************************
 // AcHyperlink
@@ -60,8 +60,8 @@ public:
         kModified           = (0x1 << 2),       // Field code has been modified, but not yet evaluated
         kEvaluated          = (0x1 << 3),       // Field has been evaluated
         kHasCache           = (0x1 << 4),       // Field has evaluated cache
-        kHasFormattedString = (0x1 << 5),       // For internal use only. Field has cached formatted string. 
-    };
+        kHasFormattedString = (0x1 << 5),       // For internal use only. Field has cached formatted string.
+  };
   enum EvalOption {
         kDisable            = 0,                // Disable evaluation of field
         kOnOpen             = (0x1 << 0),       // Evaluate on drawing open
@@ -72,7 +72,7 @@ public:
         kOnDemand           = (0x1 << 5),       // Evaluate on demand
         kAutomatic          = (kOnOpen | kOnSave | kOnPlot | 
                                kOnEtransmit | kOnRegen | kOnDemand),    // No restriction
-    };
+  };
   enum EvalContext {
         kOpen               = (0x1 << 0),       // Field is being evaluated during open
         kSave               = (0x1 << 1),       // Field is being evaluated during save
@@ -82,7 +82,7 @@ public:
         kDemand             = (0x1 << 5),       // Field is being evaluated on demand
         kPreview            = (0x1 << 6),       // Field is being evaluated for preview of field result
         kPlotPreview        = (0x1 << 7),       // Field is being evaluated during plot preview
-    };
+  };
   enum EvalStatus {
         kNotYetEvaluated    = (0x1 << 0),       // Not yet evaluated
         kSuccess            = (0x1 << 1),       // Evaluated successfully
@@ -91,7 +91,7 @@ public:
         kInvalidCode        = (0x1 << 4),       // Invalid field code
         kInvalidContext     = (0x1 << 5),       // Invalid context to evaluate field
         kOtherError         = (0x1 << 6),       // Evaluation error
-    };
+  };
   enum FieldCodeFlag {
         kFieldCode          = (0x1 << 0),       // Get raw field code. Used only in getFieldCode().
         kEvaluatedText      = (0x1 << 1),       // Get evaluated text. Used only in getFieldCode().
@@ -110,10 +110,10 @@ public:
                                                 // Used only in getFieldCode().
         kForExpression      = (0x1 << 12),      // For internal use. Used with kEvaluatedText/kEvaluatedChildren.
                                                 // Get the value in a format which can be used in arithmatic expressions. Used only in getFieldCode().
-    };
+  };
   enum FilingOption {
         kSkipFilingResult   = (0x1 << 0),       // Don't file field value
-    };
+  };
   ACDB_DECLARE_MEMBERS(AcDbField);
   ACDBCORE2D_PORT AcDbField(void);
   ACDBCORE2D_PORT AcDbField(const ACHAR* pszFieldCode, bool bTextField = false);

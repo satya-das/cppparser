@@ -21,15 +21,13 @@ public:
   wxRadioBox();
   wxRadioBox(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr))
   {
-
             Create(parent, id, title, pos, size, n, choices, majorDim, style, val, name);
-          }
+  }
   wxRadioBox(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr))
   {
-
          Create(parent, id, title, pos, size, choices,
                 majorDim, style, val, name);
-       }
+  }
   virtual ~wxRadioBox();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr));
@@ -45,7 +43,9 @@ public:
   void SetSelection(int item) override;
   int GetSelection() const override;
   unsigned int GetCount() const override
-  { return m_noItems; }
+  {
+ return m_noItems;
+  }
   wxString GetString(unsigned int item) const override;
   void SetString(unsigned int item, const wxString& label) override;
     // protect native font of box
@@ -55,14 +55,20 @@ public:
   void SetFocus() override;
 // Other variable access functions
   int GetNumberOfRowsOrCols() const
-  { return m_noRowsOrCols; }
+  {
+ return m_noRowsOrCols;
+  }
   void SetNumberOfRowsOrCols(int n)
-  { m_noRowsOrCols = n; }
+  {
+ m_noRowsOrCols = n;
+  }
   void OnRadioButton(wxCommandEvent& event);
 protected:
     // resolve ambiguity in base classes
   wxBorder GetDefaultBorder() const override
-  { return wxRadioBoxBase::GetDefaultBorder(); }
+  {
+ return wxRadioBoxBase::GetDefaultBorder();
+  }
   wxRadioButton* m_radioButtonCycle;
   unsigned int m_noItems;
   int m_noRowsOrCols;

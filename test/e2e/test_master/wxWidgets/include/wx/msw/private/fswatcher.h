@@ -23,19 +23,15 @@ public:
     BUFFER_SIZE = 4096
   };
   wxFSWatchEntryMSW(const wxFSWatchInfo& winfo)
-    : 
-        wxFSWatchInfo(winfo)
-    
-    {
-
+    :         wxFSWatchInfo(winfo)
+  {
         // get handle for this path
         m_handle = OpenDir(m_path);
         m_overlapped = (OVERLAPPED*)calloc(1, sizeof(OVERLAPPED));
         wxZeroMemory(m_buffer);
-        }
+  }
   virtual ~wxFSWatchEntryMSW()
   {
-
         wxLogTrace(wxTRACE_FSWATCHER, "Deleting entry '%s'", m_path);
 
         if (m_handle != INVALID_HANDLE_VALUE)
@@ -47,23 +43,23 @@ public:
             }
         }
         free(m_overlapped);
-      }
+  }
   bool IsOk() const
   {
         return m_handle != INVALID_HANDLE_VALUE;
-    }
+  }
   HANDLE GetHandle() const
   {
         return m_handle;
-    }
+  }
   void* GetBuffer()
   {
         return m_buffer;
-    }
+  }
   OVERLAPPED* GetOverlapped() const
   {
         return m_overlapped;
-    }
+  }
 private:
     // opens dir with all flags, attributes etc. necessary to be later
     // asynchronous watched with ReadDirectoryChangesW
@@ -86,7 +82,7 @@ private:
         }
 
         return handle;
-    }
+  }
   HANDLE m_handle;
   char m_buffer[BUFFER_SIZE];
   OVERLAPPED* m_overlapped;
@@ -99,16 +95,12 @@ class wxIOCPService
 {
 public:
   wxIOCPService()
-    : 
-        m_iocp(INVALID_HANDLE_VALUE)
-    
-    {
-
+    :         m_iocp(INVALID_HANDLE_VALUE)
+  {
         Init();
-        }
+  }
   ~wxIOCPService()
   {
-
         if (m_iocp != INVALID_HANDLE_VALUE)
         {
             if (!CloseHandle(m_iocp))
@@ -117,7 +109,7 @@ public:
             }
         }
         m_watches.clear();
-      }
+  }
     // associates a wxFSWatchEntryMSW with completion port
   bool Add(wxSharedPtr<wxFSWatchEntryMSW> watch)
   {
@@ -142,7 +134,7 @@ public:
         // add to watch map
         wxFSWatchEntries::value_type val(watch->GetPath(), watch);
         return m_watches.insert(val).second;
-    }
+  }
     // Removes a watch we're currently using. Notice that this doesn't happen
     // immediately, CompleteRemoval() must be called later when it's really
     // safe to delete the watch, i.e. after completion of the IO operation
@@ -166,7 +158,7 @@ public:
         m_watches.erase(it);
 
         return true;
-    }
+  }
     // Really remove the watch previously passed to ScheduleForRemoval().
     //
     // It's ok to call this for a watch that hadn't been removed before, in
@@ -187,7 +179,7 @@ public:
         }
 
         return false;
-    }
+  }
     // post completion packet
   bool PostEmptyStatus()
   {
@@ -201,7 +193,7 @@ public:
         }
 
         return ret != 0;
-    }
+  }
     // Possible return values of GetStatus()
   enum Status {
         // Status successfully retrieved into the provided arguments.
@@ -215,7 +207,7 @@ public:
 
         // Some other error occurred.
         Status_Error
-    };
+  };
     // Wait for completion status to arrive.
     // This function can block forever in it's wait for completion status.
     // Use PostEmptyStatus() to wake it up (and end the worker thread)
@@ -244,7 +236,7 @@ public:
         wxLogSysError(_("Unable to dequeue completion packet"));
 
         return Status_Error;
-    }
+  }
 protected:
   bool Init()
   {
@@ -254,7 +246,7 @@ protected:
             wxLogSysError(_("Unable to create I/O completion port"));
         }
         return m_iocp != NULL;
-    }
+  }
   HANDLE m_iocp;
     // The hash containing all the wxFSWatchEntryMSW objects currently being
     // watched keyed by their paths.
@@ -275,11 +267,9 @@ protected:
   struct wxEventProcessingData
   {
     wxEventProcessingData(const FILE_NOTIFY_INFORMATION* ne, const wxFSWatchEntryMSW* watch_)
-      : 
-            nativeEvent(ne), watch(watch_)
-        
-      {
-      }
+      :             nativeEvent(ne), watch(watch_)
+    {
+    }
     const FILE_NOTIFY_INFORMATION* nativeEvent;
     const wxFSWatchEntryMSW* watch;
   };

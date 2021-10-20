@@ -43,7 +43,7 @@ protected:
         event.SetEventObject(this);
         event.SetString(GetString(uiIndex));
         ProcessCommand(event);
-    }
+  }
   void MSWUpdateFontOnDPIChange(const wxSize& newDPI) override;
   wxSize DoGetBestClientSize() const override;
   wxDECLARE_EVENT_TABLE();

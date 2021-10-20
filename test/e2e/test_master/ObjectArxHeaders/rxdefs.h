@@ -23,13 +23,18 @@
 struct AcRx
 {
   typedef void (*FcnPtr) ();
-  enum DictIterType { kDictSorted   = 0,
-                                kDictCollated = 1 };
-  enum Ordering { kLessThan     = -1,
+  enum DictIterType {
+ kDictSorted   = 0,
+                                kDictCollated = 1
+  };
+  enum Ordering {
+ kLessThan     = -1,
                                 kEqual        = 0,
                                 kGreaterThan  = 1,
-                                kNotOrderable = 2 };
-  enum AppMsgCode { kNullMsg         = 0,
+                                kNotOrderable = 2
+  };
+  enum AppMsgCode {
+ kNullMsg         = 0,
                                 kInitAppMsg      = 1,
                                 kUnloadAppMsg    = 2,
                                 kLoadDwgMsg      = 3,
@@ -47,9 +52,12 @@ struct AcRx
                                 kEndDialogMsg    = 15,                                
                                 kSuspendMsg      = 16,
                                 kInitTabGroupMsg = 17,
-                                kEndTabGroupMsg  = 18};
-  enum AppRetCode { kRetOK          = 0,
-                                kRetError       = 3 };
+                                kEndTabGroupMsg  = 18
+  };
+  enum AppRetCode {
+ kRetOK          = 0,
+                                kRetError       = 3
+  };
 };
 /* These messages are replaced by kLoadDwgMsg, and kUnloadDgwMsg.
  */

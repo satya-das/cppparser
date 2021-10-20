@@ -115,14 +115,14 @@ namespace PoDoFo
   inline void PdfDataType::SetImmutable(bool bImmutable)
   {
     m_bImmutable = bImmutable;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfDataType::GetImmutable() const
   {
     return m_bImmutable;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -132,6 +132,6 @@ namespace PoDoFo
     {
         PODOFO_RAISE_ERROR( ePdfError_ChangeOnImmutable );
     }
-}
+  }
 }
 #endif

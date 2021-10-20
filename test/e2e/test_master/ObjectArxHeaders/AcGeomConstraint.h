@@ -119,7 +119,7 @@ public:
     /// Fix constraint. Can be applied on any supported geometry.
     /// </summary>
     ///
-    kFix			         
+    kFix
   };
   /// <summary> 
   /// Returns the array of pointer to AcConstrainedGeometry objects which this constraint is connected to.

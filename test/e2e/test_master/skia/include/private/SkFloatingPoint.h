@@ -68,7 +68,7 @@ static float sk_float_log2(float x)
 {
         const double inv_ln_2 = 1.44269504088896;
         return (float)(log(x) * inv_ln_2);
-    }
+}
 #  else 
 #    define sk_float_log2(x)	        log2f(x)
 #  endif

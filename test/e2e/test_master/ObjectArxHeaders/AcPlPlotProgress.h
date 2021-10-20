@@ -24,13 +24,13 @@ public:
         kSheetCanceledByCancelAllButton,
         kSheetCanceledByCaller,
         kSheetCancelStatusCount
-    };
+  };
   enum PlotCancelStatus {
         kPlotContinue,
         kPlotCanceledByCaller,
         kPlotCanceledByCancelAllButton,
         kPlotCancelStatusCount
-    };
+  };
   virtual bool isPlotCancelled() const = 0;
   virtual void setPlotCancelStatus(PlotCancelStatus Cancel) = 0;
   virtual PlotCancelStatus plotCancelStatus() const = 0;
@@ -67,7 +67,7 @@ public:
         kCancelSheetBtnMsg,
         kCancelJobBtnMsg,
         kMsgCount
-    };
+  };
   virtual bool onBeginPlot() = 0;
   virtual bool onEndPlot() = 0;
   virtual bool onBeginSheet() = 0;

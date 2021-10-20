@@ -43,16 +43,26 @@ public:
   typedef void* ReleaseContext;
   typedef void (*RasterReleaseProc) (void* pixels, ReleaseContext);
   const SkSurfaceProps& props() const
-  { return fProps; }
+  {
+ return fProps;
+  }
   int width() const
-  { return fSubset.width(); }
+  {
+ return fSubset.width();
+  }
   int height() const
-  { return fSubset.height(); }
+  {
+ return fSubset.height();
+  }
   const SkIRect& subset() const
-  { return fSubset; }
+  {
+ return fSubset;
+  }
   SkColorSpace* getColorSpace() const;
   uint32_t uniqueID() const
-  { return fUniqueID; }
+  {
+ return fUniqueID;
+  }
   virtual SkAlphaType alphaType() const = 0;
   virtual SkColorType colorType() const = 0;
   virtual size_t getSize() const = 0;

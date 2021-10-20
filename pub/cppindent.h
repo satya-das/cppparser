@@ -104,4 +104,11 @@ public:
       stm << indentStr();
     }
   }
+
+  CppIndent resetted() const
+  {
+    CppIndent newIndent(0, type_);
+
+    return newIndent;
+  }
 };

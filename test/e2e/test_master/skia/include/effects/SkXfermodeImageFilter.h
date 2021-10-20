@@ -20,7 +20,7 @@ public:
   static sk_sp<SkImageFilter> Make(SkBlendMode mode, sk_sp<SkImageFilter> background)
   {
         return Make(mode, std::move(background), nullptr, nullptr);
-    }
+  }
   static void RegisterFlattenables();
 private:
   SkXfermodeImageFilter();

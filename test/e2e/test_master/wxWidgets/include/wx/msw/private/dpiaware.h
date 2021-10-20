@@ -28,9 +28,7 @@ namespace wxMSWImpl
     AutoSystemDpiAware()
       :  m_prevContext(WXDPI_AWARENESS_CONTEXT_UNAWARE),
           m_pfnSetThreadDpiAwarenessContext((SetThreadDpiAwarenessContext_t)-1)
-    
-      {
-
+    {
         if ( m_pfnSetThreadDpiAwarenessContext == (SetThreadDpiAwarenessContext_t)-1)
         {
             wxLoadedDLL dllUser32("user32.dll");
@@ -47,16 +45,14 @@ namespace wxMSWImpl
                                     WXDPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
             }
         }
-
-          }
+    }
     ~AutoSystemDpiAware()
     {
-
         if ( m_pfnSetThreadDpiAwarenessContext )
         {
             m_pfnSetThreadDpiAwarenessContext(m_prevContext);
         }
-        }
+    }
   private:
     WXDPI_AWARENESS_CONTEXT m_prevContext;
     SetThreadDpiAwarenessContext_t m_pfnSetThreadDpiAwarenessContext;

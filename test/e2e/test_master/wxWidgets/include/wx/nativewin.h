@@ -60,9 +60,8 @@ public:
     // Default ctor, Create() must be called later to really create the window.
   wxNativeWindow()
   {
-
         Init();
-      }
+  }
     // Create a window from an existing native window handle.
     //
     // Notice that this ctor doesn't take the usual pos and size parameters,
@@ -72,11 +71,10 @@ public:
     // 0 if the handle was invalid.
   wxNativeWindow(wxWindow* parent, wxWindowID winid, wxNativeWindowHandle handle)
   {
-
         Init();
 
         Create(parent, winid, handle);
-      }
+  }
     // Same as non-default ctor, but with a return code.
   bool Create(wxWindow* parent, wxWindowID winid, wxNativeWindowHandle handle);
     // By default the native window with which this wxWindow is associated is
@@ -91,7 +89,7 @@ public:
         m_ownedByUser = false;
 
         DoDisown();
-    }
+  }
 #    ifdef __WXMSW__
     // Prevent the native window, not owned by us, from being destroyed by the
     // base class dtor, unless Disown() had been called.
@@ -101,7 +99,7 @@ private:
   void Init()
   {
         m_ownedByUser = true;
-    }
+  }
     // This is implemented in platform-specific code.
   void DoDisown();
     // If the native widget owned by the user code.
@@ -119,16 +117,16 @@ public:
     // default ctor, call Create() later
   wxNativeContainerWindow()
   {
-   }
+
+  }
     // create a window from an existing native window handle
     //
     // use GetHandle() to check if the creation was successful, it will return
     // 0 if the handle was invalid
   wxNativeContainerWindow(wxNativeContainerWindowHandle handle)
   {
-
         Create(handle);
-      }
+  }
     // same as ctor above but with a return code
   bool Create(wxNativeContainerWindowHandle handle);
 #    if  defined(__WXGTK__)
@@ -140,7 +138,8 @@ public:
     // (when GDK_WINDOWING_X11 is defined) or HWND under Win32
   wxNativeContainerWindow(wxNativeContainerWindowId winid)
   {
- Create(winid);   }
+ Create(winid);
+  }
   bool Create(wxNativeContainerWindowId winid);
 #    endif
     // unlike for the normal windows, dtor will not destroy the native window
@@ -150,48 +149,48 @@ public:
   void SetTitle(const wxString&) override
   {
         wxFAIL_MSG( "not implemented for native windows" );
-    }
+  }
   wxString GetTitle() const override
   {
         wxFAIL_MSG( "not implemented for native windows" );
 
         return wxString();
-    }
+  }
   void Maximize(bool = true) override
   {
         wxFAIL_MSG( "not implemented for native windows" );
-    }
+  }
   bool IsMaximized() const override
   {
         wxFAIL_MSG( "not implemented for native windows" );
 
         return false;
-    }
+  }
   void Iconize(bool = true) override
   {
         wxFAIL_MSG( "not implemented for native windows" );
-    }
+  }
   bool IsIconized() const override
   {
         // this is called by wxGTK implementation so don't assert
         return false;
-    }
+  }
   void Restore() override
   {
         wxFAIL_MSG( "not implemented for native windows" );
-    }
+  }
   bool ShowFullScreen(bool, long = wxFULLSCREEN_ALL) override
   {
         wxFAIL_MSG( "not implemented for native windows" );
 
         return false;
-    }
+  }
   bool IsFullScreen() const override
   {
         wxFAIL_MSG( "not implemented for native windows" );
 
         return false;
-    }
+  }
 #    ifdef __WXMSW__
   bool IsShown() const override;
 #    endif

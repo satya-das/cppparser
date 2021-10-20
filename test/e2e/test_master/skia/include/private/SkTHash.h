@@ -24,15 +24,16 @@ class SkTHashTable
 {
 public:
   SkTHashTable()
-    :  fCount(0), fCapacity(0) 
-    {
-    }
+    :  fCount(0), fCapacity(0)
+  {
+  }
   SkTHashTable(SkTHashTable&& other)
     :  fCount(other.fCount)
         , fCapacity(other.fCapacity)
-        , fSlots(std::move(other.fSlots)) 
-    {
- other.fCount = other.fCapacity = 0;     }
+        , fSlots(std::move(other.fSlots))
+  {
+ other.fCount = other.fCapacity = 0;
+  }
   SkTHashTable& operator=(SkTHashTable&& other)
   {
         if (this != &other) {
@@ -40,16 +41,22 @@ public:
             new (this) SkTHashTable(std::move(other));
         }
         return *this;
-    }
+  }
     // Clear the table.
   void reset()
-  { *this = SkTHashTable(); }
+  {
+ *this = SkTHashTable();
+  }
     // How many entries are in the table?
   int count() const
-  { return fCount; }
+  {
+ return fCount;
+  }
     // Approximately how many bytes of memory do we use beyond sizeof(*this)?
   size_t approxBytesUsed() const
-  { return fCapacity * sizeof(Slot); }
+  {
+ return fCapacity * sizeof(Slot);
+  }
     // !!!!!!!!!!!!!!!!!                 CAUTION                   !!!!!!!!!!!!!!!!!
     // set(), find() and foreach() all allow mutable access to table entries.
     // If you change an entry so that it no longer has the same key, all hell
@@ -68,7 +75,7 @@ public:
             this->resize(fCapacity > 0 ? fCapacity * 2 : 4);
         }
         return this->uncheckedSet(std::move(val));
-    }
+  }
     // If there is an entry in the table with this key, return a pointer to it.  If not, null.
   T* find(const K& key) const
   {
@@ -86,7 +93,7 @@ public:
         }
         SkASSERT(fCapacity == 0);
         return nullptr;
-    }
+  }
     // If there is an entry in the table with this key, return it.  If not, null.
     // This only works for pointer type T, and cannot be used to find an nullptr entry.
   T findOrNull(const K& key) const
@@ -95,7 +102,7 @@ public:
             return *p;
         }
         return nullptr;
-    }
+  }
     // Remove the value with this key from the hash table.
   void remove(const K& key)
   {
@@ -140,7 +147,7 @@ public:
             Slot& moveFrom = fSlots[index];
             emptySlot = std::move(moveFrom);
         }
-    }
+  }
     // Call fn on every entry in the table.  You may mutate the entries, but be very careful.
   template <typename Fn>
   void foreach(Fn&& fn)
@@ -150,7 +157,7 @@ public:
                 fn(&fSlots[i].val);
             }
         }
-    }
+  }
     // Call fn on every entry in the table.  You may not mutate anything.
   template <typename Fn>
   void foreach(Fn&& fn) const
@@ -160,7 +167,7 @@ public:
                 fn(fSlots[i].val);
             }
         }
-    }
+  }
 private:
   T* uncheckedSet(T&& val)
   {
@@ -187,7 +194,7 @@ private:
         }
         SkASSERT(false);
         return nullptr;
-    }
+  }
   void resize(int capacity)
   {
         int oldCapacity = fCapacity;
@@ -205,39 +212,42 @@ private:
             }
         }
         SkASSERT(fCount == oldCount);
-    }
+  }
   int next(int index) const
   {
         index--;
         if (index < 0) { index += fCapacity; }
         return index;
-    }
+  }
   static uint32_t Hash(const K& key)
   {
         uint32_t hash = Traits::Hash(key) & 0xffffffff;
         return hash ? hash : 1;  // We reserve hash 0 to mark empty.
-    }
+  }
   struct Slot
   {
     Slot()
-      :  val{}, hash(0) 
-      {
-      }
+      :  val{}, hash(0)
+    {
+    }
     Slot(T&& v, uint32_t h)
-      :  val(std::move(v)), hash(h) 
-      {
-      }
+      :  val(std::move(v)), hash(h)
+    {
+    }
     Slot(Slot&& o)
     {
- *this = std::move(o);     }
+ *this = std::move(o);
+    }
     Slot& operator=(Slot&& o)
     {
             val  = std::move(o.val);
             hash = o.hash;
             return *this;
-        }
+    }
     bool empty() const
-    { return this->hash == 0; }
+    {
+ return this->hash == 0;
+    }
     T val;
     uint32_t hash;
   };
@@ -259,13 +269,19 @@ public:
   SkTHashMap& operator=(SkTHashMap&&);
     // Clear the map.
   void reset()
-  { fTable.reset(); }
+  {
+ fTable.reset();
+  }
     // How many key/value pairs are in the table?
   int count() const
-  { return fTable.count(); }
+  {
+ return fTable.count();
+  }
     // Approximately how many bytes of memory do we use beyond sizeof(*this)?
   size_t approxBytesUsed() const
-  { return fTable.approxBytesUsed(); }
+  {
+ return fTable.approxBytesUsed();
+  }
     // N.B. The pointers returned by set() and find() are valid only until the next call to set().
 
     // Set key to val in the table, replacing any previous value with the same key.
@@ -274,7 +290,7 @@ public:
   {
         Pair* out = fTable.set({std::move(key), std::move(val)});
         return &out->val;
-    }
+  }
     // If there is key/value entry in the table with this key, return a pointer to the value.
     // If not, return null.
   V* find(const K& key) const
@@ -283,34 +299,38 @@ public:
             return &p->val;
         }
         return nullptr;
-    }
+  }
     // Remove the key/value entry in the table with this key.
   void remove(const K& key)
   {
         SkASSERT(this->find(key));
         fTable.remove(key);
-    }
+  }
     // Call fn on every key/value pair in the table.  You may mutate the value but not the key.
   template <typename Fn>
   void foreach(Fn&& fn)
   {
         fTable.foreach([&fn](Pair* p){ fn(p->key, &p->val); });
-    }
+  }
     // Call fn on every key/value pair in the table.  You may not mutate anything.
   template <typename Fn>
   void foreach(Fn&& fn) const
   {
         fTable.foreach([&fn](const Pair& p){ fn(p.key, p.val); });
-    }
+  }
 private:
   struct Pair
   {
     K key;
     V val;
     static const K& GetKey(const Pair& p)
-    { return p.key; }
+    {
+ return p.key;
+    }
     static auto Hash(const K& key)
-    { return HashK()(key); }
+    {
+ return HashK()(key);
+    }
   };
   SkTHashTable<Pair, K> fTable;
   SkTHashMap(const SkTHashMap&) = delete;
@@ -328,45 +348,63 @@ public:
   SkTHashSet& operator=(SkTHashSet&&);
     // Clear the set.
   void reset()
-  { fTable.reset(); }
+  {
+ fTable.reset();
+  }
     // How many items are in the set?
   int count() const
-  { return fTable.count(); }
+  {
+ return fTable.count();
+  }
     // Is empty?
   bool empty() const
-  { return fTable.count() == 0; }
+  {
+ return fTable.count() == 0;
+  }
     // Approximately how many bytes of memory do we use beyond sizeof(*this)?
   size_t approxBytesUsed() const
-  { return fTable.approxBytesUsed(); }
+  {
+ return fTable.approxBytesUsed();
+  }
     // Copy an item into the set.
   void add(T item)
-  { fTable.set(std::move(item)); }
+  {
+ fTable.set(std::move(item));
+  }
     // Is this item in the set?
   bool contains(const T& item) const
-  { return SkToBool(this->find(item)); }
+  {
+ return SkToBool(this->find(item));
+  }
     // If an item equal to this is in the set, return a pointer to it, otherwise null.
     // This pointer remains valid until the next call to add().
   const T* find(const T& item) const
-  { return fTable.find(item); }
+  {
+ return fTable.find(item);
+  }
     // Remove the item in the set equal to this.
   void remove(const T& item)
   {
         SkASSERT(this->contains(item));
         fTable.remove(item);
-    }
+  }
     // Call fn on every item in the set.  You may not mutate anything.
   template <typename Fn>
   void foreach(Fn&& fn) const
   {
         fTable.foreach(fn);
-    }
+  }
 private:
   struct Traits
   {
     static const T& GetKey(const T& item)
-    { return item; }
+    {
+ return item;
+    }
     static auto Hash(const T& item)
-    { return HashT()(item); }
+    {
+ return HashT()(item);
+    }
   };
   SkTHashTable<T, T, Traits> fTable;
   SkTHashSet(const SkTHashSet&) = delete;

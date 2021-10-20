@@ -74,7 +74,7 @@ public:
         /// plot the extents of the layout
         /// </summary>
         kLayout
-    };
+  };
     /// <summary>
     /// how much camera rotation is applied for this plot
     /// </summary>
@@ -95,7 +95,7 @@ public:
         /// 270 degrees camera rotation
         /// </summary>
         k270degrees
-    };
+  };
     /// <summary>
     /// the configured media units. This will always be dimensional
     /// for DWF plots.
@@ -113,7 +113,7 @@ public:
         /// using dimensionaless raster units, not expected for DWF
         /// </summary>
         kPixels
-    };
+  };
     /// <summary>
     /// provides access to the plotLogger object
     /// </summary>

@@ -29,29 +29,28 @@ public:
   typedef T element_type;
   explicit wxWindowPtr(element_type* win)
     :  wxSharedPtr<T>(win, wxPrivate::wxWindowDeleter())
-    
-    {
+  {
 
-        }
+  }
   wxWindowPtr()
   {
   }
   wxWindowPtr(const wxWindowPtr& tocopy)
-    :  wxSharedPtr<T>(tocopy) 
-    {
-    }
+    :  wxSharedPtr<T>(tocopy)
+  {
+  }
   wxWindowPtr& operator=(const wxWindowPtr& tocopy)
   {
         wxSharedPtr<T>::operator=(tocopy);
         return *this;
-    }
+  }
   wxWindowPtr& operator=(element_type* win)
   {
         return operator=(wxWindowPtr(win));
-    }
+  }
   void reset(T* ptr = NULL)
   {
         wxSharedPtr<T>::reset(ptr, wxPrivate::wxWindowDeleter());
-    }
+  }
 };
 #endif

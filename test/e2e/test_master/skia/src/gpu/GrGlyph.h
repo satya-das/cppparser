@@ -17,7 +17,7 @@ struct GrGlyph
   enum MaskStyle {
         kCoverage_MaskStyle,
         kDistance_MaskStyle
-    };
+  };
   static GrMaskFormat FormatFromSkGlyph(SkMask::Format format)
   {
         switch (format) {
@@ -36,20 +36,20 @@ struct GrGlyph
                 SkDEBUGFAIL("unsupported SkMask::Format");
                 return kA8_GrMaskFormat;
         }
-    }
+  }
   static MaskStyle MaskStyleFromSkGlyph(const SkGlyph& skGlyph)
   {
         return skGlyph.maskFormat() == SkMask::kSDF_Format
            ? GrGlyph::MaskStyle::kDistance_MaskStyle
            : GrGlyph::MaskStyle::kCoverage_MaskStyle;
-    }
+  }
   GrGlyph(const SkGlyph& skGlyph)
     :  fPackedID{skGlyph.getPackedID()}
         , fMaskFormat{FormatFromSkGlyph(skGlyph.maskFormat())}
         , fMaskStyle{MaskStyleFromSkGlyph(skGlyph)}
-        , fBounds{GrIRect16::Make(skGlyph.iRect())} 
-    {
-    }
+        , fBounds{GrIRect16::Make(skGlyph.iRect())}
+  {
+  }
   SkRect destRect(SkPoint origin)
   {
         return SkRect::MakeXYWH(
@@ -57,7 +57,7 @@ struct GrGlyph
                 SkIntToScalar(fBounds.fTop)  + origin.y(),
                 SkIntToScalar(fBounds.width()),
                 SkIntToScalar(fBounds.height()));
-    }
+  }
   SkRect destRect(SkPoint origin, SkScalar textScale)
   {
         if (fMaskStyle == kCoverage_MaskStyle) {
@@ -73,24 +73,32 @@ struct GrGlyph
                     (SkIntToScalar(fBounds.width())  - 2 * SK_DistanceFieldInset) * textScale,
                     (SkIntToScalar(fBounds.height()) - 2 * SK_DistanceFieldInset) * textScale);
         }
-    }
+  }
   int width() const
-  { return fBounds.width(); }
+  {
+ return fBounds.width();
+  }
   int height() const
-  { return fBounds.height(); }
+  {
+ return fBounds.height();
+  }
   uint32_t pageIndex() const
-  { return GrDrawOpAtlas::GetPageIndexFromID(fID); }
+  {
+ return GrDrawOpAtlas::GetPageIndexFromID(fID);
+  }
   MaskStyle maskStyle() const
-  { return fMaskStyle; }
+  {
+ return fMaskStyle;
+  }
     // GetKey and Hash for the the hash table.
   static const SkPackedGlyphID& GetKey(const GrGlyph& glyph)
   {
         return glyph.fPackedID;
-    }
+  }
   static uint32_t Hash(SkPackedGlyphID key)
   {
         return SkChecksum::Mix(key.hash());
-    }
+  }
   const SkPackedGlyphID fPackedID;
   const GrMaskFormat fMaskFormat;
   const MaskStyle fMaskStyle;

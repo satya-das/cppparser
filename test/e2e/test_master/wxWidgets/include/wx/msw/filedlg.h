@@ -19,7 +19,9 @@ public:
   void GetPaths(wxArrayString& paths) const override;
   void GetFilenames(wxArrayString& files) const override;
   bool SupportsExtraControl() const override
-  { return true; }
+  {
+ return true;
+  }
   void MSWOnInitDialogHook(WXHWND hwnd);
   int ShowModal() override;
     // wxMSW-specific implementation from now on

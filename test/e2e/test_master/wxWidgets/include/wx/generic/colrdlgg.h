@@ -34,7 +34,9 @@ public:
   virtual ~wxGenericColourDialog();
   bool Create(wxWindow* parent, const wxColourData* data = NULL);
   wxColourData& GetColourData()
-  { return m_colourData; }
+  {
+ return m_colourData;
+  }
   int ShowModal() override;
     // Internal functions
   void OnMouseEvent(wxMouseEvent& event);

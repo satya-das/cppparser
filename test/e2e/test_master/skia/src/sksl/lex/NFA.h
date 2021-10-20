@@ -26,7 +26,7 @@ struct NFA
         std::vector<int> startStates = regex.createStates(this, accept);
         fStartStates.insert(fStartStates.end(), startStates.begin(), startStates.end());
         return fStartStates.size() - 1;
-    }
+  }
     /**
      * Adds a new state to the NFA, returning its index.
      */
@@ -34,7 +34,7 @@ struct NFA
   {
         fStates.push_back(std::move(s));
         return fStates.size() - 1;
-    }
+  }
     /**
      * Matches a string against all of the regexes added to this NFA. Returns the index of the first
      * (in addRegex order) matching expression, or -1 if no match. This is relatively slow and used

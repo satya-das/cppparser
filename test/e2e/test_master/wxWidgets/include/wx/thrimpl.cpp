@@ -15,7 +15,6 @@
 // ----------------------------------------------------------------------------
 wxMutex::wxMutex(wxMutexType mutexType)
 {
-
     m_internal = new wxMutexInternal(mutexType);
 
     if ( !m_internal->IsOk() )
@@ -26,7 +25,6 @@ wxMutex::wxMutex(wxMutexType mutexType)
 }
 wxMutex::~wxMutex()
 {
-
     delete m_internal;
 }
 bool wxMutex::IsOk() const
@@ -75,7 +73,9 @@ class wxConditionInternal
 public:
   wxConditionInternal(wxMutex& mutex);
   bool IsOk() const
-  { return m_mutex.IsOk() && m_semaphore.IsOk(); }
+  {
+ return m_mutex.IsOk() && m_semaphore.IsOk();
+  }
   wxCondError Wait();
   wxCondError WaitTimeout(unsigned long milliseconds);
   wxCondError Signal();
@@ -91,13 +91,11 @@ private:
 };
 wxConditionInternal::wxConditionInternal(wxMutex& mutex)
   :  m_mutex(mutex)
-
-  {
-
+{
     // another thread can't access it until we return from ctor, so no need to
     // protect access to m_numWaiters here
     m_numWaiters = 0;
-  }
+}
 wxCondError wxConditionInternal::Wait()
 {
     // increment the number of waiters
@@ -211,7 +209,6 @@ wxCondError wxConditionInternal::Broadcast()
 // ----------------------------------------------------------------------------
 wxCondition::wxCondition(wxMutex& mutex)
 {
-
     m_internal = new wxConditionInternal(mutex);
 
     if ( !m_internal->IsOk() )
@@ -222,7 +219,6 @@ wxCondition::wxCondition(wxMutex& mutex)
 }
 wxCondition::~wxCondition()
 {
-
     delete m_internal;
 }
 bool wxCondition::IsOk() const
@@ -262,7 +258,6 @@ wxCondError wxCondition::Broadcast()
 // --------------------------------------------------------------------------
 wxSemaphore::wxSemaphore(int initialcount, int maxcount)
 {
-
     m_internal = new wxSemaphoreInternal( initialcount, maxcount );
     if ( !m_internal->IsOk() )
     {
@@ -272,7 +267,6 @@ wxSemaphore::wxSemaphore(int initialcount, int maxcount)
 }
 wxSemaphore::~wxSemaphore()
 {
-
     delete m_internal;
 }
 bool wxSemaphore::IsOk() const

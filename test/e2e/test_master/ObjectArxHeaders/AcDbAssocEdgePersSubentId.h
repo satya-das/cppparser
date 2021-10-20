@@ -59,7 +59,7 @@ public:
         ADESK_UNREFED_PARAM(pEntity);
         ADESK_UNREFED_PARAM(pDatabase);
         return !isNull() ? 1 : 0;
-    }
+  }
     /// <summary> Returns AcDb::kEdgeSubentType or AcDb::kVertexSubentType. </summary>
     /// <param  name="pEntity">   Not used. </param>
     /// <param  name="pDatabase"> Not used. </param>
@@ -72,7 +72,9 @@ public:
     /// <returns> True iff the AcDbAssocEdgePersSubentId does not identify any subentity. </returns>
     ///
   bool isNull() const override
-  { return mIndex1 == 0; }
+  {
+ return mIndex1 == 0;
+  }
     /// <summary>
     /// Returns true iff this and the other AcDbAssocEdgePersSubentId reference
     /// exactly the same subentity of the same entity. It simply compares the 

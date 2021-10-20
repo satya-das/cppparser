@@ -23,7 +23,7 @@ class AcDbPointRef : public AcRxObject
 {
 public:
   ACRX_DECLARE_MEMBERS(AcDbPointRef);
-  enum OsnapType { 
+  enum OsnapType {
         kOsnapNone         = 0,
         kOsnapEnd          = 1,
         kOsnapMid          = 2,
@@ -37,7 +37,7 @@ public:
         kOsnapNear         = 10,
         kOsnapApint        = 11,
         kOsnapStart        = 13
-    };
+  };
   virtual AcDbPointRef& operator=(const AcDbPointRef& src);
   virtual Acad::ErrorStatus evalPoint(AcGePoint3d& pnt_wcs) = 0;
   virtual Acad::ErrorStatus getEntities(AcDbFullSubentPathArray& ents, bool getLastPtRef = true) const = 0;
@@ -55,7 +55,7 @@ public:
   {
         ADESK_UNREFED_PARAM(erasing);
         return Acad::eOk;
-    }
+  }
   virtual Acad::ErrorStatus wblockClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping&, Adesk::Boolean isPrimary = Adesk::kTrue) const
   {
         ADESK_UNREFED_PARAM(pOwnerObject);
@@ -63,14 +63,15 @@ public:
         ADESK_UNREFED_PARAM(isPrimary);
         
         return Acad::eOk;
-    }
+  }
   virtual Acad::ErrorStatus deepClone(AcRxObject* pOwnerObject, AcDbObject*& pClonedObject, AcDbIdMapping&, Adesk::Boolean isPrimary = Adesk::kTrue) const
   {
         ADESK_UNREFED_PARAM(pOwnerObject);
         ADESK_UNREFED_PARAM(pClonedObject);
         ADESK_UNREFED_PARAM(isPrimary);
         
-        return Acad::eOk;}
+        return Acad::eOk;
+  }
   virtual void updateDueToMirror(bool inMirror = false) = 0;
     // utility functions...
     // filing AcDbPointRef class

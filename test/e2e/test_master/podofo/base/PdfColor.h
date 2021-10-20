@@ -601,56 +601,56 @@ namespace PoDoFo
             return true;
     }
     return false;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfColor::operator!=(const PdfColor& rhs) const
   {
     return ! (*this == rhs);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfColor::IsGrayScale() const
   {
     return (m_eColorSpace == ePdfColorSpace_DeviceGray);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfColor::IsRGB() const
   {
     return (m_eColorSpace == ePdfColorSpace_DeviceRGB);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfColor::IsCMYK() const
   {
     return (m_eColorSpace == ePdfColorSpace_DeviceCMYK);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfColor::IsSeparation() const
   {
     return (m_eColorSpace == ePdfColorSpace_Separation);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfColor::IsCieLab() const
   {
     return (m_eColorSpace == ePdfColorSpace_CieLab);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfColorSpace PdfColor::GetColorSpace() const
   {
     return m_eColorSpace;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -658,7 +658,7 @@ namespace PoDoFo
   {
     PODOFO_RAISE_LOGIC_IF( !this->IsSeparation(), "PdfColor::GetAlternateColorSpace cannot be called on non separation color objects!");
     return m_eAlternateColorSpace;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -669,7 +669,7 @@ namespace PoDoFo
                            "PdfColor::GetGrayScale cannot be called on non grayscale color objects!");
 
     return m_uColor.gray;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -680,7 +680,7 @@ namespace PoDoFo
                            "PdfColor::GetRed cannot be called on non RGB color objects!");
 
     return m_uColor.rgb[0];
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -691,7 +691,7 @@ namespace PoDoFo
                            "PdfColor::GetGreen cannot be called on non RGB color objects!");
 
     return m_uColor.rgb[1];
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -702,7 +702,7 @@ namespace PoDoFo
                            "PdfColor::GetBlue cannot be called on non RGB color objects!");
 
     return m_uColor.rgb[2];
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -713,7 +713,7 @@ namespace PoDoFo
                            "PdfColor::GetCyan cannot be called on non CMYK color objects!");
 
     return m_uColor.cmyk[0];
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -724,7 +724,7 @@ namespace PoDoFo
                            "PdfColor::GetMagenta cannot be called on non CMYK color objects!");
 
     return m_uColor.cmyk[1];
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -735,7 +735,7 @@ namespace PoDoFo
                            "PdfColor::GetYellow cannot be called on non CMYK color objects!");
 
     return m_uColor.cmyk[2];
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -746,7 +746,7 @@ namespace PoDoFo
                            "PdfColor::GetBlack cannot be called on non CMYK color objects!");
 
     return m_uColor.cmyk[3];
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -755,7 +755,7 @@ namespace PoDoFo
     PODOFO_RAISE_LOGIC_IF( !this->IsSeparation(), "PdfColor::GetName cannot be called on non separation color objects!");
 
     return m_separationName;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -764,7 +764,7 @@ namespace PoDoFo
     PODOFO_RAISE_LOGIC_IF( !this->IsSeparation(), "PdfColor::GetDensity cannot be called on non separation color objects!");
 
     return m_separationDensity;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -775,7 +775,7 @@ namespace PoDoFo
                            "PdfColor::GetCieL cannot be called on non CIE-Lab color objects!");
 
     return m_uColor.lab[0];
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -786,7 +786,7 @@ namespace PoDoFo
                            "PdfColor::GetCieA cannot be called on non CIE-Lab color objects!");
 
     return m_uColor.lab[1];
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -797,6 +797,6 @@ namespace PoDoFo
                            "PdfColor::GetCieB cannot be called on non CIE-Lab color objects!");
 
     return m_uColor.lab[2];
-}
+  }
 }
 #endif

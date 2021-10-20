@@ -12,9 +12,9 @@ namespace SkSL
   struct ASTFile
   {
     ASTFile()
-      :  fRoot(ASTNode::ID::Invalid()) 
-      {
-      }
+      :  fRoot(ASTNode::ID::Invalid())
+    {
+    }
     ASTNode& root()
     {
         return fNodes[fRoot.fValue];

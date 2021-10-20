@@ -127,27 +127,35 @@ public:
     /// <returns> Returns true if the substitute object exists. </returns>
     ///
   bool isSubstituteObject() const
-  { return mpSubstituteObject != NULL; }
+  {
+ return mpSubstituteObject != NULL;
+  }
     /// <summary> Gets the constant pointer of the associated object. </summary>
     /// <returns> Returns the constant pointer of the associated object. </returns>
     ///
   const ACDB_CLASS* operator->() const
-  { return mpObject; }
+  {
+ return mpObject;
+  }
     /// <summary> Gets the pointer of the associated object. </summary>
     /// <returns> Returns the pointer of the associated object. </returns>
     ///
   ACDB_CLASS* operator->()
-  { return mpObject; }
+  {
+ return mpObject;
+  }
     /// <summary> Gets the constant pointer of the associated object. </summary>
     ///
   operator const ACDB_CLASS*() const
   {
- return mpObject;   }
+ return mpObject;
+  }
     /// <summary> Gets the pointer of the associated object. </summary>
     ///
   operator ACDB_CLASS*()
   {
- return mpObject;   }
+ return mpObject;
+  }
 private:
   AcDbAssocAction* const mpActionBeingEvaluated;
   const AcDbAssocActionBody* const mpActionBodyBeingEvaluated;
@@ -182,11 +190,9 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbObjectId o
     mpObject                      (NULL), 
     mpSubstituteObject            (NULL),
     mSubstituteObjectErrorStatus  (Acad::eNullObjectId)
-
-  {
-
+{
     setup(mpActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
-  }
+}
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbAssocAction* pActionBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
   :  mpActionBeingEvaluated        (pActionBeingEvaluated), 
@@ -197,11 +203,9 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbAssocActio
     mpObject                      (NULL), 
     mpSubstituteObject            (NULL),
     mSubstituteObjectErrorStatus  (Acad::eNullObjectId)
-
-  {
-
+{
     setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
-  }
+}
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAssocActionBody* pActionBodyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
   :  mpActionBeingEvaluated        (NULL), 
@@ -212,9 +216,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
     mpObject                      (NULL), 
     mpSubstituteObject            (NULL),
     mSubstituteObjectErrorStatus  (Acad::eNullObjectId)
-
-  {
-
+{
 #ifdef ASSERT
     ASSERT(mpActionBodyBeingEvaluated != NULL);
 #endif
@@ -226,7 +228,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
     }
 
     setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
-  }
+}
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAssocDependency* pDependencyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
   :  mpActionBeingEvaluated        (NULL), 
@@ -237,9 +239,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
     mpObject                      (NULL), 
     mpSubstituteObject            (NULL),
     mSubstituteObjectErrorStatus  (Acad::eNullObjectId)
-
-  {
-
+{
 #ifdef ASSERT
     ASSERT(mpDependencyBeingEvaluated != NULL);
 #endif
@@ -251,7 +251,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
     }
 
     setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
-  }
+}
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAssocDependencyBody* pDependencyBodyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
   :  mpActionBeingEvaluated        (NULL), 
@@ -262,9 +262,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
     mpObject                      (NULL), 
     mpSubstituteObject            (NULL),
     mSubstituteObjectErrorStatus  (Acad::eNullObjectId)
-
-  {
-
+{
 #ifdef ASSERT
     ASSERT(mpDependencyBodyBeingEvaluated != NULL);
 #endif
@@ -282,7 +280,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
     }
 
     setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
-  }
+}
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbAssocAction* pActionBeingEvaluated, ACDB_CLASS* pObject)
   :  mpActionBeingEvaluated        (pActionBeingEvaluated), 
@@ -293,9 +291,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbAssocActio
     mpObject                      (pObject), 
     mpSubstituteObject            (pObject),
     mSubstituteObjectErrorStatus  (pObject != NULL ? Acad::eOk : Acad::eNullObjectId)
-
-  {
-
+{
 #ifdef ASSERT
     ASSERT(mpActionBeingEvaluated != NULL);
 #endif
@@ -323,7 +319,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbAssocActio
 #endif
         }
     }
-  }
+}
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAssocActionBody* pActionBodyBeingEvaluated, ACDB_CLASS* pObject)
   :  mpActionBeingEvaluated        (NULL), 
@@ -334,9 +330,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
     mpObject                      (pObject), 
     mpSubstituteObject            (pObject),
     mSubstituteObjectErrorStatus  (pObject != NULL ? Acad::eOk : Acad::eNullObjectId)
-
-  {
-
+{
 #ifdef ASSERT
     ASSERT(mpActionBodyBeingEvaluated != NULL);
 #endif
@@ -371,7 +365,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
             }
         }
     }
-  }
+}
 template <typename ACDB_CLASS>
 inline void AcDbAssocObjectPointer<ACDB_CLASS>::setup(AcDbAssocAction* pActionBeingEvaluated, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
 {
@@ -417,7 +411,6 @@ inline void AcDbAssocObjectPointer<ACDB_CLASS>::setup(AcDbAssocAction* pActionBe
 template <typename ACDB_CLASS>
 inline AcDbAssocObjectPointer<ACDB_CLASS>::~AcDbAssocObjectPointer()
 {
-
     if (mObjectId.isNull() && mpSubstituteObject == NULL)
         return; // There is no referenced object
 

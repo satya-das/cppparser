@@ -26,13 +26,13 @@ class WXDLLIMPEXP_CORE wxWindowDFB : public wxWindowBase
 public:
   wxWindowDFB()
   {
- Init();   }
+ Init();
+  }
   wxWindowDFB(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
   {
-
         Init();
         Create(parent, id, pos, size, style, name);
-      }
+  }
   virtual ~wxWindowDFB();
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr));
     // implement base class (pure) virtual methods
@@ -41,7 +41,9 @@ public:
   {
   }
   virtual wxString GetLabel() const
-  { return wxEmptyString; }
+  {
+ return wxEmptyString;
+  }
   virtual void Raise();
   virtual void Lower();
   virtual bool Show(bool show = true);
@@ -52,7 +54,9 @@ public:
   virtual void Update();
   virtual bool SetCursor(const wxCursor& cursor);
   virtual bool SetFont(const wxFont& font)
-  { m_font = font; return true; }
+  {
+ m_font = font; return true;
+  }
   virtual int GetCharHeight() const;
   virtual int GetCharWidth() const;
 #  if  wxUSE_DRAG_AND_DROP
@@ -61,7 +65,9 @@ public:
   virtual void DragAcceptFiles(bool accept);
 #  endif
   virtual WXWidget GetHandle() const
-  { return this; }
+  {
+ return this;
+  }
     // implementation from now on
     // --------------------------
 
@@ -69,9 +75,13 @@ public:
   wxIDirectFBSurfacePtr GetDfbSurface();
     // returns toplevel window the window belongs to
   wxNonOwnedWindow* GetTLW() const
-  { return m_tlw; }
+  {
+ return m_tlw;
+  }
   virtual bool IsDoubleBuffered() const
-  { return true; }
+  {
+ return true;
+  }
 protected:
     // implement the base class pure virtuals
   virtual void DoGetTextExtent(const wxString& string, int* x, int* y, int* descent = NULL, int* externalLeading = NULL, const wxFont* theFont = NULL) const;

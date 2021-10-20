@@ -15,21 +15,22 @@ class GrVkSamplerYcbcrConversion : public GrVkResource
 public:
   static GrVkSamplerYcbcrConversion* Create(const GrVkGpu* gpu, const GrVkYcbcrConversionInfo&);
   VkSamplerYcbcrConversion ycbcrConversion() const
-  { return fYcbcrConversion; }
+  {
+ return fYcbcrConversion;
+  }
   struct Key
   {
     Key()
-      :  fVkFormat(VK_FORMAT_UNDEFINED), fExternalFormat(0), fConversionKey(0) 
-      {
-      }
+      :  fVkFormat(VK_FORMAT_UNDEFINED), fExternalFormat(0), fConversionKey(0)
+    {
+    }
     Key(VkFormat vkFormat, uint64_t externalFormat, uint8_t conversionKey)
     {
-
             memset(this, 0, sizeof(Key));
             fVkFormat = vkFormat;
             fExternalFormat = externalFormat;
             fConversionKey = conversionKey;
-            }
+    }
     VkFormat fVkFormat;
     uint64_t fExternalFormat;
     uint8_t fConversionKey;
@@ -38,31 +39,31 @@ public:
             return this->fVkFormat == that.fVkFormat &&
                    this->fExternalFormat == that.fExternalFormat &&
                    this->fConversionKey == that.fConversionKey;
-        }
+    }
   };
     // Helpers for hashing GrVkSamplerYcbcrConversion
   static Key GenerateKey(const GrVkYcbcrConversionInfo& ycbcrInfo);
   static const Key& GetKey(const GrVkSamplerYcbcrConversion& ycbcrConversion)
   {
         return ycbcrConversion.fKey;
-    }
+  }
   static uint32_t Hash(const Key& key)
   {
         return SkOpts::hash(reinterpret_cast<const uint32_t*>(&key), sizeof(Key));
-    }
+  }
 #  ifdef SK_TRACE_VK_RESOURCES
   void dumpInfo() const override
   {
         SkDebugf("GrVkSamplerYcbcrConversion: %d (%d refs)\n", fYcbcrConversion, this->getRefCnt());
-    }
+  }
 #  endif
 private:
   GrVkSamplerYcbcrConversion(VkSamplerYcbcrConversion ycbcrConversion, Key key)
     :  INHERITED()
             , fYcbcrConversion(ycbcrConversion)
-            , fKey(key) 
-    {
-    }
+            , fKey(key)
+  {
+  }
   void freeGPUData(GrVkGpu* gpu) const override;
   VkSamplerYcbcrConversion fYcbcrConversion;
   Key fKey;

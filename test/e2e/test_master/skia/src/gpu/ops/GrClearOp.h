@@ -17,7 +17,9 @@ public:
   static std::unique_ptr<GrClearOp> Make(GrRecordingContext* context, const GrFixedClip& clip, const SkPMColor4f& color, GrSurfaceProxy* dstProxy);
   static std::unique_ptr<GrClearOp> Make(GrRecordingContext* context, const SkIRect& rect, const SkPMColor4f& color, bool fullScreen);
   const char* name() const override
-  { return "Clear"; }
+  {
+ return "Clear";
+  }
 #  ifdef SK_DEBUG
   SkString dumpInfo() const override
   {
@@ -32,27 +34,29 @@ public:
         }
         string.appendf("], Color: 0x%08x\n", fColor.toBytes_RGBA());
         return string;
-    }
+  }
 #  endif
   const SkPMColor4f& color() const
-  { return fColor; }
+  {
+ return fColor;
+  }
   void setColor(const SkPMColor4f& color)
-  { fColor = color; }
+  {
+ fColor = color;
+  }
 private:
   friend class GrOpMemoryPool;
   GrClearOp(const GrFixedClip& clip, const SkPMColor4f& color, GrSurfaceProxy* proxy);
   GrClearOp(const SkIRect& rect, const SkPMColor4f& color, bool fullScreen)
     :  INHERITED(ClassID())
         , fClip(GrFixedClip(rect))
-        , fColor(color) 
-    {
-
-
+        , fColor(color)
+  {
         if (fullScreen) {
             fClip.disableScissor();
         }
         this->setBounds(SkRect::Make(rect), HasAABloat::kNo, IsHairline::kNo);
-        }
+  }
   CombineResult onCombineIfPossible(GrOp* t, const GrCaps& caps) override
   {
         // This could be much more complicated. Currently we look at cases where the new clear
@@ -70,14 +74,14 @@ private:
             return CombineResult::kMerged;
         }
         return CombineResult::kCannotCombine;
-    }
+  }
   bool contains(const GrClearOp* that) const
   {
         // The constructor ensures that scissor gets disabled on any clip that fills the entire RT.
         return !fClip.scissorEnabled() ||
                (that->fClip.scissorEnabled() &&
                 fClip.scissorRect().contains(that->fClip.scissorRect()));
-    }
+  }
   void onPrepare(GrOpFlushState*) override
   {
   }

@@ -28,9 +28,8 @@ class SkTCoincident
 public:
   SkTCoincident()
   {
-
         this->init();
-      }
+  }
   void debugInit()
   {
 #ifdef SK_DEBUG
@@ -38,35 +37,35 @@ public:
         this->fPerpT = SK_ScalarNaN;
         this->fMatch = 0xFF;
 #endif
-    }
+  }
   char dumpIsCoincidentStr() const;
   void dump() const;
   bool isMatch() const
   {
         SkASSERT(!!fMatch == fMatch);
         return SkToBool(fMatch);
-    }
+  }
   void init()
   {
         fPerpT = -1;
         fMatch = false;
         fPerpPt.fX = fPerpPt.fY = SK_ScalarNaN;
-    }
+  }
   void markCoincident()
   {
         if (!fMatch) {
             fPerpT = -1;
         }
         fMatch = true;
-    }
+  }
   const SkDPoint& perpPt() const
   {
         return fPerpPt;
-    }
+  }
   double perpT() const
   {
         return fPerpT;
-    }
+  }
   void setPerp(const SkTCurve& c1, double t, const SkDPoint& cPt, const SkTCurve&);
 private:
   SkDPoint fPerpPt;
@@ -85,9 +84,8 @@ class SkTSpan
 public:
   SkTSpan(const SkTCurve& curve, SkArenaAlloc& heap)
   {
-
         fPart = curve.make(heap);
-      }
+  }
   void addBounded(SkTSpan*, SkArenaAlloc*);
   double closestBoundedT(const SkDPoint& pt) const;
   bool contains(double t) const;
@@ -101,13 +99,13 @@ public:
         fCoinStart.init();
         fCoinEnd.init();
 #endif
-    }
+  }
   const SkTSect* debugOpp() const;
 #  ifdef SK_DEBUG
   void debugSetGlobalState(SkOpGlobalState* state)
   {
         fDebugGlobalState = state;
-    }
+  }
   const SkTSpan* debugSpan(int) const;
   const SkTSpan* debugT(double t) const;
   bool debugIsBefore(const SkTSpan* span) const;
@@ -120,79 +118,79 @@ public:
   double endT() const
   {
         return fEndT;
-    }
+  }
   SkTSpan* findOppSpan(const SkTSpan* opp) const;
   SkTSpan* findOppT(double t) const
   {
         SkTSpan* result = oppT(t);
         SkOPASSERT(result);
         return result;
-    }
+  }
   bool hasOppT(double t) const
   {
         return SkToBool(oppT(t));
-    }
+  }
   int hullsIntersect(SkTSpan* span, bool* start, bool* oppStart);
   void init(const SkTCurve&);
   bool initBounds(const SkTCurve&);
   bool isBounded() const
   {
         return fBounded != nullptr;
-    }
+  }
   bool linearsIntersect(SkTSpan* span);
   double linearT(const SkDPoint&) const;
   void markCoincident()
   {
         fCoinStart.markCoincident();
         fCoinEnd.markCoincident();
-    }
+  }
   const SkTSpan* next() const
   {
         return fNext;
-    }
+  }
   bool onlyEndPointsInCommon(const SkTSpan* opp, bool* start, bool* oppStart, bool* ptsInCommon);
   const SkTCurve& part() const
   {
         return *fPart;
-    }
+  }
   int pointCount() const
   {
         return fPart->pointCount();
-    }
+  }
   const SkDPoint& pointFirst() const
   {
         return (*fPart)[0];
-    }
+  }
   const SkDPoint& pointLast() const
   {
         return (*fPart)[fPart->pointLast()];
-    }
+  }
   bool removeAllBounded();
   bool removeBounded(const SkTSpan* opp);
   void reset()
   {
         fBounded = nullptr;
-    }
+  }
   void resetBounds(const SkTCurve& curve)
   {
         fIsLinear = fIsLine = false;
         initBounds(curve);
-    }
+  }
   bool split(SkTSpan* work, SkArenaAlloc* heap)
   {
         return splitAt(work, (work->fStartT + work->fEndT) * 0.5, heap);
-    }
+  }
   bool splitAt(SkTSpan* work, double t, SkArenaAlloc* heap);
   double startT() const
   {
         return fStartT;
-    }
+  }
 private:
     // implementation is for testing only
   int debugID() const
   {
         return PATH_OPS_DEBUG_T_SECT_RELEASE(fID, -1);
-    }
+  }
   void dumpID() const;
   int hullCheck(const SkTSpan* opp, bool* start, bool* oppStart);
   int linearIntersects(const SkTCurve&) const;
@@ -227,7 +225,7 @@ public:
   const SkTSect* debugOpp() const
   {
         return SkDEBUGRELEASE(fOppSect, nullptr);
-    }
+  }
 #  ifdef SK_DEBUG
   const SkTSpan* debugSpan(int id) const;
   const SkTSpan* debugT(double t) const;
@@ -245,7 +243,7 @@ private:
         kOneS1Set = 2,
         kZeroS2Set = 4,
         kOneS2Set = 8
-    };
+  };
   SkTSpan* addFollowing(SkTSpan* prior);
   void addForPerp(SkTSpan* span, double t);
   SkTSpan* addOne();
@@ -257,7 +255,7 @@ private:
         result->initBounds(fCurve);
         span->initBounds(fCurve);
         return result;
-    }
+  }
   bool binarySearchCoin(SkTSect*, double tStart, double tStep, double* t, double* oppT, SkTSpan** oppFirst);
   SkTSpan* boundsMax();
   bool coincidentCheck(SkTSect* sect2);
@@ -269,7 +267,7 @@ private:
   int debugID() const
   {
         return PATH_OPS_DEBUG_T_SECT_RELEASE(fID, -1);
-    }
+  }
   bool deleteEmptySpans();
   void dumpCommon(const SkTSpan*) const;
   void dumpCommonCurves(const SkTSpan*) const;
@@ -286,7 +284,7 @@ private:
   const SkDPoint& pointLast() const
   {
         return fCurve[fCurve.pointLast()];
-    }
+  }
   SkTSpan* prev(SkTSpan*) const;
   bool removeByPerpendicular(SkTSect* opp);
   void recoverCollapsed();
@@ -299,7 +297,7 @@ private:
   void resetRemovedEnds()
   {
         fRemovedStartT = fRemovedEndT = false;
-    }
+  }
   SkTSpan* spanAtT(double t, SkTSpan** priorSpan);
   SkTSpan* tail();
   bool trim(SkTSpan* span, SkTSect* opp);

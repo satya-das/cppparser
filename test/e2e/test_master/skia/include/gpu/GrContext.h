@@ -175,7 +175,7 @@ public:
   void purgeResourcesNotUsedInMs(std::chrono::milliseconds msNotUsed)
   {
         this->performDeferredCleanup(msNotUsed);
-    }
+  }
     /**
      * Purge unlocked resources from the cache until the the provided byte count has been reached
      * or we have purged all unlocked resources. The default policy is to purge in LRU order, but
@@ -230,7 +230,7 @@ public:
         }
 
         return this->maxSurfaceSampleCountForColorType(colorType) > 0;
-    }
+  }
     /**
      * Gets the maximum supported sample count for a color type. 1 is returned if only non-MSAA
      * rendering is supported for the color type. 0 is returned if rendering to this color type
@@ -255,7 +255,7 @@ public:
   void flush()
   {
         this->flush(GrFlushInfo(), GrPrepareForExternalIORequests());
-    }
+  }
     /**
      * Call to ensure all drawing to the context has been issued to the underlying 3D API.
      *
@@ -270,7 +270,7 @@ public:
   GrSemaphoresSubmitted flush(const GrFlushInfo& info)
   {
         return this->flush(info, GrPrepareForExternalIORequests());
-    }
+  }
     /**
      * Call to ensure all drawing to the context has been issued to the underlying 3D API.
      *
@@ -299,7 +299,7 @@ public:
         info.fFinishedProc = finishedProc;
         info.fFinishedContext = finishedContext;
         return this->flush(info);
-    }
+  }
     /**
      * Deprecated.
      */
@@ -309,7 +309,7 @@ public:
         info.fNumSemaphores = numSemaphores;
         info.fSignalSemaphores = signalSemaphores;
         return this->flush(info);
-    }
+  }
     /**
      * Checks whether any asynchronous work is complete and if so calls related callbacks.
      */
@@ -333,7 +333,7 @@ public:
   GrBackendFormat defaultBackendFormat(SkColorType ct, GrRenderable renderable) const
   {
         return INHERITED::defaultBackendFormat(ct, renderable);
-    }
+  }
    /*
     * The explicitly allocated backend texture API allows clients to use Skia to create backend
     * objects outside of Skia proper (i.e., Skia's caching system will not know about them.)
@@ -404,7 +404,7 @@ public:
   GrBackendTexture createBackendTexture(const SkPixmap& srcData, GrRenderable renderable, GrProtected isProtected)
   {
         return this->createBackendTexture(&srcData, 1, renderable, isProtected);
-    }
+  }
   void deleteBackendTexture(GrBackendTexture);
     // This interface allows clients to pre-compile shaders and populate the runtime program cache.
     // The key and data blobs should be the ones passed to the PersistentCache, in SkSL format.
@@ -432,7 +432,9 @@ protected:
   GrContext(GrBackendApi, const GrContextOptions&, int32_t contextID = SK_InvalidGenID);
   bool init(sk_sp<const GrCaps>, sk_sp<GrSkSLFPFactoryCache>) override;
   GrContext* asDirectContext() override
-  { return this; }
+  {
+ return this;
+  }
   virtual GrAtlasManager* onGetAtlasManager() = 0;
   sk_sp<GrContextThreadSafeProxy> fThreadSafeProxy;
 private:

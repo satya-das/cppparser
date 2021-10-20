@@ -125,7 +125,7 @@ public:
         /// All Flags are set.
         /// </summary>
         kSetAllFlagsOn = 0x3FFFF
-    };
+  };
   ACRX_DECLARE_MEMBERS(AcDbMatchProperties);
   virtual void copyProperties(AcDbEntity* pSrcEntity, AcDbEntity* pTrgEntity, unsigned int flag) const = 0;
 };

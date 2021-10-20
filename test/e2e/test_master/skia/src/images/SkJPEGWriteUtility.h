@@ -24,7 +24,7 @@ struct SK_API skjpeg_destination_mgr :  jpeg_destination_mgr
   SkWStream* fStream;
   enum {
         kBufferSize = 1024
-    };
+  };
   uint8_t fBuffer[kBufferSize];
 };
 #endif

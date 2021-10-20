@@ -19,10 +19,9 @@ namespace Pimpl
   protected:
     ApiPart(ImpPart* pImp)
       : m_pImp(pImp)
-        
-      {
+    {
 
-              }
+    }
         //Must be defined by user code to delete m_pImp.
         //The template cannot do this since ImpPart is not known here.
     ~ApiPart();
@@ -37,10 +36,9 @@ namespace Pimpl
   protected:
     ApiPart(ImpPart* pImp)
       : m_pImp(pImp)
-        
-      {
+    {
 
-              }
+    }
     ~ApiPart();
   private:
     friend class ImpBase;

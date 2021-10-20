@@ -16,17 +16,20 @@ class WXDLLIMPEXP_CORE wxFontDialog : public wxFontDialogBase
 {
 public:
   wxFontDialog()
-    :  wxFontDialogBase() 
-    {
- /* must be Create()d later */     }
+    :  wxFontDialogBase()
+  {
+ /* must be Create()d later */
+  }
   wxFontDialog(wxWindow* parent)
-    :  wxFontDialogBase(parent) 
-    {
- Create(parent);     }
+    :  wxFontDialogBase(parent)
+  {
+ Create(parent);
+  }
   wxFontDialog(wxWindow* parent, const wxFontData& data)
-    :  wxFontDialogBase(parent, data) 
-    {
- Create(parent, data);     }
+    :  wxFontDialogBase(parent, data)
+  {
+ Create(parent, data);
+  }
   int ShowModal() override;
   void SetTitle(const wxString& title) override;
   wxString GetTitle() const override;

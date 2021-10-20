@@ -14,14 +14,14 @@ class WXDLLIMPEXP_CORE wxFrame : public wxFrameBase
 public:
   wxFrame()
   {
- Init();   }
+ Init();
+  }
   wxFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-
         Init();
 
         Create(parent, id, title, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
   virtual ~wxFrame();
   virtual bool Show(bool show = true);
@@ -49,21 +49,35 @@ public:
   virtual void ChangeForegroundColour();
   WXWidget GetMenuBarWidget() const;
   WXWidget GetShellWidget() const
-  { return m_frameShell; }
+  {
+ return m_frameShell;
+  }
   WXWidget GetWorkAreaWidget() const
-  { return m_workArea; }
+  {
+ return m_workArea;
+  }
   WXWidget GetClientAreaWidget() const
-  { return m_clientArea; }
+  {
+ return m_clientArea;
+  }
   WXWidget GetTopWidget() const
-  { return m_frameShell; }
+  {
+ return m_frameShell;
+  }
   virtual WXWidget GetMainWidget() const
-  { return m_mainWidget; }
+  {
+ return m_mainWidget;
+  }
     // The widget that can have children on it
   WXWidget GetClientWidget() const;
   bool GetVisibleStatus() const
-  { return m_visibleStatus; }
+  {
+ return m_visibleStatus;
+  }
   void SetVisibleStatus(bool status)
-  { m_visibleStatus = status; }
+  {
+ m_visibleStatus = status;
+  }
   bool PreResize();
     // for generic/mdig.h
   virtual void DoGetClientSize(int* width, int* height) const;

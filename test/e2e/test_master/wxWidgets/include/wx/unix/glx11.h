@@ -65,9 +65,13 @@ public:
 
     // get the GLXFBConfig/XVisualInfo we use
   GLXFBConfig* GetGLXFBConfig() const
-  { return m_fbc; }
+  {
+ return m_fbc;
+  }
   void* GetXVisualInfo() const
-  { return m_vi; }
+  {
+ return m_vi;
+  }
     // initialize the global default GL visual, return false if matching visual
     // not found
   static bool InitDefaultVisualInfo(const int* attribList);

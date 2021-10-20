@@ -22,7 +22,9 @@ public:
 protected:
   SkISize onGetSampledDimensions(int sampleSize) const override;
   bool onGetSupportedSubset(SkIRect* desiredSubset) const override
-  { return true; }
+  {
+ return true;
+  }
   SkCodec::Result onGetAndroidPixels(const SkImageInfo& info, void* pixels, size_t rowBytes, const AndroidOptions& options) override;
 private:
     /**

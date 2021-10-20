@@ -42,7 +42,7 @@ public:
   bool shouldBindFragmentInputs() const
   {
         return fCaps.bindFragmentInputSupport;
-    }
+  }
     // Functions for "separable shader" texturing support.
   void setProgramPathFragmentInputTransform(GrGLuint program, GrGLint location, GrGLenum genMode, GrGLint components, const SkMatrix&);
     /* Sets the projection matrix for path rendering */
@@ -68,14 +68,15 @@ private:
     GrSurfaceOrigin fRenderTargetOrigin;
     MatrixState()
     {
- this->invalidate();     }
+ this->invalidate();
+    }
     void invalidate()
     {
             fViewMatrix = SkMatrix::InvalidMatrix();
             fRenderTargetSize.fWidth = -1;
             fRenderTargetSize.fHeight = -1;
             fRenderTargetOrigin = (GrSurfaceOrigin) -1;
-        }
+    }
         /**
          * Gets a matrix that goes from local coordinates to GL normalized device coords.
          */
@@ -94,7 +95,7 @@ private:
             }
             combined.preConcat(fViewMatrix);
             GrGLSLGetMatrix<Size>(destMatrix, combined);
-        }
+    }
   };
   GrGLGpu* gpu();
   GrGLuint fFirstPreallocatedPathID;

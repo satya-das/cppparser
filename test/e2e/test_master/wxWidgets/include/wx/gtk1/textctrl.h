@@ -16,7 +16,8 @@ class WXDLLIMPEXP_CORE wxTextCtrl : public wxTextCtrlBase
 public:
   wxTextCtrl()
   {
- Init();   }
+ Init();
+  }
   wxTextCtrl(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTextCtrlNameStr));
   virtual ~wxTextCtrl();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTextCtrlNameStr));
@@ -92,10 +93,14 @@ public:
   void CalculateScrollbar();
   void OnInternalIdle();
   void SetUpdateFont(bool update)
-  { m_updateFont = update; }
+  {
+ m_updateFont = update;
+  }
   void UpdateFontIfNeeded();
   void SetModified()
-  { m_modified = true; }
+  {
+ m_modified = true;
+  }
     // textctrl specific scrolling
   virtual bool ScrollLines(int lines);
   virtual bool ScrollPages(int pages);
@@ -121,7 +126,9 @@ protected:
     // Widgets that use the style->base colour for the BG colour should
     // override this and return true.
   virtual bool UseGTKStyleBase() const
-  { return true; }
+  {
+ return true;
+  }
   virtual void DoSetValue(const wxString& value, int flags = 0);
   virtual wxString DoGetValue() const;
 private:

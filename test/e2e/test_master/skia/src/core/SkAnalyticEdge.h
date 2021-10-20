@@ -16,7 +16,7 @@ struct SkAnalyticEdge
         kLine_Type,
         kQuad_Type,
         kCubic_Type
-    };
+  };
   SkAnalyticEdge* fNext;
   SkAnalyticEdge* fPrev;
     // During aaa_walk_edges, if this edge is a left edge,
@@ -43,7 +43,7 @@ struct SkAnalyticEdge
         const int accuracy = kDefaultAccuracy;
         // This approach is safer than left shift, round, then right shift
         return ((unsigned)y + (SK_Fixed1 >> (accuracy + 1))) >> (16 - accuracy) << (16 - accuracy);
-    }
+  }
     // Update fX, fY of this edge so fY = y
   inline void goY(SkFixed y)
   {
@@ -56,20 +56,20 @@ struct SkAnalyticEdge
             fX = fUpperX + SkFixedMul(fDX, y - fUpperY);
             fY = y;
         }
-    }
+  }
   inline void goY(SkFixed y, int yShift)
   {
         SkASSERT(yShift >= 0 && yShift <= kDefaultAccuracy);
         SkASSERT(fDX == 0 || y - fY == SK_Fixed1 >> yShift);
         fY = y;
         fX += fDX >> yShift;
-    }
+  }
   inline void saveXY(SkFixed x, SkFixed y, SkFixed dY)
   {
         fSavedX = x;
         fSavedY = y;
         fSavedDY = dY;
-    }
+  }
   bool setLine(const SkPoint& p0, const SkPoint& p1);
   bool updateLine(SkFixed ax, SkFixed ay, SkFixed bx, SkFixed by, SkFixed slope);
     // return true if we're NOT done with this edge
@@ -80,7 +80,7 @@ struct SkAnalyticEdge
         SkDebugf("edge: upperY:%d lowerY:%d y:%g x:%g dx:%g w:%d\n",
                  fUpperY, fLowerY, SkFixedToFloat(fY), SkFixedToFloat(fX),
                  SkFixedToFloat(fDX), fWinding);
-    }
+  }
   void validate() const
   {
          SkASSERT(fPrev && fNext);
@@ -89,7 +89,7 @@ struct SkAnalyticEdge
 
          SkASSERT(fUpperY < fLowerY);
          SkASSERT(SkAbs32(fWinding) == 1);
-    }
+  }
 #  endif
 };
 struct SkAnalyticQuadraticEdge : public SkAnalyticEdge
@@ -107,7 +107,7 @@ struct SkAnalyticQuadraticEdge : public SkAnalyticEdge
         SkASSERT(SkAbs32(fY - fSnappedY) < SK_Fixed1); // This may differ due to smooth jump
         fSnappedX = fX;
         fSnappedY = fY;
-    }
+  }
 };
 struct SkAnalyticCubicEdge : public SkAnalyticEdge
 {
@@ -120,7 +120,7 @@ struct SkAnalyticCubicEdge : public SkAnalyticEdge
         SkASSERT(SkAbs32(fX - SkFixedMul(fDX, fY - SnapY(fCEdge.fCy)) - fCEdge.fCx) < SK_Fixed1);
         fCEdge.fCx = fX;
         fSnappedY = fY;
-    }
+  }
 };
 struct SkBezier
 {
@@ -137,7 +137,7 @@ struct SkBezier
         SkScalar scale = (1 << (shift + 6));
         return SkFDot6Round(int(y0 * scale)) == SkFDot6Round(int(y1 * scale));
 #endif
-    }
+  }
 };
 struct SkLine : public SkBezier
 {
@@ -150,7 +150,7 @@ struct SkLine : public SkBezier
         fP0 = pts[0];
         fP1 = pts[1];
         return true;
-    }
+  }
 };
 struct SkQuad : public SkBezier
 {
@@ -165,7 +165,7 @@ struct SkQuad : public SkBezier
         fP1 = pts[1];
         fP2 = pts[2];
         return true;
-    }
+  }
 };
 struct SkCubic : public SkBezier
 {
@@ -186,6 +186,6 @@ struct SkCubic : public SkBezier
         fP2 = pts[2];
         fP3 = pts[3];
         return true;
-    }
+  }
 };
 #endif

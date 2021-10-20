@@ -716,7 +716,7 @@ public:
 
         /// Return the attribute set for this cells column.
         Col
-    };
+  };
     /**
         Default constructor.
     */
@@ -1795,7 +1795,7 @@ public:
             @since 2.9.1
          */
         wxGridSelectRowsOrColumns
-    };
+  };
     /**
         Return values for GetCellSize().
 
@@ -1810,7 +1810,7 @@ public:
 
         /// This cell spans several physical wxGrid cells.
         CellSpan_Main
-    };
+  };
     /**
         Constants defining different support built-in TAB handling behaviours.
 
@@ -1831,7 +1831,7 @@ public:
 
         /// Move to the next (or the previous) control after the grid.
         Tab_Leave
-    };
+  };
     /**
         @name Constructors and Initialization
      */

@@ -39,10 +39,9 @@ public:
                                     wxEmptyString,  // no local config file
                                     wxEmptyString,  // no system config file
                                     0)              // don't use any files
-    
-    {
+  {
 
-        }
+  }
   wxDECLARE_NO_COPY_CLASS(wxMemoryConfig);
 };
 #  endif

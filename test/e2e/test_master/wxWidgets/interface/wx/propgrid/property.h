@@ -160,7 +160,6 @@
     @{
 */
 enum wxPGPropertyFlags {
-
 /** Indicates bold font.
 */
 wxPG_PROP_MODIFIED                  = 0x0001,
@@ -280,7 +279,6 @@ wxPG_PROP_CLASS_SPECIFIC_2          = 0x00100000,
 /** Indicates that the property is being deleted and should be ignored.
 */
 wxPG_PROP_BEING_DELETED             = 0x00200000
-
 };
 /** Topmost flag.
 */

@@ -71,7 +71,7 @@ namespace PoDoFo
     ePdfAction_RichMediaExecute,
     
     ePdfAction_Unknown = 0xff
-};
+  };
 /** An action that can be performed in a PDF document
  */
   class PODOFO_DOC_API PdfAction : public PdfElement
@@ -90,7 +90,8 @@ namespace PoDoFo
     PdfAction(EPdfAction eAction, PdfDocument* pParent);
     virtual ~PdfAction()
     {
-     }
+
+    }
     /** Create a PdfAction object from an existing 
      *  PdfObject
      */
@@ -134,6 +135,6 @@ namespace PoDoFo
   inline EPdfAction PdfAction::GetType() const
   {
     return m_eType;
-}
+  }
 }
 #endif

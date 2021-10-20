@@ -110,7 +110,8 @@ public:
   public:
     virtual ~SystemFontLoader()
     {
-     }
+
+    }
     virtual void loadSystemFonts(const SkTypeface_FreeType::Scanner&, Families*) const = 0;
   };
   explicit SkFontMgr_Custom(const SystemFontLoader& loader);

@@ -47,12 +47,10 @@ public:
 };
 inline AcIfstream::AcIfstream(const wchar_t* pName)
 {
-
     this->open(pName);
 }
 inline AcOfstream::AcOfstream(const wchar_t* pName)
 {
-
     this->open(pName);
 }
 inline const std::locale& AcFStream_curLocale()

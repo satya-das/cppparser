@@ -23,7 +23,9 @@ public:
   }
     // Update the markup string.
   void SetMarkup(const wxString& markup)
-  { m_markup = markup; }
+  {
+ m_markup = markup;
+  }
     // Return the width and height required by the given string and optionally
     // the height of the visible part above the baseline (i.e. ascent minus
     // internal leading).
@@ -35,10 +37,9 @@ public:
 protected:
   wxMarkupTextBase(const wxString& markup)
     :  m_markup(markup)
-    
-    {
+  {
 
-        }
+  }
     // Return m_markup suitable for measuring by Measure, i.e. stripped of
     // any mnenomics.
   virtual wxString GetMarkupForMeasuring() const = 0;
@@ -66,17 +67,18 @@ public:
     // need to be updated to support multiline labels with markup.
   wxMarkupText(const wxString& markup)
     :  wxMarkupTextBase(markup)
-    
-    {
+  {
 
-        }
+  }
     // Default copy ctor, assignment operator and dtor are ok.
 
     // Update the markup string.
     //
     // The same rules for mnemonics as in the ctor apply to this string.
   void SetMarkup(const wxString& markup)
-  { m_markup = markup; }
+  {
+ m_markup = markup;
+  }
     // Render the markup string into the given DC in the specified rectangle.
     //
     // Notice that while the function uses the provided rectangle for alignment
@@ -101,10 +103,9 @@ public:
     // literal ampersands shouldn't be escaped/doubled.
   wxItemMarkupText(const wxString& markup)
     :  wxMarkupTextBase(markup)
-    
-    {
+  {
 
-        }
+  }
     // Default copy ctor, assignment operator and dtor are ok.
 
     // Similar to wxMarkupText::Render(), but uses wxRendererNative::DrawItemText()
@@ -119,6 +120,8 @@ public:
   void Render(wxWindow* win, wxDC& dc, const wxRect& rect, int rendererFlags, wxEllipsizeMode ellipsizeMode);
 protected:
   wxString GetMarkupForMeasuring() const override
-  { return m_markup; }
+  {
+ return m_markup;
+  }
 };
 #endif

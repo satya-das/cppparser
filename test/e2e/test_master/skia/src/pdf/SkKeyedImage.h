@@ -28,11 +28,16 @@ public:
   SkKeyedImage& operator=(const SkKeyedImage&);
   operator bool() const
   {
- return fImage != nullptr;   }
+ return fImage != nullptr;
+  }
   const SkBitmapKey& key() const
-  { return fKey; }
+  {
+ return fKey;
+  }
   const sk_sp<SkImage>& image() const
-  { return fImage; }
+  {
+ return fImage;
+  }
   sk_sp<SkImage> release();
   SkKeyedImage subset(SkIRect subset) const;
 private:

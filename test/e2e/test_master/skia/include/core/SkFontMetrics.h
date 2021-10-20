@@ -23,7 +23,7 @@ struct SK_API SkFontMetrics
         kUnderlinePositionIsValid_Flag  = 1 << 1, //!< set if fUnderlinePosition is valid
         kStrikeoutThicknessIsValid_Flag = 1 << 2, //!< set if fStrikeoutThickness is valid
         kStrikeoutPositionIsValid_Flag  = 1 << 3, //!< set if fStrikeoutPosition is valid
-    };
+  };
   uint32_t fFlags;
   SkScalar fTop;
   SkScalar fAscent;
@@ -54,7 +54,7 @@ struct SK_API SkFontMetrics
             return true;
         }
         return false;
-    }
+  }
     /** Returns true if SkFontMetrics has a valid underline position, and sets
      position to that value. If the underline position is not valid,
      return false, and ignore position.
@@ -69,7 +69,7 @@ struct SK_API SkFontMetrics
             return true;
         }
         return false;
-    }
+  }
     /** Returns true if SkFontMetrics has a valid strikeout thickness, and sets
      thickness to that value. If the underline thickness is not valid,
      return false, and ignore thickness.
@@ -84,7 +84,7 @@ struct SK_API SkFontMetrics
             return true;
         }
         return false;
-    }
+  }
     /** Returns true if SkFontMetrics has a valid strikeout position, and sets
      position to that value. If the underline position is not valid,
      return false, and ignore position.
@@ -99,6 +99,6 @@ struct SK_API SkFontMetrics
             return true;
         }
         return false;
-    }
+  }
 };
 #endif

@@ -148,7 +148,8 @@ class WXDLLIMPEXP_CORE wxListItem : public wxObject
 public:
   wxListItem()
   {
- Init(); m_attr = NULL;   }
+ Init(); m_attr = NULL;
+  }
   wxListItem(const wxListItem& item)
     :  wxObject(),
           m_mask(item.m_mask),
@@ -162,13 +163,11 @@ public:
           m_format(item.m_format),
           m_width(item.m_width),
           m_attr(NULL)
-    
-    {
-
+  {
         // copy list item attributes
         if ( item.HasAttributes() )
             m_attr = new wxItemAttr(*item.GetAttributes());
-        }
+  }
   wxListItem& operator=(const wxListItem& item)
   {
         if ( &item != this )
@@ -187,79 +186,141 @@ public:
         }
 
         return *this;
-    }
+  }
   virtual ~wxListItem()
   {
- delete m_attr;   }
+ delete m_attr;
+  }
     // resetting
   void Clear()
-  { Init(); m_text.clear(); ClearAttributes(); }
+  {
+ Init(); m_text.clear(); ClearAttributes();
+  }
   void ClearAttributes()
-  { if ( m_attr ) { delete m_attr; m_attr = NULL; } }
+  {
+ if ( m_attr ) { delete m_attr; m_attr = NULL; }
+  }
     // setters
   void SetMask(long mask)
-  { m_mask = mask; }
+  {
+ m_mask = mask;
+  }
   void SetId(long id)
-  { m_itemId = id; }
+  {
+ m_itemId = id;
+  }
   void SetColumn(int col)
-  { m_col = col; }
+  {
+ m_col = col;
+  }
   void SetState(long state)
-  { m_mask |= wxLIST_MASK_STATE; m_state = state; m_stateMask |= state; }
+  {
+ m_mask |= wxLIST_MASK_STATE; m_state = state; m_stateMask |= state;
+  }
   void SetStateMask(long stateMask)
-  { m_stateMask = stateMask; }
+  {
+ m_stateMask = stateMask;
+  }
   void SetText(const wxString& text)
-  { m_mask |= wxLIST_MASK_TEXT; m_text = text; }
+  {
+ m_mask |= wxLIST_MASK_TEXT; m_text = text;
+  }
   void SetImage(int image)
-  { m_mask |= wxLIST_MASK_IMAGE; m_image = image; }
+  {
+ m_mask |= wxLIST_MASK_IMAGE; m_image = image;
+  }
   void SetData(long data)
-  { m_mask |= wxLIST_MASK_DATA; m_data = data; }
+  {
+ m_mask |= wxLIST_MASK_DATA; m_data = data;
+  }
   void SetData(void* data)
-  { m_mask |= wxLIST_MASK_DATA; m_data = wxPtrToUInt(data); }
+  {
+ m_mask |= wxLIST_MASK_DATA; m_data = wxPtrToUInt(data);
+  }
   void SetWidth(int width)
-  { m_mask |= wxLIST_MASK_WIDTH; m_width = width; }
+  {
+ m_mask |= wxLIST_MASK_WIDTH; m_width = width;
+  }
   void SetAlign(wxListColumnFormat align)
-  { m_mask |= wxLIST_MASK_FORMAT; m_format = align; }
+  {
+ m_mask |= wxLIST_MASK_FORMAT; m_format = align;
+  }
   void SetTextColour(const wxColour& colText)
-  { Attributes().SetTextColour(colText); }
+  {
+ Attributes().SetTextColour(colText);
+  }
   void SetBackgroundColour(const wxColour& colBack)
-  { Attributes().SetBackgroundColour(colBack); }
+  {
+ Attributes().SetBackgroundColour(colBack);
+  }
   void SetFont(const wxFont& font)
-  { Attributes().SetFont(font); }
+  {
+ Attributes().SetFont(font);
+  }
     // accessors
   long GetMask() const
-  { return m_mask; }
+  {
+ return m_mask;
+  }
   long GetId() const
-  { return m_itemId; }
+  {
+ return m_itemId;
+  }
   int GetColumn() const
-  { return m_col; }
+  {
+ return m_col;
+  }
   long GetState() const
-  { return m_state & m_stateMask; }
+  {
+ return m_state & m_stateMask;
+  }
   const wxString& GetText() const
-  { return m_text; }
+  {
+ return m_text;
+  }
   int GetImage() const
-  { return m_image; }
+  {
+ return m_image;
+  }
   wxUIntPtr GetData() const
-  { return m_data; }
+  {
+ return m_data;
+  }
   int GetWidth() const
-  { return m_width; }
+  {
+ return m_width;
+  }
   wxListColumnFormat GetAlign() const
-  { return (wxListColumnFormat)m_format; }
+  {
+ return (wxListColumnFormat)m_format;
+  }
   wxItemAttr* GetAttributes() const
-  { return m_attr; }
+  {
+ return m_attr;
+  }
   bool HasAttributes() const
-  { return m_attr != NULL; }
+  {
+ return m_attr != NULL;
+  }
   wxColour GetTextColour() const
-  { return HasAttributes() ? m_attr->GetTextColour() : wxNullColour; }
+  {
+ return HasAttributes() ? m_attr->GetTextColour() : wxNullColour;
+  }
   wxColour GetBackgroundColour() const
-  { return HasAttributes() ? m_attr->GetBackgroundColour()
-                                 : wxNullColour; }
+  {
+ return HasAttributes() ? m_attr->GetBackgroundColour()
+                                 : wxNullColour;
+  }
   wxFont GetFont() const
-  { return HasAttributes() ? m_attr->GetFont() : wxNullFont; }
+  {
+ return HasAttributes() ? m_attr->GetFont() : wxNullFont;
+  }
     // this conversion is necessary to make old code using GetItem() to
     // compile
   operator long() const
   {
- return m_itemId;   }
+ return m_itemId;
+  }
     // these members are public for compatibility
   long m_mask;
   long m_itemId;
@@ -280,7 +341,7 @@ protected:
             m_attr = new wxItemAttr;
 
         return *m_attr;
-    }
+  }
   void Init()
   {
         m_mask = 0;
@@ -293,7 +354,7 @@ protected:
 
         m_format = wxLIST_FORMAT_CENTRE;
         m_width = 0;
-    }
+  }
   wxItemAttr* m_attr;
 private:
   wxDECLARE_DYNAMIC_CLASS(wxListItem);
@@ -311,7 +372,8 @@ class WXDLLIMPEXP_CORE wxListCtrlBase : public wxSystemThemedControl<wxControl>
 public:
   wxListCtrlBase()
   {
-   }
+
+  }
     // Image list methods.
     // -------------------
 
@@ -348,7 +410,9 @@ public:
   virtual int GetItemCount() const = 0;
     // Check if the control is empty, i.e. doesn't contain any items.
   bool IsEmpty() const
-  { return GetItemCount() == 0; }
+  {
+ return GetItemCount() == 0;
+  }
     // Return the current number of columns.
   virtual int GetColumnCount() const = 0;
     // Get or update information about the given column. Set item mask to
@@ -366,34 +430,56 @@ public:
 
     // Convenient functions for testing the list control mode:
   bool InReportView() const
-  { return HasFlag(wxLC_REPORT); }
+  {
+ return HasFlag(wxLC_REPORT);
+  }
   bool IsVirtual() const
-  { return HasFlag(wxLC_VIRTUAL); }
+  {
+ return HasFlag(wxLC_VIRTUAL);
+  }
     // Check if the item is visible
   virtual bool IsVisible(long) const
-  { return false; }
+  {
+ return false;
+  }
     // Enable or disable beep when incremental match doesn't find any item.
     // Only implemented in the generic version currently.
   virtual void EnableBellOnNoMatch(bool = true)
-  { }
+  {
+
+  }
   void EnableAlternateRowColours(bool enable = true);
   void SetAlternateRowColour(const wxColour& colour);
   wxColour GetAlternateRowColour() const
-  { return m_alternateRowColour.GetBackgroundColour(); }
+  {
+ return m_alternateRowColour.GetBackgroundColour();
+  }
   virtual void ExtendRulesAndAlternateColour(bool = true)
-  { }
+  {
+
+  }
     // Header attributes support: only implemented in wxMSW currently.
   virtual bool SetHeaderAttr(const wxItemAttr&)
-  { return false; }
+  {
+ return false;
+  }
     // Checkboxes support.
   virtual bool HasCheckBoxes() const
-  { return false; }
+  {
+ return false;
+  }
   virtual bool EnableCheckBoxes(bool = true)
-  { return false; }
+  {
+ return false;
+  }
   virtual bool IsItemChecked(long) const
-  { return false; }
+  {
+ return false;
+  }
   virtual void CheckItem(long, bool)
-  { }
+  {
+
+  }
 protected:
     // Real implementations methods to which our public forwards.
   virtual long DoInsertColumn(long col, const wxListItem& info) = 0;
@@ -435,9 +521,9 @@ public:
         , m_pointDrag()
         , m_item()
         , m_editCancelled(false)
-        
-    {
-     }
+  {
+
+  }
   wxListEvent(const wxListEvent& event)
     :  wxNotifyEvent(event)
         , m_code(event.m_code)
@@ -447,55 +533,99 @@ public:
         , m_pointDrag(event.m_pointDrag)
         , m_item(event.m_item)
         , m_editCancelled(event.m_editCancelled)
-        
-    {
-     }
+  {
+
+  }
   int GetKeyCode() const
-  { return m_code; }
+  {
+ return m_code;
+  }
   long GetIndex() const
-  { return m_itemIndex; }
+  {
+ return m_itemIndex;
+  }
   int GetColumn() const
-  { return m_col; }
+  {
+ return m_col;
+  }
   wxPoint GetPoint() const
-  { return m_pointDrag; }
+  {
+ return m_pointDrag;
+  }
   const wxString& GetLabel() const
-  { return m_item.m_text; }
+  {
+ return m_item.m_text;
+  }
   const wxString& GetText() const
-  { return m_item.m_text; }
+  {
+ return m_item.m_text;
+  }
   int GetImage() const
-  { return m_item.m_image; }
+  {
+ return m_item.m_image;
+  }
   wxUIntPtr GetData() const
-  { return m_item.m_data; }
+  {
+ return m_item.m_data;
+  }
   long GetMask() const
-  { return m_item.m_mask; }
+  {
+ return m_item.m_mask;
+  }
   const wxListItem& GetItem() const
-  { return m_item; }
+  {
+ return m_item;
+  }
   void SetKeyCode(int code)
-  { m_code = code; }
+  {
+ m_code = code;
+  }
   void SetIndex(long index)
-  { m_itemIndex = index; }
+  {
+ m_itemIndex = index;
+  }
   void SetColumn(int col)
-  { m_col = col; }
+  {
+ m_col = col;
+  }
   void SetPoint(const wxPoint& point)
-  { m_pointDrag = point; }
+  {
+ m_pointDrag = point;
+  }
   void SetItem(const wxListItem& item)
-  { m_item = item; }
+  {
+ m_item = item;
+  }
     // for wxEVT_LIST_CACHE_HINT only
   long GetCacheFrom() const
-  { return m_oldItemIndex; }
+  {
+ return m_oldItemIndex;
+  }
   long GetCacheTo() const
-  { return m_itemIndex; }
+  {
+ return m_itemIndex;
+  }
   void SetCacheFrom(long cacheFrom)
-  { m_oldItemIndex = cacheFrom; }
+  {
+ m_oldItemIndex = cacheFrom;
+  }
   void SetCacheTo(long cacheTo)
-  { m_itemIndex = cacheTo; }
+  {
+ m_itemIndex = cacheTo;
+  }
     // was label editing canceled? (for wxEVT_LIST_END_LABEL_EDIT only)
   bool IsEditCancelled() const
-  { return m_editCancelled; }
+  {
+ return m_editCancelled;
+  }
   void SetEditCanceled(bool editCancelled)
-  { m_editCancelled = editCancelled; }
+  {
+ m_editCancelled = editCancelled;
+  }
   wxEvent* Clone() const override
-  { return new wxListEvent(*this); }
+  {
+ return new wxListEvent(*this);
+  }
 //protected: -- not for backwards compatibility
   int m_code;
   long m_oldItemIndex;

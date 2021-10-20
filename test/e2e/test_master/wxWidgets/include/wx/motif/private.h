@@ -91,9 +91,13 @@ extern XColor itemColors[5];
 wxString wxXmStringToString(const XmString& xmString);
 XmString wxStringToXmString(const char* string);
 inline XmString wxStringToXmString(const wxScopedCharBuffer& string)
-{ return wxStringToXmString(string.data()); }
+{
+ return wxStringToXmString(string.data());
+}
 inline XmString wxStringToXmString(const wxString& string)
-{ return wxStringToXmString((const char*)string.mb_str()); }
+{
+ return wxStringToXmString((const char*)string.mb_str());
+}
 // XmString made easy to use in wxWidgets (and has an added benefit of
 // cleaning up automatically)
 class wxXmString
@@ -105,39 +109,39 @@ class wxXmString
                     const_cast<char *>(str),
                     const_cast<char *>(XmSTRING_DEFAULT_CHARSET)
                    );
-    }
+  }
 public:
   wxXmString(const char* str)
   {
-
         Init(str);
-      }
+  }
   wxXmString(const wchar_t* str)
   {
-
         Init(wxConvLibc.cWC2MB(str));
-      }
+  }
   wxXmString(const wxString& str)
   {
-
         Init(str.mb_str());
-      }
+  }
   wxXmString(const wxCStrData& str)
   {
-
         Init(str);
-      }
+  }
     // just to avoid calling XmStringFree()
   wxXmString(const XmString& string)
   {
- m_string = string;   }
+ m_string = string;
+  }
   ~wxXmString()
   {
- XmStringFree(m_string);   }
+ XmStringFree(m_string);
+  }
     // semi-implicit conversion to XmString (shouldn't rely on implicit
     // conversion because many of Motif functions are macros)
   XmString operator()() const
-  { return m_string; }
+  {
+ return m_string;
+  }
 private:
   XmString m_string;
 };

@@ -37,6 +37,6 @@ namespace SkCodecAnimation
          *  In a GIF, a value of 4 is also treated as RestorePrevious.
          */
         kRestorePrevious    = 3,
-    };
+  };
 }
 #endif

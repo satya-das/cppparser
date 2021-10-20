@@ -16,6 +16,6 @@ namespace skstd
     T old_val = std::move(obj);
     obj = std::forward<U>(new_val);
     return old_val;
-}
+  }
 }
 #endif

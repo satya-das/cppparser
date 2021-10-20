@@ -19,18 +19,16 @@ struct SkWritePixelsRec
         , fInfo(info)
         , fX(x)
         , fY(y)
-    
-    {
-    }
+  {
+  }
   SkWritePixelsRec(const SkPixmap& pm, int x, int y)
     :  fPixels(pm.addr())
         , fRowBytes(pm.rowBytes())
         , fInfo(pm.info())
         , fX(x)
         , fY(y)
-    
-    {
-    }
+  {
+  }
   const void* fPixels;
   size_t fRowBytes;
   SkImageInfo fInfo;

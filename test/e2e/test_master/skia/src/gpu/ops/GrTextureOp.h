@@ -23,7 +23,9 @@ namespace GrTextureOp
  * Controls whether saturate() is called after the texture is color-converted to ensure all
  * color values are in 0..1 range.
  */
-  enum class Saturate : bool { kNo = false, kYes = true };
+  enum class Saturate : bool {
+ kNo = false, kYes = true
+  };
 /**
  * Creates an op that draws a sub-quadrilateral of a texture. The passed color is modulated by the
  * texture's color. 'deviceQuad' specifies the device-space coordinates to draw, using 'localQuad'

@@ -16,25 +16,26 @@ public:
   DEFINE_OP_CLASS_ID
   static std::unique_ptr<GrOp> Make(GrRecordingContext*, GrRenderTargetProxy*, const SkString&);
   const char* name() const override
-  { return "DebugMarker"; }
+  {
+ return "DebugMarker";
+  }
 #  ifdef SK_DEBUG
   SkString dumpInfo() const override
   {
         SkString string;
         string.append(INHERITED::dumpInfo());
         return string;
-    }
+  }
 #  endif
 private:
   friend class GrOpMemoryPool;
   GrDebugMarkerOp(GrRenderTargetProxy* proxy, const SkString& str)
     :  INHERITED(ClassID())
-            , fStr(str) 
-    {
-
+            , fStr(str)
+  {
         // Make this cover the whole screen so it can't be reordered around
         this->makeFullScreen(proxy);
-        }
+  }
   void onPrepare(GrOpFlushState*) override
   {
   }

@@ -20,10 +20,9 @@ public:
     :  m_11(1), m_12(0),
                          m_21(0), m_22(1),
                          m_tx(0), m_ty(0)
-    
-    {
+  {
 
-        }
+  }
     // Implement base class pure virtual methods.
   void Set(const wxMatrix2D& mat2D, const wxPoint2DDouble& tr) override;
   void Get(wxMatrix2D* mat2D, wxPoint2DDouble* tr) const override;

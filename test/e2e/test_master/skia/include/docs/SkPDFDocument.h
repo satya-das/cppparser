@@ -61,7 +61,7 @@ namespace SkPDF
     kFigure,      //!< Figure
     kFormula,     //!< Formula
     kForm,        //!< Form control (not like an HTML FORM element)
-};
+  };
 /** A node in a PDF structure tree, giving a semantic representation
     of the content.  Each node ID is associated with content
     by passing the SkCanvas and node ID to SkPDF::SetNodeId() when drawing.
@@ -178,6 +178,6 @@ namespace SkPDF
   static sk_sp<SkDocument> MakeDocument(SkWStream* stream)
   {
     return MakeDocument(stream, Metadata());
-}
+  }
 }
 #endif

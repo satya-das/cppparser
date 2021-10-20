@@ -59,7 +59,7 @@ public:
         }
         fPosition += fBytesBuffered;
         fBytesBuffered = 0;
-    }
+  }
     /**
      *  Mark the current position in the stream to return to it later.
      *

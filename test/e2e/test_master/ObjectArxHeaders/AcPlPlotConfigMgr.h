@@ -67,7 +67,7 @@ public:
         kRefreshStyleList,
         kRefreshSystemDevicesList,
         kRefreshPC3DevicesList
-    };
+  };
     // Different type of plot style tables
   enum StyTypes {
         kUndefined      = 0,
@@ -75,7 +75,7 @@ public:
         kTranslation    = 0x02,
         kColorDep       = 0x04,
         kAllTypes       = 0x07
-    };
+  };
     // List of standard pc3 files that are installed by default
   enum StdConfigs {
         kNoneDevice,
@@ -94,7 +94,7 @@ public:
         kPDFePlotSmallerFile,   // to specify Pdf pc3 config file for Smallest File Size.
         kPDFePlotWebMobile,     // to specify Pdf pc3 config file for Web and Mobile.
         kSVFePlot
-    };
+  };
     // Returns the list of system printer, pc3 file installed on the current
     // system. Also includes the None device as the first element of the array
   virtual bool getDevicesList(AcArray<AcPlPlotConfigInfo, AcArrayObjectCopyReallocator <AcPlPlotConfigInfo> >& deviceList);

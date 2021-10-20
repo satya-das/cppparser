@@ -43,12 +43,11 @@ public:
     // all the nodes in the pre-allocated first block need to be inserted into the free list. This
     // allows us to skip that loop in instances when the list is never populated.
   SkTLList()
-    :  fCount(-1) 
-    {
-    }
+    :  fCount(-1)
+  {
+  }
   ~SkTLList()
   {
-
         this->validate();
         typename NodeList::Iter iter;
         Node* node = iter.init(fList, Iter::kHead_IterStart);
@@ -65,7 +64,7 @@ public:
                 }
             }
         }
-      }
+  }
     /** Adds a new element to the list at the head. */
   template <typename... Args>
   T* addToHead(Args&&... args)
@@ -75,7 +74,7 @@ public:
         fList.addToHead(node);
         this->validate();
         return new (node->fObj.get())  T(std::forward<Args>(args)...);
-    }
+  }
     /** Adds a new element to the list at the tail. */
   template <typename... Args>
   T* addToTail(Args&&... args)
@@ -85,7 +84,7 @@ public:
         fList.addToTail(node);
         this->validate();
         return new (node->fObj.get()) T(std::forward<Args>(args)...);
-    }
+  }
     /** Adds a new element to the list before the location indicated by the iterator. If the
         iterator refers to a nullptr location then the new element is added at the tail */
   template <typename... Args>
@@ -96,7 +95,7 @@ public:
         fList.addBefore(node, location.getNode());
         this->validate();
         return new (node->fObj.get()) T(std::forward<Args>(args)...);
-    }
+  }
     /** Adds a new element to the list after the location indicated by the iterator. If the
         iterator refers to a nullptr location then the new element is added at the head */
   template <typename... Args>
@@ -107,20 +106,32 @@ public:
         fList.addAfter(node, location.getNode());
         this->validate();
         return new (node->fObj.get()) T(std::forward<Args>(args)...);
-    }
+  }
     /** Convenience methods for getting an iterator initialized to the head/tail of the list. */
   Iter headIter() const
-  { return Iter(*this, Iter::kHead_IterStart); }
+  {
+ return Iter(*this, Iter::kHead_IterStart);
+  }
   Iter tailIter() const
-  { return Iter(*this, Iter::kTail_IterStart); }
+  {
+ return Iter(*this, Iter::kTail_IterStart);
+  }
   T* head()
-  { return Iter(*this, Iter::kHead_IterStart).get(); }
+  {
+ return Iter(*this, Iter::kHead_IterStart).get();
+  }
   T* tail()
-  { return Iter(*this, Iter::kTail_IterStart).get(); }
+  {
+ return Iter(*this, Iter::kTail_IterStart).get();
+  }
   const T* head() const
-  { return Iter(*this, Iter::kHead_IterStart).get(); }
+  {
+ return Iter(*this, Iter::kHead_IterStart).get();
+  }
   const T* tail() const
-  { return Iter(*this, Iter::kTail_IterStart).get(); }
+  {
+ return Iter(*this, Iter::kTail_IterStart).get();
+  }
   void popHead()
   {
         this->validate();
@@ -129,7 +140,7 @@ public:
             this->removeNode(node);
         }
         this->validate();
-    }
+  }
   void popTail()
   {
         this->validate();
@@ -138,7 +149,7 @@ public:
             this->removeNode(node);
         }
         this->validate();
-    }
+  }
   void remove(T* t)
   {
         this->validate();
@@ -146,7 +157,7 @@ public:
         SkASSERT(reinterpret_cast<T*>(node->fObj.get()) == t);
         this->removeNode(node);
         this->validate();
-    }
+  }
   void reset()
   {
         this->validate();
@@ -159,11 +170,15 @@ public:
         }
         SkASSERT(0 == fCount || -1 == fCount);
         this->validate();
-    }
+  }
   int count() const
-  { return SkTMax(fCount ,0); }
+  {
+ return SkTMax(fCount ,0);
+  }
   bool isEmpty() const
-  { this->validate(); return 0 == fCount || -1 == fCount; }
+  {
+ this->validate(); return 0 == fCount || -1 == fCount;
+  }
   bool operator==(const SkTLList& list) const
   {
         if (this == &list) {
@@ -182,9 +197,11 @@ public:
             }
         }
         return true;
-    }
+  }
   bool operator!=(const SkTLList& list) const
-  { return !(*this == list); }
+  {
+ return !(*this == list);
+  }
     /** The iterator becomes invalid if the element it refers to is removed from the list. */
   class Iter : private NodeList::Iter
   {
@@ -201,25 +218,34 @@ public:
     }
     Iter(const SkTLList& list, IterStart start = kHead_IterStart)
     {
-
             INHERITED::init(list.fList, start);
-            }
+    }
     T* init(const SkTLList& list, IterStart start = kHead_IterStart)
     {
             return this->nodeToObj(INHERITED::init(list.fList, start));
-        }
+    }
     T* get()
-    { return this->nodeToObj(INHERITED::get()); }
+    {
+ return this->nodeToObj(INHERITED::get());
+    }
     T* next()
-    { return this->nodeToObj(INHERITED::next()); }
+    {
+ return this->nodeToObj(INHERITED::next());
+    }
     T* prev()
-    { return this->nodeToObj(INHERITED::prev()); }
+    {
+ return this->nodeToObj(INHERITED::prev());
+    }
     Iter& operator=(const Iter& iter)
-    { INHERITED::operator=(iter); return *this; }
+    {
+ INHERITED::operator=(iter); return *this;
+    }
   private:
     friend class SkTLList;
     Node* getNode()
-    { return INHERITED::get(); }
+    {
+ return INHERITED::get();
+    }
     T* nodeToObj(Node* node)
     {
             if (node) {
@@ -227,7 +253,7 @@ public:
             } else {
                 return nullptr;
             }
-        }
+    }
   };
 private:
   struct Block
@@ -245,7 +271,7 @@ private:
         }
         fCount = 0;
         this->validate();
-    }
+  }
   Node* createNode()
   {
         if (-1 == fCount) {
@@ -272,7 +298,7 @@ private:
         }
         ++fCount;
         return node;
-    }
+  }
   void removeNode(Node* node)
   {
         SkASSERT(node);
@@ -293,7 +319,7 @@ private:
         }
         --fCount;
         this->validate();
-    }
+  }
   void validate() const
   {
 #ifdef SK_DEBUG
@@ -353,7 +379,7 @@ private:
         }
         SkASSERT(count == fCount || (0 == count && -1 == fCount));
 #endif
-    }
+  }
   NodeList fList;
   NodeList fFreeList;
   Block fFirstBlock;

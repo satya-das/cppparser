@@ -51,21 +51,35 @@ public:
   wxGtkPrintDialog(wxWindow* parent, wxPrintData* data);
   virtual ~wxGtkPrintDialog();
   wxPrintData& GetPrintData() override
-  { return m_printDialogData.GetPrintData(); }
+  {
+ return m_printDialogData.GetPrintData();
+  }
   wxPrintDialogData& GetPrintDialogData() override
-  { return m_printDialogData; }
+  {
+ return m_printDialogData;
+  }
   wxDC* GetPrintDC() override;
   int ShowModal() override;
   bool Validate() override
-  { return true; }
+  {
+ return true;
+  }
   bool TransferDataToWindow() override
-  { return true; }
+  {
+ return true;
+  }
   bool TransferDataFromWindow() override
-  { return true; }
+  {
+ return true;
+  }
   void SetShowDialog(bool show)
-  { m_showDialog = show; }
+  {
+ m_showDialog = show;
+  }
   bool GetShowDialog()
-  { return m_showDialog; }
+  {
+ return m_showDialog;
+  }
 protected:
     // Implement some base class methods to do nothing to avoid asserts and
     // GTK warnings, since this is not a real wxDialog.
@@ -90,14 +104,22 @@ public:
   wxGtkPageSetupDialog(wxWindow* parent, wxPageSetupDialogData* data = NULL);
   virtual ~wxGtkPageSetupDialog();
   wxPageSetupDialogData& GetPageSetupDialogData() override
-  { return m_pageDialogData; }
+  {
+ return m_pageDialogData;
+  }
   int ShowModal() override;
   bool Validate() override
-  { return true; }
+  {
+ return true;
+  }
   bool TransferDataToWindow() override
-  { return true; }
+  {
+ return true;
+  }
   bool TransferDataFromWindow() override
-  { return true; }
+  {
+ return true;
+  }
 protected:
     // Implement some base class methods to do nothing to avoid asserts and
     // GTK warnings, since this is not a real wxDialog.
@@ -124,9 +146,13 @@ public:
   wxDC* PrintDialog(wxWindow* parent) override;
   bool Setup(wxWindow* parent) override;
   GtkPrintContext* GetPrintContext()
-  { return m_gpc; }
+  {
+ return m_gpc;
+  }
   void SetPrintContext(GtkPrintContext* context)
-  {m_gpc = context;}
+  {
+m_gpc = context;
+  }
   void BeginPrint(wxPrintout* printout, GtkPrintOperation* operation, GtkPrintContext* context);
   void DrawPage(wxPrintout* printout, GtkPrintOperation* operation, GtkPrintContext* context, int page_nr);
 private:
@@ -146,19 +172,31 @@ public:
   bool TransferTo(wxPrintData& data) override;
   bool TransferFrom(const wxPrintData& data) override;
   bool Ok() const override
-  { return IsOk(); }
+  {
+ return IsOk();
+  }
   bool IsOk() const override
-  { return true; }
+  {
+ return true;
+  }
   GtkPrintSettings* GetPrintConfig()
-  { return m_config; }
+  {
+ return m_config;
+  }
   void SetPrintConfig(GtkPrintSettings* config);
   GtkPrintOperation* GetPrintJob()
-  { return m_job; }
+  {
+ return m_job;
+  }
   void SetPrintJob(GtkPrintOperation* job);
   GtkPrintContext* GetPrintContext()
-  { return m_context; }
+  {
+ return m_context;
+  }
   void SetPrintContext(GtkPrintContext* context)
-  {m_context = context; }
+  {
+m_context = context;
+  }
   GtkPageSetup* GetPageSetupFromSettings(GtkPrintSettings* settings);
   void SetPageSetupToSettings(GtkPrintSettings* settings, GtkPageSetup* page_setup);
 private:
@@ -178,12 +216,16 @@ public:
   wxGtkPrinterDCImpl(wxPrinterDC* owner, const wxPrintData& data);
   virtual ~wxGtkPrinterDCImpl();
   bool Ok() const
-  { return IsOk(); }
+  {
+ return IsOk();
+  }
   bool IsOk() const override;
   void* GetCairoContext() const override;
   void* GetHandle() const override;
   bool CanDrawBitmap() const override
-  { return true; }
+  {
+ return true;
+  }
   void Clear() override;
   void SetFont(const wxFont& font) override;
   void SetPen(const wxPen& pen) override;
@@ -198,14 +240,20 @@ public:
   wxCoord GetCharHeight() const override;
   wxCoord GetCharWidth() const override;
   bool CanGetTextExtent() const override
-  { return true; }
+  {
+ return true;
+  }
   wxSize GetPPI() const override;
   int GetDepth() const override
-  { return 24; }
+  {
+ return 24;
+  }
   void SetBackgroundMode(int mode) override;
 #    if  wxUSE_PALETTE
   void SetPalette(const wxPalette&) override
-  { }
+  {
+
+  }
 #    endif
   void SetResolution(int ppi);
     // overridden for wxPrinterDC Impl
@@ -239,13 +287,15 @@ protected:
   void DoSetDeviceClippingRegion(const wxRegion&) override
   {
         wxFAIL_MSG( "not implemented" );
-    }
+  }
   void DoGetTextExtent(const wxString& string, wxCoord* x, wxCoord* y, wxCoord* descent = NULL, wxCoord* externalLeading = NULL, const wxFont* theFont = NULL) const override;
   bool DoGetPartialTextExtents(const wxString& text, wxArrayInt& widths) const override;
   void DoGetSize(int* width, int* height) const override;
   void DoGetSizeMM(int* width, int* height) const override;
   wxPrintData& GetPrintData()
-  { return m_printData; }
+  {
+ return m_printData;
+  }
   void SetPrintData(const wxPrintData& data);
 private:
   wxPrintData m_printData;

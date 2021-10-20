@@ -17,7 +17,9 @@
 // any more" -- we need it to avoid driving the user crazy with asking him
 // time after time about the same charset which he [presumably] doesn't
 // have the fonts for
-enum { wxFONTENCODING_UNKNOWN = -2 };
+enum {
+ wxFONTENCODING_UNKNOWN = -2
+};
 // the config paths we use
 #  if  wxUSE_CONFIG
 #    define FONTMAPPER_ROOT_PATH	wxT("/wxWindows/FontMapper")
@@ -33,18 +35,18 @@ class wxFontMapperPathChanger
 public:
   wxFontMapperPathChanger(wxFontMapperBase* fontMapper, const wxString& path)
   {
-
         m_fontMapper = fontMapper;
         m_ok = m_fontMapper->ChangePath(path, &m_pathOld);
-      }
+  }
   bool IsOk() const
-  { return m_ok; }
+  {
+ return m_ok;
+  }
   ~wxFontMapperPathChanger()
   {
-
         if ( IsOk() )
             m_fontMapper->RestorePath(m_pathOld);
-      }
+  }
 private:
     // the fontmapper object we're working with
   wxFontMapperBase* m_fontMapper;

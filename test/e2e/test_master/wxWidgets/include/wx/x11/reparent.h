@@ -47,9 +47,13 @@ public:
   wxAdoptedWindow(WXWindow window);
   virtual ~wxAdoptedWindow();
   void SetHandle(WXWindow window)
-  { m_mainWindow = window; m_clientWindow = window; }
+  {
+ m_mainWindow = window; m_clientWindow = window;
+  }
   WXWindow GetHandle() const
-  { return X11GetMainWindow(); }
+  {
+ return X11GetMainWindow();
+  }
 };
 #endif
 // _WX_REPARENT_H_

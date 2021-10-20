@@ -33,7 +33,9 @@ public:
     Inbox(uint32_t uniqueID = SK_InvalidUniqueID);
     ~Inbox();
     uint32_t uniqueID() const
-    { return fUniqueID; }
+    {
+ return fUniqueID;
+    }
         // Overwrite out with all the messages we've received since the last call.  Threadsafe.
     void poll(SkTArray<Message>* out);
   private:
@@ -62,18 +64,16 @@ private:
 //   ----------------------- Implementation of SkMessageBus::Inbox -----------------------
 template <typename Message>
 SkMessageBus<Message>::Inbox::Inbox(uint32_t uniqueID)
-  :  fUniqueID(uniqueID) 
-  {
-
+  :  fUniqueID(uniqueID)
+{
     // Register ourselves with the corresponding message bus.
     SkMessageBus<Message>* bus = SkMessageBus<Message>::Get();
     SkAutoMutexExclusive lock(bus->fInboxesMutex);
     bus->fInboxes.push_back(this);
-  }
+}
 template <typename Message>
 SkMessageBus<Message>::Inbox::~Inbox()
 {
-
     // Remove ourselves from the corresponding message bus.
     SkMessageBus<Message>* bus = SkMessageBus<Message>::Get();
     SkAutoMutexExclusive lock(bus->fInboxesMutex);

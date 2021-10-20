@@ -197,32 +197,30 @@ struct SkConic
   }
   SkConic(const SkPoint& p0, const SkPoint& p1, const SkPoint& p2, SkScalar w)
   {
-
         fPts[0] = p0;
         fPts[1] = p1;
         fPts[2] = p2;
         fW = w;
-      }
+  }
   SkConic(const SkPoint pts[3], SkScalar w)
   {
-
         memcpy(fPts, pts, sizeof(fPts));
         fW = w;
-      }
+  }
   SkPoint fPts[3];
   SkScalar fW;
   void set(const SkPoint pts[3], SkScalar w)
   {
         memcpy(fPts, pts, 3 * sizeof(SkPoint));
         fW = w;
-    }
+  }
   void set(const SkPoint& p0, const SkPoint& p1, const SkPoint& p2, SkScalar w)
   {
         fPts[0] = p0;
         fPts[1] = p1;
         fPts[2] = p2;
         fW = w;
-    }
+  }
     /**
      *  Given a t-value [0...1] return its position and/or tangent.
      *  If pos is not null, return its position at the t-value.
@@ -265,7 +263,7 @@ struct SkConic
   static SkScalar TransformW(const SkPoint[3], SkScalar w, const SkMatrix&);
   enum {
         kMaxConicsForArc = 5
-    };
+  };
   static int BuildUnitArc(const SkVector& start, const SkVector& stop, SkRotationDirection, const SkMatrix*, SkConic conics[kMaxConicsForArc]);
 };
 // inline helpers are contained in a namespace to avoid external leakage to fragile SkNx members
@@ -283,19 +281,17 @@ namespace
       :  fA(A)
         , fB(B)
         , fC(C)
-    
-      {
-
-          }
-    SkQuadCoeff(const SkPoint src[3])
     {
 
+    }
+    SkQuadCoeff(const SkPoint src[3])
+    {
         fC = from_point(src[0]);
         Sk2s P1 = from_point(src[1]);
         Sk2s P2 = from_point(src[2]);
         fB = times_2(P1 - fC);
         fA = P2 - times_2(P1) + fC;
-        }
+    }
     Sk2s eval(SkScalar t)
     {
         Sk2s tt(t);
@@ -313,7 +309,6 @@ namespace
   {
     SkConicCoeff(const SkConic& conic)
     {
-
         Sk2s p0 = from_point(conic.fPts[0]);
         Sk2s p1 = from_point(conic.fPts[1]);
         Sk2s p2 = from_point(conic.fPts[2]);
@@ -327,7 +322,7 @@ namespace
         fDenom.fC = Sk2s(1);
         fDenom.fB = times_2(ww - fDenom.fC);
         fDenom.fA = Sk2s(0) - fDenom.fB;
-        }
+    }
     Sk2s eval(SkScalar t)
     {
         Sk2s tt(t);
@@ -342,7 +337,6 @@ namespace
   {
     SkCubicCoeff(const SkPoint src[4])
     {
-
         Sk2s P0 = from_point(src[0]);
         Sk2s P1 = from_point(src[1]);
         Sk2s P2 = from_point(src[2]);
@@ -352,7 +346,7 @@ namespace
         fB = three * (P2 - times_2(P1) + P0);
         fC = three * (P1 - P0);
         fD = P0;
-        }
+    }
     Sk2s eval(SkScalar t)
     {
         Sk2s tt(t);
@@ -376,9 +370,9 @@ class SkAutoConicToQuads
 {
 public:
   SkAutoConicToQuads()
-    :  fQuadCount(0) 
-    {
-    }
+    :  fQuadCount(0)
+  {
+  }
     /**
      *  Given a conic and a tolerance, return the array of points for the
      *  approximating quad(s). Call countQuads() to know the number of quads
@@ -398,20 +392,22 @@ public:
         SkPoint* pts = fStorage.reset(1 + 2 * fQuadCount);
         fQuadCount = conic.chopIntoQuadsPOW2(pts, pow2);
         return pts;
-    }
+  }
   const SkPoint* computeQuads(const SkPoint pts[3], SkScalar weight, SkScalar tol)
   {
         SkConic conic;
         conic.set(pts, weight);
         return computeQuads(conic, tol);
-    }
+  }
   int countQuads() const
-  { return fQuadCount; }
+  {
+ return fQuadCount;
+  }
 private:
   enum {
         kQuadCount = 8, // should handle most conics
         kPointCount = 1 + 2 * kQuadCount,
-    };
+  };
   SkAutoSTMalloc<kPointCount, SkPoint> fStorage;
   int fQuadCount;
 };

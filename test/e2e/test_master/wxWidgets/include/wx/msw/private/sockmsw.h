@@ -43,7 +43,7 @@ public:
         // need for this as WSAAsyncSelect() only sends notification once when
         // the new data becomes available anyhow, so there is no need to do
         // anything here
-    }
+  }
   void UpdateBlockingState() override
   {
         if ( GetSocketFlags() & wxSOCKET_BLOCK )
@@ -68,7 +68,7 @@ public:
             // do it as a side effect of calling WSAAsyncSelect().
             wxSocketManager::Get()->Install_Callback(this);
         }
-    }
+  }
 private:
   void DoClose() override;
   int m_msgnumber;

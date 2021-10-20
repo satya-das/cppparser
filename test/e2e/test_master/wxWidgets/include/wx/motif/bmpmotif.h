@@ -16,14 +16,13 @@ class WXDLLIMPEXP_CORE wxBitmapCache
 public:
   wxBitmapCache()
   {
-
         m_labelPixmap = (WXPixmap)NULL;
         m_armPixmap = (WXPixmap)NULL;
         m_insensPixmap = (WXPixmap)NULL;
         m_image = (WXImage)NULL;
         m_display = NULL;
         SetColoursChanged();
-      }
+  }
   ~wxBitmapCache();
   void SetColoursChanged();
   void SetBitmap(const wxBitmap& bitmap);

@@ -89,21 +89,21 @@ public:
         kInvalid,
         kRect,
         kPoly
-    };
+  };
 #  ifndef _ADESK_MAC_
   virtual Acad::ErrorStatus setClipBoundaryToWholeImage(AcGeVector2d& size);
   Acad::ErrorStatus setClipBoundaryToWholeImage()
   {
         AcGeVector2d size(0, 0);
         return setClipBoundaryToWholeImage(size);
-    }
+  }
 #  else 
   virtual Acad::ErrorStatus setClipBoundaryToWholeImage(AcGeVector2d& size);
   virtual Acad::ErrorStatus setClipBoundaryToWholeImage()
   {
         AcGeVector2d size(0, 0);
         return setClipBoundaryToWholeImage(size);
-    }
+  }
 #  endif
   virtual Acad::ErrorStatus setClipBoundary(ClipBoundaryType type, const AcGePoint2dArray&);
   virtual const AcGePoint2dArray& clipBoundary() const;
@@ -123,7 +123,7 @@ public:
         kShowUnAligned          = 2,
         kClip                   = 4,
         kTransparent            = 8
-    };
+  };
   virtual void setDisplayOpt(ImageDisplayOpt option, Adesk::Boolean bValue);
   virtual Adesk::Boolean isSetDisplayOpt(ImageDisplayOpt option) const;
   virtual Acad::ErrorStatus setBrightness(Adesk::Int8 value);
@@ -183,12 +183,16 @@ private:
     // private in order to prevent usage of them.
     //
   void* operator new[](size_t)
-  { return (void*)0;}
+  {
+ return (void*)0;
+  }
   void operator delete[](void*)
   {
   }
   void* operator new[](size_t, const char*, int)
-  { return (void*)0;}
+  {
+ return (void*)0;
+  }
   RasterImageImp* mpImp;
   static ClassVersion mVersion;
 };
@@ -207,7 +211,9 @@ inline RasterImageImp* AcDbRasterImage::setPtrImp(RasterImageImp* pImp)
     return oldImp;
 }
 inline ClassVersion AcDbRasterImage::classVersion()
-{   return mVersion; }
+{
+   return mVersion;
+}
 inline void pixelToModel(const AcGeMatrix3d& pixToMod, const AcGePoint2d& pixPt, AcGePoint3d& modPt)
 {
     // Transform pixel coordinates to model space.

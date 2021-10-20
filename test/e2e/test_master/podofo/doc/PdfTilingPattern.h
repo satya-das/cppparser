@@ -102,6 +102,6 @@ namespace PoDoFo
   const PdfName& PdfTilingPattern::GetIdentifier() const
   {
     return m_Identifier;
-}
+  }
 }
 #endif

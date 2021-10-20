@@ -37,16 +37,18 @@ protected:
   SkEncodedImageFormat onGetEncodedFormat() const override
   {
         return SkEncodedImageFormat::kICO;
-    }
+  }
   SkScanlineOrder onGetScanlineOrder() const override;
   bool conversionSupported(const SkImageInfo&, bool, bool) override
   {
         // This will be checked by the embedded codec.
         return true;
-    }
+  }
     // Handled by the embedded codec.
   bool usesColorXform() const override
-  { return false; }
+  {
+ return false;
+  }
 private:
   Result onStartScanlineDecode(const SkImageInfo& dstInfo, const SkCodec::Options& options) override;
   int onGetScanlines(void* dst, int count, size_t rowBytes) override;

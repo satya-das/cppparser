@@ -60,7 +60,7 @@ public:
             the bitmap may be clipped to fill the control.
         */
         Scale_AspectFill
-    };
+  };
     /**
       Default constructor
     */

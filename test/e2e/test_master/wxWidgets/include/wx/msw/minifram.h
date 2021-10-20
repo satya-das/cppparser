@@ -15,7 +15,8 @@ class WXDLLIMPEXP_CORE wxMiniFrame : public wxFrame
 public:
   wxMiniFrame()
   {
-   }
+
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAPTION | wxCLIP_CHILDREN | wxRESIZE_BORDER, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
       return wxFrame::Create(parent, id, title, pos, size,
@@ -25,9 +26,8 @@ public:
   }
   wxMiniFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAPTION | wxCLIP_CHILDREN | wxRESIZE_BORDER, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-
       Create(parent, id, title, pos, size, style, name);
-    }
+  }
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxMiniFrame);
 };
 #endif

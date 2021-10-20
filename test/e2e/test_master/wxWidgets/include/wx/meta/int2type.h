@@ -11,6 +11,8 @@
 template <int N>
 struct wxInt2Type
 {
-  enum { value=N };
+  enum {
+ value=N
+  };
 };
 #endif

@@ -52,9 +52,13 @@ private:
 
 // AcDbObjectIdGraphNode inlines
 inline AcDbObjectId AcDbObjectIdGraphNode::id() const
-{return mId; }
+{
+return mId;
+}
 // AcDbObjectId inlines ...
 inline AcDbObjectIdGraphNode* AcDbObjectIdGraph::idNode(int idx) const
-{ return (AcDbObjectIdGraphNode*)node(idx); }
+{
+ return (AcDbObjectIdGraphNode*)node(idx);
+}
 #  pragma  pack (pop)
 #endif

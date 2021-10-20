@@ -34,7 +34,7 @@ protected:
   void DoGetSize(int* w, int* h) const override
   {
         GetDeviceSize(w, h);
-    }
+  }
     // init the dc
   void Init();
   wxPrintData m_printData;
@@ -51,10 +51,9 @@ class WXDLLIMPEXP_CORE wxPrinterDCFromHDC : public wxPrinterDC
 public:
   wxPrinterDCFromHDC(WXHDC theDC)
     :  wxPrinterDC(new wxPrinterDCImpl(this, theDC))
-    
-    {
+  {
 
-        }
+  }
 };
 #  endif
 #endif

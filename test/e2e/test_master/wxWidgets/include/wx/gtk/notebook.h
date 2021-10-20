@@ -35,12 +35,16 @@ public:
     // selected one (or wxNOT_FOUND on error)
     // NB: this function will _not_ generate wxEVT_NOTEBOOK_PAGE_xxx events
   int SetSelection(size_t nPage) override
-  { return DoSetSelection(nPage, SetSelection_SendEvent); }
+  {
+ return DoSetSelection(nPage, SetSelection_SendEvent);
+  }
     // get the currently selected page
   int GetSelection() const override;
   // changes selected page without sending events
   int ChangeSelection(size_t nPage) override
-  { return DoSetSelection(nPage); }
+  {
+ return DoSetSelection(nPage);
+  }
     // set/get the title of a page
   bool SetPageText(size_t nPage, const wxString& strText) override;
   wxString GetPageText(size_t nPage) const override;

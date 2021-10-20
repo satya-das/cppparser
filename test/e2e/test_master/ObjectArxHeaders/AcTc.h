@@ -70,7 +70,7 @@ namespace AcTc
         kAccessReadOnlyFile     = (0x1 << 2),
         kAccessMultiple         = (0x1 << 3),       // For internal use
         kAccessNewerVersion     = (0x1 << 4),       // For internal use
-    };
+  };
   enum CatalogItemType {
         kItemUnknown            = 0,
         kItemTool               = (0x1 << 0),
@@ -79,12 +79,12 @@ namespace AcTc
         kItemCategory           = (0x1 << 3),
         kItemCatalog            = (0x1 << 4),
         kItemStockTool          = (0x1 << 5),
-    };
+  };
   enum ReferencePath {
         kLoadRefPath            = 1,
         kSaveRefPath            = 2,
-    };
-  enum ImageType { 
+  };
+  enum ImageType {
         kImageTypeUninitialized = -1,
         kImageTypeBitmap        = 1,
         kImageTypeMetaFile      = 2,
@@ -94,18 +94,18 @@ namespace AcTc
         kImageTypePng           = 6,
         kImageTypeGif           = 7,
         kImageTypeTif           = 8
-    };
+  };
   enum ImageOption {
         kImageOptionNone                = 0x0,
         kImageOptionRenderBitmapOpaque  = (0x1 << 0),
         kImageOptionUserOverride        = (0x1 << 1),
-    };
+  };
   enum LoadOption {
         kLoadLinks              = (0x1 << 0),
         kLoadImages             = (0x1 << 1),
         kLoadOverlayImages      = (0x1 << 2),       // For internal use
         kDoNotNotifyReactor     = (0x1 << 3),       // For internal use
-    };
+  };
   enum SaveOption {
         kSaveLinksAsLinks       = (0x1 << 0),
         kSaveLinksAsEmbedded    = (0x1 << 1),
@@ -113,8 +113,8 @@ namespace AcTc
         kSaveAs                 = (0x1 << 3),       // For internal use
         kSaveOverlayImages      = (0x1 << 4),       // For internal use
         kSaveAnsi               = (0x1 << 5),       // For internal use
-    };
-  enum DownloadOption { 
+  };
+  enum DownloadOption {
         kDownloadItem           = (0x1 << 0),
         kDownloadLinkedItem     = (0x1 << 1),
         kDownloadImage          = (0x1 << 2),
@@ -128,8 +128,8 @@ namespace AcTc
         kDownloadUseNewIds      = (0x1 << 7),       // For internal use
         kDownloadNotifyTool     = (0x1 << 12)       // For internal use. Note: kDownloadNotifyTool 
                                                     // and kRefreshNotifyTool must have different values.
-    };
-  enum RefreshOption { 
+  };
+  enum RefreshOption {
         kRefreshItem            = kDownloadItem,
         kRefreshLinkedItem      = kDownloadLinkedItem,
         kRefreshImage           = kDownloadImage,
@@ -139,25 +139,25 @@ namespace AcTc
         kRefreshShowProgress    = kDownloadShowProgress,
         kRefreshNotifyTool      = (0x1 << 16)       // For internal use. Note: kDownloadNotifyTool 
                                                     // and kRefreshNotifyTool must have different values.
-    };
+  };
   enum CatalogType {
         kCatalog                = (0x1 << 0),
         kStockToolCatalog       = (0x1 << 1),
         kShapeCatalog           = (0x1 << 2)
-    };
+  };
   enum ToolType {
         kToolNormal             = 1,
         kToolFlyout             = 2,
         kToolText               = 3,
         kToolSeparator          = 4,
-    };
+  };
   enum SortOption {
         kSortByName             = (0x1 << 0),
         kSortByStockTool        = (0x1 << 1),
         kSortByCustom           = (0x1 << 2),
         kAscending              = (0x1 << 3),
         kDescending             = (0x1 << 4),
-    };
+  };
   enum ItemOption {
         kItemOptionNone                 = 0x0,
         kItemOptionSupportsAutoImage    = (0x1 << 0),
@@ -165,7 +165,7 @@ namespace AcTc
         kItemOptionMenuUpdateImage      = (0x1 << 2),
         kItemOptionMenuSetImage         = (0x1 << 3),
         kItemOptionMenuRemoveImage      = (0x1 << 4),
-    };
+  };
 }
 struct ACTC_IMAGE_INFO
 {

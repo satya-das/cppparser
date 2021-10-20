@@ -21,7 +21,7 @@ public:
   GrStencilAttachment* getStencilAttachment() const
   {
         return fRenderTarget->fStencilAttachment.get();
-    }
+  }
     /**
      * Attaches the GrStencilAttachment onto the render target. If stencil is a nullptr then the
      * currently attached GrStencilAttachment will be removed if one was previously attached. This
@@ -43,12 +43,12 @@ public:
   {
         int samplePatternKey = this->getSamplePatternKey();
         return fRenderTarget->getGpu()->retrieveSampleLocations(samplePatternKey);
-    }
+  }
 private:
   explicit GrRenderTargetPriv(GrRenderTarget* renderTarget)
-    :  fRenderTarget(renderTarget) 
-    {
-    }
+    :  fRenderTarget(renderTarget)
+  {
+  }
   GrRenderTargetPriv(const GrRenderTargetPriv&)
   {
   }
@@ -60,7 +60,9 @@ private:
   friend class GrRenderTarget;
 };
 inline GrRenderTargetPriv GrRenderTarget::renderTargetPriv()
-{ return GrRenderTargetPriv(this); }
+{
+ return GrRenderTargetPriv(this);
+}
 inline const GrRenderTargetPriv GrRenderTarget::renderTargetPriv() const
 {
     return GrRenderTargetPriv(const_cast<GrRenderTarget*>(this));

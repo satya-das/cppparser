@@ -107,7 +107,7 @@ public:
   enum Ad_AppFrame_Const {
         kAdApplicationStatusBarHeight_Min = 24,                     // Minimum height of Application Status Bar
         kAdDefaultDpi = 96
-    };
+  };
     /// <summary>
     /// The state of DocumentControl's host window. 
     /// </summary>                                  
@@ -125,14 +125,14 @@ public:
         kAd_GetWindowText     = 11,
         kAd_GetWindowTextLen  = 12,
         kAd_SysColorChanged   = 13
-    };
+  };
     /// <summary>
     /// VisualElement's index order for the Autodesk Application
     /// Frame. 
     /// </summary>                                              
   enum Ad_AppFrame_ToolTipId {
         kAd_ToolId_ApplicationButton    = 1000,
-    };
+  };
     /// <summary>
     /// Callback ID list for the AppFrame. 
     /// </summary>                         
@@ -154,14 +154,14 @@ public:
         kAd_MDIGetActive,
         kAd_SkipStandardBackgroundDraw,
         kAd_SkipProductNameUpdate
-    };
+  };
     /// <summary>
     /// Defines the Client application character set, this defaults to Unicode
     /// </summary>                                          
   enum Ad_Product_Character_Set {
         kAd_Unicode,
         kAd_MBCS
-    };
+  };
   static void SetResourcesPath(LPCWSTR lpszName);
   static AdApplicationFrame* CreateInstance(HWND hWndMainFrame);
   virtual ~AdApplicationFrame();

@@ -16,15 +16,14 @@ namespace SkSL
   {
     UnresolvedFunction(std::vector<const FunctionDeclaration*> funcs)
       :  INHERITED(-1, kUnresolvedFunction_Kind, funcs[0]->fName)
-    , fFunctions(std::move(funcs)) 
-      {
-
+    , fFunctions(std::move(funcs))
+    {
 #ifdef DEBUG
         for (auto func : funcs) {
             SkASSERT(func->fName == fName);
         }
 #endif
-          }
+    }
     String description() const override
     {
         return fName;

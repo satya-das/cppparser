@@ -16,13 +16,15 @@ class WXDLLIMPEXP_CORE wxBitmapDataObject : public wxBitmapDataObjectBase
 public:
     // ctors
   wxBitmapDataObject()
-    :  wxBitmapDataObjectBase() 
-    {
-     }
+    :  wxBitmapDataObjectBase()
+  {
+
+  }
   wxBitmapDataObject(const wxBitmap& bitmap)
-    :  wxBitmapDataObjectBase(bitmap) 
-    {
-     }
+    :  wxBitmapDataObjectBase(bitmap)
+  {
+
+  }
     // implement base class pure virtuals
     // ----------------------------------
   virtual size_t GetDataSize() const;
@@ -30,10 +32,16 @@ public:
   virtual bool SetData(size_t len, const void* buf);
     // unhide base class virtual functions
   virtual size_t GetDataSize(const wxDataFormat&) const
-  { return GetDataSize(); }
+  {
+ return GetDataSize();
+  }
   virtual bool GetDataHere(const wxDataFormat&, void* buf) const
-  { return GetDataHere(buf); }
+  {
+ return GetDataHere(buf);
+  }
   virtual bool SetData(const wxDataFormat&, size_t len, const void* buf)
-  { return SetData(len, buf); }
+  {
+ return SetData(len, buf);
+  }
 };
 #endif

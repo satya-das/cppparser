@@ -20,7 +20,9 @@ public:
   GrDualIntervalGradientColorizer(const GrDualIntervalGradientColorizer& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "DualIntervalGradientColorizer"; }
+  {
+ return "DualIntervalGradientColorizer";
+  }
   SkPMColor4f scale01;
   SkPMColor4f bias01;
   SkPMColor4f scale23;
@@ -33,9 +35,9 @@ private:
             , bias01(bias01)
             , scale23(scale23)
             , bias23(bias23)
-            , threshold(threshold) 
-    {
-    }
+            , threshold(threshold)
+  {
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

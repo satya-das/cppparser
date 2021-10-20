@@ -151,8 +151,7 @@ class SkAutoGraphics
 public:
   SkAutoGraphics()
   {
-
         SkGraphics::Init();
-      }
+  }
 };
 #endif

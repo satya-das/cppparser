@@ -26,11 +26,17 @@ public:
   virtual void TransferFrom(const wxPrintDialogData*);
   virtual void TransferTo(wxPrintDialogData*);
   PMPrintSession GetPrintSession()
-  { return m_macPrintSession; }
+  {
+ return m_macPrintSession;
+  }
   PMPageFormat GetPageFormat()
-  { return m_macPageFormat; }
+  {
+ return m_macPageFormat;
+  }
   PMPrintSettings GetPrintSettings()
-  { return m_macPrintSettings; }
+  {
+ return m_macPrintSettings;
+  }
 protected:
   virtual void TransferPrinterNameFrom(const wxPrintData& data);
   virtual void TransferPaperInfoFrom(const wxPrintData& data);
@@ -55,7 +61,9 @@ public:
   wxOSXCocoaPrintData();
   virtual ~wxOSXCocoaPrintData();
   WX_NSPrintInfo GetNSPrintInfo()
-  { return m_macPrintInfo; }
+  {
+ return m_macPrintInfo;
+  }
 protected:
   void UpdateFromPMState() override;
   void UpdateToPMState() override;

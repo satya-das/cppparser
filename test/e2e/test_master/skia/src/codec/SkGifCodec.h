@@ -37,7 +37,7 @@ protected:
   SkEncodedImageFormat onGetEncodedFormat() const override
   {
         return SkEncodedImageFormat::kGIF;
-    }
+  }
   bool onRewind() override;
   int onGetFrameCount() override;
   bool onGetFrameInfo(int, FrameInfo*) const override;
@@ -47,7 +47,7 @@ protected:
   const SkFrameHolder* getFrameHolder() const override
   {
         return fReader.get();
-    }
+  }
 private:
     /*
      * Initializes the color table that we will use for decoding.
@@ -74,7 +74,7 @@ private:
   {
         SkASSERT(fSwizzler);
         return fSwizzler.get();
-    }
+  }
     /*
      * Recursive function to decode a frame.
      *

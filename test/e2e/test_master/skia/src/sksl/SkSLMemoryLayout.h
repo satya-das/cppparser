@@ -18,9 +18,9 @@ namespace SkSL
         kMetal_Standard
     };
     MemoryLayout(Standard std)
-      :  fStd(std) 
-      {
-      }
+      :  fStd(std)
+    {
+    }
     static size_t vector_alignment(size_t componentSize, int columns)
     {
         return componentSize * (columns + columns % 2);

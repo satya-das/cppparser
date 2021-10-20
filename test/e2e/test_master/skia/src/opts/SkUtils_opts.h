@@ -26,19 +26,19 @@ namespace SK_OPTS_NS
         while (count --> 0) {
             *buffer++ = value;
         }
-    }
+  }
   inline void memset16(uint16_t buffer[], uint16_t value, int count)
   {
         memsetT(buffer, value, count);
-    }
+  }
   inline void memset32(uint32_t buffer[], uint32_t value, int count)
   {
         memsetT(buffer, value, count);
-    }
+  }
   inline void memset64(uint64_t buffer[], uint64_t value, int count)
   {
         memsetT(buffer, value, count);
-    }
+  }
   template <typename T>
   static void rect_memsetT(T buffer[], T value, int count, size_t rowBytes, int height)
   {
@@ -46,18 +46,18 @@ namespace SK_OPTS_NS
             memsetT(buffer, value, count);
             buffer = (T*)((char*)buffer + rowBytes);
         }
-    }
+  }
   inline void rect_memset16(uint16_t buffer[], uint16_t value, int count, size_t rowBytes, int height)
   {
         rect_memsetT(buffer, value, count, rowBytes, height);
-    }
+  }
   inline void rect_memset32(uint32_t buffer[], uint32_t value, int count, size_t rowBytes, int height)
   {
         rect_memsetT(buffer, value, count, rowBytes, height);
-    }
+  }
   inline void rect_memset64(uint64_t buffer[], uint64_t value, int count, size_t rowBytes, int height)
   {
         rect_memsetT(buffer, value, count, rowBytes, height);
-    }
+  }
 }
 #endif

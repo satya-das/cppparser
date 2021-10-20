@@ -140,7 +140,7 @@ public:
         read,
         write,
         read_write
-    };
+  };
     /**
         Constructor, creates a new stream buffer using @a stream as a parent stream
         and mode as the IO mode.

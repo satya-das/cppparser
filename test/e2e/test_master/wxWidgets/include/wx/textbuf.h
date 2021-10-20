@@ -69,72 +69,106 @@ public:
   bool Close();
     // is buffer currently opened?
   bool IsOpened() const
-  { return m_isOpened; }
+  {
+ return m_isOpened;
+  }
     // accessors
     // ---------
 
     // get the number of lines in the buffer
   size_t GetLineCount() const
-  { return m_aLines.size(); }
+  {
+ return m_aLines.size();
+  }
     // the returned line may be modified (but don't add CR/LF at the end!)
   wxString& GetLine(size_t n)
-  { return m_aLines[n]; }
+  {
+ return m_aLines[n];
+  }
   const wxString& GetLine(size_t n) const
-  { return m_aLines[n]; }
+  {
+ return m_aLines[n];
+  }
   wxString& operator[](size_t n)
-  { return m_aLines[n]; }
+  {
+ return m_aLines[n];
+  }
   const wxString& operator[](size_t n) const
-  { return m_aLines[n]; }
+  {
+ return m_aLines[n];
+  }
     // the current line has meaning only when you're using
     // GetFirstLine()/GetNextLine() functions, it doesn't get updated when
     // you're using "direct access" i.e. GetLine()
   size_t GetCurrentLine() const
-  { return m_nCurLine; }
+  {
+ return m_nCurLine;
+  }
   void GoToLine(size_t n)
-  { m_nCurLine = n; }
+  {
+ m_nCurLine = n;
+  }
   bool Eof() const
-  { return m_nCurLine == m_aLines.size(); }
+  {
+ return m_nCurLine == m_aLines.size();
+  }
     // these methods allow more "iterator-like" traversal of the list of
     // lines, i.e. you may write something like:
     //  for ( str = GetFirstLine(); !Eof(); str = GetNextLine() ) { ... }
   wxString& GetFirstLine()
-  { return m_aLines.empty() ? ms_eof : m_aLines[m_nCurLine = 0]; }
+  {
+ return m_aLines.empty() ? ms_eof : m_aLines[m_nCurLine = 0];
+  }
   wxString& GetNextLine()
-  { return ++m_nCurLine == m_aLines.size() ? ms_eof
-                                                 : m_aLines[m_nCurLine]; }
+  {
+ return ++m_nCurLine == m_aLines.size() ? ms_eof
+                                                 : m_aLines[m_nCurLine];
+  }
   wxString& GetPrevLine()
-  { wxASSERT(m_nCurLine > 0); return m_aLines[--m_nCurLine]; }
+  {
+ wxASSERT(m_nCurLine > 0); return m_aLines[--m_nCurLine];
+  }
   wxString& GetLastLine()
-  { return m_aLines.empty() ? ms_eof : m_aLines[m_nCurLine = m_aLines.size() - 1]; }
+  {
+ return m_aLines.empty() ? ms_eof : m_aLines[m_nCurLine = m_aLines.size() - 1];
+  }
     // get the type of the line (see also GetEOL)
   wxTextFileType GetLineType(size_t n) const
-  { return m_aTypes[n]; }
+  {
+ return m_aTypes[n];
+  }
     // guess the type of buffer
   wxTextFileType GuessType() const;
     // get the name of the buffer
   const wxString& GetName() const
-  { return m_strBufferName; }
+  {
+ return m_strBufferName;
+  }
     // add/remove lines
     // ----------------
 
     // add a line to the end
   void AddLine(const wxString& str, wxTextFileType type = typeDefault)
-  { m_aLines.push_back(str); m_aTypes.push_back(type); }
+  {
+ m_aLines.push_back(str); m_aTypes.push_back(type);
+  }
     // insert a line before the line number n
   void InsertLine(const wxString& str, size_t n, wxTextFileType type = typeDefault)
   {
         m_aLines.insert(m_aLines.begin() + n, str);
         m_aTypes.insert(m_aTypes.begin()+n, type);
-    }
+  }
     // delete one line
   void RemoveLine(size_t n)
   {
         m_aLines.erase(m_aLines.begin() + n);
         m_aTypes.erase(m_aTypes.begin() + n);
-    }
+  }
     // remove all lines
   void Clear()
-  { m_aLines.clear(); m_aTypes.clear(); m_nCurLine = 0; }
+  {
+ m_aLines.clear(); m_aTypes.clear(); m_nCurLine = 0;
+  }
     // change the buffer (default argument means "don't change type")
     // possibly in another format
   bool Write(wxTextFileType typeNew = wxTextFileType_None, const wxMBConv& conv = wxConvAuto());
@@ -147,10 +181,13 @@ protected:
     // default ctor, use Open(string)
   wxTextBuffer()
   {
- m_nCurLine = 0; m_isOpened = false;   }
+ m_nCurLine = 0; m_isOpened = false;
+  }
     // ctor from filename
   wxTextBuffer(const wxString& strBufferName);
-  enum wxTextBufferOpenMode { ReadAccess, WriteAccess };
+  enum wxTextBufferOpenMode {
+ ReadAccess, WriteAccess
+  };
     // Must implement these in derived classes.
   virtual bool OnExists() const = 0;
   virtual bool OnOpen(const wxString& strBufferName, wxTextBufferOpenMode openmode) = 0;

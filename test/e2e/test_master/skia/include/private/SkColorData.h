@@ -287,17 +287,17 @@ static unsigned SkR32ToR16(unsigned r)
 {
         SkR32Assert(r);
         return SkR32ToR16_MACRO(r);
-    }
+}
 static unsigned SkG32ToG16(unsigned g)
 {
         SkG32Assert(g);
         return SkG32ToG16_MACRO(g);
-    }
+}
 static unsigned SkB32ToB16(unsigned b)
 {
         SkB32Assert(b);
         return SkB32ToB16_MACRO(b);
-    }
+}
 #  else 
 #    define SkR32ToR16(r)	   SkR32ToR16_MACRO(r)
 #    define SkG32ToG16(g)	   SkG32ToG16_MACRO(g)

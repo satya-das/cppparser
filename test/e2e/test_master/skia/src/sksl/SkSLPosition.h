@@ -18,14 +18,14 @@ namespace SkSL
   {
     Position()
       :  fLine(-1)
-    , fColumn(-1) 
-      {
-      }
+    , fColumn(-1)
+    {
+    }
     Position(int line, int column)
       :  fLine(line)
-    , fColumn(column) 
-      {
-      }
+    , fColumn(column)
+    {
+    }
     String description() const
     {
         return to_string(fLine);

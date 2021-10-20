@@ -289,23 +289,31 @@ namespace PoDoFo
      *  \param eWriteMode write mode
      */
     void SetWriteMode(EPdfWriteMode eWriteMode)
-    { m_eWriteMode = eWriteMode; }
+    {
+ m_eWriteMode = eWriteMode;
+    }
     /** Get the write mode used for wirting the PDF
      *  \returns the write mode
      */
     virtual EPdfWriteMode GetWriteMode() const
-    { return m_eWriteMode; }
+    {
+ return m_eWriteMode;
+    }
     /** Set the PDF Version of the document. Has to be called before Write() to
      *  have an effect.
      *  \param eVersion  version of the pdf document
      */
     void SetPdfVersion(EPdfVersion eVersion)
-    { m_eVersion = eVersion;}
+    {
+ m_eVersion = eVersion;
+    }
     /** Get the PDF version of the document
      *  \returns EPdfVersion version of the pdf document
      */
     EPdfVersion GetPdfVersion() const
-    { return m_eVersion; }
+    {
+ return m_eVersion;
+    }
     /** Add a vendor-specific extension to the current PDF version.
      *  \param ns  namespace of the extension
      *  \param level  level of the extension
@@ -366,24 +374,32 @@ namespace PoDoFo
      * \returns true if this PdfMemDocument creates an encrypted PDF file
      */
     bool GetEncrypted() const
-    { return (m_pEncrypt != NULL); }
+    {
+ return (m_pEncrypt != NULL);
+    }
     /** Returns wether this PDF document is linearized, aka
      *  weboptimized
      *  \returns true if the PDF document is linearized
      */
     bool IsLinearized() const
-    { return m_bLinearized; }
+    {
+ return m_bLinearized;
+    }
     /** Get a reference to the sorted internal objects vector.
      *  \returns the internal objects vector.
      */
     const PdfVecObjects& GetObjects() const
-    { return *(PdfDocument::GetObjects()); }
+    {
+ return *(PdfDocument::GetObjects());
+    }
     /** Get a reference to the sorted internal objects vector.
      *  This is an overloaded function for your convinience.
      *  \returns the internal objects vector.
      */
     PdfVecObjects& GetObjects()
-    { return *(PdfDocument::GetObjects()); }
+    {
+ return *(PdfDocument::GetObjects());
+    }
     /** Get access to the internal Catalog dictionary
      *  or root object.
      *  
@@ -391,7 +407,9 @@ namespace PoDoFo
      *                     if no catalog is available
      */
     PdfObject* GetCatalog()
-    { return PdfDocument::GetCatalog(); }
+    {
+ return PdfDocument::GetCatalog();
+    }
     /** Get access to the internal Catalog dictionary
      *  or root object.
      *  
@@ -399,32 +417,44 @@ namespace PoDoFo
      *                     if no catalog is available
      */
     const PdfObject* GetCatalog() const
-    { return PdfDocument::GetCatalog(); }
+    {
+ return PdfDocument::GetCatalog();
+    }
     /** Get the trailer dictionary
      *  which can be written unmodified to a pdf file.
      */
     const PdfObject* GetTrailer() const
-    { return PdfDocument::GetTrailer(); }
+    {
+ return PdfDocument::GetTrailer();
+    }
     /** Get access to the StructTreeRoot dictionary
      *  \returns PdfObject the StructTreeRoot dictionary
      */
     PdfObject* GetStructTreeRoot() const
-    { return GetNamedObjectFromCatalog( "StructTreeRoot" ); }
+    {
+ return GetNamedObjectFromCatalog( "StructTreeRoot" );
+    }
     /** Get access to the Metadata stream
      *  \returns PdfObject the Metadata stream (should be in XML, using XMP grammar)
      */
     PdfObject* GetMetadata() const
-    { return GetNamedObjectFromCatalog( "Metadata" ); }
+    {
+ return GetNamedObjectFromCatalog( "Metadata" );
+    }
     /** Get access to the MarkInfo dictionary (ISO 32000-1:2008 14.7.1)
      *  \returns PdfObject the MarkInfo dictionary
      */
     PdfObject* GetMarkInfo() const
-    { return GetNamedObjectFromCatalog( "MarkInfo" ); }
+    {
+ return GetNamedObjectFromCatalog( "MarkInfo" );
+    }
     /** Get access to the RFC 3066 natural language id for the document (ISO 32000-1:2008 14.9.2.1)
      *  \returns PdfObject the language ID string
      */
     PdfObject* GetLanguage() const
-    { return GetNamedObjectFromCatalog( "Lang" ); }
+    {
+ return GetNamedObjectFromCatalog( "Lang" );
+    }
     /** Creates a PdfFont object from an existing font.
      *
      *  \param pObject a PdfObject that is a font
@@ -602,70 +632,70 @@ namespace PoDoFo
   bool PdfMemDocument::IsLoaded(void) const
   {
     return m_pParser == NULL;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfMemDocument::IsPrintAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsPrintAllowed() : true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfMemDocument::IsEditAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsEditAllowed() : true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfMemDocument::IsCopyAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsCopyAllowed() : true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfMemDocument::IsEditNotesAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsEditNotesAllowed() : true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfMemDocument::IsFillAndSignAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsFillAndSignAllowed() : true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfMemDocument::IsAccessibilityAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsAccessibilityAllowed() : true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfMemDocument::IsDocAssemblyAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsDocAssemblyAllowed() : true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfMemDocument::IsHighPrintAllowed() const
   {
     return m_pEncrypt ? m_pEncrypt->IsHighPrintAllowed() : true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfEncrypt* PdfMemDocument::GetEncrypt() const
-  { 
-    return m_pEncrypt; 
-}
+  {
+    return m_pEncrypt;
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -679,6 +709,6 @@ namespace PoDoFo
     return m_pszUpdatingFilename ||
         m_pUpdatingInputDevice;
 #endif
-}
+  }
 }
 #endif

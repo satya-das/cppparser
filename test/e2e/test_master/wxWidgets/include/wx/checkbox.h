@@ -41,7 +41,8 @@ class WXDLLIMPEXP_CORE wxCheckBoxBase : public wxControl
 public:
   wxCheckBoxBase()
   {
-   }
+
+  }
     // set/get the checked status of the listbox
   virtual void SetValue(bool value) = 0;
   virtual bool GetValue() const = 0;
@@ -51,7 +52,7 @@ public:
             wxT(" a three state checkbox, Use Get3StateValue() instead") );
 
         return GetValue();
-    }
+  }
   wxCheckBoxState Get3StateValue() const
   {
         wxCheckBoxState state = DoGet3StateValue();
@@ -66,7 +67,7 @@ public:
         }
 
         return state;
-    }
+  }
   void Set3StateValue(wxCheckBoxState state)
   {
         if ( state == wxCHK_UNDETERMINED && !Is3State() )
@@ -76,20 +77,26 @@ public:
         }
 
         DoSet3StateValue(state);
-    }
+  }
   bool Is3State() const
-  { return HasFlag(wxCHK_3STATE); }
+  {
+ return HasFlag(wxCHK_3STATE);
+  }
   bool Is3rdStateAllowedForUser() const
   {
         return HasFlag(wxCHK_ALLOW_3RD_STATE_FOR_USER);
-    }
+  }
   bool HasTransparentBackground() override
-  { return true; }
+  {
+ return true;
+  }
     // This semi-private function is currently used to allow wxMSW checkbox to
     // blend in with its parent background colour without changing the
     // background colour of the checkbox itself under the other platforms.
   virtual void SetTransparentPartColour(const wxColour&)
-  { }
+  {
+
+  }
     // wxCheckBox-specific processing after processing the update event
   void DoUpdateWindowUI(wxUpdateUIEvent& event) override
   {
@@ -97,18 +104,22 @@ public:
 
         if ( event.GetSetChecked() )
             SetValue(event.GetChecked());
-    }
+  }
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
   virtual void DoSet3StateValue(wxCheckBoxState)
-  { wxFAIL; }
+  {
+ wxFAIL;
+  }
   virtual wxCheckBoxState DoGet3StateValue() const
   {
         wxFAIL;
         return wxCHK_UNCHECKED;
-    }
+  }
     // Helper function to be called from derived classes Create()
     // implementations: it checks that the style doesn't contain any
     // incompatible bits and modifies it to be sane if it does.
@@ -145,7 +156,7 @@ protected:
                 style &= ~wxCHK_ALLOW_3RD_STATE_FOR_USER;
             }
         }
-    }
+  }
   wxDECLARE_NO_COPY_CLASS(wxCheckBoxBase);
 };
 // Most ports support 3 state checkboxes so define this by default.

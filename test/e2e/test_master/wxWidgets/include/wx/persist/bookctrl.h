@@ -24,14 +24,13 @@ class wxPersistentBookCtrl : public wxPersistentWindow<wxBookCtrlBase>
 public:
   wxPersistentBookCtrl(wxBookCtrlBase* book)
     :  wxPersistentWindow<wxBookCtrlBase>(book)
-    
-    {
+  {
 
-        }
+  }
   void Save() const override
   {
         SaveValue(wxPERSIST_BOOK_SELECTION, Get()->GetSelection());
-    }
+  }
   bool Restore() override
   {
         long sel;
@@ -46,9 +45,11 @@ public:
         }
 
         return false;
-    }
+  }
   wxString GetKind() const override
-  { return wxPERSIST_BOOK_KIND; }
+  {
+ return wxPERSIST_BOOK_KIND;
+  }
 };
 inline wxPersistentObject* wxCreatePersistentObject(wxBookCtrlBase* book)
 {

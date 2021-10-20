@@ -13,5 +13,7 @@ static bool operator==(const SkUUID& u, const SkUUID& v)
     return 0 == memcmp(u.fData, v.fData, sizeof(u.fData));
 }
 static bool operator!=(const SkUUID& u, const SkUUID& v)
-{ return !(u == v); }
+{
+ return !(u == v);
+}
 #endif

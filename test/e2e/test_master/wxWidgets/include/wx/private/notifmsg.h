@@ -12,17 +12,15 @@ class wxNotificationMessageImpl
 {
 public:
   wxNotificationMessageImpl(wxNotificationMessageBase* notification)
-    : 
-        m_notification(notification),
+    :         m_notification(notification),
         m_active(false)
-    
-    {
+  {
 
-
-        }
+  }
   virtual ~wxNotificationMessageImpl()
   {
-   }
+
+  }
   virtual bool Show(int timeout) = 0;
   virtual bool Close() = 0;
   virtual void SetTitle(const wxString& title) = 0;
@@ -37,18 +35,18 @@ public:
             m_notification = NULL;
         else
             delete this;
-    }
+  }
   bool ProcessNotificationEvent(wxEvent& event)
   {
         if (m_notification)
             return m_notification->ProcessEvent(event);
         else
             return false;
-    }
+  }
   wxNotificationMessageBase* GetNotification() const
   {
         return m_notification;
-    }
+  }
 protected:
   wxNotificationMessageBase* m_notification;
   bool m_active;
@@ -59,6 +57,6 @@ protected:
         // Delete the implementation if the notification is detached
         if (!m_notification && !active)
             delete this;
-    }
+  }
 };
 #endif

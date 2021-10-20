@@ -66,7 +66,8 @@ class AcDbTextEditorSelectable
 public:
   virtual ~AcDbTextEditorSelectable()
   {
-   }
+
+  }
     ///<summary> 
     /// Gets the start location of a selectable object.
     ///</summary>
@@ -109,7 +110,7 @@ public:
         /// The flow type is top align.
         /// </summary>
         kFlowTop
-    };
+  };
     /// <summary>
     /// This enumerator describe the insert text format types.
     /// </summary>
@@ -142,7 +143,7 @@ public:
         /// The insert text is in multibyte text format.
         /// </summary>
         kMultibyteTextFormat
-    };
+  };
     ///<summary> 
     /// Set current language. Now we only support the following charset:
     /// ANSI_CHARSET
@@ -818,7 +819,7 @@ public:
         /// The text align the paragraph tab to the decimal separator.
         /// </summary>
         kDecimalTab,
-    };
+  };
     ///<summary> 
     /// Constructor. It will create a left tab with 0 offset distance.
     ///</summary>
@@ -927,7 +928,7 @@ public:
         /// Paragraph is distribute alignment.
         /// </summary>
         kAlignmentDistribute
-    };
+  };
     /// <summary>
     /// Text editor paragraph line spacing type.
     /// </summary>
@@ -949,7 +950,7 @@ public:
         /// Multiple line spacing.
         /// </summary>
         kLineSpacingMultiple,
-    };
+  };
     /// <summary>
     /// Text editor paragraph numbering type.
     /// </summary>
@@ -986,7 +987,7 @@ public:
         /// Letter upper numbering.
         /// </summary>
         kLetterUpperWide,
-    };
+  };
     ///<summary> 
     /// Set alignment for paragraph.  AlignmentType defines the paragraph 
     /// alignment.
@@ -1658,7 +1659,7 @@ public:
         /// both the upper and lower numbers of selected text.
         /// </summary>
         kDecimalStack,
-    };
+  };
     ///<summary> 
     /// Constructor. It will create a horizontal stack with 1.0 scale factor.
     ///</summary>
@@ -1835,7 +1836,7 @@ public:
         /// Set this flag to find the text with wild cards.
         /// </summary>
         kFindUseWildcards = 1 << 4,
-    };
+  };
     /// <summary>
     /// This enumerator describes text find exit status.
     /// </summary>
@@ -1848,7 +1849,7 @@ public:
         /// Exit find and replace, saving the changes to the entity.
         /// </summary>
         kExitSave,
-    };
+  };
     ///<summary> 
     /// Factory method, it creates the text editor object from a AcDbMText entity.
     ///</summary>
@@ -2275,9 +2276,9 @@ public:
   ACDBCORE2D_PORT AcDbTextEditorLocation* endOfText() override;
 protected:
   ACDBCORE2D_PORT AcDbTextEditor()
-    : m_pImp(NULL) 
-    {
-    }
+    : m_pImp(NULL)
+  {
+  }
   ACDBCORE2D_PORT virtual ~AcDbTextEditor();
   friend class AcDbTextEditorLocation;
   friend class AcDbTextEditorParagraphIterator;

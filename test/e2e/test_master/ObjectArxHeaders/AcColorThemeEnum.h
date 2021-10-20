@@ -21,5 +21,5 @@ enum AcColorThemeEnum {
     ///<summary> Light theme</summary>
     eAcadLightTheme,
     ///<summary> Not yet supported</summary>
-    eAcadUserDefinedTheme 
+    eAcadUserDefinedTheme
 };

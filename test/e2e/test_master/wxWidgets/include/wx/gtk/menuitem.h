@@ -23,11 +23,15 @@ public:
   bool IsChecked() const override;
   virtual void SetBitmap(const wxBitmap& bitmap);
   virtual const wxBitmap& GetBitmap() const
-  { return m_bitmap; }
+  {
+ return m_bitmap;
+  }
     // implementation
   void SetMenuItem(GtkWidget* menuItem);
   GtkWidget* GetMenuItem() const
-  { return m_menuItem; }
+  {
+ return m_menuItem;
+  }
   void SetGtkLabel();
 #  if  WXWIN_COMPATIBILITY_2_8
     // compatibility only, don't use in new code

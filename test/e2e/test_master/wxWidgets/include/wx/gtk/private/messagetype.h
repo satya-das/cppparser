@@ -33,6 +33,6 @@ namespace wxGTKImpl
         return false;
 
     return true;
-}
+  }
 }
 #endif

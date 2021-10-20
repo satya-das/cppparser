@@ -26,7 +26,7 @@ struct AcadApp
         kLoadDisabled           = 0x10,
         kTransparentlyLoadable  = 0x20,
         kOnIdleLoad             = 0x40
-    };
+  };
   enum ErrorStatus {
         eOk             = 0,
         eInvalidKey     = 1,
@@ -39,7 +39,7 @@ struct AcadApp
         eRegAccessDenied= 8,
         eRejected       = 9,
         eUnknownError   = 10
-    };
+  };
 };
 class ADESK_NO_VTABLE AcRxDynamicLinker : public AcRxObject
 {

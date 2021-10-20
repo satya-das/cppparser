@@ -21,7 +21,9 @@
 
 /*  the type for screen and DC coordinates */
 typedef int wxCoord;
-enum {  wxDefaultCoord = -1 };
+enum {
+  wxDefaultCoord = -1
+};
 /*  ---------------------------------------------------------------------------- */
 /*  define fixed length types */
 /*  ---------------------------------------------------------------------------- */

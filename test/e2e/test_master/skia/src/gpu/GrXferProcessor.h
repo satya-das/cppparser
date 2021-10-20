@@ -54,51 +54,62 @@ public:
   public:
     DstProxy()
     {
- fOffset.set(0, 0);     }
+ fOffset.set(0, 0);
+    }
     DstProxy(const DstProxy& other)
     {
-
             *this = other;
-            }
+    }
     DstProxy(sk_sp<GrTextureProxy> proxy, const SkIPoint& offset)
-      :  fProxy(std::move(proxy)) 
-      {
-
+      :  fProxy(std::move(proxy))
+    {
             if (fProxy) {
                 fOffset = offset;
             } else {
                 fOffset.set(0, 0);
             }
-              }
+    }
     DstProxy& operator=(const DstProxy& other)
     {
             fProxy = other.fProxy;
             fOffset = other.fOffset;
             return *this;
-        }
+    }
     bool operator==(const DstProxy& that) const
     {
             return fProxy == that.fProxy && fOffset == that.fOffset;
-        }
+    }
     bool operator!=(const DstProxy& that) const
-    { return !(*this == that); }
+    {
+ return !(*this == that);
+    }
     const SkIPoint& offset() const
-    { return fOffset; }
+    {
+ return fOffset;
+    }
     void setOffset(const SkIPoint& offset)
-    { fOffset = offset; }
+    {
+ fOffset = offset;
+    }
     void setOffset(int ox, int oy)
-    { fOffset.set(ox, oy); }
+    {
+ fOffset.set(ox, oy);
+    }
     GrTextureProxy* proxy() const
-    { return fProxy.get(); }
+    {
+ return fProxy.get();
+    }
     sk_sp<GrTextureProxy> refProxy() const
-    { return fProxy; }
+    {
+ return fProxy;
+    }
     void setProxy(sk_sp<GrTextureProxy> proxy)
     {
             fProxy = std::move(proxy);
             if (!fProxy) {
                 fOffset = {0, 0};
             }
-        }
+    }
   private:
     sk_sp<GrTextureProxy> fProxy;
     SkIPoint fOffset;
@@ -120,7 +131,7 @@ public:
   virtual GrXferBarrierType xferBarrierType(const GrCaps& caps) const
   {
         return kNone_GrXferBarrierType;
-    }
+  }
   struct BlendInfo
   {
     GrBlendEquation fEquation = kAdd_GrBlendEquation;
@@ -138,23 +149,29 @@ public:
             blendInfo.fDstBlend = kIS2A_GrBlendCoeff;
         }
         return blendInfo;
-    }
+  }
   bool willReadDstColor() const
-  { return fWillReadDstColor; }
+  {
+ return fWillReadDstColor;
+  }
     /**
      * If we are performing a dst read, returns whether the base class will use mixed samples to
      * antialias the shader's final output. If not doing a dst read, the subclass is responsible
      * for antialiasing and this returns false.
      */
   bool dstReadUsesMixedSamples() const
-  { return fDstReadUsesMixedSamples; }
+  {
+ return fDstReadUsesMixedSamples;
+  }
     /**
      * Returns whether or not this xferProcossor will set a secondary output to be used with dual
      * source blending.
      */
   bool hasSecondaryOutput() const;
   bool isLCD() const
-  { return fIsLCD; }
+  {
+ return fIsLCD;
+  }
     /** Returns true if this and other processor conservatively draw identically. It can only return
         true when the two processor are of the same subclass (i.e. they return the same object from
         from getFactory()).
@@ -177,7 +194,7 @@ public:
             return false;
         }
         return this->onIsEqual(that);
-    }
+  }
 protected:
   GrXferProcessor(ClassID classID);
   GrXferProcessor(ClassID classID, bool willReadDstColor, bool hasMixedSamples, GrProcessorAnalysisCoverage);
@@ -193,7 +210,9 @@ private:
      * will not be called.
      */
   virtual bool onHasSecondaryOutput() const
-  { return false; }
+  {
+ return false;
+  }
     /**
      * If we are not performing a dst read, retrieves the fixed-function blend state required by the
      * subclass. When using dst reads, the base class controls the fixed-function blend state and
@@ -265,7 +284,7 @@ public:
          * texture or because we need an xfer barrier).
          */
         kRequiresNonOverlappingDraws = 0x20,
-    };
+  };
   GR_DECL_BITFIELD_CLASS_OPS_FRIENDS(AnalysisProperties);
   static sk_sp<const GrXferProcessor> MakeXferProcessor(const GrXPFactory*, const GrProcessorAnalysisColor&, GrProcessorAnalysisCoverage, bool hasMixedSamples, const GrCaps& caps, GrClampType);
   static AnalysisProperties GetAnalysisProperties(const GrXPFactory*, const GrProcessorAnalysisColor&, const GrProcessorAnalysisCoverage&, const GrCaps&, GrClampType);

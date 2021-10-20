@@ -36,11 +36,10 @@ public:
                 , fOutputPrimary(outputPrimary)
                 , fOutputSecondary(outputSecondary)
                 , fDstTextureSamplerHandle(dstTextureSamplerHandle)
-                , fDstTextureOrigin(dstTextureOrigin) 
-      {
-
+                , fDstTextureOrigin(dstTextureOrigin)
+    {
             fOutputSwizzle.setFromKey(outputSwizzleKey);
-              }
+    }
     GrGLSLXPFragmentBuilder* fXPFragBuilder;
     GrGLSLUniformHandler* fUniformHandler;
     const GrShaderCaps* fShaderCaps;
@@ -77,7 +76,7 @@ private:
   virtual void emitOutputsForBlendState(const EmitArgs&)
   {
         SK_ABORT("emitOutputsForBlendState not implemented.");
-    }
+  }
     /**
      * Called by emitCode() when the XP will perform a dst read. This method only needs to supply
      * the blending logic. The base class applies coverage. A subclass only needs to implement this
@@ -86,7 +85,7 @@ private:
   virtual void emitBlendCodeForDstRead(GrGLSLXPFragmentBuilder*, GrGLSLUniformHandler*, const char* srcColor, const char* srcCoverage, const char* dstColor, const char* outColor, const char* outColorSecondary, const GrXferProcessor&)
   {
         SK_ABORT("emitBlendCodeForDstRead not implemented.");
-    }
+  }
   virtual void emitOutputSwizzle(GrGLSLXPFragmentBuilder*, const GrSwizzle&, const char* outColor, const char* outColorSecondary) const;
   virtual void onSetData(const GrGLSLProgramDataManager&, const GrXferProcessor&) = 0;
   GrGLSLProgramDataManager::UniformHandle fDstTopLeftUni;

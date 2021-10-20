@@ -29,35 +29,49 @@ public:
   virtual SkIRect onGetSubset() const
   {
         return { 0, 0, this->width(), this->height() };
-    }
+  }
   virtual bool onPeekPixels(SkPixmap*) const
-  { return false; }
+  {
+ return false;
+  }
   virtual const SkBitmap* onPeekBitmap() const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   virtual bool onReadPixels(const SkImageInfo& dstInfo, void* dstPixels, size_t dstRowBytes, int srcX, int srcY, CachingHint) const = 0;
   virtual GrContext* context() const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
 #  if  SK_SUPPORT_GPU
   virtual GrSemaphoresSubmitted onFlush(GrContext* context, const GrFlushInfo&)
   {
         return GrSemaphoresSubmitted::kNo;
-    }
+  }
     // Return the proxy if this image is backed by a single proxy. For YUVA images, this
     // will return nullptr unless the YUVA planes have been converted to RGBA in which case
     // that single backing proxy will be returned.
   virtual GrTextureProxy* peekProxy() const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   virtual sk_sp<GrTextureProxy> asTextureProxyRef(GrRecordingContext*) const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   virtual sk_sp<GrTextureProxy> asTextureProxyRef(GrRecordingContext*, const GrSamplerState&, SkScalar scaleAdjust[2]) const = 0;
   virtual sk_sp<GrTextureProxy> refPinnedTextureProxy(GrRecordingContext*, uint32_t* uniqueID) const
   {
         return nullptr;
-    }
+  }
   virtual bool isYUVA() const
-  { return false; }
+  {
+ return false;
+  }
   virtual GrTexture* onGetTexture() const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
 #  endif
   virtual GrBackendTexture onGetBackendTexture(bool flushPendingGrContextIO, GrSurfaceOrigin* origin) const;
     // return a read-only copy of the pixels. We promise to not modify them,
@@ -66,23 +80,31 @@ public:
   virtual sk_sp<SkImage> onMakeSubset(GrRecordingContext*, const SkIRect&) const = 0;
   virtual sk_sp<SkCachedData> getPlanes(SkYUVASizeInfo*, SkYUVAIndex[4], SkYUVColorSpace*, const void* planes[4]);
   virtual sk_sp<SkData> onRefEncoded() const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   virtual bool onAsLegacyBitmap(SkBitmap*) const;
     // True for picture-backed and codec-backed
   virtual bool onIsLazyGenerated() const
-  { return false; }
+  {
+ return false;
+  }
     // True for images instantiated in GPU memory
   virtual bool onIsTextureBacked() const
-  { return false; }
+  {
+ return false;
+  }
     // Call when this image is part of the key to a resourcecache entry. This allows the cache
     // to know automatically those entries can be purged when this SkImage deleted.
   virtual void notifyAddedToRasterCache() const
   {
         fAddedToRasterCache.store(true);
-    }
+  }
   virtual bool onIsValid(GrContext*) const = 0;
   virtual bool onPinAsTexture(GrContext*) const
-  { return false; }
+  {
+ return false;
+  }
   virtual void onUnpinAsTexture(GrContext*) const
   {
   }

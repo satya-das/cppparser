@@ -32,16 +32,18 @@ namespace SkSL
   public:
     // Create a templated mapper that does not support state tracking
     UniformCTypeMapper(Layout::CType ctype, const std::vector<String>& skslTypes, const char* setUniformFormat)
-      :  UniformCTypeMapper(ctype, skslTypes, setUniformFormat, false, "", "", "") 
-      {
-       }
+      :  UniformCTypeMapper(ctype, skslTypes, setUniformFormat, false, "", "", "")
+    {
+
+    }
     // Create a templated mapper that provides extra patterns for the state
     // tracking expressions.
     UniformCTypeMapper(Layout::CType ctype, const std::vector<String>& skslTypes, const String& setUniformFormat, const String& defaultValue, const String& dirtyExpressionFormat, const String& saveStateFormat)
       :  UniformCTypeMapper(ctype, skslTypes, setUniformFormat,
-                true, defaultValue, dirtyExpressionFormat, saveStateFormat) 
-      {
-       }
+                true, defaultValue, dirtyExpressionFormat, saveStateFormat)
+    {
+
+    }
     // Returns nullptr if the type and layout are not supported; the returned pointer's ownership
     // is not transfered to the caller.
     //

@@ -79,30 +79,52 @@ public:
             default:
                 return nullptr;
         }
-    }
+  }
   virtual ~GrConicEffect();
   const char* name() const override
-  { return "Conic"; }
+  {
+ return "Conic";
+  }
   inline const Attribute& inPosition() const
-  { return kAttributes[0]; }
+  {
+ return kAttributes[0];
+  }
   inline const Attribute& inConicCoeffs() const
-  { return kAttributes[1]; }
+  {
+ return kAttributes[1];
+  }
   inline bool isAntiAliased() const
-  { return GrProcessorEdgeTypeIsAA(fEdgeType); }
+  {
+ return GrProcessorEdgeTypeIsAA(fEdgeType);
+  }
   inline bool isFilled() const
-  { return GrProcessorEdgeTypeIsFill(fEdgeType); }
+  {
+ return GrProcessorEdgeTypeIsFill(fEdgeType);
+  }
   inline GrClipEdgeType getEdgeType() const
-  { return fEdgeType; }
+  {
+ return fEdgeType;
+  }
   const SkPMColor4f& color() const
-  { return fColor; }
+  {
+ return fColor;
+  }
   const SkMatrix& viewMatrix() const
-  { return fViewMatrix; }
+  {
+ return fViewMatrix;
+  }
   const SkMatrix& localMatrix() const
-  { return fLocalMatrix; }
+  {
+ return fLocalMatrix;
+  }
   bool usesLocalCoords() const
-  { return fUsesLocalCoords; }
+  {
+ return fUsesLocalCoords;
+  }
   uint8_t coverageScale() const
-  { return fCoverageScale; }
+  {
+ return fCoverageScale;
+  }
   void getGLSLProcessorKey(const GrShaderCaps& caps, GrProcessorKeyBuilder* b) const override;
   GrGLSLPrimitiveProcessor* createGLSLInstance(const GrShaderCaps&) const override;
 private:
@@ -155,30 +177,52 @@ public:
             default:
                 return nullptr;
         }
-    }
+  }
   virtual ~GrQuadEffect();
   const char* name() const override
-  { return "Quad"; }
+  {
+ return "Quad";
+  }
   inline const Attribute& inPosition() const
-  { return kAttributes[0]; }
+  {
+ return kAttributes[0];
+  }
   inline const Attribute& inHairQuadEdge() const
-  { return kAttributes[1]; }
+  {
+ return kAttributes[1];
+  }
   inline bool isAntiAliased() const
-  { return GrProcessorEdgeTypeIsAA(fEdgeType); }
+  {
+ return GrProcessorEdgeTypeIsAA(fEdgeType);
+  }
   inline bool isFilled() const
-  { return GrProcessorEdgeTypeIsFill(fEdgeType); }
+  {
+ return GrProcessorEdgeTypeIsFill(fEdgeType);
+  }
   inline GrClipEdgeType getEdgeType() const
-  { return fEdgeType; }
+  {
+ return fEdgeType;
+  }
   const SkPMColor4f& color() const
-  { return fColor; }
+  {
+ return fColor;
+  }
   const SkMatrix& viewMatrix() const
-  { return fViewMatrix; }
+  {
+ return fViewMatrix;
+  }
   const SkMatrix& localMatrix() const
-  { return fLocalMatrix; }
+  {
+ return fLocalMatrix;
+  }
   bool usesLocalCoords() const
-  { return fUsesLocalCoords; }
+  {
+ return fUsesLocalCoords;
+  }
   uint8_t coverageScale() const
-  { return fCoverageScale; }
+  {
+ return fCoverageScale;
+  }
   void getGLSLProcessorKey(const GrShaderCaps& caps, GrProcessorKeyBuilder* b) const override;
   GrGLSLPrimitiveProcessor* createGLSLInstance(const GrShaderCaps&) const override;
 private:

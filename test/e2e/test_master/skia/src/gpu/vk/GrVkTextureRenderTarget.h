@@ -23,20 +23,22 @@ public:
   static sk_sp<GrVkTextureRenderTarget> MakeNewTextureRenderTarget(GrVkGpu*, SkBudgeted, const GrSurfaceDesc&, int sampleCnt, const GrVkImage::ImageDesc&, GrMipMapsStatus);
   static sk_sp<GrVkTextureRenderTarget> MakeWrappedTextureRenderTarget(GrVkGpu*, const GrSurfaceDesc&, int sampleCnt, GrWrapOwnership, GrWrapCacheable, const GrVkImageInfo&, sk_sp<GrVkImageLayout>);
   GrBackendFormat backendFormat() const override
-  { return this->getBackendFormat(); }
+  {
+ return this->getBackendFormat();
+  }
 protected:
   void onAbandon() override
   {
         // In order to correctly handle calling texture idle procs, GrVkTexture must go first.
         GrVkTexture::onAbandon();
         GrVkRenderTarget::onAbandon();
-    }
+  }
   void onRelease() override
   {
         // In order to correctly handle calling texture idle procs, GrVkTexture must go first.
         GrVkTexture::onRelease();
         GrVkRenderTarget::onRelease();
-    }
+  }
 private:
     // MSAA, not-wrapped
   GrVkTextureRenderTarget(GrVkGpu* gpu, SkBudgeted budgeted, const GrSurfaceDesc& desc, int sampleCnt, const GrVkImageInfo& info, sk_sp<GrVkImageLayout> layout, const GrVkImageView* texView, const GrVkImageInfo& msaaInfo, sk_sp<GrVkImageLayout> msaaLayout, const GrVkImageView* colorAttachmentView, const GrVkImageView* resolveAttachmentView, GrMipMapsStatus);
@@ -54,6 +56,6 @@ private:
   {
         // Forward the release proc on to GrVkImage
         this->setResourceRelease(std::move(releaseHelper));
-    }
+  }
 };
 #endif

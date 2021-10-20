@@ -57,11 +57,7 @@
 #    include "wx/tls.h"
     // change this 0 to 1 to enable additional (very expensive) asserts
     // verifying that string caching logic works as expected
-    #if 0
-        #define wxSTRING_CACHE_ASSERT(cond) wxASSERT(cond)
-    #else
-        #define wxSTRING_CACHE_ASSERT(cond)
-    #endif#  endif
+#  endif
 class WXDLLIMPEXP_FWD_BASE wxString;
 // unless this symbol is predefined to disable the compatibility functions, do
 // use them
@@ -108,13 +104,19 @@ namespace wxPrivate
 
 // checks whether the passed in pointer is NULL and if the string is empty
 wxDEPRECATED_MSG("use wxIsEmpty() instead") inline bool IsEmpty(const char* p)
-{ return (!p || !*p); }
+{
+ return (!p || !*p);
+}
 // safe version of strlen() (returns 0 if passed NULL pointer)
 wxDEPRECATED_MSG("use wxStrlen() instead") inline size_t Strlen(const char* psz)
-{ return psz ? strlen(psz) : 0; }
+{
+ return psz ? strlen(psz) : 0;
+}
 // portable strcasecmp/_stricmp
 wxDEPRECATED_MSG("use wxStricmp() instead") inline int Stricmp(const char* psz1, const char* psz2)
-{ return wxCRT_StricmpA(psz1, psz2); }
+{
+ return wxCRT_StricmpA(psz1, psz2);
+}
 #  endif
 // ----------------------------------------------------------------------------
 // wxCStrData
@@ -127,9 +129,9 @@ class wxCStrData
 private:
     // Ctors; for internal use by wxString and wxCStrData only
   wxCStrData(const wxString* str, size_t offset = 0, bool owned = false)
-    :  m_str(str), m_offset(offset), m_owned(owned) 
-    {
-    }
+    :  m_str(str), m_offset(offset), m_owned(owned)
+  {
+  }
 public:
     // Ctor constructs the object from char literal; they are needed to make
     // operator?: compile and they intentionally take char*, not const char*
@@ -151,30 +153,36 @@ public:
   inline const wchar_t* AsWChar() const;
   operator const wchar_t*() const
   {
- return AsWChar();   }
+ return AsWChar();
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   inline const char* AsChar() const;
   const unsigned char* AsUnsignedChar() const
-  { return (const unsigned char *) AsChar(); }
+  {
+ return (const unsigned char *) AsChar();
+  }
   operator const char*() const
   {
- return AsChar();   }
+ return AsChar();
+  }
   operator const unsigned char*() const
   {
- return AsUnsignedChar();   }
+ return AsUnsignedChar();
+  }
   operator const void*() const
   {
- return AsChar();   }
+ return AsChar();
+  }
     // returns buffers that are valid as long as the associated wxString exists
   const wxScopedCharBuffer AsCharBuf() const
   {
         return wxScopedCharBuffer::CreateNonOwned(AsChar());
-    }
+  }
 #  endif
   const wxScopedWCharBuffer AsWCharBuf() const
   {
         return wxScopedWCharBuffer::CreateNonOwned(AsWChar());
-    }
+  }
   inline wxString AsString() const;
     // returns the value as C string in internal representation (equivalent
     // to AsString().wx_str(), but more efficient)
@@ -182,12 +190,18 @@ public:
     // allow expressions like "c_str()[0]":
   inline wxUniChar operator[](size_t n) const;
   wxUniChar operator[](int n) const
-  { return operator[](size_t(n)); }
+  {
+ return operator[](size_t(n));
+  }
   wxUniChar operator[](long n) const
-  { return operator[](size_t(n)); }
+  {
+ return operator[](size_t(n));
+  }
 #  ifndef wxSIZE_T_IS_UINT
   wxUniChar operator[](unsigned int n) const
-  { return operator[](size_t(n)); }
+  {
+ return operator[](size_t(n));
+  }
 #  endif
     // These operators are needed to emulate the pointer semantics of c_str():
     // expressions like "wxChar *p = str.c_str() + 1;" should continue to work
@@ -195,11 +209,17 @@ public:
     // the 'n' value is interpreted as addition to char*/wchar_t* pointer, it
     // is *not* number of Unicode characters in wxString.
   wxCStrData operator+(int n) const
-  { return wxCStrData(m_str, m_offset + n, m_owned); }
+  {
+ return wxCStrData(m_str, m_offset + n, m_owned);
+  }
   wxCStrData operator+(long n) const
-  { return wxCStrData(m_str, m_offset + n, m_owned); }
+  {
+ return wxCStrData(m_str, m_offset + n, m_owned);
+  }
   wxCStrData operator+(size_t n) const
-  { return wxCStrData(m_str, m_offset + n, m_owned); }
+  {
+ return wxCStrData(m_str, m_offset + n, m_owned);
+  }
     // and these for "str.c_str() + (p2 - p1)" (it also works for any integer
     // expression but it must be ptrdiff_t and not e.g. int to work in this
     // example):
@@ -208,7 +228,7 @@ public:
         wxASSERT_MSG( n <= (ptrdiff_t)m_offset,
                       wxT("attempt to construct address before the beginning of the string") );
         return wxCStrData(m_str, m_offset - n, m_owned);
-    }
+  }
     // this operator is needed to make expressions like "*c_str()" or
     // "*(c_str() + 2)" work
   inline wxUniChar operator*() const;
@@ -236,22 +256,29 @@ class WXDLLIMPEXP_BASE wxStringIteratorNode
 {
 public:
   wxStringIteratorNode()
-    :  m_str(NULL), m_citer(NULL), m_iter(NULL), m_prev(NULL), m_next(NULL) 
-    {
-    }
+    :  m_str(NULL), m_citer(NULL), m_iter(NULL), m_prev(NULL), m_next(NULL)
+  {
+  }
   wxStringIteratorNode(const wxString* str, wxStringImpl::const_iterator* citer)
   {
- DoSet(str, citer, NULL);   }
+ DoSet(str, citer, NULL);
+  }
   wxStringIteratorNode(const wxString* str, wxStringImpl::iterator* iter)
   {
- DoSet(str, NULL, iter);   }
+ DoSet(str, NULL, iter);
+  }
   ~wxStringIteratorNode()
   {
- clear();   }
+ clear();
+  }
   inline void set(const wxString* str, wxStringImpl::const_iterator* citer)
-  { clear(); DoSet(str, citer, NULL); }
+  {
+ clear(); DoSet(str, citer, NULL);
+  }
   inline void set(const wxString* str, wxStringImpl::iterator* iter)
-  { clear(); DoSet(str, NULL, iter); }
+  {
+ clear(); DoSet(str, NULL, iter);
+  }
   const wxString* m_str;
   wxStringImpl::const_iterator* m_citer;
   wxStringImpl::iterator* m_iter;
@@ -302,11 +329,9 @@ private:
     size_t len;
     SubstrBufFromType(const T& data_, size_t len_)
       :  data(data_), len(len_)
-      
-      {
-
+    {
           wxASSERT_MSG( len != npos, "must have real length" );
-            }
+    }
   };
 #  if  wxUSE_UNICODE_UTF8
   // even char* -> char* needs conversion, from locale charset to UTF-8
@@ -335,35 +360,59 @@ private:
   // returns C string encoded as the implementation expects:
 #    if  wxUSE_UNICODE
   static const wchar_t* ImplStr(const wchar_t* str)
-  { return str ? str : wxT(""); }
+  {
+ return str ? str : wxT("");
+  }
   static const SubstrBufFromWC ImplStr(const wchar_t* str, size_t n)
-  { return SubstrBufFromWC(str, (str && n == npos) ? wxWcslen(str) : n); }
+  {
+ return SubstrBufFromWC(str, (str && n == npos) ? wxWcslen(str) : n);
+  }
   static wxScopedWCharBuffer ImplStr(const char* str, const wxMBConv& conv)
-  { return ConvertStr(str, npos, conv).data; }
+  {
+ return ConvertStr(str, npos, conv).data;
+  }
   static SubstrBufFromMB ImplStr(const char* str, size_t n, const wxMBConv& conv)
-  { return ConvertStr(str, n, conv); }
+  {
+ return ConvertStr(str, n, conv);
+  }
 #    else 
   static const char* ImplStr(const char* str, const wxMBConv&)
-  { return str ? str : ""; }
+  {
+ return str ? str : "";
+  }
   static const SubstrBufFromMB ImplStr(const char* str, size_t n, const wxMBConv&)
-  { return SubstrBufFromMB(str, (str && n == npos) ? wxStrlen(str) : n); }
+  {
+ return SubstrBufFromMB(str, (str && n == npos) ? wxStrlen(str) : n);
+  }
 #      ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   static wxScopedCharBuffer ImplStr(const wchar_t* str)
-  { return ConvertStr(str, npos, wxConvLibc).data; }
+  {
+ return ConvertStr(str, npos, wxConvLibc).data;
+  }
   static SubstrBufFromWC ImplStr(const wchar_t* str, size_t n)
-  { return ConvertStr(str, n, wxConvLibc); }
+  {
+ return ConvertStr(str, n, wxConvLibc);
+  }
 #      endif
 #    endif
   // translates position index in wxString to/from index in underlying
   // wxStringImpl:
   static size_t PosToImpl(size_t pos)
-  { return pos; }
+  {
+ return pos;
+  }
   static void PosLenToImpl(size_t pos, size_t len, size_t* implPos, size_t* implLen)
-  { *implPos = pos; *implLen = len; }
+  {
+ *implPos = pos; *implLen = len;
+  }
   static size_t LenToImpl(size_t len)
-  { return len; }
+  {
+ return len;
+  }
   static size_t PosFromImpl(size_t pos)
-  { return pos; }
+  {
+ return pos;
+  }
   // we don't want to define these as empty inline functions as it could
   // result in noticeable (and quite unnecessary in non-UTF-8 build) slowdown
   // in debug build where the inline functions are not effectively inlined
@@ -373,13 +422,21 @@ private:
 #    define wxSTRING_SET_CACHED_LENGTH(n)
 #  else 
   static wxScopedCharBuffer ImplStr(const char* str, const wxMBConv& conv)
-  { return ConvertStr(str, npos, conv).data; }
+  {
+ return ConvertStr(str, npos, conv).data;
+  }
   static SubstrBufFromMB ImplStr(const char* str, size_t n, const wxMBConv& conv)
-  { return ConvertStr(str, n, conv); }
+  {
+ return ConvertStr(str, n, conv);
+  }
   static wxScopedCharBuffer ImplStr(const wchar_t* str)
-  { return ConvertStr(str, npos, wxMBConvUTF8()).data; }
+  {
+ return ConvertStr(str, npos, wxMBConvUTF8()).data;
+  }
   static SubstrBufFromWC ImplStr(const wchar_t* str, size_t n)
-  { return ConvertStr(str, n, wxMBConvUTF8()); }
+  {
+ return ConvertStr(str, n, wxMBConvUTF8());
+  }
 #    if  wxUSE_STRING_POS_CACHE
   // this is an extremely simple cache used by PosToImpl(): each cache element
   // contains the string it applies to and the index corresponding to the last
@@ -391,17 +448,23 @@ private:
   //     initialized to 0 instead
   struct Cache
   {
-    enum { SIZE = 8 };
+    enum {
+ SIZE = 8
+    };
     struct Element
     {
       const wxString* str;
       size_t pos, impl, len;
           // reset cached index to 0
       void ResetPos()
-      { pos = impl = 0; }
+      {
+ pos = impl = 0;
+      }
           // reset position and length
       void Reset()
-      { ResetPos(); len = npos; }
+      {
+ ResetPos(); len = npos;
+      }
     };
       // cache the indices mapping for the last few string used
     Element cached[SIZE];
@@ -434,14 +497,22 @@ private:
 #      else 
   static wxTLS_TYPE(Cache) ms_cache;
   static Cache& GetCache()
-  { return wxTLS_VALUE(ms_cache); }
+  {
+ return wxTLS_VALUE(ms_cache);
+  }
 #      endif
   static Cache::Element* GetCacheBegin()
-  { return GetCache().cached; }
+  {
+ return GetCache().cached;
+  }
   static Cache::Element* GetCacheEnd()
-  { return GetCacheBegin() + Cache::SIZE; }
+  {
+ return GetCacheBegin() + Cache::SIZE;
+  }
   static unsigned& LastUsedCacheElement()
-  { return GetCache().lastUsed; }
+  {
+ return GetCache().lastUsed;
+  }
   // this is used in debug builds only to provide a convenient function,
   // callable from a debugger, to show the cache contents
   friend struct wxStrCacheDumper;
@@ -766,9 +837,9 @@ public:
     {
     }
     iterator(const iterator& i)
-      :  m_cur(i.m_cur), m_node(i.str(), &m_cur) 
-      {
-      }
+      :  m_cur(i.m_cur), m_node(i.str(), &m_cur)
+    {
+    }
     iterator& operator=(const iterator& i)
     {
           if (&i != this)
@@ -777,13 +848,19 @@ public:
               m_node.set(i.str(), &m_cur);
           }
           return *this;
-      }
+    }
     reference operator*()
-    { return wxUniCharRef::CreateForString(*str(), m_cur); }
+    {
+ return wxUniCharRef::CreateForString(*str(), m_cur);
+    }
     iterator operator+(ptrdiff_t n) const
-    { return iterator(str(), wxStringOperations::AddToIter(m_cur, n)); }
+    {
+ return iterator(str(), wxStringOperations::AddToIter(m_cur, n));
+    }
     iterator operator-(ptrdiff_t n) const
-    { return iterator(str(), wxStringOperations::AddToIter(m_cur, -n)); }
+    {
+ return iterator(str(), wxStringOperations::AddToIter(m_cur, -n));
+    }
       // Normal iterators need to be comparable with the const_iterators so
       // declare the comparison operators and implement them below after the
       // full const_iterator declaration.
@@ -795,11 +872,13 @@ public:
     bool operator>=(const const_iterator& i) const;
   private:
     iterator(wxString* wxstr, underlying_iterator ptr)
-      :  m_cur(ptr), m_node(wxstr, &m_cur) 
-      {
-      }
+      :  m_cur(ptr), m_node(wxstr, &m_cur)
+    {
+    }
     wxString* str() const
-    { return const_cast<wxString*>(m_node.m_str); }
+    {
+ return const_cast<wxString*>(m_node.m_str);
+    }
     wxStringIteratorNode m_node;
     friend class const_iterator;
   };
@@ -813,13 +892,13 @@ public:
     {
     }
     const_iterator(const const_iterator& i)
-      :  m_cur(i.m_cur), m_node(i.str(), &m_cur) 
-      {
-      }
+      :  m_cur(i.m_cur), m_node(i.str(), &m_cur)
+    {
+    }
     const_iterator(const iterator& i)
-      :  m_cur(i.m_cur), m_node(i.str(), &m_cur) 
-      {
-      }
+      :  m_cur(i.m_cur), m_node(i.str(), &m_cur)
+    {
+    }
     const_iterator& operator=(const const_iterator& i)
     {
           if (&i != this)
@@ -828,15 +907,23 @@ public:
               m_node.set(i.str(), &m_cur);
           }
           return *this;
-      }
+    }
     const_iterator& operator=(const iterator& i)
-    { m_cur = i.m_cur; m_node.set(i.str(), &m_cur); return *this; }
+    {
+ m_cur = i.m_cur; m_node.set(i.str(), &m_cur); return *this;
+    }
     reference operator*() const
-    { return wxStringOperations::DecodeChar(m_cur); }
+    {
+ return wxStringOperations::DecodeChar(m_cur);
+    }
     const_iterator operator+(ptrdiff_t n) const
-    { return const_iterator(str(), wxStringOperations::AddToIter(m_cur, n)); }
+    {
+ return const_iterator(str(), wxStringOperations::AddToIter(m_cur, n));
+    }
     const_iterator operator-(ptrdiff_t n) const
-    { return const_iterator(str(), wxStringOperations::AddToIter(m_cur, -n)); }
+    {
+ return const_iterator(str(), wxStringOperations::AddToIter(m_cur, -n));
+    }
       // Until C++20 we could avoid defining these comparison operators because
       // the implicit conversion from iterator to const_iterator was used to
       // reuse the operators defined inside WX_STR_ITERATOR_IMPL. However in
@@ -852,17 +939,23 @@ public:
   private:
       // for internal wxString use only:
     const_iterator(const wxString* wxstr, underlying_iterator ptr)
-      :  m_cur(ptr), m_node(wxstr, &m_cur) 
-      {
-      }
+      :  m_cur(ptr), m_node(wxstr, &m_cur)
+    {
+    }
     const wxString* str() const
-    { return m_node.m_str; }
+    {
+ return m_node.m_str;
+    }
     wxStringIteratorNode m_node;
   };
   iterator GetIterForNthChar(size_t n)
-  { return iterator(this, m_impl.begin() + PosToImpl(n)); }
+  {
+ return iterator(this, m_impl.begin() + PosToImpl(n));
+  }
   const_iterator GetIterForNthChar(size_t n) const
-  { return const_iterator(this, m_impl.begin() + PosToImpl(n)); }
+  {
+ return const_iterator(this, m_impl.begin() + PosToImpl(n));
+  }
 #  else 
   class WXDLLIMPEXP_BASE iterator
   {
@@ -872,11 +965,17 @@ public:
     {
     }
     reference operator*()
-    { return wxUniCharRef::CreateForString(m_cur); }
+    {
+ return wxUniCharRef::CreateForString(m_cur);
+    }
     iterator operator+(ptrdiff_t n) const
-    { return iterator(wxStringOperations::AddToIter(m_cur, n)); }
+    {
+ return iterator(wxStringOperations::AddToIter(m_cur, n));
+    }
     iterator operator-(ptrdiff_t n) const
-    { return iterator(wxStringOperations::AddToIter(m_cur, -n)); }
+    {
+ return iterator(wxStringOperations::AddToIter(m_cur, -n));
+    }
       // As in UTF-8 case above, define comparison operators taking
       // const_iterator too.
     bool operator==(const const_iterator& i) const;
@@ -888,13 +987,13 @@ public:
   private:
       // for internal wxString use only:
     iterator(underlying_iterator ptr)
-      :  m_cur(ptr) 
-      {
-      }
+      :  m_cur(ptr)
+    {
+    }
     iterator(wxString*, underlying_iterator ptr)
-      :  m_cur(ptr) 
-      {
-      }
+      :  m_cur(ptr)
+    {
+    }
     friend class const_iterator;
   };
   class WXDLLIMPEXP_BASE const_iterator
@@ -907,15 +1006,21 @@ public:
     {
     }
     const_iterator(const iterator& i)
-      :  m_cur(i.m_cur) 
-      {
-      }
+      :  m_cur(i.m_cur)
+    {
+    }
     const_reference operator*() const
-    { return wxStringOperations::DecodeChar(m_cur); }
+    {
+ return wxStringOperations::DecodeChar(m_cur);
+    }
     const_iterator operator+(ptrdiff_t n) const
-    { return const_iterator(wxStringOperations::AddToIter(m_cur, n)); }
+    {
+ return const_iterator(wxStringOperations::AddToIter(m_cur, n));
+    }
     const_iterator operator-(ptrdiff_t n) const
-    { return const_iterator(wxStringOperations::AddToIter(m_cur, -n)); }
+    {
+ return const_iterator(wxStringOperations::AddToIter(m_cur, -n));
+    }
       // See comment for comparison operators in the UTF-8 case above.
     bool operator==(const iterator& i) const;
     bool operator!=(const iterator& i) const;
@@ -926,21 +1031,27 @@ public:
   private:
       // for internal wxString use only:
     const_iterator(underlying_iterator ptr)
-      :  m_cur(ptr) 
-      {
-      }
+      :  m_cur(ptr)
+    {
+    }
     const_iterator(const wxString*, underlying_iterator ptr)
-      :  m_cur(ptr) 
-      {
-      }
+      :  m_cur(ptr)
+    {
+    }
   };
   iterator GetIterForNthChar(size_t n)
-  { return begin() + n; }
+  {
+ return begin() + n;
+  }
   const_iterator GetIterForNthChar(size_t n) const
-  { return begin() + n; }
+  {
+ return begin() + n;
+  }
 #  endif
   size_t IterToImplPos(wxString::iterator i) const
-  { return wxStringImpl::const_iterator(i.impl()) - m_impl.begin(); }
+  {
+ return wxStringImpl::const_iterator(i.impl()) - m_impl.begin();
+  }
 #  undef WX_STR_ITERATOR_TAG
 #  undef WX_STR_ITERATOR_IMPL
   // This method is mostly used by wxWidgets itself and return the offset of
@@ -977,45 +1088,81 @@ public:
     {
     }
     reverse_iterator_impl(iterator_type i)
-      :  m_cur(i) 
-      {
-      }
+      :  m_cur(i)
+    {
+    }
     iterator_type base() const
-    { return m_cur; }
+    {
+ return m_cur;
+    }
     reference operator*() const
-    { return *(m_cur-1); }
+    {
+ return *(m_cur-1);
+    }
     reference operator[](size_t n) const
-    { return *(*this + n); }
+    {
+ return *(*this + n);
+    }
     reverse_iterator_impl& operator++()
-    { --m_cur; return *this; }
+    {
+ --m_cur; return *this;
+    }
     reverse_iterator_impl operator++(int)
-    { reverse_iterator_impl tmp = *this; --m_cur; return tmp; }
+    {
+ reverse_iterator_impl tmp = *this; --m_cur; return tmp;
+    }
     reverse_iterator_impl& operator--()
-    { ++m_cur; return *this; }
+    {
+ ++m_cur; return *this;
+    }
     reverse_iterator_impl operator--(int)
-    { reverse_iterator_impl tmp = *this; ++m_cur; return tmp; }
+    {
+ reverse_iterator_impl tmp = *this; ++m_cur; return tmp;
+    }
     reverse_iterator_impl operator+(ptrdiff_t n) const
-    { return reverse_iterator_impl(m_cur - n); }
+    {
+ return reverse_iterator_impl(m_cur - n);
+    }
     reverse_iterator_impl operator-(ptrdiff_t n) const
-    { return reverse_iterator_impl(m_cur + n); }
+    {
+ return reverse_iterator_impl(m_cur + n);
+    }
     reverse_iterator_impl operator+=(ptrdiff_t n)
-    { m_cur -= n; return *this; }
+    {
+ m_cur -= n; return *this;
+    }
     reverse_iterator_impl operator-=(ptrdiff_t n)
-    { m_cur += n; return *this; }
+    {
+ m_cur += n; return *this;
+    }
     difference_type operator-(const reverse_iterator_impl& i) const
-    { return i.m_cur - m_cur; }
+    {
+ return i.m_cur - m_cur;
+    }
     bool operator==(const reverse_iterator_impl& ri) const
-    { return m_cur == ri.m_cur; }
+    {
+ return m_cur == ri.m_cur;
+    }
     bool operator!=(const reverse_iterator_impl& ri) const
-    { return !(*this == ri); }
+    {
+ return !(*this == ri);
+    }
     bool operator<(const reverse_iterator_impl& i) const
-    { return m_cur > i.m_cur; }
+    {
+ return m_cur > i.m_cur;
+    }
     bool operator>(const reverse_iterator_impl& i) const
-    { return m_cur < i.m_cur; }
+    {
+ return m_cur < i.m_cur;
+    }
     bool operator<=(const reverse_iterator_impl& i) const
-    { return m_cur >= i.m_cur; }
+    {
+ return m_cur >= i.m_cur;
+    }
     bool operator>=(const reverse_iterator_impl& i) const
-    { return m_cur <= i.m_cur; }
+    {
+ return m_cur <= i.m_cur;
+    }
   private:
     iterator_type m_cur;
   };
@@ -1039,21 +1186,26 @@ private:
   {
   };
   wxString(CtorFromStringImplTag*, const wxStringImpl& src)
-    :  m_impl(src) 
-    {
-    }
+    :  m_impl(src)
+  {
+  }
   static wxString FromImpl(const wxStringImpl& src)
-  { return wxString((CtorFromStringImplTag*)NULL, src); }
+  {
+ return wxString((CtorFromStringImplTag*)NULL, src);
+  }
 #  else 
 #    if  !wxUSE_STL_BASED_WXSTRING
   wxString(const wxStringImpl& src)
-    :  m_impl(src) 
-    {
-     }
+    :  m_impl(src)
+  {
+
+  }
   // else: already defined as wxString(wxStdString) below
 #    endif
   static wxString FromImpl(const wxStringImpl& src)
-  { return wxString(src); }
+  {
+ return wxString(src);
+  }
 #  endif
 public:
   // constructors and destructor
@@ -1063,131 +1215,146 @@ public:
   }
     // copy ctor
   wxString(const wxString& stringSrc)
-    :  m_impl(stringSrc.m_impl) 
-    {
-     }
+    :  m_impl(stringSrc.m_impl)
+  {
+
+  }
     // string containing nRepeat copies of ch
   wxString(wxUniChar ch, size_t nRepeat = 1)
   {
- assign(nRepeat, ch);   }
+ assign(nRepeat, ch);
+  }
   wxString(size_t nRepeat, wxUniChar ch)
   {
- assign(nRepeat, ch);   }
+ assign(nRepeat, ch);
+  }
   wxString(wxUniCharRef ch, size_t nRepeat = 1)
   {
- assign(nRepeat, ch);   }
+ assign(nRepeat, ch);
+  }
   wxString(size_t nRepeat, wxUniCharRef ch)
   {
- assign(nRepeat, ch);   }
+ assign(nRepeat, ch);
+  }
   wxString(char ch, size_t nRepeat = 1)
   {
- assign(nRepeat, ch);   }
+ assign(nRepeat, ch);
+  }
   wxString(size_t nRepeat, char ch)
   {
- assign(nRepeat, ch);   }
+ assign(nRepeat, ch);
+  }
   wxString(wchar_t ch, size_t nRepeat = 1)
   {
- assign(nRepeat, ch);   }
+ assign(nRepeat, ch);
+  }
   wxString(size_t nRepeat, wchar_t ch)
   {
- assign(nRepeat, ch);   }
+ assign(nRepeat, ch);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
     // ctors from char* strings:
   wxString(const char* psz)
-    :  m_impl(ImplStr(psz)) 
-    {
-    }
+    :  m_impl(ImplStr(psz))
+  {
+  }
 #  endif
   wxString(const char* psz, const wxMBConv& conv)
-    :  m_impl(ImplStr(psz, conv)) 
-    {
-    }
+    :  m_impl(ImplStr(psz, conv))
+  {
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString(const char* psz, size_t nLength)
   {
- assign(psz, nLength);   }
+ assign(psz, nLength);
+  }
 #  endif
   wxString(const char* psz, const wxMBConv& conv, size_t nLength)
   {
-
     SubstrBufFromMB str(ImplStr(psz, nLength, conv));
     m_impl.assign(str.data, str.len);
-    }
+  }
     // and unsigned char*:
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString(const unsigned char* psz)
-    :  m_impl(ImplStr((const char*)psz)) 
-    {
-    }
+    :  m_impl(ImplStr((const char*)psz))
+  {
+  }
 #  endif
   wxString(const unsigned char* psz, const wxMBConv& conv)
-    :  m_impl(ImplStr((const char*)psz, conv)) 
-    {
-    }
+    :  m_impl(ImplStr((const char*)psz, conv))
+  {
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString(const unsigned char* psz, size_t nLength)
   {
- assign((const char*)psz, nLength);   }
+ assign((const char*)psz, nLength);
+  }
 #  endif
   wxString(const unsigned char* psz, const wxMBConv& conv, size_t nLength)
   {
-
     SubstrBufFromMB str(ImplStr((const char*)psz, nLength, conv));
     m_impl.assign(str.data, str.len);
-    }
+  }
     // ctors from wchar_t* strings:
   wxString(const wchar_t* pwz)
-    :  m_impl(ImplStr(pwz)) 
-    {
-    }
+    :  m_impl(ImplStr(pwz))
+  {
+  }
   wxString(const wchar_t* pwz, const wxMBConv&)
-    :  m_impl(ImplStr(pwz)) 
-    {
-    }
+    :  m_impl(ImplStr(pwz))
+  {
+  }
   wxString(const wchar_t* pwz, size_t nLength)
   {
- assign(pwz, nLength);   }
+ assign(pwz, nLength);
+  }
   wxString(const wchar_t* pwz, const wxMBConv&, size_t nLength)
   {
- assign(pwz, nLength);   }
+ assign(pwz, nLength);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString(const wxScopedCharBuffer& buf)
   {
- assign(buf.data(), buf.length());   }
+ assign(buf.data(), buf.length());
+  }
 #  endif
   wxString(const wxScopedWCharBuffer& buf)
   {
- assign(buf.data(), buf.length());   }
+ assign(buf.data(), buf.length());
+  }
   wxString(const wxScopedCharBuffer& buf, const wxMBConv& conv)
   {
- assign(buf, conv);   }
+ assign(buf, conv);
+  }
     // NB: this version uses m_impl.c_str() to force making a copy of the
     //     string, so that "wxString(str.c_str())" idiom for passing strings
     //     between threads works
   wxString(const wxCStrData& cstr)
-    :  m_impl(cstr.AsString().m_impl.c_str()) 
-    {
-     }
+    :  m_impl(cstr.AsString().m_impl.c_str())
+  {
+
+  }
     // as we provide both ctors with this signature for both char and unsigned
     // char string, we need to provide one for wxCStrData to resolve ambiguity
   wxString(const wxCStrData& cstr, size_t nLength)
-    :  m_impl(cstr.AsString().Mid(0, nLength).m_impl) 
-    {
-    }
+    :  m_impl(cstr.AsString().Mid(0, nLength).m_impl)
+  {
+  }
     // and because wxString is convertible to wxCStrData and const wxChar *
     // we also need to provide this one
   wxString(const wxString& str, size_t nLength)
   {
- assign(str, nLength);   }
+ assign(str, nLength);
+  }
 #  if  wxUSE_STRING_POS_CACHE
   ~wxString()
   {
-
       // we need to invalidate our cache entry as another string could be
       // recreated at the same address (unlikely, but still possible, with the
       // heap-allocated strings but perfectly common with stack-allocated ones)
       InvalidateCache();
-    }
+  }
 #  endif
   // even if we're not built with wxUSE_STD_STRING_CONV_IN_WXSTRING == 1 it is
   // very convenient to allow implicit conversions from std::string to wxString
@@ -1199,25 +1366,27 @@ public:
 #  if  wxUSE_STD_STRING
 #    if  wxUSE_UNICODE_WCHAR
   wxString(const wxStdWideString& str)
-    :  m_impl(str) 
-    {
-    }
+    :  m_impl(str)
+  {
+  }
 #    else 
   wxString(const wxStdWideString& str)
   {
- assign(str.c_str(), str.length());   }
+ assign(str.c_str(), str.length());
+  }
 #    endif
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
 #      if  !wxUSE_UNICODE // ANSI build
     // FIXME-UTF8: do this in UTF8 build #if wxUSE_UTF8_LOCALE_ONLY, too
   wxString(const std::string& str)
-    :  m_impl(str) 
-    {
-    }
+    :  m_impl(str)
+  {
+  }
 #      else 
   wxString(const std::string& str)
   {
- assign(str.c_str(), str.length());   }
+ assign(str.c_str(), str.length());
+  }
 #      endif
 #    endif
 #  endif
@@ -1229,7 +1398,9 @@ public:
 #    if  wxUSE_UNICODE_WCHAR && wxUSE_STL_BASED_WXSTRING
 #      define wxStringToStdWstringRetType	const wxStdWideString&
   const wxStdWideString& ToStdWstring() const
-  { return m_impl; }
+  {
+ return m_impl;
+  }
 #    else 
     // wxStringImpl is either not std::string or needs conversion
 #      define wxStringToStdWstringRetType	wxStdWideString
@@ -1243,20 +1414,22 @@ public:
 #endif
 
         return wxStdWideString(buf.data(), buf.length());
-    }
+  }
 #    endif
 #    if  (!wxUSE_UNICODE || wxUSE_UTF8_LOCALE_ONLY) && wxUSE_STL_BASED_WXSTRING
     // wxStringImpl is std::string in the encoding we want
 #      define wxStringToStdStringRetType	const std::string&
   const std::string& ToStdString() const
-  { return m_impl; }
+  {
+ return m_impl;
+  }
   std::string ToStdString(const wxMBConv&) const
   {
         // No conversions are done when not using Unicode as everything is
         // supposed to be in 7 bit ASCII anyhow, this method is provided just
         // for compatibility with the Unicode build.
         return ToStdString();
-    }
+  }
 #    else 
     // wxStringImpl is either not std::string or needs conversion
 #      define wxStringToStdStringRetType	std::string
@@ -1264,7 +1437,7 @@ public:
   {
         wxScopedCharBuffer buf(mb_str(conv));
         return std::string(buf.data(), buf.length());
-    }
+  }
 #    endif
 #    if  wxUSE_STD_STRING_CONV_IN_WXSTRING
     // Implicit conversions to std::[w]string are not provided by default as
@@ -1274,11 +1447,13 @@ public:
 #      if  wxUSE_UNSAFE_WXSTRING_CONV && !defined(wxNO_UNSAFE_WXSTRING_CONV)
   operator wxStringToStdStringRetType() const
   {
- return ToStdString();   }
+ return ToStdString();
+  }
 #      endif
   operator wxStringToStdWstringRetType() const
   {
- return ToStdWstring();   }
+ return ToStdWstring();
+  }
 #    endif
 #    undef wxStringToStdStringRetType
 #    undef wxStringToStdWstringRetType
@@ -1291,32 +1466,56 @@ public:
   }
   // first valid index position
   const_iterator begin() const
-  { return const_iterator(this, m_impl.begin()); }
+  {
+ return const_iterator(this, m_impl.begin());
+  }
   iterator begin()
-  { return iterator(this, m_impl.begin()); }
+  {
+ return iterator(this, m_impl.begin());
+  }
   const_iterator cbegin() const
-  { return const_iterator(this, m_impl.begin()); }
+  {
+ return const_iterator(this, m_impl.begin());
+  }
   // position one after the last valid one
   const_iterator end() const
-  { return const_iterator(this, m_impl.end()); }
+  {
+ return const_iterator(this, m_impl.end());
+  }
   iterator end()
-  { return iterator(this, m_impl.end()); }
+  {
+ return iterator(this, m_impl.end());
+  }
   const_iterator cend() const
-  { return const_iterator(this, m_impl.end()); }
+  {
+ return const_iterator(this, m_impl.end());
+  }
   // first element of the reversed string
   const_reverse_iterator rbegin() const
-  { return const_reverse_iterator(end()); }
+  {
+ return const_reverse_iterator(end());
+  }
   reverse_iterator rbegin()
-  { return reverse_iterator(end()); }
+  {
+ return reverse_iterator(end());
+  }
   const_reverse_iterator crbegin() const
-  { return const_reverse_iterator(end()); }
+  {
+ return const_reverse_iterator(end());
+  }
   // one beyond the end of the reversed string
   const_reverse_iterator rend() const
-  { return const_reverse_iterator(begin()); }
+  {
+ return const_reverse_iterator(begin());
+  }
   reverse_iterator rend()
-  { return reverse_iterator(begin()); }
+  {
+ return reverse_iterator(begin());
+  }
   const_reverse_iterator crend() const
-  { return const_reverse_iterator(begin()); }
+  {
+ return const_reverse_iterator(begin());
+  }
   // std::string methods:
 #  if  wxUSE_UNICODE_UTF8
   size_t length() const
@@ -1347,21 +1546,35 @@ public:
   }
 #  else 
   size_t length() const
-  { return m_impl.length(); }
+  {
+ return m_impl.length();
+  }
 #  endif
   size_type size() const
-  { return length(); }
+  {
+ return length();
+  }
   size_type max_size() const
-  { return npos; }
+  {
+ return npos;
+  }
   bool empty() const
-  { return m_impl.empty(); }
+  {
+ return m_impl.empty();
+  }
   // NB: these methods don't have a well-defined meaning in UTF-8 case
   size_type capacity() const
-  { return m_impl.capacity(); }
+  {
+ return m_impl.capacity();
+  }
   void reserve(size_t sz)
-  { m_impl.reserve(sz); }
+  {
+ m_impl.reserve(sz);
+  }
   void shrink_to_fit()
-  { Shrink(); }
+  {
+ Shrink();
+  }
   void resize(size_t nSize, wxUniChar ch = wxT('\0'))
   {
     const size_t len = length();
@@ -1402,21 +1615,31 @@ public:
   // generic attributes & operations
     // as standard strlen()
   size_t Len() const
-  { return length(); }
+  {
+ return length();
+  }
     // string contains any characters?
   bool IsEmpty() const
-  { return empty(); }
+  {
+ return empty();
+  }
     // empty string is "false", so !str will return true
   bool operator!() const
-  { return empty(); }
+  {
+ return empty();
+  }
     // truncate the string to given length
   wxString& Truncate(size_t uiLen);
     // empty string contents
   void Empty()
-  { clear(); }
+  {
+ clear();
+  }
     // empty the string and free memory
   void Clear()
-  { clear(); }
+  {
+ clear();
+  }
   // contents test
     // Is an ascii value
   bool IsAscii() const;
@@ -1427,53 +1650,79 @@ public:
   // data access (all indexes are 0 based)
     // read access
   wxUniChar at(size_t n) const
-  { return wxStringOperations::DecodeChar(m_impl.begin() + PosToImpl(n)); }
+  {
+ return wxStringOperations::DecodeChar(m_impl.begin() + PosToImpl(n));
+  }
   wxUniChar GetChar(size_t n) const
-  { return at(n); }
+  {
+ return at(n);
+  }
     // read/write access
   wxUniCharRef at(size_t n)
-  { return *GetIterForNthChar(n); }
+  {
+ return *GetIterForNthChar(n);
+  }
   wxUniCharRef GetWritableChar(size_t n)
-  { return at(n); }
+  {
+ return at(n);
+  }
     // write access
   void SetChar(size_t n, wxUniChar ch)
-  { at(n) = ch; }
+  {
+ at(n) = ch;
+  }
     // get last character
   wxUniChar Last() const
   {
       wxASSERT_MSG( !empty(), wxT("wxString: index out of bounds") );
       return *rbegin();
-    }
+  }
     // get writable last character
   wxUniCharRef Last()
   {
       wxASSERT_MSG( !empty(), wxT("wxString: index out of bounds") );
       return *rbegin();
-    }
+  }
     /*
        Note that we we must define all of the overloads below to avoid
        ambiguity when using str[0].
      */
   wxUniChar operator[](int n) const
-  { return at(n); }
+  {
+ return at(n);
+  }
   wxUniChar operator[](long n) const
-  { return at(n); }
+  {
+ return at(n);
+  }
   wxUniChar operator[](size_t n) const
-  { return at(n); }
+  {
+ return at(n);
+  }
 #  ifndef wxSIZE_T_IS_UINT
   wxUniChar operator[](unsigned int n) const
-  { return at(n); }
+  {
+ return at(n);
+  }
 #  endif
     // operator versions of GetWriteableChar()
   wxUniCharRef operator[](int n)
-  { return at(n); }
+  {
+ return at(n);
+  }
   wxUniCharRef operator[](long n)
-  { return at(n); }
+  {
+ return at(n);
+  }
   wxUniCharRef operator[](size_t n)
-  { return at(n); }
+  {
+ return at(n);
+  }
 #  ifndef wxSIZE_T_IS_UINT
   wxUniCharRef operator[](unsigned int n)
-  { return at(n); }
+  {
+ return at(n);
+  }
 #  endif
     /*
         Overview of wxString conversions, implicit and explicit:
@@ -1518,13 +1767,18 @@ public:
 
     // explicit conversion to wxCStrData
   wxCStrData c_str() const
-  { return wxCStrData(this); }
+  {
+ return wxCStrData(this);
+  }
   wxCStrData data() const
-  { return c_str(); }
+  {
+ return c_str();
+  }
     // implicit conversion to wxCStrData
   operator wxCStrData() const
   {
- return c_str();   }
+ return c_str();
+  }
     // the first two operators conflict with operators for conversion to
     // std::string and they must be disabled if those conversions are enabled;
     // the next one only makes sense if conversions to char* are also defined
@@ -1534,33 +1788,44 @@ public:
 #  if  !wxUSE_STD_STRING_CONV_IN_WXSTRING
   operator const wchar_t*() const
   {
- return c_str();   }
+ return c_str();
+  }
 #    if  wxUSE_UNSAFE_WXSTRING_CONV && !defined(wxNO_UNSAFE_WXSTRING_CONV)
   operator const char*() const
   {
- return c_str();   }
+ return c_str();
+  }
     // implicit conversion to untyped pointer for compatibility with previous
     // wxWidgets versions: this is the same as conversion to const char * so it
     // may fail!
   operator const void*() const
   {
- return c_str();   }
+ return c_str();
+  }
 #    endif
 #  endif
     // identical to c_str(), for MFC compatibility
   const wxCStrData GetData() const
-  { return c_str(); }
+  {
+ return c_str();
+  }
     // explicit conversion to C string in internal representation (char*,
     // wchar_t*, UTF-8-encoded char*, depending on the build):
   const wxStringCharType* wx_str() const
-  { return m_impl.c_str(); }
+  {
+ return m_impl.c_str();
+  }
     // conversion to *non-const* multibyte or widestring buffer; modifying
     // returned buffer won't affect the string, these methods are only useful
     // for passing values to const-incorrect functions
   wxWritableCharBuffer char_str(const wxMBConv& conv) const
-  { return mb_str(conv); }
+  {
+ return mb_str(conv);
+  }
   wxWritableWCharBuffer wchar_str() const
-  { return wc_str(); }
+  {
+ return wc_str();
+  }
     // conversion to the buffer of the given type T (= char or wchar_t) and
     // also optionally return the buffer length
     //
@@ -1578,7 +1843,7 @@ public:
 
         return wxCharTypeBuffer<T>::CreateNonOwned(wx_str(), length());
 #endif // Unicode build kind
-    }
+  }
     // conversion to/from plain (i.e. 7 bit) ASCII: this is useful for
     // converting numbers or strings which are certain not to contain special
     // chars (typically system functions, X atoms, environment variables etc.)
@@ -1592,20 +1857,32 @@ public:
   const wxScopedCharBuffer ToAscii(char replaceWith = '_') const;
 #  else 
   static wxString FromAscii(const char* ascii)
-  { return wxString( ascii ); }
+  {
+ return wxString( ascii );
+  }
   static wxString FromAscii(const char* ascii, size_t len)
-  { return wxString( ascii, len ); }
+  {
+ return wxString( ascii, len );
+  }
   static wxString FromAscii(char ascii)
-  { return wxString( ascii ); }
+  {
+ return wxString( ascii );
+  }
   const char* ToAscii(char = '_') const
-  { return c_str(); }
+  {
+ return c_str();
+  }
 #  endif
     // also provide unsigned char overloads as signed/unsigned doesn't matter
     // for 7 bit ASCII characters
   static wxString FromAscii(const unsigned char* ascii)
-  { return FromAscii((const char *)ascii); }
+  {
+ return FromAscii((const char *)ascii);
+  }
   static wxString FromAscii(const unsigned char* ascii, size_t len)
-  { return FromAscii((const char *)ascii, len); }
+  {
+ return FromAscii((const char *)ascii, len);
+  }
     // conversion to/from UTF-8:
 #  if  wxUSE_UNICODE_UTF8
   static wxString FromUTF8Unchecked(const char* utf8)
@@ -1615,7 +1892,7 @@ public:
 
       wxASSERT( wxStringOperations::IsValidUtf8String(utf8) );
       return FromImpl(wxStringImpl(utf8));
-    }
+  }
   static wxString FromUTF8Unchecked(const char* utf8, size_t len)
   {
       if ( !utf8 )
@@ -1625,14 +1902,14 @@ public:
 
       wxASSERT( wxStringOperations::IsValidUtf8String(utf8, len) );
       return FromImpl(wxStringImpl(utf8, len));
-    }
+  }
   static wxString FromUTF8(const char* utf8)
   {
         if ( !utf8 || !wxStringOperations::IsValidUtf8String(utf8) )
             return wxString();
 
         return FromImpl(wxStringImpl(utf8));
-    }
+  }
   static wxString FromUTF8(const char* utf8, size_t len)
   {
         if ( len == npos )
@@ -1642,7 +1919,7 @@ public:
             return wxString();
 
         return FromImpl(wxStringImpl(utf8, len));
-    }
+  }
 #    if  wxUSE_STD_STRING
   static wxString FromUTF8Unchecked(const std::string& utf8)
   {
@@ -1652,47 +1929,61 @@ public:
           initialized with a std::string whether wxUSE_STL_BASED_WXSTRING is 1 or not.
         */
         return FromImpl(utf8);
-    }
+  }
   static wxString FromUTF8(const std::string& utf8)
   {
         if ( utf8.empty() || !wxStringOperations::IsValidUtf8String(utf8.c_str(), utf8.length()) )
             return wxString();
         return FromImpl(utf8);
-    }
+  }
 #    endif
   const wxScopedCharBuffer utf8_str() const
-  { return wxCharBuffer::CreateNonOwned(m_impl.c_str(), m_impl.length()); }
+  {
+ return wxCharBuffer::CreateNonOwned(m_impl.c_str(), m_impl.length());
+  }
     // this function exists in UTF-8 build only and returns the length of the
     // internal UTF-8 representation
   size_t utf8_length() const
-  { return m_impl.length(); }
+  {
+ return m_impl.length();
+  }
 #  elif  wxUSE_UNICODE_WCHAR
   static wxString FromUTF8(const char* utf8, size_t len = npos)
-  { return wxString(utf8, wxMBConvUTF8(), len); }
+  {
+ return wxString(utf8, wxMBConvUTF8(), len);
+  }
   static wxString FromUTF8Unchecked(const char* utf8, size_t len = npos)
   {
         const wxString s(utf8, wxMBConvUTF8(), len);
         wxASSERT_MSG( !utf8 || !*utf8 || !s.empty(),
                       "string must be valid UTF-8" );
         return s;
-    }
+  }
 #    if  wxUSE_STD_STRING
   static wxString FromUTF8(const std::string& utf8)
-  { return FromUTF8(utf8.c_str(), utf8.length()); }
+  {
+ return FromUTF8(utf8.c_str(), utf8.length());
+  }
   static wxString FromUTF8Unchecked(const std::string& utf8)
-  { return FromUTF8Unchecked(utf8.c_str(), utf8.length()); }
+  {
+ return FromUTF8Unchecked(utf8.c_str(), utf8.length());
+  }
 #    endif
   const wxScopedCharBuffer utf8_str() const
-  { return mb_str(wxMBConvUTF8()); }
+  {
+ return mb_str(wxMBConvUTF8());
+  }
 #  else 
   static wxString FromUTF8(const char* utf8)
-  { return wxString(wxMBConvUTF8().cMB2WC(utf8)); }
+  {
+ return wxString(wxMBConvUTF8().cMB2WC(utf8));
+  }
   static wxString FromUTF8(const char* utf8, size_t len)
   {
         size_t wlen;
         wxScopedWCharBuffer buf(wxMBConvUTF8().cMB2WC(utf8, len == npos ? wxNO_LEN : len, &wlen));
         return wxString(buf.data(), wlen);
-    }
+  }
   static wxString FromUTF8Unchecked(const char* utf8, size_t len = npos)
   {
         size_t wlen;
@@ -1709,39 +2000,57 @@ public:
                       "string must be valid UTF-8" );
 
         return wxString(buf.data(), wlen);
-    }
+  }
 #    if  wxUSE_STD_STRING
   static wxString FromUTF8(const std::string& utf8)
-  { return FromUTF8(utf8.c_str(), utf8.length()); }
+  {
+ return FromUTF8(utf8.c_str(), utf8.length());
+  }
   static wxString FromUTF8Unchecked(const std::string& utf8)
-  { return FromUTF8Unchecked(utf8.c_str(), utf8.length()); }
+  {
+ return FromUTF8Unchecked(utf8.c_str(), utf8.length());
+  }
 #    endif
   const wxScopedCharBuffer utf8_str() const
   {
         if (empty())
             return wxScopedCharBuffer::CreateNonOwned("", 0);
         return wxMBConvUTF8().cWC2MB(wc_str());
-    }
+  }
 #  endif
   const wxScopedCharBuffer ToUTF8() const
-  { return utf8_str(); }
+  {
+ return utf8_str();
+  }
     // functions for storing binary data in wxString:
 #  if  wxUSE_UNICODE
   static wxString From8BitData(const char* data, size_t len)
-  { return wxString(data, wxConvISO8859_1, len); }
+  {
+ return wxString(data, wxConvISO8859_1, len);
+  }
     // version for NUL-terminated data:
   static wxString From8BitData(const char* data)
-  { return wxString(data, wxConvISO8859_1); }
+  {
+ return wxString(data, wxConvISO8859_1);
+  }
   const wxScopedCharBuffer To8BitData() const
-  { return mb_str(wxConvISO8859_1); }
+  {
+ return mb_str(wxConvISO8859_1);
+  }
 #  else 
   static wxString From8BitData(const char* data, size_t len)
-  { return wxString(data, len); }
+  {
+ return wxString(data, len);
+  }
     // version for NUL-terminated data:
   static wxString From8BitData(const char* data)
-  { return wxString(data); }
+  {
+ return wxString(data);
+  }
   const wxScopedCharBuffer To8BitData() const
-  { return wxScopedCharBuffer::CreateNonOwned(wx_str(), length()); }
+  {
+ return wxScopedCharBuffer::CreateNonOwned(wx_str(), length());
+  }
 #  endif
     // conversions with (possible) format conversions: have to return a
     // buffer with temporary data
@@ -1760,60 +2069,90 @@ public:
     // separate mb_str() overload
 #    if  wxUSE_UTF8_LOCALE_ONLY
   const char* mb_str() const
-  { return wx_str(); }
+  {
+ return wx_str();
+  }
   const wxScopedCharBuffer mb_str(const wxMBConv& conv) const
   {
         return AsCharBuf(conv);
-    }
+  }
 #    else 
   const wxScopedCharBuffer mb_str(const wxMBConv& conv) const
   {
         return AsCharBuf(conv);
-    }
+  }
 #    endif
   const wxWX2MBbuf mbc_str() const
-  { return mb_str(*wxConvCurrent); }
+  {
+ return mb_str(*wxConvCurrent);
+  }
 #    if  wxUSE_UNICODE_WCHAR
   const wchar_t* wc_str() const
-  { return wx_str(); }
+  {
+ return wx_str();
+  }
 #    elif  wxUSE_UNICODE_UTF8
   const wxScopedWCharBuffer wc_str() const
-  { return AsWCharBuf(wxMBConvStrictUTF8()); }
+  {
+ return AsWCharBuf(wxMBConvStrictUTF8());
+  }
 #    endif
     // for compatibility with !wxUSE_UNICODE version
   const wxWX2WCbuf wc_str(const wxMBConv&) const
-  { return wc_str(); }
+  {
+ return wc_str();
+  }
 #    if  wxMBFILES
   const wxScopedCharBuffer fn_str() const
-  { return mb_str(wxConvFile); }
+  {
+ return mb_str(wxConvFile);
+  }
 #    else 
   const wxWX2WCbuf fn_str() const
-  { return wc_str(); }
+  {
+ return wc_str();
+  }
 #    endif
 #  else 
   const char* mb_str() const
-  { return wx_str(); }
+  {
+ return wx_str();
+  }
     // for compatibility with wxUSE_UNICODE version
   const char* mb_str(const wxMBConv&) const
-  { return wx_str(); }
+  {
+ return wx_str();
+  }
   const wxWX2MBbuf mbc_str() const
-  { return mb_str(); }
+  {
+ return mb_str();
+  }
   const wxScopedWCharBuffer wc_str(const wxMBConv& conv) const
-  { return AsWCharBuf(conv); }
+  {
+ return AsWCharBuf(conv);
+  }
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   const wxScopedCharBuffer fn_str() const
-  { return wxConvFile.cWC2WX( wc_str( wxConvLibc ) ); }
+  {
+ return wxConvFile.cWC2WX( wc_str( wxConvLibc ) );
+  }
 #    endif
 #  endif
 #  if  wxUSE_UNICODE_UTF8
   const wxScopedWCharBuffer t_str() const
-  { return wc_str(); }
+  {
+ return wc_str();
+  }
 #  elif  wxUSE_UNICODE_WCHAR
   const wchar_t* t_str() const
-  { return wx_str(); }
+  {
+ return wx_str();
+  }
 #  else 
   const char* t_str() const
-  { return wx_str(); }
+  {
+ return wx_str();
+  }
 #  endif
   // overloaded assignment
     // from another wxString
@@ -1829,7 +2168,9 @@ public:
     return *this;
   }
   wxString& operator=(const wxCStrData& cstr)
-  { return *this = cstr.AsString(); }
+  {
+ return *this = cstr.AsString();
+  }
     // from a character
   wxString& operator=(wxUniChar ch)
   {
@@ -1843,13 +2184,21 @@ public:
     return *this;
   }
   wxString& operator=(wxUniCharRef ch)
-  { return operator=((wxUniChar)ch); }
+  {
+ return operator=((wxUniChar)ch);
+  }
   wxString& operator=(char ch)
-  { return operator=(wxUniChar(ch)); }
+  {
+ return operator=(wxUniChar(ch));
+  }
   wxString& operator=(unsigned char ch)
-  { return operator=(wxUniChar(ch)); }
+  {
+ return operator=(wxUniChar(ch));
+  }
   wxString& operator=(wchar_t ch)
-  { return operator=(wxUniChar(ch)); }
+  {
+ return operator=(wxUniChar(ch));
+  }
     // from a C string - STL probably will crash on NULL,
     // so we need to compensate in that case
 #  if  wxUSE_STL_BASED_WXSTRING
@@ -1899,15 +2248,21 @@ public:
 #  endif
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& operator=(const unsigned char* psz)
-  { return operator=((const char*)psz); }
+  {
+ return operator=((const char*)psz);
+  }
 #  endif
     // from wxScopedWCharBuffer
   wxString& operator=(const wxScopedWCharBuffer& s)
-  { return assign(s); }
+  {
+ return assign(s);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
     // from wxScopedCharBuffer
   wxString& operator=(const wxScopedCharBuffer& s)
-  { return assign(s); }
+  {
+ return assign(s);
+  }
 #  endif
   // string concatenation
     // in place concatenation
@@ -1930,29 +2285,49 @@ public:
       // string += C string
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& operator<<(const char* psz)
-  { append(psz); return *this; }
+  {
+ append(psz); return *this;
+  }
 #  endif
   wxString& operator<<(const wchar_t* pwz)
-  { append(pwz); return *this; }
+  {
+ append(pwz); return *this;
+  }
   wxString& operator<<(const wxCStrData& psz)
-  { append(psz.AsString()); return *this; }
+  {
+ append(psz.AsString()); return *this;
+  }
       // string += char
   wxString& operator<<(wxUniChar ch)
-  { append(1, ch); return *this; }
+  {
+ append(1, ch); return *this;
+  }
   wxString& operator<<(wxUniCharRef ch)
-  { append(1, ch); return *this; }
+  {
+ append(1, ch); return *this;
+  }
   wxString& operator<<(char ch)
-  { append(1, ch); return *this; }
+  {
+ append(1, ch); return *this;
+  }
   wxString& operator<<(unsigned char ch)
-  { append(1, ch); return *this; }
+  {
+ append(1, ch); return *this;
+  }
   wxString& operator<<(wchar_t ch)
-  { append(1, ch); return *this; }
+  {
+ append(1, ch); return *this;
+  }
       // string += buffer (i.e. from wxGetString)
   wxString& operator<<(const wxScopedWCharBuffer& s)
-  { return append(s); }
+  {
+ return append(s);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& operator<<(const wxScopedCharBuffer& s)
-  { return append(s); }
+  {
+ return append(s);
+  }
 #  endif
     // string += C string
   wxString& Append(const wxString& s)
@@ -1963,49 +2338,81 @@ public:
         else
             append(s);
         return *this;
-    }
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& Append(const char* psz)
-  { append(psz); return *this; }
+  {
+ append(psz); return *this;
+  }
 #  endif
   wxString& Append(const wchar_t* pwz)
-  { append(pwz); return *this; }
+  {
+ append(pwz); return *this;
+  }
   wxString& Append(const wxCStrData& psz)
-  { append(psz); return *this; }
+  {
+ append(psz); return *this;
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& Append(const wxScopedCharBuffer& psz)
-  { append(psz); return *this; }
+  {
+ append(psz); return *this;
+  }
 #  endif
   wxString& Append(const wxScopedWCharBuffer& psz)
-  { append(psz); return *this; }
+  {
+ append(psz); return *this;
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& Append(const char* psz, size_t nLen)
-  { append(psz, nLen); return *this; }
+  {
+ append(psz, nLen); return *this;
+  }
 #  endif
   wxString& Append(const wchar_t* pwz, size_t nLen)
-  { append(pwz, nLen); return *this; }
+  {
+ append(pwz, nLen); return *this;
+  }
   wxString& Append(const wxCStrData& psz, size_t nLen)
-  { append(psz, nLen); return *this; }
+  {
+ append(psz, nLen); return *this;
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& Append(const wxScopedCharBuffer& psz, size_t nLen)
-  { append(psz, nLen); return *this; }
+  {
+ append(psz, nLen); return *this;
+  }
 #  endif
   wxString& Append(const wxScopedWCharBuffer& psz, size_t nLen)
-  { append(psz, nLen); return *this; }
+  {
+ append(psz, nLen); return *this;
+  }
     // append count copies of given character
   wxString& Append(wxUniChar ch, size_t count = 1u)
-  { append(count, ch); return *this; }
+  {
+ append(count, ch); return *this;
+  }
   wxString& Append(wxUniCharRef ch, size_t count = 1u)
-  { append(count, ch); return *this; }
+  {
+ append(count, ch); return *this;
+  }
   wxString& Append(char ch, size_t count = 1u)
-  { append(count, ch); return *this; }
+  {
+ append(count, ch); return *this;
+  }
   wxString& Append(unsigned char ch, size_t count = 1u)
-  { append(count, ch); return *this; }
+  {
+ append(count, ch); return *this;
+  }
   wxString& Append(wchar_t ch, size_t count = 1u)
-  { append(count, ch); return *this; }
+  {
+ append(count, ch); return *this;
+  }
     // prepend a string, return the string itself
   wxString& Prepend(const wxString& str)
-  { *this = str + *this; return *this; }
+  {
+ *this = str + *this; return *this;
+  }
     // non-destructive concatenation
       // two strings
   friend wxString WXDLLIMPEXP_BASE operator+(const wxString& string1, const wxString& string2);
@@ -2026,52 +2433,76 @@ public:
   // stream-like functions
       // insert an int into string
   wxString& operator<<(int i)
-  { return (*this) << Format(wxT("%d"), i); }
+  {
+ return (*this) << Format(wxT("%d"), i);
+  }
       // insert an unsigned int into string
   wxString& operator<<(unsigned int ui)
-  { return (*this) << Format(wxT("%u"), ui); }
+  {
+ return (*this) << Format(wxT("%u"), ui);
+  }
       // insert a long into string
   wxString& operator<<(long l)
-  { return (*this) << Format(wxT("%ld"), l); }
+  {
+ return (*this) << Format(wxT("%ld"), l);
+  }
       // insert an unsigned long into string
   wxString& operator<<(unsigned long ul)
-  { return (*this) << Format(wxT("%lu"), ul); }
+  {
+ return (*this) << Format(wxT("%lu"), ul);
+  }
 #  ifdef wxHAS_LONG_LONG_T_DIFFERENT_FROM_LONG
       // insert a long long if they exist and aren't longs
   wxString& operator<<(wxLongLong_t ll)
   {
       return (*this) << Format(wxASCII_STR("%" wxLongLongFmtSpec "d"), ll);
-    }
+  }
       // insert an unsigned long long
   wxString& operator<<(wxULongLong_t ull)
   {
       return (*this) << Format(wxASCII_STR("%" wxLongLongFmtSpec "u") , ull);
-    }
+  }
 #  endif
       // insert a float into string
   wxString& operator<<(float f)
-  { return *this << Format(wxS("%f"), static_cast<double>(f)); }
+  {
+ return *this << Format(wxS("%f"), static_cast<double>(f));
+  }
       // insert a double into string
   wxString& operator<<(double d)
-  { return (*this) << Format(wxT("%g"), d); }
+  {
+ return (*this) << Format(wxT("%g"), d);
+  }
   // string comparison
     // case-sensitive comparison (returns a value < 0, = 0 or > 0)
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   int Cmp(const char* psz) const
-  { return compare(psz); }
+  {
+ return compare(psz);
+  }
 #  endif
   int Cmp(const wchar_t* pwz) const
-  { return compare(pwz); }
+  {
+ return compare(pwz);
+  }
   int Cmp(const wxString& s) const
-  { return compare(s); }
+  {
+ return compare(s);
+  }
   int Cmp(const wxCStrData& s) const
-  { return compare(s); }
+  {
+ return compare(s);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   int Cmp(const wxScopedCharBuffer& s) const
-  { return compare(s); }
+  {
+ return compare(s);
+  }
 #  endif
   int Cmp(const wxScopedWCharBuffer& s) const
-  { return compare(s); }
+  {
+ return compare(s);
+  }
     // same as Cmp() but not case-sensitive
   int CmpNoCase(const wxString& s) const;
     // test for the string equality, either considering case or not
@@ -2087,38 +2518,60 @@ public:
   }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   bool IsSameAs(const char* str, bool compareWithCase = true) const
-  { return (compareWithCase ? Cmp(str) : CmpNoCase(str)) == 0; }
+  {
+ return (compareWithCase ? Cmp(str) : CmpNoCase(str)) == 0;
+  }
 #  endif
   bool IsSameAs(const wchar_t* str, bool compareWithCase = true) const
-  { return (compareWithCase ? Cmp(str) : CmpNoCase(str)) == 0; }
+  {
+ return (compareWithCase ? Cmp(str) : CmpNoCase(str)) == 0;
+  }
   bool IsSameAs(const wxCStrData& str, bool compareWithCase = true) const
-  { return IsSameAs(str.AsString(), compareWithCase); }
+  {
+ return IsSameAs(str.AsString(), compareWithCase);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   bool IsSameAs(const wxScopedCharBuffer& str, bool compareWithCase = true) const
-  { return IsSameAs(str.data(), compareWithCase); }
+  {
+ return IsSameAs(str.data(), compareWithCase);
+  }
 #  endif
   bool IsSameAs(const wxScopedWCharBuffer& str, bool compareWithCase = true) const
-  { return IsSameAs(str.data(), compareWithCase); }
+  {
+ return IsSameAs(str.data(), compareWithCase);
+  }
     // comparison with a single character: returns true if equal
   bool IsSameAs(wxUniChar c, bool compareWithCase = true) const;
   // FIXME-UTF8: remove these overloads
   bool IsSameAs(wxUniCharRef c, bool compareWithCase = true) const
-  { return IsSameAs(wxUniChar(c), compareWithCase); }
+  {
+ return IsSameAs(wxUniChar(c), compareWithCase);
+  }
   bool IsSameAs(char c, bool compareWithCase = true) const
-  { return IsSameAs(wxUniChar(c), compareWithCase); }
+  {
+ return IsSameAs(wxUniChar(c), compareWithCase);
+  }
   bool IsSameAs(unsigned char c, bool compareWithCase = true) const
-  { return IsSameAs(wxUniChar(c), compareWithCase); }
+  {
+ return IsSameAs(wxUniChar(c), compareWithCase);
+  }
   bool IsSameAs(wchar_t c, bool compareWithCase = true) const
-  { return IsSameAs(wxUniChar(c), compareWithCase); }
+  {
+ return IsSameAs(wxUniChar(c), compareWithCase);
+  }
   bool IsSameAs(int c, bool compareWithCase = true) const
-  { return IsSameAs(wxUniChar(c), compareWithCase); }
+  {
+ return IsSameAs(wxUniChar(c), compareWithCase);
+  }
   // simple sub-string extraction
       // return substring starting at nFirst of length nCount (or till the end
       // if nCount = default value)
   wxString Mid(size_t nFirst, size_t nCount = npos) const;
       // operator version of Mid()
   wxString operator()(size_t start, size_t len) const
-  { return Mid(start, len); }
+  {
+ return Mid(start, len);
+  }
       // check if the string starts with the given prefix and return the rest
       // of the string in the provided pointer if it is not NULL; otherwise
       // return false
@@ -2147,27 +2600,37 @@ public:
   wxString AfterLast(wxUniChar ch) const;
     // for compatibility only, use more explicitly named functions above
   wxString Before(wxUniChar ch) const
-  { return BeforeLast(ch); }
+  {
+ return BeforeLast(ch);
+  }
   wxString After(wxUniChar ch) const
-  { return AfterFirst(ch); }
+  {
+ return AfterFirst(ch);
+  }
   // case conversion
       // convert to upper case in place, return the string itself
   wxString& MakeUpper();
       // convert to upper case, return the copy of the string
   wxString Upper() const
-  { return wxString(*this).MakeUpper(); }
+  {
+ return wxString(*this).MakeUpper();
+  }
       // convert to lower case in place, return the string itself
   wxString& MakeLower();
       // convert to lower case, return the copy of the string
   wxString Lower() const
-  { return wxString(*this).MakeLower(); }
+  {
+ return wxString(*this).MakeLower();
+  }
       // convert the first character to the upper case and the rest to the
       // lower one, return the modified string itself
   wxString& MakeCapitalized();
       // convert the first character to the upper case and the rest to the
       // lower one, return the copy of the string
   wxString Capitalize() const
-  { return wxString(*this).MakeCapitalized(); }
+  {
+ return wxString(*this).MakeCapitalized();
+  }
   // trimming/padding whitespace (either side) and truncating
       // remove spaces from left or from right (default) side
   wxString& Trim(bool bFromRight = true);
@@ -2177,13 +2640,21 @@ public:
       // searching (return starting index, or -1 if not found)
   int Find(wxUniChar ch, bool bFromEnd = false) const;
   int Find(wxUniCharRef ch, bool bFromEnd = false) const
-  { return Find(wxUniChar(ch), bFromEnd); }
+  {
+ return Find(wxUniChar(ch), bFromEnd);
+  }
   int Find(char ch, bool bFromEnd = false) const
-  { return Find(wxUniChar(ch), bFromEnd); }
+  {
+ return Find(wxUniChar(ch), bFromEnd);
+  }
   int Find(unsigned char ch, bool bFromEnd = false) const
-  { return Find(wxUniChar(ch), bFromEnd); }
+  {
+ return Find(wxUniChar(ch), bFromEnd);
+  }
   int Find(wchar_t ch, bool bFromEnd = false) const
-  { return Find(wxUniChar(ch), bFromEnd); }
+  {
+ return Find(wxUniChar(ch), bFromEnd);
+  }
       // searching (return starting index, or -1 if not found)
   int Find(const wxString& sub) const
   {
@@ -2203,13 +2674,19 @@ public:
     return (idx == npos) ? wxNOT_FOUND : (int) idx;
   }
   int Find(const wxCStrData& sub) const
-  { return Find(sub.AsString()); }
+  {
+ return Find(sub.AsString());
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   int Find(const wxScopedCharBuffer& sub) const
-  { return Find(sub.data()); }
+  {
+ return Find(sub.data());
+  }
 #  endif
   int Find(const wxScopedWCharBuffer& sub) const
-  { return Find(sub.data()); }
+  {
+ return Find(sub.data());
+  }
       // replace first (or all of bReplaceAll) occurrences of substring with
       // another string, returns the number of replacements made
   size_t Replace(const wxString& strOld, const wxString& strNew, bool bReplaceAll = true);
@@ -2261,7 +2738,9 @@ public:
     // ensure that string has space for at least nLen characters
     // only works if the data of this string is not shared
   bool Alloc(size_t nLen)
-  { reserve(nLen); return capacity() >= nLen; }
+  {
+ reserve(nLen); return capacity() >= nLen;
+  }
     // minimize the string's memory
     // only works if the data of this string is not shared
   bool Shrink();
@@ -2276,101 +2755,141 @@ public:
 
   // use Mid()
   wxString SubString(size_t from, size_t to) const
-  { return Mid(from, (to - from + 1)); }
+  {
+ return Mid(from, (to - from + 1));
+  }
     // values for second parameter of CompareTo function
-  enum caseCompare {exact, ignoreCase};
+  enum caseCompare {
+exact, ignoreCase
+  };
     // values for first parameter of Strip function
-  enum stripType {leading = 0x1, trailing = 0x2, both = 0x3};
+  enum stripType {
+leading = 0x1, trailing = 0x2, both = 0x3
+  };
   // use Printf()
   // (take 'this' into account in attribute parameter count)
   // int sprintf(const wxString& format, ...) WX_ATTRIBUTE_PRINTF_2;
   WX_DEFINE_VARARG_FUNC(int, sprintf, 1, (const wxFormatString&),
                         DoPrintfWchar, DoPrintfUtf8)
   int CompareTo(const wxChar* psz, caseCompare cmp = exact) const
-  { return cmp == exact ? Cmp(psz) : CmpNoCase(psz); }
+  {
+ return cmp == exact ? Cmp(psz) : CmpNoCase(psz);
+  }
     // use length()
   size_t Length() const
-  { return length(); }
+  {
+ return length();
+  }
     // Count the number of characters
   int Freq(wxUniChar ch) const;
     // use MakeLower
   void LowerCase()
-  { MakeLower(); }
+  {
+ MakeLower();
+  }
     // use MakeUpper
   void UpperCase()
-  { MakeUpper(); }
+  {
+ MakeUpper();
+  }
     // use Trim except that it doesn't change this string
   wxString Strip(stripType w = trailing) const;
     // use Find (more general variants not yet supported)
   size_t Index(const wxChar* psz) const
-  { return Find(psz); }
+  {
+ return Find(psz);
+  }
   size_t Index(wxUniChar ch) const
-  { return Find(ch);  }
+  {
+ return Find(ch);
+  }
     // use Truncate
   wxString& Remove(size_t pos)
-  { return Truncate(pos); }
+  {
+ return Truncate(pos);
+  }
   wxString& RemoveLast(size_t n = 1)
-  { return Truncate(length() - n); }
+  {
+ return Truncate(length() - n);
+  }
   wxString& Remove(size_t nStart, size_t nLen)
-  { return (wxString&)erase( nStart, nLen ); }
+  {
+ return (wxString&)erase( nStart, nLen );
+  }
     // use Find()
   int First(wxUniChar ch) const
-  { return Find(ch); }
+  {
+ return Find(ch);
+  }
   int First(wxUniCharRef ch) const
-  { return Find(ch); }
+  {
+ return Find(ch);
+  }
   int First(char ch) const
-  { return Find(ch); }
+  {
+ return Find(ch);
+  }
   int First(unsigned char ch) const
-  { return Find(ch); }
+  {
+ return Find(ch);
+  }
   int First(wchar_t ch) const
-  { return Find(ch); }
+  {
+ return Find(ch);
+  }
   int First(const wxString& str) const
-  { return Find(str); }
+  {
+ return Find(str);
+  }
   int Last(wxUniChar ch) const
-  { return Find(ch, true); }
+  {
+ return Find(ch, true);
+  }
   bool Contains(const wxString& str) const
-  { return Find(str) != wxNOT_FOUND; }
+  {
+ return Find(str) != wxNOT_FOUND;
+  }
     // use empty()
   bool IsNull() const
-  { return empty(); }
+  {
+ return empty();
+  }
   // std::string compatibility functions
 
     // take nLen chars starting at nPos
   wxString(const wxString& str, size_t nPos, size_t nLen)
   {
- assign(str, nPos, nLen);   }
+ assign(str, nPos, nLen);
+  }
     // take all characters from first to last
   wxString(const_iterator first, const_iterator last)
-    :  m_impl(first.impl(), last.impl()) 
-    {
-     }
+    :  m_impl(first.impl(), last.impl())
+  {
+
+  }
 #  if  WXWIN_COMPATIBILITY_STRING_PTR_AS_ITER
     // the 2 overloads below are for compatibility with the existing code using
     // pointers instead of iterators
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString(const char* first, const char* last)
   {
-
       SubstrBufFromMB str(ImplStr(first, last - first));
       m_impl.assign(str.data, str.len);
-    }
+  }
 #    endif
   wxString(const wchar_t* first, const wchar_t* last)
   {
-
       SubstrBufFromWC str(ImplStr(first, last - first));
       m_impl.assign(str.data, str.len);
-    }
+  }
     // and this one is needed to compile code adding offsets to c_str() result
   wxString(const wxCStrData& first, const wxCStrData& last)
     :  m_impl(CreateConstIterator(first).impl(),
                CreateConstIterator(last).impl())
-  
-    {
-
+  {
       wxASSERT_MSG( first.m_str == last.m_str,
                     wxT("pointers must be into the same string") );
-      }
+  }
 #  endif
   // lib.string.modifiers
     // append elements str[pos], ..., str[pos+n]
@@ -2427,21 +2946,33 @@ public:
       return *this;
   }
   wxString& append(const wxCStrData& str)
-  { return append(str.AsString()); }
+  {
+ return append(str.AsString());
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& append(const wxScopedCharBuffer& str)
-  { return append(str.data(), str.length()); }
+  {
+ return append(str.data(), str.length());
+  }
 #  endif
   wxString& append(const wxScopedWCharBuffer& str)
-  { return append(str.data(), str.length()); }
+  {
+ return append(str.data(), str.length());
+  }
   wxString& append(const wxCStrData& str, size_t n)
-  { return append(str.AsString(), 0, n); }
+  {
+ return append(str.AsString(), 0, n);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& append(const wxScopedCharBuffer& str, size_t n)
-  { return append(str.data(), n); }
+  {
+ return append(str.data(), n);
+  }
 #  endif
   wxString& append(const wxScopedWCharBuffer& str, size_t n)
-  { return append(str.data(), n); }
+  {
+ return append(str.data(), n);
+  }
     // append n copies of ch
   wxString& append(size_t n, wxUniChar ch)
   {
@@ -2461,13 +2992,21 @@ public:
       return *this;
   }
   wxString& append(size_t n, wxUniCharRef ch)
-  { return append(n, wxUniChar(ch)); }
+  {
+ return append(n, wxUniChar(ch));
+  }
   wxString& append(size_t n, char ch)
-  { return append(n, wxUniChar(ch)); }
+  {
+ return append(n, wxUniChar(ch));
+  }
   wxString& append(size_t n, unsigned char ch)
-  { return append(n, wxUniChar(ch)); }
+  {
+ return append(n, wxUniChar(ch));
+  }
   wxString& append(size_t n, wchar_t ch)
-  { return append(n, wxUniChar(ch)); }
+  {
+ return append(n, wxUniChar(ch));
+  }
     // append from first to last
   wxString& append(const_iterator first, const_iterator last)
   {
@@ -2479,12 +3018,18 @@ public:
 #  if  WXWIN_COMPATIBILITY_STRING_PTR_AS_ITER
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& append(const char* first, const char* last)
-  { return append(first, last - first); }
+  {
+ return append(first, last - first);
+  }
 #    endif
   wxString& append(const wchar_t* first, const wchar_t* last)
-  { return append(first, last - first); }
+  {
+ return append(first, last - first);
+  }
   wxString& append(const wxCStrData& first, const wxCStrData& last)
-  { return append(CreateConstIterator(first), CreateConstIterator(last)); }
+  {
+ return append(CreateConstIterator(first), CreateConstIterator(last));
+  }
 #  endif
     // same as `this_string = str'
   wxString& assign(const wxString& str)
@@ -2568,10 +3113,14 @@ public:
       return *this;
   }
   wxString& assign(const wxCStrData& str)
-  { return assign(str.AsString()); }
+  {
+ return assign(str.AsString());
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& assign(const wxScopedCharBuffer& str)
-  { return assign(str.data(), str.length()); }
+  {
+ return assign(str.data(), str.length());
+  }
 #  endif
   wxString& assign(const wxScopedCharBuffer& buf, const wxMBConv& conv)
   {
@@ -2581,15 +3130,23 @@ public:
       return *this;
   }
   wxString& assign(const wxScopedWCharBuffer& str)
-  { return assign(str.data(), str.length()); }
+  {
+ return assign(str.data(), str.length());
+  }
   wxString& assign(const wxCStrData& str, size_t len)
-  { return assign(str.AsString(), len); }
+  {
+ return assign(str.AsString(), len);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& assign(const wxScopedCharBuffer& str, size_t len)
-  { return assign(str.data(), len); }
+  {
+ return assign(str.data(), len);
+  }
 #  endif
   wxString& assign(const wxScopedWCharBuffer& str, size_t len)
-  { return assign(str.data(), len); }
+  {
+ return assign(str.data(), len);
+  }
     // same as `= n copies of ch'
   wxString& assign(size_t n, wxUniChar ch)
   {
@@ -2603,13 +3160,21 @@ public:
       return *this;
   }
   wxString& assign(size_t n, wxUniCharRef ch)
-  { return assign(n, wxUniChar(ch)); }
+  {
+ return assign(n, wxUniChar(ch));
+  }
   wxString& assign(size_t n, char ch)
-  { return assign(n, wxUniChar(ch)); }
+  {
+ return assign(n, wxUniChar(ch));
+  }
   wxString& assign(size_t n, unsigned char ch)
-  { return assign(n, wxUniChar(ch)); }
+  {
+ return assign(n, wxUniChar(ch));
+  }
   wxString& assign(size_t n, wchar_t ch)
-  { return assign(n, wxUniChar(ch)); }
+  {
+ return assign(n, wxUniChar(ch));
+  }
     // assign from first to last
   wxString& assign(const_iterator first, const_iterator last)
   {
@@ -2622,12 +3187,18 @@ public:
 #  if  WXWIN_COMPATIBILITY_STRING_PTR_AS_ITER
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& assign(const char* first, const char* last)
-  { return assign(first, last - first); }
+  {
+ return assign(first, last - first);
+  }
 #    endif
   wxString& assign(const wchar_t* first, const wchar_t* last)
-  { return assign(first, last - first); }
+  {
+ return assign(first, last - first);
+  }
   wxString& assign(const wxCStrData& first, const wxCStrData& last)
-  { return assign(CreateConstIterator(first), CreateConstIterator(last)); }
+  {
+ return assign(CreateConstIterator(first), CreateConstIterator(last));
+  }
 #  endif
     // string comparison
   int compare(const wxString& str) const;
@@ -2636,13 +3207,19 @@ public:
 #  endif
   int compare(const wchar_t* sz) const;
   int compare(const wxCStrData& str) const
-  { return compare(str.AsString()); }
+  {
+ return compare(str.AsString());
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   int compare(const wxScopedCharBuffer& str) const
-  { return compare(str.data()); }
+  {
+ return compare(str.data());
+  }
 #  endif
   int compare(const wxScopedWCharBuffer& str) const
-  { return compare(str.data()); }
+  {
+ return compare(str.data());
+  }
     // comparison with a substring
   int compare(size_t nStart, size_t nLen, const wxString& str) const;
     // comparison of 2 substrings
@@ -2654,7 +3231,9 @@ public:
   int compare(size_t nStart, size_t nLen, const wchar_t* sz, size_t nCount = npos) const;
     // insert another string
   wxString& insert(size_t nPos, const wxString& str)
-  { insert(GetIterForNthChar(nPos), str.begin(), str.end()); return *this; }
+  {
+ insert(GetIterForNthChar(nPos), str.begin(), str.end()); return *this;
+  }
     // insert n chars of str starting at nStart (in str)
   wxString& insert(size_t nPos, const wxString& str, size_t nStart, size_t n)
   {
@@ -2737,12 +3316,18 @@ public:
 #  if  WXWIN_COMPATIBILITY_STRING_PTR_AS_ITER
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   void insert(iterator it, const char* first, const char* last)
-  { insert(it - begin(), first, last - first); }
+  {
+ insert(it - begin(), first, last - first);
+  }
 #    endif
   void insert(iterator it, const wchar_t* first, const wchar_t* last)
-  { insert(it - begin(), first, last - first); }
+  {
+ insert(it - begin(), first, last - first);
+  }
   void insert(iterator it, const wxCStrData& first, const wxCStrData& last)
-  { insert(it, CreateConstIterator(first), CreateConstIterator(last)); }
+  {
+ insert(it, CreateConstIterator(first), CreateConstIterator(last));
+  }
 #  endif
   void insert(iterator it, size_type n, wxUniChar ch)
   {
@@ -2954,10 +3539,14 @@ public:
   }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& replace(iterator first, iterator last, const char* first1, const char* last1)
-  { replace(first, last, first1, last1 - first1); return *this; }
+  {
+ replace(first, last, first1, last1 - first1); return *this;
+  }
 #  endif
   wxString& replace(iterator first, iterator last, const wchar_t* first1, const wchar_t* last1)
-  { replace(first, last, first1, last1 - first1); return *this; }
+  {
+ replace(first, last, first1, last1 - first1); return *this;
+  }
   // swap two strings
   void swap(wxString& str)
   {
@@ -2973,7 +3562,9 @@ public:
   }
     // find a substring
   size_t find(const wxString& str, size_t nStart = 0) const
-  { return PosFromImpl(m_impl.find(str.m_impl, PosToImpl(nStart))); }
+  {
+ return PosFromImpl(m_impl.find(str.m_impl, PosToImpl(nStart)));
+  }
     // find first n characters of sz
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find(const char* sz, size_t nStart = 0, size_t n = npos) const
@@ -2989,12 +3580,18 @@ public:
   }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find(const wxScopedCharBuffer& s, size_t nStart = 0, size_t n = npos) const
-  { return find(s.data(), nStart, n); }
+  {
+ return find(s.data(), nStart, n);
+  }
 #  endif
   size_t find(const wxScopedWCharBuffer& s, size_t nStart = 0, size_t n = npos) const
-  { return find(s.data(), nStart, n); }
+  {
+ return find(s.data(), nStart, n);
+  }
   size_t find(const wxCStrData& s, size_t nStart = 0, size_t n = npos) const
-  { return find(s.AsWChar(), nStart, n); }
+  {
+ return find(s.AsWChar(), nStart, n);
+  }
     // find the first occurrence of character ch after nStart
   size_t find(wxUniChar ch, size_t nStart = 0) const
   {
@@ -3006,18 +3603,28 @@ public:
                                        PosToImpl(nStart)));
   }
   size_t find(wxUniCharRef ch, size_t nStart = 0) const
-  {  return find(wxUniChar(ch), nStart); }
+  {
+  return find(wxUniChar(ch), nStart);
+  }
   size_t find(char ch, size_t nStart = 0) const
-  {  return find(wxUniChar(ch), nStart); }
+  {
+  return find(wxUniChar(ch), nStart);
+  }
   size_t find(unsigned char ch, size_t nStart = 0) const
-  {  return find(wxUniChar(ch), nStart); }
+  {
+  return find(wxUniChar(ch), nStart);
+  }
   size_t find(wchar_t ch, size_t nStart = 0) const
-  {  return find(wxUniChar(ch), nStart); }
+  {
+  return find(wxUniChar(ch), nStart);
+  }
     // rfind() family is exactly like find() but works right to left
 
     // as find, but from the end
   size_t rfind(const wxString& str, size_t nStart = npos) const
-  { return PosFromImpl(m_impl.rfind(str.m_impl, PosToImpl(nStart))); }
+  {
+ return PosFromImpl(m_impl.rfind(str.m_impl, PosToImpl(nStart)));
+  }
     // as find, but from the end
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t rfind(const char* sz, size_t nStart = npos, size_t n = npos) const
@@ -3033,12 +3640,18 @@ public:
   }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t rfind(const wxScopedCharBuffer& s, size_t nStart = npos, size_t n = npos) const
-  { return rfind(s.data(), nStart, n); }
+  {
+ return rfind(s.data(), nStart, n);
+  }
 #  endif
   size_t rfind(const wxScopedWCharBuffer& s, size_t nStart = npos, size_t n = npos) const
-  { return rfind(s.data(), nStart, n); }
+  {
+ return rfind(s.data(), nStart, n);
+  }
   size_t rfind(const wxCStrData& s, size_t nStart = npos, size_t n = npos) const
-  { return rfind(s.AsWChar(), nStart, n); }
+  {
+ return rfind(s.AsWChar(), nStart, n);
+  }
     // as find, but from the end
   size_t rfind(wxUniChar ch, size_t nStart = npos) const
   {
@@ -3050,82 +3663,138 @@ public:
                                         PosToImpl(nStart)));
   }
   size_t rfind(wxUniCharRef ch, size_t nStart = npos) const
-  {  return rfind(wxUniChar(ch), nStart); }
+  {
+  return rfind(wxUniChar(ch), nStart);
+  }
   size_t rfind(char ch, size_t nStart = npos) const
-  {  return rfind(wxUniChar(ch), nStart); }
+  {
+  return rfind(wxUniChar(ch), nStart);
+  }
   size_t rfind(unsigned char ch, size_t nStart = npos) const
-  {  return rfind(wxUniChar(ch), nStart); }
+  {
+  return rfind(wxUniChar(ch), nStart);
+  }
   size_t rfind(wchar_t ch, size_t nStart = npos) const
-  {  return rfind(wxUniChar(ch), nStart); }
+  {
+  return rfind(wxUniChar(ch), nStart);
+  }
   // find first/last occurrence of any character (not) in the set:
 #  if  wxUSE_STL_BASED_WXSTRING && !wxUSE_UNICODE_UTF8
   // FIXME-UTF8: this is not entirely correct, because it doesn't work if
   //             sizeof(wchar_t)==2 and surrogates are present in the string;
   //             should we care? Probably not.
   size_t find_first_of(const wxString& str, size_t nStart = 0) const
-  { return m_impl.find_first_of(str.m_impl, nStart); }
+  {
+ return m_impl.find_first_of(str.m_impl, nStart);
+  }
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_first_of(const char* sz, size_t nStart = 0) const
-  { return m_impl.find_first_of(ImplStr(sz), nStart); }
+  {
+ return m_impl.find_first_of(ImplStr(sz), nStart);
+  }
 #    endif
   size_t find_first_of(const wchar_t* sz, size_t nStart = 0) const
-  { return m_impl.find_first_of(ImplStr(sz), nStart); }
+  {
+ return m_impl.find_first_of(ImplStr(sz), nStart);
+  }
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_first_of(const char* sz, size_t nStart, size_t n) const
-  { return m_impl.find_first_of(ImplStr(sz), nStart, n); }
+  {
+ return m_impl.find_first_of(ImplStr(sz), nStart, n);
+  }
 #    endif
   size_t find_first_of(const wchar_t* sz, size_t nStart, size_t n) const
-  { return m_impl.find_first_of(ImplStr(sz), nStart, n); }
+  {
+ return m_impl.find_first_of(ImplStr(sz), nStart, n);
+  }
   size_t find_first_of(wxUniChar c, size_t nStart = 0) const
-  { return m_impl.find_first_of((wxChar)c, nStart); }
+  {
+ return m_impl.find_first_of((wxChar)c, nStart);
+  }
   size_t find_last_of(const wxString& str, size_t nStart = npos) const
-  { return m_impl.find_last_of(str.m_impl, nStart); }
+  {
+ return m_impl.find_last_of(str.m_impl, nStart);
+  }
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_last_of(const char* sz, size_t nStart = npos) const
-  { return m_impl.find_last_of(ImplStr(sz), nStart); }
+  {
+ return m_impl.find_last_of(ImplStr(sz), nStart);
+  }
 #    endif
   size_t find_last_of(const wchar_t* sz, size_t nStart = npos) const
-  { return m_impl.find_last_of(ImplStr(sz), nStart); }
+  {
+ return m_impl.find_last_of(ImplStr(sz), nStart);
+  }
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_last_of(const char* sz, size_t nStart, size_t n) const
-  { return m_impl.find_last_of(ImplStr(sz), nStart, n); }
+  {
+ return m_impl.find_last_of(ImplStr(sz), nStart, n);
+  }
 #    endif
   size_t find_last_of(const wchar_t* sz, size_t nStart, size_t n) const
-  { return m_impl.find_last_of(ImplStr(sz), nStart, n); }
+  {
+ return m_impl.find_last_of(ImplStr(sz), nStart, n);
+  }
   size_t find_last_of(wxUniChar c, size_t nStart = npos) const
-  { return m_impl.find_last_of((wxChar)c, nStart); }
+  {
+ return m_impl.find_last_of((wxChar)c, nStart);
+  }
   size_t find_first_not_of(const wxString& str, size_t nStart = 0) const
-  { return m_impl.find_first_not_of(str.m_impl, nStart); }
+  {
+ return m_impl.find_first_not_of(str.m_impl, nStart);
+  }
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_first_not_of(const char* sz, size_t nStart = 0) const
-  { return m_impl.find_first_not_of(ImplStr(sz), nStart); }
+  {
+ return m_impl.find_first_not_of(ImplStr(sz), nStart);
+  }
 #    endif
   size_t find_first_not_of(const wchar_t* sz, size_t nStart = 0) const
-  { return m_impl.find_first_not_of(ImplStr(sz), nStart); }
+  {
+ return m_impl.find_first_not_of(ImplStr(sz), nStart);
+  }
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_first_not_of(const char* sz, size_t nStart, size_t n) const
-  { return m_impl.find_first_not_of(ImplStr(sz), nStart, n); }
+  {
+ return m_impl.find_first_not_of(ImplStr(sz), nStart, n);
+  }
 #    endif
   size_t find_first_not_of(const wchar_t* sz, size_t nStart, size_t n) const
-  { return m_impl.find_first_not_of(ImplStr(sz), nStart, n); }
+  {
+ return m_impl.find_first_not_of(ImplStr(sz), nStart, n);
+  }
   size_t find_first_not_of(wxUniChar c, size_t nStart = 0) const
-  { return m_impl.find_first_not_of((wxChar)c, nStart); }
+  {
+ return m_impl.find_first_not_of((wxChar)c, nStart);
+  }
   size_t find_last_not_of(const wxString& str, size_t nStart = npos) const
-  { return m_impl.find_last_not_of(str.m_impl, nStart); }
+  {
+ return m_impl.find_last_not_of(str.m_impl, nStart);
+  }
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_last_not_of(const char* sz, size_t nStart = npos) const
-  { return m_impl.find_last_not_of(ImplStr(sz), nStart); }
+  {
+ return m_impl.find_last_not_of(ImplStr(sz), nStart);
+  }
 #    endif
   size_t find_last_not_of(const wchar_t* sz, size_t nStart = npos) const
-  { return m_impl.find_last_not_of(ImplStr(sz), nStart); }
+  {
+ return m_impl.find_last_not_of(ImplStr(sz), nStart);
+  }
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_last_not_of(const char* sz, size_t nStart, size_t n) const
-  { return m_impl.find_last_not_of(ImplStr(sz), nStart, n); }
+  {
+ return m_impl.find_last_not_of(ImplStr(sz), nStart, n);
+  }
 #    endif
   size_t find_last_not_of(const wchar_t* sz, size_t nStart, size_t n) const
-  { return m_impl.find_last_not_of(ImplStr(sz), nStart, n); }
+  {
+ return m_impl.find_last_not_of(ImplStr(sz), nStart, n);
+  }
   size_t find_last_not_of(wxUniChar c, size_t nStart = npos) const
-  { return m_impl.find_last_not_of((wxChar)c, nStart); }
+  {
+ return m_impl.find_last_not_of((wxChar)c, nStart);
+  }
 #  else 
   // we can't use std::string implementation in UTF-8 build, because the
   // character sets would be interpreted wrongly:
@@ -3138,7 +3807,7 @@ public:
 #else
         return find_first_of(str.mb_str(), nStart);
 #endif
-    }
+  }
     // same as above
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_first_of(const char* sz, size_t nStart = 0) const;
@@ -3150,7 +3819,9 @@ public:
   size_t find_first_of(const wchar_t* sz, size_t nStart, size_t n) const;
     // same as find(char, size_t)
   size_t find_first_of(wxUniChar c, size_t nStart = 0) const
-  { return find(c, nStart); }
+  {
+ return find(c, nStart);
+  }
     // find the last (starting from nStart) char from str in this string
   size_t find_last_of(const wxString& str, size_t nStart = npos) const
   {
@@ -3159,7 +3830,7 @@ public:
 #else
         return find_last_of(str.mb_str(), nStart);
 #endif
-    }
+  }
     // same as above
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_last_of(const char* sz, size_t nStart = npos) const;
@@ -3171,7 +3842,9 @@ public:
   size_t find_last_of(const wchar_t* sz, size_t nStart, size_t n) const;
     // same as above
   size_t find_last_of(wxUniChar c, size_t nStart = npos) const
-  { return rfind(c, nStart); }
+  {
+ return rfind(c, nStart);
+  }
     // find first/last occurrence of any character not in the set
 
     // as strspn() (starting from nStart), returns npos on failure
@@ -3182,7 +3855,7 @@ public:
 #else
         return find_first_not_of(str.mb_str(), nStart);
 #endif
-    }
+  }
     // same as above
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_first_not_of(const char* sz, size_t nStart = 0) const;
@@ -3202,7 +3875,7 @@ public:
 #else
         return find_last_not_of(str.mb_str(), nStart);
 #endif
-    }
+  }
     // same as above
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_last_not_of(const char* sz, size_t nStart = npos) const;
@@ -3218,118 +3891,210 @@ public:
   // provide char/wchar_t/wxUniCharRef overloads for char-finding functions
   // above to resolve ambiguities:
   size_t find_first_of(wxUniCharRef ch, size_t nStart = 0) const
-  {  return find_first_of(wxUniChar(ch), nStart); }
+  {
+  return find_first_of(wxUniChar(ch), nStart);
+  }
   size_t find_first_of(char ch, size_t nStart = 0) const
-  {  return find_first_of(wxUniChar(ch), nStart); }
+  {
+  return find_first_of(wxUniChar(ch), nStart);
+  }
   size_t find_first_of(unsigned char ch, size_t nStart = 0) const
-  {  return find_first_of(wxUniChar(ch), nStart); }
+  {
+  return find_first_of(wxUniChar(ch), nStart);
+  }
   size_t find_first_of(wchar_t ch, size_t nStart = 0) const
-  {  return find_first_of(wxUniChar(ch), nStart); }
+  {
+  return find_first_of(wxUniChar(ch), nStart);
+  }
   size_t find_last_of(wxUniCharRef ch, size_t nStart = npos) const
-  {  return find_last_of(wxUniChar(ch), nStart); }
+  {
+  return find_last_of(wxUniChar(ch), nStart);
+  }
   size_t find_last_of(char ch, size_t nStart = npos) const
-  {  return find_last_of(wxUniChar(ch), nStart); }
+  {
+  return find_last_of(wxUniChar(ch), nStart);
+  }
   size_t find_last_of(unsigned char ch, size_t nStart = npos) const
-  {  return find_last_of(wxUniChar(ch), nStart); }
+  {
+  return find_last_of(wxUniChar(ch), nStart);
+  }
   size_t find_last_of(wchar_t ch, size_t nStart = npos) const
-  {  return find_last_of(wxUniChar(ch), nStart); }
+  {
+  return find_last_of(wxUniChar(ch), nStart);
+  }
   size_t find_first_not_of(wxUniCharRef ch, size_t nStart = 0) const
-  {  return find_first_not_of(wxUniChar(ch), nStart); }
+  {
+  return find_first_not_of(wxUniChar(ch), nStart);
+  }
   size_t find_first_not_of(char ch, size_t nStart = 0) const
-  {  return find_first_not_of(wxUniChar(ch), nStart); }
+  {
+  return find_first_not_of(wxUniChar(ch), nStart);
+  }
   size_t find_first_not_of(unsigned char ch, size_t nStart = 0) const
-  {  return find_first_not_of(wxUniChar(ch), nStart); }
+  {
+  return find_first_not_of(wxUniChar(ch), nStart);
+  }
   size_t find_first_not_of(wchar_t ch, size_t nStart = 0) const
-  {  return find_first_not_of(wxUniChar(ch), nStart); }
+  {
+  return find_first_not_of(wxUniChar(ch), nStart);
+  }
   size_t find_last_not_of(wxUniCharRef ch, size_t nStart = npos) const
-  {  return find_last_not_of(wxUniChar(ch), nStart); }
+  {
+  return find_last_not_of(wxUniChar(ch), nStart);
+  }
   size_t find_last_not_of(char ch, size_t nStart = npos) const
-  {  return find_last_not_of(wxUniChar(ch), nStart); }
+  {
+  return find_last_not_of(wxUniChar(ch), nStart);
+  }
   size_t find_last_not_of(unsigned char ch, size_t nStart = npos) const
-  {  return find_last_not_of(wxUniChar(ch), nStart); }
+  {
+  return find_last_not_of(wxUniChar(ch), nStart);
+  }
   size_t find_last_not_of(wchar_t ch, size_t nStart = npos) const
-  {  return find_last_not_of(wxUniChar(ch), nStart); }
+  {
+  return find_last_not_of(wxUniChar(ch), nStart);
+  }
   // and additional overloads for the versions taking strings:
   size_t find_first_of(const wxCStrData& sz, size_t nStart = 0) const
-  { return find_first_of(sz.AsString(), nStart); }
+  {
+ return find_first_of(sz.AsString(), nStart);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_first_of(const wxScopedCharBuffer& sz, size_t nStart = 0) const
-  { return find_first_of(sz.data(), nStart); }
+  {
+ return find_first_of(sz.data(), nStart);
+  }
 #  endif
   size_t find_first_of(const wxScopedWCharBuffer& sz, size_t nStart = 0) const
-  { return find_first_of(sz.data(), nStart); }
+  {
+ return find_first_of(sz.data(), nStart);
+  }
   size_t find_first_of(const wxCStrData& sz, size_t nStart, size_t n) const
-  { return find_first_of(sz.AsWChar(), nStart, n); }
+  {
+ return find_first_of(sz.AsWChar(), nStart, n);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_first_of(const wxScopedCharBuffer& sz, size_t nStart, size_t n) const
-  { return find_first_of(sz.data(), nStart, n); }
+  {
+ return find_first_of(sz.data(), nStart, n);
+  }
 #  endif
   size_t find_first_of(const wxScopedWCharBuffer& sz, size_t nStart, size_t n) const
-  { return find_first_of(sz.data(), nStart, n); }
+  {
+ return find_first_of(sz.data(), nStart, n);
+  }
   size_t find_last_of(const wxCStrData& sz, size_t nStart = 0) const
-  { return find_last_of(sz.AsString(), nStart); }
+  {
+ return find_last_of(sz.AsString(), nStart);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_last_of(const wxScopedCharBuffer& sz, size_t nStart = 0) const
-  { return find_last_of(sz.data(), nStart); }
+  {
+ return find_last_of(sz.data(), nStart);
+  }
 #  endif
   size_t find_last_of(const wxScopedWCharBuffer& sz, size_t nStart = 0) const
-  { return find_last_of(sz.data(), nStart); }
+  {
+ return find_last_of(sz.data(), nStart);
+  }
   size_t find_last_of(const wxCStrData& sz, size_t nStart, size_t n) const
-  { return find_last_of(sz.AsWChar(), nStart, n); }
+  {
+ return find_last_of(sz.AsWChar(), nStart, n);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_last_of(const wxScopedCharBuffer& sz, size_t nStart, size_t n) const
-  { return find_last_of(sz.data(), nStart, n); }
+  {
+ return find_last_of(sz.data(), nStart, n);
+  }
 #  endif
   size_t find_last_of(const wxScopedWCharBuffer& sz, size_t nStart, size_t n) const
-  { return find_last_of(sz.data(), nStart, n); }
+  {
+ return find_last_of(sz.data(), nStart, n);
+  }
   size_t find_first_not_of(const wxCStrData& sz, size_t nStart = 0) const
-  { return find_first_not_of(sz.AsString(), nStart); }
+  {
+ return find_first_not_of(sz.AsString(), nStart);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_first_not_of(const wxScopedCharBuffer& sz, size_t nStart = 0) const
-  { return find_first_not_of(sz.data(), nStart); }
+  {
+ return find_first_not_of(sz.data(), nStart);
+  }
 #  endif
   size_t find_first_not_of(const wxScopedWCharBuffer& sz, size_t nStart = 0) const
-  { return find_first_not_of(sz.data(), nStart); }
+  {
+ return find_first_not_of(sz.data(), nStart);
+  }
   size_t find_first_not_of(const wxCStrData& sz, size_t nStart, size_t n) const
-  { return find_first_not_of(sz.AsWChar(), nStart, n); }
+  {
+ return find_first_not_of(sz.AsWChar(), nStart, n);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_first_not_of(const wxScopedCharBuffer& sz, size_t nStart, size_t n) const
-  { return find_first_not_of(sz.data(), nStart, n); }
+  {
+ return find_first_not_of(sz.data(), nStart, n);
+  }
 #  endif
   size_t find_first_not_of(const wxScopedWCharBuffer& sz, size_t nStart, size_t n) const
-  { return find_first_not_of(sz.data(), nStart, n); }
+  {
+ return find_first_not_of(sz.data(), nStart, n);
+  }
   size_t find_last_not_of(const wxCStrData& sz, size_t nStart = 0) const
-  { return find_last_not_of(sz.AsString(), nStart); }
+  {
+ return find_last_not_of(sz.AsString(), nStart);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_last_not_of(const wxScopedCharBuffer& sz, size_t nStart = 0) const
-  { return find_last_not_of(sz.data(), nStart); }
+  {
+ return find_last_not_of(sz.data(), nStart);
+  }
 #  endif
   size_t find_last_not_of(const wxScopedWCharBuffer& sz, size_t nStart = 0) const
-  { return find_last_not_of(sz.data(), nStart); }
+  {
+ return find_last_not_of(sz.data(), nStart);
+  }
   size_t find_last_not_of(const wxCStrData& sz, size_t nStart, size_t n) const
-  { return find_last_not_of(sz.AsWChar(), nStart, n); }
+  {
+ return find_last_not_of(sz.AsWChar(), nStart, n);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   size_t find_last_not_of(const wxScopedCharBuffer& sz, size_t nStart, size_t n) const
-  { return find_last_not_of(sz.data(), nStart, n); }
+  {
+ return find_last_not_of(sz.data(), nStart, n);
+  }
 #  endif
   size_t find_last_not_of(const wxScopedWCharBuffer& sz, size_t nStart, size_t n) const
-  { return find_last_not_of(sz.data(), nStart, n); }
+  {
+ return find_last_not_of(sz.data(), nStart, n);
+  }
   bool starts_with(const wxString& str) const
-  { return StartsWith(str); }
+  {
+ return StartsWith(str);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   bool starts_with(const char* sz) const
-  { return StartsWith(sz); }
+  {
+ return StartsWith(sz);
+  }
 #  endif
   bool starts_with(const wchar_t* sz) const
-  { return StartsWith(sz); }
+  {
+ return StartsWith(sz);
+  }
   bool ends_with(const wxString& str) const
-  { return EndsWith(str); }
+  {
+ return EndsWith(str);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   bool ends_with(const char* sz) const
-  { return EndsWith(sz); }
+  {
+ return EndsWith(sz);
+  }
 #  endif
   bool ends_with(const wchar_t* sz) const
-  { return EndsWith(sz); }
+  {
+ return EndsWith(sz);
+  }
       // string += string
   wxString& operator+=(const wxString& s)
   {
@@ -3364,10 +4129,14 @@ public:
   }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString& operator+=(const wxScopedCharBuffer& s)
-  { return append(s); }
+  {
+ return append(s);
+  }
 #  endif
   wxString& operator+=(const wxScopedWCharBuffer& s)
-  { return append(s); }
+  {
+ return append(s);
+  }
       // string += char
   wxString& operator+=(wxUniChar ch)
   {
@@ -3381,15 +4150,25 @@ public:
       return *this;
   }
   wxString& operator+=(wxUniCharRef ch)
-  { return *this += wxUniChar(ch); }
+  {
+ return *this += wxUniChar(ch);
+  }
   wxString& operator+=(int ch)
-  { return *this += wxUniChar(ch); }
+  {
+ return *this += wxUniChar(ch);
+  }
   wxString& operator+=(char ch)
-  { return *this += wxUniChar(ch); }
+  {
+ return *this += wxUniChar(ch);
+  }
   wxString& operator+=(unsigned char ch)
-  { return *this += wxUniChar(ch); }
+  {
+ return *this += wxUniChar(ch);
+  }
   wxString& operator+=(wchar_t ch)
-  { return *this += wxUniChar(ch); }
+  {
+ return *this += wxUniChar(ch);
+  }
 #  if  !wxUSE_STL_BASED_WXSTRING
 private:
   // helpers for wxStringBuffer and wxStringBufferLength
@@ -3421,7 +4200,9 @@ private:
 #  if  !wxUSE_STL_BASED_WXSTRING
   // check string's data validity
   bool IsValid() const
-  { return m_impl.GetStringData()->IsValid(); }
+  {
+ return m_impl.GetStringData()->IsValid();
+  }
 #  endif
   wxStringImpl m_impl;
   // buffers for compatibility conversion from (char*)c_str() and
@@ -3437,12 +4218,13 @@ private:
       // notice that there is no need to initialize m_len here as it's unused
       // as long as m_str is NULL
     ConvertedBuffer()
-      :  m_str(NULL), m_len(0) 
-      {
-      }
+      :  m_str(NULL), m_len(0)
+    {
+    }
     ~ConvertedBuffer()
     {
- free(m_str);     }
+ free(m_str);
+    }
     bool Extend(size_t len)
     {
           // add extra 1 for the trailing NUL
@@ -3454,11 +4236,11 @@ private:
           m_len = len;
 
           return true;
-      }
+    }
     const wxScopedCharTypeBuffer<T> AsScopedBuffer() const
     {
           return wxScopedCharTypeBuffer<T>::CreateNonOwned(m_str, m_len);
-      }
+    }
     T* m_str;
     size_t m_len;
   };
@@ -3534,9 +4316,9 @@ private:
   struct wxStringIteratorNodeHead
   {
     wxStringIteratorNodeHead()
-      :  ptr(NULL) 
-      {
-      }
+      :  ptr(NULL)
+    {
+    }
     wxStringIteratorNode* ptr;
       // copying is disallowed as it would result in more than one pointer into
       // the same linked list
@@ -3553,13 +4335,21 @@ private:
 // string iterator operators that satisfy STL Random Access Iterator
 // requirements:
 inline wxString::iterator operator+(ptrdiff_t n, wxString::iterator i)
-{ return i + n; }
+{
+ return i + n;
+}
 inline wxString::const_iterator operator+(ptrdiff_t n, wxString::const_iterator i)
-{ return i + n; }
+{
+ return i + n;
+}
 inline wxString::reverse_iterator operator+(ptrdiff_t n, wxString::reverse_iterator i)
-{ return i + n; }
+{
+ return i + n;
+}
 inline wxString::const_reverse_iterator operator+(ptrdiff_t n, wxString::const_reverse_iterator i)
-{ return i + n; }
+{
+ return i + n;
+}
 // notice that even though for many compilers the friend declarations above are
 // enough, from the point of view of C++ standard we must have the declarations
 // here as friend ones are not injected in the enclosing namespace and without
@@ -3576,17 +4366,29 @@ wxString WXDLLIMPEXP_BASE operator+(const wchar_t* pwz, const wxString& string);
 wxString WXDLLIMPEXP_BASE operator+(const wxString& string, wxUniChar ch);
 wxString WXDLLIMPEXP_BASE operator+(wxUniChar ch, const wxString& string);
 inline wxString operator+(const wxString& string, wxUniCharRef ch)
-{ return string + (wxUniChar)ch; }
+{
+ return string + (wxUniChar)ch;
+}
 inline wxString operator+(const wxString& string, char ch)
-{ return string + wxUniChar(ch); }
+{
+ return string + wxUniChar(ch);
+}
 inline wxString operator+(const wxString& string, wchar_t ch)
-{ return string + wxUniChar(ch); }
+{
+ return string + wxUniChar(ch);
+}
 inline wxString operator+(wxUniCharRef ch, const wxString& string)
-{ return (wxUniChar)ch + string; }
+{
+ return (wxUniChar)ch + string;
+}
 inline wxString operator+(char ch, const wxString& string)
-{ return wxUniChar(ch) + string; }
+{
+ return wxUniChar(ch) + string;
+}
 inline wxString operator+(wchar_t ch, const wxString& string)
-{ return wxUniChar(ch) + string; }
+{
+ return wxUniChar(ch) + string;
+}
 #  define wxGetEmptyString()	 wxString()
 // ----------------------------------------------------------------------------
 // helper functions which couldn't be defined inline
@@ -3653,15 +4455,17 @@ public:
   typedef wxStringCharType CharType;
   wxStringInternalBuffer(wxString& str, size_t lenWanted = 1024)
     :  m_str(str), m_buf(NULL)
-        
-    {
- m_buf = m_str.DoGetWriteBuf(lenWanted);     }
+  {
+ m_buf = m_str.DoGetWriteBuf(lenWanted);
+  }
   ~wxStringInternalBuffer()
   {
- m_str.DoUngetWriteBuf();   }
+ m_str.DoUngetWriteBuf();
+  }
   operator wxStringCharType*() const
   {
- return m_buf;   }
+ return m_buf;
+  }
 private:
   wxString& m_str;
   wxStringCharType* m_buf;
@@ -3673,23 +4477,23 @@ public:
   typedef wxStringCharType CharType;
   wxStringInternalBufferLength(wxString& str, size_t lenWanted = 1024)
     :  m_str(str), m_buf(NULL), m_len(0), m_lenSet(false)
-    
-    {
-
+  {
         m_buf = m_str.DoGetWriteBuf(lenWanted);
         wxASSERT(m_buf != NULL);
-        }
+  }
   ~wxStringInternalBufferLength()
   {
-
         wxASSERT(m_lenSet);
         m_str.DoUngetWriteBuf(m_len);
-      }
+  }
   operator wxStringCharType*() const
   {
- return m_buf;   }
+ return m_buf;
+  }
   void SetLength(size_t length)
-  { m_len = length; m_lenSet = true; }
+  {
+ m_len = length; m_lenSet = true;
+  }
 private:
   wxString& m_str;
   wxStringCharType* m_buf;
@@ -3705,9 +4509,7 @@ public:
   typedef T CharType;
   wxStringTypeBufferBase(wxString& str, size_t lenWanted = 1024)
     :  m_str(str), m_buf(lenWanted)
-    
-    {
-
+  {
         // for compatibility with old wxStringBuffer which provided direct
         // access to wxString internal buffer, initialize ourselves with the
         // string initial contents
@@ -3728,10 +4530,11 @@ public:
         }
         //else: conversion failed, this can happen when trying to get Unicode
         //      string contents into a char string
-        }
+  }
   operator CharType*()
   {
- return m_buf.data();   }
+ return m_buf.data();
+  }
 protected:
   wxString& m_str;
   wxCharTypeBuffer<CharType> m_buf;
@@ -3744,16 +4547,17 @@ public:
     :  wxStringTypeBufferBase<T>(str, lenWanted),
           m_len(0),
           m_lenSet(false)
-        
-    {
-     }
-  ~wxStringTypeBufferLengthBase()
   {
 
+  }
+  ~wxStringTypeBufferLengthBase()
+  {
         wxASSERT_MSG( this->m_lenSet, "forgot to call SetLength()" );
-      }
+  }
   void SetLength(size_t length)
-  { m_len = length; m_lenSet = true; }
+  {
+ m_len = length; m_lenSet = true;
+  }
 protected:
   size_t m_len;
   bool m_lenSet;
@@ -3764,14 +4568,13 @@ class wxStringTypeBuffer : public wxStringTypeBufferBase<T>
 public:
   wxStringTypeBuffer(wxString& str, size_t lenWanted = 1024)
     :  wxStringTypeBufferBase<T>(str, lenWanted)
-        
-    {
-     }
-  ~wxStringTypeBuffer()
   {
 
+  }
+  ~wxStringTypeBuffer()
+  {
         this->m_str.assign(this->m_buf.data());
-      }
+  }
   wxDECLARE_NO_COPY_CLASS(wxStringTypeBuffer);
 };
 template <typename T>
@@ -3780,14 +4583,13 @@ class wxStringTypeBufferLength : public wxStringTypeBufferLengthBase<T>
 public:
   wxStringTypeBufferLength(wxString& str, size_t lenWanted = 1024)
     :  wxStringTypeBufferLengthBase<T>(str, lenWanted)
-        
-    {
-     }
-  ~wxStringTypeBufferLength()
   {
 
+  }
+  ~wxStringTypeBufferLength()
+  {
         this->m_str.assign(this->m_buf.data(), this->m_len);
-      }
+  }
   wxDECLARE_NO_COPY_CLASS(wxStringTypeBufferLength);
 };
 #  if  wxUSE_STL_BASED_WXSTRING
@@ -3795,26 +4597,26 @@ class wxStringInternalBuffer : public wxStringTypeBufferBase<wxStringCharType>
 {
 public:
   wxStringInternalBuffer(wxString& str, size_t lenWanted = 1024)
-    :  wxStringTypeBufferBase<wxStringCharType>(str, lenWanted) 
-    {
-    }
+    :  wxStringTypeBufferBase<wxStringCharType>(str, lenWanted)
+  {
+  }
   ~wxStringInternalBuffer()
   {
- m_str.m_impl.assign(m_buf.data());   }
+ m_str.m_impl.assign(m_buf.data());
+  }
   wxDECLARE_NO_COPY_CLASS(wxStringInternalBuffer);
 };
 class wxStringInternalBufferLength : public wxStringTypeBufferLengthBase<wxStringCharType>
 {
 public:
   wxStringInternalBufferLength(wxString& str, size_t lenWanted = 1024)
-    :  wxStringTypeBufferLengthBase<wxStringCharType>(str, lenWanted) 
-    {
-    }
+    :  wxStringTypeBufferLengthBase<wxStringCharType>(str, lenWanted)
+  {
+  }
   ~wxStringInternalBufferLength()
   {
-
         m_str.m_impl.assign(m_buf.data(), m_len);
-      }
+  }
   wxDECLARE_NO_COPY_CLASS(wxStringInternalBufferLength);
 };
 #  endif
@@ -3846,31 +4648,29 @@ class wxUTF8StringBuffer : public wxStringTypeBufferBase<char>
 {
 public:
   wxUTF8StringBuffer(wxString& str, size_t lenWanted = 1024)
-    :  wxStringTypeBufferBase<char>(str, lenWanted) 
-    {
-    }
+    :  wxStringTypeBufferBase<char>(str, lenWanted)
+  {
+  }
   ~wxUTF8StringBuffer()
   {
-
         wxMBConvStrictUTF8 conv;
         size_t wlen = conv.ToWChar(NULL, 0, m_buf);
         wxCHECK_RET( wlen != wxCONV_FAILED, "invalid UTF-8 data in string buffer?" );
 
         wxStringInternalBuffer wbuf(m_str, wlen);
         conv.ToWChar(wbuf, wlen, m_buf);
-      }
+  }
   wxDECLARE_NO_COPY_CLASS(wxUTF8StringBuffer);
 };
 class wxUTF8StringBufferLength : public wxStringTypeBufferLengthBase<char>
 {
 public:
   wxUTF8StringBufferLength(wxString& str, size_t lenWanted = 1024)
-    :  wxStringTypeBufferLengthBase<char>(str, lenWanted) 
-    {
-    }
+    :  wxStringTypeBufferLengthBase<char>(str, lenWanted)
+  {
+  }
   ~wxUTF8StringBufferLength()
   {
-
         wxCHECK_RET(m_lenSet, "length not set");
 
         wxMBConvStrictUTF8 conv;
@@ -3880,7 +4680,7 @@ public:
         wxStringInternalBufferLength wbuf(m_str, wlen);
         conv.ToWChar(wbuf, wlen, m_buf, m_len);
         wbuf.SetLength(wlen);
-      }
+  }
   wxDECLARE_NO_COPY_CLASS(wxUTF8StringBufferLength);
 };
 #  endif
@@ -3896,115 +4696,219 @@ wxDEFINE_ALL_COMPARISONS(const char *, const wxString&, wxCMP_WXCHAR_STRING)
 #  endif
 #  undef wxCMP_WXCHAR_STRING
 inline bool operator==(const wxString& s1, const wxString& s2)
-{ return s1.IsSameAs(s2); }
+{
+ return s1.IsSameAs(s2);
+}
 inline bool operator!=(const wxString& s1, const wxString& s2)
-{ return !s1.IsSameAs(s2); }
+{
+ return !s1.IsSameAs(s2);
+}
 inline bool operator<(const wxString& s1, const wxString& s2)
-{ return s1.Cmp(s2) < 0; }
+{
+ return s1.Cmp(s2) < 0;
+}
 inline bool operator>(const wxString& s1, const wxString& s2)
-{ return s1.Cmp(s2) >  0; }
+{
+ return s1.Cmp(s2) >  0;
+}
 inline bool operator<=(const wxString& s1, const wxString& s2)
-{ return s1.Cmp(s2) <= 0; }
+{
+ return s1.Cmp(s2) <= 0;
+}
 inline bool operator>=(const wxString& s1, const wxString& s2)
-{ return s1.Cmp(s2) >= 0; }
+{
+ return s1.Cmp(s2) >= 0;
+}
 inline bool operator==(const wxString& s1, const wxCStrData& s2)
-{ return s1 == s2.AsString(); }
+{
+ return s1 == s2.AsString();
+}
 inline bool operator==(const wxCStrData& s1, const wxString& s2)
-{ return s1.AsString() == s2; }
+{
+ return s1.AsString() == s2;
+}
 inline bool operator!=(const wxString& s1, const wxCStrData& s2)
-{ return s1 != s2.AsString(); }
+{
+ return s1 != s2.AsString();
+}
 inline bool operator!=(const wxCStrData& s1, const wxString& s2)
-{ return s1.AsString() != s2; }
+{
+ return s1.AsString() != s2;
+}
 inline bool operator==(const wxString& s1, const wxScopedWCharBuffer& s2)
-{ return (s1.Cmp((const wchar_t *)s2) == 0); }
+{
+ return (s1.Cmp((const wchar_t *)s2) == 0);
+}
 inline bool operator==(const wxScopedWCharBuffer& s1, const wxString& s2)
-{ return (s2.Cmp((const wchar_t *)s1) == 0); }
+{
+ return (s2.Cmp((const wchar_t *)s1) == 0);
+}
 inline bool operator!=(const wxString& s1, const wxScopedWCharBuffer& s2)
-{ return (s1.Cmp((const wchar_t *)s2) != 0); }
+{
+ return (s1.Cmp((const wchar_t *)s2) != 0);
+}
 inline bool operator!=(const wxScopedWCharBuffer& s1, const wxString& s2)
-{ return (s2.Cmp((const wchar_t *)s1) != 0); }
+{
+ return (s2.Cmp((const wchar_t *)s1) != 0);
+}
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
 inline bool operator==(const wxString& s1, const wxScopedCharBuffer& s2)
-{ return (s1.Cmp((const char *)s2) == 0); }
+{
+ return (s1.Cmp((const char *)s2) == 0);
+}
 inline bool operator==(const wxScopedCharBuffer& s1, const wxString& s2)
-{ return (s2.Cmp((const char *)s1) == 0); }
+{
+ return (s2.Cmp((const char *)s1) == 0);
+}
 inline bool operator!=(const wxString& s1, const wxScopedCharBuffer& s2)
-{ return (s1.Cmp((const char *)s2) != 0); }
+{
+ return (s1.Cmp((const char *)s2) != 0);
+}
 inline bool operator!=(const wxScopedCharBuffer& s1, const wxString& s2)
-{ return (s2.Cmp((const char *)s1) != 0); }
+{
+ return (s2.Cmp((const char *)s1) != 0);
+}
 #  endif
 inline wxString operator+(const wxString& string, const wxScopedWCharBuffer& buf)
-{ return string + (const wchar_t *)buf; }
+{
+ return string + (const wchar_t *)buf;
+}
 inline wxString operator+(const wxScopedWCharBuffer& buf, const wxString& string)
-{ return (const wchar_t *)buf + string; }
+{
+ return (const wchar_t *)buf + string;
+}
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
 inline wxString operator+(const wxString& string, const wxScopedCharBuffer& buf)
-{ return string + (const char *)buf; }
+{
+ return string + (const char *)buf;
+}
 inline wxString operator+(const wxScopedCharBuffer& buf, const wxString& string)
-{ return (const char *)buf + string; }
+{
+ return (const char *)buf + string;
+}
 #  endif
 // comparison with char
 inline bool operator==(const wxUniChar& c, const wxString& s)
-{ return s.IsSameAs(c); }
+{
+ return s.IsSameAs(c);
+}
 inline bool operator==(const wxUniCharRef& c, const wxString& s)
-{ return s.IsSameAs(c); }
+{
+ return s.IsSameAs(c);
+}
 inline bool operator==(char c, const wxString& s)
-{ return s.IsSameAs(c); }
+{
+ return s.IsSameAs(c);
+}
 inline bool operator==(wchar_t c, const wxString& s)
-{ return s.IsSameAs(c); }
+{
+ return s.IsSameAs(c);
+}
 inline bool operator==(int c, const wxString& s)
-{ return s.IsSameAs(c); }
+{
+ return s.IsSameAs(c);
+}
 inline bool operator==(const wxString& s, const wxUniChar& c)
-{ return s.IsSameAs(c); }
+{
+ return s.IsSameAs(c);
+}
 inline bool operator==(const wxString& s, const wxUniCharRef& c)
-{ return s.IsSameAs(c); }
+{
+ return s.IsSameAs(c);
+}
 inline bool operator==(const wxString& s, char c)
-{ return s.IsSameAs(c); }
+{
+ return s.IsSameAs(c);
+}
 inline bool operator==(const wxString& s, wchar_t c)
-{ return s.IsSameAs(c); }
+{
+ return s.IsSameAs(c);
+}
 inline bool operator!=(const wxUniChar& c, const wxString& s)
-{ return !s.IsSameAs(c); }
+{
+ return !s.IsSameAs(c);
+}
 inline bool operator!=(const wxUniCharRef& c, const wxString& s)
-{ return !s.IsSameAs(c); }
+{
+ return !s.IsSameAs(c);
+}
 inline bool operator!=(char c, const wxString& s)
-{ return !s.IsSameAs(c); }
+{
+ return !s.IsSameAs(c);
+}
 inline bool operator!=(wchar_t c, const wxString& s)
-{ return !s.IsSameAs(c); }
+{
+ return !s.IsSameAs(c);
+}
 inline bool operator!=(int c, const wxString& s)
-{ return !s.IsSameAs(c); }
+{
+ return !s.IsSameAs(c);
+}
 inline bool operator!=(const wxString& s, const wxUniChar& c)
-{ return !s.IsSameAs(c); }
+{
+ return !s.IsSameAs(c);
+}
 inline bool operator!=(const wxString& s, const wxUniCharRef& c)
-{ return !s.IsSameAs(c); }
+{
+ return !s.IsSameAs(c);
+}
 inline bool operator!=(const wxString& s, char c)
-{ return !s.IsSameAs(c); }
+{
+ return !s.IsSameAs(c);
+}
 inline bool operator!=(const wxString& s, wchar_t c)
-{ return !s.IsSameAs(c); }
+{
+ return !s.IsSameAs(c);
+}
 // wxString iterators comparisons
 inline bool wxString::const_iterator::operator==(const iterator& i) const
-{ return *this == const_iterator(i); }
+{
+ return *this == const_iterator(i);
+}
 inline bool wxString::const_iterator::operator!=(const iterator& i) const
-{ return *this != const_iterator(i); }
+{
+ return *this != const_iterator(i);
+}
 inline bool wxString::const_iterator::operator<(const iterator& i) const
-{ return *this < const_iterator(i); }
+{
+ return *this < const_iterator(i);
+}
 inline bool wxString::const_iterator::operator>(const iterator& i) const
-{ return *this > const_iterator(i); }
+{
+ return *this > const_iterator(i);
+}
 inline bool wxString::const_iterator::operator<=(const iterator& i) const
-{ return *this <= const_iterator(i); }
+{
+ return *this <= const_iterator(i);
+}
 inline bool wxString::const_iterator::operator>=(const iterator& i) const
-{ return *this >= const_iterator(i); }
+{
+ return *this >= const_iterator(i);
+}
 inline bool wxString::iterator::operator==(const const_iterator& i) const
-{ return i == *this; }
+{
+ return i == *this;
+}
 inline bool wxString::iterator::operator!=(const const_iterator& i) const
-{ return i != *this; }
+{
+ return i != *this;
+}
 inline bool wxString::iterator::operator<(const const_iterator& i) const
-{ return i > *this; }
+{
+ return i > *this;
+}
 inline bool wxString::iterator::operator>(const const_iterator& i) const
-{ return i < *this; }
+{
+ return i < *this;
+}
 inline bool wxString::iterator::operator<=(const const_iterator& i) const
-{ return i >= *this; }
+{
+ return i >= *this;
+}
 inline bool wxString::iterator::operator>=(const const_iterator& i) const
-{ return i <= *this; }
+{
+ return i <= *this;
+}
 // we also need to provide the operators for comparison with wxCStrData to
 // resolve ambiguity between operator(const wxChar *,const wxString &) and
 // operator(const wxChar *, const wxChar *) for "p == s.c_str()"
@@ -4041,7 +4945,7 @@ namespace std
     size_t operator()(const wxString& s) const
     {
             return std::hash<std::wstring>()(s.ToStdWstring());
-        }
+    }
   };
 }
 #    endif
@@ -4068,25 +4972,23 @@ WXDLLIMPEXP_BASE std::wostream& operator<<(std::wostream&, const wxScopedWCharBu
 // ---------------------------------------------------------------------------
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
 inline wxCStrData::wxCStrData(char* buf)
-  :  m_str(new wxString(buf)), m_offset(0), m_owned(true) 
-  {
-  }
+  :  m_str(new wxString(buf)), m_offset(0), m_owned(true)
+{
+}
 #  endif
 inline wxCStrData::wxCStrData(wchar_t* buf)
-  :  m_str(new wxString(buf)), m_offset(0), m_owned(true) 
-  {
-  }
+  :  m_str(new wxString(buf)), m_offset(0), m_owned(true)
+{
+}
 inline wxCStrData::wxCStrData(const wxCStrData& data)
   :  m_str(data.m_owned ? new wxString(*data.m_str) : data.m_str),
       m_offset(data.m_offset),
       m_owned(data.m_owned)
-
-  {
-
-  }
-inline wxCStrData::~wxCStrData()
 {
 
+}
+inline wxCStrData::~wxCStrData()
+{
     if ( m_owned )
         delete const_cast<wxString*>(m_str); // cast to silence warnings
 }
@@ -4188,17 +5090,15 @@ inline size_t operator-(const wchar_t* p, const wxCStrData& cs)
 // FIXME-UTF8: move this to buffer.h
 inline wxCharBuffer::wxCharBuffer(const wxCStrData& cstr)
   :  wxCharTypeBufferBase(cstr.AsCharBuf())
+{
 
-  {
-
-  }
+}
 #  endif
 inline wxWCharBuffer::wxWCharBuffer(const wxCStrData& cstr)
   :  wxCharTypeBufferBase(cstr.AsWCharBuf())
+{
 
-  {
-
-  }
+}
 #  if  wxUSE_UNICODE_UTF8
 // ----------------------------------------------------------------------------
 // implementation of wxStringIteratorNode inline methods
@@ -4255,5 +5155,5 @@ inline bool wxStringCheck(const wxString& val)
             if (T(*i) == 0)
                 return false;
         return true;
-    }
+}
 #endif

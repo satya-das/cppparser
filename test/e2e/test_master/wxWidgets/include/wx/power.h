@@ -41,22 +41,27 @@ public:
   wxPowerEvent()
     : m_veto(false)
   {
-   }
+
+  }
   wxPowerEvent(wxEventType evtType)
     :  wxEvent(wxID_NONE, evtType)
-    
-    {
-
+  {
         m_veto = false;
-        }
+  }
     // Veto the operation (only makes sense with EVT_POWER_SUSPENDING)
   void Veto()
-  { m_veto = true; }
+  {
+ m_veto = true;
+  }
   bool IsVetoed() const
-  { return m_veto; }
+  {
+ return m_veto;
+  }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
-  { return new wxPowerEvent(*this); }
+  {
+ return new wxPowerEvent(*this);
+  }
 private:
   bool m_veto;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxPowerEvent);
@@ -98,18 +103,18 @@ public:
   explicit wxPowerResourceBlocker(wxPowerResourceKind kind, const wxString& reason = wxString())
     :  m_kind(kind),
           m_acquired(wxPowerResource::Acquire(kind, reason))
-    
-    {
-
-        }
-  bool IsInEffect() const
-  { return m_acquired; }
-  ~wxPowerResourceBlocker()
   {
 
+  }
+  bool IsInEffect() const
+  {
+ return m_acquired;
+  }
+  ~wxPowerResourceBlocker()
+  {
         if ( m_acquired )
             wxPowerResource::Release(m_kind);
-      }
+  }
 private:
   const wxPowerResourceKind m_kind;
   const bool m_acquired;

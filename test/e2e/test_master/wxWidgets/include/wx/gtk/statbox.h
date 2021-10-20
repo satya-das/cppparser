@@ -16,30 +16,30 @@ public:
   wxStaticBox()
   {
 
-      }
+  }
   wxStaticBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr))
   {
-
         Create( parent, id, label, pos, size, style, name );
-      }
+  }
   wxStaticBox(wxWindow* parent, wxWindowID id, wxWindow* label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr))
   {
-
         Create( parent, id, label, pos, size, style, name );
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr))
   {
         return DoCreate( parent, id, &label, NULL, pos, size, style, name );
-    }
+  }
   bool Create(wxWindow* parent, wxWindowID id, wxWindow* label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr))
   {
         return DoCreate( parent, id, NULL, label, pos, size, style, name );
-    }
+  }
   void SetLabel(const wxString& label) override;
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
     // implementation
   bool GTKIsTransparentForMouse() const override
-  { return true; }
+  {
+ return true;
+  }
   void GetBordersForSizer(int* borderTop, int* borderOther) const override;
   void AddChild(wxWindowBase* child) override;
 protected:

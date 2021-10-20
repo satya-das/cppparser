@@ -22,7 +22,9 @@ public:
   GrLinearGradientLayout(const GrLinearGradientLayout& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "LinearGradientLayout"; }
+  {
+ return "LinearGradientLayout";
+  }
   GrCoordTransform fCoordTransform0;
   SkMatrix44 gradientMatrix;
 private:
@@ -30,11 +32,10 @@ private:
     :  INHERITED(kGrLinearGradientLayout_ClassID,
                         (OptimizationFlags)kPreservesOpaqueInput_OptimizationFlag)
             , fCoordTransform0(gradientMatrix)
-            , gradientMatrix(gradientMatrix) 
-    {
-
+            , gradientMatrix(gradientMatrix)
+  {
         this->addCoordTransform(&fCoordTransform0);
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

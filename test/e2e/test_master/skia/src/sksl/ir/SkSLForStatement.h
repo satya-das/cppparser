@@ -22,9 +22,9 @@ namespace SkSL
     , fInitializer(std::move(initializer))
     , fTest(std::move(test))
     , fNext(std::move(next))
-    , fStatement(std::move(statement)) 
-      {
-      }
+    , fStatement(std::move(statement))
+    {
+    }
     std::unique_ptr<Statement> clone() const override
     {
         return std::unique_ptr<Statement>(new ForStatement(fOffset, fInitializer->clone(),

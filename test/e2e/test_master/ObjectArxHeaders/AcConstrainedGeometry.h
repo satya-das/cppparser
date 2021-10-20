@@ -698,14 +698,13 @@ struct ACDB_PORT AcDbAssocTransInfo
 
         /// <summary> Not a valid transformation type. </summary>
         kNone,
-    };
+  };
     /// <summary> Default constructor. </summary>
     /// 
   AcDbAssocTransInfo()
     :  mRadius(-1.0), mTransType(kGeneral)
-    
-    {
-    }
+  {
+  }
     /// <summary> The type of the transformation applied to the entity or sub-entity. </summary>
     ///
   TransType mTransType;

@@ -8,17 +8,23 @@ class SkStorageFor
 {
 public:
   const T& get() const
-  { return *reinterpret_cast<const T*>(&fStore); }
+  {
+ return *reinterpret_cast<const T*>(&fStore);
+  }
   T& get()
-  { return *reinterpret_cast<T*>(&fStore); }
+  {
+ return *reinterpret_cast<T*>(&fStore);
+  }
     // Up to caller to keep track of status.
   template <class... Args>
   void init(Args&&... args)
   {
         new (&this->get()) T(std::forward<Args>(args)...);
-    }
+  }
   void destroy()
-  { this->get().~T(); }
+  {
+ this->get().~T();
+  }
 private:
   typename std::aligned_storage<sizeof(T), alignof(T)>::type fStore;
 };
@@ -43,7 +49,9 @@ public:
         SkPDFUnion objects. */
   static SkPDFUnion Int(int32_t);
   static SkPDFUnion Int(size_t v)
-  { return SkPDFUnion::Int(SkToS32(v)); }
+  {
+ return SkPDFUnion::Int(SkToS32(v));
+  }
   static SkPDFUnion Bool(bool);
   static SkPDFUnion Scalar(SkScalar);
   static SkPDFUnion ColorComponent(uint8_t);
@@ -98,7 +106,7 @@ private:
         kStringSkS,
         kObject,
         kRef,
-    };
+  };
   Type fType;
   SkPDFUnion(Type);
   SkPDFUnion(Type, int32_t);

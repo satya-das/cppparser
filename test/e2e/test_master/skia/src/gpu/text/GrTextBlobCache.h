@@ -25,17 +25,16 @@ public:
         , fData(data)
         , fSizeBudget(kDefaultBudget)
         , fUniqueID(uniqueID)
-        , fPurgeBlobInbox(uniqueID) 
-    {
-
+        , fPurgeBlobInbox(uniqueID)
+  {
         SkASSERT(cb && data);
-        }
+  }
   ~GrTextBlobCache();
   sk_sp<GrTextBlob> makeBlob(const SkGlyphRunList& glyphRunList, GrColor color, GrStrikeCache* strikeCache)
   {
         return GrTextBlob::Make(
                 glyphRunList.totalGlyphCount(), glyphRunList.size(), color, strikeCache);
-    }
+  }
   sk_sp<GrTextBlob> makeCachedBlob(const SkGlyphRunList& glyphRunList, const GrTextBlob::Key& key, const SkMaskFilterBase::BlurRec& blurRec, const SkPaint& paint, GrColor color, GrStrikeCache* strikeCache)
   {
         sk_sp<GrTextBlob> cacheBlob(makeBlob(glyphRunList, color, strikeCache));
@@ -43,12 +42,12 @@ public:
         this->add(cacheBlob);
         glyphRunList.temporaryShuntBlobNotifyAddedToCache(fUniqueID);
         return cacheBlob;
-    }
+  }
   sk_sp<GrTextBlob> find(const GrTextBlob::Key& key) const
   {
         const auto* idEntry = fBlobIDCache.find(key.fUniqueID);
         return idEntry ? idEntry->find(key) : nullptr;
-    }
+  }
   void remove(GrTextBlob* blob)
   {
         auto  id      = GrTextBlob::GetKey(*blob).fUniqueID;
@@ -61,7 +60,7 @@ public:
         if (idEntry->fBlobs.empty()) {
             fBlobIDCache.remove(id);
         }
-    }
+  }
   void makeMRU(GrTextBlob* blob)
   {
         if (fBlobList.head() == blob) {
@@ -70,7 +69,7 @@ public:
 
         fBlobList.remove(blob);
         fBlobList.addToHead(blob);
-    }
+  }
   void freeAll();
     // TODO move to SkTextBlob
   static void BlobGlyphCount(int* glyphCount, int* runCount, const SkTextBlob* blob)
@@ -79,41 +78,43 @@ public:
         for (; !itCounter.done(); itCounter.next(), (*runCount)++) {
             *glyphCount += itCounter.glyphCount();
         }
-    }
+  }
   void setBudget(size_t budget)
   {
         fSizeBudget = budget;
         this->checkPurge();
-    }
+  }
   struct PurgeBlobMessage
   {
     PurgeBlobMessage(uint32_t blobID, uint32_t contextUniqueID)
-      :  fBlobID(blobID), fContextID(contextUniqueID) 
-      {
-      }
+      :  fBlobID(blobID), fContextID(contextUniqueID)
+    {
+    }
     uint32_t fBlobID;
     uint32_t fContextID;
   };
   static void PostPurgeBlobMessage(uint32_t blobID, uint32_t cacheID);
   void purgeStaleBlobs();
   size_t usedBytes() const
-  { return fCurrentSize; }
+  {
+ return fCurrentSize;
+  }
 private:
   using BitmapBlobList = SkTInternalLList<GrTextBlob>;
   struct BlobIDCacheEntry
   {
     BlobIDCacheEntry()
-      :  fID(SK_InvalidGenID) 
-      {
-      }
+      :  fID(SK_InvalidGenID)
+    {
+    }
     explicit BlobIDCacheEntry(uint32_t id)
-      :  fID(id) 
-      {
-      }
+      :  fID(id)
+    {
+    }
     static uint32_t GetKey(const BlobIDCacheEntry& entry)
     {
             return entry.fID;
-        }
+    }
     void addBlob(sk_sp<GrTextBlob> blob)
     {
             SkASSERT(blob);
@@ -121,7 +122,7 @@ private:
             SkASSERT(!this->find(GrTextBlob::GetKey(*blob)));
 
             fBlobs.emplace_back(std::move(blob));
-        }
+    }
     void removeBlob(GrTextBlob* blob)
     {
             SkASSERT(blob);
@@ -131,12 +132,12 @@ private:
             SkASSERT(index >= 0);
 
             fBlobs.removeShuffle(index);
-        }
+    }
     sk_sp<GrTextBlob> find(const GrTextBlob::Key& key) const
     {
             auto index = this->findBlobIndex(key);
             return index < 0 ? nullptr : fBlobs[index];
-        }
+    }
     int findBlobIndex(const GrTextBlob::Key& key) const
     {
             for (int i = 0; i < fBlobs.count(); ++i) {
@@ -145,7 +146,7 @@ private:
                 }
             }
             return -1;
-        }
+    }
     uint32_t fID;
         // Current clients don't generate multiple GrAtlasTextBlobs per SkTextBlob, so an array w/
         // linear search is acceptable.  If usage changes, we should re-evaluate this structure.
@@ -166,7 +167,7 @@ private:
         idEntry->addBlob(std::move(blob));
 
         this->checkPurge(rawBlobPtr);
-    }
+  }
   void checkPurge(GrTextBlob* blob = nullptr);
   static const int kMinGrowthSize = 1 << 16;
   static const int kDefaultBudget = 1 << 22;

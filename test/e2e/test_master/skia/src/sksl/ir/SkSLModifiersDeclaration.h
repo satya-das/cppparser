@@ -19,9 +19,9 @@ namespace SkSL
   {
     ModifiersDeclaration(Modifiers modifiers)
       :  INHERITED(-1, kModifiers_Kind)
-    , fModifiers(modifiers) 
-      {
-      }
+    , fModifiers(modifiers)
+    {
+    }
     std::unique_ptr<ProgramElement> clone() const override
     {
         return std::unique_ptr<ProgramElement>(new ModifiersDeclaration(fModifiers));

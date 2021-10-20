@@ -136,24 +136,21 @@ public:
 //
 inline AcGeVector3d::AcGeVector3d()
   :  x(0.0), y(0.0), z(0.0)
+{
 
-  {
-
-  }
+}
 inline AcGeVector3d::AcGeVector3d(const AcGeVector3d& src)
   :  x(src.x),y(src.y),z(src.z)
+{
 
-  {
-
-  }
+}
 // Creates a vector intialized to ( xx, yy, zz ).
 //
 inline AcGeVector3d::AcGeVector3d(double xx, double yy, double zz)
   :  x(xx),y(yy),z(zz)
+{
 
-  {
-
-  }
+}
 inline bool AcGeVector3d::operator ==(const AcGeVector3d& v) const
 {
     return this->isEqualTo(v);

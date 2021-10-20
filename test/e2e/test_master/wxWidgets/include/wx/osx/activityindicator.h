@@ -16,16 +16,14 @@ class WXDLLIMPEXP_ADV wxActivityIndicator : public wxActivityIndicatorBase
 public:
   wxActivityIndicator()
   {
-
         Init();
-      }
+  }
   explicit wxActivityIndicator(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxActivityIndicatorNameStr)
   {
-
         Init();
 
         Create(parent, winid, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxActivityIndicatorNameStr);
   void Start() override;
   void Stop() override;
@@ -33,7 +31,9 @@ public:
 private:
     // Common part of all ctors.
   void Init()
-  { m_isRunning = false; }
+  {
+ m_isRunning = false;
+  }
   bool m_isRunning;
   wxDECLARE_DYNAMIC_CLASS(wxActivityIndicator);
   wxDECLARE_NO_COPY_CLASS(wxActivityIndicator);

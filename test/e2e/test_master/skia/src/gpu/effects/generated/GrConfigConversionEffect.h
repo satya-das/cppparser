@@ -130,7 +130,7 @@ public:
         }
 
         return true;
-    }
+  }
   static std::unique_ptr<GrFragmentProcessor> Make(std::unique_ptr<GrFragmentProcessor> fp, PMConversion pmConversion)
   {
         if (!fp) {
@@ -139,18 +139,20 @@ public:
         std::unique_ptr<GrFragmentProcessor> ccFP(new GrConfigConversionEffect(pmConversion));
         std::unique_ptr<GrFragmentProcessor> fpPipeline[] = {std::move(fp), std::move(ccFP)};
         return GrFragmentProcessor::RunInSeries(fpPipeline, 2);
-    }
+  }
   GrConfigConversionEffect(const GrConfigConversionEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "ConfigConversionEffect"; }
+  {
+ return "ConfigConversionEffect";
+  }
   PMConversion pmConversion;
 private:
   GrConfigConversionEffect(PMConversion pmConversion)
     :  INHERITED(kGrConfigConversionEffect_ClassID, kNone_OptimizationFlags)
-            , pmConversion(pmConversion) 
-    {
-    }
+            , pmConversion(pmConversion)
+  {
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

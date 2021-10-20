@@ -16,13 +16,13 @@ namespace SkSL
   struct NullLiteral : public Expression
   {
     NullLiteral(const Context& context, int offset)
-      :  INHERITED(offset, kNullLiteral_Kind, *context.fNull_Type) 
-      {
-      }
+      :  INHERITED(offset, kNullLiteral_Kind, *context.fNull_Type)
+    {
+    }
     NullLiteral(int offset, const Type& type)
-      :  INHERITED(offset, kNullLiteral_Kind, type) 
-      {
-      }
+      :  INHERITED(offset, kNullLiteral_Kind, type)
+    {
+    }
     String description() const override
     {
         return "null";

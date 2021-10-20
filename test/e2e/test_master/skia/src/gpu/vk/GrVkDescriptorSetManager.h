@@ -32,7 +32,9 @@ public:
   void abandon();
   void release(GrVkGpu* gpu);
   VkDescriptorSetLayout layout() const
-  { return fPoolManager.fDescLayout; }
+  {
+ return fPoolManager.fDescLayout;
+  }
   const GrVkDescriptorSet* getDescriptorSet(GrVkGpu* gpu, const Handle& handle);
   void recycleDescriptorSet(const GrVkDescriptorSet*);
   bool isCompatible(VkDescriptorType type, const GrVkUniformHandler*) const;
@@ -43,10 +45,9 @@ private:
     DescriptorPoolManager(VkDescriptorType type, GrVkGpu* gpu, const SkTArray<uint32_t>& visibilities, const SkTArray<const GrVkSampler*>& immutableSamplers);
     ~DescriptorPoolManager()
     {
-
             SkASSERT(!fDescLayout);
             SkASSERT(!fPool);
-            }
+    }
     void getNewDescriptorSet(GrVkGpu* gpu, VkDescriptorSet* ds);
     void freeGPUResources(GrVkGpu* gpu);
     void abandonGPUResources();
@@ -61,7 +62,7 @@ private:
             kUniformDescPerSet = 1,
             kMaxDescriptors = 1024,
             kStartNumDescriptors = 16, // must be less than kMaxUniformDescriptors
-        };
+    };
     void getNewPool(GrVkGpu* gpu);
   };
   GrVkDescriptorSetManager(GrVkGpu* gpu, VkDescriptorType, const SkTArray<uint32_t>& visibilities, const SkTArray<const GrVkSampler*>& immutableSamplers);

@@ -29,7 +29,7 @@ struct SkAdvancedTypefaceMetrics
         kAllCaps_Style     = 0x00010000,
         kSmallCaps_Style   = 0x00020000,
         kForceBold_Style   = 0x00040000
-    };
+  };
   StyleFlags fStyle = (StyleFlags) 0;
   enum FontType : uint8_t {
         kType1_Font,
@@ -37,7 +37,7 @@ struct SkAdvancedTypefaceMetrics
         kCFF_Font,
         kTrueType_Font,
         kOther_Font,
-    };
+  };
     // The type of the underlying font program.  This field determines which
     // of the following fields are valid.  If it is kOther_Font the per glyph
     // information will never be populated.
@@ -46,7 +46,7 @@ struct SkAdvancedTypefaceMetrics
         kMultiMaster_FontFlag    = 0x01,  //!<May be true for Type1, CFF, or TrueType fonts.
         kNotEmbeddable_FontFlag  = 0x02,  //!<May not be embedded.
         kNotSubsettable_FontFlag = 0x04,  //!<May not be subset.
-    };
+  };
   FontFlags fFlags = (FontFlags) 0;
   int16_t fItalicAngle = 0;
                                // dominant vertical stroke for an Italic face.

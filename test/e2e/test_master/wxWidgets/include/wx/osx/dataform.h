@@ -22,24 +22,35 @@ public:
   wxDataFormat(NativeFormat vFormat);
   ~wxDataFormat();
   wxDataFormat& operator=(NativeFormat vFormat)
-  { SetId(vFormat); return *this; }
+  {
+ SetId(vFormat); return *this;
+  }
     // comparison (must have both versions)
   bool operator==(const wxDataFormat& format) const;
   bool operator!=(const wxDataFormat& format) const
-  { return ! ( *this == format ); }
+  {
+ return ! ( *this == format );
+  }
   bool operator==(wxDataFormatId format) const
-  { return m_type == (wxDataFormatId)format; }
+  {
+ return m_type == (wxDataFormatId)format;
+  }
   bool operator!=(wxDataFormatId format) const
-  { return m_type != (wxDataFormatId)format; }
+  {
+ return m_type != (wxDataFormatId)format;
+  }
   wxDataFormat& operator=(const wxDataFormat& format);
     // explicit and implicit conversions to NativeFormat which is one of
     // standard data types (implicit conversion is useful for preserving the
     // compatibility with old code)
   NativeFormat GetFormatId() const
-  { return m_format; }
+  {
+ return m_format;
+  }
   operator NativeFormat() const
   {
- return m_format;   }
+ return m_format;
+  }
   void SetId(NativeFormat format);
     // string ids are used for custom types - this SetId() must be used for
     // application-specific formats
@@ -47,12 +58,16 @@ public:
   void SetId(const wxString& pId);
     // implementation
   wxDataFormatId GetType() const
-  { return m_type; }
+  {
+ return m_type;
+  }
   void SetType(wxDataFormatId type);
   static NativeFormat GetFormatForType(wxDataFormatId type);
     // returns true if the format is one of those defined in wxDataFormatId
   bool IsStandard() const
-  { return m_type > 0 && m_type < wxDF_PRIVATE; }
+  {
+ return m_type > 0 && m_type < wxDF_PRIVATE;
+  }
     // adds all the native formats for this format when calling a GetData
   void AddSupportedTypesForGetting(CFMutableArrayRef types) const;
     // adds all the native formats for this format when calling a SetData

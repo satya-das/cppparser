@@ -191,7 +191,6 @@ typedef enum {
     // should be displayed. The sender will issue a GetTipRect to position a
     // text tip and then send DrawTip to render the tip.
     kAdUiReply_DrawTip,
-
 } ADUI_REPLY;
 typedef enum {
     // Cancelled: notes that a command in the drawing editor was cancelled.
@@ -204,7 +203,6 @@ typedef enum {
 
     // Begun: notes that a command in the drawing editor has started.
     kAdUiCommand_Begun,
-
 } ADUI_COMMAND_STATE;
 typedef enum {
     // Begun: notifies that modal dialog is started.

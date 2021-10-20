@@ -174,34 +174,34 @@ namespace PoDoFo
   void PdfParserObject::SetObjectNumber(unsigned int nObjNo)
   {
     m_reference.SetObjectNumber( nObjNo );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfParserObject::IsLoadOnDemand() const
   {
     return m_bLoadOnDemand;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfParserObject::SetLoadOnDemand(bool bDelayed)
   {
     m_bLoadOnDemand = bDelayed;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfParserObject::HasStreamToParse() const
   {
     return m_bStream;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   pdf_int64 PdfParserObject::GetOffset(void) const
   {
 	return static_cast<pdf_int64>(m_lOffset);
-}
+  }
 }
 #endif

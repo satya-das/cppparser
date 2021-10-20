@@ -18,13 +18,14 @@ public:
         , fBBH(std::move(bbh))
         , fDrawableList(std::move(drawableList))
         , fBounds(bounds)
-    
-    {
-    }
+  {
+  }
   void flatten(SkWriteBuffer& buffer) const override;
 protected:
   SkRect onGetBounds() override
-  { return fBounds; }
+  {
+ return fBounds;
+  }
   void onDraw(SkCanvas* canvas) override;
   SkPicture* onNewPictureSnapshot() override;
 private:

@@ -31,7 +31,7 @@ public:
         kInitZero          = 1,
         kInitLocalTime     = 2,
         kInitUniversalTime = 3
-    };
+  };
   AcDbDate();
   AcDbDate(InitialValue i);
   AcDbDate(const AcDbDate&);

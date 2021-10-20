@@ -18,9 +18,13 @@ class GrTextureProxy : public GrSurfaceProxy
 {
 public:
   GrTextureProxy* asTextureProxy() override
-  { return this; }
+  {
+ return this;
+  }
   const GrTextureProxy* asTextureProxy() const override
-  { return this; }
+  {
+ return this;
+  }
     // Actually instantiate the backing texture, if necessary
   bool instantiate(GrResourceProvider*) override;
   GrSamplerState::Filter highestFilterMode() const;
@@ -35,28 +39,32 @@ public:
         SkASSERT((GrMipMapped::kNo == fMipMapped) ==
                  (GrMipMapsStatus::kNotAllocated == fMipMapsStatus));
         return GrMipMapped::kYes == fMipMapped && GrMipMapsStatus::kValid != fMipMapsStatus;
-    }
+  }
   void markMipMapsDirty()
   {
         SkASSERT(GrMipMapped::kYes == fMipMapped);
         fMipMapsStatus = GrMipMapsStatus::kDirty;
-    }
+  }
   void markMipMapsClean()
   {
         SkASSERT(GrMipMapped::kYes == fMipMapped);
         fMipMapsStatus = GrMipMapsStatus::kValid;
-    }
+  }
     // Returns the GrMipMapped value of the proxy from creation time regardless of whether it has
     // been instantiated or not.
   GrMipMapped proxyMipMapped() const
-  { return fMipMapped; }
+  {
+ return fMipMapped;
+  }
   GrTextureType textureType() const
-  { return this->backendFormat().textureType(); }
+  {
+ return this->backendFormat().textureType();
+  }
     /** If true then the texture does not support MIP maps and only supports clamp wrap mode. */
   bool hasRestrictedSampling() const
   {
         return GrTextureTypeHasRestrictedSampling(this->textureType());
-    }
+  }
     // Returns true if the passed in proxies can be used as dynamic state together when flushing
     // draws to the gpu.
   static bool ProxiesAreCompatibleAsDynamicState(const GrTextureProxy* first, const GrTextureProxy* second);
@@ -80,7 +88,7 @@ public:
 #endif
 
         return fUniqueKey;
-    }
+  }
     /**
      * Internal-only helper class used for manipulations of the resource by the cache.
      */
@@ -114,7 +122,9 @@ protected:
   virtual ~GrTextureProxy();
   sk_sp<GrSurface> createSurface(GrResourceProvider*) const override;
   void setTargetKeySync(bool sync)
-  { fSyncTargetKey = sync; }
+  {
+ fSyncTargetKey = sync;
+  }
 private:
     // WARNING: Be careful when adding or removing fields here. ASAN is likely to trigger warnings
     // when instantiating GrTextureRenderTargetProxy. The std::function in GrSurfaceProxy makes

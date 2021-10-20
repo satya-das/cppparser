@@ -47,11 +47,11 @@ class AcDbBreakPointRef : public AcDbObject
 {
   ACDB_DECLARE_MEMBERS(AcDbBreakPointRef);
 public:
-  enum BreakPointType { 
+  enum BreakPointType {
         kDynamic           = 0,
         kStatic            = 1,
         kStatic2Point      = 2
-    };
+  };
   AcDbBreakPointRef();
   virtual ~AcDbBreakPointRef();
   AcDbBreakPointRef::BreakPointType pointType() const;

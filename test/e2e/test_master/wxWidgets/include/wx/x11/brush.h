@@ -24,13 +24,16 @@ class WXDLLIMPEXP_CORE wxBrush : public wxBrushBase
 public:
   wxBrush()
   {
-   }
+
+  }
   wxBrush(const wxColour& colour, wxBrushStyle style = wxBRUSHSTYLE_SOLID);
   wxBrush(const wxBitmap& stippleBitmap);
   virtual ~wxBrush();
   bool operator==(const wxBrush& brush) const;
   bool operator!=(const wxBrush& brush) const
-  { return !(*this == brush); }
+  {
+ return !(*this == brush);
+  }
   wxBrushStyle GetStyle() const;
   wxColour GetColour() const;
   wxBitmap* GetStipple() const;
@@ -40,7 +43,9 @@ public:
   void SetStipple(const wxBitmap& stipple);
   wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants") wxBrush(const wxColour& col, int style);
   wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants") void SetStyle(int style)
-  { SetStyle((wxBrushStyle)style); }
+  {
+ SetStyle((wxBrushStyle)style);
+  }
 protected:
   virtual wxGDIRefData* CreateGDIRefData() const;
   virtual wxGDIRefData* CloneGDIRefData(const wxGDIRefData* data) const;

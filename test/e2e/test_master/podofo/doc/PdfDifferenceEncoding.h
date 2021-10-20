@@ -108,9 +108,9 @@ namespace PoDoFo
     {
     public:
       inline bool operator()(const TDifference& rDif1, const TDifference& rDif2) const
-      { 
+      {
               return rDif1.nCode < rDif2.nCode;
-          }
+      }
     };
     TVecDifferences m_vecDifferences;
   };
@@ -120,7 +120,7 @@ namespace PoDoFo
   inline size_t PdfEncodingDifference::GetCount() const
   {
     return m_vecDifferences.size();
-}
+  }
 /** PdfDifferenceEncoding is an encoding, which is based
  *  on either the fonts encoding or a predefined encoding
  *  and defines differences to this base encoding.
@@ -280,27 +280,27 @@ namespace PoDoFo
   inline const PdfName& PdfDifferenceEncoding::GetID() const
   {
     return m_id;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfDifferenceEncoding::IsAutoDelete() const
   {
     return m_bAutoDelete;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfDifferenceEncoding::IsSingleByteEncoding() const
   {
     return true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline const PdfEncodingDifference& PdfDifferenceEncoding::GetDifferences() const
   {
     return m_differences;
-}
+  }
 }
 #endif

@@ -26,7 +26,7 @@ public:
   {
         static const char* category = "skiaATrace";
         return category;
-    }
+  }
 private:
   void (*fBeginSection) (const char*);
   void (*fEndSection) (void);

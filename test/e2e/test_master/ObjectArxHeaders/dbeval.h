@@ -612,12 +612,11 @@ public:
     /// </summary>
     /// 
   enum NodeId {
-        
         /// <summary>
         /// Null node Id. 
         /// </summary>
         kNullNodeId = 0
-    };
+  };
   ACDB_DECLARE_MEMBERS(AcDbEvalGraph);
     /// <summary>
     /// Default constructor, constructs an empty graph.
@@ -1306,12 +1305,10 @@ public:
     ///Adesk::UInt32 </summary>
   AcDbEvalEdgeInfo()
     :  mFlags(0), mRefCount(0)
-    
-    {
-
+  {
         mIdFrom = AcDbEvalGraph::kNullNodeId;
         mIdTo = AcDbEvalGraph::kNullNodeId;
-        }
+  }
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -1330,9 +1327,8 @@ public:
     /// </param>
   AcDbEvalEdgeInfo(AcDbEvalNodeId from, AcDbEvalNodeId to, Adesk::Int32 flags, Adesk::UInt32 count)
     :  mIdFrom(from), mIdTo(to), mFlags(flags), mRefCount(count)
-        
-    {
-    }
+  {
+  }
     /// <summary>
     /// The originating node of the edge.
     /// </summary>

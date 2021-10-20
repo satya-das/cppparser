@@ -35,7 +35,7 @@ public:
                       (flags & wxSOUND_ASYNC) != 0,
                      wxT("sound can only be looped asynchronously") );
         return DoPlay(flags);
-    }
+  }
     // Plays sound from filename:
   static bool Play(const wxString& filename, unsigned flags = wxSOUND_ASYNC);
 protected:

@@ -29,7 +29,7 @@ public:
   void writeDataAsByteArray(SkData* data)
   {
         this->writeByteArray(data->data(), data->size());
-    }
+  }
   virtual void writeBool(bool value) = 0;
   virtual void writeScalar(SkScalar value) = 0;
   virtual void writeScalarArray(const SkScalar* value, uint32_t count) = 0;
@@ -39,7 +39,7 @@ public:
   void write32(int32_t value)
   {
         this->writeInt(value);
-    }
+  }
   virtual void writeString(const char* value) = 0;
   virtual void writeFlattenable(const SkFlattenable* flattenable) = 0;
   virtual void writeColor(SkColor color) = 0;
@@ -59,7 +59,9 @@ public:
   virtual void writeTypeface(SkTypeface* typeface) = 0;
   virtual void writePaint(const SkPaint& paint) = 0;
   void setSerialProcs(const SkSerialProcs& procs)
-  { fProcs = procs; }
+  {
+ fProcs = procs;
+  }
 protected:
   SkSerialProcs fProcs;
   friend class SkPicturePriv;
@@ -76,17 +78,19 @@ public:
   void write(const void* buffer, size_t bytes)
   {
         fWriter.write(buffer, bytes);
-    }
+  }
   void writePad32(const void* buffer, size_t bytes) override
   {
         fWriter.writePad(buffer, bytes);
-    }
+  }
   void reset(void* storage = nullptr, size_t storageSize = 0)
   {
         fWriter.reset(storage, storageSize);
-    }
+  }
   size_t bytesWritten() const
-  { return fWriter.bytesWritten(); }
+  {
+ return fWriter.bytesWritten();
+  }
     // Returns true iff all of the bytes written so far are stored in the initial storage
     // buffer provided in the constructor or the most recent call to reset.
   bool usingInitialStorage() const;
@@ -117,7 +121,9 @@ public:
   void writePaint(const SkPaint& paint) override;
   bool writeToStream(SkWStream*) const;
   void writeToMemory(void* dst) const
-  { fWriter.flatten(dst); }
+  {
+ fWriter.flatten(dst);
+  }
   void setFactoryRecorder(sk_sp<SkFactorySet>);
   void setTypefaceRecorder(sk_sp<SkRefCntSet>);
 private:

@@ -47,7 +47,9 @@
 typedef unsigned short wchar_t;
 #   define _WCHAR_T_DEFINED
 #  endif
-# endif/* To disable automatic library usage for GLUT, define GLUT_NO_LIB_PRAGMA
+# endif
+
+/* To disable automatic library usage for GLUT, define GLUT_NO_LIB_PRAGMA
    in your compile preprocessor options. */
 #    if  !defined(GLUT_BUILDING_LIB) && !defined(GLUT_NO_LIB_PRAGMA)
 #      pragma  comment (lib, "winmm.lib")      /* link with Windows MultiMedia lib */
@@ -447,7 +449,9 @@ extern "C" {
   GLUTAPI void APIENTRY __glutInitWithExit(int* argcp, char** argv, void (__cdecl *exitfunc) (int));
 #    ifndef GLUT_BUILDING_LIB
   static void APIENTRY glutInit_ATEXIT_HACK(int* argcp, char** argv)
-  { __glutInitWithExit(argcp, argv, exit); }
+  {
+ __glutInitWithExit(argcp, argv, exit);
+  }
 #      define glutInit	glutInit_ATEXIT_HACK
 #    endif
 #  endif
@@ -464,7 +468,9 @@ extern "C" {
   GLUTAPI int APIENTRY __glutCreateWindowWithExit(const char* title, void (__cdecl *exitfunc) (int));
 #    ifndef GLUT_BUILDING_LIB
   static int APIENTRY glutCreateWindow_ATEXIT_HACK(const char* title)
-  { return __glutCreateWindowWithExit(title, exit); }
+  {
+ return __glutCreateWindowWithExit(title, exit);
+  }
 #      define glutCreateWindow	glutCreateWindow_ATEXIT_HACK
 #    endif
 #  endif
@@ -509,7 +515,9 @@ extern "C" {
   GLUTAPI int APIENTRY __glutCreateMenuWithExit(void (GLUTCALLBACK *func) (int), void (__cdecl *exitfunc) (int));
 #    ifndef GLUT_BUILDING_LIB
   static int APIENTRY glutCreateMenu_ATEXIT_HACK(void (GLUTCALLBACK *func) (int))
-  { return __glutCreateMenuWithExit(func, exit); }
+  {
+ return __glutCreateMenuWithExit(func, exit);
+  }
 #      define glutCreateMenu	glutCreateMenu_ATEXIT_HACK
 #    endif
 #  endif

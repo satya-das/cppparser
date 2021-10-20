@@ -16,18 +16,18 @@ public:
   GrBackendFormat backendFormat() const override
   {
         return GrMtlTexture::backendFormat();
-    }
+  }
 protected:
   void onAbandon() override
   {
         GrMtlRenderTarget::onAbandon();
         GrMtlTexture::onAbandon();
-    }
+  }
   void onRelease() override
   {
         GrMtlRenderTarget::onRelease();
         GrMtlTexture::onRelease();
-    }
+  }
 private:
   GrMtlTextureRenderTarget(GrMtlGpu* gpu, SkBudgeted budgeted, const GrSurfaceDesc& desc, int sampleCnt, id<MTLTexture> colorTexture, id<MTLTexture> resolveTexture, GrMipMapsStatus);
   GrMtlTextureRenderTarget(GrMtlGpu* gpu, SkBudgeted budgeted, const GrSurfaceDesc& desc, id<MTLTexture> colorTexture, GrMipMapsStatus);
@@ -44,6 +44,6 @@ private:
         }
         return GrSurface::ComputeSize(this->config(), this->width(), this->height(),
                                       numColorSamples, GrMipMapped::kNo);
-    }
+  }
 };
 #endif

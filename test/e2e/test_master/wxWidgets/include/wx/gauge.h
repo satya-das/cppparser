@@ -44,9 +44,10 @@ public:
 #if wxGAUGE_EMULATE_INDETERMINATE_MODE
         m_nDirection(wxRIGHT),
 #endif
-        m_appProgressIndicator(NULL) 
-    {
-     }
+        m_appProgressIndicator(NULL)
+  {
+
+  }
   virtual ~wxGaugeBase();
   bool Create(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxGA_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxGaugeNameStr));
     // determinate mode API
@@ -60,22 +61,36 @@ public:
   virtual void Pulse();
     // simple accessors
   bool IsVertical() const
-  { return HasFlag(wxGA_VERTICAL); }
+  {
+ return HasFlag(wxGA_VERTICAL);
+  }
     // overridden base class virtuals
   bool AcceptsFocus() const override
-  { return false; }
+  {
+ return false;
+  }
     // Deprecated methods not doing anything since a long time.
   wxDEPRECATED_MSG("Remove calls to this method, it doesn't do anything") void SetShadowWidth(int)
-  { }
+  {
+
+  }
   wxDEPRECATED_MSG("Remove calls to this method, it always returns 0") int GetShadowWidth() const
-  { return 0; }
+  {
+ return 0;
+  }
   wxDEPRECATED_MSG("Remove calls to this method, it doesn't do anything") void SetBezelFace(int)
-  { }
+  {
+
+  }
   wxDEPRECATED_MSG("Remove calls to this method, it always returns 0") int GetBezelFace() const
-  { return 0; }
+  {
+ return 0;
+  }
 protected:
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
     // Initialize m_appProgressIndicator if necessary, i.e. if this object has
     // wxGA_PROGRESS style. This method is supposed to be called from the
     // derived class Create() if it doesn't call the base class Create(), which

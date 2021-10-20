@@ -18,9 +18,10 @@ class WXDLLIMPEXP_CORE wxScrollHelper : public wxScrollHelperBase
 public:
     // default ctor doesn't do anything
   wxScrollHelper(wxWindow* win)
-    :  wxScrollHelperBase(win) 
-    {
-     }
+    :  wxScrollHelperBase(win)
+  {
+
+  }
     // implement the base class methods
   void SetScrollbars(int pixelsPerUnitX, int pixelsPerUnitY, int noUnitsX, int noUnitsY, int xPos = 0, int yPos = 0, bool noRefresh = false) override;
   void AdjustScrollbars() override;
@@ -39,7 +40,7 @@ private:
             m_xScrollPixelsPerLine, winSize, virtSize,
             &m_xScrollPosition, &m_xScrollLines, &m_xScrollLinesPerPage
         );
-    }
+  }
   void DoAdjustVScrollbar(int winSize, int virtSize)
   {
         DoAdjustScrollbar
@@ -48,7 +49,7 @@ private:
             m_yScrollPixelsPerLine, winSize, virtSize,
             &m_yScrollPosition, &m_yScrollLines, &m_yScrollLinesPerPage
         );
-    }
+  }
     // and this does the same for Scroll()
   void DoScrollOneDir(int orient, int pos, int pixelsPerLine, int* posOld);
   wxDECLARE_NO_COPY_CLASS(wxScrollHelper);

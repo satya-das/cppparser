@@ -66,7 +66,7 @@ public:
         this->SetValue(dt);
 
         return true;
-    }
+  }
     // Get the current time components. All pointers must be non-NULL.
   bool GetTime(int* hour, int* min, int* sec) const
   {
@@ -79,7 +79,7 @@ public:
         *sec = tm.sec;
 
         return true;
-    }
+  }
 };
 // This class is defined mostly for compatibility and is used as the base class
 // by native wxTimePickerCtrl implementations.
@@ -97,13 +97,13 @@ class WXDLLIMPEXP_ADV wxTimePickerCtrl : public wxTimePickerCtrlGeneric
 public:
   wxTimePickerCtrl()
   {
-   }
+
+  }
   wxTimePickerCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTP_DEFAULT, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxTimePickerCtrlNameStr)
     :  wxTimePickerCtrlGeneric(parent, id, date, pos, size, style, validator, name)
-        
-    {
+  {
 
-            }
+  }
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxTimePickerCtrl);
 };
 #    endif

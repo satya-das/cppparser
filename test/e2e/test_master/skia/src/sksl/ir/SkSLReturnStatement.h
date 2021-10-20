@@ -16,14 +16,14 @@ namespace SkSL
   struct ReturnStatement : public Statement
   {
     ReturnStatement(int offset)
-      :  INHERITED(offset, kReturn_Kind) 
-      {
-      }
+      :  INHERITED(offset, kReturn_Kind)
+    {
+    }
     ReturnStatement(std::unique_ptr<Expression> expression)
       :  INHERITED(expression->fOffset, kReturn_Kind)
-    , fExpression(std::move(expression)) 
-      {
-      }
+    , fExpression(std::move(expression))
+    {
+    }
     std::unique_ptr<Statement> clone() const override
     {
         if (fExpression) {

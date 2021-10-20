@@ -41,20 +41,21 @@ class AcEdSSGetFilter : public AcEdInputContextReactor
 {
 public:
   virtual void ssgetAddFilter(int ssgetFlags, AcEdSelectionSetService& service, const AcDbObjectIdArray& selectionSet, const AcDbObjectIdArray& subSelectionSet)
-  { 
+  {
         ADESK_UNREFED_PARAM(ssgetFlags);
         ADESK_UNREFED_PARAM(service);
         ADESK_UNREFED_PARAM(selectionSet);
         ADESK_UNREFED_PARAM(subSelectionSet);
-    }
+  }
   virtual void ssgetRemoveFilter(int ssgetFlags, AcEdSelectionSetService& service, const AcDbObjectIdArray& selectionSet, const AcDbObjectIdArray& subSelectionSet, AcDbIntArray& removeIndexes, AcDbArrayIntArray& removeSubentIndexes)
-  { 
+  {
         ADESK_UNREFED_PARAM(ssgetFlags);
         ADESK_UNREFED_PARAM(service);
         ADESK_UNREFED_PARAM(selectionSet);
         ADESK_UNREFED_PARAM(subSelectionSet);
         ADESK_UNREFED_PARAM(removeIndexes);
-        ADESK_UNREFED_PARAM(removeSubentIndexes);}
+        ADESK_UNREFED_PARAM(removeSubentIndexes);
+  }
   virtual void ssgetAddFailed(int ssgetFlags, int ssgetMode, AcEdSelectionSetService& service, const AcDbObjectIdArray& selectionSet, resbuf* rbPoints)
   {
         ADESK_UNREFED_PARAM(ssgetFlags);
@@ -62,7 +63,7 @@ public:
         ADESK_UNREFED_PARAM(service);
         ADESK_UNREFED_PARAM(selectionSet);
         ADESK_UNREFED_PARAM(rbPoints);
-    }
+  }
   virtual void ssgetRemoveFailed(int ssgetFlags, int ssgetMode, AcEdSelectionSetService& service, const AcDbObjectIdArray& selectionSet, resbuf* rbPoints, AcDbIntArray& removeIndexes, AcDbArrayIntArray& removeSubentIndexes)
   {
         ADESK_UNREFED_PARAM(ssgetFlags);
@@ -72,21 +73,21 @@ public:
         ADESK_UNREFED_PARAM(rbPoints);
         ADESK_UNREFED_PARAM(removeIndexes);
         ADESK_UNREFED_PARAM(removeSubentIndexes);
-    }
+  }
   virtual void endSSGet(Acad::PromptStatus returnStatus, int ssgetFlags, AcEdSelectionSetService& service, const AcDbObjectIdArray& selectionSet)
   {
         ADESK_UNREFED_PARAM(returnStatus);
         ADESK_UNREFED_PARAM(ssgetFlags);
         ADESK_UNREFED_PARAM(service);
         ADESK_UNREFED_PARAM(selectionSet);
-    }
+  }
   virtual void endEntsel(Acad::PromptStatus returnStatus, const AcDbObjectId& pickedEntity, const AcGePoint3d& pickedPoint, AcEdSelectionSetService& service)
   {
         ADESK_UNREFED_PARAM(returnStatus);
         ADESK_UNREFED_PARAM(pickedEntity);
         ADESK_UNREFED_PARAM(pickedPoint);
         ADESK_UNREFED_PARAM(service);
-    }
+  }
 };
 Acad::ErrorStatus addSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter* pFilter);
 Acad::ErrorStatus removeSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter* pFilter);
@@ -114,7 +115,7 @@ namespace AcEdSSGet
     kAllViewports   = 2048,
     kForBoxPick     = 4096,
     kPreSelectionHilite = 8192
-};
+  };
   enum AcEdSSGetModes {
     kWin = 1,   //  (Window spec)
     kCross,     //  (Crossing spec)
@@ -131,7 +132,7 @@ namespace AcEdSSGet
     kGroup,     //  (selection set from "group" specification)
     kPrevious,  //  (previous selectionset)
     kMultiple,  //  (Multiple keyword)
-};
+  };
 }
 class AcEdSSGetFilter2 : public AcEdSSGetFilter
 {
@@ -140,7 +141,7 @@ public:
   {
         ADESK_UNREFED_PARAM(subEntityPath);
         ADESK_UNREFED_PARAM(highlightPath);
-    }
+  }
 };
 Acad::ErrorStatus addSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter2* pFilter);
 Acad::ErrorStatus removeSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter2* pFilter);
@@ -151,7 +152,7 @@ public:
   {
         ADESK_UNREFED_PARAM(subEntityPath);
         ADESK_UNREFED_PARAM(highlightPaths);
-    }
+  }
 };
 Acad::ErrorStatus addSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter3* pFilter);
 Acad::ErrorStatus removeSSgetFilterInputContextReactor(AcApDocument* pDoc, AcEdSSGetFilter3* pFilter);
@@ -166,7 +167,7 @@ public:
         ADESK_UNREFED_PARAM(xformres);
         ADESK_UNREFED_PARAM(refstkres);
         ADESK_UNREFED_PARAM(service);
-        }
+  }
   virtual void beginSSGetCustomKeywordCallback(const ACHAR*)
   {
   }

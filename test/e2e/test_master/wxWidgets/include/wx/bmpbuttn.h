@@ -28,12 +28,11 @@ class WXDLLIMPEXP_CORE wxBitmapButtonBase : public wxButton
 public:
   wxBitmapButtonBase()
   {
-
 #ifndef wxHAS_BUTTON_BITMAP
         m_marginX =
         m_marginY = 0;
 #endif // wxHAS_BUTTON_BITMAP
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID winid, const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator, const wxString& name)
   {
         // We use wxBU_NOTEXT to let the base class Create() know that we are
@@ -49,7 +48,7 @@ public:
                                 pos, size,
                                 style | wxBU_NOTEXT | wxBU_EXACTFIT,
                                 validator, name);
-    }
+  }
     /*
         Derived classes also need to declare, but not define, as it's done in
         common code in bmpbtncmn.cpp, the following function:
@@ -70,29 +69,39 @@ public:
   virtual void SetMargins(int x, int y)
   {
         DoSetBitmapMargins(x, y);
-    }
+  }
   int GetMarginX() const
-  { return DoGetBitmapMargins().x; }
+  {
+ return DoGetBitmapMargins().x;
+  }
   int GetMarginY() const
-  { return DoGetBitmapMargins().y; }
+  {
+ return DoGetBitmapMargins().y;
+  }
 #    ifndef wxHAS_BUTTON_BITMAP
 protected:
     // function called when any of the bitmaps changes
   virtual void OnSetBitmap()
-  { InvalidateBestSize(); Refresh(); }
+  {
+ InvalidateBestSize(); Refresh();
+  }
   virtual wxBitmap DoGetBitmap(State which) const
-  { return m_bitmaps[which]; }
+  {
+ return m_bitmaps[which];
+  }
   virtual void DoSetBitmap(const wxBitmap& bitmap, State which)
-  { m_bitmaps[which] = bitmap; OnSetBitmap(); }
+  {
+ m_bitmaps[which] = bitmap; OnSetBitmap();
+  }
   virtual wxSize DoGetBitmapMargins() const
   {
         return wxSize(m_marginX, m_marginY);
-    }
+  }
   virtual void DoSetBitmapMargins(int x, int y)
   {
         m_marginX = x;
         m_marginY = y;
-    }
+  }
     // the bitmaps for various states
   wxBitmap m_bitmaps[State_Max];
     // the margins around the bitmap

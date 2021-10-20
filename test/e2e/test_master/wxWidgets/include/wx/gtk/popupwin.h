@@ -16,11 +16,13 @@ class WXDLLIMPEXP_CORE wxPopupWindow : public wxPopupWindowBase
 public:
   wxPopupWindow()
   {
-   }
+
+  }
   virtual ~wxPopupWindow();
   wxPopupWindow(wxWindow* parent, int flags = wxBORDER_NONE)
   {
- (void)Create(parent, flags);   }
+ (void)Create(parent, flags);
+  }
   bool Create(wxWindow* parent, int flags = wxBORDER_NONE);
   bool Show(bool show = true) override;
   void SetFocus() override;

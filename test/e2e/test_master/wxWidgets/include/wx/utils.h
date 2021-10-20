@@ -165,41 +165,59 @@ class WXDLLIMPEXP_BASE wxPlatform
 public:
   wxPlatform()
   {
- Init();   }
+ Init();
+  }
   wxPlatform(const wxPlatform& platform)
   {
- Copy(platform);   }
+ Copy(platform);
+  }
   void operator =(const wxPlatform& platform)
-  { if (&platform != this) Copy(platform); }
+  {
+ if (&platform != this) Copy(platform);
+  }
   void Copy(const wxPlatform& platform);
     // Specify an optional default value
   wxPlatform(int defValue)
   {
- Init(); m_longValue = (long)defValue;   }
+ Init(); m_longValue = (long)defValue;
+  }
   wxPlatform(long defValue)
   {
- Init(); m_longValue = defValue;   }
+ Init(); m_longValue = defValue;
+  }
   wxPlatform(const wxString& defValue)
   {
- Init(); m_stringValue = defValue;   }
+ Init(); m_stringValue = defValue;
+  }
   wxPlatform(double defValue)
   {
- Init(); m_doubleValue = defValue;   }
+ Init(); m_doubleValue = defValue;
+  }
   static wxPlatform If(int platform, long value);
   static wxPlatform IfNot(int platform, long value);
   wxPlatform& ElseIf(int platform, long value);
   wxPlatform& ElseIfNot(int platform, long value);
   wxPlatform& Else(long value);
   static wxPlatform If(int platform, int value)
-  { return If(platform, (long)value); }
+  {
+ return If(platform, (long)value);
+  }
   static wxPlatform IfNot(int platform, int value)
-  { return IfNot(platform, (long)value); }
+  {
+ return IfNot(platform, (long)value);
+  }
   wxPlatform& ElseIf(int platform, int value)
-  { return ElseIf(platform, (long) value); }
+  {
+ return ElseIf(platform, (long) value);
+  }
   wxPlatform& ElseIfNot(int platform, int value)
-  { return ElseIfNot(platform, (long) value); }
+  {
+ return ElseIfNot(platform, (long) value);
+  }
   wxPlatform& Else(int value)
-  { return Else((long) value); }
+  {
+ return Else((long) value);
+  }
   static wxPlatform If(int platform, double value);
   static wxPlatform IfNot(int platform, double value);
   wxPlatform& ElseIf(int platform, double value);
@@ -211,29 +229,41 @@ public:
   wxPlatform& ElseIfNot(int platform, const wxString& value);
   wxPlatform& Else(const wxString& value);
   long GetInteger() const
-  { return m_longValue; }
+  {
+ return m_longValue;
+  }
   const wxString& GetString() const
-  { return m_stringValue; }
+  {
+ return m_stringValue;
+  }
   double GetDouble() const
-  { return m_doubleValue; }
+  {
+ return m_doubleValue;
+  }
   operator int() const
   {
- return (int) GetInteger();   }
+ return (int) GetInteger();
+  }
   operator long() const
   {
- return GetInteger();   }
+ return GetInteger();
+  }
   operator double() const
   {
- return GetDouble();   }
+ return GetDouble();
+  }
   operator const wxString&() const
   {
- return GetString();   }
+ return GetString();
+  }
   static void AddPlatform(int platform);
   static bool Is(int platform);
   static void ClearPlatforms();
 private:
   void Init()
-  { m_longValue = 0; m_doubleValue = 0.0; }
+  {
+ m_longValue = 0; m_doubleValue = 0.0;
+  }
   long m_longValue;
   double m_doubleValue;
   wxString m_stringValue;
@@ -241,7 +271,9 @@ private:
 };
 /// Function for testing current platform
 inline bool wxPlatformIs(int platform)
-{ return wxPlatform::Is(platform); }
+{
+ return wxPlatform::Is(platform);
+}
 // ----------------------------------------------------------------------------
 // Window ID management
 // ----------------------------------------------------------------------------
@@ -434,14 +466,22 @@ WXDLLIMPEXP_BASE bool wxSetEnv(const wxString& var, const wxString& value);
 WXDLLIMPEXP_BASE bool wxUnsetEnv(const wxString& var);
 #  if  WXWIN_COMPATIBILITY_2_8
 inline bool wxSetEnv(const wxString& var, const char* value)
-{ return wxSetEnv(var, wxString(value)); }
+{
+ return wxSetEnv(var, wxString(value));
+}
 inline bool wxSetEnv(const wxString& var, const wchar_t* value)
-{ return wxSetEnv(var, wxString(value)); }
+{
+ return wxSetEnv(var, wxString(value));
+}
 template <typename T>
 inline bool wxSetEnv(const wxString& var, const wxScopedCharTypeBuffer<T>& value)
-{ return wxSetEnv(var, wxString(value)); }
+{
+ return wxSetEnv(var, wxString(value));
+}
 inline bool wxSetEnv(const wxString& var, const wxCStrData& value)
-{ return wxSetEnv(var, wxString(value)); }
+{
+ return wxSetEnv(var, wxString(value));
+}
 // this one is for passing NULL directly - don't use it, use wxUnsetEnv instead
 inline bool wxSetEnv(const wxString& var, int value)
 {
@@ -607,10 +647,12 @@ class WXDLLIMPEXP_CORE wxBusyCursor
 public:
   wxBusyCursor(const wxCursor* cursor = wxHOURGLASS_CURSOR)
   {
- wxBeginBusyCursor(cursor);   }
+ wxBeginBusyCursor(cursor);
+  }
   ~wxBusyCursor()
   {
- wxEndBusyCursor();   }
+ wxEndBusyCursor();
+  }
     // FIXME: These two methods are currently only implemented (and needed?)
     //        in wxGTK.  BusyCursor handling should probably be moved to
     //        common code since the wxGTK and wxMSW implementations are very
@@ -630,7 +672,7 @@ enum wxDisplayType {
         wxDisplayNone,
         wxDisplayX11,
         wxDisplayWayland
-    };
+};
 struct wxDisplayInfo
 {
   void* dpy;

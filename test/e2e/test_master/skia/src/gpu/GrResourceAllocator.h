@@ -62,14 +62,18 @@ class GrResourceAllocator
 {
 public:
   GrResourceAllocator(GrResourceProvider* resourceProvider)
-    :  fResourceProvider(resourceProvider) SkDEBUGCODE(, fNumOpsTasks(numOpsTasks)) 
-    {
-    }
+    :  fResourceProvider(resourceProvider) SkDEBUGCODE(, fNumOpsTasks(numOpsTasks))
+  {
+  }
   ~GrResourceAllocator();
   unsigned int curOp() const
-  { return fNumOps; }
+  {
+ return fNumOps;
+  }
   void incOps()
-  { fNumOps++; }
+  {
+ fNumOps++;
+  }
     /** Indicates whether a given call to addInterval represents an actual usage of the
      *  provided proxy. This is mainly here to accomodate deferred proxies attached to opsTasks.
      *  In that case we need to create an extra long interval for them (due to the upload) but
@@ -78,14 +82,14 @@ public:
   enum class ActualUse : bool {
         kNo  = false,
         kYes = true
-    };
+  };
     // Add a usage interval from 'start' to 'end' inclusive. This is usually used for renderTargets.
     // If an existing interval already exists it will be expanded to include the new range.
   void addInterval(GrSurfaceProxy*, unsigned int start, unsigned int end, ActualUse actualUse);
   enum class AssignError {
         kNoError,
         kFailedProxyInstantiation
-    };
+  };
     // Returns true when the opsTasks from 'startIndex' to 'stopIndex' should be executed;
     // false when nothing remains to be executed.
     // If any proxy fails to instantiate, the AssignError will be set to kFailedProxyInstantiation.
@@ -112,11 +116,15 @@ private:
     static const GrScratchKey& GetKey(const GrSurface& s)
     {
             return s.resourcePriv().getScratchKey();
-        }
+    }
     static uint32_t Hash(const GrScratchKey& key)
-    { return key.hash(); }
+    {
+ return key.hash();
+    }
     static void OnFree(GrSurface* s)
-    { s->unref(); }
+    {
+ s->unref();
+    }
   };
   typedef SkTMultiMap<GrSurface, GrScratchKey, FreePoolTraits> FreePoolMultiMap;
   typedef SkTDynamicHash<Interval, unsigned int> IntvlHash;
@@ -128,16 +136,15 @@ private:
             , fProxyID(proxy->uniqueID().asUInt())
             , fStart(start)
             , fEnd(end)
-            , fNext(nullptr) 
-      {
-
+            , fNext(nullptr)
+    {
             SkASSERT(proxy);
 #if GR_TRACK_INTERVAL_CREATION
             fUniqueID = CreateUniqueID();
             SkDebugf("New intvl %d: proxyID: %d [ %d, %d ]\n",
                      fUniqueID, proxy->uniqueID().asUInt(), start, end);
 #endif
-              }
+    }
         // Used when recycling an interval
     void resetTo(GrSurfaceProxy* proxy, unsigned int start, unsigned int end)
     {
@@ -155,34 +162,55 @@ private:
             SkDebugf("New intvl %d: proxyID: %d [ %d, %d ]\n",
                      fUniqueID, proxy->uniqueID().asUInt(), start, end);
 #endif
-        }
+    }
     ~Interval()
     {
-
             SkASSERT(!fAssignedSurface);
-            }
+    }
     const GrSurfaceProxy* proxy() const
-    { return fProxy; }
+    {
+ return fProxy;
+    }
     GrSurfaceProxy* proxy()
-    { return fProxy; }
+    {
+ return fProxy;
+    }
     unsigned int start() const
-    { return fStart; }
+    {
+ return fStart;
+    }
     unsigned int end() const
-    { return fEnd; }
+    {
+ return fEnd;
+    }
     void setNext(Interval* next)
-    { fNext = next; }
+    {
+ fNext = next;
+    }
     const Interval* next() const
-    { return fNext; }
+    {
+ return fNext;
+    }
     Interval* next()
-    { return fNext; }
+    {
+ return fNext;
+    }
     void markAsRecyclable()
-    { fIsRecyclable = true;}
+    {
+ fIsRecyclable = true;
+    }
     bool isRecyclable() const
-    { return fIsRecyclable; }
+    {
+ return fIsRecyclable;
+    }
     void addUse()
-    { fUses++; }
+    {
+ fUses++;
+    }
     int uses()
-    { return fUses; }
+    {
+ return fUses;
+    }
     void extendEnd(unsigned int newEnd)
     {
             if (newEnd > fEnd) {
@@ -191,19 +219,25 @@ private:
                 SkDebugf("intvl %d: extending from %d to %d\n", fUniqueID, fEnd, newEnd);
 #endif
             }
-        }
+    }
     void assign(sk_sp<GrSurface>);
     bool wasAssignedSurface() const
-    { return fAssignedSurface != nullptr; }
+    {
+ return fAssignedSurface != nullptr;
+    }
     sk_sp<GrSurface> detachSurface()
-    { return std::move(fAssignedSurface); }
+    {
+ return std::move(fAssignedSurface);
+    }
         // for SkTDynamicHash
     static const uint32_t& GetKey(const Interval& intvl)
     {
             return intvl.fProxyID;
-        }
+    }
     static uint32_t Hash(const uint32_t& key)
-    { return key; }
+    {
+ return key;
+    }
   private:
     sk_sp<GrSurface> fAssignedSurface;
     GrSurfaceProxy* fProxy;
@@ -224,19 +258,22 @@ private:
     IntervalList();
     ~IntervalList()
     {
-
             // The only time we delete an IntervalList is in the GrResourceAllocator dtor.
             // Since the arena allocator will clean up for us we don't bother here.
-            }
+    }
     bool empty() const
     {
             SkASSERT(SkToBool(fHead) == SkToBool(fTail));
             return !SkToBool(fHead);
-        }
+    }
     const Interval* peekHead() const
-    { return fHead; }
+    {
+ return fHead;
+    }
     Interval* peekHead()
-    { return fHead; }
+    {
+ return fHead;
+    }
     Interval* popHead();
     void insertByIncreasingStart(Interval*);
     void insertByIncreasingEnd(Interval*);

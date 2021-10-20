@@ -27,37 +27,60 @@ class WXDLLIMPEXP_CORE wxOwnerDrawnBase
 public:
   wxOwnerDrawnBase()
   {
-
         m_ownerDrawn = false;
         m_margin = ms_defaultMargin;
-      }
+  }
   virtual ~wxOwnerDrawnBase()
   {
   }
   void SetFont(const wxFont& font)
-  { m_font = font; m_ownerDrawn = true; }
+  {
+ m_font = font; m_ownerDrawn = true;
+  }
   wxFont& GetFont()
-  { return m_font; }
+  {
+ return m_font;
+  }
   const wxFont& GetFont() const
-  { return m_font; }
+  {
+ return m_font;
+  }
   void SetTextColour(const wxColour& colText)
-  { m_colText = colText; m_ownerDrawn = true; }
+  {
+ m_colText = colText; m_ownerDrawn = true;
+  }
   wxColour& GetTextColour()
-  { return m_colText; }
+  {
+ return m_colText;
+  }
   const wxColour& GetTextColour() const
-  { return m_colText; }
+  {
+ return m_colText;
+  }
   void SetBackgroundColour(const wxColour& colBack)
-  { m_colBack = colBack; m_ownerDrawn = true; }
+  {
+ m_colBack = colBack; m_ownerDrawn = true;
+  }
   wxColour& GetBackgroundColour()
-  { return m_colBack; }
+  {
+ return m_colBack;
+  }
   const wxColour& GetBackgroundColour() const
-  { return m_colBack ; }
+  {
+ return m_colBack ;
+  }
   void SetMarginWidth(int width)
-  { m_margin = width; }
+  {
+ m_margin = width;
+  }
   int GetMarginWidth() const
-  { return m_margin; }
+  {
+ return m_margin;
+  }
   static int GetDefaultMarginWidth()
-  { return ms_defaultMargin; }
+  {
+ return ms_defaultMargin;
+  }
     // get item name (with mnemonics if exist)
   virtual wxString GetName() const = 0;
   // this function might seem strange, but if it returns false it means that
@@ -66,17 +89,21 @@ public:
   // want to change, say, the color for the item but only if it is owner-drawn
   // (see wxMenuItem::wxMenuItem for example)
   bool IsOwnerDrawn() const
-  { return m_ownerDrawn; }
+  {
+ return m_ownerDrawn;
+  }
     // switch on/off owner-drawing the item
   void SetOwnerDrawn(bool ownerDrawn = true)
-  { m_ownerDrawn = ownerDrawn; }
+  {
+ m_ownerDrawn = ownerDrawn;
+  }
     // constants used in OnDrawItem
     // (they have the same values as corresponding Win32 constants)
   enum wxODAction {
         wxODDrawAll       = 0x0001,     // redraw entire control
         wxODSelectChanged = 0x0002,     // selection changed (see Status.Select)
         wxODFocusChanged  = 0x0004      // keyboard focus changed (see Status.Focus)
-    };
+  };
   enum wxODStatus {
         wxODSelected  = 0x0001,         // control is currently selected
         wxODGrayed    = 0x0002,         // item is to be grayed
@@ -85,7 +112,7 @@ public:
         wxODHasFocus  = 0x0010,         // item has the keyboard focus
         wxODDefault   = 0x0020,         // item is the default item
         wxODHidePrefix= 0x0100          // hide keyboard cues (w2k and xp only)
-    };
+  };
     // virtual functions to implement drawing (return true if processed)
   virtual bool OnMeasureItem(size_t* width, size_t* height);
   virtual bool OnDrawItem(wxDC& dc, const wxRect& rc, wxODAction act, wxODStatus stat) = 0;

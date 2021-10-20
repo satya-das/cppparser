@@ -19,30 +19,31 @@ class WXDLLIMPEXP_CORE wxRadioBox : public wxStaticBox, public wxRadioBoxBase
 public:
   wxRadioBox()
   {
- Init();   }
+ Init();
+  }
   wxRadioBox(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr))
   {
-
         Init();
 
         (void)Create(parent, id, title, pos, size, n, choices, majorDim,
                      style, val, name);
-      }
+  }
   wxRadioBox(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr))
   {
-
         Init();
 
         (void)Create(parent, id, title, pos, size, choices, majorDim,
                      style, val, name);
-      }
+  }
   virtual ~wxRadioBox();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr));
     // implement the radiobox interface
   void SetSelection(int n) override;
   int GetSelection() const override
-  { return m_selectedButton; }
+  {
+ return m_selectedButton;
+  }
   unsigned int GetCount() const override;
   wxString GetString(unsigned int n) const override;
   void SetString(unsigned int n, const wxString& label) override;
@@ -68,17 +69,21 @@ public:
   wxString GetHelpTextAtPoint(const wxPoint& pt, wxHelpEvent::Origin origin) const override
   {
         return wxRadioBoxBase::DoGetHelpTextAtPoint( this, pt, origin );
-    }
+  }
 #  endif
   bool Reparent(wxWindowBase* newParent) override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  { return false; }
+  {
+ return false;
+  }
   void SetLabelFont(const wxFont&)
   {
   }
   void SetButtonFont(const wxFont& font)
-  { SetFont(font); }
+  {
+ SetFont(font);
+  }
     // implementation only from now on
     // -------------------------------
 
@@ -109,7 +114,9 @@ protected:
   void MSWUpdateFontOnDPIChange(const wxSize& newDPI) override;
     // resolve ambiguity in base classes
   wxBorder GetDefaultBorder() const override
-  { return wxRadioBoxBase::GetDefaultBorder(); }
+  {
+ return wxRadioBoxBase::GetDefaultBorder();
+  }
     // the buttons we contain
   wxSubwindows* m_radioButtons;
     // and the special dummy button used only as a tab group boundary

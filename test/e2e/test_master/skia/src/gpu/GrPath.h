@@ -24,15 +24,18 @@ public:
         , fFillType(GrPathRendering::kWinding_FillType)
         , fSkPath(skPath)
         , fStyle(style)
-    
-    {
+  {
 
-        }
+  }
   static void ComputeKey(const GrShape&, GrUniqueKey* key, bool* outIsVolatile);
   const SkRect& getBounds() const
-  { return fBounds; }
+  {
+ return fBounds;
+  }
   GrPathRendering::FillType getFillType() const
-  { return fFillType; }
+  {
+ return fFillType;
+  }
 #  ifdef SK_DEBUG
   bool isEqualTo(const SkPath& path, const GrStyle& style) const;
 #  endif
@@ -46,7 +49,9 @@ protected:
 #  endif
 private:
   const char* getResourceType() const override
-  { return "Path Data"; }
+  {
+ return "Path Data";
+  }
   typedef GrGpuResource INHERITED;
 };
 #endif

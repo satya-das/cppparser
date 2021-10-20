@@ -19,11 +19,13 @@ public:
   VkCommandPool vkCommandPool() const
   {
         return fCommandPool;
-    }
+  }
   void reset(GrVkGpu* gpu);
   void releaseResources(GrVkGpu* gpu);
   GrVkPrimaryCommandBuffer* getPrimaryCommandBuffer()
-  { return fPrimaryCommandBuffer.get(); }
+  {
+ return fPrimaryCommandBuffer.get();
+  }
   std::unique_ptr<GrVkSecondaryCommandBuffer> findOrCreateSecondaryCommandBuffer(GrVkGpu* gpu);
   void recycleSecondaryCommandBuffer(GrVkSecondaryCommandBuffer* buffer);
     // marks that we are finished with this command pool; it is not legal to continue creating or
@@ -31,12 +33,14 @@ public:
   void close();
     // returns true if close() has not been called
   bool isOpen() const
-  { return fOpen; }
+  {
+ return fOpen;
+  }
 #  ifdef SK_DEBUG
   void dumpInfo() const override
   {
         SkDebugf("GrVkCommandPool: %p (%d refs)\n", fCommandPool, this->getRefCnt());
-    }
+  }
 #  endif
 private:
   GrVkCommandPool() = delete;

@@ -16,7 +16,8 @@ class WXDLLIMPEXP_CORE wxControlWithItems : public wxControlWithItemsBase
 public:
   wxControlWithItems()
   {
-   }
+
+  }
 protected:
     // preallocate memory for inserting the given new items into the control
     // using the wm message (normally either LB_INITSTORAGE or CB_INITSTORAGE)
@@ -28,7 +29,9 @@ protected:
     // the derived control is composed of several windows, this method can be
     // overridden to return the real list/combobox control
   virtual WXHWND MSWGetItemsHWND() const
-  { return GetHWND(); }
+  {
+ return GetHWND();
+  }
   wxDECLARE_ABSTRACT_CLASS(wxControlWithItems);
   wxDECLARE_NO_COPY_CLASS(wxControlWithItems);
 };

@@ -82,13 +82,13 @@ class WXDLLIMPEXP_ADV wxDatePickerCtrl : public wxDatePickerCtrlGeneric
 public:
   wxDatePickerCtrl()
   {
-   }
+
+  }
   wxDatePickerCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDP_DEFAULT | wxDP_SHOWCENTURY, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxDatePickerCtrlNameStr)
     :  wxDatePickerCtrlGeneric(parent, id, date, pos, size, style, validator, name)
-        
-    {
+  {
 
-            }
+  }
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDatePickerCtrl);
 };
 #    endif

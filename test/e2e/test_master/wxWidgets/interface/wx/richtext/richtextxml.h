@@ -56,12 +56,16 @@ public:
         If you add a custom object, call this.
     */
   static void RegisterNodeName(const wxString& nodeName, const wxString& className)
-  { sm_nodeNameToClassMap[nodeName] = className; }
+  {
+ sm_nodeNameToClassMap[nodeName] = className;
+  }
     /**
         Cleans up the mapping between node name and C++ class.
     */
   static void ClearNodeToClassMap()
-  { sm_nodeNameToClassMap.clear(); }
+  {
+ sm_nodeNameToClassMap.clear();
+  }
 protected:
     /**
         Loads buffer context from the given stream.

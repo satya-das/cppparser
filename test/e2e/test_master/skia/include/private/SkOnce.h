@@ -37,9 +37,11 @@ public:
         // Some other thread is calling fn().
         // We'll just spin here acquiring until it releases Done into fState.
         while (fState.load(std::memory_order_acquire) != Done) { /*spin*/ }
-    }
+  }
 private:
-  enum State : uint8_t { NotStarted, Claimed, Done};
+  enum State : uint8_t {
+ NotStarted, Claimed, Done
+  };
   std::atomic<uint8_t> fState{NotStarted};
 };
 #endif

@@ -27,7 +27,7 @@ public:
         kPreview,
         kBackgroundPackaging,
         kBackgroundPlot
-    };
+  };
     // Notification for begin of plot
   virtual void beginPlot(AcPlPlotProgress* pPlotProgress, PlotType type);
     // Notification for beginning of an document

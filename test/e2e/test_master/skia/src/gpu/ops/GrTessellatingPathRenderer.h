@@ -17,14 +17,16 @@ public:
   GrTessellatingPathRenderer();
 #  if  GR_TEST_UTILS
   void setMaxVerbCount(int maxVerbCount)
-  { fMaxVerbCount = maxVerbCount; }
+  {
+ fMaxVerbCount = maxVerbCount;
+  }
 #  endif
 private:
   CanDrawPath onCanDrawPath(const CanDrawPathArgs&) const override;
   StencilSupport onGetStencilSupport(const GrShape&) const override
   {
         return GrPathRenderer::kNoSupport_StencilSupport;
-    }
+  }
   bool onDrawPath(const DrawPathArgs&) override;
   int fMaxVerbCount;
   typedef GrPathRenderer INHERITED;

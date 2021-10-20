@@ -15,27 +15,28 @@ class SkScopeExit
 public:
   SkScopeExit();
   SkScopeExit(std::function<void()> f)
-    :  fFn(std::move(f)) 
-    {
-    }
+    :  fFn(std::move(f))
+  {
+  }
   SkScopeExit(SkScopeExit&& that)
-    :  fFn(std::move(that.fFn)) 
-    {
-    }
+    :  fFn(std::move(that.fFn))
+  {
+  }
   ~SkScopeExit()
   {
-
         if (fFn) {
             fFn();
         }
-      }
+  }
   void clear()
-  { fFn = {}; }
+  {
+ fFn = {};
+  }
   SkScopeExit& operator=(SkScopeExit&& that)
   {
         fFn = std::move(that.fFn);
         return *this;
-    }
+  }
 private:
   std::function<void()> fFn;
   SkScopeExit(const SkScopeExit&) = delete;

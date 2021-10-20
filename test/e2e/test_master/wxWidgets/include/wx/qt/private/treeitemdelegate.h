@@ -19,10 +19,9 @@ public:
   explicit wxQTTreeItemDelegate(wxWindow* parent)
     :  m_parent(parent),
         m_textCtrl(NULL)
-    
-    {
+  {
 
-        }
+  }
   QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem&, const QModelIndex& index) const override
   {
         if ( m_textCtrl != NULL )
@@ -32,7 +31,7 @@ public:
         m_textCtrl = new wxQtListTextCtrl(m_parent, parent);
         m_textCtrl->SetFocus();
         return m_textCtrl->GetHandle();
-    }
+  }
   void destroyEditor(QWidget*, const QModelIndex&) const override
   {
         if ( m_textCtrl != NULL )
@@ -41,23 +40,23 @@ public:
             wxTheApp->ScheduleForDestruction(m_textCtrl);
             m_textCtrl = NULL;
         }
-    }
+  }
   void setModelData(QWidget*, QAbstractItemModel*, const QModelIndex&) const override
   {
         // Don't set model data until wx has had a chance to send out events
-    }
+  }
   wxTextCtrl* GetEditControl() const
   {
         return m_textCtrl;
-    }
+  }
   QModelIndex GetCurrentModelIndex() const
   {
         return m_currentModelIndex;
-    }
+  }
   void AcceptModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
   {
         QStyledItemDelegate::setModelData(editor, model, index);
-    }
+  }
   bool helpEvent(QHelpEvent* event, QAbstractItemView* view, const QStyleOptionViewItem& option, const QModelIndex& index)
   {
         if ( event->type() == QEvent::ToolTip )
@@ -78,7 +77,7 @@ public:
         }
 
         return QStyledItemDelegate::helpEvent(event, view, option, index);
-    }
+  }
 private:
   wxWindow* m_parent;
   mutable wxTextCtrl* m_textCtrl;

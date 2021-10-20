@@ -34,7 +34,7 @@ class AcRxVariableCache : public AcRxVariableReactor
             Acad::ErrorStatus es = acutUpdString(rb.resval.rstring, m_cache.resval.rstring);
             ASSERT(Acad::eOk == es);
         }
-    }
+  }
   resbuf m_cache;
   AcString m_name;
 public:
@@ -46,9 +46,7 @@ public:
   AcRxVariableCache(const ACHAR* name)
     : m_name(name)
         , m_cache({ 0 })
-    
-    {
-
+  {
         m_cache.restype = RTNONE;
         auto var = AcRxVariablesDictionary::get()->getVariable(name);
         //we will tolerate sysvars that are missing
@@ -57,18 +55,17 @@ public:
         var->addReactor(this);
         Acad::ErrorStatus es = var->getValue(m_cache);
         ASSERT(Acad::eOk == es);
-        }
+  }
     /// <summary>
     /// Destructs the cache.
     /// </summary>
   ~AcRxVariableCache()
   {
-
         auto var = AcRxVariablesDictionary::get()->getVariable(m_name.kwszPtr());
         if (var == nullptr)
             return;
         var->removeReactor(this);
-      }
+  }
     /// <summary>
     /// High performance accessor (boolean overload)
     /// </summary>
@@ -78,7 +75,7 @@ public:
   bool getBool(bool def)
   {
         return !!getInt16(def ? 1 : 0);
-    }
+  }
     /// <summary>
     /// High performance accessor (int16 overload)
     /// </summary>
@@ -91,7 +88,7 @@ public:
         if (m_cache.restype != RTSHORT)
             return def;
         return m_cache.resval.rint;
-    }
+  }
     /// <summary>
     /// High performance accessor (double overload)
     /// </summary>
@@ -104,7 +101,7 @@ public:
         if (m_cache.restype != RTREAL)
             return def;
         return m_cache.resval.rreal;
-    }
+  }
     /// <summary>
     /// High performance accessor (string overload)
     /// </summary>
@@ -115,5 +112,5 @@ public:
         if (m_cache.restype != RTSTR)
             return ret;
         return m_cache.resval.rstring;
-    }
+  }
 };

@@ -19,16 +19,16 @@ public:
         SkASSERT(!fRenderTargetProxy->requiresManualMSAAResolve());
         SkASSERT(!fRenderTargetProxy->asTextureProxy());
         fRenderTargetProxy->setGLRTFBOIDIs0();
-    }
+  }
   bool glRTFBOIDIs0() const
   {
         return fRenderTargetProxy->glRTFBOIDIs0();
-    }
+  }
 private:
   explicit GrRenderTargetProxyPriv(GrRenderTargetProxy* renderTargetProxy)
-    :  fRenderTargetProxy(renderTargetProxy) 
-    {
-    }
+    :  fRenderTargetProxy(renderTargetProxy)
+  {
+  }
   GrRenderTargetProxyPriv(const GrRenderTargetProxyPriv&)
   {
   }

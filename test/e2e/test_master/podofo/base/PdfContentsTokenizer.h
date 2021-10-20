@@ -47,7 +47,7 @@ namespace PoDoFo
     ePdfContentsType_Keyword, /**< The token is a PDF keyword. */
     ePdfContentsType_Variant, /**< The token is a PDF variant. A variant is usually a parameter to a keyword */
     ePdfContentsType_ImageData /**< The "token" is raw inline image data found between ID and EI tags (see PDF ref section 4.8.6) */
-};
+  };
 /** This class is a parser for content streams in PDF documents.
  *
  *  The parsed content stream can be used and modified in various ways.
@@ -65,10 +65,9 @@ namespace PoDoFo
      */
     PdfContentsTokenizer(const char* pBuffer, long lLen)
       :  PoDoFo::PdfTokenizer( pBuffer, lLen ), m_readingInlineImgData(false)
-    
-      {
+    {
 
-          }
+    }
     /** Construct a PdfContentsTokenizer from a PdfCanvas
      *  (i.e. PdfPage or a PdfXObject).
      *
@@ -80,7 +79,8 @@ namespace PoDoFo
     PdfContentsTokenizer(PdfCanvas* pCanvas);
     virtual ~PdfContentsTokenizer()
     {
-     }
+
+    }
     /** Read the next keyword or variant, returning true and setting reType if something was read.
      *  Either rpszKeyword or rVariant, but never both, have defined and usable values on
      *  true return, with which being controlled by the value of eType.

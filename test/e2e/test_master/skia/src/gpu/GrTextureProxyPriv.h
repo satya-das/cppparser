@@ -18,7 +18,9 @@ public:
     // Attach a deferred uploader to the proxy. Holds data being prepared by a worker thread.
   void setDeferredUploader(std::unique_ptr<GrDeferredProxyUploader>);
   bool isDeferred() const
-  { return SkToBool(fTextureProxy->fDeferredUploader.get()); }
+  {
+ return SkToBool(fTextureProxy->fDeferredUploader.get());
+  }
     // For a deferred proxy (one that has a deferred uploader attached), this schedules an ASAP
     // upload of that data to the instantiated texture.
   void scheduleUpload(GrOpFlushState*);
@@ -27,9 +29,9 @@ public:
   void resetDeferredUploader();
 private:
   explicit GrTextureProxyPriv(GrTextureProxy* textureProxy)
-    :  fTextureProxy(textureProxy) 
-    {
-    }
+    :  fTextureProxy(textureProxy)
+  {
+  }
   GrTextureProxyPriv(const GrTextureProxyPriv&)
   {
   }
@@ -41,7 +43,9 @@ private:
   friend class GrTextureProxy;
 };
 inline GrTextureProxyPriv GrTextureProxy::texPriv()
-{ return GrTextureProxyPriv(this); }
+{
+ return GrTextureProxyPriv(this);
+}
 inline const GrTextureProxyPriv GrTextureProxy::texPriv() const
 {
     return GrTextureProxyPriv(const_cast<GrTextureProxy*>(this));

@@ -20,13 +20,14 @@ public:
     // ctor allocates a new key
   wxTlsKey(wxTlsDestructorFunction destructor)
   {
-
         m_destructor = destructor;
         m_slot = ::TlsAlloc();
-      }
+  }
     // return true if the key was successfully allocated
   bool IsOk() const
-  { return m_slot != TLS_OUT_OF_INDEXES; }
+  {
+ return m_slot != TLS_OUT_OF_INDEXES;
+  }
     // get the key value, there is no error return
   void* Get() const
   {
@@ -38,7 +39,7 @@ public:
         if ( dwLastError )
             ::SetLastError(dwLastError);
         return value;
-    }
+  }
     // change the key value, return true if ok
   bool Set(void* value)
   {
@@ -74,11 +75,10 @@ public:
             m_allValues.push_back(value);
 
         return true;
-    }
+  }
     // free the key
   ~wxTlsKey()
   {
-
         if ( !IsOk() )
             return;
 
@@ -102,7 +102,7 @@ public:
         }
 
         ::TlsFree(m_slot);
-      }
+  }
 private:
   wxTlsDestructorFunction m_destructor;
   DWORD m_slot;

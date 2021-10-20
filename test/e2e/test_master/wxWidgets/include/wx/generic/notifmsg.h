@@ -16,15 +16,13 @@ class WXDLLIMPEXP_ADV wxGenericNotificationMessage : public wxNotificationMessag
 public:
   wxGenericNotificationMessage()
   {
-
         Init();
-      }
+  }
   wxGenericNotificationMessage(const wxString& title, const wxString& message = wxString(), wxWindow* parent = NULL, int flags = wxICON_INFORMATION)
   {
-
         Init();
         Create(title, message, parent, flags);
-      }
+  }
     // generic implementation-specific methods
 
     // get/set the default timeout (used if Timeout_Auto is specified)

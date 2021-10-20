@@ -20,10 +20,9 @@ public:
   wxStatusBar();
   wxStatusBar(wxWindow* parent, wxWindowID id = wxID_ANY, long style = wxSTB_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxStatusBarNameStr))
   {
-
         m_pDC = NULL;
         (void)Create(parent, id, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, long style = wxSTB_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxStatusBarNameStr));
   virtual ~wxStatusBar();
     // implement base class methods

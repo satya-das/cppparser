@@ -172,7 +172,7 @@ typedef OdSmartPtr<OdDbDatabase> OdDbDatabasePtr;
 */
 namespace OdDb
 {
-  enum UnitsValue { 
+  enum UnitsValue {
     kUnitsUndefined    = 0, 
     kUnitsInches       = 1, 
     kUnitsFeet         = 2, 
@@ -194,32 +194,32 @@ namespace OdDb
     kUnitsAstronomical = 18, 
     kUnitsLightYears   = 19, 
     kUnitsParsecs      = 20, 
-    kUnitsMax          = kUnitsParsecs 
+    kUnitsMax          = kUnitsParsecs
   };
-  enum SaveType { 
+  enum SaveType {
     kDwg   = 0,   // Save as DWG file 
     kDxf   = 1,   // Save as DXF file 
     kDxb   = 2,   // Save as binary DXF file 
-    kUnknown = -1 // Database was created from scratch 
+    kUnknown = -1 // Database was created from scratch
   };
-  enum EndCaps { 
+  enum EndCaps {
     kEndCapNone       =  0, 
     kEndCapRound      =  1, 
     kEndCapAngle      =  2, 
-    kEndCapSquare     =  3 
+    kEndCapSquare     =  3
   };
-  enum JoinStyle { 
+  enum JoinStyle {
     kJnStylNone       =  0, 
     kJnStylRound      =  1, 
     kJnStylAngle      =  2, 
-    kJnStylFlat       =  3 
+    kJnStylFlat       =  3
   };
-  enum DuplicateLinetypeLoading { 
+  enum DuplicateLinetypeLoading {
     kDltNotApplicable = 0, // Not Applicable. 
     kDltIgnore        = 1, // Ignore duplicate LineTypes. 
-    kDltReplace       = 2  // Replace duplicate LineTypes. 
+    kDltReplace       = 2  // Replace duplicate LineTypes.
   };
-  enum TimeZone { 
+  enum TimeZone {
     kInternationalDateLine      = -12000,   //(GMT-12:00) International Date Line West 
     kMidwayIsland               = -11000,   //(GMT-11:00) Midway Island, Samoa 
     kHawaii                     = -10000,   //(GMT-10:00) Hawaii 
@@ -295,38 +295,46 @@ namespace OdDb
     kMagadan                    = 11000,    //(GMT+11:00) Magadan, Solomon Is., New Caledonia 
     kWellington                 = 12000,    //(GMT+12:00) Auckland, Wellington 
     kFiji                       = 12001,    //(GMT+12:00) Fiji, Kamchatka, Marshall Is. 
-    kTonga                      = 13000     //(GMT+13:00) Nuku'alofa 
+    kTonga                      = 13000     //(GMT+13:00) Nuku'alofa
   };
-  enum ShadowFlags { kShadowsCastAndReceive  = 0x00, 
+  enum ShadowFlags {
+ kShadowsCastAndReceive  = 0x00, 
                          kShadowsDoesNotReceive  = 0x01, 
                          kShadowsDoesNotCast     = 0x02, 
-                         kShadowsIgnore          = kShadowsDoesNotCast | kShadowsDoesNotReceive};
+                         kShadowsIgnore          = kShadowsDoesNotCast | kShadowsDoesNotReceive
+  };
   /** Description: 
     Specifies settings that affect the shape of the  
     lofted solid or surface. 
   */
-  enum LoftParamType { kLoftNoParam           = 0x00, 
+  enum LoftParamType {
+ kLoftNoParam           = 0x00, 
                          kLoftNoTwist           = 0x01, 
                          kLoftAlignDirection    = 0x02, 
                          kLoftSimplify          = 0x04, 
                          kLoftClose             = 0x08, 
-                         kLoftDefault           = kLoftNoTwist | kLoftAlignDirection | kLoftSimplify };
+                         kLoftDefault           = kLoftNoTwist | kLoftAlignDirection | kLoftSimplify
+  };
   /** Description: 
     Specifies the normals of the lofted object where it 
     passes through cross section curves. 
   */
-  enum LoftNormalsType { kLoftRuled            = 0, 
+  enum LoftNormalsType {
+ kLoftRuled            = 0, 
                           kLoftSmooth           = 1, 
                           kLoftFirstNormal      = 2, 
                           kLoftLastNormal       = 3, 
                           kLoftEndsNormal       = 4, 
                           kLoftAllNormal        = 5, 
-                          kLoftUseDraftAngles   = 6 };
+                          kLoftUseDraftAngles   = 6
+  };
     /** Description: 
       Specifies how the entity interacts with collision detection. 
     */
-  enum CollisionType { kCollisionTypeNone  = 0, 
-                             kCollisionTypeSolid = 1 };
+  enum CollisionType {
+ kCollisionTypeNone  = 0, 
+                             kCollisionTypeSolid = 1
+  };
 }
 /** Description: 
     This class represents a complete drawing file. 
@@ -620,10 +628,10 @@ public:
     filename (I) Name of the file to which the data are to be written. 
   */
   void writeFile(const OdString& filename, OdDb::SaveType fileType, OdDb::DwgVersion fileVersion, bool saveThumbnailImage = false, int dxfPrecision = 16)
-  { 
+  {
     closeInput(); 
     OdStreamBufPtr pFile = odSystemServices()->createFile(filename, Oda::kFileWrite, Oda::kShareDenyReadWrite, Oda::kCreateAlways); 
-    writeFile(pFile, fileType, fileVersion, saveThumbnailImage, dxfPrecision); 
+    writeFile(pFile, fileType, fileVersion, saveThumbnailImage, dxfPrecision);
   }
   /** Description: 
     Reads the contents of the specified StreamBuf object or file into this *database* object. 
@@ -661,8 +669,8 @@ public:
  
   */
   void readFile(const OdString& filename, bool partialLoad = false, Oda::FileShareMode shareMode = Oda::kShareDenyWrite, const OdPassword& password = OdPassword(), bool allowCPConversion = false)
-  { 
-    readFile(odSystemServices()->createFile(filename, Oda::kFileRead, shareMode), partialLoad, 0, password, allowCPConversion); 
+  {
+    readFile(odSystemServices()->createFile(filename, Oda::kFileRead, shareMode), partialLoad, 0, password, allowCPConversion);
   }
   /** Description: 
     Forces all data to be loaded from the input file associated with this *database* object, and closes the file. 

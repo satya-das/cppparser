@@ -50,7 +50,9 @@ public:
   virtual wxBitmap GetLargeIcon() const = 0;
 #    else 
   virtual wxBitmap GetLargeIcon() const
-  { return wxBitmap(); }
+  {
+ return wxBitmap();
+  }
 #    endif
     // Create a window (usually a wxPanel) for this page. The caller takes
     // ownership of the returned window.
@@ -64,13 +66,15 @@ public:
   enum Kind {
         Kind_General,
         Kind_Advanced
-    };
+  };
   wxStockPreferencesPage(Kind kind)
-    :  m_kind(kind) 
-    {
-    }
+    :  m_kind(kind)
+  {
+  }
   Kind GetKind() const
-  { return m_kind; }
+  {
+ return m_kind;
+  }
   wxString GetName() const override;
 #    ifdef __WXOSX_COCOA__
   wxBitmap GetLargeIcon() const override;
@@ -106,7 +110,7 @@ public:
 #else
         return false;
 #endif
-    }
+  }
     // Whether the dialog is shown modally, i.e. Show() blocks, or not.
   static bool ShownModally()
   {
@@ -115,7 +119,7 @@ public:
 #else
         return true;
 #endif
-    }
+  }
 private:
   wxPreferencesEditorImpl* m_impl;
   wxDECLARE_NO_COPY_CLASS(wxPreferencesEditor);

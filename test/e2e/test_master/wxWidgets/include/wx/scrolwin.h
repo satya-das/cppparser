@@ -75,15 +75,21 @@ public:
     // ProcessWindowEvent() because the event will always be processed which
     // can be undesirable.
   void DisableKeyboardScrolling()
-  { m_kbdScrollingEnabled = false; }
+  {
+ m_kbdScrollingEnabled = false;
+  }
     // Override this function to draw the graphic (or just process EVT_PAINT)
   virtual void OnDraw(wxDC&)
-  { }
+  {
+
+  }
     // change the DC origin according to the scroll position.
   virtual void DoPrepareDC(wxDC& dc) = 0;
     // Simple accessor for the window that is really being scrolled.
   wxWindow* GetTargetWindow() const
-  { return m_targetWindow; }
+  {
+ return m_targetWindow;
+  }
     // The methods called from the window event handlers.
   void HandleOnChar(wxKeyEvent& event);
   void HandleOnPaint(wxPaintEvent& event);
@@ -109,9 +115,13 @@ public:
     // the existing code could override it but new code should override
     // DoScroll() instead
   virtual void Scroll(int x, int y)
-  { DoScroll(x, y); }
+  {
+ DoScroll(x, y);
+  }
   virtual void Scroll(const wxPoint& pt)
-  { DoScroll(pt.x, pt.y); }
+  {
+ DoScroll(pt.x, pt.y);
+  }
     // get/set the page size for this orientation (wxVERTICAL/wxHORIZONTAL)
   int GetScrollPageSize(int orient) const;
   void SetScrollPageSize(int orient, int pageSize);
@@ -130,7 +140,7 @@ public:
   void ShowScrollbars(wxScrollbarVisibility horz, wxScrollbarVisibility vert)
   {
         DoShowScrollbars(horz, vert);
-    }
+  }
     // Test whether the specified scrollbar is shown.
   virtual bool IsScrollbarShown(int orient) const = 0;
     // Enable/disable Windows scrolling in either direction. If true, wxWidgets
@@ -145,37 +155,49 @@ public:
   virtual void EnableScrolling(bool x_scrolling, bool y_scrolling);
     // Get the view start
   void GetViewStart(int* x, int* y) const
-  { DoGetViewStart(x, y); }
+  {
+ DoGetViewStart(x, y);
+  }
   wxPoint GetViewStart() const
   {
         wxPoint pt;
         DoGetViewStart(&pt.x, &pt.y);
         return pt;
-    }
+  }
     // Set the scale factor, used in PrepareDC
   void SetScale(double xs, double ys)
-  { m_scaleX = xs; m_scaleY = ys; }
+  {
+ m_scaleX = xs; m_scaleY = ys;
+  }
   double GetScaleX() const
-  { return m_scaleX; }
+  {
+ return m_scaleX;
+  }
   double GetScaleY() const
-  { return m_scaleY; }
+  {
+ return m_scaleY;
+  }
     // translate between scrolled and unscrolled coordinates
   void CalcScrolledPosition(int x, int y, int* xx, int* yy) const
-  {  DoCalcScrolledPosition(x, y, xx, yy); }
+  {
+  DoCalcScrolledPosition(x, y, xx, yy);
+  }
   wxPoint CalcScrolledPosition(const wxPoint& pt) const
   {
         wxPoint p2;
         DoCalcScrolledPosition(pt.x, pt.y, &p2.x, &p2.y);
         return p2;
-    }
+  }
   void CalcUnscrolledPosition(int x, int y, int* xx, int* yy) const
-  {  DoCalcUnscrolledPosition(x, y, xx, yy); }
+  {
+  DoCalcUnscrolledPosition(x, y, xx, yy);
+  }
   wxPoint CalcUnscrolledPosition(const wxPoint& pt) const
   {
         wxPoint p2;
         DoCalcUnscrolledPosition(pt.x, pt.y, &p2.x, &p2.y);
         return p2;
-    }
+  }
   void DoCalcScrolledPosition(int x, int y, int* xx, int* yy) const;
   void DoCalcUnscrolledPosition(int x, int y, int* xx, int* yy) const;
     // Adjust the scrollbars
@@ -188,13 +210,19 @@ public:
     // scrollbars (spreadsheet: only cell area will move).
   void SetTargetWindow(wxWindow* target);
   void SetTargetRect(const wxRect& rect)
-  { m_rectToScroll = rect; }
+  {
+ m_rectToScroll = rect;
+  }
   wxRect GetTargetRect() const
-  { return m_rectToScroll; }
+  {
+ return m_rectToScroll;
+  }
   void DoPrepareDC(wxDC& dc) override;
     // are we generating the autoscroll events?
   bool IsAutoScrolling() const
-  { return m_timerAutoScroll != NULL; }
+  {
+ return m_timerAutoScroll != NULL;
+  }
     // stop generating the scroll events when mouse is held outside the window
   void StopAutoScrolling();
     // this method can be overridden in a derived class to forbid sending the
@@ -220,13 +248,13 @@ protected:
   const wxRect* GetScrollRect() const
   {
         return m_rectToScroll.width != 0 ? &m_rectToScroll : NULL;
-    }
+  }
     // get the size of the target window
   wxSize GetTargetSize() const
   {
         return m_rectToScroll.width != 0 ? m_rectToScroll.GetSize()
                                          : m_targetWindow->GetClientSize();
-    }
+  }
   void GetTargetSize(int* w, int* h) const
   {
         wxSize size = GetTargetSize();
@@ -234,7 +262,7 @@ protected:
             *w = size.x;
         if ( h )
             *h = size.y;
-    }
+  }
     // implementation of public methods with the same name
   virtual void DoGetViewStart(int* x, int* y) const;
   virtual void DoScroll(int x, int y) = 0;
@@ -263,7 +291,7 @@ protected:
         // wxASSERT_MSG( m_targetWindow == m_win, "must be overridden" );
 
         return size;
-    }
+  }
     // Can be overridden to return false if the child window shouldn't be
     // scrolled into view automatically when it gets focus, which is the
     // default behaviour.
@@ -277,7 +305,7 @@ protected:
 #endif
 
         return true;
-    }
+  }
   double m_scaleX;
   double m_scaleY;
   wxRect m_rectToScroll;
@@ -357,16 +385,15 @@ class wxScrolled : public T, public wxScrollHelper, private wxScrolledT_Helper
 {
 public:
   wxScrolled()
-    :  wxScrollHelper(this) 
-    {
-     }
+    :  wxScrollHelper(this)
+  {
+
+  }
   wxScrolled(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxScrolledWindowStyle, const wxString& name = wxASCII_STR(wxPanelNameStr))
     :  wxScrollHelper(this)
-    
-    {
-
+  {
         Create(parent, winid, pos, size, style, name);
-        }
+  }
   bool Create(wxWindow* parent, wxWindowID winid, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxScrolledWindowStyle, const wxString& name = wxASCII_STR(wxPanelNameStr))
   {
         m_targetWindow = this;
@@ -382,26 +409,26 @@ public:
             style |= wxHSCROLL | wxVSCROLL;
 
         return wxCreateScrolled((T*)this, parent, winid, pos, size, style, name);
-    }
+  }
 #  ifdef __WXMSW__
     // we need to return a special WM_GETDLGCODE value to process just the
     // arrows but let the other navigation characters through
   WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override
   {
         return FilterMSWWindowProc(nMsg, T::MSWWindowProc(nMsg, wParam, lParam));
-    }
+  }
     // Take into account the scroll origin.
   void MSWAdjustBrushOrg(int* xOrg, int* yOrg) const override
   {
         CalcUnscrolledPosition(*xOrg, *yOrg, xOrg, yOrg);
-    }
+  }
 #  endif
   WX_FORWARD_TO_SCROLL_HELPER()
 protected:
   wxSize DoGetBestSize() const override
   {
         return FilterBestSize(this, this, T::DoGetBestSize());
-    }
+  }
   wxDECLARE_NO_COPY_CLASS(wxScrolled);
 };
 // for compatibility with existing code, we provide wxScrolledWindow
@@ -412,13 +439,13 @@ class WXDLLIMPEXP_CORE wxScrolledWindow : public wxScrolled<wxPanel>
 {
 public:
   wxScrolledWindow()
-    :  wxScrolled<wxPanel>() 
-    {
-    }
+    :  wxScrolled<wxPanel>()
+  {
+  }
   wxScrolledWindow(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxScrolledWindowStyle, const wxString& name = wxASCII_STR(wxPanelNameStr))
-    :  wxScrolled<wxPanel>(parent, winid, pos, size, style, name) 
-    {
-    }
+    :  wxScrolled<wxPanel>(parent, winid, pos, size, style, name)
+  {
+  }
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxScrolledWindow);
 };
 typedef wxScrolled<wxWindow> wxScrolledCanvas;

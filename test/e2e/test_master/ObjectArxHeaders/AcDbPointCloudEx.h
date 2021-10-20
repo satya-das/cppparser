@@ -532,7 +532,7 @@ public:
         /// AutoCAD uses a default color scheme for LAS classification values.
         /// </summary>
         kClassificationRamp
-    };
+  };
     /// <summary>
     /// Sets the stylization mode to be used when displaying this point cloud entity.
     /// See the documentation for StylizationType for the different types of stylization.
@@ -631,7 +631,7 @@ public:
         /// Hide points that are outside of intensity/elevation range.
         /// </summary>
         kHidePoints
-    };
+  };
     // Colormap - Intensity
     // 
 
@@ -970,7 +970,7 @@ public:
         /// Node - Snaps to corner (intersection of 3 planes) in the point cloud
         /// </summary>
         kOsModePCorner  = 7
-    };
+  };
     /// <summary>
     /// This function uses the provided snapMode, pickPoint, and lastPoint
     /// to determine all appropriate osnap points for the point cloud.

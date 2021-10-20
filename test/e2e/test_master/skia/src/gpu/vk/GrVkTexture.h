@@ -20,7 +20,9 @@ public:
   virtual ~GrVkTexture();
   GrBackendTexture getBackendTexture() const override;
   GrBackendFormat backendFormat() const override
-  { return this->getBackendFormat(); }
+  {
+ return this->getBackendFormat();
+  }
   void textureParamsModified() override
   {
   }
@@ -35,7 +37,7 @@ protected:
   bool onStealBackendTexture(GrBackendTexture*, SkImage::BackendTextureReleaseProc*) override
   {
         return false;
-    }
+  }
   void willRemoveLastRef() override;
 private:
   GrVkTexture(GrVkGpu*, SkBudgeted, const GrSurfaceDesc&, const GrVkImageInfo&, sk_sp<GrVkImageLayout> layout, const GrVkImageView* imageView, GrMipMapsStatus);
@@ -46,7 +48,7 @@ private:
   {
         // Forward the release proc on to GrVkImage
         this->setResourceRelease(std::move(releaseHelper));
-    }
+  }
   void removeFinishIdleProcs();
   const GrVkImageView* fTextureView;
   typedef GrTexture INHERITED;

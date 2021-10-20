@@ -35,16 +35,15 @@ public:
         kVertToFrag,
         kVertToGeo,
         kGeoToFrag
-    };
+  };
   GrGLSLVarying();
   GrGLSLVarying(GrSLType type, Scope scope = Scope::kVertToFrag)
     :  fType(type)
-        , fScope(scope) 
-    {
-
+        , fScope(scope)
+  {
         // Metal doesn't support varying matrices, so we disallow them everywhere for consistency
         SkASSERT(!is_matrix(type));
-        }
+  }
   void reset(GrSLType type, Scope scope = Scope::kVertToFrag)
   {
         // Metal doesn't support varying matrices, so we disallow them everywhere for consistency
@@ -52,23 +51,39 @@ public:
         *this = GrGLSLVarying();
         fType = type;
         fScope = scope;
-    }
+  }
   GrSLType type() const
-  { return fType; }
+  {
+ return fType;
+  }
   Scope scope() const
-  { return fScope; }
+  {
+ return fScope;
+  }
   bool isInVertexShader() const
-  { return Scope::kGeoToFrag != fScope; }
+  {
+ return Scope::kGeoToFrag != fScope;
+  }
   bool isInFragmentShader() const
-  { return Scope::kVertToGeo != fScope; }
+  {
+ return Scope::kVertToGeo != fScope;
+  }
   const char* vsOut() const
-  { SkASSERT(this->isInVertexShader()); return fVsOut; }
+  {
+ SkASSERT(this->isInVertexShader()); return fVsOut;
+  }
   const char* gsIn() const
-  { return fGsIn; }
+  {
+ return fGsIn;
+  }
   const char* gsOut() const
-  { return fGsOut; }
+  {
+ return fGsOut;
+  }
   const char* fsIn() const
-  { SkASSERT(this->isInFragmentShader()); return fFsIn; }
+  {
+ SkASSERT(this->isInFragmentShader()); return fFsIn;
+  }
 private:
   GrSLType fType = kVoid_GrSLType;
   Scope fScope = Scope::kVertToFrag;
@@ -91,9 +106,9 @@ public:
         , fFragInputs(kVaryingsPerBlock)
         , fFragOutputs(kVaryingsPerBlock)
         , fProgramBuilder(program)
-        , fDefaultInterpolationModifier(nullptr) 
-    {
-    }
+        , fDefaultInterpolationModifier(nullptr)
+  {
+  }
   virtual ~GrGLSLVaryingHandler()
   {
   }
@@ -108,7 +123,7 @@ public:
         kInterpolated,
         kCanBeFlat, // Use "flat" if it will be faster.
         kMustBeFlat // Use "flat" even if it is known to be slow.
-    };
+  };
     /*
      * addVarying allows fine grained control for setting up varyings between stages. Calling this
      * function will make sure all necessary decls are setup for the client. The client however is

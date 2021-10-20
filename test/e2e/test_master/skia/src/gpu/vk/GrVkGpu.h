@@ -39,44 +39,66 @@ public:
   virtual ~GrVkGpu();
   void disconnect(DisconnectType) override;
   const GrVkInterface* vkInterface() const
-  { return fInterface.get(); }
+  {
+ return fInterface.get();
+  }
   const GrVkCaps& vkCaps() const
-  { return *fVkCaps; }
+  {
+ return *fVkCaps;
+  }
   GrVkMemoryAllocator* memoryAllocator() const
-  { return fMemoryAllocator.get(); }
+  {
+ return fMemoryAllocator.get();
+  }
   VkPhysicalDevice physicalDevice() const
-  { return fPhysicalDevice; }
+  {
+ return fPhysicalDevice;
+  }
   VkDevice device() const
-  { return fDevice; }
+  {
+ return fDevice;
+  }
   VkQueue queue() const
-  { return fQueue; }
+  {
+ return fQueue;
+  }
   uint32_t queueIndex() const
-  { return fQueueIndex; }
+  {
+ return fQueueIndex;
+  }
   GrVkCommandPool* cmdPool() const
-  { return fCmdPool; }
+  {
+ return fCmdPool;
+  }
   const VkPhysicalDeviceProperties& physicalDeviceProperties() const
   {
         return fPhysDevProps;
-    }
+  }
   const VkPhysicalDeviceMemoryProperties& physicalDeviceMemoryProperties() const
   {
         return fPhysDevMemProps;
-    }
+  }
   bool protectedContext() const
-  { return fProtectedContext == GrProtected::kYes; }
+  {
+ return fProtectedContext == GrProtected::kYes;
+  }
   GrVkResourceProvider& resourceProvider()
-  { return fResourceProvider; }
+  {
+ return fResourceProvider;
+  }
   GrVkPrimaryCommandBuffer* currentCommandBuffer()
-  { return fCurrentCmdBuffer; }
+  {
+ return fCurrentCmdBuffer;
+  }
   enum SyncQueue {
         kForce_SyncQueue,
         kSkip_SyncQueue
-    };
+  };
   void querySampleLocations(GrRenderTarget*, SkTArray<SkPoint>*) override
   {
         SkASSERT(!this->caps()->sampleLocationsSupport());
         SK_ABORT("Sample locations not yet implemented for Vulkan.");
-    }
+  }
   void xferBarrier(GrRenderTarget*, GrXferBarrierType) override
   {
   }
@@ -89,7 +111,7 @@ public:
   void resetShaderCacheForTesting() const override
   {
         fResourceProvider.resetShaderCacheForTesting();
-    }
+  }
 #  endif
   GrStencilAttachment* createStencilAttachmentForRenderTarget(const GrRenderTarget*, int width, int height, int numStencilSamples) override;
   GrOpsRenderPass* getOpsRenderPass(GrRenderTarget*, GrSurfaceOrigin, const SkIRect&, const GrOpsRenderPass::LoadAndStoreInfo&, const GrOpsRenderPass::StencilLoadAndStoreInfo&, const SkTArray<GrTextureProxy*, true>& sampledProxies) override;
@@ -98,7 +120,7 @@ public:
   SkSL::Compiler* shaderCompiler() const
   {
         return fCompiler;
-    }
+  }
   bool onRegenerateMipMapLevels(GrTexture* tex) override;
   void onResolveRenderTarget(GrRenderTarget* target, const SkIRect& resolveRect, GrSurfaceOrigin resolveOrigin, ForExternalIO) override;
   void submitSecondaryCommandBuffer(std::unique_ptr<GrVkSecondaryCommandBuffer>);
@@ -117,7 +139,9 @@ public:
     // command buffer to the gpu.
   void addDrawable(std::unique_ptr<SkDrawable::GpuDrawHandler> drawable);
   void checkFinishProcs() override
-  { fResourceProvider.checkCommandBuffers(); }
+  {
+ fResourceProvider.checkCommandBuffers();
+  }
   sk_sp<GrSemaphore> prepareTextureForCrossContextUsage(GrTexture*) override;
   void copyBuffer(GrVkBuffer* srcBuffer, GrVkBuffer* dstBuffer, VkDeviceSize srcOffset, VkDeviceSize dstOffset, VkDeviceSize size);
   bool updateBuffer(GrVkBuffer* buffer, const void* src, VkDeviceSize offset, VkDeviceSize size);
@@ -125,7 +149,7 @@ public:
   enum PersistentCacheKeyType : uint32_t {
         kShader_PersistentCacheKeyType = 0,
         kPipelineCache_PersistentCacheKeyType = 1,
-    };
+  };
   void storeVkPipelineCacheData() override;
   void beginRenderPass(const GrVkRenderPass*, const VkClearValue* colorClear, GrVkRenderTarget*, GrSurfaceOrigin, const SkIRect& bounds, bool forSecondaryCB);
   void endRenderPass(GrRenderTarget* target, GrSurfaceOrigin origin, const SkIRect& bounds);

@@ -57,7 +57,9 @@ public:
      *  animation. Gets reset to false if the animation is restarted.
      */
   bool isFinished() const
-  { return fFinished; }
+  {
+ return fFinished;
+  }
     /**
      * Returned by decodeNextFrame and currentFrameDuration if the animation
      * is not running.
@@ -79,7 +81,7 @@ public:
   int currentFrameDuration()
   {
         return fCurrentFrameDuration;
-    }
+  }
     /**
      *  Change the repetition count.
      *
@@ -96,7 +98,7 @@ public:
   int getRepetitionCount() const
   {
         return fRepetitionCount;
-    }
+  }
 protected:
   SkRect onGetBounds() override;
   void onDraw(SkCanvas*) override;
@@ -116,7 +118,7 @@ private:
             kRestoreIfNecessary,
             // No need to restore.
             kNoRestore,
-        };
+    };
     Frame();
     bool init(const SkImageInfo& info, OnInit);
     bool copyTo(Frame*) const;

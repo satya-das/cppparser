@@ -24,16 +24,16 @@ public:
   int GetAlignment() const override
   {
         return m_alignment;
-    }
+  }
   wxDataViewCellMode GetMode() const override
   {
         return m_mode;
-    }
+  }
   bool GetValue(wxVariant& value) const override
   {
         value = m_value;
         return true;
-    }
+  }
     // NB: in Carbon this is always identical to the header alignment
   void SetAlignment(int align) override;
   void SetMode(wxDataViewCellMode mode) override;
@@ -41,7 +41,7 @@ public:
   {
         m_value = newValue;
         return true;
-    }
+  }
   void EnableEllipsize(wxEllipsizeMode mode = wxELLIPSIZE_MIDDLE) override;
   wxEllipsizeMode GetEllipsizeMode() const override;
     // implementation
@@ -49,11 +49,11 @@ public:
   const wxVariant& GetValue() const
   {
         return m_value;
-    }
+  }
   wxDataViewRendererNativeData* GetNativeData() const
   {
         return m_NativeDataPtr;
-    }
+  }
     // a call to the native data browser function to render the data;
     // returns true if the data value could be rendered, false otherwise
   virtual bool MacRender() = 0;
@@ -67,9 +67,13 @@ protected:
   void SetEnabled(bool enabled) override;
 #  else 
   void SetAttr(const wxDataViewItemAttr&) override
-  { }
+  {
+
+  }
   void SetEnabled(bool) override
-  { }
+  {
+
+  }
 #  endif
   bool IsHighlighted() const override;
 private:

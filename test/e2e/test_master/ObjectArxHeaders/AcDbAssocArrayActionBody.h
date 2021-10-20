@@ -90,7 +90,7 @@ public:
   {
         AcDbFullSubentPath path = AcDbFullSubentPath();
         return getItemAt(index, path);
-    }
+  }
     /// <summary> Obtains array item at given subent path of the array. 
     /// </summary>
     /// <param name="path"> The input subent path of the array. </param>

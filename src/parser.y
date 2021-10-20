@@ -1395,7 +1395,7 @@ ctordecl          : identifier '(' paramlist ')' %prec CTORDECL
                       ZZVALID;
                   ]
                   {
-                    $$ = newConstructor(gCurAccessType, $1, $3, makeCppMemInitList(), 0);
+                    $$ = newConstructor(gCurAccessType, $1, $3, makeEmptyCppMemInitList(), 0);
                   }
                   | functype ctordecl          [ZZLOG;] {
                     $$ = $2;
@@ -1427,7 +1427,7 @@ ctordecl          : identifier '(' paramlist ')' %prec CTORDECL
                   }
                   ;
 
-meminitlist       :                          [ZZLOG;] { $$ = makeCppMemInitList(); }
+meminitlist       :                          [ZZLOG;] { $$ = makeEmptyCppMemInitList(); }
                   | ':' meminit              [ZZLOG;] {
                     $$ = makeCppMemInitList(new std::list<CppMemInit>);
                     $$.memInitList->push_back(CppMemInit($2.mem, $2.init));

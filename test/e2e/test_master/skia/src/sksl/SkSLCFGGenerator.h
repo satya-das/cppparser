@@ -21,34 +21,34 @@ namespace SkSL
       enum Kind {
             kStatement_Kind,
             kExpression_Kind
-        };
+      };
       Node(Kind kind, bool constantPropagation, std::unique_ptr<Expression>* expression, std::unique_ptr<Statement>* statement)
         :  fKind(kind)
         , fConstantPropagation(constantPropagation)
         , fExpression(expression)
-        , fStatement(statement) 
-        {
-        }
+        , fStatement(statement)
+      {
+      }
       std::unique_ptr<Expression>* expression() const
       {
             SkASSERT(fKind == kExpression_Kind);
             return fExpression;
-        }
+      }
       void setExpression(std::unique_ptr<Expression> expr)
       {
             SkASSERT(fKind == kExpression_Kind);
             *fExpression = std::move(expr);
-        }
+      }
       std::unique_ptr<Statement>* statement() const
       {
             SkASSERT(fKind == kStatement_Kind);
             return fStatement;
-        }
+      }
       void setStatement(std::unique_ptr<Statement> stmt)
       {
             SkASSERT(fKind == kStatement_Kind);
             *fStatement = std::move(stmt);
-        }
+      }
       String description() const
       {
             if (fKind == kStatement_Kind) {
@@ -57,7 +57,7 @@ namespace SkSL
                 SkASSERT(fKind == kExpression_Kind);
                 return (*fExpression)->description();
             }
-        }
+      }
       Kind fKind;
         // if false, this node should not be subject to constant propagation. This happens with
         // compound assignment (i.e. x *= 2), in which the value x is used as an rvalue for

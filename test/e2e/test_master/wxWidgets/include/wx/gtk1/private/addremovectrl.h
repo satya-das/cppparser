@@ -21,9 +21,7 @@ public:
   wxAddRemoveImpl(wxAddRemoveAdaptor* adaptor, wxAddRemoveCtrl* parent, wxWindow* ctrlItems)
     :  wxAddRemoveImplBase(adaptor, parent, ctrlItems),
           m_tbar(new wxToolBar(parent, wxID_ANY))
-    
-    {
-
+  {
         m_tbar->AddTool(wxID_ADD, wxString(), GetNamedBitmap("list-add"));
         m_tbar->AddTool(wxID_REMOVE, wxString(), GetNamedBitmap("list-remove"));
 
@@ -48,12 +46,12 @@ public:
 
         m_tbar->Bind(wxEVT_TOOL, &wxAddRemoveImplBase::OnAdd, this, wxID_ADD);
         m_tbar->Bind(wxEVT_TOOL, &wxAddRemoveImplBase::OnRemove, this, wxID_REMOVE);
-        }
+  }
   void SetButtonsToolTips(const wxString& addtip, const wxString& removetip) override
   {
         m_tbar->SetToolShortHelp(wxID_ADD, addtip);
         m_tbar->SetToolShortHelp(wxID_REMOVE, removetip);
-    }
+  }
 private:
   static wxBitmap GetNamedBitmap(const wxString& name)
   {
@@ -64,7 +62,7 @@ private:
         if ( !bmp.IsOk() )
             bmp = wxArtProvider::GetBitmap(name, wxART_MENU);
         return bmp;
-    }
+  }
   wxToolBar* const m_tbar;
 };
 #endif

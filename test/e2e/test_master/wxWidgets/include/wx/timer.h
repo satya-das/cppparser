@@ -38,19 +38,17 @@ public:
     // notifications is to override Notify() in the derived class
   wxTimer()
   {
-
         Init();
         SetOwner(this);
-      }
+  }
     // ctor which allows to avoid having to override Notify() in the derived
     // class: the owner will get timer notifications which can be handled with
     // EVT_TIMER
   wxTimer(wxEvtHandler* owner, int timerid = wxID_ANY)
   {
-
         Init();
         SetOwner(owner, timerid);
-      }
+  }
     // same as ctor above
   void SetOwner(wxEvtHandler* owner, int timerid = wxID_ANY);
   virtual ~wxTimer();
@@ -69,7 +67,9 @@ public:
     // start the timer for one iteration only, this is just a simple wrapper
     // for Start()
   bool StartOnce(int milliseconds = -1)
-  { return Start(milliseconds, true); }
+  {
+ return Start(milliseconds, true);
+  }
     // stop the timer, does nothing if the timer is not running
   virtual void Stop();
     // override this in your wxTimer-derived class if you want to process timer
@@ -101,28 +101,26 @@ class WXDLLIMPEXP_BASE wxTimerRunner
 {
 public:
   wxTimerRunner(wxTimer& timer)
-    :  m_timer(timer) 
-    {
-     }
+    :  m_timer(timer)
+  {
+
+  }
   wxTimerRunner(wxTimer& timer, int milli, bool oneShot = false)
     :  m_timer(timer)
-    
-    {
-
+  {
         m_timer.Start(milli, oneShot);
-        }
+  }
   void Start(int milli, bool oneShot = false)
   {
         m_timer.Start(milli, oneShot);
-    }
+  }
   ~wxTimerRunner()
   {
-
         if ( m_timer.IsRunning() )
         {
             m_timer.Stop();
         }
-      }
+  }
 private:
   wxTimer& m_timer;
   wxDECLARE_NO_COPY_CLASS(wxTimerRunner);
@@ -136,28 +134,35 @@ public:
   wxTimerEvent(wxTimer& timer)
     :  wxEvent(timer.GetId(), wxEVT_TIMER),
           m_timer(&timer)
-    
-    {
-
+  {
         SetEventObject(timer.GetOwner());
-        }
+  }
     // accessors
   int GetInterval() const
-  { return m_timer->GetInterval(); }
+  {
+ return m_timer->GetInterval();
+  }
   wxTimer& GetTimer() const
-  { return *m_timer; }
+  {
+ return *m_timer;
+  }
     // implement the base class pure virtual
   wxEvent* Clone() const override
-  { return new wxTimerEvent(*this); }
+  {
+ return new wxTimerEvent(*this);
+  }
   wxEventCategory GetEventCategory() const override
-  { return wxEVT_CATEGORY_TIMER; }
+  {
+ return wxEVT_CATEGORY_TIMER;
+  }
     // default ctor creates an unusable event object and should not be used (in
     // fact, no code outside wxWidgets is supposed to create event objects)
 #    if  WXWIN_COMPATIBILITY_3_0
   wxDEPRECATED_MSG("wxTimerEvent not supposed to be created by user code") wxTimerEvent()
-    :  wxEvent(wxID_ANY, wxEVT_TIMER) 
-    {
- m_timer=NULL;     }
+    :  wxEvent(wxID_ANY, wxEVT_TIMER)
+  {
+ m_timer=NULL;
+  }
 #    endif
 private:
   wxTimer* m_timer;

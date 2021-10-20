@@ -18,9 +18,9 @@ class GrVkImageLayout;
 struct GrVkBackendSurfaceInfo
 {
   GrVkBackendSurfaceInfo(GrVkImageInfo info, GrVkImageLayout* layout)
-    :  fImageInfo(info), fLayout(layout) 
-    {
-    }
+    :  fImageInfo(info), fLayout(layout)
+  {
+  }
   void cleanup();
   GrVkBackendSurfaceInfo& operator=(const GrVkBackendSurfaceInfo&);
     // Assigns the passed in GrVkBackendSurfaceInfo to this object. if isValid is true we will also
@@ -30,7 +30,9 @@ struct GrVkBackendSurfaceInfo
   sk_sp<GrVkImageLayout> getGrVkImageLayout() const;
   GrVkImageInfo snapImageInfo() const;
   bool isProtected() const
-  { return fImageInfo.fProtected == GrProtected::kYes; }
+  {
+ return fImageInfo.fProtected == GrProtected::kYes;
+  }
 #  if  GR_TEST_UTILS
   bool operator==(const GrVkBackendSurfaceInfo& that) const;
 #  endif

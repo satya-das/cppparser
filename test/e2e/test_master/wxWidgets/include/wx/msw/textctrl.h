@@ -16,14 +16,14 @@ public:
     // --------
   wxTextCtrl()
   {
- Init();   }
+ Init();
+  }
   wxTextCtrl(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTextCtrlNameStr))
   {
-
         Init();
 
         Create(parent, id, value, pos, size, style, validator, name);
-      }
+  }
   virtual ~wxTextCtrl();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTextCtrlNameStr));
     // overridden wxTextEntry methods
@@ -68,13 +68,15 @@ public:
   wxTextCtrlHitTestResult HitTest(const wxPoint& pt, wxTextCoord* col, wxTextCoord* row) const override
   {
         return wxTextCtrlBase::HitTest(pt, col, row);
-    }
+  }
   void SetLayoutDirection(wxLayoutDirection dir) override;
   wxLayoutDirection GetLayoutDirection() const override;
     // Caret handling (Windows only)
   bool ShowNativeCaret(bool show = true);
   bool HideNativeCaret()
-  { return ShowNativeCaret(false); }
+  {
+ return ShowNativeCaret(false);
+  }
     // Implementation from now on
     // --------------------------
 #  if  wxUSE_DRAG_AND_DROP && wxUSE_RICHEDIT
@@ -87,9 +89,13 @@ public:
 #  if  wxUSE_RICHEDIT
   bool MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM* result) override;
   int GetRichVersion() const
-  { return m_verRichEdit; }
+  {
+ return m_verRichEdit;
+  }
   bool IsRich() const
-  { return m_verRichEdit != 0; }
+  {
+ return m_verRichEdit != 0;
+  }
     // rich edit controls are not compatible with normal ones and we must set
     // the colours and font for them otherwise
   bool SetBackgroundColour(const wxColour& colour) override;
@@ -97,14 +103,20 @@ public:
   bool SetFont(const wxFont& font) override;
 #  else 
   bool IsRich() const
-  { return false; }
+  {
+ return false;
+  }
 #  endif
 #  if  wxUSE_INKEDIT && wxUSE_RICHEDIT
   bool IsInkEdit() const
-  { return m_isInkEdit != 0; }
+  {
+ return m_isInkEdit != 0;
+  }
 #  else 
   bool IsInkEdit() const
-  { return false; }
+  {
+ return false;
+  }
 #  endif
   void AdoptAttributesFromHWND() override;
   bool AcceptsFocusFromKeyboard() const override;
@@ -209,11 +221,13 @@ private:
   void EnableTextChangedEvents(bool enable) override
   {
         m_updatesCount = enable ? -1 : -2;
-    }
+  }
     // implement wxTextEntry pure virtual: it implements all the operations for
     // the simple EDIT controls
   WXHWND GetEditHWND() const override
-  { return m_hWnd; }
+  {
+ return m_hWnd;
+  }
 #  if  wxUSE_OLE
   void MSWProcessSpecialKey(wxKeyEvent& event) override;
 #  endif

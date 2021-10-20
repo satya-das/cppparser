@@ -13,9 +13,9 @@ class SkSemaphore
 {
 public:
   SkSemaphore(int count = 0)
-    :  fCount(count), fOSSemaphore(nullptr) 
-    {
-    }
+    :  fCount(count), fOSSemaphore(nullptr)
+  {
+  }
     // Cleanup the underlying OS semaphore.
   ~SkSemaphore();
     // Increment the counter n times.

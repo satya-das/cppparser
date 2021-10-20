@@ -36,18 +36,22 @@ public:
             kHasWidth_CropEdge  = 0x04,
             kHasHeight_CropEdge = 0x08,
             kHasAll_CropEdge    = 0x0F,
-        };
+    };
     CropRect()
     {
     }
     explicit CropRect(const SkRect& rect, uint32_t flags = kHasAll_CropEdge)
-      :  fRect(rect), fFlags(flags) 
-      {
-      }
+      :  fRect(rect), fFlags(flags)
+    {
+    }
     uint32_t flags() const
-    { return fFlags; }
+    {
+ return fFlags;
+    }
     const SkRect& rect() const
-    { return fRect; }
+    {
+ return fRect;
+    }
         /**
          *  Apply this cropRect to the imageBounds. If a given edge of the cropRect is not set, then
          *  the corresponding edge from imageBounds will be used. If "embiggen" is true, the crop
@@ -66,7 +70,7 @@ public:
   enum MapDirection {
         kForward_MapDirection,
         kReverse_MapDirection,
-    };
+  };
     /**
      * Map a device-space rect recursively forward or backward through the filter DAG.
      * kForward_MapDirection is used to determine which pixels of the destination canvas a source
@@ -93,7 +97,7 @@ public:
   bool asColorFilter(SkColorFilter** filterPtr) const
   {
         return this->isColorFilterNode(filterPtr);
-    }
+  }
     /**
      *  Returns true (and optionally returns a ref'd filter) if this imagefilter can be completely
      *  replaced by the returned colorfilter. i.e. the two effects will affect drawing in the same
@@ -126,21 +130,21 @@ public:
   static SkFlattenable::Type GetFlattenableType()
   {
         return kSkImageFilter_Type;
-    }
+  }
   SkFlattenable::Type getFlattenableType() const override
   {
         return kSkImageFilter_Type;
-    }
+  }
   static sk_sp<SkImageFilter> Deserialize(const void* data, size_t size, const SkDeserialProcs* procs = nullptr)
   {
         return sk_sp<SkImageFilter>(static_cast<SkImageFilter*>(
                 SkFlattenable::Deserialize(kSkImageFilter_Type, data, size, procs).release()));
-    }
+  }
 protected:
   sk_sp<SkImageFilter> refMe() const
   {
         return sk_ref_sp(const_cast<SkImageFilter*>(this));
-    }
+  }
 private:
   friend class SkImageFilter_Base;
   typedef SkFlattenable INHERITED;

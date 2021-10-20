@@ -67,12 +67,9 @@ class TrueTypeUnicodeBuffer
 {
 public:
   TrueTypeUnicodeBuffer(const wchar_t* text, int length, bool raw, Charset charset)
-    : 
-        m_bDynamicBuffer(false),
+    :         m_bDynamicBuffer(false),
         m_bValid(true)
-    
-    {
-
+  {
         ADESK_UNREFED_PARAM(charset);
         if (length < -1) {
             m_iLen = -length - 1;
@@ -119,19 +116,24 @@ public:
             // which takes a const pointer
             m_pBuffer = const_cast<wchar_t *>(text);
         }
-        }
+  }
   ~TrueTypeUnicodeBuffer()
   {
-
         if (m_bDynamicBuffer)
             delete [] m_pBuffer;
-      }
+  }
   wchar_t* buf() const
-  { return m_pBuffer; }
+  {
+ return m_pBuffer;
+  }
   int len() const
-  { return m_iLen; }
+  {
+ return m_iLen;
+  }
   bool valid() const
-  { return m_bValid; }
+  {
+ return m_bValid;
+  }
 private:
   static const int m_kBufferLen = 256;
   bool m_bValid;

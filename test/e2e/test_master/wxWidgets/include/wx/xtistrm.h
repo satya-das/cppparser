@@ -48,7 +48,9 @@ public:
   }
     // will be called before an object is written, may veto by returning false
   virtual bool BeforeWriteObject(wxObjectWriter*, const wxObject*, const wxClassInfo*, const wxStringToAnyHashMap&)
-  { return true; }
+  {
+ return true;
+  }
     // will be called after this object has been written, may be
     // needed for adjusting stacks
   virtual void AfterWriteObject(wxObjectWriter*, const wxObject*, const wxClassInfo*)
@@ -58,12 +60,16 @@ public:
     // eg replace a concrete wxSize by wxSize( wxDefaultCoord, wxDefaultCoord )
     // or veto writing that property at all by returning false
   virtual bool BeforeWriteProperty(wxObjectWriter*, const wxObject*, const wxPropertyInfo*, const wxAny&)
-  { return true; }
+  {
+ return true;
+  }
     // will be called before a property gets written, may change the value,
     // eg replace a concrete wxSize by wxSize( wxDefaultCoord, wxDefaultCoord )
     // or veto writing that property at all by returning false
   virtual bool BeforeWriteProperty(wxObjectWriter*, const wxObject*, const wxPropertyInfo*, const wxAnyList&)
-  { return true; }
+  {
+ return true;
+  }
     // will be called after a property has been written out, may be needed
     // for adjusting stacks
   virtual void AfterWriteProperty(wxObjectWriter*, const wxPropertyInfo*)
@@ -71,9 +77,13 @@ public:
   }
     // will be called before this delegate gets written
   virtual bool BeforeWriteDelegate(wxObjectWriter*, const wxObject*, const wxClassInfo*, const wxPropertyInfo*, const wxObject*&, const wxHandlerInfo*&)
-  { return true; }
+  {
+ return true;
+  }
   virtual void AfterWriteDelegate(wxObjectWriter*, const wxObject*, const wxClassInfo*, const wxPropertyInfo*, const wxObject*&, const wxHandlerInfo*&)
-  { }
+  {
+
+  }
 };
 class WXDLLIMPEXP_BASE wxObjectWriterFunctor : public wxObjectFunctor
 {

@@ -40,7 +40,7 @@ inline HWND CreateDialog(HINSTANCE hInstance, LPCTSTR pTemplate, HWND hwndParent
         #else
             return CreateDialogA(hInstance, pTemplate, hwndParent, pDlgProc);
         #endif
-    }
+}
 #endif
 // CreateFont
 #ifdef CreateFont
@@ -58,7 +58,7 @@ inline HFONT CreateFont(int height, int width, int escapement, int orientation, 
                                outprecision, clipprecision, quality,
                                family, facename);
         #endif
-    }
+}
 #endif
 // CreateWindow
 #if  defined(CreateWindow)
@@ -72,7 +72,7 @@ inline HWND CreateWindow(LPCTSTR lpClassName, LPCTSTR lpWndClass, DWORD dwStyle,
             return CreateWindowA(lpClassName, lpWndClass, dwStyle, x, y, w, h,
                                  hWndParent, hMenu, hInstance, lpParam);
         #endif
-    }
+}
 #endif
 // LoadMenu
 #ifdef LoadMenu
@@ -84,7 +84,7 @@ inline HMENU LoadMenu(HINSTANCE instance, LPCTSTR name)
         #else
             return LoadMenuA(instance, name);
         #endif
-    }
+}
 #endif
 // FindText
 #ifdef FindText
@@ -96,7 +96,7 @@ inline HWND APIENTRY FindText(LPFINDREPLACE lpfindreplace)
         #else
             return FindTextA(lpfindreplace);
         #endif
-    }
+}
 #endif
 // GetCharWidth
 #ifdef GetCharWidth
@@ -108,7 +108,7 @@ inline BOOL GetCharWidth(HDC dc, UINT first, UINT last, LPINT buffer)
    #else
       return GetCharWidthA(dc, first, last, buffer);
    #endif
-   }
+}
 #endif
 // FindWindow
 #ifdef FindWindow
@@ -117,12 +117,12 @@ inline BOOL GetCharWidth(HDC dc, UINT first, UINT last, LPINT buffer)
 inline HWND FindWindow(LPCWSTR classname, LPCWSTR windowname)
 {
       return FindWindowW(classname, windowname);
-   }
+}
 #  else 
 inline HWND FindWindow(LPCSTR classname, LPCSTR windowname)
 {
       return FindWindowA(classname, windowname);
-   }
+}
 #  endif
 #endif
 // PlaySound
@@ -132,12 +132,12 @@ inline HWND FindWindow(LPCSTR classname, LPCSTR windowname)
 inline BOOL PlaySound(LPCWSTR pszSound, HMODULE hMod, DWORD fdwSound)
 {
       return PlaySoundW(pszSound, hMod, fdwSound);
-   }
+}
 #  else 
 inline BOOL PlaySound(LPCSTR pszSound, HMODULE hMod, DWORD fdwSound)
 {
       return PlaySoundA(pszSound, hMod, fdwSound);
-   }
+}
 #  endif
 #endif
 // GetClassName
@@ -147,12 +147,12 @@ inline BOOL PlaySound(LPCSTR pszSound, HMODULE hMod, DWORD fdwSound)
 inline int GetClassName(HWND h, LPWSTR classname, int maxcount)
 {
       return GetClassNameW(h, classname, maxcount);
-   }
+}
 #  else 
 inline int GetClassName(HWND h, LPSTR classname, int maxcount)
 {
       return GetClassNameA(h, classname, maxcount);
-   }
+}
 #  endif
 #endif
 // GetClassInfo
@@ -162,12 +162,12 @@ inline int GetClassName(HWND h, LPSTR classname, int maxcount)
 inline BOOL GetClassInfo(HINSTANCE h, LPCWSTR name, LPWNDCLASSW winclass)
 {
       return GetClassInfoW(h, name, winclass);
-   }
+}
 #  else 
 inline BOOL GetClassInfo(HINSTANCE h, LPCSTR name, LPWNDCLASSA winclass)
 {
       return GetClassInfoA(h, name, winclass);
-   }
+}
 #  endif
 #endif
 // LoadAccelerators
@@ -177,12 +177,12 @@ inline BOOL GetClassInfo(HINSTANCE h, LPCSTR name, LPWNDCLASSA winclass)
 inline HACCEL LoadAccelerators(HINSTANCE h, LPCWSTR name)
 {
       return LoadAcceleratorsW(h, name);
-   }
+}
 #  else 
 inline HACCEL LoadAccelerators(HINSTANCE h, LPCSTR name)
 {
       return LoadAcceleratorsA(h, name);
-   }
+}
 #  endif
 #endif
 // DrawText
@@ -192,12 +192,12 @@ inline HACCEL LoadAccelerators(HINSTANCE h, LPCSTR name)
 inline int DrawText(HDC h, LPCWSTR str, int count, LPRECT rect, UINT format)
 {
       return DrawTextW(h, str, count, rect, format);
-   }
+}
 #  else 
 inline int DrawText(HDC h, LPCSTR str, int count, LPRECT rect, UINT format)
 {
       return DrawTextA(h, str, count, rect, format);
-   }
+}
 #  endif
 #endif
 // StartDoc
@@ -207,12 +207,12 @@ inline int DrawText(HDC h, LPCSTR str, int count, LPRECT rect, UINT format)
 inline int StartDoc(HDC h, const DOCINFOW* info)
 {
       return StartDocW(h, const_cast<DOCINFOW*>(info));
-   }
+}
 #  else 
 inline int StartDoc(HDC h, const DOCINFOA* info)
 {
       return StartDocA(h, const_cast<DOCINFOA*>(info));
-   }
+}
 #  endif
 #endif
 // GetObject
@@ -225,7 +225,7 @@ inline int GetObject(HGDIOBJ h, int i, LPVOID buffer)
    #else
       return GetObjectA(h, i, buffer);
    #endif
-   }
+}
 #endif
 // GetMessage
 #ifdef GetMessage
@@ -237,7 +237,7 @@ inline int GetMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilte
    #else
       return GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
    #endif
-   }
+}
 #endif
 // LoadIcon
 #ifdef LoadIcon
@@ -249,7 +249,7 @@ inline HICON LoadIcon(HINSTANCE hInstance, LPCTSTR lpIconName)
         #else // ANSI
             return LoadIconA(hInstance, lpIconName);
         #endif // Unicode/ANSI
-    }
+}
 #endif
 // LoadBitmap
 #ifdef LoadBitmap
@@ -261,7 +261,7 @@ inline HBITMAP LoadBitmap(HINSTANCE hInstance, LPCTSTR lpBitmapName)
         #else // ANSI
             return LoadBitmapA(hInstance, lpBitmapName);
         #endif // Unicode/ANSI
-    }
+}
 #endif
 // LoadLibrary
 #ifdef LoadLibrary
@@ -270,12 +270,12 @@ inline HBITMAP LoadBitmap(HINSTANCE hInstance, LPCTSTR lpBitmapName)
 inline HINSTANCE LoadLibrary(LPCWSTR lpLibFileName)
 {
         return LoadLibraryW(lpLibFileName);
-    }
+}
 #  else 
 inline HINSTANCE LoadLibrary(LPCSTR lpLibFileName)
 {
         return LoadLibraryA(lpLibFileName);
-    }
+}
 #  endif
 #endif
 // FindResource
@@ -285,12 +285,12 @@ inline HINSTANCE LoadLibrary(LPCSTR lpLibFileName)
 inline HRSRC FindResource(HMODULE hModule, LPCWSTR lpName, LPCWSTR lpType)
 {
         return FindResourceW(hModule, lpName, lpType);
-    }
+}
 #  else 
 inline HRSRC FindResource(HMODULE hModule, LPCSTR lpName, LPCSTR lpType)
 {
         return FindResourceA(hModule, lpName, lpType);
-    }
+}
 #  endif
 #endif
 // IsMaximized
@@ -299,7 +299,7 @@ inline HRSRC FindResource(HMODULE hModule, LPCSTR lpName, LPCSTR lpType)
 inline BOOL IsMaximized(HWND hwnd)
 {
         return IsZoomed(hwnd);
-    }
+}
 #endif
 // GetFirstChild
 #ifdef GetFirstChild
@@ -307,7 +307,7 @@ inline BOOL IsMaximized(HWND hwnd)
 inline HWND GetFirstChild(HWND hwnd)
 {
         return GetTopWindow(hwnd);
-    }
+}
 #endif
 // GetFirstSibling
 #ifdef GetFirstSibling
@@ -315,7 +315,7 @@ inline HWND GetFirstChild(HWND hwnd)
 inline HWND GetFirstSibling(HWND hwnd)
 {
         return GetWindow(hwnd,GW_HWNDFIRST);
-    }
+}
 #endif
 // GetLastSibling
 #ifdef GetLastSibling
@@ -323,7 +323,7 @@ inline HWND GetFirstSibling(HWND hwnd)
 inline HWND GetLastSibling(HWND hwnd)
 {
         return GetWindow(hwnd,GW_HWNDLAST);
-    }
+}
 #endif
 // GetPrevSibling
 #ifdef GetPrevSibling
@@ -331,7 +331,7 @@ inline HWND GetLastSibling(HWND hwnd)
 inline HWND GetPrevSibling(HWND hwnd)
 {
         return GetWindow(hwnd,GW_HWNDPREV);
-    }
+}
 #endif
 // GetNextSibling
 #ifdef GetNextSibling
@@ -339,7 +339,7 @@ inline HWND GetPrevSibling(HWND hwnd)
 inline HWND GetNextSibling(HWND hwnd)
 {
         return GetWindow(hwnd,GW_HWNDNEXT);
-    }
+}
 #endif
 // For WINE
 #if  defined(GetWindowStyle)

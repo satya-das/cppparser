@@ -54,18 +54,20 @@ class wxModalExpectation
 {
 public:
   wxModalExpectation()
-    :  m_isOptional(false) 
-    {
-    }
+    :  m_isOptional(false)
+  {
+  }
   virtual ~wxModalExpectation()
   {
   }
   wxString GetDescription() const
   {
         return m_description.empty() ? GetDefaultDescription() : m_description;
-    }
+  }
   bool IsOptional() const
-  { return m_isOptional; }
+  {
+ return m_isOptional;
+  }
   virtual int Invoke(wxDialog* dlg) const = 0;
 protected:
     // Override to return the default description of the expected dialog used
@@ -130,7 +132,7 @@ public:
         ExpectationType e(*static_cast<const ExpectationType*>(this));
         e.m_isOptional = true;
         return e;
-    }
+  }
     /**
         Sets a description shown in the error message if the expectation fails.
 
@@ -143,7 +145,7 @@ public:
         ExpectationType e(*static_cast<const ExpectationType*>(this));
         e.m_description = description;
         return e;
-    }
+  }
 protected:
   int Invoke(wxDialog* dlg) const override
   {
@@ -152,12 +154,12 @@ protected:
             return OnInvoked(t);
         else
             return wxID_NONE; // not handled
-    }
+  }
     /// Returns description of the expected dialog (by default, its class).
   wxString GetDefaultDescription() const override
   {
         return wxGetDialogClassDescription(wxCLASSINFO(T), typeid(T));
-    }
+  }
     /**
         This method is called when ShowModal() was invoked on a dialog of type T.
 
@@ -172,7 +174,6 @@ class wxExpectDismissableModal : public wxExpectModalBase<T, wxExpectDismissable
 public:
   explicit wxExpectDismissableModal(int id)
   {
-
         switch ( id )
         {
             case wxYES:
@@ -194,12 +195,12 @@ public:
                 m_id = id;
                 break;
         }
-      }
+  }
 protected:
   int OnInvoked(T*) const override
   {
         return m_id;
-    }
+  }
   int m_id;
 };
 template <>
@@ -208,10 +209,9 @@ class wxExpectModal<wxMessageDialog> : public wxExpectDismissableModal<wxMessage
 public:
   explicit wxExpectModal(int id)
     :  wxExpectDismissableModal<wxMessageDialog>(id)
-    
-    {
+  {
 
-        }
+  }
 protected:
   wxString GetDefaultDescription() const override
   {
@@ -239,17 +239,16 @@ protected:
         }
 
         return wxASCII_STR("wxMessageDialog with ") + details;
-    }
+  }
 };
 class wxExpectAny : public wxExpectDismissableModal<wxDialog>
 {
 public:
   explicit wxExpectAny(int id)
     :  wxExpectDismissableModal<wxDialog>(id)
-    
-    {
+  {
 
-        }
+  }
 };
 #    if  wxUSE_FILEDLG
 template <>
@@ -258,16 +257,15 @@ class wxExpectModal<wxFileDialog> : public wxExpectModalBase<wxFileDialog>
 public:
   wxExpectModal(const wxString& path, int id = wxID_OK)
     :  m_path(path), m_id(id)
-    
-    {
+  {
 
-        }
+  }
 protected:
   int OnInvoked(wxFileDialog* dlg) const override
   {
         dlg->SetPath(m_path);
         return m_id;
-    }
+  }
   wxString m_path;
   int m_id;
 };
@@ -284,11 +282,9 @@ public:
     // your own values.
   wxTestingModalHook(const char* file = NULL, int line = 0, const char* func = NULL)
     :  m_file(file), m_line(line), m_func(func)
-    
-    {
-
+  {
         Register();
-        }
+  }
     // Called to verify that all expectations were met. This cannot be done in
     // the destructor, because ReportFailure() may throw (either because it's
     // overridden or because wx's assertions handling is, globally). And
@@ -313,11 +309,11 @@ public:
             );
             break;
         }
-    }
+  }
   void AddExpectation(const wxModalExpectation& e)
   {
         m_expectations.push(&e);
-    }
+  }
 protected:
   int Enter(wxDialog* dlg) override
   {
@@ -357,7 +353,7 @@ protected:
             )
         );
         return wxID_NONE;
-    }
+  }
     // This method may be overridden to provide a better description of
     // (unexpected) dialogs, e.g. add knowledge of custom dialogs used by the
     // program here.
@@ -380,7 +376,7 @@ protected:
                     wxGetDialogClassDescription(dlg->GetClassInfo(), typeid(*dlg)),
                     dlg->GetTitle()
                );
-    }
+  }
     // This method may be overridden to change the way test failures are
     // handled. By default they result in an assertion failure which, of
     // course, can itself be customized.
@@ -390,7 +386,7 @@ protected:
                        m_file ? m_file : __FILE__,
                        m_line ? m_line : __LINE__,
                        m_func ? m_func : __WXFUNCTION__ );
-    }
+  }
 private:
   const char* const m_file;
   const int m_line;

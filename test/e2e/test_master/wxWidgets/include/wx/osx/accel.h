@@ -19,7 +19,9 @@ public:
   wxAcceleratorTable(int n, const wxAcceleratorEntry entries[]);
   virtual ~wxAcceleratorTable();
   bool Ok() const
-  { return IsOk(); }
+  {
+ return IsOk();
+  }
   bool IsOk() const;
   int GetCommand(wxKeyEvent& event);
 };

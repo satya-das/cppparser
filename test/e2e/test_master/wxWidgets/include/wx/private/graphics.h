@@ -25,10 +25,9 @@ class WXDLLIMPEXP_CORE wxGraphicsBitmapData : public wxGraphicsObjectRefData
 {
 public:
   wxGraphicsBitmapData(wxGraphicsRenderer* renderer)
-    : 
-       wxGraphicsObjectRefData(renderer) 
-    {
-    }
+    :        wxGraphicsObjectRefData(renderer)
+  {
+  }
   virtual ~wxGraphicsBitmapData()
   {
   }
@@ -39,10 +38,9 @@ class WXDLLIMPEXP_CORE wxGraphicsMatrixData : public wxGraphicsObjectRefData
 {
 public:
   wxGraphicsMatrixData(wxGraphicsRenderer* renderer)
-    : 
-       wxGraphicsObjectRefData(renderer) 
-    {
-    }
+    :        wxGraphicsObjectRefData(renderer)
+  {
+  }
   virtual ~wxGraphicsMatrixData()
   {
   }
@@ -83,9 +81,9 @@ class WXDLLIMPEXP_CORE wxGraphicsPathData : public wxGraphicsObjectRefData
 {
 public:
   wxGraphicsPathData(wxGraphicsRenderer* renderer)
-    :  wxGraphicsObjectRefData(renderer) 
-    {
-    }
+    :  wxGraphicsObjectRefData(renderer)
+  {
+  }
   virtual ~wxGraphicsPathData()
   {
   }

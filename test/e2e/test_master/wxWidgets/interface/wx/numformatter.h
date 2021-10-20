@@ -49,7 +49,7 @@ public:
             value.
          */
         Style_NoTrailingZeroes  = 0x02
-    };
+  };
     /**
         Returns string representation of an integer number.
 

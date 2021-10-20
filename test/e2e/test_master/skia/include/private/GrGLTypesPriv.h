@@ -48,11 +48,17 @@ public:
   };
   void invalidate();
   ResetTimestamp resetTimestamp() const
-  { return fResetTimestamp; }
+  {
+ return fResetTimestamp;
+  }
   const SamplerOverriddenState& samplerOverriddenState() const
-  { return fSamplerOverriddenState; }
+  {
+ return fSamplerOverriddenState;
+  }
   const NonsamplerState& nonsamplerState() const
-  { return fNonsamplerState; }
+  {
+ return fNonsamplerState;
+  }
     // SamplerOverriddenState is optional because we don't track it when we're using sampler
     // objects.
   void set(const SamplerOverriddenState* samplerState, const NonsamplerState& nonsamplerState, ResetTimestamp currTimestamp);
@@ -66,17 +72,23 @@ class GrGLBackendTextureInfo
 {
 public:
   GrGLBackendTextureInfo(const GrGLTextureInfo& info, GrGLTextureParameters* params)
-    :  fInfo(info), fParams(params) 
-    {
-    }
+    :  fInfo(info), fParams(params)
+  {
+  }
   GrGLBackendTextureInfo(const GrGLBackendTextureInfo&) = delete;
   GrGLBackendTextureInfo& operator=(const GrGLBackendTextureInfo&);
   const GrGLTextureInfo& info() const
-  { return fInfo; }
+  {
+ return fInfo;
+  }
   GrGLTextureParameters* parameters() const
-  { return fParams; }
+  {
+ return fParams;
+  }
   sk_sp<GrGLTextureParameters> refParameters() const
-  { return sk_ref_sp(fParams); }
+  {
+ return sk_ref_sp(fParams);
+  }
   void cleanup();
   void assign(const GrGLBackendTextureInfo&, bool thisIsValid);
 private:

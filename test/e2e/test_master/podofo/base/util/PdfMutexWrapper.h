@@ -73,14 +73,11 @@ namespace PoDoFo
     };
     PdfMutexWrapper::PdfMutexWrapper(PdfMutex& rMutex)
       :  m_rMutex( rMutex )
-
-      {
-
+    {
     m_rMutex.Lock();
-      }
+    }
     PdfMutexWrapper::~PdfMutexWrapper()
     {
-
 #if defined(DEBUG)
     try {
 	m_rMutex.UnLock();

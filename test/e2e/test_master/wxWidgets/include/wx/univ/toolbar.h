@@ -29,14 +29,14 @@ public:
     // construction/destruction
   wxToolBar()
   {
- Init();   }
+ Init();
+  }
   wxToolBar(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxToolBarNameStr))
   {
-
         Init();
 
         Create(parent, id, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxToolBarNameStr));
   virtual ~wxToolBar();
   bool Realize() override;
@@ -45,13 +45,15 @@ public:
   void SetToolShortHelp(int id, const wxString& helpString) override;
   void SetMargins(int x, int y) override;
   void SetMargins(const wxSize& size)
-  { SetMargins((int) size.x, (int) size.y); }
+  {
+ SetMargins((int) size.x, (int) size.y);
+  }
   bool PerformAction(const wxControlAction& action, long numArg = -1, const wxString& strArg = wxEmptyString) override;
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
         return GetStdInputHandler(handlerDef);
-    }
+  }
 protected:
     // common part of all ctors
   void Init();

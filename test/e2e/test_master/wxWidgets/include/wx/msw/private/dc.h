@@ -20,44 +20,35 @@ namespace wxMSWImpl
   public:
     wxTextColoursChanger(HDC hdc, const wxMSWDCImpl& dc)
       :  m_hdc(hdc)
-    
-      {
-
+    {
         Change(dc.GetTextForeground(), dc.GetTextBackground());
-          }
+    }
     wxTextColoursChanger(HDC hdc, const wxColour& colFg, const wxColour& colBg)
       :  m_hdc(hdc)
-    
-      {
-
+    {
         Change(colFg, colBg);
-          }
+    }
     wxTextColoursChanger(HDC hdc, COLORREF colFg, COLORREF colBg)
       :  m_hdc(hdc)
-    
-      {
-
+    {
         Change(colFg, colBg);
-          }
+    }
     ~wxTextColoursChanger()
     {
-
         if ( m_oldColFg != CLR_INVALID )
             ::SetTextColor(m_hdc, m_oldColFg);
         if ( m_oldColBg != CLR_INVALID )
             ::SetBkColor(m_hdc, m_oldColBg);
-        }
+    }
   protected:
     // this ctor doesn't change mode immediately, call Change() later to do it
     // only if needed
     wxTextColoursChanger(HDC hdc)
       :  m_hdc(hdc)
-    
-      {
-
+    {
         m_oldColFg =
         m_oldColBg = CLR_INVALID;
-          }
+    }
     void Change(const wxColour& colFg, const wxColour& colBg)
     {
         Change(colFg.IsOk() ? colFg.GetPixel() : CLR_INVALID,
@@ -103,24 +94,22 @@ namespace wxMSWImpl
     // set background mode to opaque if mode != wxBRUSHSTYLE_TRANSPARENT
     wxBkModeChanger(HDC hdc, int mode)
       :  m_hdc(hdc)
-    
-      {
-
+    {
         Change(mode);
-          }
+    }
     ~wxBkModeChanger()
     {
-
         if ( m_oldMode )
             ::SetBkMode(m_hdc, m_oldMode);
-        }
+    }
   protected:
     // this ctor doesn't change mode immediately, call Change() later to do it
     // only if needed
     wxBkModeChanger(HDC hdc)
-      :  m_hdc(hdc) 
-      {
- m_oldMode = 0;       }
+      :  m_hdc(hdc)
+    {
+ m_oldMode = 0;
+    }
     void Change(int mode)
     {
         m_oldMode = ::SetBkMode(m_hdc, mode == wxBRUSHSTYLE_TRANSPARENT

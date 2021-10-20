@@ -24,23 +24,21 @@ public:
   wxMFCWnd()
   {
 
-      }
+  }
     // Combines default ctor and Attach().
   explicit wxMFCWnd(wxWindow* w)
   {
-
         Attach(w);
-      }
+  }
   void Attach(wxWindow* w)
   {
         CWnd::Attach(w->GetHWND());
-    }
+  }
   ~wxMFCWnd()
   {
-
         // Prevent MFC from destroying the wxWindow.
         Detach();
-      }
+  }
 };
 // ----------------------------------------------------------------------------
 // MFC application class forwarding everything to wxApp
@@ -68,7 +66,7 @@ public:
             return FALSE;
 
         return TRUE;
-    }
+  }
   int ExitInstance() override
   {
         delete BaseApp::m_pMainWnd;
@@ -80,7 +78,7 @@ public:
         wxEntryCleanup();
 
         return BaseApp::ExitInstance();
-    }
+  }
     // Override this to provide messages pre-processing for wxWidgets windows.
   BOOL PreTranslateMessage(MSG* msg) override
   {
@@ -97,7 +95,7 @@ public:
             return TRUE;
 
         return BaseApp::PreTranslateMessage(msg);
-    }
+  }
   BOOL OnIdle(LONG lCount) override
   {
         BOOL moreIdle = BaseApp::OnIdle(lCount);
@@ -111,7 +109,7 @@ public:
         }
 
         return moreIdle;
-    }
+  }
 protected:
     // This virtual method can be overridden to create the main window using
     // MFC code. The default implementation relies on wxApp::OnInit() creating
@@ -138,7 +136,7 @@ protected:
         wxTheApp->SetExitOnFrameDelete(true);
 
         return TRUE;
-    }
+  }
 private:
   void OnMainWindowDestroyed(wxWindowDestroyEvent& event)
   {
@@ -146,7 +144,7 @@ private:
 
         delete BaseApp::m_pMainWnd;
         BaseApp::m_pMainWnd = NULL;
-    }
+  }
 };
 typedef wxMFCApp<CWinApp> wxMFCWinApp;
 // ----------------------------------------------------------------------------
@@ -160,7 +158,7 @@ public:
         // There is no wxEventLoop to exit, tell MFC to stop pumping messages
         // instead.
         ::PostQuitMessage(0);
-    }
+  }
   void WakeUpIdle() override
   {
         // As above, we can't wake up any wx event loop, so try to wake up the
@@ -170,6 +168,6 @@ public:
         {
             ::PostMessage(mfcApp->m_pMainWnd->m_hWnd, WM_NULL, 0, 0);
         }
-    }
+  }
 };
 #endif

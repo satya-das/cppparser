@@ -14,7 +14,6 @@
 
 */
 enum wxAuiPaneDockArtSetting {
-
     /// Customizes the sash size
     wxAUI_DOCKART_SASH_SIZE = 0,
 
@@ -65,7 +64,6 @@ enum wxAuiPaneDockArtSetting {
 
     /// Customizes the gradient type (no gradient, vertical or horizontal)
     wxAUI_DOCKART_GRADIENT_TYPE = 16
-
 };
 /**
     These are the possible gradient dock art settings for wxAuiDefaultDockArt

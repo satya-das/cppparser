@@ -150,14 +150,19 @@ public:
     // Trivial default ctor.
   wxUxThemeFont()
   {
-   }
+
+  }
 #    if  wxUSE_UNICODE
     // In Unicode build we always use LOGFONT anyhow so this class is
     // completely trivial.
   LPLOGFONTW GetPtr()
-  { return &m_lfW; }
+  {
+ return &m_lfW;
+  }
   const LOGFONTW& GetLOGFONT()
-  { return m_lfW; }
+  {
+ return m_lfW;
+  }
 #    else 
     // Return either LOGFONTA or LOGFONTW pointer as required by the current
     // Windows version.
@@ -165,7 +170,7 @@ public:
   {
         return UseLOGFONTW() ? &m_lfW
                              : reinterpret_cast<LPLOGFONTW>(&m_lfA);
-    }
+  }
     // This method returns LOGFONT (i.e. LOGFONTA in ANSI build and LOGFONTW in
     // Unicode one) which can be used with other, normal, Windows or wx
     // functions. Internally it may need to transform LOGFONTW to LOGFONTA.
@@ -184,12 +189,12 @@ public:
         }
 
         return m_lfA;
-    }
+  }
 private:
   static bool UseLOGFONTW()
   {
         return wxGetWinVersion() >= wxWinVersion_Vista;
-    }
+  }
   LOGFONTA m_lfA;
 #    endif
   LOGFONTW m_lfW;
@@ -204,26 +209,27 @@ class wxUxThemeHandle
 public:
   wxUxThemeHandle(const wxWindow* win, const wchar_t* classes)
   {
-
         m_hTheme = (HTHEME)::OpenThemeData(GetHwndOf(win), classes);
-      }
+  }
   operator HTHEME() const
   {
- return m_hTheme;   }
+ return m_hTheme;
+  }
   ~wxUxThemeHandle()
   {
-
         if ( m_hTheme )
         {
             ::CloseThemeData(m_hTheme);
         }
-      }
+  }
 private:
   HTHEME m_hTheme;
   wxDECLARE_NO_COPY_CLASS(wxUxThemeHandle);
 };
 #  else 
 inline bool wxUxThemeIsActive()
-{ return false; }
+{
+ return false;
+}
 #  endif
 #endif

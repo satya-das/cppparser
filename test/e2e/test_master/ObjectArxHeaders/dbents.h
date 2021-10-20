@@ -87,7 +87,9 @@ public:
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
   Adesk::Boolean isPlanar() const override
-  { return Adesk::kTrue; }
+  {
+ return Adesk::kTrue;
+  }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
   double thickness() const;
   Acad::ErrorStatus setThickness(double);
@@ -136,7 +138,7 @@ public:
         kTextAlignmentBottomLeft        = ( kTextAlignmentMiddleRight + 1 ) ,
         kTextAlignmentBottomCenter      = ( kTextAlignmentBottomLeft + 1 ) ,
         kTextAlignmentBottomRight       = ( kTextAlignmentBottomCenter + 1 )
-    };
+  };
   ACDBCORE2D_PORT AcTextAlignment justification() const;
   ACDBCORE2D_PORT Acad::ErrorStatus setJustification(AcTextAlignment);
 protected:
@@ -258,7 +260,9 @@ public:
   AcGeVector3d normal() const;
   virtual Acad::ErrorStatus setNormal(const AcGeVector3d& newVal);
   Adesk::Boolean isPlanar() const override
-  { return Adesk::kTrue; }
+  {
+ return Adesk::kTrue;
+  }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
   AcGeMatrix3d blockTransform() const;
   AcGeMatrix3d nonAnnotationBlockTransform() const;
@@ -661,7 +665,9 @@ public:
   Acad::ErrorStatus setEcsRotation(double);
     // AcDbEntity overrides
   Adesk::Boolean isPlanar() const override
-  { return Adesk::kTrue; }
+  {
+ return Adesk::kTrue;
+  }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
@@ -775,7 +781,9 @@ public:
   double elevation() const;
   void setElevation(double);
   Adesk::Boolean isPlanar() const override
-  { return Adesk::kTrue; }
+  {
+ return Adesk::kTrue;
+  }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
@@ -805,7 +813,9 @@ public:
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
   Adesk::Boolean isPlanar() const override
-  { return Adesk::kTrue; }
+  {
+ return Adesk::kTrue;
+  }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
   Adesk::Int16 shapeNumber() const;
   Acad::ErrorStatus setShapeNumber(Adesk::Int16);
@@ -813,9 +823,13 @@ public:
   Acad::ErrorStatus setStyleId(AcDbObjectId id);
     // Obsolete names for the "shape style id" get/set methods:
   AcDbObjectId shapeIndex() const
-  { return this->styleId(); }
+  {
+ return this->styleId();
+  }
   Acad::ErrorStatus setShapeIndex(AcDbObjectId id)
-  { return this->setStyleId(id); }
+  {
+ return this->setStyleId(id);
+  }
 protected:
   Acad::ErrorStatus subGetClassID(CLSID* pClsid) const override;
 };
@@ -938,11 +952,17 @@ public:
   Acad::ErrorStatus setUcsIconAtCorner();
   ACDBCORE2D_PORT Acad::ErrorStatus setUcsIconAtOrigin(bool);
   bool isFastZoomOn() const
-  { return true; }
+  {
+ return true;
+  }
   Acad::ErrorStatus setFastZoomOn()
-  { return Acad::eOk; }
+  {
+ return Acad::eOk;
+  }
   Acad::ErrorStatus setFastZoomOff()
-  { return Acad::eOk; }
+  {
+ return Acad::eOk;
+  }
   ACDBCORE2D_PORT Acad::ErrorStatus setFastZoomOn(bool);
   Adesk::UInt16 circleSides() const;
   Acad::ErrorStatus setCircleSides(Adesk::UInt16);
@@ -1063,7 +1083,7 @@ public:
         k3in_1ft,           // 3"= 1'
         k6in_1ft,           // 6"= 1'
         k1ft_1ft            // 1'= 1'
-    };
+  };
   double customScale() const;
   Acad::ErrorStatus setCustomScale(double);
   StandardScaleType standardScale() const;
@@ -1112,7 +1132,7 @@ public:
         kRendered       = 3,
         kVisualStyle    = 4,
         kRenderPreset   = 5
-    };
+  };
   ShadePlotType shadePlot() const;
   Acad::ErrorStatus setShadePlot(const ShadePlotType);
   AcDbObjectId shadePlotId() const;

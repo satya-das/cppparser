@@ -17,21 +17,33 @@ public:
   static GrPathProcessor* Create(const SkPMColor4f& color, const SkMatrix& viewMatrix = SkMatrix::I(), const SkMatrix& localMatrix = SkMatrix::I())
   {
         return new GrPathProcessor(color, viewMatrix, localMatrix);
-    }
+  }
   const char* name() const override
-  { return "PathProcessor"; }
+  {
+ return "PathProcessor";
+  }
   const SkPMColor4f& color() const
-  { return fColor; }
+  {
+ return fColor;
+  }
   const SkMatrix& viewMatrix() const
-  { return fViewMatrix; }
+  {
+ return fViewMatrix;
+  }
   const SkMatrix& localMatrix() const
-  { return fLocalMatrix; }
+  {
+ return fLocalMatrix;
+  }
   bool willUseGeoShader() const override
-  { return false; }
+  {
+ return false;
+  }
   void getGLSLProcessorKey(const GrShaderCaps& caps, GrProcessorKeyBuilder* b) const override;
   GrGLSLPrimitiveProcessor* createGLSLInstance(const GrShaderCaps& caps) const override;
   bool isPathRendering() const override
-  { return true; }
+  {
+ return true;
+  }
 private:
   GrPathProcessor(const SkPMColor4f&, const SkMatrix& viewMatrix, const SkMatrix& localMatrix);
   SkPMColor4f fColor;

@@ -25,45 +25,62 @@ class SkEnumerate
     using reference = value_type;
     using iterator_category = std::input_iterator_tag;
     Iterator(ptrdiff_t index, Iter it)
-      :  fIndex{index}, fIt{it} 
-      {
-       }
+      :  fIndex{index}, fIt{it}
+    {
+
+    }
     Iterator(const Iterator&);
     constexpr Iterator operator++()
-    { ++fIndex; ++fIt; return *this; }
+    {
+ ++fIndex; ++fIt; return *this;
+    }
     constexpr Iterator operator++(int)
-    { Iterator tmp(*this); operator++(); return tmp; }
+    {
+ Iterator tmp(*this); operator++(); return tmp;
+    }
     constexpr bool operator==(const Iterator& rhs) const
-    { return fIt == rhs.fIt; }
+    {
+ return fIt == rhs.fIt;
+    }
     constexpr bool operator!=(const Iterator& rhs) const
-    { return fIt != rhs.fIt; }
+    {
+ return fIt != rhs.fIt;
+    }
     constexpr reference operator*()
-    { return std::forward_as_tuple(fIndex, *fIt); }
+    {
+ return std::forward_as_tuple(fIndex, *fIt);
+    }
   private:
     ptrdiff_t fIndex;
     Iter fIt;
   };
 public:
   SkEnumerate(Iter begin, Iter end)
-    :  fBegin{begin}, fEnd{end} 
-    {
-     }
+    :  fBegin{begin}, fEnd{end}
+  {
+
+  }
   explicit SkEnumerate(C&& c)
     :  fCollection{std::move(c)}
             , fBegin{std::begin(fCollection)}
-            , fEnd{std::end(fCollection)} 
-    {
-     }
+            , fEnd{std::end(fCollection)}
+  {
+
+  }
   SkEnumerate(const SkEnumerate& that);
   constexpr SkEnumerate& operator=(const SkEnumerate& that)
   {
         fBegin = that.fBegin;
         fEnd = that.fEnd; return *this;
-    }
+  }
   constexpr Iterator begin() const
-  { return Iterator{0, fBegin}; }
+  {
+ return Iterator{0, fBegin};
+  }
   constexpr Iterator end() const
-  { return Iterator{fEnd - fBegin, fEnd}; }
+  {
+ return Iterator{fEnd - fBegin, fEnd};
+  }
 private:
   C fCollection;
   Iter fBegin;

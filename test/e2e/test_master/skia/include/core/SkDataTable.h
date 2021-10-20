@@ -21,12 +21,16 @@ public:
      *  Returns true if the table is empty (i.e. has no entries).
      */
   bool isEmpty() const
-  { return 0 == fCount; }
+  {
+ return 0 == fCount;
+  }
     /**
      *  Return the number of entries in the table. 0 for an empty table
      */
   int count() const
-  { return fCount; }
+  {
+ return fCount;
+  }
     /**
      *  Return the size of the index'th entry in the table. The caller must
      *  ensure that index is valid for this table.
@@ -44,7 +48,7 @@ public:
   const T* atT(int index, size_t* size = nullptr) const
   {
         return reinterpret_cast<const T*>(this->at(index, size));
-    }
+  }
     /**
      *  Returns the index'th entry as a c-string, and assumes that the trailing
      *  null byte had been copied into the table as well.
@@ -55,7 +59,7 @@ public:
         const char* str = this->atT<const char>(index, &size);
         SkASSERT(strlen(str) + 1 == size);
         return str;
-    }
+  }
   typedef void (*FreeProc) (void* context);
   static sk_sp<SkDataTable> MakeEmpty();
     /**

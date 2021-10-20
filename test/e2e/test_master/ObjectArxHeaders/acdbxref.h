@@ -94,9 +94,13 @@ public:
   bool operator!=(const AcDbXrefObjectId& other) const;
   bool isValid(void) const;
   bool isXref(void) const
-  { return !m_handle.isNull(); }
+  {
+ return !m_handle.isNull();
+  }
   bool isNull(void) const
-  { return m_localId.isNull(); }
+  {
+ return m_localId.isNull();
+  }
   Acad::ErrorStatus setNull(void);
   Acad::ErrorStatus setXrefId(AcDbObjectId xrefBlkId, const AcDbHandle& hObject);
   Acad::ErrorStatus getXrefId(AcDbObjectId& xrefBlkId, AcDbHandle& hObject) const;

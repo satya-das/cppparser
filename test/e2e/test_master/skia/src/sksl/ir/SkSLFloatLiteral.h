@@ -17,14 +17,14 @@ namespace SkSL
   {
     FloatLiteral(const Context& context, int offset, double value)
       :  INHERITED(offset, kFloatLiteral_Kind, *context.fFloatLiteral_Type)
-    , fValue(value) 
-      {
-      }
+    , fValue(value)
+    {
+    }
     FloatLiteral(int offset, double value, const Type* type)
       :  INHERITED(offset, kFloatLiteral_Kind, *type)
-    , fValue(value) 
-      {
-      }
+    , fValue(value)
+    {
+    }
     String description() const override
     {
         return to_string(fValue);

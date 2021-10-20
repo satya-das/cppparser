@@ -17,7 +17,7 @@ struct SkUnit3D
   void set(SkScalar x, SkScalar y, SkScalar z)
   {
         fX = x; fY = y; fZ = z;
-    }
+  }
   static SkScalar Dot(const SkUnit3D&, const SkUnit3D&);
   static void Cross(const SkUnit3D&, const SkUnit3D&, SkUnit3D* cross);
 };
@@ -27,7 +27,7 @@ struct SkPoint3D
   void set(SkScalar x, SkScalar y, SkScalar z)
   {
         fX = x; fY = y; fZ = z;
-    }
+  }
   SkScalar normalize(SkUnit3D*) const;
 };
 typedef SkPoint3D SkVector3D;
@@ -42,7 +42,7 @@ struct SkMatrix3D
         fMat[row][1] = b;
         fMat[row][2] = c;
         fMat[row][3] = d;
-    }
+  }
   void setRotateX(SkScalar deg);
   void setRotateY(SkScalar deg);
   void setRotateZ(SkScalar deg);
@@ -57,11 +57,11 @@ struct SkMatrix3D
   void mapPoint(SkPoint3D* v) const
   {
         this->mapPoint(*v, v);
-    }
+  }
   void mapVector(SkVector3D* v) const
   {
         this->mapVector(*v, v);
-    }
+  }
 };
 class SkPatch3D
 {
@@ -74,7 +74,7 @@ public:
   SkScalar dotWith(const SkVector3D& v) const
   {
         return this->dotWith(v.fX, v.fY, v.fZ);
-    }
+  }
     // deprecated, but still here for animator (for now)
   void rotate(SkScalar, SkScalar, SkScalar)
   {

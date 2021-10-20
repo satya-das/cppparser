@@ -18,20 +18,24 @@ struct SkPathCounter
 {
     // Some ops have a paint, some have an optional paint.  Either way, get back a pointer.
   static const SkPaint* AsPtr(const SkPaint& p)
-  { return &p; }
+  {
+ return &p;
+  }
   static const SkPaint* AsPtr(const SkRecords::Optional<SkPaint>& p)
-  { return p; }
+  {
+ return p;
+  }
   SkPathCounter()
-    :  fNumSlowPathsAndDashEffects(0) 
-    {
-    }
+    :  fNumSlowPathsAndDashEffects(0)
+  {
+  }
   void checkPaint(const SkPaint* paint)
   {
         if (paint && paint->getPathEffect()) {
             // Initially assume it's slow.
             fNumSlowPathsAndDashEffects++;
         }
-    }
+  }
   void operator()(const SkRecords::DrawPoints& op)
   {
         this->checkPaint(&op.paint);
@@ -44,7 +48,7 @@ struct SkPathCounter
                 fNumSlowPathsAndDashEffects--;
             }
         }
-    }
+  }
   void operator()(const SkRecords::DrawPath& op)
   {
         this->checkPaint(&op.paint);
@@ -61,26 +65,28 @@ struct SkPathCounter
                 fNumSlowPathsAndDashEffects++;
             }
         }
-    }
+  }
   void operator()(const SkRecords::ClipPath& op)
   {
         // TODO: does the SkRegion op matter?
         if (op.opAA.aa() && !op.path.isConvex()) {
             fNumSlowPathsAndDashEffects++;
         }
-    }
+  }
   void operator()(const SkRecords::SaveLayer& op)
   {
         this->checkPaint(AsPtr(op.paint));
-    }
+  }
   template <typename T>
   SK_WHEN(T::kTags & SkRecords::kHasPaint_Tag, void) operator()(const T& op)
   {
         this->checkPaint(AsPtr(op.paint));
-    }
+  }
   template <typename T>
   SK_WHEN(!(T::kTags & SkRecords::kHasPaint_Tag), void) operator()(const T& op)
-  { /* do nothing */ }
+  {
+ /* do nothing */
+  }
   int fNumSlowPathsAndDashEffects;
 };
 sk_sp<SkImage> ImageDeserializer_SkDeserialImageProc(const void*, size_t, void* imagedeserializer);

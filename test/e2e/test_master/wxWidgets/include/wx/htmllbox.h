@@ -55,9 +55,13 @@ public:
     // retrieve the file system used by the wxHtmlWinParser: if you use
     // relative paths in your HTML, you should use its ChangePathTo() method
   wxFileSystem& GetFileSystem()
-  { return m_filesystem; }
+  {
+ return m_filesystem;
+  }
   const wxFileSystem& GetFileSystem() const
-  { return m_filesystem; }
+  {
+ return m_filesystem;
+  }
 #    endif
   void OnInternalIdle() override;
 protected:
@@ -150,43 +154,54 @@ public:
     // ---------------------------------
   wxSimpleHtmlListBox()
   {
-   }
+
+  }
   wxSimpleHtmlListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = wxHLB_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSimpleHtmlListBoxNameStr))
   {
-
         Create(parent, id, pos, size, n, choices, style, validator, name);
-      }
+  }
   wxSimpleHtmlListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = wxHLB_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSimpleHtmlListBoxNameStr))
   {
-
         Create(parent, id, pos, size, choices, style, validator, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = wxHLB_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSimpleHtmlListBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = wxHLB_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSimpleHtmlListBoxNameStr));
   virtual ~wxSimpleHtmlListBox();
     // these must be overloaded otherwise the compiler will complain
     // about  wxItemContainerImmutable::[G|S]etSelection being pure virtuals...
   void SetSelection(int n) override
-  { wxVListBox::SetSelection(n); }
+  {
+ wxVListBox::SetSelection(n);
+  }
   int GetSelection() const override
-  { return wxVListBox::GetSelection(); }
+  {
+ return wxVListBox::GetSelection();
+  }
     // accessing strings
     // -----------------
   unsigned int GetCount() const override
-  { return m_items.GetCount(); }
+  {
+ return m_items.GetCount();
+  }
   wxString GetString(unsigned int n) const override;
     // override default unoptimized wxItemContainer::GetStrings() function
   wxArrayString GetStrings() const
-  { return m_items; }
+  {
+ return m_items;
+  }
   void SetString(unsigned int n, const wxString& s) override;
     // resolve ambiguity between wxItemContainer and wxVListBox versions
   void Clear() override;
 protected:
   int DoInsertItems(const wxArrayStringsAdapter& items, unsigned int pos, void** clientData, wxClientDataType type) override;
   void DoSetItemClientData(unsigned int n, void* clientData) override
-  { m_HTMLclientData[n] = clientData; }
+  {
+ m_HTMLclientData[n] = clientData;
+  }
   void* DoGetItemClientData(unsigned int n) const override
-  { return m_HTMLclientData[n]; }
+  {
+ return m_HTMLclientData[n];
+  }
     // wxItemContainer methods
   void DoClear() override;
   void DoDeleteOneItem(unsigned int n) override;
@@ -195,18 +210,24 @@ protected:
     // override these functions just to change their visibility: users of
     // wxSimpleHtmlListBox shouldn't be allowed to call them directly!
   void SetItemCount(size_t count) override
-  { wxHtmlListBox::SetItemCount(count); }
+  {
+ wxHtmlListBox::SetItemCount(count);
+  }
   virtual void SetRowCount(size_t count)
-  { wxHtmlListBox::SetRowCount(count); }
+  {
+ wxHtmlListBox::SetRowCount(count);
+  }
   wxString OnGetItem(size_t n) const override
-  { return m_items[n]; }
+  {
+ return m_items[n];
+  }
   void InitEvent(wxCommandEvent& event, int n) override
   {
             // we're not a virtual control and we can include the string
             // of the item which was clicked:
             event.SetString(m_items[n]);
             wxVListBox::InitEvent(event, n);
-        }
+  }
   wxArrayString m_items;
   wxArrayPtrVoid m_HTMLclientData;
     // Note: For the benefit of old compilers (like gcc-2.8) this should

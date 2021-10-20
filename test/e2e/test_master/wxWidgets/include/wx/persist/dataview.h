@@ -33,10 +33,9 @@ class wxPersistentDataViewCtrl : public wxPersistentWindow<wxDataViewCtrl>
 public:
   wxPersistentDataViewCtrl(wxDataViewCtrl* control)
     :  wxPersistentWindow<wxDataViewCtrl>(control)
-    
-    {
+  {
 
-        }
+  }
   void Save() const override
   {
         wxDataViewCtrl* const control = Get();
@@ -81,7 +80,7 @@ public:
             SaveValue(wxASCII_STR(wxPERSIST_DVC_SORT_ASC),
                       sortColumn->IsSortOrderAscending());
         }
-    }
+  }
   bool Restore() override
   {
         wxDataViewCtrl* const control = Get();
@@ -127,17 +126,17 @@ public:
         }
 
         return true;
-    }
+  }
   wxString GetKind() const override
   {
         return wxASCII_STR(wxPERSIST_DVC_KIND);
-    }
+  }
 private:
     // Return a (slash-terminated) prefix for the column-specific entries.
   static wxString MakeColumnPrefix(const wxDataViewColumn* column)
   {
         return wxString::Format(wxASCII_STR("/Columns/%s/"), column->GetTitle());
-    }
+  }
     // Return the column with the given title or NULL.
   static wxDataViewColumn* GetColumnByTitle(wxDataViewCtrl* control, const wxString& title)
   {
@@ -148,7 +147,7 @@ private:
         }
 
         return NULL;
-    }
+  }
 };
 inline wxPersistentObject* wxCreatePersistentObject(wxDataViewCtrl* control)
 {

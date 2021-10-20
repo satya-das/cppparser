@@ -114,7 +114,7 @@ namespace PoDoFo
     // POSIX.1-2001
     return ::strcasecmp(s1, s2);
 #endif
-}
+    }
     static int strncasecmp(const char* s1, const char* s2, size_t n)
     {
 #if defined(_WIN32) || defined(_WIN64)
@@ -128,7 +128,7 @@ namespace PoDoFo
     // POSIX.1-2001
     return ::strncasecmp(s1, s2, n);
 #endif
-}
+    }
     static double logb(double x)
     {
 #if defined(_WIN32) || defined(_WIN64)
@@ -136,7 +136,7 @@ namespace PoDoFo
 #else
   return ::logb(x);
 #endif
-}
+    }
 /*
  * We define inline wrappers for htons and friends here so that
  * any issues with integer types can be contained to just this
@@ -154,7 +154,7 @@ namespace PoDoFo
 #else
    return static_cast<pdf_uint32>( ntohl( i ) );
 #endif // _WIN32
-}
+    }
     static pdf_uint16 podofo_ntohs(pdf_uint16 i)
     {
 #if defined(_WIN32) && defined(_MSC_VER)
@@ -162,7 +162,7 @@ namespace PoDoFo
 #else
    return static_cast<pdf_uint16>( ntohs( i ) );
 #endif // _WIN32
-}
+    }
     static pdf_uint32 podofo_htonl(pdf_uint32 i)
     {
 #if defined(_WIN32) && defined(_MSC_VER)
@@ -170,7 +170,7 @@ namespace PoDoFo
 #else
     return static_cast<pdf_uint32>( htonl( i ) );
 #endif // _WIN32
-}
+    }
     static pdf_uint16 podofo_htons(pdf_uint16 i)
     {
 #if defined(_WIN32) && defined(_MSC_VER)
@@ -178,7 +178,7 @@ namespace PoDoFo
 #else
     return static_cast<pdf_uint16>( htons( i ) );
 #endif // _WIN32
-}
+    }
   }
 }
 /*
@@ -209,7 +209,9 @@ namespace PoDoFo
 #  ifndef _WIN32
 template <typename T>
 inline void podofo_unused(T& t)
-{ (void)t; }
+{
+ (void)t;
+}
 #    define PODOFO_UNUSED( x ) podofo_unused( x );
 #  else 
 #    define PODOFO_UNUSED( x ) (void)x;

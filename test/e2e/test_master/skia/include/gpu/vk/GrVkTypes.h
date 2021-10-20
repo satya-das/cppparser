@@ -25,18 +25,18 @@ struct GrVkAlloc
             , fSize(0)
             , fFlags(0)
             , fBackendMemory(0)
-            , fUsesSystemHeap(false) 
-    {
-    }
+            , fUsesSystemHeap(false)
+  {
+  }
   GrVkAlloc(VkDeviceMemory memory, VkDeviceSize offset, VkDeviceSize size, uint32_t flags)
     :  fMemory(memory)
             , fOffset(offset)
             , fSize(size)
             , fFlags(flags)
             , fBackendMemory(0)
-            , fUsesSystemHeap(false) 
-    {
-    }
+            , fUsesSystemHeap(false)
+  {
+  }
   VkDeviceMemory fMemory;
   VkDeviceSize fOffset;
   VkDeviceSize fSize;
@@ -45,12 +45,12 @@ struct GrVkAlloc
   enum Flag {
         kNoncoherent_Flag = 0x1,   // memory must be flushed to device after mapping
         kMappable_Flag    = 0x2,   // memory is able to be mapped.
-    };
+  };
   bool operator==(const GrVkAlloc& that) const
   {
         return fMemory == that.fMemory && fOffset == that.fOffset && fSize == that.fSize &&
                fFlags == that.fFlags && fUsesSystemHeap == that.fUsesSystemHeap;
-    }
+  }
 private:
   friend class GrVkHeap;
   bool fUsesSystemHeap;
@@ -67,9 +67,9 @@ struct GrVkYcbcrConversionInfo
             , fXChromaOffset(VK_CHROMA_LOCATION_COSITED_EVEN)
             , fYChromaOffset(VK_CHROMA_LOCATION_COSITED_EVEN)
             , fChromaFilter(VK_FILTER_NEAREST)
-            , fForceExplicitReconstruction(false) 
-    {
-    }
+            , fForceExplicitReconstruction(false)
+  {
+  }
   GrVkYcbcrConversionInfo(VkFormat format, int64_t externalFormat, VkSamplerYcbcrModelConversion ycbcrModel, VkSamplerYcbcrRange ycbcrRange, VkChromaLocation xChromaOffset, VkChromaLocation yChromaOffset, VkFilter chromaFilter, VkBool32 forceExplicitReconstruction, VkFormatFeatureFlags formatFeatures)
     :  fFormat(format)
             , fExternalFormat(externalFormat)
@@ -79,19 +79,18 @@ struct GrVkYcbcrConversionInfo
             , fYChromaOffset(yChromaOffset)
             , fChromaFilter(chromaFilter)
             , fForceExplicitReconstruction(forceExplicitReconstruction)
-            , fFormatFeatures(formatFeatures) 
-    {
-
+            , fFormatFeatures(formatFeatures)
+  {
         SkASSERT(fYcbcrModel != VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY);
         // Either format or externalFormat must be specified.
         SkASSERT((fFormat != VK_FORMAT_UNDEFINED) ^ (externalFormat != 0));
-        }
+  }
   GrVkYcbcrConversionInfo(VkSamplerYcbcrModelConversion ycbcrModel, VkSamplerYcbcrRange ycbcrRange, VkChromaLocation xChromaOffset, VkChromaLocation yChromaOffset, VkFilter chromaFilter, VkBool32 forceExplicitReconstruction, uint64_t externalFormat, VkFormatFeatureFlags externalFormatFeatures)
     :  GrVkYcbcrConversionInfo(VK_FORMAT_UNDEFINED, externalFormat, ycbcrModel, ycbcrRange,
                                       xChromaOffset, yChromaOffset, chromaFilter,
-                                      forceExplicitReconstruction, externalFormatFeatures) 
-    {
-    }
+                                      forceExplicitReconstruction, externalFormatFeatures)
+  {
+  }
   bool operator==(const GrVkYcbcrConversionInfo& that) const
   {
         // Invalid objects are not required to have all other fields initialized or matching.
@@ -106,11 +105,15 @@ struct GrVkYcbcrConversionInfo
                this->fYChromaOffset == that.fYChromaOffset &&
                this->fChromaFilter == that.fChromaFilter &&
                this->fForceExplicitReconstruction == that.fForceExplicitReconstruction;
-    }
+  }
   bool operator!=(const GrVkYcbcrConversionInfo& that) const
-  { return !(*this == that); }
+  {
+ return !(*this == that);
+  }
   bool isValid() const
-  { return fYcbcrModel != VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY; }
+  {
+ return fYcbcrModel != VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY;
+  }
     // Format of the source image. Must be set to VK_FORMAT_UNDEFINED for external images or
     // a valid image format otherwise.
   VkFormat fFormat;
@@ -147,9 +150,9 @@ struct GrVkImageInfo
             , fLevelCount(0)
             , fCurrentQueueFamily(VK_QUEUE_FAMILY_IGNORED)
             , fProtected(GrProtected::kNo)
-            , fYcbcrConversionInfo() 
-    {
-    }
+            , fYcbcrConversionInfo()
+  {
+  }
   GrVkImageInfo(VkImage image, GrVkAlloc alloc, VkImageTiling imageTiling, VkImageLayout layout, VkFormat format, uint32_t levelCount, uint32_t currentQueueFamily = VK_QUEUE_FAMILY_IGNORED, GrProtected isProtected = GrProtected::kNo, GrVkYcbcrConversionInfo ycbcrConversionInfo = GrVkYcbcrConversionInfo())
     :  fImage(image)
             , fAlloc(alloc)
@@ -159,9 +162,9 @@ struct GrVkImageInfo
             , fLevelCount(levelCount)
             , fCurrentQueueFamily(currentQueueFamily)
             , fProtected(isProtected)
-            , fYcbcrConversionInfo(ycbcrConversionInfo) 
-    {
-    }
+            , fYcbcrConversionInfo(ycbcrConversionInfo)
+  {
+  }
   GrVkImageInfo(const GrVkImageInfo& info, VkImageLayout layout)
     :  fImage(info.fImage)
             , fAlloc(info.fAlloc)
@@ -171,14 +174,16 @@ struct GrVkImageInfo
             , fLevelCount(info.fLevelCount)
             , fCurrentQueueFamily(info.fCurrentQueueFamily)
             , fProtected(info.fProtected)
-            , fYcbcrConversionInfo(info.fYcbcrConversionInfo) 
-    {
-    }
+            , fYcbcrConversionInfo(info.fYcbcrConversionInfo)
+  {
+  }
     // This gives a way for a client to update the layout of the Image if they change the layout
     // while we're still holding onto the wrapped texture. They will first need to get a handle
     // to our internal GrVkImageInfo by calling getTextureHandle on a GrVkTexture.
   void updateImageLayout(VkImageLayout layout)
-  { fImageLayout = layout; }
+  {
+ fImageLayout = layout;
+  }
   bool operator==(const GrVkImageInfo& that) const
   {
         return fImage == that.fImage && fAlloc == that.fAlloc &&
@@ -186,7 +191,7 @@ struct GrVkImageInfo
                fFormat == that.fFormat && fLevelCount == that.fLevelCount &&
                fCurrentQueueFamily == that.fCurrentQueueFamily && fProtected == that.fProtected &&
                fYcbcrConversionInfo == that.fYcbcrConversionInfo;
-    }
+  }
 };
 using GrVkGetProc = std::function<PFN_vkVoidFunction( const char*, // function name VkInstance, // instance or VK_NULL_HANDLE VkDevice // device or VK_NULL_HANDLE )>;
 /**

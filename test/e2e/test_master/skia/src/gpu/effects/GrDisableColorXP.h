@@ -31,11 +31,11 @@ private:
   {
         return AnalysisProperties::kCompatibleWithCoverageAsAlpha |
                AnalysisProperties::kIgnoresInputColor;
-    }
+  }
   sk_sp<const GrXferProcessor> makeXferProcessor(const GrProcessorAnalysisColor&, GrProcessorAnalysisCoverage, bool hasMixedSamples, const GrCaps&, GrClampType) const override
   {
         return MakeXferProcessor();
-    }
+  }
   GR_DECLARE_XP_FACTORY_TEST
   typedef GrXPFactory INHERITED;
 };

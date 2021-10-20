@@ -148,7 +148,7 @@ public:
   enum Context {
         Context_Current,
         Context_Exception
-    };
+  };
     /**
         The constructor creates a temporary directory where the files that will
         be included in the report are created. Use IsOk() to check for errors.

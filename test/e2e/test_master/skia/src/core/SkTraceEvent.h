@@ -152,49 +152,59 @@ namespace skia
     {
     public:
       TraceID(const void* id, unsigned char* flags)
-        :  data_(static_cast<uint64_t>(reinterpret_cast<uintptr_t>(id))) 
-        {
-
+        :  data_(static_cast<uint64_t>(reinterpret_cast<uintptr_t>(id)))
+      {
         *flags |= TRACE_EVENT_FLAG_MANGLE_ID;
-            }
+      }
       TraceID(uint64_t id, unsigned char* flags)
-        :  data_(id) 
-        {
- (void)flags;         }
+        :  data_(id)
+      {
+ (void)flags;
+      }
       TraceID(unsigned int id, unsigned char* flags)
-        :  data_(id) 
-        {
- (void)flags;         }
+        :  data_(id)
+      {
+ (void)flags;
+      }
       TraceID(unsigned short id, unsigned char* flags)
-        :  data_(id) 
-        {
- (void)flags;         }
+        :  data_(id)
+      {
+ (void)flags;
+      }
       TraceID(unsigned char id, unsigned char* flags)
-        :  data_(id) 
-        {
- (void)flags;         }
+        :  data_(id)
+      {
+ (void)flags;
+      }
       TraceID(long long id, unsigned char* flags)
-        :  data_(static_cast<uint64_t>(id)) 
-        {
- (void)flags;         }
+        :  data_(static_cast<uint64_t>(id))
+      {
+ (void)flags;
+      }
       TraceID(long id, unsigned char* flags)
-        :  data_(static_cast<uint64_t>(id)) 
-        {
- (void)flags;         }
+        :  data_(static_cast<uint64_t>(id))
+      {
+ (void)flags;
+      }
       TraceID(int id, unsigned char* flags)
-        :  data_(static_cast<uint64_t>(id)) 
-        {
- (void)flags;         }
+        :  data_(static_cast<uint64_t>(id))
+      {
+ (void)flags;
+      }
       TraceID(short id, unsigned char* flags)
-        :  data_(static_cast<uint64_t>(id)) 
-        {
- (void)flags;         }
+        :  data_(static_cast<uint64_t>(id))
+      {
+ (void)flags;
+      }
       TraceID(signed char id, unsigned char* flags)
-        :  data_(static_cast<uint64_t>(id)) 
-        {
- (void)flags;         }
+        :  data_(static_cast<uint64_t>(id))
+      {
+ (void)flags;
+      }
       uint64_t data() const
-      { return data_; }
+      {
+ return data_;
+      }
     private:
       uint64_t data_;
     };
@@ -213,12 +223,13 @@ namespace skia
     {
     public:
       explicit TraceStringWithCopy(const char* str)
-        :  str_(str) 
-        {
-        }
+        :  str_(str)
+      {
+      }
       operator const char*() const
       {
- return str_;       }
+ return str_;
+      }
     private:
       const char* str_;
     };
@@ -274,7 +285,7 @@ namespace skia
   return TRACE_EVENT_API_ADD_TRACE_EVENT(
       phase, category_group_enabled, name, id,
       kZeroNumArgs, nullptr, nullptr, nullptr, flags);
-}
+    }
     template <typename ARG1_TYPE>
     static SkEventTracer::Handle AddTraceEvent(char phase, const uint8_t* category_group_enabled, const char* name, uint64_t id, unsigned char flags, const char* arg1_name, const ARG1_TYPE& arg1_val)
     {
@@ -285,7 +296,7 @@ namespace skia
   return TRACE_EVENT_API_ADD_TRACE_EVENT(
       phase, category_group_enabled, name, id,
       num_args, &arg1_name, arg_types, arg_values, flags);
-}
+    }
     template <typename ARG1_TYPE, typename ARG2_TYPE>
     static SkEventTracer::Handle AddTraceEvent(char phase, const uint8_t* category_group_enabled, const char* name, uint64_t id, unsigned char flags, const char* arg1_name, const ARG1_TYPE& arg1_val, const char* arg2_name, const ARG2_TYPE& arg2_val)
     {
@@ -298,30 +309,29 @@ namespace skia
   return TRACE_EVENT_API_ADD_TRACE_EVENT(
       phase, category_group_enabled, name, id,
       num_args, arg_names, arg_types, arg_values, flags);
-}
+    }
 // Used by TRACE_EVENTx macros. Do not use directly.
     class TRACE_EVENT_API_CLASS_EXPORT ScopedTracer
     {
     public:
   // Note: members of data_ intentionally left uninitialized. See Initialize.
       ScopedTracer()
-        :  p_data_(nullptr) 
-        {
-        }
+        :  p_data_(nullptr)
+      {
+      }
       ~ScopedTracer()
       {
-
     if (p_data_ && *data_.category_group_enabled)
       TRACE_EVENT_API_UPDATE_TRACE_EVENT_DURATION(
           data_.category_group_enabled, data_.name, data_.event_handle);
-        }
+      }
       void Initialize(const uint8_t* category_group_enabled, const char* name, SkEventTracer::Handle event_handle)
       {
     data_.category_group_enabled = category_group_enabled;
     data_.name = name;
     data_.event_handle = event_handle;
     p_data_ = &data_;
-  }
+      }
     private:
   // This Data struct workaround is to avoid initializing all the members
   // in Data during construction of this object, since this object is always

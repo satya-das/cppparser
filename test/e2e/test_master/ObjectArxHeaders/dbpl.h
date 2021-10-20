@@ -42,7 +42,7 @@ public:
         kCoincident,
         kPoint,
         kEmpty
-    };
+  };
   SegType segType(unsigned int index) const;
   Acad::ErrorStatus getLineSegAt(unsigned int index, AcGeLineSeg2d& ln) const;
   Acad::ErrorStatus getLineSegAt(unsigned int index, AcGeLineSeg3d& ln) const;

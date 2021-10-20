@@ -156,7 +156,7 @@ namespace PoDoFo
   inline void PdfPainterMM::SetStrokeWidthMM(long lWidth)
   {
     this->SetStrokeWidth( static_cast<double>(lWidth) * CONVERSION_CONSTANT );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -166,7 +166,7 @@ namespace PoDoFo
                     static_cast<double>(lStartY) * CONVERSION_CONSTANT,
                     static_cast<double>(lEndX)   * CONVERSION_CONSTANT,
                     static_cast<double>(lEndY)   * CONVERSION_CONSTANT );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -176,7 +176,7 @@ namespace PoDoFo
                        static_cast<double>(lY)      * CONVERSION_CONSTANT,
                        static_cast<double>(lWidth)  * CONVERSION_CONSTANT,
                        static_cast<double>(lHeight) * CONVERSION_CONSTANT );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -186,7 +186,7 @@ namespace PoDoFo
                        static_cast<double>(lY)      * CONVERSION_CONSTANT,
                        static_cast<double>(lWidth)  * CONVERSION_CONSTANT,
                        static_cast<double>(lHeight) * CONVERSION_CONSTANT );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -195,7 +195,7 @@ namespace PoDoFo
     this->DrawText( static_cast<double>(lX) * CONVERSION_CONSTANT,
                     static_cast<double>(lY) * CONVERSION_CONSTANT,
                     sText );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -204,7 +204,7 @@ namespace PoDoFo
    this->DrawText( static_cast<double>(lX) * CONVERSION_CONSTANT,
                    static_cast<double>(lY) * CONVERSION_CONSTANT,
                    sText, lLen );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -213,7 +213,7 @@ namespace PoDoFo
    this->DrawImage( static_cast<double>(lX) * CONVERSION_CONSTANT,
                     static_cast<double>(lY) * CONVERSION_CONSTANT,
                     pObject, dScaleX, dScaleY );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -222,7 +222,7 @@ namespace PoDoFo
    this->DrawXObject( static_cast<double>(lX) * CONVERSION_CONSTANT,
                       static_cast<double>(lY) * CONVERSION_CONSTANT,
                       pObject, dScaleX, dScaleY );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -230,7 +230,7 @@ namespace PoDoFo
   {
     this->LineTo( static_cast<double>(lX) * CONVERSION_CONSTANT,
                   static_cast<double>(lY) * CONVERSION_CONSTANT );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -238,6 +238,6 @@ namespace PoDoFo
   {
     this->MoveTo( static_cast<double>(lX) * CONVERSION_CONSTANT,
                   static_cast<double>(lY) * CONVERSION_CONSTANT );
-}
+  }
 }
 #endif

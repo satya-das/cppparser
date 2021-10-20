@@ -20,19 +20,19 @@ namespace SkSL
   {
     StringFragment()
       :  fChars("")
-    , fLength(0) 
-      {
-      }
+    , fLength(0)
+    {
+    }
     StringFragment(const char* chars)
       :  fChars(chars)
-    , fLength(strlen(chars)) 
-      {
-      }
+    , fLength(strlen(chars))
+    {
+    }
     StringFragment(const char* chars, size_t length)
       :  fChars(chars)
-    , fLength(length) 
-      {
-      }
+    , fLength(length)
+    {
+    }
     char operator[](size_t idx) const
     {
         return fChars[idx];
@@ -45,7 +45,8 @@ namespace SkSL
 #  ifndef SKSL_STANDALONE
     operator SkString() const
     {
- return SkString(fChars, fLength);     }
+ return SkString(fChars, fLength);
+    }
 #  endif
     const char* fChars;
     size_t fLength;
@@ -61,17 +62,17 @@ namespace SkSL
     String& operator=(const String&);
     String& operator=(String&&);
     String(const char* s)
-      :  INHERITED(s) 
-      {
-      }
+      :  INHERITED(s)
+    {
+    }
     String(const char* s, size_t size)
-      :  INHERITED(s, size) 
-      {
-      }
+      :  INHERITED(s, size)
+    {
+    }
     String(StringFragment s)
-      :  INHERITED(s.fChars, s.fLength) 
-      {
-      }
+      :  INHERITED(s.fChars, s.fLength)
+    {
+    }
     static String printf(const char* fmt, ...);
     void appendf(const char* fmt, ...);
     // For API compatibility with SkString's reset (vs. std:string's clear)
@@ -100,7 +101,8 @@ namespace SkSL
 #  ifndef SKSL_STANDALONE
     operator SkString() const
     {
- return SkString(c_str());     }
+ return SkString(c_str());
+    }
 #  endif
   private:
     typedef std::string INHERITED;
@@ -128,7 +130,7 @@ namespace std
                 result = result * 101 + s.fChars[i];
             }
             return result;
-        }
+    }
   };
   template <>
   struct hash<SkSL::String>
@@ -136,7 +138,7 @@ namespace std
     size_t operator()(const SkSL::String& s) const
     {
             return hash<std::string>{}(s);
-        }
+    }
   };
 }
 #endif

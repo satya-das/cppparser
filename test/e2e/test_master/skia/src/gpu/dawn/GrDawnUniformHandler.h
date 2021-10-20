@@ -26,7 +26,7 @@ public:
         kGeometryBinding = 0,
         kFragBinding = 1,
         kSamplerBindingBase = 2,
-    };
+  };
 private:
   explicit GrDawnUniformHandler(GrGLSLProgramBuilder* program);
   SamplerHandle addSampler(const GrTexture*, const GrSamplerState&, const GrSwizzle&, const char* name, const GrShaderCaps*) override;

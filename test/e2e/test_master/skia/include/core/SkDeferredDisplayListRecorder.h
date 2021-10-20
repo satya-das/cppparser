@@ -40,7 +40,7 @@ public:
   const SkSurfaceCharacterization& characterization() const
   {
         return fCharacterization;
-    }
+  }
     // The backing canvas will become invalid (and this entry point will return
     // null) once 'detach' is called.
     // Note: ownership of the SkCanvas is not transferred via this call.
@@ -53,7 +53,9 @@ public:
 ;
   using PromiseImageTextureDoneProc = void (*) (PromiseImageTextureContext);
 ;
-  enum class PromiseImageApiVersion { kLegacy, kNew };
+  enum class PromiseImageApiVersion {
+ kLegacy, kNew
+  };
     /**
         Create a new SkImage that is very similar to an SkImage created by MakeFromTexture. The
         difference is that the caller need not have created the texture nor populated it with the

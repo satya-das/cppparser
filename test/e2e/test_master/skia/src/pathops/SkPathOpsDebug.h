@@ -278,7 +278,7 @@ public:
         kUnaligned_Glitch,
         kUnalignedHead_Glitch,
         kUnalignedTail_Glitch,
-    };
+  };
   struct CoinDictEntry
   {
     int fIteration;

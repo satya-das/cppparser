@@ -24,14 +24,17 @@ public:
     // If owns a SAFEARRAY, it's unlocked and destroyed.
   virtual ~wxSafeArrayBase()
   {
- Destroy();   }
+ Destroy();
+  }
     // Unlocks and destroys the owned SAFEARRAY.
   void Destroy();
     // Unlocks the owned SAFEARRAY, returns it and gives up its ownership.
   SAFEARRAY* Detach();
     // Returns true if has a valid SAFEARRAY.
   bool HasArray() const
-  { return m_array != NULL; }
+  {
+ return m_array != NULL;
+  }
     // Returns the number of dimensions.
   size_t GetDim() const;
     // Returns lower bound for dimension dim in bound. Dimensions start at 1.
@@ -45,9 +48,8 @@ protected:
     // it's only used as a base class of wxSafeArray<>.
   wxSafeArrayBase()
   {
-
         m_array = NULL;
-      }
+  }
   bool Lock();
   bool Unlock();
   SAFEARRAY* m_array;
@@ -106,12 +108,12 @@ struct wxSafeArrayConvertor<VT_BSTR>
         }
         to = bstr;
         return true;
-    }
+  }
   static bool FromArray(const BSTR from, wxString& to)
   {
         to = wxConvertStringFromOle(from);
         return true;
-    }
+  }
 };
 // Specialization for VT_VARIANT using wxVariant.
 template <>
@@ -122,11 +124,11 @@ struct wxSafeArrayConvertor<VT_VARIANT>
   static bool ToArray(const wxVariant& from, VARIANT& to)
   {
         return wxConvertVariantToOle(from, to);
-    }
+  }
   static bool FromArray(const VARIANT& from, wxVariant& to)
   {
         return wxConvertOleToVariant(from, to);
-    }
+  }
 };
 template <VARTYPE varType>
 class wxSafeArray : public wxSafeArrayBase
@@ -138,9 +140,8 @@ public:
     // Default constructor.
   wxSafeArray()
   {
-
         m_array = NULL;
-      }
+  }
     // Creates and locks a zero-based one-dimensional SAFEARRAY with the given
     // number of elements.
   bool Create(size_t count)
@@ -150,7 +151,7 @@ public:
         bound.lLbound = 0;
         bound.cElements = count;
         return Create(&bound, 1);
-    }
+  }
     // Creates and locks a SAFEARRAY. See SafeArrayCreate() in MSDN
     // documentation for more information.
   bool Create(SAFEARRAYBOUND* bound, size_t dimensions)
@@ -162,7 +163,7 @@ public:
             return false;
 
         return Lock();
-    }
+  }
     /**
         Creates a 0-based one-dimensional SAFEARRAY from wxVariant with the
         list type.
@@ -185,7 +186,7 @@ public:
                 return false;
         }
         return true;
-    }
+  }
     /**
         Creates a 0-based one-dimensional SAFEARRAY from wxArrayString.
 
@@ -206,7 +207,7 @@ public:
                 return false;
         }
         return true;
-    }
+  }
     /**
         Attaches and locks an existing SAFEARRAY.
         The array must have the same VARTYPE as this wxSafeArray was
@@ -230,7 +231,7 @@ public:
 
         m_array = array;
         return Lock();
-    }
+  }
     /**
         Indices have the same row-column order as rgIndices in
         SafeArrayPutElement(), i.e. they follow BASIC rules, NOT C ones.
@@ -246,7 +247,7 @@ public:
             return false;
 
         return Convertor::ToArray(element, *data);
-    }
+  }
     /**
         Indices have the same row-column order as rgIndices in
         SafeArrayPutElement(), i.e. they follow BASIC rules, NOT C ones.
@@ -262,7 +263,7 @@ public:
             return false;
 
         return Convertor::FromArray(*data, element);
-    }
+  }
     /**
         Converts the array to a wxVariant with the list type, regardless of the
         underlying SAFEARRAY type.
@@ -294,7 +295,7 @@ public:
             variant.Append(element);
         }
         return true;
-    }
+  }
     /**
         Converts an array to an ArrayString.
 
@@ -328,7 +329,7 @@ public:
             strings.push_back(element);
         }
         return true;
-    }
+  }
   static bool ConvertToVariant(SAFEARRAY* psa, wxVariant& variant)
   {
         wxSafeArray<varType> sa;
@@ -341,7 +342,7 @@ public:
             sa.Detach();
 
         return result;
-    }
+  }
   static bool ConvertToArrayString(SAFEARRAY* psa, wxArrayString& strings)
   {
         wxSafeArray<varType> sa;
@@ -354,7 +355,7 @@ public:
             sa.Detach();
 
         return result;
-    }
+  }
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxSafeArray, varType);
 };
 #  endif

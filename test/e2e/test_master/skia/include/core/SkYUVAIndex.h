@@ -19,11 +19,11 @@ struct SK_API SkYUVAIndex
   bool operator==(const SkYUVAIndex& that) const
   {
         return this->fIndex == that.fIndex && this->fChannel == that.fChannel;
-    }
+  }
   bool operator!=(const SkYUVAIndex& that) const
   {
         return !(*this == that);
-    }
+  }
     // Index in the array of SkYUVAIndex
     // TODO: rename as Component
   enum Index {
@@ -33,7 +33,7 @@ struct SK_API SkYUVAIndex
         kA_Index = 3,
 
         kLast_Index = kA_Index
-    };
+  };
   static constexpr int kIndexCount = kLast_Index + 1;
     /** The index is a number between -1..3 which defines which image source to read from, where -1
      * means the image source doesn't exist. The assumption is we will always have image sources for
@@ -72,6 +72,6 @@ struct SK_API SkYUVAIndex
 
         *numPlanes = maxSlotUsed + 1;
         return valid;
-    }
+  }
 };
 #endif

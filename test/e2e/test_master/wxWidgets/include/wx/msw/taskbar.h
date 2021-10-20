@@ -20,9 +20,13 @@ public:
   virtual ~wxTaskBarIcon();
     // Accessors
   bool IsOk() const
-  { return true; }
+  {
+ return true;
+  }
   bool IsIconInstalled() const
-  { return m_iconAdded; }
+  {
+ return m_iconAdded;
+  }
     // Operations
   bool SetIcon(const wxIcon& icon, const wxString& tooltip = wxEmptyString) override;
   bool RemoveIcon() override;
@@ -55,7 +59,7 @@ private:
         Operation_Add,
         Operation_Modify,
         Operation_TryBoth
-    };
+  };
     // Implementation of the public SetIcon() which may also be used when we
     // don't know if we should add a new icon or modify the existing one.
   bool DoSetIcon(const wxIcon& icon, const wxString& tooltip, Operation operation);

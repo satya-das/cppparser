@@ -18,7 +18,9 @@ class WXDLLIMPEXP_BASE wxDataStreamBase
 {
 public:
   void BigEndianOrdered(bool be_order)
-  { m_be_order = be_order; }
+  {
+ m_be_order = be_order;
+  }
     // By default we use extended precision (80 bit) format for both float and
     // doubles. Call this function to switch to alternative representation in
     // which IEEE 754 single precision (32 bits) is used for floats and double
@@ -28,7 +30,7 @@ public:
 #if wxUSE_APPLE_IEEE
         m_useExtendedPrecision = false;
 #endif // wxUSE_APPLE_IEEE
-    }
+  }
     // UseExtendedPrecision() is not very useful as it corresponds to the
     // default value, only call it in your code if you want the compilation
     // fail with the error when using wxWidgets library compiled without
@@ -37,12 +39,14 @@ public:
   void UseExtendedPrecision()
   {
         m_useExtendedPrecision = true;
-    }
+  }
 #    endif
 #    if  wxUSE_UNICODE
   void SetConv(const wxMBConv& conv);
   wxMBConv* GetConv() const
-  { return m_conv; }
+  {
+ return m_conv;
+  }
 #    endif
 protected:
     // Ctor and dtor are both protected, this class is never used directly but
@@ -63,7 +67,9 @@ class WXDLLIMPEXP_BASE wxDataInputStream : public wxDataStreamBase
 public:
   wxDataInputStream(wxInputStream& s, const wxMBConv& conv = wxConvUTF8);
   bool IsOk()
-  { return m_input->IsOk(); }
+  {
+ return m_input->IsOk();
+  }
 #    if  wxHAS_INT64
   wxUint64 Read64();
 #    endif
@@ -119,7 +125,9 @@ class WXDLLIMPEXP_BASE wxDataOutputStream : public wxDataStreamBase
 public:
   wxDataOutputStream(wxOutputStream& s, const wxMBConv& conv = wxConvUTF8);
   bool IsOk()
-  { return m_output->IsOk(); }
+  {
+ return m_output->IsOk();
+  }
 #    if  wxHAS_INT64
   void Write64(wxUint64 i);
   void Write64(wxInt64 i);

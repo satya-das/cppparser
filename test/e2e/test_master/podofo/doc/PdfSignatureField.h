@@ -50,7 +50,7 @@ namespace PoDoFo
         ePdfCertPermission_NoPerms = 1,
         ePdfCertPermission_FormFill = 2,
         ePdfCertPermission_Annotations = 3,
-    } EPdfCertPermission;
+} EPdfCertPermission;
     /** Create a new PdfSignatureField
      */
     PdfSignatureField(PdfPage* pPage, const PdfRect& rRect, PdfDocument* pDoc);

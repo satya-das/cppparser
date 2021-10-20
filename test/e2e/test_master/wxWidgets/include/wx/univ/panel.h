@@ -16,14 +16,16 @@ class WXDLLIMPEXP_CORE wxPanel : public wxPanelBase
 public:
   wxPanel()
   {
-   }
+
+  }
   wxPanel(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL | wxNO_BORDER, const wxString& name = wxASCII_STR(wxPanelNameStr))
   {
-
         Create(parent, winid, pos, size, style, name);
-      }
+  }
   virtual bool IsCanvasWindow() const
-  { return true; }
+  {
+ return true;
+  }
 #  if  WXWIN_COMPATIBILITY_2_8
 #  endif
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxPanel);

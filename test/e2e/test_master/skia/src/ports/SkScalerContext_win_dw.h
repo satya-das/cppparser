@@ -41,7 +41,7 @@ private:
   DWriteFontTypeface* getDWriteTypeface()
   {
         return static_cast<DWriteFontTypeface*>(this->getTypeface());
-    }
+  }
   bool getColorGlyphRun(const SkGlyph& glyph, IDWriteColorGlyphRunEnumerator** colorGlyph);
   void generateColorMetrics(SkGlyph* glyph);
   void generateColorGlyphImage(const SkGlyph& glyph);

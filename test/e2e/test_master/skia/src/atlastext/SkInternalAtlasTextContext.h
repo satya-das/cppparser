@@ -25,13 +25,19 @@ public:
   static std::unique_ptr<SkInternalAtlasTextContext> Make(sk_sp<SkAtlasTextRenderer>);
   virtual ~SkInternalAtlasTextContext();
   SkAtlasTextRenderer* renderer() const
-  { return fRenderer.get(); }
+  {
+ return fRenderer.get();
+  }
   GrContext* grContext() const
-  { return fGrContext.get(); }
+  {
+ return fGrContext.get();
+  }
   GrStrikeCache* glyphCache();
   GrTextBlobCache* textBlobCache();
   const GrTokenTracker* tokenTracker() final
-  { return &fTokenTracker; }
+  {
+ return &fTokenTracker;
+  }
   GrDeferredUploadToken addInlineUpload(GrDeferredTextureUploadFn&&) final;
   GrDeferredUploadToken addASAPUpload(GrDeferredTextureUploadFn&&) final;
   void recordDraw(const void* vertexData, int glyphCnt, const SkMatrix&, void* targetHandle);

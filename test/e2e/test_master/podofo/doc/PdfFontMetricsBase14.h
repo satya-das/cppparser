@@ -234,6 +234,6 @@ namespace PoDoFo
   inline double PdfFontMetricsBase14::GetCapHeight() const
   {
     return cap_height;
-}
+  }
 }
 #endif

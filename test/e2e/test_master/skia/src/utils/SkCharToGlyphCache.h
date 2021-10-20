@@ -17,7 +17,7 @@ public:
   int count() const
   {
         return fK32.count();
-    }
+  }
   void reset();
     /**
      *  Given a unichar, return its glyphID (if the return value is positive), else return
@@ -46,7 +46,7 @@ public:
         } else {
             this->insertCharAndGlyph(~index, unichar, glyph);
         }
-    }
+  }
 private:
   SkTDArray<int32_t> fK32;
   SkTDArray<uint16_t> fV16;

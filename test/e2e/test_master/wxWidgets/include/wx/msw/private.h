@@ -111,17 +111,22 @@ class AutoHANDLE
 {
 public:
   explicit AutoHANDLE(HANDLE handle = InvalidHandle())
-    :  m_handle(handle) 
-    {
-     }
+    :  m_handle(handle)
+  {
+
+  }
   bool IsOk() const
-  { return m_handle != InvalidHandle(); }
+  {
+ return m_handle != InvalidHandle();
+  }
   operator HANDLE() const
   {
- return m_handle;   }
+ return m_handle;
+  }
   ~AutoHANDLE()
   {
- if ( IsOk() ) DoClose();   }
+ if ( IsOk() ) DoClose();
+  }
   void Close()
   {
         wxCHECK_RET(IsOk(), wxT("Handle must be valid"));
@@ -129,7 +134,7 @@ public:
         DoClose();
 
         m_handle = InvalidHandle();
-    }
+  }
 protected:
     // We need this helper function because integer INVALID_VALUE is not
     // implicitly convertible to HANDLE, which is a pointer.
@@ -137,12 +142,12 @@ protected:
   {
         wxUIntPtr h = INVALID_VALUE;
         return reinterpret_cast<HANDLE>(h);
-    }
+  }
   void DoClose()
   {
         if ( !::CloseHandle(m_handle) )
             wxLogLastError(wxT("CloseHandle"));
-    }
+  }
   WXHANDLE m_handle;
 };
 // a template to make initializing Windows structs less painful: it zeros all
@@ -153,12 +158,11 @@ struct WinStruct : public T
 {
   WinStruct()
   {
-
         ::ZeroMemory(this, sizeof(T));
 
         // explicit qualification is required here for this to be valid C++
         this->cbSize = sizeof(T);
-      }
+  }
 };
 // Macros for converting wxString to the type expected by API functions.
 //
@@ -330,16 +334,13 @@ class TempHWNDSetter
 public:
   TempHWNDSetter(wxWindow* win, WXHWND hWnd)
     :  m_win(win), m_hWndOrig(m_win->GetHWND())
-    
-    {
-
+  {
         m_win->SetHWND(hWnd);
-        }
+  }
   ~TempHWNDSetter()
   {
-
         m_win->SetHWND(m_hWndOrig);
-      }
+  }
 private:
   wxWindow* const m_win;
   const WXHWND m_hWndOrig;
@@ -353,13 +354,16 @@ class ScreenHDC
 public:
   ScreenHDC()
   {
- m_hdc = ::GetDC(NULL);      }
+ m_hdc = ::GetDC(NULL);
+  }
   ~ScreenHDC()
   {
- ::ReleaseDC(NULL, m_hdc);   }
+ ::ReleaseDC(NULL, m_hdc);
+  }
   operator HDC() const
   {
- return m_hdc;   }
+ return m_hdc;
+  }
 private:
   HDC m_hdc;
   wxDECLARE_NO_COPY_CLASS(ScreenHDC);
@@ -369,18 +373,22 @@ class WindowHDC
 {
 public:
   WindowHDC()
-    :  m_hwnd(NULL), m_hdc(NULL) 
-    {
-     }
+    :  m_hwnd(NULL), m_hdc(NULL)
+  {
+
+  }
   WindowHDC(HWND hwnd)
   {
- m_hdc = ::GetDC(m_hwnd = hwnd);   }
+ m_hdc = ::GetDC(m_hwnd = hwnd);
+  }
   ~WindowHDC()
   {
- if ( m_hwnd && m_hdc ) { ::ReleaseDC(m_hwnd, m_hdc); }   }
+ if ( m_hwnd && m_hdc ) { ::ReleaseDC(m_hwnd, m_hdc); }
+  }
   operator HDC() const
   {
- return m_hdc;   }
+ return m_hdc;
+  }
 private:
   HWND m_hwnd;
   HDC m_hdc;
@@ -393,13 +401,16 @@ class MemoryHDC
 public:
   MemoryHDC(HDC hdc = NULL)
   {
- m_hdc = ::CreateCompatibleDC(hdc);   }
+ m_hdc = ::CreateCompatibleDC(hdc);
+  }
   ~MemoryHDC()
   {
- ::DeleteDC(m_hdc);   }
+ ::DeleteDC(m_hdc);
+  }
   operator HDC() const
   {
- return m_hdc;   }
+ return m_hdc;
+  }
 private:
   HDC m_hdc;
   wxDECLARE_NO_COPY_CLASS(MemoryHDC);
@@ -410,16 +421,20 @@ class SelectInHDC
 {
 private:
   void DoInit(HGDIOBJ hgdiobj)
-  { m_hgdiobj = ::SelectObject(m_hdc, hgdiobj); }
+  {
+ m_hgdiobj = ::SelectObject(m_hdc, hgdiobj);
+  }
 public:
   SelectInHDC()
-    :  m_hdc(NULL), m_hgdiobj(NULL) 
-    {
-     }
+    :  m_hdc(NULL), m_hgdiobj(NULL)
+  {
+
+  }
   SelectInHDC(HDC hdc, HGDIOBJ hgdiobj)
-    :  m_hdc(hdc) 
-    {
- DoInit(hgdiobj);     }
+    :  m_hdc(hdc)
+  {
+ DoInit(hgdiobj);
+  }
   void Init(HDC hdc, HGDIOBJ hgdiobj)
   {
         wxASSERT_MSG( !m_hdc, wxT("initializing twice?") );
@@ -427,14 +442,16 @@ public:
         m_hdc = hdc;
 
         DoInit(hgdiobj);
-    }
+  }
   ~SelectInHDC()
   {
- if ( m_hdc ) ::SelectObject(m_hdc, m_hgdiobj);   }
+ if ( m_hdc ) ::SelectObject(m_hdc, m_hgdiobj);
+  }
     // return true if the object was successfully selected
   operator bool() const
   {
- return m_hgdiobj != NULL;   }
+ return m_hgdiobj != NULL;
+  }
 private:
   HDC m_hdc;
   HGDIOBJ m_hgdiobj;
@@ -446,22 +463,27 @@ class AutoGDIObject
 protected:
   AutoGDIObject()
   {
- m_gdiobj = NULL;   }
+ m_gdiobj = NULL;
+  }
   AutoGDIObject(HGDIOBJ gdiobj)
-    :  m_gdiobj(gdiobj) 
-    {
-     }
+    :  m_gdiobj(gdiobj)
+  {
+
+  }
   ~AutoGDIObject()
   {
- if ( m_gdiobj ) ::DeleteObject(m_gdiobj);   }
+ if ( m_gdiobj ) ::DeleteObject(m_gdiobj);
+  }
   void InitGdiobj(HGDIOBJ gdiobj)
   {
         wxASSERT_MSG( !m_gdiobj, wxT("initializing twice?") );
 
         m_gdiobj = gdiobj;
-    }
+  }
   HGDIOBJ GetObject() const
-  { return m_gdiobj; }
+  {
+ return m_gdiobj;
+  }
 private:
   HGDIOBJ m_gdiobj;
 };
@@ -472,92 +494,106 @@ class AutoHBRUSH : private AutoGDIObject
 {
 public:
   AutoHBRUSH(COLORREF col)
-    :  AutoGDIObject(::CreateSolidBrush(col)) 
-    {
-     }
+    :  AutoGDIObject(::CreateSolidBrush(col))
+  {
+
+  }
   operator HBRUSH() const
   {
- return (HBRUSH)GetObject();   }
+ return (HBRUSH)GetObject();
+  }
 };
 // a class for temporary fonts
 class AutoHFONT : private AutoGDIObject
 {
 public:
   AutoHFONT()
-    :  AutoGDIObject() 
-    {
-     }
+    :  AutoGDIObject()
+  {
+
+  }
   AutoHFONT(const LOGFONT& lf)
-    :  AutoGDIObject(::CreateFontIndirect(&lf)) 
-    {
-     }
+    :  AutoGDIObject(::CreateFontIndirect(&lf))
+  {
+
+  }
   void Init(const LOGFONT& lf)
-  { InitGdiobj(::CreateFontIndirect(&lf)); }
+  {
+ InitGdiobj(::CreateFontIndirect(&lf));
+  }
   operator HFONT() const
   {
- return (HFONT)GetObject();   }
+ return (HFONT)GetObject();
+  }
 };
 // a class for temporary pens
 class AutoHPEN : private AutoGDIObject
 {
 public:
   AutoHPEN(COLORREF col)
-    :  AutoGDIObject(::CreatePen(PS_SOLID, 0, col)) 
-    {
-     }
+    :  AutoGDIObject(::CreatePen(PS_SOLID, 0, col))
+  {
+
+  }
   operator HPEN() const
   {
- return (HPEN)GetObject();   }
+ return (HPEN)GetObject();
+  }
 };
 // classes for temporary bitmaps
 class AutoHBITMAP : private AutoGDIObject
 {
 public:
   AutoHBITMAP()
-    :  AutoGDIObject() 
-    {
-     }
+    :  AutoGDIObject()
+  {
+
+  }
   AutoHBITMAP(HBITMAP hbmp)
-    :  AutoGDIObject(hbmp) 
-    {
-     }
+    :  AutoGDIObject(hbmp)
+  {
+
+  }
   void Init(HBITMAP hbmp)
-  { InitGdiobj(hbmp); }
+  {
+ InitGdiobj(hbmp);
+  }
   operator HBITMAP() const
   {
- return (HBITMAP)GetObject();   }
+ return (HBITMAP)GetObject();
+  }
 };
 class CompatibleBitmap : public AutoHBITMAP
 {
 public:
   CompatibleBitmap(HDC hdc, int w, int h)
     :  AutoHBITMAP(::CreateCompatibleBitmap(hdc, w, h))
-    
-    {
+  {
 
-        }
+  }
 };
 class MonoBitmap : public AutoHBITMAP
 {
 public:
   MonoBitmap(int w, int h)
     :  AutoHBITMAP(::CreateBitmap(w, h, 1, 1, NULL))
-    
-    {
+  {
 
-        }
+  }
 };
 // class automatically destroys the region object
 class AutoHRGN : private AutoGDIObject
 {
 public:
   AutoHRGN(HRGN hrgn)
-    :  AutoGDIObject(hrgn) 
-    {
-     }
+    :  AutoGDIObject(hrgn)
+  {
+
+  }
   operator HRGN() const
   {
- return (HRGN)GetObject();   }
+ return (HRGN)GetObject();
+  }
 };
 // Class automatically freeing ICONINFO struct fields after retrieving it using
 // GetIconInfo().
@@ -566,7 +602,8 @@ class AutoIconInfo : public ICONINFO
 public:
   AutoIconInfo()
   {
- wxZeroMemory(*this);   }
+ wxZeroMemory(*this);
+  }
   bool GetFrom(HICON hIcon)
   {
         if ( !::GetIconInfo(hIcon, this) )
@@ -576,15 +613,14 @@ public:
         }
 
         return true;
-    }
+  }
   ~AutoIconInfo()
   {
-
         if ( hbmColor )
             ::DeleteObject(hbmColor);
         if ( hbmMask )
             ::DeleteObject(hbmMask);
-      }
+  }
 };
 // class sets the specified clipping region during its life time
 class HDCClipper
@@ -592,19 +628,16 @@ class HDCClipper
 public:
   HDCClipper(HDC hdc, HRGN hrgn)
     :  m_hdc(hdc)
-    
-    {
-
+  {
         if ( !::SelectClipRgn(hdc, hrgn) )
         {
             wxLogLastError(wxT("SelectClipRgn"));
         }
-        }
+  }
   ~HDCClipper()
   {
-
         ::SelectClipRgn(m_hdc, NULL);
-      }
+  }
 private:
   HDC m_hdc;
   wxDECLARE_NO_COPY_CLASS(HDCClipper);
@@ -615,21 +648,18 @@ class HDCMapModeChanger
 public:
   HDCMapModeChanger(HDC hdc, int mm)
     :  m_hdc(hdc)
-        
-    {
-
+  {
             m_modeOld = ::SetMapMode(hdc, mm);
             if ( !m_modeOld )
             {
                 wxLogLastError(wxT("SelectClipRgn"));
             }
-            }
+  }
   ~HDCMapModeChanger()
   {
-
             if ( m_modeOld )
                 ::SetMapMode(m_hdc, m_modeOld);
-          }
+  }
 private:
   HDC m_hdc;
   int m_modeOld;
@@ -644,9 +674,8 @@ public:
     // default ctor, call Init() later
   GlobalPtr()
   {
-
         m_hGlobal = NULL;
-      }
+  }
     // allocates a block of given size
   void Init(size_t size, unsigned flags = GMEM_MOVEABLE)
   {
@@ -655,24 +684,23 @@ public:
         {
             wxLogLastError(wxT("GlobalAlloc"));
         }
-    }
+  }
   GlobalPtr(size_t size, unsigned flags = GMEM_MOVEABLE)
   {
-
         Init(size, flags);
-      }
+  }
   ~GlobalPtr()
   {
-
         if ( m_hGlobal && ::GlobalFree(m_hGlobal) )
         {
             wxLogLastError(wxT("GlobalFree"));
         }
-      }
+  }
     // implicit conversion
   operator HGLOBAL() const
   {
- return m_hGlobal;   }
+ return m_hGlobal;
+  }
 private:
   HGLOBAL m_hGlobal;
   wxDECLARE_NO_COPY_CLASS(GlobalPtr);
@@ -687,10 +715,9 @@ public:
     // be NULL (in which case Init() shouldn't be called)
   GlobalPtrLock()
   {
-
         m_hGlobal = NULL;
         m_ptr = NULL;
-      }
+  }
     // initialize the object, may be only called if we were created using the
     // default ctor; HGLOBAL must not be NULL
   void Init(HGLOBAL hGlobal)
@@ -704,16 +731,14 @@ public:
         {
             wxLogLastError(wxT("GlobalLock"));
         }
-    }
+  }
     // initialize the object, HGLOBAL must not be NULL
   GlobalPtrLock(HGLOBAL hGlobal)
   {
-
         Init(hGlobal);
-      }
+  }
   ~GlobalPtrLock()
   {
-
         if ( m_hGlobal && !GlobalUnlock(m_hGlobal) )
         {
             // this might happen simply because the block became unlocked
@@ -723,12 +748,15 @@ public:
                 wxLogApiError(wxT("GlobalUnlock"), dwLastError);
             }
         }
-      }
+  }
   void* Get() const
-  { return m_ptr; }
+  {
+ return m_ptr;
+  }
   operator void*() const
   {
- return m_ptr;   }
+ return m_ptr;
+  }
   size_t GetSize() const
   {
         const size_t size = ::GlobalSize(m_hGlobal);
@@ -736,7 +764,7 @@ public:
             wxLogLastError(wxT("GlobalSize"));
 
         return size;
-    }
+  }
 private:
   HGLOBAL m_hGlobal;
   void* m_ptr;
@@ -749,13 +777,18 @@ public:
     // ctor doesn't register the class, call Initialize() for this
   ClassRegistrar()
   {
- m_registered = -1;   }
+ m_registered = -1;
+  }
     // return true if the class is already registered
   bool IsInitialized() const
-  { return m_registered != -1; }
+  {
+ return m_registered != -1;
+  }
     // return true if the class had been already registered
   bool IsRegistered() const
-  { return m_registered == 1; }
+  {
+ return m_registered == 1;
+  }
     // try to register the class if not done yet, return true on success
   bool Register(const WNDCLASS& wc)
   {
@@ -774,15 +807,16 @@ public:
         }
 
         return m_registered == 1;
-    }
+  }
     // get the name of the registered class (returns empty string if not
     // registered)
   const wxString& GetName() const
-  { return m_clsname; }
+  {
+ return m_clsname;
+  }
     // unregister the class if it had been registered
   ~ClassRegistrar()
   {
-
         if ( IsRegistered() )
         {
             if ( !::UnregisterClass(m_clsname.t_str(), wxGetInstance()) )
@@ -790,7 +824,7 @@ public:
                 wxLogLastError(wxT("UnregisterClass"));
             }
         }
-      }
+  }
 private:
     // initial value is -1 which means that we hadn't tried registering the
     // class yet, it becomes true or false (1 or 0) when Initialize() is called

@@ -28,7 +28,8 @@ class AcLyRelExpr
 public:
   virtual ~AcLyRelExpr()
   {
-   }
+
+  }
   virtual const ACHAR* getVariable() const = 0;
   virtual const ACHAR* getConstant() const = 0;
 };
@@ -39,7 +40,8 @@ class AcLyAndExpr
 public:
   virtual ~AcLyAndExpr()
   {
-   }
+
+  }
   virtual const AcArray<AcLyRelExpr*>& getRelExprs() const = 0;
 };
 //represents an expression of the form:
@@ -49,7 +51,8 @@ class AcLyBoolExpr
 public:
   virtual ~AcLyBoolExpr()
   {
-   }
+
+  }
   virtual const AcArray<AcLyAndExpr*>& getAndExprs() const = 0;
 };
 #  ifndef HIMAGELIST
@@ -97,7 +100,9 @@ public:
     //Display the editor as child of the active popup window
     //Return kUseDefault if you want to instruct the host application to
     //display the default filter dialog.
-  enum DialogResult {kOk = 0, kCancel=1, kUseDefault = 2};
+  enum DialogResult {
+kOk = 0, kCancel=1, kUseDefault = 2
+  };
   virtual DialogResult showEditor();
   virtual const ACHAR* filterExpression() const;
   virtual Acad::ErrorStatus setFilterExpression(const ACHAR* expr);
@@ -145,7 +150,8 @@ class AcLyLayerFilterManager
 public:
   virtual ~AcLyLayerFilterManager()
   {
-   }
+
+  }
     //reads the filters from the database this manager belongs to, and returns
     //the root filter in pRoot.
     //The caller is responsible for deleting  the filters

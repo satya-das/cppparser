@@ -108,14 +108,14 @@ protected:
 #ifdef __ATLCOM_H__
 public:
   AcRxArxApp()
-    :  AcRxDbxApp (), m_pDynPropManager(NULL) 
-    {
-    }
+    :  AcRxDbxApp (), m_pDynPropManager(NULL)
+  {
+  }
 #else 
   AcRxArxApp()
-    :  AcRxDbxApp () 
-    {
-    }
+    :  AcRxDbxApp ()
+  {
+  }
 #endif
   virtual AcRx::AppRetCode On_kInitAppMsg(void* pkt)
   {
@@ -146,7 +146,7 @@ public:
             }
         }
         return (retCode) ;
-    }
+  }
   virtual AcRx::AppRetCode On_kUnloadAppMsg(void* pkt)
   {
         AcRx::AppRetCode retCode =AcRxDbxApp::On_kUnloadAppMsg (pkt) ;
@@ -168,7 +168,7 @@ public:
             }
         }
         return (retCode) ;
-    }
+  }
   virtual AcRx::AppRetCode On_kLoadDwgMsg(void* pkt)
   {
         AcRx::AppRetCode retCode =AcRxDbxApp::On_kLoadDwgMsg (pkt) ;
@@ -191,7 +191,7 @@ public:
             }
         }
         return (retCode) ;
-    }
+  }
   virtual AcRx::AppRetCode On_kUnloadDwgMsg(void* pkt)
   {
         AcRx::AppRetCode retCode =AcRxDbxApp::On_kUnloadDwgMsg (pkt) ;
@@ -211,7 +211,7 @@ public:
             }
         }
         return (retCode) ;
-    }
+  }
   virtual AcRx::AppRetCode On_kInvkSubrMsg(void* pkt)
   {
         AcRx::AppRetCode retCode =AcRxDbxApp::On_kInvkSubrMsg (pkt) ;
@@ -229,5 +229,5 @@ public:
             }
         }
         return (retCode) ;
-    }
+  }
 };

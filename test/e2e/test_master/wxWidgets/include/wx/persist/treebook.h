@@ -28,10 +28,9 @@ class wxPersistentTreeBookCtrl : public wxPersistentBookCtrl
 public:
   wxPersistentTreeBookCtrl(wxTreebook* book)
     :  wxPersistentBookCtrl(book)
-    
-    {
+  {
 
-        }
+  }
   void Save() const override
   {
         const wxTreebook * const book = GetTreeBook();
@@ -52,7 +51,7 @@ public:
         SaveValue(wxPERSIST_TREEBOOK_EXPANDED_BRANCHES, expanded);
 
         wxPersistentBookCtrl::Save();
-    }
+  }
   bool Restore() override
   {
         wxTreebook * const book = GetTreeBook();
@@ -74,11 +73,15 @@ public:
         }
 
         return wxPersistentBookCtrl::Restore();
-    }
+  }
   wxString GetKind() const override
-  { return wxPERSIST_TREEBOOK_KIND; }
+  {
+ return wxPERSIST_TREEBOOK_KIND;
+  }
   wxTreebook* GetTreeBook() const
-  { return static_cast<wxTreebook *>(Get()); }
+  {
+ return static_cast<wxTreebook *>(Get());
+  }
 };
 inline wxPersistentObject* wxCreatePersistentObject(wxTreebook* book)
 {

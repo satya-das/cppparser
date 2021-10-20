@@ -43,9 +43,7 @@ private:
         , fDWriteFontFamily(SkRefComPtr(fontFamily))
         , fDWriteFont(SkRefComPtr(font))
         , fDWriteFontFace(SkRefComPtr(fontFace))
-    
-    {
-
+  {
         if (!SUCCEEDED(fDWriteFontFace->QueryInterface(&fDWriteFontFace1))) {
             // IUnknown::QueryInterface states that if it fails, punk will be set to nullptr.
             // http://blogs.msdn.com/b/oldnewthing/archive/2004/03/26/96777.aspx
@@ -60,7 +58,7 @@ private:
         if (!SUCCEEDED(fFactory->QueryInterface(&fFactory2))) {
             SkASSERT_RELEASE(nullptr == fFactory2.get());
         }
-        }
+  }
 public:
   SkTScopedComPtr<IDWriteFactory> fFactory;
   SkTScopedComPtr<IDWriteFactory2> fFactory2;
@@ -77,7 +75,7 @@ public:
         return sk_sp<DWriteFontTypeface>(
             new DWriteFontTypeface(get_style(font), factory, fontFace, font, fontFamily,
                                    fontFileLoader, fontCollectionLoader));
-    }
+  }
 protected:
   void weak_dispose() const override
   {
@@ -90,7 +88,7 @@ protected:
 
         //SkTypefaceCache::Remove(this);
         INHERITED::weak_dispose();
-    }
+  }
   sk_sp<SkTypeface> onMakeClone(const SkFontArguments&) const override;
   std::unique_ptr<SkStreamAsset> onOpenStream(int* ttcIndex) const override;
   SkScalerContext* onCreateScalerContext(const SkScalerContextEffects&, const SkDescriptor*) const override;

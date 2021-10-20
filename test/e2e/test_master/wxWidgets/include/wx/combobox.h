@@ -28,16 +28,20 @@ public:
   {
         wxItemContainer::Clear();
         wxTextEntry::Clear();
-    }
+  }
     // IsEmpty() is ambiguous because we inherit it from both wxItemContainer
     // and wxTextEntry, and even if defined it here to help the compiler with
     // choosing one of them, it would still be confusing for the human users of
     // this class. So instead define the clearly named methods below and leave
     // IsEmpty() ambiguous to trigger a compilation error if it's used.
   bool IsListEmpty() const
-  { return wxItemContainer::IsEmpty(); }
+  {
+ return wxItemContainer::IsEmpty();
+  }
   bool IsTextEmpty() const
-  { return wxTextEntry::IsEmpty(); }
+  {
+ return wxTextEntry::IsEmpty();
+  }
     // also bring in GetSelection() versions of both base classes in scope
     //
     // NB: GetSelection(from, to) could be already implemented in wxTextEntry
@@ -47,14 +51,20 @@ public:
   int GetSelection() const = 0;
   void GetSelection(long* from, long* to) const = 0;
   virtual void Popup()
-  { wxFAIL_MSG( wxT("Not implemented") ); }
+  {
+ wxFAIL_MSG( wxT("Not implemented") );
+  }
   virtual void Dismiss()
-  { wxFAIL_MSG( wxT("Not implemented") ); }
+  {
+ wxFAIL_MSG( wxT("Not implemented") );
+  }
     // may return value different from GetSelection() when the combobox
     // dropdown is shown and the user selected, but not yet accepted, a value
     // different from the old one in it
   virtual int GetCurrentSelection() const
-  { return GetSelection(); }
+  {
+ return GetSelection();
+  }
 };
 // ----------------------------------------------------------------------------
 // include the platform-dependent header defining the real class

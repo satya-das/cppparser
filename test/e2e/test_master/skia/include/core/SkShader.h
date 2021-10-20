@@ -43,7 +43,9 @@ public:
      *  optimizations.
      */
   virtual bool isOpaque() const
-  { return false; }
+  {
+ return false;
+  }
     /**
      *  Iff this shader is backed by a single SkImage, return its ptr (the caller must ref this
      *  if they want to keep it longer than the lifetime of the shader). If not, return nullptr.
@@ -52,7 +54,7 @@ public:
   bool isAImage() const
   {
         return this->isAImage(nullptr, (SkTileMode*)nullptr) != nullptr;
-    }
+  }
     /**
      *  If the shader subclass can be represented as a gradient, asAGradient
      *  returns the matching GradientType enum (or kNone_GradientType if it
@@ -89,7 +91,7 @@ public:
         kSweep_GradientType,
         kConical_GradientType,
         kLast_GradientType = kConical_GradientType,
-    };
+  };
   struct GradientInfo
   {
     int fColorCount;

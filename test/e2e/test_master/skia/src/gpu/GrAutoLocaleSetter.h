@@ -35,7 +35,6 @@ class GrAutoLocaleSetter : public SkNoncopyable
 public:
   GrAutoLocaleSetter(const char* name)
   {
-
 #if defined(SK_BUILD_FOR_WIN)
         fOldPerThreadLocale = _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
         char* oldLocale = setlocale(LC_ALL, name);
@@ -61,10 +60,9 @@ public:
 #else
         (void) name; // suppress unused param warning.
 #endif
-      }
+  }
   ~GrAutoLocaleSetter()
   {
-
 #if defined(SK_BUILD_FOR_WIN)
         if (fShouldRestoreLocale) {
             setlocale(LC_ALL, fOldLocale.c_str());
@@ -76,7 +74,7 @@ public:
              freelocale(fLocale);
         }
 #endif
-      }
+  }
 #  if  defined(SK_BUILD_FOR_WIN)
 private:
   int fOldPerThreadLocale;

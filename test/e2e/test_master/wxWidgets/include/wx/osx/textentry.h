@@ -70,7 +70,9 @@ public:
     // --------------
   virtual wxTextWidgetImpl* GetTextPeer() const;
   wxTextCompleter* OSXGetCompleter() const
-  { return m_completer; }
+  {
+ return m_completer;
+  }
 protected:
   wxString DoGetValue() const override;
   bool DoAutoCompleteStrings(const wxArrayString& choices) override;

@@ -21,14 +21,19 @@ class WXDLLIMPEXP_CORE wxButtonBase : public wxAnyButton
 public:
   wxButtonBase()
   {
-   }
+
+  }
     // show the authentication needed symbol on the button: this is currently
     // only implemented on Windows Vista and newer (on which it shows the UAC
     // shield symbol)
   void SetAuthNeeded(bool show = true)
-  { DoSetAuthNeeded(show); }
+  {
+ DoSetAuthNeeded(show);
+  }
   bool GetAuthNeeded() const
-  { return DoGetAuthNeeded(); }
+  {
+ return DoGetAuthNeeded();
+  }
     // make this button the default button in its top level window
     //
     // returns the old default item (possibly NULL)

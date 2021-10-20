@@ -14,12 +14,12 @@ namespace SK_OPTS_NS
   static float eval_poly(float t, float b)
   {
         return b;
-    }
+  }
   template <typename... Rest>
   static float eval_poly(float t, float m, float b, Rest... rest)
   {
         return eval_poly(t, sk_fmaf(m,t,b), rest...);
-    }
+  }
   inline float cubic_solver(float A, float B, float C, float D)
   {
     #ifdef CUBICMAP_TRACK_MAX_ERROR
@@ -62,6 +62,6 @@ namespace SK_OPTS_NS
     #endif
         SkASSERT(valid(t));
         return t;
-    }
+  }
 }
 #endif

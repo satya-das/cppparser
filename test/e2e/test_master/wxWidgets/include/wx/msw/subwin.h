@@ -20,7 +20,8 @@ public:
     // later in Create()
   wxSubwindows(size_t n = 0)
   {
- Init(); if ( n ) Create(n);   }
+ Init(); if ( n ) Create(n);
+  }
     // allocate enough space for the given number of windows
   void Create(size_t n)
   {
@@ -29,11 +30,10 @@ public:
         m_count = n;
         m_hwnds = (HWND *)calloc(n, sizeof(HWND));
         m_ids = new wxWindowIDRef[n];
-    }
+  }
     // non-virtual dtor, this class is not supposed to be used polymorphically
   ~wxSubwindows()
   {
-
         for ( size_t n = 0; n < m_count; n++ )
         {
             if ( m_hwnds[n] )
@@ -42,21 +42,23 @@ public:
 
         free(m_hwnds);
         delete [] m_ids;
-      }
+  }
     // get the number of subwindows
   size_t GetCount() const
-  { return m_count; }
+  {
+ return m_count;
+  }
     // access a given window
   HWND& Get(size_t n)
   {
         wxASSERT_MSG( n < m_count, wxT("subwindow index out of range") );
 
         return m_hwnds[n];
-    }
+  }
   HWND operator[](size_t n) const
   {
         return const_cast<wxSubwindows *>(this)->Get(n);
-    }
+  }
     // initialize the given window: id will be stored in wxWindowIDRef ensuring
     // that it is not reused while this object exists
   void Set(size_t n, HWND hwnd, wxWindowID id)
@@ -65,7 +67,7 @@ public:
 
         m_hwnds[n] = hwnd;
         m_ids[n] = id;
-    }
+  }
     // check if we have this window
   bool HasWindow(HWND hwnd)
   {
@@ -76,7 +78,7 @@ public:
         }
 
         return false;
-    }
+  }
     // methods which are forwarded to all subwindows
     // ---------------------------------------------
 
@@ -89,7 +91,7 @@ public:
             if ( m_hwnds[n] )
                 ::ShowWindow(m_hwnds[n], sw);
         }
-    }
+  }
     // enable/disable everything
   void Enable(bool enable)
   {
@@ -98,7 +100,7 @@ public:
             if ( m_hwnds[n] )
                 ::EnableWindow(m_hwnds[n], enable);
         }
-    }
+  }
     // set font for all windows
   void SetFont(const wxFont& font)
   {
@@ -112,7 +114,7 @@ public:
                 ::InvalidateRect(m_hwnds[n], NULL, FALSE /* don't erase bg */);
             }
         }
-    }
+  }
     // add all windows to update region to force redraw
   void Refresh()
   {
@@ -123,7 +125,7 @@ public:
                 ::InvalidateRect(m_hwnds[n], NULL, FALSE /* don't erase bg */);
             }
         }
-    }
+  }
     // find the bounding box for all windows
   wxRect GetBoundingBox() const
   {
@@ -141,14 +143,14 @@ public:
         }
 
         return r;
-    }
+  }
 private:
   void Init()
   {
         m_count = 0;
         m_hwnds = NULL;
         m_ids = NULL;
-    }
+  }
     // number of elements in m_hwnds array
   size_t m_count;
     // the HWNDs we contain

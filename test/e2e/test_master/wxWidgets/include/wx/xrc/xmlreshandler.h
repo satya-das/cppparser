@@ -40,9 +40,8 @@ public:
     // Constructor.
   wxXmlResourceHandlerImplBase(wxXmlResourceHandler* handler)
     :  m_handler(handler)
-    
-    {
-    }
+  {
+  }
     // Destructor.
   virtual ~wxXmlResourceHandlerImplBase()
   {
@@ -94,7 +93,9 @@ public:
   virtual void ReportError(const wxString& message) = 0;
   virtual void ReportParamError(const wxString& param, const wxString& message) = 0;
   wxXmlResourceHandler* GetHandler()
-  { return m_handler; }
+  {
+ return m_handler;
+  }
 protected:
   wxXmlResourceHandler* m_handler;
 };
@@ -114,7 +115,6 @@ public:
     // it, SetImpl() needs to be called as done by wxXmlResource::AddHandler().
   wxXmlResourceHandler()
   {
-
         m_node = NULL;
         m_parent =
         m_instance = NULL;
@@ -122,24 +122,23 @@ public:
         m_resource = NULL;
 
         m_impl = NULL;
-      }
+  }
     // This should be called exactly once.
   void SetImpl(wxXmlResourceHandlerImplBase* impl)
   {
         wxASSERT_MSG( !m_impl, wxS("Should be called exactly once") );
 
         m_impl = impl;
-    }
+  }
     // Destructor.
   virtual ~wxXmlResourceHandler()
   {
-
         delete m_impl;
-      }
+  }
   wxObject* CreateResource(wxXmlNode* node, wxObject* parent, wxObject* instance)
   {
         return GetImpl()->CreateResource(node, parent, instance);
-    }
+  }
     // This one is called from CreateResource after variables
     // were filled.
   virtual wxObject* DoCreateResource() = 0;
@@ -149,7 +148,7 @@ public:
   void SetParentResource(wxXmlResource* res)
   {
         m_resource = res;
-    }
+  }
     // These methods are not forwarded to wxXmlResourceHandlerImpl because they
     // are called from the derived classes ctors and so before SetImpl() can be
     // called.
@@ -164,175 +163,175 @@ protected:
   void ReportError(wxXmlNode* context, const wxString& message)
   {
         GetImpl()->ReportError(context, message);
-    }
+  }
   void ReportError(const wxString& message)
   {
         GetImpl()->ReportError(message);
-    }
+  }
   void ReportParamError(const wxString& param, const wxString& message)
   {
         GetImpl()->ReportParamError(param, message);
-    }
+  }
   bool IsOfClass(wxXmlNode* node, const wxString& classname) const
   {
         return GetImpl()->IsOfClass(node, classname);
-    }
+  }
   bool IsObjectNode(const wxXmlNode* node) const
   {
         return GetImpl()->IsObjectNode(node);
-    }
+  }
   wxString GetNodeContent(const wxXmlNode* node)
   {
         return GetImpl()->GetNodeContent(node);
-    }
+  }
   wxXmlNode* GetNodeParent(const wxXmlNode* node) const
   {
         return GetImpl()->GetNodeParent(node);
-    }
+  }
   wxXmlNode* GetNodeNext(const wxXmlNode* node) const
   {
         return GetImpl()->GetNodeNext(node);
-    }
+  }
   wxXmlNode* GetNodeChildren(const wxXmlNode* node) const
   {
         return GetImpl()->GetNodeChildren(node);
-    }
+  }
   bool HasParam(const wxString& param)
   {
         return GetImpl()->HasParam(param);
-    }
+  }
   wxXmlNode* GetParamNode(const wxString& param)
   {
         return GetImpl()->GetParamNode(param);
-    }
+  }
   wxString GetParamValue(const wxString& param)
   {
         return GetImpl()->GetParamValue(param);
-    }
+  }
   wxString GetParamValue(const wxXmlNode* node)
   {
         return GetImpl()->GetParamValue(node);
-    }
+  }
   int GetStyle(const wxString& param = wxT("style"), int defaults = 0)
   {
         return GetImpl()->GetStyle(param, defaults);
-    }
+  }
   wxString GetNodeText(const wxXmlNode* node, int flags = 0)
   {
         return GetImpl()->GetNodeText(node, flags);
-    }
+  }
   wxString GetText(const wxString& param, bool translate = true)
   {
         return GetImpl()->GetNodeText(GetImpl()->GetParamNode(param),
                                       translate ? 0 : wxXRC_TEXT_NO_TRANSLATE);
-    }
+  }
   int GetID() const
   {
         return GetImpl()->GetID();
-    }
+  }
   wxString GetName()
   {
         return GetImpl()->GetName();
-    }
+  }
   bool GetBool(const wxString& param, bool defaultv = false)
   {
         return GetImpl()->GetBool(param, defaultv);
-    }
+  }
   long GetLong(const wxString& param, long defaultv = 0)
   {
         return GetImpl()->GetLong(param, defaultv);
-    }
+  }
   float GetFloat(const wxString& param, float defaultv = 0)
   {
         return GetImpl()->GetFloat(param, defaultv);
-    }
+  }
   wxColour GetColour(const wxString& param, const wxColour& defaultv = wxNullColour)
   {
         return GetImpl()->GetColour(param, defaultv);
-    }
+  }
   wxSize GetSize(const wxString& param = wxT("size"), wxWindow* windowToUse = NULL)
   {
         return GetImpl()->GetSize(param, windowToUse);
-    }
+  }
   wxPoint GetPosition(const wxString& param = wxT("pos"))
   {
         return GetImpl()->GetPosition(param);
-    }
+  }
   wxCoord GetDimension(const wxString& param, wxCoord defaultv = 0, wxWindow* windowToUse = NULL)
   {
         return GetImpl()->GetDimension(param, defaultv, windowToUse);
-    }
+  }
   wxSize GetPairInts(const wxString& param)
   {
         return GetImpl()->GetPairInts(param);
-    }
+  }
   wxDirection GetDirection(const wxString& param, wxDirection dir = wxLEFT)
   {
         return GetImpl()->GetDirection(param, dir);
-    }
+  }
   wxBitmap GetBitmap(const wxString& param = wxT("bitmap"), const wxArtClient& defaultArtClient = wxASCII_STR(wxART_OTHER), wxSize size = wxDefaultSize)
   {
         return GetImpl()->GetBitmap(param, defaultArtClient, size);
-    }
+  }
   wxBitmap GetBitmap(const wxXmlNode* node, const wxArtClient& defaultArtClient = wxASCII_STR(wxART_OTHER), wxSize size = wxDefaultSize)
   {
         return GetImpl()->GetBitmap(node, defaultArtClient, size);
-    }
+  }
   wxIcon GetIcon(const wxString& param = wxT("icon"), const wxArtClient& defaultArtClient = wxASCII_STR(wxART_OTHER), wxSize size = wxDefaultSize)
   {
         return GetImpl()->GetIcon(param, defaultArtClient, size);
-    }
+  }
   wxIcon GetIcon(const wxXmlNode* node, const wxArtClient& defaultArtClient = wxASCII_STR(wxART_OTHER), wxSize size = wxDefaultSize)
   {
         return GetImpl()->GetIcon(node, defaultArtClient, size);
-    }
+  }
   wxIconBundle GetIconBundle(const wxString& param, const wxArtClient& defaultArtClient = wxASCII_STR(wxART_OTHER))
   {
         return GetImpl()->GetIconBundle(param, defaultArtClient);
-    }
+  }
   wxImageList* GetImageList(const wxString& param = wxT("imagelist"))
   {
         return GetImpl()->GetImageList(param);
-    }
+  }
 #    if  wxUSE_ANIMATIONCTRL
   wxAnimation* GetAnimation(const wxString& param = wxT("animation"), wxAnimationCtrlBase* ctrl = NULL)
   {
         return GetImpl()->GetAnimation(param, ctrl);
-    }
+  }
 #    endif
   wxFont GetFont(const wxString& param = wxT("font"), wxWindow* parent = NULL)
   {
         return GetImpl()->GetFont(param, parent);
-    }
+  }
   bool GetBoolAttr(const wxString& attr, bool defaultv)
   {
         return GetImpl()->GetBoolAttr(attr, defaultv);
-    }
+  }
   wxString GetFilePath(const wxXmlNode* node)
   {
         return GetImpl()->GetFilePath(node);
-    }
+  }
   void SetupWindow(wxWindow* wnd)
   {
         GetImpl()->SetupWindow(wnd);
-    }
+  }
   void CreateChildren(wxObject* parent, bool this_hnd_only = false)
   {
         GetImpl()->CreateChildren(parent, this_hnd_only);
-    }
+  }
   void CreateChildrenPrivately(wxObject* parent, wxXmlNode* rootnode = NULL)
   {
         GetImpl()->CreateChildrenPrivately(parent, rootnode);
-    }
+  }
   wxObject* CreateResFromNode(wxXmlNode* node, wxObject* parent, wxObject* instance = NULL)
   {
         return GetImpl()->CreateResFromNode(node, parent, instance);
-    }
+  }
 #    if  wxUSE_FILESYSTEM
   wxFileSystem& GetCurFileSystem()
   {
         return GetImpl()->GetCurFileSystem();
-    }
+  }
 #    endif
     // Variables (filled by CreateResource)
   wxXmlNode* m_node;
@@ -342,17 +341,29 @@ protected:
   wxXmlResource* m_resource;
     // provide method access to those member variables
   wxXmlResource* GetResource() const
-  { return m_resource; }
+  {
+ return m_resource;
+  }
   wxXmlNode* GetNode() const
-  { return m_node; }
+  {
+ return m_node;
+  }
   wxString GetClass() const
-  { return m_class; }
+  {
+ return m_class;
+  }
   wxObject* GetParent() const
-  { return m_parent; }
+  {
+ return m_parent;
+  }
   wxObject* GetInstance() const
-  { return m_instance; }
+  {
+ return m_instance;
+  }
   wxWindow* GetParentAsWindow() const
-  { return m_parentAsWindow; }
+  {
+ return m_parentAsWindow;
+  }
   wxArrayString m_styleNames;
   wxArrayInt m_styleValues;
   friend class wxXmlResourceHandlerImpl;

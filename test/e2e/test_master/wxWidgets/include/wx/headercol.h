@@ -63,7 +63,8 @@ public:
     // wxHeaderColumn so it's not necessary, strictly speaking
   virtual ~wxHeaderColumn()
   {
-   }
+
+  }
     // getters for various attributes
     // ------------------------------
 
@@ -98,21 +99,33 @@ public:
     // retrieve all column flags at once: combination of wxCOL_XXX values above
   virtual int GetFlags() const = 0;
   bool HasFlag(int flag) const
-  { return (GetFlags() & flag) != 0; }
+  {
+ return (GetFlags() & flag) != 0;
+  }
     // wxCOL_RESIZABLE
   virtual bool IsResizeable() const
-  { return HasFlag(wxCOL_RESIZABLE); }
+  {
+ return HasFlag(wxCOL_RESIZABLE);
+  }
     // wxCOL_SORTABLE
   virtual bool IsSortable() const
-  { return HasFlag(wxCOL_SORTABLE); }
+  {
+ return HasFlag(wxCOL_SORTABLE);
+  }
     // wxCOL_REORDERABLE
   virtual bool IsReorderable() const
-  { return HasFlag(wxCOL_REORDERABLE); }
+  {
+ return HasFlag(wxCOL_REORDERABLE);
+  }
     // wxCOL_HIDDEN
   virtual bool IsHidden() const
-  { return HasFlag(wxCOL_HIDDEN); }
+  {
+ return HasFlag(wxCOL_HIDDEN);
+  }
   bool IsShown() const
-  { return !IsHidden(); }
+  {
+ return !IsHidden();
+  }
     // sorting
     // -------
 
@@ -146,23 +159,35 @@ public:
   void ClearFlag(int flag);
   void ToggleFlag(int flag);
   virtual void SetResizeable(bool resizable)
-  { ChangeFlag(wxCOL_RESIZABLE, resizable); }
+  {
+ ChangeFlag(wxCOL_RESIZABLE, resizable);
+  }
   virtual void SetSortable(bool sortable)
-  { ChangeFlag(wxCOL_SORTABLE, sortable); }
+  {
+ ChangeFlag(wxCOL_SORTABLE, sortable);
+  }
   virtual void SetReorderable(bool reorderable)
-  { ChangeFlag(wxCOL_REORDERABLE, reorderable); }
+  {
+ ChangeFlag(wxCOL_REORDERABLE, reorderable);
+  }
   virtual void SetHidden(bool hidden)
-  { ChangeFlag(wxCOL_HIDDEN, hidden); }
+  {
+ ChangeFlag(wxCOL_HIDDEN, hidden);
+  }
     // This function can be called to indicate that this column is not used for
     // sorting any more. Under some platforms it's not necessary to do anything
     // in this case as just setting another column as a sort key takes care of
     // everything but under MSW we currently need to call this explicitly to
     // reset the sort indicator displayed on the column.
   virtual void UnsetAsSortKey()
-  { }
+  {
+
+  }
   virtual void SetSortOrder(bool ascending) = 0;
   void ToggleSortOrder()
-  { SetSortOrder(!IsSortOrderAscending()); }
+  {
+ SetSortOrder(!IsSortOrderAscending());
+  }
 protected:
     // helper for the class overriding individual SetXXX() methods instead of
     // overriding SetFlags()
@@ -180,57 +205,83 @@ public:
           m_width(width),
           m_align(align),
           m_flags(flags)
-    
-    {
-
+  {
         Init();
-        }
+  }
   wxHeaderColumnSimple(const wxBitmap& bitmap, int width = wxCOL_WIDTH_DEFAULT, wxAlignment align = wxALIGN_CENTER, int flags = wxCOL_DEFAULT_FLAGS)
     :  m_bitmap(bitmap),
           m_width(width),
           m_align(align),
           m_flags(flags)
-    
-    {
-
+  {
         Init();
-        }
+  }
     // implement base class pure virtuals
   void SetTitle(const wxString& title) override
-  { m_title = title; }
+  {
+ m_title = title;
+  }
   wxString GetTitle() const override
-  { return m_title; }
+  {
+ return m_title;
+  }
   void SetBitmap(const wxBitmap& bitmap) override
-  { m_bitmap = bitmap; }
+  {
+ m_bitmap = bitmap;
+  }
   wxBitmap GetBitmap() const override
-  { return m_bitmap; }
+  {
+ return m_bitmap;
+  }
   void SetWidth(int width) override
-  { m_width = width; }
+  {
+ m_width = width;
+  }
   int GetWidth() const override
-  { return m_width; }
+  {
+ return m_width;
+  }
   void SetMinWidth(int minWidth) override
-  { m_minWidth = minWidth; }
+  {
+ m_minWidth = minWidth;
+  }
   int GetMinWidth() const override
-  { return m_minWidth; }
+  {
+ return m_minWidth;
+  }
   void SetAlignment(wxAlignment align) override
-  { m_align = align; }
+  {
+ m_align = align;
+  }
   wxAlignment GetAlignment() const override
-  { return m_align; }
+  {
+ return m_align;
+  }
   void SetFlags(int flags) override
-  { m_flags = flags; }
+  {
+ m_flags = flags;
+  }
   int GetFlags() const override
-  { return m_flags; }
+  {
+ return m_flags;
+  }
   bool IsSortKey() const override
-  { return m_sort; }
+  {
+ return m_sort;
+  }
   void UnsetAsSortKey() override
-  { m_sort = false; }
+  {
+ m_sort = false;
+  }
   void SetSortOrder(bool ascending) override
   {
         m_sort = true;
         m_sortAscending = ascending;
-    }
+  }
   bool IsSortOrderAscending() const override
-  { return m_sortAscending; }
+  {
+ return m_sortAscending;
+  }
 private:
     // common part of all ctors
   void Init()
@@ -238,7 +289,7 @@ private:
         m_minWidth = 0;
         m_sort = false;
         m_sortAscending = true;
-    }
+  }
   wxString m_title;
   wxBitmap m_bitmap;
   int m_width, m_minWidth;

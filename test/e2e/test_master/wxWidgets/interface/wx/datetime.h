@@ -147,7 +147,7 @@ public:
         /// Universal Coordinated Time = the new and politically correct name
         /// for GMT.
         UTC = GMT0
-    };
+  };
     /**
         Several functions accept an extra parameter specifying the calendar to use
         (although most of them only support now the Gregorian calendar). This
@@ -156,7 +156,7 @@ public:
   enum Calendar {
         Gregorian,  ///< calendar currently in use in Western countries
         Julian      ///< calendar in use since -45 until the 1582 (or later)
-    };
+  };
     /**
         Date calculations often depend on the country and wxDateTime allows to set
         the country whose conventions should be used using SetCountry(). It takes
@@ -177,32 +177,32 @@ public:
         Russia,
 
         USA
-    };
+  };
     /// symbolic names for the months
   enum Month {
         Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec,
 
         /// Invalid month value.
         Inv_Month
-    };
+  };
     /// symbolic names for the weekdays
   enum WeekDay {
         Sun, Mon, Tue, Wed, Thu, Fri, Sat,
 
         /// Invalid week day value.
         Inv_WeekDay
-    };
+  };
     /// invalid value for the year
   enum Year {
         Inv_Year = SHRT_MIN    // should hold in wxDateTime_t
-    };
+  };
     /**
         Flags to be used with GetMonthName() and GetWeekDayName() functions.
     */
   enum NameFlags {
         Name_Full = 0x01,       ///< return full name
         Name_Abbr = 0x02        ///< return abbreviated name
-    };
+  };
     /**
         Different parts of the world use different conventions for the week start.
         In some countries, the week starts on Sunday, while in others -- on Monday.
@@ -217,7 +217,7 @@ public:
         Default_First,   ///< Sunday_First for US, Monday_First for the rest
         Monday_First,    ///< week starts with a Monday
         Sunday_First     ///< week starts with a Sunday
-    };
+  };
     /**
         Class representing a time zone.
 

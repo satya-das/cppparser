@@ -19,7 +19,7 @@ struct AcDbDgnRefFileData
         kDwgFile   = 2,
         kImageFile = 3,
         kOtherFile = 4
-    };
+  };
   FileType type;
   AcString savedPathAndName;
   AcString foundPathAndName;
@@ -32,9 +32,9 @@ class AcDbDgnRefFileRepath
 {
 public:
   AcDbDgnRefFileRepath()
-    :  m_fileHandle(NULL)  
-    {
-    }
+    :  m_fileHandle(NULL)
+  {
+  }
   Acad::ErrorStatus setFile(const AcString& dgnPathAndFilename, const ACHAR* pwd);
   ~AcDbDgnRefFileRepath();
   Acad::ErrorStatus getReferenceFilePaths(AcDbRefFileDataPtrArray& refFiles);

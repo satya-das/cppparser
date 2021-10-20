@@ -25,13 +25,16 @@ class WXDLLIMPEXP_CORE wxControlBase : public wxWindow
 public:
   wxControlBase()
   {
-   }
+
+  }
   virtual ~wxControlBase();
     // Create() function adds the validator parameter
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr));
     // get the control alignment (left/right/centre, top/bottom/centre)
   int GetAlignment() const
-  { return m_windowStyle & wxALIGN_MASK; }
+  {
+ return m_windowStyle & wxALIGN_MASK;
+  }
     // set label with mnemonics
   void SetLabel(const wxString& label) override
   {
@@ -40,19 +43,23 @@ public:
         InvalidateBestSize();
 
         wxWindow::SetLabel(label);
-    }
+  }
     // return the original string, as it was passed to SetLabel()
     // (i.e. with wx-style mnemonics)
   wxString GetLabel() const override
-  { return m_labelOrig; }
+  {
+ return m_labelOrig;
+  }
     // set label text (mnemonics will be escaped)
   virtual void SetLabelText(const wxString& text)
   {
         SetLabel(EscapeMnemonics(text));
-    }
+  }
     // get just the text of the label, without mnemonic characters ('&')
   virtual wxString GetLabelText() const
-  { return GetLabelText(GetLabel()); }
+  {
+ return GetLabelText(GetLabel());
+  }
 #    if  wxUSE_MARKUP
     // Set the label with markup (and mnemonics). Markup is a simple subset of
     // HTML with tags such as <b>, <i> and <span>. By default it is not
@@ -71,13 +78,15 @@ public:
   bool SetLabelMarkup(const wxString& markup)
   {
         return DoSetLabelMarkup(markup);
-    }
+  }
 #    endif
     // controls by default inherit the colours of their parents, if a
     // particular control class doesn't want to do it, it can override
     // ShouldInheritColours() to return false
   bool ShouldInheritColours() const override
-  { return true; }
+  {
+ return true;
+  }
     // WARNING: this doesn't work for all controls nor all platforms!
     //
     // simulates the event of given type (i.e. wxButton::Command() is just as
@@ -87,13 +96,17 @@ public:
     // wxControl-specific processing after processing the update event
   void DoUpdateWindowUI(wxUpdateUIEvent& event) override;
   wxSize GetSizeFromTextSize(int xlen, int ylen = -1) const
-  { return DoGetSizeFromTextSize(xlen, ylen); }
+  {
+ return DoGetSizeFromTextSize(xlen, ylen);
+  }
   wxSize GetSizeFromTextSize(const wxSize& tsize) const
-  { return DoGetSizeFromTextSize(tsize.x, tsize.y); }
+  {
+ return DoGetSizeFromTextSize(tsize.x, tsize.y);
+  }
   wxSize GetSizeFromText(const wxString& text) const
   {
         return GetSizeFromTextSize(GetTextExtent(text).GetWidth());
-    }
+  }
     // static utilities for mnemonics char (&) handling
     // ------------------------------------------------
 

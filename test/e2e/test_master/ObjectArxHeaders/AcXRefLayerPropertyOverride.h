@@ -31,7 +31,7 @@ public:
         PlotStyle    = 8,    //VISRETAINMODE = 256
         NewVPFreeze  = 9,    //VISRETAINMODE = 512
         Description  = 10    //VISRETAINMODE = 1024
-    };
+  };
     /// <summary>
     /// This function is to check whether the Xref layer property is overridden or not in host drawing.
     /// If xdata flag is not found in the Xref layer, we will use Xref cache to compare the layer property from Xref and current layer property in host drawing,

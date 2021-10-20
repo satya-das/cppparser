@@ -35,14 +35,14 @@ namespace SkSL
     };
     Modifiers()
       :  fLayout(Layout())
-    , fFlags(0) 
-      {
-      }
+    , fFlags(0)
+    {
+    }
     Modifiers(const Layout& layout, int flags)
       :  fLayout(layout)
-    , fFlags(flags) 
-      {
-      }
+    , fFlags(flags)
+    {
+    }
     String description() const
     {
         String result = fLayout.description();

@@ -16,10 +16,9 @@ class WXDLLIMPEXP_CORE wxAnyButton : public wxAnyButtonBase
 public:
   wxAnyButton()
   {
-
         m_isCurrent =
         m_isPressed = false;
-      }
+  }
     // implementation
     // --------------
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);

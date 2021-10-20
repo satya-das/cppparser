@@ -49,9 +49,9 @@ public:
 #  endif
 private:
   wxThreadSpecificInfo()
-    :  logger(NULL), loggingDisabled(false) 
-    {
-    }
+    :  logger(NULL), loggingDisabled(false)
+  {
+  }
 };
 #  define wxThreadInfo	wxThreadSpecificInfo::Get()
 #endif

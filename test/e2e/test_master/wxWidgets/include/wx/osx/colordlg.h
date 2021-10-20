@@ -23,7 +23,9 @@ public:
   bool Create(wxWindow* parent, const wxColourData* data = NULL);
   int ShowModal() override;
   wxColourData& GetColourData()
-  { return m_colourData; }
+  {
+ return m_colourData;
+  }
 protected:
   wxColourData m_colourData;
   wxWindow* m_dialogParent;

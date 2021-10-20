@@ -93,7 +93,7 @@ public:
         if (this->getName(pName) != Acad::eOk)
             pName = nullptr;
         return pName;
-    }
+  }
   Acad::ErrorStatus setName(const ACHAR* newName);
   bool isNotAccessible() const;
   bool isAnonymous() const;

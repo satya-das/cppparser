@@ -18,11 +18,15 @@ extern long WXDLLIMPEXP_BASE wxGetUTCTime();
 #  if  wxUSE_LONGLONG
 typedef wxLongLong wxMilliClock_t;
 inline long wxMilliClockToLong(wxLongLong ll)
-{ return ll.ToLong(); }
+{
+ return ll.ToLong();
+}
 #  else 
 typedef double wxMilliClock_t;
 inline long wxMilliClockToLong(double d)
-{ return wx_truncate_cast(long, d); }
+{
+ return wx_truncate_cast(long, d);
+}
 #  endif
 // Get number of milliseconds since local time 00:00:00 Jan 1st 1970
 extern wxMilliClock_t WXDLLIMPEXP_BASE wxGetLocalTimeMillis();

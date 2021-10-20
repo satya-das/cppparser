@@ -96,7 +96,7 @@ public:
         NONE,       //!< not set by user explicitly.
         ASCII,
         BINARY
-    };
+  };
     /**
         Default constructor.
     */

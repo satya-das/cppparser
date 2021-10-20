@@ -39,11 +39,11 @@ public:
             m.postSkew(skewX, 0);
         }
         return m;
-    }
+  }
   static SkMatrix MakeTextMatrix(const SkFont& font)
   {
         return MakeTextMatrix(font.getSize(), font.getScaleX(), font.getSkewX());
-    }
+  }
   static void ScaleFontMetrics(SkFontMetrics*, SkScalar);
     /**
         Returns the union of bounds of all glyphs.
@@ -62,7 +62,7 @@ public:
         return SkScalarIsFinite(font.getSize()) &&
                SkScalarIsFinite(font.getScaleX()) &&
                SkScalarIsFinite(font.getSkewX());
-    }
+  }
     // Returns the number of elements (characters or glyphs) in the array.
   static int CountTextElements(const void* text, size_t byteLength, SkTextEncoding);
   static void GlyphsToUnichars(const SkFont&, const uint16_t glyphs[], int count, SkUnichar[]);
@@ -74,7 +74,6 @@ class SkAutoToGlyphs
 public:
   SkAutoToGlyphs(const SkFont& font, const void* text, size_t length, SkTextEncoding encoding)
   {
-
         if (encoding == SkTextEncoding::kGlyphID || length == 0) {
             fGlyphs = reinterpret_cast<const uint16_t*>(text);
             fCount = length >> 1;
@@ -84,11 +83,15 @@ public:
             font.textToGlyphs(text, length, encoding, fStorage.get(), fCount);
             fGlyphs = fStorage.get();
         }
-      }
+  }
   int count() const
-  { return fCount; }
+  {
+ return fCount;
+  }
   const uint16_t* glyphs() const
-  { return fGlyphs; }
+  {
+ return fGlyphs;
+  }
 private:
   SkAutoSTArray<32, uint16_t> fStorage;
   const uint16_t* fGlyphs;

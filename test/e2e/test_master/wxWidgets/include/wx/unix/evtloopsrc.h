@@ -23,10 +23,9 @@ public:
           m_dispatcher(dispatcher),
           m_fdioHandler(fdioHandler),
           m_fd(fd)
-    
-    {
+  {
 
-        }
+  }
   virtual ~wxUnixEventLoopSource();
 private:
   wxFDIODispatcher* const m_dispatcher;

@@ -21,7 +21,7 @@ public:
         kAbort,
         kRetry,
         kIgnore
-    };
+  };
   enum Handler {
         kInfo,
         kWarning,
@@ -29,8 +29,8 @@ public:
         kARI,
         kSevere,
         kTerminal,
-        kNone 
-    };
+        kNone
+  };
   ACPL_PORT AcPlPlotErrorHandler();
   ACPL_PORT ~AcPlPlotErrorHandler();
   ACPL_DECLARE_MEMBERS(AcPlPlotErrorHandler);

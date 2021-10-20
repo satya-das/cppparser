@@ -358,7 +358,9 @@ public:
   virtual void sysVarChanged(const ACHAR* varName, Adesk::Boolean success);
     // The final overloads is only to catch mis-declared overrides and are not actually used
   void sysVarChanged(const ACHAR*, int) final
-  { }
+  {
+
+  }
   virtual void sysVarWillChange(const ACHAR* varName);
     // XREF-related Events
     //
@@ -384,7 +386,9 @@ public:
     //
   virtual void undoSubcommandAuto(int activity, Adesk::Boolean state);
   void undoSubcommandAuto(int, int) final
-  { }
+  {
+
+  }
   virtual void undoSubcommandControl(int activity, int option);
   virtual void undoSubcommandBegin(int activity);
   virtual void undoSubcommandEnd(int activity);
@@ -415,9 +419,13 @@ public:
   virtual void toolbarBitmapSizeWillChange(Adesk::Boolean bLarge);
   virtual void toolbarBitmapSizeChanged(Adesk::Boolean bLarge);
   void toolbarBitmapSizeWillChange(int) final
-  { }
+  {
+
+  }
   void toolbarBitmapSizeChanged(int) final
-  { }
+  {
+
+  }
     // WblockObjects - begin new pFrom database
   void beginWblockObjects(AcDbDatabase* pFrom, AcDbIdMapping&) override;
     // Partial Open Events

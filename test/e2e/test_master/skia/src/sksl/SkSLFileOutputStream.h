@@ -16,14 +16,12 @@ namespace SkSL
   public:
     FileOutputStream(const char* name)
     {
-
         fFile = fopen(name, "wb");
-        }
+    }
     virtual ~FileOutputStream()
     {
-
         SkASSERT(!fOpen);
-        }
+    }
     bool isValid() const override
     {
         return nullptr != fFile;

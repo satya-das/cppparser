@@ -93,7 +93,9 @@ public:
   bool IsTransparentBackgroundSupported(wxString* reason = NULL) const override;
   bool SetTransparent(wxByte alpha) override;
   bool CanSetTransparent() override
-  { return true; }
+  {
+ return true;
+  }
   bool SetBackgroundColour(const wxColour& colour) override;
   bool SetForegroundColour(const wxColour& colour) override;
   QWidget* GetHandle() const override;
@@ -159,7 +161,9 @@ protected:
     // overridden in wxFrame to use its central widget rather than the frame
     // itself.
   virtual QWidget* QtGetParentWidget() const
-  { return GetHandle(); }
+  {
+ return GetHandle();
+  }
   QWidget* m_qtWindow;
 private:
   void Init();

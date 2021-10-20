@@ -60,53 +60,81 @@ public:
     wxRegion(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle = wxODDEVEN_RULE);
     wxRegion(const wxBitmap& bmp);
     wxRegion(const wxBitmap& bmp, const wxColour& transp, int tolerance = 0);
-#endif // 0    // operators
+#endif // 0
+
+    // operators
     // ---------
   bool operator==(const wxRegion& region) const
-  { return IsEqual(region); }
+  {
+ return IsEqual(region);
+  }
   bool operator!=(const wxRegion& region) const
-  { return !(*this == region); }
+  {
+ return !(*this == region);
+  }
     // accessors
     // ---------
 
     // Is region empty?
   virtual bool IsEmpty() const = 0;
   bool Empty() const
-  { return IsEmpty(); }
+  {
+ return IsEmpty();
+  }
     // Is region equal (i.e. covers the same area as another one)?
   bool IsEqual(const wxRegion& region) const;
     // Get the bounding box
   bool GetBox(wxCoord& x, wxCoord& y, wxCoord& w, wxCoord& h) const
-  { return DoGetBox(x, y, w, h); }
+  {
+ return DoGetBox(x, y, w, h);
+  }
   wxRect GetBox() const
   {
         wxCoord x, y, w, h;
         return DoGetBox(x, y, w, h) ? wxRect(x, y, w, h) : wxRect();
-    }
+  }
     // Test if the given point or rectangle is inside this region
   wxRegionContain Contains(wxCoord x, wxCoord y) const
-  { return DoContainsPoint(x, y); }
+  {
+ return DoContainsPoint(x, y);
+  }
   wxRegionContain Contains(const wxPoint& pt) const
-  { return DoContainsPoint(pt.x, pt.y); }
+  {
+ return DoContainsPoint(pt.x, pt.y);
+  }
   wxRegionContain Contains(wxCoord x, wxCoord y, wxCoord w, wxCoord h) const
-  { return DoContainsRect(wxRect(x, y, w, h)); }
+  {
+ return DoContainsRect(wxRect(x, y, w, h));
+  }
   wxRegionContain Contains(const wxRect& rect) const
-  { return DoContainsRect(rect); }
+  {
+ return DoContainsRect(rect);
+  }
     // operations
     // ----------
   virtual void Clear() = 0;
     // Move the region
   bool Offset(wxCoord x, wxCoord y)
-  { return DoOffset(x, y); }
+  {
+ return DoOffset(x, y);
+  }
   bool Offset(const wxPoint& pt)
-  { return DoOffset(pt.x, pt.y); }
+  {
+ return DoOffset(pt.x, pt.y);
+  }
     // Union rectangle or region with this region.
   bool Union(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
-  { return DoUnionWithRect(wxRect(x, y, w, h)); }
+  {
+ return DoUnionWithRect(wxRect(x, y, w, h));
+  }
   bool Union(const wxRect& rect)
-  { return DoUnionWithRect(rect); }
+  {
+ return DoUnionWithRect(rect);
+  }
   bool Union(const wxRegion& region)
-  { return DoUnionWithRegion(region); }
+  {
+ return DoUnionWithRegion(region);
+  }
 #  if  wxUSE_IMAGE
     // Use the non-transparent pixels of a wxBitmap for the region to combine
     // with this region.  First version takes transparency from bitmap's mask,
@@ -120,18 +148,24 @@ public:
   bool Intersect(wxCoord x, wxCoord y, wxCoord w, wxCoord h);
   bool Intersect(const wxRect& rect);
   bool Intersect(const wxRegion& region)
-  { return DoIntersect(region); }
+  {
+ return DoIntersect(region);
+  }
     // Subtract rectangle or region from this:
     // Combines the parts of 'this' that are not part of the second region.
   bool Subtract(wxCoord x, wxCoord y, wxCoord w, wxCoord h);
   bool Subtract(const wxRect& rect);
   bool Subtract(const wxRegion& region)
-  { return DoSubtract(region); }
+  {
+ return DoSubtract(region);
+  }
     // XOR: the union of two combined regions except for any overlapping areas.
   bool Xor(wxCoord x, wxCoord y, wxCoord w, wxCoord h);
   bool Xor(const wxRect& rect);
   bool Xor(const wxRegion& region)
-  { return DoXor(region); }
+  {
+ return DoXor(region);
+  }
     // Convert the region to a B&W bitmap with the white pixels being inside
     // the region.
   wxBitmap ConvertToBitmap() const;
@@ -161,7 +195,9 @@ public:
   bool Combine(wxCoord x, wxCoord y, wxCoord w, wxCoord h, wxRegionOp op);
   bool Combine(const wxRect& rect, wxRegionOp op);
   bool Combine(const wxRegion& region, wxRegionOp op)
-  { return DoCombine(region, op); }
+  {
+ return DoCombine(region, op);
+  }
 protected:
     // the real Combine() method, to be defined in the derived class
   virtual bool DoCombine(const wxRegion& region, wxRegionOp op) = 0;

@@ -42,7 +42,9 @@ public:
     // unfortunately needed to resolve ambiguity between
     // wxMenuItemBase::IsCheckable() and wxOwnerDrawn::IsCheckable()
   bool IsCheckable() const
-  { return wxMenuItemBase::IsCheckable(); }
+  {
+ return wxMenuItemBase::IsCheckable();
+  }
     // the id for a popup menu is really its menu handle (as required by
     // ::AppendMenu() API), so this function will return either the id or the
     // menu handle depending on what we are
@@ -57,21 +59,25 @@ public:
   {
         DoSetBitmap(bmpChecked, true);
         DoSetBitmap(bmpUnchecked, false);
-    }
+  }
   void SetBitmap(const wxBitmap& bmp, bool bChecked = true)
   {
         DoSetBitmap(bmp, bChecked);
-    }
+  }
   const wxBitmap& GetBitmap(bool bChecked = true) const
-  { return (bChecked ? m_bmpChecked : m_bmpUnchecked); }
+  {
+ return (bChecked ? m_bmpChecked : m_bmpUnchecked);
+  }
 #  if  wxUSE_OWNER_DRAWN
   void SetDisabledBitmap(const wxBitmap& bmpDisabled)
   {
         m_bmpDisabled = bmpDisabled;
         SetOwnerDrawn(true);
-    }
+  }
   const wxBitmap& GetDisabledBitmap() const
-  { return m_bmpDisabled; }
+  {
+ return m_bmpDisabled;
+  }
   int MeasureAccelWidth() const;
     // override wxOwnerDrawn base class virtuals
   wxString GetName() const override;
@@ -90,7 +96,7 @@ private:
         Normal,
         Checked,
         Unchecked
-    };
+  };
     // helper function to get a handle for bitmap associated with item
   WXHBITMAP GetHBitmapForMenu(BitmapKind kind) const;
     // helper function to set/change the bitmap

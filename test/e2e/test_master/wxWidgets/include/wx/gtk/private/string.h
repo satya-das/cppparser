@@ -15,17 +15,22 @@ class wxGtkString
 {
 public:
   explicit wxGtkString(gchar* s)
-    :  m_str(s) 
-    {
-     }
+    :  m_str(s)
+  {
+
+  }
   ~wxGtkString()
   {
- g_free(m_str);   }
+ g_free(m_str);
+  }
   const gchar* c_str() const
-  { return m_str; }
+  {
+ return m_str;
+  }
   operator gchar*() const
   {
- return m_str;   }
+ return m_str;
+  }
 private:
   gchar* m_str;
   wxDECLARE_NO_COPY_CLASS(wxGtkString);
@@ -41,17 +46,14 @@ class wxGtkCollatableString
 public:
   wxGtkCollatableString(const wxString& label, gchar* key)
     :  m_label(label)
-    
-    {
-
+  {
         m_key = key;
-        }
+  }
   ~wxGtkCollatableString()
   {
-
         if (m_key)
             g_free( m_key );
-      }
+  }
   wxString m_label;
   gchar* m_key;
 };
@@ -60,7 +62,8 @@ class wxGtkCollatedArrayString
 public:
   wxGtkCollatedArrayString()
   {
-   }
+
+  }
   int Add(const wxString& new_label)
   {
         int index = 0;
@@ -87,23 +90,23 @@ public:
 
         m_list.push_back( new_ptr );
         return index;
-    }
+  }
   size_t GetCount()
   {
         return m_list.size();
-    }
+  }
   wxString At(size_t index)
   {
         return m_list[index]->m_label;
-    }
+  }
   void Clear()
   {
         m_list.clear();
-    }
+  }
   void RemoveAt(size_t index)
   {
         m_list.erase( m_list.begin() + index );
-    }
+  }
 private:
   wxVector< wxSharedPtr<wxGtkCollatableString> > m_list;
 };

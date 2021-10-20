@@ -41,7 +41,7 @@ protected:
   virtual bool IsSpaceItem(wxSizerItem* item) const
   {
         return item->IsSpacer();
-    }
+  }
     // helpers of CalcMin()
   void CalcMinFromMinor(int totMinor);
   void CalcMinFromMajor(int totMajor);

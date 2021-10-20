@@ -14,7 +14,7 @@ public:
   enum {
         kMaxPoints = 4,
         kMaxClippedLineSegments = kMaxPoints - 1
-    };
+  };
     /*  Clip the line pts[0]...pts[1] against clip, ignoring segments that
         lie completely above or below the clip. For portions to the left or
         right, turn those into vertical line segments that are aligned to the

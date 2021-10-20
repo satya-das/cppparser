@@ -16,7 +16,8 @@
 #  define eNotImplemented	eNotImplementedYet
 struct Acad
 {
-  enum ErrorStatus { eOk                        =  0,
+  enum ErrorStatus {
+ eOk                        =  0,
 
                              eNotImplementedYet         =  1,
                              eNotApplicable             =  2,
@@ -666,7 +667,7 @@ struct Acad
 
                              // Cloud error
                              eFileNotInCloud,
-                           };
+  };
     // The following enums represent bits in a "history" value, which indicates
     // what all point filters had an effect on the point on a particular
     // system event.
@@ -681,7 +682,8 @@ struct Acad
     //   values will all be identical.
     // - (history & eCoordPending) is really an mask for any of the 3 coordinate
     //   point enums directly preceding it.
-  enum PointHistory {   eTablet      = 0x0001, // !eTablet implies window
+  enum PointHistory {
+   eTablet      = 0x0001, // !eTablet implies window
                                                      // cursor tracking, as opposed
                                                      // to tablet mode.
                               eNotDigitizer= 0x0002, // Implies rawPoint was typed,
@@ -750,7 +752,7 @@ struct Acad
                               eGizmoConstrainted = 
                                            0x400000, // Gizmo constraint has been used
                                                      // on the point
-    };
+  };
     // Acad::PromptStatus
     //
     // Define an enum sequence
@@ -773,7 +775,7 @@ struct Acad
                              // nested within another geometric value prompt,
                              // (such as angle) and the entered response was
                              // such a value rather than a point.
-    };
+  };
 };
 #  pragma  pack (pop)
 #endif

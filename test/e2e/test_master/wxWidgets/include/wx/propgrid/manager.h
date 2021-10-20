@@ -56,27 +56,31 @@ public:
   inline int GetIndex() const;
     // Returns x-coordinate position of splitter on a page.
   int GetSplitterPosition(int col = 0) const
-  { return GetStatePtr()->DoGetSplitterPosition(col); }
+  {
+ return GetStatePtr()->DoGetSplitterPosition(col);
+  }
     // Returns "root property". It does not have name, etc. and it is not
     // visible. It is only useful for accessing its children.
   wxPGProperty* GetRoot() const
-  { return GetStatePtr()->DoGetRoot(); }
+  {
+ return GetStatePtr()->DoGetRoot();
+  }
     // Returns pointer to contained property grid state.
   wxPropertyGridPageState* GetStatePtr()
   {
         return this;
-    }
+  }
     // Returns pointer to contained property grid state.
   const wxPropertyGridPageState* GetStatePtr() const
   {
         return this;
-    }
+  }
     // Returns id of the tool bar item that represents this page on
     // wxPropertyGridManager's wxToolBar.
   int GetToolId() const
   {
         return m_toolId;
-    }
+  }
     // Do any member initialization in this method.
     // Notes:
     // - Called every time the page is added into a manager.
@@ -87,7 +91,9 @@ public:
     // Return false here to indicate unhandled events should be
     // propagated to manager's parent, as normal.
   virtual bool IsHandlingAllEvents() const
-  { return true; }
+  {
+ return true;
+  }
     // Called every time page is about to be shown.
     // Useful, for instance, creating properties just-in-time.
   virtual void OnShow();
@@ -161,7 +167,7 @@ public:
   wxPropertyGridPage* AddPage(const wxString& label = wxEmptyString, const wxBitmap& bmp = wxNullBitmap, wxPropertyGridPage* pageObj = NULL)
   {
         return InsertPage(-1, label, bmp, pageObj);
-    }
+  }
     // Deletes all all properties and all pages.
   void Clear() override;
     // Deletes all properties on given page.
@@ -171,7 +177,7 @@ public:
   bool CommitChangesFromEditor(wxUint32 flags = 0)
   {
         return m_pPropGrid->CommitChangesFromEditor(flags);
-    }
+  }
     // Two step creation.
     // Whenever the control is created without any parameters, use Create to
     // actually create it. Don't access the control's public methods before
@@ -186,7 +192,7 @@ public:
         if ( enable ) fl = m_windowStyle & ~(wxPG_HIDE_CATEGORIES);
         SetWindowStyleFlag(fl);
         return true;
-    }
+  }
     // Selects page, scrolls and/or expands items to ensure that the
     // given item is visible. Returns true if something was actually done.
   bool EnsureVisible(wxPGPropArg id);
@@ -202,12 +208,12 @@ public:
   {
         wxASSERT(m_pPropGrid);
         return m_pPropGrid;
-    }
+  }
   const wxPropertyGrid* GetGrid() const
   {
         wxASSERT(m_pPropGrid);
         return m_pPropGrid;
-    }
+  }
     // Returns iterator class instance.
     // Calling this method in wxPropertyGridManager causes run-time assertion
     // failure. Please only iterate through individual pages or use
@@ -217,13 +223,13 @@ public:
         wxFAIL_MSG( wxS("Please only iterate through individual pages ")
                     wxS("or use CreateVIterator()") );
         return wxPropertyGridInterface::GetIterator( flags, firstProp );
-    }
+  }
   wxPropertyGridConstIterator GetIterator(int flags = wxPG_ITERATE_DEFAULT, wxPGProperty* firstProp = NULL) const
   {
         wxFAIL_MSG( wxS("Please only iterate through individual pages ")
                     wxS("or use CreateVIterator()") );
         return wxPropertyGridInterface::GetIterator( flags, firstProp );
-    }
+  }
     // Returns iterator class instance.
     // Calling this method in wxPropertyGridManager causes run-time assertion
     // failure. Please only iterate through individual pages or use
@@ -234,13 +240,13 @@ public:
                     wxS("or use CreateVIterator()") );
 
         return wxPropertyGridInterface::GetIterator( flags, startPos );
-    }
+  }
   wxPropertyGridConstIterator GetIterator(int flags, int startPos) const
   {
         wxFAIL_MSG( wxS("Please only iterate through individual pages ")
                     wxS("or use CreateVIterator()") );
         return wxPropertyGridInterface::GetIterator( flags, startPos );
-    }
+  }
     // Similar to GetIterator, but instead returns wxPGVIterator instance,
     // which can be useful for forward-iterating through arbitrary property
     // containers.
@@ -249,17 +255,17 @@ public:
   wxPropertyGridPage* GetCurrentPage() const
   {
         return GetPage(m_selPage);
-    }
+  }
     // Returns page object for given page index.
   wxPropertyGridPage* GetPage(unsigned int ind) const
   {
         return m_arrPages[ind];
-    }
+  }
     // Returns page object for given page name.
   wxPropertyGridPage* GetPage(const wxString& name) const
   {
         return GetPage(GetPageByName(name));
-    }
+  }
     // Returns index for a page name.
     // If no match is found, wxNOT_FOUND is returned.
   int GetPageByName(const wxString& name) const;
@@ -279,22 +285,26 @@ public:
   wxPGProperty* GetPageRoot(int index) const;
     // Returns index to currently selected page.
   int GetSelectedPage() const
-  { return m_selPage; }
+  {
+ return m_selPage;
+  }
     // Alias for GetSelection().
   wxPGProperty* GetSelectedProperty() const
   {
         return GetSelection();
-    }
+  }
     // Shortcut for GetGrid()->GetSelection().
   wxPGProperty* GetSelection() const
   {
         return m_pPropGrid->GetSelection();
-    }
+  }
 #    if  wxUSE_TOOLBAR
     // Returns a pointer to the toolbar currently associated with the
     // wxPropertyGridManager (if any).
   wxToolBar* GetToolBar() const
-  { return m_pToolbar; }
+  {
+ return m_pToolbar;
+  }
 #    endif
     // Creates new property page. Note that the first page is not created
     // automatically.
@@ -327,12 +337,12 @@ public:
         int index = GetPageByName(label);
         wxCHECK_RET( index >= 0, wxS("No page with such name") );
         SelectPage( index );
-    }
+  }
     // Select and displays a given page.
   void SelectPage(wxPropertyGridPage* ptr)
   {
         SelectPage( GetPageByState(ptr) );
-    }
+  }
     // Select a property.
   bool SelectProperty(wxPGPropArg id, bool focus = false)
   {
@@ -342,7 +352,7 @@ public:
             flags |= wxPG_SEL_FOCUS;
 
         return p->GetParentState()->DoSelectProperty(p, flags);
-    }
+  }
 #    if  wxUSE_HEADERCTRL
     // Sets a column title. Default title for column 0 is "Property",
     // and "Value" for column 1.

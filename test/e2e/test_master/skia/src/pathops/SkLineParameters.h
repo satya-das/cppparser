@@ -63,13 +63,13 @@ public:
             fA = DBL_EPSILON; // push it from 0 to slightly negative (y() returns -a)
         }
         return true;
-    }
+  }
   void cubicEndPoints(const SkDCubic& pts, int s, int e)
   {
         fA = pts[s].fY - pts[e].fY;
         fB = pts[e].fX - pts[s].fX;
         fC = pts[s].fX * pts[e].fY - pts[e].fX * pts[s].fY;
-    }
+  }
   double cubicPart(const SkDCubic& part)
   {
         cubicEndPoints(part);
@@ -77,13 +77,13 @@ public:
             return pointDistance(part[3]);
         }
         return pointDistance(part[2]);
-    }
+  }
   void lineEndPoints(const SkDLine& pts)
   {
         fA = pts[0].fY - pts[1].fY;
         fB = pts[1].fX - pts[0].fX;
         fC = pts[0].fX * pts[1].fY - pts[1].fX * pts[0].fY;
-    }
+  }
   bool quadEndPoints(const SkDQuad& pts)
   {
         quadEndPoints(pts, 0, 1);
@@ -102,22 +102,22 @@ public:
             fA = DBL_EPSILON;
         }
         return true;
-    }
+  }
   void quadEndPoints(const SkDQuad& pts, int s, int e)
   {
         fA = pts[s].fY - pts[e].fY;
         fB = pts[e].fX - pts[s].fX;
         fC = pts[s].fX * pts[e].fY - pts[e].fX * pts[s].fY;
-    }
+  }
   double quadPart(const SkDQuad& part)
   {
         quadEndPoints(part);
         return pointDistance(part[2]);
-    }
+  }
   double normalSquared() const
   {
         return fA * fA + fB * fB;
-    }
+  }
   bool normalize()
   {
         double normal = sqrt(normalSquared());
@@ -130,7 +130,7 @@ public:
         fB *= reciprocal;
         fC *= reciprocal;
         return true;
-    }
+  }
   void cubicDistanceY(const SkDCubic& pts, SkDCubic& distance) const
   {
         double oneThird = 1 / 3.0;
@@ -138,7 +138,7 @@ public:
             distance[index].fX = index * oneThird;
             distance[index].fY = fA * pts[index].fX + fB * pts[index].fY + fC;
         }
-    }
+  }
   void quadDistanceY(const SkDQuad& pts, SkDQuad& distance) const
   {
         double oneHalf = 1 / 2.0;
@@ -146,28 +146,28 @@ public:
             distance[index].fX = index * oneHalf;
             distance[index].fY = fA * pts[index].fX + fB * pts[index].fY + fC;
         }
-    }
+  }
   double controlPtDistance(const SkDCubic& pts, int index) const
   {
         SkASSERT(index == 1 || index == 2);
         return fA * pts[index].fX + fB * pts[index].fY + fC;
-    }
+  }
   double controlPtDistance(const SkDQuad& pts) const
   {
         return fA * pts[1].fX + fB * pts[1].fY + fC;
-    }
+  }
   double pointDistance(const SkDPoint& pt) const
   {
         return fA * pt.fX + fB * pt.fY + fC;
-    }
+  }
   double dx() const
   {
         return fB;
-    }
+  }
   double dy() const
   {
         return -fA;
-    }
+  }
 private:
   double fA;
   double fB;

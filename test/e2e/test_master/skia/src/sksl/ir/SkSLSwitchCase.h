@@ -18,9 +18,9 @@ namespace SkSL
     SwitchCase(int offset, std::unique_ptr<Expression> value, std::vector<std::unique_ptr<Statement>> statements)
       :  INHERITED(offset, kSwitch_Kind)
     , fValue(std::move(value))
-    , fStatements(std::move(statements)) 
-      {
-      }
+    , fStatements(std::move(statements))
+    {
+    }
     std::unique_ptr<Statement> clone() const override
     {
         std::vector<std::unique_ptr<Statement>> cloned;

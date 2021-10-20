@@ -52,12 +52,6 @@ inline QColor wxQtConvertColour(const wxColour& colour)
 {
     return QColor(colour.Red(), colour.Green(), colour.Blue(), colour.Alpha());
 }
-#  if  wxUSE_DATETIME
-class WXDLLIMPEXP_FWD_BASE wxDateTime;
-class QDate;
-wxDateTime wxQtConvertDate(const QDate& date);
-QDate wxQtConvertDate(const wxDateTime& date);
-#  endif
 inline wxSize wxQtConvertSize(const QSize& size)
 {
     return wxSize(size.width(), size.height());

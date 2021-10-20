@@ -29,19 +29,26 @@ public:
   }
   SkTDPQueue(int reserve)
   {
- fArray.setReserve(reserve);   }
+ fArray.setReserve(reserve);
+  }
   SkTDPQueue(SkTDPQueue&&);
   SkTDPQueue& operator =(SkTDPQueue&&);
   SkTDPQueue(const SkTDPQueue&) = delete;
   SkTDPQueue& operator=(const SkTDPQueue&);
     /** Number of items in the queue. */
   int count() const
-  { return fArray.count(); }
+  {
+ return fArray.count();
+  }
     /** Gets the next item in the queue without popping it. */
   const T& peek() const
-  { return fArray[0]; }
+  {
+ return fArray[0];
+  }
   T& peek()
-  { return fArray[0]; }
+  {
+ return fArray[0];
+  }
     /** Removes the next item. */
   void pop()
   {
@@ -58,7 +65,7 @@ public:
         this->percolateDownIfNecessary(0);
 
         this->validate();
-    }
+  }
     /** Inserts a new item in the queue based on its priority. */
   void insert(T entry)
   {
@@ -68,7 +75,7 @@ public:
         this->setIndex(fArray.count() - 1);
         this->percolateUpIfNecessary(index);
         this->validate();
-    }
+  }
     /** Random access removal. This requires that the INDEX function is non-nullptr. */
   void remove(T entry)
   {
@@ -86,7 +93,7 @@ public:
         this->setIndex(index);
         this->percolateUpOrDown(index);
         this->validate();
-    }
+  }
     /** Notification that the priority of an entry has changed. This must be called after an
         item's priority is changed to maintain correct ordering. Changing the priority is only
         allowed if an INDEX function is provided. */
@@ -98,11 +105,13 @@ public:
         this->validate(index);
         this->percolateUpOrDown(index);
         this->validate();
-    }
+  }
     /** Gets the item at index i in the priority queue (for i < this->count()). at(0) is equivalent
         to peek(). Otherwise, there is no guarantee about ordering of elements in the queue. */
   T at(int i) const
-  { return fArray[i]; }
+  {
+ return fArray[i];
+  }
     /** Sorts the queue into priority order.  The queue is only guarenteed to remain in sorted order
      *  until any other operation, other than at(), is performed.
      */
@@ -115,12 +124,16 @@ public:
             }
             this->validate();
         }
-    }
+  }
 private:
   static int LeftOf(int x)
-  { SkASSERT(x >= 0); return 2 * x + 1; }
+  {
+ SkASSERT(x >= 0); return 2 * x + 1;
+  }
   static int ParentOf(int x)
-  { SkASSERT(x > 0); return (x - 1) >> 1; }
+  {
+ SkASSERT(x > 0); return (x - 1) >> 1;
+  }
   void percolateUpOrDown(int index)
   {
         SkASSERT(index >= 0);
@@ -128,7 +141,7 @@ private:
             this->validate(index);
             this->percolateDownIfNecessary(index);
         }
-    }
+  }
   bool percolateUpIfNecessary(int index)
   {
         SkASSERT(index >= 0);
@@ -151,7 +164,7 @@ private:
             }
             this->validate(index);
         } while (true);
-    }
+  }
   void percolateDownIfNecessary(int index)
   {
         SkASSERT(index >= 0);
@@ -191,14 +204,14 @@ private:
             }
             this->validate(index);
         } while (true);
-    }
+  }
   void setIndex(int index)
   {
         SkASSERT(index < fArray.count());
         if (SkToBool(INDEX)) {
             *INDEX(fArray[index]) = index;
         }
-    }
+  }
   void validate(int excludedIndex = -1) const
   {
 #ifdef SK_DEBUG
@@ -210,7 +223,7 @@ private:
             }
         }
 #endif
-    }
+  }
   SkTDArray<T> fArray;
 };
 #endif

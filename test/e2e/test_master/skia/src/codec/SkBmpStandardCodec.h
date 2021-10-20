@@ -43,13 +43,13 @@ protected:
   bool onInIco() const override
   {
         return fInIco;
-    }
+  }
   SkCodec::Result onPrepareToDecode(const SkImageInfo& dstInfo, const SkCodec::Options& options) override;
   SkSampler* getSampler(bool createIfNecessary) override
   {
         SkASSERT(fSwizzler);
         return fSwizzler.get();
-    }
+  }
 private:
   bool createColorTable(SkColorType colorType, SkAlphaType alphaType);
   SkEncodedInfo swizzlerInfo() const;

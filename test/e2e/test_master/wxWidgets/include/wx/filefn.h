@@ -147,7 +147,7 @@ inline long long wxFtell(FILE* fp)
                     // Up to 5.1.1 it was a simple typedef.
                     return pos;
                 #endif
-            }
+}
 #      else 
 #        define wxFtell	ftello64
 #      endif
@@ -342,23 +342,39 @@ wxCOMPILE_TIME_ASSERT(sizeof(off_t) == sizeof(wxLongLong_t), BadFileSizeType);
 #    define wxFtell	ftell
 #  endif
 inline int wxAccess(const wxString& path, mode_t mode)
-{ return wxCRT_Access(path.fn_str(), mode); }
+{
+ return wxCRT_Access(path.fn_str(), mode);
+}
 inline int wxChmod(const wxString& path, mode_t mode)
-{ return wxCRT_Chmod(path.fn_str(), mode); }
+{
+ return wxCRT_Chmod(path.fn_str(), mode);
+}
 inline int wxOpen(const wxString& path, int flags, mode_t mode)
-{ return wxCRT_Open(path.fn_str(), flags, mode); }
+{
+ return wxCRT_Open(path.fn_str(), flags, mode);
+}
 inline int wxStat(const wxString& path, wxStructStat* buf)
-{ return wxCRT_Stat(path.fn_str(), buf); }
+{
+ return wxCRT_Stat(path.fn_str(), buf);
+}
 inline int wxLstat(const wxString& path, wxStructStat* buf)
-{ return wxCRT_Lstat(path.fn_str(), buf); }
+{
+ return wxCRT_Lstat(path.fn_str(), buf);
+}
 inline int wxRmDir(const wxString& path)
-{ return wxCRT_RmDir(path.fn_str()); }
+{
+ return wxCRT_RmDir(path.fn_str());
+}
 #  if  (defined(__WINDOWS__) && !defined(__CYGWIN__))
 inline int wxMkDir(const wxString& path, mode_t = 0)
-{ return wxCRT_MkDir(path.fn_str()); }
+{
+ return wxCRT_MkDir(path.fn_str());
+}
 #  else 
 inline int wxMkDir(const wxString& path, mode_t mode)
-{ return wxCRT_MkDir(path.fn_str(), mode); }
+{
+ return wxCRT_MkDir(path.fn_str(), mode);
+}
 #  endif
 #  ifdef O_BINARY
 #    define wxO_BINARY	O_BINARY
@@ -494,10 +510,11 @@ WXDLLIMPEXP_BASE bool wxFindFileInPath(wxString* pStr, const wxString& szPath, c
 // Get the OS directory if appropriate (such as the Windows directory).
 // On non-Windows platform, probably just return the empty string.
 WXDLLIMPEXP_BASE wxString wxGetOSDirectory();
-#  if  wxUSE_DATETIME
 // Get file modification time
 WXDLLIMPEXP_BASE time_t wxFileModificationTime(const wxString& filename);
-#  endif
+
+#endif // wxUSE_DATETIME
+
 // Parses the wildCard, returning the number of filters.
 // Returns 0 if none or if there's a problem,
 // The arrays will contain an equal number of items found before the error.
@@ -517,15 +534,13 @@ public:
     // wxFileConfig::Flush() for example
   wxUmaskChanger(int umaskNew)
   {
-
         m_umaskOld = umaskNew == -1 ? -1 : (int)umask((mode_t)umaskNew);
-      }
+  }
   ~wxUmaskChanger()
   {
-
         if ( m_umaskOld != -1 )
             umask((mode_t)m_umaskOld);
-      }
+  }
 private:
   int m_umaskOld;
 };
@@ -544,7 +559,8 @@ public:
   }
   wxPathList(const wxArrayString& arr)
   {
- Add(arr);   }
+ Add(arr);
+  }
     // Adds all paths in environment variable
   void AddEnvList(const wxString& envVariable);
     // Adds given path to this list

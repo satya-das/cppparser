@@ -16,24 +16,28 @@ public:
   static sk_sp<GrGLSemaphore> Make(GrGLGpu* gpu, bool isOwned)
   {
         return sk_sp<GrGLSemaphore>(new GrGLSemaphore(gpu, isOwned));
-    }
+  }
   static sk_sp<GrGLSemaphore> MakeWrapped(GrGLGpu* gpu, GrGLsync sync, GrWrapOwnership ownership)
   {
         auto sema = sk_sp<GrGLSemaphore>(new GrGLSemaphore(gpu,
                                                            kBorrow_GrWrapOwnership != ownership));
         sema->setSync(sync);
         return sema;
-    }
+  }
   GrGLsync sync() const
-  { return fSync; }
+  {
+ return fSync;
+  }
   void setSync(const GrGLsync& sync)
-  { fSync = sync; }
+  {
+ fSync = sync;
+  }
   GrBackendSemaphore backendSemaphore() const override
   {
         GrBackendSemaphore backendSemaphore;
         backendSemaphore.initGL(fSync);
         return backendSemaphore;
-    }
+  }
 private:
   GrGLSemaphore(GrGLGpu* gpu, bool isOwned);
   void onRelease() override;

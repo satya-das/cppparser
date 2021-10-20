@@ -48,7 +48,9 @@ public:
      * Any OnFlushCallbackObject associated with a path renderer will need to be deleted.
      */
   virtual bool retainOnFreeGpuResources()
-  { return false; }
+  {
+ return false;
+  }
 };
 /*
  * This class is a shallow wrapper around the drawing manager. It is passed into the
@@ -60,9 +62,9 @@ class GrOnFlushResourceProvider
 public:
   using UseAllocator = GrSurfaceProxy::UseAllocator;
   explicit GrOnFlushResourceProvider(GrDrawingManager* drawingMgr)
-    :  fDrawingMgr(drawingMgr) 
-    {
-    }
+    :  fDrawingMgr(drawingMgr)
+  {
+  }
   std::unique_ptr<GrRenderTargetContext> makeRenderTargetContext(sk_sp<GrSurfaceProxy>, GrColorType, sk_sp<SkColorSpace>, const SkSurfaceProps*);
   void addTextureResolveTask(sk_sp<GrTextureProxy>, GrSurfaceProxy::ResolveFlags);
     // Proxy unique key management. See GrProxyProvider.h.

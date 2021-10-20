@@ -22,30 +22,46 @@ public:
           m_detailsExpanderExpandedLabel( wxGetTranslation("&Hide details") ),
           m_checkBoxValue( false ),
           m_footerIcon( 0 )
-        
-    {
-     }
+  {
+
+  }
   void ShowCheckBox(const wxString& checkBoxText, bool checked = false)
   {
         m_checkBoxText = checkBoxText;
         m_checkBoxValue = checked;
-    }
+  }
   wxString GetCheckBoxText() const
-  { return m_checkBoxText; }
+  {
+ return m_checkBoxText;
+  }
   void ShowDetailedText(const wxString& detailedText)
-  { m_detailedText = detailedText; }
+  {
+ m_detailedText = detailedText;
+  }
   wxString GetDetailedText() const
-  { return m_detailedText; }
+  {
+ return m_detailedText;
+  }
   virtual bool IsCheckBoxChecked() const
-  { return m_checkBoxValue; }
+  {
+ return m_checkBoxValue;
+  }
   void SetFooterText(const wxString& footerText)
-  { m_footerText = footerText; }
+  {
+ m_footerText = footerText;
+  }
   wxString GetFooterText() const
-  { return m_footerText; }
+  {
+ return m_footerText;
+  }
   void SetFooterIcon(int icon)
-  { m_footerIcon = icon; }
+  {
+ m_footerIcon = icon;
+  }
   int GetFooterIcon() const
-  { return m_footerIcon; }
+  {
+ return m_footerIcon;
+  }
 protected:
   const wxString m_detailsExpanderCollapsedLabel;
   const wxString m_detailsExpanderExpandedLabel;
@@ -69,9 +85,9 @@ class WXDLLIMPEXP_CORE wxRichMessageDialog : public wxGenericRichMessageDialog
 public:
   wxRichMessageDialog(wxWindow* parent, const wxString& message, const wxString& caption = wxASCII_STR(wxMessageBoxCaptionStr), long style = wxOK | wxCENTRE)
     :  wxGenericRichMessageDialog( parent, message, caption, style )
-            
-    {
-     }
+  {
+
+  }
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxRichMessageDialog);
 };
 #    endif

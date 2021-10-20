@@ -71,7 +71,6 @@ namespace PoDoFo
     };
     PdfMutexImpl::PdfMutexImpl()
     {
-
 	// Visual Studio Code Analyzer warns that InitializeCriticalSection must be within try/catch block
 	// because InitializeCriticalSection can raise a STATUS_NO_MEMORY exception in low memory conditions
 	// on Windows XP / Server 2003. The exception was eliminated in Windows Vista / Server 2008,
@@ -86,24 +85,22 @@ namespace PoDoFo
 #if ( WINVER >= _WIN32_WINNT_VISTA )
 	#pragma warning(default : 28125)
 #endif
-
     }
     PdfMutexImpl::~PdfMutexImpl()
     {
-
     DeleteCriticalSection( &m_cs );
     }
     void PdfMutexImpl::Lock()
     {
     EnterCriticalSection( &m_cs );
-}
+    }
     bool PdfMutexImpl::TryLock()
     {
     return (TryEnterCriticalSection( &m_cs ) ? true : false);
-}
+    }
     void PdfMutexImpl::UnLock()
     {
     LeaveCriticalSection( &m_cs );
-}
+    }
   }
 }

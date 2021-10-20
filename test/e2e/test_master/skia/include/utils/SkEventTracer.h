@@ -31,7 +31,8 @@ public:
   static SkEventTracer* GetInstance();
   virtual ~SkEventTracer()
   {
-   }
+
+  }
     // The pointer returned from GetCategoryGroupEnabled() points to a
     // value with zero or more of the following bits. Used in this class only.
     // The TRACE_EVENT macros should only use the value as a bool.
@@ -43,7 +44,7 @@ public:
         kEnabledForMonitoring_CategoryGroupEnabledFlags = 1 << 1,
         // Category group enabled by SetEventCallbackEnabled().
         kEnabledForEventCallback_CategoryGroupEnabledFlags = 1 << 2,
-    };
+  };
   virtual const uint8_t* getCategoryGroupEnabled(const char* name) = 0;
   virtual const char* getCategoryGroupName(const uint8_t* categoryEnabledFlag) = 0;
   virtual SkEventTracer::Handle addTraceEvent(char phase, const uint8_t* categoryEnabledFlag, const char* name, uint64_t id, int32_t numArgs, const char** argNames, const uint8_t* argTypes, const uint64_t* argValues, uint8_t flags) = 0;

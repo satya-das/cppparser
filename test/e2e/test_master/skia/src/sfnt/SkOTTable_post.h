@@ -24,7 +24,7 @@ struct SkOTTablePostScript
             version2_5 = SkTEndian_SwapBE32(0x00025000),
             version3 = SkTEndian_SwapBE32(0x00030000),
             version4 = SkTEndian_SwapBE32(0x00040000),
-        };
+  };
   SK_OT_Fixed value;
 } format;
   SK_OT_Fixed italicAngle;

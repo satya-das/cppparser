@@ -60,7 +60,9 @@ public:
     // the backend-specific limitations.
   bool newCopyRenderTask(sk_sp<GrSurfaceProxy> srcProxy, const SkIRect& srcRect, sk_sp<GrSurfaceProxy> dstProxy, const SkIPoint& dstPoint);
   GrRecordingContext* getContext()
-  { return fContext; }
+  {
+ return fContext;
+  }
   GrTextContext* getTextContext();
   GrPathRenderer* getPathRenderer(const GrPathRenderer::CanDrawPathArgs& args, bool allowSW, GrPathRendererChain::DrawType drawType, GrPathRenderer::StencilSupport* stencilSupport = nullptr);
   GrPathRenderer* getSoftwarePathRenderer();
@@ -73,7 +75,7 @@ public:
   GrSemaphoresSubmitted flushSurface(GrSurfaceProxy* proxy, SkSurface::BackendSurfaceAccess access, const GrFlushInfo& info)
   {
         return this->flushSurfaces(&proxy, 1, access, info);
-    }
+  }
   void addOnFlushCallbackObject(GrOnFlushCallbackObject*);
 #  if  GR_TEST_UTILS
   void testingOnly_removeOnFlushCallbackObject(GrOnFlushCallbackObject*);
@@ -104,24 +106,38 @@ private:
     void removeRenderTask(int index);
     void removeRenderTasks(int startIndex, int stopIndex);
     bool empty() const
-    { return fRenderTasks.empty(); }
+    {
+ return fRenderTasks.empty();
+    }
     int numRenderTasks() const
-    { return fRenderTasks.count(); }
+    {
+ return fRenderTasks.count();
+    }
     bool isUsed(GrSurfaceProxy*) const;
     GrRenderTask* renderTask(int index)
-    { return fRenderTasks[index].get(); }
+    {
+ return fRenderTasks[index].get();
+    }
     const GrRenderTask* renderTask(int index) const
-    { return fRenderTasks[index].get(); }
+    {
+ return fRenderTasks[index].get();
+    }
     GrRenderTask* back()
-    { return fRenderTasks.back().get(); }
+    {
+ return fRenderTasks.back().get();
+    }
     const GrRenderTask* back() const
-    { return fRenderTasks.back().get(); }
+    {
+ return fRenderTasks.back().get();
+    }
     GrRenderTask* add(sk_sp<GrRenderTask>);
     GrRenderTask* addBeforeLast(sk_sp<GrRenderTask>);
     void add(const SkTArray<sk_sp<GrRenderTask>>&);
     void swap(SkTArray<sk_sp<GrRenderTask>>* renderTasks);
     bool sortingRenderTasks() const
-    { return fSortRenderTasks; }
+    {
+ return fSortRenderTasks;
+    }
   private:
     SkTArray<sk_sp<GrRenderTask>> fRenderTasks;
     bool fSortRenderTasks;
@@ -163,11 +179,17 @@ private:
   bool fReduceOpsTaskSplitting;
   SkTArray<GrOnFlushCallbackObject*> fOnFlushCBObjects;
   void addDDLTarget(GrSurfaceProxy* proxy)
-  { fDDLTargets.insert(proxy); }
+  {
+ fDDLTargets.insert(proxy);
+  }
   bool isDDLTarget(GrSurfaceProxy* proxy)
-  { return fDDLTargets.find(proxy) != fDDLTargets.end(); }
+  {
+ return fDDLTargets.find(proxy) != fDDLTargets.end();
+  }
   void clearDDLTargets()
-  { fDDLTargets.clear(); }
+  {
+ fDDLTargets.clear();
+  }
     // We play a trick with lazy proxies to retarget the base target of a DDL to the SkSurface
     // it is replayed on. Because of this remapping we need to explicitly store the targets of
     // DDL replaying.

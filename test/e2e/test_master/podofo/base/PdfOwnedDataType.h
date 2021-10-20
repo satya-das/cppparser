@@ -68,10 +68,10 @@ namespace PoDoFo
   inline const PdfObject* PdfOwnedDataType::GetOwner() const
   {
     return m_pOwner;
-}
+  }
   inline PdfObject* PdfOwnedDataType::GetOwner()
   {
     return m_pOwner;
-}
+  }
 }
 #endif

@@ -23,7 +23,7 @@ public:
   enum ProfileurveType {
         kLineSeg = 0,
         kArc,
-    };
+  };
 private:
   AcGeLineSeg2d m_seg;
   AcGeCircArc2d m_arc;
@@ -35,29 +35,26 @@ public:
     ///
   ProfileCurve2d()
   {
-
         m_type = kLineSeg;
-      }
+  }
     /// <summary>
     /// Construct it as a line segment.
     /// </summary>
     ///
   ProfileCurve2d(const AcGeLineSeg2d& seg)
   {
-
         m_seg = seg;
         m_type = kLineSeg;
-      }
+  }
     /// <summary>
     /// Construct it as an arc.
     /// </summary>
     ///
   ProfileCurve2d(const AcGeCircArc2d& arc)
   {
-
         m_arc = arc;
         m_type = kArc;
-      }
+  }
     /// <summary>
     /// If it's a line segment
     /// </summary>
@@ -65,7 +62,7 @@ public:
   bool isSegment() const
   {
         return m_type == kLineSeg;
-    }
+  }
     /// <summary>
     /// If it's an arc.
     /// </summary>
@@ -73,7 +70,7 @@ public:
   bool isArc() const
   {
         return m_type == kArc;
-    }
+  }
     /// <summary>
     /// Gets the line segment.
     /// </summary>
@@ -81,7 +78,7 @@ public:
   AcGeLineSeg2d lineSeg() const
   {
         return m_seg;
-    }
+  }
     /// <summary>
     /// Sets the line segment.
     /// </summary>
@@ -90,7 +87,7 @@ public:
   {
         m_seg = lineSeg;
         m_type = kLineSeg;
-    }
+  }
     /// <summary>
     /// Gets the arc.
     /// </summary>
@@ -98,7 +95,7 @@ public:
   AcGeCircArc2d arc() const
   {
         return m_arc;
-    }
+  }
     /// <summary>
     /// Sets the arc.
     /// </summary>
@@ -107,7 +104,7 @@ public:
   {
         m_arc = arc;
         m_type = kArc;
-    }
+  }
 };
 /// <summary>
 /// Point cloud line extraction result.

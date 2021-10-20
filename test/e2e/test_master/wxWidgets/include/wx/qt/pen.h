@@ -31,7 +31,9 @@ public:
   int GetWidth() const override;
   int GetDashes(wxDash** ptr) const override;
   wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants") void SetStyle(int style)
-  { SetStyle((wxPenStyle)style); }
+  {
+ SetStyle((wxPenStyle)style);
+  }
   QPen GetHandle() const;
 protected:
   wxGDIRefData* CreateGDIRefData() const override;

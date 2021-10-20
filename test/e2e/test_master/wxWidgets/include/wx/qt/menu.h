@@ -36,7 +36,9 @@ public:
   void SetMenuLabel(size_t pos, const wxString& label) override;
   wxString GetMenuLabel(size_t pos) const override;
   QMenuBar* GetQMenuBar() const
-  { return m_qtMenuBar; }
+  {
+ return m_qtMenuBar;
+  }
   QWidget* GetHandle() const override;
   void Attach(wxFrame* frame) override;
   void Detach() override;

@@ -52,7 +52,9 @@ namespace GrTest
     TestAsFPArgs(GrProcessorTestData*);
     ~TestAsFPArgs();
     const GrFPArgs& args() const
-    { return fArgs; }
+    {
+ return fArgs;
+    }
   private:
     SkMatrix fViewMatrixStorage;
     std::unique_ptr<GrColorInfo> fColorInfoStorage;
@@ -68,9 +70,13 @@ namespace GrTest
         return sk_sp<SkPathEffect>(new TestDashPathEffect(intervals, count, phase));
     }
     Factory getFactory() const override
-    { return nullptr; }
+    {
+ return nullptr;
+    }
     const char* getTypeName() const override
-    { return nullptr; }
+    {
+ return nullptr;
+    }
   protected:
     bool onFilterPath(SkPath* dst, const SkPath&, SkStrokeRec*, const SkRect*) const override;
     DashType onAsADash(DashInfo* info) const override;

@@ -15,12 +15,12 @@ public:
   static const Scale* GetScaleTable()
   {
         return gTable;
-    }
+  }
   static Scale GetScale(U8CPU alpha)
   {
         SkASSERT(alpha <= 255);
         return gTable[alpha];
-    }
+  }
     /** Usage:
 
         const Scale* table = SkUnPreMultiply::GetScaleTable();
@@ -38,7 +38,7 @@ public:
   {
         SkASSERT(component <= 255);
         return (scale * component + (1 << 23)) >> 24;
-    }
+  }
   static SkColor PMColorToColor(SkPMColor c);
 private:
   static const uint32_t gTable[256];

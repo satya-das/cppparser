@@ -98,14 +98,18 @@ struct wxPrintfStringHelper<char>
 {
   typedef const wxWX2MBbuf ConvertedType;
   static ConvertedType Convert(const wxString& s)
-  { return s.mb_str(); }
+  {
+ return s.mb_str();
+  }
 };
 template <>
 struct wxPrintfStringHelper<wchar_t>
 {
   typedef const wxWX2WCbuf ConvertedType;
   static ConvertedType Convert(const wxString& s)
-  { return s.wc_str(); }
+  {
+ return s.wc_str();
+  }
 };
 // Contains parsed data relative to a conversion specifier given to
 // wxCRT_VsnprintfW and parsed from the format string
@@ -763,7 +767,6 @@ struct wxPrintfConvSpecParser
   typedef wxPrintfConvSpec<CharType> ConvSpec;
   wxPrintfConvSpecParser(const CharType* fmt)
   {
-
         nspecs =
         nargs = 0;
         posarg_present =
@@ -903,7 +906,7 @@ struct wxPrintfConvSpecParser
                 )
             );
         }
-      }
+  }
     // total number of valid elements in specs
   unsigned nspecs;
     // total number of arguments, also number of valid elements in pspec, and

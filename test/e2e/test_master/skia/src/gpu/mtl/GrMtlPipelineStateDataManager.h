@@ -44,7 +44,7 @@ public:
   void setPathFragmentInputTransform(VaryingHandle u, int components, const SkMatrix& matrix) const override
   {
         SK_ABORT("Only supported in NVPR, which is not in Metal");
-    }
+  }
   void uploadAndBindUniformBuffers(GrMtlGpu* gpu, id<MTLRenderCommandEncoder> renderCmdEncoder) const;
   void resetDirtyBits();
 private:

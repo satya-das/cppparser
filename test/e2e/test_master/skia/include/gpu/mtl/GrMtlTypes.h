@@ -29,7 +29,7 @@ public:
   bool operator==(const GrMtlTextureInfo& that) const
   {
         return fTexture == that.fTexture;
-    }
+  }
 };
 #  endif
 #endif

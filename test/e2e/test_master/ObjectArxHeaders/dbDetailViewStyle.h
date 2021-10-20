@@ -23,13 +23,13 @@ public:
         kOutsideBoundaryWithLeader,
         kOnBoundary,
         kOnBoundaryWithLeader,
-	};
+  };
   enum ModelEdge {
         kSmooth = 0,
         kSmoothWithBorder,
         kSmoothWithConnectionLine,
         kJagged,
-    };
+  };
   AcDbDetailViewStyle();
   ~AcDbDetailViewStyle();
   ACDB_DECLARE_MEMBERS(AcDbDetailViewStyle);

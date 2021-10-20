@@ -17,11 +17,13 @@ public:
   bool canAttemptStencilAttachment() const override
   {
         return true;
-    }
+  }
   GrBackendRenderTarget getBackendRenderTarget() const override;
   GrBackendFormat backendFormat() const override;
   dawn::Texture texture() const
-  { return fInfo.fTexture; }
+  {
+ return fInfo.fTexture;
+  }
 protected:
   GrDawnRenderTarget(GrDawnGpu* gpu, const SkISize& size, GrPixelConfig config, int sampleCnt, const GrDawnImageInfo& info);
   GrDawnGpu* getDawnGpu() const;
@@ -37,7 +39,7 @@ protected:
         int numSamples = this->numSamples() + 1;
         return GrSurface::ComputeSize(this->config(), this->width(), this->height(),
                                       numSamples, GrMipMapped::kNo);
-    }
+  }
   static GrDawnRenderTarget* Create(GrDawnGpu*, const GrSurfaceDesc&, int sampleCnt, const GrDawnImageInfo&);
   bool completeStencilAttachment() override;
   GrDawnImageInfo fInfo;

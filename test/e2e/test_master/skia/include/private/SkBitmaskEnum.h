@@ -17,7 +17,7 @@ namespace skstd
   constexpr typename std::enable_if<skstd::is_bitmask_enum<E>::value, bool>::type Any(E e)
   {
     return static_cast<typename std::underlying_type<E>::type>(e) != 0;
-}
+  }
 }
 template <typename E>
 constexpr typename std::enable_if<skstd::is_bitmask_enum<E>::value, E>::type operator|(E l, E r)

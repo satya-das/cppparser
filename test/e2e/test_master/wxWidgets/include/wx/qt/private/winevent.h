@@ -22,19 +22,18 @@ class wxQtSignalHandler
 protected:
   wxQtSignalHandler(Handler* handler)
   {
-
         m_handler = handler;
-      }
+  }
   void EmitEvent(wxEvent& event) const
   {
         wxWindow *handler = GetHandler();
         event.SetEventObject( handler );
         handler->HandleWindowEvent( event );
-    }
+  }
   virtual Handler* GetHandler() const
   {
         return m_handler;
-    }
+  }
 private:
   Handler* m_handler;
 };
@@ -45,9 +44,7 @@ public:
   wxQtEventSignalHandler(wxWindow* parent, Handler* handler)
     :  Widget( parent != NULL ? parent->GetHandle() : NULL )
         , wxQtSignalHandler< Handler >( handler )
-    
-    {
-
+  {
         // Set immediately as it is used to check if wxWindow is alive
         wxWindow::QtStoreWindowPointer( this, handler );
 
@@ -56,10 +53,11 @@ public:
                           &wxQtEventSignalHandler::HandleDestroyedSignal );
 
         Widget::setMouseTracking(true);
-        }
+  }
   void HandleDestroyedSignal()
   {
-    }
+
+  }
   Handler* GetHandler() const override
   {
         // Only process the signal / event if the wxWindow is not destroyed
@@ -69,7 +67,7 @@ public:
         }
         else
             return wxQtSignalHandler< Handler >::GetHandler();
-    }
+  }
 protected:
     /* Not implemented here: wxHelpEvent, wxIdleEvent wxJoystickEvent,
      * wxMouseCaptureLostEvent, wxMouseCaptureChangedEvent,
@@ -85,7 +83,7 @@ protected:
             Widget::changeEvent(event);
         else
             event->accept();
-    }
+  }
     //wxCloseEvent
   void closeEvent(QCloseEvent* event) override
   {
@@ -96,7 +94,7 @@ protected:
             Widget::closeEvent(event);
         else
             event->ignore();
-    }
+  }
     //wxContextMenuEvent
   void contextMenuEvent(QContextMenuEvent* event) override
   {
@@ -107,7 +105,7 @@ protected:
             Widget::contextMenuEvent(event);
         else
             event->accept();
-    }
+  }
     //wxDropFilesEvent
     //virtual void dropEvent ( QDropEvent * event ) { }
 
@@ -121,7 +119,7 @@ protected:
             Widget::enterEvent(event);
         else
             event->accept();
-    }
+  }
     //wxFocusEvent.
   void focusInEvent(QFocusEvent* event) override
   {
@@ -132,7 +130,7 @@ protected:
             Widget::focusInEvent(event);
         else
             event->accept();
-    }
+  }
     //wxFocusEvent.
   void focusOutEvent(QFocusEvent* event) override
   {
@@ -143,7 +141,7 @@ protected:
             Widget::focusOutEvent(event);
         else
             event->accept();
-    }
+  }
     //wxShowEvent
   void hideEvent(QHideEvent* event) override
   {
@@ -154,7 +152,7 @@ protected:
             Widget::hideEvent(event);
         else
             event->accept();
-    }
+  }
     //wxKeyEvent
   void keyPressEvent(QKeyEvent* event) override
   {
@@ -165,7 +163,7 @@ protected:
             Widget::keyPressEvent(event);
         else
             event->accept();
-    }
+  }
     //wxKeyEvent
   void keyReleaseEvent(QKeyEvent* event) override
   {
@@ -176,7 +174,7 @@ protected:
             Widget::keyReleaseEvent(event);
         else
             event->accept();
-    }
+  }
     //wxMouseEvent
   void leaveEvent(QEvent* event) override
   {
@@ -187,7 +185,7 @@ protected:
             Widget::leaveEvent(event);
         else
             event->accept();
-    }
+  }
     //wxMouseEvent
   void mouseDoubleClickEvent(QMouseEvent* event) override
   {
@@ -198,7 +196,7 @@ protected:
             Widget::mouseDoubleClickEvent(event);
         else
             event->accept();
-    }
+  }
     //wxMouseEvent
   void mouseMoveEvent(QMouseEvent* event) override
   {
@@ -209,7 +207,7 @@ protected:
             Widget::mouseMoveEvent(event);
         else
             event->accept();
-    }
+  }
     //wxMouseEvent
   void mousePressEvent(QMouseEvent* event) override
   {
@@ -220,7 +218,7 @@ protected:
             Widget::mousePressEvent(event);
         else
             event->accept();
-    }
+  }
     //wxMouseEvent
   void mouseReleaseEvent(QMouseEvent* event) override
   {
@@ -231,7 +229,7 @@ protected:
             Widget::mouseReleaseEvent(event);
         else
             event->accept();
-    }
+  }
     //wxMoveEvent
   void moveEvent(QMoveEvent* event) override
   {
@@ -242,7 +240,7 @@ protected:
             Widget::moveEvent(event);
         else
             event->accept();
-    }
+  }
     //wxEraseEvent then wxPaintEvent
   void paintEvent(QPaintEvent* event) override
   {
@@ -253,7 +251,7 @@ protected:
             Widget::paintEvent(event);
         else
             event->accept();
-    }
+  }
     //wxSizeEvent
   void resizeEvent(QResizeEvent* event) override
   {
@@ -264,7 +262,7 @@ protected:
             Widget::resizeEvent(event);
         else
             event->accept();
-    }
+  }
     //wxShowEvent
   void showEvent(QShowEvent* event) override
   {
@@ -275,7 +273,7 @@ protected:
             Widget::showEvent(event);
         else
             event->accept();
-    }
+  }
     //wxMouseEvent
   void wheelEvent(QWheelEvent* event) override
   {
@@ -286,7 +284,7 @@ protected:
             Widget::wheelEvent(event);
         else
             event->accept();
-    }
+  }
     /* Unused Qt events
     virtual void actionEvent ( QActionEvent * event ) { }
     virtual void dragEnterEvent ( QDragEnterEvent * event ) { }

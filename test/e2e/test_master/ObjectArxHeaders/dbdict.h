@@ -58,12 +58,12 @@ public:
   {
         const AcDbObjectId id = this->objectId();
         return ::acdbOpenObject(pObject, id, mode, /*openErased*/false);
-    }
+  }
     // Needed for cases where a smart ptr is passed in
   Acad::ErrorStatus getObject(AcDbObject*& pObject, AcDb::OpenMode mode = AcDb::kForRead)
   {
         return this->getObject<AcDbObject>(pObject, mode);
-    }
+  }
   virtual AcDbObjectId objectId() const = 0;
   virtual bool done() const = 0;
   virtual bool next() = 0;
@@ -92,12 +92,12 @@ public:
         if (es == Acad::eOk)
             es = ::acdbOpenObject(entryObj, id, mode, /*openErased*/false);
         return es;
-    }
+  }
     // Needed for cases where a smart ptr is passed in
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObject*& entryObj, AcDb::OpenMode mode = AcDb::kForRead)
   {
         return this->getAt<AcDbObject>(entryName, entryObj, mode);
-    }
+  }
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbObjectId& entryId) const;
     // Find name corresponding to object id.
     //

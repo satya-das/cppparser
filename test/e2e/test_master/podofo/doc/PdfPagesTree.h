@@ -47,7 +47,7 @@ namespace PoDoFo
     ePdfPageInsertionPoint_InsertAllPages		= -3,
     ePdfPageInsertionPoint_InsertOddPagesOnly	= -4,
     ePdfPageInsertionPoint_InsertEvenPagesOnly	= -5
-};
+  };
 /** Class for managing the tree of Pages in a PDF document
  *  Don't use this class directly. Use PdfDocument instead.
  *  
@@ -258,9 +258,13 @@ namespace PoDoFo
     /** Private method to access the Root of the tree using a logical name
      */
     PdfObject* GetRoot()
-    { return this->GetObject(); }
+    {
+ return this->GetObject();
+    }
     const PdfObject* GetRoot() const
-    { return this->GetObject(); }
+    {
+ return this->GetObject();
+    }
     PdfPagesTreeCache m_cache;
   };
 // -----------------------------------------------------
@@ -269,6 +273,6 @@ namespace PoDoFo
   inline void PdfPagesTree::ClearCache()
   {
     m_cache.ClearCache();
-}
+  }
 }
 #endif

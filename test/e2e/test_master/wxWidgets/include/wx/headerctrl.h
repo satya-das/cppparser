@@ -67,17 +67,21 @@ public:
   void SetColumnCount(unsigned int count);
     // return the number of columns in the control as set by SetColumnCount()
   unsigned int GetColumnCount() const
-  { return DoGetCount(); }
+  {
+ return DoGetCount();
+  }
     // return whether the control has any columns
   bool IsEmpty() const
-  { return DoGetCount() == 0; }
+  {
+ return DoGetCount() == 0;
+  }
     // update the column with the given index
   void UpdateColumn(unsigned int idx)
   {
         wxCHECK_RET( idx < GetColumnCount(), "invalid column index" );
 
         DoUpdate(idx);
-    }
+  }
     // columns order
     // -------------
 
@@ -133,13 +137,15 @@ public:
   int GetColumnTitleWidth(unsigned int idx)
   {
         return GetColumnTitleWidth(GetColumn(idx));
-    }
+  }
     // implementation only from now on
     // -------------------------------
 
     // the user doesn't need to TAB to this control
   bool AcceptsFocusFromKeyboard() const override
-  { return false; }
+  {
+ return false;
+  }
     // this method is only overridden in order to synchronize the control with
     // the main window when it is scrolled, the derived class must implement
     // DoScrollHorz()
@@ -154,14 +160,14 @@ protected:
   virtual bool UpdateColumnWidthToFit(unsigned int, int)
   {
         return false;
-    }
+  }
     // this method is called from ShowColumnsMenu() and must be overridden to
     // update the internal column visibility (there is no need to call
     // UpdateColumn() from here, this will be done internally)
   virtual void UpdateColumnVisibility(unsigned int, bool)
   {
         wxFAIL_MSG( "must be overridden if called" );
-    }
+  }
     // this method is called from ShowCustomizeDialog() to reorder all columns
     // at once and should be implemented for controls using wxHD_ALLOW_REORDER
     // style (there is no need to call SetColumnsOrder() from here, this is
@@ -169,18 +175,22 @@ protected:
   virtual void UpdateColumnsOrder(const wxArrayInt&)
   {
         wxFAIL_MSG( "must be overridden if called" );
-    }
+  }
     // this method can be overridden in the derived classes to do something
     // (e.g. update/resize some internal data structures) before the number of
     // columns in the control changes
   virtual void OnColumnCountChanging(unsigned int)
-  { }
+  {
+
+  }
     // helper function for the derived classes: update the array of column
     // indices after the number of columns changed
   void DoResizeColumnIndices(wxArrayInt& colIndices, unsigned int count);
     // this window doesn't look nice with the border so don't use it by default
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
 private:
     // methods implementing our public API and defined in platform-specific
     // implementations
@@ -218,14 +228,14 @@ public:
     // ----------------
   wxHeaderCtrlSimple()
   {
- Init();   }
+ Init();
+  }
   wxHeaderCtrlSimple(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHD_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxHeaderCtrlNameStr))
   {
-
         Init();
 
         Create(parent, winid, pos, size, style, name);
-      }
+  }
     // managing the columns
     // --------------------
 
@@ -236,19 +246,19 @@ public:
         wxCHECK_RET( idx <= GetColumnCount(), "invalid column index" );
 
         DoInsert(col, idx);
-    }
+  }
     // append the column to the end of the control
   void AppendColumn(const wxHeaderColumnSimple& col)
   {
         DoInsert(col, GetColumnCount());
-    }
+  }
     // delete the column at the given index
   void DeleteColumn(unsigned int idx)
   {
         wxCHECK_RET( idx < GetColumnCount(), "invalid column index" );
 
         DoDelete(idx);
-    }
+  }
     // delete all the existing columns
   void DeleteAllColumns();
     // modifying columns
@@ -261,18 +271,18 @@ public:
         wxCHECK_RET( idx < GetColumnCount(), "invalid column index" );
 
         DoShowColumn(idx, show);
-    }
+  }
   void HideColumn(unsigned int idx)
   {
         ShowColumn(idx, false);
-    }
+  }
     // indicate that the column is used for sorting
   void ShowSortIndicator(unsigned int idx, bool ascending = true)
   {
         wxCHECK_RET( idx < GetColumnCount(), "invalid column index" );
 
         DoShowSortIndicator(idx, ascending);
-    }
+  }
     // remove the sort indicator completely
   void RemoveSortIndicator();
 protected:
@@ -285,7 +295,7 @@ protected:
   virtual int GetBestFittingWidth(unsigned int) const
   {
         return -1;
-    }
+  }
   void OnHeaderResizing(wxHeaderCtrlEvent& evt);
 private:
     // functions implementing our public API
@@ -299,7 +309,7 @@ private:
   void UpdateColumnCount()
   {
         SetColumnCount(static_cast<int>(m_cols.size()));
-    }
+  }
     // all our current columns
   typedef wxVector<wxHeaderColumnSimple> Columns;
   Columns m_cols;
@@ -319,36 +329,48 @@ public:
           m_col(-1),
           m_width(0),
           m_order(static_cast<unsigned int>(-1))
-    
-    {
+  {
 
-        }
+  }
   wxHeaderCtrlEvent(const wxHeaderCtrlEvent& event)
     :  wxNotifyEvent(event),
           m_col(event.m_col),
           m_width(event.m_width),
           m_order(event.m_order)
-    
-    {
+  {
 
-        }
+  }
     // the column which this event pertains to: valid for all header events
   int GetColumn() const
-  { return m_col; }
+  {
+ return m_col;
+  }
   void SetColumn(int col)
-  { m_col = col; }
+  {
+ m_col = col;
+  }
     // the width of the column: valid for column resizing/dragging events only
   int GetWidth() const
-  { return m_width; }
+  {
+ return m_width;
+  }
   void SetWidth(int width)
-  { m_width = width; }
+  {
+ m_width = width;
+  }
     // the new position of the column: for end reorder events only
   unsigned int GetNewOrder() const
-  { return m_order; }
+  {
+ return m_order;
+  }
   void SetNewOrder(unsigned int order)
-  { m_order = order; }
+  {
+ m_order = order;
+  }
   wxEvent* Clone() const override
-  { return new wxHeaderCtrlEvent(*this); }
+  {
+ return new wxHeaderCtrlEvent(*this);
+  }
 protected:
     // the column affected by the event
   int m_col;

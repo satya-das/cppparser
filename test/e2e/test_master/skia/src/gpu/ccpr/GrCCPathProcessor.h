@@ -46,25 +46,29 @@ public:
   enum class CoverageMode : bool {
         kCoverageCount,
         kLiteral
-    };
+  };
   static CoverageMode GetCoverageMode(GrCCAtlas::CoverageType coverageType)
   {
         return (GrCCAtlas::CoverageType::kFP16_CoverageCount == coverageType)
                 ? CoverageMode::kCoverageCount
                 : CoverageMode::kLiteral;
-    }
+  }
   GrCCPathProcessor(CoverageMode, const GrTexture* atlasTexture, const GrSwizzle&, GrSurfaceOrigin atlasOrigin, const SkMatrix& viewMatrixIfUsingLocalCoords = SkMatrix::I());
   const char* name() const override
-  { return "GrCCPathProcessor"; }
+  {
+ return "GrCCPathProcessor";
+  }
   void getGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder* b) const override
   {
         b->add32((uint32_t)fCoverageMode);
-    }
+  }
   GrGLSLPrimitiveProcessor* createGLSLInstance(const GrShaderCaps&) const override;
   void drawPaths(GrOpFlushState*, const GrPipeline&, const GrPipeline::FixedDynamicState*, const GrCCPerFlushResources&, int baseInstance, int endInstance, const SkRect& bounds) const;
 private:
   const TextureSampler& onTextureSampler(int) const override
-  { return fAtlasAccess; }
+  {
+ return fAtlasAccess;
+  }
   const CoverageMode fCoverageMode;
   const TextureSampler fAtlasAccess;
   SkISize fAtlasSize;

@@ -287,7 +287,7 @@ namespace PoDoFo
   {
     if( pszString ) 
         Set( const_cast<char*>(pszString), strlen( pszString ) );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -296,7 +296,7 @@ namespace PoDoFo
     PODOFO_RAISE_LOGIC_IF( !m_bAppend, "Append() failed because BeginAppend() was not yet called!" );
 
     this->AppendImpl( pszString, lLen );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -304,20 +304,20 @@ namespace PoDoFo
   {
     if( pszString )
         Append( pszString, strlen( pszString ) );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfStream::Append(const std::string& sString)
   {
     Append( sString.c_str(), sString.length() );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfStream::IsAppending() const
   {
     return m_bAppend;
-}
+  }
 }
 #endif

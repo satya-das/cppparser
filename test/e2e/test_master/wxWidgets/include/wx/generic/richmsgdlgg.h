@@ -18,9 +18,9 @@ public:
     :  wxRichMessageDialogBase( parent, message, caption, style ),
           m_checkBox(NULL),
           m_detailsPane(NULL)
-    
-    {
-     }
+  {
+
+  }
   bool IsCheckBoxChecked() const override;
 protected:
   wxCheckBox* m_checkBox;

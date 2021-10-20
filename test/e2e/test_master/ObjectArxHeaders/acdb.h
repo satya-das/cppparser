@@ -53,25 +53,36 @@
 #  pragma  pack(push, 8)
 struct AcDb
 {
-  enum OpenMode { kForRead           = 0,
+  enum OpenMode {
+ kForRead           = 0,
                              kForWrite          = 1,
-                             kForNotify         = 2 };
-  enum CoordAxis { kX                 = 0,
+                             kForNotify         = 2
+  };
+  enum CoordAxis {
+ kX                 = 0,
                              kY                 = 1,
-                             kZ                 = 2 };
-  enum CoordSystem { kWorldCS           = 0,
+                             kZ                 = 2
+  };
+  enum CoordSystem {
+ kWorldCS           = 0,
                              kUserCS            = 1,
                              kCurDisplayCS      = 2,
                              kPaperDisplayCS    = 3,
-                             kEntityCS          = 4 };
-  enum Intersect { kOnBothOperands    = 0,
+                             kEntityCS          = 4
+  };
+  enum Intersect {
+ kOnBothOperands    = 0,
                              kExtendThis        = 1,
                              kExtendArg         = 2,
-                             kExtendBoth        = 3 };
-  enum Visibility { kInvisible         = 1,
-                             kVisible           = 0 };
+                             kExtendBoth        = 3
+  };
+  enum Visibility {
+ kInvisible         = 1,
+                             kVisible           = 0
+  };
   typedef Adesk::Int16 DxfCode;
-  enum { kDxfInvalid        = -9999,
+  enum {
+ kDxfInvalid        = -9999,
                              kDxfXDictionary     = -6,
                              kDxfPReactors       = -5,
                              kDxfOperator        = -4,
@@ -313,10 +324,12 @@ struct AcDb
                              kDxfXdInteger32    = 1071,
                              // This enum value should always be set to whatever the highest
                              // enum value is.
-                             kDxfXdMax          =  kDxfXdInteger32};
+                             kDxfXdMax          =  kDxfXdInteger32
+  };
     // Primitives.
     //
-  enum DwgDataType { kDwgNull            = 0,
+  enum DwgDataType {
+ kDwgNull            = 0,
                              kDwgReal            = 1,
                              kDwgInt32           = 2,
                              kDwgInt16           = 3,
@@ -330,10 +343,12 @@ struct AcDb
                              kDwgSoftPointerId   = 11,
                              kDwg3Real           = 12,
                              kDwgInt64           = 13,
-                             kDwgNotRecognized   = 19 };
+                             kDwgNotRecognized   = 19
+  };
     // OsnapMask:  Specifies Osnap Operation.
     //
-  enum OsnapMask { kOsMaskEnd          = 1,
+  enum OsnapMask {
+ kOsMaskEnd          = 1,
                              kOsMaskMid          = 2,
                              kOsMaskCen          = 4,
                              kOsMaskNode         = 8,
@@ -350,11 +365,13 @@ struct AcDb
                              kOsMaskDisablePerp  = 0x40000,
                              kOsMaskRelCartesian = 0x80000,
                              kOsMaskRelPolar     = 0x100000,
-                             kOsMaskNoneOverride = 0x200000 };
+                             kOsMaskNoneOverride = 0x200000
+  };
     // OsnapMode:  Specifies Object query.
     //             Binary and Virtual Operations not represented.
     //
-  enum OsnapMode { kOsModeEnd          = 1,
+  enum OsnapMode {
+ kOsModeEnd          = 1,
                              kOsModeMid          = 2,
                              kOsModeCen          = 3,
                              kOsModeNode         = 4,
@@ -363,64 +380,96 @@ struct AcDb
                              kOsModePerp         = 8,
                              kOsModeTan          = 9,
                              kOsModeNear         = 10,
-                             kOsModeCentroid     = 11, };
-  enum ShowImagesMode { kNeverShow     = 0,
+                             kOsModeCentroid     = 11,
+  };
+  enum ShowImagesMode {
+ kNeverShow     = 0,
                                                  kAlwaysShow      = 1,
-                             kBoundingBoxShow = 2 };
-  enum SaveImagesMode { kNeverSave     = 0,
-                                                 kAlwaysSave      = 1 };
-  enum TextHorzMode { kTextLeft    = 0,   // TH_LEFT,
+                             kBoundingBoxShow = 2
+  };
+  enum SaveImagesMode {
+ kNeverSave     = 0,
+                                                 kAlwaysSave      = 1
+  };
+  enum TextHorzMode {
+ kTextLeft    = 0,   // TH_LEFT,
                              kTextCenter  = 1,   // TH_CENT,
                              kTextRight   = 2,   // TH_RIGHT,
                              kTextAlign   = 3,   // THV_ALIGN,
                              kTextMid     = 4,   // THV_MID,
-                             kTextFit     = 5 };
-  enum TextVertMode { kTextBase    = 0,   // TV_BASE,
+                             kTextFit     = 5
+  };
+  enum TextVertMode {
+ kTextBase    = 0,   // TV_BASE,
                              kTextBottom  = 1,   // TV_BOT,
                              kTextVertMid = 2,   // TV_MID,
-                             kTextTop     = 3 };
-  enum LineSpacingStyle { kAtLeast = 1,
-                             kExactly = 2 };
-  enum Planarity { kNonPlanar = 0,
+                             kTextTop     = 3
+  };
+  enum LineSpacingStyle {
+ kAtLeast = 1,
+                             kExactly = 2
+  };
+  enum Planarity {
+ kNonPlanar = 0,
                              kPlanar    = 1,
-                             kLinear    = 2 };
-  enum PointIndex { kMPoint1    = 0,
+                             kLinear    = 2
+  };
+  enum PointIndex {
+ kMPoint1    = 0,
                              kMPoint2    = 1,
                              kMPoint3    = 2,
-                             kMPoint4    = 3 };
-  enum EdgeIndex { kMEdge1    = 0,
+                             kMPoint4    = 3
+  };
+  enum EdgeIndex {
+ kMEdge1    = 0,
                              kMEdge2    = 1,
                              kMEdge3    = 2,
-                             kMEdge4    = 3 };
-  enum Poly2dType { k2dSimplePoly      = 0,
+                             kMEdge4    = 3
+  };
+  enum Poly2dType {
+ k2dSimplePoly      = 0,
                              k2dFitCurvePoly    = 1,
                              k2dQuadSplinePoly  = 2,
-                             k2dCubicSplinePoly = 3 };
-  enum Poly3dType { k3dSimplePoly      = 0,
+                             k2dCubicSplinePoly = 3
+  };
+  enum Poly3dType {
+ k3dSimplePoly      = 0,
                              k3dQuadSplinePoly  = 1,
-                             k3dCubicSplinePoly = 2 };
-  enum PolyMeshType { kSimpleMesh        = 0,
+                             k3dCubicSplinePoly = 2
+  };
+  enum PolyMeshType {
+ kSimpleMesh        = 0,
                              kQuadSurfaceMesh   = 5,
                              kCubicSurfaceMesh  = 6,
-                             kBezierSurfaceMesh = 8 };
-  enum Vertex2dType { k2dVertex          = 0,
+                             kBezierSurfaceMesh = 8
+  };
+  enum Vertex2dType {
+ k2dVertex          = 0,
                              k2dSplineCtlVertex = 1,
                              k2dSplineFitVertex = 2,
-                             k2dCurveFitVertex =  3 };
-  enum Vertex3dType { k3dSimpleVertex    = 0,
+                             k2dCurveFitVertex =  3
+  };
+  enum Vertex3dType {
+ k3dSimpleVertex    = 0,
                              k3dControlVertex   = 1,
-                             k3dFitVertex       = 2 };
-  enum SpaceValueType { kUndefined,
+                             k3dFitVertex       = 2
+  };
+  enum SpaceValueType {
+ kUndefined,
                              kStubPtr,
                              kEndOfFile,
                              kBackwardBranch,
                              kForwardBranch,
-                             kDetour };
-  enum BoolOperType { kBoolUnite      = 0, 
+                             kDetour
+  };
+  enum BoolOperType {
+ kBoolUnite      = 0, 
                              kBoolIntersect  = 1, 
-                             kBoolSubtract   = 2 };
+                             kBoolSubtract   = 2
+  };
   typedef Adesk::UInt32 SubentType;
-  enum { kNullSubentType   = 0,
+  enum {
+ kNullSubentType   = 0,
                              kFaceSubentType   = 1,
                              kEdgeSubentType   = 2,
                              kVertexSubentType = 3, 
@@ -436,15 +485,20 @@ struct AcDb
                              kClassSubentType  = 5,
                              kAxisSubentType   = 6,
                              kSilhouetteSubentType = 7,
-};
+  };
   typedef Adesk::UInt32 GeomId;
-  enum { kNoGeom = 0 };
-  enum GeomType { kInvalidGeom = 0,
+  enum {
+ kNoGeom = 0
+  };
+  enum GeomType {
+ kInvalidGeom = 0,
                              kPointGeom,
                              kLineGeom,
                              kCircleGeom,
-                             kPlaneGeom };
-  enum FilerType { kFileFiler     = 0,
+                             kPlaneGeom
+  };
+  enum FilerType {
+ kFileFiler     = 0,
                              kCopyFiler     = 1,
                              kUndoFiler     = 2,
                              kBagFiler      = 3,
@@ -453,11 +507,15 @@ struct AcDb
                              kDeepCloneFiler    = 6,
                              kIdFiler           = 7,
                              kPurgeFiler        = 8,
-                             kWblockCloneFiler  = 9 };
-  enum FilerSeekType { kSeekFromStart   = 0,
+                             kWblockCloneFiler  = 9
+  };
+  enum FilerSeekType {
+ kSeekFromStart   = 0,
                              kSeekFromCurrent = 1,
-                             kSeekFromEnd     = 2 };
-  enum AcDbDwgVersion { kDHL_MC0_0   = 0,
+                             kSeekFromEnd     = 2
+  };
+  enum AcDbDwgVersion {
+ kDHL_MC0_0   = 0,
                              kDHL_AC1_2   = 1,
                              kDHL_AC1_40  = 2,
                              kDHL_AC1_50  = 3,
@@ -494,7 +552,8 @@ struct AcDb
                              kDHL_Newest  = kDHL_1032,
                              kDHL_CURRENT = kDHL_Newest,
                              kDHL_Unknown = 254,
-                             kDHL_Max     = 255 };
+                             kDHL_Max     = 255
+  };
     // kDHL_1012, kMRelease0 = R13c0-3
     // kDHL_1012, kMRelease1 = R13c0-3
     // kDHL_1012, kMRelease4 = R13c4
@@ -886,7 +945,8 @@ struct AcDb
     // kDHL_1032 kMRelease53 Extend Version 103 = Pi P042 for Beta 1 Update 2 
     // kDHL_1032 kMRelease54 Extend Version 104 = Pi P045 for the RC Beta
     // kDHL_1032 kMRelease55 Extend Version 105 = Pi P046 for the FCS
-  enum MaintenanceReleaseVersion { kMRelease0         = 0,
+  enum MaintenanceReleaseVersion {
+ kMRelease0         = 0,
                              kMRelease1         = 1,
                              kMRelease2         = 2,
                              kMRelease3         = 3,
@@ -1178,8 +1238,10 @@ struct AcDb
                              // Reserved for Fusion Doc: Extended values 150-200
                              kMReleaseExtendedNewest = kMRelease105,
                              kMReleaseExtendedCurrent = kMReleaseExtendedNewest,
-                             kMReleaseCheckExtended = kMRelease125 };
-  enum SaveType { kNoSave = 0,
+                             kMReleaseCheckExtended = kMRelease125
+  };
+  enum SaveType {
+ kNoSave = 0,
                              kR12Save,  // Only used for R12 DXF
                              kR13Save,  // No longer used
                              kR14Save,
@@ -1188,8 +1250,10 @@ struct AcDb
                              k2007Save,
                              k2010Save,
                              k2013Save,
-                             k2018Save };
-  enum GroupOperType { kNoOp           = 0,
+                             k2018Save
+  };
+  enum GroupOperType {
+ kNoOp           = 0,
                              kAdd            = 1,
                              kRemove         = 2,
                              kRename         = 3,
@@ -1199,13 +1263,15 @@ struct AcDb
                              kCreate         = 7,       // New group creation
                              kPrepend        = 8,
                              kInsert         = 9,
-                             kGrpFlags       = 10 };
+                             kGrpFlags       = 10
+  };
     // kDcInsert     => Database INSERT in which entities from the source
     //                  database could be moved into the destination database.
     // kDcInsertCopy => Database INSERT in which the source database is left
     //                  intact. Objects are copied to the destination database.
     //
-  enum DeepCloneType { kDcCopy           = 0,
+  enum DeepCloneType {
+ kDcCopy           = 0,
                              kDcExplode        = 1,
                              kDcBlock          = 2,
                              kDcXrefBind       = 3,
@@ -1215,32 +1281,37 @@ struct AcDb
                              kDcObjects        = 8,
                              kDcXrefInsert     = 9,
                              kDcInsertCopy     = 10,
-                             kDcWblkObjects    = 11 };
+                             kDcWblkObjects    = 11
+  };
     // Handling for duplicate Symbol and Dictionary records
     //
-  enum DuplicateRecordCloning { 
+  enum DuplicateRecordCloning {
                              kDrcNotApplicable  = 0,
                              kDrcIgnore         = 1,   // Keep existing
                              kDrcReplace        = 2,   // Use clone
                              kDrcXrefMangleName = 3,   // <xref>$0$<name>
                              kDrcMangleName     = 4,   // $0$<name>
-                             kDrcUnmangleName   = 5 };
-  enum XrefStatus { kXrfNotAnXref     = 0,
+                             kDrcUnmangleName   = 5
+  };
+  enum XrefStatus {
+ kXrfNotAnXref     = 0,
                              kXrfResolved      = 1,
                              kXrfUnloaded      = 2,
                              kXrfUnreferenced  = 3,
                              kXrfFileNotFound  = 4,
-                             kXrfUnresolved    = 5 };
-  enum XrefNotificationStatus { 
+                             kXrfUnresolved    = 5
+  };
+  enum XrefNotificationStatus {
                              kXrfNotifyNone = 0,
                              kXrfNotifyResolvedMatch = 1,
                              kXrfNotifyResolvedElsewhere = 2,
                              kXrfNotifyResolvedWithUpdate = 3,
-                             kXrfNotifyResolvedUpdateAvailable = 4 };
+                             kXrfNotifyResolvedUpdateAvailable = 4
+  };
   enum MeasurementValue {
                 kEnglish = 0,
                 kMetric  = 1,
-    };
+  };
   enum UnitsValue {
         kUnitsUndefined     = 0,
         kUnitsInches        = 1,
@@ -1268,7 +1339,7 @@ struct AcDb
         kUnitsUSSurveyYard  = 23,
         kUnitsUSSurveyMile  = 24,
         kUnitsMax           = kUnitsUSSurveyMile
-    };
+  };
     // Time zone enum names may change from time to time, but enum values must
     // not, as they are stored in drawings. Enum values support adding new zones,
     // as long as backward compatibility of drawings is taken into consideration.
@@ -1349,9 +1420,10 @@ struct AcDb
         kWellington                 = 12000,    //(GMT+12:00) Auckland, Wellington
         kFiji                       = 12001,    //(GMT+12:00) Fiji, Kamchatka, Marshall Is.
         kTonga                      = 13000,    //(GMT+13:00) Nuku'alofa
-    };
+  };
     // lineweights are in 100ths of a millimeter
-  enum LineWeight { kLnWt000          =   0,
+  enum LineWeight {
+ kLnWt000          =   0,
                              kLnWt005          =   5,
                              kLnWt009          =   9,
                              kLnWt013          =  13,
@@ -1377,51 +1449,73 @@ struct AcDb
                              kLnWt211          = 211,
                              kLnWtByLayer      = -1,
                              kLnWtByBlock      = -2,
-                             kLnWtByLwDefault  = -3 };
-  enum EndCaps { kEndCapNone       =  0,
+                             kLnWtByLwDefault  = -3
+  };
+  enum EndCaps {
+ kEndCapNone       =  0,
                              kEndCapRound      =  1,
                              kEndCapAngle      =  2,
-                             kEndCapSquare     =  3 };
-  enum JoinStyle { kJnStylNone       =  0,
+                             kEndCapSquare     =  3
+  };
+  enum JoinStyle {
+ kJnStylNone       =  0,
                              kJnStylRound      =  1,
                              kJnStylAngle      =  2,
-                             kJnStylFlat       =  3 };
-  enum PlotStyleNameType { kPlotStyleNameByLayer       = 0,
+                             kJnStylFlat       =  3
+  };
+  enum PlotStyleNameType {
+ kPlotStyleNameByLayer       = 0,
                              kPlotStyleNameByBlock       = 1,
                              kPlotStyleNameIsDictDefault = 2,
-                             kPlotStyleNameById          = 3 };
-  enum IndexCreation { kNoIndex        = 0,
+                             kPlotStyleNameById          = 3
+  };
+  enum IndexCreation {
+ kNoIndex        = 0,
                              kIndexByLayer   = 1,
-                             kIndexSpatially = 2 };
-  enum LayerEvaluation { kNoNewLayerEvaluation = 0,
+                             kIndexSpatially = 2
+  };
+  enum LayerEvaluation {
+ kNoNewLayerEvaluation = 0,
                              kEvalNewXrefLayers    = 1,
-                             kEvalAllNewLayers     = 2 };
-  enum NewLayerNotification { kNoNewLayerNotification      = 0,
+                             kEvalAllNewLayers     = 2
+  };
+  enum NewLayerNotification {
+ kNoNewLayerNotification      = 0,
                                 kNotifyOnPlot                = 1,
                                 kNotifyOnOpen                = 2,
                                 kNotifyOnXrefAttachAndReload = 4,
                                 kNotifyOnLayerStateRestore   = 8,
                                 kNotifyOnSave                = 16,
-                                kNotifyOnInsert              = 32 };
-  enum DimArrowFlags { kFirstArrow  = 0x00,
-                             kSecondArrow = 0x01 };
-  enum DimblkFlags { kDimblk = 0,
+                                kNotifyOnInsert              = 32
+  };
+  enum DimArrowFlags {
+ kFirstArrow  = 0x00,
+                             kSecondArrow = 0x01
+  };
+  enum DimblkFlags {
+ kDimblk = 0,
                              kDimblk1,
                              kDimblk2,
-                             kDimLdrBlk };
-  enum OrthographicView { kNonOrthoView = 0,
+                             kDimLdrBlk
+  };
+  enum OrthographicView {
+ kNonOrthoView = 0,
                              kTopView      = 1,
                              kBottomView   = 2,
                              kFrontView    = 3,
                              kBackView     = 4,
                              kLeftView     = 5,
-                             kRightView    = 6 };
-  enum VpFreezeOps { kFreeze = 0,
+                             kRightView    = 6
+  };
+  enum VpFreezeOps {
+ kFreeze = 0,
                              kThaw,
-                             kReset };
+                             kReset
+  };
     // If adding to the following enum you must change the array
     // in constant_cpp.h and the initialization string in constant.xmf.
-  enum reservedStringEnumType { kByLayer = 0,
+  enum reservedStringEnumType {
+ kByLayer = 0,
                              kByBlock      = 1,
                              kNone         = 2,
                              kContinuous   = 3,
@@ -1446,37 +1540,48 @@ struct AcDb
                              kVSXRay            = 22,
                              kVSShadedWithEdges = 23,
                              kVSShaded          = 24,
-                             kReservedStringCount    };
+                             kReservedStringCount
+  };
     // SortEntsFlags:  Specifies when entity traversals are in sorted order
     //
-  enum SortEntsFlags { kSortEntsSelection  = 0x01,
+  enum SortEntsFlags {
+ kSortEntsSelection  = 0x01,
                              kSortEntsOsnap      = 0x02,
                              kSortEntsRedraw     = 0x04,
                              kSortEntsSlide      = 0x08, // (obsolete)
                              kSortEntsRegen      = 0x10, 
                              kSortEntsPlot       = 0x20,
-                             kSortEntsPsout      = 0x40 };
-  enum DragStat { kDragStart = 0,
+                             kSortEntsPsout      = 0x40
+  };
+  enum DragStat {
+ kDragStart = 0,
                              kDragEnd   = 1,
-                             kDragAbort = 2 };
-  enum GripStat { kGripsDone          = 0,
+                             kDragAbort = 2
+  };
+  enum GripStat {
+ kGripsDone          = 0,
                              kGripsToBeDeleted   = 1,
-                             kDimDataToBeDeleted = 2 };
-  enum DataLinkOption { kDataLinkOptionNone            = 0,
+                             kDimDataToBeDeleted = 2
+  };
+  enum DataLinkOption {
+ kDataLinkOptionNone            = 0,
                              kDataLinkOptionAnonymous       = 0x1,
                              kDataLinkOptionPersistCache    = 0x2,
                              kDataLinkOptionObsolete        = 0x4, // For internal use only
                              kDataLinkHasCutomData          = 0x8, // For internal use only
-                           };
-  enum PathOption { kNoPath       = 1,
+  };
+  enum PathOption {
+ kNoPath       = 1,
                               kRelativePath = 2,
                               kAbsolutePath = 3,
                               kPathAndFile  = 4,
-                            };
-  enum UpdateDirection { kUpdateDirSourceToData   = 0x1,
+  };
+  enum UpdateDirection {
+ kUpdateDirSourceToData   = 0x1,
                              kUpdateDirDataToSource   = 0x2,
-                           };
-  enum UpdateOption { // Bits 0-15 are reserved for adapters to set 
+  };
+  enum UpdateOption {
+ // Bits 0-15 are reserved for adapters to set 
                              // adapter specific update option
                              kUpdateOptionNone                                  = 0,
                              kUpdateOptionSkipFormat                            = 0x20000,
@@ -1489,40 +1594,50 @@ struct AcDb
                              kUpdateOptionForPreview                            = 0x1000000,
                              kUpdateOptionIncludeXrefs                          = 0x2000000,
                              kSkipFormatAfterFirstUpdate                        = 0x4000000,
-                           };
-  enum DataLinkGetSourceContext { kDataLinkGetSourceContextUnknown     = 0,
+  };
+  enum DataLinkGetSourceContext {
+ kDataLinkGetSourceContextUnknown     = 0,
                                     kDataLinkGetSourceContextEtransmit   = 1,
                                     kDataLinkGetSourceContextXrefManager = 2,
                                     kDataLinkGetSourceContextFileWatcher = 3,
                                     kDataLinkGetSourceContextOther       = 4,
                                     kDataLinkGetSourceContextOrignalPath = (0x1 << 8),
-                                  };
+  };
     // AcDbTable and AcTbTableStyle specific enum
     //
-  enum CellType { kUnknownCell           = 0,
+  enum CellType {
+ kUnknownCell           = 0,
                              kTextCell              = 1,
                              kBlockCell             = 2,
-                             kMultipleContentCell   = 3};
-  enum CellContentType { kCellContentTypeUnknown = 0,
+                             kMultipleContentCell   = 3
+  };
+  enum CellContentType {
+ kCellContentTypeUnknown = 0,
                              kCellContentTypeValue   = 0x1,
                              kCellContentTypeField   = 0x2,
                              kCellContentTypeBlock   = 0x4,
-                           };
-  enum CellEdgeMask { kTopMask        = 1,
+  };
+  enum CellEdgeMask {
+ kTopMask        = 1,
                              kRightMask      = 2,
                              kBottomMask     = 4,
-                             kLeftMask       = 8 };
-  enum CellMargin { kCellMarginTop         = 0x1,
+                             kLeftMask       = 8
+  };
+  enum CellMargin {
+ kCellMarginTop         = 0x1,
                              kCellMarginLeft        = 0x2,
                              kCellMarginBottom      = 0x4,
                              kCellMarginRight       = 0x8,
                              kCellMarginHorzSpacing = 0x10,
-                             kCellMarginVertSpacing = 0x20 };
-  enum CellContentLayout { kCellContentLayoutFlow              = 0x1,
+                             kCellMarginVertSpacing = 0x20
+  };
+  enum CellContentLayout {
+ kCellContentLayoutFlow              = 0x1,
                              kCellContentLayoutStackedHorizontal = 0x2,
                              kCellContentLayoutStackedVertical   = 0x4,
-                           };
-  enum CellState { kCellStateNone             = 0,
+  };
+  enum CellState {
+ kCellStateNone             = 0,
                              kCellStateContentLocked    = 0x1,
                              kCellStateContentReadOnly  = 0x2,
                              kCellStateLinked           = 0x4,
@@ -1534,12 +1649,14 @@ struct AcDb
                                                            kCellStateLinked | kCellStateContentModifiedAfterUpdate | 
                                                            kCellStateFormatLocked | kCellStateFormatReadOnly |
                                                            kCellStateFormatModifiedAfterUpdate),
-                           };
-  enum CellClass { kCellClassNone     = 0,
+  };
+  enum CellClass {
+ kCellClassNone     = 0,
                              kCellClassLabel    = 0x1,
                              kCellClassData     = 0x2,
-                           };
-  enum CellProperty { kCellPropInvalid               = 0,
+  };
+  enum CellProperty {
+ kCellPropInvalid               = 0,
                              // Content properties
                              kCellPropDataType              = 0x1,
                              kCellPropDataFormat            = 0x2,
@@ -1575,8 +1692,9 @@ struct AcDb
                                                                kCellPropMarginRight | kCellPropMarginBottom | kCellPropMarginHorzSpacing | 
                                                                kCellPropMarginVertSpacing | kCellPropAutoScale | kCellPropMergeAll | 
                                                                kCellPropFlowDirBtoT | kCellPropContentLayout),
-                           };
-  enum GridProperty { kGridPropInvalid           = 0,
+  };
+  enum GridProperty {
+ kGridPropInvalid           = 0,
                              kGridPropLineStyle         = 0x1,
                              kGridPropLineWeight        = 0x2,
                              kGridPropLinetype          = 0x4,
@@ -1585,8 +1703,9 @@ struct AcDb
                              kGridPropDoubleLineSpacing = 0x20,
                              kGridPropAll               = (kGridPropLineStyle | kGridPropLineWeight | kGridPropLinetype |
                                                            kGridPropColor | kGridPropVisibility | kGridPropDoubleLineSpacing),
-                           };
-  enum GridLineType { kInvalidGridLine       = 0,
+  };
+  enum GridLineType {
+ kInvalidGridLine       = 0,
                              kHorzTop               = 1,
                              kHorzInside            = 2,
                              kHorzBottom            = 4,
@@ -1597,25 +1716,34 @@ struct AcDb
                              kVertGridLineTypes     = kVertLeft | kVertRight | kVertInside,
                              kOuterGridLineTypes    = kHorzTop | kHorzBottom | kVertLeft | kVertRight,
                              kInnerGridLineTypes    = kHorzInside | kVertInside,
-                             kAllGridLineTypes      = kOuterGridLineTypes | kInnerGridLineTypes };
-  enum GridLineStyle { kGridLineStyleSingle = 1,
+                             kAllGridLineTypes      = kOuterGridLineTypes | kInnerGridLineTypes
+  };
+  enum GridLineStyle {
+ kGridLineStyleSingle = 1,
                               kGridLineStyleDouble = 2,
-                            };
+  };
     // For internal use only
   enum CellOption {
                              kCellOptionNone    = 0,
                              kInheritCellFormat = 0x1,
-                           };
-  enum SelectType { kWindow         = 1,
-                             kCrossing       = 2 };
-  enum FlowDirection { kTtoB           = 0,
-                             kBtoT           = 1 };
-  enum RotationAngle { kDegreesUnknown = -1,
+  };
+  enum SelectType {
+ kWindow         = 1,
+                             kCrossing       = 2
+  };
+  enum FlowDirection {
+ kTtoB           = 0,
+                             kBtoT           = 1
+  };
+  enum RotationAngle {
+ kDegreesUnknown = -1,
                              kDegrees000     = 0,
                              kDegrees090     = 1,
                              kDegrees180     = 2,
-                             kDegrees270     = 3 };
-  enum CellAlignment { kTopLeft        = 1,
+                             kDegrees270     = 3
+  };
+  enum CellAlignment {
+ kTopLeft        = 1,
                              kTopCenter      = 2,
                              kTopRight       = 3,
                              kMiddleLeft     = 4,
@@ -1623,30 +1751,37 @@ struct AcDb
                              kMiddleRight    = 6,
                              kBottomLeft     = 7,
                              kBottomCenter   = 8,
-                             kBottomRight    = 9 };
-  enum RowType { kUnknownRow     = 0, // TODO: May not be needed
+                             kBottomRight    = 9
+  };
+  enum RowType {
+ kUnknownRow     = 0, // TODO: May not be needed
                              kDataRow        = 1,
                              kTitleRow       = 2,
                              kHeaderRow      = 4,
-                             kAllRowTypes = kDataRow | kTitleRow | kHeaderRow };
-  enum TableStyleFlags { kHorzInsideLineFirst  = 0x1,
+                             kAllRowTypes = kDataRow | kTitleRow | kHeaderRow
+  };
+  enum TableStyleFlags {
+ kHorzInsideLineFirst  = 0x1,
                              kHorzInsideLineSecond = 0x2,
                              kHorzInsideLineThird  = 0x4,
                              kTableStyleModified   = 0x8,
                              kTableStyleDataTypeModified = 0x10,    // For internal use only
-                           };
-  enum TableBreakOption { kTableBreakNone                    = 0,
+  };
+  enum TableBreakOption {
+ kTableBreakNone                    = 0,
                              kTableBreakEnableBreaking          = 0x1,
                              kTableBreakRepeatTopLabels         = 0x2,
                              kTableBreakRepeatBottomLabels      = 0x4,
                              kTableBreakAllowManualPositions    = 0x8,
                              kTableBreakAllowManualHeights      = 0x10,
-                           };
-  enum TableBreakFlowDirection { kTableBreakFlowRight         = 0x1,
+  };
+  enum TableBreakFlowDirection {
+ kTableBreakFlowRight         = 0x1,
                                    kTableBreakFlowDownOrUp      = 0x2,
                                    kTableBreakFlowLeft          = 0x4,
-                                 };
-  enum TableFillOption { kTableFillNone                     = 0,
+  };
+  enum TableFillOption {
+ kTableFillNone                     = 0,
                              kTableFillRow                      = 0x1,
                              kTableFillReverse                  = 0x2,
                              kTableFillGenerateSeries           = 0x4,
@@ -1654,8 +1789,9 @@ struct AcDb
                              kTableFillCopyFormat               = 0x10,
                              kTableFillOverwriteReadOnlyContent = 0x20,
                              kTableFillOverwriteReadOnlyFormat  = 0x40,
-                           };
-  enum TableCopyOption { kTableCopyNone                                 = 0,
+  };
+  enum TableCopyOption {
+ kTableCopyNone                                 = 0,
                              kTableCopyExpandOrContractTable                = 0x1,
                              kTableCopySkipContent                          = 0x2,
                              kTableCopySkipValue                            = 0x4,
@@ -1686,8 +1822,9 @@ struct AcDb
                              kTableCopyForRountrip                          = 0x8000000,    // For internal use only
                              kTableCopyConvertFieldToValue                  = 0x10000000,   // For internal use only
                              kTableCopySkipFieldTranslation                 = 0x20000000,   // For internal use only
-                           };
-  enum TableIteratorOption { kTableIteratorNone               = 0,
+  };
+  enum TableIteratorOption {
+ kTableIteratorNone               = 0,
                                kTableIteratorIterateSelection   = 0x1,
                                kTableIteratorIterateRows        = 0x2,
                                kTableIteratorIterateColumns     = 0x4,
@@ -1696,79 +1833,105 @@ struct AcDb
                                kTableIteratorSkipReadOnlyContent= 0x10,
                                kTableIteratorSkipReadOnlyFormat = 0x20,
                                kTableIteratorSkipMerged         = 0x40,
-                             };
-  enum MergeCellStyleOption { kMergeCellStyleNone                         = 0,
+  };
+  enum MergeCellStyleOption {
+ kMergeCellStyleNone                         = 0,
                                 kMergeCellStyleCopyDuplicates               = 0x1,
                                 kMergeCellStyleOverwriteDuplicates          = 0x2,
                                 kMergeCellStyleConvertDuplicatesToOverrides = 0x4,
                                 kMergeCellStyleIgnoreNewStyles              = 0x8,
-                             };
-  enum TableHitItem { kTableHitNone            = 0,
+  };
+  enum TableHitItem {
+ kTableHitNone            = 0,
                                kTableHitCell            = 0x1,
                                kTableHitRowIndicator    = 0x2,
                                kTableHitColumnIndicator = 0x4,
                                kTableHitGridLine        = 0x8,
-                             };
-  enum RowTypes { kAllRows = kDataRow | kTitleRow | kHeaderRow };
-  enum GridLineTypes { kAllGridLines = kAllGridLineTypes };
+  };
+  enum RowTypes {
+ kAllRows = kDataRow | kTitleRow | kHeaderRow
+  };
+  enum GridLineTypes {
+ kAllGridLines = kAllGridLineTypes
+  };
     // DrawOrderFlags:  Specifies draw order behavior when editing existing
     //                  entities or creating new "derived" entities
     //
-  enum DrawOrderFlags { kDrawOrderInPlaceEditOn  = 0x01,
-                             kDrawOrderInheritanceOn  = 0x02 };
+  enum DrawOrderFlags {
+ kDrawOrderInPlaceEditOn  = 0x01,
+                             kDrawOrderInheritanceOn  = 0x02
+  };
     // UpdateThumbnailFlags:  Specifies whether a drawing save includes
     //                        updating thumbnails for sheet views, model 
     //                        views, or sheets
     //
-  enum UpdateThumbnailFlags { kUpdateModelViews   = 0x01,
+  enum UpdateThumbnailFlags {
+ kUpdateModelViews   = 0x01,
                                 kUpdateSheetViews   = 0x02,
                                 kUpdateSheets       = 0x04,
                                 kUpdateWhenAccessed = 0x08,
-                                kUpdateWhenSaving   = 0x10 };
+                                kUpdateWhenSaving   = 0x10
+  };
     // EnhancedBlockEvalType: Used in evaluating the graphs that support
     //                        Enhanced Blocks.  Specifies what sort of
     //                        operation this evaluation pass is supporting.
     //                        Used in an AcDbEvalContext container in 
     //                        conjunction with the ACDB_ENHANCED_BLOCK_EVALKEY.
-  enum EnhancedBlockEvalType { kInitialization    = 1,
+  enum EnhancedBlockEvalType {
+ kInitialization    = 1,
                                  kForUpdate         = 2,
-                                 kForRefresh        = 3};
+                                 kForRefresh        = 3
+  };
     // SliceModelType: Specifies flags for slicing solid, surface or region.
-  enum SliceModelType { kKeepBothSides    = 0x01,
-                             kUseCurrentColor  = 0x02 };
+  enum SliceModelType {
+ kKeepBothSides    = 0x01,
+                             kUseCurrentColor  = 0x02
+  };
     // CollisionType: Specifies how the entity interacts with collision
     //                detection.
-  enum CollisionType { kCollisionTypeNone  = 0,
-                             kCollisionTypeSolid = 1 };
+  enum CollisionType {
+ kCollisionTypeNone  = 0,
+                             kCollisionTypeSolid = 1
+  };
     // LoftParamType: Specifies settings that affect the shape of the 
     // lofted solid or surface.
-  enum LoftParamType { kLoftNoParam = 0x00,
+  enum LoftParamType {
+ kLoftNoParam = 0x00,
                              kLoftNoTwist = 0x01,
                              kLoftAlignDirection = 0x02,
                              kLoftSimplify = 0x04,
                              kLoftClose = 0x08,
                              kLoftPeriodic = 0x10,
-                             kLoftDefault = kLoftNoTwist | kLoftAlignDirection | kLoftSimplify };
+                             kLoftDefault = kLoftNoTwist | kLoftAlignDirection | kLoftSimplify
+  };
     // LoftNormalsType: Specifies the normals of the lofted object where it
     // passes through cross section curves.
-  enum LoftNormalsType { kLoftRuled = 0,
+  enum LoftNormalsType {
+ kLoftRuled = 0,
                             kLoftSmooth = 1,
                             kLoftFirstNormal = 2,
                             kLoftLastNormal = 3,
                             kLoftEndsNormal = 4,
                             kLoftAllNormal = 5,
-                            kLoftUseDraftAngles = 6 };
-  enum ShadowFlags { kShadowsCastAndReceive  = 0x00,
+                            kLoftUseDraftAngles = 6
+  };
+  enum ShadowFlags {
+ kShadowsCastAndReceive  = 0x00,
                             kShadowsDoesNotReceive  = 0x01,
                             kShadowsDoesNotCast     = 0x02,
-                            kShadowsIgnore          = kShadowsDoesNotCast | kShadowsDoesNotReceive};
-  enum LightingUnits { kLightingUnitsGeneric = 0,
+                            kShadowsIgnore          = kShadowsDoesNotCast | kShadowsDoesNotReceive
+  };
+  enum LightingUnits {
+ kLightingUnitsGeneric = 0,
                             kLightingUnitsAmerican = 1,
-                            kLightingUnitsInternational = 2 };
-  enum FilletTrimMode { kTrimNone      = 0,
+                            kLightingUnitsInternational = 2
+  };
+  enum FilletTrimMode {
+ kTrimNone      = 0,
                             kTrimFirst     = 1,
                             kTrimSecond    = 2,
-                            kTrimBoth      = 3 };
+                            kTrimBoth      = 3
+  };
     /// <summary>
     /// The type of a constrained implicit point.
     /// </summary>
@@ -1803,7 +1966,7 @@ struct AcDb
         /// </summary>
         ///
         kDefineImplicit
-    };
+  };
 };
 #  pragma  pack(pop)
 #endif

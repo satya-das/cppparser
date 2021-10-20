@@ -17,13 +17,12 @@ public:
   SkLocalMatrixShader(sk_sp<SkShader> proxy, const SkMatrix& localMatrix)
     :  INHERITED(&localMatrix)
     , fProxyShader(std::move(proxy))
-    
-    {
-    }
+  {
+  }
   GradientType asAGradient(GradientInfo* info) const override
   {
         return fProxyShader->asAGradient(info);
-    }
+  }
 #  if  SK_SUPPORT_GPU
   std::unique_ptr<GrFragmentProcessor> asFragmentProcessor(const GrFPArgs&) const override;
 #  endif
@@ -33,7 +32,7 @@ public:
             *localMatrix = this->getLocalMatrix();
         }
         return fProxyShader;
-    }
+  }
   SkPicture* isAPicture(SkMatrix*, SkTileMode[2], SkRect* tile) const override;
 protected:
   void flatten(SkWriteBuffer&) const override;

@@ -70,18 +70,16 @@ public:
     PointData()
       :  fFlags(0)
             , fPoints(nullptr)
-            , fNumPoints(0) 
-      {
-
+            , fNumPoints(0)
+    {
             fSize.set(SK_Scalar1, SK_Scalar1);
             // 'asPoints' needs to initialize/fill-in 'fClipRect' if it sets
             // the kUseClip flag
-              }
+    }
     ~PointData()
     {
-
             delete [] fPoints;
-            }
+    }
         // TODO: consider using passed-in flags to limit the work asPoints does.
         // For example, a kNoPath flag could indicate don't bother generating
         // stamped solutions.
@@ -91,7 +89,7 @@ public:
             kCircles_PointFlag            = 0x01,   // draw points as circles (instead of rects)
             kUsePath_PointFlag            = 0x02,   // draw points as stamps of the returned path
             kUseClip_PointFlag            = 0x04,   // apply 'fClipRect' before drawing the points
-        };
+    };
     uint32_t fFlags;
     SkPoint* fPoints;
     int fNumPoints;
@@ -118,17 +116,17 @@ public:
   enum DashType {
         kNone_DashType, //!< ignores the info parameter
         kDash_DashType, //!< fills in all of the info parameter
-    };
+  };
   struct DashInfo
   {
     DashInfo()
-      :  fIntervals(nullptr), fCount(0), fPhase(0) 
-      {
-      }
+      :  fIntervals(nullptr), fCount(0), fPhase(0)
+    {
+    }
     DashInfo(SkScalar* intervals, int32_t count, SkScalar phase)
-      :  fIntervals(intervals), fCount(count), fPhase(phase) 
-      {
-      }
+      :  fIntervals(intervals), fCount(count), fPhase(phase)
+    {
+    }
     SkScalar* fIntervals;
                                         //   Even values represent ons, and odds offs
     int32_t fCount;
@@ -140,17 +138,17 @@ public:
   static SkFlattenable::Type GetFlattenableType()
   {
         return kSkPathEffect_Type;
-    }
+  }
   SkFlattenable::Type getFlattenableType() const override
   {
         return kSkPathEffect_Type;
-    }
+  }
   static sk_sp<SkPathEffect> Deserialize(const void* data, size_t size, const SkDeserialProcs* procs = nullptr)
   {
         return sk_sp<SkPathEffect>(static_cast<SkPathEffect*>(
                                   SkFlattenable::Deserialize(
                                   kSkPathEffect_Type, data, size, procs).release()));
-    }
+  }
 protected:
   SkPathEffect()
   {
@@ -159,15 +157,15 @@ protected:
   virtual SkRect onComputeFastBounds(const SkRect& src) const
   {
         return src;
-    }
+  }
   virtual bool onAsPoints(PointData*, const SkPath&, const SkStrokeRec&, const SkMatrix&, const SkRect*) const
   {
         return false;
-    }
+  }
   virtual DashType onAsADash(DashInfo*) const
   {
         return kNone_DashType;
-    }
+  }
 private:
     // illegal
   SkPathEffect(const SkPathEffect&);

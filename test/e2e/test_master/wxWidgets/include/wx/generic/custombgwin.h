@@ -19,7 +19,8 @@ class wxCustomBackgroundWindowGenericBase : public wxCustomBackgroundWindowBase
 public:
   wxCustomBackgroundWindowGenericBase()
   {
-   }
+
+  }
 protected:
   void DoEraseBackground(wxEraseEvent& event, wxWindow* win)
   {
@@ -35,7 +36,7 @@ protected:
                 dc.DrawBitmap(m_bitmapBg, x, y);
             }
         }
-    }
+  }
     // The bitmap used for painting the background if valid.
   wxBitmap m_bitmapBg;
   wxDECLARE_NO_COPY_CLASS(wxCustomBackgroundWindowGenericBase);
@@ -50,7 +51,8 @@ public:
   typedef W BaseWindowClass;
   wxCustomBackgroundWindow()
   {
-   }
+
+  }
 protected:
   void DoSetBackgroundBitmap(const wxBitmap& bmp) override
   {
@@ -72,14 +74,14 @@ protected:
                 &wxCustomBackgroundWindow::OnEraseBackground, this
             );
         }
-    }
+  }
 private:
     // Event handler for erasing the background which is only used when we have
     // a valid background bitmap.
   void OnEraseBackground(wxEraseEvent& event)
   {
         DoEraseBackground(event, this);
-    }
+  }
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxCustomBackgroundWindow, W);
 };
 #endif

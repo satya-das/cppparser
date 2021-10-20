@@ -17,10 +17,9 @@ namespace wxMSWImpl
     explicit PaintData(wxWindowMSW* window_)
       :  window(window_),
           createdPaintDC(false)
-    
-      {
+    {
 
-          }
+    }
     // The window being repainted (never null).
     wxWindowMSW* const window;
     // True if the user-defined paint handler created wxPaintDC.

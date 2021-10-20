@@ -30,13 +30,13 @@ namespace skif
     int32_t fY;
     IVector();
     IVector(int32_t x, int32_t y)
-      :  fX(x), fY(y) 
-      {
-      }
+      :  fX(x), fY(y)
+    {
+    }
     explicit IVector(const SkIVector& v)
-      :  fX(v.fX), fY(v.fY) 
-      {
-      }
+      :  fX(v.fX), fY(v.fY)
+    {
+    }
   };
   struct Vector
   {
@@ -44,13 +44,13 @@ namespace skif
     SkScalar fY;
     Vector();
     Vector(SkScalar x, SkScalar y)
-      :  fX(x), fY(y) 
-      {
-      }
+      :  fX(x), fY(y)
+    {
+    }
     explicit Vector(const SkVector& v)
-      :  fX(v.fX), fY(v.fY) 
-      {
-      }
+      :  fX(v.fX), fY(v.fY)
+    {
+    }
   };
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Coordinate Space Tagging
@@ -81,16 +81,17 @@ namespace skif
   {
   public:
     explicit ParameterSpace(const T& data)
-      :  fData(data) 
-      {
-      }
+      :  fData(data)
+    {
+    }
     explicit ParameterSpace(T&& data)
-      :  fData(std::move(data)) 
-      {
-      }
+      :  fData(std::move(data))
+    {
+    }
     operator const T&() const
     {
- return fData;     }
+ return fData;
+    }
   private:
     T fData;
   };
@@ -105,16 +106,17 @@ namespace skif
   {
   public:
     explicit DeviceSpace(const T& data)
-      :  fData(data) 
-      {
-      }
+      :  fData(data)
+    {
+    }
     explicit DeviceSpace(T&& data)
-      :  fData(std::move(data)) 
-      {
-      }
+      :  fData(std::move(data))
+    {
+    }
     operator const T&() const
     {
- return fData;     }
+ return fData;
+    }
   private:
     T fData;
   };
@@ -140,25 +142,33 @@ namespace skif
   public:
     LayerSpace();
     explicit LayerSpace(const IVector& geometry)
-      :  fData(geometry) 
-      {
-      }
+      :  fData(geometry)
+    {
+    }
     explicit LayerSpace(IVector&& geometry)
-      :  fData(std::move(geometry)) 
-      {
-      }
+      :  fData(std::move(geometry))
+    {
+    }
     operator const IVector&() const
     {
- return fData;     }
+ return fData;
+    }
     operator SkIVector() const
     {
- return SkIVector::Make(fData.fX, fData.fY);     }
+ return SkIVector::Make(fData.fX, fData.fY);
+    }
     int32_t x() const
-    { return fData.fX; }
+    {
+ return fData.fX;
+    }
     int32_t y() const
-    { return fData.fY; }
+    {
+ return fData.fY;
+    }
     LayerSpace<IVector> operator-() const
-    { return LayerSpace<IVector>({-fData.fX, -fData.fY}); }
+    {
+ return LayerSpace<IVector>({-fData.fX, -fData.fY});
+    }
     LayerSpace<IVector> operator+(const LayerSpace<IVector>& v) const
     {
         LayerSpace<IVector> sum = *this;
@@ -191,27 +201,37 @@ namespace skif
   public:
     LayerSpace();
     explicit LayerSpace(const Vector& geometry)
-      :  fData(geometry) 
-      {
-      }
+      :  fData(geometry)
+    {
+    }
     explicit LayerSpace(Vector&& geometry)
-      :  fData(std::move(geometry)) 
-      {
-      }
+      :  fData(std::move(geometry))
+    {
+    }
     operator const Vector&() const
     {
- return fData;     }
+ return fData;
+    }
     operator SkVector() const
     {
- return SkVector::Make(fData.fX, fData.fY);     }
+ return SkVector::Make(fData.fX, fData.fY);
+    }
     SkScalar x() const
-    { return fData.fX; }
+    {
+ return fData.fX;
+    }
     SkScalar y() const
-    { return fData.fY; }
+    {
+ return fData.fY;
+    }
     SkScalar length() const
-    { return SkVector::Length(fData.fX, fData.fY); }
+    {
+ return SkVector::Length(fData.fX, fData.fY);
+    }
     LayerSpace<Vector> operator-() const
-    { return LayerSpace<Vector>({-fData.fX, -fData.fY}); }
+    {
+ return LayerSpace<Vector>({-fData.fX, -fData.fY});
+    }
     LayerSpace<Vector> operator*(SkScalar s) const
     {
         LayerSpace<Vector> scaled = *this;
@@ -259,21 +279,26 @@ namespace skif
   public:
     LayerSpace();
     explicit LayerSpace(const SkIPoint& geometry)
-      :  fData(geometry) 
-      {
-      }
+      :  fData(geometry)
+    {
+    }
     explicit LayerSpace(SkIPoint&& geometry)
-      :  fData(std::move(geometry)) 
-      {
-      }
+      :  fData(std::move(geometry))
+    {
+    }
     operator const SkIPoint&() const
     {
- return fData;     }
+ return fData;
+    }
     // Parrot the SkIPoint API while preserving coordinate space.
     int32_t x() const
-    { return fData.fX; }
+    {
+ return fData.fX;
+    }
     int32_t y() const
-    { return fData.fY; }
+    {
+ return fData.fY;
+    }
     // Offsetting by direction vectors produce more points
     LayerSpace<SkIPoint> operator+(const LayerSpace<IVector>& v)
     {
@@ -306,23 +331,30 @@ namespace skif
   public:
     LayerSpace();
     explicit LayerSpace(const SkPoint& geometry)
-      :  fData(geometry) 
-      {
-      }
+      :  fData(geometry)
+    {
+    }
     explicit LayerSpace(SkPoint&& geometry)
-      :  fData(std::move(geometry)) 
-      {
-      }
+      :  fData(std::move(geometry))
+    {
+    }
     operator const SkPoint&() const
     {
- return fData;     }
+ return fData;
+    }
     // Parrot the SkPoint API while preserving coordinate space.
     SkScalar x() const
-    { return fData.fX; }
+    {
+ return fData.fX;
+    }
     SkScalar y() const
-    { return fData.fY; }
+    {
+ return fData.fY;
+    }
     SkScalar distanceToOrigin() const
-    { return fData.distanceToOrigin(); }
+    {
+ return fData.distanceToOrigin();
+    }
     // Offsetting by direction vectors produce more points
     LayerSpace<SkPoint> operator+(const LayerSpace<Vector>& v)
     {
@@ -355,22 +387,29 @@ namespace skif
   public:
     LayerSpace();
     explicit LayerSpace(const SkISize& geometry)
-      :  fData(geometry) 
-      {
-      }
+      :  fData(geometry)
+    {
+    }
     explicit LayerSpace(SkISize&& geometry)
-      :  fData(std::move(geometry)) 
-      {
-      }
+      :  fData(std::move(geometry))
+    {
+    }
     operator const SkISize&() const
     {
- return fData;     }
+ return fData;
+    }
     int32_t width() const
-    { return fData.width(); }
+    {
+ return fData.width();
+    }
     int32_t height() const
-    { return fData.height(); }
+    {
+ return fData.height();
+    }
     bool isEmpty() const
-    { return fData.isEmpty(); }
+    {
+ return fData.isEmpty();
+    }
   private:
     SkISize fData;
   };
@@ -381,30 +420,45 @@ namespace skif
   public:
     LayerSpace();
     explicit LayerSpace(const SkSize& geometry)
-      :  fData(geometry) 
-      {
-      }
+      :  fData(geometry)
+    {
+    }
     explicit LayerSpace(SkSize&& geometry)
-      :  fData(std::move(geometry)) 
-      {
-      }
+      :  fData(std::move(geometry))
+    {
+    }
     operator const SkSize&() const
     {
- return fData;     }
+ return fData;
+    }
     SkScalar width() const
-    { return fData.width(); }
+    {
+ return fData.width();
+    }
     SkScalar height() const
-    { return fData.height(); }
+    {
+ return fData.height();
+    }
     bool isEmpty() const
-    { return fData.isEmpty(); }
+    {
+ return fData.isEmpty();
+    }
     bool isZero() const
-    { return fData.isZero(); }
+    {
+ return fData.isZero();
+    }
     LayerSpace<SkISize> round() const
-    { return LayerSpace<SkISize>(fData.toRound()); }
+    {
+ return LayerSpace<SkISize>(fData.toRound());
+    }
     LayerSpace<SkISize> ceil() const
-    { return LayerSpace<SkISize>(fData.toCeil()); }
+    {
+ return LayerSpace<SkISize>(fData.toCeil());
+    }
     LayerSpace<SkISize> floor() const
-    { return LayerSpace<SkISize>(fData.toFloor()); }
+    {
+ return LayerSpace<SkISize>(fData.toFloor());
+    }
   private:
     SkSize fData;
   };
@@ -415,41 +469,66 @@ namespace skif
   public:
     LayerSpace();
     explicit LayerSpace(const SkIRect& geometry)
-      :  fData(geometry) 
-      {
-      }
+      :  fData(geometry)
+    {
+    }
     explicit LayerSpace(SkIRect&& geometry)
-      :  fData(std::move(geometry)) 
-      {
-      }
+      :  fData(std::move(geometry))
+    {
+    }
     operator const SkIRect&() const
     {
- return fData;     }
+ return fData;
+    }
     // Parrot the SkIRect API while preserving coord space
     int32_t left() const
-    { return fData.fLeft; }
+    {
+ return fData.fLeft;
+    }
     int32_t top() const
-    { return fData.fTop; }
+    {
+ return fData.fTop;
+    }
     int32_t right() const
-    { return fData.fRight; }
+    {
+ return fData.fRight;
+    }
     int32_t bottom() const
-    { return fData.fBottom; }
+    {
+ return fData.fBottom;
+    }
     int32_t width() const
-    { return fData.width(); }
+    {
+ return fData.width();
+    }
     int32_t height() const
-    { return fData.height(); }
+    {
+ return fData.height();
+    }
     LayerSpace<SkIPoint> topLeft() const
-    { return LayerSpace<SkIPoint>(fData.topLeft()); }
+    {
+ return LayerSpace<SkIPoint>(fData.topLeft());
+    }
     LayerSpace<SkISize> size() const
-    { return LayerSpace<SkISize>(fData.size()); }
+    {
+ return LayerSpace<SkISize>(fData.size());
+    }
     bool intersect(const LayerSpace<SkIRect>& r)
-    { return fData.intersect(r.fData); }
+    {
+ return fData.intersect(r.fData);
+    }
     void join(const LayerSpace<SkIRect>& r)
-    { fData.join(r.fData); }
+    {
+ fData.join(r.fData);
+    }
     void offset(const LayerSpace<IVector>& v)
-    { fData.offset(SkIVector(v)); }
+    {
+ fData.offset(SkIVector(v));
+    }
     void outset(const LayerSpace<SkISize>& delta)
-    { fData.outset(delta.width(), delta.height()); }
+    {
+ fData.outset(delta.width(), delta.height());
+    }
   private:
     SkIRect fData;
   };
@@ -460,29 +539,42 @@ namespace skif
   public:
     LayerSpace();
     explicit LayerSpace(const SkRect& geometry)
-      :  fData(geometry) 
-      {
-      }
+      :  fData(geometry)
+    {
+    }
     explicit LayerSpace(SkRect&& geometry)
-      :  fData(std::move(geometry)) 
-      {
-      }
+      :  fData(std::move(geometry))
+    {
+    }
     operator const SkRect&() const
     {
- return fData;     }
+ return fData;
+    }
     // Parrot the SkRect API while preserving coord space and usage
     SkScalar left() const
-    { return fData.fLeft; }
+    {
+ return fData.fLeft;
+    }
     SkScalar top() const
-    { return fData.fTop; }
+    {
+ return fData.fTop;
+    }
     SkScalar right() const
-    { return fData.fRight; }
+    {
+ return fData.fRight;
+    }
     SkScalar bottom() const
-    { return fData.fBottom; }
+    {
+ return fData.fBottom;
+    }
     SkScalar width() const
-    { return fData.width(); }
+    {
+ return fData.width();
+    }
     SkScalar height() const
-    { return fData.height(); }
+    {
+ return fData.height();
+    }
     LayerSpace<SkPoint> topLeft() const
     {
         return LayerSpace<SkPoint>(SkPoint::Make(fData.fLeft, fData.fTop));
@@ -492,15 +584,25 @@ namespace skif
         return LayerSpace<SkSize>(SkSize::Make(fData.width(), fData.height()));
     }
     LayerSpace<SkIRect> roundOut() const
-    { return LayerSpace<SkIRect>(fData.roundOut()); }
+    {
+ return LayerSpace<SkIRect>(fData.roundOut());
+    }
     bool intersect(const LayerSpace<SkRect>& r)
-    { return fData.intersect(r.fData); }
+    {
+ return fData.intersect(r.fData);
+    }
     void join(const LayerSpace<SkRect>& r)
-    { fData.join(r.fData); }
+    {
+ fData.join(r.fData);
+    }
     void offset(const LayerSpace<Vector>& v)
-    { fData.offset(SkVector(v)); }
+    {
+ fData.offset(SkVector(v));
+    }
     void outset(const LayerSpace<SkSize>& delta)
-    { fData.outset(delta.width(), delta.height()); }
+    {
+ fData.outset(delta.width(), delta.height());
+    }
   private:
     SkRect fData;
   };
@@ -516,9 +618,9 @@ namespace skif
     // This constructor allows the decomposition to be explicitly provided
     Mapping(const SkMatrix& layerToDev, const SkMatrix& paramToLayer)
       :  fLayerToDevMatrix(layerToDev)
-            , fParamToLayerMatrix(paramToLayer) 
-      {
-      }
+            , fParamToLayerMatrix(paramToLayer)
+    {
+    }
     // Make the default decomposition Mapping, given the total CTM and the root image filter.
     static Mapping Make(const SkMatrix& ctm, const SkImageFilter* filter);
     // Return a new Mapping object whose parameter-to-layer matrix is equal to this->layerMatrix() *
@@ -528,9 +630,13 @@ namespace skif
         return Mapping(fLayerToDevMatrix, SkMatrix::Concat(fParamToLayerMatrix, local));
     }
     const SkMatrix& deviceMatrix() const
-    { return fLayerToDevMatrix; }
+    {
+ return fLayerToDevMatrix;
+    }
     const SkMatrix& layerMatrix() const
-    { return fParamToLayerMatrix; }
+    {
+ return fParamToLayerMatrix;
+    }
     SkMatrix totalMatrix() const
     {
         return SkMatrix::Concat(fLayerToDevMatrix, fParamToLayerMatrix);
@@ -593,7 +699,7 @@ namespace skif
     // Designates the purpose of the bounds, coordinate, or image as being the output of the
     // current image filter calculation. There is only ever one output for an image filter.
     kOutput,
-};
+  };
 // Convenience macros to add 'using' declarations that rename the above enums to provide a more
 // fluent and readable API. This should only be used in a private or local scope to prevent leakage
 // of the names. Use the IN_CLASS variant at the start of a class declaration in those scenarios.
@@ -623,44 +729,46 @@ namespace skif
   {
   public:
     FilterResult()
-      :  fImage(nullptr), fOrigin(SkIPoint::Make(0, 0)) 
-      {
-      }
+      :  fImage(nullptr), fOrigin(SkIPoint::Make(0, 0))
+    {
+    }
     FilterResult(sk_sp<SkSpecialImage> image, const LayerSpace<SkIPoint>& origin)
       :  fImage(std::move(image))
-            , fOrigin(origin) 
-      {
-      }
+            , fOrigin(origin)
+    {
+    }
     // Allow explicit moves/copies in order to cast from one use type to another, except kInput0
     // and kInput1 can only be cast to kOutput (e.g. as part of a noop image filter).
     template <Usage kI>
     explicit FilterResult(FilterResult<kI>&& image)
       :  fImage(std::move(image.fImage))
-            , fOrigin(image.fOrigin) 
-      {
-
+            , fOrigin(image.fOrigin)
+    {
         static_assert((kU != Usage::kInput) || (kI != Usage::kInput0 && kI != Usage::kInput1),
                       "kInput0 and kInput1 cannot be moved to more generic kInput usage.");
         static_assert((kU != Usage::kInput0 && kU != Usage::kInput1) ||
                       (kI == kU || kI == Usage::kInput || kI == Usage::kOutput),
                       "Can only move to specific input from the generic kInput or kOutput usage.");
-          }
+    }
     template <Usage kI>
     explicit FilterResult(const FilterResult<kI>& image)
       :  fImage(image.fImage)
-            , fOrigin(image.fOrigin) 
-      {
-
+            , fOrigin(image.fOrigin)
+    {
         static_assert((kU != Usage::kInput) || (kI != Usage::kInput0 && kI != Usage::kInput1),
                       "kInput0 and kInput1 cannot be copied to more generic kInput usage.");
         static_assert((kU != Usage::kInput0 && kU != Usage::kInput1) ||
                       (kI == kU || kI == Usage::kInput || kI == Usage::kOutput),
                       "Can only copy to specific input from the generic kInput usage.");
-          }
+    }
     const SkSpecialImage* image() const
-    { return fImage.get(); }
+    {
+ return fImage.get();
+    }
     sk_sp<SkSpecialImage> refImage() const
-    { return fImage; }
+    {
+ return fImage;
+    }
     // Get the layer-space bounds of the result. This will have the same dimensions as the
     // image and its top left corner will be 'origin()'.
     LayerSpace<SkIRect> layerBounds() const
@@ -670,7 +778,9 @@ namespace skif
     }
     // Get the layer-space coordinate of this image's top left pixel.
     const LayerSpace<SkIPoint>& layerOrigin() const
-    { return fOrigin; }
+    {
+ return fOrigin;
+    }
     // Extract image and origin, safely when the image is null.
     // TODO (michaelludwig) - This is intended for convenience until all call sites of
     // SkImageFilter_Base::filterImage() have been updated to work in the new type system
@@ -708,18 +818,18 @@ namespace skif
         , fCache(cache)
         , fColorType(colorType)
         , fColorSpace(colorSpace)
-        , fSource(sk_ref_sp(source), LayerSpace<SkIPoint>({0, 0})) 
-      {
-      }
+        , fSource(sk_ref_sp(source), LayerSpace<SkIPoint>({0, 0}))
+    {
+    }
     Context(const Mapping& mapping, const LayerSpace<SkIRect>& desiredOutput, SkImageFilterCache* cache, SkColorType colorType, SkColorSpace* colorSpace, const FilterResult<For::kInput>& source)
       :  fMapping(mapping)
         , fDesiredOutput(desiredOutput)
         , fCache(cache)
         , fColorType(colorType)
         , fColorSpace(colorSpace)
-        , fSource(source) 
-      {
-      }
+        , fSource(source)
+    {
+    }
     // The mapping that defines the transformation from local parameter space of the filters to the
     // layer space where the image filters are evaluated, as well as the remaining transformation
     // from the layer space to the final device space. The layer space defined by the returned
@@ -730,55 +840,83 @@ namespace skif
     // the layer space to the final device space (applied by the SkCanvas when filtering is
     // finished).
     const Mapping& mapping() const
-    { return fMapping; }
+    {
+ return fMapping;
+    }
     // DEPRECATED: Use mapping() and its coordinate-space types instead
     const SkMatrix& ctm() const
-    { return fMapping.layerMatrix(); }
+    {
+ return fMapping.layerMatrix();
+    }
     // The bounds, in the layer space, that the filtered image will be clipped to. The output
     // from filterImage() must cover these clip bounds, except in areas where it will just be
     // transparent black, in which case a smaller output image can be returned.
     const LayerSpace<SkIRect>& desiredOutput() const
-    { return fDesiredOutput; }
+    {
+ return fDesiredOutput;
+    }
     // DEPRECATED: Use desiredOutput() instead
     const SkIRect& clipBounds() const
-    { return static_cast<const SkIRect&>(fDesiredOutput); }
+    {
+ return static_cast<const SkIRect&>(fDesiredOutput);
+    }
     // The cache to use when recursing through the filter DAG, in order to avoid repeated
     // calculations of the same image.
     SkImageFilterCache* cache() const
-    { return fCache; }
+    {
+ return fCache;
+    }
     // The output device's color type, which can be used for intermediate images to be
     // compatible with the eventual target of the filtered result.
     SkColorType colorType() const
-    { return fColorType; }
+    {
+ return fColorType;
+    }
 #  if  SK_SUPPORT_GPU
     GrColorType grColorType() const
-    { return SkColorTypeToGrColorType(fColorType); }
+    {
+ return SkColorTypeToGrColorType(fColorType);
+    }
 #  endif
     // The output device's color space, so intermediate images can match, and so filtering can
     // be performed in the destination color space.
     SkColorSpace* colorSpace() const
-    { return fColorSpace; }
+    {
+ return fColorSpace;
+    }
     sk_sp<SkColorSpace> refColorSpace() const
-    { return sk_ref_sp(fColorSpace); }
+    {
+ return sk_ref_sp(fColorSpace);
+    }
     // The default surface properties to use when making transient surfaces during filtering.
     const SkSurfaceProps* surfaceProps() const
-    { return &fSource.image()->props(); }
+    {
+ return &fSource.image()->props();
+    }
     // This is the image to use whenever an expected input filter has been set to null. In the
     // majority of cases, this is the original source image for the image filter DAG so it comes
     // from the SkDevice that holds either the saveLayer or the temporary rendered result. The
     // exception is composing two image filters (via SkImageFilters::Compose), which must use
     // the output of the inner DAG as the "source" for the outer DAG.
     const FilterResult<For::kInput>& source() const
-    { return fSource; }
+    {
+ return fSource;
+    }
     // DEPRECATED: Use source() instead to get both the image and its origin.
     const SkSpecialImage* sourceImage() const
-    { return fSource.image(); }
+    {
+ return fSource.image();
+    }
     // True if image filtering should occur on the GPU if possible.
     bool gpuBacked() const
-    { return fSource.image()->isTextureBacked(); }
+    {
+ return fSource.image()->isTextureBacked();
+    }
     // The recording context to use when computing the filter with the GPU.
     GrRecordingContext* getContext() const
-    { return fSource.image()->getContext(); }
+    {
+ return fSource.image()->getContext();
+    }
     /**
      *  Since a context can be built directly, its constructor has no chance to "return null" if
      *  it's given invalid or unsupported inputs. Call this to know of the the context can be
@@ -788,7 +926,9 @@ namespace skif
      *  so that test is part of isValid.
      */
     bool isValid() const
-    { return fSource.image() != nullptr && fMapping.layerMatrix().isFinite(); }
+    {
+ return fSource.image() != nullptr && fMapping.layerMatrix().isFinite();
+    }
     // Create a surface of the given size, that matches the context's color type and color space
     // as closely as possible, and uses the same backend of the device that produced the source
     // image.

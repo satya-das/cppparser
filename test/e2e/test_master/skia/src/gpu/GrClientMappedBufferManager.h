@@ -40,7 +40,9 @@ public:
   GrClientMappedBufferManager& operator=(GrClientMappedBufferManager&&);
     /** Initialize BufferFinishedMessage::fInboxID to this value. */
   uint32_t inboxID() const
-  { return fFinishedBufferInbox.uniqueID(); }
+  {
+ return fFinishedBufferInbox.uniqueID();
+  }
     /**
      * Let the manager know to expect a message with buffer 'b'. It's illegal for a buffer to be
      * inserted again before it is unmapped by process().

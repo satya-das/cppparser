@@ -20,11 +20,10 @@ namespace SkSL
     CodeGenerator(const Program* program, ErrorReporter* errors, OutputStream* out)
       :  fProgram(*program)
     , fErrors(*errors)
-    , fOut(out) 
-      {
-
+    , fOut(out)
+    {
         SkASSERT(program->fIsOptimized);
-          }
+    }
     virtual ~CodeGenerator()
     {
     }

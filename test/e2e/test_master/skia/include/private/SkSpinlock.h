@@ -20,7 +20,7 @@ public:
             // Lock was contended.  Fall back to an out-of-line spin loop.
             this->contendedAcquire();
         }
-    }
+  }
     // Acquire the lock or fail (quickly). Lets the caller decide to do something other than wait.
   bool tryAcquire()
   {
@@ -30,12 +30,12 @@ public:
             return false;
         }
         return true;
-    }
+  }
   void release()
   {
         // To act as a mutex, we need a release barrier when we release the lock.
         fLocked.store(false, std::memory_order_release);
-    }
+  }
 private:
   SK_API void contendedAcquire();
   std::atomic<bool> fLocked{false};
@@ -44,12 +44,14 @@ class SK_SCOPED_CAPABILITY SkAutoSpinlock
 {
 public:
   SkAutoSpinlock(SkSpinlock& mutex)
-    :  fSpinlock(mutex) 
-    {
- fSpinlock.acquire();     }
+    :  fSpinlock(mutex)
+  {
+ fSpinlock.acquire();
+  }
   ~SkAutoSpinlock()
   {
- fSpinlock.release();   }
+ fSpinlock.release();
+  }
 private:
   SkSpinlock& fSpinlock;
 };

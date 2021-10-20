@@ -33,12 +33,14 @@ class AcCmEntityColor;
 class AcCmEntityColor
 {
 public:
-  enum Color { kRed,
+  enum Color {
+ kRed,
                  kGreen,
                  kBlue
-    };
+  };
     // Color Method.
-  enum ColorMethod {   kByLayer =0xC0, 
+  enum ColorMethod {
+   kByLayer =0xC0, 
                          kByBlock,
                          kByColor,
                          kByACI,
@@ -48,8 +50,9 @@ public:
                          // Run-time states
                          kLayerFrozen,
                          kNone
-    };
-  enum ACIcolorMethod {kACIbyBlock    = 0,
+  };
+  enum ACIcolorMethod {
+kACIbyBlock    = 0,
                          kACIforeground = 7,
                          kACIbyLayer    = 256,
                          // Run-time states
@@ -59,7 +62,7 @@ public:
                          kACInone       = 257,
                          kACIminimum    = -255,
                          kACIfrozenLayer= -32700
-    };
+  };
     // Blue, green, red, and Color Method (byBlock, byLayer, byColor).
     // Is stored that way for better performance. 
     //
@@ -174,19 +177,16 @@ public:
 // Default color method is kByColor.
 inline AcCmEntityColor::AcCmEntityColor()
 {
-
     mRGBM.whole = 0;
     mRGBM.mdata.colorMethod = kByColor;
 }
 inline AcCmEntityColor::AcCmEntityColor(const AcCmEntityColor& color)
 {
-
     mRGBM.whole = color.mRGBM.whole;
 }
 // parameter:   eColorMethod    Color method information (byBlock, byLayer, byColor).
 inline AcCmEntityColor::AcCmEntityColor(ColorMethod eColorMethod)
 {
-
     mRGBM.whole = 0;
     mRGBM.mdata.colorMethod = static_cast<Adesk::UInt8>(eColorMethod);
 }
@@ -194,7 +194,6 @@ inline AcCmEntityColor::AcCmEntityColor(ColorMethod eColorMethod)
 // parameter:   red, green, blue
 inline AcCmEntityColor::AcCmEntityColor(Adesk::UInt8 red, Adesk::UInt8 green, Adesk::UInt8 blue)
 {
-
     mRGBM.mdata.red   = red;
     mRGBM.mdata.green = green;
     mRGBM.mdata.blue  = blue;
@@ -314,7 +313,7 @@ inline Adesk::UInt8 AcCmEntityColor::blue() const
 }
 inline bool AcCmEntityColor::isByColor() const
 {
-    return mRGBM.mdata.colorMethod == kByColor; 
+    return mRGBM.mdata.colorMethod == kByColor;
 }
 inline bool AcCmEntityColor::isByLayer() const
 {
@@ -343,14 +342,14 @@ inline bool AcCmEntityColor::isForeground() const
             mRGBM.indirect == kACIforeground)) ? true : false;
 }
 inline bool AcCmEntityColor::isLayerOff() const
-{   
+{
     return (mRGBM.mdata.colorMethod  == kLayerOff ||
             (mRGBM.mdata.colorMethod == kByACI && 
             mRGBM.indirect    <  0 && // layer off for ACI is negative
             mRGBM.indirect != kACIfrozenLayer)) ? true : false;
 }
 inline bool AcCmEntityColor::isLayerFrozen() const
-{   
+{
     return (mRGBM.mdata.colorMethod  == kLayerFrozen ||
             (mRGBM.mdata.colorMethod == kByACI       && 
             mRGBM.indirect == kACIfrozenLayer)) ? true : false;
@@ -436,21 +435,24 @@ public:
 
 
                 kErrorValue     // must be last in enum
-            };
+  };
     // Some Transparency constants
-  enum {  kTransparencyByLayer    = (unsigned long)kByLayer,
+  enum {
+  kTransparencyByLayer    = (unsigned long)kByLayer,
             kTransparencyByBlock    = (unsigned long)kByBlock,
             kTransparencySolid      = ((unsigned long)(kByAlpha | (0xff << 24))),
             kTransparencyClear      = (unsigned long)kByAlpha
-    };
+  };
   AcCmTransparency()
   {
- mAM.whole = kTransparencyByLayer;   }
+ mAM.whole = kTransparencyByLayer;
+  }
   AcCmTransparency(Adesk::UInt8 alpha);
   AcCmTransparency(double alphaPercent);
   AcCmTransparency(const AcCmTransparency& other)
   {
- mAM.whole = other.mAM.whole;   }
+ mAM.whole = other.mAM.whole;
+  }
   ~AcCmTransparency()
   {
   }
@@ -463,17 +465,27 @@ public:
   Adesk::UInt8 alpha(void) const;
   double alphaPercent(void) const;
   bool isByAlpha(void) const
-  { return (mAM.mdata.method == kByAlpha); }
+  {
+ return (mAM.mdata.method == kByAlpha);
+  }
   bool isByBlock(void) const
-  { return (mAM.mdata.method == kByBlock); }
+  {
+ return (mAM.mdata.method == kByBlock);
+  }
   bool isByLayer(void) const
-  { return (mAM.mdata.method == kByLayer); }
+  {
+ return (mAM.mdata.method == kByLayer);
+  }
   bool isInvalid(void) const
-  { return (mAM.mdata.method == kErrorValue); }
+  {
+ return (mAM.mdata.method == kErrorValue);
+  }
   bool isClear(void) const;
   bool isSolid(void) const;
   Adesk::UInt32 serializeOut(void) const
-  { return mAM.whole; }
+  {
+ return mAM.whole;
+  }
   void serializeIn(Adesk::UInt32);
 private:
   union AM
@@ -491,13 +503,13 @@ private:
 };
 namespace AcCm
 {
-  enum DialogTabs {   
+  enum DialogTabs {
         //these flags can be OR-ed 
         kACITab = 1,
         kTrueColorTab = 2,
         kColorBookTab = 4,
-    };
-  enum ACIColors {   
+  };
+  enum ACIColors {
         kACIByBlock     = 0,
         kACIRed         = 1,
         kACIYellow      = 2,
@@ -507,7 +519,7 @@ namespace AcCm
         kACIMagenta     = 6,
         kACIForeground  = 7,
         kACIByLayer     = 256,
-    };
+  };
 }
 #  pragma  pack (pop)
 #  define ADSK_ACCMENTITYCOLOR_DEFINED

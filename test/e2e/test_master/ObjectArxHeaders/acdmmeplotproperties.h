@@ -47,11 +47,9 @@ public:
     ///
   AcDMMEPlotProperties()
     :  m_id(NULL)
-    
-    {
+  {
 
-
-        }
+  }
     /// <summary>
     /// Copy constructor
     /// </summary>
@@ -62,23 +60,20 @@ public:
     ///
   AcDMMEPlotProperties(const AcDMMEPlotProperties& src)
     :  m_id(NULL)
-    
-    {
- 
+  {
         *this = src;
-        }
+  }
     /// <summary>
     /// Destructor
     /// </summary>
     ///
   ~AcDMMEPlotProperties()
   {
-
         m_properties.removeAll();
         m_refs.removeAll();
         if (NULL != m_id)
             delete m_id;
-      }
+  }
     /// <summary>
     /// Adds a new AcDMMEPlotProperty object to the internal vector of 
     /// properties
@@ -93,7 +88,7 @@ public:
         if (NULL == property)
             return;
         m_properties.append(*property);
-    }
+  }
     /// <summary>
     /// Creates and adds a new AcDMMEPlotProperty object to the internal 
     /// vector of properties.
@@ -111,7 +106,7 @@ public:
   {
         AcDMMEPlotProperty newProp(name, value);
         m_properties.append(newProp);
-    }
+  }
     /// <summary>
     /// accessor for the internal vector of AcDMMEPlotProperty objects
     /// contained by this object
@@ -124,7 +119,7 @@ public:
   const AcDMMEPlotPropertyVec& GetProperties() const
   {
         return m_properties;
-    }
+  }
     /// <summary>
     /// accessor for individual properties in the internal vector of
     /// AcDMMEPlotProperties contained in this object
@@ -149,7 +144,7 @@ public:
         if (m_properties.length() <= (int)index)
             return NULL;
         return &m_properties[index];
-    }
+  }
     /// <summary>
     /// mutator for the Id attribute of this object
     /// </summary>
@@ -180,7 +175,7 @@ public:
             assert(err == 0);
         } else
             m_id = NULL;
-    }
+  }
     /// <summary>
     /// accessor for the Id attribute.
     /// </summary>
@@ -196,7 +191,7 @@ public:
   const wchar_t* GetId() const
   {
         return m_id;
-    }
+  }
     /// <summary>
     /// Sets the vector of the unique identifiers of the EPlotProperties 
     /// objects referenced (inherited) by this object.
@@ -217,7 +212,7 @@ public:
         m_refs.removeAll();
         for (int i = 0; i < refs.length(); i++)
             m_refs.append(refs.at(i));
-    }
+  }
     /// <summary>
     /// accessor for the vector of Unicode string identifications of 
     /// referenced AcDMMEPlotProperties objects
@@ -230,7 +225,7 @@ public:
   const AcDMMStringVec* GetRefs() const
   {
         return &m_refs;
-    }
+  }
     /// <summary>
     /// operator= also used by copy constructor
     /// </summary>
@@ -253,7 +248,7 @@ public:
         SetId(src.m_id);
         SetRefs(src.m_refs);
         return *this;
-    }
+  }
 private:
   AcDMMEPlotPropertyVec m_properties;
   wchar_t* m_id;

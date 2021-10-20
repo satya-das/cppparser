@@ -34,7 +34,9 @@ public:
   // path management
   void SetPath(const wxString& strPath) override;
   const wxString& GetPath() const override
-  { return m_strPath; }
+  {
+ return m_strPath;
+  }
   // entry/subgroup info
     // enumerate all of them
   bool GetFirstGroup(wxString& str, long& lIndex) const override;
@@ -50,7 +52,9 @@ public:
   size_t GetNumberOfEntries(bool bRecursive = false) const override;
   size_t GetNumberOfGroups(bool bRecursive = false) const override;
   bool Flush(bool = false) override
-  { return true; }
+  {
+ return true;
+  }
   // rename
   bool RenameEntry(const wxString& oldName, const wxString& newName) override;
   bool RenameGroup(const wxString& oldName, const wxString& newName) override;
@@ -65,10 +69,9 @@ protected:
     wxRegConfig* self = wxConstCast(this, wxRegConfig);
     if (!m_keyLocal.IsOpened())
     {
-
           // create on demand
           self->m_keyLocal.Create();
-          }
+    }
     return self->m_keyLocal;
   }
   // implement read/write methods

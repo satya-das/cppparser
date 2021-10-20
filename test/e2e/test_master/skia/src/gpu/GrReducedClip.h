@@ -26,42 +26,60 @@ public:
   enum class InitialState : bool {
         kAllIn,
         kAllOut
-    };
+  };
   InitialState initialState() const
-  { return fInitialState; }
+  {
+ return fInitialState;
+  }
     /**
      * If hasScissor() is true, the clip mask is not valid outside this rect and the caller must
      * enforce this scissor during draw.
      */
   const SkIRect& scissor() const
-  { SkASSERT(fHasScissor); return fScissor; }
+  {
+ SkASSERT(fHasScissor); return fScissor;
+  }
   int left() const
-  { return this->scissor().left(); }
+  {
+ return this->scissor().left();
+  }
   int top() const
-  { return this->scissor().top(); }
+  {
+ return this->scissor().top();
+  }
   int width() const
-  { return this->scissor().width(); }
+  {
+ return this->scissor().width();
+  }
   int height() const
-  { return this->scissor().height(); }
+  {
+ return this->scissor().height();
+  }
     /**
      * Indicates whether scissor() is defined. It will always be defined if the maskElements() are
      * nonempty.
      */
   bool hasScissor() const
-  { return fHasScissor; }
+  {
+ return fHasScissor;
+  }
     /**
      * If nonempty, the clip mask is not valid inside these windows and the caller must clip them
      * out using the window rectangles GPU extension.
      */
   const GrWindowRectangles& windowRectangles() const
-  { return fWindowRects; }
+  {
+ return fWindowRects;
+  }
     /**
      * An ordered list of clip elements that could not be skipped or implemented by other means. If
      * nonempty, the caller must create an alpha and/or stencil mask for these elements and apply it
      * during draw.
      */
   const ElementList& maskElements() const
-  { return fMaskElements; }
+  {
+ return fMaskElements;
+  }
     /**
      * If maskElements() are nonempty, uniquely identifies the region of the clip mask that falls
      * inside of scissor().
@@ -73,16 +91,22 @@ public:
      * been assigned a less restrictive ID.
      */
   uint32_t maskGenID() const
-  { SkASSERT(!fMaskElements.isEmpty()); return fMaskGenID; }
+  {
+ SkASSERT(!fMaskElements.isEmpty()); return fMaskGenID;
+  }
     /**
      * Indicates whether antialiasing is required to process any of the mask elements.
      */
   bool maskRequiresAA() const
-  { SkASSERT(!fMaskElements.isEmpty()); return fMaskRequiresAA; }
+  {
+ SkASSERT(!fMaskElements.isEmpty()); return fMaskRequiresAA;
+  }
   bool drawAlphaClipMask(GrRenderTargetContext*) const;
   bool drawStencilClipMask(GrRecordingContext*, GrRenderTargetContext*) const;
   int numAnalyticFPs() const
-  { return fAnalyticFPs.count() + fCCPRClipPaths.count(); }
+  {
+ return fAnalyticFPs.count() + fCCPRClipPaths.count();
+  }
     /**
      * Called once the client knows the ID of the opsTask that the clip FPs will operate in. This
      * method finishes any outstanding work that was waiting for the opsTask ID, then detaches and
@@ -99,7 +123,7 @@ private:
         kNotClipped,
         kClipped,
         kMadeEmpty
-    };
+  };
     // Intersects the clip with the element's interior, regardless of inverse fill type.
     // NOTE: do not call for elements followed by ops that can grow the clip.
   ClipResult clipInsideElement(const Element*);
@@ -110,7 +134,7 @@ private:
   enum class Invert : bool {
         kNo = false,
         kYes = true
-    };
+  };
   static GrClipEdgeType GetClipEdgeType(Invert, GrAA);
   ClipResult addAnalyticFP(const SkRect& deviceSpaceRect, Invert, GrAA);
   ClipResult addAnalyticFP(const SkRRect& deviceSpaceRRect, Invert, GrAA);

@@ -20,10 +20,12 @@ public:
   typedef W BaseWindowClass;
   wxCustomBackgroundWindow()
   {
- m_backgroundBrush = NULL;   }
+ m_backgroundBrush = NULL;
+  }
   virtual ~wxCustomBackgroundWindow()
   {
- delete m_backgroundBrush;   }
+ delete m_backgroundBrush;
+  }
 protected:
   void DoSetBackgroundBitmap(const wxBitmap& bmp) override
   {
@@ -35,14 +37,14 @@ protected:
         // if we also have non-default background colour or false otherwise.
         BaseWindowClass::m_inheritBgCol = bmp.IsOk()
                                             || BaseWindowClass::UseBgCol();
-    }
+  }
   WXHBRUSH MSWGetCustomBgBrush() override
   {
         if ( m_backgroundBrush )
             return (WXHBRUSH)m_backgroundBrush->GetResourceHandle();
 
         return BaseWindowClass::MSWGetCustomBgBrush();
-    }
+  }
   wxBrush* m_backgroundBrush;
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxCustomBackgroundWindow, W);
 };

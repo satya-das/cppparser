@@ -24,11 +24,17 @@ public:
   static GrVkStencilAttachment* Create(GrVkGpu* gpu, int width, int height, int sampleCnt, const Format& format);
   virtual ~GrVkStencilAttachment();
   const GrVkResource* imageResource() const
-  { return this->resource(); }
+  {
+ return this->resource();
+  }
   const GrVkImageView* stencilView() const
-  { return fStencilView; }
+  {
+ return fStencilView;
+  }
   VkFormat vkFormat() const
-  { return fFormat.fInternalFormat; }
+  {
+ return fFormat.fInternalFormat;
+  }
 protected:
   void onRelease() override;
   void onAbandon() override;

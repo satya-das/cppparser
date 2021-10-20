@@ -614,7 +614,7 @@ public:
   {
         UNREFERENCED_PARAMETER(pConstraint);
         return false;
-    }
+  }
     /// <summary>
     /// This function will be called when a constraint is
     /// deactivated/reactivated. This notification takes place when
@@ -630,7 +630,7 @@ public:
   {
         UNREFERENCED_PARAMETER(pConstraint);
         UNREFERENCED_PARAMETER(bDeactivated);
-    }
+  }
 };
 /// <summary>
 /// Client needs to implement this callback to provide constraint priorities
@@ -644,7 +644,8 @@ class ACDB_PORT AcAutoConstrainEvaluationCallback
 public:
   virtual ~AcAutoConstrainEvaluationCallback()
   {
-   }
+
+  }
   /// <summary> 
   /// This function will be called when system finds a possible constraint between given set of
   /// constrained geometries. This function expects to get an override to increase, decrease or
@@ -697,7 +698,9 @@ public:
   /// </returns>
   /// 
   virtual bool isEvaluationCancelled()
-  { return false; }
+  {
+ return false;
+  }
   /// <summary>
   /// Returns list of constraints found by autoconstraint evaluation.
   /// </summary>

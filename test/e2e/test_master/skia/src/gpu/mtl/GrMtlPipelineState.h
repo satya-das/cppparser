@@ -27,7 +27,9 @@ public:
   using UniformHandle = GrGLSLProgramDataManager::UniformHandle;
   GrMtlPipelineState(GrMtlGpu* gpu, id<MTLRenderPipelineState> pipelineState, MTLPixelFormat pixelFormat, const GrGLSLBuiltinUniformHandles& builtinUniformHandles, const UniformInfoArray& uniforms, uint32_t uniformBufferSize, uint32_t numSamplers, std::unique_ptr<GrGLSLPrimitiveProcessor> geometryProcessor, std::unique_ptr<GrGLSLXferProcessor> xferPRocessor, std::unique_ptr<std::unique_ptr<GrGLSLFragmentProcessor>[]> fragmentProcessors, int fFragmentProcessorCnt);
   id<MTLRenderPipelineState> mtlPipelineState()
-  { return fPipelineState; }
+  {
+ return fPipelineState;
+  }
   void setData(const GrRenderTarget*, GrSurfaceOrigin, const GrPrimitiveProcessor& primPRoc, const GrPipeline& pipeline, const GrTextureProxy* const primProcTextures[]);
   void setDrawState(id<MTLRenderCommandEncoder>, const GrSwizzle& outputSwizzle, const GrXferProcessor&);
   static void SetDynamicScissorRectState(id<MTLRenderCommandEncoder> renderCmdEncoder, const GrRenderTarget* renderTarget, GrSurfaceOrigin rtOrigin, SkIRect scissorRect);
@@ -44,13 +46,14 @@ private:
     GrSurfaceOrigin fRenderTargetOrigin;
     RenderTargetState()
     {
- this->invalidate();     }
+ this->invalidate();
+    }
     void invalidate()
     {
             fRenderTargetSize.fWidth = -1;
             fRenderTargetSize.fHeight = -1;
             fRenderTargetOrigin = (GrSurfaceOrigin)-1;
-        }
+    }
         /**
         * Gets a float4 that adjusts the position from Skia device coords to Metals normalized
         * device coords. Assuming the transformed position, pos, is a homogeneous float3, the vec,
@@ -69,7 +72,7 @@ private:
                 destVec[2] = 2.f / fRenderTargetSize.fHeight;
                 destVec[3] = -1.f;
             }
-        }
+    }
   };
   void setRenderTargetState(const GrRenderTarget*, GrSurfaceOrigin);
   void bind(id<MTLRenderCommandEncoder>);

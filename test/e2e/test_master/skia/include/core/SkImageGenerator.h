@@ -29,9 +29,12 @@ public:
      */
   virtual ~SkImageGenerator()
   {
-   }
+
+  }
   uint32_t uniqueID() const
-  { return fUniqueID; }
+  {
+ return fUniqueID;
+  }
     /**
      *  Return a ref to the encoded (i.e. compressed) representation
      *  of this data.
@@ -42,12 +45,14 @@ public:
   sk_sp<SkData> refEncodedData()
   {
         return this->onRefEncodedData();
-    }
+  }
     /**
      *  Return the ImageInfo associated with this generator.
      */
   const SkImageInfo& getInfo() const
-  { return fInfo; }
+  {
+ return fInfo;
+  }
     /**
      *  Can this generator be used to produce images that will be drawable to the specified context
      *  (or to CPU, if context is nullptr)?
@@ -55,7 +60,7 @@ public:
   bool isValid(GrContext* context) const
   {
         return this->onIsValid(context);
-    }
+  }
     /**
      *  Decode into the given pixels, a block of memory of size at
      *  least (info.fHeight - 1) * rowBytes + (info.fWidth *
@@ -148,26 +153,38 @@ protected:
   static constexpr int kNeedNewImageUniqueID = 0;
   SkImageGenerator(const SkImageInfo& info, uint32_t uniqueId = kNeedNewImageUniqueID);
   virtual sk_sp<SkData> onRefEncodedData()
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   struct Options
   {
   };
   virtual bool onGetPixels(const SkImageInfo&, void*, size_t, const Options&)
-  { return false; }
+  {
+ return false;
+  }
   virtual bool onIsValid(GrContext*) const
-  { return true; }
+  {
+ return true;
+  }
   virtual bool onQueryYUVA8(SkYUVASizeInfo*, SkYUVAIndex[SkYUVAIndex::kIndexCount], SkYUVColorSpace*) const
-  { return false; }
+  {
+ return false;
+  }
   virtual bool onGetYUVA8Planes(const SkYUVASizeInfo&, const SkYUVAIndex[SkYUVAIndex::kIndexCount], void*[4])
-  { return false; }
+  {
+ return false;
+  }
 #  if  SK_SUPPORT_GPU
   enum class TexGenType {
         kNone,           //image generator does not implement onGenerateTexture
         kCheap,          //onGenerateTexture is implemented and it is fast (does not render offscreen)
         kExpensive,      //onGenerateTexture is implemented and it is relatively slow
-    };
+  };
   virtual TexGenType onCanGenerateTexture() const
-  { return TexGenType::kNone; }
+  {
+ return TexGenType::kNone;
+  }
   virtual sk_sp<GrTextureProxy> onGenerateTexture(GrRecordingContext*, const SkImageInfo&, const SkIPoint&, bool willNeedMipMaps);
 #  endif
 private:

@@ -23,18 +23,24 @@ public:
   }
   GrOpsRenderPass* getOpsRenderPass(GrRenderTarget*, GrSurfaceOrigin, const SkIRect&, const GrOpsRenderPass::LoadAndStoreInfo&, const GrOpsRenderPass::StencilLoadAndStoreInfo&, const SkTArray<GrTextureProxy*, true>& sampledProxies) override;
   GrFence SK_WARN_UNUSED_RESULT insertFence() override
-  { return 0; }
+  {
+ return 0;
+  }
   bool waitFence(GrFence, uint64_t) override
-  { return true; }
+  {
+ return true;
+  }
   void deleteFence(GrFence) const override
   {
   }
   sk_sp<GrSemaphore> SK_WARN_UNUSED_RESULT makeSemaphore(bool isOwned) override
   {
         return nullptr;
-    }
+  }
   sk_sp<GrSemaphore> wrapBackendSemaphore(const GrBackendSemaphore& semaphore, GrResourceProvider::SemaphoreWrapType wrapType, GrWrapOwnership ownership) override
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   void insertSemaphore(sk_sp<GrSemaphore> semaphore) override
   {
   }
@@ -42,7 +48,9 @@ public:
   {
   }
   sk_sp<GrSemaphore> prepareTextureForCrossContextUsage(GrTexture*) override
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   void submit(GrOpsRenderPass* renderPass) override;
   void checkFinishProcs() override
   {
@@ -66,25 +74,27 @@ private:
   bool onReadPixels(GrSurface* surface, int left, int top, int width, int height, GrColorType surfaceColorType, GrColorType dstColorType, void* buffer, size_t rowBytes) override
   {
         return true;
-    }
+  }
   bool onWritePixels(GrSurface* surface, int left, int top, int width, int height, GrColorType surfaceColorType, GrColorType srcColorType, const GrMipLevel texels[], int mipLevelCount, bool prepForTexSampling) override
   {
         return true;
-    }
+  }
   bool onTransferPixelsTo(GrTexture* texture, int left, int top, int width, int height, GrColorType surfaceColorType, GrColorType bufferColorType, GrGpuBuffer* transferBuffer, size_t offset, size_t rowBytes) override
   {
         return true;
-    }
+  }
   bool onTransferPixelsFrom(GrSurface* surface, int left, int top, int width, int height, GrColorType surfaceColorType, GrColorType bufferColorType, GrGpuBuffer* transferBuffer, size_t offset) override
   {
         return true;
-    }
+  }
   bool onCopySurface(GrSurface* dst, GrSurface* src, const SkIRect& srcRect, const SkIPoint& dstPoint) override
   {
         return true;
-    }
+  }
   bool onRegenerateMipMapLevels(GrTexture*) override
-  { return true; }
+  {
+ return true;
+  }
   void onResolveRenderTarget(GrRenderTarget* target, const SkIRect&, GrSurfaceOrigin, ForExternalIO) override
   {
   }
@@ -93,7 +103,7 @@ private:
         if (info.fFinishedProc) {
             info.fFinishedProc(info.fFinishedContext);
         }
-    }
+  }
   GrStencilAttachment* createStencilAttachmentForRenderTarget(const GrRenderTarget*, int width, int height, int numStencilSamples) override;
   GrBackendTexture onCreateBackendTexture(int w, int h, const GrBackendFormat&, GrMipMapped, GrRenderable, const SkPixmap srcData[], int numMipLevels, const SkColor4f* color, GrProtected) override;
   void deleteBackendTexture(const GrBackendTexture&) override;

@@ -49,13 +49,13 @@ public:
         {
             ms_map.insert(typename MapType::value_type(obj, field));
         }
-    }
+  }
     // Find the object for the corresponding window.
   static FieldType* FromObject(ObjectType* obj)
   {
         const typename MapType::const_iterator it = ms_map.find(obj);
         return it == ms_map.end() ? NULL : it->second;
-    }
+  }
     // Erase the object used for the corresponding window, return true if there
     // was one or false otherwise.
   static bool EraseForObject(ObjectType* obj)
@@ -67,7 +67,7 @@ public:
         delete it->second;
         ms_map.erase(it);
         return true;
-    }
+  }
 private:
   static FieldMap ms_map;
 };

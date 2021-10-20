@@ -51,9 +51,13 @@ public:
      *  Subclasses can override this to allow loop-hoisting optimization.
      */
   virtual bool isConstant() const
-  { return false; }
+  {
+ return false;
+  }
   const SkMatrix& getLocalMatrix() const
-  { return fLocalMatrix; }
+  {
+ return fLocalMatrix;
+  }
   enum Flags {
         //!< set if all of the colors will be opaque
         kOpaqueAlpha_Flag = 1 << 0,
@@ -68,7 +72,7 @@ public:
         /** hint for the blitter that 4f is the preferred shading mode.
          */
         kPrefers4f_Flag  = 1 << 2,
-    };
+  };
     /**
      *  ContextRec acts as a parameter bundle for creating Contexts.
      */
@@ -79,9 +83,9 @@ public:
             , fMatrix(&matrix)
             , fLocalMatrix(localM)
             , fDstColorType(dstColorType)
-            , fDstColorSpace(dstColorSpace) 
-      {
-      }
+            , fDstColorSpace(dstColorSpace)
+    {
+    }
     const SkPaint* fPaint;
     const SkMatrix* fMatrix;
     const SkMatrix* fLocalMatrix;
@@ -102,7 +106,9 @@ public:
          *  faster.
          */
     virtual uint32_t getFlags() const
-    { return 0; }
+    {
+ return 0;
+    }
         /**
          *  Called for each span of the object being drawn. Your subclass should
          *  set the appropriate colors (with premultiplied alpha) that correspond
@@ -113,11 +119,17 @@ public:
         // Reference to shader, so we don't have to dupe information.
     const SkShaderBase& fShader;
     uint8_t getPaintAlpha() const
-    { return fPaintAlpha; }
+    {
+ return fPaintAlpha;
+    }
     const SkMatrix& getTotalInverse() const
-    { return fTotalInverse; }
+    {
+ return fTotalInverse;
+    }
     const SkMatrix& getCTM() const
-    { return fCTM; }
+    {
+ return fCTM;
+    }
   private:
     SkMatrix fCTM;
     SkMatrix fTotalInverse;
@@ -166,18 +178,24 @@ public:
   virtual SkImage* onIsAImage(SkMatrix*, SkTileMode[2]) const
   {
         return nullptr;
-    }
+  }
   virtual SkPicture* isAPicture(SkMatrix*, SkTileMode[2], SkRect* tile) const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   static Type GetFlattenableType()
-  { return kSkShaderBase_Type; }
+  {
+ return kSkShaderBase_Type;
+  }
   Type getFlattenableType() const override
-  { return GetFlattenableType(); }
+  {
+ return GetFlattenableType();
+  }
   static sk_sp<SkShaderBase> Deserialize(const void* data, size_t size, const SkDeserialProcs* procs = nullptr)
   {
         return sk_sp<SkShaderBase>(static_cast<SkShaderBase*>(
                 SkFlattenable::Deserialize(GetFlattenableType(), data, size, procs).release()));
-    }
+  }
   static void RegisterFlattenables();
     /** DEPRECATED. skbug.com/8941
      *  If this shader can be represented by another shader + a localMatrix, return that shader and
@@ -187,7 +205,7 @@ public:
   SkStageUpdater* appendUpdatableStages(const SkStageRec& rec) const
   {
         return this->onAppendUpdatableStages(rec);
-    }
+  }
 protected:
   SkShaderBase(const SkMatrix* localMatrix = nullptr);
   void flatten(SkWriteBuffer&) const override;
@@ -199,16 +217,18 @@ protected:
   virtual Context* onMakeContext(const ContextRec&, SkArenaAlloc*) const
   {
         return nullptr;
-    }
+  }
 #  endif
   virtual bool onAsLuminanceColor(SkColor*) const
   {
         return false;
-    }
+  }
     // Default impl creates shadercontext and calls that (not very efficient)
   virtual bool onAppendStages(const SkStageRec&) const;
   virtual SkStageUpdater* onAppendUpdatableStages(const SkStageRec&) const
-  { return nullptr; }
+  {
+ return nullptr;
+  }
 private:
     // This is essentially const, but not officially so it can be modified in constructors.
   SkMatrix fLocalMatrix;

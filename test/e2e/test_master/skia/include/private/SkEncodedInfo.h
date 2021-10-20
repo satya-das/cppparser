@@ -18,7 +18,9 @@ public:
     static std::unique_ptr<ICCProfile> Make(sk_sp<SkData>);
     static std::unique_ptr<ICCProfile> Make(const skcms_ICCProfile&);
     const skcms_ICCProfile* profile() const
-    { return &fProfile; }
+    {
+ return &fProfile;
+    }
   private:
     ICCProfile(const skcms_ICCProfile&, sk_sp<SkData> = nullptr);
     skcms_ICCProfile fProfile;
@@ -31,7 +33,7 @@ public:
         // Each pixel is either fully opaque or fully transparent.
         // There is no difference between requesting kPremul or kUnpremul.
         kBinary_Alpha,
-    };
+  };
     /*
      * We strive to make the number of components per pixel obvious through
      * our naming conventions.
@@ -87,11 +89,11 @@ public:
         // be treated as inverted CMYK.
         kInvertedCMYK_Color,
         kYCCK_Color,
-    };
+  };
   static SkEncodedInfo Make(int width, int height, Color color, Alpha alpha, int bitsPerComponent)
   {
         return Make(width, height, color, alpha, bitsPerComponent, nullptr);
-    }
+  }
   static SkEncodedInfo Make(int width, int height, Color color, Alpha alpha, int bitsPerComponent, std::unique_ptr<ICCProfile> profile)
   {
         SkASSERT(1 == bitsPerComponent ||
@@ -143,7 +145,7 @@ public:
         }
 
         return SkEncodedInfo(width, height, color, alpha, bitsPerComponent, std::move(profile));
-    }
+  }
     /*
      * Returns a recommended SkImageInfo.
      *
@@ -163,24 +165,36 @@ public:
             cs = SkColorSpace::MakeSRGB();
         }
         return SkImageInfo::Make(fWidth, fHeight, ct, alpha, std::move(cs));
-    }
+  }
   int width() const
-  { return fWidth;  }
+  {
+ return fWidth;
+  }
   int height() const
-  { return fHeight; }
+  {
+ return fHeight;
+  }
   Color color() const
-  { return fColor;  }
+  {
+ return fColor;
+  }
   Alpha alpha() const
-  { return fAlpha;  }
+  {
+ return fAlpha;
+  }
   bool opaque() const
-  { return fAlpha == kOpaque_Alpha; }
+  {
+ return fAlpha == kOpaque_Alpha;
+  }
   const skcms_ICCProfile* profile() const
   {
         if (!fProfile) return nullptr;
         return fProfile->profile();
-    }
+  }
   uint8_t bitsPerComponent() const
-  { return fBitsPerComponent; }
+  {
+ return fBitsPerComponent;
+  }
   uint8_t bitsPerPixel() const
   {
         switch (fColor) {
@@ -207,7 +221,7 @@ public:
                 SkASSERT(false);
                 return 0;
         }
-    }
+  }
   SkEncodedInfo(const SkEncodedInfo& orig) = delete;
   SkEncodedInfo& operator=(const SkEncodedInfo&);
   SkEncodedInfo(SkEncodedInfo&& orig);
@@ -220,7 +234,7 @@ public:
             copy.fProfile.reset(new ICCProfile(*fProfile.get()));
         }
         return copy;
-    }
+  }
 private:
   SkEncodedInfo(int width, int height, Color color, Alpha alpha, uint8_t bitsPerComponent, std::unique_ptr<ICCProfile> profile)
     :  fWidth(width)
@@ -229,9 +243,8 @@ private:
         , fAlpha(alpha)
         , fBitsPerComponent(bitsPerComponent)
         , fProfile(std::move(profile))
-    
-    {
-    }
+  {
+  }
   int fWidth;
   int fHeight;
   Color fColor;

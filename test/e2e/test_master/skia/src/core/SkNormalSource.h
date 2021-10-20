@@ -61,14 +61,18 @@ public:
     */
   static sk_sp<SkNormalSource> MakeFlat();
   static Type GetFlattenableType()
-  { return kSkNormalSource_Type; }
+  {
+ return kSkNormalSource_Type;
+  }
   Type getFlattenableType() const override
-  { return GetFlattenableType(); }
+  {
+ return GetFlattenableType();
+  }
   static sk_sp<SkNormalSource> Deserialize(const void* data, size_t size, const SkDeserialProcs* procs = nullptr)
   {
         return sk_sp<SkNormalSource>(static_cast<SkNormalSource*>(
                 SkFlattenable::Deserialize(GetFlattenableType(), data, size, procs).release()));
-    }
+  }
   static void RegisterFlattenables();
 };
 #endif

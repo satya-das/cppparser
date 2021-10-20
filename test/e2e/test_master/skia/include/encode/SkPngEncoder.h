@@ -21,7 +21,7 @@ public:
         kAvg   = 0x40,
         kPaeth = 0x80,
         kAll   = kNone | kSub | kUp | kAvg | kPaeth,
-    };
+  };
   struct Options
   {
         /**

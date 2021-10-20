@@ -18,9 +18,8 @@ public:
   }
   wxToggleButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr))
   {
-
         Create(parent, id, label, pos, size, style, validator, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr));
   void SetValue(bool value) override;
   bool GetValue() const override;
@@ -28,7 +27,9 @@ public:
   void Command(wxCommandEvent& event) override;
 protected:
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxToggleButton);
 };
 class WXDLLIMPEXP_CORE wxBitmapToggleButton : public wxToggleButton
@@ -39,9 +40,8 @@ public:
   }
   wxBitmapToggleButton(wxWindow* parent, wxWindowID id, const wxBitmap& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr))
   {
-
         Create(parent, id, label, pos, size, style, validator, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxBitmap& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr));
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxBitmapToggleButton);
 };

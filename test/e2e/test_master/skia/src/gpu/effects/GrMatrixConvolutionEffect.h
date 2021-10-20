@@ -18,26 +18,44 @@ public:
         return std::unique_ptr<GrFragmentProcessor>(
                 new GrMatrixConvolutionEffect(std::move(srcProxy), srcBounds, kernelSize, kernel,
                                               gain, bias, kernelOffset, tileMode, convolveAlpha));
-    }
+  }
   static std::unique_ptr<GrFragmentProcessor> MakeGaussian(sk_sp<GrTextureProxy> srcProxy, const SkIRect& srcBounds, const SkISize& kernelSize, SkScalar gain, SkScalar bias, const SkIPoint& kernelOffset, GrTextureDomain::Mode tileMode, bool convolveAlpha, SkScalar sigmaX, SkScalar sigmaY);
   const SkIRect& bounds() const
-  { return fBounds; }
+  {
+ return fBounds;
+  }
   const SkISize& kernelSize() const
-  { return fKernelSize; }
+  {
+ return fKernelSize;
+  }
   const float* kernelOffset() const
-  { return fKernelOffset; }
+  {
+ return fKernelOffset;
+  }
   const float* kernel() const
-  { return fKernel; }
+  {
+ return fKernel;
+  }
   float gain() const
-  { return fGain; }
+  {
+ return fGain;
+  }
   float bias() const
-  { return fBias; }
+  {
+ return fBias;
+  }
   bool convolveAlpha() const
-  { return fConvolveAlpha; }
+  {
+ return fConvolveAlpha;
+  }
   const GrTextureDomain& domain() const
-  { return fDomain; }
+  {
+ return fDomain;
+  }
   const char* name() const override
-  { return "MatrixConvolution"; }
+  {
+ return "MatrixConvolution";
+  }
   std::unique_ptr<GrFragmentProcessor> clone() const override;
 private:
     // srcProxy is the texture that is going to be convolved
@@ -48,7 +66,9 @@ private:
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;
   const TextureSampler& onTextureSampler(int i) const override
-  { return fTextureSampler; }
+  {
+ return fTextureSampler;
+  }
   GrCoordTransform fCoordTransform;
   GrTextureDomain fDomain;
   TextureSampler fTextureSampler;

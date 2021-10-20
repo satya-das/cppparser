@@ -28,9 +28,13 @@ public:
   void CleanUp() override;
   void WakeUpIdle() override;
   void SetPrintMode(int mode) override
-  { m_printMode = mode; }
+  {
+ m_printMode = mode;
+  }
   virtual int GetPrintMode() const
-  { return m_printMode; }
+  {
+ return m_printMode;
+  }
     // implementation only
   void OnIdle(wxIdleEvent& event);
   void OnEndSession(wxCloseEvent& event);
@@ -44,7 +48,9 @@ public:
     // this suffix should be appended to all our Win32 class names to obtain a
     // variant registered without CS_[HV]REDRAW styles
   static const wxChar* GetNoRedrawClassSuffix()
-  { return wxT("NR"); }
+  {
+ return wxT("NR");
+  }
     // Flags for GetRegisteredClassName()
   enum
   {

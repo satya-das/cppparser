@@ -21,13 +21,14 @@ struct GrDawnProgram : public SkRefCnt
     GrSurfaceOrigin fRenderTargetOrigin;
     RenderTargetState()
     {
- this->invalidate();     }
+ this->invalidate();
+    }
     void invalidate()
     {
             fRenderTargetSize.fWidth = -1;
             fRenderTargetSize.fHeight = -1;
             fRenderTargetOrigin = (GrSurfaceOrigin) -1;
-        }
+    }
         /**
          * Gets a float4 that adjusts the position from Skia device coords to GL's normalized device
          * coords. Assuming the transformed position, pos, is a homogeneous float3, the vec, v, is
@@ -46,14 +47,14 @@ struct GrDawnProgram : public SkRefCnt
                 destVec[2] = 2.f / fRenderTargetSize.fHeight;
                 destVec[3] = -1.f;
             }
-        }
+    }
   };
   typedef GrGLSLBuiltinUniformHandles BuiltinUniformHandles;
   GrDawnProgram(const GrDawnUniformHandler::UniformInfoArray& uniforms, uint32_t geometryUniformSize, uint32_t fragmentUniformSize)
-    :  fDataManager(uniforms, geometryUniformSize, fragmentUniformSize) 
-    {
+    :  fDataManager(uniforms, geometryUniformSize, fragmentUniformSize)
+  {
 
-        }
+  }
   std::unique_ptr<GrGLSLPrimitiveProcessor> fGeometryProcessor;
   std::unique_ptr<GrGLSLXferProcessor> fXferProcessor;
   std::unique_ptr<std::unique_ptr<GrGLSLFragmentProcessor>[]> fFragmentProcessors;
@@ -72,13 +73,21 @@ public:
   static sk_sp<GrDawnProgram> Build(GrDawnGpu*, GrRenderTarget* renderTarget, GrSurfaceOrigin origin, const GrPipeline&, const GrPrimitiveProcessor&, const GrTextureProxy* const primProcProxies[], GrPrimitiveType primitiveType, dawn::TextureFormat colorFormat, bool hasDepthStencil, dawn::TextureFormat depthStencilFormat, GrProgramDesc* desc);
   const GrCaps* caps() const override;
   GrGLSLUniformHandler* uniformHandler() override
-  { return &fUniformHandler; }
+  {
+ return &fUniformHandler;
+  }
   const GrGLSLUniformHandler* uniformHandler() const override
-  { return &fUniformHandler; }
+  {
+ return &fUniformHandler;
+  }
   GrGLSLVaryingHandler* varyingHandler() override
-  { return &fVaryingHandler; }
+  {
+ return &fVaryingHandler;
+  }
   GrDawnGpu* gpu() const
-  { return fGpu; }
+  {
+ return fGpu;
+  }
 private:
   GrDawnProgramBuilder(GrDawnGpu*, GrRenderTarget*, GrSurfaceOrigin, const GrPrimitiveProcessor&, const GrTextureProxy* const primProcProxies[], const GrPipeline&, GrProgramDesc*);
   dawn::ShaderModule createShaderModule(const GrGLSLShaderBuilder&, SkSL::Program::Kind, SkSL::Program::Inputs* inputs);

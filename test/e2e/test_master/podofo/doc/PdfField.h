@@ -59,7 +59,7 @@ namespace PoDoFo
     ePdfField_Signature,
 
     ePdfField_Unknown = 0xff
-};
+  };
 /** The possible highlighting modes
  *  for a PdfField. I.e the visual effect
  *  that is to be used when the mouse 
@@ -75,10 +75,11 @@ namespace PoDoFo
     ePdfHighlightingMode_Push,           ///< Display the fields down appearance (requires an additional appearance stream to be set)
 
     ePdfHighlightingMode_Unknown = 0xff
-};
+  };
   class PODOFO_DOC_API PdfField
   {
-    enum { ePdfField_ReadOnly       = 0x0001,
+    enum {
+ ePdfField_ReadOnly       = 0x0001,
            ePdfField_Required       = 0x0002,
            ePdfField_NoExport       = 0x0004
     };
@@ -142,7 +143,8 @@ namespace PoDoFo
     PdfField(const PdfField& rhs);
     virtual ~PdfField()
     {
-     }
+
+    }
     /** Get the page of this PdfField
      *
      *  \returns the page of this PdfField
@@ -346,119 +348,119 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
   inline void PdfField::SetReadOnly(bool bReadOnly)
   {
     this->SetFieldFlag( static_cast<int>(ePdfField_ReadOnly), bReadOnly );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfField::IsReadOnly() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfField_ReadOnly), false );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfField::SetRequired(bool bRequired)
   {
     this->SetFieldFlag( static_cast<int>(ePdfField_Required), bRequired );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfField::IsRequired() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfField_Required), false );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfField::SetExport(bool bExport)
   {
     this->SetFieldFlag( static_cast<int>(ePdfField_NoExport), bExport );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfField::IsExport() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfField_NoExport), true );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline PdfPage* PdfField::GetPage() const
   {
     return m_pWidget->GetPage();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfField::SetMouseEnterAction(const PdfAction& rAction)
   {
     this->AddAlternativeAction( PdfName("E"), rAction );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfField::SetMouseLeaveAction(const PdfAction& rAction)
   {
     this->AddAlternativeAction( PdfName("X"), rAction );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfField::SetMouseDownAction(const PdfAction& rAction)
   {
     this->AddAlternativeAction( PdfName("D"), rAction );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfField::SetMouseUpAction(const PdfAction& rAction)
   {
     this->AddAlternativeAction( PdfName("U"), rAction );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfField::SetFocusEnterAction(const PdfAction& rAction)
   {
     this->AddAlternativeAction( PdfName("Fo"), rAction );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfField::SetFocusLeaveAction(const PdfAction& rAction)
   {
     this->AddAlternativeAction( PdfName("BI"), rAction );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfField::SetPageOpenAction(const PdfAction& rAction)
   {
     this->AddAlternativeAction( PdfName("PO"), rAction );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfField::SetPageCloseAction(const PdfAction& rAction)
   {
     this->AddAlternativeAction( PdfName("PC"), rAction );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfField::SetPageVisibleAction(const PdfAction& rAction)
   {
     this->AddAlternativeAction( PdfName("PV"), rAction );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfField::SetPageInvisibleAction(const PdfAction& rAction)
   {
     this->AddAlternativeAction( PdfName("PI"), rAction );
-}
+  }
 /* Peter Petrov 15 October 2008 */
 // -----------------------------------------------------
 // 
@@ -466,7 +468,7 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
   inline void PdfField::SetKeystrokeAction(const PdfAction& rAction)
   {
     this->AddAlternativeAction( PdfName("K"), rAction);
-}
+  }
 /* Peter Petrov 15 October 2008 */
 // -----------------------------------------------------
 // 
@@ -474,14 +476,14 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
   inline void PdfField::SetValidateAction(const PdfAction& rAction)
   {
     this->AddAlternativeAction( PdfName("V"), rAction);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline EPdfField PdfField::GetType() const
   {
     return m_eField;
-}
+  }
 // Peter Petrov 27 April 2008
 // -----------------------------------------------------
 // 
@@ -489,7 +491,7 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
   inline PdfAnnotation* PdfField::GetWidgetAnnotation() const
   {
     return m_pWidget;
-}
+  }
 // Peter Petrov 27 April 2008
 // -----------------------------------------------------
 // 
@@ -497,11 +499,12 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
   inline PdfObject* PdfField::GetFieldObject() const
   {
     return m_pObject;
-}
+  }
   class PODOFO_DOC_API PdfButton : public PdfField
   {
   protected:
-    enum { ePdfButton_NoToggleOff      = 0x0004000,
+    enum {
+ ePdfButton_NoToggleOff      = 0x0004000,
            ePdfButton_Radio            = 0x0008000,
            ePdfButton_PushButton       = 0x0010000,
            ePdfButton_RadioInUnison    = 0x2000000
@@ -553,7 +556,7 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
   inline bool PdfButton::IsPushButton() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfButton_PushButton), false );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -561,14 +564,14 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
   {
     return (!this->GetFieldFlag( static_cast<int>(ePdfButton_Radio), false ) &&
             !this->GetFieldFlag( static_cast<int>(ePdfButton_PushButton), false ) );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfButton::IsRadioButton() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfButton_Radio), false );
-}
+  }
 /** A push button is a button which has no state and value
  *  but can toggle actions.
  */
@@ -682,7 +685,8 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
   class PODOFO_DOC_API PdfTextField : public PdfField
   {
   private:
-    enum { ePdfTextField_MultiLine     = 0x0001000,
+    enum {
+ ePdfTextField_MultiLine     = 0x0001000,
            ePdfTextField_Password      = 0x0002000,
            ePdfTextField_FileSelect    = 0x0100000,
            ePdfTextField_NoSpellcheck  = 0x0400000,
@@ -828,98 +832,98 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
   inline void PdfTextField::SetMultiLine(bool bMultiLine)
   {
     this->SetFieldFlag( static_cast<int>(ePdfTextField_MultiLine), bMultiLine );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfTextField::IsMultiLine() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfTextField_MultiLine), false );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfTextField::SetPasswordField(bool bPassword)
   {
     this->SetFieldFlag( static_cast<int>(ePdfTextField_Password), bPassword );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfTextField::IsPasswordField() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfTextField_Password), false );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfTextField::SetFileField(bool bFile)
   {
     this->SetFieldFlag( static_cast<int>(ePdfTextField_FileSelect), bFile );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfTextField::IsFileField() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfTextField_FileSelect), false );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfTextField::SetSpellcheckingEnabled(bool bSpellcheck)
   {
     this->SetFieldFlag( static_cast<int>(ePdfTextField_NoSpellcheck), !bSpellcheck );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfTextField::IsSpellcheckingEnabled() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfTextField_NoSpellcheck), true );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfTextField::SetScrollBarsEnabled(bool bScroll)
   {
-    this->SetFieldFlag( static_cast<int>(ePdfTextField_NoScroll), !bScroll );    
-}
+    this->SetFieldFlag( static_cast<int>(ePdfTextField_NoScroll), !bScroll );
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfTextField::IsScrollBarsEnabled() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfTextField_NoScroll), true );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfTextField::SetCombs(bool bCombs)
   {
-    this->SetFieldFlag( static_cast<int>(ePdfTextField_Comb), bCombs );        
-}
+    this->SetFieldFlag( static_cast<int>(ePdfTextField_Comb), bCombs );
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfTextField::IsCombs() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfTextField_Comb), false );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfTextField::SetRichText(bool bRichText)
   {
-    this->SetFieldFlag( static_cast<int>(ePdfTextField_RichText), bRichText);        
-}
+    this->SetFieldFlag( static_cast<int>(ePdfTextField_RichText), bRichText);
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfTextField::IsRichText() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfTextField_RichText), false );
-}
+  }
 /** A list of items in a PDF file.
  *  You cannot create this object directly, use
  *  PdfComboBox or PdfListBox instead.
@@ -930,7 +934,8 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
   class PODOFO_DOC_API PdfListField : public PdfField
   {
   protected:
-    enum { ePdfListField_Combo         = 0x0020000,
+    enum {
+ ePdfListField_Combo         = 0x0020000,
            ePdfListField_Edit          = 0x0040000,
            ePdfListField_Sort          = 0x0080000,
            ePdfListField_MultiSelect   = 0x0200000,
@@ -1000,13 +1005,14 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
      */
     int GetSelectedItem() const;
     // TODO:
-#if 0
-    // TODO:
 #error "Only allow these if multiselect is true!"
     void SetSelectedItems( ... );
 
     PdfArray GetSelectedItems() ;
-#endif    /** 
+#endif
+
+
+    /** 
      * \returns true if this PdfListField is a PdfComboBox and false
      *               if it is a PdfListBox
      */
@@ -1059,63 +1065,63 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
   inline bool PdfListField::IsComboBox() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfListField_Combo), false );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfListField::SetSpellcheckingEnabled(bool bSpellcheck)
   {
     this->SetFieldFlag( static_cast<int>(ePdfListField_NoSpellcheck), !bSpellcheck );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfListField::IsSpellcheckingEnabled() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfListField_NoSpellcheck), true );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfListField::SetSorted(bool bSorted)
   {
     this->SetFieldFlag( static_cast<int>(ePdfListField_Sort), bSorted );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfListField::IsSorted() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfListField_Sort), false );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfListField::SetMultiSelect(bool bMulti)
   {
     this->SetFieldFlag( static_cast<int>(ePdfListField_MultiSelect), bMulti );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfListField::IsMultiSelect() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfListField_MultiSelect), false );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfListField::SetCommitOnSelectionChange(bool bCommit)
   {
     this->SetFieldFlag( static_cast<int>(ePdfListField_CommitOnSelChange), bCommit );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfListField::IsCommitOnSelectionChange() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfListField_CommitOnSelChange), false );
-}
+  }
 /** A combo box with a drop down list of items.
  */
   class PODOFO_DOC_API PdfComboBox : public PdfListField
@@ -1158,15 +1164,15 @@ inline const PdfField & PdfField::operator=( const PdfField & rhs )
 // -----------------------------------------------------
   inline void PdfComboBox::SetEditable(bool bEdit)
   {
-    this->SetFieldFlag( static_cast<int>(ePdfListField_Edit), bEdit);        
-}
+    this->SetFieldFlag( static_cast<int>(ePdfListField_Edit), bEdit);
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfComboBox::IsEditable() const
   {
     return this->GetFieldFlag( static_cast<int>(ePdfListField_Edit), false );
-}
+  }
 /** A list box
  */
   class PODOFO_DOC_API PdfListBox : public PdfListField

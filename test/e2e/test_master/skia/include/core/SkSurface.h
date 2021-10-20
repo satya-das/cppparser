@@ -125,7 +125,7 @@ public:
   static sk_sp<SkSurface> MakeRaster(const SkImageInfo& imageInfo, const SkSurfaceProps* props = nullptr)
   {
         return MakeRaster(imageInfo, 0, props);
-    }
+  }
     /** Allocates raster SkSurface. SkCanvas returned by SkSurface draws directly into pixels.
         Allocates and zeroes pixel memory. Pixel memory size is height times width times
         four. Pixel memory is deleted when SkSurface is deleted.
@@ -352,7 +352,7 @@ public:
   {
         return MakeRenderTarget(context, budgeted, imageInfo, sampleCount,
                                 kBottomLeft_GrSurfaceOrigin, surfaceProps);
-    }
+  }
     /** Returns SkSurface on GPU indicated by context. Allocates memory for
         pixels, based on the width, height, and SkColorType in SkImageInfo.  budgeted
         selects whether allocation for pixels is tracked by context. imageInfo
@@ -374,7 +374,7 @@ public:
         }
         return MakeRenderTarget(context, budgeted, imageInfo, 0, kBottomLeft_GrSurfaceOrigin,
                                 nullptr);
-    }
+  }
     /** Returns SkSurface on GPU indicated by context that is compatible with the provided
         characterization. budgeted selects whether allocation for pixels is tracked by context.
 
@@ -427,13 +427,17 @@ public:
         @return  number of pixel columns
     */
   int width() const
-  { return fWidth; }
+  {
+ return fWidth;
+  }
     /** Returns pixel row count; may be zero or greater.
 
         @return  number of pixel rows
     */
   int height() const
-  { return fHeight; }
+  {
+ return fHeight;
+  }
     /** Returns an ImageInfo describing the surface.
      */
   SkImageInfo imageInfo();
@@ -450,7 +454,7 @@ public:
   enum ContentChangeMode {
         kDiscard_ContentChangeMode, //!< discards surface on change
         kRetain_ContentChangeMode,  //!< preserves surface on change
-    };
+  };
     /** Notifies that SkSurface contents will be changed by code outside of Skia.
         Subsequent calls to generationID() return a different value.
 
@@ -463,7 +467,7 @@ public:
         kFlushRead_BackendHandleAccess,    //!< back-end object is readable
         kFlushWrite_BackendHandleAccess,   //!< back-end object is writable
         kDiscardWrite_BackendHandleAccess, //!< back-end object must be overwritten
-    };
+  };
     /** Deprecated.
     */
   static const BackendHandleAccess kFlushRead_TextureHandleAccess = kFlushRead_BackendHandleAccess;
@@ -684,7 +688,9 @@ public:
     /** Controls the gamma that rescaling occurs in for asyncRescaleAndReadPixels() and
         asyncRescaleAndReadPixelsYUV420().
      */
-  enum RescaleGamma : bool { kSrc, kLinear };
+  enum RescaleGamma : bool {
+ kSrc, kLinear
+  };
     /** Makes surface pixel data available to caller, possibly asynchronously. It can also rescale
         the surface pixels.
 
@@ -794,7 +800,9 @@ public:
         @return  LCD striping orientation and setting for device independent fonts
     */
   const SkSurfaceProps& props() const
-  { return fProps; }
+  {
+ return fProps;
+  }
     /** Issues pending SkSurface commands to the GPU-backed API and resolves any SkSurface MSAA.
 
         Skia flushes as needed, so it is not necessary to call this if Skia manages
@@ -805,7 +813,7 @@ public:
   enum class BackendSurfaceAccess {
         kNoAccess,  //!< back-end object will not be used by client
         kPresent,   //!< back-end surface will be used for presenting to screen
-    };
+  };
     /** Issues pending SkSurface commands to the GPU-backed API and resolves any SkSurface MSAA.
         The work that is submitted to the GPU will be dependent on the BackendSurfaceAccess that is
         passed in.
@@ -842,7 +850,7 @@ public:
         kNone_FlushFlags = 0,
         // flush will wait till all submitted GPU work is finished before returning.
         kSyncCpu_FlushFlag = 0x1,
-    };
+  };
   GrSemaphoresSubmitted flush(BackendSurfaceAccess access, FlushFlags flags, int numSemaphores, GrBackendSemaphore signalSemaphores[]);
     /** Deprecated.
     */
@@ -886,7 +894,7 @@ protected:
   void dirtyGenerationID()
   {
         fGenerationID = 0;
-    }
+  }
 private:
   const SkSurfaceProps fProps;
   const int fWidth;

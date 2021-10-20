@@ -24,12 +24,10 @@ class wxSocketImplUnix : public wxSocketImpl, public wxFDIOHandler
 public:
   wxSocketImplUnix(wxSocketBase& wxsocket)
     :  wxSocketImpl(wxsocket)
-    
-    {
-
+  {
         m_fds[0] =
         m_fds[1] = -1;
-        }
+  }
   wxSocketError GetLastError() const override;
   void ReenableEvents(wxSocketEventFlags flags) override
   {
@@ -50,7 +48,7 @@ public:
         // the socket even if it didn't read all the data the last time, so we
         // absolutely have to continue generating them
         EnableEvents(flags);
-    }
+  }
   void UpdateBlockingState() override
   {
         // Make this int and not bool to allow passing it to ioctl().
@@ -58,25 +56,31 @@ public:
         ioctl(m_fd, FIONBIO, &isNonBlocking);
 
         DoEnableEvents(wxSOCKET_INPUT_FLAG | wxSOCKET_OUTPUT_FLAG, isNonBlocking);
-    }
+  }
     // wxFDIOHandler methods
   void OnReadWaiting() override;
   void OnWriteWaiting() override;
   void OnExceptionWaiting() override;
   bool IsOk() const override
-  { return m_fd != INVALID_SOCKET; }
+  {
+ return m_fd != INVALID_SOCKET;
+  }
 private:
   void DoClose() override
   {
         DisableEvents();
 
         wxCloseSocket(m_fd);
-    }
+  }
     // enable or disable notifications for socket input/output events
   void EnableEvents(int flags = wxSOCKET_INPUT_FLAG | wxSOCKET_OUTPUT_FLAG)
-  { DoEnableEvents(flags, true); }
+  {
+ DoEnableEvents(flags, true);
+  }
   void DisableEvents(int flags = wxSOCKET_INPUT_FLAG | wxSOCKET_OUTPUT_FLAG)
-  { DoEnableEvents(flags, false); }
+  {
+ DoEnableEvents(flags, false);
+  }
     // really enable or disable socket input/output events
   void DoEnableEvents(int flags, bool enable);
 protected:
@@ -101,16 +105,17 @@ class wxSocketFDBasedManager : public wxSocketManager
 public:
   wxSocketFDBasedManager()
   {
-
         m_fdioManager = NULL;
-      }
+  }
   bool OnInit() override;
   void OnExit() override
-  { }
+  {
+
+  }
   wxSocketImpl* CreateSocket(wxSocketBase& wxsocket) override
   {
         return new wxSocketImplUnix(wxsocket);
-    }
+  }
   void Install_Callback(wxSocketImpl* socket_, wxSocketNotify event) override;
   void Uninstall_Callback(wxSocketImpl* socket_, wxSocketNotify event) override;
 protected:
@@ -120,7 +125,7 @@ protected:
   int& FD(wxSocketImplUnix* socket, wxFDIOManager::Direction d)
   {
         return socket->m_fds[d];
-    }
+  }
   wxFDIOManager* m_fdioManager;
   wxDECLARE_NO_COPY_CLASS(wxSocketFDBasedManager);
 };

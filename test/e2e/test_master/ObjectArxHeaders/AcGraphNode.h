@@ -28,7 +28,7 @@ public:
     ///
   enum {
 		kNullId = 0
-	};
+  };
     /// <summary> 
     /// Returns id of the Id object. Each AcGraphNode object has a unique id 
     /// </summary>

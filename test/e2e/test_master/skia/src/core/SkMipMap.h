@@ -55,19 +55,19 @@ protected:
   void onDataChange(void* oldData, void* newData) override
   {
         fLevels = (Level*)newData; // could be nullptr
-    }
+  }
 private:
   sk_sp<SkColorSpace> fCS;
   Level* fLevels;
   int fCount;
   SkMipMap(void* malloc, size_t size)
-    :  INHERITED(malloc, size) 
-    {
-    }
+    :  INHERITED(malloc, size)
+  {
+  }
   SkMipMap(size_t size, SkDiscardableMemory* dm)
-    :  INHERITED(size, dm) 
-    {
-    }
+    :  INHERITED(size, dm)
+  {
+  }
   static size_t AllocLevelsSize(int levelCount, size_t pixelSize);
   typedef SkCachedData INHERITED;
 };

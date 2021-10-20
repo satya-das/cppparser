@@ -43,9 +43,13 @@ public:
         // spacing is the number of pixels between the start and the Text
         // (has no effect under wxMSW)
   unsigned int GetSpacing() const
-  { return m_spacing; }
+  {
+ return m_spacing;
+  }
   void SetSpacing(unsigned int spacing)
-  { m_spacing = spacing; }
+  {
+ m_spacing = spacing;
+  }
         // image list: these functions allow to associate an image list with
         // the control and retrieve it. Note that the control does _not_ delete
         // the associated image list when it's deleted in order to allow image
@@ -57,21 +61,25 @@ public:
         // which corresponds to an app-defined item state (for example,
         // checked/unchecked) which are taken from the state image list.
   wxImageList* GetImageList() const
-  { return m_imageListNormal; }
+  {
+ return m_imageListNormal;
+  }
   wxImageList* GetStateImageList() const
-  { return m_imageListState; }
+  {
+ return m_imageListState;
+  }
   virtual void SetImageList(wxImageList* imageList) = 0;
   virtual void SetStateImageList(wxImageList* imageList) = 0;
   void AssignImageList(wxImageList* imageList)
   {
         SetImageList(imageList);
         m_ownsImageListNormal = true;
-    }
+  }
   void AssignStateImageList(wxImageList* imageList)
   {
         SetStateImageList(imageList);
         m_ownsImageListState = true;
-    }
+  }
     // Functions to work with tree ctrl items. Unfortunately, they can _not_ be
     // member functions of wxTreeItem because they must know the tree the item
     // belongs to for Windows implementation and storing the pointer to
@@ -96,7 +104,7 @@ public:
   int GetItemState(const wxTreeItemId& item) const
   {
         return DoGetItemState(item);
-    }
+  }
     // modifiers
     // ---------
 
@@ -132,7 +140,9 @@ public:
   virtual bool ItemHasChildren(const wxTreeItemId& item) const = 0;
         // same as above
   bool HasChildren(const wxTreeItemId& item) const
-  { return ItemHasChildren(item); }
+  {
+ return ItemHasChildren(item);
+  }
         // is the item expanded (only makes sense if HasChildren())?
   virtual bool IsExpanded(const wxTreeItemId& item) const = 0;
         // is this item currently selected (the same as has focus)?
@@ -203,22 +213,22 @@ public:
   wxTreeItemId PrependItem(const wxTreeItemId& parent, const wxString& text, int image = -1, int selImage = -1, wxTreeItemData* data = NULL)
   {
         return DoInsertItem(parent, 0u, text, image, selImage, data);
-    }
+  }
         // insert a new item after a given one
   wxTreeItemId InsertItem(const wxTreeItemId& parent, const wxTreeItemId& idPrevious, const wxString& text, int image = -1, int selImage = -1, wxTreeItemData* data = NULL)
   {
         return DoInsertAfter(parent, idPrevious, text, image, selImage, data);
-    }
+  }
         // insert a new item before the one with the given index
   wxTreeItemId InsertItem(const wxTreeItemId& parent, size_t pos, const wxString& text, int image = -1, int selImage = -1, wxTreeItemData* data = NULL)
   {
         return DoInsertItem(parent, pos, text, image, selImage, data);
-    }
+  }
         // insert a new item in as the last child of the parent
   wxTreeItemId AppendItem(const wxTreeItemId& parent, const wxString& text, int image = -1, int selImage = -1, wxTreeItemData* data = NULL)
   {
         return DoInsertItem(parent, (size_t)-1, text, image, selImage, data);
-    }
+  }
         // delete this item and associated data if any
   virtual void Delete(const wxTreeItemId& item) = 0;
         // delete all children (but don't delete the item itself)
@@ -254,12 +264,14 @@ public:
   virtual void SelectChildren(const wxTreeItemId& parent) = 0;
         // unselect this item
   void UnselectItem(const wxTreeItemId& item)
-  { SelectItem(item, false); }
+  {
+ SelectItem(item, false);
+  }
         // toggle item selection
   void ToggleItemSelection(const wxTreeItemId& item)
   {
         SelectItem(item, !IsSelected(item));
-    }
+  }
         // make sure this item is visible (expanding the parent item and/or
         // scrolling to this item if necessary)
   virtual void EnsureVisible(const wxTreeItemId& item) = 0;
@@ -279,7 +291,9 @@ public:
         // Enable or disable beep when incremental match doesn't find any item.
         // Only implemented in the generic version currently.
   virtual void EnableBellOnNoMatch(bool = true)
-  { }
+  {
+
+  }
     // sorting
     // -------
 
@@ -290,7 +304,7 @@ public:
   virtual int OnCompareItems(const wxTreeItemId& item1, const wxTreeItemId& item2)
   {
         return wxStrcmp(GetItemText(item1), GetItemText(item2));
-    }
+  }
         // sort the children of this item using OnCompareItems
         //
         // NB: this function is not reentrant and not MT-safe (FIXME)!
@@ -303,20 +317,30 @@ public:
         // and, in the second variant, fill the flags parameter with a bitmask
         // of wxTREE_HITTEST_xxx constants.
   wxTreeItemId HitTest(const wxPoint& point) const
-  { int dummy; return DoTreeHitTest(point, dummy); }
+  {
+ int dummy; return DoTreeHitTest(point, dummy);
+  }
   wxTreeItemId HitTest(const wxPoint& point, int& flags) const
-  { return DoTreeHitTest(point, flags); }
+  {
+ return DoTreeHitTest(point, flags);
+  }
         // get the bounding rectangle of the item (or of its label only)
   virtual bool GetBoundingRect(const wxTreeItemId& item, wxRect& rect, bool textOnly = false) const = 0;
     // implementation
     // --------------
   bool ShouldInheritColours() const override
-  { return false; }
+  {
+ return false;
+  }
     // hint whether to calculate best size quickly or accurately
   void SetQuickBestSize(bool q)
-  { m_quickBestSize = q; }
+  {
+ m_quickBestSize = q;
+  }
   bool GetQuickBestSize() const
-  { return m_quickBestSize; }
+  {
+ return m_quickBestSize;
+  }
 protected:
   wxSize DoGetBestSize() const override;
     // common part of Get/SetItemState()

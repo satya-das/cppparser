@@ -22,11 +22,14 @@ public:
     // wxDECLARE_NO_COPY_CLASS() below.
   wxGDIRefData()
   {
-   }
+
+  }
     // override this in the derived classes to check if this data object is
     // really fully initialized
   virtual bool IsOk() const
-  { return true; }
+  {
+ return true;
+  }
   wxDECLARE_NO_COPY_CLASS(wxGDIRefData);
 };
 // ----------------------------------------------------------------------------
@@ -41,26 +44,38 @@ public:
         // the cast here is safe because the derived classes always create
         // wxGDIRefData objects
         return m_refData && static_cast<wxGDIRefData *>(m_refData)->IsOk();
-    }
+  }
     // don't use in the new code, use IsOk() instead
   bool IsNull() const
-  { return m_refData == NULL; }
+  {
+ return m_refData == NULL;
+  }
     // older version, for backwards compatibility only (but not deprecated
     // because it's still widely used)
   bool Ok() const
-  { return IsOk(); }
+  {
+ return IsOk();
+  }
 #  if  defined(__WXMSW__)
     // Creates the resource
   virtual bool RealizeResource()
-  { return false; }
+  {
+ return false;
+  }
     // Frees the resource
   virtual bool FreeResource(bool = false)
-  { return false; }
+  {
+ return false;
+  }
   virtual bool IsFree() const
-  { return false; }
+  {
+ return false;
+  }
     // Returns handle.
   virtual WXHANDLE GetResourceHandle() const
-  { return NULL; }
+  {
+ return NULL;
+  }
 #  endif
 protected:
     // replace base class functions using wxObjectRefData with our own which
@@ -69,11 +84,11 @@ protected:
   wxObjectRefData* CreateRefData() const override
   {
         return CreateGDIRefData();
-    }
+  }
   wxObjectRefData* CloneRefData(const wxObjectRefData* data) const override
   {
         return CloneGDIRefData(static_cast<const wxGDIRefData *>(data));
-    }
+  }
   virtual wxGDIRefData* CreateGDIRefData() const = 0;
   virtual wxGDIRefData* CloneGDIRefData(const wxGDIRefData* data) const = 0;
   wxDECLARE_DYNAMIC_CLASS(wxGDIObject);

@@ -37,13 +37,14 @@ class AcEdSubSelectFilter
 public:
   virtual ~AcEdSubSelectFilter()
   {
-   }
+
+  }
   enum SubSelectStatus {
         kSubSelectionNone = 0,  // No selection found
         kSubSelectionAugment,   // Add to the pickfirst set
         kSubSelectionExclusive, // Remove other entities from the pickfirst set
-        kSubSelectAll           // Select the full entity        
-    };
+        kSubSelectAll           // Select the full entity
+  };
     /**
      * Gets called by the AcEdInputPointManager instance when
      * the Filter is registered. This method is used to determine
@@ -61,7 +62,9 @@ public:
      * @returns eOk if successful.
      */
   virtual Acad::ErrorStatus subSelectClassList(AcArray<AcRxClass*>& clsIds)
-  { return Acad::eOk; }
+  {
+ return Acad::eOk;
+  }
     // The following three methods do the subselection and sub-highlight.
 
     /**
@@ -89,7 +92,9 @@ public:
      * @returns true if point is in the entity.
      */
   virtual bool selectEntity(const AcGePoint3d& wvpt, const AcGeVector3d& wvwdir, const AcGeVector3d& wvwxdir, double wxaper, double wyaper, Adesk::Int32 flags, const AcGiViewport* pCurVp, AcDbEntity* pEnt) const
-  { return false; }
+  {
+ return false;
+  }
     /**
      * If the above method, i.e. hitTestEntity() returns true, 
      * then createSubSelect() will be invoked by the Input Point Manager,
@@ -133,7 +138,9 @@ public:
      *         existing contents of the set.
      */
   virtual SubSelectStatus subSelectEntity(const AcGePoint3d& wpt1, const AcGePoint3d& wpt2, const AcGeVector3d& wvwdir, const AcGeVector3d& wvwxdir, double wxaper, double wyaper, AcDb::SelectType seltype, bool bAugment, bool bIsInPickfirstSet, bool bEvery, const AcGiViewport* pCurVP, AcDbEntity* pEnt, AcDbFullSubentPathArray& paths)
-  { return kSubSelectionNone; }
+  {
+ return kSubSelectionNone;
+  }
     /**
      * If hitTestEntity() returns true then createSubSelect() will be invoked
      * by the Input Point Manager, requesting a list of sub-selections that
@@ -165,7 +172,9 @@ public:
      *         existing contents of the set.
      */
   virtual SubSelectStatus subSelectEntity(const resbuf* pResbuf, bool bAugment, bool bIsInPickfirstSet, bool bEvery, const AcGiViewport* pCurVP, AcDbEntity* pEnt, AcDbFullSubentPathArray& paths)
-  { return kSubSelectionNone; }
+  {
+ return kSubSelectionNone;
+  }
     /**
      * Invoked to re-select, if necessary, based on the current entity
      * sub-selection state. Where the state is remembered is really upto
@@ -187,7 +196,9 @@ public:
      * @returns   true if the entity altered the paths argument. False if not
      */
   virtual bool reSubSelectEntity(AcDbEntity* pEnt, AcDbFullSubentPathArray& paths)
-  { return false; }
+  {
+ return false;
+  }
     /**
      * In case the sub-selection is cancelled, the reactor is notified
      * by this method. Typical uses of this filter include tracking
@@ -199,7 +210,9 @@ public:
      * @returns true if the entity was actually sub-selected.
      */
   virtual bool cancelSubSelect(AcDbEntity* pEnt)
-  { return false; }
+  {
+ return false;
+  }
     /**
      * Similar method to cancelSubSelect, except - all entities
      * have been un-subselected, and the filter must take
@@ -208,7 +221,9 @@ public:
      * @returns true if an entity was actually sub-selected.
      */
   virtual bool cancelAllSubSelect()
-  { return false; }
+  {
+ return false;
+  }
     /**
      * React to keyboard input - and take appropriate action,
      * if necessary. This is invoked only for the currently active filters.
@@ -232,10 +247,14 @@ public:
      *   logic to invoke other filters' onKeyDown() message handling.
      */
   virtual bool onKey(Adesk::UInt32 wMsg, unsigned int nChar, unsigned int rptCnt, unsigned int flags)
-  { return false; }
+  {
+ return false;
+  }
     /**
      * @returns true if the entity is subselected.
      */
   virtual bool isSubSelected(AcDbEntity* pEnt) const
-  { return false; }
+  {
+ return false;
+  }
 };

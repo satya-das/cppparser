@@ -22,26 +22,36 @@ class SkConservativeClip
                 bounds->setEmpty();
             }
         }
-    }
+  }
 public:
   SkConservativeClip()
-    :  fBounds(SkIRect::MakeEmpty()), fClipRestrictionRect(nullptr) 
-    {
-    }
+    :  fBounds(SkIRect::MakeEmpty()), fClipRestrictionRect(nullptr)
+  {
+  }
   bool isEmpty() const
-  { return fBounds.isEmpty(); }
+  {
+ return fBounds.isEmpty();
+  }
   bool isRect() const
-  { return true; }
+  {
+ return true;
+  }
   const SkIRect& getBounds() const
-  { return fBounds; }
+  {
+ return fBounds;
+  }
   void setEmpty()
-  { fBounds.setEmpty(); }
+  {
+ fBounds.setEmpty();
+  }
   void setRect(const SkIRect& r)
-  { fBounds = r; }
+  {
+ fBounds = r;
+  }
   void setDeviceClipRestriction(const SkIRect* rect)
   {
         fClipRestrictionRect = rect;
-    }
+  }
   void opRect(const SkRect&, const SkMatrix&, const SkIRect& limit, SkRegion::Op, bool isAA);
   void opRRect(const SkRRect&, const SkMatrix&, const SkIRect& limit, SkRegion::Op, bool isAA);
   void opPath(const SkPath&, const SkMatrix&, const SkIRect& limit, SkRegion::Op, bool isAA);
@@ -71,25 +81,33 @@ public:
   bool operator!=(const SkRasterClip& other) const
   {
         return !(*this == other);
-    }
+  }
   bool isBW() const
-  { return fIsBW; }
+  {
+ return fIsBW;
+  }
   bool isAA() const
-  { return !fIsBW; }
+  {
+ return !fIsBW;
+  }
   const SkRegion& bwRgn() const
-  { SkASSERT(fIsBW); return fBW; }
+  {
+ SkASSERT(fIsBW); return fBW;
+  }
   const SkAAClip& aaRgn() const
-  { SkASSERT(!fIsBW); return fAA; }
+  {
+ SkASSERT(!fIsBW); return fAA;
+  }
   bool isEmpty() const
   {
         SkASSERT(this->computeIsEmpty() == fIsEmpty);
         return fIsEmpty;
-    }
+  }
   bool isRect() const
   {
         SkASSERT(this->computeIsRect() == fIsRect);
         return fIsRect;
-    }
+  }
   bool isComplex() const;
   const SkIRect& getBounds() const;
   bool setEmpty();
@@ -103,12 +121,12 @@ public:
   void translate(int dx, int dy)
   {
         this->translate(dx, dy, this);
-    }
+  }
   bool quickContains(const SkIRect& rect) const;
   bool quickContains(int left, int top, int right, int bottom) const
   {
         return quickContains(SkIRect::MakeLTRB(left, top, right, bottom));
-    }
+  }
     /**
      *  Return true if this region is empty, or if the specified rectangle does
      *  not intersect the region. Returning false is not a guarantee that they
@@ -117,7 +135,7 @@ public:
   bool quickReject(const SkIRect& rect) const
   {
         return !SkIRect::Intersects(this->getBounds(), rect);
-    }
+  }
     // hack for SkCanvas::getTotalClip
   const SkRegion& forceGetBW();
 #  ifdef SK_DEBUG
@@ -130,7 +148,7 @@ public:
   void setDeviceClipRestriction(const SkIRect* rect)
   {
         fClipRestrictionRect = rect;
-    }
+  }
 private:
   SkRegion fBW;
   SkAAClip fAA;
@@ -142,11 +160,11 @@ private:
   bool computeIsEmpty() const
   {
         return fIsBW ? fBW.isEmpty() : fAA.isEmpty();
-    }
+  }
   bool computeIsRect() const
   {
         return fIsBW ? fBW.isRect() : fAA.isRect();
-    }
+  }
   bool updateCacheAndReturnNonEmpty(bool detectAARect = true)
   {
         fIsEmpty = this->computeIsEmpty();
@@ -160,7 +178,7 @@ private:
 
         fIsRect = this->computeIsRect();
         return !fIsEmpty;
-    }
+  }
   void convertToAA();
   bool setPath(const SkPath& path, const SkRegion& clip, bool doAA);
   bool setPath(const SkPath& path, const SkIRect& clip, bool doAA);
@@ -174,7 +192,7 @@ private:
                 bounds->setEmpty();
             }
         }
-    }
+  }
   inline void applyClipRestriction(SkRegion::Op op, SkRect* bounds)
   {
         if (op >= SkRegion::kUnion_Op && fClipRestrictionRect
@@ -183,22 +201,20 @@ private:
                 bounds->setEmpty();
             }
         }
-    }
+  }
 };
 class SkAutoRasterClipValidate :  SkNoncopyable
 {
 public:
   SkAutoRasterClipValidate(const SkRasterClip& rc)
-    :  fRC(rc) 
-    {
-
+    :  fRC(rc)
+  {
         fRC.validate();
-        }
+  }
   ~SkAutoRasterClipValidate()
   {
-
         fRC.validate();
-      }
+  }
 private:
   const SkRasterClip& fRC;
 };
@@ -230,17 +246,17 @@ public:
   {
         SkASSERT(fClipRgn);
         return fClipRgn->getBounds();
-    }
+  }
   const SkRegion& getRgn() const
   {
         SkASSERT(fClipRgn);
         return *fClipRgn;
-    }
+  }
   SkBlitter* getBlitter()
   {
         SkASSERT(fBlitter);
         return fBlitter;
-    }
+  }
 private:
   SkRegion fBWRgn;
   SkAAClipBlitter fAABlitter;

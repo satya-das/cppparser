@@ -33,7 +33,7 @@ private:
   AnalysisProperties analysisProperties(const GrProcessorAnalysisColor&, const GrProcessorAnalysisCoverage&, const GrCaps&, GrClampType) const override
   {
         return AnalysisProperties::kIgnoresInputColor;
-    }
+  }
   GR_DECLARE_XP_FACTORY_TEST
   SkRegion::Op fRegionOp;
   bool fInvertCoverage;

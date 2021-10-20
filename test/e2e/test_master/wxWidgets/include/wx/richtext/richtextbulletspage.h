@@ -162,7 +162,7 @@ public:
         ID_RICHTEXTBULLETSPAGE_NUMBERSTATIC = 10302,
         ID_RICHTEXTBULLETSPAGE_NUMBERCTRL = 10310,
         ID_RICHTEXTBULLETSPAGE_PREVIEW_CTRL = 10314
-    };
+  };
 ////@end wxRichTextBulletsPage member variables
   bool m_hasBulletStyle;
   bool m_hasBulletNumber;

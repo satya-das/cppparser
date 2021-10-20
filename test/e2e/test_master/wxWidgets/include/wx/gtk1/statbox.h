@@ -20,7 +20,9 @@ public:
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
     // implementation
   virtual bool IsTransparentForMouse() const
-  { return TRUE; }
+  {
+ return TRUE;
+  }
 protected:
   void DoApplyWidgetStyle(GtkRcStyle* style);
 private:

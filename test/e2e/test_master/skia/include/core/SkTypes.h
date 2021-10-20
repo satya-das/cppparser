@@ -77,7 +77,9 @@ typedef unsigned U16CPU;
 */
 template <typename T>
 static constexpr bool SkToBool(const T& x)
-{ return 0 != x; }
+{
+ return 0 != x;
+}
 static constexpr int16_t SK_MaxS16 = INT16_MAX;
 static constexpr int16_t SK_MinS16 = -SK_MaxS16;
 static constexpr int32_t SK_MaxS32 = INT32_MAX;
@@ -103,22 +105,34 @@ Define_SkArrayCountHelper();
 ////////////////////////////////////////////////////////////////////////////////
 template <typename T>
 static constexpr T SkAlign2(T x)
-{ return (x + 1) >> 1 << 1; }
+{
+ return (x + 1) >> 1 << 1;
+}
 template <typename T>
 static constexpr T SkAlign4(T x)
-{ return (x + 3) >> 2 << 2; }
+{
+ return (x + 3) >> 2 << 2;
+}
 template <typename T>
 static constexpr T SkAlign8(T x)
-{ return (x + 7) >> 3 << 3; }
+{
+ return (x + 7) >> 3 << 3;
+}
 template <typename T>
 static constexpr bool SkIsAlign2(T x)
-{ return 0 == (x & 1); }
+{
+ return 0 == (x & 1);
+}
 template <typename T>
 static constexpr bool SkIsAlign4(T x)
-{ return 0 == (x & 3); }
+{
+ return 0 == (x & 3);
+}
 template <typename T>
 static constexpr bool SkIsAlign8(T x)
-{ return 0 == (x & 7); }
+{
+ return 0 == (x & 7);
+}
 template <typename T>
 static constexpr T SkAlignPtr(T x)
 {

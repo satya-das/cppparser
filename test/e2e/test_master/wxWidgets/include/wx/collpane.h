@@ -27,10 +27,14 @@ public:
   }
   virtual void Collapse(bool collapse = true) = 0;
   void Expand()
-  { Collapse(false); }
+  {
+ Collapse(false);
+  }
   virtual bool IsCollapsed() const = 0;
   bool IsExpanded() const
-  { return !IsCollapsed(); }
+  {
+ return !IsCollapsed();
+  }
   virtual wxWindow* GetPane() const = 0;
   wxString GetLabel() const = 0;
   void SetLabel(const wxString& label) = 0;
@@ -46,7 +50,7 @@ public:
         InvalidateBestSize();
 
         return true;
-    }
+  }
 };
 // ----------------------------------------------------------------------------
 // event types and macros
@@ -62,18 +66,22 @@ public:
   wxCollapsiblePaneEvent(wxObject* generator, int id, bool collapsed)
     :  wxCommandEvent(wxEVT_COLLAPSIBLEPANE_CHANGED, id),
         m_bCollapsed(collapsed)
-    
-    {
-
+  {
         SetEventObject(generator);
-        }
+  }
   bool GetCollapsed() const
-  { return m_bCollapsed; }
+  {
+ return m_bCollapsed;
+  }
   void SetCollapsed(bool c)
-  { m_bCollapsed = c; }
+  {
+ m_bCollapsed = c;
+  }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
-  { return new wxCollapsiblePaneEvent(*this); }
+  {
+ return new wxCollapsiblePaneEvent(*this);
+  }
 private:
   bool m_bCollapsed;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxCollapsiblePaneEvent);

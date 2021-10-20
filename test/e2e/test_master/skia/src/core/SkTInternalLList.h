@@ -31,7 +31,7 @@ public:
   {
         fHead = nullptr;
         fTail = nullptr;
-    }
+  }
   void remove(T* entry)
   {
         SkASSERT(fHead && fTail);
@@ -57,7 +57,7 @@ public:
 #ifdef SK_DEBUG
         entry->fList = nullptr;
 #endif
-    }
+  }
   void addToHead(T* entry)
   {
         SkASSERT(nullptr == entry->fPrev && nullptr == entry->fNext);
@@ -76,7 +76,7 @@ public:
 #ifdef SK_DEBUG
         entry->fList = this;
 #endif
-    }
+  }
   void addToTail(T* entry)
   {
         SkASSERT(nullptr == entry->fPrev && nullptr == entry->fNext);
@@ -95,7 +95,7 @@ public:
 #ifdef SK_DEBUG
         entry->fList = this;
 #endif
-    }
+  }
     /**
      * Inserts a new list entry before an existing list entry. The new entry must not already be
      * a member of this or any other list. If existingEntry is NULL then the new entry is added
@@ -124,7 +124,7 @@ public:
 #ifdef SK_DEBUG
         newEntry->fList = this;
 #endif
-    }
+  }
     /**
      * Inserts a new list entry after an existing list entry. The new entry must not already be
      * a member of this or any other list. If existingEntry is NULL then the new entry is added
@@ -153,7 +153,7 @@ public:
 #ifdef SK_DEBUG
         newEntry->fList = this;
 #endif
-    }
+  }
   void concat(SkTInternalLList&& list)
   {
         if (list.isEmpty()) {
@@ -178,33 +178,39 @@ public:
 #endif
 
         list.fHead = list.fTail = nullptr;
-    }
+  }
   bool isEmpty() const
   {
         SkASSERT(SkToBool(fHead) == SkToBool(fTail));
         return !fHead;
-    }
+  }
   T* head()
-  { return fHead; }
+  {
+ return fHead;
+  }
   T* tail()
-  { return fTail; }
+  {
+ return fTail;
+  }
   class Iter
   {
   public:
     enum IterStart {
             kHead_IterStart,
             kTail_IterStart
-        };
+    };
     Iter()
-      :  fCurr(nullptr) 
-      {
-      }
+      :  fCurr(nullptr)
+    {
+    }
     Iter(const Iter& iter)
-      :  fCurr(iter.fCurr) 
-      {
-      }
+      :  fCurr(iter.fCurr)
+    {
+    }
     Iter& operator=(const Iter& iter)
-    { fCurr = iter.fCurr; return *this; }
+    {
+ fCurr = iter.fCurr; return *this;
+    }
     T* init(const SkTInternalLList& list, IterStart startLoc)
     {
             if (kHead_IterStart == startLoc) {
@@ -215,9 +221,11 @@ public:
             }
 
             return fCurr;
-        }
+    }
     T* get()
-    { return fCurr; }
+    {
+ return fCurr;
+    }
         /**
          * Return the next/previous element in the list or NULL if at the end.
          */
@@ -229,7 +237,7 @@ public:
 
             fCurr = fCurr->fNext;
             return fCurr;
-        }
+    }
     T* prev()
     {
             if (nullptr == fCurr) {
@@ -238,16 +246,22 @@ public:
 
             fCurr = fCurr->fPrev;
             return fCurr;
-        }
+    }
         /**
          * C++11 range-for interface.
          */
     bool operator!=(const Iter& that)
-    { return fCurr != that.fCurr; }
+    {
+ return fCurr != that.fCurr;
+    }
     T* operator*()
-    { return this->get(); }
+    {
+ return this->get();
+    }
     void operator++()
-    { this->next(); }
+    {
+ this->next();
+    }
   private:
     T* fCurr;
   };
@@ -256,9 +270,11 @@ public:
         Iter iter;
         iter.init(*this, Iter::kHead_IterStart);
         return iter;
-    }
+  }
   Iter end() const
-  { return Iter(); }
+  {
+ return Iter();
+  }
 #  ifdef SK_DEBUG
   void validate() const
   {
@@ -277,7 +293,7 @@ public:
                 SkASSERT(item->fNext->fPrev == item);
             }
         }
-    }
+  }
     /**
      * Debugging-only method that uses the list back pointer to check if 'entry' is indeed in 'this'
      * list.
@@ -285,7 +301,7 @@ public:
   bool isInList(const T* entry) const
   {
         return entry->fList == this;
-    }
+  }
     /**
      * Debugging-only method that laboriously counts the list entries.
      */
@@ -296,7 +312,7 @@ public:
             ++count;
         }
         return count;
-    }
+  }
 #  endif
 private:
   T* fHead = nullptr;

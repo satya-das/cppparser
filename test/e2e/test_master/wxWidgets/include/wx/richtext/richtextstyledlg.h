@@ -82,19 +82,31 @@ public:
   bool TransferDataToWindow() override;
     /// Set/get style sheet
   void SetStyleSheet(wxRichTextStyleSheet* sheet)
-  { m_richTextStyleSheet = sheet; }
+  {
+ m_richTextStyleSheet = sheet;
+  }
   wxRichTextStyleSheet* GetStyleSheet() const
-  { return m_richTextStyleSheet; }
+  {
+ return m_richTextStyleSheet;
+  }
     /// Set/get control
   void SetRichTextCtrl(wxRichTextCtrl* ctrl)
-  { m_richTextCtrl = ctrl; }
+  {
+ m_richTextCtrl = ctrl;
+  }
   wxRichTextCtrl* GetRichTextCtrl() const
-  { return m_richTextCtrl; }
+  {
+ return m_richTextCtrl;
+  }
     /// Set/get flags
   void SetFlags(int flags)
-  { m_flags = flags; }
+  {
+ m_flags = flags;
+  }
   int GetFlags() const
-  { return m_flags; }
+  {
+ return m_flags;
+  }
     /// Show preview for given or selected preview
   void ShowPreview(int sel = -1);
     /// Clears the preview
@@ -103,9 +115,13 @@ public:
   void OnListSelection(wxCommandEvent& event);
     /// Get/set restart numbering boolean
   bool GetRestartNumbering() const
-  { return m_restartNumbering; }
+  {
+ return m_restartNumbering;
+  }
   void SetRestartNumbering(bool restartNumbering)
-  { m_restartNumbering = restartNumbering; }
+  {
+ m_restartNumbering = restartNumbering;
+  }
     /// Get selected style name or definition
   wxString GetSelectedStyle() const;
   wxRichTextStyleDefinition* GetSelectedStyleDefinition() const;
@@ -113,10 +129,14 @@ public:
   bool ApplyStyle(wxRichTextCtrl* ctrl = NULL);
     /// Should we show tooltips?
   static bool ShowToolTips()
-  { return sm_showToolTips; }
+  {
+ return sm_showToolTips;
+  }
     /// Determines whether tooltips will be shown
   static void SetShowToolTips(bool show)
-  { sm_showToolTips = show; }
+  {
+ sm_showToolTips = show;
+  }
 ////@begin wxRichTextStyleOrganiserDialog event handler declarations
 
     /// wxEVT_BUTTON event handler for ID_RICHTEXTSTYLEORGANISERDIALOG_NEW_CHAR
@@ -198,7 +218,7 @@ public:
         ID_RICHTEXTSTYLEORGANISERDIALOG_EDIT = 10506,
         ID_RICHTEXTSTYLEORGANISERDIALOG_DELETE = 10507,
         ID_RICHTEXTSTYLEORGANISERDIALOG_RESTART_NUMBERING = 10511
-    };
+  };
 ////@end wxRichTextStyleOrganiserDialog member variables
 private:
   wxRichTextCtrl* m_richTextCtrl;

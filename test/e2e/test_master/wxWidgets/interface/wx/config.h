@@ -410,7 +410,7 @@ public:
         Type_Boolean,
         Type_Integer,
         Type_Float
-    };
+  };
     /**
         @name Tests of Existence
     */

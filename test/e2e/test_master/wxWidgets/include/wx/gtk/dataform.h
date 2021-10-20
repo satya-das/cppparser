@@ -21,37 +21,54 @@ public:
     // data formats (as a lot of existing code does)
   wxDataFormat(const wxString& id)
   {
- InitFromString(id);   }
+ InitFromString(id);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxDataFormat(const char* id)
   {
- InitFromString(id);   }
+ InitFromString(id);
+  }
 #  endif
   wxDataFormat(const wchar_t* id)
   {
- InitFromString(id);   }
+ InitFromString(id);
+  }
   wxDataFormat(const wxCStrData& id)
   {
- InitFromString(id);   }
+ InitFromString(id);
+  }
   wxDataFormat& operator=(NativeFormat format)
-  { SetId(format); return *this; }
+  {
+ SetId(format); return *this;
+  }
     // comparison (must have both versions)
   bool operator==(NativeFormat format) const
-  { return m_format == (NativeFormat)format; }
+  {
+ return m_format == (NativeFormat)format;
+  }
   bool operator!=(NativeFormat format) const
-  { return m_format != (NativeFormat)format; }
+  {
+ return m_format != (NativeFormat)format;
+  }
   bool operator==(wxDataFormatId format) const
-  { return m_type == (wxDataFormatId)format; }
+  {
+ return m_type == (wxDataFormatId)format;
+  }
   bool operator!=(wxDataFormatId format) const
-  { return m_type != (wxDataFormatId)format; }
+  {
+ return m_type != (wxDataFormatId)format;
+  }
     // explicit and implicit conversions to NativeFormat which is one of
     // standard data types (implicit conversion is useful for preserving the
     // compatibility with old code)
   NativeFormat GetFormatId() const
-  { return m_format; }
+  {
+ return m_format;
+  }
   operator NativeFormat() const
   {
- return m_format;   }
+ return m_format;
+  }
   void SetId(NativeFormat format);
     // string ids are used for custom types - this SetId() must be used for
     // application-specific formats

@@ -72,7 +72,9 @@ public:
   virtual bool EnableDropTarget(const wxDataFormat& format);
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
   wxWindow* GetMainWindow()
-  { return (wxWindow*) this; }
+  {
+ return (wxWindow*) this;
+  }
   virtual void OnInternalIdle();
 protected:
   virtual void DoSetExpanderColumn();

@@ -46,12 +46,13 @@ public:
     // ---------------------------
   wxWindow()
   {
- Init();   }
+ Init();
+  }
   wxWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
     :  wxWindowNative(parent, id, pos, size, style | wxCLIP_CHILDREN, name)
-        
-    {
- Init();     }
+  {
+ Init();
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr));
   virtual ~wxWindow();
     // background pixmap support
@@ -94,7 +95,7 @@ public:
   wxScrollBar* GetScrollbar(int orient) const
   {
         return orient & wxVERTICAL ? m_scrollbarVert : m_scrollbarHorz;
-    }
+  }
 #  endif
     // methods used by wxColourScheme to choose the colours for this window
     // --------------------------------------------------------------------
@@ -102,25 +103,37 @@ public:
     // return true if this is a panel/canvas window which contains other
     // controls only
   virtual bool IsCanvasWindow() const
-  { return false; }
+  {
+ return false;
+  }
     // return true if this control can be highlighted when the mouse is over
     // it (the theme decides itself whether it is really highlighted or not)
   virtual bool CanBeHighlighted() const
-  { return false; }
+  {
+ return false;
+  }
     // return true if we should use the colours/fonts returned by the
     // corresponding GetXXX() methods instead of the default ones
   bool UseFgCol() const
-  { return m_hasFgCol; }
+  {
+ return m_hasFgCol;
+  }
   bool UseFont() const
-  { return m_hasFont; }
+  {
+ return m_hasFont;
+  }
     // return true if this window serves as a container for the other windows
     // only and doesn't get any input itself
   virtual bool IsStaticBox() const
-  { return false; }
+  {
+ return false;
+  }
     // returns the (low level) renderer to use for drawing the control by
     // querying the current theme
   wxRenderer* GetRenderer() const
-  { return m_renderer; }
+  {
+ return m_renderer;
+  }
     // scrolling helper: like ScrollWindow() except that it doesn't refresh the
     // uncovered window areas but returns the rectangle to update (don't call
     // this with both dx and dy non zero)
@@ -140,7 +153,9 @@ public:
   bool Enable(bool enable = true) override;
     // should we use the standard control colours or not?
   bool ShouldInheritColours() const override
-  { return false; }
+  {
+ return false;
+  }
   bool IsClientAreaChild(const wxWindow* child) const override
   {
 #if wxUSE_SCROLLBAR
@@ -149,7 +164,7 @@ public:
             return false;
 #endif
         return wxWindowNative::IsClientAreaChild(child);
-    }
+  }
 protected:
     // common part of all ctors
   void Init();

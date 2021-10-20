@@ -59,7 +59,7 @@ public:
         /// 2
         /// </value>
         kMoveContentAndDoglegPoints     = 2
-    };
+  };
     /// <summary>
     /// This enum is the gs mark of mleader object.
     /// </summary>
@@ -137,7 +137,7 @@ public:
         /// from kBlockMark + 1 to 2^(8*sizeof(unsigned short))
         /// </value>
         kBlockAttribute     = kBlockMark + 1
-    };
+  };
     /// <summary>
     /// This enum is the properties could be overrided in mleader object.
     /// </summary>
@@ -407,7 +407,7 @@ public:
         /// 31
         /// </value>
         kSize = kExtendLeaderToText + 1
-    };
+  };
     /// <summary>
     /// Default constructor.
     /// </summary>

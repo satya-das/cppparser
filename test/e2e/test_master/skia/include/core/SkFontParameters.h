@@ -25,10 +25,14 @@ struct SkFontParameters
       float max;
             // Return whether this axis is recommended to be remain hidden in user interfaces.
       bool isHidden() const
-      { return flags & HIDDEN; }
+      {
+ return flags & HIDDEN;
+      }
             // Set this axis to be remain hidden in user interfaces.
       void setHidden(bool hidden)
-      { flags = hidden ? (flags | HIDDEN) : (flags & ~HIDDEN); }
+      {
+ flags = hidden ? (flags | HIDDEN) : (flags & ~HIDDEN);
+      }
     private:
       static constexpr uint16_t HIDDEN = 0x0001;
             // Attributes for a font axis.

@@ -26,9 +26,9 @@ public:
     // with a name like SkFontRenderer.
   SkFontMgr_Indirect(sk_sp<SkFontMgr> impl, sk_sp<SkRemotableFontMgr> proxy)
     :  fImpl(std::move(impl)), fProxy(std::move(proxy))
-    
-    {
-     }
+  {
+
+  }
 protected:
   int onCountFamilies() const override;
   void onGetFamilyName(int index, SkString* familyName) const override;
@@ -52,25 +52,23 @@ private:
     SkTypeface* fTypeface;
     DataEntry()
     {
-     }
+
+    }
     DataEntry(DataEntry&& that)
       :  fDataId(that.fDataId)
             , fTtcIndex(that.fTtcIndex)
             , fTypeface(that.fTypeface)
-        
-      {
-
+    {
             SkDEBUGCODE(that.fDataId = SkFontIdentity::kInvalidDataId;)
             SkDEBUGCODE(that.fTtcIndex = 0xbbadbeef;)
             that.fTypeface = nullptr;
-              }
+    }
     ~DataEntry()
     {
-
             if (fTypeface) {
                 fTypeface->weak_unref();
             }
-            }
+    }
   };
     /**
      *  This cache is essentially { dataId: { ttcIndex: typeface } }

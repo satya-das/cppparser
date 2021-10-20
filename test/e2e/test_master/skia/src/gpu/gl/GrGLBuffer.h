@@ -16,22 +16,29 @@ public:
   static sk_sp<GrGLBuffer> Make(GrGLGpu*, size_t size, GrGpuBufferType intendedType, GrAccessPattern, const void* data = nullptr);
   virtual ~GrGLBuffer()
   {
-
         // either release or abandon should have been called by the owner of this object.
         SkASSERT(0 == fBufferID);
-      }
+  }
   GrGLuint bufferID() const
-  { return fBufferID; }
+  {
+ return fBufferID;
+  }
     /**
      * Returns the actual size of the underlying GL buffer object. In certain cases we may make this
      * smaller than the size reported by GrGpuBuffer.
      */
   size_t glSizeInBytes() const
-  { return fGLSizeInBytes; }
+  {
+ return fGLSizeInBytes;
+  }
   void setHasAttachedToTexture()
-  { fHasAttachedToTexture = true; }
+  {
+ fHasAttachedToTexture = true;
+  }
   bool hasAttachedToTexture() const
-  { return fHasAttachedToTexture; }
+  {
+ return fHasAttachedToTexture;
+  }
 protected:
   GrGLBuffer(GrGLGpu*, size_t size, GrGpuBufferType intendedType, GrAccessPattern, const void* data);
   void onAbandon() override;

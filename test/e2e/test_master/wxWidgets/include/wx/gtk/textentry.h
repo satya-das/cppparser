@@ -48,17 +48,23 @@ public:
   void SendMaxLenEvent();
   bool GTKEntryOnInsertText(const char* text);
   bool GTKIsUpperCase() const
-  { return m_isUpperCase; }
+  {
+ return m_isUpperCase;
+  }
     // Called from "changed" signal handler (or, possibly, slightly later, when
     // coalescing several "changed" signals into a single event) for GtkEntry.
     //
     // By default just generates a wxEVT_TEXT, but overridden to do more things
     // in wxTextCtrl.
   virtual void GTKOnTextChanged()
-  { SendTextUpdatedEvent(); }
+  {
+ SendTextUpdatedEvent();
+  }
     // Helper functions only used internally.
   wxTextCoalesceData* GTKGetCoalesceData() const
-  { return m_coalesceData; }
+  {
+ return m_coalesceData;
+  }
 protected:
     // This method must be called from the derived class Create() to connect
     // the handlers for the clipboard (cut/copy/paste) events.
@@ -101,7 +107,9 @@ private:
     // either GtkEditable or GtkTextBuffer depending on whether it is single-
     // or multi-line.
   virtual void* GetTextObject() const
-  { return GetEntry(); }
+  {
+ return GetEntry();
+  }
     // Various auto-completion-related stuff, only used if any of AutoComplete()
     // methods are called.
   wxTextAutoCompleteData* m_autoCompleteData;

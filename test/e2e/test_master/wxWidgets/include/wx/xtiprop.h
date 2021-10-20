@@ -35,13 +35,16 @@ class WXDLLIMPEXP_BASE wxPropertySetter
 public:
   wxPropertySetter(const wxString name)
   {
- m_name = name;   }
+ m_name = name;
+  }
   virtual ~wxPropertySetter()
   {
   }
   virtual void Set(wxObject* object, const wxAny& variantValue) const = 0;
   const wxString& GetName() const
-  { return m_name; }
+  {
+ return m_name;
+  }
 private:
   wxString m_name;
 };
@@ -50,13 +53,16 @@ class WXDLLIMPEXP_BASE wxPropertyGetter
 public:
   wxPropertyGetter(const wxString name)
   {
- m_name = name;   }
+ m_name = name;
+  }
   virtual ~wxPropertyGetter()
   {
   }
   virtual void Get(const wxObject* object, wxAny& result) const = 0;
   const wxString& GetName() const
-  { return m_name; }
+  {
+ return m_name;
+  }
 private:
   wxString m_name;
 };
@@ -65,13 +71,16 @@ class WXDLLIMPEXP_BASE wxPropertyCollectionGetter
 public:
   wxPropertyCollectionGetter(const wxString name)
   {
- m_name = name;   }
+ m_name = name;
+  }
   virtual ~wxPropertyCollectionGetter()
   {
   }
   virtual void Get(const wxObject* object, wxAnyList& result) const = 0;
   const wxString& GetName() const
-  { return m_name; }
+  {
+ return m_name;
+  }
 private:
   wxString m_name;
 };
@@ -82,13 +91,16 @@ class WXDLLIMPEXP_BASE wxPropertyCollectionAdder
 public:
   wxPropertyCollectionAdder(const wxString name)
   {
- m_name = name;   }
+ m_name = name;
+  }
   virtual ~wxPropertyCollectionAdder()
   {
   }
   virtual void Add(wxObject* object, const wxAny& variantValue) const = 0;
   const wxString& GetName() const
-  { return m_name; }
+  {
+ return m_name;
+  }
 private:
   wxString m_name;
 };
@@ -158,7 +170,8 @@ public:
   wxPropertyAccessor(wxPropertySetter* setter, wxPropertyGetter* getter, wxPropertyCollectionAdder* adder, wxPropertyCollectionGetter* collectionGetter)
   {
  m_setter = setter; m_getter = getter; m_adder = adder;
-      m_collectionGetter = collectionGetter;   }
+      m_collectionGetter = collectionGetter;
+  }
   virtual ~wxPropertyAccessor()
   {
   }
@@ -169,7 +182,7 @@ public:
             m_setter->Set( object, value );
         else
             wxLogError( wxGetTranslation("SetProperty called w/o valid setter") );
-    }
+  }
     // Getting a simple property (non-collection)
   virtual void GetProperty(const wxObject* object, wxAny& result) const
   {
@@ -177,7 +190,7 @@ public:
             m_getter->Get( object, result );
         else
             wxLogError( wxGetTranslation("GetProperty called w/o valid getter") );
-    }
+  }
     // Adding an element to a collection property
   virtual void AddToPropertyCollection(wxObject* object, const wxAny& value) const
   {
@@ -185,7 +198,7 @@ public:
             m_adder->Add( object, value );
         else
             wxLogError( wxGetTranslation("AddToPropertyCollection called w/o valid adder") );
-    }
+  }
     // Getting a collection property
   virtual void GetPropertyCollection(const wxObject* obj, wxAnyList& result) const
   {
@@ -193,23 +206,39 @@ public:
             m_collectionGetter->Get( obj, result);
         else
             wxLogError( wxGetTranslation("GetPropertyCollection called w/o valid collection getter") );
-    }
+  }
   virtual bool HasSetter() const
-  { return m_setter != NULL; }
+  {
+ return m_setter != NULL;
+  }
   virtual bool HasCollectionGetter() const
-  { return m_collectionGetter != NULL; }
+  {
+ return m_collectionGetter != NULL;
+  }
   virtual bool HasGetter() const
-  { return m_getter != NULL; }
+  {
+ return m_getter != NULL;
+  }
   virtual bool HasAdder() const
-  { return m_adder != NULL; }
+  {
+ return m_adder != NULL;
+  }
   virtual const wxString& GetCollectionGetterName() const
-  { return m_collectionGetter->GetName(); }
+  {
+ return m_collectionGetter->GetName();
+  }
   virtual const wxString& GetGetterName() const
-  { return m_getter->GetName(); }
+  {
+ return m_getter->GetName();
+  }
   virtual const wxString& GetSetterName() const
-  { return m_setter->GetName(); }
+  {
+ return m_setter->GetName();
+  }
   virtual const wxString& GetAdderName() const
-  { return m_adder->GetName(); }
+  {
+ return m_adder->GetName();
+  }
 protected:
   wxPropertySetter* m_setter;
   wxPropertyCollectionAdder* m_adder;
@@ -224,31 +253,43 @@ public:
   void RenameProperty(const wxString&, const wxString& newName)
   {
         wxASSERT( oldName == m_propertyName ); m_propertyName = newName;
-    }
+  }
   virtual bool HasSetter() const
-  { return true; }
+  {
+ return true;
+  }
   virtual bool HasGetter() const
-  { return true; }
+  {
+ return true;
+  }
   virtual bool HasAdder() const
-  { return false; }
+  {
+ return false;
+  }
   virtual bool HasCollectionGetter() const
-  { return false; }
+  {
+ return false;
+  }
   virtual const wxString& GetGetterName() const
-  { return m_getterName; }
+  {
+ return m_getterName;
+  }
   virtual const wxString& GetSetterName() const
-  { return m_setterName; }
+  {
+ return m_setterName;
+  }
   virtual void SetProperty(wxObject* object, const wxAny& value) const;
   virtual void GetProperty(const wxObject* object, wxAny& value) const;
     // Adding an element to a collection property
   virtual void AddToPropertyCollection(wxObject*, const wxAny&) const
   {
         wxLogError( wxGetTranslation("AddToPropertyCollection called on a generic accessor") );
-    }
+  }
     // Getting a collection property
   virtual void GetPropertyCollection(const wxObject*, wxAnyList&) const
   {
         wxLogError ( wxGetTranslation("GetPropertyCollection called on a generic accessor") );
-    }
+  }
 private:
   struct wxGenericPropertyAccessorInternal;
   wxGenericPropertyAccessorInternal* m_data;
@@ -282,8 +323,7 @@ class WXDLLIMPEXP_BASE wxPropertyInfo
   friend class wxDynamicClassInfo;
 public:
   wxPropertyInfo(wxPropertyInfo*& iter, wxClassInfo* itsClass, const wxString& name, const wxString& typeName, wxPropertyAccessor* accessor, wxAny dv, wxPropertyInfoFlags flags = 0, const wxString& helpString = wxEmptyString, const wxString& groupString = wxEmptyString)
-    : 
-                   m_itsClass(itsClass),
+    :                    m_itsClass(itsClass),
            m_name(name),
            m_typeInfo(NULL),
            m_typeName(typeName),
@@ -293,14 +333,11 @@ public:
            m_flags(flags),
            m_helpString(helpString),
            m_groupString(groupString)
-       
-    {
-
+  {
            Insert(iter);
-           }
+  }
   wxPropertyInfo(wxPropertyInfo*& iter, wxClassInfo* itsClass, const wxString& name, wxEventSourceTypeInfo* type, wxPropertyAccessor* accessor, wxAny dv, wxPropertyInfoFlags flags = 0, const wxString& helpString = wxEmptyString, const wxString& groupString = wxEmptyString)
-    : 
-           m_itsClass(itsClass),
+    :            m_itsClass(itsClass),
            m_name(name),
            m_typeInfo(type),
            m_collectionElementTypeInfo(NULL),
@@ -309,14 +346,11 @@ public:
            m_flags(flags),
            m_helpString(helpString),
            m_groupString(groupString)
-       
-    {
-
+  {
            Insert(iter);
-           }
+  }
   wxPropertyInfo(wxPropertyInfo*& iter, wxClassInfo* itsClass, const wxString& name, const wxString& collectionTypeName, const wxString& elementTypeName, wxPropertyAccessor* accessor, wxPropertyInfoFlags flags = 0, const wxString& helpString = wxEmptyString, const wxString& groupString = wxEmptyString)
-    : 
-        m_itsClass(itsClass),
+    :         m_itsClass(itsClass),
         m_name(name),
         m_typeInfo(NULL),
         m_typeName(collectionTypeName),
@@ -326,52 +360,67 @@ public:
         m_flags(flags),
         m_helpString(helpString),
         m_groupString(groupString)
-    
-    {
-
+  {
         Insert(iter);
-        }
+  }
   ~wxPropertyInfo()
   {
- Remove();   }
+ Remove();
+  }
     // return the class this property is declared in
   const wxClassInfo* GetDeclaringClass() const
-  { return m_itsClass; }
+  {
+ return m_itsClass;
+  }
     // return the name of this property
   const wxString& GetName() const
-  { return m_name; }
+  {
+ return m_name;
+  }
     // returns the flags of this property
   wxPropertyInfoFlags GetFlags() const
-  { return m_flags; }
+  {
+ return m_flags;
+  }
     // returns the short help string of this property
   const wxString& GetHelpString() const
-  { return m_helpString; }
+  {
+ return m_helpString;
+  }
     // returns the group string of this property
   const wxString& GetGroupString() const
-  { return m_groupString; }
+  {
+ return m_groupString;
+  }
     // return the element type info of this property (for collections, otherwise NULL)
   const wxTypeInfo* GetCollectionElementTypeInfo() const
   {
         if ( m_collectionElementTypeInfo == NULL )
             m_collectionElementTypeInfo = wxTypeInfo::FindType(m_collectionElementTypeName);
         return m_collectionElementTypeInfo;
-    }
+  }
     // return the type info of this property
   const wxTypeInfo* GetTypeInfo() const
   {
         if ( m_typeInfo == NULL )
             m_typeInfo = wxTypeInfo::FindType(m_typeName);
         return m_typeInfo;
-    }
+  }
     // return the accessor for this property
   wxPropertyAccessor* GetAccessor() const
-  { return m_accessor; }
+  {
+ return m_accessor;
+  }
     // returns NULL if this is the last property of this class
   wxPropertyInfo* GetNext() const
-  { return m_next; }
+  {
+ return m_next;
+  }
     // returns the default value of this property, its kind may be wxT_VOID if it is not valid
   wxAny GetDefaultValue() const
-  { return m_defaultValue; }
+  {
+ return m_defaultValue;
+  }
 private:
     // inserts this property at the end of the linked chain which begins
     // with "iter" property.

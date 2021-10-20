@@ -25,6 +25,6 @@ namespace SkCodecAnimation
          *  the background color of transparent.
          */
         kBG,
-    };
+  };
 }
 #endif

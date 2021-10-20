@@ -50,16 +50,15 @@ namespace PoDoFo
     {
       TXRefItem(const PdfReference& rRef, const pdf_uint64& off)
         :  reference( rRef ), offset( off )
-            
-        {
+      {
 
-                    }
+      }
       PdfReference reference;
       pdf_uint64 offset;
       bool operator<(const TXRefItem& rhs) const
       {
             return this->reference < rhs.reference;
-        }
+      }
     };
     typedef std::vector<TXRefItem> TVecXRefItems;
     typedef TVecXRefItems::iterator TIVecXRefItems;
@@ -72,22 +71,19 @@ namespace PoDoFo
     public:
       PdfXRefBlock()
         :  m_nFirst( 0 ), m_nCount( 0 )
-        
-        {
+      {
 
-                }
+      }
       PdfXRefBlock(const PdfXRefBlock& rhs)
         :  m_nFirst( 0 ), m_nCount( 0 )
-        
-        {
-
+      {
             this->operator=( rhs );
-                }
+      }
       bool InsertItem(const TXRefItem& rItem, bool bUsed);
       bool operator<(const PdfXRefBlock& rhs) const
       {
             return m_nFirst < rhs.m_nFirst;
-        }
+      }
       const PdfXRefBlock& operator=(const PdfXRefBlock& rhs)
       {
             m_nFirst  = rhs.m_nFirst;
@@ -97,7 +93,7 @@ namespace PoDoFo
             freeItems = rhs.freeItems;
 
             return *this;
-        }
+      }
       pdf_objnum m_nFirst;
       pdf_uint32 m_nCount;
       TVecXRefItems items;
@@ -200,6 +196,6 @@ namespace PoDoFo
   inline pdf_uint64 PdfXRef::GetOffset() const
   {
     return m_offset;
-}
+  }
 }
 #endif

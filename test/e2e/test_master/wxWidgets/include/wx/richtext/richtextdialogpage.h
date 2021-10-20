@@ -25,9 +25,8 @@ public:
   }
   wxRichTextDialogPage(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0)
   {
-
         Create(parent, id, pos, size, style);
-      }
+  }
   DECLARE_BASE_CLASS_HELP_PROVISION()
 };
 #  endif

@@ -53,7 +53,7 @@ public:
         ///kAcceptOtherInputString is ON, in that case returned DragStatus is
         ///kOther. </summary>
         kDisableDirectDistanceInput     = 0x010000,
-    };
+  };
   enum DragStatus {
         kModeless       = -17,
         kNoChange       = -6,
@@ -70,7 +70,7 @@ public:
         kKW7,
         kKW8,
         kKW9
-    };
+  };
   enum CursorType {
         kNoSpecialCursor = -1,           // No Special Cursor Specified
         kCrosshair = 0,                  // Full Screen Cross Hair. 
@@ -86,8 +86,7 @@ public:
         kEntitySelectNoPersp,            // Pickbox, suppressed in persp. 
         kPkfirstOrGrips,                 // Auto-select cursor. 
         kCrosshairDashed                 // 15 dashed style crosshair cursor
-
-    };
+  };
   AcEdJig();
   virtual ~AcEdJig();
   DragStatus drag();
@@ -149,7 +148,7 @@ public:
 
         /// <summary> Style was set by client calling setVisualStyle(). </summary>
         kNotSet
-    };
+  };
     /// <summary> Default constructor. The entity will be displayed in its default visual
     /// style.  This is equivalent to setting the style type to kNone. </summary>
   AcEdDragStyle();

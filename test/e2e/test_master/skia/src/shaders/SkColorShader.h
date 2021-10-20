@@ -22,7 +22,9 @@ public:
   explicit SkColorShader(SkColor c);
   bool isOpaque() const override;
   bool isConstant() const override
-  { return true; }
+  {
+ return true;
+  }
   GradientType asAGradient(GradientInfo* info) const override;
 #  if  SK_SUPPORT_GPU
   std::unique_ptr<GrFragmentProcessor> asFragmentProcessor(const GrFPArgs&) const override;
@@ -34,7 +36,7 @@ private:
   {
         *lum = fColor;
         return true;
-    }
+  }
   bool onAppendStages(const SkStageRec&) const override;
   SkColor fColor;
 };
@@ -43,9 +45,13 @@ class SkColor4Shader : public SkShaderBase
 public:
   SkColor4Shader(const SkColor4f&, sk_sp<SkColorSpace>);
   bool isOpaque() const override
-  { return fColor.isOpaque(); }
+  {
+ return fColor.isOpaque();
+  }
   bool isConstant() const override
-  { return true; }
+  {
+ return true;
+  }
 #  if  SK_SUPPORT_GPU
   std::unique_ptr<GrFragmentProcessor> asFragmentProcessor(const GrFPArgs&) const override;
 #  endif

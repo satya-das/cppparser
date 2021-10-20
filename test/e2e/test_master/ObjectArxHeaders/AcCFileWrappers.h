@@ -65,13 +65,11 @@ private:
 };
 inline AcOutputBufMgr::AcOutputBufMgr()
   :  mpBuffer(NULL), mnBufSize(0), mnByteCount(0), mnBytesRequested(0)
-
-  {
-
-  }
-inline AcOutputBufMgr::~AcOutputBufMgr()
 {
 
+}
+inline AcOutputBufMgr::~AcOutputBufMgr()
+{
     AcCFile_Assert(this->mnByteCount == 0);  // should be flushed by now
     AcCFile_Assert(this->mnBytesRequested == 0);
 }
@@ -175,20 +173,29 @@ public:
   virtual void Write(LPCTSTR pString);
     // Format related methods
   unsigned getCharFormat() const
-  { return this->mChFmtr.getFormat(); }
+  {
+ return this->mChFmtr.getFormat();
+  }
   unsigned setCharFormat(unsigned nFmt)
   {
-            return this->mChFmtr.setFormat(nFmt); }
+            return this->mChFmtr.setFormat(nFmt);
+  }
   bool getUseCIF() const
-  { return this->mChFmtr.getUseCIF(); }
+  {
+ return this->mChFmtr.getUseCIF();
+  }
   bool setUseCIF(bool bUseCIF)
   {
-            return this->mChFmtr.setUseCIF(bUseCIF); }
+            return this->mChFmtr.setUseCIF(bUseCIF);
+  }
   bool getExpandLF() const
-  { return this->mChFmtr.getExpandLF(); }
+  {
+ return this->mChFmtr.getExpandLF();
+  }
   bool setExpandLF(bool bExpandLF)
   {
-            return this->mChFmtr.setExpandLF(bExpandLF); }
+            return this->mChFmtr.setExpandLF(bExpandLF);
+  }
   bool readBOM();
   bool writeBOM();
     // Buffering methods, for performance.  Client can provide a buffer
@@ -219,20 +226,29 @@ public:
   virtual BOOL ReadString(CString& rString);
     // Format related methdos
   unsigned getCharFormat() const
-  { return this->mChFmtr.getFormat(); }
+  {
+ return this->mChFmtr.getFormat();
+  }
   unsigned setCharFormat(unsigned nFmt)
   {
-            return this->mChFmtr.setFormat(nFmt); }
+            return this->mChFmtr.setFormat(nFmt);
+  }
   bool getUseCIF() const
-  { return this->mChFmtr.getUseCIF(); }
+  {
+ return this->mChFmtr.getUseCIF();
+  }
   bool setUseCIF(bool bUseCIF)
   {
-            return this->mChFmtr.setUseCIF(bUseCIF); }
+            return this->mChFmtr.setUseCIF(bUseCIF);
+  }
   bool getExpandLF() const
-  { return this->mChFmtr.getExpandLF(); }
+  {
+ return this->mChFmtr.getExpandLF();
+  }
   bool setExpandLF(bool bExpandLF)
   {
-            return this->mChFmtr.setExpandLF(bExpandLF); }
+            return this->mChFmtr.setExpandLF(bExpandLF);
+  }
   bool readBOM();
   bool writeBOM();
     // Buffering methods, for performance.  Client can provide a buffer
@@ -295,29 +311,25 @@ inline AcCFile::AcCFile()
   :  mChFmtr(AdCharFormatter::kAnsi,
                   false,      // useCIF
                   false)      // expandLF
-
-  {
-
+{
     this->mChFmtr.setExpandLF(false);
-  }
+}
 inline AcCFile::AcCFile(HANDLE hFile)
   :  CFile(hFile),
           mChFmtr(AdCharFormatter::kAnsi,
                   false,      // useCIF
                   false)      // expandLF
+{
 
-  {
-
-  }
+}
 inline AcCFile::AcCFile(LPCTSTR lpszFileName, UINT nOpenFlags)
   :  CFile(lpszFileName, nOpenFlags),
           mChFmtr(AdCharFormatter::kAnsi,
                   false,      // useCIF
                   false)      // expandLF
+{
 
-  {
-
-  }
+}
 inline AcCFile::~AcCFile()
 {
 
@@ -733,28 +745,25 @@ inline AcCStdioFile::AcCStdioFile()
   :  mChFmtr(AdCharFormatter::kAnsi,
                   true,       // useCIF
                   false)      // expandLF
+{
 
-  {
-
-  }
+}
 inline AcCStdioFile::AcCStdioFile(FILE* pOpenStream)
   :  CStdioFile(pOpenStream),
           mChFmtr(AdCharFormatter::kAnsi,
                   true,       // useCIF
                   false)      // expandLF
+{
 
-  {
-
-  }
+}
 inline AcCStdioFile::AcCStdioFile(LPCTSTR lpszFileName, UINT nOpenFlags)
   :  CStdioFile(lpszFileName, nOpenFlags),
           mChFmtr(AdCharFormatter::kAnsi,
                   true,       // useCIF
                   false)      // expandLF
+{
 
-  {
-
-  }
+}
 inline AcCStdioFile::~AcCStdioFile()
 {
 

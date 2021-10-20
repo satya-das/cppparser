@@ -21,11 +21,13 @@ public:
   {
         return std::unique_ptr<GrFragmentProcessor>(new GrAlphaThresholdFragmentProcessor(
                 mask, innerThreshold, outerThreshold, bounds));
-    }
+  }
   GrAlphaThresholdFragmentProcessor(const GrAlphaThresholdFragmentProcessor& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "AlphaThresholdFragmentProcessor"; }
+  {
+ return "AlphaThresholdFragmentProcessor";
+  }
   GrCoordTransform maskCoordTransform;
   TextureSampler mask;
   float innerThreshold;
@@ -38,12 +40,11 @@ private:
                       mask.get())
             , mask(std::move(mask))
             , innerThreshold(innerThreshold)
-            , outerThreshold(outerThreshold) 
-    {
-
+            , outerThreshold(outerThreshold)
+  {
         this->setTextureSamplerCnt(1);
         this->addCoordTransform(&maskCoordTransform);
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

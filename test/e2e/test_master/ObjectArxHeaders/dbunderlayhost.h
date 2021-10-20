@@ -26,7 +26,8 @@ public:
   ACDBCORE2D_PORT friend bool operator ==(const AcUnderlayLayer& l, const AcUnderlayLayer& r);
   typedef enum {
         kOff=0,
-        kOn=1} State;
+        kOn=1
+} State;
   AcString name() const;
   State state() const;
   Acad::ErrorStatus setName(const AcString& name);
@@ -148,16 +149,18 @@ public:
     /// </summary>
     /// <returns>Returns number of layers or 0 if no layer information available</returns>
   virtual Adesk::UInt32 underlayLayerCount() const
-  { return 0; }
+  {
+ return 0;
+  }
     /// <summary>
     /// Get Underlay layer name
     /// for the layer at given index
     /// </summary>
     /// <returns>Returns Acad::eOk if successful</returns>
   virtual Acad::ErrorStatus getUnderlayLayer(int, AcUnderlayLayer&) const
-  { 
-        return Acad::eNotImplemented; 
-    }
+  {
+        return Acad::eNotImplemented;
+  }
     /// <summary>
     /// Used to determine the version of the underlayItem.
     /// </summary>

@@ -70,9 +70,13 @@ inline wxUint32 wxAtomicDec(wxUint32& value)
 #  else 
 // if no threads are used we can safely use simple ++/--
 inline void wxAtomicInc(wxUint32& value)
-{ ++value; }
+{
+ ++value;
+}
 inline wxUint32 wxAtomicDec(wxUint32& value)
-{ return --value; }
+{
+ return --value;
+}
 #  endif
 // ----------------------------------------------------------------------------
 // proxies to actual implementations, but for various other types with same
@@ -85,47 +89,61 @@ class wxAtomicInt32
 public:
   wxAtomicInt32()
   {
-   }
+
+  }
   wxAtomicInt32(wxInt32 v)
-    :  m_value(v) 
-    {
-     }
+    :  m_value(v)
+  {
+
+  }
   wxAtomicInt32(const wxAtomicInt32& a)
-    :  m_value(a.m_value) 
-    {
-    }
+    :  m_value(a.m_value)
+  {
+  }
   operator wxInt32() const
   {
- return m_value;   }
+ return m_value;
+  }
   operator volatile wxInt32&()
   {
- return m_value;   }
+ return m_value;
+  }
   wxAtomicInt32& operator=(wxInt32 v)
-  { m_value = v; return *this; }
+  {
+ m_value = v; return *this;
+  }
   void Inc()
   {
         wxCriticalSectionLocker lock(m_locker);
         ++m_value;
-    }
+  }
   wxInt32 Dec()
   {
         wxCriticalSectionLocker lock(m_locker);
         return --m_value;
-    }
+  }
 private:
   volatile wxInt32 m_value;
   wxCriticalSection m_locker;
 };
 inline void wxAtomicInc(wxAtomicInt32& value)
-{ value.Inc(); }
+{
+ value.Inc();
+}
 inline wxInt32 wxAtomicDec(wxAtomicInt32& value)
-{ return value.Dec(); }
+{
+ return value.Dec();
+}
 #  else 
 #    define wxHAS_ATOMIC_OPS
 inline void wxAtomicInc(wxInt32& value)
-{ wxAtomicInc((wxUint32&)value); }
+{
+ wxAtomicInc((wxUint32&)value);
+}
 inline wxInt32 wxAtomicDec(wxInt32& value)
-{ return wxAtomicDec((wxUint32&)value); }
+{
+ return wxAtomicDec((wxUint32&)value);
+}
 typedef wxInt32 wxAtomicInt32;
 #  endif
 // all the native implementations use 32 bits currently

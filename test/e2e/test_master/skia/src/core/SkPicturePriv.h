@@ -29,7 +29,7 @@ public:
   static const SkBigPicture* AsSkBigPicture(const sk_sp<const SkPicture> picture)
   {
         return picture->asSkBigPicture();
-    }
+  }
     // V35: Store SkRect (rather then width & height) in header
     // V36: Remove (obsolete) alphatype from SkColorTable
     // V37: Added shadow only option to SkDropShadowImageFilter (last version to record CLEAR)
@@ -92,7 +92,7 @@ public:
         // Only SKPs within the min/current picture version range (inclusive) can be read.
         kMin_Version     = kTileModeInBlurImageFilter_Version,
         kCurrent_Version = kEdgeAAQuadColor4f_Version
-    };
+  };
   static_assert(kMin_Version <= 62, "Remove kFontAxes_bad from SkFontDescriptor.cpp");
 };
 #endif

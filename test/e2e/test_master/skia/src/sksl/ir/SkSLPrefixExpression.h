@@ -21,9 +21,9 @@ namespace SkSL
     PrefixExpression(Token::Kind op, std::unique_ptr<Expression> operand)
       :  INHERITED(operand->fOffset, kPrefix_Kind, operand->fType)
     , fOperand(std::move(operand))
-    , fOperator(op) 
-      {
-      }
+    , fOperator(op)
+    {
+    }
     bool isConstant() const override
     {
         return fOperator == Token::MINUS && fOperand->isConstant();

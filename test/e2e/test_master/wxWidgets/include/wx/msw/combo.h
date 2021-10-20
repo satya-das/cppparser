@@ -29,34 +29,39 @@ class WXDLLIMPEXP_CORE wxComboCtrl : public wxComboCtrlBase
 public:
     // ctors and such
   wxComboCtrl()
-    :  wxComboCtrlBase() 
-    {
- Init();     }
+    :  wxComboCtrlBase()
+  {
+ Init();
+  }
   wxComboCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
     :  wxComboCtrlBase()
-    
-    {
-
+  {
         Init();
 
         (void)Create(parent, id, value, pos, size, style, validator, name);
-        }
+  }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
   virtual ~wxComboCtrl();
   void PrepareBackground(wxDC& dc, const wxRect& rect, int flags) const override;
   bool IsKeyPopupToggle(const wxKeyEvent& event) const override;
   static int GetFeatures()
-  { return wxComboCtrlFeatures::All; }
+  {
+ return wxComboCtrlFeatures::All;
+  }
 #    if  wxUSE_COMBOCTRL_POPUP_ANIMATION
   void OnTimerEvent(wxTimerEvent&)
-  { DoTimerEvent(); }
+  {
+ DoTimerEvent();
+  }
 protected:
   void DoTimerEvent();
   bool AnimateShow(const wxRect& rect, int flags) override;
 #    endif
     // Dummy method - we override all functions that call this
   WXHWND GetEditHWND() const override
-  { return NULL; }
+  {
+ return NULL;
+  }
     // customization
   void OnResize() override;
   wxCoord GetNativeTextIndent() const override;
@@ -64,7 +69,9 @@ protected:
   void OnPaintEvent(wxPaintEvent& event);
   void OnMouseEvent(wxMouseEvent& event);
   bool HasTransparentBackground() override
-  { return IsDoubleBuffered(); }
+  {
+ return IsDoubleBuffered();
+  }
 private:
   void Init();
 #    if  wxUSE_COMBOCTRL_POPUP_ANIMATION

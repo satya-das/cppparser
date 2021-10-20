@@ -15,32 +15,37 @@ class WXDLLIMPEXP_CORE wxSpinButton : public wxSpinButtonBase
   wxDECLARE_DYNAMIC_CLASS(wxSpinButton);
 public:
   wxSpinButton()
-    :  m_up( 0 ), m_down( 0 ), m_pos( 0 ) 
-    {
-     }
+    :  m_up( 0 ), m_down( 0 ), m_pos( 0 )
+  {
+
+  }
   wxSpinButton(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_VERTICAL, const wxString& name = wxASCII_STR("wxSpinButton"))
     :  m_up( 0 ),
         m_down( 0 ),
         m_pos( 0 )
-    
-    {
-
+  {
         Create(parent, id, pos, size, style, name);
-        }
+  }
   virtual ~wxSpinButton();
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_VERTICAL, const wxString& name = wxASCII_STR("wxSpinButton"));
     // accessors
   int GetValue() const;
   int GetMin() const
-  { return m_min; }
+  {
+ return m_min;
+  }
   int GetMax() const
-  { return m_max; }
+  {
+ return m_max;
+  }
     // operations
   void SetValue(int val);
   void SetRange(int minVal, int maxVal);
     // Implementation
   virtual void Command(wxCommandEvent& event)
-  { (void)ProcessCommand(event); }
+  {
+ (void)ProcessCommand(event);
+  }
   virtual void ChangeFont(bool keepOriginalSize = true);
   virtual void ChangeBackgroundColour();
   virtual void ChangeForegroundColour();

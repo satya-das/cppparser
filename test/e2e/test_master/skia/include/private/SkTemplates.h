@@ -27,7 +27,9 @@
  */
 template <typename T>
 inline void sk_ignore_unused_variable(const T&)
-{ }
+{
+
+}
 /**
  *  Returns a pointer to a D which comes immediately after S[count].
  */
@@ -54,7 +56,7 @@ struct SkFunctionWrapper
   auto operator()(Args&&... args) const -> decltype(P(std::forward<Args>(args)...))
   {
         return P(std::forward<Args>(args)...);
-    }
+  }
 };
 /** \class SkAutoTCallVProc
 
@@ -88,19 +90,17 @@ public:
      */
   explicit SkAutoTArray(int count)
   {
-
         SkASSERT(count >= 0);
         if (count) {
             fArray.reset(new T[count]);
         }
         SkDEBUGCODE(fCount = count;)
-      }
+  }
   SkAutoTArray(SkAutoTArray&& other)
-    :  fArray(std::move(other.fArray)) 
-    {
-
+    :  fArray(std::move(other.fArray))
+  {
         SkDEBUGCODE(fCount = other.fCount; other.fCount = 0;)
-        }
+  }
   SkAutoTArray& operator=(SkAutoTArray&& other)
   {
         if (this != &other) {
@@ -108,22 +108,26 @@ public:
             SkDEBUGCODE(fCount = other.fCount; other.fCount = 0;)
         }
         return *this;
-    }
+  }
     /** Reallocates given a new count. Reallocation occurs even if new count equals old count.
      */
   void reset(int count)
-  { *this = SkAutoTArray(count);  }
+  {
+ *this = SkAutoTArray(count);
+  }
     /** Return the array of T elements. Will be NULL if count == 0
      */
   T* get() const
-  { return fArray.get(); }
+  {
+ return fArray.get();
+  }
     /** Return the nth element in the array
      */
   T& operator[](int index) const
   {
         SkASSERT((unsigned)index < (unsigned)fCount);
         return fArray[index];
-    }
+  }
 private:
   std::unique_ptr<T[]> fArray;
 };
@@ -140,24 +144,21 @@ public:
     /** Initialize with no objects */
   SkAutoSTArray()
   {
-
         fArray = nullptr;
         fCount = 0;
-      }
+  }
     /** Allocate count number of T elements
      */
   SkAutoSTArray(int count)
   {
-
         fArray = nullptr;
         fCount = 0;
         this->reset(count);
-      }
+  }
   ~SkAutoSTArray()
   {
-
         this->reset(0);
-      }
+  }
     /** Destroys previous objects in the array and default constructs count number of objects */
   void reset(int count)
   {
@@ -191,30 +192,42 @@ public:
         while (iter < stop) {
             new (iter++) T;
         }
-    }
+  }
     /** Return the number of T elements in the array
      */
   int count() const
-  { return fCount; }
+  {
+ return fCount;
+  }
     /** Return the array of T elements. Will be NULL if count == 0
      */
   T* get() const
-  { return fArray; }
+  {
+ return fArray;
+  }
   T* begin()
-  { return fArray; }
+  {
+ return fArray;
+  }
   const T* begin() const
-  { return fArray; }
+  {
+ return fArray;
+  }
   T* end()
-  { return fArray + fCount; }
+  {
+ return fArray + fCount;
+  }
   const T* end() const
-  { return fArray + fCount; }
+  {
+ return fArray + fCount;
+  }
     /** Return the nth element in the array
      */
   T& operator[](int index) const
   {
         SkASSERT(index < fCount);
         return fArray[index];
-    }
+  }
 #  if  defined(SK_BUILD_FOR_GOOGLE3)
 private:
     // Stack frame size is limited for SK_BUILD_FOR_GOOGLE3. 4k is less than the actual max, but some functions
@@ -238,46 +251,56 @@ class SkAutoTMalloc
 public:
     /** Takes ownership of the ptr. The ptr must be a value which can be passed to sk_free. */
   explicit SkAutoTMalloc(T* ptr = nullptr)
-    :  fPtr(ptr) 
-    {
-    }
+    :  fPtr(ptr)
+  {
+  }
     /** Allocates space for 'count' Ts. */
   explicit SkAutoTMalloc(size_t count)
-    :  fPtr(count ? (T*)sk_malloc_throw(count, sizeof(T)) : nullptr) 
-    {
-    }
+    :  fPtr(count ? (T*)sk_malloc_throw(count, sizeof(T)) : nullptr)
+  {
+  }
   SkAutoTMalloc(SkAutoTMalloc&&);
   SkAutoTMalloc& operator=(SkAutoTMalloc&&);
     /** Resize the memory area pointed to by the current ptr preserving contents. */
   void realloc(size_t count)
   {
         fPtr.reset(count ? (T*)sk_realloc_throw(fPtr.release(), count * sizeof(T)) : nullptr);
-    }
+  }
     /** Resize the memory area pointed to by the current ptr without preserving contents. */
   T* reset(size_t count = 0)
   {
         fPtr.reset(count ? (T*)sk_malloc_throw(count, sizeof(T)) : nullptr);
         return this->get();
-    }
+  }
   T* get() const
-  { return fPtr.get(); }
+  {
+ return fPtr.get();
+  }
   operator T*()
   {
- return fPtr.get();   }
+ return fPtr.get();
+  }
   operator const T*() const
   {
- return fPtr.get();   }
+ return fPtr.get();
+  }
   T& operator[](int index)
-  { return fPtr.get()[index]; }
+  {
+ return fPtr.get()[index];
+  }
   const T& operator[](int index) const
-  { return fPtr.get()[index]; }
+  {
+ return fPtr.get()[index];
+  }
     /**
      *  Transfer ownership of the ptr to the caller, setting the internal
      *  pointer to NULL. Note that this differs from get(), which also returns
      *  the pointer, but it does not transfer ownership.
      */
   T* release()
-  { return fPtr.release(); }
+  {
+ return fPtr.release();
+  }
 private:
   std::unique_ptr<T, SkFunctionWrapper<void(void*), sk_free>> fPtr;
 };
@@ -286,12 +309,11 @@ class SkAutoSTMalloc
 {
 public:
   SkAutoSTMalloc()
-    :  fPtr(fTStorage) 
-    {
-    }
+    :  fPtr(fTStorage)
+  {
+  }
   SkAutoSTMalloc(size_t count)
   {
-
         if (count > kCount) {
             fPtr = (T*)sk_malloc_throw(count, sizeof(T));
         } else if (count) {
@@ -299,18 +321,17 @@ public:
         } else {
             fPtr = nullptr;
         }
-      }
+  }
   SkAutoSTMalloc(SkAutoSTMalloc&&) = delete;
   SkAutoSTMalloc(const SkAutoSTMalloc&) = delete;
   SkAutoSTMalloc& operator=(SkAutoSTMalloc&&);
   SkAutoSTMalloc& operator=(const SkAutoSTMalloc&);
   ~SkAutoSTMalloc()
   {
-
         if (fPtr != fTStorage) {
             sk_free(fPtr);
         }
-      }
+  }
     // doesn't preserve contents
   T* reset(size_t count)
   {
@@ -325,27 +346,27 @@ public:
             fPtr = nullptr;
         }
         return fPtr;
-    }
+  }
   T* get() const
-  { return fPtr; }
+  {
+ return fPtr;
+  }
   operator T*()
   {
-
         return fPtr;
-      }
+  }
   operator const T*() const
   {
-
         return fPtr;
-      }
+  }
   T& operator[](int index)
   {
         return fPtr[index];
-    }
+  }
   const T& operator[](int index) const
   {
         return fPtr[index];
-    }
+  }
     // Reallocs the array, can be used to shrink the allocation.  Makes no attempt to be intelligent
   void realloc(size_t count)
   {
@@ -363,7 +384,7 @@ public:
         } else {
             this->reset(0);
         }
-    }
+  }
 private:
     // Since we use uint32_t storage, we might be able to get more elements for free.
   static const size_t kCountWithPadding = SkAlign4(kCountRequested * sizeof(T)) / sizeof(T);
@@ -427,11 +448,17 @@ public:
   SkAlignedSStorage& operator=(SkAlignedSStorage&&);
   SkAlignedSStorage& operator=(const SkAlignedSStorage&);
   size_t size() const
-  { return N; }
+  {
+ return N;
+  }
   void* get()
-  { return fData; }
+  {
+ return fData;
+  }
   const void* get() const
-  { return fData; }
+  {
+ return fData;
+  }
 private:
   union 
   {
@@ -462,9 +489,13 @@ public:
      * memory. Use placement new for types that require a cons.
      */
   void* get()
-  { return fStorage.get(); }
+  {
+ return fStorage.get();
+  }
   const void* get() const
-  { return fStorage.get(); }
+  {
+ return fStorage.get();
+  }
 private:
   SkAlignedSStorage<sizeof(T)*N> fStorage;
 };

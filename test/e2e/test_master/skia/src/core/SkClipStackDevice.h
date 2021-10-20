@@ -14,13 +14,16 @@ public:
   SkClipStackDevice(const SkImageInfo& info, const SkSurfaceProps& props)
     :  SkBaseDevice(info, props)
         , fClipStack(fStorage, sizeof(fStorage))
-    
-    {
-    }
+  {
+  }
   SkClipStack& cs()
-  { return fClipStack; }
+  {
+ return fClipStack;
+  }
   const SkClipStack& cs() const
-  { return fClipStack; }
+  {
+ return fClipStack;
+  }
   SkIRect devClipBounds() const;
 protected:
   void onSave() override;
@@ -36,7 +39,7 @@ protected:
 private:
   enum {
         kPreallocCount = 16 // empirically determined, adjust as needed to reduce mallocs
-    };
+  };
   intptr_t fStorage[kPreallocCount * sizeof(SkClipStack::Element) / sizeof(intptr_t)];
   SkClipStack fClipStack;
   typedef SkBaseDevice INHERITED;

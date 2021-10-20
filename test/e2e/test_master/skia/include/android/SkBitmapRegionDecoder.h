@@ -19,7 +19,7 @@ class SK_API SkBitmapRegionDecoder
 public:
   enum Strategy {
         kAndroidCodec_Strategy, // Uses SkAndroidCodec for scaling and subsetting
-    };
+  };
     /*
      * @param data     Refs the data while this object exists, unrefs on destruction
      * @param strategy Strategy used for scaling and subsetting
@@ -57,9 +57,13 @@ public:
   virtual SkColorType computeOutputColorType(SkColorType requestedColorType) = 0;
   virtual sk_sp<SkColorSpace> computeOutputColorSpace(SkColorType outputColorType, sk_sp<SkColorSpace> prefColorSpace = nullptr) = 0;
   int width() const
-  { return fWidth; }
+  {
+ return fWidth;
+  }
   int height() const
-  { return fHeight; }
+  {
+ return fHeight;
+  }
   virtual ~SkBitmapRegionDecoder()
   {
   }
@@ -67,9 +71,8 @@ protected:
   SkBitmapRegionDecoder(int width, int height)
     :  fWidth(width)
         , fHeight(height)
-    
-    {
-    }
+  {
+  }
 private:
   const int fWidth;
   const int fHeight;

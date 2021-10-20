@@ -22,32 +22,37 @@ class WXDLLIMPEXP_PROPGRID wxPropertyGridHitTestResult
 public:
   wxPropertyGridHitTestResult()
   {
-
         m_property = NULL;
         m_column = -1;
         m_splitter = -1;
         m_splitterHitOffset = 0;
-      }
+  }
   ~wxPropertyGridHitTestResult()
   {
 
-      }
+  }
     // Returns column hit. -1 for margin.
   int GetColumn() const
-  { return m_column; }
+  {
+ return m_column;
+  }
     // Returns property hit. NULL if empty space below
     // properties was hit instead.
   wxPGProperty* GetProperty() const
   {
         return m_property;
-    }
+  }
     // Returns index of splitter hit, -1 for none.
   int GetSplitter() const
-  { return m_splitter; }
+  {
+ return m_splitter;
+  }
     // If splitter hit, then this member function
     // returns offset to the exact splitter position.
   int GetSplitterHitOffset() const
-  { return m_splitterHitOffset; }
+  {
+ return m_splitterHitOffset;
+  }
 private:
     // Property. NULL if empty space below properties was hit.
   wxPGProperty* m_property;
@@ -64,7 +69,6 @@ private:
 // At higher 16-bits, there are same flags, but to instead check if children
 // will be included.
 enum wxPG_ITERATOR_FLAGS {
-
 // Iterate through 'normal' property items (does not include children of
 // aggregate or hidden items by default).
 wxPG_ITERATE_PROPERTIES = wxPG_PROP_PROPERTY |
@@ -127,7 +131,6 @@ wxPG_ITERATE_NORMAL = wxPG_ITERATE_PROPERTIES |
 
 // Default iterator flags.
 wxPG_ITERATE_DEFAULT = wxPG_ITERATE_NORMAL
-
 };
 #    define wxPG_ITERATOR_CREATE_MASKS(FLAGS, A, B)	 \
     A = (FLAGS ^ wxPG_ITERATOR_MASK_OP_ITEM) & \
@@ -147,13 +150,17 @@ public:
   wxPropertyGridIteratorBase()
   {
 
-      }
+  }
   void Assign(const wxPropertyGridIteratorBase& it);
   bool AtEnd() const
-  { return m_property == NULL; }
+  {
+ return m_property == NULL;
+  }
     // Get current property.
   wxPGProperty* GetProperty() const
-  { return m_property; }
+  {
+ return m_property;
+  }
   void Init(wxPropertyGridPageState* state, int flags, wxPGProperty* property, int dir = 1);
   void Init(wxPropertyGridPageState* state, int flags, int startPos = wxTOP, int dir = 0);
     // Iterate to the next property.
@@ -164,7 +171,9 @@ public:
     // ends.
     // Default base parent is the root of the used wxPropertyGridPageState.
   void SetBaseParent(wxPGProperty* baseParent)
-  { m_baseParent = baseParent; }
+  {
+ m_baseParent = baseParent;
+  }
 protected:
   wxPGProperty* m_property;
 private:
@@ -180,52 +189,54 @@ class wxPGIterator : public wxPropertyGridIteratorBase
 public:
   wxPGIterator(STATE* state, int flags = wxPG_ITERATE_DEFAULT, PROPERTY* property = NULL, int dir = 1)
     :  wxPropertyGridIteratorBase()
-    
-    {
-
+  {
         Init(const_cast<wxPropertyGridPageState*>(state), flags, const_cast<wxPGProperty*>(property), dir);
-        }
+  }
   wxPGIterator(STATE* state, int flags, int startPos, int dir = 0)
     :  wxPropertyGridIteratorBase()
-    
-    {
-
+  {
         Init(const_cast<wxPropertyGridPageState*>(state), flags, startPos, dir);
-        }
+  }
   wxPGIterator()
     :  wxPropertyGridIteratorBase()
-    
-    {
-
+  {
         m_property = NULL;
-        }
+  }
   wxPGIterator(const wxPGIterator& it)
     :  wxPropertyGridIteratorBase()
-    
-    {
-
+  {
         Assign(it);
-        }
+  }
   ~wxPGIterator()
   {
 
-      }
+  }
   wxPGIterator& operator=(const wxPGIterator& it)
   {
         if ( this != &it )
             Assign(it);
         return *this;
-    }
+  }
   wxPGIterator& operator++()
-  { Next(); return *this; }
+  {
+ Next(); return *this;
+  }
   wxPGIterator operator++(int)
-  { wxPGIterator it = *this; Next(); return it; }
+  {
+ wxPGIterator it = *this; Next(); return it;
+  }
   wxPGIterator& operator--()
-  { Prev(); return *this; }
+  {
+ Prev(); return *this;
+  }
   wxPGIterator operator--(int)
-  { wxPGIterator it = *this; Prev(); return it; }
+  {
+ wxPGIterator it = *this; Prev(); return it;
+  }
   PROPERTY* operator *() const
-  { return const_cast<PROPERTY*>(m_property); }
+  {
+ return const_cast<PROPERTY*>(m_property);
+  }
   static PROPERTY* OneStep(STATE* state, int flags = wxPG_ITERATE_DEFAULT, PROPERTY* property = NULL, int dir = 1)
   {
         wxPGIterator it(state, flags, property, dir);
@@ -237,7 +248,7 @@ public:
                 it.Prev();
         }
         return *it;
-    }
+  }
 };
 // Preferable way to iterate through contents of wxPropertyGrid,
 // wxPropertyGridManager, and wxPropertyGridPage.
@@ -253,12 +264,14 @@ class WXDLLIMPEXP_PROPGRID wxPGVIteratorBase : public wxObjectRefData
 public:
   wxPGVIteratorBase()
   {
-   }
+
+  }
   virtual void Next() = 0;
 protected:
   virtual ~wxPGVIteratorBase()
   {
-   }
+
+  }
   wxPropertyGridIterator m_it;
 };
 // Abstract implementation of a simple iterator. Can only be used
@@ -270,21 +283,25 @@ class WXDLLIMPEXP_PROPGRID wxPGVIterator
 public:
   wxPGVIterator()
   {
- m_pIt = NULL;   }
+ m_pIt = NULL;
+  }
   wxPGVIterator(wxPGVIteratorBase* obj)
   {
- m_pIt = obj;   }
+ m_pIt = obj;
+  }
   ~wxPGVIterator()
   {
- UnRef();   }
+ UnRef();
+  }
   void UnRef()
-  { if (m_pIt) m_pIt->DecRef(); }
+  {
+ if (m_pIt) m_pIt->DecRef();
+  }
   wxPGVIterator(const wxPGVIterator& it)
   {
-
         m_pIt = it.m_pIt;
         m_pIt->IncRef();
-      }
+  }
   const wxPGVIterator& operator=(const wxPGVIterator& it)
   {
         if (this != &it)
@@ -294,13 +311,19 @@ public:
             m_pIt->IncRef();
         }
         return *this;
-    }
+  }
   void Next()
-  { m_pIt->Next(); }
+  {
+ m_pIt->Next();
+  }
   bool AtEnd() const
-  { return m_pIt->m_it.AtEnd(); }
+  {
+ return m_pIt->m_it.AtEnd();
+  }
   wxPGProperty* GetProperty() const
-  { return m_pIt->m_it.GetProperty(); }
+  {
+ return m_pIt->m_it.GetProperty();
+  }
 protected:
   wxPGVIteratorBase* m_pIt;
 };
@@ -345,60 +368,62 @@ public:
             RecalculateVirtualHeight();
             m_vhCalcPending = false;
         }
-    }
+  }
     // Returns (precalculated) height of contained visible properties.
   unsigned int GetVirtualHeight() const
   {
         wxASSERT( !m_vhCalcPending );
         return m_virtualHeight;
-    }
+  }
     // Returns (precalculated) height of contained visible properties.
   unsigned int GetVirtualHeight()
   {
         EnsureVirtualHeight();
         return m_virtualHeight;
-    }
+  }
     // Returns actual height of contained visible properties.
     // Mostly used for internal diagnostic purposes.
   unsigned int GetActualVirtualHeight() const;
   unsigned int GetColumnCount() const
   {
         return (unsigned int) m_colWidths.size();
-    }
+  }
   int GetColumnMinWidth(int column) const;
   int GetColumnWidth(unsigned int column) const
   {
         return m_colWidths[column];
-    }
+  }
   wxPropertyGrid* GetGrid() const
-  { return m_pPropGrid; }
+  {
+ return m_pPropGrid;
+  }
     // Returns last item which could be iterated using given flags.
   wxPGProperty* GetLastItem(int flags = wxPG_ITERATE_DEFAULT);
   const wxPGProperty* GetLastItem(int flags = wxPG_ITERATE_DEFAULT) const
   {
         return const_cast<wxPropertyGridPageState*>(this)->GetLastItem(flags);
-    }
+  }
     // Returns currently selected property.
   wxPGProperty* GetSelection() const
   {
         return m_selection.empty()? NULL: m_selection[0];
-    }
+  }
   void DoSetSelection(wxPGProperty* prop)
   {
         m_selection.clear();
         if ( prop )
             m_selection.push_back(prop);
-    }
+  }
   bool DoClearSelection()
   {
         return DoSelectProperty(NULL);
-    }
+  }
   void DoRemoveFromSelection(wxPGProperty* prop);
   void DoSetColumnProportion(unsigned int column, int proportion);
   int DoGetColumnProportion(unsigned int column) const
   {
         return m_columnProportions[column];
-    }
+  }
   void ResetColumnSizes(int setSplitterFlags);
   wxPropertyCategory* GetPropertyCategory(const wxPGProperty* p) const;
 #    if  WXWIN_COMPATIBILITY_3_0
@@ -406,13 +431,15 @@ public:
 #    endif
   wxVariant DoGetPropertyValues(const wxString& listname, wxPGProperty* baseparent, long flags) const;
   wxPGProperty* DoGetRoot() const
-  { return m_properties; }
+  {
+ return m_properties;
+  }
   void DoSetPropertyName(wxPGProperty* p, const wxString& newName);
     // Returns combined width of margin and all the columns
   int GetVirtualWidth() const
   {
         return m_width;
-    }
+  }
     // Returns minimal width for given column so that all images and texts
     // will fit entirely.
     // Used by SetSplitterLeft() and DoFitColumns().
@@ -426,11 +453,13 @@ public:
     // Returns true if page is visibly displayed.
   bool IsDisplayed() const;
   bool IsInNonCatMode() const
-  { return (bool)(m_properties == m_abcArray); }
+  {
+ return (bool)(m_properties == m_abcArray);
+  }
   void DoLimitPropertyEditing(wxPGProperty* p, bool limit = true)
   {
         p->SetFlagRecursively(wxPG_PROP_NOEDITOR, limit);
-    }
+  }
   bool DoSelectProperty(wxPGProperty* p, unsigned int flags = 0);
     // widthChange is non-client.
   void OnClientWidthChange(int newWidth, int widthChange, bool fromOnResize = false);
@@ -438,7 +467,7 @@ public:
   void RecalculateVirtualHeight()
   {
         m_virtualHeight = GetActualVirtualHeight();
-    }
+  }
   void SetColumnCount(int colCount);
   void PropagateColSizeDec(int column, int decrease, int dir);
   bool DoHideProperty(wxPGProperty* p, bool hide, int flags = wxPG_RECURSE);
@@ -456,7 +485,7 @@ public:
   void VirtualHeightChanged()
   {
         m_vhCalcPending = true;
-    }
+  }
     // Base append.
   wxPGProperty* DoAppend(wxPGProperty* property);
     // Returns property by its name.

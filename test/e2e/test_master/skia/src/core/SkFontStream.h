@@ -37,6 +37,6 @@ public:
   static size_t GetTableSize(SkStream* stream, int ttcIndex, SkFontTableTag tag)
   {
         return GetTableData(stream, ttcIndex, tag, 0, ~0U, nullptr);
-    }
+  }
 };
 #endif

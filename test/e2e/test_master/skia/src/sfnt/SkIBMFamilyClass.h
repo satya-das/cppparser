@@ -25,7 +25,7 @@ struct SkIBMFamilyClass
         //11 reserved for future use
         Symbolic = 12,
         //13-15 reserved for future use
-    } familyClass;
+} familyClass;
   union SubClass
 {
   enum class OldstyleSerifs : SK_OT_BYTE {
@@ -40,21 +40,21 @@ struct SkIBMFamilyClass
             Calligraphic = 8,
             //9-14 reserved for future use
             Miscellaneous = 15,
-        } oldstyleSerifs;
+} oldstyleSerifs;
   enum class TransitionalSerifs : SK_OT_BYTE {
             NoClassification = 0,
             DirectLine = 1,
             Script = 2,
             //3-14 reserved for future use
             Miscellaneous = 15,
-        } transitionalSerifs;
+} transitionalSerifs;
   enum class ModernSerifs : SK_OT_BYTE {
             NoClassification = 0,
             Italian = 1,
             Script = 2,
             //3-14 reserved for future use
             Miscellaneous = 15,
-        } modernSerifs;
+} modernSerifs;
   enum class ClarendonSerifs : SK_OT_BYTE {
             NoClassification = 0,
             Clarendon = 1,
@@ -66,7 +66,7 @@ struct SkIBMFamilyClass
             Typewriter = 7,
             //8-14 reserved for future use
             Miscellaneous = 15,
-        } clarendonSerifs;
+} clarendonSerifs;
   enum class SlabSerifs : SK_OT_BYTE {
             NoClassification = 0,
             Monotone = 1,
@@ -76,13 +76,13 @@ struct SkIBMFamilyClass
             Typewriter = 5,
             //6-14 reserved for future use
             Miscellaneous = 15,
-        } slabSerifs;
+} slabSerifs;
   enum class FreeformSerifs : SK_OT_BYTE {
             NoClassification = 0,
             Modern = 1,
             //2-14 reserved for future use
             Miscellaneous = 15,
-        } freeformSerifs;
+} freeformSerifs;
   enum class SansSerif : SK_OT_BYTE {
             NoClassification = 0,
             IBMNeoGrotesqueGothic = 1,
@@ -96,7 +96,7 @@ struct SkIBMFamilyClass
             Matrix = 10,
             //11-14 reserved for future use
             Miscellaneous = 15,
-        } sansSerif;
+} sansSerif;
   enum class Ornamentals : SK_OT_BYTE {
             NoClassification = 0,
             Engraver = 1,
@@ -105,7 +105,7 @@ struct SkIBMFamilyClass
             ThreeDimensional = 4,
             //5-14 reserved for future use
             Miscellaneous = 15,
-        } ornamentals;
+} ornamentals;
   enum class Scripts : SK_OT_BYTE {
             NoClassification = 0,
             Uncial = 1,
@@ -118,7 +118,7 @@ struct SkIBMFamilyClass
             Monotone_Unjoined = 8,
             //9-14 reserved for future use
             Miscellaneous = 15,
-        } scripts;
+} scripts;
   enum class Symbolic : SK_OT_BYTE {
             NoClassification = 0,
             //1-2 reserved for future use
@@ -128,7 +128,7 @@ struct SkIBMFamilyClass
             NeoGrotesqueSansSerif = 7,
             //8-14 reserved for future use
             Miscellaneous = 15,
-        } symbolic;
+} symbolic;
 } familySubClass;
 };
 #  pragma  pack(pop)

@@ -21,13 +21,16 @@ public:
   }
   SkAutoBlitterChoose(const SkDraw& draw, const SkMatrix* matrix, const SkPaint& paint, bool drawCoverage = false)
   {
-
         this->choose(draw, matrix, paint, drawCoverage);
-      }
+  }
   SkBlitter* operator->()
-  { return fBlitter; }
+  {
+ return fBlitter;
+  }
   SkBlitter* get() const
-  { return fBlitter; }
+  {
+ return fBlitter;
+  }
   SkBlitter* choose(const SkDraw& draw, const SkMatrix* matrix, const SkPaint& paint, bool drawCoverage = false)
   {
         SkASSERT(!fBlitter);
@@ -43,7 +46,7 @@ public:
             fBlitter = fAlloc.make<SkPairBlitter>(fBlitter, coverageBlitter);
         }
         return fBlitter;
-    }
+  }
 private:
     // Owned by fAlloc, which will handle the delete.
   SkBlitter* fBlitter = nullptr;

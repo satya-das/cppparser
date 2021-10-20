@@ -26,58 +26,52 @@ public:
     // default ctor
   wxWindowIDRef()
   {
-
         m_id = wxID_NONE;
-      }
+  }
     // ctor taking id values
   wxWindowIDRef(int id)
   {
-
         Init(id);
-      }
+  }
   wxWindowIDRef(long id)
   {
-
         Init(wxWindowID(id));
-      }
+  }
   wxWindowIDRef(const wxWindowIDRef& id)
   {
-
         Init(id.m_id);
-      }
+  }
     // dtor
   ~wxWindowIDRef()
   {
-
         Assign(wxID_NONE);
-      }
+  }
     // assignment
   wxWindowIDRef& operator=(int id)
   {
         Assign(id);
         return *this;
-    }
+  }
   wxWindowIDRef& operator=(long id)
   {
         Assign(wxWindowID(id));
         return *this;
-    }
+  }
   wxWindowIDRef& operator=(const wxWindowIDRef& id)
   {
         if (&id != this)
             Assign(id.m_id);
         return *this;
-    }
+  }
     // access to the stored id value
   wxWindowID GetValue() const
   {
         return m_id;
-    }
+  }
   operator wxWindowID() const
   {
-
         return m_id;
-      }
+  }
 #  if  wxUSE_AUTOID_MANAGEMENT
 private:
     // common part of all ctors: call Assign() for our new id
@@ -86,7 +80,7 @@ private:
         // m_id must be initialized before calling Assign()
         m_id = wxID_NONE;
         Assign(id);
-    }
+  }
     // increase reference count of id, decrease the one of m_id
   void Assign(wxWindowID id);
 #  else 
@@ -94,11 +88,11 @@ private:
   void Init(wxWindowID id)
   {
         m_id = id;
-    }
+  }
   void Assign(wxWindowID id)
   {
         m_id = id;
-    }
+  }
 #  endif
   wxWindowID m_id;
 };

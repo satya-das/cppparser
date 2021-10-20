@@ -42,17 +42,17 @@
 union ConstantValue
 {
   ConstantValue(int64_t i)
-    :  fInt(i) 
-    {
-    }
+    :  fInt(i)
+  {
+  }
   ConstantValue(double d)
-    :  fDouble(d) 
-    {
-    }
+    :  fDouble(d)
+  {
+  }
   bool operator==(const ConstantValue& other) const
   {
         return fInt == other.fInt;
-    }
+  }
   int64_t fInt;
   double fDouble;
 };
@@ -107,11 +107,10 @@ namespace SkSL
     , fBoolFalse(0)
     , fSetupFragPosition(false)
     , fCurrentBlock(0)
-    , fSynthetics(nullptr, errors) 
-      {
-
+    , fSynthetics(nullptr, errors)
+    {
         this->setupIntrinsics();
-          }
+    }
     bool generateCode() override;
   private:
     enum IntrinsicKind {

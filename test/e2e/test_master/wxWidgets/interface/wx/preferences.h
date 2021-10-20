@@ -189,7 +189,7 @@ public:
         Kind_General,
         /// The "Advanced" page
         Kind_Advanced
-    };
+  };
     /// Constructor.
   wxStockPreferencesPage(Kind kind);
     /// Returns the page's kind.

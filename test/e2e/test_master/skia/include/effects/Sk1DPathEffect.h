@@ -37,7 +37,7 @@ public:
         kMorph_Style,       // transform each point, and turn lines into curves
 
         kLastEnum_Style = kMorph_Style,
-    };
+  };
     /** Dash by replicating the specified path.
         @param path The path to replicate (dash)
         @param advance The space between instances of path

@@ -17,7 +17,9 @@ public:
   DEFINE_OP_CLASS_ID
   static std::unique_ptr<GrOp> Make(GrRecordingContext* context, const GrFixedClip& clip, bool insideStencilMask, GrRenderTargetProxy* proxy);
   const char* name() const override
-  { return "ClearStencilClip"; }
+  {
+ return "ClearStencilClip";
+  }
 #  ifdef SK_DEBUG
   SkString dumpInfo() const override
   {
@@ -31,21 +33,20 @@ public:
         string.appendf("], insideMask: %s\n", fInsideStencilMask ? "true" : "false");
         string.append(INHERITED::dumpInfo());
         return string;
-    }
+  }
 #  endif
 private:
   friend class GrOpMemoryPool;
   GrClearStencilClipOp(const GrFixedClip& clip, bool insideStencilMask, GrRenderTargetProxy* proxy)
     :  INHERITED(ClassID())
             , fClip(clip)
-            , fInsideStencilMask(insideStencilMask) 
-    {
-
+            , fInsideStencilMask(insideStencilMask)
+  {
         const SkRect& bounds = fClip.scissorEnabled()
                                             ? SkRect::Make(fClip.scissorRect())
                                             : SkRect::MakeIWH(proxy->width(), proxy->height());
         this->setBounds(bounds, HasAABloat::kNo, IsHairline::kNo);
-        }
+  }
   void onPrepare(GrOpFlushState*) override
   {
   }

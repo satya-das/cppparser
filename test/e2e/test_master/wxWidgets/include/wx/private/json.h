@@ -77,6 +77,6 @@ namespace wxJSON
 
     // String has to end with a quote
     return (*ch) == '"';
-}
+  }
 }
 #endif

@@ -21,7 +21,9 @@ public:
   wxAcceleratorTable(int n, const wxAcceleratorEntry entries[]);
   virtual ~wxAcceleratorTable();
   bool Ok() const
-  { return IsOk(); }
+  {
+ return IsOk();
+  }
   bool IsOk() const;
     // Implementation only
   int GetCount() const;

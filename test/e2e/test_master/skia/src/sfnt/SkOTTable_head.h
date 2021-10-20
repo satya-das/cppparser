@@ -120,20 +120,20 @@ struct SkOTTableHead
             StronglyLTR = SkTEndian_SwapBE16(2),
             OnlyStronglyRTL = static_cast<SK_OT_SHORT>(SkTEndian_SwapBE16((uint16_t)-1)),
             StronglyRTL = static_cast<SK_OT_SHORT>(SkTEndian_SwapBE16((uint16_t)-2)),
-        } value;
+} value;
 } fontDirectionHint;
   struct IndexToLocFormat
 {
   enum Value : SK_OT_SHORT {
             ShortOffsets = SkTEndian_SwapBE16(0),
             LongOffsets = SkTEndian_SwapBE16(1),
-        } value;
+} value;
 } indexToLocFormat;
   struct GlyphDataFormat
 {
   enum Value : SK_OT_SHORT {
             CurrentFormat = SkTEndian_SwapBE16(0),
-        } value;
+} value;
 } glyphDataFormat;
 };
 #  pragma  pack(pop)

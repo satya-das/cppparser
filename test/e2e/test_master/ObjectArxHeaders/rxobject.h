@@ -33,7 +33,7 @@ public:
   static AcRxObject* cast(const AcRxObject* inPtr)
   {
         return const_cast<AcRxObject *>(inPtr);
-    }
+  }
     // Defined in rxclass.h
   inline bool isKindOf(const AcRxClass* aClass) const;
   ACBASE_PORT AcRxObject* queryX(const AcRxClass* protocolClass) const;

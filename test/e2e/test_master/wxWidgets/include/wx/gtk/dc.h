@@ -100,22 +100,36 @@ public:
   virtual ~wxGTKDCImpl();
 #    if  wxUSE_PALETTE
   void SetColourMap(const wxPalette& palette)
-  { SetPalette(palette); }
+  {
+ SetPalette(palette);
+  }
 #    endif
     // Resolution in pixels per logical inch
   wxSize GetPPI() const override;
   bool StartDoc(const wxString&) override
-  { return true; }
+  {
+ return true;
+  }
   void EndDoc() override
-  { }
+  {
+
+  }
   void StartPage() override
-  { }
+  {
+
+  }
   void EndPage() override
-  { }
+  {
+
+  }
   virtual GdkWindow* GetGDKWindow() const
-  { return NULL; }
+  {
+ return NULL;
+  }
   void* GetHandle() const override
-  { return GetGDKWindow(); }
+  {
+ return GetGDKWindow();
+  }
     // base class pure virtuals implemented here
   void DoSetClippingRegion(wxCoord x, wxCoord y, wxCoord width, wxCoord height) override;
   void DoGetSizeMM(int* width, int* height) const override;

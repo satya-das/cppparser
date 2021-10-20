@@ -31,7 +31,7 @@ public:
         using std::swap;
         swap(fStrings, that->fStrings);
         swap(fInitialized, that->fInitialized);
-    }
+  }
     /**
      * We sometimes need to use this class without having yet created a GrGLInterface. This version
      * of init expects that getString is always non-NULL while getIntegerv and getStringi are non-
@@ -39,7 +39,9 @@ public:
      */
   bool init(GrGLStandard standard, GrGLFunction<GrGLGetStringFn> getString, GrGLFunction<GrGLGetStringiFn> getStringi, GrGLFunction<GrGLGetIntegervFn> getIntegerv, GrGLFunction<GrEGLQueryStringFn> queryString = nullptr, GrEGLDisplay eglDisplay = nullptr);
   bool isInitialized() const
-  { return fInitialized; }
+  {
+ return fInitialized;
+  }
     /**
      * Queries whether an extension is present. This will fail if init() has not been called.
      */
@@ -53,7 +55,9 @@ public:
      */
   void add(const char[]);
   void reset()
-  { fStrings.reset(); }
+  {
+ fStrings.reset();
+  }
   void dumpJSON(SkJSONWriter*) const;
 private:
   bool fInitialized = false;

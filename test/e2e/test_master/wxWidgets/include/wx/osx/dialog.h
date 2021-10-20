@@ -19,14 +19,14 @@ class WXDLLIMPEXP_CORE wxDialog : public wxDialogBase
 public:
   wxDialog()
   {
- Init();   }
+ Init();
+  }
     // Constructor with no modal flag - the new convention.
   wxDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE, const wxString& name = wxASCII_STR(wxDialogNameStr))
   {
-
         Init();
         Create(parent, id, title, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE, const wxString& name = wxASCII_STR(wxDialogNameStr));
   virtual ~wxDialog();
 //    virtual bool Destroy();

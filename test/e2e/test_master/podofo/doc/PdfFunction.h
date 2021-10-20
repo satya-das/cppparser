@@ -46,7 +46,7 @@ namespace PoDoFo
     ePdfFunctionType_Exponential = 2, ///< An exponential interpolation function (Type2)
     ePdfFunctionType_Stitching   = 3, ///< A stitching function (Type3)
     ePdfFunctionType_PostScript  = 4  ///< A PostScript calculator function (Type4)
-};
+  };
 /** 
  * This class defines a PdfFunction.
  * A function can be used in various ways in a PDF file.

@@ -23,17 +23,29 @@ class GrTextureContext : public GrSurfaceContext
 public:
   virtual ~GrTextureContext();
   GrSurfaceProxy* asSurfaceProxy() override
-  { return fTextureProxy.get(); }
+  {
+ return fTextureProxy.get();
+  }
   const GrSurfaceProxy* asSurfaceProxy() const override
-  { return fTextureProxy.get(); }
+  {
+ return fTextureProxy.get();
+  }
   sk_sp<GrSurfaceProxy> asSurfaceProxyRef() override
-  { return fTextureProxy; }
+  {
+ return fTextureProxy;
+  }
   GrTextureProxy* asTextureProxy() override
-  { return fTextureProxy.get(); }
+  {
+ return fTextureProxy.get();
+  }
   const GrTextureProxy* asTextureProxy() const override
-  { return fTextureProxy.get(); }
+  {
+ return fTextureProxy.get();
+  }
   sk_sp<GrTextureProxy> asTextureProxyRef() override
-  { return fTextureProxy; }
+  {
+ return fTextureProxy;
+  }
   GrRenderTargetProxy* asRenderTargetProxy() override;
   sk_sp<GrRenderTargetProxy> asRenderTargetProxyRef() override;
 protected:

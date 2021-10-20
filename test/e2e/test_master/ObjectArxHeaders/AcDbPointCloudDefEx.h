@@ -61,7 +61,7 @@ public:
         /// All scans in the point cloud have the property.
         /// </summary>
         kAll = 1
-    };
+  };
     /// <summary>
     /// This enumeration defines the types of properties that a point cloud can have.
     /// </summary>
@@ -83,7 +83,7 @@ public:
 
         /// <summary> The Geo Graphic property. </summary>
         kGeoGraphic     = 6
-    };
+  };
   ACRX_DECLARE_MEMBERS(AcDbPointCloudDefEx);
     /// <summary>
     /// Default constructor

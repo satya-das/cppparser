@@ -25,7 +25,9 @@ public:
   virtual ~wxColour();
   bool operator==(const wxColour& col) const;
   bool operator!=(const wxColour& col) const
-  { return !(*this == col); }
+  {
+ return !(*this == col);
+  }
   unsigned char Red() const override;
   unsigned char Green() const override;
   unsigned char Blue() const override;

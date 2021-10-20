@@ -16,29 +16,29 @@ struct GrDawnImageInfo
   dawn::TextureFormat fFormat;
   uint32_t fLevelCount;
   GrDawnImageInfo()
-    :  fTexture(nullptr), fFormat(), fLevelCount(0) 
-    {
+    :  fTexture(nullptr), fFormat(), fLevelCount(0)
+  {
 
-        }
+  }
   GrDawnImageInfo(const GrDawnImageInfo& other)
     :  fTexture(other.fTexture)
         , fFormat(other.fFormat)
-        , fLevelCount(other.fLevelCount) 
-    {
+        , fLevelCount(other.fLevelCount)
+  {
 
-        }
+  }
   GrDawnImageInfo& operator=(const GrDawnImageInfo& other)
   {
         fTexture = other.fTexture;
         fFormat = other.fFormat;
         fLevelCount = other.fLevelCount;
         return *this;
-    }
+  }
   bool operator==(const GrDawnImageInfo& other) const
   {
         return fTexture.Get() == other.fTexture.Get() &&
                fFormat == other.fFormat &&
                fLevelCount == other.fLevelCount;
-    }
+  }
 };
 #endif

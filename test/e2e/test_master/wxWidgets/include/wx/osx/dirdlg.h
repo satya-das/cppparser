@@ -17,14 +17,14 @@ class WXDLLIMPEXP_CORE wxDirDialog : public wxDirDialogBase
 public:
   wxDirDialog()
   {
- Init();   }
+ Init();
+  }
   wxDirDialog(wxWindow* parent, const wxString& message = wxASCII_STR(wxDirSelectorPromptStr), const wxString& defaultPath = wxT(""), long style = wxDD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, const wxString& name = wxASCII_STR(wxDirDialogNameStr))
   {
-
         Init();
 
         Create(parent,message,defaultPath,style,pos,size,name);
-      }
+  }
   void Create(wxWindow* parent, const wxString& message = wxASCII_STR(wxDirSelectorPromptStr), const wxString& defaultPath = wxT(""), long style = wxDD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, const wxString& name = wxASCII_STR(wxDirDialogNameStr));
 #  if  wxOSX_USE_COCOA
   ~wxDirDialog();

@@ -40,20 +40,28 @@ public:
     // passes validation
   void GtkOnTextEdited(const char* itempath, const wxString& value);
   GtkCellRenderer* GetGtkHandle()
-  { return m_renderer; }
+  {
+ return m_renderer;
+  }
   void GtkInitHandlers();
   virtual void GtkUpdateAlignment()
-  { GtkApplyAlignment(m_renderer); }
+  {
+ GtkApplyAlignment(m_renderer);
+  }
     // return the text renderer used by this renderer for setting text cell
     // specific attributes: can return NULL if this renderer doesn't render any
     // text
   virtual GtkCellRendererText* GtkGetTextRenderer() const
-  { return NULL; }
+  {
+ return NULL;
+  }
     // return the widget actually used by the renderer for editing, this may be
     // different from the editor control widget for the custom renderers
   virtual GtkWidget* GtkGetEditorWidget() const;
   void GtkSetCurrentItem(const wxDataViewItem& item)
-  { m_itemBeingRendered = item; }
+  {
+ m_itemBeingRendered = item;
+  }
 private:
     // Change the mode at GTK level without touching m_mode, this is useful for
     // temporarily making the renderer insensitive but does mean that GetMode()

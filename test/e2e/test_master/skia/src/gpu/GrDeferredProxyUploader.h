@@ -38,15 +38,14 @@ class GrDeferredProxyUploader : public SkNoncopyable
 {
 public:
   GrDeferredProxyUploader()
-    :  fScheduledUpload(false), fWaited(false) 
-    {
-    }
+    :  fScheduledUpload(false), fWaited(false)
+  {
+  }
   virtual ~GrDeferredProxyUploader()
   {
-
         // In normal usage (i.e., through GrTDeferredProxyUploader) this will be redundant
         this->wait();
-      }
+  }
   void scheduleUpload(GrOpFlushState* flushState, GrTextureProxy* proxy)
   {
         if (fScheduledUpload) {
@@ -68,14 +67,16 @@ public:
         };
         flushState->addASAPUpload(std::move(uploadMask));
         fScheduledUpload = true;
-    }
+  }
   void signalAndFreeData()
   {
         this->freeData();
         fPixelsReady.signal();
-    }
+  }
   SkAutoPixmapStorage* getPixels()
-  { return &fPixels; }
+  {
+ return &fPixels;
+  }
 protected:
   void wait()
   {
@@ -83,7 +84,7 @@ protected:
             fPixelsReady.wait();
             fWaited = true;
         }
-    }
+  }
 private:
   virtual void freeData()
   {
@@ -99,25 +100,26 @@ class GrTDeferredProxyUploader : public GrDeferredProxyUploader
 public:
   template <typename... Args>
   GrTDeferredProxyUploader(Args&&... args)
-    :  fData(skstd::make_unique<T>(std::forward<Args>(args)...)) 
-    {
-
-        }
-  virtual ~GrTDeferredProxyUploader()
+    :  fData(skstd::make_unique<T>(std::forward<Args>(args)...))
   {
 
+  }
+  virtual ~GrTDeferredProxyUploader()
+  {
         // We need to wait here, so that we don't free fData before the worker thread is done
         // with it. (This happens if the proxy is deleted early due to a full clear or failure
         // of an op list to instantiate).
         this->wait();
-      }
+  }
   T& data()
-  { return *fData; }
+  {
+ return *fData;
+  }
 private:
   void freeData() override
   {
         fData.reset();
-    }
+  }
   std::unique_ptr<T> fData;
 };
 #endif

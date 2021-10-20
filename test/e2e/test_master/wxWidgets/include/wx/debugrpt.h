@@ -23,7 +23,9 @@ class WXDLLIMPEXP_QA wxDebugReport
 public:
     // this is used for the functions which may report either the current state
     // or the state during the last (fatal) exception
-  enum Context { Context_Current, Context_Exception };
+  enum Context {
+ Context_Current, Context_Exception
+  };
     // ctor creates a temporary directory where we create the files which will
     // be included in the report, use IsOk() to check for errors
   wxDebugReport();
@@ -32,14 +34,20 @@ public:
   virtual ~wxDebugReport();
     // return the name of the directory used for this report
   const wxString& GetDirectory() const
-  { return m_dir; }
+  {
+ return m_dir;
+  }
     // return true if the object was successfully initialized
   bool IsOk() const
-  { return !GetDirectory().empty(); }
+  {
+ return !GetDirectory().empty();
+  }
     // reset the directory name we use, the object can't be used any more after
     // this as it becomes invalid/uninitialized
   void Reset()
-  { m_dir.clear(); }
+  {
+ m_dir.clear();
+  }
     // add another file to the report: the file must already exist, its name
     // can be either absolute in which case it is copied to the debug report
     // directory or relative to GetDirectory()
@@ -54,17 +62,25 @@ public:
     // add an XML file containing the current or exception context and the
     // stack trace
   bool AddCurrentContext()
-  { return AddContext(Context_Current); }
+  {
+ return AddContext(Context_Current);
+  }
   bool AddExceptionContext()
-  { return AddContext(Context_Exception); }
+  {
+ return AddContext(Context_Exception);
+  }
   virtual bool AddContext(Context ctx);
 #    endif
 #    if  wxUSE_CRASHREPORT
     // add a file with crash report
   bool AddCurrentDump()
-  { return AddDump(Context_Current); }
+  {
+ return AddDump(Context_Current);
+  }
   bool AddExceptionDump()
-  { return AddDump(Context_Exception); }
+  {
+ return AddDump(Context_Exception);
+  }
   virtual bool AddDump(Context ctx);
 #    endif
     // add all available information to the report
@@ -78,7 +94,9 @@ public:
   virtual wxString GetReportName() const;
     // get the files in this report
   size_t GetFilesCount() const
-  { return m_files.GetCount(); }
+  {
+ return m_files.GetCount();
+  }
   bool GetFile(size_t n, wxString* name, wxString* desc) const;
     // remove the file from report: this is used by wxDebugReportPreview to
     // allow the user to remove files potentially containing private
@@ -91,7 +109,9 @@ protected:
   virtual bool DoAddLoadedModules(wxXmlNode* nodeModules);
   virtual bool DoAddExceptionInfo(wxXmlNode* nodeContext);
   virtual void DoAddCustomContext(wxXmlNode*)
-  { }
+  {
+
+  }
 #    endif
     // used by Process()
   virtual bool DoProcess();
@@ -112,7 +132,8 @@ class WXDLLIMPEXP_QA wxDebugReportCompress : public wxDebugReport
 public:
   wxDebugReportCompress()
   {
-   }
+
+  }
     // you can optionally specify the directory and/or name of the file where
     // the debug report should be generated, a default location under the
     // directory containing temporary files will be used if you don't
@@ -123,7 +144,9 @@ public:
   void SetCompressedFileBaseName(const wxString& name);
     // returns the full path of the compressed file (empty if creation failed)
   const wxString& GetCompressedFileName() const
-  { return m_zipfile; }
+  {
+ return m_zipfile;
+  }
 protected:
   bool DoProcess() override;
     // return the location where the report will be saved
@@ -157,7 +180,7 @@ protected:
   virtual bool OnServerReply(const wxArrayString&)
   {
         return true;
-    }
+  }
 private:
     // the full URL to use with HTTP POST request
   wxString m_uploadURL;
@@ -179,7 +202,8 @@ public:
     // ctor is trivial
   wxDebugReportPreview()
   {
-   }
+
+  }
     // present the report to the user and allow him to modify it by removing
     // some or all of the files and, potentially, adding some notes
     //
@@ -189,7 +213,8 @@ public:
     // dtor is trivial as well but should be virtual for a base class
   virtual ~wxDebugReportPreview()
   {
-   }
+
+  }
 };
 #    if  wxUSE_GUI
 // ----------------------------------------------------------------------------
@@ -200,7 +225,8 @@ class WXDLLIMPEXP_QA wxDebugReportPreviewStd : public wxDebugReportPreview
 public:
   wxDebugReportPreviewStd()
   {
-   }
+
+  }
   bool Show(wxDebugReport& dbgrpt) const override;
 };
 #    endif

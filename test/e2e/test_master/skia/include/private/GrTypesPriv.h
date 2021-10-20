@@ -130,9 +130,9 @@ static int GrMaskFormatBytesPerPixel(GrMaskFormat format)
 struct GrSurfaceDesc
 {
   GrSurfaceDesc()
-    :  fWidth(0), fHeight(0), fConfig(kUnknown_GrPixelConfig) 
-    {
-    }
+    :  fWidth(0), fHeight(0), fConfig(kUnknown_GrPixelConfig)
+  {
+  }
   int fWidth;
   int fHeight;
     /**
@@ -740,7 +740,6 @@ enum class GpuPathRenderers {
 
     kAll               = (kTessellating | (kTessellating - 1)),
     kDefault           = kAll & ~kCoverageCounting
-
 };
 /**
  * Used to describe the current state of Mips on a GrTexture
@@ -1048,45 +1047,55 @@ public:
   static constexpr GrColorTypeDesc MakeRGBA(int rgba, GrColorTypeEncoding e)
   {
         return {rgba, rgba, rgba, rgba, 0, e};
-    }
+  }
   static constexpr GrColorTypeDesc MakeRGBA(int rgb, int a, GrColorTypeEncoding e)
   {
         return {rgb, rgb, rgb, a, 0, e};
-    }
+  }
   static constexpr GrColorTypeDesc MakeRGB(int rgb, GrColorTypeEncoding e)
   {
         return {rgb, rgb, rgb, 0, 0, e};
-    }
+  }
   static constexpr GrColorTypeDesc MakeRGB(int r, int g, int b, GrColorTypeEncoding e)
   {
         return {r, g, b, 0, 0, e};
-    }
+  }
   static constexpr GrColorTypeDesc MakeAlpha(int a, GrColorTypeEncoding e)
   {
         return {0, 0, 0, a, 0, e};
-    }
+  }
   static constexpr GrColorTypeDesc MakeR(int r, GrColorTypeEncoding e)
   {
         return {r, 0, 0, 0, 0, e};
-    }
+  }
   static constexpr GrColorTypeDesc MakeRG(int rg, GrColorTypeEncoding e)
   {
         return {rg, rg, 0, 0, 0, e};
-    }
+  }
   static constexpr GrColorTypeDesc MakeGray(int grayBits, GrColorTypeEncoding e)
   {
         return {0, 0, 0, 0, grayBits, e};
-    }
+  }
   static constexpr GrColorTypeDesc MakeInvalid()
-  { return {}; }
+  {
+ return {};
+  }
   constexpr int r() const
-  { return fRBits; }
+  {
+ return fRBits;
+  }
   constexpr int g() const
-  { return fGBits; }
+  {
+ return fGBits;
+  }
   constexpr int b() const
-  { return fBBits; }
+  {
+ return fBBits;
+  }
   constexpr int a() const
-  { return fABits; }
+  {
+ return fABits;
+  }
   constexpr int operator[](int c) const
   {
         switch (c) {
@@ -1096,11 +1105,15 @@ public:
             case 3: return this->a();
         }
         SkUNREACHABLE;
-    }
+  }
   constexpr int gray() const
-  { return fGrayBits; }
+  {
+ return fGrayBits;
+  }
   constexpr GrColorTypeEncoding encoding() const
-  { return fEncoding; }
+  {
+ return fEncoding;
+  }
 private:
   int fRBits = 0;
   int fGBits = 0;
@@ -1110,13 +1123,12 @@ private:
   GrColorTypeEncoding fEncoding = GrColorTypeEncoding::kUnorm;
   GrColorTypeDesc();
   GrColorTypeDesc(int r, int g, int b, int a, int gray, GrColorTypeEncoding encoding)
-    :  fRBits(r), fGBits(g), fBBits(b), fABits(a), fGrayBits(gray), fEncoding(encoding) 
-    {
-
+    :  fRBits(r), fGBits(g), fBBits(b), fABits(a), fGrayBits(gray), fEncoding(encoding)
+  {
         SkASSERT(r >= 0 && g >= 0 && b >= 0 && a >= 0 && gray >= 0);
         SkASSERT(!gray || (!r && !g && !b));
         SkASSERT(r || g || b || a || gray);
-        }
+  }
 };
 static constexpr GrColorTypeDesc GrGetColorTypeDesc(GrColorType ct)
 {
@@ -1321,16 +1333,18 @@ public:
   using Callback = void (*) (Context);
 ;
   GrRefCntedCallback(Callback proc, Context ctx)
-    :  fReleaseProc(proc), fReleaseCtx(ctx) 
-    {
-
+    :  fReleaseProc(proc), fReleaseCtx(ctx)
+  {
         SkASSERT(proc);
-        }
+  }
   virtual ~GrRefCntedCallback()
   {
- fReleaseProc ? fReleaseProc(fReleaseCtx) : void();   }
+ fReleaseProc ? fReleaseProc(fReleaseCtx) : void();
+  }
   Context context() const
-  { return fReleaseCtx; }
+  {
+ return fReleaseCtx;
+  }
 private:
   Callback fReleaseProc;
   Context fReleaseCtx;

@@ -33,19 +33,17 @@ public:
     // ctor for invalid pointer
   wxAnyStrPtr()
     :  m_str(NULL)
-    
-    {
+  {
 
-        }
+  }
     // ctor for valid pointer into the given string (whose lifetime must be
     // greater than ours and which should remain constant while we're used)
   wxAnyStrPtr(const wxString& str, const wxString::const_iterator& iter)
     :  m_str(&str),
           m_iter(iter)
-    
-    {
+  {
 
-        }
+  }
     // default copy ctor is ok and so is default dtor, in particular we do not
     // free the string
 
@@ -59,17 +57,19 @@ public:
     // different conversions to pointers)
   operator bool() const
   {
- return m_str != NULL;   }
+ return m_str != NULL;
+  }
     // at least VC7 also needs this one or it complains about ambiguity
     // for !anystr expressions
   bool operator!() const
-  { return !((bool)*this); }
+  {
+ return !((bool)*this);
+  }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
     // and these are the conversions operator which allow to assign the result
     // of FuncReturningAnyStrPtr() to either char* or wxChar* (i.e. wchar_t*)
   operator const char*() const
   {
-
         if ( !m_str )
             return NULL;
 
@@ -94,11 +94,10 @@ public:
         //else: conversion failed, return "" as we can't do anything else
 
         return p;
-      }
+  }
 #  endif
   operator const wchar_t*() const
   {
-
         if ( !m_str )
             return NULL;
 
@@ -109,7 +108,7 @@ public:
         // buffer with its wide wide char representation, just as with AsChar()
         // above
         return m_str->c_str().AsWChar() + (m_iter - m_str->begin());
-      }
+  }
     // Because the objects of this class are only used as return type for
     // functions which can return NULL we can skip providing dereferencing
     // operators: the code using this class must test it for NULL first and if

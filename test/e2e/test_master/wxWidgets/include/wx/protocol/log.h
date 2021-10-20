@@ -19,23 +19,23 @@ public:
     // trace mask.
   wxProtocolLog(const wxString& traceMask)
     :  m_traceMask(traceMask)
-    
-    {
+  {
 
-        }
+  }
     // Virtual dtor for the base class
   virtual ~wxProtocolLog()
   {
-   }
+
+  }
     // Called by wxProtocol-derived classes to actually log something
   virtual void LogRequest(const wxString& str)
   {
         DoLogString(wxASCII_STR("==> ") + str);
-    }
+  }
   virtual void LogResponse(const wxString& str)
   {
         DoLogString(wxASCII_STR("<== ") + str);
-    }
+  }
 protected:
     // Can be overridden by the derived classes.
   virtual void DoLogString(const wxString& str);

@@ -24,21 +24,21 @@ public:
     enum LightType {
             kDirectional_LightType,
             kPoint_LightType
-        };
+    };
     Light(const Light& other)
       :  fType(other.fType)
                 , fColor(other.fColor)
                 , fDirOrPos(other.fDirOrPos)
-                , fIntensity(other.fIntensity) 
-      {
-      }
+                , fIntensity(other.fIntensity)
+    {
+    }
     Light(Light&& other)
       :  fType(other.fType)
                 , fColor(other.fColor)
                 , fDirOrPos(other.fDirOrPos)
-                , fIntensity(other.fIntensity) 
-      {
-      }
+                , fIntensity(other.fIntensity)
+    {
+    }
     static Light MakeDirectional(const SkColor3f& color, const SkVector3& dir)
     {
             Light light(kDirectional_LightType, color, dir, 0.0f);
@@ -46,30 +46,34 @@ public:
                 light.fDirOrPos.set(0.0f, 0.0f, 1.0f);
             }
             return light;
-        }
+    }
     static Light MakePoint(const SkColor3f& color, const SkPoint3& pos, SkScalar intensity)
     {
             return Light(kPoint_LightType, color, pos, intensity);
-        }
+    }
     LightType type() const
-    { return fType; }
+    {
+ return fType;
+    }
     const SkColor3f& color() const
-    { return fColor; }
+    {
+ return fColor;
+    }
     const SkVector3& dir() const
     {
             SkASSERT(kDirectional_LightType == fType);
             return fDirOrPos;
-        }
+    }
     const SkPoint3& pos() const
     {
             SkASSERT(kPoint_LightType == fType);
             return fDirOrPos;
-        }
+    }
     SkScalar intensity() const
     {
             SkASSERT(kPoint_LightType == fType);
             return fIntensity;
-        }
+    }
     Light& operator=(const Light& other)
     {
             if (this == &other) {
@@ -81,25 +85,27 @@ public:
             fDirOrPos = other.fDirOrPos;
             fIntensity = other.fIntensity;
             return *this;
-        }
+    }
     bool operator==(const Light& other)
     {
             return (fType      == other.fType) &&
                    (fColor     == other.fColor) &&
                    (fDirOrPos  == other.fDirOrPos) &&
                    (fIntensity == other.fIntensity);
-        }
+    }
     bool operator!=(const Light& other)
-    { return !(this->operator==(other)); }
+    {
+ return !(this->operator==(other));
+    }
   private:
     friend class SkLights;
     Light(LightType type, const SkColor3f& color, const SkVector3& dirOrPos, SkScalar intensity)
       :  fType(type)
                 , fColor(color)
                 , fDirOrPos(dirOrPos)
-                , fIntensity(intensity) 
-      {
-      }
+                , fIntensity(intensity)
+    {
+    }
     LightType fType;
     SkColor3f fColor;
     SkVector3 fDirOrPos;
@@ -113,31 +119,31 @@ public:
   {
   public:
     Builder()
-      :  fLights(new SkLights) 
-      {
-      }
+      :  fLights(new SkLights)
+    {
+    }
     void add(const Light& light)
     {
             if (fLights) {
                 fLights->fLights.push_back(light);
             }
-        }
+    }
     void add(Light&& light)
     {
             if (fLights) {
                 fLights->fLights.push_back(std::move(light));
             }
-        }
+    }
     void setAmbientLightColor(const SkColor3f& color)
     {
             if (fLights) {
                 fLights->fAmbientLightColor = color;
             }
-        }
+    }
     sk_sp<SkLights> finish()
     {
             return std::move(fLights);
-        }
+    }
   private:
     sk_sp<SkLights> fLights;
   };
@@ -146,14 +152,18 @@ public:
         @return number of lights not including the ambient light
     */
   int numLights() const
-  { return fLights.count(); }
+  {
+ return fLights.count();
+  }
     /** Returns the index-th light.
 
         @param index  the index of the desired light
         @return       the index-th light
     */
   const Light& light(int index) const
-  { return fLights[index]; }
+  {
+ return fLights[index];
+  }
     /** Returns the ambient light.
 
         @return the ambient light
@@ -161,7 +171,7 @@ public:
   const SkColor3f& ambientLightColor() const
   {
         return fAmbientLightColor;
-    }
+  }
     /**
      *  Recreate an SkLights object that was serialized into a buffer.
      *
@@ -179,9 +189,9 @@ public:
 private:
   friend class SkLightingShaderImpl;
   SkLights()
-    :  fAmbientLightColor(SkColor3f::Make(0.0f, 0.0f, 0.0f)) 
-    {
-    }
+    :  fAmbientLightColor(SkColor3f::Make(0.0f, 0.0f, 0.0f))
+  {
+  }
   SkTArray<Light> fLights;
   SkColor3f fAmbientLightColor;
   typedef SkRefCnt INHERITED;

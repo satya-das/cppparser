@@ -144,47 +144,69 @@ namespace PoDoFo
     /** \returns true if this variant is a bool (i.e. GetDataType() == ePdfDataType_Bool)
      */
     inline bool IsBool() const
-    { return GetDataType() == ePdfDataType_Bool; }
+    {
+ return GetDataType() == ePdfDataType_Bool;
+    }
     /** \returns true if this variant is a number (i.e. GetDataType() == ePdfDataType_Number)
      */
     inline bool IsNumber() const
-    { return GetDataType() == ePdfDataType_Number; }
+    {
+ return GetDataType() == ePdfDataType_Number;
+    }
     /** \returns true if this variant is a real (i.e. GetDataType() == ePdfDataType_Real)
      */
     inline bool IsReal() const
-    { return GetDataType() == ePdfDataType_Real; }
+    {
+ return GetDataType() == ePdfDataType_Real;
+    }
     /** \returns true if this variant is a string (i.e. GetDataType() == ePdfDataType_String)
      */
     inline bool IsString() const
-    { return GetDataType() == ePdfDataType_String; }
+    {
+ return GetDataType() == ePdfDataType_String;
+    }
     /** \returns true if this variant is a hex-string (i.e. GetDataType() == ePdfDataType_HexString)
      */
     inline bool IsHexString() const
-    { return GetDataType() == ePdfDataType_HexString; }
+    {
+ return GetDataType() == ePdfDataType_HexString;
+    }
     /** \returns true if this variant is a name (i.e. GetDataType() == ePdfDataType_Name)
      */
     inline bool IsName() const
-    { return GetDataType() == ePdfDataType_Name; }
+    {
+ return GetDataType() == ePdfDataType_Name;
+    }
     /** \returns true if this variant is an array (i.e. GetDataType() == ePdfDataType_Array)
      */
     inline bool IsArray() const
-    { return GetDataType() == ePdfDataType_Array; }
+    {
+ return GetDataType() == ePdfDataType_Array;
+    }
     /** \returns true if this variant is a dictionary (i.e. GetDataType() == ePdfDataType_Dictionary)
      */
     inline bool IsDictionary() const
-    { return GetDataType() == ePdfDataType_Dictionary; }
+    {
+ return GetDataType() == ePdfDataType_Dictionary;
+    }
     /** \returns true if this variant is raw data (i.e. GetDataType() == ePdfDataType_RawData
      */
     inline bool IsRawData() const
-    { return GetDataType() == ePdfDataType_RawData; }
+    {
+ return GetDataType() == ePdfDataType_RawData;
+    }
     /** \returns true if this variant is null (i.e. GetDataType() == ePdfDataType_Null)
      */
     inline bool IsNull() const
-    { return GetDataType() == ePdfDataType_Null; }
+    {
+ return GetDataType() == ePdfDataType_Null;
+    }
     /** \returns true if this variant is a reference (i.e. GetDataType() == ePdfDataType_Reference)
      */
     inline bool IsReference() const
-    { return GetDataType() == ePdfDataType_Reference; }
+    {
+ return GetDataType() == ePdfDataType_Reference;
+    }
     /** Write the complete variant to an output device.
      *  This is an overloaded member function.
      *
@@ -472,7 +494,9 @@ namespace PoDoFo
 #  if  defined(PODOFO_EXTRA_CHECKS)
   protected:
     PODOFO_NOTHROW bool DelayedLoadInProgress() const
-    { return m_bDelayedLoadInProgress; }
+    {
+ return m_bDelayedLoadInProgress;
+    }
   private:
     mutable bool m_bDelayedLoadInProgress;
 #  endif
@@ -502,7 +526,7 @@ namespace PoDoFo
 #endif
         const_cast<PdfVariant*>(this)->AfterDelayedLoad( ( EPdfDataType )m_eDataType );
     }
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -511,7 +535,7 @@ namespace PoDoFo
     DelayedLoad();
 
     return (m_eDataType == ePdfDataType_Null);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -520,7 +544,7 @@ namespace PoDoFo
     DelayedLoad();
 
     return static_cast<EPdfDataType>(m_eDataType);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -536,7 +560,7 @@ namespace PoDoFo
     AssertMutable();
     m_Data.bBoolValue = b;
     SetDirty( true );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -550,7 +574,7 @@ namespace PoDoFo
     }
 
     return m_Data.bBoolValue;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -569,7 +593,7 @@ namespace PoDoFo
     else
         m_Data.nNumber = l;
     SetDirty( true );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -586,7 +610,7 @@ namespace PoDoFo
         return static_cast<long>(floor( m_Data.dNumber ));
     else
         return m_Data.nNumber;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -605,7 +629,7 @@ namespace PoDoFo
     else
         m_Data.nNumber = static_cast<long>(floor( d ));
     SetDirty( true );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -622,7 +646,7 @@ namespace PoDoFo
         return m_Data.dNumber;
     else
         return static_cast<double>(m_Data.nNumber);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -642,7 +666,7 @@ namespace PoDoFo
     // We need a c-style casts here to avoid crashes
     // because a reinterpret_cast might point to a different position.
     return *((PdfData*)m_Data.pData);
-}
+  }
 #  ifdef __GNUC__
 #    pragma  GCC diagnostic pop
 #  endif
@@ -658,7 +682,7 @@ namespace PoDoFo
     // We need a c-style casts here to avoid crashes
     // because a reinterpret_cast might point to a different position.
     return *((PdfData*)m_Data.pData);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
@@ -674,7 +698,7 @@ namespace PoDoFo
     AssertMutable();
     *((PdfString*)m_Data.pData) = str;
     SetDirty(true);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -690,7 +714,7 @@ namespace PoDoFo
     // We need a c-style casts here to avoid crashes
     // because a reinterpret_cast might point to a different position.
     return *((PdfString*)m_Data.pData);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -707,7 +731,7 @@ namespace PoDoFo
     // We need a c-style casts here to avoid crashes
     // because a reinterpret_cast might point to a different position.
     return *((PdfName*)m_Data.pData);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -715,7 +739,7 @@ namespace PoDoFo
   {
     DelayedLoad();
     return GetArray_NoDL();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -733,7 +757,7 @@ namespace PoDoFo
     // We need a c-style casts here to avoid crashes
     // because a reinterpret_cast might point to a different position.
     return *((PdfArray*)m_Data.pData);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -741,7 +765,7 @@ namespace PoDoFo
   {
     DelayedLoad();
     return GetArray_NoDL();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -759,7 +783,7 @@ namespace PoDoFo
     // We need a c-style casts here to avoid crashes
     // because a reinterpret_cast might point to a different position.
     return *((PdfArray*)m_Data.pData);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -767,7 +791,7 @@ namespace PoDoFo
   {
     DelayedLoad();
     return GetDictionary_NoDL();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -785,7 +809,7 @@ namespace PoDoFo
     // We need a c-style casts here to avoid crashes
     // because a reinterpret_cast might point to a different position.
     return *((PdfDictionary*)m_Data.pData);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -793,7 +817,7 @@ namespace PoDoFo
   {
     DelayedLoad();
     return GetDictionary_NoDL();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -811,7 +835,7 @@ namespace PoDoFo
     // We need a c-style casts here to avoid crashes
     // because a reinterpret_cast might point to a different position.
     return *((PdfDictionary*)m_Data.pData);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -828,21 +852,21 @@ namespace PoDoFo
     // We need a c-style casts here to avoid crashes
     // because a reinterpret_cast might point to a different position.
     return *((PdfReference*)m_Data.pData);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfVariant::DelayedLoadDone() const
   {
     return m_bDelayedLoadDone;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfVariant::EnableDelayedLoading()
   {
     m_bDelayedLoadDone = false;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -851,7 +875,7 @@ namespace PoDoFo
     // Default implementation of virtual void DelayedLoadImpl() throws, since delayed
     // loading should not be enabled except by types that support it.
     PODOFO_RAISE_ERROR( ePdfError_InternalLogic );
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
@@ -859,14 +883,14 @@ namespace PoDoFo
   {
     ( void )eDataType;
     // Do nothing
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfVariant::operator!=(const PdfVariant& rhs) const
   {
     return !(*this == rhs);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -899,7 +923,7 @@ namespace PoDoFo
         default:
             return m_bDirty;
     };
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -932,7 +956,7 @@ namespace PoDoFo
                 break;
         };    
     }
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -960,15 +984,15 @@ namespace PoDoFo
         case ePdfDataType_Unknown:
         default:
             break;
-    };    
-}
+    };
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfVariant::GetImmutable() const
   {
     return m_bImmutable;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -978,6 +1002,6 @@ namespace PoDoFo
     {
         PODOFO_RAISE_ERROR( ePdfError_ChangeOnImmutable );
     }
-}
+  }
 }
 #endif

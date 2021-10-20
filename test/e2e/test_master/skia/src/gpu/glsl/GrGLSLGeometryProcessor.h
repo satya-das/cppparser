@@ -30,7 +30,7 @@ protected:
   {
         this->emitTransforms(vb, varyingHandler, uniformHandler, localCoordsVar, SkMatrix::I(),
                              handler);
-    }
+  }
   struct GrGPArgs
   {
         // Used to specify the output variable used by the GP to store its device position. It can
@@ -55,7 +55,7 @@ protected:
         } else {
             return 0x02;
         }
-    }
+  }
 private:
   virtual void onEmitCode(EmitArgs&, GrGPArgs*) = 0;
   struct TransformUniform

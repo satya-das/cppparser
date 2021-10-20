@@ -21,9 +21,9 @@ namespace
   {
   public:
     Sk4px(const Sk16b& v)
-      :  INHERITED(v) 
-      {
-      }
+      :  INHERITED(v)
+    {
+    }
     static Sk4px DupPMColor(SkPMColor c)
     {
         Sk4u splat(c);
@@ -34,7 +34,9 @@ namespace
     }
     Sk4px alphas() const;
     Sk4px inv() const
-    { return Sk16b(255) - *this; }
+    {
+ return Sk16b(255) - *this;
+    }
     // When loading or storing fewer than 4 SkPMColors, we use the low lanes.
     static Sk4px Load4(const SkPMColor px[4])
     {
@@ -58,35 +60,51 @@ namespace
     static Sk4px Load4Alphas(const SkAlpha[4]);
     static Sk4px Load2Alphas(const SkAlpha[2]);
     void store4(SkPMColor px[4]) const
-    { memcpy(px, this, 16); }
+    {
+ memcpy(px, this, 16);
+    }
     void store2(SkPMColor px[2]) const
-    { memcpy(px, this,  8); }
+    {
+ memcpy(px, this,  8);
+    }
     void store1(SkPMColor px[1]) const
-    { memcpy(px, this,  4); }
+    {
+ memcpy(px, this,  4);
+    }
     // 1, 2, or 4 SkPMColors with 16-bit components.
     // This is most useful as the result of a multiply, e.g. from mulWiden().
     class Wide : public Sk16h
     {
     public:
       Wide(const Sk16h& v)
-        :  Sk16h(v) 
-        {
-        }
+        :  Sk16h(v)
+      {
+      }
         // Add, then pack the top byte of each component back down into 4 SkPMColors.
       Sk4px addNarrowHi(const Sk16h&) const;
         // Rounds, i.e. (x+127) / 255.
       Sk4px div255() const;
         // These just keep the types as Wide so the user doesn't have to keep casting.
       Wide operator *(const Wide& o) const
-      { return INHERITED::operator*(o); }
+      {
+ return INHERITED::operator*(o);
+      }
       Wide operator +(const Wide& o) const
-      { return INHERITED::operator+(o); }
+      {
+ return INHERITED::operator+(o);
+      }
       Wide operator -(const Wide& o) const
-      { return INHERITED::operator-(o); }
+      {
+ return INHERITED::operator-(o);
+      }
       Wide operator >>(int bits) const
-      { return INHERITED::operator>>(bits); }
+      {
+ return INHERITED::operator>>(bits);
+      }
       Wide operator <<(int bits) const
-      { return INHERITED::operator<<(bits); }
+      {
+ return INHERITED::operator<<(bits);
+      }
     private:
       typedef Sk16h INHERITED;
     };
@@ -94,16 +112,26 @@ namespace
     Wide mulWiden(const Sk16b&) const;
     // The only 8-bit multiply we use is 8-bit x 8-bit -> 16-bit.  Might as well make it pithy.
     Wide operator *(const Sk4px& o) const
-    { return this->mulWiden(o); }
+    {
+ return this->mulWiden(o);
+    }
     // These just keep the types as Sk4px so the user doesn't have to keep casting.
     Sk4px operator +(const Sk4px& o) const
-    { return INHERITED::operator+(o); }
+    {
+ return INHERITED::operator+(o);
+    }
     Sk4px operator -(const Sk4px& o) const
-    { return INHERITED::operator-(o); }
+    {
+ return INHERITED::operator-(o);
+    }
     Sk4px operator <(const Sk4px& o) const
-    { return INHERITED::operator<(o); }
+    {
+ return INHERITED::operator<(o);
+    }
     Sk4px thenElse(const Sk4px& t, const Sk4px& e) const
-    { return INHERITED::thenElse(t,e); }
+    {
+ return INHERITED::thenElse(t,e);
+    }
     // Generally faster than (*this * o).div255().
     // May be incorrect by +-1, but is always exactly correct when *this or o is 0 or 255.
     Sk4px approxMulDiv255(const Sk16b& o) const

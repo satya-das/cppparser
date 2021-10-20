@@ -49,7 +49,7 @@ namespace PoDoFo
     ePdfShadingPatternType_LatticeForm   = 5,
     ePdfShadingPatternType_CoonsPatch    = 6,
     ePdfShadingPatternType_TensorProduct = 7
-};
+  };
 /** 
  * This class defined a shading pattern which can be used
  * to fill abitrary shapes with a pattern using PdfPainter.
@@ -94,7 +94,7 @@ namespace PoDoFo
   const PdfName& PdfShadingPattern::GetIdentifier() const
   {
     return m_Identifier;
-}
+  }
 /** A shading pattern that is a simple axial
  *  shading between two colors.
  */

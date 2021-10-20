@@ -21,7 +21,9 @@ enum wxFDIODispatcherEntryFlags {
 class WXDLLIMPEXP_BASE wxFDIODispatcher
 {
 public:
-  enum { TIMEOUT_INFINITE = -1 };
+  enum {
+ TIMEOUT_INFINITE = -1
+  };
     // return the global dispatcher to be used for IO events, can be NULL only
     // if wxSelectDispatcher wasn't compiled into the library at all as
     // creating it never fails
@@ -47,7 +49,8 @@ public:
   virtual int Dispatch(int timeout = TIMEOUT_INFINITE) = 0;
   virtual ~wxFDIODispatcher()
   {
-   }
+
+  }
 };
 //entry for wxFDIOHandlerMap
 struct wxFDIOHandlerEntry
@@ -55,14 +58,13 @@ struct wxFDIOHandlerEntry
   wxFDIOHandlerEntry()
   {
 
-      }
+  }
   wxFDIOHandlerEntry(wxFDIOHandler* handler_, int flags_)
     :  handler(handler_),
           flags(flags_)
-    
-    {
+  {
 
-        }
+  }
   wxFDIOHandler* handler;
   int flags;
 };
@@ -93,7 +95,8 @@ public:
   bool UnregisterFD(int fd) override;
   virtual ~wxMappedFDIODispatcher()
   {
-   }
+
+  }
 protected:
     // the fd -> handler map containing all the registered handlers
   wxFDIOHandlerMap m_handlers;

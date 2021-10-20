@@ -28,7 +28,7 @@ struct SkColorSpaceXformSteps
                  | (gamut_transform ?  4 : 0)
                  | (encode          ?  8 : 0)
                  | (premul          ? 16 : 0);
-        }
+    }
   };
   SkColorSpaceXformSteps(SkColorSpace* src, SkAlphaType srcAT, SkColorSpace* dst, SkAlphaType dstAT);
   void apply(float rgba[4]) const;
@@ -42,7 +42,7 @@ struct SkColorSpaceXformSteps
         // intentionally take the slower, non-normalized path here.
         this->apply(p, srcCT < kRGBA_F16Norm_SkColorType);
     #endif
-    }
+  }
   Flags flags;
   bool srcTF_is_sRGB, dstTF_is_sRGB;
   skcms_TransferFunction srcTF, dstTFInv;

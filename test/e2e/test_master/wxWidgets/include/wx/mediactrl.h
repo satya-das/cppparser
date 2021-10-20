@@ -75,9 +75,9 @@ public:
     // ------------------------------------------------------------------------
   wxMediaEvent(wxEventType commandType = wxEVT_NULL, int winid = 0)
     :  wxNotifyEvent(commandType, winid)
-    
-    {
-                                           }
+  {
+
+  }
     // ------------------------------------------------------------------------
     // wxMediaEvent Copy Constructor
     //
@@ -85,9 +85,9 @@ public:
     // ------------------------------------------------------------------------
   wxMediaEvent(const wxMediaEvent& clone)
     :  wxNotifyEvent(clone)
-    
-    {
-                                           }
+  {
+
+  }
     // ------------------------------------------------------------------------
     // wxMediaEvent::Clone
     //
@@ -95,7 +95,9 @@ public:
     // Required for wxEvtHandler::AddPendingEvent
     // ------------------------------------------------------------------------
   wxEvent* Clone() const override
-  {   return new wxMediaEvent(*this);     }
+  {
+   return new wxMediaEvent(*this);
+  }
     // Put this class on wxWidget's RTTI table
   wxDECLARE_DYNAMIC_CLASS(wxMediaEvent);
 };
@@ -109,21 +111,21 @@ class WXDLLIMPEXP_MEDIA wxMediaCtrl : public wxControl
 public:
   wxMediaCtrl()
     :  m_imp(NULL), m_bLoaded(false)
-    
-    {
-                                                                       }
+  {
+
+  }
   wxMediaCtrl(wxWindow* parent, wxWindowID winid, const wxString& fileName = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& szBackend = wxEmptyString, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxT("mediaCtrl"))
     :  m_imp(NULL), m_bLoaded(false)
-    
-    {
+  {
    Create(parent, winid, fileName, pos, size, style,
-               szBackend, validator, name);                                 }
+               szBackend, validator, name);
+  }
   wxMediaCtrl(wxWindow* parent, wxWindowID winid, const wxURI& location, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& szBackend = wxEmptyString, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxT("mediaCtrl"))
     :  m_imp(NULL), m_bLoaded(false)
-    
-    {
+  {
    Create(parent, winid, location, pos, size, style,
-               szBackend, validator, name);                                 }
+               szBackend, validator, name);
+  }
   virtual ~wxMediaCtrl();
   bool Create(wxWindow* parent, wxWindowID winid, const wxString& fileName = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& szBackend = wxEmptyString, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxT("mediaCtrl"));
   bool Create(wxWindow* parent, wxWindowID winid, const wxURI& location, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& szBackend = wxEmptyString, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxT("mediaCtrl"));
@@ -147,9 +149,13 @@ public:
   bool ShowPlayerControls(wxMediaCtrlPlayerControls flags = wxMEDIACTRLPLAYERCONTROLS_DEFAULT);
     //helpers for the wxPython people
   bool LoadURI(const wxString& fileName)
-  {   return Load(wxURI(fileName));       }
+  {
+   return Load(wxURI(fileName));
+  }
   bool LoadURIWithProxy(const wxString& fileName, const wxString& proxy)
-  {   return Load(wxURI(fileName), wxURI(proxy));       }
+  {
+   return Load(wxURI(fileName), wxURI(proxy));
+  }
 protected:
   static const wxClassInfo* NextBackend(wxClassInfo::const_iterator* it);
   void OnMediaFinished(wxMediaEvent& evt);
@@ -177,52 +183,97 @@ class WXDLLIMPEXP_MEDIA wxMediaBackend : public wxObject
 public:
   wxMediaBackend()
   {
-                                     }
+
+  }
   virtual ~wxMediaBackend();
   virtual bool CreateControl(wxControl*, wxWindow*, wxWindowID, const wxPoint&, const wxSize&, long, const wxValidator&, const wxString&)
-  {   return false;                   }
+  {
+   return false;
+  }
   virtual bool Play()
-  {   return false;                   }
+  {
+   return false;
+  }
   virtual bool Pause()
-  {   return false;                   }
+  {
+   return false;
+  }
   virtual bool Stop()
-  {   return false;                   }
+  {
+   return false;
+  }
   virtual bool Load(const wxString&)
-  {   return false;                   }
+  {
+   return false;
+  }
   virtual bool Load(const wxURI&)
-  {   return false;                   }
+  {
+   return false;
+  }
   virtual bool SetPosition(wxLongLong)
-  {   return 0;                       }
+  {
+   return 0;
+  }
   virtual wxLongLong GetPosition()
-  {   return 0;                       }
+  {
+   return 0;
+  }
   virtual wxLongLong GetDuration()
-  {   return 0;                       }
+  {
+   return 0;
+  }
   virtual void Move(int, int, int, int)
-  {                                   }
+  {
+
+  }
   virtual wxSize GetVideoSize() const
-  {   return wxSize(0,0);             }
+  {
+   return wxSize(0,0);
+  }
   virtual double GetPlaybackRate()
-  {   return 0.0;                     }
+  {
+   return 0.0;
+  }
   virtual bool SetPlaybackRate(double)
-  {   return false;                   }
+  {
+   return false;
+  }
   virtual wxMediaState GetState()
-  {   return wxMEDIASTATE_STOPPED;    }
+  {
+   return wxMEDIASTATE_STOPPED;
+  }
   virtual double GetVolume()
-  {   return 0.0;                     }
+  {
+   return 0.0;
+  }
   virtual bool SetVolume(double)
-  {   return false;                   }
+  {
+   return false;
+  }
   virtual bool Load(const wxURI&, const wxURI&)
-  {   return false;                   }
+  {
+   return false;
+  }
   virtual bool ShowPlayerControls(wxMediaCtrlPlayerControls)
-  {   return false;                   }
+  {
+   return false;
+  }
   virtual bool IsInterfaceShown()
-  {   return false;                   }
+  {
+   return false;
+  }
   virtual wxLongLong GetDownloadProgress()
-  {    return 0;                      }
+  {
+    return 0;
+  }
   virtual wxLongLong GetDownloadTotal()
-  {    return 0;                      }
+  {
+    return 0;
+  }
   virtual void MacVisibilityChanged()
-  {                                   }
+  {
+
+  }
   virtual void RESERVED9()
   {
   }
@@ -259,7 +310,7 @@ public:
   {
         QueueEvent(wxEVT_MEDIA_STATECHANGED);
         QueueEvent(wxEVT_MEDIA_FINISHED);
-    }
+  }
     // send the stop event and return true if it hasn't been vetoed
   bool SendStopEvent();
     // Queue pause event

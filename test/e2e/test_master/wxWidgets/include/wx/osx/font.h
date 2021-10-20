@@ -32,7 +32,8 @@ public:
     // ctors and such
   wxFont()
   {
-   }
+
+  }
   wxFont(const wxFontInfo& info);
   wxFont(wxOSXSystemFont systemFont);
   wxFont(CTFontRef font);
@@ -41,21 +42,18 @@ public:
 #  endif
   wxFont(int size, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-
         Create(size, family, style, weight, underlined, face, encoding);
-      }
+  }
   wxFont(const wxSize& pixelSize, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-
         Create(10, family, style, weight, underlined, face, encoding);
         SetPixelSize(pixelSize);
-      }
+  }
   bool Create(int size, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
   wxFont(const wxNativeFontInfo& info)
   {
-
         (void)Create(info);
-      }
+  }
   wxFont(const wxString& fontDesc);
   bool Create(const wxNativeFontInfo& info);
   virtual ~wxFont();

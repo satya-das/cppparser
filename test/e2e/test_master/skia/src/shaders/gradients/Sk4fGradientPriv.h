@@ -15,14 +15,18 @@
 // Templates shared by various 4f gradient flavors.
 namespace 
 {
-  enum class ApplyPremul { True, False };
+  enum class ApplyPremul {
+ True, False
+  };
   template <ApplyPremul >
   struct PremulTraits;
   template <>
   struct PremulTraits<ApplyPremul::False>
   {
     static Sk4f apply(const Sk4f& c)
-    { return c; }
+    {
+ return c;
+    }
   };
   template <>
   struct PremulTraits<ApplyPremul::True>

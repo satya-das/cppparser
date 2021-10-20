@@ -34,11 +34,9 @@ public:
     ///
   AcRxValue()
     : m_type(AcRxValueType::Desc<void>::value())
-    
-    {
-
+  {
         memset(&m_value,0,sizeof(m_value));
-        }
+  }
     /// <summary>
     /// Copy constructor. Instantiates an object initialized to the same content as the input object.
     /// </summary>
@@ -49,11 +47,9 @@ public:
     ///
   AcRxValue(const AcRxValue& rhs)
     : m_type(rhs.m_type)
-    
-    {
-
+  {
         init(rhs, false);
-        }
+  }
     /// <summary>
     /// The object can be constructed using the type and value.
     /// For example, we can use this to create an enumerated type from an integer.
@@ -70,11 +66,9 @@ public:
     ///
   AcRxValue(const AcRxValueType& type, const AcRxValue& value)
     : m_type(type)
-    
-    {
-
+  {
         init(value, false);
-        }
+  }
     /// <summary>
     /// Assignment operator. Copies all the data from the input AcRxValue 
     /// object to this object.
@@ -122,7 +116,7 @@ public:
         else
             setNonInlineValue(rhs.nonInlineValuePtr(), blittable, true, true);
         return *this;
-    }
+  }
     /// <summary>
     /// Destructor
     ///
@@ -131,14 +125,13 @@ public:
     ///
   ~AcRxValue()
   {
-
         //if the type is non-blittable then we must call destructor
         if (!type().isBlittable())
             type().nonBlittable()->destruct(valuePtr());
         //finally free memory if necessary
         if (!isInlined())
             deallocate(m_value.m_ptr);
-      }
+  }
     /// <summary>
     /// Returns the type of the value.
     /// </summary>
@@ -150,7 +143,7 @@ public:
   const AcRxValueType& type() const
   {
         return m_type;
-    }
+  }
     /// <summary>
     /// Returns true if the current value is empty.
     /// </summary>
@@ -160,7 +153,9 @@ public:
     /// </returns>
     ///
   bool isEmpty() const
-  {return *this == empty();}
+  {
+return *this == empty();
+  }
     /// <summary>
     /// Returns a value that is empty.
     /// </summary>
@@ -179,7 +174,9 @@ public:
     /// </returns>
     ///
   bool isVaries() const
-  { return *this == varies();}
+  {
+ return *this == varies();
+  }
     /// <summary>
     /// Returns a value that has the type set to varies.
     /// </summary>
@@ -228,7 +225,7 @@ public:
         if (type()!=value.type())
             return false;
         return type().equalTo(valuePtr(), value.valuePtr());
-    }
+  }
     /////////////////////////////////////////////////////////////////
     //MUST BE SPECIALIZED FOR NON BLITTABLE TYPES: 
     //The following 2 functions must be specialized for each supported 
@@ -249,12 +246,10 @@ public:
   template <typename ValueType>
   AcRxValue(const ValueType& value)
     : m_type(AcRxValueType::Desc<ValueType>::value())
-    
-    {
-
+  {
         //this should have been specialized otherwise
         ACRXVALUE_ASSERT(m_type.isBlittable());
-        }
+  }
     /// <summary>
     /// The function provides safe casting mechanism, returns NULL if the cast fails.
     /// </summary>
@@ -274,7 +269,7 @@ public:
   {
         constexpr bool inlined = sizeof(ValueType)<=24;
         return value && AcRxValueType::Desc<ValueType>::value() == value->type()? (ValueType*)(value->valuePtr__<inlined>()) : 0;
-    }
+  }
     /// <summary>
     /// The function provides safe casting mechanism for enum types, returns NULL if the cast fails.
     /// </summary>
@@ -297,7 +292,7 @@ public:
         return value && 
                value->type().isEnum() && 
                AcRxValueType::Desc<ValueType>::value() == value->type().enumeration()->getAt(0).type() ? (ValueType*)(value->valuePtr__<inlined>()) : 0;
-    }
+  }
     /////////////////////////////////////////////////////////////////
     //OPTIONALLY SPECIALIZED:
     //You might want to secialize the following templates (rare)
@@ -316,7 +311,7 @@ public:
   {
         *this = AcRxValue(rhs);
         return *this;
-    }
+  }
     /// <summary>
     /// The function provides safe casting mechanism, returns NULL if the cast fails.
     /// </summary>
@@ -335,7 +330,7 @@ public:
   inline const ValueType* rxvalue_cast(const AcRxValue* value)
   {
         return rxvalue_cast<ValueType>(const_cast<AcRxValue*>(value));
-    }
+  }
     /// <summary>
     /// The function provides safe casting mechanism for enum types, returns NULL if the cast fails.
     /// </summary>
@@ -354,7 +349,7 @@ public:
   inline const ValueType* rxenum_cast(const AcRxValue* value)
   {
         return rxenum_cast<ValueType>(const_cast<AcRxValue*>(value));
-    }
+  }
     /// <summary>
     /// The function can be used to get the AcRxValue from AcRxBoxedValue object.
     /// </summary>
@@ -425,22 +420,30 @@ private:
   bool isInlined() const
   {
         return type().size() <= sizeof(m_value);
-    }
+  }
   const void* nonInlineValuePtr() const
-  { return m_value.m_ptr;}
+  {
+ return m_value.m_ptr;
+  }
   void* nonInlineValuePtr()
-  { return m_value.m_ptr;}
+  {
+ return m_value.m_ptr;
+  }
   const void* inlineValuePtr() const
-  {return &m_value;}
+  {
+return &m_value;
+  }
   void* inlineValuePtr()
-  {return &m_value;}
+  {
+return &m_value;
+  }
   const void* valuePtr() const
   {
         if (isInlined())
             return inlineValuePtr();
         else
             return nonInlineValuePtr();
-    }
+  }
   template <bool Inlined>
   void* valuePtr__();
   template <bool Inlined>
@@ -468,7 +471,7 @@ private:
   {
         constexpr bool inlined = sizeof(value)<=sizeof(m_value);
         InitNonBlittable<T, inlined >::init(*this,value);
-    }
+  }
   void init(const AcRxValue& rhs, bool realloc)
   {
         bool blittable = type().isBlittable();
@@ -487,7 +490,7 @@ private:
             type().nonBlittable()->construct(inlineValuePtr(),rhs.inlineValuePtr());
         else
             setNonInlineValue(rhs.nonInlineValuePtr(), blittable, false, realloc);
-    }
+  }
   void setNonInlineValue(const void* value, bool blittable, bool assignment, bool realloc)
   {
         ACRXVALUE_ASSERT(blittable == type().isBlittable());
@@ -505,14 +508,12 @@ private:
             type().nonBlittable()->assign(nonInlineValuePtr(), value);
         else
             type().nonBlittable()->construct(nonInlineValuePtr(),value);
-    }
+  }
   AcRxValue(const AcRxValue& rhs, bool realloc)
     : m_type(rhs.m_type)
-    
-    {
-
+  {
         init(rhs, realloc);
-        }
+  }
   const AcRxValueType& m_type;
 #ifndef _AC64
   int padding;
@@ -550,11 +551,9 @@ struct AcRxValueType::Desc< const char* >
 template <>
 inline AcRxValue::AcRxValue(const ACHAR* const& value)
   : m_type(AcRxValueType::Desc<const ACHAR*>::value())
-
-  {
-
+{
     memcpy_s(&m_value,sizeof(const ACHAR*), &value,sizeof(const ACHAR*));
-  }
+}
 template <>
 inline AcRxValue& AcRxValue::operator=(const ACHAR* const& rhs)
 {

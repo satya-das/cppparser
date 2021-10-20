@@ -20,11 +20,13 @@ public:
   {
         return std::unique_ptr<GrFragmentProcessor>(new GrTiledGradientEffect(
                 std::move(colorizer), std::move(gradLayout), mirror, makePremul, colorsAreOpaque));
-    }
+  }
   GrTiledGradientEffect(const GrTiledGradientEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "TiledGradientEffect"; }
+  {
+ return "TiledGradientEffect";
+  }
   int colorizer_index = -1;
   int gradLayout_index = -1;
   bool mirror;
@@ -39,16 +41,15 @@ private:
                                          : kNone_OptimizationFlags))
             , mirror(mirror)
             , makePremul(makePremul)
-            , colorsAreOpaque(colorsAreOpaque) 
-    {
-
+            , colorsAreOpaque(colorsAreOpaque)
+  {
         SkASSERT(colorizer);
         colorizer_index = this->numChildProcessors();
         this->registerChildProcessor(std::move(colorizer));
         SkASSERT(gradLayout);
         gradLayout_index = this->numChildProcessors();
         this->registerChildProcessor(std::move(gradLayout));
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

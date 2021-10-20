@@ -28,13 +28,13 @@ public:
         kAllPalettes                    = (0x1 << 0),
         kRefreshEnabledPalettes         = (0x1 << 1),
         kAutoRefreshEnabledPalettes     = (0x1 << 2),
-    };
+  };
   enum ShowOption {
         kShow                           = (0x1 << 0),
         kHide                           = (0x1 << 1),
 		kSaveState						= (0x1 << 2),
         kRestoreState                   = (0x1 << 3),
-    };
+  };
   CAcTcUiScheme(AcTcScheme* pScheme);
   virtual ~CAcTcUiScheme();
   BOOL Load(IUnknown* pUnknown);

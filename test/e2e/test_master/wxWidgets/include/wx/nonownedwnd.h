@@ -35,7 +35,7 @@ public:
         );
 
         return region.IsEmpty() ? DoClearShape() : DoSetRegionShape(region);
-    }
+  }
 #  if  wxUSE_GRAPHICS_CONTEXT
     // Set the shape using the specified path.
   bool SetShape(const wxGraphicsPath& path)
@@ -47,7 +47,7 @@ public:
         );
 
         return DoSetPathShape(path);
-    }
+  }
 #  endif
     // Overridden base class methods.
     // ------------------------------
@@ -55,27 +55,27 @@ public:
   {
         // Non owned windows positions don't need to be adjusted for parent
         // client area origin so simply do nothing here.
-    }
+  }
   void InheritAttributes() override
   {
         // Non owned windows don't inherit attributes from their parent window
         // (if the parent frame is red, it doesn't mean that all dialogs shown
         // by it should be red as well), so don't do anything here neither.
-    }
+  }
 protected:
   virtual bool DoClearShape()
   {
         return false;
-    }
+  }
   virtual bool DoSetRegionShape(const wxRegion&)
   {
         return false;
-    }
+  }
 #  if  wxUSE_GRAPHICS_CONTEXT
   virtual bool DoSetPathShape(const wxGraphicsPath&)
   {
         return false;
-    }
+  }
 #  endif
 };
 #  if  defined(__WXDFB__)

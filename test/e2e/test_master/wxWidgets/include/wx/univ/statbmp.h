@@ -19,25 +19,27 @@ public:
   wxStaticBitmap()
   {
 
-      }
+  }
   wxStaticBitmap(wxWindow* parent, const wxBitmap& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0)
   {
-
         Create(parent, wxID_ANY, label, pos, size, style);
-      }
+  }
   wxStaticBitmap(wxWindow* parent, wxWindowID id, const wxBitmap& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBitmapNameStr))
   {
-
         Create(parent, id, label, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxBitmap& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBitmapNameStr));
   void SetBitmap(const wxBitmap& bitmap) override;
   void SetIcon(const wxIcon& icon) override;
   wxBitmap GetBitmap() const override
-  { return m_bitmap; }
+  {
+ return m_bitmap;
+  }
   wxIcon GetIcon() const override;
   bool HasTransparentBackground() override
-  { return true; }
+  {
+ return true;
+  }
 protected:
   void DoDraw(wxControlRenderer* renderer) override;
 private:

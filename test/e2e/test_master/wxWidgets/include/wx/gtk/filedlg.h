@@ -16,7 +16,8 @@ class WXDLLIMPEXP_CORE wxFileDialog : public wxFileDialogBase
 public:
   wxFileDialog()
   {
-   }
+
+  }
   wxFileDialog(wxWindow* parent, const wxString& message = wxASCII_STR(wxFileSelectorPromptStr), const wxString& defaultDir = wxEmptyString, const wxString& defaultFile = wxEmptyString, const wxString& wildCard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), long style = wxFD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, const wxString& name = wxASCII_STR(wxFileDialogNameStr));
   bool Create(wxWindow* parent, const wxString& message = wxASCII_STR(wxFileSelectorPromptStr), const wxString& defaultDir = wxEmptyString, const wxString& defaultFile = wxEmptyString, const wxString& wildCard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), long style = wxFD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, const wxString& name = wxASCII_STR(wxFileDialogNameStr));
   virtual ~wxFileDialog();
@@ -33,7 +34,9 @@ public:
   void SetFilterIndex(int filterIndex) override;
   int ShowModal() override;
   bool SupportsExtraControl() const override
-  { return true; }
+  {
+ return true;
+  }
     // Implementation only.
   void GTKSelectionChanged(const wxString& filename);
 protected:

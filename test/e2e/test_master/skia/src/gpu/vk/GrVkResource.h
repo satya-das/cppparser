@@ -39,27 +39,26 @@ public:
     {
             SkASSERT(r);
             return r->fKey;
-        }
+    }
   };
   class Trace
   {
   public:
     ~Trace()
     {
-
             fHashSet.foreach([](const GrVkResource* r) {
                 r->dumpInfo();
             });
             SkASSERT(0 == fHashSet.count());
-            }
+    }
     void add(const GrVkResource* r)
     {
             fHashSet.add(r);
-        }
+    }
     void remove(const GrVkResource* r)
     {
             fHashSet.remove(r);
-        }
+    }
   private:
     SkTHashSet<const GrVkResource*, GrVkResource::Hash> fHashSet;
   };
@@ -68,29 +67,29 @@ public:
     /** Default construct, initializing the reference count to 1.
      */
   GrVkResource()
-    :  fRefCnt(1) 
-    {
-
+    :  fRefCnt(1)
+  {
 #ifdef SK_TRACE_VK_RESOURCES
         fKey = fKeyCounter.fetch_add(+1, std::memory_order_relaxed);
         GetTrace()->add(this);
 #endif
-        }
+  }
     /** Destruct, asserting that the reference count is 1.
      */
   virtual ~GrVkResource()
   {
-
 #ifdef SK_DEBUG
         auto count = this->getRefCnt();
         SkASSERTF(count == 1, "fRefCnt was %d", count);
         fRefCnt.store(0);    // illegal value, to catch us if we reuse after delete
 #endif
-      }
+  }
 #  ifdef SK_DEBUG
     /** Return the reference count. Use only for debugging. */
   int32_t getRefCnt() const
-  { return fRefCnt.load(); }
+  {
+ return fRefCnt.load();
+  }
 #  endif
     /** May return true if the caller is the only owner.
      *  Ensures that all previous owner's actions are complete.
@@ -101,7 +100,7 @@ public:
         // prevents code conditioned on the result of unique() from running
         // until previous owners are all totally done calling unref().
         return 1 == fRefCnt.load(std::memory_order_acquire);
-    }
+  }
     /** Increment the reference count.
         Must be balanced by a call to unref() or unrefAndFreeResources().
      */
@@ -110,7 +109,7 @@ public:
         // No barrier required.
         SkDEBUGCODE(int newRefCount = )fRefCnt.fetch_add(+1, std::memory_order_relaxed);
         SkASSERT(newRefCount >= 1);
-    }
+  }
     /** Decrement the reference count. If the reference count is 1 before the
         decrement, then delete the object. Note that if this is the case, then
         the object needs to have been allocated via new, and not on the stack.
@@ -127,7 +126,7 @@ public:
             // code in internal_dispose() doesn't happen before the decrement.
             this->internal_dispose(gpu);
         }
-    }
+  }
     /** Unref without freeing GPU data. Used only when we're abandoning the resource */
   void unrefAndAbandon() const
   {
@@ -140,7 +139,7 @@ public:
             // code in internal_dispose() doesn't happen before the decrement.
             this->internal_dispose();
         }
-    }
+  }
     // Called every time this resource is added to a command buffer.
   virtual void notifyAddedToCommandBuffer() const
   {
@@ -155,7 +154,7 @@ public:
   void validate() const
   {
         SkASSERT(this->getRefCnt() > 0);
-    }
+  }
 #  endif
 #  ifdef SK_TRACE_VK_RESOURCES
     /** Output a human-readable dump of this resource's information
@@ -168,7 +167,7 @@ private:
   {
         static Trace kTrace;
         return &kTrace;
-    }
+  }
 #  endif
     /** Must be implemented by any subclasses.
      *  Deletes any Vk data associated with this resource
@@ -197,7 +196,7 @@ private:
         fRefCnt.store(1);
 #endif
         delete this;
-    }
+  }
     /**
      *  Internal_dispose without freeing Vk resources. Used when we've lost context.
      */
@@ -213,7 +212,7 @@ private:
         fRefCnt.store(1);
 #endif
         delete this;
-    }
+  }
   mutable std::atomic<int32_t> fRefCnt;
 #  ifdef SK_TRACE_VK_RESOURCES
   uint32_t fKey;
@@ -234,7 +233,7 @@ public:
         } else {
             this->unref(gpu);
         }
-    }
+  }
 private:
   virtual void onRecycle(GrVkGpu* gpu) const = 0;
 };

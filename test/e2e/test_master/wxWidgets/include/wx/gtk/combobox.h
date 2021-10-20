@@ -18,52 +18,58 @@ class WXDLLIMPEXP_CORE wxComboBox : public wxChoice, public wxTextEntry
 public:
   wxComboBox()
     :  wxChoice(), wxTextEntry()
-    
-    {
-
+  {
         Init();
-        }
+  }
   wxComboBox(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
     :  wxChoice(), wxTextEntry()
-    
-    {
-
+  {
         Init();
         Create(parent, id, value, pos, size, n, choices, style, validator, name);
-        }
+  }
   wxComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
     :  wxChoice(), wxTextEntry()
-    
-    {
-
+  {
         Init();
         Create(parent, id, value, pos, size, choices, style, validator, name);
-        }
+  }
   ~wxComboBox();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = (const wxString*) NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
     // Set/GetSelection() from wxTextEntry and wxChoice
   void SetSelection(int n) override
-  { wxChoice::SetSelection(n); }
+  {
+ wxChoice::SetSelection(n);
+  }
   void SetSelection(long from, long to) override
-  { wxTextEntry::SetSelection(from, to); }
+  {
+ wxTextEntry::SetSelection(from, to);
+  }
   int GetSelection() const override
-  { return wxChoice::GetSelection(); }
+  {
+ return wxChoice::GetSelection();
+  }
   void GetSelection(long* from, long* to) const override
-  { return wxTextEntry::GetSelection(from, to); }
+  {
+ return wxTextEntry::GetSelection(from, to);
+  }
   wxString GetStringSelection() const override
   {
         return wxItemContainer::GetStringSelection();
-    }
+  }
   void SetString(unsigned int n, const wxString& string) override;
   virtual void Popup();
   virtual void Dismiss();
   void Clear() override;
     // See wxComboBoxBase discussion of IsEmpty().
   bool IsListEmpty() const
-  { return wxItemContainer::IsEmpty(); }
+  {
+ return wxItemContainer::IsEmpty();
+  }
   bool IsTextEmpty() const
-  { return wxTextEntry::IsEmpty(); }
+  {
+ return wxTextEntry::IsEmpty();
+  }
   void OnChar(wxKeyEvent& event);
   void SetValue(const wxString& value) override;
     // Standard event handling
@@ -86,27 +92,37 @@ public:
   GtkWidget* GetConnectWidget() override;
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
   const wxTextEntry* WXGetTextEntry() const override
-  { return this; }
+  {
+ return this;
+  }
 protected:
     // From wxWindowGTK:
   GdkWindow* GTKGetWindow(wxArrayGdkWindows& windows) const override;
     // Widgets that use the style->base colour for the BG colour should
     // override this and return true.
   bool UseGTKStyleBase() const override
-  { return true; }
+  {
+ return true;
+  }
     // Override in derived classes to create combo box widgets with
     // custom list stores.
   virtual void GTKCreateComboBoxWidget();
   wxSize DoGetSizeFromTextSize(int xlen, int ylen = -1) const override;
   GtkEntry* GetEntry() const override
-  { return m_entry; }
+  {
+ return m_entry;
+  }
   int GTKIMFilterKeypress(GdkEventKey* event) const override
-  { return GTKEntryIMFilterKeypress(event); }
+  {
+ return GTKEntryIMFilterKeypress(event);
+  }
   GtkEntry* m_entry;
 private:
     // From wxTextEntry:
   wxWindow* GetEditableWindow() override
-  { return this; }
+  {
+ return this;
+  }
   GtkEditable* GetEditable() const override;
   void Init();
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxComboBox);

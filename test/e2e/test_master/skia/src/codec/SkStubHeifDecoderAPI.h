@@ -42,32 +42,34 @@ struct HeifDecoder
   {
         delete stream;
         return false;
-    }
+  }
   bool getSequenceInfo(HeifFrameInfo* frameInfo, size_t* frameCount)
   {
         return false;
-    }
+  }
   bool decode(HeifFrameInfo*)
   {
         return false;
-    }
+  }
   bool decodeSequence(int frameIndex, HeifFrameInfo* frameInfo)
   {
         return false;
-    }
+  }
   bool setOutputColor(HeifColorFormat)
   {
         return false;
-    }
+  }
   bool getScanline(uint8_t*)
   {
         return false;
-    }
+  }
   int skipScanlines(int)
   {
         return 0;
-    }
+  }
 };
 static HeifDecoder* createHeifDecoder()
-{ return new HeifDecoder; }
+{
+ return new HeifDecoder;
+}
 #endif

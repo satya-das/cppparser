@@ -61,10 +61,9 @@ namespace PoDoFo
      */
     PdfReference()
       :  m_nGenerationNo( 0 ), m_nObjectNo( 0 )
-    
-      {
+    {
 
-          }
+    }
     /**
      * Create a PdfReference to an object with a given object and generation number.
      *
@@ -73,10 +72,9 @@ namespace PoDoFo
      */
     PdfReference(const pdf_objnum nObjectNo, const pdf_gennum nGenerationNo)
       :  m_nGenerationNo( nGenerationNo ), m_nObjectNo( nObjectNo )
-    
-      {
+    {
 
-          }
+    }
     /**
      * Create a copy of an existing PdfReference.
      * 
@@ -84,14 +82,13 @@ namespace PoDoFo
      */
     PdfReference(const PdfReference& rhs)
       :  PdfDataType()
-    
-      {
-
+    {
         this->operator=( rhs );
-          }
+    }
     PODOFO_NOTHROW virtual ~PdfReference()
     {
-     }
+
+    }
     /** Convert the reference to a string.
      *  \returns a string representation of the object.
      *
@@ -171,62 +168,62 @@ namespace PoDoFo
     m_nObjectNo     = rhs.m_nObjectNo;
     m_nGenerationNo = rhs.m_nGenerationNo;
     return *this;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfReference::operator<(const PdfReference& rhs) const
   {
     return m_nObjectNo == rhs.m_nObjectNo ? m_nGenerationNo < rhs.m_nGenerationNo : m_nObjectNo < rhs.m_nObjectNo;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfReference::operator==(const PdfReference& rhs) const
   {
     return ( m_nObjectNo == rhs.m_nObjectNo && m_nGenerationNo == rhs.m_nGenerationNo);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfReference::operator!=(const PdfReference& rhs) const
   {
     return !this->operator==( rhs );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfReference::SetObjectNumber(pdf_objnum o)
   {
     m_nObjectNo = o;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   pdf_objnum PdfReference::ObjectNumber() const
   {
     return m_nObjectNo;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfReference::SetGenerationNumber(pdf_gennum g)
   {
     m_nGenerationNo = g;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   pdf_gennum PdfReference::GenerationNumber() const
   {
     return m_nGenerationNo;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfReference::IsIndirect() const
   {
     return !( !m_nObjectNo && !m_nGenerationNo );
-}
+  }
 }
 #endif

@@ -25,7 +25,7 @@ public:
   enum ExtractionType {
         kOutLine,
         kAllLine,
-    };
+  };
     /// <summary>
     /// Extract type, out line or floorplan.
     /// </summary>

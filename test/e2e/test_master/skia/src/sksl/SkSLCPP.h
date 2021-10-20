@@ -17,14 +17,13 @@ struct Float4
     :  fX(x)
     , fY(y)
     , fZ(z)
-    , fW(w) 
-    {
-    }
+    , fW(w)
+  {
+  }
   operator SkRect() const
   {
-
         return SkRect::MakeLTRB(fX, fY, fZ, fW);
-      }
+  }
 private:
   float fX;
   float fY;
@@ -36,13 +35,21 @@ private:
 #  define floatIs32Bits	floatIs32Bits()
 // functions to make GLSL constructors work from C++ code
 inline SkPoint float2(float xy)
-{ return SkPoint::Make(xy, xy); }
+{
+ return SkPoint::Make(xy, xy);
+}
 inline SkPoint float2(float x, float y)
-{ return SkPoint::Make(x, y); }
+{
+ return SkPoint::Make(x, y);
+}
 inline Float4 float4(float xyzw)
-{ return Float4(xyzw, xyzw, xyzw, xyzw); }
+{
+ return Float4(xyzw, xyzw, xyzw, xyzw);
+}
 inline Float4 float4(float x, float y, float z, float w)
-{ return Float4(x, y, z, w); }
+{
+ return Float4(x, y, z, w);
+}
 #  define half2	float2
 #  define half3	float3
 #  define half4	float4

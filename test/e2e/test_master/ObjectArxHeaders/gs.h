@@ -46,12 +46,12 @@ namespace GS
         kSuccess,
         kOutOfRange,
         kInvalidInput
-    };
+  };
   enum DeviceType {
         kScreenDevice =         0,
         kOffScreenDevice =      1,
         kSelectionDevice =      2
-    };
+  };
   enum HighlightStyle {
         kHighlightDashed =               0,
         kHighlightThicken =              1,
@@ -60,21 +60,21 @@ namespace GS
         kHighlightDim =                  4,
         kHighlightThickDim =             5,
         kHighlightGlow =                 6
-    };
+  };
     /// Sync behavior - defining if the request runs synchronously
   enum SyncBehavior {
         eSync               = 0,            /// The request runs  synchronously
         eAsync              = 1,            /// The request runs asynchronously
-    };
+  };
     /// Image Properties - For screenshots, thumbnails...etc generated through Gs
   enum ImageOrientation {
         kTopDown            = 0,            //ATIL TopDownLeftRight
         kBottomUp           = 1             //ATIL BottomUpLeftRight
-    };
+  };
   enum ImageDataFormat {
         kRGBA               = 0,
         kBGRA               = 1
-    };
+  };
 }
 // copied (with modification) from limits.h to avoid extra #includes
 #define SCALAR_MIN(-2147483647 - 1) // minimum (signed) int value
@@ -83,60 +83,84 @@ namespace GS
 class AcGsDCPoint
 {
 public:
-  enum MaxFlag { Maximum };
-  enum MinFlag { Minimum };
+  enum MaxFlag {
+ Maximum
+  };
+  enum MinFlag {
+ Minimum
+  };
   AcGsDCPoint(void)
   {
-   }
+
+  }
   AcGsDCPoint(long xin, long yin)
-    :  x (xin), y (yin) 
-    {
-     }
+    :  x (xin), y (yin)
+  {
+
+  }
   AcGsDCPoint(MaxFlag)
   {
- x = SCALAR_MAX; y = SCALAR_MAX;   }
+ x = SCALAR_MAX; y = SCALAR_MAX;
+  }
   AcGsDCPoint(MinFlag)
   {
- x = SCALAR_MIN; y = SCALAR_MIN;   }
+ x = SCALAR_MIN; y = SCALAR_MIN;
+  }
   void operator=(MaxFlag)
-  { x = SCALAR_MAX; y = SCALAR_MAX; }
+  {
+ x = SCALAR_MAX; y = SCALAR_MAX;
+  }
   void operator=(MinFlag)
-  { x = SCALAR_MIN; y = SCALAR_MIN; }
+  {
+ x = SCALAR_MIN; y = SCALAR_MIN;
+  }
   void operator=(const AcGsDCPoint& r)
-  { x =  r.x;   y =  r.y; }
+  {
+ x =  r.x;   y =  r.y;
+  }
   bool operator==(const AcGsDCPoint& r) const
-  { return x == r.x && y == r.y; }
+  {
+ return x == r.x && y == r.y;
+  }
   bool operator!=(const AcGsDCPoint& r) const
-  { return x != r.x || y != r.y; }
+  {
+ return x != r.x || y != r.y;
+  }
   long x;
   long y;
 };
 class AcGsDCRect
 {
 public:
-  enum NullFlag { Null    };
+  enum NullFlag {
+ Null
+  };
   AcGsDCRect(void)
   {
-   }
+
+  }
   AcGsDCRect(const AcGsDCPoint& min, const AcGsDCPoint& max)
     :  m_min (min)
-                        , m_max (max) 
-    {
-     }
+                        , m_max (max)
+  {
+
+  }
   AcGsDCRect(long l, long r, long b, long t)
     :  m_min (l,b)
-                        , m_max (r,t) 
-    {
-     }
+                        , m_max (r,t)
+  {
+
+  }
   AcGsDCRect(NullFlag)
   {
- set_null();   }
+ set_null();
+  }
   AcGsDCRect& operator=(const AcGsDCRect& other)
   {
                         m_min = other.m_min;
                         m_max = other.m_max;
                         return *this;
-                    }
+  }
   void operator|=(const AcGsDCRect& rightside)
   {
                         if (m_min.x > rightside.m_min.x)
@@ -148,7 +172,7 @@ public:
                             m_min.y = rightside.m_min.y;
                         if (m_max.y < rightside.m_max.y)
                             m_max.y = rightside.m_max.y;
-                    }
+  }
   void operator&=(const AcGsDCRect& rightside)
   {
                         if (m_min.x < rightside.m_min.x)
@@ -163,29 +187,30 @@ public:
 
                         if (m_min.x > m_max.x || m_min.y > m_max.y)
                             *this = Null;
-                    }
+  }
   bool operator==(const AcGsDCRect& rightside) const
   {
                         return m_min == rightside.m_min &&
                                m_max == rightside.m_max;
-                    }
+  }
   bool operator!=(const AcGsDCRect& rightside) const
   {
                         return !(*this == rightside);
-                    }
+  }
   void set_null(void)
   {
                         m_min = AcGsDCPoint::Maximum;
                         m_max = AcGsDCPoint::Minimum;
-                    }
+  }
   bool is_null(void) const
-  {// should be either valid or properly null
+  {
+// should be either valid or properly null
 #ifdef ASSERT
                         ASSERT ((m_min.x <= m_max.x && m_min.y <= m_max.y) ||
                                 (m_min == AcGsDCPoint::Maximum && m_max == AcGsDCPoint::Minimum));
 #endif
                         return m_min.x > m_max.x;
-                    }
+  }
   bool within(const AcGsDCRect& rightside) const
   {
 #ifdef ASSERT
@@ -195,7 +220,7 @@ public:
                                m_min.y >= rightside.m_min.y &&      //  if both are Null, does not work.)
                                m_max.x <= rightside.m_max.x &&
                                m_max.y <= rightside.m_max.y;
-                    }
+  }
   AcGsDCPoint m_min;
   AcGsDCPoint m_max;
 };
@@ -216,7 +241,8 @@ class AcGsNode
 public:
   virtual ~AcGsNode()
   {
-   }
+
+  }
   virtual AcGiDrawable* drawable(void) const = 0;
 };
 // ****************************************************************************
@@ -228,27 +254,28 @@ public:
   enum Projection {
         kParallel,
         kPerspective
-    };
+  };
   enum SelectionMode {
         kWindow,
         kCrossing,
         kFence,
         kWPoly,
         kCPoly,
-    };
+  };
   enum DefaultLightingType {
         kOneLight,
         kTwoLights,
         kBackLight
-    };
+  };
   enum ModelCloneOption {
         kCloneNoModels,
         kCloneMainPersistentModel,
         kCloneAllModels
-    };
+  };
   virtual ~AcGsView()
   {
-   }
+
+  }
     // Who created this AcGsView?
   virtual AcGsGraphicsKernel& graphicsKernel(void) = 0;
     // Viewport size & position in normalized device coords and screen coords
@@ -391,7 +418,7 @@ public:
   enum EnableIRResult {
         kSuccess,
         kOutOfMemory
-    };
+  };
   virtual EnableIRResult beginInteractiveRender(AcGsRenderProgressMonitor* pProgressMonitor) = 0;
   virtual void endInteractiveRender(void) = 0;
   virtual bool isRendering(void) const = 0;
@@ -416,7 +443,7 @@ public:
         kDirectTopmost,     // Render above all other render types except contrast, and render without the z-test
         kContrast,          // Render directly onto the device in contrast style, for transients
         kCount              // Count of RenderTypes
-    };
+  };
   enum InvalidationHint {
         kInvalidateNone,
         kInvalidateIsolines,
@@ -436,15 +463,16 @@ public:
         kInvalidateTransform,
         kInvalidateTransparencies,
         kInvalidateDrawableByView
-    };
+  };
   enum OrderActionType {
         kMoveBelow,
         kMoveAbove,
         kSwapOrder,
-    };
+  };
   virtual ~AcGsModel()
   {
-   }
+
+  }
     // Who created this AcGsModel?
   virtual AcGsGraphicsKernel& graphicsKernel(void) = 0;
     // Scene graph roots
@@ -560,10 +588,11 @@ public:
         kFullRender,
         kSelectionRender,
         kFbxExportRender
-    };
+  };
   virtual ~AcGsDevice()
   {
-   }
+
+  }
     // Who created this AcGsDevice?
   virtual AcGsGraphicsKernel& graphicsKernel(void) = 0;
     // Validation
@@ -623,7 +652,7 @@ public:
   enum EnableIRResult {
         kSuccess,
         kOutOfMemory
-    };
+  };
     //
     // Below three functions are both device and data relate, so exposed on GsDevice and GsView.
     //
@@ -645,18 +674,28 @@ class AcGsConfigReactor
 public:
   AcGsConfigReactor(void)
   {
-   }
+
+  }
   virtual ~AcGsConfigReactor()
   {
-   }
+
+  }
   virtual void hardwareAccelerationWasModified(bool)
-  { }
+  {
+
+  }
   virtual void configWasModified(void)
-  { }
+  {
+
+  }
   virtual void deviceSwitchToBegin(void)
-  { }
+  {
+
+  }
   virtual void deviceSwitchHasEnded(void)
-  { }
+  {
+
+  }
 };
 class AcGsConfig
 {
@@ -666,12 +705,12 @@ public:
   enum Handedness {
         kLeft,
         kRight
-    };
+  };
   enum Quality {
         kLowQuality,
         kMediumQuality,
         kHighQuality
-    };
+  };
   enum DegradationChannel {
         kViewportDraw,        // Viewport draw objects On to Off
         kLineAntialias,       // Line antialias On to Off
@@ -692,7 +731,7 @@ public:
         kFaceted,             // Faceted to Wireframe
         kWireframe,           // Wireframe to Bounding box
         kDegradationChannels
-    };
+  };
   virtual ~AcGsConfig();
     // dialog, read & write registry
   virtual bool configure(void) = 0;
@@ -772,7 +811,7 @@ public:
         kEL_HardwareEntry,
         kEL_HardwareBasic,
         kEL_HardwareAdvanced
-    };
+  };
     // hardware features
   virtual AcArray<EffectStatus>* getEffectList(EffectListType type) = 0;
   virtual bool isFeatureEnabled(const AcUniqueString*) const = 0;
@@ -796,7 +835,7 @@ public:
         kNone = 0,               
         kSoftware,
         kHardware
-    };
+  };
     /// <description>
     /// Determine if the spyglass screen magnifer is available, and if so
     /// whether or not it's a hardware or software rendering implementation. 
@@ -827,28 +866,46 @@ class AcGsReactor
 public:
   AcGsReactor(void)
   {
-   }
+
+  }
   virtual ~AcGsReactor()
   {
-   }
-  enum ViewUpdateFlags { kCameraChanged = 1 };
+
+  }
+  enum ViewUpdateFlags {
+ kCameraChanged = 1
+  };
   virtual void viewWasCreated(AcGsView*)
-  { }
+  {
+
+  }
   virtual void viewToBeDestroyed(AcGsView*)
-  { }
+  {
+
+  }
   virtual void viewToBeUpdated(AcGsView*, int)
-  { }
+  {
+
+  }
   virtual void viewWasUpdated(AcGsView*, int)
-  { }
+  {
+
+  }
   virtual void gsToBeUnloaded(AcGsGraphicsKernel*)
-  { }
+  {
+
+  }
     // ************************************************************************
     // GSN additions
     // ************************************************************************
   virtual void viewInteractivityToBeChanged(const AcGsView*, bool)
-  { }
+  {
+
+  }
   virtual void viewInteractivityWasChanged(const AcGsView*, bool)
-  { }
+  {
+
+  }
 };
 // ****************************************************************************
 // AcGsModelReactor
@@ -858,26 +915,44 @@ class AcGsModelReactor
 public:
   AcGsModelReactor(void)
   {
-   }
+
+  }
   virtual ~AcGsModelReactor()
   {
-   }
+
+  }
   virtual bool onSceneGraphRootAdded(AcGsModel*, AcGiDrawable*)
-  { return true; }
+  {
+ return true;
+  }
   virtual bool onSceneGraphRootErased(AcGsModel*, AcGiDrawable*)
-  { return true; }
+  {
+ return true;
+  }
   virtual bool onAdded(AcGsModel*, AcGiDrawable*, AcGiDrawable*)
-  { return true; }
+  {
+ return true;
+  }
   virtual bool onAdded(AcGsModel*, AcGiDrawable*, Adesk::IntDbId)
-  { return true; }
+  {
+ return true;
+  }
   virtual bool onErased(AcGsModel*, AcGiDrawable*, AcGiDrawable*)
-  { return true; }
+  {
+ return true;
+  }
   virtual bool onErased(AcGsModel*, AcGiDrawable*, Adesk::IntDbId)
-  { return true; }
+  {
+ return true;
+  }
   virtual bool onModified(AcGsModel*, AcGiDrawable*, AcGiDrawable*)
-  { return true; }
+  {
+ return true;
+  }
   virtual bool onModified(AcGsModel*, AcGiDrawable*, Adesk::IntDbId)
-  { return true; }
+  {
+ return true;
+  }
 };
 // ****************************************************************************
 // AcGsDrawablePath
@@ -899,9 +974,10 @@ struct AcGsClientViewInfo
         , acadWindowId(0)
         , viewportObjectId(0)
         , contextColors(nullptr)
-        , contextualAttributes(nullptr) 
-    {
-     }
+        , contextualAttributes(nullptr)
+  {
+
+  }
   Adesk::LongPtr viewportId;
   Adesk::LongPtr acadWindowId;
   Adesk::IntDbId viewportObjectId;
@@ -932,13 +1008,13 @@ public:
   void addSupport(const AcUniqueString* capability)
   {
         if (capability)
-            append(capability); 
-    }
+            append(capability);
+  }
     // Used by a graphics kernel to make sure it supports what a client requires.
   bool requires(const AcUniqueString* capability) const
-  { 
-        return capability ? contains(capability) : false; 
-    }
+  {
+        return capability ? contains(capability) : false;
+  }
     // Predefined capabilities.
   DRAWBRIDGE_API static const AcUniqueString* k2DDrawing;
   DRAWBRIDGE_API static const AcUniqueString* k3DDrawing;
@@ -959,12 +1035,14 @@ class DRAWBRIDGE_MAC_API AcGsGraphicsKernel : public AcGiGraphicsKernel
 {
 public:
   AcGsGraphicsKernel(void)
-    :  m_refCount(0) 
-    {
-     }
+    :  m_refCount(0)
+  {
+
+  }
   virtual ~AcGsGraphicsKernel()
   {
-   }
+
+  }
     /// <description>
     /// Add a reference to this kernel.
     /// </description>
@@ -1129,7 +1207,8 @@ class AcGsRenderProgressMonitor
 public:
   virtual ~AcGsRenderProgressMonitor()
   {
-   }
+
+  }
     /// <description>
     /// The phases of the rendering process.  They are listed in sequential
     /// order from the first phase of rendering to the last phase.
@@ -1171,7 +1250,7 @@ public:
         /// This the first stage of rendering, used for rendering initialization.
         /// </description>
         kInitialize,
-    };
+  };
     /// <description>
     /// The status of the rendering process. 
     /// </description>
@@ -1215,7 +1294,7 @@ public:
         /// Current rendering process is aborted due to unknown errors.
         /// </description>
         kError,
-    };
+  };
     /// <description>
     /// Called during the the rendering period to report the current rendering
     /// progress, which includes the rendering phase, overall rendering progress
@@ -1350,7 +1429,9 @@ public:
     /// reused for the next image.
     /// </remarks>
   virtual bool ShouldReuseDatabase()
-  { return false; }
+  {
+ return false;
+  }
     /// <description>
     /// Called to determine whether the monitor is still eligible to receive notifications
     /// </description>
@@ -1358,7 +1439,9 @@ public:
     /// Can be used to terminate asynchronous rendering
     /// </remarks>
   virtual bool IsValid()
-  { return true; }
+  {
+ return true;
+  }
     /// <description>
     /// Called to determine whether the rendering process is synchronous or asynchronous
     /// </description>
@@ -1366,12 +1449,16 @@ public:
     /// If async, renderToImage returns immediately.
     /// </remarks>
   virtual bool IsAsync()
-  { return false; }
+  {
+ return false;
+  }
     /// <description>
     /// Output image is top-down by default.
     /// Called to determine whether the image should be bottom-up instead.
     /// </description>
   virtual bool IsOutputImageFlipped()
-  { return false; }
+  {
+ return false;
+  }
 };
 #pragma  pack(pop)

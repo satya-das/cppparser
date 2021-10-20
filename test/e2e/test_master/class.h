@@ -5,5 +5,5 @@ public:
   Class()
   {
 
-      }
+  }
 };

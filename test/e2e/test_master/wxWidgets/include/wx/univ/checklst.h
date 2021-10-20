@@ -22,14 +22,14 @@ public:
     // ctors
   wxCheckListBox()
   {
- Init();   }
+ Init();
+  }
   wxCheckListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int nStrings = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr))
   {
-
         Init();
 
         Create(parent, id, pos, size, nStrings, choices, style, validator, name);
-      }
+  }
   wxCheckListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int nStrings = 0, const wxString choices[] = (const wxString*) NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr));
@@ -42,7 +42,7 @@ public:
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
         return GetStdInputHandler(handlerDef);
-    }
+  }
 protected:
     // override all methods which add/delete items to update m_checks array as
     // well

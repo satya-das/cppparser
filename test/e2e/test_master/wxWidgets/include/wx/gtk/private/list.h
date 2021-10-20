@@ -15,17 +15,22 @@ class wxGtkList
 {
 public:
   explicit wxGtkList(GList* list)
-    :  m_list(list) 
-    {
-     }
+    :  m_list(list)
+  {
+
+  }
   ~wxGtkList()
   {
- g_list_free(m_list);   }
+ g_list_free(m_list);
+  }
   operator GList*() const
   {
- return m_list;   }
+ return m_list;
+  }
   GList* operator->() const
-  { return m_list; }
+  {
+ return m_list;
+  }
 protected:
   GList* const m_list;
   wxDECLARE_NO_COPY_CLASS(wxGtkList);

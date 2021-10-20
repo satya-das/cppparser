@@ -26,10 +26,9 @@ public:
   typedef wxCFRef<T> super_type;
   explicit wxCFDictionaryRefCommon()
     :  super_type()
-    
-    {
+  {
 
-        }
+  }
     /*! @method     wxCFDictionaryRef
      @abstract   Assumes ownership of r and creates a reference to it.
      @param r        The dictionary reference to assume ownership of.  May be NULL.
@@ -43,10 +42,9 @@ public:
      */
   explicit wxCFDictionaryRefCommon(T r)
     :  super_type(r)
-    
-    {
+  {
 
-        }
+  }
     /*! @method     wxCFDictionaryRef
      @abstract   Copies a ref holder of the same type
      @param otherRef The other ref holder to copy.
@@ -60,7 +58,7 @@ public:
         if (val)
             ::CFRetain(val);
         return val;
-    }
+  }
 };
 class wxCFMutableDictionaryRef;
 class wxCFDictionaryRef : public wxCFDictionaryRefCommon<CFDictionaryRef>
@@ -69,50 +67,47 @@ public:
   wxCFDictionaryRef()
   {
 
-      }
+  }
   wxCFDictionaryRef(CFDictionaryRef r)
     :  wxCFDictionaryRefCommon(r)
-    
-    {
+  {
 
-        }
+  }
   wxCFDictionaryRef& operator=(const wxCFMutableDictionaryRef& other);
   CFDictionaryRef CreateCopy() const
   {
         return CFDictionaryCreateCopy(kCFAllocatorDefault, this->m_ptr);
-    }
+  }
   CFMutableDictionaryRef CreateMutableCopy() const
   {
         return CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, this->m_ptr);
-    }
+  }
 };
 class wxCFMutableDictionaryRef : public wxCFDictionaryRefCommon<CFMutableDictionaryRef>
 {
 public:
   wxCFMutableDictionaryRef()
     :  wxCFDictionaryRefCommon(CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks))
-    
-    {
+  {
 
-        }
+  }
   wxCFMutableDictionaryRef(CFMutableDictionaryRef r)
     :  wxCFDictionaryRefCommon(r)
-    
-    {
+  {
 
-        }
+  }
   void SetValue(const void* key, const void* data)
   {
         CFDictionarySetValue(this->m_ptr, key, data);
-    }
+  }
   void SetValue(const void* key, CGFloat v)
   {
         SetValue(key, wxCFNumberRef(v));
-    }
+  }
   CFMutableDictionaryRef CreateCopy() const
   {
         return CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, this->m_ptr);
-    }
+  }
   friend class wxCFDictionaryRef;
 };
 inline wxCFDictionaryRef& wxCFDictionaryRef::operator=(const wxCFMutableDictionaryRef& otherRef)

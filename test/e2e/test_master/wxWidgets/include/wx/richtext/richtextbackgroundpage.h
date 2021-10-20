@@ -125,7 +125,7 @@ public:
         ID_RICHTEXT_SHADOW_BLUR_DISTANCE_UNITS = 10853,
         ID_RICHTEXT_USE_SHADOW_OPACITY = 10856,
         ID_RICHTEXT_SHADOW_OPACITY = 10854
-    };
+  };
 ////@end wxRichTextBackgroundPage member variables
 };
 #endif

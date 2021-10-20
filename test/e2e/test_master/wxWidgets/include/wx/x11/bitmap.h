@@ -37,13 +37,21 @@ public:
   bool Create(const wxBitmap& bitmap);
     // implementation
   WXPixmap GetBitmap() const
-  { return m_bitmap; }
+  {
+ return m_bitmap;
+  }
   void SetBitmap(WXPixmap bitmap)
-  { m_bitmap = bitmap; }
+  {
+ m_bitmap = bitmap;
+  }
   WXDisplay* GetDisplay() const
-  { return m_display; }
+  {
+ return m_display;
+  }
   void SetDisplay(WXDisplay* display)
-  { m_display = display; }
+  {
+ m_display = display;
+  }
 private:
   WXPixmap m_bitmap;
   WXDisplay* m_display;
@@ -61,10 +69,12 @@ public:
   }
   wxBitmap(int width, int height, int depth = -1)
   {
- Create( width, height, depth );   }
+ Create( width, height, depth );
+  }
   wxBitmap(const wxSize& sz, int depth = -1)
   {
- Create( sz, depth );   }
+ Create( sz, depth );
+  }
   wxBitmap(const char bits[], int width, int height, int depth = 1);
   wxBitmap(const char* const * bits);
   wxBitmap(const wxString& filename, wxBitmapType type = wxBITMAP_DEFAULT_TYPE);
@@ -72,9 +82,13 @@ public:
   static void InitStandardHandlers();
   bool Create(int width, int height, int depth = wxBITMAP_SCREEN_DEPTH);
   bool Create(const wxSize& sz, int depth = wxBITMAP_SCREEN_DEPTH)
-  { return Create(sz.GetWidth(), sz.GetHeight(), depth); }
+  {
+ return Create(sz.GetWidth(), sz.GetHeight(), depth);
+  }
   bool Create(int width, int height, const wxDC&)
-  { return Create(width,height); }
+  {
+ return Create(width,height);
+  }
   bool Create(const void* data, wxBitmapType type, int width, int height, int depth = -1);
     // create the wxBitmap using a _copy_ of the pixmap
   bool Create(WXPixmap pixmap);
@@ -84,7 +98,8 @@ public:
 #  if  wxUSE_IMAGE
   wxBitmap(const wxImage& image, int depth = -1, double = 1.0)
   {
- (void)CreateFromImage(image, depth);   }
+ (void)CreateFromImage(image, depth);
+  }
   wxImage ConvertToImage() const;
   bool CreateFromImage(const wxImage& image, int depth = -1);
 #  endif
@@ -97,7 +112,9 @@ public:
   bool LoadFile(const wxString& name, wxBitmapType type = wxBITMAP_DEFAULT_TYPE);
   wxPalette* GetPalette() const;
   wxPalette* GetColourMap() const
-  { return GetPalette(); }
+  {
+ return GetPalette();
+  }
   virtual void SetPalette(const wxPalette& palette);
     // implementation
     // --------------
@@ -112,7 +129,9 @@ public:
     // This is provided only for compatibility with the other ports, there is
     // no alpha support in X11 bitmaps.
   bool HasAlpha() const
-  { return false; }
+  {
+ return false;
+  }
 protected:
   virtual wxGDIRefData* CreateGDIRefData() const;
   virtual wxGDIRefData* CloneGDIRefData(const wxGDIRefData* data) const;

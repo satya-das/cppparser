@@ -16,10 +16,12 @@ class wxUIActionSimulatorImpl
 public:
   wxUIActionSimulatorImpl()
   {
-   }
+
+  }
   virtual ~wxUIActionSimulatorImpl()
   {
-   }
+
+  }
     // Low level mouse methods which must be implemented in the derived class.
   virtual bool MouseMove(long x, long y) = 0;
   virtual bool MouseDown(int button = wxMOUSE_BTN_LEFT) = 0;

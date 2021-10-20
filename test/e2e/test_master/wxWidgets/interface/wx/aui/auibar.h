@@ -77,7 +77,6 @@ enum wxAuiToolBarStyle {
       By default only icons are shown.
     */
     wxAUI_TB_DEFAULT_STYLE = 0
-
 };
 /**
     wxAuiToolBarArtSetting
@@ -100,7 +99,6 @@ enum wxAuiToolBarArtSetting {
       Overflow button size in wxAuiToolBar.
     */
     wxAUI_TBART_OVERFLOW_SIZE = 2
-
 };
 /**
   wxAuiToolBarToolTextOrientation
@@ -128,7 +126,6 @@ enum wxAuiToolBarToolTextOrientation {
       Text in wxAuiToolBar items is bottom aligned.
     */
     wxAUI_TBTOOL_TEXT_BOTTOM = 3
-
 };
 /**
     @class wxAuiToolBarEvent

@@ -85,13 +85,12 @@ public:
   ReadableAcDbObject()
   {
 
-      }
+  }
   ReadableAcDbObject(ACDB_CLASS*& pObj, AcDbObjectId id, bool bOpenErased, bool enableNow = true)
   {
-
         if (enableNow)
             enableRead(pObj, id, bOpenErased);
-      }
+  }
     // Disallow copy ctor and asst oper
   ReadableAcDbObject(const ReadableAcDbObject&) = delete;
   ReadableAcDbObject& operator =(const ReadableAcDbObject&);
@@ -108,7 +107,7 @@ public:
             DbObjPtr_Assert((NULL != pObj) ? pObj->isReadEnabled() : true);
             mpObj = pObj;
         }
-    }
+  }
   void revertRead()
   {
         if (mpObj) {
@@ -122,31 +121,30 @@ public:
             mpObj = NULL;
         }
         mEs = Acad::eNotOpenForRead;
-    }
+  }
   ~ReadableAcDbObject()
   {
-
         revertRead();
-      }
+  }
   bool isReadable() const
   {
         return ((NULL != mpObj) && mpObj->isReadEnabled());
-    }
+  }
   const ACDB_CLASS* object() const
   {
         return Acad::eOk == mEs ? mpObj : NULL; // Warning: this can be NULL
-    }
+  }
     // Support non-const access of readable object to
     // support AcDbSmartObjectPointer::acquire and
     // DBOBJPTR_EXPOSE_PTR_REF actions.
   ACDB_CLASS* object()
   {
         return Acad::eOk == mEs ? mpObj : NULL; // Warning: this can be NULL
-    }
+  }
   Acad::ErrorStatus statusCode() const
   {
         return mEs;
-    }
+  }
 private:
   ACDB_CLASS* mpObj{nullptr};
   Acad::ErrorStatus mEs{Acad::eNotOpenForRead};
@@ -163,12 +161,10 @@ private:
   ReadableAcDbObject(AcDbObjectId id, bool bOpenErased, bool enableNow = true)
     :   mpObj(NULL),
     mEs(Acad::eNotOpenForRead)
-    
-    {
-
+  {
         if (enableNow)
             enableRead(mpObj, id, bOpenErased);
-        }
+  }
   void forgetCurrentAndAcceptNewAsIs(ACDB_CLASS* pNewObj)
   {
         if (mpObj != pNewObj) {
@@ -176,7 +172,7 @@ private:
             mEs = (NULL == mpObj) ? Acad::eNotOpenForRead : Acad::eOk;
             mbWasOpened = (NULL != mpObj);
         }
-    }
+  }
 };
 // accessAcDbObjectForWrite:  For Internal Use Only
 //
@@ -224,17 +220,14 @@ class WritableAcDbObject
 public:
   WritableAcDbObject()
     :   mbOpenOnLockedLayer(false)
-    
-    {
+  {
 
-        }
+  }
   WritableAcDbObject(AcDbObject* pObj, bool enableNow = true, bool openOnLockedLayer = false)
     :  mbOpenOnLockedLayer(openOnLockedLayer)
-    
-    {
-
+  {
         replaceObject(pObj, enableNow);
-        }
+  }
     // Disallow copy ctor and asst oper
   WritableAcDbObject(const WritableAcDbObject&) = delete;
   WritableAcDbObject operator =(const WritableAcDbObject&);
@@ -249,7 +242,7 @@ public:
         mEs = Acad::eNotOpenForWrite;
         if (enableNow)
             enableWrite();
-    }
+  }
   bool enableWrite()
   {
         if (isWritable())
@@ -262,7 +255,7 @@ public:
                                        mReadCountClosed,
                                        mbOpenOnLockedLayer);
         return isWritable();
-    }
+  }
   void revertWrite()
   {
         if ((NULL != mpObj) && !mpObj->objectId().isNull())
@@ -272,29 +265,28 @@ public:
                                             mbWasWriteEnabled,
                                             mReadCountClosed);
         forget();
-    }
+  }
   ~WritableAcDbObject()
   {
-
         revertWrite();
-      }
+  }
   bool isWritable() const
   {
         return (Acad::eOk == mEs);
-    }
+  }
   Acad::ErrorStatus statusCode() const
   {
         return mEs;
-    }
+  }
   void forget()
   {
         mpObj = NULL;
         mEs = Acad::eNullObjectPointer;
-    }
+  }
   void setOpenOnLockedLayer(bool openOnLockedLayer)
   {
         mbOpenOnLockedLayer = openOnLockedLayer;
-    }
+  }
 private:
   AcDbObject* mpObj{nullptr};
   Acad::ErrorStatus mEs{Acad::eNullObjectPointer};
@@ -423,27 +415,22 @@ template <typename ACDB_CLASS>
 inline AcDbSmartObjectPointer<ACDB_CLASS>::AcDbSmartObjectPointer()
   :  mReadable(),
       mWritable()
-
-  {
-
+{
     // mReadable and mWritable constructors do all the work.
-  }
+}
 template <typename ACDB_CLASS>
 inline AcDbSmartObjectPointer<ACDB_CLASS>::AcDbSmartObjectPointer(AcDbObjectId objId, AcDb::OpenMode mode, bool openErased, bool openOnLockedLayer)
   :  mReadable(objId, openErased),
       mWritable(mReadable.object(), AcDb::kForWrite == mode, openOnLockedLayer)
-
-  {
-
+{
     // Explanation of the preceding constructor calls:
     // mReadable obtains the object, and as of yet, has no
     // outside pointer to set, so we feed its own member to its constructor.
     // then, mWritable takes an object that is open in some way.
-  }
+}
 template <typename ACDB_CLASS>
 inline AcDbSmartObjectPointer<ACDB_CLASS>::~AcDbSmartObjectPointer()
 {
-
     // mReadable and mWritable destructors do all the work.
     mpObj = NULL;
 }
@@ -493,14 +480,12 @@ inline ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::operator->()
 template <typename ACDB_CLASS>
 operator const ACDB_CLASS*() const
 {
-
     return object();
 }
 #  if  DBOBJPTR_EXPOSE_PTR_REF
 template <typename ACDB_CLASS>
 operator ACDB_CLASS*&()
 {
-
     // Allows direct modification of the pointer member
     // so if this is called, we disavow any knowledge of
     // how to close the object, but whatever is put in its place
@@ -513,7 +498,6 @@ operator ACDB_CLASS*&()
 template <typename ACDB_CLASS>
 operator ACDB_CLASS*()
 {
-
     return object();
 }
 #  endif
@@ -576,7 +560,6 @@ inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::closeInternal()
 template <typename ACDB_CLASS>
 inline AcDbSmartObjectPointer<ACDB_CLASS>::AcDbSmartObjectPointer(ACDB_CLASS* pObject)
 {
-
     acquire(pObject);
 }
 template <typename ACDB_CLASS>

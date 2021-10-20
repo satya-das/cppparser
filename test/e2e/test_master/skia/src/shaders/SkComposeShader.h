@@ -16,9 +16,8 @@ public:
         , fDst(std::move(dst))
         , fSrc(std::move(src))
         , fMode(mode)
-    
-    {
-    }
+  {
+  }
 #  if  SK_SUPPORT_GPU
   std::unique_ptr<GrFragmentProcessor> asFragmentProcessor(const GrFPArgs&) const override;
 #  endif
@@ -41,11 +40,9 @@ public:
         , fDst(std::move(dst))
         , fSrc(std::move(src))
         , fWeight(weight)
-    
-    {
-
+  {
         SkASSERT(weight >= 0 && weight <= 1);
-        }
+  }
 #  if  SK_SUPPORT_GPU
   std::unique_ptr<GrFragmentProcessor> asFragmentProcessor(const GrFPArgs&) const override;
 #  endif
@@ -68,9 +65,8 @@ public:
         , fDst(std::move(dst))
         , fSrc(std::move(src))
         , fRed(std::move(red))
-    
-    {
-    }
+  {
+  }
 #  if  SK_SUPPORT_GPU
   std::unique_ptr<GrFragmentProcessor> asFragmentProcessor(const GrFPArgs&) const override;
 #  endif

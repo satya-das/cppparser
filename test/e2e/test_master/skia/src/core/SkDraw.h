@@ -33,7 +33,7 @@ public:
   void drawRect(const SkRect& rect, const SkPaint& paint) const
   {
         this->drawRect(rect, paint, nullptr, nullptr);
-    }
+  }
   void drawRRect(const SkRRect&, const SkPaint&) const;
     /**
      *  To save on mallocs, we allow a flag that tells us that srcPath is
@@ -47,7 +47,7 @@ public:
   void drawPath(const SkPath& path, const SkPaint& paint, const SkMatrix* prePathMatrix = nullptr, bool pathIsMutable = false) const
   {
         this->drawPath(path, paint, prePathMatrix, pathIsMutable, false);
-    }
+  }
     /* If dstOrNull is null, computes a dst by mapping the bitmap's bounds through the matrix. */
   void drawBitmap(const SkBitmap&, const SkMatrix&, const SkRect* dstOrNull, const SkPaint&) const;
   void drawSprite(const SkBitmap&, int x, int y, const SkPaint&) const;
@@ -65,7 +65,7 @@ public:
         bool isHairline = paint.getStyle() == SkPaint::kStroke_Style &&
                           paint.getStrokeWidth() > 0;
         this->drawPath(src, paint, nullptr, false, !isHairline, customBlitter);
-    }
+  }
   void paintPaths(SkSpan<const SkPathPos> pathsAndPositions, SkScalar scale, const SkPaint& paint) const override;
   void paintMasks(SkSpan<const SkMask> masks, const SkPaint& paint) const override;
   static bool ComputeMaskBounds(const SkRect& devPathBounds, const SkIRect* clipBounds, const SkMaskFilter* filter, const SkMatrix* filterMatrix, SkIRect* bounds);
@@ -81,7 +81,7 @@ public:
         kFill_RectType,
         kStroke_RectType,
         kPath_RectType
-    };
+  };
     /**
      *  Based on the paint's style, strokeWidth, and the matrix, classify how
      *  to draw the rect. If no special-case is available, returns

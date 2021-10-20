@@ -36,7 +36,7 @@ public:
         Arrow_First,        // left or top
         Arrow_Second,       // right or bottom
         Arrow_Max
-    };
+  };
     // ctor requires a back pointer to wxControlWithArrows
   wxScrollArrows(wxControlWithArrows* control);
     // draws the arrow on the given DC in the given rectangle, uses

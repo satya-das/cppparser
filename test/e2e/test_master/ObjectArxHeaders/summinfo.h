@@ -160,7 +160,8 @@ class ADESK_NO_VTABLE AcDbSummaryInfoReactor
 public:
   virtual void summaryInfoHasChanged(const AcDbDatabase*, const AcDbDatabaseSummaryInfo*)
   {
-    }
+
+  }
   virtual ~AcDbSummaryInfoReactor()
   {
   }

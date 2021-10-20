@@ -212,7 +212,7 @@ public:
   inline bool GetFullPath(wchar_t (& buf)[nBufLen]) const
   {
             return this->GetFullPath(buf, nBufLen);
-        }
+  }
         // Returns the UNC path if 'this' represents a remote drive. Otherwise,
         // returns NULL.
   void GetFullUNCPath(AcString&) const;
@@ -345,7 +345,6 @@ private:
 // inline definitions
 inline CAdUiPathname::CAdUiPathname(const CAdUiPathname& pathSrc)
 {
-
         m_pathbuffer = nullptr;
         m_relpath = nullptr;
 
@@ -361,7 +360,6 @@ inline bool CAdUiPathname::IsPath(void) const
                 || (m_this_type == DIR_PATH)
                 || (m_this_type == NEW_PATH) 
                 || (m_this_type == WC_PATH) );
-        
 }
 inline bool CAdUiPathname::IsEmpty(void) const
 {

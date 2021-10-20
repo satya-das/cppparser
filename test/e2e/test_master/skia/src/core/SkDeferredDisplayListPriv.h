@@ -20,7 +20,7 @@ public:
 #else
         return 0;
 #endif
-    }
+  }
   const SkDeferredDisplayList::LazyProxyData* lazyProxyData() const
   {
 #if SK_SUPPORT_GPU
@@ -28,12 +28,12 @@ public:
 #else
         return nullptr;
 #endif
-    }
+  }
 private:
   explicit SkDeferredDisplayListPriv(SkDeferredDisplayList* ddl)
-    :  fDDL(ddl) 
-    {
-    }
+    :  fDDL(ddl)
+  {
+  }
   SkDeferredDisplayListPriv(const SkDeferredDisplayListPriv&);
   SkDeferredDisplayListPriv& operator=(const SkDeferredDisplayListPriv&);
     // No taking addresses of this type.

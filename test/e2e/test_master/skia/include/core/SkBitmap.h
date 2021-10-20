@@ -96,13 +96,17 @@ public:
         @return  reference to SkPixmap describing this SkBitmap
     */
   const SkPixmap& pixmap() const
-  { return fPixmap; }
+  {
+ return fPixmap;
+  }
     /** Returns width, height, SkAlphaType, SkColorType, and SkColorSpace.
 
         @return  reference to SkImageInfo
     */
   const SkImageInfo& info() const
-  { return fPixmap.info(); }
+  {
+ return fPixmap.info();
+  }
     /** Returns pixel count in each row. Should be equal or less than
         rowBytes() / info().bytesPerPixel().
 
@@ -112,7 +116,9 @@ public:
         @return  pixel width in SkImageInfo
     */
   int width() const
-  { return fPixmap.width(); }
+  {
+ return fPixmap.width();
+  }
     /** Returns pixel row count.
 
         Maybe be less than pixelRef().height(). Will not exceed pixelRef().height() less
@@ -121,7 +127,9 @@ public:
         @return  pixel height in SkImageInfo
     */
   int height() const
-  { return fPixmap.height(); }
+  {
+ return fPixmap.height();
+  }
     /** Returns SkColorType, one of:
         kUnknown_SkColorType, kAlpha_8_SkColorType, kRGB_565_SkColorType,
         kARGB_4444_SkColorType, kRGBA_8888_SkColorType, kRGB_888x_SkColorType,
@@ -131,7 +139,9 @@ public:
         @return  SkColorType in SkImageInfo
     */
   SkColorType colorType() const
-  { return fPixmap.colorType(); }
+  {
+ return fPixmap.colorType();
+  }
     /** Returns SkAlphaType, one of:
         kUnknown_SkAlphaType, kOpaque_SkAlphaType, kPremul_SkAlphaType,
         kUnpremul_SkAlphaType.
@@ -139,7 +149,9 @@ public:
         @return  SkAlphaType in SkImageInfo
     */
   SkAlphaType alphaType() const
-  { return fPixmap.alphaType(); }
+  {
+ return fPixmap.alphaType();
+  }
     /** Returns SkColorSpace, the range of colors, associated with SkImageInfo. The
         reference count of SkColorSpace is unchanged. The returned SkColorSpace is
         immutable.
@@ -147,7 +159,9 @@ public:
         @return  SkColorSpace in SkImageInfo, or nullptr
     */
   SkColorSpace* colorSpace() const
-  { return fPixmap.colorSpace(); }
+  {
+ return fPixmap.colorSpace();
+  }
     /** Returns smart pointer to SkColorSpace, the range of colors, associated with
         SkImageInfo. The smart pointer tracks the number of objects sharing this
         SkColorSpace reference so the memory is released when the owners destruct.
@@ -157,28 +171,36 @@ public:
         @return  SkColorSpace in SkImageInfo wrapped in a smart pointer
     */
   sk_sp<SkColorSpace> refColorSpace() const
-  { return fPixmap.info().refColorSpace(); }
+  {
+ return fPixmap.info().refColorSpace();
+  }
     /** Returns number of bytes per pixel required by SkColorType.
         Returns zero if colorType( is kUnknown_SkColorType.
 
         @return  bytes in pixel
     */
   int bytesPerPixel() const
-  { return fPixmap.info().bytesPerPixel(); }
+  {
+ return fPixmap.info().bytesPerPixel();
+  }
     /** Returns number of pixels that fit on row. Should be greater than or equal to
         width().
 
         @return  maximum pixels per row
     */
   int rowBytesAsPixels() const
-  { return fPixmap.rowBytesAsPixels(); }
+  {
+ return fPixmap.rowBytesAsPixels();
+  }
     /** Returns bit shift converting row bytes to row pixels.
         Returns zero for kUnknown_SkColorType.
 
         @return  one of: 0, 1, 2, 3; left shift to convert pixels to bytes
     */
   int shiftPerPixel() const
-  { return fPixmap.shiftPerPixel(); }
+  {
+ return fPixmap.shiftPerPixel();
+  }
     /** Returns true if either width() or height() are zero.
 
         Does not check if SkPixelRef is nullptr; call drawsNothing() to check width(),
@@ -187,7 +209,9 @@ public:
         @return  true if dimensions do not enclose area
     */
   bool empty() const
-  { return fPixmap.info().isEmpty(); }
+  {
+ return fPixmap.info().isEmpty();
+  }
     /** Returns true if SkPixelRef is nullptr.
 
         Does not check if width() or height() are zero; call drawsNothing() to check
@@ -196,7 +220,9 @@ public:
         @return  true if no SkPixelRef is associated
     */
   bool isNull() const
-  { return nullptr == fPixelRef; }
+  {
+ return nullptr == fPixelRef;
+  }
     /** Returns true if width() or height() are zero, or if SkPixelRef is nullptr.
         If true, SkBitmap has no effect when drawn or drawn into.
 
@@ -205,7 +231,7 @@ public:
   bool drawsNothing() const
   {
         return this->empty() || this->isNull();
-    }
+  }
     /** Returns row bytes, the interval from one pixel row to the next. Row bytes
         is at least as large as: width() * info().bytesPerPixel().
 
@@ -215,7 +241,9 @@ public:
         @return  byte length of pixel row
     */
   size_t rowBytes() const
-  { return fPixmap.rowBytes(); }
+  {
+ return fPixmap.rowBytes();
+  }
     /** Sets SkAlphaType, if alphaType is compatible with SkColorType.
         Returns true unless alphaType is kUnknown_SkAlphaType and current SkAlphaType
         is not kUnknown_SkAlphaType.
@@ -250,7 +278,9 @@ public:
         @return  pixel address
     */
   void* getPixels() const
-  { return fPixmap.writable_addr(); }
+  {
+ return fPixmap.writable_addr();
+  }
     /** Returns minimum memory required for pixel storage.
         Does not include unused memory on last row when rowBytesAsPixels() exceeds width().
         Returns SIZE_MAX if result does not fit in size_t.
@@ -260,7 +290,9 @@ public:
         @return  size in bytes of image buffer
     */
   size_t computeByteSize() const
-  { return fPixmap.computeByteSize(); }
+  {
+ return fPixmap.computeByteSize();
+  }
     /** Returns true if pixels can not change.
 
         Most immutable SkBitmap checks trigger an assert only on debug builds.
@@ -287,7 +319,7 @@ public:
   bool isOpaque() const
   {
         return SkAlphaTypeIsOpaque(this->alphaType());
-    }
+  }
     /** Provides a hint to caller that pixels should not be cached. Only true if
         setIsVolatile() has been called to mark as volatile.
 
@@ -336,7 +368,7 @@ public:
   static bool ComputeIsOpaque(const SkBitmap& bm)
   {
         return bm.pixmap().computeIsOpaque();
-    }
+  }
     /** Returns SkRect { 0, 0, width(), height() }.
 
         @param bounds  container for floating point rectangle
@@ -352,13 +384,17 @@ public:
         @return  integral rectangle from origin to width() and height()
     */
   SkIRect bounds() const
-  { return fPixmap.info().bounds(); }
+  {
+ return fPixmap.info().bounds();
+  }
     /** Returns SkISize { width(), height() }.
 
         @return  integral size of width() and height()
     */
   SkISize dimensions() const
-  { return fPixmap.info().dimensions(); }
+  {
+ return fPixmap.info().dimensions();
+  }
     /** Returns the bounds of this bitmap, offset by its SkPixelRef origin.
 
         @return  bounds within SkPixelRef bounds
@@ -367,7 +403,7 @@ public:
   {
         SkIPoint origin = this->pixelRefOrigin();
         return SkIRect::MakeXYWH(origin.x(), origin.y(), this->width(), this->height());
-    }
+  }
     /** Sets width, height, SkAlphaType, SkColorType, SkColorSpace, and optional
         rowBytes. Frees pixels, and returns true if successful.
 
@@ -402,7 +438,7 @@ public:
     */
   enum AllocFlags {
         kZeroPixels_AllocFlag = 1 << 0, //!< zero pixel memory.  No effect.  This is the default.
-    };
+  };
     /** Sets SkImageInfo to info following the rules in setInfo() and allocates pixel
         memory. Memory is zeroed.
 
@@ -487,7 +523,7 @@ public:
   bool SK_WARN_UNUSED_RESULT tryAllocPixels(const SkImageInfo& info)
   {
         return this->tryAllocPixels(info, info.minRowBytes());
-    }
+  }
     /** Sets SkImageInfo to info following the rules in setInfo() and allocates pixel
         memory.
 
@@ -578,7 +614,7 @@ public:
   bool installPixels(const SkImageInfo& info, void* pixels, size_t rowBytes)
   {
         return this->installPixels(info, pixels, rowBytes, nullptr, nullptr);
-    }
+  }
     /** Sets SkImageInfo to pixmap.info() following the rules in setInfo(), and creates
         SkPixelRef containing pixmap.addr() and pixmap.rowBytes().
 
@@ -618,7 +654,7 @@ public:
   bool SK_WARN_UNUSED_RESULT tryAllocPixels()
   {
         return this->tryAllocPixels((Allocator*)nullptr);
-    }
+  }
     /** Allocates pixel memory with HeapAllocator, and replaces existing SkPixelRef.
         The allocation size is determined by SkImageInfo width, height, and SkColorType.
 
@@ -655,7 +691,9 @@ public:
         @return  SkPixelRef, or nullptr
     */
   SkPixelRef* pixelRef() const
-  { return fPixelRef.get(); }
+  {
+ return fPixelRef.get();
+  }
     /** Returns origin of pixels within SkPixelRef. SkBitmap bounds is always contained
         by SkPixelRef bounds, which may be the same size or larger. Multiple SkBitmap
         can share the same SkPixelRef, where each SkBitmap has different bounds.
@@ -689,7 +727,7 @@ public:
   bool readyToDraw() const
   {
         return this->getPixels() != nullptr;
-    }
+  }
     /** Returns a unique value corresponding to the pixels in SkPixelRef.
         Returns a different value after notifyPixelsChanged() has been called.
         Returns zero if SkPixelRef is nullptr.
@@ -725,7 +763,7 @@ public:
   void eraseARGB(U8CPU a, U8CPU r, U8CPU g, U8CPU b) const
   {
         this->eraseColor(SkColorSetARGB(a, r, g, b));
-    }
+  }
     /** Replaces pixel values inside area with c. If area does not intersect bounds(),
         call has no effect.
 
@@ -742,7 +780,7 @@ public:
   void eraseArea(const SkIRect& area, SkColor c) const
   {
         this->erase(c, area);
-    }
+  }
     /** Returns pixel at (x, y) as unpremultiplied color.
         Returns black with alpha if SkColorType is kAlpha_8_SkColorType.
 
@@ -762,7 +800,7 @@ public:
   SkColor getColor(int x, int y) const
   {
         return this->pixmap().getColor(x, y);
-    }
+  }
     /** Look up the pixel at (x,y) and return its alpha component, normalized to [0..1].
         This is roughly equivalent to SkGetColorA(getColor()), but can be more efficent
         (and more precise if the pixels store more than 8 bits per component).
@@ -774,7 +812,7 @@ public:
   float getAlphaf(int x, int y) const
   {
         return this->pixmap().getAlphaf(x, y);
-    }
+  }
     /** Returns pixel address at (x, y).
 
         Input is not validated: out of bounds values of x or y, or kUnknown_SkColorType,
@@ -926,7 +964,7 @@ public:
   bool readPixels(const SkPixmap& dst) const
   {
         return this->readPixels(dst, 0, 0);
-    }
+  }
     /** Copies a SkRect of pixels from src. Copy starts at (dstX, dstY), and does not exceed
         (src.width(), src.height()).
 
@@ -977,7 +1015,7 @@ public:
   bool writePixels(const SkPixmap& src)
   {
         return this->writePixels(src, 0, 0);
-    }
+  }
     /** Sets dst to alpha described by pixels. Returns false if dst cannot be written to
         or dst pixels cannot be allocated.
 
@@ -989,7 +1027,7 @@ public:
   bool extractAlpha(SkBitmap* dst) const
   {
         return this->extractAlpha(dst, nullptr, nullptr, nullptr);
-    }
+  }
     /** Sets dst to alpha described by pixels. Returns false if dst cannot be written to
         or dst pixels cannot be allocated.
 
@@ -1006,7 +1044,7 @@ public:
   bool extractAlpha(SkBitmap* dst, const SkPaint* paint, SkIPoint* offset) const
   {
         return this->extractAlpha(dst, paint, nullptr, offset);
-    }
+  }
     /** Sets dst to alpha described by pixels. Returns false if dst cannot be written to
         or dst pixels cannot be allocated.
 
@@ -1073,7 +1111,7 @@ public:
 private:
   enum Flags {
         kImageIsVolatile_Flag   = 0x02,
-    };
+  };
   sk_sp<SkPixelRef> fPixelRef;
   SkPixmap fPixmap;
   uint8_t fFlags;

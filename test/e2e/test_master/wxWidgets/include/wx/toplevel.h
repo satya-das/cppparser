@@ -130,16 +130,20 @@ public:
   wxIcon GetIcon() const;
     // get the frame icons
   const wxIconBundle& GetIcons() const
-  { return m_icons; }
+  {
+ return m_icons;
+  }
     // set the frame icon: implemented in terms of SetIcons()
   void SetIcon(const wxIcon& icon);
     // set the frame icons
   virtual void SetIcons(const wxIconBundle& icons)
-  { m_icons = icons; }
+  {
+ m_icons = icons;
+  }
   virtual bool EnableFullScreenView(bool = true)
   {
         return false;
-    }
+  }
     // maximize the window to cover entire screen
   virtual bool ShowFullScreen(bool show, long style = wxFULLSCREEN_ALL) = 0;
     // shows the window, but doesn't activate it. If the base code is being run,
@@ -147,7 +151,7 @@ public:
   virtual void ShowWithoutActivating()
   {
         wxFAIL_MSG("ShowWithoutActivating not implemented on this platform.");
-    }
+  }
     // return true if the frame is in fullscreen mode
   virtual bool IsFullScreen() const = 0;
     // the title of the top level window: the text which the
@@ -156,11 +160,17 @@ public:
   virtual wxString GetTitle() const = 0;
     // enable/disable close button [x]
   virtual bool EnableCloseButton(bool = true)
-  { return false; }
+  {
+ return false;
+  }
   virtual bool EnableMaximizeButton(bool = true)
-  { return false; }
+  {
+ return false;
+  }
   virtual bool EnableMinimizeButton(bool = true)
-  { return false; }
+  {
+ return false;
+  }
     // Attracts the users attention to this window if the application is
     // inactive (should be called when a background event occurs)
   virtual void RequestUserAttention(int flags = wxUSER_ATTENTION_INFO);
@@ -168,19 +178,27 @@ public:
     //
     // A TLW is active only if it contains the currently focused window.
   virtual bool IsActive()
-  { return IsDescendant(FindFocus()); }
+  {
+ return IsDescendant(FindFocus());
+  }
     // this function may be overridden to return false to allow closing the
     // application even when this top level window is still open
     //
     // notice that the window is still closed prior to the application exit and
     // so it can still veto it even if it returns false from here
   virtual bool ShouldPreventAppExit() const
-  { return true; }
+  {
+ return true;
+  }
     // centre the window on screen: this is just a shortcut
   void CentreOnScreen(int dir = wxBOTH)
-  { DoCentre(dir | wxCENTRE_ON_SCREEN); }
+  {
+ DoCentre(dir | wxCENTRE_ON_SCREEN);
+  }
   void CenterOnScreen(int dir = wxBOTH)
-  { CentreOnScreen(dir); }
+  {
+ CentreOnScreen(dir);
+  }
     // Get the default size for a new top level window. This is used when
     // creating a wxTLW under some platforms if no explicit size given.
   static wxSize GetDefaultSize();
@@ -192,17 +210,25 @@ public:
 
     // get the default item, temporary or permanent
   wxWindow* GetDefaultItem() const
-  { return m_winTmpDefault ? m_winTmpDefault : m_winDefault; }
+  {
+ return m_winTmpDefault ? m_winTmpDefault : m_winDefault;
+  }
     // set the permanent default item, return the old default
   wxWindow* SetDefaultItem(wxWindow* win)
-  { wxWindow *old = GetDefaultItem(); m_winDefault = win; return old; }
+  {
+ wxWindow *old = GetDefaultItem(); m_winDefault = win; return old;
+  }
     // return the temporary default item, can be NULL
   wxWindow* GetTmpDefaultItem() const
-  { return m_winTmpDefault; }
+  {
+ return m_winTmpDefault;
+  }
     // set a temporary default item, SetTmpDefaultItem(NULL) should be called
     // soon after a call to SetTmpDefaultItem(window), return the old default
   wxWindow* SetTmpDefaultItem(wxWindow* win)
-  { wxWindow *old = GetDefaultItem(); m_winTmpDefault = win; return old; }
+  {
+ wxWindow *old = GetDefaultItem(); m_winTmpDefault = win; return old;
+  }
     // Class for saving/restoring fields describing the window geometry.
     //
     // This class is used by the functions below to allow saving the geometry
@@ -234,34 +260,48 @@ public:
     // override some base class virtuals
   bool Destroy() override;
   bool IsTopLevel() const override
-  { return true; }
+  {
+ return true;
+  }
   bool IsTopNavigationDomain(NavigationKind kind) const override;
   virtual bool IsVisible() const
-  { return IsShown(); }
+  {
+ return IsShown();
+  }
     // override to do TLW-specific layout: we resize our unique child to fill
     // the entire client area
   bool Layout() override;
     // event handlers
   void OnCloseWindow(wxCloseEvent& event);
   void OnSize(wxSizeEvent&)
-  { Layout(); }
+  {
+ Layout();
+  }
     // Get rect to be used to center top-level children
   virtual void GetRectForTopLevelChildren(int* x, int* y, int* w, int* h);
     // this should go away, but for now it's called from docview.cpp,
     // so should be there for all platforms
   void OnActivate(wxActivateEvent&)
-  { }
+  {
+
+  }
     // do the window-specific processing after processing the update event
   void DoUpdateWindowUI(wxUpdateUIEvent& event) override;
     // a different API for SetSizeHints
   void SetMinSize(const wxSize& minSize) override;
   void SetMaxSize(const wxSize& maxSize) override;
   virtual void OSXSetModified(bool modified)
-  { m_modified = modified; }
+  {
+ m_modified = modified;
+  }
   virtual bool OSXIsModified() const
-  { return m_modified; }
+  {
+ return m_modified;
+  }
   virtual void SetRepresentedFilename(const wxString&)
-  { }
+  {
+
+  }
 protected:
     // the frame client to screen translation should take account of the
     // toolbar which may shift the origin of the client area
@@ -274,22 +314,30 @@ protected:
   void DoGetScreenPosition(int* x, int* y) const override
   {
         DoGetPosition(x, y);
-    }
+  }
     // test whether this window makes part of the frame
     // (menubar, toolbar and statusbar are excluded from automatic layout)
   virtual bool IsOneOfBars(const wxWindow*) const
-  { return false; }
+  {
+ return false;
+  }
     // check if we should exit the program after deleting this window
   bool IsLastBeforeExit() const;
     // send the iconize event, return true if processed
   bool SendIconizeEvent(bool iconized = true);
     // this method is only kept for compatibility, call Layout() instead.
   void DoLayout()
-  { Layout(); }
+  {
+ Layout();
+  }
   static int WidthDefault(int w)
-  { return w == wxDefaultCoord ? GetDefaultSize().x : w; }
+  {
+ return w == wxDefaultCoord ? GetDefaultSize().x : w;
+  }
   static int HeightDefault(int h)
-  { return h == wxDefaultCoord ? GetDefaultSize().y : h; }
+  {
+ return h == wxDefaultCoord ? GetDefaultSize().y : h;
+  }
     // the frame icon
   wxIconBundle m_icons;
     // a default window (usually a button) or NULL
@@ -335,14 +383,14 @@ public:
         // construction
   wxTopLevelWindow()
   {
-   }
+
+  }
   wxTopLevelWindow(wxWindow* parent, wxWindowID winid, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
     :  wxTopLevelWindowNative(parent, winid, title,
                                      pos, size, style, name)
-        
-    {
+  {
 
-            }
+  }
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxTopLevelWindow);
 };
 #  endif

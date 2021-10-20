@@ -26,14 +26,14 @@ public:
         kAboveDirectionArrowSymbol   = 2,
         kStartDirectionArrow         = 3,
         kEndDirectionArrow           = 4,
-    };
+  };
     /// <summary>
     /// Enumeration defining identifier position type
     /// </summary>
   enum ArrowDirection {
         kTowardsCuttingPlane    = 0,
         kAwayFromCuttingPlane   = 1,
-    };
+  };
   AcDbSectionViewStyle();
   ~AcDbSectionViewStyle();
   ACDB_DECLARE_MEMBERS(AcDbSectionViewStyle);

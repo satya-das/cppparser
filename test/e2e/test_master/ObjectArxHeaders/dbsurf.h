@@ -54,7 +54,7 @@ public:
         /// </summary>
         ///
         kIsoparms = 1
-    };
+  };
     /// <summary>
     /// Defines possible edge extension types as input for extendEdges or 
     /// createExtendSurface methods.
@@ -65,7 +65,7 @@ public:
         kExtendEdge  = 0x000,
         /// <summary> Edges will be stretched. </summary>
         kStretchEdge = 0x001,
-    };
+  };
   AcDbSurface();
   virtual ~AcDbSurface();
   ACDB_DECLARE_MEMBERS(AcDbSurface);

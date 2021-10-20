@@ -34,7 +34,8 @@ class wxCollapsibleHeaderCtrl : public wxControl
 public:
   wxCollapsibleHeaderCtrl()
   {
-   }
+
+  }
     /**
         Constructor fully creating the control.
 

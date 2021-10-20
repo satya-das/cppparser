@@ -29,7 +29,7 @@ struct HtmlWindowOptions
         eMaxSize                 = 0x0020,  // specify maximum size (maxWidth and maxHeight fields are used)
         eMinSize                 = 0x0040,  // specify minimum size (minWidth and minHeight fields are used)
         ePersistSizeAndPosition  = 0x0080,  // allow dialog size and position to be persisted in registry
-    };
+  };
   UINT flags;
   UINT x;
   UINT y;

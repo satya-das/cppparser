@@ -22,9 +22,9 @@ namespace SkSL
       :  INHERITED(offset, kBinary_Kind, type)
     , fLeft(std::move(left))
     , fOperator(op)
-    , fRight(std::move(right)) 
-      {
-      }
+    , fRight(std::move(right))
+    {
+    }
     std::unique_ptr<Expression> constantPropagate(const IRGenerator& irGenerator, const DefinitionMap& definitions) override
     {
         return irGenerator.constantFold(*fLeft,

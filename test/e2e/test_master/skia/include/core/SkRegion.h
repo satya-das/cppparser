@@ -76,7 +76,7 @@ public:
   bool operator!=(const SkRegion& other) const
   {
         return !(*this == other);
-    }
+  }
     /** Sets SkRegion to src, and returns true if src bounds is not empty.
         This makes SkRegion and src identical by value. Internally,
         SkRegion and src share pointer values. The underlying SkRect array is
@@ -93,7 +93,7 @@ public:
   {
         *this = src;
         return !this->isEmpty();
-    }
+  }
     /** Exchanges SkIRect array of SkRegion and other. swap() internally exchanges pointers,
         so it is lightweight and does not allocate memory.
 
@@ -112,26 +112,34 @@ public:
         @return  true if bounds has no width or height
     */
   bool isEmpty() const
-  { return fRunHead == emptyRunHeadPtr(); }
+  {
+ return fRunHead == emptyRunHeadPtr();
+  }
     /** Returns true if SkRegion is one SkIRect with positive dimensions.
 
         @return  true if SkRegion contains one SkIRect
     */
   bool isRect() const
-  { return fRunHead == kRectRunHeadPtr; }
+  {
+ return fRunHead == kRectRunHeadPtr;
+  }
     /** Returns true if SkRegion is described by more than one rectangle.
 
         @return  true if SkRegion contains more than one SkIRect
     */
   bool isComplex() const
-  { return !this->isEmpty() && !this->isRect(); }
+  {
+ return !this->isEmpty() && !this->isRect();
+  }
     /** Returns minimum and maximum axes values of SkIRect array.
         Returns (0, 0, 0, 0) if SkRegion is empty.
 
         @return  combined bounds of all SkIRect elements
     */
   const SkIRect& getBounds() const
-  { return fBounds; }
+  {
+ return fBounds;
+  }
     /** Returns a value that increases with the number of
         elements in SkRegion. Returns zero if SkRegion is empty.
         Returns one if SkRegion equals SkIRect; otherwise, returns
@@ -247,7 +255,7 @@ public:
                 fRunHead == kRectRunHeadPtr &&  // this->isRect()
                 fBounds.fLeft <= r.fLeft   && fBounds.fTop <= r.fTop &&
                 fBounds.fRight >= r.fRight && fBounds.fBottom >= r.fBottom;
-    }
+  }
     /** Returns true if SkRegion does not intersect rect.
         Returns true if rect is empty or SkRegion is empty.
         May return false even though SkRegion does not intersect rect.
@@ -259,7 +267,7 @@ public:
   {
         return this->isEmpty() || rect.isEmpty() ||
                 !SkIRect::Intersects(fBounds, rect);
-    }
+  }
     /** Returns true if SkRegion does not intersect rgn.
         Returns true if rgn is empty or SkRegion is empty.
         May return false even though SkRegion does not intersect rgn.
@@ -271,14 +279,16 @@ public:
   {
         return this->isEmpty() || rgn.isEmpty() ||
                !SkIRect::Intersects(fBounds, rgn.fBounds);
-    }
+  }
     /** Offsets SkRegion by ivector (dx, dy). Has no effect if SkRegion is empty.
 
         @param dx  x-axis offset
         @param dy  y-axis offset
     */
   void translate(int dx, int dy)
-  { this->translate(dx, dy, this); }
+  {
+ this->translate(dx, dy, this);
+  }
     /** Offsets SkRegion by ivector (dx, dy), writing result to dst. SkRegion may be passed
         as dst parameter, translating SkRegion in place. Has no effect if dst is nullptr.
         If SkRegion is empty, sets dst to empty.
@@ -299,7 +309,7 @@ public:
         kReverseDifference_Op,               //!< operand minus target
         kReplace_Op,                         //!< replace target with operand
         kLastOp               = kReplace_Op, //!< last operator
-    };
+  };
   static const int kOpCnt = kLastOp + 1;
     /** Replaces SkRegion with the result of SkRegion op rect.
         Returns true if replaced SkRegion is not empty.
@@ -319,7 +329,7 @@ public:
             return true;
         }
         return this->op(*this, rect, op);
-    }
+  }
     /** Replaces SkRegion with the result of SkRegion op rgn.
         Returns true if replaced SkRegion is not empty.
 
@@ -330,7 +340,9 @@ public:
         @return     false if result is empty
     */
   bool op(const SkRegion& rgn, Op op)
-  { return this->op(*this, rgn, op); }
+  {
+ return this->op(*this, rgn, op);
+  }
     /** Replaces SkRegion with the result of rect op rgn.
         Returns true if replaced SkRegion is not empty.
 
@@ -385,9 +397,9 @@ public:
             @return  empty SkRegion iterator
         */
     Iterator()
-      :  fRgn(nullptr), fDone(true) 
-      {
-      }
+      :  fRgn(nullptr), fDone(true)
+    {
+    }
         /** Sets SkRegion::Iterator to return elements of SkIRect array in region.
 
             @param region  SkRegion to iterate
@@ -410,7 +422,9 @@ public:
             @return  true if data parsing is complete
         */
     bool done() const
-    { return fDone; }
+    {
+ return fDone;
+    }
         /** Advances SkRegion::Iterator to next SkIRect in SkRegion if it is not done.
         */
     void next();
@@ -420,13 +434,17 @@ public:
             @return  part of SkRegion as SkIRect
         */
     const SkIRect& rect() const
-    { return fRect; }
+    {
+ return fRect;
+    }
         /** Returns SkRegion if set; otherwise, returns nullptr.
 
             @return  iterated SkRegion
         */
     const SkRegion* rgn() const
-    { return fRgn; }
+    {
+ return fRgn;
+    }
   private:
     const SkRegion* fRgn;
     const SkRegion::RunType* fRuns;
@@ -452,7 +470,9 @@ public:
             @return  true if data parsing is complete
         */
     bool done()
-    { return fDone; }
+    {
+ return fDone;
+    }
         /** Advances iterator to next SkIRect in SkRegion contained by clip.
         */
     void next();
@@ -463,7 +483,9 @@ public:
             @return  part of SkRegion inside clip as SkIRect
         */
     const SkIRect& rect() const
-    { return fRect; }
+    {
+ return fRect;
+    }
   private:
     Iterator fIter;
     SkIRect fClip;
@@ -521,7 +543,9 @@ private:
   static constexpr int kRectRegionRuns = 7;
   struct RunHead;
   static RunHead* emptyRunHeadPtr()
-  { return (SkRegion::RunHead*) -1; }
+  {
+ return (SkRegion::RunHead*) -1;
+  }
   static constexpr RunHead* kRectRunHeadPtr = nullptr;
     // allocate space for count runs
   void allocateRuns(int count);

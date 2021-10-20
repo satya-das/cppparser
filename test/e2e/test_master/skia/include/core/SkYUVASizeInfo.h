@@ -42,7 +42,7 @@ struct SK_API SkYUVASizeInfo
         }
 
         return true;
-    }
+  }
   size_t computeTotalBytes() const;
   void computePlanes(void* base, void* planes[kMaxCount]) const;
 };

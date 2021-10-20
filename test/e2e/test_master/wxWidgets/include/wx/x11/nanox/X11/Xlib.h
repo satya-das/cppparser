@@ -247,11 +247,7 @@ typedef int (*XErrorHandler) (Display*, XErrorEvent*);
 /* events*/
 
 /* What should this be? */
-#if 0
-#ifndef ResizeRequest
-#define ResizeRequest ??
-#endif
-#endif#  ifndef MotionNotify
+#  ifndef MotionNotify
 #    define MotionNotify	GR_EVENT_TYPE_MOUSE_POSITION
 #    define PointerMotionMask	GR_EVENT_MASK_MOUSE_POSITION
 #  endif

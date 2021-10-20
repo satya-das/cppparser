@@ -23,7 +23,7 @@ public:
             flags &= ProcessorOptimizationFlags(fp1.get());
         }
         return flags;
-    }
+  }
   SkPMColor4f constantOutputForConstantInput(const SkPMColor4f& input) const override
   {
         const auto c0 = ConstantOutputForConstantInput(this->childProcessor(0), input),
@@ -32,25 +32,26 @@ public:
                                 : input;
         return {c0.fR + (c1.fR - c0.fR) * weight, c0.fG + (c1.fG - c0.fG) * weight,
                 c0.fB + (c1.fB - c0.fB) * weight, c0.fA + (c1.fA - c0.fA) * weight};
-    }
+  }
   static std::unique_ptr<GrFragmentProcessor> Make(std::unique_ptr<GrFragmentProcessor> fp0, std::unique_ptr<GrFragmentProcessor> fp1, float weight)
   {
         return std::unique_ptr<GrFragmentProcessor>(
                 new GrMixerEffect(std::move(fp0), std::move(fp1), weight));
-    }
+  }
   GrMixerEffect(const GrMixerEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "MixerEffect"; }
+  {
+ return "MixerEffect";
+  }
   int fp0_index = -1;
   int fp1_index = -1;
   float weight;
 private:
   GrMixerEffect(std::unique_ptr<GrFragmentProcessor> fp0, std::unique_ptr<GrFragmentProcessor> fp1, float weight)
     :  INHERITED(kGrMixerEffect_ClassID, (OptimizationFlags)OptFlags(fp0, fp1))
-            , weight(weight) 
-    {
-
+            , weight(weight)
+  {
         SkASSERT(fp0);
         fp0_index = this->numChildProcessors();
         this->registerChildProcessor(std::move(fp0));
@@ -58,7 +59,7 @@ private:
             fp1_index = this->numChildProcessors();
             this->registerChildProcessor(std::move(fp1));
         }
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

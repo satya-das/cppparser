@@ -32,7 +32,7 @@ public:
 
         // end of enum marker
         ResourceCat_Max
-    };
+  };
     // what should we use to construct paths unique to this application:
     // (AppInfo_AppName and AppInfo_VendorName can be combined together)
   enum
@@ -49,17 +49,17 @@ public:
         Dir_Music,
         Dir_Pictures,
         Dir_Videos
-    };
+  };
     // Layout to use for user config/data files under Unix.
   enum FileLayout {
         FileLayout_Classic,     // Default: use home directory.
         FileLayout_XDG          // Recommended: use XDG specification.
-    };
+  };
     // Naming convention for the config files under Unix.
   enum ConfigFileConv {
         ConfigFileConv_Dot,     // Classic Unix dot-file convention.
         ConfigFileConv_Ext      // Use .conf extension.
-    };
+  };
     // return the global standard paths object
   static wxStandardPaths& Get();
     // return the path (directory+filename) of the running executable or
@@ -111,7 +111,9 @@ public:
     // same as GetDataDir() for all platforms except Mac where it returns
     // Contents/Resources subdirectory of the app bundle
   virtual wxString GetResourcesDir() const
-  { return GetDataDir(); }
+  {
+ return GetDataDir();
+  }
     // get localized resources directory containing the resource files of the
     // specified category for the given language
     //
@@ -122,7 +124,7 @@ public:
   virtual wxString GetLocalizedResourcesDir(const wxString& lang, ResourceCat = ResourceCat_None) const
   {
         return GetResourcesDir() + wxFILE_SEP_PATH + lang;
-    }
+  }
     // return the "Documents" directory for the current user
     //
     // C:\Documents and Settings\username\My Documents under Windows,
@@ -130,7 +132,7 @@ public:
   virtual wxString GetDocumentsDir() const
   {
         return GetUserDir(Dir_Documents);
-    }
+  }
     // return the directory for the documents files used by this application:
     // it's a subdirectory of GetDocumentsDir() constructed using the
     // application name/vendor if it exists or just GetDocumentsDir() otherwise
@@ -145,17 +147,19 @@ public:
   void UseAppInfo(int info)
   {
         m_usedAppInfo = info;
-    }
+  }
   bool UsesAppInfo(int info) const
-  { return (m_usedAppInfo & info) != 0; }
+  {
+ return (m_usedAppInfo & info) != 0;
+  }
   void SetFileLayout(FileLayout layout)
   {
         m_fileLayout = layout;
-    }
+  }
   FileLayout GetFileLayout() const
   {
         return m_fileLayout;
-    }
+  }
 protected:
     // Ctor is protected as this is a base class which should never be created
     // directly.
@@ -195,36 +199,57 @@ class WXDLLIMPEXP_BASE wxStandardPaths : public wxStandardPathsBase
 {
 public:
   void SetInstallPrefix(const wxString& prefix)
-  { m_prefix = prefix; }
+  {
+ m_prefix = prefix;
+  }
   wxString GetInstallPrefix() const
-  { return m_prefix; }
+  {
+ return m_prefix;
+  }
   virtual wxString GetExecutablePath() const
-  { return m_prefix; }
+  {
+ return m_prefix;
+  }
   virtual wxString GetConfigDir() const
-  { return m_prefix; }
+  {
+ return m_prefix;
+  }
   virtual wxString GetUserConfigDir() const
-  { return m_prefix; }
+  {
+ return m_prefix;
+  }
   virtual wxString GetDataDir() const
-  { return m_prefix; }
+  {
+ return m_prefix;
+  }
   virtual wxString GetLocalDataDir() const
-  { return m_prefix; }
+  {
+ return m_prefix;
+  }
   virtual wxString GetUserDataDir() const
-  { return m_prefix; }
+  {
+ return m_prefix;
+  }
   virtual wxString GetPluginsDir() const
-  { return m_prefix; }
+  {
+ return m_prefix;
+  }
   virtual wxString GetUserDir(Dir) const
-  { return m_prefix; }
+  {
+ return m_prefix;
+  }
   virtual wxString MakeConfigFileName(const wxString& basename, ConfigFileConv = ConfigFileConv_Ext) const
   {
         return m_prefix + wxS("/") + basename;
-    }
+  }
 protected:
     // Ctor is protected because wxStandardPaths::Get() should always be used
     // to access the global wxStandardPaths object of the correct type instead
     // of creating one of a possibly wrong type yourself.
   wxStandardPaths()
   {
-   }
+
+  }
 private:
   wxString m_prefix;
 };

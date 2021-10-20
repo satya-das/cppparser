@@ -31,16 +31,22 @@ public:
   virtual ~GrMtlGpu();
   void disconnect(DisconnectType) override;
   const GrMtlCaps& mtlCaps() const
-  { return *fMtlCaps.get(); }
+  {
+ return *fMtlCaps.get();
+  }
   id<MTLDevice> device() const
-  { return fDevice; }
+  {
+ return fDevice;
+  }
   GrMtlResourceProvider& resourceProvider()
-  { return fResourceProvider; }
+  {
+ return fResourceProvider;
+  }
   GrMtlCommandBuffer* commandBuffer();
   enum SyncQueue {
         kForce_SyncQueue,
         kSkip_SyncQueue
-    };
+  };
     // Commits the current command buffer to the queue and then creates a new command buffer. If
     // sync is set to kForce_SyncQueue, the function will wait for all work in the committed
     // command buffer to finish before returning.
@@ -57,7 +63,9 @@ public:
   bool onCopySurface(GrSurface* dst, GrSurface* src, const SkIRect& srcRect, const SkIPoint& dstPoint) override;
   GrOpsRenderPass* getOpsRenderPass(GrRenderTarget*, GrSurfaceOrigin, const SkIRect& bounds, const GrOpsRenderPass::LoadAndStoreInfo&, const GrOpsRenderPass::StencilLoadAndStoreInfo&, const SkTArray<GrTextureProxy*, true>& sampledProxies) override;
   SkSL::Compiler* shaderCompiler() const
-  { return fCompiler.get(); }
+  {
+ return fCompiler.get();
+  }
   void submit(GrOpsRenderPass* renderPass) override;
   GrFence SK_WARN_UNUSED_RESULT insertFence() override;
   bool waitFence(GrFence, uint64_t) override;
@@ -68,7 +76,9 @@ public:
   void waitSemaphore(sk_sp<GrSemaphore> semaphore) override;
   void checkFinishProcs() override;
   sk_sp<GrSemaphore> prepareTextureForCrossContextUsage(GrTexture*) override
-  { return nullptr; }
+  {
+ return nullptr;
+  }
     // When the Metal backend actually uses indirect command buffers, this function will actually do
     // what it says. For now, every command is encoded directly into the primary command buffer, so
     // this function is pretty useless, except for indicating that a render target has been drawn
@@ -76,7 +86,7 @@ public:
   void submitIndirectCommandBuffer(GrSurface* surface, GrSurfaceOrigin origin, const SkIRect* bounds)
   {
         this->didWriteToSurface(surface, origin, bounds);
-    }
+  }
 private:
   GrMtlGpu(GrContext* context, const GrContextOptions& options, id<MTLDevice> device, id<MTLCommandQueue> queue, MTLFeatureSet featureSet);
   void destroyResources();
@@ -87,7 +97,7 @@ private:
   {
         SkASSERT(!this->caps()->sampleLocationsSupport());
         SK_ABORT("Sample locations not yet implemented for Metal.");
-    }
+  }
   void xferBarrier(GrRenderTarget*, GrXferBarrierType) override
   {
   }

@@ -150,7 +150,7 @@ public:
         kCellBottomVisibility        = 146,
         kCellLeftVisibility          = 147,
         kCellDataType                = 148,
-    };
+  };
   AcDbTable();
   AcDbTable(const AcDbLinkedTableData* pTable, AcDb::TableCopyOption nCopyOption);
   virtual ~AcDbTable();

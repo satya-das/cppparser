@@ -43,22 +43,19 @@ public:
           mChFmtr(AdCharFormatter::kAnsi,
                   false,        // useCIF
                   false)        // expandLF
-    
-    {
-    }
+  {
+  }
   AcFILE(FILE* pFILE)
     :  mpFILE(pFILE),
           mChFmtr(AdCharFormatter::kAnsi,
                   false,        // useCIF
                   false)        // expandLF
-    
-    {
-    }
+  {
+  }
   ~AcFILE()
   {
-
         AcFILE_Assert(this->mpFILE == NULL);
-      }
+  }
   ACBASE_PORT FILE* fopen(const wchar_t* pName, const wchar_t* pMode);
   ACBASE_PORT FILE* fsopen(const wchar_t* pName, const wchar_t* pMode, int shflag);
   void attach(FILE* pFILE);
@@ -73,24 +70,37 @@ public:
   int ungetc(wchar_t c);
   ACBASE_PORT int fgetc();
   bool isOpen() const
-  { return this->mpFILE != NULL; }
+  {
+ return this->mpFILE != NULL;
+  }
   FILE* pFILE() const
-  { return this->mpFILE; }
+  {
+ return this->mpFILE;
+  }
   unsigned getCharFormat() const
-  { return this->mChFmtr.getFormat(); }
+  {
+ return this->mChFmtr.getFormat();
+  }
   unsigned setCharFormat(unsigned nFmt)
   {
-            return this->mChFmtr.setFormat(nFmt); }
+            return this->mChFmtr.setFormat(nFmt);
+  }
   bool getUseCIF() const
-  { return this->mChFmtr.getUseCIF(); }
+  {
+ return this->mChFmtr.getUseCIF();
+  }
   bool setUseCIF(bool bUseCIF)
   {
-            return this->mChFmtr.setUseCIF(bUseCIF); }
+            return this->mChFmtr.setUseCIF(bUseCIF);
+  }
   bool getExpandLF() const
-  { return this->mChFmtr.getExpandLF(); }
+  {
+ return this->mChFmtr.getExpandLF();
+  }
   bool setExpandLF(bool bExpandLF)
   {
-            return this->mChFmtr.setExpandLF(bExpandLF); }
+            return this->mChFmtr.setExpandLF(bExpandLF);
+  }
   bool readBOM();
   bool writeBOM();
 private:

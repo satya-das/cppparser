@@ -26,17 +26,25 @@ public:
   using GrSurface::setRequiresManualMSAAResolve;
   using GrSurface::requiresManualMSAAResolve;
   virtual bool alwaysClearStencil() const
-  { return false; }
+  {
+ return false;
+  }
     // GrSurface overrides
   GrRenderTarget* asRenderTarget() override
-  { return this; }
+  {
+ return this;
+  }
   const GrRenderTarget* asRenderTarget() const override
-  { return this; }
+  {
+ return this;
+  }
     /**
      * Returns the number of samples/pixel in the color buffer (One if non-MSAA).
      */
   int numSamples() const
-  { return fSampleCnt; }
+  {
+ return fSampleCnt;
+  }
   virtual GrBackendRenderTarget getBackendRenderTarget() const = 0;
     // Checked when this object is asked to attach a stencil buffer.
   virtual bool canAttemptStencilAttachment() const = 0;

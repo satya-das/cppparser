@@ -14,9 +14,9 @@ class GrSwizzle
 {
 public:
   GrSwizzle()
-    :  GrSwizzle("rgba") 
-    {
-    }
+    :  GrSwizzle("rgba")
+  {
+  }
   explicit GrSwizzle(const char c[4]);
   GrSwizzle(const GrSwizzle&);
   constexpr GrSwizzle& operator=(const GrSwizzle& that);
@@ -24,36 +24,56 @@ public:
     /** Recreates a GrSwizzle from the output of asKey() */
   constexpr void setFromKey(uint16_t key);
   constexpr bool operator==(const GrSwizzle& that) const
-  { return fKey == that.fKey; }
+  {
+ return fKey == that.fKey;
+  }
   constexpr bool operator!=(const GrSwizzle& that) const
-  { return !(*this == that); }
+  {
+ return !(*this == that);
+  }
     /** Compact representation of the swizzle suitable for a key. */
   constexpr uint16_t asKey() const
-  { return fKey; }
+  {
+ return fKey;
+  }
     /** 4 char null terminated string consisting only of chars 'r', 'g', 'b', 'a', '0', and '1'. */
   constexpr const char* c_str() const
-  { return fSwiz; }
+  {
+ return fSwiz;
+  }
   constexpr char operator[](int i) const
   {
         SkASSERT(i >= 0 && i < 4);
         return fSwiz[i];
-    }
+  }
     /** Applies this swizzle to the input color and returns the swizzled color. */
   template <SkAlphaType AlphaType>
   constexpr SkRGBA4f<AlphaType> applyTo(const SkRGBA4f<AlphaType>& color) const;
   void apply(SkRasterPipeline*) const;
   static constexpr GrSwizzle RGBA()
-  { return GrSwizzle("rgba"); }
+  {
+ return GrSwizzle("rgba");
+  }
   static constexpr GrSwizzle AAAA()
-  { return GrSwizzle("aaaa"); }
+  {
+ return GrSwizzle("aaaa");
+  }
   static constexpr GrSwizzle RRRR()
-  { return GrSwizzle("rrrr"); }
+  {
+ return GrSwizzle("rrrr");
+  }
   static constexpr GrSwizzle RRRA()
-  { return GrSwizzle("rrra"); }
+  {
+ return GrSwizzle("rrra");
+  }
   static constexpr GrSwizzle BGRA()
-  { return GrSwizzle("bgra"); }
+  {
+ return GrSwizzle("bgra");
+  }
   static constexpr GrSwizzle RGB1()
-  { return GrSwizzle("rgb1"); }
+  {
+ return GrSwizzle("rgb1");
+  }
 private:
   template <SkAlphaType AlphaType>
   static constexpr float ComponentIndexToFloat(const SkRGBA4f<AlphaType>& color, int idx);
@@ -64,14 +84,14 @@ private:
 };
 GrSwizzle::GrSwizzle(const char c[4])
   :  fSwiz{c[0], c[1], c[2], c[3], '\0'}
-        , fKey((CToI(c[0]) << 0) | (CToI(c[1]) << 4) | (CToI(c[2]) << 8) | (CToI(c[3]) << 12)) 
-  {
-  }
+        , fKey((CToI(c[0]) << 0) | (CToI(c[1]) << 4) | (CToI(c[2]) << 8) | (CToI(c[3]) << 12))
+{
+}
 GrSwizzle::GrSwizzle(const GrSwizzle& that)
   :  fSwiz{that.fSwiz[0], that.fSwiz[1], that.fSwiz[2], that.fSwiz[3], '\0'}
-        , fKey(that.fKey) 
-  {
-  }
+        , fKey(that.fKey)
+{
+}
 constexpr GrSwizzle& GrSwizzle::operator=(const GrSwizzle& that)
 {
     fSwiz[0] = that.fSwiz[0];

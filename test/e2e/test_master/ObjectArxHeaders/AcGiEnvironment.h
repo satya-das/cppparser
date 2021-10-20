@@ -688,7 +688,7 @@ public:
         /// Auto - key off of the sun/sky background status.
         /// </summary>
         kDaylightAuto
-    };
+  };
     /// <summary>
     /// Indicates whether or not exterior daylight is enabled.
     /// </summary>

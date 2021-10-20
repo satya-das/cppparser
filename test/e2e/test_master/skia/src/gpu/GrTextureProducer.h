@@ -38,7 +38,7 @@ public:
   enum FilterConstraint {
         kYes_FilterConstraint,
         kNo_FilterConstraint,
-    };
+  };
     /**
      * Helper for creating a fragment processor to sample the texture with a given filtering mode.
      * It attempts to avoid making texture copies or using domains whenever possible.
@@ -89,22 +89,38 @@ public:
   {
   }
   int width() const
-  { return fWidth; }
+  {
+ return fWidth;
+  }
   int height() const
-  { return fHeight; }
+  {
+ return fHeight;
+  }
   GrColorType colorType() const
-  { return fColorInfo.colorType(); }
+  {
+ return fColorInfo.colorType();
+  }
   SkAlphaType alphaType() const
-  { return fColorInfo.alphaType(); }
+  {
+ return fColorInfo.alphaType();
+  }
   SkColorSpace* colorSpace() const
-  { return fColorInfo.colorSpace(); }
+  {
+ return fColorInfo.colorSpace();
+  }
   bool isAlphaOnly() const
-  { return GrColorTypeIsAlphaOnly(fColorInfo.colorType()); }
+  {
+ return GrColorTypeIsAlphaOnly(fColorInfo.colorType());
+  }
   bool domainNeedsDecal() const
-  { return fDomainNeedsDecal; }
+  {
+ return fDomainNeedsDecal;
+  }
     // If the "texture" samples multiple images that have different resolutions (e.g. YUV420)
   virtual bool hasMixedResolutions() const
-  { return false; }
+  {
+ return false;
+  }
 protected:
   friend class GrTextureProducer_TestAccess;
   GrTextureProducer(GrRecordingContext* context, int width, int height, const GrColorInfo& colorInfo, bool domainNeedsDecal)
@@ -112,9 +128,9 @@ protected:
             , fWidth(width)
             , fHeight(height)
             , fColorInfo(colorInfo)
-            , fDomainNeedsDecal(domainNeedsDecal) 
-    {
-    }
+            , fDomainNeedsDecal(domainNeedsDecal)
+  {
+  }
     /** Helper for creating a key for a copy from an original key. */
   static void MakeCopyKeyFromOrigKey(const GrUniqueKey& origKey, const CopyParams& copyParams, GrUniqueKey* copyKey)
   {
@@ -126,7 +142,7 @@ protected:
             builder[1] = copyParams.fWidth;
             builder[2] = copyParams.fHeight;
         }
-    }
+  }
     /**
     *  If we need to make a copy in order to be compatible with GrTextureParams producer is asked to
     *  return a key that identifies its original content + the CopyParms parameter. If the producer
@@ -146,13 +162,15 @@ protected:
         kNoDomain_DomainMode,
         kDomain_DomainMode,
         kTightCopy_DomainMode
-    };
+  };
     // This can draw to accomplish the copy, thus the recording context is needed
   static sk_sp<GrTextureProxy> CopyOnGpu(GrRecordingContext*, sk_sp<GrTextureProxy> inputProxy, GrColorType, const CopyParams& copyParams, bool dstWillRequireMipMaps);
   static DomainMode DetermineDomainMode(const SkRect& constraintRect, FilterConstraint filterConstraint, bool coordsLimitedToConstraintRect, GrTextureProxy*, const GrSamplerState::Filter* filterModeOrNullForBicubic, SkRect* domainRect);
   std::unique_ptr<GrFragmentProcessor> createFragmentProcessorForDomainAndFilter(sk_sp<GrTextureProxy> proxy, const SkMatrix& textureMatrix, DomainMode, const SkRect& domain, const GrSamplerState::Filter* filterOrNullForBicubic);
   GrRecordingContext* context() const
-  { return fContext; }
+  {
+ return fContext;
+  }
 private:
   virtual sk_sp<GrTextureProxy> onRefTextureProxyForParams(const GrSamplerState&, bool willBeMipped, SkScalar scaleAdjust[2]) = 0;
   GrRecordingContext* fContext;

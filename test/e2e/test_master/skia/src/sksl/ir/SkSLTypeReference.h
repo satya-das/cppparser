@@ -18,9 +18,9 @@ namespace SkSL
   {
     TypeReference(const Context& context, int offset, const Type& value)
       :  INHERITED(offset, kTypeReference_Kind, *context.fInvalid_Type)
-    , fValue(value) 
-      {
-      }
+    , fValue(value)
+    {
+    }
     bool hasSideEffects() const override
     {
         return false;
@@ -38,9 +38,9 @@ namespace SkSL
   private:
     TypeReference(int offset, const Type& value, const Type* type)
       :  INHERITED(offset, kTypeReference_Kind, *type)
-    , fValue(value) 
-      {
-      }
+    , fValue(value)
+    {
+    }
   };
 }
 #endif

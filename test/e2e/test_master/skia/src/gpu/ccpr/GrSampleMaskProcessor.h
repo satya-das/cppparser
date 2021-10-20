@@ -14,9 +14,9 @@ class GrSampleMaskProcessor : public GrCCCoverageProcessor
 {
 public:
   GrSampleMaskProcessor()
-    :  GrCCCoverageProcessor(kGrSampleMaskProcessor_ClassID) 
-    {
-    }
+    :  GrCCCoverageProcessor(kGrSampleMaskProcessor_ClassID)
+  {
+  }
 private:
   void reset(PrimitiveType, GrResourceProvider*) override;
   void appendMesh(sk_sp<const GrGpuBuffer> instanceBuffer, int instanceCount, int baseInstance, SkTArray<GrMesh>* out) const override;

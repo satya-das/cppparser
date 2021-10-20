@@ -36,31 +36,31 @@ public:
   SkOpGlobalState(SkOpContourHead* head, SkArenaAlloc* allocator, bool debugSkipAssert, const char* testName);
   enum {
         kMaxWindingTries = 10
-    };
+  };
   bool allocatedOpSpan() const
   {
         return fAllocatedOpSpan;
-    }
+  }
   SkArenaAlloc* allocator()
   {
         return fAllocator;
-    }
+  }
   void bumpNested()
   {
         ++fNested;
-    }
+  }
   void clearNested()
   {
         fNested = 0;
-    }
+  }
   SkOpCoincidence* coincidence()
   {
         return fCoincidence;
-    }
+  }
   SkOpContourHead* contourHead()
   {
         return fContourHead;
-    }
+  }
 #  ifdef SK_DEBUG
   const class SkOpAngle* debugAngle(int id) const;
   const SkOpCoincidence* debugCoincidence() const;
@@ -71,10 +71,14 @@ public:
 #  ifdef SK_DEBUG
   const class SkOpSegment* debugSegment(int id) const;
   bool debugSkipAssert() const
-  { return fDebugSkipAssert; }
+  {
+ return fDebugSkipAssert;
+  }
   const class SkOpSpanBase* debugSpan(int id) const;
   const char* debugTestName() const
-  { return fDebugTestName; }
+  {
+ return fDebugTestName;
+  }
 #  endif
 #  if  DEBUG_T_SECT_LOOP_COUNT
   void debugAddLoopCount(SkIntersections*, const SkIntersectionHelper&, const SkIntersectionHelper&);
@@ -84,9 +88,13 @@ public:
 #  endif
 #  if  DEBUG_COINCIDENCE
   void debugSetCheckHealth(bool check)
-  { fDebugCheckHealth = check; }
+  {
+ fDebugCheckHealth = check;
+  }
   bool debugCheckHealth() const
-  { return fDebugCheckHealth; }
+  {
+ return fDebugCheckHealth;
+  }
 #  endif
 #  if  DEBUG_VALIDATE || DEBUG_COIN
   void debugSetPhase(const char* funcName) const;
@@ -95,61 +103,65 @@ public:
   void debugAddToCoinChangedDict();
   void debugAddToGlobalCoinDicts();
   SkPathOpsDebug::CoinDict* debugCoinChangedDict()
-  { return &fCoinChangedDict; }
+  {
+ return &fCoinChangedDict;
+  }
   const SkPathOpsDebug::CoinDictEntry& debugCoinDictEntry() const
-  { return fCoinDictEntry; }
+  {
+ return fCoinDictEntry;
+  }
   static void DumpCoinDict();
 #  endif
   int nested() const
   {
         return fNested;
-    }
+  }
 #  ifdef SK_DEBUG
   int nextAngleID()
   {
         return ++fAngleID;
-    }
+  }
   int nextCoinID()
   {
         return ++fCoinID;
-    }
+  }
   int nextContourID()
   {
         return ++fContourID;
-    }
+  }
   int nextPtTID()
   {
         return ++fPtTID;
-    }
+  }
   int nextSegmentID()
   {
         return ++fSegmentID;
-    }
+  }
   int nextSpanID()
   {
         return ++fSpanID;
-    }
+  }
 #  endif
   SkOpPhase phase() const
   {
         return fPhase;
-    }
+  }
   void resetAllocatedOpSpan()
   {
         fAllocatedOpSpan = false;
-    }
+  }
   void setAllocatedOpSpan()
   {
         fAllocatedOpSpan = true;
-    }
+  }
   void setCoincidence(SkOpCoincidence* coincidence)
   {
         fCoincidence = coincidence;
-    }
+  }
   void setContourHead(SkOpContourHead* contourHead)
   {
         fContourHead = contourHead;
-    }
+  }
   void setPhase(SkOpPhase phase)
   {
         if (SkOpPhase::kNoChange == phase) {
@@ -157,16 +169,16 @@ public:
         }
         SkASSERT(fPhase != phase);
         fPhase = phase;
-    }
+  }
     // called in very rare cases where angles are sorted incorrectly -- signfies op will fail
   void setWindingFailed()
   {
         fWindingFailed = true;
-    }
+  }
   bool windingFailed() const
   {
         return fWindingFailed;
-    }
+  }
 private:
   SkArenaAlloc* fAllocator;
   SkOpCoincidence* fCoincidence;

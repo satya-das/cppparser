@@ -153,7 +153,7 @@ struct GrGLTextureInfo
   bool operator==(const GrGLTextureInfo& that) const
   {
         return fTarget == that.fTarget && fID == that.fID && fFormat == that.fFormat;
-    }
+  }
 };
 struct GrGLFramebufferInfo
 {
@@ -162,6 +162,6 @@ struct GrGLFramebufferInfo
   bool operator==(const GrGLFramebufferInfo& that) const
   {
         return fFBOID == that.fFBOID && fFormat == that.fFormat;
-    }
+  }
 };
 #endif

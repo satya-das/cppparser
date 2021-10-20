@@ -58,7 +58,6 @@ enum wxNumValidatorStyle {
         digits, of course).
      */
     wxNUM_VAL_NO_TRAILING_ZEROES
-
 };
 /**
     wxNumValidator is the common base class for numeric validator classes.

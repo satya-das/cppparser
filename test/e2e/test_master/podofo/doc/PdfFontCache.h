@@ -69,31 +69,27 @@ namespace PoDoFo
 	  m_bBold( false ),
 	  m_bItalic( false ),
           m_bIsSymbolCharset (false)
-    
-      {
+    {
 
-          }
+    }
     TFontCacheElement(const char* pszFontName, bool bBold, bool bItalic, bool bIsSymbolCharset, const PdfEncoding* const pEncoding)
       :  m_pFont(NULL), m_pEncoding( pEncoding ), m_bBold( bBold ), m_bItalic( bItalic ),
           m_sFontName( reinterpret_cast<const pdf_utf8*>(pszFontName) ), m_bIsSymbolCharset (bIsSymbolCharset)
-    
-      {
+    {
 
-          }
+    }
 #  if  defined(_WIN32) && !defined(PODOFO_NO_FONTMANAGER)
     TFontCacheElement(const wchar_t* pszFontName, bool bBold, bool bItalic, bool bIsSymbolCharset, const PdfEncoding* const pEncoding)
       :  m_pFont(NULL), m_pEncoding( pEncoding ), m_bBold( bBold ), 
           m_bItalic( bItalic ), m_sFontName( pszFontName ), m_bIsSymbolCharset (bIsSymbolCharset)
-    
-      {
+    {
 
-          }
+    }
 #  endif
     TFontCacheElement(const TFontCacheElement& rhs)
     {
-
         this->operator=(rhs);
-        }
+    }
     const TFontCacheElement& operator=(const TFontCacheElement& rhs)
     {
         m_pFont     = rhs.m_pFont;
@@ -126,7 +122,7 @@ namespace PoDoFo
             return (m_sFontName < rhs.m_sFontName);
     }
     inline bool operator()(const TFontCacheElement& r1, const TFontCacheElement& r2) const
-    { 
+    {
         return r1 < r2;
     }
     PdfFont* m_pFont;
@@ -392,13 +388,13 @@ namespace PoDoFo
   FT_Library PdfFontCache::GetFontLibrary() const
   {
     return this->m_ftLibrary;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfFontCache::SetFontConfigWrapper(const PdfFontConfigWrapper& rFontConfig)
   {
     m_fontConfig = rFontConfig;
-}
+  }
 }
 #endif

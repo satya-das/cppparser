@@ -27,7 +27,9 @@ public:
   AcDbFcf(const ACHAR*, const AcGePoint3d&, const AcGeVector3d&, const AcGeVector3d&);
   virtual ~AcDbFcf();
     // Geometric or visual properties.
-  enum whichLine {kAll = -1};
+  enum whichLine {
+kAll = -1
+  };
   virtual void setText(const ACHAR*);
 /// <summary>
 /// Returns a single requested text line from the tolerance frame, or all lines.

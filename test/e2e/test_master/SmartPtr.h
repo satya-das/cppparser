@@ -42,9 +42,9 @@ class FIRSTDLL_EXPORT OdBaseObjectPtr
 {
 protected:
   OdBaseObjectPtr()
-    :  m_pObject(0) 
-    {
-    }
+    :  m_pObject(0)
+  {
+  }
   OdRxObject* m_pObject;
 public:
   /** Description: 
@@ -56,12 +56,16 @@ public:
     The reference count of the referenced object is unchanged. 
   */
   OdRxObject* get() const
-  {return m_pObject;}
+  {
+return m_pObject;
+  }
   /** Description: 
     Returns true if and only if this SmartPointer contains a null reference. 
   */
   bool isNull() const
-  { return m_pObject == 0; }
+  {
+ return m_pObject == 0;
+  }
 };
 /** Description: 
     This template class implements SmartPointers for instances derived from OdRxObject. 
@@ -87,9 +91,9 @@ class OdSmartPtr : public OdBaseObjectPtr
     Increments the reference count of the referenced object. 
   */
   void internalAddRef()
-  { 
+  {
     if(m_pObject) 
-      m_pObject->addRef(); 
+      m_pObject->addRef();
   }
   /** Description: 
     Assigns the specified object to this SmartPointer object.   
@@ -104,10 +108,10 @@ class OdSmartPtr : public OdBaseObjectPtr
     pObject (I) Pointer to the object to be assigned. 
   */
   void assign(const T* pObject)
-  { 
+  {
     release(); 
     m_pObject = const_cast<T*>(pObject); 
-    internalAddRef(); 
+    internalAddRef();
   }
   /** Description: 
     Performs a "safe" assignment of the specified object to this SmartPointer object.  
@@ -119,7 +123,7 @@ class OdSmartPtr : public OdBaseObjectPtr
     eNotThatKindOfClass if not successful.  
   */
   void internalQueryX(const OdRxObject* pObject)
-  { 
+  {
     if(pObject) 
     { 
       OdRxObject* pX = pObject->queryX(T::desc()); 
@@ -127,12 +131,12 @@ class OdSmartPtr : public OdBaseObjectPtr
         m_pObject = pX; 
       else 
         throw OdError_NotThatKindOfClass(pObject->isA(), T::desc()); 
-    } 
+    }
   }
   void assign(const OdRxObject* pObject)
-  { 
+  {
     release(); 
-    internalQueryX(pObject); 
+    internalQueryX(pObject);
   }
   // Note: Using of SmartPtr<T> as bool expression produce ambiguous call with some compilers. 
   // Use isNull() method instead. 
@@ -143,7 +147,9 @@ class OdSmartPtr : public OdBaseObjectPtr
     Use of SmartPtr<T> as a bool expression produces ambiguous calls with some compilers. Use isNull() instead.  
   */
   bool operator !() const
-  { ODA_FAIL(); return false; }
+  {
+ ODA_FAIL(); return false;
+  }
   /** Description: 
     Declared private to prevent use. 
     Note:  
@@ -151,7 +157,8 @@ class OdSmartPtr : public OdBaseObjectPtr
   */
   operator bool() const
   {
- ODA_FAIL(); return false;   }
+ ODA_FAIL(); return false;
+  }
   /** Description: 
     Declared private to prevent use. 
     Note:  
@@ -159,7 +166,8 @@ class OdSmartPtr : public OdBaseObjectPtr
   */
   operator bool()
   {
- ODA_FAIL(); return false;   }
+ ODA_FAIL(); return false;
+  }
 public:
   /** Description: 
     Arguments: 
@@ -174,47 +182,40 @@ public:
   */
   OdSmartPtr()
   {
- 
-    }
+
+  }
   OdSmartPtr(const T* pObject, OdRxObjMod)
   {
- 
-    m_pObject = const_cast<T*>(pObject); 
-    }
+    m_pObject = const_cast<T*>(pObject);
+  }
   OdSmartPtr(const T* pObject)
   {
- 
     m_pObject = const_cast<T*>(pObject); 
-    internalAddRef(); 
-    }
+    internalAddRef();
+  }
   OdSmartPtr(const OdRxObject* pObject)
   {
- 
-    internalQueryX(pObject); 
-    }
+    internalQueryX(pObject);
+  }
   OdSmartPtr(OdRxObject* pObject, OdRxObjMod)
   {
- 
     internalQueryX(pObject); 
     if(pObject) 
-      pObject->release(); 
-    }
+      pObject->release();
+  }
   OdSmartPtr(const OdSmartPtr& pObject)
   {
- 
     m_pObject = const_cast<T*>(pObject.get()); 
-    internalAddRef(); 
-    }
+    internalAddRef();
+  }
   OdSmartPtr(const OdRxObjectPtr& pObject)
   {
- 
-    internalQueryX(pObject.get()); 
-    }
+    internalQueryX(pObject.get());
+  }
   OdSmartPtr(const OdBaseObjectPtr& pObject)
   {
- 
-    internalQueryX(pObject.get()); 
-    }
+    internalQueryX(pObject.get());
+  }
   /** Description: 
     Assigns the specified object to this SmartPointer object.   
        
@@ -228,16 +229,16 @@ public:
     is released prior to the assignment. 
   */
   void attach(const T* pObject)
-  { 
+  {
     release(); 
-    m_pObject = const_cast<T*>(pObject); 
+    m_pObject = const_cast<T*>(pObject);
   }
   void attach(OdRxObject* pObject)
-  { 
+  {
     release(); 
     internalQueryX(pObject); 
     if(pObject) 
-      pObject->release(); 
+      pObject->release();
   }
   /** 
     Remarks: 
@@ -248,9 +249,8 @@ public:
   */
   ~OdSmartPtr()
   {
- 
-    release(); 
-    }
+    release();
+  }
   /** Description: 
     Releases this SmartPointer's reference to the referenced object. 
      
@@ -260,12 +260,12 @@ public:
     When the reference count reaches zero, the referenced object is deleted. 
   */
   void release()
-  { 
+  {
     if (m_pObject) 
     { 
       m_pObject->release(); 
       m_pObject = 0; 
-    } 
+    }
   }
   /** Description: 
     Releases this SmartPointer's reference to the referenced object. 
@@ -276,10 +276,10 @@ public:
     The referenced object's reference count is not modified. 
   */
   T* detach()
-  { 
+  {
     T* pRes = static_cast<T*>(m_pObject); 
     m_pObject = 0; 
-    return pRes; 
+    return pRes;
   }
   /** 
     Remarks: 
@@ -289,19 +289,19 @@ public:
     is released prior to the assignment.   
   */
   OdSmartPtr& operator =(const OdSmartPtr& pObject)
-  { 
+  {
     assign(pObject); 
-    return *this; 
+    return *this;
   }
   OdSmartPtr& operator =(const OdBaseObjectPtr& pObject)
-  { 
+  {
     assign(pObject.get()); 
-    return *this; 
+    return *this;
   }
   OdSmartPtr& operator =(const T* pObject)
-  { 
+  {
     assign(pObject); 
-    return *this; 
+    return *this;
   }
   /** Description: 
     Returns the object referenced by this SmartPointer.   
@@ -312,12 +312,12 @@ public:
     The reference count of the referenced object is unchanged. 
   */
   const T* get() const
-  { 
-    return static_cast<const T*>(m_pObject); 
+  {
+    return static_cast<const T*>(m_pObject);
   }
   T* get()
-  { 
-    return static_cast<T*>(m_pObject); 
+  {
+    return static_cast<T*>(m_pObject);
   }
   /** Description: 
     Returns the object referenced by this SmartPointer. 
@@ -326,12 +326,12 @@ public:
     The reference count of the referenced object is unchanged. 
   */
   T* operator ->()
-  { 
-    return static_cast<T*>(m_pObject); 
+  {
+    return static_cast<T*>(m_pObject);
   }
   const T* operator ->() const
-  { 
-    return static_cast<const T*>(m_pObject); 
+  {
+    return static_cast<const T*>(m_pObject);
   }
 #  ifdef ODA_GCC_2_95
   /** Description: 
@@ -344,9 +344,8 @@ public:
   */
   operator T*() const
   {
- 
-    return const_cast<T*>(static_cast<const T*>(m_pObject)); 
-    }
+    return const_cast<T*>(static_cast<const T*>(m_pObject));
+  }
 #  else 
   /** Description: 
     Returns the object referenced by this SmartPointer. 
@@ -358,30 +357,28 @@ public:
   */
   operator T*()
   {
- 
-    return static_cast<T*>(m_pObject); 
-    }
+    return static_cast<T*>(m_pObject);
+  }
   operator const T*() const
   {
- 
-    return static_cast<const T*>(m_pObject); 
-    }
+    return static_cast<const T*>(m_pObject);
+  }
 #  endif
   bool operator==(const void* pObject) const
-  { 
-    return (m_pObject==pObject); 
+  {
+    return (m_pObject==pObject);
   }
   bool operator==(const OdSmartPtr& pObject) const
-  { 
-    return operator==((void*)pObject.get()); 
+  {
+    return operator==((void*)pObject.get());
   }
   bool operator!=(const void* pObject) const
-  { 
-    return (m_pObject!=pObject); 
+  {
+    return (m_pObject!=pObject);
   }
   bool operator!=(const OdSmartPtr& pObject) const
-  { 
-    return operator!=((void*)pObject.get()); 
+  {
+    return operator!=((void*)pObject.get());
   }
 };
 #  include "DD_PackPop.h"

@@ -39,6 +39,31 @@ inline void stripChar(std::string& s, char c)
   s.resize(len);
 }
 
+inline std::string& trimBlob(std::string& s)
+{
+  auto len = s.size();
+
+  for (; len > 0; --len)
+  {
+    if (!isspace(s[len - 1]))
+      break;
+  }
+  s.resize(len);
+
+  size_t start = 0;
+  for (size_t i = 0; i < s.size(); ++i)
+  {
+    if (!isspace(s[i]))
+      break;
+    if (s[i] == '\n')
+      start = i + 1;
+  }
+
+  if (start > 0)
+    s = s.substr(start);
+  return s;
+}
+
 //! strips new-line char and collapses multiple white chars.
 inline std::string& cleanseIdentifier(std::string& id)
 {

@@ -17,9 +17,9 @@ namespace SkSL
   {
     ExternalValueReference(int offset, ExternalValue* ev)
       :  INHERITED(offset, kExternalValue_Kind, ev->type())
-    , fValue(ev) 
-      {
-      }
+    , fValue(ev)
+    {
+    }
     bool hasSideEffects() const override
     {
         return true;

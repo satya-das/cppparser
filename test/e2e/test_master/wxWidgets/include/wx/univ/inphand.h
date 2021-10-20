@@ -66,26 +66,27 @@ class WXDLLIMPEXP_CORE wxStdInputHandler : public wxInputHandler
 {
 public:
   wxStdInputHandler(wxInputHandler* handler)
-    :  m_handler(handler) 
-    {
-     }
+    :  m_handler(handler)
+  {
+
+  }
   bool HandleKey(wxInputConsumer* consumer, const wxKeyEvent& event, bool pressed) override
   {
         return m_handler ? m_handler->HandleKey(consumer, event, pressed)
                          : false;
-    }
+  }
   bool HandleMouse(wxInputConsumer* consumer, const wxMouseEvent& event) override
   {
         return m_handler ? m_handler->HandleMouse(consumer, event) : false;
-    }
+  }
   bool HandleMouseMove(wxInputConsumer* consumer, const wxMouseEvent& event) override
   {
         return m_handler ? m_handler->HandleMouseMove(consumer, event) : false;
-    }
+  }
   bool HandleFocus(wxInputConsumer* consumer, const wxFocusEvent& event) override
   {
         return m_handler ? m_handler->HandleFocus(consumer, event) : false;
-    }
+  }
 private:
   wxInputHandler* m_handler;
 };

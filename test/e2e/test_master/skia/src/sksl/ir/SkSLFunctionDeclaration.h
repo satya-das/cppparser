@@ -25,9 +25,9 @@ namespace SkSL
     , fBuiltin(false)
     , fModifiers(modifiers)
     , fParameters(std::move(parameters))
-    , fReturnType(returnType) 
-      {
-      }
+    , fReturnType(returnType)
+    {
+    }
     String description() const override
     {
         String result = fReturnType.description() + " " + fName + "(";

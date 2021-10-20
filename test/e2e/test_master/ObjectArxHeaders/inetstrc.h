@@ -102,7 +102,7 @@ namespace AcadInet
 		// all others
 		//
 		statusUnknownError
-	};
+  };
 }
 // flags used in the invocation of CProxyInet::TransferFile(), and, correspondingly,
 // in CAcadInetFacade::TransferFile()
@@ -114,7 +114,7 @@ namespace AcadInet
 		TF_DOWNLOAD_FILE	= 0x02,
 		TF_UPLOAD_FILE		= 0x04,
 		TF_IGNORE_CACHE		= 0x08	// applies to downloads only
-	};
+  };
 }
 #  pragma  pack (pop)
 #endif

@@ -26,7 +26,7 @@ public:
     /// Enum to define index type for a 3D item index.
     /// </summary>
     ///
-  enum IndexType { 
+  enum IndexType {
         /// <summary>
         /// Index type indicating item position relative to the first item.
         /// </summary>
@@ -44,7 +44,7 @@ public:
         /// </summary>
         ///
         kLevelIndex,
-    };
+  };
     /// <summary>
     /// Default constructor. Object constructed using this constructor remains
     /// uninitialized.
@@ -79,7 +79,9 @@ public:
     /// <returns> The index of given Index type. </returns>
     ///
   int operator [](IndexType i) const
-  { return mIndices[i]; }
+  {
+ return mIndices[i];
+  }
     /// <summary>
     /// Assignment operator, this copies all indices of the other object to 
     /// this object.
@@ -118,7 +120,9 @@ public:
     /// </summary>
     ///
   bool operator >(const AcDbItemLocator& other) const
-  { return compareWith(other) > 0; }
+  {
+ return compareWith(other) > 0;
+  }
     /// <summary>
     /// Compares this with other object, returns 0 if the two objects are same
     /// -ve value if this is smaller than the other, +ve value if this is 

@@ -24,22 +24,22 @@ public:
   static void* operator new(size_t size, void* pParent)
   {
         return acStackHeapAlloc(size, pParent);
-    }
+  }
   static void operator delete(void* p, void* pParent)
   {
         ADESK_UNREFED_PARAM(pParent); // avoid unreferenced parameter warning C4100
         return acStackHeapFree(p);
-    }
+  }
   static void deallocate(AcStackAllocator* p, void* pParent)
   {
         p->~AcStackAllocator();
         AcStackAllocator::operator delete(p, pParent);
-    }
+  }
 protected:
   static void operator delete(void* p)
   {
         return acStackHeapFree(p);
-    }
+  }
 };
 inline AcStackAllocator::~AcStackAllocator()
 {

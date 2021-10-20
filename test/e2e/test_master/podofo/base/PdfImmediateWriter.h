@@ -119,13 +119,13 @@ namespace PoDoFo
   inline EPdfWriteMode PdfImmediateWriter::GetWriteMode() const
   {
     return PdfWriter::GetWriteMode();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline EPdfVersion PdfImmediateWriter::GetPdfVersion() const
   {
     return PdfWriter::GetPdfVersion();
-}
+  }
 }
 #endif

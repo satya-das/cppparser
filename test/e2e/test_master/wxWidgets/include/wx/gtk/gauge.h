@@ -15,14 +15,14 @@ class WXDLLIMPEXP_CORE wxGauge : public wxGaugeBase
 public:
   wxGauge()
   {
- Init();   }
+ Init();
+  }
   wxGauge(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxGA_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxGaugeNameStr))
   {
-
         Init();
 
         Create(parent, id, range, pos, size, style, validator, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxGA_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxGaugeNameStr));
     // implement base class virtual methods
   void SetRange(int range) override;
@@ -42,7 +42,9 @@ protected:
   void DoSetGauge();
 private:
   void Init()
-  { m_rangeMax = m_gaugePos = 0; }
+  {
+ m_rangeMax = m_gaugePos = 0;
+  }
   wxDECLARE_DYNAMIC_CLASS(wxGauge);
 };
 #endif

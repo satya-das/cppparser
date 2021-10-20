@@ -21,14 +21,20 @@ public:
      *  Returns the number of bytes stored.
      */
   size_t size() const
-  { return fSize; }
+  {
+ return fSize;
+  }
   bool isEmpty() const
-  { return 0 == fSize; }
+  {
+ return 0 == fSize;
+  }
     /**
      *  Returns the ptr to the data.
      */
   const void* data() const
-  { return fPtr; }
+  {
+ return fPtr;
+  }
     /**
      *  Like data(), returns a read-only ptr into the data, but in this case
      *  it is cast to uint8_t*, to make it easy to add an offset to it.
@@ -36,7 +42,7 @@ public:
   const uint8_t* bytes() const
   {
         return reinterpret_cast<const uint8_t*>(fPtr);
-    }
+  }
     /**
      *  USE WITH CAUTION.
      *  This call will assert that the refcnt is 1, as a precaution against modifying the
@@ -49,7 +55,7 @@ public:
             SkASSERT(this->unique());
         }
         return fPtr;
-    }
+  }
     /**
      *  Helper to copy a range of the data into a caller-provided buffer.
      *  Returns the actual number of bytes copied, after clamping offset and
@@ -95,7 +101,7 @@ public:
   static sk_sp<SkData> MakeWithoutCopy(const void* data, size_t length)
   {
         return MakeWithProc(data, length, DummyReleaseProc, nullptr);
-    }
+  }
     /**
      *  Create a new dataref from a pointer allocated by malloc. The Data object
      *  takes ownership of that allocation, and will handling calling sk_free.

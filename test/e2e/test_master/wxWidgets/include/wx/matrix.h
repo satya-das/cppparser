@@ -85,7 +85,9 @@ public:
     // Only returns a flag, which is set whenever an operation
     // is done.
   inline bool IsIdentity() const
-  { return m_isIdentity; }
+  {
+ return m_isIdentity;
+  }
     // This does an actual check.
   inline bool IsIdentity1() const;
     //Scale by scale (isotropic scaling i.e. the same in x and y):

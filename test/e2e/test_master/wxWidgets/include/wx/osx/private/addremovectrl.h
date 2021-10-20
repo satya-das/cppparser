@@ -21,9 +21,7 @@ public:
   wxAddRemoveImpl(wxAddRemoveAdaptor* adaptor, wxAddRemoveCtrl* parent, wxWindow* ctrlItems)
     :  wxAddRemoveImplWithButtons(adaptor, parent, ctrlItems),
           m_ctrlItems(ctrlItems)
-    
-    {
-
+  {
         // This size is hard coded for now as this is what the system dialogs
         // themselves (e.g. the buttons under the lists in the "Users" or
         // "Network" panes of the "System Preferences") use under OS X 10.8.
@@ -64,7 +62,7 @@ public:
 
 
         SetUpEvents();
-        }
+  }
     // As we don't use sizers, we also need to compute our best size ourselves.
   wxSize GetBestClientSize() const override
   {
@@ -76,7 +74,7 @@ public:
         size.IncTo(wxSize(3*sizeBtn.x, -1));
 
         return size;
-    }
+  }
 private:
   void OnSize(wxSizeEvent& event)
   {
@@ -101,7 +99,7 @@ private:
 
         // The last one needs to be resized to take up all the remaining space.
         m_btnPlaceholder->SetSize(x, yBtn, size.x - x, sizeBtn.y);
-    }
+  }
   wxWindow* m_ctrlItems;
   wxButton* m_btnPlaceholder;
 };

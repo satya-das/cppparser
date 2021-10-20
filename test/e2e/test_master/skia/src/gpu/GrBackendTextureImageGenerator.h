@@ -32,9 +32,13 @@ protected:
     // NOTE: We would like to validate that the owning context hasn't been abandoned, but we can't
     // do that safely (we might be on another thread). So assume everything is fine.
   bool onIsValid(GrContext*) const override
-  { return true; }
+  {
+ return true;
+  }
   TexGenType onCanGenerateTexture() const override
-  { return TexGenType::kCheap; }
+  {
+ return TexGenType::kCheap;
+  }
   sk_sp<GrTextureProxy> onGenerateTexture(GrRecordingContext*, const SkImageInfo&, const SkIPoint&, bool willNeedMipMaps) override;
 private:
   GrBackendTextureImageGenerator(const SkImageInfo& info, GrTexture*, GrSurfaceOrigin, uint32_t owningContextID, sk_sp<GrSemaphore>, const GrBackendTexture&);

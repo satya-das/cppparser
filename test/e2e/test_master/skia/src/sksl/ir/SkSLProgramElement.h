@@ -26,9 +26,9 @@ namespace SkSL
     };
     ProgramElement(int offset, Kind kind)
       :  INHERITED(offset)
-    , fKind(kind) 
-      {
-      }
+    , fKind(kind)
+    {
+    }
     Kind fKind;
     virtual std::unique_ptr<ProgramElement> clone() const = 0;
     typedef IRNode INHERITED;

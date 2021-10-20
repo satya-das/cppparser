@@ -22,7 +22,9 @@ public:
     // return the string extent
   wxSize GetBestSize(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, int row, int col) override;
   wxGridCellRenderer* Clone() const override
-  { return new wxGridCellStringRenderer; }
+  {
+ return new wxGridCellStringRenderer;
+  }
 protected:
     // set the text colours before drawing
   void SetTextColoursAndFont(const wxGrid& grid, const wxGridCellAttr& attr, wxDC& dc, bool isSelected);
@@ -36,10 +38,9 @@ public:
   explicit wxGridCellNumberRenderer(long minValue = LONG_MIN, long maxValue = LONG_MAX)
     :  m_minValue(minValue),
           m_maxValue(maxValue)
-    
-    {
+  {
 
-        }
+  }
     // draw the string right aligned
   void Draw(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, const wxRect& rect, int row, int col, bool isSelected) override;
   wxSize GetBestSize(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, int row, int col) override;
@@ -47,7 +48,9 @@ public:
     // Optional parameters for this renderer are "<min>,<max>".
   void SetParameters(const wxString& params) override;
   wxGridCellRenderer* Clone() const override
-  { return new wxGridCellNumberRenderer(m_minValue, m_maxValue); }
+  {
+ return new wxGridCellNumberRenderer(m_minValue, m_maxValue);
+  }
 protected:
   wxString GetString(const wxGrid& grid, int row, int col);
   long m_minValue, m_maxValue;
@@ -58,17 +61,29 @@ public:
   wxGridCellFloatRenderer(int width = -1, int precision = -1, int format = wxGRID_FLOAT_FORMAT_DEFAULT);
     // get/change formatting parameters
   int GetWidth() const
-  { return m_width; }
+  {
+ return m_width;
+  }
   void SetWidth(int width)
-  { m_width = width; m_format.clear(); }
+  {
+ m_width = width; m_format.clear();
+  }
   int GetPrecision() const
-  { return m_precision; }
+  {
+ return m_precision;
+  }
   void SetPrecision(int precision)
-  { m_precision = precision; m_format.clear(); }
+  {
+ m_precision = precision; m_format.clear();
+  }
   int GetFormat() const
-  { return m_style; }
+  {
+ return m_style;
+  }
   void SetFormat(int format)
-  { m_style = format; m_format.clear(); }
+  {
+ m_style = format; m_format.clear();
+  }
     // draw the string right aligned with given width/precision
   void Draw(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, const wxRect& rect, int row, int col, bool isSelected) override;
   wxSize GetBestSize(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, int row, int col) override;
@@ -94,59 +109,80 @@ public:
   wxSize GetBestSize(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, int row, int col) override;
   wxSize GetMaxBestSize(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc) override;
   wxGridCellRenderer* Clone() const override
-  { return new wxGridCellBoolRenderer; }
+  {
+ return new wxGridCellBoolRenderer;
+  }
 };
-#    if  wxUSE_DATETIME
-#      include "wx/datetime.h"
-namespace wxGridPrivate
-{
-  class DateParseParams;
-}
 // renderer for the cells containing dates only, without time component
 class WXDLLIMPEXP_ADV wxGridCellDateRenderer : public wxGridCellStringRenderer
 {
 public:
-  explicit wxGridCellDateRenderer(const wxString& outformat = wxString());
-  wxGridCellDateRenderer(const wxGridCellDateRenderer& other)
-    :  m_oformat(other.m_oformat),
-          m_tz(other.m_tz)
-    
-    {
+    explicit wxGridCellDateRenderer(const wxString& outformat = wxString());
 
-        }
+    wxGridCellDateRenderer(const wxGridCellDateRenderer& other)
+        : m_oformat(other.m_oformat),
+          m_tz(other.m_tz)
+    {
+    }
+
     // draw the string right aligned
-  void Draw(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, const wxRect& rect, int row, int col, bool isSelected) override;
-  wxSize GetBestSize(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, int row, int col) override;
-  wxSize GetMaxBestSize(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc) override;
-  wxGridCellRenderer* Clone() const override;
+    virtual void Draw(wxGrid& grid,
+                      wxGridCellAttr& attr,
+                      wxDC& dc,
+                      const wxRect& rect,
+                      int row, int col,
+                      bool isSelected) wxOVERRIDE;
+
+    virtual wxSize GetBestSize(wxGrid& grid,
+                               wxGridCellAttr& attr,
+                               wxDC& dc,
+                               int row, int col) wxOVERRIDE;
+
+    virtual wxSize GetMaxBestSize(wxGrid& grid,
+                                  wxGridCellAttr& attr,
+                                  wxDC& dc) wxOVERRIDE;
+
+    virtual wxGridCellRenderer *Clone() const wxOVERRIDE;
+
     // output strptime()-like format string
-  void SetParameters(const wxString& params) override;
+    virtual void SetParameters(const wxString& params) wxOVERRIDE;
+
 protected:
-  wxString GetString(const wxGrid& grid, int row, int col);
+    wxString GetString(const wxGrid& grid, int row, int col);
+
     // This is overridden in wxGridCellDateTimeRenderer which uses a separate
     // input format and forbids fallback to ParseDate().
-  virtual void GetDateParseParams(wxGridPrivate::DateParseParams& params) const;
-  wxString m_oformat;
-  wxDateTime::TimeZone m_tz;
+    virtual void
+    GetDateParseParams(wxGridPrivate::DateParseParams& params) const;
+
+    wxString m_oformat;
+    wxDateTime::TimeZone m_tz;
 };
+
 // the default renderer for the cells containing times and dates
 class WXDLLIMPEXP_ADV wxGridCellDateTimeRenderer : public wxGridCellDateRenderer
 {
 public:
-  wxGridCellDateTimeRenderer(const wxString& outformat = wxASCII_STR(wxDefaultDateTimeFormat), const wxString& informat = wxASCII_STR(wxDefaultDateTimeFormat));
-  wxGridCellDateTimeRenderer(const wxGridCellDateTimeRenderer& other)
-    :  wxGridCellDateRenderer(other),
-          m_iformat(other.m_iformat)
-    
-    {
+    wxGridCellDateTimeRenderer(const wxString& outformat = wxASCII_STR(wxDefaultDateTimeFormat),
+                               const wxString& informat = wxASCII_STR(wxDefaultDateTimeFormat));
 
-        }
-  wxGridCellRenderer* Clone() const override;
+    wxGridCellDateTimeRenderer(const wxGridCellDateTimeRenderer& other)
+        : wxGridCellDateRenderer(other),
+          m_iformat(other.m_iformat)
+    {
+    }
+
+    virtual wxGridCellRenderer *Clone() const wxOVERRIDE;
+
 protected:
-  void GetDateParseParams(wxGridPrivate::DateParseParams& params) const override;
-  wxString m_iformat;
+    virtual void
+    GetDateParseParams(wxGridPrivate::DateParseParams& params) const wxOVERRIDE;
+
+    wxString m_iformat;
 };
-#    endif
+
+#endif // wxUSE_DATETIME
+
 // Renderer for fields taking one of a limited set of values: this is the same
 // as the renderer for strings, except that it can implement GetMaxBestSize().
 class WXDLLIMPEXP_ADV wxGridCellChoiceRenderer : public wxGridCellStringRenderer
@@ -154,21 +190,21 @@ class WXDLLIMPEXP_ADV wxGridCellChoiceRenderer : public wxGridCellStringRenderer
 public:
   wxGridCellChoiceRenderer()
   {
-   }
+
+  }
   wxSize GetMaxBestSize(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc) override;
     // Parameters string is a comma-separated list of values.
   void SetParameters(const wxString& params) override;
   wxGridCellRenderer* Clone() const override
   {
         return new wxGridCellChoiceRenderer(*this);
-    }
+  }
 protected:
   wxGridCellChoiceRenderer(const wxGridCellChoiceRenderer& other)
     :  m_choices(other.m_choices)
-    
-    {
+  {
 
-        }
+  }
   wxArrayString m_choices;
 };
 // renders a number using the corresponding text string
@@ -187,15 +223,18 @@ class WXDLLIMPEXP_ADV wxGridCellAutoWrapStringRenderer : public wxGridCellString
 {
 public:
   wxGridCellAutoWrapStringRenderer()
-    :  wxGridCellStringRenderer() 
-    {
-     }
+    :  wxGridCellStringRenderer()
+  {
+
+  }
   void Draw(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, const wxRect& rect, int row, int col, bool isSelected) override;
   wxSize GetBestSize(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, int row, int col) override;
   int GetBestHeight(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, int row, int col, int width) override;
   int GetBestWidth(wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, int row, int col, int height) override;
   wxGridCellRenderer* Clone() const override
-  { return new wxGridCellAutoWrapStringRenderer; }
+  {
+ return new wxGridCellAutoWrapStringRenderer;
+  }
 private:
   wxArrayString GetTextLines(wxGrid& grid, wxDC& dc, const wxGridCellAttr& attr, const wxRect& rect, int row, int col);
     // Helper methods of GetTextLines()

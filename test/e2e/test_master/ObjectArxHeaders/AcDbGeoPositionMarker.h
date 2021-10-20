@@ -48,7 +48,7 @@ public:
         /// 2
         /// </value>
         kRightAlignment = 2
-    };
+  };
   ACRX_DECLARE_MEMBERS(AcDbGeoPositionMarker);
   AcDbGeoPositionMarker();
   AcDbGeoPositionMarker(const AcGePoint3d& position, double radius, double landingGap);

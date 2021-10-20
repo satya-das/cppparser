@@ -32,7 +32,7 @@ public:
   enum HLinkFlags {
         kUndefined = 0,
         kConvertDwgToDwf = 0x1
-    };
+  };
     // Get/Set the name or URL.
   virtual const ACHAR* name() const = 0;
   virtual void setName(const ACHAR* cName) = 0;

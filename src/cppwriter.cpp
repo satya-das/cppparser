@@ -260,7 +260,7 @@ void CppWriter::emitVarType(const CppVarType* varTypeObj, std::ostream& stm) con
   else
     stm << varTypeObj->baseType();
   const auto&           origTypeModifier = varTypeObj->typeModifier();
-  const CppTypeModifier typeModifier{
+  const CppTypeModifier typeModifier {
     origTypeModifier.refType_, origTypeModifier.ptrLevel_, origTypeModifier.constBits_ & ~1};
   emitTypeModifier(typeModifier, stm);
   if (varTypeObj->paramPack_)
@@ -351,9 +351,9 @@ void CppWriter::emitEnum(const CppEnum* enmObj, std::ostream& stm, bool emitNewL
                                 && (enmObj->itemList_->front()->val_->objType_ == CppBlob::kObjectType);
     if (isEnumBodyBlob)
     {
-      stm << " {";
+      stm << " {\n";
       emitBlob((CppBlob*) enmObj->itemList_->front()->val_.get(), stm, false, indentation);
-      stm << '}';
+      stm << '\n' << indentation << '}';
     }
     else
     {
@@ -522,6 +522,8 @@ void CppWriter::emitCompound(const CppCompound* compoundObj,
       ++indentation;
     }
     emit(memObj, stm, indentation);
+    if (memObj->objType_ == CppBlob::kObjectType)
+      stm << '\n';
 
     return false;
   });
@@ -639,9 +641,9 @@ void CppWriter::emitFunction(const CppFunction* funcObj,
     const auto defn = funcObj->defn();
     if (defn->hasASingleBlobMember())
     {
-      stm << '\n' << indentation++ << "{";
+      stm << '\n' << indentation++ << "{\n";
       emitBlob((CppBlob*) defn->members().front().get(), stm, false, indentation);
-      stm << "}\n";
+      stm << '\n' << --indentation << "}\n";
     }
     else
     {
@@ -703,7 +705,7 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj,
     {
       stm << '\n';
       stm << indentation << sep << ' ';
-      emitBlob(ctorObj->memInits_.blob, stm, true, indentation);
+      emitBlob(ctorObj->memInits_.blob, stm, true, indentation.resetted());
     }
     else
     {
@@ -715,8 +717,8 @@ void CppWriter::emitConstructor(const CppConstructor* ctorObj,
         stm << ')';
         sep = ',';
       }
-      --indentation;
     }
+    --indentation;
   }
   if (!skipParamName && ctorObj->defn())
   {

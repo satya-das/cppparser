@@ -46,13 +46,13 @@ public:
         kStateIsHidden  = 0x8000,        
         kLastRestored   = 0x10000,        
         kDecomposition  = kAll | 0x20000
-    };
+  };
   enum {
         kUndefDoNothing = 0,
         kUndefTurnOff = 1,
         kUndefFreeze = 2,
         kRestoreAsOverrides = 4
-    };
+  };
   bool addReactor(AcDbLayerStateManagerReactor* pReactor);
   bool removeReactor(AcDbLayerStateManagerReactor* pReactor);
     // Service methods

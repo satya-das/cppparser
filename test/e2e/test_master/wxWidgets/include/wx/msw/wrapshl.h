@@ -32,9 +32,8 @@ public:
     // ctor takes ownership of the item and will free it
   wxItemIdList(LPITEMIDLIST pidl)
   {
-
         m_pidl = pidl;
-      }
+  }
   static void Free(LPITEMIDLIST pidl)
   {
         if ( pidl )
@@ -51,16 +50,16 @@ public:
                 wxLogLastError(wxT("SHGetMalloc"));
             }
         }
-    }
+  }
   ~wxItemIdList()
   {
-
         Free(m_pidl);
-      }
+  }
     // implicit conversion to LPITEMIDLIST
   operator LPITEMIDLIST() const
   {
- return m_pidl;   }
+ return m_pidl;
+  }
     // get the corresponding path, returns empty string on error
   wxString GetPath() const
   {
@@ -71,7 +70,7 @@ public:
         }
 
         return path;
-    }
+  }
 private:
   LPITEMIDLIST m_pidl;
   wxDECLARE_NO_COPY_CLASS(wxItemIdList);

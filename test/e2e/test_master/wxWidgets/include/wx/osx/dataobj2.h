@@ -31,15 +31,15 @@ public:
   size_t GetDataSize(const wxDataFormat&) const override
   {
         return GetDataSize();
-    }
+  }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
         return GetDataHere(buf);
-    }
+  }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
         return SetData(len, buf);
-    }
+  }
 protected:
   void Init();
   void Clear();
@@ -61,15 +61,15 @@ public:
   size_t GetDataSize(const wxDataFormat&) const override
   {
         return GetDataSize();
-    }
+  }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
         return GetDataHere(buf);
-    }
+  }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
         return SetData(len, buf);
-    }
+  }
 protected:
     // translates the filenames stored into a utf8 encoded char stream
   void GetFileNames(wxCharBuffer& buf) const;

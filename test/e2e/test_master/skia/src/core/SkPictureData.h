@@ -27,19 +27,19 @@ class SkTextBlob;
 struct SkPictInfo
 {
   SkPictInfo()
-    :  fVersion(~0U) 
-    {
-    }
+    :  fVersion(~0U)
+  {
+  }
   uint32_t getVersion() const
   {
         SkASSERT(fVersion != ~0U);
         return fVersion;
-    }
+  }
   void setVersion(uint32_t version)
   {
         SkASSERT(version != ~0U);
         fVersion = version;
-    }
+  }
 public:
   char fMagic[8];
 private:
@@ -78,7 +78,9 @@ public:
   void serialize(SkWStream*, const SkSerialProcs&, SkRefCntSet*, bool textBlobsOnly = false) const;
   void flatten(SkWriteBuffer&) const;
   const sk_sp<SkData>& opData() const
-  { return fOpData; }
+  {
+ return fOpData;
+  }
 protected:
   explicit SkPictureData(const SkPictInfo& info);
     // Does not affect ownership of SkStream.
@@ -90,21 +92,21 @@ public:
         // images are written base-0, unlike paths, pictures, drawables, etc.
         const int index = reader->readInt();
         return reader->validateIndex(index, fImages.count()) ? fImages[index].get() : nullptr;
-    }
+  }
   const SkPath& getPath(SkReadBuffer* reader) const
   {
         int index = reader->readInt();
         return reader->validate(index > 0 && index <= fPaths.count()) ?
                 fPaths[index - 1] : fEmptyPath;
-    }
+  }
   const SkPicture* getPicture(SkReadBuffer* reader) const
   {
         return read_index_base_1_or_null(reader, fPictures);
-    }
+  }
   SkDrawable* getDrawable(SkReadBuffer* reader) const
   {
         return read_index_base_1_or_null(reader, fDrawables);
-    }
+  }
   const SkPaint* getPaint(SkReadBuffer* reader) const
   {
         int index = reader->readInt();
@@ -113,15 +115,15 @@ public:
         }
         return reader->validate(index > 0 && index <= fPaints.count()) ?
                 &fPaints[index - 1] : nullptr;
-    }
+  }
   const SkTextBlob* getTextBlob(SkReadBuffer* reader) const
   {
         return read_index_base_1_or_null(reader, fTextBlobs);
-    }
+  }
   const SkVertices* getVertices(SkReadBuffer* reader) const
   {
         return read_index_base_1_or_null(reader, fVertices);
-    }
+  }
 private:
     // these help us with reading/writing
     // Does not affect ownership of SkStream.

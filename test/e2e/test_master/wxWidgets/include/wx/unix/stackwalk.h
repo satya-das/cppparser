@@ -23,11 +23,9 @@ public:
     //     long as ours
   wxStackFrame(size_t level = 0, void* address = NULL, const char* syminfo = NULL)
     :  wxStackFrameBase(level, address)
-    
-    {
-
+  {
         m_syminfo = syminfo;
-        }
+  }
 protected:
   void OnGetName() override;
     // optimized for the 2 step initialization done by wxStackWalker
@@ -40,7 +38,7 @@ protected:
 
         m_line = numLine;
         m_address = address;
-    }
+  }
 private:
   const char* m_syminfo;
 };
@@ -56,21 +54,23 @@ public:
     // explicitly
   wxStackWalker(const char* argv0 = NULL)
   {
-
         ms_exepath = wxString::FromAscii(argv0);
-      }
+  }
   ~wxStackWalker()
   {
-
         FreeStack();
-      }
+  }
   void Walk(size_t skip = 1, size_t maxDepth = wxSTACKWALKER_MAX_DEPTH) override;
 #  if  wxUSE_ON_FATAL_EXCEPTION
   void WalkFromException(size_t maxDepth = wxSTACKWALKER_MAX_DEPTH) override
-  { Walk(2, maxDepth); }
+  {
+ Walk(2, maxDepth);
+  }
 #  endif
   static const wxString& GetExePath()
-  { return ms_exepath; }
+  {
+ return ms_exepath;
+  }
     // these two may be used to save the stack at some point (fast operation)
     // and then process it later (slow operation)
   void SaveStack(size_t maxDepth);

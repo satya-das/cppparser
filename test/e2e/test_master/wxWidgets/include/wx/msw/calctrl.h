@@ -12,14 +12,14 @@ class WXDLLIMPEXP_ADV wxCalendarCtrl : public wxCalendarCtrlBase
 public:
   wxCalendarCtrl()
   {
- Init();   }
+ Init();
+  }
   wxCalendarCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAL_SHOW_HOLIDAYS, const wxString& name = wxASCII_STR(wxCalendarNameStr))
   {
-
         Init();
 
         Create(parent, id, date, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAL_SHOW_HOLIDAYS, const wxString& name = wxASCII_STR(wxCalendarNameStr));
   bool SetDate(const wxDateTime& date) override;
   wxDateTime GetDate() const override;
@@ -45,10 +45,14 @@ private:
   void UpdateFirstDayOfWeek();
     // reset holiday information
   void ResetHolidayAttrs() override
-  { m_holidays = 0; }
+  {
+ m_holidays = 0;
+  }
     // redisplay holidays
   void RefreshHolidays() override
-  { UpdateMarks(); }
+  {
+ UpdateMarks();
+  }
     // current date, we need to store it instead of simply retrieving it from
     // the control as needed in order to be able to generate the correct events
     // from MSWOnNotify()

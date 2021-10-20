@@ -17,10 +17,12 @@ class WXDLLIMPEXP_CORE wxPopupWindow : public wxPopupWindowBase
 public:
   wxPopupWindow()
   {
- m_owner = NULL;   }
+ m_owner = NULL;
+  }
   wxPopupWindow(wxWindow* parent, int flags = wxBORDER_NONE)
   {
- (void)Create(parent, flags);   }
+ (void)Create(parent, flags);
+  }
   bool Create(wxWindow* parent, int flags = wxBORDER_NONE);
   virtual ~wxPopupWindow();
   void SetFocus() override;
@@ -33,11 +35,15 @@ public:
 
     // Return the top level window parent of this popup or null.
   wxWindow* MSWGetOwner() const
-  { return m_owner; }
+  {
+ return m_owner;
+  }
     // This is a way to notify non-wxPU_CONTAINS_CONTROLS windows about the
     // events that should result in their dismissal.
   virtual void MSWDismissUnfocusedPopup()
-  { }
+  {
+
+  }
 private:
   wxWindow* m_owner;
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxPopupWindow);

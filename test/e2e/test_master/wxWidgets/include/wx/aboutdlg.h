@@ -21,15 +21,20 @@ public:
     // all fields are initially uninitialized
   wxAboutDialogInfo()
   {
-   }
+
+  }
     // accessors for various simply fields
     // -----------------------------------
 
     // name of the program, if not used defaults to wxApp::GetAppDisplayName()
   void SetName(const wxString& name)
-  { m_name = name; }
+  {
+ m_name = name;
+  }
   wxString GetName() const
-  { return m_name.empty() ? wxTheApp->GetAppDisplayName() : m_name; }
+  {
+ return m_name.empty() ? wxTheApp->GetAppDisplayName() : m_name;
+  }
     // version should contain program version without "version" word (e.g.,
     // "1.2" or "RC2") while longVersion may contain the full version including
     // "version" word (e.g., "Version 1.2" or "Release Candidate 2")
@@ -40,39 +45,69 @@ public:
     // program name msw and osx native: use long version
   void SetVersion(const wxString& version, const wxString& longVersion = wxString());
   bool HasVersion() const
-  { return !m_version.empty(); }
+  {
+ return !m_version.empty();
+  }
   const wxString& GetVersion() const
-  { return m_version; }
+  {
+ return m_version;
+  }
   const wxString& GetLongVersion() const
-  { return m_longVersion; }
+  {
+ return m_longVersion;
+  }
     // brief, but possibly multiline, description of the program
   void SetDescription(const wxString& desc)
-  { m_description = desc; }
+  {
+ m_description = desc;
+  }
   bool HasDescription() const
-  { return !m_description.empty(); }
+  {
+ return !m_description.empty();
+  }
   const wxString& GetDescription() const
-  { return m_description; }
+  {
+ return m_description;
+  }
     // short string containing the program copyright information
   void SetCopyright(const wxString& copyright)
-  { m_copyright = copyright; }
+  {
+ m_copyright = copyright;
+  }
   bool HasCopyright() const
-  { return !m_copyright.empty(); }
+  {
+ return !m_copyright.empty();
+  }
   const wxString& GetCopyright() const
-  { return m_copyright; }
+  {
+ return m_copyright;
+  }
     // long, multiline string containing the text of the program licence
   void SetLicence(const wxString& licence)
-  { m_licence = licence; }
+  {
+ m_licence = licence;
+  }
   void SetLicense(const wxString& licence)
-  { m_licence = licence; }
+  {
+ m_licence = licence;
+  }
   bool HasLicence() const
-  { return !m_licence.empty(); }
+  {
+ return !m_licence.empty();
+  }
   const wxString& GetLicence() const
-  { return m_licence; }
+  {
+ return m_licence;
+  }
     // icon to be shown in the dialog, defaults to the main frame icon
   void SetIcon(const wxIcon& icon)
-  { m_icon = icon; }
+  {
+ m_icon = icon;
+  }
   bool HasIcon() const
-  { return m_icon.IsOk(); }
+  {
+ return m_icon.IsOk();
+  }
   wxIcon GetIcon() const;
     // web site for the program and its description (defaults to URL itself if
     // empty)
@@ -80,52 +115,90 @@ public:
   {
         m_url = url;
         m_urlDesc = desc.empty() ? url : desc;
-    }
+  }
   bool HasWebSite() const
-  { return !m_url.empty(); }
+  {
+ return !m_url.empty();
+  }
   const wxString& GetWebSiteURL() const
-  { return m_url; }
+  {
+ return m_url;
+  }
   const wxString& GetWebSiteDescription() const
-  { return m_urlDesc; }
+  {
+ return m_urlDesc;
+  }
     // accessors for the arrays
     // ------------------------
 
     // the list of developers of the program
   void SetDevelopers(const wxArrayString& developers)
-  { m_developers = developers; }
+  {
+ m_developers = developers;
+  }
   void AddDeveloper(const wxString& developer)
-  { m_developers.push_back(developer); }
+  {
+ m_developers.push_back(developer);
+  }
   bool HasDevelopers() const
-  { return !m_developers.empty(); }
+  {
+ return !m_developers.empty();
+  }
   const wxArrayString& GetDevelopers() const
-  { return m_developers; }
+  {
+ return m_developers;
+  }
     // the list of documentation writers
   void SetDocWriters(const wxArrayString& docwriters)
-  { m_docwriters = docwriters; }
+  {
+ m_docwriters = docwriters;
+  }
   void AddDocWriter(const wxString& docwriter)
-  { m_docwriters.push_back(docwriter); }
+  {
+ m_docwriters.push_back(docwriter);
+  }
   bool HasDocWriters() const
-  { return !m_docwriters.empty(); }
+  {
+ return !m_docwriters.empty();
+  }
   const wxArrayString& GetDocWriters() const
-  { return m_docwriters; }
+  {
+ return m_docwriters;
+  }
     // the list of artists for the program art
   void SetArtists(const wxArrayString& artists)
-  { m_artists = artists; }
+  {
+ m_artists = artists;
+  }
   void AddArtist(const wxString& artist)
-  { m_artists.push_back(artist); }
+  {
+ m_artists.push_back(artist);
+  }
   bool HasArtists() const
-  { return !m_artists.empty(); }
+  {
+ return !m_artists.empty();
+  }
   const wxArrayString& GetArtists() const
-  { return m_artists; }
+  {
+ return m_artists;
+  }
     // the list of translators
   void SetTranslators(const wxArrayString& translators)
-  { m_translators = translators; }
+  {
+ m_translators = translators;
+  }
   void AddTranslator(const wxString& translator)
-  { m_translators.push_back(translator); }
+  {
+ m_translators.push_back(translator);
+  }
   bool HasTranslators() const
-  { return !m_translators.empty(); }
+  {
+ return !m_translators.empty();
+  }
   const wxArrayString& GetTranslators() const
-  { return m_translators; }
+  {
+ return m_translators;
+  }
     // implementation only
     // -------------------
 
@@ -133,7 +206,9 @@ public:
     // default icon but without hyperlink nor any long texts such as the
     // licence text)
   bool IsSimple() const
-  { return !HasWebSite() && !HasIcon() && !HasLicence(); }
+  {
+ return !HasWebSite() && !HasIcon() && !HasLicence();
+  }
     // get the description and credits (i.e. all of developers, doc writers,
     // artists and translators) as a one long multiline string
   wxString GetDescriptionAndCredits() const;

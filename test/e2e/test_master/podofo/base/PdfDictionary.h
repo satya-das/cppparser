@@ -291,63 +291,63 @@ namespace PoDoFo
   inline const PdfObject* PdfDictionary::GetKey(const PdfName& key) const
   {
     return getKey(key);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   inline PdfObject* PdfDictionary::GetKey(const PdfName& key)
   {
     return getKey(key);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   inline const PdfObject* PdfDictionary::FindKey(const PdfName& key) const
   {
     return findKey(key);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   inline PdfObject* PdfDictionary::FindKey(const PdfName& key)
   {
     return findKey(key);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   inline const PdfObject* PdfDictionary::FindKeyParent(const PdfName& key) const
   {
     return findKeyParent(key);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   inline PdfObject* PdfDictionary::FindKeyParent(const PdfName& key)
   {
     return findKeyParent(key);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   size_t PdfDictionary::GetSize() const
   {
     return m_mapKeys.size();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const TKeyMap& PdfDictionary::GetKeys() const
-  { 
-    return m_mapKeys; 
-}
+  {
+    return m_mapKeys;
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   TKeyMap& PdfDictionary::GetKeys()
-  { 
-    return m_mapKeys; 
-}
+  {
+    return m_mapKeys;
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -357,20 +357,20 @@ namespace PoDoFo
     if (!obj)
         PODOFO_RAISE_ERROR( ePdfError_NoObject );
     return *obj;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfDictionary::Write(PdfOutputDevice* pDevice, EPdfWriteMode eWriteMode, const PdfEncrypt* pEncrypt) const
-  { 
-    this->Write( pDevice, eWriteMode, pEncrypt, PdfName::KeyNull ); 
-}
+  {
+    this->Write( pDevice, eWriteMode, pEncrypt, PdfName::KeyNull );
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfDictionary::operator!=(const PdfDictionary& rhs) const
   {
     return !(*this == rhs);
-}
+  }
 }
 #endif

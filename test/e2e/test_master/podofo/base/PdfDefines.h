@@ -149,8 +149,8 @@ namespace PoDoFo
     ePdfVersion_1_4,           /**< PDF 1.4 */
     ePdfVersion_1_5,           /**< PDF 1.5 */
     ePdfVersion_1_6,           /**< PDF 1.6 */ 
-    ePdfVersion_1_7            /**< PDF 1.7 */ 
-};
+    ePdfVersion_1_7            /**< PDF 1.7 */
+  };
 /** The default PDF Version used by new PDF documents
  *  in PoDoFo. 
  */
@@ -161,7 +161,7 @@ namespace PoDoFo
   enum EPdfWriteMode {
     ePdfWriteMode_Compact = 0x01, ///< Try to write the PDF as compact as possible (Default)
     ePdfWriteMode_Clean = 0x02,   ///< Create a PDF that is readable in a text editor, i.e. insert spaces and linebreaks between tokens
-};
+  };
   const EPdfWriteMode ePdfWriteMode_Default = ePdfWriteMode_Compact;
 /**
  * Every PDF datatype that can occur in a PDF file
@@ -186,7 +186,7 @@ namespace PoDoFo
     ePdfDataType_RawData,               /**< Raw PDF data */
 
     ePdfDataType_Unknown = 0xff         /**< The Datatype is unknown. The value is chosen to enable value storage in 8-bit unsigned integer. */
-};
+  };
 /**
  * Every filter that can be used to encode a stream 
  * in a PDF file is referenced by an own enum value.
@@ -205,7 +205,7 @@ namespace PoDoFo
     ePdfFilter_DCTDecode,
     ePdfFilter_JPXDecode,
     ePdfFilter_Crypt
-};
+  };
 /**
  * Enum for the different font formats supported by PoDoFo
  */
@@ -216,7 +216,7 @@ namespace PoDoFo
     ePdfFontType_Type1Base14,
     ePdfFontType_Type3,
     ePdfFontType_Unknown = 0xff
-};
+  };
 /** 
  * Enum for the colorspaces supported
  * by PDF.
@@ -229,7 +229,7 @@ namespace PoDoFo
     ePdfColorSpace_CieLab,            /**< CIE-Lab */
     ePdfColorSpace_Indexed,           /**< Indexed */
     ePdfColorSpace_Unknown = 0xff
-};
+  };
 /**
  * Enum for text rendering mode (Tr)
  */
@@ -243,7 +243,7 @@ namespace PoDoFo
     ePdfTextRenderingMode_FillAndStrokeToClipPath,  /**< Fill, then stroke text and add to path for clipping */
     ePdfTextRenderingMode_ToClipPath,               /**< Add text to path for clipping */
     ePdfTextRenderingMode_Unknown = 0xff
-};
+  };
 /**
  * Enum for the different stroke styles that can be set
  * when drawing to a PDF file (mostly for line drawing).
@@ -254,8 +254,8 @@ namespace PoDoFo
     ePdfStrokeStyle_Dot,
     ePdfStrokeStyle_DashDot,
     ePdfStrokeStyle_DashDotDot,
-    ePdfStrokeStyle_Custom 
-};
+    ePdfStrokeStyle_Custom
+  };
 /**
  * Enum for predefined tiling patterns.
  */
@@ -267,7 +267,7 @@ namespace PoDoFo
     ePdfTilingPatternType_Horizontal,
     ePdfTilingPatternType_Vertical,
     ePdfTilingPatternType_Image
-};
+  };
 /**
  * Enum for line cap styles when drawing.
  */
@@ -275,7 +275,7 @@ namespace PoDoFo
     ePdfLineCapStyle_Butt    = 0,
     ePdfLineCapStyle_Round   = 1,
     ePdfLineCapStyle_Square  = 2
-};
+  };
 /**
  * Enum for line join styles when drawing.
  */
@@ -283,7 +283,7 @@ namespace PoDoFo
     ePdfLineJoinStyle_Miter   = 0,
     ePdfLineJoinStyle_Round   = 1,
     ePdfLineJoinStyle_Bevel   = 2
-};
+  };
 /**
  * Enum for vertical text alignment
  */
@@ -291,7 +291,7 @@ namespace PoDoFo
     ePdfVerticalAlignment_Top    = 0,
     ePdfVerticalAlignment_Center = 1,
     ePdfVerticalAlignment_Bottom  = 2
-};
+  };
 /**
  * Enum for text alignment
  */
@@ -299,7 +299,7 @@ namespace PoDoFo
     ePdfAlignment_Left    = 0,
     ePdfAlignment_Center  = 1,
     ePdfAlignment_Right   = 2
-};
+  };
 /**
  * List of defined Rendering intents
  */
@@ -344,7 +344,7 @@ namespace PoDoFo
     ePdfPageSize_Letter,          /**< Letter  */
     ePdfPageSize_Legal,           /**< Legal   */
     ePdfPageSize_Tabloid          /**< Tabloid */
-};
+  };
 /**
  * Enum holding the supported of types of "PageModes"
  * that define which (if any) of the "panels" are opened
@@ -360,7 +360,7 @@ namespace PoDoFo
     ePdfPageModeFullScreen,
     ePdfPageModeUseOC,
     ePdfPageModeUseAttachments
-};
+  };
 /**
  * Enum holding the supported of types of "PageLayouts"
  * that define how Acrobat will display the pages in
@@ -377,7 +377,7 @@ namespace PoDoFo
     ePdfPageLayoutTwoColumnRight,
     ePdfPageLayoutTwoPageLeft,
     ePdfPageLayoutTwoPageRight
-};
+  };
 /**
  */
   const bool ePdfCreateObject = true;
@@ -405,7 +405,7 @@ namespace PoDoFo
   const T PDF_MAX(const T a, const T b)
   {
   return (b<a)?a:b;
-}
+  }
 /**
  * PDF_MIN(x,y)
  * \returns the minimum of x and y
@@ -416,7 +416,7 @@ namespace PoDoFo
   const T PDF_MIN(const T a, const T b)
   {
   return (a<b)?a:b;
-}
+  }
 #    ifndef PODOFO_CONVERSION_CONSTANT
 #      define PODOFO_CONVERSION_CONSTANT	0.002834645669291339
 #    endif

@@ -35,7 +35,7 @@ public:
             format = kARGB_GrMaskFormat;
         }
         return format;
-    }
+  }
     // if getProxies returns nullptr, the client must not try to use other functions on the
     // GrStrikeCache which use the atlas.  This function *must* be called first, before other
     // functions which use the atlas. Note that we can have proxies available but none active
@@ -49,7 +49,7 @@ public:
         }
         *numActiveProxies = 0;
         return nullptr;
-    }
+  }
   void freeAll();
   bool hasGlyph(GrGlyph* glyph);
     // To ensure the GrDrawOpAtlas does not evict the Glyph Mask from its texture backing store,
@@ -61,7 +61,7 @@ public:
   void setUseTokenBulk(const GrDrawOpAtlas::BulkUseTokenUpdater& updater, GrDeferredUploadToken token, GrMaskFormat format)
   {
         this->getAtlas(format)->setLastUseTokenBulk(updater, token);
-    }
+  }
     // add to texture atlas that matches this format
   GrDrawOpAtlas::ErrorCode addToAtlas(GrResourceProvider*, GrStrikeCache*, GrTextStrike*, GrDrawOpAtlas::AtlasID*, GrDeferredUploadTarget*, GrMaskFormat, int width, int height, const void* image, SkIPoint16* loc);
     // Some clients may wish to verify the integrity of the texture backing store of the
@@ -70,7 +70,7 @@ public:
   uint64_t atlasGeneration(GrMaskFormat format) const
   {
         return this->getAtlas(format)->atlasGeneration();
-    }
+  }
     // GrOnFlushCallbackObject overrides
   void preFlush(GrOnFlushResourceProvider* onFlushRP, const uint32_t*, int) override
   {
@@ -79,7 +79,7 @@ public:
                 fAtlases[i]->instantiate(onFlushRP);
             }
         }
-    }
+  }
   void postFlush(GrDeferredUploadToken startTokenForNextFlush, const uint32_t* opsTaskIDs, int numOpsTaskIDs) override
   {
         for (int i = 0; i < kMaskFormatCount; ++i) {
@@ -87,11 +87,13 @@ public:
                 fAtlases[i]->compact(startTokenForNextFlush);
             }
         }
-    }
+  }
     // The AtlasGlyph cache always survives freeGpuResources so we want it to remain in the active
     // OnFlushCallbackObject list
   bool retainOnFreeGpuResources() override
-  { return true; }
+  {
+ return true;
+  }
     ///////////////////////////////////////////////////////////////////////////
     // Functions intended debug only
 #  ifdef SK_DEBUG
@@ -103,16 +105,20 @@ private:
   bool initAtlas(GrMaskFormat);
     // There is a 1:1 mapping between GrMaskFormats and atlas indices
   static int MaskFormatToAtlasIndex(GrMaskFormat format)
-  { return static_cast<int>(format); }
+  {
+ return static_cast<int>(format);
+  }
   static GrMaskFormat AtlasIndexToMaskFormat(int idx)
-  { return static_cast<GrMaskFormat>(idx); }
+  {
+ return static_cast<GrMaskFormat>(idx);
+  }
   GrDrawOpAtlas* getAtlas(GrMaskFormat format) const
   {
         format = this->resolveMaskFormat(format);
         int atlasIndex = MaskFormatToAtlasIndex(format);
         SkASSERT(fAtlases[atlasIndex]);
         return fAtlases[atlasIndex].get();
-    }
+  }
   GrDrawOpAtlas::AllowMultitexturing fAllowMultitexturing;
   std::unique_ptr<GrDrawOpAtlas> fAtlases[kMaskFormatCount];
   GrProxyProvider* fProxyProvider;

@@ -16,12 +16,11 @@ struct GrFPArgs
     :  fContext(context)
             , fViewMatrix(viewMatrix)
             , fFilterQuality(filterQuality)
-            , fDstColorInfo(dstColorInfo) 
-    {
-
+            , fDstColorInfo(dstColorInfo)
+  {
         SkASSERT(fContext);
         SkASSERT(fViewMatrix);
-        }
+  }
   class WithPreLocalMatrix;
   class WithPostLocalMatrix;
   GrRecordingContext* fContext;
@@ -43,9 +42,8 @@ class GrFPArgs::WithPreLocalMatrix final : public GrFPArgs
 {
 public:
   WithPreLocalMatrix(const GrFPArgs& args, const SkMatrix& lm)
-    :  INHERITED(args) 
-    {
-
+    :  INHERITED(args)
+  {
         if (!lm.isIdentity()) {
             if (fPreLocalMatrix) {
                 fStorage.setConcat(lm, *fPreLocalMatrix);
@@ -54,7 +52,7 @@ public:
                 fPreLocalMatrix = &lm;
             }
         }
-        }
+  }
 private:
   WithPreLocalMatrix(const WithPreLocalMatrix&) = delete;
   WithPreLocalMatrix& operator=(const WithPreLocalMatrix&);
@@ -65,9 +63,8 @@ class GrFPArgs::WithPostLocalMatrix final : public GrFPArgs
 {
 public:
   WithPostLocalMatrix(const GrFPArgs& args, const SkMatrix& lm)
-    :  INHERITED(args) 
-    {
-
+    :  INHERITED(args)
+  {
         if (!lm.isIdentity()) {
             if (fPostLocalMatrix) {
                 fStorage.setConcat(*fPostLocalMatrix, lm);
@@ -76,7 +73,7 @@ public:
                 fPostLocalMatrix = &lm;
             }
         }
-        }
+  }
 private:
   WithPostLocalMatrix(const WithPostLocalMatrix&) = delete;
   WithPostLocalMatrix& operator=(const WithPostLocalMatrix&);

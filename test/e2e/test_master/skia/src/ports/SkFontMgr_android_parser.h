@@ -25,28 +25,35 @@ class SkLanguage
 public:
   SkLanguage()
   {
-   }
+
+  }
   SkLanguage(const SkString& tag)
-    :  fTag(tag) 
-    {
-     }
+    :  fTag(tag)
+  {
+
+  }
   SkLanguage(const char* tag)
-    :  fTag(tag) 
-    {
-     }
+    :  fTag(tag)
+  {
+
+  }
   SkLanguage(const char* tag, size_t len)
-    :  fTag(tag, len) 
-    {
-     }
+    :  fTag(tag, len)
+  {
+
+  }
   SkLanguage(const SkLanguage& b)
-    :  fTag(b.fTag) 
-    {
-     }
+    :  fTag(b.fTag)
+  {
+
+  }
     /** Gets a BCP 47 language identifier for this SkLanguage.
         @return a BCP 47 language identifier representing this language
     */
   const SkString& getTag() const
-  { return fTag; }
+  {
+ return fTag;
+  }
     /** Performs BCP 47 fallback to return an SkLanguage one step more general.
         @return an SkLanguage one step more general
     */
@@ -54,16 +61,16 @@ public:
   bool operator==(const SkLanguage& b) const
   {
         return fTag == b.fTag;
-    }
+  }
   bool operator!=(const SkLanguage& b) const
   {
         return fTag != b.fTag;
-    }
+  }
   SkLanguage& operator=(const SkLanguage& b)
   {
         fTag = b.fTag;
         return *this;
-    }
+  }
 private:
     //! BCP 47 language identifier
   SkString fTag;
@@ -79,13 +86,16 @@ typedef uint32_t FontVariant;
 struct FontFileInfo
 {
   FontFileInfo()
-    :  fIndex(0), fWeight(0), fStyle(Style::kAuto) 
-    {
-     }
+    :  fIndex(0), fWeight(0), fStyle(Style::kAuto)
+  {
+
+  }
   SkString fFileName;
   int fIndex;
   int fWeight;
-  enum class Style { kAuto, kNormal, kItalic } fStyle;
+  enum class Style {
+ kAuto, kNormal, kItalic
+} fStyle;
   SkTArray<SkFontArguments::VariationPosition::Coordinate, true> fVariationDesignPosition;
 };
 /**
@@ -102,9 +112,9 @@ struct FontFamily
         , fOrder(-1)
         , fIsFallbackFont(isFallbackFont)
         , fBasePath(basePath)
-    
-    {
-     }
+  {
+
+  }
   SkTArray<SkString, true> fNames;
   SkTArray<FontFileInfo, true> fFonts;
   SkTArray<SkLanguage, true> fLanguages;

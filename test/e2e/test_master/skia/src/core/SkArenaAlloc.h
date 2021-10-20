@@ -63,9 +63,8 @@ public:
   SkArenaAlloc(char* block, size_t blockSize, size_t firstHeapAllocation);
   explicit SkArenaAlloc(size_t firstHeapAllocation)
     :  SkArenaAlloc(nullptr, 0, firstHeapAllocation)
-    
-    {
-    }
+  {
+  }
   ~SkArenaAlloc();
   template <typename T, typename... Args>
   T* make(Args&&... args)
@@ -93,7 +92,7 @@ public:
 
         // This must be last to make objects with nested use of this allocator work.
         return new(objStart) T(std::forward<Args>(args)...);
-    }
+  }
   template <typename T>
   T* makeArrayDefault(size_t count)
   {
@@ -106,7 +105,7 @@ public:
             new (&array[i]) T;
         }
         return array;
-    }
+  }
   template <typename T>
   T* makeArray(size_t count)
   {
@@ -120,7 +119,7 @@ public:
             new (&array[i]) T();
         }
         return array;
-    }
+  }
     // Only use makeBytesAlignedTo if none of the typed variants are impractical to use.
   void* makeBytesAlignedTo(size_t size, size_t align)
   {
@@ -128,17 +127,19 @@ public:
         auto objStart = this->allocObject(ToU32(size), ToU32(align));
         fCursor = objStart + size;
         return objStart;
-    }
+  }
     // Destroy all allocated objects, free any heap allocations.
   void reset();
 private:
   static void AssertRelease(bool cond)
-  { if (!cond) { ::abort(); } }
+  {
+ if (!cond) { ::abort(); }
+  }
   static uint32_t ToU32(size_t v)
   {
         assert(SkTFitsIn<uint32_t>(v));
         return (uint32_t)v;
-    }
+  }
   using Footer = int64_t;
   using FooterAction = char* (*) (char*);
 ;
@@ -160,7 +161,7 @@ private:
             alignedOffset = (~reinterpret_cast<uintptr_t>(fCursor) + 1) & mask;
         }
         return fCursor + alignedOffset;
-    }
+  }
   char* allocObjectWithFooter(uint32_t sizeIncludingFooter, uint32_t alignment);
   template <typename T>
   char* commonArrayAlloc(uint32_t count)
@@ -201,7 +202,7 @@ private:
         }
 
         return objStart;
-    }
+  }
   char* fDtorCursor;
   char* fCursor;
   char* fEnd;
@@ -220,9 +221,9 @@ class SkSTArenaAlloc : public SkArenaAlloc
 {
 public:
   explicit SkSTArenaAlloc(size_t firstHeapAllocation = InlineStorageSize)
-    :  INHERITED(fInlineStorage, InlineStorageSize, firstHeapAllocation) 
-    {
-    }
+    :  INHERITED(fInlineStorage, InlineStorageSize, firstHeapAllocation)
+  {
+  }
 private:
   char fInlineStorage[InlineStorageSize];
   using INHERITED = SkArenaAlloc;

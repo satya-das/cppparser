@@ -22,7 +22,7 @@ class GrConvexPolyEffect : public GrFragmentProcessor
 public:
   enum {
         kMaxEdges = 8,
-    };
+  };
     /**
      * edges is a set of n edge equations where n is limited to kMaxEdges. It contains 3*n values.
      * The edges should form a convex polygon. The positive half-plane is considered to be the
@@ -40,7 +40,7 @@ public:
             return nullptr;
         }
         return std::unique_ptr<GrFragmentProcessor>(new GrConvexPolyEffect(edgeType, n, edges));
-    }
+  }
     /**
      * Creates an effect that clips against the path. If the path is not a convex polygon, is
      * inverse filled, or has too many edges, this will return nullptr.
@@ -52,14 +52,22 @@ public:
   static std::unique_ptr<GrFragmentProcessor> Make(GrClipEdgeType, const SkRect&);
   virtual ~GrConvexPolyEffect();
   const char* name() const override
-  { return "ConvexPoly"; }
+  {
+ return "ConvexPoly";
+  }
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   GrClipEdgeType getEdgeType() const
-  { return fEdgeType; }
+  {
+ return fEdgeType;
+  }
   int getEdgeCount() const
-  { return fEdgeCount; }
+  {
+ return fEdgeCount;
+  }
   const SkScalar* getEdges() const
-  { return fEdges; }
+  {
+ return fEdges;
+  }
 private:
   GrConvexPolyEffect(GrClipEdgeType edgeType, int n, const SkScalar edges[]);
   GrConvexPolyEffect(const GrConvexPolyEffect&);

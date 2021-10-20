@@ -22,7 +22,7 @@ public:
         kExtraBold_Weight   =  800,
         kBlack_Weight       =  900,
         kExtraBlack_Weight  = 1000,
-    };
+  };
   enum Width {
         kUltraCondensed_Width   = 1,
         kExtraCondensed_Width   = 2,
@@ -33,50 +33,58 @@ public:
         kExpanded_Width         = 7,
         kExtraExpanded_Width    = 8,
         kUltraExpanded_Width    = 9,
-    };
+  };
   enum Slant {
         kUpright_Slant,
         kItalic_Slant,
         kOblique_Slant,
-    };
+  };
   SkFontStyle(int weight, int width, Slant slant)
     :  fValue(
         (SkTPin<int>(weight, kInvisible_Weight, kExtraBlack_Weight)) +
         (SkTPin<int>(width, kUltraCondensed_Width, kUltraExpanded_Width) << 16) +
         (SkTPin<int>(slant, kUpright_Slant, kOblique_Slant) << 24)
-     ) 
-    {
-     }
+     )
+  {
+
+  }
   SkFontStyle()
-    :  SkFontStyle{kNormal_Weight, kNormal_Width, kUpright_Slant} 
-    {
-     }
+    :  SkFontStyle{kNormal_Weight, kNormal_Width, kUpright_Slant}
+  {
+
+  }
   bool operator==(const SkFontStyle& rhs) const
   {
         return fValue == rhs.fValue;
-    }
+  }
   int weight() const
-  { return fValue & 0xFFFF; }
+  {
+ return fValue & 0xFFFF;
+  }
   int width() const
-  { return (fValue >> 16) & 0xFF; }
+  {
+ return (fValue >> 16) & 0xFF;
+  }
   Slant slant() const
-  { return (Slant)((fValue >> 24) & 0xFF); }
+  {
+ return (Slant)((fValue >> 24) & 0xFF);
+  }
   static constexpr SkFontStyle Normal()
   {
         return SkFontStyle(kNormal_Weight, kNormal_Width, kUpright_Slant);
-    }
+  }
   static constexpr SkFontStyle Bold()
   {
         return SkFontStyle(kBold_Weight,   kNormal_Width, kUpright_Slant);
-    }
+  }
   static constexpr SkFontStyle Italic()
   {
         return SkFontStyle(kNormal_Weight, kNormal_Width, kItalic_Slant );
-    }
+  }
   static constexpr SkFontStyle BoldItalic()
   {
         return SkFontStyle(kBold_Weight,   kNormal_Width, kItalic_Slant );
-    }
+  }
 private:
   uint32_t fValue;
 };

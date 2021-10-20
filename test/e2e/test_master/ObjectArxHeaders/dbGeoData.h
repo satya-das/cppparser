@@ -22,7 +22,7 @@ public:
   virtual ~AcDbGeoDataReactor()
   {
 
-      }
+  }
     /// <summary>
     /// This method will be called when the coordinate system is about to change.
     /// Custom classes can return Acad::eVetoed to veto the change.
@@ -45,7 +45,7 @@ public:
   virtual Acad::ErrorStatus geoCoordinateSystemWillChange(AcDbDatabase*, const AcString&, const AcString&)
   {
         return Acad::eOk;
-    }
+  }
     /// <summary>
     /// This method will be called after the coordinate system has been changed.
     /// </summary>
@@ -64,7 +64,8 @@ public:
     ///
   virtual void geoCoordinateSystemChanged(AcDbDatabase*, const AcString&, const AcString&)
   {
-    }
+
+  }
 };
 // AcDbGeoData Object
 
@@ -150,7 +151,7 @@ public:
         /// high precision.
         /// </summary>
         kCoordTypGeographic
-    };
+  };
     /// <summary>
     /// The following enumerates the algorithms currently supported for
     /// dealing with the Grid Scale Factor distortion introduced by the
@@ -191,7 +192,7 @@ public:
         /// conformal type.
         /// </summary>
         kScaleEstMethodPrismoidal
-    };
+  };
   ACDBCORE2D_DECLARE_MEMBERS(AcDbGeoData);
   ACDBCORE2D_PORT AcDbGeoData();
   ACDBCORE2D_PORT virtual ~AcDbGeoData();

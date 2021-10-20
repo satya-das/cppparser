@@ -57,12 +57,11 @@ class wxTLWGeometryGeneric : public wxTLWGeometryBase
 public:
   wxTLWGeometryGeneric()
   {
-
         m_hasPos =
         m_hasSize =
         m_iconized =
         m_maximized = false;
-      }
+  }
   bool Save(const Serializer& ser) const override
   {
         if ( !ser.SaveField(wxPERSIST_TLW_X, m_rectScreen.x) ||
@@ -80,7 +79,7 @@ public:
             return false;
 
         return true;
-    }
+  }
   bool Restore(Serializer& ser) override
   {
         m_hasPos = ser.RestoreField(wxPERSIST_TLW_X, &m_rectScreen.x) &&
@@ -98,7 +97,7 @@ public:
 
         // If we restored at least something, return true.
         return m_hasPos || m_hasSize || m_maximized || m_iconized;
-    }
+  }
   bool GetFrom(const wxTopLevelWindow* tlw) override
   {
         m_rectScreen = tlw->GetScreenRect();
@@ -108,7 +107,7 @@ public:
         m_maximized = tlw->IsMaximized();
 
         return true;
-    }
+  }
   bool ApplyTo(wxTopLevelWindow* tlw) override
   {
         if ( m_hasPos )
@@ -148,7 +147,7 @@ public:
             tlw->Iconize();
 
         return true;
-    }
+  }
 private:
   wxRect m_rectScreen;
   bool m_hasPos;

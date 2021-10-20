@@ -24,18 +24,26 @@ public:
   static void InitPathObjectEmptyPath(GrGLGpu*, GrGLuint pathID);
   GrGLPath(GrGLGpu*, const SkPath&, const GrStyle&);
   GrGLuint pathID() const
-  { return fPathID; }
+  {
+ return fPathID;
+  }
   bool shouldStroke() const
-  { return fShouldStroke; }
+  {
+ return fShouldStroke;
+  }
   bool shouldFill() const
-  { return fShouldFill; }
+  {
+ return fShouldFill;
+  }
 protected:
   void onRelease() override;
   void onAbandon() override;
 private:
     // TODO: Figure out how to get an approximate size of the path in Gpu memory.
   size_t onGpuMemorySize() const override
-  { return 100; }
+  {
+ return 100;
+  }
   GrGLuint fPathID;
   bool fShouldStroke;
   bool fShouldFill;

@@ -58,13 +58,14 @@ private:
     GrSurfaceOrigin fRenderTargetOrigin;
     RenderTargetState()
     {
- this->invalidate();     }
+ this->invalidate();
+    }
     void invalidate()
     {
             fRenderTargetSize.fWidth = -1;
             fRenderTargetSize.fHeight = -1;
             fRenderTargetOrigin = (GrSurfaceOrigin)-1;
-        }
+    }
         /**
         * Gets a float4 that adjusts the position from Skia device coords to Vulkans normalized device
         * coords. Assuming the transformed position, pos, is a homogeneous float3, the vec, v, is
@@ -83,7 +84,7 @@ private:
                 destVec[2] = 2.f / fRenderTargetSize.fHeight;
                 destVec[3] = -1.f;
             }
-        }
+    }
   };
     // Helper for setData() that sets the view matrix and loads the render target height uniform
   void setRenderTargetState(const GrRenderTarget*, GrSurfaceOrigin);

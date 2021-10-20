@@ -48,10 +48,9 @@ class WXDLLIMPEXP_RICHTEXT wxRichTextHelpInfo
 public:
   wxRichTextHelpInfo()
   {
-
         m_helpTopic = -1;
         m_uiCustomization = NULL;
-      }
+  }
   virtual ~wxRichTextHelpInfo()
   {
   }
@@ -61,25 +60,37 @@ public:
             return false;
 
         return m_uiCustomization->ShowHelp(win, m_helpTopic);
-    }
+  }
     /// Get the help topic identifier.
   long GetHelpId() const
-  { return m_helpTopic; }
+  {
+ return m_helpTopic;
+  }
     /// Set the help topic identifier.
   void SetHelpId(long id)
-  { m_helpTopic = id; }
+  {
+ m_helpTopic = id;
+  }
     /// Get the UI customization object.
   wxRichTextUICustomization* GetUICustomization() const
-  { return m_uiCustomization; }
+  {
+ return m_uiCustomization;
+  }
     /// Set the UI customization object.
   void SetUICustomization(wxRichTextUICustomization* customization)
-  { m_uiCustomization = customization; }
+  {
+ m_uiCustomization = customization;
+  }
     /// Is there a valid help topic id?
   bool HasHelpId() const
-  { return m_helpTopic != -1; }
+  {
+ return m_helpTopic != -1;
+  }
     /// Is there a valid customization object?
   bool HasUICustomization() const
-  { return m_uiCustomization != NULL; }
+  {
+ return m_uiCustomization != NULL;
+  }
 protected:
   wxRichTextUICustomization* m_uiCustomization;
   long m_helpTopic;

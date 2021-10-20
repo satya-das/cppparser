@@ -26,7 +26,7 @@ public:
   SK_API GrBackendFormat defaultBackendFormat(SkColorType ct, GrRenderable renderable) const
   {
         return INHERITED::defaultBackendFormat(ct, renderable);
-    }
+  }
     // Provides access to functions that aren't part of the public API.
   GrRecordingContextPriv priv();
   const GrRecordingContextPriv priv() const;
@@ -40,7 +40,9 @@ protected:
   sk_sp<GrOpMemoryPool> refOpMemoryPool();
   GrOpMemoryPool* opMemoryPool();
   GrStrikeCache* getGrStrikeCache()
-  { return fStrikeCache.get(); }
+  {
+ return fStrikeCache.get();
+  }
   GrTextBlobCache* getTextBlobCache();
   const GrTextBlobCache* getTextBlobCache() const;
     /**
@@ -67,9 +69,13 @@ protected:
      */
   std::unique_ptr<GrRenderTargetContext> makeDeferredRenderTargetContextWithFallback(SkBackingFit fit, int width, int height, GrColorType colorType, sk_sp<SkColorSpace> colorSpace, int sampleCnt = 1, GrMipMapped = GrMipMapped::kNo, GrSurfaceOrigin origin = kBottomLeft_GrSurfaceOrigin, const SkSurfaceProps* surfaceProps = nullptr, SkBudgeted budgeted = SkBudgeted::kYes, GrProtected isProtected = GrProtected::kNo);
   GrAuditTrail* auditTrail()
-  { return fAuditTrail.get(); }
+  {
+ return fAuditTrail.get();
+  }
   GrRecordingContext* asRecordingContext() override
-  { return this; }
+  {
+ return this;
+  }
 private:
   std::unique_ptr<GrDrawingManager> fDrawingManager;
     // All the GrOp-derived classes use this pool.

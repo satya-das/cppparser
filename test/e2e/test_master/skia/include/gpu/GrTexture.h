@@ -17,9 +17,13 @@ class GrTexture : public GrSurface
 {
 public:
   GrTexture* asTexture() override
-  { return this; }
+  {
+ return this;
+  }
   const GrTexture* asTexture() const override
-  { return this; }
+  {
+ return this;
+  }
   virtual GrBackendTexture getBackendTexture() const = 0;
     /**
      * This function indicates that the texture parameters (wrap mode, filtering, ...) have been
@@ -38,7 +42,7 @@ public:
   enum class IdleState {
         kFlushed,
         kFinished
-    };
+  };
     /**
      * Installs a proc on this texture. It will be called when the texture becomes "idle". There
      * are two types of idle states as indicated by IdleState. For managed backends (e.g. GL where
@@ -54,12 +58,12 @@ public:
         // This is the default implementation for the managed case where the IdleState can be
         // ignored. Unmanaged backends, e.g. Vulkan, must override this to consider IdleState.
         fIdleProcs.push_back(std::move(idleProc));
-    }
+  }
     /** Helper version of addIdleProc that creates the ref-counted wrapper. */
   void addIdleProc(GrRefCntedCallback::Callback callback, GrRefCntedCallback::Context context, IdleState state)
   {
         this->addIdleProc(sk_make_sp<GrRefCntedCallback>(callback, context), state);
-    }
+  }
     /** Access methods that are only to be used within Skia code. */
   inline GrTexturePriv texturePriv();
   inline const GrTexturePriv texturePriv() const;
@@ -71,7 +75,7 @@ protected:
   {
         // We're about to be idle in the resource cache. Do our part to trigger the idle callbacks.
         fIdleProcs.reset();
-    }
+  }
   void computeScratchKey(GrScratchKey*) const override;
 private:
   size_t onGpuMemorySize() const override;

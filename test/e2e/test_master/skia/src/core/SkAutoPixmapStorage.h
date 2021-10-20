@@ -48,24 +48,24 @@ public:
   {
         this->freeStorage();
         this->INHERITED::reset();
-    }
+  }
   void reset(const SkImageInfo& info, const void* addr, size_t rb)
   {
         this->freeStorage();
         this->INHERITED::reset(info, addr, rb);
-    }
+  }
   bool SK_WARN_UNUSED_RESULT reset(const SkMask& mask)
   {
         this->freeStorage();
         return this->INHERITED::reset(mask);
-    }
+  }
 private:
   void* fStorage;
   void freeStorage()
   {
         sk_free(fStorage);
         fStorage = nullptr;
-    }
+  }
   typedef SkPixmap INHERITED;
 };
 #endif

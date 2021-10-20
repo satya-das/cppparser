@@ -33,11 +33,13 @@ public:
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
         return GetStdInputHandler(handlerDef);
-    }
+  }
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_STATIC; }
+  {
+ return wxBORDER_STATIC;
+  }
   wxSize DoGetBestClientSize() const override;
   bool DoDrawBackground(wxDC& dc) override;
   void DoDraw(wxControlRenderer* renderer) override;

@@ -19,7 +19,8 @@ public:
   }
   wxPopupWindow(wxWindow* parent, int flags = wxBORDER_NONE)
   {
- Create(parent, flags);   }
+ Create(parent, flags);
+  }
   bool Create(wxWindow* parent, int flags = wxBORDER_NONE)
   {
         if ( !wxPopupWindowBase::Create(parent) )
@@ -33,7 +34,7 @@ public:
                  wxPoint(0, 0), wxSize(1, 1),
                  (flags & wxBORDER_MASK) | wxPOPUP_WINDOW
                );
-    }
+  }
   wxDECLARE_DYNAMIC_CLASS(wxPopupWindow);
 };
 #endif

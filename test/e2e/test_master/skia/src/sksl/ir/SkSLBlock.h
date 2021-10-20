@@ -18,9 +18,9 @@ namespace SkSL
     Block(int offset, std::vector<std::unique_ptr<Statement>> statements, const std::shared_ptr<SymbolTable> symbols = nullptr)
       :  INHERITED(offset, kBlock_Kind)
     , fSymbols(std::move(symbols))
-    , fStatements(std::move(statements)) 
-      {
-      }
+    , fStatements(std::move(statements))
+    {
+    }
     bool isEmpty() const override
     {
         for (const auto& s : fStatements) {

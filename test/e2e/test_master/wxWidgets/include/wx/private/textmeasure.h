@@ -26,7 +26,8 @@ public:
     // it a virtual dtor to avoid compiler warnings.
   virtual ~wxTextMeasureBase()
   {
-   }
+
+  }
     // Return the extent of a single line string.
   void GetTextExtent(const wxString& string, wxCoord* width, wxCoord* height, wxCoord* descent = NULL, wxCoord* externalLeading = NULL);
     // The same for a multiline (with '\n') string.
@@ -36,7 +37,7 @@ public:
   wxSize GetLargestStringExtent(const wxArrayString& strings)
   {
         return GetLargestStringExtent(strings.size(), &strings[0]);
-    }
+  }
     // Fill the array with the widths for each "0..N" substrings for N from 1
     // to text.length().
     //
@@ -45,7 +46,9 @@ public:
   bool GetPartialTextExtents(const wxString& text, wxArrayInt& widths, double scaleX);
     // This is another method which is only used by MeasuringGuard.
   bool IsUsingDCImpl() const
-  { return m_useDCImpl; }
+  {
+ return m_useDCImpl;
+  }
 protected:
     // RAII wrapper for the two methods above.
   class MeasuringGuard
@@ -53,20 +56,17 @@ protected:
   public:
     MeasuringGuard(wxTextMeasureBase& tm)
       :  m_tm(tm)
-        
-      {
-
+    {
             // BeginMeasuring() should only be called if we have a native DC,
             // so don't call it if we delegate to a DC of unknown type.
             if ( !m_tm.IsUsingDCImpl() )
                 m_tm.BeginMeasuring();
-              }
+    }
     ~MeasuringGuard()
     {
-
             if ( !m_tm.IsUsingDCImpl() )
                 m_tm.EndMeasuring();
-            }
+    }
   private:
     wxTextMeasureBase& m_tm;
   };
@@ -77,9 +77,13 @@ protected:
     // As these calls must be always paired, they're never called directly but
     // only by our friend MeasuringGuard class.
   virtual void BeginMeasuring()
-  { }
+  {
+
+  }
   virtual void EndMeasuring()
-  { }
+  {
+
+  }
     // The main function of this class, to be implemented in platform-specific
     // way used by all our public methods.
     //

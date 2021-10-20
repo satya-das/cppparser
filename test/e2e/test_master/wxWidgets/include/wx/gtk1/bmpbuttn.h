@@ -15,19 +15,21 @@ class WXDLLIMPEXP_CORE wxBitmapButton : public wxBitmapButtonBase
 public:
   wxBitmapButton()
   {
- Init();   }
+ Init();
+  }
   wxBitmapButton(wxWindow* parent, wxWindowID id, const wxBitmap& bitmap, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr))
   {
-
         Init();
 
         Create(parent, id, bitmap, pos, size, style, validator, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxBitmap& bitmap, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr));
   bool CreateCloseButton(wxWindow* parent, wxWindowID winid, const wxString& name = wxString());
   void SetLabel(const wxString& label);
   virtual void SetLabel(const wxBitmap& bitmap)
-  { SetBitmapLabel(bitmap); }
+  {
+ SetBitmapLabel(bitmap);
+  }
   virtual bool Enable(bool enable = TRUE);
     // implementation
     // --------------

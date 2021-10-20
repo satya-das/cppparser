@@ -21,9 +21,8 @@ protected:
   wxMarkupToAttrStringBase(const wxFont& font)
     :  wxMarkupParserAttrOutput(font, wxColour(), wxColour()),
           m_attrString(NULL)
-    
-    {
-    }
+  {
+  }
   void Parse(const wxFont& font, const wxString& markup)
   {
         const wxCFStringRef label(PrepareText(wxMarkupParser::Strip(markup)));
@@ -47,13 +46,12 @@ protected:
         parser.Parse(markup);
 
         [m_attrString endEditing];
-    }
+  }
   ~wxMarkupToAttrStringBase()
   {
-
         if ( m_attrString )
             [m_attrString release];
-      }
+  }
     // prepare text chunk for display, e.g. strip mnemonics from it
   virtual wxString PrepareText(const wxString& text) = 0;
 public:
@@ -63,18 +61,18 @@ public:
   NSMutableAttributedString* GetNSAttributedString() const
   {
         return m_attrString;
-    }
+  }
     // Implement base class pure virtual methods to process markup tags.
   virtual void OnText(const wxString& text)
   {
         m_pos += PrepareText(text).length();
-    }
+  }
   virtual void OnAttrStart(const Attr&)
   {
         // Just remember the starting position of the range, we can't really
         // set the attribute until we find the end of it.
         m_rangeStarts.push(m_pos);
-    }
+  }
   virtual void OnAttrEnd(const Attr& attr)
   {
         unsigned start = m_rangeStarts.top();
@@ -99,7 +97,7 @@ public:
                           value:attr.background.OSXGetNSColor()
                           range:range];
         }
-    }
+  }
 private:
     // The attributed string we're building.
   NSMutableAttributedString* m_attrString;
@@ -114,16 +112,14 @@ class wxMarkupToAttrString : public wxMarkupToAttrStringBase
 public:
   wxMarkupToAttrString(const wxFont& font, const wxString& markup)
     :  wxMarkupToAttrStringBase(font)
-    
-    {
-
+  {
         Parse(font, markup);
-        }
+  }
 protected:
   virtual wxString PrepareText(const wxString& text)
   {
         return wxControl::RemoveMnemonics(text);
-    }
+  }
   wxDECLARE_NO_COPY_CLASS(wxMarkupToAttrString);
 };
 // for raw markup with no mnemonics
@@ -132,16 +128,14 @@ class wxItemMarkupToAttrString : public wxMarkupToAttrStringBase
 public:
   wxItemMarkupToAttrString(const wxFont& font, const wxString& markup)
     :  wxMarkupToAttrStringBase(font)
-    
-    {
-
+  {
         Parse(font, markup);
-        }
+  }
 protected:
   virtual wxString PrepareText(const wxString& text)
   {
         return text;
-    }
+  }
   wxDECLARE_NO_COPY_CLASS(wxItemMarkupToAttrString);
 };
 #endif

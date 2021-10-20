@@ -59,28 +59,44 @@ public:
     // accessors
   void SetFilename(const wxString& filename, bool notifyViews = false);
   wxString GetFilename() const
-  { return m_documentFile; }
+  {
+ return m_documentFile;
+  }
   void SetTitle(const wxString& title)
-  { m_documentTitle = title; }
+  {
+ m_documentTitle = title;
+  }
   wxString GetTitle() const
-  { return m_documentTitle; }
+  {
+ return m_documentTitle;
+  }
   void SetDocumentName(const wxString& name)
-  { m_documentTypeName = name; }
+  {
+ m_documentTypeName = name;
+  }
   wxString GetDocumentName() const
-  { return m_documentTypeName; }
+  {
+ return m_documentTypeName;
+  }
     // access the flag indicating whether this document had been already saved,
     // SetDocumentSaved() is only used internally, don't call it
   bool GetDocumentSaved() const
-  { return m_savedYet; }
+  {
+ return m_savedYet;
+  }
   void SetDocumentSaved(bool saved = true)
-  { m_savedYet = saved; }
+  {
+ m_savedYet = saved;
+  }
     // activate the first view of the document if any
   void Activate();
     // return true if the document hasn't been modified since the last time it
     // was saved (implying that it returns false if it was never saved, even if
     // the document is not modified)
   bool AlreadySaved() const
-  { return !IsModified() && GetDocumentSaved(); }
+  {
+ return !IsModified() && GetDocumentSaved();
+  }
   virtual bool Close();
   virtual bool Save();
   virtual bool SaveAs();
@@ -111,9 +127,13 @@ public:
     // By default, creates a base wxCommandProcessor.
   virtual wxCommandProcessor* OnCreateCommandProcessor();
   virtual wxCommandProcessor* GetCommandProcessor() const
-  { return m_commandProcessor; }
+  {
+ return m_commandProcessor;
+  }
   virtual void SetCommandProcessor(wxCommandProcessor* proc)
-  { m_commandProcessor = proc; }
+  {
+ m_commandProcessor = proc;
+  }
     // Called after a view is added or removed. The default implementation
     // deletes the document if this is there are no more views.
   virtual void OnChangedViewList();
@@ -122,15 +142,21 @@ public:
   virtual bool DeleteContents();
   virtual bool Draw(wxDC&);
   virtual bool IsModified() const
-  { return m_documentModified; }
+  {
+ return m_documentModified;
+  }
   virtual void Modify(bool mod);
   virtual bool AddView(wxView* view);
   virtual bool RemoveView(wxView* view);
   wxViewVector GetViewsVector() const;
   wxList& GetViews()
-  { return m_documentViews; }
+  {
+ return m_documentViews;
+  }
   const wxList& GetViews() const
-  { return m_documentViews; }
+  {
+ return m_documentViews;
+  }
   wxView* GetFirstView() const;
   virtual void UpdateAllViews(wxView* sender = NULL, wxObject* hint = NULL);
   virtual void NotifyClosing();
@@ -139,9 +165,13 @@ public:
     // Other stuff
   virtual wxDocManager* GetDocumentManager() const;
   virtual wxDocTemplate* GetDocumentTemplate() const
-  { return m_documentTemplate; }
+  {
+ return m_documentTemplate;
+  }
   virtual void SetDocumentTemplate(wxDocTemplate* temp)
-  { m_documentTemplate = temp; }
+  {
+ m_documentTemplate = temp;
+  }
     // Get the document name to be shown to the user: the title if there is
     // any, otherwise the filename if the document was saved and, finally,
     // "unnamed" otherwise
@@ -155,7 +185,9 @@ public:
     // Returns true if this document is a child document corresponding to a
     // part of the parent document and not a disk file as usual.
   bool IsChildDocument() const
-  { return m_documentParent != NULL; }
+  {
+ return m_documentParent != NULL;
+  }
 protected:
   wxList m_documentViews;
   wxString m_documentFile;
@@ -189,16 +221,26 @@ public:
   wxView();
   virtual ~wxView();
   wxDocument* GetDocument() const
-  { return m_viewDocument; }
+  {
+ return m_viewDocument;
+  }
   virtual void SetDocument(wxDocument* doc);
   wxString GetViewName() const
-  { return m_viewTypeName; }
+  {
+ return m_viewTypeName;
+  }
   void SetViewName(const wxString& name)
-  { m_viewTypeName = name; }
+  {
+ m_viewTypeName = name;
+  }
   wxWindow* GetFrame() const
-  { return m_viewFrame ; }
+  {
+ return m_viewFrame ;
+  }
   void SetFrame(wxWindow* frame)
-  { m_viewFrame = frame; }
+  {
+ m_viewFrame = frame;
+  }
   virtual void OnActivateView(bool activate, wxView* activeView, wxView* deactiveView);
   virtual void OnDraw(wxDC* dc) = 0;
   virtual void OnPrint(wxDC* dc, wxObject* info);
@@ -210,7 +252,9 @@ public:
     // Called by framework if created automatically by the default document
     // manager class: gives view a chance to initialise
   virtual bool OnCreate(wxDocument*, long)
-  { return true; }
+  {
+ return true;
+  }
     // Checks if the view is the last one for the document; if so, asks user
     // to confirm save data (if modified). If ok, deletes itself and returns
     // true.
@@ -221,7 +265,9 @@ public:
     // The function then notifies the document manager.
   virtual void Activate(bool activate);
   wxDocManager* GetDocumentManager() const
-  { return m_viewDocument->GetDocumentManager(); }
+  {
+ return m_viewDocument->GetDocumentManager();
+  }
 #    if  wxUSE_PRINTING_ARCHITECTURE
   virtual wxPrintout* OnCreatePrintout();
 #    endif
@@ -233,7 +279,9 @@ public:
   void SetDocChildFrame(wxDocChildFrameAnyBase* docChildFrame);
     // get the associated frame, may be NULL during destruction
   wxDocChildFrameAnyBase* GetDocChildFrame() const
-  { return m_docChildFrame; }
+  {
+ return m_docChildFrame;
+  }
 protected:
     // hook the document into event handlers chain here
   bool TryBefore(wxEvent& event) override;
@@ -262,39 +310,73 @@ public:
     // creation
   virtual bool InitDocument(wxDocument* doc, const wxString& path, long flags = 0);
   wxString GetDefaultExtension() const
-  { return m_defaultExt; }
+  {
+ return m_defaultExt;
+  }
   wxString GetDescription() const
-  { return m_description; }
+  {
+ return m_description;
+  }
   wxString GetDirectory() const
-  { return m_directory; }
+  {
+ return m_directory;
+  }
   wxDocManager* GetDocumentManager() const
-  { return m_documentManager; }
+  {
+ return m_documentManager;
+  }
   void SetDocumentManager(wxDocManager* manager)
-  { m_documentManager = manager; }
+  {
+ m_documentManager = manager;
+  }
   wxString GetFileFilter() const
-  { return m_fileFilter; }
+  {
+ return m_fileFilter;
+  }
   long GetFlags() const
-  { return m_flags; }
+  {
+ return m_flags;
+  }
   virtual wxString GetViewName() const
-  { return m_viewTypeName; }
+  {
+ return m_viewTypeName;
+  }
   virtual wxString GetDocumentName() const
-  { return m_docTypeName; }
+  {
+ return m_docTypeName;
+  }
   void SetFileFilter(const wxString& filter)
-  { m_fileFilter = filter; }
+  {
+ m_fileFilter = filter;
+  }
   void SetDirectory(const wxString& dir)
-  { m_directory = dir; }
+  {
+ m_directory = dir;
+  }
   void SetDescription(const wxString& descr)
-  { m_description = descr; }
+  {
+ m_description = descr;
+  }
   void SetDefaultExtension(const wxString& ext)
-  { m_defaultExt = ext; }
+  {
+ m_defaultExt = ext;
+  }
   void SetFlags(long flags)
-  { m_flags = flags; }
+  {
+ m_flags = flags;
+  }
   bool IsVisible() const
-  { return (m_flags & wxTEMPLATE_VISIBLE) != 0; }
+  {
+ return (m_flags & wxTEMPLATE_VISIBLE) != 0;
+  }
   wxClassInfo* GetDocClassInfo() const
-  { return m_docClassInfo; }
+  {
+ return m_docClassInfo;
+  }
   wxClassInfo* GetViewClassInfo() const
-  { return m_viewClassInfo; }
+  {
+ return m_viewClassInfo;
+  }
   virtual bool FileMatchesTemplate(const wxString& path);
 protected:
   long m_flags;
@@ -355,11 +437,15 @@ public:
     // called when file format detection didn't work, can be overridden to do
     // something in this case
   virtual void OnOpenFileFailure()
-  { }
+  {
+
+  }
   virtual wxDocument* CreateDocument(const wxString& path, long flags = 0);
     // wrapper around CreateDocument() with a more clear name
   wxDocument* CreateNewDocument()
-  { return CreateDocument(wxString(), wxDOC_NEW); }
+  {
+ return CreateDocument(wxString(), wxDOC_NEW);
+  }
   virtual wxView* CreateView(wxDocument* doc, long flags = 0);
   virtual void DeleteTemplate(wxDocTemplate* temp, long flags = 0);
   virtual bool FlushDoc(wxDocument* doc);
@@ -376,9 +462,13 @@ public:
   wxDocument* FindDocumentByPath(const wxString& path) const;
   wxDocument* GetCurrentDocument() const;
   void SetMaxDocsOpen(int n)
-  { m_maxDocsOpen = n; }
+  {
+ m_maxDocsOpen = n;
+  }
   int GetMaxDocsOpen() const
-  { return m_maxDocsOpen; }
+  {
+ return m_maxDocsOpen;
+  }
     // Add and remove a document from the manager's list
   void AddDocument(wxDocument* doc);
   void RemoveDocument(wxDocument* doc);
@@ -392,7 +482,9 @@ public:
     // when a view is going in or out of focus
   virtual void ActivateView(wxView* view, bool activate = true);
   virtual wxView* GetCurrentView() const
-  { return m_currentView; }
+  {
+ return m_currentView;
+  }
     // This method tries to find an active view harder than GetCurrentView():
     // if the latter is NULL, it also checks if we don't have just a single
     // view and returns it then.
@@ -400,9 +492,13 @@ public:
   wxDocVector GetDocumentsVector() const;
   wxDocTemplateVector GetTemplatesVector() const;
   wxList& GetDocuments()
-  { return m_docs; }
+  {
+ return m_docs;
+  }
   wxList& GetTemplates()
-  { return m_templates; }
+  {
+ return m_templates;
+  }
     // Return the default name for a new document (by default returns strings
     // in the form "unnamed <counter>" but can be overridden)
   virtual wxString MakeNewDocumentName();
@@ -410,7 +506,9 @@ public:
   virtual wxString MakeFrameTitle(wxDocument* doc);
   virtual wxFileHistory* OnCreateFileHistory();
   virtual wxFileHistory* GetFileHistory() const
-  { return m_fileHistory; }
+  {
+ return m_fileHistory;
+  }
     // File history management
   virtual void AddFileToHistory(const wxString& file);
   virtual void RemoveFileFromHistory(size_t i);
@@ -426,15 +524,23 @@ public:
   virtual void FileHistoryAddFilesToMenu(wxMenu* menu);
   wxString GetLastDirectory() const;
   void SetLastDirectory(const wxString& dir)
-  { m_lastDirectory = dir; }
+  {
+ m_lastDirectory = dir;
+  }
     // Get the current document manager
   static wxDocManager* GetDocumentManager()
-  { return sm_docManager; }
+  {
+ return sm_docManager;
+  }
 #    if  wxUSE_PRINTING_ARCHITECTURE
   wxPageSetupDialogData& GetPageSetupDialogData()
-  { return m_pageSetupDialogData; }
+  {
+ return m_pageSetupDialogData;
+  }
   const wxPageSetupDialogData& GetPageSetupDialogData() const
-  { return m_pageSetupDialogData; }
+  {
+ return m_pageSetupDialogData;
+  }
 #    endif
 #    if  WXWIN_COMPATIBILITY_2_8
     // deprecated, override GetDefaultName() instead
@@ -480,18 +586,16 @@ public:
     // default ctor, use Create() after it
   wxDocChildFrameAnyBase()
   {
-
         m_childDocument = NULL;
         m_childView = NULL;
         m_win = NULL;
         m_lastEvent = NULL;
-      }
+  }
     // full ctor equivalent to using the default one and Create()
   wxDocChildFrameAnyBase(wxDocument* doc, wxView* view, wxWindow* win)
   {
-
         Create(doc, view, win);
-      }
+  }
     // method which must be called for an object created using the default ctor
     //
     // note that it returns bool just for consistency with Create() methods in
@@ -506,34 +610,43 @@ public:
             view->SetDocChildFrame(this);
 
         return true;
-    }
+  }
     // dtor doesn't need to be virtual, an object should never be destroyed via
     // a pointer to this class
   ~wxDocChildFrameAnyBase()
   {
-
         // prevent the view from deleting us if we're being deleted directly
         // (and not via Close() + Destroy())
         if ( m_childView )
             m_childView->SetDocChildFrame(NULL);
-      }
+  }
   wxDocument* GetDocument() const
-  { return m_childDocument; }
+  {
+ return m_childDocument;
+  }
   wxView* GetView() const
-  { return m_childView; }
+  {
+ return m_childView;
+  }
   void SetDocument(wxDocument* doc)
-  { m_childDocument = doc; }
+  {
+ m_childDocument = doc;
+  }
   void SetView(wxView* view)
-  { m_childView = view; }
+  {
+ m_childView = view;
+  }
   wxWindow* GetWindow() const
-  { return m_win; }
+  {
+ return m_win;
+  }
     // implementation only
 
     // Check if this event had been just processed in this frame.
   bool HasAlreadyProcessed(wxEvent& event) const
   {
         return m_lastEvent == &event;
-    }
+  }
 protected:
     // we're not a wxEvtHandler but we provide this wxEvtHandler-like function
     // which is called from TryBefore() of the derived classes to give our view
@@ -573,13 +686,13 @@ public:
     // default ctor, use Create after it
   wxDocChildFrameAny()
   {
-   }
+
+  }
     // ctor for a frame showing the given view of the specified document
   wxDocChildFrameAny(wxDocument* doc, wxView* view, ParentFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-
         Create(doc, view, parent, id, title, pos, size, style, name);
-      }
+  }
   bool Create(wxDocument* doc, wxView* view, ParentFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
         if ( !wxDocChildFrameAnyBase::Create(doc, view, this) )
@@ -592,13 +705,13 @@ public:
         this->Bind(wxEVT_CLOSE_WINDOW, &wxDocChildFrameAny::OnCloseWindow, this);
 
         return true;
-    }
+  }
 protected:
     // hook the child view into event handlers chain here
   bool TryBefore(wxEvent& event) override
   {
         return TryProcessEvent(event) || BaseClass::TryBefore(event);
-    }
+  }
 private:
   void OnActivate(wxActivateEvent& event)
   {
@@ -606,13 +719,13 @@ private:
 
         if ( m_childView )
             m_childView->Activate(event.GetActive());
-    }
+  }
   void OnCloseWindow(wxCloseEvent& event)
   {
         if ( CloseView(event) )
             this->Destroy();
         //else: vetoed
-    }
+  }
   wxDECLARE_NO_COPY_TEMPLATE_CLASS_2(wxDocChildFrameAny, ChildFrame, ParentFrame);
 };
 // ----------------------------------------------------------------------------
@@ -626,14 +739,13 @@ public:
   wxDocChildFrame()
   {
 
-      }
+  }
   wxDocChildFrame(wxDocument* doc, wxView* view, wxFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
     :  wxDocChildFrameBase(doc, view,
                               parent, id, title, pos, size, style, name)
-    
-    {
+  {
 
-        }
+  }
   bool Create(wxDocument* doc, wxView* view, wxFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
         return wxDocChildFrameBase::Create
@@ -641,7 +753,7 @@ public:
                     doc, view,
                     parent, id, title, pos, size, style, name
                );
-    }
+  }
   wxDECLARE_CLASS(wxDocChildFrame);
   wxDECLARE_NO_COPY_CLASS(wxDocChildFrame);
 };
@@ -661,13 +773,13 @@ class WXDLLIMPEXP_CORE wxDocParentFrameAnyBase
 public:
   wxDocParentFrameAnyBase(wxWindow* frame)
     :  m_frame(frame)
-    
-    {
-
+  {
         m_docManager = NULL;
-        }
+  }
   wxDocManager* GetDocumentManager() const
-  { return m_docManager; }
+  {
+ return m_docManager;
+  }
 protected:
     // This is similar to wxDocChildFrameAnyBase method with the same name:
     // while we're not an event handler ourselves and so can't override
@@ -685,16 +797,15 @@ class wxDocParentFrameAny : public BaseFrame, public wxDocParentFrameAnyBase
 {
 public:
   wxDocParentFrameAny()
-    :  wxDocParentFrameAnyBase(this) 
-    {
-     }
+    :  wxDocParentFrameAnyBase(this)
+  {
+
+  }
   wxDocParentFrameAny(wxDocManager* manager, wxFrame* frame, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
     :  wxDocParentFrameAnyBase(this)
-    
-    {
-
+  {
         Create(manager, frame, id, title, pos, size, style, name);
-        }
+  }
   bool Create(wxDocManager* manager, wxFrame* frame, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
         m_docManager = manager;
@@ -706,7 +817,7 @@ public:
         this->Bind(wxEVT_CLOSE_WINDOW, &wxDocParentFrameAny::OnCloseWindow, this);
 
         return true;
-    }
+  }
 protected:
     // hook the document manager into event handling chain here
   bool TryBefore(wxEvent& event) override
@@ -716,12 +827,12 @@ protected:
         // to the currently active child frame and the child must get them
         // before our own TryProcessEvent() is executed, not afterwards.
         return BaseFrame::TryBefore(event) || TryProcessEvent(event);
-    }
+  }
 private:
   void OnExit(wxCommandEvent&)
   {
         this->Close();
-    }
+  }
   void OnCloseWindow(wxCloseEvent& event)
   {
         if ( m_docManager && !m_docManager->Clear(!event.CanVeto()) )
@@ -734,7 +845,7 @@ private:
             // Just skip the event, base class handler will destroy the window.
             event.Skip();
         }
-    }
+  }
   wxDECLARE_NO_COPY_CLASS(wxDocParentFrameAny);
 };
 typedef wxDocParentFrameAny<wxFrame> wxDocParentFrameBase;
@@ -742,22 +853,22 @@ class WXDLLIMPEXP_CORE wxDocParentFrame : public wxDocParentFrameBase
 {
 public:
   wxDocParentFrame()
-    :  wxDocParentFrameBase() 
-    {
-     }
+    :  wxDocParentFrameBase()
+  {
+
+  }
   wxDocParentFrame(wxDocManager* manager, wxFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
     :  wxDocParentFrameBase(manager,
                                parent, id, title, pos, size, style, name)
-    
-    {
+  {
 
-        }
+  }
   bool Create(wxDocManager* manager, wxFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
         return wxDocParentFrameBase::Create(manager,
                                             parent, id, title,
                                             pos, size, style, name);
-    }
+  }
   wxDECLARE_CLASS(wxDocParentFrame);
   wxDECLARE_NO_COPY_CLASS(wxDocParentFrame);
 };
@@ -775,7 +886,9 @@ public:
   bool OnBeginDocument(int startPage, int endPage) override;
   void GetPageInfo(int* minPage, int* maxPage, int* selPageFrom, int* selPageTo) override;
   virtual wxView* GetView()
-  { return m_printoutView; }
+  {
+ return m_printoutView;
+  }
 protected:
   wxView* m_printoutView;
 private:

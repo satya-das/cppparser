@@ -53,7 +53,7 @@ namespace Catch
     static std::string convert(wxUniChar uc)
     {
             return wxString(uc).ToStdString(wxConvUTF8);
-        }
+    }
   };
   template <>
   struct StringMaker<wxUniCharRef>
@@ -61,7 +61,7 @@ namespace Catch
     static std::string convert(wxUniCharRef ucr)
     {
             return wxString(ucr).ToStdString(wxConvUTF8);
-        }
+    }
   };
     // While this conversion already works due to the existence of the stream
     // insertion operator for wxString, define a custom one making it more
@@ -86,7 +86,7 @@ namespace Catch
             }
 
             return s;
-        }
+    }
   };
 }
 // Use a different namespace for our mock ups of the real declarations in
@@ -106,15 +106,19 @@ namespace CatchCppUnit
     // Name argument exists only for compatibility with the real CppUnit but is
     // not used here.
       explicit Test(const std::string& name = std::string())
-        :  m_name(name) 
-        {
-         }
+        :  m_name(name)
+      {
+
+      }
       virtual ~Test()
       {
-       }
+
+      }
       virtual void runTest() = 0;
       const std::string& getName() const
-      { return m_name; }
+      {
+ return m_name;
+      }
     private:
       std::string m_name;
     };
@@ -122,9 +126,10 @@ namespace CatchCppUnit
     {
     public:
       explicit TestCase(const std::string& name = std::string())
-        :  Test(name) 
-        {
-         }
+        :  Test(name)
+      {
+
+      }
       virtual void setUp()
       {
       }
@@ -136,28 +141,32 @@ namespace CatchCppUnit
     {
     public:
       explicit TestSuite(const std::string& name = std::string())
-        :  Test(name) 
-        {
-         }
-      ~TestSuite()
+        :  Test(name)
       {
 
+      }
+      ~TestSuite()
+      {
         for ( size_t n = 0; n < m_tests.size(); ++n )
         {
             delete m_tests[n];
         }
-          }
+      }
       void addTest(Test* test)
-      { m_tests.push_back(test); }
+      {
+ m_tests.push_back(test);
+      }
       size_t getChildTestCount() const
-      { return m_tests.size(); }
+      {
+ return m_tests.size();
+      }
       void runTest() override
       {
         for ( size_t n = 0; n < m_tests.size(); ++n )
         {
             m_tests[n]->runTest();
         }
-    }
+      }
     private:
       std::vector<Test*> m_tests;
       wxDECLARE_NO_COPY_CLASS(TestSuite);
@@ -174,16 +183,13 @@ namespace wxPrivate
     explicit TempStringAssign(std::string& str, const char* value)
       :  m_str(str),
           m_orig(str)
-    
-      {
-
+    {
         str = value;
-          }
+    }
     ~TempStringAssign()
     {
-
         m_str = m_orig;
-        }
+    }
   private:
     std::string& m_str;
     const std::string m_orig;

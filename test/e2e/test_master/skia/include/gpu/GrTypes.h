@@ -62,15 +62,17 @@ class GrTFlagsMask
 {
 public:
   explicit GrTFlagsMask(TFlags value)
-    :  GrTFlagsMask(static_cast<int>(value)) 
-    {
-    }
+    :  GrTFlagsMask(static_cast<int>(value))
+  {
+  }
   explicit GrTFlagsMask(int value)
-    :  fValue(value) 
-    {
-    }
+    :  fValue(value)
+  {
+  }
   constexpr int value() const
-  { return fValue; }
+  {
+ return fValue;
+  }
 private:
   const int fValue;
 };
@@ -157,7 +159,9 @@ static constexpr uint32_t GrUIDivRoundUp(uint32_t x, uint32_t y)
     return (x + (y-1)) / y;
 }
 static constexpr size_t GrSizeDivRoundUp(size_t x, size_t y)
-{ return (x + (y - 1)) / y; }
+{
+ return (x + (y - 1)) / y;
+}
 /**
  *  align up
  */
@@ -348,6 +352,8 @@ struct GrPrepareForExternalIORequests
   SkSurface** fSurfaces = nullptr;
   bool* fPrepareSurfaceForPresent = nullptr;
   bool hasRequests() const
-  { return fNumImages || fNumSurfaces; }
+  {
+ return fNumImages || fNumSurfaces;
+  }
 };
 #endif

@@ -41,8 +41,8 @@ public:
   {
         UNREFERENCED_PARAMETER(pEntity); 
         UNREFERENCED_PARAMETER(pDatabase);
-        return 1; 
-    }
+        return 1;
+  }
     /// <summary> Always returns AcDb::kEdgeSubentType. </summary>
     /// <param  name="pEntity">   Not used. </param>
     /// <param  name="pDatabase"> Not used. </param>
@@ -53,7 +53,7 @@ public:
         UNREFERENCED_PARAMETER(pEntity);
         UNREFERENCED_PARAMETER(pDatabase);
         return AcDb::kEdgeSubentType;
-    }
+  }
     /// <summary> 
     /// Always returns false because AcDbAssocSingleEdgePersSubentId always 
     /// identities the single edge of an entity.
@@ -61,7 +61,9 @@ public:
     /// <returns> Always returns false. </returns>
     ///
   bool isNull() const override
-  { return false; }
+  {
+ return false;
+  }
     /// <summary>
     /// Returns true iff this and the other AcDbAssocSingleEdgePersSubentId 
     /// reference exactly the same subentity of the same entity. It returns true

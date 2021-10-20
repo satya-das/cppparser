@@ -117,7 +117,9 @@ public:
     // 'proxy' is about to be used as a texture src or drawn to. This query can be used to
     // determine if it is going to need a texture domain or a full clear.
   static bool IsFunctionallyExact(GrSurfaceProxy* proxy);
-  enum class InvalidateGPUResource : bool { kNo = false, kYes = true };
+  enum class InvalidateGPUResource : bool {
+ kNo = false, kYes = true
+  };
     /*
      * This method ensures that, if a proxy w/ the supplied unique key exists, it is removed from
      * the proxy provider's map and its unique key is removed. If 'invalidateSurface' is true, it
@@ -167,9 +169,13 @@ private:
   struct UniquelyKeyedProxyHashTraits
   {
     static const GrUniqueKey& GetKey(const GrTextureProxy& p)
-    { return p.getUniqueKey(); }
+    {
+ return p.getUniqueKey();
+    }
     static uint32_t Hash(const GrUniqueKey& key)
-    { return key.hash(); }
+    {
+ return key.hash();
+    }
   };
   typedef SkTDynamicHash<GrTextureProxy, GrUniqueKey, UniquelyKeyedProxyHashTraits> UniquelyKeyedProxyHash;
     // This holds the texture proxies that have unique keys. The resourceCache does not get a ref

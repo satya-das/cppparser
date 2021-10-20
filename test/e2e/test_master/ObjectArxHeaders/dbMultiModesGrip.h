@@ -57,7 +57,7 @@ public:
     /// <summary>
     /// The type of a grip.
     /// </summary>
-  enum GripType { 
+  enum GripType {
         /// <summary>
         /// The primary grip. Always shown if host's GRIPS variable is not 0;
         /// </summary>
@@ -66,8 +66,8 @@ public:
         /// <summary>
         /// The secondary grip. Only shown when host's GRIPS variable is 2;
         /// </summary>
-        kSecondary 
-    };
+        kSecondary
+  };
     /// <summary>
     /// The numerical identifier of a grip mode.
     /// </summary>
@@ -87,7 +87,7 @@ public:
         /// All custom mode types should be larger than this value.
         /// </summary>
         kCustomStart = 100,
-    };
+  };
     /// <summary>
     /// The type of actions the grip editing complex takes when a mode
     /// is becoming current.
@@ -110,7 +110,7 @@ public:
         /// External command, specified as GripMode::CommandString, is called.
         /// </summary>
         kCommand,
-    };
+  };
     /// <summary>
     /// The type of canvas cursor can be specified for each mode.
     /// </summary>
@@ -143,8 +143,8 @@ public:
         /// <summary>
         /// Default cursor combined with an angle sign. For future use.
         /// </summary>
-        kcCrosshairAngle,      
-    };
+        kcCrosshairAngle,
+  };
     /// <summary>
     /// The type that contains all information to present a single mode.
     /// </summary>
@@ -248,9 +248,8 @@ inline AcDbMultiModesGripPE::GripMode::GripMode()
   :  Mode(AcDbMultiModesGripPE::kMove)
         , ActionType(kDragOn)
         , CursorType(kcNone)
+{
 
-  {
-
-  }
+}
 #  pragma  pack (pop)
 #endif

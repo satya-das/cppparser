@@ -17,12 +17,14 @@ class WXDLLIMPEXP_BASE wxFilterFSHandler : public wxFileSystemHandler
 {
 public:
   wxFilterFSHandler()
-    :  wxFileSystemHandler() 
-    {
-     }
+    :  wxFileSystemHandler()
+  {
+
+  }
   virtual ~wxFilterFSHandler()
   {
-   }
+
+  }
   bool CanOpen(const wxString& location) override;
   wxFSFile* OpenFile(wxFileSystem& fs, const wxString& location) override;
   wxString FindFirst(const wxString& spec, int flags = 0) override;

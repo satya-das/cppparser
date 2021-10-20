@@ -39,7 +39,9 @@ public:
     // This could be made more nuanced and compare all of the texture proxy resolutions, but
     // it's probably not worth the effort.
   bool hasMixedResolutions() const override
-  { return true; }
+  {
+ return true;
+  }
 protected:
     // TODO: consider overriding this, for the case where the underlying generator might be
     //       able to efficiently produce a "stretched" texture natively (e.g. picture-backed)

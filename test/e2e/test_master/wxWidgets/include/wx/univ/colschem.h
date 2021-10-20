@@ -65,7 +65,7 @@ public:
         FRAME,
 
         MAX
-    };
+  };
     // get a standard colour
   virtual wxColour Get(StdColour col) const = 0;
     // get the background colour for the given window

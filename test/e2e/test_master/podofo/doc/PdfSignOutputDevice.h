@@ -70,9 +70,13 @@ namespace PoDoFo
      * 
      */
     virtual const PdfData* GetSignatureBeacon() const
-    { return m_pSignatureBeacon; }
+    {
+ return m_pSignatureBeacon;
+    }
     virtual bool HasSignaturePosition() const
-    { return m_bBeaconFound; }
+    {
+ return m_bBeaconFound;
+    }
     /** Modify ByteRange entry according to signature position
      *
      */

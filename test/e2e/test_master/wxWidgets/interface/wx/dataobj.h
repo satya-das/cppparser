@@ -227,7 +227,7 @@ public:
             (unused currently)
          */
         Both = 0x03
-    };
+  };
     /**
         Constructor.
     */

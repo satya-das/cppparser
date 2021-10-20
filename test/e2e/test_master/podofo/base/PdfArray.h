@@ -262,49 +262,49 @@ namespace PoDoFo
   inline const PdfObject* PdfArray::FindAt(size_type idx) const
   {
     return findAt( idx );
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   inline PdfObject* PdfArray::FindAt(size_type idx)
   {
     return findAt( idx );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   size_t PdfArray::GetSize() const
   {
     return m_objects.size();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfArray::push_back(const PdfObject& var)
   {
     insert( end(), var );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfArray::Clear()
   {
     clear();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   size_t PdfArray::size() const
   {
     return m_objects.size();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfArray::empty() const
   {
     return m_objects.empty();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -313,70 +313,70 @@ namespace PoDoFo
     AssertMutable();
 
     return m_objects[__n];
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfObject& PdfArray::operator[](size_type __n) const
   {
     return m_objects[__n];
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfArray::iterator PdfArray::begin()
   {
     return m_objects.begin();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfArray::const_iterator PdfArray::begin() const
   {
     return m_objects.begin();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfArray::iterator PdfArray::end()
   {
     return m_objects.end();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfArray::const_iterator PdfArray::end() const
   {
     return m_objects.end();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfArray::reverse_iterator PdfArray::rbegin()
   {
     return m_objects.rbegin();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfArray::const_reverse_iterator PdfArray::rbegin() const
   {
     return m_objects.rbegin();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfArray::reverse_iterator PdfArray::rend()
   {
     return m_objects.rend();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfArray::const_reverse_iterator PdfArray::rend() const
   {
     return m_objects.rend();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -396,7 +396,7 @@ namespace PoDoFo
     }
 
     m_bDirty = true;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -405,35 +405,35 @@ namespace PoDoFo
     AssertMutable();
 
     m_objects.reserve( __n );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfObject& PdfArray::front()
   {
     return m_objects.front();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfObject& PdfArray::front() const
   {
     return m_objects.front();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfObject& PdfArray::back()
   {
     return m_objects.back();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfObject& PdfArray::back() const
   {
     return m_objects.back();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -441,7 +441,7 @@ namespace PoDoFo
   {
     //TODO: This operator does not check for m_bDirty. Add comparison or add explanation why it should not be there
     return m_objects == rhs.m_objects;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -449,7 +449,7 @@ namespace PoDoFo
   {
     //TODO: This operator does not check for m_bDirty. Add comparison or add explanation why it should not be there
     return m_objects != rhs.m_objects;
-}
+  }
   typedef PdfArray TVariantList;
   typedef PdfArray::iterator TIVariantList;
   typedef PdfArray::const_iterator TCIVariantList;

@@ -32,7 +32,7 @@ public:
         kMonotonicConicTo,
         kEndClosedContour, // endPt == startPt.
         kEndOpenContour // endPt != startPt.
-    };
+  };
     // These tallies track numbers of CCPR primitives that are required to draw a contour.
   struct PrimitiveTallies
   {
@@ -48,21 +48,27 @@ public:
   GrCCFillGeometry(int numSkPoints = 0, int numSkVerbs = 0, int numConicWeights = 0)
     :  fPoints(numSkPoints * 3) // Reserve for a 3x expansion in points and verbs.
             , fVerbs(numSkVerbs * 3)
-            , fConicWeights(numConicWeights * 3/2) 
-    {
-    }
+            , fConicWeights(numConicWeights * 3/2)
+  {
+  }
   const SkTArray<SkPoint, true>& points() const
-  { SkASSERT(!fBuildingContour); return fPoints; }
+  {
+ SkASSERT(!fBuildingContour); return fPoints;
+  }
   const SkTArray<Verb, true>& verbs() const
-  { SkASSERT(!fBuildingContour); return fVerbs; }
+  {
+ SkASSERT(!fBuildingContour); return fVerbs;
+  }
   float getConicWeight(int idx) const
-  { SkASSERT(!fBuildingContour); return fConicWeights[idx]; }
+  {
+ SkASSERT(!fBuildingContour); return fConicWeights[idx];
+  }
   void reset()
   {
         SkASSERT(!fBuildingContour);
         fPoints.reset();
         fVerbs.reset();
-    }
+  }
   void beginPath();
   void beginContour(const SkPoint&);
   void lineTo(const SkPoint P[2]);
@@ -88,7 +94,7 @@ private:
   enum class AppendCubicMode : bool {
         kLiteral,
         kApproximate
-    };
+  };
   void appendCubics(AppendCubicMode, const Sk2f& p0, const Sk2f& p1, const Sk2f& p2, const Sk2f& p3, const float chops[], int numChops, float localT0 = 0, float localT1 = 1);
   void appendCubics(AppendCubicMode, const Sk2f& p0, const Sk2f& p1, const Sk2f& p2, const Sk2f& p3, int maxSubdivisions = 2);
   void chopAndAppendCubicAtMidTangent(AppendCubicMode, const Sk2f& p0, const Sk2f& p1, const Sk2f& p2, const Sk2f& p3, const Sk2f& tan0, const Sk2f& tan1, int maxFutureSubdivisions);

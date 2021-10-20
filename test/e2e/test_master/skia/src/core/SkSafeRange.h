@@ -16,9 +16,12 @@ class SkSafeRange
 public:
   operator bool() const
   {
- return fOK;   }
+ return fOK;
+  }
   bool ok() const
-  { return fOK; }
+  {
+ return fOK;
+  }
     // checks 0 <= value <= max.
     // On success, returns value
     // On failure, returns 0 and sets ok() to false
@@ -31,7 +34,7 @@ public:
             value = 0;
         }
         return static_cast<T>(value);
-    }
+  }
   int checkGE(int value, int min)
   {
         if (value < min) {
@@ -39,7 +42,7 @@ public:
             value = min;
         }
         return value;
-    }
+  }
 private:
   bool fOK = true;
 };

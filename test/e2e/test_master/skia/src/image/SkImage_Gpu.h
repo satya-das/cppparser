@@ -24,13 +24,15 @@ public:
   GrTextureProxy* peekProxy() const override
   {
         return fProxy.get();
-    }
+  }
   sk_sp<GrTextureProxy> asTextureProxyRef(GrRecordingContext*) const override
   {
         return fProxy;
-    }
+  }
   bool onIsTextureBacked() const override
-  { return SkToBool(fProxy.get()); }
+  {
+ return SkToBool(fProxy.get());
+  }
   sk_sp<SkImage> onMakeColorTypeAndColorSpace(GrRecordingContext*, SkColorType, sk_sp<SkColorSpace>) const final;
   sk_sp<SkImage> onReinterpretColorSpace(sk_sp<SkColorSpace>) const final;
     /**

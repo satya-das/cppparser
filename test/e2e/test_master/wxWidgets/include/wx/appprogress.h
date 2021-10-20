@@ -36,17 +36,27 @@ public:
   wxAppProgressIndicator(wxWindow* = NULL, int = 100)
   {
 
-          }
+  }
   bool IsAvailable() const override
-  { return false; }
+  {
+ return false;
+  }
   void SetValue(int) override
-  { }
+  {
+
+  }
   void SetRange(int) override
-  { }
+  {
+
+  }
   void Pulse() override
-  { }
+  {
+
+  }
   void Reset() override
-  { }
+  {
+
+  }
 };
 #  endif
 #endif

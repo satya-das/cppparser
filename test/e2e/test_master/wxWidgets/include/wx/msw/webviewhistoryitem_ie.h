@@ -13,14 +13,17 @@ class WXDLLIMPEXP_WEBVIEW wxWebViewHistoryItem
 {
 public:
   wxWebViewHistoryItem(const wxString& url, const wxString& title)
-    : 
-                     m_url(url), m_title(title) 
-    {
-    }
+    :                      m_url(url), m_title(title)
+  {
+  }
   wxString GetUrl()
-  { return m_url; }
+  {
+ return m_url;
+  }
   wxString GetTitle()
-  { return m_title; }
+  {
+ return m_title;
+  }
 private:
   wxString m_url, m_title;
 };

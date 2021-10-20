@@ -21,23 +21,24 @@ public:
     // For compatibility with wxMSW where desired size is sometimes required to
     // distinguish between multiple icons in a resource.
   wxIcon(const wxString& filename, wxBitmapType type = wxICON_DEFAULT_TYPE, int = -1, int = -1)
-    : 
-        wxBitmap(filename, type)
-    
-    {
+    :         wxBitmap(filename, type)
+  {
 
-        }
+  }
   wxIcon(const wxIconLocation& loc)
     :  wxBitmap(loc.GetFileName(), wxBITMAP_TYPE_ANY)
-    
-    {
+  {
 
-        }
+  }
   bool LoadFile(const wxString& name, wxBitmapType flags, int, int)
-  { return wxBitmap::LoadFile(name, flags); }
+  {
+ return wxBitmap::LoadFile(name, flags);
+  }
     // unhide the base class version
   bool LoadFile(const wxString& name, wxBitmapType flags = wxICON_DEFAULT_TYPE) override
-  { return wxBitmap::LoadFile(name, flags); }
+  {
+ return wxBitmap::LoadFile(name, flags);
+  }
     // create from bitmap (which should have a mask unless it's monochrome):
     // there shouldn't be any implicit bitmap -> icon conversion (i.e. no
     // ctors, assignment operators...), but it's ok to have such function

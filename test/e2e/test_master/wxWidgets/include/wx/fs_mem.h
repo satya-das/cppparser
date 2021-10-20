@@ -64,23 +64,23 @@ public:
   static void AddFile(const wxString& filename, const wxString& textdata)
   {
         wxMemoryFSHandlerBase::AddFile(filename, textdata);
-    }
+  }
   static void AddFile(const wxString& filename, const void* binarydata, size_t size)
   {
         wxMemoryFSHandlerBase::AddFile(filename, binarydata, size);
-    }
+  }
   static void AddFileWithMimeType(const wxString& filename, const wxString& textdata, const wxString& mimetype)
   {
         wxMemoryFSHandlerBase::AddFileWithMimeType(filename,
                                                    textdata,
                                                    mimetype);
-    }
+  }
   static void AddFileWithMimeType(const wxString& filename, const void* binarydata, size_t size, const wxString& mimetype)
   {
         wxMemoryFSHandlerBase::AddFileWithMimeType(filename,
                                                    binarydata, size,
                                                    mimetype);
-    }
+  }
 #      if  wxUSE_IMAGE
   static void AddFile(const wxString& filename, const wxImage& image, wxBitmapType type);
   static void AddFile(const wxString& filename, const wxBitmap& bitmap, wxBitmapType type);

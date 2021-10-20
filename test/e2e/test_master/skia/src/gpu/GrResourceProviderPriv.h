@@ -14,12 +14,14 @@ class GrResourceProviderPriv
 {
 public:
   GrGpu* gpu()
-  { return fResourceProvider->gpu(); }
+  {
+ return fResourceProvider->gpu();
+  }
 private:
   explicit GrResourceProviderPriv(GrResourceProvider* provider)
-    :  fResourceProvider(provider) 
-    {
-    }
+    :  fResourceProvider(provider)
+  {
+  }
   GrResourceProviderPriv(const GrResourceProviderPriv&);
   GrResourceProviderPriv& operator=(const GrResourceProviderPriv&);
     // No taking addresses of this type.
@@ -29,7 +31,9 @@ private:
   friend class GrResourceProvider;
 };
 inline GrResourceProviderPriv GrResourceProvider::priv()
-{ return GrResourceProviderPriv(this); }
+{
+ return GrResourceProviderPriv(this);
+}
 inline const GrResourceProviderPriv GrResourceProvider::priv() const
 {
     return GrResourceProviderPriv(const_cast<GrResourceProvider*>(this));

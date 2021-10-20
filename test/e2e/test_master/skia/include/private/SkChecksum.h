@@ -33,7 +33,7 @@ public:
         hash *= 0xc2b2ae35;
         hash ^= hash >> 16;
         return hash;
-    }
+  }
     /**
      * uint32_t -> uint32_t hash, useful for when you're about to trucate this hash but you
      * suspect its low bits aren't well mixed.
@@ -46,7 +46,7 @@ public:
         hash *= 0x85ebca6b;
         hash ^= hash >> 16;
         return hash;
-    }
+  }
 };
 // SkGoodHash should usually be your first choice in hashing data.
 // It should be both reasonably fast and high quality.
@@ -56,15 +56,15 @@ struct SkGoodHash
   SK_WHEN(sizeof(K) == 4, uint32_t) operator()(const K& k) const
   {
         return SkChecksum::Mix(*(const uint32_t*)&k);
-    }
+  }
   template <typename K>
   SK_WHEN(sizeof(K) != 4, uint32_t) operator()(const K& k) const
   {
         return SkOpts::hash_fn(&k, sizeof(K), 0);
-    }
+  }
   uint32_t operator()(const SkString& k) const
   {
         return SkOpts::hash_fn(k.c_str(), k.size(), 0);
-    }
+  }
 };
 #endif

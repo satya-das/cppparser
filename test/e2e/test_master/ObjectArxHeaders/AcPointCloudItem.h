@@ -66,7 +66,7 @@ public:
         /// Points which are not assigned to any region.
         /// </summary>
         kUnassignedPoint
-    };
+  };
     /// <summary>
     /// Default constructor
     /// </summary>

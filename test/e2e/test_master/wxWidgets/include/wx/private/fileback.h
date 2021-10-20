@@ -20,20 +20,24 @@
 class WXDLLIMPEXP_BASE wxBackingFile
 {
 public:
-  enum { DefaultBufSize = 16384 };
+  enum {
+ DefaultBufSize = 16384
+  };
     // Takes ownership of stream. If the stream is smaller than bufsize, the
     // backing file is never created and the backing is done with memory.
   wxBackingFile(wxInputStream* stream, size_t bufsize = DefaultBufSize, const wxString& prefix = wxT("wxbf"));
   wxBackingFile()
-    :  m_impl(NULL) 
-    {
-     }
+    :  m_impl(NULL)
+  {
+
+  }
   ~wxBackingFile();
   wxBackingFile(const wxBackingFile& backer);
   wxBackingFile& operator=(const wxBackingFile& backer);
   operator bool() const
   {
- return m_impl != NULL;   }
+ return m_impl != NULL;
+  }
 private:
   class wxBackingFileImpl* m_impl;
   friend class wxBackedInputStream;
@@ -51,7 +55,9 @@ public:
     // Returns the length, reading the parent stream to the end if necessary.
   wxFileOffset FindLength() const;
   bool IsSeekable() const override
-  { return true; }
+  {
+ return true;
+  }
 protected:
   size_t OnSysRead(void* buffer, size_t size) override;
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override;

@@ -28,7 +28,7 @@ public:
         opsTask->fLastClipStackGenID = clipStackGenID;
         opsTask->fLastDevClipBounds = devClipBounds;
         opsTask->fLastClipNumAnalyticFPs = numClipAnalyticFPs;
-    }
+  }
     // called to determine if we have to render the clip into SB.
     // TODO: remove after clipping overhaul.
   bool mustRenderClip(uint32_t clipStackGenID, const SkIRect& devClipBounds, int numClipAnalyticFPs) const
@@ -37,7 +37,7 @@ public:
         return opsTask->fLastClipStackGenID != clipStackGenID ||
                !opsTask->fLastDevClipBounds.contains(devClipBounds) ||
                opsTask->fLastClipNumAnalyticFPs != numClipAnalyticFPs;
-    }
+  }
   using CanClearFullscreen = GrRenderTargetContext::CanClearFullscreen;
   void clear(const GrFixedClip&, const SkPMColor4f&, CanClearFullscreen);
   void clearStencilClip(const GrFixedClip&, bool insideStencilMask);
@@ -52,7 +52,7 @@ public:
         fRenderTargetContext->drawFilledQuad(
                 clip, std::move(paint), doStencilMSAA, GrQuadAAFlags::kNone,
                 GrQuad::MakeFromRect(rect, viewMatrix), localQuad, ss);
-    }
+  }
   void stencilPath(const GrHardClip&, GrAA doStencilMSAA, const SkMatrix& viewMatrix, sk_sp<const GrPath>);
     /**
      * Draws a path, either AA or not, and touches the stencil buffer with the user stencil settings
@@ -68,7 +68,7 @@ public:
   GrSurfaceProxy::UniqueID uniqueID() const
   {
         return fRenderTargetContext->fRenderTargetProxy->uniqueID();
-    }
+  }
   uint32_t testingOnly_getOpsTaskID();
   using WillAddOpFn = GrRenderTargetContext::WillAddOpFn;
   void testingOnly_addDrawOp(std::unique_ptr<GrDrawOp>);
@@ -76,12 +76,12 @@ public:
   bool refsWrappedObjects() const
   {
         return fRenderTargetContext->fRenderTargetProxy->refsWrappedObjects();
-    }
+  }
 private:
   explicit GrRenderTargetContextPriv(GrRenderTargetContext* renderTargetContext)
-    :  fRenderTargetContext(renderTargetContext) 
-    {
-    }
+    :  fRenderTargetContext(renderTargetContext)
+  {
+  }
   GrRenderTargetContextPriv(const GrRenderTargetPriv&)
   {
   }

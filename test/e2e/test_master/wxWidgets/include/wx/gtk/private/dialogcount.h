@@ -28,14 +28,12 @@ class wxOpenModalDialogLocker
 public:
   wxOpenModalDialogLocker()
   {
-
         wxOpenModalDialogsCount++;
-      }
+  }
   ~wxOpenModalDialogLocker()
   {
-
         wxOpenModalDialogsCount--;
-      }
+  }
   wxDECLARE_NO_COPY_CLASS(wxOpenModalDialogLocker);
 };
 #endif

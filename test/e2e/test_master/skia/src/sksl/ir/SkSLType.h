@@ -28,13 +28,13 @@ namespace SkSL
       Field(Modifiers modifiers, StringFragment name, const Type* type)
         :  fModifiers(modifiers)
         , fName(name)
-        , fType(std::move(type)) 
-        {
-        }
+        , fType(std::move(type))
+      {
+      }
       const String description() const
       {
             return fType->description() + " " + fName + ";";
-        }
+      }
       Modifiers fModifiers;
       StringFragment fName;
       const Type* fType;
@@ -65,59 +65,54 @@ namespace SkSL
       :  INHERITED(-1, kType_Kind, StringFragment())
     , fNameString(name)
     , fTypeKind(kOther_Kind)
-    , fNumberKind(kNonnumeric_NumberKind) 
-      {
-
+    , fNumberKind(kNonnumeric_NumberKind)
+    {
         fName.fChars = fNameString.c_str();
         fName.fLength = fNameString.size();
-          }
+    }
     // Create an "other" (special) type that supports field access.
     Type(const char* name, std::vector<Field> fields)
       :  INHERITED(-1, kType_Kind, StringFragment())
     , fNameString(name)
     , fTypeKind(kOther_Kind)
     , fNumberKind(kNonnumeric_NumberKind)
-    , fFields(std::move(fields)) 
-      {
-
+    , fFields(std::move(fields))
+    {
         fName.fChars = fNameString.c_str();
         fName.fLength = fNameString.size();
-          }
+    }
     // Create a simple type.
     Type(String name, Kind kind)
       :  INHERITED(-1, kType_Kind, StringFragment())
     , fNameString(std::move(name))
     , fTypeKind(kind)
-    , fNumberKind(kNonnumeric_NumberKind) 
-      {
-
+    , fNumberKind(kNonnumeric_NumberKind)
+    {
         fName.fChars = fNameString.c_str();
         fName.fLength = fNameString.size();
-          }
+    }
     // Create a generic type which maps to the listed types.
     Type(const char* name, std::vector<const Type*> types)
       :  INHERITED(-1, kType_Kind, StringFragment())
     , fNameString(name)
     , fTypeKind(kGeneric_Kind)
     , fNumberKind(kNonnumeric_NumberKind)
-    , fCoercibleTypes(std::move(types)) 
-      {
-
+    , fCoercibleTypes(std::move(types))
+    {
         fName.fChars = fNameString.c_str();
         fName.fLength = fNameString.size();
-          }
+    }
     // Create a struct type with the given fields.
     Type(int offset, String name, std::vector<Field> fields)
       :  INHERITED(offset, kType_Kind, StringFragment())
     , fNameString(std::move(name))
     , fTypeKind(kStruct_Kind)
     , fNumberKind(kNonnumeric_NumberKind)
-    , fFields(std::move(fields)) 
-      {
-
+    , fFields(std::move(fields))
+    {
         fName.fChars = fNameString.c_str();
         fName.fLength = fNameString.size();
-          }
+    }
     // Create a scalar type.
     Type(const char* name, NumberKind numberKind, int priority, bool highPrecision = false)
       :  INHERITED(-1, kType_Kind, StringFragment())
@@ -127,12 +122,11 @@ namespace SkSL
     , fPriority(priority)
     , fColumns(1)
     , fRows(1)
-    , fHighPrecision(highPrecision) 
-      {
-
+    , fHighPrecision(highPrecision)
+    {
         fName.fChars = fNameString.c_str();
         fName.fLength = fNameString.size();
-          }
+    }
     // Create a scalar type which can be coerced to the listed types.
     Type(const char* name, NumberKind numberKind, int priority, std::vector<const Type*> coercibleTypes)
       :  INHERITED(-1, kType_Kind, StringFragment())
@@ -142,12 +136,11 @@ namespace SkSL
     , fPriority(priority)
     , fCoercibleTypes(std::move(coercibleTypes))
     , fColumns(1)
-    , fRows(1) 
-      {
-
+    , fRows(1)
+    {
         fName.fChars = fNameString.c_str();
         fName.fLength = fNameString.size();
-          }
+    }
     // Create a nullable type.
     Type(String name, Kind kind, const Type& componentType)
       :  INHERITED(-1, kType_Kind, StringFragment())
@@ -157,17 +150,16 @@ namespace SkSL
     , fComponentType(&componentType)
     , fColumns(1)
     , fRows(1)
-    , fDimensions(SpvDim1D) 
-      {
-
+    , fDimensions(SpvDim1D)
+    {
         fName.fChars = fNameString.c_str();
         fName.fLength = fNameString.size();
-          }
+    }
     // Create a vector type.
     Type(const char* name, const Type& componentType, int columns)
-      :  Type(name, kVector_Kind, componentType, columns) 
-      {
-      }
+      :  Type(name, kVector_Kind, componentType, columns)
+    {
+    }
     // Create a vector or array type.
     Type(String name, Kind kind, const Type& componentType, int columns)
       :  INHERITED(-1, kType_Kind, StringFragment())
@@ -177,12 +169,11 @@ namespace SkSL
     , fComponentType(&componentType)
     , fColumns(columns)
     , fRows(1)
-    , fDimensions(SpvDim1D) 
-      {
-
+    , fDimensions(SpvDim1D)
+    {
         fName.fChars = fNameString.c_str();
         fName.fLength = fNameString.size();
-          }
+    }
     // Create a matrix type.
     Type(const char* name, const Type& componentType, int columns, int rows)
       :  INHERITED(-1, kType_Kind, StringFragment())
@@ -192,12 +183,11 @@ namespace SkSL
     , fComponentType(&componentType)
     , fColumns(columns)
     , fRows(rows)
-    , fDimensions(SpvDim1D) 
-      {
-
+    , fDimensions(SpvDim1D)
+    {
         fName.fChars = fNameString.c_str();
         fName.fLength = fNameString.size();
-          }
+    }
     // Create a texture type.
     Type(const char* name, SpvDim_ dimensions, bool isDepth, bool isArrayed, bool isMultisampled, bool isSampled)
       :  INHERITED(-1, kType_Kind, StringFragment())
@@ -209,12 +199,10 @@ namespace SkSL
     , fIsArrayed(isArrayed)
     , fIsMultisampled(isMultisampled)
     , fIsSampled(isSampled)
-    
-      {
-
+    {
         fName.fChars = fNameString.c_str();
         fName.fLength = fNameString.size();
-          }
+    }
     // Create a sampler type.
     Type(const char* name, const Type& textureType)
       :  INHERITED(-1, kType_Kind, StringFragment())
@@ -227,12 +215,10 @@ namespace SkSL
     , fIsMultisampled(textureType.isMultisampled())
     , fIsSampled(textureType.isSampled())
     , fTextureType(&textureType)
-    
-      {
-
+    {
         fName.fChars = fNameString.c_str();
         fName.fLength = fNameString.size();
-          }
+    }
     const String& name() const
     {
         return fNameString;

@@ -23,9 +23,9 @@ namespace SkSL
     Field(int offset, const Variable& owner, int fieldIndex)
       :  INHERITED(offset, kField_Kind, owner.fType.fields()[fieldIndex].fName)
     , fOwner(owner)
-    , fFieldIndex(fieldIndex) 
-      {
-      }
+    , fFieldIndex(fieldIndex)
+    {
+    }
     String description() const override
     {
         return fOwner.description() + "." + fOwner.fType.fields()[fFieldIndex].fName;

@@ -37,7 +37,8 @@ public:
         // default ctor, call SetString() later
   wxStringTokenizer()
   {
- m_mode = wxTOKEN_INVALID;   }
+ m_mode = wxTOKEN_INVALID;
+  }
         // ctor which gives us the string
   wxStringTokenizer(const wxString& str, const wxString& delims = wxDEFAULT_DELIMITERS, wxStringTokenizerMode mode = wxTOKEN_DEFAULT);
         // copy ctor and assignment operator
@@ -58,51 +59,64 @@ public:
         // GetNextToken() or NUL if there had been no tokens yet or the last
         // one wasn't terminated (but ran to the end of the string)
   wxChar GetLastDelimiter() const
-  { return m_lastDelim; }
+  {
+ return m_lastDelim;
+  }
     // get current tokenizer state
         // returns the part of the string which remains to tokenize (*not* the
         // initial string)
   wxString GetString() const
-  { return wxString(m_pos, m_string.end()); }
+  {
+ return wxString(m_pos, m_string.end());
+  }
         // returns the current position (i.e. one index after the last
         // returned token or 0 if GetNextToken() has never been called) in the
         // original string
   size_t GetPosition() const
-  { return m_pos - m_string.begin(); }
+  {
+ return m_pos - m_string.begin();
+  }
     // misc
         // get the current mode - can be different from the one passed to the
         // ctor if it was wxTOKEN_DEFAULT
   wxStringTokenizerMode GetMode() const
-  { return m_mode; }
+  {
+ return m_mode;
+  }
         // do we return empty tokens?
   bool AllowEmpty() const
-  { return m_mode != wxTOKEN_STRTOK; }
+  {
+ return m_mode != wxTOKEN_STRTOK;
+  }
     // backwards compatibility section from now on
     // -------------------------------------------
 
     // for compatibility only, use GetNextToken() instead
   wxString NextToken()
-  { return GetNextToken(); }
+  {
+ return GetNextToken();
+  }
     // compatibility only, don't use
   void SetString(const wxString& to_tokenize, const wxString& delims, bool)
   {
         SetString(to_tokenize, delims, wxTOKEN_RET_DELIMS);
-    }
+  }
   wxStringTokenizer(const wxString& to_tokenize, const wxString& delims, bool ret_delim)
   {
-
         SetString(to_tokenize, delims, ret_delim);
-      }
+  }
 protected:
   bool IsOk() const
-  { return m_mode != wxTOKEN_INVALID; }
+  {
+ return m_mode != wxTOKEN_INVALID;
+  }
   bool DoHasMoreTokens() const;
   void DoCopyFrom(const wxStringTokenizer& src);
   enum MoreTokensState {
         MoreTokens_Unknown,
         MoreTokens_Yes,
         MoreTokens_No
-    };
+  };
   MoreTokensState m_hasMoreTokens;
   wxString m_string;
   wxString::const_iterator m_stringEnd;

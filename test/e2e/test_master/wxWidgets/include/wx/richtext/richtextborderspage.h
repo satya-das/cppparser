@@ -229,7 +229,7 @@ public:
         ID_RICHTEXTBORDERSPAGE_CORNER_TEXT = 10849,
         ID_RICHTEXTBORDERSPAGE_CORNER_UNITS = 10850,
         ID_RICHTEXT_BORDER_PREVIEW = 10844
-    };
+  };
 ////@end wxRichTextBordersPage member variables
   wxArrayInt m_borderStyles;
   wxArrayString m_borderStyleNames;
@@ -240,9 +240,13 @@ class WXDLLIMPEXP_RICHTEXT wxRichTextBorderPreviewCtrl : public wxWindow
 public:
   wxRichTextBorderPreviewCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, long style = 0);
   void SetAttributes(wxRichTextAttr* attr)
-  { m_attributes = attr; }
+  {
+ m_attributes = attr;
+  }
   wxRichTextAttr* GetAttributes() const
-  { return m_attributes; }
+  {
+ return m_attributes;
+  }
 private:
   wxRichTextAttr* m_attributes;
   void OnPaint(wxPaintEvent& event);

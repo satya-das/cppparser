@@ -73,7 +73,6 @@ enum {
     wxWEBKIT_NAV_RELOAD = 8,
     wxWEBKIT_NAV_FORM_RESUBMITTED = 16,
     wxWEBKIT_NAV_OTHER = 32
-
 };
 class wxWebKitBeforeLoadEvent : public wxCommandEvent
 {

@@ -58,9 +58,13 @@ public:
   AcDb::XrefNotificationStatus xrefNotificationStatus() const;
   void setXrefNotificationStatus(AcDb::XrefNotificationStatus stat);
   void* xData()
-  { return mpxdata; }
+  {
+ return mpxdata;
+  }
   void setxData(void* pXData)
-  { mpxdata = pXData; }
+  {
+ mpxdata = pXData;
+  }
   Acad::ErrorStatus xrefReadSubstatus() const;
 private:
   void* mpxdata;
@@ -97,29 +101,53 @@ Acad::ErrorStatus acedGetCurDwgXrefGraph(AcDbXrefGraph&, Adesk::Boolean includeG
 
 // AcDbXrefGraphNode inlines ...
 inline const ACHAR* AcDbXrefGraphNode::name() const
-{ return mpName; }
+{
+ return mpName;
+}
 inline AcDbObjectId AcDbXrefGraphNode::btrId() const
-{ return mBtrId; }
+{
+ return mBtrId;
+}
 inline AcDbDatabase* AcDbXrefGraphNode::database() const
-{ return (AcDbDatabase*)data(); }
+{
+ return (AcDbDatabase*)data();
+}
 inline void AcDbXrefGraphNode::setBtrId(const AcDbObjectId& id)
-{ mBtrId = id; }
+{
+ mBtrId = id;
+}
 inline void AcDbXrefGraphNode::setDatabase(AcDbDatabase* pDb)
-{ setData(pDb); }
+{
+ setData(pDb);
+}
 inline bool AcDbXrefGraphNode::isNested() const
-{ return !isMarkedAs(kFirstLevel); }
+{
+ return !isMarkedAs(kFirstLevel);
+}
 inline AcDb::XrefStatus AcDbXrefGraphNode::xrefStatus() const
-{ return mStatus; }
+{
+ return mStatus;
+}
 inline void AcDbXrefGraphNode::setXrefStatus(AcDb::XrefStatus stat)
-{ mStatus = stat; }
+{
+ mStatus = stat;
+}
 inline AcDb::XrefNotificationStatus AcDbXrefGraphNode::xrefNotificationStatus() const
-{ return mNotifyStatus; }
+{
+ return mNotifyStatus;
+}
 inline void AcDbXrefGraphNode::setXrefNotificationStatus(AcDb::XrefNotificationStatus stat)
-{ mNotifyStatus = stat; }
+{
+ mNotifyStatus = stat;
+}
 // AcDbXrefGraph inlines ...
 inline AcDbXrefGraphNode* AcDbXrefGraph::xrefNode(int idx) const
-{ return (AcDbXrefGraphNode*)node(idx); }
+{
+ return (AcDbXrefGraphNode*)node(idx);
+}
 inline AcDbXrefGraphNode* AcDbXrefGraph::hostDwg() const
-{ return (AcDbXrefGraphNode*)rootNode(); }
+{
+ return (AcDbXrefGraphNode*)rootNode();
+}
 #  pragma  pack (pop)
 #endif

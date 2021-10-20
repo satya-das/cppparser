@@ -15,7 +15,7 @@ union SkReduceOrder
   enum Quadratics {
         kNo_Quadratics,
         kAllow_Quadratics
-    };
+  };
   int reduce(const SkDCubic& cubic, Quadratics);
   int reduce(const SkDLine& line);
   int reduce(const SkDQuad& quad);

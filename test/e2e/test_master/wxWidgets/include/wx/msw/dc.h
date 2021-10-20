@@ -91,9 +91,11 @@ public:
         // if we have palettes use the correct one for this window
         InitializePalette();
 #endif // wxUSE_PALETTE
-    }
+  }
   WXHDC GetHDC() const
-  { return m_hDC; }
+  {
+ return m_hDC;
+  }
   void SetHDC(WXHDC dc, bool bOwnsDC = false)
   {
         m_hDC = dc;
@@ -104,13 +106,19 @@ public:
         // it could be unnecessary wasteful
         m_clipping = true;
         m_isClipBoxValid = false;
-    }
+  }
   void* GetHandle() const override
-  { return (void*)GetHDC(); }
+  {
+ return (void*)GetHDC();
+  }
   const wxBitmap& GetSelectedBitmap() const override
-  { return m_selectedBitmap; }
+  {
+ return m_selectedBitmap;
+  }
   wxBitmap& GetSelectedBitmap() override
-  { return m_selectedBitmap; }
+  {
+ return m_selectedBitmap;
+  }
     // update the internal clip box variables
   void UpdateClipBox();
 #  if  wxUSE_DC_CACHEING
@@ -142,13 +150,14 @@ protected:
         m_oldPalette = NULL;
 #endif // wxUSE_PALETTE
         m_isClipBoxValid = false;
-    }
+  }
     // create an uninitialized DC: this should be only used by the derived
     // classes
   wxMSWDCImpl(wxDC* owner)
-    :  wxDCImpl( owner ) 
-    {
- Init();     }
+    :  wxDCImpl( owner )
+  {
+ Init();
+  }
   void RealizeScaleAndOrigin();
 public:
   void DoGetFontMetrics(int* height, int* ascent, int* descent, int* internalLeading, int* externalLeading, int* averageWidth) const override;
@@ -185,7 +194,7 @@ public:
   {
         return subrect == NULL ? GetSelectedBitmap()
                                : GetSelectedBitmap().GetSubBitmap(*subrect);
-    }
+  }
 #  if  wxUSE_PALETTE
     // MSW specific, select a logical palette into the HDC
     // (tell windows to translate pixel from other palettes to our custom one
@@ -246,16 +255,14 @@ public:
   wxDCTempImpl(wxDC* owner, WXHDC hdc, const wxSize& size)
     :  wxMSWDCImpl( owner, hdc ),
           m_size(size)
-    
-    {
-
-        }
-  virtual ~wxDCTempImpl()
   {
 
+  }
+  virtual ~wxDCTempImpl()
+  {
         // prevent base class dtor from freeing it
         SetHDC((WXHDC)NULL);
-      }
+  }
   void DoGetSize(int* w, int* h) const override
   {
         wxASSERT_MSG( m_size.IsFullySpecified(),
@@ -265,7 +272,7 @@ public:
             *w = m_size.x;
         if ( h )
             *h = m_size.y;
-    }
+  }
 private:
     // size of this DC must be explicitly set by SetSize() as we have no way to
     // find it ourselves
@@ -277,9 +284,8 @@ class WXDLLIMPEXP_CORE wxDCTemp : public wxDC
 public:
   wxDCTemp(WXHDC hdc, const wxSize& size = wxDefaultSize)
     :  wxDC(new wxDCTempImpl(this, hdc, size))
-    
-    {
+  {
 
-        }
+  }
 };
 #endif

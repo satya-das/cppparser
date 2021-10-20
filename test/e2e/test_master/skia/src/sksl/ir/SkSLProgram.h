@@ -36,24 +36,24 @@ namespace SkSL
       {
         Value(bool b)
           :  fKind(kBool_Kind)
-            , fValue(b) 
-          {
-          }
+            , fValue(b)
+        {
+        }
         Value(int i)
           :  fKind(kInt_Kind)
-            , fValue(i) 
-          {
-          }
+            , fValue(i)
+        {
+        }
         Value(unsigned int i)
           :  fKind(kInt_Kind)
-            , fValue(i) 
-          {
-          }
+            , fValue(i)
+        {
+        }
         Value(float f)
           :  fKind(kFloat_Kind)
-            , fValue(f) 
-          {
-          }
+            , fValue(f)
+        {
+        }
         std::unique_ptr<Expression> literal(const Context& context, int offset) const
         {
                 switch (fKind) {
@@ -73,12 +73,12 @@ namespace SkSL
                         SkASSERT(false);
                         return nullptr;
                 }
-            }
+        }
         enum {
                 kBool_Kind,
                 kInt_Kind,
                 kFloat_Kind,
-            } fKind;
+} fKind;
         int fValue;
       };
 #  if  defined(SKSL_STANDALONE) || !SK_SUPPORT_GPU
@@ -120,11 +120,11 @@ namespace SkSL
             fRTWidth = false;
             fRTHeight = false;
             fFlipY = false;
-        }
+      }
       bool isEmpty()
       {
             return !fRTWidth && !fRTHeight && !fFlipY;
-        }
+      }
     };
     class iterator
     {
@@ -135,7 +135,7 @@ namespace SkSL
                 return **fIter1;
             }
             return **fIter2;
-        }
+      }
       iterator& operator++()
       {
             if (fIter1 != fEnd1) {
@@ -144,24 +144,24 @@ namespace SkSL
             }
             ++fIter2;
             return *this;
-        }
+      }
       bool operator==(const iterator& other) const
       {
             return fIter1 == other.fIter1 && fIter2 == other.fIter2;
-        }
+      }
       bool operator!=(const iterator& other) const
       {
             return !(*this == other);
-        }
+      }
     private:
       using inner = std::vector<std::unique_ptr<ProgramElement>>::iterator;
       iterator(inner begin1, inner end1, inner begin2, inner end2)
         :  fIter1(begin1)
         , fEnd1(end1)
         , fIter2(begin2)
-        , fEnd2(end2) 
-        {
-        }
+        , fEnd2(end2)
+      {
+      }
       inner fIter1;
       inner fEnd1;
       inner fIter2;
@@ -177,7 +177,7 @@ namespace SkSL
                 return **fIter1;
             }
             return **fIter2;
-        }
+      }
       const_iterator& operator++()
       {
             if (fIter1 != fEnd1) {
@@ -186,24 +186,24 @@ namespace SkSL
             }
             ++fIter2;
             return *this;
-        }
+      }
       bool operator==(const const_iterator& other) const
       {
             return fIter1 == other.fIter1 && fIter2 == other.fIter2;
-        }
+      }
       bool operator!=(const const_iterator& other) const
       {
             return !(*this == other);
-        }
+      }
     private:
       using inner = std::vector<std::unique_ptr<ProgramElement>>::const_iterator;
       const_iterator(inner begin1, inner end1, inner begin2, inner end2)
         :  fIter1(begin1)
         , fEnd1(end1)
         , fIter2(begin2)
-        , fEnd2(end2) 
-        {
-        }
+        , fEnd2(end2)
+      {
+      }
       inner fIter1;
       inner fEnd1;
       inner fIter2;
@@ -226,9 +226,9 @@ namespace SkSL
     , fSymbols(symbols)
     , fInputs(inputs)
     , fInheritedElements(inheritedElements)
-    , fElements(std::move(elements)) 
-      {
-      }
+    , fElements(std::move(elements))
+    {
+    }
     iterator begin()
     {
         if (fInheritedElements) {

@@ -35,9 +35,8 @@ protected:
   static const FT_Pos kBitmapEmboldenStrength = 1 << 6;
   SkScalerContext_FreeType_Base(sk_sp<SkTypeface> typeface, const SkScalerContextEffects& effects, const SkDescriptor* desc)
     :  INHERITED(std::move(typeface), effects, desc)
-    
-    {
-    }
+  {
+  }
   void generateGlyphImage(FT_Face face, const SkGlyph& glyph, const SkMatrix& bitmapTransform);
   bool generateGlyphPath(FT_Face face, SkPath* path);
   bool generateFacePath(FT_Face face, SkGlyphID glyphID, SkPath* path);
@@ -77,9 +76,8 @@ public:
 protected:
   SkTypeface_FreeType(const SkFontStyle& style, bool isFixedPitch)
     :  INHERITED(style, isFixedPitch)
-    
-    {
-    }
+  {
+  }
   std::unique_ptr<SkFontData> cloneFontData(const SkFontArguments&) const;
   SkScalerContext* onCreateScalerContext(const SkScalerContextEffects&, const SkDescriptor*) const override;
   void onFilterRec(SkScalerContextRec*) const override;

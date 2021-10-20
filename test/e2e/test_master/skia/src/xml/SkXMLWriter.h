@@ -23,7 +23,9 @@ public:
   void addScalarAttribute(const char name[], SkScalar value);
   void addText(const char text[], size_t length);
   void endElement()
-  { this->onEndElement(); }
+  {
+ this->onEndElement();
+  }
   void startElement(const char elem[]);
   void startElementLen(const char elem[], size_t length);
   void writeDOM(const SkDOM&, const SkDOM::Node*, bool skipRoot);
@@ -39,9 +41,9 @@ protected:
     Elem(const char name[], size_t len)
       :  fName(name, len)
             , fHasChildren(false)
-            , fHasText(false) 
-      {
-      }
+            , fHasText(false)
+    {
+    }
     SkString fName;
     bool fHasChildren;
     bool fHasText;
@@ -61,7 +63,7 @@ class SkXMLStreamWriter : public SkXMLWriter
 public:
   enum : uint32_t {
         kNoPretty_Flag = 0x01,
-    };
+  };
   SkXMLStreamWriter(SkWStream*, uint32_t flags = 0);
   virtual ~SkXMLStreamWriter();
   void writeHeader() override;

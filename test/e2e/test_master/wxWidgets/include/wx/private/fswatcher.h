@@ -31,17 +31,14 @@ class wxFSWatcherImpl
 {
 public:
   wxFSWatcherImpl(wxFileSystemWatcherBase* watcher)
-    : 
-        m_watcher(watcher)
-    
-    {
-
-        }
-  virtual ~wxFSWatcherImpl()
+    :         m_watcher(watcher)
   {
 
+  }
+  virtual ~wxFSWatcherImpl()
+  {
         (void) RemoveAll();
-      }
+  }
   virtual bool Init() = 0;
   virtual bool Add(const wxFSWatchInfo& winfo)
   {
@@ -62,7 +59,7 @@ public:
         // add watch to our map (always succeeds, checked above)
         wxFSWatchEntries::value_type val(watch->GetPath(), watch);
         return m_watches.insert(val).second;
-    }
+  }
   virtual bool Remove(const wxFSWatchInfo& winfo)
   {
         wxFSWatchEntries::iterator it = m_watches.find(winfo.GetPath());
@@ -76,7 +73,7 @@ public:
         wxSharedPtr<wxFSWatchEntry> watch = it->second;
         m_watches.erase(it);
         return DoRemove(watch);
-    }
+  }
   virtual bool RemoveAll()
   {
         bool ret = true;
@@ -89,12 +86,12 @@ public:
         }
         m_watches.clear();
         return ret;
-    }
+  }
     // Check whether any filespec matches the file's ext (if present)
   bool MatchesFilespec(const wxFileName& fn, const wxString& filespec) const
   {
         return filespec.empty() || wxMatchWild(filespec, fn.GetFullName());
-    }
+  }
 protected:
   virtual bool DoAdd(wxSharedPtr<wxFSWatchEntry> watch) = 0;
   virtual bool DoRemove(wxSharedPtr<wxFSWatchEntry> watch) = 0;

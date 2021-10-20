@@ -40,7 +40,7 @@ protected:
   SkEncodedImageFormat onGetEncodedFormat() const override
   {
         return SkEncodedImageFormat::kJPEG;
-    }
+  }
   bool onRewind() override;
   bool onDimensionsSupported(const SkISize&) override;
   bool conversionSupported(const SkImageInfo&, bool, bool) override;

@@ -23,10 +23,9 @@ public:
   typedef wxCFRef<CFTypeRef> super_type;
   wxCFTypeRef(CFTypeRef d)
     :  super_type(d)
-    
-    {
+  {
 
-        }
+  }
   template <typename V>
   bool GetValue(V* ptr) const;
   template <typename V>
@@ -38,12 +37,12 @@ public:
             *ptr = defaultValue;
 
         return hasKey;
-    }
+  }
   template <typename V>
   bool GetValue(V& ref) const
   {
         return GetValue(&ref);
-    }
+  }
   template <typename V>
   bool GetValue(V& ref, V defaultValue) const
   {
@@ -53,7 +52,7 @@ public:
             ref = defaultValue;
 
         return hasKey;
-    }
+  }
     // spezialization through overload
   bool GetValue(CGFloat* ptr) const
   {
@@ -61,57 +60,55 @@ public:
             CFNumberGetValue((CFNumberRef)m_ptr, kCFNumberCGFloatType, ptr);
 
         return m_ptr;
-    }
+  }
   bool GetValue(int32_t* ptr) const
   {
         if (m_ptr)
             CFNumberGetValue((CFNumberRef)m_ptr, kCFNumberSInt32Type, ptr);
 
         return m_ptr;
-    }
+  }
   bool GetValue(uint32_t* ptr) const
   {
         if (m_ptr)
             CFNumberGetValue((CFNumberRef)m_ptr, kCFNumberSInt32Type, ptr);
 
         return m_ptr;
-    }
+  }
   bool GetValue(int64_t* ptr) const
   {
         if (m_ptr)
             CFNumberGetValue((CFNumberRef)m_ptr, kCFNumberSInt64Type, ptr);
 
         return m_ptr;
-    }
+  }
   bool GetValue(uint64_t* ptr) const
   {
         if (m_ptr)
             CFNumberGetValue((CFNumberRef)m_ptr, kCFNumberSInt64Type, ptr);
 
         return m_ptr;
-    }
+  }
   bool GetValue(wxString* s) const
   {
         if (m_ptr)
             *s = wxCFStringRef::AsString((CFStringRef)m_ptr);
 
         return m_ptr;
-    }
+  }
 };
 class wxCFNumberRef : public wxCFTypeRef
 {
 public:
   wxCFNumberRef(CGFloat v)
     :  wxCFTypeRef(CFNumberCreate(NULL, kCFNumberCGFloatType, &v))
-    
-    {
+  {
 
-        }
+  }
   wxCFNumberRef(int v)
     :  wxCFTypeRef(CFNumberCreate(NULL, kCFNumberIntType, &v))
-    
-    {
+  {
 
-        }
+  }
 };
 #endif

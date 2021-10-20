@@ -16,12 +16,11 @@ class WXDLLIMPEXP_CORE wxAnyButton : public wxAnyButtonBase
 public:
   wxAnyButton()
   {
-
         m_imageData = NULL;
 #if wxUSE_MARKUP
         m_markupText = NULL;
 #endif // wxUSE_MARKUP
-      }
+  }
   virtual ~wxAnyButton();
     // overridden base class methods
   void SetLabel(const wxString& label) override;
@@ -32,7 +31,9 @@ public:
   bool MSWOnDraw(WXDRAWITEMSTRUCT* item) override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  { return false; }
+  {
+ return false;
+  }
 protected:
     // usually overridden base class virtuals
   wxSize DoGetBestSize() const override;

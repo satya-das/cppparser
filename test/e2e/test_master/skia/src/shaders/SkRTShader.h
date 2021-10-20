@@ -20,7 +20,9 @@ class SkRTShader : public SkShaderBase
 public:
   SkRTShader(int index, SkString sksl, sk_sp<SkData> inputs, const SkMatrix* localMatrix, bool isOpaque);
   bool isOpaque() const override
-  { return fIsOpaque; }
+  {
+ return fIsOpaque;
+  }
 #  if  SK_SUPPORT_GPU
   std::unique_ptr<GrFragmentProcessor> asFragmentProcessor(const GrFPArgs&) const override;
 #  endif

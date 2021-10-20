@@ -38,12 +38,13 @@ namespace wxPrivate
             }
             wxCATCH_ALL(;) // do nothing, just eat the exception
         }
-    }
+  }
     // just to avoid the warning about unused variables
   template <typename T>
   void Use(const T&)
   {
-    }
+
+  }
 }
 #  define wxPrivateOnScopeExit(n)	 wxPrivate::OnScopeExit(n)
 #  define wxPrivateUse(n)	 wxPrivate::Use(n)
@@ -58,25 +59,29 @@ class wxScopeGuardImplBase
 {
 public:
   wxScopeGuardImplBase()
-    :  m_wasDismissed(false) 
-    {
-     }
+    :  m_wasDismissed(false)
+  {
+
+  }
   wxScopeGuardImplBase(const wxScopeGuardImplBase& other)
     :  m_wasDismissed(other.m_wasDismissed)
-    
-    {
-
+  {
         other.Dismiss();
-        }
+  }
   void Dismiss() const
-  { m_wasDismissed = true; }
+  {
+ m_wasDismissed = true;
+  }
     // for OnScopeExit() only (we can't make it friend, unfortunately)!
   bool WasDismissed() const
-  { return m_wasDismissed; }
+  {
+ return m_wasDismissed;
+  }
 protected:
   ~wxScopeGuardImplBase()
   {
-   }
+
+  }
     // must be mutable for copy ctor to work
   mutable bool m_wasDismissed;
 private:
@@ -94,17 +99,21 @@ public:
   static wxScopeGuardImpl0<F> MakeGuard(F fun)
   {
         return wxScopeGuardImpl0<F>(fun);
-    }
+  }
   ~wxScopeGuardImpl0()
   {
- wxPrivateOnScopeExit(*this);   }
+ wxPrivateOnScopeExit(*this);
+  }
   void Execute()
-  { m_fun(); }
+  {
+ m_fun();
+  }
 protected:
   wxScopeGuardImpl0(F fun)
-    :  m_fun(fun) 
-    {
-     }
+    :  m_fun(fun)
+  {
+
+  }
   F m_fun;
   wxScopeGuardImpl0& operator=(const wxScopeGuardImpl0&);
 };
@@ -123,17 +132,21 @@ public:
   static wxScopeGuardImpl1<F, P1> MakeGuard(F fun, P1 p1)
   {
         return wxScopeGuardImpl1<F, P1>(fun, p1);
-    }
+  }
   ~wxScopeGuardImpl1()
   {
- wxPrivateOnScopeExit(* this);   }
+ wxPrivateOnScopeExit(* this);
+  }
   void Execute()
-  { m_fun(m_p1); }
+  {
+ m_fun(m_p1);
+  }
 protected:
   wxScopeGuardImpl1(F fun, P1 p1)
-    :  m_fun(fun), m_p1(p1) 
-    {
-     }
+    :  m_fun(fun), m_p1(p1)
+  {
+
+  }
   F m_fun;
   const P1 m_p1;
   wxScopeGuardImpl1& operator=(const wxScopeGuardImpl1&);
@@ -153,17 +166,21 @@ public:
   static wxScopeGuardImpl2<F, P1, P2> MakeGuard(F fun, P1 p1, P2 p2)
   {
         return wxScopeGuardImpl2<F, P1, P2>(fun, p1, p2);
-    }
+  }
   ~wxScopeGuardImpl2()
   {
- wxPrivateOnScopeExit(*this);   }
+ wxPrivateOnScopeExit(*this);
+  }
   void Execute()
-  { m_fun(m_p1, m_p2); }
+  {
+ m_fun(m_p1, m_p2);
+  }
 protected:
   wxScopeGuardImpl2(F fun, P1 p1, P2 p2)
-    :  m_fun(fun), m_p1(p1), m_p2(p2) 
-    {
-     }
+    :  m_fun(fun), m_p1(p1), m_p2(p2)
+  {
+
+  }
   F m_fun;
   const P1 m_p1;
   const P2 m_p2;
@@ -184,17 +201,21 @@ public:
   static wxScopeGuardImpl3<F, P1, P2, P3> MakeGuard(F fun, P1 p1, P2 p2, P3 p3)
   {
         return wxScopeGuardImpl3<F, P1, P2, P3>(fun, p1, p2, p3);
-    }
+  }
   ~wxScopeGuardImpl3()
   {
- wxPrivateOnScopeExit(*this);   }
+ wxPrivateOnScopeExit(*this);
+  }
   void Execute()
-  { m_fun(m_p1, m_p2, m_p3); }
+  {
+ m_fun(m_p1, m_p2, m_p3);
+  }
 protected:
   wxScopeGuardImpl3(F fun, P1 p1, P2 p2, P3 p3)
-    :  m_fun(fun), m_p1(p1), m_p2(p2), m_p3(p3) 
-    {
-     }
+    :  m_fun(fun), m_p1(p1), m_p2(p2), m_p3(p3)
+  {
+
+  }
   F m_fun;
   const P1 m_p1;
   const P2 m_p2;
@@ -220,17 +241,21 @@ public:
   static wxObjScopeGuardImpl0<Obj, MemFun> MakeObjGuard(Obj& obj, MemFun memFun)
   {
         return wxObjScopeGuardImpl0<Obj, MemFun>(obj, memFun);
-    }
+  }
   ~wxObjScopeGuardImpl0()
   {
- wxPrivateOnScopeExit(*this);   }
+ wxPrivateOnScopeExit(*this);
+  }
   void Execute()
-  { (m_obj.*m_memfun)(); }
+  {
+ (m_obj.*m_memfun)();
+  }
 protected:
   wxObjScopeGuardImpl0(Obj& obj, MemFun memFun)
-    :  m_obj(obj), m_memfun(memFun) 
-    {
-     }
+    :  m_obj(obj), m_memfun(memFun)
+  {
+
+  }
   Obj& m_obj;
   MemFun m_memfun;
 };
@@ -246,17 +271,21 @@ public:
   static wxObjScopeGuardImpl1<Obj, MemFun, P1> MakeObjGuard(Obj& obj, MemFun memFun, P1 p1)
   {
         return wxObjScopeGuardImpl1<Obj, MemFun, P1>(obj, memFun, p1);
-    }
+  }
   ~wxObjScopeGuardImpl1()
   {
- wxPrivateOnScopeExit(*this);   }
+ wxPrivateOnScopeExit(*this);
+  }
   void Execute()
-  { (m_obj.*m_memfun)(m_p1); }
+  {
+ (m_obj.*m_memfun)(m_p1);
+  }
 protected:
   wxObjScopeGuardImpl1(Obj& obj, MemFun memFun, P1 p1)
-    :  m_obj(obj), m_memfun(memFun), m_p1(p1) 
-    {
-     }
+    :  m_obj(obj), m_memfun(memFun), m_p1(p1)
+  {
+
+  }
   Obj& m_obj;
   MemFun m_memfun;
   const P1 m_p1;
@@ -273,17 +302,21 @@ public:
   static wxObjScopeGuardImpl2<Obj, MemFun, P1, P2> MakeObjGuard(Obj& obj, MemFun memFun, P1 p1, P2 p2)
   {
         return wxObjScopeGuardImpl2<Obj, MemFun, P1, P2>(obj, memFun, p1, p2);
-    }
+  }
   ~wxObjScopeGuardImpl2()
   {
- wxPrivateOnScopeExit(*this);   }
+ wxPrivateOnScopeExit(*this);
+  }
   void Execute()
-  { (m_obj.*m_memfun)(m_p1, m_p2); }
+  {
+ (m_obj.*m_memfun)(m_p1, m_p2);
+  }
 protected:
   wxObjScopeGuardImpl2(Obj& obj, MemFun memFun, P1 p1, P2 p2)
-    :  m_obj(obj), m_memfun(memFun), m_p1(p1), m_p2(p2) 
-    {
-     }
+    :  m_obj(obj), m_memfun(memFun), m_p1(p1), m_p2(p2)
+  {
+
+  }
   Obj& m_obj;
   MemFun m_memfun;
   const P1 m_p1;
@@ -302,17 +335,21 @@ public:
   static wxObjScopeGuardImpl3<Obj, MemFun, P1, P2, P3> MakeObjGuard(Obj& obj, MemFun memFun, P1 p1, P2 p2, P3 p3)
   {
         return wxObjScopeGuardImpl3<Obj, MemFun, P1, P2, P3>(obj, memFun, p1, p2, p3);
-    }
+  }
   ~wxObjScopeGuardImpl3()
   {
- wxPrivateOnScopeExit(*this);   }
+ wxPrivateOnScopeExit(*this);
+  }
   void Execute()
-  { (m_obj.*m_memfun)(m_p1, m_p2, m_p3); }
+  {
+ (m_obj.*m_memfun)(m_p1, m_p2, m_p3);
+  }
 protected:
   wxObjScopeGuardImpl3(Obj& obj, MemFun memFun, P1 p1, P2 p2, P3 p3)
-    :  m_obj(obj), m_memfun(memFun), m_p1(p1), m_p2(p2), m_p3(p3) 
-    {
-     }
+    :  m_obj(obj), m_memfun(memFun), m_p1(p1), m_p2(p2), m_p3(p3)
+  {
+
+  }
   Obj& m_obj;
   MemFun m_memfun;
   const P1 m_p1;
@@ -343,15 +380,17 @@ namespace wxPrivate
     VariableSetterImpl(T& var, U value)
       :  m_var(var),
           m_value(value)
-    
-      {
+    {
 
-          }
+    }
     ~VariableSetterImpl()
     {
- wxPrivateOnScopeExit(*this);     }
+ wxPrivateOnScopeExit(*this);
+    }
     void Execute()
-    { m_var = m_value; }
+    {
+ m_var = m_value;
+    }
   private:
     T& m_var;
     const U m_value;
@@ -364,15 +403,17 @@ namespace wxPrivate
   public:
     VariableNullerImpl(T& var)
       :  m_var(var)
-    
-      {
+    {
 
-          }
+    }
     ~VariableNullerImpl()
     {
- wxPrivateOnScopeExit(*this);     }
+ wxPrivateOnScopeExit(*this);
+    }
     void Execute()
-    { m_var = NULL; }
+    {
+ m_var = NULL;
+    }
   private:
     T& m_var;
     VariableNullerImpl<T>& operator=(const VariableNullerImpl<T>&);

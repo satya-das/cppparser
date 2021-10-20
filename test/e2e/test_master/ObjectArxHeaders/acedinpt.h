@@ -37,7 +37,8 @@ class AcEdInputPointManager
 public:
   virtual ~AcEdInputPointManager()
   {
-   }
+
+  }
     // registerPointFilter
     //
     // Invoke to register a point filter.  returns Acad::eOK if no filter
@@ -315,7 +316,9 @@ public:
     // Return Status:  Acad::eOk should always be returned.
     //
   ADESK_DEPRECATED virtual Acad::ErrorStatus processInputPoint(bool&, AcGePoint3d&, bool&, bool&, ACHAR*&, bool&, AcGiViewportDraw*, AcApDocument*, bool, int, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, AcDb::OsnapMask, const AcArray<AcDbCustomOsnapMode*>&, AcDb::OsnapMask, const AcArray<AcDbCustomOsnapMode*>&, const AcArray<AcDbObjectId>&, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >&, const AcArray<Adesk::GsMarker>&, const AcArray<AcDbObjectId>&, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >&, const AcArray<Adesk::GsMarker>&, const AcArray<AcGeCurve3d*>&, const AcGePoint3d&, const ACHAR*)
-  {return Acad::eOk;}
+  {
+return Acad::eOk;
+  }
     // --- end of processInputPoint (big one, eh?)
   ACAD_PORT virtual Acad::ErrorStatus processInputPoint(const AcEdInputPoint& input, AcEdInputPointFilterResult& output);
     // revokeInputFilter
@@ -335,7 +338,9 @@ public:
     // which is hopefully nothing, else you have an unstable sequence.
     //
   virtual AcEdInputPointFilter* revokeInputFilter(AcEdInputPointFilter*)
-  { return this; }
+  {
+ return this;
+  }
 };
 // AcEdInputPointMonitor
 //
@@ -378,10 +383,14 @@ public:
     // Return Status:  Acad::eOk should always be returned.
     //
   ADESK_DEPRECATED virtual Acad::ErrorStatus monitorInputPoint(bool&, ACHAR*&, AcGiViewportDraw*, AcApDocument*, bool, int, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, const AcGePoint3d&, AcDb::OsnapMask, const AcArray<AcDbCustomOsnapMode*>&, AcDb::OsnapMask, const AcArray<AcDbCustomOsnapMode*>&, const AcArray<AcDbObjectId>&, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >&, const AcArray<Adesk::GsMarker>&, const AcArray<AcDbObjectId>&, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >&, const AcArray<Adesk::GsMarker>&, const AcArray<AcGeCurve3d*>&, const AcGePoint3d&, const ACHAR*)
-  {return Acad::eOk;}
+  {
+return Acad::eOk;
+  }
   ACAD_PORT virtual Acad::ErrorStatus monitorInputPoint(const AcEdInputPoint& input, AcEdInputPointMonitorResult& output);
   virtual bool excludeFromOsnapCalculation(const AcArray<AcDbObjectId>&, Adesk::GsMarker)
-  { return false; }
+  {
+ return false;
+  }
 };
 class AcEdInputContextReactor
 {
@@ -406,86 +415,151 @@ class AcEdInputContextReactor
 public:
   virtual ~AcEdInputContextReactor()
   {
-   }
+
+  }
   virtual void beginGetPoint(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endGetPoint(Acad::PromptStatus, const AcGePoint3d&, const ACHAR*&)
-  { }
+  {
+
+  }
   virtual void beginGetAngle(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endGetAngle(Acad::PromptStatus, double&, const ACHAR*&)
-  { }
+  {
+
+  }
   virtual void beginGetDistance(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endGetDistance(Acad::PromptStatus, double&, const ACHAR*&)
-  { }
+  {
+
+  }
   virtual void beginGetOrientation(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endGetOrientation(Acad::PromptStatus, double&, const ACHAR*&)
-  { }
+  {
+
+  }
   virtual void beginGetCorner(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endGetCorner(Acad::PromptStatus, AcGePoint3d&, const ACHAR*&)
-  { }
+  {
+
+  }
     // *ScaleFactor is the same as *Distance, except a negative
     // value can be returned.  There is no exported ADS/LISP/ActiveX equivalent.
     //
   virtual void beginGetScaleFactor(const AcGePoint3d*, const ACHAR*, int, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endGetScaleFactor(Acad::PromptStatus, double&, const ACHAR*&)
-  { }
+  {
+
+  }
     // Begin Nongeometric value input contexts.
     // Design note:  No mistake, getstring() does NOT do keywords!
     //
   virtual void beginGetString(const ACHAR*, int)
-  { }
+  {
+
+  }
   virtual void endGetString(Acad::PromptStatus, ACHAR*)
-  { }
+  {
+
+  }
   virtual void beginGetKeyword(const ACHAR*, int, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endGetKeyword(Acad::PromptStatus, const ACHAR*&)
-  { }
+  {
+
+  }
   virtual void beginGetInteger(const int*, const ACHAR*, int, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endGetInteger(Acad::PromptStatus, int&, const ACHAR*&)
-  { }
+  {
+
+  }
     // *Color() is effectively a ranged-checked *Integer()
   virtual void beginGetColor(const int*, const ACHAR*, int, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endGetColor(Acad::PromptStatus, int&, const ACHAR*&)
-  { }
+  {
+
+  }
   virtual void beginGetReal(const double*, const ACHAR*, int, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endGetReal(Acad::PromptStatus, double&, const ACHAR*&)
-  { }
+  {
+
+  }
   virtual void beginEntsel(const ACHAR*, int, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endEntsel(Acad::PromptStatus, AcDbObjectId&, AcGePoint3d&, const ACHAR*)
-  { }
+  {
+
+  }
     // These two callbacks service both acedNEntSel() and acedNEntSelP()
     // calls.  The differences are immaterial with regard to monitoring
     // input.
     //
   virtual void beginNentsel(const ACHAR*, Adesk::Boolean, int, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endNentsel(Acad::PromptStatus, AcDbObjectId, const AcGePoint3d&, const AcGeMatrix3d&, const resbuf*, const ACHAR*)
-  { }
+  {
+
+  }
   virtual void beginSSGet(const ACHAR*, int, const ACHAR*, const ACHAR*, const AcArray<AcGePoint3d>&, const resbuf*)
-  { }
+  {
+
+  }
   virtual void endSSGet(Acad::PromptStatus, const AcArray<AcDbObjectId>&)
-  { }
+  {
+
+  }
     // These two callbacks cover internal AutoCAD drag sequences, acedDraggen()
     // and AcEdJig drag sequences also.
     //
   virtual void beginDragSequence(const ACHAR*)
-  { }
+  {
+
+  }
   virtual void endDragSequence(Acad::PromptStatus, AcGePoint3d&, AcGeVector3d&)
-  { }
+  {
+
+  }
     // Quiescent state begin/end notification
   virtual void beginQuiescentState()
-  { }
+  {
+
+  }
   virtual void endQuiescentState()
-  { }
+  {
+
+  }
 };
 #  pragma  pack (pop)
 #endif

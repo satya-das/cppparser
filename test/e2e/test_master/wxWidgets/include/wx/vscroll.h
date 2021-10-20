@@ -72,7 +72,9 @@ public:
     // a wxPaintDC is prepared, children are actually moved and laid out
     // properly, and the contents of the window (pixels) are actually moved
   void EnablePhysicalScrolling(bool scrolling = true)
-  { m_physicalScrolling = scrolling; }
+  {
+ m_physicalScrolling = scrolling;
+  }
     // wxNOT_FOUND if none, i.e. if it is below the last item
   int VirtualHitTest(wxCoord coord) const;
     // recalculate all our parameters and redisplay all units
@@ -82,18 +84,28 @@ public:
 
     // get the first currently visible unit
   size_t GetVisibleBegin() const
-  { return m_unitFirst; }
+  {
+ return m_unitFirst;
+  }
     // get the last currently visible unit
   size_t GetVisibleEnd() const
-  { return m_unitFirst + m_nUnitsVisible; }
+  {
+ return m_unitFirst + m_nUnitsVisible;
+  }
     // is this unit currently visible?
   bool IsVisible(size_t unit) const
-  { return unit >= m_unitFirst && unit < GetVisibleEnd(); }
+  {
+ return unit >= m_unitFirst && unit < GetVisibleEnd();
+  }
     // translate between scrolled and unscrolled coordinates
   int CalcScrolledPosition(int coord) const
-  {  return DoCalcScrolledPosition(coord); }
+  {
+  return DoCalcScrolledPosition(coord);
+  }
   int CalcUnscrolledPosition(int coord) const
-  {  return DoCalcUnscrolledPosition(coord); }
+  {
+  return DoCalcUnscrolledPosition(coord);
+  }
   virtual int DoCalcScrolledPosition(int coord) const;
   virtual int DoCalcUnscrolledPosition(int coord) const;
     // update the thumb size shown by the scrollbar
@@ -127,7 +139,9 @@ protected:
     // get the number of units this window contains (previously set by
     // SetUnitCount())
   size_t GetUnitCount() const
-  { return m_unitMax; }
+  {
+ return m_unitMax;
+  }
     // set the number of units the helper contains: the derived class must
     // provide the sizes for all units with indices up to the one given here
     // in its OnGetUnitSize()
@@ -161,7 +175,9 @@ protected:
     // finally note that unitMin is inclusive, while unitMax is exclusive, as
     // usual
   virtual void OnGetUnitsSizeHint(size_t, size_t) const
-  { }
+  {
+
+  }
     // when the number of units changes, we try to estimate the total size
     // of all units which is a rather expensive operation in terms of unit
     // access, so if the user code may estimate the average size
@@ -171,7 +187,9 @@ protected:
     // this function should return the best guess for the total size it may
     // make
   virtual wxCoord EstimateTotalSize() const
-  { return DoEstimateTotalSize(); }
+  {
+ return DoEstimateTotalSize();
+  }
   wxCoord DoEstimateTotalSize() const;
     // find the index of the unit we need to show to fit the specified unit on
     // the opposite side either fully or partially (depending on fullyVisible)
@@ -181,10 +199,14 @@ protected:
   wxCoord GetUnitsSize(size_t unitMin, size_t unitMax) const;
     // get the offset of the first visible unit
   wxCoord GetScrollOffset() const
-  { return GetUnitsSize(0, GetVisibleBegin()); }
+  {
+ return GetUnitsSize(0, GetVisibleBegin());
+  }
     // get the size of the target window
   wxSize GetTargetSize() const
-  { return m_targetWindow->GetClientSize(); }
+  {
+ return m_targetWindow->GetClientSize();
+  }
   void GetTargetSize(int* w, int* h)
   {
         wxSize size = GetTargetSize();
@@ -192,7 +214,7 @@ protected:
             *w = size.x;
         if ( h )
             *h = size.y;
-    }
+  }
     // calculate the new scroll position based on scroll event type
   size_t GetNewScrollPosition(wxScrollWinEvent& event) const;
     // replacement implementation of wxWindow::Layout virtual method.  To
@@ -202,7 +224,9 @@ protected:
 #  ifdef __WXMAC__
     // queue mac window update after handling scroll event
   virtual void UpdateMacScrollWindow()
-  { }
+  {
+
+  }
 #  endif
     // change the target window
   void DoSetTargetWindow(wxWindow* target);
@@ -251,57 +275,94 @@ public:
     // ctor must be given the associated window
   wxVarVScrollHelper(wxWindow* winToScroll)
     :  wxVarScrollHelperBase(winToScroll)
-    
-    {
+  {
 
-        }
+  }
     // operators
   void SetRowCount(size_t rowCount)
-  { SetUnitCount(rowCount); }
+  {
+ SetUnitCount(rowCount);
+  }
   bool ScrollToRow(size_t row)
-  { return DoScrollToUnit(row); }
+  {
+ return DoScrollToUnit(row);
+  }
   virtual bool ScrollRows(int rows)
-  { return DoScrollUnits(rows); }
+  {
+ return DoScrollUnits(rows);
+  }
   virtual bool ScrollRowPages(int pages)
-  { return DoScrollPages(pages); }
+  {
+ return DoScrollPages(pages);
+  }
   virtual void RefreshRow(size_t row)
-  { RefreshUnit(row); }
+  {
+ RefreshUnit(row);
+  }
   virtual void RefreshRows(size_t from, size_t to)
-  { RefreshUnits(from, to); }
+  {
+ RefreshUnits(from, to);
+  }
     // accessors
   size_t GetRowCount() const
-  { return GetUnitCount(); }
+  {
+ return GetUnitCount();
+  }
   size_t GetVisibleRowsBegin() const
-  { return GetVisibleBegin(); }
+  {
+ return GetVisibleBegin();
+  }
   size_t GetVisibleRowsEnd() const
-  { return GetVisibleEnd(); }
+  {
+ return GetVisibleEnd();
+  }
   bool IsRowVisible(size_t row) const
-  { return IsVisible(row); }
+  {
+ return IsVisible(row);
+  }
   int GetOrientationTargetSize() const override
-  { return GetTargetWindow()->GetClientSize().y; }
+  {
+ return GetTargetWindow()->GetClientSize().y;
+  }
   int GetNonOrientationTargetSize() const override
-  { return GetTargetWindow()->GetClientSize().x; }
+  {
+ return GetTargetWindow()->GetClientSize().x;
+  }
   wxOrientation GetOrientation() const override
-  { return wxVERTICAL; }
+  {
+ return wxVERTICAL;
+  }
 protected:
     // this function must be overridden in the derived class and it should
     // return the size of the given row in pixels
   virtual wxCoord OnGetRowHeight(size_t n) const = 0;
   wxCoord OnGetUnitSize(size_t n) const override
-  { return OnGetRowHeight(n); }
+  {
+ return OnGetRowHeight(n);
+  }
   virtual void OnGetRowsHeightHint(size_t, size_t) const
-  { }
+  {
+
+  }
     // forward calls to OnGetRowsHeightHint()
   void OnGetUnitsSizeHint(size_t unitMin, size_t unitMax) const override
-  { OnGetRowsHeightHint(unitMin, unitMax); }
+  {
+ OnGetRowsHeightHint(unitMin, unitMax);
+  }
     // again, if not overridden, it will fall back on default method
   virtual wxCoord EstimateTotalHeight() const
-  { return DoEstimateTotalSize(); }
+  {
+ return DoEstimateTotalSize();
+  }
     // forward calls to EstimateTotalHeight()
   wxCoord EstimateTotalSize() const override
-  { return EstimateTotalHeight(); }
+  {
+ return EstimateTotalHeight();
+  }
   wxCoord GetRowsHeight(size_t rowMin, size_t rowMax) const
-  { return GetUnitsSize(rowMin, rowMax); }
+  {
+ return GetUnitsSize(rowMin, rowMax);
+  }
 };
 // ===========================================================================
 // wxVarHScrollHelper
@@ -318,57 +379,94 @@ public:
     // ctor must be given the associated window
   wxVarHScrollHelper(wxWindow* winToScroll)
     :  wxVarScrollHelperBase(winToScroll)
-    
-    {
+  {
 
-        }
+  }
     // operators
   void SetColumnCount(size_t columnCount)
-  { SetUnitCount(columnCount); }
+  {
+ SetUnitCount(columnCount);
+  }
   bool ScrollToColumn(size_t column)
-  { return DoScrollToUnit(column); }
+  {
+ return DoScrollToUnit(column);
+  }
   virtual bool ScrollColumns(int columns)
-  { return DoScrollUnits(columns); }
+  {
+ return DoScrollUnits(columns);
+  }
   virtual bool ScrollColumnPages(int pages)
-  { return DoScrollPages(pages); }
+  {
+ return DoScrollPages(pages);
+  }
   virtual void RefreshColumn(size_t column)
-  { RefreshUnit(column); }
+  {
+ RefreshUnit(column);
+  }
   virtual void RefreshColumns(size_t from, size_t to)
-  { RefreshUnits(from, to); }
+  {
+ RefreshUnits(from, to);
+  }
     // accessors
   size_t GetColumnCount() const
-  { return GetUnitCount(); }
+  {
+ return GetUnitCount();
+  }
   size_t GetVisibleColumnsBegin() const
-  { return GetVisibleBegin(); }
+  {
+ return GetVisibleBegin();
+  }
   size_t GetVisibleColumnsEnd() const
-  { return GetVisibleEnd(); }
+  {
+ return GetVisibleEnd();
+  }
   bool IsColumnVisible(size_t column) const
-  { return IsVisible(column); }
+  {
+ return IsVisible(column);
+  }
   int GetOrientationTargetSize() const override
-  { return GetTargetWindow()->GetClientSize().x; }
+  {
+ return GetTargetWindow()->GetClientSize().x;
+  }
   int GetNonOrientationTargetSize() const override
-  { return GetTargetWindow()->GetClientSize().y; }
+  {
+ return GetTargetWindow()->GetClientSize().y;
+  }
   wxOrientation GetOrientation() const override
-  { return wxHORIZONTAL; }
+  {
+ return wxHORIZONTAL;
+  }
 protected:
     // this function must be overridden in the derived class and it should
     // return the size of the given column in pixels
   virtual wxCoord OnGetColumnWidth(size_t n) const = 0;
   wxCoord OnGetUnitSize(size_t n) const override
-  { return OnGetColumnWidth(n); }
+  {
+ return OnGetColumnWidth(n);
+  }
   virtual void OnGetColumnsWidthHint(size_t, size_t) const
-  { }
+  {
+
+  }
     // forward calls to OnGetColumnsWidthHint()
   void OnGetUnitsSizeHint(size_t unitMin, size_t unitMax) const override
-  { OnGetColumnsWidthHint(unitMin, unitMax); }
+  {
+ OnGetColumnsWidthHint(unitMin, unitMax);
+  }
     // again, if not overridden, it will fall back on default method
   virtual wxCoord EstimateTotalWidth() const
-  { return DoEstimateTotalSize(); }
+  {
+ return DoEstimateTotalSize();
+  }
     // forward calls to EstimateTotalWidth()
   wxCoord EstimateTotalSize() const override
-  { return EstimateTotalWidth(); }
+  {
+ return EstimateTotalWidth();
+  }
   wxCoord GetColumnsWidth(size_t columnMin, size_t columnMax) const
-  { return GetUnitsSize(columnMin, columnMax); }
+  {
+ return GetUnitsSize(columnMin, columnMax);
+  }
 };
 // ===========================================================================
 // wxVarHVScrollHelper
@@ -387,9 +485,10 @@ public:
 
     // ctor must be given the associated window
   wxVarHVScrollHelper(wxWindow* winToScroll)
-    :  wxVarVScrollHelper(winToScroll), wxVarHScrollHelper(winToScroll) 
-    {
-     }
+    :  wxVarVScrollHelper(winToScroll), wxVarHScrollHelper(winToScroll)
+  {
+
+  }
     // operators
     // ---------
 
@@ -405,18 +504,22 @@ public:
   {
         wxVarVScrollHelper::EnablePhysicalScrolling(vscrolling);
         wxVarHScrollHelper::EnablePhysicalScrolling(hscrolling);
-    }
+  }
     // scroll to the specified row/column: it will become the first visible
     // cell in the window
     //
     // return true if we scrolled the window, false if nothing was done
   bool ScrollToRowColumn(size_t row, size_t column);
   bool ScrollToRowColumn(const wxPosition& pos)
-  { return ScrollToRowColumn(pos.GetRow(), pos.GetColumn()); }
+  {
+ return ScrollToRowColumn(pos.GetRow(), pos.GetColumn());
+  }
     // redraw the specified cell
   virtual void RefreshRowColumn(size_t row, size_t column);
   virtual void RefreshRowColumn(const wxPosition& pos)
-  { RefreshRowColumn(pos.GetRow(), pos.GetColumn()); }
+  {
+ RefreshRowColumn(pos.GetRow(), pos.GetColumn());
+  }
     // redraw the specified regions (inclusive).  If the target window for
     // both orientations is the same the rectangle of cells is refreshed; if
     // the target windows differ the entire client size opposite the
@@ -426,11 +529,13 @@ public:
   {
         RefreshRowsColumns(from.GetRow(), to.GetRow(),
                           from.GetColumn(), to.GetColumn());
-    }
+  }
     // locate the virtual position from the given device coordinates
   wxPosition VirtualHitTest(wxCoord x, wxCoord y) const;
   wxPosition VirtualHitTest(const wxPoint& pos) const
-  { return VirtualHitTest(pos.x, pos.y); }
+  {
+ return VirtualHitTest(pos.x, pos.y);
+  }
     // change the DC origin according to the scroll position. To properly
     // forward calls to wxWindow::Layout use WX_FORWARD_TO_SCROLL_HELPER()
     // derived class. We use this version to call both base classes'
@@ -453,7 +558,9 @@ public:
     // is this cell currently visible?
   bool IsVisible(size_t row, size_t column) const;
   bool IsVisible(const wxPosition& pos) const
-  { return IsVisible(pos.GetRow(), pos.GetColumn()); }
+  {
+ return IsVisible(pos.GetRow(), pos.GetColumn());
+  }
 };
 #  if  WXWIN_COMPATIBILITY_2_8
 // ===========================================================================
@@ -476,10 +583,9 @@ public:
     // ---------------------
   wxVarVScrollLegacyAdaptor(wxWindow* winToScroll)
     :  wxVarVScrollHelper(winToScroll)
-    
-    {
+  {
 
-        }
+  }
     // accessors
     // ---------
 
@@ -564,20 +670,19 @@ public:
 
     // default ctor, you must call Create() later
   wxVScrolledWindow()
-    :  wxVarVScrollLegacyAdaptor(this) 
-    {
-     }
+    :  wxVarVScrollLegacyAdaptor(this)
+  {
+
+  }
     // normal ctor, no need to call Create() after this one
     //
     // note that wxVSCROLL is always automatically added to our style, there is
     // no need to specify it explicitly
   wxVScrolledWindow(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
     :  wxVarVScrollLegacyAdaptor(this)
-    
-    {
-
+  {
         (void)Create(parent, id, pos, size, style, name);
-        }
+  }
     // same as the previous ctor but returns status code: true if ok
     //
     // just as with the ctor above, wxVSCROLL style is always used, there is no
@@ -585,20 +690,26 @@ public:
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
   {
         return wxPanel::Create(parent, id, pos, size, style | wxVSCROLL, name);
-    }
+  }
 #  if  WXWIN_COMPATIBILITY_2_8
     // Make sure we prefer our version of HitTest rather than wxWindow's
     // These functions should no longer be masked in favor of VirtualHitTest()
   int HitTest(wxCoord, wxCoord y) const
-  { return wxVarVScrollHelper::VirtualHitTest(y); }
+  {
+ return wxVarVScrollHelper::VirtualHitTest(y);
+  }
   int HitTest(const wxPoint& pt) const
-  { return HitTest(pt.x, pt.y); }
+  {
+ return HitTest(pt.x, pt.y);
+  }
 #  endif
   WX_FORWARD_TO_VAR_SCROLL_HELPER()
 #  ifdef __WXMAC__
 protected:
   void UpdateMacScrollWindow() override
-  { Update(); }
+  {
+ Update();
+  }
 #  endif
   wxDECLARE_NO_COPY_CLASS(wxVScrolledWindow);
   wxDECLARE_ABSTRACT_CLASS(wxVScrolledWindow);
@@ -624,20 +735,19 @@ public:
 
     // default ctor, you must call Create() later
   wxHScrolledWindow()
-    :  wxVarHScrollHelper(this) 
-    {
-     }
+    :  wxVarHScrollHelper(this)
+  {
+
+  }
     // normal ctor, no need to call Create() after this one
     //
     // note that wxHSCROLL is always automatically added to our style, there is
     // no need to specify it explicitly
   wxHScrolledWindow(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
     :  wxVarHScrollHelper(this)
-    
-    {
-
+  {
         (void)Create(parent, id, pos, size, style, name);
-        }
+  }
     // same as the previous ctor but returns status code: true if ok
     //
     // just as with the ctor above, wxHSCROLL style is always used, there is no
@@ -645,12 +755,14 @@ public:
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
   {
         return wxPanel::Create(parent, id, pos, size, style | wxHSCROLL, name);
-    }
+  }
   WX_FORWARD_TO_VAR_SCROLL_HELPER()
 #  ifdef __WXMAC__
 protected:
   void UpdateMacScrollWindow() override
-  { Update(); }
+  {
+ Update();
+  }
 #  endif
   wxDECLARE_NO_COPY_CLASS(wxHScrolledWindow);
   wxDECLARE_ABSTRACT_CLASS(wxHScrolledWindow);
@@ -671,9 +783,10 @@ public:
     // default ctor, you must call Create() later
   wxHVScrolledWindow()
     :  wxPanel(),
-          wxVarHVScrollHelper(this) 
-    {
-     }
+          wxVarHVScrollHelper(this)
+  {
+
+  }
     // normal ctor, no need to call Create() after this one
     //
     // note that wxVSCROLL and wxHSCROLL are always automatically added to our
@@ -681,11 +794,9 @@ public:
   wxHVScrolledWindow(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
     :  wxPanel(),
           wxVarHVScrollHelper(this)
-    
-    {
-
+  {
         (void)Create(parent, id, pos, size, style, name);
-        }
+  }
     // same as the previous ctor but returns status code: true if ok
     //
     // just as with the ctor above, wxVSCROLL and wxHSCROLL styles are always
@@ -694,12 +805,14 @@ public:
   {
         return wxPanel::Create(parent, id, pos, size,
                                style | wxVSCROLL | wxHSCROLL, name);
-    }
+  }
   WX_FORWARD_TO_VAR_SCROLL_HELPER()
 #  ifdef __WXMAC__
 protected:
   void UpdateMacScrollWindow() override
-  { Update(); }
+  {
+ Update();
+  }
 #  endif
   wxDECLARE_NO_COPY_CLASS(wxHVScrolledWindow);
   wxDECLARE_ABSTRACT_CLASS(wxHVScrolledWindow);

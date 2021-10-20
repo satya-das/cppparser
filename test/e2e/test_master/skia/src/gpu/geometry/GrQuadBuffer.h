@@ -15,12 +15,11 @@ public:
   GrQuadBuffer()
     :  fCount(0)
             , fDeviceType(GrQuad::Type::kAxisAligned)
-            , fLocalType(GrQuad::Type::kAxisAligned) 
-    {
-
+            , fLocalType(GrQuad::Type::kAxisAligned)
+  {
         // Pre-allocate space for 1 2D device-space quad, metadata, and header
         fData.reserve(this->entrySize(fDeviceType, nullptr));
-        }
+  }
     // Reserves space for the given number of entries; if 'needsLocals' is true, space will be
     // reserved for each entry to also have a 2D local quad. The reserved space assumes 2D device
     // quad for simplicity. Since this buffer has a variable bitrate encoding for quads, this may
@@ -28,23 +27,28 @@ public:
   GrQuadBuffer(int count, bool needsLocals = false)
     :  fCount(0)
             , fDeviceType(GrQuad::Type::kAxisAligned)
-            , fLocalType(GrQuad::Type::kAxisAligned) 
-    {
-
+            , fLocalType(GrQuad::Type::kAxisAligned)
+  {
         int entrySize = this->entrySize(fDeviceType, needsLocals ? &fLocalType : nullptr);
         fData.reserve(count * entrySize);
-        }
+  }
     // The number of device-space quads (and metadata, and optional local quads) that are in the
     // the buffer.
   int count() const
-  { return fCount; }
+  {
+ return fCount;
+  }
     // The most general type for the device-space quads in this buffer
   GrQuad::Type deviceQuadType() const
-  { return fDeviceType; }
+  {
+ return fDeviceType;
+  }
     // The most general type for the local quads; if no local quads are ever added, this will
     // return kAxisAligned.
   GrQuad::Type localQuadType() const
-  { return fLocalType; }
+  {
+ return fLocalType;
+  }
     // Append the given 'deviceQuad' to this buffer, with its associated 'metadata'. If 'localQuad'
     // is not null, the local coordinates will also be attached to the entry. When an entry
     // has local coordinates, during iteration, the Iter::hasLocals() will return true and its
@@ -63,16 +67,19 @@ public:
                 , fLocalQuad(SkRect::MakeEmpty())
                 , fBuffer(buffer)
                 , fCurrentEntry(nullptr)
-                , fNextEntry(buffer->fData.begin()) 
-      {
-
+                , fNextEntry(buffer->fData.begin())
+    {
             SkDEBUGCODE(fExpectedCount = buffer->count();)
-              }
+    }
     bool next();
     const T& metadata() const
-    { this->validate(); return *(fBuffer->metadata(fCurrentEntry)); }
+    {
+ this->validate(); return *(fBuffer->metadata(fCurrentEntry));
+    }
     const GrQuad& deviceQuad() const
-    { this->validate(); return fDeviceQuad; }
+    {
+ this->validate(); return fDeviceQuad;
+    }
         // If isLocalValid() returns false, this returns an empty quad (all 0s) so that localQuad()
         // can be called without triggering any sanitizers, for convenience when some other state
         // ensures that the quad will eventually not be used.
@@ -80,12 +87,12 @@ public:
     {
             this->validate();
             return fLocalQuad;
-        }
+    }
     bool isLocalValid() const
     {
             this->validate();
             return fBuffer->header(fCurrentEntry)->fHasLocals;
-        }
+    }
   private:
         // Quads are stored locally so that calling code doesn't need to re-declare their own quads
     GrQuad fDeviceQuad;
@@ -99,10 +106,12 @@ public:
     void validate() const
     {
             SkDEBUGCODE(fBuffer->validate(fCurrentEntry, fExpectedCount);)
-        }
+    }
   };
   Iter iterator() const
-  { return Iter(this); }
+  {
+ return Iter(this);
+  }
     // Provides a *mutable* iterator over just the metadata stored in the quad buffer. This skips
     // unpacking the device and local quads into GrQuads and is intended for use during op
     // finalization, which may require rewriting state such as color.
@@ -111,26 +120,31 @@ public:
   public:
     MetadataIter(GrQuadBuffer<T>* list)
       :  fBuffer(list)
-                , fCurrentEntry(nullptr) 
-      {
-
+                , fCurrentEntry(nullptr)
+    {
             SkDEBUGCODE(fExpectedCount = list->count();)
-              }
+    }
     bool next();
     T& operator*()
-    { this->validate(); return *(fBuffer->metadata(fCurrentEntry)); }
+    {
+ this->validate(); return *(fBuffer->metadata(fCurrentEntry));
+    }
     T* operator->()
-    { this->validate(); return fBuffer->metadata(fCurrentEntry); }
+    {
+ this->validate(); return fBuffer->metadata(fCurrentEntry);
+    }
   private:
     GrQuadBuffer<T>* fBuffer;
     char* fCurrentEntry;
     void validate() const
     {
             SkDEBUGCODE(fBuffer->validate(fCurrentEntry, fExpectedCount);)
-        }
+    }
   };
   MetadataIter metadata()
-  { return MetadataIter(this); }
+  {
+ return MetadataIter(this);
+  }
 private:
   struct alignas(int32_t) Header
   {
@@ -173,7 +187,7 @@ private:
                                                               : k2DQuadFloats) * sizeof(float);
         }
         return size;
-    }
+  }
   inline int entrySize(const Header* header) const
   {
         if (header->fHasLocals) {
@@ -182,32 +196,32 @@ private:
         } else {
             return this->entrySize(static_cast<GrQuad::Type>(header->fDeviceType), nullptr);
         }
-    }
+  }
     // Helpers to access typed sections of the buffer, given the start of an entry
   inline Header* header(char* entry)
   {
         return static_cast<Header*>(static_cast<void*>(entry));
-    }
+  }
   inline const Header* header(const char* entry) const
   {
         return static_cast<const Header*>(static_cast<const void*>(entry));
-    }
+  }
   inline T* metadata(char* entry)
   {
         return static_cast<T*>(static_cast<void*>(entry + sizeof(Header)));
-    }
+  }
   inline const T* metadata(const char* entry) const
   {
         return static_cast<const T*>(static_cast<const void*>(entry + sizeof(Header)));
-    }
+  }
   inline float* coords(char* entry)
   {
         return static_cast<float*>(static_cast<void*>(entry + kMetaSize));
-    }
+  }
   inline const float* coords(const char* entry) const
   {
         return static_cast<const float*>(static_cast<const void*>(entry + kMetaSize));
-    }
+  }
     // Helpers to convert from coordinates to GrQuad and vice versa, returning pointer to the
     // next packed quad coordinates.
   float* packQuad(const GrQuad& quad, float* coords);

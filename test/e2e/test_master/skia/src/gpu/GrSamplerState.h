@@ -13,26 +13,32 @@
 class GrSamplerState
 {
 public:
-  enum class Filter : uint8_t { kNearest, kBilerp, kMipMap };
-  enum class WrapMode : uint8_t { kClamp, kRepeat, kMirrorRepeat, kClampToBorder };
+  enum class Filter : uint8_t {
+ kNearest, kBilerp, kMipMap
+  };
+  enum class WrapMode : uint8_t {
+ kClamp, kRepeat, kMirrorRepeat, kClampToBorder
+  };
   static constexpr GrSamplerState ClampNearest()
-  { return GrSamplerState(); }
+  {
+ return GrSamplerState();
+  }
   static constexpr GrSamplerState ClampBilerp()
   {
         return GrSamplerState(WrapMode::kClamp, Filter::kBilerp);
-    }
+  }
   GrSamplerState()
-    :  GrSamplerState(WrapMode::kClamp, Filter::kNearest) 
-    {
-    }
+    :  GrSamplerState(WrapMode::kClamp, Filter::kNearest)
+  {
+  }
   GrSamplerState(WrapMode wrapXAndY, Filter filter)
-    :  fWrapModes{wrapXAndY, wrapXAndY}, fFilter(filter) 
-    {
-    }
+    :  fWrapModes{wrapXAndY, wrapXAndY}, fFilter(filter)
+  {
+  }
   GrSamplerState(const WrapMode wrapModes[2], Filter filter)
-    :  fWrapModes{wrapModes[0], wrapModes[1]}, fFilter(filter) 
-    {
-    }
+    :  fWrapModes{wrapModes[0], wrapModes[1]}, fFilter(filter)
+  {
+  }
   GrSamplerState(const GrSamplerState&);
   GrSamplerState& operator=(const GrSamplerState& that)
   {
@@ -40,31 +46,45 @@ public:
         fWrapModes[1] = that.fWrapModes[1];
         fFilter = that.fFilter;
         return *this;
-    }
+  }
   Filter filter() const
-  { return fFilter; }
+  {
+ return fFilter;
+  }
   void setFilterMode(Filter filterMode)
-  { fFilter = filterMode; }
+  {
+ fFilter = filterMode;
+  }
   void setWrapModeX(const WrapMode wrap)
-  { fWrapModes[0] = wrap; }
+  {
+ fWrapModes[0] = wrap;
+  }
   void setWrapModeY(const WrapMode wrap)
-  { fWrapModes[1] = wrap; }
+  {
+ fWrapModes[1] = wrap;
+  }
   WrapMode wrapModeX() const
-  { return fWrapModes[0]; }
+  {
+ return fWrapModes[0];
+  }
   WrapMode wrapModeY() const
-  { return fWrapModes[1]; }
+  {
+ return fWrapModes[1];
+  }
   bool isRepeated() const
   {
         return (WrapMode::kClamp != fWrapModes[0] && WrapMode::kClampToBorder != fWrapModes[0]) ||
                (WrapMode::kClamp != fWrapModes[1] && WrapMode::kClampToBorder != fWrapModes[1]);
-    }
+  }
   bool operator==(const GrSamplerState& that) const
   {
         return fWrapModes[0] == that.fWrapModes[0] && fWrapModes[1] == that.fWrapModes[1] &&
                fFilter == that.fFilter;
-    }
+  }
   bool operator!=(const GrSamplerState& that) const
-  { return !(*this == that); }
+  {
+ return !(*this == that);
+  }
 private:
   WrapMode fWrapModes[2];
   Filter fFilter;

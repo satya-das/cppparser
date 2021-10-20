@@ -99,7 +99,7 @@ public:
         ID_RICHTEXTTABSPAGE_NEW_TAB = 10201,
         ID_RICHTEXTTABSPAGE_DELETE_TAB = 10202,
         ID_RICHTEXTTABSPAGE_DELETE_ALL_TABS = 10203
-    };
+  };
 ////@end wxRichTextTabsPage member variables
   bool m_tabsPresent;
 };

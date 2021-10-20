@@ -32,20 +32,29 @@ public:
     // constructor
   wxStaticLineBase()
   {
-   }
+
+  }
     // is the line vertical?
   bool IsVertical() const
-  { return (GetWindowStyle() & wxLI_VERTICAL) != 0; }
+  {
+ return (GetWindowStyle() & wxLI_VERTICAL) != 0;
+  }
     // get the default size for the "lesser" dimension of the static line
   static int GetDefaultSize()
-  { return 2; }
+  {
+ return 2;
+  }
     // overridden base class virtuals
   bool AcceptsFocus() const override
-  { return false; }
+  {
+ return false;
+  }
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
     // set the right size for the right dimension
   wxSize AdjustSize(const wxSize& size) const
   {
@@ -62,11 +71,11 @@ protected:
         }
 
         return sizeReal;
-    }
+  }
   wxSize DoGetBestSize() const override
   {
         return AdjustSize(wxDefaultSize);
-    }
+  }
   wxDECLARE_NO_COPY_CLASS(wxStaticLineBase);
 };
 // ----------------------------------------------------------------------------

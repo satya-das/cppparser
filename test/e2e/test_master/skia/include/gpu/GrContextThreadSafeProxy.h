@@ -62,15 +62,17 @@ public:
   GrBackendFormat defaultBackendFormat(SkColorType ct, GrRenderable renderable) const
   {
         return INHERITED::defaultBackendFormat(ct, renderable);
-    }
+  }
   bool operator==(const GrContextThreadSafeProxy& that) const
   {
         // Each GrContext should only ever have a single thread-safe proxy.
         SkASSERT((this == &that) == (this->contextID() == that.contextID()));
         return this == &that;
-    }
+  }
   bool operator!=(const GrContextThreadSafeProxy& that) const
-  { return !(*this == that); }
+  {
+ return !(*this == that);
+  }
     // Provides access to functions that aren't part of the public API.
   GrContextThreadSafeProxyPriv priv();
   const GrContextThreadSafeProxyPriv priv() const;

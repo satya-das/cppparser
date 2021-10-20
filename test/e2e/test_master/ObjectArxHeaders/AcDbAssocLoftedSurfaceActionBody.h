@@ -52,7 +52,7 @@ public:
         /// </summary>
         ///
         kEndGuide           = 0x08
-    };
+  };
   ACRX_DECLARE_MEMBERS(AcDbAssocLoftedSurfaceActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject explanation. </param>

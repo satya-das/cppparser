@@ -63,7 +63,7 @@ public:
 
         /// Message catalog resources category.
         ResourceCat_Messages
-    };
+  };
     /// Possible values for userDir parameter of GetUserDir().
   enum Dir {
         /**
@@ -120,7 +120,7 @@ public:
             - Mac: @c ~/Movies
         */
         Dir_Videos
-    };
+  };
     /**
         MSW-specific function undoing the effect of IgnoreAppSubDir() calls.
 

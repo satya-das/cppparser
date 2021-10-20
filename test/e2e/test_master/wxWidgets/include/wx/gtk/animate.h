@@ -22,14 +22,14 @@ class WXDLLIMPEXP_ADV wxAnimationCtrl : public wxAnimationCtrlBase
 public:
   wxAnimationCtrl()
   {
- Init();   }
+ Init();
+  }
   wxAnimationCtrl(wxWindow* parent, wxWindowID id, const wxAnimation& anim = wxNullAnimation, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxAC_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxAnimationCtrlNameStr))
   {
-
         Init();
 
         Create(parent, id, anim, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxAnimation& anim = wxNullAnimation, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxAC_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxAnimationCtrlNameStr));
   ~wxAnimationCtrl();
   void OnTimer(wxTimerEvent&);

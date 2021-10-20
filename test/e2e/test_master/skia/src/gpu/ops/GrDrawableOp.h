@@ -17,12 +17,14 @@ public:
   DEFINE_OP_CLASS_ID
   static std::unique_ptr<GrDrawableOp> Make(GrRecordingContext*, std::unique_ptr<SkDrawable::GpuDrawHandler> drawable, const SkRect& bounds);
   const char* name() const override
-  { return "Drawable"; }
+  {
+ return "Drawable";
+  }
 #  ifdef SK_DEBUG
   SkString dumpInfo() const override
   {
         return INHERITED::dumpInfo();
-    }
+  }
 #  endif
 private:
   friend class GrOpMemoryPool;
@@ -30,7 +32,7 @@ private:
   CombineResult onCombineIfPossible(GrOp* that, const GrCaps& caps) override
   {
         return CombineResult::kCannotCombine;
-    }
+  }
   void onPrepare(GrOpFlushState*) override
   {
   }

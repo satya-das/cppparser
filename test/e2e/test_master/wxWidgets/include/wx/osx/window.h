@@ -39,11 +39,11 @@ public:
   bool ShowWithEffect(wxShowEffect effect, unsigned timeout = 0) override
   {
         return OSXShowWithEffect(true, effect, timeout);
-    }
+  }
   bool HideWithEffect(wxShowEffect effect, unsigned timeout = 0) override
   {
         return OSXShowWithEffect(false, effect, timeout);
-    }
+  }
   void SetFocus() override;
   void WarpPointer(int x, int y) override;
   bool EnableTouchEvents(int eventsMask) override;
@@ -69,7 +69,7 @@ public:
   {
         return orient == wxHORIZONTAL ? m_hScrollBarAlwaysShown
                                       : m_vScrollBarAlwaysShown;
-    }
+  }
   bool Reparent(wxWindowBase* newParent) override;
 #  if  wxUSE_HOTKEY && wxOSX_USE_COCOA_OR_CARBON
     // hot keys (system wide accelerators)
@@ -102,7 +102,9 @@ public:
   bool AcceptsFocus() const override;
   void EnableVisibleFocus(bool enabled) override;
   bool IsDoubleBuffered() const override
-  { return true; }
+  {
+ return true;
+  }
   static long MacRemoveBordersFromStyle(long style);
     // For implementation purposes:
     // sometimes decorations make the client area smaller
@@ -153,23 +155,33 @@ public:
     // returns true if children have to clipped to the content area
     // (e.g., scrolled windows)
   bool MacClipChildren() const
-  { return m_clipChildren ; }
+  {
+ return m_clipChildren ;
+  }
   void MacSetClipChildren(bool clip)
-  { m_clipChildren = clip ; }
+  {
+ m_clipChildren = clip ;
+  }
     // returns true if the grandchildren need to be clipped to the children's content area
     // (e.g., splitter windows)
   virtual bool MacClipGrandChildren() const
-  { return false ; }
+  {
+ return false ;
+  }
   bool MacIsWindowScrollbar(const wxWindow* sb) const
-  { return ((wxWindow*)m_hScrollBar == sb || (wxWindow*)m_vScrollBar == sb) ; }
+  {
+ return ((wxWindow*)m_hScrollBar == sb || (wxWindow*)m_vScrollBar == sb) ;
+  }
   bool IsClientAreaChild(const wxWindow* child) const override
   {
         return !MacIsWindowScrollbar(child) && !((wxWindow*)m_growBox==child) &&
                wxWindowBase::IsClientAreaChild(child);
-    }
+  }
   void MacPostControlCreate(const wxPoint& pos, const wxSize& size);
   wxList& GetSubcontrols()
-  { return m_subControls; }
+  {
+ return m_subControls;
+  }
     // translate wxWidgets coords into ones suitable
     // to be passed to CreateControl calls
     //
@@ -196,15 +208,21 @@ public:
   virtual void* OSXGetViewOrWindow() const;
 #  endif
   void* MacGetCGContextRef()
-  { return m_cgContextRef ; }
+  {
+ return m_cgContextRef ;
+  }
   void MacSetCGContextRef(void* cg)
-  { m_cgContextRef = cg ; }
+  {
+ m_cgContextRef = cg ;
+  }
     // osx specific event handling common for all osx-ports
   virtual bool OSXHandleClicked(double timestampsec);
   virtual bool OSXHandleKeyEvent(wxKeyEvent& event);
   virtual void OSXSimulateFocusEvents();
   bool IsNativeWindowWrapper() const
-  { return m_isNativeWindowWrapper; }
+  {
+ return m_isNativeWindowWrapper;
+  }
   double GetContentScaleFactor() const override;
     // internal response to size events
   virtual void MacOnInternalSize()

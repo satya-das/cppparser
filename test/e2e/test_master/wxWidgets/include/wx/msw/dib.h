@@ -31,28 +31,34 @@ public:
     // returns true
   wxDIB(int width, int height, int depth)
   {
- Init(); (void)Create(width, height, depth);   }
+ Init(); (void)Create(width, height, depth);
+  }
 #    ifdef __WXMSW__
     // create a DIB from the DDB
   wxDIB(const wxBitmap& bmp, int depth = -1)
   {
- Init(); (void)Create(bmp, depth);   }
+ Init(); (void)Create(bmp, depth);
+  }
 #    endif
     // create a DIB from the Windows DDB
   wxDIB(HBITMAP hbmp)
   {
- Init(); (void)Create(hbmp);   }
+ Init(); (void)Create(hbmp);
+  }
     // load a DIB from file (any depth is supoprted here unlike above)
     //
     // as above, use IsOk() to see if the bitmap was loaded successfully
   wxDIB(const wxString& filename)
   {
- Init(); (void)Load(filename);   }
+ Init(); (void)Load(filename);
+  }
     // same as the corresponding ctors but with return value
   bool Create(int width, int height, int depth);
 #    ifdef __WXMSW__
   bool Create(const wxBitmap& bmp, int depth = -1)
-  { return Create(GetHbitmapOf(bmp), depth); }
+  {
+ return Create(GetHbitmapOf(bmp), depth);
+  }
 #    endif
   bool Create(HBITMAP hbmp, int depth = -1);
   bool Load(const wxString& filename);
@@ -68,7 +74,9 @@ public:
     // get the handle from the DIB and reset it, i.e. this object won't destroy
     // the DIB after this (but the caller should do it)
   HBITMAP Detach()
-  { HBITMAP hbmp = m_handle; m_handle = NULL; return hbmp; }
+  {
+ HBITMAP hbmp = m_handle; m_handle = NULL; return hbmp;
+  }
 #    if  defined(__WXMSW__) && wxUSE_PALETTE
     // create a palette for this DIB (always a trivial/default one for 24bpp)
   wxPalette* CreatePalette() const;
@@ -80,24 +88,38 @@ public:
 
     // return true if DIB was successfully created, false otherwise
   bool IsOk() const
-  { return m_handle != NULL; }
+  {
+ return m_handle != NULL;
+  }
     // get the bitmap size
   wxSize GetSize() const
-  { DoGetObject(); return wxSize(m_width, m_height); }
+  {
+ DoGetObject(); return wxSize(m_width, m_height);
+  }
   int GetWidth() const
-  { DoGetObject(); return m_width; }
+  {
+ DoGetObject(); return m_width;
+  }
   int GetHeight() const
-  { DoGetObject(); return m_height; }
+  {
+ DoGetObject(); return m_height;
+  }
     // get the number of bits per pixel, or depth
   int GetDepth() const
-  { DoGetObject(); return m_depth; }
+  {
+ DoGetObject(); return m_depth;
+  }
     // get the DIB handle
   HBITMAP GetHandle() const
-  { return m_handle; }
+  {
+ return m_handle;
+  }
     // get raw pointer to bitmap bits, you should know what you do if you
     // decide to use it
   unsigned char* GetData() const
-  { DoGetObject(); return (unsigned char *)m_data; }
+  {
+ DoGetObject(); return (unsigned char *)m_data;
+  }
     // HBITMAP conversion
     // ------------------
 
@@ -124,7 +146,7 @@ public:
   enum PixelFormat {
         PixelFormat_PreMultiplied = 0,
         PixelFormat_NotPreMultiplied = 1
-    };
+  };
     // Create a DIB from the given image, the DIB will be either 24 or 32 (if
     // the image has alpha channel) bpp.
     //
@@ -134,10 +156,9 @@ public:
     // does pre-multiplication internally.
   wxDIB(const wxImage& image, PixelFormat pf = PixelFormat_PreMultiplied, int depth = -1)
   {
-
         Init();
         (void)Create(image, pf, depth);
-      }
+  }
     // same as the above ctor but with the return code
   bool Create(const wxImage& image, PixelFormat pf = PixelFormat_PreMultiplied, int depth = -1);
     // create wxImage having the same data as this DIB
@@ -150,7 +171,7 @@ public:
         // Assume that 32bpp DIB contains valid alpha channel and always
         // return wxImage with alpha channel values in this case.
         Convert_AlphaAlwaysIf32bpp
-    };
+  };
   wxImage ConvertToImage(ConversionFlags flags = Convert_AlphaAuto) const;
 #    endif
     // helper functions
@@ -162,7 +183,7 @@ public:
   static unsigned long GetLineSize(int width, int depth)
   {
         return ((width*depth + 31) & ~31) >> 3;
-    }
+  }
 private:
     // common part of all ctors
   void Init();
@@ -223,7 +244,6 @@ inline void wxDIB::Free()
 }
 inline wxDIB::~wxDIB()
 {
-
     Free();
 }
 #  endif

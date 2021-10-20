@@ -19,7 +19,7 @@ struct SkEdge
         kLine_Type,
         kQuad_Type,
         kCubic_Type
-    };
+  };
   SkEdge* fNext;
   SkEdge* fPrev;
   SkFixed fX;
@@ -39,12 +39,12 @@ struct SkEdge
   {
         SkASSERT(fFirstY < clip.fBottom);
         return fLastY >= clip.fTop;
-    }
+  }
 #  ifdef SK_DEBUG
   void dump() const
   {
         SkDebugf("edge: firstY:%d lastY:%d x:%g dx:%g w:%d\n", fFirstY, fLastY, SkFixedToFloat(fX), SkFixedToFloat(fDX), fWinding);
-    }
+  }
   void validate() const
   {
         SkASSERT(fPrev && fNext);
@@ -53,7 +53,7 @@ struct SkEdge
 
         SkASSERT(fFirstY <= fLastY);
         SkASSERT(SkAbs32(fWinding) == 1);
-    }
+  }
 #  endif
 };
 struct SkQuadraticEdge : public SkEdge

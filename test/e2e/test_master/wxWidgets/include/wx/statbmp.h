@@ -24,10 +24,11 @@ public:
         Scale_Fill,
         Scale_AspectFit,
         Scale_AspectFill
-    };
+  };
   wxStaticBitmapBase()
   {
-   }
+
+  }
   virtual ~wxStaticBitmapBase();
     // our interface
   virtual void SetIcon(const wxIcon& icon) = 0;
@@ -40,18 +41,28 @@ public:
     return wxIcon();
   }
   virtual void SetScaleMode(ScaleMode)
-  { }
+  {
+
+  }
   virtual ScaleMode GetScaleMode() const
-  { return Scale_None; }
+  {
+ return Scale_None;
+  }
     // overridden base class virtuals
   bool AcceptsFocus() const override
-  { return false; }
+  {
+ return false;
+  }
   bool HasTransparentBackground() override
-  { return true; }
+  {
+ return true;
+  }
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
   wxSize DoGetBestSize() const override;
   wxDECLARE_NO_COPY_CLASS(wxStaticBitmapBase);
 };

@@ -77,9 +77,8 @@ class WXDLLIMPEXP_CORE wxAnimationDecoder : public wxObjectRefData
 public:
   wxAnimationDecoder()
   {
-
         m_nFrames = 0;
-      }
+  }
   virtual bool Load(wxInputStream& stream) = 0;
   bool CanRead(wxInputStream& stream) const
   {
@@ -101,7 +100,7 @@ public:
         }
 
         return ok;
-    }
+  }
   virtual wxAnimationDecoder* Clone() const = 0;
   virtual wxAnimationType GetType() const = 0;
     // convert given frame to wxImage
@@ -124,11 +123,17 @@ public:
   virtual wxColour GetTransparentColour(unsigned int frame) const = 0;
     // get global data
   wxSize GetAnimationSize() const
-  { return m_szAnimation; }
+  {
+ return m_szAnimation;
+  }
   wxColour GetBackgroundColour() const
-  { return m_background; }
+  {
+ return m_background;
+  }
   unsigned int GetFrameCount() const
-  { return m_nFrames; }
+  {
+ return m_nFrames;
+  }
 protected:
     // checks the signature of the data in the given stream and returns true if it
     // appears to be a valid animation format recognized by the animation decoder;

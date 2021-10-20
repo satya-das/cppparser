@@ -29,7 +29,9 @@ namespace SkPDFGradientShader
   struct KeyHash
   {
     uint32_t operator()(const Key& k) const
-    { return k.fHash; }
+    {
+ return k.fHash;
+    }
   };
   inline bool operator==(const SkShader::GradientInfo& u, const SkShader::GradientInfo& v)
   {
@@ -42,7 +44,7 @@ namespace SkPDFGradientShader
         && u.fGradientFlags == v.fGradientFlags
         && SkPackedArrayEqual(u.fColors, v.fColors, u.fColorCount)
         && SkPackedArrayEqual(u.fColorOffsets, v.fColorOffsets, u.fColorCount);
-}
+  }
   inline bool operator==(const Key& u, const Key& v)
   {
     SkASSERT(u.fInfo.fColors       == u.fColors.get());
@@ -54,8 +56,10 @@ namespace SkPDFGradientShader
         && u.fCanvasTransform == v.fCanvasTransform
         && u.fShaderTransform == v.fShaderTransform
         && u.fBBox            == v.fBBox;
-}
+  }
   inline bool operator!=(const Key& u, const Key& v)
-  { return !(u == v); }
+  {
+ return !(u == v);
+  }
 }
 #endif

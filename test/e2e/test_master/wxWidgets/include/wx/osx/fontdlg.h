@@ -35,7 +35,9 @@ public:
   bool Create(wxWindow* parent, const wxFontData& data);
   int ShowModal() override;
   wxFontData& GetFontData()
-  { return m_fontData; }
+  {
+ return m_fontData;
+  }
 protected:
   wxFontData m_fontData;
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxFontDialog);
@@ -80,7 +82,9 @@ public:
   bool Create(wxWindow* parent, const wxFontData& data);
   int ShowModal();
   wxFontData& GetFontData()
-  { return m_fontData; }
+  {
+ return m_fontData;
+  }
   bool IsShown() const;
   void OnPanelClose();
   void SetData(const wxFontData& data);

@@ -347,28 +347,28 @@ namespace PoDoFo
   unsigned long PdfFontMetrics::CharWidthMM(unsigned char c) const
   {
     return static_cast<unsigned long>(this->CharWidth( c ) / PODOFO_CONVERSION_CONSTANT);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   double PdfFontMetrics::StringWidth(const PdfString& rsString) const
   {
     return (rsString.IsUnicode() ?  this->StringWidth( rsString.GetUnicode() ) : this->StringWidth( rsString.GetString() ));
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   unsigned long PdfFontMetrics::StringWidthMM(const char* pszText, unsigned int nLength) const
   {
     return static_cast<unsigned long>(this->StringWidth( pszText, nLength ) / PODOFO_CONVERSION_CONSTANT);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   unsigned long PdfFontMetrics::StringWidthMM(const pdf_utf16be* pszText, unsigned int nLength) const
   {
     return static_cast<unsigned long>(this->StringWidth( pszText, nLength ) / PODOFO_CONVERSION_CONSTANT);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
@@ -378,7 +378,7 @@ namespace PoDoFo
   unsigned long PdfFontMetrics::StringWidthMM(const wchar_t* pszText, unsigned int nLength) const
   {
     return static_cast<unsigned long>(this->StringWidth( pszText, nLength ) / PODOFO_CONVERSION_CONSTANT);
-}
+  }
 #    endif
 #  endif
 // -----------------------------------------------------
@@ -387,118 +387,118 @@ namespace PoDoFo
   unsigned long PdfFontMetrics::GetLineSpacingMM() const
   {
     return static_cast<unsigned long>(this->GetLineSpacing() / PODOFO_CONVERSION_CONSTANT);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   long PdfFontMetrics::GetUnderlinePositionMM() const
   {
     return static_cast<long>(this->GetUnderlinePosition() /  PODOFO_CONVERSION_CONSTANT);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   unsigned long PdfFontMetrics::GetStrikeOutPositionMM() const
   {
     return static_cast<long>(this->GetStrikeOutPosition() /  PODOFO_CONVERSION_CONSTANT);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   unsigned long PdfFontMetrics::GetUnderlineThicknessMM() const
   {
     return static_cast<unsigned long>(this->GetUnderlineThickness() / PODOFO_CONVERSION_CONSTANT);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   unsigned long PdfFontMetrics::GetStrikeoutThicknessMM() const
   {
     return static_cast<unsigned long>(this->GetStrikeoutThickness() / PODOFO_CONVERSION_CONSTANT);
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   const char* PdfFontMetrics::GetFilename() const
   {
     return m_sFilename.c_str();
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   EPdfFontType PdfFontMetrics::GetFontType() const
   {
     return m_eFontType;
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   void PdfFontMetrics::SetFontType(EPdfFontType eFontType)
   {
     m_eFontType = eFontType;
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   float PdfFontMetrics::GetFontSize() const
   {
     return m_fFontSize;
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   void PdfFontMetrics::SetFontSize(float fSize)
   {
     m_fFontSize = fSize;
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   float PdfFontMetrics::GetFontScale() const
   {
     return m_fFontScale;
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   float PdfFontMetrics::GetFontCharSpace() const
   {
     return m_fFontCharSpace;
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   inline float PdfFontMetrics::GetWordSpace() const
   {
     return m_fWordSpace;
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   const char* PdfFontMetrics::GetSubsetFontnamePrefix() const
   {
     return m_sFontSubsetPrefix.c_str();
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   void PdfFontMetrics::SetFontScale(float fScale)
   {
     m_fFontScale = fScale;
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   void PdfFontMetrics::SetFontCharSpace(float fCharSpace)
   {
     m_fFontCharSpace = fCharSpace;
-}
+  }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   inline void PdfFontMetrics::SetWordSpace(float fWordSpace)
   {
     m_fWordSpace = fWordSpace;
-}
+  }
 }
 #endif

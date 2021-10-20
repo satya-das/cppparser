@@ -20,9 +20,9 @@ namespace SkSL
     , fIsStatic(isStatic)
     , fTest(std::move(test))
     , fIfTrue(std::move(ifTrue))
-    , fIfFalse(std::move(ifFalse)) 
-      {
-      }
+    , fIfFalse(std::move(ifFalse))
+    {
+    }
     std::unique_ptr<Statement> clone() const override
     {
         return std::unique_ptr<Statement>(new IfStatement(fOffset, fIsStatic, fTest->clone(),

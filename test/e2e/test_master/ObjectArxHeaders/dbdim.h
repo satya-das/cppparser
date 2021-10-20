@@ -122,7 +122,9 @@ public:
   AcGeVector3d normal() const;
   Acad::ErrorStatus setNormal(const AcGeVector3d&);
   Adesk::Boolean isPlanar() const override
-  { return true; }
+  {
+ return true;
+  }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
   double elevation() const;
   Acad::ErrorStatus setElevation(double);
@@ -234,7 +236,7 @@ public:
         kShapeNone    = 4,     // No bounding shape
         kShapeLabel   = 0x10,  // Label separator and alpha field displayed
         kShapeRate    = 0x20,  // Shape separator and alpha field displayed
-    };
+  };
   bool inspection() const;
   Acad::ErrorStatus setInspection(bool val);
   int inspectionFrame() const;
@@ -295,9 +297,11 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus setToleranceSuppressLeadingZeros(bool);
   ACDBCORE2D_PORT bool toleranceSuppressZeroInches() const;
   ACDBCORE2D_PORT Acad::ErrorStatus setToleranceSuppressZeroInches(bool);
-  enum CenterMarkType { kMark       = 0,
+  enum CenterMarkType {
+ kMark       = 0,
                             kLine       = 1,
-                            kNone       = 2 };
+                            kNone       = 2
+  };
   ACDBCORE2D_PORT AcDbDimension::CenterMarkType centerMarkType() const;
 protected:
     /// <summary>

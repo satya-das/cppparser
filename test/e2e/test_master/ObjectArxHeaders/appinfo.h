@@ -29,12 +29,12 @@ public:
         kRetry       = 1,
         kShowMsg     = 2,
         kNoModule    = 3
-    };
+  };
   enum MgdType {
         kUnManaged   = 0,
         kManaged     = 1,
         kJavaScript  = 2
-    };
+  };
     /// <summary>
     /// Optimization flags that can be passed to readFromRegistry
     /// </summary>
@@ -46,8 +46,8 @@ public:
         /// <summary>
         /// skip findFile, moduleName will return the string as found in the registry
         /// </summary>
-        kSkipFindFileForModuleName = 1 
-    };
+        kSkipFindFileForModuleName = 1
+  };
   typedef AcadAppInfo::CmdStatus (*LoaderFunPtr) (void*);
   AcadAppInfo();
   virtual ~AcadAppInfo();

@@ -29,7 +29,7 @@ public:
         kPlotHadSystemError     = 4,
         kViewPlottedFile        = 5,
         kViewFileWhenSuccessful = 6
-    };
+  };
   virtual AcPlPlotLogger* getPlotLogger(void) = 0;
   virtual const AcadPlotInternalServices* acadInternalServices() = 0;
   virtual void updatePlotJobStatus(enum AcPlHostAppServices::PlotStatus nStatus, const ACHAR* szPlotMsg) = 0;

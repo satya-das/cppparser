@@ -266,8 +266,8 @@ namespace PoDoFo
 // 
 // -----------------------------------------------------
   FT_Face PdfFontMetricsFreetype::GetFace()
-  { 
-    return m_pFace; 
-}
+  {
+    return m_pFace;
+  }
 }
 #endif

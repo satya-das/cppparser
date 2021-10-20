@@ -72,16 +72,16 @@ namespace SkSL
             kUniform,
             kChildProcessor,
             kFunctionName
-        };
+      };
       FormatArg(Kind kind)
-        :  fKind(kind) 
-        {
-        }
+        :  fKind(kind)
+      {
+      }
       FormatArg(Kind kind, int index)
         :  fKind(kind)
-                , fIndex(index) 
-        {
-        }
+                , fIndex(index)
+      {
+      }
       Kind fKind;
       int fIndex;
     };

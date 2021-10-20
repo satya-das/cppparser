@@ -16,14 +16,14 @@ class WXDLLIMPEXP_CORE wxCheckBox : public wxCheckBoxBase
 public:
   inline wxCheckBox()
   {
- Init();   }
+ Init();
+  }
   inline wxCheckBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr))
   {
-
         Init();
 
         Create(parent, id, label, pos, size, style, validator, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr));
   virtual void SetValue(bool);
   virtual bool GetValue() const;
@@ -35,7 +35,7 @@ private:
   void Init()
   {
         m_evtType = wxEVT_CHECKBOX;
-    }
+  }
   virtual void DoSet3StateValue(wxCheckBoxState state);
   virtual wxCheckBoxState DoGet3StateValue() const;
     // public for the callback

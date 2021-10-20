@@ -21,7 +21,7 @@ struct SkRSXform
   {
         SkRSXform xform = { scos, ssin, tx, ty };
         return xform;
-    }
+  }
     /*
      *  Initialize a new xform based on the scale, rotation (in radians), final tx,ty location
      *  and anchor-point ax,ay within the src quad.
@@ -33,7 +33,7 @@ struct SkRSXform
         const SkScalar s = SkScalarSin(radians) * scale;
         const SkScalar c = SkScalarCos(radians) * scale;
         return Make(c, s, tx + -c * ax + s * ay, ty + -s * ax - c * ay);
-    }
+  }
   SkScalar fSCos;
   SkScalar fSSin;
   SkScalar fTx;
@@ -41,24 +41,24 @@ struct SkRSXform
   bool rectStaysRect() const
   {
         return 0 == fSCos || 0 == fSSin;
-    }
+  }
   void setIdentity()
   {
         fSCos = 1;
         fSSin = fTx = fTy = 0;
-    }
+  }
   void set(SkScalar scos, SkScalar ssin, SkScalar tx, SkScalar ty)
   {
         fSCos = scos;
         fSSin = ssin;
         fTx = tx;
         fTy = ty;
-    }
+  }
   void toQuad(SkScalar width, SkScalar height, SkPoint quad[4]) const;
   void toQuad(const SkSize& size, SkPoint quad[4]) const
   {
         this->toQuad(size.width(), size.height(), quad);
-    }
+  }
   void toTriStrip(SkScalar width, SkScalar height, SkPoint strip[4]) const;
 };
 #endif

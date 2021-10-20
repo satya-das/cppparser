@@ -17,7 +17,8 @@ class WXDLLIMPEXP_CORE wxTextCtrl : public wxTextCtrlBase
 public:
   wxTextCtrl()
   {
- Init();   }
+ Init();
+  }
   wxTextCtrl(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTextCtrlNameStr));
   virtual ~wxTextCtrl();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTextCtrlNameStr));
@@ -47,7 +48,7 @@ public:
   wxTextCtrlHitTestResult HitTest(const wxPoint& pt, wxTextCoord* col, wxTextCoord* row) const override
   {
         return wxTextCtrlBase::HitTest(pt, col, row);
-    }
+  }
     // Clipboard operations
   void Copy() override;
   void Cut() override;
@@ -78,18 +79,24 @@ public:
   bool SetBackgroundColour(const wxColour& colour) override;
   GtkWidget* GetConnectWidget() override;
   void SetUpdateFont(bool)
-  { }
+  {
+
+  }
     // implementation only from now on
 
     // tell the control to ignore next text changed signal
   void IgnoreNextTextUpdate(int n = 1)
-  { m_countUpdatesToIgnore = n; }
+  {
+ m_countUpdatesToIgnore = n;
+  }
     // should we ignore the changed signal? always resets the flag
   bool IgnoreTextUpdate();
     // call this to indicate that the control is about to be changed
     // programmatically and so m_modified flag shouldn't be set
   void DontMarkDirtyOnNextChange()
-  { m_dontMarkDirty = true; }
+  {
+ m_dontMarkDirty = true;
+  }
     // should we mark the control as dirty? always resets the flag
   bool MarkDirtyOnChange();
     // always let GTK have mouse release events for multiline controls
@@ -109,7 +116,9 @@ protected:
     // Widgets that use the style->base colour for the BG colour should
     // override this and return true.
   bool UseGTKStyleBase() const override
-  { return true; }
+  {
+ return true;
+  }
   wxString DoGetValue() const override;
     // Override this to use either GtkEntry or GtkTextView IME depending on the
     // kind of control we are.
@@ -142,7 +151,7 @@ private:
   {
         return IsMultiLine() ? static_cast<void *>(m_buffer)
                              : static_cast<void *>(m_text);
-    }
+  }
     // the widget used for single line controls
   GtkWidget* m_text;
   bool m_modified;

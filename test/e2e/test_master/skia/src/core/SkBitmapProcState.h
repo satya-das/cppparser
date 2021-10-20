@@ -40,20 +40,20 @@ struct SkBitmapProcInfo
 private:
   enum {
         kBMStateSize = 136  // found by inspection. if too small, we will call new/delete
-    };
+  };
   SkSTArenaAlloc<kBMStateSize> fAlloc;
   SkBitmapController::State* fBMState;
 };
 struct SkBitmapProcState : public SkBitmapProcInfo
 {
   SkBitmapProcState(const SkImage_Base* image, SkTileMode tmx, SkTileMode tmy)
-    :  SkBitmapProcInfo(image, tmx, tmy) 
-    {
-    }
+    :  SkBitmapProcInfo(image, tmx, tmy)
+  {
+  }
   bool setup(const SkMatrix& inv, const SkPaint& paint)
   {
         return this->init(inv, paint) && this->chooseProcs();
-    }
+  }
   typedef void (*ShaderProc32) (const void* ctx, int x, int y, SkPMColor[], int count);
   typedef void (*MatrixProc) (const SkBitmapProcState&, uint32_t bitmapXY[], int count, int x, int y);
   typedef void (*SampleProc32) (const SkBitmapProcState&, const uint32_t[], int count, SkPMColor colors[]);
@@ -79,15 +79,21 @@ struct SkBitmapProcState : public SkBitmapProcInfo
     // If a shader proc is present, then the corresponding matrix/sample procs
     // are ignored
   ShaderProc32 getShaderProc32() const
-  { return fShaderProc32; }
+  {
+ return fShaderProc32;
+  }
 #  ifdef SK_DEBUG
   MatrixProc getMatrixProc() const;
 #  else 
   MatrixProc getMatrixProc() const
-  { return fMatrixProc; }
+  {
+ return fMatrixProc;
+  }
 #  endif
   SampleProc32 getSampleProc32() const
-  { return fSampleProc32; }
+  {
+ return fSampleProc32;
+  }
 private:
   ShaderProc32 fShaderProc32;
     // These are used if the shaderproc is nullptr
@@ -121,7 +127,7 @@ static uint32_t pack_two_shorts(U16CPU pri, U16CPU sec)
         SkASSERT((uint16_t)pri == pri);
         SkASSERT((uint16_t)sec == sec);
         return PACK_TWO_SHORTS(pri, sec);
-    }
+}
 #  else 
 #    define pack_two_shorts(pri, sec)	   PACK_TWO_SHORTS(pri, sec)
 #  endif
@@ -146,7 +152,6 @@ class SkBitmapProcStateAutoMapper
 public:
   SkBitmapProcStateAutoMapper(const SkBitmapProcState& s, int x, int y, SkPoint* scalarPoint = nullptr)
   {
-
         SkPoint pt;
         s.fInvProc(s.fInvMatrix,
                    SkIntToScalar(x) + SK_ScalarHalf,
@@ -175,19 +180,31 @@ public:
             scalarPoint->set(pt.x() - SkFixedToScalar(biasX),
                              pt.y() - SkFixedToScalar(biasY));
         }
-      }
+  }
   SkFractionalInt fractionalIntX() const
-  { return fX; }
+  {
+ return fX;
+  }
   SkFractionalInt fractionalIntY() const
-  { return fY; }
+  {
+ return fY;
+  }
   SkFixed fixedX() const
-  { return SkFractionalIntToFixed(fX); }
+  {
+ return SkFractionalIntToFixed(fX);
+  }
   SkFixed fixedY() const
-  { return SkFractionalIntToFixed(fY); }
+  {
+ return SkFractionalIntToFixed(fY);
+  }
   int intX() const
-  { return SkFractionalIntToInt(fX); }
+  {
+ return SkFractionalIntToInt(fX);
+  }
   int intY() const
-  { return SkFractionalIntToInt(fY); }
+  {
+ return SkFractionalIntToInt(fY);
+  }
 private:
   SkFractionalInt fX, fY;
 };

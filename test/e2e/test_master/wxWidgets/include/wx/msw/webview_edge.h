@@ -21,9 +21,8 @@ public:
   }
   wxWebViewEdge(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxWebViewNameStr)
   {
-
         Create(parent, id, url, pos, size, style, name);
-      }
+  }
   ~wxWebViewEdge();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxWebViewNameStr) override;
   void LoadURL(const wxString& url) override;
@@ -97,11 +96,13 @@ class WXDLLIMPEXP_WEBVIEW wxWebViewFactoryEdge : public wxWebViewFactory
 {
 public:
   wxWebView* Create() override
-  { return new wxWebViewEdge; }
+  {
+ return new wxWebViewEdge;
+  }
   wxWebView* Create(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxWebViewNameStr) override
   {
         return new wxWebViewEdge(parent, id, url, pos, size, style, name);
-    }
+  }
   bool IsAvailable() override;
 };
 #  endif

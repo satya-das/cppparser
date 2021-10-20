@@ -17,24 +17,29 @@ public:
   static GrMtlSampler* Create(const GrMtlGpu* gpu, const GrSamplerState&, uint32_t maxMipLevel);
   ~GrMtlSampler()
   {
- fMtlSamplerState = nil;   }
+ fMtlSamplerState = nil;
+  }
   id<MTLSamplerState> mtlSampler() const
-  { return fMtlSamplerState; }
+  {
+ return fMtlSamplerState;
+  }
   typedef uint32_t Key;
     // Helpers for hashing GrMtlSampler
   static Key GenerateKey(const GrSamplerState&, uint32_t maxMipLevel);
   static const Key& GetKey(const GrMtlSampler& sampler)
-  { return sampler.fKey; }
+  {
+ return sampler.fKey;
+  }
   static uint32_t Hash(const Key& key)
   {
         return SkOpts::hash(reinterpret_cast<const uint32_t*>(&key), sizeof(Key));
-    }
+  }
 private:
   GrMtlSampler(id<MTLSamplerState> mtlSamplerState, Key key)
     :  fMtlSamplerState(mtlSamplerState)
-        , fKey(key) 
-    {
-    }
+        , fKey(key)
+  {
+  }
   id<MTLSamplerState> fMtlSamplerState;
   Key fKey;
 };

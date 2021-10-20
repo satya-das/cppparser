@@ -24,16 +24,18 @@ namespace wxMSWMessageDialog
   class wxMSWTaskDialogConfig
   {
   public:
-    enum { MAX_BUTTONS = 4  };
+    enum {
+ MAX_BUTTONS = 4
+    };
     wxMSWTaskDialogConfig()
       :  buttons(new TASKDIALOG_BUTTON[MAX_BUTTONS]),
               parent(NULL),
               iconId(0),
               style(0),
               useCustomLabels(false)
-            
-      {
-       }
+    {
+
+    }
         // initializes the object from a message dialog.
     wxMSWTaskDialogConfig(const wxMessageDialogBase& dlg);
     wxScopedArray<TASKDIALOG_BUTTON> buttons;

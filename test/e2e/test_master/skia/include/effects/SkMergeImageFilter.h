@@ -19,7 +19,7 @@ public:
             std::move(second),
         };
         return Make(array, 2, cropRect);
-    }
+  }
   static void RegisterFlattenables();
 private:
   SkMergeImageFilter() = delete;

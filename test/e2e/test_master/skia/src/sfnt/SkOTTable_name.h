@@ -36,7 +36,7 @@ struct SkOTTableName
                 ISO = SkTEndian_SwapBE16(2), // Deprecated, use Unicode instead.
                 Windows = SkTEndian_SwapBE16(3),
                 Custom = SkTEndian_SwapBE16(4),
-            } value;
+} value;
 } platformID;
     union EncodingID
 {
@@ -52,7 +52,7 @@ struct SkOTTableName
                     Unicode20 = SkTEndian_SwapBE16(4),
                     UnicodeVariationSequences = SkTEndian_SwapBE16(5),
                     UnicodeFull = SkTEndian_SwapBE16(6),
-                } value;
+} value;
 } unicode;
             /** These are Mac encodings, see http://www.unicode.org/Public/MAPPINGS/VENDORS/APPLE/
              *  for their mappings to unicode.
@@ -94,7 +94,7 @@ struct SkOTTableName
                     Vietnamese = SkTEndian_SwapBE16(30),
                     Sindhi = SkTEndian_SwapBE16(31),
                     Uninterpreted = SkTEndian_SwapBE16(32),
-                } value;
+} value;
 } macintosh;
             /** Deprecated, use Unicode instead. */
   struct ISO
@@ -103,7 +103,7 @@ struct SkOTTableName
                     ASCII7 = SkTEndian_SwapBE16(0),
                     ISO10646 = SkTEndian_SwapBE16(1),
                     ISO88591 = SkTEndian_SwapBE16(2),
-                } value;
+} value;
 } iso;
             /** Name table strings using PlatformID::Windows must use Symbol, UnicodeBMPUCS2, or
              *  UnicodeUCS4. Symbol and UnicodeBMPUCS2 are both UCS2-BE, UnicodeUCS4 is actually
@@ -120,7 +120,7 @@ struct SkOTTableName
                     Wansung = SkTEndian_SwapBE16(5),
                     Johab = SkTEndian_SwapBE16(6),
                     UnicodeUCS4 = SkTEndian_SwapBE16(10), // UTF-16BE. It means UCS4 in charmaps.
-                } value;
+} value;
 } windows;
 } encodingID;
         /** LanguageIDs <= 0x7FFF are predefined.
@@ -257,7 +257,7 @@ struct SkOTTableName
                     GreekPolytonic = SkTEndian_SwapBE16(148),
                     Greenlandic = SkTEndian_SwapBE16(149),
                     AzerbaijaniRoman = SkTEndian_SwapBE16(150),
-                } value;
+} value;
 } macintosh;
             /** These are known as LCIDs.
              *  On Windows the current set can be had from EnumSystemLocalesEx and LocaleNameToLCID.
@@ -470,7 +470,7 @@ struct SkOTTableName
                     Yakut_Russia = SkTEndian_SwapBE16(0x0485),
                     Yi_PRC = SkTEndian_SwapBE16(0x0478),
                     Yoruba_Nigeria = SkTEndian_SwapBE16(0x046A),
-                } value;
+} value;
 } windows;
 } languageID;
         /** NameIDs <= 0xFF are predefined. Those > 0xFF are font specific. */
@@ -503,7 +503,7 @@ struct SkOTTableName
                     PostscriptCIDFindfontName = SkTEndian_SwapBE16(20),
                     WWSFamilyName = SkTEndian_SwapBE16(21),
                     WWSSubfamilyName = SkTEndian_SwapBE16(22),
-                } value;
+} value;
 } predefined;
 } nameID;
         /** The length of the string in SK_OT_BYTEs. */
@@ -534,19 +534,20 @@ struct SkOTTableName
   {
   public:
     Iterator(const uint8_t* nameTable, size_t size)
-      :  fNameTable(nameTable), fNameTableSize(size), fIndex(0), fType(-1) 
-      {
-       }
+      :  fNameTable(nameTable), fNameTableSize(size), fIndex(0), fType(-1)
+    {
+
+    }
     Iterator(const uint8_t* nameTable, size_t size, SK_OT_USHORT type)
       :  fNameTable(nameTable), fNameTableSize(size), fIndex(0), fType(type)
-        
-      {
-       }
+    {
+
+    }
     void reset(SK_OT_USHORT type)
     {
             fIndex = 0;
             fType = type;
-        }
+    }
     struct Record
     {
       SkString name;

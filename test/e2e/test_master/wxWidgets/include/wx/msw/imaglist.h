@@ -27,9 +27,8 @@ public:
   // from icons), and the initial size of the list.
   wxImageList(int width, int height, bool mask = true, int initialCount = 1)
   {
-
     Create(width, height, mask, initialCount);
-    }
+  }
   virtual ~wxImageList();
   // Attributes
   ////////////////////////////////////////////////////////////////////////////
@@ -40,7 +39,9 @@ public:
   bool GetSize(int index, int& width, int& height) const;
   // Returns the overall size
   wxSize GetSize() const
-  { return m_size; }
+  {
+ return m_size;
+  }
   // Operations
   ////////////////////////////////////////////////////////////////////////////
 
@@ -134,52 +135,6 @@ public:
 
   // Unlocks the window specified by pWndLock and hides the drag image, allowing the
   // window to be updated.
-#if 0
-  // Creates a new drag image by combining the given image (typically a mouse cursor image)
-  // with the current drag image.
-  bool SetDragCursorImage(int index, const wxPoint& hotSpot);
-
-  // If successful, returns a pointer to the temporary image list that is used for dragging;
-  // otherwise, NULL.
-  // dragPos: receives the current drag position.
-  // hotSpot: receives the offset of the drag image relative to the drag position.
-  static wxImageList *GetDragImageList(wxPoint& dragPos, wxPoint& hotSpot);
-
-  // Call this function to begin dragging an image. This function creates a temporary image list
-  // that is used for dragging. The image combines the specified image and its mask with the
-  // current cursor. In response to subsequent mouse move messages, you can move the drag image
-  // by using the DragMove member function. To end the drag operation, you can use the EndDrag
-  // member function.
-  bool BeginDrag(int index, const wxPoint& hotSpot);
-
-  // Ends a drag operation.
-  bool EndDrag();
-
-  // Call this function to move the image that is being dragged during a drag-and-drop operation.
-  // This function is typically called in response to a mouse move message. To begin a drag
-  // operation, use the BeginDrag member function.
-  static bool DragMove(const wxPoint& point);
-
-  // During a drag operation, locks updates to the window specified by lockWindow and displays
-  // the drag image at the position specified by point.
-  // The coordinates are relative to the window's upper left corner, so you must compensate
-  // for the widths of window elements, such as the border, title bar, and menu bar, when
-  // specifying the coordinates.
-  // If lockWindow is NULL, this function draws the image in the display context associated
-  // with the desktop window, and coordinates are relative to the upper left corner of the screen.
-  // This function locks all other updates to the given window during the drag operation.
-  // If you need to do any drawing during a drag operation, such as highlighting the target
-  // of a drag-and-drop operation, you can temporarily hide the dragged image by using the
-  // wxImageList::DragLeave function.
-
-  // lockWindow: pointer to the window that owns the drag image.
-  // point:      position at which to display the drag image. Coordinates are relative to the
-  //             upper left corner of the window (not the client area).
-
-  static bool DragEnter( wxWindow *lockWindow, const wxPoint& point );
-
-  // Unlocks the window specified by pWndLock and hides the drag image, allowing the
-  // window to be updated.
   static bool DragLeave( wxWindow *lockWindow );
 
   /* Here's roughly how you'd use these functions:
@@ -208,12 +163,16 @@ public:
   wxShowCursor(true);
 */
 
-#endif  // Implementation
+#endif
+
+  // Implementation
   ////////////////////////////////////////////////////////////////////////////
 
   // Returns the native image list handle
   WXHIMAGELIST GetHIMAGELIST() const
-  { return m_hImageList; }
+  {
+ return m_hImageList;
+  }
 protected:
   WXHIMAGELIST m_hImageList;
   wxSize m_size;

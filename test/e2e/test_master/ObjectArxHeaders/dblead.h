@@ -67,12 +67,12 @@ public:
     //
   virtual AcGeVector3d annotationOffset() const;
   virtual Acad::ErrorStatus setAnnotationOffset(const AcGeVector3d& offset);
-  enum AnnoType { 
+  enum AnnoType {
         kMText = 0,
         kFcf,
         kBlockRef,
-        kNoAnno 
-    };
+        kNoAnno
+  };
   AnnoType annoType() const;
   double annoHeight() const;
   double annoWidth() const;

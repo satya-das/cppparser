@@ -40,7 +40,6 @@ public:
     /// </summary>
     /// 
   enum ConstrainType {
-        
         /// <summary>
         /// Constrain turn height. 
         /// </summary>
@@ -58,7 +57,7 @@ public:
         /// </summary>
         /// 
         kHeight     = 2
-    };
+  };
   ACDB_DECLARE_MEMBERS(AcDbHelix);
     /// <summary>
     /// Default constructor.

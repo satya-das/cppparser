@@ -31,9 +31,13 @@ public:
   wxDropTarget();
   virtual ~wxDropTarget();
   virtual void OnEnter()
-  { }
+  {
+
+  }
   virtual void OnLeave()
-  { }
+  {
+
+  }
   virtual bool OnDrop(long x, long y, const void* data, size_t size) = 0;
     // Override these to indicate what kind of data you support:
   virtual size_t GetFormatCount() const = 0;
@@ -68,9 +72,13 @@ public:
     // processor would e.g. add a wxTextDataObject and a wxPrivateDataObject
     // to the clipboard - the latter with the Id "WXWORD_FORMAT".
   void SetId(const wxString& id)
-  { m_id = id; }
+  {
+ m_id = id;
+  }
   wxString GetId()
-  { return m_id; }
+  {
+ return m_id;
+  }
 private:
   virtual size_t GetFormatCount() const;
   virtual wxDataFormat GetFormat(size_t n) const;
@@ -110,19 +118,11 @@ public:
   void SetData(wxDataObject& data);
   wxDragResult DoDragDrop(int flags = wxDrag_CopyOnly);
   virtual bool GiveFeedback(wxDragResult, bool)
-  { return TRUE; }
+  {
+ return TRUE;
+  }
     // implementation
-#if 0
-    void RegisterWindow(void);
-    void UnregisterWindow(void);
-
-    wxWindow      *m_window;
-    wxDragResult   m_retValue;
-    wxDataObject  *m_data;
-
-    wxCursor      m_defaultCursor;
-    wxCursor      m_goaheadCursor;
-#endif};
+};
 #  endif
 // wxUSE_DRAG_AND_DROP
 #endif

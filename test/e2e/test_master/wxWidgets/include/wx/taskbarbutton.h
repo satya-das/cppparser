@@ -36,42 +36,68 @@ class WXDLLIMPEXP_CORE wxThumbBarButton : public wxObject
 public:
   wxThumbBarButton()
     :  m_taskBarButtonParent(NULL)
-    
-    {
-     }
+  {
+
+  }
   wxThumbBarButton(int id, const wxIcon& icon, const wxString& tooltip = wxString(), bool enable = true, bool dismissOnClick = false, bool hasBackground = true, bool shown = true, bool interactive = true);
   bool Create(int id, const wxIcon& icon, const wxString& tooltip = wxString(), bool enable = true, bool dismissOnClick = false, bool hasBackground = true, bool shown = true, bool interactive = true);
   int GetID() const
-  { return m_id; }
+  {
+ return m_id;
+  }
   const wxIcon& GetIcon() const
-  { return m_icon; }
+  {
+ return m_icon;
+  }
   const wxString& GetTooltip() const
-  { return m_tooltip; }
+  {
+ return m_tooltip;
+  }
   bool IsEnable() const
-  { return m_enable; }
+  {
+ return m_enable;
+  }
   void Enable(bool enable = true);
   void Disable()
-  { Enable(false); }
+  {
+ Enable(false);
+  }
   bool IsDismissOnClick() const
-  { return m_dismissOnClick; }
+  {
+ return m_dismissOnClick;
+  }
   void EnableDismissOnClick(bool enable = true);
   void DisableDimissOnClick()
-  { EnableDismissOnClick(false); }
+  {
+ EnableDismissOnClick(false);
+  }
   bool HasBackground() const
-  { return m_hasBackground; }
+  {
+ return m_hasBackground;
+  }
   void SetHasBackground(bool has = true);
   bool IsShown() const
-  { return m_shown; }
+  {
+ return m_shown;
+  }
   void Show(bool shown = true);
   void Hide()
-  { Show(false); }
+  {
+ Show(false);
+  }
   bool IsInteractive() const
-  { return m_interactive; }
+  {
+ return m_interactive;
+  }
   void SetInteractive(bool interactive = true);
   void SetParent(wxTaskBarButton* parent)
-  { m_taskBarButtonParent = parent; }
+  {
+ m_taskBarButtonParent = parent;
+  }
   wxTaskBarButton* GetParent() const
-  { return m_taskBarButtonParent; }
+  {
+ return m_taskBarButtonParent;
+  }
 private:
   bool UpdateParentTaskBarButton();
   int m_id;
@@ -93,7 +119,8 @@ public:
   static wxTaskBarButton* New(wxWindow* parent);
   virtual ~wxTaskBarButton()
   {
-   }
+
+  }
     // Operations:
   virtual void SetProgressRange(int range) = 0;
   virtual void SetProgressValue(int value) = 0;
@@ -114,7 +141,8 @@ public:
 protected:
   wxTaskBarButton()
   {
-   }
+
+  }
   wxDECLARE_NO_COPY_CLASS(wxTaskBarButton);
 };
 enum wxTaskBarJumpListItemType {

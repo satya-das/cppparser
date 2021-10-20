@@ -61,7 +61,7 @@ public:
   int getYSpanCount() const
   {
         return fYSpanCount;
-    }
+  }
     /**
      *  Number of intervals in the entire region. This equals the number of
      *  rects that would be returned by the Iterator. In the logical case of
@@ -70,7 +70,7 @@ public:
   int getIntervalCount() const
   {
         return fIntervalCount;
-    }
+  }
   static RunHead* Alloc(int count)
   {
         if (count < SkRegion::kRectRegionRuns) {
@@ -87,7 +87,7 @@ public:
         head->fYSpanCount = 0;
         head->fIntervalCount = 0;
         return head;
-    }
+  }
   static RunHead* Alloc(int count, int yspancount, int intervalCount)
   {
         if (yspancount <= 0 || intervalCount <= 1) {
@@ -101,16 +101,16 @@ public:
         head->fYSpanCount = yspancount;
         head->fIntervalCount = intervalCount;
         return head;
-    }
+  }
   SkRegion::RunType* writable_runs()
   {
         SkASSERT(fRefCnt == 1);
         return (SkRegion::RunType*)(this + 1);
-    }
+  }
   const SkRegion::RunType* readonly_runs() const
   {
         return (const SkRegion::RunType*)(this + 1);
-    }
+  }
   RunHead* ensureWritable()
   {
         RunHead* writable = this;
@@ -129,7 +129,7 @@ public:
             }
         }
         return writable;
-    }
+  }
     /**
      *  Given a scanline (including its Bottom value at runs[0]), return the next
      *  scanline. Asserts that there is one (i.e. runs[0] < Sentinel)
@@ -151,7 +151,7 @@ public:
         // skip the entire line [B N [L R] S]
         runs += 1 + 1 + intervals * 2 + 1;
         return const_cast<SkRegion::RunType*>(runs);
-    }
+  }
     /**
      *  Return the scanline that contains the Y value. This requires that the Y
      *  value is already known to be contained within the bounds of the region,
@@ -178,7 +178,7 @@ public:
             runs = SkipEntireScanline(runs);
         }
         return const_cast<SkRegion::RunType*>(runs);
-    }
+  }
     // Copy src runs into us, computing interval counts and bounds along the way
   void computeRunBounds(SkIRect* bounds)
   {
@@ -240,7 +240,7 @@ public:
         bounds->fLeft = left;
         bounds->fRight = rite;
         bounds->fBottom = bot;
-    }
+  }
 private:
   int32_t fYSpanCount;
   int32_t fIntervalCount;

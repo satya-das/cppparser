@@ -18,9 +18,9 @@ namespace SkSL
       :  INHERITED(offset, kSection_Kind)
     , fName(std::move(name))
     , fArgument(std::move(arg))
-    , fText(std::move(text)) 
-      {
-      }
+    , fText(std::move(text))
+    {
+    }
     std::unique_ptr<ProgramElement> clone() const override
     {
         return std::unique_ptr<ProgramElement>(new Section(fOffset, fName, fArgument, fText));

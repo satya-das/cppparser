@@ -27,15 +27,15 @@ struct SkOTTableGlyph
       :  fGlyf(glyf)
         , fLocaFormat(SkOTTableHead::IndexToLocFormat::ShortOffsets == locaFormat.value ? 0 : 1)
         , fCurrentGlyphOffset(0)
-        
-      {
- fLocaPtr.shortOffset = reinterpret_cast<const SK_OT_USHORT*>(&loca);       }
+    {
+ fLocaPtr.shortOffset = reinterpret_cast<const SK_OT_USHORT*>(&loca);
+    }
     void advance(uint16_t num)
     {
             fLocaPtr.shortOffset += num << fLocaFormat;
             fCurrentGlyphOffset = fLocaFormat ? SkEndian_SwapBE32(*fLocaPtr.longOffset)
                                               : uint32_t(SkEndian_SwapBE16(*fLocaPtr.shortOffset) << 1);
-        }
+    }
     const SkOTTableGlyphData* next()
     {
             uint32_t previousGlyphOffset = fCurrentGlyphOffset;
@@ -47,7 +47,7 @@ struct SkOTTableGlyph
                     reinterpret_cast<const SK_OT_BYTE*>(&fGlyf) + previousGlyphOffset
                 );
             }
-        }
+    }
   private:
     const SkOTTableGlyph& fGlyf;
     uint16_t fLocaFormat;

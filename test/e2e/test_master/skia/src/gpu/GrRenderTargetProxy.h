@@ -20,9 +20,13 @@ class GrRenderTargetProxy : public GrSurfaceProxy
 {
 public:
   GrRenderTargetProxy* asRenderTargetProxy() override
-  { return this; }
+  {
+ return this;
+  }
   const GrRenderTargetProxy* asRenderTargetProxy() const override
-  { return this; }
+  {
+ return this;
+  }
     // Actually instantiate the backing rendertarget, if necessary.
   bool instantiate(GrResourceProvider*) override;
   bool canUseMixedSamples(const GrCaps& caps) const
@@ -30,7 +34,7 @@ public:
         return caps.mixedSamplesSupport() && !this->glRTFBOIDIs0() &&
                caps.internalMultisampleCount(this->backendFormat()) > 0 &&
                this->canChangeStencilAttachment();
-    }
+  }
     /*
      * Indicate that a draw to this proxy requires stencil, and how many stencil samples it needs.
      * The number of stencil samples on this proxy will be equal to the largest sample count passed
@@ -40,7 +44,7 @@ public:
   {
         SkASSERT(numStencilSamples >= fSampleCnt);
         fNumStencilSamples = SkTMax(numStencilSamples, fNumStencilSamples);
-    }
+  }
     /**
      * Returns the number of stencil samples required by this proxy.
      * NOTE: Once instantiated, the actual render target may have more samples, but it is guaranteed
@@ -48,38 +52,46 @@ public:
      * target, we never "downgrade" it to one with fewer samples.)
      */
   int numStencilSamples() const
-  { return fNumStencilSamples; }
+  {
+ return fNumStencilSamples;
+  }
     /**
      * Returns the number of samples/pixel in the color buffer (One if non-MSAA).
      */
   int numSamples() const
-  { return fSampleCnt; }
+  {
+ return fSampleCnt;
+  }
   int maxWindowRectangles(const GrCaps& caps) const;
   const GrSwizzle& outputSwizzle() const
-  { return fOutputSwizzle; }
+  {
+ return fOutputSwizzle;
+  }
   bool wrapsVkSecondaryCB() const
-  { return fWrapsVkSecondaryCB == WrapsVkSecondaryCB::kYes; }
+  {
+ return fWrapsVkSecondaryCB == WrapsVkSecondaryCB::kYes;
+  }
   void markMSAADirty(const SkIRect& dirtyRect)
   {
         SkASSERT(SkIRect::MakeWH(this->width(), this->height()).contains(dirtyRect));
         SkASSERT(this->requiresManualMSAAResolve());
         fMSAADirtyRect.join(dirtyRect);
-    }
+  }
   void markMSAAResolved()
   {
         SkASSERT(this->requiresManualMSAAResolve());
         fMSAADirtyRect.setEmpty();
-    }
+  }
   bool isMSAADirty() const
   {
         SkASSERT(fMSAADirtyRect.isEmpty() || this->requiresManualMSAAResolve());
         return this->requiresManualMSAAResolve() && !fMSAADirtyRect.isEmpty();
-    }
+  }
   const SkIRect& msaaDirtyRect() const
   {
         SkASSERT(this->requiresManualMSAAResolve());
         return fMSAADirtyRect;
-    }
+  }
     // TODO: move this to a priv class!
   bool refsWrappedObjects() const;
     // Provides access to special purpose functions.
@@ -90,7 +102,9 @@ protected:
   friend class GrRenderTargetProxyPriv;
     // Deferred version
   GrRenderTargetProxy(const GrCaps&, const GrBackendFormat&, const GrSurfaceDesc&, int sampleCount, GrSurfaceOrigin, const GrSwizzle& textureSwizzle, const GrSwizzle& outputSwizzle, SkBackingFit, SkBudgeted, GrProtected, GrInternalSurfaceFlags, UseAllocator);
-  enum class WrapsVkSecondaryCB : bool { kNo = false, kYes = true };
+  enum class WrapsVkSecondaryCB : bool {
+ kNo = false, kYes = true
+  };
     // Lazy-callback version
     // There are two main use cases for lazily-instantiated proxies:
     //   basic knowledge - width, height, config, samples, origin are known
@@ -109,11 +123,11 @@ private:
   void setGLRTFBOIDIs0()
   {
         fSurfaceFlags |= GrInternalSurfaceFlags::kGLRTFBOIDIs0;
-    }
+  }
   bool glRTFBOIDIs0() const
   {
         return fSurfaceFlags & GrInternalSurfaceFlags::kGLRTFBOIDIs0;
-    }
+  }
   bool canChangeStencilAttachment() const;
   size_t onUninstantiatedGpuMemorySize() const override;
   int8_t fSampleCnt;

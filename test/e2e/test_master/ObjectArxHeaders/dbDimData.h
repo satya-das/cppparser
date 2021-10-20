@@ -36,8 +36,7 @@ public:
         kDimCustomValue        = 0x400,
         kDimConstrained        = 0x800,
         kDimCustomString       = 0x1000
-
-    };
+  };
   AcDbDimData();
   AcDbDimData(AcDbDimension* pDim, DimDataSetValueFuncPtr setDimFunc = NULL, unsigned int bitFlags = 0, void* appData = NULL, DimDataSetCustomStringFuncPtr setCustomStringFunc = NULL);
   ~AcDbDimData();
@@ -89,35 +88,29 @@ private:
 };
 typedef AcArray<AcDbDimData> AcDbDimDataArray;
 inline AcDbDimData::AcDbDimData()
-  :  
-    mpDim(NULL), 
+  :     mpDim(NULL), 
     mBitFlags(0),
     mpSetDimValueFunc(NULL),
     mpAppData (NULL),
     mpSetCustomStringFunc(NULL)
+{
 
-  {
-
-  }
+}
 inline AcDbDimData::AcDbDimData(AcDbDimension* pDim, DimDataSetValueFuncPtr setValueFunc, unsigned int bitFlags, void* appData, DimDataSetCustomStringFuncPtr setCustomStringFunc)
-  : 
-    mpDim(pDim),
+  :     mpDim(pDim),
     mBitFlags(bitFlags),
     mpSetDimValueFunc(setValueFunc),
     mpAppData(appData),
     mpSetCustomStringFunc(setCustomStringFunc)
-
-  {
-
-  }
-inline AcDbDimData::AcDbDimData(const AcDbDimData& src)
 {
 
+}
+inline AcDbDimData::AcDbDimData(const AcDbDimData& src)
+{
     *this = src;
 }
 inline AcDbDimData::~AcDbDimData()
 {
-
     if (mpDim) 
         delete mpDim;
 }

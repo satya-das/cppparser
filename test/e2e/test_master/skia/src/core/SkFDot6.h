@@ -39,7 +39,7 @@ inline SkFDot6 SkIntToFDot6(int x)
 {
         SkASSERT(SkToS16(x) == x);
         return x << 6;
-    }
+}
 #  else 
 #    define SkIntToFDot6(x) ((x) << 6)
 #  endif

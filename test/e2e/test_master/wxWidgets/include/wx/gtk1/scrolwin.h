@@ -16,9 +16,10 @@ class WXDLLIMPEXP_CORE wxScrollHelper : public wxScrollHelperBase
 {
 public:
   wxScrollHelper(wxWindow* win)
-    :  wxScrollHelperBase(win) 
-    {
-     }
+    :  wxScrollHelperBase(win)
+  {
+
+  }
     // implement base class pure virtuals
   virtual void SetScrollbars(int pixelsPerUnitX, int pixelsPerUnitY, int noUnitsX, int noUnitsY, int xPos = 0, int yPos = 0, bool noRefresh = false);
   virtual bool IsScrollbarShown(int orient) const;

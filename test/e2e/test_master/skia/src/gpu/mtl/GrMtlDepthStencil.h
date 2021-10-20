@@ -18,9 +18,12 @@ public:
   static GrMtlDepthStencil* Create(const GrMtlGpu*, const GrStencilSettings&, GrSurfaceOrigin);
   ~GrMtlDepthStencil()
   {
- fMtlDepthStencilState = nil;   }
+ fMtlDepthStencilState = nil;
+  }
   id<MTLDepthStencilState> mtlDepthStencil() const
-  { return fMtlDepthStencilState; }
+  {
+ return fMtlDepthStencilState;
+  }
   struct Key
   {
     struct Face
@@ -39,22 +42,24 @@ public:
                    this->fBack.fReadMask == that.fBack.fReadMask &&
                    this->fBack.fWriteMask == that.fBack.fWriteMask &&
                    this->fBack.fOps == that.fBack.fOps;
-        }
+    }
   };
     // Helpers for hashing GrMtlSampler
   static Key GenerateKey(const GrStencilSettings&, GrSurfaceOrigin);
   static const Key& GetKey(const GrMtlDepthStencil& depthStencil)
-  { return depthStencil.fKey; }
+  {
+ return depthStencil.fKey;
+  }
   static uint32_t Hash(const Key& key)
   {
         return SkOpts::hash(reinterpret_cast<const uint32_t*>(&key), sizeof(Key));
-    }
+  }
 private:
   GrMtlDepthStencil(id<MTLDepthStencilState> mtlDepthStencilState, Key key)
     :  fMtlDepthStencilState(mtlDepthStencilState)
-        , fKey(key) 
-    {
-    }
+        , fKey(key)
+  {
+  }
   id<MTLDepthStencilState> fMtlDepthStencilState;
   Key fKey;
 };

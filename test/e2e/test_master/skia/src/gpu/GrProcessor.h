@@ -25,16 +25,15 @@ class GrProcessorKeyBuilder
 {
 public:
   GrProcessorKeyBuilder(SkTArray<unsigned char, true>* data)
-    :  fData(data), fCount(0) 
-    {
-
+    :  fData(data), fCount(0)
+  {
         SkASSERT(0 == fData->count() % sizeof(uint32_t));
-        }
+  }
   void add32(uint32_t v)
   {
         ++fCount;
         fData->push_back_n(4, reinterpret_cast<uint8_t*>(&v));
-    }
+  }
     /** Inserts count uint32_ts into the key. The returned pointer is only valid until the next
         add*() call. */
   uint32_t* SK_WARN_UNUSED_RESULT add32n(int count)
@@ -42,9 +41,11 @@ public:
         SkASSERT(count > 0);
         fCount += count;
         return reinterpret_cast<uint32_t*>(fData->push_back_n(4 * count));
-    }
+  }
   size_t size() const
-  { return sizeof(uint32_t) * fCount; }
+  {
+ return sizeof(uint32_t) * fCount;
+  }
 private:
   SkTArray<uint8_t, true>* fData;
   int fCount;
@@ -160,7 +161,7 @@ public:
         kMappedNormalsFP_ClassID,
         kLightingFP_ClassID,
         kLinearStrokeProcessor_ClassID,
-    };
+  };
   virtual ~GrProcessor();
     /** Human-meaningful string to identify this prcoessor; may be embedded in generated shader
         code. */
@@ -172,10 +173,12 @@ public:
         SkString str;
         str.appendf("Missing data");
         return str;
-    }
+  }
 #  else 
   SkString dumpInfo() const
-  { return SkString("<Processor information unavailable>"); }
+  {
+ return SkString("<Processor information unavailable>");
+  }
 #  endif
     /**
      * Custom shader features provided by the framework. These require special handling when
@@ -185,37 +188,47 @@ public:
   enum class CustomFeatures {
         kNone = 0,
         kSampleLocations = 1 << 0,
-    };
+  };
   GR_DECL_BITFIELD_CLASS_OPS_FRIENDS(CustomFeatures);
   CustomFeatures requestedFeatures() const
-  { return fRequestedFeatures; }
+  {
+ return fRequestedFeatures;
+  }
   void* operator new(size_t size);
   void operator delete(void* target);
   void* operator new(size_t size, void* placement)
   {
         return ::operator new(size, placement);
-    }
+  }
   void operator delete(void* target, void* placement)
   {
         ::operator delete(target, placement);
-    }
+  }
     /** Helper for down-casting to a GrProcessor subclass */
   template <typename T>
   const T& cast() const
-  { return *static_cast<const T*>(this); }
+  {
+ return *static_cast<const T*>(this);
+  }
   ClassID classID() const
-  { return fClassID; }
+  {
+ return fClassID;
+  }
 protected:
   GrProcessor(ClassID classID)
-    :  fClassID(classID) 
-    {
-    }
+    :  fClassID(classID)
+  {
+  }
   GrProcessor(const GrProcessor&) = delete;
   GrProcessor& operator=(const GrProcessor&);
   void setWillUseCustomFeature(CustomFeatures feature)
-  { fRequestedFeatures |= feature; }
+  {
+ fRequestedFeatures |= feature;
+  }
   void resetCustomFeatures()
-  { fRequestedFeatures = CustomFeatures::kNone; }
+  {
+ fRequestedFeatures = CustomFeatures::kNone;
+  }
   const ClassID fClassID;
   CustomFeatures fRequestedFeatures = CustomFeatures::kNone;
 };

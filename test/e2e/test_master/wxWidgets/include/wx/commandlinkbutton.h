@@ -24,9 +24,10 @@ class WXDLLIMPEXP_ADV wxCommandLinkButtonBase : public wxButton
 {
 public:
   wxCommandLinkButtonBase()
-    :  wxButton() 
-    {
-     }
+    :  wxButton()
+  {
+
+  }
   wxCommandLinkButtonBase(wxWindow* parent, wxWindowID id, const wxString& mainLabel = wxEmptyString, const wxString& note = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr))
     :  wxButton(parent,
                    id,
@@ -36,29 +37,31 @@ public:
                    style,
                    validator,
                    name)
-        
-    {
-     }
+  {
+
+  }
   virtual void SetMainLabelAndNote(const wxString& mainLabel, const wxString& note) = 0;
   virtual void SetMainLabel(const wxString& mainLabel)
   {
         SetMainLabelAndNote(mainLabel, GetNote());
-    }
+  }
   virtual void SetNote(const wxString& note)
   {
         SetMainLabelAndNote(GetMainLabel(), note);
-    }
+  }
   virtual wxString GetMainLabel() const
   {
         return GetLabel().BeforeFirst('\n');
-    }
+  }
   virtual wxString GetNote() const
   {
         return GetLabel().AfterFirst('\n');
-    }
+  }
 protected:
   virtual bool HasNativeBitmap() const
-  { return false; }
+  {
+ return false;
+  }
   wxDECLARE_NO_COPY_CLASS(wxCommandLinkButtonBase);
 };
 // ----------------------------------------------------------------------------
@@ -71,21 +74,20 @@ class WXDLLIMPEXP_ADV wxGenericCommandLinkButton : public wxCommandLinkButtonBas
 {
 public:
   wxGenericCommandLinkButton()
-    :  wxCommandLinkButtonBase() 
-    {
-     }
+    :  wxCommandLinkButtonBase()
+  {
+
+  }
   wxGenericCommandLinkButton(wxWindow* parent, wxWindowID id, const wxString& mainLabel = wxEmptyString, const wxString& note = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr))
     :  wxCommandLinkButtonBase()
-    
-    {
-
+  {
         Create(parent, id, mainLabel, note, pos, size, style, validator, name);
-        }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& mainLabel = wxEmptyString, const wxString& note = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr));
   void SetMainLabelAndNote(const wxString& mainLabel, const wxString& note) override
   {
         wxButton::SetLabel(mainLabel + '\n' + note);
-    }
+  }
 private:
   void SetDefaultBitmap();
   wxDECLARE_NO_COPY_CLASS(wxGenericCommandLinkButton);
@@ -97,9 +99,10 @@ class WXDLLIMPEXP_ADV wxCommandLinkButton : public wxGenericCommandLinkButton
 {
 public:
   wxCommandLinkButton()
-    :  wxGenericCommandLinkButton() 
-    {
-     }
+    :  wxGenericCommandLinkButton()
+  {
+
+  }
   wxCommandLinkButton(wxWindow* parent, wxWindowID id, const wxString& mainLabel = wxEmptyString, const wxString& note = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr))
     :  wxGenericCommandLinkButton(parent,
                                          id,
@@ -110,9 +113,9 @@ public:
                                          style,
                                          validator,
                                          name)
-            
-    {
-     }
+  {
+
+  }
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxCommandLinkButton);
 };
 #    endif

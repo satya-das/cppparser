@@ -23,15 +23,17 @@ public:
         kLineType               = 0x04,
         kPlotStyle              = 0x08,
         kEverything             = 0x0F
-    };
+  };
     // Ctor/dtor/copy
   AcGiStyleAttributes()
   {
-   }
+
+  }
   AcGiStyleAttributes(const AcGiStyleAttributes& source);
   virtual ~AcGiStyleAttributes()
   {
-   }
+
+  }
     // Member data access
     // Color
   AcCmEntityColor& getColorAttribute();
@@ -62,22 +64,21 @@ protected:
 };
 inline AcGiStyleAttributes::AcGiStyleAttributes(const AcGiStyleAttributes& source)
 {
-
     m_colorAttribute = source.getColorAttribute();
     m_idLinetype = source.linetypeObjectId();
     m_idPlotstyle = source.plotStyleNameId();
 }
 inline AcCmEntityColor& AcGiStyleAttributes::getColorAttribute()
-{ 
-    return m_colorAttribute; 
+{
+    return m_colorAttribute;
 }
 inline const AcCmEntityColor& AcGiStyleAttributes::getColorAttribute() const
-{ 
-    return m_colorAttribute; 
+{
+    return m_colorAttribute;
 }
 inline void AcGiStyleAttributes::setColorAttribute(const AcCmEntityColor& color)
 {
-    m_colorAttribute = color; 
+    m_colorAttribute = color;
 }
 inline AcDbObjectId AcGiStyleAttributes::linetypeObjectId() const
 {

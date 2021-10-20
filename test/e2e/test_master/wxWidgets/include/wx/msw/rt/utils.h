@@ -25,20 +25,18 @@ namespace wxWinRT
   public:
     Initializer()
       :  m_ok(Initialize())
-    
-      {
+    {
 
-          }
+    }
     bool IsOk() const
     {
         return m_ok;
     }
     ~Initializer()
     {
-
         if (m_ok)
             Uninitialize();
-        }
+    }
   private:
     const bool m_ok;
     wxDECLARE_NO_COPY_CLASS(Initializer);
@@ -50,10 +48,13 @@ namespace wxWinRT
   {
   public:
     HSTRING Get() const
-    { return m_hstring; }
+    {
+ return m_hstring;
+    }
     operator HSTRING() const
     {
- return m_hstring;     }
+ return m_hstring;
+    }
     TempStringRef(const wxString& str);
   private:
     HSTRING m_hstring;

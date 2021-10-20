@@ -63,7 +63,9 @@ ACBASE_PORT AcRxClass* acrxFindAcRxClass(const ACHAR* pClassName);
 class AcRxObject;
 template <typename T>
 static AcRxObject* acrxInstantiateClass()
-{ return new T();}
+{
+ return new T();
+}
 #  define ACRX_DECLARE_MEMBERS_EXPIMP(CLASS_NAME, EXPIMP)	 \
     friend AcRxObject* ::acrxInstantiateClass<CLASS_NAME>(); \
     EXPIMP virtual AcRxClass* isA() const override; \

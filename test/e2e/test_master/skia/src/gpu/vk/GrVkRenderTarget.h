@@ -30,49 +30,63 @@ public:
   static sk_sp<GrVkRenderTarget> MakeSecondaryCBRenderTarget(GrVkGpu*, const GrSurfaceDesc&, const GrVkDrawableInfo& vkInfo);
   virtual ~GrVkRenderTarget();
   GrBackendFormat backendFormat() const override
-  { return this->getBackendFormat(); }
+  {
+ return this->getBackendFormat();
+  }
   const GrVkFramebuffer* framebuffer() const
-  { return fFramebuffer; }
+  {
+ return fFramebuffer;
+  }
   const GrVkImageView* colorAttachmentView() const
-  { return fColorAttachmentView; }
+  {
+ return fColorAttachmentView;
+  }
   const GrVkResource* msaaImageResource() const
   {
         if (fMSAAImage) {
             return fMSAAImage->fResource;
         }
         return nullptr;
-    }
+  }
   GrVkImage* msaaImage()
-  { return fMSAAImage.get(); }
+  {
+ return fMSAAImage.get();
+  }
   const GrVkImageView* resolveAttachmentView() const
-  { return fResolveAttachmentView; }
+  {
+ return fResolveAttachmentView;
+  }
   const GrVkResource* stencilImageResource() const;
   const GrVkImageView* stencilAttachmentView() const;
   const GrVkRenderPass* simpleRenderPass() const
-  { return fCachedSimpleRenderPass; }
+  {
+ return fCachedSimpleRenderPass;
+  }
   GrVkResourceProvider::CompatibleRPHandle compatibleRenderPassHandle() const
   {
         SkASSERT(!this->wrapsSecondaryCommandBuffer());
         return fCompatibleRPHandle;
-    }
+  }
   const GrVkRenderPass* externalRenderPass() const
   {
         SkASSERT(this->wrapsSecondaryCommandBuffer());
         // We use the cached simple render pass to hold the external render pass.
         return fCachedSimpleRenderPass;
-    }
+  }
   bool wrapsSecondaryCommandBuffer() const
-  { return fSecondaryCommandBuffer != VK_NULL_HANDLE; }
+  {
+ return fSecondaryCommandBuffer != VK_NULL_HANDLE;
+  }
   VkCommandBuffer getExternalSecondaryCommandBuffer() const
   {
         return fSecondaryCommandBuffer;
-    }
+  }
   bool canAttemptStencilAttachment() const override
   {
         // We don't know the status of the stencil attachment for wrapped external secondary command
         // buffers so we just assume we don't have one.
         return !this->wrapsSecondaryCommandBuffer();
-    }
+  }
   GrBackendRenderTarget getBackendRenderTarget() const override;
   void getAttachmentsDescriptor(GrVkRenderPass::AttachmentsDescriptor* desc, GrVkRenderPass::AttachmentFlags* flags) const;
   void addResources(GrVkCommandBuffer& commandBuffer) const;
@@ -92,7 +106,7 @@ protected:
         }
         return GrSurface::ComputeSize(this->config(), this->width(), this->height(),
                                       numColorSamples, GrMipMapped::kNo);
-    }
+  }
   void createFramebuffer(GrVkGpu* gpu);
   const GrVkImageView* fColorAttachmentView;
   std::unique_ptr<GrVkImage> fMSAAImage;
@@ -108,7 +122,7 @@ private:
   {
         // Forward the release proc on to GrVkImage
         this->setResourceRelease(std::move(releaseHelper));
-    }
+  }
   void releaseInternalObjects();
   void abandonInternalObjects();
   const GrVkFramebuffer* fFramebuffer;

@@ -32,7 +32,8 @@ struct SkPDFIndirectReference
   int fValue = -1;
   operator bool()
   {
- return fValue != -1;   }
+ return fValue != -1;
+  }
 };
 static bool operator==(SkPDFIndirectReference u, SkPDFIndirectReference v)
 {
@@ -106,9 +107,13 @@ private:
   void append(SkPDFUnion&& value);
 };
 static void SkPDFArray_Append(SkPDFArray* a, int v)
-{ a->appendInt(v); }
+{
+ a->appendInt(v);
+}
 static void SkPDFArray_Append(SkPDFArray* a, SkScalar v)
-{ a->appendScalar(v); }
+{
+ a->appendScalar(v);
+}
 template <typename T, typename... Args>
 static void SkPDFArray_Append(SkPDFArray* a, T v, Args... args)
 {

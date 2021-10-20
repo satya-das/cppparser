@@ -24,11 +24,13 @@ public:
             return nullptr;
         }
         return std::unique_ptr<GrFragmentProcessor>(new GrCircleEffect(edgeType, center, radius));
-    }
+  }
   GrCircleEffect(const GrCircleEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "CircleEffect"; }
+  {
+ return "CircleEffect";
+  }
   GrClipEdgeType edgeType;
   SkPoint center;
   float radius;
@@ -38,9 +40,9 @@ private:
                         (OptimizationFlags)kCompatibleWithCoverageAsAlpha_OptimizationFlag)
             , edgeType(edgeType)
             , center(center)
-            , radius(radius) 
-    {
-    }
+            , radius(radius)
+  {
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

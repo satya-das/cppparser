@@ -43,7 +43,7 @@ public:
         } else {
             return {color.fR, color.fG, color.fB, color.fA};
         }
-    }
+  }
   static std::unique_ptr<GrFragmentProcessor> Make(const float matrix[20], bool unpremulInput, bool clampRGBOutput, bool premulOutput)
   {
         SkMatrix44 m44;
@@ -53,11 +53,13 @@ public:
         auto v4 = SkVector4(matrix[4], matrix[9], matrix[14], matrix[19]);
         return std::unique_ptr<GrFragmentProcessor>(new GrColorMatrixFragmentProcessor(
                 m44, v4, unpremulInput, clampRGBOutput, premulOutput));
-    }
+  }
   GrColorMatrixFragmentProcessor(const GrColorMatrixFragmentProcessor& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "ColorMatrixFragmentProcessor"; }
+  {
+ return "ColorMatrixFragmentProcessor";
+  }
   SkMatrix44 m;
   SkVector4 v;
   bool unpremulInput;
@@ -71,9 +73,9 @@ private:
             , v(v)
             , unpremulInput(unpremulInput)
             , clampRGBOutput(clampRGBOutput)
-            , premulOutput(premulOutput) 
-    {
-    }
+            , premulOutput(premulOutput)
+  {
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

@@ -24,7 +24,8 @@ class WXDLLIMPEXP_BASE wxObjectAllocatorAndCreator
 public:
   virtual ~wxObjectAllocatorAndCreator()
   {
-   }
+
+  }
   virtual bool Create(wxObject*& o, wxAny* args) = 0;
 };
 // a direct constructor bridge calls the operator new for this class and
@@ -47,14 +48,14 @@ struct wxObjectAllocatorAndCreator_0 : public wxObjectAllocatorAndCreator
   {
         Class *obj = wx_dynamic_cast(Class*, o);
         return obj->Create();
-    }
+  }
 };
 struct wxObjectAllocatorAndCreator_Dummy : public wxObjectAllocatorAndCreator
 {
   bool Create(wxObject*&, wxAny*)
   {
         return true;
-    }
+  }
 };
 #    define wxCONSTRUCTOR_0(klass)	 \
     wxObjectAllocatorAndCreator_0<klass> constructor##klass; \
@@ -74,7 +75,7 @@ struct wxDirectConstructorBridge_0 : public wxObjectAllocator
   {
         o = new Class( );
         return o != NULL;
-    }
+  }
 };
 #    define wxDIRECT_CONSTRUCTOR_0(klass)	 \
     wxDirectConstructorBridge_0<klass> constructor##klass; \
@@ -91,7 +92,7 @@ struct wxObjectAllocatorAndCreator_1 : public wxObjectAllocatorAndCreator
         return obj->Create(
             (args[0]).As(static_cast<T0*>(NULL))
             );
-    }
+  }
 };
 #    define wxCONSTRUCTOR_1(klass,t0,v0)	 \
     wxObjectAllocatorAndCreator_1<klass,t0> constructor##klass; \
@@ -108,7 +109,7 @@ struct wxDirectConstructorBridge_1 : public wxObjectAllocator
             (args[0]).As(static_cast<T0*>(NULL))
             );
         return o != NULL;
-    }
+  }
 };
 #    define wxDIRECT_CONSTRUCTOR_1(klass,t0,v0)	 \
     wxDirectConstructorBridge_1<klass,t0,t1> constructor##klass; \
@@ -126,7 +127,7 @@ struct wxObjectAllocatorAndCreator_2 : public wxObjectAllocatorAndCreator
             (args[0]).As(static_cast<T0*>(NULL)),
             (args[1]).As(static_cast<T1*>(NULL))
             );
-    }
+  }
 };
 #    define wxCONSTRUCTOR_2(klass,t0,v0,t1,v1)	 \
     wxObjectAllocatorAndCreator_2<klass,t0,t1> constructor##klass; \
@@ -144,7 +145,7 @@ struct wxDirectConstructorBridge_2 : public wxObjectAllocator
             (args[1]).As(static_cast<T1*>(NULL))
             );
         return o != NULL;
-    }
+  }
 };
 #    define wxDIRECT_CONSTRUCTOR_2(klass,t0,v0,t1,v1)	 \
     wxDirectConstructorBridge_2<klass,t0,t1> constructor##klass; \
@@ -163,7 +164,7 @@ struct wxObjectAllocatorAndCreator_3 : public wxObjectAllocatorAndCreator
             (args[1]).As(static_cast<T1*>(NULL)),
             (args[2]).As(static_cast<T2*>(NULL))
             );
-    }
+  }
 };
 #    define wxCONSTRUCTOR_3(klass,t0,v0,t1,v1,t2,v2)	 \
     wxObjectAllocatorAndCreator_3<klass,t0,t1,t2> constructor##klass; \
@@ -182,7 +183,7 @@ struct wxDirectConstructorBridge_3 : public wxObjectAllocator
             (args[2]).As(static_cast<T2*>(NULL))
             );
         return o != NULL;
-    }
+  }
 };
 #    define wxDIRECT_CONSTRUCTOR_3(klass,t0,v0,t1,v1,t2,v2)	 \
     wxDirectConstructorBridge_3<klass,t0,t1,t2> constructor##klass; \
@@ -202,7 +203,7 @@ struct wxObjectAllocatorAndCreator_4 : public wxObjectAllocatorAndCreator
             (args[2]).As(static_cast<T2*>(NULL)),
             (args[3]).As(static_cast<T3*>(NULL))
             );
-    }
+  }
 };
 #    define wxCONSTRUCTOR_4(klass,t0,v0,t1,v1,t2,v2,t3,v3)	 \
     wxObjectAllocatorAndCreator_4<klass,t0,t1,t2,t3> constructor##klass; \
@@ -223,7 +224,7 @@ struct wxDirectConstructorBridge_4 : public wxObjectAllocator
             (args[3]).As(static_cast<T3*>(NULL))
             );
         return o != NULL;
-    }
+  }
 };
 #    define wxDIRECT_CONSTRUCTOR_4(klass,t0,v0,t1,v1,t2,v2,t3,v3)	 \
     wxDirectConstructorBridge_4<klass,t0,t1,t2,t3> constructor##klass; \
@@ -245,7 +246,7 @@ struct wxObjectAllocatorAndCreator_5 : public wxObjectAllocatorAndCreator
             (args[3]).As(static_cast<T3*>(NULL)),
             (args[4]).As(static_cast<T4*>(NULL))
             );
-    }
+  }
 };
 #    define wxCONSTRUCTOR_5(klass,t0,v0,t1,v1,t2,v2,t3,v3,t4,v4)	 \
     wxObjectAllocatorAndCreator_5<klass,t0,t1,t2,t3,t4> constructor##klass; \
@@ -267,7 +268,7 @@ struct wxDirectConstructorBridge_5 : public wxObjectAllocator
             (args[4]).As(static_cast<T4*>(NULL))
             );
         return o != NULL;
-    }
+  }
 };
 #    define wxDIRECT_CONSTRUCTOR_5(klass,t0,v0,t1,v1,t2,v2,t3,v3,t4,v4)	 \
     wxDirectConstructorBridge_5<klass,t0,t1,t2,t3,t4> constructor##klass; \
@@ -290,7 +291,7 @@ struct wxObjectAllocatorAndCreator_6 : public wxObjectAllocatorAndCreator
             (args[4]).As(static_cast<T4*>(NULL)),
             (args[5]).As(static_cast<T5*>(NULL))
             );
-    }
+  }
 };
 #    define wxCONSTRUCTOR_6(klass,t0,v0,t1,v1,t2,v2,t3,v3,t4,v4,t5,v5)	 \
     wxObjectAllocatorAndCreator_6<klass,t0,t1,t2,t3,t4,t5> constructor##klass; \
@@ -313,7 +314,7 @@ struct wxDirectConstructorBridge_6 : public wxObjectAllocator
             (args[5]).As(static_cast<T5*>(NULL))
             );
         return o != NULL;
-    }
+  }
 };
 #    define wxDIRECT_CONSTRUCTOR_6(klass,t0,v0,t1,v1,t2,v2,t3,v3,t4,v4,t5,v5)	 \
     wxDirectConstructorBridge_6<klass,t0,t1,t2,t3,t4,t5> constructor##klass; \
@@ -337,7 +338,7 @@ struct wxObjectAllocatorAndCreator_7 : public wxObjectAllocatorAndCreator
             (args[5]).As(static_cast<T5*>(NULL)),
             (args[6]).As(static_cast<T6*>(NULL))
             );
-    }
+  }
 };
 #    define wxCONSTRUCTOR_7(klass,t0,v0,t1,v1,t2,v2,t3,v3,t4,v4,t5,v5,t6,v6)	 \
     wxObjectAllocatorAndCreator_7<klass,t0,t1,t2,t3,t4,t5,t6> constructor##klass; \
@@ -361,7 +362,7 @@ struct wxDirectConstructorBridge_7 : public wxObjectAllocator
             (args[6]).As(static_cast<T6*>(NULL))
             );
         return o != NULL;
-    }
+  }
 };
 #    define wxDIRECT_CONSTRUCTOR_7(klass,t0,v0,t1,v1,t2,v2,t3,v3,t4,v4,t5,v5,t6,v6)	 \
     wxDirectConstructorBridge_7<klass,t0,t1,t2,t3,t4,t5,t6> constructor##klass; \
@@ -386,7 +387,7 @@ struct wxObjectAllocatorAndCreator_8 : public wxObjectAllocatorAndCreator
             (args[6]).As(static_cast<T6*>(NULL)),
             (args[7]).As(static_cast<T7*>(NULL))
             );
-    }
+  }
 };
 #    define wxCONSTRUCTOR_8(klass,t0,v0,t1,v1,t2,v2,t3,v3,t4,v4,t5,v5,t6,v6,t7,v7)	 \
     wxObjectAllocatorAndCreator_8<klass,t0,t1,t2,t3,t4,t5,t6,t7> constructor##klass; \
@@ -411,7 +412,7 @@ struct wxDirectConstructorBridge_8 : public wxObjectAllocator
             (args[7]).As(static_cast<T7*>(NULL))
             );
         return o != NULL;
-    }
+  }
 };
 #    define wxDIRECT_CONSTRUCTOR_8(klass,t0,v0,t1,v1,t2,v2,t3,v3,t4,v4,t5,v5,t6,v6,t7,v7)	 \
     wxDirectConstructorBridge_8<klass,t0,t1,t2,t3,t4,t5,t6,t7> constructor##klass; \

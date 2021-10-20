@@ -18,14 +18,14 @@ public:
     // ctors and dtor
   wxToolBar()
   {
- Init();   }
+ Init();
+  }
   wxToolBar(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTB_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxToolBarNameStr))
   {
-
         Init();
 
         Create(parent, id, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTB_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxToolBarNameStr));
   virtual ~wxToolBar();
     // override/implement base class virtuals
@@ -54,7 +54,9 @@ public:
   WXDWORD MSWGetStyle(long style, WXDWORD* exstyle) const override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  { return false; }
+  {
+ return false;
+  }
 #    ifdef wxHAS_MSW_BACKGROUND_ERASE_HOOK
   bool MSWEraseBgHook(WXHDC hDC) override;
   WXHBRUSH MSWGetBgBrushForChild(WXHDC hDC, wxWindowMSW* child) override;
@@ -126,7 +128,7 @@ private:
   bool AreControlLabelsShown() const
   {
         return HasFlag(wxTB_TEXT) && !HasFlag(wxTB_NOICONS);
-    }
+  }
     // Return the size required to accommodate the given tool which must be of
     // "control" type.
   wxSize MSWGetFittingtSizeForControl(class wxToolBarTool* tool) const;

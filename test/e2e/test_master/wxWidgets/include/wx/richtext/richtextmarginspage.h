@@ -144,7 +144,7 @@ public:
         ID_RICHTEXT_BOTTOM_PADDING_CHECKBOX = 10772,
         ID_RICHTEXT_BOTTOM_PADDING = 10773,
         ID_RICHTEXT_BOTTOM_PADDING_UNITS = 10774
-    };
+  };
 ////@end wxRichTextMarginsPage member variables
   bool m_ignoreUpdates;
 };

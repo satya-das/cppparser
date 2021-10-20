@@ -18,9 +18,9 @@ namespace SkSL
     DoStatement(int offset, std::unique_ptr<Statement> statement, std::unique_ptr<Expression> test)
       :  INHERITED(offset, kDo_Kind)
     , fStatement(std::move(statement))
-    , fTest(std::move(test)) 
-      {
-      }
+    , fTest(std::move(test))
+    {
+    }
     std::unique_ptr<Statement> clone() const override
     {
         return std::unique_ptr<Statement>(new DoStatement(fOffset, fStatement->clone(),

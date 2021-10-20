@@ -111,24 +111,21 @@ public:
 //
 inline AcGeVector2d::AcGeVector2d()
   :  x(0.0), y(0.0)
+{
 
-  {
-
-  }
+}
 inline AcGeVector2d::AcGeVector2d(const AcGeVector2d& src)
   :  x(src.x), y(src.y)
+{
 
-  {
-
-  }
+}
 // Creates a vector intialized to ( xx, yy ).
 //
 inline AcGeVector2d::AcGeVector2d(double xx, double yy)
   :  x(xx), y(yy)
+{
 
-  {
-
-  }
+}
 inline bool AcGeVector2d::operator ==(const AcGeVector2d& v) const
 {
     return this->isEqualTo(v);

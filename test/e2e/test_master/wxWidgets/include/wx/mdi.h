@@ -26,13 +26,12 @@ class WXDLLIMPEXP_CORE wxMDIParentFrameBase : public wxFrame
 public:
   wxMDIParentFrameBase()
   {
-
         m_clientWindow = NULL;
         m_currentChild = NULL;
 #if wxUSE_MENUS
         m_windowMenu = NULL;
 #endif // wxUSE_MENUS
-      }
+  }
     /*
         Derived classes should provide ctor and Create() with the following
         declaration:
@@ -48,28 +47,35 @@ public:
 #    if  wxUSE_MENUS
   virtual ~wxMDIParentFrameBase()
   {
-
         delete m_windowMenu;
-      }
+  }
 #    endif
     // accessors
     // ---------
 
     // Get or change the active MDI child window
   virtual wxMDIChildFrame* GetActiveChild() const
-  { return m_currentChild; }
+  {
+ return m_currentChild;
+  }
   virtual void SetActiveChild(wxMDIChildFrame* child)
-  { m_currentChild = child; }
+  {
+ m_currentChild = child;
+  }
     // Get the client window
   wxMDIClientWindowBase* GetClientWindow() const
-  { return m_clientWindow; }
+  {
+ return m_clientWindow;
+  }
     // MDI windows menu functions
     // --------------------------
 #    if  wxUSE_MENUS
     // return the pointer to the current window menu or NULL if we don't have
     // because of wxFRAME_NO_WINDOW_MENU style
   wxMenu* GetWindowMenu() const
-  { return m_windowMenu; }
+  {
+ return m_windowMenu;
+  }
     // use the given menu instead of the default window menu
     //
     // menu can be NULL to disable the window menu completely
@@ -80,16 +86,22 @@ public:
             delete m_windowMenu;
             m_windowMenu = menu;
         }
-    }
+  }
 #    endif
     // standard MDI window management functions
     // ----------------------------------------
   virtual void Cascade()
-  { }
+  {
+
+  }
   virtual void Tile(wxOrientation = wxHORIZONTAL)
-  { }
+  {
+
+  }
   virtual void ArrangeIcons()
-  { }
+  {
+
+  }
   virtual void ActivateNext() = 0;
   virtual void ActivatePrevious() = 0;
     /*
@@ -129,7 +141,8 @@ class WXDLLIMPEXP_CORE wxMDIChildFrameBase : public wxFrame
 public:
   wxMDIChildFrameBase()
   {
- m_mdiParent = NULL;   }
+ m_mdiParent = NULL;
+  }
     /*
         Derived classes should provide Create() with the following signature:
 
@@ -150,15 +163,21 @@ public:
     // GetParent() (our parent may be the client window or even its subwindow
     // in some implementations)
   wxMDIParentFrame* GetMDIParent() const
-  { return m_mdiParent; }
+  {
+ return m_mdiParent;
+  }
     // Synonym for GetMDIParent(), was used in some other ports
   wxMDIParentFrame* GetMDIParentFrame() const
-  { return GetMDIParent(); }
+  {
+ return GetMDIParent();
+  }
     // in most ports MDI children frames are not really top-level, the only
     // exception are the Mac ports in which MDI children are just normal top
     // level windows too
   bool IsTopLevel() const override
-  { return false; }
+  {
+ return false;
+  }
     // In all ports keyboard navigation must stop at MDI child frame level and
     // can't cross its boundary. Indicate this by overriding this function to
     // return true.
@@ -176,12 +195,14 @@ public:
         }
 
         return false;
-    }
+  }
     // Raising any frame is supposed to show it but wxFrame Raise()
     // implementation doesn't work for MDI child frames in most forms so
     // forward this to Activate() which serves the same purpose by default.
   void Raise() override
-  { Activate(); }
+  {
+ Activate();
+  }
 protected:
   wxMDIParentFrame* m_mdiParent;
 };
@@ -197,98 +218,136 @@ public:
     //
     // TODO: MDI children should have their own status bars, why not?
   wxStatusBar* CreateStatusBar(int = 1, long = 1, wxWindowID = 1, const wxString& = wxEmptyString) override
-  { return NULL; }
+  {
+ return NULL;
+  }
   wxStatusBar* GetStatusBar() const override
-  { return NULL; }
+  {
+ return NULL;
+  }
   void SetStatusText(const wxString&, int = 0) override
-  { }
+  {
+
+  }
   void SetStatusWidths(int, const int[]) override
-  { }
+  {
+
+  }
 #    endif
 #    if  wxUSE_TOOLBAR
     // no toolbar
     //
     // TODO: again, it should be possible to have tool bars
   wxToolBar* CreateToolBar(long, wxWindowID, const wxString&) override
-  { return NULL; }
+  {
+ return NULL;
+  }
   wxToolBar* GetToolBar() const override
-  { return NULL; }
+  {
+ return NULL;
+  }
 #    endif
     // no icon
   void SetIcons(const wxIconBundle&) override
-  { }
+  {
+
+  }
     // title is used as the tab label
   wxString GetTitle() const override
-  { return m_title; }
+  {
+ return m_title;
+  }
   void SetTitle(const wxString& title) = 0;
     // no maximize etc
   void Maximize(bool = true) override
-  { }
+  {
+
+  }
   bool IsMaximized() const override
-  { return true; }
+  {
+ return true;
+  }
   bool IsAlwaysMaximized() const override
-  { return true; }
+  {
+ return true;
+  }
   void Iconize(bool = true) override
-  { }
+  {
+
+  }
   bool IsIconized() const override
-  { return false; }
+  {
+ return false;
+  }
   void Restore() override
-  { }
+  {
+
+  }
   bool ShowFullScreen(bool, long) override
-  { return false; }
+  {
+ return false;
+  }
   bool IsFullScreen() const override
-  { return false; }
+  {
+ return false;
+  }
     // we need to override these functions to ensure that a child window is
     // created even though we derive from wxFrame -- basically we make it
     // behave as just a wxWindow by short-circuiting wxTLW changes to the base
     // class behaviour
   void AddChild(wxWindowBase* child) override
-  { wxWindow::AddChild(child); }
+  {
+ wxWindow::AddChild(child);
+  }
   bool Destroy() override
-  { return wxWindow::Destroy(); }
+  {
+ return wxWindow::Destroy();
+  }
     // extra platform-specific hacks
 #    ifdef __WXMSW__
   WXDWORD MSWGetStyle(long flags, WXDWORD* exstyle = NULL) const override
   {
         return wxWindow::MSWGetStyle(flags, exstyle);
-    }
+  }
   WXHWND MSWGetParent() const override
   {
         return wxWindow::MSWGetParent();
-    }
+  }
   WXLRESULT MSWWindowProc(WXUINT message, WXWPARAM wParam, WXLPARAM lParam) override
   {
         return wxWindow::MSWWindowProc(message, wParam, lParam);
-    }
+  }
 #    endif
 protected:
   void DoGetSize(int* width, int* height) const override
   {
         wxWindow::DoGetSize(width, height);
-    }
+  }
   void DoSetSize(int x, int y, int width, int height, int sizeFlags) override
   {
         wxWindow::DoSetSize(x, y, width, height, sizeFlags);
-    }
+  }
   void DoGetClientSize(int* width, int* height) const override
   {
         wxWindow::DoGetClientSize(width, height);
-    }
+  }
   void DoSetClientSize(int width, int height) override
   {
         wxWindow::DoSetClientSize(width, height);
-    }
+  }
   void DoMoveWindow(int x, int y, int width, int height) override
   {
         wxWindow::DoMoveWindow(x, y, width, height);
-    }
+  }
   void DoGetScreenPosition(int* x, int* y) const override
   {
         wxWindow::DoGetScreenPosition(x, y);
-    }
+  }
     // no size hints
   void DoSetSizeHints(int, int, int, int, int, int) override
-  { }
+  {
+
+  }
   wxString m_title;
 };
 // ----------------------------------------------------------------------------

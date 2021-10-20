@@ -23,9 +23,7 @@ class wxJSScriptWrapper
 public:
   wxJSScriptWrapper(const wxString& js, int* runScriptCount)
     :  m_escapedCode(js)
-    
-    {
-
+  {
         // We assign the return value of JavaScript snippet we execute to the
         // variable with this name in order to be able to access it later if
         // needed.
@@ -66,7 +64,7 @@ public:
             m_escapedCode.insert(pos, '\\');
             pos += 2;
         }
-        }
+  }
     // Get the code to execute, its returned value will be either boolean true,
     // if it executed successfully, or the exception message if an error
     // occurred.
@@ -82,7 +80,7 @@ public:
                 m_outputVarName,
                 m_escapedCode
                );
-    }
+  }
     // Get code returning the result of the last successful execution of the
     // code returned by GetWrappedCode().
   wxString GetOutputCode() const
@@ -172,15 +170,17 @@ public:
 #else
         return m_outputVarName;
 #endif
-    }
+  }
   const wxString& GetUnwrappedOutputCode()
-  { return m_outputVarName; }
+  {
+ return m_outputVarName;
+  }
     // Execute the code returned by this function to let the output of the code
     // we executed be garbage-collected.
   wxString GetCleanUpCode() const
   {
         return wxString::Format(wxASCII_STR("%s = undefined;"), m_outputVarName);
-    }
+  }
 private:
   wxString m_escapedCode;
   wxString m_outputVarName;

@@ -19,9 +19,8 @@ class GrGLSLColorSpaceXformHelper : public SkNoncopyable
 public:
   GrGLSLColorSpaceXformHelper()
   {
-
         memset(&fFlags, 0, sizeof(fFlags));
-      }
+  }
   void emitCode(GrGLSLUniformHandler* uniformHandler, const GrColorSpaceXform* colorSpaceXform, uint32_t visibility = kFragment_GrShaderFlag)
   {
         SkASSERT(uniformHandler);
@@ -40,7 +39,7 @@ public:
                                                             "DstTF", kNumTransferFnCoeffs);
             }
         }
-    }
+  }
   void setData(const GrGLSLProgramDataManager& pdman, const GrColorSpaceXform* colorSpaceXform)
   {
         if (this->applySrcTF()) {
@@ -52,25 +51,43 @@ public:
         if (this->applyDstTF()) {
             pdman.set1fv(fDstTFVar, kNumTransferFnCoeffs, &colorSpaceXform->fSteps.dstTFInv.g);
         }
-    }
+  }
   bool isNoop() const
-  { return (0 == fFlags.mask()); }
+  {
+ return (0 == fFlags.mask());
+  }
   bool applyUnpremul() const
-  { return fFlags.unpremul; }
+  {
+ return fFlags.unpremul;
+  }
   bool applySrcTF() const
-  { return fFlags.linearize; }
+  {
+ return fFlags.linearize;
+  }
   bool applyGamutXform() const
-  { return fFlags.gamut_transform; }
+  {
+ return fFlags.gamut_transform;
+  }
   bool applyDstTF() const
-  { return fFlags.encode; }
+  {
+ return fFlags.encode;
+  }
   bool applyPremul() const
-  { return fFlags.premul; }
+  {
+ return fFlags.premul;
+  }
   GrGLSLProgramDataManager::UniformHandle srcTFUniform() const
-  { return fSrcTFVar; }
+  {
+ return fSrcTFVar;
+  }
   GrGLSLProgramDataManager::UniformHandle gamutXformUniform() const
-  { return fGamutXformVar; }
+  {
+ return fGamutXformVar;
+  }
   GrGLSLProgramDataManager::UniformHandle dstTFUniform() const
-  { return fDstTFVar; }
+  {
+ return fDstTFVar;
+  }
 private:
   static const int kNumTransferFnCoeffs = 7;
   GrGLSLProgramDataManager::UniformHandle fSrcTFVar;

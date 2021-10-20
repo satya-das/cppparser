@@ -38,7 +38,7 @@ private:
   enum {
         kMaxVerbs = 13,
         kMaxPoints = 32
-    };
+  };
   SkPoint fPoints[kMaxPoints];
   SkPath::Verb fVerbs[kMaxVerbs];
   void clipMonoQuad(const SkPoint srcPts[3], const SkRect& clip);

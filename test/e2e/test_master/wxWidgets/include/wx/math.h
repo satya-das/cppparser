@@ -101,13 +101,17 @@ inline bool wxIsSameDouble(double x, double y)
         return x == y;
 
         #pragma warning(pop)
-    }
+}
 #    else 
 inline bool wxIsSameDouble(double x, double y)
-{ return x == y; }
+{
+ return x == y;
+}
 #    endif
 inline bool wxIsNullDouble(double x)
-{ return wxIsSameDouble(x, 0.); }
+{
+ return wxIsSameDouble(x, 0.);
+}
 inline int wxRound(double x)
 {
     wxASSERT_MSG(x > double(INT_MIN) - 0.5 && x < double(INT_MAX) + 0.5,
@@ -135,7 +139,9 @@ inline int wxRound(float x)
     #endif
 }
 inline int wxRound(long double x)
-{ return wxRound(double(x)); }
+{
+ return wxRound(double(x));
+}
 // For compatibility purposes, make wxRound() work with integer types too, as
 // this used to compile with wx 3.0.
 #    if  WXWIN_COMPATIBILITY_3_0
@@ -157,9 +163,13 @@ wxDEPRECATED_MSG("rounding an integer is useless") inline int wxRound(T x)
 #    endif
 // Convert between degrees and radians.
 inline double wxDegToRad(double deg)
-{ return (deg * M_PI) / 180.0; }
+{
+ return (deg * M_PI) / 180.0;
+}
 inline double wxRadToDeg(double rad)
-{ return (rad * 180.0) / M_PI; }
+{
+ return (rad * 180.0) / M_PI;
+}
 // Count trailing zeros.
 WXDLLIMPEXP_BASE unsigned int wxCTZ(wxUint32 x);
 #  endif

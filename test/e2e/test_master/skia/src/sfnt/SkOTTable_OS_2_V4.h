@@ -28,7 +28,7 @@ struct SkOTTableOS2_V4
             Bold = SkTEndian_SwapBE16(700),
             ExtraBold = SkTEndian_SwapBE16(800),
             Black = SkTEndian_SwapBE16(900),
-        };
+  };
   SK_OT_USHORT value;
 } usWeightClass;
   struct WidthClass
@@ -43,7 +43,7 @@ struct SkOTTableOS2_V4
             Expanded = SkTEndian_SwapBE16(7),
             ExtraExpanded = SkTEndian_SwapBE16(8),
             UltraExpanded = SkTEndian_SwapBE16(9),
-        } value;
+} value;
 } usWidthClass;
   union Type
 {

@@ -35,24 +35,26 @@ public:
   wxColourDialogEvent()
   {
 
-      }
+  }
   wxColourDialogEvent(wxEventType evtType, wxColourDialog* dialog, const wxColour& colour)
     :  wxCommandEvent(evtType, dialog->GetId()),
           m_colour(colour)
-    
-    {
-
+  {
         SetEventObject(dialog);
-        }
+  }
     // default copy ctor and dtor are ok
   wxColour GetColour() const
-  { return m_colour; }
+  {
+ return m_colour;
+  }
   void SetColour(const wxColour& colour)
-  { m_colour = colour; }
+  {
+ m_colour = colour;
+  }
   wxEvent* Clone() const override
   {
         return new wxColourDialogEvent(*this);
-    }
+  }
 private:
   wxColour m_colour;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxColourDialogEvent);

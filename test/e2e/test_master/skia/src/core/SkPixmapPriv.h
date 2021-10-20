@@ -50,11 +50,11 @@ public:
             return Orient(dst, *tmp, origin);
         }
         return true;
-    }
+  }
   static void ResetPixmapKeepInfo(SkPixmap* pm, const void* address, size_t rowBytes)
   {
         pm->fRowBytes = rowBytes;
         pm->fPixels = address;
-    }
+  }
 };
 #endif

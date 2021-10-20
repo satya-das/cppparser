@@ -80,6 +80,6 @@ public:
         ADESK_UNREFED_PARAM(pObject);
         redirectedCompoundObjectId = compoundObjectId;
         return Acad::eOk;
-    }
+  }
 };
 #pragma  pack (pop)

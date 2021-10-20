@@ -17,9 +17,9 @@ public:
             , fSurfaceColorType(surfaceColorType)
             , fDstColorType(dstColorType)
             , fDstBuffer(std::move(dstBuffer))
-            , fDstOffset(dstOffset) 
-    {
-    }
+            , fDstOffset(dstOffset)
+  {
+  }
 private:
   void onPrepare(GrOpFlushState*) override
   {
@@ -28,7 +28,7 @@ private:
   {
         SkASSERT(!fTarget);
         return proxy == fSrcProxy.get();
-    }
+  }
     // If fSrcProxy is uninstantiated at flush time we simply will skip doing the transfer.
   void handleInternalAllocationFailure() override
   {
@@ -37,13 +37,13 @@ private:
   ExpectedOutcome onMakeClosed(const GrCaps&, SkIRect*) override
   {
         return ExpectedOutcome::kTargetUnchanged;
-    }
+  }
   bool onExecute(GrOpFlushState*) override;
 #  ifdef SK_DEBUG
   void visitProxies_debugOnly(const VisitSurfaceProxyFunc& fn) const override
   {
         fn(fSrcProxy.get(), GrMipMapped::kNo);
-    }
+  }
 #  endif
   sk_sp<GrSurfaceProxy> fSrcProxy;
   SkIRect fSrcRect;

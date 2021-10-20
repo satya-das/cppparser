@@ -21,9 +21,11 @@ public:
   SkAtlasTextRenderer* renderer() const
   {
         return SkGetAtlasTextRendererFromInternalContext(*fInternalContext);
-    }
+  }
   SkInternalAtlasTextContext& internal()
-  { return *fInternalContext; }
+  {
+ return *fInternalContext;
+  }
 private:
   SkAtlasTextContext() = delete;
   SkAtlasTextContext(const SkAtlasTextContext&) = delete;

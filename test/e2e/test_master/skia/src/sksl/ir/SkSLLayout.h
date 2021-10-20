@@ -192,9 +192,9 @@ namespace SkSL
     , fInvocations(invocations)
     , fWhen(when)
     , fKey(key)
-    , fCType(ctype) 
-      {
-      }
+    , fCType(ctype)
+    {
+    }
     Layout()
       :  fFlags(0)
     , fLocation(-1)
@@ -209,9 +209,9 @@ namespace SkSL
     , fMaxVertices(-1)
     , fInvocations(-1)
     , fKey(kNo_Key)
-    , fCType(CType::kDefault) 
-      {
-      }
+    , fCType(CType::kDefault)
+    {
+    }
     String description() const
     {
         String result;

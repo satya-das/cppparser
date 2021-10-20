@@ -30,28 +30,24 @@ public:
     // default ctor, the real conversion will be created on demand
   wxConvAuto(wxFontEncoding enc = wxFONTENCODING_DEFAULT)
   {
-
         Init();
 
         m_encDefault = enc;
-      }
+  }
     // copy ctor doesn't initialize anything neither as conversion can only be
     // deduced on first use
   wxConvAuto(const wxConvAuto& other)
     :  wxMBConv()
-    
-    {
-
+  {
         Init();
 
         m_encDefault = other.m_encDefault;
-        }
+  }
   virtual ~wxConvAuto()
   {
-
         if ( m_ownsConv )
             delete m_conv;
-      }
+  }
     // get/set the fall-back encoding used when the input text doesn't have BOM
     // and isn't UTF-8
     //
@@ -59,21 +55,29 @@ public:
     // at all (but just fail to convert in this case) and wxFONTENCODING_SYSTEM
     // meaning to use the encoding of the system locale
   static wxFontEncoding GetFallbackEncoding()
-  { return ms_defaultMBEncoding; }
+  {
+ return ms_defaultMBEncoding;
+  }
   static void SetFallbackEncoding(wxFontEncoding enc);
   static void DisableFallbackEncoding()
   {
         SetFallbackEncoding(wxFONTENCODING_MAX);
-    }
+  }
     // override the base class virtual function(s) to use our m_conv
   size_t ToWChar(wchar_t* dst, size_t dstLen, const char* src, size_t srcLen = wxNO_LEN) const override;
   size_t FromWChar(char* dst, size_t dstLen, const wchar_t* src, size_t srcLen = wxNO_LEN) const override;
   size_t GetMBNulLen() const override
-  { return m_conv->GetMBNulLen(); }
+  {
+ return m_conv->GetMBNulLen();
+  }
   bool IsUTF8() const override
-  { return m_conv && m_conv->IsUTF8(); }
+  {
+ return m_conv && m_conv->IsUTF8();
+  }
   wxMBConv* Clone() const override
-  { return new wxConvAuto(*this); }
+  {
+ return new wxConvAuto(*this);
+  }
     // return the BOM type of this buffer
   static wxBOM DetectBOM(const char* src, size_t srcLen);
     // return the characters composing the given BOM.
@@ -81,13 +85,13 @@ public:
   wxBOM GetBOM() const
   {
         return m_bomType;
-    }
+  }
   wxFontEncoding GetEncoding() const;
     // Return true if the fall-back encoding is used
   bool IsUsingFallbackEncoding() const
   {
         return m_ownsConv && m_bomType == wxBOM_None;
-    }
+  }
 private:
     // common part of all ctors
   void Init()
@@ -98,13 +102,13 @@ private:
         m_bomType = wxBOM_Unknown;
         m_ownsConv = false;
         m_consumedBOM = false;
-    }
+  }
     // initialize m_conv with the UTF-8 conversion
   void InitWithUTF8()
   {
         m_conv = &wxConvUTF8;
         m_ownsConv = false;
-    }
+  }
     // create the correct conversion object for the given BOM type
   void InitFromBOM(wxBOM bomType);
     // create the correct conversion object for the BOM present in the

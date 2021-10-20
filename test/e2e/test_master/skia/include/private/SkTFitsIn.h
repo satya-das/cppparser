@@ -64,7 +64,6 @@ struct sk_strip_enum<T, typename std::enable_if<std::is_enum<T>::value>::type>
 template <typename D, typename S>
 static constexpr typename std::enable_if<(std::is_integral<S>::value || std::is_enum<S>::value) && (std::is_integral<D>::value || std::is_enum<D>::value), bool>::type SkTFitsIn(S src)
 {
-
 #if !defined(SK_DEBUG) && !defined(__MSVC_RUNTIME_CHECKS )
     // Correct (simple) version. This trips up MSVC's /RTCc run-time checking.
 #define TEMP_MACRO    (S)(D)src == src;

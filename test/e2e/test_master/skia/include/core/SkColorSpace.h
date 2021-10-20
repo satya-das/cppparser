@@ -97,7 +97,9 @@ public:
      *  of gamuts, at the (very small) risk of collision.
      */
   uint32_t toXYZD50Hash() const
-  { return fToXYZD50Hash; }
+  {
+ return fToXYZD50Hash;
+  }
     /**
      *  Returns a color space with the same gamut as this one, but with a linear gamma.
      *  For color spaces whose gamut can not be described in terms of XYZ D50, returns
@@ -152,9 +154,13 @@ public:
   void invTransferFn(float gabcdef[7]) const;
   void gamutTransformTo(const SkColorSpace* dst, float src_to_dst_row_major[9]) const;
   uint32_t transferFnHash() const
-  { return fTransferFnHash; }
+  {
+ return fTransferFnHash;
+  }
   uint64_t hash() const
-  { return (uint64_t)fTransferFnHash << 32 | fToXYZD50Hash; }
+  {
+ return (uint64_t)fTransferFnHash << 32 | fToXYZD50Hash;
+  }
 private:
   friend class SkColorSpaceSingletonFactory;
   SkColorSpace(const float transferFn[7], const skcms_Matrix3x3& toXYZ);

@@ -41,25 +41,39 @@ class WXDLLIMPEXP_CORE wxStatusBarPane
 public:
   wxStatusBarPane(int style = wxSB_NORMAL, int width = 0)
     :  m_nStyle(style), m_nWidth(width)
-        
-    {
- m_bEllipsized = false;     }
+  {
+ m_bEllipsized = false;
+  }
   int GetWidth() const
-  { return m_nWidth; }
+  {
+ return m_nWidth;
+  }
   int GetStyle() const
-  { return m_nStyle; }
+  {
+ return m_nStyle;
+  }
   wxString GetText() const
-  { return m_text; }
+  {
+ return m_text;
+  }
     // implementation-only from now on
     // -------------------------------
   bool IsEllipsized() const
-  { return m_bEllipsized; }
+  {
+ return m_bEllipsized;
+  }
   void SetIsEllipsized(bool isEllipsized)
-  { m_bEllipsized = isEllipsized; }
+  {
+ m_bEllipsized = isEllipsized;
+  }
   void SetWidth(int width)
-  { m_nWidth = width; }
+  {
+ m_nWidth = width;
+  }
   void SetStyle(int style)
-  { m_nStyle = style; }
+  {
+ m_nStyle = style;
+  }
     // set text, return true if it changed or false if it was already set to
     // this value
   bool SetText(const wxString& text);
@@ -98,7 +112,9 @@ public:
     // given
   virtual void SetFieldsCount(int number = 1, const int* widths = NULL);
   int GetFieldsCount() const
-  { return (int)m_panes.GetCount(); }
+  {
+ return (int)m_panes.GetCount();
+  }
     // field text
     // ----------
 
@@ -120,14 +136,18 @@ public:
     // -2 grows twice as much as one with width -1 &c)
   virtual void SetStatusWidths(int n, const int widths[]);
   int GetStatusWidth(int n) const
-  { return m_panes[n].GetWidth(); }
+  {
+ return m_panes[n].GetWidth();
+  }
     // field styles
     // ------------
 
     // Set the field border style to one of wxSB_XXX values.
   virtual void SetStatusStyles(int n, const int styles[]);
   int GetStatusStyle(int n) const
-  { return m_panes[n].GetStyle(); }
+  {
+ return m_panes[n].GetStyle();
+  }
     // geometry
     // --------
 
@@ -139,19 +159,27 @@ public:
   virtual int GetBorderX() const = 0;
   virtual int GetBorderY() const = 0;
   wxSize GetBorders() const
-  { return wxSize(GetBorderX(), GetBorderY()); }
+  {
+ return wxSize(GetBorderX(), GetBorderY());
+  }
     // miscellaneous
     // -------------
   const wxStatusBarPane& GetField(int n) const
-  { return m_panes[n]; }
+  {
+ return m_panes[n];
+  }
     // wxWindow overrides:
 
     // don't want status bars to accept the focus at all
   bool AcceptsFocus() const override
-  { return false; }
+  {
+ return false;
+  }
     // the client size of a toplevel window doesn't include the status bar
   bool CanBeOutsideClientArea() const override
-  { return true; }
+  {
+ return true;
+  }
 protected:
     // called after the status bar pane text changed and should update its
     // display
@@ -163,10 +191,12 @@ protected:
             wxASSERT_MSG(!HasFlag(wxSTB_SHOW_TIPS),
                          "Do not set tooltip(s) manually when using wxSTB_SHOW_TIPS!");
             wxWindow::DoSetToolTip(tip);
-        }
+  }
 #    endif
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
     // internal helpers & data:
 
     // calculate the real field widths for the given total available size

@@ -205,9 +205,9 @@ namespace SkSL
     , fSkCaps_Type(new Type("$sk_Caps"))
     , fSkArgs_Type(new Type("$sk_Args"))
     , fFragmentProcessor_Type(fp_type(fInt_Type.get(), fBool_Type.get()))
-    , fDefined_Expression(new Defined(*fInvalid_Type)) 
-      {
-      }
+    , fDefined_Expression(new Defined(*fInvalid_Type))
+    {
+    }
     static std::vector<const Type*> static_type(const Type& t)
     {
         return { &t, &t, &t, &t };
@@ -363,21 +363,21 @@ namespace SkSL
     {
     public:
       Defined(const Type& type)
-        :  INHERITED(-1, kDefined_Kind, type) 
-        {
-        }
+        :  INHERITED(-1, kDefined_Kind, type)
+      {
+      }
       bool hasSideEffects() const override
       {
             return false;
-        }
+      }
       String description() const override
       {
             return "<defined>";
-        }
+      }
       std::unique_ptr<Expression> clone() const override
       {
             return std::unique_ptr<Expression>(new Defined(fType));
-        }
+      }
       typedef Expression INHERITED;
     };
     static std::unique_ptr<Type> fp_type(const Type* intType, const Type* boolType)

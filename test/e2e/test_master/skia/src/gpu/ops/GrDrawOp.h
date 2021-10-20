@@ -18,9 +18,9 @@ class GrDrawOp : public GrOp
 {
 public:
   GrDrawOp(uint32_t classID)
-    :  INHERITED(classID) 
-    {
-    }
+    :  INHERITED(classID)
+  {
+  }
     /**
      * This information is required to determine how to compute a GrAppliedClip from a GrClip for
      * this op.
@@ -31,7 +31,7 @@ public:
         kUsesHWAA = 0x1,
         /** Indices that the op reads and/or writes the stencil buffer */
         kUsesStencil = 0x2,
-    };
+  };
   GR_DECL_BITFIELD_CLASS_OPS_FRIENDS(FixedFunctionFlags);
   virtual FixedFunctionFlags fixedFunctionFlags() const = 0;
     /**
@@ -47,7 +47,7 @@ public:
   void validate() const override
   {
         SkASSERT(fAddDrawOpCalled);
-    }
+  }
 #  endif
 private:
   typedef GrOp INHERITED;

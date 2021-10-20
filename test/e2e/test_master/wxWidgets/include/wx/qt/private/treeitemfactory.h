@@ -31,11 +31,9 @@ public:
             wxNO_BORDER),
         m_actualParent(actualParent),
         m_moving(0)
-    
-    {
-
+  {
         Bind(wxEVT_MOVE, &wxQtListTextCtrl::OnMove, this);
-        }
+  }
   void OnMove(wxMoveEvent& event)
   {
         // QWidget::move generates a QMoveEvent so we need to guard against
@@ -58,7 +56,7 @@ public:
         const QPoint offset = widget->mapFromGlobal(globalPos);
 
         widget->move(eventPos + offset);
-    }
+  }
 private:
   QWidget* m_actualParent;
   wxRecursionGuardFlag m_moving;
@@ -73,16 +71,15 @@ public:
   explicit wxQtTreeItemEditorFactory(wxWindow* parent)
     :  m_parent(parent),
           m_textCtrl(NULL)
-    
-    {
+  {
 
-        }
+  }
   void AttachTo(QTreeWidget* tree)
   {
         QAbstractItemDelegate* delegate = tree->itemDelegate();
         QItemDelegate *qItemDelegate = static_cast<QItemDelegate*>(delegate);
         qItemDelegate->setItemEditorFactory(this);
-    }
+  }
   QWidget* createEditor(int, QWidget* parent) const override
   {
         if (m_textCtrl != NULL)
@@ -91,16 +88,16 @@ public:
         m_textCtrl = new wxQtListTextCtrl(m_parent, parent);
         m_textCtrl->SetFocus();
         return m_textCtrl->GetHandle();
-    }
+  }
   wxTextCtrl* GetEditControl() const
   {
         return m_textCtrl;
-    }
+  }
   void ClearEditor() const
   {
         delete m_textCtrl;
         m_textCtrl = NULL;
-    }
+  }
 private:
   wxWindow* m_parent;
   mutable wxTextCtrl* m_textCtrl;

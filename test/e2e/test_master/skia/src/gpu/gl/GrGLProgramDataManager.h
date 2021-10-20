@@ -71,7 +71,7 @@ public:
 private:
   enum {
         kUnusedUniform = -1,
-    };
+  };
   struct Uniform
   {
     GrGLint fLocation;
@@ -82,7 +82,7 @@ private:
   };
   enum {
         kUnusedPathProcVarying = -1,
-    };
+  };
   struct PathProcVarying
   {
     GrGLint fLocation;

@@ -74,7 +74,7 @@ typedef enum {
     kAcGiARGB,
     kAcGiABGR,
     kAcGiBGR,
-    kAcGiRGB                              
+    kAcGiRGB
 } AcGiImageOrg;
 // Raster image orientation
 //
@@ -112,7 +112,7 @@ typedef enum {
     kUnTransformedScale             // original pixels, unscaled, unrotated
 } AcGiScaleType;
 // highlight style
-enum AcGiHighlightStyle { 
+enum AcGiHighlightStyle {
     kAcGiHighlightNone,
     kAcGiHighlightCustom,
     kAcGiHighlightDashedAndThicken,

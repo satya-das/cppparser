@@ -27,9 +27,8 @@ protected:
     :  fSrc(src)
         , fCurrRow(0)
         , fStorage(storageBytes)
-    
-    {
-    }
+  {
+  }
   const SkPixmap& fSrc;
   int fCurrRow;
   SkAutoTMalloc<uint8_t> fStorage;

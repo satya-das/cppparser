@@ -75,7 +75,7 @@ public:
         aa[0] = SkToU8(a0);
         aa[1] = SkToU8(a1);
         this->blitAntiH(x, y, aa, runs);
-    }
+  }
     // (x, y), (x, y + 1)
   virtual void blitAntiV2(int x, int y, U8CPU a0, U8CPU a1)
   {
@@ -91,7 +91,7 @@ public:
         runs[1] = 0;
         aa[0] = SkToU8(a1);
         this->blitAntiH(x, y + 1, aa, runs);
-    }
+  }
     /**
      *  Special method just to identify the null blitter, which is returned
      *  from Choose() if the request cannot be fulfilled. Default impl
@@ -105,7 +105,9 @@ public:
      * at a time.
      */
   virtual int requestRowsPreserved() const
-  { return 1; }
+  {
+ return 1;
+  }
     /**
      * This function allocates memory for the blitter that the blitter then owns.
      * The memory can be used by the calling function at will, but it will be
@@ -115,7 +117,7 @@ public:
   virtual void* allocBlitMemory(size_t sz)
   {
         return fBlitMemory.reset(sz, SkAutoMalloc::kReuse_OnShrink);
-    }
+  }
     ///@name non-virtual helpers
   void blitMaskRegion(const SkMask& mask, const SkRegion& clip);
   void blitRectRegion(const SkIRect& rect, const SkRegion& clip);
@@ -157,7 +159,7 @@ public:
         SkASSERT(!clipRect.isEmpty());
         fBlitter = blitter;
         fClipRect = clipRect;
-    }
+  }
   void blitH(int x, int y, int width) override;
   void blitAntiH(int x, int y, const SkAlpha[], const int16_t runs[]) override;
   void blitV(int x, int y, int height, SkAlpha alpha) override;
@@ -168,11 +170,11 @@ public:
   int requestRowsPreserved() const override
   {
         return fBlitter->requestRowsPreserved();
-    }
+  }
   void* allocBlitMemory(size_t sz) override
   {
         return fBlitter->allocBlitMemory(sz);
-    }
+  }
 private:
   SkBlitter* fBlitter;
   SkIRect fClipRect;
@@ -189,7 +191,7 @@ public:
         SkASSERT(clipRgn && !clipRgn->isEmpty());
         fBlitter = blitter;
         fRgn = clipRgn;
-    }
+  }
   void blitH(int x, int y, int width) override;
   void blitAntiH(int x, int y, const SkAlpha[], const int16_t runs[]) override;
   void blitV(int x, int y, int height, SkAlpha alpha) override;
@@ -200,11 +202,11 @@ public:
   int requestRowsPreserved() const override
   {
         return fBlitter->requestRowsPreserved();
-    }
+  }
   void* allocBlitMemory(size_t sz) override
   {
         return fBlitter->allocBlitMemory(sz);
-    }
+  }
 private:
   SkBlitter* fBlitter;
   const SkRegion* fRgn;
@@ -219,7 +221,7 @@ public:
         SkASSERT(!clipRect.isEmpty());
         fBlitter = blitter;
         fClipRect = clipRect;
-    }
+  }
   void blitH(int x, int y, int width) override;
   void blitAntiH(int x, int y, const SkAlpha[], const int16_t runs[]) override;
   void blitV(int x, int y, int height, SkAlpha alpha) override;
@@ -232,11 +234,11 @@ public:
   int requestRowsPreserved() const override
   {
         return fBlitter->requestRowsPreserved();
-    }
+  }
   void* allocBlitMemory(size_t sz) override
   {
         return fBlitter->allocBlitMemory(sz);
-    }
+  }
 private:
   SkBlitter* fBlitter;
   SkIRect fClipRect;
@@ -262,35 +264,45 @@ class SkPairBlitter : public SkBlitter
   SkBlitter* fB = nullptr;
 public:
   SkPairBlitter(SkBlitter* a, SkBlitter* b)
-    :  fA(a), fB(b) 
-    {
-    }
+    :  fA(a), fB(b)
+  {
+  }
   void blitH(int x, int y, int width) override
-  { SHARD(blitH(x, y, width)) }
+  {
+ SHARD(blitH(x, y, width))
+  }
   void blitAntiH(int x, int y, const SkAlpha alphas[], const int16_t runs[]) override
   {
          SHARD(blitAntiH(x, y, alphas, runs))
-    }
+  }
   void blitV(int x, int y, int height, SkAlpha alpha) override
   {
         SHARD(blitV(x, y, height, alpha))
-    }
+  }
   void blitRect(int x, int y, int width, int height) override
   {
         SHARD(blitRect(x, y, width, height))
-    }
+  }
   void blitAntiRect(int x, int y, int width, int height, SkAlpha leftAlpha, SkAlpha rightAlpha) override
   {
         SHARD(blitAntiRect(x, y, width, height, leftAlpha, rightAlpha))
-    }
+  }
   void blitMask(const SkMask& mask, const SkIRect& clip) override
-  { SHARD(blitMask(mask, clip)) }
+  {
+ SHARD(blitMask(mask, clip))
+  }
   const SkPixmap* justAnOpaqueColor(uint32_t* value) override
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   void blitAntiH2(int x, int y, U8CPU a0, U8CPU a1) override
-  { SHARD(blitAntiH2(x, y, a0, a1)) }
+  {
+ SHARD(blitAntiH2(x, y, a0, a1))
+  }
   void blitAntiV2(int x, int y, U8CPU a0, U8CPU a1) override
-  { SHARD(blitAntiV2(x, y, a0, a1)) }
+  {
+ SHARD(blitAntiV2(x, y, a0, a1))
+  }
 };
 #  undef SHARD
 #endif

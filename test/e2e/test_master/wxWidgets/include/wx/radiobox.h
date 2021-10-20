@@ -34,9 +34,13 @@ public:
   virtual bool IsItemShown(unsigned int n) const = 0;
     // return number of columns/rows in this radiobox
   unsigned int GetColumnCount() const
-  { return m_numCols; }
+  {
+ return m_numCols;
+  }
   unsigned int GetRowCount() const
-  { return m_numRows; }
+  {
+ return m_numRows;
+  }
     // return the next active (i.e. shown and not disabled) item above/below/to
     // the left/right of the given one
   int GetNextItem(int item, wxDirection dir, long style) const;
@@ -45,7 +49,9 @@ public:
   void SetItemToolTip(unsigned int item, const wxString& text);
     // get the individual items tooltip; returns NULL if none
   wxToolTip* GetItemToolTip(unsigned int item) const
-  { return m_itemsTooltips ? (*m_itemsTooltips)[item] : NULL; }
+  {
+ return m_itemsTooltips ? (*m_itemsTooltips)[item] : NULL;
+  }
 #    endif
 #    if  wxUSE_HELP
     // set helptext for a particular item, pass an empty string to erase it
@@ -57,18 +63,18 @@ public:
     // conditional compilation in all code using this function
   void SetItemHelpText(unsigned int, const wxString&)
   {
-    }
+
+  }
 #    endif
     // returns the radio item at the given position or wxNOT_FOUND if none
     // (currently implemented only under MSW and GTK)
   virtual int GetItemFromPoint(const wxPoint&) const
   {
         return wxNOT_FOUND;
-    }
+  }
 protected:
   wxRadioBoxBase()
   {
-
         m_numCols =
         m_numRows =
         m_majorDim = 0;
@@ -76,13 +82,17 @@ protected:
 #if wxUSE_TOOLTIPS
         m_itemsTooltips = NULL;
 #endif // wxUSE_TOOLTIPS
-      }
+  }
   virtual wxBorder GetDefaultBorder() const
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
     // return the number of items in major direction (which depends on whether
     // we have wxRA_SPECIFY_COLS or wxRA_SPECIFY_ROWS style)
   unsigned int GetMajorDim() const
-  { return m_majorDim; }
+  {
+ return m_majorDim;
+  }
     // sets m_majorDim and also updates m_numCols/Rows
     //
     // the style parameter should be the style of the radiobox itself
@@ -97,7 +107,9 @@ protected:
   virtual void DoSetItemToolTip(unsigned int item, wxToolTip* tooltip);
     // returns true if we have any item tooltips
   bool HasItemToolTips() const
-  { return m_itemsTooltips != NULL; }
+  {
+ return m_itemsTooltips != NULL;
+  }
 #    endif
 #    if  wxUSE_HELP
     // Retrieve help text for an item: this is a helper for the implementation

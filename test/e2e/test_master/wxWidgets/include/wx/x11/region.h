@@ -18,34 +18,30 @@ class WXDLLIMPEXP_CORE wxRegion : public wxRegionBase
 public:
   wxRegion()
   {
-   }
+
+  }
   wxRegion(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
   {
-
         InitRect(x, y, w, h);
-      }
+  }
   wxRegion(const wxPoint& topLeft, const wxPoint& bottomRight)
   {
-
         InitRect(topLeft.x, topLeft.y,
                  bottomRight.x - topLeft.x, bottomRight.y - topLeft.y);
-      }
+  }
   wxRegion(const wxRect& rect)
   {
-
         InitRect(rect.x, rect.y, rect.width, rect.height);
-      }
+  }
   wxRegion(size_t n, const wxPoint* points, wxPolygonFillMode fillStyle = wxODDEVEN_RULE);
   wxRegion(const wxBitmap& bmp)
   {
-
         Union(bmp);
-      }
+  }
   wxRegion(const wxBitmap& bmp, const wxColour& transColour, int tolerance = 0)
   {
-
         Union(bmp, transColour, tolerance);
-      }
+  }
   virtual ~wxRegion();
     // wxRegionBase methods
   virtual void Clear();
@@ -79,7 +75,9 @@ public:
   wxRegionIterator();
   wxRegionIterator(const wxRegion& region);
   void Reset()
-  { m_current = 0u; }
+  {
+ m_current = 0u;
+  }
   void Reset(const wxRegion& region);
   operator bool() const;
   bool HaveRects() const;
@@ -89,10 +87,14 @@ public:
   wxCoord GetY() const;
   wxCoord GetW() const;
   wxCoord GetWidth() const
-  { return GetW(); }
+  {
+ return GetW();
+  }
   wxCoord GetH() const;
   wxCoord GetHeight() const
-  { return GetH(); }
+  {
+ return GetH();
+  }
   wxRect GetRect() const;
 private:
   size_t m_current;

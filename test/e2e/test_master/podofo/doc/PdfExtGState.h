@@ -113,6 +113,6 @@ namespace PoDoFo
   const PdfName& PdfExtGState::GetIdentifier() const
   {
     return m_Identifier;
-}
+  }
 }
 #endif

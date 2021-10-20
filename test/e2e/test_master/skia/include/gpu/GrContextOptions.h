@@ -25,12 +25,12 @@ struct SK_API GrContextOptions
          * Uses Skia's default behavior, which may use runtime properties (e.g. driver version).
          */
         kDefault
-    };
+  };
   enum class ShaderCacheStrategy {
         kSkSL,
         kBackendSource,
         kBackendBinary,
-    };
+  };
     /**
      * Abstract class which stores Skia data in a cache that persists between sessions. Currently,
      * Skia stores compiled shader binaries (only when glProgramBinary / glGetProgramBinary are

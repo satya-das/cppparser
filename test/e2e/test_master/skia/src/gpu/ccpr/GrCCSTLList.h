@@ -20,23 +20,26 @@ class GrCCSTLList :  SkNoncopyable
 public:
   template <typename ... Args>
   GrCCSTLList(Args&&... args)
-    :  fHead(std::forward<Args>(args)...) 
-    {
-    }
+    :  fHead(std::forward<Args>(args)...)
+  {
+  }
   ~GrCCSTLList()
   {
-
         T* draw = fHead.fNext; // fHead will be destructed automatically.
         while (draw) {
             T* next = draw->fNext;
             draw->~T();
             draw = next;
         }
-      }
+  }
   const T& head() const
-  { return fHead; }
+  {
+ return fHead;
+  }
   T& head()
-  { return fHead; }
+  {
+ return fHead;
+  }
   void append(GrCCSTLList&& right, SkArenaAlloc* alloc)
   {
         T* nextTail = (&right.fHead == right.fTail) ? nullptr : right.fTail;
@@ -49,26 +52,40 @@ public:
 
         fTail->fNext = newRightHead;
         fTail = !nextTail ? newRightHead : nextTail;
-    }
+  }
   template <typename U>
   struct Iter
   {
     bool operator!=(const Iter& that)
-    { return fCurr != that.fCurr; }
+    {
+ return fCurr != that.fCurr;
+    }
     U& operator*()
-    { return *fCurr; }
+    {
+ return *fCurr;
+    }
     void operator++()
-    { fCurr = fCurr->fNext; }
+    {
+ fCurr = fCurr->fNext;
+    }
     U* fCurr;
   };
   Iter<const T> begin() const
-  { return Iter<const T>{&fHead}; }
+  {
+ return Iter<const T>{&fHead};
+  }
   Iter<const T> end() const
-  { return Iter<const T>{nullptr}; }
+  {
+ return Iter<const T>{nullptr};
+  }
   Iter<T> begin()
-  { return Iter<T>{&fHead}; }
+  {
+ return Iter<T>{&fHead};
+  }
   Iter<T> end()
-  { return Iter<T>{nullptr}; }
+  {
+ return Iter<T>{nullptr};
+  }
 private:
   T fHead;
   T* fTail = &fHead;

@@ -14,13 +14,15 @@
 class GrTextureMaker : public GrTextureProducer
 {
 public:
-  enum class AllowedTexGenType : bool { kCheap, kAny };
+  enum class AllowedTexGenType : bool {
+ kCheap, kAny
+  };
   std::unique_ptr<GrFragmentProcessor> createFragmentProcessor(const SkMatrix& textureMatrix, const SkRect& constraintRect, FilterConstraint filterConstraint, bool coordsLimitedToConstraintRect, const GrSamplerState::Filter* filterOrNullForBicubic) override;
 protected:
   GrTextureMaker(GrRecordingContext* context, int width, int height, const GrColorInfo& info, bool domainNeedsLocal)
-    :  INHERITED(context, width, height, info, domainNeedsLocal) 
-    {
-    }
+    :  INHERITED(context, width, height, info, domainNeedsLocal)
+  {
+  }
     /**
      *  Return the maker's "original" texture. It is the responsibility of the maker to handle any
      *  caching of the original if desired.

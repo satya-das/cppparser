@@ -25,39 +25,37 @@ struct NFAState
         // contains a list of true/false values in fData. fData[c] tells us whether we accept the
         // character c.
         kTable_Kind
-    };
+  };
   NFAState(Kind kind, std::vector<int> next)
     :  fKind(kind)
-    , fNext(std::move(next)) 
-    {
-    }
+    , fNext(std::move(next))
+  {
+  }
   NFAState(char c, std::vector<int> next)
     :  fKind(kChar_Kind)
     , fChar(c)
-    , fNext(std::move(next)) 
-    {
-    }
+    , fNext(std::move(next))
+  {
+  }
   NFAState(std::vector<int> states)
     :  fKind(kRemapped_Kind)
-    , fData(std::move(states)) 
-    {
-    }
+    , fData(std::move(states))
+  {
+  }
   NFAState(bool inverse, std::vector<bool> accepts, std::vector<int> next)
     :  fKind(kTable_Kind)
     , fInverse(inverse)
-    , fNext(std::move(next)) 
-    {
-
+    , fNext(std::move(next))
+  {
         for (bool b : accepts) {
             fData.push_back(b);
         }
-        }
+  }
   NFAState(int token)
-    :  fKind(kAccept_Kind) 
-    {
-
+    :  fKind(kAccept_Kind)
+  {
         fData.push_back(token);
-        }
+  }
   bool accept(char c) const
   {
         switch (fKind) {
@@ -79,7 +77,7 @@ struct NFAState
             default:
                 ABORT("unreachable");
         }
-    }
+  }
   std::string description() const
   {
         switch (fKind) {
@@ -135,7 +133,7 @@ struct NFAState
             default:
                 ABORT("unreachable");
         }
-    }
+  }
   Kind fKind;
   char fChar = 0;
   bool fInverse = false;

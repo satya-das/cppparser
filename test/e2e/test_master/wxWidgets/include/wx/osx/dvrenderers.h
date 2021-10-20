@@ -15,7 +15,9 @@ class WXDLLIMPEXP_ADV wxDataViewCustomRenderer : public wxDataViewCustomRenderer
 {
 public:
   static wxString GetDefaultType()
-  { return wxS("string"); }
+  {
+ return wxS("string");
+  }
   wxDataViewCustomRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   virtual ~wxDataViewCustomRenderer();
     // implementation only
@@ -38,15 +40,14 @@ class wxOSXDataViewDisabledInertRenderer : public wxDataViewRenderer
 protected:
   wxOSXDataViewDisabledInertRenderer(const wxString& varianttype, wxDataViewCellMode mode, int alignment)
     :  wxDataViewRenderer(varianttype, mode, alignment)
-    
-    {
+  {
 
-        }
+  }
   void SetEnabled(bool enabled) override
   {
         wxDataViewRenderer::SetEnabled(enabled &&
                                         GetMode() != wxDATAVIEW_CELL_INERT);
-    }
+  }
 };
 // ---------------------------------------------------------
 // wxDataViewTextRenderer
@@ -55,7 +56,9 @@ class WXDLLIMPEXP_ADV wxDataViewTextRenderer : public wxDataViewRenderer
 {
 public:
   static wxString GetDefaultType()
-  { return wxS("string"); }
+  {
+ return wxS("string");
+  }
   wxDataViewTextRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
 #  if  wxUSE_MARKUP && wxOSX_USE_COCOA
   void EnableMarkup(bool enable = true);
@@ -76,7 +79,9 @@ class WXDLLIMPEXP_ADV wxDataViewBitmapRenderer : public wxDataViewRenderer
 {
 public:
   static wxString GetDefaultType()
-  { return wxS("wxBitmap"); }
+  {
+ return wxS("wxBitmap");
+  }
   wxDataViewBitmapRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   bool MacRender() override;
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewBitmapRenderer);
@@ -90,9 +95,13 @@ public:
   wxDataViewChoiceRenderer(const wxArrayString& choices, wxDataViewCellMode mode = wxDATAVIEW_CELL_EDITABLE, int alignment = wxDVR_DEFAULT_ALIGNMENT);
   bool MacRender() override;
   wxString GetChoice(size_t index) const
-  { return m_choices[index]; }
+  {
+ return m_choices[index];
+  }
   const wxArrayString& GetChoices() const
-  { return m_choices; }
+  {
+ return m_choices;
+  }
   void OSXOnCellChanged(NSObject* value, const wxDataViewItem& item, unsigned col) override;
 private:
   wxArrayString m_choices;
@@ -116,7 +125,9 @@ class WXDLLIMPEXP_ADV wxDataViewIconTextRenderer : public wxDataViewRenderer
 {
 public:
   static wxString GetDefaultType()
-  { return wxS("wxDataViewIconText"); }
+  {
+ return wxS("wxDataViewIconText");
+  }
   wxDataViewIconTextRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   bool MacRender() override;
   void OSXOnCellChanged(NSObject* value, const wxDataViewItem& item, unsigned col) override;
@@ -129,7 +140,9 @@ class WXDLLIMPEXP_CORE wxDataViewCheckIconTextRenderer : public wxDataViewRender
 {
 public:
   static wxString GetDefaultType()
-  { return wxS("wxDataViewCheckIconText"); }
+  {
+ return wxS("wxDataViewCheckIconText");
+  }
   explicit wxDataViewCheckIconTextRenderer(wxDataViewCellMode mode = wxDATAVIEW_CELL_ACTIVATABLE, int align = wxDVR_DEFAULT_ALIGNMENT);
     // This renderer can always display the 3rd ("indeterminate") checkbox
     // state if the model contains cells with wxCHK_UNDETERMINED value, but it
@@ -149,7 +162,9 @@ class WXDLLIMPEXP_ADV wxDataViewToggleRenderer : public wxOSXDataViewDisabledIne
 {
 public:
   static wxString GetDefaultType()
-  { return wxS("bool"); }
+  {
+ return wxS("bool");
+  }
   wxDataViewToggleRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   void ShowAsRadio();
   bool MacRender() override;
@@ -165,7 +180,9 @@ class WXDLLIMPEXP_ADV wxDataViewProgressRenderer : public wxDataViewRenderer
 {
 public:
   static wxString GetDefaultType()
-  { return wxS("long"); }
+  {
+ return wxS("long");
+  }
   wxDataViewProgressRenderer(const wxString& label = wxEmptyString, const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   bool MacRender() override;
   void OSXOnCellChanged(NSObject* value, const wxDataViewItem& item, unsigned col) override;
@@ -178,7 +195,9 @@ class WXDLLIMPEXP_ADV wxDataViewDateRenderer : public wxDataViewRenderer
 {
 public:
   static wxString GetDefaultType()
-  { return wxS("datetime"); }
+  {
+ return wxS("datetime");
+  }
   wxDataViewDateRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_ACTIVATABLE, int align = wxDVR_DEFAULT_ALIGNMENT);
   bool MacRender() override;
   void OSXOnCellChanged(NSObject* value, const wxDataViewItem& item, unsigned col) override;

@@ -30,8 +30,8 @@ public:
   ACRX_DECLARE_MEMBERS(AcGiMaterialTraits);
   enum IlluminationModel {
         kBlinnShader = 0,
-        kMetalShader, 
-    };
+        kMetalShader,
+  };
   enum ChannelFlags {
         kNone          = 0x00000,
         kUseDiffuse    = 0x00001,
@@ -44,30 +44,30 @@ public:
         kUseAll        = (kUseDiffuse | kUseSpecular | kUseReflection 
                             | kUseOpacity | kUseBump | kUseRefraction
                             | kUseNormalMap),
-    };
+  };
   enum Mode {
         kRealistic = 0,
-        kAdvanced, 
-    };
+        kAdvanced,
+  };
   enum LuminanceMode {
         kSelfIllumination = 0,
         kLuminance,
-    };
+  };
   enum NormalMapMethod {
         kTangentSpace
-    };
+  };
   enum GlobalIlluminationMode {
         kGlobalIlluminationNone,
         kGlobalIlluminationCast,
         kGlobalIlluminationReceive,
         kGlobalIlluminationCastAndReceive
-    };
+  };
   enum FinalGatherMode {
         kFinalGatherNone,
         kFinalGatherCast,
         kFinalGatherReceive,
         kFinalGatherCastAndReceive
-    };
+  };
     // Set material properties
     //
   virtual void setAmbient(const AcGiMaterialColor& color) = 0;
@@ -130,8 +130,8 @@ public:
   ACRX_DECLARE_MEMBERS(AcGiMaterialColor);
   enum Method {
         kInherit = 0,
-        kOverride,     
-    };
+        kOverride,
+  };
   ACGIMAT_IMPEXP static const AcGiMaterialColor kNull;
   AcGiMaterialColor(void);
   virtual ~AcGiMaterialColor();
@@ -193,7 +193,7 @@ public:
         kWood = 0,
         kMarble,
         kGeneric,
-    };
+  };
 };
 class AcGiGenericTexture : public AcGiProceduralTexture
 {
@@ -275,7 +275,7 @@ public:
         kScene = 0,
         kFile,
         kProcedural
-    };
+  };
     ///<summary>Material map filtering settings.</summary>
   enum Filter {
         ///<summary>
@@ -286,7 +286,7 @@ public:
 
         ///<summary>Explicitly disables filtering on this material map.</summary>
         kFilterNone
-    };
+  };
   ACGIMAT_IMPEXP static const AcGiMaterialMap kNull;
   AcGiMaterialMap(void);
   virtual ~AcGiMaterialMap();
@@ -344,20 +344,20 @@ public:
         kBox,
         kCylinder,
         kSphere
-    };
+  };
   enum Tiling {
         kInheritTiling = 0,
         kTile,
         kCrop,
         kClamp,
         kMirror,
-    };
+  };
   enum AutoTransform {
         kInheritAutoTransform = 0x0,
         kNone                 = 0x1,
         kObject               = 0x2,
         kModel                = 0x4
-    };
+  };
   ACGIMAT_IMPEXP static const AcGiMapper kIdentity;
   AcGiMapper(void);
   virtual ~AcGiMapper();
@@ -365,9 +365,9 @@ public:
   AcGiMapper& operator=(const AcGiMapper& mapper);
   bool operator==(const AcGiMapper& mapper) const;
   bool operator!=(const AcGiMapper& mapper) const
-  { 
-        return !(*this == mapper); 
-    }
+  {
+        return !(*this == mapper);
+  }
     // Set properties of material mapper.
     //
   virtual void set(const AcGiMapper& mapper);

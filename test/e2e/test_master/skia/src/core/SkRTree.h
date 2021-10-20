@@ -39,10 +39,14 @@ public:
 
     // Return the depth of the tree structure.
   int getDepth() const
-  { return fCount ? fRoot.fSubtree->fLevel + 1 : 0; }
+  {
+ return fCount ? fRoot.fSubtree->fLevel + 1 : 0;
+  }
     // Insertion count (not overall node count, which may be greater).
   int getCount() const
-  { return fCount; }
+  {
+ return fCount;
+  }
     // Get the root bound.
   SkRect getRootBound() const override;
     // These values were empirically determined to produce reasonable performance in most cases.

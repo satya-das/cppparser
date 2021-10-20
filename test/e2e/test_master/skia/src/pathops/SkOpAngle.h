@@ -24,20 +24,22 @@ public:
         kUnaryXor,
         kBinarySingle,
         kBinaryOpp,
-    };
+  };
   const SkOpAngle* debugAngle(int id) const;
   const SkOpCoincidence* debugCoincidence() const;
   SkOpContour* debugContour(int id) const;
   int debugID() const
   {
         return SkDEBUGRELEASE(fID, -1);
-    }
+  }
 #  if  DEBUG_SORT
   void debugLoop() const;
 #  endif
 #  if  DEBUG_ANGLE
   bool debugCheckCoincidence() const
-  { return fCheckCoincidence; }
+  {
+ return fCheckCoincidence;
+  }
   void debugCheckNearCoincidence() const;
   SkString debugPart() const;
 #  endif
@@ -58,7 +60,7 @@ public:
   SkOpSpanBase* end() const
   {
         return fEnd;
-    }
+  }
   bool insert(SkOpAngle*);
   SkOpSpanBase* lastMarked() const;
   bool loopContains(const SkOpAngle*) const;
@@ -66,27 +68,27 @@ public:
   SkOpAngle* next() const
   {
         return fNext;
-    }
+  }
   SkOpAngle* previous() const;
   SkOpSegment* segment() const;
   void set(SkOpSpanBase* start, SkOpSpanBase* end);
   void setLastMarked(SkOpSpanBase* marked)
   {
         fLastMarked = marked;
-    }
+  }
   SkOpSpanBase* start() const
   {
         return fStart;
-    }
+  }
   SkOpSpan* starter();
   bool tangentsAmbiguous() const
   {
         return fTangentsAmbiguous;
-    }
+  }
   bool unorderable() const
   {
         return fUnorderable;
-    }
+  }
 private:
   bool after(SkOpAngle* test);
   void alignmentSameSide(const SkOpAngle* test, int* order) const;

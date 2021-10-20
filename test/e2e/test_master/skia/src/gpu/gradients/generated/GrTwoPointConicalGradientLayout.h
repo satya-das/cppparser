@@ -18,12 +18,16 @@
 class GrTwoPointConicalGradientLayout : public GrFragmentProcessor
 {
 public:
-  enum class Type { kFocal = 2, kRadial = 0, kStrip = 1 };
+  enum class Type {
+ kFocal = 2, kRadial = 0, kStrip = 1
+  };
   static std::unique_ptr<GrFragmentProcessor> Make(const SkTwoPointConicalGradient& gradient, const GrFPArgs& args);
   GrTwoPointConicalGradientLayout(const GrTwoPointConicalGradientLayout& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "TwoPointConicalGradientLayout"; }
+  {
+ return "TwoPointConicalGradientLayout";
+  }
   GrCoordTransform fCoordTransform0;
   SkMatrix44 gradientMatrix;
   Type type;
@@ -45,11 +49,10 @@ private:
             , isWellBehaved(isWellBehaved)
             , isSwapped(isSwapped)
             , isNativelyFocal(isNativelyFocal)
-            , focalParams(focalParams) 
-    {
-
+            , focalParams(focalParams)
+  {
         this->addCoordTransform(&fCoordTransform0);
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

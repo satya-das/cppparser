@@ -19,9 +19,9 @@ namespace SkSL
   {
     FunctionReference(const Context& context, int offset, std::vector<const FunctionDeclaration*> function)
       :  INHERITED(offset, kFunctionReference_Kind, *context.fInvalid_Type)
-    , fFunctions(function) 
-      {
-      }
+    , fFunctions(function)
+    {
+    }
     bool hasSideEffects() const override
     {
         return false;
@@ -39,9 +39,9 @@ namespace SkSL
   private:
     FunctionReference(int offset, std::vector<const FunctionDeclaration*> function, const Type* type)
       :  INHERITED(offset, kFunctionReference_Kind, *type)
-    , fFunctions(function) 
-      {
-      }
+    , fFunctions(function)
+    {
+    }
   };
 }
 #endif

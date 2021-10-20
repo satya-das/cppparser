@@ -27,20 +27,22 @@ public:
             flags |= kPreservesOpaqueInput_OptimizationFlag;
         }
         return flags;
-    }
+  }
   SkPMColor4f constantOutputForConstantInput(const SkPMColor4f& input) const override
   {
         return ConstantOutputForConstantInput(this->childProcessor(0), uniformColor);
-    }
+  }
   static std::unique_ptr<GrFragmentProcessor> Make(std::unique_ptr<GrFragmentProcessor> fp, const SkPMColor4f& color, bool useUniform = true)
   {
         return std::unique_ptr<GrFragmentProcessor>(
                 new GrOverrideInputFragmentProcessor(std::move(fp), useUniform, color, color));
-    }
+  }
   GrOverrideInputFragmentProcessor(const GrOverrideInputFragmentProcessor& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "OverrideInputFragmentProcessor"; }
+  {
+ return "OverrideInputFragmentProcessor";
+  }
   int fp_index = -1;
   bool useUniform;
   SkPMColor4f uniformColor;
@@ -51,13 +53,12 @@ private:
                         (OptimizationFlags)OptFlags(fp, useUniform ? uniformColor : literalColor))
             , useUniform(useUniform)
             , uniformColor(uniformColor)
-            , literalColor(literalColor) 
-    {
-
+            , literalColor(literalColor)
+  {
         SkASSERT(fp);
         fp_index = this->numChildProcessors();
         this->registerChildProcessor(std::move(fp));
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

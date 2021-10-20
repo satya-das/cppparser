@@ -18,16 +18,15 @@ struct SkImageFilterCacheKey
         , fMatrix(matrix)
         , fClipBounds(clipBounds)
         , fSrcGenID(srcGenID)
-        , fSrcSubset(srcSubset) 
-    {
-
+        , fSrcSubset(srcSubset)
+  {
         // Assert that Key is tightly-packed, since it is hashed.
         static_assert(sizeof(SkImageFilterCacheKey) == sizeof(uint32_t) + sizeof(SkMatrix) +
                                      sizeof(SkIRect) + sizeof(uint32_t) + 4 * sizeof(int32_t),
                                      "image_filter_key_tight_packing");
         fMatrix.getType();  // force initialization of type, so hashes match
         SkASSERT(fMatrix.isFinite());   // otherwise we can't rely on == self when comparing keys
-        }
+  }
   uint32_t fUniqueID;
   SkMatrix fMatrix;
   SkIRect fClipBounds;
@@ -40,7 +39,7 @@ struct SkImageFilterCacheKey
                fClipBounds == other.fClipBounds &&
                fSrcGenID == other.fSrcGenID &&
                fSrcSubset == other.fSrcSubset;
-    }
+  }
 };
 // This cache maps from (filter's unique ID + CTM + clipBounds + src bitmap generation ID) to result
 // NOTE: this is the _specific_ unique ID of the image filter, so refiltering the same image with a
@@ -49,7 +48,9 @@ class SkImageFilterCache : public SkRefCnt
 {
 public:
   SK_USE_FLUENT_IMAGE_FILTER_TYPES_IN_CLASS
-  enum { kDefaultTransientSize = 32 * 1024 * 1024 };
+  enum {
+ kDefaultTransientSize = 32 * 1024 * 1024
+  };
   virtual ~SkImageFilterCache()
   {
   }

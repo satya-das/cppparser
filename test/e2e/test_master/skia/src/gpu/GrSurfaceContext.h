@@ -34,12 +34,18 @@ class GrSurfaceContext
 public:
   virtual ~GrSurfaceContext();
   const GrColorInfo& colorInfo() const
-  { return fColorInfo; }
+  {
+ return fColorInfo;
+  }
     // TODO: these two calls would be way cooler if this object had a GrSurfaceProxy pointer
   int width() const
-  { return this->asSurfaceProxy()->width(); }
+  {
+ return this->asSurfaceProxy()->width();
+  }
   int height() const
-  { return this->asSurfaceProxy()->height(); }
+  {
+ return this->asSurfaceProxy()->height();
+  }
   const GrCaps* caps() const;
     /**
      * Reads a rectangle of pixels from the render target context.
@@ -72,7 +78,9 @@ public:
   virtual GrRenderTargetProxy* asRenderTargetProxy() = 0;
   virtual sk_sp<GrRenderTargetProxy> asRenderTargetProxyRef() = 0;
   virtual GrRenderTargetContext* asRenderTargetContext()
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   GrAuditTrail* auditTrail();
     // Provides access to functions that aren't part of the public API.
   GrSurfaceContextPriv surfPriv();
@@ -81,11 +89,11 @@ public:
   bool testCopy(GrSurfaceProxy* src, const SkIRect& srcRect, const SkIPoint& dstPoint)
   {
         return this->copy(src, srcRect, dstPoint);
-    }
+  }
   bool testCopy(GrSurfaceProxy* src)
   {
         return this->copy(src);
-    }
+  }
 #  endif
 protected:
   friend class GrSurfaceContextPriv;
@@ -131,7 +139,7 @@ private:
   bool copy(GrSurfaceProxy* src)
   {
         return this->copy(src, SkIRect::MakeWH(src->width(), src->height()), SkIPoint::Make(0, 0));
-    }
+  }
   GrColorInfo fColorInfo;
   typedef SkRefCnt INHERITED;
 };

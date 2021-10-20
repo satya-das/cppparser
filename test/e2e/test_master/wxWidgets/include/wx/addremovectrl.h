@@ -20,10 +20,12 @@ public:
     // Default ctor and trivial but virtual dtor.
   wxAddRemoveAdaptor()
   {
-   }
+
+  }
   virtual ~wxAddRemoveAdaptor()
   {
-   }
+
+  }
     // Override to return the associated control.
   virtual wxWindow* GetItemsCtrl() const = 0;
     // Override to return whether a new item can be added to the control.
@@ -47,16 +49,14 @@ class WXDLLIMPEXP_CORE wxAddRemoveCtrl : public wxPanel
 public:
   wxAddRemoveCtrl()
   {
-
         Init();
-      }
+  }
   wxAddRemoveCtrl(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxAddRemoveCtrlNameStr))
   {
-
         Init();
 
         Create(parent, winid, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxAddRemoveCtrlNameStr));
   virtual ~wxAddRemoveCtrl();
     // Must be called for the control to be usable, takes ownership of the
@@ -71,7 +71,7 @@ private:
   void Init()
   {
         m_impl = NULL;
-    }
+  }
   class wxAddRemoveImpl* m_impl;
   wxDECLARE_NO_COPY_CLASS(wxAddRemoveCtrl);
 };

@@ -22,11 +22,15 @@ public:
     // Create from data
   bool Create(size_t size, const void* data);
   bool IsOk() const
-  { return m_data != NULL; }
+  {
+ return m_data != NULL;
+  }
   static void Stop();
 protected:
   void Init()
-  { m_data = NULL; }
+  {
+ m_data = NULL;
+  }
   bool CheckCreatedOk();
   void Free();
   bool DoPlay(unsigned flags) const override;

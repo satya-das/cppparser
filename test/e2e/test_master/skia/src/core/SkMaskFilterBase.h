@@ -142,14 +142,15 @@ protected:
         kFalse_FilterReturn,
         kTrue_FilterReturn,
         kUnimplemented_FilterReturn
-    };
+  };
   class NinePatch :  ::SkNoncopyable
   {
   public:
     NinePatch()
-      :  fCache(nullptr) 
-      {
-       }
+      :  fCache(nullptr)
+    {
+
+    }
     ~NinePatch();
     SkMask fMask;
     SkIRect fOuterRect;

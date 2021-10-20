@@ -18,7 +18,7 @@ public:
         kNumCtrlPts = 12,
         kNumCorners = 4,
         kNumPtsCubic = 4
-    };
+  };
     /**
      * Get the points corresponding to the top cubic of cubics.
      */

@@ -25,7 +25,7 @@ public:
 
         // Dump the detailed breakdown of the objects in the caches.
         kObjectsBreakdowns_LevelOfDetail
-    };
+  };
     /**
      *  Appends a new memory dump (i.e. a row) to the trace memory infrastructure.
      *  If dumpName does not exist yet, a new one is created. Otherwise, a new column is appended to
@@ -43,7 +43,9 @@ public:
      */
   virtual void dumpNumericValue(const char* dumpName, const char* valueName, const char* units, uint64_t value) = 0;
   virtual void dumpStringValue(const char*, const char*, const char*)
-  { }
+  {
+
+  }
     /**
      * Sets the memory backing for an existing dump.
      * backingType and backingObjectId are used by the embedder to associate the memory dumped via
@@ -65,10 +67,13 @@ public:
      * may be independently tracked there.
      */
   virtual bool shouldDumpWrappedObjects() const
-  { return true; }
+  {
+ return true;
+  }
 protected:
   virtual ~SkTraceMemoryDump()
   {
-   }
+
+  }
 };
 #endif

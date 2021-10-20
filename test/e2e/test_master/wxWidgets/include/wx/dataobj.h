@@ -109,7 +109,7 @@ public:
         Get  = 0x01,    // format is supported by GetDataHere()
         Set  = 0x02,    // format is supported by SetData()
         Both = 0x03     // format is supported by both (unused currently)
-    };
+  };
     // this class is polymorphic, hence it needs a virtual dtor
   virtual ~wxDataObjectBase();
     // get the best suited format for rendering our data
@@ -128,7 +128,7 @@ public:
   virtual bool SetData(const wxDataFormat&, size_t, const void*)
   {
         return false;
-    }
+  }
     // returns true if this format is supported
   bool IsSupported(const wxDataFormat& format, Direction dir = Get) const;
 };
@@ -172,42 +172,63 @@ public:
     // SetFormat()
   wxDataObjectSimple(const wxDataFormat& format = wxFormatInvalid)
     :  m_format(format)
-        
-    {
+  {
 
-            }
+  }
     // get/set the format we support
   const wxDataFormat& GetFormat() const
-  { return m_format; }
+  {
+ return m_format;
+  }
   void SetFormat(const wxDataFormat& format)
-  { m_format = format; }
+  {
+ m_format = format;
+  }
     // virtual functions to override in derived class (the base class versions
     // just return "not implemented")
     // -----------------------------------------------------------------------
 
     // get the size of our data
   virtual size_t GetDataSize() const
-  { return 0; }
+  {
+ return 0;
+  }
     // copy our data to the buffer
   virtual bool GetDataHere(void*) const
-  { return false; }
+  {
+ return false;
+  }
     // copy data from buffer to our data
   virtual bool SetData(size_t, const void*)
-  { return false; }
+  {
+ return false;
+  }
     // implement base class pure virtuals
     // ----------------------------------
   wxDataFormat GetPreferredFormat(wxDataObjectBase::Direction = Get) const override
-  { return m_format; }
+  {
+ return m_format;
+  }
   size_t GetFormatCount(wxDataObjectBase::Direction = Get) const override
-  { return 1; }
+  {
+ return 1;
+  }
   void GetAllFormats(wxDataFormat* formats, wxDataObjectBase::Direction = Get) const override
-  { *formats = m_format; }
+  {
+ *formats = m_format;
+  }
   size_t GetDataSize(const wxDataFormat&) const override
-  { return GetDataSize(); }
+  {
+ return GetDataSize();
+  }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
-  { return GetDataHere(buf); }
+  {
+ return GetDataHere(buf);
+  }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
-  { return SetData(len, buf); }
+  {
+ return SetData(len, buf);
+  }
 private:
     // the one and only format we support
   wxDataFormat m_format;
@@ -290,18 +311,23 @@ public:
   wxHTMLDataObject(const wxString& html = wxEmptyString)
     :  wxDataObjectSimple(wxDF_HTML),
           m_html(html)
-        
-    {
+  {
 
-            }
+  }
     // virtual functions which you may override if you want to provide text on
     // demand only - otherwise, the trivial default versions will be used
   virtual size_t GetLength() const
-  { return m_html.Len() + 1; }
+  {
+ return m_html.Len() + 1;
+  }
   virtual wxString GetHTML() const
-  { return m_html; }
+  {
+ return m_html;
+  }
   virtual void SetHTML(const wxString& html)
-  { m_html = html; }
+  {
+ m_html = html;
+  }
   size_t GetDataSize() const override;
   bool GetDataHere(void* buf) const override;
   bool SetData(size_t len, const void* buf) override;
@@ -309,15 +335,15 @@ public:
   size_t GetDataSize(const wxDataFormat&) const override
   {
         return GetDataSize();
-    }
+  }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
         return GetDataHere(buf);
-    }
+  }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
         return SetData(len, buf);
-    }
+  }
 private:
   wxString m_html;
 };
@@ -335,32 +361,45 @@ public:
 #endif
                             ),
           m_text(text)
-        
-    {
+  {
 
-            }
+  }
     // virtual functions which you may override if you want to provide text on
     // demand only - otherwise, the trivial default versions will be used
   virtual size_t GetTextLength() const
-  { return m_text.Len() + 1; }
+  {
+ return m_text.Len() + 1;
+  }
   virtual wxString GetText() const
-  { return m_text; }
+  {
+ return m_text;
+  }
   virtual void SetText(const wxString& text)
-  { m_text = text; }
+  {
+ m_text = text;
+  }
     // implement base class pure virtuals
     // ----------------------------------
 
     // some platforms have 2 and not 1 format for text data
 #    if  defined(wxNEEDS_UTF8_FOR_TEXT_DATAOBJ) || defined(wxNEEDS_UTF16_FOR_TEXT_DATAOBJ)
   size_t GetFormatCount(Direction = Get) const override
-  { return 2; }
+  {
+ return 2;
+  }
   void GetAllFormats(wxDataFormat* formats, wxDataObjectBase::Direction = Get) const override;
   size_t GetDataSize() const override
-  { return GetDataSize(GetPreferredFormat()); }
+  {
+ return GetDataSize(GetPreferredFormat());
+  }
   bool GetDataHere(void* buf) const override
-  { return GetDataHere(GetPreferredFormat(), buf); }
+  {
+ return GetDataHere(GetPreferredFormat(), buf);
+  }
   bool SetData(size_t len, const void* buf) override
-  { return SetData(GetPreferredFormat(), len, buf); }
+  {
+ return SetData(GetPreferredFormat(), len, buf);
+  }
   size_t GetDataSize(const wxDataFormat& format) const override;
   bool GetDataHere(const wxDataFormat& format, void* pBuf) const override;
   bool SetData(const wxDataFormat& format, size_t nLen, const void* pBuf) override;
@@ -372,15 +411,15 @@ public:
   size_t GetDataSize(const wxDataFormat&) const override
   {
         return GetDataSize();
-    }
+  }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
         return GetDataHere(buf);
-    }
+  }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
         return SetData(len, buf);
-    }
+  }
 #    endif
 #    if  defined(__WXQT__)
 private:
@@ -400,16 +439,19 @@ public:
     // GetBitmap()
   wxBitmapDataObjectBase(const wxBitmap& bitmap = wxNullBitmap)
     :  wxDataObjectSimple(wxDF_BITMAP), m_bitmap(bitmap)
-        
-    {
+  {
 
-            }
+  }
     // virtual functions which you may override if you want to provide data on
     // demand only - otherwise, the trivial default versions will be used
   virtual wxBitmap GetBitmap() const
-  { return m_bitmap; }
+  {
+ return m_bitmap;
+  }
   virtual void SetBitmap(const wxBitmap& bitmap)
-  { m_bitmap = bitmap; }
+  {
+ m_bitmap = bitmap;
+  }
 protected:
   wxBitmap m_bitmap;
   wxDECLARE_NO_COPY_CLASS(wxBitmapDataObjectBase);
@@ -425,12 +467,15 @@ class WXDLLIMPEXP_CORE wxFileDataObjectBase : public wxDataObjectSimple
 public:
     // ctor: use AddFile() later to fill the array
   wxFileDataObjectBase()
-    :  wxDataObjectSimple(wxDF_FILENAME) 
-    {
-     }
+    :  wxDataObjectSimple(wxDF_FILENAME)
+  {
+
+  }
     // get a reference to our array
   const wxArrayString& GetFilenames() const
-  { return m_filenames; }
+  {
+ return m_filenames;
+  }
 protected:
   wxArrayString m_filenames;
   wxDECLARE_NO_COPY_CLASS(wxFileDataObjectBase);
@@ -462,9 +507,13 @@ public:
     // get data: you may override these functions if you wish to provide data
     // only when it's requested
   virtual size_t GetSize() const
-  { return m_size; }
+  {
+ return m_size;
+  }
   virtual void* GetData() const
-  { return m_data; }
+  {
+ return m_data;
+  }
     // implement base class pure virtuals
     // ----------------------------------
   size_t GetDataSize() const override;
@@ -474,15 +523,15 @@ public:
   size_t GetDataSize(const wxDataFormat&) const override
   {
         return GetDataSize();
-    }
+  }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
         return GetDataHere(buf);
-    }
+  }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
         return SetData(len, buf);
-    }
+  }
 private:
   size_t m_size;
   void* m_data;
@@ -515,14 +564,17 @@ class WXDLLIMPEXP_CORE wxURLDataObject : public wxTextDataObject
 public:
   wxURLDataObject(const wxString& url = wxEmptyString)
     :  wxTextDataObject(url)
-        
-    {
+  {
 
-            }
+  }
   wxString GetURL() const
-  { return GetText(); }
+  {
+ return GetText();
+  }
   void SetURL(const wxString& url)
-  { SetText(url); }
+  {
+ SetText(url);
+  }
 };
 #    endif
 #  endif

@@ -43,11 +43,15 @@ public:
   void operator delete(void* p);
 #  ifndef PRODUCTION
   void* operator new(size_t size, const char*, int)
-  { return operator new(size); }
+  {
+ return operator new(size);
+  }
 #    if  _MSC_VER >= 1200
         // vc6 requires matching delete for each new
   void operator delete(void* p, const char*, int)
-  { delete p; }
+  {
+ delete p;
+  }
 #    endif
 #  endif
 #  ifdef DISABLING_LEAK_CHECK
@@ -69,7 +73,8 @@ Adesk::Boolean acgsSetCustomUpdateMethod(acgsCustomUpdateMethod custom_update_me
 ACCORE_PORT void acgsRedrawShortTermGraphics(int minx, int miny, int maxx, int maxy);
 struct AcGs
 {
-  enum LinePattern { eSolid                         = 0,
+  enum LinePattern {
+ eSolid                         = 0,
                             eDashed                        = 1,
                             eDotted                        = 2,
                             eDashDot                       = 3,
@@ -86,7 +91,8 @@ struct AcGs
                             eLongDashDot                   = 14,
                             eMediumDashDotShortDashDot     = 15,
                             eSparseDot                     = 16,
-                            eDefaultLinePattern            = eDotted };
+                            eDefaultLinePattern            = eDotted
+  };
 };
 ACCORE_PORT void acgsSetHighlightColor(Adesk::UInt16 colorIndex);
 ACCORE_PORT Adesk::UInt16 acgsGetHighlightColor(void);
@@ -125,7 +131,8 @@ class AcGs2DViewLimitManager
 public:
   virtual ~AcGs2DViewLimitManager()
   {
-   }
+
+  }
   virtual bool testView(const AcGePoint3d& target, double dFieldHeight) = 0;
 };
 AcGs2DViewLimitManager* acgsCreate2DViewLimitManager(int viewportNumber);

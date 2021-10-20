@@ -27,7 +27,9 @@ public:
     // comparison
   bool operator ==(const wxColour& colour) const;
   bool operator !=(const wxColour& colour) const
-  { return !(*this == colour); }
+  {
+ return !(*this == colour);
+  }
     // CoreGraphics CGColor
     // --------------------
 
@@ -37,7 +39,9 @@ public:
   CGColorRef GetCGColor() const;
     // do take ownership of the returned value
   CGColorRef CreateCGColor() const
-  { return wxCFRetain(GetCGColor()); }
+  {
+ return wxCFRetain(GetCGColor());
+  }
 #  if  wxOSX_USE_COCOA_OR_CARBON
     // Quickdraw RGBColor
     // ------------------
@@ -74,7 +78,9 @@ public:
   virtual CGFloat Blue() const = 0;
   virtual CGFloat Alpha() const = 0;
   virtual bool IsSolid() const
-  { return true; }
+  {
+ return true;
+  }
   virtual CGColorRef GetCGColor() const = 0;
   virtual wxColourRefData* Clone() const = 0;
 #  if  wxOSX_USE_COCOA

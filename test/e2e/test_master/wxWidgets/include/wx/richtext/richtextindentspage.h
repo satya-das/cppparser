@@ -132,7 +132,7 @@ public:
         ID_RICHTEXTINDENTSSPACINGPAGE_SPACING_LINE = 10115,
         ID_RICHTEXTINDENTSSPACINGPAGE_PAGEBREAK = 10106,
         ID_RICHTEXTINDENTSSPACINGPAGE_PREVIEW_CTRL = 10109
-    };
+  };
 ////@end wxRichTextIndentsSpacingPage member variables
   bool m_dontUpdate;
 };

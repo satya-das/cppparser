@@ -114,6 +114,6 @@ namespace PoDoFo
   inline PdfInputDevice* PdfRefCountedInputDevice::Device() const
   {
     return m_pDevice ? m_pDevice->m_pDevice : NULL;
-}
+  }
 }
 #endif

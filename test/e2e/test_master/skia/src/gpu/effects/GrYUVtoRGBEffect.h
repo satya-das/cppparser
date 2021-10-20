@@ -23,21 +23,26 @@ public:
   SkString dumpInfo() const override;
 #  endif
   SkYUVColorSpace yuvColorSpace() const
-  { return fYUVColorSpace; }
+  {
+ return fYUVColorSpace;
+  }
   const SkYUVAIndex& yuvaIndex(int i) const
-  { return fYUVAIndices[i]; }
+  {
+ return fYUVAIndices[i];
+  }
   GrYUVtoRGBEffect(const GrYUVtoRGBEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "YUVtoRGBEffect"; }
+  {
+ return "YUVtoRGBEffect";
+  }
 private:
   GrYUVtoRGBEffect(const sk_sp<GrTextureProxy> proxies[], const SkSize scales[], const GrSamplerState::Filter filterModes[], int numPlanes, const SkYUVAIndex yuvaIndices[4], SkYUVColorSpace yuvColorSpace, const SkMatrix& localMatrix, const SkRect* domain)
     :  INHERITED(kGrYUVtoRGBEffect_ClassID, kNone_OptimizationFlags)
             , fDomains{GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain(),
                        GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain()}
-            , fYUVColorSpace(yuvColorSpace) 
-    {
-
+            , fYUVColorSpace(yuvColorSpace)
+  {
         for (int i = 0; i < numPlanes; ++i) {
             SkMatrix planeMatrix = SkMatrix::MakeScale(scales[i].width(), scales[i].height());
             if (domain) {
@@ -67,7 +72,7 @@ private:
         }
 
         memcpy(fYUVAIndices, yuvaIndices, sizeof(fYUVAIndices));
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

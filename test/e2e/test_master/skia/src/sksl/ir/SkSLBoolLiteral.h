@@ -17,9 +17,9 @@ namespace SkSL
   {
     BoolLiteral(const Context& context, int offset, bool value)
       :  INHERITED(offset, kBoolLiteral_Kind, *context.fBool_Type)
-    , fValue(value) 
-      {
-      }
+    , fValue(value)
+    {
+    }
     String description() const override
     {
         return String(fValue ? "true" : "false");
@@ -46,9 +46,9 @@ namespace SkSL
   private:
     BoolLiteral(int offset, bool value, const Type* type)
       :  INHERITED(offset, kBoolLiteral_Kind, *type)
-    , fValue(value) 
-      {
-      }
+    , fValue(value)
+    {
+    }
   };
 }
 #endif

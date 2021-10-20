@@ -29,7 +29,7 @@ public:
         }
 
         return true;
-    }
+  }
   bool Restore(Serializer& ser) override
   {
         if ( !wxTLWGeometryGeneric::Restore(ser) )
@@ -41,7 +41,7 @@ public:
         ser.RestoreField("decor_b", &m_decorSize.bottom);
 
         return true;
-    }
+  }
   bool GetFrom(const wxTopLevelWindow* tlw) override
   {
         if ( !wxTLWGeometryGeneric::GetFrom(tlw) )
@@ -50,7 +50,7 @@ public:
         m_decorSize = tlw->m_decorSize;
 
         return true;
-    }
+  }
   bool ApplyTo(wxTopLevelWindow* tlw) override
   {
         // Don't overwrite the current decoration size if we already have it.
@@ -61,7 +61,7 @@ public:
         }
 
         return BaseType::ApplyTo(tlw);
-    }
+  }
 private:
   wxTopLevelWindow::DecorSize m_decorSize;
 };

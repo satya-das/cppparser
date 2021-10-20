@@ -31,24 +31,24 @@ public:
         State_Disabled,
         State_Current,
         State_Max
-    };
+  };
   enum Status {
         Status_Checked,
         Status_Unchecked,
         Status_3rdState,
         Status_Max
-    };
+  };
     // constructors
   wxCheckBox()
   {
- Init();   }
+ Init();
+  }
   wxCheckBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr))
   {
-
         Init();
 
         Create(parent, id, label, pos, size, style, validator, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr));
     // implement the checkbox interface
   void SetValue(bool value) override;
@@ -63,15 +63,19 @@ public:
   virtual void ChangeValue(bool value);
     // overridden base class virtuals
   bool IsPressed() const override
-  { return m_isPressed; }
+  {
+ return m_isPressed;
+  }
   bool PerformAction(const wxControlAction& action, long numArg = -1, const wxString& strArg = wxEmptyString) override;
   bool CanBeHighlighted() const override
-  { return true; }
+  {
+ return true;
+  }
   virtual wxInputHandler* CreateStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
         return CreateStdInputHandler(handlerDef);
-    }
+  }
 protected:
   void DoSet3StateValue(wxCheckBoxState) override;
   wxCheckBoxState DoGet3StateValue() const override;
@@ -91,10 +95,14 @@ protected:
     // directly access the bitmaps array without trying to find a valid bitmap
     // to use as GetBitmap() does
   wxBitmap DoGetBitmap(State state, Status status) const
-  { return m_bitmaps[state][status]; }
+  {
+ return m_bitmaps[state][status];
+  }
     // get the current status
   Status GetStatus() const
-  { return m_status; }
+  {
+ return m_status;
+  }
 private:
     // the current check status
   Status m_status;

@@ -22,28 +22,28 @@ namespace skvm
     enum GP64 {
             rax, rcx, rdx, rbx, rsp, rbp, rsi, rdi,
             r8 , r9 , r10, r11, r12, r13, r14, r15,
-        };
+    };
     enum Xmm {
             xmm0, xmm1, xmm2 , xmm3 , xmm4 , xmm5 , xmm6 , xmm7 ,
             xmm8, xmm9, xmm10, xmm11, xmm12, xmm13, xmm14, xmm15,
-        };
+    };
     enum Ymm {
             ymm0, ymm1, ymm2 , ymm3 , ymm4 , ymm5 , ymm6 , ymm7 ,
             ymm8, ymm9, ymm10, ymm11, ymm12, ymm13, ymm14, ymm15,
-        };
+    };
         // X and V values match 5-bit encoding for each (nothing tricky).
     enum X {
             x0 , x1 , x2 , x3 , x4 , x5 , x6 , x7 ,
             x8 , x9 , x10, x11, x12, x13, x14, x15,
             x16, x17, x18, x19, x20, x21, x22, x23,
             x24, x25, x26, x27, x28, x29, x30, xzr,
-        };
+    };
     enum V {
             v0 , v1 , v2 , v3 , v4 , v5 , v6 , v7 ,
             v8 , v9 , v10, v11, v12, v13, v14, v15,
             v16, v17, v18, v19, v20, v21, v22, v23,
             v24, v25, v26, v27, v28, v29, v30, v31,
-        };
+    };
     void bytes(const void*, int);
     void byte(uint8_t);
     void word(uint32_t);
@@ -67,7 +67,9 @@ namespace skvm
     struct Label
     {
       int offset = 0;
-      enum { None, ARMDisp19, X86Disp32 } kind = None;
+      enum {
+ None, ARMDisp19, X86Disp32
+} kind = None;
       std::vector<int> references;
     };
     Label here();
@@ -121,14 +123,22 @@ namespace skvm
         // There's another encoding for unconditional branches that can jump further,
         // but this one encoded as b.al is simple to implement and should be fine.
     void b(Label* l)
-    { this->b(Condition::al, l); }
+    {
+ this->b(Condition::al, l);
+    }
     void bne(Label* l)
-    { this->b(Condition::ne, l); }
+    {
+ this->b(Condition::ne, l);
+    }
     void blt(Label* l)
-    { this->b(Condition::lt, l); }
+    {
+ this->b(Condition::lt, l);
+    }
         // "cmp ..." is just an assembler mnemonic for "subs xzr, ..."!
     void cmp(X n, int imm12)
-    { this->subs(xzr, n, imm12); }
+    {
+ this->subs(xzr, n, imm12);
+    }
         // Compare and branch if zero/non-zero, as if
         //      cmp(t,0)
         //      beq/bne(l)
@@ -151,7 +161,7 @@ namespace skvm
     {
             // Two arguments ops seem to pass them in dst and y, forcing x to 0 so VEX.vvvv == 1111.
             this->op(prefix, map, opcode, dst,(Ymm)0,x, W);
-        }
+    }
         // dst = op(x,imm)
     void op(int prefix, int map, int opcode, int opcode_ext, Ymm dst, Ymm x, int imm);
         // dst = op(x,label) or op(label)
@@ -164,11 +174,17 @@ namespace skvm
         // 2-argument ops, with or without an immediate.
     void op(uint32_t op22, int imm, V n, V d);
     void op(uint32_t op22, V n, V d)
-    { this->op(op22,0,n,d); }
+    {
+ this->op(op22,0,n,d);
+    }
     void op(uint32_t op22, X x, V v)
-    { this->op(op22,0,(V)x,v); }
+    {
+ this->op(op22,0,(V)x,v);
+    }
         // Order matters... value is 4-bit encoding for condition code.
-    enum class Condition { eq,ne,cs,cc,mi,pl,vs,vc,hi,ls,ge,lt,gt,le,al };
+    enum class Condition {
+ eq,ne,cs,cc,mi,pl,vs,vc,hi,ls,ge,lt,gt,le,al
+    };
     void b(Condition, Label*);
     void jump(uint8_t condition, Label*);
     int disp19(Label*);
@@ -213,7 +229,7 @@ namespace skvm
         select,
 
         bytes, extract, pack,
-    };
+  };
   using Val = int;
     // We reserve the last Val ID as a sentinel meaning none, n/a, null, nil, etc.
   static const Val NA = ~0;
@@ -245,16 +261,22 @@ namespace skvm
     Program done(const char* debug_name = nullptr);
         // Mostly for debugging, tests, etc.
     std::vector<Instruction> program() const
-    { return fProgram; }
+    {
+ return fProgram;
+    }
         // Declare an argument with given stride (use stride=0 for uniforms).
         // TODO: different types for varying and uniforms?
     Arg arg(int stride);
         // Convenience arg() wrappers for most common strides, sizeof(T) and 0.
     template <typename T>
     Arg varying()
-    { return this->arg(sizeof(T)); }
+    {
+ return this->arg(sizeof(T));
+    }
     Arg uniform()
-    { return this->arg(0); }
+    {
+ return this->arg(0);
+    }
         // TODO: allow uniform (i.e. Arg) offsets to store* and load*?
         // TODO: sign extension (signed types) for <32-bit loads?
         // TODO: unsigned integer operations where relevant (just comparisons?)?
@@ -278,7 +300,9 @@ namespace skvm
         // Load an immediate constant.
     I32 splat(int n);
     I32 splat(unsigned u)
-    { return this->splat((int)u); }
+    {
+ return this->splat((int)u);
+    }
     F32 splat(float f);
         // float math, comparisons, etc.
     F32 add(F32 x, F32 y);
@@ -294,7 +318,9 @@ namespace skvm
     I32 gte(F32 x, F32 y);
     I32 to_i32(F32 x);
     I32 bit_cast(F32 x)
-    { return {x.id}; }
+    {
+ return {x.id};
+    }
         // int math, comparisons, etc.
     I32 add(I32 x, I32 y);
     I32 sub(I32 x, I32 y);
@@ -310,7 +336,9 @@ namespace skvm
     I32 gte(I32 x, I32 y);
     F32 to_f32(I32 x);
     F32 bit_cast(I32 x)
-    { return {x.id}; }
+    {
+ return {x.id};
+    }
         // Treat each 32-bit lane as a pair of 16-bit ints.
     I32 add_16x2(I32 x, I32 y);
     I32 sub_16x2(I32 x, I32 y);
@@ -334,7 +362,7 @@ namespace skvm
     {
             return this->bit_cast(this->select(cond, this->bit_cast(t)
                                                    , this->bit_cast(f)));
-        }
+    }
         // More complex operations...
 
         // Shuffle the bytes in x according to each nibble of control, as if
@@ -367,7 +395,7 @@ namespace skvm
       static size_t Hash(T val)
       {
                 return std::hash<T>{}(val);
-            }
+      }
             // TODO: replace with SkOpts::hash()?
       size_t operator()(const Instruction& inst) const
       {
@@ -378,7 +406,7 @@ namespace skvm
                      ^ Hash(inst.imm)
                      ^ Hash(inst.death)
                      ^ Hash(inst.hoist);
-            }
+      }
     };
     Val push(Op, Val x, Val y = NA, Val z = NA, int imm = 0);
     bool isZero(Val) const;
@@ -415,15 +443,23 @@ namespace skvm
             // This nullptr isn't important except that it makes args[] non-empty if you pass none.
             void* args[] = { (void*)arg..., nullptr };
             this->eval(n, args);
-        }
+    }
     std::vector<Instruction> instructions() const
-    { return fInstructions; }
+    {
+ return fInstructions;
+    }
     int nregs() const
-    { return fRegs; }
+    {
+ return fRegs;
+    }
     int loop() const
-    { return fLoop; }
+    {
+ return fLoop;
+    }
     bool empty() const
-    { return fInstructions.empty(); }
+    {
+ return fInstructions.empty();
+    }
     bool hasJIT() const;
     void dropJIT();
     void dump(SkWStream* = nullptr) const;

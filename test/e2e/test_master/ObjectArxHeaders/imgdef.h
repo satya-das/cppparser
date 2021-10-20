@@ -120,7 +120,7 @@ public:
         kAstronomical   = 18,
         kLightYears     = 19,
         kParsecs        = 20
-    };
+  };
   virtual Acad::ErrorStatus setResolutionMMPerPixel(const AcGeVector2d& resMMPerPixel);
   virtual AcGeVector2d resolutionMMPerPixel() const;
   virtual void setResolutionUnits(AcDbRasterImageDef::Units units);
@@ -180,7 +180,9 @@ public:
     // Use the following enum constant for the buffer size of
     // of newImageName.
     //
-  enum { kMaxSuggestNameSize = 2049 };
+  enum {
+ kMaxSuggestNameSize = 2049
+  };
   static Acad::ErrorStatus suggestName(AcDbDictionary* pImageDictionary, const ACHAR* pNewImagePathName, ACHAR* newImageName, size_t nSize);
 private:
     // Data members
@@ -224,7 +226,7 @@ public:
   enum DeleteImageEvent {
         kUnload     = 1,
         kErase      = 2,
-    };
+  };
   virtual Adesk::Boolean onDeleteImage(const AcDbRasterImageDef* pImageDef, const Atil::Image* pImage, DeleteImageEvent event, Adesk::Boolean cancelAllowed);
     // Enable/disable notification actions
     //
@@ -263,9 +265,13 @@ public:
 //////////////////// inlines ////////////////////
 //
 inline ClassVersion AcDbRasterImageDef::classVersion()
-{   return mVersion; }
+{
+   return mVersion;
+}
 inline ClassVersion AcDbRasterImageDefReactor::classVersion()
-{   return mVersion; }
+{
+   return mVersion;
+}
 #  pragma  warning( default : 4275 ) 
 #  pragma  pack (pop)
 #endif

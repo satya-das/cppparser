@@ -208,12 +208,12 @@ extern "C" {
     HHWIN_NAVTYPE_HISTORY,
     HHWIN_NAVTYPE_AUTHOR,
     HHWIN_NAVTYPE_CUSTOM_FIRST = 11
-};
+  };
   enum {
     IT_INCLUSIVE,
     IT_EXCLUSIVE,
     IT_HIDDEN
-};
+  };
   typedef struct tagHH_ENUM_IT
 {
   int cbStruct;
@@ -241,7 +241,7 @@ extern "C" {
     HHWIN_NAVTAB_TOP,
     HHWIN_NAVTAB_LEFT,
     HHWIN_NAVTAB_BOTTOM
-};
+  };
 #  define HH_MAX_TABS	19
   enum {
     HH_TAB_CONTENTS,
@@ -252,7 +252,7 @@ extern "C" {
     HH_TAB_AUTHOR,
     HH_TAB_CUSTOM_FIRST = 11,
     HH_TAB_CUSTOM_LAST = HH_MAX_TABS
-};
+  };
 #  define HH_MAX_TABS_CUSTOM(HH_TAB_CUSTOM_LAST-HH_TAB_CUSTOM_FIRST+1)
 #  define HH_FTS_DEFAULT_PROXIMITY	-1
   typedef struct tagHH_FTS_QUERYA
@@ -392,7 +392,7 @@ extern "C" {
     HHACT_TOC_PREV,
     HHACT_NOTES,
     HHACT_LAST_ENUM
-};
+  };
   typedef struct tagHH_NTRACKA
 {
   NMHDR hdr;

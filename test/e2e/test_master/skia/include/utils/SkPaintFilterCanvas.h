@@ -23,16 +23,20 @@ public:
   SkPaintFilterCanvas(SkCanvas* canvas);
   enum Type {
         kPicture_Type,
-    };
+  };
     // Forwarded to the wrapped canvas.
   SkISize getBaseLayerSize() const override
-  { return proxy()->getBaseLayerSize(); }
+  {
+ return proxy()->getBaseLayerSize();
+  }
   GrContext* getGrContext() override
-  { return proxy()->getGrContext();     }
+  {
+ return proxy()->getGrContext();
+  }
   GrRenderTargetContext* internal_private_accessTopLayerRenderTargetContext() override
   {
         return proxy()->internal_private_accessTopLayerRenderTargetContext();
-    }
+  }
 protected:
     /**
      *  Called with the paint that will be used to draw the specified type.
@@ -83,11 +87,13 @@ protected:
 private:
   class AutoPaintFilter;
   SkCanvas* proxy() const
-  { SkASSERT(fList.count() == 1); return fList[0]; }
+  {
+ SkASSERT(fList.count() == 1); return fList[0];
+  }
   SkPaintFilterCanvas* internal_private_asPaintFilterCanvas() const override
   {
         return const_cast<SkPaintFilterCanvas*>(this);
-    }
+  }
   friend class SkAndroidFrameworkUtils;
 };
 #endif

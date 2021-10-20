@@ -23,9 +23,9 @@ namespace SkSL
       :  INHERITED(var->fOffset, Statement::kVarDeclaration_Kind)
     , fVar(var)
     , fSizes(std::move(sizes))
-    , fValue(std::move(value)) 
-      {
-      }
+    , fValue(std::move(value))
+    {
+    }
     std::unique_ptr<Statement> clone() const override
     {
         std::vector<std::unique_ptr<Expression>> sizesClone;
@@ -66,13 +66,12 @@ namespace SkSL
   {
     VarDeclarations(int offset, const Type* baseType, std::vector<std::unique_ptr<VarDeclaration>> vars)
       :  INHERITED(offset, kVar_Kind)
-    , fBaseType(*baseType) 
-      {
-
+    , fBaseType(*baseType)
+    {
         for (auto& var : vars) {
             fVars.push_back(std::unique_ptr<Statement>(var.release()));
         }
-          }
+    }
     std::unique_ptr<ProgramElement> clone() const override
     {
         std::vector<std::unique_ptr<VarDeclaration>> cloned;

@@ -18,7 +18,9 @@
 // return the size needed for the buffer containing the encoded representation
 // of a buffer of given length
 inline size_t wxBase64EncodedSize(size_t len)
-{ return 4*((len+2)/3); }
+{
+ return 4*((len+2)/3);
+}
 // raw base64 encoding function which encodes the contents of a buffer of the
 // specified length into the buffer of the specified size
 //
@@ -60,7 +62,9 @@ enum wxBase64DecodeMode {
 // return the buffer size necessary for decoding a base64 string of the given
 // length
 inline size_t wxBase64DecodedSize(size_t srcLen)
-{ return 3*srcLen/4; }
+{
+ return 3*srcLen/4;
+}
 // raw decoding function which decodes the contents of the string of specified
 // length (or NUL-terminated by default) into the provided buffer of the given
 // size

@@ -145,7 +145,7 @@ public:
         BASICTYPE_BSTR = 30,
         BASICTYPE_HRESULT = 31,
         BASICTYPE_MAX
-    };
+  };
   enum SymbolTag {
         SYMBOL_TAG_NULL,
         SYMBOL_TAG_EXE,
@@ -179,7 +179,7 @@ public:
         SYMBOL_TAG_MANAGED_TYPE,
         SYMBOL_TAG_DIMENSION,
         SYMBOL_TAG_MAX
-    };
+  };
   enum DataKind {
         DATA_UNKNOWN,
         DATA_LOCAL,
@@ -192,13 +192,13 @@ public:
         DATA_STATIC_MEMBER,
         DATA_CONSTANT,
         DATA_MAX
-    };
+  };
   enum UdtKind {
         UDT_STRUCT,
         UDT_CLASS,
         UDT_UNION,
         UDT_MAX
-    };
+  };
     // function types
   typedef DWORD (WINAPI *SymGetOptions_t) ();
   typedef DWORD (WINAPI *SymSetOptions_t) (DWORD);

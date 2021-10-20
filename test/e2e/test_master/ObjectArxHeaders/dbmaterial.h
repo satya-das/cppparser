@@ -96,7 +96,7 @@ public:
         kIsModifiedIsValid  = 0x2,
         kIsModified         = 0x4,
         kIsModifiedAndValid = 0x6  // kIsModifiedIsValid | kIsModified
-    };
+  };
   Acad::ErrorStatus getAdskMaterialFlags(MaterialFlags& flags) const;
   Acad::ErrorStatus setAdskMaterialFlags(MaterialFlags flags);
 protected:

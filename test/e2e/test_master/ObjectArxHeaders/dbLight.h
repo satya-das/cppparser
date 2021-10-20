@@ -388,7 +388,7 @@ public:
         /// Illuminance.
         /// </summary>
         kIlluminance
-    };
+  };
     /// <summary>
     /// Gets the physical intensity method of the light.  This indicates
     /// how the physical intensity of the light is specified, either 
@@ -501,7 +501,7 @@ public:
         /// Color specified as a preset lamp color.
         /// </summary>
         kPreset
-    };
+  };
     /// <summary>
     /// Gets the lamp color type of the light.  This indicates how the lamp
     /// color of the light is specified, either as a Kelvin color temperature
@@ -632,7 +632,7 @@ public:
         /// Custom lamp color.
         /// </summary>
         kCustom
-    };
+  };
     /// <summary>
     /// Gets the preset lamp color of the light.
     /// </summary>
@@ -867,7 +867,7 @@ public:
         /// Off.
         /// </summary>
         kGlyphDisplayOff
-    };
+  };
     /// <summary>
     /// Gets the display state of the light glyph.
     /// </summary>

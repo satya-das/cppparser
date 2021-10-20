@@ -30,7 +30,7 @@ namespace SK_OPTS_NS
                | (uint32_t)g <<  8
                | (uint32_t)r <<  0;
     }
-}
+  }
   static void RGBA_to_bgrA_portable(uint32_t* dst, const uint32_t* src, int count)
   {
     for (int i = 0; i < count; i++) {
@@ -46,7 +46,7 @@ namespace SK_OPTS_NS
                | (uint32_t)g <<  8
                | (uint32_t)b <<  0;
     }
-}
+  }
   static void RGBA_to_BGRA_portable(uint32_t* dst, const uint32_t* src, int count)
   {
     for (int i = 0; i < count; i++) {
@@ -59,7 +59,7 @@ namespace SK_OPTS_NS
                | (uint32_t)g <<  8
                | (uint32_t)b <<  0;
     }
-}
+  }
   static void RGB_to_RGB1_portable(uint32_t dst[], const uint8_t* src, int count)
   {
     for (int i = 0; i < count; i++) {
@@ -72,7 +72,7 @@ namespace SK_OPTS_NS
                | (uint32_t)g    <<  8
                | (uint32_t)r    <<  0;
     }
-}
+  }
   static void RGB_to_BGR1_portable(uint32_t dst[], const uint8_t* src, int count)
   {
     for (int i = 0; i < count; i++) {
@@ -85,7 +85,7 @@ namespace SK_OPTS_NS
                | (uint32_t)g    <<  8
                | (uint32_t)b    <<  0;
     }
-}
+  }
   static void gray_to_RGB1_portable(uint32_t dst[], const uint8_t* src, int count)
   {
     for (int i = 0; i < count; i++) {
@@ -94,7 +94,7 @@ namespace SK_OPTS_NS
                | (uint32_t)src[i] <<  8
                | (uint32_t)src[i] <<  0;
     }
-}
+  }
   static void grayA_to_RGBA_portable(uint32_t dst[], const uint8_t* src, int count)
   {
     for (int i = 0; i < count; i++) {
@@ -106,7 +106,7 @@ namespace SK_OPTS_NS
                | (uint32_t)g <<  8
                | (uint32_t)g <<  0;
     }
-}
+  }
   static void grayA_to_rgbA_portable(uint32_t dst[], const uint8_t* src, int count)
   {
     for (int i = 0; i < count; i++) {
@@ -119,7 +119,7 @@ namespace SK_OPTS_NS
                | (uint32_t)g <<  8
                | (uint32_t)g <<  0;
     }
-}
+  }
   static void inverted_CMYK_to_RGB1_portable(uint32_t* dst, const uint32_t* src, int count)
   {
     for (int i = 0; i < count; i++) {
@@ -136,7 +136,7 @@ namespace SK_OPTS_NS
                | (uint32_t)   g <<  8
                | (uint32_t)   r <<  0;
     }
-}
+  }
   static void inverted_CMYK_to_BGR1_portable(uint32_t* dst, const uint32_t* src, int count)
   {
     for (int i = 0; i < count; i++) {
@@ -152,7 +152,7 @@ namespace SK_OPTS_NS
                | (uint32_t)   g <<  8
                | (uint32_t)   b <<  0;
     }
-}
+  }
 #  if  defined(SK_ARM_HAS_NEON)
 // Rounded divide by 255, (x + 127) / 255
   static uint8x8_t div255_round(uint16x8_t x)
@@ -177,12 +177,12 @@ namespace SK_OPTS_NS
     // Note that the second right shift is actually performed as an
     // "add, round, and narrow back to 8-bits" instruction.
     return vraddhn_u16(x, vrshrq_n_u16(x, 8));
-}
+  }
 // Scale a byte by another, (x * y + 127) / 255
   static uint8x8_t scale(uint8x8_t x, uint8x8_t y)
   {
     return div255_round(vmull_u8(x, y));
-}
+  }
   template <bool kSwapRB>
   static void premul_should_swapRB(uint32_t* dst, const uint32_t* src, int count)
   {
@@ -219,15 +219,15 @@ namespace SK_OPTS_NS
     // Call portable code to finish up the tail of [0,8) pixels.
     auto proc = kSwapRB ? RGBA_to_bgrA_portable : RGBA_to_rgbA_portable;
     proc(dst, src, count);
-}
+  }
   inline void RGBA_to_rgbA(uint32_t* dst, const uint32_t* src, int count)
   {
     premul_should_swapRB<false>(dst, src, count);
-}
+  }
   inline void RGBA_to_bgrA(uint32_t* dst, const uint32_t* src, int count)
   {
     premul_should_swapRB<true>(dst, src, count);
-}
+  }
   inline void RGBA_to_BGRA(uint32_t* dst, const uint32_t* src, int count)
   {
     using std::swap;
@@ -260,7 +260,7 @@ namespace SK_OPTS_NS
     }
 
     RGBA_to_BGRA_portable(dst, src, count);
-}
+  }
   template <bool kSwapRB>
   static void insert_alpha_should_swaprb(uint32_t dst[], const uint8_t* src, int count)
   {
@@ -313,15 +313,15 @@ namespace SK_OPTS_NS
     // Call portable code to finish up the tail of [0,8) pixels.
     auto proc = kSwapRB ? RGB_to_BGR1_portable : RGB_to_RGB1_portable;
     proc(dst, src, count);
-}
+  }
   inline void RGB_to_RGB1(uint32_t dst[], const uint8_t* src, int count)
   {
     insert_alpha_should_swaprb<false>(dst, src, count);
-}
+  }
   inline void RGB_to_BGR1(uint32_t dst[], const uint8_t* src, int count)
   {
     insert_alpha_should_swaprb<true>(dst, src, count);
-}
+  }
   inline void gray_to_RGB1(uint32_t dst[], const uint8_t* src, int count)
   {
     while (count >= 16) {
@@ -361,7 +361,7 @@ namespace SK_OPTS_NS
     }
 
     gray_to_RGB1_portable(dst, src, count);
-}
+  }
   template <bool kPremul>
   static void expand_grayA(uint32_t dst[], const uint8_t* src, int count)
   {
@@ -415,16 +415,18 @@ namespace SK_OPTS_NS
 
     auto proc = kPremul ? grayA_to_rgbA_portable : grayA_to_RGBA_portable;
     proc(dst, src, count);
-}
+  }
   inline void grayA_to_RGBA(uint32_t dst[], const uint8_t* src, int count)
   {
     expand_grayA<false>(dst, src, count);
-}
+  }
   inline void grayA_to_rgbA(uint32_t dst[], const uint8_t* src, int count)
   {
     expand_grayA<true>(dst, src, count);
-}
-  enum Format { kRGB1, kBGR1 };
+  }
+  enum Format {
+ kRGB1, kBGR1
+  };
   template <Format format>
   static void inverted_cmyk_to(uint32_t* dst, const uint32_t* src, int count)
   {
@@ -462,15 +464,15 @@ namespace SK_OPTS_NS
 
     auto proc = (kBGR1 == format) ? inverted_CMYK_to_BGR1_portable : inverted_CMYK_to_RGB1_portable;
     proc(dst, src, count);
-}
+  }
   inline void inverted_CMYK_to_RGB1(uint32_t dst[], const uint32_t* src, int count)
   {
     inverted_cmyk_to<kRGB1>(dst, src, count);
-}
+  }
   inline void inverted_CMYK_to_BGR1(uint32_t dst[], const uint32_t* src, int count)
   {
     inverted_cmyk_to<kBGR1>(dst, src, count);
-}
+  }
 #  elif  SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSSE3
 // Scale a byte by another.
 // Inputs are stored in 16-bit lanes, but are not larger than 8-bits.
@@ -481,11 +483,10 @@ namespace SK_OPTS_NS
 
     // (x+127)/255 == ((x+128)*257)>>16 for 0 <= x <= 255*255.
     return _mm_mulhi_epu16(_mm_add_epi16(_mm_mullo_epi16(x, y), _128), _257);
-}
+  }
   template <bool kSwapRB>
   static void premul_should_swapRB(uint32_t* dst, const uint32_t* src, int count)
   {
-
     auto premul8 = [](__m128i* lo, __m128i* hi) {
         const __m128i zeros = _mm_setzero_si128();
         __m128i planar;
@@ -549,15 +550,15 @@ namespace SK_OPTS_NS
     // Call portable code to finish up the tail of [0,4) pixels.
     auto proc = kSwapRB ? RGBA_to_bgrA_portable : RGBA_to_rgbA_portable;
     proc(dst, src, count);
-}
+  }
   inline void RGBA_to_rgbA(uint32_t* dst, const uint32_t* src, int count)
   {
     premul_should_swapRB<false>(dst, src, count);
-}
+  }
   inline void RGBA_to_bgrA(uint32_t* dst, const uint32_t* src, int count)
   {
     premul_should_swapRB<true>(dst, src, count);
-}
+  }
   inline void RGBA_to_BGRA(uint32_t* dst, const uint32_t* src, int count)
   {
     const __m128i swapRB = _mm_setr_epi8(2,1,0,3, 6,5,4,7, 10,9,8,11, 14,13,12,15);
@@ -573,7 +574,7 @@ namespace SK_OPTS_NS
     }
 
     RGBA_to_BGRA_portable(dst, src, count);
-}
+  }
   template <bool kSwapRB>
   static void insert_alpha_should_swaprb(uint32_t dst[], const uint8_t* src, int count)
   {
@@ -606,15 +607,15 @@ namespace SK_OPTS_NS
     // Call portable code to finish up the tail of [0,4) pixels.
     auto proc = kSwapRB ? RGB_to_BGR1_portable : RGB_to_RGB1_portable;
     proc(dst, src, count);
-}
+  }
   inline void RGB_to_RGB1(uint32_t dst[], const uint8_t* src, int count)
   {
     insert_alpha_should_swaprb<false>(dst, src, count);
-}
+  }
   inline void RGB_to_BGR1(uint32_t dst[], const uint8_t* src, int count)
   {
     insert_alpha_should_swaprb<true>(dst, src, count);
-}
+  }
   inline void gray_to_RGB1(uint32_t dst[], const uint8_t* src, int count)
   {
     const __m128i alphas = _mm_set1_epi8((uint8_t) 0xFF);
@@ -642,7 +643,7 @@ namespace SK_OPTS_NS
     }
 
     gray_to_RGB1_portable(dst, src, count);
-}
+  }
   inline void grayA_to_RGBA(uint32_t dst[], const uint8_t* src, int count)
   {
     while (count >= 8) {
@@ -663,7 +664,7 @@ namespace SK_OPTS_NS
     }
 
     grayA_to_RGBA_portable(dst, src, count);
-}
+  }
   inline void grayA_to_rgbA(uint32_t dst[], const uint8_t* src, int count)
   {
     while (count >= 8) {
@@ -691,8 +692,10 @@ namespace SK_OPTS_NS
     }
 
     grayA_to_rgbA_portable(dst, src, count);
-}
-  enum Format { kRGB1, kBGR1 };
+  }
+  enum Format {
+ kRGB1, kBGR1
+  };
   template <Format format>
   static void inverted_cmyk_to(uint32_t* dst, const uint32_t* src, int count)
   {
@@ -758,56 +761,56 @@ namespace SK_OPTS_NS
 
     auto proc = (kBGR1 == format) ? inverted_CMYK_to_BGR1_portable : inverted_CMYK_to_RGB1_portable;
     proc(dst, src, count);
-}
+  }
   inline void inverted_CMYK_to_RGB1(uint32_t dst[], const uint32_t* src, int count)
   {
     inverted_cmyk_to<kRGB1>(dst, src, count);
-}
+  }
   inline void inverted_CMYK_to_BGR1(uint32_t dst[], const uint32_t* src, int count)
   {
     inverted_cmyk_to<kBGR1>(dst, src, count);
-}
+  }
 #  else 
   inline void RGBA_to_rgbA(uint32_t* dst, const uint32_t* src, int count)
   {
     RGBA_to_rgbA_portable(dst, src, count);
-}
+  }
   inline void RGBA_to_bgrA(uint32_t* dst, const uint32_t* src, int count)
   {
     RGBA_to_bgrA_portable(dst, src, count);
-}
+  }
   inline void RGBA_to_BGRA(uint32_t* dst, const uint32_t* src, int count)
   {
     RGBA_to_BGRA_portable(dst, src, count);
-}
+  }
   inline void RGB_to_RGB1(uint32_t dst[], const uint8_t* src, int count)
   {
     RGB_to_RGB1_portable(dst, src, count);
-}
+  }
   inline void RGB_to_BGR1(uint32_t dst[], const uint8_t* src, int count)
   {
     RGB_to_BGR1_portable(dst, src, count);
-}
+  }
   inline void gray_to_RGB1(uint32_t dst[], const uint8_t* src, int count)
   {
     gray_to_RGB1_portable(dst, src, count);
-}
+  }
   inline void grayA_to_RGBA(uint32_t dst[], const uint8_t* src, int count)
   {
     grayA_to_RGBA_portable(dst, src, count);
-}
+  }
   inline void grayA_to_rgbA(uint32_t dst[], const uint8_t* src, int count)
   {
     grayA_to_rgbA_portable(dst, src, count);
-}
+  }
   inline void inverted_CMYK_to_RGB1(uint32_t dst[], const uint32_t* src, int count)
   {
     inverted_CMYK_to_RGB1_portable(dst, src, count);
-}
+  }
   inline void inverted_CMYK_to_BGR1(uint32_t dst[], const uint32_t* src, int count)
   {
     inverted_CMYK_to_BGR1_portable(dst, src, count);
-}
+  }
 #  endif
 }
 #endif

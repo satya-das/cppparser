@@ -16,10 +16,9 @@ public:
   wxSlider();
   wxSlider(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSL_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSliderNameStr))
   {
-
         Create( parent, id, value, minValue, maxValue,
                 pos, size, style, validator, name );
-      }
+  }
   ~wxSlider();
   bool Create(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSL_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSliderNameStr));
     // implement the base class pure virtuals

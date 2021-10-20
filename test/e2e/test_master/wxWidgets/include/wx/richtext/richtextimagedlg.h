@@ -67,7 +67,7 @@ public:
     /// Control identifiers
   enum {
         ID_RICHTEXTOBJECTPROPERTIESDIALOG = 10650
-    };
+  };
 ////@end wxRichTextObjectPropertiesDialog member variables
 };
 #endif

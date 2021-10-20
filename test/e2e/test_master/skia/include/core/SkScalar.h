@@ -51,11 +51,15 @@ typedef float SkScalar;
 #  define SkDoubleToScalar(x)	     sk_double_to_float(x)
 #  define SK_ScalarMin(-SK_ScalarMax)
 static bool SkScalarIsNaN(SkScalar x)
-{ return x != x; }
+{
+ return x != x;
+}
 /** Returns true if x is not NaN and not infinite
  */
 static bool SkScalarIsFinite(SkScalar x)
-{ return sk_float_isfinite(x); }
+{
+ return sk_float_isfinite(x);
+}
 static bool SkScalarsAreFinite(SkScalar a, SkScalar b)
 {
     return sk_floats_are_finite(a, b);
@@ -100,16 +104,22 @@ static SkScalar SkScalarPin(SkScalar x, SkScalar min, SkScalar max)
     return SkTPin(x, min, max);
 }
 static SkScalar SkScalarSquare(SkScalar x)
-{ return x * x; }
+{
+ return x * x;
+}
 #  define SkScalarInvert(x)	           sk_ieee_float_divide_TODO_IS_DIVIDE_BY_ZERO_SAFE_HERE(SK_Scalar1, (x))
 #  define SkScalarAve(a, b)           (((a) + (b)) * SK_ScalarHalf)
 #  define SkScalarHalf(a)             ((a) * SK_ScalarHalf)
 #  define SkDegreesToRadians(degrees) ((degrees) * (SK_ScalarPI / 180))
 #  define SkRadiansToDegrees(radians) ((radians) * (180 / SK_ScalarPI))
 static SkScalar SkMaxScalar(SkScalar a, SkScalar b)
-{ return a > b ? a : b; }
+{
+ return a > b ? a : b;
+}
 static SkScalar SkMinScalar(SkScalar a, SkScalar b)
-{ return a < b ? a : b; }
+{
+ return a < b ? a : b;
+}
 static bool SkScalarIsInt(SkScalar x)
 {
     return x == SkScalarFloorToScalar(x);

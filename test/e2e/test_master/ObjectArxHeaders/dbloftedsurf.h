@@ -302,7 +302,7 @@ public:
         kLoftBlendSurf,
         /// <summary> Created from createNetworkSurface(). </summary>
         kLoftNetworkSurf
-    };
+  };
     /// <summary> 
     /// Returns the type of lofted surface.
     /// </summary>

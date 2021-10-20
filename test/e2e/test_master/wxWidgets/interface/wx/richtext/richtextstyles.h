@@ -215,7 +215,7 @@ public:
         wxRICHTEXT_STYLE_CHARACTER,
         wxRICHTEXT_STYLE_LIST,
         wxRICHTEXT_STYLE_BOX
-    };
+  };
     /**
         Constructor.
     */

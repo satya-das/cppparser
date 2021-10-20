@@ -34,9 +34,13 @@ SkUnichar SkUTF8_NextUnichar(const char**);
 SkUnichar SkUTF16_NextUnichar(const uint16_t**);
 ///////////////////////////////////////////////////////////////////////////////
 static bool SkUTF16_IsLeadingSurrogate(uint16_t c)
-{ return ((c) & 0xFC00) == 0xD800; }
+{
+ return ((c) & 0xFC00) == 0xD800;
+}
 static bool SkUTF16_IsTrailingSurrogate(uint16_t c)
-{ return ((c) & 0xFC00) == 0xDC00; }
+{
+ return ((c) & 0xFC00) == 0xDC00;
+}
 ///////////////////////////////////////////////////////////////////////////////
 static int SkUTFN_CountUnichars(SkTextEncoding enc, const void* utfN, size_t bytes)
 {

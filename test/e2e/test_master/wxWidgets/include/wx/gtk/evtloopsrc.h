@@ -19,10 +19,9 @@ public:
   wxGTKEventLoopSource(unsigned sourceId, wxEventLoopSourceHandler* handler, int flags)
     :  wxEventLoopSource(handler, flags),
           m_sourceId(sourceId)
-    
-    {
+  {
 
-        }
+  }
   virtual ~wxGTKEventLoopSource();
 private:
   const unsigned m_sourceId;

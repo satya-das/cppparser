@@ -22,13 +22,13 @@ struct GrNativeRect
         GrNativeRect nativeRect;
         nativeRect.setRelativeTo(org, rtHeight, devRect);
         return nativeRect;
-    }
+  }
   static GrNativeRect MakeRelativeTo(GrSurfaceOrigin origin, int surfaceHeight, int leftOffset, int topOffset, int width, int height)
   {
         GrNativeRect nativeRect;
         nativeRect.setRelativeTo(origin, surfaceHeight, leftOffset, topOffset, width, height);
         return nativeRect;
-    }
+  }
     /**
      *  cast-safe way to treat the rect as an array of (4) ints.
      */
@@ -41,11 +41,15 @@ struct GrNativeRect
         GR_STATIC_ASSERT(8 == offsetof(GrNativeRect, fWidth));
         GR_STATIC_ASSERT(12 == offsetof(GrNativeRect, fHeight));
         GR_STATIC_ASSERT(16 == sizeof(GrNativeRect));  // For an array of GrNativeRect.
-    }
+  }
   int* asInts()
-  { return &fX; }
+  {
+ return &fX;
+  }
   SkIRect asSkIRect() const
-  { return SkIRect::MakeXYWH(fX, fY, fWidth, fHeight); }
+  {
+ return SkIRect::MakeXYWH(fX, fY, fWidth, fHeight);
+  }
     // sometimes we have a SkIRect from the client that we
     // want to simultaneously make relative to GL's viewport
     // and (optionally) convert from top-down to bottom-up.
@@ -56,7 +60,7 @@ struct GrNativeRect
   {
         this->setRelativeTo(org, rtHeight, devRect.x(), devRect.y(), devRect.width(),
                             devRect.height());
-    }
+  }
   void setRelativeTo(GrSurfaceOrigin origin, int surfaceHeight, int leftOffset, int topOffset, int width, int height)
   {
         fX = leftOffset;
@@ -70,24 +74,30 @@ struct GrNativeRect
 
         SkASSERT(fWidth >= 0);
         SkASSERT(fHeight >= 0);
-    }
+  }
   bool contains(int width, int height) const
   {
         return fX <= 0 &&
                fY <= 0 &&
                fX + fWidth >= width &&
                fY + fHeight >= height;
-    }
+  }
   void invalidate()
-  {fX = fWidth = fY = fHeight = -1;}
+  {
+fX = fWidth = fY = fHeight = -1;
+  }
   bool isInvalid() const
-  { return fX == -1 && fWidth == -1 && fY == -1
-        && fHeight == -1; }
+  {
+ return fX == -1 && fWidth == -1 && fY == -1
+        && fHeight == -1;
+  }
   bool operator ==(const GrNativeRect& that) const
   {
         return 0 == memcmp(this, &that, sizeof(GrNativeRect));
-    }
+  }
   bool operator !=(const GrNativeRect& that) const
-  {return !(*this == that);}
+  {
+return !(*this == that);
+  }
 };
 #endif

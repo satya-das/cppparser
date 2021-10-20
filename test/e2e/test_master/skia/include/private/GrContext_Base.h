@@ -24,7 +24,9 @@ public:
      * The 3D API backing this context
      */
   SK_API GrBackendApi backend() const
-  { return fBackend; }
+  {
+ return fBackend;
+  }
     /*
      * Retrieve the default GrBackendFormat for a given SkColorType and renderability.
      * It is guaranteed that this backend format will be the one used by the GrContext
@@ -48,25 +50,35 @@ protected:
      * It is an error for an image to be used with contexts that report different ids.
      */
   uint32_t contextID() const
-  { return fContextID; }
+  {
+ return fContextID;
+  }
   bool matches(GrContext_Base* candidate) const
   {
         return candidate->contextID() == this->contextID();
-    }
+  }
     /*
      * The options in effect for this context
      */
   const GrContextOptions& options() const
-  { return fOptions; }
+  {
+ return fOptions;
+  }
   const GrCaps* caps() const;
   sk_sp<const GrCaps> refCaps() const;
   sk_sp<GrSkSLFPFactoryCache> fpFactoryCache();
   virtual GrImageContext* asImageContext()
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   virtual GrRecordingContext* asRecordingContext()
-  { return nullptr; }
+  {
+ return nullptr;
+  }
   virtual GrContext* asDirectContext()
-  { return nullptr; }
+  {
+ return nullptr;
+  }
 private:
   const GrBackendApi fBackend;
   const GrContextOptions fOptions;

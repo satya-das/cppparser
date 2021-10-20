@@ -20,7 +20,9 @@ public:
   SkImage_GpuBase(sk_sp<GrContext>, int width, int height, uint32_t uniqueID, SkColorType, SkAlphaType, sk_sp<SkColorSpace>);
   virtual ~SkImage_GpuBase();
   GrContext* context() const final
-  { return fContext.get(); }
+  {
+ return fContext.get();
+  }
   bool getROPixels(SkBitmap*, CachingHint) const final;
   sk_sp<SkImage> onMakeSubset(GrRecordingContext*, const SkIRect& subset) const final;
   bool onReadPixels(const SkImageInfo& dstInfo, void* dstPixels, size_t dstRB, int srcX, int srcY, CachingHint) const override;
@@ -29,13 +31,13 @@ public:
         // we shouldn't end up calling this
         SkASSERT(false);
         return this->INHERITED::asTextureProxyRef(context);
-    }
+  }
   sk_sp<GrTextureProxy> asTextureProxyRef(GrRecordingContext*, const GrSamplerState&, SkScalar scaleAdjust[2]) const final;
   sk_sp<GrTextureProxy> refPinnedTextureProxy(GrRecordingContext* context, uint32_t* uniqueID) const final
   {
         *uniqueID = this->uniqueID();
         return this->asTextureProxyRef(context);
-    }
+  }
   GrBackendTexture onGetBackendTexture(bool flushPendingGrContextIO, GrSurfaceOrigin* origin) const final;
   GrTexture* onGetTexture() const final;
   bool onIsValid(GrContext*) const final;
@@ -48,7 +50,7 @@ public:
   {
         return -1 != yuvaIndices[SkYUVAIndex::kA_Index].fIndex ? kPremul_SkAlphaType
                                                                : kOpaque_SkAlphaType;
-    }
+  }
   using PromiseImageTextureContext = SkDeferredDisplayListRecorder::PromiseImageTextureContext;
   using PromiseImageTextureFulfillProc = SkDeferredDisplayListRecorder::PromiseImageTextureFulfillProc;
   using PromiseImageTextureReleaseProc = SkDeferredDisplayListRecorder::PromiseImageTextureReleaseProc;

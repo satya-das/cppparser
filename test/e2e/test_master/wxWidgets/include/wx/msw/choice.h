@@ -19,20 +19,19 @@ public:
     // ctors
   wxChoice()
   {
- Init();   }
+ Init();
+  }
   virtual ~wxChoice();
   wxChoice(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxChoiceNameStr))
   {
-
         Init();
         Create(parent, id, pos, size, n, choices, style, validator, name);
-      }
+  }
   wxChoice(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxChoiceNameStr))
   {
-
         Init();
         Create(parent, id, pos, size, choices, style, validator, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxChoiceNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxChoiceNameStr));
   bool Show(bool show = true) override;
@@ -47,7 +46,7 @@ public:
   wxVisualAttributes GetDefaultAttributes() const override
   {
         return GetClassDefaultAttributes(GetWindowVariant());
-    }
+  }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
     // MSW only
   bool MSWCommand(WXUINT param, WXWORD id) override;
@@ -57,18 +56,22 @@ public:
   WXDWORD MSWGetStyle(long style, WXDWORD* exstyle) const override;
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
-  { return false; }
+  {
+ return false;
+  }
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
     // common part of all ctors
   void Init()
   {
         m_lastAcceptedSelection =
         m_pendingSelection = wxID_NONE;
         m_heightOwn = wxDefaultCoord;
-    }
+  }
   void DoDeleteOneItem(unsigned int n) override;
   void DoClear() override;
   int DoInsertItems(const wxArrayStringsAdapter& items, unsigned int pos, void** clientData, wxClientDataType type) override;

@@ -33,11 +33,13 @@ public:
   {
         // TODO: this could be more efficient
         state->doUpload(upload);
-    }
+  }
   void submit();
 private:
   GrGpu* gpu() override
-  { return fGpu; }
+  {
+ return fGpu;
+  }
   GrMtlPipelineState* prepareDrawState(const GrPrimitiveProcessor& primProc, const GrPipeline& pipeline, const GrPipeline::FixedDynamicState* fixedDynamicState, GrPrimitiveType primType);
   void onDraw(const GrPrimitiveProcessor& primProc, const GrPipeline& pipeline, const GrPipeline::FixedDynamicState* fixedDynamicState, const GrPipeline::DynamicStateArrays* dynamicStateArrays, const GrMesh mesh[], int meshCount, const SkRect& bounds) override;
   void onClear(const GrFixedClip& clip, const SkPMColor4f& color) override;

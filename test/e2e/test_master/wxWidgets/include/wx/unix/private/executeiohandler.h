@@ -23,11 +23,9 @@ public:
   wxExecuteIOHandlerBase(int fd, wxStreamTempInputBuffer& buf)
     :  m_fd(fd),
           m_buf(buf)
-    
-    {
-
+  {
         m_callbackDisabled = false;
-        }
+  }
     // Called when the associated descriptor is available for reading.
   void OnReadWaiting() override
   {
@@ -37,14 +35,18 @@ public:
 
         if ( m_buf.Eof() )
             DisableCallback();
-    }
+  }
     // These methods are never called as we only monitor the associated FD for
     // reading, but we still must implement them as they're pure virtual in the
     // base class.
   void OnWriteWaiting() override
-  { }
+  {
+
+  }
   void OnExceptionWaiting() override
-  { }
+  {
+
+  }
     // Disable any future calls to our OnReadWaiting(), can be called when
     // we're sure that no more input is forthcoming.
   void DisableCallback()
@@ -55,7 +57,7 @@ public:
 
             DoDisable();
         }
-    }
+  }
 protected:
   const int m_fd;
 private:
@@ -73,21 +75,18 @@ public:
   wxExecuteFDIOHandler(wxFDIODispatcher& dispatcher, int fd, wxStreamTempInputBuffer& buf)
     :  wxExecuteIOHandlerBase<wxFDIOHandler>(fd, buf),
           m_dispatcher(dispatcher)
-    
-    {
-
+  {
         dispatcher.RegisterFD(fd, this, wxFDIO_INPUT);
-        }
+  }
   virtual ~wxExecuteFDIOHandler()
   {
-
         DisableCallback();
-      }
+  }
 private:
   void DoDisable() override
   {
         m_dispatcher.UnregisterFD(m_fd);
-    }
+  }
   wxFDIODispatcher& m_dispatcher;
   wxDECLARE_NO_COPY_CLASS(wxExecuteFDIOHandler);
 };
@@ -99,22 +98,19 @@ class wxExecuteEventLoopSourceHandler : public wxExecuteIOHandlerBase<wxEventLoo
 public:
   wxExecuteEventLoopSourceHandler(int fd, wxStreamTempInputBuffer& buf)
     :  wxExecuteIOHandlerBase<wxEventLoopSourceHandler>(fd, buf)
-    
-    {
-
+  {
         m_source = wxEventLoop::AddSourceForFD(fd, this, wxEVENT_SOURCE_INPUT);
-        }
+  }
   virtual ~wxExecuteEventLoopSourceHandler()
   {
-
         DisableCallback();
-      }
+  }
 private:
   void DoDisable() override
   {
         delete m_source;
         m_source = NULL;
-    }
+  }
   wxEventLoopSource* m_source;
   wxDECLARE_NO_COPY_CLASS(wxExecuteEventLoopSourceHandler);
 };

@@ -26,17 +26,29 @@ public:
   SkGlyphRun(const SkGlyphRun& glyphRun, const SkFont& font);
   void filloutGlyphsAndPositions(SkGlyphID* glyphIDs, SkPoint* positions);
   size_t runSize() const
-  { return fGlyphIDs.size(); }
+  {
+ return fGlyphIDs.size();
+  }
   SkSpan<const SkPoint> positions() const
-  { return fPositions; }
+  {
+ return fPositions;
+  }
   SkSpan<const SkGlyphID> glyphsIDs() const
-  { return fGlyphIDs; }
+  {
+ return fGlyphIDs;
+  }
   const SkFont& font() const
-  { return fFont; }
+  {
+ return fFont;
+  }
   SkSpan<const uint32_t> clusters() const
-  { return fClusters; }
+  {
+ return fClusters;
+  }
   SkSpan<const char> text() const
-  { return fText; }
+  {
+ return fText;
+  }
 private:
     // Positions of each glyph.
   const SkSpan<const SkPoint> fPositions;
@@ -67,9 +79,13 @@ public:
   bool anyRunsSubpixelPositioned() const;
   void temporaryShuntBlobNotifyAddedToCache(uint32_t cacheID) const;
   bool canCache() const
-  { return fOriginalTextBlob != nullptr; }
+  {
+ return fOriginalTextBlob != nullptr;
+  }
   size_t runCount() const
-  { return fGlyphRuns.size(); }
+  {
+ return fGlyphRuns.size();
+  }
   size_t totalGlyphCount() const
   {
         size_t glyphCount = 0;
@@ -77,7 +93,7 @@ public:
             glyphCount += run.runSize();
         }
         return glyphCount;
-    }
+  }
   size_t maxGlyphCount() const
   {
         size_t glyphCount = 0;
@@ -85,28 +101,48 @@ public:
             glyphCount = SkTMax(glyphCount, run.runSize());
         }
         return glyphCount;
-    }
+  }
   bool allFontsFinite() const;
   SkPoint origin() const
-  { return fOrigin; }
+  {
+ return fOrigin;
+  }
   const SkPaint& paint() const
-  { return *fOriginalPaint; }
+  {
+ return *fOriginalPaint;
+  }
   const SkTextBlob* blob() const
-  { return fOriginalTextBlob; }
+  {
+ return fOriginalTextBlob;
+  }
   auto begin() -> decltype(fGlyphRuns.begin())
-  { return fGlyphRuns.begin();  }
+  {
+ return fGlyphRuns.begin();
+  }
   auto end() -> decltype(fGlyphRuns.end())
-  { return fGlyphRuns.end();    }
+  {
+ return fGlyphRuns.end();
+  }
   auto begin() const -> decltype(fGlyphRuns.cbegin())
-  { return fGlyphRuns.cbegin(); }
+  {
+ return fGlyphRuns.cbegin();
+  }
   auto end() const -> decltype(fGlyphRuns.cend())
-  { return fGlyphRuns.cend();   }
+  {
+ return fGlyphRuns.cend();
+  }
   auto size() const -> decltype(fGlyphRuns.size())
-  { return fGlyphRuns.size();   }
+  {
+ return fGlyphRuns.size();
+  }
   auto empty() const -> decltype(fGlyphRuns.empty())
-  { return fGlyphRuns.empty();  }
+  {
+ return fGlyphRuns.empty();
+  }
   auto operator [](size_t i) const -> decltype(fGlyphRuns[i])
-  { return fGlyphRuns[i];     }
+  {
+ return fGlyphRuns[i];
+  }
 };
 class SkGlyphIDSet
 {
@@ -125,7 +161,9 @@ public:
   void textBlobToGlyphRunListIgnoringRSXForm(const SkPaint& paint, const SkTextBlob& blob, SkPoint origin);
   const SkGlyphRunList& useGlyphRunList();
   bool empty() const
-  { return fGlyphRunListStorage.size() == 0; }
+  {
+ return fGlyphRunListStorage.size() == 0;
+  }
 private:
   void initialize(size_t totalRunSize);
   SkSpan<const SkGlyphID> textToGlyphIDs(const SkFont& font, const void* bytes, size_t byteLength, SkTextEncoding);

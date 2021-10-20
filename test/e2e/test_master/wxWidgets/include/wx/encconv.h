@@ -42,7 +42,8 @@ public:
   wxEncodingConverter();
   virtual ~wxEncodingConverter()
   {
- delete[] m_Table;   }
+ delete[] m_Table;
+  }
             // Initialize conversion. Both output or input encoding may
             // be wxFONTENCODING_UNICODE.
             //
@@ -75,13 +76,17 @@ public:
             // Note that you must call Init before using Convert!
   bool Convert(const char* input, char* output) const;
   bool Convert(char* str) const
-  { return Convert(str, str); }
+  {
+ return Convert(str, str);
+  }
   wxString Convert(const wxString& input) const;
   bool Convert(const char* input, wchar_t* output) const;
   bool Convert(const wchar_t* input, char* output) const;
   bool Convert(const wchar_t* input, wchar_t* output) const;
   bool Convert(wchar_t* str) const
-  { return Convert(str, str); }
+  {
+ return Convert(str, str);
+  }
             // Return equivalent(s) for given font that are used
             // under given platform. wxPLATFORM_CURRENT means the platform
             // this binary was compiled for
@@ -124,7 +129,7 @@ public:
   static bool CanConvert(wxFontEncoding encIn, wxFontEncoding encOut)
   {
                 return GetAllEquivalents(encIn).Index(encOut) != wxNOT_FOUND;
-            }
+  }
 private:
   wchar_t* m_Table;
   bool m_UnicodeInput, m_UnicodeOutput;

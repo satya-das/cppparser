@@ -39,7 +39,7 @@ public:
   enum AttachmentPoint {
         kAboveView    = 0,
         kBelowView    = 1,
-    };
+  };
     /// <summary>
     /// Enumeration defining label text alignment
     /// </summary>
@@ -47,7 +47,7 @@ public:
         kTextAlignmentLeft   = 0,
         kTextAlignmentCenter = 1,
         kTextAlignmentRight  = 2,
-    };
+  };
     /// <summary>
     /// Default destructor.
     /// </summary>

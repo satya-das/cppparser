@@ -13,44 +13,54 @@ public:
   enum class Mode : bool {
         kExclusive,
         kInclusive
-    };
+  };
   GrWindowRectsState()
-    :  fMode(Mode::kExclusive) 
-    {
-    }
+    :  fMode(Mode::kExclusive)
+  {
+  }
   GrWindowRectsState(const GrWindowRectangles& windows, Mode mode)
     :  fMode(mode)
-        , fWindows(windows) 
-    {
+        , fWindows(windows)
+  {
 
-        }
+  }
   bool enabled() const
-  { return Mode::kInclusive == fMode || !fWindows.empty(); }
+  {
+ return Mode::kInclusive == fMode || !fWindows.empty();
+  }
   Mode mode() const
-  { return fMode; }
+  {
+ return fMode;
+  }
   const GrWindowRectangles& windows() const
-  { return fWindows; }
+  {
+ return fWindows;
+  }
   int numWindows() const
-  { return fWindows.count(); }
+  {
+ return fWindows.count();
+  }
   void setDisabled()
   {
         fMode = Mode::kExclusive;
         fWindows.reset();
-    }
+  }
   void set(const GrWindowRectangles& windows, Mode mode)
   {
         fMode = mode;
         fWindows = windows;
-    }
+  }
   bool operator==(const GrWindowRectsState& that) const
   {
         if (fMode != that.fMode) {
             return false;
         }
         return fWindows == that.fWindows;
-    }
+  }
   bool operator!=(const GrWindowRectsState& that) const
-  { return !(*this == that); }
+  {
+ return !(*this == that);
+  }
 private:
   Mode fMode;
   GrWindowRectangles fWindows;

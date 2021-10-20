@@ -65,7 +65,7 @@ public:
         /// 3
         /// </value>
         kToleranceContent           = 3,
-    };
+  };
     /// <summary>
     /// This enum is draw mleader order type.
     /// </summary>
@@ -87,7 +87,7 @@ public:
         /// 1
         /// </value>
         kDrawLeaderFirst            = 1
-    };
+  };
     /// <summary>
     /// This enum is draw mleaderLine order type.
     /// </summary>
@@ -109,7 +109,7 @@ public:
         /// 1
         /// </value>
         kDrawLeaderTailFirst        = 1
-    };
+  };
     /// <summary>
     /// This enum is leader type of mleader.
     /// </summary>
@@ -139,7 +139,7 @@ public:
         /// 2
         /// </value>
         kSplineLeader               = 2
-    };
+  };
     /// <summary>
     /// This enum is text attachment direction of mleader text content.
     /// </summary>
@@ -161,7 +161,7 @@ public:
         /// 1
         /// </value>
         kAttachmentVertical         = 1
-    };
+  };
     /// <summary>
     /// This enum is text attachment type of mleader text content.
     /// </summary>
@@ -255,7 +255,7 @@ public:
         /// 1
         /// </value>
         kAttachmentLinedCenter      = 10
-    };
+  };
     /// <summary>
     /// This enum is text angle type of mleader text content.
     /// </summary>
@@ -285,7 +285,7 @@ public:
         /// 2
         /// </value>
         kAlwaysRightReadingAngle    = 2
-    };
+  };
     /// <summary>
     /// This enum is text alignment type.
     /// </summary>
@@ -315,7 +315,7 @@ public:
         /// 2
         /// </value>
         kRightAlignment             = 2
-    };
+  };
     /// <summary>
     /// This enum is block connection type of mleader block content.
     /// </summary>
@@ -337,7 +337,7 @@ public:
         /// 1
         /// </value>
         kConnectBase                = 1
-    };
+  };
     /// <summary>
     /// This enum is leader direction type.
     /// </summary>
@@ -383,7 +383,7 @@ public:
         /// 2
         /// </value>
         kBottomLeader               = 4
-    };
+  };
     /// <summary>
     /// This enum is segment angle type.
     /// </summary>
@@ -445,7 +445,7 @@ public:
         /// 6
         /// </value>
         kHorz                       = 12
-    };
+  };
     /// <summary>
     /// Default constructor.
     /// </summary>

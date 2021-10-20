@@ -19,9 +19,9 @@ namespace SkSL
     PostfixExpression(std::unique_ptr<Expression> operand, Token::Kind op)
       :  INHERITED(operand->fOffset, kPostfix_Kind, operand->fType)
     , fOperand(std::move(operand))
-    , fOperator(op) 
-      {
-      }
+    , fOperator(op)
+    {
+    }
     bool hasSideEffects() const override
     {
         return true;

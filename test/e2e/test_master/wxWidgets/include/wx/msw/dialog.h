@@ -18,20 +18,22 @@ class WXDLLIMPEXP_CORE wxDialog : public wxDialogBase
 public:
   wxDialog()
   {
- Init();   }
+ Init();
+  }
     // full ctor
   wxDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE, const wxString& name = wxASCII_STR(wxDialogNameStr))
   {
-
         Init();
 
         (void)Create(parent, id, title, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE, const wxString& name = wxASCII_STR(wxDialogNameStr));
   virtual ~wxDialog();
     // return true if we're showing the dialog modally
   bool IsModal() const override
-  { return m_modalData != NULL; }
+  {
+ return m_modalData != NULL;
+  }
     // show the dialog modally and return the value passed to EndModal()
   int ShowModal() override;
     // may be called to terminate the dialog with the given return code

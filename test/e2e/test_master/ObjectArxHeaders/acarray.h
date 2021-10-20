@@ -136,7 +136,7 @@ public:
         AcArrayValidateParams<T>(false, pDest, nBufLen, pSource, nCount);
         if (nCount > 0)
            memcpy_s(pDest, nBufLen * sizeof(T), pSource, nCount * sizeof(T));
-    }
+  }
   static void moveItems(T* pDest, size_t nBufLen, T* pSource, size_t nCount, bool bSameBuffer)
   {
         AcArrayValidateParams<T>(bSameBuffer, pDest, nBufLen, pSource, nCount);
@@ -148,7 +148,7 @@ public:
             else
                 memcpy_s(pDest, nBufLen * sizeof(T), pSource, nCount * sizeof(T));
         }
-    }
+  }
 };
 // This reallocator copies and moves actual T objects, so assgt operators are called.
 template <typename T>
@@ -164,7 +164,7 @@ public:
             pDest++;
             pSource++;
         }
-    }
+  }
     // Move from source to initialized items, using move assignment operator
   static void moveItems(T* pDest, size_t nBufLen, T* pSource, size_t nCount, bool bSameBuffer)
   {
@@ -174,7 +174,7 @@ public:
             pDest++;
             pSource++;
         }
-    }
+  }
 };
 // define allocator type for passing as default arg to the AcArray template
 template <typename T, bool >
@@ -203,7 +203,9 @@ public:
   typedef R Allocator;
     // Useful for validating that an AcArray uses the efficient copy method.
     // E.g.: static_assert(AcArray<MyType>::eUsesMemCopy, "AcArray<MyType> uses slow copy!");
-  enum {eUsesMemCopy = std::is_same<R, AcArrayMemCopyReallocator<T> >::value};
+  enum {
+eUsesMemCopy = std::is_same<R, AcArrayMemCopyReallocator<T> >::value
+  };
     // Assignment and == operators.
     //
   AcArray<T,R>& operator =(const AcArray<T,R>&);
@@ -274,13 +276,21 @@ public:
     // E.g.: for (const auto & elt : arr) sum += elt; 
     //
   T* begin()
-  { return mpArray; }
+  {
+ return mpArray;
+  }
   T* end()
-  { return mpArray + mLogicalLen; }
+  {
+ return mpArray + mLogicalLen;
+  }
   const T* begin() const
-  { return mpArray; }
+  {
+ return mpArray;
+  }
   const T* end() const
-  { return mpArray + mLogicalLen; }
+  {
+ return mpArray + mLogicalLen;
+  }
 protected:
   T* mpArray;
   int mPhysicalLen;
@@ -298,61 +308,99 @@ protected:
 // Inline methods.
 template <typename T, typename R>
 inline bool AcArray<T,R>::contains(const T& value, int start) const
-{ return this->findFrom(value, start) != -1; }
+{
+ return this->findFrom(value, start) != -1;
+}
 template <typename T, typename R>
 inline int AcArray<T,R>::length() const
-{ return mLogicalLen; }
+{
+ return mLogicalLen;
+}
 template <typename T, typename R>
 inline bool AcArray<T,R>::isEmpty() const
-{ return mLogicalLen == 0; }
+{
+ return mLogicalLen == 0;
+}
 template <typename T, typename R>
 inline int AcArray<T,R>::logicalLength() const
-{ return mLogicalLen; }
+{
+ return mLogicalLen;
+}
 template <typename T, typename R>
 inline int AcArray<T,R>::physicalLength() const
-{ return mPhysicalLen; }
+{
+ return mPhysicalLen;
+}
 template <typename T, typename R>
 inline int AcArray<T,R>::growLength() const
-{ return mGrowLen; }
+{
+ return mGrowLen;
+}
 template <typename T, typename R>
 inline const T* AcArray<T,R>::asArrayPtr() const
-{ return mpArray; }
+{
+ return mpArray;
+}
 template <typename T, typename R>
 inline T* AcArray<T,R>::asArrayPtr()
-{ return mpArray; }
+{
+ return mpArray;
+}
 template <typename T, typename R>
 inline bool AcArray<T,R>::isValid(int i) const
-{ return i >= 0 && i < mLogicalLen; }
+{
+ return i >= 0 && i < mLogicalLen;
+}
 template <typename T, typename R>
 inline T& AcArray<T,R>::operator [](int i)
-{ AC_ARRAY_ASSERT(this->isValid(i)); return mpArray[i]; }
+{
+ AC_ARRAY_ASSERT(this->isValid(i)); return mpArray[i];
+}
 template <typename T, typename R>
 inline const T& AcArray<T,R>::operator [](int i) const
-{ AC_ARRAY_ASSERT(this->isValid(i)); return mpArray[i]; }
+{
+ AC_ARRAY_ASSERT(this->isValid(i)); return mpArray[i];
+}
 template <typename T, typename R>
 inline T& AcArray<T,R>::at(int i)
-{ AC_ARRAY_ASSERT(this->isValid(i)); return mpArray[i]; }
+{
+ AC_ARRAY_ASSERT(this->isValid(i)); return mpArray[i];
+}
 template <typename T, typename R>
 inline const T& AcArray<T,R>::at(int i) const
-{ AC_ARRAY_ASSERT(this->isValid(i)); return mpArray[i]; }
+{
+ AC_ARRAY_ASSERT(this->isValid(i)); return mpArray[i];
+}
 template <typename T, typename R>
 inline AcArray<T,R>& AcArray<T,R>::setAt(int i, const T& value)
-{ AC_ARRAY_ASSERT(this->isValid(i)); mpArray[i] = value; return *this; }
+{
+ AC_ARRAY_ASSERT(this->isValid(i)); mpArray[i] = value; return *this;
+}
 template <typename T, typename R>
 inline T& AcArray<T,R>::first()
-{ AC_ARRAY_ASSERT(!this->isEmpty()); return mpArray[0]; }
+{
+ AC_ARRAY_ASSERT(!this->isEmpty()); return mpArray[0];
+}
 template <typename T, typename R>
 inline const T& AcArray<T,R>::first() const
-{ AC_ARRAY_ASSERT(!this->isEmpty()); return mpArray[0]; }
+{
+ AC_ARRAY_ASSERT(!this->isEmpty()); return mpArray[0];
+}
 template <typename T, typename R>
 inline T& AcArray<T,R>::last()
-{ AC_ARRAY_ASSERT(!this->isEmpty()); return mpArray[mLogicalLen-1]; }
+{
+ AC_ARRAY_ASSERT(!this->isEmpty()); return mpArray[mLogicalLen-1];
+}
 template <typename T, typename R>
 inline const T& AcArray<T,R>::last() const
-{ AC_ARRAY_ASSERT(!this->isEmpty()); return mpArray[mLogicalLen-1]; }
+{
+ AC_ARRAY_ASSERT(!this->isEmpty()); return mpArray[mLogicalLen-1];
+}
 template <typename T, typename R>
 inline int AcArray<T,R>::append(const T& value)
-{ insertAt(mLogicalLen, value); return mLogicalLen-1; }
+{
+ insertAt(mLogicalLen, value); return mLogicalLen-1;
+}
 template <typename T, typename R>
 inline int AcArray<T,R>::append(T&& value)
 {
@@ -366,10 +414,12 @@ inline int AcArray<T,R>::appendMove(T& value)
 }
 template <typename T, typename R>
 inline AcArray<T,R>& AcArray<T,R>::removeFirst()
-{ AC_ARRAY_ASSERT(!isEmpty()); return removeAt(0); }
+{
+ AC_ARRAY_ASSERT(!isEmpty()); return removeAt(0);
+}
 template <typename T, typename R>
 inline AcArray<T,R>& AcArray<T,R>::removeLast()
-{ 
+{
     AC_ARRAY_ASSERT(!isEmpty());
     if (!isEmpty())
         mLogicalLen--;
@@ -383,23 +433,23 @@ inline AcArray<T,R>& AcArray<T,R>::removeAll()
 }
 template <typename T, typename R>
 inline AcArray<T,R>& AcArray<T,R>::setGrowLength(int glen)
-{ AC_ARRAY_ASSERT(glen > 0); mGrowLen = glen; return *this; }
+{
+ AC_ARRAY_ASSERT(glen > 0); mGrowLen = glen; return *this;
+}
 template <typename T, typename R>
 inline AcArray< T, R > ::AcArray(int physicalLength, int growLength)
   :  mpArray(nullptr),
   mPhysicalLen(0),
   mLogicalLen(0),
   mGrowLen(growLength)
-
-  {
-
+{
     // Replacing is_pod with is_trivial. is_trivial should be a superset of is_pod
     static_assert(std::is_trivial<T>::value || !std::is_pod<T>::value, "is_pod but not is_trivial?");
     AC_ARRAY_ASSERT(mGrowLen > 0);
     AC_ARRAY_ASSERT(physicalLength >= 0);
     if (physicalLength > 0)
         this->setPhysicalLength(physicalLength);
-  }
+}
 // Copy ctor. Similar to copy assignment operator.
 //
 template <typename T, typename R>
@@ -408,11 +458,9 @@ inline AcArray<T,R>::AcArray(const AcArray<T,R>& src)
   mPhysicalLen(0),
   mLogicalLen(0),
   mGrowLen(src.mGrowLen)
-
-  {
-
+{
     this->copyOtherIntoThis(src);
-      }
+}
 // Move ctor
 template <typename T, typename R>
 inline AcArray<T,R>::AcArray(AcArray<T,R>&& src)
@@ -420,16 +468,13 @@ inline AcArray<T,R>::AcArray(AcArray<T,R>&& src)
   mPhysicalLen(0),
   mLogicalLen(0),
   mGrowLen(src.mGrowLen)
-
-  {
-
+{
     this->moveOtherIntoThis(src);
-  }
+}
 // Dtor
 template <typename T, typename R>
 inline AcArray<T,R>::~AcArray()
 {
-
     this->setPhysicalLength(0); // frees up buffer
 }
 // Copy assignment operator.Similar to copy ctor
@@ -441,7 +486,7 @@ inline AcArray<T,R>& AcArray<T,R>::operator =(const AcArray<T,R>& src)
     if (this != &src)
         this->copyOtherIntoThis(src);
                     return *this;
-            }
+}
 // Move assignment operator
 template <typename T, typename R>
 inline AcArray<T,R>& AcArray<T,R>::operator =(AcArray<T,R>&& src)
@@ -603,7 +648,7 @@ AcArray<T,R>& AcArray<T,R>::insertAtMove(int index, T& value)
         mpArray[index] = std::move(tmp);
     }
     return *this;
-    }
+}
 // helper for the insertAt() and insertAtMove() methods.
 // called when we need to slide items up to make a hole, or when we want to
 // append and the buffer is already maxed out

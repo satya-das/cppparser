@@ -23,9 +23,13 @@ class GrVkPipeline : public GrVkResource
 public:
   static GrVkPipeline* Create(GrVkGpu*, int numColorSamples, const GrPrimitiveProcessor&, const GrPipeline& pipeline, const GrStencilSettings&, GrSurfaceOrigin, VkPipelineShaderStageCreateInfo* shaderStageInfo, int shaderStageCount, GrPrimitiveType primitiveType, VkRenderPass compatibleRenderPass, VkPipelineLayout layout, VkPipelineCache cache);
   VkPipeline pipeline() const
-  { return fPipeline; }
+  {
+ return fPipeline;
+  }
   VkPipelineLayout layout() const
-  { return fPipelineLayout; }
+  {
+ return fPipelineLayout;
+  }
   static void SetDynamicScissorRectState(GrVkGpu*, GrVkCommandBuffer*, const GrRenderTarget*, GrSurfaceOrigin, const SkIRect& scissorRect);
   static void SetDynamicViewportState(GrVkGpu*, GrVkCommandBuffer*, const GrRenderTarget*);
   static void SetDynamicBlendConstantState(GrVkGpu*, GrVkCommandBuffer*, const GrSwizzle& outputSwizzle, const GrXferProcessor&);
@@ -33,13 +37,13 @@ public:
   void dumpInfo() const override
   {
         SkDebugf("GrVkPipeline: %d (%d refs)\n", fPipeline, this->getRefCnt());
-    }
+  }
 #  endif
 protected:
   GrVkPipeline(VkPipeline pipeline, VkPipelineLayout layout)
-    :  INHERITED(), fPipeline(pipeline), fPipelineLayout(layout) 
-    {
-    }
+    :  INHERITED(), fPipeline(pipeline), fPipelineLayout(layout)
+  {
+  }
   VkPipeline fPipeline;
   VkPipelineLayout fPipelineLayout;
 private:

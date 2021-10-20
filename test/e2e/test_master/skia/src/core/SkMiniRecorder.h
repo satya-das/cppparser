@@ -35,7 +35,7 @@ private:
         kDrawPath,
         kDrawRect,
         kDrawTextBlob,
-    };
+  };
   State fState;
   template <size_t A, size_t B>
   struct Max

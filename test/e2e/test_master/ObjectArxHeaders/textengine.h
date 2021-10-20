@@ -30,7 +30,8 @@ public:
   static AcGiTextEngine* create();
   virtual ~AcGiTextEngine()
   {
- ;   }
+ ;
+  }
     // Returns the extents of the text string in unit coordinates.
   virtual void getExtents(AcGiTextStyle& ts, const ACHAR* pStr, int nLength, bool bPenUp, bool bRaw, AcGePoint2d& extents) = 0;
     // Tessellates the shape text and sends the tessellated vectors as a

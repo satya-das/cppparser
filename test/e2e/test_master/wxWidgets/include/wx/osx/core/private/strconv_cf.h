@@ -288,50 +288,47 @@ public:
         None = 0x00,
         FromWChar_D = 0x01,
         ToWChar_C = 0x02
-    };
+  };
   wxMBConv_cf()
   {
-
         Init(CFStringGetSystemEncoding(), ToWChar_C) ;
-      }
+  }
   wxMBConv_cf(const wxMBConv_cf& conv)
     :  wxMBConv()
-    
-    {
-
+  {
         m_encoding = conv.m_encoding;
         m_normalization = conv.m_normalization;
-        }
+  }
 #if  wxUSE_FONTMAP
   wxMBConv_cf(const char* name, NormalizationForm normalization = ToWChar_C)
   {
-
         Init( wxCFStringEncFromFontEnc(wxFontMapperBase::Get()->CharsetToEncoding(name, false) ) , normalization) ;
-      }
+  }
 #endif
   wxMBConv_cf(wxFontEncoding encoding, NormalizationForm normalization = ToWChar_C)
   {
-
         Init( wxCFStringEncFromFontEnc(encoding) , normalization);
-      }
+  }
   virtual ~wxMBConv_cf()
   {
 
-      }
+  }
   void Init(CFStringEncoding encoding, NormalizationForm normalization)
   {
         m_encoding = encoding ;
         m_normalization = normalization;
-    }
+  }
   size_t ToWChar(wchar_t* dst, size_t dstSize, const char* src, size_t srcSize = wxNO_LEN) const override;
   size_t FromWChar(char* dst, size_t dstSize, const wchar_t* src, size_t srcSize = wxNO_LEN) const override;
   wxMBConv* Clone() const override
-  { return new wxMBConv_cf(*this); }
+  {
+ return new wxMBConv_cf(*this);
+  }
   bool IsOk() const
   {
         return m_encoding != kCFStringEncodingInvalidId &&
               CFStringIsEncodingAvailable(m_encoding);
-    }
+  }
 private:
   NormalizationForm m_normalization;
   CFStringEncoding m_encoding;
@@ -342,10 +339,9 @@ class wxMBConvD_cf : public wxMBConv_cf
 public:
   wxMBConvD_cf(wxFontEncoding encoding)
     :  wxMBConv_cf(encoding, (NormalizationForm) (ToWChar_C | FromWChar_D) )
-    
-    {
+  {
 
-        }
+  }
 };
 // corresponding class for holding UniChars (native unicode characters)
 class WXDLLIMPEXP_BASE wxMacUniCharBuffer

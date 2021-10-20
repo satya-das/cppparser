@@ -95,7 +95,7 @@ public:
   enum AccessMode {
         Read, ///< Read-only
         Write ///< Read and Write
-    };
+  };
     /**
         The standard registry key enumerator.
     */
@@ -108,7 +108,7 @@ public:
     HKCC,  ///< HKEY_CURRENT_CONFIG
     HKDD,  ///< HKEY_DYN_DATA (Obsolete)
     HKMAX
-    };
+  };
     /**
         The value type enumerator.
     */
@@ -126,7 +126,7 @@ public:
     Type_Resource_list,       ///< Resource list in the resource map
     Type_Full_resource_descriptor,  ///< Resource list in the hardware description
     Type_Resource_requirements_list ///<
-    };
+  };
     /**
         Used to determine how the registry will be viewed, either as
         32-bit or 64-bit.
@@ -151,7 +151,7 @@ public:
             has no effect (i.e. treated as default) in 64-bit apps.
         */
         WOW64ViewMode_64
-    };
+  };
     /**
         Closes the key.
     */
@@ -238,7 +238,9 @@ public:
         @return The registry view given at the object's construction.
     */
   WOW64ViewMode GetView() const
-  { return m_viewMode; }
+  {
+ return m_viewMode;
+  }
     /**
         Gets the next key. Returns @true if successful.
     */

@@ -94,13 +94,13 @@ public:
         kPhotometricWebFile,
         kMaterialMapFile,
         kCloudOrProjectFile,
-    };
+  };
   enum RemapFileContext {
         kDrawingOpen,
         kXrefResolution,
         kRasterResolution,
         kAfterXrefResolution
-    };
+  };
     // When a file path is required
     //
 private:
@@ -215,7 +215,9 @@ public:
   ACDBCORE2D_PORT virtual const ACHAR* releaseMarketVersion();
   ACDBCORE2D_PORT virtual AcLocale getProductLocale();
   ACDBCORE2D_PORT virtual bool supportsMultiRedo() const;
-  enum ModelerFlavor {kModelerFull=0, kModelerRegionsOnly=1, kModelerObjectsOnly=2};
+  enum ModelerFlavor {
+kModelerFull=0, kModelerRegionsOnly=1, kModelerObjectsOnly=2
+  };
   ACDBCORE2D_PORT virtual ModelerFlavor getModelerFlavor() const;
   ACDBCORE2D_PORT code_page_id getSystemCodePage() const;
   ACDBCORE2D_PORT virtual AcadInternalServices* acadInternalServices();
@@ -245,7 +247,7 @@ public:
   bool isRemoteFile(const ACHAR* pszLocalFile, ACHAR (&pszURL)[N]) const
   {
         return isRemoteFile(pszLocalFile, pszURL, N);
-    }
+  }
     // This overload calls the virtual overload.
     //
   ACDBCORE2D_PORT bool isRemoteFile(const ACHAR* pszLocalFile, AcString& strUrl);
@@ -272,14 +274,14 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus getRemoteFile(const ACHAR* pszURL, AcString& strLocalFile)
   {
         return this->getRemoteFile(pszURL, strLocalFile, false);
-    }
+  }
     // Helper template for callers passing fixed size arrays.
     // The above overload taking AcString & arg is recommended
   template <size_t N>
   Acad::ErrorStatus getRemoteFile(const ACHAR* pszURL, ACHAR (&pszLocalFile)[N]) const
   {
         return this->getRemoteFile(pszURL, pszLocalFile, N, /*bIgnoreCache*/false);
-    }
+  }
     // Upload a local resource (file) identified by the pathname 'pszLocalFile'
     // to the remote location specified by the URL 'pszURL.'
     //
@@ -304,7 +306,7 @@ public:
         return launchBrowserDialog(pszSelectedURL,N,pszDialogTitle,
                                    pszOpenButtonCaption,pszStartURL,
                                    pszRegistryRootKey,bOpenButtonAlwaysEnabled);
-    }
+  }
     // OLE Embedded Objects 
     // Draw OLE object using given HDC, objectID and rectangle in screen 
     // coordinate.
@@ -328,7 +330,7 @@ public:
   {
         const ACHAR *pConstPrompt = prompt;
         return this->getSubstituteFont(pFileName, pConstPrompt, type, fontAlt);
-    }
+  }
   ACDBCORE2D_PORT virtual void alert(const ACHAR* string) const;
   ACDBCORE2D_PORT virtual void auditPrintReport(AcDbAuditInfo* pAuditInfo, const ACHAR* line, int both) const;
   ACDBCORE2D_PORT virtual const ACHAR* getAlternateFontName() const;
@@ -344,12 +346,14 @@ public:
   bool getDefaultPlotCfgInfo(ACHAR (&devName)[nDevLen], ACHAR (&styleName)[nStyleLen])
   {
         return getDefaultPlotCfgInfo(devName, nDevLen, styleName, nStyleLen);
-    }
+  }
     // Clients should call this overload
   ACDBCORE2D_PORT void getDefaultPlotCfgInfo(AcString& devName, AcString& styleName);
     // BEGIN: DWG Security-related services
   ACDBCORE2D_PORT virtual Acad::ErrorStatus signingComplete(Acad::ErrorStatus es, const ACHAR* msg, bool* result);
-  enum PasswordOptions {kPasswordOptionDefault = 0, kPasswordOptionUpperCase =1, kPasswordOptionIsExternalReference = 2};
+  enum PasswordOptions {
+kPasswordOptionDefault = 0, kPasswordOptionUpperCase =1, kPasswordOptionIsExternalReference = 2
+  };
   ACDBCORE2D_PORT virtual bool getPassword(const ACHAR* dwgName, PasswordOptions options, wchar_t* password, const size_t bufSize);
     /// <summary>
     /// This function is called internally by host applications such as AutoCAD and other ObjectARX applications 
@@ -369,7 +373,7 @@ public:
         kNoOpen       = 0,
         kReadOnly     = 1,
         kWriteAllowed = 2
-    };
+  };
   ACDBCORE2D_PORT virtual bool requiredVersionNotAvailable(AcDbHostApplicationServices::RequiredVersionFlags flags, AcDbDatabase* pDb) const;
     // Called when an attempt is made to read in a corrupt drawing.
     // Return true if your application has handled the error and wishes

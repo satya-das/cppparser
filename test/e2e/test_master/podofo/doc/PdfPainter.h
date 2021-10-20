@@ -55,10 +55,9 @@ namespace PoDoFo
   {
     TLineElement()
       :  pszStart( NULL ), lLen( 0L )
-	
-      {
+    {
 
-	      }
+    }
     const char* pszStart;
     pdf_long lLen;
   };
@@ -780,70 +779,70 @@ namespace PoDoFo
   PdfCanvas* PdfPainter::GetPage() const
   {
     return m_pPage;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfStream* PdfPainter::GetCanvas() const
   {
     return m_pCanvas;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   EPdfTextRenderingMode PdfPainter::GetTextRenderingMode(void) const
   {
     return currentTextRenderingMode;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfFont* PdfPainter::GetFont() const
   {
     return m_pFont;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfPainter::SetTabWidth(unsigned short nTabWidth)
   {
     m_nTabWidth = nTabWidth;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   unsigned short PdfPainter::GetTabWidth() const
   {
     return m_nTabWidth;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfPainter::SetPrecision(unsigned short inPrec)
   {
     m_oss.precision( inPrec );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   unsigned short PdfPainter::GetPrecision() const
   {
     return static_cast<unsigned short>(m_oss.precision());
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline std::ostringstream& PdfPainter::GetCurrentPath(void)
   {
 	return m_curPath;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfPainter::SetClipRect(const PdfRect& rRect)
   {
     this->SetClipRect( rRect.GetLeft(), rRect.GetBottom(), rRect.GetWidth(), rRect.GetHeight() );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -852,7 +851,7 @@ namespace PoDoFo
     this->Rectangle( rRect.GetLeft(), rRect.GetBottom(), 
                     rRect.GetWidth(), rRect.GetHeight(), 
                     dRoundX, dRoundY );
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -860,6 +859,6 @@ namespace PoDoFo
   {
     this->DrawMultiLineText( rRect.GetLeft(), rRect.GetBottom(), rRect.GetWidth(), rRect.GetHeight(), 
                              rsText, eAlignment, eVertical, bClip, bSkipSpaces );
-}
+  }
 }
 #endif

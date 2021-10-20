@@ -20,17 +20,23 @@ public:
     // Create the control
   bool Create(wxWindow* parent, wxWindowID id, const wxString& lbl = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCheckBoxNameStr));
   bool IsPressed() const override
-  { return m_isPressed || m_value; }
+  {
+ return m_isPressed || m_value;
+  }
     // wxToggleButton actions
   void Toggle() override;
   void Click() override;
     // Get/set the value
   void SetValue(bool state);
   bool GetValue() const
-  { return m_value; }
+  {
+ return m_value;
+  }
 protected:
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
     // the current value
   bool m_value;
 private:

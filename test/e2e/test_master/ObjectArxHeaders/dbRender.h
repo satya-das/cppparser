@@ -799,7 +799,7 @@ public:
         /// Two.
         /// </summary>
         kSamplingMultiplierTwo
-    };
+  };
     /// <summary>
     /// Specifies the shadow sampling multiplier for area lights.
     /// </summary>
@@ -851,7 +851,7 @@ public:
 	    /// Until user abort
 	    /// </summary>
         krInfinite = 2
-	};
+  };
 	/// <summary>
 	/// Constructor.
 	/// </summary>
@@ -1106,7 +1106,7 @@ public:
         /// Deprecated for RapidRT
         /// </summary>
         krSelected
-    };
+  };
     /// <summary>
     /// The available output targets for rendering.
     /// </summary>
@@ -1120,7 +1120,7 @@ public:
         /// The rendered image appears directly in the current viewport.
         /// </summary>
         krViewport
-    };
+  };
     /// <summary>
     /// Constructor.
     /// </summary>

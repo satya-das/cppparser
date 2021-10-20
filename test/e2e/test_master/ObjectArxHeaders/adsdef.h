@@ -49,8 +49,12 @@ typedef ads_real* ads_pointp;
 #  endif
 #  ifndef _XYZT_DEFINED
 #    define _XYZT_DEFINED
-enum { X = 0, Y = 1, Z = 2 };
-enum { T = 3 };
+enum {
+ X = 0, Y = 1, Z = 2
+};
+enum {
+ T = 3
+};
 #  endif
 /* The PAUSE token for ads_command and ads_cmd
  */

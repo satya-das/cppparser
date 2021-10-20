@@ -37,9 +37,7 @@ public:
   {
     Attr(const Attr* attrInEffect, const wxFont& font_, const wxColour& foreground_ = wxColour(), const wxColour& background_ = wxColour())
       :  font(font_), foreground(foreground_), background(background_)
-        
-      {
-
+    {
             if (attrInEffect)
             {
                 effectiveFont = font.IsOk() ? font : attrInEffect->effectiveFont;
@@ -52,7 +50,7 @@ public:
                 effectiveForeground = foreground;
                 effectiveBackground = background;
             }
-              }
+    }
     wxFont font;
     wxColour foreground, background;
     wxFont effectiveFont;
@@ -62,9 +60,8 @@ public:
     // initially, i.e. the ones used before any tags in the string.
   wxMarkupParserAttrOutput(const wxFont& font, const wxColour& foreground, const wxColour& background)
   {
-
         m_attrs.push(Attr(NULL, font, foreground, background));
-      }
+  }
     // Indicates the change of the font and/or colours used. Any of the
     // fields of the argument may be invalid indicating that the corresponding
     // attribute didn't actually change.
@@ -76,37 +73,63 @@ public:
     // Implement all pure virtual methods inherited from the base class in
     // terms of our own ones.
   void OnBoldStart() override
-  { DoChangeFont(&wxFont::Bold); }
+  {
+ DoChangeFont(&wxFont::Bold);
+  }
   void OnBoldEnd() override
-  { DoEndAttr(); }
+  {
+ DoEndAttr();
+  }
   void OnItalicStart() override
-  { DoChangeFont(&wxFont::Italic); }
+  {
+ DoChangeFont(&wxFont::Italic);
+  }
   void OnItalicEnd() override
-  { DoEndAttr(); }
+  {
+ DoEndAttr();
+  }
   void OnUnderlinedStart() override
-  { DoChangeFont(&wxFont::Underlined); }
+  {
+ DoChangeFont(&wxFont::Underlined);
+  }
   void OnUnderlinedEnd() override
-  { DoEndAttr(); }
+  {
+ DoEndAttr();
+  }
   void OnStrikethroughStart() override
-  { DoChangeFont(&wxFont::Strikethrough); }
+  {
+ DoChangeFont(&wxFont::Strikethrough);
+  }
   void OnStrikethroughEnd() override
-  { DoEndAttr(); }
+  {
+ DoEndAttr();
+  }
   void OnBigStart() override
-  { DoChangeFont(&wxFont::Larger); }
+  {
+ DoChangeFont(&wxFont::Larger);
+  }
   void OnBigEnd() override
-  { DoEndAttr(); }
+  {
+ DoEndAttr();
+  }
   void OnSmallStart() override
-  { DoChangeFont(&wxFont::Smaller); }
+  {
+ DoChangeFont(&wxFont::Smaller);
+  }
   void OnSmallEnd() override
-  { DoEndAttr(); }
+  {
+ DoEndAttr();
+  }
   void OnTeletypeStart() override
   {
         wxFont font(GetFont());
         font.SetFamily(wxFONTFAMILY_TELETYPE);
         DoSetFont(font);
-    }
+  }
   void OnTeletypeEnd() override
-  { DoEndAttr(); }
+  {
+ DoEndAttr();
+  }
   void OnSpanStart(const wxMarkupSpanAttributes& spanAttr) override
   {
         wxFont font(GetFont());
@@ -160,11 +183,11 @@ public:
         OnAttrStart(attr);
 
         m_attrs.push(attr);
-    }
+  }
   void OnSpanEnd(const wxMarkupSpanAttributes&) override
   {
         DoEndAttr();
-    }
+  }
 protected:
     // Get the current attributes, i.e. the ones that should be used for
     // rendering (or measuring or whatever) the text at the current position in
@@ -175,10 +198,14 @@ protected:
     // from now on but is mostly meant to be used from overridden OnText()
     // implementations.
   const Attr& GetAttr() const
-  { return m_attrs.top(); }
+  {
+ return m_attrs.top();
+  }
     // A shortcut for accessing the font of the current attribute.
   const wxFont& GetFont() const
-  { return GetAttr().font; }
+  {
+ return GetAttr().font;
+  }
 private:
     // Change only the font to the given one. Call OnAttrStart() to notify
     // about the change and update the attributes stack.
@@ -189,20 +216,20 @@ private:
         OnAttrStart(attr);
 
         m_attrs.push(attr);
-    }
+  }
     // Apply the given function to the font currently on top of the font stack,
     // push the new font on the stack and call OnAttrStart() with it.
   void DoChangeFont(wxFont (*func) () const)
   {
         DoSetFont((GetFont().*func)());
-    }
+  }
   void DoEndAttr()
   {
         const Attr attr(m_attrs.top());
         m_attrs.pop();
 
         OnAttrEnd(attr);
-    }
+  }
     // A helper class used to apply the given function to a wxFont object
     // depending on the value of an OptionalBool.
   template <typename T>
@@ -210,7 +237,8 @@ private:
   {
     FontModifier()
     {
-     }
+
+    }
     void operator()(wxMarkupSpanAttributes::OptionalBool isIt, wxFont& font, void (*func) (T), T noValue, T yesValue)
     {
             switch ( isIt )
@@ -226,7 +254,7 @@ private:
                     (font.*func)(yesValue);
                     break;
             }
-        }
+    }
   };
   wxStack<Attr> m_attrs;
   wxDECLARE_NO_COPY_CLASS(wxMarkupParserAttrOutput);

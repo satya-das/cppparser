@@ -64,6 +64,6 @@ public:
         SkASSERTF(*a + *b <= limit,
                   "\nlimit: %.17f, sum: %.17f, a: %.10f, b: %.10f, scale: %.20f",
                   limit, *a + *b, *a, *b, scale);
-    }
+  }
 };
 #endif

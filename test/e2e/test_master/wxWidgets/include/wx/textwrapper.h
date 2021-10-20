@@ -20,20 +20,24 @@ class WXDLLIMPEXP_CORE wxTextWrapper
 public:
   wxTextWrapper()
   {
- m_eol = false;   }
+ m_eol = false;
+  }
     // win is used for getting the font, text is the text to wrap, width is the
     // max line width or -1 to disable wrapping
   void Wrap(wxWindow* win, const wxString& text, int widthMax);
     // we don't need it, but just to avoid compiler warnings
   virtual ~wxTextWrapper()
   {
-   }
+
+  }
 protected:
     // line may be empty
   virtual void OnOutputLine(const wxString& line) = 0;
     // called at the start of every new line (except the very first one)
   virtual void OnNewLine()
-  { }
+  {
+
+  }
 private:
     // call OnOutputLine() and set m_eol to true
   void DoOutputLine(const wxString& line)
@@ -41,7 +45,7 @@ private:
         OnOutputLine(line);
 
         m_eol = true;
-    }
+  }
     // this function is a destructive inspector: when it returns true it also
     // resets the flag to false so calling it again wouldn't return true any
     // more
@@ -53,7 +57,7 @@ private:
         m_eol = false;
 
         return true;
-    }
+  }
   bool m_eol;
   wxDECLARE_NO_COPY_CLASS(wxTextWrapper);
 };
@@ -71,24 +75,25 @@ class wxTextSizerWrapper : public wxTextWrapper
 public:
   wxTextSizerWrapper(wxWindow* win)
   {
-
         m_win = win;
         m_hLine = 0;
-      }
+  }
   wxSizer* CreateSizer(const wxString& text, int widthMax)
   {
         m_sizer = new wxBoxSizer(wxVERTICAL);
         Wrap(m_win, text, widthMax);
         return m_sizer;
-    }
+  }
   wxWindow* GetParent() const
-  { return m_win; }
+  {
+ return m_win;
+  }
 protected:
   virtual wxWindow* OnCreateLine(const wxString& line)
   {
         return new wxStaticText(m_win, wxID_ANY,
                                 wxControl::EscapeMnemonics(line));
-    }
+  }
   void OnOutputLine(const wxString& line) override
   {
         if ( !line.empty() )
@@ -102,7 +107,7 @@ protected:
 
             m_sizer->Add(5, m_hLine);
         }
-    }
+  }
 private:
   wxWindow* m_win;
   wxSizer* m_sizer;

@@ -24,7 +24,9 @@ public:
   bool isFormatTexturable(const GrBackendFormat&) const override;
   bool isFormatTexturable(MTLPixelFormat) const;
   bool isFormatCopyable(const GrBackendFormat&) const override
-  { return true; }
+  {
+ return true;
+  }
   bool isFormatAsColorTypeRenderable(GrColorType ct, const GrBackendFormat& format, int sampleCount = 1) const override;
   bool isFormatRenderable(const GrBackendFormat& format, int sampleCount) const override;
   bool isFormatRenderable(MTLPixelFormat, int sampleCount) const;
@@ -36,14 +38,14 @@ public:
   SurfaceReadPixelsSupport surfaceSupportsReadPixels(const GrSurface*) const override
   {
         return SurfaceReadPixelsSupport::kSupported;
-    }
+  }
     /**
      * Returns both a supported and most prefered stencil format to use in draws.
      */
   const StencilFormat& preferredStencilFormat() const
   {
         return fPreferredStencilFormat;
-    }
+  }
   bool canCopyAsBlit(MTLPixelFormat dstFormat, int dstSampleCount, MTLPixelFormat srcFormat, int srcSampleCount, const SkIRect& srcRect, const SkIPoint& dstPoint, bool areDstSrcSameObj) const;
   bool canCopyAsResolve(GrSurface* dst, int dstSampleCount, GrSurface* src, int srcSampleCount, const SkIRect& srcRect, const SkIPoint& dstPoint) const;
   GrColorType getYUVAColorTypeFromBackendFormat(const GrBackendFormat&, bool isAlphaChannel) const override;
@@ -52,7 +54,7 @@ public:
   {
         int idx = static_cast<int>(colorType);
         return fColorTypeToFormatTable[idx];
-    }
+  }
   GrSwizzle getTextureSwizzle(const GrBackendFormat&, GrColorType) const override;
   GrSwizzle getOutputSwizzle(const GrBackendFormat&, GrColorType) const override;
 #  if  GR_TEST_UTILS
@@ -79,7 +81,7 @@ private:
             // Does Ganesh itself support rendering to this colorType & format pair. Renderability
             // still additionally depends on if the format itself is renderable.
             kRenderable_Flag = 0x2,
-        };
+    };
     uint32_t fFlags = 0;
     GrSwizzle fTextureSwizzle;
     GrSwizzle fOutputSwizzle;
@@ -94,13 +96,13 @@ private:
                 }
             }
             return 0;
-        }
+    }
     enum {
             kTexturable_Flag  = 0x1,
             kRenderable_Flag  = 0x2, // Color attachment and blendable
             kMSAA_Flag        = 0x4,
             kResolve_Flag     = 0x8,
-        };
+    };
     static const uint16_t kAllFlags = kTexturable_Flag | kRenderable_Flag | kMSAA_Flag | kResolve_Flag;
     uint16_t fFlags = 0;
     std::unique_ptr<ColorTypeInfo[]> fColorTypeInfos;
@@ -117,17 +119,21 @@ private:
   {
         size_t index = GetFormatIndex(pixelFormat);
         return fFormatTable[index];
-    }
+  }
   MTLPixelFormat fColorTypeToFormatTable[kGrColorTypeCnt];
   void setColorType(GrColorType, std::initializer_list<MTLPixelFormat> formats);
   enum class Platform {
         kMac,
         kIOS
-    };
+  };
   bool isMac()
-  { return Platform::kMac == fPlatform; }
+  {
+ return Platform::kMac == fPlatform;
+  }
   bool isIOS()
-  { return Platform::kIOS == fPlatform; }
+  {
+ return Platform::kIOS == fPlatform;
+  }
   Platform fPlatform;
   int fFamilyGroup;
   int fVersion;

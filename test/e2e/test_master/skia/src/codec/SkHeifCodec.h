@@ -30,14 +30,14 @@ protected:
   SkEncodedImageFormat onGetEncodedFormat() const override
   {
         return SkEncodedImageFormat::kHEIF;
-    }
+  }
   int onGetFrameCount() override;
   bool onGetFrameInfo(int, FrameInfo*) const override;
   int onGetRepetitionCount() override;
   const SkFrameHolder* getFrameHolder() const override
   {
         return &fFrameHolder;
-    }
+  }
   bool conversionSupported(const SkImageInfo&, bool, bool) override;
   bool onRewind() override;
 private:
@@ -67,14 +67,14 @@ private:
   {
   public:
     Frame(int i)
-      :  INHERITED(i) 
-      {
-      }
+      :  INHERITED(i)
+    {
+    }
   protected:
     SkEncodedInfo::Alpha onReportedAlpha() const override
     {
             return SkEncodedInfo::Alpha::kOpaque_Alpha;
-        }
+    }
   private:
     typedef SkFrame INHERITED;
   };
@@ -88,18 +88,18 @@ private:
     {
             fScreenWidth = w;
             fScreenHeight = h;
-        }
+    }
     Frame* appendNewFrame();
     const Frame* frame(int i) const;
     Frame* editFrameAt(int i);
     int size() const
     {
             return static_cast<int>(fFrames.size());
-        }
+    }
     void reserve(int size)
     {
             fFrames.reserve(size);
-        }
+    }
   protected:
     const SkFrame* onGetFrame(int i) const override;
   private:

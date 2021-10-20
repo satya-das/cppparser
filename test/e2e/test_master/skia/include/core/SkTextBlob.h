@@ -32,13 +32,17 @@ public:
         @return  conservative bounding box
     */
   const SkRect& bounds() const
-  { return fBounds; }
+  {
+ return fBounds;
+  }
     /** Returns a non-zero value unique among all text blobs.
 
         @return  identifier for SkTextBlob
     */
   uint32_t uniqueID() const
-  { return fUniqueID; }
+  {
+ return fUniqueID;
+  }
     /** Returns the number of intervals that intersect bounds.
         bounds describes a pair of lines parallel to the text advance.
         The return count is zero or a multiple of two, and is at most twice the number of glyphs in
@@ -95,7 +99,7 @@ public:
             return nullptr;
         }
         return MakeFromText(string, strlen(string), font, encoding);
-    }
+  }
     /** Returns a textblob built from a single run of text with x-positions and a single y value.
         This is equivalent to using SkTextBlobBuilder and calling allocRunPosH().
         Returns nullptr if byteLength is zero.
@@ -199,7 +203,7 @@ private:
   void notifyAddedToCache(uint32_t cacheID) const
   {
         fCacheID.store(cacheID);
-    }
+  }
   friend class SkGlyphRunList;
   friend class GrTextBlobCache;
   friend class SkTextBlobBuilder;
@@ -252,9 +256,13 @@ public:
     uint32_t* clusters;
         // Helpers, since the "pos" field can be different types (always some number of floats).
     SkPoint* points() const
-    { return reinterpret_cast<SkPoint*>(pos); }
+    {
+ return reinterpret_cast<SkPoint*>(pos);
+    }
     SkRSXform* xforms() const
-    { return reinterpret_cast<SkRSXform*>(pos); }
+    {
+ return reinterpret_cast<SkRSXform*>(pos);
+    }
   };
     /** Returns run with storage for glyphs. Caller must write count glyphs to
         RunBuffer::glyphs before next call to SkTextBlobBuilder.

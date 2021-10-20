@@ -47,7 +47,9 @@ public:
   virtual wxDataFormat GetMatchingPair();
   bool CurrentDragHasSupportedFormat();
   void SetCurrentDragSource(wxOSXDataSource* dragpasteboard)
-  { m_currentDragPasteboard = dragpasteboard ; }
+  {
+ m_currentDragPasteboard = dragpasteboard ;
+  }
 protected:
   wxOSXDataSource* m_currentDragPasteboard;
 };
@@ -69,9 +71,13 @@ public:
     // params: if bAllowMove is false, data can be only copied
   wxDragResult DoDragDrop(int flags = wxDrag_CopyOnly) override;
   wxWindow* GetWindow()
-  { return m_window ; }
+  {
+ return m_window ;
+  }
   void SetCurrentDragPasteboard(void* dragpasteboard)
-  { m_currentDragPasteboard = dragpasteboard ; }
+  {
+ m_currentDragPasteboard = dragpasteboard ;
+  }
   bool MacInstallDefaultCursor(wxDragResult effect);
   static wxDropSource* GetCurrentDropSource();
 protected:

@@ -24,9 +24,8 @@ public:
     :  fInfo(info)
             , fInitialQueueFamily(info.fCurrentQueueFamily)
             , fLayout(std::move(layout))
-            , fIsBorrowed(GrBackendObjectOwnership::kBorrowed == ownership) 
-    {
-
+            , fIsBorrowed(GrBackendObjectOwnership::kBorrowed == ownership)
+  {
         SkASSERT(fLayout->getImageLayout() == fInfo.fImageLayout);
         if (forSecondaryCB) {
             fResource = nullptr;
@@ -36,7 +35,7 @@ public:
             SkASSERT(VK_NULL_HANDLE != info.fAlloc.fMemory);
             fResource = new Resource(info.fImage, info.fAlloc, info.fImageTiling);
         }
-        }
+  }
   virtual ~GrVkImage();
   VkImage image() const
   {
@@ -44,16 +43,18 @@ public:
         // a RT in an external secondary command buffer.
         SkASSERT(fResource);
         return fInfo.fImage;
-    }
+  }
   const GrVkAlloc& alloc() const
   {
         // Should only be called when we have a real fResource object, i.e. never when being used as
         // a RT in an external secondary command buffer.
         SkASSERT(fResource);
         return fInfo.fAlloc;
-    }
+  }
   VkFormat imageFormat() const
-  { return fInfo.fFormat; }
+  {
+ return fInfo.fFormat;
+  }
   GrBackendFormat getBackendFormat() const
   {
         if (fResource && this->ycbcrConversionInfo().isValid()) {
@@ -62,36 +63,42 @@ public:
         }
         SkASSERT(this->imageFormat() != VK_FORMAT_UNDEFINED);
         return GrBackendFormat::MakeVk(this->imageFormat());
-    }
+  }
   uint32_t mipLevels() const
-  { return fInfo.fLevelCount; }
+  {
+ return fInfo.fLevelCount;
+  }
   const GrVkYcbcrConversionInfo& ycbcrConversionInfo() const
   {
         // Should only be called when we have a real fResource object, i.e. never when being used as
         // a RT in an external secondary command buffer.
         SkASSERT(fResource);
         return fInfo.fYcbcrConversionInfo;
-    }
+  }
   const Resource* resource() const
   {
         SkASSERT(fResource);
         return fResource;
-    }
+  }
   bool isLinearTiled() const
   {
         // Should only be called when we have a real fResource object, i.e. never when being used as
         // a RT in an external secondary command buffer.
         SkASSERT(fResource);
         return SkToBool(VK_IMAGE_TILING_LINEAR == fInfo.fImageTiling);
-    }
+  }
   bool isBorrowed() const
-  { return fIsBorrowed; }
+  {
+ return fIsBorrowed;
+  }
   sk_sp<GrVkImageLayout> grVkImageLayout() const
-  { return fLayout; }
+  {
+ return fLayout;
+  }
   VkImageLayout currentLayout() const
   {
         return fLayout->getImageLayout();
-    }
+  }
   void setImageLayout(const GrVkGpu* gpu, VkImageLayout newLayout, VkAccessFlags dstAccessMask, VkPipelineStageFlags dstStageMask, bool byRegion, bool releaseFamilyQueue = false);
     // Returns the image to its original queue family and changes the layout to present if the queue
     // family is not external or foreign.
@@ -107,7 +114,7 @@ public:
         // a RT in an external secondary command buffer.
         SkASSERT(fResource);
         fLayout->setImageLayout(newLayout);
-    }
+  }
   struct ImageDesc
   {
     VkImageType fImageType;
@@ -130,9 +137,9 @@ public:
                 , fImageTiling(VK_IMAGE_TILING_OPTIMAL)
                 , fUsageFlags(0)
                 , fMemProps(VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT)
-                , fIsProtected(GrProtected::kNo) 
-      {
-      }
+                , fIsProtected(GrProtected::kNo)
+    {
+    }
   };
   static bool InitImageInfo(const GrVkGpu* gpu, const ImageDesc& imageDesc, GrVkImageInfo*);
     // Destroys the internal VkImage and VkDeviceMemory in the GrVkImageInfo
@@ -151,7 +158,9 @@ protected:
   void releaseImage(GrVkGpu* gpu);
   void abandonImage();
   bool hasResource() const
-  { return fResource; }
+  {
+ return fResource;
+  }
   GrVkImageInfo fInfo;
   uint32_t fInitialQueueFamily;
   sk_sp<GrVkImageLayout> fLayout;
@@ -161,33 +170,31 @@ private:
   {
   public:
     Resource()
-      :  fImage(VK_NULL_HANDLE) 
-      {
-
+      :  fImage(VK_NULL_HANDLE)
+    {
             fAlloc.fMemory = VK_NULL_HANDLE;
             fAlloc.fOffset = 0;
-              }
+    }
     Resource(VkImage image, const GrVkAlloc& alloc, VkImageTiling tiling)
       :  fImage(image)
             , fAlloc(alloc)
-            , fImageTiling(tiling) 
-      {
-      }
+            , fImageTiling(tiling)
+    {
+    }
     virtual ~Resource()
     {
-
             SkASSERT(!fReleaseHelper);
-            }
+    }
 #  ifdef SK_TRACE_VK_RESOURCES
     void dumpInfo() const override
     {
             SkDebugf("GrVkImage: %d (%d refs)\n", fImage, this->getRefCnt());
-        }
+    }
 #  endif
     void setRelease(sk_sp<GrRefCntedCallback> releaseHelper)
     {
             fReleaseHelper = std::move(releaseHelper);
-        }
+    }
         /**
          * These are used to coordinate calling the "finished" idle procs between the GrVkTexture
          * and the Resource. If the GrVkTexture becomes purgeable and if there are no command
@@ -206,7 +213,9 @@ private:
     void notifyAddedToCommandBuffer() const override;
     void notifyRemovedFromCommandBuffer() const override;
     bool isOwnedByCommandBuffer() const
-    { return fNumCommandBufferOwners > 0; }
+    {
+ return fNumCommandBufferOwners > 0;
+    }
   protected:
     mutable sk_sp<GrRefCntedCallback> fReleaseHelper;
     void invokeReleaseProc() const
@@ -216,14 +225,14 @@ private:
                 // the ReleaseProc to be called.
                 fReleaseHelper.reset();
             }
-        }
+    }
   private:
     void freeGPUData(GrVkGpu* gpu) const override;
     void abandonGPUData() const override
     {
             this->invokeReleaseProc();
             SkASSERT(!fReleaseHelper);
-        }
+    }
     VkImage fImage;
     GrVkAlloc fAlloc;
     VkImageTiling fImageTiling;
@@ -237,10 +246,10 @@ private:
   {
   public:
     BorrowedResource(VkImage image, const GrVkAlloc& alloc, VkImageTiling tiling)
-      :  Resource(image, alloc, tiling) 
-      {
+      :  Resource(image, alloc, tiling)
+    {
 
-              }
+    }
   private:
     void freeGPUData(GrVkGpu* gpu) const override;
     void abandonGPUData() const override;

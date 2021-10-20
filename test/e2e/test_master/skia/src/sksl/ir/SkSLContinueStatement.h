@@ -16,9 +16,9 @@ namespace SkSL
   struct ContinueStatement : public Statement
   {
     ContinueStatement(int offset)
-      :  INHERITED(offset, kContinue_Kind) 
-      {
-      }
+      :  INHERITED(offset, kContinue_Kind)
+    {
+    }
     std::unique_ptr<Statement> clone() const override
     {
         return std::unique_ptr<Statement>(new ContinueStatement(fOffset));

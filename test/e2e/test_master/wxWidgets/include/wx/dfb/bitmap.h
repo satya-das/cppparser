@@ -22,13 +22,16 @@ public:
   }
   wxBitmap(const wxIDirectFBSurfacePtr& surface)
   {
- Create(surface);   }
+ Create(surface);
+  }
   wxBitmap(int width, int height, int depth = -1)
   {
- Create(width, height, depth);   }
+ Create(width, height, depth);
+  }
   wxBitmap(const wxSize& sz, int depth = -1)
   {
- Create(sz, depth);   }
+ Create(sz, depth);
+  }
   wxBitmap(const char bits[], int width, int height, int depth = 1);
   wxBitmap(const wxString& filename, wxBitmapType type = wxBITMAP_DEFAULT_TYPE);
   wxBitmap(const char* const * bits);
@@ -38,9 +41,13 @@ public:
   bool Create(const wxIDirectFBSurfacePtr& surface);
   bool Create(int width, int height, int depth = wxBITMAP_SCREEN_DEPTH);
   bool Create(const wxSize& sz, int depth = wxBITMAP_SCREEN_DEPTH)
-  { return Create(sz.GetWidth(), sz.GetHeight(), depth); }
+  {
+ return Create(sz.GetWidth(), sz.GetHeight(), depth);
+  }
   bool Create(int width, int height, const wxDC&)
-  { return Create(width,height); }
+  {
+ return Create(width,height);
+  }
   virtual int GetHeight() const;
   virtual int GetWidth() const;
   virtual int GetDepth() const;

@@ -97,12 +97,14 @@ public:
         }
 
         return mask;
-    }
+  }
   static std::unique_ptr<GrFragmentProcessor> Make(GrRecordingContext* context, float sigma, float xformedSigma, const SkRRect& srcRRect, const SkRRect& devRRect);
   GrRRectBlurEffect(const GrRRectBlurEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "RRectBlurEffect"; }
+  {
+ return "RRectBlurEffect";
+  }
   float sigma;
   SkRect rect;
   float cornerRadius;
@@ -114,11 +116,10 @@ private:
             , sigma(sigma)
             , rect(rect)
             , cornerRadius(cornerRadius)
-            , ninePatchSampler(std::move(ninePatchSampler)) 
-    {
-
+            , ninePatchSampler(std::move(ninePatchSampler))
+  {
         this->setTextureSamplerCnt(1);
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

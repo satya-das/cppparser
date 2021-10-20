@@ -17,7 +17,8 @@ class GrAllocator :  SkNoncopyable
 public:
   ~GrAllocator()
   {
- this->reset();   }
+ this->reset();
+  }
     /**
      * Create an allocator
      *
@@ -32,9 +33,8 @@ public:
         , fItemsPerBlock(itemsPerBlock)
         , fOwnFirstBlock(nullptr == initialBlock)
         , fCount(0)
-        , fInsertionIndexInBlock(0) 
-    {
-
+        , fInsertionIndexInBlock(0)
+  {
         SkASSERT(itemsPerBlock > 0);
         fBlockSize = fItemSize * fItemsPerBlock;
         if (fOwnFirstBlock) {
@@ -44,7 +44,7 @@ public:
             fBlocks.push_back() = initialBlock;
             fInsertionIndexInBlock = 0;
         }
-        }
+  }
     /**
      * Adds an item and returns pointer to it.
      *
@@ -61,7 +61,7 @@ public:
         ++fCount;
         ++fInsertionIndexInBlock;
         return ret;
-    }
+  }
     /**
      * Remove the last item, only call if count() != 0
      */
@@ -79,7 +79,7 @@ public:
                 fInsertionIndexInBlock = fItemsPerBlock;
             }
         }
-    }
+  }
     /**
      * Removes all added items.
      */
@@ -98,19 +98,21 @@ public:
             fInsertionIndexInBlock = 0;
         }
         fCount = 0;
-    }
+  }
     /**
      * Returns the item count.
      */
   int count() const
   {
         return fCount;
-    }
+  }
     /**
      * Is the count 0?
      */
   bool empty() const
-  { return 0 == fCount; }
+  {
+ return 0 == fCount;
+  }
     /**
      * Access first item, only call if count() != 0
      */
@@ -119,7 +121,7 @@ public:
         SkASSERT(fCount);
         SkASSERT(fInsertionIndexInBlock > 0);
         return (char*)(fBlocks.front());
-    }
+  }
     /**
      * Access first item, only call if count() != 0
      */
@@ -128,7 +130,7 @@ public:
         SkASSERT(fCount);
         SkASSERT(fInsertionIndexInBlock > 0);
         return (const char*)(fBlocks.front());
-    }
+  }
     /**
      * Access last item, only call if count() != 0
      */
@@ -137,7 +139,7 @@ public:
         SkASSERT(fCount);
         SkASSERT(fInsertionIndexInBlock > 0);
         return (char*)(fBlocks.back()) + (fInsertionIndexInBlock - 1) * fItemSize;
-    }
+  }
     /**
      * Access last item, only call if count() != 0
      */
@@ -146,7 +148,7 @@ public:
         SkASSERT(fCount);
         SkASSERT(fInsertionIndexInBlock > 0);
         return (const char*)(fBlocks.back()) + (fInsertionIndexInBlock - 1) * fItemSize;
-    }
+  }
     /**
      * Iterates through the allocator. This is faster than using operator[] when walking linearly
      * through the allocator.
@@ -161,9 +163,9 @@ public:
       :  fAllocator(allocator)
             , fBlockIndex(-1)
             , fIndexInBlock(allocator->fItemsPerBlock - 1)
-            , fItemIndex(-1) 
-      {
-      }
+            , fItemIndex(-1)
+    {
+    }
         /**
          * Advances the iterator. Iteration is finished when next() returns false.
          */
@@ -176,7 +178,7 @@ public:
                 fIndexInBlock = 0;
             }
             return fItemIndex < fAllocator->fCount;
-        }
+    }
         /**
          * Gets the current iterator value. Call next() at least once before calling. Don't call
          * after next() returns false.
@@ -185,7 +187,7 @@ public:
     {
             SkASSERT(fItemIndex >= 0 && fItemIndex < fAllocator->fCount);
             return (char*) fAllocator->fBlocks[fBlockIndex] + fIndexInBlock * fAllocator->fItemSize;
-        }
+    }
   private:
     const GrAllocator* fAllocator;
     int fBlockIndex;
@@ -200,7 +202,7 @@ public:
         SkASSERT(i >= 0 && i < fCount);
         return (char*)fBlocks[i / fItemsPerBlock] +
                fItemSize * (i % fItemsPerBlock);
-    }
+  }
     /**
      * Access item by index.
      */
@@ -209,7 +211,7 @@ public:
         SkASSERT(i >= 0 && i < fCount);
         return (const char*)fBlocks[i / fItemsPerBlock] +
                fItemSize * (i % fItemsPerBlock);
-    }
+  }
 protected:
     /**
      * Set first block of memory to write into.  Must be called before any other methods.
@@ -227,7 +229,7 @@ protected:
         fOwnFirstBlock = false;
         fBlocks.push_back() = initialBlock;
         fInsertionIndexInBlock = 0;
-    }
+  }
     // For access to above function.
   template <typename T>
   friend class GrTAllocator;
@@ -252,16 +254,17 @@ class GrTAllocator :  SkNoncopyable
 public:
   virtual ~GrTAllocator()
   {
- this->reset();   }
+ this->reset();
+  }
     /**
      * Create an allocator
      *
      * @param   itemsPerBlock   the number of items to allocate at once
      */
   explicit GrTAllocator(int itemsPerBlock)
-    :  fAllocator(sizeof(T), itemsPerBlock, nullptr) 
-    {
-    }
+    :  fAllocator(sizeof(T), itemsPerBlock, nullptr)
+  {
+  }
     /**
      * Adds an item and returns it.
      *
@@ -273,14 +276,14 @@ public:
         SkASSERT(item);
         new (item) T;
         return *(T*)item;
-    }
+  }
   T& push_back(const T& t)
   {
         void* item = fAllocator.push_back();
         SkASSERT(item);
         new (item) T(t);
         return *(T*)item;
-    }
+  }
   template <typename... Args>
   T& emplace_back(Args&&... args)
   {
@@ -288,7 +291,7 @@ public:
         SkASSERT(item);
         new (item) T(std::forward<Args>(args)...);
         return *(T*)item;
-    }
+  }
     /**
      * Remove the last item, only call if count() != 0
      */
@@ -296,7 +299,7 @@ public:
   {
         this->back().~T();
         fAllocator.pop_back();
-    }
+  }
     /**
      * Removes all added items.
      */
@@ -307,47 +310,49 @@ public:
             ((T*)fAllocator[i])->~T();
         }
         fAllocator.reset();
-    }
+  }
     /**
      * Returns the item count.
      */
   int count() const
   {
         return fAllocator.count();
-    }
+  }
     /**
      * Is the count 0?
      */
   bool empty() const
-  { return fAllocator.empty(); }
+  {
+ return fAllocator.empty();
+  }
     /**
      * Access first item, only call if count() != 0
      */
   T& front()
   {
         return *(T*)fAllocator.front();
-    }
+  }
     /**
      * Access first item, only call if count() != 0
      */
   const T& front() const
   {
         return *(T*)fAllocator.front();
-    }
+  }
     /**
      * Access last item, only call if count() != 0
      */
   T& back()
   {
         return *(T*)fAllocator.back();
-    }
+  }
     /**
      * Access last item, only call if count() != 0
      */
   const T& back() const
   {
         return *(const T*)fAllocator.back();
-    }
+  }
     /**
      * Iterates through the allocator. This is faster than using operator[] when walking linearly
      * through the allocator.
@@ -359,27 +364,35 @@ public:
          * Initializes the iterator. next() must be called before get() or ops * and ->.
          */
     Iter(const GrTAllocator* allocator)
-      :  fImpl(&allocator->fAllocator) 
-      {
-      }
+      :  fImpl(&allocator->fAllocator)
+    {
+    }
         /**
          * Advances the iterator. Iteration is finished when next() returns false.
          */
     bool next()
-    { return fImpl.next(); }
+    {
+ return fImpl.next();
+    }
         /**
          * Gets the current iterator value. Call next() at least once before calling. Don't call
          * after next() returns false.
          */
     T* get() const
-    { return (T*) fImpl.get(); }
+    {
+ return (T*) fImpl.get();
+    }
         /**
          * Convenience operators. Same rules for calling apply as get().
          */
     T& operator*() const
-    { return *this->get(); }
+    {
+ return *this->get();
+    }
     T* operator->() const
-    { return this->get(); }
+    {
+ return this->get();
+    }
   private:
     GrAllocator::Iter fImpl;
   };
@@ -389,14 +402,14 @@ public:
   T& operator[](int i)
   {
         return *(T*)(fAllocator[i]);
-    }
+  }
     /**
      * Access item by index.
      */
   const T& operator[](int i) const
   {
         return *(const T*)(fAllocator[i]);
-    }
+  }
 protected:
     /*
      * Set first block of memory to write into.  Must be called before any other methods.
@@ -408,7 +421,7 @@ protected:
   void setInitialBlock(void* initialBlock)
   {
         fAllocator.setInitialBlock(initialBlock);
-    }
+  }
 private:
   friend void* operator new<T>(size_t, GrTAllocator*);
   GrAllocator fAllocator;
@@ -421,11 +434,10 @@ private:
   typedef GrTAllocator<T> INHERITED;
 public:
   GrSTAllocator()
-    :  INHERITED(N) 
-    {
-
+    :  INHERITED(N)
+  {
         this->setInitialBlock(fStorage.get());
-        }
+  }
 private:
   SkAlignedSTStorage<N, T> fStorage;
 };

@@ -19,12 +19,12 @@ public:
         kCW_FirstDirection,         // == SkPath::kCW_Direction
         kCCW_FirstDirection,        // == SkPath::kCCW_Direction
         kUnknown_FirstDirection,
-    };
+  };
   static FirstDirection AsFirstDirection(SkPath::Direction dir)
   {
         // since we agree numerically for the values in Direction, we can just cast.
         return (FirstDirection)dir;
-    }
+  }
     /**
      *  Return the opposite of the specified direction. kUnknown is its own
      *  opposite.
@@ -35,7 +35,7 @@ public:
             kCCW_FirstDirection, kCW_FirstDirection, kUnknown_FirstDirection,
         };
         return gOppositeDir[dir];
-    }
+  }
     /**
      *  Tries to quickly compute the direction of the first non-degenerate
      *  contour. If it can be computed, return true and set dir to that
@@ -55,7 +55,7 @@ public:
         FirstDirection computedDir = kUnknown_FirstDirection;
         (void)CheapComputeFirstDirection(path, &computedDir);
         return computedDir == dir;
-    }
+  }
   static bool IsClosedSingleContour(const SkPath& path)
   {
         int verbCount = path.countVerbs();
@@ -80,11 +80,11 @@ public:
             }
         }
         return false;
-    }
+  }
   static void AddGenIDChangeListener(const SkPath& path, sk_sp<SkPathRef::GenIDChangeListener> listener)
   {
         path.fPathRef->addGenIDChangeListener(std::move(listener));
-    }
+  }
     /**
      * This returns true for a rect that begins and ends at the same corner and has either a move
      * followed by four lines or a move followed by 3 lines and a close. None of the parameters are
@@ -112,23 +112,33 @@ public:
   {
   public:
     Verbs(const SkPath& path)
-      :  fPathRef(path.fPathRef.get()) 
-      {
-      }
+      :  fPathRef(path.fPathRef.get())
+    {
+    }
     struct Iter
     {
       void operator++()
-      { fVerb++; }
+      {
+ fVerb++;
+      }
       bool operator!=(const Iter& b)
-      { return fVerb != b.fVerb; }
+      {
+ return fVerb != b.fVerb;
+      }
       SkPath::Verb operator*()
-      { return static_cast<SkPath::Verb>(*fVerb); }
+      {
+ return static_cast<SkPath::Verb>(*fVerb);
+      }
       const uint8_t* fVerb;
     };
     Iter begin()
-    { return Iter{fPathRef->verbsBegin()}; }
+    {
+ return Iter{fPathRef->verbsBegin()};
+    }
     Iter end()
-    { return Iter{fPathRef->verbsEnd()}; }
+    {
+ return Iter{fPathRef->verbsEnd()};
+    }
   private:
     Verbs(const Verbs&) = delete;
     Verbs& operator=(const Verbs&);
@@ -140,22 +150,22 @@ public:
   static const uint8_t* VerbData(const SkPath& path)
   {
         return path.fPathRef->verbsBegin();
-    }
+  }
     /** Returns a raw pointer to the path points */
   static const SkPoint* PointData(const SkPath& path)
   {
         return path.fPathRef->points();
-    }
+  }
     /** Returns the number of conic weights in the path */
   static int ConicWeightCnt(const SkPath& path)
   {
         return path.fPathRef->countWeights();
-    }
+  }
     /** Returns a raw pointer to the path conic weights. */
   static const SkScalar* ConicWeightData(const SkPath& path)
   {
         return path.fPathRef->conicWeights();
-    }
+  }
 #  ifndef SK_LEGACY_PATH_CONVEXITY
     /** Returns true if path formed by pts is convex.
 
@@ -170,7 +180,7 @@ public:
   static bool TestingOnly_unique(const SkPath& path)
   {
         return path.fPathRef->unique();
-    }
+  }
     /** Returns true if constructed by addCircle(), addOval(); and in some cases,
      addRoundRect(), addRRect(). SkPath constructed with conicTo() or rConicTo() will not
      return true though SkPath draws oval.
@@ -197,7 +207,7 @@ public:
             *dir = isCCW ? SkPath::kCCW_Direction : SkPath::kCW_Direction;
         }
         return result;
-    }
+  }
     /** Returns true if constructed by addRoundRect(), addRRect(); and if construction
      is not empty, not SkRect, and not oval. SkPath constructed with other calls
      will not return true though SkPath draws SkRRect.
@@ -224,7 +234,7 @@ public:
             *dir = isCCW ? SkPath::kCCW_Direction : SkPath::kCW_Direction;
         }
         return result;
-    }
+  }
     /**
      *  Sometimes in the drawing pipeline, we have to perform math on path coordinates, even after
      *  the path is in device-coordinates. Tessellation and clipping are two examples. Usually this
@@ -243,11 +253,11 @@ public:
         // use ! expression so we return true if bounds contains NaN
         return !(bounds.fLeft >= -max && bounds.fTop >= -max &&
                  bounds.fRight <= max && bounds.fBottom <= max);
-    }
+  }
   static bool TooBigForMath(const SkPath& path)
   {
         return TooBigForMath(path.getBounds());
-    }
+  }
     // Returns number of valid points for each SkPath::Iter verb
   static int PtsInIter(unsigned verb)
   {
@@ -263,12 +273,12 @@ public:
 
         SkASSERT(verb < SK_ARRAY_COUNT(gPtsInVerb));
         return gPtsInVerb[verb];
-    }
+  }
   static bool IsAxisAligned(const SkPath& path)
   {
         SkRect tmp;
         return (path.fPathRef->fIsRRect | path.fPathRef->fIsOval) || path.isRect(&tmp);
-    }
+  }
   static bool AllPointsEq(const SkPoint pts[], int count)
   {
         for (int i = 1; i < count; ++i) {
@@ -277,7 +287,7 @@ public:
             }
         }
         return true;
-    }
+  }
   static bool IsRectContour(const SkPath&, bool allowPartial, int* currVerb, const SkPoint** ptsPtr, bool* isClosed, SkPath::Direction* direction, SkRect* rect);
     /** Returns true if SkPath is equivalent to nested SkRect pair when filled.
      If false, rect and dirs are unchanged.
@@ -308,24 +318,24 @@ class SkPathEdgeIter
   bool fNeedsCloseLine;
   enum {
         kIllegalEdgeValue = 99
-    };
+  };
 public:
   SkPathEdgeIter(const SkPath& path);
   SkScalar conicWeight() const
   {
         SkASSERT(fIsConic);
         return *fConicWeights;
-    }
+  }
   enum class Edge {
         kLine  = SkPath::kLine_Verb,
         kQuad  = SkPath::kQuad_Verb,
         kConic = SkPath::kConic_Verb,
         kCubic = SkPath::kCubic_Verb,
-    };
+  };
   static SkPath::Verb EdgeToVerb(Edge e)
   {
         return SkPath::Verb(e);
-    }
+  }
   struct Result
   {
     const SkPoint* fPts;
@@ -333,7 +343,8 @@ public:
         // Returns true when it holds an Edge, false when the path is done.
     operator bool()
     {
- return fPts != nullptr;     }
+ return fPts != nullptr;
+    }
   };
   Result next()
   {
@@ -384,6 +395,6 @@ public:
                 }
             }
         }
-    }
+  }
 };
 #endif

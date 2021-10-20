@@ -26,23 +26,25 @@ namespace AcDbSymbolUtilities
   enum CompatibilityMode {
     kExtendedNames    = true,
     kPreExtendedNames = false
-};
+  };
   enum NameCaseMode {
     kPreserveCase     = true,
     kForceToUpper     = false
-};
+  };
   enum NewNameMode {
     kAsNewName        = true,
     kAsExistingName   = false
-};
+  };
   enum VerticalBarMode {
     kAllowVerticalBar = true,
     kNoVerticalBar    = false
-};
+  };
   class Services
   {
   public:
-    enum { kCurrentVersion = ACDBSYMUTIL_SERVICES_CURRENT_VERSION };
+    enum {
+ kCurrentVersion = ACDBSYMUTIL_SERVICES_CURRENT_VERSION
+    };
     virtual int version() const = 0;
     // --------- Pre-defined symbols ---------
     virtual bool isBlockLayoutName(const ACHAR* name) const = 0;
@@ -104,14 +106,14 @@ namespace AcDbSymbolUtilities
         pRec->close();
     }
     return es;
-}
+  }
 // This overload which allocates an ACHAR buffer is deprecated and will be removed.
 // Please use the above overload which takes an AcString & arg.
   inline Acad::ErrorStatus getSymbolName(ACHAR*& pName, AcDbObjectId objId)
   {
     AcString sName;
     return ::acutAcStringToAChar(sName, pName, AcDbSymbolUtilities::getSymbolName(sName, objId));
-}
+  }
 // For use by AcDbSymbolUtilities only!
 #  define ACDBSYMUTIL_SERVICESNAME_WITH_VERSION_1(n,v)	 n ## v
 #  define ACDBSYMUTIL_SERVICESNAME_WITH_VERSION(n,v)	 \
@@ -127,7 +129,7 @@ namespace AcDbSymbolUtilities
     // We could do this assert if an assert macro is available
     // assert(pSymUtil->version() == Services::kCurrentVersion);
     return pSymUtil;
-}
+  }
 // The get<TABLE>Id() functions retrieve the AcDbObjectId for a symbol
 // record given the name of the symbol (parameter "name") and a pointer
 // to the database (parameter pDb) that contains the specified table.
@@ -192,7 +194,7 @@ get ## T_TABLE ## Id( \
         pTable->close();
     }
     return es;
-}
+  }
   DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION(UCS)
   DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION(View)
 #  undef DBSYMUTL_MAKE_GETSYMBOLID_FUNCTION

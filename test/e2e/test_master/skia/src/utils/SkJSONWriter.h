@@ -39,7 +39,7 @@ public:
          *  Slightly slower than kFast, and produces data that is somewhat larger.
          */
         kPretty
-    };
+  };
     /**
      *  Construct a JSON writer that will serialize all the generated JSON to 'stream'.
      */
@@ -49,20 +49,18 @@ public:
             , fBlockEnd(fBlock + kBlockSize)
             , fStream(stream)
             , fMode(mode)
-            , fState(State::kStart) 
-    {
-
+            , fState(State::kStart)
+  {
         fScopeStack.push_back(Scope::kNone);
         fNewlineStack.push_back(true);
-        }
+  }
   ~SkJSONWriter()
   {
-
         this->flush();
         delete[] fBlock;
         SkASSERT(fScopeStack.count() == 1);
         SkASSERT(fNewlineStack.count() == 1);
-      }
+  }
     /**
      *  Force all buffered output to be flushed to the underlying stream.
      */
@@ -72,7 +70,7 @@ public:
             fStream->write(fBlock, fWrite - fBlock);
             fWrite = fBlock;
         }
-    }
+  }
     /**
      *  Append the name (key) portion of an object member. Must be called between beginObject() and
      *  endObject(). If you have both the name and value of an object member, you can simply call
@@ -93,7 +91,7 @@ public:
         this->write(name, strlen(name));
         this->write("\":", 2);
         fState = State::kObjectName;
-    }
+  }
     /**
      *  Adds a new object. A name must be supplied when called between beginObject() and
      *  endObject(). Calls to beginObject() must be balanced by corresponding calls to endObject().
@@ -125,7 +123,7 @@ public:
             this->separator(wasMultiline);
         }
         this->write("}", 1);
-    }
+  }
     /**
      *  Adds a new array. A name must be supplied when called between beginObject() and
      *  endObject(). Calls to beginArray() must be balanced by corresponding calls to endArray().
@@ -142,7 +140,7 @@ public:
         fScopeStack.push_back(Scope::kArray);
         fNewlineStack.push_back(multiline);
         fState = State::kArrayBegin;
-    }
+  }
     /**
      *  Ends an array that was previous started with beginArray().
      */
@@ -157,7 +155,7 @@ public:
             this->separator(wasMultiline);
         }
         this->write("]", 1);
-    }
+  }
     /**
      *  Functions for adding values of various types. The single argument versions add un-named
      *  values, so must be called either
@@ -184,9 +182,11 @@ public:
             }
         }
         this->write("\"", 1);
-    }
+  }
   void appendPointer(const void* value)
-  { this->beginValue(); this->appendf("\"%p\"", value); }
+  {
+ this->beginValue(); this->appendf("\"%p\"", value);
+  }
   void appendBool(bool value)
   {
         this->beginValue();
@@ -195,29 +195,39 @@ public:
         } else {
             this->write("false", 5);
         }
-    }
+  }
   void appendS32(int32_t value)
-  { this->beginValue(); this->appendf("%d", value); }
+  {
+ this->beginValue(); this->appendf("%d", value);
+  }
   void appendS64(int64_t value);
   void appendU32(uint32_t value)
-  { this->beginValue(); this->appendf("%u", value); }
+  {
+ this->beginValue(); this->appendf("%u", value);
+  }
   void appendU64(uint64_t value);
   void appendFloat(float value)
-  { this->beginValue(); this->appendf("%g", value); }
+  {
+ this->beginValue(); this->appendf("%g", value);
+  }
   void appendDouble(double value)
-  { this->beginValue(); this->appendf("%g", value); }
+  {
+ this->beginValue(); this->appendf("%g", value);
+  }
   void appendFloatDigits(float value, int digits)
   {
         this->beginValue();
         this->appendf("%.*g", digits, value);
-    }
+  }
   void appendDoubleDigits(double value, int digits)
   {
         this->beginValue();
         this->appendf("%.*g", digits, value);
-    }
+  }
   void appendHexU32(uint32_t value)
-  { this->beginValue(); this->appendf("\"0x%x\"", value); }
+  {
+ this->beginValue(); this->appendf("\"0x%x\"", value);
+  }
   void appendHexU64(uint64_t value);
 #  define DEFINE_NAMED_APPEND(function, type)	 \
     void function(const char* name, type value) { this->appendName(name); this->function(value); }
@@ -241,24 +251,24 @@ public:
   {
         this->appendName(name);
         this->appendFloatDigits(value, digits);
-    }
+  }
   void appendDoubleDigits(const char* name, double value, int digits)
   {
         this->appendName(name);
         this->appendDoubleDigits(value, digits);
-    }
+  }
 private:
   enum {
         // Using a 32k scratch block gives big performance wins, but we diminishing returns going
         // any larger. Even with a 1MB block, time to write a large (~300 MB) JSON file only drops
         // another ~10%.
         kBlockSize = 32 * 1024,
-    };
+  };
   enum class Scope {
         kNone,
         kObject,
         kArray
-    };
+  };
   enum class State {
         kStart,
         kEnd,
@@ -267,7 +277,7 @@ private:
         kObjectValue,
         kArrayBegin,
         kArrayValue,
-    };
+  };
   void appendf(const char* fmt, ...);
   void beginValue(bool structure = false)
   {
@@ -288,7 +298,7 @@ private:
         if (!structure) {
             fState = Scope::kArray == this->scope() ? State::kArrayValue : State::kObjectValue;
         }
-    }
+  }
   void separator(bool multiline)
   {
         if (Mode::kPretty == fMode) {
@@ -301,7 +311,7 @@ private:
                 this->write(" ", 1);
             }
         }
-    }
+  }
   void write(const char* buf, size_t length)
   {
         if (static_cast<size_t>(fBlockEnd - fWrite) < length) {
@@ -315,17 +325,17 @@ private:
             memcpy(fWrite, buf, length);
             fWrite += length;
         }
-    }
+  }
   Scope scope() const
   {
         SkASSERT(!fScopeStack.empty());
         return fScopeStack.back();
-    }
+  }
   bool multiline() const
   {
         SkASSERT(!fNewlineStack.empty());
         return fNewlineStack.back();
-    }
+  }
   void popScope()
   {
         fScopeStack.pop_back();
@@ -344,7 +354,7 @@ private:
                 SkDEBUGFAIL("Invalid scope");
                 break;
         }
-    }
+  }
   char* fBlock;
   char* fWrite;
   char* fBlockEnd;

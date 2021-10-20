@@ -32,7 +32,7 @@ public:
         kMatchEnabled,         // look for matching media and use if found
         kMatchEnabledCustom,   // create and save custom media size if necessary
         kMatchEnabledTmpCustom // create temporary custom media size if necessary
-    };
+  };
     // Possible result codes from isCustomPossible()     
   enum eCustomSizeResult {
         ePossible           = 0x0000,
@@ -50,7 +50,7 @@ public:
         ePMPFileReadOnly    = 0x0800,
         eWidthAndHeightMustBePositive = 0x1000,
         eDeviceLoadFailed   = 0x2000
-    };
+  };
     // Validate an AcPlPlotInfo object
   ACPL_PORT virtual Acad::ErrorStatus validate(AcPlPlotInfo& info);
     // Returns a bitwise-OR of eCustomSizeResults bits indicating whether

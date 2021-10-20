@@ -19,11 +19,11 @@ namespace SK_OPTS_NS
   static uint16x8_t SkAlpha255To256_neon8(uint8x8_t alpha)
   {
         return vaddw_u8(vdupq_n_u16(1), alpha);
-    }
+  }
   static uint8x8_t SkAlphaMul_neon8(uint8x8_t color, uint16x8_t scale)
   {
         return vshrn_n_u16(vmovl_u8(color) * scale, 8);
-    }
+  }
   static uint8x8x4_t SkAlphaMulQ_neon8(uint8x8x4_t color, uint16x8_t scale)
   {
         uint8x8x4_t ret;
@@ -34,7 +34,7 @@ namespace SK_OPTS_NS
         ret.val[3] = SkAlphaMul_neon8(color.val[3], scale);
 
         return ret;
-    }
+  }
   template <bool isColor>
   static void D32_A8_Opaque_Color_neon(void* dst, size_t dstRB, const void* maskPtr, size_t maskRB, SkColor color, int width, int height)
   {
@@ -96,16 +96,16 @@ namespace SK_OPTS_NS
             mask += maskRB;
 
         } while (--height != 0);
-    }
+  }
   static void blit_mask_d32_a8_general(SkPMColor* dst, size_t dstRB, const SkAlpha* mask, size_t maskRB, SkColor color, int w, int h)
   {
         D32_A8_Opaque_Color_neon<true>(dst, dstRB, mask, maskRB, color, w, h);
-    }
+  }
     // As above, but made slightly simpler by requiring that color is opaque.
   static void blit_mask_d32_a8_opaque(SkPMColor* dst, size_t dstRB, const SkAlpha* mask, size_t maskRB, SkColor color, int w, int h)
   {
         D32_A8_Opaque_Color_neon<false>(dst, dstRB, mask, maskRB, color, w, h);
-    }
+  }
     // Same as _opaque, but assumes color == SK_ColorBLACK, a very common and even simpler case.
   static void blit_mask_d32_a8_black(SkPMColor* dst, size_t dstRB, const SkAlpha* maskPtr, size_t maskRB, int width, int height)
   {
@@ -139,7 +139,7 @@ namespace SK_OPTS_NS
             device = (uint32_t*)((char*)device + dstRB);
             mask += maskRB;
         } while (--height != 0);
-    }
+  }
 #  else 
   static void blit_mask_d32_a8_general(SkPMColor* dst, size_t dstRB, const SkAlpha* mask, size_t maskRB, SkColor color, int w, int h)
   {
@@ -156,7 +156,7 @@ namespace SK_OPTS_NS
             dst  +=  dstRB / sizeof(*dst);
             mask += maskRB / sizeof(*mask);
         }
-    }
+  }
     // As above, but made slightly simpler by requiring that color is opaque.
   static void blit_mask_d32_a8_opaque(SkPMColor* dst, size_t dstRB, const SkAlpha* mask, size_t maskRB, SkColor color, int w, int h)
   {
@@ -174,7 +174,7 @@ namespace SK_OPTS_NS
             dst  +=  dstRB / sizeof(*dst);
             mask += maskRB / sizeof(*mask);
         }
-    }
+  }
     // Same as _opaque, but assumes color == SK_ColorBLACK, a very common and even simpler case.
   static void blit_mask_d32_a8_black(SkPMColor* dst, size_t dstRB, const SkAlpha* mask, size_t maskRB, int w, int h)
   {
@@ -192,7 +192,7 @@ namespace SK_OPTS_NS
             dst  +=  dstRB / sizeof(*dst);
             mask += maskRB / sizeof(*mask);
         }
-    }
+  }
 #  endif
   inline void blit_mask_d32_a8(SkPMColor* dst, size_t dstRB, const SkAlpha* mask, size_t maskRB, SkColor color, int w, int h)
   {
@@ -203,6 +203,6 @@ namespace SK_OPTS_NS
     } else {
         blit_mask_d32_a8_general(dst, dstRB, mask, maskRB, color, w, h);
     }
-}
+  }
 }
 #endif

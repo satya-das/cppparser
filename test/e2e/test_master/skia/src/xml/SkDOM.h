@@ -33,7 +33,7 @@ public:
   enum Type {
         kElement_Type,
         kText_Type
-    };
+  };
   Type getType(const Node*) const;
   const char* getName(const Node*) const;
   const Node* getFirstChild(const Node*, const char elem[] = nullptr) const;
@@ -54,7 +54,7 @@ public:
   bool findScalar(const Node* node, const char name[], SkScalar value[]) const
   {
         return this->findScalars(node, name, value, 1);
-    }
+  }
   bool hasAttr(const Node*, const char name[], const char value[]) const;
   bool hasS32(const Node*, const char name[], int32_t value) const;
   bool hasScalar(const Node*, const char name[], SkScalar value) const;

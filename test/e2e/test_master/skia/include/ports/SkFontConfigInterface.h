@@ -39,19 +39,19 @@ public:
   struct FontIdentity
   {
     FontIdentity()
-      :  fID(0), fTTCIndex(0) 
-      {
-      }
+      :  fID(0), fTTCIndex(0)
+    {
+    }
     bool operator==(const FontIdentity& other) const
     {
             return fID == other.fID &&
                    fTTCIndex == other.fTTCIndex &&
                    fString == other.fString;
-        }
+    }
     bool operator!=(const FontIdentity& other) const
     {
             return !(*this == other);
-        }
+    }
     uint32_t fID;
     int32_t fTTCIndex;
     SkString fString;
@@ -90,8 +90,7 @@ public:
   {
         return SkTypeface::MakeFromStream(std::unique_ptr<SkStreamAsset>(this->openStream(identity)),
                                           identity.fTTCIndex);
-
-    }
+  }
     /**
      *  Return a singleton instance of a direct subclass that calls into
      *  libfontconfig. This does not affect the refcnt of the returned instance.

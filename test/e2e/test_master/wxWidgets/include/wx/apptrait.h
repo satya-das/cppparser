@@ -35,7 +35,8 @@ public:
     // needed since this class declares virtual members
   virtual ~wxAppTraitsBase()
   {
-   }
+
+  }
     // hooks for working with the global objects, may be overridden by the user
     // ------------------------------------------------------------------------
 #  if  wxUSE_CONFIG
@@ -86,11 +87,13 @@ public:
   static void SetDefaultSocketManager(wxSocketManager* manager)
   {
         ms_manager = manager;
-    }
+  }
     // return socket manager: this is usually different for console and GUI
     // applications (although some ports use the same implementation for both)
   virtual wxSocketManager* GetSocketManager()
-  { return ms_manager; }
+  {
+ return ms_manager;
+  }
 #  endif
     // create a new, port specific, instance of the event loop used by wxApp
   virtual wxEventLoopBase* CreateEventLoop() = 0;
@@ -125,7 +128,7 @@ public:
         wxUnusedVar(desc);
 
         return wxEmptyString;
-    }
+  }
 #  if  wxUSE_STACKWALKER
 protected:
     // utility function: returns the stack frame as a plain wxString
@@ -163,7 +166,9 @@ class WXDLLIMPEXP_BASE wxConsoleAppTraitsBase : public wxAppTraits
 #  if  !wxUSE_CONSOLE_EVENTLOOP
 public:
   wxEventLoopBase* CreateEventLoop() override
-  { return NULL; }
+  {
+ return NULL;
+  }
 #  endif
 #  if  wxUSE_LOG
   wxLog* CreateLogTarget() override;
@@ -185,11 +190,15 @@ public:
         if (verMin) *verMin = 0;
         if (verMicro) *verMicro = 0;
         return wxPORT_BASE;
-    }
+  }
   bool IsUsingUniversalWidgets() const override
-  { return false; }
+  {
+ return false;
+  }
   wxString GetDesktopEnvironment() const override
-  { return wxEmptyString; }
+  {
+ return wxEmptyString;
+  }
 };
 // ----------------------------------------------------------------------------
 // wxGUIAppTraitsBase: wxAppTraits implementation for the GUI apps
@@ -215,9 +224,11 @@ public:
     #else
         return false;
     #endif
-    }
+  }
   wxString GetDesktopEnvironment() const override
-  { return wxEmptyString; }
+  {
+ return wxEmptyString;
+  }
 };
 #  endif
 // ----------------------------------------------------------------------------

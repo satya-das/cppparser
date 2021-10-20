@@ -77,13 +77,18 @@ public:
      */
   explicit SkFloatingPoint(const RawType& x)
   {
- fU.value = x;   }
+ fU.value = x;
+  }
     /** Returns the exponent bits of this number. */
   Bits exponent_bits() const
-  { return kExponentBitMask & fU.bits; }
+  {
+ return kExponentBitMask & fU.bits;
+  }
     /** Returns the fraction bits of this number. */
   Bits fraction_bits() const
-  { return kFractionBitMask & fU.bits; }
+  {
+ return kFractionBitMask & fU.bits;
+  }
     /** Returns true iff this is NAN (not a number). */
   bool is_nan() const
   {
@@ -91,7 +96,7 @@ public:
         // * the exponent bits are all ones
         // * the fraction bits are not all zero.
         return (exponent_bits() == kExponentBitMask) && (fraction_bits() != 0);
-    }
+  }
     /**
      *  Returns true iff this number is at most kMaxUlps ULP's away from ths.
      *  In particular, this function:
@@ -108,7 +113,7 @@ public:
                                                                  rhs.fU.bits);
         //SkDEBUGF("(%f, %f, %d) ", u_.value_, rhs.u_.value_, dist);
         return dist <= kMaxUlps;
-    }
+  }
 private:
     /** The data type used to store the actual floating-point number. */
   union FloatingPointUnion
@@ -144,7 +149,7 @@ private:
             // sam represents a positive number.
             return kSignBitMask | sam;
         }
-    }
+  }
     /**
      *  Given two numbers in the sign-and-magnitude representation,
      *  returns the distance between them as an unsigned number.
@@ -154,7 +159,7 @@ private:
         const Bits biased1 = SignAndMagnitudeToBiased(sam1);
         const Bits biased2 = SignAndMagnitudeToBiased(sam2);
         return (biased1 >= biased2) ? (biased1 - biased2) : (biased2 - biased1);
-    }
+  }
   FloatingPointUnion fU;
 };
 #endif

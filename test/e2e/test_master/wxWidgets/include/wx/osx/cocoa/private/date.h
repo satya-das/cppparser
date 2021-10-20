@@ -25,7 +25,7 @@ namespace wxOSXImpl
 
     // wxDateTime uses milliseconds while NSDate uses (fractional) seconds.
     return [NSDate dateWithTimeIntervalSince1970:ticks/1000.];
-}
+  }
 // Returns wxDateTime corresponding to the given NSDate (which may be nil).
   inline wxDateTime NSDateToWX(const NSDate* d)
   {
@@ -37,6 +37,6 @@ namespace wxOSXImpl
     ll.Assign([d timeIntervalSince1970]*1000);
     wxDateTime dt(ll);
     return dt;
-}
+  }
 }
 #endif

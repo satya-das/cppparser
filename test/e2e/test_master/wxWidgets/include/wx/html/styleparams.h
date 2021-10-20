@@ -24,13 +24,13 @@ public:
   bool HasParam(const wxString& par) const
   {
         return m_names.Index(par, false /* ignore case */) != wxNOT_FOUND;
-    }
+  }
     // Get the value of the named parameter, return empty string if none.
   wxString GetParam(const wxString& par) const
   {
         int index = m_names.Index(par, false);
         return index == wxNOT_FOUND ? wxString() : m_values[index];
-    }
+  }
 private:
     // Arrays if names and values of the parameters
   wxArrayString m_names, m_values;

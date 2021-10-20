@@ -32,7 +32,9 @@ public:
   wxPen(const wxPenInfo& info);
   bool operator==(const wxPen& pen) const;
   bool operator!=(const wxPen& pen) const
-  { return !(*this == pen); }
+  {
+ return !(*this == pen);
+  }
   void SetColour(const wxColour& colour);
   void SetColour(unsigned char red, unsigned char green, unsigned char blue);
   void SetCap(wxPenCap capStyle);
@@ -52,7 +54,9 @@ public:
   wxBitmap* GetStipple() const;
   wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants") wxPen(const wxColour& col, int width, int style);
   wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants") void SetStyle(int style)
-  { SetStyle((wxPenStyle)style); }
+  {
+ SetStyle((wxPenStyle)style);
+  }
 protected:
   virtual wxGDIRefData* CreateGDIRefData() const;
   virtual wxGDIRefData* CloneGDIRefData(const wxGDIRefData* data) const;

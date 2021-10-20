@@ -83,9 +83,10 @@ public:
     // these functions are mostly used by wxWidgets itself
     // ---------------------------------------------------
 
-    void SetControlDown(bool down) 
-    {
- m_controlDown = down;     }
+    void SetControlDown(bool down)
+  {
+ m_controlDown = down;
+  }
   void SetRawControlDown(bool down)
   {
 #ifdef __WXOSX__
@@ -93,13 +94,19 @@ public:
 #else
         m_controlDown = down;
 #endif
-    }
+  }
   void SetShiftDown(bool down)
-  { m_shiftDown = down; }
+  {
+ m_shiftDown = down;
+  }
   void SetAltDown(bool down)
-  { m_altDown = down; }
+  {
+ m_altDown = down;
+  }
   void SetMetaDown(bool down)
-  { m_metaDown = down; }
+  {
+ m_metaDown = down;
+  }
     // for backwards compatibility with the existing code accessing these
     // members of wxKeyEvent directly, these variables are public, however you
     // should not use them in any new code, please use the accessors instead

@@ -37,15 +37,14 @@ public:
             kAlignSweepEntityToPath,
             kTranslateSweepEntityToPath,
             kTranslatePathToSweepEntity
-            
-    };
+  };
   enum MiterOption {
             kDefaultMiter,
             kOldMiter,
             kNewMiter,
             kCrimpMiter,
             kBendMiter
-    };
+  };
     // Get/set draft angle.
   double draftAngle() const;
   void setDraftAngle(double ang);

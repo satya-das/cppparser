@@ -19,11 +19,10 @@ namespace SkSL
     Setting(int offset, String name, std::unique_ptr<Expression> value)
       :  INHERITED(offset, kSetting_Kind, value->fType)
     , fName(std::move(name))
-    , fValue(std::move(value)) 
-      {
-
+    , fValue(std::move(value))
+    {
         SkASSERT(fValue->isConstant());
-          }
+    }
     std::unique_ptr<Expression> constantPropagate(const IRGenerator& irGenerator, const DefinitionMap& definitions) override;
     std::unique_ptr<Expression> clone() const override
     {

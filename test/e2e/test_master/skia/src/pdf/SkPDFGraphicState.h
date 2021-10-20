@@ -20,7 +20,7 @@ namespace SkPDFGraphicState
   enum SkPDFSMaskMode {
         kAlpha_SMaskMode,
         kLuminosity_SMaskMode
-    };
+  };
     /** Get the graphic state for the passed SkPaint.
      */
   SkPDFIndirectReference GetGraphicStateForPaint(SkPDFDocument*, const SkPaint&);
@@ -44,9 +44,13 @@ struct SkPDFStrokeGraphicState
   uint8_t fBlendMode;
   uint8_t fPADDING = 0;
   bool operator==(const SkPDFStrokeGraphicState& o) const
-  { return !memcmp(this, &o, sizeof(o)); }
+  {
+ return !memcmp(this, &o, sizeof(o));
+  }
   bool operator!=(const SkPDFStrokeGraphicState& o) const
-  { return !(*this == o); }
+  {
+ return !(*this == o);
+  }
 };
 SK_END_REQUIRE_DENSE
 SK_BEGIN_REQUIRE_DENSE
@@ -56,9 +60,13 @@ struct SkPDFFillGraphicState
   uint8_t fBlendMode;
   uint8_t fPADDING[3] = {0, 0, 0};
   bool operator==(const SkPDFFillGraphicState& o) const
-  { return !memcmp(this, &o, sizeof(o)); }
+  {
+ return !memcmp(this, &o, sizeof(o));
+  }
   bool operator!=(const SkPDFFillGraphicState& o) const
-  { return !(*this == o); }
+  {
+ return !(*this == o);
+  }
 };
 SK_END_REQUIRE_DENSE
 #endif

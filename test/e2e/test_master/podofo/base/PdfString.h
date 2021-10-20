@@ -43,7 +43,7 @@ namespace PoDoFo
   enum EPdfStringConversion {
     ePdfStringConversion_Strict,
     ePdfStringConversion_Lenient
-};
+  };
 /** A string that can be written to a PDF document.
  *  If it contains binary data it is automatically 
  *  converted into a hex string, otherwise a normal PDF 
@@ -305,7 +305,9 @@ namespace PoDoFo
      *  \returns true if strings have different contents
      */
     bool operator!=(const PdfString& rhs) const
-    { return !operator==(rhs); }
+    {
+ return !operator==(rhs);
+    }
 #  ifdef PODOFO_PUBLIC_STRING_HEX_CODEC
     /** Converts this string to a hex-encoded string.
      *  
@@ -408,35 +410,35 @@ namespace PoDoFo
   bool PdfString::IsValid() const
   {
     return (m_buffer.GetBuffer() != NULL);
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfString::IsHex() const
   {
     return m_bHex;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfString::IsUnicode() const
   {
     return m_bUnicode;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const char* PdfString::GetString() const
   {
     return m_buffer.GetBuffer();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const pdf_utf16be* PdfString::GetUnicode() const
   {
     return reinterpret_cast<pdf_utf16be*>(m_buffer.GetBuffer());
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -446,7 +448,7 @@ namespace PoDoFo
         const_cast<PdfString*>(this)->InitUtf8();
 
     return m_sUtf8;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -461,14 +463,14 @@ namespace PoDoFo
     PODOFO_ASSERT( m_buffer.GetSize() >= 2 );
     
     return m_buffer.GetSize() - 2;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   pdf_long PdfString::GetCharacterLength() const
   {
     return this->IsUnicode() ? this->GetUnicodeLength() : this->GetLength();
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -483,6 +485,6 @@ namespace PoDoFo
     PODOFO_ASSERT( (m_buffer.GetSize() / sizeof(pdf_utf16be)) >= 1 );
     
     return (m_buffer.GetSize() / sizeof(pdf_utf16be)) - 1;
-}
+  }
 }
 #endif

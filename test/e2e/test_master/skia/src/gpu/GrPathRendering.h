@@ -32,7 +32,8 @@ class GrPathRendering
 public:
   virtual ~GrPathRendering()
   {
-   }
+
+  }
   enum PathTransformType {
         kNone_PathTransformType,        //!< []
         kTranslateX_PathTransformType,  //!< [kMTransX]
@@ -41,7 +42,7 @@ public:
         kAffine_PathTransformType,      //!< [kMScaleX, kMSkewX, kMTransX, kMSkewY, kMScaleY, kMTransY]
 
         kLast_PathTransformType = kAffine_PathTransformType
-    };
+  };
   static int PathTransformSize(PathTransformType type)
   {
         switch (type) {
@@ -58,7 +59,7 @@ public:
             default:
                 SK_ABORT("Unknown path transform type");
         }
-    }
+  }
     // No native support for inverse at this time
   enum FillType {
         /** Specifies that "inside" is computed by a non-zero sum of signed
@@ -69,7 +70,7 @@ public:
             crossings
         */
         kEvenOdd_FillType,
-    };
+  };
   static const GrUserStencilSettings& GetStencilPassSettings(FillType);
     /**
      * Creates a new gpu path, based on the specified path and stroke and returns it.
@@ -88,10 +89,10 @@ public:
             , fProxy(proxy)
             , fViewMatrix(viewMatrix)
             , fScissor(scissor)
-            , fStencil(stencil) 
-      {
+            , fStencil(stencil)
+    {
 
-              }
+    }
     bool fUseHWAA;
     GrRenderTargetProxy* fProxy;
     const SkMatrix* fViewMatrix;
@@ -102,9 +103,10 @@ public:
   void drawPath(GrRenderTarget*, int numSamples, GrSurfaceOrigin, const GrPrimitiveProcessor& primProc, const GrPipeline& pipeline, const GrPipeline::FixedDynamicState&, const GrStencilSettings& stencilPassSettings, const GrPath* path);
 protected:
   GrPathRendering(GrGpu* gpu)
-    :  fGpu(gpu) 
-    {
-     }
+    :  fGpu(gpu)
+  {
+
+  }
   virtual void onStencilPath(const StencilPathArgs&, const GrPath*) = 0;
   virtual void onDrawPath(GrRenderTarget*, int numSamples, GrSurfaceOrigin, const GrPrimitiveProcessor&, const GrPipeline&, const GrPipeline::FixedDynamicState&, const GrStencilSettings&, const GrPath*) = 0;
   GrGpu* fGpu;

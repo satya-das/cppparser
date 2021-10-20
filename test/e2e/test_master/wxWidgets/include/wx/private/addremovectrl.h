@@ -22,39 +22,38 @@ public:
     // Takes ownership of the adaptor pointer.
   explicit wxAddRemoveImplBase(wxAddRemoveAdaptor* adaptor, wxAddRemoveCtrl*, wxWindow* ctrlItems)
     :  m_adaptor(adaptor)
-    
-    {
-
+  {
         ctrlItems->Bind(wxEVT_CHAR, &wxAddRemoveImplBase::OnChar, this);
-        }
+  }
     // wxOSX implementation needs to override this as it doesn't use sizers,
     // for the others it is not necessary.
   virtual wxSize GetBestClientSize() const
-  { return wxDefaultSize; }
+  {
+ return wxDefaultSize;
+  }
   virtual void SetButtonsToolTips(const wxString& addtip, const wxString& removetip) = 0;
   virtual ~wxAddRemoveImplBase()
   {
-
         delete m_adaptor;
-      }
+  }
     // Event handlers which must be connected to the appropriate sources by the
     // derived classes.
   void OnUpdateUIAdd(wxUpdateUIEvent& event)
   {
         event.Enable( m_adaptor->CanAdd() );
-    }
+  }
   void OnUpdateUIRemove(wxUpdateUIEvent& event)
   {
         event.Enable( m_adaptor->CanRemove() );
-    }
+  }
   void OnAdd(wxCommandEvent&)
   {
         m_adaptor->OnAdd();
-    }
+  }
   void OnRemove(wxCommandEvent&)
   {
         m_adaptor->OnRemove();
-    }
+  }
 private:
     // This event handler is connected by this class itself and doesn't need to
     // be accessible to the derived classes.
@@ -78,7 +77,7 @@ private:
         }
 
         event.Skip();
-    }
+  }
   wxAddRemoveAdaptor* const m_adaptor;
   wxDECLARE_NO_COPY_CLASS(wxAddRemoveImplBase);
 };
@@ -90,17 +89,15 @@ class wxAddRemoveImplWithButtons : public wxAddRemoveImplBase
 public:
   explicit wxAddRemoveImplWithButtons(wxAddRemoveAdaptor* adaptor, wxAddRemoveCtrl* parent, wxWindow* ctrlItems)
     :  wxAddRemoveImplBase(adaptor, parent, ctrlItems)
-    
-    {
-
+  {
         m_btnAdd =
         m_btnRemove = NULL;
-        }
+  }
   void SetButtonsToolTips(const wxString& addtip, const wxString& removetip) override
   {
         m_btnAdd->SetToolTip(addtip);
         m_btnRemove->SetToolTip(removetip);
-    }
+  }
 protected:
     // Must be called by the derived class ctor after creating the buttons to
     // set up the event handlers.
@@ -113,7 +110,7 @@ protected:
 
         m_btnAdd->Bind(wxEVT_BUTTON, &wxAddRemoveImplBase::OnAdd, this);
         m_btnRemove->Bind(wxEVT_BUTTON, &wxAddRemoveImplBase::OnRemove, this);
-    }
+  }
   wxButton* m_btnAdd, *m_btnRemove;
   wxDECLARE_NO_COPY_CLASS(wxAddRemoveImplWithButtons);
 };

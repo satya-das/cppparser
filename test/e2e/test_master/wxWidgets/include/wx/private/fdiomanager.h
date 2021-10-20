@@ -23,13 +23,14 @@ public:
   enum Direction {
         INPUT,
         OUTPUT
-    };
+  };
     // start or stop monitoring the events on the given file descriptor
   virtual int AddInput(wxFDIOHandler* handler, int fd, Direction d) = 0;
   virtual void RemoveInput(wxFDIOHandler* handler, int fd, Direction d) = 0;
     // empty but virtual dtor for the base class
   virtual ~wxFDIOManager()
   {
-   }
+
+  }
 };
 #endif

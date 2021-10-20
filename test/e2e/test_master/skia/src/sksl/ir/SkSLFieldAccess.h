@@ -25,9 +25,9 @@ namespace SkSL
       :  INHERITED(base->fOffset, kFieldAccess_Kind, *base->fType.fields()[fieldIndex].fType)
     , fBase(std::move(base))
     , fFieldIndex(fieldIndex)
-    , fOwnerKind(ownerKind) 
-      {
-      }
+    , fOwnerKind(ownerKind)
+    {
+    }
     bool hasSideEffects() const override
     {
         return fBase->hasSideEffects();

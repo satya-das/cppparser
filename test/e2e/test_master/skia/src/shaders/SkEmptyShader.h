@@ -24,18 +24,18 @@ protected:
   Context* onMakeContext(const ContextRec&, SkArenaAlloc*) const override
   {
         return nullptr;
-    }
+  }
 #  endif
   void flatten(SkWriteBuffer& buffer) const override
   {
         // Do nothing.
         // We just don't want to fall through to SkShader::flatten(),
         // which will write data we don't care to serialize or decode.
-    }
+  }
   bool onAppendStages(const SkStageRec&) const override
   {
         return false;
-    }
+  }
 private:
   SK_FLATTENABLE_HOOKS(SkEmptyShader)
   typedef SkShaderBase INHERITED;

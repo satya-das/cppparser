@@ -64,7 +64,7 @@ public:
             proxyProvider->assignUniqueKeyToProxy(key, proxy.get());
         }
         return proxy;
-    }
+  }
   static std::unique_ptr<GrFragmentProcessor> Make(GrProxyProvider* proxyProvider, const GrShaderCaps& caps, const SkRect& rect, float sigma)
   {
         SkASSERT(rect.isSorted());
@@ -103,11 +103,13 @@ public:
         return std::unique_ptr<GrFragmentProcessor>(
                 new GrRectBlurEffect(insetRect, std::move(integral), invSixSigma, isFast,
                                      GrSamplerState::ClampBilerp()));
-    }
+  }
   GrRectBlurEffect(const GrRectBlurEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "RectBlurEffect"; }
+  {
+ return "RectBlurEffect";
+  }
   SkRect rect;
   TextureSampler integral;
   float invSixSigma;
@@ -119,11 +121,10 @@ private:
             , rect(rect)
             , integral(std::move(integral), samplerParams)
             , invSixSigma(invSixSigma)
-            , isFast(isFast) 
-    {
-
+            , isFast(isFast)
+  {
         this->setTextureSamplerCnt(1);
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

@@ -42,13 +42,13 @@ public:
   {
         SkASSERT(!GrSLTypeIsCombinedSamplerType(type));
         return this->addUniformArray(visibility, type, name, 0, outName);
-    }
+  }
   UniformHandle addUniformArray(uint32_t visibility, GrSLType type, const char* name, int arrayCount, const char** outName = nullptr)
   {
         SkASSERT(!GrSLTypeIsCombinedSamplerType(type));
         bool mangle = strncmp(name, GR_NO_MANGLE_PREFIX, strlen(GR_NO_MANGLE_PREFIX));
         return this->internalAddUniformArray(visibility, type, name, mangle, arrayCount, outName);
-    }
+  }
   virtual const GrShaderVar& getUniformVariable(UniformHandle u) const = 0;
     /**
      * 'Or's the visibility parameter with the current uniform visibililty.
@@ -60,9 +60,9 @@ public:
   virtual const char* getUniformCStr(UniformHandle u) const = 0;
 protected:
   explicit GrGLSLUniformHandler(GrGLSLProgramBuilder* program)
-    :  fProgramBuilder(program) 
-    {
-    }
+    :  fProgramBuilder(program)
+  {
+  }
     // This is not owned by the class
   GrGLSLProgramBuilder* fProgramBuilder;
 private:

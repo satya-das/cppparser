@@ -20,19 +20,20 @@ public:
   {
         return std::unique_ptr<GrFragmentProcessor>(
                 new GrComposeLerpEffect(std::move(child1), std::move(child2), weight));
-    }
+  }
   GrComposeLerpEffect(const GrComposeLerpEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "ComposeLerpEffect"; }
+  {
+ return "ComposeLerpEffect";
+  }
   int child1_index = -1;
   int child2_index = -1;
   float weight;
 private:
   GrComposeLerpEffect(std::unique_ptr<GrFragmentProcessor> child1, std::unique_ptr<GrFragmentProcessor> child2, float weight)
-    :  INHERITED(kGrComposeLerpEffect_ClassID, kNone_OptimizationFlags), weight(weight) 
-    {
-
+    :  INHERITED(kGrComposeLerpEffect_ClassID, kNone_OptimizationFlags), weight(weight)
+  {
         if (child1) {
             child1_index = this->numChildProcessors();
             this->registerChildProcessor(std::move(child1));
@@ -41,7 +42,7 @@ private:
             child2_index = this->numChildProcessors();
             this->registerChildProcessor(std::move(child2));
         }
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

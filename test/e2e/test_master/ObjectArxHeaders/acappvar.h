@@ -97,10 +97,9 @@ inline AcDbAppSystemVariables::AcDbAppSystemVariables()
   m_pkstyle(kGroupsOn),
   m_lwdefault(AcDb::kLnWt025),
   m_hpassoc(1)
+{
 
-  {
-
-  }
+}
 // ATTDIA
 inline bool AcDbAppSystemVariables::attdia() const
 {

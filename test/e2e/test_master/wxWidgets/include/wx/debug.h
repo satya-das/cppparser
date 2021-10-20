@@ -116,11 +116,15 @@ inline wxAssertHandler_t wxSetAssertHandler(wxAssertHandler_t)
     return NULL;
 }
 inline void wxSetDefaultAssertHandler()
-{ }
+{
+
+}
 #  endif
 // simply a synonym for wxSetAssertHandler(NULL)
 inline void wxDisableAsserts()
-{ wxSetAssertHandler(NULL); }
+{
+ wxSetAssertHandler(NULL);
+}
 /*
     A macro which disables asserts for applications compiled in release build.
 
@@ -345,7 +349,9 @@ namespace wxdebug
   template <>
   struct STATIC_ASSERTION_FAILURE<true>
   {
-    enum { value = 1 };
+    enum {
+ value = 1
+    };
   };
 // HP aCC cannot deal with missing names for template value parameters
   template <int x>
@@ -391,7 +397,9 @@ namespace wxdebug
 extern bool WXDLLIMPEXP_BASE wxIsDebuggerRunning();
 #  else 
 inline bool wxIsDebuggerRunning()
-{ return false; }
+{
+ return false;
+}
 #  endif
 // An assert helper used to avoid warning when testing constant expressions,
 // i.e. wxASSERT( sizeof(int) == 4 ) can generate a compiler warning about

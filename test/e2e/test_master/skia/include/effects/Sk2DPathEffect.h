@@ -28,7 +28,9 @@ protected:
     */
   virtual void nextSpan(int u, int v, int ucount, SkPath* dst) const;
   const SkMatrix& getMatrix() const
-  { return fMatrix; }
+  {
+ return fMatrix;
+  }
     // protected so that subclasses can call this during unflattening
   explicit Sk2DPathEffect(const SkMatrix& mat);
   void flatten(SkWriteBuffer&) const override;
@@ -51,14 +53,13 @@ public:
             return nullptr;
         }
         return sk_sp<SkPathEffect>(new SkLine2DPathEffect(width, matrix));
-    }
+  }
 protected:
   SkLine2DPathEffect(SkScalar width, const SkMatrix& matrix)
-    :  Sk2DPathEffect(matrix), fWidth(width) 
-    {
-
+    :  Sk2DPathEffect(matrix), fWidth(width)
+  {
             SkASSERT(width >= 0);
-            }
+  }
   void flatten(SkWriteBuffer&) const override;
   bool onFilterPath(SkPath* dst, const SkPath& src, SkStrokeRec*, const SkRect*) const override;
   void nextSpan(int u, int v, int ucount, SkPath*) const override;
@@ -77,7 +78,7 @@ public:
   static sk_sp<SkPathEffect> Make(const SkMatrix& matrix, const SkPath& path)
   {
         return sk_sp<SkPathEffect>(new SkPath2DPathEffect(matrix, path));
-    }
+  }
 protected:
   SkPath2DPathEffect(const SkMatrix&, const SkPath&);
   void flatten(SkWriteBuffer&) const override;

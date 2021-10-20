@@ -24,11 +24,7 @@ bool SkPackedArrayEqual(T* u, T* v, size_t n)
     SkASSERT(v);
     return 0 == memcmp(u, v, n * sizeof(T));
 }
-#if 0
-#define PRINT_NOT_IMPL(str) fprintf(stderr, str)
-#else
-#define PRINT_NOT_IMPL(str)
-#endif#  define NOT_IMPLEMENTED(condition, assert)	                         \
+#  define NOT_IMPLEMENTED(condition, assert)	                         \
     do {                                                           \
         if ((bool)(condition)) {                                   \
             PRINT_NOT_IMPL("NOT_IMPLEMENTED: " #condition "\n");   \
@@ -47,7 +43,7 @@ namespace SkPDFUtils
   inline void EmitPath(const SkPath& path, SkPaint::Style paintStyle, SkWStream* content, SkScalar tolerance = 0.25f)
   {
     SkPDFUtils::EmitPath(path, paintStyle, true, content, tolerance);
-}
+  }
   void ClosePath(SkWStream* content);
   void PaintPath(SkPaint::Style style, SkPath::FillType fill, SkWStream* content);
   void StrokePath(SkWStream* content);
@@ -63,20 +59,20 @@ namespace SkPDFUtils
     char buffer[5];
     size_t len = SkPDFUtils::ColorToDecimal(value, buffer);
     wStream->write(buffer, len);
-}
+  }
   inline void AppendColorComponentF(float value, SkWStream* wStream)
   {
     char buffer[kFloatColorDecimalCount + 2];
     size_t len = SkPDFUtils::ColorToDecimalF(value, buffer);
     wStream->write(buffer, len);
-}
+  }
   inline void AppendScalar(SkScalar value, SkWStream* stream)
   {
     char result[kMaximumSkFloatToDecimalLength];
     size_t len = SkFloatToDecimal(SkScalarToFloat(value), result);
     SkASSERT(len < kMaximumSkFloatToDecimalLength);
     stream->write(result, len);
-}
+  }
   inline void WriteUInt16BE(SkDynamicMemoryWStream* wStream, uint16_t value)
   {
     char result[4] = { SkHexadecimalDigits::gUpper[       value >> 12 ],
@@ -84,13 +80,13 @@ namespace SkPDFUtils
                        SkHexadecimalDigits::gUpper[0xF & (value >> 4 )],
                        SkHexadecimalDigits::gUpper[0xF & (value      )] };
     wStream->write(result, 4);
-}
+  }
   inline void WriteUInt8(SkDynamicMemoryWStream* wStream, uint8_t value)
   {
     char result[2] = { SkHexadecimalDigits::gUpper[value >> 4],
                        SkHexadecimalDigits::gUpper[value & 0xF] };
     wStream->write(result, 2);
-}
+  }
   inline void WriteUTF16beHex(SkDynamicMemoryWStream* wStream, SkUnichar utf32)
   {
     uint16_t utf16[2] = {0, 0};
@@ -100,7 +96,7 @@ namespace SkPDFUtils
     if (len == 2) {
         SkPDFUtils::WriteUInt16BE(wStream, utf16[1]);
     }
-}
+  }
   inline SkMatrix GetShaderLocalMatrix(const SkShader* shader)
   {
     SkMatrix localMatrix;
@@ -108,7 +104,7 @@ namespace SkPDFUtils
         return SkMatrix::Concat(as_SB(s)->getLocalMatrix(), localMatrix);
     }
     return as_SB(shader)->getLocalMatrix();
-}
+  }
   bool InverseTransformBBox(const SkMatrix& matrix, SkRect* bbox);
   void PopulateTilingPatternDict(SkPDFDict* pattern, SkRect& bbox, std::unique_ptr<SkPDFDict> resources, const SkMatrix& matrix);
   bool ToBitmap(const SkImage* img, SkBitmap* dst);

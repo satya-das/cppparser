@@ -15,7 +15,7 @@ private:
   StencilSupport onGetStencilSupport(const GrShape&) const override
   {
         return kNoSupport_StencilSupport;
-    }
+  }
   bool onDrawPath(const DrawPathArgs&) override;
   sk_sp<GrGpu> fGpu;
   typedef GrPathRenderer INHERITED;

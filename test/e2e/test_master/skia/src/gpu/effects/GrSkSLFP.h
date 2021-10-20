@@ -33,7 +33,7 @@ public:
   {
         static std::atomic<int> nextIndex{0};
         return nextIndex++;
-    }
+  }
     /**
      * Creates a new fragment processor from an SkSL source string and a struct of inputs to the
      * program. The input struct's type is derived from the 'in' and 'uniform' variables in the SkSL

@@ -32,7 +32,9 @@ public:
     // Allow processing accelerators to the parent frame
   bool IsTopNavigationDomain(NavigationKind kind) const override;
   wxAuiManager& GetAuiManager()
-  { return m_mgr; }
+  {
+ return m_mgr;
+  }
 protected:
   virtual void OnMoveStart();
   virtual void OnMoving(const wxRect& windowRect, wxDirection dir);

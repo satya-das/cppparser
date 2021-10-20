@@ -31,9 +31,10 @@ public:
         // If you call drawPicture() or drawDrawable() on the recording canvas, this flag forces
         // that object to playback its contents immediately rather than reffing the object.
         kPlaybackDrawPicture_RecordFlag     = 1 << 0,
-    };
+  };
   enum FinishFlags {
-    };
+
+  };
     /** Returns the canvas that records the drawing commands.
         @param bounds the cull rect used when recording this picture. Any drawing the falls outside
                       of this rect is undefined, and may be drawn or it may not.
@@ -45,7 +46,7 @@ public:
   SkCanvas* beginRecording(SkScalar width, SkScalar height, SkBBHFactory* bbhFactory = nullptr, uint32_t recordFlags = 0)
   {
         return this->beginRecording(SkRect::MakeWH(width, height), bbhFactory, recordFlags);
-    }
+  }
     /** Returns the recording canvas if one is active, or NULL if recording is
         not active. This does not alter the refcnt on the canvas (if present).
     */

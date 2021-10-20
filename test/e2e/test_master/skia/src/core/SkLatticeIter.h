@@ -36,7 +36,7 @@ public:
             return true;
         }
         return false;
-    }
+  }
     /**
      *  Apply a matrix to the dst points.
      */
@@ -47,7 +47,7 @@ public:
   int numRectsToDraw() const
   {
         return fNumRectsToDraw;
-    }
+  }
 private:
   SkTArray<int> fSrcX;
   SkTArray<int> fSrcY;

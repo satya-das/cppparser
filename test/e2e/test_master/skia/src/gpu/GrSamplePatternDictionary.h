@@ -22,7 +22,7 @@ public:
   const SkTArray<SkPoint>& retrieveSampleLocations(int samplePatternKey) const
   {
         return *fSampleLocationsArray[samplePatternKey];
-    }
+  }
 private:
   struct LessThan
   {

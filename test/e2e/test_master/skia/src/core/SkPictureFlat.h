@@ -140,7 +140,6 @@ static uint32_t ClipParams_pack(SkClipOp op, bool doAA)
 template <typename T>
 T asValidEnum(SkReadBuffer* buffer, uint32_t candidate)
 {
-
     if (buffer->validate(candidate <= static_cast<uint32_t>(T::kMax_EnumValue))) {
         return static_cast<T>(candidate);
     }
@@ -160,22 +159,24 @@ class SkTypefacePlayback
 {
 public:
   SkTypefacePlayback()
-    :  fCount(0), fArray(nullptr) 
-    {
-    }
+    :  fCount(0), fArray(nullptr)
+  {
+  }
   ~SkTypefacePlayback();
   void setCount(size_t count);
   size_t count() const
-  { return fCount; }
+  {
+ return fCount;
+  }
   sk_sp<SkTypeface>& operator[](size_t index)
   {
         SkASSERT(index < fCount);
         return fArray[index];
-    }
+  }
   void setupBuffer(SkReadBuffer& buffer) const
   {
         buffer.setTypefaceArray(fArray.get(), fCount);
-    }
+  }
 protected:
   size_t fCount;
   std::unique_ptr<sk_sp<SkTypeface>[]> fArray;
@@ -184,18 +185,22 @@ class SkFactoryPlayback
 {
 public:
   SkFactoryPlayback(int count)
-    :  fCount(count) 
-    {
- fArray = new SkFlattenable::Factory[count];     }
+    :  fCount(count)
+  {
+ fArray = new SkFlattenable::Factory[count];
+  }
   ~SkFactoryPlayback()
   {
- delete[] fArray;   }
+ delete[] fArray;
+  }
   SkFlattenable::Factory* base() const
-  { return fArray; }
+  {
+ return fArray;
+  }
   void setupBuffer(SkReadBuffer& buffer) const
   {
         buffer.setFactoryPlayback(fArray, fCount);
-    }
+  }
 private:
   int fCount;
   SkFlattenable::Factory* fArray;

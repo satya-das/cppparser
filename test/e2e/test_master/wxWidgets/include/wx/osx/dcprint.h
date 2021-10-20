@@ -25,7 +25,9 @@ public:
   void EndPage() override;
   wxRect GetPaperRect() const override;
   wxPrintData& GetPrintData()
-  { return m_printData; }
+  {
+ return m_printData;
+  }
   wxSize GetPPI() const override;
 protected:
   void DoGetSize(int* width, int* height) const override;

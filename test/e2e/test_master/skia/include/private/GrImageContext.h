@@ -17,7 +17,7 @@ public:
   GrBackendFormat defaultBackendFormat(SkColorType ct, GrRenderable renderable) const
   {
         return INHERITED::defaultBackendFormat(ct, renderable);
-    }
+  }
     // Provides access to functions that aren't part of the public API.
   GrImageContextPriv priv();
   const GrImageContextPriv priv() const;
@@ -27,14 +27,22 @@ protected:
   SK_API virtual void abandonContext();
   SK_API bool abandoned() const;
   GrProxyProvider* proxyProvider()
-  { return fProxyProvider.get(); }
+  {
+ return fProxyProvider.get();
+  }
   const GrProxyProvider* proxyProvider() const
-  { return fProxyProvider.get(); }
+  {
+ return fProxyProvider.get();
+  }
     /** This is only useful for debug purposes */
   GrSingleOwner* singleOwner() const
-  { return &fSingleOwner; }
+  {
+ return &fSingleOwner;
+  }
   GrImageContext* asImageContext() override
-  { return this; }
+  {
+ return this;
+  }
 private:
   std::unique_ptr<GrProxyProvider> fProxyProvider;
   bool fAbandoned = false;

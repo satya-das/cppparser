@@ -41,9 +41,8 @@ public:
     */
   explicit wxCFDataRef(CFDataRef r)
     :    super_type(r)
-    
-    {
-    }
+  {
+  }
     /*! @method     wxCFDataRef
         @abstract   Copies a ref holder of the same type
         @param otherRef The other ref holder to copy.
@@ -52,9 +51,8 @@ public:
     */
   wxCFDataRef(const wxCFDataRef& otherRef)
     :   super_type( otherRef )
-    
-    {
-    }
+  {
+  }
     /*! @method     wxCFDataRef
         @abstract   Copies raw data into a data ref
         @param data The raw data.
@@ -62,10 +60,9 @@ public:
     */
   wxCFDataRef(const UInt8* data, CFIndex length)
     :  super_type(CFDataCreate(kCFAllocatorDefault, data, length))
-    
-    {
+  {
 
-        }
+  }
     /*! @method     GetLength
         @abstract   returns the length in bytes of the data stored
     */
@@ -75,7 +72,7 @@ public:
             return CFDataGetLength( *this );
         else
             return 0;
-    }
+  }
     /*! @method     GetBytes
         @abstract   Copies the data into an external buffer
         @param range The desired range.
@@ -85,6 +82,6 @@ public:
   {
         if ( m_ptr )
             CFDataGetBytes(m_ptr, range, buffer);
-    }
+  }
 };
 #endif

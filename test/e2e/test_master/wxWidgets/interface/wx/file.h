@@ -148,7 +148,6 @@ public:
         It is also used with wxFile::Access function.
     */
   enum OpenMode {
-
         /** Open file for reading or test if it can be opened for reading with Access() */
         read,
 
@@ -173,11 +172,13 @@ public:
             Useful for opening temporary files without being vulnerable to race exploits.
         */
         write_excl
-    };
+  };
     /**
        Standard file descriptors
     */
-  enum { fd_invalid = -1, fd_stdin, fd_stdout, fd_stderr };
+  enum {
+ fd_invalid = -1, fd_stdin, fd_stdout, fd_stderr
+  };
     /**
        Default constructor.
     */

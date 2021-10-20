@@ -15,7 +15,9 @@ public:
   static sk_sp<GrMtlTexture> MakeWrappedTexture(GrMtlGpu*, const GrSurfaceDesc&, id<MTLTexture>, GrWrapCacheable, GrIOType);
   virtual ~GrMtlTexture();
   id<MTLTexture> mtlTexture() const
-  { return fTexture; }
+  {
+ return fTexture;
+  }
   GrBackendTexture getBackendTexture() const override;
   GrBackendFormat backendFormat() const override;
   void textureParamsModified() override
@@ -29,18 +31,20 @@ protected:
   {
         fTexture = nil;
         INHERITED::onAbandon();
-    }
+  }
   void onRelease() override
   {
         fTexture = nil;
         INHERITED::onRelease();
-    }
+  }
   bool onStealBackendTexture(GrBackendTexture*, SkImage::BackendTextureReleaseProc*) override
   {
          return false;
-     }
+  }
 private:
-  enum Wrapped { kWrapped };
+  enum Wrapped {
+ kWrapped
+  };
   GrMtlTexture(GrMtlGpu*, SkBudgeted, const GrSurfaceDesc&, id<MTLTexture>, GrMipMapsStatus);
   GrMtlTexture(GrMtlGpu*, Wrapped, const GrSurfaceDesc&, id<MTLTexture>, GrMipMapsStatus, GrWrapCacheable, GrIOType);
   id<MTLTexture> fTexture;

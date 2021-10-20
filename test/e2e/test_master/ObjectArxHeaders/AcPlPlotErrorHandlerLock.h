@@ -22,7 +22,7 @@ public:
   enum LockStatus {
         kLocked,
         kUnLocked
-    };
+  };
   ACPL_PORT AcPlPlotErrorHandlerLock();
   ACPL_PORT AcPlPlotErrorHandlerLock(AcPlPlotErrorHandler* pAppErrHandler, const ACHAR* pAppName);
   ACPL_PORT LockStatus status() const;

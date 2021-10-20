@@ -42,23 +42,20 @@ public:
         kUtf16BE,
         kUtf32LE,
         kUtf32BE
-    };
+  };
   AdCharFormatter(unsigned nFormat, bool bUseCIF, bool bExpandLF)
-    : 
-                    mnFormat(nFormat), mbUseCIF(bUseCIF),
+    :                     mnFormat(nFormat), mbUseCIF(bUseCIF),
                     mbExpandLF(bExpandLF)
-    
-    {
-
+  {
         // doesn't make sense to ask for CIF with non-ansi format
         AdCharFmt_Assert(this->mbUseCIF == false || this->mnFormat == kAnsi);
-        }
+  }
     // by default, we assume ansi and we *do* expand lfs into cr-lf
   AdCharFormatter()
     :  mnFormat(kAnsi), mbUseCIF(false),
-                        mbExpandLF(true) 
-    {
-    }
+                        mbExpandLF(true)
+  {
+  }
     // This function assumes you are passing it the first four
     // bytes of the input file for examination.
   static unsigned lookupBOM(unsigned nBom)
@@ -74,7 +71,7 @@ public:
         if (nBom == 0xfffe0000)
             return kUtf32BE;
         return kUnknown;
-    }
+  }
     // Writes the BOM for the given format into the dword and returns
     // its length.
   static int getBOM(unsigned& nBom, unsigned nFmt)
@@ -103,7 +100,7 @@ public:
             AdCharFmt_Assert(nFmt == kUnknown || nFmt == kAnsi);
             return 0;   // ansi or unknown
         }
-    }
+  }
     // Inserts 7 CIF chars of the form "\U+xxxx" into the destination
     // buffer.  Assumes there is room in the buffer.  Does *not*
     // append a null terminator.
@@ -118,33 +115,39 @@ public:
             pDest[6 - i] = (n <= 9) ? ('0' + n) : ('A' - 10 + n);
             wch >>= 4;
         }
-    }
+  }
     // Non-static methods for getting and setting local state.
     //
   bool getUseCIF() const
-  { return this->mbUseCIF; }
+  {
+ return this->mbUseCIF;
+  }
   bool getExpandLF() const
-  { return this->mbExpandLF; }
+  {
+ return this->mbExpandLF;
+  }
   unsigned getFormat() const
-  { return this->mnFormat; }
+  {
+ return this->mnFormat;
+  }
   bool setUseCIF(bool bUseCIF)
   {
         const bool bOldUseCIF = this->mbUseCIF;
         this->mbUseCIF = bUseCIF;
         return bOldUseCIF;
-    }
+  }
   bool setExpandLF(bool bExpandLF)
   {
         const bool bOldExpandLF = this->mbExpandLF;
         this->mbExpandLF = bExpandLF;
         return bOldExpandLF;
-    }
+  }
   unsigned setFormat(unsigned nFormat)
   {
         const unsigned nOldFormat = this->mnFormat;
         this->mnFormat = nFormat;
         return nOldFormat;
-    }
+  }
     // Static method to get length of a widechar string.
   static unsigned wcsLength(const wchar_t* pStr)
   {
@@ -154,7 +157,7 @@ public:
             pStr++;
         }
         return nLen;
-    }
+  }
     // Static method
     // Requires dest buf is 2 chars for ansi, 4 for utf-8, 7 for ansi+CIF
     // Returns number of bytes put into buffer.
@@ -184,7 +187,7 @@ public:
             AdCharFmt_Assert(this->mnFormat != kUtf32BE); // not implemented!
             return 0;
         }
-    }
+  }
   template <typename ChType>
   static bool isHex(ChType ch)
   {
@@ -192,7 +195,7 @@ public:
         return (ch >= '0' && ch <= '9') ||
                (ch >= 'A' && ch <= 'F') ||
                (ch >= 'a' && ch <= 'f');
-    }
+  }
   template <typename ChType>
   static bool isHex(ChType ch, unsigned& uVal)
   {
@@ -214,7 +217,7 @@ public:
             return true;
         }
         return false;
-    }
+  }
     // Static method. 
     // Returns true if pSrcBuf contains a CIF sequence, or false otherwise.
     // Assumes the string is null terminated
@@ -234,7 +237,7 @@ public:
             return true;
 
         return false;
-    }
+  }
     // Takes a string length arg instead of assuming it's null terminated
   template <typename ChType>
   static bool isCIFString(const ChType* pSrcBuf, unsigned nSrcBufSize)
@@ -244,7 +247,7 @@ public:
         if(nSrcBufSize < 7)
             return false;
         return isCIFString<ChType>(pSrcBuf);
-    }
+  }
     // Static method. Parse a wide character from a CIF string.
     // Returns true if parsing is successful, or false otherwise.
   template <typename ChType>
@@ -274,7 +277,7 @@ public:
         wch |= (wchar_t)uVal;
 
         return true;
-    }
+  }
     // Static method. 
     // Returns true if pSrcBuf contains a MIF sequence, or false otherwise.
     // Assumes the string is null terminated
@@ -296,7 +299,7 @@ public:
             return true;
 
         return false;
-    }
+  }
     // Takes a string length arg instead of assuming it's null terminated
   template <typename ChType>
   static bool isMIFString(const ChType* pSrcBuf, unsigned nSrcBufSize)
@@ -306,7 +309,7 @@ public:
         if(nSrcBufSize < 8)
             return false;
         return isMIFString<ChType>(pSrcBuf);
-    }
+  }
   static unsigned winCodePageFromMIFIndex(unsigned nIdx)
   {
         return nIdx == 1 ? 932 :
@@ -314,7 +317,7 @@ public:
                nIdx == 3 ? 949 :
                nIdx == 4 ? 1361 :
                nIdx == 5 ? 936 : 0;
-    }
+  }
   static code_page_id codePageIdFromMIFIndex(uint8_t nIdx)
   {
         return nIdx == 1 ? code_page_id::CODE_PAGE_DOS932 :
@@ -322,7 +325,7 @@ public:
             nIdx == 3 ? code_page_id::CODE_PAGE_KSC5601 :
             nIdx == 4 ? code_page_id::CODE_PAGE_JOHAB :
             nIdx == 5 ? code_page_id::CODE_PAGE_GB2312 : code_page_id::CODE_PAGE_CURRENT;
-    }
+  }
   static unsigned char MIFIndexFromWinCodePage(unsigned nCodePage)
   {
         return nCodePage == 932 ? 1 :
@@ -330,7 +333,7 @@ public:
                nCodePage == 949 ? 3 :
                nCodePage == 1361 ? 4 :
                nCodePage == 936 ? 5 : 0;
-    }
+  }
   static uint8_t MIFIndexFromCodePageId(code_page_id codePageId)
   {
         switch (codePageId) {
@@ -352,7 +355,7 @@ public:
         default:
             return 0;
         }
-    }
+  }
     // To be obsoleted.
     // The public API is retained. But will be obsolted. Use putMIF() the code_page_id version instead.
     // Assumes output buffer is at least 8 chars.  Returns true
@@ -388,7 +391,7 @@ public:
             pMbOut[4 + i] = (n <= 9) ? ('0' + n) : ('A' - 10 + n);
         }
         return true;
-    }
+  }
     // Assumes output buffer is at least 8 chars.  Returns true
     // if widechar converted to MIF, false otherwise.
   template <typename ChType>
@@ -422,7 +425,7 @@ public:
             pMbOut[4 + i] = (n <= 9) ? ('0' + n) : ('A' - 10 + n);
         }
         return true;
-    }
+  }
     // Returns 0 if input char doesn't represent a valid MIF codepage
   template <typename ChType>
   static unsigned getMIFCodePage(ChType ch)
@@ -434,7 +437,7 @@ public:
                 ch == '4' ? 1361  :  // KS C-5601-1992 (Johab)
                 ch == '5' ?  936  :  // GB 2312-80 (Simplified Chinese)
                 0;
-    }
+  }
     // Returns 0 if input char doesn't represent a valid MIF codepage
   template <typename ChType>
   static code_page_id getMIFCodePageId(ChType ch)
@@ -446,7 +449,7 @@ public:
             ch == '4' ? code_page_id::CODE_PAGE_JOHAB :  // KS C-5601-1992 (Johab)
             ch == '5' ? code_page_id::CODE_PAGE_GB2312 :  // GB 2312-80 (Simplified Chinese)
             code_page_id::CODE_PAGE_UNDEFINED;
-    }
+  }
     // Static method. Parse a wide character from a MIF string.
     // Returns true if parsing is successful, or false otherwise.
   template <typename ChType>
@@ -498,7 +501,7 @@ public:
 
         extern bool convertMBStringToOneWideChar(code_page_id codePageId, char* mbBuf, int mbLen, wchar_t& wch);
         return convertMBStringToOneWideChar(codePageId, mbBuf, mbBuf[1] == 0 ? 1 : 2, wch);
-    }
+  }
     // To be obsoleted.
     // The public API is retained. But will be obsolted. Use isNativeToCodePageId() instead.
     //
@@ -592,7 +595,6 @@ public:
     }
     for (;;)
     {
-
             if (lpWritePtr && lpWriteEnd && lpWritePtr >= lpWriteEnd)
                 break; // Ran out of writing space.
 
@@ -613,7 +615,7 @@ public:
             cchWritten++;       // One more char output
             if (wch == 0)
                 break;          // end of input string
-            }
+    }
     return cchWritten;
   }
     // Static method. Converts a given wide character string into 
@@ -665,7 +667,6 @@ public:
     int cchProcessed = 0;
     for (;;)
     {
-
             if (cchSrcLen >= 0) {   // if caller passed in the src len
                 AdCharFmt_Assert(cchProcessed <= cchSrcLen);
                 if (cchProcessed >= cchSrcLen)
@@ -720,7 +721,7 @@ public:
                 cbWritten += nDigits;
             }
             cchProcessed++; // One wide character processed.
-            }
+    }
         // Null-terminate the destination buffer only when the source 
         // buffer length is not specified (i.e. it is null-terminated), 
         // otherwise, the number of bytes written into szBuf can be 
@@ -729,10 +730,9 @@ public:
     *pcbDstSize = cbWritten;
     if (cchSrcLen < 0)
     {
-
             if (szDst) szDst[cbWritten] = 0; // Null-terminate output.
             *pcbDstSize = cbWritten + 1;     // Bytes written.
-            }
+    }
     return cchProcessed;
   }
 private:

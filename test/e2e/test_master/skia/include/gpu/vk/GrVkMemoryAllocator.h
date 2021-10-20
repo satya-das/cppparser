@@ -28,7 +28,7 @@ public:
         kPersistentlyMapped  = 0x4,
         // Allocation can only be accessed by the device using a protected context.
         kProtected  = 0x8,
-    };
+  };
   GR_DECL_BITFIELD_CLASS_OPS_FRIENDS(AllocationPropertyFlags);
   enum class BufferUsage {
         // Buffers that will only be accessed from the device (large const buffers). Will always be
@@ -44,7 +44,7 @@ public:
         // Buffers which are typically writted to by the GPU and then read on the host. Will always
         // be mappable memory, and will prefer coherent and cached memory.
         kGpuWritesCpuReads,
-    };
+  };
   virtual bool allocateMemoryForImage(VkImage image, AllocationPropertyFlags flags, GrVkBackendMemory*) = 0;
   virtual bool allocateMemoryForBuffer(VkBuffer buffer, BufferUsage usage, AllocationPropertyFlags flags, GrVkBackendMemory*) = 0;
     // Fills out the passed in GrVkAlloc struct for the passed in GrVkBackendMemory.

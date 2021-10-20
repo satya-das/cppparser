@@ -51,7 +51,7 @@ public:
         SetForAllParts(&wxWindowBase::SetForegroundColour, colour);
 
         return true;
-    }
+  }
   bool SetBackgroundColour(const wxColour& colour) override
   {
         if ( !BaseWindowClass::SetBackgroundColour(colour) )
@@ -60,7 +60,7 @@ public:
         SetForAllParts(&wxWindowBase::SetBackgroundColour, colour);
 
         return true;
-    }
+  }
   bool SetFont(const wxFont& font) override
   {
         if ( !BaseWindowClass::SetFont(font) )
@@ -69,7 +69,7 @@ public:
         SetForAllParts(&wxWindowBase::SetFont, font);
 
         return true;
-    }
+  }
   bool SetCursor(const wxCursor& cursor) override
   {
         if ( !BaseWindowClass::SetCursor(cursor) )
@@ -78,7 +78,7 @@ public:
         SetForAllParts(&wxWindowBase::SetCursor, cursor);
 
         return true;
-    }
+  }
   void SetLayoutDirection(wxLayoutDirection dir) override
   {
         BaseWindowClass::SetLayoutDirection(dir);
@@ -95,7 +95,7 @@ public:
         // neither, but then we're not supposed to be called with it at all.
         if ( dir != wxLayout_Default )
             this->SetSize(-1, -1, -1, -1, wxSIZE_FORCE);
-    }
+  }
 #  if  wxUSE_TOOLTIPS
   void DoSetToolTipText(const wxString& tip) override
   {
@@ -105,20 +105,20 @@ public:
         void (wxWindowBase::*func)(const wxString&) = &wxWindowBase::SetToolTip;
 
         SetForAllParts(func, tip);
-    }
+  }
   void DoSetToolTip(wxToolTip* tip) override
   {
         BaseWindowClass::DoSetToolTip(tip);
 
         SetForAllParts(&wxWindowBase::CopyToolTip, tip);
-    }
+  }
 #  endif
 protected:
     // Trivial but necessary default ctor.
   wxCompositeWindowSettersOnly()
   {
 
-      }
+  }
 private:
     // Must be implemented by the derived class to return all children to which
     // the public methods we override should forward to.
@@ -140,7 +140,7 @@ private:
             if ( child )
                 (child->*func)(arg);
         }
-    }
+  }
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxCompositeWindowSettersOnly, W);
 };
 // The real wxCompositeWindow itself, inheriting all the setters defined above.
@@ -151,14 +151,13 @@ public:
   void SetFocus() override
   {
         wxSetFocusToChild(this, NULL);
-    }
+  }
 protected:
     // Default ctor sets things up for handling children events correctly.
   wxCompositeWindow()
   {
-
         this->Bind(wxEVT_CREATE, &wxCompositeWindow::OnWindowCreate, this);
-      }
+  }
 private:
   void OnWindowCreate(wxWindowCreateEvent& event)
   {
@@ -203,12 +202,12 @@ private:
         }
 
         child->Bind(wxEVT_CHAR, &wxCompositeWindow::OnChar, this);
-    }
+  }
   void OnChar(wxKeyEvent& event)
   {
         if ( !this->ProcessWindowEvent(event) )
             event.Skip();
-    }
+  }
   void OnSetFocus(wxFocusEvent& event)
   {
         event.Skip();
@@ -228,7 +227,7 @@ private:
 
             this->ProcessWindowEvent(eventThis);
         }
-    }
+  }
   void OnKillFocus(wxFocusEvent& event)
   {
         // Ignore focus changes within the composite control:
@@ -251,7 +250,7 @@ private:
         // The event shouldn't be ignored, forward it to the main control:
         if ( !this->ProcessWindowEvent(event) )
             event.Skip();
-    }
+  }
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxCompositeWindow, W);
 };
 #endif

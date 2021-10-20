@@ -74,21 +74,21 @@ public:
   const SkFontMetrics& getFontMetrics() const
   {
         return fFontMetrics;
-    }
+  }
   SkMask::Format getMaskFormat() const
   {
         return fScalerContext->getMaskFormat();
-    }
+  }
   bool isSubpixel() const
   {
         return fIsSubpixel;
-    }
+  }
   SkVector rounding() const override;
   SkIPoint subpixelMask() const override
   {
         return SkIPoint::Make((!fIsSubpixel || fAxisAlignment == kY_SkAxisAlignment) ? 0 : ~0,
                               (!fIsSubpixel || fAxisAlignment == kX_SkAxisAlignment) ? 0 : ~0);
-    }
+  }
   const SkDescriptor& getDescriptor() const override;
   SkSpan<const SkGlyph*> metrics(SkSpan<const SkGlyphID> glyphIDs, const SkGlyph* results[]);
   SkSpan<const SkGlyph*> preparePaths(SkSpan<const SkGlyphID> glyphIDs, const SkGlyph* results[]);
@@ -97,10 +97,14 @@ public:
   void onAboutToExitScope() override;
     /** Return the approx RAM usage for this cache. */
   size_t getMemoryUsed() const
-  { return fMemoryUsed; }
+  {
+ return fMemoryUsed;
+  }
   void dump() const;
   SkScalerContext* getScalerContext() const
-  { return fScalerContext.get(); }
+  {
+ return fScalerContext.get();
+  }
 #  ifdef SK_DEBUG
   void forceValidate() const;
   void validate() const;
@@ -113,24 +117,22 @@ public:
   {
   public:
     AutoValidate(const SkStrike* cache)
-      :  fCache(cache) 
-      {
-
+      :  fCache(cache)
+    {
             if (fCache) {
                 fCache->validate();
             }
-              }
+    }
     ~AutoValidate()
     {
-
             if (fCache) {
                 fCache->validate();
             }
-            }
+    }
     void forget()
     {
             fCache = nullptr;
-        }
+    }
   private:
     const SkStrike* fCache;
   };
@@ -141,17 +143,17 @@ private:
     static SkPackedGlyphID GetKey(const SkGlyph* glyph)
     {
             return glyph->getPackedID();
-        }
+    }
     static uint32_t Hash(SkPackedGlyphID glyphId)
     {
             return glyphId.hash();
-        }
+    }
   };
   SkGlyph* makeGlyph(SkPackedGlyphID);
   enum PathDetail {
         kMetricsOnly,
         kMetricsAndPath
-    };
+  };
     // internalPrepare will only be called with a mutex already held.
   SkSpan<const SkGlyph*> internalPrepare(SkSpan<const SkGlyphID> glyphIDs, PathDetail pathDetail, const SkGlyph** results);
   const SkAutoDescriptor fDesc;

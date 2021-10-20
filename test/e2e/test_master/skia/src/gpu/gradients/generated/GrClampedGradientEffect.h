@@ -21,11 +21,13 @@ public:
         return std::unique_ptr<GrFragmentProcessor>(new GrClampedGradientEffect(
                 std::move(colorizer), std::move(gradLayout), leftBorderColor, rightBorderColor,
                 makePremul, colorsAreOpaque));
-    }
+  }
   GrClampedGradientEffect(const GrClampedGradientEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "ClampedGradientEffect"; }
+  {
+ return "ClampedGradientEffect";
+  }
   int colorizer_index = -1;
   int gradLayout_index = -1;
   SkPMColor4f leftBorderColor;
@@ -42,16 +44,15 @@ private:
             , leftBorderColor(leftBorderColor)
             , rightBorderColor(rightBorderColor)
             , makePremul(makePremul)
-            , colorsAreOpaque(colorsAreOpaque) 
-    {
-
+            , colorsAreOpaque(colorsAreOpaque)
+  {
         SkASSERT(colorizer);
         colorizer_index = this->numChildProcessors();
         this->registerChildProcessor(std::move(colorizer));
         SkASSERT(gradLayout);
         gradLayout_index = this->numChildProcessors();
         this->registerChildProcessor(std::move(gradLayout));
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

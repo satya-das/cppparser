@@ -25,9 +25,9 @@ namespace SkSL
     Symbol(int offset, Kind kind, StringFragment name)
       :  INHERITED(offset)
     , fKind(kind)
-    , fName(name) 
-      {
-      }
+    , fName(name)
+    {
+    }
     virtual ~Symbol()
     {
     }

@@ -85,26 +85,23 @@ public:
 //
 inline AcGePoint3d::AcGePoint3d()
   :  x(0.0), y(0.0), z(0.0)
+{
 
-  {
-
-  }
+}
 // Creates a point with the same values as `src'.
 //
 inline AcGePoint3d::AcGePoint3d(const AcGePoint3d& src)
   :  x(src.x), y(src.y), z(src.z)
+{
 
-  {
-
-  }
+}
 // Creates a point intialized to ( xx, yy, zz ).
 //
 inline AcGePoint3d::AcGePoint3d(double xx, double yy, double zz)
   :  x(xx), y(yy), z(zz)
+{
 
-  {
-
-  }
+}
 inline bool AcGePoint3d::operator ==(const AcGePoint3d& p) const
 {
     return this->isEqualTo(p);

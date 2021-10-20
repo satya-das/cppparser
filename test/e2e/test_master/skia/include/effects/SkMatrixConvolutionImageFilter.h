@@ -32,7 +32,7 @@ public:
 
       // TODO: remove kMax - it is non-standard but used by Chromium!
       kMax_TileMode = kClampToBlack_TileMode
-    };
+  };
   static sk_sp<SkImageFilter> Make(const SkISize& kernelSize, const SkScalar* kernel, SkScalar gain, SkScalar bias, const SkIPoint& kernelOffset, TileMode tileMode, bool convolveAlpha, sk_sp<SkImageFilter> input, const SkImageFilter::CropRect* cropRect = nullptr);
     /** Construct a matrix convolution image filter.
         @param kernelSize     The kernel size in pixels, in each dimension (N by M).

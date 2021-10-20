@@ -87,9 +87,6 @@ public:
   virtual double GetDoubleVal() const = 0;
   virtual long GetLongVal() const = 0;
   virtual const wxString& GetStrVal() const = 0;
-#    if  wxUSE_DATETIME
-  virtual const wxDateTime& GetDateVal() const = 0;
-#    endif
   virtual bool IsNegated() const = 0;
   virtual wxCmdLineEntryType GetKind() const = 0;
   virtual wxString GetShortName() const = 0;
@@ -116,9 +113,9 @@ public:
     typedef std::bidirectional_iterator_tag iterator_category;
 #    endif
     const_iterator()
-      :  m_parser(NULL), m_index(0) 
-      {
-      }
+      :  m_parser(NULL), m_index(0)
+    {
+    }
     reference operator *() const;
     pointer operator ->() const;
     const_iterator& operator ++();
@@ -128,29 +125,33 @@ public:
     bool operator ==(const const_iterator& other) const
     {
             return m_parser==other.m_parser && m_index==other.m_index;
-        }
+    }
     bool operator !=(const const_iterator& other) const
     {
             return !operator==(other);
-        }
+    }
   private:
     const_iterator(const wxCmdLineParser& parser, size_t index)
-      :  m_parser(&parser), m_index(index) 
-      {
+      :  m_parser(&parser), m_index(index)
+    {
 
-              }
+    }
     const wxCmdLineParser* m_parser;
     size_t m_index;
     friend class wxCmdLineArgs;
   };
   wxCmdLineArgs(const wxCmdLineParser& parser)
-    :  m_parser(parser) 
-    {
-    }
+    :  m_parser(parser)
+  {
+  }
   const_iterator begin() const
-  { return const_iterator(m_parser, 0); }
+  {
+ return const_iterator(m_parser, 0);
+  }
   const_iterator end() const
-  { return const_iterator(m_parser, size()); }
+  {
+ return const_iterator(m_parser, size());
+  }
   size_t size() const;
 private:
   const wxCmdLineParser& m_parser;
@@ -182,40 +183,50 @@ public:
     // default ctor or ctor giving the cmd line in either Unix or Win form
   wxCmdLineParser()
   {
- Init();   }
+ Init();
+  }
   wxCmdLineParser(int argc, char** argv)
   {
- Init(); SetCmdLine(argc, argv);   }
+ Init(); SetCmdLine(argc, argv);
+  }
 #    if  wxUSE_UNICODE
   wxCmdLineParser(int argc, wxChar** argv)
   {
- Init(); SetCmdLine(argc, argv);   }
+ Init(); SetCmdLine(argc, argv);
+  }
   wxCmdLineParser(int argc, const wxCmdLineArgsArray& argv)
   {
- Init(); SetCmdLine(argc, argv);   }
+ Init(); SetCmdLine(argc, argv);
+  }
 #    endif
   wxCmdLineParser(const wxString& cmdline)
   {
- Init(); SetCmdLine(cmdline);   }
+ Init(); SetCmdLine(cmdline);
+  }
     // the same as above, but also gives the cmd line description - otherwise,
     // use AddXXX() later
   wxCmdLineParser(const wxCmdLineEntryDesc* desc)
   {
- Init(); SetDesc(desc);   }
+ Init(); SetDesc(desc);
+  }
   wxCmdLineParser(const wxCmdLineEntryDesc* desc, int argc, char** argv)
   {
- Init(); SetCmdLine(argc, argv); SetDesc(desc);   }
+ Init(); SetCmdLine(argc, argv); SetDesc(desc);
+  }
 #    if  wxUSE_UNICODE
   wxCmdLineParser(const wxCmdLineEntryDesc* desc, int argc, wxChar** argv)
   {
- Init(); SetCmdLine(argc, argv); SetDesc(desc);   }
+ Init(); SetCmdLine(argc, argv); SetDesc(desc);
+  }
   wxCmdLineParser(const wxCmdLineEntryDesc* desc, int argc, const wxCmdLineArgsArray& argv)
   {
- Init(); SetCmdLine(argc, argv); SetDesc(desc);   }
+ Init(); SetCmdLine(argc, argv); SetDesc(desc);
+  }
 #    endif
   wxCmdLineParser(const wxCmdLineEntryDesc* desc, const wxString& cmdline)
   {
- Init(); SetCmdLine(cmdline); SetDesc(desc);   }
+ Init(); SetCmdLine(cmdline); SetDesc(desc);
+  }
     // set cmd line to parse after using one of the ctors which don't do it
   void SetCmdLine(int argc, char** argv);
 #    if  wxUSE_UNICODE
@@ -235,7 +246,9 @@ public:
     // long options are not POSIX-compliant, this option allows to disable them
   void EnableLongOptions(bool enable = true);
   void DisableLongOptions()
-  { EnableLongOptions(false); }
+  {
+ EnableLongOptions(false);
+  }
   bool AreLongOptionsEnabled() const;
     // extra text may be shown by Usage() method if set by this function
   void SetLogo(const wxString& logo);
@@ -249,13 +262,13 @@ public:
   void AddLongSwitch(const wxString& lng, const wxString& desc = wxEmptyString, int flags = 0)
   {
         AddSwitch(wxString(), lng, desc, flags);
-    }
+  }
     // an option taking a value of the given type
   void AddOption(const wxString& name, const wxString& lng = wxEmptyString, const wxString& desc = wxEmptyString, wxCmdLineParamType type = wxCMD_LINE_VAL_STRING, int flags = 0);
   void AddLongOption(const wxString& lng, const wxString& desc = wxEmptyString, wxCmdLineParamType type = wxCMD_LINE_VAL_STRING, int flags = 0)
   {
         AddOption(wxString(), lng, desc, type, flags);
-    }
+  }
     // a parameter
   void AddParam(const wxString& desc = wxEmptyString, wxCmdLineParamType type = wxCMD_LINE_VAL_STRING, int flags = 0);
     // add an explanatory text to be shown to the user in help
@@ -293,18 +306,20 @@ public:
     // returns true if an option taking a double value was found and stores
     // the value in the provided pointer
   bool Found(const wxString& name, double* value) const;
-#    if  wxUSE_DATETIME
     // returns true if an option taking a date value was found and stores the
     // value in the provided pointer
-  bool Found(const wxString& name, wxDateTime* value) const;
-#    endif
+    bool Found(const wxString& name, wxDateTime *value) const;
+#endif // wxUSE_DATETIME
+
     // gets the number of parameters found
   size_t GetParamCount() const;
     // gets the value of Nth parameter (as string only for now)
   wxString GetParam(size_t n = 0u) const;
     // returns a reference to the container of all command line arguments
   wxCmdLineArgs GetArguments() const
-  { return wxCmdLineArgs(*this); }
+  {
+ return wxCmdLineArgs(*this);
+  }
     // Resets switches and options
   void Reset();
     // break down the command line in arguments

@@ -20,20 +20,18 @@ public:
   wxListBox();
   wxListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = (const wxString*) NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr))
   {
-
 #if wxUSE_CHECKLISTBOX
         m_hasCheckBoxes = false;
 #endif // wxUSE_CHECKLISTBOX
         Create(parent, id, pos, size, n, choices, style, validator, name);
-      }
+  }
   wxListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr))
   {
-
 #if wxUSE_CHECKLISTBOX
         m_hasCheckBoxes = false;
 #endif // wxUSE_CHECKLISTBOX
         Create(parent, id, pos, size, choices, style, validator, name);
-      }
+  }
   virtual ~wxListBox();
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = (const wxString*) NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr));
@@ -78,7 +76,9 @@ protected:
     // Widgets that use the style->base colour for the BG colour should
     // override this and return true.
   virtual bool UseGTKStyleBase() const
-  { return true; }
+  {
+ return true;
+  }
 private:
     // this array is only used for controls with wxCB_SORT style, so only
     // allocate it if it's needed (hence using pointer)

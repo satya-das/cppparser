@@ -32,9 +32,13 @@ public:
     // implement base class (pure) virtual methods
     // -------------------------------------------
   virtual void SetLabel(const wxString&)
-  { }
+  {
+
+  }
   virtual wxString GetLabel() const
-  { return wxEmptyString; }
+  {
+ return wxEmptyString;
+  }
   virtual bool Destroy();
   virtual void Raise();
   virtual void Lower();
@@ -66,12 +70,16 @@ public:
   virtual void SetDropTarget(wxDropTarget* dropTarget);
 #  endif
   virtual bool IsDoubleBuffered() const
-  { return false; }
+  {
+ return false;
+  }
   GdkWindow* GTKGetDrawingWindow() const;
     // implementation
     // --------------
   virtual WXWidget GetHandle() const
-  { return m_widget; }
+  {
+ return m_widget;
+  }
     // I don't want users to override what's done in idle so everything that
     // has to be done in idle time in order for wxGTK to work is done in
     // OnInternalIdle
@@ -114,16 +122,24 @@ public:
     // the layout functions have to be called later on
     // (i.e. in idle time, implemented in OnInternalIdle() ).
   void GtkUpdateSize()
-  { m_sizeSet = false; }
+  {
+ m_sizeSet = false;
+  }
     // fix up the mouse event coords, used by wxListBox only so far
   virtual void FixUpMouseEvent(GtkWidget*, wxCoord&, wxCoord&)
-  { }
+  {
+
+  }
     // is this window transparent for the mouse events (as wxStaticBox is)?
   virtual bool IsTransparentForMouse() const
-  { return false; }
+  {
+ return false;
+  }
     // is this a radiobutton (used by radiobutton code itself only)?
   virtual bool IsRadioButton() const
-  { return false; }
+  {
+ return false;
+  }
     // position and size of the window
   int m_x, m_y;
   int m_width, m_height;

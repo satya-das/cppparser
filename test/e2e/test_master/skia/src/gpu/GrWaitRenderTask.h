@@ -15,8 +15,8 @@ public:
     :  GrRenderTask(std::move(proxy))
             , fSemaphores(std::move(semaphores))
             , fNumSemaphores(numSemaphores)
-    {
-    }
+  {
+  }
 private:
   void onPrepare(GrOpFlushState*) override
   {
@@ -25,7 +25,7 @@ private:
   {
         SkASSERT(proxy != fTarget.get());  // This case should be handled by GrRenderTask.
         return false;
-    }
+  }
   void handleInternalAllocationFailure() override
   {
   }
@@ -33,7 +33,7 @@ private:
   ExpectedOutcome onMakeClosed(const GrCaps&, SkIRect*) override
   {
         return ExpectedOutcome::kTargetUnchanged;
-    }
+  }
   bool onExecute(GrOpFlushState*) override;
 #  ifdef SK_DEBUG
     // No non-dst proxies.

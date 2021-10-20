@@ -18,17 +18,16 @@ struct wxMarkupSpanAttributes
         Unspecified = -1,
         No,
         Yes
-    };
+  };
   wxMarkupSpanAttributes()
   {
-
         m_sizeKind = Size_Unspecified;
 
         m_isBold =
         m_isItalic =
         m_isUnderlined =
         m_isStrikethrough = Unspecified;
-      }
+  }
     // If a string is empty, it means that the corresponding attribute is not
     // set.
   wxString m_fgCol, m_bgCol, m_fontFace;
@@ -64,10 +63,12 @@ class wxMarkupParserOutput
 public:
   wxMarkupParserOutput()
   {
-   }
+
+  }
   virtual ~wxMarkupParserOutput()
   {
-   }
+
+  }
     // Virtual functions called by wxMarkupParser while parsing the markup.
 
     // Called for a run of normal text.
@@ -102,10 +103,9 @@ public:
     // This object lifetime must be greater than ours.
   explicit wxMarkupParser(wxMarkupParserOutput& output)
     :  m_output(output)
-    
-    {
+  {
 
-        }
+  }
     // Parse the entire string and call wxMarkupParserOutput methods.
     //
     // Return true if the string was successfully parsed or false if it failed
@@ -125,9 +125,10 @@ private:
   struct TagAndAttrs
   {
     TagAndAttrs(const wxString& name_)
-      :  name(name_) 
-      {
-       }
+      :  name(name_)
+    {
+
+    }
     wxString name;
     wxMarkupSpanAttributes attrs;
   };

@@ -14,12 +14,12 @@ class WXDLLIMPEXP_CORE wxStaticText : public wxStaticTextBase
 public:
   wxStaticText()
   {
-   }
+
+  }
   wxStaticText(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticTextNameStr))
   {
-
         Create(parent, id, label, pos, size, style, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticTextNameStr));
     // override some methods to resize the window properly
   void SetLabel(const wxString& label) override;

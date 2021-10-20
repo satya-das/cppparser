@@ -17,11 +17,15 @@ public:
   bool canAttemptStencilAttachment() const override
   {
         return true;
-    }
+  }
   id<MTLTexture> mtlColorTexture() const
-  { return fColorTexture; }
+  {
+ return fColorTexture;
+  }
   id<MTLTexture> mtlResolveTexture() const
-  { return fResolveTexture; }
+  {
+ return fResolveTexture;
+  }
   GrBackendRenderTarget getBackendRenderTarget() const override;
   GrBackendFormat backendFormat() const override;
 protected:
@@ -42,12 +46,14 @@ protected:
         }
         return GrSurface::ComputeSize(this->config(), this->width(), this->height(),
                                       numColorSamples, GrMipMapped::kNo);
-    }
+  }
   id<MTLTexture> fColorTexture;
   id<MTLTexture> fResolveTexture;
 private:
     // Extra param to disambiguate from constructor used by subclasses.
-  enum Wrapped { kWrapped };
+  enum Wrapped {
+ kWrapped
+  };
   GrMtlRenderTarget(GrMtlGpu* gpu, const GrSurfaceDesc& desc, int sampleCnt, id<MTLTexture> colorTexture, id<MTLTexture> resolveTexture, Wrapped);
   GrMtlRenderTarget(GrMtlGpu* gpu, const GrSurfaceDesc& desc, id<MTLTexture> colorTexture, Wrapped);
   bool completeStencilAttachment() override;

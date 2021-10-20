@@ -77,24 +77,21 @@ public:
 //
 inline AcGePoint2d::AcGePoint2d()
   :  x(0.0), y(0.0)
+{
 
-  {
-
-  }
+}
 inline AcGePoint2d::AcGePoint2d(const AcGePoint2d& src)
   :  x(src.x), y(src.y)
+{
 
-  {
-
-  }
+}
 // Creates a point intialized to ( xx, yy ).
 //
 inline AcGePoint2d::AcGePoint2d(double xx, double yy)
   :  x(xx), y(yy)
+{
 
-  {
-
-  }
+}
 inline bool AcGePoint2d::operator ==(const AcGePoint2d& p) const
 {
     return this->isEqualTo(p);

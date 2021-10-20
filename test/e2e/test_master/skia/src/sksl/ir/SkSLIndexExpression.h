@@ -42,7 +42,7 @@ namespace SkSL
         }
     }
     return type.componentType();
-}
+  }
 /**
  * An expression which extracts a value from an array or matrix, as in 'm[2]'.
  */
@@ -51,11 +51,10 @@ namespace SkSL
     IndexExpression(const Context& context, std::unique_ptr<Expression> base, std::unique_ptr<Expression> index)
       :  INHERITED(base->fOffset, kIndex_Kind, index_type(context, base->fType))
     , fBase(std::move(base))
-    , fIndex(std::move(index)) 
-      {
-
+    , fIndex(std::move(index))
+    {
         SkASSERT(fIndex->fType == *context.fInt_Type || fIndex->fType == *context.fUInt_Type);
-          }
+    }
     bool hasSideEffects() const override
     {
         return fBase->hasSideEffects() || fIndex->hasSideEffects();
@@ -76,9 +75,9 @@ namespace SkSL
     IndexExpression(std::unique_ptr<Expression> base, std::unique_ptr<Expression> index, const Type* type)
       :  INHERITED(base->fOffset, kIndex_Kind, *type)
     , fBase(std::move(base))
-    , fIndex(std::move(index)) 
-      {
-      }
+    , fIndex(std::move(index))
+    {
+    }
   };
 }
 #endif

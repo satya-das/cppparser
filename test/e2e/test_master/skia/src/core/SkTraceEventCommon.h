@@ -61,14 +61,12 @@ class SkAndroidFrameworkTraceUtil
 public:
   SkAndroidFrameworkTraceUtil(const char* name)
   {
-
         if (CC_UNLIKELY(gEnableAndroidTracing)) {
             ATRACE_BEGIN(name);
         }
-      }
+  }
   SkAndroidFrameworkTraceUtil(bool, const char* fmt, ...)
   {
-
         if (CC_LIKELY((!gEnableAndroidTracing) || (!ATRACE_ENABLED()))) return;
 
         const int BUFFER_SIZE = 256;
@@ -80,22 +78,21 @@ public:
         va_end(ap);
 
         ATRACE_BEGIN(buf);
-      }
+  }
   ~SkAndroidFrameworkTraceUtil()
   {
-
         if (CC_UNLIKELY(gEnableAndroidTracing)) {
             ATRACE_END();
         }
-      }
+  }
   static void setEnableTracing(bool enableAndroidTracing)
   {
         gEnableAndroidTracing = enableAndroidTracing;
-    }
+  }
   static bool getEnableTracing()
   {
         return gEnableAndroidTracing;
-    }
+  }
 private:
   static bool gEnableAndroidTracing;
 };

@@ -80,7 +80,9 @@ template <typename T>
 struct SkTLessFunctor
 {
   bool operator()(const T& a, const T& b)
-  { return a < b; }
+  {
+ return a < b;
+  }
 };
 // Specialization for T==K, compare using op <.
 template <typename T>
@@ -120,15 +122,19 @@ public:
   SkAutoAsciiToLC(const char str[], size_t len = (size_t) -1);
   ~SkAutoAsciiToLC();
   const char* lc() const
-  { return fLC; }
+  {
+ return fLC;
+  }
   size_t length() const
-  { return fLength; }
+  {
+ return fLength;
+  }
 private:
   char* fLC;
   size_t fLength;
   enum {
         STORAGE = 64
-    };
+  };
   char fStorage[STORAGE + 1];
 };
 // Helper when calling qsort with a compare proc that has typed its arguments

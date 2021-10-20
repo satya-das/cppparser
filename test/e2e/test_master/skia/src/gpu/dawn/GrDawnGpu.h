@@ -27,9 +27,13 @@ public:
   virtual ~GrDawnGpu();
   void disconnect(DisconnectType) override;
   const dawn::Device& device() const
-  { return fDevice; }
+  {
+ return fDevice;
+  }
   const dawn::Queue& queue() const
-  { return fQueue; }
+  {
+ return fQueue;
+  }
   void xferBarrier(GrRenderTarget*, GrXferBarrierType) override
   {
   }
@@ -47,7 +51,7 @@ public:
   SkSL::Compiler* shaderCompiler() const
   {
         return fCompiler.get();
-    }
+  }
   void submit(GrOpsRenderPass*) override;
   GrFence SK_WARN_UNUSED_RESULT insertFence() override;
   bool waitFence(GrFence, uint64_t timeout) override;
@@ -63,7 +67,9 @@ public:
   GrDawnRingBuffer::Slice allocateUniformRingBufferSlice(int size);
   GrDawnStagingBuffer* getStagingBuffer(size_t size);
   GrDawnStagingManager* getStagingManager()
-  { return &fStagingManager; }
+  {
+ return &fStagingManager;
+  }
   dawn::CommandEncoder getCopyEncoder();
   void flushCopyEncoder();
   void appendCommandBuffer(dawn::CommandBuffer commandBuffer);
@@ -103,14 +109,14 @@ private:
     uint32_t operator()(const GrProgramDesc& desc) const
     {
             return SkOpts::hash_fn(desc.asKey(), desc.keyLength(), 0);
-        }
+    }
   };
   struct SamplerHash
   {
     size_t operator()(const GrSamplerState& samplerState) const
     {
             return SkOpts::hash_fn(&samplerState, sizeof(samplerState), 0);
-        }
+    }
   };
   SkLRUCache<GrProgramDesc, sk_sp<GrDawnProgram>, ProgramDescHash> fRenderPipelineCache;
   std::unordered_map<GrSamplerState, dawn::Sampler, SamplerHash> fSamplers;

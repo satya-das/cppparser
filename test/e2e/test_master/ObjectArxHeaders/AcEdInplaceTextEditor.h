@@ -55,7 +55,7 @@ public:
         /// multi-attribute.
         /// </summary>
         kMultiAttribute
-    };
+  };
     ///<summary> 
     /// The enum type is to specify the editing flags when invoking the text editor.
     /// You can set one or several flags for the text editor.
@@ -77,7 +77,7 @@ public:
         /// if user set the kSelectAll and kCursorAtEnd, it will ignore the kCursorAtEnd.
         ///</summary>
         kCursorAtEnd = 1 << 2,
-    };
+  };
     ///<summary> 
     /// Get the editing flags you specified.
     ///</summary>
@@ -475,7 +475,7 @@ public:
         /// For internal use only.
         /// </summary>
         kUndoDimensionTemplate,
-    };
+  };
     ///<summary> 
     /// Check that there is something to undo.
     ///</summary>

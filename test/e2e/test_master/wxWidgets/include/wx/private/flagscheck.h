@@ -42,7 +42,9 @@ namespace wxPrivate
   template <int val>
   struct FlagValue
   {
-    enum { value = val };
+    enum {
+ value = val
+    };
   };
 // This template adds its template parameter integer 'add' to another integer
 // 'all' and produces their OR-combination (all | add). The result is "stored"
@@ -60,7 +62,9 @@ namespace wxPrivate
     // AddedValue::value, but there's no such thing in
     // FlagsHaveConflictingValues<> and so compilation will fail.
     typedef typename wxIf<(all & add) == 0, FlagValue<add>, FlagsHaveConflictingValues<add> >::value AddedValue;
-    enum { value = all | AddedValue::value };
+    enum {
+ value = all | AddedValue::value
+    };
   };
 }
 // This macro is used to ensure that no two flags that can be combined in

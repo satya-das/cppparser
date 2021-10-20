@@ -84,7 +84,9 @@ public:
     // get the config object, creates it on demand unless DontCreateOnDemand
     // was called
   static wxConfigBase* Get(bool createOnDemand = true)
-  { if ( createOnDemand && (!ms_pConfig) ) Create(); return ms_pConfig; }
+  {
+ if ( createOnDemand && (!ms_pConfig) ) Create(); return ms_pConfig;
+  }
     // create a new config object: this function will create the "best"
     // implementation of wxConfig available for the current platform, see
     // comments near definition wxUSE_CONFIG_NATIVE for details. It returns
@@ -92,7 +94,9 @@ public:
   static wxConfigBase* Create();
     // should Get() try to create a new log object if the current one is NULL?
   static void DontCreateOnDemand()
-  { ms_bAutoCreate = false; }
+  {
+ ms_bAutoCreate = false;
+  }
   // ctor & virtual dtor
       // ctor (can be used as default ctor too)
       //
@@ -128,7 +132,9 @@ public:
   virtual bool HasEntry(const wxString& strName) const = 0;
     // returns true if either a group or an entry with a given name exist
   bool Exists(const wxString& strName) const
-  { return HasGroup(strName) || HasEntry(strName); }
+  {
+ return HasGroup(strName) || HasEntry(strName);
+  }
     // get the entry type
   virtual EntryType GetEntryType(const wxString& name) const
   {
@@ -159,7 +165,9 @@ public:
 #    if  wxUSE_BASE64
     // read a binary data block
   bool Read(const wxString& key, wxMemoryBuffer* data) const
-  { return DoReadBinary(key, data); }
+  {
+ return DoReadBinary(key, data);
+  }
    // no default version since it does not make sense for binary data
 #    endif
 #    ifdef wxHAS_CONFIG_TEMPLATE_RW
@@ -187,75 +195,125 @@ public:
 #    endif
   // convenience functions returning directly the value
   wxString Read(const wxString& key, const wxString& defVal = wxEmptyString) const
-  { wxString s; (void)Read(key, &s, defVal); return s; }
+  {
+ wxString s; (void)Read(key, &s, defVal); return s;
+  }
   // we have to provide a separate version for C strings as otherwise the
   // template Read() would be used
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxString Read(const wxString& key, const char* defVal) const
-  { return Read(key, wxString(defVal)); }
+  {
+ return Read(key, wxString(defVal));
+  }
 #    endif
   wxString Read(const wxString& key, const wchar_t* defVal) const
-  { return Read(key, wxString(defVal)); }
+  {
+ return Read(key, wxString(defVal));
+  }
   long ReadLong(const wxString& key, long defVal) const
-  { long l; (void)Read(key, &l, defVal); return l; }
+  {
+ long l; (void)Read(key, &l, defVal); return l;
+  }
   double ReadDouble(const wxString& key, double defVal) const
-  { double d; (void)Read(key, &d, defVal); return d; }
+  {
+ double d; (void)Read(key, &d, defVal); return d;
+  }
   bool ReadBool(const wxString& key, bool defVal) const
-  { bool b; (void)Read(key, &b, defVal); return b; }
+  {
+ bool b; (void)Read(key, &b, defVal); return b;
+  }
   template <typename T>
   T ReadObject(const wxString& key, const T& defVal) const
-  { T t; (void)Read(key, &t, defVal); return t; }
+  {
+ T t; (void)Read(key, &t, defVal); return t;
+  }
   // for compatibility with wx 2.8
   long Read(const wxString& key, long defVal) const
-  { return ReadLong(key, defVal); }
+  {
+ return ReadLong(key, defVal);
+  }
   // write the value (return true on success)
   bool Write(const wxString& key, const wxString& value)
-  { return DoWriteString(key, value); }
+  {
+ return DoWriteString(key, value);
+  }
   bool Write(const wxString& key, long value)
-  { return DoWriteLong(key, value); }
+  {
+ return DoWriteLong(key, value);
+  }
   bool Write(const wxString& key, double value)
-  { return DoWriteDouble(key, value); }
+  {
+ return DoWriteDouble(key, value);
+  }
   bool Write(const wxString& key, bool value)
-  { return DoWriteBool(key, value); }
+  {
+ return DoWriteBool(key, value);
+  }
 #    if  wxUSE_BASE64
   bool Write(const wxString& key, const wxMemoryBuffer& buf)
-  { return DoWriteBinary(key, buf); }
+  {
+ return DoWriteBinary(key, buf);
+  }
 #    endif
   // we have to provide a separate version for C strings as otherwise they
   // would be converted to bool and not to wxString as expected!
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   bool Write(const wxString& key, const char* value)
-  { return Write(key, wxString(value)); }
+  {
+ return Write(key, wxString(value));
+  }
   bool Write(const wxString& key, const unsigned char* value)
-  { return Write(key, wxString(value)); }
+  {
+ return Write(key, wxString(value));
+  }
 #    endif
   bool Write(const wxString& key, const wchar_t* value)
-  { return Write(key, wxString(value)); }
+  {
+ return Write(key, wxString(value));
+  }
   // we also have to provide specializations for other types which we want to
   // handle using the specialized DoWriteXXX() instead of the generic template
   // version below
   bool Write(const wxString& key, char value)
-  { return DoWriteLong(key, value); }
+  {
+ return DoWriteLong(key, value);
+  }
   bool Write(const wxString& key, unsigned char value)
-  { return DoWriteLong(key, value); }
+  {
+ return DoWriteLong(key, value);
+  }
   bool Write(const wxString& key, short value)
-  { return DoWriteLong(key, value); }
+  {
+ return DoWriteLong(key, value);
+  }
   bool Write(const wxString& key, unsigned short value)
-  { return DoWriteLong(key, value); }
+  {
+ return DoWriteLong(key, value);
+  }
   bool Write(const wxString& key, unsigned int value)
-  { return DoWriteLong(key, value); }
+  {
+ return DoWriteLong(key, value);
+  }
   bool Write(const wxString& key, int value)
-  { return DoWriteLong(key, value); }
+  {
+ return DoWriteLong(key, value);
+  }
   bool Write(const wxString& key, unsigned long value)
-  { return DoWriteLong(key, value); }
+  {
+ return DoWriteLong(key, value);
+  }
   bool Write(const wxString& key, float value)
-  { return DoWriteDouble(key, double(value)); }
+  {
+ return DoWriteDouble(key, double(value));
+  }
   // Causes ambiguities in under OpenVMS
 #    if  !defined( __VMS )
   // for other types, use wxToString()
   template <typename T>
   bool Write(const wxString& key, const T& value)
-  { return Write(key, wxToString(value)); }
+  {
+ return Write(key, wxToString(value));
+  }
 #    endif
   // permanently writes all changes
   virtual bool Flush(bool bCurrentOnly = false) = 0;
@@ -278,33 +336,55 @@ public:
     // we can automatically expand environment variables in the config entries
     // (this option is on by default, you can turn it on/off at any time)
   bool IsExpandingEnvVars() const
-  { return m_bExpandEnvVars; }
+  {
+ return m_bExpandEnvVars;
+  }
   void SetExpandEnvVars(bool bDoIt = true)
-  { m_bExpandEnvVars = bDoIt; }
+  {
+ m_bExpandEnvVars = bDoIt;
+  }
     // recording of default values
   void SetRecordDefaults(bool bDoIt = true)
-  { m_bRecordDefaults = bDoIt; }
+  {
+ m_bRecordDefaults = bDoIt;
+  }
   bool IsRecordingDefaults() const
-  { return m_bRecordDefaults; }
+  {
+ return m_bRecordDefaults;
+  }
   // does expansion only if needed
   wxString ExpandEnvVars(const wxString& str) const;
     // misc accessors
   wxString GetAppName() const
-  { return m_appName; }
+  {
+ return m_appName;
+  }
   wxString GetVendorName() const
-  { return m_vendorName; }
+  {
+ return m_vendorName;
+  }
   // Used wxIniConfig to set members in constructor
   void SetAppName(const wxString& appName)
-  { m_appName = appName; }
+  {
+ m_appName = appName;
+  }
   void SetVendorName(const wxString& vendorName)
-  { m_vendorName = vendorName; }
+  {
+ m_vendorName = vendorName;
+  }
   void SetStyle(long style)
-  { m_style = style; }
+  {
+ m_style = style;
+  }
   long GetStyle() const
-  { return m_style; }
+  {
+ return m_style;
+  }
 protected:
   static bool IsImmutable(const wxString& key)
-  { return !key.IsEmpty() && key[0] == wxCONFIG_IMMUTABLE_PREFIX; }
+  {
+ return !key.IsEmpty() && key[0] == wxCONFIG_IMMUTABLE_PREFIX;
+  }
   // return the path without trailing separator, if any: this should be called
   // to sanitize paths referring to the group names before passing them to
   // wxConfigPathChanger as "/foo/bar/" should be the same as "/foo/bar" and it
@@ -354,7 +434,9 @@ public:
   ~wxConfigPathChanger();
   // get the key name
   const wxString& Name() const
-  { return m_strName; }
+  {
+ return m_strName;
+  }
   // this method must be called if the original path (i.e. the current path at
   // the moment of creation of this object) could have been deleted to prevent
   // us from restoring the not existing (any more) path

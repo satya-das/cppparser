@@ -11,7 +11,9 @@
 class SkColorFilter_Matrix : public SkColorFilter
 {
 public:
-  enum class Domain : uint8_t { kRGBA, kHSLA };
+  enum class Domain : uint8_t {
+ kRGBA, kHSLA
+  };
   explicit SkColorFilter_Matrix(const float array[20], Domain);
   uint32_t getFlags() const override;
 #  if  SK_SUPPORT_GPU

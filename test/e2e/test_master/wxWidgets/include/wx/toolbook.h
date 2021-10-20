@@ -33,16 +33,14 @@ class WXDLLIMPEXP_CORE wxToolbook : public wxNavigationEnabled<wxBookCtrlBase>
 public:
   wxToolbook()
   {
-
         Init();
-      }
+  }
   wxToolbook(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString)
   {
-
         Init();
 
         (void)Create(parent, id, pos, size, style, name);
-      }
+  }
     // quasi ctor
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString);
     // implement base class virtuals
@@ -52,9 +50,13 @@ public:
   bool SetPageImage(size_t n, int imageId) override;
   bool InsertPage(size_t n, wxWindow* page, const wxString& text, bool bSelect = false, int imageId = NO_IMAGE) override;
   int SetSelection(size_t n) override
-  { return DoSetSelection(n, SetSelection_SendEvent); }
+  {
+ return DoSetSelection(n, SetSelection_SendEvent);
+  }
   int ChangeSelection(size_t n) override
-  { return DoSetSelection(n); }
+  {
+ return DoSetSelection(n);
+  }
   void SetImageList(wxImageList* imageList) override;
   bool DeleteAllPages() override;
   int HitTest(const wxPoint& pt, long* flags = NULL) const override;
@@ -62,7 +64,9 @@ public:
 
     // get the underlying toolbar
   wxToolBarBase* GetToolBar() const
-  { return (wxToolBarBase*)m_bookctrl; }
+  {
+ return (wxToolBarBase*)m_bookctrl;
+  }
     // enable/disable a page
   bool EnablePage(wxWindow* page, bool enable);
   bool EnablePage(size_t page, bool enable);

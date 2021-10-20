@@ -194,7 +194,9 @@ namespace PoDoFo
      */
     virtual EPdfFilter GetType() const = 0;
     PODOFO_NOTHROW inline PdfOutputStream* GetStream() const
-    { return m_pOutputStream; }
+    {
+ return m_pOutputStream;
+    }
   protected:
     /**
      * Indicate that the filter has failed, and will be non-functional
@@ -219,7 +221,9 @@ namespace PoDoFo
      * \see BeginEncode
      */
     virtual void BeginEncodeImpl()
-    { }
+    {
+
+    }
     /** Real implementation of EncodeBlock(). NEVER call this method directly.
      *
      *  You must method-override it to encode the buffer passed by the caller.
@@ -248,7 +252,9 @@ namespace PoDoFo
      * \see EndEncode
      */
     virtual void EndEncodeImpl()
-    { }
+    {
+
+    }
     /** Real implementation of BeginDecode(). NEVER call this method directly.
      *
      *  By default this function does nothing. If your filter needs to do setup
@@ -260,7 +266,9 @@ namespace PoDoFo
      * \see BeginDecode
      */
     virtual void BeginDecodeImpl(const PdfDictionary*)
-    { }
+    {
+
+    }
     /** Real implementation of DecodeBlock(). NEVER call this method directly.
      *
      *  You must method-override it to decode the buffer passed by the caller.
@@ -289,7 +297,9 @@ namespace PoDoFo
      * \see EndDecode
      */
     virtual void EndDecodeImpl()
-    { }
+    {
+
+    }
   private:
     PdfOutputStream* m_pOutputStream;
   };
@@ -308,7 +318,7 @@ namespace PoDoFo
 		this->FailEncodeDecode();
 		throw e;
 	}
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -323,7 +333,7 @@ namespace PoDoFo
 		this->FailEncodeDecode();
 		throw e;
 	}
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -341,7 +351,7 @@ namespace PoDoFo
 
     m_pOutputStream->Close();
     m_pOutputStream = NULL;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -356,8 +366,8 @@ namespace PoDoFo
 		// Clean up and close stream
 		this->FailEncodeDecode();
 		throw e;
-	}    
-}
+	}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -371,8 +381,8 @@ namespace PoDoFo
 		// Clean up and close stream
 		this->FailEncodeDecode();
 		throw e;
-	}    
-}
+	}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -399,8 +409,8 @@ namespace PoDoFo
             // Closing stream failed, just get rid of it
             m_pOutputStream = NULL;
             throw e;
-    } 
-}
+    }
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
@@ -409,13 +419,12 @@ namespace PoDoFo
     if ( m_pOutputStream != NULL ) // OC 19.08.2010 BugFix: Sometimes FailEncodeDecode() is called twice
         m_pOutputStream->Close(); // mabri: issue #58 seems fixed without exception safety here ...
     m_pOutputStream = NULL;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfFilter::~PdfFilter()
   {
-
     // Whoops! Didn't call EndEncode() before destroying the filter!
     // Note that we can't do this for the user, since EndEncode() might
     // throw and we can't safely have that in a dtor. That also means

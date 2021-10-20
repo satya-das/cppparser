@@ -24,7 +24,7 @@ class SkCanvasPriv
 public:
   enum {
         kDontClipToLayer_SaveLayerFlag = SkCanvas::kDontClipToLayer_PrivateSaveLayerFlag,
-    };
+  };
     // The lattice has pointers directly into the readbuffer
   static bool ReadLattice(SkReadBuffer&, SkCanvas::Lattice*);
   static void WriteLattice(SkWriteBuffer&, const SkCanvas::Lattice&);
@@ -35,11 +35,11 @@ public:
   static int SaveBehind(SkCanvas* canvas, const SkRect* subset)
   {
         return canvas->only_axis_aligned_saveBehind(subset);
-    }
+  }
   static void DrawBehind(SkCanvas* canvas, const SkPaint& paint)
   {
         canvas->drawClippedToSaveBehind(paint);
-    }
+  }
     // The experimental_DrawEdgeAAImageSet API accepts separate dstClips and preViewMatrices arrays,
     // where entries refer into them, but no explicit size is provided. Given a set of entries,
     // computes the minimum length for these arrays that would provide index access errors.

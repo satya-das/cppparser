@@ -90,7 +90,7 @@ namespace SkSL
         }
     }
     ABORT("cannot swizzle %s\n", value.description().c_str());
-}
+  }
 /**
  * Represents a vector swizzle operation such as 'float2(1, 2, 3).zyx'.
  */
@@ -99,11 +99,10 @@ namespace SkSL
     Swizzle(const Context& context, std::unique_ptr<Expression> base, std::vector<int> components)
       :  INHERITED(base->fOffset, kSwizzle_Kind, get_type(context, *base, components.size()))
     , fBase(std::move(base))
-    , fComponents(std::move(components)) 
-      {
-
+    , fComponents(std::move(components))
+    {
         SkASSERT(fComponents.size() >= 1 && fComponents.size() <= 4);
-          }
+    }
     std::unique_ptr<Expression> constantPropagate(const IRGenerator& irGenerator, const DefinitionMap& definitions) override
     {
         if (fBase->fKind == Expression::kConstructor_Kind && fBase->isConstant()) {
@@ -148,11 +147,10 @@ namespace SkSL
     Swizzle(const Type& type, std::unique_ptr<Expression> base, std::vector<int> components)
       :  INHERITED(base->fOffset, kSwizzle_Kind, type)
     , fBase(std::move(base))
-    , fComponents(std::move(components)) 
-      {
-
+    , fComponents(std::move(components))
+    {
         SkASSERT(fComponents.size() >= 1 && fComponents.size() <= 4);
-          }
+    }
   };
 }
 #endif

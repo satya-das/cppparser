@@ -18,9 +18,9 @@ namespace SkSL
     WhileStatement(int offset, std::unique_ptr<Expression> test, std::unique_ptr<Statement> statement)
       :  INHERITED(offset, kWhile_Kind)
     , fTest(std::move(test))
-    , fStatement(std::move(statement)) 
-      {
-      }
+    , fStatement(std::move(statement))
+    {
+    }
     std::unique_ptr<Statement> clone() const override
     {
         return std::unique_ptr<Statement>(new WhileStatement(fOffset, fTest->clone(),

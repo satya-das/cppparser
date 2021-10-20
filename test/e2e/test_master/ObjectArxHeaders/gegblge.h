@@ -19,7 +19,9 @@
 struct AcGe
 {
   GE_DLLDATAEXIMP static const AcGeLibVersion gLibVersion;
-  enum { eGood, eBad };
+  enum {
+ eGood, eBad
+  };
   enum EntityId {
         kEntity2d,
         kEntity3d,
@@ -102,13 +104,21 @@ struct AcGe
 		kCurveSurfaceInt,
 		kSurfaceSurfaceInt,
         kHelix
-    };
-  enum ExternalEntityKind {kAcisEntity= 0, kExternalEntityUndefined};
-  enum PointContainment {kInside, kOutside, kOnBoundary};
-  enum NurbSurfaceProperties {kOpen=0x01, kClosed=0x02, kPeriodic=0x04,
+  };
+  enum ExternalEntityKind {
+kAcisEntity= 0, kExternalEntityUndefined
+  };
+  enum PointContainment {
+kInside, kOutside, kOnBoundary
+  };
+  enum NurbSurfaceProperties {
+kOpen=0x01, kClosed=0x02, kPeriodic=0x04,
                                 kRational=0x08, kNoPoles=0x10, kPoleAtMin=0x20,
-                                kPoleAtMax=0x40, kPoleAtBoth=0x80};
-  enum OffsetCrvExtType {kFillet, kChamfer, kExtend};
+                                kPoleAtMax=0x40, kPoleAtBoth=0x80
+  };
+  enum OffsetCrvExtType {
+kFillet, kChamfer, kExtend
+  };
   enum AcGeXConfig {
         kNotDefined = 1 << 0,
         kUnknown = 1 << 1,
@@ -125,13 +135,15 @@ struct AcGe
         kOverlapStart = 1 << 12,
         kOverlapEnd = 1 << 13,
         kOverlapOverlap = 1 << 14
-    };
-  enum BooleanType {kUnion, kSubtract, kCommon};
+  };
+  enum BooleanType {
+kUnion, kSubtract, kCommon
+  };
   enum ClipError {
         eOk, 
         eInvalidClipBoundary,
         eNotInitialized
-    };
+  };
   enum ClipCondition {
         kInvalid, 
         kAllSegmentsInside,
@@ -139,8 +151,8 @@ struct AcGe
         kAllSegmentsOutsideZeroWinds,
         kAllSegmentsOutsideOddWinds,
         kAllSegmentsOutsideEvenWinds
-    };
-  enum ErrorCondition { 
+  };
+  enum ErrorCondition {
 		kOk, 
 		k0This,
 		k0Arg1,
@@ -153,7 +165,7 @@ struct AcGe
 		kArg1TooBig,
 		kArg1OnThis,
 		kArg1InsideThis
-	};
+  };
 // Curve/surface intersection configuration.
 // Categorize an intersection and categorize a neighborhood of the 
 // curve just above or below the curve/surface intersection.  
@@ -161,7 +173,7 @@ struct AcGe
 // If an intersection is not empty, coincident or tangent, it is transverse.
 // 'Inside' and 'outside' the surface is with respect to its surface normal
 // orientation.
-  enum csiConfig { 
+  enum csiConfig {
   kXUnknown, 
   kXOut, 						// Transverse.  Curve neighborhood is outside the surface.
   kXIn,							 // Transverse.  Curve neighborhood is inside the surface.
@@ -169,7 +181,7 @@ struct AcGe
   kXTanIn,						//  Tangent.  Curve neighborhood is inside the surface.
   kXCoincident,					// Non-zero length.  Point is on the intersection boundary.
   kXCoincidentUnbounded	// Non-zero length.  Point is an arbitrary point on an unbounded intersection.
- };
+  };
 // Categorize the surface/surface intersection component.
   enum ssiType {
   kSSITransverse,	// Non-tangent intersection.
@@ -187,25 +199,25 @@ struct AcGe
 // The surface neighborhoods 'left' and 'right' of a curve on a surface
 // are with respect to its surface normal orientation and the direction of
 // the curve parameterization.
-  enum ssiConfig { 
+  enum ssiConfig {
   kSSIUnknown, 
   kSSIOut, 					 // Neighborhood is outside the surface.
   kSSIIn,					  // Neighborhood is inside the surface.
   kSSICoincident	     // Non-zero area intersection.
- };
+  };
   enum AcGeIntersectError {
     kXXOk,
     kXXIndexOutOfRange,
     kXXWrongDimensionAtIndex,
     kXXUnknown
-};
+  };
   enum KnotParameterization {
     kChord = 0,
     kSqrtChord,
     kUniform,
     kCustomParameterization = 15,
     kNotDefinedKnotParam = 16
-};
+  };
 #  pragma  pack (pop)
 #  ifdef GE_LOCATED_NEW
 #    include "gemetatp.h"

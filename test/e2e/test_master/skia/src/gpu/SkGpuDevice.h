@@ -32,7 +32,7 @@ public:
   enum InitContents {
         kClear_InitContents,
         kUninit_InitContents
-    };
+  };
     /**
      * Creates an SkGpuDevice from a GrRenderTargetContext whose backing width/height is
      * different than its actual width/height (e.g., approx-match scratch texture).
@@ -51,7 +51,9 @@ public:
   {
   }
   GrContext* context() const override
-  { return fContext.get(); }
+  {
+ return fContext.get();
+  }
     // set all pixels to 0
   void clearAll();
   void replaceRenderTargetContext(bool shouldRetainContent);
@@ -100,16 +102,20 @@ private:
         kNeedClear_Flag = 1 << 0,  //!< Surface requires an initial clear
         kIsOpaque_Flag  = 1 << 1,  //!< Hint from client that rendering to this device will be
                                    //   opaque even if the config supports alpha.
-    };
+  };
   static bool CheckAlphaTypeAndGetFlags(const SkImageInfo* info, InitContents init, unsigned* flags);
   SkGpuDevice(GrContext*, std::unique_ptr<GrRenderTargetContext>, unsigned flags);
   SkBaseDevice* onCreateDevice(const CreateInfo&, const SkPaint*) override;
   sk_sp<SkSurface> makeSurface(const SkImageInfo&, const SkSurfaceProps&) override;
   SkImageFilterCache* getImageFilterCache() override;
   bool forceConservativeRasterClip() const override
-  { return true; }
+  {
+ return true;
+  }
   GrClipStackClip clip() const
-  { return GrClipStackClip(&this->cs()); }
+  {
+ return GrClipStackClip(&this->cs());
+  }
   const GrCaps* caps() const;
     /**
      * Helper functions called by drawBitmapCommon. By the time these are called the SkDraw's

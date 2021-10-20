@@ -38,7 +38,7 @@ public:
 
         kTotalCount,		///< Total number of SteeringWheel types.
         kWheelNone			///< Marks a disabled SteeringWheel.
-    };
+  };
   enum MenuType {
         // Steering Wheel Menus
         kMenuNone = 0,
@@ -46,7 +46,7 @@ public:
         kMenuExterior,
         kMenuFull,
         kMenu2D
-    };
+  };
     // Message handlers
   virtual void onKeyDown(UINT nChar, UINT nRepCount, UINT nFlags) = 0;
   virtual void onKeyUp(UINT nChar, UINT nRepCount, UINT nFlags) = 0;

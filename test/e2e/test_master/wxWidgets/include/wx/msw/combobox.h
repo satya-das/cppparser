@@ -20,45 +20,59 @@ class WXDLLIMPEXP_CORE wxComboBox : public wxChoice, public wxTextEntry
 public:
   wxComboBox()
   {
- Init();   }
+ Init();
+  }
   wxComboBox(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
   {
-
         Init();
         Create(parent, id, value, pos, size, n, choices, style, validator, name);
-
-      }
+  }
   wxComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
   {
-
         Init();
 
         Create(parent, id, value, pos, size, choices, style, validator, name);
-      }
+  }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
     // See wxComboBoxBase discussion of IsEmpty().
   bool IsListEmpty() const
-  { return wxItemContainer::IsEmpty(); }
+  {
+ return wxItemContainer::IsEmpty();
+  }
   bool IsTextEmpty() const
-  { return wxTextEntry::IsEmpty(); }
+  {
+ return wxTextEntry::IsEmpty();
+  }
     // resolve ambiguities among virtual functions inherited from both base
     // classes
   void Clear() override;
   wxString GetValue() const override;
   void SetValue(const wxString& value) override;
   wxString GetStringSelection() const override
-  { return wxChoice::GetStringSelection(); }
+  {
+ return wxChoice::GetStringSelection();
+  }
   virtual void Popup()
-  { MSWDoPopupOrDismiss(true); }
+  {
+ MSWDoPopupOrDismiss(true);
+  }
   virtual void Dismiss()
-  { MSWDoPopupOrDismiss(false); }
+  {
+ MSWDoPopupOrDismiss(false);
+  }
   void SetSelection(int n) override
-  { wxChoice::SetSelection(n); }
+  {
+ wxChoice::SetSelection(n);
+  }
   void SetSelection(long from, long to) override
-  { wxTextEntry::SetSelection(from, to); }
+  {
+ wxTextEntry::SetSelection(from, to);
+  }
   int GetSelection() const override
-  { return wxChoice::GetSelection(); }
+  {
+ return wxChoice::GetSelection();
+  }
   bool ContainsHWND(WXHWND hWnd) const override;
   void GetSelection(long* from, long* to) const override;
   bool IsEditable() const override;
@@ -89,7 +103,9 @@ public:
 #    endif
   void SetLayoutDirection(wxLayoutDirection dir) override;
   const wxTextEntry* WXGetTextEntry() const override
-  { return this; }
+  {
+ return this;
+  }
 #    if  wxUSE_TOOLTIPS
 protected:
   void DoSetToolTip(wxToolTip* tip) override;
@@ -108,7 +124,7 @@ protected:
   void EnableTextChangedEvents(bool enable) override
   {
         m_allowTextEvents = enable;
-    }
+  }
 private:
     // there are the overridden wxTextEntry methods which should only be called
     // when we do have an edit control so they assert if this is not the case
@@ -124,7 +140,7 @@ private:
   void Init()
   {
         m_allowTextEvents = true;
-    }
+  }
     // normally true, false if text events are currently disabled
   bool m_allowTextEvents;
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxComboBox);

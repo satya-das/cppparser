@@ -42,7 +42,7 @@ public:
         kSoftPtrId,
         kBool,
         kVector
-    };
+  };
     // Constructors
   AcDbDataCell();
   AcDbDataCell(const AcDbDataCell& rCell);

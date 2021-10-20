@@ -90,48 +90,42 @@ public:
     ////////////////////////////////////////////////////////////////////////////
   wxGenericDragImage(const wxCursor& cursor = wxNullCursor)
   {
-
         Init();
         Create(cursor);
-      }
+  }
   wxGenericDragImage(const wxBitmap& image, const wxCursor& cursor = wxNullCursor)
   {
-
         Init();
 
         Create(image, cursor);
-      }
+  }
   wxGenericDragImage(const wxIcon& image, const wxCursor& cursor = wxNullCursor)
   {
-
         Init();
 
         Create(image, cursor);
-      }
+  }
   wxGenericDragImage(const wxString& str, const wxCursor& cursor = wxNullCursor)
   {
-
         Init();
 
         Create(str, cursor);
-      }
+  }
 #  if  wxUSE_TREECTRL
   wxGenericDragImage(const wxTreeCtrl& treeCtrl, wxTreeItemId& id)
   {
-
         Init();
 
         Create(treeCtrl, id);
-      }
+  }
 #  endif
 #  if  wxUSE_LISTCTRL
   wxGenericDragImage(const wxListCtrl& listCtrl, long id)
   {
-
         Init();
 
         Create(listCtrl, id);
-      }
+  }
 #  endif
   virtual ~wxGenericDragImage();
     // Attributes
@@ -139,12 +133,16 @@ public:
 #  ifdef wxHAS_NATIVE_OVERLAY
     // backing store is not used when native overlays are
   void SetBackingBitmap(wxBitmap*)
-  { }
+  {
+
+  }
 #  else 
     // For efficiency, tell wxGenericDragImage to use a bitmap that's already
     // created (e.g. from last drag)
   void SetBackingBitmap(wxBitmap* bitmap)
-  { m_pBackingBitmap = bitmap; }
+  {
+ m_pBackingBitmap = bitmap;
+  }
 #  endif
     // Operations
     ////////////////////////////////////////////////////////////////////////////

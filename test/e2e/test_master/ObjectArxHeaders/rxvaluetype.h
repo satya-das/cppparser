@@ -119,9 +119,11 @@ public:
 class IAcRxReferenceType
 {
 public:
-  enum OpenMode { kForRead           = 0,
+  enum OpenMode {
+ kForRead           = 0,
                             kForWrite          = 1,
-                            kForNotify         = 2 };
+                            kForNotify         = 2
+  };
     /// <summary>
     /// Returns the object that is dereferenced.
     /// </summary>
@@ -189,7 +191,7 @@ public:
   bool operator==(const AcRxValueType& rhs) const
   {
         return this == &rhs;
-    }
+  }
     /// <summary>
     /// Returns false if the objects are equal, true if they are not equal.
     /// </summary>
@@ -205,7 +207,7 @@ public:
   bool operator!=(const AcRxValueType& rhs) const
   {
         return this != &rhs;
-    }
+  }
     /// <summary>
     /// Throws a bad cast exception.
     /// </summary>
@@ -220,7 +222,9 @@ public:
     /// </returns>
     ///
   unsigned int size() const
-  { return m_size;}
+  {
+ return m_size;
+  }
     /// <summary>
     /// Determines if the type is blittable. Blittable types can be safely copied with memcpy.
     /// </summary>
@@ -230,7 +234,9 @@ public:
     /// </returns>
     ///
   bool isBlittable() const
-  { return m_pNonBlittable==0;}
+  {
+ return m_pNonBlittable==0;
+  }
     /// <summary>
     /// Determines if the type is an enum.
     /// </summary>
@@ -240,7 +246,9 @@ public:
     /// </returns>
     ///
   bool isEnum() const
-  {return m_pEnum!=0;}
+  {
+return m_pEnum!=0;
+  }
     /// <summary>
     /// Determines if the type is a reference type. If it supports IAcRxReferenceType.
     /// </summary>
@@ -250,7 +258,9 @@ public:
     /// </returns>
     ///
   bool isReference() const
-  { return m_pRef!=0;}
+  {
+ return m_pRef!=0;
+  }
     /// <summary>
     /// Returns the object that implements IAcRxNonBlittableType, for a non blittable type.
     /// </summary>
@@ -260,7 +270,9 @@ public:
     /// </returns>
     ///
   const IAcRxNonBlittableType* nonBlittable() const
-  {return m_pNonBlittable;}
+  {
+return m_pNonBlittable;
+  }
     /// <summary>
     /// Returns the object that implements IAcRxEnumeration, for an enum type.
     /// </summary>
@@ -270,7 +282,9 @@ public:
     /// </returns>
     ///
   const IAcRxEnumeration* enumeration() const
-  {return m_pEnum;}
+  {
+return m_pEnum;
+  }
     /// <summary>
     /// Returns the object that implements IAcRxReferenceType, for a reference type.
     /// </summary>
@@ -280,9 +294,13 @@ public:
     /// </returns>
     ///
   const IAcRxReferenceType* reference() const
-  {return m_pRef;}
+  {
+return m_pRef;
+  }
   const IAcRxObjectValue* rxObjectValue() const
-  {return m_pRxObjValue;}
+  {
+return m_pRxObjValue;
+  }
     /// <summary>
     /// StringFormat enums can be used to specify as to how the string needs to be 
     /// formatted in the toString function. If the string needs to be formatted 
@@ -291,7 +309,7 @@ public:
   enum StringFormat {
         kStringFormatGlobal = 0,
         kStringFormatCurrent = 1,
-    };
+  };
     /// <summary>
     /// This method can be used to obtain the string representation of the value.
     /// Normally there is no need to call this method, instead the toString 
@@ -330,7 +348,7 @@ public:
         //buffer==NULL && size==0 means that we should calculate the required length
         //of the buffer and return it
         return subToString(instance, buffer, sizeInACHARs, format);
-    }
+  }
     /// <summary>
     /// This method is used to compare two values.
     /// Normally there is no need to call this method, instead the equality 
@@ -358,7 +376,7 @@ public:
         if (b==NULL)
             return false;
         return subEqualTo(a, b);
-    }
+  }
     /// <summary>
     /// This class MUST BE specialized for supported types. It provides mapping from
     /// C++ type to AcRxValueType.
@@ -603,10 +621,14 @@ class Storage;
 //define global placement new  so that we can call the constructor 
 //(C++ does not allow calling the ctor directly)
 inline void* operator new(size_t size, Storage* loc)
-{ ADESK_UNREFED_PARAM(size); return loc;}
+{
+ ADESK_UNREFED_PARAM(size); return loc;
+}
 #pragma  pop_macro("new")
 #pragma  push_macro("delete")
 #undef delete
 inline void operator delete(void* p, Storage* loc)
-{ ADESK_UNREFED_PARAM(p); (loc); }
+{
+ ADESK_UNREFED_PARAM(p); (loc);
+}
 #pragma  pop_macro("delete")

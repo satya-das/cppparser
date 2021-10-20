@@ -20,11 +20,13 @@ public:
   {
         return std::unique_ptr<GrFragmentProcessor>(new GrMagnifierEffect(
                 src, bounds, srcRect, xInvZoom, yInvZoom, xInvInset, yInvInset));
-    }
+  }
   GrMagnifierEffect(const GrMagnifierEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "MagnifierEffect"; }
+  {
+ return "MagnifierEffect";
+  }
   GrCoordTransform srcCoordTransform;
   TextureSampler src;
   SkIRect bounds;
@@ -43,12 +45,11 @@ private:
             , xInvZoom(xInvZoom)
             , yInvZoom(yInvZoom)
             , xInvInset(xInvInset)
-            , yInvInset(yInvInset) 
-    {
-
+            , yInvInset(yInvInset)
+  {
         this->setTextureSamplerCnt(1);
         this->addCoordTransform(&srcCoordTransform);
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

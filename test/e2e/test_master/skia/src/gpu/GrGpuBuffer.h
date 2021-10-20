@@ -18,13 +18,21 @@ public:
      */
   static void ComputeScratchKeyForDynamicVBO(size_t size, GrGpuBufferType, GrScratchKey*);
   GrAccessPattern accessPattern() const
-  { return fAccessPattern; }
+  {
+ return fAccessPattern;
+  }
   size_t size() const final
-  { return fSizeInBytes; }
+  {
+ return fSizeInBytes;
+  }
   void ref() const final
-  { GrGpuResource::ref(); }
+  {
+ GrGpuResource::ref();
+  }
   void unref() const final
-  { GrGpuResource::unref(); }
+  {
+ GrGpuResource::unref();
+  }
     /**
      * Maps the buffer to be read or written by the CPU.
      *
@@ -54,7 +62,9 @@ public:
      */
   bool isMapped() const;
   bool isCpuBuffer() const final
-  { return false; }
+  {
+ return false;
+  }
     /**
      * Updates the buffer data.
      *
@@ -75,16 +85,22 @@ public:
 protected:
   GrGpuBuffer(GrGpu*, size_t sizeInBytes, GrGpuBufferType, GrAccessPattern);
   GrGpuBufferType intendedType() const
-  { return fIntendedType; }
+  {
+ return fIntendedType;
+  }
   void* fMapPtr;
 private:
   virtual void onMap() = 0;
   virtual void onUnmap() = 0;
   virtual bool onUpdateData(const void* src, size_t srcSizeInBytes) = 0;
   size_t onGpuMemorySize() const override
-  { return fSizeInBytes; }
+  {
+ return fSizeInBytes;
+  }
   const char* getResourceType() const override
-  { return "Buffer Object"; }
+  {
+ return "Buffer Object";
+  }
   void computeScratchKey(GrScratchKey* key) const override;
   size_t fSizeInBytes;
   GrAccessPattern fAccessPattern;

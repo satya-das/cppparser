@@ -25,7 +25,9 @@ public:
   bool Create(wxRibbonBar* parent, wxWindowID id = wxID_ANY, const wxString& label = wxEmptyString, const wxBitmap& icon = wxNullBitmap, long style = 0);
   void SetArtProvider(wxRibbonArtProvider* art) override;
   wxBitmap& GetIcon()
-  {return m_icon;}
+  {
+return m_icon;
+  }
   wxSize GetMinSize() const override;
   void SetSizeWithScrollButtonAdjustment(int x, int y, int width, int height);
   void AdjustRectToIncludeScrollButtons(wxRect* rect) const;
@@ -42,7 +44,9 @@ public:
 protected:
   wxSize DoGetBestSize() const override;
   wxBorder GetDefaultBorder() const override
-  { return wxBORDER_NONE; }
+  {
+ return wxBORDER_NONE;
+  }
   void DoSetSize(int x, int y, int width, int height, int sizeFlags = wxSIZE_AUTO) override;
   bool DoActualLayout();
   void OnEraseBackground(wxEraseEvent& evt);

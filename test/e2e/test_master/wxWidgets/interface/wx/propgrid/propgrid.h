@@ -13,7 +13,6 @@
     @{
 */
 enum wxPG_WINDOW_STYLES {
-
 /**
     This will cause Sort() automatically after an item is added.
     When inserting a lot of items in this mode, it may make sense to
@@ -93,10 +92,8 @@ wxPG_DESCRIPTION                    = 0x00002000,
     property grid. Recommended if you use a header.
 */
 wxPG_NO_INTERNAL_BORDER             = 0x00004000
-
 };
 enum wxPG_EX_WINDOW_STYLES {
-
 /**
     NOTE: wxPG_EX_xxx are extra window styles and must be set using SetExtraStyle()
     member function.
@@ -188,7 +185,6 @@ wxPG_EX_NO_TOOLBAR_DIVIDER              = 0x04000000,
 /** Show a separator below the toolbar.
 */
 wxPG_EX_TOOLBAR_SEPARATOR               = 0x08000000
-
 };
 /** Combines various styles.
 */
@@ -206,7 +202,6 @@ wxPG_EX_TOOLBAR_SEPARATOR               = 0x08000000
     @{
 */
 enum wxPG_VALIDATION_FAILURE_BEHAVIOR_FLAGS {
-
 /**
     Prevents user from leaving property unless value is valid. If this
     behaviour flag is not used, then value change is instead cancelled.

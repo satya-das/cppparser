@@ -46,11 +46,14 @@ class wxArray_SortFunction
 public:
   typedef int (wxCMPFUNC_CONV *CMPFUNC) (T* pItem1, T* pItem2);
   wxArray_SortFunction(CMPFUNC f)
-    :  m_f(f) 
-    {
-     }
+    :  m_f(f)
+  {
+
+  }
   bool operator()(const T& i1, const T& i2)
-  { return m_f(const_cast<T*>(&i1), const_cast<T*>(&i2)) < 0; }
+  {
+ return m_f(const_cast<T*>(&i1), const_cast<T*>(&i2)) < 0;
+  }
 private:
   CMPFUNC m_f;
 };
@@ -60,11 +63,14 @@ class wxSortedArray_SortFunction
 public:
   typedef int (wxCMPFUNC_CONV *CMPFUNC) (T, T);
   wxSortedArray_SortFunction(CMPFUNC f)
-    :  m_f(f) 
-    {
-     }
+    :  m_f(f)
+  {
+
+  }
   bool operator()(const T& i1, const T& i2)
-  { return m_f(i1, i2) < 0; }
+  {
+ return m_f(i1, i2) < 0;
+  }
 private:
   CMPFUNC m_f;
 };
@@ -85,48 +91,67 @@ public:
   typedef typename base_vec::size_type size_type;
   typedef T base_type;
   wxBaseArray()
-    :  base_vec() 
-    {
-     }
+    :  base_vec()
+  {
+
+  }
   explicit wxBaseArray(size_t n)
-    :  base_vec(n) 
-    {
-     }
+    :  base_vec(n)
+  {
+
+  }
   wxBaseArray(size_t n, const_reference v)
-    :  base_vec(n, v) 
-    {
-     }
+    :  base_vec(n, v)
+  {
+
+  }
   template <typename InputIterator>
   wxBaseArray(InputIterator first, InputIterator last)
     :  base_vec(first, last)
-    
-    {
-     }
+  {
+
+  }
   void Empty()
-  { this->clear(); }
+  {
+ this->clear();
+  }
   void Clear()
-  { this->clear(); }
+  {
+ this->clear();
+  }
   void Alloc(size_t uiSize)
-  { this->reserve(uiSize); }
+  {
+ this->reserve(uiSize);
+  }
   void Shrink()
   {
         wxShrinkToFit(*this);
-    }
+  }
   size_t GetCount() const
-  { return this->size(); }
+  {
+ return this->size();
+  }
   void SetCount(size_t n, T v = T())
-  { this->resize(n, v); }
+  {
+ this->resize(n, v);
+  }
   bool IsEmpty() const
-  { return this->empty(); }
+  {
+ return this->empty();
+  }
   size_t Count() const
-  { return this->size(); }
+  {
+ return this->size();
+  }
   T& Item(size_t uiIndex) const
   {
         wxASSERT( uiIndex < this->size() );
         return const_cast<T&>((*this)[uiIndex]);
-    }
+  }
   T& Last() const
-  { return Item(this->size() - 1); }
+  {
+ return Item(this->size() - 1);
+  }
   int Index(T item, bool bFromEnd = false) const
   {
         if ( bFromEnd )
@@ -147,54 +172,54 @@ public:
         }
 
         return wxNOT_FOUND;
-    }
+  }
   int Index(T lItem, SCMPFUNC fnCompare) const
   {
         Sorter p(fnCompare);
         const_iterator i = std::lower_bound(this->begin(), this->end(), lItem, p);
         return i != this->end() && !p(lItem, *i) ? (int)(i - this->begin())
                                                  : wxNOT_FOUND;
-    }
+  }
   size_t IndexForInsert(T lItem, SCMPFUNC fnCompare) const
   {
         Sorter p(fnCompare);
         const_iterator i = std::lower_bound(this->begin(), this->end(), lItem, p);
         return i - this->begin();
-    }
+  }
   void Add(T lItem, size_t nInsert = 1)
   {
         this->insert(this->end(), nInsert, lItem);
-    }
+  }
   size_t Add(T lItem, SCMPFUNC fnCompare)
   {
         size_t n = IndexForInsert(lItem, fnCompare);
         Insert(lItem, n);
         return n;
-    }
+  }
   void Insert(T lItem, size_t uiIndex, size_t nInsert = 1)
   {
         this->insert(this->begin() + uiIndex, nInsert, lItem);
-    }
+  }
   void Remove(T lItem)
   {
         int n = Index(lItem);
         wxCHECK_RET( n != wxNOT_FOUND, _WX_ERROR_REMOVE );
         RemoveAt((size_t)n);
-    }
+  }
   void RemoveAt(size_t uiIndex, size_t nRemove = 1)
   {
         this->erase(this->begin() + uiIndex, this->begin() + uiIndex + nRemove);
-    }
+  }
   void Sort(CMPFUNC fCmp)
   {
         wxArray_SortFunction<T> p(fCmp);
         std::sort(this->begin(), this->end(), p);
-    }
+  }
   void Sort(SCMPFUNC fCmp)
   {
         Sorter p(fCmp);
         std::sort(this->begin(), this->end(), p);
-    }
+  }
 };
 // ============================================================================
 // The private helper macros containing the core of the array classes
@@ -221,25 +246,26 @@ class wxBaseSortedArray : public wxBaseArray<T, Sorter>
 public:
   typedef typename Sorter::CMPFUNC SCMPFUNC;
   explicit wxBaseSortedArray(SCMPFUNC fn)
-    :  m_fnCompare(fn) 
-    {
-     }
+    :  m_fnCompare(fn)
+  {
+
+  }
   size_t IndexForInsert(T item) const
   {
         return this->wxBaseArray<T, Sorter>::IndexForInsert(item, m_fnCompare);
-    }
+  }
   void AddAt(T item, size_t index)
   {
         this->insert(this->begin() + index, item);
-    }
+  }
   size_t Add(T item)
   {
         return this->wxBaseArray<T, Sorter>::Add(item, m_fnCompare);
-    }
+  }
   void push_back(T item)
   {
         Add(item);
-    }
+  }
 private:
   SCMPFUNC m_fnCompare;
 };
@@ -262,54 +288,67 @@ public:
   wxBaseObjectArray()
   {
 
-      }
+  }
   wxBaseObjectArray(const wxBaseObjectArray& src)
     :  base()
-    
-    {
-
+  {
         DoCopy(src);
-        }
+  }
   wxBaseObjectArray& operator=(const wxBaseObjectArray& src)
   {
         Empty();
         DoCopy(src);
 
         return *this;
-    }
+  }
   ~wxBaseObjectArray()
   {
-
         Empty();
-      }
+  }
   void Alloc(size_t count)
-  { base::reserve(count); }
+  {
+ base::reserve(count);
+  }
   void reserve(size_t count)
-  { base::reserve(count); }
+  {
+ base::reserve(count);
+  }
   size_t GetCount() const
-  { return base::size(); }
+  {
+ return base::size();
+  }
   size_t size() const
-  { return base::size(); }
+  {
+ return base::size();
+  }
   bool IsEmpty() const
-  { return base::empty(); }
+  {
+ return base::empty();
+  }
   bool empty() const
-  { return base::empty(); }
+  {
+ return base::empty();
+  }
   size_t Count() const
-  { return base::size(); }
+  {
+ return base::size();
+  }
   void Shrink()
-  { base::Shrink(); }
+  {
+ base::Shrink();
+  }
   T& operator[](size_t uiIndex) const
   {
         return *base::operator[](uiIndex);
-    }
+  }
   T& Item(size_t uiIndex) const
   {
         return *base::operator[](uiIndex);
-    }
+  }
   T& Last() const
   {
         return *(base::operator[](size() - 1));
-    }
+  }
   int Index(const T& item, bool bFromEnd = false) const
   {
         if ( bFromEnd )
@@ -336,7 +375,7 @@ public:
         }
 
         return wxNOT_FOUND;
-    }
+  }
   void Add(const T& item, size_t nInsert = 1)
   {
         if ( nInsert == 0 )
@@ -350,15 +389,19 @@ public:
 
         for ( size_t i = 1; i < nInsert; i++ )
             base::operator[](nOldSize + i) = Traits::Clone(item);
-    }
+  }
   void Add(const T* pItem)
   {
         base::push_back(const_cast<T*>(pItem));
-    }
+  }
   void push_back(const T* pItem)
-  { Add(pItem); }
+  {
+ Add(pItem);
+  }
   void push_back(const T& item)
-  { Add(item); }
+  {
+ Add(item);
+  }
   void Insert(const T& item, size_t uiIndex, size_t nInsert = 1)
   {
         if ( nInsert == 0 )
@@ -370,22 +413,26 @@ public:
 
         for ( size_t i = 1; i < nInsert; ++i )
             base::operator[](uiIndex + i) = Traits::Clone(item);
-    }
+  }
   void Insert(const T* pItem, size_t uiIndex)
   {
         base::insert(this->begin() + uiIndex, const_cast<T*>(pItem));
-    }
+  }
   void Empty()
-  { DoEmpty(); base::clear(); }
+  {
+ DoEmpty(); base::clear();
+  }
   void Clear()
-  { DoEmpty(); base::clear(); }
+  {
+ DoEmpty(); base::clear();
+  }
   T* Detach(size_t uiIndex)
   {
         T* const p = base::operator[](uiIndex);
 
         base::erase(this->begin() + uiIndex);
         return p;
-    }
+  }
   void RemoveAt(size_t uiIndex, size_t nRemove = 1)
   {
         wxCHECK_RET( uiIndex < size(), "bad index in RemoveAt()" );
@@ -394,21 +441,23 @@ public:
             Traits::Free(base::operator[](uiIndex + i));
 
         base::erase(this->begin() + uiIndex, this->begin() + uiIndex + nRemove);
-    }
+  }
   void Sort(CMPFUNC fCmp)
-  { base::Sort(fCmp); }
+  {
+ base::Sort(fCmp);
+  }
 private:
   void DoEmpty()
   {
         for ( size_t n = 0; n < size(); ++n )
             Traits::Free(base::operator[](n));
-    }
+  }
   void DoCopy(const wxBaseObjectArray& src)
   {
         reserve(src.size());
         for ( size_t n = 0; n < src.size(); ++n )
             Add(src[n]);
-    }
+  }
 };
 // ============================================================================
 // The public macros for declaration and definition of the dynamic arrays

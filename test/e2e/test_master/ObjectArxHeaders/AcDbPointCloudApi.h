@@ -21,7 +21,7 @@ public:
         kClassification = 0x00000002,
         kColor          = 0x00000004,
         kNormal         = 0x00000008,
-    };
+  };
   typedef Adesk::UInt8 RGBA[4];
   virtual ~IAcDbPointCloudDataBuffer()
   {
@@ -75,7 +75,9 @@ public:
     /// <summmary>
     /// Represents whether a given point is inside, outside, or in the edge of a filter.
     /// </summmary>
-  enum FilterResult { FILTER_INSIDE = 0, FILTER_OUTSIDE, FILTER_INTERSECTS };
+  enum FilterResult {
+ FILTER_INSIDE = 0, FILTER_OUTSIDE, FILTER_INTERSECTS
+  };
     /// <summmary>
     /// Destructor
     /// </summmary>
@@ -196,7 +198,7 @@ public:
   enum ProcessSate {
         Abort,
         Continue
-    };
+  };
   virtual ~IAcDbPointCloudPointProcessor()
   {
   }

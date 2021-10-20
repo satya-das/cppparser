@@ -47,7 +47,7 @@ public:
         /// </summary>
         ///
         inside_tool,
-    };
+  };
     /// <summary> Default constructor. </summary>
     ///
   AcDbSurfaceTrimInfo();

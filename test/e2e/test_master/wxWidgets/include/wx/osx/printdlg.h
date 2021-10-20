@@ -30,9 +30,13 @@ public:
   bool Create(wxWindow* parent, wxPrintDialogData* data = NULL);
   int ShowModal() override;
   wxPrintDialogData& GetPrintDialogData() override
-  { return m_printDialogData; }
+  {
+ return m_printDialogData;
+  }
   wxPrintData& GetPrintData() override
-  { return m_printDialogData.GetPrintData(); }
+  {
+ return m_printDialogData.GetPrintData();
+  }
   wxDC* GetPrintDC() override;
 private:
   wxPrintDialogData m_printDialogData;
@@ -71,7 +75,9 @@ public:
   bool TransferToWindow();
   bool TransferDataFromWindow() override;
   virtual wxPageSetupDialogData& GetPageSetupDialogData()
-  { return *m_pageSetupDialogData; }
+  {
+ return *m_pageSetupDialogData;
+  }
 private:
   wxPageSetupDialogData* m_pageSetupDialogData;
   wxPoint m_MinMarginTopLeft;

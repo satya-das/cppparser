@@ -34,16 +34,13 @@ public:
 // File Navigation Array - implementation
 template <typename T>
 CNavArray<T>::CNavArray()
-  : 
-    CTypedPtrArray<CObArray, T*>()
+  :     CTypedPtrArray<CObArray, T*>()
+{
 
-  {
-
-  }
+}
 template <typename T>
 CNavArray<T>::~CNavArray()
 {
-
     RemoveAllData();
 }
 //----------------

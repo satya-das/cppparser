@@ -15,7 +15,7 @@
 #pragma  once
 #ifndef _ACED_XREF_H
 #  define _ACED_XREF_H
-enum xrefSubcommandActivities {    
+enum xrefSubcommandActivities {
     kStart = 0,
     kStartItem = 2,
     kEndItem = 3,

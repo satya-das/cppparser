@@ -31,13 +31,15 @@ protected:
   SkEncodedImageFormat onGetEncodedFormat() const override
   {
         return SkEncodedImageFormat::kDNG;
-    }
+  }
   SkISize onGetScaledDimensions(float desiredScale) const override;
   bool onDimensionsSupported(const SkISize&) override;
     // SkCodec only applies the colorXform if it's necessary for color space
     // conversion. SkRawCodec will always convert, so tell SkCodec not to.
   bool usesColorXform() const override
-  { return false; }
+  {
+ return false;
+  }
 private:
     /*
      * Creates an instance of the decoder

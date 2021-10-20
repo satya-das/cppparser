@@ -214,7 +214,9 @@ public:
         Returns "errorcode".
     */
   virtual wxString GetType() const
-  { return wxS("errorcode"); }
+  {
+ return wxS("errorcode");
+  }
     /**
         Converts the value of this object to wxAny.
     */

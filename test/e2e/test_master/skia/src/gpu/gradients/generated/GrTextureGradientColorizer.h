@@ -19,20 +19,21 @@ public:
   static std::unique_ptr<GrFragmentProcessor> Make(sk_sp<GrTextureProxy> gradient)
   {
         return std::unique_ptr<GrFragmentProcessor>(new GrTextureGradientColorizer(gradient));
-    }
+  }
   GrTextureGradientColorizer(const GrTextureGradientColorizer& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
-  { return "TextureGradientColorizer"; }
+  {
+ return "TextureGradientColorizer";
+  }
   TextureSampler gradient;
 private:
   GrTextureGradientColorizer(sk_sp<GrTextureProxy> gradient)
     :  INHERITED(kGrTextureGradientColorizer_ClassID, kNone_OptimizationFlags)
-            , gradient(std::move(gradient), GrSamplerState::ClampBilerp()) 
-    {
-
+            , gradient(std::move(gradient), GrSamplerState::ClampBilerp())
+  {
         this->setTextureSamplerCnt(1);
-        }
+  }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;
   bool onIsEqual(const GrFragmentProcessor&) const override;

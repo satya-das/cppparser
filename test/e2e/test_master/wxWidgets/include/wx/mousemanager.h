@@ -34,10 +34,12 @@ public:
     // default ctor Create() must be called later
   wxMouseEventsManager()
   {
- Init();   }
+ Init();
+  }
   wxMouseEventsManager(wxWindow* win)
   {
- Init(); Create(win);   }
+ Init(); Create(win);
+  }
   bool Create(wxWindow* win);
   virtual ~wxMouseEventsManager();
 protected:
@@ -66,12 +68,16 @@ protected:
     // called when the item is becomes pressed, can be used to change its
     // appearance
   virtual void MouseClickBegin(int)
-  { }
+  {
+
+  }
     // called if the mouse capture was lost while the item was pressed, can be
     // used to restore the default item appearance if it was changed in
     // MouseClickBegin()
   virtual void MouseClickCancelled(int)
-  { }
+  {
+
+  }
 private:
     /*
         Here is a small diagram explaining the switches between different
@@ -104,7 +110,7 @@ private:
         State_Normal,   // initial, default state
         State_Pressed,  // mouse was pressed over an item
         State_Dragging  // the item is being dragged
-    };
+  };
     // common part of both ctors
   void Init();
     // various event handlers

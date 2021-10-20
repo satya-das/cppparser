@@ -29,9 +29,9 @@ namespace SkSL
     , fTypeName(std::move(typeName))
     , fInstanceName(std::move(instanceName))
     , fSizes(std::move(sizes))
-    , fTypeOwner(typeOwner) 
-      {
-      }
+    , fTypeOwner(typeOwner)
+    {
+    }
     std::unique_ptr<ProgramElement> clone() const override
     {
         std::vector<std::unique_ptr<Expression>> sizesClone;

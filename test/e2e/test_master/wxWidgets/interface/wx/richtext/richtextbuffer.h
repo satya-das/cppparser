@@ -200,18 +200,22 @@ public:
     */
   wxTextAttrDimension()
   {
- Reset();   }
+ Reset();
+  }
     /**
         Constructor taking value and units flag.
     */
   wxTextAttrDimension(int value, wxTextAttrUnits units = wxTEXT_ATTR_UNITS_TENTHS_MM)
   {
- m_value = value; m_flags = units|wxTEXT_ATTR_VALUE_VALID;   }
+ m_value = value; m_flags = units|wxTEXT_ATTR_VALUE_VALID;
+  }
     /**
         Resets the dimension value and flags.
     */
   void Reset()
-  { m_value = 0; m_flags = 0; }
+  {
+ m_value = 0; m_flags = 0;
+  }
     /**
         Partial equality test. If @a weakTest is @true, attributes of this object do not
         have to be present if those attributes of @a dim are present. If @a weakTest is
@@ -230,83 +234,115 @@ public:
         Equality operator.
     */
   bool operator==(const wxTextAttrDimension& dim) const
-  { return m_value == dim.m_value && m_flags == dim.m_flags; }
+  {
+ return m_value == dim.m_value && m_flags == dim.m_flags;
+  }
     /**
         Returns the integer value of the dimension.
     */
   int GetValue() const
-  { return m_value; }
+  {
+ return m_value;
+  }
     /**
         Returns the floating-pointing value of the dimension in mm.
 
     */
   float GetValueMM() const
-  { return float(m_value) / 10.0; }
+  {
+ return float(m_value) / 10.0;
+  }
     /**
         Sets the value of the dimension in mm.
     */
   void SetValueMM(float value)
-  { m_value = (int) ((value * 10.0) + 0.5); m_flags |= wxTEXT_ATTR_VALUE_VALID; }
+  {
+ m_value = (int) ((value * 10.0) + 0.5); m_flags |= wxTEXT_ATTR_VALUE_VALID;
+  }
     /**
         Sets the integer value of the dimension.
     */
   void SetValue(int value)
-  { m_value = value; m_flags |= wxTEXT_ATTR_VALUE_VALID; }
+  {
+ m_value = value; m_flags |= wxTEXT_ATTR_VALUE_VALID;
+  }
     /**
         Sets the integer value of the dimension, passing dimension flags.
     */
   void SetValue(int value, wxTextAttrDimensionFlags flags)
-  { SetValue(value); m_flags = flags; }
+  {
+ SetValue(value); m_flags = flags;
+  }
     /**
         Sets the integer value and units.
     */
   void SetValue(int value, wxTextAttrUnits units)
-  { m_value = value; m_flags = units | wxTEXT_ATTR_VALUE_VALID; }
+  {
+ m_value = value; m_flags = units | wxTEXT_ATTR_VALUE_VALID;
+  }
     /**
         Sets the dimension.
     */
   void SetValue(const wxTextAttrDimension& dim)
-  { (*this) = dim; }
+  {
+ (*this) = dim;
+  }
     /**
         Gets the units of the dimension.
     */
   wxTextAttrUnits GetUnits() const
-  { return (wxTextAttrUnits) (m_flags & wxTEXT_ATTR_UNITS_MASK); }
+  {
+ return (wxTextAttrUnits) (m_flags & wxTEXT_ATTR_UNITS_MASK);
+  }
     /**
         Sets the units of the dimension.
     */
   void SetUnits(wxTextAttrUnits units)
-  { m_flags &= ~wxTEXT_ATTR_UNITS_MASK; m_flags |= units; }
+  {
+ m_flags &= ~wxTEXT_ATTR_UNITS_MASK; m_flags |= units;
+  }
     /**
         Gets the position flags.
     */
   wxTextBoxAttrPosition GetPosition() const
-  { return (wxTextBoxAttrPosition) (m_flags & wxTEXT_BOX_ATTR_POSITION_MASK); }
+  {
+ return (wxTextBoxAttrPosition) (m_flags & wxTEXT_BOX_ATTR_POSITION_MASK);
+  }
     /**
         Sets the position flags.
     */
   void SetPosition(wxTextBoxAttrPosition pos)
-  { m_flags &= ~wxTEXT_BOX_ATTR_POSITION_MASK; m_flags |= pos; }
+  {
+ m_flags &= ~wxTEXT_BOX_ATTR_POSITION_MASK; m_flags |= pos;
+  }
     /**
         Returns @true if the dimension is valid.
     */
   bool IsValid() const
-  { return (m_flags & wxTEXT_ATTR_VALUE_VALID) != 0; }
+  {
+ return (m_flags & wxTEXT_ATTR_VALUE_VALID) != 0;
+  }
     /**
         Sets the valid flag.
     */
   void SetValid(bool b)
-  { m_flags &= ~wxTEXT_ATTR_VALUE_VALID_MASK; m_flags |= (b ? wxTEXT_ATTR_VALUE_VALID : 0); }
+  {
+ m_flags &= ~wxTEXT_ATTR_VALUE_VALID_MASK; m_flags |= (b ? wxTEXT_ATTR_VALUE_VALID : 0);
+  }
     /**
         Gets the dimension flags.
     */
   wxTextAttrDimensionFlags GetFlags() const
-  { return m_flags; }
+  {
+ return m_flags;
+  }
     /**
         Sets the dimension flags.
     */
   void SetFlags(wxTextAttrDimensionFlags flags)
-  { m_flags = flags; }
+  {
+ m_flags = flags;
+  }
   int m_value;
   wxTextAttrDimensionFlags m_flags;
 };
@@ -332,12 +368,16 @@ public:
         Resets the value and flags for all dimensions.
     */
   void Reset()
-  { m_left.Reset(); m_top.Reset(); m_right.Reset(); m_bottom.Reset(); }
+  {
+ m_left.Reset(); m_top.Reset(); m_right.Reset(); m_bottom.Reset();
+  }
     /**
         Equality operator.
     */
   bool operator==(const wxTextAttrDimensions& dims) const
-  { return m_left == dims.m_left && m_top == dims.m_top && m_right == dims.m_right && m_bottom == dims.m_bottom; }
+  {
+ return m_left == dims.m_left && m_top == dims.m_top && m_right == dims.m_right && m_bottom == dims.m_bottom;
+  }
     /**
         Partial equality test. If @a weakTest is @true, attributes of this object do not
         have to be present if those attributes of @a dim sare present. If @a weakTest is
@@ -365,39 +405,57 @@ public:
         Gets the left dimension.
     */
   const wxTextAttrDimension& GetLeft() const
-  { return m_left; }
+  {
+ return m_left;
+  }
   wxTextAttrDimension& GetLeft()
-  { return m_left; }
+  {
+ return m_left;
+  }
     /**
         Gets the right dimension.
 
     */
   const wxTextAttrDimension& GetRight() const
-  { return m_right; }
+  {
+ return m_right;
+  }
   wxTextAttrDimension& GetRight()
-  { return m_right; }
+  {
+ return m_right;
+  }
     /**
         Gets the top dimension.
 
     */
   const wxTextAttrDimension& GetTop() const
-  { return m_top; }
+  {
+ return m_top;
+  }
   wxTextAttrDimension& GetTop()
-  { return m_top; }
+  {
+ return m_top;
+  }
     /**
         Gets the bottom dimension.
 
     */
   const wxTextAttrDimension& GetBottom() const
-  { return m_bottom; }
+  {
+ return m_bottom;
+  }
   wxTextAttrDimension& GetBottom()
-  { return m_bottom; }
+  {
+ return m_bottom;
+  }
     /**
         Are all dimensions valid?
 
     */
   bool IsValid() const
-  { return m_left.IsValid() && m_top.IsValid() && m_right.IsValid() && m_bottom.IsValid(); }
+  {
+ return m_left.IsValid() && m_top.IsValid() && m_right.IsValid() && m_bottom.IsValid();
+  }
   wxTextAttrDimension m_left;
   wxTextAttrDimension m_top;
   wxTextAttrDimension m_right;
@@ -425,12 +483,16 @@ public:
         Resets the width and height dimensions.
     */
   void Reset()
-  { m_width.Reset(); m_height.Reset(); }
+  {
+ m_width.Reset(); m_height.Reset();
+  }
     /**
         Equality operator.
     */
   bool operator==(const wxTextAttrSize& size) const
-  { return m_width == size.m_width && m_height == size.m_height ; }
+  {
+ return m_width == size.m_width && m_height == size.m_height ;
+  }
     /**
         Partial equality test. If @a weakTest is @true, attributes of this object do not
         have to be present if those attributes of @a size are present. If @a weakTest is
@@ -455,51 +517,73 @@ public:
         Returns the width.
     */
   wxTextAttrDimension& GetWidth()
-  { return m_width; }
+  {
+ return m_width;
+  }
   const wxTextAttrDimension& GetWidth() const
-  { return m_width; }
+  {
+ return m_width;
+  }
     /**
         Sets the width.
     */
   void SetWidth(int value, wxTextAttrDimensionFlags flags)
-  { m_width.SetValue(value, flags); }
+  {
+ m_width.SetValue(value, flags);
+  }
     /**
         Sets the width.
     */
   void SetWidth(int value, wxTextAttrUnits units)
-  { m_width.SetValue(value, units); }
+  {
+ m_width.SetValue(value, units);
+  }
     /**
         Sets the width.
     */
   void SetWidth(const wxTextAttrDimension& dim)
-  { m_width.SetValue(dim); }
+  {
+ m_width.SetValue(dim);
+  }
     /**
         Gets the height.
     */
   wxTextAttrDimension& GetHeight()
-  { return m_height; }
+  {
+ return m_height;
+  }
   const wxTextAttrDimension& GetHeight() const
-  { return m_height; }
+  {
+ return m_height;
+  }
     /**
         Sets the height.
     */
   void SetHeight(int value, wxTextAttrDimensionFlags flags)
-  { m_height.SetValue(value, flags); }
+  {
+ m_height.SetValue(value, flags);
+  }
     /**
         Sets the height.
     */
   void SetHeight(int value, wxTextAttrUnits units)
-  { m_height.SetValue(value, units); }
+  {
+ m_height.SetValue(value, units);
+  }
     /**
         Sets the height.
     */
   void SetHeight(const wxTextAttrDimension& dim)
-  { m_height.SetValue(dim); }
+  {
+ m_height.SetValue(dim);
+  }
     /**
         Is the size valid?
     */
   bool IsValid() const
-  { return m_width.IsValid() && m_height.IsValid(); }
+  {
+ return m_width.IsValid() && m_height.IsValid();
+  }
   wxTextAttrDimension m_width;
   wxTextAttrDimension m_height;
 };
@@ -635,7 +719,8 @@ public:
     */
   wxTextAttrBorder()
   {
- Reset();   }
+ Reset();
+  }
     /**
         Equality operator.
     */
@@ -643,12 +728,14 @@ public:
   {
         return m_flags == border.m_flags && m_borderStyle == border.m_borderStyle &&
                m_borderColour == border.m_borderColour && m_borderWidth == border.m_borderWidth;
-    }
+  }
     /**
         Resets the border style, colour, width and flags.
     */
   void Reset()
-  { m_borderStyle = 0; m_borderColour = 0; m_flags = 0; m_borderWidth.Reset(); }
+  {
+ m_borderStyle = 0; m_borderColour = 0; m_flags = 0; m_borderWidth.Reset();
+  }
     /**
         Partial equality test. If @a weakTest is @true, attributes of this object do not
         have to be present if those attributes of @a border are present. If @a weakTest is
@@ -674,100 +761,140 @@ public:
         Sets the border style.
     */
   void SetStyle(int style)
-  { m_borderStyle = style; m_flags |= wxTEXT_BOX_ATTR_BORDER_STYLE; }
+  {
+ m_borderStyle = style; m_flags |= wxTEXT_BOX_ATTR_BORDER_STYLE;
+  }
     /**
         Gets the border style.
 
     */
   int GetStyle() const
-  { return m_borderStyle; }
+  {
+ return m_borderStyle;
+  }
     /**
         Sets the border colour.
     */
   void SetColour(unsigned long colour)
-  { m_borderColour = colour; m_flags |= wxTEXT_BOX_ATTR_BORDER_COLOUR; }
+  {
+ m_borderColour = colour; m_flags |= wxTEXT_BOX_ATTR_BORDER_COLOUR;
+  }
     /**
         Sets the border colour.
     */
   void SetColour(const wxColour& colour)
-  { m_borderColour = colour.GetRGB(); m_flags |= wxTEXT_BOX_ATTR_BORDER_COLOUR; }
+  {
+ m_borderColour = colour.GetRGB(); m_flags |= wxTEXT_BOX_ATTR_BORDER_COLOUR;
+  }
     /**
         Gets the colour as a long.
     */
   unsigned long GetColourLong() const
-  { return m_borderColour; }
+  {
+ return m_borderColour;
+  }
     /**
         Gets the colour.
     */
   wxColour GetColour() const
-  { return wxColour(m_borderColour); }
+  {
+ return wxColour(m_borderColour);
+  }
     /**
         Gets the border width.
     */
   wxTextAttrDimension& GetWidth()
-  { return m_borderWidth; }
+  {
+ return m_borderWidth;
+  }
   const wxTextAttrDimension& GetWidth() const
-  { return m_borderWidth; }
+  {
+ return m_borderWidth;
+  }
     /**
         Sets the border width.
     */
   void SetWidth(const wxTextAttrDimension& width)
-  { m_borderWidth = width; }
+  {
+ m_borderWidth = width;
+  }
     /**
         Sets the border width.
     */
   void SetWidth(int value, wxTextAttrUnits units = wxTEXT_ATTR_UNITS_TENTHS_MM)
-  { SetWidth(wxTextAttrDimension(value, units)); }
+  {
+ SetWidth(wxTextAttrDimension(value, units));
+  }
     /**
         True if the border has a valid style.
     */
   bool HasStyle() const
-  { return (m_flags & wxTEXT_BOX_ATTR_BORDER_STYLE) != 0; }
+  {
+ return (m_flags & wxTEXT_BOX_ATTR_BORDER_STYLE) != 0;
+  }
     /**
         True if the border has a valid colour.
     */
   bool HasColour() const
-  { return (m_flags & wxTEXT_BOX_ATTR_BORDER_COLOUR) != 0; }
+  {
+ return (m_flags & wxTEXT_BOX_ATTR_BORDER_COLOUR) != 0;
+  }
     /**
         True if the border has a valid width.
     */
   bool HasWidth() const
-  { return m_borderWidth.IsValid(); }
+  {
+ return m_borderWidth.IsValid();
+  }
     /**
         True if the border is valid.
     */
   bool IsValid() const
-  { return HasWidth(); }
+  {
+ return HasWidth();
+  }
     /**
         True if the border has no attributes set.
     */
   bool IsDefault() const
-  { return (m_flags == 0); }
+  {
+ return (m_flags == 0);
+  }
     /**
         Set the valid flag for this border.
     */
   void MakeValid()
-  { m_borderWidth.SetValid(true); }
+  {
+ m_borderWidth.SetValid(true);
+  }
     /**
         Returns the border flags.
     */
   int GetFlags() const
-  { return m_flags; }
+  {
+ return m_flags;
+  }
     /**
         Sets the border flags.
     */
   void SetFlags(int flags)
-  { m_flags = flags; }
+  {
+ m_flags = flags;
+  }
     /**
         Adds a border flag.
     */
   void AddFlag(int flag)
-  { m_flags |= flag; }
+  {
+ m_flags |= flag;
+  }
     /**
         Removes a border flag.
     */
   void RemoveFlag(int flag)
-  { m_flags &= ~flag; }
+  {
+ m_flags &= ~flag;
+  }
   int m_borderStyle;
   unsigned long m_borderColour;
   wxTextAttrDimension m_borderWidth;
@@ -790,7 +917,8 @@ public:
     */
   wxTextAttrBorders()
   {
-   }
+
+  }
     /**
         Equality operator.
     */
@@ -798,7 +926,7 @@ public:
   {
         return m_left == borders.m_left && m_right == borders.m_right &&
                m_top == borders.m_top && m_bottom == borders.m_bottom;
-    }
+  }
     /**
         Sets the style of all borders.
     */
@@ -819,12 +947,16 @@ public:
         Sets the width of all borders.
     */
   void SetWidth(int value, wxTextAttrUnits units = wxTEXT_ATTR_UNITS_TENTHS_MM)
-  { SetWidth(wxTextAttrDimension(value, units)); }
+  {
+ SetWidth(wxTextAttrDimension(value, units));
+  }
     /**
         Resets all borders.
     */
   void Reset()
-  { m_left.Reset(); m_right.Reset(); m_top.Reset(); m_bottom.Reset(); }
+  {
+ m_left.Reset(); m_right.Reset(); m_top.Reset(); m_bottom.Reset();
+  }
     /**
         Partial equality test. If @a weakTest is @true, attributes of this object do not
         have to be present if those attributes of @a borders are present. If @a weakTest is
@@ -849,35 +981,53 @@ public:
         Returns @true if at least one border is valid.
     */
   bool IsValid() const
-  { return m_left.IsValid() || m_right.IsValid() || m_top.IsValid() || m_bottom.IsValid(); }
+  {
+ return m_left.IsValid() || m_right.IsValid() || m_top.IsValid() || m_bottom.IsValid();
+  }
     /**
         Returns the left border.
     */
   const wxTextAttrBorder& GetLeft() const
-  { return m_left; }
+  {
+ return m_left;
+  }
   wxTextAttrBorder& GetLeft()
-  { return m_left; }
+  {
+ return m_left;
+  }
     /**
         Returns the right border.
     */
   const wxTextAttrBorder& GetRight() const
-  { return m_right; }
+  {
+ return m_right;
+  }
   wxTextAttrBorder& GetRight()
-  { return m_right; }
+  {
+ return m_right;
+  }
     /**
         Returns the top border.
     */
   const wxTextAttrBorder& GetTop() const
-  { return m_top; }
+  {
+ return m_top;
+  }
   wxTextAttrBorder& GetTop()
-  { return m_top; }
+  {
+ return m_top;
+  }
     /**
         Returns the bottom border.
     */
   const wxTextAttrBorder& GetBottom() const
-  { return m_bottom; }
+  {
+ return m_bottom;
+  }
   wxTextAttrBorder& GetBottom()
-  { return m_bottom; }
+  {
+ return m_bottom;
+  }
   wxTextAttrBorder m_left, m_right, m_top, m_bottom;
 };
 /**
@@ -897,7 +1047,8 @@ public:
     */
   wxTextAttrShadow()
   {
- Reset();   }
+ Reset();
+  }
     /**
         Equality operator.
     */
@@ -931,122 +1082,176 @@ public:
         Sets the shadow colour.
     */
   void SetColour(unsigned long colour)
-  { m_shadowColour = colour; m_flags |= wxTEXT_BOX_ATTR_BORDER_COLOUR; }
+  {
+ m_shadowColour = colour; m_flags |= wxTEXT_BOX_ATTR_BORDER_COLOUR;
+  }
     /**
         Sets the shadow colour.
     */
   void SetColour(const wxColour& colour)
-  { m_shadowColour = colour.GetRGB(); m_flags |= wxTEXT_BOX_ATTR_BORDER_COLOUR; }
+  {
+ m_shadowColour = colour.GetRGB(); m_flags |= wxTEXT_BOX_ATTR_BORDER_COLOUR;
+  }
     /**
         Gets the colour as a long.
     */
   unsigned long GetColourLong() const
-  { return m_shadowColour; }
+  {
+ return m_shadowColour;
+  }
     /**
         Gets the colour.
     */
   wxColour GetColour() const
-  { return wxColour(m_shadowColour); }
+  {
+ return wxColour(m_shadowColour);
+  }
     /**
         True if the shadow has a valid colour.
     */
   bool HasColour() const
-  { return (m_flags & wxTEXT_BOX_ATTR_BORDER_COLOUR) != 0; }
+  {
+ return (m_flags & wxTEXT_BOX_ATTR_BORDER_COLOUR) != 0;
+  }
     /**
         Gets the shadow horizontal offset.
     */
   wxTextAttrDimension& GetOffsetX()
-  { return m_offsetX; }
+  {
+ return m_offsetX;
+  }
   const wxTextAttrDimension& GetOffsetX() const
-  { return m_offsetX; }
+  {
+ return m_offsetX;
+  }
     /**
         Sets the shadow horizontal offset.
     */
   void SetOffsetX(const wxTextAttrDimension& offset)
-  { m_offsetX = offset; }
+  {
+ m_offsetX = offset;
+  }
     /**
         Gets the shadow vertical offset.
     */
   wxTextAttrDimension& GetOffsetY()
-  { return m_offsetY; }
+  {
+ return m_offsetY;
+  }
   const wxTextAttrDimension& GetOffsetY() const
-  { return m_offsetY; }
+  {
+ return m_offsetY;
+  }
     /**
         Sets the shadow vertical offset.
     */
   void SetOffsetY(const wxTextAttrDimension& offset)
-  { m_offsetY = offset; }
+  {
+ m_offsetY = offset;
+  }
     /**
         Gets the shadow spread size.
     */
   wxTextAttrDimension& GetSpread()
-  { return m_spread; }
+  {
+ return m_spread;
+  }
   const wxTextAttrDimension& GetSpread() const
-  { return m_spread; }
+  {
+ return m_spread;
+  }
     /**
         Sets the shadow spread size.
     */
   void SetSpread(const wxTextAttrDimension& spread)
-  { m_spread = spread; }
+  {
+ m_spread = spread;
+  }
     /**
         Gets the shadow blur distance.
     */
   wxTextAttrDimension& GetBlurDistance()
-  { return m_blurDistance; }
+  {
+ return m_blurDistance;
+  }
   const wxTextAttrDimension& GetBlurDistance() const
-  { return m_blurDistance; }
+  {
+ return m_blurDistance;
+  }
     /**
         Sets the shadow blur distance.
     */
   void SetBlurDistance(const wxTextAttrDimension& blur)
-  { m_blurDistance = blur; }
+  {
+ m_blurDistance = blur;
+  }
     /**
         Gets the shadow opacity.
     */
   wxTextAttrDimension& GetOpacity()
-  { return m_opacity; }
+  {
+ return m_opacity;
+  }
   const wxTextAttrDimension& GetOpacity() const
-  { return m_opacity; }
+  {
+ return m_opacity;
+  }
     /**
         Returns @true if the dimension is valid.
     */
   bool IsValid() const
-  { return (m_flags & wxTEXT_ATTR_VALUE_VALID) != 0; }
+  {
+ return (m_flags & wxTEXT_ATTR_VALUE_VALID) != 0;
+  }
     /**
         Sets the valid flag.
     */
   void SetValid(bool b)
-  { m_flags &= ~wxTEXT_ATTR_VALUE_VALID_MASK; m_flags |= (b ? wxTEXT_ATTR_VALUE_VALID : 0); }
+  {
+ m_flags &= ~wxTEXT_ATTR_VALUE_VALID_MASK; m_flags |= (b ? wxTEXT_ATTR_VALUE_VALID : 0);
+  }
     /**
         Returns the border flags.
     */
   int GetFlags() const
-  { return m_flags; }
+  {
+ return m_flags;
+  }
     /**
         Sets the border flags.
     */
   void SetFlags(int flags)
-  { m_flags = flags; }
+  {
+ m_flags = flags;
+  }
     /**
         Adds a border flag.
     */
   void AddFlag(int flag)
-  { m_flags |= flag; }
+  {
+ m_flags |= flag;
+  }
     /**
         Removes a border flag.
     */
   void RemoveFlag(int flag)
-  { m_flags &= ~flag; }
+  {
+ m_flags &= ~flag;
+  }
     /**
         Sets the shadow opacity.
     */
   void SetOpacity(const wxTextAttrDimension& opacity)
-  { m_opacity = opacity; }
+  {
+ m_opacity = opacity;
+  }
     /**
         True if the shadow has no attributes set.
     */
   bool IsDefault() const
-  { return !HasColour() && !m_offsetX.IsValid() && !m_offsetY.IsValid() && !m_spread.IsValid() && !m_blurDistance.IsValid() && !m_opacity.IsValid(); }
+  {
+ return !HasColour() && !m_offsetX.IsValid() && !m_offsetY.IsValid() && !m_spread.IsValid() && !m_blurDistance.IsValid() && !m_opacity.IsValid();
+  }
   int m_flags;
   unsigned long m_shadowColour;
   wxTextAttrDimension m_offsetX;
@@ -1072,18 +1277,22 @@ public:
     */
   wxTextBoxAttr()
   {
- Init();   }
+ Init();
+  }
     /**
         Copy constructor.
     */
   wxTextBoxAttr(const wxTextBoxAttr& attr)
   {
- Init(); (*this) = attr;   }
+ Init(); (*this) = attr;
+  }
     /**
         Initialises this object.
     */
   void Init()
-  { Reset(); }
+  {
+ Reset();
+  }
     /**
         Resets this object.
     */
@@ -1125,27 +1334,37 @@ public:
         Sets the flags.
     */
   void SetFlags(int flags)
-  { m_flags = flags; }
+  {
+ m_flags = flags;
+  }
     /**
         Returns the flags.
     */
   int GetFlags() const
-  { return m_flags; }
+  {
+ return m_flags;
+  }
     /**
         Is this flag present?
     */
   bool HasFlag(wxTextBoxAttrFlags flag) const
-  { return (m_flags & flag) != 0; }
+  {
+ return (m_flags & flag) != 0;
+  }
     /**
         Removes this flag.
     */
   void RemoveFlag(wxTextBoxAttrFlags flag)
-  { m_flags &= ~flag; }
+  {
+ m_flags &= ~flag;
+  }
     /**
         Adds this flag.
     */
   void AddFlag(wxTextBoxAttrFlags flag)
-  { m_flags |= flag; }
+  {
+ m_flags |= flag;
+  }
     /**
         Returns @true if no attributes are set.
     */
@@ -1154,346 +1373,522 @@ public:
         Returns the float mode.
     */
   wxTextBoxAttrFloatStyle GetFloatMode() const
-  { return m_floatMode; }
+  {
+ return m_floatMode;
+  }
     /**
         Sets the float mode.
     */
   void SetFloatMode(wxTextBoxAttrFloatStyle mode)
-  { m_floatMode = mode; m_flags |= wxTEXT_BOX_ATTR_FLOAT; }
+  {
+ m_floatMode = mode; m_flags |= wxTEXT_BOX_ATTR_FLOAT;
+  }
     /**
         Returns @true if float mode is active.
     */
   bool HasFloatMode() const
-  { return HasFlag(wxTEXT_BOX_ATTR_FLOAT); }
+  {
+ return HasFlag(wxTEXT_BOX_ATTR_FLOAT);
+  }
     /**
         Returns @true if this object is floating.
     */
   bool IsFloating() const
-  { return HasFloatMode() && GetFloatMode() != wxTEXT_BOX_ATTR_FLOAT_NONE; }
+  {
+ return HasFloatMode() && GetFloatMode() != wxTEXT_BOX_ATTR_FLOAT_NONE;
+  }
     /**
         Returns the clear mode - whether to wrap text after object. Currently unimplemented.
     */
   wxTextBoxAttrClearStyle GetClearMode() const
-  { return m_clearMode; }
+  {
+ return m_clearMode;
+  }
     /**
         Set the clear mode. Currently unimplemented.
     */
   void SetClearMode(wxTextBoxAttrClearStyle mode)
-  { m_clearMode = mode; m_flags |= wxTEXT_BOX_ATTR_CLEAR; }
+  {
+ m_clearMode = mode; m_flags |= wxTEXT_BOX_ATTR_CLEAR;
+  }
     /**
         Returns @true if we have a clear flag.
     */
   bool HasClearMode() const
-  { return HasFlag(wxTEXT_BOX_ATTR_CLEAR); }
+  {
+ return HasFlag(wxTEXT_BOX_ATTR_CLEAR);
+  }
     /**
         Returns the collapse mode - whether to collapse borders.
     */
   wxTextBoxAttrCollapseMode GetCollapseBorders() const
-  { return m_collapseMode; }
+  {
+ return m_collapseMode;
+  }
     /**
         Sets the collapse mode - whether to collapse borders.
     */
   void SetCollapseBorders(wxTextBoxAttrCollapseMode collapse)
-  { m_collapseMode = collapse; m_flags |= wxTEXT_BOX_ATTR_COLLAPSE_BORDERS; }
+  {
+ m_collapseMode = collapse; m_flags |= wxTEXT_BOX_ATTR_COLLAPSE_BORDERS;
+  }
     /**
         Returns @true if the collapse borders flag is present.
     */
   bool HasCollapseBorders() const
-  { return HasFlag(wxTEXT_BOX_ATTR_COLLAPSE_BORDERS); }
+  {
+ return HasFlag(wxTEXT_BOX_ATTR_COLLAPSE_BORDERS);
+  }
     /**
         Returns the whitespace mode.
     */
   wxTextBoxAttrWhitespaceMode GetWhitespaceMode() const
-  { return m_whitespaceMode; }
+  {
+ return m_whitespaceMode;
+  }
     /**
         Sets the whitespace mode.
     */
   void SetWhitespaceMode(wxTextBoxAttrWhitespaceMode whitespace)
-  { m_whitespaceMode = whitespace; m_flags |= wxTEXT_BOX_ATTR_WHITESPACE; }
+  {
+ m_whitespaceMode = whitespace; m_flags |= wxTEXT_BOX_ATTR_WHITESPACE;
+  }
     /**
         Returns @true if the whitespace flag is present.
     */
   bool HasWhitespaceMode() const
-  { return HasFlag(wxTEXT_BOX_ATTR_WHITESPACE); }
+  {
+ return HasFlag(wxTEXT_BOX_ATTR_WHITESPACE);
+  }
     /**
         Returns @true if the corner radius flag is present.
     */
   bool HasCornerRadius() const
-  { return HasFlag(wxTEXT_BOX_ATTR_CORNER_RADIUS); }
+  {
+ return HasFlag(wxTEXT_BOX_ATTR_CORNER_RADIUS);
+  }
     /**
         Returns the corner radius value.
     */
   const wxTextAttrDimension& GetCornerRadius() const
-  { return m_cornerRadius; }
+  {
+ return m_cornerRadius;
+  }
   wxTextAttrDimension& GetCornerRadius()
-  { return m_cornerRadius; }
+  {
+ return m_cornerRadius;
+  }
     /**
         Sets the corner radius value.
     */
   void SetCornerRadius(const wxTextAttrDimension& dim)
-  { m_cornerRadius = dim; m_flags |= wxTEXT_BOX_ATTR_CORNER_RADIUS; }
+  {
+ m_cornerRadius = dim; m_flags |= wxTEXT_BOX_ATTR_CORNER_RADIUS;
+  }
     /**
         Returns the vertical alignment.
     */
   wxTextBoxAttrVerticalAlignment GetVerticalAlignment() const
-  { return m_verticalAlignment; }
+  {
+ return m_verticalAlignment;
+  }
     /**
         Sets the vertical alignment.
     */
   void SetVerticalAlignment(wxTextBoxAttrVerticalAlignment verticalAlignment)
-  { m_verticalAlignment = verticalAlignment; m_flags |= wxTEXT_BOX_ATTR_VERTICAL_ALIGNMENT; }
+  {
+ m_verticalAlignment = verticalAlignment; m_flags |= wxTEXT_BOX_ATTR_VERTICAL_ALIGNMENT;
+  }
     /**
         Returns @true if a vertical alignment flag is present.
     */
   bool HasVerticalAlignment() const
-  { return HasFlag(wxTEXT_BOX_ATTR_VERTICAL_ALIGNMENT); }
+  {
+ return HasFlag(wxTEXT_BOX_ATTR_VERTICAL_ALIGNMENT);
+  }
     /**
         Returns the margin values.
     */
   wxTextAttrDimensions& GetMargins()
-  { return m_margins; }
+  {
+ return m_margins;
+  }
   const wxTextAttrDimensions& GetMargins() const
-  { return m_margins; }
+  {
+ return m_margins;
+  }
     /**
         Returns the left margin.
     */
   wxTextAttrDimension& GetLeftMargin()
-  { return m_margins.m_left; }
+  {
+ return m_margins.m_left;
+  }
   const wxTextAttrDimension& GetLeftMargin() const
-  { return m_margins.m_left; }
+  {
+ return m_margins.m_left;
+  }
     /**
         Returns the right margin.
     */
   wxTextAttrDimension& GetRightMargin()
-  { return m_margins.m_right; }
+  {
+ return m_margins.m_right;
+  }
   const wxTextAttrDimension& GetRightMargin() const
-  { return m_margins.m_right; }
+  {
+ return m_margins.m_right;
+  }
     /**
         Returns the top margin.
     */
   wxTextAttrDimension& GetTopMargin()
-  { return m_margins.m_top; }
+  {
+ return m_margins.m_top;
+  }
   const wxTextAttrDimension& GetTopMargin() const
-  { return m_margins.m_top; }
+  {
+ return m_margins.m_top;
+  }
     /**
         Returns the bottom margin.
     */
   wxTextAttrDimension& GetBottomMargin()
-  { return m_margins.m_bottom; }
+  {
+ return m_margins.m_bottom;
+  }
   const wxTextAttrDimension& GetBottomMargin() const
-  { return m_margins.m_bottom; }
+  {
+ return m_margins.m_bottom;
+  }
     /**
         Returns the position.
     */
   wxTextAttrDimensions& GetPosition()
-  { return m_position; }
+  {
+ return m_position;
+  }
   const wxTextAttrDimensions& GetPosition() const
-  { return m_position; }
+  {
+ return m_position;
+  }
     /**
         Returns the left position.
     */
   wxTextAttrDimension& GetLeft()
-  { return m_position.m_left; }
+  {
+ return m_position.m_left;
+  }
   const wxTextAttrDimension& GetLeft() const
-  { return m_position.m_left; }
+  {
+ return m_position.m_left;
+  }
     /**
         Returns the right position.
     */
   wxTextAttrDimension& GetRight()
-  { return m_position.m_right; }
+  {
+ return m_position.m_right;
+  }
   const wxTextAttrDimension& GetRight() const
-  { return m_position.m_right; }
+  {
+ return m_position.m_right;
+  }
     /**
         Returns the top position.
     */
   wxTextAttrDimension& GetTop()
-  { return m_position.m_top; }
+  {
+ return m_position.m_top;
+  }
   const wxTextAttrDimension& GetTop() const
-  { return m_position.m_top; }
+  {
+ return m_position.m_top;
+  }
     /**
         Returns the bottom position.
     */
   wxTextAttrDimension& GetBottom()
-  { return m_position.m_bottom; }
+  {
+ return m_position.m_bottom;
+  }
   const wxTextAttrDimension& GetBottom() const
-  { return m_position.m_bottom; }
+  {
+ return m_position.m_bottom;
+  }
     /**
         Returns the padding values.
     */
   wxTextAttrDimensions& GetPadding()
-  { return m_padding; }
+  {
+ return m_padding;
+  }
   const wxTextAttrDimensions& GetPadding() const
-  { return m_padding; }
+  {
+ return m_padding;
+  }
     /**
         Returns the left padding value.
     */
   wxTextAttrDimension& GetLeftPadding()
-  { return m_padding.m_left; }
+  {
+ return m_padding.m_left;
+  }
   const wxTextAttrDimension& GetLeftPadding() const
-  { return m_padding.m_left; }
+  {
+ return m_padding.m_left;
+  }
     /**
         Returns the right padding value.
     */
   wxTextAttrDimension& GetRightPadding()
-  { return m_padding.m_right; }
+  {
+ return m_padding.m_right;
+  }
   const wxTextAttrDimension& GetRightPadding() const
-  { return m_padding.m_right; }
+  {
+ return m_padding.m_right;
+  }
     /**
         Returns the top padding value.
     */
   wxTextAttrDimension& GetTopPadding()
-  { return m_padding.m_top; }
+  {
+ return m_padding.m_top;
+  }
   const wxTextAttrDimension& GetTopPadding() const
-  { return m_padding.m_top; }
+  {
+ return m_padding.m_top;
+  }
     /**
         Returns the bottom padding value.
     */
   wxTextAttrDimension& GetBottomPadding()
-  { return m_padding.m_bottom; }
+  {
+ return m_padding.m_bottom;
+  }
   const wxTextAttrDimension& GetBottomPadding() const
-  { return m_padding.m_bottom; }
+  {
+ return m_padding.m_bottom;
+  }
     /**
         Returns the borders.
     */
   wxTextAttrBorders& GetBorder()
-  { return m_border; }
+  {
+ return m_border;
+  }
   const wxTextAttrBorders& GetBorder() const
-  { return m_border; }
+  {
+ return m_border;
+  }
     /**
         Returns the left border.
     */
   wxTextAttrBorder& GetLeftBorder()
-  { return m_border.m_left; }
+  {
+ return m_border.m_left;
+  }
   const wxTextAttrBorder& GetLeftBorder() const
-  { return m_border.m_left; }
+  {
+ return m_border.m_left;
+  }
     /**
         Returns the top border.
     */
   wxTextAttrBorder& GetTopBorder()
-  { return m_border.m_top; }
+  {
+ return m_border.m_top;
+  }
   const wxTextAttrBorder& GetTopBorder() const
-  { return m_border.m_top; }
+  {
+ return m_border.m_top;
+  }
     /**
         Returns the right border.
     */
   wxTextAttrBorder& GetRightBorder()
-  { return m_border.m_right; }
+  {
+ return m_border.m_right;
+  }
   const wxTextAttrBorder& GetRightBorder() const
-  { return m_border.m_right; }
+  {
+ return m_border.m_right;
+  }
     /**
         Returns the bottom border.
     */
   wxTextAttrBorder& GetBottomBorder()
-  { return m_border.m_bottom; }
+  {
+ return m_border.m_bottom;
+  }
   const wxTextAttrBorder& GetBottomBorder() const
-  { return m_border.m_bottom; }
+  {
+ return m_border.m_bottom;
+  }
     /**
         Returns the outline.
     */
   wxTextAttrBorders& GetOutline()
-  { return m_outline; }
+  {
+ return m_outline;
+  }
   const wxTextAttrBorders& GetOutline() const
-  { return m_outline; }
+  {
+ return m_outline;
+  }
     /**
         Returns the left outline.
     */
   wxTextAttrBorder& GetLeftOutline()
-  { return m_outline.m_left; }
+  {
+ return m_outline.m_left;
+  }
   const wxTextAttrBorder& GetLeftOutline() const
-  { return m_outline.m_left; }
+  {
+ return m_outline.m_left;
+  }
     /**
         Returns the top outline.
     */
   wxTextAttrBorder& GetTopOutline()
-  { return m_outline.m_top; }
+  {
+ return m_outline.m_top;
+  }
   const wxTextAttrBorder& GetTopOutline() const
-  { return m_outline.m_top; }
+  {
+ return m_outline.m_top;
+  }
     /**
         Returns the right outline.
     */
   wxTextAttrBorder& GetRightOutline()
-  { return m_outline.m_right; }
+  {
+ return m_outline.m_right;
+  }
   const wxTextAttrBorder& GetRightOutline() const
-  { return m_outline.m_right; }
+  {
+ return m_outline.m_right;
+  }
     /**
         Returns the bottom outline.
     */
   wxTextAttrBorder& GetBottomOutline()
-  { return m_outline.m_bottom; }
+  {
+ return m_outline.m_bottom;
+  }
   const wxTextAttrBorder& GetBottomOutline() const
-  { return m_outline.m_bottom; }
+  {
+ return m_outline.m_bottom;
+  }
     /**
         Returns the object size.
     */
   wxTextAttrSize& GetSize()
-  { return m_size; }
+  {
+ return m_size;
+  }
   const wxTextAttrSize& GetSize() const
-  { return m_size; }
+  {
+ return m_size;
+  }
     /**
         Returns the object minimum size.
     */
   wxTextAttrSize& GetMinSize()
-  { return m_minSize; }
+  {
+ return m_minSize;
+  }
   const wxTextAttrSize& GetMinSize() const
-  { return m_minSize; }
+  {
+ return m_minSize;
+  }
     /**
         Returns the object maximum size.
     */
   wxTextAttrSize& GetMaxSize()
-  { return m_maxSize; }
+  {
+ return m_maxSize;
+  }
   const wxTextAttrSize& GetMaxSize() const
-  { return m_maxSize; }
+  {
+ return m_maxSize;
+  }
     /**
         Sets the object size.
     */
   void SetSize(const wxTextAttrSize& sz)
-  { m_size = sz; }
+  {
+ m_size = sz;
+  }
     /**
         Sets the object minimum size.
     */
   void SetMinSize(const wxTextAttrSize& sz)
-  { m_minSize = sz; }
+  {
+ m_minSize = sz;
+  }
     /**
         Sets the object maximum size.
     */
   void SetMaxSize(const wxTextAttrSize& sz)
-  { m_maxSize = sz; }
+  {
+ m_maxSize = sz;
+  }
     /**
         Returns the object width.
     */
   wxTextAttrDimension& GetWidth()
-  { return m_size.m_width; }
+  {
+ return m_size.m_width;
+  }
   const wxTextAttrDimension& GetWidth() const
-  { return m_size.m_width; }
+  {
+ return m_size.m_width;
+  }
     /**
         Returns the object height.
     */
   wxTextAttrDimension& GetHeight()
-  { return m_size.m_height; }
+  {
+ return m_size.m_height;
+  }
   const wxTextAttrDimension& GetHeight() const
-  { return m_size.m_height; }
+  {
+ return m_size.m_height;
+  }
     /**
         Returns the box style name.
     */
   const wxString& GetBoxStyleName() const
-  { return m_boxStyleName; }
+  {
+ return m_boxStyleName;
+  }
     /**
         Sets the box style name.
     */
   void SetBoxStyleName(const wxString& name)
-  { m_boxStyleName = name; AddFlag(wxTEXT_BOX_ATTR_BOX_STYLE_NAME); }
+  {
+ m_boxStyleName = name; AddFlag(wxTEXT_BOX_ATTR_BOX_STYLE_NAME);
+  }
     /**
         Returns @true if the box style name is present.
     */
   bool HasBoxStyleName() const
-  { return HasFlag(wxTEXT_BOX_ATTR_BOX_STYLE_NAME); }
+  {
+ return HasFlag(wxTEXT_BOX_ATTR_BOX_STYLE_NAME);
+  }
     /**
         Returns the box shadow attributes.
     */
   wxTextAttrShadow& GetShadow()
-  { return m_shadow; }
+  {
+ return m_shadow;
+  }
   const wxTextAttrShadow& GetShadow() const
-  { return m_shadow; }
+  {
+ return m_shadow;
+  }
   int m_flags;
   wxTextAttrDimensions m_margins;
   wxTextAttrDimensions m_padding;
@@ -1530,14 +1925,16 @@ public:
     */
   wxRichTextAttr(const wxTextAttr& attr)
   {
- wxTextAttr::Copy(attr);   }
+ wxTextAttr::Copy(attr);
+  }
     /**
         Copy constructor.
     */
   wxRichTextAttr(const wxRichTextAttr& attr)
-    :  wxTextAttr() 
-    {
- Copy(attr);     }
+    :  wxTextAttr()
+  {
+ Copy(attr);
+  }
     /**
         Default constructor.
     */
@@ -1552,12 +1949,16 @@ public:
         Assignment operator.
     */
   void operator=(const wxRichTextAttr& attr)
-  { Copy(attr); }
+  {
+ Copy(attr);
+  }
     /**
         Assignment operator.
     */
   void operator=(const wxTextAttr& attr)
-  { wxTextAttr::Copy(attr); }
+  {
+ wxTextAttr::Copy(attr);
+  }
     /**
         Equality test.
     */
@@ -1588,19 +1989,27 @@ public:
         Returns the text box attributes.
     */
   wxTextBoxAttr& GetTextBoxAttr()
-  { return m_textBoxAttr; }
+  {
+ return m_textBoxAttr;
+  }
   const wxTextBoxAttr& GetTextBoxAttr() const
-  { return m_textBoxAttr; }
+  {
+ return m_textBoxAttr;
+  }
     /**
         Set the text box attributes.
     */
   void SetTextBoxAttr(const wxTextBoxAttr& attr)
-  { m_textBoxAttr = attr; }
+  {
+ m_textBoxAttr = attr;
+  }
     /**
         Returns @true if no attributes are set.
     */
   bool IsDefault() const
-  { return (GetFlags() == 0) && m_textBoxAttr.IsDefault(); }
+  {
+ return (GetFlags() == 0) && m_textBoxAttr.IsDefault();
+  }
   wxTextBoxAttr m_textBoxAttr;
 };
 class wxRichTextAttrArray;
@@ -1628,14 +2037,17 @@ public:
         Copy constructor.
     */
   wxRichTextProperties(const wxRichTextProperties& props)
-    :  wxObject() 
-    {
- Copy(props);     }
+    :  wxObject()
+  {
+ Copy(props);
+  }
     /**
         Assignment operator.
     */
   void operator=(const wxRichTextProperties& props)
-  { Copy(props); }
+  {
+ Copy(props);
+  }
     /**
         Equality operator.
     */
@@ -1644,37 +2056,51 @@ public:
         Copies from @a props.
     */
   void Copy(const wxRichTextProperties& props)
-  { m_properties = props.m_properties; }
+  {
+ m_properties = props.m_properties;
+  }
     /**
         Returns the variant at the given index.
     */
   const wxVariant& operator[](size_t idx) const
-  { return m_properties[idx]; }
+  {
+ return m_properties[idx];
+  }
     /**
         Returns the variant at the given index.
     */
   wxVariant& operator[](size_t idx)
-  { return m_properties[idx]; }
+  {
+ return m_properties[idx];
+  }
     /**
         Clears the properties.
     */
   void Clear()
-  { m_properties.Clear(); }
+  {
+ m_properties.Clear();
+  }
     /**
         Returns the array of variants implementing the properties.
     */
   const wxRichTextVariantArray& GetProperties() const
-  { return m_properties; }
+  {
+ return m_properties;
+  }
     /**
         Returns the array of variants implementing the properties.
     */
   wxRichTextVariantArray& GetProperties()
-  { return m_properties; }
+  {
+ return m_properties;
+  }
     /**
         Sets the array of variants.
     */
   void SetProperties(const wxRichTextVariantArray& props)
-  { m_properties = props; }
+  {
+ m_properties = props;
+  }
     /**
         Returns all the property names.
     */
@@ -1683,12 +2109,16 @@ public:
         Returns a count of the properties.
     */
   size_t GetCount() const
-  { return m_properties.GetCount(); }
+  {
+ return m_properties.GetCount();
+  }
     /**
         Returns @true if the given property is found.
     */
   bool HasProperty(const wxString& name) const
-  { return Find(name) != -1; }
+  {
+ return Find(name) != -1;
+  }
     /**
         Finds the given property.
     */
@@ -1785,7 +2215,9 @@ public:
         Returns @true if the font table is valid.
     */
   bool IsOk() const
-  { return m_refData != NULL; }
+  {
+ return m_refData != NULL;
+  }
     /**
         Finds a font for the given attribute object.
     */
@@ -1806,7 +2238,9 @@ public:
         Inequality operator.
     */
   bool operator !=(const wxRichTextFontTable& table) const
-  { return !(*this == table); }
+  {
+ return !(*this == table);
+  }
     /**
         Set the font scale factor.
     */
@@ -1834,19 +2268,22 @@ public:
     */
   wxRichTextRange()
   {
- m_start = 0; m_end = 0;   }
+ m_start = 0; m_end = 0;
+  }
     /**
         Constructor taking start and end positions.
     */
   wxRichTextRange(long start, long end)
   {
- m_start = start; m_end = end;   }
+ m_start = start; m_end = end;
+  }
     /**
         Copy constructor.
     */
   wxRichTextRange(const wxRichTextRange& range)
   {
- m_start = range.m_start; m_end = range.m_end;   }
+ m_start = range.m_start; m_end = range.m_end;
+  }
   ~wxRichTextRange()
   {
   }
@@ -1854,67 +2291,93 @@ public:
         Assigns @a range to this range.
     */
   void operator =(const wxRichTextRange& range)
-  { m_start = range.m_start; m_end = range.m_end; }
+  {
+ m_start = range.m_start; m_end = range.m_end;
+  }
     /**
         Equality operator. Returns @true if @a range is the same as this range.
     */
   bool operator ==(const wxRichTextRange& range) const
-  { return (m_start == range.m_start && m_end == range.m_end); }
+  {
+ return (m_start == range.m_start && m_end == range.m_end);
+  }
     /**
         Inequality operator.
     */
   bool operator !=(const wxRichTextRange& range) const
-  { return (m_start != range.m_start || m_end != range.m_end); }
+  {
+ return (m_start != range.m_start || m_end != range.m_end);
+  }
     /**
         Subtracts a range from this range.
     */
   wxRichTextRange operator -(const wxRichTextRange& range) const
-  { return wxRichTextRange(m_start - range.m_start, m_end - range.m_end); }
+  {
+ return wxRichTextRange(m_start - range.m_start, m_end - range.m_end);
+  }
     /**
         Adds a range to this range.
     */
   wxRichTextRange operator +(const wxRichTextRange& range) const
-  { return wxRichTextRange(m_start + range.m_start, m_end + range.m_end); }
+  {
+ return wxRichTextRange(m_start + range.m_start, m_end + range.m_end);
+  }
     /**
         Sets the range start and end positions.
     */
   void SetRange(long start, long end)
-  { m_start = start; m_end = end; }
+  {
+ m_start = start; m_end = end;
+  }
     /**
         Sets the start position.
     */
   void SetStart(long start)
-  { m_start = start; }
+  {
+ m_start = start;
+  }
     /**
         Returns the start position.
     */
   long GetStart() const
-  { return m_start; }
+  {
+ return m_start;
+  }
     /**
         Sets the end position.
     */
   void SetEnd(long end)
-  { m_end = end; }
+  {
+ m_end = end;
+  }
     /**
         Gets the end position.
     */
   long GetEnd() const
-  { return m_end; }
+  {
+ return m_end;
+  }
     /**
         Returns true if this range is completely outside @a range.
     */
   bool IsOutside(const wxRichTextRange& range) const
-  { return range.m_start > m_end || range.m_end < m_start; }
+  {
+ return range.m_start > m_end || range.m_end < m_start;
+  }
     /**
         Returns true if this range is completely within @a range.
     */
   bool IsWithin(const wxRichTextRange& range) const
-  { return m_start >= range.m_start && m_end <= range.m_end; }
+  {
+ return m_start >= range.m_start && m_end <= range.m_end;
+  }
     /**
         Returns true if @a pos was within the range. Does not match if the range is empty.
     */
   bool Contains(long pos) const
-  { return pos >= m_start && pos <= m_end ; }
+  {
+ return pos >= m_start && pos <= m_end ;
+  }
     /**
         Limit this range to be within @a range.
     */
@@ -1923,12 +2386,16 @@ public:
         Gets the length of the range.
     */
   long GetLength() const
-  { return m_end - m_start + 1; }
+  {
+ return m_end - m_start + 1;
+  }
     /**
         Swaps the start and end.
     */
   void Swap()
-  { long tmp = m_start; m_start = m_end; m_end = tmp; }
+  {
+ long tmp = m_start; m_start = m_end; m_end = tmp;
+  }
     /**
         Converts the API-standard range, whose end is one past the last character in
         the range, to the internal form, which uses the first and last character
@@ -1936,7 +2403,9 @@ public:
         (n, n) is the range of a single character.
     */
   wxRichTextRange ToInternal() const
-  { return wxRichTextRange(m_start, m_end-1); }
+  {
+ return wxRichTextRange(m_start, m_end-1);
+  }
     /**
         Converts the internal range, which uses the first and last character positions
         of the range, to the API-standard range, whose end is one past the last
@@ -1944,7 +2413,9 @@ public:
         (n, n+1) is the range of a single character.
     */
   wxRichTextRange FromInternal() const
-  { return wxRichTextRange(m_start, m_end+1); }
+  {
+ return wxRichTextRange(m_start, m_end+1);
+  }
 protected:
   long m_start;
   long m_end;
@@ -1976,49 +2447,64 @@ public:
     */
   wxRichTextSelection(const wxRichTextSelection& sel)
   {
- Copy(sel);   }
+ Copy(sel);
+  }
     /**
         Creates a selection from a range and a container.
     */
   wxRichTextSelection(const wxRichTextRange& range, wxRichTextParagraphLayoutBox* container)
   {
- m_ranges.Add(range); m_container = container;   }
+ m_ranges.Add(range); m_container = container;
+  }
     /**
         Default constructor.
     */
   wxRichTextSelection()
   {
- Reset();   }
+ Reset();
+  }
     /**
         Resets the selection.
     */
   void Reset()
-  { m_ranges.Clear(); m_container = NULL; }
+  {
+ m_ranges.Clear(); m_container = NULL;
+  }
     /**
         Sets the selection.
     */
   void Set(const wxRichTextRange& range, wxRichTextParagraphLayoutBox* container)
-  { m_ranges.Clear(); m_ranges.Add(range); m_container = container; }
+  {
+ m_ranges.Clear(); m_ranges.Add(range); m_container = container;
+  }
     /**
         Adds a range to the selection.
     */
   void Add(const wxRichTextRange& range)
-  { m_ranges.Add(range); }
+  {
+ m_ranges.Add(range);
+  }
     /**
         Sets the selections from an array of ranges and a container object.
     */
   void Set(const wxRichTextRangeArray& ranges, wxRichTextParagraphLayoutBox* container)
-  { m_ranges = ranges; m_container = container; }
+  {
+ m_ranges = ranges; m_container = container;
+  }
     /**
         Copies from @a sel.
     */
   void Copy(const wxRichTextSelection& sel)
-  { m_ranges = sel.m_ranges; m_container = sel.m_container; }
+  {
+ m_ranges = sel.m_ranges; m_container = sel.m_container;
+  }
     /**
         Assignment operator.
     */
   void operator=(const wxRichTextSelection& sel)
-  { Copy(sel); }
+  {
+ Copy(sel);
+  }
     /**
         Equality operator.
     */
@@ -2027,58 +2513,80 @@ public:
         Index operator.
     */
   wxRichTextRange operator[](size_t i) const
-  { return GetRange(i); }
+  {
+ return GetRange(i);
+  }
     /**
         Returns the selection ranges.
     */
   wxRichTextRangeArray& GetRanges()
-  { return m_ranges; }
+  {
+ return m_ranges;
+  }
     /**
         Returns the selection ranges.
     */
   const wxRichTextRangeArray& GetRanges() const
-  { return m_ranges; }
+  {
+ return m_ranges;
+  }
     /**
         Sets the selection ranges.
     */
   void SetRanges(const wxRichTextRangeArray& ranges)
-  { m_ranges = ranges; }
+  {
+ m_ranges = ranges;
+  }
     /**
         Returns the number of ranges in the selection.
     */
   size_t GetCount() const
-  { return m_ranges.GetCount(); }
+  {
+ return m_ranges.GetCount();
+  }
     /**
         Returns the range at the given index.
 
     */
   wxRichTextRange GetRange(size_t i) const
-  { return m_ranges[i]; }
+  {
+ return m_ranges[i];
+  }
     /**
         Returns the first range if there is one, otherwise wxRICHTEXT_NO_SELECTION.
     */
   wxRichTextRange GetRange() const
-  { return (m_ranges.GetCount() > 0) ? (m_ranges[0]) : wxRICHTEXT_NO_SELECTION; }
+  {
+ return (m_ranges.GetCount() > 0) ? (m_ranges[0]) : wxRICHTEXT_NO_SELECTION;
+  }
     /**
         Sets a single range.
     */
   void SetRange(const wxRichTextRange& range)
-  { m_ranges.Clear(); m_ranges.Add(range); }
+  {
+ m_ranges.Clear(); m_ranges.Add(range);
+  }
     /**
         Returns the container for which the selection is valid.
     */
   wxRichTextParagraphLayoutBox* GetContainer() const
-  { return m_container; }
+  {
+ return m_container;
+  }
     /**
         Sets the container for which the selection is valid.
     */
   void SetContainer(wxRichTextParagraphLayoutBox* container)
-  { m_container = container; }
+  {
+ m_container = container;
+  }
     /**
         Returns @true if the selection is valid.
     */
   bool IsValid() const
-  { return m_ranges.GetCount() > 0 && GetContainer(); }
+  {
+ return m_ranges.GetCount() > 0 && GetContainer();
+  }
     /**
         Returns the selection appropriate to the specified object, if any; returns an empty array if none
         at the level of the object's container.
@@ -2093,7 +2601,9 @@ public:
 
     */
   bool WithinSelection(long pos) const
-  { return WithinSelection(pos, m_ranges); }
+  {
+ return WithinSelection(pos, m_ranges);
+  }
     /**
         Returns @true if the given position is within the selection range.
     */
@@ -2173,32 +2683,44 @@ public:
         Enable or disable images
     */
   void EnableImages(bool b)
-  { m_enableImages = b; }
+  {
+ m_enableImages = b;
+  }
     /**
         Returns @true if images are enabled.
     */
   bool GetImagesEnabled() const
-  { return m_enableImages; }
+  {
+ return m_enableImages;
+  }
     /**
         Set laying out flag
     */
   void SetLayingOut(bool b)
-  { m_layingOut = b; }
+  {
+ m_layingOut = b;
+  }
     /**
         Returns @true if laying out.
     */
   bool GetLayingOut() const
-  { return m_layingOut; }
+  {
+ return m_layingOut;
+  }
     /**
         Enable or disable delayed image loading
     */
   void EnableDelayedImageLoading(bool b)
-  { m_enableDelayedImageLoading = b; }
+  {
+ m_enableDelayedImageLoading = b;
+  }
     /**
         Returns @true if delayed image loading is enabled.
     */
   bool GetDelayedImageLoading() const
-  { return m_enableDelayedImageLoading; }
+  {
+ return m_enableDelayedImageLoading;
+  }
   wxRichTextBuffer* m_buffer;
   bool m_enableVirtualAttributes;
   bool m_enableImages;
@@ -2783,9 +3305,10 @@ public:
 // Constructors
   wxRichTextParagraphLayoutBox(wxRichTextObject* parent = NULL);
   wxRichTextParagraphLayoutBox(const wxRichTextParagraphLayoutBox& obj)
-    :  wxRichTextCompositeObject() 
-    {
- Init(); Copy(obj);     }
+    :  wxRichTextCompositeObject()
+  {
+ Init(); Copy(obj);
+  }
   ~wxRichTextParagraphLayoutBox();
 // Overridables
   virtual int HitTest(wxDC& dc, wxRichTextDrawingContext& context, const wxPoint& pt, long& textPosition, wxRichTextObject** obj, wxRichTextObject** contextObj, int flags = 0);
@@ -2802,37 +3325,51 @@ public:
   virtual bool ExportXML(wxXmlNode* parent, wxRichTextXMLHandler* handler);
 #endif
   virtual wxString GetXMLNodeName() const
-  { return wxT("paragraphlayout"); }
+  {
+ return wxT("paragraphlayout");
+  }
   virtual bool AcceptsFocus() const
-  { return true; }
+  {
+ return true;
+  }
 // Accessors
 
     /**
         Associates a control with the buffer, for operations that for example require refreshing the window.
     */
   void SetRichTextCtrl(wxRichTextCtrl* ctrl)
-  { m_ctrl = ctrl; }
+  {
+ m_ctrl = ctrl;
+  }
     /**
         Returns the associated control.
     */
   wxRichTextCtrl* GetRichTextCtrl() const
-  { return m_ctrl; }
+  {
+ return m_ctrl;
+  }
     /**
         Sets a flag indicating whether the last paragraph is partial or complete.
     */
   void SetPartialParagraph(bool partialPara)
-  { m_partialParagraph = partialPara; }
+  {
+ m_partialParagraph = partialPara;
+  }
     /**
         Returns a flag indicating whether the last paragraph is partial or complete.
     */
   bool GetPartialParagraph() const
-  { return m_partialParagraph; }
+  {
+ return m_partialParagraph;
+  }
     /**
         Returns the style sheet associated with the overall buffer.
     */
   virtual wxRichTextStyleSheet* GetStyleSheet() const;
   virtual bool IsTopLevel() const
-  { return true; }
+  {
+ return true;
+  }
 // Operations
 
     /**
@@ -2952,7 +3489,9 @@ public:
         Returns the number of paragraphs.
     */
   virtual int GetParagraphCount() const
-  { return static_cast<int>(GetChildCount()); }
+  {
+ return static_cast<int>(GetChildCount());
+  }
     /**
         Returns the number of visible lines.
     */
@@ -3174,7 +3713,9 @@ public:
     */
   virtual bool HasParagraphAttributes(const wxRichTextRange& range, const wxRichTextAttr& style) const;
   virtual wxRichTextObject* Clone() const
-  { return new wxRichTextParagraphLayoutBox(*this); }
+  {
+ return new wxRichTextParagraphLayoutBox(*this);
+  }
     /**
         Prepares the content just before insertion (or after buffer reset).
         Currently is only called if undo mode is on.
@@ -3196,7 +3737,9 @@ public:
   virtual bool ApplyStyleSheet(wxRichTextStyleSheet* styleSheet);
   void Copy(const wxRichTextParagraphLayoutBox& obj);
   void operator=(const wxRichTextParagraphLayoutBox& obj)
-  { Copy(obj); }
+  {
+ Copy(obj);
+  }
     /**
         Calculate ranges.
     */
@@ -3222,7 +3765,9 @@ public:
         inserted text to be bold).
     */
   virtual const wxRichTextAttr& GetDefaultStyle() const
-  { return m_defaultAttributes; }
+  {
+ return m_defaultAttributes;
+  }
     /**
         Sets the basic (overall) style. This is the style of the whole
         buffer before further styles are applied, unlike the default style, which
@@ -3230,7 +3775,9 @@ public:
         style to bold will cause subsequently inserted text to be bold).
     */
   virtual void SetBasicStyle(const wxRichTextAttr& style)
-  { m_attributes = style; }
+  {
+ m_attributes = style;
+  }
     /**
         Returns the basic (overall) style.
 
@@ -3240,7 +3787,9 @@ public:
         subsequently inserted text to be bold).
     */
   virtual const wxRichTextAttr& GetBasicStyle() const
-  { return m_attributes; }
+  {
+ return m_attributes;
+  }
     /**
         Invalidates the buffer. With no argument, invalidates whole buffer.
     */
@@ -3267,12 +3816,16 @@ public:
         Returns @true if this object needs layout.
     */
   bool IsDirty() const
-  { return m_invalidRange != wxRICHTEXT_NONE; }
+  {
+ return m_invalidRange != wxRICHTEXT_NONE;
+  }
     /**
         Returns the wxRichTextFloatCollector of this object.
     */
   wxRichTextFloatCollector* GetFloatCollector()
-  { return m_floatCollector; }
+  {
+ return m_floatCollector;
+  }
     /**
         Returns the number of floating objects at this level.
     */
@@ -3314,23 +3867,32 @@ public:
         Copy constructor.
     */
   wxRichTextBox(const wxRichTextBox& obj)
-    :  wxRichTextParagraphLayoutBox() 
-    {
- Copy(obj);     }
+    :  wxRichTextParagraphLayoutBox()
+  {
+ Copy(obj);
+  }
 // Overridables
   virtual bool Draw(wxDC& dc, wxRichTextDrawingContext& context, const wxRichTextRange& range, const wxRichTextSelection& selection, const wxRect& rect, int descent, int style);
   virtual wxString GetXMLNodeName() const
-  { return wxT("textbox"); }
+  {
+ return wxT("textbox");
+  }
   virtual bool CanEditProperties() const
-  { return true; }
+  {
+ return true;
+  }
   virtual bool EditProperties(wxWindow* parent, wxRichTextBuffer* buffer);
   virtual wxString GetPropertiesMenuLabel() const
-  { return _("&Box"); }
+  {
+ return _("&Box");
+  }
 // Accessors
 
 // Operations
   virtual wxRichTextObject* Clone() const
-  { return new wxRichTextBox(*this); }
+  {
+ return new wxRichTextBox(*this);
+  }
   void Copy(const wxRichTextBox& obj);
 };
 /**
@@ -3386,34 +3948,47 @@ public:
         Copy constructor.
     */
   wxRichTextField(const wxRichTextField& obj)
-    :  wxRichTextParagraphLayoutBox() 
-    {
- Copy(obj);     }
+    :  wxRichTextParagraphLayoutBox()
+  {
+ Copy(obj);
+  }
 // Overridables
   virtual bool Draw(wxDC& dc, wxRichTextDrawingContext& context, const wxRichTextRange& range, const wxRichTextSelection& selection, const wxRect& rect, int descent, int style);
   virtual bool Layout(wxDC& dc, wxRichTextDrawingContext& context, const wxRect& rect, const wxRect& parentRect, int style);
   virtual bool GetRangeSize(const wxRichTextRange& range, wxSize& size, int& descent, wxDC& dc, wxRichTextDrawingContext& context, int flags, const wxPoint& position = wxPoint(0, 0), const wxSize& parentSize = wxDefaultSize, wxArrayInt* partialExtents = NULL) const;
   virtual wxString GetXMLNodeName() const
-  { return wxT("field"); }
+  {
+ return wxT("field");
+  }
   virtual bool CanEditProperties() const;
   virtual bool EditProperties(wxWindow* parent, wxRichTextBuffer* buffer);
   virtual wxString GetPropertiesMenuLabel() const;
   virtual bool AcceptsFocus() const
-  { return false; }
+  {
+ return false;
+  }
   virtual void CalculateRange(long start, long& end);
     /**
         If a field has children, we don't want the user to be able to edit it.
     */
   virtual bool IsAtomic() const
-  { return true; }
+  {
+ return true;
+  }
   virtual bool IsEmpty() const
-  { return false; }
+  {
+ return false;
+  }
   virtual bool IsTopLevel() const;
 // Accessors
   void SetFieldType(const wxString& fieldType)
-  { GetProperties().SetProperty(wxT("FieldType"), fieldType); }
+  {
+ GetProperties().SetProperty(wxT("FieldType"), fieldType);
+  }
   wxString GetFieldType() const
-  { return GetProperties().GetPropertyString(wxT("FieldType")); }
+  {
+ return GetProperties().GetPropertyString(wxT("FieldType"));
+  }
 // Operations
 
     /**
@@ -3422,7 +3997,9 @@ public:
      */
   virtual bool UpdateField(wxRichTextBuffer* buffer);
   virtual wxRichTextObject* Clone() const
-  { return new wxRichTextField(*this); }
+  {
+ return new wxRichTextField(*this);
+  }
   void Copy(const wxRichTextField& obj);
 };
 /**
@@ -3449,17 +4026,20 @@ public:
     */
   wxRichTextFieldType(const wxString& name = wxEmptyString)
     :  m_name(name)
-        
-    {
-     }
+  {
+
+  }
     /**
         Copy constructor.
     */
   wxRichTextFieldType(const wxRichTextFieldType& fieldType)
   {
- Copy(fieldType);   }
+ Copy(fieldType);
+  }
   void Copy(const wxRichTextFieldType& fieldType)
-  { m_name = fieldType.m_name; }
+  {
+ m_name = fieldType.m_name;
+  }
     /**
         Draw the item, within the given range. Some objects may ignore the range (for
         example paragraphs) while others must obey it (lines, to implement wrapping)
@@ -3481,38 +4061,52 @@ public:
         Returns @true if we can edit the object's properties via a GUI.
     */
   virtual bool CanEditProperties(wxRichTextField* obj) const
-  { return false; }
+  {
+ return false;
+  }
     /**
         Edits the object's properties via a GUI.
     */
   virtual bool EditProperties(wxRichTextField* obj, wxWindow* parent, wxRichTextBuffer* buffer)
-  { return false; }
+  {
+ return false;
+  }
     /**
         Returns the label to be used for the properties context menu item.
     */
   virtual wxString GetPropertiesMenuLabel(wxRichTextField* obj) const
-  { return wxEmptyString; }
+  {
+ return wxEmptyString;
+  }
     /**
         Update the field. This would typically expand the field to its value,
         if this is a dynamically changing and/or composite field.
      */
   virtual bool UpdateField(wxRichTextBuffer* buffer, wxRichTextField* obj)
-  { return false; }
+  {
+ return false;
+  }
     /**
         Returns @true if this object is top-level, i.e.\ contains its own paragraphs, such as a text box.
     */
   virtual bool IsTopLevel(wxRichTextField* obj) const
-  { return true; }
+  {
+ return true;
+  }
     /**
         Sets the field type name. There should be a unique name per field type object.
     */
   void SetName(const wxString& name)
-  { m_name = name; }
+  {
+ m_name = name;
+  }
     /**
         Returns the field type name. There should be a unique name per field type object.
     */
   wxString GetName() const
-  { return m_name; }
+  {
+ return m_name;
+  }
 protected:
   wxString m_name;
 };
@@ -3551,12 +4145,13 @@ class wxRichTextFieldTypeStandard : public wxRichTextFieldType
 {
 public:
     // Display style types
-  enum { wxRICHTEXT_FIELD_STYLE_COMPOSITE = 0x01,
+  enum {
+ wxRICHTEXT_FIELD_STYLE_COMPOSITE = 0x01,
            wxRICHTEXT_FIELD_STYLE_RECTANGLE = 0x02,
            wxRICHTEXT_FIELD_STYLE_NO_BORDER = 0x04,
            wxRICHTEXT_FIELD_STYLE_START_TAG = 0x08,
            wxRICHTEXT_FIELD_STYLE_END_TAG = 0x10
-         };
+  };
     /**
         Constructor, creating a field type definition with a text label.
 
@@ -3593,14 +4188,16 @@ public:
     */
   wxRichTextFieldTypeStandard()
   {
- Init();   }
+ Init();
+  }
     /**
         The copy constructor.
 
     */
   wxRichTextFieldTypeStandard(const wxRichTextFieldTypeStandard& field)
   {
- Copy(field);   }
+ Copy(field);
+  }
     /**
         Initialises the object.
     */
@@ -3613,7 +4210,9 @@ public:
         The assignment operator.
     */
   void operator=(const wxRichTextFieldTypeStandard& field)
-  { Copy(field); }
+  {
+ Copy(field);
+  }
     /**
         Draw the item, within the given range. Some objects may ignore the range (for
         example paragraphs) while others must obey it (lines, to implement wrapping)
@@ -3639,117 +4238,163 @@ public:
         Returns @true if the display type is wxRICHTEXT_FIELD_STYLE_COMPOSITE, @false otherwise.
     */
   virtual bool IsTopLevel(wxRichTextField* obj) const
-  { return (GetDisplayStyle() & wxRICHTEXT_FIELD_STYLE_COMPOSITE) != 0; }
+  {
+ return (GetDisplayStyle() & wxRICHTEXT_FIELD_STYLE_COMPOSITE) != 0;
+  }
     /**
         Sets the text label for fields of this type.
     */
   void SetLabel(const wxString& label)
-  { m_label = label; }
+  {
+ m_label = label;
+  }
     /**
         Returns the text label for fields of this type.
     */
   const wxString& GetLabel() const
-  { return m_label; }
+  {
+ return m_label;
+  }
     /**
         Sets the bitmap label for fields of this type.
     */
   void SetBitmap(const wxBitmap& bitmap)
-  { m_bitmap = bitmap; }
+  {
+ m_bitmap = bitmap;
+  }
     /**
         Gets the bitmap label for fields of this type.
     */
   const wxBitmap& GetBitmap() const
-  { return m_bitmap; }
+  {
+ return m_bitmap;
+  }
     /**
         Gets the display style for fields of this type.
     */
   int GetDisplayStyle() const
-  { return m_displayStyle; }
+  {
+ return m_displayStyle;
+  }
     /**
         Sets the display style for fields of this type.
     */
   void SetDisplayStyle(int displayStyle)
-  { m_displayStyle = displayStyle; }
+  {
+ m_displayStyle = displayStyle;
+  }
     /**
         Gets the font used for drawing the text label.
     */
   const wxFont& GetFont() const
-  { return m_font; }
+  {
+ return m_font;
+  }
     /**
         Sets the font used for drawing the text label.
     */
   void SetFont(const wxFont& font)
-  { m_font = font; }
+  {
+ m_font = font;
+  }
     /**
         Gets the colour used for drawing the text label.
     */
   const wxColour& GetTextColour() const
-  { return m_textColour; }
+  {
+ return m_textColour;
+  }
     /**
         Sets the colour used for drawing the text label.
     */
   void SetTextColour(const wxColour& colour)
-  { m_textColour = colour; }
+  {
+ m_textColour = colour;
+  }
     /**
         Gets the colour used for drawing the field border.
     */
   const wxColour& GetBorderColour() const
-  { return m_borderColour; }
+  {
+ return m_borderColour;
+  }
     /**
         Sets the colour used for drawing the field border.
     */
   void SetBorderColour(const wxColour& colour)
-  { m_borderColour = colour; }
+  {
+ m_borderColour = colour;
+  }
     /**
         Gets the colour used for drawing the field background.
     */
   const wxColour& GetBackgroundColour() const
-  { return m_backgroundColour; }
+  {
+ return m_backgroundColour;
+  }
     /**
         Sets the colour used for drawing the field background.
     */
   void SetBackgroundColour(const wxColour& colour)
-  { m_backgroundColour = colour; }
+  {
+ m_backgroundColour = colour;
+  }
     /**
         Sets the vertical padding (the distance between the border and the text).
     */
   void SetVerticalPadding(int padding)
-  { m_verticalPadding = padding; }
+  {
+ m_verticalPadding = padding;
+  }
     /**
         Gets the vertical padding (the distance between the border and the text).
     */
   int GetVerticalPadding() const
-  { return m_verticalPadding; }
+  {
+ return m_verticalPadding;
+  }
     /**
         Sets the horizontal padding (the distance between the border and the text).
     */
   void SetHorizontalPadding(int padding)
-  { m_horizontalPadding = padding; }
+  {
+ m_horizontalPadding = padding;
+  }
     /**
         Sets the horizontal padding (the distance between the border and the text).
     */
   int GetHorizontalPadding() const
-  { return m_horizontalPadding; }
+  {
+ return m_horizontalPadding;
+  }
     /**
         Sets the horizontal margin surrounding the field object.
     */
   void SetHorizontalMargin(int margin)
-  { m_horizontalMargin = margin; }
+  {
+ m_horizontalMargin = margin;
+  }
     /**
         Gets the horizontal margin surrounding the field object.
     */
   int GetHorizontalMargin() const
-  { return m_horizontalMargin; }
+  {
+ return m_horizontalMargin;
+  }
     /**
         Sets the vertical margin surrounding the field object.
     */
   void SetVerticalMargin(int margin)
-  { m_verticalMargin = margin; }
+  {
+ m_verticalMargin = margin;
+  }
     /**
         Gets the vertical margin surrounding the field object.
     */
   int GetVerticalMargin() const
-  { return m_verticalMargin; }
+  {
+ return m_verticalMargin;
+  }
 protected:
   wxString m_label;
   int m_displayStyle;
@@ -3782,7 +4427,8 @@ public:
   wxRichTextLine(wxRichTextParagraph* parent);
   wxRichTextLine(const wxRichTextLine& obj)
   {
- Init( NULL); Copy(obj);   }
+ Init( NULL); Copy(obj);
+  }
   virtual ~wxRichTextLine()
   {
   }
@@ -3794,27 +4440,37 @@ public:
         Sets the range associated with this line.
     */
   void SetRange(const wxRichTextRange& range)
-  { m_range = range; }
+  {
+ m_range = range;
+  }
     /**
         Sets the range associated with this line.
     */
   void SetRange(long from, long to)
-  { m_range = wxRichTextRange(from, to); }
+  {
+ m_range = wxRichTextRange(from, to);
+  }
     /**
         Returns the parent paragraph.
     */
   wxRichTextParagraph* GetParent()
-  { return m_parent; }
+  {
+ return m_parent;
+  }
     /**
         Returns the range.
     */
   const wxRichTextRange& GetRange() const
-  { return m_range; }
+  {
+ return m_range;
+  }
     /**
         Returns the range.
     */
   wxRichTextRange& GetRange()
-  { return m_range; }
+  {
+ return m_range;
+  }
     /**
         Returns the absolute range.
     */
@@ -3823,22 +4479,30 @@ public:
         Returns the line size as calculated by Layout.
     */
   virtual wxSize GetSize() const
-  { return m_size; }
+  {
+ return m_size;
+  }
     /**
         Sets the line size as calculated by Layout.
     */
   virtual void SetSize(const wxSize& sz)
-  { m_size = sz; }
+  {
+ m_size = sz;
+  }
     /**
         Returns the object position relative to the parent.
     */
   virtual wxPoint GetPosition() const
-  { return m_pos; }
+  {
+ return m_pos;
+  }
     /**
         Sets the object position relative to the parent.
     */
   virtual void SetPosition(const wxPoint& pos)
-  { m_pos = pos; }
+  {
+ m_pos = pos;
+  }
     /**
         Returns the absolute object position.
     */
@@ -3847,22 +4511,32 @@ public:
         Returns the rectangle enclosing the line.
     */
   virtual wxRect GetRect() const
-  { return wxRect(GetAbsolutePosition(), GetSize()); }
+  {
+ return wxRect(GetAbsolutePosition(), GetSize());
+  }
     /**
         Sets the stored descent.
     */
   void SetDescent(int descent)
-  { m_descent = descent; }
+  {
+ m_descent = descent;
+  }
     /**
         Returns the stored descent.
     */
   int GetDescent() const
-  { return m_descent; }
+  {
+ return m_descent;
+  }
 #if  wxRICHTEXT_USE_OPTIMIZED_LINE_DRAWING
   wxArrayInt& GetObjectSizes()
-  { return m_objectSizes; }
+  {
+ return m_objectSizes;
+  }
   const wxArrayInt& GetObjectSizes() const
-  { return m_objectSizes; }
+  {
+ return m_objectSizes;
+  }
 #endif
 // Operations
 
@@ -3875,7 +4549,9 @@ public:
     */
   void Copy(const wxRichTextLine& obj);
   virtual wxRichTextLine* Clone() const
-  { return new wxRichTextLine(*this); }
+  {
+ return new wxRichTextLine(*this);
+  }
 protected:
     // The range of the line (start position to end position)
     // This is relative to the parent paragraph.
@@ -3917,9 +4593,10 @@ public:
   wxRichTextParagraph(const wxString& text, wxRichTextObject* parent = NULL, wxRichTextAttr* paraStyle = NULL, wxRichTextAttr* charStyle = NULL);
   virtual ~wxRichTextParagraph();
   wxRichTextParagraph(const wxRichTextParagraph& obj)
-    :  wxRichTextCompositeObject() 
-    {
- Copy(obj);     }
+    :  wxRichTextCompositeObject()
+  {
+ Copy(obj);
+  }
   void Init();
 // Overridables
   virtual bool Draw(wxDC& dc, wxRichTextDrawingContext& context, const wxRichTextRange& range, const wxRichTextSelection& selection, const wxRect& rect, int descent, int style);
@@ -3929,14 +4606,18 @@ public:
   virtual int HitTest(wxDC& dc, wxRichTextDrawingContext& context, const wxPoint& pt, long& textPosition, wxRichTextObject** obj, wxRichTextObject** contextObj, int flags = 0);
   virtual void CalculateRange(long start, long& end);
   virtual wxString GetXMLNodeName() const
-  { return wxT("paragraph"); }
+  {
+ return wxT("paragraph");
+  }
 // Accessors
 
     /**
         Returns the cached lines.
     */
   wxRichTextLineList& GetLines()
-  { return m_cachedLines; }
+  {
+ return m_cachedLines;
+  }
 // Operations
 
     /**
@@ -3944,7 +4625,9 @@ public:
     */
   void Copy(const wxRichTextParagraph& obj);
   virtual wxRichTextObject* Clone() const
-  { return new wxRichTextParagraph(*this); }
+  {
+ return new wxRichTextParagraph(*this);
+  }
     /**
         Clears the cached lines.
     */
@@ -4023,7 +4706,9 @@ public:
         Returns the default tabstop array.
     */
   static const wxArrayInt& GetDefaultTabs()
-  { return sm_defaultTabs; }
+  {
+ return sm_defaultTabs;
+  }
     /**
         Lays out the floating objects.
     */
@@ -4032,12 +4717,16 @@ public:
         Whether the paragraph is impacted by floating objects from above.
     */
   int GetImpactedByFloatingObjects() const
-  { return m_impactedByFloatingObjects; }
+  {
+ return m_impactedByFloatingObjects;
+  }
     /**
         Sets whether the paragraph is impacted by floating objects from above.
     */
   void SetImpactedByFloatingObjects(int i)
-  { m_impactedByFloatingObjects = i; }
+  {
+ m_impactedByFloatingObjects = i;
+  }
 protected:
     // The lines that make up the wrapped paragraph
   wxRichTextLineList m_cachedLines;
@@ -4070,9 +4759,10 @@ public:
         Copy constructor.
     */
   wxRichTextPlainText(const wxRichTextPlainText& obj)
-    :  wxRichTextObject() 
-    {
- Copy(obj);     }
+    :  wxRichTextObject()
+  {
+ Copy(obj);
+  }
 // Overridables
   virtual bool Draw(wxDC& dc, wxRichTextDrawingContext& context, const wxRichTextRange& range, const wxRichTextSelection& selection, const wxRect& rect, int descent, int style);
   virtual bool Layout(wxDC& dc, wxRichTextDrawingContext& context, const wxRect& rect, const wxRect& parentRect, int style);
@@ -4082,7 +4772,9 @@ public:
   virtual void CalculateRange(long start, long& end);
   virtual bool DeleteRange(const wxRichTextRange& range);
   virtual bool IsEmpty() const
-  { return m_text.empty(); }
+  {
+ return m_text.empty();
+  }
   virtual bool CanMerge(wxRichTextObject* object, wxRichTextDrawingContext& context) const;
   virtual bool Merge(wxRichTextObject* object, wxRichTextDrawingContext& context);
   virtual bool CanSplit(wxRichTextDrawingContext& context) const;
@@ -4094,7 +4786,9 @@ public:
   long GetFirstLineBreakPosition(long pos);
     /// Does this object take note of paragraph attributes? Text and image objects don't.
   virtual bool UsesParagraphAttributes() const
-  { return false; }
+  {
+ return false;
+  }
   virtual bool ImportFromXML(wxRichTextBuffer* buffer, wxXmlNode* node, wxRichTextXMLHandler* handler, bool* recurse);
 #if  wxRICHTEXT_HAVE_DIRECT_OUTPUT
   virtual bool ExportXML(wxOutputStream& stream, int indent, wxRichTextXMLHandler* handler);
@@ -4103,26 +4797,34 @@ public:
   virtual bool ExportXML(wxXmlNode* parent, wxRichTextXMLHandler* handler);
 #endif
   virtual wxString GetXMLNodeName() const
-  { return wxT("text"); }
+  {
+ return wxT("text");
+  }
 // Accessors
 
     /**
         Returns the text.
     */
   const wxString& GetText() const
-  { return m_text; }
+  {
+ return m_text;
+  }
     /**
         Sets the text.
     */
   void SetText(const wxString& text)
-  { m_text = text; }
+  {
+ m_text = text;
+  }
 // Operations
 
     // Copies the text object,
   void Copy(const wxRichTextPlainText& obj);
     // Clones the text object.
   virtual wxRichTextObject* Clone() const
-  { return new wxRichTextPlainText(*this); }
+  {
+ return new wxRichTextPlainText(*this);
+  }
 private:
   bool DrawTabbedString(wxDC& dc, const wxRichTextAttr& attr, const wxRect& rect, wxString& str, wxCoord& x, wxCoord& y, bool selected);
 protected:
@@ -4211,38 +4913,54 @@ public:
         Returns the raw data.
     */
   unsigned char* GetData() const
-  { return m_data; }
+  {
+ return m_data;
+  }
     /**
         Returns the data size in bytes.
     */
   size_t GetDataSize() const
-  { return m_dataSize; }
+  {
+ return m_dataSize;
+  }
     /**
         Returns the image type.
     */
   wxBitmapType GetImageType() const
-  { return m_imageType; }
+  {
+ return m_imageType;
+  }
     /**
     */
   void SetData(unsigned char* image)
-  { m_data = image; }
+  {
+ m_data = image;
+  }
     /**
         Sets the data size.
     */
   void SetDataSize(size_t size)
-  { m_dataSize = size; }
+  {
+ m_dataSize = size;
+  }
     /**
         Sets the image type.
     */
   void SetImageType(wxBitmapType imageType)
-  { m_imageType = imageType; }
+  {
+ m_imageType = imageType;
+  }
     /**
         Returns @true if the data is non-NULL.
     */
   bool IsOk() const
-  { return GetData() != NULL; }
+  {
+ return GetData() != NULL;
+  }
   bool Ok() const
-  { return IsOk(); }
+  {
+ return IsOk();
+  }
     /**
         Gets the extension for the block's type.
     */
@@ -4291,9 +5009,10 @@ public:
         Default constructor.
     */
   wxRichTextImage(wxRichTextObject* parent = NULL)
-    :  wxRichTextObject(parent) 
-    {
-     }
+    :  wxRichTextObject(parent)
+  {
+
+  }
     /**
         Creates a wxRichTextImage from a wxImage.
     */
@@ -4306,9 +5025,10 @@ public:
         Copy constructor.
     */
   wxRichTextImage(const wxRichTextImage& obj)
-    :  wxRichTextObject(obj) 
-    {
- Copy(obj);     }
+    :  wxRichTextObject(obj)
+  {
+ Copy(obj);
+  }
 // Overridables
   virtual bool Draw(wxDC& dc, wxRichTextDrawingContext& context, const wxRichTextRange& range, const wxRichTextSelection& selection, const wxRect& rect, int descent, int style);
   virtual bool Layout(wxDC& dc, wxRichTextDrawingContext& context, const wxRect& rect, const wxRect& parentRect, int style);
@@ -4318,14 +5038,22 @@ public:
     */
   virtual wxTextAttrSize GetNaturalSize() const;
   virtual bool IsEmpty() const
-  { return false; /* !m_imageBlock.IsOk(); */ }
+  {
+ return false; /* !m_imageBlock.IsOk(); */
+  }
   virtual bool CanEditProperties() const
-  { return true; }
+  {
+ return true;
+  }
   virtual bool EditProperties(wxWindow* parent, wxRichTextBuffer* buffer);
   virtual wxString GetPropertiesMenuLabel() const
-  { return _("&Picture"); }
+  {
+ return _("&Picture");
+  }
   virtual bool UsesParagraphAttributes() const
-  { return false; }
+  {
+ return false;
+  }
   virtual bool ImportFromXML(wxRichTextBuffer* buffer, wxXmlNode* node, wxRichTextXMLHandler* handler, bool* recurse);
 #if  wxRICHTEXT_HAVE_DIRECT_OUTPUT
   virtual bool ExportXML(wxOutputStream& stream, int indent, wxRichTextXMLHandler* handler);
@@ -4335,31 +5063,43 @@ public:
 #endif
     // Images can be floatable (optionally).
   virtual bool IsFloatable() const
-  { return true; }
+  {
+ return true;
+  }
   virtual wxString GetXMLNodeName() const
-  { return wxT("image"); }
+  {
+ return wxT("image");
+  }
 // Accessors
 
     /**
         Returns the image cache (a scaled bitmap).
     */
   const wxBitmap& GetImageCache() const
-  { return m_imageCache; }
+  {
+ return m_imageCache;
+  }
     /**
         Sets the image cache.
     */
   void SetImageCache(const wxBitmap& bitmap)
-  { m_imageCache = bitmap; }
+  {
+ m_imageCache = bitmap;
+  }
     /**
         Resets the image cache.
     */
   void ResetImageCache()
-  { m_imageCache = wxNullBitmap; }
+  {
+ m_imageCache = wxNullBitmap;
+  }
     /**
         Returns the image block containing the raw data.
     */
   wxRichTextImageBlock& GetImageBlock()
-  { return m_imageBlock; }
+  {
+ return m_imageBlock;
+  }
     /**
         Gets the original image size.
     */
@@ -4378,7 +5118,9 @@ public:
         Clones the image object.
     */
   virtual wxRichTextObject* Clone() const
-  { return new wxRichTextImage(*this); }
+  {
+ return new wxRichTextImage(*this);
+  }
     /**
         Creates a cached image at the required size.
     */
@@ -4391,12 +5133,16 @@ public:
         Gets the image state.
     */
   int GetImageState() const
-  { return m_imageState; }
+  {
+ return m_imageState;
+  }
     /**
         Sets the image state.
     */
   void SetImageState(int state)
-  { m_imageState = state; }
+  {
+ m_imageState = state;
+  }
 protected:
   wxRichTextImageBlock m_imageBlock;
   wxBitmap m_imageCache;
@@ -4425,14 +5171,16 @@ public:
     */
   wxRichTextBuffer()
   {
- Init();   }
+ Init();
+  }
     /**
         Copy constructor.
     */
   wxRichTextBuffer(const wxRichTextBuffer& obj)
-    :  wxRichTextParagraphLayoutBox() 
-    {
- Init(); Copy(obj);     }
+    :  wxRichTextParagraphLayoutBox()
+  {
+ Init(); Copy(obj);
+  }
   virtual ~wxRichTextBuffer();
 // Accessors
 
@@ -4441,7 +5189,9 @@ public:
         A text buffer always creates its own command processor when it is initialized.
     */
   wxCommandProcessor* GetCommandProcessor() const
-  { return m_commandProcessor; }
+  {
+ return m_commandProcessor;
+  }
     /**
         Sets style sheet, if any. This will allow the application to use named character and paragraph
         styles found in the style sheet.
@@ -4449,12 +5199,16 @@ public:
         Neither the buffer nor the control owns the style sheet so must be deleted by the application.
     */
   void SetStyleSheet(wxRichTextStyleSheet* styleSheet)
-  { m_styleSheet = styleSheet; }
+  {
+ m_styleSheet = styleSheet;
+  }
     /**
         Returns the style sheet.
     */
   virtual wxRichTextStyleSheet* GetStyleSheet() const
-  { return m_styleSheet; }
+  {
+ return m_styleSheet;
+  }
     /**
         Sets the style sheet and sends a notification of the change.
     */
@@ -4471,17 +5225,23 @@ public:
         Returns the table storing fonts, for quick access and font reuse.
     */
   wxRichTextFontTable& GetFontTable()
-  { return m_fontTable; }
+  {
+ return m_fontTable;
+  }
     /**
         Returns the table storing fonts, for quick access and font reuse.
     */
   const wxRichTextFontTable& GetFontTable() const
-  { return m_fontTable; }
+  {
+ return m_fontTable;
+  }
     /**
         Sets table storing fonts, for quick access and font reuse.
     */
   void SetFontTable(const wxRichTextFontTable& table)
-  { m_fontTable = table; }
+  {
+ m_fontTable = table;
+  }
     /**
         Sets the scale factor for displaying fonts, for example for more comfortable
         editing.
@@ -4492,7 +5252,9 @@ public:
         editing.
     */
   double GetFontScale() const
-  { return m_fontScale; }
+  {
+ return m_fontScale;
+  }
     /**
         Sets the scale factor for displaying certain dimensions such as indentation and
         inter-paragraph spacing. This can be useful when editing in a small control
@@ -4504,7 +5266,9 @@ public:
         and inter-paragraph spacing.
     */
   double GetDimensionScale() const
-  { return m_dimensionScale; }
+  {
+ return m_dimensionScale;
+  }
 // Operations
 
     /**
@@ -4537,17 +5301,23 @@ public:
         Sets the handler flags, controlling loading and saving.
     */
   void SetHandlerFlags(int flags)
-  { m_handlerFlags = flags; }
+  {
+ m_handlerFlags = flags;
+  }
     /**
         Gets the handler flags, controlling loading and saving.
     */
   int GetHandlerFlags() const
-  { return m_handlerFlags; }
+  {
+ return m_handlerFlags;
+  }
     /**
         Convenience function to add a paragraph of text.
     */
   virtual wxRichTextRange AddParagraph(const wxString& text, wxRichTextAttr* paraStyle = NULL)
-  { Modify(); return wxRichTextParagraphLayoutBox::AddParagraph(text, paraStyle); }
+  {
+ Modify(); return wxRichTextParagraphLayoutBox::AddParagraph(text, paraStyle);
+  }
     /**
         Begin collapsing undo/redo commands. Note that this may not work properly
         if combining commands that delete or insert content, changing ranges for
@@ -4565,7 +5335,9 @@ public:
         Returns @true if we are collapsing commands.
     */
   virtual bool BatchingUndo() const
-  { return m_batchedCommandDepth > 0; }
+  {
+ return m_batchedCommandDepth > 0;
+  }
     /**
         Submit the action immediately, or delay according to whether collapsing is on.
     */
@@ -4574,7 +5346,9 @@ public:
         Returns the collapsed command.
     */
   virtual wxRichTextCommand* GetBatchedCommand() const
-  { return m_batchedCommand; }
+  {
+ return m_batchedCommand;
+  }
     /**
         Begin suppressing undo/redo commands. The way undo is suppressed may be implemented
         differently by each command. If not dealt with by a command implementation, then
@@ -4590,7 +5364,9 @@ public:
         Are we suppressing undo??
     */
   virtual bool SuppressingUndo() const
-  { return m_suppressUndo > 0; }
+  {
+ return m_suppressUndo > 0;
+  }
     /**
         Copy the range to the clipboard.
     */
@@ -4623,7 +5399,9 @@ public:
         Returns the size of the style stack, for example to check correct nesting.
     */
   virtual size_t GetStyleStackSize() const
-  { return m_attributeStack.GetCount(); }
+  {
+ return m_attributeStack.GetCount();
+  }
     /**
         Begins using bold.
     */
@@ -4632,7 +5410,9 @@ public:
         Ends using bold.
     */
   bool EndBold()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins using italic.
     */
@@ -4641,7 +5421,9 @@ public:
         Ends using italic.
     */
   bool EndItalic()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins using underline.
     */
@@ -4650,7 +5432,9 @@ public:
         Ends using underline.
     */
   bool EndUnderline()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins using point size.
     */
@@ -4659,7 +5443,9 @@ public:
         Ends using point size.
     */
   bool EndFontSize()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins using this font.
     */
@@ -4668,7 +5454,9 @@ public:
         Ends using a font.
     */
   bool EndFont()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins using this colour.
     */
@@ -4677,7 +5465,9 @@ public:
         Ends using a colour.
     */
   bool EndTextColour()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins using alignment.
     */
@@ -4686,7 +5476,9 @@ public:
         Ends alignment.
     */
   bool EndAlignment()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins using @a leftIndent for the left indent, and optionally @a leftSubIndent for
         the sub-indent. Both are expressed in tenths of a millimetre.
@@ -4701,7 +5493,9 @@ public:
         Ends left indent.
     */
   bool EndLeftIndent()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins a right indent, specified in tenths of a millimetre.
     */
@@ -4710,7 +5504,9 @@ public:
         Ends right indent.
     */
   bool EndRightIndent()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins paragraph spacing; pass the before-paragraph and after-paragraph spacing
         in tenths of a millimetre.
@@ -4720,7 +5516,9 @@ public:
         Ends paragraph spacing.
     */
   bool EndParagraphSpacing()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins line spacing using the specified value. @e spacing is a multiple, where
         10 means single-spacing, 15 means 1.5 spacing, and 20 means double spacing.
@@ -4732,7 +5530,9 @@ public:
         Ends line spacing.
     */
   bool EndLineSpacing()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins numbered bullet.
 
@@ -4755,7 +5555,9 @@ public:
         Ends numbered bullet.
     */
   bool EndNumberedBullet()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins applying a symbol bullet, using a character from the current font.
 
@@ -4767,7 +5569,9 @@ public:
         Ends symbol bullet.
     */
   bool EndSymbolBullet()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins applying a standard bullet, using one of the standard bullet names
         (currently @c standard/circle or @c standard/square.
@@ -4780,7 +5584,9 @@ public:
         Ends standard bullet.
     */
   bool EndStandardBullet()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins named character style.
     */
@@ -4789,7 +5595,9 @@ public:
         Ends named character style.
     */
   bool EndCharacterStyle()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins named paragraph style.
     */
@@ -4798,7 +5606,9 @@ public:
         Ends named character style.
     */
   bool EndParagraphStyle()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins named list style.
 
@@ -4809,7 +5619,9 @@ public:
         Ends named character style.
     */
   bool EndListStyle()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
     /**
         Begins applying wxTEXT_ATTR_URL to the content.
 
@@ -4821,7 +5633,9 @@ public:
         Ends URL.
     */
   bool EndURL()
-  { return EndStyle(); }
+  {
+ return EndStyle();
+  }
 // Event handling
 
     /**
@@ -4860,12 +5674,16 @@ public:
         Assignment operator.
     */
   void operator=(const wxRichTextBuffer& obj)
-  { Copy(obj); }
+  {
+ Copy(obj);
+  }
     /**
         Clones the buffer.
     */
   virtual wxRichTextObject* Clone() const
-  { return new wxRichTextBuffer(*this); }
+  {
+ return new wxRichTextBuffer(*this);
+  }
     /**
         Submits a command to insert paragraphs.
     */
@@ -4894,26 +5712,34 @@ public:
         Mark modified.
     */
   void Modify(bool modify = true)
-  { m_modified = modify; }
+  {
+ m_modified = modify;
+  }
     /**
         Returns @true if the buffer was modified.
     */
   bool IsModified() const
-  { return m_modified; }
+  {
+ return m_modified;
+  }
     //@{
     /**
         Dumps contents of buffer for debugging purposes.
     */
   virtual void Dump();
   virtual void Dump(wxTextOutputStream& stream)
-  { wxRichTextParagraphLayoutBox::Dump(stream); }
+  {
+ wxRichTextParagraphLayoutBox::Dump(stream);
+  }
     //@}
 
     /**
         Returns the file handlers.
     */
   static wxList& GetHandlers()
-  { return sm_handlers; }
+  {
+ return sm_handlers;
+  }
     /**
         Adds a file handler to the end.
     */
@@ -4961,7 +5787,9 @@ public:
         Returns the drawing handlers.
     */
   static wxList& GetDrawingHandlers()
-  { return sm_drawingHandlers; }
+  {
+ return sm_drawingHandlers;
+  }
     /**
         Adds a drawing handler to the end.
     */
@@ -4986,7 +5814,9 @@ public:
         Returns the field types.
     */
   static wxRichTextFieldTypeHashMap& GetFieldTypes()
-  { return sm_fieldTypes; }
+  {
+ return sm_fieldTypes;
+  }
     /**
         Adds a field type.
 
@@ -5014,7 +5844,9 @@ public:
         Returns the renderer object.
     */
   static wxRichTextRenderer* GetRenderer()
-  { return sm_renderer; }
+  {
+ return sm_renderer;
+  }
     /**
         Sets @a renderer as the object to be used to render certain aspects of the
         content, such as bullets.
@@ -5028,32 +5860,44 @@ public:
         Returns the minimum margin between bullet and paragraph in 10ths of a mm.
     */
   static int GetBulletRightMargin()
-  { return sm_bulletRightMargin; }
+  {
+ return sm_bulletRightMargin;
+  }
     /**
         Sets the minimum margin between bullet and paragraph in 10ths of a mm.
     */
   static void SetBulletRightMargin(int margin)
-  { sm_bulletRightMargin = margin; }
+  {
+ sm_bulletRightMargin = margin;
+  }
     /**
         Returns the factor to multiply by character height to get a reasonable bullet size.
     */
   static float GetBulletProportion()
-  { return sm_bulletProportion; }
+  {
+ return sm_bulletProportion;
+  }
     /**
         Sets the factor to multiply by character height to get a reasonable bullet size.
     */
   static void SetBulletProportion(float prop)
-  { sm_bulletProportion = prop; }
+  {
+ sm_bulletProportion = prop;
+  }
     /**
         Returns the scale factor for calculating dimensions.
     */
   double GetScale() const
-  { return m_scale; }
+  {
+ return m_scale;
+  }
     /**
         Sets the scale factor for calculating dimensions.
     */
   void SetScale(double scale)
-  { m_scale = scale; }
+  {
+ m_scale = scale;
+  }
     /**
         Returns the floating layout mode. The default is @true, where objects
         are laid out according to their floating status.
@@ -5128,19 +5972,26 @@ public:
         Copy constructor.
     */
   wxRichTextCell(const wxRichTextCell& obj)
-    :  wxRichTextBox() 
-    {
- Copy(obj);     }
+    :  wxRichTextBox()
+  {
+ Copy(obj);
+  }
 // Overridables
   virtual bool Draw(wxDC& dc, wxRichTextDrawingContext& context, const wxRichTextRange& range, const wxRichTextSelection& selection, const wxRect& rect, int descent, int style);
   virtual int HitTest(wxDC& dc, wxRichTextDrawingContext& context, const wxPoint& pt, long& textPosition, wxRichTextObject** obj, wxRichTextObject** contextObj, int flags = 0);
   virtual wxString GetXMLNodeName() const
-  { return wxT("cell"); }
+  {
+ return wxT("cell");
+  }
   virtual bool CanEditProperties() const
-  { return true; }
+  {
+ return true;
+  }
   virtual bool EditProperties(wxWindow* parent, wxRichTextBuffer* buffer);
   virtual wxString GetPropertiesMenuLabel() const
-  { return _("&Cell"); }
+  {
+ return _("&Cell");
+  }
 // Accessors
 
     /**
@@ -5187,7 +6038,9 @@ public:
   void SetRowSpan(long span);
 // Operations
   virtual wxRichTextObject* Clone() const
-  { return new wxRichTextCell(*this); }
+  {
+ return new wxRichTextCell(*this);
+  }
   void Copy(const wxRichTextCell& obj);
 };
 /**
@@ -5210,14 +6063,17 @@ public:
         Copy constructor.
     */
   wxRichTextTable(const wxRichTextTable& obj)
-    :  wxRichTextBox() 
-    {
- Copy(obj);     }
+    :  wxRichTextBox()
+  {
+ Copy(obj);
+  }
 // Overridables
   virtual bool Draw(wxDC& dc, wxRichTextDrawingContext& context, const wxRichTextRange& range, const wxRichTextSelection& selection, const wxRect& rect, int descent, int style);
   virtual int HitTest(wxDC& dc, wxRichTextDrawingContext& context, const wxPoint& pt, long& textPosition, wxRichTextObject** obj, wxRichTextObject** contextObj, int flags = 0);
   virtual wxString GetXMLNodeName() const
-  { return wxT("table"); }
+  {
+ return wxT("table");
+  }
   virtual bool Layout(wxDC& dc, wxRichTextDrawingContext& context, const wxRect& rect, const wxRect& parentRect, int style);
   virtual bool GetRangeSize(const wxRichTextRange& range, wxSize& size, int& descent, wxDC& dc, wxRichTextDrawingContext& context, int flags, const wxPoint& position = wxPoint(0, 0), const wxSize& parentSize = wxDefaultSize, wxArrayInt* partialExtents = NULL) const;
   virtual bool DeleteRange(const wxRichTextRange& range);
@@ -5233,42 +6089,58 @@ public:
   virtual void CalculateRange(long start, long& end);
     // Can this object handle the selections of its children? FOr example, a table.
   virtual bool HandlesChildSelections() const
-  { return true; }
+  {
+ return true;
+  }
     /// Returns a selection object specifying the selections between start and end character positions.
     /// For example, a table would deduce what cells (of range length 1) are selected when dragging across the table.
   virtual wxRichTextSelection GetSelection(long start, long end) const;
   virtual bool CanEditProperties() const
-  { return true; }
+  {
+ return true;
+  }
   virtual bool EditProperties(wxWindow* parent, wxRichTextBuffer* buffer);
   virtual wxString GetPropertiesMenuLabel() const
-  { return _("&Table"); }
+  {
+ return _("&Table");
+  }
     // Returns true if objects of this class can accept the focus, i.e. a call to SetFocusObject
     // is possible. For example, containers supporting text, such as a text box object, can accept the focus,
     // but a table can't (set the focus to individual cells instead).
   virtual bool AcceptsFocus() const
-  { return false; }
+  {
+ return false;
+  }
 // Accessors
 
     /**
         Returns the cells array.
     */
   const wxRichTextObjectPtrArrayArray& GetCells() const
-  { return m_cells; }
+  {
+ return m_cells;
+  }
     /**
         Returns the cells array.
     */
   wxRichTextObjectPtrArrayArray& GetCells()
-  { return m_cells; }
+  {
+ return m_cells;
+  }
     /**
         Returns the row count.
     */
   int GetRowCount() const
-  { return m_rowCount; }
+  {
+ return m_rowCount;
+  }
     /**
         Returns the column count.
     */
   int GetColumnCount() const
-  { return m_colCount; }
+  {
+ return m_colCount;
+  }
     /**
         Returns the cell at the given row/column position.
     */
@@ -5317,7 +6189,9 @@ public:
   virtual bool AddColumns(int startCol, int noCols = 1, const wxRichTextAttr& attr = wxRichTextAttr());
     // Makes a clone of this object.
   virtual wxRichTextObject* Clone() const
-  { return new wxRichTextTable(*this); }
+  {
+ return new wxRichTextTable(*this);
+  }
     // Copies this object.
   void Copy(const wxRichTextTable& obj);
 protected:
@@ -5343,23 +6217,32 @@ class wxRichTextTableBlock
 public:
   wxRichTextTableBlock()
   {
- Init();   }
+ Init();
+  }
   wxRichTextTableBlock(int colStart, int colEnd, int rowStart, int rowEnd)
   {
- Init(); m_colStart = colStart; m_colEnd = colEnd; m_rowStart = rowStart; m_rowEnd = rowEnd;   }
+ Init(); m_colStart = colStart; m_colEnd = colEnd; m_rowStart = rowStart; m_rowEnd = rowEnd;
+  }
   wxRichTextTableBlock(const wxRichTextTableBlock& block)
   {
- Copy(block);   }
+ Copy(block);
+  }
   void Init()
-  { m_colStart = 0; m_colEnd = 0; m_rowStart = 0; m_rowEnd = 0; }
+  {
+ m_colStart = 0; m_colEnd = 0; m_rowStart = 0; m_rowEnd = 0;
+  }
   void Copy(const wxRichTextTableBlock& block)
   {
         m_colStart = block.m_colStart; m_colEnd = block.m_colEnd; m_rowStart = block.m_rowStart; m_rowEnd = block.m_rowEnd;
-    }
+  }
   void operator=(const wxRichTextTableBlock& block)
-  { Copy(block); }
+  {
+ Copy(block);
+  }
   bool operator==(const wxRichTextTableBlock& block)
-  { return m_colStart == block.m_colStart && m_colEnd == block.m_colEnd && m_rowStart == block.m_rowStart && m_rowEnd == block.m_rowEnd; }
+  {
+ return m_colStart == block.m_colStart && m_colEnd == block.m_colEnd && m_rowStart == block.m_rowStart && m_rowEnd == block.m_rowEnd;
+  }
     /// Computes the block given a table (perhaps about to be edited) and a rich text control
     /// that may have a selection. If no selection, the whole table is used. If just the whole content
     /// of one cell is selected, this cell only is used. If the cell contents is not selected and
@@ -5370,21 +6253,37 @@ public:
     /// Returns the cell focused in the table, if any
   static wxRichTextCell* GetFocusedCell(wxRichTextCtrl* ctrl);
   int& ColStart()
-  { return m_colStart; }
+  {
+ return m_colStart;
+  }
   int ColStart() const
-  { return m_colStart; }
+  {
+ return m_colStart;
+  }
   int& ColEnd()
-  { return m_colEnd; }
+  {
+ return m_colEnd;
+  }
   int ColEnd() const
-  { return m_colEnd; }
+  {
+ return m_colEnd;
+  }
   int& RowStart()
-  { return m_rowStart; }
+  {
+ return m_rowStart;
+  }
   int RowStart() const
-  { return m_rowStart; }
+  {
+ return m_rowStart;
+  }
   int& RowEnd()
-  { return m_rowEnd; }
+  {
+ return m_rowEnd;
+  }
   int RowEnd() const
-  { return m_rowEnd; }
+  {
+ return m_rowEnd;
+  }
   int m_colStart, m_colEnd, m_rowStart, m_rowEnd;
 };
 /**
@@ -5418,17 +6317,20 @@ public:
     */
   wxRichTextObjectAddress(wxRichTextParagraphLayoutBox* topLevelContainer, wxRichTextObject* obj)
   {
- Create(topLevelContainer, obj);   }
+ Create(topLevelContainer, obj);
+  }
     /**
     */
   wxRichTextObjectAddress()
   {
- Init();   }
+ Init();
+  }
     /**
     */
   wxRichTextObjectAddress(const wxRichTextObjectAddress& address)
   {
- Copy(address);   }
+ Copy(address);
+  }
   void Init()
   {
   }
@@ -5436,12 +6338,16 @@ public:
         Copies the address.
     */
   void Copy(const wxRichTextObjectAddress& address)
-  { m_address = address.m_address; }
+  {
+ m_address = address.m_address;
+  }
     /**
         Assignment operator.
     */
   void operator=(const wxRichTextObjectAddress& address)
-  { Copy(address); }
+  {
+ Copy(address);
+  }
     /**
         Returns the object specified by the address, given a top level container.
     */
@@ -5454,17 +6360,23 @@ public:
         Returns the array of integers representing the object address.
     */
   wxArrayInt& GetAddress()
-  { return m_address; }
+  {
+ return m_address;
+  }
     /**
         Returns the array of integers representing the object address.
     */
   const wxArrayInt& GetAddress() const
-  { return m_address; }
+  {
+ return m_address;
+  }
     /**
         Sets the address from an array of integers.
     */
   void SetAddress(const wxArrayInt& address)
-  { m_address = address; }
+  {
+ m_address = address;
+  }
 protected:
   wxArrayInt m_address;
 };
@@ -5512,7 +6424,9 @@ public:
         Returns the action list.
     */
   wxList& GetActions()
-  { return m_actions; }
+  {
+ return m_actions;
+  }
 protected:
   wxList m_actions;
 };
@@ -5555,23 +6469,31 @@ public:
         Returns the new fragments.
     */
   wxRichTextParagraphLayoutBox& GetNewParagraphs()
-  { return m_newParagraphs; }
+  {
+ return m_newParagraphs;
+  }
     /**
         Returns the old fragments.
     */
   wxRichTextParagraphLayoutBox& GetOldParagraphs()
-  { return m_oldParagraphs; }
+  {
+ return m_oldParagraphs;
+  }
     /**
         Returns the attributes, for single-object commands.
     */
   wxRichTextAttr& GetAttributes()
-  { return m_attributes; }
+  {
+ return m_attributes;
+  }
     /**
         Returns the object to replace the one at the position defined by the container address
         and the action's range start position.
     */
   wxRichTextObject* GetObject() const
-  { return m_object; }
+  {
+ return m_object;
+  }
     /**
         Stores the object to replace the one at the position defined by the container address
         without making an address for it
@@ -5579,18 +6501,24 @@ public:
         @see SetObject(), MakeObject()).
     */
   void StoreObject(wxRichTextObject* obj)
-  { m_object = obj; }
+  {
+ m_object = obj;
+  }
     /**
         Sets the object to replace the one at the position defined by the container address
         and the action's range start position.
     */
   void SetObject(wxRichTextObject* obj)
-  { m_object = obj; m_objectAddress.Create(m_buffer, m_object); }
+  {
+ m_object = obj; m_objectAddress.Create(m_buffer, m_object);
+  }
     /**
         Makes an address from the given object.
     */
   void MakeObject(wxRichTextObject* obj)
-  { m_objectAddress.Create(m_buffer, obj); }
+  {
+ m_objectAddress.Create(m_buffer, obj);
+  }
     /**
         Sets the existing and new objects, for use with wxRICHTEXT_CHANGE_OBJECT.
     */
@@ -5603,42 +6531,58 @@ public:
         Sets the position used for e.g. insertion.
     */
   void SetPosition(long pos)
-  { m_position = pos; }
+  {
+ m_position = pos;
+  }
     /**
         Returns the position used for e.g. insertion.
     */
   long GetPosition() const
-  { return m_position; }
+  {
+ return m_position;
+  }
     /**
         Sets the range for e.g. deletion.
     */
   void SetRange(const wxRichTextRange& range)
-  { m_range = range; }
+  {
+ m_range = range;
+  }
     /**
         Returns the range for e.g. deletion.
     */
   const wxRichTextRange& GetRange() const
-  { return m_range; }
+  {
+ return m_range;
+  }
     /**
         Returns the address (nested position) of the container within the buffer being manipulated.
     */
   wxRichTextObjectAddress& GetContainerAddress()
-  { return m_containerAddress; }
+  {
+ return m_containerAddress;
+  }
     /**
         Returns the address (nested position) of the container within the buffer being manipulated.
     */
   const wxRichTextObjectAddress& GetContainerAddress() const
-  { return m_containerAddress; }
+  {
+ return m_containerAddress;
+  }
     /**
         Sets the address (nested position) of the container within the buffer being manipulated.
     */
   void SetContainerAddress(const wxRichTextObjectAddress& address)
-  { m_containerAddress = address; }
+  {
+ m_containerAddress = address;
+  }
     /**
         Sets the address (nested position) of the container within the buffer being manipulated.
     */
   void SetContainerAddress(wxRichTextParagraphLayoutBox* container, wxRichTextObject* obj)
-  { m_containerAddress.Create(container, obj); }
+  {
+ m_containerAddress.Create(container, obj);
+  }
     /**
         Returns the container that this action refers to, using the container address and top-level buffer.
     */
@@ -5647,7 +6591,9 @@ public:
         Returns the action name.
     */
   const wxString& GetName() const
-  { return m_name; }
+  {
+ return m_name;
+  }
     /**
         Instructs the first Do() command should be skipped as it's already been applied.
     */
@@ -5726,21 +6672,25 @@ public:
     */
   wxRichTextFileHandler(const wxString& name = wxEmptyString, const wxString& ext = wxEmptyString, int type = 0)
     :  m_name(name), m_extension(ext), m_type(type), m_flags(0), m_visible(true)
-        
-    {
-     }
+  {
+
+  }
     /**
         Loads the buffer from a stream.
         Not all handlers will implement file loading.
     */
   bool LoadFile(wxRichTextBuffer* buffer, wxInputStream& stream)
-  { return DoLoadFile(buffer, stream); }
+  {
+ return DoLoadFile(buffer, stream);
+  }
     /**
         Saves the buffer to a stream.
         Not all handlers will implement file saving.
     */
   bool SaveFile(wxRichTextBuffer* buffer, wxOutputStream& stream)
-  { return DoSaveFile(buffer, stream); }
+  {
+ return DoSaveFile(buffer, stream);
+  }
     /**
         Loads the buffer from a file.
     */
@@ -5757,53 +6707,73 @@ public:
         Returns @true if we can save using this handler.
     */
   virtual bool CanSave() const
-  { return false; }
+  {
+ return false;
+  }
     /**
         Returns @true if we can load using this handler.
     */
   virtual bool CanLoad() const
-  { return false; }
+  {
+ return false;
+  }
     /**
         Returns @true if this handler should be visible to the user.
     */
   virtual bool IsVisible() const
-  { return m_visible; }
+  {
+ return m_visible;
+  }
     /**
         Sets whether the handler should be visible to the user (via the application's
         load and save dialogs).
     */
   virtual void SetVisible(bool visible)
-  { m_visible = visible; }
+  {
+ m_visible = visible;
+  }
     /**
         Sets the name of the handler.
     */
   void SetName(const wxString& name)
-  { m_name = name; }
+  {
+ m_name = name;
+  }
     /**
         Returns the name of the handler.
     */
   wxString GetName() const
-  { return m_name; }
+  {
+ return m_name;
+  }
     /**
         Sets the default extension to recognise.
     */
   void SetExtension(const wxString& ext)
-  { m_extension = ext; }
+  {
+ m_extension = ext;
+  }
     /**
         Returns the default extension to recognise.
     */
   wxString GetExtension() const
-  { return m_extension; }
+  {
+ return m_extension;
+  }
     /**
         Sets the handler type.
     */
   void SetType(int type)
-  { m_type = type; }
+  {
+ m_type = type;
+  }
     /**
         Returns the handler type.
     */
   int GetType() const
-  { return m_type; }
+  {
+ return m_type;
+  }
     /**
         Sets flags that change the behaviour of loading or saving.
         See the documentation for each handler class to see what flags are relevant
@@ -5815,22 +6785,30 @@ public:
         the flags that will be used for subsequent load and save operations.
     */
   void SetFlags(int flags)
-  { m_flags = flags; }
+  {
+ m_flags = flags;
+  }
     /**
         Returns flags controlling how loading and saving is done.
     */
   int GetFlags() const
-  { return m_flags; }
+  {
+ return m_flags;
+  }
     /**
         Sets the encoding to use when saving a file. If empty, a suitable encoding is chosen.
     */
   void SetEncoding(const wxString& encoding)
-  { m_encoding = encoding; }
+  {
+ m_encoding = encoding;
+  }
     /**
         Returns the encoding to use when saving a file. If empty, a suitable encoding is chosen.
     */
   const wxString& GetEncoding() const
-  { return m_encoding; }
+  {
+ return m_encoding;
+  }
 protected:
     /**
         Override to load content from @a stream into @a buffer.
@@ -5862,15 +6840,19 @@ class wxRichTextPlainTextHandler : public wxRichTextFileHandler
 public:
   wxRichTextPlainTextHandler(const wxString& name = "Text", const wxString& ext = "txt", wxRichTextFileType type = wxRICHTEXT_TYPE_TEXT)
     :  wxRichTextFileHandler(name, ext, type)
-        
-    {
-     }
+  {
+
+  }
     // Can we save using this handler?
   virtual bool CanSave() const
-  { return true; }
+  {
+ return true;
+  }
     // Can we load using this handler?
   virtual bool CanLoad() const
-  { return true; }
+  {
+ return true;
+  }
 protected:
   virtual bool DoLoadFile(wxRichTextBuffer* buffer, wxInputStream& stream);
   virtual bool DoSaveFile(wxRichTextBuffer* buffer, wxOutputStream& stream);
@@ -5894,9 +6876,9 @@ public:
     */
   wxRichTextDrawingHandler(const wxString& name = wxEmptyString)
     :  m_name(name)
-        
-    {
-     }
+  {
+
+  }
     /**
         Returns @true if this object has virtual attributes that we can provide.
     */
@@ -5930,12 +6912,16 @@ public:
         Sets the name of the handler.
     */
   void SetName(const wxString& name)
-  { m_name = name; }
+  {
+ m_name = name;
+  }
     /**
         Returns the name of the handler.
     */
   wxString GetName() const
-  { return m_name; }
+  {
+ return m_name;
+  }
 protected:
   wxString m_name;
 };
@@ -5967,7 +6953,9 @@ public:
         Returns the id for the new data format.
     */
   static const wxChar* GetRichTextBufferFormatId()
-  { return ms_richTextBufferFormatId; }
+  {
+ return ms_richTextBufferFormatId;
+  }
     // base class pure virtuals
   virtual wxDataFormat GetPreferredFormat(Direction dir) const;
   virtual size_t GetDataSize() const;
@@ -5975,11 +6963,17 @@ public:
   virtual bool SetData(size_t len, const void* buf);
     // prevent warnings
   virtual size_t GetDataSize(const wxDataFormat&) const
-  { return GetDataSize(); }
+  {
+ return GetDataSize();
+  }
   virtual bool GetDataHere(const wxDataFormat&, void* buf) const
-  { return GetDataHere(buf); }
+  {
+ return GetDataHere(buf);
+  }
   virtual bool SetData(const wxDataFormat&, size_t len, const void* buf)
-  { return SetData(len, buf); }
+  {
+ return SetData(len, buf);
+  }
 private:
   wxDataFormat m_formatRichTextBuffer;
   wxRichTextBuffer* m_richTextBuffer;

@@ -22,44 +22,44 @@ public:
         kQuad_Segment = SkPath::kQuad_Verb,
         kConic_Segment = SkPath::kConic_Verb,
         kCubic_Segment = SkPath::kCubic_Verb,
-    };
+  };
   bool advance()
   {
         fSegment = fSegment->next();
         return fSegment != nullptr;
-    }
+  }
   SkScalar bottom() const
   {
         return bounds().fBottom;
-    }
+  }
   const SkPathOpsBounds& bounds() const
   {
         return fSegment->bounds();
-    }
+  }
   SkOpContour* contour() const
   {
         return fSegment->contour();
-    }
+  }
   void init(SkOpContour* contour)
   {
         fSegment = contour->first();
-    }
+  }
   SkScalar left() const
   {
         return bounds().fLeft;
-    }
+  }
   const SkPoint* pts() const
   {
         return fSegment->pts();
-    }
+  }
   SkScalar right() const
   {
         return bounds().fRight;
-    }
+  }
   SkOpSegment* segment() const
   {
         return fSegment;
-    }
+  }
   SegmentType segmentType() const
   {
         SegmentType type = (SegmentType) fSegment->verb();
@@ -73,36 +73,36 @@ public:
             return kVerticalLine_Segment;
         }
         return kLine_Segment;
-    }
+  }
   bool startAfter(const SkIntersectionHelper& after)
   {
         fSegment = after.fSegment->next();
         return fSegment != nullptr;
-    }
+  }
   SkScalar top() const
   {
         return bounds().fTop;
-    }
+  }
   SkScalar weight() const
   {
         return fSegment->weight();
-    }
+  }
   SkScalar x() const
   {
         return bounds().fLeft;
-    }
+  }
   bool xFlipped() const
   {
         return x() != pts()[0].fX;
-    }
+  }
   SkScalar y() const
   {
         return bounds().fTop;
-    }
+  }
   bool yFlipped() const
   {
         return y() != pts()[0].fY;
-    }
+  }
 private:
   SkOpSegment* fSegment;
 };

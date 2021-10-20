@@ -198,7 +198,7 @@ public:
     /// the non forward direction of line 2 anticlockwise.
     /// </summary>
     ///
-    kAntiParallelAntiClockwise = 3,    
+    kAntiParallelAntiClockwise = 3,
   };
   /// <summary> 
   /// Default constructor.
@@ -280,7 +280,7 @@ public:
   /// indicate whether radius or diameter is measured.
   /// </summary>
   ///
-  enum RadiusDiameterConstrType { 
+  enum RadiusDiameterConstrType {
     /// <summary>
     /// The radius of a constrained circle or arc is measured.
     /// </summary>

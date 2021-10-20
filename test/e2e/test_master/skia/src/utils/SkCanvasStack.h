@@ -29,9 +29,13 @@ public:
      * methods to be no-ops.
      */
   void addCanvas(SkCanvas*) override
-  { SkDEBUGFAIL("Invalid Op"); }
+  {
+ SkDEBUGFAIL("Invalid Op");
+  }
   void removeCanvas(SkCanvas*) override
-  { SkDEBUGFAIL("Invalid Op"); }
+  {
+ SkDEBUGFAIL("Invalid Op");
+  }
 protected:
   void didSetMatrix(const SkMatrix&) override;
   void onClipRect(const SkRect&, SkClipOp, ClipEdgeStyle) override;

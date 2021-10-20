@@ -15,7 +15,7 @@ struct SkFontMgr_Android_CustomFonts
         kOnlyCustom, /** Use only custom fonts. NDK compliant. */
         kPreferCustom, /** Use custom fonts before system fonts. */
         kPreferSystem /** Use system fonts before custom fonts. */
-    };
+  };
     /** Whether or not to use system fonts. */
   SystemFontUse fSystemFontUse;
     /** Base path to resolve relative font file names. If a directory, should end with '/'. */

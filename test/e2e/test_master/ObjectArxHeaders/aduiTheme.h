@@ -37,7 +37,6 @@ class CAcColorTheme;
 #    define ACTIVE_THEME	ACRX_T(/*MSG0*/"ACTIVETHEME")
 #    define DIALOG_THEME	ACRX_T(/*MSG0*/"DIALOGTHEME")
 typedef enum {
-    
     kUnknownElements = -1,
 
     // Theme fonts
@@ -328,7 +327,6 @@ typedef enum {
 
     //Tree and List control colors
     kTreeControlLine
-
 } AdUiThemeElement;
 /// <summary>
 /// CAdUiThemeModifiedReactor is a reactor class which receives theme-modified notifications
@@ -538,7 +536,9 @@ public:
     /// changes.  Call ResumeModifiedNotifications after all changes are made.
     /// </summary>
   void SuspendModifiedNotifications()
-  { m_nModNotificationsSuspended++; }
+  {
+ m_nModNotificationsSuspended++;
+  }
     /// <summary>
     /// Resumes sending theme-modified notifications to its reactors
     /// </summary>
@@ -554,7 +554,9 @@ public:
     /// If the theme uses the colors of the current active theme
     /// </returns>
   bool UsesActiveThemeColors() const
-  { return m_pColorTheme == NULL; }
+  {
+ return m_pColorTheme == NULL;
+  }
     /// <summary>
     /// Gets if the theme has a dark color scheme.  This method can help to determine which
     /// image is to be used for the theme, if there are two images for the same UI element
@@ -571,7 +573,9 @@ public:
     /// the reference count of a theme if it is no longer needed by the client code.
     /// </remarks>
   void IncrementRefCount()
-  { m_nRefCount++; }
+  {
+ m_nRefCount++;
+  }
     // assignment operator
   CAdUiTheme& operator=(const CAdUiTheme& Theme);
     // utility methods
@@ -602,11 +606,17 @@ private:
   void CheckXP();
     // Are XP themes supported (FUTURE USE!)
   BOOL UsesXP()
-  { return m_bUsesXPThemes; }
+  {
+ return m_bUsesXPThemes;
+  }
   void DecrementRefCount()
-  { m_nRefCount--; }
+  {
+ m_nRefCount--;
+  }
   int RefCount()
-  { return m_nRefCount; }
+  {
+ return m_nRefCount;
+  }
   int m_nRefCount;
   CTypedPtrArray<CPtrArray, CAdUiThemeModifiedReactor*> m_arrayModReactors;
   int m_nModNotificationsSuspended;

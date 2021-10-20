@@ -111,7 +111,7 @@ namespace PoDoFo
     {
         return NULL;
     }
-}
+  }
 #  if  defined(PODOFO_HAVE_FONTCONFIG)
 // -----------------------------------------------------
 // 
@@ -119,7 +119,7 @@ namespace PoDoFo
   Util::PdfMutex& PdfFontConfigWrapper::GetFontConfigMutex()
   {
     return m_FcMutex;
-}
+  }
 #  endif
 }
 #endif

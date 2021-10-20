@@ -78,29 +78,23 @@ private:
 inline AcAxObjectRef::AcAxObjectRef()
   :  m_objId(NULL),
       m_pObj(NULL)
+{
 
-  {
-
-  }
+}
 inline AcAxObjectRef::AcAxObjectRef(AcDbObjectId objId)
   :  m_objId(NULL),
       m_pObj(NULL)
-
-  {
-   
+{
     acquire(objId);
-  }
+}
 inline AcAxObjectRef::AcAxObjectRef(AcDbObject*& pObj)
   :  m_objId(NULL),
       m_pObj(NULL)
-
-  {
-
+{
     acquire(pObj);
-  }
+}
 inline AcAxObjectRef::~AcAxObjectRef()
 {
-
     internalRelease();
 }
 inline Acad::ErrorStatus AcAxObjectRef::acquire(AcDbObjectId objId)
@@ -208,15 +202,12 @@ template <typename T_OBJECT>
 inline AcAxObjectRefPtr<T_OBJECT>::AcAxObjectRefPtr()
   :  AcDbObjectPointer<T_OBJECT>(),
       m_pRef(NULL)
-
-  {
-  }
+{
+}
 template <typename T_OBJECT>
 inline AcAxObjectRefPtr<T_OBJECT>::AcAxObjectRefPtr(AcAxObjectRef* const pRef, AcDb::OpenMode mode, bool openErased)
   :  m_pRef(pRef)
-
-  {
-
+{
     //_ASSERTE(NULL != pRef);
     if (NULL == pRef)
     {
@@ -246,11 +237,10 @@ inline AcAxObjectRefPtr<T_OBJECT>::AcAxObjectRefPtr(AcAxObjectRef* const pRef, A
         else
             acquire(pTyped);
     }
-  }
+}
 template <typename T_OBJECT>
 inline AcAxObjectRefPtr<T_OBJECT>::~AcAxObjectRefPtr()
 {
-
     // If the objectid is null we need to release
     // our reference and store it on the AcAxObjectRef.
     if (NULL != this->m_ptr && this->m_ptr->objectId().isNull()) {

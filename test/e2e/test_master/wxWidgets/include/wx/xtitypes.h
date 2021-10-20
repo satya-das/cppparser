@@ -53,7 +53,9 @@ public:
   const wxChar* GetEnumMemberName(int value) const;
     // returns the number of members in this enum
   int GetEnumCount() const
-  { return m_count; }
+  {
+ return m_count;
+  }
     // returns the value of the nth member
   int GetEnumMemberValueByIndex(int n) const;
     // returns the value of the nth member
@@ -273,45 +275,44 @@ public:
   typedef void (*wxVariant2StringFnc) (const wxAny& data, wxString& result);
   typedef void (*wxString2VariantFnc) (const wxString& data, wxAny& result);
   wxTypeInfo(wxTypeKind kind, wxVariant2StringFnc to = NULL, wxString2VariantFnc from = NULL, const wxString& name = wxEmptyString)
-    : 
-            m_toString(to), m_fromString(from), m_kind(kind), m_name(name)
-    
-    {
-
-        Register();
-        }
-#if 0 // wxUSE_UNICODE
-    wxTypeInfo(wxTypeKind kind,
-               wxVariant2StringFnc to, wxString2VariantFnc from,
-               const char *name):
-            m_toString(to), m_fromString(from), m_kind(kind),
-            m_name(wxString::FromAscii(name))
-    {
-        Register();
-    }
-#endif  virtual ~wxTypeInfo()
+    :             m_toString(to), m_fromString(from), m_kind(kind), m_name(name)
   {
-
+        Register();
+  }
+  virtual ~wxTypeInfo()
+  {
         Unregister();
-      }
+  }
     // return the kind of this type (wxT_... constants)
   wxTypeKind GetKind() const
-  { return m_kind; }
+  {
+ return m_kind;
+  }
     // returns the unique name of this type
   const wxString& GetTypeName() const
-  { return m_name; }
+  {
+ return m_name;
+  }
     // is this type a delegate type
   bool IsDelegateType() const
-  { return m_kind == wxT_DELEGATE; }
+  {
+ return m_kind == wxT_DELEGATE;
+  }
     // is this type a custom type
   bool IsCustomType() const
-  { return m_kind == wxT_CUSTOM; }
+  {
+ return m_kind == wxT_CUSTOM;
+  }
     // is this type an object type
   bool IsObjectType() const
-  { return m_kind == wxT_OBJECT || m_kind == wxT_OBJECT_PTR; }
+  {
+ return m_kind == wxT_OBJECT || m_kind == wxT_OBJECT_PTR;
+  }
     // can the content of this type be converted to and from strings ?
   bool HasStringConverters() const
-  { return m_toString != NULL && m_fromString != NULL; }
+  {
+ return m_toString != NULL && m_fromString != NULL;
+  }
     // convert a wxAny holding data of this type into a string
   void ConvertToString(const wxAny& data, wxString& result) const
   {
@@ -319,7 +320,7 @@ public:
             (*m_toString)( data, result );
         else
             wxLogError( wxGetTranslation(wxT("String conversions not supported")) );
-    }
+  }
     // convert a string into a wxAny holding the corresponding data in this type
   void ConvertFromString(const wxString& data, wxAny& result) const
   {
@@ -327,7 +328,7 @@ public:
             (*m_fromString)( data, result );
         else
             wxLogError( wxGetTranslation(wxT("String conversions not supported")) );
-    }
+  }
     // statics:
 
     // looks for the corresponding type, will return NULL if not found
@@ -346,21 +347,18 @@ class WXDLLIMPEXP_BASE wxBuiltInTypeInfo : public wxTypeInfo
 {
 public:
   wxBuiltInTypeInfo(wxTypeKind kind, wxVariant2StringFnc to = NULL, wxString2VariantFnc from = NULL, const wxString& name = wxEmptyString)
-    : 
-            wxTypeInfo( kind, to, from, name )
-       
-    {
- wxASSERT_MSG( GetKind() < wxT_SET, wxT("Illegal Kind for Base Type") );     }
+    :             wxTypeInfo( kind, to, from, name )
+  {
+ wxASSERT_MSG( GetKind() < wxT_SET, wxT("Illegal Kind for Base Type") );
+  }
 };
 class WXDLLIMPEXP_BASE wxCustomTypeInfo : public wxTypeInfo
 {
 public:
   wxCustomTypeInfo(const wxString& name, wxVariant2StringFnc to, wxString2VariantFnc from)
-    : 
-            wxTypeInfo( wxT_CUSTOM, to, from, name )
-       
-    {
-    }
+    :             wxTypeInfo( wxT_CUSTOM, to, from, name )
+  {
+  }
 };
 class WXDLLIMPEXP_BASE wxEnumTypeInfo : public wxTypeInfo
 {
@@ -368,17 +366,16 @@ public:
   typedef void (*converterToLong_t) (const wxAny& data, long& result);
   typedef void (*converterFromLong_t) (long data, wxAny& result);
   wxEnumTypeInfo(wxTypeKind kind, wxEnumData* enumInfo, wxVariant2StringFnc to, wxString2VariantFnc from, converterToLong_t toLong, converterFromLong_t fromLong, const wxString& name)
-    : 
-        wxTypeInfo( kind, to, from, name ), m_toLong( toLong ), m_fromLong( fromLong )
-    
-    {
-
+    :         wxTypeInfo( kind, to, from, name ), m_toLong( toLong ), m_fromLong( fromLong )
+  {
         wxASSERT_MSG( kind == wxT_ENUM || kind == wxT_SET,
                       wxT("Illegal Kind for Enum Type"));
         m_enumInfo = enumInfo;
-        }
+  }
   const wxEnumData* GetEnumData() const
-  { return m_enumInfo; }
+  {
+ return m_enumInfo;
+  }
     // convert a wxAny holding data of this type into a long
   void ConvertToLong(const wxAny& data, long& result) const
   {
@@ -386,7 +383,7 @@ public:
             (*m_toLong)( data, result );
         else
             wxLogError( wxGetTranslation(wxT("Long Conversions not supported")) );
-    }
+  }
     // convert a long into a wxAny holding the corresponding data in this type
   void ConvertFromLong(long data, wxAny& result) const
   {
@@ -394,7 +391,7 @@ public:
             (*m_fromLong)( data, result );
         else
             wxLogError( wxGetTranslation(wxT("Long Conversions not supported")) );
-    }
+  }
 private:
   converterToLong_t m_toLong;
   converterFromLong_t m_fromLong;
@@ -405,7 +402,9 @@ class WXDLLIMPEXP_BASE wxClassTypeInfo : public wxTypeInfo
 public:
   wxClassTypeInfo(wxTypeKind kind, wxClassInfo* classInfo, wxVariant2StringFnc to = NULL, wxString2VariantFnc from = NULL, const wxString& name = wxEmptyString);
   const wxClassInfo* GetClassInfo() const
-  { return m_classInfo; }
+  {
+ return m_classInfo;
+  }
 private:
   wxClassInfo* m_classInfo;
 };
@@ -413,17 +412,16 @@ class WXDLLIMPEXP_BASE wxCollectionTypeInfo : public wxTypeInfo
 {
 public:
   wxCollectionTypeInfo(const wxString& elementName, wxVariant2StringFnc to, wxString2VariantFnc from, const wxString& name)
-    : 
-            wxTypeInfo( wxT_COLLECTION, to, from, name )
-       
-    {
- m_elementTypeName = elementName; m_elementType = NULL;     }
+    :             wxTypeInfo( wxT_COLLECTION, to, from, name )
+  {
+ m_elementTypeName = elementName; m_elementType = NULL;
+  }
   const wxTypeInfo* GetElementType() const
   {
         if ( m_elementType == NULL )
             m_elementType = wxTypeInfo::FindType( m_elementTypeName );
         return m_elementType;
-    }
+  }
 private:
   mutable wxTypeInfo* m_elementType;
   wxString m_elementTypeName;
@@ -434,11 +432,17 @@ public:
   wxEventSourceTypeInfo(int eventType, wxClassInfo* eventClass, wxVariant2StringFnc to = NULL, wxString2VariantFnc from = NULL);
   wxEventSourceTypeInfo(int eventType, int lastEventType, wxClassInfo* eventClass, wxVariant2StringFnc to = NULL, wxString2VariantFnc from = NULL);
   int GetEventType() const
-  { return m_eventType; }
+  {
+ return m_eventType;
+  }
   int GetLastEventType() const
-  { return m_lastEventType; }
+  {
+ return m_lastEventType;
+  }
   const wxClassInfo* GetEventClass() const
-  { return m_eventClass; }
+  {
+ return m_eventClass;
+  }
 private:
   const wxClassInfo* m_eventClass;
   int m_eventType;
@@ -446,7 +450,9 @@ private:
 };
 template <typename T>
 const wxTypeInfo* wxGetTypeInfo(T*)
-{ return wxTypeInfo::FindType(typeid(T).name()); }
+{
+ return wxTypeInfo::FindType(typeid(T).name());
+}
 // this macro is for usage with custom, non-object derived classes and structs,
 // wxPoint is such a custom type
 #    if  wxUSE_FUNC_TEMPLATE_POINTER

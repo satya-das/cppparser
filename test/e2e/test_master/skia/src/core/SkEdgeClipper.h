@@ -14,15 +14,17 @@ class SkEdgeClipper
 {
 public:
   SkEdgeClipper(bool canCullToTheRight)
-    :  fCanCullToTheRight(canCullToTheRight) 
-    {
-    }
+    :  fCanCullToTheRight(canCullToTheRight)
+  {
+  }
   bool clipLine(SkPoint p0, SkPoint p1, const SkRect& clip);
   bool clipQuad(const SkPoint pts[3], const SkRect& clip);
   bool clipCubic(const SkPoint pts[4], const SkRect& clip);
   SkPath::Verb next(SkPoint pts[]);
   bool canCullToTheRight() const
-  { return fCanCullToTheRight; }
+  {
+ return fCanCullToTheRight;
+  }
 private:
   SkPoint* fCurrPoint;
   SkPath::Verb* fCurrVerb;
@@ -30,7 +32,7 @@ private:
   enum {
         kMaxVerbs = 18,  // max curvature in X and Y split cubic into 9 pieces, * (line + cubic)
         kMaxPoints = 54  // 2 lines + 1 cubic require 6 points; times 9 pieces
-    };
+  };
   SkPoint fPoints[kMaxPoints];
   SkPath::Verb fVerbs[kMaxVerbs];
   void clipMonoQuad(const SkPoint srcPts[3], const SkRect& clip);

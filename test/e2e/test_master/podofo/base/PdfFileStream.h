@@ -145,20 +145,20 @@ namespace PoDoFo
   pdf_long PdfFileStream::GetLength() const
   {
     return m_lLength;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const char* PdfFileStream::GetInternalBuffer() const
   {
     return NULL;
-}
+  }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   pdf_long PdfFileStream::GetInternalBufferSize() const
   {
     return 0;
-}
+  }
 }
 #endif

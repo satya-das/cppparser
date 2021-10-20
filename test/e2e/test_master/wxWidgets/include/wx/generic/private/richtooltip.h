@@ -17,19 +17,16 @@ class wxRichToolTipGenericImpl : public wxRichToolTipImpl
 {
 public:
   wxRichToolTipGenericImpl(const wxString& title, const wxString& message)
-    : 
-        m_title(title),
+    :         m_title(title),
         m_message(message)
-    
-    {
-
+  {
         m_tipKind = wxTipKind_Auto;
 
         // This is pretty arbitrary, we could follow MSW and use some multiple
         // of double-click time here.
         m_timeout = 5000;
         m_delay = 0;
-        }
+  }
   void SetBackgroundColour(const wxColour& col, const wxColour& colEnd) override;
   void SetCustomIcon(const wxIcon& icon) override;
   void SetStandardIcon(int icon) override;

@@ -36,7 +36,7 @@ namespace SkSL
     k420_GrGLSLGeneration,
     k310es_GrGLSLGeneration,
     k320es_GrGLSLGeneration,
-};
+  };
 #    define SKSL_CAPS_CLASS	StandaloneShaderCaps
   class StandaloneShaderCaps
   {
