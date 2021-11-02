@@ -60,6 +60,10 @@
     "typeinfo": "cpp",
     "codecvt": "cpp",
     "filesystem": "cpp",
-    "random": "cpp"
+    "random": "cpp",
+    "bitset": "cpp",
+    "regex": "cpp",
+    "iomanip": "cpp",
+    "variant": "cpp"
   }
 }

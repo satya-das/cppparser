@@ -231,6 +231,36 @@ static const char* findMatchedClosingBracket(const char* start, char openingBrac
   return end;
 }
 
+static MacroDependentCodeEnablement checkForDisabledCode(const char* ifOrIfDef)
+{
+  const auto* afterIfDef = strstr(yytext, ifOrIfDef) + strlen(ifOrIfDef);
+  const auto* idStart = [afterIfDef] {
+    const auto* p = afterIfDef;
+    while(isspace(*p)) ++p;
+    return p;
+  } ();
+  const auto* idEnd = [idStart] {
+    const auto* p = idStart;
+    while(isalnum(*p) || (*p == '_')) ++p;
+    return p;
+  } ();
+
+  const auto id = std::string(idStart, idEnd);
+  const auto codeEnableInfo = getCodeEnableInfo(id);
+  if (codeEnableInfo == MacroDependentCodeEnablement::kNoInfo) {
+    return codeEnableInfo;
+  }
+
+  g.codeSegmentDependsOnMacroDefinition = true;
+
+  if (codeEnableInfo == MacroDependentCodeEnablement::kDisabled) {
+    if (g.parseDisabledCodeAsBlob)
+      setOldYytext(yytext);
+  }
+
+  return codeEnableInfo;
+}
+
 %}
 
 %option never-interactive
@@ -908,7 +938,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknIfNDef);
 }
 
-<ctxGeneral,ctxPreprocessor>else/{TS} {
+<ctxPreprocessor>else/{TS} {
   LOG();
   setupToken();
   RETURN(tknElse);
@@ -936,46 +966,69 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxGeneral>^{WS}*#{WS}*if/{WS}*"0" {
+<ctxGeneral>^{WS}*#{WS}*if/{WS}+"0" {
   LOG();
   setOldYytext(yytext);
   BEGINCONTEXT(ctxDisabledCode);
   g.codeSegmentDependsOnMacroDefinition = true;
 }
 
-<ctxGeneral>^{WS}*#{WS}*if{WS}*{ID}{WS}* {
+<ctxGeneral>^{WS}*#{WS}*if{WS}+{ID}{WS}* {
   LOG();
-  const auto* afterIf = strstr(yytext, "if") + 3;
-  const auto* idStart = [afterIf] {
-    const auto* p = afterIf;
-    while(isspace(*p)) ++p;
-    return p;
-  } ();
-  const auto* idEnd = [idStart] {
-    const auto* p = idStart;
-    while(isalnum(*p) || (*p == '_')) ++p;
-    return p;
-  } ();
-
-  const auto id = std::string(idStart, idEnd);
-  const auto codeEnableInfo = getCodeEnableInfo(id);
-  if (codeEnableInfo == EnabledCodeDecision::kNoInfo) {
-    // Parse normally. There is no info available about MACRO definition
+  g.macroDependentCodeEnablement = checkForDisabledCode("if");
+  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kNoInfo) {
     LOG();
     REJECT;
   }
 
-  g.codeSegmentDependsOnMacroDefinition = true;
+  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
+    LOG();
+    BEGINCONTEXT(ctxDisabledCode);
+  }
+}
+
+<ctxGeneral>^{WS}*#{WS}*ifdef{WS}+{ID} {
+  LOG();
+  g.macroDependentCodeEnablement = checkForDisabledCode("ifdef");
+  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kNoInfo) {
+    LOG();
+    REJECT;
+  }
+
+  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
+    LOG();
+    BEGINCONTEXT(ctxDisabledCode);
+  }
+}
+
+<ctxGeneral>^{WS}*#{WS}*ifndef{WS}+{ID} {
+  LOG();
+  g.macroDependentCodeEnablement = invert(checkForDisabledCode("ifndef"));
+  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kNoInfo) {
+    LOG();
+    REJECT;
+  }
+
+  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
+    LOG();
+    BEGINCONTEXT(ctxDisabledCode);
+  }
+}
+
+<ctxGeneral,ctxDisabledCode>^{WS}*#{WS}*else{TS} {
+  LOG();
+  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kNoInfo) {
+    LOG();
+    REJECT;
+  }
 
   LOG();
-  if (codeEnableInfo == EnabledCodeDecision::kDisabled) {
-    LOG();
-    if (g.parseDisabledCodeAsBlob)
-      setOldYytext(yytext);
+  g.macroDependentCodeEnablement = invert(g.macroDependentCodeEnablement);
+  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
     BEGINCONTEXT(ctxDisabledCode);
-  } else if(codeEnableInfo == EnabledCodeDecision::kEnabled) {
-    LOG();
-    // Do nothing else and just ignore the current preprocessing directive
+  } else {
+    g.codeSegmentDependsOnMacroDefinition = true;
+    ENDCONTEXT();
   }
 }
 

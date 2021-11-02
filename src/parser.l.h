@@ -54,6 +54,13 @@ enum class TokenSetupFlag
   ResetCommentTokenization
 };
 
+enum class MacroDependentCodeEnablement
+{
+  kNoInfo,
+  kDisabled,
+  kEnabled
+};
+
 using BracketDepthStack = std::vector<int>;
 
 struct LexerData
@@ -109,11 +116,12 @@ struct LexerData
 
   DefineLooksLike mDefLooksLike = DefineLooksLike::kNoDef;
 
+  MacroDependentCodeEnablement macroDependentCodeEnablement = MacroDependentCodeEnablement::kNoInfo;
   /**
    * Counting of # to keep track of when we need to consider the code outside of disabled segment
    * For example, when the parsing is outside of "#if 0 ... #endif" segment.
    */
-  int  numHashIfInMacroDependentCode             = 0;
+  int  numHashIfInMacroDependentCode       = 0;
   bool parseDisabledCodeAsBlob             = false;
   bool codeSegmentDependsOnMacroDefinition = false;
 };

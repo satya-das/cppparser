@@ -8,7 +8,7 @@
       "name": "Run parser test for",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/cppparserunittest",
+      "program": "${workspaceFolder}/build/cppparsertest",
       // "args": [
       //   "-p",
       //   "../test/e2e/test_input/wxWidgets/include/wx/msw/statbox.h"
@@ -18,7 +18,7 @@
       "environment": [
         {
           "name": "ZZDEBUG",
-          "value": "2"
+          "value": "0"
         }
       ],
       "externalConsole": false,

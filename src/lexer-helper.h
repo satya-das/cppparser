@@ -1,12 +1,24 @@
 #pragma once
 
+#include <cassert>
 #include <string>
 
-enum class EnabledCodeDecision
-{
-  kNoInfo,
-  kDisabled,
-  kEnabled
-};
+#include "parser.l.h"
 
-EnabledCodeDecision getCodeEnableInfo(const std::string& id);
+inline MacroDependentCodeEnablement invert(MacroDependentCodeEnablement enabledCodeDecision)
+{
+  switch (enabledCodeDecision)
+  {
+    case MacroDependentCodeEnablement::kNoInfo:
+      return MacroDependentCodeEnablement::kNoInfo;
+    case MacroDependentCodeEnablement::kDisabled:
+      return MacroDependentCodeEnablement::kEnabled;
+    case MacroDependentCodeEnablement::kEnabled:
+      return MacroDependentCodeEnablement::kDisabled;
+  }
+
+  assert(false && "We should never be here.");
+  return MacroDependentCodeEnablement::kNoInfo;
+}
+
+MacroDependentCodeEnablement getCodeEnableInfo(const std::string& id);
