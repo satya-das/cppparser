@@ -361,6 +361,7 @@ CppParser constructCppParserForTest()
                          "WX_JOIN",
                          "WX_MAYBE_PREFIX_WITH_STRUCT",
                          "WX_MSW_DECLARE_HANDLE",
+                         "DECLARE_WXOSX_OPAQUE_CFREF",
                          "WX_PG_DECLARE_ARRAYSTRING_PROPERTY_WITH_VALIDATOR",
                          "WX_PG_DECLARE_ARRAYSTRING_PROPERTY_WITH_VALIDATOR_WITH_DECL",
                          "WX_PG_DECLARE_EDITOR_WITH_DECL",
@@ -443,6 +444,7 @@ CppParser constructCppParserForTest()
                          "WX_DECLARE_VOIDPTR_HASH_MAP",
                          "wxPERSIST_DECLARE_SAVE_RESTORE_FOR",
                          "WXANY_IMPLEMENT_INT_EQ_OP",
+                         "DECLARE_PROTOCOL",
 
                          "WX_DECLARE_STRING_HASH_MAP",
                          "WX_DECLARE_HASH_MAP",
@@ -510,10 +512,12 @@ CppParser constructCppParserForTest()
                              "wxSTRING_DEFAULT_CONV_ARG",
                              "WX_ATTRIBUTE_PRINTF_1",
                              "WX_ATTRIBUTE_PRINTF_2",
+                             "__AVAILABILITY_INTERNAL_DEPRECATED",
 
                              "__forceinline"});
 
-  parser.addUndefinedNames({"wxUSE_DATETIME", "SWIG", "CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST", "__WXMSW__"});
+  parser.addUndefinedNames(
+    {"wxUSE_DATETIME", "SWIG", "CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST", "__WXMSW__", "__OBJC__", "WXBUILDING"});
 
   parser.addDefinedName("wxUSE_TEXTCTRL", 1);
   parser.addDefinedName("WXWIN_COMPATIBILITY_2_8", 0);

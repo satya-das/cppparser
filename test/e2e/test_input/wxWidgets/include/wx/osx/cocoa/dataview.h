@@ -19,6 +19,8 @@
 // Forward declaration
 class wxCocoaDataViewControl;
 
+#ifdef __OBJC__
+
 /*
     Dramatis personae:
 
@@ -78,6 +80,8 @@ class wxCocoaDataViewControl;
     -(void) setColumnPtr:(wxDataViewColumn*)newColumnPtr;
     -(void) setModelPtr:(wxDataViewModel*)newModelPtr;
 @end
+
+#endif
 
 // ============================================================================
 // wxDataViewColumnNativeData: extra data for wxDataViewColumn
@@ -239,6 +243,8 @@ private:
 
     bool m_hasCustomFont;
 };
+
+#ifdef __OBJC__
 
 // ============================================================================
 // wxCocoaOutlineDataSource
@@ -448,6 +454,8 @@ private:
     -(wxCocoaDataViewControl*) implementation;
     -(void) setImplementation:(wxCocoaDataViewControl*) newImplementation;
 @end
+
+#endif
 
 // ============================================================================
 // wxCocoaDataViewControl

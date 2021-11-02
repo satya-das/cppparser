@@ -17,7 +17,7 @@ class WXDLLIMPEXP_CORE wxPrinterDC : public wxMotifDCImpl
 {
 public:
     // Create a printer DC
-    wxPrinterDCImpl(const wxString& driver, const wxString& device,
+    wxPrinterDC(const wxString& driver, const wxString& device,
                     const wxString& output,
                     bool interactive = true,
                     wxPrintOrientation orientation = wxPORTRAIT);

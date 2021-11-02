@@ -16,6 +16,10 @@
 
 #include "wx/datetime.h"
 
+#if !wxOSX_USE_COCOA
+    #error "Unsupported platform"
+#endif
+
 enum wxDateTimeWidgetKind
 {
     wxDateTimeWidget_YearMonthDay,
@@ -26,12 +30,7 @@ enum wxDateTimeWidgetKind
 // wxDateTimeWidgetImpl: peer class for wxDateTimePickerCtrl.
 // ----------------------------------------------------------------------------
 
-class wxDateTimeWidgetImpl
-#if wxOSX_USE_COCOA
-    : public wxWidgetCocoaImpl
-#else
-    #error "Unsupported platform"
-#endif
+class wxDateTimeWidgetImpl : public wxWidgetCocoaImpl
 {
 public:
     static wxDateTimeWidgetImpl*
