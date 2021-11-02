@@ -207,7 +207,8 @@ CppParser constructCppParserForTest()
                             "WXDLLIMPEXP_XRC",
                             "wxMSVC_FWD_MULTIPLE_BASES",
                             "wxDEPRECATED_CLASS_MSG",
-                            "wxEXTERNC"});
+                            "wxEXTERNC",
+                            "LINKAGEMODE"});
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
                          "DECLARE_DYNAMIC",
@@ -431,8 +432,6 @@ CppParser constructCppParserForTest()
                          "wxDEFINE_UNICHAR_OPERATOR",
                          "wxDEFINE_UNICHARREF_CMP_WITH_INT",
                          "wxDEFINE_UNICHARREF_OPERATOR",
-                         "wxDELETE",
-                         "wxDELETEA",
                          "wxDEPRECATED",
                          "wxDEPRECATED_ACCESSOR",
                          "wxDEPRECATED_ATTR",
@@ -443,6 +442,7 @@ CppParser constructCppParserForTest()
                          "wxDEPRECATED_MSG",
                          "WX_DECLARE_VOIDPTR_HASH_MAP",
                          "wxPERSIST_DECLARE_SAVE_RESTORE_FOR",
+                         "WXANY_IMPLEMENT_INT_EQ_OP",
 
                          "WX_DECLARE_STRING_HASH_MAP",
                          "WX_DECLARE_HASH_MAP",
@@ -508,7 +508,10 @@ CppParser constructCppParserForTest()
                              "wxCLANG_WARNING_RESTORE",
                              "wxGCC_WARNING_RESTORE",
                              "wxSTRING_DEFAULT_CONV_ARG",
-                             "WX_DECLARE_VOIDPTR_HASH_MAP_WITH_DECL"});
+                             "WX_ATTRIBUTE_PRINTF_1",
+                             "WX_ATTRIBUTE_PRINTF_2",
+
+                             "__forceinline"});
 
   parser.addUndefinedNames({"wxUSE_DATETIME", "SWIG", "CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST", "__WXMSW__"});
 

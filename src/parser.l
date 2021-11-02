@@ -1644,16 +1644,21 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxMemInitList>({ID2}{WSNL}*)/"(" {
   LOG();
   g.mPossibleFuncImplStartBracePosition = findMatchedClosingBracket(yytext+yyleng, '(') + 1;
+  yyless(g.mPossibleFuncImplStartBracePosition - yytext);
 }
 
 <ctxMemInitList>({ID2}{WSNL}*)/"{" {
   LOG();
   g.mPossibleFuncImplStartBracePosition = findMatchedClosingBracket(yytext+yyleng, '{') + 1;
+  yyless(g.mPossibleFuncImplStartBracePosition - yytext);
 }
 
-<ctxMemInitList>(.) {
+<ctxMemInitList>^{WS}*"#"{WS}*"if"(.*)/{TS} {
   LOG();
-  // Just ignore
+}
+
+<ctxMemInitList>^{WS}*"#"{WS}*"endif"/{TS} {
+  LOG();
 }
 
 <ctxMemInitList>({NL}) {
@@ -1661,19 +1666,25 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   INCREMENT_INPUT_LINE_NUM();
 }
 
-<ctxMemInitList>([^a-zA-Z_]*|{NL})/"{" {
+<ctxMemInitList>(.) {
   LOG();
-
   if (yytext[0] == '\n')
-    INCREMENT_INPUT_LINE_NUM();
-
-  if (yytext+yyleng >= g.mPossibleFuncImplStartBracePosition)
   {
-    ENDCONTEXT();
-    g.mExpectedBracePosition = yytext+yyleng;
-    g.mFunctionBodyWillBeEncountered = true;
-    setBlobToken();
-    RETURN(tknBlob);
+    INCREMENT_INPUT_LINE_NUM();
+  }
+  else if(yytext[0] == '{')
+  {
+    LOG();
+    if (yytext+yyleng >= g.mPossibleFuncImplStartBracePosition)
+    {
+      LOG();
+      ENDCONTEXT();
+      g.mExpectedBracePosition = yytext;
+      g.mFunctionBodyWillBeEncountered = true;
+      setBlobToken();
+      yyless(0); // Return back the '{' to be processed
+      RETURN(tknBlob);
+    }
   }
 }
 
