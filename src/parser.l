@@ -117,12 +117,12 @@ int getLexerContext()
   return YYSTATE;
 }
 
-void setOldYytext(const char* p)
+static void setOldYytext(const char* p)
 {
   g.mOldYytext = p;
 }
 
-void setCommentTokenizationState(TokenSetupFlag flag)
+static void setCommentTokenizationState(TokenSetupFlag flag)
 {
   switch(flag)
   {
@@ -155,7 +155,7 @@ static void setupToken(TokenSetupFlag flag = TokenSetupFlag::DisableCommentToken
   setupToken(yytext, yyleng, flag);
 }
 
-void setBlobToken(TokenSetupFlag flag = TokenSetupFlag::None)
+static void setBlobToken(TokenSetupFlag flag = TokenSetupFlag::None)
 {
   setupToken(g.mOldYytext, yytext+yyleng-g.mOldYytext, flag);
 }
@@ -251,14 +251,22 @@ static MacroDependentCodeEnablement checkForDisabledCode(const char* ifOrIfDef)
     return codeEnableInfo;
   }
 
-  g.codeSegmentDependsOnMacroDefinition = true;
-
   if (codeEnableInfo == MacroDependentCodeEnablement::kDisabled) {
     if (g.parseDisabledCodeAsBlob)
       setOldYytext(yytext);
   }
 
   return codeEnableInfo;
+}
+
+static bool codeSegmentDependsOnMacroDefinition()
+{
+  return g.macroDependentCodeEnablement != MacroDependentCodeEnablement::kNoInfo;
+}
+
+static void disableMacroDependence()
+{
+  g.macroDependentCodeEnablement = MacroDependentCodeEnablement::kNoInfo;
 }
 
 %}
@@ -908,7 +916,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxPreprocessor>if/{WS} {
   LOG();
 
-  if (g.codeSegmentDependsOnMacroDefinition)
+  if (codeSegmentDependsOnMacroDefinition())
     g.numHashIfInMacroDependentCode += 1;
 
   setupToken();
@@ -921,7 +929,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxPreprocessor>ifdef/{WS} {
   LOG();
 
-  if (g.codeSegmentDependsOnMacroDefinition)
+  if (codeSegmentDependsOnMacroDefinition())
     g.numHashIfInMacroDependentCode += 1;
 
   setupToken();
@@ -931,7 +939,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxPreprocessor>ifndef/{WS} {
   LOG();
 
-  if (g.codeSegmentDependsOnMacroDefinition)
+  if (codeSegmentDependsOnMacroDefinition())
     g.numHashIfInMacroDependentCode += 1;
 
   setupToken(TokenSetupFlag::ResetCommentTokenization);
@@ -956,7 +964,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxPreprocessor>endif/{TS} {
   LOG();
 
-  if (!g.codeSegmentDependsOnMacroDefinition || (g.numHashIfInMacroDependentCode != 0)) {
+  if (!codeSegmentDependsOnMacroDefinition() || (g.numHashIfInMacroDependentCode != 0)) {
     if (g.numHashIfInMacroDependentCode)
       g.numHashIfInMacroDependentCode -= 1;
 
@@ -970,13 +978,13 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   LOG();
   setOldYytext(yytext);
   BEGINCONTEXT(ctxDisabledCode);
-  g.codeSegmentDependsOnMacroDefinition = true;
+  g.macroDependentCodeEnablement = MacroDependentCodeEnablement::kDisabled;
 }
 
 <ctxGeneral>^{WS}*#{WS}*if{WS}+{ID}{WS}* {
   LOG();
   g.macroDependentCodeEnablement = checkForDisabledCode("if");
-  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kNoInfo) {
+  if (!codeSegmentDependsOnMacroDefinition()) {
     LOG();
     REJECT;
   }
@@ -990,7 +998,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxGeneral>^{WS}*#{WS}*ifdef{WS}+{ID} {
   LOG();
   g.macroDependentCodeEnablement = checkForDisabledCode("ifdef");
-  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kNoInfo) {
+  if (!codeSegmentDependsOnMacroDefinition()) {
     LOG();
     REJECT;
   }
@@ -1004,7 +1012,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxGeneral>^{WS}*#{WS}*ifndef{WS}+{ID} {
   LOG();
   g.macroDependentCodeEnablement = invert(checkForDisabledCode("ifndef"));
-  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kNoInfo) {
+  if (!codeSegmentDependsOnMacroDefinition()) {
     LOG();
     REJECT;
   }
@@ -1017,7 +1025,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral,ctxDisabledCode>^{WS}*#{WS}*else{TS} {
   LOG();
-  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kNoInfo) {
+  if (!codeSegmentDependsOnMacroDefinition()) {
     LOG();
     REJECT;
   }
@@ -1027,7 +1035,6 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
     BEGINCONTEXT(ctxDisabledCode);
   } else {
-    g.codeSegmentDependsOnMacroDefinition = true;
     ENDCONTEXT();
   }
 }
@@ -1048,7 +1055,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <*>^{WS}*#{WS}*endif[^\n]* {
   LOG();
 
-  if (!g.codeSegmentDependsOnMacroDefinition) {
+  if (!codeSegmentDependsOnMacroDefinition()) {
     REJECT;
   }
 
@@ -1057,7 +1064,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 
   if (g.numHashIfInMacroDependentCode == 0) {
-    g.codeSegmentDependsOnMacroDefinition = false;
+    disableMacroDependence();
     if (YYSTATE == ctxDisabledCode) {
       ENDCONTEXT();
       if (g.parseDisabledCodeAsBlob) {
