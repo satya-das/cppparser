@@ -284,7 +284,6 @@ CppParser constructCppParserForTest()
                          "WX_ANY_DEFINE_CONVERTIBLE_TYPE_BASE",
                          "WX_ANY_DEFINE_SUB_TYPE",
                          "WX_ARG_NORMALIZER_FORWARD",
-                         "WX_CLEAR_ARRAY",
                          "WX_CLEAR_LIST",
                          "WX_DECLARE_ABSTRACT_TYPEINFO",
                          "WX_DECLARE_ANY_VALUE_TYPE",
@@ -512,16 +511,27 @@ CppParser constructCppParserForTest()
                              "wxSTRING_DEFAULT_CONV_ARG",
                              "WX_ATTRIBUTE_PRINTF_1",
                              "WX_ATTRIBUTE_PRINTF_2",
+                             "G_GNUC_NULL_TERMINATED",
                              "__AVAILABILITY_INTERNAL_DEPRECATED",
 
-                             "__forceinline"});
+                             "__forceinline",
+                             "wxMEMBER_DELETE",
+                             "FILEDIRBTN_OVERRIDES"});
 
-  parser.addUndefinedNames(
-    {"wxUSE_DATETIME", "SWIG", "CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST", "__WXMSW__", "__OBJC__", "WXBUILDING"});
+  parser.addUndefinedNames({"wxUSE_DATETIME",
+                            "SWIG",
+                            "CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST",
+                            "__WXMSW__",
+                            "__OBJC__",
+                            "WXBUILDING",
+                            "wxHAS_SYSTEM_THEMED_CONTROL"});
 
   parser.addDefinedName("wxUSE_TEXTCTRL", 1);
+  parser.addDefinedName("wxHAS_TEXT_WINDOW_STREAM", 1);
   parser.addDefinedName("WXWIN_COMPATIBILITY_2_8", 0);
   parser.addDefinedName("WXWIN_COMPATIBILITY_3_0", 0);
+  parser.addDefinedName("wxUSE_CONFIG", 0);
+  parser.addDefinedName("wxUSE_STD_CONTAINERS", 0);
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("virtual", "_VIRTUAL");
