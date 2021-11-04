@@ -234,8 +234,16 @@ static const char* findMatchedClosingBracket(const char* start, char openingBrac
 static MacroDependentCodeEnablement checkForDisabledCode(const char* ifOrIfDef)
 {
   const auto* afterIfDef = strstr(yytext, ifOrIfDef) + strlen(ifOrIfDef);
-  const auto* idStart = [afterIfDef] {
+  const auto* nextTokenAfterIf = [afterIfDef] {
     const auto* p = afterIfDef;
+    while(isspace(*p)) ++p;
+    return p;
+  } ();
+  const bool negated = (*nextTokenAfterIf == '!') ? true : false;
+  if (negated)
+    ++nextTokenAfterIf;
+  const auto idStart = [nextTokenAfterIf] {
+    const auto* p = nextTokenAfterIf;
     while(isspace(*p)) ++p;
     return p;
   } ();
@@ -246,7 +254,7 @@ static MacroDependentCodeEnablement checkForDisabledCode(const char* ifOrIfDef)
   } ();
 
   const auto id = std::string(idStart, idEnd);
-  const auto codeEnableInfo = getCodeEnableInfo(id);
+  const auto codeEnableInfo = getCodeEnableInfo(id, negated);
   if (codeEnableInfo == MacroDependentCodeEnablement::kNoInfo) {
     return codeEnableInfo;
   }
@@ -982,6 +990,20 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 }
 
 <ctxGeneral>^{WS}*#{WS}*if{WS}+{ID}{WS}* {
+  LOG();
+  g.macroDependentCodeEnablement = checkForDisabledCode("if");
+  if (!codeSegmentDependsOnMacroDefinition()) {
+    LOG();
+    REJECT;
+  }
+
+  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
+    LOG();
+    BEGINCONTEXT(ctxDisabledCode);
+  }
+}
+
+<ctxGeneral>^{WS}*#{WS}*if{WS}+"!"{ID}{WS}* {
   LOG();
   g.macroDependentCodeEnablement = checkForDisabledCode("if");
   if (!codeSegmentDependsOnMacroDefinition()) {
