@@ -896,6 +896,10 @@ optvarassign      :                     [ZZLOG;]  { $$ = CppVarAssign{nullptr, A
 vardecl           : vartype varidentifier       [ZZLOG;]         {
                     $$ = new CppVar($1, $2.toString());
                   }
+                  | vartype apidecor varidentifier       [ZZLOG;]         {
+                    $$ = new CppVar($1, $3.toString());
+                    $$->apidecor($2);
+                  }
                   | functionpointer             [ZZLOG;] {
                     $$ = new CppVar(gCurAccessType, $1, CppTypeModifier());
                   }
@@ -933,7 +937,7 @@ vartype           : typeidentifier opttypemodifier    [ZZLOG;] {
                     $$ = new CppVarType(gCurAccessType, mergeCppToken($1, $2), $3);
                   }
                   | tknStruct optapidecor identifier opttypemodifier                 [ZZLOG;] {
-                    $$ = new CppVarType(gCurAccessType, mergeCppToken($2, $3), $4);
+                    $$ = new CppVarType(gCurAccessType, mergeCppToken($1, $3), $4);
                   }
                   | tknUnion identifier opttypemodifier                  [ZZLOG;] {
                     $$ = new CppVarType(gCurAccessType, mergeCppToken($1, $2), $3);
