@@ -1068,11 +1068,13 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 
   LOG();
-  g.macroDependentCodeEnablement = invert(g.macroDependentCodeEnablement);
-  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
-    BEGINCONTEXT(ctxDisabledCode);
-  } else {
-    ENDCONTEXT();
+  if (g.numHashIfInMacroDependentCode == 0) {
+    g.macroDependentCodeEnablement = invert(g.macroDependentCodeEnablement);
+    if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
+      BEGINCONTEXT(ctxDisabledCode);
+    } else {
+      ENDCONTEXT();
+    }
   }
 }
 
