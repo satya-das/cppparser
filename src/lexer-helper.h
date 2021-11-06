@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <optional>
 #include <string>
 
 #include "parser.l.h"
@@ -22,3 +23,5 @@ inline MacroDependentCodeEnablement invert(MacroDependentCodeEnablement enabledC
 }
 
 MacroDependentCodeEnablement getCodeEnableInfo(const std::string& id, bool negate);
+
+std::optional<int> getIdValue(const std::string& id);

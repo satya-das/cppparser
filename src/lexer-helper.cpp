@@ -27,3 +27,15 @@ MacroDependentCodeEnablement getCodeEnableInfo(const std::string& id, bool negat
 
   return MacroDependentCodeEnablement::kNoInfo;
 }
+
+std::optional<int> getIdValue(const std::string& id)
+{
+  if (gUndefinedNames.count(id))
+    return std::nullopt;
+
+  const auto itr = gDefinedNames.find(id);
+  if (itr == gDefinedNames.end())
+    return std::nullopt;
+
+  return itr->second;
+}

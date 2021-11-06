@@ -150,6 +150,34 @@ TEST_CASE_METHOD(DisabledCodeTest, " Code enabled in #else part of #if")
   CHECK(params->size() == 2);
 }
 
+TEST_CASE_METHOD(DisabledCodeTest, " Code enabled using #if {ID} >= {NUM}")
+{
+#if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
+  void FunctionWithDisabledParams(int normalParam
+#  if CPPPARSER_ENABLED_PARAM_TEST >= 1
+                                  ,
+                                  int disabledParam
+#  endif // CPPPARSER_ENABLED_PARAM_TEST
+  );
+#endif
+  auto testSnippet = getTestSnippetParseStream(__LINE__ - 2);
+
+  CppParser parser;
+  parser.addDefinedName("CPPPARSER_ENABLED_PARAM_TEST", 2);
+  const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
+  REQUIRE(ast != nullptr);
+
+  const auto& members = ast->members();
+  REQUIRE(members.size() == 1);
+
+  CppFunctionEPtr func = members[0];
+  REQUIRE(func);
+
+  const auto* params = func->params();
+  REQUIRE(params != nullptr);
+  CHECK(params->size() == 2);
+}
+
 TEST_CASE_METHOD(DisabledCodeTest, " Code disabled using #ifdef")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE

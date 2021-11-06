@@ -1003,6 +1003,33 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
+<ctxGeneral>^{WS}*"#"{WS}*"if"{WS}+{ID}{WS}*">="{WS}*{NUM} {
+  LOG();
+  std::string dummy(yyleng, '\0');
+  std::string id(yyleng, '\0');
+  int n=0;
+
+  sscanf(yytext, " # if %[a-zA-Z0-9_] >= %d", id.data(), &n);
+  id.resize(strlen(id.data()));
+  const auto idVal = getIdValue(id);
+  if (!idVal.has_value()) {
+    LOG();
+    REJECT;
+  }
+  LOG();
+
+  g.macroDependentCodeEnablement = (idVal.value() >= n)
+                                    ? MacroDependentCodeEnablement::kEnabled
+                                    : MacroDependentCodeEnablement::kDisabled;
+
+  LOG();
+  if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
+    LOG();
+    BEGINCONTEXT(ctxDisabledCode);
+  }
+  LOG();
+}
+
 <ctxGeneral>^{WS}*#{WS}*if{WS}+"!"{ID}{WS}* {
   LOG();
   g.macroDependentCodeEnablement = checkForDisabledCode("if");
