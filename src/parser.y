@@ -937,6 +937,9 @@ vartype           : typeidentifier opttypemodifier    [ZZLOG;] {
                   ] {
                     $$ = new CppVarType(gCurAccessType, mergeCppToken($1, $2), $3);
                   }
+                  | tknClass optapidecor identifier opttypemodifier                 [ZZLOG;] {
+                    $$ = new CppVarType(gCurAccessType, mergeCppToken($1, $3), $4);
+                  }
                   | tknStruct optapidecor identifier opttypemodifier                 [ZZLOG;] {
                     $$ = new CppVarType(gCurAccessType, mergeCppToken($1, $3), $4);
                   }

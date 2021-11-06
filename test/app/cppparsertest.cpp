@@ -131,7 +131,22 @@ static std::pair<size_t, size_t> performTest(CppParser& parser, const TestParam&
 CppParser constructCppParserForTest()
 {
   CppParser parser;
-  parser.addKnownApiDecors({"ODRX_ABSTRACT",
+  parser.addKnownApiDecors({"EXPIMP",
+
+                            "ACJSCORESTUB_PORT",
+                            "ISMDLLACCESS",
+                            "CAMERADLLIMPEXP",
+                            "ACGEOLOCATIONOBJ_PORT",
+                            "ACUI_PORT",
+                            "ACTC_PORT",
+                            "ADAF_PORT",
+                            "ACDBCORE2D_PORT_VIRTUAL",
+                            "DLLIMPEXP",
+                            "ACGIMAT_IMPEXP",
+                            "SB_DEPRECATED",
+                            "APIDOCER",
+                            "ACFD_PORT",
+                            "ODRX_ABSTRACT",
                             "FIRSTDLL_EXPORT",
                             "GE_DLLEXPIMPORT",
                             "TOOLKIT_EXPORT",
@@ -139,6 +154,8 @@ CppParser constructCppParserForTest()
                             "APIENTRY",
                             "WINGDIAPI",
                             "GLUTAPI",
+                            "GLUTCALLBACK",
+                            "CALLBACK",
 
                             "ADESK_NO_VTABLE",
                             "ACDBCORE2D_PORT",
@@ -186,6 +203,9 @@ CppParser constructCppParserForTest()
 
                             "PODOFO_DEPRECATED",
                             "PODOFO_API",
+                            "PODOFO_NOTHROW",
+                            "PODOFO_DOC_API",
+                            "PODOFO_EXCEPTION_API_DOXYGEN",
 
                             "WXDLLEXPORT",
                             "WXDLLIMPEXP_ADV",
@@ -219,7 +239,18 @@ CppParser constructCppParserForTest()
                             "wxDEPRECATED_CLASS_MSG",
                             "wxEXTERNC",
                             "LINKAGEMODE",
-                            "CMPFUNC_CONV"});
+                            "CMPFUNC_CONV",
+                            "wxCMPFUNC_CONV",
+                            "WX_AVAILABLE_10_10",
+                            "wxSTDCALL",
+                            "WXDLLIMPEXP_INLINE_CORE",
+                            "WXZIPFIX",
+                            "EXTERN_C",
+                            "STDMETHODCALLTYPE",
+                            "wxCALLBACK",
+                            "WXDLLIMPEXP_INLINE_BASE",
+                            "WXEXPORT",
+                            "wxCRITSECT_INLINE"});
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
                          "DECLARE_DYNAMIC",
@@ -401,6 +432,10 @@ CppParser constructCppParserForTest()
                          "DECLARE_WXOSX_OPAQUE_CONST_CFREF",
                          "DECLARE_WXOSX_OPAQUE_CGREF",
                          "DECLARE_WXMAC_OPAQUE_REF",
+                         "DEFINE_STD_WXCOLOUR_CONSTRUCTORS",
+                         "wxDO_FOR_INT_TYPES",
+                         "wxFOR_ALL_COMPARISONS",
+                         "wxDO_FOR_CHAR_INT_TYPES",
 
                          "wxDECLARE_ABSTRACT_CLASS",
                          "wxDECLARE_ABSTRACT_PLUGGABLE_CLASS",
@@ -537,8 +572,7 @@ CppParser constructCppParserForTest()
                              "wxMEMBER_DELETE",
                              "FILEDIRBTN_OVERRIDES"});
 
-  parser.addUndefinedNames({"wxUSE_DATETIME",
-                            "SWIG",
+  parser.addUndefinedNames({"SWIG",
                             "CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST",
                             "__WXMSW__",
                             "__OBJC__",
@@ -554,6 +588,10 @@ CppParser constructCppParserForTest()
   parser.addDefinedName("__cplusplus", 201103);
   parser.addDefinedName("wxCOLOUR_IS_GDIOBJECT", 1);
   parser.addDefinedName("wxUSE_SOCKETS", 1);
+  parser.addDefinedName("wxUSE_SYSTEM_OPTIONS", 1);
+  parser.addDefinedName("wxUSE_DATETIME", 1);
+  parser.addDefinedName("wxUSE_BITMAP_BASE", 1);
+  parser.addDefinedName("wxHAS_NATIVE_NOTIFICATION_MESSAGE", 1);
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("virtual", "_VIRTUAL");
