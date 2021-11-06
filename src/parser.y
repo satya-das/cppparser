@@ -1101,11 +1101,15 @@ funcptrortype     : functype vartype '(' optapidecor identifier tknScopeResOp '*
                     $$ = new CppFunctionPointer(gCurAccessType, $5, $1, $8, 0);
                     $$->decor2($3);
                   }
-                  | apidecor funcptrortype                                                                    [ZZVALID;] {
+                  | vartype '(' '*'  apidecor optname ')' '(' paramlist ')'                                     [ZZVALID;] {
+                    $$ = new CppFunctionPointer(gCurAccessType, $5, $1, $8, 0);
+                    $$->decor2($4);
+                  }
+                  | apidecor funcptrortype                                                                      [ZZVALID;] {
                     $$ = $2;
                     $$->decor1($1);
                   }
-                  | funcptrortype optfuncattrib                                                               [ZZVALID;] {
+                  | funcptrortype optfuncattrib                                                                 [ZZVALID;] {
                     $$ = $1;
                     $$->addAttr($2);
                   }
@@ -1751,7 +1755,7 @@ optapidecor       :             [ZZLOG;] { $$ = makeCppToken(nullptr, nullptr); 
 apidecor          : apidecortokensq                     [ZZLOG;] { $$ = $1; }
                   | apidecortokensq '(' name ')'          [ZZLOG;] { $$ = mergeCppToken($1, $4); }
                   | apidecortokensq '(' tknNumber ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
-                  | name                                  [ZZLOG;] { $$ = $1; }
+                  | apidecortokensq '(' strlit ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
                   ;
 
 apidecortokensq   : tknApiDecor                  [ZZLOG;] { $$ = $1; }

@@ -399,7 +399,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
     if (gKnownApiDecorNames.count(yytext))
     {
-      tokenizeBracketedContent([&](int l) { yyless(l); } );
+      setupToken();
       RETURN(tknApiDecor);
     }
 
@@ -953,7 +953,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   g.macroDependentCodeEnablement = MacroDependentCodeEnablement::kDisabled;
 }
 
-<ctxGeneral>^{WS}*#{WS}*if{WS}+{ID}{WS}* {
+<ctxGeneral>^{WS}*"#"{WS}*"if"{WS}+{ID}{WS}*("//"|"/*")?{NL} {
   LOG();
 
   std::string id(yyleng, '\0');
@@ -973,7 +973,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxGeneral>^{WS}*"#"{WS}*"if"{WS}+{ID}{WS}*">="{WS}*{NUM} {
+<ctxGeneral>^{WS}*"#"{WS}*"if"{WS}+{ID}{WS}*">="{WS}*{NUM}{WS}*("//"|"/*")?{NL} {
   LOG();
 
   std::string id(yyleng, '\0');

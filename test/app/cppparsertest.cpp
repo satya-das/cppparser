@@ -173,6 +173,16 @@ CppParser constructCppParserForTest()
                             "SK_BEGIN_REQUIRE_DENSE",
                             "SK_WARN_UNUSED_RESULT",
                             "SK_CAPABILITY",
+                            "AI",
+                            "SK_SCOPED_CAPABILITY",
+                            "SKVX_ALIGNMENT",
+                            "SINT",
+                            "SIT",
+                            "SINTU",
+                            "GR_GL_FUNCTION_TYPE",
+                            "NORETURN",
+                            "WINAPI",
+                            "TRACE_EVENT_API_CLASS_EXPORT",
 
                             "PODOFO_DEPRECATED",
                             "PODOFO_API",
@@ -208,7 +218,8 @@ CppParser constructCppParserForTest()
                             "wxMSVC_FWD_MULTIPLE_BASES",
                             "wxDEPRECATED_CLASS_MSG",
                             "wxEXTERNC",
-                            "LINKAGEMODE"});
+                            "LINKAGEMODE",
+                            "CMPFUNC_CONV"});
 
   parser.addKnownMacros({"DECLARE_MESSAGE_MAP",
                          "DECLARE_DYNAMIC",
@@ -386,6 +397,10 @@ CppParser constructCppParserForTest()
                          "wxGCC_ONLY_WARNING_SUPPRESS",
                          "wxGCC_ONLY_WARNING_RESTORE",
                          "WX_DEFINE_VARARG_FUNC_SANS_N0",
+                         "WX_OPAQUE_TYPE",
+                         "DECLARE_WXOSX_OPAQUE_CONST_CFREF",
+                         "DECLARE_WXOSX_OPAQUE_CGREF",
+                         "DECLARE_WXMAC_OPAQUE_REF",
 
                          "wxDECLARE_ABSTRACT_CLASS",
                          "wxDECLARE_ABSTRACT_PLUGGABLE_CLASS",
@@ -536,8 +551,9 @@ CppParser constructCppParserForTest()
   parser.addDefinedName("WXWIN_COMPATIBILITY_3_0", 0);
   parser.addDefinedName("wxUSE_CONFIG", 0);
   parser.addDefinedName("wxUSE_STD_CONTAINERS", 0);
-  parser.addDefinedName("__cplusplus", 1);
+  parser.addDefinedName("__cplusplus", 201103);
   parser.addDefinedName("wxCOLOUR_IS_GDIOBJECT", 1);
+  parser.addDefinedName("wxUSE_SOCKETS", 1);
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("virtual", "_VIRTUAL");
