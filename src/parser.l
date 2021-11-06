@@ -231,42 +231,6 @@ static const char* findMatchedClosingBracket(const char* start, char openingBrac
   return end;
 }
 
-static MacroDependentCodeEnablement checkForDisabledCode(const char* ifOrIfDef)
-{
-  const auto* afterIfDef = strstr(yytext, ifOrIfDef) + strlen(ifOrIfDef);
-  const auto* nextTokenAfterIf = [afterIfDef] {
-    const auto* p = afterIfDef;
-    while(isspace(*p)) ++p;
-    return p;
-  } ();
-  const bool negated = (*nextTokenAfterIf == '!') ? true : false;
-  if (negated)
-    ++nextTokenAfterIf;
-  const auto idStart = [nextTokenAfterIf] {
-    const auto* p = nextTokenAfterIf;
-    while(isspace(*p)) ++p;
-    return p;
-  } ();
-  const auto* idEnd = [idStart] {
-    const auto* p = idStart;
-    while(isalnum(*p) || (*p == '_')) ++p;
-    return p;
-  } ();
-
-  const auto id = std::string(idStart, idEnd);
-  const auto codeEnableInfo = getCodeEnableInfo(id, negated);
-  if (codeEnableInfo == MacroDependentCodeEnablement::kNoInfo) {
-    return codeEnableInfo;
-  }
-
-  if (codeEnableInfo == MacroDependentCodeEnablement::kDisabled) {
-    if (g.parseDisabledCodeAsBlob)
-      setOldYytext(yytext);
-  }
-
-  return codeEnableInfo;
-}
-
 static bool codeSegmentDependsOnMacroDefinition()
 {
   return g.macroDependentCodeEnablement != MacroDependentCodeEnablement::kNoInfo;
@@ -991,52 +955,60 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>^{WS}*#{WS}*if{WS}+{ID}{WS}* {
   LOG();
-  g.macroDependentCodeEnablement = checkForDisabledCode("if");
-  if (!codeSegmentDependsOnMacroDefinition()) {
-    LOG();
+
+  std::string id(yyleng, '\0');
+  sscanf(yytext, " # if %[a-zA-Z0-9_]", id.data());
+  id.resize(strlen(id.data()));
+  const auto idVal = getIdValue(id);
+  if (!idVal.has_value()) {
     REJECT;
   }
 
+  g.macroDependentCodeEnablement = (idVal.value() != 0)
+                                    ? MacroDependentCodeEnablement::kEnabled
+                                    : MacroDependentCodeEnablement::kDisabled;
+
   if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
-    LOG();
     BEGINCONTEXT(ctxDisabledCode);
   }
 }
 
 <ctxGeneral>^{WS}*"#"{WS}*"if"{WS}+{ID}{WS}*">="{WS}*{NUM} {
   LOG();
-  std::string dummy(yyleng, '\0');
+
   std::string id(yyleng, '\0');
   int n=0;
-
   sscanf(yytext, " # if %[a-zA-Z0-9_] >= %d", id.data(), &n);
   id.resize(strlen(id.data()));
   const auto idVal = getIdValue(id);
   if (!idVal.has_value()) {
-    LOG();
     REJECT;
   }
-  LOG();
 
   g.macroDependentCodeEnablement = (idVal.value() >= n)
                                     ? MacroDependentCodeEnablement::kEnabled
                                     : MacroDependentCodeEnablement::kDisabled;
 
-  LOG();
   if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
-    LOG();
     BEGINCONTEXT(ctxDisabledCode);
   }
-  LOG();
 }
 
 <ctxGeneral>^{WS}*#{WS}*if{WS}+"!"{ID}{WS}* {
   LOG();
-  g.macroDependentCodeEnablement = checkForDisabledCode("if");
-  if (!codeSegmentDependsOnMacroDefinition()) {
-    LOG();
+
+  std::string id(yyleng, '\0');
+  sscanf(yytext, " # if ! %[a-zA-Z0-9_]", id.data());
+  id.resize(strlen(id.data()));
+  const auto idVal = getIdValue(id);
+
+  if (!idVal.has_value()) {
     REJECT;
   }
+
+  g.macroDependentCodeEnablement = (!idVal.has_value() || idVal.value() == 0)
+                                    ? MacroDependentCodeEnablement::kEnabled
+                                    : MacroDependentCodeEnablement::kDisabled;
 
   if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
     LOG();
@@ -1046,11 +1018,19 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>^{WS}*#{WS}*ifdef{WS}+{ID} {
   LOG();
-  g.macroDependentCodeEnablement = checkForDisabledCode("ifdef");
-  if (!codeSegmentDependsOnMacroDefinition()) {
-    LOG();
+
+  std::string id(yyleng, '\0');
+  sscanf(yytext, " # ifdef %[a-zA-Z0-9_]", id.data());
+  id.resize(strlen(id.data()));
+
+  const auto macroDefineInfo = getMacroDefineInfo(id);
+  if (macroDefineInfo == MacroDefineInfo::kNoInfo) {
     REJECT;
   }
+
+  g.macroDependentCodeEnablement = (macroDefineInfo == MacroDefineInfo::kDefined)
+                                    ? MacroDependentCodeEnablement::kEnabled
+                                    : MacroDependentCodeEnablement::kDisabled;
 
   if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
     LOG();
@@ -1060,11 +1040,19 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <ctxGeneral>^{WS}*#{WS}*ifndef{WS}+{ID} {
   LOG();
-  g.macroDependentCodeEnablement = invert(checkForDisabledCode("ifndef"));
-  if (!codeSegmentDependsOnMacroDefinition()) {
-    LOG();
+
+  std::string id(yyleng, '\0');
+  sscanf(yytext, " # ifndef %[a-zA-Z0-9_]", id.data());
+  id.resize(strlen(id.data()));
+
+  const auto macroDefineInfo = getMacroDefineInfo(id);
+  if (macroDefineInfo == MacroDefineInfo::kNoInfo) {
     REJECT;
   }
+
+  g.macroDependentCodeEnablement = (macroDefineInfo == MacroDefineInfo::kUndefined)
+                                    ? MacroDependentCodeEnablement::kEnabled
+                                    : MacroDependentCodeEnablement::kDisabled;
 
   if (g.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
     LOG();

@@ -11,21 +11,15 @@ extern std::set<std::string>      gUndefinedNames;
 extern std::set<std::string>      gIgnorableMacroNames;
 extern std::map<std::string, int> gRenamedKeywords;
 
-MacroDependentCodeEnablement getCodeEnableInfo(const std::string& id, bool negate)
+MacroDefineInfo getMacroDefineInfo(const std::string& id)
 {
   if (gUndefinedNames.count(id))
-    return negate ? MacroDependentCodeEnablement::kEnabled : MacroDependentCodeEnablement::kDisabled;
+    return MacroDefineInfo::kUndefined;
 
-  const auto itr = gDefinedNames.find(id);
-  if (itr != gDefinedNames.end())
-  {
-    if (itr->second)
-      return negate ? MacroDependentCodeEnablement::kDisabled : MacroDependentCodeEnablement::kEnabled;
-    else
-      return negate ? MacroDependentCodeEnablement::kEnabled : MacroDependentCodeEnablement::kDisabled;
-  }
+  if (gDefinedNames.count(id))
+    return MacroDefineInfo::kDefined;
 
-  return MacroDependentCodeEnablement::kNoInfo;
+  return MacroDefineInfo::kNoInfo;
 }
 
 std::optional<int> getIdValue(const std::string& id)

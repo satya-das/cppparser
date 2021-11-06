@@ -22,6 +22,6 @@ inline MacroDependentCodeEnablement invert(MacroDependentCodeEnablement enabledC
   return MacroDependentCodeEnablement::kNoInfo;
 }
 
-MacroDependentCodeEnablement getCodeEnableInfo(const std::string& id, bool negate);
+MacroDefineInfo getMacroDefineInfo(const std::string& id);
 
 std::optional<int> getIdValue(const std::string& id);

@@ -54,6 +54,13 @@ enum class TokenSetupFlag
   ResetCommentTokenization
 };
 
+enum class MacroDefineInfo
+{
+  kNoInfo,
+  kDefined,
+  kUndefined
+};
+
 enum class MacroDependentCodeEnablement
 {
   kNoInfo,
