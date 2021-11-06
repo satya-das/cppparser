@@ -383,6 +383,9 @@ CppParser constructCppParserForTest()
                          "WX_USE_THEME",
                          "WX_USE_THEME_IMPL",
                          "WX_VARARG_VFOO_IMPL",
+                         "wxGCC_ONLY_WARNING_SUPPRESS",
+                         "wxGCC_ONLY_WARNING_RESTORE",
+                         "WX_DEFINE_VARARG_FUNC_SANS_N0",
 
                          "wxDECLARE_ABSTRACT_CLASS",
                          "wxDECLARE_ABSTRACT_PLUGGABLE_CLASS",
@@ -444,6 +447,7 @@ CppParser constructCppParserForTest()
                          "wxPERSIST_DECLARE_SAVE_RESTORE_FOR",
                          "WXANY_IMPLEMENT_INT_EQ_OP",
                          "DECLARE_PROTOCOL",
+                         "WXDFB_DEFINE_EVENT_WRAPPER",
 
                          "WX_DECLARE_STRING_HASH_MAP",
                          "WX_DECLARE_HASH_MAP",
@@ -532,6 +536,8 @@ CppParser constructCppParserForTest()
   parser.addDefinedName("WXWIN_COMPATIBILITY_3_0", 0);
   parser.addDefinedName("wxUSE_CONFIG", 0);
   parser.addDefinedName("wxUSE_STD_CONTAINERS", 0);
+  parser.addDefinedName("__cplusplus", 1);
+  parser.addDefinedName("wxCOLOUR_IS_GDIOBJECT", 1);
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("virtual", "_VIRTUAL");
@@ -539,6 +545,7 @@ CppParser constructCppParserForTest()
   parser.addRenamedKeyword("override", "ADESK_OVERRIDE");
   parser.addRenamedKeyword("override", "wxOVERRIDE");
   parser.addRenamedKeyword("const", "CONST");
+  parser.addRenamedKeyword("noexcept", "wxNOEXCEPT");
 
   return std::move(parser);
 }

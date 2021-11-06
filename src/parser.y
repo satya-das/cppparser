@@ -56,7 +56,8 @@ int GetKeywordId(const std::string& keyword) {
       {"virtual",   tknVirtual},
       {"final",     tknFinal},
       {"override",  tknOverride},
-      {"const",     tknConst}
+      {"const",     tknConst},
+      {"noexcept",  tknNoExcept}
   };
 
   auto itr = keywordToIdMap.find(keyword);
