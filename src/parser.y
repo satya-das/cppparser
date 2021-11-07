@@ -1318,6 +1318,7 @@ templatearg       :                 [ZZLOG; $$ = nullptr; /*$$ = makeCppToken(nu
 
 templatearglist   : templatearg                       [ZZLOG; $$ = $1; ] {}
                   | templatearglist ',' templatearg   [ZZLOG; $$ = $1; /*$$ = mergeCppToken($1, $3);*/ ] {}
+                  | templatearglist ',' doccomment templatearg   [ZZLOG; $$ = $1; /*$$ = mergeCppToken($1, $3);*/ ] {}
                   ;
 
 functype          : exptype        [ZZLOG;] { $$ = $1; }
