@@ -411,27 +411,23 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxGeneral>"?"[^?]*":" {
-  LOG();
-  if (gParseFunctionBodyAsBlob)
-    g.mNotAMemInitColon = yytext+yyleng-1;
-  REJECT;
-}
-
-<ctxGeneral>")"{WSNL}*({FTA}{WSNL}*)*{WSNL}*("{"|":") {
+<ctxGeneral>")"{WSNL}*({FTA}{WSNL}*)*{WSNL}*"{" {
   LOG();
   if (gParseFunctionBodyAsBlob)
   {
-    if (yytext[yyleng-1] == '{')
-    {
-      g.mFunctionBodyWillBeEncountered = true;
-      g.mExpectedBracePosition = yytext + yyleng-1;
-    }
-    else if ((yytext[yyleng-1] == ':') && (g.mNotAMemInitColon != (yytext+yyleng-1)))
-    {
-      g.mMemInitListWillBeEncountered = true;
-      g.mExpectedColonPosition = yytext + yyleng-1;
-    }
+    g.mFunctionBodyWillBeEncountered = true;
+    g.mExpectedBracePosition = yytext + yyleng-1;
+  }
+
+  REJECT;
+}
+
+<ctxGeneral>")"{WSNL}*":"/{WSNL}{ID2}("("|"{") {
+  LOG();
+  if (gParseFunctionBodyAsBlob)
+  {
+    g.mMemInitListWillBeEncountered = true;
+    g.mExpectedColonPosition = yytext + yyleng-1;
   }
 
   REJECT;
@@ -994,7 +990,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxGeneral>^{WS}*#{WS}*if{WS}+"!"{ID}{WS}* {
+<ctxGeneral>^{WS}*#{WS}*if{WS}+"!"{ID}{WS}*("//"|"/*")?{NL} {
   LOG();
 
   std::string id(yyleng, '\0');
@@ -1727,8 +1723,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
       ENDCONTEXT();
       g.mExpectedBracePosition = yytext;
       g.mFunctionBodyWillBeEncountered = true;
-      setBlobToken();
       yyless(0); // Return back the '{' to be processed
+      setBlobToken();
       RETURN(tknBlob);
     }
   }

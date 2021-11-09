@@ -10,6 +10,8 @@
 #ifndef _WX_OSX_COCOA_PRIVATE_DATE_H_
 #define _WX_OSX_COCOA_PRIVATE_DATE_H_
 
+#ifdef __WXOSX__
+
 #include "wx/datetime.h"
 
 namespace wxOSXImpl
@@ -46,5 +48,7 @@ inline wxDateTime NSDateToWX(const NSDate* d)
 }
 
 } // namespace wxOSXImpl
+
+#endif // __WXOSX__
 
 #endif // _WX_OSX_COCOA_PRIVATE_DATE_H_

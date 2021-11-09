@@ -10,6 +10,8 @@
 #ifndef _WX_OSX_COCOA_PRIVATE_MARKUPTOATTR_H_
 #define _WX_OSX_COCOA_PRIVATE_MARKUPTOATTR_H_
 
+#ifdef __WXOSX__
+
 #include "wx/private/markupparserattr.h"
 
 // ----------------------------------------------------------------------------
@@ -160,5 +162,7 @@ protected:
 
     wxDECLARE_NO_COPY_CLASS(wxItemMarkupToAttrString);
 };
+
+#endif // __WXOSX__
 
 #endif // _WX_OSX_COCOA_PRIVATE_MARKUPTOATTR_H_

@@ -9,6 +9,8 @@
 #ifndef _WX_DATAVIEWCTRL_COCOOA_H_
 #define _WX_DATAVIEWCTRL_COCOOA_H_
 
+#ifdef __WXOSX__
+
 #include "wx/defs.h"
 
 #import <Cocoa/Cocoa.h>
@@ -18,8 +20,6 @@
 
 // Forward declaration
 class wxCocoaDataViewControl;
-
-#ifdef __OBJC__
 
 /*
     Dramatis personae:
@@ -80,8 +80,6 @@ class wxCocoaDataViewControl;
     -(void) setColumnPtr:(wxDataViewColumn*)newColumnPtr;
     -(void) setModelPtr:(wxDataViewModel*)newModelPtr;
 @end
-
-#endif
 
 // ============================================================================
 // wxDataViewColumnNativeData: extra data for wxDataViewColumn
@@ -243,8 +241,6 @@ private:
 
     bool m_hasCustomFont;
 };
-
-#ifdef __OBJC__
 
 // ============================================================================
 // wxCocoaOutlineDataSource
@@ -455,8 +451,6 @@ private:
     -(void) setImplementation:(wxCocoaDataViewControl*) newImplementation;
 @end
 
-#endif
-
 // ============================================================================
 // wxCocoaDataViewControl
 // ============================================================================
@@ -569,5 +563,7 @@ private:
     // Width of expander in pixels, computed on demand.
     int m_expanderWidth;
 };
+
+#endif // __WXOSX__
 
 #endif // _WX_DATAVIEWCTRL_COCOOA_H_

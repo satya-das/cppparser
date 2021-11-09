@@ -520,7 +520,19 @@ CppParser constructCppParserForTest()
                          "DECLARE_BASE_CLASS_HELP_PROVISION",
                          "WX_FORWARD_TO_SCROLL_HELPER",
                          "WX_DECLARE_GLOBAL_CONV",
-                         "wxUSTRING_COMP_OPERATORS"});
+                         "wxUSTRING_COMP_OPERATORS",
+                         "wxASCII_STR",
+                         "wx_dynamic_cast",
+                         "wxGCC_WARNING_SUPPRESS_CAST_FUNCTION_TYPE",
+                         "wxGCC_WARNING_RESTORE_CAST_FUNCTION_TYPE",
+                         "wxPG_PROP_ARG_CALL_PROLOG_RETVAL",
+                         "wxPG_PROP_ARG_CALL_PROLOG",
+                         "wxPG_PROP_ID_CONST_CALL_PROLOG_RETVAL",
+                         "wxPG_PROP_ARG_CALL_PROLOG_RETVAL",
+                         "wxPG_PROP_ID_GETPROPVAL_CALL_PROLOG_RETVAL",
+                         "wxFAIL_MSG",
+                         "wxCHECK_MSG",
+                         "wxASSERT_MSG"});
 
   parser.addIgnorableMacros({"SkDEBUGCODE",
                              "SkDEBUGPARAMS",
@@ -540,6 +552,7 @@ CppParser constructCppParserForTest()
                              "SK_RELEASE_SHARED_CAPABILITY",
                              "SK_BLITBWMASK_ARGS",
                              "SK_ASSERT_SHARED_CAPABILITY",
+                             "SK_INIT_TO_AVOID_WARNING",
 
                              "PODOFO_LOCAL",
                              "PDF_SIZE_FORMAT",
@@ -570,12 +583,15 @@ CppParser constructCppParserForTest()
 
                              "__forceinline",
                              "wxMEMBER_DELETE",
-                             "FILEDIRBTN_OVERRIDES"});
+                             "FILEDIRBTN_OVERRIDES",
+                             "WX_ATTRIBUTE_UNUSED",
+                             "WX_OSX_BRIDGE"});
 
   parser.addUndefinedNames({"SWIG",
                             "CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST",
                             "__WXMSW__",
                             "__OBJC__",
+                            "__WXOSX__",
                             "WXBUILDING",
                             "wxHAS_SYSTEM_THEMED_CONTROL"});
 
@@ -592,6 +608,10 @@ CppParser constructCppParserForTest()
   parser.addDefinedName("wxUSE_DATETIME", 1);
   parser.addDefinedName("wxUSE_BITMAP_BASE", 1);
   parser.addDefinedName("wxHAS_NATIVE_NOTIFICATION_MESSAGE", 1);
+  parser.addDefinedName("wxUSE_UNICODE", 1);
+  parser.addDefinedName("wxUSE_UNICODE_WCHAR", 0);
+  parser.addDefinedName("wxGAUGE_EMULATE_INDETERMINATE_MODE", 1);
+  parser.addDefinedName("wxUSE_DRAG_AND_DROP", 1);
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("virtual", "_VIRTUAL");
