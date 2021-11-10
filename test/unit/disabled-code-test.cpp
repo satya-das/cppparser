@@ -191,17 +191,17 @@ TEST_CASE_METHOD(DisabledCodeTest, " Code disabled using #ifndef")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
   void FunctionWithDisabledParams(int normalParam
-#  ifndef CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST
+#  ifndef CPPPARSER_TEST_DEFINED_MACRO
                                   ,
                                   int disabledParam
 #  else
-#  endif // CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST
+#  endif // CPPPARSER_TEST_DEFINED_MACRO
   );
 #endif
   auto testSnippet = getTestSnippetParseStream(__LINE__ - 2);
 
   CppParser parser;
-  parser.addDefinedName("CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST", 1);
+  parser.addDefinedName("CPPPARSER_TEST_DEFINED_MACRO", 1);
   const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
@@ -220,18 +220,18 @@ TEST_CASE_METHOD(DisabledCodeTest, " Code enabled in #else part of #ifndef")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
   void FunctionWithDisabledParams(int normalParam
-#  ifndef CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST
+#  ifndef CPPPARSER_TEST_DEFINED_MACRO
                                     Anything in this part should not fail the parser
 #  else
                                   ,
                                   int disabledParam
-#  endif // CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST
+#  endif // CPPPARSER_TEST_DEFINED_MACRO
   );
 #endif
   auto testSnippet = getTestSnippetParseStream(__LINE__ - 2);
 
   CppParser parser;
-  parser.addDefinedName("CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST", 1);
+  parser.addDefinedName("CPPPARSER_TEST_DEFINED_MACRO", 1);
   const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 

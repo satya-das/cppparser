@@ -118,10 +118,16 @@ add_test(
 #############################################
 ## Unit Test
 
+set(TEST_SNIPPET_EMBEDDED_TESTS
+	${CMAKE_CURRENT_LIST_DIR}/test/unit/disabled-code-test.cpp
+	${CMAKE_CURRENT_LIST_DIR}/test/unit/expr-tests.cpp
+)
+
 add_executable(cppparserunittest
 	${CMAKE_CURRENT_LIST_DIR}/test/unit/main.cpp
 	${CMAKE_CURRENT_LIST_DIR}/test/unit/test-hello-world.cpp
-	${CMAKE_CURRENT_LIST_DIR}/test/unit/disabled-code-test.cpp
+
+	${TEST_SNIPPET_EMBEDDED_TESTS}
 )
 target_include_directories(cppparserunittest
 	PRIVATE
@@ -139,6 +145,35 @@ set(UNIT_TEST_DIR ${CMAKE_CURRENT_LIST_DIR}/test/unit)
 add_test(
 	NAME ParserUnitTest
 	COMMAND cppparserunittest
+)
+
+# cppparserembeddedsnippetvalidity is just to ensure that the embedded
+# code snippets used in unit tests are valid C/C++ code.
+# So, the goal is to test if the embedded test snippets compile without error.
+add_executable(cppparserembeddedsnippetvalidity
+	${CMAKE_CURRENT_LIST_DIR}/test/unit/main.cpp
+
+	${TEST_SNIPPET_EMBEDDED_TESTS}
+)
+target_include_directories(cppparserembeddedsnippetvalidity
+	PRIVATE
+		${CMAKE_CURRENT_LIST_DIR}/src
+)
+target_compile_definitions(cppparserembeddedsnippetvalidity
+  PRIVATE
+		"TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE=1"
+		"CPPPARSER_TEST_DEFINED_MACRO=1"
+)
+target_link_libraries(cppparserembeddedsnippetvalidity
+	PRIVATE
+		cppparser
+		boost_filesystem
+		boost_program_options
+		boost_system
+)
+target_compile_options(cppparserembeddedsnippetvalidity
+	PRIVATE
+		-Wno-unused-variable
 )
 
 find_program(
